@@ -18,6 +18,15 @@ static GQueue      *jobs_done                  = NULL;
 static gint         dispatch_callbacks_id      = -1;
 static GStaticMutex jobs_mutex                 = G_STATIC_MUTEX_INIT;
 
+enum {
+	EOG_IMAGE_LOAD_STATUS_NONE     = 0,
+	EOG_IMAGE_LOAD_STATUS_PREPARED = 1 << 0,
+	EOG_IMAGE_LOAD_STATUS_UPDATED  = 1 << 1,
+	EOG_IMAGE_LOAD_STATUS_DONE     = 1 << 2,
+	EOG_IMAGE_LOAD_STATUS_FAILED   = 1 << 3,
+	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4
+};
+
 struct _EogImagePrivate {
 	GnomeVFSURI *uri;
 	EogImageLoadMode mode;
@@ -28,13 +37,25 @@ struct _EogImagePrivate {
 	gint width;
 	gint height;
 
-	gint load_idle_id;
 	gint thumbnail_id;
 	
 	gboolean modified;
 
 	gchar *caption;
 	gchar *caption_key;
+
+	GThread *load_thread;
+	gint load_id;
+	GMutex *status_mutex;
+	gint load_status;
+	gboolean cancel_loading;
+
+	/* data which depends on the load status */
+	int update_x1;
+	int update_y1;
+	int update_x2;
+	int update_y2;
+	char *error_message;
 };
 
 enum {
@@ -60,6 +81,8 @@ static gint eog_image_signals [SIGNAL_LAST];
 #if OBJECT_WATCH
 static int n_active_images = 0;
 #endif
+
+#define CHECK_LOAD_TIMEOUT 5
 
 /*============================================
 
@@ -288,6 +311,11 @@ eog_image_dispose (GObject *object)
 		g_free (priv->caption_key);
 		priv->caption_key = NULL;
 	}
+
+	if (priv->status_mutex) {
+		g_mutex_free (priv->status_mutex);
+		priv->status_mutex = NULL;
+	}
 }
 
 static void
@@ -411,6 +439,7 @@ eog_image_instance_init (EogImage *img)
 	priv->thumbnail = NULL;
 	priv->width = priv->height = -1;
 	priv->modified = FALSE;
+	priv->status_mutex = g_mutex_new ();
 
 	img->priv = priv;
 }
@@ -427,6 +456,7 @@ eog_image_new_uri (GnomeVFSURI *uri, EogImageLoadMode mode)
 	priv->uri = gnome_vfs_uri_ref (uri);
 	priv->mode = mode;
 	priv->modified = FALSE;
+	priv->load_thread = NULL;
 
 #if OBJECT_WATCH
 	n_active_images++;
@@ -459,12 +489,78 @@ eog_image_error_quark (void)
 	return q;
 }
 
+static gboolean
+check_load_status (gpointer data)
+{
+	EogImage *img;
+	EogImagePrivate *priv;
+	int load_status;
+	int x, y, width, height;
+	gboolean call_again = TRUE;
+
+	img = EOG_IMAGE (data);
+	priv = img->priv;
+	
+	g_mutex_lock (priv->status_mutex);
+
+	g_source_remove (priv->load_id);
+	priv->load_id = -1;
+
+	load_status = priv->load_status;
+	x = priv->update_x1;
+	y = priv->update_y1;
+	width = priv->update_x2 - x;
+	height = priv->update_y2 - y;
+
+	priv->load_status = 0;
+	priv->update_x1 = 10000;
+	priv->update_y1 = 10000;
+	priv->update_x2 = 0;
+	priv->update_y2 = 0;
+
+	g_mutex_unlock (priv->status_mutex);
+	
+	if ((load_status & EOG_IMAGE_LOAD_STATUS_FAILED) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, priv->error_message);
+		call_again = FALSE;
+	}
+	
+	if ((load_status & EOG_IMAGE_LOAD_STATUS_CANCELLED) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_CANCELLED], 0);
+		call_again = FALSE;
+	}
+	
+	if ((load_status & EOG_IMAGE_LOAD_STATUS_PREPARED) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_SIZE_PREPARED], 0, priv->width, priv->height);
+	}
+	
+	if ((load_status & EOG_IMAGE_LOAD_STATUS_UPDATED) > 0) {
+		g_signal_emit (img, eog_image_signals [SIGNAL_LOADING_UPDATE], 0, 
+			       x, y, width, height);
+	}
+	
+ 	if ((load_status & EOG_IMAGE_LOAD_STATUS_DONE) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
+		call_again = FALSE;
+	}
+
+	if (call_again) {
+		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
+	}
+	else {
+		g_object_unref (img);
+	}
+
+	return FALSE;
+}
+
 
 static void 
 load_area_updated (GdkPixbufLoader *loader, gint x, gint y, gint width, gint height, gpointer data)
 {
 	EogImage *img;
 	EogImagePrivate *priv;
+	int x2, y2;
 
 	img = EOG_IMAGE (data);
 
@@ -474,17 +570,27 @@ load_area_updated (GdkPixbufLoader *loader, gint x, gint y, gint width, gint hei
 
 	priv = img->priv;
 
+	g_mutex_lock (priv->status_mutex);
+	priv->load_status |= EOG_IMAGE_LOAD_STATUS_UPDATED;
+
 	if (priv->image == NULL) {
-		g_print ("get pixbuf.\n");
 		priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
 		g_object_ref (priv->image);
 	}
+	
+	x2 = x + width;
+	y2 = y + height;
+
+	priv->update_x1 = MIN (priv->update_x1, x);
+	priv->update_y1 = MIN (priv->update_y1, y);
+	priv->update_x2 = MAX (priv->update_x2, x2);
+	priv->update_y2 = MAX (priv->update_y2, y2);
+
+	g_mutex_unlock (priv->status_mutex);
 
 #ifdef DEBUG
 	g_print ("area_updated: x: %i, y: %i, width: %i, height: %i\n", x, y, width, height);
 #endif
-
-	g_signal_emit (img, eog_image_signals [SIGNAL_LOADING_UPDATE], 0, x, y, width, height);
 }
 
 static void
@@ -496,13 +602,16 @@ load_size_prepared (GdkPixbufLoader *loader, gint width, gint height, gpointer d
 	
 	img = EOG_IMAGE (data);
 
+	g_mutex_lock (img->priv->status_mutex);
+	img->priv->load_status |= EOG_IMAGE_LOAD_STATUS_PREPARED;
+
 	img->priv->width = width;
 	img->priv->height = height;
-
-	g_signal_emit (img, eog_image_signals [SIGNAL_LOADING_SIZE_PREPARED], 0, width, height);
+	g_mutex_unlock (img->priv->status_mutex);
 }
 
-static gboolean
+/* this function runs in it's own thread */
+static gpointer
 real_image_load (gpointer data)
 {
 	EogImage *img;
@@ -525,10 +634,12 @@ real_image_load (gpointer data)
 
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, gnome_vfs_result_to_string (result));
-		g_print ("VFS Error: %s\n", gnome_vfs_result_to_string (result));
-		g_object_unref (img);
-		return FALSE;
+		g_mutex_lock (priv->status_mutex);
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_FAILED;
+		priv->error_message = (char*) gnome_vfs_result_to_string (result);
+		g_mutex_unlock (priv->status_mutex);
+
+		return NULL;
 	}
 	
 	buffer = g_new0 (guchar, 4096);
@@ -540,7 +651,7 @@ real_image_load (gpointer data)
 		g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 	}
 	
-	while (TRUE) {
+	while (!priv->cancel_loading) {
 		result = gnome_vfs_read (handle, buffer, 4096, &bytes_read);
 		if (result == GNOME_VFS_ERROR_EOF || bytes_read == 0) {
 			break;
@@ -554,24 +665,29 @@ real_image_load (gpointer data)
 			failed = TRUE;
 			break;
 		}
-
-		if (priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
-			while (gtk_events_pending ()) {
-				gtk_main_iteration ();
-			}
-		}
 	}
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
 	
+	g_mutex_lock (priv->status_mutex);
+
 	if (failed) {
 		if (priv->image != NULL) {
 			g_object_unref (priv->image);
 			priv->image = NULL;
 		}
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_FAILED;
+		priv->error_message = NULL; /* FIXME: add descriptive error message */
+	}
+	else if (priv->cancel_loading) {
+		if (priv->image != NULL) {
+			g_object_unref (priv->image);
+			priv->image = NULL;
+		}
+		priv->cancel_loading = TRUE;
 
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0);
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_CANCELLED;
 	}
 	else {
 		if (priv->image == NULL) {
@@ -580,19 +696,19 @@ real_image_load (gpointer data)
 
 			priv->width = gdk_pixbuf_get_width (priv->image);
 			priv->height = gdk_pixbuf_get_height (priv->image);
-			g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_SIZE_PREPARED], 
-				       0, priv->width, priv->height);
+			priv->load_status |= EOG_IMAGE_LOAD_STATUS_PREPARED;
 		}
-		
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
+
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
 	}
-
+	
+	priv->load_thread = NULL;
+	g_mutex_unlock (priv->status_mutex);
+	
 	gdk_pixbuf_loader_close (loader, NULL);	
-	priv->load_idle_id = 0;
 	g_object_unref (loader);
-	g_object_unref (img);
 
-	return FALSE;
+	return NULL;
 }
 
 gboolean 
@@ -604,7 +720,7 @@ eog_image_load (EogImage *img)
 
 	g_return_val_if_fail (priv->uri != NULL, FALSE);
 
-	if (priv->image == NULL && priv->load_idle_id == 0)
+	if (priv->image == NULL && priv->load_thread == NULL)
 	{
 		if (priv->mode == EOG_IMAGE_LOAD_DEFAULT) {
 			if (gnome_vfs_uri_is_local (priv->uri)) {
@@ -637,9 +753,16 @@ eog_image_load (EogImage *img)
 			}
 		}
 		
-		g_object_ref (img); /* make sure the object isn't destroyed when we enter the
-				       idle callback */
-		priv->load_idle_id = g_idle_add (real_image_load, img);
+		g_object_ref (img); /* make sure the object isn't destroyed while we try to load it */
+		priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
+		priv->update_x1 = 10000;
+		priv->update_y1 = 10000;
+		priv->update_x2 = 0;
+		priv->update_y2 = 0;
+		priv->error_message = NULL;
+		priv->cancel_loading = FALSE;
+		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
+		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
 	}
 	
 	return (priv->image != NULL);
@@ -671,15 +794,19 @@ eog_image_is_animation (EogImage *img)
 GdkPixbuf* 
 eog_image_get_pixbuf (EogImage *img)
 {
+	GdkPixbuf *image = NULL;
+
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
-	if (img->priv->image != 0) {
-		g_object_ref (img->priv->image);
-		return img->priv->image;
+	g_mutex_lock (img->priv->status_mutex);
+	image = img->priv->image;
+	g_mutex_unlock (img->priv->status_mutex);
+
+	if (image != NULL) {
+		g_object_ref (image);
 	}
-	else {
-		return 0;
-	}
+	
+	return image;
 }
 
 GdkPixbuf* 
@@ -918,4 +1045,22 @@ eog_image_get_collate_key (EogImage *img)
 	}
 
 	return priv->caption_key;
+}
+
+void
+eog_image_cancel_load (EogImage *img)
+{
+	EogImagePrivate *priv;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+	
+	priv = img->priv;
+
+	if (priv->load_thread != NULL) {
+		priv->cancel_loading = TRUE;
+		
+		g_thread_join (priv->load_thread);
+
+		g_assert (priv->load_thread == NULL);
+	}
 }

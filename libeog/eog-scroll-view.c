@@ -134,6 +134,7 @@ free_image_resources (EogScrollView *view)
 	}
 
 	if (priv->image != NULL) {
+		eog_image_cancel_load (priv->image);
 		g_object_unref (priv->image);
 		priv->image = NULL;
 	}
@@ -215,8 +216,6 @@ update_scrollbar_values (EogScrollView *view)
 
 	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->hbar)) && !GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar))) 
 		return;
-
-	g_print ("update scrollbar values\n");
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 	allocation = &GTK_WIDGET (priv->display)->allocation;

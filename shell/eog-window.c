@@ -761,8 +761,6 @@ property_changed_cb (BonoboListener    *listener,
 
 	window = EOG_WINDOW (user_data);
 
-	g_print ("property changed cb: %s\n", event_name);
-
 	if (any == NULL) return;
 
 	if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_TITLE)) {

@@ -1,5 +1,24 @@
 2003-03-11  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image.[ch]: Switched to a thread based loading
+	mechanism.
+	(eog_image_dispose): Free mutex.
+	(check_load_status): New function.
+	(load_area_updated),
+	(load_size_prepared),
+	(real_image_load),
+	(eog_image_load): Reworked, so that they use the thread based
+	approach.
+	(eog_image_get_pixbuf): Add mutex around pixbuf accessing.
+	(eog_image_cancel_load): New function.
+
+	* libeog/eog-scroll-view.c (free_image_resources): Cancel loading
+	of the previous shown image.
+
+	* shell/eog-window.c (property_changed_cb): Be quite.
+
+2003-03-11  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image.[ch] (eog_image_dispose): Free caption and
 	caption_key.
 	(eog_image_get_caption): Save caption string for further

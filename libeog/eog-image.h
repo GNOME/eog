@@ -64,6 +64,7 @@ EogImage*           eog_image_new                            (const char *txt_ur
 EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri, EogImageLoadMode mode);
 gboolean            eog_image_load                           (EogImage *img);
 gboolean            eog_image_load_thumbnail                 (EogImage *img);
+void                eog_image_cancel_load                    (EogImage *img);
 void                eog_image_free_mem                       (EogImage *img);
 
 /* saving API */
