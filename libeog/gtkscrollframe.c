@@ -789,7 +789,7 @@ gtk_scroll_frame_button_press (GtkWidget *widget, GdkEventButton *event)
 		gfloat new_value;
 
 		gtk_object_get (GTK_OBJECT (widget),
-				(event->state & GDK_SHIFT_MASK) ?
+				(event->state & GDK_CONTROL_MASK) ?
 				 "hadjustment" : "vadjustment", 
 				 &adj,
 				 NULL);
