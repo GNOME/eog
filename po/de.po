@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.x\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-02 19:59+0100\n"
 "PO-Revision-Date: 2003-07-01 11:50+0200\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -26,6 +26,14 @@ msgstr "Fabrik für EOG-Bildersammlungs-Betrachter"
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
 msgstr "Bildersammlung"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "View as I_mage Collection"
+msgstr "Als _Bildersammlung anzeigen"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+msgid "View as Image Collection"
+msgstr "Als Bildersammlung anzeigen"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -86,35 +94,35 @@ msgstr "_Rückgängig"
 msgid "_View"
 msgstr "_Ansicht"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Speichern abbrechen"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Speichern abgeschlossen"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "In den Müll verschieben"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Sammlungsansicht"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Fortschritt beim Laden eines Bildes"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Bild wird gespeichert"
 
@@ -308,49 +316,59 @@ msgstr "Einbettbares EOG-Bild"
 msgid "Image"
 msgstr "Bild"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Soll %s überschrieben werden?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr "Datei ist vorhanden"
 
-#: libeog/eog-file-selection.c:119
-#, fuzzy
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr "Alle Bilder"
+msgstr "Alle Dateien"
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
 msgstr "Alle Bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s Pixel"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Bild öffnen"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Temporäre Datei zum Speichern konnte nicht angelegt werden: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Speicher zum Laden der JPEG Datei konnte nicht reserviert werden"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "Leere Datei"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -612,7 +630,7 @@ msgstr ""
 "Matthias Warkus <mawa@iname.com>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -629,7 +647,7 @@ msgstr ""
 "Die Hilfe für Eye of Gnome konnte nicht angezeigt werden.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -638,21 +656,21 @@ msgstr ""
 "Sie sind dabei, %i Fenster gleichzeitig zu öffnen. Möchten Sie diese lieber\n"
 "in einer Sammlung öffnen?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Mehrere einzelne Fenster öffnen?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Einzelne Fenster"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Dateien konnten nicht gefunden werden"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Datei(en) nicht gefunden."
 
 #: shell/util.c:52
 #, c-format
@@ -789,33 +807,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Öffnen fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Bild erfolgreich gespeichert"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Bild konnte nicht gespeichert werden"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Gewünschte Fensterbreite"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Gewünschte Fensterhöhe"
+
+#~ msgid "Could not find files"
+#~ msgstr "Dateien konnten nicht gefunden werden"
 
 #~ msgid "By Extension"
 #~ msgstr "Nach Endung"
