@@ -288,6 +288,9 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	uri = gnome_vfs_uri_new (text_uri);
 
+	loader = NULL;
+	rsvg_handle = NULL;
+
 	/* open uri */
 	result = gnome_vfs_open_uri (&handle, uri, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK)

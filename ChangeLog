@@ -1,3 +1,9 @@
+2002-06-20  Federico Mena Quintero  <federico@ximian.com>
+
+	* viewer/eog-image.c (load_image_from_file): Initialize the loader
+	and rsvg_handle variables, otherwise we'll b0rk if we can't open
+	the URI.  Fixes #85263.
+
 2002-06-13  Federico Mena Quintero  <federico@ximian.com>
 
 	Fixes #85216.
