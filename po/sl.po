@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.4\n"
-"POT-Creation-Date: 2001-09-16 23:23+0200\n"
+"POT-Creation-Date: 2001-11-24 14:32+0100\n"
 "PO-Revision-Date: 2000-06-13 02:25+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -91,7 +91,8 @@ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Nisem mogel inicializirati Bonoba"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189
+#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Gnomovo oko"
 
@@ -99,20 +100,19 @@ msgstr "Gnomovo oko"
 msgid "Image Viewer"
 msgstr "Pregledovalnik slik"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:663
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
 msgid "EOG Image"
 msgstr "Slika EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:2 viewer/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.oaf.in.h:2
 msgid "EOG Image Viewer"
 msgstr "Pregledovalnik slik EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:3 viewer/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.oaf.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Tovarna pregledovalnikov slik EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:4 viewer/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.oaf.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Vgradljiva slika EOG"
 
@@ -124,7 +124,7 @@ msgstr "O tem programu"
 msgid "Change preferences"
 msgstr "Spremeni nastavitve"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
 msgid "Close"
 msgstr "Zapri"
 
@@ -140,7 +140,7 @@ msgstr "Iz_hod"
 msgid "Exit the program"
 msgstr "Izhod iz programa"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "Odpri"
 
@@ -184,11 +184,11 @@ msgstr "_Nastavitve"
 msgid "_Settings"
 msgstr "_Nastavitve"
 
-#: shell/eog-window.c:191
+#: shell/eog-window.c:191 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Avtorske pravice pridr¾ane (C) 2000-2001 Fundacija za prosto programje"
 
-#: shell/eog-window.c:193
+#: shell/eog-window.c:193 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program za gledanje in katalogizacijo slik GNOME"
 
@@ -212,7 +212,7 @@ msgstr "Gnomovo oko"
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Ne morem najti eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:738 shell/eog-window.c:867
+#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
 msgid "Open Image"
 msgstr "Odpri sliko"
 
@@ -262,10 +262,168 @@ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 msgid "Could not initialize Bonobo!\n"
 msgstr "Nisem mogel inicializirati Bonoba!\n"
 
-#: shell/util.c:47
+#: shell/util.c:47 src/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Ne morem odpreti `%s'"
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "Nastavitve"
+
+#: src/tb-image.c:33 src/window.c:181
+msgid "Open an image file"
+msgstr "Odpri datoteko s sliko
+
+#: src/tb-image.c:35 src/window.c:186
+msgid "Close the current window"
+msgstr "Zapri trenutno okno"
+
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+msgid "In"
+msgstr "Poveèaj"
+
+#: src/tb-image.c:44
+msgid "Out"
+msgstr "Pomanj¹aj"
+
+#: src/tb-image.c:45
+msgid "1:1"
+msgstr "1:1"
+
+#: src/tb-image.c:46
+msgid "Fit"
+msgstr "Prilagodi"
+
+#: src/window.c:181
+msgid "_Open Image..."
+msgstr "_Odpri sliko..."
+
+#: src/window.c:186
+msgid "_Close This Window"
+msgstr "_Zapri to okno"
+
+#: src/window.c:197
+msgid "2:1"
+msgstr "2:1"
+
+#: src/window.c:198
+msgid "3:1"
+msgstr "3:1"
+
+#: src/window.c:199
+msgid "4:1"
+msgstr "4:1"
+
+#: src/window.c:200
+msgid "5:1"
+msgstr "5:1"
+
+#: src/window.c:201
+msgid "6:1"
+msgstr "6:1"
+
+#: src/window.c:202
+msgid "7:1"
+msgstr "7:1"
+
+#: src/window.c:203
+msgid "8:1"
+msgstr "8:1"
+
+#: src/window.c:204
+msgid "9:1"
+msgstr "9:1"
+
+#: src/window.c:205
+msgid "10:1"
+msgstr "10:1"
+
+#: src/window.c:207
+msgid "1:2"
+msgstr "1:2"
+
+#: src/window.c:208
+msgid "1:3"
+msgstr "1:3"
+
+#: src/window.c:209
+msgid "1:4"
+msgstr "1:4"
+
+#: src/window.c:210
+msgid "1:5"
+msgstr "1:5"
+
+#: src/window.c:211
+msgid "1:6"
+msgstr "1:6"
+
+#: src/window.c:212
+msgid "1:7"
+msgstr "1:7"
+
+#: src/window.c:213
+msgid "1:8"
+msgstr "1:8"
+
+#: src/window.c:214
+msgid "1:9"
+msgstr "1:9"
+
+#: src/window.c:215
+msgid "1:10"
+msgstr "1:10"
+
+#: src/window.c:221
+msgid "Zoom In"
+msgstr "Poveèaj"
+
+#: src/window.c:221
+#, c-format
+msgid "Increase zoom factor by 5%%"
+msgstr "Poveèaj faktor poveèave za 5%"
+
+#: src/window.c:225
+msgid "Zoom Out"
+msgstr "Pomanj¹aj"
+
+#: src/window.c:225
+#, c-format
+msgid "Decrease zoom factor by 5%%"
+msgstr "Pomanj¹aj faktor poveèave za 5%"
+
+#: src/window.c:229
+msgid "Zoom _1:1"
+msgstr "Poveèaj _1:1"
+
+#: src/window.c:229
+msgid "Display the image at 1:1 scale"
+msgstr "Ka¾i sliko brez poveèave"
+
+#: src/window.c:233
+msgid "_Zoom factor"
+msgstr "_Faktor poveèave"
+
+#: src/window.c:235
+msgid "_Fit to Window"
+msgstr "_Prilagodi v okno"
+
+#: src/window.c:235
+msgid "Zoom the image to fit in the window"
+msgstr "Prilagodi velikost slike, da bo ¹la v okno "
+
+#: src/window.c:239
+msgid "Full _Screen"
+msgstr "Èez _cel zaslon"
+
+#: src/window.c:239
+msgid "Use the whole screen for display"
+msgstr "Za prikaz uporabi celoten zaslon"
+
+#: viewer/eog-image.c:432
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
 #: viewer/eog-image-view.c:282
 #, c-format
@@ -463,10 +621,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:74
 msgid "centimeter"
 msgstr "centimeter"
-
-#: viewer/eog-print-setup.c:75
-msgid "In"
-msgstr "Poveèaj"
 
 #: viewer/eog-print-setup.c:75
 msgid "inch"
@@ -749,105 +903,6 @@ msgstr "Veliko"
 
 #~ msgid "Viewers"
 #~ msgstr "Pregledovalniki"
-
-#~ msgid "Close the current window"
-#~ msgstr "Zapri trenutno okno"
-
-#~ msgid "Out"
-#~ msgstr "Pomanj¹aj"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Fit"
-#~ msgstr "Prilagodi"
-
-#~ msgid "2:1"
-#~ msgstr "2:1"
-
-#~ msgid "3:1"
-#~ msgstr "3:1"
-
-#~ msgid "4:1"
-#~ msgstr "4:1"
-
-#~ msgid "5:1"
-#~ msgstr "5:1"
-
-#~ msgid "6:1"
-#~ msgstr "6:1"
-
-#~ msgid "7:1"
-#~ msgstr "7:1"
-
-#~ msgid "8:1"
-#~ msgstr "8:1"
-
-#~ msgid "9:1"
-#~ msgstr "9:1"
-
-#~ msgid "10:1"
-#~ msgstr "10:1"
-
-#~ msgid "1:2"
-#~ msgstr "1:2"
-
-#~ msgid "1:3"
-#~ msgstr "1:3"
-
-#~ msgid "1:4"
-#~ msgstr "1:4"
-
-#~ msgid "1:5"
-#~ msgstr "1:5"
-
-#~ msgid "1:6"
-#~ msgstr "1:6"
-
-#~ msgid "1:7"
-#~ msgstr "1:7"
-
-#~ msgid "1:8"
-#~ msgstr "1:8"
-
-#~ msgid "1:9"
-#~ msgstr "1:9"
-
-#~ msgid "1:10"
-#~ msgstr "1:10"
-
-#~ msgid "Zoom In"
-#~ msgstr "Poveèaj"
-
-#~ msgid "Increase zoom factor by 5%%"
-#~ msgstr "Poveèaj faktor poveèave za 5%"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Pomanj¹aj"
-
-#~ msgid "Decrease zoom factor by 5%%"
-#~ msgstr "Pomanj¹aj faktor poveèave za 5%"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Poveèaj _1:1"
-
-#~ msgid "Display the image at 1:1 scale"
-#~ msgstr "Ka¾i sliko brez poveèave"
-
-#~ msgid "_Zoom factor"
-#~ msgstr "_Faktor poveèave"
-
-#~ msgid "_Fit to Window"
-#~ msgstr "_Prilagodi v okno"
-
-#~ msgid "Zoom the image to fit in the window"
-#~ msgstr "Prilagodi velikost slike, da bo ¹la v okno "
-
-#~ msgid "Full _Screen"
-#~ msgstr "Èez _cel zaslon"
-
-#~ msgid "Use the whole screen for display"
-#~ msgstr "Za prikaz uporabi celoten zaslon"
 
 #~ msgid "E_OG"
 #~ msgstr "E_OG"
