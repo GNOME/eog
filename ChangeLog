@@ -1,3 +1,16 @@
+2004-05-31  Jens Finke  <jens@triq.net>
+
+	* shell/eog-window.c (transformation_progress_cb),
+	(apply_transformation),
+	(verb_FlipHorizontal_cb),
+	(verb_FlipVertical_cb), 
+	(verb_Rotate90_cb),
+	(verb_Rotate270_cb),
+	(verb_Rotate180_cb): New functions.
+	(eog_window_new): Don't try to set 'win_name' property.
+
+	* shell/gtk-shell-ui.xml: Added remaining edit and save items.
+
 2004-05-29  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "tk" to ALL_LINGUAS.

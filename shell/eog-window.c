@@ -468,6 +468,128 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 }
 
 static void
+verb_Save_cb (GtkAction *action, gpointer data)
+{
+}
+
+static void
+verb_SaveAs_cb (GtkAction *action, gpointer data)
+{
+}
+
+static void
+verb_Undo_cb (GtkAction *action, gpointer data)
+{
+}
+
+/* ================================================
+ *
+ *     Transformation functions 
+ * 
+ * -----------------------------------------------*/
+
+typedef struct {
+	EogWindow *window;
+	float max_progress;
+	int counter;
+} ProgressData;
+
+static void
+transformation_progress_cb (EogImage *image, float progress, ProgressData *data)
+{
+	float total;
+	EogWindowPrivate *priv;
+
+	priv = data->window->priv;
+
+	total = ((float) data->counter + progress) / data->max_progress;
+
+	gnome_appbar_set_progress_percentage (GNOME_APPBAR (priv->statusbar), progress);
+}
+
+static void 
+apply_transformation (EogWindow *window, EogTransform *trans)
+{
+	GList *images;
+	GList *it;
+	gint id;
+	ProgressData data;
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+	
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
+	data.window       = window;
+	data.max_progress = g_list_length (images);
+	data.counter      = 0;
+	
+	/* block progress changes for actual displayed image */
+	if (priv->displayed_image != NULL) {
+		g_signal_handler_block (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
+	}
+
+	for (it = images; it != NULL; it = it->next) {
+		EogImage *image = EOG_IMAGE (it->data);
+
+		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) transformation_progress_cb, &data);
+		
+		eog_image_transform (image, trans);
+		
+		g_signal_handler_disconnect (image, id);
+		data.counter++;
+	}
+
+	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_object_unref (trans);	
+
+	if (priv->displayed_image != NULL) {
+		g_signal_handler_unblock (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
+	}
+}
+
+static void
+verb_FlipHorizontal_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	apply_transformation (EOG_WINDOW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_HORIZONTAL));
+}
+
+static void
+verb_FlipVertical_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	apply_transformation (EOG_WINDOW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_VERTICAL));
+}
+
+static void
+verb_Rotate90_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	apply_transformation (EOG_WINDOW (data), eog_transform_rotate_new (90));
+}
+
+static void
+verb_Rotate270_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	apply_transformation (EOG_WINDOW (data), eog_transform_rotate_new (270));
+}
+
+static void
+verb_Rotate180_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	apply_transformation (EOG_WINDOW (data), eog_transform_rotate_new (180));
+}
+
+/* ========================================================================= */
+
+static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
 {
 
@@ -926,7 +1048,21 @@ static GtkToggleActionEntry toggle_entries_window[] = {
   { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, "Change the visibility of the statusbar in the current window", G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 
+
 static GtkActionEntry action_entries_image[] = {
+  { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", NULL, G_CALLBACK (verb_Save_cb) },
+  { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As"), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
+
+  { "EditUndo", NULL, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
+
+  { "EditFlipHorizontal", NULL, N_("Flip _Horizontal"), NULL, NULL, G_CALLBACK (verb_FlipHorizontal_cb) },
+  { "EditFlipVertical", NULL, N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
+
+
+  { "EditRotate90", NULL, N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
+  { "EditRotate270", NULL, N_("Rotate Counter C_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
+  { "EditRotate180", NULL, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
+ 
   { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
@@ -1105,7 +1241,7 @@ eog_window_new (void)
 {
 	EogWindow *window;
 
-	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "win_name", "eog", "title", _("Eye of Gnome"), NULL));
+	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "title", _("Eye of Gnome"), NULL));
 
 	eog_window_construct_ui (window);
 

@@ -5,13 +5,24 @@
       <menuitem action="FileOpen"/>
       <menuitem action="FileDirOpen"/>
       <separator/>
+      <menuitem action="FileSave"/>
+      <menuitem action="FileSaveAs"/>
+      <separator/>
       <placeholder name="EggRecentDocuments"/>
       <separator/>
       <menuitem action="FileCloseWindow"/>
       <menuitem action="FileExit"/>
     </menu>
     <menu action="EditMenu">
-      <placeholder name="Edit Items Placeholder"/>
+      <menuitem action="EditUndo"/>
+      <separator/>
+      <menuitem action="EditFlipHorizontal"/>
+      <menuitem action="EditFlipVertical"/>
+      <separator/>
+      <menuitem action="EditRotate90"/>
+      <menuitem action="EditRotate270"/>
+      <menuitem action="EditRotate180"/>
+      <separator/>
       <menuitem action="EditPreferences"/>
     </menu>
     <menu action="ViewMenu">
@@ -20,10 +31,10 @@
       <separator/>
       <menuitem name="Fullscreen" action="ViewFullscreen"/>
       <separator/>
-      <menuitem name="ZoomIn" action="ViewZoomIn"/>
-      <menuitem name="ZoomOut" action="ViewZoomOut"/>
-      <menuitem name="ZoomNormal" action="ViewZoomNormal"/>
-      <menuitem name="ZoomFit" action="ViewZoomFit"/>
+      <menuitem action="ViewZoomIn"/>
+      <menuitem action="ViewZoomOut"/>
+      <menuitem action="ViewZoomNormal"/>
+      <menuitem action="ViewZoomFit"/>
     </menu>
     <menu action="HelpMenu">
       <menuitem action="HelpManual"/>
@@ -33,6 +44,9 @@
   <toolbar name="ToolBar">
     <toolitem action="FileNewWindow"/>
     <toolitem action="FileOpen"/>
+    <separator/>
+    <toolitem action="EditRotate270"/>
+    <toolitem action="EditRotate90"/>
     <separator/>
     <toolitem action="ViewZoomIn"/>
     <toolitem action="ViewZoomOut"/>
