@@ -13,9 +13,9 @@ INCLUDES =                                              \
 	$(EXTRA_BONOBO_CFLAGS)				\
 	-DEOG_GLADEDIR=\""$(gladedir)"\"
 
-bin_PROGRAMS = eog-shell
+bin_PROGRAMS = eog
 
-eog_shell_SOURCES =	\
+eog_SOURCES =	\
 	e-dialog-widgets.h	\
 	e-dialog-widgets.c	\
 	eog-window.h		\
@@ -28,7 +28,7 @@ eog_shell_SOURCES =	\
 	util.h			\
 	util.c
 
-eog_shell_LDADD = 	\
+eog_LDADD = 	\
 	$(GCONF_LIBS)		\
 	$(EXTRA_GNOME_LIBS)	\
 	$(EXTRA_BONOBO_LIBS)	\
