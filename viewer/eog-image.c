@@ -188,7 +188,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 			     ex_Bonobo_Persist_WrongDataType, NULL);
 
  exit_clean:
-	gtk_object_unref (GTK_OBJECT (loader));
+	g_object_unref (G_OBJECT (loader));
 	return;
 }
 
@@ -301,6 +301,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	image->priv->filename = gnome_vfs_uri_extract_short_name (uri);
 	
 	gnome_vfs_uri_unref (uri);
+	g_object_unref (G_OBJECT (loader));
 
 	g_signal_emit (G_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL], 0);
 

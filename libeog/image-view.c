@@ -427,7 +427,8 @@ image_view_destroy (GtkObject *object)
 
 	/* Clean up */
 	if (view->priv->pixbuf)
-		gdk_pixbuf_unref (view->priv->pixbuf);
+		g_object_unref (G_OBJECT (view->priv->pixbuf));
+	view->priv->pixbuf = NULL;
 
 	remove_dirty_region (view);
 

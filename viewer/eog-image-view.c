@@ -1829,8 +1829,6 @@ eog_image_view_destroy (BonoboObject *object)
 	bonobo_object_unref (BONOBO_OBJECT (priv->property_bag));
 	bonobo_object_unref (BONOBO_OBJECT (priv->image));
 	bonobo_object_unref (BONOBO_OBJECT (priv->uic));
-
-	gtk_widget_unref (image_view->priv->ui_image);
 	
 	if (getenv ("DEBUG_EOG"))
 		g_message ("EogImageView destroyed.");

@@ -1,3 +1,15 @@
+2002-03-05  Jens Finke <jens@triq.net>
+
+	* libeog/image-view.c (image_view_destroy): Use g_object_unref to
+	free GdkPixbuf object and set pointer to NULL (to be safe).
+
+	* viewer/eog-image-view.c (eog_image_view_destroy): Don't unref
+	the widget, this is the job of the widgets parent.
+
+	* viewer/eog-image.c (load_image_from_stream): Use g_object_unref
+	to free pixbuf loader.
+	(load_image_from_file): Free pixbuf loader.
+	
 2002-03-04  Jens Finke <jens@triq.net>
 
 	* HACKING: Added explicit rules for the spec file and build fixes.
