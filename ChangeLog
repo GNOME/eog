@@ -1,3 +1,13 @@
+2002-07-25  Jens Finke  <jens@triq.net>
+
+	We have a real fullscreen again.
+	
+	* viewer/eog-fullscreen-view.c (eog_full_screen_show): Call zoom
+	to fit.
+	(eog_full_screen_instance_init): Removed unneccessary window
+	calls, move window at position 0,0.
+	(eog_full_screen_new): Set window type at object creation time.
+
 2002-07-24  Federico Mena Quintero  <federico@ximian.com>
 
 	* configure.in: Bumped version number to 1.0.2.
