@@ -1,13 +1,12 @@
 #include <libgnome/gnome-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <gtk/gtk.h>
-#include <libexif/exif-entry.h>
-#include <libexif/exif-data.h>
 
 #include "eog-info-view-exif.h"
 
-
 #if HAVE_EXIF
+
+#include <libexif/exif-entry.h>
 
 typedef enum {
 	EXIF_CATEGORY_CAMERA,
