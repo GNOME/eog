@@ -3,6 +3,7 @@
  *
  * Author:
  *   Michael Meeks (mmeeks@gnu.org)
+ *   Martin Baulig (baulig@suse.de)
  *
  * TODO:
  *    Progressive loading.
@@ -11,6 +12,7 @@
  *    Save image
  *
  * Copyright 2000, Helixcode Inc.
+ * Copyright 2000, SuSE GmbH.
  * Copyright 2000, Eazel, Inc.
  */
 #include <config.h>
@@ -594,8 +596,6 @@ zoom_to_default_cb (BonoboZoomable *zoomable, view_data_t *view_data)
 static void
 view_activate_cb (BonoboView *view, gboolean activate, gpointer data)
 {
-	view_data_t *view_data = (view_data_t *) data;
-
 	/*
 	 * Notify the ViewFrame that we accept to be activated or
 	 * deactivated (we are an acquiescent BonoboView, yes we are).
