@@ -233,7 +233,7 @@ user_wants_collection (gint n_windows)
 	int ret;
 
 	g_snprintf (body, 128,
-		    _("You are about to open %i windows simultanously. Do you want to open them in a collection instead?"), 
+		    _("You are about to open %i windows simultaneously. Do you want to open them in a collection instead?"), 
 		    n_windows);
 
 	dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_WARNING,

@@ -1396,7 +1396,8 @@ show_delete_confirm_dialog (EogWindow *window, int n_images)
 	char *header;
 	int response;
 
-	header = g_strdup_printf (_("Do you really want to move %i images to trash?"), n_images);
+	header = g_strdup_printf (ngettext ("Do you really want to move %i image to trash?", 
+					    "Do you really want to move %i images to trash?", n_images), n_images);
 
 	dlg = eog_hig_dialog_new (GTK_WINDOW (window), GTK_STOCK_DIALOG_WARNING,
 				  header, NULL, TRUE);
