@@ -26,6 +26,7 @@
 
 /* Signal IDs */
 enum {
+	GET_LENGTH,
 	INTERVAL_CHANGED,
 	INTERVAL_ADDED,
 	INTERVAL_REMOVED,
@@ -33,6 +34,10 @@ enum {
 };
 
 static void gnome_list_model_class_init (GnomeListModelClass *class);
+
+static void marshal_get_length (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
+static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func,
+					   gpointer data, GtkArg *args);
 
 static guint list_model_signals[LAST_SIGNAL];
 
@@ -78,6 +83,13 @@ gnome_list_model_class_init (GnomeListModelClass *class)
 
 	object_class = (GtkObjectClass *) class;
 
+	list_model_signals[GET_LENGTH] =
+		gtk_signal_new ("get_length",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeListModelClass, get_length),
+				marshal_get_length,
+				GTK_TYPE_UINT, 0);
 	list_model_signals[INTERVAL_CHANGED] =
 		gtk_signal_new ("interval_changed",
 				GTK_RUN_FIRST,
@@ -107,4 +119,46 @@ gnome_list_model_class_init (GnomeListModelClass *class)
 				GTK_TYPE_UINT);
 
 	gtk_object_class_add_signals (object_class, list_model_signals, LAST_SIGNAL);
+}
+
+guint
+gnome_list_model_get_length (GnomeListModel *model)
+{
+	guint retval;
+
+	g_return_val_if_fail (model != NULL, 0);
+	g_return_val_if_fail (GNOME_IS_LIST_MODEL (model), 0);
+
+	retval = 0;
+	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[GET_LENGTH], &retval);
+	return retval;
+}
+
+
+
+/* Marshallers */
+
+typedef guint (* GetLengthFunc) (GtkObject *object, gpointer data);
+
+static void
+marshal_get_length (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+{
+	GetLengthFunc rfunc;
+	guint *retval;
+
+	retval = GTK_RETLOC_UINT (args[0])
+	rfunc = (GetLengthFunc) func;
+	*retval = (* rfunc) (object, data);
+}
+
+typedef void (* IntervalNotificationFunc) (GtkObject *object, guint start, guint length,
+					   gpointer data);
+
+static void
+marshal_interval_notification (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+{
+	IntervalNotificationFunc rfunc;
+
+	rfunc = (IntervalNotificationFunc) func;
+	(* func) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_UINT (args[1]), data);
 }

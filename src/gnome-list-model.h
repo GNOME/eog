@@ -34,9 +34,9 @@ BEGIN_GNOME_DECLS
 					  GNOME_TYPE_LIST_MODEL, GnomeListModel))
 #define GNOME_LIST_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass),		\
 					  GNOME_TYPE_LIST_MODEL, GnomeListModelClass))
-#define IS_GNOME_LIST_MODEL(obj)         (GTK_CHECK_TYPE ((obj),			\
+#define GNOME_IS_LIST_MODEL(obj)         (GTK_CHECK_TYPE ((obj),			\
 					  GNOME_TYPE_LIST_MODEL))
-#define IS_GNOME_LIST_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass),		\
+#define GNOME_IS_LIST_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass),		\
 					  GNOME_TYPE_LIST_MODEL))
 
 
@@ -50,10 +50,9 @@ struct _GnomeListModel {
 struct _GnomeListModelClass {
 	GtkObjectClass parent_class;
 
-	/* Query methods */
+	/* Query signals */
 
 	guint (* get_length) (GnomeListModel *model);
-	gpointer (* get_element) (GnomeListModel *model, guint n);
 
 	/* Notification signals */
 
@@ -64,6 +63,8 @@ struct _GnomeListModelClass {
 
 
 GtkType gnome_list_model_get_type (void);
+
+guint gnome_list_model_get_length (GnomeListModel *model);
 
 
 
