@@ -146,32 +146,63 @@ enum {
  *
  * @Return value: TRUE, if a collection should be used, else FALSE.
  * */
+#ifdef EOG_COLLECTION_WORKS
+
 static gint
 user_wants_collection (gint n_windows)
 {
 	GtkWidget *dlg;
 	gint ret;
-	gchar *msg;
-	
-	msg = g_new0(gchar, 120);
-	g_snprintf (msg, 120, 
-		    _("You are about to open %i windows\n"
-		      "simultanously. Do you want to open\n"
-		      "them in a collection instead?"),
-		    n_windows);
-	
-	dlg = gnome_message_box_new (msg,
-				     GNOME_MESSAGE_BOX_QUESTION,
-				     GNOME_STOCK_BUTTON_CANCEL,
-				     _("Single Windows"), _("Collection"), 
-				     NULL);		
-	ret = gnome_dialog_run (GNOME_DIALOG (dlg));
-	g_free (msg);
 
-	if (ret == -1) ret = COLLECTION_CANCEL;
+	dlg = gtk_message_dialog_new (NULL,
+				      GTK_DIALOG_MODAL,
+				      GTK_MESSAGE_QUESTION,
+				      GTK_BUTTONS_CANCEL,
+				      _("You are about to open %i windows\n"
+					"simultanously. Do you want to open\n"
+					"them in a collection instead?"),
+				      n_windows);
+	
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Single Windows"), COLLECTION_NO);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Collection"), COLLECTION_YES);
+
+	ret = gtk_dialog_run (GTK_DIALOG (dlg));
+
+	if (ret != COLLECTION_NO && ret != COLLECTION_YES) 
+		ret = COLLECTION_CANCEL;
+
+	gtk_widget_destroy (dlg);
 
 	return ret;
 }
+
+#else
+
+static gint
+user_wants_collection (gint n_windows)
+{
+	GtkWidget *dlg;
+	gint ret;
+	
+	dlg = gtk_message_dialog_new (NULL,
+				      GTK_DIALOG_MODAL,
+				      GTK_MESSAGE_QUESTION,
+				      GTK_BUTTONS_CANCEL,
+				      _("You are about to open %i windows\n"
+					"simultanously. Do you want to continue?"),
+				      n_windows);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Open"), COLLECTION_NO);
+
+	ret = gtk_dialog_run (GTK_DIALOG (dlg));
+
+	if (ret != COLLECTION_NO)
+		ret = COLLECTION_CANCEL;
+
+	gtk_widget_destroy (dlg);
+
+	return ret;
+}
+#endif /* EOG_COLLECTION WORKS */
 
 /**
  * handle_cmdline_args:
@@ -206,10 +237,6 @@ handle_cmdline_args (gpointer data)
 
 	/* open regular files */
 	if (file_list != NULL) {
-		/* FIXME: The collection view is not yet ported to Gnome2 so 
-		 * we must disable the following stuff :-(.
-		 */
-#if 0
 		if (g_list_length (file_list) > 3) {
 			gint ret = user_wants_collection (g_list_length (file_list));
 			if (ret == COLLECTION_YES) {
@@ -233,12 +260,9 @@ handle_cmdline_args (gpointer data)
 				return FALSE;
 			}
 		} else {
-#endif
 			open_in_single_windows (file_list);
 			g_list_free (file_list);
-#if 0
 		}
-#endif
 	}
 		
 	/* open every directory in an own window */
@@ -258,7 +282,6 @@ int
 main (int argc, char **argv)
 {
 	CORBA_Environment ev;
-	CORBA_ORB orb;
 	GError *error;
 	poptContext *ctx;
 

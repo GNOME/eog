@@ -1,3 +1,13 @@
+2002-03-19  Jens Finke  <jens@triq.net>
+
+	* shell/main.c (user_wants_collection): Use new gtk_message_dialog
+	API. Added an alternative implementation for this function as long
+	as the collection view doesn't work.
+	(handle_cmdline_args): Reenabled the check for multiple files on
+	the commandline. Due to the thawed string freeze we can handle
+	this now with a dialog again.
+	(main): Removed unused orb variable.
+
 2002-03-12  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 0.114.0.
