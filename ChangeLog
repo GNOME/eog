@@ -1,3 +1,15 @@
+2002-08-05  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-control.c (handle_open_uri): Release
+	control and controle frame objects properly.
+
+	* collection/eog-collection-view.c (eog_collection_view_dispose):
+	Free gconf client and ui component.
+	(eog_collection_view_get_property_bag): Ref property bag.
+
+	* collection/eog-wrap-list.c (eog_wrap_list_dispose),
+	(eog_wrap_list_finalize): Removed debug messages.
+
 2002-08-04  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-control.c:

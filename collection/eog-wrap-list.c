@@ -208,8 +208,6 @@ eog_wrap_list_dispose (GObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (object));
 
-	g_print ("eog-wrap-list: dispose ...\n");
-
 	wlist = EOG_WRAP_LIST (object);
 	priv = wlist->priv;
 
@@ -234,8 +232,6 @@ eog_wrap_list_finalize (GObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (object));
 
-	g_print ("eog-wrap-list: finalize ...\n");
-
 	wlist = EOG_WRAP_LIST (object);
 	if (wlist->priv)
 		g_free (wlist->priv);
@@ -243,8 +239,6 @@ eog_wrap_list_finalize (GObject *object)
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
-
-	g_print ("eog-wrap-list: ... finalize \n");
 }
 
 static void

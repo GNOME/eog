@@ -193,6 +193,14 @@ eog_collection_view_dispose (GObject *object)
 		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->property_bag));
 	list_view->priv->property_bag = NULL;
 
+	if (list_view->priv->client)
+		g_object_unref (G_OBJECT (list_view->priv->client));
+	list_view->priv->client = NULL;
+
+	if (list_view->priv->uic)
+		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->uic));
+	list_view->priv->uic = NULL;
+
 	list_view->priv->wraplist = NULL;
 	list_view->priv->root = NULL;
 
@@ -840,6 +848,8 @@ eog_collection_view_get_property_bag (EogCollectionView *view)
 {
 	g_return_val_if_fail (view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (view), NULL);
+
+	bonobo_object_ref (BONOBO_OBJECT (view->priv->property_bag));
 
 	return view->priv->property_bag;
 }

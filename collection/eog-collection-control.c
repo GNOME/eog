@@ -163,6 +163,8 @@ handle_open_uri (GObject *obj, gchar *uri, gpointer data)
 	ctrl_frame = bonobo_control_get_control_frame (BONOBO_CONTROL (bctrl), NULL);
 	Bonobo_ControlFrame_activateURI (ctrl_frame, CORBA_string_dup (uri), CORBA_FALSE, &ev);
 	
+	bonobo_object_release_unref (ctrl_frame, &ev);
+	bonobo_object_unref (BONOBO_OBJECT (bctrl));
 	CORBA_exception_free (&ev);
 }
 
