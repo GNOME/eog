@@ -14,13 +14,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-05-12 11:32+0200\n"
-"PO-Revision-Date: 2002-05-12 11:32+0200\n"
+"POT-Creation-Date: 2002-05-18 12:18+0200\n"
+"PO-Revision-Date: 2002-05-18 12:18+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG-billedsamling"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG-billedsamlingsfremviser"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "EOG-billedsamlingsfremviserfabrik"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -46,6 +58,54 @@ msgstr "EOG-billedfremviserfabrik"
 msgid "Embeddable EOG Image"
 msgstr "Indlejret EOG-billede"
 
+#: libeog/image-view.c:1965
+msgid "interpolation type"
+msgstr "Interpoleringstype"
+
+#: libeog/image-view.c:1966
+msgid "the type of interpolation to use"
+msgstr "den type interpolering der skal bruges"
+
+#: libeog/image-view.c:1972 libeog/image-view.c:1979
+msgid "check type"
+msgstr "terntype"
+
+#: libeog/image-view.c:1973
+msgid "the type of chequering to use"
+msgstr "den type tern der skal bruges"
+
+#: libeog/image-view.c:1980
+msgid "the size of chequers to use"
+msgstr "størrelsen af ternene"
+
+#: libeog/image-view.c:1986
+msgid "dither"
+msgstr "farvereducering"
+
+#: libeog/image-view.c:1987
+msgid "dither type"
+msgstr "type farvereducering"
+
+#: libeog/image-view.c:1993
+msgid "scroll"
+msgstr "rulning"
+
+#: libeog/image-view.c:1994
+msgid "scroll type"
+msgstr "type rulning"
+
+#: libeog/image-view.c:2000
+msgid "enable full screen zoom"
+msgstr "aktivér fuldskærmszoom"
+
+#: libeog/image-view.c:2001
+msgid "whether we should allow full screen zoom"
+msgstr "om fuldskærmszoom skal være tillad"
+
+#: shell/eog-preferences.c:141
+msgid "Eye of Gnome Preferences"
+msgstr "Indstillinger for Gnomes øje"
+
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
 msgstr "Om dette program"
@@ -67,12 +127,12 @@ msgid "Close window"
 msgstr "Luk vinduet"
 
 #: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "Hjælp til dette program"
+msgid "Contents"
+msgstr "Indhold"
 
 #: shell/eog-shell-ui.xml.h:7
-msgid "HelpContents"
-msgstr "Indhold i hjælp"
+msgid "Help On this application"
+msgstr "Hjælp til dette program"
 
 #: shell/eog-shell-ui.xml.h:8 shell/main.c:196
 msgid "Open"
@@ -146,7 +206,7 @@ msgstr "_Vis"
 msgid "Translator Credits"
 msgstr "Ole Laursen <olau@hardworking.dk>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
@@ -158,31 +218,31 @@ msgstr "Copyright © 2000-2002 The Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Billedfremviser og -katalogiseringsprogram til Gnome"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:761
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: shell/eog-window.c:816
+#: shell/eog-window.c:815
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
 
-#: shell/eog-window.c:832
+#: shell/eog-window.c:831
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
 
-#: shell/eog-window.c:851
+#: shell/eog-window.c:850
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ikke nogen egenskaber"
 
-#: shell/eog-window.c:868
+#: shell/eog-window.c:867
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finde ud af MIME-typen for filen."
 
-#: shell/eog-window.c:1111
+#: shell/eog-window.c:1110
 msgid "Error while obtaining file informations."
 msgstr "Fejl under indsamling af filoplysninger."
 
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1139
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kunne ikke åbne %s."
@@ -228,13 +288,150 @@ msgstr "Kunne ikke klargøre Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
 
-#: shell/eog-preferences.c:141
-msgid "Eye of Gnome Preferences"
-msgstr "Indstillinger for Gnomes øje"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kunne ikke klargøre GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Fyld ud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "tm"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Ud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Zoom _1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Zoom _ind"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Zoom _ud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Zoom til _side"
+
+# som før et skakternemønster
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Tern_størrelse"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "_Type af tern"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "Fuldskærm"
+
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "Stor"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "Mellem"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Nea_rest Neighbour"
+msgstr "Nærmeste _nabo"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Normal (_pseudocolor)"
+msgstr "Normal (_pseudofarve)"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Previews the image to be printed"
+msgstr "Viser billedet som det kommer til at se ud udskrevet"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Print Pre_view"
+msgstr "_Vis udskrift"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Print S_etup"
+msgstr "Printer_opsætning"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Print image to the printer"
+msgstr "Udskriv billedet på printeren"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Setup the page settings for your current printer"
+msgstr "Opsætning af sideindstillinger for den aktuelle printer"
+
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "Lille"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr "_Bilineær"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Black"
+msgstr "_Sort"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dark"
+msgstr "_Mørk"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Dither"
+msgstr "_Avanceret farvereducering"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Gray"
+msgstr "_Grå"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
+msgstr "_Hyperbolsk"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Interpolation"
+msgstr "_Interpolering"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Light"
+msgstr "_Lys"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Maximum (high color)"
+msgstr "_Maksimal (farverig)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
+msgstr "_Mellemtone"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr "_Ingen"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Print"
+msgstr "_Udskriv"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Save As..."
+msgstr "_Gem som..."
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles"
+msgstr "_Fliser"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_White"
+msgstr "_Hvid"
 
 #: viewer/eog-image-view.c:304
 #, c-format
@@ -300,150 +497,9 @@ msgstr "Vinduestitel"
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-# som før et skakternemønster
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "Tern_størrelse"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "_Type af tern"
-
-#: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Fuldskærm"
-
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
-msgid "Large"
-msgstr "Stor"
-
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
-msgid "Medium"
-msgstr "Mellem"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Nea_rest Neighbour"
-msgstr "Nærmeste _nabo"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Normal (_pseudocolor)"
-msgstr "Normal (_pseudofarve)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Previews the image to be printed"
-msgstr "Viser billedet som det kommer til at se ud udskrevet"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "_Vis udskrift"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "Printer_opsætning"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Print image to the printer"
-msgstr "Udskriv billedet på printeren"
-
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "Setup the page settings for your current printer"
-msgstr "Opsætning af sideindstillinger for den aktuelle printer"
-
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
-msgid "Small"
-msgstr "Lille"
-
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "_Bilinear"
-msgstr "_Bilineær"
-
-#: viewer/eog-image-view-ui.xml.h:15
-msgid "_Black"
-msgstr "_Sort"
-
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Dark"
-msgstr "_Mørk"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "_Avanceret farvereducering"
-
-#: viewer/eog-image-view-ui.xml.h:18
-msgid "_Gray"
-msgstr "_Grå"
-
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "_Hyperbolic"
-msgstr "_Hyperbolsk"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "_Interpolering"
-
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Light"
-msgstr "_Lys"
-
-#: viewer/eog-image-view-ui.xml.h:22
-msgid "_Maximum (high color)"
-msgstr "_Maksimal (farverig)"
-
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Midtone"
-msgstr "_Mellemtone"
-
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_None"
-msgstr "_Ingen"
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
-msgstr "_Udskriv"
-
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_Save As..."
-msgstr "_Gem som..."
-
-#: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Fliser"
-
-#: viewer/eog-image-view-ui.xml.h:28
-msgid "_White"
-msgstr "_Hvid"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Fyld ud"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
-msgid "In"
-msgstr "tm"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Ud"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "Zoom _1:1"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "Zoom _ind"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom _Out"
-msgstr "Zoom _ud"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Zoom til _side"
+#: viewer/eog-image.c:468
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Kunne ikke klargøre GnomeVFS!\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -618,74 +674,74 @@ msgstr "Ned, så til højre"
 msgid "Right, then down"
 msgstr "Til højre, så ned"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Nærmeste nabo-interpolering"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Flise-interpolering"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Bilineær interpolering"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Hyperbolsk interpolering"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Ingen avanceret farvereducering"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normal farvereducering (pseudofarve)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "Mest avanceret farvereducering (farverig)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Mørk"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "Mellemtone"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Lys"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Sort"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Grå"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Hvid"
 
-#: viewer/preferences.c:171
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
 msgstr "_Interpolering:"
 
-#: viewer/preferences.c:183
+#: viewer/preferences.c:187
 msgid "_Dither:"
 msgstr "_Avanceret farvereducering:"
 
 # det drejer sig om det skakternede mønster der bliver tegnet under et
 # halvgennemsigtigt billede
-#: viewer/preferences.c:195
+#: viewer/preferences.c:199
 msgid "Check _type:"
 msgstr "_Type af tern:"
 
 # som før et skakternemønster
-#: viewer/preferences.c:207
+#: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Tern_størrelse:"
 
