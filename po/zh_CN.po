@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-10-13 12:02+0200\n"
+"POT-Creation-Date: 2002-11-25 19:06+0100\n"
 "PO-Revision-Date: 2002-06-11 21:46+0800\n"
 "Last-Translator: Wang Li <charles@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -34,39 +34,34 @@ msgstr "GNOME 之眼图像查看器"
 msgid "View many different types of images"
 msgstr "查看多种类型的图像"
 
-#.
-#. * Datei für übersetzbare Zeichenketten, erzeugt durch Glade.
-#. * Fügen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
-#. * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
-#.
-#: eog-glade.h:7
-msgid "Eye of Gnome Preferences"
-msgstr "Gnome 之眼首选项"
-
-#: eog-glade.h:8
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
-
-#: eog-glade.h:9
-msgid "By check_pattern "
-msgstr ""
-
-#: eog-glade.h:10
+#: eog.glade.h:1
 msgid "By c_olor"
 msgstr ""
 
-#: eog-glade.h:11
-msgid "Pick a color"
+#: eog.glade.h:2
+msgid "By check_pattern"
 msgstr ""
 
-#: eog-glade.h:12
+#: eog.glade.h:3
+msgid "Eye of Gnome Preferences"
+msgstr "Gnome 之眼首选项"
+
+#: eog.glade.h:4
+msgid "Image Viewer"
+msgstr "图像查看器"
+
+#: eog.glade.h:5
 #, fuzzy
 msgid "Indicate Transparency"
 msgstr "透明类型"
 
-#: eog-glade.h:13
-msgid "Image Viewer"
-msgstr "图像查看器"
+#: eog.glade.h:6
+msgid "Pick a color"
+msgstr ""
+
+#: eog.glade.h:7
+msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -97,7 +92,7 @@ msgstr "以标准图像大小适合屏幕"
 
 #: eog.schemas.in.h:6
 msgid ""
-"If the transparency key has the value COLOR, than this key determines the "
+"If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
@@ -169,7 +164,7 @@ msgid ""
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:717
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
 msgstr "EOG 图像"
 
@@ -308,7 +303,7 @@ msgstr "本程序的帮助"
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:215
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
 msgstr "打开"
 
@@ -387,7 +382,7 @@ msgstr "退出(_Q)"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Wang Li <charles@linux.net.cn>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:457
+#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
 msgid "Eye of Gnome"
 msgstr "Gnome之眼"
 
@@ -408,7 +403,7 @@ msgstr ""
 "无法显示GNOME之眼的帮助。\n"
 "%s"
 
-#: shell/main.c:182
+#: shell/main.c:177
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -418,15 +413,15 @@ msgstr ""
 "您将要同时打开 %i 个窗口。\n"
 "您是否希望在一个组合中打开？"
 
-#: shell/main.c:187
+#: shell/main.c:182
 msgid "Single Windows"
 msgstr "单个窗口"
 
-#: shell/main.c:188
+#: shell/main.c:183
 msgid "Collection"
 msgstr "组合"
 
-#: shell/main.c:212
+#: shell/main.c:207
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -435,14 +430,14 @@ msgstr ""
 "您将要同时打开 %i 个窗口。\n"
 "您真的要继续吗？"
 
-#: shell/main.c:295
+#: shell/main.c:290
 #, c-format
 msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
 
-#: shell/main.c:298
+#: shell/main.c:293
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
@@ -450,11 +445,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: shell/main.c:469
+#: shell/main.c:464
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "无法初始化 GnomeVFS！\n"
 
-#: shell/main.c:472
+#: shell/main.c:467
 msgid "Could not initialize Bonobo!\n"
 msgstr "无法初始化 Bonobo！\n"
 
@@ -516,7 +511,7 @@ msgstr "预览要打印的图像"
 
 #: viewer/eog-image-view-ui.xml.h:5
 #, fuzzy
-msgid "Print Previe_w.."
+msgid "Print Previe_w..."
 msgstr "打印预览"
 
 #: viewer/eog-image-view-ui.xml.h:6
@@ -554,68 +549,68 @@ msgstr "为您的当前打印机设置页配置"
 msgid "_Print..."
 msgstr "打印(_P)"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "查看(_V)"
 
-#: viewer/eog-image-view.c:266
+#: viewer/eog-image-view.c:270
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "无法将图像另存为“%s”：%s。"
 
-#: viewer/eog-image-view.c:952
+#: viewer/eog-image-view.c:954
 msgid "Print Image"
 msgstr "打印图像"
 
-#: viewer/eog-image-view.c:960
+#: viewer/eog-image-view.c:962
 msgid "Pages"
 msgstr "页"
 
-#: viewer/eog-image-view.c:1047
+#: viewer/eog-image-view.c:1049
 msgid "Print Preview"
 msgstr "打印预览"
 
-#: viewer/eog-image-view.c:1053
+#: viewer/eog-image-view.c:1055
 msgid "Printing of image failed"
 msgstr "打印图像失败"
 
-#: viewer/eog-image-view.c:1868
+#: viewer/eog-image-view.c:1873
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "放大(_I)"
 
-#: viewer/eog-image-view.c:1870
+#: viewer/eog-image-view.c:1875
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "缩小(_O)"
 
-#: viewer/eog-image-view.c:1872
+#: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:1874
+#: viewer/eog-image-view.c:1879
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "缩放到适当(_F)"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:1882
 #, fuzzy
 msgid "/_Close"
 msgstr "关闭(_C)"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2008
 msgid "Image Width"
 msgstr "图像宽度"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2011
 msgid "Image Height"
 msgstr "图像高度"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2014
 msgid "Window Title"
 msgstr "窗口标题"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2017
 msgid "Statusbar Text"
 msgstr "状态条文本"
 
@@ -790,6 +785,10 @@ msgstr "下，而后右"
 #: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "右，而后下"
+
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Slide Show"
+msgstr ""
 
 #~ msgid "_New Window"
 #~ msgstr "新建窗口(_N)"

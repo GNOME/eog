@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-10-13 12:02+0200\n"
+"POT-Creation-Date: 2002-11-25 19:06+0100\n"
 "PO-Revision-Date: 2002-06-01 16:27+0200\n"
 "Last-Translator: Jesus Bravo Alvarez <suso@trasno.net>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -39,39 +39,34 @@ msgstr "Visualizador de imaxes Ollo de Gnome"
 msgid "View many different types of images"
 msgstr "Visualiza moitos tipos diferentes de imaxes"
 
-#.
-#. * Datei für übersetzbare Zeichenketten, erzeugt durch Glade.
-#. * Fügen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
-#. * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
-#.
-#: eog-glade.h:7
-msgid "Eye of Gnome Preferences"
-msgstr "Preferencias do Ollo de Gnome"
-
-#: eog-glade.h:8
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
-
-#: eog-glade.h:9
-msgid "By check_pattern "
-msgstr ""
-
-#: eog-glade.h:10
+#: eog.glade.h:1
 msgid "By c_olor"
 msgstr ""
 
-#: eog-glade.h:11
-msgid "Pick a color"
+#: eog.glade.h:2
+msgid "By check_pattern"
 msgstr ""
 
-#: eog-glade.h:12
-msgid "Indicate Transparency"
-msgstr ""
+#: eog.glade.h:3
+msgid "Eye of Gnome Preferences"
+msgstr "Preferencias do Ollo de Gnome"
 
-#: eog-glade.h:13
+#: eog.glade.h:4
 #, fuzzy
 msgid "Image Viewer"
 msgstr "Visualizador de imaxes EOG"
+
+#: eog.glade.h:5
+msgid "Indicate Transparency"
+msgstr ""
+
+#: eog.glade.h:6
+msgid "Pick a color"
+msgstr ""
+
+#: eog.glade.h:7
+msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -101,7 +96,7 @@ msgstr ""
 
 #: eog.schemas.in.h:6
 msgid ""
-"If the transparency key has the value COLOR, than this key determines the "
+"If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
@@ -171,7 +166,7 @@ msgid ""
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:717
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
 msgstr "Imaxe do EOG"
 
@@ -310,7 +305,7 @@ msgstr "Axuda sobre esta aplicación"
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:215
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
 msgstr "Abrir"
 
@@ -391,7 +386,7 @@ msgstr ""
 "Jesús Bravo Álvarez <suso@trasno.net>\n"
 "Proxecto Trasno - http://www.trasno.net"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:457
+#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
 msgid "Eye of Gnome"
 msgstr "Ollo de Gnome"
 
@@ -412,7 +407,7 @@ msgstr ""
 "Non é posible mostrar a axuda do Ollo de Gnome.\n"
 "%s"
 
-#: shell/main.c:182
+#: shell/main.c:177
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -423,15 +418,15 @@ msgstr ""
 "tempo. ¿Quere mellor abrilas en\n"
 "forma de colección?"
 
-#: shell/main.c:187
+#: shell/main.c:182
 msgid "Single Windows"
 msgstr "Fiestras individuais"
 
-#: shell/main.c:188
+#: shell/main.c:183
 msgid "Collection"
 msgstr "Colección"
 
-#: shell/main.c:212
+#: shell/main.c:207
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -440,14 +435,14 @@ msgstr ""
 "Está a abrir %i fiestras ao mesmo\n"
 "tempo. ¿Quere continuar?"
 
-#: shell/main.c:295
+#: shell/main.c:290
 #, c-format
 msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
 
-#: shell/main.c:298
+#: shell/main.c:293
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
@@ -455,11 +450,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: shell/main.c:469
+#: shell/main.c:464
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "¡Non foi posible inicializar GnomeVFS!\n"
 
-#: shell/main.c:472
+#: shell/main.c:467
 msgid "Could not initialize Bonobo!\n"
 msgstr "¡Non foi posible inicializar Bonobo!\n"
 
@@ -521,7 +516,7 @@ msgstr "Previsualiza a imaxe que se vai imprimir"
 
 #: viewer/eog-image-view-ui.xml.h:5
 #, fuzzy
-msgid "Print Previe_w.."
+msgid "Print Previe_w..."
 msgstr "Previsualizar impresión"
 
 #: viewer/eog-image-view-ui.xml.h:6
@@ -559,68 +554,68 @@ msgstr "Configura as opcións da páxina para a impresora actual"
 msgid "_Print..."
 msgstr "_Imprimir"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Vista"
 
-#: viewer/eog-image-view.c:266
+#: viewer/eog-image-view.c:270
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Non foi posible gardar a imaxe como '%s': %s"
 
-#: viewer/eog-image-view.c:952
+#: viewer/eog-image-view.c:954
 msgid "Print Image"
 msgstr "Imprimir imaxe"
 
-#: viewer/eog-image-view.c:960
+#: viewer/eog-image-view.c:962
 msgid "Pages"
 msgstr "Páxinas"
 
-#: viewer/eog-image-view.c:1047
+#: viewer/eog-image-view.c:1049
 msgid "Print Preview"
 msgstr "Previsualizar impresión"
 
-#: viewer/eog-image-view.c:1053
+#: viewer/eog-image-view.c:1055
 msgid "Printing of image failed"
 msgstr "A impresión da imaxe fallou"
 
-#: viewer/eog-image-view.c:1868
+#: viewer/eog-image-view.c:1873
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "A_chegar"
 
-#: viewer/eog-image-view.c:1870
+#: viewer/eog-image-view.c:1875
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "A_fastar"
 
-#: viewer/eog-image-view.c:1872
+#: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:1874
+#: viewer/eog-image-view.c:1879
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "Encai_xar na fiestra"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:1882
 #, fuzzy
 msgid "/_Close"
 msgstr "_Pechar"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2008
 msgid "Image Width"
 msgstr "Anchura da imaxe"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2011
 msgid "Image Height"
 msgstr "Altura da imaxe"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2014
 msgid "Window Title"
 msgstr "Título da fiestra"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2017
 msgid "Statusbar Text"
 msgstr "Texto da barra de estado"
 
@@ -796,6 +791,10 @@ msgstr "Para abaixo e logo dereita"
 #: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Para a dereita e logo abaixo"
+
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Slide Show"
+msgstr ""
 
 #~ msgid "_New Window"
 #~ msgstr "_Nova fiestra"
