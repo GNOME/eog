@@ -1,8 +1,16 @@
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Aktualn± wersjê tego pliku mo¿esz odnale¼æ w repozytorium cvs.gnome.pl
+# (:pserver:anonymous@cvs.gnome.pl:/home/cvs, puste has³o)
+# Je¶li masz jakiekolwiek uwagi odnosz±ce siê do t³umaczenia lub chcesz
+# pomóc w jego rozwijaniu i pielêgnowaniu, napisz do nas na adres:
+# translators@gnome.pl
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2001-07-12 21:14+0200\n"
-"PO-Revision-Date: 2001-07-18 20:25+0200\n"
+"POT-Creation-Date: 2001-10-04 22:18+0200\n"
+"PO-Revision-Date: 2001-10-04 22:23+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +52,14 @@ msgid "Background Color:"
 msgstr "Kolor t³a:"
 
 #: collection/eog-collection-view.c:1
+msgid "Send"
+msgstr "Wy¶lij"
+
+#: collection/eog-collection-view.c:1
+msgid "Move to Trash"
+msgstr "Wyrzuæ do ¶mietnika"
+
+#: collection/eog-collection-view.c:1
 msgid "Collection View"
 msgstr "Widok kolekcji"
 
@@ -79,7 +95,8 @@ msgstr "Nie mo¿na zainicjowaæ GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Nie mo¿na zainicjowaæ Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:1
+#: eog.desktop.in.h:1 shell/eog-window.c:1 src/window.c:1 src/window.c:1
+#: src/window.c:1
 msgid "Eye of Gnome"
 msgstr "Oko Gnoma"
 
@@ -87,20 +104,19 @@ msgstr "Oko Gnoma"
 msgid "Image Viewer"
 msgstr "Przegl±darka obrazów"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:1
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:1
 msgid "EOG Image"
 msgstr "Obraz EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
+#: libeog/GNOME_EOG.oaf.in.h:1
 msgid "EOG Image Viewer"
 msgstr "Przegl±darka obrazów EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
+#: libeog/GNOME_EOG.oaf.in.h:1
 msgid "EOG Image viewer factory"
 msgstr "Generator przegl±darki obrazów EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
+#: libeog/GNOME_EOG.oaf.in.h:1
 msgid "Embeddable EOG Image"
 msgstr "Zagnie¿d¼ony obraz EOG"
 
@@ -112,7 +128,7 @@ msgstr "Informacje o aplikacji"
 msgid "Change preferences"
 msgstr "Zmiana preferencji"
 
-#: shell/eog-shell-ui.xml.h:1
+#: shell/eog-shell-ui.xml.h:1 src/tb-image.c:1
 msgid "Close"
 msgstr "Zamknij"
 
@@ -128,7 +144,7 @@ msgstr "Za_koñcz"
 msgid "Exit the program"
 msgstr "Koñczy pracê programu"
 
-#: shell/eog-shell-ui.xml.h:1
+#: shell/eog-shell-ui.xml.h:1 src/tb-image.c:1
 msgid "Open"
 msgstr "Otwórz"
 
@@ -172,11 +188,11 @@ msgstr "_Preferencje"
 msgid "_Settings"
 msgstr "_Ustawienia"
 
-#: shell/eog-window.c:1
+#: shell/eog-window.c:1 src/window.c:1
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:1
+#: shell/eog-window.c:1 src/window.c:1
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program GNOME do przegl±dania oraz katalogowanie obrazków"
 
@@ -200,7 +216,7 @@ msgstr "Oko Gnoma"
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Nie mo¿na odnale¼æ eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:1 shell/eog-window.c:1
+#: shell/eog-window.c:1 shell/eog-window.c:1 src/window.c:1
 msgid "Open Image"
 msgstr "Wybór obrazu do odczytu"
 
@@ -250,10 +266,168 @@ msgstr "Nie mo¿na zainicjowaæ GnomeVFS!\n"
 msgid "Could not initialize Bonobo!\n"
 msgstr "Nie mo¿na zainicjowaæ Bonobo!\n"
 
-#: shell/util.c:1
+#: shell/util.c:1 src/util.c:1
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nie mo¿na otworzyæ \"%s\""
+
+#: src/preferences.c:1
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: src/tb-image.c:1 src/window.c:1
+msgid "Open an image file"
+msgstr "Otwiera plik z obrazem"
+
+#: src/tb-image.c:1 src/window.c:1
+msgid "Close the current window"
+msgstr "Zamyka bie¿±ce okno"
+
+#: src/tb-image.c:1 viewer/eog-print-setup.c:1
+msgid "In"
+msgstr "cal"
+
+#: src/tb-image.c:1
+msgid "Out"
+msgstr "Pomniejsz"
+
+#: src/tb-image.c:1
+msgid "1:1"
+msgstr "1:1"
+
+#: src/tb-image.c:1
+msgid "Fit"
+msgstr "Dopasuj"
+
+#: src/window.c:1
+msgid "_Open Image..."
+msgstr "_Otwóz obraz..."
+
+#: src/window.c:1
+msgid "_Close This Window"
+msgstr "Zam_knij okno"
+
+#: src/window.c:1
+msgid "2:1"
+msgstr "2:1"
+
+#: src/window.c:1
+msgid "3:1"
+msgstr "3:1"
+
+#: src/window.c:1
+msgid "4:1"
+msgstr "4:1"
+
+#: src/window.c:1
+msgid "5:1"
+msgstr "5:1"
+
+#: src/window.c:1
+msgid "6:1"
+msgstr "6:1"
+
+#: src/window.c:1
+msgid "7:1"
+msgstr "7:1"
+
+#: src/window.c:1
+msgid "8:1"
+msgstr "8:1"
+
+#: src/window.c:1
+msgid "9:1"
+msgstr "9:1"
+
+#: src/window.c:1
+msgid "10:1"
+msgstr "10:1"
+
+#: src/window.c:1
+msgid "1:2"
+msgstr "1:2"
+
+#: src/window.c:1
+msgid "1:3"
+msgstr "1:3"
+
+#: src/window.c:1
+msgid "1:4"
+msgstr "1:4"
+
+#: src/window.c:1
+msgid "1:5"
+msgstr "1:5"
+
+#: src/window.c:1
+msgid "1:6"
+msgstr "1:6"
+
+#: src/window.c:1
+msgid "1:7"
+msgstr "1:7"
+
+#: src/window.c:1
+msgid "1:8"
+msgstr "1:8"
+
+#: src/window.c:1
+msgid "1:9"
+msgstr "1:9"
+
+#: src/window.c:1
+msgid "1:10"
+msgstr "1:10"
+
+#: src/window.c:1
+msgid "Zoom In"
+msgstr "Powiêksza"
+
+#: src/window.c:1
+#, c-format
+msgid "Increase zoom factor by 5%%"
+msgstr "Zwiêksza wspó³czynnik powiêkszenia o 5%%"
+
+#: src/window.c:1
+msgid "Zoom Out"
+msgstr "Pomniejsz"
+
+#: src/window.c:1
+#, c-format
+msgid "Decrease zoom factor by 5%%"
+msgstr "Zmniejsza wspó³czynnik powiêkszenia o 5%%"
+
+#: src/window.c:1
+msgid "Zoom _1:1"
+msgstr "Powiêkszenie _1:1"
+
+#: src/window.c:1
+msgid "Display the image at 1:1 scale"
+msgstr "Wy¶wietla obraz w skali 1:1"
+
+#: src/window.c:1
+msgid "_Zoom factor"
+msgstr "_Wspó³czynnik powiêkszenia"
+
+#: src/window.c:1
+msgid "_Fit to Window"
+msgstr "_Dopasuj do okna"
+
+#: src/window.c:1
+msgid "Zoom the image to fit in the window"
+msgstr "Dopasowuje powiêkszenie obrazu do rozmiaru okna"
+
+#: src/window.c:1
+msgid "Full _Screen"
+msgstr "_Pe³ny ekran"
+
+#: src/window.c:1
+msgid "Use the whole screen for display"
+msgstr "Wy¶wietla obraz na pe³nym ekranie"
+
+#: viewer/eog-image.c:1
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Nie mo¿na zainicjowaæ GnomeVFS!\n"
 
 #: viewer/eog-image-view.c:1
 #, c-format
@@ -266,7 +440,7 @@ msgstr "Zapisz jako"
 
 #: viewer/eog-image-view.c:1
 msgid "Print Image"
-msgstr "Drukuj obraz"
+msgstr "Wydrukuj obraz"
 
 #: viewer/eog-image-view.c:1
 msgid "Pages"
@@ -389,10 +563,6 @@ msgid "Save _As"
 msgstr "Zapisz j_ako"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Send"
-msgstr "Wy¶lij"
-
-#: viewer/eog-image-view-ui.xml.h:1
 msgid "Setup the page settings for your current printer"
 msgstr "Modyfikuje ustawienia strony dla aktualnej drukarki"
 
@@ -422,7 +592,7 @@ msgstr "_Bez ditherowania"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "_Print"
-msgstr "_Drukuj"
+msgstr "Wy_drukuj"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "_Tiles Interpolation"
@@ -455,10 +625,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:1
 msgid "centimeter"
 msgstr "centymetr"
-
-#: viewer/eog-print-setup.c:1
-msgid "In"
-msgstr "cal"
 
 #: viewer/eog-print-setup.c:1
 msgid "inch"
@@ -614,7 +780,7 @@ msgid "Nearest Neighbour Interpolation"
 msgstr "Interpolacja do najbli¿szego s±siada"
 
 #: viewer/preferences.c:1
-msgid "Tiltes Interpolation"
+msgid "Tiles Interpolation"
 msgstr "Interpolacja kaflowa"
 
 #: viewer/preferences.c:1
