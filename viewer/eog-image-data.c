@@ -25,7 +25,7 @@ struct _EogImageDataPrivate {
         GdkPixbuf  *pixbuf;
 };
 
-POA_EOG_ImageData__vepv eog_image_data_vepv;
+POA_GNOME_EOG_ImageData__vepv eog_image_data_vepv;
 
 static BonoboObjectClass *eog_image_data_parent_class;
 
@@ -39,12 +39,12 @@ static guint eog_image_data_signals [LAST_SIGNAL];
 /**
  * eog_image_data_get_epv:
  */
-POA_EOG_ImageData__epv *
+POA_GNOME_EOG_ImageData__epv *
 eog_image_data_get_epv (void)
 {
-	POA_EOG_ImageData__epv *epv;
+	POA_GNOME_EOG_ImageData__epv *epv;
 
-	epv = g_new0 (POA_EOG_ImageData__epv, 1);
+	epv = g_new0 (POA_GNOME_EOG_ImageData__epv, 1);
 
 	return epv;
 }
@@ -54,7 +54,7 @@ init_eog_image_data_corba_class (void)
 {
 	/* Setup the vector of epvs */
 	eog_image_data_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	eog_image_data_vepv.EOG_ImageData_epv = eog_image_data_get_epv ();
+	eog_image_data_vepv.GNOME_EOG_ImageData_epv = eog_image_data_get_epv ();
 }
 
 static void
@@ -253,17 +253,17 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,CORBA_En
 	return 0;
 }
 
-EOG_ImageData
+GNOME_EOG_ImageData
 eog_image_data_corba_object_create (BonoboObject *object)
 {
-	POA_EOG_ImageData *servant;
+	POA_GNOME_EOG_ImageData *servant;
 	CORBA_Environment ev;
 	
-	servant = (POA_EOG_ImageData *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_GNOME_EOG_ImageData *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &eog_image_data_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_EOG_ImageData__init ((PortableServer_Servant) servant, &ev);
+	POA_GNOME_EOG_ImageData__init ((PortableServer_Servant) servant, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION){
 		g_free (servant);
 		CORBA_exception_free (&ev);
@@ -271,11 +271,11 @@ eog_image_data_corba_object_create (BonoboObject *object)
 	}
 
 	CORBA_exception_free (&ev);
-	return (EOG_ImageData) bonobo_object_activate_servant (object, servant);
+	return (GNOME_EOG_ImageData) bonobo_object_activate_servant (object, servant);
 }
 
 EogImageData *
-eog_image_data_construct (EogImageData *image_data, EOG_ImageData corba_object)
+eog_image_data_construct (EogImageData *image_data, GNOME_EOG_ImageData corba_object)
 {
 	BonoboPersistStream *stream;
 	BonoboPersistFile *file;
@@ -324,7 +324,7 @@ EogImageData *
 eog_image_data_new (void)
 {
 	EogImageData *image_data;
-	EOG_ImageData corba_object;
+	GNOME_EOG_ImageData corba_object;
 	
 	image_data = gtk_type_new (eog_image_data_get_type ());
 

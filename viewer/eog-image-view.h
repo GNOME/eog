@@ -36,45 +36,71 @@ struct _EogImageViewClass {
 	BonoboObjectClass parent_class;
 };
 
-POA_EOG_ImageView__epv *eog_image_view_get_epv       (void);
+POA_GNOME_EOG_ImageView__epv *
+eog_image_view_get_epv                  (void);
 
-EogImageView       *eog_image_view_new                   (EogImageData       *image_data);
-GtkType             eog_image_view_get_type              (void) G_GNUC_CONST;
+EogImageView *
+eog_image_view_new                      (EogImageData            *image_data);
 
-EOG_ImageView       eog_image_view_corba_object_create   (BonoboObject       *object);
-EogImageView       *eog_image_view_construct             (EogImageView       *image_view,
-							  EOG_ImageView       corba_object,
-							  EogImageData       *image_data);
+GtkType
+eog_image_view_get_type                 (void) G_GNUC_CONST;
 
-EogImageData       *eog_image_view_get_image_data        (EogImageView       *image_view);
-BonoboPropertyBag  *eog_image_view_get_property_bag      (EogImageView       *image_view);
+GNOME_EOG_ImageView
+eog_image_view_corba_object_create      (BonoboObject            *object);
 
-BonoboZoomable     *eog_image_view_get_zoomable          (EogImageView       *image_view);
+EogImageView *
+eog_image_view_construct                (EogImageView            *image_view,
+                                         GNOME_EOG_ImageView      corba_object,
+                                         EogImageData            *image_data);
 
-void                eog_image_view_set_ui_container      (EogImageView       *image_view,
-							  Bonobo_UIContainer  ui_container);
-void                eog_image_view_unset_ui_container    (EogImageView       *image_view);
+EogImageData *
+eog_image_view_get_image_data           (EogImageView            *image_view);
 
-GtkWidget          *eog_image_view_get_widget            (EogImageView       *image_view);
+BonoboPropertyBag *
+eog_image_view_get_property_bag         (EogImageView            *image_view);
 
+BonoboZoomable *
+eog_image_view_get_zoomable             (EogImageView            *image_view);
+
+void
+eog_image_view_set_ui_container         (EogImageView            *image_view,
+                                         Bonobo_UIContainer       ui_container);
+
+void
+eog_image_view_unset_ui_container       (EogImageView            *image_view);
+
+GtkWidget *
+eog_image_view_get_widget               (EogImageView            *image_view);
 
 
 /* Properties */
-void                eog_image_view_set_interpolation     (EogImageView       *image_view,
-							  EOG_Interpolation   interpolation);
-EOG_Interpolation   eog_image_view_get_interpolation     (EogImageView       *image_view);
+void
+eog_image_view_set_interpolation        (EogImageView            *image_view,
+                                         GNOME_EOG_Interpolation  interpolation);
 
-void                eog_image_view_set_dither            (EogImageView       *image_view,
-							  EOG_Dither          dither);
-EOG_Dither          eog_image_view_get_dither            (EogImageView       *image_view);
+GNOME_EOG_Interpolation
+eog_image_view_get_interpolation        (EogImageView            *image_view);
 
-void                eog_image_view_set_check_type        (EogImageView       *image_view,
-							  EOG_CheckType       check_type);
-EOG_CheckType       eog_image_view_get_check_type        (EogImageView       *image_view);
+void
+eog_image_view_set_dither               (EogImageView            *image_view,
+                                         GNOME_EOG_Dither         dither);
 
-void                eog_image_view_set_check_size        (EogImageView       *image_view,
-							  EOG_CheckSize       check_size);
-EOG_CheckSize       eog_image_view_get_check_size        (EogImageView       *image_view);
+GNOME_EOG_Dither
+eog_image_view_get_dither               (EogImageView            *image_view);
+
+void
+eog_image_view_set_check_type           (EogImageView            *image_view,
+                                         GNOME_EOG_CheckType      check_type);
+
+GNOME_EOG_CheckType
+eog_image_view_get_check_type           (EogImageView            *image_view);
+
+void
+eog_image_view_set_check_size           (EogImageView            *image_view,
+                                         GNOME_EOG_CheckSize      check_size);
+
+GNOME_EOG_CheckSize
+eog_image_view_get_check_size           (EogImageView            *image_view);
 
 END_GNOME_DECLS
 

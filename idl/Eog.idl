@@ -1,63 +1,57 @@
 #include <Bonobo.idl>
 
-module EOG {
+module GNOME {
 
-	enum Interpolation {
-		INTERPOLATION_NEAREST,
-		INTERPOLATION_TILES,
-		INTERPOLATION_BILINEAR,
-		INTERPOLATION_HYPERBOLIC
-	};
+	module EOG {
 
-	enum Dither {
-		DITHER_NONE,
-		DITHER_NORMAL,
-		DITHER_MAXIMUM
-	};
+		enum Interpolation {
+			INTERPOLATION_NEAREST,
+			INTERPOLATION_TILES,
+			INTERPOLATION_BILINEAR,
+			INTERPOLATION_HYPERBOLIC
+		};
 
-	enum CheckType {
-		CHECK_TYPE_DARK,
-		CHECK_TYPE_MIDTONE,
-		CHECK_TYPE_LIGHT,
-		CHECK_TYPE_BLACK,
-		CHECK_TYPE_GRAY,
-		CHECK_TYPE_WHITE
-	};
+		enum Dither {
+			DITHER_NONE,
+			DITHER_NORMAL,
+			DITHER_MAXIMUM
+		};
 
-	enum CheckSize {
-		CHECK_SIZE_SMALL,
-		CHECK_SIZE_MEDIUM,
-		CHECK_SIZE_LARGE
-	};
+		enum CheckType {
+			CHECK_TYPE_DARK,
+			CHECK_TYPE_MIDTONE,
+			CHECK_TYPE_LIGHT,
+			CHECK_TYPE_BLACK,
+			CHECK_TYPE_GRAY,
+			CHECK_TYPE_WHITE
+		};
 
-	interface ImageData : Bonobo::Unknown {
-		/* This is just a handle to a pixbuf plus a loader
-		 * context and stuff; can be hydrated from a
-		 * PersistStream.  It may emit signals via a listener
-		 * to notify the world of regions of an image being
-		 * loaded or updated.
-		 */
-	};
+		enum CheckSize {
+			CHECK_SIZE_SMALL,
+			CHECK_SIZE_MEDIUM,
+			CHECK_SIZE_LARGE
+		};
 
-	interface ImageView : Bonobo::Unknown {
-		/* This is an actual EOG image view */
+		interface ImageData : Bonobo::Unknown {
+			/* This is just a handle to a pixbuf plus a loader
+			 * context and stuff; can be hydrated from a
+			 * PersistStream.  It may emit signals via a listener
+			 * to notify the world of regions of an image being
+			 * loaded or updated.
+			 */
+		};
 
-		ImageData get_image_data ();
+		interface ImageView : Bonobo::Unknown {
+			/* This is an actual EOG image view */
 
-		void set_ui_container (in Bonobo::UIContainer ui_container);
-		void unset_ui_container ();
+			ImageData getImageData ();
 
-		Bonobo::PropertyBag get_property_bag ();
+			void setUIContainer (in Bonobo::UIContainer ui_container);
+			void unsetUIContainer ();
 
-		Bonobo::Zoomable get_zoomable ();
-	};
+			Bonobo::PropertyBag getPropertyBag ();
 
-	interface Control : Bonobo::Control {
-	};
-
-	interface Embeddable : Bonobo::Embeddable {
-	};
-
-	interface EmbeddableView : Bonobo::View {
+			Bonobo::Zoomable getZoomable ();
+		};
 	};
 };

@@ -30,27 +30,35 @@ typedef struct _EogImageDataClass    EogImageDataClass;
 typedef struct _EogImageDataPrivate  EogImageDataPrivate;
 
 struct _EogImageData {
-	BonoboObject object;
+        BonoboObject object;
 
-	EogImageDataPrivate *priv;
+        EogImageDataPrivate *priv;
 };
 
 struct _EogImageDataClass {
-	BonoboObjectClass parent_class;
+        BonoboObjectClass parent_class;
 
-	void (*set_image)                            (EogImageData    *image_data);
+        void (*set_image)               (EogImageData            *image_data);
 };
 
-POA_EOG_ImageData__epv *eog_image_data_get_epv       (void);
+POA_GNOME_EOG_ImageData__epv *
+eog_image_data_get_epv                  (void);
 
-EogImageData   *eog_image_data_new                   (void);
-GtkType         eog_image_data_get_type              (void) G_GNUC_CONST;
+EogImageData *
+eog_image_data_new                      (void);
 
-EOG_ImageData   eog_image_data_corba_object_create   (BonoboObject    *object);
-EogImageData   *eog_image_data_construct             (EogImageData    *image_data,
-					              EOG_ImageData    corba_object);
+GtkType
+eog_image_data_get_type                 (void) G_GNUC_CONST;
 
-Image          *eog_image_data_get_image             (EogImageData    *image_data);
+GNOME_EOG_ImageData
+eog_image_data_corba_object_create      (BonoboObject            *object);
+
+EogImageData
+*eog_image_data_construct               (EogImageData            *image_data,
+                                         GNOME_EOG_ImageData      corba_object);
+
+Image *
+eog_image_data_get_image                (EogImageData            *image_data);
 
 END_GNOME_DECLS
 

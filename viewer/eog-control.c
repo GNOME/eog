@@ -26,7 +26,7 @@ struct _EogControlPrivate {
 	GtkWidget          *root;
 };
 
-POA_EOG_Control__vepv eog_control_vepv;
+POA_Bonobo_Control__vepv eog_control_vepv;
 
 static BonoboControlClass *eog_control_parent_class;
 
@@ -157,17 +157,17 @@ eog_control_get_type (void)
 	return type;
 }
 
-EOG_Control
+Bonobo_Control
 eog_control_corba_object_create (BonoboObject *object)
 {
-	POA_EOG_Control *servant;
+	POA_Bonobo_Control *servant;
 	CORBA_Environment ev;
 	
-	servant = (POA_EOG_Control *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_Bonobo_Control *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &eog_control_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_EOG_Control__init ((PortableServer_Servant) servant, &ev);
+	POA_Bonobo_Control__init ((PortableServer_Servant) servant, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION){
 		g_free (servant);
 		CORBA_exception_free (&ev);
@@ -175,7 +175,7 @@ eog_control_corba_object_create (BonoboObject *object)
 	}
 
 	CORBA_exception_free (&ev);
-	return (EOG_Control) bonobo_object_activate_servant (object, servant);
+	return (Bonobo_Control) bonobo_object_activate_servant (object, servant);
 }
 
 static const gchar *image_data_interfaces[] = {
@@ -205,7 +205,7 @@ eog_control_add_interfaces (EogControl *control, BonoboObject *query_this, const
 }
 
 EogControl *
-eog_control_construct (EogControl *control, EOG_Control corba_object, EogImageData *image_data)
+eog_control_construct (EogControl *control, Bonobo_Control corba_object, EogImageData *image_data)
 {
 	BonoboControl *retval;
 
@@ -241,7 +241,7 @@ EogControl *
 eog_control_new (EogImageData *image_data)
 {
 	EogControl *control;
-	EOG_Control corba_object;
+	Bonobo_Control corba_object;
 	
 	g_return_val_if_fail (image_data != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);

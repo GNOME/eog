@@ -22,7 +22,7 @@ struct _EogEmbeddablePrivate {
 	EogImageData       *image_data;
 };
 
-POA_EOG_Embeddable__vepv eog_embeddable_vepv;
+POA_Bonobo_Embeddable__vepv eog_embeddable_vepv;
 
 static BonoboEmbeddableClass *eog_embeddable_parent_class;
 
@@ -109,17 +109,17 @@ eog_embeddable_get_type (void)
 	return type;
 }
 
-EOG_Embeddable
+Bonobo_Embeddable
 eog_embeddable_corba_object_create (BonoboObject *object)
 {
-	POA_EOG_Embeddable *servant;
+	POA_Bonobo_Embeddable *servant;
 	CORBA_Environment ev;
 	
-	servant = (POA_EOG_Embeddable *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_Bonobo_Embeddable *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &eog_embeddable_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_EOG_Embeddable__init ((PortableServer_Servant) servant, &ev);
+	POA_Bonobo_Embeddable__init ((PortableServer_Servant) servant, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION){
 		g_free (servant);
 		CORBA_exception_free (&ev);
@@ -127,7 +127,7 @@ eog_embeddable_corba_object_create (BonoboObject *object)
 	}
 
 	CORBA_exception_free (&ev);
-	return (EOG_Embeddable) bonobo_object_activate_servant (object, servant);
+	return (Bonobo_Embeddable) bonobo_object_activate_servant (object, servant);
 }
 
 static const gchar *image_data_interfaces[] = {
@@ -170,7 +170,8 @@ eog_embeddable_add_interfaces (EogEmbeddable *embeddable, BonoboObject *query_th
 }
 
 EogEmbeddable *
-eog_embeddable_construct (EogEmbeddable *embeddable, EOG_Embeddable corba_object,
+eog_embeddable_construct (EogEmbeddable *embeddable,
+			  Bonobo_Embeddable corba_object,
 			  EogImageData *image_data)
 {
 	BonoboEmbeddable *retval;
@@ -200,7 +201,7 @@ EogEmbeddable *
 eog_embeddable_new (EogImageData *image_data)
 {
 	EogEmbeddable *embeddable;
-	EOG_Embeddable corba_object;
+	Bonobo_Embeddable corba_object;
 	
 	g_return_val_if_fail (image_data != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);

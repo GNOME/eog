@@ -36,13 +36,19 @@ struct _EogEmbeddableViewClass {
 	BonoboViewClass parent_class;
 };
 
-EogEmbeddableView   *eog_embeddable_view_new                   (EogImageData         *image_data);
-GtkType              eog_embeddable_view_get_type              (void) G_GNUC_CONST;
+EogEmbeddableView *
+eog_embeddable_view_new                 (EogImageData            *image_data);
 
-EOG_EmbeddableView   eog_embeddable_view_corba_object_create   (BonoboObject         *object);
-EogEmbeddableView   *eog_embeddable_view_construct             (EogEmbeddableView    *embeddable_view,
-								EOG_EmbeddableView    corba_object,
-								EogImageData         *image_data);
+GtkType
+eog_embeddable_view_get_type            (void) G_GNUC_CONST;
+
+Bonobo_View
+eog_embeddable_view_corba_object_create (BonoboObject            *object);
+
+EogEmbeddableView *
+eog_embeddable_view_construct           (EogEmbeddableView       *embeddable_view,
+                                         Bonobo_View              corba_object,
+                                         EogImageData            *image_data);
 
 END_GNOME_DECLS
 

@@ -26,7 +26,7 @@ struct _EogEmbeddableViewPrivate {
 	GtkWidget          *root;
 };
 
-POA_EOG_EmbeddableView__vepv eog_embeddable_view_vepv;
+POA_Bonobo_View__vepv eog_embeddable_view_vepv;
 
 static BonoboViewClass *eog_embeddable_view_parent_class;
 
@@ -158,17 +158,17 @@ eog_embeddable_view_get_type (void)
 	return type;
 }
 
-EOG_EmbeddableView
+Bonobo_View
 eog_embeddable_view_corba_object_create (BonoboObject *object)
 {
-	POA_EOG_EmbeddableView *servant;
+	POA_Bonobo_View *servant;
 	CORBA_Environment ev;
 	
-	servant = (POA_EOG_EmbeddableView *) g_new0 (BonoboObjectServant, 1);
+	servant = (POA_Bonobo_View *) g_new0 (BonoboObjectServant, 1);
 	servant->vepv = &eog_embeddable_view_vepv;
 
 	CORBA_exception_init (&ev);
-	POA_EOG_EmbeddableView__init ((PortableServer_Servant) servant, &ev);
+	POA_Bonobo_View__init ((PortableServer_Servant) servant, &ev);
 	if (ev._major != CORBA_NO_EXCEPTION){
 		g_free (servant);
 		CORBA_exception_free (&ev);
@@ -176,7 +176,7 @@ eog_embeddable_view_corba_object_create (BonoboObject *object)
 	}
 
 	CORBA_exception_free (&ev);
-	return (EOG_EmbeddableView) bonobo_object_activate_servant (object, servant);
+	return (Bonobo_View) bonobo_object_activate_servant (object, servant);
 }
 
 static const gchar *embeddable_view_interfaces[] = {
@@ -200,7 +200,8 @@ eog_embeddable_view_add_interfaces (EogEmbeddableView *embeddable_view, BonoboOb
 }
 
 EogEmbeddableView *
-eog_embeddable_view_construct (EogEmbeddableView *embeddable_view, EOG_EmbeddableView corba_object,
+eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
+			       Bonobo_View corba_object,
 			       EogImageData *image_data)
 {
 	BonoboView *retval;
@@ -236,7 +237,7 @@ EogEmbeddableView *
 eog_embeddable_view_new (EogImageData *image_data)
 {
 	EogEmbeddableView *embeddable_view;
-	EOG_EmbeddableView corba_object;
+	Bonobo_View corba_object;
 	
 	g_return_val_if_fail (image_data != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
