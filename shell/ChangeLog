@@ -1,3 +1,9 @@
+2001-12-27  Jens Finke <jens@triq.net>
+
+	* Makefile.am (eog_LDADD): Removed $(INTLLIBS). Link the static
+	eog library with -leog. This reduces the link time a lot.
+	(eog_DEPENDENCIES): Added dependency to libeog.a.
+
 2001-12-06  Jens Finke <jens@triq.net>
 
 	* README: Removed it, it's totally outdated.

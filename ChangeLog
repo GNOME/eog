@@ -1,3 +1,11 @@
+2001-12-27  Jens Finke <jens@triq.net>
+
+	* configure.in: Removed AM_PROG_LIBTOOL. We just build a
+	convinience library in libeog/ and don't need libtool for this.  
+
+	* Makefile.am (SUBDIRS): Don't visit collection/ dir. This isn't
+	ready for gnome2 and needs more porting effort.
+	
 2001-12-27  Duarte Loreto <happyguy_pt@hotmail.com>
 
         * configure.in: Added portuguese to ALL_LINGUAS

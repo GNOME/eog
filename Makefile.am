@@ -1,4 +1,4 @@
-SUBDIRS = art idl libeog viewer doc shell collection po
+SUBDIRS = art idl libeog viewer doc shell po
 
 EXTRA_DIST =			\
 	DEPENDS			\

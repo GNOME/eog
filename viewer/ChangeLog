@@ -1,3 +1,10 @@
+2001-12-27  Jens Finke <jens@triq.net>
+
+	* Makefile.am (eog_iamge_viewer_LDADD): Removed $(INTLLIBS). Link
+	the static eog library with -leog. This reduces the link time a
+	lot.
+	(eog_image_viewer_DEPENDENCIES): Added dependency to libeog.a.
+
 2001-12-26  Jens Finke <jens@triq.net>
 
 	* .cvsignore: Added *~ and ~.o.

@@ -43,11 +43,13 @@ eog_image_viewer_SOURCES =	\
 #	 eog-embeddable-view.c	\
 #	 eog-embeddable-view.h	\
 
+eog_image_viewer_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+
 eog_image_viewer_LDADD = 			\
+	-L$(top_builddir)/libeog		\
+	-leog					\
 	$(EOG_LIBS)				\
-	$(INTLLIBS)				\
-	$(LIBPNG) $(LIBJPEG)			\
-	../libeog/libeog.la
+	$(LIBPNG) $(LIBJPEG)
 
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml

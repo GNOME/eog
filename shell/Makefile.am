@@ -1,4 +1,3 @@
-
 INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-I. 						\
@@ -7,12 +6,12 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
-	$(EOG_CFLAGS)				\
+	$(EOG_CFLAGS)					\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog
 
-eog_SOURCES =	\
+eog_SOURCES =			\
 	eog-window.h		\
 	eog-window.c		\
 	eog-preferences.h	\
@@ -21,10 +20,12 @@ eog_SOURCES =	\
 	util.h			\
 	util.c
 
-eog_LDADD = 	\
-	$(EOG_LIBS)	\
-	$(INTLLIBS)		\
-	../libeog/libeog.la
+eog_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+
+eog_LDADD = 				\
+	-L$(top_builddir)/libeog 	\
+	$(EOG_LIBS)			\
+	-leog
 
 uidir = $(datadir)/gnome-2.0/ui
 UI_FILES = eog-shell-ui.xml 
