@@ -786,6 +786,7 @@ real_image_load (gpointer data)
 #endif
 
 	g_assert (priv->image == NULL);
+	g_assert (priv->exif == NULL);
 
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
@@ -839,13 +840,6 @@ real_image_load (gpointer data)
 	gnome_vfs_close (handle);
 	
 	g_mutex_lock (priv->status_mutex);
-
-#if HAVE_EXIF
-	if (priv->exif != NULL) {
-		exif_data_unref (priv->exif);
-		priv->exif = NULL;
-	}
-#endif
 
 	if (failed) {
 		if (priv->image != NULL) {
@@ -1216,6 +1210,13 @@ eog_image_free_mem (EogImage *img)
 		gdk_pixbuf_unref (priv->image);
 		priv->image = NULL;
 	}
+
+#if HAVE_EXIF
+	if (priv->exif != NULL) {
+		exif_data_unref (priv->exif);
+		priv->exif = NULL;
+	}
+#endif
 }
 
 const gchar*        

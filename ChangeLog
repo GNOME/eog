@@ -1,5 +1,11 @@
 2003-03-13  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image.c (real_image_load): Assert that exif attribute
+	is NULL on load.
+	(eog_image_free_mem): Free exif info too.
+
+2003-03-13  Jens Finke  <jens@triq.net>
+
 	Added optional libexif support to read information stored in the
 	images by digital cameras.
 
