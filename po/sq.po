@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-21 10:45+0200\n"
-"PO-Revision-Date: 2004-10-21 16:13+0200\n"
+"POT-Creation-Date: 2004-10-25 03:38+0200\n"
+"PO-Revision-Date: 2004-10-25 10:07+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -89,8 +89,8 @@ msgid "Destination Folder:"
 msgstr "Kartela e destinuar:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Preferimet e Eye of Gnome"
+msgid "Eye of GNOME Preferences"
+msgstr "Preferimet e Eye of GNOME"
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -205,22 +205,30 @@ msgid "Open images in a new window"
 msgstr "Hap figurat në një dritare të re"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Shfaq/fshih informacionet e figurës për koleksion."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "Shfaq/fshih informacionet e figurës për figurat e vetme."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Shfaq/fshih menunë e gjendjes së dritares."
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Shfaq/fshih menunë e instrumentëve të dritares."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Ngjyrë e tejdukshme"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Treguesi i transparencës"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -228,11 +236,11 @@ msgstr ""
 "Nëse sa herë të hapet një figurë duhet krijuar një dritare e re dhe jo të "
 "zevëndësohet figura në dritaren aktuale."
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Kur dhe kur jo sekuenca e figurave duhet shfaqur në një cikël të pafund."
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -366,10 +374,10 @@ msgstr "Opcion jo në dispozicion."
 #: libeog/eog-save-as-dialog-helper.c:138
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
 "Për të përdorur këtë funksion ju nevoitet libraria libexif. Instalo libexif "
-"(http://libexif.sf.net) dhe rikompilo Eye of Gnome."
+"(http://libexif.sf.net) dhe rikompilo Eye of GNOME."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
@@ -436,10 +444,10 @@ msgstr "Sekonda"
 msgid "translator-credits"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:497
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
+#: shell/main.c:520
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -448,212 +456,236 @@ msgstr "Programi i shfaqjes dhe katallogimit të figurave për GNOME."
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"Nuk arrij të vizualizoj ndihmën për Eye of Gnome.\n"
+"E pamundur hapja e ndihmës për Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Mbishkruaj file %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "File ekziston. Dëshironi t'a mbishkruani?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Kapërce"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Mbishkruaj"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Gabim gjatë ruajtjes së %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Anullo"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "I pamundur përcaktimi i formatit të file për %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Ju lutem përdorni një prapashtesë të pranueshme për emrin e e file ose "
 "zgjidh një nga formatet në dispozicion."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Gabim gjatë ruajtjes së figurave."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Me të vërtetë dëshironi të hidhni %i figurë në kosh?"
 msgstr[1] "Me të vërtetë dëshironi të hidhni %i figura në kosh?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Nuk kam hyrje në kosh."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Gabim gjatë fshirjes së figurës %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i pixel  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_File"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "_Ndrysho"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "_Shfaq"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_Ndihmë"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_E re"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Hap një dritare të re"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Hap..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Hap një file"
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open _Folder..."
 msgstr "Hap _kartelën..."
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open a folder"
 msgstr "Hap një kartelë"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "_Mbyll"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Mbyll dritaren"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "Preferi_met"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "Preferimet për Eye of Gnome"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "Preferimet për Eye of GNOME"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Përmbajtja"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Ndihmë në këtë program"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "_Informacione"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "Informacione mbi këtë program"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "_Paneli i instrumentëve"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Ndryshon dukshmërinë e shtyllës së instrumentëve në dritaren aktuale"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "_Shtylla e gjëndjes"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Ndryshon dukshmërinë e panelit të gjëndjes në dritaren aktuale"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_Ruaj"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "Ruaj _Si"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "_Anullo"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Përmbyse _Horizontalisht"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Përmbyse _Vertikalisht"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "_Rrotullim Orar"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Rrotullo numëruesin në drejtim o_rar"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Rrotulloj_e 180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Elemino"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "Ekran i _Plotë"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "_Zmadho"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "Z_vogëlo"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "Madhësia _Normale"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "Për_shtate"
 
-#: shell/main.c:235
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "_Informacionet e figurës"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Ndryshon dushmërinë e panelit të informacioneve në dritaren aktuale"
+
+#: shell/eog-window.c:2374
+msgid "User interface description not found."
+msgstr "Përshkrimi i interfaqes së përdoruesit nuk u gjet."
+
+#: shell/main.c:67
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "I pamundur krijimi i interfaqes së përdoruesit të Eye of GNOME"
+
+#: shell/main.c:258
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -662,19 +694,19 @@ msgstr ""
 "Jeni duke hapur %i dritare njëkohësisht. Dëshironi t'i hapni ato përkundrazi "
 "në formën e një koleksioni?"
 
-#: shell/main.c:239
+#: shell/main.c:262
 msgid "Open multiple single windows?"
 msgstr "Hap dritare të vetme shumëfishe?"
 
-#: shell/main.c:243
+#: shell/main.c:266
 msgid "Single Windows"
 msgstr "Dritare të Vetme"
 
-#: shell/main.c:245
+#: shell/main.c:268
 msgid "Collection"
 msgstr "Koleksioni"
 
-#: shell/main.c:297
+#: shell/main.c:320
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "File nuk u gjet."
