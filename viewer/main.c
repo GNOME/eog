@@ -49,8 +49,6 @@ bonobo_object_destroy_cb (BonoboObject *object, bonobo_object_data_t *bonobo_obj
 	g_return_if_fail (EOG_IS_CONTROL (object));
 	g_return_if_fail (bonobo_object_data != NULL);
 
-	g_message ("bonobo_object_destroy_cb: %p", object);
-
 	g_free (bonobo_object_data);
 
 	running_objects--;
@@ -70,8 +68,6 @@ eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id, void 
 
 	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (this->goad_id != NULL, NULL);
-
-	g_message ("eog_image_viewer_factory - `%s' - %d", this->goad_id, getpid ());
 
 	bonobo_object_data = g_new0 (bonobo_object_data_t, 1);
 

@@ -160,8 +160,6 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 	Bonobo_Stream_iobuf  *buffer;
 	CORBA_long            len;
 
-	g_message ("load_image_from_stream");
-
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_DATA (data));
 
@@ -227,8 +225,6 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,CORBA_En
 		      void *closure)
 {
 	EogImageData *image_data;
-
-	g_message ("load_image_from_file: `%s'", filename);
 
 	g_return_val_if_fail (closure != NULL, -1);
 	g_return_val_if_fail (EOG_IS_IMAGE_DATA (closure), -1);

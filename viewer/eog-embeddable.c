@@ -149,8 +149,6 @@ eog_embeddable_view_factory (BonoboEmbeddable *object, const Bonobo_ViewFrame vi
 
 	embeddable = EOG_EMBEDDABLE (object);
 
-	g_message ("eog_embeddable_view_factory");
-
 	view = eog_embeddable_view_new (embeddable->priv->image_data);
 
 	return BONOBO_VIEW (view);
