@@ -297,16 +297,15 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 void
 uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 {
-	ArtUtaBBox *utiles;
-	ArtUtaBBox bb;
+	ArtUtaBbox *utiles;
+	ArtUtaBbox bb;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	int clip_x1, clip_y1, clip_x2, clip_y2;
-	int x, y;
 	int ofs;
 	int xf1, yf1, xf2, yf2;
 
-	g_return_val_if_fail (x1 < x2);
-	g_return_val_if_fail (y1 < y2);
+	g_return_if_fail (x1 < x2);
+	g_return_if_fail (y1 < y2);
 
 	rect_x1 = x1 >> ART_UTILE_SHIFT;
 	rect_y1 = y1 >> ART_UTILE_SHIFT;
