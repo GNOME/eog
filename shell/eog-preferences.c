@@ -198,7 +198,7 @@ eog_preferences_construct (EogPreferences *preferences,
 	preferences->priv->window = window;
 	g_object_ref (window);
 
-	gtk_window_set_resizable (GTK_WINDOW (preferences), FALSE)
+	gtk_window_set_resizable (GTK_WINDOW (preferences), FALSE);
 
 	gtk_window_set_title (GTK_WINDOW (preferences), _("Eye of Gnome Preferences"));
 	gtk_dialog_add_buttons (GTK_DIALOG (preferences),
