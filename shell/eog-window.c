@@ -692,7 +692,7 @@ eog_window_construct (EogWindow *window)
 	bonobo_ui_component_set_container (priv->ui_comp, 
 					   BONOBO_OBJREF (ui_container), NULL);
 
-	bonobo_ui_util_set_ui (priv->ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
+	bonobo_ui_util_set_ui (priv->ui_comp, DATADIR, "eog-shell-ui.xml", "EOG", NULL);
 	bonobo_ui_component_add_verb_list_with_data (priv->ui_comp, eog_app_verbs, window);
 
 	/* add statusbar */
