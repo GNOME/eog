@@ -755,7 +755,7 @@ listener_cb (BonoboListener *listener,
 	g_print ("listener_cb(): %s\n", event_name);
 
 	priv = window->priv;
-	if (!strcmp (event_name, "GNOME/FileSelector:Activate:File")) {
+	if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Action")) {
 		char *uri = BONOBO_ARG_GET_STRING (any);
 		gtk_widget_hide (priv->file_sel);
 
@@ -770,6 +770,8 @@ listener_cb (BonoboListener *listener,
 			open_failure_dialog (GTK_WINDOW (window), uri);
 		
 		g_free (uri);
+	} else if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Cancel")) {
+		gtk_widget_hide (priv->file_sel);
 	}
 }
 
