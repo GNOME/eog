@@ -1,5 +1,14 @@
 2004-09-26  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-full-screen.c (show_nth_image): New function.
+	(prepare_data): Set first_iter always to the first iter of the 
+	image list.
+	(eog_full_screen_key_press): Enable Pos1 and End keys to switch
+	 to start/end of the slideshow. Enable PageDown and PageUp keys 
+	for browsing to next/previous image.
+
+2004-09-26  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image.h,
 	* libeog/eog-image.c (eog_image_get_uri_for_display): New function.
 

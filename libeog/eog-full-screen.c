@@ -219,6 +219,54 @@ eog_full_screen_hide (GtkWidget *widget)
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
 }
 
+static void 
+show_nth_image (EogFullScreen *fs, unsigned int nth)
+{
+	EogFullScreenPrivate *priv;
+	EogImage *image;
+	EogIter *iter_copy;
+	EogIter *nth_iter;
+	gboolean success = FALSE;
+	
+	priv = fs->priv;
+
+	/* point the current iterator to the nth image of the list */
+	nth_iter = eog_image_list_get_iter_by_pos (priv->list, nth);
+
+	if (nth_iter != NULL) {
+		if (priv->current != NULL) {
+			g_free (priv->current);
+		}
+		priv->current = nth_iter;
+
+		/* view nth image */
+		image = eog_image_list_get_img_by_iter (priv->list, priv->current);
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+		priv->switch_time_counter = 0;
+		g_object_unref (image);
+	}
+	else {
+		/* quit diashow */
+		gtk_widget_hide (GTK_WIDGET (fs));
+		return;
+	}
+
+	/* preload next image in current direction */
+	iter_copy = eog_image_list_iter_copy (priv->list, priv->current);
+	if (priv->direction == EOG_DIRECTION_FORWARD) {
+		success = eog_image_list_iter_next (priv->list, iter_copy, TRUE);
+	}
+	else {
+		success = eog_image_list_iter_prev (priv->list, iter_copy, TRUE);
+	}
+
+	if (success) {
+		prepare_load_image (fs, iter_copy);
+	}
+
+	g_free (iter_copy);	
+}
+
 static void
 show_next_image (EogFullScreen *fs)
 {
@@ -313,6 +361,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_space:
 	case GDK_Right:
 	case GDK_Down:
+	case GDK_Page_Down:
 		if (eog_image_list_length (priv->list) > 1) {
 			priv->direction = EOG_DIRECTION_FORWARD;
 
@@ -329,6 +378,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_BackSpace:
 	case GDK_Left:
 	case GDK_Up:
+	case GDK_Page_Up:
 		if (eog_image_list_length (priv->list) > 1) {
 			priv->direction = EOG_DIRECTION_BACKWARD;
 
@@ -336,6 +386,19 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 			handled = TRUE;
 		}
 		break;
+
+	case GDK_Home:
+		if (eog_image_list_length (priv->list) > 1) {
+			show_nth_image (fs, 0);
+			handled = TRUE;
+		}
+		break;
+
+	case GDK_End:
+		if (eog_image_list_length (priv->list) > 1) {
+			show_nth_image (fs, eog_image_list_length (priv->list) - 1);
+			handled = TRUE;
+		}
 	};
 	
 	if (do_hide) {
@@ -594,7 +657,7 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 	}
 	else {
 		priv->direction = EOG_DIRECTION_FORWARD;
-		priv->first_iter = eog_image_list_iter_copy (image_list, priv->current);
+		priv->first_iter = eog_image_list_get_first_iter (image_list);
 		priv->first_image = TRUE;
 		prepare_load_image (fs, priv->current);
 	}
