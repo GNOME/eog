@@ -349,18 +349,25 @@ static gint
 handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data)
 {
 	EogWrapList *wlist;
-	EogCollectionModel *model;
+	EogWrapListPrivate *priv;
 
 	g_return_val_if_fail (data != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (data), FALSE);
 
 	wlist = EOG_WRAP_LIST (data);
-	model = wlist->priv->model;
-	if (model == NULL) return FALSE;
+	priv = wlist->priv;
 
-	deselect_all (wlist);
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-	wlist->priv->last_item_clicked = NULL;
+	if (priv->n_selected_items > 1) {
+		EogCollectionItem *item;
+
+		item = EOG_COLLECTION_ITEM (priv->selected_items->data);
+
+		deselect_all (wlist);
+		set_select_status (wlist, item, TRUE);
+		
+		g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+		wlist->priv->last_item_clicked = GNOME_CANVAS_ITEM (item);
+	}
 	
 	return TRUE;
 }
@@ -480,27 +487,6 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 	return ret_val;
 }
 
-#if 0
-/* Size_request handler for the abstract wrapped list view */
-static void
-eog_wrap_list_size_request (GtkWidget *widget, GtkRequisition *requisition)
-{
-	EogWrapList *wlist;
-	EogWrapListPrivate *priv;
-	int border_width;
-
-	wlist = EOG_WRAP_LIST (widget);
-	priv = wlist->priv;
-
-	gtk_widget_size_request (GTK_WIDGET (wlist), requisition);
-
-	border_width = GTK_CONTAINER (widget)->border_width;
-
-	requisition->width += 2 * border_width;
-	requisition->height += 2 * border_width;
-}
-#endif
-
 /* Size_allocate handler for the abstract wrapped list view */
 static void
 eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
@@ -562,6 +548,13 @@ model_prepared (EogCollectionModel *model, gpointer data)
 	
 	for (it = priv->view_order; it != NULL; it = it->next) {
 		eog_collection_item_load (EOG_COLLECTION_ITEM (it->data));
+	}
+
+	if (priv->view_order != NULL) {
+		deselect_all (wlist);
+		if (set_select_status (wlist, EOG_COLLECTION_ITEM (priv->view_order->data), TRUE)) {
+			g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+		}
 	}
 }
 

@@ -92,6 +92,9 @@ eog_collection_model_get_image              (EogCollectionModel *model,
 gchar*
 eog_collection_model_get_base_uri           (EogCollectionModel *model);
 
+GList*
+eog_collection_model_get_image_list         (EogCollectionModel *model);
+
 G_END_DECLS
 
 #endif /* EOG_COLLECTION_MODEL_H */

@@ -7,7 +7,7 @@
  *   Jens Finke (jens@gnome.org)
  *
  * Copyright 2000 SuSE GmbH.
- * Copyright 2001 The Free Software Foundation
+ * Copyright 2001-2003 The Free Software Foundation
  */
 #include <config.h>
 #include <stdio.h>
@@ -30,6 +30,7 @@
 #include <bonobo/bonobo-control.h>
 #include <bonobo/bonobo-property-bag.h>
 #include <bonobo/bonobo-zoomable.h>
+#include <bonobo/bonobo-ui-util.h>
 
 #include "eog-wrap-list.h"
 #include "eog-scroll-view.h"
@@ -127,7 +128,7 @@ eog_collection_view_create_ui (EogCollectionView *view)
 						     view);
 }
 
-void
+static void
 eog_collection_view_set_ui_container (EogCollectionView      *list_view,
 				      Bonobo_UIContainer ui_container)
 {
@@ -140,7 +141,7 @@ eog_collection_view_set_ui_container (EogCollectionView      *list_view,
 	eog_collection_view_create_ui (list_view);
 }
 
-void
+static void
 eog_collection_view_unset_ui_container (EogCollectionView *list_view)
 {
 	g_return_if_fail (list_view != NULL);
@@ -274,6 +275,8 @@ handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event,
 			event->button.button, event->button.time);
 
 	return (TRUE);
+#else
+	return FALSE;
 #endif
 }
 
@@ -470,6 +473,7 @@ layout_changed_cb (GConfClient *client, guint cnxn_id,
 static void
 init_gconf_defaults (EogCollectionView *view)
 {
+#if 0
 	EogCollectionViewPrivate *priv = NULL;
 	gint layout;
 	GSList *l;
@@ -479,7 +483,6 @@ init_gconf_defaults (EogCollectionView *view)
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
 	
 	priv = view->priv;
-#if 0
 
 	/* Make sure GConf is initialized */
 	if (!gconf_is_initialized ())
@@ -511,10 +514,12 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	     CORBA_Environment *ev, void *closure)
 {
 	EogCollectionViewPrivate *priv;
-	
-	priv = EOG_COLLECTION_VIEW (closure)->priv;
+	EogCollectionView *view;
 
-	if (text_uri == CORBA_OBJECT_NIL) return;
+	view = EOG_COLLECTION_VIEW (closure);
+	priv = view->priv;
+
+	if (text_uri == CORBA_OBJECT_NIL) return 0;
 
 	if (priv->model == NULL) {
 		priv->model = eog_collection_model_new ();
@@ -556,21 +561,18 @@ create_user_interface (EogCollectionView *list_view)
 
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
+	g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL);
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
-	priv->model = eog_collection_model_new ();
-	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
+	g_object_set (G_OBJECT (priv->wraplist), 
+		      "height_request", 200, 
+		      "width_request", 500,
+		      NULL);
 	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	g_signal_connect (G_OBJECT (priv->wraplist), "selection_changed",
 			  G_CALLBACK (handle_selection_changed), list_view);
-/*
-	g_signal_connect (G_OBJECT (priv->wraplist), "double_click", 
-			  G_CALLBACK (handle_double_click), list_view);
-	g_signal_connect (G_OBJECT (priv->wraplist), "right_click",
-			  G_CALLBACK (handle_right_click), list_view);
-*/
 
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
@@ -589,12 +591,11 @@ create_user_interface (EogCollectionView *list_view)
 }
 
 
-EogCollectionView *
+static EogCollectionView *
 eog_collection_view_construct (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv = NULL;
 	BonoboControl *control;
-	BonoboZoomable *zoomable;
 	GtkWidget *root;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
@@ -621,10 +622,10 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,
 						      eog_collection_view_set_prop,
 						      list_view);
-	bonobo_property_bag_add (priv->property_bag, property_name[0], PROP_WINDOW_TITLE,
+	bonobo_property_bag_add (priv->property_bag, property_name[PROP_WINDOW_TITLE], PROP_WINDOW_TITLE,
 				 BONOBO_ARG_STRING, NULL, _("Window Title"),
 				 BONOBO_PROPERTY_READABLE);
-	bonobo_property_bag_add (priv->property_bag, property_name[1], PROP_WINDOW_STATUS,
+	bonobo_property_bag_add (priv->property_bag, property_name[PROP_WINDOW_STATUS], PROP_WINDOW_STATUS,
 				 BONOBO_ARG_STRING, NULL, _("Status Text"),
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 

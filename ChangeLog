@@ -1,3 +1,25 @@
+2003-03-06  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-item.c (thumnail_finished_cb),
+	(ensure_max_string_width): Removed unused variables.
+
+	* collection/eog-collection-model.[ch]
+	(eog_collection_model_get_image_list): New function.
+
+	* collection/eog-collection-view.c: Fixed some minor compile
+	warnings.
+	(create_user_interface): Set default size for wrap list and image
+	view widgets.
+
+	* collection/eog-wrap-list.c (handle_canvas_click): Ensure that
+	at least always one item is selected.
+	(eog_wrap_list_size_request): Removed.
+	(model_prepared): Select first item by default. 
+
+	* collection/main.c: Include stdlib.h.
+
+	* libeog/eog-image.c: No debug output of image references.
+
 2003-03-03  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (eog_window_has_contents): Check for

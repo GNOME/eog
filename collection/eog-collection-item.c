@@ -1,3 +1,4 @@
+#include <string.h>
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-macros.h>
 #include <libgnomeui/gnome-thumbnail.h>
@@ -217,7 +218,6 @@ static void
 thumbnail_finished_cb (EogImage *image, gpointer data)
 {
 	EogCollectionItemPrivate *priv;
-	GdkPixbuf *tmp;
 	GdkPixbuf *pixbuf;
 
 	priv = EOG_COLLECTION_ITEM (data)->priv;
@@ -249,8 +249,6 @@ thumbnail_failed_cb (EogImage *image, gpointer data)
 static char*
 ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
 {
-	char *result;
-	int len; 
 	int str_len;
 	int str_bytes;
 	gchar* str_pt;

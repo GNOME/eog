@@ -52,7 +52,7 @@ static gint eog_image_signals [SIGNAL_LAST];
 #define NO_DEBUG
 #define DEBUG_ASYNC 0
 #define THUMB_DEBUG 0
-#define OBJECT_WATCH 1
+#define OBJECT_WATCH 0
 
 #if OBJECT_WATCH
 static int n_active_images = 0;

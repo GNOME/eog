@@ -430,3 +430,11 @@ eog_collection_model_get_base_uri (EogCollectionModel *model)
 	else
 		return model->priv->base_uri;
 }
+
+GList*
+eog_collection_model_get_image_list (EogCollectionModel *model)
+{
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
+
+	return model->priv->image_list;
+}
