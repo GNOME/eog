@@ -210,23 +210,27 @@ eog_info_view_exif_instance_init (EogInfoViewExif *view)
 	/* tag column */
 	cell = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (_("Tag"),
-		                                           cell, 
+		                                                   cell, 
                                                            "text", MODEL_COLUMN_ATTRIBUTE,
-							   NULL);
+														   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
 	/* value column */
 	cell = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (_("Value"),
-		                                           cell, 
+		                                                   cell, 
                                                            "text", MODEL_COLUMN_VALUE,
-							   NULL);
+							                               NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
 
 	for (i = 0; exif_categories [i].label != NULL; i++) {
-		set_row_data (GTK_TREE_STORE (priv->model), exif_categories[i].path, NULL, exif_categories[i].label, NULL);
+		char *translated_string;
+		
+		translated_string = gettext (exif_categories[i].label);
+		set_row_data (GTK_TREE_STORE (priv->model), exif_categories[i].path, NULL,
+					  translated_string, NULL);
 	}
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (priv->model));
