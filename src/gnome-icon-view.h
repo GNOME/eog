@@ -1,4 +1,4 @@
-/* GNOME libraries - icon view for an icon list model
+/* GNOME libraries - Icon list view
  *
  * Copyright (C) 2000 The Free Software Foundation
  *
@@ -24,8 +24,8 @@
 #define GNOME_ICON_VIEW_H
 
 #include <libgnome/gnome-defs.h>
+#include <gtk/gtkwidget.h>
 #include "gnome-icon-list-model.h"
-#include "gnome-wrap-list.h"
 
 BEGIN_GNOME_DECLS
 
@@ -36,26 +36,48 @@ BEGIN_GNOME_DECLS
 #define GNOME_ICON_VIEW_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GNOME_TYPE_ICON_VIEW,	\
 					 GnomeIconViewClass))
 #define GNOME_IS_ICON_VIEW(obj)         (GTK_CHECK_TYPE ((obj), GNOME_TYPE_ICON_VIEW))
-#define GNOME_IS_ICON_VIEW_CLASS(klass) (GTK_CHECK_CLASS_CAST ((klass), GNOME_TYPE_ICON_VIEW))
-
+#define GNOME_IS_ICON_VIEW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GNOME_TYPE_ICON_VIEW))
 
 typedef struct _GnomeIconView GnomeIconView;
 typedef struct _GnomeIconViewClass GnomeIconViewClass;
 
+typedef struct _GnomeIconViewPrivate GnomeIconViewPrivate;
+
+typedef enum {
+	GNOME_ICON_VIEW_ROW_MAJOR,
+	GNOME_ICON_VIEW_COL_MAJOR
+} GnomeIconViewLayout;
+
 struct _GnomeIconView {
-	GnomeWrapList wlist;
+	GtkWidget widget;
+
+	/* Private data */
+	GnomeIconViewPrivate *priv;
 };
 
 struct _GnomeIconViewClass {
-	GnomeWrapListClass parent_class;
+	GtkWidgetClass widget_class;
 };
-
 
 GtkType gnome_icon_view_get_type (void);
 
 GtkWidget *gnome_icon_view_new (void);
 
 void gnome_icon_view_set_model (GnomeIconView *iview, GnomeIconListModel *model);
+GnomeIconListModel *gnome_icon_view_get_model (GnomeIconView *iview);
+
+void gnome_icon_view_set_layout (GnomeIconView *iview, GnomeIconViewLayout layout,
+				 int icon_width, int icon_height,
+				 int caption_width, int caption_rows,
+				 int caption_spacing,
+				 int padding,
+				 int row_spacing, int col_spacing);
+void gnome_icon_view_get_layout (GnomeIconView *iview, GnomeIconViewLayout *layout,
+				 int *icon_width, int *icon_height,
+				 int *caption_width, int *caption_rows,
+				 int *caption_spacing,
+				 int *padding,
+				 int *row_spacing, int *col_spacing);
 
 
 

@@ -40,6 +40,14 @@ eog_SOURCES =				\
 	e-dialog-widgets.h		\
 	full-screen.c			\
 	full-screen.h			\
+	gnome-icon-list-model.c		\
+	gnome-icon-list-model.h		\
+	gtkscrollframe.c		\
+	gtkscrollframe.h		\
+	image.h				\
+	image.c				\
+	image-view.c			\
+	image-view.h			\
 	main.c				\
 	preferences.c			\
 	preferences.h			\
@@ -53,26 +61,26 @@ eog_SOURCES =				\
 	window.c			\
 	window.h
 
-testicon_SOURCES =			\
-	gnome-icon-item-factory.c	\
-	gnome-icon-item-factory.h	\
-	gnome-icon-list-model.c		\
-	gnome-icon-list-model.h		\
-	gnome-icon-view.c		\
-	gnome-icon-view.h		\
-	gnome-list-item-factory.c	\
-	gnome-list-item-factory.h	\
-	gnome-list-model.c		\
-	gnome-list-model.h		\
-	gnome-list-selection-model.c	\
-	gnome-list-selection-model.h	\
-	gnome-list-view.c		\
-	gnome-list-view.h		\
-	gnome-position-list-model.c	\
-	gnome-position-list-model.h	\
-	gnome-wrap-list.c		\
-	gnome-wrap-list.h		\
-	testicon.c
+#testicon_SOURCES =			\
+#	 gnome-icon-item-factory.c	\
+#	 gnome-icon-item-factory.h	\
+#	 gnome-icon-list-model.c	\
+#	 gnome-icon-list-model.h	\
+#	 gnome-icon-view.c		\
+#	 gnome-icon-view.h		\
+#	 gnome-list-item-factory.c	\
+#	 gnome-list-item-factory.h	\
+#	 gnome-list-model.c		\
+#	 gnome-list-model.h		\
+#	 gnome-list-selection-model.c	\
+#	 gnome-list-selection-model.h	\
+#	 gnome-list-view.c		\
+#	 gnome-list-view.h		\
+#	 gnome-position-list-model.c	\
+#	 gnome-position-list-model.h	\
+#	 gnome-wrap-list.c		\
+#	 gnome-wrap-list.h		\
+#	 testicon.c
 
 eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\
@@ -80,13 +88,13 @@ eog_LDADD =			\
 	$(GCONF_LIBS)		\
 	libeog.la
 
-testicon_LDADD =		\
-	$(EXTRA_GNOME_LIBS)	\
-	$(INTLLIBS)
+#testicon_LDADD =		\
+#	 $(EXTRA_GNOME_LIBS)	\
+#	 $(INTLLIBS)
 
 bin_PROGRAMS = eog
 
-noinst_PROGRAMS = testicon
+#noinst_PROGRAMS = testicon
 
 glade_DATA =				\
 	preferences-dialog.glade

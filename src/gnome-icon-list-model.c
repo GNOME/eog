@@ -1,4 +1,4 @@
-/* GNOME libraries - abstract icon list model
+/* GNOME libraries - Abstract icon list model
  *
  * Copyright (C) 2000 The Free Software Foundation
  *
@@ -26,15 +26,21 @@
 
 
 
+#define CLASS(model) (GNOME_ICON_LIST_MODEL_CLASS (GTK_OBJECT (model)->klass))
+
 /* Signal IDs */
+
 enum {
-	GET_ICON,
+	INTERVAL_CHANGED,
+	INTERVAL_ADDED,
+	INTERVAL_REMOVED,
 	LAST_SIGNAL
 };
 
-static void gnome_icon_list_model_class_init (GnomeIconListModelClass *class);
+static void ilm_class_init (GnomeIconListModelClass *class);
 
-static void marshal_get_icon (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
+static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func,
+					   gpointer data, GtkArg *args);
 
 static guint ilm_signals[LAST_SIGNAL];
 
@@ -42,7 +48,6 @@ static guint ilm_signals[LAST_SIGNAL];
 
 /**
  * gnome_icon_list_model_get_type:
- * @void:
  *
  * Registers the #GnomeIconListModel class if necessary, and returns the type ID
  * associated to it.
@@ -59,14 +64,14 @@ gnome_icon_list_model_get_type (void)
 			"GnomeIconListModel",
 			sizeof (GnomeIconListModel),
 			sizeof (GnomeIconListModelClass),
-			(GtkClassInitFunc) gnome_icon_list_model_class_init,
+			(GtkClassInitFunc) ilm_class_init,
 			(GtkObjectInitFunc) NULL,
 			NULL, /* reserved_1 */
 			NULL, /* reserved_2 */
 			(GtkClassInitFunc) NULL
 		};
 
-		ilm_type = gtk_type_unique (gnome_list_model_get_type (), &ilm_info);
+		ilm_type = gtk_type_unique (GTK_TYPE_OBJECT, &ilm_info);
 	}
 
 	return ilm_type;
@@ -74,75 +79,155 @@ gnome_icon_list_model_get_type (void)
 
 /* Class initialization function for the abstract icon list model */
 static void
-gnome_icon_list_model_class_init (GnomeIconListModelClass *class)
+ilm_class_init (GnomeIconListModelClass *class)
 {
 	GtkObjectClass *object_class;
 
 	object_class = (GtkObjectClass *) class;
 
-	ilm_signals[GET_ICON] =
-		gtk_signal_new ("get_icon",
+	ilm_signals[INTERVAL_CHANGED] =
+		gtk_signal_new ("interval_changed",
 				GTK_RUN_FIRST,
 				object_class->type,
-				GTK_SIGNAL_OFFSET (GnomeIconListModelClass, get_icon),
-				marshal_get_icon,
-				GTK_TYPE_NONE, 3,
-				GTK_TYPE_UINT,
-				GTK_TYPE_POINTER,
-				GTK_TYPE_POINTER);
+				GTK_SIGNAL_OFFSET (GnomeIconListModelClass, interval_changed),
+				marshal_interval_notification,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_INT,
+				GTK_TYPE_INT);
+	ilm_signals[INTERVAL_ADDED] =
+		gtk_signal_new ("interval_added",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeIconListModelClass, interval_added),
+				marshal_interval_notification,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_INT,
+				GTK_TYPE_INT);
+
+	ilm_signals[INTERVAL_REMOVED] =
+		gtk_signal_new ("interval_removed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeIconListModelClass, interval_removed),
+				marshal_interval_notification,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_INT,
+				GTK_TYPE_INT);
 
 	gtk_object_class_add_signals (object_class, ilm_signals, LAST_SIGNAL);
 }
 
 
 
-/* Marshalers */
+/* Signal marshalers */
 
-typedef void (* GetIconFunc) (GtkObject *object, guint n, gpointer pixbuf, gpointer caption,
-			      gpointer data);
+typedef void (* IntervalNotificationFunc) (GtkObject *object, int start, int length, gpointer data);
 
 static void
-marshal_get_icon (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+marshal_interval_notification (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
 {
-	GetIconFunc rfunc;
+	IntervalNotificationFunc rfunc;
 
-	rfunc = (GetIconFunc) func;
-	(* rfunc) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_POINTER (args[1]),
-		   GTK_VALUE_POINTER (args[2]), data);
+	rfunc = (IntervalNotificationFunc) func;
+	(* func) (object, GTK_VALUE_INT (args[0]), GTK_VALUE_INT (args[1]), data);
 }
 
 
 
-/* Exported functions */
+/**
+ * gnome_icon_list_model_get_length:
+ * @model: An icon list model.
+ * 
+ * Queries the number of items in an icon list model.
+ * 
+ * Return value: Number of items in the model.
+ **/
+int
+gnome_icon_list_model_get_length (GnomeIconListModel *model)
+{
+	g_return_val_if_fail (model != NULL, -1);
+	g_return_val_if_fail (GNOME_IS_ICON_LIST_MODEL (model), -1);
+
+	g_assert (CLASS (model)->get_length != NULL);
+	return (* CLASS (model)->get_length) (model);
+}
 
 /**
- * gnome_icon_list_model_get_icon:
+ * gnome_icon_list_model_get_item:
  * @model: An icon list model.
- * @n: Index of item to query.
+ * @n: Index of the sought item.
  * @pixbuf: Return value for the icon's image.
  * @caption: Return value for the icon's caption.
- *
- * Queries the image and caption data for an icon in an icon list model.
+ * 
+ * Queries a particular item in an icon list model.  The caller is reponsible
+ * for doing gdk_pixbuf_unref() on the @pixbuf and for freeing the @caption.
  **/
 void
-gnome_icon_list_model_get_icon (GnomeIconListModel *model, guint n,
-				GdkPixbuf **pixbuf, const char **caption)
+gnome_icon_list_model_get_item (GnomeIconListModel *model, int n, GdkPixbuf **pixbuf, char **caption)
 {
-	GdkPixbuf *p;
-	const char *c;
-
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (GNOME_IS_ICON_LIST_MODEL (model));
 
-	p = NULL;
-	c = NULL;
+	g_assert (CLASS (model)->get_item != NULL);
+	return (* CLASS (model)->get_item) (model, n, pixbuf, caption);
+}
 
-	gtk_signal_emit (GTK_OBJECT (model), ilm_signals[GET_ICON],
-			 n, &p, &c);
+/**
+ * gnome_icon_list_model_interval_changed:
+ * @model: An icon list model.
+ * @start: Index of the first item that changed.
+ * @length: Number of items that changed.
+ * 
+ * Causes an icon list model to emit the "interval_changed" signal.  This
+ * function should be used by icon list model implementations to notify
+ * interested parties of changes to existing items in the model.
+ **/
+void
+gnome_icon_list_model_interval_changed (GnomeIconListModel *model, int start, int length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_ICON_LIST_MODEL (model));
+	g_return_if_fail (start >= 0 && length > 0);
 
-	if (pixbuf)
-		*pixbuf = p;
+	gtk_signal_emit (GTK_OBJECT (model), ilm_signals[INTERVAL_CHANGED], start, length);
+}
 
-	if (caption)
-		*caption = c;
+/**
+ * gnome_icon_list_model_interval_added:
+ * @model: An icon list model.
+ * @start: Index of the first item that was added.
+ * @length: Number of items that were added.
+ * 
+ * Causes an icon list model to emit the "interval_added" signal.  This function
+ * should be used by icon list model implementations to notify interested
+ * parties when a reange of items is inserted in the model.
+ **/
+void
+gnome_icon_list_model_interval_added (GnomeIconListModel *model, int start, int length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_ICON_LIST_MODEL (model));
+	g_return_if_fail (start >= 0 && length > 0);
+
+	gtk_signal_emit (GTK_OBJECT (model), ilm_signals[INTERVAL_ADDED], start, length);
+}
+
+/**
+ * gnome_icon_list_model_interval_removed:
+ * @model: An icon list model.
+ * @start: Index of the first item that was removed.
+ * @length: Number of items that were removed.
+ * 
+ * Causes an icon list model to emit the "interval_removed" signal.  This
+ * function should be used by icon list model implementations to notify
+ * interested parties when a range of items is removed from the model.
+ **/
+void
+gnome_icon_list_model_interval_removed (GnomeIconListModel *model, int start, int length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_ICON_LIST_MODEL (model));
+	g_return_if_fail (start >= 0 && length > 0);
+
+	gtk_signal_emit (GTK_OBJECT (model), ilm_signals[INTERVAL_REMOVED], start, length);
 }

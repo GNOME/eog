@@ -1,4 +1,4 @@
-/* GNOME libraries - abstract icon list model
+/* GNOME libraries - Abstract icon list model
  *
  * Copyright (C) 2000 The Free Software Foundation
  *
@@ -24,8 +24,8 @@
 #define GNOME_ICON_LIST_MODEL_H
 
 #include <libgnome/gnome-defs.h>
+#include <gtk/gtkobject.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include "gnome-list-model.h"
 
 BEGIN_GNOME_DECLS
 
@@ -33,35 +33,46 @@ BEGIN_GNOME_DECLS
 
 #define GNOME_TYPE_ICON_LIST_MODEL            (gnome_icon_list_model_get_type ())
 #define GNOME_ICON_LIST_MODEL(obj)            (GTK_CHECK_CAST ((obj),			\
-					       GNOME_TYPE_ICON_LIST_MODEL, GnomeIconListModel))
+					       GNOME_TYPE_ICON_LIST_MODEL,GnomeIconListModel))
 #define GNOME_ICON_LIST_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass),		\
 					       GNOME_TYPE_ICON_LIST_MODEL, GnomeIconListModelClass))
-#define GNOME_IS_ICON_LIST_MODEL(obj)         (GTK_CHECK_TYPE ((obj), GNOME_TYPE_ICON_LIST_MODEL))
+#define GNOME_IS_ICON_LIST_MODEL(obj)         (GTK_CHECK_TYPE ((obj),GNOME_TYPE_ICON_LIST_MODEL))
 #define GNOME_IS_ICON_LIST_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass),		\
 					       GNOME_TYPE_ICON_LIST_MODEL))
-
 
 typedef struct _GnomeIconListModel GnomeIconListModel;
 typedef struct _GnomeIconListModelClass GnomeIconListModelClass;
 
+typedef struct _GnomeIconListModelPrivate GnomeIconListModelPrivate;
+
 struct _GnomeIconListModel {
-	GnomeListModel list_model;
+	GtkObject object;
 };
 
 struct _GnomeIconListModelClass {
-	GnomeListModelClass parent_class;
+	GtkObjectClass parent_class;
 
-	/* Query signals */
+	/* Methods */
 
-	void (* get_icon) (GnomeIconListModel *model, guint n,
-			   GdkPixbuf **pixbuf, const char **caption);
+	int (* get_length) (GnomeIconListModel *model);
+	void (* get_item) (GnomeIconListModel *model, int n, GdkPixbuf **pixbuf, char **caption);
+
+	/* Notification signals */
+
+	void (* interval_changed) (GnomeIconListModel *model, int start, int length);
+	void (* interval_added) (GnomeIconListModel *model, int start, int length);
+	void (* interval_removed) (GnomeIconListModel *model, int start, int length);
 };
-
 
 GtkType gnome_icon_list_model_get_type (void);
 
-void gnome_icon_list_model_get_icon (GnomeIconListModel *model, guint n,
-				     GdkPixbuf **pixbuf, const char **caption);
+int gnome_icon_list_model_get_length (GnomeIconListModel *model);
+void gnome_icon_list_model_get_item (GnomeIconListModel *model, int n,
+				     GdkPixbuf **pixbuf, char **caption);
+
+void gnome_icon_list_model_interval_changed (GnomeIconListModel *model, int start, int length);
+void gnome_icon_list_model_interval_added (GnomeIconListModel *model, int start, int length);
+void gnome_icon_list_model_interval_removed (GnomeIconListModel *model, int start, int length);
 
 
 
