@@ -882,10 +882,12 @@ job_save_image_single (EogJob *job, SaveData *data, EogImage *image, GError **er
 {
 	EogImageSaveInfo *info = NULL;
 	gboolean success = FALSE;
-	gboolean free_data = FALSE;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
 	g_return_val_if_fail (EOG_IS_JOB (job), FALSE);
+
+	/* increase object and data ref count */
+	eog_image_data_ref (image);
 
 	while (!success && !data->cancel_save) {
 		if (*error != NULL) {
@@ -896,7 +898,6 @@ job_save_image_single (EogJob *job, SaveData *data, EogImage *image, GError **er
 		success = eog_image_has_data (image, EOG_IMAGE_DATA_ALL);
 		if (!success) {
 			success = eog_image_load (image, EOG_IMAGE_DATA_ALL, job, error);
-			free_data = TRUE;
 		}
 
 		if (info == NULL) 
@@ -922,9 +923,7 @@ job_save_image_single (EogJob *job, SaveData *data, EogImage *image, GError **er
 	if (info != NULL)
 		g_object_unref (info);
 	
-	if (free_data) {
-		eog_image_free_mem (image);
-	}
+	eog_image_data_unref (image);
 
 	return (success && !data->cancel_save);
 }
@@ -1011,7 +1010,6 @@ job_save_as_image_single (EogJob *job, EogImage *image, SaveData *data, GError *
 	EogImageSaveInfo *source = NULL;
 	EogImageSaveInfo *dest;
 	gboolean success;
-	gboolean free_data = FALSE;
 	
 	g_return_val_if_fail (EOG_IS_JOB (job), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
@@ -1020,6 +1018,8 @@ job_save_as_image_single (EogJob *job, EogImage *image, SaveData *data, GError *
 
 	dest = data->dest;
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (dest), FALSE);
+
+	eog_image_data_ref (image);
 
 	/* try to save image source to destination */
 	success = FALSE;
@@ -1032,7 +1032,6 @@ job_save_as_image_single (EogJob *job, EogImage *image, SaveData *data, GError *
 		success = eog_image_has_data (image, EOG_IMAGE_DATA_ALL);
 		if (!success) {
 			success = eog_image_load (image, EOG_IMAGE_DATA_ALL, job, error);
-			free_data = TRUE;
 		}
 		
 		if (success && source == NULL) {
@@ -1065,10 +1064,7 @@ job_save_as_image_single (EogJob *job, EogImage *image, SaveData *data, GError *
 		}
 	}
 	
-	if (free_data) {
-		eog_image_free_mem (image);
-	}
-
+	eog_image_data_unref (image);
 	eog_job_set_progress (job, 1.0);
 
 	return success;

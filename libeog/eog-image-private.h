@@ -57,6 +57,8 @@ struct _EogImagePrivate {
 	GList *undo_stack;
 	/* composition of all applied transformations */
 	EogTransform *trans;
+
+	guint data_ref_count;
 };
 
 

@@ -973,10 +973,10 @@ eog_image_list_iter_equal (EogImageList *list, EogIter *a, EogIter *b)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), FALSE);
 
-	if (!eog_iter_is_valid_private (list, a))
+	if (a == NULL || !eog_iter_is_valid_private (list, a))
 		return FALSE;
 
-	if (!eog_iter_is_valid_private (list, b))
+	if (b == NULL || !eog_iter_is_valid_private (list, b))
 		return FALSE;
 	
 	return (a->list == b->list) && (a->age == b->age) && (a->position == b->position);

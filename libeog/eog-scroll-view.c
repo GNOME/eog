@@ -137,12 +137,7 @@ free_image_resources (EogScrollView *view)
 	}
 
 	if (priv->image != NULL) {
-		/* FIXME: calling cancel_load() here should not be necessary;
-		 * the EogImage should stop loading if its refcount goes down to
-		 * zero.
-		 */
-		eog_image_cancel_load (priv->image);
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 
@@ -1733,7 +1728,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 	priv->progressive_state = PROGRESSIVE_NONE;
 	if (image != NULL) {
-		g_object_ref (image);
+		eog_image_data_ref (image);
 
 		if (priv->pixbuf == NULL) {
 			priv->pixbuf = eog_image_get_pixbuf (image);

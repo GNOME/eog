@@ -34,7 +34,7 @@ eog_info_view_dispose (GObject *object)
 	priv = view->priv;
 
 	if (priv->image) {
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 }
@@ -155,12 +155,12 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 			priv->image_changed_signal_id = 0;
 		}
 
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 
 	if (image != NULL) {
-		g_object_ref (image);
+		eog_image_data_ref (image);
 		priv->image = image;
 
 		priv->image_changed_signal_id = 

@@ -81,7 +81,8 @@ gboolean            eog_image_has_data                       (EogImage *img, gui
 
 gboolean            eog_image_load_thumbnail                 (EogImage *img);
 void                eog_image_cancel_load                    (EogImage *img);
-void                eog_image_free_mem                       (EogImage *img);
+EogImage*           eog_image_data_ref                       (EogImage *img);
+EogImage*           eog_image_data_unref                     (EogImage *img);
 gboolean            eog_image_is_loaded                      (EogImage *img);
 
 /* saving API */

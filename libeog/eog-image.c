@@ -19,7 +19,6 @@
 #include "eog-image.h"
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
-#include "eog-image-cache.h"
 #include "eog-metadata-reader.h"
 #include "eog-image-save-info.h"
 #include "eog-util.h"
@@ -296,7 +295,7 @@ eog_image_dispose (GObject *object)
 
 	priv = EOG_IMAGE (object)->priv;
 
-	eog_image_free_mem (EOG_IMAGE (object));
+	eog_image_free_mem_private (EOG_IMAGE (object));
 
 	if (priv->uri) {
 		gnome_vfs_uri_unref (priv->uri);
@@ -473,6 +472,7 @@ eog_image_instance_init (EogImage *img)
 #if HAVE_EXIF
 	priv->exif = NULL;
 #endif
+	priv->data_ref_count = 0;
 
 	img->priv = priv;
 }
@@ -1003,7 +1003,6 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 
 	/* update status */
 	if (success) {
-		eog_image_cache_add (img);
 		priv->status = EOG_IMAGE_STATUS_LOADED;
 	}
 	else {
@@ -1012,60 +1011,6 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 
 	return success;
 }
-
-#if 0
-	else if (priv->status == EOG_IMAGE_STATUS_UNKNOWN) { 
-		g_assert (priv->image == NULL);
-		
-		/* make sure the object isn't destroyed while we try to load it */
-		g_object_ref (img);
-
-		/* initialize data fields for progressive loading */
-		priv->error_message = NULL;
-		priv->cancel_loading = FALSE;
-		priv->mode = EOG_IMAGE_LOAD_COMPLETE;
-		
-		priv->mode = mode;
-
-		if (priv->mode == EOG_IMAGE_LOAD_DEFAULT) {
-			/* determine if the image should be loaded progressively or not */
-			if (gnome_vfs_uri_is_local (priv->uri)) {
-				GnomeVFSFileInfo *info;
-				GnomeVFSResult result;
-				info = gnome_vfs_file_info_new ();
-				
-				result = gnome_vfs_get_file_info_uri (priv->uri,
-								      info,
-								      GNOME_VFS_FILE_INFO_DEFAULT);
-
-				if (result != GNOME_VFS_OK) {
-					g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 
-						       0, gnome_vfs_result_to_string (result));
-					g_print ("VFS Error: %s\n", gnome_vfs_result_to_string (result));
-					return;
-				}
-
-				priv->mode = EOG_IMAGE_LOAD_PROGRESSIVE;
-				if (((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) != 0) && 
-				    (info->size < 1000000))
-				{
-					priv->mode = EOG_IMAGE_LOAD_COMPLETE;
-				}
-
-				gnome_vfs_file_info_unref (info);
-			}
-			else {
-				priv->mode = EOG_IMAGE_LOAD_PROGRESSIVE;
-				
-			}
-		}
-
-		/* start the thread machinery */
-		priv->status      = EOG_IMAGE_STATUS_LOADING;
-		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
-	}
-}
-#endif
 
 
 gboolean 
@@ -1729,18 +1674,6 @@ eog_image_free_mem_private (EogImage *image)
 	}
 }
 
-void
-eog_image_free_mem (EogImage *image)
-{
-	g_return_if_fail (EOG_IS_IMAGE (image));
-
-	if (image->priv->image != NULL) {
-		eog_image_cache_remove (image);
-		eog_image_free_mem_private (image);
-	}
-}
-
-
 const gchar*        
 eog_image_get_collate_key (EogImage *img)
 {
@@ -1884,4 +1817,40 @@ eog_image_get_uri_for_display (EogImage *img)
 	}
 
 	return str;
+}
+
+EogImage*
+eog_image_data_ref (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	g_object_ref (G_OBJECT (img));
+	img->priv->data_ref_count++;
+
+	g_assert (img->priv->data_ref_count <= G_OBJECT (img)->ref_count);
+	
+	return img;
+}
+
+EogImage*
+eog_image_data_unref (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	if (img->priv->data_ref_count > 0) {
+		img->priv->data_ref_count--;
+	}
+	else {
+		g_warning ("More image data unrefs than refs.");
+	}
+
+	if (img->priv->data_ref_count == 0) {
+		eog_image_free_mem_private (img);
+	}
+
+	g_object_unref (G_OBJECT (img));
+
+	g_assert (img->priv->data_ref_count <= G_OBJECT (img)->ref_count);
+	
+	return img;
 }
