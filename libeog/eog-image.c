@@ -786,7 +786,9 @@ real_image_load (gpointer data)
 #endif
 
 	g_assert (priv->image == NULL);
+#if HAVE_EXIF
 	g_assert (priv->exif == NULL);
+#endif
 
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
