@@ -55,4 +55,8 @@ eog_collection_LDADD = 			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
+oafdir = $(datadir)/oaf
+OAF_FILES = GNOME_EOG_Collection.oafinfo
+oaf_DATA = $(OAF_FILES)
 
+EXTRA_DIST = $(OAF_FILES)
