@@ -1,13 +1,12 @@
-# translation of EOG to albanian
 # Albanian translation for the Eye Of Gnome
 # Copyright (C) 2001,2003 Free Software Foundation, Inc.
 # Laurent Dhima <laurenti@alblinux.net>, 2002,2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog-2-3-0\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-04-30 00:56+0200\n"
+"Project-Id-Version: eog.HEAD\n"
+"POT-Creation-Date: 2003-05-16 04:00+0200\n"
+"PO-Revision-Date: 2003-05-16 11:05+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -27,43 +26,73 @@ msgstr "EOG Programi për koleksionimin e figurave"
 msgid "Image Collection"
 msgstr "Koleksioni i imazheve"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Përmbyse _Horizontalisht"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Përmbyse _Vertikalisht"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "Vazhdo"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "Figura në vazhdim"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Paraardhëse"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "Figura Paraardhëse"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Rrotulloje 180 _Gradë"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Rrotu_llim Orar"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Rrotullim Antio_rar"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Slide Show"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11
+msgid "Undo"
+msgstr "Anullo"
+
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "_Ndrysho"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Shiko"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:480
 msgid "Move to Trash"
 msgstr "Hidhe në kosh"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:524
 msgid "Collection View"
 msgstr "Shikuesi i Koleksionit"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
 msgid "Window Title"
 msgstr "Titulli i Dritares"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:984
 msgid "Status Text"
 msgstr "Teksti i Status"
 
@@ -142,8 +171,7 @@ msgstr ""
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
-"_Interpolo figurën gjatë zmadhimit (kualitet më i lartë por më i ngadaltë)"
+msgstr "_Interpolo figurën gjatë zmadhimit (kualitet më i lartë por më i ngadaltë)"
 
 #: eog.glade.h:20
 msgid "sec"
@@ -285,8 +313,7 @@ msgstr "EOG Image viewer factory"
 msgid "Embeddable EOG Image"
 msgstr "Imazh EOG embeddable"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Imazhi"
 
@@ -310,11 +337,11 @@ msgstr "Hap figurën"
 msgid "Save Image"
 msgstr "Shpëto figurën"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1216
 msgid "No image loaded."
 msgstr "Asnjë imazh i ngarkuar."
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1250
 msgid "Unsupported image type for saving."
 msgstr "Lloj imazhi i pasuportuar për tu ruajtur."
 
@@ -339,6 +366,121 @@ msgstr "Lartësia"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "Emri i File"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Faqja"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:358
+msgid "Preview"
+msgstr "Shikoje"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "Milimetër"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Fleta"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% e madhësisë origjinale"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Përshtate në "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Qendër"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Cutting help"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Poshtë, pastaj djathtas"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Përshtatja faqes"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Horizontalisht"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Horizontalisht sipas "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Kufijtë"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Ndihmuesi për rregullimin"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Overlap"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Overlap help"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Renditja e faqeve"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Djathtas, pastaj poshtë"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Shkalla"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Shfaq"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Vertikalisht"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Vertikalisht sipas "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "zona_e_veprimit"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialogu"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialogu1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbox"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Emri"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Emri i file apo të dhënave për t'u printuar"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -403,10 +545,6 @@ msgstr "_Mbyll"
 #: shell/eog-shell-ui.xml.h:16
 msgid "_Contents"
 msgstr "_Përmbajtja"
-
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Ndrysho"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
@@ -496,7 +634,7 @@ msgstr "Për_shtate"
 msgid "Fit"
 msgstr "Përshtat"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Rrit"
 
@@ -520,14 +658,6 @@ msgstr "Madhësi _Normale"
 msgid "_Zoom In"
 msgstr "_Zmadhim"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "Përmbyse _Horizontalisht"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "Përmbyse _Vertikalisht"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Pamja e parë e imazhit për t'u printuar"
@@ -543,18 +673,6 @@ msgstr "Konfigurimi i Print_imit"
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Printo imazhin në printer"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "Rrotulloje 180 _Gradë"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "Rrotu_llim Orar"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "Rrotullim Antio_rar"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
@@ -572,51 +690,51 @@ msgstr "_Ekran i Plotë"
 msgid "_Print..."
 msgstr "_Printo..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:778
 msgid "/_Zoom In"
 msgstr "/_Zmadhim"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:780
 msgid "/Zoom _Out"
 msgstr "/Z_vogëlim"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:782
 msgid "/_Normal Size"
 msgstr "/_Madhësi Normale"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:784
 msgid "/Best _Fit"
 msgstr "/Për_shtate"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:787
 msgid "/_Close"
 msgstr "/_Mbylle"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:939
 msgid "Image successfully saved"
 msgstr "Figura u ruajt me sukses"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:943
 msgid "Image saving failed"
 msgstr "Ruajtja e imazhit dështoi"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1186
 msgid "Image Width"
 msgstr "Gjërësia e imazhit"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1189
 msgid "Image Height"
 msgstr "Lartësia e imazhit"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1195
 msgid "Statusbar Text"
 msgstr "Teksti i Statusbar"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1198
 msgid "Desired Window Width"
 msgstr "Gjerësia e dëshiruar e dritares"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1201
 msgid "Desired Window Height"
 msgstr "Lartësia e deshiruar e dritares"
 
@@ -624,173 +742,71 @@ msgstr "Lartësia e deshiruar e dritares"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "I pamundur fillimi i GnomeVFS!\n"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
+#~ msgid "pts"
+#~ msgstr "pts"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "pika"
+#~ msgid "points"
+#~ msgstr "pika"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetër"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "centimeter"
+#~ msgstr "centimetër"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimetër"
+#~ msgid "inch"
+#~ msgstr "inch"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inch"
+#~ msgid "Print Setup"
+#~ msgstr "Konfigurimi i Printimit"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Konfigurimi i Printimit"
+#~ msgid "Print"
+#~ msgstr "Print"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Print"
+#~ msgid "Print preview"
+#~ msgstr "Pamja e parë e stampimit"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Pamja e parë e stampimit"
+#~ msgid "Units: "
+#~ msgstr "Njësi: "
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Njësi: "
+#~ msgid "Paper size:"
+#~ msgstr "Përmasat e letrës:"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Fleta"
+#~ msgid "Orientation"
+#~ msgstr "Orientimi"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Përmasat e letrës:"
+#~ msgid "Portrait"
+#~ msgstr "Vertikalisht"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Orientimi"
+#~ msgid "Landscape"
+#~ msgstr "Horizontalisht"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Vertikalisht"
+#~ msgid "Top:"
+#~ msgstr "Sipër:"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Horizontalisht"
+#~ msgid "Left:"
+#~ msgstr "Majtas:"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Kufijtë"
+#~ msgid "Right:"
+#~ msgstr "Djathtas:"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Sipër:"
+#~ msgid "Bottom:"
+#~ msgstr "Poshtë:"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Majtas:"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Overlap horizontalisht me:"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Djathtas:"
+#~ msgid "Overlap vertically by "
+#~ msgstr "Overlap vertikalisht me:"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Poshtë:"
+#~ msgid "Printing"
+#~ msgstr "Printing"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Shkalla"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Përshtate në:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Përshtatja faqes"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% e madhësisë origjinale"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Qendër"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Horizontalisht"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Vertikalisht"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Overlap"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Overlap horizontalisht me:"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Overlap vertikalisht me:"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Printing"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Ndihmues"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Print cutting help"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Print overlap help"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Renditja e faqeve"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Poshtë, pastaj djathtas"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Djathtas, pastaj poshtë"
+#~ msgid "Helpers"
+#~ msgstr "Ndihmues"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Vizualizuesi i Imazheve EOG"
@@ -892,12 +908,6 @@ msgstr "Djathtas, pastaj poshtë"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Nuk arrij të shpëtoj imazhin si '%s': %s."
-
-#~ msgid "Pages"
-#~ msgstr "Faqe"
-
-#~ msgid "Print Preview"
-#~ msgstr "Pamja e Parë"
 
 #~ msgid "Printing of image failed"
 #~ msgstr "Printimi i imazhit dështoi"
@@ -1049,3 +1059,4 @@ msgstr "Djathtas, pastaj poshtë"
 
 #~ msgid "Check _size:"
 #~ msgstr "Zgjidh përma_sat:"
+
