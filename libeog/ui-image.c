@@ -33,6 +33,11 @@
 struct _UIImagePrivate {
 	/* Image view widget */
 	GtkWidget *view;
+
+	/* Idle handler ID for resetting the scrollbar policy; see the comment
+	 * in ui_image_zoom_fit().
+	 */
+	guint idle_id;
 };
 
 
@@ -106,8 +111,7 @@ ui_image_init (UIImage *ui)
 
 	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
 
- 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ui),
-					     GTK_SHADOW_NONE);
+ 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ui), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ui),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
@@ -125,6 +129,11 @@ ui_image_finalize (GObject *object)
 
 	ui = UI_IMAGE (object);
 	priv = ui->priv;
+
+	if (priv->idle_id) {
+		g_source_remove (priv->idle_id);
+		priv->idle_id = 0;
+	}
 
 	g_free (priv);
 
@@ -212,6 +221,27 @@ ui_image_get_image_view (UIImage *ui)
 	return priv->view;
 }
 
+/* Idle handler to reset the scrollbar policy; see the comment in
+ *  ui_image_zoom_fit().
+ */
+static gboolean
+set_policy_idle_cb (gpointer data)
+{
+	UIImage *ui;
+	UIImagePrivate *priv;
+
+	ui = UI_IMAGE (data);
+	priv = ui->priv;
+
+	priv->idle_id = 0;
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ui),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+
+	return FALSE;
+}
+
 /**
  * ui_image_zoom_fit:
  * @ui: An image view.
@@ -248,12 +278,45 @@ ui_image_zoom_fit (UIImage *ui)
 	if (gtk_scrolled_window_get_shadow_type (GTK_SCROLLED_WINDOW (ui)) == GTK_SHADOW_NONE)
 		xthick = ythick = 0;
 	else {
-	     xthick = GTK_WIDGET (ui)->style->xthickness;
-	     ythick = GTK_WIDGET (ui)->style->ythickness;
+		xthick = GTK_WIDGET (ui)->style->xthickness;
+		ythick = GTK_WIDGET (ui)->style->ythickness;
 	}
 
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
+
+	/* We have to set the scrollbar policy to NEVER, then change the zoom
+	 * factor, and later reset the policy to AUTOMATIC in the idle loop.  If
+	 * we just set the zoom factor, we have a bug in the case when there are
+	 * visible scrollbars that manifests itself as follows:
+	 *
+	 * 1. There are scrollbars on the screen because the image doesn't fit.
+	 *
+	 * 2. The user selects Fit to Screen.
+	 *
+	 * 3. The image view has an allocation smaller than that of the scrolled
+	 *    window: 2 * style->thickness + image_view_allocation + scrollbar_size
+	 *
+	 * 4. So when the image view sets the new zoom factor, which would fit
+	 *    in the scrolled window but *not* in the image view at its current
+	 *    size, it naturally sets its adjustments to say, "the image doesn't
+	 *    fit".
+	 *
+	 * 5. So we get scrollbars anyways.
+	 *
+	 * To fix this, we turn off the scrollbars, set the new zoom factor, and
+	 * later, when GTK+ has resized the widgets, we turn the scrollbars back
+	 * on --- they will not get displayed as the image *will* fit at that
+	 * time.
+	 */
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ui),
+					GTK_POLICY_NEVER,
+					GTK_POLICY_NEVER);
+
 	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom);
+
+	if (!priv->idle_id)
+		priv->idle_id = g_idle_add (set_policy_idle_cb, ui);
 }
 
 /**

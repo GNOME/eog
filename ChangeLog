@@ -1,3 +1,16 @@
+2002-05-14  Federico Mena Quintero  <federico@ximian.com>
+
+	* viewer/eog-control.c (eog_control_construct): Do not set the
+	shadow type of the scrolled window here.
+
+	* libeog/ui-image.c (ui_image_init): Set the shadow type to
+	GTK_SHADOW_IN here.
+	(ui_image_zoom_fit): To avoid getting scrollbars even when we do
+	"zoom to fit", set the scrollbar policy to NEVER, then change the
+	zoom factor, then re-set the scrollbar policy to ALWAYS in the
+	idle loop.  This is *not* a hack.  Read the comment in this
+	function to see why.  Fixes bug #76406.
+
 2002-05-14  jacob berkman  <jacob@ximian.com>
 
 	* libeog/GNOME_EOG.server.in: we can load image/svg now

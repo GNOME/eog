@@ -378,8 +378,6 @@ eog_control_construct (EogControl    *control,
 		return NULL;
 	}
 	widget = eog_image_view_get_widget (priv->image_view);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget),
-					     GTK_SHADOW_IN);
 
 	bonobo_control_construct (BONOBO_CONTROL (control), widget);
 	
