@@ -4,9 +4,10 @@
 # Changwoo Ryu  <cwryu@debian.org>, 2002,2003
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.3.0\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-05-04 01:38+0900\n"
+"Project-Id-Version: eog 2.3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-20 01:15+0900\n"
+"PO-Revision-Date: 2003-07-20 01:15+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,45 +26,96 @@ msgstr "EOG 그림 모음 보기 프로그램 팩토리"
 msgid "Image Collection"
 msgstr "그림 모음"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "가로 방향으로 뒤집기(_H)"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "세로 방향으로 뒤집기(_V)"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "다음"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "다음 그림"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "앞"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "앞 이미지"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "180도 회전(_D)"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "시계 방향 회전(_L)"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "시계 반대 방향 회전(_R)"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "슬라이드 쇼"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "편집(_E)"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "저장(_S)"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr "실행 취소(_U)"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "보기(_V)"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "저장 취소"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "저장 끝"
+
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "휴지통으로 옮기기"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "모음 보기"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "창 제목"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "상태 텍스트"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
+msgid "Progress of Image Loading"
+msgstr "이미지 읽어들이기 진행률"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "그림 저장중"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -99,7 +151,7 @@ msgstr "<b>투명도</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr "배경으로"
+msgstr "바탕으로"
 
 #: eog.glade.h:8
 msgid "As check _pattern"
@@ -147,37 +199,16 @@ msgid "sec"
 msgstr "초"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "창 크기 자동으로 결정"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "전체 화면 보기에서 기본 확대/축소 계수"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"전체 화면 보기에서 기본 확대/축소 계수. 가능한 값은: 0 (1:1 계수 사용), 1 (그"
-"림 창과 같은 계수 사용), 2 (이미지를 스크린에 맞춤)"
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"투명한 부분을 어떻게 나타낼지 지정합니다. 가능한 값은 CHECK_PATTERN, COLOR, "
+"투명한 부분을 어떻게 나타낼 지 지정합니다. 가능한 값은 CHECK_PATTERN, COLOR, "
 "그리고 NONE입니다. COLOR의 경우 trans_color 키에서 어떤 색을 쓸 지 지정합니"
 "다."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "표준 크기의 이미지를 화면에 맞춤"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -185,31 +216,23 @@ msgstr ""
 "transparency 키 값이 COLOR일 경우, 이 키 값이 투명한 부분에 사용될 색이 됩니"
 "다."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "이미지 인터폴레이션"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "새 창에서 이미지를 엽니다"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "화면 주위에 3D 효과 그리기"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "전체 화면 보기에서 스크롤바 방식"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "투명 색"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "투명한 부분 나타내기"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -217,47 +240,11 @@ msgstr ""
 "확대/축소에서 이미지를 인터폴레이션할 지 여부. 인터폴레이션을 하면 화질이 좋"
 "아지지만 하지 않는 경우보다 느립니다."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"이미지 창이 자동으로 그 크기와 확대/축소 계수를 결정할 지 여부. 이 옵션을 지"
-"정하지 않으면, 이미지 창에서는 창 관리자가 지정하는 대로 크기를 가져옵니다."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr "이미지를 열 때 (기존 창을 바꾸는 대신) 새 창을 열어야 하는지 여부."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "전체 화면 보기에서 화면 가장자리에 3D효과를 표시할 지 여부."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"전체 화면 보기에서 스크롤바를 표시할 것인지 여부. 가능한 값은: 1 (자동: 이미"
-"지가 창보다 큰 경우에만 스크롤바 표시), 2 (스크롤바를 표시하지 않음)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"전체 화면 모드에서 표준 크기의 이미지를 화면에 맞출 지 여부. 표준 크기는 "
-"320x240, 640x480, 800x600 따위를 말합니다. 이 키가 참이면 이러한 크기의 이미"
-"지가 전체 화면 보기의 기본 확대/축소 계수 설정과는 관계없이 화면 크기에 맞게 "
-"크기가 변경되도록 합니다."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -275,8 +262,7 @@ msgstr "그놈의 눈 그림 보기 프로그램 팩토리"
 msgid "Embeddable EOG Image"
 msgstr "포함 가능한 그놈의 눈 그림"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "그림"
 
@@ -300,11 +286,19 @@ msgstr "그림 읽어오기"
 msgid "Save Image"
 msgstr "그림 저장"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "JPEG 파일을 읽어들일 때 필요한 메모리를 할당하지 못했습니다"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "읽어 온 그림이 없습니다."
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "이미지는 로컬 파일로만 저장할 수 있습니다."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "저장이 지원되지 않는 이미지 타입입니다."
 
@@ -329,6 +323,109 @@ msgstr "높이"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "파일이름"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "용지"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+msgid "Preview"
+msgstr "미리 보기"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "밀리미터"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "용지"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% (원래 크기의)"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "조정:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "가운데"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "자름선 표시"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "아래로, 그 다음에 오른쪽으로"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "페이지에 맞게"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "가로 방향으로"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "가로 방향으로"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "여백"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "순서 표시"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "겹치기"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "겹치는 부분 표시"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "페이지 순서"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "오른쪽으로, 그 다음에 아래로"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "크기 조정"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "보여주기"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "세로 방향으로"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "세로 방향으로"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "이름"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "인쇄할 파일 혹은 데이타 이름"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -394,10 +491,6 @@ msgstr "닫기(_C)"
 msgid "_Contents"
 msgstr "목차(_C)"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "편집(_E)"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "파일(_F)"
@@ -422,33 +515,29 @@ msgstr "끝내기(_Q)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "남성현 <namsh@kldp.org>\n"
 "차영호 <ganadist@chollian.net>\n"
 "류창우 <cwryu@debian.org>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "그놈의 눈"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "그놈 이미지 보기 및 카타로그 프로그램."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"그놈의 눈에 대한 도움말을 표시할 수 없습니다.\n"
+"그놈의 눈에 대한 도움말을 보일 수 없습니다.\n"
 "%s"
 
 #: shell/main.c:225
@@ -488,7 +577,7 @@ msgstr "창에 맞게(_F)"
 msgid "Fit"
 msgstr "맞춤"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "확대"
 
@@ -512,14 +601,6 @@ msgstr "보통 크기(_N)"
 msgid "_Zoom In"
 msgstr "확대(_Z)"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "가로 방향으로 뒤집기(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "세로 방향으로 뒤집기(_V)"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "인쇄할 그림을 미리 봅니다"
@@ -536,250 +617,101 @@ msgstr "인쇄 설정(_U)"
 msgid "Print image to the printer"
 msgstr "그림을 프린터로 인쇄합니다"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "180도 회전(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "시계 방향 회전(_L)"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "시계 반대 방향 회전(_R)"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "좌로 회전"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "우로 회전"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "다른 이름으로 저장(_A)..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "현재 프린터에 대한 페이지 설정"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "전체 화면(_F)"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "인쇄(_P)..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "/시계 방향 회전(_L)"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/시계 반대 방향 회전(_R)"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/확대(_Z)"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/축소(_O)"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/보통 크기(_N)"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/창에 맞게(_F)"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/닫기(_C)"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "%s 이미지를 읽어들이는 데 실패했습니다."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"%s 이미지를 읽어들이는 데 실패했습니다.\n"
+"이유: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "읽어들이기 실패"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "이미지 저장 성공"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "이미지 저장 실패"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "그림 너비"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "그림 높이"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "상태 표시줄 텍스트"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "원하는 창 너비"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "원하는 창 높이"
-
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS를 초기화 할 수 없습니다!\n"
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "포인트"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "밀리미터"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "센티미터"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "인치"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "인쇄 설정"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "인쇄"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "인쇄 미리 보기"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "단위: "
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "용지"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "용지 크기"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "방향"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "세로 방향"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "가로 방향"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "여백"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "위:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "왼쪽:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "오른쪽:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "아래:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "크기 조정"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "조정:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "페이지에 맞게"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "원래 크기의 퍼센티지"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "가운데"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "가로 방향으로"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "세로 방향으로"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "여러 장에 걸쳐서"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "가로 방향으로 다음 장에 걸쳐서 "
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "세로 방향으로 다음 장에 걸쳐서 "
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "인쇄하기"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "인쇄 도우미"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "자름선 인쇄"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "맞춤선 인쇄"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "페이지 순서"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "아래로, 그 다음에 오른쪽으로"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "오른쪽으로, 그 다음에 아래로"
