@@ -1,3 +1,18 @@
+2004-12-19  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.[ch] (eog_image_save_by_info),
+	(eog_image_save_as_by_info): Add EogJob to signature.
+	(eog_image_save): Removed deprecated function.
+
+	* libeog/eog-job.c (eog_job_dispose): Lock mutex when 
+	freeing user data.
+
+	* libeog/eog-save-dialog-helper.[ch]: Splitted dialog update
+	process into three new functions 
+
+	* shell/eog-window.c: Reworked Save and SaveAs functions to
+	work with new EogJob API.
+
 2004-12-14  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c: Use EogJob API for image 

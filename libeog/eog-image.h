@@ -92,9 +92,11 @@ gboolean            eog_image_save                            (EogImage *img,
 gboolean            eog_image_save_as_by_info                 (EogImage *img, 
 							       EogImageSaveInfo *source, 
 							       EogImageSaveInfo *target, 
+							       EogJob *job,
 							       GError **error);
 gboolean            eog_image_save_by_info                    (EogImage *img, 
 							       EogImageSaveInfo *source, 
+							       EogJob *job,
 							       GError **error);
 
 /* query API */

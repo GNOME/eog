@@ -102,18 +102,21 @@ eog_job_dispose (GObject *object)
 	g_print ("Job %.3i: disposing ...\n", priv->id);
 
 	if (priv->mutex != NULL) {
+		g_mutex_lock (priv->mutex);
+		if (priv->data != NULL)
+		{
+			if (priv->df != NULL) {
+				(*priv->df) (priv->data);
+			}
+			else if (G_IS_OBJECT (priv->data))
+				g_object_unref (G_OBJECT (priv->data));
+			
+			priv->data = NULL;
+		}
+		g_mutex_unlock (priv->mutex);
+		
 		g_mutex_free (priv->mutex);
 		priv->mutex = NULL;
-	}
-
-	if (priv->data != NULL)
-	{
-		if (priv->df != NULL) 
-			(*priv->df) (priv->data);
-		else if (G_IS_OBJECT (priv->data))
-			g_object_unref (G_OBJECT (priv->data));
-		
-		priv->data = NULL;
 	}
 
 	g_print ("Job %.3i: disposing end\n", priv->id);

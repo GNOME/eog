@@ -72,7 +72,7 @@
 #define EOG_STOCK_FLIP_VERTICAL   "eog-stock-flip-vertical"
 
 #define NO_DEBUG
-#define NO_SAVE_DEBUG
+#define SAVE_DEBUG
 
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
@@ -571,58 +571,67 @@ typedef struct {
 	int        n_processed;
 
 	/* image currently processed */
-	GList     *current;
-	EogImageSaveInfo *source;
-	EogImageSaveInfo *target;
+	EogImage         *current;
+	EogImageSaveInfo *source; 
+	EogImageSaveInfo *dest; /* destination */
 	EogURIConverter  *conv;
 
 	/* dialog handling */
 	EogWindow  *window;
 	GtkWindow  *dlg;
-	EogSaveResponse response;
 
-	/* in case of error on current image this
-	 * is set. */
-	GError    *error;
 	gboolean   cancel_save;
-
-	/* thread machinerie */
-	GThread   *thread;
-	GCond     *wait;
-	GMutex    *lock;
+	GMutex     *lock;
+	guint      job_id;
 } SaveData;
 
-static gboolean
-save_dialog_update (SaveData *data)
-{
-	EogImage *image = NULL;
-	EogImageSaveInfo *source = NULL;
-	EogImageSaveInfo *target = NULL;
+typedef struct {
+	EogWindow   *window;
+	EogImage    *image;
 	
+	GError      *error;
+	EogSaveResponse response;
+	GCond       *wait;
+	GMutex      *lock;
+} SaveErrorData;
+
+static gboolean
+save_dialog_update_finished (SaveData *data)
+{
+	eog_save_dialog_finished_image (data->dlg);
+	return FALSE;
+}
+
+static gboolean
+save_dialog_update_start_image (SaveData *data)
+{
+	GnomeVFSURI* uri = NULL;
+	EogImage *image = NULL;
+
 	g_mutex_lock (data->lock);
 	if (data->current != NULL) {
-		image = EOG_IMAGE (data->current->data);
+		image = g_object_ref (data->current);
 	}
-	if (data->source != NULL) {
-		source = g_object_ref (data->source);
-	}
-	if (data->target != NULL) {
-		target = g_object_ref (data->target);
+	if (data->dest != NULL) {
+		uri = gnome_vfs_uri_ref (data->dest->uri);
 	}
 	g_mutex_unlock (data->lock);
 
-	eog_save_dialog_update (data->dlg,
-				data->n_processed,
-				image,
-				source,
-				target);
-
-	if (source != NULL) 
-		g_object_unref (source);
-	if (target != NULL) 
-		g_object_unref (target);
+	eog_save_dialog_start_image (data->dlg,
+				     image, uri);
+		
+	if (image != NULL) 
+		g_object_unref (image);
+	if (uri != NULL) 
+		gnome_vfs_uri_unref (uri);
 
 	return FALSE;
+}
+
+static void
+save_dialog_cancel_cb (GtkWidget *button, SaveData *data)
+{
+	eog_job_manager_cancel_job (data->job_id);
 }
 
 static gboolean
@@ -637,33 +646,31 @@ save_update_image (EogImage *image)
 }
 
 static gboolean
-save_error (SaveData *data)
+save_error (SaveErrorData *edata)
 {
 	GtkWidget *dlg;
-	EogImage  *image;
 	char *header;
 	char *detail = NULL;
 	int   response;
 	gint  err_code = 0;
 	
-	g_mutex_lock (data->lock);
-	image = EOG_IMAGE (data->current->data);
-	if (data->error != NULL) {
-		detail   = data->error->message;
-		err_code = data->error->code;
+	g_mutex_lock (edata->lock);
+	if (edata->error != NULL) {
+		detail   = edata->error->message;
+		err_code = edata->error->code;
 	}
-	g_mutex_unlock (data->lock);
+	g_mutex_unlock (edata->lock);
 
 	/* display generic error dialog, except for FILE_EXISTS error */
 	if (err_code == EOG_IMAGE_ERROR_FILE_EXISTS) {
 		char *str;
 
-		str = eog_image_get_uri_for_display (image); 
+		str = eog_image_get_uri_for_display (edata->image); 
 
 		header = g_strdup_printf (_("Overwrite file %s?"), str);
 		detail = _("File exists. Do you want to overwrite it?");
 
-		dlg = eog_hig_dialog_new (GTK_WINDOW (data->window), 
+		dlg = eog_hig_dialog_new (GTK_WINDOW (edata->window), 
 					  GTK_STOCK_DIALOG_ERROR,
 					  header, detail,
 					  TRUE);
@@ -676,9 +683,9 @@ save_error (SaveData *data)
 		gtk_dialog_set_default_response (GTK_DIALOG (dlg), EOG_SAVE_RESPONSE_SKIP);
 	}
 	else {
-		header = g_strdup_printf (_("Error on saving %s."), eog_image_get_caption (image));
+		header = g_strdup_printf (_("Error on saving %s."), eog_image_get_caption (edata->image));
 		
-		dlg = eog_hig_dialog_new (GTK_WINDOW (data->window), 
+		dlg = eog_hig_dialog_new (GTK_WINDOW (edata->window), 
 					  GTK_STOCK_DIALOG_ERROR,
 					  header, detail,
 					  TRUE);
@@ -695,29 +702,63 @@ save_error (SaveData *data)
 	gtk_widget_destroy (dlg);
 	g_free (header);
 	
-	g_mutex_lock (data->lock);
-	if (response == EOG_SAVE_RESPONSE_CANCEL)
-		data->cancel_save = TRUE;
-	if (response == EOG_SAVE_RESPONSE_OVERWRITE && 
-	    data->target != NULL)
-	{
-		data->target->overwrite = TRUE;
-	}
-	data->response = (EogSaveResponse) response;
-	g_mutex_unlock (data->lock);
-
-	g_cond_broadcast (data->wait);
+	g_mutex_lock (edata->lock);
+	edata->response = (EogSaveResponse) response;
+	g_mutex_unlock (edata->lock);
+	g_cond_broadcast (edata->wait);
 
 	return FALSE;
 }
 
-static gboolean
-save_finished (SaveData *data)
+static void
+job_save_image_finished (EogJob *job, gpointer user_data, GError *error)
 {
+	SaveData *data = (SaveData*) user_data;
+
 	eog_save_dialog_close (data->dlg, !data->cancel_save);
 
-	g_mutex_free (data->lock);
-	g_cond_free (data->wait);
+	/* enable image modification functions */
+	gtk_action_group_set_sensitive (data->window->priv->actions_image,  TRUE);
+
+}
+
+static SaveData*
+save_data_new (EogWindow *window, GList *images)
+{
+	SaveData *data;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (images != NULL, NULL);
+
+	data = g_new0 (SaveData, 1);
+	g_assert (data != NULL);
+
+	/* initialise data struct */
+	data->images      = images; 
+	data->n_images    = g_list_length (images);
+	data->n_processed = 0;
+	
+	data->current = NULL;
+	data->source  = NULL;
+	data->dest    = NULL;
+	data->conv    = NULL;
+
+	data->cancel_save = FALSE;
+
+	data->lock = g_mutex_new ();
+
+	data->window = window;
+	data->dlg = GTK_WINDOW (eog_save_dialog_new (GTK_WINDOW (window), data->n_images));
+
+	return data;
+}
+
+static void
+job_save_data_free (gpointer user_data)
+{
+	SaveData *data = (SaveData*) user_data;
+
+	g_mutex_lock (data->lock);
 
 	g_list_foreach (data->images, (GFunc) g_object_unref, NULL);
 	g_list_free (data->images);
@@ -725,111 +766,200 @@ save_finished (SaveData *data)
 	if (data->source)
 		g_object_unref (data->source);
 
-	if (data->target)
-		g_object_unref (data->target);
+	if (data->dest)
+		g_object_unref (data->dest);
 
 	if (data->conv)
 		g_object_unref (data->conv);
+	g_mutex_unlock (data->lock);
 
-	/* enable image modification functions */
-	gtk_action_group_set_sensitive (data->window->priv->actions_image,  TRUE);
-
+	g_mutex_free (data->lock);
 	g_free (data);
-
-	return FALSE;
 }
 
 static void
-save_cancel (GtkWidget *button, SaveData *data)
+job_save_image_cancel (EogJob *job, gpointer user_data)
 {
+	SaveData *data = (SaveData*) user_data;
+
 	g_mutex_lock (data->lock);
 	data->cancel_save = TRUE;
+	if (data->current != NULL) {
+		eog_image_cancel_load (EOG_IMAGE (data->current));
+	}
 	g_mutex_unlock (data->lock);
 
 	eog_save_dialog_cancel (data->dlg);
 }
 
+static void
+job_save_image_progress (EogJob *job, gpointer user_data, float progress)
+{
+	SaveData *data = (SaveData*) user_data;
+
+	eog_save_dialog_set_progress (data->dlg, progress);
+}
+
+static SaveErrorData*
+save_error_data_new (GError *error, EogWindow *window, EogImage *image)
+{
+	SaveErrorData *edata;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	edata = g_new0 (SaveErrorData, 1);
+	edata->error    = NULL;
+	edata->response = EOG_SAVE_RESPONSE_NONE;
+	edata->wait     = g_cond_new ();
+	edata->lock     = g_mutex_new ();
+	edata->window   = window;
+	edata->image    = g_object_ref (image);
+
+	if (error != NULL) {
+		edata->error    = g_error_copy (error); 
+	}
+	
+	return edata;
+}
+
+static void
+save_error_data_free (SaveErrorData *edata)
+{
+	if (edata == NULL)
+		return;
+
+	if (edata->error != NULL) {
+		g_error_free (edata->error);
+	}
+	g_cond_free  (edata->wait);
+	g_mutex_free (edata->lock);
+	g_object_unref (edata->image);
+	g_free (edata);
+}
+
+static gboolean
+job_save_handle_error (SaveData *data, EogImage *image, GError *error)
+{
+	SaveErrorData *edata;
+	gboolean success = FALSE;
+
+	edata = save_error_data_new (error, data->window, image);
+	
+	g_mutex_lock (edata->lock);
+	g_idle_add ((GSourceFunc) save_error, edata);
+	/* wait for error dialog response */
+	g_cond_wait (edata->wait, edata->lock);
+	g_mutex_unlock (edata->lock);
+	
+	/* handle results */
+	switch (edata->response) {
+	case EOG_SAVE_RESPONSE_SKIP:
+		success = TRUE;
+		break;
+	case EOG_SAVE_RESPONSE_CANCEL:
+		data->cancel_save = TRUE;
+		break;
+	case EOG_SAVE_RESPONSE_OVERWRITE:
+		g_assert (data->dest != NULL);
+		if (data->dest != NULL) {
+			data->dest->overwrite = TRUE;
+		}
+		break;
+	case EOG_SAVE_RESPONSE_RETRY:
+		success = FALSE;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+	save_error_data_free (edata);
+
+	return success;
+}
+
+static gboolean
+job_save_image_single (EogJob *job, SaveData *data, EogImage *image, GError **error)
+{
+	EogImageSaveInfo *info = NULL;
+	gboolean success = FALSE;
+	gboolean free_data = FALSE;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+	g_return_val_if_fail (EOG_IS_JOB (job), FALSE);
+
+	while (!success && !data->cancel_save) {
+		if (*error != NULL) {
+			g_error_free (*error);
+			*error = NULL;
+		}
+
+		success = eog_image_has_data (image, EOG_IMAGE_DATA_ALL);
+		if (!success) {
+			success = eog_image_load (image, EOG_IMAGE_DATA_ALL, job, error);
+			free_data = TRUE;
+		}
+
+		if (info == NULL) 
+			info = eog_image_save_info_from_image (image);
+#ifdef SAVE_DEBUG
+		g_print ("Save image at %s ", 
+			 gnome_vfs_uri_to_string (info->uri, GNOME_VFS_URI_HIDE_NONE));
+#endif
+
+		if (success) {
+			success = eog_image_save_by_info (image, info, job, error);
+		}
+#ifdef SAVE_DEBUG
+		g_print ("successful: %i\n", success);
+#endif
+		
+		/* handle errors, let user decide how to proceede */
+		if (!success && !data->cancel_save) {
+			success = job_save_handle_error (data, image, *error);
+		}
+	}
+
+	if (info != NULL)
+		g_object_unref (info);
+	
+	if (free_data) {
+		eog_image_free_mem (image);
+	}
+
+	return (success && !data->cancel_save);
+}
+
 /* this runs in its own thread */
-static gpointer
-save_image_list (gpointer user_data)
+static void
+job_save_image_list (EogJob *job, gpointer user_data, GError **error)
 {
 	SaveData *data; 
+	GList *it;
+	EogImage *image;
+	gboolean success;
 
 	data = (SaveData*) user_data;
 
-	g_mutex_lock (data->lock);
-	data->current = data->images;
-	data->n_processed = 0;
-	g_mutex_unlock (data->lock);
-	
-	while (data->current != NULL && !data->cancel_save) {
-		EogImageSaveInfo *info;
-		EogImage *image;
-		GError *error = NULL;
-		gboolean success = FALSE;
-		
-		g_mutex_lock (data->lock);
-		image = EOG_IMAGE (data->current->data);
-		g_mutex_unlock (data->lock);
-		
-		info = eog_image_save_info_from_image (image);
+	for (it = data->images; it != NULL && !data->cancel_save; it = it->next) {
+		image = EOG_IMAGE (it->data);
 
 		g_mutex_lock (data->lock);
-		if (data->source != NULL)
-			g_object_unref (data->source);
-		data->source = info;
-		data->target = NULL;
+		data->current = image;
 		g_mutex_unlock (data->lock);
 
-		g_idle_add ((GSourceFunc) save_dialog_update, data);
-		
-		while (!success && !data->cancel_save) {
-#ifdef SAVE_DEBUG
-			g_print ("Save image at %s ", 
-				 gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
-			/* FIXME: Use EogJob */
-			/* success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT); */
-			
-			if (success) {
-				success = eog_image_save_by_info (image, data->source, &error);
-			}
-#ifdef SAVE_DEBUG
-			g_print ("successful: %i\n", success);
-#endif
-			
-			if (!success && !data->cancel_save) {
-				g_mutex_lock (data->lock);
-				data->error = g_error_copy (error);
-				data->response = EOG_SAVE_RESPONSE_NONE;
-				
-				g_idle_add ((GSourceFunc) save_error, data);
-				g_cond_wait (data->wait, data->lock);
+		g_idle_add ((GSourceFunc) save_dialog_update_start_image, data);
 
-				if (data->response == EOG_SAVE_RESPONSE_SKIP)
-					success = TRUE;
-
-				g_error_free (data->error);
-				data->error = NULL;
-
-				g_mutex_unlock (data->lock);
-			}
-
-			if (success) {
-				g_idle_add ((GSourceFunc) save_update_image, g_object_ref (image));
-			}
-		}
+		success = job_save_image_single (job, data, image, error);
 
 		g_mutex_lock (data->lock);
-		data->current = data->current->next;
-		data->n_processed++;
+		data->current = NULL;
 		g_mutex_unlock (data->lock);
+
+		g_idle_add ((GSourceFunc) save_dialog_update_finished, data);
+		eog_job_part_finished (job);
 	}
-
-	g_idle_add ((GSourceFunc) save_finished, data);
-
-	return NULL;
 }
+
 
 static void
 verb_Save_cb (GtkAction *action, gpointer user_data)
@@ -837,6 +967,7 @@ verb_Save_cb (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 	int n_images;
 	SaveData *data;
+	EogJob *job;
 	GtkWidget *button;
 
 	priv = EOG_WINDOW (user_data)->priv;
@@ -844,170 +975,200 @@ verb_Save_cb (GtkAction *action, gpointer user_data)
 	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 	if (n_images == 0) return;
 
-	data = g_new0 (SaveData, 1);
+	/* init save data */
+	data = save_data_new (EOG_WINDOW (user_data), 
+			      eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist)));
 	g_assert (data != NULL);
+	g_assert (GTK_IS_WINDOW (data->dlg));
 
-	/* initialise data struct */
-	data->images      = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
-	data->n_images    = n_images;
-	data->n_processed = 0;
-	
-	data->current = NULL;
-	data->source  = data->target = NULL;
-	data->conv = NULL;
-
-	data->response = EOG_SAVE_RESPONSE_NONE;
-
-	data->error       = NULL;
-	data->cancel_save = FALSE;
-
-	data->wait = g_cond_new ();
-	data->lock = g_mutex_new ();
-
-	data->window = EOG_WINDOW (user_data);
-	data->dlg = GTK_WINDOW (eog_save_dialog_new (GTK_WINDOW (user_data), data->n_images));
+	/* connect to cancel button */
 	button = eog_save_dialog_get_button (GTK_WINDOW (data->dlg));
-	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_cancel, data);
+	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_dialog_cancel_cb, data);
 
 	/* disable image modification functions */
 	gtk_action_group_set_sensitive (priv->actions_image,  FALSE);
 
+	/* show dialog */
 	gtk_widget_show_all (GTK_WIDGET (data->dlg));
 	gtk_widget_show_now (GTK_WIDGET (data->dlg));
 
-	data->thread = g_thread_create (save_image_list, data, TRUE, NULL);
+	/* start job */
+	job = eog_job_new_full (data,
+				job_save_image_list,
+				job_save_image_finished,
+				job_save_image_cancel,
+				job_save_image_progress,
+				job_save_data_free);
+	g_object_set (G_OBJECT (job), "progress-n-parts", data->n_images, NULL);
+
+	data->job_id = eog_job_manager_add (job);
+	g_object_unref (G_OBJECT (job));
+}
+
+static gboolean
+job_save_as_image_single (EogJob *job, EogImage *image, SaveData *data, GError **error)
+{
+	EogImageSaveInfo *source = NULL;
+	EogImageSaveInfo *dest;
+	gboolean success;
+	gboolean free_data = FALSE;
+	
+	g_return_val_if_fail (EOG_IS_JOB (job), FALSE);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (error != NULL, FALSE);
+
+	dest = data->dest;
+	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (dest), FALSE);
+
+	/* try to save image source to destination */
+	success = FALSE;
+	while (!success && !data->cancel_save) {
+		if (*error != NULL) {
+			g_error_free (*error);
+			*error = NULL;
+		}
+
+		success = eog_image_has_data (image, EOG_IMAGE_DATA_ALL);
+		if (!success) {
+			success = eog_image_load (image, EOG_IMAGE_DATA_ALL, job, error);
+			free_data = TRUE;
+		}
+		
+		if (success && source == NULL) {
+			source = eog_image_save_info_from_image (image);
+			success = (source != NULL);
+		}
+
+#ifdef SAVE_DEBUG
+		g_print ("Saving image from: %s to: %s\n", 
+			 (source != NULL) ?
+			 gnome_vfs_uri_to_string (source->uri, GNOME_VFS_URI_HIDE_NONE) : "NULL",
+			 (dest != NULL) ? 
+			 gnome_vfs_uri_to_string (dest->uri, GNOME_VFS_URI_HIDE_NONE) : "NULL");
+#endif
+
+		if (success) {
+			success = eog_image_save_as_by_info (image, source, dest, job, error);
+		}
+#ifdef SAVE_DEBUG
+		g_print ("successful: %i\n", success);
+#endif
+		if (source != NULL) {
+			g_object_unref (source);
+			source = NULL;
+		}
+
+		if (!success && !data->cancel_save) {
+			/* handle error case */
+			success = job_save_handle_error (data, image, *error);
+		}
+	}
+	
+	if (free_data) {
+		eog_image_free_mem (image);
+	}
+
+	eog_job_set_progress (job, 1.0);
+
+	return success;
 }
 
 /* this runs in its own thread */
-static gpointer
-save_as_image_list (gpointer user_data)
+/* does the actual work */
+static void
+job_save_as_image_list (EogJob *job, gpointer user_data, GError **error)
 {
-	SaveData *data; 
+	SaveData *data;
+	GList *it;
+	EogImage *image;
 
 	data = (SaveData*) user_data;
-
-	g_mutex_lock (data->lock);
-	data->current = data->images;
-	data->n_processed = 0;
-	g_mutex_unlock (data->lock);
 	
-	g_assert (data->conv != NULL || data->target != NULL);
+	g_assert (data->conv != NULL || data->dest != NULL);
 	
-	while (data->current != NULL && !data->cancel_save) {
-		EogImageSaveInfo *sinfo;
-		EogImageSaveInfo *tinfo = NULL;
-		EogImage *image;
-		GError *error = NULL;
-		gboolean success = FALSE;
+	for (it = data->images; it != NULL && !data->cancel_save; it = it->next) {
 		
+		image = EOG_IMAGE (it->data);
+
 		g_mutex_lock (data->lock);
-		image = EOG_IMAGE (data->current->data);
+		data->current = image;
 		g_mutex_unlock (data->lock);
 
-		/* obtain target information */
+		g_idle_add ((GSourceFunc) save_dialog_update_start_image, data);
+	
+		/* obtain destination information */
 		if (data->conv != NULL) {
 			GdkPixbufFormat *format;
-			GnomeVFSURI *target_uri;
+			GnomeVFSURI *dest_uri;
 			gboolean result;
-			GError *error = NULL;
 
 			result = eog_uri_converter_do (data->conv,
 						       image, 
-						       &target_uri,
+						       &dest_uri,
 						       &format,
-						       &error);
-#ifdef SAVE_DEBUG
-			g_print ("convert uri: %s\n", gnome_vfs_uri_to_string (target_uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
+						       error);
 
-			if (result) {
-				tinfo = eog_image_save_info_from_vfs_uri (target_uri,
-									  format);
-			}
-				
-			if (target_uri)
-				gnome_vfs_uri_unref (target_uri);
-		}
-
-		if (tinfo == NULL  && data->target != NULL) {
-			tinfo = g_object_ref (data->target);
-		}
-
-		/* This may leave sinfo->format_type as NULL, therefor we
-		 * repeat this call after actually loading the image.
-		 * Here we only need it for updating the dialog.
-		 */
-		sinfo = eog_image_save_info_from_image (image);
-
-		/* update dialog */
-		g_mutex_lock (data->lock);
-		if (data->target != NULL) 
-			g_object_unref (data->target);
-		data->target = tinfo;
-		if (data->source != NULL)
-			g_object_unref (data->source);
-		data->source = sinfo;
-		g_mutex_unlock (data->lock);
-		g_idle_add ((GSourceFunc) save_dialog_update, data);
-		
-		/* try to save image source to target */
-		success = FALSE;
-		while (!success && !data->cancel_save) {
-#ifdef SAVE_DEBUG
-			g_print ("Save image from: %s to: %s\n", 
-				 gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE),
-				 gnome_vfs_uri_to_string (data->target->uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
-			
-			/* load source image */
-			/* FIXME: Use EogJob */
-			/* success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT); */
-			
-			if (success) {
-				sinfo = eog_image_save_info_from_image (image);
-				g_mutex_lock (data->lock);
-				if (data->source != NULL)
-					g_object_unref (data->source);
-				data->source = sinfo;
-				g_mutex_unlock (data->lock);
-		
-				success = eog_image_save_as_by_info (image, data->source, data->target, &error);
+			if (result == FALSE) {
+				g_set_error (error, 
+					     EOG_WINDOW_ERROR, EOG_WINDOW_ERROR_GENERIC,
+					     _("Couldn't determine destination uri."));
+				break; /* will leave for-loop */
 			}
 #ifdef SAVE_DEBUG
-			g_print ("successful: %i\n", success);
+			g_print ("convert uri: %s\n", gnome_vfs_uri_to_string (dest_uri, GNOME_VFS_URI_HIDE_NONE));
 #endif
-				
-			if (!success && !data->cancel_save) {
-				g_mutex_lock (data->lock);
-				data->error = g_error_copy (error);
-				data->response = EOG_SAVE_RESPONSE_NONE;
-				
-				g_idle_add ((GSourceFunc) save_error, data);
-				g_cond_wait (data->wait, data->lock);
-
-				if (data->response == EOG_SAVE_RESPONSE_SKIP)
-					success = TRUE;
-
-				g_error_free (data->error);
-				data->error = NULL;
-
-				g_mutex_unlock (data->lock);
-			}
 			
-			if (success) {
-				g_idle_add ((GSourceFunc) save_update_image,g_object_ref (image));
+			g_mutex_lock (data->lock);
+			/* set destination info for current image */
+			if (data->dest != NULL) {
+				g_object_unref (data->dest);
+				data->dest = NULL;
 			}
+
+			data->dest = eog_image_save_info_from_vfs_uri (dest_uri, format);
+			g_mutex_unlock (data->lock);
+				
+			if (dest_uri)
+				gnome_vfs_uri_unref (dest_uri);
 		}
+
+		g_assert (data->dest != NULL);
+
+		/* try to save image */
+		if (!job_save_as_image_single (job, image, data, error)) {
+			g_warning ("no save_as success\n");
+		}
+
+		/* update job status */
+		g_idle_add ((GSourceFunc) save_dialog_update_finished, data);
+		eog_job_part_finished (job);
 
 		g_mutex_lock (data->lock);
-		data->current = data->current->next;
-		data->n_processed++;
+		data->current = NULL;
 		g_mutex_unlock (data->lock);
 	}
+}
 
-	g_idle_add ((GSourceFunc) save_finished, data);
+static char* 
+get_folder_uri_from_image (EogImage *image)
+{
+	GnomeVFSURI *img_uri;
+	GnomeVFSURI *parent;
+	char *folder_uri = NULL;
 
-	return NULL;
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	img_uri = eog_image_get_uri (image);
+
+	if (gnome_vfs_uri_has_parent (img_uri)) {
+		parent = gnome_vfs_uri_get_parent (img_uri);
+		folder_uri = gnome_vfs_uri_to_string (parent, GNOME_VFS_URI_HIDE_NONE);
+		gnome_vfs_uri_unref (parent);
+	}
+
+	gnome_vfs_uri_unref (img_uri);
+	return folder_uri;
 }
 
 /* Asks user for a file location to save an image there. Returns the save target uri
@@ -1015,14 +1176,27 @@ save_as_image_list (gpointer user_data)
  * dialog.
  */
 static void
-save_as_file_selection_dialog (EogWindow *window, char *folder_uri, char **uri, GdkPixbufFormat **format)
+save_as_uri_selection_dialog (EogWindow *window, EogImage *image, char **uri, GdkPixbufFormat **format)
 {
 	GtkWidget *dlg;
 	gboolean success = FALSE;
 	gint response;
+	char *folder_uri = NULL;
 
 	g_return_if_fail (uri != NULL);
 	g_return_if_fail (format != NULL);
+	
+	*uri = NULL;
+	*format = NULL;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	folder_uri = get_folder_uri_from_image (image);
+	if (folder_uri == NULL) {
+		g_warning ("Parent uri for %s not available.\n", eog_image_get_caption (image));
+		return;
+	}
 
 	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
@@ -1039,6 +1213,7 @@ save_as_file_selection_dialog (EogWindow *window, char *folder_uri, char **uri, 
 		gtk_widget_hide (dlg);
 
 		if (response == GTK_RESPONSE_OK) {
+			/* try to determine uri and image format */
 			*format = eog_file_selection_get_format (EOG_FILE_SELECTION (dlg));
 			*uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
 
@@ -1078,69 +1253,52 @@ save_as_file_selection_dialog (EogWindow *window, char *folder_uri, char **uri, 
 			response = gtk_dialog_run (GTK_DIALOG (err_dlg));
 			gtk_widget_destroy (err_dlg);
 			g_free (header);
+
+			if (response == GTK_RESPONSE_CANCEL) {
+				if (*uri != NULL) {
+					g_free (*uri);
+					*uri = NULL;
+				}
+				success = TRUE;
+			}
 		}
 	}
 
 	gtk_widget_destroy (dlg);
 }
 
+
+/* prepare load for a single image */
 static void
 save_as_single_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
 	char *uri = NULL;
 	SaveData *data;
-	GnomeVFSURI *img_uri;
-	GnomeVFSURI *parent;
-	char *folder_uri = NULL;
 	GdkPixbufFormat *format = NULL;
 	GtkWidget *button;
+	EogJob *job;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	priv = window->priv;
 
-	img_uri = eog_image_get_uri (image);
-	g_assert (gnome_vfs_uri_has_parent (img_uri));
-	parent = gnome_vfs_uri_get_parent (img_uri);
-	folder_uri = gnome_vfs_uri_to_string (parent, GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (img_uri);
-	gnome_vfs_uri_unref (parent);
-
-	save_as_file_selection_dialog (window, folder_uri, &uri, &format);
-	g_free (folder_uri);
-
+	save_as_uri_selection_dialog (window, image, &uri, &format);
 	if (uri == NULL)
 		return;
 
 	g_assert (uri != NULL && format != NULL);
 
-	data = g_new0 (SaveData, 1);
+	data = save_data_new (window, g_list_append (NULL, image));
 	g_assert (data != NULL);
+	g_assert (GTK_IS_WINDOW (data->dlg));
 
-	/* initialise data struct */
-	data->images      = g_list_append (NULL, image);
-	data->n_images    = 1;
-	data->n_processed = 0;
-	
-	data->current = NULL;
-	data->source  = NULL;
-	data->target = eog_image_save_info_from_uri (uri, format);
-	data->conv   = NULL;
+	data->dest = eog_image_save_info_from_uri (uri, format);
+	g_free (uri);
 
-	data->response = EOG_SAVE_RESPONSE_NONE;
-
-	data->error       = NULL;
-	data->cancel_save = FALSE;
-
-	data->wait = g_cond_new ();
-	data->lock = g_mutex_new ();
-
-	data->window = window;
-	data->dlg = GTK_WINDOW (eog_save_dialog_new (GTK_WINDOW (window), data->n_images));
 	button = eog_save_dialog_get_button (GTK_WINDOW (data->dlg));
-	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_cancel, data);
+	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_dialog_cancel_cb, data);
 
 	/* disable image modification functions */
 	gtk_action_group_set_sensitive (priv->actions_image,  FALSE);
@@ -1148,49 +1306,57 @@ save_as_single_image (EogWindow *window, EogImage *image)
 	gtk_widget_show_all (GTK_WIDGET (data->dlg));
 	gtk_widget_show_now (GTK_WIDGET (data->dlg));
 
-	data->thread = g_thread_create (save_as_image_list, data, TRUE, NULL);
+	/* start job */
+	job = eog_job_new_full (data,
+				job_save_as_image_list, /* Save As for multiple images */
+				job_save_image_finished,
+				job_save_image_cancel,
+				job_save_image_progress,
+				job_save_data_free);
+	g_object_set (G_OBJECT (job), "progress-n-parts", data->n_images, NULL);
 
-	g_free (uri);
+	data->job_id = eog_job_manager_add (job);
+	g_object_unref (G_OBJECT (job));
 }
 
-static void
-save_as_multiple_images (EogWindow *window, GList *images)
+static EogURIConverter*
+save_as_uri_converter_dialog (EogWindow *window, GList *images)
 {
+	EogURIConverter *conv = NULL;
 	GtkWidget *dlg;
 	char *base_dir;
 	GnomeVFSURI *base_uri;
 	gint response; 
-	EogURIConverter *conv = NULL;
-	GtkWidget *button;
-	SaveData *data;
-	EogWindowPrivate *priv;
 	gboolean success = FALSE;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (images != NULL, NULL);
 	
-	g_return_if_fail (EOG_IS_WINDOW (window));
-	
-	priv = window->priv;
-	
+	if (g_list_length (images) < 2) return NULL;
+
 	base_dir = g_get_current_dir ();
 	base_uri = gnome_vfs_uri_new (base_dir);
+	g_free (base_dir);
 
+	/* function defined in ../libeog/eog-save-as-dialog-helper.h */
 	dlg = eog_save_as_dialog_new (GTK_WINDOW (window), images, 
 				      base_uri);
-
-	g_free (base_dir);
-	gnome_vfs_uri_unref (base_uri);
 
 	while (!success) {
 		GError *error = NULL;
 
-		gtk_widget_show_all (dlg);
-		response = gtk_dialog_run (GTK_DIALOG (dlg));
-		
-		if (response != GTK_RESPONSE_OK) {
-			gtk_widget_destroy (GTK_WIDGET (dlg));
-			return;
+		if (conv != NULL) {
+			g_object_unref (conv);
+			conv = NULL;
 		}
 
+		gtk_widget_show_all (dlg);
+		response = gtk_dialog_run (GTK_DIALOG (dlg));
 		gtk_widget_hide (dlg);
+		
+		if (response != GTK_RESPONSE_OK) {
+			break;
+		}
 
 		conv = eog_save_as_dialog_get_converter (dlg);
 		g_assert (conv != NULL);
@@ -1215,42 +1381,59 @@ save_as_multiple_images (EogWindow *window, GList *images)
 	}
 
 	gtk_widget_destroy (dlg);
+	gnome_vfs_uri_unref (base_uri);
 
-	data = g_new0 (SaveData, 1);
-	g_assert (data != NULL);
-	g_assert (conv != NULL);
-        eog_uri_converter_print_list (conv);
+	return conv;
+}
 
-	/* initialise data struct */
-	data->images      = images;
-	data->n_images    = g_list_length (images);
-	data->n_processed = 0;
+/* prepare load for multiple images */
+static void
+save_as_multiple_images (EogWindow *window, GList *images)
+{
+	EogURIConverter *conv = NULL;
+	GtkWidget *button;
+	SaveData *data;
+	EogJob *job;
 	
-	data->current = NULL;
-	data->source  = NULL;
-	data->target  = NULL;
-	data->conv    = conv;
+	g_return_if_fail (EOG_IS_WINDOW (window));
+	g_return_if_fail (images != NULL);
+	
+	/* obtain uri converter for translating source uris
+	 *  to target uris 
+	 */
+	conv = save_as_uri_converter_dialog (window, images);
+	if (conv == NULL) {
+		return;
+	}
+#ifdef SAVE_DEBUG
+	eog_uri_converter_print_list (conv);
+#endif
 
-	data->response = EOG_SAVE_RESPONSE_NONE;
-
-	data->error       = NULL;
-	data->cancel_save = FALSE;
-
-	data->wait = g_cond_new ();
-	data->lock = g_mutex_new ();
-
-	data->window = window;
-	data->dlg = GTK_WINDOW (eog_save_dialog_new (GTK_WINDOW (window), data->n_images));
+	/* prepare data */
+	data = save_data_new (window, images); 
+	data->conv = conv;
+	
+	g_assert (GTK_IS_WINDOW (data->dlg));
 	button = eog_save_dialog_get_button (GTK_WINDOW (data->dlg));
-	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_cancel, data);
-
+	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_dialog_cancel_cb, data);
+	
 	/* disable image modification functions */
-	gtk_action_group_set_sensitive (priv->actions_image,  FALSE);
-
+	gtk_action_group_set_sensitive (window->priv->actions_image,  FALSE);
+	
 	gtk_widget_show_all (GTK_WIDGET (data->dlg));
 	gtk_widget_show_now (GTK_WIDGET (data->dlg));
+	
+	/* start job */
+	job = eog_job_new_full (data,
+				job_save_as_image_list, /* Save As for multiple images */
+				job_save_image_finished,
+				job_save_image_cancel,
+				job_save_image_progress,
+				job_save_data_free);
+	g_object_set (G_OBJECT (job), "progress-n-parts", data->n_images, NULL);
 
-	data->thread = g_thread_create (save_as_image_list, data, TRUE, NULL);
+	data->job_id = eog_job_manager_add (job);
+	g_object_unref (G_OBJECT (job));
 }
 
 static void
@@ -1378,6 +1561,7 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 
 	/* run job */
 	eog_job_manager_add (job);
+	g_object_unref (G_OBJECT (job));
 }
 
 static void
@@ -2344,6 +2528,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	g_object_set (G_OBJECT (job), "progress-threshold", 0.25, NULL);
 
 	eog_job_manager_add (job); 
+	g_object_unref (G_OBJECT (job));
 }
 
 typedef struct {

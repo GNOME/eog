@@ -1399,7 +1399,7 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 }
 
 gboolean
-eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error) 
+eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, EogJob *job, GError **error) 
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
@@ -1528,7 +1528,7 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 }
 
 gboolean
-eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
+eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSaveInfo *target, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
@@ -1586,34 +1586,6 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 	tmp_file_delete (tmpfile);
 	g_free (tmpfile);
-
-	return success;
-}
-
-/* only for compability reasons, use eog_image_save[_as]_by_info. */
-gboolean
-eog_image_save (EogImage *img, GnomeVFSURI *uri, GdkPixbufFormat *format, GError **error)
-{
-	EogImageSaveInfo *source = NULL;
-	EogImageSaveInfo *target = NULL;
-	gboolean success = FALSE;
-
-	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
-
-	source = eog_image_save_info_from_image (img);
-
-	if (!gnome_vfs_uri_equal (img->priv->uri, uri)) {
-		char *txt_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-		target = eog_image_save_info_from_uri (txt_uri, format);
-		g_free (txt_uri);
-	}
-
-	if (source != NULL && target != NULL) {
-		success = eog_image_save_as_by_info (img, source, target, error);
-	}
-	else if (source != NULL) {
-		success = eog_image_save_by_info (img, source, error);
-	}
 
 	return success;
 }
