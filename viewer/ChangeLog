@@ -1,3 +1,19 @@
+2001-04-02  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	*eog-preview.c: 
+	*eog-preview-page.[ch]:
+	*eog-image-view.c: Resize the pixbuf once at the beginning. That 
+	lets us get rid of the distinction fit_to_page - adjust_to and we
+	are able to determine the interpolation type (gnome-print chooses its
+	own otherwise).
+
+2001-04-02  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* eog-preview.c: Give the user the option to print a cutting help.
+	* eog-preview-page.c: Show this cutting help if selected.
+	* eog-image-view.c: Print a warning that we havent' implemented the 
+	printing of the cutting help yet...
+
 2001-04-01  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-preview-page.c: Show the margins as a red line. Red because

@@ -71,6 +71,13 @@ on_vertically_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
 }
 
 static void
+on_cut_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+{
+	gconf_client_set_bool (print_setup->priv->client,
+			       "/apps/eog/viewer/cut", button->active, NULL);
+}
+
+static void
 on_landscape_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
 {
 	if (button->active)
@@ -123,6 +130,7 @@ on_right_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
 	gconf_client_set_int (print_setup->priv->client,
 			"/apps/eog/viewer/right", adjustment->value, NULL);
 }
+
 
 static void
 on_left_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
@@ -257,7 +265,7 @@ eog_print_setup_new (EogImageView *image_view)
 				      _("Print"),
 				      _("Print preview"), NULL};
 	gint		 adjust_to, left, bottom, right, top;
-	gboolean	 landscape, fit_to_page, horizontally, vertically;
+	gboolean	 landscape, fit_to_page, horizontally, vertically, cut;
 	gboolean	 down_right;
 	gchar		*paper_size;
 
@@ -283,6 +291,8 @@ eog_print_setup_new (EogImageView *image_view)
 					"/apps/eog/viewer/horizontally", NULL);
 	vertically = gconf_client_get_bool (new->priv->client,
 					"/apps/eog/viewer/vertically", NULL);
+	cut = gconf_client_get_bool (new->priv->client,
+					"/apps/eog/viewer/cut", NULL);
 	adjust_to = gconf_client_get_int (new->priv->client, 
 					"/apps/eog/viewer/adjust_to", NULL);
 	left = gconf_client_get_int (new->priv->client,
@@ -496,13 +506,25 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_vertically_toggled), new);
 	
-	/* Second page */
+	/* Third page */
 	label = gtk_label_new (_("Printing")); 
 	gtk_widget_show (label); 
 	vbox = gtk_vbox_new (FALSE, 8); 
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 8); 
 	gtk_widget_show (vbox); 
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, label); 
+
+	/* Cutting help */
+	make_header (vbox, _("Cutting help"));
+//	hbox = gtk_hbox_new (TRUE, 0);
+//	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+//	gtk_widget_show (hbox);
+	button = gtk_check_button_new_with_label (_("Print cutting help"));
+	gtk_widget_show (button);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), cut);
+	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
+			    GTK_SIGNAL_FUNC (on_cut_toggled), new);
 
 	/* Page order */
 	make_header (vbox, _("Page order"));

@@ -26,6 +26,7 @@ struct _EogPreviewPrivate
 	guint		 notify_fit;
 	guint		 notify_horizontally;
 	guint		 notify_vertically;
+	guint		 notify_cut;
 
 	gint		 width;
 	gint		 height;
@@ -40,6 +41,8 @@ struct _EogPreviewPrivate
 
 	gboolean	 vertically;
 	gboolean	 horizontally;
+
+	gboolean	 cut;
 };
 
 #define SCALE(param) (0.15 * param)
@@ -107,6 +110,9 @@ settings_changed (EogPreview *preview)
 	CHECK_BOOL (changed, preview->priv->horizontally,
 		    gconf_client_get_bool (client,
 					"/apps/eog/viewer/horizontally", NULL));
+	CHECK_BOOL (changed, preview->priv->cut,
+		    gconf_client_get_bool (client,
+		    			"/apps/eog/viewer/cut", NULL));
 	
 	return (changed);
 }
@@ -133,22 +139,95 @@ create_vbox (EogPreview *preview, gint col, gint rows_needed)
 static void
 update (EogPreview *preview)
 {
-	GtkWidget 	*page;
-	GtkWidget 	*vbox;
-	GList	  	*children;
-	GList	  	*vbox_children;
-	gint	  	 cols_needed, rows_needed;
-	gint	  	 i, j;
+	BonoboPropertyBag *bag;
+	BonoboArg	  *arg;
+	EogImage	  *image;
+	GtkWidget 	  *page;
+	GtkWidget 	  *vbox;
+	GdkPixbuf	  *pixbuf;
+	GdkPixbuf	  *pixbuf_orig;
+	GdkInterpType	   interp;
+	GList	  	  *children;
+	GList	  	  *vbox_children;
+	gint	  	   cols_needed, rows_needed;
+	gint	  	   i, j;
+	gint		   width, height;
+	gint		   pixbuf_width, pixbuf_height;
+
+	/* Get the pixbuf */
+	image = eog_image_view_get_image (preview->priv->image_view);
+	pixbuf_orig = eog_image_get_pixbuf (image);
+	bonobo_object_unref (BONOBO_OBJECT (image));
+	g_return_if_fail (pixbuf_orig);
+
+	/* Get the size of the pixbuf */
+	pixbuf_width = gdk_pixbuf_get_width (pixbuf_orig);
+	pixbuf_height = gdk_pixbuf_get_height (pixbuf_orig);
+
+
+	/* Get the interpolation type */
+	bag = eog_image_view_get_property_bag (preview->priv->image_view);
+	arg = bonobo_property_bag_get_value (bag, "interpolation", NULL);
+	bonobo_object_unref (BONOBO_OBJECT (bag)); 
+	g_return_if_fail (arg); 
+	switch (*(GNOME_EOG_Interpolation*)arg->_value) { 
+	case GNOME_EOG_INTERPOLATION_NEAREST: 
+		interp = GDK_INTERP_NEAREST; 
+		break; 
+	case GNOME_EOG_INTERPOLATION_TILES: 
+		interp = GDK_INTERP_TILES; 
+		break; 
+	case GNOME_EOG_INTERPOLATION_BILINEAR: 
+		interp = GDK_INTERP_BILINEAR; 
+		break; 
+	case GNOME_EOG_INTERPOLATION_HYPERBOLIC: 
+		interp = GDK_INTERP_HYPER; 
+		break; 
+	default: 
+		g_warning ("Got unknow interpolation type!"); 
+		interp = GDK_INTERP_NEAREST; 
+	} 
+	bonobo_arg_release (arg); 
+
+	/* Calculate width and height of image */
+	if (preview->priv->fit_to_page) {
+		double prop_paper, prop_pixbuf;
+		gint   avail_width, avail_height;
+
+		avail_width = preview->priv->width - preview->priv->right 
+						   - preview->priv->left;
+		avail_height = preview->priv->height - preview->priv->top 
+						     - preview->priv->bottom;
+		prop_paper = (double) avail_height / avail_width;
+		prop_pixbuf = (double) pixbuf_height / pixbuf_width;
+
+		if (prop_pixbuf > prop_paper) {
+			width = avail_height / prop_pixbuf;
+			height = avail_height;
+		} else {
+			width = avail_width;
+			height = avail_width * prop_pixbuf;
+		}
+	} else {
+		width = SCALE (pixbuf_width * preview->priv->adjust_to / 100);
+		height = SCALE (pixbuf_height * preview->priv->adjust_to / 100);
+	}
+	g_return_if_fail (width > 0);
+	g_return_if_fail (height > 0);
+
+	/* Scale the pixbuf */
+	pixbuf = gdk_pixbuf_scale_simple (pixbuf_orig, width, height, interp);
+	gdk_pixbuf_unref (pixbuf_orig);
 
 	/* Update the page (0, 0) in order to see how many pages we need */
 	eog_preview_page_update (EOG_PREVIEW_PAGE (preview->priv->root), 
+				 pixbuf,
 				 preview->priv->width, preview->priv->height,
 				 preview->priv->bottom, preview->priv->top,
 				 preview->priv->right, preview->priv->left,
-				 preview->priv->adjust_to,
-				 preview->priv->fit_to_page,
 				 preview->priv->vertically,
 				 preview->priv->horizontally,
+				 preview->priv->cut,
 				 &cols_needed, &rows_needed);
 
 	/* Do we need to remove VBoxes? */
@@ -193,19 +272,20 @@ update (EogPreview *preview)
 		for (j = 0; j < g_list_length (vbox_children); j++) {
 			page = g_list_nth_data (vbox_children, j);
 			eog_preview_page_update (EOG_PREVIEW_PAGE (page),
+						 pixbuf,
 						 preview->priv->width,
 						 preview->priv->height,
 						 preview->priv->bottom,
 						 preview->priv->top,
 						 preview->priv->right,
 						 preview->priv->left,
-						 preview->priv->adjust_to,
-						 preview->priv->fit_to_page,
 						 preview->priv->vertically,
 						 preview->priv->horizontally,
+						 preview->priv->cut,
 						 &cols_needed, &rows_needed);
 		}
 	}
+	gdk_pixbuf_unref (pixbuf);
 }
 
 static gboolean
@@ -248,6 +328,7 @@ remove_notification (EogPreview *preview)
 	gconf_client_notify_remove (client, preview->priv->notify_adjust);
 	gconf_client_notify_remove (client, preview->priv->notify_vertically);
 	gconf_client_notify_remove (client, preview->priv->notify_horizontally);
+	gconf_client_notify_remove (client, preview->priv->notify_cut);
 }
 
 static void
@@ -343,6 +424,9 @@ add_notification (EogPreview *preview)
 	preview->priv->notify_vertically = gconf_client_notify_add (
 				client, "/apps/eog/viewer/vertically",
 				notify, preview, NULL, NULL);
+	preview->priv->notify_cut = gconf_client_notify_add (
+				client, "/apps/eog/viewer/cut",
+				notify, preview, NULL, NULL);
 }
 
 GtkWidget*
@@ -352,8 +436,11 @@ eog_preview_new (GConfClient *client, EogImageView *image_view)
 	GtkWidget	*vbox;
 
 	preview = gtk_type_new (EOG_TYPE_PREVIEW);
+	gtk_container_set_border_width (GTK_CONTAINER (preview), 8);
 	gtk_container_set_resize_mode (GTK_CONTAINER (preview), 
 				       GTK_RESIZE_PARENT);
+	gtk_box_set_spacing (GTK_BOX (preview), 8);
+	gtk_box_set_homogeneous (GTK_BOX (preview), TRUE);
 
 	preview->priv->client = client;
 	preview->priv->image_view = image_view;

@@ -32,12 +32,13 @@ GtkType	   eog_preview_page_get_type (void);
 GtkWidget *eog_preview_page_new (EogImageView *image_view, 
 				 gint col, gint row);
 
-void 	   eog_preview_page_update (EogPreviewPage *page, 
+void 	   eog_preview_page_update (EogPreviewPage *page,
+				    GdkPixbuf *pixbuf,
 				    gint width, gint height, 
 				    gint bottom, gint top, 
 				    gint right, gint left, 
-				    gint adjust_to, gboolean fit_to_page, 
 				    gboolean vertically, gboolean horizontally,
+				    gboolean cut,
 				    gint *cols_needed, gint *rows_needed);
 
 END_GNOME_DECLS
