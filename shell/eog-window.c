@@ -781,7 +781,7 @@ listener_cb (BonoboListener *listener,
 	window = EOG_WINDOW (data);
 	priv = window->priv;
 
-	if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Action")) {		
+	if (!strcmp (event_name, "GNOME/FileSelector/Control:ButtonClicked:Action")) {		
 		CORBA_sequence_CORBA_string *seq;
 		char *uri;
 		int i, max;
@@ -798,13 +798,18 @@ listener_cb (BonoboListener *listener,
 
 		max = MIN (open_new ? seq->_length : 1, seq->_length);
 
+		g_return_if_fail (max > 0);
+
 		for (i = 0; i < max; i++) {
 			uri = seq->_buffer[i];
 
+#if 0
 			if (g_strncasecmp ("file:", uri, 5) == 0)
 				uri = g_strdup (uri+5);
 			else
 				uri = g_strdup (uri);
+#endif
+			g_print ("opening: %s\n", uri);
 
 			if (open_new)
 				open_new_window (window, uri);
@@ -813,7 +818,7 @@ listener_cb (BonoboListener *listener,
 			
 			g_free (uri);
 		}
-	} else if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Cancel")) {
+	} else if (!strcmp (event_name, "GNOME/FileSelector/Control:ButtonClicked:Cancel")) {
 		gtk_widget_hide (priv->file_sel);
 	}
 }
@@ -831,18 +836,18 @@ create_bonobo_file_sel (EogWindow *window)
 	priv = window->priv;
 
 	moniker_string = g_strdup_printf (
-		"OAFIID:GNOME_FileSelector!"
+		"OAFIID:GNOME_FileSelector_Control!"
 		"Application=Eog;"
 		"AcceptDirectories=True;"
 		"MimeTypes="
 		"All Images:image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm"
-		"::image/png"
-		"::image/gif"
-		"::image/jpeg"
-		"::image/x-bmp"
-		"::image/x-ico"
-		"::image/tiff"
-		"::image/x-xpm;"
+		"|:image/png"
+		"|:image/gif"
+		"|:image/jpeg"
+		"|:image/x-bmp"
+		"|:image/x-ico"
+		"|:image/tiff"
+		"|:image/x-xpm;"
 		"MultipleSelection=%d", 
 		gconf_client_get_bool (priv->client,
 				       "/apps/eog/window/open_new_window", NULL));
@@ -877,7 +882,7 @@ create_bonobo_file_sel (EogWindow *window)
 		bonobo_widget_get_objref (BONOBO_WIDGET (control)),
 		"IDL:Bonobo/EventSource:1.0", &ev);
 	priv->id = Bonobo_EventSource_addListenerWithMask (priv->es, listener, 
-							   "GNOME/FileSelector:ButtonClicked",
+							   "GNOME/FileSelector/Control:ButtonClicked",
 							   &ev);
 
 	CORBA_exception_free (&ev);
