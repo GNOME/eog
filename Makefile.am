@@ -1,4 +1,4 @@
-SUBDIRS = art intl macros po idl libeog viewer doc shell collection
+SUBDIRS = art idl libeog viewer doc shell collection intl po
 
 EXTRA_DIST =			\
 	DEPENDS			\
@@ -18,7 +18,8 @@ EXTRA_DIST =			\
 Graphicsdir = $(datadir)/gnome/apps/Graphics
 Graphics_in_files = eog.desktop.in
 Graphics_DATA = $(Graphics_in_files:.desktop.in=.desktop)
-@XML_I18N_MERGE_DESKTOP_RULE@
+
+@INTLTOOL_DESKTOP_RULE@
 
 icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png

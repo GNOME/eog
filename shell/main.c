@@ -1,11 +1,12 @@
 #include "../config.h"
 
 #include <gnome.h>
-#include <liboaf/liboaf.h>
+#include <bonobo-activation/bonobo-activation.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
+#include <bonobo/bonobo-ui-main.h>
 #include "eog-window.h"
 
 static gboolean
@@ -259,7 +260,9 @@ main (int argc, char **argv)
 		    argc, argv, NULL, 0, ctx);
 
 	CORBA_exception_init (&ev);
-	orb = oaf_init (argc, argv);
+	/* FIXME GNOME2 shouldn't be necessary, right?
+	   orb = oaf_init (argc, argv);
+	*/
 
 	error = NULL;
 	if (gconf_init (argc, argv, &error) == FALSE) {
@@ -272,7 +275,7 @@ main (int argc, char **argv)
 	if(gnome_vfs_init () == FALSE)
 		g_error (_("Could not initialize GnomeVFS!\n"));
 
-	if (bonobo_init (orb, NULL, NULL) == FALSE)
+	if (bonobo_ui_init ("Eye Of GNOME", VERSION, &argc, argv) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);

@@ -25,8 +25,7 @@
 
 #include <bonobo.h>
 
-BEGIN_GNOME_DECLS
- 
+G_BEGIN_DECLS 
 
 #define TYPE_EOG_WINDOW            (eog_window_get_type ())
 #define EOG_WINDOW(obj)            (GTK_CHECK_CAST ((obj), TYPE_EOG_WINDOW, EogWindow))
@@ -72,6 +71,6 @@ Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
 Bonobo_UIContainer eog_window_get_ui_container (EogWindow *eog_window,
 						CORBA_Environment *ev);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

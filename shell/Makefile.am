@@ -22,7 +22,6 @@ eog_SOURCES =	\
 	util.c
 
 eog_LDADD = 	\
-	$(GCONF_LIBS)		\
 	$(EXTRA_GNOME_LIBS)	\
 	$(INTLLIBS)		\
 	../libeog/libeog.la

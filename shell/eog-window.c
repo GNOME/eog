@@ -28,8 +28,9 @@
 #include <gnome.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <liboaf/liboaf.h>
+#include <bonobo-activation/bonobo-activation.h>
 #include <bonobo/Bonobo.h>
+#include <bonobo/bonobo-window.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-preferences.h"
@@ -189,8 +190,10 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 			_("Eye of Gnome"),
 			VERSION,
 			_("Copyright (C) 2000-2001 The Free Software Foundation"),
-			authors,
 			_("The GNOME image viewing and cataloging program"),
+			authors,
+			NULL, /* char **documentors */
+			NULL, /* char *translators */
 			NULL);
 		gtk_signal_connect (GTK_OBJECT (about), "destroy",
 				    GTK_SIGNAL_FUNC (gtk_widget_destroyed),
@@ -449,7 +452,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 	if (context->suggested_action == GDK_ACTION_ASK) {
 		GtkWidget *menu = gnome_popup_menu_new (drag_ask_popup_menu);
 		int i = gnome_popup_menu_do_popup_modal (menu, NULL, NULL,
-						     NULL, NULL);
+						     NULL, NULL, NULL);
 		gtk_object_unref (GTK_OBJECT (menu));
 		switch (i) {
 		case 0:
@@ -513,10 +516,13 @@ GtkWidget *
 eog_window_new (void)
 {
 	EogWindow *window;
+	BonoboUIContainer *uic;
 
 	window = EOG_WINDOW (gtk_type_new (TYPE_EOG_WINDOW));
 
-	bonobo_window_construct (BONOBO_WINDOW (window), "eog", _("Eye Of Gnome"));
+	uic = bonobo_ui_container_new ();
+	bonobo_window_construct (BONOBO_WINDOW (window), uic, "eog", _("Eye Of Gnome"));
+
 	eog_window_construct (window);
 
 	return GTK_WIDGET (window);
@@ -595,11 +601,11 @@ eog_window_construct (EogWindow *window)
 
 	/* add menu and toolbar */
 	ui_comp = bonobo_ui_component_new ("eog");
-	bonobo_ui_component_set_container (ui_comp, priv->ui_container);
+	bonobo_ui_component_set_container (ui_comp, priv->ui_container, NULL);
 
 	fname = bonobo_ui_util_get_ui_fname (NULL, "eog-shell-ui.xml");
 	if (fname && g_file_exists (fname)) {
-		bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG");
+		bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
 		bonobo_ui_component_add_verb_list_with_data (ui_comp, eog_app_verbs, window);
 	} else {
 		g_error (N_("Can't find eog-shell-ui.xml.\n"));
@@ -1072,7 +1078,7 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	  
 	/* activate component */
 	CORBA_exception_init (&ev);
-	unknown_obj = (Bonobo_Unknown) oaf_activate (oaf_query, NULL, 0, NULL, &ev);
+	unknown_obj = (Bonobo_Unknown) bonobo_activation_activate (oaf_query, NULL, 0, NULL, &ev);
 	g_free (oaf_query);	
 	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
 	
@@ -1124,7 +1130,7 @@ get_collection_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	
 	/* activate component */
  	CORBA_exception_init (&ev);
-	unknown_obj = (Bonobo_Unknown) oaf_activate 
+	unknown_obj = (Bonobo_Unknown) bonobo_activation_activate 
 		("repo_ids.has_all(['IDL:GNOME/EOG/ImageCollection:1.0', 'IDL:Bonobo/Control:1.0'])",
 		 NULL, 0, NULL, &ev);
 	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
@@ -1176,7 +1182,7 @@ get_collection_control_list (GList *text_uri_list)
 	
 	/* activate component */
  	CORBA_exception_init (&ev);
-	unknown_obj = (Bonobo_Unknown) oaf_activate 
+	unknown_obj = (Bonobo_Unknown) bonobo_activation_activate 
 		("repo_ids.has_all(['IDL:GNOME/EOG/ImageCollection:1.0', 'IDL:Bonobo/Control:1.0'])",
 		 NULL, 0, NULL, &ev);
 	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;

@@ -13,7 +13,7 @@
 
 #include <eog-window.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_PREFERENCES_TYPE           (eog_preferences_get_type ())
 #define EOG_PREFERENCES(o)             (GTK_CHECK_CAST ((o), EOG_PREFERENCES_TYPE, EogPreferences))
@@ -41,6 +41,6 @@ EogPreferences *eog_preferences_new          (EogWindow      *window);
 EogPreferences *eog_preferences_construct    (EogPreferences *preferences,
 					      EogWindow      *window);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_PREFERENCES */

@@ -47,9 +47,7 @@ eog_collection_SOURCES =		\
 	main.c
 
 eog_collection_LDADD = 			\
-	$(GNOME_LIBDIR)				\
 	$(GNOME_LIBS)				\
-	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_GNOME_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\

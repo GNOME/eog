@@ -41,7 +41,7 @@ eog_preferences_destroy (GtkObject *object)
 }
 
 static void
-eog_preferences_finalize (GtkObject *object)
+eog_preferences_finalize (GObject *object)
 {
 	EogPreferences *preferences;
 
@@ -52,18 +52,19 @@ eog_preferences_finalize (GtkObject *object)
 
 	g_free (preferences->priv);
 
-	GTK_OBJECT_CLASS (eog_preferences_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_preferences_parent_class)->finalize (object);
 }
 
 static void
 eog_preferences_class_init (EogPreferences *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
 
 	eog_preferences_parent_class = gtk_type_class (gnome_property_box_get_type ());
 
 	object_class->destroy = eog_preferences_destroy;
-	object_class->finalize = eog_preferences_finalize;
+	gobject_class->finalize = eog_preferences_finalize;
 }
 
 static void

@@ -4,14 +4,18 @@
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
-PKG_NAME="Eye of Gnome image viewer"
+PKG_NAME="eog"
 
 (test -f $srcdir/configure.in \
-  && test -d $srcdir/shell \
-  && test -f $srcdir/viewer/main.c) || {
+  && test -f $srcdir/README \
+  && test -d $srcdir/libeog) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level $PKG_NAME directory"
     exit 1
 }
 
-. $srcdir/macros/autogen.sh
+which gnome-autogen.sh || {
+    echo "You need to install gnome-common from the GNOME CVS"
+    exit 1
+}
+USE_GNOME2_MACROS=1 . gnome-autogen.sh
