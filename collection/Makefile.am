@@ -13,17 +13,17 @@ libexec_PROGRAMS = eog-collection-view
 
 $(eog_collection-view_OBJECTS): eog-collection-marshal.c eog-collection-marshal.h
 
-eog-collection-view-marshal.h: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+eog-collection-marshal.h: eog-collection-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal h" && \
         $(GLIB_GENMARSHAL) $< --header --prefix=eog_collection_marshal > $@
 
-eog-collection-view-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+eog-collection-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal c" && \
         $(GLIB_GENMARSHAL) $< --body --prefix=eog_collection_marshal > $@
 
 BUILT_SOURCES = \
-	eog-collection-view-marshal.c	\
-	eog-collection-view-marshal.h
+	eog-collection-marshal.c	\
+	eog-collection-marshal.h
 
 if ENABLE_EVOLUTION
 EVOLUTION_GENERATED =			\
