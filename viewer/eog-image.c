@@ -138,15 +138,14 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (data));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Loading stream...");
+
 	image = EOG_IMAGE (data);
 
 	if (image->priv->pixbuf)
 		gdk_pixbuf_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
-
-	if (image->priv->image)
-		image_unref (image->priv->image);
-	image->priv->image = NULL;
 
 	do {
 		Bonobo_Stream_read (stream, 4096, &buffer, ev);
@@ -176,7 +175,8 @@ load_image_from_stream (BonoboPersistStream       *ps,
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
-	image->priv->image = image_new ();
+	if (!image->priv->image)
+		image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
 
 	info = Bonobo_Stream_getInfo (stream, 0, ev);
@@ -212,11 +212,12 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (data));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Trying to save '%s' to stream...", type);
+
 	image = EOG_IMAGE (data);
 
 	CORBA_exception_free (ev);
-
-	g_message ("save_image_to_stream: %s", type);
 
 	if ((type == CORBA_OBJECT_NIL) ||
 	    !strcmp (type, "image/png") ||
@@ -257,15 +258,14 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	g_return_val_if_fail (closure != NULL, -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (closure), -1);
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Loading file '%s'...", text_uri);
+
 	image = EOG_IMAGE (closure);
 
 	if (image->priv->pixbuf)
 		gdk_pixbuf_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
-
-	if (image->priv->image)
-		image_unref (image->priv->image);
-	image->priv->image = NULL;
 
 	uri = gnome_vfs_uri_new (text_uri);
 
@@ -298,7 +298,8 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
-	image->priv->image = image_new ();
+	if (!image->priv->image)
+		image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
 	image->priv->image->filename = g_strdup (gnome_vfs_uri_get_basename (uri));
 	
@@ -321,8 +322,8 @@ eog_image_get_object (BonoboItemContainer *item_container,
 	g_return_val_if_fail (image != NULL, CORBA_OBJECT_NIL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), CORBA_OBJECT_NIL);
 
-	g_message ("eog_image_get_object: %d - %s",
-		   only_if_exists, item_name);
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Trying to get object '%s'...", item_name);
 
 	params = eog_util_split_string (item_name, ";");
 	for (c = params; c; c = c->next) {

@@ -75,10 +75,12 @@ static GNOME_EOG_Image
 impl_GNOME_EOG_ImageView_getImage (PortableServer_Servant servant,
 				   CORBA_Environment *ev)
 {
-	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
+	EogImageView *image_view;
 	GNOME_EOG_Image image;
 
+	image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
 	image = BONOBO_OBJREF (image_view->priv->image);
+
 	CORBA_Object_duplicate (image, ev);
 	return image;
 }
@@ -1606,6 +1608,9 @@ eog_image_view_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogImageView...");
+
 	image_view = EOG_IMAGE_VIEW (object);
 	priv = image_view->priv;
 
@@ -1810,6 +1815,9 @@ eog_image_view_new (EogImage *image,
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Creating EogImageView...");
 
 	image_view = gtk_type_new (eog_image_view_get_type ());
 

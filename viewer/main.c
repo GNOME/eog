@@ -28,6 +28,9 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (oaf_iid != NULL, NULL);
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Trying to produce a '%s'...", oaf_iid);
+
 	image = eog_image_new ();
 	if (!image)
 		return NULL;

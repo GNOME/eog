@@ -37,6 +37,9 @@ eog_control_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogControl...");
+
 	control = EOG_CONTROL (object);
 
 //BEWARE: After this has been added by bonobo_object_add_interface, 
@@ -493,6 +496,9 @@ eog_control_new (EogImage *image)
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Creating EogControl...");
 
 	control = gtk_type_new (eog_control_get_type ());
 
