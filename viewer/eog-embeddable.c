@@ -148,11 +148,52 @@ eog_embeddable_view_factory (BonoboEmbeddable      *object,
 	return BONOBO_VIEW (view);
 }
 
+static void
+render_fn (GnomePrintContext         *ctx,
+	   double                     width,
+	   double                     height,
+	   const Bonobo_PrintScissor *opt_scissor,
+	   gpointer                   user_data)
+{
+	EogImage  *image = user_data;
+	GdkPixbuf *pixbuf;
+	double     matrix[6];
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	pixbuf = eog_image_get_pixbuf (image);
+	if (!pixbuf)
+		return;
+
+	art_affine_scale (matrix, width, height);
+	matrix[4] = 0;
+	matrix[5] = 0;
+
+	gnome_print_gsave  (ctx);
+	gnome_print_concat (ctx, matrix);
+
+	if (gdk_pixbuf_get_has_alpha (pixbuf))
+		gnome_print_rgbaimage  (ctx,
+					gdk_pixbuf_get_pixels    (pixbuf),
+					gdk_pixbuf_get_width     (pixbuf),
+					gdk_pixbuf_get_height    (pixbuf),
+					gdk_pixbuf_get_rowstride (pixbuf));
+	else
+		gnome_print_rgbimage  (ctx,
+				       gdk_pixbuf_get_pixels    (pixbuf),
+				       gdk_pixbuf_get_width     (pixbuf),
+				       gdk_pixbuf_get_height    (pixbuf),
+				       gdk_pixbuf_get_rowstride (pixbuf));
+	gnome_print_grestore  (ctx);
+}
+
 EogEmbeddable *
 eog_embeddable_construct (EogEmbeddable *embeddable,
 			  Bonobo_Embeddable corba_object,
 			  EogImage *image)
 {
+	BonoboPrint *print;
+
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (embeddable != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
@@ -164,6 +205,10 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 
 	if (!eog_image_add_interfaces (image, BONOBO_OBJECT (embeddable)))
 		return NULL;
+
+	print = bonobo_print_new (render_fn, image);
+	bonobo_object_add_interface (BONOBO_OBJECT (embeddable),
+				     BONOBO_OBJECT (print));
 
 	return EOG_EMBEDDABLE (
 		bonobo_embeddable_construct (
