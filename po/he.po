@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-30 12:04+0200\n"
-"PO-Revision-Date: 2003-06-30 15:20+0300\n"
+"POT-Creation-Date: 2003-07-15 12:03+0200\n"
+"PO-Revision-Date: 2003-07-16 00:04+0300\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,39 +79,40 @@ msgid "_Save"
 msgstr "_שמור"
 
 #: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_בטל"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_תצוגה"
 
-#: collection/eog-collection-view.c:289
+#: collection/eog-collection-view.c:291
 msgid "Cancel saving"
 msgstr "בטל שמירה"
 
-#: collection/eog-collection-view.c:292
+#: collection/eog-collection-view.c:294
 msgid "Saving finished"
 msgstr "השמירה הסתיימה"
 
-#: collection/eog-collection-view.c:754
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "זרוק לאשפה"
 
-#: collection/eog-collection-view.c:798
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "תצוגת אוסף"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "כותרת החלון"
 
-#: collection/eog-collection-view.c:1262
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "טקסט מצב"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
 msgid "Progress of Image Loading"
 msgstr "התקדמות טעינת התמונה"
 
@@ -201,24 +202,6 @@ msgid "sec"
 msgstr "שניות"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "קבע את גודל החלון אוטומטית"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "פקטור הגדלה ברירת מחדל לתצוגת מסך מלא"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"פקטור הגדלה ברירת מחדל לתצוגת מסך מלא. ערכים אפשריים הם: 0 (השתמש בפקטור "
-"הגדלה 1:1), 1 (השתמש באותו פקטור הגדלה כמו חלון התמונה), 2 (התאם את התמונה "
-"למסך)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -227,11 +210,7 @@ msgstr ""
 "מזהה כיצד השקיפות תצוין. ערכים אפשריים הם CHECK_PATTERN, COLOR ו NONE. אם "
 "COLOR נבחר, אז המפתח trans_color מזהה את ערך הצבע לשימוש."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "התאם תמונות בגודל רגיל למסך"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -239,31 +218,23 @@ msgstr ""
 "אם למפתח השקיפות יש את הערך COLOR, אז המפתח מציין את הצבע לשימוש לציון "
 "השקיפות."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "שרבב תמונה"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "פתח תמונות בחלון חדש"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "שים שיפוע סביב המסך"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "מדיניות פס הגלילה לתצוגת מסך מלא"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "צבע שקיפות"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "מציין שקיפות"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -271,47 +242,11 @@ msgstr ""
 "האם יש לשרבב את התמונה בהתקרבות או לא. זה מוביל לאיכות טובה יותר אך יותר "
 "איטי מתמונות לא משורבבות."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"האם חלונות תמונה צריכים לבחור את גודלם ופקטור ההתקרבות שלהם באופן אוטומטי "
-"בהתבסס על גודל התמונה. אם אפשרות זו לא נקבעה, חלונות התמונה יקבלו את הגודל "
-"שמנהל החלונות יקבע עבורם."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr "האם פתיחת תמונה צריכה ליצור חלון חדש או להחליף את התמונה בחלון הנוכחי."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "האם תצוגת המסך המלא צריכה להציג שיפוע בקצוות המסך."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"האם להציג פסי גלילה בתצוגת מסך מלא. ערכים אפשריים הם: 1 (אוטומטי; מציג פסי "
-"גלילה רק אם התמונה גדולה מהחלון), 2 (לעולם לא מציג פסי גלילה)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"האם להתאים תמונות בגודל רגיל למסך בתצוגת מסך מלא.  אלו תמונות בגדלים כמו "
-"320x240, 640x480, 800x600 וכו'. זה מציין אם תמונות כאלו יתרחבו להתאים למסך "
-"בהתעלמות מהגדרות פקטור ההתקרבות ברירת המחדל של תצוגת מסך מלא."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -396,7 +331,7 @@ msgid "Page"
 msgstr "עמוד"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:361
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
@@ -582,7 +517,7 @@ msgstr "_יציאה"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "גיל אשר\n"
@@ -591,20 +526,20 @@ msgstr ""
 "פרויקט linBrew\n"
 "http://linbrew.sourceforge.net"
 
-#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
-#: shell/eog-window.c:857 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "עין הננס"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "כל הזכויות שמורות (C) 2000-2002 ארגון התוכנה החופשית"
-
 #: shell/eog-window.c:273
+msgid "Copyright © 2000-2003 The Free Software Foundation"
+msgstr "כל הזכויות שמורות © 2000-2003 המוסד לתוכנה חופשית"
+
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "מציג התמונות והקטלוגים של GNOME."
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -713,61 +648,137 @@ msgstr "_מסך מלא"
 msgid "_Print..."
 msgstr "_הדפסה..."
 
-#: viewer/eog-image-view.c:786
+#: viewer/eog-image-view.c:811
 msgid "/Rotate C_lockwise"
 msgstr "/סובב _עם כיוון השעון"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:813
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/סובב _נגד כיוון השעון"
 
-#: viewer/eog-image-view.c:791
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/הת_קרב"
 
-#: viewer/eog-image-view.c:793
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/הת_רחק"
 
-#: viewer/eog-image-view.c:795
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/גודל _רגיל"
 
-#: viewer/eog-image-view.c:797
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/_ההתאמה הטובה ביותר"
 
-#: viewer/eog-image-view.c:800
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_סגור"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "טעינת התמונה %s נכשלה."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"טעינת התמונה %s נכשלה.\n"
+"סיבה: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "טעינה נכשלה"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "התמונה נשמרה בהצלחה"
 
-#: viewer/eog-image-view.c:998
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "שמירת התמונה נכשלה"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "רוחב התמונה"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "גובה התמונה"
 
-#: viewer/eog-image-view.c:1250
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "טקסט שורת המצב"
 
-#: viewer/eog-image-view.c:1253
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "רוחה חלון רצוי"
 
-#: viewer/eog-image-view.c:1256
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "גובה חלון רצוי"
+
+#~ msgid "Automatically pick window size"
+#~ msgstr "קבע את גודל החלון אוטומטית"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "פקטור הגדלה ברירת מחדל לתצוגת מסך מלא"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "פקטור הגדלה ברירת מחדל לתצוגת מסך מלא. ערכים אפשריים הם: 0 (השתמש בפקטור "
+#~ "הגדלה 1:1), 1 (השתמש באותו פקטור הגדלה כמו חלון התמונה), 2 (התאם את "
+#~ "התמונה למסך)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "התאם תמונות בגודל רגיל למסך"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "שים שיפוע סביב המסך"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "מדיניות פס הגלילה לתצוגת מסך מלא"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "האם חלונות תמונה צריכים לבחור את גודלם ופקטור ההתקרבות שלהם באופן אוטומטי "
+#~ "בהתבסס על גודל התמונה. אם אפשרות זו לא נקבעה, חלונות התמונה יקבלו את "
+#~ "הגודל שמנהל החלונות יקבע עבורם."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr "האם תצוגת המסך המלא צריכה להציג שיפוע בקצוות המסך."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "האם להציג פסי גלילה בתצוגת מסך מלא. ערכים אפשריים הם: 1 (אוטומטי; מציג "
+#~ "פסי גלילה רק אם התמונה גדולה מהחלון), 2 (לעולם לא מציג פסי גלילה)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "האם להתאים תמונות בגודל רגיל למסך בתצוגת מסך מלא.  אלו תמונות בגדלים כמו "
+#~ "320x240, 640x480, 800x600 וכו'. זה מציין אם תמונות כאלו יתרחבו להתאים "
+#~ "למסך בהתעלמות מהגדרות פקטור ההתקרבות ברירת המחדל של תצוגת מסך מלא."
 
 #~ msgid "action_area"
 #~ msgstr "אזור _פעולה"
@@ -946,9 +957,6 @@ msgstr "גובה חלון רצוי"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "לא ניתן לשמור תמונה כ '%s': %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "הדפסת התמונה נכשלה"
 
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
