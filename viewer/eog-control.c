@@ -149,8 +149,8 @@ zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogControl *control)
 	index++;
 	new_zoom_level = zoom_level_from_index (index);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level",
-				 new_zoom_level);
+	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
+			       new_zoom_level);
 }
 
 static void
@@ -169,8 +169,8 @@ zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogControl *control)
 	index--;
 	new_zoom_level = zoom_level_from_index (index);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level",
-				 new_zoom_level);
+	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
+			       new_zoom_level);
 }
 
 static void
@@ -185,8 +185,8 @@ zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogControl *control)
 	new_zoom_level = eog_image_view_get_zoom_factor
 		(control->priv->image_view);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level",
-				 new_zoom_level);
+	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
+			       new_zoom_level);
 }
 
 static void
@@ -195,7 +195,7 @@ zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogControl *control)
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level", 1.0);
+	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level", 1.0);
 }
 
 static void
@@ -208,8 +208,8 @@ verb_ZoomIn_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 
 	control = EOG_CONTROL (user_data);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (control->priv->zoomable),
-				 "zoom_in");
+	g_signal_emit_by_name (G_OBJECT (control->priv->zoomable),
+			       "zoom_in");
 }
 
 static void
@@ -222,8 +222,8 @@ verb_ZoomOut_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 
 	control = EOG_CONTROL (user_data);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (control->priv->zoomable),
-				 "zoom_out");
+	g_signal_emit_by_name (G_OBJECT (control->priv->zoomable),
+			       "zoom_out");
 }
 
 static void
@@ -237,8 +237,8 @@ verb_ZoomToDefault_cb (BonoboUIComponent *uic, gpointer user_data,
 
 	control = EOG_CONTROL (user_data);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (control->priv->zoomable),
-				 "zoom_to_default");
+	g_signal_emit_by_name (G_OBJECT (control->priv->zoomable),
+			       "zoom_to_default");
 }
 
 static void
@@ -252,8 +252,8 @@ verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
 
 	control = EOG_CONTROL (user_data);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (control->priv->zoomable),
-				 "zoom_to_fit");
+	g_signal_emit_by_name (G_OBJECT (control->priv->zoomable),
+			       "zoom_to_fit");
 }
 
 static BonoboUIVerb eog_control_verbs[] = {
@@ -385,62 +385,64 @@ eog_control_construct (EogControl    *control,
 	BonoboControl         *retval;
 	BonoboPropertyBag     *pb;
 	BonoboPropertyControl *pc;
+	EogControlPrivate     *priv;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (control != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (control), NULL);
 
+	priv = control->priv;
+
 	if (!eog_image_add_interfaces (image, BONOBO_OBJECT (control)))
 		return NULL;
 
 	/* Create the image-view */
-	control->priv->image_view = eog_image_view_new (image, FALSE);
-	if (!control->priv->image_view) {
+	priv->image_view = eog_image_view_new (image, FALSE);
+	if (!priv->image_view) {
 		bonobo_object_unref (BONOBO_OBJECT (control));
 		return NULL;
 	}
-	widget = eog_image_view_get_widget (control->priv->image_view);
+	widget = eog_image_view_get_widget (priv->image_view);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget),
 					     GTK_SHADOW_IN);
 
 	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
 	
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (control->priv->image_view));
+				     BONOBO_OBJECT (priv->image_view));
 
-#if NEED_GNOME2_PORTING
 	/* Interface Bonobo::Zoomable */
 	control->priv->zoomable = bonobo_zoomable_new ();
 
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "set_frame",
-			    GTK_SIGNAL_FUNC (zoomable_set_frame_cb),
-			    control);
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "set_zoom_level",
-			    GTK_SIGNAL_FUNC (zoomable_set_zoom_level_cb),
-			    control);
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "zoom_in",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_in_cb),
-			    control);
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "zoom_out",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_out_cb),
-			    control);
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "zoom_to_fit",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_fit_cb),
-			    control);
-	gtk_signal_connect (GTK_OBJECT (control->priv->zoomable),
-			    "zoom_to_default",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb),
-			    control);
+	g_signal_connect (G_OBJECT (priv->zoomable),
+			  "set_frame",
+			  G_CALLBACK (zoomable_set_frame_cb),
+			  control);
+	g_signal_connect (GTK_OBJECT (priv->zoomable),
+			  "set_zoom_level",
+			  G_CALLBACK (zoomable_set_zoom_level_cb),
+			  control);
+	g_signal_connect (G_OBJECT (priv->zoomable),
+			  "zoom_in",
+			  G_CALLBACK (zoomable_zoom_in_cb),
+			  control);
+	g_signal_connect (G_OBJECT (priv->zoomable),
+			  "zoom_out",
+			  G_CALLBACK (zoomable_zoom_out_cb),
+			  control);
+	g_signal_connect (G_OBJECT (priv->zoomable),
+			  "zoom_to_fit",
+			  G_CALLBACK (zoomable_zoom_to_fit_cb),
+			  control);
+	g_signal_connect (G_OBJECT (priv->zoomable),
+			  "zoom_to_default",
+			  G_CALLBACK (zoomable_zoom_to_default_cb),
+			  control);
 
-	control->priv->zoom_level = 1.0;
-	bonobo_zoomable_set_parameters_full (control->priv->zoomable,
-					     control->priv->zoom_level,
+	priv->zoom_level = 1.0;
+	bonobo_zoomable_set_parameters_full (priv->zoomable,
+					     priv->zoom_level,
 					     preferred_zoom_levels [0],
 					     preferred_zoom_levels [max_preferred_zoom_levels],
 					     TRUE, TRUE, TRUE,
@@ -448,15 +450,16 @@ eog_control_construct (EogControl    *control,
 					     preferred_zoom_level_names,
 					     max_preferred_zoom_levels + 1);
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (control->priv->zoomable));
+				     BONOBO_OBJECT (priv->zoomable));
 
-	pb = eog_image_view_get_property_bag (control->priv->image_view);
+#if NEED_GNOME2_PORTING
+	pb = eog_image_view_get_property_bag (priv->image_view);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
 				       BONOBO_OBJREF (pb), 
 				       NULL);
 	bonobo_object_unref (BONOBO_OBJECT (pb));
 
-	pc = eog_image_view_get_property_control (control->priv->image_view);
+	pc = eog_image_view_get_property_control (priv->image_view);
 //FIXME: Ok, it seems crazy to get something, unref it, and process it further.
 //       But: bonobo_object_add_interface seems to need objects with
 //       ref_count == 1, otherwise, eog-image-viewer will never exit (even if
@@ -468,7 +471,7 @@ eog_control_construct (EogControl    *control,
 				     BONOBO_OBJECT (pc));
 #endif
 
-	control->priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
+	priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 	
 	return control;
 }

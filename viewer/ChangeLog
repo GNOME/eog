@@ -1,5 +1,17 @@
 2001-12-28  Jens Finke <jens@triq.net>
 
+	* eog-control.c (zoomable_zoom_in_cb),
+	(zoomable_zoom_out_cb),
+	(zoomable_zoom_to_fit_cb),
+	(zoomable_zoom_to_default_cb),
+	(verb_ZoomIn_cb),
+	(verb_ZoomOut_cb),
+	(verb_ZoomToDefault_cb),
+	(verb_ZoomToFit_cb),
+	(eog_control_construct): Fixed zoom handling for gnome2.
+
+2001-12-28  Jens Finke <jens@triq.net>
+
 	* Makefile.am (uidir): Install ui xml files in
 	$(datadir)/gnome-2.0/ui
 
@@ -11,7 +23,7 @@
 
 2001-12-27  Jens Finke <jens@triq.net>
 
-	* Makefile.am (eog_iamge_viewer_LDADD): Removed $(INTLLIBS). Link
+	* Makefile.am (eog_image_viewer_LDADD): Removed $(INTLLIBS). Link
 	the static eog library with -leog. This reduces the link time a
 	lot.
 	(eog_image_viewer_DEPENDENCIES): Added dependency to libeog.a.
