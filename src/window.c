@@ -38,6 +38,11 @@ typedef struct {
 	/* What we are displaying */
 	WindowMode mode;
 
+	/* A bin to hold the content.  GnomeApp does not like its contents to be
+	 * removed and added again.
+	 */
+	GtkWidget *bin;
+
 	/* Our contents, which may change depending on the mode */
 	GtkWidget *content;
 } WindowPrivate;
@@ -172,11 +177,12 @@ set_mode (Window *window, WindowMode mode)
 
 	case WINDOW_MODE_IMAGE:
 		priv->content = ui_image_new ();
-		gnome_app_set_contents (GNOME_APP (window), priv->content);
+		gtk_container_add (GTK_CONTAINER (priv->bin), priv->content);
+		gtk_widget_show (priv->content);
 		break;
 
 	case WINDOW_MODE_COLLECTION:
-		/* FIXME - fallthrough */
+		/* FIXME - create UI, fallthrough */
 
 	default:
 		g_assert_not_reached ();
@@ -470,8 +476,6 @@ window_destroy (GtkObject *object)
 	window = WINDOW (object);
 	priv = window->priv;
 
-	/* FIXME: destroy the rest */
-
 	g_free (priv);
 
 	window_list = g_list_remove (window_list, window);
@@ -519,9 +523,17 @@ window_new (void)
 void
 window_construct (Window *window)
 {
+	WindowPrivate *priv;
+
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (IS_WINDOW (window));
 
+	priv = window->priv;
+
 	gnome_app_construct (GNOME_APP (window), "eog", _("Eye of Gnome"));
 	gnome_app_create_menus_with_data (GNOME_APP (window), main_menu, window);
+
+	priv->bin = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
+	gnome_app_set_contents (GNOME_APP (window), priv->bin);
+	gtk_widget_show (priv->bin);
 }

@@ -17,7 +17,9 @@ eog_SOURCES =			\
 	ui-image.c		\
 	ui-image.h		\
 	window.c		\
-	window.h
+	window.h		\
+	zoom.c			\
+	zoom.h
 
 eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\

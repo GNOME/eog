@@ -1,5 +1,21 @@
 1999-09-17  Federico Mena Quintero  <federico@redhat.com>
 
+	* ui-image.c (ui_image_set_image): Set the canvas scroll region
+	based on the image size.
+
+	* zoom.[ch]: New files with utilitiy functions for computing zoom
+	factors.
+
+	* Makefile.am (eog_SOURCES): Added zoom.[ch] to the sources.
+
+	* window.c (WindowPrivate): Added a bin field.  Now we put the
+	contents in a simple bin because GnomeApp does not like its
+	contents to be removed and added again.
+	(window_construct): Create the bin.
+	(set_mode): Put the real contents in the bin.
+
+1999-09-17  Federico Mena Quintero  <federico@redhat.com>
+
 	* main.c: Removed old test cruft.
 
 	* window.c (confirm_save): Renamed from confirm_close().

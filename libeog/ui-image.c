@@ -215,6 +215,7 @@ void
 ui_image_set_image (UIImage *ui, Image *image)
 {
 	UIImagePrivate *priv;
+	int w, h;
 
 	g_return_if_fail (ui != NULL);
 	g_return_if_fail (IS_UI_IMAGE (ui));
@@ -236,5 +237,11 @@ ui_image_set_image (UIImage *ui, Image *image)
 			       "image", image,
 			       NULL);
 
-	/* FIXME: set the scroll region and zoom */
+	if (image->buf) {
+		w = image->buf->art_pixbuf->width;
+		h = image->buf->art_pixbuf->height;
+	} else
+		w = h = 0;
+
+	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w, h);
 }
