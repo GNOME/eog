@@ -55,7 +55,6 @@ struct _GnomeListItemFactoryClass {
 	void (* configure_item) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				 GnomeListModel *model, guint n,
 				 gboolean is_selected, gboolean is_focused);
-	void (* discard_item) (GnomeListItemFactory *factory, GnomeCanvasItem *item);
 	void (* get_item_size) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				GnomeListModel *model, guint n,
 				gint *width, gint *height);
@@ -70,8 +69,6 @@ GnomeCanvasItem *gnome_list_item_factory_create_item (GnomeListItemFactory *fact
 void gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 					     GnomeListModel *model, guint n,
 					     gboolean is_selected, gboolean is_focused);
-
-void gnome_list_item_factory_discard_item (GnomeListItemFactory *factory, GnomeCanvasItem *item);
 
 void gnome_list_item_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 					    GnomeListModel *model, guint n,

@@ -28,7 +28,6 @@
 enum {
 	CREATE_ITEM,
 	CONFIGURE_ITEM,
-	DISCARD_ITEM,
 	GET_ITEM_SIZE,
 	LAST_SIGNAL
 };
@@ -38,7 +37,6 @@ static void gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class
 static void marshal_create_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
 static void marshal_configure_item (GtkObject *object, GtkSignalFunc func, gpointer data,
 				    GtkArg *args);
-static void marshal_discard_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
 static void marshal_get_item_size (GtkObject *object, GtkSignalFunc func, gpointer data,
 				   GtkArg *args);
 
@@ -106,13 +104,6 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 				GTK_TYPE_UINT,
 				GTK_TYPE_BOOL,
 				GTK_TYPE_BOOL);
-	li_factory_signals[DISCARD_ITEM] =
-		gtk_signal_new ("discard_item",
-				object_class->type,
-				GTK_SIGNAL_OFFSET (GnomeListItemFactoryClass, discard_item),
-				marshal_discard_item,
-				GTK_TYPE_NONE, 1,
-				GNOME_TYPE_CANVAS_ITEM);
 	li_factory_signals[GET_ITEM_SIZE] =
 		gtk_signal_new ("get_item_size",
 				object_class->type,
@@ -234,26 +225,6 @@ gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanv
 
 	gtk_signal_emit (GTK_OBJECT (factory), li_factory_signals[CONFIGURE_ITEM],
 			 item, model, n, is_selected, is_focused);
-}
-
-/**
- * gnome_list_item_factory_discard_item:
- * @factory: A list item factory.
- * @item: A list item created by this factory.
- *
- * Informs a list item factory that a particular item is no longer needed and
- * can be destroyed or recycled.
- **/
-void
-gnome_list_item_factory_discard_item (GnomeListItemFactory *factory, GnomeCanvasItem *item)
-{
-	g_return_if_fail (factory != NULL);
-	g_return_if_fail (GNOME_IS_LIST_ITEM_FACTORY (factory));
-	g_return_if_fail (item != NULL);
-	g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
-
-	gtk_signal_emit (GTK_OBJECT (factory), li_factory_signals[DISCARD_ITEM],
-			 item);
 }
 
 /**
