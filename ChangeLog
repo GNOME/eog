@@ -1,3 +1,27 @@
+2002-07-29  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes #89372.
+
+	* shell/main.c (show_nonexistent_files): Oops,
+	gtk_message_dialog_new() takes a printf() format, so use it - if
+	our filenames contained percent characters, we would screw up.
+	(make_canonical_uri): Escape the filename before passing it to
+	gnome-vfs.
+
+	* shell/eog-window.c (eog_window_open_dialog): Likewise.
+
+	* shell/util.c (open_failure_dialog): Unescape the URI.
+
+2002-07-29  Federico Mena Quintero  <federico@ximian.com>
+
+	* libeog/image-view.c (image_view_scroll_event): Reverted
+	scrollwheel change.  No modifiers means zoom, shift+wheel means
+	scroll, shift+control+wheel means scroll in the other direction.
+	Rationale:  you can already scroll around the image by simply
+	dragging it around.  Zooming is more useful, I think, so that you
+	can completely navigate around the image without ever touching the
+	keyboard.
+
 2002-07-29  Jens Finke  <jens@triq.net>
 
 	* libeog/image-view.c (image_view_button_press_event): Don't

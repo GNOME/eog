@@ -1220,13 +1220,13 @@ image_view_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 		return FALSE;
 	}
 
-	if ((event->state & GDK_SHIFT_MASK) == GDK_SHIFT_MASK)
+	if ((event->state & GDK_SHIFT_MASK) == 0)
 		image_view_set_zoom (view, priv->zoomx * zoom_factor, priv->zoomy * zoom_factor,
 				     TRUE, event->x, event->y);
-	else if ((event->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK)
-		scroll_by (view, yofs, xofs);
-	else
+	else if ((event->state & GDK_CONTROL_MASK) == 0)
 		scroll_by (view, xofs, yofs);
+	else
+		scroll_by (view, yofs, xofs);
 
 	return TRUE;
 }

@@ -26,7 +26,7 @@
 
 
 
-void open_failure_dialog (GtkWindow *parent, const char *filename);
+void open_failure_dialog (GtkWindow *parent, const char *text_uri);
 
 
 

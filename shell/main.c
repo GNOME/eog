@@ -53,24 +53,33 @@ create_app_list (gpointer data)
 }
 
 static GnomeVFSURI*
-make_canonical_uri (const gchar *path)
+make_canonical_uri (const char *path)
 {
 	GnomeVFSURI *uri;
-	gchar *current_dir;
-	gchar *canonical;
-	gchar *concat_path;
+	char *escaped;
+	char *current_dir;
+	char *canonical;
+	char *concat_path;
 
 	g_return_val_if_fail (path != NULL, NULL);
 
-	if (strchr (path, ':') != NULL)
-		return gnome_vfs_uri_new (path);
+	uri = NULL;
 
-	if (path[0] == '/')
-		return gnome_vfs_uri_new (path);
+	escaped = gnome_vfs_escape_path_string (path);
+
+	if (strchr (escaped, ':') != NULL) {
+		uri = gnome_vfs_uri_new (escaped);
+		goto out;
+	}
+
+	if (escaped[0] == '/') {
+		uri = gnome_vfs_uri_new (escaped);
+		goto out;
+	}
 
 	current_dir = g_get_current_dir ();
 	/* g_get_current_dir returns w/o trailing / */
-	concat_path = g_strconcat (current_dir, "/", path, NULL);
+	concat_path = g_strconcat (current_dir, "/", escaped, NULL);
 	canonical = gnome_vfs_make_path_name_canonical (concat_path);
 	
 	uri = gnome_vfs_uri_new (canonical);
@@ -79,6 +88,8 @@ make_canonical_uri (const gchar *path)
 	g_free (canonical);
 	g_free (concat_path);
 
+ out:
+	g_free (escaped);
 	return uri;
 }
 
@@ -272,8 +283,8 @@ error_dialog_response_cb (GtkDialog *dialog, gint response_id)
 static void
 show_nonexistent_files (GList *error_list)
 {
-	char *str;
 	char *msg;
+	char *str;
 	int n;
 	GtkWidget *dialog;
 
@@ -282,25 +293,23 @@ show_nonexistent_files (GList *error_list)
 	str = concat_string_list_with_newlines (error_list, &n);
 
 	if (n == 1)
-		msg = g_strdup_printf (_("Could not access %s\n"
-					 "Eye of Gnome will not be able to display this file."),
-				       str);
+		msg = _("Could not access %s\n"
+			"Eye of Gnome will not be able to display this file.");
 	else
-		msg = g_strdup_printf (_("The following files cannot be displayed "
-					 "because Eye of Gnome was not able to "
-					 "access them:\n"
-					 "%s"),
-				       str);
-
-	g_free (str);
+		msg = _("The following files cannot be displayed "
+			"because Eye of Gnome was not able to "
+			"access them:\n"
+			"%s");
 
 	dialog = gtk_message_dialog_new (
 		NULL,
 		0,
 		GTK_MESSAGE_ERROR,
 		GTK_BUTTONS_CANCEL,
-		msg);
-	g_free (msg);
+		msg,
+		str);
+
+	g_free (str);
 
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (error_dialog_response_cb),

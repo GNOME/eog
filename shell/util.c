@@ -22,6 +22,7 @@
 #include <config.h>
 #include <gtk/gtkmessagedialog.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include "util.h"
 
 
@@ -29,24 +30,28 @@
 /**
  * open_failure_dialog:
  * @parent: Parent window for the dialog.
- * @filename: Name of file that could not be loaded.
+ * @filename: URI that could not be loaded.
  * 
  * Displays a dialog to indicate failure when loading a file.
  **/
 void
-open_failure_dialog (GtkWindow *parent, const char *filename)
+open_failure_dialog (GtkWindow *parent, const char *text_uri)
 {
 	GtkWidget *msg;
+	char *unescaped;
 
-	g_return_if_fail (filename != NULL);
+	g_return_if_fail (text_uri != NULL);
 	g_return_if_fail (!parent || GTK_IS_WINDOW (parent));
+
+	unescaped = gnome_vfs_unescape_string_for_display (text_uri);
 
 	msg = gtk_message_dialog_new (parent,
 				      GTK_DIALOG_DESTROY_WITH_PARENT,
 				      GTK_MESSAGE_ERROR,
 				      GTK_BUTTONS_OK,
 				      _("Could not open `%s'"),
-				      filename);
+				      unescaped);
+	g_free (unescaped);
 
 	gtk_dialog_run (GTK_DIALOG (msg));
 

@@ -289,8 +289,8 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 	g_return_if_fail (uri != NULL);
 
 	window = EOG_WINDOW (eog_window_new ());
-	
-	if (g_ascii_strncasecmp ("file:", uri, 5) == 0) 		
+
+	if (g_ascii_strncasecmp ("file:", uri, 5) == 0)
 		path = g_strdup ((uri+5));
 	else
 		path = g_strdup (uri);
@@ -554,7 +554,8 @@ open_dnd_files (EogWindow *window, gboolean need_new_window)
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
-	if (window->priv->dnd_files == NULL) return;
+	if (window->priv->dnd_files == NULL)
+		return;
 
 	for (l = window->priv->dnd_files; l; l = l->next) {
 		g_assert (l->data != NULL);
@@ -715,9 +716,9 @@ eog_window_close (EogWindow *window)
 
 /* Open image dialog */
 
-/* Opens an image in a new window */
+/* Opens an image in a new window; takes in an escaped URI */
 static void
-open_new_window (EogWindow *window, const char *filename)
+open_new_window (EogWindow *window, const char *text_uri)
 {
 	EogWindowPrivate *priv;
 	GtkWidget *new_window;
@@ -729,11 +730,11 @@ open_new_window (EogWindow *window, const char *filename)
 	else
 		new_window = eog_window_new ();
 
-	if (eog_window_open (EOG_WINDOW (new_window), filename)) {
+	if (eog_window_open (EOG_WINDOW (new_window), text_uri)) {
 		gtk_widget_show_now (new_window);
 		raise_and_focus (new_window);
 	} else {
-		open_failure_dialog (GTK_WINDOW (new_window), filename);
+		open_failure_dialog (GTK_WINDOW (new_window), text_uri);
 
 		if (new_window != GTK_WIDGET (window))
 			gtk_widget_destroy (new_window);
@@ -767,10 +768,16 @@ eog_window_open_dialog (EogWindow *window)
 	gtk_widget_destroy (dlg);
 
 	if (response == GTK_RESPONSE_OK) {
+		char *escaped;
+
+		escaped = gnome_vfs_escape_path_string (filename);
+
 		if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
-			open_new_window (window, filename);
-		else if (!eog_window_open (window, filename))
-			open_failure_dialog (GTK_WINDOW (window), filename);
+			open_new_window (window, escaped);
+		else if (!eog_window_open (window, escaped))
+			open_failure_dialog (GTK_WINDOW (window), escaped);
+
+		g_free (escaped);
 	}
 
 	if (filename)
@@ -1163,7 +1170,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 /**
  * window_open:
  * @window: A window.
- * @filename: An path to the object to load (image/directory).
+ * @filename: An escaped text URI for the object to load.
  *
  * Opens an image file and puts it into a window.  Even if loading fails, the
  * image structure will be created and put in the window.
@@ -1195,10 +1202,8 @@ eog_window_open (EogWindow *window, const char *text_uri)
 					      GNOME_VFS_FILE_INFO_DEFAULT |
 					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
 					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-	if (result != GNOME_VFS_OK) {
-		g_warning ("Error while obtaining file informations.");
+	if (result != GNOME_VFS_OK)
 		return FALSE;
-	}
 	
 	control = CORBA_OBJECT_NIL;
 
