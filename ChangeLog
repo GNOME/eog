@@ -1,3 +1,9 @@
+2000-07-24  Dan Winship  <danw@helixcode.com>
+
+	* bonobo/bonobo-image-generic.c (load_image_from_stream): Fix the
+	sense of a comparison so we set a CORBA exception when something
+	goes wrong, rather than when something goes right.
+
 2000-07-10  Federico Mena Quintero  <federico@helixcode.com>
 
 	* configure.in: Added the GCONF_CONFIG_SOURCE stuff, from Havoc.

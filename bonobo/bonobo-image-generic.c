@@ -308,7 +308,7 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 					       buffer->_buffer,
 					       buffer->_length)) {
 			CORBA_free (buffer);
-			if (ev->_major != CORBA_NO_EXCEPTION)
+			if (ev->_major == CORBA_NO_EXCEPTION)
 				goto exit_clean;
 			else
 				goto exit_wrong_type;
