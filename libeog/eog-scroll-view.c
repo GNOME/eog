@@ -18,7 +18,7 @@
 
 /* Maximum zoom factor */
 #define MAX_ZOOM_FACTOR 20
-#define MIN_ZOOM_FACTOR 0.01
+#define MIN_ZOOM_FACTOR 0.02
 
 #define CHECK_MEDIUM 8
 #define CHECK_BLACK 0x00000000
@@ -1008,6 +1008,11 @@ set_zoom_fit (EogScrollView *view)
 				   gdk_pixbuf_get_width (priv->pixbuf),
 				   gdk_pixbuf_get_height (priv->pixbuf),
 				   priv->upscale);
+
+	if (new_zoom > MAX_ZOOM_FACTOR)
+		new_zoom = MAX_ZOOM_FACTOR;
+	else if (new_zoom < MIN_ZOOM_FACTOR)
+		new_zoom = MIN_ZOOM_FACTOR;
 
 	if (DOUBLE_EQUAL (new_zoom, priv->zoom))
 		return;
