@@ -11,9 +11,9 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
-	$(EXTRA_BONOBO_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
-	$(GNOME_CFLAGS)
+	$(GNOME_CFLAGS)					\
+	$(EXTRA_GNOME_CFLAGS)
 
 CORBA_SOURCES =			\
 	Eog.h			\
@@ -42,10 +42,9 @@ libeog_la_SOURCES =			\
 libeog_la_LIBADD = 			\
 	$(GNOME_LIBS)			\
 	$(GNOME_LIBDIR)			\
-	$(GNOME_LIBS)			\
+	$(EXTRA_GNOME_LIBS)		\
 	$(OAF_LIBS)			\
 	$(INTLLIBS)			\
-	$(EXTRA_BONOBO_LIBS)		\
 	$(LIBPNG) $(LIBJPEG)
 
 idls =							\

@@ -102,7 +102,8 @@ ui_image_init (UIImage *ui)
 
 	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
 
- 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui), GTK_SHADOW_IN);
+ 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui),
+					  GTK_SHADOW_NONE);
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (ui),
 				     GTK_POLICY_AUTOMATIC,
 				     GTK_POLICY_AUTOMATIC);
