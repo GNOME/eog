@@ -1,4 +1,4 @@
-SUBDIRS = art idl libeog viewer doc shell po
+SUBDIRS = art idl libeog viewer shell po help omf-install
 
 EXTRA_DIST =			\
 	DEPENDS			\
@@ -12,7 +12,8 @@ EXTRA_DIST =			\
 	gnome-eog.png		\
 	intltool-extract.in	\
 	intltool-update.in	\
-	intltool-merge.in
+	intltool-merge.in	\
+	xmldocs.make
 
 Graphicsdir = $(datadir)/applications
 Graphics_in_files = eog.desktop.in
