@@ -144,6 +144,9 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	if (image->priv->pixbuf)
 		gdk_pixbuf_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
+	if (image->priv->filename)
+		g_free (image->priv->filename);
+	image->priv->filename = NULL;
 
 	do {
 		Bonobo_Stream_read (stream, 4096, &buffer, ev);
@@ -174,7 +177,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
 	info = Bonobo_Stream_getInfo (stream, 0, ev);
-	if (ev->_major == CORBA_NO_EXCEPTION) {
+	if (!BONOBO_EX (ev)) {
 		image->priv->filename = g_strdup (g_basename (info->name));
 		CORBA_free (info);
 	}
@@ -211,8 +214,6 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 
 	image = EOG_IMAGE (data);
 
-	CORBA_exception_free (ev);
-
 	if ((type == CORBA_OBJECT_NIL) ||
 	    !strcmp (type, "image/png") ||
 	    !strcmp (type, "image/x-png") ||
@@ -227,7 +228,7 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 	if (retval)
 		return;
 
-	if (ev->_major == CORBA_NO_EXCEPTION)
+	if (!BONOBO_EX (ev))
 		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
 				     ex_Bonobo_Persist_WrongDataType, NULL);
 
@@ -260,13 +261,18 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	if (image->priv->pixbuf)
 		gdk_pixbuf_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
+	if (image->priv->filename)
+		g_free (image->priv->filename);
+	image->priv->filename = NULL;
 
 	uri = gnome_vfs_uri_new (text_uri);
 
 	/* open uri */
 	result = gnome_vfs_open_uri (&handle, uri, GNOME_VFS_OPEN_READ);
-	if (result != GNOME_VFS_OK)
+	if (result != GNOME_VFS_OK) {
+		gnome_vfs_uri_unref (uri);
 		return -1;
+	}
 
 	loader = gdk_pixbuf_loader_new ();
 	buffer = g_new0 (guchar, 4096);
@@ -282,13 +288,16 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	if (result != GNOME_VFS_ERROR_EOF) {
 		gdk_pixbuf_loader_close (loader);
+		gnome_vfs_uri_unref (uri);
 		return -1;
 	}
 	
 	gdk_pixbuf_loader_close (loader);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-	if (!image->priv->pixbuf)
+	if (!image->priv->pixbuf) {
+		gnome_vfs_uri_unref (uri);
 		return -1;
+	}
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
