@@ -35,6 +35,8 @@ void uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2);
 
 void uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height);
 
+void uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int width, int height);
+
 
 
 #endif

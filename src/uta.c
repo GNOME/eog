@@ -33,7 +33,7 @@
  * @y1: Top microtile coordinate that must fit in new array.
  * @x2: Right microtile coordinate that must fit in new array.
  * @y2: Bottom microtile coordinate that must fit in new array.
- * 
+ *
  * Ensures that the size of a microtile array is big enough to fit the specified
  * microtile coordinates.  If it is not big enough, the specified @uta will be
  * freed and a new one will be returned.  Otherwise, the original @uta will be
@@ -42,7 +42,7 @@
  *
  * Note that the specified coordinates must have already been scaled down by the
  * ART_UTILE_SHIFT factor.
- * 
+ *
  * Return value: The same value as @uta if the original microtile array was
  * big enough to fit the specified microtile coordinates, or a new array if
  * it needed to be grown.  In the second case, the original @uta will be
@@ -56,9 +56,11 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
 	int new_ofs, ofs;
 	int x, y;
 
-	g_return_val_if_fail (uta != NULL, NULL);
 	g_return_val_if_fail (x1 < x2, NULL);
 	g_return_val_if_fail (y1 < y2, NULL);
+
+	if (!uta)
+		return art_uta_new (x1, y1, x2, y2);
 
 	if (x1 >= uta->x0
 	    && y1 >= uta->y0
@@ -105,10 +107,10 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
  * @y1: Top coordinate of rectangle.
  * @x2: Right coordinate of rectangle.
  * @y2: Bottom coordinate of rectangle.
- * 
+ *
  * Adds the specified rectangle to a microtile array.  The array is
  * grown to fit the rectangle if necessary.
- * 
+ *
  * Return value: The original @uta, or a new microtile array if the original one
  * needed to be grown to fit the specified rectangle.  In the second case, the
  * original @uta will be freed automatically.
@@ -162,83 +164,133 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	if (rect_y2 - rect_y1 == 1) {
 		if (rect_x2 - rect_x1 == 1) {
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							 MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					xf1, yf1, xf2, yf2);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 		} else {
 			/* Leftmost tile */
 			bb = utiles[ofs];
-			utiles[ofs++] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							   ART_UTILE_SIZE,
-							   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					xf1, yf1, ART_UTILE_SIZE, yf2);
+			else
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					ART_UTILE_SIZE,
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Tiles in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
-				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
-								   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-								   ART_UTILE_SIZE,
-								   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+				if (bb == 0)
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0, yf1, ART_UTILE_SIZE, yf2);
+				else
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0,
+						MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+						ART_UTILE_SIZE,
+						MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 			}
 
 			/* Rightmost tile */
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (0,
-							 MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0, yf1, xf2, yf2);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0,
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 		}
 	} else {
 		if (rect_x2 - rect_x1 == 1) {
 			/* Topmost tile */
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							 MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 ART_UTILE_SIZE);
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					xf1, yf1, xf2, ART_UTILE_SIZE);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					ART_UTILE_SIZE);
 			ofs += uta->width;
 
 			/* Tiles in between */
 			for (y = rect_y1 + 1; y < rect_y2 - 1; y++) {
 				bb = utiles[ofs];
-				utiles[ofs] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-								 0,
-								 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-								 ART_UTILE_SIZE);
+				if (bb == 0)
+					utiles[ofs] = ART_UTA_BBOX_CONS (
+						xf1, 0, xf2, ART_UTILE_SIZE);
+				else
+					utiles[ofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (bb), xf1),
+						0,
+						MAX (ART_UTA_BBOX_X1 (bb), xf2),
+						ART_UTILE_SIZE);
 				ofs += uta->width;
 			}
 
 			/* Bottommost tile */
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							 0,
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					xf1, 0, xf2, yf2);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					0,
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 		} else {
 			/* Top row, leftmost tile */
 			bb = utiles[ofs];
-			utiles[ofs++] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							   ART_UTILE_SIZE,
-							   ART_UTILE_SIZE);
+			if (bb == 0)
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					xf1, yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+			else
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					ART_UTILE_SIZE,
+					ART_UTILE_SIZE);
 
 			/* Top row, in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
-				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
-								   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-								   ART_UTILE_SIZE,
-								   ART_UTILE_SIZE);
+				if (bb == 0)
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0, yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+				else
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0,
+						MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+						ART_UTILE_SIZE,
+						ART_UTILE_SIZE);
 			}
 
-			/* Top row, rightmost tile */ 
+			/* Top row, rightmost tile */
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (0,
-							 MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 ART_UTILE_SIZE);
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0, yf1, xf2, ART_UTILE_SIZE);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0,
+					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					ART_UTILE_SIZE);
 
 			ofs += uta->width - (rect_x2 - rect_x1 - 1);
 
@@ -246,10 +298,15 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			for (y = rect_y1 + 1; y < rect_y2 - 1; y++) {
 				/* Leftmost tile */
 				bb = utiles[ofs];
-				utiles[ofs++] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-								   0,
-								   ART_UTILE_SIZE,
-								   ART_UTILE_SIZE);
+				if (bb == 0)
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						xf1, 0, ART_UTILE_SIZE, ART_UTILE_SIZE);
+				else
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (bb), xf1),
+						0,
+						ART_UTILE_SIZE,
+						ART_UTILE_SIZE);
 
 				/* Tiles in between */
 				bb = ART_UTA_BBOX_CONS (0, 0, ART_UTILE_SIZE, ART_UTILE_SIZE);
@@ -258,36 +315,56 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 
 				/* Rightmost tile */
 				bb = utiles[ofs];
-				utiles[ofs] = ART_UTA_BBOX_CONS (0,
-								 0,
-								 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-								 ART_UTILE_SIZE);
+				if (bb == 0)
+					utiles[ofs] = ART_UTA_BBOX_CONS (
+						0, 0, xf2, ART_UTILE_SIZE);
+				else
+					utiles[ofs] = ART_UTA_BBOX_CONS (
+						0,
+						0,
+						MAX (ART_UTA_BBOX_X1 (bb), xf2),
+						ART_UTILE_SIZE);
 
 				ofs += uta->width - (rect_x2 - rect_x1 - 1);
 			}
 
 			/* Bottom row, leftmost tile */
 			bb = utiles[ofs];
-			utiles[ofs++] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
-							   0,
-							   ART_UTILE_SIZE,
-							   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					xf1, 0, ART_UTILE_SIZE, yf2);
+			else
+				utiles[ofs++] = ART_UTA_BBOX_CONS (
+					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					0,
+					ART_UTILE_SIZE,
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Bottom row, tiles in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
-				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
-								   0,
-								   ART_UTILE_SIZE,
-								   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+				if (bb == 0)
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0, 0, ART_UTILE_SIZE, yf2);
+				else
+					utiles[ofs++] = ART_UTA_BBOX_CONS (
+						0,
+						0,
+						ART_UTILE_SIZE,
+						MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 			}
 
 			/* Bottom row, rightmost tile */
 			bb = utiles[ofs];
-			utiles[ofs] = ART_UTA_BBOX_CONS (0,
-							 0,
-							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
-							 MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+			if (bb == 0)
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0, 0, xf2, yf2);
+			else
+				utiles[ofs] = ART_UTA_BBOX_CONS (
+					0,
+					0,
+					MAX (ART_UTA_BBOX_X1 (bb), xf2),
+					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 		}
 	}
 
@@ -301,7 +378,7 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
  * @y1: Top coordinate of rectangle.
  * @x2: Right coordinate of rectangle.
  * @y2: Bottom coordinate of rectangle.
- * 
+ *
  * Removes a rectangular region from the specified microtile array.  Due to the
  * way microtile arrays represent regions, the tiles at the edge of the
  * rectangle may not be clipped exactly.
@@ -363,7 +440,7 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			ArtUtaBbox bb;
 			int bb_x1, bb_y1, bb_x2, bb_y2;
 			int bb_cx1, bb_cy1, bb_cx2, bb_cy2;
-			
+
 			bb = utiles[ofs];
 			bb_x1 = ART_UTA_BBOX_X0 (bb);
 			bb_y1 = ART_UTA_BBOX_Y0 (bb);
@@ -588,3 +665,285 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 }
 
 #endif
+
+/* Copies a single microtile to another location in the UTA, offsetted by the
+ * specified distance.  A microtile can thus end up being added in a single part
+ * to another microtile, in two parts to two horizontally or vertically adjacent
+ * microtiles, or in four parts to a 2x2 square of microtiles.
+ *
+ * This is basically a normal BitBlt but with copying-forwards-to-the-destination
+ * instead of fetching-backwards-from-the-source.
+ */
+static void
+copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
+{
+	ArtUtaBbox *utiles;
+	ArtUtaBbox bb, dbb;
+	int t_x1, t_y1, t_x2, t_y2;
+	int d_x1, d_y1, d_x2, d_y2;
+	int d_tx1, d_ty1;
+	int d_xf1, d_yf1, d_xf2, d_yf2;
+	int dofs;
+
+	utiles = uta->utiles;
+
+	bb = utiles[(y - uta->y0) * uta->width + x - uta->x0];
+
+	if (bb == 0)
+		return;
+
+	t_x1 = ART_UTA_BBOX_X0 (bb) + (x << ART_UTILE_SHIFT);
+	t_y1 = ART_UTA_BBOX_Y0 (bb) + (y << ART_UTILE_SHIFT);
+	t_x2 = ART_UTA_BBOX_X1 (bb) + (x << ART_UTILE_SHIFT);
+	t_y2 = ART_UTA_BBOX_Y1 (bb) + (y << ART_UTILE_SHIFT);
+
+	d_x1 = t_x1 + xofs;
+	d_y1 = t_y1 + yofs;
+	d_x2 = t_x2 + xofs;
+	d_y2 = t_y2 + yofs;
+
+	d_tx1 = d_x1 >> ART_UTILE_SHIFT;
+	d_ty1 = d_y1 >> ART_UTILE_SHIFT;
+
+	dofs = (d_ty1 - uta->y0) * uta->width + d_tx1 - uta->x0;
+
+	d_xf1 = d_x1 & (ART_UTILE_SIZE - 1);
+	d_yf1 = d_y1 & (ART_UTILE_SIZE - 1);
+	d_xf2 = ((d_x2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
+	d_yf2 = ((d_y2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
+
+	if (d_x2 - d_x1 <= ART_UTILE_SIZE - d_xf1) {
+		if (d_y2 - d_y1 <= ART_UTILE_SIZE - d_yf1) {
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, d_yf1, d_xf2, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+		} else {
+			/* Top tile */
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, d_yf1, d_xf2, ART_UTILE_SIZE);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						ART_UTILE_SIZE);
+			}
+
+			dofs += uta->width;
+
+			/* Bottom tile */
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, 0, d_xf2, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						0,
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+		}
+	} else {
+		if (d_y2 - d_y1 <= ART_UTILE_SIZE - d_yf1) {
+			/* Left tile */
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, d_yf1, ART_UTILE_SIZE, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						ART_UTILE_SIZE,
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+
+			dofs++;
+
+			/* Right tile */
+			if (d_tx1 + 1 >= uta->x0 && d_tx1 + 1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0, d_yf1, d_xf2, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0,
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+		} else {
+			/* Top left tile */
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, d_yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						ART_UTILE_SIZE,
+						ART_UTILE_SIZE);
+			}
+
+			dofs++;
+
+			/* Top right tile */
+			if (d_tx1 + 1 >= uta->x0 && d_tx1 + 1 < uta->x0 + uta->width
+			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0, d_yf1, d_xf2, ART_UTILE_SIZE);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0,
+						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						ART_UTILE_SIZE);
+			}
+
+			dofs += uta->width - 1;
+
+			/* Bottom left tile */
+			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
+			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						d_xf1, 0, ART_UTILE_SIZE, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+						0,
+						ART_UTILE_SIZE,
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+
+			dofs++;
+
+			/* Bottom right tile */
+			if (d_tx1 + 1 >= uta->x0 && d_tx1 + 1 < uta->x0 + uta->width
+			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
+				dbb = utiles[dofs];
+				if (dbb == 0)
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0, 0, d_xf2, d_yf2);
+				else
+					utiles[dofs] = ART_UTA_BBOX_CONS (
+						0,
+						0,
+						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+			}
+		}
+	}
+}
+
+/**
+ * uta_copy_area:
+ * @uta: A microtile array.
+ * @src_x: Left coordinate of source rectangle.
+ * @src_y: Top coordinate of source rectangle.
+ * @dest_x: Left coordinate of destination.
+ * @dest_y: Top coordinate of destination.
+ * @width: Width of region to copy.
+ * @height: Height of region to copy.
+ *
+ * Copies a rectangular region within a microtile array.  The array will not be
+ * expanded if the destination area does not fit within it; rather only the area
+ * that fits will be copied.  The source rectangle must be completely contained
+ * within the microtile array.
+ **/
+void
+uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int width, int height)
+{
+	ArtUtaBbox *utiles;
+	int rect_x1, rect_y1, rect_x2, rect_y2;
+	gboolean top_to_bottom, left_to_right;
+	int xofs, yofs;
+	int x, y;
+
+	g_return_if_fail (uta != NULL);
+	g_return_if_fail (width >= 0 && height >= 0);
+	g_return_if_fail (src_x >= uta->x0 << ART_UTILE_SHIFT);
+	g_return_if_fail (src_y >= uta->y0 << ART_UTILE_SHIFT);
+	g_return_if_fail (src_x + width <= (uta->x0 + uta->width) << ART_UTILE_SHIFT);
+	g_return_if_fail (src_y + height <= (uta->y0 + uta->height) << ART_UTILE_SHIFT);
+
+	if ((src_x == dest_x && src_y == dest_y) || width == 0 || height == 0)
+		return;
+
+	/* FIXME: This function is not perfect.  It *adds* the copied/offsetted
+	 * area to the original contents of the microtile array, thus growing
+	 * the region more than needed.  The effect should be to "overwrite" the
+	 * original contents, just like XCopyArea() does.  Care needs to be
+	 * taken when the edges of the rectangle do not fall on microtile
+	 * boundaries, because tiles may need to be "split".
+	 *
+	 * Maybe this will work:
+	 *
+	 * 1. Copy the rectangular array of tiles that form the region to a
+	 *    temporary buffer.
+	 *
+	 * 2. uta_remove_rect() the *destination* rectangle from the original
+	 *    microtile array.
+	 *
+	 * 3. Copy back the temporary buffer to the original array while
+	 *    offsetting it in the same way as copy_tile() does.
+	 */
+
+	utiles = uta->utiles;
+
+	rect_x1 = src_x >> ART_UTILE_SHIFT;
+	rect_y1 = src_y >> ART_UTILE_SHIFT;
+	rect_x2 = (src_x + width + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_y2 = (src_y + height + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+
+	xofs = dest_x - src_x;
+	yofs = dest_y - src_y;
+
+	left_to_right = xofs < 0;
+	top_to_bottom = yofs < 0;
+
+	if (top_to_bottom && left_to_right) {
+		for (y = rect_y1; y < rect_y2; y++)
+			for (x = rect_x1; x < rect_x2; x++)
+				copy_tile (uta, x, y, xofs, yofs);
+	} else if (top_to_bottom && !left_to_right) {
+		for (y = rect_y1; y < rect_y2; y++)
+			for (x = rect_x2 - 1; x >= rect_x1; x--)
+				copy_tile (uta, x, y, xofs, yofs);
+	} else if (!top_to_bottom && left_to_right) {
+		for (y = rect_y2 - 1; y >= rect_y1; y--)
+			for (x = rect_x1; x < rect_x2; x++)
+				copy_tile (uta, x, y, xofs, yofs);
+	} else if (!top_to_bottom && !left_to_right) {
+		for (y = rect_y2 - 1; y >= rect_y1; y--)
+			for (x = rect_x2 - 1; x >= rect_x1; x--)
+				copy_tile (uta, x, y, xofs, yofs);
+	}
+}

@@ -1,3 +1,19 @@
+2000-04-21  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (scroll_to): New function to do proper scrolling of
+	the image view.
+	(drag_to): Use scroll_to().
+	(adjustment_changed_cb): Use scroll_to().
+
+	* uta.c (uta_copy_area): New function to do the equivalent of a
+	BitBlt on a microtile array.  It is not perfect; see the FIXME for
+	details.
+	(copy_tile): Helper function for uta_copy_area().
+	(uta_ensure_size): Create a new uta with the proper size if the
+	specified uta is NULL.
+	(uta_add_rect): Special-case source tiles that are empty so as not
+	to add a bigger region than needed.
+
 2000-04-20  Federico Mena Quintero  <federico@helixcode.com>
 
 	* window.c (window_open_image): Add the image size to the window

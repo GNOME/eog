@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <math.h>
+#include <stdlib.h>
 #include <gtk/gtksignal.h>
 #include "cursors.h"
 #include "image-view.h"
@@ -56,6 +57,9 @@ typedef struct {
 	/* Adjustments for scrolling */
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
+
+	/* Current scrolling offsets */
+	int xofs, yofs;
 
 	/* Microtile array for dirty region */
 	ArtUta *uta;
@@ -324,12 +328,12 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 	if (scaled_width < width)
 		xofs = (width - scaled_width) / 2;
 	else
-		xofs = -priv->hadj->value;
+		xofs = -priv->xofs;
 
 	if (scaled_height < height)
 		yofs = (height - scaled_height) / 2;
 	else
-		yofs = -priv->vadj->value;
+		yofs = -priv->yofs;
 
 	/* Draw background if necessary, in four steps */
 
@@ -412,6 +416,17 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 				      d.x0 - xofs, d.y0 - yofs);
 
 	gdk_pixbuf_unref (tmp);
+
+#if 0
+	gdk_draw_line (GTK_WIDGET (view)->window,
+		       GTK_WIDGET (view)->style->black_gc,
+		       d.x0, d.y0,
+		       d.x1 - 1, d.y1 - 1);
+	gdk_draw_line (GTK_WIDGET (view)->window,
+		       GTK_WIDGET (view)->style->black_gc,
+		       d.x1 - 1, d.y0,
+		       d.x0, d.y1 - 1);
+#endif
 }
 
 /* Idle handler for the drawing process.  We pull a rectangle from the dirty
@@ -477,6 +492,119 @@ request_paint_area (ImageView *view, GdkRectangle *area)
 
 		priv->uta = uta_add_rect (NULL, x1, y1, x2, y2);
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
+	}
+}
+
+/* Scrolls the view to the specified offsets.  Does not perform range checking!  */
+static void
+scroll_to (ImageView *view, int x, int y)
+{
+	ImageViewPrivate *priv;
+	int xofs, yofs;
+	GdkWindow *window;
+	GdkGC *gc;
+	int width, height;
+	int src_x, src_y;
+	int dest_x, dest_y;
+	int twidth, theight;
+	GdkEvent *event;
+
+	priv = view->priv;
+
+	/* Compute offsets and check bounds */
+
+	xofs = x - priv->xofs;
+	yofs = y - priv->yofs;
+
+	if (xofs == 0 && yofs == 0)
+		return;
+
+	width = GTK_WIDGET (view)->allocation.width;
+	height = GTK_WIDGET (view)->allocation.height;
+
+	priv->xofs = x;
+	priv->yofs = y;
+
+	if (abs (xofs) >= width || abs (yofs) >= height) {
+		GdkRectangle area;
+
+		area.x = 0;
+		area.y = 0;
+		area.width = width;
+		area.height = height;
+
+		request_paint_area (view, &area);
+		return;
+	}
+
+	window = GTK_WIDGET (view)->window;
+
+	/* Ensure that the uta has the full size */
+
+	twidth = (width + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	theight = (height + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+
+	if (priv->uta)
+		g_assert (priv->idle_id != 0);
+	else
+		priv->idle_id = g_idle_add (paint_iteration_idle, view);
+
+	priv->uta = uta_ensure_size (priv->uta, 0, 0, twidth, theight);
+
+	/* Copy the uta area and add the scrolled-in region */
+
+	src_x = xofs < 0 ? 0 : xofs;
+	src_y = yofs < 0 ? 0 : yofs;
+	dest_x = xofs < 0 ? -xofs : 0;
+	dest_y = yofs < 0 ? -yofs : 0;
+
+	uta_copy_area (priv->uta,
+		       src_x, src_y,
+		       dest_x, dest_y,
+		       width - abs (xofs), height - abs (yofs));
+
+	if (xofs) {
+		int xx;
+
+		xx = xofs < 0 ? 0 : width - xofs;
+		uta_add_rect (priv->uta,
+			      xx, 0,
+			      xx + abs (xofs), height);
+	}
+
+	if (yofs) {
+		int yy;
+
+		yy = yofs < 0 ? 0 : height - yofs;
+		uta_add_rect (priv->uta,
+			      0, yy,
+			      width, yy + abs (yofs));
+	}
+
+	/* Copy the window area */
+		
+	gc = gdk_gc_new (window);
+	gdk_gc_set_exposures (gc, TRUE);
+
+	gdk_window_copy_area (window,
+			      gc,
+			      dest_x, dest_y,
+			      window,
+			      src_x, src_y,
+			      width - abs (xofs),
+			      height - abs (yofs));
+
+	gdk_gc_destroy (gc);
+
+	/* Process graphics exposures */
+
+	while ((event = gdk_event_get_graphics_expose (window)) != NULL) {
+		gtk_widget_event (GTK_WIDGET (view), event);
+		if (event->expose.count == 0) {
+			gdk_event_free (event);
+			break;
+		}
+		gdk_event_free (event);
 	}
 }
 
@@ -668,8 +796,8 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 	priv->drag_anchor_x = event->x;
 	priv->drag_anchor_y = event->y;
 
-	priv->drag_ofs_x = priv->hadj->value;
-	priv->drag_ofs_y = priv->vadj->value;
+	priv->drag_ofs_x = priv->xofs;
+	priv->drag_ofs_y = priv->yofs;
 
 	cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
 	gdk_pointer_grab (widget->window,
@@ -691,7 +819,6 @@ drag_to (ImageView *view, int x, int y)
 {
 	ImageViewPrivate *priv;
 	int dx, dy;
-	GdkRectangle area;
 
 	priv = view->priv;
 
@@ -700,6 +827,8 @@ drag_to (ImageView *view, int x, int y)
 
 	x = CLAMP (priv->drag_ofs_x + dx, 0, priv->hadj->upper - priv->hadj->page_size);
 	y = CLAMP (priv->drag_ofs_y + dy, 0, priv->vadj->upper - priv->vadj->page_size);
+
+	scroll_to (view, x, y);
 
 	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
 	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
@@ -712,15 +841,6 @@ drag_to (ImageView *view, int x, int y)
 	
 	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
 	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
-
-	/* FIXME: use copy_area() for the window and the uta */
-
-	area.x = 0;
-	area.y = 0;
-	area.width = GTK_WIDGET (view)->allocation.width;
-	area.height = GTK_WIDGET (view)->allocation.height;
-
-	request_paint_area (view, &area);
 }
 
 /* Button release handler for the image view */
@@ -791,19 +911,11 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
-	GdkRectangle area;
 
 	view = IMAGE_VIEW (data);
 	priv = view->priv;
 
-	/* FIXME: use copy_area() for the window and the uta */
-
-	area.x = 0;
-	area.y = 0;
-	area.width = GTK_WIDGET (view)->allocation.width;
-	area.height = GTK_WIDGET (view)->allocation.height;
-
-	request_paint_area (view, &area);
+	scroll_to (view, priv->hadj->value, priv->vadj->value);
 }
 
 /* Set_scroll_adjustments handler for the image view */
