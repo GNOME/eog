@@ -24,7 +24,6 @@
 #include <bonobo.h>
 
 #include "eog-collection-control.h"
-#include "gnome-wrap-list.h"
 
 /* Number of running objects */ 
 static int running_objects = 0;

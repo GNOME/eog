@@ -27,7 +27,7 @@
 #include <libgnomeui/gnome-canvas-rect-ellipse.h>
 #include <libgnomeui/gnome-canvas-text.h>
 #include "gnome-icon-item-factory.h"
-#include "eog-image-list-model.h"
+#include "eog-collection-model.h"
 #include "cimage.h"
 
 
@@ -51,6 +51,9 @@ typedef struct {
 
 /* Icon item structure */
 typedef struct {
+	/* unique id */
+	guint id;
+
 	/* Base group */
 	GnomeCanvasItem *item;
 
@@ -71,10 +74,10 @@ static void gnome_icon_item_factory_init (GnomeIconItemFactory *factory);
 static void gnome_icon_item_factory_destroy (GtkObject *object);
 
 static GnomeCanvasItem *ii_factory_create_item (GnomeListItemFactory *factory,
-						GnomeCanvasGroup *parent);
-static void ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				       EogCollectionModel *model, guint n,
-				       gboolean is_selected, gboolean is_focused);
+						GnomeCanvasGroup *parent, guint id);
+static void ii_factory_update_item (GnomeListItemFactory *factory,
+				    EogCollectionModel *model, 
+				    GnomeCanvasItem *item);
 static void ii_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				      EogCollectionModel *model, guint n,
 				      gint *width, gint *height);
@@ -131,7 +134,7 @@ gnome_icon_item_factory_class_init (GnomeIconItemFactoryClass *class)
 	object_class->destroy = gnome_icon_item_factory_destroy;
 
 	li_factory_class->create_item = ii_factory_create_item;
-	li_factory_class->configure_item = ii_factory_configure_item;
+	li_factory_class->update_item = ii_factory_update_item;
 	li_factory_class->get_item_size = ii_factory_get_item_size;
 }
 
@@ -196,7 +199,7 @@ icon_destroyed (GtkObject *object, gpointer data)
 
 /* Create_item handler for the icon list item factory */
 static GnomeCanvasItem *
-ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent)
+ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent, guint unique_id)
 {
 	IconItem *icon;
 
@@ -207,8 +210,11 @@ ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent)
 
 	icon = g_new (IconItem, 1);
 
+	icon->id = unique_id;
 	icon->item = gnome_canvas_item_new (parent,
 					    GNOME_TYPE_CANVAS_GROUP,
+					    "x", 0.0,
+					    "y", 0.0,
 					    NULL);
 	gtk_object_set_data (GTK_OBJECT (icon->item), "IconItem", icon);
 	gtk_signal_connect (GTK_OBJECT (icon->item), "destroy",
@@ -293,9 +299,9 @@ shrink_to_width (char *str, GdkFont *font,  int width)
 
 /* Configure_item handler for the icon list item factory */
 static void
-ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-			   EogCollectionModel *model, guint n,
-			   gboolean is_selected, gboolean is_focused)
+ii_factory_update_item (GnomeListItemFactory *factory, 
+			EogCollectionModel *model,
+			GnomeCanvasItem *item)
 {
 	GnomeIconItemFactory *ii_factory;
 	GdkPixbuf *thumb;
@@ -307,7 +313,9 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	int caption_w, caption_h;
 	int caption_x, caption_y;
 	gchar *caption;
+#if 0
 	guint sel_color;
+#endif
 	GtkStyle *style;
 	GdkFont *font;
 
@@ -317,7 +325,6 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-	g_return_if_fail (n < eog_collection_model_get_length (model));
 
 	ii_factory = GNOME_ICON_ITEM_FACTORY (factory);
 	priv = ii_factory->priv;
@@ -325,8 +332,8 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	icon = gtk_object_get_data (GTK_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
 
-	cimage = eog_collection_model_get_image (model, n);
-	if (cimage == NULL) return;
+	cimage = eog_collection_model_get_image (model, icon->id);
+	g_assert (cimage != NULL);
 	
 	/* Compute thumbnail image */
 	if (cimage_has_thumbnail (cimage)) {
@@ -403,6 +410,7 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 
 	/* Configure selection and focus */
 
+#if 0
 	if (is_selected) {
 		gnome_canvas_item_show (icon->sel_image);
 		gnome_canvas_item_show (icon->sel_caption);
@@ -444,6 +452,7 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				       NULL);
 	} else
 		gnome_canvas_item_hide (icon->focus_caption);
+#endif
 }
 
 /* Get_item_size handler for the icon list item factory */

@@ -18,14 +18,12 @@
 #include <gnome.h>
 
 #include "gnome-icon-item-factory.h"
-#include "gnome-wrap-list.h"
-#include "eog-image-selection-model.h"
+#include "eog-wrap-list.h"
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
 
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
-	GnomeListSelectionModel *sel_model;
 	GnomeIconItemFactory    *factory;
 
 	GtkWidget               *wraplist;
@@ -115,10 +113,6 @@ eog_collection_view_destroy (GtkObject *object)
 	if (list_view->priv->model)
 		gtk_object_unref (GTK_OBJECT (list_view->priv->model));
 	list_view->priv->model = NULL;
-
-	if (list_view->priv->sel_model)
-		gtk_object_unref (GTK_OBJECT (list_view->priv->sel_model));
-	list_view->priv->sel_model = NULL;
 
 	if (list_view->priv->factory)
 		gtk_object_unref (GTK_OBJECT (list_view->priv->factory));
@@ -210,8 +204,6 @@ EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
 {
 	EogCollectionViewPrivate *priv;
-	GtkAdjustment *vadj;
-	GtkAdjustment *hadj;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -222,35 +214,21 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	priv = list_view->priv;
 	priv->model = eog_collection_model_new ();
 
-        priv->sel_model = GNOME_LIST_SELECTION_MODEL (eog_image_selection_model_new ());
+	priv->factory = gtk_type_new (GNOME_TYPE_ICON_ITEM_FACTORY);
+	gnome_icon_item_factory_set_item_metrics (priv->factory, 120, 120, 100, 100);
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
-	priv->wraplist = gtk_type_new(GNOME_TYPE_WRAP_LIST);
+	priv->wraplist = eog_wrap_list_new ();
 	gtk_container_add (GTK_CONTAINER (priv->root), priv->wraplist);
-	gnome_list_view_set_model (GNOME_LIST_VIEW (priv->wraplist), priv->model);
-	gnome_list_view_set_selection_model (GNOME_LIST_VIEW (priv->wraplist), priv->sel_model);
-	gnome_wrap_list_set_mode (GNOME_WRAP_LIST (priv->wraplist), GNOME_WRAP_LIST_ROW_MAJOR);
-	gnome_wrap_list_set_item_size (GNOME_WRAP_LIST (priv->wraplist), 120, 120 );
-	gnome_wrap_list_set_row_spacing (GNOME_WRAP_LIST (priv->wraplist), 20);
-	gnome_wrap_list_set_col_spacing (GNOME_WRAP_LIST (priv->wraplist), 20);
-	gnome_wrap_list_set_shadow_type (GNOME_WRAP_LIST (priv->wraplist), GTK_SHADOW_IN);
-	gnome_wrap_list_set_use_unit_scrolling (GNOME_WRAP_LIST (priv->wraplist), TRUE);
+	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
+	eog_wrap_list_set_factory (EOG_WRAP_LIST (priv->wraplist),
+				   GNOME_LIST_ITEM_FACTORY (priv->factory));
+	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
+	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "item_dbl_click", 
 			    handle_item_dbl_click, list_view);
 
-
-	priv->factory = gtk_type_new (GNOME_TYPE_ICON_ITEM_FACTORY);
-	gnome_icon_item_factory_set_item_metrics (priv->factory, 120, 120, 100, 100);
-	gnome_list_view_set_list_item_factory (GNOME_LIST_VIEW (priv->wraplist),
-					       GNOME_LIST_ITEM_FACTORY (priv->factory));
-	
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->root), 
-					GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-	hadj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->root));
-	vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (priv->root));
-	gtk_widget_set_scroll_adjustments (GTK_WIDGET (priv->wraplist), hadj, vadj);
-	
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
 

@@ -40,6 +40,12 @@ typedef struct _EogCollectionModel EogCollectionModel;
 typedef struct _EogCollectionModelClass EogCollectionModelClass;
 typedef struct _EogCollectionModelPrivate EogCollectionModelPrivate;
 
+#define EOG_MODEL_ID_RANGE -1 /* Random number to indicate that the
+                                 following two ids are building a range. */
+#define EOG_MODEL_ID_END   -2 /* Random number to indicate that the list
+                                 will include all ids until the end. */
+#define EOG_MODEL_ID_NONE  -3 /* Random number, same as NULL otherwise.*/
+
 struct _EogCollectionModel {
 	GtkObject parent_object;
 	
@@ -50,9 +56,9 @@ struct _EogCollectionModelClass {
 	GtkObjectClass parent_class;
 
 	/* Notification signals */
-	void (* interval_changed) (EogCollectionModel *model, guint min_id, guint length);
-	void (* interval_added)   (EogCollectionModel *model, guint min_id, guint length);
-	void (* interval_removed) (EogCollectionModel *model, guint min_id, guint length);
+	void (* interval_changed) (EogCollectionModel *model, GList *id_list);
+	void (* interval_added)   (EogCollectionModel *model, GList *id_list);
+	void (* interval_removed) (EogCollectionModel *model, GList *id_list);
 
 	void (* selection_changed) (EogCollectionModel *model);
 };
@@ -61,7 +67,6 @@ typedef struct {
         CImage *image;
         Bonobo_Stream stream;
 } LoadingContext;
-
 
 
 GtkType 

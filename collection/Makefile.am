@@ -16,10 +16,8 @@ INCLUDES =                                              \
 bin_PROGRAMS = eog-collection
 
 eog_collection_SOURCES = \
-	eog-image-list-model.c        	\
-	eog-image-list-model.h        	\
-	eog-image-selection-model.c  	\
-	eog-image-selection-model.h  	\
+	eog-wrap-list.c			\
+	eog-wrap-list.h			\
 	eog-collection-control.c        \
 	eog-collection-control.h        \
 	eog-collection-view.h		\
@@ -32,20 +30,8 @@ eog_collection_SOURCES = \
 	eog-collection-model.c		\
 	gnome-icon-item-factory.c    	\
 	gnome-icon-item-factory.h    	\
-	gnome-icon-list-model.c      	\
-	gnome-icon-list-model.h      	\
 	gnome-list-item-factory.c	\
 	gnome-list-item-factory.h	\
-	gnome-list-model.c		\
-	gnome-list-model.h		\
-	gnome-list-selection-model.c	\
-	gnome-list-selection-model.h	\
-	gnome-list-view.c		\
-	gnome-list-view.h		\
-	gnome-position-list-model.c	\
-	gnome-position-list-model.h	\
-	gnome-wrap-list.c		\
-	gnome-wrap-list.h		\
 	main.c
 
 eog_collection_LDADD = 			\

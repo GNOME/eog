@@ -1,3 +1,33 @@
+2001-03-21  Jens Finke <jens@gnome.org>
+
+	* eog-image-list.[ch], eog-image-selection-model.[ch],
+	gnome-icon-list-model.[ch], gnome-list-model.[ch],
+	gnome-list-selection-model.[ch], gnome-list-view.[ch],
+	gnome-position-list-model.[ch], gnome-wrap-list.[ch]: Removed
+	files. These contained a lot of lagacy stuff, which isn't used
+	anymore.
+
+	* eog-wrap-list.[ch]: New files. This substitutes the old
+	gnome-wrap-list, provides smooth scrolling, is faster and
+	does correct layouting.
+
+	* Makefile.am (SOURCES): Adapted to above changes.
+
+	* eog-collection-model.[ch]: Use a GList of unique ids as
+	parameter for the interval_added, interval_changed and
+	interval_removed signals.
+
+	* eog-collection-view.c (eog_collection_view_construct): Use
+	EogWrapList instead of GnomeWrapList.
+
+	* gnome-icon-item-factory.c (ii_factory_configure_item): Renamed
+	to ii_factory_update_item, adapted to work with EogWrapList.
+	(ii_factory_create_item): Added unique_id to parameter list.
+
+	* gnome-list-item-factory.[ch] (configure_item signal): Renamed to
+	update_item, removed last 3 parameter.
+	(create_item signal): Added unique_id to paramter list.
+
 2001-03-12  Jens Finke <jens@gnome.org>
 
 	* eog-collection-control.[ch]: Parent class is EogCollectionView

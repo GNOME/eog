@@ -101,27 +101,24 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 				object_class->type,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_changed),
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_UINT,
-				GTK_TYPE_UINT);
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
 	eog_model_signals[INTERVAL_ADDED] =
 		gtk_signal_new ("interval_added",
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_added),
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_UINT,
-				GTK_TYPE_UINT);
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
 	eog_model_signals[INTERVAL_REMOVED] =
 		gtk_signal_new ("interval_removed",
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_removed),
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_UINT,
-				GTK_TYPE_UINT);
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
 	eog_model_signals[SELECTION_CHANGED] = 
 		gtk_signal_new ("selection_changed",
 				GTK_RUN_FIRST,
@@ -134,7 +131,7 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 
 }
 
-typedef void (* IntervalNotificationFunc) (GtkObject *object, guint start, guint length,
+typedef void (* IntervalNotificationFunc) (GtkObject *object, GList *id_list,
 					   gpointer data);
 
 static void
@@ -143,7 +140,7 @@ marshal_interval_notification (GtkObject *object, GtkSignalFunc func, gpointer d
 	IntervalNotificationFunc rfunc;
 
 	rfunc = (IntervalNotificationFunc) func;
-	(* func) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_UINT (args[1]), data);
+	(* func) (object, GTK_VALUE_POINTER (args[0]), data);
 }
 
 
@@ -205,6 +202,7 @@ real_image_loading (EogCollectionModel *model)
 	EogCollectionModelPrivate *priv;
 	CORBA_Environment ev;
 	Bonobo_Storage_DirectoryList *dir_list;
+	GList *id_list = NULL;
 	gint i;
 
 	g_return_val_if_fail (model != NULL, FALSE);
@@ -235,6 +233,8 @@ real_image_loading (EogCollectionModel *model)
 			CImage *img;			
 			img = cimage_new (info.name);			
 			priv->image_list = g_list_append (priv->image_list, img);
+			id_list = g_list_append (id_list, 
+						 GINT_TO_POINTER (cimage_get_unique_id (img)));
 		}
 
 		/* update gui every 20th time */
@@ -242,7 +242,11 @@ real_image_loading (EogCollectionModel *model)
 			while (gtk_events_pending ())
 				gtk_main_iteration ();
 	}
-	
+
+	if (id_list)
+		gtk_signal_emit (GTK_OBJECT (model), 
+				 eog_model_signals [INTERVAL_ADDED],
+				 id_list);
 	/* 
 	 * Start the image loading through EogImageLoader.
 	 */
@@ -344,9 +348,14 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 void
 image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer model)
 {
+	GList *id_list = NULL;
+
+	id_list = g_list_append (id_list, 
+				 GINT_TO_POINTER (cimage_get_unique_id (img)));
+
 	gtk_signal_emit (GTK_OBJECT (model), 
 			 eog_model_signals [INTERVAL_CHANGED],
-			 cimage_get_unique_id (img), 1);
+			 id_list);
 }
 
 
