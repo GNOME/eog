@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-25 10:43+0100\n"
-"PO-Revision-Date: 2004-11-25 10:45+0100\n"
+"POT-Creation-Date: 2005-01-15 22:00+0100\n"
+"PO-Revision-Date: 2005-01-15 22:01+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
 msgstr "Bildevisning"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
 msgstr "Vis forskjellige typer bilder"
 
@@ -248,35 +248,39 @@ msgstr ""
 "Om bildet skal interpoloeres ved zoom eller ikke. Dette gir bedre kvalitet, "
 "men er noe tregere enn ikke-interpolerte bilder."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Alle filer"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Alle bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s piksler"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Åpne i et nytt vindu"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Last bilde"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Lagre bilde"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
@@ -712,7 +716,15 @@ msgstr[1] "Filer ikke funnet."
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "Kunne ikke åpne `%s'"
+msgstr "Kunne ikke åpne «%s»"
+
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (ugyldig Unicode)"
+
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "Kunne ikke vise hjelp for Eye of GNOME"
 
 #~ msgid "Open _Directory..."
 #~ msgstr "Åpne _katalog..."
@@ -984,9 +996,6 @@ msgstr "Kunne ikke åpne `%s'"
 
 #~ msgid "Open"
 #~ msgstr "Åpne"
-
-#~ msgid "Open in new window"
-#~ msgstr "Åpne i et nytt vindu"
 
 #~ msgid "Open in this window"
 #~ msgstr "Åpne i dette vinduet"
