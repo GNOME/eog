@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0.0\n"
-"POT-Creation-Date: 2002-06-17 04:50+0900\n"
-"PO-Revision-Date: 2002-06-17 04:51+0900\n"
+"POT-Creation-Date: 2002-06-26 12:55+0900\n"
+"PO-Revision-Date: 2002-06-26 12:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "그놈의 눈 그림 보기 프로그램"
 msgid "View many different types of images"
 msgstr "여러가지 종류의 그림을 봅니다"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
 msgstr "그놈의 눈 그림"
 
@@ -49,31 +49,36 @@ msgstr "그놈의 눈 그림 보기 프로그램 팩토리"
 msgid "Embeddable EOG Image"
 msgstr "포함 가능한 그놈의 눈 그림"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "그림"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "인터폴레이션 방법"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "사용할 인터폴레이션 방법"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "체커 종류"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "사용할 체커 무늬의 종류"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "사용할 체커 무늬의 크기"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "디더링"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "디더링 방법"
 
@@ -186,26 +191,26 @@ msgstr "보기(_V)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:249
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "남성현 <namsh@kldp.org>\n"
 "차영호 <ganadist@chollian.net>\n"
 "류창우 <cwryu@debian.org>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "그놈의 눈"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:256
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:257
 msgid "The GNOME image viewing and cataloging program."
 msgstr "그놈 이미지 보기 및 카타로그 프로그램."
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:294
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -214,11 +219,11 @@ msgstr ""
 "그놈의 눈에 대한 도움말을 표시할 수 없습니다.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:809
 msgid "Open Image"
 msgstr "그림 열기"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1270
 #, c-format
 msgid "Unable to open %s."
 msgstr "%s을(를) 열 수 없습니다."
@@ -427,68 +432,88 @@ msgstr "타일(_T)"
 msgid "_White"
 msgstr "흰색(_W)"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "그림을 '%s'(으)로 저장할 수 없습니다: %s."
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "그림 인쇄"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "페이지"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "인쇄 미리 보기"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "그림을 인쇄하는 데 실패했습니다"
 
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "표시"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/확대(_I)"
+
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/축소(_O)"
+
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/_1:1"
+
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/창 크기에 맞게(_F)"
+
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/닫기(_C)"
+
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "인터폴레이션"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "디더링"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "검사 형식"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "검사 크기"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "그림 너비"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "그림 높이"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "창 제목"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "상태 표시줄 텍스트"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS를 초기화 할 수 없습니다!\n"
 
@@ -582,11 +607,6 @@ msgstr "오른쪽:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "아래:"
-
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "그림"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
