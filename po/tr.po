@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.tr\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2003-12-30 23:23+0000\n"
 "Last-Translator: RIDVAN CAN <ridvan@geleceklinux.org>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -116,6 +116,11 @@ msgstr "Çöpe Gönder"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Kolleksiyon Görünümü"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -279,20 +284,22 @@ msgstr "Şeffaflık belirteci"
 #: eog.schemas.in.h:15
 #, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Yeni açılan görüntünün daha önceki pencereyi kullanmamasını, yeni bir "
 "pencerede açılmasını belirtir."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Akıllı büyütmenin kullanılıp kullanılmayacağını belirtir. Bu, daha iyi bir "
 "görüntü sağlar ama bu özelliğin kullanılmadığı resimlerden daha yavaştır."
@@ -326,35 +333,35 @@ msgstr ""
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "Tüm Resimler"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr ""
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "Resim Yükle"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "Resmi Kaydet"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "Dizin Aç"
 
@@ -497,10 +504,6 @@ msgstr "Dikey olarak"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "Dikey"
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "iletişim1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -830,6 +833,9 @@ msgstr "İstenilen Pencere Genişliği"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "İstenilen Pencere Yüksekliği"
+
+#~ msgid "dialog1"
+#~ msgstr "iletişim1"
 
 #~ msgid "Could not find files"
 #~ msgstr "Dosyalar bulunamadı"

@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ar\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2004-02-04 23:16+0100\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -114,6 +114,11 @@ msgstr "نقل الى سلة المهملات"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "مشهد المجموعة"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -277,20 +282,24 @@ msgid "Transparency indicator"
 msgstr "مؤشر الشفافيّة"
 
 #: eog.schemas.in.h:15
+#, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "فيما اذا سينشأ فتح صورة نافذة جديدة عوض تبديل الصورة في النافذة الحالية."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+#, fuzzy
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "فيما إذا سيفترض عرض صور متعاقبة في حلقة لا نهائية."
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "فيما·إذا·سيفترض·إستيفاء·الصورة·عند تكبيرها أم لا.يؤدي هذا لجودة أفضل لكنه "
 "أبطأ من الصور الغير مستفات."
@@ -324,35 +333,35 @@ msgstr "هل تريد تنميق %s؟"
 msgid "File exists"
 msgstr "الملف موجود"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr "كل الملفات"
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "كل الصور"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s·x·%s بكسل"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "تحميل الصورة"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "حفظ الصورة"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "فتح دليل"
 
@@ -495,10 +504,6 @@ msgstr "عمودي"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "عمودي بـ"
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "الحوار1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -832,6 +837,9 @@ msgstr "عرض النافذة المطلوب"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "ارتفاع النافذة المطلوب"
+
+#~ msgid "dialog1"
+#~ msgstr "الحوار1"
 
 #~ msgid "Could not find files"
 #~ msgstr "لا يمكن ايجاد الملفات"

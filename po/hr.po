@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2004-02-01 16:50+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -109,6 +109,11 @@ msgstr "Pošalji u smeće"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Pogled kolekcije"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -276,21 +281,25 @@ msgid "Transparency indicator"
 msgstr "Naznačivanje prozirnosti"
 
 #: eog.schemas.in.h:15
+#, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Da li kod otvaranja nove slike treba stvoriti novi prozor umjesto zamjene "
 "slike u trenutnom prozoru?"
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+#, fuzzy
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Da li niz slika treba biti prikazan u beskonačnoj petlji."
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Treba li slika biti interpolirana prilikom uvećanja/umanjenja ili ne. To "
 "donosi do bolju kvalitetu ali je u ponešto sporije od neinterpoliranih slika."
@@ -324,35 +333,35 @@ msgstr "Želite li pisati preko %s?"
 msgid "File exists"
 msgstr "Datoteka postoji"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr "Sve datoteke"
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "Sve slike"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, fuzzy, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s točaka"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "Učitavanje slike"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "Spremi sliku"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "Otvori mapu"
 
@@ -495,10 +504,6 @@ msgstr "Vertikalno"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "Okomito za"
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialog1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -828,3 +833,6 @@ msgstr "željena širina prozora"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "željena visina prozora"
+
+#~ msgid "dialog1"
+#~ msgstr "dialog1"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2003-06-08 18:42+0530\n"
 "Last-Translator: Sayamindu Dasgupta <unmadindu@Softhome.net>\n"
 "Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
@@ -140,6 +140,11 @@ msgstr "আবর্জনার বাক্সে ফেলুন"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "সম্মিলিত দৃশ্য"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 # এটার কনটেক্সট সম্বন্ধে জানি না
 # msgstr "সব ছবি একত্রে প্রদর্শন" -- Sure না
@@ -349,20 +354,23 @@ msgstr "স্বচ্ছতা সূচক"
 # "তাহলে চিত্র উইন্ডোসমূহ উইন্ডো ম্যানেজারের দ্বারা নির্দেশিত আয়তন ধারন করবে।"
 # "ধারণ" বানান খেয়াল কর। অনেক কিছু Change করছি বলে বানান ভুল থাকার পরেও Comment হিসাবেই লিখলাম
 #: eog.schemas.in.h:15
+#, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "নতুন চিত্র খুললে বর্তমান উইন্ডোর চিত্রকে পরিবর্তনের বদলে নতুন উইন্ডোতে খোলা হবে কিনা।"
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "চিত্রের আয়তন বদল করার সময় তাকে প্রক্ষিপ্ত করা হবে কিনা। এতে চিত্রের মান উন্নত হয় "
 "কিন্তু গোটা প্রক্রিয়াটি সম্পন্ন হতে আরো বেশি সময় লাগে।"
@@ -412,39 +420,39 @@ msgstr ""
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr "সকল ফাইল"
 
 # Pro: এইটা নিয়ে Confusion আছে। Embed = ?
 # #আমারও মাথায় ঢুকছে না :-(
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "সকল চিত্র"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s পিক্সেল"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "চিত্র প্রদর্শন করা হোক"
 
 # msgstr "চিত্র লোড করা হোক"
 #
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "চিত্র সংরক্ষণ করা হোক"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "ফোল্ডার খোল"
 
@@ -610,10 +618,6 @@ msgstr "লম্বালম্বি ভাবে"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr ""
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "ডায়ালগ১"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -999,6 +1003,9 @@ msgstr "উইন্ডোর আকাঙ্ক্ষিত প্রস্থ"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "উইন্ডোর আকাঙ্ক্ষিত উচ্চতা"
+
+#~ msgid "dialog1"
+#~ msgstr "ডায়ালগ১"
 
 # msgstr "সমাহার"  - এইটা লিখলে কেমন হয় ? তোমার যেইটা খুশি লিখো ;-)
 #~ msgid "Could not find files"

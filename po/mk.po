@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.mk\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2003-08-30 17:16+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <lug@lists.linux.net.mk>\n"
@@ -117,6 +117,11 @@ msgstr "Премести во ѓубре"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Поглед на колекции"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -291,20 +296,22 @@ msgstr "Транспарентност индикатор"
 #: eog.schemas.in.h:15
 #, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Дали отворањето на слика ќе креира нов прозорец наместо преклопување на "
 "сликата со моменталниот прозорец."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Дали сликата ќе биде интерполирана на зголемување или не. Ова води кон "
 "подобар квалитет но поспоро отколку неинтерполираните слики."
@@ -338,36 +345,36 @@ msgstr ""
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 #, fuzzy
 msgid "All Images"
 msgstr "Слика"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr ""
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "Вчитај слика"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "Зачувај слика"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 #, fuzzy
 msgid "Open Folder"
 msgstr "Отвори датотека"
@@ -512,10 +519,6 @@ msgstr "Вертикално"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "Вертикално по "
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "дијалог1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -858,6 +861,9 @@ msgstr "Посакувана Ширина на Прозорец"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Посакувана Височина на Прозорец"
+
+#~ msgid "dialog1"
+#~ msgstr "дијалог1"
 
 #~ msgid "Could not find files"
 #~ msgstr "Неможе да пронајде датотеки"

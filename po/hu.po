@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"POT-Creation-Date: 2004-03-08 18:25+0100\n"
 "PO-Revision-Date: 2004-01-25 20:37+0100\n"
 "Last-Translator: Andras Timar <timar@fsf.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -110,6 +110,11 @@ msgstr "Áthelyezés a Kukába"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Gyűjteménynézet"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -273,21 +278,24 @@ msgid "Transparency indicator"
 msgstr "Átlátszóság jelzése"
 
 #: eog.schemas.in.h:15
+#, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Egy kép megnyitása új ablakban történjen-e, ahelyett hogy az aktuális "
 "ablakban lecseréli a képet."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Legyen-e a kép interpolálva a nagyításkor, vagy ne. Az interpolálás jobb "
 "képminőséget eredményez, de kicsit lassabb. "
@@ -321,35 +329,35 @@ msgstr "Felül szeretné írni ezt: '%s'?"
 msgid "File exists"
 msgstr "A fájl létezik"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr "Minden fájl"
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "Minden kép"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s × %s képpont"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "Kép betöltése"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "Kép mentése"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "Mappa megnyitása"
 
@@ -492,10 +500,6 @@ msgstr "Függőlegesen"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "Függőlegesen"
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialog1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -827,6 +831,9 @@ msgstr "Kívánt ablakszélesség"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Kívánt ablakmagasság"
+
+#~ msgid "dialog1"
+#~ msgstr "dialog1"
 
 #~ msgid "Could not find files"
 #~ msgstr "Nem találhatóak fájlok"
