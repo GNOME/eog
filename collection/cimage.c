@@ -5,7 +5,7 @@
 #include <libgnomevfs/gnome-vfs-ops.h>
 
 struct _CImagePrivate {
-	guint unique_id;
+	GQuark id;
 
 	GnomeVFSURI *uri;
 	
@@ -26,14 +26,6 @@ static void cimage_dispose (GObject *obj);
 
 GNOME_CLASS_BOILERPLATE (CImage, cimage, 
 			 GObject, G_TYPE_OBJECT);
-
-static guint
-get_unique_id (void)
-{
-	static guint last_id = 0;
-
-	return last_id++;
-}
 
 void
 cimage_dispose (GObject *obj)
@@ -87,7 +79,7 @@ cimage_instance_init (CImage *img)
 
 	priv = g_new0(CImagePrivate, 1);
 
-	priv->unique_id = get_unique_id ();
+	priv->id = 0;
 	priv->uri = NULL;
 	priv->thumbnail = NULL;
 	priv->caption = NULL;
@@ -117,11 +109,21 @@ CImage*
 cimage_new_uri (GnomeVFSURI *uri)
 {
 	CImage *img;
-	
+	char *txt_uri;
+	char *caption;
+
 	img = CIMAGE (g_object_new (cimage_get_type (), NULL));
 	
 	img->priv->uri = uri;
+
+	txt_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	img->priv->id = g_quark_from_string (txt_uri);
+
+	caption = g_path_get_basename (gnome_vfs_uri_get_path (uri));
+	cimage_set_caption (img, caption);
+
 	gnome_vfs_uri_ref (img->priv->uri);
+	g_free (txt_uri);
 	
 	return img;
 }
@@ -130,7 +132,7 @@ guint
 cimage_get_unique_id (CImage *img)
 {
 	g_return_val_if_fail (img != NULL, 0);
-	return (img->priv->unique_id);
+	return (img->priv->id);
 }
 
 GnomeVFSURI*
@@ -197,13 +199,22 @@ cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail)
 void
 cimage_set_caption (CImage *img, gchar *caption)
 {
+	char *utf_caption;
+
 	g_return_if_fail (IS_CIMAGE (img));
 	g_return_if_fail (caption != NULL);
 
 	if (img->priv->caption)
 		g_free (img->priv->caption);
+
+	if (g_utf8_validate (caption, -1, 0)) {
+		utf_caption = g_strdup (caption);
+	}
+	else {
+		utf_caption = g_locale_to_utf8 (caption, -1, 0, 0, 0);
+	}
 	
-	img->priv->caption = g_strdup (caption);
+	img->priv->caption = utf_caption;
 }
 
 void       

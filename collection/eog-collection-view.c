@@ -270,9 +270,8 @@ handle_double_click (EogWrapList *wlist, gint n, EogCollectionView *view)
 }
 
 static gboolean
-delete_item (EogCollectionModel *model, guint n, gpointer user_data)
+delete_item (EogCollectionModel *model, CImage *image, gpointer user_data)
 {
-	CImage *image;
 	GnomeVFSURI *uri, *trash = NULL, *path;
 	GnomeVFSResult result = GNOME_VFS_OK;
 	GtkWidget *window;
@@ -281,8 +280,6 @@ delete_item (EogCollectionModel *model, guint n, gpointer user_data)
 
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (user_data), FALSE);
 	view = EOG_COLLECTION_VIEW (user_data);
-
-	image = eog_collection_model_get_image (model, n);
 
 	/* If the image isn't selected, do nothing */
 	if (!cimage_is_selected (image))
@@ -299,7 +296,7 @@ delete_item (EogCollectionModel *model, guint n, gpointer user_data)
 		result = gnome_vfs_move_uri (uri, path, TRUE);
 		gnome_vfs_uri_unref (path);
 		if (result == GNOME_VFS_OK)
-			eog_collection_model_remove_item (model, n);
+			eog_collection_model_remove_item (model, cimage_get_unique_id (image));
 	}
 	gnome_vfs_uri_unref (uri);
 
@@ -640,7 +637,7 @@ model_size_changed (EogCollectionModel *model, GList *id_list,  gpointer data)
 }
 
 static void
-model_selection_changed (EogCollectionModel *model, gpointer data)
+model_selection_changed (EogCollectionModel *model, GQuark id, gpointer data)
 {
 	EogCollectionView *view;
 
@@ -782,16 +779,16 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	/* construct widget */
 	g_assert (EOG_IS_COLLECTION_VIEW (list_view));
 	priv->model = eog_collection_model_new ();
-	g_signal_connect (G_OBJECT (priv->model), "interval_added", 
+	g_signal_connect (G_OBJECT (priv->model), "image-added", 
 			  G_CALLBACK (model_size_changed),
 			  list_view);
-	g_signal_connect (G_OBJECT (priv->model), "interval_removed", 
+	g_signal_connect (G_OBJECT (priv->model), "image-removed", 
 			  G_CALLBACK (model_size_changed),
 			  list_view);
-	g_signal_connect (G_OBJECT (priv->model), "selection_changed",
+	g_signal_connect (G_OBJECT (priv->model), "selection-changed",
 			  G_CALLBACK (model_selection_changed),
 			  list_view);
-	g_signal_connect (G_OBJECT (priv->model), "base_uri_changed",
+	g_signal_connect (G_OBJECT (priv->model), "base-uri-changed",
 			  G_CALLBACK (model_base_uri_changed),
 			  list_view);
 

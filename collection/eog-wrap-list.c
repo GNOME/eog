@@ -26,14 +26,19 @@
 #include "eog-collection-marshal.h"
 #include <math.h>
 
+#define COLLECTION_DEBUG 0
 
 
 /* Used to hold signal handler IDs for models */
-typedef struct {
-	guint interval_changed_id;
-	guint interval_added_id;
-	guint interval_removed_id;
-} ModelSignalIDs;
+typedef enum {
+	MODEL_SIGNAL_IMAGE_CHANGED,
+	MODEL_SIGNAL_IMAGE_ADDED,
+	MODEL_SIGNAL_IMAGE_REMOVED,
+	MODEL_SIGNAL_SELECTION_CHANGED,
+	MODEL_SIGNAL_SELECTED_ALL,
+	MODEL_SIGNAL_SELECTED_NONE,
+	MODEL_SIGNAL_LAST
+} ModelSignal;
 
 enum {
 	RIGHT_CLICK,
@@ -52,16 +57,9 @@ enum {
 	GLOBAL_HINT_LAST
 };
 
-typedef enum {
-	ITEM_CHANGED,
-	ITEM_ADDED,
-	ITEM_REMOVED,
-	ITEM_HINT_LAST
-} ItemHint;
-
 typedef struct {
-	ItemHint hint;
-	GList *id_list;
+	ModelSignal  hint;
+	GQuark       id;
 } ItemUpdate;
 
 struct _EogWrapListPrivate {
@@ -78,7 +76,7 @@ struct _EogWrapListPrivate {
 	EogCollectionModel *model;
 
 	/* Signal connection IDs for the models */
-	ModelSignalIDs model_ids;
+	int model_ids[MODEL_SIGNAL_LAST];
 	
 	/* Group which hold all the items. */
 	GnomeCanvasItem *item_group;
@@ -269,18 +267,18 @@ eog_wrap_list_new (void)
 
 static GnomeCanvasItem*
 get_item_by_unique_id (EogWrapList *wlist,
-		       gint unique_id)
+		       GQuark id)
 {
 	GnomeCanvasItem *item;
 
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
 	
 	item = g_hash_table_lookup (wlist->priv->item_table,
-				    GINT_TO_POINTER (unique_id));
+				    GINT_TO_POINTER (id));
 	if (!item)
-		g_warning ("Could not find item %i!", unique_id);
+		g_warning ("Could not find item %i!", id);
 
-	return (item);
+	return item;
 }
 
 static gint
@@ -325,7 +323,7 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
 	EogCollectionModel *model;
-	gint id;
+	GQuark id;
 	gboolean ret_val;
 
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), FALSE);
@@ -341,14 +339,14 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 		switch (event->button.button) {
 		case 3:
 			/* Right click */
-			eog_collection_model_set_select_status(model, id, TRUE);
+			eog_collection_model_set_select_status (model, id, TRUE);
 			ret_val = FALSE;
 			g_signal_emit (GTK_OBJECT (wlist),
 				       eog_wrap_list_signals [RIGHT_CLICK], 0,
 				       id, event, &ret_val);
 			g_signal_stop_emission_by_name (G_OBJECT (item->canvas),
 							"button-press-event");
-			return (ret_val);
+			return ret_val;
 		case 2:
 			/* Middle button */
 			g_warning ("Implement D&D!");
@@ -502,107 +500,122 @@ eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }       
 
 /* Notifications from models */
-
-/* Handler for the interval_changed signal from models */
 static void
-model_interval_changed (EogCollectionModel *model, GList *id_list, gpointer data)
-{
-	EogWrapList *wlist;
-	EogWrapListPrivate *priv;
-	ItemUpdate *update;
-
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_WRAP_LIST (data));
-
-#ifdef COLLECTION_DEBUG
-	g_message ("model_interval_changed called\n");
-#endif
-
-	wlist = EOG_WRAP_LIST (data);
-	priv = wlist->priv;
-
-	if (priv->global_update_hints[GLOBAL_FACTORY_CHANGED] ||
-	    priv->global_update_hints[GLOBAL_MODEL_CHANGED]   ||
-	    priv->global_update_hints[GLOBAL_SPACING_CHANGED])
-	{
-		/* if any global changes have to be done already, we don't need
-		   to add any specific item changes */
-		return;
-	}
-	
-	update = g_new0 (ItemUpdate, 1);
-	update->hint = ITEM_CHANGED;
-	update->id_list = id_list;
-	
-	priv->item_update_list = g_list_append (priv->item_update_list, update);
-
-	request_update (wlist);
-}
-
-/* Handler for the interval_added signal from models */
-static void
-model_interval_added (EogCollectionModel *model, GList *id_list, gpointer data)
-{
-	EogWrapList *wlist;
-	EogWrapListPrivate *priv;
-	ItemUpdate *update;
-
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_WRAP_LIST (data));
-
-#ifdef COLLECTION_DEBUG
-	g_message ("model_interval_added called\n");
-#endif
-
-	wlist = EOG_WRAP_LIST (data);
-	priv = wlist->priv;
-
-	update = g_new0 (ItemUpdate, 1);
-	update->hint = ITEM_ADDED;
-	update->id_list = id_list;
-	
-	priv->item_update_list = g_list_append (priv->item_update_list, update);
-
-	request_update (wlist);
-}
-
-/* Handler for the interval_changed signal from models */
-static void
-model_interval_removed (EogCollectionModel *model, GList *id_list,
-			EogWrapList *wlist)
+add_item_update (EogWrapList *wlist, EogCollectionModel *model, GQuark id, ModelSignal signal)
 {
 	EogWrapListPrivate *priv;
 	ItemUpdate *update;
 
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
 	priv = wlist->priv;
 
-#ifdef COLLECTION_DEBUG
-	g_message ("model_interval_removed called\n");
-#endif
-
-	update = g_new0 (ItemUpdate, 1);
-	update->hint = ITEM_REMOVED;
-	update->id_list = id_list;
-
-	priv->item_update_list = g_list_append (priv->item_update_list, update);
+	update       = g_new0 (ItemUpdate, 1);
+	update->hint = signal;
+	update->id   = id;
+	
+	priv->item_update_list = g_list_prepend (priv->item_update_list, update);
 
 	request_update (wlist);
 }
 
+
+/* Handler for the interval_changed signal from models */
+static void
+model_image_changed (EogCollectionModel *model, GQuark id, gpointer data)
+{
+	EogWrapListPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_interval_changed called");
+#endif
+	priv = EOG_WRAP_LIST (data)->priv;
+
+	if (priv->global_update_hints[GLOBAL_FACTORY_CHANGED] ||
+	    priv->global_update_hints[GLOBAL_MODEL_CHANGED])
+	{
+		/* if any global changes have to be done already, we don't need
+		   to add any specific item changes */
+		return;
+	}
+	else {
+		add_item_update (EOG_WRAP_LIST (data), model, id, MODEL_SIGNAL_IMAGE_CHANGED);
+	}
+}
+
+/* Handler for the interval_added signal from models */
+static void
+model_image_added (EogCollectionModel *model, GQuark id, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_interval_added called\n");
+#endif
+
+	add_item_update (EOG_WRAP_LIST (data), model, id, MODEL_SIGNAL_IMAGE_ADDED);
+}
+
+/* Handler for the interval_changed signal from models */
+static void
+model_image_removed (EogCollectionModel *model, GQuark id, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_interval_removed called\n");
+#endif
+	
+	add_item_update (EOG_WRAP_LIST (data), model, id, MODEL_SIGNAL_IMAGE_REMOVED);
+}
+
 
 
+static void
+model_selection_changed (EogCollectionModel *model, GQuark id, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_selection_changed called");
+#endif
+
+	add_item_update (EOG_WRAP_LIST (data), model, id, MODEL_SIGNAL_SELECTION_CHANGED);
+}
+
+static void
+model_selected_all (EogCollectionModel *model, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_selected_all called");
+#endif
+
+	add_item_update (EOG_WRAP_LIST (data), model, 0, MODEL_SIGNAL_SELECTED_ALL);
+}
+
+static void
+model_selected_none (EogCollectionModel *model, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("model_selected_none called");
+#endif
+
+	add_item_update (EOG_WRAP_LIST (data), model, 0, MODEL_SIGNAL_SELECTED_NONE);
+}
 
 /* Set model handler for the wrapped list view */
 void
 eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 {
 	EogWrapListPrivate *priv;
+	int i;
 
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
@@ -610,13 +623,10 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 	priv = wlist->priv;
 
 	if (priv->model) {
-		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_changed_id);
-		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_added_id);
-		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_removed_id);
-
-		priv->model_ids.interval_changed_id = 0;
-		priv->model_ids.interval_added_id = 0;
-		priv->model_ids.interval_removed_id = 0;
+		for (i = 0; i < MODEL_SIGNAL_LAST; i++) {
+			g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids[i]);
+			priv->model_ids[i] = 0;
+		}
 	}
 	priv->model = NULL;
 
@@ -624,19 +634,34 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 		priv->model = model;
 		g_object_ref (G_OBJECT (model));
 
-		priv->model_ids.interval_changed_id = g_signal_connect (
-			G_OBJECT (model), "interval_changed",
-			G_CALLBACK (model_interval_changed),
+		priv->model_ids[MODEL_SIGNAL_IMAGE_CHANGED] = g_signal_connect (
+			G_OBJECT (model), "image-changed",
+			G_CALLBACK (model_image_changed),
 			wlist);
 
-		priv->model_ids.interval_added_id = g_signal_connect (
-			G_OBJECT (model), "interval_added",
-			G_CALLBACK (model_interval_added),
+		priv->model_ids[MODEL_SIGNAL_IMAGE_ADDED] = g_signal_connect (
+			G_OBJECT (model), "image-added",
+			G_CALLBACK (model_image_added),
 			wlist);
 
-		priv->model_ids.interval_removed_id = g_signal_connect (
-			G_OBJECT (model), "interval_removed",
-			G_CALLBACK (model_interval_removed),
+		priv->model_ids[MODEL_SIGNAL_IMAGE_REMOVED] = g_signal_connect (
+			G_OBJECT (model), "image-removed",
+			G_CALLBACK (model_image_removed),
+			wlist);
+
+		priv->model_ids[MODEL_SIGNAL_SELECTION_CHANGED] = g_signal_connect (
+			G_OBJECT (model), "selection-changed",
+			G_CALLBACK (model_selection_changed),
+			wlist);
+
+		priv->model_ids[MODEL_SIGNAL_SELECTED_ALL] = g_signal_connect (
+			G_OBJECT (model), "selected-all",
+			G_CALLBACK (model_selected_all),
+			wlist);
+
+		priv->model_ids[MODEL_SIGNAL_SELECTION_CHANGED] = g_signal_connect (
+			G_OBJECT (model), "selected-none",
+			G_CALLBACK (model_selected_none),
 			wlist);
 	}
 
@@ -657,8 +682,8 @@ eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory)
 
 	if (priv->factory) {
 		g_object_unref (G_OBJECT (priv->factory));
+		priv->factory = NULL;
 	}
-	priv->factory = NULL;
 
 	if (factory) {
 		priv->factory = factory;
@@ -810,43 +835,13 @@ compare_item_caption (const GnomeCanvasItem *item1, const GnomeCanvasItem *item2
 	return g_strcasecmp (cap1, cap2);
 }
 
-static GList*
-get_next_unique_id (GList *id_list, 
-		    gint *id_range_start,
-		    gint *id_range_end)
-{
-	gint value;
-
-	if (id_list == NULL) return NULL;
-	
-	value = GPOINTER_TO_INT (id_list->data);
-	
-	if (value != EOG_MODEL_ID_RANGE) {
-		*id_range_start = value;
-		*id_range_end = value;
-		return id_list->next;
-	}
-
-	/* handle range */
-	id_list = id_list->next;
-	g_assert (id_list != NULL);
-	*id_range_start = GPOINTER_TO_INT (id_list->data);
-
-	id_list = id_list->next;
-	g_assert (id_list != NULL);
-	*id_range_end = GPOINTER_TO_INT (id_list->data);
-	
-	return id_list->next;
-}
-
 static void 
 do_item_changed_update (EogWrapList *wlist,
-			GList *id_list,
+			GQuark id,
 			gboolean *layout_check_needed,
 			gboolean *item_rearrangement_needed)
 {
-	gint id_range_start = EOG_MODEL_ID_NONE;
-	gint id_range_end = EOG_MODEL_ID_NONE;
+	GnomeCanvasItem *item;
 
 	*layout_check_needed = FALSE;
 	*item_rearrangement_needed = FALSE;
@@ -855,46 +850,29 @@ do_item_changed_update (EogWrapList *wlist,
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
 #ifdef COLLECTION_DEBUG
-	g_message ("do_item_changed_update called\n");
+	g_message ("do_item_changed_update called - id:%i", id);
 #endif
 
-	if (id_list == NULL) return;
 	if (wlist->priv->factory == NULL) return;
 
-	while (id_list != NULL) {
-		
-		id_list = get_next_unique_id (id_list,
-					      &id_range_start, 
-					      &id_range_end);
+	item = get_item_by_unique_id (wlist, id);
 
-		if (id_range_start != EOG_MODEL_ID_NONE) {
-			gint id;
-			for (id = id_range_start; id <= id_range_end; id++) {
-				GnomeCanvasItem *item;
-				item = get_item_by_unique_id (wlist, id);
-#ifdef COLLECTION_DEBUG
-				g_print ("update item id: %i\n", id);
-#endif
- 				eog_item_factory_update_item (wlist->priv->factory,
-							      wlist->priv->model,
-							      item, EOG_ITEM_UPDATE_ALL);
-			}
-		}
-	}
+	eog_item_factory_update_item (wlist->priv->factory,
+				      wlist->priv->model,
+				      item, 
+				      EOG_ITEM_UPDATE_IMAGE | EOG_ITEM_UPDATE_CAPTION);
 }
 
 static void
 do_item_removed_update (EogWrapList *wlist,
-			GList *id_list,
+			GQuark id,
 			gboolean *layout_check_needed,
 			gboolean *item_rearrangement_needed)
 {
 	EogWrapListPrivate *priv;
-	gint id_range_start = EOG_MODEL_ID_NONE;
-	gint id_range_end = EOG_MODEL_ID_NONE;
+	GnomeCanvasItem *item;			
 
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-	g_return_if_fail (id_list != NULL);
 	g_return_if_fail (layout_check_needed != NULL);
 	g_return_if_fail (item_rearrangement_needed != NULL);
 
@@ -902,47 +880,33 @@ do_item_removed_update (EogWrapList *wlist,
 	*item_rearrangement_needed = FALSE;
 
 #ifdef COLLECTION_DEBUG
-	g_message ("do_item_removed_update called\n");
+	g_message ("do_item_removed_update called - id:%i", id);
 #endif
 
 	priv = wlist->priv;
 
 	if (priv->factory == NULL) return;
 
-	while (id_list != NULL) {
-		
-		id_list = get_next_unique_id (id_list,
-					      &id_range_start, 
-					      &id_range_end);
+	item = get_item_by_unique_id (wlist, id);
+	g_hash_table_remove (priv->item_table, 
+			     GINT_TO_POINTER (id));
+	priv->view_order = g_slist_remove (priv->view_order, item); 
+	gtk_object_destroy (GTK_OBJECT (item));
+	priv->n_items--;
 
-		if (id_range_start != EOG_MODEL_ID_NONE) {
-			gint id;
-			GnomeCanvasItem *item;			
-			for (id = id_range_start; id <= id_range_end; id++) {
-				item = get_item_by_unique_id (wlist, id);
-				g_hash_table_remove (priv->item_table, 
-						     GINT_TO_POINTER (id));
-				priv->view_order = g_slist_remove (
-						priv->view_order, item); 
-				gtk_object_destroy (GTK_OBJECT (item));
-				priv->n_items--;
-			}
-		}
-		*item_rearrangement_needed = TRUE;
-		*layout_check_needed = TRUE;
-	}
+	*item_rearrangement_needed = TRUE;
+	*layout_check_needed = TRUE;
 }
 
 static void
 do_item_added_update (EogWrapList *wlist,
-		      GList *id_list,
+		      GQuark id,
 		      gboolean *layout_check_needed,
 		      gboolean *item_rearrangement_needed)
 {
 	EogWrapListPrivate *priv;
-
-	gint id_range_start = EOG_MODEL_ID_NONE;
-	gint id_range_end = EOG_MODEL_ID_NONE;
+	GnomeCanvasItem *item;
+	CImage *img;
 
 	*layout_check_needed = FALSE;
 	*item_rearrangement_needed = FALSE;
@@ -951,12 +915,11 @@ do_item_added_update (EogWrapList *wlist,
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
 #ifdef COLLECTION_DEBUG
-	g_message ("do_item_added_update called\n");
+	g_message ("do_item_added_update called - id:%i", id);
 #endif
 
 	priv = wlist->priv;
 
-	if (id_list == NULL) return;
 	if (wlist->priv->factory == NULL) return;
 
 	if (priv->item_group == NULL) 
@@ -967,51 +930,96 @@ do_item_added_update (EogWrapList *wlist,
 					       "y", 0.0,
 					       NULL);
 
-	while (id_list != NULL) {
-		
-		id_list = get_next_unique_id (id_list,
-					      &id_range_start, 
-					      &id_range_end);
+	item = eog_item_factory_create_item (priv->factory,
+					     GNOME_CANVAS_GROUP (priv->item_group),
+					     id);
+	eog_item_factory_update_item (priv->factory,
+				      priv->model,
+				      item, EOG_ITEM_UPDATE_ALL);
+	g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id), item);
+	priv->n_items++;
+	g_signal_connect (G_OBJECT (item),
+			  "event",
+			  G_CALLBACK (handle_item_event),
+			  (gpointer) wlist);
+	g_object_set_data (G_OBJECT (item), "ImageID", GINT_TO_POINTER (id));
 
-		if (id_range_start != EOG_MODEL_ID_NONE) {
-			gint id;
-			GnomeCanvasItem *item;
-			CImage *img;
-			for (id = id_range_start; id <= id_range_end; id++) {
-#ifdef COLLECTION_DEBUG
-				g_print ("item_added: %i\n", id);
-#endif
-				item = eog_item_factory_create_item (priv->factory,
-								     GNOME_CANVAS_GROUP (priv->item_group),
-								     id);
-				eog_item_factory_update_item (priv->factory,
-							      priv->model,
-							      item, EOG_ITEM_UPDATE_ALL);
-			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
-						     item);
-				priv->n_items++;
-				g_signal_connect (G_OBJECT (item),
-						  "event",
-						  G_CALLBACK (handle_item_event),
-						  (gpointer) wlist);
-				g_object_set_data (G_OBJECT (item),
-						   "ImageID", GINT_TO_POINTER (id));
-
-				img = eog_collection_model_get_image (priv->model, id);
-				g_object_set_data (G_OBJECT (item),
-						   "Caption", cimage_get_caption (img));
-				priv->view_order = 
-					g_slist_insert_sorted (priv->view_order,
-							       item,
-							       (GCompareFunc) compare_item_caption);
-			}
-
-		}
-	}
+	img = eog_collection_model_get_image (priv->model, id);
+	g_object_set_data (G_OBJECT (item),
+			   "Caption", cimage_get_caption (img));
+	priv->view_order = g_slist_insert_sorted (priv->view_order,
+						  item,
+						  (GCompareFunc) compare_item_caption);
 
 	*layout_check_needed = TRUE;
 	*item_rearrangement_needed = TRUE;
 }
+
+static void
+do_item_selection_changed_update (EogWrapList *wlist,
+				  GQuark id,
+				  gboolean *layout_check_needed,
+				  gboolean *item_rearrangement_needed)
+{
+	EogWrapListPrivate *priv;
+	GnomeCanvasItem *item;
+	CImage *img;
+
+	*layout_check_needed = FALSE;
+	*item_rearrangement_needed = FALSE;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("do_item_selection_changed - id:%i", id);
+#endif
+	priv = wlist->priv;
+
+	item = get_item_by_unique_id (wlist, id);
+
+	eog_item_factory_update_item (priv->factory,
+				      priv->model,
+				      item, EOG_ITEM_UPDATE_SELECTION_STATE);
+}
+
+static void 
+item_selection_update_single (gpointer key, gpointer value, gpointer data)
+{
+	EogWrapListPrivate *priv;
+	GnomeCanvasItem *item;
+
+	priv = EOG_WRAP_LIST (data)->priv;
+	item = GNOME_CANVAS_ITEM (value);
+
+	eog_item_factory_update_item (priv->factory,
+				      priv->model,
+				      item, EOG_ITEM_UPDATE_SELECTION_STATE);
+}
+
+static void
+do_item_selection_update_all (EogWrapList *wlist,
+			      gboolean *layout_check_needed,
+			      gboolean *item_rearrangement_needed)
+{
+	EogWrapListPrivate *priv;
+	GnomeCanvasItem *item;
+	CImage *img;
+
+	*layout_check_needed = FALSE;
+	*item_rearrangement_needed = FALSE;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
+#ifdef COLLECTION_DEBUG
+	g_message ("do_item_selection_update_all");
+#endif
+	priv = wlist->priv;
+
+	g_hash_table_foreach (priv->item_table, item_selection_update_single, wlist);
+}
+
 
 static gboolean
 do_layout_check (EogWrapList *wlist)
@@ -1026,7 +1034,7 @@ do_layout_check (EogWrapList *wlist)
 	priv = wlist->priv;
 
 #ifdef COLLECTION_DEBUG
-	g_message ("do_layout_check called\n");
+	g_message ("do_layout_check called");
 #endif
 
 	/* get canvas width */
@@ -1136,7 +1144,7 @@ do_item_rearrangement (EogWrapList *wlist)
 	data.n = 0;
 
 #ifdef COLLECTION_DEBUG
-	g_message ("do_item_rearrangement called\n");
+	g_message ("do_item_rearrangement called");
 #endif
 
 	priv = wlist->priv;
@@ -1196,32 +1204,44 @@ do_update (EogWrapList *wlist)
 		ItemUpdate *update = (ItemUpdate*) item_update->data;
 
 		switch (update->hint) {
-		case ITEM_CHANGED:
+		case MODEL_SIGNAL_IMAGE_CHANGED:
 			do_item_changed_update (wlist,
-						update->id_list,
+						update->id,
 						&layout_check_needed, 
 						&item_rearrangement_needed);
 			break;
 
-		case ITEM_ADDED:
+		case MODEL_SIGNAL_IMAGE_ADDED:
 			do_item_added_update (wlist,
-					      update->id_list,
+					      update->id,
 					      &layout_check_needed, 
 					      &item_rearrangement_needed);
 			break;
 
-		case ITEM_REMOVED:
+		case MODEL_SIGNAL_IMAGE_REMOVED:
 			do_item_removed_update (wlist,
-						update->id_list,
+						update->id,
 						&layout_check_needed, 
 						&item_rearrangement_needed);
 			break;
+		case MODEL_SIGNAL_SELECTION_CHANGED:
+			do_item_selection_changed_update (wlist,
+							  update->id,
+							  &layout_check_needed, 
+							  &item_rearrangement_needed);
+			break;
+		case MODEL_SIGNAL_SELECTED_ALL:
+		case MODEL_SIGNAL_SELECTED_NONE:
+			do_item_selection_update_all (wlist,
+						      &layout_check_needed, 
+						      &item_rearrangement_needed);
+			break;
+
 		default:
 			g_assert_not_reached ();
 		}
 
 		/* free id list */
-		g_list_free (update->id_list);
 		g_free (update);
 
 		item_update = g_list_next (item_update);

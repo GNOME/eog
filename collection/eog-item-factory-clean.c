@@ -462,6 +462,8 @@ update_item_caption (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage
 	double x1, y1, x2, y2;
 	double left, right, top, bottom;
 
+	if (!cimage_has_caption (cimage)) return;
+
 	/* obtain some objects */
 	metrics = factory->priv->metrics;
 
@@ -472,27 +474,13 @@ update_item_caption (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage
 	g_assert (layout != NULL);
 	
 	/* obtain caption text */
-	if (cimage_has_caption (cimage)) {
-		full_caption = cimage_get_caption (cimage);
-	}
-	else {
-		GnomeVFSURI *uri;
-		uri = cimage_get_uri (cimage);
-		full_caption = g_path_get_basename (gnome_vfs_uri_get_path (uri));
-		gnome_vfs_uri_unref (uri);
-
-		if (!g_utf8_validate (full_caption, -1, 0)) {
-			gchar *tmp = g_locale_to_utf8 (full_caption, -1, 0, 0, 0);
-			g_free (full_caption);
-			full_caption = tmp;
-		}
-
-		cimage_set_caption (cimage, full_caption);
-	}
+	full_caption = cimage_get_caption (cimage);
 	g_assert (full_caption != NULL);
 
 	/* spread caption over two text lines, if neccessary */
-	for (i = 0; i < MAX_CAPTION_LINES; i++)  caption[i] = NULL;
+	for (i = 0; i < MAX_CAPTION_LINES; i++) {
+		caption[i] = NULL;
+	}
 	create_item_caption_lines (full_caption, layout, 
 				   metrics->twidth - 2 * metrics->cpadding, 
 				   caption, MAX_CAPTION_LINES);

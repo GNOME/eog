@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 c-style: "K&R" -*- */
 /* Eye of Gnome image viewer - EoG collection model
  *
- * Copyright (C) 2001 The Free Software Foundation
+ * Copyright (C) 2001-2002 The Free Software Foundation
  *
  * Author: Jens Finke <jens@gnome.org>
  *
@@ -30,24 +30,18 @@
 G_BEGIN_DECLS
 
 #define EOG_TYPE_COLLECTION_MODEL            (eog_collection_model_get_type ())
-#define EOG_COLLECTION_MODEL(obj)            (GTK_CHECK_CAST ((obj), EOG_TYPE_COLLECTION_MODEL, EogCollectionModel))
-#define EOG_COLLECTION_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), EOG_TYPE_COLLECTION_MODEL, EogCollectionModelClass))
-#define EOG_IS_COLLECTION_MODEL(obj)         (GTK_CHECK_TYPE ((obj), EOG_TYPE_COLLECTION_MODEL))
-#define EOG_IS_COLLECTION_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), EOG_TYPE_COLLECTION_MODEL))
+#define EOG_COLLECTION_MODEL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_COLLECTION_MODEL, EogCollectionModel))
+#define EOG_COLLECTION_MODEL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_COLLECTION_MODEL, EogCollectionModelClass))
+#define EOG_IS_COLLECTION_MODEL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_COLLECTION_MODEL))
+#define EOG_IS_COLLECTION_MODEL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_COLLECTION_MODEL))
 
 
 typedef struct _EogCollectionModel EogCollectionModel;
 typedef struct _EogCollectionModelClass EogCollectionModelClass;
 typedef struct _EogCollectionModelPrivate EogCollectionModelPrivate;
 
-typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model,
-						    guint id, gpointer data);
-
-#define EOG_MODEL_ID_RANGE -1 /* Random number to indicate that the
-                                 following two ids are building a range. */
-#define EOG_MODEL_ID_END   -2 /* Random number to indicate that the list
-                                 will include all ids until the end. */
-#define EOG_MODEL_ID_NONE  -3 /* Random number, same as NULL otherwise.*/
+typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model, CImage *image,
+						    gpointer data);
 
 struct _EogCollectionModel {
 	GObject parent_object;
@@ -59,11 +53,13 @@ struct _EogCollectionModelClass {
 	GObjectClass parent_class;
 
 	/* Notification signals */
-	void (* interval_changed) (EogCollectionModel *model, GList *id_list);
-	void (* interval_added)   (EogCollectionModel *model, GList *id_list);
-	void (* interval_removed) (EogCollectionModel *model, GList *id_list);
+	void (* image_changed) (EogCollectionModel *model, GQuark id);
+	void (* image_added)   (EogCollectionModel *model, GQuark id);
+	void (* image_removed) (EogCollectionModel *model, GQuark id);
 
-	void (* selection_changed) (EogCollectionModel *model);
+	void (* selection_changed) (EogCollectionModel *model, GQuark id);
+        void (* selected_all)      (EogCollectionModel *model);
+        void (* selected_none)     (EogCollectionModel *model);
         void (* base_uri_changed)  (EogCollectionModel *model);
 };
 
@@ -83,7 +79,7 @@ eog_collection_model_foreach (EogCollectionModel *model,
 			      gpointer data);
 
 void
-eog_collection_model_remove_item (EogCollectionModel *model, guint id); 
+eog_collection_model_remove_item (EogCollectionModel *model, GQuark id); 
 
 void
 eog_collection_model_set_uri            (EogCollectionModel *model, 
@@ -101,25 +97,21 @@ eog_collection_model_get_selected_length (EogCollectionModel *model);
 
 CImage*
 eog_collection_model_get_image              (EogCollectionModel *model,
-                                             guint unique_id);
+                                             GQuark id);
 
 CImage*
 eog_collection_model_get_selected_image     (EogCollectionModel *model);
 
 gchar*
 eog_collection_model_get_uri                (EogCollectionModel *model,
-                                             guint unique_id);
-
-GList*
-eog_collection_model_get_images             (EogCollectionModel *model,
-                                             guint min_id, guint len);
+                                             GQuark id);
 
 void
 eog_collection_model_toggle_select_status   (EogCollectionModel *model,
-                                             guint id);
+                                             GQuark id);
 
 void
-eog_collection_model_set_select_status      (EogCollectionModel*, guint id,
+eog_collection_model_set_select_status      (EogCollectionModel*, GQuark id,
 					     gboolean status);
 void 
 eog_collection_model_set_select_status_all  (EogCollectionModel *model, 

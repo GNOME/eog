@@ -1,3 +1,46 @@
+2002-08-13  Jens Finke  <jens@triq.net>
+
+	* collection/cimage.[ch] (get_unique_id): Removed.
+	(cimage_instance_init): Set id = 0.
+	(cimage_new_uri): Use quark from text uri as id. Set caption.
+	(cimage_set_caption): Make utf8 validation check.
+
+	* collection/eog-collection-model.c: Use consistent name scheme
+	for the signals. Signals submit only the id of a _single_ modified
+	image.  This required some straight forward changes in the code.
+	(add_image_to_selection_list): New function.
+	(select_all_images),
+	(unselect_all_images): New functions, which support
+	mass-selecting/-unselecting images.
+
+	* collection/eog-collection-model.h: Use G_TYPE checks in
+	macros. Changed signal declarations. s/guint unique_id/GQuark id.
+
+	* collection/eog-collection-view.c: (delete_item),
+	(model_selection_changed): Adaptions to model signal changes.
+
+	* collection/eog-item-factory-clean.c (update_item_caption): Don't
+	create caption string, just use the one from the cimage object.
+
+	* collection/eog-wrap-list.c: Misc code cleanups.
+	(model_selection_changed),
+	(model_selected_all),
+	(model_selected_none),
+	(add_item_update): New function.
+	(model_image_changed),
+	(model_image_added),
+	(model_image_removed): Simplified code.
+	(eog_wrap_list_set_model): Adaptions to model signal changes.
+	(get_next_unique_id): Removed.
+	(do_item_changed_update),
+	(do_item_added_update),
+	(do_item_removed_update): Handle only a single image id, no lists
+	anymore.
+	(do_item_selection_changed_update),
+	(item_selection_update_single),
+	(do_item_selection_update_all): New function.
+	(do_update): Check for selection updates.
+
 2002-08-10  Jens Finke  <jens@triq.net>
 
 	* collection/eog-item-factroy-clean.[ch]: New default icon factory

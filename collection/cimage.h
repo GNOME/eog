@@ -1,5 +1,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
+#include <glib.h>
 #include <gnome.h>
 #include <libgnomevfs/gnome-vfs-types.h>
 
@@ -42,7 +43,7 @@ void       cimage_set_caption (CImage *img, gchar *caption);
 void       cimage_set_image_dimensions (CImage *img, guint widht, guint height);
 
 /* collection image attributes */
-guint      cimage_get_unique_id (CImage *img);
+GQuark     cimage_get_unique_id (CImage *img);
 GnomeVFSURI *cimage_get_uri (CImage *img);
 GdkPixbuf *cimage_get_thumbnail (CImage *img);
 gchar     *cimage_get_caption (CImage *img);
