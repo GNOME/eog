@@ -1,13 +1,13 @@
-# translation of sq.po to albanian
+# translation of EOG to albanian
 # Albanian translation for the Eye Of Gnome
 # Copyright (C) 2001,2003 Free Software Foundation, Inc.
 # Laurent Dhima <laurenti@alblinux.net>, 2002,2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
-"PO-Revision-Date: 2003-04-29 13:47+0200\n"
+"Project-Id-Version: eog-2-3-0\n"
+"POT-Creation-Date: 2003-04-29 20:40+0200\n"
+"PO-Revision-Date: 2003-04-30 00:56+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -51,19 +51,19 @@ msgstr "Slide Show"
 msgid "_View"
 msgstr "_Shiko"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr "Hidhe në kosh"
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
 msgstr "Shikuesi i Koleksionit"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Titulli i Dritares"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
 msgstr "Teksti i Status"
 
@@ -169,11 +169,11 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"Përcakton si duhet të tregohet transparenca. Vlera të vlefshme janë "
+"CHECK_PATTERN, COLOR dhe NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 
 #: eog.schemas.in.h:5
@@ -309,11 +309,11 @@ msgstr "Hap figurën"
 msgid "Save Image"
 msgstr "Shpëto figurën"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr "Asnjë imazh i ngarkuar."
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 msgid "Unsupported image type for saving."
 msgstr "Lloj imazhi i pasuportuar për tu ruajtur."
 
@@ -403,7 +403,7 @@ msgstr "_Mbyll"
 msgid "_Contents"
 msgstr "_Përmbajtja"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Ndrysho"
 
@@ -431,24 +431,24 @@ msgstr "_Mbylle"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Programi i vizualizimit dhe katallogimit të imazheve për GNOME."
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -457,26 +457,28 @@ msgstr ""
 "Nuk arrij të vizualizoj ndihmën për Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr "Jeni duke hapur %i dritare njëkohësisht. Dëshironi t'i hapni ato në formën e një koleksioni?"
+msgstr ""
+"Jeni duke hapur %i dritare njëkohësisht. Dëshironi t'i hapni ato në formën e "
+"një koleksioni?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 msgid "Open multiple single windows?"
 msgstr "Hap dritare të vetme shumëfishe?"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Driatare e Vetme"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Koleksion"
 
-#: shell/main.c:306
+#: shell/main.c:305
 msgid "Could not find files"
 msgstr "Nuk arrij të gjej files"
 
@@ -518,52 +520,52 @@ msgid "_Zoom In"
 msgstr "_Zmadhim"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
-msgstr "Përmbyse horizontalisht"
+msgid "Flip _Horizontal"
+msgstr "Përmbyse _Horizontalisht"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
-msgstr "Përmbyse Vertikalisht"
+msgid "Flip _Vertical"
+msgstr "Përmbyse _Vertikalisht"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Ekran i Plotë"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Pamja e parë e imazhit për t'u printuar"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Pamja e Pa_rë..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Konfigurimi i Print_imit"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Printo imazhin në printer"
 
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Rrotulloje 180 _Gradë"
+
 #: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
-msgstr "Rrotulloje 180 Gradë"
+msgid "Rotate C_lockwise"
+msgstr "Rrotu_llim Orar"
 
 #: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
-msgstr "Rrotullim orar"
+msgid "Rotate Counte_r Clockwise"
+msgstr "Rrotullim Antio_rar"
 
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
-msgstr "Rrotullim antiorar"
-
-#: viewer/eog-image-view-ui.xml.h:11
 msgid "Save _As..."
 msgstr "Shpëtoje _Si..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Konfiguro rregullimet e faqes për printerin tuaj "
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "_Full Screen"
+msgstr "_Ekran i Plotë"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
