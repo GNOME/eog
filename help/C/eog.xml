@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "0.118.0">
-  <!ENTITY manrevision "2.2">
-  <!ENTITY date "August 2002">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "October 2002">
   <!ENTITY app "Eye of GNOME">
 ]>
 <!-- 
@@ -104,6 +104,16 @@
 	  		<para role="publisher">GNOME Documentation Project</para>
 		</revdescription> 
     </revision> 
+    <revision> 
+		<revnumber>Eye of GNOME Manual V2.2</revnumber> 
+		<date>August 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription> 
+    </revision>
     <revision> 
 		<revnumber>Eye of GNOME Manual V2.1</revnumber> 
 		<date>July 2002</date> 
@@ -277,7 +287,7 @@
 		Choose 
 		<menuchoice>
 		<guimenu>File</guimenu>
-		<guimenuitem>Open Image</guimenuitem>
+		<guimenuitem>Open</guimenuitem>
 		</menuchoice> 
 		to select the file that you want to open. You can also drag an image from another 
 		application such as a file manager to the <application>&app;</application> window. 
@@ -306,8 +316,8 @@
 	</sect2>
 
 	<sect2 id="eog-change-zoom">
-		<title>To Change the Zoom Factor</title>
-		<para>You can use the following methods to resize the view of an image in the 
+	<title>To Change the Zoom Factor</title>
+	<para>You can use the following methods to resize the view of an image in the 
 		<application>&app;</application> window:</para>
 		<itemizedlist>
 			<listitem><para>To enlarge the view of an image, choose 
@@ -363,6 +373,9 @@
 			pixel that is nearest to this location. When you zoom in on an image, the pixels are replicated. 
 			When you zoom out of an image, the image loses some of its detail. </para>
 			</listitem>
+			<listitem><para><guimenuitem>Tiles</guimenuitem> </para>
+			<para>No information available at time of publication.</para>
+			</listitem>
 			<listitem><para><guimenuitem>Bilinear</guimenuitem> </para>
 			<para>This is a simple and fast method of interpolation. When you zoom in on an image, 
 			<application>&app;</application> uses up to four adjacent pixels to compute the colors of 
@@ -374,8 +387,8 @@
 			on the image in the manner described in Digital Image Warping by George Wolberg.</para>
 			</listitem>
 			</itemizedlist>
-		<para>The default interpolation method is 
-		<guimenuitem>Nearest Neighbor</guimenuitem>.</para>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para> -->
 	</sect2>	
 	
 	<sect2 id="eog-change-dither">
@@ -398,7 +411,7 @@
 			<para>This option performs dithering on pseudocolor and high color displays. </para>
 			</listitem>
 		</itemizedlist>
-		<para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
 	</sect2>
 	
 	<sect2 id="eog-change-check-type">
@@ -431,7 +444,7 @@
 			<para>This option displays solid white.</para>
 			</listitem>
 		</itemizedlist>
-		<para>The default check type is <guimenuitem>Dark</guimenuitem>.</para>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
 	</sect2>
 	
 	<sect2 id="eog-change-check-size">
@@ -454,11 +467,11 @@
 			<listitem><para><guimenuitem>Large</guimenuitem></para>
 			</listitem>
 		</itemizedlist>
-		<para>The default check size is <guimenuitem>Small</guimenuitem>.</para>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para> -->
 	</sect2>
 
 	
-
+	
 	<!--============ To Close an Image ============================ -->
 	<sect2 id="eog-close-image">
 		<title>To Close an Image</title>
@@ -476,6 +489,105 @@
 		</menuchoice>.
 		</para>
 	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">	
+<title>Preferences</title>
+	<para>To configure <application>&app;</application>, choose <menuchoice>
+		<guimenu>Edit</guimenu>
+		<guimenuitem>Preferences</guimenuitem>
+		</menuchoice>.
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interpolation</guilabel></term>
+		<listitem>
+		<para>Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Nearest Neighbor</guimenuitem> </para>
+			<para>This method of interpolation takes a location in the original image and replicates the 
+			pixel that is nearest to this location. When you zoom in on an image, the pixels are replicated. 
+			When you zoom out of an image, the image loses some detail. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Tiles</guimenuitem> </para>
+			<para>No information available at time of publication.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilinear</guimenuitem> </para>
+			<para>This is a simple and fast method of interpolation. When you zoom in on an image, 
+			<application>&app;</application> uses up to four adjacent pixels to compute the colors of 
+			the new pixels. When you zoom out of an image, <application>&app;</application> averages 
+			regions of color in the existing image to compute the colors of the pixels. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolic</guimenuitem> </para>
+			<para>This is a high-quality, slow method of interpolation. The application performs interpolation 
+			on the image in the manner described in Digital Image Warping by George Wolberg.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Dither</guilabel></term>
+		<listitem>
+		<para>Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>None</guimenuitem> </para>
+			<para>This option does not use dithering. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudocolor)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor displays, which use a limited palette of colors. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (high color)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor and high color displays. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Check type</guilabel></term>
+		<listitem>
+		<para>Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Dark</guimenuitem> </para>
+			<para>This option displays black and dark gray checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Midtone</guimenuitem> </para>
+			<para>This option displays dark gray and light gray checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Light</guimenuitem> </para>
+			<para>This option displays light gray and white checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Black</guimenuitem> </para>
+			<para>This option displays solid black.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gray</guimenuitem> </para>
+			<para>This option displays solid gray.</para>
+			</listitem>
+			<listitem><para><guimenuitem>White</guimenuitem> </para>
+			<para>This option displays solid white.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>Check size</guilabel></term>
+		<listitem>
+		<para>This option is only relevant if you choose <guimenuitem>Dark checks</guimenuitem>, 
+		<guimenuitem>Midtone checks</guimenuitem>, or <guimenuitem>Light checks</guimenuitem> from the 
+		<guilabel>Check type</guilabel> drop-down list. Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Small</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medium</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Large</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
 
 </sect1>
 
