@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2001-06-25 05:22+0200\n"
-"PO-Revision-Date: 2000-06-19 19:34GMT +0200\n"
+"POT-Creation-Date: 2001-10-05 19:14+0200\n"
+"PO-Revision-Date: 2001-10-03 20:01GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
 "MIME-Version: 1.0\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
 
-#: collection/eog-collection-control.c:161
+#: collection/eog-collection-control.c:155
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Yerli BonoboControl ara üzü alına bilmir.\n"
 
-#: collection/eog-collection-model.c:435 collection/eog-collection-model.c:439
-#: collection/eog-collection-model.c:477 collection/eog-collection-model.c:481
+#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
+#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "URI başa düşülmədi: %s"
@@ -48,19 +48,27 @@ msgstr "EOG Rəsmi cəmləşdirmə nümayişi e'malatxanası"
 msgid "Background Color:"
 msgstr "Arxa plan Rəngi:"
 
-#: collection/eog-collection-view.c:307
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr "Yolla"
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr "Zibilə Daşı"
+
+#: collection/eog-collection-view.c:518
 msgid "Collection View"
 msgstr "Yığcam Görünüş"
 
-#: collection/eog-collection-view.c:385
+#: collection/eog-collection-view.c:596
 msgid "View"
 msgstr "Göstər"
 
-#: collection/eog-collection-view.c:668 viewer/eog-image-view.c:1734
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1955
 msgid "Window Title"
 msgstr "Pəncərə Başlığı"
 
-#: collection/eog-collection-view.c:671
+#: collection/eog-collection-view.c:883
 msgid "Status Text"
 msgstr "Vəziyyət Mətni"
 
@@ -84,7 +92,8 @@ msgstr "GnomeVFSni başlada bilmədim!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Bonobonu başlada bilmədim"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:190
+#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Gnome'un gözü"
 
@@ -92,20 +101,19 @@ msgstr "Gnome'un gözü"
 msgid "Image Viewer"
 msgstr "Rəsm Nümayişcisi"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:442
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
 msgid "EOG Image"
 msgstr "EOG Rəsmi"
 
-#: libeog/GNOME_EOG.oaf.in.h:2 viewer/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.oaf.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG Rəsm Nümayçisi"
 
-#: libeog/GNOME_EOG.oaf.in.h:3 viewer/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.oaf.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG Rəsm nümayişçisi e'malatxanası"
 
-#: libeog/GNOME_EOG.oaf.in.h:4 viewer/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.oaf.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Hopdurula bilmən EOG Rəsmi"
 
@@ -117,7 +125,7 @@ msgstr "Bu proqram haqqında"
 msgid "Change preferences"
 msgstr "Seçənəkləri dəyişdir"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
 msgid "Close"
 msgstr "Qapat"
 
@@ -133,7 +141,7 @@ msgstr "Ç_ıx"
 msgid "Exit the program"
 msgstr "Proqramdan çıx"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "Aç"
 
@@ -177,43 +185,55 @@ msgstr "_Tərcihlər"
 msgid "_Settings"
 msgstr "_Qurğular"
 
-#: shell/eog-window.c:192
+#: shell/eog-window.c:191 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Təlif haqqı (C) 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:194
+#: shell/eog-window.c:193 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME rəsm göstərmə və dəyişdirmə proqramı"
 
-#: shell/eog-window.c:487
+#: shell/eog-window.c:421
+msgid "Open in new window"
+msgstr "Yeni pəncərədə aç"
+
+#: shell/eog-window.c:422
+msgid "Open in this window"
+msgstr "Bu pəncərədə aç"
+
+#: shell/eog-window.c:424
+msgid "Cancel"
+msgstr "Ləğv Et"
+
+#: shell/eog-window.c:519
 msgid "Eye Of Gnome"
 msgstr "Gnome-un gözü"
 
-#: shell/eog-window.c:575
+#: shell/eog-window.c:605
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "eog-shell-ui.xml tapıla bilmir.\n"
 
-#: shell/eog-window.c:718 shell/eog-window.c:800
+#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
 msgid "Open Image"
 msgstr "Rəsmi aç"
 
-#: shell/eog-window.c:956
+#: shell/eog-window.c:1009
 msgid "Control doesn't support window_title property."
 msgstr "İdarə pəncərə_başlığını hələlik dəstəkləmir."
 
-#: shell/eog-window.c:972
+#: shell/eog-window.c:1025
 msgid "Control doesn't support status_text property."
 msgstr "İdarə vəziyyətçubuğu_mətnini hələlik dəstəkləmir."
 
-#: shell/eog-window.c:989
+#: shell/eog-window.c:1042
 msgid "Control doesn't have properties"
 msgstr "İdarənin seçənəkləri yoxdur"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1061
 msgid "Couldn't retrieve mime type for file."
 msgstr "Faylın maym növü öyrənilə bilmədi."
 
-#: shell/eog-window.c:1281
+#: shell/eog-window.c:1305
 msgid "Error while obtaining file informations."
 msgstr "Mə'lumatlar alınırkən xəta oldu."
 
@@ -236,209 +256,231 @@ msgstr "Tək Pəncərələr"
 msgid "Collection"
 msgstr "Yığcamlaşma"
 
-#: shell/main.c:275
+#: shell/main.c:273
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFSni başlada bilmədim !\n"
 
-#: shell/main.c:278
+#: shell/main.c:276
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobonu başlada bilmədim !\n"
 
-#: shell/preferences.c:219
-msgid "Preferences"
-msgstr "Tərcihlər"
-
-#: shell/preferences-dialog.glade.h:1
-msgid "Bilinear (normal)"
-msgstr "Bilinear (normal)"
-
-#: shell/preferences-dialog.glade.h:2
-msgid "Black only"
-msgstr "Təkcə qara"
-
-#: shell/preferences-dialog.glade.h:3
-msgid "Check size"
-msgstr "Böyüklük işarətləməsi"
-
-#: shell/preferences-dialog.glade.h:4
-msgid "Dark checks"
-msgstr "Qara işarətləmələr"
-
-#: shell/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1630
-msgid "Display"
-msgstr "Ekran"
-
-#: shell/preferences-dialog.glade.h:6
-msgid "Dither type"
-msgstr "Titrəmə növü"
-
-#: shell/preferences-dialog.glade.h:7
-msgid "Fit all images to screen"
-msgstr "Bütün rəsmləri ekrana görə quraşdır"
-
-#: shell/preferences-dialog.glade.h:8
-msgid "Fit standard-sized images to screen"
-msgstr "Normal böyüklükdəki rəsmləri ekrana görə quraşdır"
-
-#: shell/preferences-dialog.glade.h:9
-msgid "Full Screen"
-msgstr "Tam ekran"
-
-#: shell/preferences-dialog.glade.h:10
-msgid "Gray only"
-msgstr "Təkcə boz"
-
-#: shell/preferences-dialog.glade.h:11
-msgid "Hyperbolic (slowest, best quality)"
-msgstr "Hiperbolik (ən yavaş, ən yaxşı keyfiyyət)"
-
-#: shell/preferences-dialog.glade.h:12
-msgid "Image Windows"
-msgstr "Rəsm pəncərələri"
-
-#: shell/preferences-dialog.glade.h:13
-msgid "Interpolation type"
-msgstr "İnterpolyasiya növü"
-
-#: shell/preferences-dialog.glade.h:14 viewer/preferences.c:68
-msgid "Large"
-msgstr "Geniş"
-
-#: shell/preferences-dialog.glade.h:15
-msgid "Light checks"
-msgstr "Açıq işarətləmələr"
-
-#: shell/preferences-dialog.glade.h:16
-msgid "Maximum (high color)"
-msgstr "Maksimun (yüksək rəng)"
-
-#: shell/preferences-dialog.glade.h:17 viewer/preferences.c:67
-msgid "Medium"
-msgstr "Orta"
-
-#: shell/preferences-dialog.glade.h:18
-msgid "Midtone checks"
-msgstr "Orta ton işarətləmələr"
-
-#: shell/preferences-dialog.glade.h:19
-msgid "Nearest neighbor (fastest, low quality)"
-msgstr "Qonşusuna ən yaxın (ən sür'ətli, aşağı keyfiyyət)"
-
-#: shell/preferences-dialog.glade.h:20
-msgid "Never"
-msgstr "Əsla"
-
-#: shell/preferences-dialog.glade.h:21
-msgid "None"
-msgstr "Heç Biri"
-
-#: shell/preferences-dialog.glade.h:22
-msgid "Normal (pseudocolor)"
-msgstr "Normal (yalançı rəng)"
-
-#: shell/preferences-dialog.glade.h:23
-msgid "Only if image does not fit"
-msgstr "Təkcə rəsm uyğun gəlməzsə"
-
-#: shell/preferences-dialog.glade.h:24
-msgid "Open images in a new window"
-msgstr "Rəsmi təzə bir pəncərədə aç"
-
-#: shell/preferences-dialog.glade.h:25
-msgid "Pick window size and zoom factor automatically"
-msgstr "Pəncərə böyüklüyünü və yaxınlaşma faktorunu avtomatik seç"
-
-#: shell/preferences-dialog.glade.h:26
-msgid "Put a bevel around the edge of the screen"
-msgstr "Ekranın kənarlarına görünə bilən bir kənar əlavə et"
-
-#: shell/preferences-dialog.glade.h:27 viewer/preferences.c:66
-msgid "Small"
-msgstr "Kiçik"
-
-#: shell/preferences-dialog.glade.h:28
-msgid "Transparency type"
-msgstr "Şəffaflıq növü"
-
-#: shell/preferences-dialog.glade.h:29
-msgid "Two-pass scrolling"
-msgstr "Sürüşdürməni iki addımlı et"
-
-#: shell/preferences-dialog.glade.h:30
-msgid "Use 1:1 zoom factor"
-msgstr "1:1 böyütmə faktorunu istifadə et"
-
-#: shell/preferences-dialog.glade.h:31
-msgid "Use same zoom factor as image window"
-msgstr "Rəsm pəncərəsinin yaxınlaşdrma faktorunu istifadə et"
-
-#: shell/preferences-dialog.glade.h:32
-msgid "Use scrollbars"
-msgstr "Sürüşdürmə çubuqlarını göstər"
-
-#: shell/preferences-dialog.glade.h:33
-msgid "Viewers"
-msgstr "Nümayişcilər"
-
-#: shell/preferences-dialog.glade.h:34
-msgid "White only"
-msgstr "Təkcə ağ"
-
-#: shell/util.c:47
+#: shell/util.c:47 src/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s' açıla bilmir"
 
-#: viewer/eog-image-view.c:273
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "Tərcihlər"
+
+#: src/tb-image.c:33 src/window.c:181
+msgid "Open an image file"
+msgstr "Bir rəsmi aç"
+
+#: src/tb-image.c:35 src/window.c:186
+msgid "Close the current window"
+msgstr "Hazırkı pəncərəni qapat"
+
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+msgid "In"
+msgstr "İçəri"
+
+#: src/tb-image.c:44
+msgid "Out"
+msgstr "Çölə"
+
+#: src/tb-image.c:45
+msgid "1:1"
+msgstr "1:1"
+
+#: src/tb-image.c:46
+msgid "Fit"
+msgstr "Yaraşdır"
+
+#: src/window.c:181
+msgid "_Open Image..."
+msgstr "Rəsmi _Aç ..."
+
+#: src/window.c:186
+msgid "_Close This Window"
+msgstr "Bu _Pəncərəni Qapat"
+
+#: src/window.c:197
+msgid "2:1"
+msgstr "2:1"
+
+#: src/window.c:198
+msgid "3:1"
+msgstr "3:1"
+
+#: src/window.c:199
+msgid "4:1"
+msgstr "4:1"
+
+#: src/window.c:200
+msgid "5:1"
+msgstr "5:1"
+
+#: src/window.c:201
+msgid "6:1"
+msgstr "6:1"
+
+#: src/window.c:202
+msgid "7:1"
+msgstr "7:1"
+
+#: src/window.c:203
+msgid "8:1"
+msgstr "8:1"
+
+#: src/window.c:204
+msgid "9:1"
+msgstr "9:1"
+
+#: src/window.c:205
+msgid "10:1"
+msgstr "10:1"
+
+#: src/window.c:207
+msgid "1:2"
+msgstr "1:2"
+
+#: src/window.c:208
+msgid "1:3"
+msgstr "1:3"
+
+#: src/window.c:209
+msgid "1:4"
+msgstr "1:4"
+
+#: src/window.c:210
+msgid "1:5"
+msgstr "1:5"
+
+#: src/window.c:211
+msgid "1:6"
+msgstr "1:6"
+
+#: src/window.c:212
+msgid "1:7"
+msgstr "1:7"
+
+#: src/window.c:213
+msgid "1:8"
+msgstr "1:8"
+
+#: src/window.c:214
+msgid "1:9"
+msgstr "1:9"
+
+#: src/window.c:215
+msgid "1:10"
+msgstr "1:10"
+
+#: src/window.c:221
+msgid "Zoom In"
+msgstr "Yaxınlaşdır"
+
+#: src/window.c:221
+#, c-format
+msgid "Increase zoom factor by 5%%"
+msgstr "5%% daha çox böyüt"
+
+#: src/window.c:225
+msgid "Zoom Out"
+msgstr "Uzaqlaşdır"
+
+#: src/window.c:225
+#, c-format
+msgid "Decrease zoom factor by 5%%"
+msgstr "5%% balacalaşdır"
+
+#: src/window.c:229
+msgid "Zoom _1:1"
+msgstr "_1:1 böyüt"
+
+#: src/window.c:229
+msgid "Display the image at 1:1 scale"
+msgstr "Rəsmi 1:1 göstər"
+
+#: src/window.c:233
+msgid "_Zoom factor"
+msgstr "_Böyütmə faktoru"
+
+#: src/window.c:235
+msgid "_Fit to Window"
+msgstr "Pəncərəyə görə _yaraşdır"
+
+#: src/window.c:235
+msgid "Zoom the image to fit in the window"
+msgstr "Rəsmi pəncərəyə uyğunlaşana qədər böyüt"
+
+#: src/window.c:239
+msgid "Full _Screen"
+msgstr "_Tam ekran"
+
+#: src/window.c:239
+msgid "Use the whole screen for display"
+msgstr "Rəsmləri göstərmək üçün bütün ekranı göstər"
+
+#: viewer/eog-image.c:432
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "GnomeVFSni başlada bilmədim!\n"
+
+#: viewer/eog-image-view.c:282
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Rəsm '%s' olaraq qeyd edilə bilmir: %s."
 
-#: viewer/eog-image-view.c:304
+#: viewer/eog-image-view.c:325
 msgid "Save As"
 msgstr "Fərqli Qeyd Et"
 
-#: viewer/eog-image-view.c:662
+#: viewer/eog-image-view.c:883
 msgid "Print Image"
 msgstr "Rəsmi aç"
 
-#: viewer/eog-image-view.c:670
+#: viewer/eog-image-view.c:891
 msgid "Pages"
 msgstr "Səhifələr"
 
-#: viewer/eog-image-view.c:758
+#: viewer/eog-image-view.c:978
 msgid "Print Preview"
 msgstr "Çap Etmə nümayişi"
 
-#: viewer/eog-image-view.c:764
+#: viewer/eog-image-view.c:984
 msgid "Printing of image failed"
 msgstr "Rəsm çapı bacarılmadı"
 
-#: viewer/eog-image-view.c:1716 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1848
+msgid "Display"
+msgstr "Ekran"
+
+#: viewer/eog-image-view.c:1937 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "İnterpolyasiya"
 
-#: viewer/eog-image-view.c:1719 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1940 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Titrəmə"
 
-#: viewer/eog-image-view.c:1722 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1943 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "İşarətləmə Növü"
 
-#: viewer/eog-image-view.c:1725 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1946 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "İşarətləmə Böyüklüyü"
 
-#: viewer/eog-image-view.c:1728
+#: viewer/eog-image-view.c:1949
 msgid "Image Width"
 msgstr "Rəsm Nümayişcisi"
 
-#: viewer/eog-image-view.c:1731
+#: viewer/eog-image-view.c:1952
 msgid "Image Height"
 msgstr "Rəsm Hündürlüyü"
 
-#: viewer/eog-image-view.c:1737
+#: viewer/eog-image-view.c:1958
 msgid "Statusbar Text"
 msgstr "Vəziyyət Çubuğu Mətni"
 
@@ -487,70 +529,74 @@ msgid "Check type _white"
 msgstr "_Ağ İşarətləmə növü"
 
 #: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "Tam ekran"
+
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Nea_rest Neighbour Interpolation"
 msgstr "Ən _yaxın Qonşu İnterpolyasiyası"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Normal (_pseudocolor) dithering"
 msgstr "Normal (_yalançı) titrəmə"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "Previews the image to be printed"
 msgstr "Çap ediləcək rəsm nümayişi"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "Print Pre_view"
 msgstr "Çap Etmə Nüma_yişi"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "Print S_etup"
 msgstr "Çap Edici _Quraşdırılması"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "Print image to the printer"
 msgstr "Rəsmi çap ediciyə çap et"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "Save _As"
 msgstr "_Fərqli Qeyd Et"
 
-#: viewer/eog-image-view-ui.xml.h:19
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "Setup the page settings for your current printer"
 msgstr "Hazırkı çap edici üçün qurğuları quraşdır"
 
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:21
 msgid "_Bilinear Interpolation"
 msgstr "_Bilinear İnterpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "_Dither"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hiperbolik İnterpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "_Interpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "_Maksimum (yüksək rəng) titrəmə"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "_Titrəməsiz"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "_Çap Et"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "_Kirəmit İnterpolyasiyası"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_View"
 msgstr "_Göstər"
 
@@ -577,10 +623,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:74
 msgid "centimeter"
 msgstr "santimetr"
-
-#: viewer/eog-print-setup.c:75
-msgid "In"
-msgstr "İçəri"
 
 #: viewer/eog-print-setup.c:75
 msgid "inch"
@@ -731,20 +773,12 @@ msgstr "Aşağı, sonra sağa"
 msgid "Right, then down"
 msgstr "Sağa, sonra aşağı"
 
-#: viewer/main.c:89
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFSni başlada bilmədim!\n"
-
-#: viewer/main.c:92
-msgid "I could not initialize Bonobo!\n"
-msgstr "Bonobonu başlada bilmədim!\n"
-
 #: viewer/preferences.c:38
 msgid "Nearest Neighbour Interpolation"
 msgstr "Ən Yaxın Qonşu İnterpolyasiyası"
 
 #: viewer/preferences.c:40
-msgid "Tiltes Interpolation"
+msgid "Tiles Interpolation"
 msgstr "Kirəmit İnterpolyasiyası"
 
 #: viewer/preferences.c:42
@@ -791,116 +825,14 @@ msgstr "Boz"
 msgid "White"
 msgstr "Ağ"
 
-#~ msgid "Layout"
-#~ msgstr "Düzülüş"
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "Kiçik"
 
-#~ msgid "Color"
-#~ msgstr "Rəng"
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "Orta"
 
-#~ msgid "Open an image file"
-#~ msgstr "Bir rəsmi aç"
-
-#~ msgid "Close the current window"
-#~ msgstr "Hazırkı pəncərəni qapat"
-
-#~ msgid "Out"
-#~ msgstr "Çölə"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Fit"
-#~ msgstr "Yaraşdır"
-
-#~ msgid "_Open Image..."
-#~ msgstr "Rəsmi _Aç ..."
-
-#~ msgid "_Close This Window"
-#~ msgstr "Bu _Pəncərəni Qapat"
-
-#~ msgid "2:1"
-#~ msgstr "2:1"
-
-#~ msgid "3:1"
-#~ msgstr "3:1"
-
-#~ msgid "4:1"
-#~ msgstr "4:1"
-
-#~ msgid "5:1"
-#~ msgstr "5:1"
-
-#~ msgid "6:1"
-#~ msgstr "6:1"
-
-#~ msgid "7:1"
-#~ msgstr "7:1"
-
-#~ msgid "8:1"
-#~ msgstr "8:1"
-
-#~ msgid "9:1"
-#~ msgstr "9:1"
-
-#~ msgid "10:1"
-#~ msgstr "10:1"
-
-#~ msgid "1:2"
-#~ msgstr "1:2"
-
-#~ msgid "1:3"
-#~ msgstr "1:3"
-
-#~ msgid "1:4"
-#~ msgstr "1:4"
-
-#~ msgid "1:5"
-#~ msgstr "1:5"
-
-#~ msgid "1:6"
-#~ msgstr "1:6"
-
-#~ msgid "1:7"
-#~ msgstr "1:7"
-
-#~ msgid "1:8"
-#~ msgstr "1:8"
-
-#~ msgid "1:9"
-#~ msgstr "1:9"
-
-#~ msgid "1:10"
-#~ msgstr "1:10"
-
-#~ msgid "Zoom In"
-#~ msgstr "Yaxınlaşdır"
-
-#~ msgid "Increase zoom factor by 5%%"
-#~ msgstr "5%% daha çox böyüt"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Uzaqlaşdır"
-
-#~ msgid "Decrease zoom factor by 5%%"
-#~ msgstr "5%% balacalaşdır"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "_1:1 böyüt"
-
-#~ msgid "Display the image at 1:1 scale"
-#~ msgstr "Rəsmi 1:1 göstər"
-
-#~ msgid "_Zoom factor"
-#~ msgstr "_Böyütmə faktoru"
-
-#~ msgid "_Fit to Window"
-#~ msgstr "Pəncərəyə görə _yaraşdır"
-
-#~ msgid "Zoom the image to fit in the window"
-#~ msgstr "Rəsmi pəncərəyə uyğunlaşana qədər böyüt"
-
-#~ msgid "Full _Screen"
-#~ msgstr "_Tam ekran"
-
-#~ msgid "Use the whole screen for display"
-#~ msgstr "Rəsmləri göstərmək üçün bütün ekranı göstər"
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr "Geniş"
