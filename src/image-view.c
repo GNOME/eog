@@ -342,7 +342,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 	if (art_irect_empty (&d))
 		return;
 
-	tmp = gdk_pixbuf_new (ART_PIX_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
+	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
 
 	gdk_pixbuf_composite_color (priv->image->pixbuf,
 				    tmp,
@@ -350,7 +350,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 				    d.x1 - d.x0, d.y1 - d.y0,
 				    -(d.x0 - xofs), -(d.y0 - yofs),
 				    priv->zoom, priv->zoom,
-				    ART_FILTER_BILINEAR,
+				    GDK_INTERP_BILINEAR,
 				    255,
 				    d.x0 - xofs, d.y0 - yofs,
 				    CHECK_SIZE,

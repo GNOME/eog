@@ -128,11 +128,7 @@ static void
 render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 	       GdkRectangle *rect)
 {
-	ArtPixBuf *pixbuf;
-
-	pixbuf = buf->art_pixbuf;
-
-	g_return_if_fail (pixbuf != NULL);
+	g_return_if_fail (buf != NULL);
 
 	/* No drawing area yet ! */
 	if (!dest_widget || !dest_widget->window)
@@ -141,33 +137,34 @@ render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 	/*
 	 * Do not draw outside the region that we know how to display
 	 */
-	if (rect->x > pixbuf->width)
+	if (rect->x > gdk_pixbuf_get_width (buf))
 		return;
 
-	if (rect->y > pixbuf->height)
+	if (rect->y > gdk_pixbuf_get_height (buf))
 		return;
 
 	/*
 	 * Clip the draw region
 	 */
-	if (rect->x + rect->width > pixbuf->width)
-		rect->width = pixbuf->width - rect->x;
+	if (rect->x + rect->width > gdk_pixbuf_get_width (buf))
+		rect->width = gdk_pixbuf_get_width (buf) - rect->x;
 
-	if (rect->y + rect->height > pixbuf->height)
-		rect->height = pixbuf->height - rect->y;
+	if (rect->y + rect->height > gdk_pixbuf_get_height (buf))
+		rect->height = gdk_pixbuf_get_height (buf) - rect->y;
 
 	/*
 	 * Draw the exposed region.
 	 */
-	if (pixbuf->has_alpha)
+	if (gdk_pixbuf_get_has_alpha (buf))
 		gdk_draw_rgb_32_image (dest_widget->window,
 				       dest_widget->style->white_gc,
 				       rect->x, rect->y,
 				       rect->width,
 				       rect->height,
 				       GDK_RGB_DITHER_NORMAL,
-				       pixbuf->pixels + (pixbuf->rowstride * rect->y + rect->x * 4),
-				       pixbuf->rowstride);
+				       gdk_pixbuf_get_pixels (buf)
+				       + (gdk_pixbuf_get_rowstride (buf) * rect->y + rect->x * 4),
+				       gdk_pixbuf_get_rowstride (buf));
 	else
 		gdk_draw_rgb_image (dest_widget->window,
 				    dest_widget->style->white_gc,
@@ -175,8 +172,9 @@ render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 				    rect->width,
 				    rect->height,
 				    GDK_RGB_DITHER_NORMAL,
-				    pixbuf->pixels + (pixbuf->rowstride * rect->y + rect->x * 3),
-				    pixbuf->rowstride);
+				    gdk_pixbuf_get_pixels (buf)
+				    + (gdk_pixbuf_get_rowstride (buf) * rect->y + rect->x * 3),
+				    gdk_pixbuf_get_rowstride (buf));
 }
 
 static void
@@ -200,7 +198,6 @@ static void
 configure_size (view_data_t *view_data, GdkRectangle *rect)
 {
 	GdkPixbuf *buf = get_pixbuf (view_data);
-	ArtPixBuf *pixbuf;
 
 	g_return_if_fail (buf != NULL);
 	g_return_if_fail (view_data != NULL);
@@ -210,16 +207,14 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 	 * avoid messing with size_allocate process.
 	 */
 	if (view_data->size_allocated) {
-		pixbuf = buf->art_pixbuf;
-	  
 		gtk_widget_set_usize (view_data->drawing_area,
-				      pixbuf->width,
-				      pixbuf->height);
+				      gdk_pixbuf_get_width (buf),
+				      gdk_pixbuf_get_height (buf));
 	  
 		rect->x = 0;
 		rect->y = 0;
-		rect->width  = pixbuf->width;
-		rect->height = pixbuf->height;
+		rect->width  = gdk_pixbuf_get_width (buf);
+		rect->height = gdk_pixbuf_get_height (buf);
 	}
 }
 
@@ -343,16 +338,15 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 
 	buf = view_data->bod->pixbuf;
 
-	if (!view_data->bod->pixbuf ||
-	    !view_data->bod->pixbuf->art_pixbuf)
+	if (!view_data->bod->pixbuf)
 		return;
 
 #ifdef EOG_DEBUG
 	g_warning ("Size allocate");
 #endif
 
-	if (allocation->width  == buf->art_pixbuf->width &&
-	    allocation->height == buf->art_pixbuf->height) {
+	if (allocation->width  == gdk_pixbuf_get_width (buf) &&
+	    allocation->height == gdk_pixbuf_get_height (buf)) {
 		if (view_data->scaled) {
 			gdk_pixbuf_unref (view_data->scaled);
 			view_data->scaled = NULL;
@@ -362,8 +356,8 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 
 	view_buf = view_data->scaled;
 	if (view_buf) {
-		if (allocation->width  == view_buf->art_pixbuf->width &&
-		    allocation->height == view_buf->art_pixbuf->height) {
+		if (allocation->width  == gdk_pixbuf_get_width (view_buf) &&
+		    allocation->height == gdk_pixbuf_get_height (view_buf)) {
 #ifdef EOG_DEBUG
 			g_warning ("Correct size %d, %d", allocation->width, allocation->height);
 #endif
@@ -642,42 +636,52 @@ skip_frame (AnimationState *as)
 
 	frame = as->cur_frame->data;
 	g_return_val_if_fail (frame != NULL, FALSE);
-	g_return_val_if_fail (frame->pixbuf != NULL, FALSE);
-	g_return_val_if_fail (frame->pixbuf->art_pixbuf != NULL, FALSE);
+	g_return_val_if_fail (gdk_pixbuf_frame_get_pixbuf (frame) != NULL, FALSE);
 
-	w = frame->pixbuf->art_pixbuf->width;
-	h = frame->pixbuf->art_pixbuf->height;
+	w = gdk_pixbuf_get_width (gdk_pixbuf_frame_get_pixbuf (frame));
+	h = gdk_pixbuf_get_height (gdk_pixbuf_frame_get_pixbuf (frame));
 
-	if (frame->x_offset + w > as->frame->art_pixbuf->width)
-		w = as->frame->art_pixbuf->width - frame->x_offset;
+	if (gdk_pixbuf_frame_get_x_offset (frame) + w
+	    > gdk_pixbuf_get_width (as->frame))
+		w = gdk_pixbuf_get_width (as->frame)
+		  - gdk_pixbuf_frame_get_y_offset (frame);
 
-	if (frame->y_offset + h > as->frame->art_pixbuf->height)
-		h = as->frame->art_pixbuf->height - frame->y_offset;
+	if (gdk_pixbuf_frame_get_y_offset (frame) + h
+	    > gdk_pixbuf_get_height (as->frame))
+		h = gdk_pixbuf_get_height (as->frame)
+		  - gdk_pixbuf_frame_get_y_offset (frame);
 
 /*	printf ("Rendering patch of size (%d %d) at (%d %d) for delay %d mode %d %d\n",
 		w, h, frame->x_offset, frame->y_offset, frame->delay_time,
 		frame->action, frame->pixbuf->art_pixbuf->has_alpha);*/
 
-	layer = frame->pixbuf;
+	layer = gdk_pixbuf_frame_get_pixbuf (frame);
 
 	if (!as->cur_frame->prev ||
-	    frame->action == GDK_PIXBUF_FRAME_REVERT) {
+	    gdk_pixbuf_frame_get_action (frame) == GDK_PIXBUF_FRAME_REVERT) {
 		gdk_pixbuf_copy_area (layer, 0, 0, w, h, as->frame,
-				      frame->x_offset, frame->y_offset);
+				      gdk_pixbuf_frame_get_x_offset (frame),
+				      gdk_pixbuf_frame_get_y_offset (frame));
 	} else
 		gdk_pixbuf_composite (layer, as->frame,
-				      frame->x_offset, frame->y_offset, w, h,
-				      frame->x_offset, frame->y_offset, 1.0, 1.0,
+				      gdk_pixbuf_frame_get_x_offset (frame),
+				      gdk_pixbuf_frame_get_y_offset (frame),
+				      w, h,
+				      gdk_pixbuf_frame_get_x_offset (frame),
+				      gdk_pixbuf_frame_get_y_offset (frame),
+				      1.0, 1.0,
 				      ART_FILTER_NEAREST, 255);
 
-	gtk_widget_queue_draw_area (as->drawing_area, frame->x_offset,
-				    frame->y_offset, w, h);
-	as->timeout = gtk_timeout_add (frame->delay_time * 10,
+	gtk_widget_queue_draw_area (as->drawing_area,
+				    gdk_pixbuf_frame_get_x_offset (frame),
+				    gdk_pixbuf_frame_get_y_offset (frame),
+				    w, h);
+	as->timeout = gtk_timeout_add (gdk_pixbuf_frame_get_delay_time (frame) * 10,
 				       (GtkFunction) skip_frame, as);
 
 	as->cur_frame = as->cur_frame->next;
 	if (!as->cur_frame)
-		as->cur_frame = as->animation->frames;
+		as->cur_frame = gdk_pixbuf_animation_get_frames (as->animation);
 
 	return FALSE;
 }
@@ -690,9 +694,8 @@ animation_init (AnimationState *as, char *fname)
 
 	if (as->animation) {
 		GdkPixbufFrame *frame;
-		ArtPixBuf      *apb;
 
-		as->cur_frame = as->animation->frames;
+		as->cur_frame = gdk_pixbuf_animation_get_frames (as->animation);
 		g_return_if_fail (as->cur_frame != NULL);
 
 		frame = as->cur_frame->data;
@@ -701,8 +704,7 @@ animation_init (AnimationState *as, char *fname)
 		 *  Pray we never have alpha on the base frame, since this
 		 * seriously sods up the use of it on subsequent frames as a mask.
 		 */
-		apb = art_pixbuf_duplicate (frame->pixbuf->art_pixbuf);
-		as->frame = gdk_pixbuf_new_from_art_pixbuf (apb);
+		as->frame = gdk_pixbuf_copy (gdk_pixbuf_frame_get_pixbuf (frame));
 		
 		skip_frame (as);
 
@@ -749,7 +751,7 @@ animation_area_exposed (GtkWidget *widget, GdkEventExpose *event,
 /* FIXME: herin lies the problem ... this needs to be fixed */
 	frame = as->cur_frame->data;
 
-	render_pixbuf (frame->pixbuf, as->drawing_area, &event->area);
+	render_pixbuf (gdk_pixbuf_frame_get_pixbuf (frame), as->drawing_area, &event->area);
 
 	return TRUE;
 }
