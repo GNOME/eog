@@ -1,3 +1,15 @@
+2001-07-17  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* .cvsignore: Ignore GnoCam*.
+	* Makefile.am: Build GnoCam[.h,-common.c,-skels.c,-stubs.c] if 
+	ENABLE_GNOCAM.
+	* eog-image-view-ui.xml: Don't add the "Send" menu item here, do it...
+	* eog-image-view.c: ... here only if ENABLE_EVOLUTION. If
+	ENABLE_GNOCAM, add menu item "Acquire from camera" which lets you 
+	capture images with your camera and display it in EOG.
+	* eog-image.[c,h]: Add (eog_image_load_image_from_stream) and make
+	(eog_image_save_to_stream) consistent.
+
 2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
         * Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS], those are in
