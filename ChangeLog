@@ -1,5 +1,10 @@
 2003-11-02  Jens Finke  <jens@triq.net>
 
+	* shell/Makefile.am
+	* collection/Makefile.am: Link against X_LIBS.
+
+2003-11-02  Jens Finke  <jens@triq.net>
+
 	Based on a patch by Shivaram Upadhyayula. Fixex #104805.
 	
 	* acconfig.h: undef HAVE_SUNKEYSYM_H
@@ -18,6 +23,8 @@
 	* collection/eog-collection-view.c (eog_collection_view_create_ui):
 	Add callback for hidden fullscreen item on Sun keyboards.
 
+	* viewer/Makefile.am: Link against X_LIBS.
+	
 2003-10-29  Jens Finke  <jens@triq.net>
 
 	Improved slideshow component: automatic browsing, upscale flag,

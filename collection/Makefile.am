@@ -47,6 +47,7 @@ eog_collection_view_LDADD = 			\
 	-leog					\
 	$(EOG_LIBS)				\
 	$(INTLLIBS)				\
+	$(X_LIBS)				\
 	$(LIBJPEG)
 
 server_in_files = GNOME_EOG_Collection.server.in.in

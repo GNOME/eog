@@ -35,6 +35,7 @@ eog_LDADD = 				\
 	-leog				\
 	-lrecent			\
 	$(POPT_LIBS)			\
+	$(X_LIBS)			\
 	$(EOG_LIBS)
 
 uidir = $(datadir)/gnome-2.0/ui
