@@ -22,6 +22,7 @@
 #include <math.h>
 #include <string.h>
 #include <glib/gmain.h>
+#include <glib/gmacros.h>
 #include <libgnome/gnome-macros.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkdnd.h>
@@ -64,10 +65,11 @@ enum {
 static guint eog_wrap_list_signals [LAST_SIGNAL];
 
 enum {
-	GLOBAL_SIZE_CHANGED,
+	GLOBAL_WIDGET_SIZE_CHANGED,
 	GLOBAL_SPACING_CHANGED,
 	GLOBAL_LAYOUT_MODE_CHANGED,
-	GLOBAL_HINT_LAST
+	ITEM_SIZE_CHANGED,
+	UPDATE_HINT_LAST
 };
 
 typedef struct {
@@ -122,7 +124,7 @@ struct _EogWrapListPrivate {
 	gint idle_handler_id;
 
 	/* Update hints */
-	gboolean global_update_hints [GLOBAL_HINT_LAST];
+	gboolean global_update_hints [UPDATE_HINT_LAST];
 
 	/* last id of thumbnail the user clicked */
 	GnomeCanvasItem *last_item_clicked;
@@ -310,13 +312,12 @@ get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
 {
 	EogWrapListPrivate *priv;
 	double x1, y1, x2, y2;
-	gint row, col, n;
+	guint row, col, n;
 	
 	priv = wlist->priv;
-	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
 
-	col = x1 / (priv->item_width + priv->col_spacing);
-	row = (y1 - EOG_WRAP_LIST_BORDER) / (priv->item_height + priv->row_spacing);
+	col = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), "column"));
+	row = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), "row"));
 
 	n = col + priv->n_cols * row;
 
@@ -572,6 +573,18 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 	return ret_val;
 }
 
+static void
+handle_item_size_changed (GnomeCanvasItem *item, EogWrapList *wlist)
+{
+	EogWrapListPrivate *priv;
+
+	priv = wlist->priv;
+
+	priv->global_update_hints [ITEM_SIZE_CHANGED] = TRUE;
+
+	request_update (wlist);
+}
+
 /* Size_allocate handler for the abstract wrapped list view */
 static void
 eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
@@ -584,7 +597,7 @@ eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, size_allocate, (widget, allocation));
 
-	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
+	priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = TRUE;
 
 	request_update (wlist);
 }       
@@ -815,6 +828,7 @@ add_image (EogCollectionModel *model, EogImage *image, gpointer data)
 	
 	item = eog_collection_item_new (gnome_canvas_root (GNOME_CANVAS (wlist)), image);
 	g_signal_connect (G_OBJECT (item), "event", G_CALLBACK (handle_item_event), wlist);
+	g_signal_connect (G_OBJECT (item), "size_changed", G_CALLBACK (handle_item_size_changed), wlist);
 
 	priv->view_order = g_list_prepend (priv->view_order, item);
 
@@ -840,7 +854,7 @@ model_prepared (EogCollectionModel *model, gpointer data)
 	priv->view_order = g_list_reverse (priv->view_order);
 	priv->n_items = g_list_length (priv->view_order);
 
-	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
+	priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = TRUE;
 	request_update (wlist);
 	
 	for (it = priv->view_order; it != NULL; it = it->next) {
@@ -876,7 +890,7 @@ model_image_added (EogCollectionModel *model, EogImage *image, int position, gpo
 	priv->view_order = g_list_insert (priv->view_order, item, position);
 	priv->n_items = g_list_length (priv->view_order);
 
-	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
+	priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = TRUE;
 	request_update (wlist);
 	
 	eog_collection_item_load (EOG_COLLECTION_ITEM (item));
@@ -1036,6 +1050,9 @@ do_layout_check (EogWrapList *wlist)
 	g_message ("do_layout_check called");
 #endif
 
+	/* FIXME: Use constant for item_width here, since what we are
+	 * really interested in is the maximum width of an item.
+	 */
 	if (priv->item_width == -1 || priv->item_height == -1) {
 		if (priv->view_order != NULL) {
 			eog_collection_item_get_size (EOG_COLLECTION_ITEM (priv->view_order->data), 
@@ -1100,62 +1117,57 @@ do_layout_check (EogWrapList *wlist)
 	return TRUE;
 }
 
-static void 
-calculate_item_position (EogWrapList *wlist, 
-			 guint item_number,
-			 double *world_x,
-			 double *world_y)
-{
-	EogWrapListPrivate *priv;
-	guint row;
-	guint col;
-
-	priv = wlist->priv;
-
-	row = item_number / priv->n_cols;
-	col = item_number % priv->n_cols;
-		
-	*world_x = col * (priv->item_width + priv->col_spacing);
-	*world_y = row * (priv->item_height + priv->row_spacing) + EOG_WRAP_LIST_BORDER;
-}
-
-typedef struct {
-	EogWrapList *wlist;
-	gint n;
-} RearrangeData; 
-
 static void
-rearrange_single_item (gpointer value, RearrangeData *data)
+set_item_position (EogCollectionItem *item, double x, double y)
 {
-	GnomeCanvasItem *item;
 	double x1, x2, y1, y2;
-	double x3, y3;
 	double xoff, yoff;
+
+	gnome_canvas_item_get_bounds (GNOME_CANVAS_ITEM (item), &x1, &y1, &x2, &y2);
 	
-	item = (GnomeCanvasItem*) value;
-	
-	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
-	
-	calculate_item_position (data->wlist, data->n, &x3, &y3);
-	
-	xoff = x3-x1;
-	yoff = y3-y1;
+	xoff = x - x1;
+	yoff = y - y1;
 		
 	if (xoff || yoff)
-		gnome_canvas_item_move (item, xoff, yoff);
-	
-	data->n++;
+		gnome_canvas_item_move (GNOME_CANVAS_ITEM (item), xoff, yoff);
+}
+
+static void
+calculate_row_height (GList *it, int n_cols, 
+		      int *image_height, int *caption_height)
+{
+	int i;
+	EogCollectionItem *item;
+	int ih, ch;
+
+	*image_height = 0;
+	*caption_height = 0;
+
+	for (i = 0; (it != NULL) && (i < n_cols); i++, it = it->next) 
+	{
+		item = EOG_COLLECTION_ITEM (it->data);
+
+		eog_collection_item_get_heights (item, &ih, &ch);
+
+		*image_height = MAX (*image_height, ih);
+		*caption_height = MAX (*caption_height, ch);
+	}
 }
 
 static void
 do_item_rearrangement (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
-        RearrangeData data;
+	int max_image_height;
+	int max_caption_height;
+	int image_height;
+	int caption_height;
+	int row_offset;
+	int n, row, col;
+	double world_x, world_y;
 	double sr_width, sr_height;
-
-	data.wlist = wlist;
-	data.n = 0;
+	EogCollectionItem *item;
+	GList *it;
 
 #if COLLECTION_DEBUG
 	g_message ("do_item_rearrangement called");
@@ -1163,15 +1175,48 @@ do_item_rearrangement (EogWrapList *wlist)
 
 	priv = wlist->priv;
 
-	g_list_foreach (priv->view_order, 
-			(GFunc) rearrange_single_item, 
-			 &data);
-
+	row_offset = EOG_WRAP_LIST_BORDER - priv->row_spacing;
+	max_image_height = max_caption_height = 0;
+	it = priv->view_order;
+	col = 0;
+	
+	for (n = 0; it != NULL; it = it->next, n++) {
+		col = n % priv->n_cols;
+		row = n / priv->n_cols;
+		
+		if (col == 0) {
+			/* the offset for the new row is the
+			 * old offset plus the height of the
+			 * previous row 
+			 */
+			row_offset = row_offset + max_image_height + max_caption_height + 
+				priv->row_spacing;
+			
+			/* we start a new row and calculate
+			 * the row height/offset for the current row
+			 */
+			calculate_row_height (it, priv->n_cols,
+					      &max_image_height, &max_caption_height);
+		}
+		
+		item = EOG_COLLECTION_ITEM (it->data);
+		eog_collection_item_get_heights (item, &image_height, &caption_height);
+		
+		world_x = col * (100 /* FIXME: use item width constant here */ + priv->col_spacing);
+		world_y = row_offset + max_image_height - image_height;
+		
+		set_item_position (item, world_x, world_y);
+		
+		g_object_set_data (G_OBJECT (item), "row", GUINT_TO_POINTER (row));
+		g_object_set_data (G_OBJECT (item), "column", GUINT_TO_POINTER (col));
+	}
+	
+	
 	/* set new canvas scroll region */
-	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) - priv->col_spacing;
-	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) - priv->row_spacing + 
-		2 * EOG_WRAP_LIST_BORDER;
- 	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
+	sr_width =  priv->n_cols * (100 /* FIXME: use item width constant here */ + priv->col_spacing) - priv->col_spacing;
+	sr_height = row_offset + max_image_height + max_caption_height + EOG_WRAP_LIST_BORDER;
+	
+	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
 					0.0, 0.0,
 					sr_width, sr_height);
 
@@ -1194,13 +1239,13 @@ do_update (EogWrapList *wlist)
 	
 	/* handle global updates */
 	if (priv->global_update_hints [GLOBAL_SPACING_CHANGED] ||
-	    priv->global_update_hints [GLOBAL_SIZE_CHANGED]) 
+	    priv->global_update_hints [GLOBAL_WIDGET_SIZE_CHANGED]) 
 	{
 		layout_check_needed = TRUE;
 		item_rearrangement_needed = TRUE;
 		
 		priv->global_update_hints[GLOBAL_SPACING_CHANGED] = FALSE;
-		priv->global_update_hints[GLOBAL_SIZE_CHANGED] = FALSE;
+		priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = FALSE;
 	} 
 	else if (priv->global_update_hints [GLOBAL_LAYOUT_MODE_CHANGED]) 
 	{
@@ -1208,7 +1253,10 @@ do_update (EogWrapList *wlist)
 
 		priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED] = FALSE;
 	}
-
+	else if (priv->global_update_hints [ITEM_SIZE_CHANGED]) {
+		item_rearrangement_needed = TRUE;
+		priv->global_update_hints [ITEM_SIZE_CHANGED] = FALSE;
+	}
 	
 	if (layout_check_needed && do_layout_check (wlist)) 
 		item_rearrangement_needed = TRUE;

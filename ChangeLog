@@ -1,8 +1,39 @@
-2030-10-11  Jens Finke  <jens@triq.net>
+2003-10-12  Jens Finke  <jens@triq.net>
+
+	Better thumbnail layout in collection view.
+
+	* collection/eog-canvas-pixbuf.[ch]: New files. Like
+	GnomeCanvasPixbuf but doesn't ignore transparent parts when
+	checking for point in item.
+
+	* collection/Makefile.am (SOURCES): Added new files.
+
+	* collection/eog-collection-item.[ch]
+	(eog_collection_item_point): Removed.
+	(eog_collection_item_class_init): Added 'size_changed' signal.
+	(set_pixbuf): Emit 'size_changed' signal if the size of the pixbuf
+	changed.
+	(eog_collection_item_construct): Use EogCanvasPixbuf
+	class. Removed background item.
+	(eog_collection_item_get_heights): New function.
+
+	* collection/eog-wrap-list.c (get_item_view_position): Read
+	row/col position from the item's user data.
+	(handle_item_size_changed): New function, invokes layout checks.
+	(add_image): Connect to item's size_changed signal.
+	(set_item_position): New function.
+	(calcualte_row_height): New function.
+	(calculate_item_position): Removed.
+	(rearrange_single_item): Removed.
+	(do_item_rearrangement): Calculate exact height for each row,
+	align images properly.
+	(do_update): Handle new ITEM_SIZE_CHANGED update hint.
+	
+2003-10-11  Jens Finke  <jens@triq.net>
 
 	* Makefile.am: Changed variable names to fit their purpose better.
 
-	* eog.desktop.in: Added X-GNOME-DocPath entry.
+	* eog.desktop.in: Added X-GNOME-DocPath entry. - #123101
 	
 2003-10-11  Jens Finke  <jens@triq.net>
 

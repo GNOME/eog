@@ -7,59 +7,53 @@
 
 #include "eog-collection-item.h"
 #include "eog-image.h"
+#include "eog-canvas-pixbuf.h"
 
 struct _EogCollectionItemPrivate {
 	EogImage *image;
 
 	gboolean selected;
 
-	GnomeCanvasItem *background;
 	GnomeCanvasItem *frame;
 	GnomeCanvasItem *pixbuf_item;
 	GnomeCanvasItem *caption_item;
 	GnomeCanvasItem *selected_item;
 };
 
-#define EOG_COLLECTION_ITEM_THUMB_WIDTH  96
-#define EOG_COLLECTION_ITEM_THUMB_HEIGHT 96
-#define EOG_COLLECTION_ITEM_CAPTION_PADDING 6
+#define EOG_COLLECTION_ITEM_THUMB_WIDTH     96
+#define EOG_COLLECTION_ITEM_THUMB_HEIGHT    96
+#define EOG_COLLECTION_ITEM_CAPTION_PADDING  6
+
+enum {
+	SIGNAL_SIZE_CHANGED,
+	SIGNAL_LAST
+};
+static gint eog_collection_item_signals [SIGNAL_LAST];
 
 static void eog_collection_item_destroy (GtkObject *object);
 
 GNOME_CLASS_BOILERPLATE (EogCollectionItem, eog_collection_item,
 			 GnomeCanvasGroup, GNOME_TYPE_CANVAS_GROUP);
 
-static double
-eog_collection_item_point (GnomeCanvasItem *item, double x, double y, int cx, int cy,
-			   GnomeCanvasItem **actual_item)
-{
-	double x1, y1, x2, y2;
-	double width, height;
-
-	*actual_item = item;
-
-	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
-
-	width = x2 - x1;
-	height = y2 - y1;
-
-	return ((x >= 0) && (y >= 0) && (x <= width) && (y <= height)) ? 0.0 : 1.0;
-}
-
 static void
 eog_collection_item_class_init (EogCollectionItemClass *klass)
 {
         GObjectClass *gobject_class;
 	GtkObjectClass *object_class;
-	GnomeCanvasItemClass *item_class;
 
         gobject_class = (GObjectClass *) klass;
 	object_class = (GtkObjectClass *) klass;
-	item_class = (GnomeCanvasItemClass *) klass;
-
-	item_class->point = eog_collection_item_point;
 
 	object_class->destroy = eog_collection_item_destroy;
+
+	eog_collection_item_signals [SIGNAL_SIZE_CHANGED] = 
+		g_signal_new ("size_changed",
+			      G_TYPE_OBJECT,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogCollectionItemClass, size_changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);			     
 }
 
 static void
@@ -108,12 +102,22 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 {
 	EogCollectionItemPrivate *priv;
 	GdkPixbuf *scaled;
+	GdkPixbuf *old_pixbuf;
+	int old_width = 0;
+	int old_height = 0;
 	int image_width;
 	int image_height;
 	int image_x;
 	int image_y;
 
 	priv = item->priv;
+
+	/* determine size of the old pixbuf */
+	g_object_get (G_OBJECT (priv->pixbuf_item), "pixbuf", &old_pixbuf, NULL);
+	if (old_pixbuf != NULL) {
+		old_width = gdk_pixbuf_get_width (old_pixbuf);
+		old_height = gdk_pixbuf_get_height (old_pixbuf);
+	}
 
 	image_width = gdk_pixbuf_get_width (pixbuf);
 	image_height = gdk_pixbuf_get_height (pixbuf);
@@ -165,8 +169,12 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 			       NULL);
 	gnome_canvas_item_show (priv->frame);
 
-
 	gdk_pixbuf_unref (scaled);
+
+	/* emit size changed signal if pixbuf size changed */
+	if (image_width != old_width || image_height != old_height) {
+		g_signal_emit (G_OBJECT (item), eog_collection_item_signals [SIGNAL_SIZE_CHANGED], 0);
+	}
 }
 
 static GdkPixbuf*
@@ -358,16 +366,6 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	priv->image = image;
 	g_object_ref (priv->image);
 
-	/* background */
-	priv->background = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
-						  GNOME_TYPE_CANVAS_RECT,
-						  "x1", 0.0,
-						  "y2", 0.0,
-						  "x2", (double) EOG_COLLECTION_ITEM_THUMB_WIDTH,
-						  "y2", (double) EOG_COLLECTION_ITEM_THUMB_HEIGHT,
-						  "width_pixels", 1,
-						  NULL);
-
 	/* Caption */
 	layout = gtk_widget_create_pango_layout (GTK_WIDGET (GNOME_CANVAS_ITEM (item)->canvas), NULL);
 	g_assert (layout != NULL);
@@ -411,7 +409,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 
 	/* Image */
 	priv->pixbuf_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
-						   GNOME_TYPE_CANVAS_PIXBUF,
+						   EOG_TYPE_CANVAS_PIXBUF,
 						   NULL);
 
 	/* Image Frame */
@@ -524,4 +522,27 @@ eog_collection_item_get_size (EogCollectionItem *item, int *width, int *height)
 		caption_height;
 
 	*width = EOG_COLLECTION_ITEM_THUMB_WIDTH + 4;
+}
+
+/* eog_collection_item_get_heights:
+ *
+ * Returns the height of the image and the caption seperately. This is
+ * used by EogWrapList to align the items at the image bottom
+ * line. caption_height includes the padding between image and caption
+ * so that image_height + caption_height gives the total height of the item.
+ */
+void 
+eog_collection_item_get_heights (EogCollectionItem *item, int *image_height, int *caption_height)
+{
+	double x1, x2, y1, y2;
+
+	/* FIXME: maybe we should cache the values here, because they get
+	 * calculated at least 2 times for every item during item-rearrangement of 
+	 * the wrap list.
+	 */
+	gnome_canvas_item_get_bounds (item->priv->caption_item, &x1, &y1, &x2, &y2); 
+	*caption_height = (int) EOG_COLLECTION_ITEM_CAPTION_PADDING + y2 - y1;
+	
+	gnome_canvas_item_get_bounds (item->priv->pixbuf_item, &x1, &y1, &x2, &y2); 
+	*image_height = (int) y2 - y1;
 }

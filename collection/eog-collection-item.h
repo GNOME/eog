@@ -26,6 +26,7 @@ struct _EogCollectionItemClass {
 	GnomeCanvasGroupClass parent_class;
 	
 	void (* selection_changed) (EogCollectionItem *item, gboolean selected);
+	void (* size_changed)      (EogCollectionItem *item);
 };
 
 
@@ -44,6 +45,9 @@ void eog_collection_item_toggle_selected (EogCollectionItem *item);
 EogImage* eog_collection_item_get_image (EogCollectionItem *item);
 
 void eog_collection_item_get_size (EogCollectionItem *item, int *width, int *height);
+
+void eog_collection_item_get_heights (EogCollectionItem *item, int *image_height, int *caption_height);
+
 
 G_END_DECLS
 
