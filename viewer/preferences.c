@@ -132,12 +132,14 @@ create_prefs_menu (const PrefsEntry *menu_description,
 }
 
 static GtkWidget*
-create_label (gchar *text)
+create_label (gchar *text,
+	      GtkWidget *widget)
 {
 	GtkWidget *alignment;
 	GtkWidget *label;
 
-	label = gtk_label_new (text);
+	label = gtk_label_new_with_mnemonic (text);
+	gtk_label_set_mnemonic_widget (GTK_LABEL (label), widget);
 	alignment = gtk_alignment_new (1.0, 0.5, 0.0, 0.0);
 	
 	gtk_container_add (GTK_CONTAINER (alignment), label);
@@ -151,6 +153,7 @@ eog_create_preferences_page (EogImageView *image_view,
 {
 	GtkWidget *table, *interp, *dither;
 	GtkWidget *check_type, *check_size;
+	GtkWidget *label;
 	GConfClient *client;
 
 	g_return_val_if_fail (image_view != NULL, NULL);
@@ -165,8 +168,9 @@ eog_create_preferences_page (EogImageView *image_view,
 				    GCONF_EOG_VIEW_INTERP_TYPE,
 				    image_view);
 
+	label = create_label (_("_Interpolation:"), interp);
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   create_label (_("Interpolation:")),
+				   label,
 				   0, 1, 0, 1);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), interp,
@@ -176,8 +180,9 @@ eog_create_preferences_page (EogImageView *image_view,
 				    GCONF_EOG_VIEW_DITHER,
 				    image_view);
 
+	label = create_label (_("_Dither:"), dither);
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   create_label (_("Dither:")),
+				   label,
 				   0, 1, 1, 2);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), dither,
@@ -187,8 +192,9 @@ eog_create_preferences_page (EogImageView *image_view,
 					GCONF_EOG_VIEW_CHECK_TYPE,
 					image_view);
 
+	label = create_label (_("Check _type:"), check_type);
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   create_label (_("Check Type:")),
+				   label,
 				   0, 1, 2, 3);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), check_type,
@@ -198,8 +204,9 @@ eog_create_preferences_page (EogImageView *image_view,
 					GCONF_EOG_VIEW_CHECK_SIZE,
 					image_view);
 
+	label = create_label (_("Check _size:"), check_size);
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   create_label (_("Check Size:")),
+				   label,
 				   0, 1, 3, 4);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), check_size,
