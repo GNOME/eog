@@ -27,10 +27,15 @@ struct _EogImagePrivate {
 	gint height;
 	GnomeVFSFileSize bytes;
 	char *file_type;
+
+	guchar  *exif_chunk; /* holds EXIF raw data */
+	guint    exif_chunk_len;
+	guchar  *iptc_chunk; /* holds IPTC raw data */
+	guint    iptc_chunk_len;
 #if HAVE_EXIF
 	ExifData *exif;
 #endif
-
+	
 	gint thumbnail_id;
 	
 	gboolean modified;

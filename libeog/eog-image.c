@@ -20,6 +20,7 @@
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
 #include "eog-image-cache.h"
+#include "eog-metadata-reader.h"
 #if HAVE_JPEG
 #include "eog-image-jpeg.h"
 #endif
@@ -36,7 +37,6 @@ enum {
 	SIGNAL_LOADING_UPDATE,
 	SIGNAL_LOADING_SIZE_PREPARED,
 	SIGNAL_LOADING_FINISHED,
-	SIGNAL_LOADING_INFO_FINISHED,
 	SIGNAL_LOADING_FAILED,
 	SIGNAL_LOADING_CANCELLED,
 	SIGNAL_PROGRESS,
@@ -394,14 +394,6 @@ eog_image_class_init (EogImageClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);			     
-	eog_image_signals [SIGNAL_LOADING_INFO_FINISHED] = 
-		g_signal_new ("loading_info_finished",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, loading_info_finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);			     
 	eog_image_signals [SIGNAL_LOADING_FAILED] = 
 		g_signal_new ("loading_failed",
 			      G_TYPE_OBJECT,
@@ -561,7 +553,7 @@ update_exif_data (EogImage *image)
 	if (entry != NULL) {
 		exif_set_long (entry->data, bo, priv->height);
 	}
-	}
+}
 
 	
 #endif 
@@ -647,18 +639,6 @@ load_emit_signal_done (gpointer data)
 }
 
 static gboolean
-load_emit_signal_info_done (gpointer data)
-{
-	EogImage *img;
-
-	img = EOG_IMAGE (data);
-
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
-
-	return FALSE;
-}
-
-static gboolean
 load_emit_signal_size_prepared (gpointer data)
 {
 
@@ -688,6 +668,23 @@ load_size_prepared (GdkPixbufLoader *loader, gint width, gint height, gpointer d
 	g_idle_add (load_emit_signal_size_prepared, img);
 }
 
+static EogMetadataReader*
+check_for_metadata_img_format (EogImage *img, guchar *buffer, int bytes_read)
+{
+	EogMetadataReader *md_reader = NULL;
+	
+	g_print ("check img format for jpeg: %x%x - length: %i\n", buffer[0], buffer[1], bytes_read);
+	
+	if (bytes_read >= 2) {
+		/* SOI (start of image) marker for JPEGs is 0xFFD8 */
+		if ((buffer[0] == 0xFF) && (buffer[1] == 0xD8)) {		
+			md_reader = eog_metadata_reader_new (EOG_METADATA_JPEG);
+		}
+	}
+	
+	return md_reader;
+}
+
 /* this function runs in it's own thread */
 static gpointer
 real_image_load (gpointer data)
@@ -703,9 +700,8 @@ real_image_load (gpointer data)
 	GnomeVFSFileSize bytes_read_total;
 	gboolean failed;
 	GError *error = NULL;
-#if HAVE_EXIF
-	ExifLoader *exif_loader;
-#endif
+	gboolean first_run = TRUE;
+	EogMetadataReader *md_reader = NULL;
 
 	img = EOG_IMAGE (data);
 	priv = img->priv;
@@ -715,12 +711,7 @@ real_image_load (gpointer data)
 #endif
 
 	g_assert (priv->image == NULL);
-#if HAVE_EXIF
-	if (priv->exif != NULL) {
-		/* FIXME: this shouldn't happen but do so sometimes. */
-		g_warning ("exif data not freed\n");
-	}
-#endif
+
 	if (priv->file_type != NULL) {
 		g_free (priv->file_type);
 		priv->file_type = NULL;
@@ -762,9 +753,6 @@ real_image_load (gpointer data)
 	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
 	loader = gdk_pixbuf_loader_new ();
 	failed = FALSE;
-#if HAVE_EXIF
-	exif_loader = exif_loader_new ();
-#endif
 
 	g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 
@@ -791,23 +779,20 @@ real_image_load (gpointer data)
 			last_progress_bytes = bytes_read_total;
 			g_idle_add (load_emit_signal_progress, img);
 		}
-
-#if HAVE_EXIF
-		if (exif_loader != NULL && (exif_loader_write (exif_loader, buffer, bytes_read) == 0)) {
-			g_mutex_lock (img->priv->status_mutex);
-			priv->exif = exif_loader_get_data (exif_loader);
-			g_mutex_unlock (img->priv->status_mutex);
-			
-			exif_loader_unref (exif_loader);
-			exif_loader = NULL;
-
-			g_idle_add (load_emit_signal_info_done, img);
+		
+		/* check if we support reading metadata for that image format (only JPG atm) */
+		if (first_run) {
+			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
+			first_run = FALSE;
 		}
-#endif
+		
+		if (md_reader != NULL) {
+			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
+		}
 	}
 
 	gdk_pixbuf_loader_close (loader, NULL);	
-
+	
 	g_free (buffer);
 	gnome_vfs_close (handle);
 	gnome_vfs_file_info_unref (info);
@@ -865,9 +850,17 @@ real_image_load (gpointer data)
 		if (format != NULL) {
 			priv->file_type = g_strdup (gdk_pixbuf_format_get_name (format));
 		}
-#if HAVE_EXIF
-		update_exif_data (img);
-#endif 
+			
+		if (md_reader != NULL) {
+#if HAVE_EXIF	
+			priv->exif = eog_metadata_reader_get_exif_data (md_reader);
+			priv->exif_chunk = NULL;
+			priv->exif_chunk_len = 0;
+			update_exif_data (img);
+#else
+			eog_metadata_reader_get_exif_chunk (md_reader, &priv->exif_chunk, &priv->exif_chunk_len);
+#endif
+		}
 		eog_image_cache_add (img);
 
 		priv->status = EOG_IMAGE_STATUS_LOADED;
@@ -881,6 +874,10 @@ real_image_load (gpointer data)
 		g_error_free (error);
 	}
 	g_object_unref (loader);
+	if (md_reader != NULL) {
+		g_object_unref (md_reader);
+		md_reader = NULL;
+	}	
 
 	g_mutex_lock (priv->status_mutex);
 	priv->load_thread = NULL;
@@ -906,7 +903,6 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 		g_assert (priv->image != NULL);
 		eog_image_cache_reload (img);
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
 	}
 	else if (priv->status == EOG_IMAGE_STATUS_FAILED) {
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, "");		
@@ -914,12 +910,15 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 	else if (priv->status == EOG_IMAGE_STATUS_UNKNOWN) { 
 		g_assert (priv->image == NULL);
 		
-                /* make sure the object isn't destroyed while we try to load it */
+		/* make sure the object isn't destroyed while we try to load it */
 		g_object_ref (img);
 
 		/* initialize data fields for progressive loading */
 		priv->error_message = NULL;
 		priv->cancel_loading = FALSE;
+		priv->mode = EOG_IMAGE_LOAD_COMPLETE;
+		
+#if 0
 		priv->mode = mode;
 
 		if (priv->mode == EOG_IMAGE_LOAD_DEFAULT) {
@@ -954,6 +953,7 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 				
 			}
 		}
+#endif
 
 		/* start the thread machinery */
 		priv->status      = EOG_IMAGE_STATUS_LOADING;
@@ -1531,6 +1531,12 @@ eog_image_free_mem_private (EogImage *image)
 			priv->exif = NULL;
 		}
 #endif
+		
+		if (priv->exif_chunk != NULL) {
+			g_free (priv->exif_chunk);
+			priv->exif_chunk = NULL;
+		}
+		priv->exif_chunk_len = 0;
 
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	}

@@ -1,3 +1,23 @@
+2004-05-07  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-metdata-reader.[ch]: New files.
+	
+	* libeog/Makefile.am (SOURCES): Added new files.
+	
+	* libeog/eog-image-private.h: Added attributes for exif/iptc raw data.
+	
+	* libeog/eog-image.c (real_image_load): Use EogMetadataReader object for
+	obtaining image metadata.
+	(check_for_metadata_img_format): New function.
+	(load_emit_signal_info_done): Removed InfoDone signal emission.
+	(eog_image_load): Always use EOG_IMAGE_LOAD_COMPLETE method 
+	(significantly faster).
+	(image_changed_cb): Do explicit ExifData* cast.
+	(eog_image_free_mem_private): Free exif raw data if used.
+	
+	* collection/eog-collection-view.c (create_user_interface): 
+	Create always info view.
+
 2004-04-26  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-info-view-exif.c: Build even without libexif. #141114

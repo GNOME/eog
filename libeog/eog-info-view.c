@@ -177,7 +177,7 @@ image_changed_cb (EogImage *image, gpointer data)
 	{
 		ExifData *ed;
 
-		ed = eog_image_get_exif_information (image);
+		ed = (ExifData*) eog_image_get_exif_information (image);
 		eog_info_view_exif_show_data (EOG_INFO_VIEW_EXIF (view->priv->exif_view), ed);
 		if (ed != NULL) {
 			exif_data_unref (ed);
@@ -235,5 +235,3 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
 	}
 }
-
-

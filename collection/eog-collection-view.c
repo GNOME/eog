@@ -1257,9 +1257,7 @@ static GtkWidget*
 create_user_interface (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv;
-#if HAVE_EXIF
 	GtkWidget *hpaned;
-#endif
 	GtkWidget *vpaned;
 	GtkWidget *sw;
 	GtkWidget *frame;
@@ -1281,10 +1279,8 @@ create_user_interface (EogCollectionView *list_view)
 	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
-#if HAVE_EXIF
-	/* If we have additional information through libexif, we 
-	 * create an info view widget and put it to left of the 
-	 * image view. Using an eog_horizontal_splitter for this. 
+	/* Create an info view widget to view additional image information and 
+	 * put it to left of the image view. Using an eog_horizontal_splitter for this. 
 	 */
 	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
 
@@ -1295,15 +1291,6 @@ create_user_interface (EogCollectionView *list_view)
 	gtk_widget_show_all (hpaned);
 
 	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);
-
-#else
-	/* If libexif isn't available we put the image view (frame)
-	 * directly into the vpaned created above.
-	 */
-	priv->info_view = NULL;
-	gtk_widget_show_all (frame);
-	gtk_paned_pack1 (GTK_PANED (vpaned), frame, TRUE, TRUE);	
-#endif
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
@@ -1446,4 +1433,3 @@ eog_collection_view_new (void)
 
 	return eog_collection_view_construct (list_view);
 }
-
