@@ -1,5 +1,11 @@
 2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
+	* eog-control.c: Don't keep references to the widget (displayed by the
+	control) and the image - we simply don't need them. Unref the 
+	image-view on destroy - we created it during construction. 
+
+2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
 	* main.c: Kill 50% of all lines by using BONOBO_OAF_FACTORY_MULTI.
 	* eog-image.c: Initialize gnome-vfs here (if needed).
 

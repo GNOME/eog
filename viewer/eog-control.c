@@ -18,14 +18,11 @@
 #include <eog-control.h>
 
 struct _EogControlPrivate {
-	EogImage           *image;
 	EogImageView       *image_view;
 
 	BonoboZoomable     *zoomable;
 	float               zoom_level;
 	gboolean            has_zoomable_frame;
-
-	GtkWidget          *root;
 
 	BonoboUIComponent  *uic;
 };
@@ -42,13 +39,7 @@ eog_control_destroy (GtkObject *object)
 
 	control = EOG_CONTROL (object);
 
-	if (control->priv->image)
-		bonobo_object_unref (BONOBO_OBJECT (control->priv->image));
-	control->priv->image = NULL;
-
-	if (control->priv->root)
-		gtk_widget_unref (control->priv->root);
-	control->priv->root = NULL;
+	bonobo_object_unref (BONOBO_OBJECT (control->priv->image_view));
 
 	GTK_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
 }
@@ -405,6 +396,7 @@ EogControl *
 eog_control_construct (EogControl    *control,
 		       EogImage      *image)
 {
+	GtkWidget             *widget;
 	BonoboControl         *retval;
 	BonoboPropertyBag     *property_bag;
 	BonoboPropertyControl *property_control;
@@ -414,14 +406,11 @@ eog_control_construct (EogControl    *control,
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (control), NULL);
 
-	control->priv->image = image;
-	bonobo_object_ref (BONOBO_OBJECT (image));
-
 	if (!eog_image_add_interfaces (image, BONOBO_OBJECT (control)))
 		return NULL;
 
+	/* Create the image-view */
 	control->priv->image_view = eog_image_view_new (image, FALSE);
-	control->priv->root = eog_image_view_get_widget (control->priv->image_view);
 	if (!control->priv->image_view) {
 		bonobo_object_unref (BONOBO_OBJECT (control));
 		return NULL;
@@ -470,10 +459,14 @@ eog_control_construct (EogControl    *control,
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (control->priv->zoomable));
 
-	retval = bonobo_control_construct (BONOBO_CONTROL (control),
-					   control->priv->root);
-	if (!retval)
+	/* Construct the control */
+	widget = eog_image_view_get_widget (control->priv->image_view);
+	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
+	gtk_widget_unref (widget);
+	if (!retval) {
+		bonobo_object_unref (BONOBO_OBJECT (control));
 		return NULL;
+	}
 
 	property_bag = eog_image_view_get_property_bag (control->priv->image_view);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), property_bag);
