@@ -582,12 +582,15 @@ create_user_interface (EogCollectionView *list_view)
 	EogCollectionViewPrivate *priv;
 	GtkWidget *paned;
 	GtkWidget *sw;
+	GtkWidget *frame;
 
 	priv = list_view->priv;
 
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
 	g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL);
+	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
+	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
@@ -601,12 +604,13 @@ create_user_interface (EogCollectionView *list_view)
 			  G_CALLBACK (handle_selection_changed), list_view);
 
 	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
 
 	/* put it all together */
 	paned = gtk_vpaned_new ();
 	
-	gtk_paned_pack1 (GTK_PANED (paned), priv->scroll_view, TRUE, TRUE);
+	gtk_paned_pack1 (GTK_PANED (paned), frame, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (paned), sw, TRUE, TRUE);
 
 	/* by default make the wrap list keyboard active */

@@ -311,8 +311,6 @@ ensure_item_is_visible (EogWrapList *wlist, GnomeCanvasItem *item)
 	width = GTK_WIDGET (wlist)->allocation.width;
 	height = GTK_WIDGET (wlist)->allocation.height;
 	gnome_canvas_get_scroll_offsets (GNOME_CANVAS (wlist), &ofsx, &ofsy);
-	
-	g_print ("visible area: offset: %i/%i, size: %i/%i\n", ofsx, ofsy, width, height);
 
 	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
 	scroll_x = scroll_y = 0;
