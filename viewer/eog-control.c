@@ -39,14 +39,14 @@ init_eog_control_corba_class (void)
 }
 
 static void
-eog_control_activate (BonoboControl *control, gboolean state)
+eog_control_activate (BonoboControl *object, gboolean state)
 {
 	EogControl *control;
 
-	g_return_if_fail (control != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (control));
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (EOG_IS_CONTROL (object));
 
-	control = EOG_CONTROL (control);
+	control = EOG_CONTROL (object);
 
 	if (state) {
 		Bonobo_UIContainer ui_container;
@@ -61,7 +61,7 @@ eog_control_activate (BonoboControl *control, gboolean state)
 	}
 
 	if (BONOBO_CONTROL_CLASS (eog_control_parent_class)->activate)
-		BONOBO_CONTROL_CLASS (eog_control_parent_class)->activate (control, state);
+		BONOBO_CONTROL_CLASS (eog_control_parent_class)->activate (object, state);
 }
 
 static void
