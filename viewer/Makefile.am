@@ -10,14 +10,12 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
-        $(GNOME_INCLUDEDIR)				\
-	$(EXTRA_GNOME_CFLAGS)				\
-	$(EXTRA_WARNING_CFLAGS)				\
-	$(GNOME_CFLAGS)
+	$(EOG_CFLAGS)					\
+	$(EXTRA_WARNING_CFLAGS)
 
 noinst_PROGRAMS = sample-container
 sample_container_SOURCE = sample-container.c
-sample_container_LDADD = $(GNOME_LIBS) $(EXTRA_GNOME_LIBS)
+sample_container_LDADD = $(EOG_LIBS)
 
 bin_PROGRAMS = eog-image-viewer
 
@@ -49,9 +47,8 @@ eog_image_viewer_SOURCES =	\
 	main.c
 
 eog_image_viewer_LDADD = 			\
-	$(GNOME_LIBS)				\
+	$(EOG_LIBS)				\
 	$(INTLLIBS)				\
-	$(EXTRA_GNOME_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
