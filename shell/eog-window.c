@@ -1946,7 +1946,7 @@ static GtkActionEntry action_entries_window[] = {
   { "FileExit",        GTK_STOCK_QUIT,  N_("_Quit"),     "<control>Q",  N_("Close all windows and quit"),   G_CALLBACK (verb_FileExit_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of Gnome"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
-  { "HelpAbout",       NULL,            N_("_About"),    NULL,          N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
+  { "HelpAbout",       GNOME_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
 };
 
 /* Toggle items */
