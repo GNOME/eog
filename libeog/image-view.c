@@ -51,8 +51,9 @@ typedef struct {
 	/* Image being displayed */
 	Image *image;
 
-	/* Zoom factor */
+	/* Zoom factor and old zoom factor stored for size_allocate */
 	double zoom;
+	double old_zoom;
 
 	/* Adjustments for scrolling */
 	GtkAdjustment *hadj;
@@ -73,6 +74,9 @@ typedef struct {
 
 	/* Whether the image is being dragged */
 	guint dragging : 1;
+
+	/* Whether we need to change the zoom factor */
+	guint need_zoom_change : 1;
 } ImageViewPrivate;
 
 
@@ -263,15 +267,15 @@ image_view_finalize (GtkObject *object)
 
 /* Computes the size in pixels of the scaled image */
 static void
-compute_scaled_size (ImageView *view, int *width, int *height)
+compute_scaled_size (ImageView *view, double zoom, int *width, int *height)
 {
 	ImageViewPrivate *priv;
 
 	priv = view->priv;
 
 	if (priv->image && priv->image->pixbuf) {
-		*width = floor (gdk_pixbuf_get_width (priv->image->pixbuf) * priv->zoom + 0.5);
-		*height = floor (gdk_pixbuf_get_height (priv->image->pixbuf) * priv->zoom + 0.5);
+		*width = floor (gdk_pixbuf_get_width (priv->image->pixbuf) * zoom + 0.5);
+		*height = floor (gdk_pixbuf_get_height (priv->image->pixbuf) * zoom + 0.5);
 	} else
 		*width = *height = 0;
 }
@@ -318,7 +322,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 
 	priv = view->priv;
 
-	compute_scaled_size (view, &scaled_width, &scaled_height);
+	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
 	width = GTK_WIDGET (view)->allocation.width;
 	height = GTK_WIDGET (view)->allocation.height;
@@ -519,11 +523,14 @@ scroll_to (ImageView *view, int x, int y)
 	if (xofs == 0 && yofs == 0)
 		return;
 
-	width = GTK_WIDGET (view)->allocation.width;
-	height = GTK_WIDGET (view)->allocation.height;
-
 	priv->xofs = x;
 	priv->yofs = y;
+
+	if (!GTK_WIDGET_DRAWABLE (view))
+		return;
+
+	width = GTK_WIDGET (view)->allocation.width;
+	height = GTK_WIDGET (view)->allocation.height;
 
 	if (abs (xofs) >= width || abs (yofs) >= height) {
 		GdkRectangle area;
@@ -693,10 +700,52 @@ image_view_size_request (GtkWidget *widget, GtkRequisition *requisition)
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
 
-	compute_scaled_size (view, &scaled_width, &scaled_height);
+	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
 	requisition->width = scaled_width ? scaled_width : 1;
 	requisition->height = scaled_height ? scaled_height : 1;
+}
+
+/* Computes the offsets for the new zoom value so that they keep the image
+ * centered on the view.
+ */
+static void
+compute_center_zoom_offsets (ImageView *view,
+			     int old_width, int old_height,
+			     int new_width, int new_height,
+			     int *xofs, int *yofs)
+{
+	ImageViewPrivate *priv;
+	int old_scaled_width, old_scaled_height;
+	int new_scaled_width, new_scaled_height;
+	double view_cx, view_cy;
+
+	priv = view->priv;
+	g_assert (priv->need_zoom_change);
+
+	compute_scaled_size (view, priv->old_zoom, &old_scaled_width, &old_scaled_height);
+
+	if (old_scaled_width < old_width)
+		view_cx = ((double) old_scaled_width / 2.0) / priv->old_zoom;
+	else
+		view_cx = (priv->xofs + (double) old_width / 2.0) / priv->old_zoom;
+
+	if (old_scaled_height < old_height)
+		view_cy = ((double) old_scaled_height / 2.0) / priv->old_zoom;
+	else
+		view_cy = (priv->yofs + (double) old_height / 2.0) / priv->old_zoom;
+
+	compute_scaled_size (view, priv->zoom, &new_scaled_width, &new_scaled_height);
+
+	if (new_scaled_width < new_width)
+		*xofs = 0;
+	else
+		*xofs = floor (view_cx * priv->zoom - (double) new_width / 2.0 + 0.5);
+
+	if (new_scaled_height < new_height)
+		*yofs = 0;
+	else
+		*yofs = floor (view_cy * priv->zoom - (double) new_height / 2.0 + 0.5);
 }
 
 /* Size_allocate handler for the image view */
@@ -705,7 +754,7 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
-	int hval, vval;
+	int xofs, yofs;
 	int scaled_width, scaled_height;
 
 	g_return_if_fail (widget != NULL);
@@ -714,6 +763,21 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
+
+	/* Compute new scroll offsets */
+
+	if (priv->need_zoom_change) {
+		compute_center_zoom_offsets (view,
+					     widget->allocation.width, widget->allocation.height,
+					     allocation->width, allocation->height,
+					     &xofs, &yofs);
+		priv->need_zoom_change = FALSE;
+	} else {
+		xofs = priv->xofs;
+		yofs = priv->yofs;
+	}
+
+	/* Resize the window */
 
 	widget->allocation = *allocation;
 
@@ -726,40 +790,45 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	/* Set scroll increments */
 
-	priv->hadj->page_size = allocation->width;
+	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+
+	priv->hadj->page_size = MIN (scaled_width, allocation->width);
 	priv->hadj->page_increment = allocation->width / 2;
 	priv->hadj->step_increment = SCROLL_STEP_SIZE;
 
-	priv->vadj->page_size = allocation->height;
+	priv->vadj->page_size = MIN (scaled_height, allocation->height);
 	priv->vadj->page_increment = allocation->height / 2;
 	priv->vadj->step_increment = SCROLL_STEP_SIZE;
 
-	/* Set scroll bounds and new offset */
-
-	hval = priv->hadj->value;
-	vval = priv->vadj->value;
-
-	compute_scaled_size (view, &scaled_width, &scaled_height);
+	/* Set scroll bounds and new offsets */
 
 	priv->hadj->lower = 0;
-	priv->hadj->upper = MAX (scaled_width, allocation->width);
-	hval = CLAMP (hval, 0, priv->hadj->upper - priv->hadj->page_size);
+	priv->hadj->upper = scaled_width;
+	xofs = CLAMP (xofs, 0, priv->hadj->upper - priv->hadj->page_size);
 
 	priv->vadj->lower = 0;
-	priv->vadj->upper = MAX (scaled_height, allocation->height);
-	vval = CLAMP (vval, 0, priv->vadj->upper - priv->vadj->page_size);
+	priv->vadj->upper = scaled_height;
+	yofs = CLAMP (yofs, 0, priv->vadj->upper - priv->vadj->page_size);
 
 	gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "changed");
 	gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "changed");
 
-	if (priv->hadj->value != hval) {
-		priv->hadj->value = hval;
+	if (priv->hadj->value != xofs) {
+		priv->hadj->value = xofs;
+		priv->xofs = xofs;
+
+		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
 		gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
+		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
 	}
 
-	if (priv->vadj->value != vval) {
-		priv->vadj->value = vval;
+	if (priv->vadj->value != yofs) {
+		priv->vadj->value = yofs;
+		priv->yofs = yofs;
+
+		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
 		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
 	}
 }
 
@@ -1070,9 +1139,12 @@ image_view_set_zoom (ImageView *view, double zoom)
 
 	priv = view->priv;
 
-	priv->zoom = zoom;
+	if (!priv->need_zoom_change) {
+		priv->old_zoom = priv->zoom;
+		priv->need_zoom_change = TRUE;
+	}
 
-	/* FIXME: re-center zoom */
+	priv->zoom = zoom;
 
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }

@@ -1,3 +1,15 @@
+2000-04-23  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (compute_scaled_size): Pass in a zoom value instead
+	of using the view's.
+	(compute_center_zoom_offsets): New function to compute the offsets
+	for the new zoom value so that they keep the image centered on the
+	view.
+	(scroll_to): Only update the offsets and do not paint if the
+	widget is not drawable.
+	(image_view_size_allocate): Re-center the offsets if the zoom
+	changed.
+
 2000-04-21  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (scroll_to): New function to do proper scrolling of
