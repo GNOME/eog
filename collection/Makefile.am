@@ -98,5 +98,5 @@ endif
 uidir = $(datadir)/gnome-2.0/ui
 ui_DATA = eog-collection-view-ui.xml
 
-CLEANFILES += $(EVOLUTION_GENERATED) $(BUILT_SOURCES)
+CLEANFILES = $(EVOLUTION_GENERATED) $(BUILT_SOURCES)
 EXTRA_DIST = $(ui_DATA) $(server_in_files) eog-collection-marshal.list
