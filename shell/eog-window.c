@@ -2946,14 +2946,17 @@ static void
 add_short_labels (GtkActionGroup *group) 
 {
 	GtkAction *action;
+	char *translated_string;	
 	int i;
 
 	for (i = 0; short_label_map[i].action_name != NULL; i++) {
 		action = gtk_action_group_get_action (group,
 						      short_label_map[i].action_name);
 		if (action != NULL) {
+			translated_string = gettext (short_label_map[i].short_label);
+			
 			g_object_set (G_OBJECT (action), "short-label",
-				      short_label_map[i].short_label, NULL);
+				          translated_string, NULL);
 		}
 	}
 }
@@ -2991,14 +2994,14 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	
 	/* build menu and toolbar */
 	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
-	gtk_action_group_set_translation_domain (priv->actions_window, PACKAGE);
+	gtk_action_group_set_translation_domain (priv->actions_window, GETTEXT_PACKAGE);
 	gtk_action_group_add_actions (priv->actions_window, action_entries_window, G_N_ELEMENTS (action_entries_window), window);
 	gtk_action_group_add_toggle_actions (priv->actions_window, toggle_entries_window, G_N_ELEMENTS (toggle_entries_window), window);
 	add_short_labels (priv->actions_window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_window, 0);
 
 	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
-	gtk_action_group_set_translation_domain (priv->actions_image, PACKAGE);
+	gtk_action_group_set_translation_domain (priv->actions_image, GETTEXT_PACKAGE);
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_action_group_add_toggle_actions (priv->actions_image, toggle_entries_image, G_N_ELEMENTS (toggle_entries_image), window);
 	add_short_labels (priv->actions_image);
