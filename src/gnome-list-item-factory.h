@@ -23,7 +23,8 @@
 #define GNOME_LIST_ITEM_FACTORY_H
 
 #include <libgnome/gnome-defs.h>
-#include <libgnome/gnome-canvas.h>
+#include <libgnomeui/gnome-canvas.h>
+#include "gnome-list-model.h"
 
 BEGIN_GNOME_DECLS
 
@@ -51,7 +52,7 @@ struct _GnomeListItemFactory {
 struct _GnomeListItemFactoryClass {
 	GtkObjectClass parent_class;
 
-	GnomeCanvasItem *(* create_item) (GnomeListItemFactory *factory, GnomeListView *view);
+	GnomeCanvasItem *(* create_item) (GnomeListItemFactory *factory, GnomeCanvasGroup *parent);
 	void (* configure_item) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				 GnomeListModel *model, guint n,
 				 gboolean is_selected, gboolean is_focused);
@@ -64,7 +65,7 @@ struct _GnomeListItemFactoryClass {
 GtkType gnome_list_item_factory_get_type (void);
 
 GnomeCanvasItem *gnome_list_item_factory_create_item (GnomeListItemFactory *factory,
-						      GnomeListView *view);
+						      GnomeCanvasGroup *parent);
 
 void gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 					     GnomeListModel *model, guint n,

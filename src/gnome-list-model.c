@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <gtk/gtksignal.h>
 #include "gnome-list-model.h"
 
 

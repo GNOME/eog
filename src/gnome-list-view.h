@@ -23,8 +23,7 @@
 #define GNOME_LIST_VIEW_H
 
 #include <libgnome/gnome-defs.h>
-#include <libgnomeui/gnome-canvas.h>
-#include "gnome-item-view-factory.h"
+#include "gnome-list-item-factory.h"
 #include "gnome-list-model.h"
 
 BEGIN_GNOME_DECLS
@@ -46,24 +45,24 @@ typedef struct _GnomeListView GnomeListView;
 typedef struct _GnomeListViewClass GnomeListViewClass;
 
 struct _GnomeListView {
-	GnomeCanvas canvas;
+	GtkContainer container;
 
 	/* Private data */
 	gpointer priv;
 };
 
 struct _GnomeListViewClass {
-	GnomeCanvasClass parent_class;
+	GtkContainerClass parent_class;
 
 	void (* set_model) (GnomeListView *view, GnomeListModel *model);
-	void (* set_item_view_factory) (GnomeListView *view, GnomeItemViewFactory *factory);
+	void (* set_list_item_factory) (GnomeListView *view, GnomeListItemFactory *factory);
 };
 
 
 GtkType gnome_list_view_get_type (void);
 
 GnomeListModel *gnome_list_view_get_model (GnomeListView *view);
-GnomeItemViewFactory *gnome_list_view_get_item_view_factory (GnomeListView *view);
+GnomeListItemFactory *gnome_list_view_get_list_item_factory (GnomeListView *view);
 
 
 

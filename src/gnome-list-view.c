@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gtk/gtkmarshal.h>
+#include <gtk/gtksignal.h>
 #include "gnome-list-view.h"
 
 
@@ -30,8 +31,8 @@ typedef struct {
 	/* The model we are displaying */
 	GnomeListModel *model;
 
-	/* The item view factory */
-	GnomeItemViewFactory *factory;
+	/* The list item factory */
+	GnomeListItemFactory *factory;
 } ListViewPrivate;
 
 
@@ -39,7 +40,7 @@ typedef struct {
 /* Signal IDs */
 enum {
 	SET_MODEL,
-	SET_ITEM_VIEW_FACTORY,
+	SET_LIST_ITEM_FACTORY,
 	LAST_SIGNAL
 };
 
@@ -48,9 +49,9 @@ static void gnome_list_view_init (GnomeListView *view);
 static void gnome_list_view_destroy (GtkObject *object);
 
 static void set_model (GnomeListView *view, GnomeListModel *model);
-static void set_item_view_factory (GnomeListView *view, GnomeItemViewFactory *factory);
+static void set_list_item_factory (GnomeListView *view, GnomeListItemFactory *factory);
 
-static GnomeCanvasClass *parent_class;
+static GtkContainerClass *parent_class;
 
 static guint list_view_signals[LAST_SIGNAL];
 
@@ -82,7 +83,7 @@ gnome_list_view_get_type (void)
 			(GtkClassInitFunc) NULL
 		};
 
-		list_view_type = gtk_type_unique (gnome_canvas_get_type (), &list_view_info);
+		list_view_type = gtk_type_unique (gtk_container_get_type (), &list_view_info);
 	}
 
 	return list_view_type;
@@ -96,7 +97,7 @@ gnome_list_view_class_init (GnomeListViewClass *class)
 
 	object_class = (GtkObjectClass *) class;
 
-	parent_class = gtk_type_class (gnome_canvas_get_type ());
+	parent_class = gtk_type_class (gtk_container_get_type ());
 
 	list_view_signals[SET_MODEL] =
 		gtk_signal_new ("set_model",
@@ -106,19 +107,56 @@ gnome_list_view_class_init (GnomeListViewClass *class)
 				gtk_marshal_NONE__POINTER,
 				GTK_TYPE_NONE, 1,
 				GNOME_TYPE_LIST_MODEL);
-	list_view_signals[SET_ITEM_VIEW_FACTORY] =
-		gtk_signal_new ("set_item_view_factory",
+	list_view_signals[SET_LIST_ITEM_FACTORY] =
+		gtk_signal_new ("set_list_item_factory",
 				GTK_RUN_FIRST,
 				object_class->type,
-				GTK_SIGNAL_OFFSET (GnomeListViewClass, set_item_view_factory),
+				GTK_SIGNAL_OFFSET (GnomeListViewClass, set_list_item_factory),
 				gtk_marshal_NONE__POINTER,
 				GTK_TYPE_NONE, 1,
-				GNOME_TYPE_ITEM_VIEW_FACTORY);
+				GNOME_TYPE_LIST_ITEM_FACTORY);
 
 	gtk_object_class_add_signals (object_class, list_view_signals, LAST_SIGNAL);
 
+	object_class->destroy = gnome_list_view_destroy;
+
 	class->set_model = set_model;
-	class->set_item_view_factory = set_item_view_factory;
+	class->set_list_item_factory = set_list_item_factory;
+}
+
+/* Object initialization function for the abstract list view */
+static void
+gnome_list_view_init (GnomeListView *view)
+{
+	ListViewPrivate *priv;
+
+	priv = g_new0 (ListViewPrivate, 1);
+	view->priv = priv;
+}
+
+/* Destroy handler for the abstract list view */
+static void
+gnome_list_view_destroy (GtkObject *object)
+{
+	GnomeListView *view;
+	ListViewPrivate *priv;
+
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (GNOME_IS_LIST_VIEW (object));
+
+	view = GNOME_LIST_VIEW (object);
+	priv = view->priv;
+
+	if (priv->model)
+		gtk_object_unref (GTK_OBJECT (priv->model));
+
+	if (priv->factory)
+		gtk_object_unref (GTK_OBJECT (priv->factory));
+
+	g_free (priv);
+
+	if (GTK_OBJECT_CLASS (parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
@@ -152,9 +190,9 @@ set_model (GnomeListView *view, GnomeListModel *model)
 	/* FIXME: update view */
 }
 
-/* Set_item_view_factory for the abstract list view */
+/* Set_list_item_factory handler for the abstract list view */
 static void
-set_item_view_factory (GnomeListView *view, GnomeItemViewFactory *factory)
+set_list_item_factory (GnomeListView *view, GnomeListItemFactory *factory)
 {
 	ListViewPrivate *priv;
 
@@ -162,7 +200,7 @@ set_item_view_factory (GnomeListView *view, GnomeItemViewFactory *factory)
 	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
 
 	if (factory)
-		g_return_if_fail (GNOME_IS_ITEM_VIEW_FACTORY (factory));
+		g_return_if_fail (GNOME_IS_LIST_ITEM_FACTORY (factory));
 
 	priv = view->priv;
 
@@ -205,15 +243,15 @@ gnome_list_view_get_model (GnomeListView *view)
 }
 
 /**
- * gnome_list_view_get_item_view_factory:
+ * gnome_list_view_get_list_item_factory:
  * @view: A list view.
  *
- * Queries the item view factory that a list view is using.
+ * Queries the list item factory that a list view is using.
  *
- * Return value: the item view factory.
+ * Return value: The list item factory.
  **/
-GnomeItemViewFactory *
-gnome_list_view_get_item_view_factory (GnomeListView *view)
+GnomeListItemFactory *
+gnome_list_view_get_list_item_factory (GnomeListView *view)
 {
 	ListViewPrivate *priv;
 

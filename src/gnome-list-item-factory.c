@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <gtk/gtksignal.h>
 #include "gnome-list-item-factory.h"
 
 
@@ -91,7 +92,7 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 				GTK_SIGNAL_OFFSET (GnomeListItemFactoryClass, create_item),
 				marshal_create_item,
 				GNOME_TYPE_CANVAS_ITEM, 1,
-				GNOME_TYPE_LIST_VIEW);
+				GNOME_TYPE_CANVAS_GROUP);
 	li_factory_signals[CONFIGURE_ITEM] =
 		gtk_signal_new ("configure_item",
 				GTK_RUN_FIRST,
@@ -106,6 +107,7 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 				GTK_TYPE_BOOL);
 	li_factory_signals[GET_ITEM_SIZE] =
 		gtk_signal_new ("get_item_size",
+				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GnomeListItemFactoryClass, get_item_size),
 				marshal_get_item_size,
@@ -123,7 +125,7 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 
 /* Marshalers */
 
-typedef GnomeCanvasItem *(* CreateItemFunc) (GtkObject *object, GtkObject *view, gpointer data);
+typedef GnomeCanvasItem *(* CreateItemFunc) (GtkObject *object, GtkObject *parent, gpointer data);
 
 static void
 marshal_create_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
@@ -131,7 +133,7 @@ marshal_create_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkAr
 	CreateItemFunc rfunc;
 	GnomeCanvasItem **retval;
 
-	retval = GTK_RETLOC_POINTER (args[1]);
+	retval = (GnomeCanvasItem **) GTK_RETLOC_POINTER (args[1]);
 	rfunc = (CreateItemFunc) func;
 	*retval = (* rfunc) (object, GTK_VALUE_OBJECT (args[0]), data);
 }
@@ -142,7 +144,7 @@ typedef void (* ConfigureItemFunc) (GtkObject *object, GtkObject *item,
 				    gpointer data);
 
 static void
-marshal_configure_item (GtkObjct *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+marshal_configure_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
 {
 	ConfigureItemFunc rfunc;
 
@@ -174,26 +176,25 @@ marshal_get_item_size (GtkObject *object, GtkSignalFunc func, gpointer data, Gtk
 /**
  * gnome_list_item_factory_create_item:
  * @factory: A list item factory.
- * @view: List view to which the created item will be bound.
+ * @parent: Canvas group to act as the item's parent.
  *
- * Makes a list item factory create an empty item bound to the specified list
- * view.
+ * Makes a list item factory create an empty item.
  *
  * Return value: An canvas item representing an empty list item.
  **/
 GnomeCanvasItem *
-gnome_list_item_factory_create_item (GnomeListItemFactory *factory, GnomeListView *view)
+gnome_list_item_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent)
 {
 	GnomeCanvasItem *retval;
 
 	g_return_val_if_fail (factory != NULL, NULL);
 	g_return_val_if_fail (GNOME_IS_LIST_ITEM_FACTORY (factory), NULL);
-	g_return_val_if_fail (view != NULL, NULL);
-	g_return_val_if_fail (GNOME_IS_LIST_VIEW (view), NULL);
+	g_return_val_if_fail (parent != NULL, NULL);
+	g_return_val_if_fail (GNOME_IS_CANVAS_GROUP (parent), NULL);
 
 	retval = NULL;
 	gtk_signal_emit (GTK_OBJECT (factory), li_factory_signals[CREATE_ITEM],
-			 view, &retval);
+			 parent, &retval);
 	return retval;
 }
 
