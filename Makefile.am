@@ -1,4 +1,4 @@
-SUBDIRS = intl macros po src idl viewer doc shell collection
+SUBDIRS = intl macros po src idl libeog viewer doc shell collection
 
 schemadir = $(sysconfdir)/gconf/schemas
 schema_DATA = eog.schemas
