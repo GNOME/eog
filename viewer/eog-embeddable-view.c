@@ -227,7 +227,7 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view, EOG_Embeddabl
 		return NULL;
 
 	embeddable_view->priv->property_bag = eog_image_view_get_property_bag (embeddable_view->priv->image_view);
-	bonobo_control_set_property_bag (BONOBO_CONTROL (embeddable_view), embeddable_view->priv->property_bag);
+	bonobo_control_set_properties (BONOBO_CONTROL (embeddable_view), embeddable_view->priv->property_bag);
 	
 	return embeddable_view;
 }

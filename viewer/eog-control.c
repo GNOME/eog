@@ -232,7 +232,7 @@ eog_control_construct (EogControl *control, EOG_Control corba_object, EogImageDa
 		return NULL;
 
 	control->priv->property_bag = eog_image_view_get_property_bag (control->priv->image_view);
-	bonobo_control_set_property_bag (BONOBO_CONTROL (control), control->priv->property_bag);
+	bonobo_control_set_properties (BONOBO_CONTROL (control), control->priv->property_bag);
 	
 	return control;
 }

@@ -1082,7 +1082,7 @@ bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
 
 	/* Create the properties. */
 	pb = bonobo_property_bag_new (get_prop, set_prop, as);
-	bonobo_control_set_property_bag (control, pb);
+	bonobo_control_set_properties (control, pb);
 
 	bonobo_property_bag_add (pb, "running", PROP_RUNNING,
 				 BONOBO_ARG_BOOLEAN, NULL,

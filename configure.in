@@ -87,11 +87,11 @@ dnl ******************************
 dnl Check for Bonobo
 dnl ******************************
 have_bonobo=false
-AC_MSG_CHECKING(for Bonobo > 0.26)
+AC_MSG_CHECKING(for Bonobo >= 0.27)
 if gnome-config --libs bonobo bonobox bonobox_print > /dev/null 2>&1; then
     vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
         awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
-    if test "$vers" -ge 26; then
+    if test "$vers" -ge 27; then
         AC_MSG_RESULT(found)
         have_bonobo=true
     else
