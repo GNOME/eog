@@ -1,15 +1,15 @@
 # German translation for Eye of Gnome.
-# Copyright (C) 1999 Free Software Foundation, Inc.
+# Copyright (C) 1999-2002 Free Software Foundation, Inc.
 # Matthias Warkus <mawa@iname.com>, 1999-2001.
 # Christian Meyer <chrisime@gnome.org>, 2000, 2001.
 # Jens Finke <jens@gnome.org>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 0.118.0\n"
-"POT-Creation-Date: 2002-06-13 22:42+0200\n"
-"PO-Revision-Date: 2002-06-01 00:03+02:00\n"
-"Last-Translator: Jens Finke <jens@gnome.org>\n"
+"Project-Id-Version: eog 1.0.x\n"
+"POT-Creation-Date: 2002-08-14 20:09+0200\n"
+"PO-Revision-Date: 2002-07-10 00:03+02:00\n"
+"Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "EOG-Bildersammlungs-Betrachter"
 
 #: collection/GNOME_EOG_Collection.server.in.h:3
 msgid "EOG Image collection view factory"
-msgstr "Factory für EOG-Bildersammlungs-Betrachter"
+msgstr "Fabrik für EOG-Bildersammlungs-Betrachter"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -35,19 +35,19 @@ msgstr "Eye of Gnome Bildbetrachter"
 msgid "View many different types of images"
 msgstr "Zeigt viele unterschiedliche Bildtypen an"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:691
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:691
 msgid "EOG Image"
 msgstr "EOG-Bild"
 
-#: libeog/GNOME_EOG.server.in.h:2
+#: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG-Bildbetrachter"
 
-#: libeog/GNOME_EOG.server.in.h:3
+#: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
-msgstr "Factory für EOG-Bildbetrachter"
+msgstr "Fabrik für EOG-Bildbetrachter"
 
-#: libeog/GNOME_EOG.server.in.h:4
+#: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Einbettbares EOG-Bild"
 
@@ -80,17 +80,17 @@ msgid "dither type"
 msgstr "Rastertyp"
 
 #: shell/eog-preferences.c:162
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Could not display help for the preferences dialog.\n"
 "%s"
 msgstr ""
-"Hilfe für den Vorliebendialog konnte nicht angezeigt werden.\n"
+"Hilfe für den Einstellungendialog konnte nicht angezeigt werden.\n"
 "%s"
 
 #: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome Vorlieben"
+msgstr "Einstellungen von Eye of Gnome"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -114,7 +114,7 @@ msgstr "Fenster schließen"
 
 #: shell/eog-shell-ui.xml.h:6
 msgid "Contents"
-msgstr "_Hilfe"
+msgstr "Inhalt"
 
 #: shell/eog-shell-ui.xml.h:7
 msgid "Help On this application"
@@ -174,7 +174,7 @@ msgstr "Ö_ffnen..."
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Preferences..."
-msgstr "_Vorlieben..."
+msgstr "_Einstellungen..."
 
 #: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
@@ -188,26 +188,26 @@ msgstr "_Ansicht"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:239
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
 "Christian Meyer <chrisime@gnome.org>\n"
-"Matthias Warkus <mawa@iname.com>"
+"Matthias Warkus <mawarkus@gnome.org>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:244 shell/eog-window.c:622 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:246
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:247
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:284
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -216,14 +216,15 @@ msgstr ""
 "Hilfe für Eye of Gnome konnte nicht angezeigt werden.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:780
+#, fuzzy
 msgid "Open Image"
-msgstr "Bild öffnen"
+msgstr "EOG-Bild"
 
-#: shell/eog-window.c:1288
+#: shell/eog-window.c:1254
 #, c-format
 msgid "Unable to open %s."
-msgstr "Unfähig %s zu öffnen."
+msgstr "Es ist nicht möglich %s zu öffnen."
 
 #: shell/main.c:172
 #, c-format
@@ -273,18 +274,18 @@ msgstr ""
 "diese nicht zugreifen kann:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo konnte nicht initialisiert werden!\n"
 
 #: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
-msgstr "`%s' konnte nicht geöffnet werden"
+msgstr "%s konnte nicht geöffnet werden"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -296,15 +297,15 @@ msgstr "Passend"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
-msgstr "Rein"
+msgstr "Heran"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Out"
-msgstr "Raus"
+msgstr "Weg"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Zoom _1:1"
-msgstr "1:1 zoomen"
+msgstr "_1:1 zoomen"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _In"
@@ -356,7 +357,7 @@ msgstr "Druck_vorschau"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
-msgstr "Druck einrichten"
+msgstr "Seiteneins_tellungen"
 
 #: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
@@ -420,7 +421,7 @@ msgstr "_Drucken"
 
 #: viewer/eog-image-view-ui.xml.h:26
 msgid "_Save As..."
-msgstr "_Speichern unter"
+msgstr "Speichern _unter..."
 
 #: viewer/eog-image-view-ui.xml.h:27
 msgid "_Tiles"
@@ -433,7 +434,7 @@ msgstr "_Weiß"
 #: viewer/eog-image-view.c:300
 #, c-format
 msgid "Could not save image as '%s': %s."
-msgstr "Bild konnte nicht unter '%s' gespeichert werden: %s"
+msgstr "Bild konnte nicht unter %s gespeichert werden: %s"
 
 #: viewer/eog-image-view.c:351
 msgid "Save As"
@@ -455,43 +456,43 @@ msgstr "Druckvorschau"
 msgid "Printing of image failed"
 msgstr "Drucken des Bildes fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1856
+#: viewer/eog-image-view.c:1843
 msgid "Display"
 msgstr "Anzeige"
 
-#: viewer/eog-image-view.c:2077
+#: viewer/eog-image-view.c:2064
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:2080
+#: viewer/eog-image-view.c:2067
 msgid "Dither"
 msgstr "Raster"
 
-#: viewer/eog-image-view.c:2083
+#: viewer/eog-image-view.c:2070
 msgid "Check Type"
 msgstr "Karotyp"
 
-#: viewer/eog-image-view.c:2086
+#: viewer/eog-image-view.c:2073
 msgid "Check Size"
 msgstr "Karogröße"
 
-#: viewer/eog-image-view.c:2089
+#: viewer/eog-image-view.c:2076
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:2092
+#: viewer/eog-image-view.c:2079
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:2095
+#: viewer/eog-image-view.c:2082
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: viewer/eog-image-view.c:2098
+#: viewer/eog-image-view.c:2085
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
@@ -694,7 +695,7 @@ msgstr "Normale (PseudoColor-)Rasterung"
 
 #: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
-msgstr "Maximum- (HighColor-)Rasterung"
+msgstr "Maximum (HighColor-)Rasterung"
 
 #: viewer/preferences.c:51
 msgid "Dark"
@@ -735,247 +736,3 @@ msgstr "Karo_typ:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Karo_größe:"
-
-#~ msgid "Translator Credits"
-#~ msgstr ""
-#~ "Jens Finke\n"
-#~ "Christian Meyer\n"
-#~ "Matthias Warkus"
-
-#~ msgid "Control doesn't support window_title property."
-#~ msgstr "Control unterstützt die Eigenschaft window_title nicht."
-
-#~ msgid "Control doesn't support status_text property."
-#~ msgstr "Control unterstützt die Eigenschaft status_text nicht."
-
-#~ msgid "Control doesn't have properties"
-#~ msgstr "Control hat keine Eigenschaften"
-
-#~ msgid "Couldn't retrieve mime type for file."
-#~ msgstr "MIME-Typ für Datei konnte nicht erhalten werden."
-
-#~ msgid "Error while obtaining file informations."
-#~ msgstr "Fehler beim Erhalten von Dateiinformationen."
-
-#~ msgid "Image Viewer"
-#~ msgstr "Bildbetrachter"
-
-#~ msgid "_Settings"
-#~ msgstr "_Einstellungen"
-
-#~ msgid "Check size large"
-#~ msgstr "Karogröße groß"
-
-#~ msgid "Check size medium"
-#~ msgstr "Karogröße mittel"
-
-#~ msgid "Check size small"
-#~ msgstr "Karogröße klein"
-
-#~ msgid "Check type _black"
-#~ msgstr "Karotyp _schwarz"
-
-#~ msgid "Check type _dark"
-#~ msgstr "Karotyp _dunkel"
-
-#~ msgid "Check type _gray"
-#~ msgstr "Karotyp _grau"
-
-#~ msgid "Check type _light"
-#~ msgstr "Karotyp _hell"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "Karotyp _mittel"
-
-#~ msgid "Check type _white"
-#~ msgstr "Karotyp _weiß"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Normale (_Pseudocolor-)Rasterung"
-
-#~ msgid "Save _As"
-#~ msgstr "Speichern _unter"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "_Bilineare Interpolation"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "_Maximale (HighColor-)Rasterung"
-
-#~ msgid "_No dithering"
-#~ msgstr "_Keine Rasterung"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "_Kachel-Interpolation"
-
-#~ msgid "Zoom to _Default"
-#~ msgstr "Standardzoom"
-
-#~ msgid "Interpolation:"
-#~ msgstr "Interpolation:"
-
-#~ msgid "Dither:"
-#~ msgstr "Raster:"
-
-#~ msgid "Check Type:"
-#~ msgstr "Karotyp:"
-
-#~ msgid "Check Size:"
-#~ msgstr "Karogröße:"
-
-#~ msgid "View"
-#~ msgstr "Ansicht"
-
-#~ msgid "Eye Of Gnome"
-#~ msgstr "Eye Of Gnome"
-
-#~ msgid "Can't find eog-shell-ui.xml.\n"
-#~ msgstr "eog-shell-ui.xml kann nicht gefunden werden.\n"
-
-#~ msgid "Couldn't get local BonoboControl interface.\n"
-#~ msgstr "Lokales BonoboControl-Interface konnte nicht erhalten werden.\n"
-
-#~ msgid "Can't handle URI: %s"
-#~ msgstr "Mit URI kann nicht umgegangen werden: %s"
-
-#~ msgid "Vertical"
-#~ msgstr "Vertikal"
-
-#~ msgid "Horizontal"
-#~ msgstr "Horizontal"
-
-#~ msgid "Rectangle"
-#~ msgstr "Rechteck"
-
-#~ msgid "Layout Mode:"
-#~ msgstr "Layoutmodus:"
-
-#~ msgid "Image Collection Background Color"
-#~ msgstr "Hintergrundfarbe der Bildersammlung"
-
-#~ msgid "Background Color:"
-#~ msgstr "Hintergrundfarbe"
-
-#~ msgid "Collection View"
-#~ msgstr "Sammlungs-Ansicht"
-
-#~ msgid "Status Text"
-#~ msgstr "Statustext"
-
-#~ msgid "I could not initialize GnomeVFS!\n"
-#~ msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Bonobo konnte nicht initialisiert werden"
-
-#~ msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-#~ msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#~ msgid "Preferences"
-#~ msgstr "Vorlieben"
-
-#, fuzzy
-#~ msgid "Open an image file"
-#~ msgstr "Eine Datei öffnen"
-
-#, fuzzy
-#~ msgid "Close the current window"
-#~ msgstr "Fenster schließen"
-
-#, fuzzy
-#~ msgid "_Open Image..."
-#~ msgstr "Bild öffnen"
-
-#, fuzzy
-#~ msgid "_Close This Window"
-#~ msgstr "Fenster schließen"
-
-#, fuzzy
-#~ msgid "Increase zoom factor by 5%%"
-#~ msgstr "Zoomfaktor 1:1 verwenden"
-
-#, fuzzy
-#~ msgid "Decrease zoom factor by 5%%"
-#~ msgstr "Zoomfaktor 1:1 verwenden"
-
-#, fuzzy
-#~ msgid "_Zoom factor"
-#~ msgstr "Zoomfaktor 1:1 verwenden"
-
-#, fuzzy
-#~ msgid "_Fit to Window"
-#~ msgstr "_Neues Fenster"
-
-#, fuzzy
-#~ msgid "Zoom the image to fit in the window"
-#~ msgstr "Bilder in neuem Fenster öffnen"
-
-#, fuzzy
-#~ msgid "Full _Screen"
-#~ msgstr "Vollbild"
-
-#~ msgid "Black only"
-#~ msgstr "Nur schwarz"
-
-#~ msgid "Check size"
-#~ msgstr "Karogröße"
-
-#~ msgid "Dark checks"
-#~ msgstr "Dunkle Karos"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "Alle Bilder in den Bildschirm einpassen"
-
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Bilder von normaler Größe in den Bildschirm einpassen"
-
-#~ msgid "Gray only"
-#~ msgstr "Nur grau"
-
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Hyperbolisch (am langsamsten, beste Qualität)"
-
-#~ msgid "Image Windows"
-#~ msgstr "Bildfenster"
-
-#~ msgid "Light checks"
-#~ msgstr "Helle Karos"
-
-#~ msgid "Midtone checks"
-#~ msgstr "Mitteltönige Karos"
-
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Nächster Nachbar (am schnellsten, niedrigste Qualität)"
-
-#~ msgid "Never"
-#~ msgstr "Nie"
-
-#~ msgid "Only if image does not fit"
-#~ msgstr "Nur, wenn Bild nicht passt"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Fenstergröße und Zoomfaktor automatisch wählen"
-
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Eine Fase um die Bildschirmkante herumlegen"
-
-#~ msgid "Transparency type"
-#~ msgstr "Transparenztyp"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Rollen in zwei Durchgängen"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Selben Zoomfaktor wie Bildfenster verwenden"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Rollbalken verwenden"
-
-#~ msgid "Viewers"
-#~ msgstr "Betrachter"
-
-#~ msgid "White only"
-#~ msgstr "Nur weiß"
-
-#~ msgid "I could not initialize Bonobo!\n"
-#~ msgstr "Bonobo konnte nicht initialisiert werden!\n"
