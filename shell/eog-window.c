@@ -167,7 +167,7 @@ verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 
 		w = (EogWindow*) l->data;
 		l = l->next;
-		gtk_widget_unref (GTK_WIDGET (w));
+		gtk_widget_destroy (GTK_WIDGET (w));
 	}
 
 	gtk_main_quit ();
