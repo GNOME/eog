@@ -45,6 +45,17 @@ module GNOME {
 			/* This is an actual EOG image view */
 
 			Image getImage ();
+			
+		};
+
+		typedef sequence<string> Files; 
+
+		interface ImageCollection : Bonobo::Unknown {
+			/* This is an actual EOG view for 
+			 * a bunch of images. 
+			 */
+
+			void addImages (in Files list);
 		};
 	};
 };
