@@ -7,40 +7,34 @@
 gchar *s = N_("Interpolation type");
 gchar *s = N_("Transparency type");
 gchar *s = N_("Check size");
-gchar *s = N_("Dark checks\n"
-              "Midtone checks\n"
-              "Light checks\n"
-              "Black only\n"
-              "Gray only\n"
-              "White only\n"
-              "");
-gchar *s = N_("Small\n"
-              "Medium\n"
-              "Large\n"
-              "");
-gchar *s = N_("Nearest neighbor\n"
-              "Bilinear\n"
-              "Hyperbolic\n"
-              "");
+gchar *s = N_("Dark checks");
+gchar *s = N_("Midtone checks");
+gchar *s = N_("Light checks");
+gchar *s = N_("Black only");
+gchar *s = N_("Gray only");
+gchar *s = N_("White only");
+gchar *s = N_("Small");
+gchar *s = N_("Medium");
+gchar *s = N_("Large");
+gchar *s = N_("Nearest neighbor");
+gchar *s = N_("Bilinear");
+gchar *s = N_("Hyperbolic");
 gchar *s = N_("Two-pass scrolling");
 gchar *s = N_("Dither type");
-gchar *s = N_("None\n"
-              "Normal (pseudocolor)\n"
-              "Maximum (high color)\n"
-              "");
+gchar *s = N_("None");
+gchar *s = N_("Normal (pseudocolor)");
+gchar *s = N_("Maximum (high color)");
 gchar *s = N_("Display");
 gchar *s = N_("Image Windows");
 gchar *s = N_("Use scrollbars");
-gchar *s = N_("Never\n"
-              "Only if image does not fit\n"
-              "");
+gchar *s = N_("Never");
+gchar *s = N_("Only if image does not fit");
 gchar *s = N_("Pick window size and zoom factor automatically");
 gchar *s = N_("Open images in a new window");
 gchar *s = N_("Full Screen");
 gchar *s = N_("Use scrollbars");
-gchar *s = N_("Never\n"
-              "Only if image does not fit\n"
-              "");
+gchar *s = N_("Never");
+gchar *s = N_("Only if image does not fit");
 gchar *s = N_("Use 1:1 zoom factor");
 gchar *s = N_("Use same zoom factor as image window");
 gchar *s = N_("Fit all images to screen");
