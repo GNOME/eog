@@ -74,6 +74,7 @@ eog_pixbuf_flip_vertical (GdkPixbuf *pixbuf)
 			}
 		}
 	}
+	g_object_unref (pixbuf);
 }
 
 GdkPixbuf*

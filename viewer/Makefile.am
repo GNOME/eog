@@ -14,22 +14,8 @@ INCLUDES =							\
 libexec_PROGRAMS = eog-image-viewer
 
 eog_image_viewer_SOURCES =	\
-	eog-image.c		\
-	eog-image.h		\
-	eog-image-io.c		\
-	eog-image-io.h		\
 	eog-image-view.c	\
 	eog-image-view.h	\
-	eog-control.c		\
-	eog-control.h		\
-	eog-full-screen.c	\
-	eog-full-screen.h	\
-	eog-preview.c		\
-	eog-preview.h		\
-	eog-preview-page.c	\
-	eog-preview-page.h	\
-	eog-util.h		\
-	eog-util.c		\
 	main.c
 #	 eog-print-setup.c	\
 #	 eog-print-setup.h	\
@@ -37,6 +23,20 @@ eog_image_viewer_SOURCES =	\
 #	 eog-embeddable.h	\
 #	 eog-embeddable-view.c	\
 #	 eog-embeddable-view.h	\
+#	eog-control.c		\
+#	eog-control.h		\
+#	eog-full-screen.c	\
+#	eog-full-screen.h	\
+#	eog-preview.c		\
+#	eog-preview.h		\
+#	eog-preview-page.c	\
+#	eog-preview-page.h	\
+#	eog-util.h		\
+#	eog-util.c		\
+#	eog-image.c		\
+#	eog-image.h		\
+#	eog-image-io.c		\
+#	eog-image-io.h		
 
 eog_image_viewer_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
 

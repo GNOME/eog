@@ -71,12 +71,6 @@ struct _EogWindowPrivate {
 	/* statusbar */
 	GtkWidget *statusbar;
 
-	/* Window scrolling policy type */
-	GtkPolicyType sb_policy;
-
-	/* GConf client notify id's */
-	guint sb_policy_notify_id;
-
 	/* list of files recieved from a drag'n'drop action */
 	GList *dnd_files;
 };
@@ -358,7 +352,6 @@ eog_window_destroy (GtkObject *object)
 
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
-		gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
 		gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
 		g_object_unref (G_OBJECT (priv->client));
 		priv->client = NULL;
@@ -405,23 +398,6 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->drag_data_received = eog_window_drag_data_received;
 }
 
-/* Handler for changes on the window sb policy */
-static void
-sb_policy_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
-{
-/*     EogWindow *window;
-       EogWindowPrivate *priv;
-
-       window = EOG_WINDOW (data);
-       priv = window->priv;
-
-       priv->sb_policy = gconf_value_get_int (entry->value);
-
-       gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);*/
-}
-
-
-
 /* Object initialization function for windows */
 static void
 eog_window_init (EogWindow *window)
@@ -442,15 +418,6 @@ eog_window_init (EogWindow *window)
 
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-
-	priv->sb_policy_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/window/sb_policy",
-		sb_policy_changed_cb, window,
-		NULL, NULL);
-
-	priv->sb_policy = gconf_client_get_int (
-		priv->client, "/apps/eog/window/sb_policy",
-		NULL);
 
 	window_list = g_list_prepend (window_list, window);
 	priv->ctrl_widget = NULL;
@@ -779,6 +746,40 @@ eog_window_open_dialog (EogWindow *window)
 }
 
 static void
+adapt_window_size (EogWindow *window, int width, int height)
+{
+	int xthick, ythick;
+	int req_height, req_width;
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	/* this is the size of the frame around the vbox */
+	xthick = priv->box->style->xthickness;
+	ythick = priv->box->style->ythickness;
+	req_width = req_height = -1;
+
+	g_print ("adapt window size cb\n");
+
+	if (height > 0) {
+		req_height = 
+			height + 
+			(GTK_WIDGET(window)->allocation.height - priv->box->allocation.height) +
+			priv->statusbar->allocation.height + 
+			2 * ythick;
+	}
+	
+	if (width > 0) {
+		req_width = 
+			width + 
+			(GTK_WIDGET(window)->allocation.width - priv->box->allocation.width) +
+			2 * xthick;
+	}
+
+	gtk_window_resize (GTK_WINDOW (window), req_width, req_height);
+}
+
+static void
 property_changed_cb (BonoboListener    *listener,
 		     char              *event_name, 
 		     CORBA_any         *any,
@@ -789,12 +790,20 @@ property_changed_cb (BonoboListener    *listener,
 
 	window = EOG_WINDOW (user_data);
 
-	if (!g_ascii_strcasecmp (event_name, "window/title"))
+	if (!g_ascii_strcasecmp (event_name, "window/title")) {
 		gtk_window_set_title (GTK_WINDOW (window),
 				      BONOBO_ARG_GET_STRING (any));
-	else if (!g_ascii_strcasecmp (event_name, "window/status"))
+	}
+	else if (!g_ascii_strcasecmp (event_name, "window/status")) {
 		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
-					 BONOBO_ARG_GET_STRING (any));		
+					 BONOBO_ARG_GET_STRING (any));	
+	}
+	else if (!g_ascii_strcasecmp (event_name, "window/width")) {
+		adapt_window_size (window, BONOBO_ARG_GET_INT (any), -1);
+	}
+	else if (!g_ascii_strcasecmp (event_name, "window/height")) {
+		adapt_window_size (window, -1, BONOBO_ARG_GET_INT (any));
+	}
 }
 
 static void
@@ -1042,20 +1051,13 @@ get_collection_control_list (GList *text_uri_list)
 
 #endif /* HAVE_COLLECTION */
 
-
 void
-adapt_shell_size_to_control (EogWindow *window, Bonobo_Control control)
+adapt_window_size_to_control (EogWindow *window, Bonobo_Control control)
 {
 	CORBA_Environment ev;
 	EogWindowPrivate *priv;
 	Bonobo_PropertyBag pb;
-	gint32 width, height;
 	gint32 image_width, image_height;
-	int sw, sh;
-	Bonobo_Zoomable zi;
-	gboolean need_zoom;
-	int req_width, req_height;
-	int xthick, ythick;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -1066,67 +1068,11 @@ adapt_shell_size_to_control (EogWindow *window, Bonobo_Control control)
 	pb = bonobo_control_frame_get_control_property_bag (priv->ctrl_frame, &ev);
 	if (pb == CORBA_OBJECT_NIL) return;
 
-		
-	/* FIXME: We try to obtain the desired size of the component
-	 * here. The image/width image/height properties aren't
-	 * generally available in controls and work only with the
-	 * eog-image-viewer component!  
-	 */
-	image_width = bonobo_pbclient_get_long (pb, "image/width", &ev);
-	image_height = bonobo_pbclient_get_long (pb, "image/height", &ev);
+	image_width = bonobo_pbclient_get_long (pb, "window/width", &ev);
+	image_height = bonobo_pbclient_get_long (pb, "window/height", &ev);
 	
-	sw = gdk_screen_width ();
-	sh = gdk_screen_height ();
-	need_zoom = FALSE;
+	adapt_window_size (window, image_width, image_height);
 
-	if (image_width >= sw) {
-		width = 0.75 * sw;
-		need_zoom = TRUE;
-	}
-	else {
-		width = image_width;
-	}
-	if (image_height >= sh) {
-		height = 0.75 * sh;
-		need_zoom = TRUE;
-	}
-	else {
-		height = image_height;
-	}
-
-	if (!width  || !height) {
-		bonobo_object_release_unref (pb, &ev);
-		return;
-	}		
-
-	/* this is the size of the frame around the vbox */
-	xthick = priv->box->style->xthickness;
-	ythick = priv->box->style->ythickness;
-	
-	req_height = 
-		height + 
-		(GTK_WIDGET(window)->allocation.height - priv->box->allocation.height) +
-		priv->statusbar->allocation.height + 
-		2 * ythick;
-	
-	req_width = 
-		width + 
-		(GTK_WIDGET(window)->allocation.width - priv->box->allocation.width) +
-		2 * xthick;
-
-	gtk_window_resize (GTK_WINDOW (window), req_width, req_height);
-
-	if (need_zoom) {
-		zi = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/Zoomable:1.0", &ev);
-		if (zi != CORBA_OBJECT_NIL) {
-			double zoom_level;
-			zoom_level = zoom_fit_scale (width, height, 
-						     image_width, image_height, TRUE);
-			Bonobo_Zoomable_setLevel (zi, zoom_level, &ev);
-			bonobo_object_release_unref (zi, &ev);
-		}
-	}
-	
 	bonobo_object_release_unref (pb, &ev);
 	CORBA_exception_free (&ev);
 }
@@ -1160,7 +1106,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 		priv->ctrl_widget = NULL;
 	}
 
-	adapt_shell_size_to_control (window, control);
+	adapt_window_size_to_control (window, control);
 
 	CORBA_exception_free (&ev);
 

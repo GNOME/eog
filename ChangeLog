@@ -1,3 +1,58 @@
+2003-02-14  Jens Finke
+
+	New eog architecture. Moved more stuff into libeog and basically merged
+	image-view.[ch] and ui-image.[ch]. The result is eog-scroll-view.[ch].
+
+	* libeog/ui-image.[ch], 
+	* libeog/image-view.[ch]: Removed.
+
+	* libeog/eog-scroll-view.[ch]: New, basic widget for displaying an
+	EogImage.
+
+	* libeog/eog-image-helper.[ch], 
+	* libeog/eog-image.[ch]: Image model, provides all operations on
+	an image.
+	
+	* libeog/eog-full-screen.[ch]: Moved from viewer. Uses a
+	EogScrollView widget for displaying the image.
+
+	* libeog/libeog-marshal.list: New, list of callback marshallers.
+
+	* libeog/Makefile.am: SOURES file list updated, added
+	libeog-marshal.[ch] generation.
+
+	* libeog/accessible-image-view.[ch]: Use EogScrollView instead of
+	ImageView. Fixed indention.
+
+	* libeog/eog-pixbuf-util.c (eog_pixbuf_flip_vertical): Free
+	pixbuf.
+
+	* libeog/eog-pixbuf-util.h: Added include guards.
+
+	* libeog/zoom.[ch] (zoom_image_has_standard_size): Removed.
+
+	* viewer/Makefile.am (SOURCES): Removed everything except main.c
+	and eog-image-view.[ch]
+
+	* viewer/eog-image-view.[ch]: Rewritten. This bonobo object serves
+	as a simple wrapper for an EogScrollView and EogImage and provides
+	onyl gui and glue code. It implements the PersistFile, Control and
+	Zoomable interfaces.
+
+	* viewer/main.c (eog_image_viewer_factory): Removed EogImage
+	bonobo stuff.
+
+	* shell/eog-window.c (sb_policy_changed): Removed.
+	(eog_window_init): Don't register for policy changes.
+	(adapt_window_size): New function.
+	(property_changed_cb): New window/width, window/height properties.
+	(adapt_window_size_to_control): Simplified, call
+	adapt_window_size.
+
+	* configure.in: Bumped version to 2.3.0.
+	
+=========== branched for Gnome 2.4 development ========================
+	
 2003-02-10  Mohammad DAMT  <mdamt@bisnisweb.com>
 
 	* configure.in: Added "id" to ALL_LINGUAS

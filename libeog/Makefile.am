@@ -15,6 +15,17 @@ INCLUDES =							\
 	$(EOG_CFLAGS)						\
 	$(EXTRA_WARNING_CFLAGS)
 
+libeog-marshal.h: libeog-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal h" && \
+        $(GLIB_GENMARSHAL) $< --header --prefix=libeog_marshal > $@
+
+libeog-marshal.c: libeog-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal c" && \
+        $(GLIB_GENMARSHAL) $< --body --prefix=libeog_marshal > $@
+
+MARSHAL_SOURCES = 		\
+	libeog-marshal.h	\
+	libeog-marshal.c
 
 CORBA_SOURCES =			\
 	Eog.h			\
@@ -26,6 +37,7 @@ noinst_LIBRARIES = libeog.a
 
 libeog_a_SOURCES =			\
 	$(CORBA_SOURCES)		\
+	$(MARSHAL_SOURCES)		\
 	access.c			\
 	access.h			\
         accessible-image-view-factory.h	\
@@ -34,16 +46,20 @@ libeog_a_SOURCES =			\
         accessible-image-view.c		\
 	eog-file-selection.h		\
 	eog-file-selection.c		\
+	eog-full-screen.h		\
+	eog-full-screen.c		\
 	eog-pixbuf-util.h		\
 	eog-pixbuf-util.c		\
-	image-view.c			\
-	image-view.h			\
+	eog-image.c			\
+	eog-image.h			\
+	eog-image-helper.h		\
+	eog-image-helper.c		\
+	eog-scroll-view.c		\
+	eog-scroll-view.h		\
 	uta.c				\
 	uta.h				\
 	cursors.c			\
 	cursors.h			\
-	ui-image.c			\
-	ui-image.h			\
 	zoom.c				\
 	zoom.h
 
@@ -66,7 +82,10 @@ $(server_in_files:.server.in.in=.server.in): $(server_in_files)
 	sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
 @INTLTOOL_SERVER_RULE@
 
-BUILT_SOURCES=$(CORBA_SOURCES)
+BUILT_SOURCES = 			\
+	$(CORBA_SOURCES)		\
+	$(MARSHAL_SOURCES)
+
 CLEANFILES = $(BUILT_SOURCES) $(server_DATA)
 
 EXTRA_DIST = $(server_in_files)

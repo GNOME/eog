@@ -12,7 +12,8 @@
 #define _EOG_IMAGE_VIEW_H_
 
 #include <bonobo/bonobo-object.h>
-#include "eog-image.h"
+#include <gconf/gconf-client.h>
+#include <bonobo/bonobo-persist-file.h>
 
 G_BEGIN_DECLS
  
@@ -38,60 +39,25 @@ typedef struct _EogImageViewClass    EogImageViewClass;
 typedef struct _EogImageViewPrivate  EogImageViewPrivate;
 
 struct _EogImageView {
-	BonoboObject base;
+	BonoboPersistFile base;
 
 	EogImageViewPrivate *priv;
 };
 
 struct _EogImageViewClass {
-	BonoboObjectClass parent_class;
-
-	POA_GNOME_EOG_ImageView__epv epv;
+	BonoboPersistFileClass parent_class;
 
 	/* Signals */
-
 	void (* close_item_activated) (EogImageView *image_view);
+	void (* zoom_changed) (EogImageView *image_view);
 };
 
-GtkType             eog_image_view_get_type            (void);
+GType               eog_image_view_get_type            (void);
 
-EogImageView       *eog_image_view_new                 (EogImage           *image,
-							gboolean            zoom_fit,
-							gboolean            need_close_item);
-EogImageView       *eog_image_view_construct           (EogImageView       *image_view,
-							EogImage           *image,
-							gboolean            zoom_fit,
-							gboolean            need_close_item);
-EogImage           *eog_image_view_get_image           (EogImageView       *image_view);
-BonoboPropertyBag  *eog_image_view_get_property_bag    (EogImageView       *image_view);
-void                eog_image_view_set_ui_container    (EogImageView       *image_view,
-							Bonobo_UIContainer  ui_container);
-void                eog_image_view_unset_ui_container  (EogImageView       *image_view);
-GtkWidget          *eog_image_view_get_widget          (EogImageView       *image_view);
+EogImageView       *eog_image_view_new                 (gboolean            need_close_item);
 
-void  eog_image_view_print (EogImageView *image_view, gboolean preview, 
-			    const gchar *paper_size, gboolean landscape, 
-			    gdouble bottom, gdouble top, gdouble right, 
-			    gdouble left, gboolean vertically, 
-			    gboolean horizontally, gboolean down_right, 
-			    gboolean cut, gboolean fit_to_page, gint adjust_to,
-			    gdouble overlap_x, gdouble overlap_y, 
-			    gboolean overlap);
+GConfClient*        eog_image_view_get_client          (EogImageView       *image_view);
 
-/* Zooming */
-void  eog_image_view_get_zoom_factor (EogImageView *image_view,
-				      double       *zoomx,
-				      double       *zoomy);
-void  eog_image_view_set_zoom_factor (EogImageView *image_view,
-				      double        zoom_factor);
-void  eog_image_view_zoom_to_fit     (EogImageView *image_view,
-				      gboolean      keep_aspect_ratio);
-void  eog_image_view_set_zoom        (EogImageView *image_view,
-				      double        zoomx,
-				      double        zoomy);
-
-GConfClient* eog_image_view_get_client (EogImageView *image_view);
-			 
 G_END_DECLS
 
 #endif /* _EOG_EOG_IMAGE_VIEW */

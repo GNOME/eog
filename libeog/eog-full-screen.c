@@ -22,12 +22,10 @@
 #include <config.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
+#include <libgnome/gnome-macros.h>
 
 #include "eog-full-screen.h"
-
-#include <image-view.h>
-#include <ui-image.h>
-#include <libgnome/gnome-macros.h>
+#include "eog-scroll-view.h"
 
 GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 eog_full_screen,
@@ -36,7 +34,7 @@ GNOME_CLASS_BOILERPLATE (EogFullScreen,
 
 struct _EogFullScreenPrivate
 {
-	EogImageView *image_view;
+	GtkWidget *view;
 
 	/* Whether we have a keyboard grab */
 	guint have_grab : 1;
@@ -54,22 +52,13 @@ eog_full_screen_show (GtkWidget *widget)
 
 	fs = EOG_FULL_SCREEN (widget);
 
-	if (GTK_WIDGET_CLASS (parent_class)->show)
-		(* GTK_WIDGET_CLASS (parent_class)->show) (widget);
+	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (widget));
 
 	fs->priv->have_grab = !gdk_keyboard_grab (widget->window,
 			                          TRUE, GDK_CURRENT_TIME);
 	gtk_grab_add (widget);
 
-	ui_image = eog_image_view_get_widget (fs->priv->image_view);
-	image_view = ui_image_get_image_view (UI_IMAGE (ui_image));
-
-	gtk_widget_grab_focus (image_view);
-	ui_image_zoom_fit (UI_IMAGE (ui_image));
-
-	gtk_widget_unref (ui_image);
-
-	
+	gtk_widget_grab_focus (fs->priv->view);
 }
 
 /* Hide handler for the full screen view */
@@ -85,7 +74,10 @@ eog_full_screen_hide (GtkWidget *widget)
 		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
 	}
 
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (widget));
+	/* clear image */
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (fs->priv->view), 0); 
+
+	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
 
 	gtk_widget_destroy (widget);
 }
@@ -139,11 +131,6 @@ eog_full_screen_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_FULL_SCREEN (object));
 
 	fs = EOG_FULL_SCREEN (object);
-
-	if (fs->priv->image_view) {
-		bonobo_object_unref (BONOBO_OBJECT (fs->priv->image_view));
-		fs->priv->image_view = NULL;
-	}
 
 	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
 }	
@@ -199,6 +186,7 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 	gtk_window_move (GTK_WINDOW (fs), 0, 0);
 }
 
+#if 0
 /* Callback used when the image view requests to be closed */
 static void
 close_item_activated_cb (EogImageView *image_view, gpointer data)
@@ -209,24 +197,36 @@ close_item_activated_cb (EogImageView *image_view, gpointer data)
 
 	gtk_widget_hide (GTK_WIDGET (fs));
 }
+#endif
 
 GtkWidget *
 eog_full_screen_new (EogImage *image)
 {
 	EogFullScreen *fs;
 	GtkWidget     *widget;
+	GtkStyle      *style;
+	GdkColor      black;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	fs = g_object_new (EOG_TYPE_FULL_SCREEN, 
 			   "type", GTK_WINDOW_POPUP, NULL);
 
-	fs->priv->image_view = eog_image_view_new (image, TRUE, TRUE);
+	widget = eog_scroll_view_new ();
+	fs->priv->view = widget;
 
+#if 0
+	/* FIXME: the context menu should have a close item */
 	g_signal_connect (fs->priv->image_view, "close_item_activated",
 			  G_CALLBACK (close_item_activated_cb), fs);
+#endif
+	if (gdk_color_black (gdk_colormap_get_system (), &black)) {
+		gtk_widget_modify_bg (widget, GTK_STATE_NORMAL, &black);
+	}
 
-	widget = eog_image_view_get_widget (fs->priv->image_view);
+	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), TRUE);
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (widget), image);
+
 	gtk_widget_show (widget);
 	gtk_container_add (GTK_CONTAINER (fs), widget);
 

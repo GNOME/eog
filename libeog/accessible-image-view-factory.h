@@ -21,7 +21,6 @@
 #define __ACCESSIBLE_IMAGE_VIEW_FACTORY_H__
 
 #include <atk/atkobjectfactory.h>
-#include <image-view.h>
 
 #ifdef __cplusplus
 extern "C" {

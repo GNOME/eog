@@ -22,17 +22,18 @@
 #ifndef _EOG_FULL_SCREEN_H_
 #define _EOG_FULL_SCREEN_H_
 
+#include <glib-object.h>
 #include <glib/gmacros.h>
 #include <gtk/gtkwindow.h>
-#include <eog-image-view.h>
+#include "eog-image.h"
 
 G_BEGIN_DECLS
 
 #define EOG_TYPE_FULL_SCREEN            (eog_full_screen_get_type ())
-#define EOG_FULL_SCREEN(obj)            (GTK_CHECK_CAST ((obj), EOG_TYPE_FULL_SCREEN, EogFullScreen))
-#define EOG_FULL_SCREEN_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), EOG_TYPE_FULL_SCREEN, EogFullScreenClass))
-#define EOG_IS_FULL_SCREEN(obj)         (GTK_CHECK_TYPE ((obj), EOG_TYPE_FULL_SCREEN))
-#define EOG_IS_FULL_SCREEN_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), EOG_TYPE_FULL_SCREEN))
+#define EOG_FULL_SCREEN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_FULL_SCREEN, EogFullScreen))
+#define EOG_FULL_SCREEN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_FULL_SCREEN, EogFullScreenClass))
+#define EOG_IS_FULL_SCREEN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_FULL_SCREEN))
+#define EOG_IS_FULL_SCREEN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_FULL_SCREEN))
 
 typedef struct _EogFullScreen        EogFullScreen;
 typedef struct _EogFullScreenPrivate EogFullScreenPrivate;
@@ -48,8 +49,8 @@ struct _EogFullScreenClass {
 	GtkWindowClass parent_class;
 };
 
-GtkType    eog_full_screen_get_type (void);
-GtkWidget *eog_full_screen_new (EogImage *eog_image);
+GType      eog_full_screen_get_type (void);
+GtkWidget *eog_full_screen_new (EogImage *image);
 
 G_END_DECLS
 

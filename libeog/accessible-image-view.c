@@ -25,7 +25,7 @@
 #include <bonobo.h>
 
 #include "accessible-image-view.h"
-#include "image-view.h"
+#include "eog-scroll-view.h"
 
 static void accessible_image_view_class_init       (AccessibleImageViewClass *klass);
 
@@ -88,7 +88,7 @@ accessible_image_view_get_type (void)
                 GTypeQuery query;
                 GType derived_atk_type;
 
-                derived_type = g_type_parent (TYPE_IMAGE_VIEW);
+                derived_type = g_type_parent (EOG_TYPE_SCROLL_VIEW);
                 factory = atk_registry_get_factory (atk_get_default_registry(),
                                                     derived_type);
                 derived_atk_type = atk_object_factory_get_accessible_type (factory);
@@ -166,24 +166,24 @@ accessible_image_view_finalize (GObject *object)
 static void
 atk_image_interface_init (AtkImageIface *iface)
 {
-  g_return_if_fail (iface != NULL);
-
-  iface->get_image_description = accessible_image_view_get_image_description;
-  iface->set_image_description = accessible_image_view_set_image_description;
-  iface->get_image_size = accessible_image_view_get_image_size;
+	g_return_if_fail (iface != NULL);
+	
+	iface->get_image_description = accessible_image_view_get_image_description;
+	iface->set_image_description = accessible_image_view_set_image_description;
+	iface->get_image_size = accessible_image_view_get_image_size;
 }
 
 static G_CONST_RETURN gchar*
 accessible_image_view_get_image_description (AtkImage *obj) {
-
- AccessibleImageView *image;
- 
- g_return_val_if_fail(ACCESSIBLE_IS_IMAGE_VIEW(obj), NULL);
- 
- image = ACCESSIBLE_IMAGE_VIEW (obj);
-
-  
- return image->image_description;
+	
+	AccessibleImageView *image;
+	
+	g_return_val_if_fail(ACCESSIBLE_IS_IMAGE_VIEW(obj), NULL);
+	
+	image = ACCESSIBLE_IMAGE_VIEW (obj);
+	
+	
+	return image->image_description;
 }
 
 
@@ -191,16 +191,16 @@ static gboolean
 accessible_image_view_set_image_description (AtkImage *obj,
                                              const gchar *description)
 {
-  AccessibleImageView *image;
-  
-  image = ACCESSIBLE_IMAGE_VIEW (obj);
- 
-  if (image->image_description) 
-  	g_free (image->image_description);
-  
-  image->image_description = g_strdup (description);
-
-  return TRUE;
+	AccessibleImageView *image;
+	
+	image = ACCESSIBLE_IMAGE_VIEW (obj);
+	
+	if (image->image_description) 
+		g_free (image->image_description);
+	
+	image->image_description = g_strdup (description);
+	
+	return TRUE;
 
 }
 
@@ -209,26 +209,21 @@ accessible_image_view_get_image_size (AtkImage *obj,
                             gint     *width,
                             gint     *height)
 {
-  GtkWidget *widget;
-  GdkPixbuf *image;
-
-  widget = GTK_ACCESSIBLE (obj)->widget;
-
-  if (widget == 0)
-  {
-    /*
-     * State is defunct
-     */
-    *width = -1;
-    *height = -1;
-    return;
-  }
-
-  image = image_view_get_pixbuf (IMAGE_VIEW (widget));
-
-  *height = gdk_pixbuf_get_height(image);
-  *width = gdk_pixbuf_get_width(image);
-
+	GtkWidget *widget;
+	
+	widget = GTK_ACCESSIBLE (obj)->widget;
+	
+	if (widget == 0)
+	{
+		/*
+		 * State is defunct
+		 */
+		*width = -1;
+		*height = -1;
+		return;
+	}
+	
+	scroll_view_get_image_size (SCROLL_VIEW (widget), width, height, FALSE);
 }
 
 
