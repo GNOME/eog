@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6.1\n"
-"POT-Creation-Date: 2001-11-27 18:19+0100\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2001-09-26 00:00+0200\n"
 "Last-Translator: Hector Garcia Alvarez <hector@scouts-es.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr ""
 
-#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
-#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "No puedo manejar la URI: %s"
@@ -61,11 +61,11 @@ msgstr "Tirar a la papelera"
 msgid "Collection View"
 msgstr "Ver la colección"
 
-#: collection/eog-collection-view.c:596
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
 msgid "View"
 msgstr "Vista"
 
-#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1955
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
 msgid "Window Title"
 msgstr "Título de la ventana"
 
@@ -93,7 +93,7 @@ msgstr "¡No se pudo inicializar GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "No se pudo inicializar Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
 #: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Ojo de Gnome"
@@ -102,19 +102,19 @@ msgstr "Ojo de Gnome"
 msgid "Image Viewer"
 msgstr "Visor de imágenes"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
 msgid "EOG Image"
 msgstr "Imagen de EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
 msgstr "Visualizador de imágenes EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.server.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Factoría de visualizadores de imagen EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Imagen de EOG incrustada"
 
@@ -186,59 +186,59 @@ msgstr "_Preferencias"
 msgid "_Settings"
 msgstr "_Configuración"
 
-#: shell/eog-window.c:191 src/window.c:164
+#: shell/eog-window.c:181 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:193 src/window.c:166
+#: shell/eog-window.c:182 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "El programa de GNOME para ver y catalogar imágenes"
 
-#: shell/eog-window.c:421
+#: shell/eog-window.c:401
 msgid "Open in new window"
 msgstr "Abrir en una ventana nueva"
 
-#: shell/eog-window.c:422
+#: shell/eog-window.c:402
 msgid "Open in this window"
 msgstr "Abrir en esta ventana"
 
-#: shell/eog-window.c:424
+#: shell/eog-window.c:404
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: shell/eog-window.c:519
+#: shell/eog-window.c:504
 msgid "Eye Of Gnome"
 msgstr "Ojo de Gnome"
 
-#: shell/eog-window.c:605
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "No puedo encontrar eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
+#: shell/eog-window.c:697 src/window.c:704
 msgid "Open Image"
 msgstr "Abrir Imagen"
 
-#: shell/eog-window.c:1009
+#: shell/eog-window.c:795
 msgid "Control doesn't support window_title property."
 msgstr "El control no soporta la propiedad window_title."
 
-#: shell/eog-window.c:1025
+#: shell/eog-window.c:811
 msgid "Control doesn't support status_text property."
 msgstr "El control no soporta la propiedad status_text."
 
-#: shell/eog-window.c:1042
+#: shell/eog-window.c:828
 msgid "Control doesn't have properties"
 msgstr "El control no tiene propiedades"
 
-#: shell/eog-window.c:1061
+#: shell/eog-window.c:845
 msgid "Couldn't retrieve mime type for file."
 msgstr "No pude obtener el tipo mime para los archivos."
 
-#: shell/eog-window.c:1305
+#: shell/eog-window.c:1080
 msgid "Error while obtaining file informations."
 msgstr "Error al obtener la información del archivo."
 
-#: shell/main.c:157
+#: shell/main.c:158
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -249,19 +249,19 @@ msgstr ""
 "simultaneamente. ¿Quieres abrirlas\n"
 "como una colección?"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Single Windows"
 msgstr "Ventanas simples"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Collection"
 msgstr "Colección"
 
-#: shell/main.c:273
+#: shell/main.c:276
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "¡No pude inicializar GnomeVFS!\n"
 
-#: shell/main.c:276
+#: shell/main.c:279
 msgid "Could not initialize Bonobo!\n"
 msgstr "¡No pude inicializar Bonobo!\n"
 
@@ -282,7 +282,7 @@ msgstr "Abrir una imagen"
 msgid "Close the current window"
 msgstr "Cerrar la ventana actual"
 
-#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+#: src/tb-image.c:43 viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "Acercar"
 
@@ -428,60 +428,60 @@ msgstr "Utilizar la pantalla completa para ver la imagen"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "¡No pude inicializar GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:282
+#: viewer/eog-image-view.c:290
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "No puede guardar la imagen como '%s': %s."
 
-#: viewer/eog-image-view.c:325
+#: viewer/eog-image-view.c:335
 msgid "Save As"
 msgstr "Guardar como"
 
-#: viewer/eog-image-view.c:883
+#: viewer/eog-image-view.c:908
 msgid "Print Image"
 msgstr "Imprimir imagen"
 
-#: viewer/eog-image-view.c:891
+#: viewer/eog-image-view.c:916
 msgid "Pages"
 msgstr "Páginas"
 
-#: viewer/eog-image-view.c:978
+#: viewer/eog-image-view.c:1003
 msgid "Print Preview"
 msgstr "Vista previa"
 
-#: viewer/eog-image-view.c:984
+#: viewer/eog-image-view.c:1009
 msgid "Printing of image failed"
 msgstr "Error en la impresión de la imagen"
 
-#: viewer/eog-image-view.c:1848
+#: viewer/eog-image-view.c:1876
 msgid "Display"
 msgstr "Despliegue"
 
-#: viewer/eog-image-view.c:1937 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "Interpolación"
 
-#: viewer/eog-image-view.c:1940 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
 msgid "Dither"
 msgstr ""
 
-#: viewer/eog-image-view.c:1943 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Comprobar tipo"
 
-#: viewer/eog-image-view.c:1946 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Comprobar tamaño"
 
-#: viewer/eog-image-view.c:1949
+#: viewer/eog-image-view.c:1979
 msgid "Image Width"
 msgstr "Anchura de la imagen"
 
-#: viewer/eog-image-view.c:1952
+#: viewer/eog-image-view.c:1982
 msgid "Image Height"
 msgstr "Altura de la imagen"
 
-#: viewer/eog-image-view.c:1958
+#: viewer/eog-image-view.c:1988
 msgid "Statusbar Text"
 msgstr "Texto de la barra de estado"
 
@@ -565,212 +565,208 @@ msgstr "Guard_ar como"
 msgid "Setup the page settings for your current printer"
 msgstr "Configurar la opciones de la página para tu impresora actual"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Interpolación _bilineal"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "Interpolación _hiperbólica"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "_Interpolación"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "Im_primir"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Interpolación por _piezas"
 
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_View"
-msgstr "_Vista"
-
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "pts"
 msgstr "pts"
 
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "points"
 msgstr "puntos"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "millimeter"
 msgstr "milímetros"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "centímetros"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:76
 msgid "inch"
 msgstr "pulgada"
 
-#: viewer/eog-print-setup.c:471
+#: viewer/eog-print-setup.c:492
 msgid "Print"
 msgstr "Imprimir"
 
-#: viewer/eog-print-setup.c:472
+#: viewer/eog-print-setup.c:493
 msgid "Print preview"
 msgstr "Vista previa"
 
-#: viewer/eog-print-setup.c:480
+#: viewer/eog-print-setup.c:501
 msgid "Print Setup"
 msgstr "Configuración de la impresión"
 
-#: viewer/eog-print-setup.c:548
+#: viewer/eog-print-setup.c:569
 msgid "Units: "
 msgstr "Unidades: "
 
 #. First page
-#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
 msgid "Paper"
 msgstr "Papel"
 
-#: viewer/eog-print-setup.c:570
+#: viewer/eog-print-setup.c:591
 msgid "Paper size:"
 msgstr "Tamaño del papel:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:585
+#: viewer/eog-print-setup.c:608
 msgid "Orientation"
 msgstr "Orientación"
 
-#: viewer/eog-print-setup.c:595
+#: viewer/eog-print-setup.c:618
 msgid "Portrait"
 msgstr ""
 
-#: viewer/eog-print-setup.c:605
+#: viewer/eog-print-setup.c:628
 msgid "Landscape"
 msgstr ""
 
 #. Margins
-#: viewer/eog-print-setup.c:614
+#: viewer/eog-print-setup.c:637
 msgid "Margins"
 msgstr "Márgenes"
 
 #. Top margin
-#: viewer/eog-print-setup.c:622
+#: viewer/eog-print-setup.c:645
 msgid "Top:"
 msgstr "Arriba:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:640
+#: viewer/eog-print-setup.c:663
 msgid "Left:"
 msgstr "Izquierda:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:658
+#: viewer/eog-print-setup.c:681
 msgid "Right:"
 msgstr "Derecha:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:676
+#: viewer/eog-print-setup.c:699
 msgid "Bottom:"
 msgstr "Abajo:"
 
 #. Second page
-#: viewer/eog-print-setup.c:694
+#: viewer/eog-print-setup.c:717
 msgid "Image"
 msgstr "Imagen"
 
 #. Scale
-#: viewer/eog-print-setup.c:702
+#: viewer/eog-print-setup.c:725
 msgid "Scale"
 msgstr "Escala"
 
-#: viewer/eog-print-setup.c:706
+#: viewer/eog-print-setup.c:729
 msgid "Adjust to:"
 msgstr "Ajustar a:"
 
-#: viewer/eog-print-setup.c:711
+#: viewer/eog-print-setup.c:734
 msgid "Fit to page"
 msgstr "Ajustar a la página"
 
-#: viewer/eog-print-setup.c:730
+#: viewer/eog-print-setup.c:753
 #, no-c-format
 msgid "% of original size"
 msgstr "% del tamaño original"
 
 #. Center on page
-#: viewer/eog-print-setup.c:736
+#: viewer/eog-print-setup.c:759
 msgid "Center"
 msgstr "Centrado"
 
-#: viewer/eog-print-setup.c:740
+#: viewer/eog-print-setup.c:763
 msgid "Horizontally"
 msgstr "Horizontalmente"
 
-#: viewer/eog-print-setup.c:747
+#: viewer/eog-print-setup.c:770
 msgid "Vertically"
 msgstr "Verticalmente"
 
 #. Overlap
-#: viewer/eog-print-setup.c:756
+#: viewer/eog-print-setup.c:779
 msgid "Overlapping"
 msgstr ""
 
-#: viewer/eog-print-setup.c:760
+#: viewer/eog-print-setup.c:783
 msgid "Overlap horizontally by "
 msgstr ""
 
-#: viewer/eog-print-setup.c:765
+#: viewer/eog-print-setup.c:788
 msgid "Overlap vertically by "
 msgstr ""
 
 #. Third page
-#: viewer/eog-print-setup.c:802
+#: viewer/eog-print-setup.c:825
 msgid "Printing"
 msgstr "Imprimiendo"
 
 #. Helpers
-#: viewer/eog-print-setup.c:810
+#: viewer/eog-print-setup.c:833
 msgid "Helpers"
 msgstr ""
 
-#: viewer/eog-print-setup.c:811
+#: viewer/eog-print-setup.c:834
 msgid "Print cutting help"
 msgstr ""
 
-#: viewer/eog-print-setup.c:817
+#: viewer/eog-print-setup.c:840
 msgid "Print overlap help"
 msgstr ""
 
 #. Page order
-#: viewer/eog-print-setup.c:826
+#: viewer/eog-print-setup.c:849
 msgid "Page order"
 msgstr "Orden de las páginas"
 
 #. Down right
-#: viewer/eog-print-setup.c:832
+#: viewer/eog-print-setup.c:855
 msgid "Down, then right"
 msgstr "Abajo, luego derecha"
 
 #. Right down
-#: viewer/eog-print-setup.c:852
+#: viewer/eog-print-setup.c:875
 msgid "Right, then down"
 msgstr "Derecha, luego abajo"
 
@@ -843,3 +839,5 @@ msgstr "Medio"
 msgid "Large"
 msgstr "Grande"
 
+#~ msgid "_View"
+#~ msgstr "_Vista"

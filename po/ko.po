@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2001-02-13 21:45+0900\n"
 "Last-Translator: Young-Ho, Cha <ganadist@chollian.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -13,27 +13,291 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-kr\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
+#: collection/eog-collection-control.c:155
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr ""
+
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr ""
+
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr ""
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:518
+msgid "Collection View"
+msgstr ""
+
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "View"
+msgstr "보기"
+
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
+msgid "Window Title"
+msgstr ""
+
+#: collection/eog-collection-view.c:883
+msgid "Status Text"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+#, fuzzy
+msgid "EOG Image Collection"
+msgstr "EOG 그림"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+#, fuzzy
+msgid "EOG Image Collection Viewer"
+msgstr "EOG 그림 보기프로그램"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr ""
+
+#: collection/main.c:94
+#, fuzzy
+msgid "I could not initialize GnomeVFS!\n"
+msgstr "Bonobo를 초기화 할수 없습니다"
+
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "Bonobo를 초기화 할수 없습니다"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
+#: src/window.c:812
+msgid "Eye of Gnome"
+msgstr "그놈의 눈"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "그림 보기프로그램"
+
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+msgid "EOG Image"
+msgstr "EOG 그림"
+
+#: libeog/GNOME_EOG.server.in.h:2
+msgid "EOG Image Viewer"
+msgstr "EOG 그림 보기프로그램"
+
+#: libeog/GNOME_EOG.server.in.h:3
+#, fuzzy
+msgid "EOG Image viewer factory"
+msgstr "EOG 그림 보기프로그램"
+
+#: libeog/GNOME_EOG.server.in.h:4
+#, fuzzy
+msgid "Embeddable EOG Image"
+msgstr "EOG 그림"
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:2
+#, fuzzy
+msgid "Change preferences"
 msgstr "속성"
 
-#: src/tb-image.c:33
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+msgid "Close"
+msgstr "닫기"
+
+#: shell/eog-shell-ui.xml.h:4
+#, fuzzy
+msgid "Close window"
+msgstr "이 창 닫기(_C)"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "열기"
+
+#: shell/eog-shell-ui.xml.h:8
+#, fuzzy
+msgid "Open a file"
+msgstr "이미지 파일 열기"
+
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a new window"
+msgstr "새 창에서 그림을 엽니다"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "_Close"
+msgstr "닫기"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_New Window"
+msgstr "그림 창"
+
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "_Open..."
+msgstr "이미지 열기(_O)..."
+
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Preferences"
+msgstr "속성"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:181 src/window.c:164
+msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+msgstr ""
+
+#: shell/eog-window.c:182 src/window.c:166
+msgid "The GNOME image viewing and cataloging program"
+msgstr "그놈 이미지 보기와 카타로그 프로그램"
+
+#: shell/eog-window.c:401
+#, fuzzy
+msgid "Open in new window"
+msgstr "새 창에서 그림을 엽니다"
+
+#: shell/eog-window.c:402
+#, fuzzy
+msgid "Open in this window"
+msgstr "새 창에서 그림을 엽니다"
+
+#: shell/eog-window.c:404
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-window.c:504
+#, fuzzy
+msgid "Eye Of Gnome"
+msgstr "그놈의 눈"
+
+#: shell/eog-window.c:589
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr ""
+
+#: shell/eog-window.c:697 src/window.c:704
+msgid "Open Image"
+msgstr "그림 열기"
+
+#: shell/eog-window.c:795
+msgid "Control doesn't support window_title property."
+msgstr ""
+
+#: shell/eog-window.c:811
+msgid "Control doesn't support status_text property."
+msgstr ""
+
+#: shell/eog-window.c:828
+msgid "Control doesn't have properties"
+msgstr ""
+
+#: shell/eog-window.c:845
+msgid "Couldn't retrieve mime type for file."
+msgstr ""
+
+#: shell/eog-window.c:1080
+msgid "Error while obtaining file informations."
+msgstr ""
+
+#: shell/main.c:158
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+
+#: shell/main.c:166
+#, fuzzy
+msgid "Single Windows"
+msgstr "그림 창"
+
+#: shell/main.c:166
+msgid "Collection"
+msgstr ""
+
+#: shell/main.c:276
+#, fuzzy
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "Bonobo를 초기화 할수 없습니다"
+
+#: shell/main.c:279
+#, fuzzy
+msgid "Could not initialize Bonobo!\n"
+msgstr "Bonobo를 초기화 할수 없습니다"
+
+#: shell/util.c:47 src/util.c:47
+#, c-format
+msgid "Could not open `%s'"
+msgstr "`%s'를 열 수 없습니다"
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "속성"
 
 #: src/tb-image.c:33 src/window.c:181
 msgid "Open an image file"
 msgstr "이미지 파일 열기"
 
-#: src/tb-image.c:35
-msgid "Close"
-msgstr "닫기"
-
 #: src/tb-image.c:35 src/window.c:186
 msgid "Close the current window"
 msgstr "현재 창 닫기"
 
-#: src/tb-image.c:43
+#: src/tb-image.c:43 viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "확대"
 
@@ -48,23 +312,6 @@ msgstr "1:1"
 #: src/tb-image.c:46
 msgid "Fit"
 msgstr "맞춤"
-
-#: src/util.c:47
-#, c-format
-msgid "Could not open `%s'"
-msgstr "`%s'를 열 수 없습니다"
-
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "그놈의 눈"
-
-#: src/window.c:164
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr ""
-
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "그놈 이미지 보기와 카타로그 프로그램"
 
 #: src/window.c:181
 msgid "_Open Image..."
@@ -151,6 +398,7 @@ msgid "Zoom In"
 msgstr "확대"
 
 #: src/window.c:221
+#, c-format
 msgid "Increase zoom factor by 5%%"
 msgstr "확대율을 5%% 증가"
 
@@ -159,6 +407,7 @@ msgid "Zoom Out"
 msgstr "축소"
 
 #: src/window.c:225
+#, c-format
 msgid "Decrease zoom factor by 5%%"
 msgstr "확대율을 5%% 감소"
 
@@ -190,44 +439,442 @@ msgstr "전체 화면(_S)"
 msgid "Use the whole screen for display"
 msgstr "표시하는데 전체화면을 사용합니다"
 
-#: src/window.c:704
-msgid "Open Image"
+#: viewer/eog-image.c:432
+#, fuzzy
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Bonobo를 초기화 할수 없습니다"
+
+#: viewer/eog-image-view.c:290
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr ""
+
+#: viewer/eog-image-view.c:335
+msgid "Save As"
+msgstr ""
+
+#: viewer/eog-image-view.c:908
+#, fuzzy
+msgid "Print Image"
 msgstr "그림 열기"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:916
+#, fuzzy
+msgid "Pages"
+msgstr "큼"
+
+#: viewer/eog-image-view.c:1003
+msgid "Print Preview"
+msgstr ""
+
+#: viewer/eog-image-view.c:1009
+#, fuzzy
+msgid "Printing of image failed"
+msgstr "이미지 파일 열기"
+
+#: viewer/eog-image-view.c:1876
+msgid "Display"
+msgstr "표시"
+
+#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "인터폴레이션"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
 msgid "Dither"
 msgstr "디더링"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "형식"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "크기"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "Bonobo를 초기화 할수 없습니다"
+#: viewer/eog-image-view.c:1979
+#, fuzzy
+msgid "Image Width"
+msgstr "그림 창"
+
+#: viewer/eog-image-view.c:1982
+msgid "Image Height"
+msgstr ""
+
+#: viewer/eog-image-view.c:1988
+msgid "Statusbar Text"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "크기(_s)"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "형식(_t)"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "큰 크기"
+
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "중간 크기"
+
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "작은 크기"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "검은색(_b)"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "어두움(_d)"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "회색(_g)"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "밝음(_l)"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "중간톤(_m)"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "흰색(_w)"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "전체 화면"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "근접 색상 인터폴레이션(_r)"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Normal (_pseudocolor) dithering"
+msgstr "보통 (가상색상) 디더링(_p)"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Previews the image to be printed"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print Pre_view"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print S_etup"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Print image to the printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Save _As"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "Setup the page settings for your current printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Bilinear Interpolation"
+msgstr "바이라이너 인터폴레이션(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Dither"
+msgstr "디더(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Hyperbolic Interpolation"
+msgstr "하이퍼볼릭 인터폴레이션(_H)"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Interpolation"
+msgstr "인터폴레이션(_I)"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Maximum (high color) dithering"
+msgstr "최대 (하이컬러) 디더링(_M)"
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_No dithering"
+msgstr "디더링 사용하지 않음(_N)"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_Print"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:29
+msgid "_Tiles Interpolation"
+msgstr "인터폴레이션 사용(_T)"
+
+#: viewer/eog-print-setup.c:73
+msgid "pts"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "points"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "mm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "millimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "cm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "centimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:76
+msgid "inch"
+msgstr ""
+
+#: viewer/eog-print-setup.c:492
+msgid "Print"
+msgstr ""
+
+#: viewer/eog-print-setup.c:493
+msgid "Print preview"
+msgstr ""
+
+#: viewer/eog-print-setup.c:501
+msgid "Print Setup"
+msgstr ""
+
+#: viewer/eog-print-setup.c:569
+msgid "Units: "
+msgstr ""
+
+#. First page
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+msgid "Paper"
+msgstr ""
+
+#: viewer/eog-print-setup.c:591
+msgid "Paper size:"
+msgstr ""
+
+#. Orientation
+#: viewer/eog-print-setup.c:608
+msgid "Orientation"
+msgstr ""
+
+#: viewer/eog-print-setup.c:618
+msgid "Portrait"
+msgstr ""
+
+#: viewer/eog-print-setup.c:628
+msgid "Landscape"
+msgstr ""
+
+#. Margins
+#: viewer/eog-print-setup.c:637
+msgid "Margins"
+msgstr ""
+
+#. Top margin
+#: viewer/eog-print-setup.c:645
+msgid "Top:"
+msgstr ""
+
+#. Left margin
+#: viewer/eog-print-setup.c:663
+msgid "Left:"
+msgstr ""
+
+#. Right margin
+#: viewer/eog-print-setup.c:681
+msgid "Right:"
+msgstr ""
+
+#. Bottom margin
+#: viewer/eog-print-setup.c:699
+msgid "Bottom:"
+msgstr ""
+
+#. Second page
+#: viewer/eog-print-setup.c:717
+#, fuzzy
+msgid "Image"
+msgstr "EOG 그림"
+
+#. Scale
+#: viewer/eog-print-setup.c:725
+#, fuzzy
+msgid "Scale"
+msgstr "작음"
+
+#: viewer/eog-print-setup.c:729
+msgid "Adjust to:"
+msgstr ""
+
+#: viewer/eog-print-setup.c:734
+msgid "Fit to page"
+msgstr ""
+
+#: viewer/eog-print-setup.c:753
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#. Center on page
+#: viewer/eog-print-setup.c:759
+msgid "Center"
+msgstr ""
+
+#: viewer/eog-print-setup.c:763
+msgid "Horizontally"
+msgstr ""
+
+#: viewer/eog-print-setup.c:770
+msgid "Vertically"
+msgstr ""
+
+#. Overlap
+#: viewer/eog-print-setup.c:779
+msgid "Overlapping"
+msgstr ""
+
+#: viewer/eog-print-setup.c:783
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:788
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:825
+msgid "Printing"
+msgstr ""
+
+#. Helpers
+#: viewer/eog-print-setup.c:833
+msgid "Helpers"
+msgstr ""
+
+#: viewer/eog-print-setup.c:834
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:840
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:849
+msgid "Page order"
+msgstr ""
+
+#. Down right
+#: viewer/eog-print-setup.c:855
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:875
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/preferences.c:38
+#, fuzzy
+msgid "Nearest Neighbour Interpolation"
+msgstr "근접 색상 인터폴레이션(_r)"
+
+#: viewer/preferences.c:40
+#, fuzzy
+msgid "Tiles Interpolation"
+msgstr "인터폴레이션 사용(_T)"
+
+#: viewer/preferences.c:42
+#, fuzzy
+msgid "Bilinear Interpolation"
+msgstr "바이라이너 인터폴레이션(_B)"
+
+#: viewer/preferences.c:44
+#, fuzzy
+msgid "Hyperbolic Interpolation"
+msgstr "하이퍼볼릭 인터폴레이션(_H)"
+
+#: viewer/preferences.c:49
+#, fuzzy
+msgid "No dithering"
+msgstr "디더링 사용하지 않음(_N)"
+
+#: viewer/preferences.c:50
+#, fuzzy
+msgid "Normal (pseudocolor) dithering"
+msgstr "보통 (가상색상) 디더링(_p)"
+
+#: viewer/preferences.c:51
+#, fuzzy
+msgid "Maximum (high color) dithering"
+msgstr "최대 (하이컬러) 디더링(_M)"
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr ""
+
+#: viewer/preferences.c:57
+#, fuzzy
+msgid "Midtone"
+msgstr "중간톤"
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr ""
+
+#: viewer/preferences.c:59
+#, fuzzy
+msgid "Black"
+msgstr "검은색"
+
+#: viewer/preferences.c:60
+#, fuzzy
+msgid "Gray"
+msgstr "회색"
+
+#: viewer/preferences.c:61
+#, fuzzy
+msgid "White"
+msgstr "흰색"
+
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "작음"
+
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "중간"
+
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr "큼"
 
 #~ msgid "Bilinear (normal)"
 #~ msgstr "바이라이너(보통)"
-
-#~ msgid "Black only"
-#~ msgstr "검은색"
 
 #~ msgid "Check size"
 #~ msgstr "크기"
 
 #~ msgid "Dark checks"
 #~ msgstr "어둡게"
-
-#~ msgid "Display"
-#~ msgstr "표시"
 
 #~ msgid "Dither type"
 #~ msgstr "디더링 형식"
@@ -238,35 +885,17 @@ msgstr "Bonobo를 초기화 할수 없습니다"
 #~ msgid "Fit standard-sized images to screen"
 #~ msgstr "화면에 보통크기 그림으로 맞춤"
 
-#~ msgid "Full Screen"
-#~ msgstr "전체 화면"
-
-#~ msgid "Gray only"
-#~ msgstr "회색"
-
 #~ msgid "Hyperbolic (slowest, best quality)"
 #~ msgstr "하이퍼볼릭(가장 느린, 고화질)"
 
-#~ msgid "Image Windows"
-#~ msgstr "그림 창"
-
 #~ msgid "Interpolation type"
 #~ msgstr "인터폴레이션 형식"
-
-#~ msgid "Large"
-#~ msgstr "큼"
 
 #~ msgid "Light checks"
 #~ msgstr "밝게"
 
 #~ msgid "Maximum (high color)"
 #~ msgstr "최대 (하이컬러)"
-
-#~ msgid "Medium"
-#~ msgstr "중간"
-
-#~ msgid "Midtone checks"
-#~ msgstr "중간톤"
 
 #~ msgid "Nearest neighbor (fastest, low quality)"
 #~ msgstr "근접 색상(가장 빠른, 저화질)"
@@ -283,17 +912,11 @@ msgstr "Bonobo를 초기화 할수 없습니다"
 #~ msgid "Only if image does not fit"
 #~ msgstr "그림크기가 맞지 않을때"
 
-#~ msgid "Open images in a new window"
-#~ msgstr "새 창에서 그림을 엽니다"
-
 #~ msgid "Pick window size and zoom factor automatically"
 #~ msgstr "창크기에 맞춰서 확대비율을 자동으로 조정합니다"
 
 #~ msgid "Put a bevel around the edge of the screen"
 #~ msgstr "화면 가장자리에 경사를 만듬"
-
-#~ msgid "Small"
-#~ msgstr "작음"
 
 #~ msgid "Transparency type"
 #~ msgstr "투명 형식"
@@ -309,78 +932,3 @@ msgstr "Bonobo를 초기화 할수 없습니다"
 
 #~ msgid "Use scrollbars"
 #~ msgstr "스크롤바 사용"
-
-#~ msgid "Viewers"
-#~ msgstr "보기"
-
-#~ msgid "White only"
-#~ msgstr "흰색"
-
-#~ msgid "EOG Image"
-#~ msgstr "EOG 그림"
-
-#~ msgid "EOG Image Viewer"
-#~ msgstr "EOG 그림 보기프로그램"
-
-#~ msgid "Check _size"
-#~ msgstr "크기(_s)"
-
-#~ msgid "Check _type"
-#~ msgstr "형식(_t)"
-
-#~ msgid "Check size large"
-#~ msgstr "큰 크기"
-
-#~ msgid "Check size medium"
-#~ msgstr "중간 크기"
-
-#~ msgid "Check size small"
-#~ msgstr "작은 크기"
-
-#~ msgid "Check type _black"
-#~ msgstr "검은색(_b)"
-
-#~ msgid "Check type _dark"
-#~ msgstr "어두움(_d)"
-
-#~ msgid "Check type _gray"
-#~ msgstr "회색(_g)"
-
-#~ msgid "Check type _light"
-#~ msgstr "밝음(_l)"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "중간톤(_m)"
-
-#~ msgid "Check type _white"
-#~ msgstr "흰색(_w)"
-
-#~ msgid "Nea_rest Neighbour Interpolation"
-#~ msgstr "근접 색상 인터폴레이션(_r)"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "보통 (가상색상) 디더링(_p)"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "바이라이너 인터폴레이션(_B)"
-
-#~ msgid "_Dither"
-#~ msgstr "디더(_D)"
-
-#~ msgid "_Hyperbolic Interpolation"
-#~ msgstr "하이퍼볼릭 인터폴레이션(_H)"
-
-#~ msgid "_Interpolation"
-#~ msgstr "인터폴레이션(_I)"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "최대 (하이컬러) 디더링(_M)"
-
-#~ msgid "_No dithering"
-#~ msgstr "디더링 사용하지 않음(_N)"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "인터폴레이션 사용(_T)"
-
-#~ msgid "Image Viewer"
-#~ msgstr "그림 보기프로그램"

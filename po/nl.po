@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2001-12-26 07:25-0500\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2001-12-27 14:28+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Kon geen lokale BonoboControl verbinding krijgen.\n"
 
-#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
-#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "Kan URI niet verwerken: %s"
@@ -59,7 +59,7 @@ msgstr "Gooi in de Prullenbak"
 msgid "Collection View"
 msgstr "Verzameling bekijken"
 
-#: collection/eog-collection-view.c:596
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
 msgid "View"
 msgstr "Bekijk"
 
@@ -91,7 +91,7 @@ msgstr "Kan GnomeVFS niet inschakelen!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Kan Bonobo niet laden"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
 #: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
@@ -100,19 +100,19 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Afbeelding bekijken"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
 msgid "EOG Image"
 msgstr "EOG afbeelding"
 
-#: libeog/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG afbeelding bekijken"
 
-#: libeog/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.server.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG afbeelding fabriek"
 
-#: libeog/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Ingebedde EOG afbeelding"
 
@@ -184,55 +184,55 @@ msgstr "_Voorkeuren"
 msgid "_Settings"
 msgstr "_Instellingen"
 
-#: shell/eog-window.c:191 src/window.c:164
+#: shell/eog-window.c:181 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:192 src/window.c:166
+#: shell/eog-window.c:182 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Afbeeldingen bekijken en catalogus programma voor GNOME"
 
-#: shell/eog-window.c:423
+#: shell/eog-window.c:401
 msgid "Open in new window"
 msgstr "Open in een nieuw venster"
 
-#: shell/eog-window.c:424
+#: shell/eog-window.c:402
 msgid "Open in this window"
 msgstr "Open in dit venster"
 
-#: shell/eog-window.c:426
+#: shell/eog-window.c:404
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: shell/eog-window.c:526
+#: shell/eog-window.c:504
 msgid "Eye Of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:612
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan eog-shell-ui.xml niet vinden.\n"
 
-#: shell/eog-window.c:747 shell/eog-window.c:876 src/window.c:704
+#: shell/eog-window.c:697 src/window.c:704
 msgid "Open Image"
 msgstr "Open afbeelding"
 
-#: shell/eog-window.c:1018
+#: shell/eog-window.c:795
 msgid "Control doesn't support window_title property."
 msgstr "Control heeft geen ondersteuning voor de window_title mogelijkheden."
 
-#: shell/eog-window.c:1034
+#: shell/eog-window.c:811
 msgid "Control doesn't support status_text property."
 msgstr "Control heeft geen ondersteuning voor de status_text mogelijkheden."
 
-#: shell/eog-window.c:1051
+#: shell/eog-window.c:828
 msgid "Control doesn't have properties"
 msgstr "Control heeft geen mogelijkheden."
 
-#: shell/eog-window.c:1070
+#: shell/eog-window.c:845
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kon geen mime-type vinden voor bestand."
 
-#: shell/eog-window.c:1314
+#: shell/eog-window.c:1080
 msgid "Error while obtaining file informations."
 msgstr "Fout bij opvragen bestandseigenschappen."
 
@@ -422,7 +422,7 @@ msgstr "Volledig _Scherm"
 msgid "Use the whole screen for display"
 msgstr "Gebruik het hele scherm voor weergave"
 
-#: viewer/eog-image.c:433
+#: viewer/eog-image.c:432
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kan GnomeVFS niet inschakelen!\n"
 
@@ -563,41 +563,37 @@ msgstr "Opslaan _als"
 msgid "Setup the page settings for your current printer"
 msgstr "De paginainstellingen aanpassen voor uw huidige printer"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Bilineaire interpolatie"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr "Ditheren"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "Hyperbolische interpolatie"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "Interpolatie"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr "_Maximum (veel kleuren) ditheren"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr "_Niet ditheren"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "_Afdrukken"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Tegels interpolatie"
-
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_View"
-msgstr "_Bekijken"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -836,69 +832,72 @@ msgstr "Middelmatig"
 msgid "Large"
 msgstr "Groot"
 
-msgid "Transparency type"
-msgstr "Transparantietype"
+#~ msgid "_View"
+#~ msgstr "_Bekijken"
 
-msgid ""
-"Dark checks\n"
-"Midtone checks\n"
-"Light checks\n"
-"Black only\n"
-"Gray only\n"
-"White only\n"
-msgstr ""
-"Controleer donkerekleuren\n"
-"Controleer middelkleuren\n"
-"Controleer lichtekleuren\n"
-"Alleen zwart\n"
-"Alleen grijs\n"
-"Alleen wit\n"
+#~ msgid "Transparency type"
+#~ msgstr "Transparantietype"
 
-msgid ""
-"Small\n"
-"Medium\n"
-"Large\n"
-msgstr ""
-"Klein\n"
-"Middelmaat\n"
-"Groot\n"
+#~ msgid ""
+#~ "Dark checks\n"
+#~ "Midtone checks\n"
+#~ "Light checks\n"
+#~ "Black only\n"
+#~ "Gray only\n"
+#~ "White only\n"
+#~ msgstr ""
+#~ "Controleer donkerekleuren\n"
+#~ "Controleer middelkleuren\n"
+#~ "Controleer lichtekleuren\n"
+#~ "Alleen zwart\n"
+#~ "Alleen grijs\n"
+#~ "Alleen wit\n"
 
-msgid "Two-pass scrolling"
-msgstr "Two-pass scrolling"
+#~ msgid ""
+#~ "Small\n"
+#~ "Medium\n"
+#~ "Large\n"
+#~ msgstr ""
+#~ "Klein\n"
+#~ "Middelmaat\n"
+#~ "Groot\n"
 
-msgid "Use scrollbars"
-msgstr "Gebruik scrollbarren"
+#~ msgid "Two-pass scrolling"
+#~ msgstr "Two-pass scrolling"
 
-msgid ""
-"Never\n"
-"Only if image does not fit\n"
-msgstr ""
-"Nooit\n"
-"Alleen als de afbeelding niet past\n"
+#~ msgid "Use scrollbars"
+#~ msgstr "Gebruik scrollbarren"
 
-msgid "Pick window size and zoom factor automatically"
-msgstr "Kies window grote en zoom factor automatisch"
+#~ msgid ""
+#~ "Never\n"
+#~ "Only if image does not fit\n"
+#~ msgstr ""
+#~ "Nooit\n"
+#~ "Alleen als de afbeelding niet past\n"
 
-msgid "Use 1:1 zoom factor"
-msgstr "Gebruik 1:1 zoom factor"
+#~ msgid "Pick window size and zoom factor automatically"
+#~ msgstr "Kies window grote en zoom factor automatisch"
 
-msgid "Use same zoom factor as image window"
-msgstr "Gebruik de zelfde zoom factor als het plaatjes window"
+#~ msgid "Use 1:1 zoom factor"
+#~ msgstr "Gebruik 1:1 zoom factor"
 
-msgid "Fit all images to screen"
-msgstr "Alle plaatjes aanpassen op schermgrootte"
+#~ msgid "Use same zoom factor as image window"
+#~ msgstr "Gebruik de zelfde zoom factor als het plaatjes window"
 
-msgid "Fit standard-sized images to screen"
-msgstr "Standaardgrootte plaatjes aanpassen op schermgrootte"
+#~ msgid "Fit all images to screen"
+#~ msgstr "Alle plaatjes aanpassen op schermgrootte"
 
-msgid "Put a bevel around the edge of the screen"
-msgstr "Zet een rand om de randen van het scherm"
+#~ msgid "Fit standard-sized images to screen"
+#~ msgstr "Standaardgrootte plaatjes aanpassen op schermgrootte"
 
-msgid "Don't save"
-msgstr "Niet opslaan"
+#~ msgid "Put a bevel around the edge of the screen"
+#~ msgstr "Zet een rand om de randen van het scherm"
 
-msgid "Don't exit"
-msgstr "Niet afsluiten"
+#~ msgid "Don't save"
+#~ msgstr "Niet opslaan"
+
+#~ msgid "Don't exit"
+#~ msgstr "Niet afsluiten"
 
 #~ msgid "Bilinear (normal)"
 #~ msgstr "Bilineair (normaal)"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2001-12-27 03:39+0000\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2001-12-26 00:20+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Incapaz de obter interface BonoboControl local.\n"
 
-#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
-#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "Incapaz de gerir URI: %s"
@@ -59,7 +59,7 @@ msgstr "Mover para Lixo"
 msgid "Collection View"
 msgstr "Vista em Catálogo"
 
-#: collection/eog-collection-view.c:596
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
 msgid "View"
 msgstr "Ver"
 
@@ -91,7 +91,7 @@ msgstr "Incapaz de inicializar GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Incapaz de inicializar o Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
 #: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
@@ -100,19 +100,19 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Visualizador de Imagens"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
 msgid "EOG Image"
 msgstr "Imagem EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
 msgstr "Visualizador de Imagens EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.server.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Fábrica de visualizador de imagem EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Imagem EOG Embebível"
 
@@ -184,55 +184,55 @@ msgstr "_Preferências"
 msgid "_Settings"
 msgstr "_Definições"
 
-#: shell/eog-window.c:191 src/window.c:164
+#: shell/eog-window.c:181 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:192 src/window.c:166
+#: shell/eog-window.c:182 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "A aplicação de de visualização e catalogação de imagens GNOME"
 
-#: shell/eog-window.c:423
+#: shell/eog-window.c:401
 msgid "Open in new window"
 msgstr "Abrir em nova janela"
 
-#: shell/eog-window.c:424
+#: shell/eog-window.c:402
 msgid "Open in this window"
 msgstr "Abrir nesta janela"
 
-#: shell/eog-window.c:426
+#: shell/eog-window.c:404
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: shell/eog-window.c:526
+#: shell/eog-window.c:504
 msgid "Eye Of Gnome"
 msgstr "Eye Of Gnome"
 
-#: shell/eog-window.c:612
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Incapaz de encontrar eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:747 shell/eog-window.c:876 src/window.c:704
+#: shell/eog-window.c:697 src/window.c:704
 msgid "Open Image"
 msgstr "Abrir Imagem"
 
-#: shell/eog-window.c:1018
+#: shell/eog-window.c:795
 msgid "Control doesn't support window_title property."
 msgstr "Controlo não suporta propriedade window_title."
 
-#: shell/eog-window.c:1034
+#: shell/eog-window.c:811
 msgid "Control doesn't support status_text property."
 msgstr "Controlo não suporta propriedade status_text."
 
-#: shell/eog-window.c:1051
+#: shell/eog-window.c:828
 msgid "Control doesn't have properties"
 msgstr "Controlo não tem propriedades"
 
-#: shell/eog-window.c:1070
+#: shell/eog-window.c:845
 msgid "Couldn't retrieve mime type for file."
 msgstr "Incapaz de obter tipos mime do ficheiro."
 
-#: shell/eog-window.c:1314
+#: shell/eog-window.c:1080
 msgid "Error while obtaining file informations."
 msgstr "Erro ao obter informações de ficheiro."
 
@@ -422,7 +422,7 @@ msgstr "_Ecrã Completo"
 msgid "Use the whole screen for display"
 msgstr "Utilizar o ecrã inteiro para mostrar"
 
-#: viewer/eog-image.c:433
+#: viewer/eog-image.c:432
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Incapaz de inicializar GnomeVFS!\n"
 
@@ -563,41 +563,37 @@ msgstr "Gravar _Como"
 msgid "Setup the page settings for your current printer"
 msgstr "Definir as configurações de impressão para a impressora actual"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Interpolação _Bilinear"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr "_Esbatimento"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "Interpolação _Hiperbólica"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "_Interpolação"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr "Esbatimento _máximo (alta cor)"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr "Sem esbatime_nto"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "Im_primir"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "In_terpolação em mosaico"
-
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_View"
-msgstr "_Ver"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -835,3 +831,6 @@ msgstr "Médio"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Grande"
+
+#~ msgid "_View"
+#~ msgstr "_Ver"

@@ -23,7 +23,6 @@
 
 #include <eog-image.h>
 #include <eog-control.h>
-#include <eog-embeddable.h>
 
 #include <eog-image-io.h>
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2001-10-05 19:14+0200\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2001-10-03 20:01GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
@@ -18,8 +18,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Yerli BonoboControl ara üzü alına bilmir.\n"
 
-#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
-#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "URI başa düşülmədi: %s"
@@ -60,11 +60,11 @@ msgstr "Zibilə Daşı"
 msgid "Collection View"
 msgstr "Yığcam Görünüş"
 
-#: collection/eog-collection-view.c:596
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
 msgid "View"
 msgstr "Göstər"
 
-#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1955
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
 msgid "Window Title"
 msgstr "Pəncərə Başlığı"
 
@@ -92,7 +92,7 @@ msgstr "GnomeVFSni başlada bilmədim!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Bonobonu başlada bilmədim"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
 #: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Gnome'un gözü"
@@ -101,19 +101,19 @@ msgstr "Gnome'un gözü"
 msgid "Image Viewer"
 msgstr "Rəsm Nümayişcisi"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
 msgid "EOG Image"
 msgstr "EOG Rəsmi"
 
-#: libeog/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG Rəsm Nümayçisi"
 
-#: libeog/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.server.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG Rəsm nümayişçisi e'malatxanası"
 
-#: libeog/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Hopdurula bilmən EOG Rəsmi"
 
@@ -185,59 +185,59 @@ msgstr "_Tərcihlər"
 msgid "_Settings"
 msgstr "_Qurğular"
 
-#: shell/eog-window.c:191 src/window.c:164
+#: shell/eog-window.c:181 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Təlif haqqı (C) 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:193 src/window.c:166
+#: shell/eog-window.c:182 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME rəsm göstərmə və dəyişdirmə proqramı"
 
-#: shell/eog-window.c:421
+#: shell/eog-window.c:401
 msgid "Open in new window"
 msgstr "Yeni pəncərədə aç"
 
-#: shell/eog-window.c:422
+#: shell/eog-window.c:402
 msgid "Open in this window"
 msgstr "Bu pəncərədə aç"
 
-#: shell/eog-window.c:424
+#: shell/eog-window.c:404
 msgid "Cancel"
 msgstr "Ləğv Et"
 
-#: shell/eog-window.c:519
+#: shell/eog-window.c:504
 msgid "Eye Of Gnome"
 msgstr "Gnome-un gözü"
 
-#: shell/eog-window.c:605
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "eog-shell-ui.xml tapıla bilmir.\n"
 
-#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
+#: shell/eog-window.c:697 src/window.c:704
 msgid "Open Image"
 msgstr "Rəsmi aç"
 
-#: shell/eog-window.c:1009
+#: shell/eog-window.c:795
 msgid "Control doesn't support window_title property."
 msgstr "İdarə pəncərə_başlığını hələlik dəstəkləmir."
 
-#: shell/eog-window.c:1025
+#: shell/eog-window.c:811
 msgid "Control doesn't support status_text property."
 msgstr "İdarə vəziyyətçubuğu_mətnini hələlik dəstəkləmir."
 
-#: shell/eog-window.c:1042
+#: shell/eog-window.c:828
 msgid "Control doesn't have properties"
 msgstr "İdarənin seçənəkləri yoxdur"
 
-#: shell/eog-window.c:1061
+#: shell/eog-window.c:845
 msgid "Couldn't retrieve mime type for file."
 msgstr "Faylın maym növü öyrənilə bilmədi."
 
-#: shell/eog-window.c:1305
+#: shell/eog-window.c:1080
 msgid "Error while obtaining file informations."
 msgstr "Mə'lumatlar alınırkən xəta oldu."
 
-#: shell/main.c:157
+#: shell/main.c:158
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -248,19 +248,19 @@ msgstr ""
 "istəyirsiniz. Onları yığcam açmaq\n"
 "istəyirsiniz?"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Single Windows"
 msgstr "Tək Pəncərələr"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Collection"
 msgstr "Yığcamlaşma"
 
-#: shell/main.c:273
+#: shell/main.c:276
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFSni başlada bilmədim !\n"
 
-#: shell/main.c:276
+#: shell/main.c:279
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobonu başlada bilmədim !\n"
 
@@ -281,7 +281,7 @@ msgstr "Bir rəsmi aç"
 msgid "Close the current window"
 msgstr "Hazırkı pəncərəni qapat"
 
-#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+#: src/tb-image.c:43 viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "İçəri"
 
@@ -427,60 +427,60 @@ msgstr "Rəsmləri göstərmək üçün bütün ekranı göstər"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFSni başlada bilmədim!\n"
 
-#: viewer/eog-image-view.c:282
+#: viewer/eog-image-view.c:290
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Rəsm '%s' olaraq qeyd edilə bilmir: %s."
 
-#: viewer/eog-image-view.c:325
+#: viewer/eog-image-view.c:335
 msgid "Save As"
 msgstr "Fərqli Qeyd Et"
 
-#: viewer/eog-image-view.c:883
+#: viewer/eog-image-view.c:908
 msgid "Print Image"
 msgstr "Rəsmi aç"
 
-#: viewer/eog-image-view.c:891
+#: viewer/eog-image-view.c:916
 msgid "Pages"
 msgstr "Səhifələr"
 
-#: viewer/eog-image-view.c:978
+#: viewer/eog-image-view.c:1003
 msgid "Print Preview"
 msgstr "Çap Etmə nümayişi"
 
-#: viewer/eog-image-view.c:984
+#: viewer/eog-image-view.c:1009
 msgid "Printing of image failed"
 msgstr "Rəsm çapı bacarılmadı"
 
-#: viewer/eog-image-view.c:1848
+#: viewer/eog-image-view.c:1876
 msgid "Display"
 msgstr "Ekran"
 
-#: viewer/eog-image-view.c:1937 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "İnterpolyasiya"
 
-#: viewer/eog-image-view.c:1940 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Titrəmə"
 
-#: viewer/eog-image-view.c:1943 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "İşarətləmə Növü"
 
-#: viewer/eog-image-view.c:1946 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "İşarətləmə Böyüklüyü"
 
-#: viewer/eog-image-view.c:1949
+#: viewer/eog-image-view.c:1979
 msgid "Image Width"
 msgstr "Rəsm Nümayişcisi"
 
-#: viewer/eog-image-view.c:1952
+#: viewer/eog-image-view.c:1982
 msgid "Image Height"
 msgstr "Rəsm Hündürlüyü"
 
-#: viewer/eog-image-view.c:1958
+#: viewer/eog-image-view.c:1988
 msgid "Statusbar Text"
 msgstr "Vəziyyət Çubuğu Mətni"
 
@@ -564,212 +564,208 @@ msgstr "_Fərqli Qeyd Et"
 msgid "Setup the page settings for your current printer"
 msgstr "Hazırkı çap edici üçün qurğuları quraşdır"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "_Bilinear İnterpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr "_Dither"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hiperbolik İnterpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "_Interpolyasiya"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr "_Maksimum (yüksək rəng) titrəmə"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr "_Titrəməsiz"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "_Çap Et"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "_Kirəmit İnterpolyasiyası"
 
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_View"
-msgstr "_Göstər"
-
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "pts"
 msgstr "pts"
 
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "points"
 msgstr "nöqtələr"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "millimeter"
 msgstr "millimetr"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "santimetr"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:76
 msgid "inch"
 msgstr "inç"
 
-#: viewer/eog-print-setup.c:471
+#: viewer/eog-print-setup.c:492
 msgid "Print"
 msgstr "Çap Et"
 
-#: viewer/eog-print-setup.c:472
+#: viewer/eog-print-setup.c:493
 msgid "Print preview"
 msgstr "Çap Nümayişi"
 
-#: viewer/eog-print-setup.c:480
+#: viewer/eog-print-setup.c:501
 msgid "Print Setup"
 msgstr "Çap Qurğuları"
 
-#: viewer/eog-print-setup.c:548
+#: viewer/eog-print-setup.c:569
 msgid "Units: "
 msgstr "Vahidlər: "
 
 #. First page
-#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
 msgid "Paper"
 msgstr "Kağız"
 
-#: viewer/eog-print-setup.c:570
+#: viewer/eog-print-setup.c:591
 msgid "Paper size:"
 msgstr "Kağız böyüklüyö:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:585
+#: viewer/eog-print-setup.c:608
 msgid "Orientation"
 msgstr "İstiqamət"
 
-#: viewer/eog-print-setup.c:595
+#: viewer/eog-print-setup.c:618
 msgid "Portrait"
 msgstr "Portret"
 
-#: viewer/eog-print-setup.c:605
+#: viewer/eog-print-setup.c:628
 msgid "Landscape"
 msgstr "Mənzərə"
 
 #. Margins
-#: viewer/eog-print-setup.c:614
+#: viewer/eog-print-setup.c:637
 msgid "Margins"
 msgstr "Kənarlar"
 
 #. Top margin
-#: viewer/eog-print-setup.c:622
+#: viewer/eog-print-setup.c:645
 msgid "Top:"
 msgstr "Üst:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:640
+#: viewer/eog-print-setup.c:663
 msgid "Left:"
 msgstr "Sol:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:658
+#: viewer/eog-print-setup.c:681
 msgid "Right:"
 msgstr "Sağ:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:676
+#: viewer/eog-print-setup.c:699
 msgid "Bottom:"
 msgstr "Alt:"
 
 #. Second page
-#: viewer/eog-print-setup.c:694
+#: viewer/eog-print-setup.c:717
 msgid "Image"
 msgstr "Rəsm"
 
 #. Scale
-#: viewer/eog-print-setup.c:702
+#: viewer/eog-print-setup.c:725
 msgid "Scale"
 msgstr "Miqyasla"
 
-#: viewer/eog-print-setup.c:706
+#: viewer/eog-print-setup.c:729
 msgid "Adjust to:"
 msgstr "Uyğunlaşdır:"
 
-#: viewer/eog-print-setup.c:711
+#: viewer/eog-print-setup.c:734
 msgid "Fit to page"
 msgstr "Səhifəyə yaraşdır"
 
-#: viewer/eog-print-setup.c:730
+#: viewer/eog-print-setup.c:753
 #, no-c-format
 msgid "% of original size"
 msgstr "% Original böyüklük "
 
 #. Center on page
-#: viewer/eog-print-setup.c:736
+#: viewer/eog-print-setup.c:759
 msgid "Center"
 msgstr "Orta"
 
-#: viewer/eog-print-setup.c:740
+#: viewer/eog-print-setup.c:763
 msgid "Horizontally"
 msgstr "Üfüqi olaraq"
 
-#: viewer/eog-print-setup.c:747
+#: viewer/eog-print-setup.c:770
 msgid "Vertically"
 msgstr "Şaquli olaraq"
 
 #. Overlap
-#: viewer/eog-print-setup.c:756
+#: viewer/eog-print-setup.c:779
 msgid "Overlapping"
 msgstr "Üst Üstə Gətirmə"
 
-#: viewer/eog-print-setup.c:760
+#: viewer/eog-print-setup.c:783
 msgid "Overlap horizontally by "
 msgstr "Üfüqi olaraq üst üstə gətirılır"
 
-#: viewer/eog-print-setup.c:765
+#: viewer/eog-print-setup.c:788
 msgid "Overlap vertically by "
 msgstr "Şaquli olaraq üst üstə gətirılır"
 
 #. Third page
-#: viewer/eog-print-setup.c:802
+#: viewer/eog-print-setup.c:825
 msgid "Printing"
 msgstr "Çap Edilir"
 
 #. Helpers
-#: viewer/eog-print-setup.c:810
+#: viewer/eog-print-setup.c:833
 msgid "Helpers"
 msgstr "Köməkçilər"
 
-#: viewer/eog-print-setup.c:811
+#: viewer/eog-print-setup.c:834
 msgid "Print cutting help"
 msgstr "Kəsili yardımı çap et"
 
-#: viewer/eog-print-setup.c:817
+#: viewer/eog-print-setup.c:840
 msgid "Print overlap help"
 msgstr "Bütün yardımı çap et"
 
 #. Page order
-#: viewer/eog-print-setup.c:826
+#: viewer/eog-print-setup.c:849
 msgid "Page order"
 msgstr "Səhifə sırası"
 
 #. Down right
-#: viewer/eog-print-setup.c:832
+#: viewer/eog-print-setup.c:855
 msgid "Down, then right"
 msgstr "Aşağı, sonra sağa"
 
 #. Right down
-#: viewer/eog-print-setup.c:852
+#: viewer/eog-print-setup.c:875
 msgid "Right, then down"
 msgstr "Sağa, sonra aşağı"
 
@@ -836,3 +832,6 @@ msgstr "Orta"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Geniş"
+
+#~ msgid "_View"
+#~ msgstr "_Göstər"

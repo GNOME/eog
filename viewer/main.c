@@ -19,7 +19,6 @@
 
 #include <bonobo/bonobo-generic-factory.h>
 #include <eog-control.h>
-#include <eog-embeddable.h>
 
 static BonoboObject *
 eog_image_viewer_factory (BonoboGenericFactory *this,

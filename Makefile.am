@@ -10,7 +10,6 @@ EXTRA_DIST =			\
 	eog.spec		\
 	eog.spec.in		\
 	gnome-eog.png		\
-	eog.schemas		\
 	intltool-extract.in	\
 	intltool-update.in	\
 	intltool-merge.in
@@ -25,4 +24,7 @@ icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) gconftool --makefile-install-rule $(top_srcdir)/eog.schemas
+	if test -z "$(DESTDIR)" ; then \
+		mkdir -p $(GCONF_SCHEMA_FILE_DIR); \
+		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-install-rule $(top_srcdir)/eog.schemas; \
+	fi

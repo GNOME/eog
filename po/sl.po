@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.4\n"
-"POT-Creation-Date: 2001-11-24 14:32+0100\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2000-06-13 02:25+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Nisem uspel dobiti krajevnega vmesnika BonoboControl.\n"
 
-#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
-#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "Ne morem obravnavati URIja: %s"
@@ -59,11 +59,11 @@ msgstr "Prestavi v smeti"
 msgid "Collection View"
 msgstr "Pogled zbirke"
 
-#: collection/eog-collection-view.c:596
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
 msgid "View"
 msgstr "Pogled"
 
-#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1955
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
 msgid "Window Title"
 msgstr "Naslov okna"
 
@@ -91,7 +91,7 @@ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Nisem mogel inicializirati Bonoba"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
 #: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Gnomovo oko"
@@ -100,19 +100,19 @@ msgstr "Gnomovo oko"
 msgid "Image Viewer"
 msgstr "Pregledovalnik slik"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
 msgid "EOG Image"
 msgstr "Slika EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
 msgstr "Pregledovalnik slik EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.server.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Tovarna pregledovalnikov slik EOG"
 
-#: libeog/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Vgradljiva slika EOG"
 
@@ -184,59 +184,59 @@ msgstr "_Nastavitve"
 msgid "_Settings"
 msgstr "_Nastavitve"
 
-#: shell/eog-window.c:191 src/window.c:164
+#: shell/eog-window.c:181 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Avtorske pravice pridr¾ane (C) 2000-2001 Fundacija za prosto programje"
 
-#: shell/eog-window.c:193 src/window.c:166
+#: shell/eog-window.c:182 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program za gledanje in katalogizacijo slik GNOME"
 
-#: shell/eog-window.c:421
+#: shell/eog-window.c:401
 msgid "Open in new window"
 msgstr "Odpri v novem oknu"
 
-#: shell/eog-window.c:422
+#: shell/eog-window.c:402
 msgid "Open in this window"
 msgstr "Odpri v tem oknu"
 
-#: shell/eog-window.c:424
+#: shell/eog-window.c:404
 msgid "Cancel"
 msgstr "Preklièi"
 
-#: shell/eog-window.c:519
+#: shell/eog-window.c:504
 msgid "Eye Of Gnome"
 msgstr "Gnomovo oko"
 
-#: shell/eog-window.c:605
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Ne morem najti eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
+#: shell/eog-window.c:697 src/window.c:704
 msgid "Open Image"
 msgstr "Odpri sliko"
 
-#: shell/eog-window.c:1009
+#: shell/eog-window.c:795
 msgid "Control doesn't support window_title property."
 msgstr "Kontrola ne podpira lastnosti window_title."
 
-#: shell/eog-window.c:1025
+#: shell/eog-window.c:811
 msgid "Control doesn't support status_text property."
 msgstr "Kontrola ne podpira lastnosti status_text."
 
-#: shell/eog-window.c:1042
+#: shell/eog-window.c:828
 msgid "Control doesn't have properties"
 msgstr "Kontrola nima lastnosti"
 
-#: shell/eog-window.c:1061
+#: shell/eog-window.c:845
 msgid "Couldn't retrieve mime type for file."
 msgstr "Iz datoteke nisem mogel ugotoviti tipa mime."
 
-#: shell/eog-window.c:1305
+#: shell/eog-window.c:1080
 msgid "Error while obtaining file informations."
 msgstr "Napaka ob pridobivanju podatkov o datoteki."
 
-#: shell/main.c:157
+#: shell/main.c:158
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -246,19 +246,19 @@ msgstr ""
 "Hkrati boste odprli boste %i oken\n"
 "Jih ¾elite raje odpreti v zbirki?"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Single Windows"
 msgstr "Enojna okna"
 
-#: shell/main.c:165
+#: shell/main.c:166
 msgid "Collection"
 msgstr "Zbirka"
 
-#: shell/main.c:273
+#: shell/main.c:276
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
-#: shell/main.c:276
+#: shell/main.c:279
 msgid "Could not initialize Bonobo!\n"
 msgstr "Nisem mogel inicializirati Bonoba!\n"
 
@@ -279,7 +279,7 @@ msgstr "Odpri datoteko s sliko"
 msgid "Close the current window"
 msgstr "Zapri trenutno okno"
 
-#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+#: src/tb-image.c:43 viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "Poveèaj"
 
@@ -425,60 +425,60 @@ msgstr "Za prikaz uporabi celoten zaslon"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:282
+#: viewer/eog-image-view.c:290
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Nisem mogel shraniti slike kot '%s': %s."
 
-#: viewer/eog-image-view.c:325
+#: viewer/eog-image-view.c:335
 msgid "Save As"
 msgstr "Shrani kot"
 
-#: viewer/eog-image-view.c:883
+#: viewer/eog-image-view.c:908
 msgid "Print Image"
 msgstr "Natisni sliko"
 
-#: viewer/eog-image-view.c:891
+#: viewer/eog-image-view.c:916
 msgid "Pages"
 msgstr "Strani"
 
-#: viewer/eog-image-view.c:978
+#: viewer/eog-image-view.c:1003
 msgid "Print Preview"
 msgstr "Predogled tiskanja"
 
-#: viewer/eog-image-view.c:984
+#: viewer/eog-image-view.c:1009
 msgid "Printing of image failed"
 msgstr "Tiskanje slike ni uspelo"
 
-#: viewer/eog-image-view.c:1848
+#: viewer/eog-image-view.c:1876
 msgid "Display"
 msgstr "Prikaz"
 
-#: viewer/eog-image-view.c:1937 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "Interpolacija"
 
-#: viewer/eog-image-view.c:1940 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Naèin zmanj¹evanja ¹tevila barv"
 
-#: viewer/eog-image-view.c:1943 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Preverjanje naèina"
 
-#: viewer/eog-image-view.c:1946 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Preverjanje velikosti"
 
-#: viewer/eog-image-view.c:1949
+#: viewer/eog-image-view.c:1979
 msgid "Image Width"
 msgstr "©irina slike"
 
-#: viewer/eog-image-view.c:1952
+#: viewer/eog-image-view.c:1982
 msgid "Image Height"
 msgstr "Vi¹ina slike"
 
-#: viewer/eog-image-view.c:1958
+#: viewer/eog-image-view.c:1988
 msgid "Statusbar Text"
 msgstr "Besedilo v vrstici stanja"
 
@@ -562,212 +562,208 @@ msgstr "Shrani _kot"
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavi lastnosti strani za va¹ trenutni tiskalnik"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "_Bilinearna interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr "Zmanj¹evanje ¹tevila barv"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hiperpolièna interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "_Interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr "_Najveèje mo¾no ¹tevilo barv (polne barve)"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr "_Brez zmanj¹evanja ¹tevila barv"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "_Natisni"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Interpolacije p_lo¹èic"
 
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_View"
-msgstr "_Pogled"
-
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "pts"
 msgstr "tèk"
 
-#: viewer/eog-print-setup.c:72
+#: viewer/eog-print-setup.c:73
 msgid "points"
 msgstr "toèk"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:74
 msgid "millimeter"
 msgstr "milimeter"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "centimeter"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:76
 msgid "inch"
 msgstr "palcev"
 
-#: viewer/eog-print-setup.c:471
+#: viewer/eog-print-setup.c:492
 msgid "Print"
 msgstr "Natisni"
 
-#: viewer/eog-print-setup.c:472
+#: viewer/eog-print-setup.c:493
 msgid "Print preview"
 msgstr "Predogled tiskanja"
 
-#: viewer/eog-print-setup.c:480
+#: viewer/eog-print-setup.c:501
 msgid "Print Setup"
 msgstr "Nastavitev tiskanja"
 
-#: viewer/eog-print-setup.c:548
+#: viewer/eog-print-setup.c:569
 msgid "Units: "
 msgstr "Enote: "
 
 #. First page
-#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
 msgid "Paper"
 msgstr "Papir"
 
-#: viewer/eog-print-setup.c:570
+#: viewer/eog-print-setup.c:591
 msgid "Paper size:"
 msgstr "Velikost papirja:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:585
+#: viewer/eog-print-setup.c:608
 msgid "Orientation"
 msgstr "Usmerjenost"
 
-#: viewer/eog-print-setup.c:595
+#: viewer/eog-print-setup.c:618
 msgid "Portrait"
 msgstr "Pokonèno"
 
-#: viewer/eog-print-setup.c:605
+#: viewer/eog-print-setup.c:628
 msgid "Landscape"
 msgstr "Le¾eèe"
 
 #. Margins
-#: viewer/eog-print-setup.c:614
+#: viewer/eog-print-setup.c:637
 msgid "Margins"
 msgstr "Robovi"
 
 #. Top margin
-#: viewer/eog-print-setup.c:622
+#: viewer/eog-print-setup.c:645
 msgid "Top:"
 msgstr "Zgoraj:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:640
+#: viewer/eog-print-setup.c:663
 msgid "Left:"
 msgstr "Levo:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:658
+#: viewer/eog-print-setup.c:681
 msgid "Right:"
 msgstr "Desno:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:676
+#: viewer/eog-print-setup.c:699
 msgid "Bottom:"
 msgstr "Spodaj:"
 
 #. Second page
-#: viewer/eog-print-setup.c:694
+#: viewer/eog-print-setup.c:717
 msgid "Image"
 msgstr "Slika"
 
 #. Scale
-#: viewer/eog-print-setup.c:702
+#: viewer/eog-print-setup.c:725
 msgid "Scale"
 msgstr "Poveèava"
 
-#: viewer/eog-print-setup.c:706
+#: viewer/eog-print-setup.c:729
 msgid "Adjust to:"
 msgstr "Prilagodi na:"
 
-#: viewer/eog-print-setup.c:711
+#: viewer/eog-print-setup.c:734
 msgid "Fit to page"
 msgstr "Prilagodi strani"
 
-#: viewer/eog-print-setup.c:730
+#: viewer/eog-print-setup.c:753
 #, no-c-format
 msgid "% of original size"
 msgstr "% izvorne velikosti"
 
 #. Center on page
-#: viewer/eog-print-setup.c:736
+#: viewer/eog-print-setup.c:759
 msgid "Center"
 msgstr "Sredi¹èe"
 
-#: viewer/eog-print-setup.c:740
+#: viewer/eog-print-setup.c:763
 msgid "Horizontally"
 msgstr "Vodoravno"
 
-#: viewer/eog-print-setup.c:747
+#: viewer/eog-print-setup.c:770
 msgid "Vertically"
 msgstr "Navpièno"
 
 #. Overlap
-#: viewer/eog-print-setup.c:756
+#: viewer/eog-print-setup.c:779
 msgid "Overlapping"
 msgstr "Prekrivanje"
 
-#: viewer/eog-print-setup.c:760
+#: viewer/eog-print-setup.c:783
 msgid "Overlap horizontally by "
 msgstr "Prekrij horizontalno za"
 
-#: viewer/eog-print-setup.c:765
+#: viewer/eog-print-setup.c:788
 msgid "Overlap vertically by "
 msgstr "Prekrij navpièno za"
 
 #. Third page
-#: viewer/eog-print-setup.c:802
+#: viewer/eog-print-setup.c:825
 msgid "Printing"
 msgstr "Tiskanje"
 
 #. Helpers
-#: viewer/eog-print-setup.c:810
+#: viewer/eog-print-setup.c:833
 msgid "Helpers"
 msgstr "Pomoèniki"
 
-#: viewer/eog-print-setup.c:811
+#: viewer/eog-print-setup.c:834
 msgid "Print cutting help"
 msgstr "Natisni pomoè rezanja"
 
-#: viewer/eog-print-setup.c:817
+#: viewer/eog-print-setup.c:840
 msgid "Print overlap help"
 msgstr "Natisni pomoè prekrivanja"
 
 #. Page order
-#: viewer/eog-print-setup.c:826
+#: viewer/eog-print-setup.c:849
 msgid "Page order"
 msgstr "Vrstni red strani"
 
 #. Down right
-#: viewer/eog-print-setup.c:832
+#: viewer/eog-print-setup.c:855
 msgid "Down, then right"
 msgstr "Dol, potem desno"
 
 #. Right down
-#: viewer/eog-print-setup.c:852
+#: viewer/eog-print-setup.c:875
 msgid "Right, then down"
 msgstr "Desno, potem dol"
 
@@ -834,6 +830,9 @@ msgstr "Srednje"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Veliko"
+
+#~ msgid "_View"
+#~ msgstr "_Pogled"
 
 #~ msgid "Bilinear (normal)"
 #~ msgstr "Bilinearno (obièajno)"

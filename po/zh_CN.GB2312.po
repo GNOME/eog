@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.4\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
+"POT-Creation-Date: 2002-01-15 13:18+0000\n"
 "PO-Revision-Date: 2000-11-21 20:00+0800\n"
 "Last-Translator: Wu Yulun <migr@operamail.com>\n"
 "Language-Team: \n"
@@ -9,27 +9,291 @@ msgstr ""
 "Content-Type: text/plain; charset=gb2312\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
+#: collection/eog-collection-control.c:155
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr ""
+
+#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
+#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr ""
+
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr ""
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:518
+msgid "Collection View"
+msgstr ""
+
+#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "View"
+msgstr "观察器"
+
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
+msgid "Window Title"
+msgstr ""
+
+#: collection/eog-collection-view.c:883
+msgid "Status Text"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+#, fuzzy
+msgid "EOG Image Collection"
+msgstr "保存图像集 \"%s\"?"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr ""
+
+#: collection/main.c:94
+#, fuzzy
+msgid "I could not initialize GnomeVFS!\n"
+msgstr "无法初始化Bonobo"
+
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "无法初始化Bonobo"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:179 src/window.c:162 src/window.c:573
+#: src/window.c:812
+msgid "Eye of Gnome"
+msgstr "Gnome之眼"
+
+#: eog.desktop.in.h:2
+#, fuzzy
+msgid "Image Viewer"
+msgstr "图像窗口"
+
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#, fuzzy
+msgid "EOG Image"
+msgstr "打开图像"
+
+#: libeog/GNOME_EOG.server.in.h:2
+msgid "EOG Image Viewer"
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.h:3
+msgid "EOG Image viewer factory"
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.h:4
+msgid "Embeddable EOG Image"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:2
+#, fuzzy
+msgid "Change preferences"
 msgstr "选项"
 
-#: src/tb-image.c:33
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+msgid "Close"
+msgstr "关闭"
+
+#: shell/eog-shell-ui.xml.h:4
+#, fuzzy
+msgid "Close window"
+msgstr "关闭本窗口(_C)"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "打开"
+
+#: shell/eog-shell-ui.xml.h:8
+#, fuzzy
+msgid "Open a file"
+msgstr "打开一个图像文件"
+
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a new window"
+msgstr "在新窗口打开图像"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "_Close"
+msgstr "关闭"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_New Window"
+msgstr "图像窗口"
+
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "_Open..."
+msgstr "打开图像(_O)"
+
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Preferences"
+msgstr "选项"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:181 src/window.c:164
+#, fuzzy
+msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+msgstr "版权所有 (C) 1999 自由软件基金会"
+
+#: shell/eog-window.c:182 src/window.c:166
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME 图像观察与分类程序"
+
+#: shell/eog-window.c:401
+#, fuzzy
+msgid "Open in new window"
+msgstr "在新窗口打开图像"
+
+#: shell/eog-window.c:402
+#, fuzzy
+msgid "Open in this window"
+msgstr "在新窗口打开图像"
+
+#: shell/eog-window.c:404
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-window.c:504
+#, fuzzy
+msgid "Eye Of Gnome"
+msgstr "Gnome之眼"
+
+#: shell/eog-window.c:589
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr ""
+
+#: shell/eog-window.c:697 src/window.c:704
+msgid "Open Image"
+msgstr "打开图像"
+
+#: shell/eog-window.c:795
+msgid "Control doesn't support window_title property."
+msgstr ""
+
+#: shell/eog-window.c:811
+msgid "Control doesn't support status_text property."
+msgstr ""
+
+#: shell/eog-window.c:828
+msgid "Control doesn't have properties"
+msgstr ""
+
+#: shell/eog-window.c:845
+msgid "Couldn't retrieve mime type for file."
+msgstr ""
+
+#: shell/eog-window.c:1080
+msgid "Error while obtaining file informations."
+msgstr ""
+
+#: shell/main.c:158
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+
+#: shell/main.c:166
+#, fuzzy
+msgid "Single Windows"
+msgstr "图像窗口"
+
+#: shell/main.c:166
+msgid "Collection"
+msgstr ""
+
+#: shell/main.c:276
+#, fuzzy
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "无法初始化Bonobo"
+
+#: shell/main.c:279
+#, fuzzy
+msgid "Could not initialize Bonobo!\n"
+msgstr "无法初始化Bonobo"
+
+#: shell/util.c:47 src/util.c:47
+#, c-format
+msgid "Could not open `%s'"
+msgstr "无法打开 '%s'"
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "选项"
 
 #: src/tb-image.c:33 src/window.c:181
 msgid "Open an image file"
 msgstr "打开一个图像文件"
 
-#: src/tb-image.c:35
-msgid "Close"
-msgstr "关闭"
-
 #: src/tb-image.c:35 src/window.c:186
 msgid "Close the current window"
 msgstr "关闭当前窗口"
 
-#: src/tb-image.c:43
+#: src/tb-image.c:43 viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "靠近"
 
@@ -44,24 +308,6 @@ msgstr "1:1"
 #: src/tb-image.c:46
 msgid "Fit"
 msgstr "适应"
-
-#: src/util.c:47
-#, c-format
-msgid "Could not open `%s'"
-msgstr "无法打开 '%s'"
-
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Gnome之眼"
-
-#: src/window.c:164
-#, fuzzy
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "版权所有 (C) 1999 自由软件基金会"
-
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME 图像观察与分类程序"
 
 #: src/window.c:181
 msgid "_Open Image..."
@@ -148,6 +394,7 @@ msgid "Zoom In"
 msgstr "缩小"
 
 #: src/window.c:221
+#, c-format
 msgid "Increase zoom factor by 5%%"
 msgstr "放大 5%%"
 
@@ -156,6 +403,7 @@ msgid "Zoom Out"
 msgstr "放大"
 
 #: src/window.c:225
+#, c-format
 msgid "Decrease zoom factor by 5%%"
 msgstr "缩小 5%%"
 
@@ -187,32 +435,454 @@ msgstr "全屏幕(_S)"
 msgid "Use the whole screen for display"
 msgstr "以整个屏幕显示"
 
-#: src/window.c:704
-msgid "Open Image"
+#: viewer/eog-image.c:432
+#, fuzzy
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "无法初始化Bonobo"
+
+#: viewer/eog-image-view.c:290
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr ""
+
+#: viewer/eog-image-view.c:335
+#, fuzzy
+msgid "Save As"
+msgstr "保存"
+
+#: viewer/eog-image-view.c:908
+#, fuzzy
+msgid "Print Image"
 msgstr "打开图像"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:916
+msgid "Pages"
+msgstr ""
+
+#: viewer/eog-image-view.c:1003
+msgid "Print Preview"
+msgstr ""
+
+#: viewer/eog-image-view.c:1009
+#, fuzzy
+msgid "Printing of image failed"
+msgstr "打开一个图像文件"
+
+#: viewer/eog-image-view.c:1876
+msgid "Display"
+msgstr "显示"
+
+#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr ""
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
 #, fuzzy
 msgid "Dither"
 msgstr "近似类型"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
 #, fuzzy
 msgid "Check Type"
 msgstr "检查大小"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
 #, fuzzy
 msgid "Check Size"
 msgstr "检查大小"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "无法初始化Bonobo"
+#: viewer/eog-image-view.c:1979
+#, fuzzy
+msgid "Image Width"
+msgstr "图像窗口"
+
+#: viewer/eog-image-view.c:1982
+msgid "Image Height"
+msgstr ""
+
+#: viewer/eog-image-view.c:1988
+msgid "Statusbar Text"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:1
+#, fuzzy
+msgid "Check _size"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Check _type"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:3
+#, fuzzy
+msgid "Check size large"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:4
+#, fuzzy
+msgid "Check size medium"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:5
+#, fuzzy
+msgid "Check size small"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Check type _black"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Check type _dark"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Check type _gray"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Check type _light"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:10
+#, fuzzy
+msgid "Check type _midtone"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:11
+#, fuzzy
+msgid "Check type _white"
+msgstr "检查大小"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "全屏"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "Nea_rest Neighbour Interpolation"
+msgstr ""
+"最接近点\n"
+"双线性\n"
+"双曲线\n"
+
+#: viewer/eog-image-view-ui.xml.h:14
+#, fuzzy
+msgid "Normal (_pseudocolor) dithering"
+msgstr ""
+"无\n"
+"正常 (伪彩色)\n"
+"最大 (真彩色)\n"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Previews the image to be printed"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print Pre_view"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print S_etup"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Print image to the printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:19
+#, fuzzy
+msgid "Save _As"
+msgstr "保存"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "Setup the page settings for your current printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Bilinear Interpolation"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:23
+#, fuzzy
+msgid "_Dither"
+msgstr "近似类型"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Hyperbolic Interpolation"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Interpolation"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Maximum (high color) dithering"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_No dithering"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_Print"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:29
+msgid "_Tiles Interpolation"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "pts"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "points"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "mm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "millimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "cm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "centimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:76
+msgid "inch"
+msgstr ""
+
+#: viewer/eog-print-setup.c:492
+msgid "Print"
+msgstr ""
+
+#: viewer/eog-print-setup.c:493
+msgid "Print preview"
+msgstr ""
+
+#: viewer/eog-print-setup.c:501
+msgid "Print Setup"
+msgstr ""
+
+#: viewer/eog-print-setup.c:569
+msgid "Units: "
+msgstr ""
+
+#. First page
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+msgid "Paper"
+msgstr ""
+
+#: viewer/eog-print-setup.c:591
+msgid "Paper size:"
+msgstr ""
+
+#. Orientation
+#: viewer/eog-print-setup.c:608
+msgid "Orientation"
+msgstr ""
+
+#: viewer/eog-print-setup.c:618
+msgid "Portrait"
+msgstr ""
+
+#: viewer/eog-print-setup.c:628
+msgid "Landscape"
+msgstr ""
+
+#. Margins
+#: viewer/eog-print-setup.c:637
+msgid "Margins"
+msgstr ""
+
+#. Top margin
+#: viewer/eog-print-setup.c:645
+msgid "Top:"
+msgstr ""
+
+#. Left margin
+#: viewer/eog-print-setup.c:663
+msgid "Left:"
+msgstr ""
+
+#. Right margin
+#: viewer/eog-print-setup.c:681
+msgid "Right:"
+msgstr ""
+
+#. Bottom margin
+#: viewer/eog-print-setup.c:699
+msgid "Bottom:"
+msgstr ""
+
+#. Second page
+#: viewer/eog-print-setup.c:717
+#, fuzzy
+msgid "Image"
+msgstr "打开图像"
+
+#. Scale
+#: viewer/eog-print-setup.c:725
+#, fuzzy
+msgid "Scale"
+msgstr "保存"
+
+#: viewer/eog-print-setup.c:729
+msgid "Adjust to:"
+msgstr ""
+
+#: viewer/eog-print-setup.c:734
+msgid "Fit to page"
+msgstr ""
+
+#: viewer/eog-print-setup.c:753
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#. Center on page
+#: viewer/eog-print-setup.c:759
+msgid "Center"
+msgstr ""
+
+#: viewer/eog-print-setup.c:763
+msgid "Horizontally"
+msgstr ""
+
+#: viewer/eog-print-setup.c:770
+msgid "Vertically"
+msgstr ""
+
+#. Overlap
+#: viewer/eog-print-setup.c:779
+msgid "Overlapping"
+msgstr ""
+
+#: viewer/eog-print-setup.c:783
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:788
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:825
+msgid "Printing"
+msgstr ""
+
+#. Helpers
+#: viewer/eog-print-setup.c:833
+msgid "Helpers"
+msgstr ""
+
+#: viewer/eog-print-setup.c:834
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:840
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:849
+msgid "Page order"
+msgstr ""
+
+#. Down right
+#: viewer/eog-print-setup.c:855
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:875
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/preferences.c:38
+#, fuzzy
+msgid "Nearest Neighbour Interpolation"
+msgstr ""
+"最接近点\n"
+"双线性\n"
+"双曲线\n"
+
+#: viewer/preferences.c:40
+msgid "Tiles Interpolation"
+msgstr ""
+
+#: viewer/preferences.c:42
+msgid "Bilinear Interpolation"
+msgstr ""
+
+#: viewer/preferences.c:44
+msgid "Hyperbolic Interpolation"
+msgstr ""
+
+#: viewer/preferences.c:49
+msgid "No dithering"
+msgstr ""
+
+#: viewer/preferences.c:50
+#, fuzzy
+msgid "Normal (pseudocolor) dithering"
+msgstr ""
+"无\n"
+"正常 (伪彩色)\n"
+"最大 (真彩色)\n"
+
+#: viewer/preferences.c:51
+msgid "Maximum (high color) dithering"
+msgstr ""
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr ""
+
+#: viewer/preferences.c:57
+msgid "Midtone"
+msgstr ""
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr ""
+
+#: viewer/preferences.c:59
+msgid "Black"
+msgstr ""
+
+#: viewer/preferences.c:60
+msgid "Gray"
+msgstr ""
+
+#: viewer/preferences.c:61
+msgid "White"
+msgstr ""
+
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr ""
+
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr ""
+
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr ""
 
 #~ msgid "Transparency type"
 #~ msgstr "透明类型"
@@ -241,44 +911,14 @@ msgstr "无法初始化Bonobo"
 #~ "中\n"
 #~ "大\n"
 
-#~ msgid ""
-#~ "Nearest neighbor\n"
-#~ "Bilinear\n"
-#~ "Hyperbolic\n"
-#~ msgstr ""
-#~ "最接近点\n"
-#~ "双线性\n"
-#~ "双曲线\n"
-
 #~ msgid "Two-pass scrolling"
 #~ msgstr "二次卷动"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "无\n"
-#~ "正常 (伪彩色)\n"
-#~ "最大 (真彩色)\n"
-
-#~ msgid "Display"
-#~ msgstr "显示"
-
-#~ msgid "Image Windows"
-#~ msgstr "图像窗口"
 
 #~ msgid "Use scrollbars"
 #~ msgstr "使用滚动条"
 
 #~ msgid "Pick window size and zoom factor automatically"
 #~ msgstr "自动设置窗口大小与缩放因子"
-
-#~ msgid "Open images in a new window"
-#~ msgstr "在新窗口打开图像"
-
-#~ msgid "Full Screen"
-#~ msgstr "全屏"
 
 #~ msgid "Use 1:1 zoom factor"
 #~ msgstr "使用 1:1 缩放因子"
@@ -291,15 +931,6 @@ msgstr "无法初始化Bonobo"
 
 #~ msgid "Fit standard-sized images to screen"
 #~ msgstr "以标准图像大小适合屏幕"
-
-#~ msgid "Viewers"
-#~ msgstr "观察器"
-
-#~ msgid "Save image collection `%s'?"
-#~ msgstr "保存图像集 \"%s\"?"
-
-#~ msgid "Save"
-#~ msgstr "保存"
 
 #~ msgid "Don't save"
 #~ msgstr "不用保存"
