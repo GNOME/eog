@@ -48,12 +48,14 @@ module GNOME {
 			
 		};
 
-		interface ImageCollection : Bonobo::Unknown {
-			/* This is an actual EOG view for 
-			 * a bunch of images. 
-			 */
-
-                        void setStorage (in Bonobo::Storage storage);
-		};
+		/* URIs are just plain strings, but we use a typedef to make
+		 * the interface definitions clearer.
+		 */
+		typedef string URI;
+		
+	        interface ImageCollection : Bonobo::Unknown {
+			oneway void openURI (in URI location);
+		};	  
+		
 	};
 };
