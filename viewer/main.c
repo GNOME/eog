@@ -33,8 +33,6 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (oaf_iid != NULL, NULL);
 
-	g_message ("EoG2: Trying to produce a '%s'...", oaf_iid);
-
 	if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_Control")) {
 		retval = BONOBO_OBJECT (eog_image_view_new (FALSE));
 

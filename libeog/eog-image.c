@@ -697,7 +697,9 @@ update_exif_data (EogImage *image)
 	
 	priv = image->priv;
 	
+#ifdef DEBUG
 	g_message ("update exif data");
+#endif
 	if (priv->exif == NULL) return;
 
 	/* FIXME: Must we update more properties here? */

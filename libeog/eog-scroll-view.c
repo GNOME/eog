@@ -1287,7 +1287,9 @@ display_map_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
+#ifdef DEBUG
 	g_print ("display_map_event ...\n");
+#endif
 
 	set_zoom_fit (view);
 	check_scrollbar_visibility (view, NULL);

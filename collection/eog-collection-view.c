@@ -1112,8 +1112,6 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	}
 
-	g_print ("load_uri_cb: %s\n", (char*) text_uri);
-
 	eog_collection_model_add_uri (priv->model, (gchar*)text_uri); 
 
 	return 0;
@@ -1283,8 +1281,6 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	/* UI Component */
 	priv->uic = bonobo_ui_component_new ("EogCollectionView");
-
-	bonobo_object_dump_interfaces (BONOBO_OBJECT (list_view));
 
 	return list_view;
 }

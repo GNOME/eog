@@ -650,8 +650,6 @@ eog_image_view_finalize (GObject *object)
 	g_free (priv);
 	image_view->priv = NULL;
 
-	g_message ("EogImageView finalize");
-
 	BONOBO_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
@@ -1031,8 +1029,6 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	EogImageView *view;
 	EogImageViewPrivate *priv;
 	EogImage *image;
-
-	g_print ("load uri: %s\n", text_uri);
 
 	view = EOG_IMAGE_VIEW (closure);
 	priv = view->priv;
