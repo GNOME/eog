@@ -2,7 +2,7 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.5.3">
+  <!ENTITY appversion "2.5.6">
   <!ENTITY manrevision "2.7">
   <!ENTITY date "February 2004">
   <!ENTITY app "<application>Eye of GNOME</application>">
@@ -230,11 +230,31 @@
 				<listitem><para>XPM - X Pixmap</para>
 				</listitem>
 			</itemizedlist>
-			<note><para>You can view images in the formats that are listed above but you can only use the image saving feature for PNG and JPEG formats.</para></note>
+			<note><para>The GdkPixbuf library determines the file formats that &app; can load and save. The above list describes the file formats that are supported by default, you can use plug-ins to extend this list.
+</para></note>
 		</listitem>
 		<listitem><para>A variety of zoom levels and full screen viewing, with low usage of memory regardless of the zoom level. </para>
 		</listitem>
 		<listitem><para>Bonobo embedding technology that enables you to embed image views in other GNOME applications. </para>
+		</listitem>
+		<listitem><para>Rotation and flipping of images. </para>
+		</listitem>
+		<listitem><para>Collection: </para>
+                  <itemizedlist>
+		    <listitem><para>Display of EXIF data, this requires <literal>libexif</literal>. </para>
+		    </listitem>
+		    <listitem><para>Mass modification of all selected images. </para>
+		    </listitem>
+                  </itemizedlist>
+		</listitem>
+		<listitem><para>Special JPEG file support, this requires <literal>libjpeg</literal> and <literal>libexif</literal>: </para>
+                  <itemizedlist>
+		    <listitem><para>Lossless saving of rotated or flipped images. </para>
+		    </listitem>
+		    <listitem><para>Preservation and update of EXIF data on save.
+</para>
+		    </listitem>
+                  </itemizedlist>
 		</listitem>
 	</itemizedlist>
 </sect1>
@@ -410,7 +430,12 @@
                   </listitem>
                   <listitem>
                     <para>
-                      Click <guibutton>Open</guibutton>.  &app; displays all of the images in the directory, in one &app; window. 
+                      Click <guibutton>Open</guibutton>.  &app; displays all of the images in the directory, in one &app; window. This is known as the collection view.
+                    </para>
+                  </listitem>
+                  <listitem>
+                    <para>
+                      To view all of the images in the directory as a slide show, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Slide Show</guimenuitem> </menuchoice>. To return to the collection view, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
                     </para>
                   </listitem>
                 </orderedlist>
@@ -442,7 +467,7 @@
 			</listitem>
 			<listitem><para>To resize the image view to fit in the &app; display area, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>.</para>
 			</listitem>
-			<listitem><para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> key or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+			<listitem><para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
 			</listitem>
 		</itemizedlist>
 	</sect2>	
@@ -690,16 +715,16 @@
 	<varlistentry>
 		<term><guilabel>Image Zoom</guilabel></term>
 		<listitem>
-		<para>Select the <guilabel>Allow zoom greater than 100% initially</guilabel> option to </para>
+		<para>Select the <guilabel>Allow zoom greater than 100% initially</guilabel> option to resize all images to fit the screen during the slide show. If you do not select this option, images that are smaller than the screen size are not resized to fit the screen.</para>
 		</listitem>
 	</varlistentry>
-
-
 	<varlistentry>
 		<term><guilabel>Sequence</guilabel></term>
 		<listitem>
-		<para>Select the <guilabel>Loop sequence</guilabel> option to return to the first image after the last image is displayed.</para>
-		<para>Use the <guilabel>Show next image automatically after ... seconds</guilabel> spin box to specify the interval between images.</para>
+		<para>Select the <guilabel>Loop sequence</guilabel> option to cycle endlessly through the list of images during the slide show. If you do not select this option, the slide show returns to the collection view after the last image is displayed.
+</para>
+		<para>Use the <guilabel>Show next image automatically after ... seconds</guilabel> spin box to specify how long each image is displayed during the slide show. If you set this value to zero, the first image is displayed permanently and the other images are not displayed at all in the slide show.
+</para>
 		</listitem>
 	</varlistentry>		
 	</variablelist>
