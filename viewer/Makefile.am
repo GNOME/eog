@@ -86,5 +86,5 @@ oaf_DATA = $(OAF_FILES)
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
-EXTRA_DIST = $(OAF_FILES)
+EXTRA_DIST = $(OAF_FILES) $(ui_DATA)
 
