@@ -1,9 +1,12 @@
-2001-02-09  Gediminas Paulauskas <menesis@delfi.lt>
+2001-02-10  Gediminas Paulauskas <menesis@delfi.lt>
 
-	* configure.in, Makefile.am, .cvsignore, src/Makefile.am: use
-	xml-i18n-tools for translations.
-	* src/preferences-dialog.glade.h, eog.desktop: removed, now generated.
-	* eog.desktop.in: new file.
+	* configure.in, Makefile.am, src/Makefile.am,
+	viewer/Makefile.am, .cvsignore, src/.cvsignore,
+	viewer/.cvsignore: use xml-i18n-tools for translations.
+	* src/preferences-dialog.glade.h, eog.desktop,
+	viewer/GNOME_EOG.oafinfo: removed, now generated.
+	* eog.desktop.in, viewer/GNOME_EOG.oaf.in: new files.
+	* viewer/main.c: call textdomain() to get localised menus in Nautilus.
 
 2001-02-06  Martin Baulig  <baulig@suse.de>
 

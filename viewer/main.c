@@ -101,6 +101,9 @@ main (int argc, char *argv [])
 	g_log_set_always_fatal (fatal_mask);
 #endif
 
+	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
+	textdomain (PACKAGE);
+
 	init_server_factory (argc, argv);
 
 	init_eog_image_viewer_factory ();

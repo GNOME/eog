@@ -80,11 +80,12 @@ BUILT_SOURCES=$(CORBA_SOURCE)
 CLEANFILES += $(BUILT_SOURCES)
 
 oafdir = $(datadir)/oaf
-OAF_FILES = GNOME_EOG.oafinfo
-oaf_DATA = $(OAF_FILES)
+oaf_in_files = GNOME_EOG.oaf.in
+oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
+@XML_I18N_MERGE_OAF_RULE@
 
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
-EXTRA_DIST = $(OAF_FILES) $(ui_DATA)
+EXTRA_DIST = $(oaf_in_files) $(ui_DATA)
 
