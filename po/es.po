@@ -1,16 +1,18 @@
 # Spanish translation of the Eye of Gnome
-# Copyright (C) 2000-2002 Free Software Foundation, Inc.
+# Copyright © 2000-2002 the Free Software Foundation, Inc.
+# Francisco Javier Fernández <serrador@arrakis.es>.2003
 # Federico Mena-Quintero <federico@gimp.org>, 1999.
 # Carlos Perelló Marín <carlos@gnome-db.org>, 2001.
 # Hector Garcia Alvarez <hector@scouts-es.org>, 2001.
 # Germán Poo Caamaño <gpoo@ubiobio.cl>, 2002. (Revisión)
+# Francisco Javier Fernández <serrador@arrakis.es>,2002.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0\n"
-"POT-Creation-Date: 2002-11-25 19:06+0100\n"
-"PO-Revision-Date: 2002-06-16 15:10+0200\n"
-"Last-Translator: Federico Mena-Quintero <federico@gnu.org>\n"
+"POT-Creation-Date: 2002-12-31 05:59+0100\n"
+"PO-Revision-Date: 2002-12-31 20:50+0100\n"
+"Last-Translator: Francisco Javier Fernández <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,61 +20,59 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
-msgstr "Visor de colecciones de imágenes"
+msgstr "Visor de colecciones de imágenes EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image collection view factory"
 msgstr "Fábrica de visualizadores de colecciones de imágenes EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
-#, fuzzy
 msgid "Image Collection"
-msgstr "Colección de Imágenes EOG"
+msgstr "Colección de imágenes"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
-msgstr "Visor de imágenes EOG"
+msgstr "Visor de imágenes ojo de Gnome"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
-msgstr "Vea muchos tipos distintos de imagenes"
+msgstr "Vea muchos tipos distintos de imágenes"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr ""
+msgstr "Por c_olor"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "Por patrón de cuadrados"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
 msgstr "Preferencias del Ojo de GNOME"
 
 #: eog.glade.h:4
-#, fuzzy
 msgid "Image Viewer"
-msgstr "Visor de imágenes EOG"
+msgstr "Visor de imágenes"
 
 #: eog.glade.h:5
 msgid "Indicate Transparency"
-msgstr ""
+msgstr "Indicar transparencia"
 
 #: eog.glade.h:6
 msgid "Pick a color"
-msgstr ""
+msgstr "Escoja un color"
 
 #: eog.glade.h:7
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+msgstr "_Interpolar imagen al hacer zoom (mejor calidad pero lento)"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "Tomar automáticamente el tamaño de la ventana"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "Factor de acercamiento predeterminado para la vista a pantalla completa"
 
 #: eog.schemas.in.h:3
 msgid ""
@@ -80,6 +80,9 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
+"Factor de acercamiento predeterminado para la vista a pantalla completa."
+"Los valores posibles son: 0 (usa un factor zoom 1:1), 1 (usa el mismo factor de zoom"
+"que la ventana de imagen), 2 (ajusta la imagen a la pantalla)."
 
 #: eog.schemas.in.h:4
 msgid ""
@@ -87,48 +90,53 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
+"Determina cómo debe ser indicada la transparencia. Los valores válidos son"
+"CHECK_PATTERN y COLOR. Si se escoge COLOR , entonces la tecla trans_color"
+"determina el valor de color empleado."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
-msgstr ""
+msgstr "Ajustar imágenes de tamaño estándar a la pantalla"
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
+"Si la clave de transparencia tiene un valor COLOR, entonces, esta clave determina "
+"el color que se usa para indicar transparencia."
 
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "Interpolación"
+msgstr "Interpolar imagen"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
 msgstr "Abrir en una ventana nueva"
 
 #: eog.schemas.in.h:9
 msgid "Put a bevel around the screen"
-msgstr ""
+msgstr "Poner una escuadra alrededor de la pantalla"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "Comportamiento de la barra de desplazamiento para la vista a pantalla completa"
 
 #: eog.schemas.in.h:11
 msgid "Transparency color"
-msgstr ""
+msgstr "Color de transparencia"
 
 #: eog.schemas.in.h:12
 msgid "Transparency indicator"
-msgstr ""
+msgstr "Indicador de transparencia"
 
 #: eog.schemas.in.h:13
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
+"Indica si la imagen debería ser interpolada al hacer zoom o no. Esto produce "
+"mejor calidad pero es algo más lento que las imágenes no interpoladas."
 
 #: eog.schemas.in.h:14
 msgid ""
@@ -136,18 +144,24 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
+"Indica si las ventanas de imágenes deberían escoger su tamaño y factor de "
+"zoom automáticamente basándose en el tamaño de la imagen. Si esta opción "
+"no se pone, las ventanas de las imágenes tendrán cualquier tamaño que les"
+"asigne el gestor de ventanas."
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
+"Indica si al abrir una imagen debería crearse una ventana nueva en vez de reemplazar"
+"la imagen en la ventana actual."
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
-msgstr ""
+msgstr "Indique si la vista a pantalla completa debería mostrar una escuadra a lo largo duelos bordes de la pantalla."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -155,6 +169,9 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
+"indica si debe mostrar barras de desplazamiento en la vista a pantalla completa."
+"Los posibles valores son: 1 (automático, sólo mostrar barras si la imagen es mayor"
+"que la ventana), 2 (nunca mostrar barras)."
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -163,6 +180,12 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
+"Indica si debe ajustar las imágenes de tamaño estándar a la pantalla cuando se "
+"este en modo a pantalla completa. Estas imágenes son las de tamaños como"
+"320x240, 640x480, 800x800, etc. Esto selecciona si dichas imágenes deberían"
+"ser escaladas para ajustarse a la pantalla con independencia de lo que esté"
+"establecido en los ajustes para el factor de zoom predeterminado para la vista "
+"a pantalla completa"
 
 #: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
@@ -187,101 +210,99 @@ msgstr "Imagen"
 
 #: libeog/image-view.c:1896
 msgid "interpolation type"
-msgstr "interpolación"
+msgstr "tipo de interpolación"
 
 #: libeog/image-view.c:1897
 msgid "the type of interpolation to use"
-msgstr "tipo de interpolación"
+msgstr "tipo de interpolación a usar"
 
 #: libeog/image-view.c:1903 libeog/image-view.c:1910
 msgid "check type"
-msgstr "tipo de ajedrezado"
+msgstr "tipo de patrón"
 
 #: libeog/image-view.c:1904
 msgid "the type of chequering to use"
-msgstr "tipo de ajedrezado a usar"
+msgstr "tipo de patrón de cuadros a usar"
 
 #: libeog/image-view.c:1911
 msgid "the size of chequers to use"
-msgstr "tamaño del ajedrezado"
+msgstr "tamaño del cuadro"
 
 #: libeog/image-view.c:1917
 msgid "dither"
-msgstr "máscara"
+msgstr "difuminado"
 
 #: libeog/image-view.c:1918
 msgid "dither type"
-msgstr "tipo de máscara"
+msgstr "tipo de difuminado"
 
 #: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
 msgid "By Extension"
-msgstr ""
+msgstr "Por Extensión"
 
 #: libeog/eog-file-selection.c:30
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 #: libeog/eog-file-selection.c:31
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: libeog/eog-file-selection.c:32
 msgid "ICO"
-msgstr ""
+msgstr "ICO"
 
 #: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: libeog/eog-file-selection.c:35
 msgid "PNM"
-msgstr ""
+msgstr "PNM"
 
 #: libeog/eog-file-selection.c:36
 msgid "RAS"
-msgstr ""
+msgstr "RAS"
 
 #: libeog/eog-file-selection.c:37
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: libeog/eog-file-selection.c:38
 msgid "TGA"
-msgstr ""
+msgstr "TGA"
 
 #: libeog/eog-file-selection.c:39
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: libeog/eog-file-selection.c:40
 msgid "XBM"
-msgstr ""
+msgstr "XBM"
 
 #: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
 msgid "XPM"
-msgstr ""
+msgstr "XPM"
 
 #: libeog/eog-file-selection.c:207
 msgid "Unsupported file format."
-msgstr ""
+msgstr "Formato de archivo no implementado"
 
 #: libeog/eog-file-selection.c:227
 msgid "Determine File Type:"
-msgstr ""
+msgstr "Determine el tipo de archivo:"
 
 #: libeog/eog-file-selection.c:270
-#, fuzzy
 msgid "Load Image"
-msgstr "Imagen"
+msgstr "Cargar imagen"
 
 #: libeog/eog-file-selection.c:276
-#, fuzzy
 msgid "Save Image"
-msgstr "Abrir imagen"
+msgstr "Guardar imagen"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -297,11 +318,11 @@ msgstr "Cerrar ventana"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Help On this application"
-msgstr "Ayuda de esta aplicación"
+msgstr "Ayuda Sobre esta aplicación"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
@@ -324,13 +345,12 @@ msgid "Open in this window"
 msgstr "Abrir en esta ventana"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
-msgstr "_Preferencias..."
+msgstr "Prefere_ncias"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "Preferencias para los componentes OdG"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
@@ -345,9 +365,8 @@ msgid "_Close"
 msgstr "_Cerrar"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "Indice"
+msgstr "_Contenidos"
 
 #: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
@@ -362,9 +381,8 @@ msgid "_Help"
 msgstr "A_yuda"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "_Ninguno"
+msgstr "_Nuevo"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -384,7 +402,8 @@ msgstr ""
 "Federico Mena-Quintero <federico@gnu.org>\n"
 "Carlos Perelló Marín <carlos@gnome-db.org>\n"
 "Hector García Álvarez <hector@scouts-es.org>\n"
-"Germán Poo Caamaño <gpoo@ubiobio.cl>"
+"Germán Poo Caamaño <gpoo@ubiobio.cl>\n"
+"Francisco Javier Fernández <serrador@arrakis.es>"
 
 #: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
 msgid "Eye of Gnome"
@@ -392,7 +411,7 @@ msgstr "Ojo de GNOME"
 
 #: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 Free Software Foundation"
+msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
 #: shell/eog-window.c:223
 msgid "The GNOME image viewing and cataloging program."
@@ -404,7 +423,7 @@ msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"No se pudo desplegar la ayuda para el Ojo de GNOME\n"
+"No se pudo mostrar la ayuda para el Ojo de GNOME\n"
 "%s"
 
 #: shell/main.c:177
@@ -442,7 +461,7 @@ msgid ""
 "Eye of Gnome will not be able to display this file."
 msgstr ""
 "No se puede acceder a %s\n"
-"El ojo de GNOME no podrá mostrar ese archivo."
+"El Ojo de GNOME no podrá mostrar ese archivo."
 
 #: shell/main.c:293
 #, c-format
@@ -451,7 +470,7 @@ msgid ""
 "access them:\n"
 "%s"
 msgstr ""
-"Los siguientes archivos no se pueden mostrar porque el ojo de GNOME no ha "
+"Los siguientes archivos no se pueden mostrar porque el Ojo de GNOME no ha "
 "podido acceder a ellos:\n"
 "%s"
 
@@ -466,11 +485,11 @@ msgstr "No se puede inicializar Bonobo\n"
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "No se pudo abrir `%s'"
+msgstr "No se pudo abrir «%s»"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "Ajus_te óptimo"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -482,7 +501,7 @@ msgstr "Acercar"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
@@ -490,26 +509,23 @@ msgstr "Alejar"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
-msgstr "_Alejar la imagen"
+msgstr "_Alejar"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "Tamaño _normal"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
-msgstr "Acercar la _imagen"
+msgstr "A_cercar"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "Horizontalmente"
+msgstr "Reflejar horizontalmente"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "Verticalmente"
+msgstr "Reflejar verticalmente"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -517,15 +533,13 @@ msgstr "Pantalla completa"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
-msgstr "Vista preliminar de la imagen a imprimir"
+msgstr "Previsualización de la imagen a imprimir"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "Vista preliminar"
+msgstr "Pre_visualizar impresión..."
 
 #: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
 msgid "Print Set_up"
 msgstr "Configuración de la impresión"
 
@@ -535,42 +549,40 @@ msgstr "Imprimir imagen en la impresora"
 
 #: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 Degrees"
-msgstr ""
+msgstr "Rotar 180 grados"
 
 #: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "Rotar como un reloj"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counter Clockwise"
-msgstr ""
+msgstr "Rotar contra reloj"
 
 #: viewer/eog-image-view-ui.xml.h:11
-#, fuzzy
 msgid "Save _As..."
 msgstr "_Guardar como..."
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
-msgstr "Configurar la opciones de la página para la impresora predeterminada"
+msgstr "Configurar la opciones de la página para la impresora actual"
 
 #: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
 msgid "_Print..."
 msgstr "Im_primir"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
-msgstr "_Vista"
+msgstr "_Ver"
 
 #: viewer/eog-image-view.c:270
 #, c-format
 msgid "Could not save image as '%s': %s."
-msgstr "No se puede guardar la imagen como '%s': %s."
+msgstr "No se puede guardar la imagen como «%s»: %s."
 
 #: viewer/eog-image-view.c:954
 msgid "Print Image"
-msgstr "Imprimir imagen"
+msgstr "Imprimir Imagen"
 
 #: viewer/eog-image-view.c:962
 msgid "Pages"
@@ -578,35 +590,31 @@ msgstr "Páginas"
 
 #: viewer/eog-image-view.c:1049
 msgid "Print Preview"
-msgstr "Vista preliminar"
+msgstr "Previsualizar la Impresión"
 
 #: viewer/eog-image-view.c:1055
 msgid "Printing of image failed"
 msgstr "Error en la impresión de la imagen"
 
 #: viewer/eog-image-view.c:1873
-#, fuzzy
 msgid "/_Zoom In"
-msgstr "Acercar la _imagen"
+msgstr "/A_cercar"
 
 #: viewer/eog-image-view.c:1875
-#, fuzzy
 msgid "/Zoom _Out"
-msgstr "_Alejar la imagen"
+msgstr "/A_lejar"
 
 #: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/Tamaño _normal"
 
 #: viewer/eog-image-view.c:1879
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "Ajus_tar la imagen"
+msgstr "/Ajus_te óptimo"
 
 #: viewer/eog-image-view.c:1882
-#, fuzzy
 msgid "/_Close"
-msgstr "_Cerrar"
+msgstr "/_Cerrar"
 
 #: viewer/eog-image-view.c:2008
 msgid "Image Width"
@@ -666,7 +674,7 @@ msgstr "Imprimir"
 
 #: viewer/eog-print-setup.c:478
 msgid "Print preview"
-msgstr "Vista preliminar"
+msgstr "Previsualizar la impresión"
 
 #: viewer/eog-print-setup.c:547
 msgid "Units: "
@@ -702,22 +710,22 @@ msgstr "Márgenes"
 #. Top margin
 #: viewer/eog-print-setup.c:617
 msgid "Top:"
-msgstr "Arriba:"
+msgstr "Margen superior:"
 
 #. Left margin
 #: viewer/eog-print-setup.c:635
 msgid "Left:"
-msgstr "Izquierda:"
+msgstr "Margen izquierdo:"
 
 #. Right margin
 #: viewer/eog-print-setup.c:653
 msgid "Right:"
-msgstr "Derecha:"
+msgstr "Margen derecha:"
 
 #. Bottom margin
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
-msgstr "Abajo:"
+msgstr "Margen inferior:"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
@@ -753,15 +761,15 @@ msgstr "Verticalmente"
 #. Overlap
 #: viewer/eog-print-setup.c:751
 msgid "Overlapping"
-msgstr "Solapadas"
+msgstr "Superposición"
 
 #: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
-msgstr "Solapar horizontalmente por "
+msgstr "Superponer horizontalmente por "
 
 #: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
-msgstr "Solapar verticalmente por "
+msgstr "Superponer verticalmente por "
 
 #. Third page
 #: viewer/eog-print-setup.c:797
@@ -798,165 +806,5 @@ msgstr "Derecha, luego abajo"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
+msgstr "Muestra deslizante"
 
-#~ msgid "_New Window"
-#~ msgstr "Ventana _nueva"
-
-#~ msgid "Unable to open %s."
-#~ msgstr "No se pudo abrir %s."
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Aumento _1:1"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "Ajus_tar la imagen"
-
-#~ msgid "Check _size"
-#~ msgstr "Comprobar _tamaño"
-
-#~ msgid "Check _type"
-#~ msgstr "Comprobar _tipo"
-
-#~ msgid "Large"
-#~ msgstr "Grande"
-
-#~ msgid "Medium"
-#~ msgstr "Medio"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "Vecino más ce_rcano"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "Normal (_pseudocolor)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "Vista pre_liminar"
-
-#~ msgid "Print S_etup"
-#~ msgstr "Configuración de la impr_esión"
-
-#~ msgid "Small"
-#~ msgstr "Pequeño"
-
-#~ msgid "_Bilinear"
-#~ msgstr "_Bilineal"
-
-#~ msgid "_Black"
-#~ msgstr "_Negro"
-
-#~ msgid "_Dark"
-#~ msgstr "_Oscuro"
-
-#~ msgid "_Dither"
-#~ msgstr "_Dither"
-
-#~ msgid "_Gray"
-#~ msgstr "_Gris"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "_Hiperbólica"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolación"
-
-#~ msgid "_Light"
-#~ msgstr "C_laro"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "_Máximo (muchos colores)"
-
-#~ msgid "_Midtone"
-#~ msgstr "Tono _medio"
-
-#~ msgid "_White"
-#~ msgstr "_Blanco"
-
-#, fuzzy
-#~ msgid "/Zoom _1:1"
-#~ msgstr "Aumento _1:1"
-
-#~ msgid "Dither"
-#~ msgstr "Dither"
-
-#~ msgid "Check Type"
-#~ msgstr "Comprobar tipo"
-
-#~ msgid "Check Size"
-#~ msgstr "Comprobar tamaño"
-
-#~ msgid "Close"
-#~ msgstr "Cerrar"
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "No se pudo desplegar la ayuda para la ventana de configuración.\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "Cambiar preferencias"
-
-#~ msgid "_Tiles"
-#~ msgstr "_Títulos"
-
-#~ msgid "Save As"
-#~ msgstr "Guardar como"
-
-#~ msgid "Display"
-#~ msgstr "Despliegue"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "Interpolación por el vecino más cercano"
-
-#~ msgid "Tiles Interpolation"
-#~ msgstr "Interpolación de tiles"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "Interpolación bilineal"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "Interpolación hiperbólica"
-
-#~ msgid "No dithering"
-#~ msgstr "Sin dithering"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "Dithering normal (pseudocolor)"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "Dithering máximo (color alto)"
-
-#~ msgid "Dark"
-#~ msgstr "Oscuro"
-
-#~ msgid "Midtone"
-#~ msgstr "Tono medio"
-
-#~ msgid "Light"
-#~ msgstr "Claro"
-
-#~ msgid "Black"
-#~ msgstr "Negro"
-
-#~ msgid "Gray"
-#~ msgstr "Gris"
-
-#~ msgid "White"
-#~ msgstr "Blanco"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Interpolación:"
-
-#~ msgid "_Dither:"
-#~ msgstr "_Dither:"
-
-#~ msgid "Check _type:"
-#~ msgstr "Comprobar _tipo:"
-
-#~ msgid "Check _size:"
-#~ msgstr "Comprobar _tamaño:"
