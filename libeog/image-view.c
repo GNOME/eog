@@ -1413,7 +1413,7 @@ image_view_expose (GtkWidget *widget, GdkEventExpose *event)
 
 	view = IMAGE_VIEW (widget);
 
-	request_paint_area (view, &event->area, TRUE);
+	request_paint_area (view, &event->area, FALSE);
 	return TRUE;
 }
 
@@ -1625,20 +1625,6 @@ image_view_new (void)
 	return GTK_WIDGET (gtk_type_new (TYPE_IMAGE_VIEW));
 }
 
-/* Requests a full redraw of the image view */
-static void
-redraw_all (ImageView *view)
-{
-	GdkRectangle r;
-
-	r.x = 0;
-	r.y = 0;
-	r.width = GTK_WIDGET (view)->allocation.width;
-	r.height = GTK_WIDGET (view)->allocation.height;
-
-	request_paint_area (view, &r, TRUE);
-}
-
 GdkPixbuf *
 image_view_get_pixbuf (ImageView *view)
 {
@@ -1677,7 +1663,7 @@ image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf)
 
 	/* FIXME: adjust zoom / image offsets; maybe just offsets here */
 
-	redraw_all (view);
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1767,7 +1753,7 @@ image_view_set_interp_type (ImageView *view, GdkInterpType interp_type)
 		return;
 
 	priv->interp_type = interp_type;
-	redraw_all (view);
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1811,7 +1797,8 @@ image_view_set_check_type (ImageView *view, CheckType check_type)
 		return;
 
 	priv->check_type = check_type;
-	redraw_all (view);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1855,7 +1842,8 @@ image_view_set_check_size (ImageView *view, CheckSize check_size)
 		return;
 
 	priv->check_size = check_size;
-	redraw_all (view);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1899,7 +1887,8 @@ image_view_set_dither (ImageView *view, GdkRgbDither dither)
 		return;
 
 	priv->dither = dither;
-	redraw_all (view);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1943,7 +1932,8 @@ image_view_set_scroll (ImageView *view, ScrollType scroll)
 		return;
 
 	priv->scroll = scroll;
-	redraw_all (view);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**
@@ -1987,7 +1977,8 @@ image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom full_screen_zoo
 		return;
 
 	priv->full_screen_zoom = full_screen_zoom;
-	redraw_all (view);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /**

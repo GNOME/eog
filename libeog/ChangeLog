@@ -1,3 +1,13 @@
+2002-02-14  Jens Finke <jens@triq.net>
+
+	* image-view.c (image_view_expose): Always repaint synchronously
+	here, since the expose events are already send async by gtk+
+	2.0. This fixes the flickering described in bug #70909.
+	(redraw_all): Removed this function and replaced all calls to it
+	with gtk_widget_queue_draw, which has the same effect.
+
+	* gtkscrollframe.[ch]: Removed these long dead files.
+
 2002-02-01  Michael Meeks  <michael@ximian.com>
 
 	* GNOME_EOG.server.in: add Unknown,
