@@ -113,6 +113,10 @@ redraw_cut (EogPreviewPage *page, gdouble x, gdouble y,
 		move_line (page->priv->cut_right_bottom, 0.0, 0.0, 0.0, 0.0);
 		move_line (page->priv->cut_bottom_left, 0.0, 0.0, 0.0, 0.0);
 		move_line (page->priv->cut_bottom_right, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_left_bottom, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_left_top, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_top_left, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_top_right, 0.0, 0.0, 0.0, 0.0);
 		return;
 	}
 
