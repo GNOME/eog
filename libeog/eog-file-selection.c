@@ -114,7 +114,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 
 	/* Filter */
 	all_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_filter, "All Images");
+	gtk_file_filter_set_name (all_filter, _("All Images"));
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_filter);
 
 	if (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel)) == GTK_FILE_CHOOSER_ACTION_SAVE) {
