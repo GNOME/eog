@@ -1,3 +1,24 @@
+2000-06-20  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (paint_rectangle): Special-case zoom == 1.0 to
+	unconditionally use GDK_INTERP_NEAREST.  Pixops should optimize
+	this itself, but things seem to be slower if you use other
+	interpolation types even when the zoom is 1.0.  Also,
+	short-circuit the fastest case to not create a temporary pixbuf
+	and thus avoid a memcpy().
+	(request_paint_area): Short-circuit NEAREST interpolation and zoom
+	== 1.0 to paint synchronously.
+	(scroll_to): Use request_paint_area() instead of calling
+	uta_add_rect() directly.  This lets us do the short-circuiting
+	there.
+	(ImageViewPrivate): Added a second microtile array for
+	interpolated drawing.
+	(remove_dirty_region): Free both utas.
+	(paint_iteration_idle): Handle both utas.  This is the core of
+	two-pass scrolling:  when a rectangle is pulled from the first
+	uta, add it to the second uta.
+	(scroll_to): Handle both utas.
+
 2000-06-13  Anders Carlsson  <andersca@gnu.org>
 
 	* gtkscrollframe.c (gtk_scroll_frame_button_press): Added mouse wheel

@@ -3,12 +3,9 @@ Federico Mena-Quintero (federico@gimp.org).
 
 * Finish the ImageView widget:
 
-	- Re-center the offsets when changing the zoom factor.
-
-	- Scrolling using gdk_window_copy_area().  This also requires
-          writing uta_copy_area() for uta.c.
-
-	- Finish uta.c:uta_find_first_glom_rect().
+	- Write a "fast" version of uta.c:uta_find_first_glom_rect().
+	  Right now we just have a hacked version of libart's
+	  function.
 
 	- Figure out what to do with the color correction tables; we
           are not using them right now.

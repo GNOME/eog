@@ -68,8 +68,11 @@ typedef struct {
 	/* Current scrolling offsets */
 	int xofs, yofs;
 
-	/* Microtile array for dirty region */
-	ArtUta *uta;
+	/* Microtile arrays for dirty region.  The first one is for immediate
+	 * drawing, the second one is for interpolated drawing.
+	 */
+	ArtUta *uta1;
+	ArtUta *uta2;
 
 	/* Idle handler ID */
 	guint idle_id;
@@ -242,13 +245,20 @@ remove_dirty_region (ImageView *view)
 
 	priv = view->priv;
 
-	if (priv->uta) {
+	if (priv->uta1 || priv->uta2) {
 		g_assert (priv->idle_id != 0);
 
-		art_uta_free (priv->uta);
-		g_source_remove (priv->idle_id);
+		if (priv->uta1) {
+			art_uta_free (priv->uta1);
+			priv->uta1 = NULL;
+		}
 
-		priv->uta = NULL;
+		if (priv->uta2) {
+			art_uta_free (priv->uta2);
+			priv->uta2 = NULL;
+		}
+
+		g_source_remove (priv->idle_id);
 		priv->idle_id = 0;
 	} else
 		g_assert (priv->idle_id == 0);
@@ -487,6 +497,34 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	if (art_irect_empty (&d))
 		return;
 
+	/* Short-circuit the fast case to avoid a memcpy() */
+
+	if (priv->zoom == 1.0
+	    && gdk_pixbuf_get_colorspace (priv->image->pixbuf) == GDK_COLORSPACE_RGB
+	    && !gdk_pixbuf_get_has_alpha (priv->image->pixbuf)
+	    && gdk_pixbuf_get_bits_per_sample (priv->image->pixbuf) == 8) {
+		guchar *pixels;
+		int rowstride;
+
+		rowstride = gdk_pixbuf_get_rowstride (priv->image->pixbuf);
+
+		pixels = (gdk_pixbuf_get_pixels (priv->image->pixbuf)
+			  + (d.y0 - yofs) * rowstride
+			  + 3 * (d.x0 - xofs));
+
+		gdk_draw_rgb_image_dithalign (GTK_WIDGET (view)->window,
+					      GTK_WIDGET (view)->style->black_gc,
+					      d.x0, d.y0,
+					      d.x1 - d.x0, d.y1 - d.y0,
+					      priv->dither,
+					      pixels,
+					      rowstride,
+					      d.x0 - xofs, d.y0 - yofs);
+		return;
+	}
+
+	/* For all other cases, create a temporary pixbuf */
+
 #ifdef PACK_RGBA
 	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, d.x1 - d.x0, d.y1 - d.y0);
 #else
@@ -554,7 +592,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 				    d.x1 - d.x0, d.y1 - d.y0,
 				    -(d.x0 - xofs), -(d.y0 - yofs),
 				    priv->zoom, priv->zoom,
-				    interp_type,
+				    (priv->zoom == 1.0) ? GDK_INTERP_NEAREST : interp_type,
 				    255,
 				    d.x0 - xofs, d.y0 - yofs,
 				    check_size,
@@ -601,23 +639,46 @@ paint_iteration_idle (gpointer data)
 	view = IMAGE_VIEW (data);
 	priv = view->priv;
 
-	g_assert (priv->uta != NULL);
+	g_assert (priv->uta1 != NULL || priv->uta2 != NULL);
 
-	pull_rectangle (priv->uta, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
+	if (priv->uta1) {
+		pull_rectangle (priv->uta1, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
 
-	if (art_irect_empty (&rect)) {
-		/* This means there is nothing else to repaint, so we remove the
-		 * dirty region.
-		 */
+		if (art_irect_empty (&rect)) {
+			art_uta_free (priv->uta1);
+			priv->uta1 = NULL;
+			goto uta2;
+		}
 
-		art_uta_free (priv->uta);
-		priv->uta = NULL;
+		if (prefs_scroll == SCROLL_TWO_PASS) {
+			paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
+
+			priv->uta2 = uta_add_rect (priv->uta2, rect.x0, rect.y0, rect.x1, rect.y1);
+		} else
+			paint_rectangle (view, &rect, priv->interp_type);
+
+		goto out;
+	}
+
+ uta2:
+
+	if (priv->uta2) {
+		pull_rectangle (priv->uta2, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
+		paint_rectangle (view, &rect, priv->interp_type);
+
+		if (art_irect_empty (&rect)) {
+			art_uta_free (priv->uta2);
+			priv->uta2 = NULL;
+		}
+	}
+
+ out:
+
+	if (!priv->uta1 && !priv->uta2) {
 		priv->idle_id = 0;
-
 		return FALSE;
 	}
 
-	paint_rectangle (view, &rect, priv->interp_type);
 	return TRUE;
 }
 
@@ -626,31 +687,38 @@ static void
 request_paint_area (ImageView *view, GdkRectangle *area)
 {
 	ImageViewPrivate *priv;
-	int x1, y1, x2, y2;
+	ArtIRect r;
 
 	priv = view->priv;
 
 	if (!GTK_WIDGET_DRAWABLE (view))
 		return;
 
-	x1 = MAX (0, area->x);
-	y1 = MAX (0, area->y);
-	x2 = MIN (GTK_WIDGET (view)->allocation.width, area->x + area->width);
-	y2 = MIN (GTK_WIDGET (view)->allocation.height, area->y + area->height);
+	r.x0 = MAX (0, area->x);
+	r.y0 = MAX (0, area->y);
+	r.x1 = MIN (GTK_WIDGET (view)->allocation.width, area->x + area->width);
+	r.y1 = MIN (GTK_WIDGET (view)->allocation.height, area->y + area->height);
 
-	if (x1 >= x2 || y1 >= y2)
+	if (r.x0 >= r.x1 || r.y0 >= r.y1)
 		return;
 
-	if (priv->uta) {
+	/* Do nearest neighbor or 1:1 zoom synchronously for speed */
+
+	if (priv->interp_type == GDK_INTERP_NEAREST || priv->zoom == 1.0) {
+		paint_rectangle (view, &r, priv->interp_type);
+		return;
+	}
+
+	/* All other interpolation types are delayed */
+
+	if (priv->uta1 || priv->uta2)
 		g_assert (priv->idle_id != 0);
-
-		priv->uta = uta_add_rect (priv->uta, x1, y1, x2, y2);
-	} else {
+	else {
 		g_assert (priv->idle_id == 0);
-
-		priv->uta = uta_add_rect (NULL, x1, y1, x2, y2);
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
 	}
+
+	priv->uta1 = uta_add_rect (priv->uta1, r.x0, r.y0, r.x1, r.y1);
 }
 
 /* Scrolls the view to the specified offsets.  Does not perform range checking!  */
@@ -705,41 +773,32 @@ scroll_to (ImageView *view, int x, int y)
 	twidth = (width + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
 	theight = (height + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
 
-	if (priv->uta)
+	if (priv->uta1 || priv->uta2)
 		g_assert (priv->idle_id != 0);
 	else
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
 
-	priv->uta = uta_ensure_size (priv->uta, 0, 0, twidth, theight);
+	priv->uta1 = uta_ensure_size (priv->uta1, 0, 0, twidth, theight);
 
-	/* Copy the uta area and add the scrolled-in region */
+	/* Copy the uta area */
 
 	src_x = xofs < 0 ? 0 : xofs;
 	src_y = yofs < 0 ? 0 : yofs;
 	dest_x = xofs < 0 ? -xofs : 0;
 	dest_y = yofs < 0 ? -yofs : 0;
 
-	uta_copy_area (priv->uta,
+	uta_copy_area (priv->uta1,
 		       src_x, src_y,
 		       dest_x, dest_y,
 		       width - abs (xofs), height - abs (yofs));
 
-	if (xofs) {
-		int xx;
+	if (prefs_scroll == SCROLL_TWO_PASS && priv->uta2) {
+		priv->uta2 = uta_ensure_size (priv->uta2, 0, 0, twidth, theight);
 
-		xx = xofs < 0 ? 0 : width - xofs;
-		uta_add_rect (priv->uta,
-			      xx, 0,
-			      xx + abs (xofs), height);
-	}
-
-	if (yofs) {
-		int yy;
-
-		yy = yofs < 0 ? 0 : height - yofs;
-		uta_add_rect (priv->uta,
-			      0, yy,
-			      width, yy + abs (yofs));
+		uta_copy_area (priv->uta2,
+			       src_x, src_y,
+			       dest_x, dest_y,
+			       width - abs (xofs), height - abs (yofs));
 	}
 
 	/* Copy the window area */
@@ -756,6 +815,30 @@ scroll_to (ImageView *view, int x, int y)
 			      height - abs (yofs));
 
 	gdk_gc_destroy (gc);
+
+	/* Add the scrolled-in region */
+
+	if (xofs) {
+		GdkRectangle r;
+
+		r.x = xofs < 0 ? 0 : width - xofs;
+		r.y = 0;
+		r.width = abs (xofs);
+		r.height = height;
+
+		request_paint_area (view, &r);
+	}
+
+	if (yofs) {
+		GdkRectangle r;
+
+		r.x = 0;
+		r.y = yofs < 0 ? 0 : height - yofs;
+		r.width = width;
+		r.height = abs (yofs);
+
+		request_paint_area (view, &r);
+	}
 
 	/* Process graphics exposures */
 
@@ -1147,6 +1230,8 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 
 	do_zoom = FALSE;
 	do_scroll = FALSE;
+	xofs = yofs = 0;
+	zoom = 1.0;
 
 	switch (event->keyval) {
 	case GDK_Up:
