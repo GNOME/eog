@@ -147,13 +147,17 @@ fill_list_exif (EogImage *image, GtkListStore *store, ExifData *ed)
 }
 #endif
 
+/*  fill_list
+ *
+ *  This function will only add information additional to filename,
+ *  image width and image height. Main purpose is to present
+ *  EXIF information.
+ */
 static void
 fill_list (EogInfoView *view)
 {
 	GtkListStore *store;
 	EogImage *image;
-	char buffer[32];
-	int width, height;
 #if HAVE_EXIF
 	ExifData *ed;
 #endif
@@ -164,22 +168,9 @@ fill_list (EogInfoView *view)
 
 	g_assert (image != NULL);
 
-	eog_image_get_size (image, &width, &height);
-	if (width > -1) {
-		g_snprintf (buffer, 32, "%i", width);	
-		append_row (store, _("Width"), buffer);
-	}
-	else {
-		append_row (store, _("Width"), NULL);
-	}
-
-	if (height > -1) {
-		g_snprintf (buffer, 32, "%i", height);
-		append_row (store, _("Height"), buffer);
-	}
-	else {
-		append_row (store, _("Height"), NULL);
-	}
+	/* add further information to the info view list here, which are not EXIF dependend 
+	 * (e.g. file size) 
+	 */
 
 #if HAVE_EXIF
 	ed = (ExifData*) eog_image_get_exif_information (image);
@@ -190,6 +181,11 @@ fill_list (EogInfoView *view)
 #endif
 }
 
+/* loading_size_prepared_cb
+ *
+ * This function is always called, when the image dimension is known. Therefore
+ * we add the image size and width to the info view list here.
+ */
 static void
 loading_size_prepared_cb (EogImage *image, gint width, gint height, gpointer data)
 {
@@ -220,6 +216,10 @@ loading_size_prepared_cb (EogImage *image, gint width, gint height, gpointer dat
 	}
 }
 
+/* loading_info_finished_cb
+ * 
+ * This function is called if EXIF data has been read by EogImage.
+ */
 static void
 loading_info_finished_cb (EogImage *image, gpointer data)
 {
@@ -264,16 +264,19 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 	g_object_ref (image);
 	priv->image = image;
 
+	/* display at least the filename */
 	store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 	caption = eog_image_get_caption (image);
 	append_row (store, _("Filename"), caption);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (store));
 
+	/* prepare additional image information callbacks */
 	priv->image_cb_id = g_signal_connect (G_OBJECT (priv->image), "loading_info_finished", 
 					      G_CALLBACK (loading_info_finished_cb), view);
 	priv->image_cb_id2 = g_signal_connect (G_OBJECT (priv->image), "loading_size_prepared", 
 					      G_CALLBACK (loading_size_prepared_cb), view);
 
+	/* start loading */
 	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
 }
 

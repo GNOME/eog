@@ -1,5 +1,14 @@
 2003-09-28  Jens Finke  <jens@triq.net>
 
+	Fixes the duplicated entries for width/height information in the
+	image info view.
+
+	* libeog/eog-info-view.c: (fill_list): Don't add image
+	width/height information here, this is always already done by the
+	loading_size_prepared_cb function.
+
+2003-09-28  Jens Finke  <jens@triq.net>
+
 	* configure.in: Added switch for disabling libexif support.
 
 2003-09-21  Jens Finke  <jens@triq.net>
