@@ -211,7 +211,7 @@ full_screen_finalize (GtkObject *object)
 	priv->sb_policy_notify_id = 0;
 	priv->bevel_notify_id = 0;
 
-	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
+	gconf_client_remove_dir (priv->client, "/apps/eog");
 
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;

@@ -1,3 +1,13 @@
+2000-08-18  arik devens  <arik@helixcode.com>
+
+	* full-screen.c (full_screen_finalize):
+	gconf_client_notify_remove_dir doesn't take an error handler
+	argument.
+
+	* image-view.c (image_view_destroy): ditto.	
+
+	* window.c (window_destroy): ditto.
+	
 2000-08-16  Federico Mena Quintero  <federico@helixcode.com>
 
 	* gtkscrollframe.c (gtk_scroll_frame_size_request): Using the
