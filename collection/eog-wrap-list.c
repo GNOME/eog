@@ -981,24 +981,24 @@ do_layout_check (EogWrapList *wlist)
 	switch (priv->lm) {
 	case EOG_LAYOUT_MODE_VERTICAL:
 		n_cols_new = cw / (priv->item_width + priv->col_spacing);
-		if (n_cols_new == 0) n_cols_new = 1;
-		n_rows_new = priv->n_items / n_cols_new;
-		n_rows_new = priv->n_items % n_cols_new ? n_rows_new++ : n_rows_new; 
+		if (n_cols_new == 0)
+			n_cols_new = 1;
+		n_rows_new = (priv->n_items + n_cols_new - 1) / n_cols_new;
 		break;
 
 	case EOG_LAYOUT_MODE_HORIZONTAL:
 		n_rows_new = ch / (priv->item_height + priv->row_spacing);
-		if (n_rows_new == 0) n_rows_new = 1;
-		n_cols_new = priv->n_items / n_rows_new;
-		n_cols_new = priv->n_items % n_rows_new ? n_cols_new++ : n_cols_new; 
+		if (n_rows_new == 0)
+			n_rows_new = 1;
+		n_cols_new = (priv->n_items + n_rows_new - 1) / n_rows_new;
 		break;
 
 	case EOG_LAYOUT_MODE_RECTANGLE:
 		n_rows_new = n_cols_new = sqrt (priv->n_items);
 		if (n_rows_new * n_cols_new < priv->n_items) {
-			if ((n_rows_new+1) * n_cols_new < priv->n_items)
+			if ((n_rows_new + 1) * n_cols_new < priv->n_items)
 				n_rows_new = n_cols_new = n_rows_new + 1;
-			else 
+			else
 				n_rows_new = n_rows_new + 1;
 		}
 		break;
