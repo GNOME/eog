@@ -1,27 +1,29 @@
 <oaf_info>
-
-<oaf_server iid="OAFIID:GNOME_EOG_CollectionFactory" type="exe" location="@LIBEXECDIR@/eog-collection-view">
-<oaf_attribute name="repo_ids" type="stringv">
-<item value="IDL:GNOME/ObjectFactory:1.0"/>
-</oaf_attribute>
-<oaf_attribute name="name" type="string" _value="EOG Image collection view factory"/>
-<oaf_attribute name="description" type="string" _value="EOG Image collection view factory"/>
-</oaf_server>
-
-<oaf_server iid="OAFIID:GNOME_EOG_CollectionControl" type="factory"
- location="OAFIID:GNOME_EOG_CollectionFactory">
-<oaf_attribute name="repo_ids" type="stringv">
-<item value="IDL:Bonobo/Unknown:1.0"/>
-<item value="IDL:Bonobo/Control:1.0"/>
-<item value="IDL:GNOME/EOG/ImageCollection:1.0"/>
-</oaf_attribute>
-<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
-<item value="x-directory/normal"/>
-</oaf_attribute>
-<oaf_attribute name="name" type="string" _value="EOG Image Collection Viewer"/>
-<oaf_attribute name="description" type="string" _value="EOG Image Collection Viewer"/>
-<oaf_attribute name="bonobo:editable" type="boolean" value="false"/>
-<oaf_attribute name="nautilus:view_as_name" type="string" _value="EOG Image Collection"/>
-</oaf_server>
-
+  
+  <oaf_server iid="OAFIID:GNOME_EOG_CollectionFactory" type="exe" location="@LIBEXECDIR@/eog-collection-view">
+    <oaf_attribute name="repo_ids" type="stringv">
+      <item value="IDL:GNOME/ObjectFactory:1.0"/>
+    </oaf_attribute>
+    <oaf_attribute name="name" type="string" _value="EOG Image collection view factory"/>
+    <oaf_attribute name="description" type="string" _value="EOG Image collection view factory"/>
+  </oaf_server>
+  
+  <oaf_server iid="OAFIID:GNOME_EOG_CollectionControl" type="factory"
+  	      location="OAFIID:GNOME_EOG_CollectionFactory">
+    <oaf_attribute name="repo_ids" type="stringv">
+      <item value="IDL:Bonobo/Unknown:1.0"/>
+      <item value="IDL:Bonobo/Control:1.0"/>
+      <item value="IDL:Bonobo/PersistFile:1.0"/>
+      <item value="IDL:GNOME/EOG/ImageCollection:1.0"/>
+    </oaf_attribute>
+    <oaf_attribute name="bonobo:supported_mime_types" type="stringv">
+      <item value="x-directory/*"/>
+      <item value="image/png"/>
+    </oaf_attribute>
+    <oaf_attribute name="name" type="string" _value="EOG Image Collection Viewer"/>
+    <oaf_attribute name="description" type="string" _value="EOG Image Collection Viewer"/>
+    <oaf_attribute name="bonobo:editable" type="boolean" value="false"/>
+    <oaf_attribute name="nautilus:view_as_name" type="string" _value="Image Collection"/>
+  </oaf_server>
+  
 </oaf_info>

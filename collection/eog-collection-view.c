@@ -24,6 +24,7 @@
 #include <libgnomeui/gnome-dialog-util.h>
 #include <gconf/gconf-client.h>
 #include <bonobo/bonobo-macros.h>
+#include <bonobo/bonobo-persist-file.h>
 
 #ifdef ENABLE_EVOLUTION
 #  include "Evolution-Composer.h"
@@ -790,12 +791,29 @@ set_configuration_values (EogCollectionView *view)
 					 NULL, NULL);
 }
 
+static gint
+load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
+	     CORBA_Environment *ev, void *closure)
+{
+	EogCollectionViewPrivate *priv;
+	
+	priv = EOG_COLLECTION_VIEW (closure)->priv;
+
+	if (text_uri == CORBA_OBJECT_NIL) return;
+
+	eog_collection_model_set_uri (priv->model, (gchar*)text_uri); 
+
+	return TRUE;
+}
+
+
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv = NULL;
 	EogItemFactory *factory;
 	EogImageLoader *loader;
+	BonoboPersistFile *persist_file;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -853,6 +871,14 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	g_object_unref (G_OBJECT (factory));
 	g_object_unref (G_OBJECT (loader));
+
+	/* add persist file interface */
+	persist_file = bonobo_persist_file_new (load_uri_cb, NULL,
+						"OAFIID:GNOME_EOG_CollectionControl",
+						list_view);
+	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
+				     BONOBO_OBJECT (persist_file));
+
 
 	/* Property Bag */
 	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,

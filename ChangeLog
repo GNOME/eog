@@ -1,3 +1,15 @@
+2002-08-20  Jens Finke  <jens@triq.net>
+
+	Allow nautilus to use the collection as directory view.
+	
+	* collection/GNOME_EOG_Collection.server.in.in: Added PersistFile
+	interface to list of repo_ids. Reformatted file.
+
+	* collection/eog-collection-view.c
+	(load_uri_cb): New function.
+	(eog_collection_view_construct): Merge persist file interface to
+	object.
+
 2002-08-20  Federico Mena Quintero  <federico@ximian.com>
 
 	Fixes the EOG part of #90133.  Thanks to JeyaSudha Duraipandy for
