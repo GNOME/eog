@@ -1,3 +1,16 @@
+2000-04-20  Federico Mena Quintero  <federico@helixcode.com>
+
+	* window.c (window_open_image): Add the image size to the window
+	title.
+
+	* image-view.c (drag_to): New function to drag the image to a
+	specified mouse position.
+	(image_view_button_press): Handle button presses by initiating the
+	drag.
+	(image_view_button_release): Handler button releases by
+	terminating the drag.
+	(image_view_motion): Handle motion events by dragging the image.
+
 2000-04-14  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (image_view_unrealize): Doh, call the parent class

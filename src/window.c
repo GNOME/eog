@@ -705,6 +705,7 @@ window_open_image (Window *window, const char *filename)
 	Image *image;
 	gboolean retval;
 	char *fname;
+	gboolean free_fname;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (IS_WINDOW (window), FALSE);
@@ -719,12 +720,24 @@ window_open_image (Window *window, const char *filename)
 	retval = image_load (image, filename);
 	ui_image_set_image (UI_IMAGE (priv->content), image);
 
-	if (image->filename)
-		fname = g_basename (image->filename);
-	else
+	free_fname = FALSE;
+
+	if (image->filename) {
+		if (image->pixbuf) {
+			fname = g_strdup_printf ("%s (%dx%d)",
+						 g_basename (image->filename),
+						 gdk_pixbuf_get_width (image->pixbuf),
+						 gdk_pixbuf_get_height (image->pixbuf));
+			free_fname = TRUE;
+		} else
+			fname = g_basename (image->filename);
+	} else
 		fname = _("Eye of Gnome");
 
 	gtk_window_set_title (GTK_WINDOW (window), fname);
+
+	if (free_fname)
+		g_free (fname);
 
 	image_unref (image);
 	return retval;

@@ -62,6 +62,13 @@ typedef struct {
 
 	/* Idle handler ID */
 	guint idle_id;
+
+	/* Anchor point and offsets for dragging */
+	int drag_anchor_x, drag_anchor_y;
+	int drag_ofs_x, drag_ofs_y;
+
+	/* Whether the image is being dragged */
+	guint dragging : 1;
 } ImageViewPrivate;
 
 
@@ -77,6 +84,9 @@ static void image_view_unrealize (GtkWidget *widget);
 static void image_view_size_request (GtkWidget *widget, GtkRequisition *requisition);
 static void image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 static void image_view_draw (GtkWidget *widget, GdkRectangle *area);
+static gint image_view_button_press (GtkWidget *widget, GdkEventButton *event);
+static gint image_view_button_release (GtkWidget *widget, GdkEventButton *event);
+static gint image_view_motion (GtkWidget *widget, GdkEventMotion *event);
 static gint image_view_expose (GtkWidget *widget, GdkEventExpose *event);
 
 static void image_view_set_scroll_adjustments (GtkWidget *widget,
@@ -150,6 +160,9 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->size_request = image_view_size_request;
 	widget_class->size_allocate = image_view_size_allocate;
 	widget_class->draw = image_view_draw;
+	widget_class->button_press_event = image_view_button_press;
+	widget_class->button_release_event = image_view_button_release;
+	widget_class->motion_notify_event = image_view_motion;
 	widget_class->expose_event = image_view_expose;
 }
 
@@ -635,6 +648,125 @@ image_view_draw (GtkWidget *widget, GdkRectangle *area)
 	view = IMAGE_VIEW (widget);
 
 	request_paint_area (view, area);
+}
+
+/* Button press handler for the image view */
+static gint
+image_view_button_press (GtkWidget *widget, GdkEventButton *event)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+	GdkCursor *cursor;
+
+	view = IMAGE_VIEW (widget);
+	priv = view->priv;
+
+	if (priv->dragging || event->button != 1)
+		return FALSE;
+
+	priv->dragging = TRUE;
+	priv->drag_anchor_x = event->x;
+	priv->drag_anchor_y = event->y;
+
+	priv->drag_ofs_x = priv->hadj->value;
+	priv->drag_ofs_y = priv->vadj->value;
+
+	cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
+	gdk_pointer_grab (widget->window,
+			  FALSE,
+			  (GDK_POINTER_MOTION_MASK
+			   | GDK_POINTER_MOTION_HINT_MASK
+			   | GDK_BUTTON_RELEASE_MASK),
+			  NULL,
+			  cursor,
+			  event->time);
+	gdk_cursor_destroy (cursor);
+
+	return TRUE;
+}
+
+/* Drags the image to the specified position */
+static void
+drag_to (ImageView *view, int x, int y)
+{
+	ImageViewPrivate *priv;
+	int dx, dy;
+	GdkRectangle area;
+
+	priv = view->priv;
+
+	dx = priv->drag_anchor_x - x;
+	dy = priv->drag_anchor_y - y;
+
+	x = CLAMP (priv->drag_ofs_x + dx, 0, priv->hadj->upper - priv->hadj->page_size);
+	y = CLAMP (priv->drag_ofs_y + dy, 0, priv->vadj->upper - priv->vadj->page_size);
+
+	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
+	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
+
+	priv->hadj->value = x;
+	priv->vadj->value = y;
+
+	gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
+	gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+	
+	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
+	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
+
+	/* FIXME: use copy_area() for the window and the uta */
+
+	area.x = 0;
+	area.y = 0;
+	area.width = GTK_WIDGET (view)->allocation.width;
+	area.height = GTK_WIDGET (view)->allocation.height;
+
+	request_paint_area (view, &area);
+}
+
+/* Button release handler for the image view */
+static gint
+image_view_button_release (GtkWidget *widget, GdkEventButton *event)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+
+	view = IMAGE_VIEW (widget);
+	priv = view->priv;
+
+	if (!priv->dragging || event->button != 1)
+		return FALSE;
+
+	drag_to (view, event->x, event->y);
+	priv->dragging = FALSE;
+	gdk_pointer_ungrab (event->time);
+
+	return TRUE;
+}
+
+/* Motion handler for the image view */
+static gint
+image_view_motion (GtkWidget *widget, GdkEventMotion *event)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+	gint x, y;
+	GdkModifierType mods;
+
+	view = IMAGE_VIEW (widget);
+	priv = view->priv;
+
+	if (!priv->dragging)
+		return FALSE;
+
+	if (event->is_hint)
+		gdk_window_get_pointer (widget->window, &x, &y, &mods);
+	else {
+		x = event->x;
+		y = event->y;
+	}
+
+	drag_to (view, x, y);
+	return TRUE;
 }
 
 /* Expose handler for the image view */
