@@ -11,7 +11,7 @@ INCLUDES =							\
 	$(EOG_CFLAGS)						\
 	$(EXTRA_WARNING_CFLAGS)
 
-bin_PROGRAMS = eog-image-viewer
+libexec_PROGRAMS = eog-image-viewer
 
 eog_image_viewer_SOURCES =	\
 	eog-image.c		\
