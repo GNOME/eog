@@ -107,16 +107,23 @@ eog_file_selection_add_filter (GtkWidget *widget)
 	GSList *it;
 	GSList *formats;
 	GtkFileFilter *filter;
-	GtkFileFilter *all_filter;
+	GtkFileFilter *all_img_filter;
+ 	GtkFileFilter *all_file_filter;
 	gchar **mime_types, **pattern, *tmp;
 	int i;
 
 	filesel = EOG_FILE_SELECTION (widget);
 
-	/* Filter */
-	all_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_filter, _("All Images"));
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_filter);
+	/* All Files Filter */
+	all_file_filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (all_file_filter, _("All Files"));
+	gtk_file_filter_add_pattern (all_file_filter, "*");
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_file_filter);
+
+	/* All Image Filter */
+	all_img_filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (all_img_filter, _("All Images"));
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
 
 	if (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel)) == GTK_FILE_CHOOSER_ACTION_SAVE) {
 		formats = eog_pixbuf_get_savable_formats ();
@@ -142,7 +149,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
 		for (i = 0; mime_types[i] != NULL; i++) {
 			gtk_file_filter_add_mime_type (filter, mime_types[i]);
-			gtk_file_filter_add_mime_type (all_filter, mime_types[i]);
+			gtk_file_filter_add_mime_type (all_img_filter, mime_types[i]);
 		}
 		g_strfreev (mime_types);
  
@@ -150,7 +157,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 		for (i = 0; pattern[i] != NULL; i++) {
 			tmp = g_strconcat ("*.", pattern[i], NULL);
 			gtk_file_filter_add_pattern (filter, tmp);
-			gtk_file_filter_add_pattern (all_filter, tmp);
+			gtk_file_filter_add_pattern (all_img_filter, tmp);
 			g_free (tmp);
 		}
 		g_strfreev (pattern);
@@ -165,6 +172,8 @@ eog_file_selection_add_filter (GtkWidget *widget)
 		
 	}
 	g_slist_free (formats);
+
+	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
 }
 
 GtkWidget* 
