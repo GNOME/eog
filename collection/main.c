@@ -47,13 +47,22 @@ eog_collection_factory (BonoboGenericFactory *this,
 
 int main (int argc, char *argv [])					
 {									
+	CORBA_Object factory;
+
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);                       
 	bind_textdomain_codeset (PACKAGE, "UTF-8");                     
 	textdomain (PACKAGE);                                           
 									
 	BONOBO_FACTORY_INIT ("eog-collection", VERSION, &argc, argv);		
-									
-	return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_CollectionFactory",
-					    eog_collection_factory, NULL);	
+					
+	factory = bonobo_activation_activate_from_id ("OAFIID:GNOME_EOG_CollectionFactory", 
+						      Bonobo_ACTIVATION_FLAG_EXISTING_ONLY, NULL, NULL);
+
+	if (!factory) {
+		return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_CollectionFactory",
+						    eog_collection_factory, NULL);	
+	}
+
+	return 0;
 }                                                                       
 

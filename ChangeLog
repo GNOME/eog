@@ -1,3 +1,18 @@
+2003-03-23  Jens Finke  <jens@triq.net>
+
+	* collection/main.c (main): Check if the factory is already registered,
+ 	before registering a new one.
+
+	* shell/eog-window.c (eog_window_open_list): Save first loaded
+	uri, for session recovery (this works in most common cases, but
+	needs some fixing in case we load multiple uris in one window,
+	eg. collection view).
+
+2003-03-20  Shivram U  <shivaram.upadhyayula@wipro.com>
+
+	* viewer/main.c (main): Check if the factory is already registered,
+ 	before registering a new one.
+
 2003-03-21  Jens Finke  <jens@triq.net>
 
 	* libeog/Makefile.am (EXTRA_DIST): Added libeog-marshal.list.

@@ -981,8 +981,14 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 				     EOG_WINDOW_ERROR_IO,
 				     bonobo_exception_get_text (&ev));
 		}
+		else if (priv->uri == NULL) {
+			/* FIXME: if we really open several URI's in one window
+			 * than we save only the first uri. 
+			 */
+			priv->uri = g_strdup ((char*) it->data);
+		}
 	}
-	
+
 	bonobo_object_release_unref (pfile, &ev);
 	bonobo_object_release_unref (control, &ev);
 
