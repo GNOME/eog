@@ -4,19 +4,21 @@
 # Eduardo Belloti <ebelloti@terra.com.br>, 2000.
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2001.
 # Evandro Fernandes Giovanini <evandrofg@ig.com.br>, 2002.
-# David Barzilay <barzilay@redhat.com>, 2003
+# David Barzilay <barzilay@redhat.com>, 2003.
+# Gustavo Noronha Silva <kov@debian.org>, 2003.
+# Rafael Moreno Ribeiro <drivera@ibest.com.br>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.0\n"
-"POT-Creation-Date: 2004-03-08 18:25+0100\n"
-"PO-Revision-Date: 2003-12-23 01:49-0200\n"
-"Last-Translator: Gustavo Noronha Silva <kov@debian.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-11 12:02-0500\n"
+"PO-Revision-Date: 2004-03-11 12:01-0500\n"
+"Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -31,22 +33,20 @@ msgid "Image Collection"
 msgstr "Coleção de Imagens"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
-#, fuzzy
 msgid "View as I_mage Collection"
-msgstr "Coleção de Imagens"
+msgstr "Ver como Coleção de I_magens"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:5
-#, fuzzy
 msgid "View as Image Collection"
-msgstr "Coleção de Imagens"
+msgstr "Ver como Coleção de Imagens"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
-msgstr "Virar _Horizontalmente"
+msgstr "Girar _Horizontalmente"
 
 #: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
-msgstr "Virar _Verticalmente"
+msgstr "Girar _Verticalmente"
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
@@ -118,7 +118,7 @@ msgstr "Visualizar como Coleção"
 #: collection/eog-collection-view.c:947
 #, c-format
 msgid "Images: %i/%i"
-msgstr ""
+msgstr "Imagens: %i/%i"
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -279,35 +279,32 @@ msgstr "Mostrar/esconder a barra de ferramentas da janela."
 
 #: eog.schemas.in.h:13
 msgid "Transparency color"
-msgstr "Cor da transparência"
+msgstr "Cor de transparência"
 
 #: eog.schemas.in.h:14
 msgid "Transparency indicator"
-msgstr "Indicador da transparência"
+msgstr "Indicador de transparência"
 
 #: eog.schemas.in.h:15
-#, fuzzy
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"Se abrir uma imagem deve criar uma nova janela ao invés de substituir a "
-"imagem na janela atual."
+"Se ao abrir uma imagem deve ser criada uma nova janela em vez de substituir "
+"a imagem na janela atual."
 
 #: eog.schemas.in.h:16
-#, fuzzy
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr "Se a sequência de imagens deve ser exibida em um loop infinito."
+msgstr "Se a sequência de imagens deve ou não ser exibida em um loop infinito."
 
 #: eog.schemas.in.h:17
-#, fuzzy
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Se a imagem deve ser interpolada ou não quando ampliada. Gera uma qualidade "
-"melhor mas é um tanto mais lento que imagens não interpoladas."
+"Se a imagem deve ou não ser interpolada ao usar zoom. Isso leva a uma "
+"qualidade melhor, mas é um tanto mais lento que imagens não interpoladas."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -356,7 +353,7 @@ msgstr "%s (*.%s)"
 #: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
-msgstr ""
+msgstr "%s x %s pixels"
 
 #: libeog/eog-file-selection.c:447
 msgid "Load Image"
@@ -371,13 +368,13 @@ msgid "Open Folder"
 msgstr "Abrir Pasta"
 
 #: libeog/eog-image-jpeg.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't create temporary file for saving: %s"
-msgstr "Não foi possível alocar memória para carregar arquivo JPEG"
+msgstr "Não foi possível criar um arquivo temporário para salvar: %s"
 
 #: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Não foi possível alocar memória para carregar arquivo JPEG"
+msgstr "Não foi possível alocar memória para carregar o arquivo JPEG"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
@@ -636,7 +633,9 @@ msgstr ""
 "Eduardo Belloti <ebelloti@terra.com.br>\n"
 "Evandro Fernandes Giovanini <evandrofg@ig.com.br>\n"
 "Francisco Petrúcio Cavalcante Júnior <fpcj@impa.br>\n"
-"Sun G11n <gnome_int_l10n@ireland.sun.com>"
+"Sun G11n <gnome_int_l10n@ireland.sun.com>\n"
+"Rafael Moreno Ribeiro <drivera@ibest.com.br>\n"
+"Raphael Higino <raphaelh@uai.com.br>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
 #: shell/eog-window.c:1011 shell/main.c:520
@@ -645,7 +644,7 @@ msgstr "Eye of Gnome"
 
 #: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
-msgstr "Programa de catalogação e visualização de imagens do GNOME."
+msgstr "O programa de catalogação e visualização de imagens do GNOME."
 
 #: shell/eog-window.c:337
 #, c-format
@@ -679,7 +678,7 @@ msgstr "Coleção"
 
 #: shell/main.c:320
 msgid "File(s) not found."
-msgstr ""
+msgstr "Arquivo(s) não encontrado(s)."
 
 #: shell/util.c:52
 #, c-format
@@ -842,28 +841,3 @@ msgstr "Largura de janela desejada"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Altura de janela desejada"
-
-#~ msgid "dialog1"
-#~ msgstr "diálogo1"
-
-#~ msgid "Could not find files"
-#~ msgstr "Não foi possível encontrar arquivos"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "Não utilizar zoom acima de 100%"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr ""
-#~ "_Intercalar a imagem ao ampliar (melhor qualidade, porém mais lento)"
-
-#~ msgid "By Extension"
-#~ msgstr "Por Extensão"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "Formato de arquivo não suportado para salvar."
-
-#~ msgid "Determine File Type:"
-#~ msgstr "Determinar Tipo de Arquivo:"
