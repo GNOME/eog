@@ -1,3 +1,31 @@
+2005-03-14  Jens Finke  <jens@triq.net>
+
+	* Merged the experimental-job-mgr branch back to head.
+
+===== experimental-job-mgr merge ================
+
+2005-03-14  Jens Finke  <jens@triq.net>
+
+	* eog.schemas.in: New keys for saving window geometry.
+	
+	* shell/eog-window.c: Save window geometry and restore it on load.
+	
+	* shell/main.c: Create empty windows more simple. 
+
+2005-03-14  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image-list.c (eog_image_list_add_uris):
+	Joined _add_directory and _add_files functions. 
+	
+	* libeog/eog-wrap-list.c: Don't wait for model prepare
+	signal, create collection items directly when model is set.
+
+	* shell/eog-window.c (eog_window_open): Requires an
+	eog_image_list model object.
+	
+	* shell/main.c: Create and prepare EogImageList aka model before
+	opening a new EogWindow. 
+
 2005-03-04  Adi Attar  <aattar@cvs.gnome.org>
 
 	* configure.in: Added "xh" to ALL_LINGUAS.
@@ -21,6 +49,156 @@
 	* libeog/eog-save-dialog-helper.c:
 	* libeog/eog-uri-converter.h: Replace gnome-i18n.h by
 	gi18n.h. Fixes #166849. Patch from Kristof Vansant.
+
+2005-01-10  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image-list.[ch] (eog_image_list_add_directory),
+	(eog_image_list_add_files),	
+	* shell/eog-window.[ch] (eog_window_open),
+	(eog_window_open_list): Take GnomeVFSURI as argument, 
+	instead of text uris.
+
+	* shell/main.c (sort_files): Create lists of GnomeVFSURI objects.
+	
+	* shell/session.c (load_uri_with_role): Adapt to eog_window_open
+	 changes.
+
+2005-01-10  Jens Finke  <jens@triq.net>
+
+	* shell/main.c,
+	* shell/eog-window.[ch]
+	* shell/session.c: Code cleanup.
+
+2005-01-06  Jens Finke  <jens@triq.net>
+
+  	* libeog/Makefile.am (SOURCES): Added eog-thumbnail.[ch].
+
+	* libeog/eog-collection-item.c: Use EogJob and new
+	thumbnail API for creating thumbnails.
+
+	* libeog/eog-image.[ch]: Moved thumbnail creation to 
+ 	eog_thumbnail.[ch].
+	(eog_image_load_thumbnail): Removed.
+	(eog_image_set_thumbnail): New function.
+
+	* libeog/eog_thumbnail.[ch]: New files.
+
+	* shell/main.c (main): Init thumbnail factory.
+
+2005-01-06  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-job-manager.c: Use GQueue data structure.
+	Added job priority handling.
+
+	* libeog/eog-job.[ch]: Allow setting of job priority.
+
+	* shell/eog-window.c (handle_image_selection_changed):
+	Set high job priority.
+
+2005-01-03  Jens Finke  <jens@triq.net>
+
+	* shell/eog-window.c (eog_window_construct_ui):
+	Make sure info view is completely visible.
+	Patch by Naveen & Team, bug #162164.
+
+2005-01-03  Jens Finke  <jens@triq.net>
+
+	* shell/eog-window.c: Use short labels for toolbar items.
+
+2005-01-03  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-full-screen.c: Use EogJob API
+
+	* libeog/eog-image-cache.[ch]: Reworked, inherits from
+	GObject now.
+
+2005-01-03  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-job-manager.c: Let threads waiting
+	for next job after finishing a job.
+
+2005-01-03  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.[ch],
+	* libeog/eog-image-private.h: (eog_image_data_ref),
+	(eog_image_data_unref): New functions.
+	Removed EogImageCache dependency.
+
+	* shell/eog-window.c,
+	* libeog/eog-info-view.c,
+	* libeog/eog-scroll-view.c: Use new data (un)ref 
+	functions.
+	
+	* libeog/eog-image-list.c (eog_image_list_iter_equal):
+	Don't abort if iter is NULL.
+
+2004-12-19  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.[ch] (eog_image_save_by_info),
+	(eog_image_save_as_by_info): Add EogJob to signature.
+	(eog_image_save): Removed deprecated function.
+
+	* libeog/eog-job.c (eog_job_dispose): Lock mutex when 
+	freeing user data.
+
+	* libeog/eog-save-dialog-helper.[ch]: Splitted dialog update
+	process into three new functions 
+
+	* shell/eog-window.c: Reworked Save and SaveAs functions to
+	work with new EogJob API.
+
+2004-12-14  Jens Finke  <jens@triq.net>
+
+	* shell/eog-window.c: Use EogJob API for image 
+	transformations.
+	* libeog/eog-image.c (image_transform): Don't emit changed
+	signal automatically.
+	* libeog/eog-scroll-view.c (eog_scroll_view_set_image):
+	Connect to image changed signal.
+
+2004-12-13  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-info-view.c,
+	* libeog/eog-scroll-view.c: Ported to new EogJob API.	
+
+	* shell/eog-window.c: Make it compilable again,
+	(handle_image_selection_changed): Ported to new EogJob API.
+
+2004-12-13  Jens Finke  <jens@triq.net>
+
+	This patch breaks eog. Only the new test
+	programs will be build. They outline how the new 
+	EogJob framework should be used.
+
+	* libeog/test-eog-job.c,
+	* libeog/test-image-load.c,
+	* libeog/Makefile.am: New test programs.
+
+	* libeog/eog-image-private.h,
+	* libeog/eog-image.h,
+	* libeog/eog-image.c: New image load API,
+	which is compatible with EogJob framework.
+
+	* libeog/eog-job.[ch]: 
+	Improved job progress framework.
+
+	* libeog/eog-metadata-reader.c 
+	(eog_metadata_reader_finished): New function.
+
+	* libeog/eog-transform.[ch] (eog_transform_apply):
+	Adapted to job progress framework.
+
+	* libeog/eog-info-view.c
+	* libeog/eog-full-screen.c
+	* libeog/eog-scroll-view.c: Commented out image loading functions.
+	Just to let libeog.a build and allow building of the test programs.
+
+2004-12-07  Jens Finke  <jens@triq.net>
+	
+	* libeog/eog-job.[ch]
+	* libeog/eog-job-manager[ch]: New files.
+
+===== experimental-job-mgr branch ================
 
 2004-12-04  Jens Finke  <jens@triq.net>
 

@@ -831,18 +831,17 @@ add_image (EogWrapList *wlist, EogImage *image)
 }
 
 static void
-model_prepared (EogImageList *model, gpointer data)
+create_items_from_model (EogWrapList *wlist, EogImageList *model)
 {
-	EogWrapList *wlist;
 	EogWrapListPrivate *priv;
 	EogIter *iter;
 	gboolean success;
 	EogImage *image;
 	GList *it;
 	
-	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+	g_return_if_fail (EOG_IS_IMAGE_LIST (model));
 
-	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
 
 	g_assert (priv->view_order == NULL);
@@ -861,9 +860,6 @@ model_prepared (EogImageList *model, gpointer data)
 	priv->view_order = g_list_reverse (priv->view_order);
 	priv->n_items = g_list_length (priv->view_order);
 
-	priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = TRUE;
-	request_update (wlist);
-	
 	for (it = priv->view_order; it != NULL; it = it->next) {
 		eog_collection_item_load (EOG_COLLECTION_ITEM (it->data));
 	}
@@ -983,12 +979,7 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 	if (model) {
 		priv->model = model;
 		g_object_ref (G_OBJECT (model));
-
-		priv->model_ids[MODEL_SIGNAL_PREPARED] = g_signal_connect (
-			G_OBJECT (model), "list-prepared",
-			G_CALLBACK (model_prepared),
-			wlist);
-
+		
 		priv->model_ids[MODEL_SIGNAL_IMAGE_ADDED] = g_signal_connect (
 			G_OBJECT (model), "image-added",
 			G_CALLBACK (model_image_added),
@@ -998,8 +989,11 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 			G_OBJECT (model), "image-removed",
 			G_CALLBACK (model_image_removed),
 			wlist);
+		
+		create_items_from_model (wlist, model);
 	}
 
+	priv->global_update_hints[N_ITEMS_CHANGED] = TRUE;
 	request_update (wlist);
 }
 

@@ -102,6 +102,14 @@ eog_metadata_reader_new (EogMetadataFileType type)
 	return emr;
 }
 
+gboolean
+eog_metadata_reader_finished (EogMetadataReader *emr)
+{
+	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), TRUE);
+
+	return (emr->priv->state == EMR_FINISHED);
+}
+
 void
 eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 {

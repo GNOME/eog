@@ -55,9 +55,6 @@ enum {
 };
 static gint view_signals [SIGNAL_LAST];
 
-/* See image_cb_ids below; number of EogImage's signals to which we connect */
-#define NUM_IMAGE_CALLBACKS 5
-
 /* Private part of the EogScrollView structure */
 struct _EogScrollViewPrivate {
 	/* some widgets we rely on */
@@ -69,7 +66,7 @@ struct _EogScrollViewPrivate {
 
 	/* actual image */
 	EogImage *image;
-	gulong image_cb_ids [NUM_IMAGE_CALLBACKS];
+	guint image_changed_id;
 	GdkPixbuf *pixbuf;
 
 	/* zoom mode, either ZOOM_MODE_FIT or ZOOM_MODE_FREE */
@@ -131,24 +128,16 @@ static void
 free_image_resources (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
-	int i;
 
 	priv = view->priv;
 
-	for (i = 0; i < NUM_IMAGE_CALLBACKS; i++) {
-		if (priv->image_cb_ids[i] != 0 ) {
-			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_cb_ids[i]);
-			priv->image_cb_ids[i] = 0;
-		}
+	if (priv->image_changed_id > 0) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_id);
+		priv->image_changed_id = 0;
 	}
 
 	if (priv->image != NULL) {
-		/* FIXME: calling cancel_load() here should not be necessary;
-		 * the EogImage should stop loading if its refcount goes down to
-		 * zero.
-		 */
-		eog_image_cancel_load (priv->image);
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 
@@ -1728,10 +1717,6 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		return;
 	}
 
-	if (image != NULL) {
-		g_object_ref (image);
-	}
-
 	if (priv->image != NULL) {
 		free_image_resources (view);
 		if (GTK_WIDGET_DRAWABLE (priv->display) && image == NULL) {
@@ -1741,24 +1726,31 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	g_assert (priv->image == NULL);
 	g_assert (priv->pixbuf == NULL);
 
-
 	priv->progressive_state = PROGRESSIVE_NONE;
 	if (image != NULL) {
-		priv->image = image;
+		eog_image_data_ref (image);
 
-		priv->image_cb_ids[0] = g_signal_connect (priv->image, "loading_update",
-							  (GCallback) image_loading_update_cb, view);
-		priv->image_cb_ids[1] = g_signal_connect (priv->image, "loading_finished",
-							  (GCallback) image_loading_finished_cb, view);
-		priv->image_cb_ids[2] = g_signal_connect (priv->image, "loading_failed",
-							  (GCallback) image_loading_failed_cb, view);
-		priv->image_cb_ids[3] = g_signal_connect (priv->image, "loading_cancelled",
-							  (GCallback) image_loading_cancelled_cb, view);
-		priv->image_cb_ids[4] = g_signal_connect (priv->image, "image_changed",
-							  (GCallback) image_changed_cb, view);
+		if (priv->pixbuf == NULL) {
+			priv->pixbuf = eog_image_get_pixbuf (image);
+			priv->progressive_state = PROGRESSIVE_NONE;
+			set_zoom_fit (view);
+			check_scrollbar_visibility (view, NULL);
+			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 
-		eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
+		}
+		else if (priv->interp_type != GDK_INTERP_NEAREST &&
+			 !is_unity_zoom (view))
+		{
+			/* paint antialiased image version */
+			priv->progressive_state = PROGRESSIVE_POLISHING;
+			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+		}
+
+		priv->image_changed_id = g_signal_connect (image, "image_changed",
+							   (GCallback) image_changed_cb, view);
 	}
+	
+	priv->image = image;
 }
 
 void

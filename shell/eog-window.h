@@ -24,6 +24,7 @@
 #define EOG_WINDOW_H
 
 #include <gtk/gtk.h>
+#include "eog-image-list.h"
 
 G_BEGIN_DECLS 
 
@@ -43,6 +44,7 @@ typedef enum {
 	EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
 	EOG_WINDOW_ERROR_IO,
 	EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+	EOG_WINDOW_ERROR_GENERIC,
 	EOG_WINDOW_ERROR_UNKNOWN
 } EogWindowError;
 #define EOG_WINDOW_ERROR eog_window_error_quark ()
@@ -68,18 +70,18 @@ struct _EogWindowClass {
 };
 
 
-GType        eog_window_get_type                    (void);
-GtkWidget*   eog_window_new (GError **error);
+GType        eog_window_get_type  (void);
+GtkWidget*   eog_window_new       (GError **error);
 
-void         eog_window_close (EogWindow *eog_window);
+void         eog_window_close     (EogWindow *eog_window);
 
-gboolean     eog_window_open (EogWindow *win, const char *iid, const char *text_uri, GError **error);
-gboolean     eog_window_open_list (EogWindow *win, const char *iid, GList *text_uri_list, GError **error);
+gboolean     eog_window_open      (EogWindow *win, EogImageList *model, GError **error);
 
-const char*  eog_window_get_uri (EogWindow *eog_window);
+const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);
+void         eog_window_save_geometry (EogWindow *eog_window);
 
-GList*       eog_get_window_list (void);
+GList*       eog_get_window_list  (void);
 
 void         eog_window_close_all (void);
 

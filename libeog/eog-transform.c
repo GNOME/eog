@@ -47,7 +47,7 @@ GNOME_CLASS_BOILERPLATE (EogTransform,
 
 
 GdkPixbuf*    
-eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogProgressHook hook, gpointer hook_data)
+eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 {
 	ArtPoint dest_top_left;
 	ArtPoint dest_bottom_right;
@@ -153,12 +153,11 @@ eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogProgressHook h
 			}
 		}
 
-		if (hook != NULL) {
+		if (job != NULL) {
 			progress = (float) (y + 1.0) / (float) dest_height;
-			(*hook) (trans, progress, hook_data);
+			eog_job_set_progress (job, progress);
 		}
 	}
-
 
 	g_object_unref (pixbuf);
 

@@ -17,7 +17,6 @@ typedef enum {
  
 struct _EogImagePrivate {
 	GnomeVFSURI *uri;
-	EogImageLoadMode mode;
 	EogImageStatus status;
 
 	GdkPixbuf *image;
@@ -58,6 +57,8 @@ struct _EogImagePrivate {
 	GList *undo_stack;
 	/* composition of all applied transformations */
 	EogTransform *trans;
+
+	guint data_ref_count;
 };
 
 

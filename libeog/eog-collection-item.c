@@ -8,6 +8,8 @@
 #include "eog-collection-item.h"
 #include "eog-image.h"
 #include "eog-canvas-pixbuf.h"
+#include "eog-job-manager.h"
+#include "eog-thumbnail.h"
 
 struct _EogCollectionItemPrivate {
 	EogImage *image;
@@ -170,7 +172,7 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 	}
 	else {
 		scaled = pixbuf;
-		gdk_pixbuf_ref (scaled);
+		g_object_ref (scaled);
 	}
 
 	g_assert (image_width <= EOG_COLLECTION_ITEM_THUMB_WIDTH);
@@ -198,7 +200,7 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 		gnome_canvas_item_hide (priv->frame);
 	}
 
-	gdk_pixbuf_unref (scaled);
+	g_object_unref (scaled);
 
 	/* emit size changed signal if pixbuf size changed */
 	if (image_width != old_width || image_height != old_height) {
@@ -226,7 +228,7 @@ get_busy_pixbuf (void)
 		g_free (file);
 	}
 
-	gdk_pixbuf_ref (busy);
+	g_object_ref (busy);
 
 	return busy;
 }
@@ -245,7 +247,7 @@ get_failed_pixbuf (void)
 		g_free (path);
 	}
 
-	gdk_pixbuf_ref (failed);
+	g_object_ref (failed);
 
 	return failed;
 }
@@ -264,31 +266,59 @@ get_stipple_bitmap (void)
 }
 
 static void
-thumbnail_finished_cb (EogImage *image, gpointer data)
+job_thumb_finished (EogJob *job, gpointer data, GError *error)
 {
 	EogCollectionItemPrivate *priv;
+	GdkPixbuf *pixbuf = NULL;
+	gboolean show_frame = FALSE;
+	
+	priv = EOG_COLLECTION_ITEM (data)->priv;
+	
+	if (eog_job_get_success (job)) {
+		/* success */
+		pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
+		show_frame = TRUE;
+	}
+	
+	if (pixbuf == NULL) {
+		pixbuf = get_failed_pixbuf ();
+	}
+	
+	g_assert (pixbuf != NULL);
+	
+	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, show_frame);
+	g_object_unref (pixbuf);
+}
+
+static void 
+job_thumb_create (EogJob *job, gpointer data, GError **error)
+{
+	EogCollectionItemPrivate *priv;
+	EogImage *image;
 	GdkPixbuf *pixbuf;
+	GnomeVFSURI *uri;
 
 	priv = EOG_COLLECTION_ITEM (data)->priv;
 
-	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
+	image = priv->image; 
+	if (!EOG_IS_IMAGE (image))
+		return;
 
-	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, TRUE);
+	uri = eog_image_get_uri (image);
+	if (uri == NULL)
+		return;
+		
+	pixbuf = eog_thumbnail_load (uri, job, error);
 
-	gdk_pixbuf_unref (pixbuf);
+	if (pixbuf == NULL) 
+		g_assert (*error != NULL);
+	else {
+		eog_image_set_thumbnail (image, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	
+	gnome_vfs_uri_unref (uri);
 }
-
-static void
-thumbnail_failed_cb (EogImage *image, gpointer data)
-{
-	GdkPixbuf *pixbuf;
-
-	pixbuf = get_failed_pixbuf ();
-
-	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, FALSE);
-
-	gdk_pixbuf_unref (pixbuf);
-}	
 
 static void
 image_changed_cb (EogImage *image, gpointer data)
@@ -303,7 +333,7 @@ image_changed_cb (EogImage *image, gpointer data)
 	/* update thumnbail */
 	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
 	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, TRUE);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	/* update caption */
 	caption = get_item_image_caption (GNOME_CANVAS_ITEM (data), image);
@@ -507,13 +537,11 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 					     NULL);
 	gnome_canvas_item_hide (priv->frame);
 
-	g_signal_connect (image, "thumbnail_failed", G_CALLBACK (thumbnail_failed_cb), item);
-	g_signal_connect (image, "thumbnail_finished", G_CALLBACK (thumbnail_finished_cb), item);
 	g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), item);
 
 	pixbuf = get_busy_pixbuf ();
 	set_pixbuf (item, pixbuf, FALSE);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	gnome_canvas_item_request_update (GNOME_CANVAS_ITEM (item));
 }
@@ -568,13 +596,30 @@ void
 eog_collection_item_load (EogCollectionItem *item)
 {
 	EogCollectionItemPrivate *priv;
+	EogJob *job;
+	GdkPixbuf *thumb = NULL;
 
 	g_return_if_fail (EOG_IS_COLLECTION_ITEM (item));
 
 	priv = item->priv;
 
-	if (priv->image != NULL && eog_image_load_thumbnail (priv->image)) {
-		thumbnail_finished_cb (priv->image, item);
+	if (priv->image == NULL) 
+		return;
+
+	thumb = eog_image_get_pixbuf_thumbnail (priv->image);
+	if (thumb == NULL) {
+		/* try to create thumbnail */
+		job = eog_job_new (G_OBJECT (item),
+				   job_thumb_create,
+				   job_thumb_finished,
+				   NULL, /* cancel */
+				   NULL); /* progress */
+		eog_job_manager_add (job);
+		g_object_unref (G_OBJECT (job));
+	}
+	else {
+		set_pixbuf (EOG_COLLECTION_ITEM (item), thumb, TRUE);
+		g_object_unref (thumb);
 	}
 }
 

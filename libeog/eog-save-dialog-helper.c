@@ -6,6 +6,7 @@
 
 typedef struct {
 	int n_images;
+	int n_processed;
 	GtkWidget *header;
 	GtkWidget *detail;
 	GtkWidget *counter;
@@ -98,6 +99,7 @@ eog_save_dialog_new  (GtkWindow *main, int n_images)
 	g_assert (data != NULL);
 
 	data->n_images = n_images;
+	data->n_processed = 0;
 	data->header    = glade_xml_get_widget (xml, "header_label");
 	data->detail    = glade_xml_get_widget (xml, "detail_label");
 	data->counter   = glade_xml_get_widget (xml, "counter_label");
@@ -131,13 +133,9 @@ eog_save_dialog_new  (GtkWindow *main, int n_images)
 }
 
 void
-eog_save_dialog_update    (GtkWindow *dlg, int n, EogImage *image, 
-			   EogImageSaveInfo *source, 
-			   EogImageSaveInfo *target)
+eog_save_dialog_set_progress (GtkWindow *dlg, float progress)
 {
 	SaveDialogData *data;
-	char *header_str = NULL; 
-	GnomeVFSURI *uri = NULL;
 
 	g_return_if_fail (GTK_IS_WINDOW (dlg));
 
@@ -145,32 +143,64 @@ eog_save_dialog_update    (GtkWindow *dlg, int n, EogImage *image,
 	if (data == NULL)
 		return;
 
-	if (target != NULL && target->uri != NULL) {
-		uri = target->uri;
-	}
-	else if (source != NULL && source->uri != NULL) {
-		uri = source->uri;
-	}
+	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (data->progress), progress);
+}
+
+void
+eog_save_dialog_finished_image (GtkWindow *dlg)
+{
+	SaveDialogData *data;
+
+	g_return_if_fail (GTK_IS_WINDOW (dlg));
+
+	data = (SaveDialogData*) g_object_get_data (G_OBJECT (dlg), "data");
+	if (data == NULL)
+		return;
+	
+	data->n_processed = MIN (data->n_processed+1, data->n_images);
+
+	update_counter_label (data->counter, data->n_processed, data->n_images);
+}
+
+void 
+eog_save_dialog_start_image (GtkWindow *dlg, EogImage *image, GnomeVFSURI *uri)
+{
+	SaveDialogData *data;
+	char *header_str = NULL; 
+	char *utf8_name = NULL;
+
+	g_return_if_fail (GTK_IS_WINDOW (dlg));
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	data = (SaveDialogData*) g_object_get_data (G_OBJECT (dlg), "data");
+	if (data == NULL)
+		return;
 
 	if (uri != NULL) {
 		char *name;
-		char *utf8_name;
-
+		
 		name = gnome_vfs_uri_extract_short_name (uri);
 		utf8_name = eog_util_make_valid_utf8 (name);
 
-		header_str = g_strdup_printf (_("Saving image %s."), utf8_name);
-
 		g_free (name);
+	}
+	else {
+		utf8_name = g_strdup (eog_image_get_caption (image));
+	}
+	
+	if (utf8_name != NULL) {
+		header_str = g_strdup_printf (_("Saving image %s."), utf8_name);
 		g_free (utf8_name);
 	}
 
         gtk_label_set_text (GTK_LABEL (data->header), header_str);
+	if (header_str != NULL) {
+		g_free (header_str);
+	}
 
-	update_counter_label (data->counter, n, data->n_images);
-	update_progress_bar  (data->progress, n, data->n_images);
 	update_thumbnail     (data->thumbnail, image);
 }
+
 
 void
 eog_save_dialog_close (GtkWindow *dlg, gboolean successful)

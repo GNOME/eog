@@ -9,6 +9,8 @@
 #define EOG_CONF_VIEW_TRANS_COLOR            "/apps/eog/view/trans_color"
 
 #define EOG_CONF_WINDOW_OPEN_NEW_WINDOW      "/apps/eog/window/open_new_window"
+#define EOG_CONF_WINDOW_GEOMETRY_SINGLETON   "/apps/eog/window/geometry_singleton"
+#define EOG_CONF_WINDOW_GEOMETRY_COLLECTION  "/apps/eog/window/geometry_collection"
 
 #define EOG_CONF_FULLSCREEN_LOOP            "/apps/eog/full_screen/loop"
 #define EOG_CONF_FULLSCREEN_UPSCALE         "/apps/eog/full_screen/upscale"

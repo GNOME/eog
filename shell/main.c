@@ -10,19 +10,34 @@
 #include <gconf/gconf-client.h>
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
+#include "eog-thumbnail.h"
 #include "session.h"
 #include "eog-config-keys.h"
+#include "eog-image-list.h"
+#include "eog-job-manager.h"
 
 static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
-static GtkWidget* create_new_window (void);
+static void new_window_cb (EogWindow *window, gpointer data);
 
 
 typedef struct {
 	EogWindow *window;
-	char      *iid;
 	GList     *uri_list;
-	gboolean  single_windows;
+	EogImageList  *img_list;
 } LoadContext;
+
+static void 
+free_uri_list (GList *list)
+{
+	GList *it;
+	
+	for (it = list; it != NULL; it = it->next) {
+		gnome_vfs_uri_unref ((GnomeVFSURI*)it->data);
+	}
+
+	if (list != NULL) 
+		g_list_free (list);
+}
 
 static void 
 free_string_list (GList *list)
@@ -38,19 +53,29 @@ free_string_list (GList *list)
 }
 
 static void
-free_load_context (LoadContext *ctx)
+load_context_free (LoadContext *ctx)
 {
 	if (ctx == NULL) return;
 
-	free_string_list (ctx->uri_list);
-
+	free_uri_list (ctx->uri_list);
+	if (ctx->img_list != NULL)
+			g_object_unref (ctx->img_list);
+	ctx->img_list = NULL;
+	
 	g_free (ctx);
 }
 
-static void
-new_window_cb (EogWindow *window, gpointer data)
+static LoadContext*
+load_context_new (EogWindow *window, GList *uri_list)
 {
-	create_new_window ();
+	LoadContext *ctx;
+	
+	ctx = g_new0 (LoadContext, 1);
+	ctx->window = window;
+	ctx->uri_list = uri_list;
+	ctx->img_list = NULL;
+
+	return ctx;
 }
 
 static GtkWidget*
@@ -79,92 +104,58 @@ create_new_window (void)
 
 		g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
 		g_signal_connect (G_OBJECT (window), "new_window", G_CALLBACK (new_window_cb), NULL);
-		
-		gtk_widget_show (window);
 	}
 
 	return window;
 }
 
-static gboolean
-open_window (LoadContext *ctx)
+static void
+assign_model_to_window (EogWindow *window, EogImageList *list)
 {
-	GtkWidget *window;
 	GError *error = NULL;
-	gboolean new_window;
-	GList *it;
-	GConfClient *client;
 
-	g_return_val_if_fail (ctx->iid != NULL, FALSE);
-
-	client = gconf_client_get_default ();
-
-	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
-	new_window = new_window && ((ctx->window == NULL) || eog_window_has_contents (ctx->window));
-
-	g_object_unref (client);
-
-	if (ctx->single_windows) 
-	{
-		for (it = ctx->uri_list; it != NULL; it = it->next) {
-			if (new_window || (ctx->window == NULL)) {
-				window = create_new_window ();
-			}
-			else {
-				window = GTK_WIDGET (ctx->window);
-			}
-
-			if (window != NULL) {
-				if (!eog_window_open (EOG_WINDOW (window), ctx->iid, (char*) it->data, &error)) {
-					g_print ("error open %s\n", (char*)it->data);
-					/* FIXME: handle errors */
-				}
-			
-				new_window = TRUE;
-			}
-		} 
+	if (window == NULL)
+		window = EOG_WINDOW (create_new_window ());
+	
+	if (window == NULL) return;
+	
+	if (list != NULL) {
+		eog_image_list_print_debug (list);
 	}
-	else 
-	{
-		if (new_window || (ctx->window == NULL)) {
-			window = create_new_window ();
-		}
-		else {
-			window = GTK_WIDGET (ctx->window);
-		}
-		
-		if (window != NULL) {
-			if (!eog_window_open_list (EOG_WINDOW (window), ctx->iid, ctx->uri_list, &error)) {
-				g_print ("error");
-				/* report error */
-			}
-		}
+	
+	if (!eog_window_open (window, list, &error)) {
+		/* FIXME: show error, free image list */
+		g_print ("error open %s\n", (char*) error->message);
 	}
-		
-	free_load_context (ctx);
-
-	return FALSE;
+	
+	gtk_widget_show (GTK_WIDGET (window));
 }
 
-
-static gboolean
-create_empty_window (gpointer data)
+static void
+create_empty_window (void)
 {
-	create_new_window ();
-
-	return FALSE;
+	GtkWidget *window; 
+	
+	window = create_new_window ();
+	if (window != NULL) {
+		eog_window_open (EOG_WINDOW (window), NULL, NULL);
+		gtk_widget_show (window);
+	}
 }
 
+static void
+new_window_cb (EogWindow *window, gpointer data)
+{
+	create_empty_window ();
+}
 
 static GnomeVFSURI*
 make_canonical_uri (const char *path)
 {
 	char *uri_str;
-	GnomeVFSURI *uri;
+	GnomeVFSURI *uri = NULL;
 
 	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
-
-	uri = NULL;
 
 	if (uri_str) {
 		uri = gnome_vfs_uri_new (uri_str);
@@ -174,6 +165,29 @@ make_canonical_uri (const char *path)
 	return uri;
 }
 
+static GnomeVFSFileType
+check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+{
+	GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+	GnomeVFSResult result;
+
+	g_return_val_if_fail (uri != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
+	g_return_val_if_fail (info != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
+
+	gnome_vfs_file_info_clear (info);
+	
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	
+	if (result == GNOME_VFS_OK &&
+	    ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_TYPE) != 0))
+	{
+		type = info->type;
+	}
+
+	return type;
+}
 
 /**
  * sort_files:
@@ -196,38 +210,38 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 
 	for (it = files; it != NULL; it = it->next) {
 		GnomeVFSURI *uri;
-		GnomeVFSResult result = GNOME_VFS_OK;
-		char *filename;
-		
-		uri = make_canonical_uri ((char*)it->data);
+		GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+		char *argument;
+
+		argument = (char*) it->data;
+		uri = make_canonical_uri (argument);
 
 		if (uri != NULL) {
-			result = gnome_vfs_get_file_info_uri (uri, info,
-							      GNOME_VFS_FILE_INFO_DEFAULT |
-							      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-
-			filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-		}
-		else {
-			filename = g_strdup ((char*) it->data);
+			type = check_uri_file_type (uri, info);
 		}
 
-		if (result != GNOME_VFS_OK || uri == NULL)
-			*error_list = g_list_append (*error_list, filename);
-		else {
-			if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-				*file_list = g_list_append (*file_list, filename);
-			else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-				*dir_list = g_list_append (*dir_list, filename);
-			else
-				*error_list = g_list_append (*error_list, filename);
+		switch (type) {
+		case GNOME_VFS_FILE_TYPE_REGULAR:
+			*file_list = g_list_prepend (*file_list, gnome_vfs_uri_ref (uri));
+			break;
+		case GNOME_VFS_FILE_TYPE_DIRECTORY:
+			*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
+			break;
+		default:
+			/* FIXME: Use canonical uri instead of argument */
+			*error_list = g_list_prepend (*error_list, argument);
+			break;
 		}
 
 		if (uri != NULL) {
 			gnome_vfs_uri_unref (uri);
 		}
-		gnome_vfs_file_info_clear (info);
 	}
+
+	/* reverse lists for correct order */
+	*file_list  = g_list_reverse (*file_list);
+	*dir_list   = g_list_reverse (*dir_list);
+	*error_list = g_list_reverse (*error_list);
 
 	gnome_vfs_file_info_unref (info);
 }
@@ -266,7 +280,7 @@ user_wants_collection (gint n_windows)
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Single Windows"), COLLECTION_NO);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, COLLECTION_CANCEL);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Collection"), COLLECTION_YES);
-       	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
 
 	gtk_widget_show_all (dlg);
 
@@ -343,18 +357,102 @@ string_array_to_list (const gchar **files)
 	return g_slist_reverse (list);
 }
 
+static void
+job_prepare_model_do (EogJob *job, gpointer data, GError **error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+	ctx->img_list = eog_image_list_new ();
+	
+	/* prepare the image list */
+	eog_image_list_add_uris (ctx->img_list, ctx->uri_list);
+	
+	/* it there is only one image, load it also from disk */
+	if (eog_image_list_length (ctx->img_list) == 1) {
+		EogImage *img;
+		
+		img = eog_image_list_get_img_by_pos (ctx->img_list, 0);
+		if (EOG_IS_IMAGE (img)) {
+			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
+			g_object_unref (img);
+		}
+	}
+}
+
+static void
+job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+	
+	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED &&
+		eog_job_get_success (job))
+	{
+		g_object_ref (ctx->img_list);
+		
+		assign_model_to_window (ctx->window, ctx->img_list);
+	}
+}
+
+static void 
+job_prepare_model_free (gpointer data)
+{
+	load_context_free ((LoadContext*) data);
+	data = NULL;
+}
+	
+static void
+load_uris_in_single_model (EogWindow *window, GList *uri_list)
+{
+	GList *it;
+	LoadContext *ctx;
+	
+	for (it = uri_list; it != NULL; it = it->next) {
+		GList *singleton = NULL;
+		EogJob *job;
+		
+		singleton = g_list_prepend (singleton, it->data);		
+		ctx = load_context_new (window, singleton);
+	
+		job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished,
+						NULL,
+				        NULL, job_prepare_model_free);
+		eog_job_manager_add (job);
+		g_object_unref (job);
+		
+		window = NULL;
+	}
+}
+
+static EogWindow*
+check_window_reuse (EogWindow *window)
+{
+	gboolean new_window = FALSE;
+	GConfClient *client;
+	EogWindow *use_window = NULL;
+
+	client = gconf_client_get_default ();
+
+	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
+	new_window = new_window && (window == NULL || eog_window_has_contents (window));
+	
+	if (!new_window)
+		use_window = window;
+	
+	g_object_unref (client);
+	
+	return use_window;
+}
+
 static void 
 open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 {
 	GList *file_list = NULL;
 	GList *dir_list = NULL;
 	GList *error_list = NULL;
-	LoadContext *ctx;
 	gboolean quit_program = FALSE;
-
+	
 	if (uri_list == NULL) {
 		if (window == NULL) {
-			g_idle_add (create_empty_window, NULL);
+			create_empty_window ();
 		}
 
 		return;
@@ -362,66 +460,51 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 
 	sort_files (uri_list, &file_list, &dir_list, &error_list);
 
+	/* check if we can/should reuse the window */
+	window = check_window_reuse (window);
+	
 	/* open regular files */
 	if (file_list) {
 		int result = COLLECTION_NO;
 		int n_files = 0;
 
 		n_files = g_list_length (file_list);
-		if (n_files > 3 && n_files < 10) {
-			result = user_wants_collection (g_list_length (file_list));
-		}
-		else if (n_files >= 10) {
+		if (n_files >= 10) {
 			result = COLLECTION_YES;
 		}
-		else {
-			result = COLLECTION_NO;
+		else if (n_files > 3) { /* 3 < n_files < 10  => ask user */
+			result = user_wants_collection (n_files);
 		}
 	
-
-		if (result == COLLECTION_YES) 
-		{
-			/* Do not free the file_list, this will be done
-			   in the create_app_list function! */
-			ctx = g_new0 (LoadContext, 1);
-			ctx->window = window;
-			ctx->iid = EOG_COLLECTION_CONTROL_IID;
-			ctx->uri_list = file_list;
-			ctx->single_windows = FALSE;
-			
-			g_idle_add ((GSourceFunc)open_window, ctx);
-		} 
-		else if (result == COLLECTION_NO)
-		{
-			ctx = g_new0 (LoadContext, 1);
-			ctx->window = window;
-			ctx->iid = EOG_VIEWER_CONTROL_IID;
-			ctx->uri_list = file_list;
-			ctx->single_windows = TRUE;
-			
-			/* open multiple windows */
-			g_idle_add ((GSourceFunc)open_window, ctx);
-		}
-		else if (result == COLLECTION_CANCEL && window == NULL) {
-			/* We quit the whole program only if we open the files
-			   from the commandline. We would get the signal emitting 
-			   window otherwise.
-			*/
-			quit_program = TRUE;
+		switch (result) {
+		case COLLECTION_CANCEL:
+			quit_program = (window == NULL);			
+			break;			
+		case COLLECTION_YES: {
+			LoadContext *ctx;				
+			EogJob *job;
+			ctx = load_context_new (window, file_list);
+			window = NULL;
+	
+			job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished, 
+									NULL, NULL, job_prepare_model_free);
+			eog_job_manager_add (job);
+			g_object_unref (job);
+			}
+			break;
+		case COLLECTION_NO:
+			load_uris_in_single_model (window, file_list);
+			window = NULL;
+			break;
+		default:
+			g_assert_not_reached ();
 		}
 	}
 		
 	/* open every directory in an own window */
 	if (dir_list) {
 		quit_program = FALSE;
-
-		ctx = g_new0 (LoadContext, 1);
-		ctx->window = window;
-		ctx->iid = EOG_COLLECTION_CONTROL_IID;
-		ctx->uri_list = dir_list;
-		ctx->single_windows = TRUE;
-
-		g_idle_add ((GSourceFunc)open_window, ctx);
+		load_uris_in_single_model (window, dir_list);		
 	}
 
 	/* show error for inaccessable files */
@@ -508,7 +591,6 @@ main (int argc, char **argv)
 	GnomeProgram *program;
 	GError *error;
 	poptContext ctx;
-	GValue value = { 0 };
 	GnomeClient *client;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
@@ -528,10 +610,13 @@ main (int argc, char **argv)
 		exit (EXIT_FAILURE);
 	}
 
-	if(gnome_vfs_init () == FALSE)
+	if(gnome_vfs_init () == FALSE) {
 		g_error ("Could not initialize GnomeVFS!");
+		exit (EXIT_FAILURE);
+	}
 
 	gnome_authentication_manager_init ();
+	eog_thumbnail_init ();
 
 	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
 
@@ -544,10 +629,9 @@ main (int argc, char **argv)
 		session_load (gnome_client_get_config_prefix (client));
 	}
 	else  {
-		g_value_init (&value, G_TYPE_POINTER);
-		g_object_get_property (G_OBJECT (program), GNOME_PARAM_POPT_CONTEXT, &value);
-		ctx = g_value_get_pointer (&value);
-		g_value_unset (&value);
+		g_object_get (G_OBJECT (program), 
+			      GNOME_PARAM_POPT_CONTEXT, &ctx,
+			      NULL);
 
 		g_idle_add (handle_cmdline_args, ctx);
 	}

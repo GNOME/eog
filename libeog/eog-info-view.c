@@ -7,18 +7,10 @@
 #include "eog-info-view-file.h"
 #include "eog-info-view-exif.h"
 
-enum {
-	SIGNAL_ID_SIZE_PREPARED,
-	SIGNAL_ID_IMAGE_FINISHED,
-	SIGNAL_ID_CHANGED,
-	SIGNAL_ID_LAST
-};
-
-
 struct _EogInfoViewPrivate
 {
 	EogImage *image;
-	int image_signal_ids [SIGNAL_ID_LAST];
+	int image_changed_signal_id;
 
 	GtkWidget *file_view;
 	GtkWidget *exif_view;
@@ -42,7 +34,7 @@ eog_info_view_dispose (GObject *object)
 	priv = view->priv;
 
 	if (priv->image) {
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 }
@@ -75,15 +67,12 @@ eog_info_view_instance_init (EogInfoView *view)
 {
 	EogInfoViewPrivate *priv;
 	GtkWidget *scrwnd;
-	int s;
 
 	priv = g_new0 (EogInfoViewPrivate, 1);
 
 	view->priv = priv;
 	priv->image = NULL;
-	for (s = 0; s < SIGNAL_ID_LAST; s++) {
-		priv->image_signal_ids [s] = 0;
-	} 
+	priv->image_changed_signal_id = 0;
 
 	priv->file_view = g_object_new (EOG_TYPE_INFO_VIEW_FILE, NULL);
 	scrwnd = g_object_new (GTK_TYPE_SCROLLED_WINDOW, "hscrollbar-policy", GTK_POLICY_AUTOMATIC,
@@ -109,42 +98,19 @@ eog_info_view_instance_init (EogInfoView *view)
 #endif
 }
 
-/* loading_size_prepared_cb
- *
- * This function is always called, when the image dimension is known. Therefore
- * we add the image size and width to the info view list here.
- */
 static void
-loading_size_prepared_cb (EogImage *image, gint width, gint height, gpointer data)
+update_data_pages_for_image (EogInfoView *view, EogImage *image)
 {
-	EogInfoView *view;
-
+	g_return_if_fail (EOG_IS_INFO_VIEW (view));
 	g_return_if_fail (EOG_IS_IMAGE (image));
-
-	view = EOG_INFO_VIEW (data);
-
-	eog_info_view_file_show_data (EOG_INFO_VIEW_FILE (view->priv->file_view), image);
-}
-
-/* loading_finished_cb
- * 
- * This function is called if EXIF data has been read by EogImage.
- */
-static void
-loading_finished_cb (EogImage *image, gpointer data)
-{
-	EogInfoView *view;
-
-	g_return_if_fail (EOG_IS_IMAGE (image));
-
-	view = EOG_INFO_VIEW (data);
-
+	
 	eog_info_view_file_show_data (EOG_INFO_VIEW_FILE (view->priv->file_view), image);
 #if HAVE_EXIF
 	{
 		ExifData *ed;
 
 		ed = eog_image_get_exif_information (image);
+		g_print ("Show exif data\n");
 		eog_info_view_exif_show_data (EOG_INFO_VIEW_EXIF (view->priv->exif_view), ed);
 		if (ed != NULL) {
 			gtk_widget_show_all (gtk_widget_get_parent (GTK_WIDGET (view->priv->exif_view)));
@@ -157,7 +123,6 @@ loading_finished_cb (EogImage *image, gpointer data)
 #endif
 }
 
-
 /* image_changed_cb
  *
  * This function is called every time the image changed somehow. We
@@ -166,32 +131,15 @@ loading_finished_cb (EogImage *image, gpointer data)
 static void
 image_changed_cb (EogImage *image, gpointer data)
 {
-	EogInfoView *view;
-
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	view = EOG_INFO_VIEW (data);
-
-	eog_info_view_file_show_data (EOG_INFO_VIEW_FILE (view->priv->file_view), image);
-#if HAVE_EXIF
-	{
-		ExifData *ed;
-
-		ed = (ExifData*) eog_image_get_exif_information (image);
-		eog_info_view_exif_show_data (EOG_INFO_VIEW_EXIF (view->priv->exif_view), ed);
-		if (ed != NULL) {
-			exif_data_unref (ed);
-		}
-	}
-#endif
-
+	update_data_pages_for_image (EOG_INFO_VIEW (data), image);
 }
 
 void
 eog_info_view_set_image (EogInfoView *view, EogImage *image)
 {
 	EogInfoViewPrivate *priv;
-	int s;
 
 	g_return_if_fail (EOG_IS_INFO_VIEW (view));
 
@@ -200,38 +148,26 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 	if (priv->image == image)
 		return;
 
+	/* clean up current data */
 	if (priv->image != NULL) {
-		for (s = 0; s < SIGNAL_ID_LAST; s++) {
-			if (priv->image_signal_ids [s] > 0) {
-				g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_signal_ids [s]);
-				priv->image_signal_ids [s] = 0;
-			}
+		if (priv->image_changed_signal_id > 0) {
+			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_signal_id);
+			priv->image_changed_signal_id = 0;
 		}
 
-		g_object_unref (priv->image);
+		eog_image_data_unref (priv->image);
 		priv->image = NULL;
 	}
 
-	eog_info_view_file_show_data (EOG_INFO_VIEW_FILE (priv->file_view), image);
-
 	if (image != NULL) {
-	g_object_ref (image);
-	priv->image = image;
+		eog_image_data_ref (image);
+		priv->image = image;
 
-	/* prepare additional image information callbacks */
-		priv->image_signal_ids [SIGNAL_ID_IMAGE_FINISHED] = 
-			g_signal_connect (G_OBJECT (priv->image), "loading_finished", 
-					  G_CALLBACK (loading_finished_cb), view);
+		priv->image_changed_signal_id = 
+			g_signal_connect (G_OBJECT (priv->image), "image_changed", 
+					  G_CALLBACK (image_changed_cb), view);
 
-	priv->image_signal_ids [SIGNAL_ID_SIZE_PREPARED] = 
-		g_signal_connect (G_OBJECT (priv->image), "loading_size_prepared", 
-				  G_CALLBACK (loading_size_prepared_cb), view);
-
-	priv->image_signal_ids [SIGNAL_ID_CHANGED] = 
-		g_signal_connect (G_OBJECT (priv->image), "image_changed", 
-				  G_CALLBACK (image_changed_cb), view);
-
-	/* start loading */
-	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
 	}
+
+	update_data_pages_for_image (view, image);
 }

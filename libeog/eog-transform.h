@@ -3,6 +3,7 @@
 
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include "eog-job.h"
 
 G_BEGIN_DECLS
 
@@ -42,12 +43,9 @@ struct _EogTransformClass {
 	GObjectClass parent_klass;
 };
 
-typedef void ((* EogProgressHook) (EogTransform *trans, float progress, gpointer data));
-
-
 GType         eog_transform_get_type (void);
 
-GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogProgressHook hook, gpointer hook_data);
+GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job);
 EogTransform* eog_transform_reverse (EogTransform *trans);
 EogTransform* eog_transform_compose (EogTransform *trans, EogTransform *compose);
 gboolean      eog_transform_is_identity (EogTransform *trans);

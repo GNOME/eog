@@ -38,6 +38,7 @@ GType               eog_metadata_reader_get_type                       (void) G_
 
 EogMetadataReader*   eog_metadata_reader_new (EogMetadataFileType type);
 void                 eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len);
+gboolean             eog_metadata_reader_finished (EogMetadataReader *emr);
 
 void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint *len);
 #if HAVE_EXIF
