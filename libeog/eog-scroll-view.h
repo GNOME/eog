@@ -31,7 +31,7 @@ struct _EogScrollViewClass {
 
 typedef enum {
 	TRANSP_BACKGROUND,
-	TRANSP_CHECKEDPATTERN,
+	TRANSP_CHECKED,
 	TRANSP_COLOR
 } TransparencyStyle;
 
@@ -42,7 +42,7 @@ GtkWidget* eog_scroll_view_new            (void);
 void     eog_scroll_view_set_image        (EogScrollView *view, EogImage *image);
 
 /* general properties */
-void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale); 
+void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale);
 void     eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color);
 void     eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, gboolean scaled);

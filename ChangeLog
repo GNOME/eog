@@ -1,3 +1,41 @@
+2003-04-02  Federico Mena Quintero  <federico@ximian.com>
+
+	* libeog/eog-scroll-view.c (eog_scroll_view_get_image_size):
+	"*width = *height = 0", not "width = height = 0".
+	(NUM_IMAGE_CALLBACKS): Use a macro rather than a hardcoded value
+	for the number of signals we connect to.
+	(ZoomMode): Use an enum rather than ints.
+	(ProgressiveState): Likewise.
+	(update_scrollbar_values): Use gtk_adjustment_changed() rather
+	than emitting signals for the adjustments directly.
+	(set_zoom): Use NULL, not 0, when calling
+	check_scrollbar_visibility().
+	(display_key_press_event): Likewise.
+	(display_map_event): Likewise.
+	(image_loading_update_cb): Likewise.
+	(image_loading_finished_cb): Likewise.
+	(image_changed_cb): Likewise.
+	(eog_scroll_view_zoom_fit): Likewise.
+	(eog_scroll_view_set_image): Likewise.
+	(check_scrollbar_visibility): We don't use the return value
+	anywhere, so make it return void.
+	(is_unity_zoom): Take in an EogScrollView, not a private
+	structure.
+	(pack_pixbuf): Removed.
+	(paint_rectangle): Compute the background color correctly for the
+	TRASNP_BACKGROUND case.
+	(scroll_to): Use gtk_adjustment_value_changed() rather than
+	emitting signals for the adjustments directly.
+	(compute_center_zoom_offsets): Do not allow negative offsets so
+	the image doesn't creep to the right when we zoom down at the
+	upper left corner.
+	(set_zoom_fit): Set the new offsets before emitting the signal.
+	(display_map_cb): Removed.
+	(eog_scroll_view_new): Do not make the whole table non-double-buffered.
+
+	* libeog/eog-scroll-view.h (TransparencyStyle): Rename
+	TRANSP_CHECKEDPATTERN to TRANSP_CHECKED.
+
 2003-03-31  Alexander Larsson  <alexl@redhat.com>
 
 	* collection/GNOME_EOG_Collection.server.in.in:

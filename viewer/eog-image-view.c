@@ -329,9 +329,9 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 	if (response == GTK_RESPONSE_OK) {
 		filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg)));
 	}
-		
+
 	gtk_widget_destroy (dlg);
-	
+
 	if (response == GTK_RESPONSE_OK) {
 		save_uri_cb (NULL, filename, NULL, image_view);
 	}
@@ -432,7 +432,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 	}
 	case PROP_WINDOW_TITLE: {
 		g_assert (arg->_type == BONOBO_ARG_STRING);
-		
+
 		if (priv->image != NULL) {
 			BONOBO_ARG_SET_STRING (arg, eog_image_get_caption (priv->image));
 		}
@@ -446,23 +446,23 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		int height = 0;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
-		
+
 		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->widget)));
-		
+
 		text = g_new0 (gchar, 40);
 		if (priv->image != NULL) {
 			eog_image_get_size (priv->image, &width, &height);
-			g_snprintf (text, 39, "%i x %i pixel    %i%%", 
+			g_snprintf (text, 39, "%i x %i pixel    %i%%",
 				    width, height,
 				    zoom);
 		} else {
-			g_snprintf (text, 39, "%i%%", zoom); 
+			g_snprintf (text, 39, "%i%%", zoom);
 		}
 		BONOBO_ARG_SET_STRING (arg, text);
 		g_free (text);
 		break;
 	}
-	case PROP_WINDOW_WIDTH: 
+	case PROP_WINDOW_WIDTH:
 	case PROP_WINDOW_HEIGHT: {
 		int width = -1;
 		int height = -1;
@@ -496,7 +496,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		if (arg_id == PROP_WINDOW_WIDTH)
 			BONOBO_ARG_SET_INT (arg, width);
-		else 
+		else
 			BONOBO_ARG_SET_INT (arg, height);
 		break;
 	}
@@ -524,7 +524,7 @@ eog_image_view_set_prop (BonoboPropertyBag *bag,
 	/* FIXME: add transp style, transp color and interpolation properties */
 }
 
-GConfClient* 
+GConfClient*
 eog_image_view_get_client (EogImageView *image_view)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
@@ -561,7 +561,7 @@ eog_image_view_destroy (BonoboObject *object)
 		g_object_unref (priv->image);
 		priv->image = NULL;
 	}
-	
+
 	BONOBO_CALL_PARENT (BONOBO_OBJECT_CLASS, destroy, (object));
 }
 
@@ -628,7 +628,7 @@ interp_type_changed_cb (GConfClient *client,
 	gboolean interpolate = TRUE;
 
 	view = EOG_IMAGE_VIEW (user_data);
-	
+
 	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
 		interpolate = gconf_value_get_bool (entry->value);
 	}
@@ -646,18 +646,18 @@ transparency_changed_cb (GConfClient *client,
 	const char *value = NULL;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-	
+
 	priv = EOG_IMAGE_VIEW (user_data)->priv;
-	
+
 	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
 		value = gconf_value_get_string (entry->value);
 	}
-	
+
 	if (g_strcasecmp (value, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
-		color_str = gconf_client_get_string (priv->client, 
+		color_str = gconf_client_get_string (priv->client,
 						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
@@ -666,7 +666,7 @@ transparency_changed_cb (GConfClient *client,
 	}
 	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
-						  TRANSP_CHECKEDPATTERN, 0);
+						  TRANSP_CHECKED, 0);
 	}
 	else {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
@@ -686,7 +686,7 @@ trans_color_changed_cb (GConfClient *client,
 	const char *color_str;
 
 	priv = EOG_IMAGE_VIEW (user_data)->priv;
-	
+
 	value = gconf_client_get_string (priv->client, GCONF_EOG_VIEW_TRANSPARENCY, NULL);
 
 	if (g_strcasecmp (value, "COLOR") != 0) return;
@@ -870,7 +870,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		priv->image = NULL;
 	}
 	priv->image = image;
-	
+
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->widget), image);
 
 	return 0;
@@ -885,10 +885,10 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	GError *error = NULL;
 	GtkWidget *dialog;
 	gboolean result;
-	
+
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (closure), 1);
 	g_return_val_if_fail (text_uri != NULL, 1);
-	
+
 	view = EOG_IMAGE_VIEW (closure);
 	if (view->priv->image == NULL) return FALSE;
 
@@ -896,13 +896,13 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	uri = gnome_vfs_uri_new (text_uri);
 
 	result = eog_image_save (view->priv->image, uri, &error);
-	
+
 	if (result) {
-		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_INFO, 
+		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_INFO,
 					     _("Image successfully saved"), NULL, FALSE);
 	}
 	else {
-		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, 
+		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
 					     _("Image saving failed"), error->message, FALSE);
 	}
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
@@ -910,7 +910,7 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 				  G_CALLBACK (gtk_widget_destroy),
 				  dialog);
 	gtk_widget_show (dialog);
-	
+
 	if (error != NULL) {
 		g_error_free (error);
 	}
@@ -966,9 +966,9 @@ zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogImageView *view)
 
 	eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (view->priv->widget), 1.0);
 }
-	
-static void 
-init_gconf_defaults (EogImageView *view) 
+
+static void
+init_gconf_defaults (EogImageView *view)
 {
 	EogImageViewPrivate *priv;
 	char *transp_str;
@@ -984,19 +984,19 @@ init_gconf_defaults (EogImageView *view)
 			      GCONF_EOG_VIEW_DIR,
 			      GCONF_CLIENT_PRELOAD_ONELEVEL,
 			      NULL);
-	
-	
+
+
 	/* get preference values from gconf */
-	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (priv->widget), 
+	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (priv->widget),
 					  gconf_client_get_bool (priv->client, GCONF_EOG_VIEW_INTERP_TYPE, NULL));
 
-	transp_str = gconf_client_get_string (priv->client, 
+	transp_str = gconf_client_get_string (priv->client,
 					      GCONF_EOG_VIEW_TRANSPARENCY, NULL);
 	if (g_strcasecmp (transp_str, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
-		color_str = gconf_client_get_string (priv->client, 
+		color_str = gconf_client_get_string (priv->client,
 						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
@@ -1005,7 +1005,7 @@ init_gconf_defaults (EogImageView *view)
 	}
 	else if (g_strcasecmp (transp_str, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
-						  TRANSP_CHECKEDPATTERN, 0);
+						  TRANSP_CHECKED, 0);
 	}
 	else {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
@@ -1013,19 +1013,19 @@ init_gconf_defaults (EogImageView *view)
 	}
 
 	/* add gconf listeners */
-	priv->interp_type_notify_id = 
+	priv->interp_type_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_INTERP_TYPE, 
+					 GCONF_EOG_VIEW_INTERP_TYPE,
 					 interp_type_changed_cb,
 					 view, NULL, NULL);
-	priv->transparency_notify_id = 
+	priv->transparency_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_TRANSPARENCY, 
+					 GCONF_EOG_VIEW_TRANSPARENCY,
 					 transparency_changed_cb,
 					 view, NULL, NULL);
-	priv->trans_color_notify_id = 
+	priv->trans_color_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_TRANS_COLOR, 
+					 GCONF_EOG_VIEW_TRANS_COLOR,
 					 trans_color_changed_cb,
 					 view, NULL, NULL);
 }
@@ -1043,13 +1043,13 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer data)
 	/* inform zoom interface listeners */
 	bonobo_zoomable_report_zoom_level_changed (priv->zoomable, zoom, NULL);
 
-	/* FIXME: normally it should be sufficient to just notify 
-	 * the bonobo_zoomable listeners. 
+	/* FIXME: normally it should be sufficient to just notify
+	 * the bonobo_zoomable listeners.
 	 */
 	/* also update interested window status listeners */
 	arg = bonobo_arg_new (BONOBO_ARG_STRING);
 	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_STATUS, NULL, view);
-		
+
 	bonobo_event_source_notify_listeners (priv->property_bag->es,
 					      "window/status",
 					      arg, NULL);
@@ -1074,17 +1074,17 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 	priv->widget = eog_scroll_view_new ();
 	gtk_widget_show (priv->widget);
 
-	g_signal_connect (G_OBJECT (priv->widget), 
-			  "zoom_changed", 
-			  (GCallback) view_zoom_changed_cb, 
+	g_signal_connect (G_OBJECT (priv->widget),
+			  "zoom_changed",
+			  (GCallback) view_zoom_changed_cb,
 			  image_view);
-	g_signal_connect (priv->widget, 
+	g_signal_connect (priv->widget,
 			  "button_press_event",
-			  G_CALLBACK (view_button_press_event_cb), 
+			  G_CALLBACK (view_button_press_event_cb),
 			  image_view);
-	g_signal_connect (priv->widget, 
+	g_signal_connect (priv->widget,
 			  "popup_menu",
-			  G_CALLBACK (view_popup_menu_cb), 
+			  G_CALLBACK (view_popup_menu_cb),
 			  image_view);
 
 	/* interface Bonobo::PersistFile */
@@ -1092,8 +1092,8 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 				       load_uri_cb, save_uri_cb,
 				       "OAFIID:GNOME_EOG_Control",
 				       image_view);
-	
-	
+
+
 	/* interface Bonobo::Control */
 	control = bonobo_control_new (priv->widget);
 	g_signal_connect (control, "activate", G_CALLBACK (control_activate_cb), image_view);
@@ -1162,9 +1162,9 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_property_bag_add (priv->property_bag, "window/height", PROP_WINDOW_HEIGHT,
 				 BONOBO_ARG_INT, NULL, _("Desired Window Height"),
-				 BONOBO_PROPERTY_READABLE);	
-	bonobo_control_set_properties (BONOBO_CONTROL (control), 
-				       BONOBO_OBJREF (priv->property_bag), 
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_control_set_properties (BONOBO_CONTROL (control),
+				       BONOBO_OBJREF (priv->property_bag),
 				       NULL);
 
 	init_gconf_defaults (image_view);
@@ -1182,7 +1182,7 @@ EogImageView *
 eog_image_view_new (gboolean need_close_item)
 {
 	EogImageView *image_view;
-	
+
 	image_view = g_object_new (EOG_IMAGE_VIEW_TYPE, NULL);
 
 	return eog_image_view_construct (image_view, need_close_item);
