@@ -104,6 +104,35 @@ if test x$have_bonobo != xtrue ; then
     AC_MSG_ERROR(bonobo >= 1.0.0  is required)
 fi
 
+EXTRA_BONOBO_CFLAGS=`gnome-config --cflags bonobo bonobox bonobox_print print`
+EXTRA_BONOBO_LIBS=`gnome-config --libs bonobo bonobox bonobox_print print`
+AC_SUBST(EXTRA_BONOBO_CFLAGS)
+AC_SUBST(EXTRA_BONOBO_LIBS)
+
+dnl ******************************
+dnl Check for GnomeVFS
+dnl ******************************
+have_vfs=false
+AC_MSG_CHECKING(for GnomeVFS >= 1.0.0)
+if gnome-config --libs vfs > /dev/null 2>&1; then
+    vers=`gnome-config --modversion vfs | sed -e "s/gnome-vfs-//" | \
+        awk 'BEGIN { FS = "."; } { print $1 * 10000 + $2 * 100 + $3;}'`
+    if test "$vers" -ge 0010000; then
+        AC_MSG_RESULT(found)
+        have_vfs=true
+    else
+        AC_MSG_RESULT(not found)
+    fi
+fi
+if test x$have_vfs != xtrue ; then
+    AC_MSG_ERROR(GnomeVFS >= 1.0.0  is required)
+fi
+
+EXTRA_VFS_CFLAGS=`gnome-config --cflags vfs`
+EXTRA_VFS_LIBS=`gnome-config --libs vfs`
+AC_SUBST(EXTRA_VFS_CFLAGS)
+AC_SUBST(EXTRA_VFS_LIBS)
+
 dnl ******************************
 dnl LibGlade checking
 dnl ******************************
@@ -114,10 +143,6 @@ else
     AC_MSG_ERROR(Did not find libGlade installed)
 fi
 
-EXTRA_BONOBO_CFLAGS=`gnome-config --cflags bonobo bonobox bonobox_print print gnomecanvaspixbuf gdk_pixbuf gnomeui`
-EXTRA_BONOBO_LIBS=`gnome-config --libs bonobo bonobox bonobox_print print gnomecanvaspixbuf gdk_pixbuf gnomeui`
-AC_SUBST(EXTRA_BONOBO_CFLAGS)
-AC_SUBST(EXTRA_BONOBO_LIBS)
 
 EXTRA_GNOME_CFLAGS=`gnome-config --cflags libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
 EXTRA_GNOME_LIBS=`gnome-config --libs libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
