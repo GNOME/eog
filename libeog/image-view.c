@@ -1120,21 +1120,6 @@ image_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 		priv->drag_ofs_y = priv->yofs;
 
 		return TRUE;
-
-	case 4:
-		image_view_set_zoom (view,
-				     priv->zoomx * IMAGE_VIEW_ZOOM_MULTIPLIER,
-				     priv->zoomy * IMAGE_VIEW_ZOOM_MULTIPLIER,
-				     TRUE, event->x, event->y);
-		return TRUE;
-
-	case 5:
-		image_view_set_zoom (view,
-				     priv->zoomx / IMAGE_VIEW_ZOOM_MULTIPLIER,
-				     priv->zoomy / IMAGE_VIEW_ZOOM_MULTIPLIER,
-				     TRUE, event->x, event->y);
-		return TRUE;
-
 	default:
 		break;
 	}
@@ -1235,9 +1220,11 @@ image_view_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 		return FALSE;
 	}
 
-	if ((event->state & GDK_SHIFT_MASK) == 0)
+	if ((event->state & GDK_SHIFT_MASK) == GDK_SHIFT_MASK)
 		image_view_set_zoom (view, priv->zoomx * zoom_factor, priv->zoomy * zoom_factor,
 				     TRUE, event->x, event->y);
+	else if ((event->state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK)
+		scroll_by (view, yofs, xofs);
 	else
 		scroll_by (view, xofs, yofs);
 
