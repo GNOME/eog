@@ -9,6 +9,7 @@
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
 #include <bonobo/bonobo-ui-main.h>
+#include <eel/eel-vfs-extensions.h>
 #include "eog-window.h"
 #include "session.h"
 
@@ -52,39 +53,21 @@ create_app_list (gpointer data)
 	return FALSE;
 }
 
-static GnomeVFSURI*
+static GnomeVFSURI *
 make_canonical_uri (const char *path)
 {
-	GnomeVFSURI *uri = NULL;
-	char *plain;
-	char *current_dir;
-	char *canonical;
-	char *concat_path;
+	char *uri_str;
+	GnomeVFSURI *uri;
 
-	g_return_val_if_fail (path != NULL, NULL);
+	uri_str = eel_make_uri_from_shell_arg (path);
 
-	plain = gnome_vfs_unescape_string (path, "/");
+	uri = NULL;
 
-	if (strchr (plain, ':') != NULL) {
-		uri = gnome_vfs_uri_new (plain);
-	}
-	else if (plain[0] == '/') {
-		uri = gnome_vfs_uri_new (plain);
-	}
-	else {
-		current_dir = g_get_current_dir ();
-		/* g_get_current_dir returns w/o trailing / */
-		concat_path = g_build_filename (current_dir, plain, NULL);
-		canonical = gnome_vfs_make_path_name_canonical (concat_path);
-	
-		uri = gnome_vfs_uri_new (canonical);
-
-		g_free (current_dir);
-		g_free (canonical);
-		g_free (concat_path);
+	if (uri_str) {
+		uri = gnome_vfs_uri_new (uri_str);
+		g_free (uri_str);
 	}
 
-	g_free (plain);
 	return uri;
 }
 
