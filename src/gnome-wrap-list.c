@@ -597,16 +597,15 @@ bm_update_data (GnomeWrapList *wlist)
 
 	/* Clear items that are past the end of the data */
 
-#if 0	
+	if (data_len >= display_first && data_len < display_last) {
+		int i;
 
-	if (t >= data_len) {
-		for (i = ; i < n_display - update_n; i++)
-			if (priv->u.bm.items[update_index + i]) {
-				gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[update_index + i]));
-				priv->u.bm.items[update_index + i] = NULL;
+		for (i = data_len - display_first; i < display_last; i++)
+			if (bm->items[i]) {
+				gtk_object_destroy (GTK_OBJECT (bm->items[i]));
+				bm->items[i] = NULL;
 			}
 	}
-#endif
 
 	/* Done */
 

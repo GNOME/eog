@@ -1,3 +1,11 @@
+1999-12-09  Federico Mena Quintero  <federico@redhat.com>
+
+	* ui-image.c (ui_image_set_image): Fix off-by-one error when
+	setting the scroll region of the canvas.
+
+	* gnome-wrap-list.c (bm_update_data): Clear the items that are
+	past the end of the data.
+
 1999-12-04  Federico Mena Quintero  <federico@redhat.com>
 
 	* gnome-icon-caption.c (gnome_icon_caption_class_init): Register
