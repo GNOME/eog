@@ -29,7 +29,7 @@ AC_SUBST(LDFLAGS)
 
 AM_PATH_GDK_PIXBUF(0.7.0, ,AC_MSG_ERROR([Need gdk-pixbuf-0.7.0 or later!]))
 
-AM_PATH_GCONF(0.7,,,gconf-gtk)
+AM_PATH_GCONF(0.8,,,gconf-gtk)
 
 GCONF_CONFIG_SOURCE=
 AC_ARG_ENABLE(gconf-source, 
