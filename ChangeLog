@@ -1,3 +1,18 @@
+2003-07-06  Jens Finke  <jens@triq.net>
+
+	This patch should fix bug #114189.
+	
+	* libeog/eog-image.c (real_image_load): Connect to size prepared
+	signal even for images in non-progressive loading mode.
+
+	* shell/eog-window.c (widget_realized_cb): New function.
+	(eog_window_construct): Connect to realize signal of statusbar to
+	notice when the widget's size is determined.
+	(adapt_window_size): Perform resize only if all required
+	information are available.
+	(property_changed),
+	(check_for_control_properties): Set desired width/height directly.
+
 2003-07-05  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.c: Draw a black frame around each

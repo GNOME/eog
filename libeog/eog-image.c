@@ -906,9 +906,9 @@ real_image_load (gpointer data)
 	eld->state = EXIF_LOADER_READ;
 #endif
 
+	g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 	if (priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
 		g_signal_connect_object (G_OBJECT (loader), "area-updated", (GCallback) load_area_updated, img, 0);
-		g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 	}
 
 	while (!priv->cancel_loading) {

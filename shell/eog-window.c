@@ -101,6 +101,7 @@ static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
+static void adapt_window_size (EogWindow *window);
 
 static BonoboWindowClass *parent_class;
 
@@ -638,6 +639,12 @@ static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB_END
 };
 
+static void
+widget_realized_cb (GtkWidget *widget, gpointer data)
+{
+	adapt_window_size (EOG_WINDOW (data));
+}
+
 
 /**
  * window_construct:
@@ -671,6 +678,7 @@ eog_window_construct (EogWindow *window)
 #endif
 						   
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
+
 	gtk_widget_show (priv->box);
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
 
@@ -698,6 +706,16 @@ eog_window_construct (EogWindow *window)
 	priv->statusbar = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_NEVER);
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
+	/* We connect to the realize signal here, because we must know
+	 * when all the child widgets of an eog window have determined
+	 * their size in order to get a working adapt_window_size
+	 * function. It should be sufficient to connect to the
+	 * statusbar here, because it is one of the deepest widgets in
+	 * the widget hierarchy tree.  FIXME: if we allow hideable
+	 * status-/toolbars then this must be reworked.
+	 */
+	g_signal_connect_after (G_OBJECT (priv->statusbar),
+				"realize", G_CALLBACK (widget_realized_cb), window);
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
 
 	/* add control frame interface */
@@ -751,9 +769,8 @@ eog_window_close (EogWindow *window)
 		bonobo_main_quit ();
 }
 
-
 static void
-adapt_window_size (EogWindow *window, int width, int height)
+adapt_window_size (EogWindow *window)
 {
 	int xthick, ythick;
 	int req_height, req_width;
@@ -761,36 +778,27 @@ adapt_window_size (EogWindow *window, int width, int height)
 
 	priv = window->priv;
 
-	/* this is the size of the frame around the vbox */
-	xthick = priv->box->style->xthickness;
-	ythick = priv->box->style->ythickness;
-	req_width = req_height = -1;
-
-	if (height > 0) {
+	if ((priv->desired_width > 0) && (priv->desired_height > 0) &&
+	    GTK_WIDGET_REALIZED (priv->statusbar) &&
+	    GTK_WIDGET_REALIZED (priv->box) &&
+	    GTK_WIDGET_REALIZED (GTK_WIDGET (window)))
+	{
+		/* this is the size of the frame around the vbox */
+		xthick = priv->box->style->xthickness;
+		ythick = priv->box->style->ythickness;
+		req_width = req_height = -1;
+		
 		req_height = 
-			height + 
+			priv->desired_height + 
 			(GTK_WIDGET(window)->allocation.height - priv->box->allocation.height) +
 			priv->statusbar->allocation.height + 
 			2 * ythick;
-	}
-	else {
-		req_height = priv->desired_height;
-	}
-	
-	if (width > 0) {
+		
 		req_width = 
-			width + 
+			priv->desired_width + 
 			(GTK_WIDGET(window)->allocation.width - priv->box->allocation.width) +
 			2 * xthick;
-	}
-	else {
-		req_width = priv->desired_width;
-	}
 
-	priv->desired_width = req_width;
-	priv->desired_height = req_height;
-
-	if (req_width > 0 && req_height > 0) {
 		gtk_window_resize (GTK_WINDOW (window), req_width, req_height);
 	}
 }
@@ -803,8 +811,10 @@ property_changed_cb (BonoboListener    *listener,
 		     gpointer           user_data)
 {
 	EogWindow *window;
+	EogWindowPrivate *priv;
 
 	window = EOG_WINDOW (user_data);
+	priv = window->priv;
 
 	if (any == NULL) return;
 
@@ -828,10 +838,12 @@ property_changed_cb (BonoboListener    *listener,
 					 BONOBO_ARG_GET_STRING (any));	
 	}
 	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_WIDTH)) {
-		adapt_window_size (window, BONOBO_ARG_GET_INT (any), -1);
+		priv->desired_width = BONOBO_ARG_GET_INT (any);
+		adapt_window_size (window);
 	}
 	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_HEIGHT)) {
-		adapt_window_size (window, -1, BONOBO_ARG_GET_INT (any));
+		priv->desired_height = BONOBO_ARG_GET_INT (any);
+		adapt_window_size (window);
 	}
 }
 
@@ -885,7 +897,7 @@ check_for_control_properties (EogWindow *window)
 								 PROPERTY_WINDOW_WIDTH, &ev, window);
 
 			/* query window size */
-			width = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_WIDTH, &ev);
+			priv->desired_width = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_WIDTH, &ev);
 		}
 		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_WINDOW_HEIGHT) == 0) {
 			bonobo_event_source_client_add_listener (pb, 
@@ -893,7 +905,7 @@ check_for_control_properties (EogWindow *window)
 								 PROPERTY_WINDOW_HEIGHT, &ev, window);
 
 			/* query window size */
-			height = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_HEIGHT, &ev);
+			priv->desired_height = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_HEIGHT, &ev);
 		}
 		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_IMAGE_PROGRESS) == 0) {
 			bonobo_event_source_client_add_listener (pb, 
@@ -902,7 +914,7 @@ check_for_control_properties (EogWindow *window)
 		}
 	}
 
-	adapt_window_size (window, width, height);
+	adapt_window_size (window);
 
 	bonobo_object_release_unref (pb, &ev);
 	CORBA_exception_free (&ev);
