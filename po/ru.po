@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-10 23:10+0300\n"
-"PO-Revision-Date: 2003-06-11 01:41+0300\n"
+"POT-Creation-Date: 2003-07-05 18:33+0400\n"
+"PO-Revision-Date: 2003-07-05 18:36+0400\n"
 "Last-Translator: \"Andrew W. Nosenko\" <awn@bcs.zp.ua>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -69,39 +69,55 @@ msgid "Slide Show"
 msgstr "Слайды"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Правка"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "Сохранить"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Откатить"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Вид"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Отменить сохранение"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Сохранение завершено"
+
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "Переместить в корзину"
 
-#: collection/eog-collection-view.c:579
-#, fuzzy
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
-msgstr "Коллекция"
+msgstr "Окно коллекции"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1264 viewer/eog-image-view.c:1260
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1267
 msgid "Status Text"
 msgstr "Текст о состоянии"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1270 viewer/eog-image-view.c:1272
 msgid "Progress of Image Loading"
 msgstr "Програсс загрузки изображения"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Сохранение изображения"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -113,7 +129,7 @@ msgstr "Программа просмотра изображений разли�
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
@@ -185,24 +201,6 @@ msgid "sec"
 msgstr "сек."
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Автоматически выбирать размер окна"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Исходный масштаб для полноэкранного просмотра"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Исходный масштаб для полноэкранного просмотра. Возможные значения: 0 "
-"(масштаб 1:1), 1 (тот же масштаб, что и у просмотра в окне), 2 (подогнать "
-"изображение по экрану)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -213,11 +211,7 @@ msgstr ""
 "значение COLOR, тогда ключ \"trans_color\" определяет используемое значение "
 "цвета."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Подгонять изображения стандартных размеров под экран"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -225,31 +219,23 @@ msgstr ""
 "Если ключ \"transparency\" имеет значение COLOR, тогда этот ключ определяет "
 "цвет, который будет обозначать прозрачность."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Интерполировать изображения"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Открывать изображения в новом окне"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Рисовать рамку вокруг экрана"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Политика полос прокрутки для полноэкранного просмотра"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Цвет прозрачности"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Обозначение прозрачности"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -257,53 +243,13 @@ msgstr ""
 "Должно ли изображение быть интерполировано при масштабировании. Это повышает "
 "качество, но уменьшает скорость обработки изображения."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Должно ли окно изображения устанавливать свой размер и масштаб, основываясь "
-"на размере изображения. Если параметр не установлен, то окно получит тот "
-"размер, который установил для него оконный менеджер."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Следует ли при открытии изображения создавать новое окно вместо замещения "
 "изображения в текущем"
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Следует ли при полноэкранном просмотре отрисовывать рамку вокруг экрана."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Следует ли отображать полосы прокрутки при полноэкранном просмотре. "
-"Возможные значения: 1 (автоматически, только если размеры изображения "
-"превышают размеры окна), 2 (никогда)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Следует ли подгонять изображения стандартных размеров под размер экрана в "
-"полноэкранном режиме.  Сиандартными считаются размеры 320x240, 640x480, "
-"800x800, и т.п.  Если имеет значение \"Истина\", то при полноэкранном "
-"просмотре такие изображения будут масштабированы до размеров экрана "
-"независимо от значения масштаба по умолчанию для полноэкранного просмотра."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -345,11 +291,19 @@ msgstr "Загрузить изображение"
 msgid "Save Image"
 msgstr "Сохранить изображение"
 
-#: libeog/eog-image.c:1320
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Не удалось получить память для загрузки файла JPEG"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Изображение не загружено."
 
-#: libeog/eog-image.c:1354
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "Изображения могут быть сохранены только как локальные файлы."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Сохранение в данный тип изображения не поддерживается."
 
@@ -380,7 +334,7 @@ msgid "Page"
 msgstr "Страница"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:373
 msgid "Preview"
 msgstr "Просмотр образца"
 
@@ -399,16 +353,14 @@ msgid "% of original size"
 msgstr "% исходного размера"
 
 #: libgpi/gpi-dialog.glade.h:3
-#, fuzzy
 msgid "Adjust to "
-msgstr "Выровнять по:"
+msgstr "Выровнять по "
 
 #: libgpi/gpi-dialog.glade.h:4
 msgid "Center"
 msgstr "Центр"
 
 #: libgpi/gpi-dialog.glade.h:5
-#, fuzzy
 msgid "Cutting help"
 msgstr "Справка по печати с отсеканием"
 
@@ -437,12 +389,10 @@ msgid "Ordering help"
 msgstr ""
 
 #: libgpi/gpi-dialog.glade.h:12
-#, fuzzy
 msgid "Overlap"
 msgstr "Перекрывание"
 
 #: libgpi/gpi-dialog.glade.h:13
-#, fuzzy
 msgid "Overlap help"
 msgstr "Справка по печати с перекрыванием"
 
@@ -460,7 +410,7 @@ msgstr "Масштаб"
 
 #: libgpi/gpi-dialog.glade.h:20
 msgid "Show"
-msgstr ""
+msgstr "Показать"
 
 #: libgpi/gpi-dialog.glade.h:21
 msgid "Vertically"
@@ -471,20 +421,8 @@ msgid "Vertically by "
 msgstr "Вертикально на "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "action_area"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -590,14 +528,14 @@ msgstr ""
 "Дмитрий Мастрюков <dmitry@taurussoft.org>\n"
 "Андрей Носенко <awn@bcs.zp.ua>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Глаз Гнома"
 
 #: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Авторское право (C) 2000-2002 The Free Software Foundation"
+msgid "Copyright  2000-2003 The Free Software Foundation"
+msgstr "Авторское право (C) 2000-2003 The Free Software Foundation"
 
 #: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
@@ -691,238 +629,81 @@ msgid "Print image to the printer"
 msgstr "Напечатать изображение на принтере"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Повернуть влево"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Повернуть вправо"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Сохранить _как..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Выполнить настройку страницы для текущего принтера"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "Развернуть на полный _экран"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "На_печатать"
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:799
+msgid "/Rotate C_lockwise"
+msgstr "/Повернуть по _часовой стрелке"
+
+#: viewer/eog-image-view.c:801
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Повернуть против часовой _стрелки"
+
+#: viewer/eog-image-view.c:804
 msgid "/_Zoom In"
 msgstr "/У_величить масштаб"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:806
 msgid "/Zoom _Out"
 msgstr "/У_меньшить масштаб"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:808
 msgid "/_Normal Size"
 msgstr "/Показать в обы_чном размере"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:810
 msgid "/Best _Fit"
 msgstr "/Подо_гнать по размеру окна"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:813
 msgid "/_Close"
 msgstr "/_Закрыть"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:1007
 msgid "Image successfully saved"
 msgstr "Изображение успешно сохранено"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:1011
 msgid "Image saving failed"
 msgstr "Сбой при попытке сохранить изображение"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1254
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1257
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1263
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1266
 msgid "Desired Window Width"
 msgstr "Желаемая ширина окна"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1269
 msgid "Desired Window Height"
 msgstr "Желаемая высота окна"
-
-#~ msgid "Couldn't initialize GnomeVFS!\n"
-#~ msgstr "Не удалось инициализировать подсистему GnomeVFS!\n"
-
-#~ msgid "pts"
-#~ msgstr "тчк"
-
-#~ msgid "points"
-#~ msgstr "точки"
-
-#~ msgid "mm"
-#~ msgstr "мм"
-
-#~ msgid "cm"
-#~ msgstr "см"
-
-#~ msgid "centimeter"
-#~ msgstr "сантиметры"
-
-#~ msgid "inch"
-#~ msgstr "дюймы"
-
-#~ msgid "Print Setup"
-#~ msgstr "Настройка печати"
-
-#~ msgid "Print"
-#~ msgstr "Печать"
-
-#~ msgid "Print preview"
-#~ msgstr "Просмотр образца печати"
-
-#~ msgid "Units: "
-#~ msgstr "Единицы: "
-
-#~ msgid "Paper size:"
-#~ msgstr "Размер страницы:"
-
-#~ msgid "Orientation"
-#~ msgstr "Ориентация"
-
-#~ msgid "Portrait"
-#~ msgstr "Портрет"
-
-#~ msgid "Landscape"
-#~ msgstr "Альбом"
-
-#~ msgid "Top:"
-#~ msgstr "Сверху:"
-
-#~ msgid "Left:"
-#~ msgstr "Слева:"
-
-#~ msgid "Right:"
-#~ msgstr "Справа:"
-
-#~ msgid "Bottom:"
-#~ msgstr "Снизу:"
-
-#~ msgid "Overlap horizontally by "
-#~ msgstr "Перекрывать горизонтально по "
-
-#~ msgid "Overlap vertically by "
-#~ msgstr "Перекрывать вертикально по "
-
-#~ msgid "Printing"
-#~ msgstr "Печать"
-
-#~ msgid "Helpers"
-#~ msgstr "Справка"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "\"Глаз Гнома\""
-
-#~ msgid "By c_olor"
-#~ msgstr "_цветом"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Обозначать прозрачность"
-
-#~ msgid "Pick a color"
-#~ msgstr "Выбрать цвет"
-
-#~ msgid "interpolation type"
-#~ msgstr "тип интерполяции"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "тип применяемой интерполяции"
-
-#~ msgid "check type"
-#~ msgstr "тип отметок"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "тип используемых отметок"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "размер используемых отметок"
-
-#~ msgid "dither"
-#~ msgstr "смешивание"
-
-#~ msgid "dither type"
-#~ msgstr "тип смешивания"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "Вы собираетесь открыть одновременно\n"
-#~ "%i окон. Продолжить?"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "Не удалось получить доступ к местоположению \"%s\"\n"
-#~ "Программа \"Глаз Гнома\" не сможет отобразить этот файл."
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Следующие файлы не могут быть отображены, так как программа \"Глаз Гнома"
-#~ "\" не смогла получить доступ к ним:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "Не удалось инициализировать подсистему GnomeVFS!\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Не удалось инициализировать систему Bonobo!\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Не удалось сохранить изображение как \"%s\": %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Сбой печати изображения"
