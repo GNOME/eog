@@ -4,6 +4,7 @@
 <oaf_attribute name="repo_ids" type="stringv">
 <item value="IDL:GNOME/GenericFactory:1.0"/>
 </oaf_attribute>
+<oaf_attribute name="name" type="string" value="EOG Image viewer factory"/>
 <oaf_attribute name="description" type="string" value="Generic image embeddable factory"/>
 </oaf_server>
 
@@ -14,7 +15,12 @@
 <item value="IDL:Bonobo/PersistStream:1.0"/>
 <item value="IDL:Bonobo/Persist:1.0"/>
 </oaf_attribute>
+<oaf_attribute name="name" type="string" value="EOG Image component"/>
 <oaf_attribute name="description" type="string" value="Generic image bonobo object (scales to fit)"/>
+<oaf_attribute name="bonobo:editable" type="boolean" value="false"/>
+<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
+<item value="image/*"/>
+</oaf_attribute>
 </oaf_server>
 
 <oaf_server iid="OAFIID:eog-image-viewer:f67c01c8-a44d-4c50-8ce1-dc893c961876" type="factory" location="OAFIID:eog_viewer_factory:777e0cdf-2b79-4e36-93d8-e9d490c9c4b8">
@@ -24,13 +30,20 @@
 <item value="IDL:Bonobo/PersistStream:1.0"/>
 <item value="IDL:Bonobo/Persist:1.0"/>
 </oaf_attribute>
+<oaf_attribute name="name" type="string" value="EOG Image viewer"/>
 <oaf_attribute name="description" type="string" value="Generic image bonobo object (unscaled, scrollable view)"/>
+<oaf_attribute name="bonobo:editable" type="boolean" value="false"/>
+<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
+<item value="image/*"/>
+</oaf_attribute>
+<oaf_attribute name="nautilus:view_as_name" type="string" value="Image"/>
 </oaf_server>
 
 <oaf_server iid="OAFIID:eog_animator_factory:8d2380ad-6e60-4986-ae27-152501839f57" type="exe" location="bonobo-image-generic">
 <oaf_attribute name="repo_ids" type="stringv">
 <item value="IDL:GNOME/GenericFactory:1.0"/>
 </oaf_attribute>
+<oaf_attribute name="name" type="string" value="Animator control factory"/>
 <oaf_attribute name="description" type="string" value="Factory for the image animator control"/>
 </oaf_server>
 
@@ -39,6 +52,7 @@
 <item value="IDL:Bonobo/Control:1.0"/>
 <item value="IDL:Bonobo/Unknown:1.0"/>
 </oaf_attribute>
+<oaf_attribute name="name" type="string" value="Animator control"/>
 <oaf_attribute name="description" type="string" value="A control which displays an animated image."/>
 </oaf_server>
 
