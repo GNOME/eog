@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-26 06:03+0200\n"
-"PO-Revision-Date: 2002-06-26 06:05+0200\n"
+"POT-Creation-Date: 2002-06-26 11:58+0200\n"
+"PO-Revision-Date: 2002-06-26 12:00+0200\n"
 "Last-Translator: Borislav Aleksandrov <B.Aleksandrov@cnsys.bg>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Програма за преглед на картинки 'Eye' на Г
 msgid "View many different types of images"
 msgstr "Преглед на различни типове картинки"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "EOG Картинка"
 
@@ -50,36 +50,31 @@ msgstr "Фабрика за Преглд на Картинки EOG"
 msgid "Embeddable EOG Image"
 msgstr "Вградена EOG Картинка"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Картинка"
-
-#: libeog/image-view.c:1860
+#: libeog/image-view.c:1853
 msgid "interpolation type"
 msgstr "тип на интерполация"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1854
 msgid "the type of interpolation to use"
 msgstr "типа на използваната интерполация"
 
-#: libeog/image-view.c:1867 libeog/image-view.c:1874
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
 msgid "check type"
 msgstr "тип на отметка"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1861
 msgid "the type of chequering to use"
 msgstr "типът на маркираното за използване"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1868
 msgid "the size of chequers to use"
 msgstr "размерът на използваните маркировки"
 
-#: libeog/image-view.c:1881
+#: libeog/image-view.c:1874
 msgid "dither"
 msgstr "трептене"
 
-#: libeog/image-view.c:1882
+#: libeog/image-view.c:1875
 msgid "dither type"
 msgstr "тип на трептене"
 
@@ -192,23 +187,23 @@ msgstr "_Преглед"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:249
+#: shell/eog-window.c:248
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Борислав Александров"
 
-#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:253 shell/eog-window.c:642 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye на Гноме"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:257
+#: shell/eog-window.c:256
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Програма за преглед и коталогизиране на картинки на ГНОМЕ"
 
-#: shell/eog-window.c:294
+#: shell/eog-window.c:293
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -217,11 +212,11 @@ msgstr ""
 "Не мога да покажа помощ за 'Eye' на Гноме.\n"
 "%s"
 
-#: shell/eog-window.c:809
+#: shell/eog-window.c:808
 msgid "Open Image"
 msgstr "Отваря Картинка"
 
-#: shell/eog-window.c:1270
+#: shell/eog-window.c:1176
 #, c-format
 msgid "Unable to open %s."
 msgstr "Не мога да отворя %s."
@@ -431,84 +426,64 @@ msgstr "_Заглавия"
 msgid "_White"
 msgstr "_Бяло"
 
-#: viewer/eog-image-view.c:360
+#: viewer/eog-image-view.c:302
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не мога да запазя картинка като '%s': %s."
 
-#: viewer/eog-image-view.c:411
+#: viewer/eog-image-view.c:353
 msgid "Save As"
 msgstr "Запазва Като"
 
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:928
 msgid "Print Image"
 msgstr "Печат на Картинка"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:936
 msgid "Pages"
 msgstr "Страници"
 
-#: viewer/eog-image-view.c:1081
+#: viewer/eog-image-view.c:1023
 msgid "Print Preview"
 msgstr "Преглед преди Печат"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1029
 msgid "Printing of image failed"
 msgstr "Печатането на картинката не е успешно"
 
-#: viewer/eog-image-view.c:1921
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Показва"
 
-#: viewer/eog-image-view.c:2106
-msgid "/Zoom _In"
-msgstr "/Мащаб _Увеличава"
-
-#: viewer/eog-image-view.c:2108
-msgid "/Zoom _Out"
-msgstr "/Мащаб _Намалява"
-
-#: viewer/eog-image-view.c:2110
-msgid "/Zoom _1:1"
-msgstr "/Мащаб _1:1"
-
-#: viewer/eog-image-view.c:2112
-msgid "/Zoom to _Fit"
-msgstr "/Мащаб до _Изпълване"
-
-#: viewer/eog-image-view.c:2115
-msgid "/_Close"
-msgstr "/_Затваря"
-
-#: viewer/eog-image-view.c:2230
+#: viewer/eog-image-view.c:2066
 msgid "Interpolation"
 msgstr "Интерполация"
 
-#: viewer/eog-image-view.c:2233
+#: viewer/eog-image-view.c:2069
 msgid "Dither"
 msgstr "Смесване"
 
-#: viewer/eog-image-view.c:2236
+#: viewer/eog-image-view.c:2072
 msgid "Check Type"
 msgstr "Тип ма Маркер"
 
-#: viewer/eog-image-view.c:2239
+#: viewer/eog-image-view.c:2075
 msgid "Check Size"
 msgstr "Размер на Маркер"
 
-#: viewer/eog-image-view.c:2242
+#: viewer/eog-image-view.c:2078
 msgid "Image Width"
 msgstr "Ширина на картинка"
 
-#: viewer/eog-image-view.c:2245
+#: viewer/eog-image-view.c:2081
 msgid "Image Height"
 msgstr "Височина на Картинка"
 
-#: viewer/eog-image-view.c:2248
+#: viewer/eog-image-view.c:2084
 msgid "Window Title"
 msgstr "Заглавие на прозорец"
 
-#: viewer/eog-image-view.c:2251
+#: viewer/eog-image-view.c:2087
 msgid "Statusbar Text"
 msgstr "Текстови низ за състояние"
 
@@ -606,6 +581,11 @@ msgstr "Дясна:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Долна:"
+
+#. Second page
+#: viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Картинка"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
@@ -751,3 +731,18 @@ msgstr "_Тип на маркер:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Размер на _маркер:"
+
+#~ msgid "/Zoom _In"
+#~ msgstr "/Мащаб _Увеличава"
+
+#~ msgid "/Zoom _Out"
+#~ msgstr "/Мащаб _Намалява"
+
+#~ msgid "/Zoom _1:1"
+#~ msgstr "/Мащаб _1:1"
+
+#~ msgid "/Zoom to _Fit"
+#~ msgstr "/Мащаб до _Изпълване"
+
+#~ msgid "/_Close"
+#~ msgstr "/_Затваря"

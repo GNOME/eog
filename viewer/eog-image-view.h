@@ -44,21 +44,15 @@ struct _EogImageViewClass {
 	BonoboObjectClass parent_class;
 
 	POA_GNOME_EOG_ImageView__epv epv;
-
-	/* Signals */
-
-	void (* close_item_activated) (EogImageView *image_view);
 };
 
 GtkType             eog_image_view_get_type            (void);
 
 EogImageView       *eog_image_view_new                 (EogImage           *image,
-							gboolean            zoom_fit,
-							gboolean            need_close_item);
+							gboolean            zoom_fit);
 EogImageView       *eog_image_view_construct           (EogImageView       *image_view,
 							EogImage           *image,
-							gboolean            zoom_fit,
-							gboolean            need_close_item);
+							gboolean            zoom_fit);
 EogImage           *eog_image_view_get_image           (EogImageView       *image_view);
 BonoboPropertyBag  *eog_image_view_get_property_bag    (EogImageView       *image_view);
 BonoboPropertyControl *eog_image_view_get_property_control (EogImageView   *image_view);

@@ -2,53 +2,6 @@
 
 	* configure.in: (ALL_LINGUAS) Added Bulgarian (bg).
 
-2002-06-25  Federico Mena Quintero  <federico@ximian.com>
-
-	Fixes #75889.
-
-	* viewer/eog-image-view.c (setup_item_factory): Set up a
-	GtkItemFactory for the image view's popup menu.
-	(image_view_button_press_event_cb): Added a button press handler
-	so that we can present a popup menu.
-	(eog_image_view_class_init): Created a "close_item_activated"
-	signal.
-
-	* viewer/eog-full-screen.c (eog_full_screen_new): Connect to the
-	"close_item_activated" signal of the image view.
-
-	* libeog/image-view.c (image_view_button_press_event): Use
-	IMAGE_VIEW_ZOOM_MULTIPLIER.
-	(image_view_key_press_event): Likewise.
-	(image_view_set_zoom): Added arguments to specify the zoom anchor.
-	(image_view_set_zoom): Queue a resize even if we did not need to
-	change the zoom factor.  This makes things work even when 1:1 and
-	then zoom-fit would produce the same results.
-
-2002-06-21  Jens Finke  <jens@triq.net>
-
-	Fixes #72352 and #75713. 
-	
-	* libeog/ui-image.c (ui_image_fit_to_screen): Removed.
-
-	* shell/eog-window.c (adapt_shell_size_to_control): New function
-	which tries to read the desired size of the control and to adapt
-	the size of the eog window to it.
-	(add_control_to_ui): Call adapt_shell_size_to_control.
-
-	* viewer/eog-image-view.c (image_set_image_cb): Don't call
-	ui_image_fit_to_screen.
- 
-2002-06-21  Peteris Krisjanis <pecisk@inbox.lv>
-
-	* configure.in: Added Latvian language support.
-
-2002-06-20  Federico Mena Quintero  <federico@ximian.com>
-
-	* libeog/image-view.c: Removed obsolete comment.
-
-	* libeog/GNOME_EOG.server.in: Make the nautilus:view_as_name be
-	"Image" so that Nautilus will say, "View as Image".  Fixes #73651.
-
 2002-06-20  Federico Mena Quintero  <federico@ximian.com>
 
 	* viewer/eog-image.c (load_image_from_file): Initialize the loader

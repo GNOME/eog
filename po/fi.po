@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-24 14:05+0300\n"
+"POT-Creation-Date: 2002-06-03 17:59+0300\n"
 "PO-Revision-Date: 2002-05-31 12:14+0300\n"
 "Last-Translator: Jarkko Ranta <jjranta@cc.joensuu.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "Eye of Gnome -kuvakatselin"
 msgid "View many different types of images"
 msgstr "Katsele monia erilaisia kuvatyyppejä"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:691
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "EOG-kuva"
 
@@ -51,36 +51,31 @@ msgstr "EOGin kuvakatselintehdas"
 msgid "Embeddable EOG Image"
 msgstr "Sisällytettävä EOG-kuva"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Kuva"
-
-#: libeog/image-view.c:1844
+#: libeog/image-view.c:1853
 msgid "interpolation type"
 msgstr "interpolointitapa"
 
-#: libeog/image-view.c:1845
+#: libeog/image-view.c:1854
 msgid "the type of interpolation to use"
 msgstr "tapa jolla interpoloidaan"
 
-#: libeog/image-view.c:1851 libeog/image-view.c:1858
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
 msgid "check type"
 msgstr "ruututyyppi"
 
-#: libeog/image-view.c:1852
+#: libeog/image-view.c:1861
 msgid "the type of chequering to use"
 msgstr "tapa jolla ruudutetaan"
 
-#: libeog/image-view.c:1859
+#: libeog/image-view.c:1868
 msgid "the size of chequers to use"
 msgstr "käytettävien ruutujen koko"
 
-#: libeog/image-view.c:1865
+#: libeog/image-view.c:1874
 msgid "dither"
 msgstr "pehmennä"
 
-#: libeog/image-view.c:1866
+#: libeog/image-view.c:1875
 msgid "dither type"
 msgstr "pehmennystapa"
 
@@ -125,7 +120,7 @@ msgstr "Sisältö"
 msgid "Help On this application"
 msgstr "Ohjeita sovelluksen käytöstä"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Avaa"
 
@@ -193,23 +188,23 @@ msgstr "_Katsele"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:249
+#: shell/eog-window.c:248
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Jarkko Ranta <jjranta@cc.joensuu.fi>"
 
-#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:257
+#: shell/eog-window.c:256
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
 
-#: shell/eog-window.c:294
+#: shell/eog-window.c:293
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -218,16 +213,16 @@ msgstr ""
 "Eye of Gnomen ohjetta ei voitu näyttää.\n"
 "%s"
 
-#: shell/eog-window.c:809
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "Avaa kuva"
 
-#: shell/eog-window.c:1270
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
 msgstr "Tiedoston %s avaaminen epäonnistui"
 
-#: shell/main.c:172
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -238,15 +233,15 @@ msgstr ""
 "samanaikaisesti. Haluatko ennemmin\n"
 "avata ne kokoelmaan?"
 
-#: shell/main.c:177
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Yksittäiset ikkunat"
 
-#: shell/main.c:178
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Kokoelma"
 
-#: shell/main.c:202
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -255,31 +250,11 @@ msgstr ""
 "Olet aikeissa avata %i ikkunaa\n"
 "samanaikaisesti. Haluatko jatkaa?"
 
-#: shell/main.c:285
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Tiedoston %s avaaminen epäonnistui\n"
-"Eye of Gnome ei voi näyttää tätä tiedostoa."
-
-#: shell/main.c:289
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"Seuraavia tiedostoja ei voi näyttää, koska Eye of Gnome ei voinut avata "
-"niitä:\n"
-"%s"
-
-#: shell/main.c:471
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS:n alustus epäonnistui!\n"
 
-#: shell/main.c:474
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobon alustus epäonnistui!\n"
 
@@ -432,68 +407,68 @@ msgstr "_Tiilet"
 msgid "_White"
 msgstr "_Valkeat"
 
-#: viewer/eog-image-view.c:300
+#: viewer/eog-image-view.c:302
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Tiedoston tallennus nimellä '%s' epäonnistui: %s."
 
-#: viewer/eog-image-view.c:351
+#: viewer/eog-image-view.c:353
 msgid "Save As"
 msgstr "Tallenna nimellä"
 
-#: viewer/eog-image-view.c:926
+#: viewer/eog-image-view.c:928
 msgid "Print Image"
 msgstr "Tulosta kuva"
 
-#: viewer/eog-image-view.c:934
+#: viewer/eog-image-view.c:936
 msgid "Pages"
 msgstr "Sivut"
 
-#: viewer/eog-image-view.c:1021
+#: viewer/eog-image-view.c:1023
 msgid "Print Preview"
 msgstr "Tulostuksen esikatselu"
 
-#: viewer/eog-image-view.c:1027
+#: viewer/eog-image-view.c:1029
 msgid "Printing of image failed"
 msgstr "Kuvan tulostaminen epäonnistui"
 
-#: viewer/eog-image-view.c:1843
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Näyttö"
 
-#: viewer/eog-image-view.c:2064
+#: viewer/eog-image-view.c:2066
 msgid "Interpolation"
 msgstr "Interpolointi"
 
-#: viewer/eog-image-view.c:2067
+#: viewer/eog-image-view.c:2069
 msgid "Dither"
 msgstr "Pehmennys"
 
-#: viewer/eog-image-view.c:2070
+#: viewer/eog-image-view.c:2072
 msgid "Check Type"
 msgstr "Ruututyyppi"
 
-#: viewer/eog-image-view.c:2073
+#: viewer/eog-image-view.c:2075
 msgid "Check Size"
 msgstr "Ruutukoko"
 
-#: viewer/eog-image-view.c:2076
+#: viewer/eog-image-view.c:2078
 msgid "Image Width"
 msgstr "Kuvan leveys"
 
-#: viewer/eog-image-view.c:2079
+#: viewer/eog-image-view.c:2081
 msgid "Image Height"
 msgstr "Kuvan korkeus"
 
-#: viewer/eog-image-view.c:2082
+#: viewer/eog-image-view.c:2084
 msgid "Window Title"
 msgstr "Ikkunan otsikko"
 
-#: viewer/eog-image-view.c:2085
+#: viewer/eog-image-view.c:2087
 msgid "Statusbar Text"
 msgstr "Tilarivin teksti"
 
-#: viewer/eog-image.c:470
+#: viewer/eog-image.c:467
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS:n alustus epäonnistui!\n"
 
@@ -587,6 +562,11 @@ msgstr "Oikealla:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Alhaalla:"
+
+#. Second page
+#: viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Kuva"
 
 #. Scale
 #: viewer/eog-print-setup.c:697

@@ -220,7 +220,7 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 	embeddable_view->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	embeddable_view->priv->image_view = eog_image_view_new (image, TRUE, FALSE);
+	embeddable_view->priv->image_view = eog_image_view_new (image, TRUE);
 	embeddable_view->priv->root = eog_image_view_get_widget (embeddable_view->priv->image_view);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (embeddable_view->priv->root),
 				     GTK_POLICY_NEVER,
