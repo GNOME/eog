@@ -19,6 +19,8 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
+#include <libgnomevfs/gnome-vfs.h>
+
 #include <eog-image.h>
 #include <eog-control.h>
 #include <eog-embeddable.h>
@@ -241,10 +243,16 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
  * Loads an Image from a Bonobo_File
  */
 static gint
-load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,
+load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		      CORBA_Environment *ev, void *closure)
 {
 	EogImage *image;
+	GnomeVFSResult result;
+	GnomeVFSHandle *handle;
+	GdkPixbufLoader *loader;
+	GnomeVFSURI     *uri;
+	GnomeVFSFileSize bytes_read = 0;
+	guchar *buffer;
 
 	g_return_val_if_fail (closure != NULL, -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (closure), -1);
@@ -259,15 +267,42 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,
 		image_unref (image->priv->image);
 	image->priv->image = NULL;
 
-	image->priv->pixbuf = gdk_pixbuf_new_from_file (filename);
+	uri = gnome_vfs_uri_new (text_uri);
+
+	/* open uri */
+	result = gnome_vfs_open_uri (&handle, uri, GNOME_VFS_OPEN_READ);
+	if (result != GNOME_VFS_OK)
+		return -1;
+
+	loader = gdk_pixbuf_loader_new ();
+	buffer = g_new0 (guchar, 4096);
+	while (TRUE) {
+		result = gnome_vfs_read (handle, buffer,
+					 4096, &bytes_read);
+		if (result != GNOME_VFS_OK)
+			break;
+		
+		if(!gdk_pixbuf_loader_write (loader, buffer, bytes_read))
+			break;
+	}
+
+	if (result != GNOME_VFS_ERROR_EOF) {
+		gdk_pixbuf_loader_close (loader);
+		return -1;
+	}
+	
+	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 	if (!image->priv->pixbuf)
 		return -1;
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
+	gdk_pixbuf_loader_close (loader);
 
 	image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
-	image->priv->image->filename = g_strdup (g_basename (filename));
+	image->priv->image->filename = g_strdup (gnome_vfs_uri_get_basename (uri));
+	
+	gnome_vfs_uri_unref (uri);
 
 	gtk_signal_emit (GTK_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL]);
 

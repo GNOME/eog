@@ -1,3 +1,14 @@
+2001-05-31  Jens Finke <jens@gnome.org>
+
+	* Makefile.am: Stop building the sample-container program.
+	(INCLUDES), (eog_image_viewer_LDADD): Added GnomeVFS flags.
+
+	* eog-image-view.c (load_image_from_file): The filename will be
+	interpreted as an URI now, using gdk_pixbuf_loader system to load
+	the image.
+
+	* main.c (init_server_factory): Added gnome_vfs_init call.
+	
 2001-05-29  Jens Finke <jens@gnome.org>
 
 	* eog-image-view.c:

@@ -20,6 +20,7 @@
 
 #include <gnome.h>
 #include <liboaf/liboaf.h>
+#include <libgnomevfs/gnome-vfs-init.h>
 
 #include <bonobo.h>
 
@@ -84,8 +85,11 @@ init_server_factory (int argc, char **argv)
 				    oaf_popt_options, 0, NULL); 
 	oaf_init (argc, argv);
 
+	if (gnome_vfs_init () == FALSE)
+		g_error (_("Couldn't initialize GnomeVFS!\n"));
+
 	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
-		g_error (_("I could not initialize Bonobo"));
+		g_error (_("I could not initialize Bonobo!\n"));
 
 	CORBA_exception_free (&ev);
 }

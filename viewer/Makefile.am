@@ -13,27 +13,12 @@ INCLUDES =                                              \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
+	$(EXTRA_VFS_CFLAGS)				\
+	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)
 
 bin_PROGRAMS = eog-image-viewer
-
-noinst_PROGRAMS = sample-container
-
-sample_container_SOURCES =	\
-	sample-container.c	\
-	eog-util.h		\
-	eog-util.c
-
-sample_container_LDADD = 	\
-	$(GNOME_LIBS)		\
-	$(GNOME_LIBDIR)		\
-	$(GNOME_LIBS)		\
-	$(GCONF_LIBS)		\
-	$(OAF_LIBS)		\
-	$(INTLLIBS)		\
-	$(EXTRA_BONOBO_LIBS)	\
-	../libeog/libeog.la
 
 eog_image_viewer_SOURCES =	\
 	eog-image.c		\
@@ -63,11 +48,12 @@ eog_image_viewer_SOURCES =	\
 eog_image_viewer_LDADD = 			\
 	$(GNOME_LIBS)				\
 	$(GNOME_LIBDIR)				\
-	$(GNOME_LIBS)				\
 	$(GCONF_LIBS)				\
 	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_BONOBO_LIBS)			\
+	$(EXTRA_GNOME_LIBS)			\
+	$(EXTRA_VFS_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
