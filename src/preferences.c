@@ -32,6 +32,7 @@
 #include <glade/glade.h>
 #include "e-dialog-widgets.h"
 #include "preferences.h"
+#include "image-view.h"
 
 
 

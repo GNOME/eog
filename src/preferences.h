@@ -26,37 +26,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkenums.h>
 
-/* Type of checks for views */
-typedef enum {
-	CHECK_TYPE_DARK,
-	CHECK_TYPE_MIDTONE,
-	CHECK_TYPE_LIGHT,
-	CHECK_TYPE_BLACK,
-	CHECK_TYPE_GRAY,
-	CHECK_TYPE_WHITE
-} CheckType;
-
-/* Check size for views */
-typedef enum {
-	CHECK_SIZE_SMALL,
-	CHECK_SIZE_MEDIUM,
-	CHECK_SIZE_LARGE
-} CheckSize;
-
-/* Scrolling type for views */
-typedef enum {
-	SCROLL_NORMAL,
-	SCROLL_TWO_PASS
-} ScrollType;
-
-/* Automatic zoom for full screen mode */
-typedef enum {
-	FULL_SCREEN_ZOOM_1,
-	FULL_SCREEN_ZOOM_SAME_AS_WINDOW,
-	FULL_SCREEN_ZOOM_FIT
-} FullScreenZoom;
-
-
 void prefs_init (void);
 
 void prefs_dialog (void);
