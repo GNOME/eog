@@ -436,6 +436,7 @@ eog_window_new (void)
 	return GTK_WIDGET (window);
 }
 
+#if 0
 /* Sets the sensitivity of all the items */
 static void
 sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
@@ -445,6 +446,7 @@ sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
 	for (; *widgets != NULL; widgets++)
 		gtk_widget_set_sensitive (*widgets, sensitive);
 }
+#endif
 
 /* Sets the window as a drag destination */
 static void
@@ -663,6 +665,7 @@ eog_window_open_dialog (EogWindow *window)
 	raise_and_focus (priv->file_sel);
 }
 
+#if 0
 /* Picks a reasonable size for the window and zoom factor based on the image size */
 static void
 auto_size (EogWindow *window)
@@ -698,6 +701,7 @@ auto_size (EogWindow *window)
 	gtk_widget_set_usize (view, zwidth, zheight);
 */
 }
+#endif
 
 static void
 remove_component (EogWindow *window)
