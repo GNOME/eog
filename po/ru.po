@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog-0.2\n"
-"POT-Creation-Date: 2001-09-28 16:24+0400\n"
-"PO-Revision-Date: 2001-09-28 16:37+0400\n"
+"POT-Creation-Date: 2001-10-13 13:17+0400\n"
+"PO-Revision-Date: 2001-10-13 13:22+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 
 #: collection/eog-collection-control.c:155
 msgid "Couldn't get local BonoboControl interface.\n"
-msgstr ""
+msgstr "Не удалось получить локальный интерфейс BonoboControl.\n"
 
 #: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
 #: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
@@ -91,7 +91,8 @@ msgstr "Не удалось инициализировать GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Не удалось инициализировать Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:189
+#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -99,20 +100,19 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Программа просмотра изображений"
 
-#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:663
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:663
 msgid "EOG Image"
 msgstr "EOG изображение"
 
-#: libeog/GNOME_EOG.oaf.in.h:2 viewer/GNOME_EOG.oaf.in.h:2
+#: libeog/GNOME_EOG.oaf.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG Программа просмотра изображений"
 
-#: libeog/GNOME_EOG.oaf.in.h:3 viewer/GNOME_EOG.oaf.in.h:3
+#: libeog/GNOME_EOG.oaf.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG Генератор программы просмотра изображений"
 
-#: libeog/GNOME_EOG.oaf.in.h:4 viewer/GNOME_EOG.oaf.in.h:4
+#: libeog/GNOME_EOG.oaf.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Встроенное EOG изображение"
 
@@ -124,7 +124,7 @@ msgstr "Об этой программе"
 msgid "Change preferences"
 msgstr "Изменить настройки"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
 msgid "Close"
 msgstr "Закрыть"
 
@@ -140,7 +140,7 @@ msgstr "Выход"
 msgid "Exit the program"
 msgstr "Выйти из программы"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "Открыть"
 
@@ -184,11 +184,11 @@ msgstr "Настройки"
 msgid "_Settings"
 msgstr "Установки"
 
-#: shell/eog-window.c:191
+#: shell/eog-window.c:191 src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Авторское право (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:193
+#: shell/eog-window.c:193 src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Программа просмотра и каталогизации изображений для GNOME"
 
@@ -212,7 +212,7 @@ msgstr "Eye of Gnome"
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Не удалось найти eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:738 shell/eog-window.c:867
+#: shell/eog-window.c:738 shell/eog-window.c:867 src/window.c:704
 msgid "Open Image"
 msgstr "Открыть изображение"
 
@@ -230,11 +230,11 @@ msgstr ""
 
 #: shell/eog-window.c:1061
 msgid "Couldn't retrieve mime type for file."
-msgstr ""
+msgstr "Не удалось получить mime-тип для файла."
 
 #: shell/eog-window.c:1305
 msgid "Error while obtaining file informations."
-msgstr ""
+msgstr "Ошибка при получении информации о файле."
 
 #: shell/main.c:157
 #, c-format
@@ -263,10 +263,168 @@ msgstr "Не удалось инициализировать GnomeVFS!\n"
 msgid "Could not initialize Bonobo!\n"
 msgstr "Не удалось инициализировать Bonobo!\n"
 
-#: shell/util.c:47
+#: shell/util.c:47 src/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Не удалось открыть `%s'"
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "Настройки"
+
+#: src/tb-image.c:33 src/window.c:181
+msgid "Open an image file"
+msgstr "Открыть файл изображения"
+
+#: src/tb-image.c:35 src/window.c:186
+msgid "Close the current window"
+msgstr "Закрыть текущее окно"
+
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
+msgid "In"
+msgstr "В"
+
+#: src/tb-image.c:44
+msgid "Out"
+msgstr "Из"
+
+#: src/tb-image.c:45
+msgid "1:1"
+msgstr "1:1"
+
+#: src/tb-image.c:46
+msgid "Fit"
+msgstr "Заполнить"
+
+#: src/window.c:181
+msgid "_Open Image..."
+msgstr "Открыть изображение..."
+
+#: src/window.c:186
+msgid "_Close This Window"
+msgstr "Закрыть это окно"
+
+#: src/window.c:197
+msgid "2:1"
+msgstr "2:1"
+
+#: src/window.c:198
+msgid "3:1"
+msgstr "3:1"
+
+#: src/window.c:199
+msgid "4:1"
+msgstr "4:1"
+
+#: src/window.c:200
+msgid "5:1"
+msgstr "5:1"
+
+#: src/window.c:201
+msgid "6:1"
+msgstr "6:1"
+
+#: src/window.c:202
+msgid "7:1"
+msgstr "7:1"
+
+#: src/window.c:203
+msgid "8:1"
+msgstr "8:1"
+
+#: src/window.c:204
+msgid "9:1"
+msgstr "9:1"
+
+#: src/window.c:205
+msgid "10:1"
+msgstr "10:1"
+
+#: src/window.c:207
+msgid "1:2"
+msgstr "1:2"
+
+#: src/window.c:208
+msgid "1:3"
+msgstr "1:3"
+
+#: src/window.c:209
+msgid "1:4"
+msgstr "1:4"
+
+#: src/window.c:210
+msgid "1:5"
+msgstr "1:5"
+
+#: src/window.c:211
+msgid "1:6"
+msgstr "1:6"
+
+#: src/window.c:212
+msgid "1:7"
+msgstr "1:7"
+
+#: src/window.c:213
+msgid "1:8"
+msgstr "1:8"
+
+#: src/window.c:214
+msgid "1:9"
+msgstr "1:9"
+
+#: src/window.c:215
+msgid "1:10"
+msgstr "1:10"
+
+#: src/window.c:221
+msgid "Zoom In"
+msgstr "Масштаб +"
+
+#: src/window.c:221
+#, c-format
+msgid "Increase zoom factor by 5%%"
+msgstr "Увеличить масштаб на 5%%"
+
+#: src/window.c:225
+msgid "Zoom Out"
+msgstr "Масштаб -"
+
+#: src/window.c:225
+#, c-format
+msgid "Decrease zoom factor by 5%%"
+msgstr "Уменьшить масштаб на 5%%"
+
+#: src/window.c:229
+msgid "Zoom _1:1"
+msgstr "Масштаб 1:1"
+
+#: src/window.c:229
+msgid "Display the image at 1:1 scale"
+msgstr "Показать изображение в масштабе 1:1"
+
+#: src/window.c:233
+msgid "_Zoom factor"
+msgstr "Масштаб"
+
+#: src/window.c:235
+msgid "_Fit to Window"
+msgstr "Заполнить окно"
+
+#: src/window.c:235
+msgid "Zoom the image to fit in the window"
+msgstr "Масштабировать изображение для заполнения окна"
+
+#: src/window.c:239
+msgid "Full _Screen"
+msgstr "Полный экран"
+
+#: src/window.c:239
+msgid "Use the whole screen for display"
+msgstr "Использовать весь экран для отображения"
+
+#: viewer/eog-image.c:432
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Не удалось инициализировать GnomeVFS!\n"
 
 #: viewer/eog-image-view.c:282
 #, c-format
@@ -464,10 +622,6 @@ msgstr "см"
 #: viewer/eog-print-setup.c:74
 msgid "centimeter"
 msgstr "сантиметры"
-
-#: viewer/eog-print-setup.c:75
-msgid "In"
-msgstr "Дю"
 
 #: viewer/eog-print-setup.c:75
 msgid "inch"
