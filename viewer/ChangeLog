@@ -1,5 +1,12 @@
 2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
+	* eog-image.[c,h]: Don't rely on libeog/image.[c,h] to keep pixbuf
+	and filename - we can do that ourselves.
+	* eog-image-view.c: Get the pixbuf directly from eog-image, not 
+	through libeog/Image.
+
+2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
 	* eog-image-data.[c,h]: Removed. Those two files have been renamed to
 	eog-image-io.[c,h] a long time ago.
 

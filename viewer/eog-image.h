@@ -15,7 +15,6 @@
 #include <bonobo.h>
 
 #include <eog-util.h>
-#include <image.h>
 
 BEGIN_GNOME_DECLS
  
@@ -51,8 +50,8 @@ GtkType         eog_image_get_type              (void);
 BonoboObject   *eog_image_add_interfaces        (EogImage       *image,
 						 BonoboObject   *to_aggregate);
 EogImage       *eog_image_construct             (EogImage       *image);
-Image          *eog_image_get_image             (EogImage       *image);
 GdkPixbuf      *eog_image_get_pixbuf            (EogImage       *image);
+const gchar    *eog_image_get_filename          (EogImage       *image);
 
 void	eog_image_save_to_stream	(EogImage	           *image, 
 					 BonoboStream	           *stream, 

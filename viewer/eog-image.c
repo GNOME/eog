@@ -28,8 +28,8 @@
 #include <eog-image-io.h>
 
 struct _EogImagePrivate {
-        Image                *image;
-        GdkPixbuf            *pixbuf;
+	gchar     *filename;
+        GdkPixbuf *pixbuf;
 };
 
 #define PARENT_TYPE BONOBO_X_OBJECT_TYPE
@@ -53,15 +53,13 @@ eog_image_destroy (GtkObject *object)
 
 	image = EOG_IMAGE (object);
 
-	if (image->priv->image) {
-		image_unref (image->priv->image);
-		image->priv->image = NULL;
-	}
-
 	if (image->priv->pixbuf) {
 		gdk_pixbuf_unref (image->priv->pixbuf);
 		image->priv->pixbuf = NULL;
 	}
+
+	if (image->priv->filename)
+		g_free (image->priv->filename);
 
 	GTK_OBJECT_CLASS (eog_image_parent_class)->destroy (object);
 }
@@ -175,13 +173,9 @@ load_image_from_stream (BonoboPersistStream       *ps,
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
-	if (!image->priv->image)
-		image->priv->image = image_new ();
-	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
-
 	info = Bonobo_Stream_getInfo (stream, 0, ev);
 	if (ev->_major == CORBA_NO_EXCEPTION) {
-		image->priv->image->filename = g_strdup (g_basename (info->name));
+		image->priv->filename = g_strdup (g_basename (info->name));
 		CORBA_free (info);
 	}
 
@@ -298,10 +292,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
-	if (!image->priv->image)
-		image->priv->image = image_new ();
-	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
-	image->priv->image->filename = g_strdup (gnome_vfs_uri_get_basename (uri));
+	image->priv->filename = g_strdup (gnome_vfs_uri_get_basename (uri));
 	
 	gnome_vfs_uri_unref (uri);
 
@@ -438,22 +429,17 @@ eog_image_new (void)
 	return eog_image_construct (image);
 }
 
-Image *
-eog_image_get_image (EogImage *image)
+const gchar *
+eog_image_get_filename (EogImage *image)
 {
-	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
-
-	if (image->priv->image)
-		image_ref (image->priv->image);
-
-	return image->priv->image;
+	
+	return (image->priv->filename);
 }
 
 GdkPixbuf *
 eog_image_get_pixbuf (EogImage *image)
 {
-	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	if (image->priv->pixbuf)

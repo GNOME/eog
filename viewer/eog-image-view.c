@@ -89,20 +89,20 @@ impl_GNOME_EOG_ImageView_getImage (PortableServer_Servant servant,
 static void
 image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 {
-	Image *image;
+	GdkPixbuf *pixbuf;
 
 	g_return_if_fail (eog_image != NULL);
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (eog_image));
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 
-	image = eog_image_get_image (eog_image);
-	if (image) {
+	pixbuf = eog_image_get_pixbuf (eog_image);
+	if (pixbuf) {
 	/* FIXME: Eog's internals can't cope with different zooms on different
 	   axis, this needs fixing in src/image-view.c */
 /*	if (image_view->priv->zoom_fit); */
-		image_view_set_image (image_view->priv->image_view, image);
-		image_unref (image);
+		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
+		gdk_pixbuf_unref (pixbuf);
 
 		ui_image_fit_to_screen (UI_IMAGE (image_view->priv->ui_image));
 	}
@@ -1143,38 +1143,39 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		break;
 	}
 	case PROP_IMAGE_WIDTH: {
-		Image *img; 
+		GdkPixbuf *pixbuf;
 
 		g_assert (arg->_type == BONOBO_ARG_INT);
 
-		img = image_view_get_image (priv->image_view);
-		if (img->pixbuf) 
-			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_width (img->pixbuf));
-		else
+		pixbuf = image_view_get_pixbuf (priv->image_view);
+		if (pixbuf) {
+			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_width (pixbuf));
+			gdk_pixbuf_unref (pixbuf);
+		} else
 			BONOBO_ARG_SET_INT (arg, 0);
 		break;
 	}
 	case PROP_IMAGE_HEIGHT: {
-		Image *img; 
+		GdkPixbuf *pixbuf;
 
 		g_assert (arg->_type == BONOBO_ARG_INT);
 
-		img = image_view_get_image (priv->image_view);
-		if (img->pixbuf) 
-			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_height (img->pixbuf));
-		else
+		pixbuf = image_view_get_pixbuf (priv->image_view);
+		if (pixbuf) {
+			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_height (pixbuf));
+			gdk_pixbuf_unref (pixbuf);
+		} else
 			BONOBO_ARG_SET_INT (arg, 0);
 		break;
 	}
 	case PROP_WINDOW_TITLE: {
-		Image *img;
+		const gchar *filename;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
-		img = image_view_get_image (priv->image_view);
-		
-		if (img != NULL && img->filename != NULL)
-			BONOBO_ARG_SET_STRING (arg, img->filename);
+		filename = eog_image_get_filename (priv->image);
+		if (filename)
+			BONOBO_ARG_SET_STRING (arg, filename);
 		else 
 			BONOBO_ARG_SET_STRING (arg, "");
 		break;
@@ -1182,20 +1183,20 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 	case PROP_WINDOW_STATUS: {
 		gchar *text = NULL;
 		gint zoom;
-		Image *img;
+		GdkPixbuf *pixbuf;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
-		img = image_view_get_image (priv->image_view);
-
-		zoom = (gint) 100*image_view_get_zoom (priv->image_view);
+		pixbuf = image_view_get_pixbuf (priv->image_view);
+		zoom = (gint) 100 * image_view_get_zoom (priv->image_view);
 		
 		text = g_new0 (gchar, 40);
-		if (img->pixbuf) {
+		if (pixbuf) {
 			g_snprintf (text, 39, "%i x %i pixels    %i%%", 
-				    gdk_pixbuf_get_width (img->pixbuf),
-				    gdk_pixbuf_get_height (img->pixbuf),
+				    gdk_pixbuf_get_width (pixbuf),
+				    gdk_pixbuf_get_height (pixbuf),
 				    zoom);
+			gdk_pixbuf_unref (pixbuf);
 		} else {
 			g_snprintf (text, 39, "%i%%", zoom); 
 		}
