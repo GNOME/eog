@@ -472,6 +472,8 @@ eog_file_selection_new (GtkFileChooserAction action)
 		eog_file_selection_add_preview (filesel);
 	}
 
+	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (filesel), FALSE);
+
 	if (last_dir[action] != NULL) {
 		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), last_dir [action]);
 	}
