@@ -1,4 +1,4 @@
-SUBDIRS = stock cursors
+SUBDIRS = cursors
 
 INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
