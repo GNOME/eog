@@ -1,7 +1,19 @@
 2002-08-04  Jens Finke  <jens@triq.net>
 
-	Drags into an empty window will reuse it instead of opening a 
-	new one.
+	Fixes #85927.
+	
+	* shell/eog-window.c (eog_window_init): ctrl_widget = NULL.
+	(eog_window_construct): Don't add widget from
+	bonobo_control_frame.
+	(add_control_to_ui): Add control widget to shell container if not
+	done yet.
+	(activate_uri_cb): eog_window_open can handle uri's so don't
+	extract the path first.
+	
+2002-08-04  Jens Finke  <jens@triq.net>
+
+	Drags into an empty window will reuse it instead of opening a new
+	one.
 	
 	* shell/eog-window.c (eog_window_has_contents): Determine empty
 	windows through availabilty of a control not a widget.

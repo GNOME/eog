@@ -65,6 +65,7 @@ struct _EogWindowPrivate {
 
 	/* vbox */
 	GtkWidget           *box;
+	GtkWidget           *ctrl_widget;
 
 	/* preference dialog, if available */
 	GtkWidget           *pref_dlg;
@@ -318,21 +319,13 @@ static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
 {
 	EogWindow *window;
-	char *path;
 
 	g_return_if_fail (uri != NULL);
 
 	window = EOG_WINDOW (eog_window_new ());
 	
-	if (g_ascii_strncasecmp ("file:", uri, 5) == 0) 		
-		path = g_strdup ((uri+5));
-	else
-		path = g_strdup (uri);
-
-	eog_window_open (window, path);
+	eog_window_open (window, uri);
 	gtk_widget_show (GTK_WIDGET (window));
-
-	g_free (path);
 }
 
 GType
@@ -485,6 +478,7 @@ eog_window_init (EogWindow *window)
 		NULL);
 
 	window_list = g_list_prepend (window_list, window);
+	priv->ctrl_widget = NULL;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
 }
@@ -674,7 +668,6 @@ eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	BonoboUIContainer *ui_container;
-	GtkWidget *widget;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -710,13 +703,6 @@ eog_window_construct (EogWindow *window)
 	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
 	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
 			  (GtkSignalFunc) activate_uri_cb, NULL);
-
-	widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
-	if (!widget)
-		g_assert_not_reached ();
-
-	gtk_box_pack_start (GTK_BOX (priv->box), widget, TRUE, TRUE, 0);
-	gtk_widget_show (widget);
 
 	set_drag_dest (window);
 
@@ -1158,8 +1144,22 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	priv = window->priv;
 	CORBA_exception_init (&ev);
 
+	/* bind and view new control widget */
 	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
 	bonobo_control_frame_control_activate (priv->ctrl_frame);
+	if (control != CORBA_OBJECT_NIL && priv->ctrl_widget == NULL) {
+		priv->ctrl_widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
+		if (!priv->ctrl_widget)
+			g_assert_not_reached ();
+
+		gtk_box_pack_start (GTK_BOX (priv->box), priv->ctrl_widget, TRUE, TRUE, 0);
+		gtk_widget_show (priv->ctrl_widget);
+	}
+	else if (control == CORBA_OBJECT_NIL && priv->ctrl_widget != NULL) {
+		gtk_container_remove (GTK_CONTAINER (priv->box), 
+				      GTK_WIDGET (priv->ctrl_widget));
+		priv->ctrl_widget = NULL;
+	}
 
 	/* update sensitivity of the properties menu item */
 	prop_control = Bonobo_Unknown_queryInterface (control, 
