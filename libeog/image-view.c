@@ -341,9 +341,6 @@ image_view_init (ImageView *view)
 	priv->full_screen_zoom = gconf_client_get_int (
 		priv->client, "/apps/eog/full_screen/zoom",
 		NULL);
-	priv->auto_size_notify_id = gconf_client_get_bool (
-		priv->client, "/apps/eog/window/auto_size",
-		NULL);
 
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
 }
