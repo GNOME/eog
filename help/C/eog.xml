@@ -2,11 +2,11 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.5.6">
-  <!ENTITY manrevision "2.7">
-  <!ENTITY date "February 2004">
-  <!ENTITY app "<application>Eye of GNOME</application>">
-  <!ENTITY appname "Eye of GNOME">
+  <!ENTITY appversion "2.8">
+  <!ENTITY manrevision "2.8">
+  <!ENTITY date "September 2004">
+  <!ENTITY app "<application>Image Viewer</application>">
+  <!ENTITY appname "Image Viewer">
 ]>
 <!-- 
       (Do not remove this comment block.)
@@ -21,7 +21,7 @@
 <!-- please do not change the id; for translations, change lang to -->
 <!-- appropriate code -->
   <articleinfo> 
-    <title>&appname; Manual V&manrevision;</title>       
+    <title>&appname; Manual</title>
 
     <copyright> 
       <year>2002</year> 
@@ -56,14 +56,28 @@
    <!-- This file  contains link to license for the documentation (GNU FDL), and 
         other legal stuff such as "NO WARRANTY" statement. Please do not change 
 	any of this. -->
-
-   <authorgroup> 
+   <authorgroup>
+   <author> 
+	<firstname>Angela</firstname> 
+	<surname>Boyle</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname>
+	</affiliation>
+	<email>aboyle@aboyle.com</email> 
+   </author>
+   <author> 
+	<firstname>Stuart</firstname> 
+	<surname>Ellis</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname>
+	</affiliation>
+	<email>s.ellis@ftml.net</email> 
+   </author>
    <author> 
 	<firstname>Sun</firstname> 
 	<surname>GNOME Documentation Team</surname> 
 	<affiliation> 
-	  <orgname>Sun Microsystems</orgname> 
-	  <address></address> 
+	  <orgname>Sun Microsystems</orgname>  
 	</affiliation> 
    </author> 
    <author> 
@@ -71,16 +85,16 @@
 	<surname>Landrum</surname> 
 	<affiliation> 
 	  <orgname>GNOME Documentation Project</orgname> 
-	  <address> <email>eliot@landrum.cx</email> </address> 
 	</affiliation> 
+	<email>eliot@landrum.cx</email>
    </author> 
    <author> 
 	<firstname>Federico</firstname> 
 	<surname>Mena Quintero</surname> 
 	<affiliation> 
 	  <orgname>GNOME Documentation Project</orgname> 
-	  <address> <email>federico@gnu.org</email> </address> 
 	</affiliation> 
+	<email>federico@gnu.org</email> 
    </author>	
 <!-- This is appropriate place for other contributors: translators,
       maintainers,  etc. Commented out by default.
@@ -89,7 +103,7 @@
 	<surname>Translator 1</surname> 
 	<affiliation> 
 	  <orgname>Latin Translation Team</orgname> 
-	  <address> <email>translator@gnome.org</email> </address> 
+	  <email>translator@gnome.org</email> 
 	</affiliation>
 	<contrib>Latin translation</contrib>
       </othercredit>
@@ -101,10 +115,18 @@
 		<revnumber>&appname; Manual V&manrevision;</revnumber> 
 		<date>&date;</date> 
 		<revdescription> 
-	  		<para role="author">Sun GNOME Documentation Team</para>
+	  		<para role="author">GNOME Documentation Project</para>
 	  		<para role="publisher">GNOME Documentation Project</para>
 		</revdescription> 
     </revision> 
+    <revision>
+		<revnumber>&appname; Manual V2.7</revnumber>
+		<date>February 2004</date>
+		<revdescription>
+	  		<para role="author">Sun GNOME Documentation Team</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
     <revision> 
 		<revnumber>Eye of GNOME Manual V2.6</revnumber> 
 		<date>November 2003</date> 
@@ -192,104 +214,109 @@
 <!-- ============= Document Body ============================= -->
 
 <!-- ============= Introduction ============================== -->
-
 <sect1 id="eog-introduction">
-	<title>Introduction</title>
-	<para>The &app; application enables you to view image files. &app; provides the following features:</para>
-	<itemizedlist>
-		<listitem><para>Support for the following image file formats:</para>
-			<itemizedlist>
-				<listitem><para>ANI - Animation</para>
-				</listitem>
-				<listitem><para>BMP - Windows Bitmap</para>
-				</listitem>
-				<listitem><para>GIF - Graphics Interchange Format</para>
-				</listitem>
-				<listitem><para>ICO - Windows Icon</para>
-				</listitem>
-				<listitem><para>JPEG - Joint Photographic Experts Group</para>
-				</listitem>
-				<listitem><para>PCX - PC Paintbrush </para>
-				</listitem>
-				<listitem><para>PNG - Portable Network Graphics </para>
-				</listitem>
-				<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
-				</listitem>
-				<listitem><para>RAS - Sun Raster </para>
-				</listitem>
-				<listitem><para>SVG - Scaleable Vector Graphics </para>
-				</listitem>
-				<listitem><para>TGA - Targa</para>
-				</listitem>
-				<listitem><para>TIFF - Tagged Image File Format</para>
-				</listitem>
-				<listitem><para>WBMP - Wireless Bitmap</para>
-				</listitem>
-				<listitem><para>XBM - X Bitmap</para>
-				</listitem>
-				<listitem><para>XPM - X Pixmap</para>
-				</listitem>
-			</itemizedlist>
-			<note><para>The GdkPixbuf library determines the file formats that &app; can load and save. The above list describes the file formats that are supported by default, you can use plug-ins to extend this list.
-</para></note>
-		</listitem>
-		<listitem><para>A variety of zoom levels and full screen viewing, with low usage of memory regardless of the zoom level. </para>
-		</listitem>
-		<listitem><para>Bonobo embedding technology that enables you to embed image views in other GNOME applications. </para>
-		</listitem>
-		<listitem><para>Rotation and flipping of images. </para>
-		</listitem>
-		<listitem><para>Collection: </para>
-                  <itemizedlist>
-		    <listitem><para>Display of EXIF data, this requires <literal>libexif</literal>. </para>
-		    </listitem>
-		    <listitem><para>Mass modification of all selected images. </para>
-		    </listitem>
-                  </itemizedlist>
-		</listitem>
-		<listitem><para>Special JPEG file support, this requires <literal>libjpeg</literal> and <literal>libexif</literal>: </para>
-                  <itemizedlist>
-		    <listitem><para>Lossless saving of rotated or flipped images. </para>
-		    </listitem>
-		    <listitem><para>Preservation and update of EXIF data on save.
-</para>
-		    </listitem>
-                  </itemizedlist>
-		</listitem>
-	</itemizedlist>
+  <title>Introduction</title>
+  <para>The <application>Eye of GNOME Image Viewer</application>
+  application enables you to view image files. Bonobo embedding
+  technology in &app; allows you to embed image views in other
+  GNOME applications.</para>
+
+  <sect2 id="eog-tostartapp">
+    <title>Starting &appname;</title>
+    <para>You can start &app; in the following ways:</para>
+    <itemizedlist>
+      <listitem>
+	<para>Choose <menuchoice><guimenu>Graphics</guimenu>
+	<guimenuitem>Image Viewer</guimenuitem></menuchoice>
+	from the <guimenu>Applications</guimenu> menu.</para>
+      </listitem>
+      <listitem>
+	<para>Run <command>eog</command> at the prompt in a terminal
+	such as <application>gnome-terminal</application>, or from the
+	<application>Run Application</application> dialog.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+
+  <sect2 id="eog-closeapp">
+    <title>Quitting &appname;</title>
+    <para>To quit &app; choose <menuchoice><guimenu>File</guimenu>
+    <guimenuitem>Quit</guimenuitem></menuchoice>, or press
+    <keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo>.
+    This will shut down all &app; windows, closing all images
+    that are open.</para>
+    <para>To close just the window you are currently in, choose
+    <menuchoice><guimenu>File</guimenu><guimenuitem>Close</guimenuitem>
+    </menuchoice>, or press <keycombo><keycap>Ctrl</keycap><keycap>W</keycap>
+    </keycombo>.  If the window is the last &app; window open, the application
+    exits.</para>
+  </sect2>
+
+  <sect2 id="eog-filetypes">
+    <title>Supported File Types</title>
+    <para>&app; supports a variety of image file formats. The
+    <systemitem class="library">GdkPixbuf</systemitem> library determines
+    which file formats &app; can load and save.  If the appropriate plugins
+    are installed on your system, &app; will be able to open more image
+    formats than those listed below.  The following list is the default
+    supported file formats:</para>
+		<itemizedlist>
+			<listitem><para>ANI - Animation</para>
+			</listitem>
+			<listitem><para>BMP - Windows Bitmap</para>
+			</listitem>
+			<listitem><para>GIF - Graphics Interchange Format</para>
+			</listitem>
+			<listitem><para>ICO - Windows Icon</para>
+			</listitem>
+			<listitem><para>JPEG - Joint Photographic Experts Group</para>
+			</listitem>
+			<listitem><para>PCX - PC Paintbrush </para>
+			</listitem>
+			<listitem><para>PNG - Portable Network Graphics </para>
+			</listitem>
+			<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
+			</listitem>
+			<listitem><para>RAS - Sun Raster </para>
+			</listitem>
+			<listitem><para>SVG - Scaleable Vector Graphics </para>
+			</listitem>
+			<listitem><para>TGA - Targa</para>
+			</listitem>
+			<listitem><para>TIFF - Tagged Image File Format</para>
+			</listitem>
+			<listitem><para>WBMP - Wireless Bitmap</para>
+			</listitem>
+			<listitem><para>XBM - X Bitmap</para>
+			</listitem>
+			<listitem><para>XPM - X Pixmap</para>
+			</listitem>
+		</itemizedlist>
+  </sect2>
+
+  <sect2 id="eog-features">
+    <title>&appname; Features</title>
+    <para>&app; has a variety of features to help you view your images.
+    You can zoom in and out or view the image full screen. Regardless of
+    your zoom level, &app; uses a low amount of memory. You can also
+    rotate and flip the image you are viewing.</para>
+    <para>If you are looking at a collection of images, &app; can display EFIX
+    data.  This feature requires <systemitem class="library">libefix</systemitem>
+    to be installed on your system.  You can also do mass modification of all
+    the selected images.</para>
+    <para>&app; also has special support for JPEG image files, which requires
+    <systemitem class="library">libjpeg</systemitem> and
+    <systemitem class="library">libefix</systemitem>.  This feature allows
+    lossless saving of rotated and flipped images. It also preserves and
+    updates EFIX data when you save.</para>
+  </sect2>
 </sect1>
 
-<!-- =========== Getting Started ============================== -->
-
-<sect1 id="eog-getting-started">
-	<title>Getting Started</title>
-	<sect2 id="eog-tostartapp">
-	<title>To Start &appname;</title>
-	<para>You can start &app; in the following ways:</para>
-		<variablelist>
-			<varlistentry>
-			<term><guimenu>Applications</guimenu> menu</term>
-			<listitem>
-			<para>Choose 
-			<menuchoice>
-			<guisubmenu>Graphics</guisubmenu>
-			<guimenuitem>Image Viewer</guimenuitem>
-			</menuchoice>. </para>
-			</listitem>
-			</varlistentry>
-			<varlistentry>
-			<term>Command line</term>
-			<listitem>
-			<para>Execute the following command: <command>eog</command></para>
-			</listitem>
-			</varlistentry>
-		</variablelist>
-	</sect2>
-	<sect2 id="eog-whenyoustart">
-	<title>When You Start &appname;</title>
-	<para>When you start &app;, the following window is displayed.</para>
-		<!-- ==== Figure ==== -->
-		<figure id="mainwindow-fig">
+<!--============== When You Start ===========-->
+<sect1 id="eog-whenyoustart">
+  <title>Getting Started</title>
+  <para>When you start &app;, the following window is displayed:</para>
+  <figure id="mainwindow-fig">
 		<title>&appname; Start Up Window</title>
 		<screenshot>
 		  <mediaobject>
@@ -301,12 +328,9 @@
 		    </textobject>
 		  </mediaobject>
 		</screenshot>
-		</figure>
-		<!-- ==== End of Figure ==== -->
-
-    <para>The &app; window contains the following elements:
-    </para>
-      <variablelist>
+  </figure>
+  <para>The &app; window contains the following elements:</para>
+  <variablelist>
 	<varlistentry>
   	  <term>Menubar</term>
  	  <listitem>
@@ -331,60 +355,32 @@
 	    <para>The statusbar provides information about the image. To show or hide the statusbar, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Statusbar</guimenuitem></menuchoice>.</para>
 	  </listitem>
 	</varlistentry>
-      </variablelist>
-      <para>
-        <note>
-	  <para>Additional menus and toolbar buttons are displayed when you open a file.</para>
-        </note>
-      </para>
-      <para>
-        In &app;, you can perform the same action in several ways. For example, you can open a file in the following ways:
-                  <informaltable frame="all">
-                    <tgroup cols="2" colsep="1" rowsep="1">
-                      <colspec colname="COLSPEC0" colwidth="50*"/>
-                      <colspec colname="COLSPEC1" colwidth="50*"/>
-                      <thead>
-                        <row valign="top">
-                          <entry colname="COLSPEC0">
-                            <para>UI Component</para></entry>
-                          <entry colname="COLSPEC1" align="left"> 
-                            <para>Action</para></entry>
-                        </row>
-                      </thead>
-                      <tbody>
-                        <row valign="top">               
-                          <entry><para>Window</para></entry>
-                          <entry><para>Drag a file into the &app; window from another application such as a file manager.</para>
-      <para>Alternatively, double-click on the file name in the file manager, or any GNOME application that allows embedded image views.</para>
-</entry>
-                        </row>
-                        <row valign="top">               
-                          <entry><para>Menubar</para></entry>
-                          <entry><para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Open</guimenuitem></menuchoice>.</para>
-</entry>
-                        </row>
-                        <row valign="top">               
-                          <entry><para>Toolbar</para></entry>
-                          <entry><para>Click on the <guibutton>Open</guibutton> toolbar button. </para></entry>
-                        </row>
-                        <row valign="top">               
-                          <entry><para>Shortcut keys</para></entry>
-                          <entry><para>Press <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.</para></entry>
-                        </row>
-                      </tbody>
-                    </tgroup>
-                  </informaltable>
-      </para>
-      <para>
-      This manual documents functionality from the menubar.
-      </para>
-	</sect2>
+  </variablelist>
+  <note><para>Additional menus and toolbar buttons are displayed when you
+  open a file.</para></note>
+  <para>Most actions in &app; can be performed several ways.  For example,
+  you can open a file in the following ways:</para>
+  <itemizedlist>
+    <listitem><para>Drag an image file into the &app; window from another
+    application or window.</para></listitem>
+    <listitem><para>Double-click on an image file in the file manager
+    or other application.</para></listitem>
+    <listitem><para>Choose <menuchoice><guimenu>File</guimenu>
+    <guimenuitem>Open</guimenuitem></menuchoice> and select an image file
+    in the <application>Load Image</application> dialog.</para></listitem>
+    <listitem><para>Click on the <guibutton>Open</guibutton> toolbar button
+    and select an image file in the <application>Load Image</application>
+    dialog.</para></listitem>
+    <listitem><para>Press <keycombo><keycap>Ctrl</keycap><keycap>O</keycap>
+    </keycombo> and select an image file in the <application>Load
+    Image</application> dialog.</para></listitem>
+  </itemizedlist>
 </sect1>
 
-<!-- ================ Usage ================================ -->
 
-<sect1 id="eog-usage">
-	<title>Usage</title>
+<!-- ============= Viewing Images ============================== -->
+<sect1 id="eog-view">
+	<title>Viewing Images</title>
 
 	<!--=========== To Open an Image ============================= -->
 	<sect2 id="eog-open-image">
@@ -393,7 +389,7 @@
                 <orderedlist>
                   <listitem>
                     <para>
-                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice>.  </para>
+                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice>, or press <keycombo> <keycap>Ctrl</keycap><keycap>O</keycap> </keycombo>.  </para>
                   </listitem>
                   <listitem>
                     <para>
@@ -407,7 +403,7 @@
                   </listitem>
                 </orderedlist>
                 <para> 
-	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window. To explicitly open a new window, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>New</guimenuitem> </menuchoice>.
+	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window. To explicitly open a new window, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>New</guimenuitem> </menuchoice>, or click the <guibutton>New</guibutton> button, or press <keycombo> <keycap>Ctrl</keycap><keycap>N</keycap> </keycombo>.
                 </para>
                 <para>
 	          If you try to open an image file format that &app; does not recognize, the application displays an error message.
@@ -421,7 +417,7 @@
                 <orderedlist>
                   <listitem>
                     <para>
-                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open Directory</guimenuitem> </menuchoice>.  </para>
+                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open Directory</guimenuitem> </menuchoice>, or press <keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.  </para>
                   </listitem>
                   <listitem>
                     <para>
@@ -430,17 +426,14 @@
                   </listitem>
                   <listitem>
                     <para>
-                      Click <guibutton>Open</guibutton>.  &app; displays all of the images in the directory, in one &app; window. This is known as the collection view.
+                      Click <guibutton>Open</guibutton>.  &app; displays all of the images in the directory in one &app; window. This is known as the collection view.
                     </para>
                   </listitem>
-                  <listitem>
-                    <para>
-                      To view all of the images in the directory as a slide show, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Slide Show</guimenuitem> </menuchoice>. To return to the collection view, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
+		</orderedlist>
+             <para>To view all of the images in the directory as a slide show, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem> </menuchoice>. To return to the collection view, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
                     </para>
-                  </listitem>
-                </orderedlist>
 	</sect2>
-	
+
 	<!--============ To Scroll an Image ======================= -->
 	<sect2 id="eog-scroll-image">
 		<title>To Scroll an Image</title>
@@ -448,30 +441,38 @@
 		<itemizedlist>
 			<listitem><para>Use the arrow keys on the keyboard.</para>
 			</listitem>
-			<listitem><para>Drag the image in the opposite direction to the direction in which you want to scroll. For example, if you want to scroll down the image, drag the image upwards in the window.</para>
+			<listitem><para>Drag the image opposite to the direction in which you want to scroll. For example, if you want to scroll down the image, drag the image upwards in the window.</para>
 			</listitem>
 			<listitem><para>Use the scrollbars on the window.</para>
 			</listitem>
 		</itemizedlist>
 	</sect2>
 
-	<sect2 id="eog-change-zoom">
-	<title>To Resize the Image View</title>
-	<para>You can use the following methods to resize the view of an image in the &app; window:</para>
-		<itemizedlist>
-			<listitem><para>To increase the size of the image view, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem></menuchoice>.</para>
-			</listitem>
-			<listitem><para>To decrease the size of the image view, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem></menuchoice>.</para>
-			</listitem>
-			<listitem><para>To view the image at actual size, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Normal Size</guimenuitem></menuchoice>. </para>
-			</listitem>
-			<listitem><para>To resize the image view to fit in the &app; display area, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>.</para>
-			</listitem>
-			<listitem><para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
-			</listitem>
-		</itemizedlist>
-	</sect2>	
+	<!--=========== To Zoom In and Out ==================== -->
+	<sect2 id="eog-zoom">
+		<title>To Zoom In or Out</title>
+		<para>You can zoom in or out of the image through a variety of methods.</para>
+			<itemizedlist>
+				<listitem><para>You can use the middle mouse button to scroll in and out. Scrolling down zooms out; scrolling up zooms in.</para></listitem>
+ 				<listitem><para>You can use the zoom buttons in the toolbar. They are also located in the <guimenu>View</guimenu>. You can zoom in and zoom out. <guilabel>Normal</guilabel> will restore the picture to its original size. <guilabel>Best Fit</guilabel> will resize the image so it will fit in the window.</para></listitem>
+				<listitem><para>Three zoom options also have shortcuts. To zoom in, <keycombo> <keycap>Ctrl</keycap><keycap>+</keycap> </keycombo>. To zoom out, <keycombo> <keycap>Ctrl</keycap><keycap>-</keycap> </keycombo>. To go back to the normal size, <keycombo> <keycap>Ctrl</keycap><keycap>=</keycap> </keycombo>.</para></listitem>
+			</itemizedlist>
+	</sect2>
 
+	<!--=========== To View Image Fullscreen ==================== -->
+	<sect2 id="eog-fullscreen">
+		<title>To View Image Full Screen</title>
+		<para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+	</sect2>
+</sect1>
+
+
+<!-- ============= Manipulating Images ============================== -->
+<sect1 id="eog-manipulate">
+	<title>Manipulating Images</title>
+
+
+	<!--============ To Flip an Image ======================= -->
 	<sect2 id="eog-flip">
 		<title>To Flip an Image</title>
 		<para>To flip an image along the horizontal axis of the image, choose 
@@ -486,6 +487,7 @@
 		</menuchoice>.</para>
 	</sect2>
 
+	<!--============ To Rotate an Image ======================= -->
 	<sect2 id="eog-rotate">
 		<title>To Rotate an Image</title>
 		<para>To rotate an image 90 degrees in a clockwise direction, choose 
@@ -505,6 +507,7 @@
 		</menuchoice>.</para>
 	</sect2>
 
+	<!--============ To Undo an Action ======================= -->
 	<sect2 id="eog-undo">
 		<title>To Undo an Action</title>
 		<para>To undo a flip or rotate action, choose 
@@ -513,170 +516,42 @@
 		<guimenuitem>Undo</guimenuitem>
 		</menuchoice>.</para>
 	</sect2>
+</sect1> 
 
+<!-- ============= Saving ============================== -->
+<sect1 id="eog-save-rename">
+	<title>Saving and Renaming</title>
+
+<!--============ To Save an Image ======================= -->
 	<sect2 id="eog-save-image">
 		<title>To Save an Image</title>
-		<para>To save an image to a new filename, choose 
+		<para>To save an image, choose 
+			<menuchoice>
+			<guimenu>File</guimenu>
+			<guisubmenu>Save</guisubmenu>
+			</menuchoice>.
+		The first time that you save an image, specify the location and filename in the <guilabel>Name</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton></para>
+                <para>After you have saved an image once you will not be asked for this information again.</para>
+	</sect2>
+
+	<!--============ To Rename an Image ======================= -->
+	<sect2 id="eog-rename-image">
+		<title>To Rename an Image</title>
+		<para>To rename an image, choose 
 			<menuchoice>
 			<guimenu>File</guimenu>
 			<guisubmenu>Save As</guisubmenu>
 			</menuchoice>.
-		Specify the location and filename in the <guilabel>Filename</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton>. You can only save a PNG or JPEG image to another filename of the same image type. </para>
-	</sect2>
-
-	<sect2 id="eog-print-image-setup">
-		<title>To Configure the Print Options for an Image</title>
-		<para>To configure the print options for an image, choose <menuchoice><guimenu>File</guimenu><guisubmenu>Print Setup</guisubmenu></menuchoice>.</para>
-      <para>
-        The print dialog has the following tabbed sections:
-      </para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            <link linkend="eog-print-image-setup-paper">Paper</link>
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            <link linkend="eog-print-image-setup-page">Page</link>
-          </para>
-        </listitem>
-      </itemizedlist>
-
-	<sect3 id="eog-print-image-setup-paper">
-	<title>Paper</title>
-	<variablelist>
-	  <varlistentry> <term><guilabel>Paper and layout</guilabel> </term> 
-	    <listitem> 
-	      <para>Use the <guilabel>Paper size</guilabel> drop-down list to select the size of the paper to which you want to print the file.</para>
-	      <para>Use the <guilabel>Width</guilabel> spin box to specify the width of the paper. Use the adjacent drop-down list to change the measurement unit.</para>
-	      <para>Use the <guilabel>Height</guilabel> spin box to specify the height of the paper.</para>
-	      <para>Use the <guilabel>Feed orientation</guilabel> drop-down list to select the orientation of the paper in the printer.</para>
-	      <para>Use the <guilabel>Page orientation</guilabel> drop-down list to select the page orientation.</para>
-	      <para>Use the <guilabel>Layout</guilabel> drop-down list to select the page layout. A preview of each layout that you select is displayed in the <guilabel>Preview</guilabel> area.</para>
-	      <para>Use the <guilabel>Paper Tray</guilabel> drop-down list to select the paper tray.
-              </para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry>
-            <term><guilabel>Preview</guilabel></term>
-	    <listitem>
-              <para>Use the <guilabel>Preview</guilabel> area to see the effect of the options that you select.</para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry>
-            <term><guilabel>Margins</guilabel></term>
-	    <listitem>
-              <para>Use the <guilabel>Top</guilabel> spin box to specify the size of the top margin.</para>
-              <para>Use the <guilabel>Left</guilabel> spin box to specify the size of the left margin.</para>
-              <para>Use the <guilabel>Right</guilabel> spin box to specify the size of the right margin.</para>
-              <para>Use the <guilabel>Bottom</guilabel> spin box to specify the size of the bottom margin.</para>
-	    </listitem>
-	  </varlistentry>
-	</variablelist>
-      </sect3>
-
-	<sect3 id="eog-print-image-setup-page">
-	<title>Page</title>
-	<variablelist>
-	  <varlistentry>
-            <term><guilabel>Preview</guilabel></term>
-	    <listitem>
-              <para>Use the <guilabel>Preview</guilabel> area to see the effect of the options that you select.</para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry> <term><guilabel>Scale</guilabel> </term> 
-	    <listitem> 
-	      <para>Select the <guilabel>Adjust to ...% of original size</guilabel> option to change the size of the image. Use the spin box to specify the new size of the image.</para>
-	      <para>Select the <guilabel>Fit to Page</guilabel> option to resize the image to fit on the whole page. </para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry> <term><guilabel>Show</guilabel> </term> 
-	    <listitem> 
-	      <para>Select the <guilabel>Cutting help</guilabel> option to display guide lines to indicate where the image is cut. </para>
-	      <para>Select the <guilabel>Overlap help</guilabel> option to display guide lines to indicate where the image overlaps the page. </para>
-	      <para>Select the <guilabel>Ordering help</guilabel> option to display guide lines to indicate page order. </para>
-	      <para>Select the <guilabel>Margins</guilabel> option to display guide lines to indicate image margins. </para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry> <term><guilabel>Center</guilabel> </term> 
-	    <listitem> 
-	      <para>Select the <guilabel>Horizontally</guilabel> option to center the image horizontally on the page. </para>
-	      <para>Select the <guilabel>Vertically</guilabel> option to center the image vertically on the page. </para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry> <term><guilabel>Overlap</guilabel> </term> 
-	    <listitem> 
-	      <para>Use the <guilabel>Horizontally by</guilabel> spin box to specify by how much the image can overlap the page horizontally.</para>
-	      <para>Use the <guilabel>Vertically by</guilabel> spin box to specify by how much the image can overlap the page vertically.</para>
-	    </listitem>
-	  </varlistentry>
-	  <varlistentry> <term><guilabel>Page order</guilabel> </term> 
-	    <listitem> 
-	      <para>Select the <guilabel>Down, then right</guilabel> option to print </para>
-	      <para>Select the <guilabel>Right, then down</guilabel> option to print </para>
-	    </listitem>
-	  </varlistentry>
-	</variablelist>
-	</sect3>
-	</sect2>
-
-	<sect2 id="eog-print-image-preview">
-		<title>To Preview an Image</title>
-		<para>To preview an image, choose 
-			<menuchoice>
-			<guimenu>File</guimenu>
-			<guisubmenu>Print Preview</guisubmenu>
-			</menuchoice>.</para>
-	</sect2>
-
-	<sect2 id="eog-print-image">
-		<title>To Print an Image</title>
-		<para>To print an image, choose 
-			<menuchoice>
-			<guimenu>File</guimenu>
-			<guisubmenu>Print</guisubmenu>
-			</menuchoice>.</para>
-	</sect2>
-
-	<sect2 id="eog-close-image">
-		<title>To Close an Image</title>
-		<para>To close an image, choose 
-		<menuchoice>
-		<guimenu>File</guimenu>
-		<guimenuitem>Close</guimenuitem>
-		</menuchoice>. </para>
-		<para>If the window is the last &app; window open, the application exits. </para>
-		<para>To quit &app;, choose 
-		<menuchoice>
-		<guimenu>File</guimenu>
-		<guimenuitem>Quit</guimenuitem>
-		</menuchoice>.
-		</para>
-      <warning>
-            <para>When you quit, &app; closes all images opened in the current session.</para>
-      </warning>
-
+		Specify the location and filename in the <guilabel>Name</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton>. You can only save an image to another filename of the same image type.</para>
 	</sect2>
 
 </sect1>
 
-<sect1 id="eog-prefs">	
-<title>Preferences</title>
-	<para>To configure &app;, choose <menuchoice>
-		<guimenu>Edit</guimenu>
-		<guimenuitem>Preferences</guimenuitem>
-		</menuchoice>. The <guilabel>Eye of Gnome Preferences</guilabel> dialog contains the following tabbed sections:
-         </para>
-         <itemizedlist>
-           <listitem>
-             <para><xref linkend="eog-prefs-image"/></para>
-           </listitem>
-           <listitem>
-             <para><xref linkend="eog-prefs-slideshow"/></para>
-           </listitem>
-         </itemizedlist>
-                                                                                                 
+<sect1 id="eog-prefs">
+	<title>Preferences</title>
+	<para>Preferences can be changed by going to <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>. You will be able to change the options for image viewing and slide shows.</para>
+
+	<!--============ Image View ======================= -->
   <sect2 id="eog-prefs-image">
          <title>Image View</title>
 	<variablelist>
@@ -686,7 +561,6 @@
 		<para>Select the <guilabel>Interpolate image on zoom</guilabel> option to enable image interpolation when you change the zoom factor for the image. If you select this option, &app; uses bilinear interpolation. Bilinear interpolation is a simple and fast method of interpolation. When you zoom in on an image, &app; uses up to four adjacent pixels to compute the colors of the new pixels. When you zoom out of an image, &app; averages regions of color in the existing image to compute the colors of the pixels. </para>
 		</listitem>
 	</varlistentry>
-
 
 	<varlistentry>
 		<term><guilabel>Transparent Parts</guilabel></term>
@@ -708,7 +582,7 @@
 	</variablelist>
   </sect2>
 		
-                                                                                                 
+	<!--============ Slide Show ==================-->                                                                                               
   <sect2 id="eog-prefs-slideshow">
          <title>Slide Show</title>
 	<variablelist>
@@ -730,5 +604,4 @@
 	</variablelist>
   </sect2>
 </sect1>
-
 </article>
