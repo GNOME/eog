@@ -824,6 +824,7 @@ add_image (EogWrapList *wlist, EogImage *image)
 	priv = wlist->priv;
 	
 	item = eog_collection_item_new (gnome_canvas_root (GNOME_CANVAS (wlist)), image);
+	gnome_canvas_item_move (item, -1000.0, -1000.0); /* hide item in invisible area */
 	g_signal_connect (G_OBJECT (item), "event", G_CALLBACK (handle_item_event), wlist);
 	g_signal_connect (G_OBJECT (item), "size_changed", G_CALLBACK (handle_item_size_changed), wlist);
 
