@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-14 07:05+0200\n"
-"PO-Revision-Date: 2002-06-14 07:05+0200\n"
+"POT-Creation-Date: 2002-06-26 10:36+0200\n"
+"PO-Revision-Date: 2002-06-26 10:36+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr "Bildvisaren Eye of Gnome"
 msgid "View many different types of images"
 msgstr "Visa många olika typer av bilder"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
 msgstr "EOG-bild"
 
@@ -55,31 +55,36 @@ msgstr "EOG-bildvisarfabrik"
 msgid "Embeddable EOG Image"
 msgstr "Inbäddbar EOG-bild"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Bild"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "typ av interpolation"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "typen av interpolation att använda"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "ruttyp"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "typen av rutnät att använda"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "storleken på rutorna att använda"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "färgutjämning"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "typ av färgutjämning"
 
@@ -192,7 +197,7 @@ msgstr "_Visa"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:249
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Christian Rose\n"
@@ -202,19 +207,19 @@ msgstr ""
 "Andreas Hydén\n"
 "Skicka synpunkter på översättningen till sv@li.org"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:256
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:257
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering."
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:294
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -223,11 +228,11 @@ msgstr ""
 "Kunde inte visa hjälp för Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:809
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1270
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan inte öppna %s."
@@ -437,68 +442,88 @@ msgstr "_Brickor"
 msgid "_White"
 msgstr "_Vitt"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunde inte spara bild som \"%s\": %s."
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "Spara som"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "Skriv ut bild"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "Sidor"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "Förhandsgranska"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "Utskrift av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/Zooma _in"
+
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/Zooma _ut"
+
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/Zooma _1:1"
+
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/Zooma så att det _passar"
+
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/_Stäng"
+
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "Färgutjämning"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "Typ av rutor"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "Rutstorlek"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "Fönstertitel"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
@@ -592,11 +617,6 @@ msgstr "Höger:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Nederst:"
-
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Bild"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
