@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0.x\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-04-12 12:05+0200\n"
 "PO-Revision-Date: 2002-11-27 12:35+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -29,21 +29,19 @@ msgstr "Bildersammlung"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Next"
-msgstr ""
+msgstr "Nächstes"
 
 #: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
 msgid "Next Image"
-msgstr "Bild speichern"
+msgstr "Nächstes Bild"
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Previous"
-msgstr ""
+msgstr "Vorheriges"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
 msgid "Previous Image"
-msgstr "Bild drucken"
+msgstr "Vorheriges Bild"
 
 #: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
 msgid "Slide Show"
@@ -53,23 +51,21 @@ msgstr "Diashow"
 msgid "_View"
 msgstr "_Ansicht"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
-msgstr ""
+msgstr "In den Müll verschieben"
 
-#: collection/eog-collection-view.c:373
-#, fuzzy
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
-msgstr "Sammlung"
+msgstr "Sammlungs Ansicht"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: collection/eog-collection-view.c:724
-#, fuzzy
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
-msgstr "Text in Statusleiste"
+msgstr "Status Text"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -81,69 +77,68 @@ msgstr "Zeigt viele unterschiedliche Bildtypen an"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
-msgstr ""
+msgstr "<b>Bild Interpolation</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>Bild Zoom</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>Sequenz</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "Transparenz-Farbe"
+msgstr "<b>Transparenz</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "Als Hintergrund"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "Durch _Karo-Muster"
+msgstr "Als _Karo-Muster"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Als benutzerdefinierte Farbe"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Farbe für transparente Bereiche"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Keinen Zoom größer als 100% verwenden"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Eye of Gnome Einstellungen"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
 msgstr "Bildbetrachter"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Bildsequenz wiederholen"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Nächstes Bild automatisch anzeigen:\n"
+"(0 zum abschalten)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -151,7 +146,7 @@ msgstr "Bild bei Zoom _interpolieren (bessere Qualität, aber langsamer)"
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "Sek"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -174,11 +169,11 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Legt fest, wie Transparenz dargestellt werden soll. Gültige Werte sind "
-"CHECK_PATTERN und COLOR. Wenn COLOR gewählt ist, dann legt der trans_color "
+"CHECK_PATTERN, COLOR und NONE. Wenn COLOR gewählt ist, dann legt der trans_color "
 "Schlüssel fest, welche Farbe verwendet wird."
 
 #: eog.schemas.in.h:5
@@ -302,9 +297,8 @@ msgid "By Extension"
 msgstr "Nach Endung"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "Nicht unterstütztes Dateiformat."
+msgstr "Nicht unterstütztes Dateiformat zum Speichern."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
@@ -318,40 +312,35 @@ msgstr "Bild öffnen"
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1143
 msgid "No image loaded."
-msgstr ""
+msgstr "Kein Bild geladen."
 
-#: libeog/eog-image.c:1163
-#, fuzzy
+#: libeog/eog-image.c:1177
 msgid "Unsupported image type for saving."
-msgstr "Nicht unterstütztes Dateiformat."
+msgstr "Nicht unterstütztes Dateiformat zum Speichern."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Attribut"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Skalieren"
+msgstr "Wert"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Bildbreite"
+msgstr "Breite"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Rechts:"
+msgstr "Höhe"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "_Datei"
+msgstr "Dateiname"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -417,7 +406,7 @@ msgstr "S_chließen"
 msgid "_Contents"
 msgstr "I_nhalt"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -445,27 +434,27 @@ msgstr "_Beenden"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
 "Christian Meyer <chrisime@gnome.org>\n"
 "Matthias Warkus <mawa@iname.com>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "© 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -474,33 +463,30 @@ msgstr ""
 "Hilfe für Eye of Gnome konnte nicht angezeigt werden.\n"
 "%s"
 
-#: shell/main.c:226
-#, fuzzy, c-format
+#: shell/main.c:225
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Sie sind dabei, %i Fenster gleichzeitig\n"
-"zu öffnen. Möchten Sie diese lieber in\n"
-"einer Sammlung öffnen?"
+"Sie sind dabei, %i Fenster gleichzeitig zu öffnen. Möchten Sie diese lieber\n"
+"in einer Sammlung öffnen?"
 
-#: shell/main.c:230
-#, fuzzy
+#: shell/main.c:229
 msgid "Open multiple single windows?"
-msgstr "In neuem Fenster öffnen"
+msgstr "Mehrere einzelne Fenster öffnen?"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Einzelne Fenster"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:306
-#, fuzzy
+#: shell/main.c:305
 msgid "Could not find files"
-msgstr "`%s' konnte nicht geöffnet werden"
+msgstr "Dateien konnten nicht gefunden werden"
 
 #: shell/util.c:52
 #, c-format
@@ -540,52 +526,52 @@ msgid "_Zoom In"
 msgstr "Ansicht ver_größern"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
-msgstr "Horizontal spiegeln"
+msgid "Flip _Horizontal"
+msgstr "_Horizontal spiegeln"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
-msgstr "Vertikal spiegeln"
+msgid "Flip _Vertical"
+msgstr "_Vertikal spiegeln"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Vollbild"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Eine Vorschau auf das zu druckende Bild anzeigen"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Druck_vorschau..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Sei_teneinstellungen"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Bild auf dem Drucker ausgeben"
 
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "180° _drehen"
+
 #: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
-msgstr "180° drehen"
+msgid "Rotate C_lockwise"
+msgstr "90° _rechts drehen"
 
 #: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
-msgstr "90° rechts drehen"
+msgid "Rotate Counte_r Clockwise"
+msgstr "90° _links drehen"
 
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
-msgstr "90° links drehen"
-
-#: viewer/eog-image-view-ui.xml.h:11
 msgid "Save _As..."
 msgstr "Speichern _unter..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Die Seiteneinstellungen für Ihren aktuellen Drucker einrichten"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "_Full Screen"
+msgstr "_Vollbild"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
@@ -613,11 +599,11 @@ msgstr "/S_chließen"
 
 #: viewer/eog-image-view.c:902
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Bild erfolgreich gespeichert"
 
 #: viewer/eog-image-view.c:906
 msgid "Image saving failed"
-msgstr ""
+msgstr "Bildspeicherung fehlgeschlagen"
 
 #: viewer/eog-image-view.c:1149
 msgid "Image Width"
@@ -633,11 +619,11 @@ msgstr "Text in Statusleiste"
 
 #: viewer/eog-image-view.c:1161
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Gewünschte Fensterbreite"
 
 #: viewer/eog-image-view.c:1164
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Gewünschte Fensterhöhe"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
