@@ -256,20 +256,20 @@ image_view_class_init (ImageViewClass *class)
  		g_signal_new ("zoom_fit", 
 			      GTK_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_FIRST,
-			      GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
+			      G_STRUCT_OFFSET (ImageViewClass, zoom_fit),
 			      NULL,
 			      NULL,
-			      gtk_marshal_NONE__NONE,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
   	image_view_signals[ZOOM_CHANGED] =
  		g_signal_new ("zoom_changed",
 			      GTK_CLASS_TYPE(object_class),
 			      G_SIGNAL_RUN_FIRST,
-			      GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
+			      G_STRUCT_OFFSET (ImageViewClass, zoom_changed),
 			      NULL,
 			      NULL,
-			      gtk_marshal_NONE__NONE,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
   
@@ -281,7 +281,7 @@ image_view_class_init (ImageViewClass *class)
  		g_signal_new ("set_scroll_adjustments",
 			      GTK_CLASS_TYPE(object_class),
 			      G_SIGNAL_RUN_LAST,
-			      GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
+			      G_STRUCT_OFFSET (ImageViewClass, set_scroll_adjustments),
 			      NULL,
 			      NULL,
 			      gtk_marshal_VOID__OBJECT_OBJECT,
