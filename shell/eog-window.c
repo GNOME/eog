@@ -887,7 +887,7 @@ remove_component (EogWindow *window)
 }
 
 static Bonobo_Control
-get_file_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
@@ -960,7 +960,7 @@ get_file_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 }	
 
 static Bonobo_Control
-get_directory_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+get_collection_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
@@ -1010,6 +1010,112 @@ get_directory_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	return control;
 }
 
+static Bonobo_Control
+get_collection_control_list (GList *text_uri_list)
+{
+	Bonobo_Unknown unknown_obj;
+	Bonobo_Control control;
+	GNOME_EOG_ImageCollection collection;
+	CORBA_Environment ev;
+	GNOME_EOG_URIList *uri_list;
+	GList *uri;
+	gint length, i;
+
+	g_return_val_if_fail (text_uri_list != NULL, CORBA_OBJECT_NIL);
+	
+	/* activate component */
+ 	CORBA_exception_init (&ev);
+	unknown_obj = (Bonobo_Unknown) oaf_activate 
+		("repo_ids.has_all(['IDL:GNOME/EOG/ImageCollection:1.0', 'IDL:Bonobo/Control:1.0'])",
+		 NULL, 0, NULL, &ev);
+	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
+	
+	/* get collection image interface */
+        collection = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:GNOME/EOG/ImageCollection:1.0", &ev);
+	if (collection == CORBA_OBJECT_NIL) {
+		Bonobo_Unknown_unref (unknown_obj, &ev);
+		CORBA_Object_release (unknown_obj, &ev);
+		return CORBA_OBJECT_NIL;		
+	}
+
+	/* create string sequence */
+	length = g_list_length (text_uri_list);
+	uri_list = GNOME_EOG_URIList__alloc ();
+	uri_list->_maximum = length;
+	uri_list->_length = length;
+	uri_list->_buffer = CORBA_sequence_GNOME_EOG_URI_allocbuf (length);
+	uri = text_uri_list;
+	for (i = 0; i < length; i++) {
+		g_print ("List uri: %s\n", (gchar*) uri->data);
+		uri_list->_buffer[i] = CORBA_string_dup ((gchar*)uri->data);
+		uri = uri->next;
+	}
+	CORBA_sequence_set_release (uri_list, CORBA_TRUE);
+
+	/* set uris */
+	GNOME_EOG_ImageCollection_openURIList (collection, uri_list, &ev);
+
+	Bonobo_Unknown_unref (collection, &ev);
+	CORBA_Object_release (collection, &ev);
+
+	/* get Control interface */
+	control = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/Control:1.0", &ev);
+	if (control == CORBA_OBJECT_NIL) {
+		Bonobo_Unknown_unref (unknown_obj, &ev);
+		CORBA_Object_release (unknown_obj, &ev);
+		return CORBA_OBJECT_NIL;		
+	}
+
+	/* clean up */ 
+	Bonobo_Unknown_unref (unknown_obj, &ev);
+        CORBA_Object_release (unknown_obj, &ev);
+	CORBA_exception_free (&ev);
+
+	return control;
+}
+
+static void 
+add_control_to_ui (EogWindow *window, Bonobo_Control control)
+{
+	EogWindowPrivate *priv;
+	CORBA_Environment ev;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+ 	CORBA_exception_init (&ev);
+
+	/* obtain gtk widget */
+	priv->control = bonobo_widget_new_control_from_objref  
+		(control, bonobo_object_corba_objref (BONOBO_OBJECT (priv->ui_container)));
+	gtk_object_ref (GTK_OBJECT (priv->control));
+
+	/* set control frame */
+	g_assert (priv->ctrl_frame != NULL);
+	Bonobo_Control_setFrame (control,
+				 bonobo_object_corba_objref (BONOBO_OBJECT (priv->ctrl_frame)),
+				 &ev);
+
+	/* add control to the application window */
+	gtk_container_add (GTK_CONTAINER (priv->box), priv->control);
+
+	/* view and activate it */
+	gtk_widget_show (priv->control);
+	gtk_widget_show (priv->box);
+	Bonobo_Control_activate (control, TRUE, &ev);
+
+	/* retrieve control properties and install listeners */
+	check_for_control_properties (window);
+
+	/* Get property control */
+	priv->prop_control = Bonobo_Unknown_queryInterface
+		(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
+	g_message ("Property control: %p", priv->prop_control);
+
+	/* clean up */
+	CORBA_exception_free (&ev);
+}
 
 /**
  * window_open:
@@ -1026,7 +1132,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 {
 	EogWindowPrivate *priv;       
 	Bonobo_Control control;
-	CORBA_Environment ev;
 	GnomeVFSResult result;
 	GnomeVFSFileInfo *info;
 	GnomeVFSURI *uri;
@@ -1036,7 +1141,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	g_return_val_if_fail (text_uri != NULL, FALSE);
 
 	priv = window->priv;
- 	CORBA_exception_init (&ev);
 
 	uri = gnome_vfs_uri_new (text_uri);
 
@@ -1062,9 +1166,9 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	/* get appropriate control */
 	control = CORBA_OBJECT_NIL;
 	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-		control = get_file_control (uri, info);
+		control = get_viewer_control (uri, info);
 	else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-		control = get_directory_control (uri, info);
+		control = get_collection_control (uri, info);
 	else {
 		gchar *str;
 		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
@@ -1074,37 +1178,42 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	}
 	if (control == CORBA_OBJECT_NIL) return FALSE;
 
-	/* add control to the application window */
-	priv->control = bonobo_widget_new_control_from_objref  
-		(control, bonobo_object_corba_objref (BONOBO_OBJECT (priv->ui_container)));
-	gtk_object_ref (GTK_OBJECT (priv->control));
-
-	/* set control frame */
-	g_assert (priv->ctrl_frame != NULL);
-	Bonobo_Control_setFrame (control,
-				 bonobo_object_corba_objref (BONOBO_OBJECT (priv->ctrl_frame)),
-				 &ev);
-
-	/* view and activate it */
-	gtk_container_add (GTK_CONTAINER (priv->box), priv->control);
-	gtk_widget_show (priv->control);
-	gtk_widget_show (priv->box);
-
-	Bonobo_Control_activate (control, TRUE, &ev);
-
-	/* retrieve control properties and install listeners*/
-	check_for_control_properties (window);
-
-	/* Get property control */
-	priv->prop_control = Bonobo_Unknown_queryInterface
-		(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
-
-	g_message ("Property control: %p", priv->prop_control);
+	/* add it to the user interface */
+	add_control_to_ui (window, control);
 
 	/* clean up */
 	gnome_vfs_file_info_unref (info);
 	gnome_vfs_uri_unref (uri);
-	CORBA_exception_free (&ev);
+
+	return TRUE;
+}
+
+
+gboolean 
+eog_window_open_list (EogWindow *window, GList *text_uri_list)
+{
+	EogWindowPrivate *priv;       
+	Bonobo_Control control;
+
+	g_return_val_if_fail (window != NULL, FALSE);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (text_uri_list != NULL, FALSE);
+
+	priv = window->priv;
+
+	/* remove current component if neccessary */
+	if (priv->control != NULL) {
+		remove_component (window);
+	}
+	g_assert (priv->control == NULL);
+
+      	/* get appropriate control */
+	control = CORBA_OBJECT_NIL;
+	control = get_collection_control_list (text_uri_list);
+	if (control == CORBA_OBJECT_NIL) return FALSE;
+
+	/* add it to the user interface */
+	add_control_to_ui (window, control);
 
 	return TRUE;
 }

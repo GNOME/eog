@@ -1,3 +1,28 @@
+2001-06-05  Jens Finke <jens@gnome.org>
+
+	To see the effect of these changes go into a directory with a lot
+	of .png's and type: eog *.png.
+
+	* eog-window.c (get_file_control): Renamed to get_viewer_control.
+	(get_directory_control): Renamed to get_collection_control.
+	(get_collection_control_list): New function, creates a collection
+	with a list of multiple URIs.
+	(add_control_to_ui): New helper function.
+	(eog_window_open): Use add_control_to_ui helper function.
+	(eog_window_open_list): New function, opens multiple URIs within a
+	collection.
+
+	* eog-window.h (eog_window_open_list): New function.
+
+	* main.c (create_app): Free text uri.
+	(create_app_list): Opens a new window with a list of URIs.
+	(make_canonical_uri),
+	(sort_startup_files),
+	(open_in_single_windows),
+	(user_wants_collection),
+	(handle_cmdline_args): New helper functions.
+	(main): Improved poptContext handling use handle_cmdline_args.
+	
 2001-05-31  Jens Finke <jens@gnome.org>
 
 	* Makefile.am (INCLUDES), (eog_LDADD): Added vfs flags.

@@ -60,7 +60,8 @@ void eog_window_construct (EogWindow *eog_window);
 void eog_window_close (EogWindow *eog_window);
 
 void eog_window_open_dialog (EogWindow *eog_window);
-gboolean eog_window_open (EogWindow *eog_window, const char *path);
+gboolean eog_window_open (EogWindow *eog_window, const char *text_uri);
+gboolean eog_window_open_list (EogWindow *eog_window, GList *text_uri_list);
 
 void eog_window_set_auto_size (EogWindow *eog_window, gboolean bool);
 gboolean eog_window_get_auto_size (EogWindow *eog_window);
