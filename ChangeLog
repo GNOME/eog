@@ -1,3 +1,12 @@
+2004-01-06  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image-jpeg.c (eog_image_jpeg_save): Check for
+	successful tmp file creation.
+	(eog_image_jpeg_save_lossless): Use
+	gnome_vfs_get_local_path_from_uri.
+
+	* libeog/eog-image-view.c (save_uri): Deal with text_uri == NULL.
+
 2004-01-03  Jens Finke  <jens@triq.net>
 
 	Allow loading of multiple single images into a collection

@@ -1109,28 +1109,38 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 static gboolean
 save_uri (EogImageView *view, const char *text_uri, GdkPixbufFormat *format)
 {
-	GnomeVFSURI *uri;
 	GError *error = NULL;
 	GtkWidget *dialog;
-	gboolean result;
-
+	gboolean result = FALSE;
+	
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (view), FALSE);
-	g_return_val_if_fail (text_uri != NULL, FALSE);
-
+	
 	if (view->priv->image == NULL) return FALSE;
+	
+	if (text_uri != NULL) {
+		GnomeVFSURI *uri;
+		
+                /* FIXME: what kind of escaping do we need here? */
+		uri = gnome_vfs_uri_new (text_uri);
+		
+		result = eog_image_save (view->priv->image, uri, format, &error);
 
-	/* FIXME: what kind of escaping do we need here? */
-	uri = gnome_vfs_uri_new (text_uri);
-
-	result = eog_image_save (view->priv->image, uri, format, &error);
-
+		gnome_vfs_uri_unref (uri);
+	}
+		
 	if (result) {
 		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_INFO,
 					     _("Image successfully saved"), NULL, FALSE);
 	}
 	else {
+		char *message = NULL;
+
+		if (error != NULL) {
+			message = error->message;
+		}
+
 		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
-					     _("Image saving failed"), error->message, FALSE);
+					     _("Image saving failed"), message, FALSE);
 	}
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	g_signal_connect_swapped (dialog, "response",

@@ -122,6 +122,12 @@ eog_image_jpeg_save (EogImage *image, GnomeVFSURI *uri, GError **error)
 	tmp_path = get_tmp_filepath ();
 	outfile = fopen (tmp_path, "wb");
 	if (outfile == NULL) {
+		g_set_error (error,
+			     GDK_PIXBUF_ERROR,
+			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
+			     _("Couldn't create temporary file for saving: %s"),
+			     tmp_path);
+		g_free (tmp_path);
 		return FALSE;
 	}
 
@@ -209,7 +215,8 @@ eog_image_jpeg_save (EogImage *image, GnomeVFSURI *uri, GError **error)
 gboolean 
 eog_image_jpeg_save_lossless (EogImage *image, GnomeVFSURI *uri, GError **error)
 {
-	const char *img_path;
+	char *img_path;
+	char *img_uri_txt;
 	int result;
 	JXFORM_CODE trans_code = JXFORM_NONE;
 	EogTransformType transformation;
@@ -219,7 +226,8 @@ eog_image_jpeg_save_lossless (EogImage *image, GnomeVFSURI *uri, GError **error)
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
 	g_return_val_if_fail (uri != NULL, FALSE);
 
-	img_path = gnome_vfs_uri_get_path (image->priv->uri);
+	img_uri_txt = gnome_vfs_uri_to_string (image->priv->uri, GNOME_VFS_URI_HIDE_NONE);
+	img_path = gnome_vfs_get_local_path_from_uri (img_uri_txt);
 
 	if (image->priv->trans != NULL) {
 		transformation = eog_transform_get_transform_type (image->priv->trans);
@@ -247,10 +255,9 @@ eog_image_jpeg_save_lossless (EogImage *image, GnomeVFSURI *uri, GError **error)
 
 	/* We save the resulting jpeg file to a temporary location
 	 * first and move it to the final destination then. This way
-	 * can also overwrite a file.
+	 * we can also overwrite a file.
 	 */
 	tmp_file = get_tmp_filepath ();
-	g_print ("tmp_file: %s\n", tmp_file);
 
 	result = jpegtran ((char*) img_path, (char*) tmp_file, trans_code, error);
 
@@ -269,6 +276,8 @@ eog_image_jpeg_save_lossless (EogImage *image, GnomeVFSURI *uri, GError **error)
 	}
 
 	g_free (tmp_file);
+	g_free (img_path);
+	g_free (img_uri_txt);
 
 	return ((result == 0) && (vfs_result == GNOME_VFS_OK));
 }
