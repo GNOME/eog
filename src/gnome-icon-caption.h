@@ -24,10 +24,9 @@
 #ifndef GNOME_ICON_CAPTION_H
 #define GNOME_ICON_CAPTION_H
 
-#include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-canvas.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -65,6 +64,6 @@ void gnome_icon_caption_text_changed (GnomeIconCaption *caption);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

@@ -4,7 +4,7 @@
 #include <gtk/gtkobject.h>
 #include "cimage.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define EOG_IMAGE_LOADER_TYPE       (eog_image_loader_get_type ())
 #define EOG_IMAGE_LOADER(o)         (GTK_CHECK_CAST ((o), EOG_IMAGE_LOADER_TYPE, EogImageLoader))
@@ -40,6 +40,6 @@ void eog_image_loader_start (EogImageLoader *loader, CImage *img);
 
 void eog_image_loader_stop (EogImageLoader *loader);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_IMAGE_LOADER_H_ */

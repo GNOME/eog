@@ -22,11 +22,10 @@
 #ifndef UI_IMAGE_H
 #define UI_IMAGE_H
 
-#include <libgnome/gnome-defs.h>
 #include "gtkscrollframe.h"
 #include "image.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -66,6 +65,6 @@ void ui_image_zoom_fit (UIImage *ui);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

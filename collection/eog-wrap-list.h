@@ -22,12 +22,11 @@
 #ifndef EOG_WRAP_LIST_H
 #define EOG_WRAP_LIST_H
 
-#include <libgnome/gnome-defs.h>
-#include <libgnomeui/gnome-canvas.h>
+#include <libgnomecanvas/gnome-canvas.h>
 #include "eog-collection-model.h"
 #include "eog-item-factory.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -78,6 +77,6 @@ void eog_wrap_list_set_background_color (EogWrapList *wlist, GdkColor *color);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

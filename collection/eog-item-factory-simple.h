@@ -23,10 +23,9 @@
 #ifndef EOG_ITEM_FACTORY_SIMPLE_H
 #define EOG_ITEM_FACTORY_SIMPLE_H
 
-#include <libgnome/gnome-defs.h>
 #include "eog-item-factory.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -83,6 +82,6 @@ EogSimpleMetrics* eog_item_factory_simple_get_metrics (EogItemFactorySimple *fac
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

@@ -23,11 +23,10 @@
 #ifndef GNOME_ICON_VIEW_H
 #define GNOME_ICON_VIEW_H
 
-#include <libgnome/gnome-defs.h>
 #include <gtk/gtkwidget.h>
 #include "gnome-icon-list-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -81,6 +80,6 @@ void gnome_icon_view_get_layout (GnomeIconView *iview, GnomeIconViewLayout *layo
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

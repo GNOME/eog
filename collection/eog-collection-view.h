@@ -16,7 +16,7 @@
 #include <Eog.h>
 #include "eog-wrap-list.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_TYPE_COLLECTION_VIEW          (eog_collection_view_get_type ())
 #define EOG_COLLECTION_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_TYPE_COLLECTION_VIEW, EogCollectionView))
@@ -56,6 +56,6 @@ GtkWidget          *eog_collection_view_get_widget          (EogCollectionView  
 
 BonoboPropertyBag  *eog_collection_view_get_property_bag (EogCollectionView *view);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_COLLECTION_VIEW_H_ */

@@ -23,10 +23,9 @@
 #ifndef GNOME_LIST_MODEL_H
 #define GNOME_LIST_MODEL_H
 
-#include <libgnome/gnome-defs.h>
 #include <gtk/gtkobject.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -73,6 +72,6 @@ void gnome_list_model_interval_removed (GnomeListModel *model, guint start, guin
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

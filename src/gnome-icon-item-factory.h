@@ -23,10 +23,9 @@
 #ifndef GNOME_ICON_ITEM_FACTORY_H
 #define GNOME_ICON_ITEM_FACTORY_H
 
-#include <libgnome/gnome-defs.h>
 #include "gnome-list-item-factory.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -69,6 +68,6 @@ void gnome_icon_item_factory_get_item_metrics (GnomeIconItemFactory *factory,
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

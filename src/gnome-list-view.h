@@ -23,12 +23,11 @@
 #ifndef GNOME_LIST_VIEW_H
 #define GNOME_LIST_VIEW_H
 
-#include <libgnome/gnome-defs.h>
 #include "gnome-list-item-factory.h"
 #include "gnome-list-model.h"
 #include "gnome-list-selection-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -77,6 +76,6 @@ GnomeListItemFactory *gnome_list_view_get_list_item_factory (GnomeListView *view
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

@@ -23,11 +23,10 @@
 #ifndef GNOME_ICON_LIST_MODEL_H
 #define GNOME_ICON_LIST_MODEL_H
 
-#include <libgnome/gnome-defs.h>
 #include <gtk/gtkobject.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -76,6 +75,6 @@ void gnome_icon_list_model_interval_removed (GnomeIconListModel *model, int star
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

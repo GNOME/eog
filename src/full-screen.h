@@ -22,11 +22,10 @@
 #ifndef FULL_SCREEN_H
 #define FULL_SCREEN_H
 
-#include <libgnome/gnome-defs.h>
 #include <gtk/gtkwindow.h>
 #include "image.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -59,6 +58,6 @@ GtkWidget *full_screen_new (void);
 
 GtkWidget *full_screen_get_ui_image (FullScreen *fs);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

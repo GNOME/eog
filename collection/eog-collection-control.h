@@ -15,7 +15,7 @@
 
 #include "eog-collection-view.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_TYPE_COLLECTION_CONTROL        (eog_collection_control_get_type ())
 #define EOG_COLLECTION_CONTROL(o)          (GTK_CHECK_CAST ((o), EOG_TYPE_COLLECTION_CONTROL, EogCollectionControl))
@@ -42,6 +42,6 @@ GtkType               eog_collection_control_get_type  (void);
 EogCollectionControl *eog_collection_control_new       (void);
 EogCollectionControl *eog_collection_control_construct (EogCollectionControl*);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_COLLECTION_CONTROL_H_ */

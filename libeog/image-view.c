@@ -214,34 +214,45 @@ image_view_class_init (ImageViewClass *class)
 	gtk_object_add_arg_type ("ImageView::scroll", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_SCROLL);
 	gtk_object_add_arg_type ("ImageView::full_screen_zoom", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_FULL_SCREEN_ZOOM);
 
-	image_view_signals[ZOOM_FIT] =
-		gtk_signal_new ("zoom_fit",
-				GTK_RUN_FIRST,
-				GTK_CLASS_TYPE (object_class),
-				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
-	image_view_signals[ZOOM_CHANGED] =
-		gtk_signal_new ("zoom_changed",
-				GTK_RUN_FIRST,
-				GTK_CLASS_TYPE(object_class),
-				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
 
-	object_class->destroy = image_view_destroy;
-	gobject_class->finalize = image_view_finalize;
 
-	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
-	widget_class->set_scroll_adjustments_signal =
-		gtk_signal_new ("set_scroll_adjustments",
-				GTK_RUN_LAST,
-				GTK_CLASS_TYPE(object_class),
-				GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
-				gtk_marshal_NONE__POINTER_POINTER,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_ADJUSTMENT,
-				GTK_TYPE_ADJUSTMENT);
+  	image_view_signals[ZOOM_FIT] =
+ 		g_signal_new ("zoom_fit", 
+  				GTK_CLASS_TYPE (object_class),
+ 				G_SIGNAL_RUN_FIRST,
+  				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
+ 				NULL,
+ 			       	NULL,
+  				gtk_marshal_NONE__NONE,
+ 				G_TYPE_NONE,
+ 			       	0);
+  	image_view_signals[ZOOM_CHANGED] =
+ 		g_signal_new ("zoom_changed",
+  				GTK_CLASS_TYPE(object_class),
+ 				G_SIGNAL_RUN_FIRST,
+  				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
+ 				NULL,
+ 				NULL,
+ 				gtk_marshal_NONE__NONE,
+ 				G_TYPE_NONE,
+ 			       	0);
+  
+  	object_class->destroy = image_view_destroy;
+  	gobject_class->finalize = image_view_finalize;
+  
+  	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
+  	widget_class->set_scroll_adjustments_signal =
+ 		g_signal_new ("set_scroll_adjustments",
+ 				GTK_CLASS_TYPE(object_class),
+ 				G_SIGNAL_RUN_LAST,
+  				GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
+ 				NULL,
+ 				NULL,
+ 				gtk_marshal_NONE__POINTER_POINTER,
+ 				G_TYPE_NONE,
+ 			       	2,
+  				GTK_TYPE_ADJUSTMENT,
+  				GTK_TYPE_ADJUSTMENT);
 
 	widget_class->unmap = image_view_unmap;
 	widget_class->realize = image_view_realize;

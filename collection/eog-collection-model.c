@@ -136,46 +136,58 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 	object_class->finalize = eog_collection_model_finalize;
 
 	eog_model_signals[INTERVAL_CHANGED] =
-		gtk_signal_new ("interval_changed",
-				GTK_RUN_FIRST,
+		g_signal_new ("interval_changed",
 				object_class->type,
+				G_SIGNAL_RUN_FIRST,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_changed),
+				NULL,
+				NULL,
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 1,
-				GTK_TYPE_POINTER);
+				G_TYPE_NONE,
+			       	1,
+				G_TYPE_POINTER);
 	eog_model_signals[INTERVAL_ADDED] =
-		gtk_signal_new ("interval_added",
-				GTK_RUN_FIRST,
+		g_signal_new ("interval_added",
 				object_class->type,
+				G_SIGNAL_RUN_FIRST,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_added),
+				NULL,
+				NULL,
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 1,
-				GTK_TYPE_POINTER);
+				G_TYPE_NONE,
+			       	1,
+				G_TYPE_POINTER);
 	eog_model_signals[INTERVAL_REMOVED] =
-		gtk_signal_new ("interval_removed",
-				GTK_RUN_FIRST,
+		g_signal_new ("interval_removed",
 				object_class->type,
+				G_SIGNAL_RUN_FIRST,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_removed),
+				NULL,
+				NULL,
 				marshal_interval_notification,
-				GTK_TYPE_NONE, 1,
-				GTK_TYPE_POINTER);
+				G_TYPE_NONE,
+			       	1,
+				G_TYPE_POINTER);
 	eog_model_signals[SELECTION_CHANGED] = 
-		gtk_signal_new ("selection_changed",
-				GTK_RUN_FIRST,
+		g_signal_new ("selection_changed",
 				object_class->type,
+				G_SIGNAL_RUN_FIRST,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, selection_changed),
+				NULL,
+				NULL,
 				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+				G_TYPE_NONE,
+			       	0);
 	eog_model_signals[BASE_URI_CHANGED] = 
-		gtk_signal_new ("base_uri_changed",
-				GTK_RUN_FIRST,
+		g_signal_new ("base_uri_changed",
 				object_class->type,
+				G_SIGNAL_RUN_FIRST,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, base_uri_changed),
+				NULL,
+				NULL,
 				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
-
-	gtk_object_class_add_signals (object_class, eog_model_signals, LAST_SIGNAL);
-
+				G_TYPE_NONE,
+			       	0);
 }
 
 typedef void (* IntervalNotificationFunc) (GtkObject *object, GList *id_list,

@@ -23,11 +23,10 @@
 #ifndef GNOME_WRAP_LIST_H
 #define GNOME_WRAP_LIST_H
 
-#include <libgnome/gnome-defs.h>
 #include "gnome-list-view.h"
 #include "gnome-position-list-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -91,6 +90,6 @@ GtkShadowType gnome_wrap_list_get_shadow_type (GnomeWrapList *wlist);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

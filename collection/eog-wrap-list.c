@@ -20,8 +20,9 @@
  */
 #include <config.h>
 
-#include <gtk/gtkmain.h>
-#include <gtk/gtksignal.h>
+//#include <gtk/gtkmain.h>
+//#include <gtk/gtksignal.h>
+#include <glib/gmain.h>
 
 #include "eog-wrap-list.h"
 #include <math.h>
@@ -120,8 +121,8 @@ struct _EogWrapListPrivate {
 
 static void eog_wrap_list_class_init (EogWrapListClass *class);
 static void eog_wrap_list_init (EogWrapList *wlist);
-static void eog_wrap_list_destroy (GtkObject *object);
-static void eog_wrap_list_finalize (GtkObject *object);
+static void eog_wrap_list_destroy (GObject *object);
+static void eog_wrap_list_finalize (GObject *object);
 
 static void eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 
@@ -133,13 +134,13 @@ static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpo
 static GnomeCanvasClass *parent_class;
 #define PARENT_TYPE gnome_canvas_get_type ()
 
-typedef gboolean (*EogWrapListSignal_BOOL__INT_POINTER) (GtkObject *object,
+typedef gboolean (*EogWrapListSignal_BOOL__INT_POINTER) (GObject *object,
 							 gint arg1,
 							 gpointer arg3,
 							 gpointer data);
 
 static void
-eog_wrap_list_marshal_BOOL_INT_POINTER (GtkObject *object, GtkSignalFunc func,
+eog_wrap_list_marshal_BOOL_INT_POINTER (GObject *object, GtkSignalFunc func,
 				        gpointer func_data, GtkArg *args)
 {
 	EogWrapListSignal_BOOL__INT_POINTER rfunc;
@@ -190,11 +191,11 @@ eog_wrap_list_get_type (void)
 static void
 eog_wrap_list_class_init (EogWrapListClass *class)
 {
-	GtkObjectClass *object_class;
-	GtkWidgetClass *widget_class;
+	GObjectClass *object_class;
+	GObjectClass *widget_class;
 
-	object_class = (GtkObjectClass *) class;
-	widget_class = (GtkWidgetClass *) class;
+	object_class = (GObjectClass *) class;
+	widget_class = (GObjectClass *) class;
 
 	parent_class = gtk_type_class (PARENT_TYPE);
 
@@ -203,17 +204,29 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 
 	widget_class->size_allocate = eog_wrap_list_size_allocate;
 
-	eog_wrap_list_signals [RIGHT_CLICK] = gtk_signal_new (
-			"right_click", GTK_RUN_LAST, object_class->type,
+	eog_wrap_list_signals [RIGHT_CLICK] = g_signal_new (
+			"right_click",
+		       	GTK_CLASS_TYPE(object_class),
+		       	G_SIGNAL_RUN_FIRST,
 			GTK_SIGNAL_OFFSET (EogWrapListClass, right_click),
-			eog_wrap_list_marshal_BOOL_INT_POINTER, GTK_TYPE_BOOL,
-			2, GTK_TYPE_INT, GTK_TYPE_GDK_EVENT);
-	eog_wrap_list_signals [DOUBLE_CLICK] = gtk_signal_new (
-			"double_click", GTK_RUN_LAST, object_class->type,
+			NULL,
+			NULL,
+			eog_wrap_list_marshal_BOOL_INT_POINTER,
+		       	G_TYPE_BOOLEAN,
+			2,
+		       	G_TYPE_INT,
+		       	GDK_TYPE_EVENT);
+	eog_wrap_list_signals [DOUBLE_CLICK] = g_signal_new (
+			"double_click",
+		       	GTK_CLASS_TYPE(object_class),
+		       	G_SIGNAL_RUN_FIRST,
 			GTK_SIGNAL_OFFSET (EogWrapListClass, double_click),
-			gtk_marshal_NONE__INT, GTK_TYPE_NONE, 1, GTK_TYPE_INT);
-	gtk_object_class_add_signals (object_class, eog_wrap_list_signals,
-				      LAST_SIGNAL);
+			NULL,
+			NULL,
+			gtk_marshal_NONE__INT,
+		       	G_TYPE_NONE,
+		       	1,
+		       	G_TYPE_INT);
 }
 
 /* object initialization function for the abstract wrapped list view */
@@ -242,7 +255,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 
 /* Destroy handler for the abstract wrapped list view */
 static void
-eog_wrap_list_destroy (GtkObject *object)
+eog_wrap_list_destroy (GObject *object)
 {
 	EogWrapList *wlist;
 	EogWrapListPrivate *priv;
@@ -263,12 +276,12 @@ eog_wrap_list_destroy (GtkObject *object)
 
 	/* FIXME: free the items and item array */
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	if (G_OBJECT_CLASS (parent_class)->destroy)
+		(* G_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 static void
-eog_wrap_list_finalize (GtkObject *object)
+eog_wrap_list_finalize (GObject *object)
 {
 	EogWrapList *wlist;
 
@@ -280,8 +293,8 @@ eog_wrap_list_finalize (GtkObject *object)
 		g_free (wlist->priv);
 	wlist->priv = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 static void

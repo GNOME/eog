@@ -22,10 +22,9 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-app.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -68,6 +67,6 @@ GtkWidget *window_get_ui_image (Window *window);
 void window_set_auto_size (Window *window, gboolean bool);
 gboolean window_get_auto_size (Window *window);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

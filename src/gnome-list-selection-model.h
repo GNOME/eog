@@ -23,10 +23,9 @@
 #ifndef GNOME_LIST_SELECTION_MODEL_H
 #define GNOME_LIST_SELECTION_MODEL_H
 
-#include <libgnome/gnome-defs.h>
 #include "gnome-list-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -91,6 +90,6 @@ void gnome_list_selection_model_remove_interval (GnomeListSelectionModel *model,
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

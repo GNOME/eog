@@ -27,7 +27,7 @@
 #include <gtk/gtkobject.h>
 #include "cimage.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define EOG_TYPE_COLLECTION_MODEL            (eog_collection_model_get_type ())
 #define EOG_COLLECTION_MODEL(obj)            (GTK_CHECK_CAST ((obj), EOG_TYPE_COLLECTION_MODEL, EogCollectionModel))
@@ -128,6 +128,6 @@ eog_collection_model_set_select_status_all  (EogCollectionModel *model,
 gchar*
 eog_collection_model_get_base_uri           (EogCollectionModel *model);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* EOG_COLLECTION_MODEL_H */

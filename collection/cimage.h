@@ -6,7 +6,7 @@
 #ifndef _COLLECTION_IMAGE_H_
 #define _COLLECTION_IMAGE_H_
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define TYPE_CIMAGE            (cimage_get_type ())
 #define CIMAGE(obj)            (GTK_CHECK_CAST ((obj), TYPE_CIMAGE, CImage))
@@ -56,6 +56,6 @@ gboolean   cimage_has_thumbnail (CImage *img);
 gboolean   cimage_has_caption (CImage *img);
 gboolean   cimage_has_loading_failed (CImage *img);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _COLLECTION_IMAGE_H_ */

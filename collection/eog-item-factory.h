@@ -23,11 +23,10 @@
 #ifndef EOG_ITEM_FACTORY_H
 #define EOG_ITEM_FACTORY_H
 
-#include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-canvas.h>
 #include "eog-collection-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -90,6 +89,6 @@ void eog_item_factory_configuration_changed (EogItemFactory *factory);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

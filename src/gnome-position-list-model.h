@@ -23,10 +23,9 @@
 #ifndef GNOME_POSITION_LIST_MODEL_H
 #define GNOME_POSITION_LIST_MODEL_H
 
-#include <libgnome/gnome-defs.h>
 #include "gnome-list-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -72,5 +71,7 @@ gboolean gnome_position_list_model_get_position (GnomePositionListModel *model, 
 						 gint *x, gint *y);
 
 
+
+G_END_DECLS
 
 #endif

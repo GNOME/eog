@@ -23,11 +23,10 @@
 #ifndef GNOME_LIST_ITEM_FACTORY_H
 #define GNOME_LIST_ITEM_FACTORY_H
 
-#include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-canvas.h>
 #include "gnome-list-model.h"
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 
 
@@ -83,6 +82,6 @@ void gnome_list_item_factory_get_item_size (GnomeListItemFactory *factory, Gnome
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif
