@@ -24,7 +24,6 @@ struct _EogControlPrivate {
 	EogImageView       *image_view;
 
 	BonoboZoomable     *zoomable;
-	float               zoom_level;
 	gboolean            has_zoomable_frame;
 };
 
@@ -80,8 +79,8 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 	priv = control->priv;
 
 	eog_image_view_set_zoom_factor (priv->image_view, new_zoom_level);
-	priv->zoom_level = eog_image_view_get_zoom_factor (priv->image_view);
-	bonobo_zoomable_report_zoom_level_changed (zoomable, priv->zoom_level, 
+	bonobo_zoomable_report_zoom_level_changed (zoomable, 
+						   eog_image_view_get_zoom_factor (priv->image_view),
 						   NULL);
 }
 
@@ -96,51 +95,41 @@ static const gchar *preferred_zoom_level_names[] = {
 	"8:1", "9:1", "10:1"
 };
 
-static const gint max_preferred_zoom_levels = (sizeof (preferred_zoom_levels) /
-					       sizeof (float)) - 1;
-
-static int
-zoom_index_from_float (float zoom_level)
-{
-	int i;
-
-	for (i = 0; i < max_preferred_zoom_levels; i++) {
-		float this, epsilon;
-
-		/* if we're close to a zoom level */
-		this = preferred_zoom_levels [i];
-		epsilon = this * 0.01;
-
-		if (zoom_level < this+epsilon)
-			return i;
-	}
-
-	return max_preferred_zoom_levels;
-}
+static const gint n_zoom_levels = (sizeof (preferred_zoom_levels) / sizeof (float));
 
 static float
 zoom_level_from_index (int index)
 {
-	if (index > max_preferred_zoom_levels)
-		index = max_preferred_zoom_levels;
-
-	return preferred_zoom_levels [index];
+	if (index >= 0 && index < n_zoom_levels)
+		return preferred_zoom_levels [index];
+	else
+		return 1.0;
 }
 
 static void
 zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogControl *control)
 {
+	float zoom_level;
 	float new_zoom_level;
 	int index;
+	int i;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	index = zoom_index_from_float (control->priv->zoom_level);
-	if (index == max_preferred_zoom_levels)
-		return;
+	zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
+	index = -1;
 
-	index++;
+	/* find next greater zoom level index */
+	for (i = 0; i < n_zoom_levels; i++) {
+		if (preferred_zoom_levels [i] > zoom_level) {
+			index = i;
+			break;
+		}
+	}
+
+	if (index == -1) return;
+
 	new_zoom_level = zoom_level_from_index (index);
 
 	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
@@ -150,17 +139,26 @@ zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogControl *control)
 static void
 zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogControl *control)
 {
+	float zoom_level;
 	float new_zoom_level;
-	int index;
+	int index, i;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	index = zoom_index_from_float (control->priv->zoom_level);
-	if (index == 0)
+	zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
+	index = -1;
+	
+	/* find next lower zoom level index */
+	for (i = n_zoom_levels - 1; i >= 0; i--) {
+		if (preferred_zoom_levels [i] < zoom_level) {
+			index = i;
+			break;
+		}
+	}
+	if (index == -1)
 		return;
 
-	index--;
 	new_zoom_level = zoom_level_from_index (index);
 
 	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
@@ -176,8 +174,7 @@ zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogControl *control)
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
 	eog_image_view_zoom_to_fit (control->priv->image_view, TRUE);
-	new_zoom_level = eog_image_view_get_zoom_factor
-		(control->priv->image_view);
+	new_zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
 
 	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
 			       new_zoom_level);
@@ -417,15 +414,14 @@ eog_control_construct (EogControl    *control,
 			  G_CALLBACK (zoomable_zoom_to_default_cb),
 			  control);
 
-	priv->zoom_level = 1.0;
 	bonobo_zoomable_set_parameters_full (priv->zoomable,
-					     priv->zoom_level,
+					     1.0,
 					     preferred_zoom_levels [0],
-					     preferred_zoom_levels [max_preferred_zoom_levels],
+					     preferred_zoom_levels [n_zoom_levels-1],
 					     TRUE, TRUE, TRUE,
 					     preferred_zoom_levels,
 					     preferred_zoom_level_names,
-					     max_preferred_zoom_levels + 1);
+					     n_zoom_levels);
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (priv->zoomable));
 

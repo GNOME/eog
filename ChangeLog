@@ -1,3 +1,19 @@
+2002-03-01  Jens Finke <jens@triq.net>
+
+	Made the zooming work correctly if you use both the '+','-' Keys and
+	the toolbar buttons.
+	
+	* viewer/eog-control.c: Renamed max_preferred_zoom_levels to
+	n_zoom_levels to give it a meaningfull name.
+	(zoomable_set_zoom_level_cb): Don't store zoom level privatly.
+	(zoom_index_from_float): Removed function.
+	(zoom_level_from_index): Better range checking, return sensible
+	value on range error.
+	(zoomable_zoom_in_cb), (zoomable_zoom_out_cb): Find the correct
+	zoom level.
+	(eog_control_construct): Don't initialise private zoom level
+	attribute (it's no longer there), use n_zoom_levels variable.
+	
 2002-02-28  Jens Finke <jens@triq.net>
 
 	* MAINTAINERS: Added myself with Federico's permission.
