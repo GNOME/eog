@@ -7,6 +7,7 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
+	$(EXTRA_WARNING_CFLAGS)				\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
 	-DEOG_GLADEDIR=\""$(gladedir)"\"
