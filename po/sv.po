@@ -11,13 +11,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-04-29 15:13+0200\n"
-"PO-Revision-Date: 2002-03-24 22:42+0100\n"
+"POT-Creation-Date: 2002-05-18 16:48+0200\n"
+"PO-Revision-Date: 2002-05-18 16:48+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG-bildsamling"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG-bildsamlingsvisare"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "EOG-bildsamlingsvisarfabrik"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -43,6 +55,54 @@ msgstr "EOG-bildvisarfabrik"
 msgid "Embeddable EOG Image"
 msgstr "Inbäddbar EOG-bild"
 
+#: libeog/image-view.c:1965
+msgid "interpolation type"
+msgstr "typ av interpolation"
+
+#: libeog/image-view.c:1966
+msgid "the type of interpolation to use"
+msgstr "typen av interpolation att använda"
+
+#: libeog/image-view.c:1972 libeog/image-view.c:1979
+msgid "check type"
+msgstr "ruttyp"
+
+#: libeog/image-view.c:1973
+msgid "the type of chequering to use"
+msgstr "typen av rutnät att använda"
+
+#: libeog/image-view.c:1980
+msgid "the size of chequers to use"
+msgstr "storleken på rutorna att använda"
+
+#: libeog/image-view.c:1986
+msgid "dither"
+msgstr "färgutjämning"
+
+#: libeog/image-view.c:1987
+msgid "dither type"
+msgstr "typ av färgutjämning"
+
+#: libeog/image-view.c:1993
+msgid "scroll"
+msgstr "rullning"
+
+#: libeog/image-view.c:1994
+msgid "scroll type"
+msgstr "typ av rullning"
+
+#: libeog/image-view.c:2000
+msgid "enable full screen zoom"
+msgstr "använd helskärmszoomning"
+
+#: libeog/image-view.c:2001
+msgid "whether we should allow full screen zoom"
+msgstr "huruvida vi ska tillåta helskärmszoomning"
+
+#: shell/eog-preferences.c:141
+msgid "Eye of Gnome Preferences"
+msgstr "Inställningar för Eye of Gnome"
+
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
 msgstr "Om det här programmet"
@@ -64,14 +124,12 @@ msgid "Close window"
 msgstr "Stäng fönster"
 
 #: shell/eog-shell-ui.xml.h:6
-#, fuzzy
-msgid "Help On this application"
-msgstr "Om det här programmet"
+msgid "Contents"
+msgstr "Innehåll"
 
 #: shell/eog-shell-ui.xml.h:7
-#, fuzzy
-msgid "HelpContents"
-msgstr "Hjälpprogram"
+msgid "Help On this application"
+msgstr "Hjälp om det här programmet"
 
 #: shell/eog-shell-ui.xml.h:8 shell/main.c:196
 msgid "Open"
@@ -94,23 +152,20 @@ msgid "Open in this window"
 msgstr "Öppna i detta fönster"
 
 #: shell/eog-shell-ui.xml.h:13
-#, fuzzy
 msgid "Quit the program"
 msgstr "Avsluta programmet"
 
 #: shell/eog-shell-ui.xml.h:14
-#, fuzzy
 msgid "_About"
-msgstr "_Om..."
+msgstr "_Om"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "_Stäng"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Edit"
-msgstr "_Avsluta"
+msgstr "_Redigera"
 
 #: shell/eog-shell-ui.xml.h:17
 msgid "_File"
@@ -129,12 +184,10 @@ msgid "_Open..."
 msgstr "_Öppna..."
 
 #: shell/eog-shell-ui.xml.h:21
-#, fuzzy
 msgid "_Preferences..."
-msgstr "_Alternativ"
+msgstr "_Inställningar..."
 
 #: shell/eog-shell-ui.xml.h:22
-#, fuzzy
 msgid "_Quit"
 msgstr "_Avsluta"
 
@@ -156,7 +209,7 @@ msgstr ""
 "Andreas Hydén\n"
 "Rapportera fel i översättningen till sv@li.org"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -168,31 +221,31 @@ msgstr "Copyright © 2000-2002 Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:761
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:816
+#: shell/eog-window.c:815
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:832
+#: shell/eog-window.c:831
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:851
+#: shell/eog-window.c:850
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:868
+#: shell/eog-window.c:867
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1111
+#: shell/eog-window.c:1110
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1139
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan inte öppna %s."
@@ -238,13 +291,149 @@ msgstr "Kunde inte initiera Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
 
-#: shell/eog-preferences.c:141
-msgid "Eye of Gnome Preferences"
-msgstr "Inställningar för Eye of Gnome"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kunde inte initiera GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Anpassa"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "In"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Ut"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Zooma _1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Zooma _in"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Zooma _ut"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Zooma så att det _passar"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Rut_storlek"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Rut_typ"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "Helskärm"
+
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "Stor"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "Mellan"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Nea_rest Neighbour"
+msgstr "Nä_rmsta granne"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Normal (_pseudocolor)"
+msgstr "Normal (_pseudocolor)"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Previews the image to be printed"
+msgstr "Visar en förhandsgranskning av bilden som ska skrivas ut"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Print Pre_view"
+msgstr "Förhands_granskning"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Print S_etup"
+msgstr "Skrivar_inställningar"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Print image to the printer"
+msgstr "Skriver ut bilden på skrivaren"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Setup the page settings for your current printer"
+msgstr "Ändra sidinställningar för den nuvarande skrivaren"
+
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "Liten"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr "_Bilinjär"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Black"
+msgstr "_Svart"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dark"
+msgstr "_Mörkt"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Dither"
+msgstr "_Färgutjämning"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Gray"
+msgstr "_Grått"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
+msgstr "_Hyperbolisk"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Interpolation"
+msgstr "_Interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Light"
+msgstr "_Ljust"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Maximum (high color)"
+msgstr "_Maximal (high color)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
+msgstr "_Mellanljust"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr "_Ingen"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Print"
+msgstr "Skriv _ut"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Save As..."
+msgstr "_Spara som..."
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles"
+msgstr "_Brickor"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_White"
+msgstr "_Vitt"
 
 #: viewer/eog-image-view.c:304
 #, c-format
@@ -307,163 +496,9 @@ msgstr "Fönstertitel"
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "Rut_storlek"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "Rut_typ"
-
-#: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Helskärm"
-
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
-msgid "Large"
-msgstr "Stor"
-
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
-msgid "Medium"
-msgstr "Mellan"
-
-#: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
-msgid "Nea_rest Neighbour"
-msgstr "Nä_rmsta granne-interpolation"
-
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Normal (_pseudocolor)"
-msgstr "Normal (pseudocolor)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Previews the image to be printed"
-msgstr "Visar en förhandsgranskning av bilden som ska skrivas ut"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "Förhands_granskning"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "Skrivar_inställningar"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Print image to the printer"
-msgstr "Skriver ut bilden på skrivaren"
-
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "Setup the page settings for your current printer"
-msgstr "Ändra sidinställningar för den nuvarande skrivaren"
-
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
-msgid "Small"
-msgstr "Liten"
-
-#: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
-msgid "_Bilinear"
-msgstr "Bilinjär (normal)"
-
-#: viewer/eog-image-view-ui.xml.h:15
-#, fuzzy
-msgid "_Black"
-msgstr "Svart"
-
-#: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
-msgid "_Dark"
-msgstr "Mörkt"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "_Färgutjämning"
-
-#: viewer/eog-image-view-ui.xml.h:18
-#, fuzzy
-msgid "_Gray"
-msgstr "Grått"
-
-#: viewer/eog-image-view-ui.xml.h:19
-#, fuzzy
-msgid "_Hyperbolic"
-msgstr "_Hyperbolisk interpolation"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "_Interpolation"
-
-#: viewer/eog-image-view-ui.xml.h:21
-#, fuzzy
-msgid "_Light"
-msgstr "Ljust"
-
-#: viewer/eog-image-view-ui.xml.h:22
-#, fuzzy
-msgid "_Maximum (high color)"
-msgstr "Maximal (high color)"
-
-#: viewer/eog-image-view-ui.xml.h:23
-#, fuzzy
-msgid "_Midtone"
-msgstr "Mellanljust"
-
-#: viewer/eog-image-view-ui.xml.h:24
-#, fuzzy
-msgid "_None"
-msgstr "Ingen"
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
-msgstr "Skriv _ut"
-
-#: viewer/eog-image-view-ui.xml.h:26
-#, fuzzy
-msgid "_Save As..."
-msgstr "Spara som"
-
-#: viewer/eog-image-view-ui.xml.h:27
-#, fuzzy
-msgid "_Tiles"
-msgstr "_Arkiv"
-
-#: viewer/eog-image-view-ui.xml.h:28
-#, fuzzy
-msgid "_White"
-msgstr "Vitt"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Anpassa"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
-msgid "In"
-msgstr "In"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Ut"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "Zooma _1:1"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "Zooma _in"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom _Out"
-msgstr "Zooma _ut"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Zooma så att det _passar"
+#: viewer/eog-image.c:468
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Kunde inte initiera GnomeVFS!\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -638,77 +673,76 @@ msgstr "Ner, sedan höger"
 msgid "Right, then down"
 msgstr "Höger, sedan ner"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Närmsta granne-interpolation"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Interpolation mellan brickor"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Bilinjär interpolation"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Hyperbolisk interpolation"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Ingen färgutjämning"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normal färgutjämning (pseudocolor)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "Maximal färgutjämning (high color)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Mörkt"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "Mellanljust"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Ljust"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Svart"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Grått"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Vitt"
 
-#: viewer/preferences.c:171
-#, fuzzy
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
-msgstr "_Interpolation"
+msgstr "_Interpolation:"
 
-#: viewer/preferences.c:183
-#, fuzzy
+#: viewer/preferences.c:187
 msgid "_Dither:"
-msgstr "_Färgutjämning"
+msgstr "_Färgutjämning:"
 
-#: viewer/preferences.c:195
-#, fuzzy
+#: viewer/preferences.c:199
 msgid "Check _type:"
-msgstr "Rut_typ"
+msgstr "Rut_typ:"
 
-#: viewer/preferences.c:207
-#, fuzzy
+#: viewer/preferences.c:211
 msgid "Check _size:"
-msgstr "Rut_storlek"
+msgstr "Rut_storlek:"
+
+#~ msgid "Help on this application"
+#~ msgstr "Hjälp om det här programmet"
 
 #~ msgid "_Settings"
 #~ msgstr "_Inställningar"
@@ -820,15 +854,6 @@ msgstr "Rut_storlek"
 
 #~ msgid "Status Text"
 #~ msgstr "Statustext"
-
-#~ msgid "EOG Image Collection"
-#~ msgstr "EOG-bildsamling"
-
-#~ msgid "EOG Image Collection Viewer"
-#~ msgstr "EOG-bildsamlingsvisare"
-
-#~ msgid "EOG Image collection view factory"
-#~ msgstr "EOG-bildsamlingsvisarfabrik"
 
 #~ msgid "I could not initialize GnomeVFS!\n"
 #~ msgstr "Jag kunde inte initiera GnomeVFS!\n"
@@ -950,9 +975,6 @@ msgstr "Rut_storlek"
 #~ msgid "Dark checks"
 #~ msgstr "Mörka rutor"
 
-#~ msgid "Dither type"
-#~ msgstr "Typ av färgutjämning"
-
 #~ msgid "Fit all images to screen"
 #~ msgstr "Anpassa alla bilder till skärmens storlek"
 
@@ -967,9 +989,6 @@ msgstr "Rut_storlek"
 
 #~ msgid "Image Windows"
 #~ msgstr "Bildfönster"
-
-#~ msgid "Interpolation type"
-#~ msgstr "Typ av interpolation"
 
 #~ msgid "Light checks"
 #~ msgstr "Ljusa rutor"
@@ -1006,9 +1025,6 @@ msgstr "Rut_storlek"
 
 #~ msgid "Use same zoom factor as image window"
 #~ msgstr "Använd samma zoomfaktor som bildfönstret"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Använd rullningslister"
 
 #~ msgid "Viewers"
 #~ msgstr "Visare"
