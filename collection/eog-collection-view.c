@@ -1151,7 +1151,7 @@ create_user_interface (EogCollectionView *list_view)
 	sw = NULL;
 #endif
 
-	hpaned = eog_horizontal_splitter_new ();
+	hpaned = gtk_hpaned_new (); /* FIXME: use specalised eog splitter */
 	gtk_paned_pack1 (GTK_PANED (hpaned), frame, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (hpaned), sw, FALSE, TRUE);
 	gtk_widget_show_all (hpaned);

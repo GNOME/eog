@@ -1,3 +1,13 @@
+2003-09-08  Jens Finke  <jens@triq.net>
+
+	This patch is approved by the release team.
+	
+	* collection/eog-collection-view.c (create_user_interface): Use
+	gtk_hpaned instead of specialised
+	eog_horizontal_splitter. Otherwise we will _always_ crash if no
+	libexif support is compiled in (which is probably the default
+	setup). This needs fixing in further versions.
+
 2003-09-05  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* hi.po: Added "hi" to ALL_LINGUAS.
@@ -5,7 +15,7 @@
 2003-09-04  Irene Ryan <irene.ryan@sun.com>
 
 	* help/C/eog.xml: updated Help to reflect changes for GNOME 2.4 in
-     V2.3.5 of the application.
+	V2.3.5 of the application.
 	* help/C/eog-C.omf: updated manual version and date information
 	* help/C/l10n.txt: updated instructions for L10N teams
 
