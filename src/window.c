@@ -189,7 +189,10 @@ set_mode (Window *window, WindowMode mode)
 
 	case WINDOW_MODE_IMAGE:
 		priv->content = ui_image_new ();
+		gnome_app_set_contents (GNOME_APP (window), priv->content);
+#if 0
 		gtk_container_add (GTK_CONTAINER (priv->bin), priv->content);
+#endif
 		gtk_widget_show (priv->content);
 		break;
 
@@ -227,7 +230,32 @@ open_image (Window *window, char *filename)
 
 
 
-/* Menu callbacks */
+/* Creating a new window */
+
+/* Creates a new window */
+static void
+create_window (void)
+{
+	GtkWidget *window;
+
+	window = window_new ();
+	gtk_widget_show (window);
+}
+
+
+
+/* File/New Window */
+
+/* File/New Window callback */
+static void
+new_window_cmd (GtkWidget *widget, gpointer data)
+{
+	create_window ();
+}
+
+
+
+/* File/Open */
 
 /* OK button callback for the open file selection dialog */
 static void
@@ -269,7 +297,6 @@ open_cmd (GtkWidget *widget, gpointer data)
 {
 	Window *window;
 	WindowPrivate *priv;
-	GtkWidget *fs;
 
 	window = WINDOW (data);
 	priv = window->priv;
@@ -286,7 +313,7 @@ open_cmd (GtkWidget *widget, gpointer data)
 		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
 				    "clicked",
 				    GTK_SIGNAL_FUNC (open_cancel_clicked),
-				    fs);
+				    priv->file_sel);
 		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
 				    GTK_SIGNAL_FUNC (open_delete_event),
 				    window);
@@ -295,6 +322,10 @@ open_cmd (GtkWidget *widget, gpointer data)
 	gtk_widget_show_now (priv->file_sel);
 	raise_and_focus (priv->file_sel);
 }
+
+
+
+/* File/Close and Exit */
 
 /* Closes a window with confirmation, and exits the main loop if this was the
  * last window in the list.
@@ -374,6 +405,10 @@ exit_cmd (GtkWidget *widget, gpointer data)
 	gtk_main_quit ();
 }
 
+
+
+/* Help/About */
+
 /* Help/About callback */
 static void
 about_cmd (GtkWidget *widget, gpointer data)
@@ -406,6 +441,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 /* Main menu */
 
 static GnomeUIInfo file_menu[] = {
+	GNOMEUIINFO_MENU_NEW_WINDOW_ITEM (new_window_cmd, NULL),
 	{ GNOME_APP_UI_ITEM, N_("_Open Image..."), N_("Open an image file"),
 	  open_cmd, NULL, NULL,
 	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
@@ -566,9 +602,11 @@ window_construct (Window *window)
 	gnome_app_construct (GNOME_APP (window), "eog", _("Eye of Gnome"));
 	gnome_app_create_menus_with_data (GNOME_APP (window), main_menu, window);
 
+#if 0
 	priv->bin = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
 	gnome_app_set_contents (GNOME_APP (window), priv->bin);
 	gtk_widget_show (priv->bin);
+#endif
 
 	gtk_window_set_default_size (GTK_WINDOW (window),
 				     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
