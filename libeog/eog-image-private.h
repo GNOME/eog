@@ -40,6 +40,7 @@ struct _EogImagePrivate {
 
 	GThread *load_thread;
 	GMutex *status_mutex;
+	GCond  *load_finished;
 	gboolean cancel_loading;
 	float progress; /* Range from [0.0...1.0] indicate the progress of 
 			   actions in percent */

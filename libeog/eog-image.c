@@ -475,6 +475,7 @@ eog_image_instance_init (EogImage *img)
 	priv->width = priv->height = -1;
 	priv->modified = FALSE;
 	priv->status_mutex = g_mutex_new ();
+	priv->load_finished = NULL;
 #if HAVE_EXIF
 	priv->exif = NULL;
 #endif
@@ -883,6 +884,10 @@ real_image_load (gpointer data)
 
 	g_mutex_lock (priv->status_mutex);
 	priv->load_thread = NULL;
+
+	if (priv->load_finished != NULL) {
+		g_cond_broadcast (priv->load_finished);
+	}
 	g_mutex_unlock (priv->status_mutex);
 
 	return NULL;
@@ -954,6 +959,30 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 		priv->status      = EOG_IMAGE_STATUS_LOADING;
 		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
 	}
+}
+
+gboolean
+eog_image_load_sync (EogImage *img, EogImageLoadMode mode)
+{
+	EogImagePrivate *priv;
+	gboolean success; 
+
+	priv = img->priv;
+
+	g_mutex_lock (priv->status_mutex);
+
+	priv->load_finished = g_cond_new ();
+
+	eog_image_load (img, mode);
+	g_cond_wait (priv->load_finished, priv->status_mutex);
+
+	g_cond_free (priv->load_finished);
+	priv->load_finished = NULL;
+	success = (priv->status == EOG_IMAGE_STATUS_LOADED);
+	
+	g_mutex_unlock (priv->status_mutex);
+
+	return success;
 }
 
 gboolean 
