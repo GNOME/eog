@@ -495,6 +495,9 @@ skip_frame (AnimationState *as)
 
 	g_return_val_if_fail (as != NULL, FALSE);
 
+	if (!as->animate)
+		return FALSE;
+
 	if (!as->cur_frame) {
 		g_warning ("No frame to render");
 		return FALSE;
@@ -612,10 +615,12 @@ bonobo_animator_control_prop_value_changed_cb (BonoboPropertyBag *pb, char *name
 	if (!strcmp (name, "running")) {
 		gboolean *b = new_value;
 
-		if (*b)
-			as->animate = FALSE;
-		else
+		if (*b) {
 			as->animate = TRUE;
+			skip_frame (as);
+		} else
+			as->animate = FALSE;
+
 	} else if (!strcmp (name, "filename")) {
 		CORBA_char *fname = new_value;
 		
@@ -655,7 +660,8 @@ bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
 	bonobo_control_set_property_bag (control, pb);
 
 	running = g_new (CORBA_boolean, 1);
-	*running = FALSE;
+	*running    = TRUE;
+	as->animate = TRUE;
 	fname = g_strdup ("");
 
 	gtk_signal_connect (GTK_OBJECT (pb), "value_changed",
