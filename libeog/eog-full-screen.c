@@ -47,8 +47,6 @@ static void
 eog_full_screen_show (GtkWidget *widget)
 {
 	EogFullScreen *fs;
-	GtkWidget *ui_image;
-	GtkWidget *image_view;
 
 	fs = EOG_FULL_SCREEN (widget);
 
@@ -204,7 +202,6 @@ eog_full_screen_new (EogImage *image)
 {
 	EogFullScreen *fs;
 	GtkWidget     *widget;
-	GtkStyle      *style;
 	GdkColor      black;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);

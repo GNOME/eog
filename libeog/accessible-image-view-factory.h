@@ -51,7 +51,7 @@ struct _AccessibleImageViewFactoryClass
         AtkObjectFactoryClass parent_class;
 };
 
-GType accessible_image_view_get_type (void);
+GType accessible_image_view_factory_get_type (void);
 AtkObjectFactory *accessible_image_view_factory_new (void);
 
 GType accessible_image_view_factory_get_type ();

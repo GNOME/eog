@@ -1,5 +1,37 @@
 2003-03-01  Jens Finke  <jens@triq.net>
 
+	Fixed compiler warnings in libeog.
+	
+	* libeog/accessible-image-view-factory.h: Declare get type
+	function for accessible image view _factory_.
+
+	* libeog/accessible-image-view.c
+	(accessible_image_view_get_image_size):
+	s/scroll_view/eog_scroll_view.
+
+	* libeog/eog-full-screen.c (eog_full_screen_show),
+	(eog_full_screen_new): Removed unused variables.
+
+	* libeog/eog-image.c (eog_image_save): Use g_return_val_if_fail.
+	(eog_image_get_caption): Return NULL if uri is NULL.
+
+	* libeog/eog-image.h: Declare eog_image_error_quark function.
+
+	* libeog/eog-pixbuf-util.c (eog_pixbuf_flip_horizontal),
+	(eog_pixbuf_flip_vertical): Removed unused variables.
+	(eog_pixbuf_rotate_90_cw),
+	(eog_pixbuf_rotate_90_ccw): Return NULL if pixbuf is NULL.
+
+	* libeog/eog-scroll-view.c (update_scrollbar_values): Removed
+	unused variables.
+	(paint_rectangle): Added default case on bgr style to initialize
+	check_1 and check_2 variables.
+	(set_zoom): Made static, removed unused variable.
+	(set_zoom_fit), (eog_scroll_view_set_transparency),
+	(eog_scroll_view_new): Removed unused variables.
+	
+2003-03-01  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-file-selection.c: Use GdkPixbufFormat api for
 	querying the supported file formats. Remember last visited
 	directory during a session (#90767). Don't force selected file

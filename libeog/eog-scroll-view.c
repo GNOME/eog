@@ -180,7 +180,6 @@ update_scrollbar_values (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
 	int scaled_width, scaled_height;
-	int img_x, img_y;
 	int xofs, yofs;
 	GtkAllocation *allocation;
 
@@ -606,6 +605,8 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	case TRANSP_COLOR:
 		check_1 = check_2 = priv->transp_color;
 		break;
+	default:
+		check_1 = check_2 = 0;
 	};
 	check_size = CHECK_MEDIUM;
 
@@ -910,12 +911,11 @@ drag_to (EogScrollView *view, int x, int y)
  * view widget's allocation that will stay fixed when zooming.  If @have_anchor
  * is %FALSE, then the center point of the image view will be used.
  **/
-void
+static void
 set_zoom (EogScrollView *view, double zoom,
 	  gboolean have_anchor, int anchorx, int anchory)
 {
 	EogScrollViewPrivate *priv;
-	GdkRectangle rect;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
@@ -1073,7 +1073,6 @@ set_zoom_fit (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
 	double new_zoom;
-	int scaled_width, scaled_height;
 	int width, height;
 	
 	priv = view->priv;
@@ -1578,7 +1577,6 @@ void
 eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color)
 {
 	EogScrollViewPrivate *priv;
-	GdkInterpType new_interp_type;
 	guint32 col = 0;
 	guint32 red, green, blue;
 	gboolean changed = FALSE;
@@ -1878,8 +1876,6 @@ GtkWidget*
 eog_scroll_view_new (void)
 {
 	GtkWidget *widget;
-	GtkWidget *vbar;
-	GtkWidget *hbar;
 	GtkTable *table;
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;

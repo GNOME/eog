@@ -1,5 +1,6 @@
 #include <glib/gthread.h>
 #include <glib/gqueue.h>
+#include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-thumbnail.h>
@@ -9,6 +10,7 @@
 #include "libeog-marshal.h"
 #include "eog-image.h"
 #include "eog-pixbuf-util.h"
+#include "eog-image-helper.h"
 
 static GThread     *thread                     = NULL;
 static gboolean     thread_running             = FALSE;
@@ -585,7 +587,7 @@ eog_image_load (EogImage *img)
 				}
 
 				priv->mode = EOG_IMAGE_LOAD_PROGRESSIVE;
-				if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE != 0) && 
+				if (((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) != 0) && 
 				    (info->size < 1000000))
 				{
 					priv->mode = EOG_IMAGE_LOAD_COMPLETE;
@@ -761,9 +763,9 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 	char *file;
 	char *file_type = NULL;
 
-	g_return_if_fail (EOG_IS_IMAGE (img));
-	g_return_if_fail (uri != NULL);
-	g_return_if_fail (error == NULL || *error == NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+	g_return_val_if_fail (uri != NULL, FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	priv = img->priv;
 
@@ -817,7 +819,7 @@ eog_image_get_caption (EogImage *img)
 
 	priv = img->priv;
 
-	if (priv->uri == NULL) return;
+	if (priv->uri == NULL) return NULL;
 
 	return gnome_vfs_uri_extract_short_name (priv->uri);
 }

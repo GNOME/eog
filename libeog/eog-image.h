@@ -57,6 +57,7 @@ struct _EogImageClass {
 };
 
 GType               eog_image_get_type                       (void) G_GNUC_CONST;
+GQuark              eog_image_error_quark                    (void);
 
 /* loading API */
 EogImage*           eog_image_new                            (const char *txt_uri, EogImageLoadMode mode);

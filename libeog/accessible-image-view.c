@@ -223,7 +223,7 @@ accessible_image_view_get_image_size (AtkImage *obj,
 		return;
 	}
 	
-	scroll_view_get_image_size (SCROLL_VIEW (widget), width, height, FALSE);
+	eog_scroll_view_get_image_size (EOG_SCROLL_VIEW (widget), width, height, FALSE);
 }
 
 
