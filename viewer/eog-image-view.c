@@ -111,8 +111,6 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 	if (pixbuf) {
 		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
 		g_object_unref (pixbuf);
-
-		ui_image_fit_to_screen (UI_IMAGE (image_view->priv->ui_image));
 	}
 }
 
