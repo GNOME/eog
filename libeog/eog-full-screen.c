@@ -200,10 +200,12 @@ show_next_image (EogFullScreen *fs)
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->image_list [priv->visible_index]);
 
-	free_index = get_index_modulo (priv->visible_index, 2*-priv->direction, priv->n_images);
-	g_print ("free: %i\n", free_index);
-	eog_image_cancel_load (priv->image_list [free_index]);
-	eog_image_free_mem (priv->image_list [free_index]);
+	if (priv->n_images > 3) {
+		free_index = get_index_modulo (priv->visible_index, 2*-priv->direction, priv->n_images);
+		g_print ("free: %i\n", free_index);
+		eog_image_cancel_load (priv->image_list [free_index]);
+		eog_image_free_mem (priv->image_list [free_index]);
+	}
 
 	check_advance_loading (fs);
 }
@@ -348,8 +350,8 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 
 	gtk_window_set_default_size (
 		GTK_WINDOW (fs),
-	        400, // gdk_screen_width (),
-		400); // gdk_screen_height ()); 
+	        gdk_screen_width (),
+		gdk_screen_height ()); 
 	gtk_window_move (GTK_WINDOW (fs), 0, 0);
 }
 
@@ -386,11 +388,15 @@ check_advance_loading (EogFullScreen *fs)
 
 	if (diff < 2) {
 		/* load maximal one image in advance */
-		prepare_load_image (fs, priv->active_index);
+		if (!eog_image_is_loaded (EOG_IMAGE (priv->image_list [priv->active_index]))) {
+			prepare_load_image (fs, priv->active_index);
+		}
 	}
 	else if (diff > 2) {
 		priv->active_index = get_index_modulo (priv->visible_index, priv->direction, priv->n_images);
-		prepare_load_image (fs, priv->active_index);
+		if (!eog_image_is_loaded (EOG_IMAGE (priv->image_list [priv->active_index]))) {
+			prepare_load_image (fs, priv->active_index);
+		}
 	}
 }
 

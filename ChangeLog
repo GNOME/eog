@@ -1,3 +1,17 @@
+2003-04-28  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-full-screen.c (show_next_image): Free images only if
+	we have more than three.
+	(eog_full_screen_instance_init): Actually, do fullscreen again
+	(erm, forgot my testing code :)
+	(check_advance_loading): Initiate image loading only, if it hasn't
+	been loaded yet.
+
+	* libeog/eog-image.[ch] (real_image_load): Removed assert for now
+	so that we don't crash eventually with exif support enabled. Spew
+	out a warning only. Should be fixed though.
+	(eog_image_is_loaded): New function.
+
 2003-04-27  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-full-screen.c: Queue the images to load and load one

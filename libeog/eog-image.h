@@ -67,6 +67,7 @@ void                eog_image_load                           (EogImage *img, Eog
 gboolean            eog_image_load_thumbnail                 (EogImage *img);
 void                eog_image_cancel_load                    (EogImage *img);
 void                eog_image_free_mem                       (EogImage *img);
+gboolean            eog_image_is_loaded                      (EogImage *img);
 
 /* saving API */
 gboolean            eog_image_save                            (EogImage *img, 

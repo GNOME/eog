@@ -791,7 +791,10 @@ real_image_load (gpointer data)
 
 	g_assert (priv->image == NULL);
 #if HAVE_EXIF
-	g_assert (priv->exif == NULL);
+	if (priv->exif != NULL) {
+		/* FIXME: this shouldn't happen but do so sometimes. */
+		g_warning ("exif data not freed\n");
+	}
 #endif
 
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
@@ -1311,4 +1314,21 @@ eog_image_get_exif_information (EogImage *img)
 #endif
 
 	return data;
+}
+
+gboolean            
+eog_image_is_loaded (EogImage *img)
+{
+	EogImagePrivate *priv;
+	gboolean result;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+
+	priv = img->priv;
+
+	g_mutex_lock (priv->status_mutex);
+	result = (priv->load_thread == NULL && priv->image != NULL);
+	g_mutex_unlock (priv->status_mutex);
+	
+	return result;
 }
