@@ -1241,6 +1241,7 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 	ImageView *view;
 	ImageViewPrivate *priv;
 	GdkCursor *cursor;
+	int retval;
 
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
@@ -1253,6 +1254,20 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 
 	switch (event->button) {
 	case 1:
+		cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
+		retval = gdk_pointer_grab (widget->window,
+					   FALSE,
+					   (GDK_POINTER_MOTION_MASK
+					    | GDK_POINTER_MOTION_HINT_MASK
+					    | GDK_BUTTON_RELEASE_MASK),
+					   NULL,
+					   cursor,
+					   event->time);
+		gdk_cursor_destroy (cursor);
+
+		if (retval != 0)
+			return FALSE;
+
 		priv->dragging = TRUE;
 		priv->drag_anchor_x = event->x;
 		priv->drag_anchor_y = event->y;
@@ -1260,16 +1275,6 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 		priv->drag_ofs_x = priv->xofs;
 		priv->drag_ofs_y = priv->yofs;
 
-		cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
-		gdk_pointer_grab (widget->window,
-				  FALSE,
-				  (GDK_POINTER_MOTION_MASK
-				   | GDK_POINTER_MOTION_HINT_MASK
-				   | GDK_BUTTON_RELEASE_MASK),
-				  NULL,
-				  cursor,
-				  event->time);
-		gdk_cursor_destroy (cursor);
 		return TRUE;
 
 	case 4:
