@@ -99,9 +99,5 @@ bin_PROGRAMS = eog
 glade_DATA =				\
 	preferences-dialog.glade
 
-glade_messages =			\
-	preferences-dialog.glade.h
-
 EXTRA_DIST =				\
-	$(glade_DATA)			\
-	$(glade_messages)
+	$(glade_DATA)
