@@ -131,8 +131,7 @@ gpi_dialog_pixbuf_page_update_now (GPIDialogPixbufPage *pp)
 			GPI_DIALOG_PIXBUF_PAGE_BORDER_Y / f * (1. + 2. * row),
 		NULL);
 
-	g_object_set (pp->priv->image, "pixbuf", p,
-			       "x", ix, "y", iy, NULL);
+	g_object_set (pp->priv->image, "pixbuf", p, "x", ix, "y", iy, NULL);
 	gdk_pixbuf_unref (p);
 
 	/* Update page. */
@@ -266,7 +265,7 @@ gpi_dialog_pixbuf_page_update_now (GPIDialogPixbufPage *pp)
 		if (!fx) {
 			g_object_set (GCI (pp->priv->o.left),
 				"x", (gdouble) GPI_MGR (
-				pp->priv->mgr)->settings.margin.right -
+				pp->priv->mgr)->settings.margin.left -
 				ORDER_SIZE - ORDER_OFFSET,
 				"y", (gdouble) (rh - ORDER_SIZE) / 2., NULL);
 			gnome_canvas_item_show (GCI (pp->priv->o.left));

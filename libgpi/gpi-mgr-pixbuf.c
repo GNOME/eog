@@ -117,6 +117,10 @@ gpi_mgr_pixbuf_save_settings (GPIMgr *m)
 }
 #define GPL gnome_print_lineto
 
+#define HACK_X -3
+#define HACK_Y -5
+#define OS ORDER_SIZE
+
 static void
 gpi_mgr_pixbuf_print_page (GPIMgrPixbuf *mgr, GnomePrintContext *ctx,
 			   guint *current, guint col, guint row)
@@ -228,56 +232,114 @@ gpi_mgr_pixbuf_print_page (GPIMgrPixbuf *mgr, GnomePrintContext *ctx,
 
 		/* Ordering help */
 		if (mgr->settings.show_order && !fx) {
-			x1 = GPI_MGR (mgr)->settings.margin.right -
-						ORDER_SIZE - ORDER_OFFSET;
-			y1 = (rh - ORDER_SIZE) / 2.;
+			memset (&matrix, 0, sizeof (matrix));
+			matrix[0] = 1; matrix[3] = -1;
+			matrix[4] = GPI_MGR (mgr)->settings.margin.left - 
+					ORDER_SIZE / 2. - ORDER_OFFSET;
+			matrix[5] = rh / 2.;
+			gnome_print_gsave (ctx);
+			gnome_print_concat (ctx, matrix);
 			gnome_print_newpath (ctx);
-			gnome_print_moveto (ctx, x1, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1 + ORDER_SIZE);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1 + ORDER_SIZE);
+			gnome_print_moveto (ctx, OS / 2., OS / 2.);
+			GPL (ctx, 0., OS / 2.);
+			GPL (ctx, - OS / 2., 0.);
+			GPL (ctx, 0., - OS / 2.);
+			GPL (ctx, OS / 2., - OS / 2.);
 			gnome_print_closepath (ctx);
 			gnome_print_stroke (ctx);
+			gnome_print_moveto (ctx, OS / 6. + HACK_X, HACK_Y);
+			if (mgr->settings.down_right)
+				s = g_strdup_printf ("%i", *current - ny);
+			else
+				s = g_strdup_printf ("%i", *current - 1);
+			gnome_print_show (ctx, s); g_free (s);
+			gnome_print_grestore (ctx);
 		}
 		if (mgr->settings.show_order && !fy) {
-			x1 = (rw - ORDER_SIZE) / 2.;
-			y1 = GPI_MGR (mgr)->settings.margin.top - 
-				ORDER_SIZE - ORDER_OFFSET;
+			memset (&matrix, 0, sizeof (matrix));
+			matrix[0] = 1; matrix[3] = -1;
+			matrix[4] = rw / 2.;
+			matrix[5] = GPI_MGR (mgr)->settings.margin.top - 
+				ORDER_SIZE / 2. - ORDER_OFFSET;
+			gnome_print_gsave (ctx);
+			gnome_print_concat (ctx, matrix);
 			gnome_print_newpath (ctx);
-			gnome_print_moveto (ctx, x1, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1 + ORDER_SIZE, y1 + ORDER_SIZE);
-			GPL (ctx, x1, y1 + ORDER_SIZE);
+			gnome_print_moveto (ctx, 0., OS / 2.);
+			GPL (ctx, OS / 2., 0.);
+			GPL (ctx, OS / 2., - OS / 2.);
+			GPL (ctx, - OS / 2., - OS / 2.);
+			GPL (ctx, - OS / 2., 0.);
 			gnome_print_closepath (ctx);
 			gnome_print_stroke (ctx);
+			gnome_print_moveto (ctx, HACK_X, - OS / 6. + HACK_Y);
+			if (mgr->settings.down_right)
+				s = g_strdup_printf ("%i", *current - 1);
+			else
+				s = g_strdup_printf ("%i", *current - nx);
+			gnome_print_show (ctx, s); g_free (s);
+			gnome_print_grestore (ctx);
 		}
 		if (mgr->settings.show_order && !lx) {
-			x1 = rw + ORDER_OFFSET -
-				GPI_MGR (mgr)->settings.margin.right;
-			y1 = (rh - ORDER_SIZE) / 2.;
+			memset (&matrix, 0, sizeof (matrix));
+			matrix[0] = 1; matrix[3] = -1;
+			matrix[4] = rw - GPI_MGR (mgr)->settings.margin.right +
+				ORDER_SIZE / 2. + ORDER_OFFSET;
+			matrix[5] = rh / 2.;
+			gnome_print_gsave (ctx);
+			gnome_print_concat (ctx, matrix);
 			gnome_print_newpath (ctx);
-			gnome_print_moveto (ctx, x1, y1);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1 + ORDER_SIZE);
-			GPL (ctx, x1, y1 + ORDER_SIZE);
+			gnome_print_moveto (ctx, -OS / 2., OS / 2.);
+			GPL (ctx, 0., OS / 2.);
+			GPL (ctx, OS / 2., 0.);
+			GPL (ctx, 0., - OS / 2.);
+			GPL (ctx, - OS / 2., - OS / 2.);
 			gnome_print_closepath (ctx);
 			gnome_print_stroke (ctx);
+			gnome_print_moveto (ctx, - OS / 6. + HACK_X, HACK_Y);
+			if (mgr->settings.down_right)
+				s = g_strdup_printf ("%i", *current + ny);
+			else
+				s = g_strdup_printf ("%i", *current + 1);
+			gnome_print_show (ctx, s); g_free (s);
+			gnome_print_grestore (ctx);
 		}
 		if (mgr->settings.show_order && !ly) {
-			x1 = (rw - ORDER_SIZE) / 2.;
-			y1 = rh + ORDER_OFFSET -
-				GPI_MGR (mgr)->settings.margin.bottom;
+			memset (&matrix, 0, sizeof (matrix));
+			matrix[0] = 1; matrix[3] = -1;
+			matrix[4] = rw / 2.;
+			matrix[5] = rh - GPI_MGR (mgr)->settings.margin.bottom +
+				ORDER_SIZE / 2. + ORDER_OFFSET;
+			gnome_print_gsave (ctx);
+			gnome_print_concat (ctx, matrix);
 			gnome_print_newpath (ctx);
-			gnome_print_moveto (ctx, x1, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1, y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1);
-			GPL (ctx, x1 + ORDER_SIZE, y1 + ORDER_SIZE / 2.);
-			GPL (ctx, x1 + ORDER_SIZE / 2., y1 + ORDER_SIZE);
+			gnome_print_moveto (ctx, - OS / 2., OS / 2.);
+			GPL (ctx, OS / 2., OS / 2.);
+			GPL (ctx, OS / 2., 0.);
+			GPL (ctx, 0., - OS / 2.);
+			GPL (ctx, - OS / 2., 0.);
 			gnome_print_closepath (ctx);
 			gnome_print_stroke (ctx);
+			gnome_print_moveto (ctx, HACK_X, OS / 6. + HACK_Y);
+			if (mgr->settings.down_right)
+				s = g_strdup_printf ("%i", *current + 1);
+			else
+				s = g_strdup_printf ("%i", *current + nx);
+			gnome_print_show (ctx, s); g_free (s);
+			gnome_print_grestore (ctx);
+		}
+		if (mgr->settings.show_order) {
+			memset (&matrix, 0, sizeof (matrix));
+			matrix[0] = 1; matrix[3] = -1;
+			matrix[4] = rw + ORDER_OFFSET -
+				GPI_MGR (mgr)->settings.margin.right;
+			matrix[5] = rh + ORDER_OFFSET -
+				GPI_MGR (mgr)->settings.margin.bottom;
+			gnome_print_gsave (ctx);
+			gnome_print_concat (ctx, matrix);
+			gnome_print_moveto (ctx, 0., 0. + HACK_Y);
+			s = g_strdup_printf ("%i/%i", *current, nx * ny);
+			gnome_print_show (ctx, s); g_free (s);
+			gnome_print_grestore (ctx);
 		}
 
 		/* Overlap help */
