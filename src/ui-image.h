@@ -1,49 +1,64 @@
+/* Eye of Gnome image viewer - user interface for image views
+ *
+ * Copyright (C) 1999 The Free Software Foundation
+ *
+ * Author: Federico Mena-Quintero <federico@gimp.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #ifndef UI_IMAGE_H
 #define UI_IMAGE_H
 
 #include <libgnome/gnome-defs.h>
-#include <gtk/gtktable.h>
+#include "gtkscrollframe.h"
 #include "image.h"
 
 BEGIN_GNOME_DECLS
 
+
 
 #define TYPE_UI_IMAGE            (ui_image_get_type ())
-#define UI_IMAGE(obj)            (GTK_CHECK_CAST (obj), TYPE_UI_IMAGE, UIImage)
+#define UI_IMAGE(obj)            (GTK_CHECK_CAST ((obj), TYPE_UI_IMAGE, UIImage))
 #define UI_IMAGE_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), TYPE_UI_IMAGE, UIImageClass))
 #define IS_UI_IMAGE(obj)         (GTK_CHECK_TYPE ((obj), TYPE_UI_IMAGE))
 #define IS_UI_IMAGE_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), TYPE_UI_IMAGE))
+
 
 typedef struct _UIImage UIImage;
 typedef struct _UIImageClass UIImageClass;
 
 struct _UIImage {
-	GtkTable table;
-	
-	/* Image we are displaying */
-	Image *image;
+	GtkScrollFrame sf;
 
-	/* Image view area */
-	GtkWidget *view;
-
-	/* Vertical and horizontal adjustments */
-	GtkAdjustment *vadj;
-	GtkAdjustment *hadj;
-
-	/* Vertical and horizontal scrollbars */
-	GtkWidget *vsb;
-	GtkWidget *hsb;
+	/* Private data */
+	gpointer priv;
 };
 
 struct _UIImageClass {
-	GtkTableClass parent_class;
+	GtkScrollFrameClass parent_class;
 };
 
 
 GtkType ui_image_get_type (void);
-UIImage *ui_image_new (void);
+GtkWidget *ui_image_new (void);
+void ui_image_construct (UIImage *ui);
+
 void ui_image_set_image (UIImage *ui, Image *image);
 
+
 
 END_GNOME_DECLS
 

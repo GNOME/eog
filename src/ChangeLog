@@ -1,3 +1,23 @@
+1999-09-17  Federico Mena Quintero  <federico@redhat.com>
+
+	* main.c: Removed old test cruft.
+
+	* window.c (confirm_save): Renamed from confirm_close().
+	(open_image): Implemented File/Open.
+
+	* ui-image.c: For now the image view is simply derived from
+	GtkScrollFrame.  Implemented basic image setting functionality.
+
+	* image-item.c (image_item_set_arg): Refcount the image.
+	(image_item_destroy): Unref the image.
+
+	* image.c (image_new): New function.
+	(image_load): New function.  Do simplistic loading of images.
+	(image_ref image_unref): Implemented refcounting of images.
+
+	* Makefile.am (eog_SOURCES): Added image.c, ui-image.[ch] to the
+	list of sources.
+
 1999-09-16  Federico Mena Quintero  <federico@redhat.com>
 
 	* window.c (exit_cmd): Change of plans.  Do not confirm for

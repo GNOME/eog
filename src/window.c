@@ -1,5 +1,27 @@
+/* Eye of Gnome image viewer - main window widget
+ *
+ * Copyright (C) 1999 The Free Software Foundation
+ *
+ * Author: Federico Mena-Quintero <federico@gimp.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include <config.h>
 #include <gnome.h>
+#include "ui-image.h"
 #include "window.h"
 
 
@@ -68,7 +90,7 @@ raise_and_focus (GtkWidget *widget)
 
 /* Asks for confirmation for closing an unsaved window */
 static CloseStatus
-confirm_close (Window *window, gboolean ask_exit)
+confirm_save (Window *window, gboolean ask_exit)
 {
 	WindowPrivate *priv;
 	GtkWidget *msg;
@@ -116,13 +138,126 @@ confirm_close (Window *window, gboolean ask_exit)
 
 
 
+/* Setting the mode of a window */
+
+static void
+set_mode (Window *window, WindowMode mode)
+{
+	WindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (priv->mode == mode)
+		return;
+
+	/* FIXME: this test may be better outside this function */
+
+	switch (confirm_save (window, FALSE)) {
+	case CLOSE_SAVE:
+		; /* FIXME: save it */
+		break;
+
+	default:
+		break;
+	}
+
+	if (priv->content)
+		gtk_widget_destroy (priv->content);
+
+	priv->mode = mode;
+
+	switch (mode) {
+	case WINDOW_MODE_NONE:
+		break;
+
+	case WINDOW_MODE_IMAGE:
+		priv->content = ui_image_new ();
+		gnome_app_set_contents (GNOME_APP (window), priv->content);
+		break;
+
+	case WINDOW_MODE_COLLECTION:
+		/* FIXME - fallthrough */
+
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+
+
+/* File opening */
+
+/* Open an image file in a window */
+static void
+open_image (Window *window, char *filename)
+{
+	WindowPrivate *priv;
+	Image *image;
+
+	g_assert (filename != NULL);
+
+	priv = window->priv;
+
+	set_mode (window, WINDOW_MODE_IMAGE);
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+
+	image = image_new ();
+	image_load (image, filename);
+	ui_image_set_image (UI_IMAGE (priv->content), image);
+	image_unref (image);
+}
+
+
+
 /* Menu callbacks */
+
+/* OK button callback for the open file selection dialog */
+static void
+open_ok_clicked (GtkWidget *widget, gpointer data)
+{
+	GtkWidget *fs;
+	Window *window;
+	char *filename;
+
+	fs = GTK_WIDGET (data);
+
+	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
+	g_assert (window != NULL);
+
+	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
+	open_image (window, filename);
+
+	gtk_widget_destroy (fs);
+}
+
+/* Cancel button callback for the open file selection dialog */
+static void
+open_cancel_clicked (GtkWidget *widget, gpointer data)
+{
+	gtk_widget_destroy (GTK_WIDGET (data));
+}
 
 /* File/Open callback */
 static void
 open_cmd (GtkWidget *widget, gpointer data)
 {
-	/* FIXME */
+	Window *window;
+	GtkWidget *fs;
+
+	window = WINDOW (data);
+
+	fs = gtk_file_selection_new (_("Open Image"));
+	gtk_window_set_transient_for (GTK_WINDOW (fs), GTK_WINDOW (window));
+	gtk_object_set_data (GTK_OBJECT (fs), "window", window);
+
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (fs)->ok_button), "clicked",
+			    GTK_SIGNAL_FUNC (open_ok_clicked),
+			    fs);
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (fs)->cancel_button), "clicked",
+			    GTK_SIGNAL_FUNC (open_cancel_clicked),
+			    fs);
+
+	gtk_widget_show (fs);
 }
 
 /* Closes a window with confirmation, and exits the main loop if this was the
@@ -131,7 +266,7 @@ open_cmd (GtkWidget *widget, gpointer data)
 static void
 close_window (Window *window)
 {
-	switch (confirm_close (window, FALSE)) {
+	switch (confirm_save (window, FALSE)) {
 	case CLOSE_SAVE:
 		; /* FIXME: save it */
 		break;
@@ -174,7 +309,7 @@ exit_cmd (GtkWidget *widget, gpointer data)
 	for (l = window_list; l && do_exit; l = l->next) {
 		w = l->data;
 
-		switch (confirm_close (w, TRUE)) {
+		switch (confirm_save (w, TRUE)) {
 		case CLOSE_SAVE:
 			; /* FIXME: save it */
 			break;
@@ -318,7 +453,6 @@ window_init (Window *window)
 
 	priv = g_new0 (WindowPrivate, 1);
 	window->priv = priv;
-	priv->mode = WINDOW_MODE_COLLECTION;
 
 	window_list = g_list_prepend (window_list, window);
 }
@@ -368,12 +502,12 @@ window_delete (GtkWidget *widget, GdkEventAny *event)
 GtkWidget *
 window_new (void)
 {
-	GtkWidget *window;
+	Window *window;
 
-	window = gtk_type_new (TYPE_WINDOW);
-	window_construct (WINDOW (window));
+	window = WINDOW (gtk_type_new (TYPE_WINDOW));
+	window_construct (window);
 
-	return window;
+	return GTK_WIDGET (window);
 }
 
 /**

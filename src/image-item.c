@@ -1,3 +1,24 @@
+/* Eye of Gnome image viewer - image canvas item
+ *
+ * Copyright (C) 1999 The Free Software Foundation
+ *
+ * Author: Federico Mena-Quintero <federico@gimp.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include <config.h>
 #include <math.h>
 #include "image-item.h"
@@ -145,7 +166,10 @@ image_item_destroy (GtkObject *object)
 
 	gnome_canvas_request_redraw (item->canvas, item->x1, item->y1, item->x2, item->y2);
 
-	g_free (ii->priv);
+	if (priv->image)
+		image_unref (priv->image);
+
+	g_free (priv);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -158,6 +182,7 @@ image_item_set_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 	GnomeCanvasItem *item;
 	ImageItem *ii;
 	ImageItemPrivate *priv;
+	Image *image;
 
 	item = GNOME_CANVAS_ITEM (object);
 	ii = IMAGE_ITEM (object);
@@ -165,7 +190,17 @@ image_item_set_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 
 	switch (arg_id) {
 	case ARG_IMAGE:
-		priv->image = GTK_VALUE_POINTER (*arg);
+		image = GTK_VALUE_POINTER (*arg);
+		if (image != priv->image) {
+			if (image)
+				image_ref (image);
+
+			if (priv->image)
+				image_unref (priv->image);
+
+			priv->image = image;
+		}
+
 		priv->need_image_update = TRUE;
 		gnome_canvas_item_request_update (item);
 		break;
