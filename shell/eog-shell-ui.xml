@@ -1,0 +1,49 @@
+<Root>
+
+  <status/>
+
+  <commands>
+
+    <cmd name="FileOpen" _label="_Open..."
+	     _tip="Open a file" pixtype="stock" pixname="Open" accel="F3"/>
+
+    <cmd name="FileSave" _label="_Save"
+	     _tip="Save the current file"
+	     pixtype="stock" pixname="Save" accel="*Control*s"/>
+	
+    <cmd name="FileSaveAs" _label="Save _As..."
+	     _tip="Save the current file with a different name"
+	     pixtype="stock" pixname="Save As"/>
+
+    <cmd name="FileExit" _label="E_xit" _tip="Exit the program"
+	     pixtype="stock" pixname="Exit" accel="*Control*q"/>
+
+    <cmd name="HelpAbout" _label="_About..." _tip="About this application"
+	     pixtype="stock" pixname="About"/>
+
+  </commands>
+
+  <menu>
+      
+    <submenu name="File" _label="_File">
+        
+      <menuitem name="FileOpen" verb="" accel="F3"/>
+
+      <separator/>
+	
+      <menuitem name="FileSave" verb="" accel="*Control*s"/>
+	
+      <menuitem name="FileSaveAs" verb=""/>
+
+      <separator/>
+	
+      <menuitem name="FileExit" verb="" accel="*Control*q"/>
+
+    </submenu>
+
+    <submenu name="Help" _label="_Help">
+      <menuitem name="HelpAbout" verb=""/>
+    </submenu>
+
+  </menu>
+</Root>
