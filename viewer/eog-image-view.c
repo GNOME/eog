@@ -1606,37 +1606,25 @@ static void
 eog_image_view_destroy (GtkObject *object)
 {
 	EogImageView *image_view;
+	EogImageViewPrivate *priv;
 
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
 	image_view = EOG_IMAGE_VIEW (object);
+	priv = image_view->priv;
 
-	gtk_object_unref (GTK_OBJECT (image_view->priv->client));
+	gtk_object_unref (GTK_OBJECT (priv->client));
 
-	if (image_view->priv->property_bag)
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->property_bag));
-	image_view->priv->property_bag = NULL;
+	bonobo_object_unref (BONOBO_OBJECT (priv->property_bag));
+//BEWARE: After this has been added somewhere by bonobo_object_add_interface, 
+//        we don't own this anymore. Therefore, we cannot touch it. 
+//	bonobo_object_unref (BONOBO_OBJECT (priv->property_control));
+	bonobo_object_unref (BONOBO_OBJECT (priv->image));
+	bonobo_object_unref (BONOBO_OBJECT (priv->uic));
 
-	if (image_view->priv->property_control)
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->property_control));
-	image_view->priv->property_control = NULL;
-
-	if (image_view->priv->image)
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->image));
-	image_view->priv->image = NULL;
-
-	if (image_view->priv->uic)
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->uic));
-	image_view->priv->uic = NULL;
-
-	if (image_view->priv->ui_image)
-		gtk_widget_destroy (image_view->priv->ui_image);
-	image_view->priv->ui_image = NULL;
-
-	if (image_view->priv->image_view)
-		gtk_widget_unref (image_view->priv->image_view);
-	image_view->priv->image_view = NULL;
+	gtk_widget_unref (image_view->priv->ui_image);
+	gtk_widget_unref (image_view->priv->image_view);
 
 	GTK_OBJECT_CLASS (eog_image_view_parent_class)->destroy (object);
 }

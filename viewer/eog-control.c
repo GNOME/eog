@@ -39,7 +39,10 @@ eog_control_destroy (GtkObject *object)
 
 	control = EOG_CONTROL (object);
 
-	bonobo_object_unref (BONOBO_OBJECT (control->priv->image_view));
+//BEWARE: After this has been added by bonobo_object_add_interface, 
+//        we don't own this anymore. Therefore, we cannot touch it.
+//	bonobo_object_unref (BONOBO_OBJECT (control->priv->image_view));
+//	bonobo_object_unref (BONOBO_OBJECT (control->priv->zoomable));
 
 	GTK_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
 }
@@ -398,8 +401,8 @@ eog_control_construct (EogControl    *control,
 {
 	GtkWidget             *widget;
 	BonoboControl         *retval;
-	BonoboPropertyBag     *property_bag;
-	BonoboPropertyControl *property_control;
+	BonoboPropertyBag     *pb;
+	BonoboPropertyControl *pc;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (control != NULL, NULL);
@@ -455,27 +458,27 @@ eog_control_construct (EogControl    *control,
 					     preferred_zoom_levels,
 					     preferred_zoom_level_names,
 					     max_preferred_zoom_levels + 1);
-
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (control->priv->zoomable));
 
 	/* Construct the control */
 	widget = eog_image_view_get_widget (control->priv->image_view);
 	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
-	gtk_widget_unref (widget);
-	if (!retval) {
-		bonobo_object_unref (BONOBO_OBJECT (control));
-		return NULL;
-	}
 
-	property_bag = eog_image_view_get_property_bag (control->priv->image_view);
-	bonobo_control_set_properties (BONOBO_CONTROL (control), property_bag);
-	bonobo_object_unref (BONOBO_OBJECT (property_bag));
+	pb = eog_image_view_get_property_bag (control->priv->image_view);
+	bonobo_control_set_properties (BONOBO_CONTROL (control), pb);
+	bonobo_object_unref (BONOBO_OBJECT (pb));
 
-	property_control = eog_image_view_get_property_control (control->priv->image_view);
-
+	pc = eog_image_view_get_property_control (control->priv->image_view);
+//FIXME: Ok, it seems crazy to get something, unref it, and process it further.
+//       But: bonobo_object_add_interface seems to need objects with
+//       ref_count == 1, otherwise, eog-image-viewer will never exit (even if
+//       it is no longer needed). If you don't believe me, put
+//       bonobo_object_unref after bonobo_object_add_interface and check it
+//       out...
+	bonobo_object_unref (BONOBO_OBJECT (pc));
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (property_control));
+				     BONOBO_OBJECT (pc));
 
 	control->priv->uic = bonobo_control_get_ui_component (
 		BONOBO_CONTROL (control));
