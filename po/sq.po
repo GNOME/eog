@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-11 19:05+0200\n"
-"PO-Revision-Date: 2003-06-11 19:09+0200\n"
+"POT-Creation-Date: 2003-06-30 21:13+0200\n"
+"PO-Revision-Date: 2003-06-30 23:34+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -68,38 +68,54 @@ msgid "Slide Show"
 msgstr "Slide Show"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Ndrysho"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Ruaje"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Anullo"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_Shiko"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Anullo ruajtjen"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Ruajtja përfundoi"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Hidhe në kosh"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Shikuesi i Koleksionit"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
 msgid "Window Title"
 msgstr "Titulli i Dritares"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Teksti i Status"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
 msgid "Progress of Image Loading"
 msgstr "Progresi i Leximit të Figurës"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Duke ruajtur figurën"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -183,38 +199,16 @@ msgid "sec"
 msgstr "sek"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Zgjidh madhësinë e dritares automatikisht"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Shkalla default e zmadhimit për shikimin me ekran të plotë"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Shkalla default e zmadhimit për shikimin me ekran të plotë. Vlerat e "
-"mundëshme janë: 0 (përdor shkallën 1:1), 1 (përdor të njëjtën shkallë "
-"zmadhimi sa e dritares së figurës), 2 (përshtat figurën monitorit)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Përcakton si duhet të tregohet transparenca. Vlera të vlefshme janë "
-"CHECK_PATTERN, NGJYRA dhe ASNJË. Nëse është zgjedhur NGJYRA, atëhere trans_color key "
-"përcakton vlerën e ngjyrës së përdorur."
+"CHECK_PATTERN, NGJYRA dhe ASNJË. Nëse është zgjedhur NGJYRA, atëhere "
+"trans_color key përcakton vlerën e ngjyrës së përdorur."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Fit standard-sized images to the screen"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -222,31 +216,23 @@ msgstr ""
 "Nëqoftëse kyçi i tejdukshmërisë ka vlerën NGJYRË, atëhere ky çelës përcakton "
 "ngjyrën e përdorur për tejdukshmërinë e treguar."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolo figurën"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Hap figurat në një dritare të re"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Put a bevel around the screen"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Rregullat e scrollbar per shikimin me ekran te plotë"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Ngjyra e tejdukshme"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Treguesi i transparencës"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -254,53 +240,13 @@ msgstr ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -342,11 +288,19 @@ msgstr "Hap figurën"
 msgid "Save Image"
 msgstr "Shpëto figurën"
 
-#: libeog/eog-image.c:1320
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "E pamundur përgatitja e kujtesës për të lexuar file JPEG"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Asnjë imazh i ngarkuar."
 
-#: libeog/eog-image.c:1354
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "Figurat mund të shpëtohen vetëm si files lokalë."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Lloj imazhi i pasuportuar për tu ruajtur."
 
@@ -377,7 +331,7 @@ msgid "Page"
 msgstr "Faqja"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "Shikoje"
 
@@ -464,20 +418,8 @@ msgid "Vertically by "
 msgstr "Vertikalisht sipas "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "zona_e_veprimit"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialogu"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialogu1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -579,8 +521,8 @@ msgstr "_Mbylle"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -680,72 +622,158 @@ msgid "Print image to the printer"
 msgstr "Printo imazhin në printer"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Rrotullo majtas"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Rrutullo djathtas"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Shpëtoje _Si..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Konfiguro rregullimet e faqes për printerin tuaj "
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Ekran i Plotë"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Printo..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/Rrotullim O_rar"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Rrotullim Antio_rar"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/_Zmadhim"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/Z_vogëlim"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/_Madhësi Normale"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/Për_shtate"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/_Mbylle"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:994
 msgid "Image successfully saved"
 msgstr "Figura u ruajt me sukses"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:998
 msgid "Image saving failed"
 msgstr "Ruajtja e imazhit dështoi"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1241
 msgid "Image Width"
 msgstr "Gjërësia e imazhit"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1244
 msgid "Image Height"
 msgstr "Lartësia e imazhit"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1250
 msgid "Statusbar Text"
 msgstr "Teksti i Statusbar"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1253
 msgid "Desired Window Width"
 msgstr "Gjerësia e dëshiruar e dritares"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1256
 msgid "Desired Window Height"
 msgstr "Lartësia e deshiruar e dritares"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "I pamundur fillimi i GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Zgjidh madhësinë e dritares automatikisht"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Shkalla default e zmadhimit për shikimin me ekran të plotë"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Shkalla default e zmadhimit për shikimin me ekran të plotë. Vlerat e "
+#~ "mundëshme janë: 0 (përdor shkallën 1:1), 1 (përdor të njëjtën shkallë "
+#~ "zmadhimi sa e dritares së figurës), 2 (përshtat figurën monitorit)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Fit standard-sized images to the screen"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Put a bevel around the screen"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Rregullat e scrollbar per shikimin me ekran te plotë"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+
+#~ msgid "action_area"
+#~ msgstr "zona_e_veprimit"
+
+#~ msgid "dialog"
+#~ msgstr "dialogu"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "I pamundur fillimi i GnomeVFS!\n"
 
 #~ msgid "pts"
 #~ msgstr "pts"
@@ -1004,9 +1032,6 @@ msgstr "I pamundur fillimi i GnomeVFS!\n"
 
 #~ msgid "_White"
 #~ msgstr "_Bardhë"
-
-#~ msgid "Save As"
-#~ msgstr "Shëtoje Si"
 
 #~ msgid "Display"
 #~ msgstr "Display"
