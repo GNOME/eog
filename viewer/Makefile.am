@@ -46,6 +46,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable.h	\
 	eog-embeddable-view.c	\
 	eog-embeddable-view.h	\
+	eog-full-screen.c	\
+	eog-full-screen.h	\
 	eog-preview.c		\
 	eog-preview.h		\
 	eog-preview-page.c	\
