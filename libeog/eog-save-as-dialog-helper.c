@@ -1,0 +1,377 @@
+#include <stdlib.h>
+#include <libgnome/libgnome.h>
+#include <glade/glade.h>
+#include "eog-save-as-dialog-helper.h"
+#include "eog-pixbuf-util.h"
+#include "eog-hig-dialog.h"
+#include "eog-file-selection.h"
+
+typedef struct {
+	GtkWidget *dir_entry;
+	GtkWidget *format_entry;
+	GtkWidget *replace_spaces_check;
+	GtkWidget *counter_spin;
+	GtkWidget *preview_label;
+	GtkWidget *format_option;
+
+	guint      idle_id;
+	gint       n_images;
+	EogImage  *image;
+	gint       nth_image;
+} SaveAsData;
+
+static gboolean
+update_preview (gpointer user_data)
+{
+	SaveAsData *data;
+	char *preview_str;
+	const char *format_str;
+	gboolean convert_spaces;
+	gulong   counter_start;
+	GdkPixbufFormat *format;
+	GtkWidget *item;
+	
+	data = g_object_get_data (G_OBJECT (user_data), "data");
+	g_assert (data != NULL);
+
+	if (data->image == NULL) return FALSE;
+
+	/* obtain required dialog data */
+	format_str = gtk_entry_get_text (GTK_ENTRY (data->format_entry));
+	convert_spaces = gtk_toggle_button_get_active 
+		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));
+	counter_start = gtk_spin_button_get_value_as_int 
+		(GTK_SPIN_BUTTON (data->counter_spin));
+	item = gtk_menu_get_active 
+		(GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->format_option))));
+	g_assert (item != NULL);
+	format = g_object_get_data (G_OBJECT (item), "format");
+	
+	/* generate preview filename */
+	preview_str = eog_uri_converter_preview (format_str, data->image, format,
+						 (counter_start + data->nth_image), 
+						 data->n_images,
+						 convert_spaces, '_' /* FIXME: make this editable */);
+
+	gtk_label_set_text (GTK_LABEL (data->preview_label), preview_str);
+
+	if (preview_str != NULL)
+		g_free (preview_str);
+
+	return FALSE;
+}
+
+static void
+request_preview_update (GtkWidget *dlg)
+{
+	SaveAsData *data;
+	
+	data = g_object_get_data (G_OBJECT (dlg), "data");
+	g_assert (data != NULL);
+
+	if (data->idle_id != 0)
+		return;
+
+	data->idle_id = g_idle_add (update_preview, dlg);
+}
+
+
+static void
+on_browse_button_clicked (GtkWidget *widget, gpointer data)
+{
+	GtkWidget *browse_dlg;
+	gint response;
+	SaveAsData *sd;
+
+	sd = g_object_get_data (G_OBJECT (data), "data");
+	g_assert (sd != NULL);
+	
+	browse_dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+
+	gtk_widget_show_all (browse_dlg);
+	response = gtk_dialog_run (GTK_DIALOG (browse_dlg));
+	if (response == GTK_RESPONSE_OK) {
+		char *folder;
+
+		folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (browse_dlg));
+		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), folder);
+
+		g_free (folder);
+	}
+}
+
+static void
+on_add_button_clicked (GtkWidget *widget, gpointer user_data)
+{
+	SaveAsData *data;
+	GtkWidget *menu;
+	GtkWidget *item;
+	int index;
+	gboolean has_libexif = FALSE;
+
+	data = g_object_get_data (G_OBJECT (user_data), "data");
+	g_assert (data != NULL);
+
+	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (widget));
+	item = gtk_menu_get_active (GTK_MENU (menu));
+
+	index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "index"));
+	
+#if HAVE_EXIF
+	has_libexif = TRUE;
+#endif      
+
+	if (uc_info[index].req_exif && !has_libexif) {
+		GtkWidget *dlg;
+		
+		dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING, _("Option not available."), 
+					  _("To use this function you need the libexif library. Please install"
+					    " libexif (http://libexif.sf.net) and recompile Eye of Gnome."), FALSE);
+		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
+		g_signal_connect (G_OBJECT (dlg), "response", (GCallback) gtk_widget_destroy, NULL);
+		gtk_widget_show_all (dlg);
+	}
+	else {
+		gtk_entry_append_text (GTK_ENTRY (data->format_entry), uc_info[index].rep);
+	}
+
+	request_preview_update (GTK_WIDGET (user_data));
+}
+
+static void
+on_format_option_changed (GtkWidget *widget, gpointer data)
+{
+	request_preview_update (GTK_WIDGET (data));
+}
+
+static void
+on_format_entry_changed (GtkWidget *widget, gpointer data)
+{
+	request_preview_update (GTK_WIDGET (data));
+}
+
+static void
+on_replace_spaces_check_to (GtkWidget *widget, gpointer data)
+{
+	request_preview_update (GTK_WIDGET (data));
+}
+
+static void
+on_counter_spin_changed (GtkWidget *widget, gpointer data)
+{
+	request_preview_update (GTK_WIDGET (data));
+}
+
+static void
+prepare_suffix_options (GladeXML *xml)
+{
+	GtkWidget *widget;
+	GtkWidget *menu;
+	GSList *formats;
+	GtkWidget *item;
+	GSList *it;
+
+	widget = glade_xml_get_widget (xml, "suffix_option");
+	menu = gtk_menu_new ();
+
+	item = gtk_menu_item_new_with_label (_("as is"));
+	gtk_menu_prepend (GTK_MENU (menu), item);
+
+	formats = eog_pixbuf_get_savable_formats ();
+	for (it = formats; it != NULL; it = it->next) {
+		GdkPixbufFormat *f;
+		char *suffix;
+
+		f = (GdkPixbufFormat*) it->data;
+
+		suffix = eog_pixbuf_get_common_suffix (f);
+		item = gtk_menu_item_new_with_label (suffix);
+		g_object_set_data (G_OBJECT (item), "format", f);
+
+		g_free (suffix);
+		
+		gtk_menu_prepend (GTK_MENU (menu), item);
+	}
+
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
+	gtk_menu_set_active (GTK_MENU (menu), 0); /* 'as is' as default */
+}
+
+static void
+prepare_format_options (GladeXML *xml)
+{
+	GtkWidget *widget;
+	GtkWidget *menu;
+	GtkWidget *item;
+	int i;
+
+	widget = glade_xml_get_widget (xml, "format_option");
+	menu = gtk_menu_new ();
+	
+	/* uc_info is defined in eog-uri-converter.h */
+	for (i = 1; uc_info[i].description != NULL; i++) {
+		char *label;
+
+		label = g_strconcat (uc_info[i].description, " (", uc_info[i].rep, ")", NULL);
+		item = gtk_menu_item_new_with_label (label);
+		g_free (label);
+
+		g_object_set_data (G_OBJECT (item), "index", GINT_TO_POINTER (i));
+
+		gtk_menu_append (GTK_MENU (menu), item);
+	}
+
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
+}
+
+static void
+destroy_data_cb (gpointer data)
+{
+	SaveAsData *sd;
+
+	sd = (SaveAsData*) data;
+
+	if (sd->image != NULL)
+		g_object_unref (sd->image);
+
+	if (sd->idle_id != 0)
+		g_source_remove (sd->idle_id);
+
+	g_free (sd);
+}
+
+static void
+set_default_values (GtkWidget *dlg, GnomeVFSURI *base_uri)
+{
+	SaveAsData *sd;
+
+	sd = (SaveAsData*) g_object_get_data (G_OBJECT (dlg), "data");
+
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (sd->counter_spin), 0.0);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sd->replace_spaces_check),
+				      FALSE);
+	if (base_uri == NULL) {
+		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), "");
+	}
+	else {
+		char *uri_str;
+
+		uri_str = gnome_vfs_uri_to_string (base_uri, GNOME_VFS_URI_HIDE_NONE);
+		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), uri_str);
+
+		g_free (uri_str);
+	}
+
+	request_preview_update (dlg);
+}
+
+GtkWidget*
+eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
+{
+	char *filepath;
+	GladeXML  *xml;
+	GtkWidget *dlg;
+	SaveAsData *data;
+	
+	filepath = gnome_program_locate_file (NULL,
+					      GNOME_FILE_DOMAIN_APP_DATADIR,
+					      "eog/glade/eog.glade",
+					      FALSE, NULL);
+
+	g_assert (filepath != NULL);
+
+	xml = glade_xml_new (filepath, "Save As Dialog", "eog");
+	g_assert (xml != NULL);
+	
+	dlg = glade_xml_get_widget (xml, "Save As Dialog");
+
+	data = g_new0 (SaveAsData, 1);
+	/* init widget references */
+	data->dir_entry = glade_xml_get_widget (xml, "dir_entry");
+	data->format_entry = glade_xml_get_widget (xml, "format_entry");
+	data->replace_spaces_check = glade_xml_get_widget (xml, "replace_spaces_check");
+	data->counter_spin = glade_xml_get_widget (xml, "counter_spin");
+	data->preview_label = glade_xml_get_widget (xml, "preview_label");
+	data->format_option = glade_xml_get_widget (xml, "format_option");
+
+	/* init preview information */
+	data->idle_id = 0;
+	data->n_images = g_list_length (images);
+	data->nth_image = (int) (data->n_images * rand() / (RAND_MAX+1.0));
+	g_assert (data->nth_image >= 0 && data->nth_image < data->n_images);
+	data->image = g_object_ref (G_OBJECT (g_list_nth_data (images, data->nth_image)));
+	g_object_set_data_full (G_OBJECT (dlg), "data", data, destroy_data_cb);
+
+	glade_xml_signal_connect_data (xml, "on_browse_button_clicked",
+				       (GCallback) on_browse_button_clicked, dlg);
+
+	glade_xml_signal_connect_data (xml, "on_add_button_clicked",
+				       (GCallback) on_add_button_clicked, dlg);
+
+	glade_xml_signal_connect_data (xml, "on_format_option_changed",
+				       (GCallback) on_format_option_changed, dlg);
+
+	glade_xml_signal_connect_data (xml, "on_format_entry_changed",
+				       (GCallback) on_format_entry_changed, dlg);
+
+	glade_xml_signal_connect_data (xml, "on_replace_spaces_check_to",
+				       (GCallback) on_replace_spaces_check_to, dlg);
+
+	glade_xml_signal_connect_data (xml, "on_counter_spin_changed",
+				       (GCallback) on_counter_spin_changed, dlg);
+
+	prepare_suffix_options (xml);
+	prepare_format_options (xml);
+	
+	set_default_values (dlg, base_uri);
+}
+
+EogURIConverter* 
+eog_save_as_dialog_get_converter (GtkWidget *dlg)
+{
+	EogURIConverter *conv;
+
+	SaveAsData *data;
+	const char *format_str;
+	gboolean convert_spaces;
+	gulong   counter_start;
+	GdkPixbufFormat *format;
+	GtkWidget *item;
+	GnomeVFSURI *base_uri;
+	const char *base_uri_str;
+
+	data = g_object_get_data (G_OBJECT (dlg), "data");
+	g_assert (data != NULL);
+
+	/* obtain required dialog data */
+	format_str = gtk_entry_get_text (GTK_ENTRY (data->format_entry));
+
+	convert_spaces = gtk_toggle_button_get_active 
+		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));
+
+	counter_start = gtk_spin_button_get_value_as_int 
+		(GTK_SPIN_BUTTON (data->counter_spin));
+
+	item = gtk_menu_get_active 
+		(GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->format_option))));
+	g_assert (item != NULL);
+	format = g_object_get_data (G_OBJECT (item), "format");
+
+	base_uri_str = gtk_entry_get_text (GTK_ENTRY (data->dir_entry));
+	base_uri = gnome_vfs_uri_new (base_uri_str);
+
+	/* create converter object */
+	conv = eog_uri_converter_new (base_uri, format, format_str);
+
+	/* set other properties */
+	g_object_set (G_OBJECT (conv),
+		      "convert-spaces", convert_spaces,
+		      "space-character", '_',
+		      "counter-start", counter_start,
+		      "n-images", data->n_images,
+		      NULL);
+
+	gnome_vfs_uri_unref (base_uri);
+
+	return conv;
+}
