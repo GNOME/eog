@@ -24,6 +24,11 @@
 
 #include <preferences.h>
 
+#ifdef ENABLE_EVOLUTION
+#  include "Evolution-Composer.h"
+#  include <bonobo/bonobo-stream-memory.h>
+#endif
+
 struct _EogImageViewPrivate {
 	EogImage              *image;
 
@@ -307,6 +312,73 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	gtk_signal_connect (GTK_OBJECT (filesel->cancel_button), "clicked", 
 			    GTK_SIGNAL_FUNC (filesel_cancel_cb), image_view);
 	gtk_widget_show (GTK_WIDGET (filesel));
+}
+
+static void
+verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
+{
+#ifdef ENABLE_EVOLUTION
+	EogImageView *image_view;
+	CORBA_Object composer;
+	CORBA_Environment ev;
+	BonoboStream *stream;
+	GNOME_Evolution_Composer_AttachmentData *attachment_data;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	CORBA_exception_init (&ev);
+	composer = oaf_activate_from_id ("OAFIID:GNOME_Evolution_Mail_Composer",
+			                 0, NULL, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to start composer: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	stream = bonobo_stream_mem_create (NULL, 0, FALSE, TRUE);
+	eog_image_save_to_stream (image_view->priv->image, stream,
+			          "image/png", &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to save image to stream: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (composer, NULL);
+		return;
+	}
+	
+	attachment_data = GNOME_Evolution_Composer_AttachmentData__alloc ();
+	attachment_data->_buffer = BONOBO_STREAM_MEM (stream)->buffer;
+	attachment_data->_length = BONOBO_STREAM_MEM (stream)->size;
+	BONOBO_STREAM_MEM (stream)->buffer = NULL;
+	bonobo_object_unref (BONOBO_OBJECT (stream));
+	GNOME_Evolution_Composer_attachData (composer, "image/png", "[Unknown]",
+					     "[No Description]", FALSE,
+					     attachment_data, &ev);
+	CORBA_free (attachment_data);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to attach image: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (composer, NULL);
+		return;
+	}
+
+	GNOME_Evolution_Composer_show (composer, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to show composer: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (composer, NULL);
+		return;
+	}
+
+	CORBA_exception_free (&ev);
+#else
+	g_warning ("EOG has been compiled witout support for evolution!");
+#endif
 }
 
 static gint
@@ -928,6 +1000,8 @@ eog_image_view_create_ui (EogImageView *image_view)
 
 	bonobo_ui_component_add_verb (image_view->priv->uic, "SaveAs", 
 				      verb_SaveAs_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "Send",
+				      verb_Send_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintSetup", 
 				      verb_PrintSetup_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintPreview",

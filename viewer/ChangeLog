@@ -1,3 +1,11 @@
+2001-06-25  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* eog-image-view-ui.xml: Add menu entry "Send" for sending images
+	via email
+	* eog-image-view.c: (verb_Send_cb): new. Starts a composer and attaches
+	the current image.
+	(eog_image_view_create_ui): Connect signal to above function.
+
 2001-05-31  Jens Finke <jens@gnome.org>
 
 	* Makefile.am: Stop building the sample-container program.

@@ -20,7 +20,16 @@ INCLUDES =                                              \
 
 bin_PROGRAMS = eog-image-viewer
 
+if ENABLE_EVOLUTION
+EVOLUTION_GENERATED =			\
+	Evolution-Composer.h		\
+	Evolution-Composer-common.c	\
+	Evolution-Composer-skels.c	\
+	Evolution-Composer-stubs.c
+endif
+
 eog_image_viewer_SOURCES =	\
+	$(EVOLUTION_GENERATED)	\
 	eog-image.c		\
 	eog-image.h		\
 	eog-image-io.c		\
@@ -57,8 +66,13 @@ eog_image_viewer_LDADD = 			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
+$(EVOLUTION_GENERATED):
+	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
+
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
+BUILT_SOURCES = $(EVOLUTION_GENERATED)
+CLEANFILES += $(BUILT_SOURCES)
 EXTRA_DIST = $(ui_DATA)
 
