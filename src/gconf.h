@@ -1,8 +1,11 @@
-/* Eye of Gnome image viewer - image structure and image loading
+/* Eye of Gnome image viewer - preferences
  *
  * Copyright (C) 2000 The Free Software Foundation
+ *               2000 SuSE GmbH
  *
- * Author: Federico Mena-Quintero <federico@gnu.org>
+ * Authors: Federico Mena-Quintero <federico@gnu.org>
+ *          Arik Devens <arik@helixcode.com>
+ *          Martin Baulig <baulig@suse.de>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,35 +22,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef IMAGE_H
-#define IMAGE_H
+#ifndef GCONF_H
+#define GCONF_H
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "image-view.h"
+#include <gconf/gconf-client.h>
 
-
-
-/* The main image structure */
-typedef struct {
-	/* Reference count */
-	guint ref_count;
-
-	/* Name of file this image was loaded from */
-	char *filename;
-
-	/* Buffer with original image data */
-	GdkPixbuf *pixbuf;
-
-	/* Color substitution tables */
-	guchar *r_lut, *g_lut, *b_lut;
-} Image;
-
-Image *image_new (void);
-void image_ref (Image *image);
-void image_unref (Image *image);
-
-gboolean image_load (Image *image, const char *filename);
-void image_load_pixbuf (Image *image, GdkPixbuf *pixbuf);
-
-
+void image_view_add_gconf_client (ImageView *image_view, GConfClient *client);
 
 #endif

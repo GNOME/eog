@@ -46,6 +46,7 @@ void image_ref (Image *image);
 void image_unref (Image *image);
 
 gboolean image_load (Image *image, const char *filename);
+void image_load_pixbuf (Image *image, GdkPixbuf *pixbuf);
 
 
 

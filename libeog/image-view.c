@@ -25,7 +25,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
-#include <gconf/gconf-client.h>
 #include "cursors.h"
 #include "image-view.h"
 #include "uta.h"
@@ -106,16 +105,6 @@ struct _ImageViewPrivate {
 	/* Scroll type */
 	ScrollType scroll;
 
-	/* GConf client for monitoring changes to the preferences */
-	GConfClient *client;
-
-	/* GConf client notify IDs */
-	guint interp_type_notify_id;
-	guint check_type_notify_id;
-	guint check_size_notify_id;
-	guint dither_notify_id;
-	guint scroll_notify_id;
-
 	/* Whether the image is being dragged */
 	guint dragging : 1;
 
@@ -128,6 +117,17 @@ enum {
 	ZOOM_FIT,
 	LAST_SIGNAL
 };
+
+enum {
+	ARG_0,
+	ARG_INTERP_TYPE,
+	ARG_CHECK_TYPE,
+	ARG_CHECK_SIZE,
+	ARG_DITHER,
+	ARG_SCROLL,
+	ARG_FULL_SCREEN_ZOOM
+};
+
 
 static void image_view_class_init (ImageViewClass *class);
 static void image_view_init (ImageView *view);
@@ -145,6 +145,9 @@ static gint image_view_button_release (GtkWidget *widget, GdkEventButton *event)
 static gint image_view_motion (GtkWidget *widget, GdkEventMotion *event);
 static gint image_view_expose (GtkWidget *widget, GdkEventExpose *event);
 static gint image_view_key_press (GtkWidget *widget, GdkEventKey *event);
+static void image_view_get_arg (GtkObject* obj, GtkArg* arg, guint arg_id);
+static void image_view_set_arg (GtkObject* obj, GtkArg* arg, guint arg_id);
+
 
 static void image_view_set_scroll_adjustments (GtkWidget *widget,
 					       GtkAdjustment *hadj, GtkAdjustment *vadj);
@@ -199,6 +202,13 @@ image_view_class_init (ImageViewClass *class)
 
 	parent_class = gtk_type_class (GTK_TYPE_WIDGET);
 
+	gtk_object_add_arg_type ("ImageView::interp_type", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_INTERP_TYPE);
+	gtk_object_add_arg_type ("ImageView::check_type", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_CHECK_TYPE);
+	gtk_object_add_arg_type ("ImageView::check_size", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_CHECK_SIZE);
+	gtk_object_add_arg_type ("ImageView::dither", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_DITHER);
+	gtk_object_add_arg_type ("ImageView::scroll", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_SCROLL);
+	gtk_object_add_arg_type ("ImageView::full_screen_zoom", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_FULL_SCREEN_ZOOM);
+
 	image_view_signals[ZOOM_FIT] =
 		gtk_signal_new ("zoom_fit",
 				GTK_RUN_FIRST,
@@ -234,41 +244,70 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->motion_notify_event = image_view_motion;
 	widget_class->expose_event = image_view_expose;
 	widget_class->key_press_event = image_view_key_press;
+
+	object_class->get_arg = image_view_get_arg;
+	object_class->set_arg = image_view_set_arg;
 }
 
-/* Handler for changes on the interp_type value */
 static void
-interp_type_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
+image_view_get_arg (GtkObject* obj, GtkArg* arg, guint arg_id)
 {
-	image_view_set_interp_type (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
+	ImageView *image_view = IMAGE_VIEW (obj);
+	ImageViewPrivate *priv = image_view->priv;
+
+	switch (arg_id) {
+	case ARG_INTERP_TYPE:
+		GTK_VALUE_INT(*arg) = priv->interp_type;
+		break;
+	case ARG_CHECK_TYPE:
+		GTK_VALUE_INT(*arg) = priv->check_type;
+		break;
+	case ARG_CHECK_SIZE:
+		GTK_VALUE_INT(*arg) = priv->check_size;
+		break;
+	case ARG_DITHER:
+		GTK_VALUE_INT(*arg) = priv->dither;
+		break;
+	case ARG_SCROLL:
+		GTK_VALUE_INT(*arg) = priv->scroll;
+		break;
+	case ARG_FULL_SCREEN_ZOOM:
+		GTK_VALUE_INT(*arg) = priv->full_screen_zoom;
+		break;
+	default:
+		g_warning ("unknown arg id `%d'", arg_id);
+		break;
+	}
 }
 
-/* Handler for changes on the check_type value */
 static void
-check_type_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
+image_view_set_arg (GtkObject* obj, GtkArg* arg, guint arg_id)
 {
-	image_view_set_check_type (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
-}
+	ImageView *image_view = IMAGE_VIEW (obj);
 
-/* Handler for changes on the check_size value */
-static void
-check_size_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
-{
-	image_view_set_check_size (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
-}
-
-/* Handler for changes on the dither value */
-static void
-dither_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
-{
-	image_view_set_dither (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
-}
-
-/* Handler for changes on the scroll value */
-static void
-scroll_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
-{
-	image_view_set_scroll (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
+	switch (arg_id) {
+	case ARG_INTERP_TYPE:
+		image_view_set_interp_type (image_view, GTK_VALUE_INT(*arg));
+		break;
+	case ARG_CHECK_TYPE:
+		image_view_set_check_type (image_view, GTK_VALUE_INT(*arg));
+		break;
+	case ARG_CHECK_SIZE:
+		image_view_set_check_size (image_view, GTK_VALUE_INT(*arg));
+		break;
+	case ARG_DITHER:
+		image_view_set_dither (image_view, GTK_VALUE_INT(*arg));
+		break;
+	case ARG_SCROLL:
+		image_view_set_scroll (image_view, GTK_VALUE_INT(*arg));
+		break;
+	case ARG_FULL_SCREEN_ZOOM:
+		image_view_set_full_screen_zoom (image_view, GTK_VALUE_INT(*arg));
+		break;
+	default:
+		g_warning ("unknown arg id `%d'", arg_id);
+		break;
+	}
 }
 
 /* Object initialization function for the image view */
@@ -284,55 +323,6 @@ image_view_init (ImageView *view)
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
 	priv->zoom = 1.0;
-
-	/* Add the GConf client and notification handlers */
-
-	priv->client = gconf_client_get_default ();
-
-	gconf_client_add_dir (priv->client, "/apps/eog",
-			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-
-	priv->interp_type_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/view/interp_type",
-		interp_type_changed_cb, view,
-		NULL, NULL);
-	priv->check_type_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/view/check_type",
-		check_type_changed_cb, view,
-		NULL, NULL);
-	priv->check_size_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/view/check_size",
-		check_size_changed_cb, view,
-		NULL, NULL);
-	priv->dither_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/view/dither",
-		dither_changed_cb, view,
-		NULL, NULL);
-	priv->scroll_notify_id = gconf_client_notify_add (
-		priv->client, "/apps/eog/view/scroll",
-		scroll_changed_cb, view,
-		NULL, NULL);
-
-	/* Get the default values */
-
-	priv->interp_type = gconf_client_get_int (
-		priv->client, "/apps/eog/view/interp_type",
-		NULL);
-	priv->check_type = gconf_client_get_int (
-		priv->client, "/apps/eog/view/check_type",
-		NULL);
-	priv->check_size = gconf_client_get_int (
-		priv->client, "/apps/eog/view/check_size",
-		NULL);
-	priv->dither = gconf_client_get_int (
-		priv->client, "/apps/eog/view/dither",
-		NULL);
-	priv->scroll = gconf_client_get_int (
-		priv->client, "/apps/eog/view/scroll",
-		NULL);
-	priv->full_screen_zoom = gconf_client_get_int (
-		priv->client, "/apps/eog/full_screen/zoom",
-		NULL);
 }
 
 /* Frees the dirty region uta and removes the idle handler */
@@ -378,22 +368,6 @@ image_view_destroy (GtkObject *object)
 	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), view);
 	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
 
-	/* Remove notification handlers */
-
-	gconf_client_notify_remove (priv->client, priv->interp_type_notify_id);
-	gconf_client_notify_remove (priv->client, priv->check_type_notify_id);
-	gconf_client_notify_remove (priv->client, priv->check_size_notify_id);
-	gconf_client_notify_remove (priv->client, priv->dither_notify_id);
-	gconf_client_notify_remove (priv->client, priv->scroll_notify_id);
-
-	priv->interp_type_notify_id = 0;
-	priv->check_type_notify_id = 0;
-	priv->check_size_notify_id = 0;
-	priv->dither_notify_id = 0;
-	priv->scroll_notify_id = 0;
-
-	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
-
 	/* Clean up */
 
 	remove_dirty_region (view);
@@ -425,9 +399,6 @@ image_view_finalize (GtkObject *object)
 
 	gtk_object_unref (GTK_OBJECT (priv->vadj));
 	priv->vadj = NULL;
-
-	gtk_object_unref (GTK_OBJECT (priv->client));
-	priv->client = NULL;
 
 	g_free (priv);
 	view->priv = NULL;
@@ -1942,4 +1913,48 @@ image_view_get_scroll (ImageView *view)
 
 	priv = view->priv;
 	return priv->scroll;
+}
+
+/**
+ * image_view_set_full_screen_zoom:
+ * @view: An image view.
+ * @full_screen_zoom: Full screen zooming type.
+ *
+ * Sets the full screen zooming type on an image view.
+ **/
+void
+image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom full_screen_zoom)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->full_screen_zoom == full_screen_zoom)
+		return;
+
+	priv->full_screen_zoom = full_screen_zoom;
+	redraw_all (view);
+}
+
+/**
+ * image_view_get_full_screen_zoom:
+ * @view: An image view.
+ *
+ * Queries the full_screen_zooming type of an image view.
+ *
+ * Return value: full screen zooming type.
+ **/
+FullScreenZoom
+image_view_get_full_screen_zoom (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, FULL_SCREEN_ZOOM_1);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), FULL_SCREEN_ZOOM_1);
+
+	priv = view->priv;
+	return priv->full_screen_zoom;
 }

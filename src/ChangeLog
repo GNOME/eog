@@ -1,3 +1,25 @@
+2000-10-09  Martin Baulig  <baulig@suse.de>
+
+	* Makefile.am: Create a non-installed libeog.la and move
+	gtkscrollframe.[ch], image-view.[ch], image.[ch], uta.[ch],
+	cursors.[ch], ui-image.[ch] and zoom.[ch] into this library.
+
+	* gconf.[ch]: New files.
+	(image_view_add_gconf_client): This function adds the GConf stuff to
+	an ImageView widget.
+
+	* image-view.c (ImageViewPrivate): Removed the `client' and all
+	`*_notify_id' fields.
+	(image_view_get_arg, image_view_set_arg): Added the GtkArg stuff.
+	(image_view): Removed all GConf stuff.
+	(image_view_get_full_screen_zoom, image_view_get_full_screen_zoom):
+	New global functions.
+
+	* full-screen.c (full_screen_init): Call image_view_add_gconf_client().
+	* window.c (window_construct): Likewise.
+
+	* image.c (image_load_pixbuf): New global function.
+
 2000-09-21  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c: Changes for the new GConf API.

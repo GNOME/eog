@@ -25,6 +25,7 @@
 #include "full-screen.h"
 #include "image-view.h"
 #include "ui-image.h"
+#include "gconf.h"
 
 /* Private part of the FullScreen structure */
 struct _FullScreenPrivate {
@@ -148,6 +149,7 @@ static void
 full_screen_init (FullScreen *fs)
 {
 	FullScreenPrivate *priv;
+	ImageView *view;
 
 	priv = g_new0 (FullScreenPrivate, 1);
 	fs->priv = priv;
@@ -178,6 +180,9 @@ full_screen_init (FullScreen *fs)
 	gtk_widget_set_uposition (GTK_WIDGET (fs), 0, 0);
 
 	priv->ui = ui_image_new ();
+	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
+	image_view_add_gconf_client (view, priv->client);
+
 	gtk_container_add (GTK_CONTAINER (fs), priv->ui);
 
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);

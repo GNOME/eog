@@ -131,3 +131,28 @@ image_load (Image *image, const char *filename)
 
 	return (image->pixbuf != NULL);
 }
+
+/**
+ * image_load_pixbuf:
+ * @image: An image structure.
+ * @pixbuf: #GdkPixbuf with the rendered image.
+ *
+ * Loads an image from a #GdkPixbuf.
+ *
+ **/
+void
+image_load_pixbuf (Image *image, GdkPixbuf *pixbuf)
+{
+	g_return_if_fail (image != NULL);
+	g_return_if_fail (pixbuf != NULL);
+
+	if (image->pixbuf)
+		gdk_pixbuf_unref (image->pixbuf);
+
+	gdk_pixbuf_ref (pixbuf);
+	image->pixbuf = pixbuf;
+
+	if (image->filename)
+		g_free (image->filename);
+	image->filename = NULL;
+}

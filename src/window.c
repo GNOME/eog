@@ -31,6 +31,7 @@
 #include "util.h"
 #include "window.h"
 #include "zoom.h"
+#include "gconf.h"
 
 /* Default size for windows */
 
@@ -550,6 +551,7 @@ set_drag_dest (Window *window)
 			   GDK_ACTION_COPY);
 }
 
+
 /**
  * window_construct:
  * @window: A window widget.
@@ -582,6 +584,7 @@ window_construct (Window *window)
 	gtk_widget_show (priv->ui);
 
 	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
+	image_view_add_gconf_client (view, priv->client);
 
 	gtk_widget_grab_focus (GTK_WIDGET (view));
 

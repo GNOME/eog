@@ -10,21 +10,35 @@ INCLUDES =						\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 	-DG_LOG_DOMAIN=\"eog\"
 
+noinst_LTLIBRARIES = libeog.la
+
+libeog_la_SOURCES =			\
+	gtkscrollframe.c		\
+	gtkscrollframe.h		\
+	image-view.c			\
+	image-view.h			\
+	image.h				\
+	image.c				\
+	uta.c				\
+	uta.h				\
+	cursors.c			\
+	cursors.h			\
+	ui-image.c			\
+	ui-image.h			\
+	zoom.c				\
+	zoom.h
+
+libeog_la_LIBADD =			\
+	$(EXTRA_GNOME_LIBS)		\
+	$(INTLLIBS)
+
 eog_SOURCES =				\
 	commands.c			\
 	commands.h			\
-	cursors.c			\
-	cursors.h			\
 	e-dialog-widgets.c		\
 	e-dialog-widgets.h		\
 	full-screen.c			\
 	full-screen.h			\
-	gtkscrollframe.c		\
-	gtkscrollframe.h		\
-	image.h				\
-	image.c				\
-	image-view.c			\
-	image-view.h			\
 	main.c				\
 	preferences.c			\
 	preferences.h			\
@@ -32,16 +46,11 @@ eog_SOURCES =				\
 	stock.h				\
 	tb-image.c			\
 	tb-image.h			\
-	ui-image.c			\
-	ui-image.h			\
-	uta.c				\
-	uta.h				\
 	util.c				\
 	util.h				\
+	gconf.c				\
 	window.c			\
-	window.h			\
-	zoom.c				\
-	zoom.h
+	window.h
 
 testicon_SOURCES =			\
 	gnome-icon-item-factory.c	\
@@ -67,7 +76,8 @@ testicon_SOURCES =			\
 eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\
 	$(INTLLIBS)		\
-	$(GCONF_LIBS)
+	$(GCONF_LIBS)		\
+	libeog.la
 
 testicon_LDADD =		\
 	$(EXTRA_GNOME_LIBS)	\
