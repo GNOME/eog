@@ -732,6 +732,8 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 
 	priv = view->priv;
 
+	g_warning ("Paint area %p %d", view, asynch);
+
 	if (!GTK_WIDGET_DRAWABLE (view))
 		return;
 
@@ -1510,6 +1512,20 @@ image_view_set_scroll_adjustments (GtkWidget *widget,
 		adjustment_changed_cb (NULL, view);
 }
 
+static gboolean
+image_view_focus_in_event (GtkWidget     *widget,
+			   GdkEventFocus *event)
+{
+	return FALSE;
+}
+
+static gboolean
+image_view_focus_out_event (GtkWidget     *widget,
+			    GdkEventFocus *event)
+{
+	return FALSE;
+}
+
 
 
 /**
@@ -2035,4 +2051,6 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->motion_notify_event = image_view_motion;
 	widget_class->expose_event = image_view_expose;
 	widget_class->key_press_event = image_view_key_press;
+	widget_class->focus_in_event  = image_view_focus_in_event;
+	widget_class->focus_out_event = image_view_focus_out_event;
 }

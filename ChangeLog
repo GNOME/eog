@@ -1,5 +1,12 @@
 2002-04-16  Michael Meeks  <michael@ximian.com>
 
+	* libeog/image-view.c
+	(image_view_focus_in_event, image_view_focus_out_event),
+	(image_view_class_init): stop bad re-rendering things
+	happening on focus in / out.
+
+2002-04-16  Michael Meeks  <michael@ximian.com>
+
 	* viewer/eog-image-io.c: don't include setjmp before
 	png.h or the png headers have a fit - for no good reason.
 
