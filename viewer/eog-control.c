@@ -275,7 +275,7 @@ eog_control_create_ui (EogControl *control)
 
 	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 
-	bonobo_ui_util_set_ui (uic, NULL, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
+	bonobo_ui_util_set_ui (uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
 
 	bonobo_ui_component_add_verb_list_with_data (uic, eog_control_verbs,
 						     control);
