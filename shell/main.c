@@ -255,6 +255,10 @@ main (int argc, char **argv)
 	GError *error;
 	poptContext *ctx;
 
+	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
+	bind_textdomain_codeset (PACKAGE, "UTF-8");
+	textdomain (PACKAGE);
+
 	ctx = g_new0 (poptContext, 1);
 	gnome_init_with_popt_table ("Eye of Gnome", VERSION,
 		    argc, argv, NULL, 0, ctx);
@@ -277,9 +281,6 @@ main (int argc, char **argv)
 
 	if (bonobo_ui_init ("Eye Of GNOME", VERSION, &argc, argv) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));
-
-	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
-	textdomain (PACKAGE);
 
 	if (*ctx) {
 		gtk_idle_add (handle_cmdline_args, ctx);
