@@ -266,12 +266,6 @@ verb_FileCloseWindow_cb (GtkAction *action, gpointer user_data)
 }
 
 static void
-verb_FileExit_cb (GtkAction *action, gpointer data)
-{
-	eog_window_close_all ();
-}
-
-static void
 verb_EditPreferences_cb (GtkAction *action, gpointer data)
 {
 	GConfClient *client;
@@ -1903,7 +1897,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	switch (event->keyval) {
 	case GDK_Q:
 	case GDK_q:
-		verb_FileExit_cb (NULL, NULL);
+		eog_window_close (EOG_WINDOW (widget));
 		break;
 
 	default:
@@ -2195,7 +2189,6 @@ static GtkActionEntry action_entries_window[] = {
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileDirOpen",     GTK_STOCK_OPEN,  N_("Open _Directory..."), "<control><shift>O", N_("Open a directory"), G_CALLBACK (verb_DirOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
-  { "FileExit",        GTK_STOCK_QUIT,  N_("_Quit"),     "<control>Q",  N_("Close all windows and quit"),   G_CALLBACK (verb_FileExit_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of Gnome"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
   { "HelpAbout",       GNOME_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
