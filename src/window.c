@@ -526,16 +526,29 @@ open_ok_clicked (GtkWidget *widget, gpointer data)
 	GtkWidget *fs;
 	Window *window;
 	char *filename;
-
+	WindowPrivate *priv;
+	
 	fs = GTK_WIDGET (data);
 
 	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
 	g_assert (window != NULL);
 
+	priv = window->priv;
+
 	filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs)));
 	gtk_widget_hide (fs);
-
-	if (!window_open_image (window, filename))
+	
+	if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
+	{
+		window = window_new ();
+		if (window_open_image (WINDOW (window), filename)) {
+			gtk_widget_show_now (window);
+		} else {
+			open_failure_dialog (GTK_WINDOW (window), filename);
+			gtk_widget_destroy (window);
+		}
+	}		
+	else if (!window_open_image (window, filename))
 		open_failure_dialog (GTK_WINDOW (window), filename);
 
 	g_free (filename);
@@ -669,11 +682,11 @@ window_open_image (Window *window, const char *filename)
 	char *fname;
 	gboolean free_fname;
 	GtkWidget *view;
-
+	
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (filename != NULL, FALSE);
-
+	
 	priv = window->priv;
 
 	image = image_new ();
