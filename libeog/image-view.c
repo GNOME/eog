@@ -73,9 +73,6 @@ struct _ImageViewPrivate {
 	double zoom_x_anchor;
 	double zoom_y_anchor;
 
-	/* Full screen zoom type */
-	FullScreenZoom full_screen_zoom;
-
 	/* Adjustments for scrolling */
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
@@ -129,8 +126,7 @@ enum {
 	PROP_CHECK_TYPE,
 	PROP_CHECK_SIZE,
 	PROP_DITHER,
-	PROP_SCROLL,
-	PROP_FULL_SCREEN_ZOOM
+	PROP_SCROLL
 };
 
 static guint image_view_signals[LAST_SIGNAL];
@@ -202,9 +198,6 @@ image_view_get_property (GObject    *object,
 	case PROP_SCROLL:
 		g_value_set_int (value, priv->scroll);
 		break;
-	case PROP_FULL_SCREEN_ZOOM:
-		g_value_set_int (value, priv->full_screen_zoom);
-		break;
 	default:
 		g_warning ("unknown property id `%d'", property_id);
 		break;
@@ -234,9 +227,6 @@ image_view_set_property (GObject      *object,
 		break;
 	case PROP_SCROLL:
 		image_view_set_scroll (image_view, g_value_get_int (value));
-		break;
-	case PROP_FULL_SCREEN_ZOOM:
-		image_view_set_full_screen_zoom (image_view, g_value_get_int (value));
 		break;
 	default:
 		g_warning ("unknown property id `%d'", property_id);
@@ -1872,51 +1862,6 @@ image_view_get_scroll (ImageView *view)
 }
 
 /**
- * image_view_set_full_screen_zoom:
- * @view: An image view.
- * @full_screen_zoom: Full screen zooming type.
- *
- * Sets the full screen zooming type on an image view.
- **/
-void
-image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom full_screen_zoom)
-{
-	ImageViewPrivate *priv;
-
-	g_return_if_fail (view != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (view));
-
-	priv = view->priv;
-
-	if (priv->full_screen_zoom == full_screen_zoom)
-		return;
-
-	priv->full_screen_zoom = full_screen_zoom;
-
-	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-/**
- * image_view_get_full_screen_zoom:
- * @view: An image view.
- *
- * Queries the full_screen_zooming type of an image view.
- *
- * Return value: full screen zooming type.
- **/
-FullScreenZoom
-image_view_get_full_screen_zoom (ImageView *view)
-{
-	ImageViewPrivate *priv;
-
-	g_return_val_if_fail (view != NULL, FULL_SCREEN_ZOOM_1);
-	g_return_val_if_fail (IS_IMAGE_VIEW (view), FULL_SCREEN_ZOOM_1);
-
-	priv = view->priv;
-	return priv->full_screen_zoom;
-}
-
-/**
  * image_view_get_scaled_size
  * @view: An image view.
  * @width: Image width result.
@@ -1992,13 +1937,6 @@ image_view_class_init (ImageViewClass *class)
 		g_param_spec_int ("scroll",
 				  _("scroll"),
 				  _("scroll type"),
-				  0, G_MAXINT, 0, 0));
-	g_object_class_install_property (
-		gobject_class,
-		PROP_FULL_SCREEN_ZOOM,
-		g_param_spec_int ("full_screen_zoom",
-				  _("enable full screen zoom"),
-				  _("whether we should allow full screen zoom"),
 				  0, G_MAXINT, 0, 0));
 
   	image_view_signals[ZOOM_FIT] =

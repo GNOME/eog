@@ -1,3 +1,15 @@
+2002-05-29  Federico Mena Quintero  <federico@ximian.com>
+
+	* libeog/image-view.h (FullScreenZoom): Removed.
+
+	* libeog/image-view.c (ImageViewPrivate): Removed full_screen_zoom field.
+	(image_view_set_full_screen_zoom): Removed.
+	(image_view_get_full_screen_zoom): Removed.
+	(image_view_set_property): Removed handling of the
+	full_screen_zoom property.
+	(image_view_get_property): Likewise. 
+	(image_view_class_init): Likewise.
+
 2002-05-29  Jens Finke  <jens@triq.net>
 
 	Applied patch from Ross Burton.

@@ -52,13 +52,6 @@ typedef enum {
 	SCROLL_TWO_PASS
 } ScrollType;
 
-/* Automatic zoom for full screen mode */
-typedef enum {
-	FULL_SCREEN_ZOOM_1,
-	FULL_SCREEN_ZOOM_SAME_AS_WINDOW,
-	FULL_SCREEN_ZOOM_FIT
-} FullScreenZoom;
-
 
 
 #define TYPE_IMAGE_VIEW            (image_view_get_type ())
@@ -116,9 +109,6 @@ GdkRgbDither image_view_get_dither (ImageView *view);
 
 void image_view_set_scroll (ImageView *view, ScrollType scroll);
 ScrollType image_view_get_scroll (ImageView *view);
-
-void image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom full_screen_zoom);
-FullScreenZoom image_view_get_full_screen_zoom (ImageView *view);
 
 void image_view_get_scaled_size (ImageView *view, gint *width, gint *height);
 
