@@ -297,18 +297,22 @@ show_nonexistent_files (GList *error_list)
 	char *str;
 	int n;
 	GtkWidget *dlg;
+	char *path;
 
 	g_assert (error_list != NULL);
 
 	str = concat_string_list_with_newlines (error_list, &n);
 
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("Could not find files"), str, TRUE);
+	path = gnome_vfs_format_uri_for_display (str);
+
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("Could not find files"), path, TRUE);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	
 	gtk_widget_show (dlg);
 	gtk_dialog_run (GTK_DIALOG (dlg));
 	gtk_widget_destroy (dlg);
 
+	g_free (path);
 	g_free (str);
 }
 
