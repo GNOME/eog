@@ -67,7 +67,7 @@ $(server_in_files:.server.in.in=.server.in): $(server_in_files)
 @INTLTOOL_SERVER_RULE@
 
 BUILT_SOURCES=$(CORBA_SOURCES)
-CLEANFILES += $(BUILT_SOURCES) $(server_DATA)
+CLEANFILES = $(BUILT_SOURCES) $(server_DATA)
 
 EXTRA_DIST = $(server_in_files)
 
