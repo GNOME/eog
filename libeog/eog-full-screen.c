@@ -349,6 +349,11 @@ eog_full_screen_destroy (GtkObject *object)
 	fs = EOG_FULL_SCREEN (object);
 	priv = fs->priv;
 
+	if (priv->hide_timeout_id > 0) {
+		g_source_remove (priv->hide_timeout_id);
+		priv->hide_timeout_id = 0;
+	}
+
 	if (priv->image_list != NULL) {
 		for (i = 0; i < priv->n_images; i++) {
 			disconnect_image_callbacks (priv->image_list [i]);
