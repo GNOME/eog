@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-05 10:37+0200\n"
 "PO-Revision-Date: 2003-01-23 02:58--500\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -26,14 +27,12 @@ msgid "Image Collection"
 msgstr "Колекція зображень"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
-#, fuzzy
 msgid "View as I_mage Collection"
-msgstr "Колекція зображень"
+msgstr "Показати, як _колекцію зображень"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:5
-#, fuzzy
 msgid "View as Image Collection"
-msgstr "Колекція зображень"
+msgstr "Показати як колекцію зображень"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -110,6 +109,11 @@ msgstr "Перенести у смітник"
 msgid "Collection View"
 msgstr "Перегляд колекції"
 
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr "Зображення: %i/%i"
+
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Заголовок вікна"
@@ -151,19 +155,17 @@ msgid "<b>Sequence</b>"
 msgstr "<b>Послідовність</b>"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "<b>Transparent Parts</b>"
-msgstr "<b>Прозорість</b>"
+msgstr "<b>Прозорі частини</b>"
 
 #: eog.glade.h:7
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+msgstr "Дозволяти початковий масштаю більше 100%"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As _background"
-msgstr "Колір тла"
+msgstr "Колір _тла"
 
 #: eog.glade.h:9
 msgid "As check _pattern"
@@ -182,34 +184,26 @@ msgid "Eye of Gnome Preferences"
 msgstr "Вподобання"
 
 #: eog.glade.h:13
-#, fuzzy
 msgid "Image _View"
-msgstr "Перегляд зображень"
+msgstr "_Перегляд зображень"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Show _next image automatically after:"
-msgstr ""
-"Показувати наступне зображення автоматично:\n"
-"(0 для заборони)"
+msgstr "Показувати _наступне зображення автоматично із затримкою:"
 
 #: eog.glade.h:15
-#, fuzzy
 msgid "Sli_de Show"
-msgstr "Слайд-шоу"
+msgstr "Слайд-_шоу"
 
 #: eog.glade.h:16
-#, fuzzy
 msgid "_Interpolate image on zoom"
-msgstr "Інтерполювати зображення"
+msgstr "_Інтерполювати зображення"
 
 #: eog.glade.h:17
-#, fuzzy
 msgid "_Loop sequence"
-msgstr "Циклічна послідовність"
+msgstr "_Циклічна послідовність"
 
 #: eog.glade.h:18
-#, fuzzy
 msgid "seconds"
 msgstr "с"
 
@@ -218,15 +212,17 @@ msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
+"Значення більше 0 визначає кількість секунд, яку зображення лишатиметься "
+"на екрані  перед появою наступного. Нуль вимикає автоматичний перегляд."
 
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr ""
+msgstr "Дозволяти початкове масштабування більше 100%"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
-msgstr ""
+msgstr "Затримка у секундах перед наступним зображенням"
 
 #: eog.schemas.in.h:5
 msgid ""
@@ -252,6 +248,8 @@ msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
 msgstr ""
+"Якщо це не увімкнено, то малі зображення не розтягуватимуться "
+"до розмірів екрану на початку."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -259,7 +257,7 @@ msgstr "Інтерполювати зображення"
 
 #: eog.schemas.in.h:9
 msgid "Loop through the image sequence"
-msgstr ""
+msgstr "Циклічна послідовність зображень"
 
 #: eog.schemas.in.h:10
 msgid "Open images in a new window"
@@ -267,11 +265,11 @@ msgstr "Відкрити зображення у новому вікні"
 
 #: eog.schemas.in.h:11
 msgid "Show/hide the window statusbar."
-msgstr ""
+msgstr "Показати чи приховати рядок стану вікна."
 
 #: eog.schemas.in.h:12
 msgid "Show/hide the window toolbar."
-msgstr ""
+msgstr "Показати чи прибрати пенал вікна."
 
 #: eog.schemas.in.h:13
 msgid "Transparency color"
@@ -282,25 +280,26 @@ msgid "Transparency indicator"
 msgstr "Індикатор прозорості"
 
 #: eog.schemas.in.h:15
-#, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Визначає, чи має відкривання зображення створювати нове вікно, замість того, "
 "щоб замінити зображення в поточному."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
+"Визначає, що потрібно показувати послідовність зображень у нескінченному циклі."
 
 #: eog.schemas.in.h:17
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Визначає, чи потрібно інтерполювати зображення коли змінюється їхній "
-"масштаб. Інтерполяція дяє краще якість але це призводить до деякого "
+"масштаб. Інтерполяція дає кращу якість але це призводить до деякого "
 "сповільнення роботи."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -326,50 +325,48 @@ msgstr "Зображення"
 #: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
-msgstr ""
+msgstr "Бажаєте переписати %s?"
 
 #: libeog/eog-file-selection.c:101
 msgid "File exists"
-msgstr ""
+msgstr "Файл існує"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:168
 msgid "All Files"
-msgstr ""
+msgstr "Всі файли"
 
-#: libeog/eog-file-selection.c:176
-#, fuzzy
+#: libeog/eog-file-selection.c:173
 msgid "All Images"
-msgstr "Зображення"
+msgstr "Всі зображення"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:191
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:284
 #, c-format
 msgid "%s x %s pixel"
-msgstr ""
+msgstr "точок: %s x %s"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:440
 msgid "Load Image"
 msgstr "Завантажити зображення"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:448
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: libeog/eog-file-selection.c:488
-#, fuzzy
+#: libeog/eog-file-selection.c:490
 msgid "Open Folder"
-msgstr "Відкрити файл"
+msgstr "Відкрити теку"
 
 #: libeog/eog-image-jpeg.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't create temporary file for saving: %s"
-msgstr "Не вдалось виділити пам'яті для завантаження файла у форматі JPEG"
+msgstr "Не вдалось створити тимчасовий файл для збереження: %s"
 
 #: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
@@ -377,7 +374,7 @@ msgstr "Не вдалось виділити пам'яті для заванта
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "порожній файл"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -408,9 +405,8 @@ msgid "Height"
 msgstr "Висота"
 
 #: libeog/eog-info-view.c:222
-#, fuzzy
 msgid "Filesize"
-msgstr "Файл"
+msgstr "Розмір файла"
 
 #: libeog/eog-info-view.c:237
 msgid "Filename"
@@ -507,10 +503,6 @@ msgstr "Вертикально"
 msgid "Vertically by "
 msgstr "Вертикально на "
 
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "діалог1"
-
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
 msgstr "Назва"
@@ -529,11 +521,11 @@ msgstr "Скасувати"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Change the visibility of the statusbar in the current window"
-msgstr ""
+msgstr "Змінити видимість рядка стану в поточному вікні"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Change the visibility of the toolbar in the current window"
-msgstr ""
+msgstr "Змінити видимість пенала в поточному вікні"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
@@ -552,9 +544,8 @@ msgid "Open"
 msgstr "Відкрити"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "Відкрити файл"
+msgstr "Відкрити каталог"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -577,9 +568,8 @@ msgid "Prefere_nces"
 msgstr "_Вподобання"
 
 #: shell/eog-shell-ui.xml.h:15
-#, fuzzy
 msgid "Preferences for Eye of Gnome"
-msgstr "Вподобання для компонентів Ока GNOME"
+msgstr "Вподобання для компонентів \"Ока GNOME\""
 
 #: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
@@ -610,9 +600,8 @@ msgid "_New"
 msgstr "_Новий"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "Відкрити..."
+msgstr "_Відкрити каталог..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -623,13 +612,12 @@ msgid "_Quit"
 msgstr "Ви_йти"
 
 #: shell/eog-shell-ui.xml.h:27
-#, fuzzy
 msgid "_Statusbar"
-msgstr "Текст панелі стану"
+msgstr "Рядок _стану"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
-msgstr ""
+msgstr "_Пенал"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
@@ -637,7 +625,7 @@ msgstr ""
 #.
 #: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Юрій Сирота <yuriy@beer.com>"
+msgstr "Юрій Сирота"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
 #: shell/eog-window.c:1011 shell/main.c:520
@@ -680,7 +668,7 @@ msgstr "Колекція"
 
 #: shell/main.c:320
 msgid "File(s) not found."
-msgstr ""
+msgstr "Файлів не знайдено."
 
 #: shell/util.c:52
 #, c-format
@@ -720,9 +708,8 @@ msgid "_Zoom In"
 msgstr "З_більшити"
 
 #: viewer/eog-image-view-ui.xml.h:3
-#, fuzzy
 msgid "Full Screen"
-msgstr "На _весь екран"
+msgstr "На весь екран"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
@@ -768,7 +755,7 @@ msgstr "На_друкувати..."
 #: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr ""
+msgstr "%i x %i т  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
@@ -835,7 +822,7 @@ msgstr "Висота зображення"
 
 #: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
-msgstr "Текст панелі стану"
+msgstr "Текст рядка стану"
 
 #: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
@@ -844,24 +831,3 @@ msgstr "Бажана ширина вікна"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Бажана висота вікна"
-
-#~ msgid "Could not find files"
-#~ msgstr "Не вдалось знайти файлів"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "Не збільшувати зображення"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr "_Інтерполювати зображення (краща якість, але повільніше)"
-
-#~ msgid "By Extension"
-#~ msgstr "За розширенням"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "Непідтримуваний формат файла для збереження."
-
-#~ msgid "Determine File Type:"
-#~ msgstr "Тип файла:"
