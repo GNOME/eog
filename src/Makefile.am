@@ -5,6 +5,7 @@ gladedir = $(datadir)/eog/glade
 INCLUDES =						\
 	-I$(includedir)					\
 	$(EXTRA_GNOME_CFLAGS)				\
+	$(EXTRA_WARNING_CFLAGS)				\
 	$(GCONF_CFLAGS)					\
 	-DEOG_GLADEDIR=\""$(gladedir)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
