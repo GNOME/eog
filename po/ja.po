@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.110.0\n"
-"POT-Creation-Date: 2002-02-05 19:34+0900\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2002-02-05 19:53+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:171
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -21,7 +21,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "画像ビューア"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:677
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG 画像"
 
@@ -42,118 +42,114 @@ msgid "About this application"
 msgstr "このアプリケーションについて"
 
 #: shell/eog-shell-ui.xml.h:2
-msgid "Change preferences"
-msgstr "設定を変更"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Close"
-msgstr "閉じる"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close window"
-msgstr "ウインドウを閉じる"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "E_xit"
-msgstr "終了(_X)"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Exit the program"
-msgstr "プログラムを終了"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Open"
-msgstr "開く"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open a file"
-msgstr "ファイルを開く"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a new window"
-msgstr "新しいウインドウを開く"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "情報(_A)..."
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "閉じる(_C)"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "ファイル(_F)"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "ヘルプ(_H)"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "新規ウインドウ(_N)"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "開く(_O)..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "設定(_P)"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr ""
-
-#: shell/eog-window.c:173
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:174
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME 画像表示およびカタログ作成プログラム"
-
-#: shell/eog-window.c:398
-msgid "Open in new window"
-msgstr "新しいウインドウで開く"
-
-#: shell/eog-window.c:399
-msgid "Open in this window"
-msgstr "このウインドウで開く"
-
-#: shell/eog-window.c:401
 msgid "Cancel"
 msgstr "中止"
 
-#: shell/eog-window.c:494
-msgid "Eye Of Gnome"
-msgstr "Eye Of Gnome"
+#: shell/eog-shell-ui.xml.h:3
+msgid "Change preferences"
+msgstr "設定を変更"
 
-#: shell/eog-window.c:568
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close"
+msgstr "閉じる"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "Close window"
+msgstr "ウインドウを閉じる"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "E_xit"
+msgstr "終了(_X)"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Exit the program"
+msgstr "プログラムを終了"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open"
+msgstr "開く"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a file"
+msgstr "ファイルを開く"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "Open a new window"
+msgstr "新しいウインドウを開く"
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "Open in new window"
+msgstr "新しいウインドウで開く"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "Open in this window"
+msgstr "このウインドウで開く"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "情報(_A)..."
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "閉じる(_C)"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "新規ウインドウ(_N)"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "開く(_O)..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "設定(_P)"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME 画像表示およびカタログ作成プログラム"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "eog-shell-ui.xml が見つかりません。\n"
 
-#: shell/eog-window.c:659
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "画像を開く"
 
-#: shell/eog-window.c:714
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "コントールは window_title プロパティをサポートしていません。"
 
-#: shell/eog-window.c:730
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "コントロールは status_text プロパティをサポートしていません。"
 
-#: shell/eog-window.c:747
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "コントールにはプロパティがありません"
 
-#: shell/eog-window.c:764
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "ファイルの MIME タイプを取得でいませんでした。"
 
-#: shell/eog-window.c:988
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "ファイル情報の取得でエラーが発生しました。"
 
@@ -190,64 +186,64 @@ msgstr "`%s'を開けませんでした"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS を初期化できませんでした\n"
 
-#: viewer/eog-image-view.c:294
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "画像を '%s' として保存でませんでした: %s"
 
-#: viewer/eog-image-view.c:339
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "名前を変えて保存"
 
-#: viewer/eog-image-view.c:912
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "画像の印刷"
 
-#: viewer/eog-image-view.c:920
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "ページ"
 
-#: viewer/eog-image-view.c:1007
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "印刷のプレビュー"
 
-#: viewer/eog-image-view.c:1013
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "画像の印刷に失敗"
 
-#: viewer/eog-image-view.c:1878
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "表示"
 
-#: viewer/eog-image-view.c:1969 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "補間"
 
-#: viewer/eog-image-view.c:1972 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "ディザ"
 
-#: viewer/eog-image-view.c:1975 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "チェックの種類"
 
-#: viewer/eog-image-view.c:1978 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "チェックの大きさ"
 
-#: viewer/eog-image-view.c:1981
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "画像の幅"
 
-#: viewer/eog-image-view.c:1984
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "画像の高さ"
 
-#: viewer/eog-image-view.c:1987
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "ウインドウのタイトル"
 
-#: viewer/eog-image-view.c:1990
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "ステータスバーのテキスト"
 
@@ -375,6 +371,25 @@ msgstr "印刷(_P)"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "タイル補間(_T)"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "拡大"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "縮小"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "縮小"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -617,6 +632,9 @@ msgstr "中"
 msgid "Large"
 msgstr "大"
 
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Eye Of Gnome"
+
 #~ msgid "EOG Image Collection"
 #~ msgstr "EOG 画像コレクション"
 
@@ -710,14 +728,8 @@ msgstr "大"
 #~ msgid "1:10"
 #~ msgstr "1:10"
 
-#~ msgid "Zoom In"
-#~ msgstr "拡大"
-
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "拡大率を5%増やす"
-
-#~ msgid "Zoom Out"
-#~ msgstr "縮小"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "拡大率を5%減らす"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-01-28 07:55-0500\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2002-01-29 13:51+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:171
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -21,7 +21,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Afbeelding bekijken"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG afbeelding"
 
@@ -42,118 +42,114 @@ msgid "About this application"
 msgstr "Info over dit programma"
 
 #: shell/eog-shell-ui.xml.h:2
-msgid "Change preferences"
-msgstr "Verander voorkeuren"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Close"
-msgstr "Sluit"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close window"
-msgstr "_Sluit dit venster"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "E_xit"
-msgstr "A_fsluiten"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Exit the program"
-msgstr "Het programma afsluiten"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Open"
-msgstr "Openen"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open a file"
-msgstr "Open een bestand"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a new window"
-msgstr "Open een nieuw venster"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Info..."
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_Sluit"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Bestand"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "_Hulp"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_Nieuw venster"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "_Open..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Voorkeuren"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Instellingen"
-
-#: shell/eog-window.c:173
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:174
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Afbeeldingen bekijken en catalogus programma voor GNOME"
-
-#: shell/eog-window.c:395
-msgid "Open in new window"
-msgstr "Open in een nieuw venster"
-
-#: shell/eog-window.c:396
-msgid "Open in this window"
-msgstr "Open in dit venster"
-
-#: shell/eog-window.c:398
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: shell/eog-window.c:498
-msgid "Eye Of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-shell-ui.xml.h:3
+msgid "Change preferences"
+msgstr "Verander voorkeuren"
 
-#: shell/eog-window.c:584
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close"
+msgstr "Sluit"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "Close window"
+msgstr "_Sluit dit venster"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "E_xit"
+msgstr "A_fsluiten"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Exit the program"
+msgstr "Het programma afsluiten"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open"
+msgstr "Openen"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a file"
+msgstr "Open een bestand"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "Open a new window"
+msgstr "Open een nieuw venster"
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "Open in new window"
+msgstr "Open in een nieuw venster"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "Open in this window"
+msgstr "Open in dit venster"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Info..."
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "_Sluit"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Bestand"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "_Hulp"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "_Nieuw venster"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "_Open..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Voorkeuren"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Instellingen"
+
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright © 2000-2002 The Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Afbeeldingen bekijken en catalogus programma voor GNOME"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan eog-shell-ui.xml niet vinden.\n"
 
-#: shell/eog-window.c:679
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "Open afbeelding"
 
-#: shell/eog-window.c:771
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "Control heeft geen ondersteuning voor de window_title mogelijkheden."
 
-#: shell/eog-window.c:787
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "Control heeft geen ondersteuning voor de status_text mogelijkheden."
 
-#: shell/eog-window.c:804
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "Control heeft geen mogelijkheden."
 
-#: shell/eog-window.c:821
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kon geen mime-type vinden voor bestand."
 
-#: shell/eog-window.c:1045
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "Fout bij opvragen bestandseigenschappen."
 
@@ -193,64 +189,64 @@ msgstr "Kan `%s' niet openen"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kan GnomeVFS niet inschakelen!\n"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kon afbeelding niet opslaan als '%s': %s."
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Opslaan als"
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "Afbeelding afdrukken"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "Pagina's"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "Afdrukvoorbeeld"
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "Afdrukken mislukt"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Display"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolatie"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Ditheren"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Controleer type"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Controleer grootte"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "Venstertitel"
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "Statusbalk tekst"
 
@@ -369,6 +365,22 @@ msgstr "_Afdrukken"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Tegels interpolatie"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Zoom _In"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Zoom _Out"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Zoom to _Fit"
+msgstr ""
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -611,3 +623,5 @@ msgstr "Middelmatig"
 msgid "Large"
 msgstr "Groot"
 
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Eye of Gnome"

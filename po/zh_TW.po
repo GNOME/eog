@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.110.0\n"
-"POT-Creation-Date: 2002-02-06 08:08-0500\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2002-02-07 08:14+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -17,7 +17,7 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: eog.desktop.in.h:1 shell/eog-window.c:171
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Gnome 之眼"
 
@@ -27,7 +27,7 @@ msgid "Image Viewer"
 msgstr "圖像瀏覽程式"
 
 # src/window.c:704
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:677
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG 圖像"
 
@@ -47,138 +47,131 @@ msgstr "可嵌入的 EOG 圖像"
 msgid "About this application"
 msgstr "關於此應用程式"
 
-# src/preferences.c:219
 #: shell/eog-shell-ui.xml.h:2
+msgid "Cancel"
+msgstr "取消"
+
+# src/preferences.c:219
+#: shell/eog-shell-ui.xml.h:3
 msgid "Change preferences"
 msgstr "更改偏好設定"
 
 # src/tb-image.c:35
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "關閉"
 
 # src/window.c:186
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "關閉視窗"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:6
 msgid "E_xit"
 msgstr "離開(_x)"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:7
 msgid "Exit the program"
 msgstr "離開此程式"
 
 # src/tb-image.c:33
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "開啟"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "開啟檔案"
 
 # src/preferences-dialog.glade.h:38
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "開啟新視窗"
 
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "關於(_A)..."
-
-# src/tb-image.c:35
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "關閉(_C)"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "檔案(_F)"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "說明(_H)"
-
-# src/preferences-dialog.glade.h:32
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "新增視窗(_N)"
-
-# src/window.c:181
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "開啟(_O)..."
-
-# src/preferences.c:219
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "偏好設定(_P)"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "設定(_S)"
-
-# src/window.c:164
-#: shell/eog-window.c:173
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
-
-# src/window.c:166
-#: shell/eog-window.c:174
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME 圖像瀏覽及分類程式"
-
 # src/preferences-dialog.glade.h:38
-#: shell/eog-window.c:398
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in new window"
 msgstr "在新視窗中開啟"
 
 # src/preferences-dialog.glade.h:38
-#: shell/eog-window.c:399
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in this window"
 msgstr "在此視窗中開啟"
 
-#: shell/eog-window.c:401
-msgid "Cancel"
-msgstr "取消"
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "關於(_A)..."
 
-# src/window.c:162
-# src/window.c:573
-# src/window.c:812
-#: shell/eog-window.c:494
-msgid "Eye Of Gnome"
-msgstr "Gnome 之眼"
+# src/tb-image.c:35
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "關閉(_C)"
 
-#: shell/eog-window.c:568
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "檔案(_F)"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "說明(_H)"
+
+# src/preferences-dialog.glade.h:32
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "新增視窗(_N)"
+
+# src/window.c:181
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "開啟(_O)..."
+
+# src/preferences.c:219
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "偏好設定(_P)"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "設定(_S)"
+
+# src/window.c:164
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
+
+# src/window.c:166
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME 圖像瀏覽及分類程式"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "找不到 eog-shell-ui.xml。\n"
 
 # src/window.c:704
-#: shell/eog-window.c:659
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "開啟圖像"
 
-#: shell/eog-window.c:714
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "此控制不支援視窗標題。"
 
-#: shell/eog-window.c:730
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "此控制不支援狀態文字。"
 
-#: shell/eog-window.c:747
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "此控制沒有任何屬性。"
 
-#: shell/eog-window.c:764
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "無法取得此檔案的 mime 類型。"
 
-#: shell/eog-window.c:988
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "讀入檔案資訊時發生錯誤。"
 
@@ -219,73 +212,73 @@ msgstr "無法開啟 `%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "無法初始化 GnomeVFS！\n"
 
-#: viewer/eog-image-view.c:294
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "無法儲存圖像為‘%s’：%s。"
 
-#: viewer/eog-image-view.c:339
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "另存新檔"
 
 # src/window.c:704
-#: viewer/eog-image-view.c:912
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "列印圖像"
 
-#: viewer/eog-image-view.c:920
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "頁"
 
-#: viewer/eog-image-view.c:1007
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "列印預覽"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: viewer/eog-image-view.c:1013
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "列印圖像失敗"
 
 # src/preferences-dialog.glade.h:31
-#: viewer/eog-image-view.c:1878
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "顯示"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/eog-image-view.c:1969 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "內插法(Interpolation)"
 
 # src/preferences-dialog.glade.h:26
-#: viewer/eog-image-view.c:1972 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "擬色(Dither)"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:1975 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "方格類型"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:1978 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "方格大小"
 
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:1981
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:1984
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:1987
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: viewer/eog-image-view.c:1990
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "狀態列文字"
 
@@ -424,6 +417,28 @@ msgstr "列印(_P)"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "區塊內插法(_T)"
+
+# src/window.c:221
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "拉近"
+
+# src/window.c:225
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "拉遠"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+# src/window.c:225
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "拉遠"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -673,6 +688,12 @@ msgstr "中"
 msgid "Large"
 msgstr "大"
 
+# src/window.c:162
+# src/window.c:573
+# src/window.c:812
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Gnome 之眼"
+
 #~ msgid "Couldn't get local BonoboControl interface.\n"
 #~ msgstr "無法取得本機的 BonoboControl 介面。\n"
 
@@ -755,16 +776,8 @@ msgstr "大"
 #~ msgstr "關閉此視窗(_C)"
 
 # src/window.c:221
-#~ msgid "Zoom In"
-#~ msgstr "拉近"
-
-# src/window.c:221
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "增加 5%% 縮放倍率"
-
-# src/window.c:225
-#~ msgid "Zoom Out"
-#~ msgstr "拉遠"
 
 # src/window.c:225
 #~ msgid "Decrease zoom factor by 5%%"

@@ -258,27 +258,6 @@ static BonoboUIVerb eog_control_verbs[] = {
 	BONOBO_UI_VERB_END
 };
 
-static const gchar *zoom_toolbar =
-"<dockitem name=\"Toolbar\">\n"
-"  <separator/>\n"
-"  <toolitem name=\"ZoomIn\" _label=\"In\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-in.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomOut\" _label=\"Out\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-out.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomToDefault\" _label=\"1:1\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-1.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomToFit\" _label=\"Fit\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-fit.xpm\" verb=\"\"/>\n"
-"</dockitem>";
-
-static const gchar *zoom_menu =
-"<placeholder name=\"ZoomOperations\">\n"
-"  <menuitem name=\"ZoomIn\" _label=\"Zoom _In\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomOut\" _label=\"Zoom _Out\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomToDefault\" _label=\"Zoom to _Default\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomToFit\" _label=\"Zoom to _Fit\" verb=\"\"/>\n"
-"</placeholder>";
-
 static void
 eog_control_create_ui (EogControl *control)
 {
@@ -289,9 +268,7 @@ eog_control_create_ui (EogControl *control)
 
 	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 
-	bonobo_ui_component_set_translate (uic, "/menu/ViewPlaceholder/View", 
-					   zoom_menu, NULL);
-	bonobo_ui_component_set_translate (uic, "/", zoom_toolbar, NULL);
+	bonobo_ui_util_set_ui (uic, NULL, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
 
 	bonobo_ui_component_add_verb_list_with_data (uic, eog_control_verbs,
 						     control);

@@ -1,0 +1,35 @@
+<Root>
+
+<commands>
+  <cmd name="ZoomIn" _label="Zoom _In"/>
+  <cmd name="ZoomOut" _label="Zoom _Out"/>
+  <cmd name="ZoomToDefault" _label="Zoom to _Default"/>
+  <cmd name="ZoomToFit" _label="Zoom to _Fit"/>
+</commands>
+
+<menu>
+     <placeholder name="ViewPlaceholder">
+          <submenu name="View">
+    	    <placeholder name="ZoomOperations">
+    	      <menuitem name="ZoomIn" verb=""/>
+    	      <menuitem name="ZoomOut" verb=""/>
+    	      <menuitem name="ZoomToDefault" verb=""/>
+    	      <menuitem name="ZoomToFit" verb=""/>
+    	    </placeholder>
+	  </submenu>
+     </placeholder>
+</menu>
+          
+<dockitem name="Toolbar">
+  <separator/>
+  <toolitem name="ZoomIn" verb="" pixtype="filename"
+            pixname="eog/stock-zoom-in.xpm"/>
+  <toolitem name="ZoomOut" verb="" pixtype="filename"
+            pixname="eog/stock-zoom-out.xpm"/>
+  <toolitem name="ZoomToDefault" verb=""  pixtype="filename"
+            pixname="eog/stock-zoom-1.xpm"/>
+  <toolitem name="ZoomToFit" verb="" pixtype="filename"
+            pixname="eog/stock-zoom-fit.xpm"/>
+</dockitem>"
+
+</Root>

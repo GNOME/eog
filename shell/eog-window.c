@@ -44,6 +44,7 @@
 #define DEFAULT_WINDOW_HEIGHT 200
 
 #define EOG_VIEWER_CONTROL_IID "OAFIID:GNOME_EOG_Control"
+#define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
 
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
@@ -64,6 +65,9 @@ struct _EogWindowPrivate {
 
 	/* GConf client notify id's */
 	guint sb_policy_notify_id;
+
+	/* list of files recieved from a drag'n'drop action */
+	GList *dnd_files;
 };
 
 static void eog_window_class_init (EogWindowClass *class);
@@ -73,6 +77,8 @@ static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
+static void open_dnd_files (EogWindow *window, gboolean need_new_window);
+
 
 static BonoboWindowClass *parent_class;
 
@@ -183,6 +189,26 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 
 	gtk_widget_show_now (about);
 	raise_and_focus (about);
+}
+
+static void
+verb_DnDNewWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	open_dnd_files (EOG_WINDOW (user_data), TRUE);
+}
+
+static void
+verb_DnDSameWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	open_dnd_files (EOG_WINDOW (user_data), FALSE);
+}
+
+
+static void
+verb_DnDCancel_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	gnome_vfs_uri_list_free (EOG_WINDOW (user_data)->priv->dnd_files);
+	EOG_WINDOW (user_data)->priv->dnd_files = NULL;	
 }
 
 static void
@@ -307,16 +333,18 @@ eog_window_class_init (EogWindowClass *class)
 static void
 sb_policy_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-/*	EogWindow *window;
-	EogWindowPrivate *priv;
+/*     EogWindow *window;
+       EogWindowPrivate *priv;
 
-	window = EOG_WINDOW (data);
-	priv = window->priv;
+       window = EOG_WINDOW (data);
+       priv = window->priv;
 
-	priv->sb_policy = gconf_value_get_int (entry->value);
+       priv->sb_policy = gconf_value_get_int (entry->value);
 
-	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);*/
+       gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);*/
 }
+
+
 
 /* Object initialization function for windows */
 static void
@@ -394,15 +422,6 @@ eog_window_has_contents (EogWindow *window)
 	return (bonobo_control_frame_get_widget (priv->ctrl_frame) != NULL);
 }
 
-static GnomeUIInfo drag_ask_popup_menu [] = {
-	GNOMEUIINFO_ITEM_NONE (N_("Open in new window"), NULL, NULL),
-	GNOMEUIINFO_ITEM_NONE (N_("Open in this window"), NULL, NULL), 
-	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_ITEM_STOCK (N_("Cancel"), NULL , NULL, GNOME_STOCK_BUTTON_CANCEL),
-	GNOMEUIINFO_END
-};
-
-
 /* Drag_data_received handler for windows */
 static void
 eog_window_drag_data_received (GtkWidget *widget, 
@@ -423,35 +442,44 @@ eog_window_drag_data_received (GtkWidget *widget,
 	if (info != TARGET_URI_LIST)
 		return;
 
+	if (priv->dnd_files != NULL)
+		gnome_vfs_uri_list_free (priv->dnd_files);
+	priv->dnd_files = gnome_vfs_uri_list_parse (selection_data->data);
+
 	if (context->suggested_action == GDK_ACTION_ASK) {
-		GtkWidget *menu = gnome_popup_menu_new (drag_ask_popup_menu);
-		int i = gnome_popup_menu_do_popup_modal (menu, NULL, NULL,
-						     NULL, NULL, NULL);
-		gtk_object_unref (GTK_OBJECT (menu));
-		switch (i) {
-		case 0:
-			need_new_window = TRUE;
-			break;
-		case 1:
-			need_new_window = FALSE;
-			break;
-		default:
-			return;
-			break;
-		}
+		GtkWidget *menu = gtk_menu_new ();
+		
+		bonobo_window_add_popup (BONOBO_WINDOW (window), 
+					 GTK_MENU (menu), 
+					 EOG_WINDOW_DND_POPUP_PATH);
+		gtk_menu_popup (GTK_MENU (menu),
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				0,
+				GDK_CURRENT_TIME);
 	} else {
  		/* The first image is opened in the same window only if the
 		* current window has no image in it.
 		*/
 		need_new_window = eog_window_has_contents (window);		
+		open_dnd_files (window, need_new_window);
 	}
+}
 
-	filenames = gnome_vfs_uri_list_parse (selection_data->data);
+static void
+open_dnd_files (EogWindow *window, gboolean need_new_window)
+{
+	GtkWidget *new_window;
+	GList *l;
+	char *filename;
 
-	for (l = filenames; l; l = l->next) {
-		GtkWidget *new_window;
-		char *filename;
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
+	if (window->priv->dnd_files == NULL) return;
+
+	for (l = window->priv->dnd_files; l; l = l->next) {
 		g_assert (l->data != NULL);
 		filename = gnome_vfs_uri_to_string (l->data, GNOME_VFS_URI_HIDE_NONE);
 
@@ -471,7 +499,8 @@ eog_window_drag_data_received (GtkWidget *widget,
 		}
 	}
 
-	gnome_vfs_uri_list_free (filenames);
+	gnome_vfs_uri_list_free (window->priv->dnd_files);
+	window->priv->dnd_files = NULL;
 }
 
 /**
@@ -491,7 +520,7 @@ eog_window_new (void)
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, NULL));
 
 	uic = bonobo_ui_container_new ();
-	bonobo_window_construct (BONOBO_WINDOW (window), uic, "eog", _("Eye Of Gnome"));
+	bonobo_window_construct (BONOBO_WINDOW (window), uic, "eog", _("Eye of Gnome"));
 
 	eog_window_construct (window);
 
@@ -516,11 +545,14 @@ set_drag_dest (EogWindow *window)
 
 static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB ("FileNewWindow", verb_FileNewWindow_cb),
-	BONOBO_UI_VERB ("FileOpen", verb_FileOpen_cb),
+	BONOBO_UI_VERB ("FileOpen",      verb_FileOpen_cb),
 	BONOBO_UI_VERB ("FileCloseWindow", verb_FileCloseWindow_cb),
 	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
-	BONOBO_UI_VERB ("Preferences", verb_Preferences_cb),
+	BONOBO_UI_VERB ("Preferences",   verb_Preferences_cb),
 	BONOBO_UI_VERB ("HelpAbout",     verb_HelpAbout_cb),
+	BONOBO_UI_VERB ("DnDNewWindow",  verb_DnDNewWindow_cb),
+	BONOBO_UI_VERB ("DnDSameWindow", verb_DnDSameWindow_cb),
+	BONOBO_UI_VERB ("DnDCancel",     verb_DnDCancel_cb),
 	BONOBO_UI_VERB_END
 };
 
@@ -537,7 +569,6 @@ eog_window_construct (EogWindow *window)
 	EogWindowPrivate *priv;
 	BonoboUIContainer *ui_container;
 	BonoboUIComponent *ui_comp;
-	gchar *fname;
 	GdkGeometry geometry;
 
 	g_return_if_fail (window != NULL);
@@ -560,14 +591,8 @@ eog_window_construct (EogWindow *window)
 	bonobo_ui_component_set_container (ui_comp, 
 					   BONOBO_OBJREF (ui_container), NULL);
 
-	fname = bonobo_ui_util_get_ui_fname (NULL, "eog-shell-ui.xml");
-	if (fname && g_file_exists (fname)) {
-		bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
-		bonobo_ui_component_add_verb_list_with_data (ui_comp, eog_app_verbs, window);
-	} else {
-		g_error (N_("Can't find eog-shell-ui.xml.\n"));
-	}
-	g_free (fname); 
+	bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
+	bonobo_ui_component_add_verb_list_with_data (ui_comp, eog_app_verbs, window);
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);

@@ -18,6 +18,11 @@
 
 	<cmd name="HelpAbout" _label="_About..." _tip="About this application"
 	     pixtype="stock" pixname="About"/>
+
+	<cmd name="DnDNewWindow" _label="Open in new window"/>
+	<cmd name="DnDSameWindow" _label="Open in this window"/>
+	<cmd name="DnDCancel" _label="Cancel"
+	     pixtype="stock" pixname="Cancel"/>
 </commands>
 
 <menu>
@@ -58,5 +63,14 @@
         <toolitem name="TBCloseWindow" _label="Close" pixtype="stock"
                   pixname="Close" verb="FileCloseWindow"/>
 </dockitem>
+
+<popups>
+        <popup name="dragndrop">
+	      <menuitem name="DnDNewWindow" verb=""/>
+	      <menuitem name="DnDSameWindow" verb=""/>
+	      <separator/>
+	      <menuitem name="DnDCancel" verb=""/>
+        </popup>
+</popups>
 
 </Root>

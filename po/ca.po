@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.2\n"
-"POT-Creation-Date: 2002-01-20 11:54+0100\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2001-06-23 18:25+0200\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:182
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -22,7 +22,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Visualitzador d'imatges"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "Imatge EOG"
 
@@ -43,121 +43,117 @@ msgid "About this application"
 msgstr "Pel que fa aquesta aplicació"
 
 #: shell/eog-shell-ui.xml.h:2
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:3
 msgid "Change preferences"
 msgstr "Canvia les preferències"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Tanca"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Tanca la finestra"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:6
 msgid "E_xit"
 msgstr "S_urt"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:7
 msgid "Exit the program"
 msgstr "Surt del programa"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Obre"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Obre un fitxer"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Pel que fa..."
-
 #: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_Tanca"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Fitxer"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "A_juda"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "Finestra _nova"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "_Obre..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Preferències"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Paràmetres"
-
-#: shell/eog-window.c:184
-#, fuzzy
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#: shell/eog-window.c:185
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Programa GNOME per visualitzar i catalogar imatges"
-
-#: shell/eog-window.c:404
 #, fuzzy
 msgid "Open in new window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-window.c:405
+#: shell/eog-shell-ui.xml.h:12
 #, fuzzy
 msgid "Open in this window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-window.c:407
-msgid "Cancel"
-msgstr ""
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Pel que fa..."
 
-#: shell/eog-window.c:507
-msgid "Eye Of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "_Tanca"
 
-#: shell/eog-window.c:592
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Fitxer"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "A_juda"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "Finestra _nova"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "_Obre..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Preferències"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Paràmetres"
+
+#: shell/eog-window.c:179
+#, fuzzy
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Programa GNOME per visualitzar i catalogar imatges"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "No es pot trobar eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:700
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "Obre la imatge"
 
-#: shell/eog-window.c:798
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "El control no suporta la propietat window_title."
 
-#: shell/eog-window.c:814
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "El control no suporta la propietat status_text."
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "El control no té propietats"
 
-#: shell/eog-window.c:848
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "No s'ha pogut recuperar el tipus mime pel fitxer."
 
-#: shell/eog-window.c:1083
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "Ha succeït un error mentre s'obtenia informació del fitxer."
 
@@ -179,11 +175,11 @@ msgstr "Finestres individuals"
 msgid "Collection"
 msgstr "Col·lecció"
 
-#: shell/main.c:276
+#: shell/main.c:280
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 
-#: shell/main.c:279
+#: shell/main.c:283
 msgid "Could not initialize Bonobo!\n"
 msgstr "No s'ha pogut inicialitzar el Bonobo!\n"
 
@@ -196,64 +192,64 @@ msgstr "No s'ha pogut obrir `%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "No s'ha pogut desar la imatge com a '%s': %s."
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Anomena i desa"
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "Imprimeix la imatge"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "Pàgines"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "Imprimeix la previsualització"
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "No s'ha pogut imprimir la imatge"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Visualitza"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolació"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Trama"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Tipus de comprovació"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Comprova la mida"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
@@ -372,6 +368,25 @@ msgstr "Im_primeix"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Interpolació de m_osaics"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "Amplia el zoom"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "Redueix el zoom"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "Redueix el zoom"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -615,6 +630,9 @@ msgstr "Mitjà"
 msgid "Large"
 msgstr "Gran"
 
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Eye of Gnome"
+
 #~ msgid "Couldn't get local BonoboControl interface.\n"
 #~ msgstr ""
 #~ "No s'ha pogut aconseguir la interfície de control local del Bonobo.\n"
@@ -742,14 +760,8 @@ msgstr "Gran"
 #~ msgid "1:10"
 #~ msgstr "1:10"
 
-#~ msgid "Zoom In"
-#~ msgstr "Amplia el zoom"
-
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "Augmenta el zoom en un 5%%"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Redueix el zoom"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "Redueix el zoom en un 5%%"

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-01-20 11:54+0100\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2001-03-08 12:49+0100\n"
 "Last-Translator: Jesus Bravo Alvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:182
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Ollo de Gnome"
 
@@ -26,7 +26,7 @@ msgstr "Ollo de Gnome"
 msgid "Image Viewer"
 msgstr "Visualizador de imaxes"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "Imaxe do EOG"
 
@@ -47,125 +47,120 @@ msgid "About this application"
 msgstr "Acerca desta aplicación"
 
 #: shell/eog-shell-ui.xml.h:2
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:3
 msgid "Change preferences"
 msgstr "Cambiar preferencias"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Pechar"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Pechar fiestra"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:6
 msgid "E_xit"
 msgstr "_Saír"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:7
 msgid "Exit the program"
 msgstr "Saír do programa"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Abrir"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:9
 #, fuzzy
 msgid "Open a file"
 msgstr "Abrir un ficheiro"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:10
 #, fuzzy
 msgid "Open a new window"
 msgstr "Abrir imaxes nunha nova fiestra"
 
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Acerca..."
-
 #: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_Pechar"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Ficheiro"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "A_xuda"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_Nova fiestra"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "_Abrir..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Preferencias"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Configuración"
-
-#: shell/eog-window.c:184
-#, fuzzy
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#: shell/eog-window.c:185
-msgid "The GNOME image viewing and cataloging program"
-msgstr "O programa de GNOME para ver e catalogar imaxes"
-
-#: shell/eog-window.c:404
 #, fuzzy
 msgid "Open in new window"
 msgstr "Abrir imaxes nunha nova fiestra"
 
-#: shell/eog-window.c:405
+#: shell/eog-shell-ui.xml.h:12
 #, fuzzy
 msgid "Open in this window"
 msgstr "Abrir imaxes nunha nova fiestra"
 
-#: shell/eog-window.c:407
-msgid "Cancel"
-msgstr ""
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Acerca..."
 
-#: shell/eog-window.c:507
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "_Pechar"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Ficheiro"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "A_xuda"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "_Nova fiestra"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "_Abrir..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Preferencias"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Configuración"
+
+#: shell/eog-window.c:179
 #, fuzzy
-msgid "Eye Of Gnome"
-msgstr "Ollo de Gnome"
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:592
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "O programa de GNOME para ver e catalogar imaxes"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr ""
 
-#: shell/eog-window.c:700
+#: shell/eog-window.c:690
 #, fuzzy
 msgid "Open Image"
 msgstr "_Abrir imaxe..."
 
-#: shell/eog-window.c:798
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr ""
 
-#: shell/eog-window.c:814
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr ""
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr ""
 
-#: shell/eog-window.c:848
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr ""
 
-#: shell/eog-window.c:1083
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr ""
 
@@ -187,12 +182,12 @@ msgstr "Fiestras de imaxes"
 msgid "Collection"
 msgstr "Colección de imaxes do EOG"
 
-#: shell/main.c:276
+#: shell/main.c:280
 #, fuzzy
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Non foi posible inicializar Bonobo"
 
-#: shell/main.c:279
+#: shell/main.c:283
 #, fuzzy
 msgid "Could not initialize Bonobo!\n"
 msgstr "Non foi posible inicializar Bonobo"
@@ -207,68 +202,68 @@ msgstr "Non foi posible abrir `%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Non foi posible inicializar Bonobo"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Non foi posible gardar a imaxe como '%s': %s"
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Gardar como"
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 #, fuzzy
 msgid "Print Image"
 msgstr "Abrir imaxe"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 #, fuzzy
 msgid "Pages"
 msgstr "Grandes"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr ""
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 #, fuzzy
 msgid "Printing of image failed"
 msgstr "Abrir un ficheiro de imaxe"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Visualización"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolación"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Difuminado"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Tipo dos cadros"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Tamaño dos cadros"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 #, fuzzy
 msgid "Image Width"
 msgstr "Fiestras de imaxes"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr ""
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr ""
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr ""
 
@@ -388,6 +383,25 @@ msgstr ""
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Interpolación por _mosaico"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "Achegar"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "Afastar"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "Afastar"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -650,6 +664,10 @@ msgid "Large"
 msgstr "Grandes"
 
 #, fuzzy
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Ollo de Gnome"
+
+#, fuzzy
 #~ msgid "Image Collection Background Color"
 #~ msgstr "Fábrica do visualizador de colección de imaxes do EOG"
 
@@ -756,14 +774,8 @@ msgstr "Grandes"
 #~ msgid "1:10"
 #~ msgstr "1:10"
 
-#~ msgid "Zoom In"
-#~ msgstr "Achegar"
-
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "Aumentar a imaxe un 5%%"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Afastar"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "Reducir a imaxe un 5%%"

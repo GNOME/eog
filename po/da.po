@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-01-31 20:47+0100\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2002-01-31 12:19+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:171
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
@@ -30,7 +30,7 @@ msgstr "Gnomes øje"
 msgid "Image Viewer"
 msgstr "Billedfremviser"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:675
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG-billede"
 
@@ -51,118 +51,114 @@ msgid "About this application"
 msgstr "Om dette program"
 
 #: shell/eog-shell-ui.xml.h:2
-msgid "Change preferences"
-msgstr "Skift indstillinger"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Close"
-msgstr "Luk"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close window"
-msgstr "Luk vinduet"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "E_xit"
-msgstr "_Afslut"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Exit the program"
-msgstr "_Afslut programmet"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Open"
-msgstr "Åbn"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open a file"
-msgstr "Åbn en fil"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a new window"
-msgstr "Åbn et nyt vindue"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Om..."
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_Luk"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Fil"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "_Hjælp"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_Nyt vindue"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "Å_bn..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Indstillinger"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Opsætning"
-
-#: shell/eog-window.c:173
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:174
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Billedfremviser og -katalogiseringsprogram til Gnome"
-
-#: shell/eog-window.c:395
-msgid "Open in new window"
-msgstr "Åbn i et nyt vindue"
-
-#: shell/eog-window.c:396
-msgid "Open in this window"
-msgstr "Åbn i dette vindue"
-
-#: shell/eog-window.c:398
 msgid "Cancel"
 msgstr "Annullér"
 
-#: shell/eog-window.c:498
-msgid "Eye Of Gnome"
-msgstr "Gnomes øje"
+#: shell/eog-shell-ui.xml.h:3
+msgid "Change preferences"
+msgstr "Skift indstillinger"
 
-#: shell/eog-window.c:584
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close"
+msgstr "Luk"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "Close window"
+msgstr "Luk vinduet"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "E_xit"
+msgstr "_Afslut"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Exit the program"
+msgstr "_Afslut programmet"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open"
+msgstr "Åbn"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a file"
+msgstr "Åbn en fil"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "Open a new window"
+msgstr "Åbn et nyt vindue"
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "Open in new window"
+msgstr "Åbn i et nyt vindue"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "Open in this window"
+msgstr "Åbn i dette vindue"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Om..."
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "_Luk"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Fil"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "_Nyt vindue"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "Å_bn..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Indstillinger"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Opsætning"
+
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright © 2000-2002 The Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Billedfremviser og -katalogiseringsprogram til Gnome"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan ikke finde eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:679
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: shell/eog-window.c:771
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
 
-#: shell/eog-window.c:787
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
 
-#: shell/eog-window.c:804
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ikke nogen egenskaber"
 
-#: shell/eog-window.c:821
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finde ud af MIME-typen for filen."
 
-#: shell/eog-window.c:1045
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "Fejl under indsamling af filoplysninger."
 
@@ -202,67 +198,67 @@ msgstr "Kunne ikke åbne '%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunne ikke klargøre GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:292
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunne ikke gemme billede som '%s': %s."
 
-#: viewer/eog-image-view.c:337
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Gem som"
 
-#: viewer/eog-image-view.c:910
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "Udskriv billede"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:1005
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "Vis udskrift"
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "Udskrivning af billede mislykkedes"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolering"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Avanceret farvereducering"
 
 # det drejer sig om det skakternede mønster der bliver tegnet under et
 # halvgennemsigtigt billede
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Type af tern"
 
 # ditto
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Ternstørrelse"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "Billedbredde"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "Billedhøjde"
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "Vinduestitel"
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
@@ -382,6 +378,25 @@ msgstr "_Udskriv"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "_Flise-interpolering"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "Zoom ind"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "Zoom ud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "Zoom ud"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -624,6 +639,9 @@ msgstr "Mellem"
 msgid "Large"
 msgstr "Stor"
 
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Gnomes øje"
+
 #~ msgid "Background Color:"
 #~ msgstr "Baggrundsfarve:"
 
@@ -662,12 +680,6 @@ msgstr "Stor"
 
 #~ msgid "_Close This Window"
 #~ msgstr "_Luk dette vindue"
-
-#~ msgid "Zoom In"
-#~ msgstr "Zoom ind"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Zoom ud"
 
 #~ msgid "Zoom _1:1"
 #~ msgstr "Zoom _1:1"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2002-01-20 11:54+0100\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2001-02-13 21:45+0900\n"
 "Last-Translator: Young-Ho, Cha <ganadist@chollian.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-kr\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:182
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "그놈의 눈"
 
@@ -21,7 +21,7 @@ msgstr "그놈의 눈"
 msgid "Image Viewer"
 msgstr "그림 보기프로그램"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG 그림"
 
@@ -44,129 +44,124 @@ msgid "About this application"
 msgstr ""
 
 #: shell/eog-shell-ui.xml.h:2
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:3
 #, fuzzy
 msgid "Change preferences"
 msgstr "속성"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "닫기"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:5
 #, fuzzy
 msgid "Close window"
 msgstr "이 창 닫기(_C)"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:6
 msgid "E_xit"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:7
 msgid "Exit the program"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "열기"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:9
 #, fuzzy
 msgid "Open a file"
 msgstr "이미지 파일 열기"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:10
 #, fuzzy
 msgid "Open a new window"
 msgstr "새 창에서 그림을 엽니다"
 
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr ""
-
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
-msgid "_Close"
-msgstr "닫기"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr ""
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr ""
-
-#: shell/eog-shell-ui.xml.h:14
-#, fuzzy
-msgid "_New Window"
-msgstr "그림 창"
-
-#: shell/eog-shell-ui.xml.h:15
-#, fuzzy
-msgid "_Open..."
-msgstr "이미지 열기(_O)..."
-
-#: shell/eog-shell-ui.xml.h:16
-#, fuzzy
-msgid "_Preferences"
-msgstr "속성"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr ""
-
-#: shell/eog-window.c:184
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr ""
-
-#: shell/eog-window.c:185
-msgid "The GNOME image viewing and cataloging program"
-msgstr "그놈 이미지 보기와 카타로그 프로그램"
-
-#: shell/eog-window.c:404
 #, fuzzy
 msgid "Open in new window"
 msgstr "새 창에서 그림을 엽니다"
 
-#: shell/eog-window.c:405
+#: shell/eog-shell-ui.xml.h:12
 #, fuzzy
 msgid "Open in this window"
 msgstr "새 창에서 그림을 엽니다"
 
-#: shell/eog-window.c:407
-msgid "Cancel"
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
 msgstr ""
 
-#: shell/eog-window.c:507
+#: shell/eog-shell-ui.xml.h:14
 #, fuzzy
-msgid "Eye Of Gnome"
-msgstr "그놈의 눈"
+msgid "_Close"
+msgstr "닫기"
 
-#: shell/eog-window.c:592
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:17
+#, fuzzy
+msgid "_New Window"
+msgstr "그림 창"
+
+#: shell/eog-shell-ui.xml.h:18
+#, fuzzy
+msgid "_Open..."
+msgstr "이미지 열기(_O)..."
+
+#: shell/eog-shell-ui.xml.h:19
+#, fuzzy
+msgid "_Preferences"
+msgstr "속성"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr ""
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "그놈 이미지 보기와 카타로그 프로그램"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr ""
 
-#: shell/eog-window.c:700
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "그림 열기"
 
-#: shell/eog-window.c:798
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr ""
 
-#: shell/eog-window.c:814
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr ""
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr ""
 
-#: shell/eog-window.c:848
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr ""
 
-#: shell/eog-window.c:1083
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr ""
 
@@ -187,12 +182,12 @@ msgstr "그림 창"
 msgid "Collection"
 msgstr ""
 
-#: shell/main.c:276
+#: shell/main.c:280
 #, fuzzy
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Bonobo를 초기화 할수 없습니다"
 
-#: shell/main.c:279
+#: shell/main.c:283
 #, fuzzy
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo를 초기화 할수 없습니다"
@@ -207,68 +202,68 @@ msgstr "`%s'를 열 수 없습니다"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Bonobo를 초기화 할수 없습니다"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr ""
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr ""
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 #, fuzzy
 msgid "Print Image"
 msgstr "그림 열기"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 #, fuzzy
 msgid "Pages"
 msgstr "큼"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr ""
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 #, fuzzy
 msgid "Printing of image failed"
 msgstr "이미지 파일 열기"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "표시"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "인터폴레이션"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "디더링"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "형식"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "크기"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 #, fuzzy
 msgid "Image Width"
 msgstr "그림 창"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr ""
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr ""
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr ""
 
@@ -388,6 +383,25 @@ msgstr ""
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "인터폴레이션 사용(_T)"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "확대"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "축소"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "축소"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -644,6 +658,10 @@ msgid "Large"
 msgstr "큼"
 
 #, fuzzy
+#~ msgid "Eye Of Gnome"
+#~ msgstr "그놈의 눈"
+
+#, fuzzy
 #~ msgid "EOG Image Collection"
 #~ msgstr "EOG 그림"
 
@@ -736,14 +754,8 @@ msgstr "큼"
 #~ msgid "1:10"
 #~ msgstr "1:10"
 
-#~ msgid "Zoom In"
-#~ msgstr "확대"
-
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "확대율을 5%% 증가"
-
-#~ msgid "Zoom Out"
-#~ msgstr "축소"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "확대율을 5%% 감소"

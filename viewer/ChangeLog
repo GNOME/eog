@@ -1,3 +1,12 @@
+2002-02-10  Jens Finke <jens@triq.net>
+
+	* Makefile.am (ui_DATA): Added eog-image-view-ctrl-ui.xml.
+
+	* eog-control.c (eog_control_create_ui): Use separate xml file for
+	bonobo ui description. This ensures we get translated menu items.
+
+	* eog-image-view-ctrl-ui.xml: New file.
+	
 2002-02-09  Jens Finke <jens@triq.net>
 
 	* preferences.c (create_prefs_menu): Call gettext for menu items

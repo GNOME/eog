@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-01-28 04:43+0100\n"
+"POT-Creation-Date: 2002-02-10 18:52+0100\n"
 "PO-Revision-Date: 2002-01-28 04:43+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:171
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:522
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -27,7 +27,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Bildvisare"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG-bild"
 
@@ -48,118 +48,114 @@ msgid "About this application"
 msgstr "Om det här programmet"
 
 #: shell/eog-shell-ui.xml.h:2
-msgid "Change preferences"
-msgstr "Ändra inställningar"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Close"
-msgstr "Stäng"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close window"
-msgstr "Stäng fönster"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "E_xit"
-msgstr "_Avsluta"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Exit the program"
-msgstr "Avsluta programmet"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Open"
-msgstr "Öppna"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open a file"
-msgstr "Öppna en fil"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a new window"
-msgstr "Öppna ett nytt fönster"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Om..."
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_Stäng"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Arkiv"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "_Hjälp"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_Nytt fönster"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "_Öppna..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Alternativ"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Inställningar"
-
-#: shell/eog-window.c:173
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 Free Software Foundation"
-
-#: shell/eog-window.c:174
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
-
-#: shell/eog-window.c:395
-msgid "Open in new window"
-msgstr "Öppna i nytt fönster"
-
-#: shell/eog-window.c:396
-msgid "Open in this window"
-msgstr "Öppna i detta fönster"
-
-#: shell/eog-window.c:398
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: shell/eog-window.c:498
-msgid "Eye Of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-shell-ui.xml.h:3
+msgid "Change preferences"
+msgstr "Ändra inställningar"
 
-#: shell/eog-window.c:584
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close"
+msgstr "Stäng"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "Close window"
+msgstr "Stäng fönster"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "E_xit"
+msgstr "_Avsluta"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Exit the program"
+msgstr "Avsluta programmet"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open"
+msgstr "Öppna"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a file"
+msgstr "Öppna en fil"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "Open a new window"
+msgstr "Öppna ett nytt fönster"
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "Open in new window"
+msgstr "Öppna i nytt fönster"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "Open in this window"
+msgstr "Öppna i detta fönster"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Om..."
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "_Stäng"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Arkiv"
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "_Nytt fönster"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "_Öppna..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Alternativ"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Inställningar"
+
+#: shell/eog-window.c:179
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright © 2000-2002 Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
+
+#: shell/eog-window.c:599
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan inte hitta eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:679
+#: shell/eog-window.c:690
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:771
+#: shell/eog-window.c:745
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:787
+#: shell/eog-window.c:761
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:804
+#: shell/eog-window.c:778
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:821
+#: shell/eog-window.c:795
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1045
+#: shell/eog-window.c:1019
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
@@ -199,64 +195,64 @@ msgstr "Kunde inte öppna \"%s\""
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunde inte spara bild som \"%s\": %s."
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Spara som"
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "Skriv ut bild"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "Sidor"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "Förhandsgranska"
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "Utskrift av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Färgutjämning"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Typ av rutor"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Rutstorlek"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "Fönstertitel"
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
@@ -375,6 +371,25 @@ msgstr "Skriv _ut"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "Interpolation mellan _brickor"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+#, fuzzy
+msgid "Zoom _In"
+msgstr "Zooma in"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#, fuzzy
+msgid "Zoom _Out"
+msgstr "Zooma ut"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#, fuzzy
+msgid "Zoom to _Fit"
+msgstr "Zooma ut"
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -617,6 +632,9 @@ msgstr "Mellan"
 msgid "Large"
 msgstr "Stor"
 
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Eye of Gnome"
+
 #~ msgid "Couldn't get local BonoboControl interface.\n"
 #~ msgstr "Kunde inte få tag i lokalt BonoboControl-gränssnitt.\n"
 
@@ -749,14 +767,8 @@ msgstr "Stor"
 #~ msgid "1:10"
 #~ msgstr "1:10"
 
-#~ msgid "Zoom In"
-#~ msgstr "Zooma in"
-
 #~ msgid "Increase zoom factor by 5%%"
 #~ msgstr "Öka zoomfaktorn med 5%%"
-
-#~ msgid "Zoom Out"
-#~ msgstr "Zooma ut"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "Minska zoomfaktorn med 5%%"

@@ -1,3 +1,15 @@
+2002-02-10  Jens Finke <jens@triq.net>
+
+	* eog-shell-ui.xml: Added drag'n'drop popup definition.
+
+	* eog-window.c (open_dnd_files),
+	(verb_DnDNewWindow_cb), (verb_DnDSameWindow_cb),
+	(verb_DnDCancel_cb): New functions regarding to popup menu
+	handling.
+	(eog_window_drag_data_received): Use bonobo to create popup menu,
+	this ensures it get translated.
+	(eog_window_construct): Code cleanup.
+	
 2002-02-03  Jens Finke <jens@triq.net>
 
 	* eog-window.c (eog_window_drag_data_received): Use new gnome vfs
