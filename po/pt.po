@@ -1,14 +1,14 @@
 # eog's Portuguese Translation
-# Copyright (C) 2001, 2004 eog
+# Copyright © 2001, 2004 eog
 # Distributed under the same licence as the eog package
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2004
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2004-01-03 02:44+0000\n"
-"PO-Revision-Date: 2004-01-03 02:45+0000\n"
+"POT-Creation-Date: 2004-02-03 02:00+0000\n"
+"PO-Revision-Date: 2004-02-03 02:05+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,14 @@ msgstr "Fábrica de vista de catálogo de imagens EOG"
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
 msgstr "Catálogo de Imagens"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "View as I_mage Collection"
+msgstr "Ver como Catálogo de I_magens"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+msgid "View as Image Collection"
+msgstr "Ver como Catálogo de Imagens"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -86,35 +94,35 @@ msgstr "_Desfazer"
 msgid "_View"
 msgstr "_Ver"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Cancelar gravação"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Gravação terminada"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Mover para o Lixo"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Vista em Catálogo"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Título da Janela"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Texto de Estado"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progresso de Leitura da Imagem"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "A gravar imagem"
 
@@ -349,7 +357,12 @@ msgstr "Gravar Imagem"
 msgid "Open Folder"
 msgstr "Abrir Pasta"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Incapaz de criar ficheiro temporário para gravar: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Incapaz de alocar memória para ler ficheiro JPEG"
 
@@ -613,7 +626,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Duarte Loreto <happyguy_pt@hotmail.com>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -630,7 +643,7 @@ msgstr ""
 "Incapaz de apresentar a ajuda para o Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -639,21 +652,21 @@ msgstr ""
 "Está prestes a abrir %i janelas simultaneamente. Deseja antes abri-las num "
 "catálogo?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Abrir múltiplas janelas individuais?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Janelas Individuais"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Catálogo"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Incapaz de encontrar ficheiros"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Ficheiro(s) não encontrado(s)."
 
 #: shell/util.c:52
 #, c-format
@@ -789,33 +802,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Falha ao ler"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Imagem gravada com sucesso"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Falha ao gravar imagem"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Largura da Imagem"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Altura da Imagem"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Texto da Barra de Estados"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Largura de Janela Desejada"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Altura de Janela Desejada"
+
+#~ msgid "Could not find files"
+#~ msgstr "Incapaz de encontrar ficheiros"
 
 #~ msgid "*"
 #~ msgstr "*"
