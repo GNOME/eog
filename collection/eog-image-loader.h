@@ -2,7 +2,7 @@
 #define _EOG_IMAGE_LOADER_H_
 
 #include <gtk/gtkobject.h>
-#include "eog-collection-model.h"
+#include "cimage.h"
 
 BEGIN_GNOME_DECLS
 
@@ -36,10 +36,7 @@ GtkType eog_image_loader_get_type (void);
 EogImageLoader* 
 eog_image_loader_new (gint thumb_width, gint thumb_height);
 
-void
-eog_image_loader_set_model (EogImageLoader *loader, EogCollectionModel *model);
-
-void eog_image_loader_start (EogImageLoader *loader);
+void eog_image_loader_start (EogImageLoader *loader, CImage *img);
 
 void eog_image_loader_stop (EogImageLoader *loader);
 

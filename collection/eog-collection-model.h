@@ -63,11 +63,6 @@ struct _EogCollectionModelClass {
 	void (* selection_changed) (EogCollectionModel *model);
 };
 
-typedef struct {
-        CImage *image;
-        Bonobo_Stream stream;
-} LoadingContext;
-
 
 GtkType 
 eog_collection_model_get_type               (void);
@@ -81,9 +76,6 @@ eog_collection_model_construct (EogCollectionModel *model);
 void
 eog_collection_model_set_uri            (EogCollectionModel *model, 
                                          const gchar *uri);
-
-LoadingContext*
-eog_collection_model_get_next_loading_context (EogCollectionModel *model);
 
 gint
 eog_collection_model_get_length (EogCollectionModel *model);

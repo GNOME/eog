@@ -4,7 +4,7 @@
 struct _CImagePrivate {
 	guint unique_id;
 
-	gchar *path;
+	gchar *uri;
 	
 	GdkPixbuf *thumbnail;
 
@@ -66,9 +66,9 @@ cimage_destroy (GtkObject *obj)
 
 	priv = CIMAGE (obj)->priv;
 
-	if (priv->path) {
-		g_free (priv->path);
-		priv->path = NULL;
+	if (priv->uri) {
+		g_free (priv->uri);
+		priv->uri = NULL;
 	}
 
 	if (priv->thumbnail) {
@@ -113,7 +113,7 @@ cimage_init (CImage *img)
 	priv = g_new0(CImagePrivate, 1);
 
 	priv->unique_id = get_unique_id ();
-	priv->path = NULL;
+	priv->uri = NULL;
 	priv->thumbnail = NULL;
 	priv->caption = NULL;
 	priv->loading_failed = FALSE;
@@ -124,14 +124,14 @@ cimage_init (CImage *img)
 
 
 CImage*
-cimage_new (gchar *path)
+cimage_new (gchar *uri)
 {
 	CImage *img;
 
-	g_return_val_if_fail (path != NULL, NULL);
+	g_return_val_if_fail (uri != NULL, NULL);
 	img = gtk_type_new (cimage_get_type ());
 	
-	img->priv->path = g_strdup (path);
+	img->priv->uri = g_strdup (uri);
 	
 	return img;
 }
@@ -144,11 +144,11 @@ cimage_get_unique_id (CImage *img)
 }
 
 gchar*
-cimage_get_path (CImage *img)
+cimage_get_uri (CImage *img)
 {
 	g_return_val_if_fail (img != NULL, NULL);
-	if (img->priv->path)
-		return g_strdup (img->priv->path);
+	if (img->priv->uri)
+		return g_strdup (img->priv->uri);
 	else
 		return NULL;
 }
@@ -231,7 +231,7 @@ cimage_is_directory (CImage *img)
 {
 	g_return_val_if_fail (img != NULL, FALSE);
 	
-	return g_file_test (img->priv->path, G_FILE_TEST_ISDIR);
+	return g_file_test (img->priv->uri, G_FILE_TEST_ISDIR);
 }
 
 gboolean 

@@ -1,3 +1,27 @@
+2001-04-23  Jens Finke <jens@gnome.org>
+
+	* cimage.[ch]: s/path/uri/
+
+	* eog_image_loader.c: Added queue and idle loop based loading. Due
+	to this, the EogImageLoader doesn't depend on EogCollectionModel
+	anymore.
+	(eog_image_loader_set_model): Removed.
+	(loading_canceled),
+	(loading_finished),
+	(setup_next_uri): New functions.
+	(real_image_loading): Renamed to load_uri and revised.
+	(eog_image_loader_start): Append image to load to queue, changed signature.
+
+	* eog_collection_model.c
+	(eog_collection_model_get_next_loading_context): Removed.
+	(eog_collection_model_real_image_loading): Assemble correct URI
+	for cimage objects, call eog_image_loader_start and emit
+	INTERVAL_ADDED signale for every single cimage object.
+	(eog_collection_model_get_uri): Use cimage_get_uri function.
+	
+	* eog_item_factory_simple.c (ii_factory_update_item): Use
+	cimage_get_uri.
+	
 2001-04-18  Jens Finke <jens@gnome.org>
 
 	* eog-collection-preferences.[ch], eog-item-factory-simple.[ch],

@@ -433,10 +433,10 @@ ii_factory_update_item (EogItemFactory *factory,
 		caption_w = gdk_string_width (font, caption);
 		caption_h = gdk_string_height (font, caption);
 	} else {
-		gchar *path;
-		path = cimage_get_path (cimage);
-		caption = g_strdup (g_basename (path));
-		g_free (path);
+		gchar *uri;
+		uri = cimage_get_uri (cimage);
+		caption = g_strdup (g_basename (uri));
+		g_free (uri);
 		
 		if (caption) {
 			caption_w = gdk_string_width (font, caption);

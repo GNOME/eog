@@ -208,7 +208,6 @@ eog_collection_model_construct (EogCollectionModel *model)
        
 	/* init loader */
 	loader = eog_image_loader_new (92,68);
-        eog_image_loader_set_model (loader, model);
 	gtk_signal_connect (GTK_OBJECT (loader), "loading_finished", 
 			    image_loading_finished_cb, model);
 
@@ -237,7 +236,6 @@ real_image_loading (EogCollectionModel *model)
 	EogCollectionModelPrivate *priv;
 	CORBA_Environment ev;
 	Bonobo_Storage_DirectoryList *dir_list;
-	GList *id_list = NULL;
 	gint i;
 
 	g_return_val_if_fail (model != NULL, FALSE);
@@ -266,19 +264,26 @@ real_image_loading (EogCollectionModel *model)
 		
 		if(g_strncasecmp(info.content_type, "image/", 6) == 0) {
 			CImage *img;
+			gchar *uri;
+			GList *id_list = NULL;
 			gint id;
 
-			img = cimage_new (info.name);			
+			uri = g_strconcat (priv->uri, "/", info.name, NULL);
+			img = cimage_new (uri);			
+			g_free (uri);
 			id = cimage_get_unique_id (img);
 
 			/* add image infos to internal lists */
 			g_hash_table_insert (priv->id_image_mapping,
 					     GINT_TO_POINTER (id),
 					     img);
-			priv->images_to_load = g_slist_append (priv->images_to_load, img);
-
 			id_list = g_list_append (id_list, 
 						 GINT_TO_POINTER (id));
+			gtk_signal_emit (GTK_OBJECT (model), 
+					 eog_model_signals [INTERVAL_ADDED],
+					 id_list);
+
+			eog_image_loader_start (priv->loader, img);
 		}
 
 		/* update gui every 20th time */
@@ -287,77 +292,9 @@ real_image_loading (EogCollectionModel *model)
 				gtk_main_iteration ();
 	}
 
-	if (id_list)
-		gtk_signal_emit (GTK_OBJECT (model), 
-				 eog_model_signals [INTERVAL_ADDED],
-				 id_list);
-	/* 
-	 * Start the image loading through EogImageLoader.
-	 */
-	eog_image_loader_start (priv->loader);
-
 	return TRUE;
 }
-	      
-
-LoadingContext*
-eog_collection_model_get_next_loading_context (EogCollectionModel *model)
-{
-	EogCollectionModelPrivate *priv;
-	CORBA_Environment ev;
-	GSList *current_image;
-	CImage *img;
-	LoadingContext *lctx;
-	gchar *path;
-	gboolean loading_failed = TRUE;
-
-	g_return_val_if_fail (model != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
-	g_assert (model->priv->storage != CORBA_OBJECT_NIL);
-
-	priv = model->priv;
-
-	if (priv->images_to_load == NULL) return NULL;
-
-	current_image = priv->images_to_load;
-
-	CORBA_exception_init (&ev);
-
-	lctx = g_new0 (LoadingContext, 1);
-	while (loading_failed) {
-		if (current_image == NULL) return NULL;
-	
-		img = (CImage*) current_image->data;
-	
-		path = cimage_get_path (img);
-		lctx->stream = Bonobo_Storage_openStream (priv->storage, 
-							  path,
-							  Bonobo_Storage_READ, &ev);
-		g_free (path);
-	
-		if (ev._major != CORBA_NO_EXCEPTION) {
-			cimage_set_loading_failed (img);
-			priv->images_to_load = 
-				g_slist_remove_link (priv->images_to_load, current_image);
-			g_slist_free_1 (current_image);
-			current_image = priv->images_to_load;
-		} else {
-			loading_failed = FALSE;
-		}
-	}
-
-	lctx->image = (CImage*)current_image->data;
-	gtk_object_ref (GTK_OBJECT (lctx->image));
-
-	priv->images_to_load = 
-		g_slist_remove_link (priv->images_to_load, current_image);
-	g_slist_free_1 (current_image);
-
-	CORBA_exception_free (&ev);
-
-	return lctx;
-}
-
+	     
 void
 eog_collection_model_set_uri (EogCollectionModel *model, 
 			      const gchar *uri)
@@ -431,7 +368,6 @@ eog_collection_model_get_uri (EogCollectionModel *model,
 			      guint unique_id)
 {
 	CImage *img;
-	gchar *uri;
 
 	g_return_val_if_fail (model != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
@@ -439,11 +375,7 @@ eog_collection_model_get_uri (EogCollectionModel *model,
 	img = eog_collection_model_get_image (model, unique_id);
 	if (img == NULL) return NULL;
 	
-	uri = g_strconcat (model->priv->uri, "/", cimage_get_path (img), NULL);
-	
-	g_print ("image uri is: %s\n", uri);
-
-	return uri;
+	return cimage_get_uri (img);
 }
 
 static void

@@ -29,7 +29,7 @@ struct _CImage {
 };
 
 GtkType    cimage_get_type (void);
-CImage    *cimage_new (gchar *path);
+CImage    *cimage_new (gchar *uri);
 
 /* collection image operations */
 void       cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail);
@@ -40,7 +40,7 @@ void       cimage_set_caption (CImage *img, gchar *caption);
 
 /* collection image attributes */
 guint      cimage_get_unique_id (CImage *img);
-gchar     *cimage_get_path (CImage *img);
+gchar     *cimage_get_uri (CImage *img);
 GdkPixbuf *cimage_get_thumbnail (CImage *img);
 gchar     *cimage_get_caption (CImage *img);
 
