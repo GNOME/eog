@@ -350,7 +350,7 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 	if (!bod->pixbuf)
 		return;
 
-	image_save (stream, bod->pixbuf, ev);
+	/* image_save (stream, bod->pixbuf, ev); */
 }
 
 /*

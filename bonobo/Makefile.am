@@ -5,9 +5,7 @@ OBJECT_DIRECTORY_LIBS = $(GNOME_LIBS) $(OAF_LIBS)
 bin_PROGRAMS = bonobo-image-generic
 
 bonobo_image_generic_SOURCES =	\
-	bonobo-image-generic.c	\
-	io-png.c		\
-	io-png.h
+	bonobo-image-generic.c
 
 INCLUDES =	\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
