@@ -94,7 +94,7 @@ struct _EogWrapListPrivate {
 	int n_selected_items;
 	
 	/* Model to use. */
-	EogCollectionModel *model;
+	EogImageList *model;
 
 	/* Signal connection IDs for the models */
 	int model_ids[MODEL_SIGNAL_LAST];
@@ -455,7 +455,7 @@ static gint
 handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist) 
 {
 	EogWrapListPrivate *priv;
-	EogCollectionModel *model;
+	EogImageList *model;
 	EogCollectionItem *eci;
 	GQuark id = 0;
 	gboolean ret_val = TRUE;
@@ -807,20 +807,18 @@ static void eog_wrap_list_drag_data_get_cb (GtkWidget *widget,
 	default:
 		g_assert_not_reached ();
 	}
-
+	
 }
 
 
-static gboolean
-add_image (EogCollectionModel *model, EogImage *image, gpointer data)
+static void
+add_image (EogWrapList *wlist, EogImage *image)
 {
-	EogWrapList *wlist;
 	EogWrapListPrivate *priv;
 	GnomeCanvasItem *item;
 	
-	g_return_val_if_fail (EOG_IS_WRAP_LIST (data), FALSE);
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
 	
 	item = eog_collection_item_new (gnome_canvas_root (GNOME_CANVAS (wlist)), image);
@@ -828,15 +826,16 @@ add_image (EogCollectionModel *model, EogImage *image, gpointer data)
 	g_signal_connect (G_OBJECT (item), "size_changed", G_CALLBACK (handle_item_size_changed), wlist);
 
 	priv->view_order = g_list_prepend (priv->view_order, item);
-
-	return TRUE;
 }
 
 static void
-model_prepared (EogCollectionModel *model, gpointer data)
+model_prepared (EogImageList *model, gpointer data)
 {
 	EogWrapList *wlist;
 	EogWrapListPrivate *priv;
+	EogIter *iter;
+	gboolean success;
+	EogImage *image;
 	GList *it;
 	
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
@@ -846,7 +845,14 @@ model_prepared (EogCollectionModel *model, gpointer data)
 	
 	g_assert (priv->view_order == NULL);
 
-	eog_collection_model_foreach (model, add_image, EOG_WRAP_LIST (data));
+	iter = eog_image_list_get_first_iter (model);
+	success = (iter != NULL);
+	for (; success; success = eog_image_list_iter_next (model, iter, FALSE)) {
+		image = eog_image_list_get_img_by_iter (model, iter);
+		add_image (wlist, image);
+		g_object_unref (image);
+	}
+	g_free (iter);
 
 	priv->view_order = g_list_reverse (priv->view_order);
 	priv->n_items = g_list_length (priv->view_order);
@@ -869,7 +875,7 @@ model_prepared (EogCollectionModel *model, gpointer data)
 
 /* Handler for the interval_added signal from models */
 static void
-model_image_added (EogCollectionModel *model, EogImage *image, int position, gpointer data)
+model_image_added (EogImageList *model, EogImage *image, int position, gpointer data)
 {
 	GnomeCanvasItem *item;
 	EogWrapList *wlist;
@@ -895,7 +901,7 @@ model_image_added (EogCollectionModel *model, EogImage *image, int position, gpo
 
 /* Handler for the interval_changed signal from models */
 static void
-model_image_removed (EogCollectionModel *model, GQuark id, gpointer data)
+model_image_removed (EogImageList *model, GQuark id, gpointer data)
 {
 #if 0
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
@@ -910,7 +916,7 @@ model_image_removed (EogCollectionModel *model, GQuark id, gpointer data)
 
 /* Set model handler for the wrapped list view */
 void
-eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
+eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 {
 	EogWrapListPrivate *priv;
 	int i;
@@ -933,7 +939,7 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 		g_object_ref (G_OBJECT (model));
 
 		priv->model_ids[MODEL_SIGNAL_PREPARED] = g_signal_connect (
-			G_OBJECT (model), "prepared",
+			G_OBJECT (model), "list-prepared",
 			G_CALLBACK (model_prepared),
 			wlist);
 

@@ -36,12 +36,13 @@ GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 GTK_TYPE_WINDOW);
 
 #define POINTER_HIDE_DELAY  2   /* hide the pointer after 2 seconds */
-#define MAX_LOAD_SLOTS 5
 static GQuark FINISHED_QUARK = 0; 
 static GQuark FAILED_QUARK = 0; 
 
-#define DIRECTION_FORWARD  1
-#define DIRECTION_BACKWARD  -1
+typedef enum {
+	EOG_DIRECTION_FORWARD,
+	EOG_DIRECTION_BACKWARD
+} EogDirection;
 
 struct _EogFullScreenPrivate
 {
@@ -50,16 +51,14 @@ struct _EogFullScreenPrivate
 	/* Whether we have a keyboard grab */
 	guint have_grab : 1;
 
-	/* Array of all EogImage objects to show */ 
-	EogImage **image_list;
-	/* Number of images in image_list */
-	int n_images;
+	/* list of images to show */
+	EogImageList *list;
 
-	int direction;
+	EogDirection direction;
+	gboolean first_image;
 	
-	/* indices to manage advance loading */
-	int visible_index;
-	int active_index;
+	/* current visible image iterator */
+	EogIter *current;
 
 	/* if the mouse pointer is hidden */
 	gboolean cursor_hidden;
@@ -71,21 +70,7 @@ struct _EogFullScreenPrivate
 
 static void connect_image_callbacks (EogFullScreen *fs, EogImage *image);
 static void disconnect_image_callbacks (EogImage *image);
-static void prepare_load_image (EogFullScreen *fs, int image_index);
-static void check_advance_loading (EogFullScreen *fs);
-
-
-static int
-get_index_modulo (int index, int offset, int modulo)
-{
-	int new_index;
-	
-	new_index = (index + offset) % modulo;
-	if (new_index < 0) 
-		new_index = modulo + new_index;
-	
-	return new_index;
-}
+static void prepare_load_image (EogFullScreen *fs, EogIter *iter);
 
 static gboolean
 check_cursor_hide (gpointer data)
@@ -192,21 +177,40 @@ static void
 show_next_image (EogFullScreen *fs)
 {
 	EogFullScreenPrivate *priv;
-	int free_index;
+	EogImage *image;
+	EogIter *iter_copy;
+	gboolean success = FALSE;
 	
 	priv = fs->priv;
 
-	priv->visible_index = get_index_modulo (priv->visible_index, priv->direction, priv->n_images);
-
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->image_list [priv->visible_index]);
-
-	if (priv->n_images > 3) {
-		free_index = get_index_modulo (priv->visible_index, 2*-priv->direction, priv->n_images);
-		g_print ("free: %i\n", free_index);
-		eog_image_cancel_load (priv->image_list [free_index]);
+	/* point the current iterator to the next image in the choosen direction */
+	if (priv->direction == EOG_DIRECTION_FORWARD) {
+		success = eog_image_list_iter_next (priv->list, priv->current, TRUE);
+	}
+	else {
+		success = eog_image_list_iter_prev (priv->list, priv->current, TRUE);
 	}
 
-	check_advance_loading (fs);
+	if (success) {
+		/* view next image */
+		image = eog_image_list_get_img_by_iter (priv->list, priv->current);
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+		g_object_unref (image);
+	}
+
+	/* preload next image in current direction */
+	iter_copy = eog_image_list_iter_copy (priv->list, priv->current);
+	if (priv->direction == EOG_DIRECTION_FORWARD) {
+		success = eog_image_list_iter_next (priv->list, iter_copy, TRUE);
+	}
+	else {
+		success = eog_image_list_iter_prev (priv->list, iter_copy, TRUE);
+	}
+
+	if (success) {
+		prepare_load_image (fs, iter_copy);
+	}
+	g_free (iter_copy);
 }
 
 /* Key press handler for the full screen view */
@@ -242,8 +246,8 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_space:
 	case GDK_Right:
 	case GDK_Down:
-		if (priv->n_images > 1 && priv->visible_index >= 0) {
-			priv->direction = DIRECTION_FORWARD;
+		if (eog_image_list_length (priv->list) > 1) {
+			priv->direction = EOG_DIRECTION_FORWARD;
 
 			show_next_image (fs);
 			handled = TRUE;
@@ -253,8 +257,8 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_BackSpace:
 	case GDK_Left:
 	case GDK_Up:
-		if (priv->n_images > 1 && priv->visible_index >= 0) {
-			priv->direction = DIRECTION_BACKWARD;
+		if (eog_image_list_length (priv->list) > 1) {
+			priv->direction = EOG_DIRECTION_BACKWARD;
 
 			show_next_image (fs);
 			handled = TRUE;
@@ -278,7 +282,8 @@ eog_full_screen_destroy (GtkObject *object)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
-	int i;
+	EogIter *iter;
+	gboolean success;
 	
 	g_return_if_fail (EOG_IS_FULL_SCREEN (object));
 
@@ -290,12 +295,26 @@ eog_full_screen_destroy (GtkObject *object)
 		priv->hide_timeout_id = 0;
 	}
 
-	if (priv->image_list != NULL) {
-		for (i = 0; i < priv->n_images; i++) {
-			disconnect_image_callbacks (priv->image_list [i]);
+	if (priv->current != NULL) {
+		g_free (priv->current);
+		priv->current = NULL;
+	}
+
+	if (priv->list != NULL) {
+		/* remove all callback handlers */
+		iter = eog_image_list_get_first_iter (priv->list);
+		success = (iter != NULL);
+		while (success) {
+			EogImage *image;
+			image = eog_image_list_get_img_by_iter (priv->list, iter);
+			disconnect_image_callbacks (image);
+			g_object_unref (image);
+			success = eog_image_list_iter_next (priv->list, iter, FALSE);
 		}
-		g_free (priv->image_list);
-		priv->image_list = NULL;
+		
+		/* free list */
+		g_object_unref (priv->list);
+		priv->list = NULL;
 	}
 
 	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
@@ -353,56 +372,12 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 	gtk_window_move (GTK_WINDOW (fs), 0, 0);
 }
 
-
-static void
-check_advance_loading (EogFullScreen *fs)
-{
-	EogFullScreenPrivate *priv;
-	int diff = 0;
-
-	g_return_if_fail (EOG_IS_FULL_SCREEN (fs));
-
-	priv = fs->priv;
-
-	if (priv->direction == DIRECTION_FORWARD) {
-		if (priv->active_index < priv->visible_index) {
-			diff = priv->n_images - priv->visible_index + priv->active_index;
-		}
-		else {
-			diff = priv->active_index - priv->visible_index;
-		}
-	}
-	else if (priv->direction == DIRECTION_BACKWARD) {
-		if (priv->active_index > priv->visible_index) {
-			diff = priv->n_images - priv->active_index + priv->visible_index;
-		}
-		else {
-			diff = priv->visible_index - priv->active_index;
-		}
-	}
-	g_assert (diff >= 0);
-
-	g_print ("visible: %i .... active: %i  - diff: %i\n", priv->visible_index, priv->active_index, diff);
-
-	if (diff < 2) {
-		/* load maximal one image in advance */
-		if (!eog_image_is_loaded (EOG_IMAGE (priv->image_list [priv->active_index]))) {
-			prepare_load_image (fs, priv->active_index);
-		}
-	}
-	else if (diff > 2) {
-		priv->active_index = get_index_modulo (priv->visible_index, priv->direction, priv->n_images);
-		if (!eog_image_is_loaded (EOG_IMAGE (priv->image_list [priv->active_index]))) {
-			prepare_load_image (fs, priv->active_index);
-		}
-	}
-}
-
 static void
 image_loading_finished_cb (EogImage *image, gpointer data)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
+	EogIter *iter_copy;
 
 	g_return_if_fail (EOG_IS_FULL_SCREEN (data));
 	
@@ -410,21 +385,25 @@ image_loading_finished_cb (EogImage *image, gpointer data)
 
 	priv = fs->priv;
 
-	g_print ("image loading finished: %s\n", eog_image_get_caption (image));
-
 	disconnect_image_callbacks (image);
 
-	if (priv->visible_index == -1) {
-		/* happens if we load the first image */
-		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->image_list[priv->active_index]);
-		priv->visible_index = priv->active_index;
+	if (priv->first_image) {
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+		priv->first_image = FALSE;
 
-		g_print ("initiale visible index: %i\n", priv->visible_index);
+		iter_copy = eog_image_list_iter_copy (priv->list, priv->current);
+		if (eog_image_list_iter_next (priv->list, iter_copy, TRUE)) {
+			prepare_load_image (fs, iter_copy);
+		}
+		g_free (iter_copy);
+
+		iter_copy = eog_image_list_iter_copy (priv->list, priv->current);
+		if (eog_image_list_iter_prev (priv->list, iter_copy, TRUE)) {
+			prepare_load_image (fs, iter_copy);
+		}
+		g_free (iter_copy);
+		
 	}
-
-	priv->active_index = get_index_modulo (priv->active_index, priv->direction, priv->n_images);
-
-	check_advance_loading (fs);
 }
 
 static void
@@ -476,60 +455,56 @@ connect_image_callbacks (EogFullScreen *fs, EogImage *image)
 }
 
 static void
-prepare_load_image (EogFullScreen *fs, int image_index)
+prepare_load_image (EogFullScreen *fs, EogIter *iter)
 {
 	EogFullScreenPrivate *priv;
 	EogImage *image;
 
 	priv = fs->priv;
 	
-	image = priv->image_list [image_index];
+	image = eog_image_list_get_img_by_iter (priv->list, iter);
 	connect_image_callbacks (fs, image);
 
-	g_print ("start image loading: %s\n", eog_image_get_caption (image));
 	eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE);
+
+	g_object_unref (image);
 }
 
 static void
-prepare_data (EogFullScreen *fs, GList *image_list, EogImage *start_image)
+prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image)
 {
 	EogFullScreenPrivate *priv;
-	int i;
-	GList *it;
 
 	priv = fs->priv;
-	priv->n_images = g_list_length (image_list);
        
-	g_assert (priv->n_images > 0);
+	g_assert (eog_image_list_length (image_list) > 0);
 
-	priv->image_list = g_new0 (EogImage*, priv->n_images);
+	priv->list = g_object_ref (image_list);
+	priv->current = NULL;
 
-	/* init array of images */
-	for (it = image_list, i = 0; it != NULL; it = it->next, i++) {
-		priv->image_list [i] = EOG_IMAGE (it->data);
-	}
-
-	/* determine first image to show */
-	priv->active_index = -1;
-	priv->visible_index = -1;
-	priv->direction = DIRECTION_FORWARD;
-	if (start_image != NULL) 
-		priv->active_index = g_list_index (image_list, start_image);
-
-	if (priv->active_index == -1) 
-		priv->active_index = 0;
-
-	if (priv->n_images == 1) {
+	if (eog_image_list_length (image_list) == 1) {
+		EogImage *single_image;
+		single_image = eog_image_list_get_img_by_pos (image_list, 0);
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), 
-					   priv->image_list [0]);
-		return;
+					   single_image);
+		g_object_unref (single_image);
 	}
+	else {
+		/* determine first image to show */
+		priv->direction = EOG_DIRECTION_FORWARD;
+		if (start_image != NULL) 
+			priv->current = eog_image_list_get_iter_by_img (image_list, start_image);
+		
+		if (priv->current == NULL) 
+			priv->current = eog_image_list_get_first_iter (image_list);
 
-	prepare_load_image (fs, priv->active_index);
+		priv->first_image = TRUE;
+		prepare_load_image (fs, priv->current);
+	}
 }
 
 GtkWidget *
-eog_full_screen_new (GList *image_list, EogImage *start_image)
+eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;

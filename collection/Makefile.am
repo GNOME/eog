@@ -36,8 +36,6 @@ eog_collection_view_SOURCES =		\
 	eog-canvas-pixbuf.c		\
 	eog-collection-item.h		\
 	eog-collection-item.c		\
-	eog-collection-model.h		\
-	eog-collection-model.c		\
 	eog-save-dialog.h		\
 	eog-save-dialog.c		\
 	main.c

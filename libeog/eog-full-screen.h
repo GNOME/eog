@@ -26,6 +26,7 @@
 #include <glib/gmacros.h>
 #include <gtk/gtkwindow.h>
 #include "eog-image.h"
+#include "eog-image-list.h"
 
 G_BEGIN_DECLS
 
@@ -50,7 +51,7 @@ struct _EogFullScreenClass {
 };
 
 GType      eog_full_screen_get_type (void);
-GtkWidget *eog_full_screen_new (GList *image_list, EogImage *start_image);
+GtkWidget *eog_full_screen_new (EogImageList *list, EogImage *start_image);
 
 G_END_DECLS
 

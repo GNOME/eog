@@ -49,7 +49,7 @@
 #include "eog-wrap-list.h"
 #include "eog-scroll-view.h"
 #include "eog-collection-view.h"
-#include "eog-collection-model.h"
+#include "eog-image-list.h"
 #include "eog-collection-marshal.h"
 #include "eog-full-screen.h"
 #include "eog-info-view.h"
@@ -84,7 +84,7 @@ static const gchar *pref_key[] = {
 };
 
 struct _EogCollectionViewPrivate {
-	EogCollectionModel      *model;
+	EogImageList            *model;
 
 	GtkWidget               *wraplist;
 	GtkWidget               *scroll_view;
@@ -127,26 +127,32 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 {
 	EogCollectionView *view;
 	GtkWidget *show;
-	GList *images = NULL;
 	EogImage *start_image = NULL;
-	gboolean free_list = FALSE;
+	EogImageList *list;
 
 	view = EOG_COLLECTION_VIEW (user_data);
 
 	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (view->priv->wraplist)) > 1) {
-		images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));
-		free_list = TRUE;
+		GList *image_list;
+		GList *it;
+
+		image_list = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));
+		list = eog_image_list_new_from_glist (image_list);
+
+		/* free temporary list */
+		for (it = image_list; it != NULL; it = it->next) {
+			g_object_unref (G_OBJECT (it->data));
+		}
+		g_list_free (image_list);
 	}
 	else {
-		images = eog_collection_model_get_image_list (view->priv->model);
+		list = g_object_ref (view->priv->model);
 	}
 	start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (view->priv->wraplist));
 
-	show = eog_full_screen_new (images, start_image);
+	show = eog_full_screen_new (list, start_image);
 	g_object_unref (start_image);
-
-	if (free_list)
-		g_list_free (images);
+	g_object_unref (list);
 
 	gtk_widget_show (show);
 }
@@ -797,7 +803,8 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		gchar *base_uri;
 		gchar *title;
 
-		base_uri = eog_collection_model_get_base_uri (priv->model);
+		/* FIXME: what should happen with this? */
+		base_uri = NULL; /*  eog_collection_model_get_base_uri (priv->model); */
 
 		if (base_uri == NULL)
 			title = g_strdup (_("Collection View"));
@@ -813,7 +820,7 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		gchar *str;
 		gint nimg, nsel;
 			
-		nimg = eog_collection_model_get_length (priv->model);
+		nimg = eog_image_list_length (priv->model);
 		nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 
 		str = g_new0 (guchar, 70);
@@ -931,7 +938,7 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 }
 
 static void
-model_size_changed (EogCollectionModel *model, GList *id_list,  gpointer data)
+model_size_changed (EogImageList *model, GList *id_list,  gpointer data)
 {
 	EogCollectionView *view;
 
@@ -944,7 +951,7 @@ model_size_changed (EogCollectionModel *model, GList *id_list,  gpointer data)
 
 
 static void
-model_base_uri_changed (EogCollectionModel *model, gpointer data)
+model_base_uri_changed (EogImageList *model, gpointer data)
 {
 	EogCollectionView *view;
 
@@ -1071,7 +1078,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	if (text_uri == CORBA_OBJECT_NIL) return 0;
 
 	if (priv->model == NULL) {
-		priv->model = eog_collection_model_new ();
+		priv->model = eog_image_list_new ();
 		eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
 
 		/* construct widget */
@@ -1092,7 +1099,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	}
 
-	eog_collection_model_add_uri (priv->model, (gchar*)text_uri); 
+	eog_image_list_add_directory (priv->model, (gchar*)text_uri); 
 
 	return 0;
 }

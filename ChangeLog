@@ -1,5 +1,28 @@
 2003-10-26  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-model.[ch]: Removed.
+
+	* collection/Makefile.am (SOURCES): Removed eog-collection-mode.[ch].
+
+	* collection/eog-collection-view.c: 
+	* collection/eog-wrap-list.c:
+	Replaced EogCollectionModel with EogImageList.
+
+	* libeog/Makefile.am (SOURCES): Added eog-image-list.[ch].
+
+	* libeog/eog-image-list.[ch]: New files.
+
+	* libeog/eog-full-screen.[ch]: Uses new EogImageList object. Large
+	refactoring, simplified code.
+
+	* libeog/libeog-marshal.list: Added two declarations.
+
+	* collection/eog-collection-view.c (verb_SlideShow_cb):
+	* viewer/eog-image-view.c (verb_FullScreen_cb): Adapted to new
+	EogFullScreen API.
+	
+2003-10-26  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image-private.h: Added EogImageStatus enumeration.
 
 	* libeog/eog-image.c:

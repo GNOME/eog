@@ -55,6 +55,8 @@ libeog_a_SOURCES =			\
 	eog-image-jpeg.h		\
 	eog-image-cache.h		\
 	eog-image-cache.c		\
+	eog-image-list.c		\
+	eog-image-list.h		\
 	eog-scroll-view.c		\
 	eog-scroll-view.h		\
 	eog-info-view.c			\
