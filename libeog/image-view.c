@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
+#include <gtk/gtksignal.h>
 #include "cursors.h"
 #include "image-view.h"
 #include "uta.h"
