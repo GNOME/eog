@@ -223,16 +223,17 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
  * Loads an Image from a Bonobo_File
  */
 static gint
-load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename, void *data)
+load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,CORBA_Environment *ev,
+		      void *closure)
 {
 	EogImageData *image_data;
 
 	g_message ("load_image_from_file: `%s'", filename);
 
-	g_return_val_if_fail (data != NULL, -1);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (data), -1);
+	g_return_val_if_fail (closure != NULL, -1);
+	g_return_val_if_fail (EOG_IS_IMAGE_DATA (closure), -1);
 
-	image_data = EOG_IMAGE_DATA (data);
+	image_data = EOG_IMAGE_DATA (closure);
 
 	if (image_data->priv->pixbuf)
 		gdk_pixbuf_unref (image_data->priv->pixbuf);
