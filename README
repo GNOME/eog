@@ -22,11 +22,20 @@ Requirements
 ------------
 
 This package requires the following modules to be installed:
-gnome-libs, gdk-pixbuf, Bonobo, gnome-print, GConf, gnome-vfs and libglade.
+libgnomeui, libbonoboui, bonobo-activation, gconf, gnome-vfs,
+gdk-pixbuf, librsvg and libglade.
 
-You can get these packages from your favorite GNOME FTP mirror at
-http://download.gnome.org/GNOME/stable/sources or from other sources where 
-GNOME packages are distributed.
+You can get these packages from your favourite GNOME FTP mirror or at
+http://ftp.gnome.org/GNOME/sources or from other sources where GNOME
+packages are distributed.
+
+
+Optional libraries
+------------------
+
+'Eye of Gnome' supports the reading of exif information stored in
+images by digital cameras. To get this working, you need the optional
+libexif library. It is available at http://libexif.sourceforge.net.
 
 
 Availability
@@ -36,23 +45,6 @@ The bleeding-edge version of this package is always available from the GNOME
 CVS repository (instructions at http://developer.gnome.org/tools/cvs.html).
 Released versions are available at
 http://download.gnome.org/GNOME/unstable/sources/eog.
-
-
-Collection View
----------------
-
-Since version 1.1.0 Eye of Gnome has rudimentary support for displaying image
-collections and viewing diashows. Up to now this is an experimental feature,
-which isn't well tested and has some known bugs/limitations. However, it is off
-by default and must be enabled explicitly on compliation time with the
---enable-collection parameter.
-
-By default, there isn't any caching mechanism for created thumbnails yet. But
-you can install the optional helper library libpreview. With this library Eye
-of Gnome is able to read and write thumbnails according to the Thumbnail
-Management Standard. For more information see
-http://triq.net/~pearl/libpreview.php. It is likely that this library
-requirement will be dropped in future versions.
 
 
 Reporting bugs
@@ -72,9 +64,10 @@ License.  Please see the file COPYING for details.
 Authors
 -------
 
-Maintainer: Federico Mena-Quintero (federico@gnu.org)
-            Jens Finke (jens@gnome.org)
+Maintainer: Jens Finke (jens@gnome.org)
+	    Federico Mena-Quintero (federico@gnu.org)
 
 Martin Baulig (martin@gnome.org)
 Arik Devens (arik@gnome.org)
 Michael Meeks (michael@ximian.com)
+Lutz Müller (urc8@rz.uni-karlsruhe.de)
