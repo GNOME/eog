@@ -30,6 +30,8 @@ struct _EogControlPrivate {
 	GtkWidget          *root;
 
 	BonoboUIComponent  *uic;
+
+	gboolean            state;
 };
 
 POA_Bonobo_Control__vepv eog_control_vepv;
@@ -61,7 +63,12 @@ eog_control_activate (BonoboControl *object, gboolean state)
 
 	control = EOG_CONTROL (object);
 
-	if (state) {
+	if (state == control->priv->state)
+		return;
+
+	control->priv->state = state;
+
+	if (control->priv->state) {
 		Bonobo_UIContainer ui_container;
 
 		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (control));
