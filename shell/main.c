@@ -3,6 +3,7 @@
 #include <gnome.h>
 #include <glade/glade.h>
 #include <liboaf/liboaf.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
 #include "eog-window.h"
@@ -43,13 +44,15 @@ main (int argc, char **argv)
 	orb = oaf_init (argc, argv);
 
 	error = NULL;
-	if (!gconf_init (argc, argv, &error)) {
+	if (gconf_init (argc, argv, &error) == FALSE) {
 		g_assert (error != NULL);
 		g_message ("GConf init failed: %s", error->message);
 		g_error_free (error);
 		exit (EXIT_FAILURE);
 	}
 
+	if(gnome_vfs_init () == FALSE)
+		g_error (_("Could not initialize GnomeVFS!\n"));
 
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));

@@ -1,5 +1,15 @@
 2001-05-31  Jens Finke <jens@gnome.org>
 
+	* Makefile.am (INCLUDES), (eog_LDADD): Added vfs flags.
+
+	* eog-window.c (get_file_control),
+	(get_directory_control),
+	(eog_window_open): We now use GnomeVFSURI for file handling here.
+
+	* main.c (main): Added gnome_vfs_init () call.
+
+2001-05-31  Jens Finke <jens@gnome.org>
+
 	* Makefile.am: Renamed binary from eog-shell to eog. 
 
 2001-05-29  Jens Finke <jens@gnome.org>

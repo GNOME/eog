@@ -31,6 +31,7 @@
 #include <liboaf/liboaf.h>
 #include <bonobo/Bonobo.h>
 #include <libgnomeui/gnome-window-icon.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
@@ -886,31 +887,31 @@ remove_component (EogWindow *window)
 }
 
 static Bonobo_Control
-get_file_control (const gchar *filename)
+get_file_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
 	Bonobo_PersistFile pfile;
 	CORBA_Environment ev;
-	const char *mimetype;
 	gchar *oaf_query;
+	gchar *text_uri;
 
-	g_return_val_if_fail (filename != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (uri != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (info != NULL, CORBA_OBJECT_NIL);
+	
+	/* check for valid mime_type */
+	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0) {
+		g_warning (_("Couldn't retrieve mime type for file."));
+		return CORBA_OBJECT_NIL;
+	}
 
-	/* check if it's really a file */
-	if (!g_file_test (filename, G_FILE_TEST_ISFILE)) return CORBA_OBJECT_NIL;
-	if (!g_file_exists (filename)) return CORBA_OBJECT_NIL;
-	
-	/* discover mimetype */
-	mimetype = gnome_mime_type (filename); /* do not free mimetype */
-	
 	/* assemble requirements for the component*/
 	oaf_query = g_new0(gchar, 255);
 	g_snprintf (oaf_query, 255,
 		    "repo_ids.has_all(['IDL:Bonobo/Control:1.0', " 
 		    "	               'IDL:Bonobo/PersistFile:1.0']) AND " 
 		    "bonobo:supported_mime_types.has('%s')", 
-		    mimetype);
+		    info->mime_type);
 	  
 	/* activate component */
 	CORBA_exception_init (&ev);
@@ -927,7 +928,9 @@ get_file_control (const gchar *filename)
 	}
 	
 	/* load the file */
-	Bonobo_PersistFile_load (pfile, filename, &ev);
+	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	Bonobo_PersistFile_load (pfile, text_uri, &ev);
+	g_free (text_uri);
 
 	if (ev._major != CORBA_NO_EXCEPTION) {
 		Bonobo_Unknown_unref (pfile, &ev);
@@ -957,17 +960,16 @@ get_file_control (const gchar *filename)
 }	
 
 static Bonobo_Control
-get_directory_control (const gchar *path)
+get_directory_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
 	GNOME_EOG_ImageCollection collection;
 	CORBA_Environment ev;
-	GNOME_EOG_URI uri;
+	GNOME_EOG_URI eog_uri;
 
-	g_return_val_if_fail (path != NULL, CORBA_OBJECT_NIL);
-
-	if(!g_file_test (path, G_FILE_TEST_ISDIR)) return CORBA_OBJECT_NIL;
+	g_return_val_if_fail (uri != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (info != NULL, CORBA_OBJECT_NIL);
 	
 	/* activate component */
  	CORBA_exception_init (&ev);
@@ -985,9 +987,9 @@ get_directory_control (const gchar *path)
 	}
 
 	/* set uri */
-	uri = (CORBA_char*) g_strconcat ("file:", path, NULL);
-	GNOME_EOG_ImageCollection_openURI (collection, uri, &ev);
-	g_free (uri);
+	eog_uri = (CORBA_char*) gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	GNOME_EOG_ImageCollection_openURI (collection, eog_uri, &ev);
+	g_free (eog_uri);
 
 	Bonobo_Unknown_unref (collection, &ev);
 	CORBA_Object_release (collection, &ev);
@@ -1020,29 +1022,23 @@ get_directory_control (const gchar *path)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open (EogWindow *window, const char *path)
+eog_window_open (EogWindow *window, const char *text_uri)
 {
 	EogWindowPrivate *priv;       
 	Bonobo_Control control;
 	CORBA_Environment ev;
-	gchar *abs_path = NULL;
+	GnomeVFSResult result;
+	GnomeVFSFileInfo *info;
+	GnomeVFSURI *uri;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
-	g_return_val_if_fail (path != NULL, FALSE);
+	g_return_val_if_fail (text_uri != NULL, FALSE);
 
 	priv = window->priv;
  	CORBA_exception_init (&ev);
 
-	/* make path absolute */
-	if (path[0] != '/') {
-		gchar *cd;
-		cd = g_get_current_dir ();
-		abs_path = g_strconcat (cd, "/", path, NULL);
-		g_free (cd);
-	} else {
-		abs_path = g_strdup (path);
-	}
+	uri = gnome_vfs_uri_new (text_uri);
 
 	/* remove current component if neccessary */
 	if (priv->control != NULL) {
@@ -1051,19 +1047,29 @@ eog_window_open (EogWindow *window, const char *path)
 	g_assert (priv->control == NULL);
 
 
+	/* obtain file infos */
+	info = gnome_vfs_file_info_new ();
+	g_print ("URI: %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+	if (result != GNOME_VFS_OK) {
+		g_warning (_("Error while obtaining file informations."));
+		return FALSE;
+	}
+	
 	/* get appropriate control */
 	control = CORBA_OBJECT_NIL;
-	if (g_file_test (abs_path, G_FILE_TEST_ISFILE)) {
-
-		control = get_file_control (abs_path);
-
-	} else if (g_file_test (abs_path, G_FILE_TEST_ISDIR)) {
-
-		control = get_directory_control (abs_path);
-
-	} else {
-
-		g_warning ("Couldn't handle: %s.\n", abs_path);
+	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+		control = get_file_control (uri, info);
+	else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+		control = get_directory_control (uri, info);
+	else {
+		gchar *str;
+		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		g_warning ("Couldn't handle: %s.\n", str);
+		g_free (str);
 		return FALSE;
 	}
 	if (control == CORBA_OBJECT_NIL) return FALSE;
@@ -1096,6 +1102,8 @@ eog_window_open (EogWindow *window, const char *path)
 	g_message ("Property control: %p", priv->prop_control);
 
 	/* clean up */
+	gnome_vfs_file_info_unref (info);
+	gnome_vfs_uri_unref (uri);
 	CORBA_exception_free (&ev);
 
 	return TRUE;
