@@ -1537,11 +1537,15 @@ eog_image_view_get_property_bag (EogImageView *image_view)
 BonoboPropertyControl *
 eog_image_view_get_property_control (EogImageView *image_view)
 {
+	BonoboEventSource *es;
+
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
-	return bonobo_property_control_new (property_control_get_cb, 
-					    1, image_view);
+	es = bonobo_event_source_new ();
+
+	return bonobo_property_control_new_full (property_control_get_cb, 
+						 1, es, image_view);
 }
 
 void
@@ -1802,9 +1806,6 @@ eog_image_view_destroy (BonoboObject *object)
 	gtk_object_unref (GTK_OBJECT (priv->client));
 
 	bonobo_object_unref (BONOBO_OBJECT (priv->property_bag));
-//BEWARE: After this has been added somewhere by bonobo_object_add_interface, 
-//        we don't own this anymore. Therefore, we cannot touch it. 
-//	bonobo_object_unref (BONOBO_OBJECT (priv->property_control));
 	bonobo_object_unref (BONOBO_OBJECT (priv->image));
 	bonobo_object_unref (BONOBO_OBJECT (priv->uic));
 

@@ -1,5 +1,21 @@
 2002-01-30  Jens Finke <jens@triq.net>
 
+	* eog-control.c (eog_control_destroy): Removed 'Beware:' comment
+	together with it's related bonobo_object_unref calls. It's true
+	these aren't neccessary.
+	(eog_control_construct): Re-enabled the adding of the
+	property_control interface. 
+
+	* eog-image-view.c (eog_image_view_get_property_control): Use
+	bonobo_property_control_new_full to set the BonoboEventSource
+	explictly. [This is very strange: If we only use
+	bonobo_property_control_new here the component hangs on shut
+	down!?!?].
+	(eog_image_view_destroy): Removed 'Beware' comment and related
+	bonobo_object_unref call.
+	
+2002-01-30  Jens Finke <jens@triq.net>
+
 	* eog-control.c (eog_control_construct): Re-enabled the properties
 	stuff and fixed reference problems there.
 

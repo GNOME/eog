@@ -41,13 +41,6 @@ eog_control_destroy (BonoboObject *object)
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Destroying EogControl...");
 
-	control = EOG_CONTROL (object);
-
-//BEWARE: After this has been added by bonobo_object_add_interface, 
-//        we don't own this anymore. Therefore, we cannot touch it.
-//	bonobo_object_unref (BONOBO_OBJECT (control->priv->image_view));
-//	bonobo_object_unref (BONOBO_OBJECT (control->priv->zoomable));
-
 	BONOBO_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
 }
 
@@ -389,7 +382,6 @@ eog_control_construct (EogControl    *control,
 		       EogImage      *image)
 {
 	GtkWidget             *widget;
-	BonoboControl         *retval;
 	BonoboPropertyBag     *pb;
 	BonoboPropertyControl *pc;
 	EogControlPrivate     *priv;
@@ -414,7 +406,7 @@ eog_control_construct (EogControl    *control,
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget),
 					     GTK_SHADOW_IN);
 
-	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
+	bonobo_control_construct (BONOBO_CONTROL (control), widget);
 	
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (priv->image_view));
@@ -463,11 +455,10 @@ eog_control_construct (EogControl    *control,
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
 				       BONOBO_OBJREF (pb), 
 				       NULL);
-#if 0
+
 	pc = eog_image_view_get_property_control (priv->image_view);
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (pc));
-#endif	
 
 	return control;
 }
