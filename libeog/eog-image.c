@@ -576,6 +576,7 @@ real_image_load (gpointer data)
 
 	gdk_pixbuf_loader_close (loader, NULL);	
 	priv->load_idle_id = 0;
+	g_object_unref (loader);
 	g_object_unref (img);
 
 	return FALSE;
