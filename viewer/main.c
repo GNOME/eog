@@ -59,5 +59,14 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	return retval;
 }
 
-BONOBO_ACTIVATION_FACTORY("OAFIID:GNOME_EOG_Factory", "eog-image-viewer", 
-			  VERSION, eog_image_viewer_factory, NULL);
+int main (int argc, char *argv [])					
+{									
+	bindtextdomain (PACKAGE, GNOMELOCALEDIR);                       
+	bind_textdomain_codeset (PACKAGE, "UTF-8");                     
+	textdomain (PACKAGE);                                           
+									
+	BONOBO_FACTORY_INIT ("eog-image-viewer", VERSION, &argc, argv);		
+									
+	return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_Factory",
+					    eog_image_viewer_factory, NULL);	
+}                                                                       
