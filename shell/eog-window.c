@@ -263,8 +263,6 @@ eog_window_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (object));
 
-	g_message ("Destroying EogWindow.");
-
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
