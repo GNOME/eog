@@ -1,4 +1,4 @@
-SUBDIRS = intl macros po src idl viewer bonobo doc
+SUBDIRS = intl macros po src idl viewer doc
 
 schemadir = $(sysconfdir)/gconf/schemas
 schema_DATA = eog.schemas
