@@ -540,7 +540,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	g_print ("load_uri_cb: %s\n", (char*) text_uri);
 
-	eog_collection_model_set_uri (priv->model, (gchar*)text_uri); 
+	eog_collection_model_add_uri (priv->model, (gchar*)text_uri); 
 
 	return 0;
 }

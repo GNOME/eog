@@ -16,8 +16,6 @@ enum {
 	LAST_SIGNAL
 };
 
-static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func, 
-					   gpointer data, GtkArg *args);
 static guint eog_model_signals[LAST_SIGNAL];
 
 typedef struct {
@@ -138,7 +136,8 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 			      NULL,
 			      eog_collection_marshal_VOID__OBJECT_INT,
 			      G_TYPE_NONE,
-			      1,
+			      2,
+			      EOG_TYPE_IMAGE,
 			      G_TYPE_INT);
 	eog_model_signals[IMAGE_REMOVED] =
 		g_signal_new ("image-removed",
@@ -244,7 +243,6 @@ directory_visit_cb (const gchar *rel_uri,
 	GnomeVFSURI *uri;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
-	static gint count = 0;
 	
 	ctx = (LoadingContext*) data;
 	model = ctx->model;
@@ -361,7 +359,7 @@ prepare_context (EogCollectionModel *model, const gchar *text_uri)
 }
 
 void
-eog_collection_model_set_uri (EogCollectionModel *model, 
+eog_collection_model_add_uri (EogCollectionModel *model, 
 			      const gchar *text_uri)
 {
 	EogCollectionModelPrivate *priv;
@@ -377,16 +375,16 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	
 	if (ctx != NULL) {
 		if (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-			gtk_idle_add ((GtkFunction) real_dir_loading, ctx);
+			g_idle_add ((GtkFunction) real_dir_loading, ctx);
 		else if (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-			gtk_idle_add ((GtkFunction) real_file_loading, ctx);
+			g_idle_add ((GtkFunction) real_file_loading, ctx);
 		else {
 			loading_context_free (ctx);
 			g_warning (_("Can't handle URI: %s"), text_uri);
 			return;
 		}
 	} else {
-		g_warning (_("Can't handle URI: %s"), text_uri);
+		g_warning ("Can't handle URI: %s", text_uri);
 		return;
 	}	
 	
@@ -400,46 +398,6 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	g_signal_emit_by_name (G_OBJECT (model), "base-uri-changed");
 }
 
-void 
-eog_collection_model_set_uri_list (EogCollectionModel *model,
-				   GList *uri_list)
-{
-	GList *node;
-	LoadingContext *ctx;
-	gchar *text_uri;
-
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-
-	node = uri_list;
-
-	while (node != NULL) {
-		text_uri = (gchar*) node->data;
-		ctx = prepare_context (model, text_uri);
-
-		if (ctx != NULL) {
-			if (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-				gtk_idle_add ((GtkFunction) real_dir_loading, ctx);
-			else if (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-				gtk_idle_add ((GtkFunction) real_file_loading, ctx);
-			else {
-				loading_context_free (ctx);
-				g_warning (_("Can't handle URI: %s"), text_uri);
-				return;
-			}
-		} else {
-			g_warning (_("Can't handle URI: %s"), text_uri);
-			return;
-		}	
-
-		node = node->next;
-	}
-	
-	if (model->priv->base_uri != NULL)
-		g_free (model->priv->base_uri);
-	model->priv->base_uri = g_strdup ("multiple");
-	g_signal_emit_by_name (G_OBJECT (model), "base-uri-changed");
-}
 
 gint
 eog_collection_model_get_length (EogCollectionModel *model)

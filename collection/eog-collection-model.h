@@ -79,12 +79,8 @@ void
 eog_collection_model_remove_item (EogCollectionModel *model, EogImage *image); 
 
 void
-eog_collection_model_set_uri            (EogCollectionModel *model, 
+eog_collection_model_add_uri            (EogCollectionModel *model, 
                                          const gchar *uri);
-
-void
-eog_collection_model_set_uri_list       (EogCollectionModel *model,
-                                         GList *uri_list);
 
 gint
 eog_collection_model_get_length (EogCollectionModel *model);

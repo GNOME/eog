@@ -1,3 +1,26 @@
+2003-02-22  Jens Finke <jens@triq.net>
+
+	* collection/eog-collection-model.[ch]:
+	(eog_collection_model_class_init): Fixed image_added signal
+	registration.
+	(eog_collection_model_set_uri): Renamed to
+	eog_collection_model_add_uri.
+	(eog_collection_model_set_uri_list): Removed.
+
+	* collection/eog-collection-view.c (load_uri_cb): Call
+	eog_collection_model_add_uri.
+		
+	* collection/eog-wrap-list.c:
+	(compare_item_caption),
+	(get_item_by_unique_id): Removed.
+	(eog_wrap_list_get_n_selected),
+	(request_update),
+	(do_update),
+	(add_image),
+	(handle_item_event): Fixed compiler warnings:
+	(model_image_added): Connect image event signal, update n_items
+	attribute, initiate loading.
+	
 2003-02-21  Jens Finke <jens@triq.net>
 
 	* collection/eog-collection-item.[ch]: Oops, forgot to cvs add

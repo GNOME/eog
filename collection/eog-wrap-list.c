@@ -270,21 +270,6 @@ eog_wrap_list_new (void)
 	return wlist;
 }
 
-static GnomeCanvasItem*
-get_item_by_unique_id (EogWrapList *wlist,
-		       GQuark id)
-{
-	GnomeCanvasItem *item;
-
-	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
-	
-	item = g_hash_table_lookup (wlist->priv->item_table,
-				    GINT_TO_POINTER (id));
-	if (!item)
-		g_warning ("Could not find item %i!", id);
-
-	return item;
-}
 
 static gint
 get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
@@ -386,7 +371,7 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 	EogWrapListPrivate *priv;
 	EogCollectionModel *model;
 	EogCollectionItem *eci;
-	GQuark id;
+	GQuark id = 0;
 	gboolean ret_val = TRUE;
 	gboolean selection_changed = FALSE;
 
@@ -541,7 +526,7 @@ add_image (EogCollectionModel *model, EogImage *image, gpointer data)
 	EogWrapListPrivate *priv;
 	GnomeCanvasItem *item;
 	
-	g_return_if_fail (EOG_IS_WRAP_LIST (data));
+	g_return_val_if_fail (EOG_IS_WRAP_LIST (data), FALSE);
 
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
@@ -593,11 +578,16 @@ model_image_added (EogCollectionModel *model, EogImage *image, int position, gpo
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
 
+	/* insert image */
 	item = eog_collection_item_new (gnome_canvas_root (GNOME_CANVAS (wlist)), image);
+	g_signal_connect (G_OBJECT (item), "event", G_CALLBACK (handle_item_event), wlist);
 
-	priv->view_order = g_list_insert (priv->view_order, image, position);
+	priv->view_order = g_list_insert (priv->view_order, item, position);
+	priv->n_items = g_list_length (priv->view_order);
 
 	request_update (wlist);
+	
+	eog_collection_item_load (EOG_COLLECTION_ITEM (item));
 }
 
 /* Handler for the interval_changed signal from models */
@@ -734,22 +724,9 @@ request_update (EogWrapList *wlist)
 
 	if (wlist->priv->idle_handler_id == -1)
 	{
-		wlist->priv->idle_handler_id = gtk_idle_add ((GtkFunction) do_update, wlist);
+		wlist->priv->idle_handler_id = g_idle_add ((GSourceFunc) do_update, wlist);
 	}
 }
-
-static gint 
-compare_item_caption (const GnomeCanvasItem *item1, const GnomeCanvasItem *item2)
-{
-	gchar *cap1;
-	gchar *cap2;
-
-	cap1 = (gchar*) g_object_get_data (G_OBJECT (item1), "Caption");
-	cap2 = (gchar*) g_object_get_data (G_OBJECT (item2), "Caption");
-	
-	return g_strcasecmp (cap1, cap2);
-}
-
 
 static gboolean
 do_layout_check (EogWrapList *wlist)
@@ -913,12 +890,11 @@ static gboolean
 do_update (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
-	GList *item_update;
 	gboolean layout_check_needed = FALSE;
 	gboolean item_rearrangement_needed = FALSE;
 
-	g_return_if_fail (wlist != NULL);
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+	g_return_val_if_fail (wlist != NULL, FALSE);
+	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), FALSE);
 
 	priv = wlist->priv;
 	
@@ -956,8 +932,6 @@ int
 eog_wrap_list_get_n_selected (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
-	GList *node;
-	int n_selected = 0;
 
 	priv = wlist->priv;
 	
