@@ -441,14 +441,21 @@ static void
 eog_full_screen_instance_init (EogFullScreen *fs)
 {
 	EogFullScreenPrivate *priv;
+	GdkScreen *screen;
+	GdkRectangle geometry;
+	int monitor;
 
 	priv = g_new0 (EogFullScreenPrivate, 1);
 	fs->priv = priv;
 
+	screen = gtk_window_get_screen (GTK_WINDOW (fs));
+	monitor = gdk_screen_get_monitor_at_window (screen, GTK_WIDGET (fs)->window);
+	gdk_screen_get_monitor_geometry (screen, monitor, &geometry);
+
 	gtk_window_set_default_size (GTK_WINDOW (fs),
-				     gdk_screen_width (),
-				     gdk_screen_height ()); 
-	gtk_window_move (GTK_WINDOW (fs), 0, 0);
+				     geometry.width,
+				     geometry.height);
+	gtk_window_move (GTK_WINDOW (fs), geometry.x, geometry.y);
 
 	priv->loop = TRUE;
 	priv->first_iter = NULL;
