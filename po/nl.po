@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-21 11:58+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-16 11:26+0200\n"
 "PO-Revision-Date: 2003-07-07 15:11+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -52,7 +53,7 @@ msgstr "Vorige afbeelding"
 
 #: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
 msgid "Rotate 180 _Degrees"
-msgstr "180 _graden draaien"
+msgstr "180° Roteren"
 
 #: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate C_lockwise"
@@ -71,6 +72,11 @@ msgstr "Diashow"
 msgid "_Edit"
 msgstr "Be_werken"
 
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Schaal"
+
 #: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Ongedaan maken"
@@ -80,25 +86,39 @@ msgstr "_Ongedaan maken"
 msgid "_View"
 msgstr "Beel_d"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Annuleren"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "Verplaatsen naar prullenbak"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "Verzamelingsweergave"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "Venstertitel"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
 msgid "Progress of Image Loading"
 msgstr "Voortgang van laden afbeelding"
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Afbeelding opslaan"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -182,24 +202,6 @@ msgid "sec"
 msgstr "sec"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Automatisch vensterafmetingen kiezen"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Standaard zoomfactor bij schermvullende weergave"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Standaard zoomfactor bij schermvullende weergave. Mogelijke waarden zijn: 0 "
-"(100% weergave), 1 (gebruik dezelfde zoomfactor als normaal), 2 (maak "
-"afbeelding schermvullend)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -209,11 +211,7 @@ msgstr ""
 "zijn CHECK_PATTERN en COLOR en NONE. Als COLOR wordt gebruikt, zal de "
 "trans_color sleutel de kleur voor transparantie voorstellen."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Afbeeldingen met standaardafmetingen schermvullend maken."
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -221,31 +219,23 @@ msgstr ""
 "Als de transparantiesleutel de waarde COLOR heeft, bepaalt deze sleutel "
 "welke kleur de transparanti voorstelt."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Afbeelding interpoleren"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Afbeeldingen in nieuwe vensters openen"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Een verhoogde rand om het scherm plaatsen"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Schuifbalkinstellingen voor schermvullende weergave"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Kleur van transparantie"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Transparantie-indicator"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -253,54 +243,13 @@ msgstr ""
 "Of de afbeelding geïnterpoleerd moet worden of niet. Dit zorgt voor een "
 "betere beeldkwaliteit maar is wat langzamer."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Of het afbeeldingsvenster zijn afmetingen en zoomfactor automatisch moet "
-"instellen op basis van de afbeeldingskenmerken. Als deze optie niet is "
-"ingeschakeld, zal het venster de afmetingen krijgen toegewezen van het "
-"vensterbeheerprogramma."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Of het openen van een afbeelding in een nieuw venster moet gebeuren in "
 "plaats van het huidige venster."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Of de schermvullende weergave een verhoogde rand om de afbeelding moet "
-"zetten."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Of er schuifbalken weergegeven dienen te worden bij schermvullende weergave. "
-"Mogelijke waarden zijn: 1 (automatisch), 2 (nooit)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Of afbeeldingen met standaardafmetingen passend moeten worden bij "
-"schermvullende weergave. Standaardafbeeldingen zijn: 320x240, 640x480, "
-"800x600, etc. Dit selecteert of zulke afbeeldingen passend gemaakt moeten "
-"worden ondanks mogelijke andere instellingen voor de standaard zoomfactor "
-"bij schermvullende weergave."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -346,15 +295,15 @@ msgstr "Afbeelding opslaan"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Allocatie van geheugen voor JPEG-bestand is mislukt"
 
-#: libeog/eog-image.c:1316
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: libeog/eog-image.c:1325
+#: libeog/eog-image.c:1347
 msgid "Images can only be saved as local files."
 msgstr "Afbeeldingen kunnen alleen als lokale bestanden opgeslagen worden."
 
-#: libeog/eog-image.c:1360
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Niet ondersteund afbeeldingstype om op te slaan."
 
@@ -471,21 +420,9 @@ msgstr "Verticaal"
 msgid "Vertically by "
 msgstr "Verticaal met"
 
-#: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "actiegebied"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialoog"
-
 #: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialoog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -583,24 +520,25 @@ msgstr "A_fsluiten"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#: shell/eog-window.c:273
+#, fuzzy
+msgid "Copyright © 2000-2003 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Afbeeldingen bekijken en catalogusbeheer voor GNOME"
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -688,69 +626,175 @@ msgid "Print image to the printer"
 msgstr "Afbeelding naar printer sturen"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Opslaan _als..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "De paginainstellingen aanpassen voor uw huidige printer"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Schermvullend"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "Af_drukken..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "_Met de klok mee draaien"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "_Tegen de klok in draaien"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Inzoomen"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/_Uitzoomen"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Normale afmetingen"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/_Passend"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Sluiten"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr ""
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+#, fuzzy
+msgid "Loading failed"
+msgstr "Opslaan van afbeelding mislukt"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "Afbeelding succesvol opgeslagen"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "Opslaan van afbeelding mislukt"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "Statusbalk-tekst"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "Gewenste vensterhoogte"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "Gewenste vensterbreedte"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kan GnomeVFS niet inschakelen!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Automatisch vensterafmetingen kiezen"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Standaard zoomfactor bij schermvullende weergave"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Standaard zoomfactor bij schermvullende weergave. Mogelijke waarden zijn: "
+#~ "0 (100% weergave), 1 (gebruik dezelfde zoomfactor als normaal), 2 (maak "
+#~ "afbeelding schermvullend)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Afbeeldingen met standaardafmetingen schermvullend maken."
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Een verhoogde rand om het scherm plaatsen"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Schuifbalkinstellingen voor schermvullende weergave"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Of het afbeeldingsvenster zijn afmetingen en zoomfactor automatisch moet "
+#~ "instellen op basis van de afbeeldingskenmerken. Als deze optie niet is "
+#~ "ingeschakeld, zal het venster de afmetingen krijgen toegewezen van het "
+#~ "vensterbeheerprogramma."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Of de schermvullende weergave een verhoogde rand om de afbeelding moet "
+#~ "zetten."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Of er schuifbalken weergegeven dienen te worden bij schermvullende "
+#~ "weergave. Mogelijke waarden zijn: 1 (automatisch), 2 (nooit)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Of afbeeldingen met standaardafmetingen passend moeten worden bij "
+#~ "schermvullende weergave. Standaardafbeeldingen zijn: 320x240, 640x480, "
+#~ "800x600, etc. Dit selecteert of zulke afbeeldingen passend gemaakt moeten "
+#~ "worden ondanks mogelijke andere instellingen voor de standaard zoomfactor "
+#~ "bij schermvullende weergave."
+
+#~ msgid "action_area"
+#~ msgstr "actiegebied"
+
+#~ msgid "dialog"
+#~ msgstr "dialoog"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Kan GnomeVFS niet inschakelen!\n"
