@@ -20,6 +20,7 @@
 #include <gnome.h>
 #include <libgnomeprint/gnome-print-master.h>
 #include <libgnomeprint/gnome-print.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
 
 #include <eog-print-setup.h>
 #include <eog-image-view.h>
@@ -261,9 +262,14 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	EogImageView     *image_view;
 	GtkWidget        *fsel;
 	const gchar      *filename;
-	gchar            *message;
+	gchar            *message = NULL;
 	CORBA_Environment ev;
-	BonoboStream     *stream;
+	Bonobo_Storage    storage = CORBA_OBJECT_NIL;
+	Bonobo_Stream     stream = CORBA_OBJECT_NIL;
+	gchar            *path_dir = NULL; 
+	gchar            *path_base = NULL;
+        gchar            *mime_type = NULL;
+	gchar            *tmp_dir = NULL;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
@@ -274,33 +280,52 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 
 	CORBA_exception_init (&ev);
 	
-#if NEED_GNOME_2_PORTING
-	stream = bonobo_stream_open_full ("fs", filename, 
-					  Bonobo_Storage_WRITE | Bonobo_Storage_CREATE, 0664, &ev);
+	tmp_dir = g_path_get_dirname (filename);
+	path_dir = g_strconcat ("file:", tmp_dir, NULL);
+	g_free (tmp_dir);
+	storage = bonobo_get_object (path_dir, "IDL:Bonobo/Storage:1.0", &ev);
+	if (BONOBO_EX (&ev)) goto on_error;
+	g_free (path_dir); path_dir = NULL;
 
-	if (!BONOBO_EX (&ev)) {
-		gchar *mime_type;
+	path_base = g_path_get_basename (filename);
+	stream = Bonobo_Storage_openStream (storage, path_base, 
+					    Bonobo_Storage_WRITE | Bonobo_Storage_CREATE,
+					    &ev);
 
-		mime_type = gnome_vfs_get_mime_type (filename);
-		eog_image_save_to_stream (image_view->priv->image,
-					  BONOBO_OBJREF (stream), 
-					  mime_type, &ev);
-		bonobo_object_unref (BONOBO_OBJECT (stream));
-		g_free (mime_type);
-	}
+	if (BONOBO_EX (&ev)) goto on_error;
+	g_free (path_base); path_base = NULL;
 
-	if (BONOBO_EX (&ev)) {
-		message = g_strdup_printf (
-			_("Could not save image as '%s': %s."), filename, 
-			bonobo_exception_get_text (&ev));
-		gnome_error_dialog_parented (message, GTK_WINDOW (fsel));
-		g_free (message);
-	}
+	mime_type = gnome_vfs_get_mime_type (filename);
+	eog_image_save_to_stream (image_view->priv->image,
+				  stream, 
+				  mime_type, &ev);
+	if (BONOBO_EX (&ev)) goto on_error;
 
-#endif
-	
+	g_free (mime_type);
+	bonobo_object_release_unref (stream, &ev);
+	bonobo_object_release_unref (storage, &ev);
+
 	CORBA_exception_free (&ev);
-	
+	gtk_widget_destroy (fsel);
+
+	return;
+
+ on_error:
+	message = g_strdup_printf (
+		_("Could not save image as '%s': %s."), filename, 
+		bonobo_exception_get_text (&ev));
+	gnome_error_dialog_parented (message, GTK_WINDOW (fsel));
+	g_free (message);
+	if (path_dir) g_free (path_dir);
+	if (path_base) g_free (path_base);
+	if (mime_type) g_free (mime_type);
+
+	if (stream != CORBA_OBJECT_NIL)
+		bonobo_object_release_unref (stream, &ev);
+	if (storage != CORBA_OBJECT_NIL) 
+		bonobo_object_release_unref (storage, &ev);
+
+	CORBA_exception_free (&ev);
 	gtk_widget_destroy (fsel);
 }
 
