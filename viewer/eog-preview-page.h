@@ -38,7 +38,8 @@ void 	   eog_preview_page_update (EogPreviewPage *page,
 				    gdouble bottom, gdouble top, 
 				    gdouble right, gdouble left, 
 				    gboolean vertically, gboolean horizontally,
-				    gboolean cut,
+				    gboolean cut, gdouble overlap_x, 
+				    gdouble overlap_y, gboolean overlap,
 				    gint *cols_needed, gint *rows_needed);
 
 END_GNOME_DECLS

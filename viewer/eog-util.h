@@ -40,7 +40,10 @@ eog_util_load_print_settings		(GConfClient		 *client,
 					 gboolean		 *down_right,
 					 gboolean		 *fit_to_page,
 					 gint			 *adjust_to,
-					 gint			 *unit);
+					 gint			 *unit,
+					 gdouble		 *overlap_x,
+					 gdouble		 *overlap_y,
+					 gboolean		 *overlap);
 
 void
 eog_util_paper_size			(const gchar 		 *paper_size,

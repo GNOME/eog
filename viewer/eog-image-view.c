@@ -311,16 +311,18 @@ count_pages (gdouble 	paper_width,
 	     gdouble	right,
 	     gdouble	bottom,
 	     gboolean	fit_to_page,
-	     gint	adj,
+	     gint	adjust_to,
+	     gdouble	overlap_x,
+	     gdouble	overlap_y,
 	     GdkPixbuf *pixbuf)
 {
-	gdouble	adjusted_width, adjusted_height;
+	gdouble	adj_width, adj_height;
 	gdouble	image_width, image_height;
 	gdouble	avail_width, avail_height;
 	gint	rows, cols;
 
-	avail_width = paper_width - left - right;
-	avail_height = paper_height - bottom - top;
+	avail_width = paper_width - left - right - overlap_x;
+	avail_height = paper_height - bottom - top - overlap_y;
 
 	if ((avail_width <= 0.0) || (avail_height <= 0.0))
 		return (0);
@@ -331,11 +333,11 @@ count_pages (gdouble 	paper_width,
 	image_width = gdk_pixbuf_get_width (pixbuf);
 	image_height = gdk_pixbuf_get_height (pixbuf);
 
-	adjusted_width = image_width * adj / 100;
-	adjusted_height = image_height * adj / 100;
+	adj_width = image_width * adjust_to / 100;
+	adj_height = image_height * adjust_to / 100;
 
-	cols = adjusted_width / avail_width + 1;
-	rows = adjusted_height / avail_height + 1;
+        for (cols = 1; adj_width > cols * avail_width + overlap_x; cols++);
+        for (rows = 1; adj_height > rows * avail_height + overlap_y; rows++);
 
 	return (cols * rows);
 }
@@ -350,8 +352,9 @@ print_line (GnomePrintContext *context,
 }
 
 static void
-print_cutting_help (GnomePrintContext *context, double width, double height,
-		    double x, double y, double image_width, double image_height)
+print_cutting_help (GnomePrintContext *context, gdouble width, gdouble height,
+		    gdouble x, gdouble y, 
+		    gdouble image_width, gdouble image_height)
 {
 	gdouble x1, y1, x2, y2;
 
@@ -368,6 +371,23 @@ print_cutting_help (GnomePrintContext *context, double width, double height,
 	print_line (context,  x2, y, width, y);
 	print_line (context, x, height , x, y2);
 	print_line (context, x1, height, x1, y2);
+}
+
+static void
+print_overlapping_help (GnomePrintContext *context, gdouble width, 
+			gdouble height, gdouble x, gdouble y, 
+			gdouble image_width, gdouble image_height, 
+			gdouble overlap_x, gdouble overlap_y, gboolean last_x,
+			gboolean last_y)
+{
+	gdouble x1;
+
+	x1 = x + image_width - overlap_x;
+
+	if (!last_x)
+		print_line (context, x1, y, x1, y + image_height);
+	if (!last_y)
+		print_line (context, x, overlap_y, x + image_width, overlap_y);
 }
 
 static void
@@ -388,6 +408,9 @@ print_page (GnomePrintContext 	*context,
 	    gint		 adj,
 	    gboolean		 down_right,
 	    gboolean		 cut,
+	    gdouble		 overlap_x,
+	    gdouble 		 overlap_y,
+	    gboolean		 overlap,
 	    GdkPixbuf 		*pixbuf, 
 	    gint 		 col, 
 	    gint 		 row)
@@ -420,8 +443,8 @@ print_page (GnomePrintContext 	*context,
 	}
 
 	/* How much place do we have got on the paper? */
-	avail_width = width - left - right;
-	avail_height = height - bottom - top;
+	avail_width = width - left - right - overlap_x;
+	avail_height = height - bottom - top - overlap_y;
 	g_return_if_fail (avail_width > 0);
 	g_return_if_fail (avail_height > 0);
 
@@ -430,10 +453,10 @@ print_page (GnomePrintContext 	*context,
 	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
 
 	/* Calculate the free place on the paper */
-	for (cols = 1; pixbuf_width > cols * avail_width; cols++);
-	leftover_width = cols * avail_width - pixbuf_width;
-	for (rows = 1; pixbuf_height > rows * avail_height; rows++);
-	leftover_height = rows * avail_height - pixbuf_height;
+	for (cols = 1; pixbuf_width > cols * avail_width + overlap_x; cols++);
+	leftover_width = cols * avail_width + overlap_x - pixbuf_width;
+	for (rows = 1; pixbuf_height > rows * avail_height + overlap_y; rows++);
+	leftover_height = rows * avail_height + overlap_y - pixbuf_height;
 	
 	first_x = (col == 0);
 	first_y = (row == 0);
@@ -449,7 +472,7 @@ print_page (GnomePrintContext 	*context,
 			image_width += leftover_width / 2.0;
 	} else {
 		go_right = TRUE;
-		image_width = avail_width;
+		image_width = avail_width + overlap_x;
 		if (first_x && horizontally)
 			image_width -= leftover_width / 2.0;
 	}
@@ -464,7 +487,7 @@ print_page (GnomePrintContext 	*context,
 			image_height += leftover_height / 2.0;
 	} else {
 		go_down = TRUE;
-		image_height = avail_height;
+		image_height = avail_height + overlap_y;
 		if (first_y && vertically)
 			image_height -= leftover_height / 2.0;
 	}
@@ -516,7 +539,7 @@ print_page (GnomePrintContext 	*context,
 		matrix [4] = x;
 	
 		/* Where to put the image (y)? */
-		y = bottom + (avail_height - image_height);
+		y = bottom + (avail_height - image_height + overlap_y);
 		if (vertically && first_y)
 		    	y -= leftover_height / 2.0;
 		matrix [5] = y;
@@ -528,10 +551,15 @@ print_page (GnomePrintContext 	*context,
 		gdk_pixbuf_unref (pixbuf_to_print);
 		gnome_print_grestore (context);
 		
-		/* Cutting help? */ 
+		/* Helpers? */
 		if (cut)
 			print_cutting_help (context, width, height, x, y,
 					    image_width, image_height);
+		if (overlap)
+			print_overlapping_help (context, width, height, x, y, 
+						image_width, image_height,
+						overlap_x, overlap_y, 
+						last_x, last_y);
 
 		gnome_print_showpage (context);
 	}
@@ -544,6 +572,7 @@ print_page (GnomePrintContext 	*context,
 				    top, left, right, bottom,
 				    vertically, horizontally,
 				    fit_to_page, adj, down_right, cut,
+				    overlap_x, overlap_y, overlap,
 				    pixbuf, col, row + 1);
 		else if (go_right)
 			print_page (context,
@@ -552,6 +581,7 @@ print_page (GnomePrintContext 	*context,
 				    top, left, right, bottom,
 				    vertically, horizontally,
 				    fit_to_page, adj, down_right, cut,
+				    overlap_x, overlap_y, overlap,
 				    pixbuf, col + 1, 0);
 		return;
 	}
@@ -564,6 +594,7 @@ print_page (GnomePrintContext 	*context,
 				    top, left, right, bottom,
 				    vertically, horizontally,
 				    fit_to_page, adj, down_right, cut,
+				    overlap_x, overlap_y, overlap,
 				    pixbuf, col + 1, row);
 		else if (go_down)
 			print_page (context,
@@ -572,6 +603,7 @@ print_page (GnomePrintContext 	*context,
 				    top, left, right, bottom,
 				    vertically, horizontally,
 				    fit_to_page, adj, down_right, cut,
+				    overlap_x, overlap_y, overlap,
 				    pixbuf, 0, row + 1);
 	}
 }
@@ -582,7 +614,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 		      gdouble bottom, gdouble top, gdouble right, gdouble left, 
 		      gboolean vertically, gboolean horizontally, 
 		      gboolean down_right, gboolean cut, gboolean fit_to_page, 
-		      gint adjust_to)
+		      gint adjust_to, gdouble overlap_x, gdouble overlap_y,
+		      gboolean overlap)
 {
 	GdkPixbuf	  *pixbuf;
 	GdkPixbuf	  *pixbuf_orig;
@@ -611,7 +644,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 	first = 1;
 	last = count_pages (paper_width, paper_height, 
 			    top, left, right, bottom, 
-			    fit_to_page, adjust_to, pixbuf_orig);
+			    fit_to_page, adjust_to, overlap_x, overlap_y, 
+			    pixbuf_orig);
 
 	if (!preview) {
 		GnomePrintDialog *gpd;
@@ -704,7 +738,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 		    top, left, right, bottom,
 		    vertically, horizontally,
 		    fit_to_page, adjust_to,
-		    down_right, cut,
+		    down_right, cut, overlap_x, overlap_y, overlap,
 		    pixbuf, 0, 0);
 	gdk_pixbuf_unref (pixbuf);
 
@@ -735,8 +769,8 @@ verb_PrintPreview_cb (BonoboUIComponent *uic,
 	EogImageView 	*image_view;
 	gchar		*paper_size;
 	gboolean	 landscape, down_right;
-	gdouble		 bottom, top, right, left;
-	gboolean	 vertically, horizontally, cut, fit_to_page;
+	gdouble		 bottom, top, right, left, overlap_x, overlap_y;
+	gboolean	 vertically, horizontally, cut, fit_to_page, overlap;
 	gint		 adjust_to, unit;
 
 	g_return_if_fail (user_data != NULL);
@@ -748,11 +782,12 @@ verb_PrintPreview_cb (BonoboUIComponent *uic,
 				      &paper_size, &top, &bottom, &left,
 				      &right, &landscape, &cut, &horizontally, 
 				      &vertically, &down_right, &fit_to_page, 
-				      &adjust_to, &unit);
+				      &adjust_to, &unit, &overlap_x, 
+				      &overlap_y, &overlap);
 	eog_image_view_print (image_view, TRUE, paper_size, landscape,
 			      bottom, top, right, left, vertically, 
 			      horizontally, down_right, cut, fit_to_page, 
-			      adjust_to);
+			      adjust_to, overlap_x, overlap_y, overlap);
 	g_free (paper_size);
 }
 
@@ -762,8 +797,8 @@ verb_Print_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	EogImageView 	*image_view;
 	gchar	 	*paper_size;
 	gboolean	 landscape, down_right;
-	gdouble		 bottom, top, right, left;
-	gboolean	 vertically, horizontally, cut, fit_to_page;
+	gdouble		 bottom, top, right, left, overlap_x, overlap_y;
+	gboolean	 vertically, horizontally, cut, fit_to_page, overlap;
 	gint		 adjust_to, unit;
 
 	g_return_if_fail (user_data != NULL);
@@ -775,11 +810,12 @@ verb_Print_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 				      &paper_size, &top, &bottom, &left, 
 				      &right, &landscape, &cut, &horizontally, 
 				      &vertically, &down_right, &fit_to_page, 
-				      &adjust_to, &unit);
+				      &adjust_to, &unit, &overlap_x,
+				      &overlap_y, &overlap);
 	eog_image_view_print (image_view, FALSE, paper_size, landscape, 
 			      bottom, top, right, left, vertically, 
 			      horizontally, down_right, cut, fit_to_page, 
-			      adjust_to);
+			      adjust_to, overlap_x, overlap_y, overlap);
 	g_free (paper_size);
 }
 

@@ -41,7 +41,8 @@ void
 eog_preview_update (EogPreview *preview, gdouble width, gdouble height, 
 		    gdouble bottom, gdouble top, gdouble right, gdouble left, 
 		    gboolean vertically, gboolean horizontally, gboolean cut,
-		    gboolean fit_to_page, gint adjust_to) 
+		    gboolean fit_to_page, gint adjust_to, gdouble overlap_x, 
+		    gdouble overlap_y, gboolean overlap) 
 {
 	BonoboPropertyBag *bag;
 	BonoboArg	  *arg;
@@ -130,7 +131,8 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 	eog_preview_page_update (EOG_PREVIEW_PAGE (priv->root), pixbuf,
 				 SCALE (width), SCALE (height), SCALE (bottom), 
 				 SCALE (top), SCALE (right), SCALE (left),
-				 vertically, horizontally, cut,
+				 vertically, horizontally, cut, 
+				 SCALE (overlap_x), SCALE (overlap_y), overlap,
 				 &cols_needed, &rows_needed);
 
 	/* Do we need to remove VBoxes? */
@@ -182,6 +184,8 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 						 SCALE (right), 
 						 SCALE (left),
 						 vertically, horizontally, cut,
+						 SCALE (overlap_x), 
+						 SCALE (overlap_y), overlap, 
 						 &cols_needed, &rows_needed);
 		}
 	}

@@ -68,7 +68,8 @@ eog_util_load_print_settings (GConfClient *client,
 			      gboolean *landscape, gboolean *cut, 
 			      gboolean *horizontally, gboolean *vertically, 
 			      gboolean *down_right, gboolean *fit_to_page, 
-			      gint *adjust_to, gint *unit)
+			      gint *adjust_to, gint *unit, gdouble *overlap_x,
+			      gdouble *overlap_y, gboolean *overlap)
 {
 
 	*paper_size = gconf_client_get_string (client, 
@@ -79,6 +80,12 @@ eog_util_load_print_settings (GConfClient *client,
 	*left = gconf_client_get_float (client, "/apps/eog/viewer/left", NULL); 
 	*right = gconf_client_get_float (client, 
 				"/apps/eog/viewer/right", NULL); 
+	*overlap_x = gconf_client_get_float (client,
+				"/apps/eog/viewer/overlap_x", NULL);
+	*overlap_y = gconf_client_get_float (client,
+				"/apps/eog/viewer/overlap_y", NULL);
+	*overlap = gconf_client_get_bool (client,
+				"/apps/eog/viewer/overlap", NULL);
 	*landscape = gconf_client_get_bool (client, 
 				"/apps/eog/viewer/landscape", NULL);
 	*cut = gconf_client_get_bool (client, "/apps/eog/viewer/cut", NULL); 

@@ -58,7 +58,9 @@ void  eog_image_view_print (EogImageView *image_view, gboolean preview,
 			    gdouble bottom, gdouble top, gdouble right, 
 			    gdouble left, gboolean vertically, 
 			    gboolean horizontally, gboolean down_right, 
-			    gboolean cut, gboolean fit_to_page, gint adjust_to);
+			    gboolean cut, gboolean fit_to_page, gint adjust_to,
+			    gdouble overlap_x, gdouble overlap_y, 
+			    gboolean overlap);
 
 /* Zooming */
 float eog_image_view_get_zoom_factor (EogImageView *image_view);

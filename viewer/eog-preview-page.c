@@ -3,6 +3,7 @@
 #endif
 
 #include <eog-preview-page.h>
+#include <gdk-pixbuf/gnome-canvas-pixbuf.h>
 
 #define PARENT_TYPE GNOME_TYPE_CANVAS
 static GnomeCanvasClass *parent_class = NULL;
@@ -20,10 +21,15 @@ struct _EogPreviewPagePrivate
 	GnomeCanvasItem  *bg_black;
 	GnomeCanvasItem  *image;
 
+	GnomeCanvasGroup *margin_group;
 	GnomeCanvasItem  *margin_top;
 	GnomeCanvasItem	 *margin_bottom;
 	GnomeCanvasItem  *margin_right;
 	GnomeCanvasItem	 *margin_left;
+
+	GnomeCanvasGroup *overlap_group;
+	GnomeCanvasItem	 *overlap_right;
+	GnomeCanvasItem	 *overlap_bottom;
 
 	GnomeCanvasGroup *cut_group;
 	GnomeCanvasItem  *cut_top_right;
@@ -91,7 +97,6 @@ move_line (GnomeCanvasItem *item,
 	
 	gnome_canvas_item_set (item, "points", points, NULL); 
 	gnome_canvas_points_unref (points); 
-	gnome_canvas_item_raise_to_top (item);
 }
 
 static void
@@ -132,6 +137,36 @@ redraw_cut (EogPreviewPage *page, gdouble x, gdouble y,
 }
 
 static void
+redraw_overlap (EogPreviewPage *page, gdouble x, gdouble y, gdouble image_width,
+		gdouble image_height, gboolean last_x, gboolean last_y,
+		gdouble overlap_x, gdouble overlap_y, gboolean overlap)
+{
+	gdouble x1, y1;
+
+	if (!overlap || last_x)
+		move_line (page->priv->overlap_right, 0.0, 0.0, 0.0, 0.0);
+	if (!overlap || last_y)
+		move_line (page->priv->overlap_bottom, 0.0, 0.0, 0.0, 0.0);
+	if (!overlap)
+		gnome_canvas_item_lower_to_bottom ( 
+			GNOME_CANVAS_ITEM (page->priv->overlap_group));
+	else 
+		gnome_canvas_item_raise_to_top (
+			GNOME_CANVAS_ITEM (page->priv->overlap_group));
+
+	if (overlap && !last_x) {
+		x1 = x + image_width - overlap_x;
+		y1 = y + image_height;
+		move_line (page->priv->overlap_right, x1, y, x1, y1);
+	}
+	if (overlap && !last_y) {
+		x1 = x + image_width;
+		y1 = y + image_height - overlap_y;
+		move_line (page->priv->overlap_bottom, x, y1, x1, y1);
+	}
+}
+
+static void
 redraw_margins (EogPreviewPage *page, gdouble top, gdouble bottom, 
 		gdouble left, gdouble right)
 {
@@ -142,6 +177,8 @@ redraw_margins (EogPreviewPage *page, gdouble top, gdouble bottom,
 		   page->priv->height);
 	move_line (page->priv->margin_right, page->priv->width - right, 0.0, 
 		   page->priv->width - right, page->priv->height);
+	gnome_canvas_item_raise_to_top (
+		GNOME_CANVAS_ITEM (page->priv->margin_group));
 }
 
 void
@@ -149,13 +186,10 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 			 gdouble width, gdouble height, gdouble bottom, 
 			 gdouble top, gdouble right, gdouble left,
 			 gboolean vertically, gboolean horizontally, 
-			 gboolean cut,
-			 gint *cols, gint *rows)
+			 gboolean cut, gdouble overlap_x, gdouble overlap_y,
+			 gboolean overlap, gint *cols, gint *rows)
 {
-	GtkWidget		*widget;
 	GdkPixbuf		*pixbuf_to_show;
-	GdkPixmap		*pixmap;
-	GdkBitmap		*bitmap;
 	gint			 pixbuf_width, pixbuf_height;
 	gdouble			 image_width, image_height;
 	gdouble			 avail_width, avail_height;
@@ -184,8 +218,8 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 	redraw_margins (page, top, bottom, left, right);
 
 	/* How much place do we have got on the paper? */
-	avail_width = width - left - right;
-	avail_height = height - top - bottom;
+	avail_width = width - left - right - overlap_x;
+	avail_height = height - top - bottom - overlap_y;
 	if (avail_width < 0)
 		avail_width = 0;
 	if (avail_height < 0)
@@ -194,6 +228,7 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 	/* If no pixbuf is given or if we can't show a pixbuf because    */
 	/* there is no space available, we just redraw the cutting help. */
 	if (!pixbuf || !avail_width || !avail_height) {
+		redraw_overlap (page, 0, 0, 0, 0, FALSE, FALSE, 0, 0, FALSE);
 		redraw_cut (page, 0, 0, 0, 0, FALSE);
 		return;
 	}
@@ -203,10 +238,12 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
 
 	/* Calculate the free place on the paper */
-	for (*cols = 1; pixbuf_width > *cols * avail_width; (*cols)++);
-	leftover_width = *cols * avail_width - pixbuf_width;
-	for (*rows = 1; pixbuf_height > *rows * avail_height; (*rows)++);
-	leftover_height = *rows * avail_height - pixbuf_height;
+	for (*cols = 1; pixbuf_width > *cols * avail_width + overlap_x; 
+								(*cols)++);
+	leftover_width = *cols * avail_width + overlap_x - pixbuf_width;
+	for (*rows = 1; pixbuf_height > *rows * avail_height + overlap_y; 
+								(*rows)++);
+	leftover_height = *rows * avail_height + overlap_y - pixbuf_height;
 
 	g_return_if_fail (*cols > page->priv->col);
 	g_return_if_fail (*rows > page->priv->row);
@@ -224,7 +261,7 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 		if (horizontally)
 			image_width += leftover_width / 2.0;
 	} else {
-		image_width = avail_width;
+		image_width = avail_width + overlap_x;
 		if (first_x && horizontally)
 			image_width -= leftover_width / 2.0;
 	}
@@ -239,7 +276,7 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 		if (vertically) 
 			image_height += leftover_height / 2.0; 
 	} else { 
-		image_height = avail_height; 
+		image_height = avail_height + overlap_y; 
 		if (first_y && vertically) 
 			image_height -= leftover_height / 2.0; 
 	} 
@@ -280,11 +317,6 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 			      (gint) image_width, (gint) image_height, 
 			      pixbuf_to_show, 0, 0);
 
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf_to_show, &pixmap, &bitmap, 1);
-	gdk_pixbuf_unref (pixbuf_to_show);
-	widget = gtk_pixmap_new (pixmap, bitmap);
-	gtk_widget_show (widget);
-
 	/* Where to put the image (x)? */
 	x = left;
 	if (horizontally && first_x)
@@ -297,16 +329,17 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 	
 	page->priv->image = gnome_canvas_item_new (
 					page->priv->group, 
-					gnome_canvas_widget_get_type (), 
-					"widget", widget, 
+					gnome_canvas_pixbuf_get_type (),
+					"pixbuf", pixbuf_to_show, 
 					"x", (double) OFFSET_X + x, 
 					"y", (double) OFFSET_Y + y, 
 					"width", (double) image_width + 1.0, 
 					"height", (double) image_height + 1.0, 
-					"anchor", GTK_ANCHOR_NORTH_WEST, 
-					"size_pixels", TRUE, NULL);
+					NULL);
 	
 	redraw_cut (page, x, y, image_width, image_height, cut);
+	redraw_overlap (page, x, y, image_width, image_height, last_x, last_y, 
+			overlap_x, overlap_y, overlap);
 }
 
 static void
@@ -405,11 +438,24 @@ eog_preview_page_new (EogImageView *image_view, gint col, gint row)
 	priv->group = GNOME_CANVAS_GROUP (group);
 
 	/* Margins */
-	priv->margin_top = make_line (page->priv->group, "red");
-	priv->margin_bottom = make_line (page->priv->group, "red");
-	priv->margin_right = make_line (page->priv->group, "red");
-	priv->margin_left = make_line (page->priv->group, "red");
+	group = gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (page)),
+				       gnome_canvas_group_get_type (),
+				       "x", 0.0, "y", 0.0, NULL);
+	priv->margin_group = GNOME_CANVAS_GROUP (group);
+	priv->margin_top = make_line (priv->margin_group, "red");
+	priv->margin_bottom = make_line (priv->margin_group, "red");
+	priv->margin_right = make_line (priv->margin_group, "red");
+	priv->margin_left = make_line (priv->margin_group, "red");
 
+	/* Overlap */
+	group = gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (page)),
+				       gnome_canvas_group_get_type (),
+				       "x", 0.0, "y", 0.0, NULL);
+	priv->overlap_group = GNOME_CANVAS_GROUP (group);
+	priv->overlap_right = make_line (priv->overlap_group, "black");
+	priv->overlap_bottom = make_line (priv->overlap_group, "black");
+
+	/* Cutting help */
 	group = gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (page)),
 				       gnome_canvas_group_get_type (),
 				       "x", 0.0, "y", 0.0, NULL);

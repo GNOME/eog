@@ -29,6 +29,9 @@ struct _EogPrintSetupPrivate
 	GtkSpinButton	*spin_left;
 	GtkSpinButton	*spin_right;
 
+	GtkSpinButton	*spin_overlap_x;
+	GtkSpinButton	*spin_overlap_y;
+
 	gchar		*paper_size;
 
 	guint		 unit;
@@ -50,6 +53,10 @@ struct _EogPrintSetupPrivate
 
 	gboolean 	 cut;
 	gboolean	 down_right;
+
+	gdouble		 overlap_x;
+	gdouble 	 overlap_y;
+	gboolean	 overlap;
 };
 
 static struct 
@@ -81,6 +88,10 @@ save_settings (EogPrintSetup *ps)
 		"/apps/eog/viewer/left", ps->priv->left, NULL);
 	gconf_client_set_float (ps->priv->client,
 		"/apps/eog/viewer/right", ps->priv->right, NULL);
+	gconf_client_set_float (ps->priv->client,
+		"/apps/eog/viewer/overlap_x", ps->priv->overlap_x, NULL);
+	gconf_client_set_float (ps->priv->client,
+		"/apps/eog/viewer/overlap_y", ps->priv->overlap_y, NULL);
 	gconf_client_set_bool (ps->priv->client,
 		"/apps/eog/viewer/landscape", ps->priv->landscape, NULL);
 	gconf_client_set_bool (ps->priv->client,
@@ -93,6 +104,8 @@ save_settings (EogPrintSetup *ps)
 		"/apps/eog/viewer/down_right", ps->priv->down_right, NULL);
 	gconf_client_set_bool (ps->priv->client,
 		"/apps/eog/viewer/fit_to_page", ps->priv->fit_to_page, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/overlap", ps->priv->overlap, NULL);
 	gconf_client_set_int (ps->priv->client,
 		"/apps/eog/viewer/adjust_to", ps->priv->adjust_to, NULL);
 	gconf_client_set_int (ps->priv->client,
@@ -122,7 +135,8 @@ update_preview (EogPrintSetup *ps)
 			    ps->priv->right, ps->priv->left, 
 			    ps->priv->vertically, ps->priv->horizontally, 
 			    ps->priv->cut, ps->priv->fit_to_page, 
-			    ps->priv->adjust_to);
+			    ps->priv->adjust_to, ps->priv->overlap_x, 
+			    ps->priv->overlap_y, ps->priv->overlap);
 }
 
 static void 
@@ -186,6 +200,13 @@ static void
 on_cut_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
 	ps->priv->cut = button->active;
+	update_preview (ps);
+}
+
+static void
+on_overlap_toggled (GtkToggleButton *button, EogPrintSetup *ps)
+{
+	ps->priv->overlap = button->active;
 	update_preview (ps);
 }
 
@@ -265,6 +286,20 @@ on_adjust_to_value_changed (GtkAdjustment *adjustment, EogPrintSetup *ps)
 }
 
 static void
+on_overlap_x_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
+{
+	ps->priv->overlap_x = adj->value  / unit [ps->priv->unit].multiplier;
+	update_preview (ps);
+}
+
+static void
+on_overlap_y_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
+{
+	ps->priv->overlap_y = adj->value  / unit [ps->priv->unit].multiplier;
+	update_preview (ps);
+}
+
+static void
 on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
 {
 	switch (button_number) {
@@ -284,7 +319,10 @@ on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
 				      ps->priv->horizontally, 
 				      ps->priv->down_right, ps->priv->cut, 
 				      ps->priv->fit_to_page, 
-				      ps->priv->adjust_to);
+				      ps->priv->adjust_to, 
+				      ps->priv->overlap_x,
+				      ps->priv->overlap_y,
+				      ps->priv->overlap);
 		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
 	case 3:
@@ -296,7 +334,10 @@ on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
 				      ps->priv->horizontally, 
 				      ps->priv->down_right, ps->priv->cut, 
 				      ps->priv->fit_to_page, 
-				      ps->priv->adjust_to);
+				      ps->priv->adjust_to,
+				      ps->priv->overlap_x,
+				      ps->priv->overlap_y,
+				      ps->priv->overlap);
 		break;
 	default:
 		break;
@@ -325,11 +366,13 @@ on_unit_activate (GtkMenuItem *item, EogPrintSetup *ps)
 	ps->priv->unit = GPOINTER_TO_INT (
 			gtk_object_get_data (GTK_OBJECT (item), "unit"));
 
-	/* Adjust the margin values */
+	/* Adjust all values */
 	do_conversion (ps->priv->spin_top, old, ps->priv->unit);
 	do_conversion (ps->priv->spin_bottom, old, ps->priv->unit);
 	do_conversion (ps->priv->spin_left, old, ps->priv->unit);
 	do_conversion (ps->priv->spin_right, old, ps->priv->unit);
+	do_conversion (ps->priv->spin_overlap_x, old, ps->priv->unit);
+	do_conversion (ps->priv->spin_overlap_y, old, ps->priv->unit);
 }
 
 static void
@@ -420,7 +463,7 @@ eog_print_setup_new (EogImageView *image_view)
 	GtkWidget		*vbox, *hbox, *table;
 	GtkWidget		*button, *combo;
 	GtkWidget		*menu, *item;
-	GtkObject		*adjustment;
+	GtkObject		*adj;
 	GSList			*group;
 	GList			*list;
 	const gchar		*buttons[] = {GNOME_STOCK_BUTTON_OK,
@@ -450,7 +493,9 @@ eog_print_setup_new (EogImageView *image_view)
 				      &priv->landscape, &priv->cut, 
 				      &priv->horizontally, &priv->vertically, 
 				      &priv->down_right, &priv->fit_to_page, 
-				      &priv->adjust_to, &priv->unit);
+				      &priv->adjust_to, &priv->unit, 
+				      &priv->overlap_x, &priv->overlap_y, 
+				      &priv->overlap);
 
 	eog_util_paper_size (priv->paper_size, priv->landscape, &priv->width,
 			     &priv->height);
@@ -476,10 +521,38 @@ eog_print_setup_new (EogImageView *image_view)
 	priv->preview = EOG_PREVIEW (widget);
 	update_preview (new);
 
+	vbox = gtk_vbox_new (FALSE, 8);
+	gtk_widget_show (vbox);
+	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
+
+	/* Units */
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_widget_show (hbox);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+	widget = gtk_option_menu_new (); 
+	gtk_widget_show (widget); 
+	gtk_box_pack_end (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
+	menu = gtk_menu_new (); 
+	gtk_widget_show (menu); 
+	for (i = 0; i < 4; i++) { 
+		item = gtk_menu_item_new_with_label (unit [i].short_name); 
+		gtk_widget_show (item); 
+		gtk_menu_append (GTK_MENU (menu), item); 
+		gtk_signal_connect (GTK_OBJECT (item), "activate", 
+				    GTK_SIGNAL_FUNC (on_unit_activate), new); 
+		gtk_object_set_data (GTK_OBJECT (item), "unit", 
+				     GINT_TO_POINTER (i)); 
+	} 
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu); 
+	gtk_option_menu_set_history (GTK_OPTION_MENU (widget), new->priv->unit);
+	label = gtk_label_new (_("Units: ")); 
+	gtk_widget_show (label); 
+	gtk_box_pack_end (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
 	/* Notebook */
 	notebook = gtk_notebook_new ();
 	gtk_widget_show (notebook);
-	gtk_box_pack_start (GTK_BOX (hbox), notebook, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), notebook, FALSE, FALSE, 0);
 
 	/* First page */
 	label = gtk_label_new (_("Paper"));
@@ -545,98 +618,76 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (table);
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
 	
-	/* Units */
-	label = gtk_label_new (_("Units:"));
-	gtk_widget_show (label);
-	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, 0, 0, 0, 0);
-	widget = gtk_option_menu_new ();
-	gtk_widget_show (widget);
-	gtk_table_attach (GTK_TABLE (table), widget, 0, 1, 1, 2, 
-			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
-	menu = gtk_menu_new ();
-	gtk_widget_show (menu);
-	for (i = 0; i < 4; i++) {
-		item = gtk_menu_item_new_with_label (unit [i].short_name);
-		gtk_widget_show (item);
-		gtk_menu_append (GTK_MENU (menu), item);
-		gtk_signal_connect (GTK_OBJECT (item), "activate", 
-				    GTK_SIGNAL_FUNC (on_unit_activate), new);
-		gtk_object_set_data (GTK_OBJECT (item), "unit", 
-				     GINT_TO_POINTER (i));
-	}
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
-	gtk_option_menu_set_history (GTK_OPTION_MENU (widget), new->priv->unit);
-
 	/* Top margin */
 	label = gtk_label_new (_("Top:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 2, 0, 1, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (
+	adj = gtk_adjustment_new (
 				priv->top * unit [priv->unit].multiplier,
 				0, priv->height * unit [priv->unit].multiplier,
 				unit [priv->unit].step_increment,
 				unit [priv->unit].page_increment, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
 				      unit [priv->unit].digits);
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_top = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adjustment, "value_changed",
+	gtk_signal_connect (adj, "value_changed",
 			    GTK_SIGNAL_FUNC (on_top_value_changed), new);
 	
 	/* Left margin */
 	label = gtk_label_new (_("Left:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 2, 3, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (
+	adj = gtk_adjustment_new (
 				priv->left * unit [priv->unit].multiplier, 
 				0, priv->width * unit [priv->unit].multiplier,
 				unit [priv->unit].step_increment, 
 				unit [priv->unit].page_increment, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
 				      unit [priv->unit].digits);
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 3, 4, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_left = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adjustment, "value_changed",
+	gtk_signal_connect (adj, "value_changed",
 			    GTK_SIGNAL_FUNC (on_left_value_changed), new);
 
 	/* Right margin */
 	label = gtk_label_new (_("Right:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 2, 3, 2, 3, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (
+	adj = gtk_adjustment_new (
 				priv->right * unit [priv->unit].multiplier,
 				0, priv->width * unit [priv->unit].multiplier,
 				unit [priv->unit].step_increment,
 				unit [priv->unit].page_increment, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
 				      unit [new->priv->unit].digits);
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 2, 3, 3, 4, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_right = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adjustment, "value_changed",
+	gtk_signal_connect (adj, "value_changed",
 			    GTK_SIGNAL_FUNC (on_right_value_changed), new);
 
 	/* Bottom margin */
 	label = gtk_label_new (_("Bottom:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 2, 4, 5, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (
+	adj = gtk_adjustment_new (
 				priv->bottom * unit [priv->unit].multiplier,
 				0, priv->height * unit [priv->unit].multiplier,
 				unit [priv->unit].step_increment,
 				unit [priv->unit].page_increment, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
 				      unit [priv->unit].digits);
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 5, 6, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_bottom = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adjustment, "value_changed",
+	gtk_signal_connect (adj, "value_changed",
 			    GTK_SIGNAL_FUNC (on_bottom_value_changed), new);
 
 	/* Second page */ 
@@ -665,11 +716,10 @@ eog_print_setup_new (EogImageView *image_view)
 			    GTK_SIGNAL_FUNC (on_fit_to_page_toggled), new);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 1, 2, 
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	adjustment = gtk_adjustment_new (priv->adjust_to, 1, 10000, 1, 10, 10);
-	priv->spin_adj = gtk_spin_button_new (
-					GTK_ADJUSTMENT (adjustment), 1, 0);
+	adj = gtk_adjustment_new (priv->adjust_to, 1, 10000, 1, 10, 10);
+	priv->spin_adj = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
 	gtk_widget_show (priv->spin_adj);
-	gtk_signal_connect (adjustment, "value_changed", 
+	gtk_signal_connect (adj, "value_changed", 
 			    GTK_SIGNAL_FUNC (on_adjust_to_value_changed), new);
 	gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (priv->spin_adj), 
 					   GTK_UPDATE_IF_VALID);
@@ -700,6 +750,52 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_vertically_toggled), new);
+
+	/* Overlap */
+	make_header (vbox, _("Overlapping")); 
+	table = gtk_table_new (3, 2, FALSE); 
+	gtk_widget_show (table); 
+	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
+	label = gtk_label_new (_("Overlap horizontally by "));
+	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+	gtk_widget_show (label);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	label = gtk_label_new (_("Overlap vertically by "));
+	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
+	gtk_widget_show (label);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	adj = gtk_adjustment_new (
+				priv->overlap_x * unit [priv->unit].multiplier,
+				0, priv->width * unit [priv->unit].multiplier,
+				unit [priv->unit].step_increment,
+				unit [priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
+				      unit [priv->unit].digits);
+	gtk_widget_show (button);
+	priv->spin_overlap_x = GTK_SPIN_BUTTON (button);
+	gtk_spin_button_set_update_policy (priv->spin_overlap_x,
+					   GTK_UPDATE_IF_VALID);
+	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 0, 1,
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	gtk_signal_connect (adj, "value_changed",
+			    GTK_SIGNAL_FUNC (on_overlap_x_value_changed), new);
+	adj = gtk_adjustment_new (
+				priv->overlap_y * unit [priv->unit].multiplier,
+				0, priv->height * unit [priv->unit].multiplier,
+				unit [priv->unit].step_increment,
+				unit [priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 
+				      unit [priv->unit].digits);
+	gtk_widget_show (button);
+	priv->spin_overlap_y = GTK_SPIN_BUTTON (button);
+	gtk_spin_button_set_update_policy (priv->spin_overlap_y,
+					   GTK_UPDATE_IF_VALID);
+	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2,
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	gtk_signal_connect (adj, "value_changed", 
+			    GTK_SIGNAL_FUNC (on_overlap_y_value_changed), new);
 	
 	/* Third page */
 	label = gtk_label_new (_("Printing")); 
@@ -709,14 +805,21 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (vbox); 
 	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, label); 
 
-	/* Cutting help */
-	make_header (vbox, _("Cutting help"));
+	/* Helpers */
+	make_header (vbox, _("Helpers"));
 	button = gtk_check_button_new_with_label (_("Print cutting help"));
 	gtk_widget_show (button);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), priv->cut);
 	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_cut_toggled), new);
+	button = gtk_check_button_new_with_label (_("Print overlap help"));
+	gtk_widget_show (button);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
+				      priv->overlap);
+	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+	gtk_signal_connect (GTK_OBJECT (button), "toggled",
+			    GTK_SIGNAL_FUNC (on_overlap_toggled), new);
 
 	/* Page order */
 	make_header (vbox, _("Page order"));
