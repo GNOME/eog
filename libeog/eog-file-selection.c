@@ -210,6 +210,7 @@ set_preview_pixbuf (EogFileSelection *filesel, GdkPixbuf *pixbuf, GnomeVFSFileIn
 {
 	EogFileSelectionPrivate *priv;
 	int bytes;
+	int pixels;
 	const char *bytes_str;
 	const char *width;
 	const char *height;
@@ -239,8 +240,9 @@ set_preview_pixbuf (EogFileSelection *filesel, GdkPixbuf *pixbuf, GnomeVFSFileIn
 		height = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Image::Height");
 		
 		if ((width != NULL) && (height != NULL)) {
+			pixels = atoi (height);
 			/* Pixel size of image: width x height in pixel */
-			dim_str = g_strdup_printf (_("%s x %s pixel"), width, height);
+			dim_str = g_strdup_printf (ngettext ("%s x %s pixels", "%s x %s pixels", pixels), width, height);
 		}
 
 #if 0
@@ -486,4 +488,3 @@ eog_file_selection_get_format (EogFileSelection *sel)
 	
 	return format;
 }
-
