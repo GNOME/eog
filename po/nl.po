@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-04 03:14+0100\n"
-"PO-Revision-Date: 2003-12-04 23:49+0100\n"
+"POT-Creation-Date: 2003-12-20 03:14+0100\n"
+"PO-Revision-Date: 2003-12-20 15:46+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "_Tegen de klok in draaien"
 msgid "Slide Show"
 msgstr "Diashow"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "Be_werken"
@@ -84,7 +84,7 @@ msgstr "Op_slaan"
 msgid "_Undo"
 msgstr "_Ongedaan maken"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "Beel_d"
@@ -105,7 +105,7 @@ msgstr "Verplaatsen naar prullenbak"
 msgid "Collection View"
 msgstr "Verzamelingsweergave"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1355
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1378
 msgid "Window Title"
 msgstr "Venstertitel"
 
@@ -113,7 +113,7 @@ msgstr "Venstertitel"
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1367
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1390
 msgid "Progress of Image Loading"
 msgstr "Voortgang van laden afbeelding"
 
@@ -310,39 +310,50 @@ msgstr "Ingebedde EOG afbeelding"
 msgid "Image"
 msgstr "Afbeelding"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Op extensie"
+#: libeog/eog-file-selection.c:44
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr "Wilt u %s overschrijven?"
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Niet ondersteund bestandsformaat om op te slaan."
+#: libeog/eog-file-selection.c:49
+msgid "File exists"
+msgstr "Bestand bestaat"
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Bepaal bestandstype:"
+#: libeog/eog-file-selection.c:117
+msgid "All Images"
+msgstr "Alle afbeeldingen"
 
-#: libeog/eog-file-selection.c:333
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:135
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: libeog/eog-file-selection.c:180
 msgid "Load Image"
 msgstr "Afbeelding laden"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:188
 msgid "Save Image"
 msgstr "Afbeelding opslaan"
+
+#: libeog/eog-file-selection.c:230
+msgid "Open Folder"
+msgstr "Map openen"
 
 #: libeog/eog-image-jpeg.c:100
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Allocatie van geheugen voor JPEG-bestand is mislukt"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image.c:1296
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: libeog/eog-image.c:1225
+#: libeog/eog-image.c:1306
 msgid "Images can only be saved as local files."
 msgstr "Afbeeldingen kunnen alleen als lokale bestanden opgeslagen worden."
 
-#: libeog/eog-image.c:1260
+#: libeog/eog-image.c:1317
 msgid "Unsupported image type for saving."
 msgstr "Niet ondersteund afbeeldingstype om op te slaan."
 
@@ -375,7 +386,7 @@ msgid "Page"
 msgstr "Pagina"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:382
+#: viewer/eog-image-view.c:384
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -506,70 +517,78 @@ msgid "Open"
 msgstr "Openen"
 
 #: shell/eog-shell-ui.xml.h:9
+msgid "Open a directory"
+msgstr "Een map openen"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Bestand openen"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Nieuw venster openen"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "In nieuw venster openen"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "In dit venster openen"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "_Voorkeuren"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "Preferences for Eye of Gnome"
 msgstr "Voorkeuren voor EOG"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Het programma afsluiten"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Info"
 
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "Sl_uiten"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Bestand"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Hulp"
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_Nieuw"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:24
+msgid "_Open Directory..."
+msgstr "Map _openen..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Openen..."
 
-#: shell/eog-shell-ui.xml.h:24
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "A_fsluiten"
 
-#: shell/eog-shell-ui.xml.h:25
+#: shell/eog-shell-ui.xml.h:27
 msgid "_Statusbar"
 msgstr "_Statusbalk"
 
-#: shell/eog-shell-ui.xml.h:26
+#: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
 msgstr "_Werkbalk"
 
@@ -577,20 +596,20 @@ msgstr "_Werkbalk"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:271
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>"
 
-#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
-#: shell/eog-window.c:989 shell/main.c:513
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:279
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Afbeeldingen bekijken en catalogusbeheer voor GNOME"
 
-#: shell/eog-window.c:316
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -706,45 +725,45 @@ msgid "_Print..."
 msgstr "Af_drukken..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:533
+#: viewer/eog-image-view.c:548
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i beeldpunt  %s    %i%%"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:840
 msgid "/Rotate C_lockwise"
 msgstr "/_Met de klok mee roteren"
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:842
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/_Tegen de klok in roteren"
 
-#: viewer/eog-image-view.c:830
+#: viewer/eog-image-view.c:845
 msgid "/_Zoom In"
 msgstr "/_Inzoomen"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:847
 msgid "/Zoom _Out"
 msgstr "/_Uitzoomen"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:849
 msgid "/_Normal Size"
 msgstr "/_Normale afmetingen"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:851
 msgid "/Best _Fit"
 msgstr "/_Passend"
 
-#: viewer/eog-image-view.c:839
+#: viewer/eog-image-view.c:854
 msgid "/_Close"
 msgstr "/_Sluiten"
 
-#: viewer/eog-image-view.c:1002
+#: viewer/eog-image-view.c:1025
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Laden van afbeelding %s mislukt."
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1032
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -754,37 +773,46 @@ msgstr ""
 "Reden: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1018
+#: viewer/eog-image-view.c:1041
 msgid "Loading failed"
 msgstr "Laden mislukt"
 
-#: viewer/eog-image-view.c:1101
+#: viewer/eog-image-view.c:1124
 msgid "Image successfully saved"
 msgstr "Afbeelding succesvol opgeslagen"
 
-#: viewer/eog-image-view.c:1105
+#: viewer/eog-image-view.c:1128
 msgid "Image saving failed"
 msgstr "Opslaan van afbeelding mislukt"
 
-#: viewer/eog-image-view.c:1349
+#: viewer/eog-image-view.c:1372
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:1352
+#: viewer/eog-image-view.c:1375
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:1358
+#: viewer/eog-image-view.c:1381
 msgid "Statusbar Text"
 msgstr "Statusbalk-tekst"
 
-#: viewer/eog-image-view.c:1361
+#: viewer/eog-image-view.c:1384
 msgid "Desired Window Width"
 msgstr "Gewenste vensterhoogte"
 
-#: viewer/eog-image-view.c:1364
+#: viewer/eog-image-view.c:1387
 msgid "Desired Window Height"
 msgstr "Gewenste vensterbreedte"
+
+#~ msgid "By Extension"
+#~ msgstr "Op extensie"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Niet ondersteund bestandsformaat om op te slaan."
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Bepaal bestandstype:"
 
 #~ msgid ""
 #~ "Wether or not the sequence of images should be shown in an endless loop."
