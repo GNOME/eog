@@ -219,15 +219,15 @@ bm_get_dimensions (GnomeWrapList *wlist,
 	priv = wlist->priv;
 
 	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
-		*icon_minor = priv->icon_width;
-		*icon_major = priv->icon_height;
+		*icon_minor = priv->item_width;
+		*icon_major = priv->item_height;
 		*space_minor = priv->col_spacing;
 		*space_major = priv->row_spacing;
 		*size_minor = GTK_WIDGET (wlist)->allocation.width;
 		*size_major = GTK_WIDGET (wlist)->allocation.height;
 	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
-		*icon_minor = priv->icon_height;
-		*icon_major = priv->icon_width;
+		*icon_minor = priv->item_height;
+		*icon_major = priv->item_width;
 		*space_minor = priv->row_spacing;
 		*space_major = priv->col_spacing;
 		*size_minor = GTK_WIDGET (wlist)->allocation.height;
