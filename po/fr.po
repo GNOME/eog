@@ -1,15 +1,15 @@
 # French translation of eog.
-# Copyright (C) 2000-2002 Free Software Foundation, Inc.
+# Copyright (C) 2000-2003 Free Software Foundation, Inc.
 # Vincent Renardias <vincent@debian.org>, 2000.
-# maintainer: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2002.
+# maintainer: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2003.
 # Christophe Fergeau <teuf@users.sourceforge.net>, 2002.
 # Sun G11n <gnome_int_l10n@ireland.sun.com>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.1.3\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
-"PO-Revision-Date: 2002-12-16 20:15+0100\n"
+"Project-Id-Version: eog 2.3.0\n"
+"POT-Creation-Date: 2003-02-18 01:27+0100\n"
+"PO-Revision-Date: 2003-02-18 00:35+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,68 @@ msgstr "Fabrique de la vue de collection d'images EOG"
 msgid "Image Collection"
 msgstr "Collection d'images"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Slide Show"
+msgstr "Diaporama"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "Afficha_ge"
+
+#: collection/eog-collection-control.c:159
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr "Ne peut obtenir l'interface local BonoboControl.\n"
+
+#: collection/eog-collection-model.c:484 collection/eog-collection-model.c:488
+#: collection/eog-collection-model.c:526 collection/eog-collection-model.c:530
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr "Ne peut gérer l'URI : %s"
+
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr "Vertical"
+
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr "Rectangle"
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr "Mode d'agencement :"
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr "Couleur d'arrière-plan de la collection d'images"
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr "Couleur d'arrière-plan :"
+
+#: collection/eog-collection-view.c:486
+msgid "Send"
+msgstr "Envoyer"
+
+#: collection/eog-collection-view.c:498
+msgid "Move to Trash"
+msgstr "Déplacer vers la corbeille"
+
+#: collection/eog-collection-view.c:539
+msgid "Collection View"
+msgstr "Vue de collection"
+
+#: collection/eog-collection-view.c:888 viewer/eog-image-view.c:1178
+msgid "Window Title"
+msgstr "Titre de la fenêtre"
+
+#: collection/eog-collection-view.c:891
+msgid "Status Text"
+msgstr "Texte d'état"
+
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
 msgstr "Visionneur d'images Eye of GNOME"
@@ -38,7 +100,7 @@ msgstr "Affiche un grand nombre de type d'images"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr "Avec une c_ouleur"
+msgstr "Avec une _couleur"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
@@ -179,13 +241,13 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"Si il faut ajuster les images de taille normal en mode plein écran. Ce sont "
+"Si il faut ajuster les images de taille normale en mode plein écran. Ce sont "
 "les images avec des tailles comme 320x240, 640x480, 800x600, etc. Cela "
 "sélectionne si de telles images doivent être mise à l'échelle pour remplir "
 "l'écran quelque soit le réglage du facteur de zoom par défaut de la vue "
 "plein écran."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Image EOG"
 
@@ -205,34 +267,6 @@ msgstr "Image EOG incorporable"
 #: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Image"
-
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "type d'interpolation"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "le type d'interpolation à utiliser"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "type de damier"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "le type de damier à utiliser"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "la taille de damiers à utiliser"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "tramage"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "type de tramage"
 
 #: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
 msgid "By Extension"
@@ -296,11 +330,27 @@ msgstr "Déterminer le type de fichier :"
 
 #: libeog/eog-file-selection.c:270
 msgid "Load Image"
-msgstr "Charger l'image"
+msgstr "Chargez une image"
 
 #: libeog/eog-file-selection.c:276
 msgid "Save Image"
-msgstr "Enregistrer l'image"
+msgstr "Enregistrez l'image"
+
+#: libeog/eog-image-helper.c:214
+msgid "Unsupported image type for saving: xpm"
+msgstr "Type d'image non supporté pour l'enregistrement : xpm"
+
+#: libeog/eog-image.c:517
+msgid "No image loaded."
+msgstr "Aucune image chargée."
+
+#: libeog/eog-image.c:524
+msgid "Can't save non local files."
+msgstr "Ne peut enregistrer des fichiers non locaux."
+
+#: libeog/eog-image.c:545
+msgid "Unsupported image type for saving."
+msgstr "Type d'image non supporté pour l'enregistrement."
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -394,7 +444,7 @@ msgstr "_Quitter"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:209
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Mainteneur :\n"
@@ -404,19 +454,19 @@ msgstr ""
 "Christophe Fergeau <teuf@users.sourceforge.net>\n"
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:214 shell/eog-window.c:565 shell/main.c:452
 msgid "Eye of Gnome"
 msgstr "Eye of GNOME"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:216
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 La Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:217
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Le programme de catalogage et de visualisation d'images de GNOME."
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:254
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -512,7 +562,7 @@ msgstr "Zoom a_rrière"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr "Taille _normal"
+msgstr "Taille _normale"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "_Zoom In"
@@ -520,11 +570,11 @@ msgstr "Zoom a_vant"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip Horizontal"
-msgstr "Mirroir horizontal"
+msgstr "Miroir horizontal"
 
 #: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip Vertical"
-msgstr "Mirroir vertical"
+msgstr "Miroir vertical"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -570,66 +620,58 @@ msgstr "Définit les paramètres la page pour l'imprimante courante"
 msgid "_Print..."
 msgstr "_Imprimer..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "Afficha_ge"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Impossible d'enregistrer l'image sous « %s » : %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Imprimer l'image"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Pages"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Aperçu avant impression"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "L'impression de l'image a échoué"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:752
 msgid "/_Zoom In"
 msgstr "/Zoom a_vant"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:754
 msgid "/Zoom _Out"
 msgstr "/Zoom a_rrière"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:756
 msgid "/_Normal Size"
-msgstr "/Taille _normal"
+msgstr "/Taille _normale"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:758
 msgid "/Best _Fit"
 msgstr "/Au _mieux"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:761
 msgid "/_Close"
 msgstr "/_Fermer"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:922
+msgid "Image successfully saved.\n"
+msgstr "Image enregistrée avec succès.\n"
+
+#: viewer/eog-image-view.c:929
+#, c-format
+msgid ""
+"Image saving failed.\n"
+"%s"
+msgstr ""
+"Échec de l'enregistrement de l'image.\n"
+"%s"
+
+#: viewer/eog-image-view.c:1172
 msgid "Image Width"
 msgstr "Largeur de l'image"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1175
 msgid "Image Height"
 msgstr "Hauteur de l'image"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Titre de la fenêtre"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1181
 msgid "Statusbar Text"
 msgstr "Texte de la barre d'état"
+
+#: viewer/eog-image-view.c:1184
+msgid "Desired Window Width"
+msgstr "Largeur de fenêtre désirée"
+
+#: viewer/eog-image-view.c:1187
+msgid "Desired Window Height"
+msgstr "Hauteur de fenêtre désirée"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -803,9 +845,41 @@ msgstr "En bas, puis à droite "
 msgid "Right, then down"
 msgstr "À droite, puis vers le bas"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "Diaporama"
+#~ msgid "interpolation type"
+#~ msgstr "type d'interpolation"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "le type d'interpolation à utiliser"
+
+#~ msgid "check type"
+#~ msgstr "type de damier"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "le type de damier à utiliser"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "la taille de damiers à utiliser"
+
+#~ msgid "dither"
+#~ msgstr "tramage"
+
+#~ msgid "dither type"
+#~ msgstr "type de tramage"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Impossible d'enregistrer l'image sous « %s » : %s."
+
+#~ msgid "Print Image"
+#~ msgstr "Imprimer l'image"
+
+#~ msgid "Pages"
+#~ msgstr "Pages"
+
+#~ msgid "Print Preview"
+#~ msgstr "Aperçu avant impression"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "L'impression de l'image a échoué"
 
 #~ msgid "_New Window"
 #~ msgstr "_Nouvelle fenêtre"
@@ -1066,36 +1140,6 @@ msgstr "Diaporama"
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye of GNOME"
-
-#~ msgid "Couldn't get local BonoboControl interface.\n"
-#~ msgstr "Ne peut obtenir l'interface local BonoboControl.\n"
-
-#~ msgid "Can't handle URI: %s"
-#~ msgstr "Ne peut gérer l'URI : %s"
-
-#~ msgid "Rectangle"
-#~ msgstr "Rectangle"
-
-#~ msgid "Layout Mode:"
-#~ msgstr "Mode d'agencement :"
-
-#~ msgid "Image Collection Background Color"
-#~ msgstr "Collection d'images de couleurs d'arrière-plan"
-
-#~ msgid "Background Color:"
-#~ msgstr "Couleur d'arrière-plan :"
-
-#~ msgid "Send"
-#~ msgstr "Envoyer"
-
-#~ msgid "Move to Trash"
-#~ msgstr "Déplacer vers la corbeille"
-
-#~ msgid "Collection View"
-#~ msgstr "Vue de collection"
-
-#~ msgid "Status Text"
-#~ msgstr "Texte d'état"
 
 #~ msgid "I could not initialize GnomeVFS!\n"
 #~ msgstr "Ne peut initialiser GnomeVFS !\n"
