@@ -187,8 +187,8 @@ eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 
 	eog_ctrl->priv->uic = bonobo_control_get_ui_component (bctrl);
 
-	gtk_signal_connect (GTK_OBJECT (bctrl), "activate", 
-			    eog_collection_control_activate, eog_ctrl);
+	g_signal_connect (bctrl, "activate", 
+			  G_CALLBACK (eog_collection_control_activate, eog_ctrl);
 
 	/* add properties */
 	property_bag = eog_collection_view_get_property_bag (EOG_COLLECTION_VIEW (eog_ctrl));
