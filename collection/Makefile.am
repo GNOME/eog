@@ -9,10 +9,8 @@ INCLUDES =                                              \
 	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
-        $(GNOME_INCLUDEDIR)				\
-	$(EXTRA_GNOME_CFLAGS)				\
-	$(EXTRA_WARNING_CFLAGS)				\
-	$(GNOME_CFLAGS)
+	$(EOG_CFLAGS)					\
+	$(EXTRA_WARNING_CFLAGS)
 
 bin_PROGRAMS = eog-collection
 
@@ -47,9 +45,8 @@ eog_collection_SOURCES =		\
 	main.c
 
 eog_collection_LDADD = 			\
-	$(GNOME_LIBS)				\
+	$(EOG_LIBS)				\
 	$(INTLLIBS)				\
-	$(EXTRA_GNOME_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
@@ -58,7 +55,7 @@ oafdir = $(datadir)/oaf
 oaf_in_files = GNOME_EOG_Collection.oaf.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
-@XML_I18N_MERGE_OAF_RULE@
+@INTLTOOL_OAF_RULE@
 
 if ENABLE_EVOLUTION
 $(EVOLUTION_GENERATED):
