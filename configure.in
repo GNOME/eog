@@ -120,13 +120,31 @@ AC_ARG_WITH(evolution,
 if $try_evolution; then
 	path_to_composer_idl=`gnome-config --datadir`/idl/Evolution-Composer.idl
 	AC_CHECK_FILE($path_to_composer_idl, evolution=yes, evolution=no)
-	if test x$evolution=xyes; then
+	if test x"$evolution" = "xyes"; then
 		AC_DEFINE(ENABLE_EVOLUTION)
-		AM_CONDITIONAL(ENABLE_EVOLUTION, true)
-	else
-		AM_CONDITIONAL(ENABLE_EVOLUTION, false)
 	fi
 fi
+AM_CONDITIONAL(ENABLE_EVOLUTION, test x"$evolution" = "xyes")
+
+dnl ******************************
+dnl Check for GnoCam
+dnl ******************************
+try_gnocam=true
+gnocam=no
+AC_ARG_WITH(gnocam,
+	[  --{with,without}-gnocam             Use gnocam to acquire images.],
+	if test x$withval = xno; then
+		try_gnocam=false
+	fi
+)
+if $try_gnocam; then
+	path_to_gnocam_idl=`gnome-config --datadir`/idl/GnoCam.idl
+	AC_CHECK_FILE($path_to_gnocam_idl, gnocam=yes, gnocam=no)
+	if test x"$gnocam" = "xyes"; then
+		AC_DEFINE(ENABLE_GNOCAM)
+	fi
+fi
+AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
 
 dnl ******************************
 dnl Check for GnomeVFS
@@ -290,6 +308,7 @@ Configuration:
 
 	Use Bonobo File Selector: $bonobo_filesel
 	Use Evolution:            $evolution
+	Use GnoCam:               $gnocam
 	Extra Compiler Warnings:  ${EXTRA_WARNING_CFLAGS}
 	
 "
