@@ -350,7 +350,9 @@ prepare_context (EogCollectionModel *model, const gchar *uri)
 	CORBA_exception_init (&ev);
 	ctx = g_new0 (LoadingContext, 1);
 
+#ifdef COLLECTION_DEBUG
 	g_message ("Prepare context for URI: %s", uri);
+#endif
 	
 	/* check for BonoboStorage interface */
 	ctx->storage_stream = bonobo_get_object (uri, "IDL:Bonobo/Storage:1.0", &ev);
@@ -404,7 +406,7 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 		priv->base_uri = g_strdup (uri);
 	else {
 		g_free (priv->base_uri);
-		priv->base_uri = g_strdup("multiple"));
+		priv->base_uri = g_strdup("multiple");
 	}
 }
 

@@ -1,4 +1,11 @@
-2001-05-21  Jens Finke <jens@gnome.org
+2001-05-21  Jens Finke <jens@gnome.org>
+	
+	* eog-collection-model.c, eog-image-loader.c,
+	eog-item-factory-simple.c, eog-wrap-list.c: Guarded debug messages
+	with #ifdef COLLECTION_DEBUG. Some were so unneccessary that I
+	removed them completely.
+	
+2001-05-21  Jens Finke <jens@gnome.org>
 
 	* eog-collection-control.c (eog_control_construct): Add property
 	bag to control.

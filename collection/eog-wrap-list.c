@@ -498,7 +498,9 @@ model_interval_changed (EogCollectionModel *model, GList *id_list, gpointer data
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("model_interval_changed called\n");
+#endif
 
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
@@ -534,7 +536,9 @@ model_interval_added (EogCollectionModel *model, GList *id_list, gpointer data)
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("model_interval_added called\n");
+#endif
 
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
@@ -561,7 +565,9 @@ model_interval_removed (EogCollectionModel *model, GList *id_list, gpointer data
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("model_interval_removed called\n");
+#endif
 
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
@@ -765,7 +771,9 @@ request_update (EogWrapList *wlist)
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("request_update called.");
+#endif
 
 	if ((wlist->priv->idle_handler_id == -1) &&
 	    (!wlist->priv->is_updating))
@@ -828,7 +836,9 @@ do_item_changed_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("do_item_changed_update called\n");
+#endif
 
 	if (id_list == NULL) return;
 	if (wlist->priv->factory == NULL) return;
@@ -844,7 +854,9 @@ do_item_changed_update (EogWrapList *wlist,
 			for (id = id_range_start; id <= id_range_end; id++) {
 				GnomeCanvasItem *item;
 				item = get_item_by_unique_id (wlist, id);
+#ifdef COLLECTION_DEBUG
 				g_print ("update item id: %i\n", id);
+#endif
  				eog_item_factory_update_item (wlist->priv->factory,
 							      wlist->priv->model,
 							      item);
@@ -870,7 +882,9 @@ do_item_removed_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("do_item_removed_update called\n");
+#endif
 
 	priv = wlist->priv;
 
@@ -914,7 +928,9 @@ do_item_added_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
+#ifdef COLLECTION_DEBUG
 	g_message ("do_item_added_update called\n");
+#endif
 
 	priv = wlist->priv;
 
@@ -940,7 +956,9 @@ do_item_added_update (EogWrapList *wlist,
 			GnomeCanvasItem *item;
 			CImage *img;
 			for (id = id_range_start; id <= id_range_end; id++) {
+#ifdef COLLECTION_DEBUG
 				g_print ("item_added: %i\n", id);
+#endif
 				item = eog_item_factory_create_item (priv->factory,
 								     GNOME_CANVAS_GROUP (priv->item_group),
 								     id);
@@ -985,7 +1003,9 @@ do_layout_check (EogWrapList *wlist)
 
 	priv = wlist->priv;
 
+#ifdef COLLECTION_DEBUG
 	g_message ("do_layout_check called\n");
+#endif
 
 	/* get canvas width */
 	cw = GTK_WIDGET (wlist)->allocation.width;
@@ -1020,10 +1040,12 @@ do_layout_check (EogWrapList *wlist)
 	default:
 		g_assert_not_reached ();
 	}
-	
+
+#ifdef COLLECTION_DEBUG	
 	g_print ("  ** canvas width: %i\n",cw);
 	g_print ("  ** n_cols_new: %i\n", n_cols_new);
 	g_print ("  ** n_rows_new: %i\n", n_rows_new);
+#endif
 
 	if (n_cols_new == priv->n_cols && n_rows_new == priv->n_rows)
 		return FALSE;
@@ -1091,7 +1113,9 @@ do_item_rearrangement (EogWrapList *wlist)
 	data.wlist = wlist;
 	data.n = 0;
 
+#ifdef COLLECTION_DEBUG
 	g_message ("do_item_rearrangement called\n");
+#endif
 
 	priv = wlist->priv;
 

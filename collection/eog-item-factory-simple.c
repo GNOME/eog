@@ -304,13 +304,10 @@ create_shaded_background (GdkPixbuf *pbf)
 	buf = gdk_pixbuf_get_pixels (pbf);
 
 	tmp = width*width + height*height;
-	g_print ("tmp: %f\n", tmp);
 	dl = sqrt (tmp);
-	g_print ("dl: %f\n", dl);
 	
 	n_cols = (light - dark)/cvd;
 	ppc = dl / n_cols;
-	g_print ("ppc: %i\n", ppc);
 
 	for (y = 0; y < height; y++) {
 		gint color;
@@ -472,7 +469,6 @@ ii_factory_update_item (EogItemFactory *factory,
 
 	caption_x = metrics->border + (metrics->twidth - caption_w) / 2;
 	caption_y = metrics->border + metrics->theight + metrics->cspace;
-	g_print ("caption_y: %d\n", caption_y);
 
 	gnome_canvas_item_set (icon->caption,
 			       "text", caption,

@@ -203,7 +203,9 @@ loading_canceled (EILContext *ctx)
 
 	loader = ctx->loader;
 	
+#ifdef COLLECTION_DEBUG
 	g_message ("Loading canceled\n");
+#endif
 	gtk_signal_emit (GTK_OBJECT (ctx->loader),
 				 eog_image_loader_signals [LOADING_CANCELED],
 				 ctx->cimg);
@@ -237,7 +239,9 @@ loading_finished (EILContext *ctx)
 		if (pbf != NULL) {
 			thumb = scale_image (loader, pbf);
 			
+#ifdef COLLECTION_DEBUG
 			g_message ("Successfully finished loading for: %s\n", cimage_get_uri (ctx->cimg));
+#endif
 			
 			cimage_set_thumbnail (ctx->cimg, thumb);
 			
@@ -253,7 +257,9 @@ loading_finished (EILContext *ctx)
 	}
 	
 	if (loading_failed) {
+#ifdef COLLECTION_DEBUG
  		g_message ("Loading failed for: %s\n", cimage_get_uri (ctx->cimg));
+#endif
 		cimage_set_loading_failed (ctx->cimg);
 		gtk_signal_emit (GTK_OBJECT (ctx->loader),
 				 eog_image_loader_signals [LOADING_FAILED],
@@ -362,7 +368,9 @@ setup_next_uri (EogImageLoader *loader)
 		
 		priv->queue = g_list_remove (priv->queue, ctx->cimg);
 	
+#ifdef COLLECTION_DEBUG
 		g_message ("Open image: %s\n", cimage_get_uri (ctx->cimg));
+#endif
 
 		priv->idle_handler_id = gtk_idle_add ((GtkFunction) load_uri, ctx);
 	} else {
