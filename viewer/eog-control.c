@@ -19,13 +19,21 @@
 
 #include <gnome.h>
 
+#include "libeog/ui-image.h"
+#include "libeog/image-view.h"
 #include <eog-control.h>
+
+/* See plug_size_allocate_cb() below */
+#define BROKEN_SIZE_ALLOCATIONS 3
 
 struct _EogControlPrivate {
 	EogImageView       *image_view;
 
 	BonoboZoomable     *zoomable;
 	gboolean            has_zoomable_frame;
+
+	/* See plug_size_allocate_cb() below */
+	int size_allocations_remaining_until_we_get_it_right;
 };
 
 static GObjectClass *eog_control_parent_class;
@@ -357,10 +365,53 @@ eog_control_class_init (EogControl *klass)
 static void
 eog_control_init (EogControl *control)
 {
-	control->priv = g_new0 (EogControlPrivate, 1);
+	EogControlPrivate *priv;
+
+	priv = g_new0 (EogControlPrivate, 1);
+	control->priv = priv;
+
+	priv->size_allocations_remaining_until_we_get_it_right = BROKEN_SIZE_ALLOCATIONS;
 }
 
 BONOBO_TYPE_FUNC (EogControl, BONOBO_TYPE_CONTROL, eog_control);
+
+/* FIXME: This is a horrible hack.  The plug in the control gets size_allocated
+ * *three* times, sometimes more, before the user can actually interact with it.
+ * So we count this number of allocations and manually fit-to-window when we hit
+ * the limit.  This needs to be tracked down in GTK+ and Bonobo, but it is a total
+ * bitch to fix.
+ */
+static void
+plug_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation, gpointer data)
+{
+	EogControl *control;
+	EogControlPrivate *priv;
+
+	control = EOG_CONTROL (data);
+	priv = control->priv;
+
+	if (priv->size_allocations_remaining_until_we_get_it_right == 0)
+		return;
+
+	priv->size_allocations_remaining_until_we_get_it_right--;
+	if (priv->size_allocations_remaining_until_we_get_it_right == 0)
+		eog_image_view_zoom_to_fit (priv->image_view, TRUE);
+}
+
+/* Callback used when the image view's zoom factor changes */
+static void
+zoom_changed_cb (ImageView *view, gpointer data)
+{
+	EogControl *control;
+	EogControlPrivate *priv;
+	double zoomx, zoomy;
+
+	control = EOG_CONTROL (data);
+	priv = control->priv;
+
+	eog_image_view_get_zoom_factor (priv->image_view, &zoomx, &zoomy);
+	bonobo_zoomable_report_zoom_level_changed (priv->zoomable, sqrt (zoomx * zoomy), NULL);
+}
 
 EogControl *
 eog_control_construct (EogControl    *control,
@@ -369,6 +420,8 @@ eog_control_construct (EogControl    *control,
 	GtkWidget             *widget;
 	BonoboPropertyBag     *pb;
 	EogControlPrivate     *priv;
+	BonoboPlug            *plug;
+	ImageView             *image_view;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (control != NULL, NULL);
@@ -387,8 +440,16 @@ eog_control_construct (EogControl    *control,
 		return NULL;
 	}
 	widget = eog_image_view_get_widget (priv->image_view);
+	image_view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (widget)));
 
 	bonobo_control_construct (BONOBO_CONTROL (control), widget);
+
+	g_signal_connect (image_view, "zoom_changed",
+			  G_CALLBACK (zoom_changed_cb), control);
+
+	plug = bonobo_control_get_plug (BONOBO_CONTROL (control));
+	g_signal_connect (plug, "size_allocate",
+			  G_CALLBACK (plug_size_allocate_cb), control);
 	
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (priv->image_view));

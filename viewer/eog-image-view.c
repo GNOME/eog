@@ -2105,17 +2105,6 @@ setup_item_factory (EogImageView *image_view, gboolean need_close_item)
 				       image_view);
 }
 
-static void
-ui_image_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation)
-{
-	fprintf (stderr, "%p size_allocate (%d, %d, %d, %d)\n",
-		 widget,
-		 allocation->x,
-		 allocation->y,
-		 allocation->width,
-		 allocation->height);
-}
-
 EogImageView *
 eog_image_view_construct (EogImageView *image_view, EogImage *image,
 			  gboolean zoom_fit, gboolean need_close_item)
@@ -2145,9 +2134,6 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 
 	image_view->priv->ui_image = ui_image_new ();
 	gtk_widget_show (image_view->priv->ui_image);
-
-	g_signal_connect (image_view->priv->ui_image, "size_allocate",
-			  G_CALLBACK (ui_image_size_allocate_cb), NULL);
 
 	image_view->priv->image_view = 
 		IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image)));

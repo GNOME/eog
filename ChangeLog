@@ -1,3 +1,13 @@
+2002-09-11  Federico Mena Quintero  <federico@ximian.com>
+
+	* viewer/eog-control.c (plug_size_allocate): Count the number of
+	size allocations since we were set up and if we hit a threshold,
+	fit the image to the window.  This is a totally horrible hack to
+	fix #88499.  Can someone with more brain power and patience
+	*please* fix GTK+ and Bonobo and remove this hack.
+	(zoom_changed_cb): New callback; report the changed zoom level to
+	the zoomable.
+
 2002-08-25  Alex Graveley  <alex@ximian.com>
 
 	* libeog/GNOME_EOG.server.in.in: Add image/bmp as a supported

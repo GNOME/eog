@@ -1013,7 +1013,7 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 					     widget->allocation.width, widget->allocation.height,
 					     allocation->width, allocation->height,
 					     &xofs, &yofs);
-
+		
 		set_default_zoom_anchor (view);
 		priv->need_zoom_change = FALSE;
 	} else {
