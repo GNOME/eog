@@ -1,5 +1,5 @@
 If you intend to work on any of these issues, please contact
-Federico Mena-Quintero (federico@gnu.org).
+Federico Mena-Quintero (federico@gnu.org) and/or eog-list@gnome.org.
 
 * Bugs:
 
@@ -20,32 +20,6 @@ Federico Mena-Quintero (federico@gnu.org).
 	- Figure out what to do with the color correction tables; we
           are not using them right now.
 
-* Turn the UIImage widget into a Bonobo control ("I want an image
-  viewer in my application"):
-
-	- Write a CORBA interface for the control's methods (set zoom,
-          set image, etc.).
-
-	- See what user interface elements such as toolbar/menu items
-          it needs, and put them in the control's machinery for
-          toolbar/menu merging.
-
-	- See if it should support some of the PersistStream hydration
-          methods.
-
-* Make the main program be a simple shell (like the Evolution shell)
-  where the main image viewer Bonobo control is inserted:
-
-	- Remove all the "window modes" crap from window.c.
-
-	- Maybe we should have several different types of window
-          classes: one for holding just a viewer control (windowed
-          image viewing); one for holding all the directory browsing
-          controls; one for holding the image collection browsing
-          controls.
-
-* Finish the GnomeIconView!!!
-
 * Write a directory browser.  Maybe this should be done using Nautilus
   controls, or maybe we should have a simple and dumb thing of our
   own.
@@ -53,16 +27,6 @@ Federico Mena-Quintero (federico@gnu.org).
 * Write the image category mechanism.
 
 * Write the image collection mechanism and its GUI.
-
-* Write a Bonobo embeddable ("I want to embed an image in my
-  document"):
-
-	- Add separate zoom factors for the vertical and horizontal
-          dimensions to the ImageView widget.  This is required so
-          that the parent can resize the image in any way.
-
-	- Write a CORBA interface for the embeddable's methods.  What
-          does it need?
 
 * Progressive loading.  Write something like
 

@@ -38,6 +38,23 @@ Released versions are available at
 http://download.gnome.org/GNOME/unstable/sources/eog.
 
 
+Collection View
+---------------
+
+Since version 1.1.0 Eye of Gnome has rudimentary support for displaying image
+collections and viewing diashows. Up to now this is an experimental feature,
+which isn't well tested and has some known bugs/limitations. However, it is off
+by default and must be enabled explicitly on compliation time with the
+--enable-collection parameter.
+
+By default, there isn't any caching mechanism for created thumbnails yet. But
+you can install the optional helper library libpreview. With this library Eye
+of Gnome is able to read and write thumbnails according to the Thumbnail
+Management Standard. For more information see
+http://triq.net/~pearl/libpreview.php. It is likely that this library
+requirement will be dropped in future versions.
+
+
 Reporting bugs
 --------------
 
