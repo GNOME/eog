@@ -5,7 +5,7 @@ EXTRA_DIST =			\
 	HACKING			\
 	MAINTAINERS		\
 	TODO			\
-	eog.schemas		\
+	$(schema_DATA)		\
 	eog.desktop.in		\
 	eog.spec		\
 	eog.spec.in		\
@@ -20,11 +20,11 @@ Graphics_DATA = $(Graphics_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@
 
+schemadir = $(sysconfdir)/gconf/schemas
+schema_DATA = eog.schemas
+
 icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
 install-data-local:
-	if test -z "$(DESTDIR)" ; then \
-		mkdir -p $(GCONF_SCHEMA_FILE_DIR); \
-		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) gconftool --makefile-install-rule $(top_srcdir)/eog.schemas; \
-	fi
+	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_srcdir)/eog.schemas
