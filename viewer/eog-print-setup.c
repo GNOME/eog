@@ -175,6 +175,30 @@ on_dialog_clicked (GnomeDialog *dialog, gint button_number,
 }
 
 static void
+on_pts_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+{
+	g_warning ("Not implemented!");
+}
+
+static void
+on_cm_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+{
+	g_warning ("Not implemented!");
+}
+
+static void
+on_mm_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+{
+	g_warning ("Not implemented!");
+}
+
+static void
+on_In_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+{
+	g_warning ("Not implemented!");
+}
+
+static void
 eog_print_setup_destroy (GtkObject *object)
 {
 	EogPrintSetup *print_setup;
@@ -259,6 +283,7 @@ eog_print_setup_new (EogImageView *image_view)
 	GtkWidget	*label;
 	GtkWidget	*vbox, *hbox, *table;
 	GtkWidget	*button, *combo;
+	GtkWidget	*menu, *item;
 	GtkObject	*adjustment;
 	GSList		*group;
 	const gchar	*buttons[] = {GNOME_STOCK_BUTTON_OK,
@@ -397,6 +422,37 @@ eog_print_setup_new (EogImageView *image_view)
 	table = gtk_table_new (6, 3, TRUE);
 	gtk_widget_show (table);
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
+	
+	/* Units */
+	label = gtk_label_new (_("Units"));
+//	gtk_widget_show (label);
+	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, 0, 0, 0, 0);
+	widget = gtk_option_menu_new ();
+//	gtk_widget_show (widget);
+	gtk_table_attach (GTK_TABLE (table), widget, 0, 1, 1, 2, 0, 0, 0, 0);
+	menu = gtk_menu_new ();
+	gtk_widget_show (menu);
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
+	item = gtk_menu_item_new_with_label (_("pts"));
+	gtk_widget_show (item);
+	gtk_menu_append (GTK_MENU (menu), item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate", 
+			    GTK_SIGNAL_FUNC (on_pts_activate), new);
+	item = gtk_menu_item_new_with_label (_("mm"));
+	gtk_widget_show (item);
+	gtk_menu_append (GTK_MENU (menu), item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate",
+			    GTK_SIGNAL_FUNC (on_mm_activate), new);
+	item = gtk_menu_item_new_with_label (_("cm"));
+	gtk_widget_show (item);
+	gtk_menu_append (GTK_MENU (menu), item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate",
+			    GTK_SIGNAL_FUNC (on_cm_activate), new);
+	item = gtk_menu_item_new_with_label (_("In"));
+	gtk_widget_show (item);
+	gtk_menu_append (GTK_MENU (menu), item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate",
+			    GTK_SIGNAL_FUNC (on_In_activate), new);
 
 	/* Top margin */
 	label = gtk_label_new (_("Top"));
@@ -516,9 +572,6 @@ eog_print_setup_new (EogImageView *image_view)
 
 	/* Cutting help */
 	make_header (vbox, _("Cutting help"));
-//	hbox = gtk_hbox_new (TRUE, 0);
-//	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-//	gtk_widget_show (hbox);
 	button = gtk_check_button_new_with_label (_("Print cutting help"));
 	gtk_widget_show (button);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), cut);
