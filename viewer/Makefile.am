@@ -4,9 +4,11 @@ INCLUDES =                                              \
 	-DDATADIR=\""$(datadir)"\"			\
 	-DICONDIR=\""$(datadir)/pixmaps/eog"\"		\
 	-I. 						\
-	-I$(srcdir) -I$(top_srcdir) 			\
-	-I$(top_srcdir)/libeog				\
+	-I$(srcdir) 					\
+	-I$(top_srcdir) 				\
 	-I$(top_builddir)				\
+	-I$(top_srcdir)/libeog				\
+	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\

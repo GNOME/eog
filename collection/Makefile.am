@@ -4,8 +4,9 @@ INCLUDES =                                              \
 	-DDATADIR=\""$(datadir)"\"			\
 	-I. 						\
 	-I$(top_srcdir) 				\
-	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)				\
+	-I$(top_srcdir)/libeog				\
+	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
