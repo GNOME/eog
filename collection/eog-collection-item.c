@@ -13,6 +13,7 @@ struct _EogCollectionItemPrivate {
 
 	gboolean selected;
 
+	GnomeCanvasItem *frame;
 	GnomeCanvasItem *pixbuf_item;
 	GnomeCanvasItem *caption_item;
 	GnomeCanvasItem *selected_item;
@@ -20,7 +21,7 @@ struct _EogCollectionItemPrivate {
 
 #define EOG_COLLECTION_ITEM_THUMB_WIDTH  96
 #define EOG_COLLECTION_ITEM_THUMB_HEIGHT 96
-#define EOG_COLLECTION_ITEM_CAPTION_PADDING 3
+#define EOG_COLLECTION_ITEM_CAPTION_PADDING 6
 
 static void eog_collection_item_destroy (GtkObject *object);
 
@@ -106,7 +107,6 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 {
 	EogCollectionItemPrivate *priv;
 	GdkPixbuf *scaled;
-	gboolean free_pixbuf = FALSE;
 	int image_width;
 	int image_height;
 	int image_x;
@@ -138,15 +138,17 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 
 		image_width = gdk_pixbuf_get_width (scaled);
 		image_height = gdk_pixbuf_get_height (scaled);
-
-		free_pixbuf = TRUE;
 	}
 	else {
 		scaled = pixbuf;
+		gdk_pixbuf_ref (scaled);
 	}
 
-	image_x = (EOG_COLLECTION_ITEM_THUMB_WIDTH - image_width) / 2;
-	image_y = (EOG_COLLECTION_ITEM_THUMB_HEIGHT - image_height) / 2;
+	g_assert (image_width <= EOG_COLLECTION_ITEM_THUMB_WIDTH);
+	g_assert (image_height <= EOG_COLLECTION_ITEM_THUMB_HEIGHT);
+
+	image_x = EOG_COLLECTION_ITEM_THUMB_WIDTH / 2;
+	image_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT;
 
 	gnome_canvas_item_set (priv->pixbuf_item, 
 			       "pixbuf", scaled, 
@@ -156,9 +158,7 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 			       "height_set", FALSE,
 			       NULL);
 
-	if (free_pixbuf) {
-		gdk_pixbuf_unref (scaled);
-	}
+	gdk_pixbuf_unref (scaled);
 }
 
 static GdkPixbuf*
@@ -335,7 +335,15 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	priv->image = image;
 	g_object_ref (priv->image);
 
-	/* rectangle */
+	/* frame */
+	priv->frame = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
+					     GNOME_TYPE_CANVAS_RECT,
+					     "x1", 0.0,
+					     "y2", 0.0,
+					     "x2", (double) EOG_COLLECTION_ITEM_THUMB_WIDTH,
+					     "y2", (double) EOG_COLLECTION_ITEM_THUMB_HEIGHT,
+					     "width_pixels", 1,
+					     NULL);
 
 	/* Caption */
 	layout = gtk_widget_create_pango_layout (GTK_WIDGET (GNOME_CANVAS_ITEM (item)->canvas), NULL);
@@ -348,7 +356,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	caption = transform_caption (basic_caption, layout);
 
 	caption_x = EOG_COLLECTION_ITEM_THUMB_WIDTH / 2;
-	caption_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT + EOG_COLLECTION_ITEM_CAPTION_PADDING;
+	caption_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT + 2 + EOG_COLLECTION_ITEM_CAPTION_PADDING;
 
 	priv->caption_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						    GNOME_TYPE_CANVAS_TEXT,
@@ -381,6 +389,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	/* Image */
 	priv->pixbuf_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						   GNOME_TYPE_CANVAS_PIXBUF,
+						   "anchor", GTK_ANCHOR_SOUTH,
 						   NULL);
 
 	g_signal_connect (image, "thumbnail_failed", G_CALLBACK (thumbnail_failed_cb), item);

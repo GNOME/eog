@@ -1,5 +1,12 @@
 2003-03-30  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-item.c (set_pixbuf): Removed
+	free_pixbuf flag; calculate image position more simple.
+	(eog_collection_item_construct): Add invisble frame around an
+	pixbuf to ensure same size for all items.
+
+2003-03-30  Jens Finke  <jens@triq.net>
+
 	* eog.glade: Enable 'As background' radio button.
 
 	* eog.schemas.in: Updated transparency indicator description.
