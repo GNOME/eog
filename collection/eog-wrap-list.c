@@ -20,9 +20,11 @@
  */
 #include <config.h>
 #include <math.h>
+#include <string.h>
 #include <glib/gmain.h>
 #include <libgnome/gnome-macros.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtkdnd.h>
 
 #include "eog-wrap-list.h"
 #include "eog-collection-marshal.h"
@@ -30,7 +32,17 @@
 #include "eog-collection-item.h"
 
 #define COLLECTION_DEBUG 0
-
+
+#define EOG_DND_URI_LIST_TYPE 	         "text/uri-list"
+
+enum {
+	EOG_DND_URI_LIST
+};
+
+static GtkTargetEntry drag_types [] = {
+	{ EOG_DND_URI_LIST_TYPE,   0, EOG_DND_URI_LIST }
+};
+
 
 /* Used to hold signal handler IDs for models */
 typedef enum {
@@ -121,6 +133,11 @@ static void eog_wrap_list_finalize (GObject *object);
 
 static void eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 static gboolean eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event);
+static void eog_wrap_list_drag_data_get_cb (GtkWidget *widget,
+					    GdkDragContext *drag_context,
+					    GtkSelectionData *data,
+					    guint info,
+					    guint time);
 
 static void request_update (EogWrapList *wlist);
 static gboolean do_update (EogWrapList *wlist);
@@ -146,6 +163,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 
 	widget_class->size_allocate = eog_wrap_list_size_allocate;
 	widget_class->key_press_event = eog_wrap_list_key_press_cb;
+	widget_class->drag_data_get = eog_wrap_list_drag_data_get_cb;
 
 	eog_wrap_list_signals [SELECTION_CHANGED] = 
 		g_signal_new ("selection_changed",
@@ -206,6 +224,12 @@ eog_wrap_list_instance_init (EogWrapList *wlist)
 	priv->last_item_clicked = NULL;
 	priv->item_width = -1;
 	priv->item_height = -1;
+
+	/* Drag source */
+	gtk_drag_source_set (GTK_WIDGET (wlist), 
+			     GDK_BUTTON1_MASK,
+			     drag_types, G_N_ELEMENTS (drag_types),
+			     GDK_ACTION_COPY);
 }
 
 /* Destroy handler for the abstract wrapped list view */
@@ -723,6 +747,57 @@ eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event)
 
 	return handled;
 }
+
+static void eog_wrap_list_drag_data_get_cb (GtkWidget *widget,
+					    GdkDragContext *drag_context,
+					    GtkSelectionData *data,
+					    guint info,
+					    guint time)
+{
+	EogWrapList *wlist;
+
+	wlist = EOG_WRAP_LIST (widget);
+
+	switch (info) {
+	case EOG_DND_URI_LIST:
+	{
+		EogImage *image;
+		GList *it;
+		GString *str;
+		GnomeVFSURI *uri;
+
+		/* We assess that every uri has about 30 chars. This
+		   is only to reduce number of reallocations when we
+		   add chars to the string */
+		str = g_string_sized_new (g_list_length (wlist->priv->selected_items) * 30);
+		
+		for (it = wlist->priv->selected_items; it != NULL; it = it->next) {
+			EogCollectionItem *item = EOG_COLLECTION_ITEM (it->data);
+			image = eog_collection_item_get_image (item);
+			uri = eog_image_get_uri (image);
+
+			g_string_append (str, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+			g_string_append_c (str, '\n');
+
+			gnome_vfs_uri_unref (uri);
+		}
+		
+		gtk_selection_data_set (data,
+					data->target,
+					8, (guchar*) str->str,
+					str->len);
+
+		g_string_free (str, TRUE);
+
+		break;
+	}
+
+	default:
+		g_assert_not_reached ();
+	}
+
+}
+
 
 static gboolean
 add_image (EogCollectionModel *model, EogImage *image, gpointer data)

@@ -85,6 +85,7 @@ gboolean            eog_image_is_modified                     (EogImage *img);
 gchar*              eog_image_get_caption                     (EogImage *img);
 const gchar*        eog_image_get_collate_key                 (EogImage *img);
 gpointer            eog_image_get_exif_information            (EogImage *img);
+GnomeVFSURI*        eog_image_get_uri                         (EogImage *img);
 
 /* modification API */
 void                eog_image_transform                       (EogImage *img, EogTransform *trans);

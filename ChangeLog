@@ -1,5 +1,13 @@
 2003-05-31  Jens Finke <jens@triq.net>
 
+	* collection/eog-collection-view.c
+	(eog_wrap_list_drag_data_get_cb): New function.
+	(eog_wrap_list_instance_init): Register as drag source.
+
+	* libeog/eog-image.[ch] (eog_image_get_uri): New function.
+
+2003-05-31  Jens Finke <jens@triq.net>
+
 	Added progress indication.
 	
 	* collection/eog-collection-view.c: New property "image/progress".
@@ -26,7 +34,7 @@
 	* libeog/eog-transform.[ch] (eog_transform_apply): Added callback
 	function, which is called in intervalls to update progress status.
 
-	* shell/eog-window.c (eog_window_construct): Put progressbar on statusbar.
+	* shell/eog-window.c (eog_window_construct): Show progressbar on statusbar.
 	(check_for_control_properties),
 	(property_changed_cb): Handle progress property.
 

@@ -1490,3 +1490,11 @@ eog_image_is_loaded (EogImage *img)
 	
 	return result;
 }
+
+GnomeVFSURI*
+eog_image_get_uri (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+	
+	return gnome_vfs_uri_ref (img->priv->uri);
+}
