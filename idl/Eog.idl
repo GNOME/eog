@@ -52,10 +52,12 @@ module EOG {
 		Bonobo::Zoomable get_zoomable ();
 	};
 
-	interface ImageControl : Bonobo::Control {
+	interface Control : Bonobo::Control {
 	};
 
-	interface ImageEmbeddable : Bonobo::Embeddable {
+	interface Embeddable : Bonobo::Embeddable {
 	};
 
+	interface EmbeddableView : Bonobo::View {
+	};
 };
