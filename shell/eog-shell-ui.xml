@@ -12,7 +12,10 @@
 
         <cmd name="FileExit" _label="_Quit" _tip="Quit the program"
 	     pixtype="stock" pixname="gtk-quit" accel="*Control*q"/>
-	
+
+        <cmd name="EditPreferences" _label="Prefere_nces" _tip="Preferences for EoG components"
+             pixtype="stock" pixname="gtk-preferences"/> 	
+
 	<cmd name="HelpAbout" _label="_About" _tip="About this application"
 	     pixtype="stock" pixname="About"/>
 	<cmd name="Help" _label="_Contents" _tip="Help On this application"
@@ -44,13 +47,14 @@
 
 	</submenu>
 	
-	<placeholder name="Edit">
+	<submenu name="Edit" _label="_Edit">
 	        <placeholder name="Edit Items Placeholder"/>
-        </placeholder>
+		<separator/>
+		<menuitem name="EditPreferences" verb=""/>
+        </submenu>
 
 	<placeholder name="View">
-		<placeholder name="View Preferences Placeholder"/>
-		<placeholder name="View Items Placeholder" delimit="top"/>
+		<placeholder name="View Items Placeholder"/>
 	</placeholder>
 
 	<submenu name="Help" _label="_Help">

@@ -14,39 +14,6 @@
 	<cmd name="SaveAs" _label="Save _As..." 
 	     pixtype="stock" pixname="Save As" accel="*Control**Shift*S"/>
 
-        <cmd name="InterpolationNearest" _label="Nea_rest Neighbour"
-             type="radio" group="Interpolation"/>
-        <cmd name="InterpolationBilinear" _label="_Bilinear"
-             type="radio" group="Interpolation"/>
-        <cmd name="InterpolationHyperbolic" _label="_Hyperbolic"
-             type="radio" group="Interpolation"/>
-        
-        <cmd name="DitherNone" _label="_None" type="radio" group="Dither"/>
-        <cmd name="DitherNormal" _label="Normal (_pseudocolor)"
-             type="radio" group="Dither"/>
-        <cmd name="DitherMaximum" _label="_Maximum (high color)"
-             type="radio" group="Dither"/>
-        
-        <cmd name="CheckTypeDark" _label="_Dark"
-             type="radio" group="CheckType"/>
-        <cmd name="CheckTypeMidtone" _label="_Midtone"
-             type="radio" group="CheckType"/>
-        <cmd name="CheckTypeLight" _label="_Light"
-             type="radio" group="CheckType"/>
-        <cmd name="CheckTypeBlack" _label="_Black"
-             type="radio" group="CheckType"/>
-        <cmd name="CheckTypeGray" _label="_Gray"
-             type="radio" group="CheckType"/>
-        <cmd name="CheckTypeWhite" _label="_White"
-             type="radio" group="CheckType"/>
-        
-        <cmd name="CheckSizeSmall" _label="Small"
-             type="radio" group="CheckSize"/>
-        <cmd name="CheckSizeMedium" _label="Medium"
-             type="radio" group="CheckSize"/>
-        <cmd name="CheckSizeLarge" _label="Large"
-             type="radio" group="CheckSize"/> 
-
 	<cmd name="FullScreen"  _label="Full Screen" accel="F11"/>
 	<cmd name="FlipHorizontal" _label="Flip Horizontal"/>
 	<cmd name="FlipVertical" _label="Flip Vertical"/>
@@ -84,36 +51,6 @@
     </submenu>
   
     <submenu name="View" _label="_View">
-
-            <placeholder name="View Preferences Placeholder">
-
-        	    <submenu name="Interpolation" _label="_Interpolation">
-        		    <menuitem name="InterpolationNearest" verb=""/>
-        		    <menuitem name="InterpolationBilinear" verb=""/>
-        		    <menuitem name="InterpolationHyperbolic" verb=""/>
-        	     </submenu>
-          
-        	     <submenu name="Dither" _label="_Dither">
-        		    <menuitem name="DitherNone" verb=""/>
-        		    <menuitem name="DitherNormal" verb=""/>
-        		    <menuitem name="DitherMaximum" verb=""/>
-        	     </submenu>
-          
-        	     <submenu name="CheckType" _label="Check _type">
-        		    <menuitem name="CheckTypeDark" verb=""/>
-        		    <menuitem name="CheckTypeMidtone" verb=""/>
-        		    <menuitem name="CheckTypeLight" verb=""/>
-        		    <menuitem name="CheckTypeBlack" verb=""/>
-        		    <menuitem name="CheckTypeGray" verb=""/>
-        		    <menuitem name="CheckTypeWhite" verb=""/>
-        	     </submenu>
-          
-        	     <submenu name="CheckSize" _label="Check _size">
-        		    <menuitem name="CheckSizeSmall" verb=""/>
-        		    <menuitem name="CheckSizeMedium" verb=""/>
-        		    <menuitem name="CheckSizeLarge" verb=""/>
-        	     </submenu>
-            </placeholder>
 
             <placeholder name="View Items Placeholder">
   	             <menuitem name="FullScreen" verb=""/>

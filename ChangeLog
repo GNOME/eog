@@ -1,3 +1,47 @@
+2002-10-10  Jens Finke  <jens@triq.net>
+
+	New preference dialog.
+	
+	* configure.in: Check for libglade.
+
+	* Makefile.am: Added glade related stuff.
+
+	* eog.schemas: Changed keys for image view, so that they better
+	reflect the preference dialog settings.
+
+	* eog.glade,
+	* eog.gladep,
+	* eog-glade.h: New glade related files.
+	
+	* libeog/image-view.[ch] (paint_rectangle): Consider use_check_pattern variable.
+	(image_view_set_check_type),
+	(image_view_set_check_size): Set use_check_pattern variable.
+	(image_view_set_transparent_color): New function.
+
+	* shell/Makefile.am: Added eog-preferences.[ch] files.
+
+	* shell/eog-preferences.[ch]: New files.
+
+	* shell/eog-shell-ui.xml: Added Edit/Preferences menu item.
+
+	* shell/eog-window.c (verb_EditPreferences_cb): New function.
+
+	* viewer/eog-image-view-ui.xml: Removed preference settings from
+	the menu.
+
+	* viewer/eog-image-view.c: Removed all stuff related to the
+	setting/changing of preferences through the menu.
+	(dither_changed_cb),
+	(check_size_changed_cb),
+	(check_type_changed_cb): Removed.
+	(interp_type_changed_cb): Reworked.
+	(trans_color_changed_cb),
+	(transparency_changed_cb): New function.
+	(eog_iamge_view_construct): Adapted to new gconf schema.
+	Removed ui related properties from property bag.
+
+	* viewer/eog-image-view.h: Adapted gconf keys. 
+ 
 2002-10-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* shell/eog-window.c (eog_window_init): Plug a leak.

@@ -63,9 +63,8 @@ struct _EogImageViewPrivate {
 
 	GConfClient	      *client;
 	guint                 interp_type_notify_id;
-	guint                 dither_notify_id;
-	guint                 check_type_notify_id;
-	guint                 check_size_notify_id;
+	guint                 transparency_notify_id;
+	guint                 trans_color_notify_id;
 
 	GtkWidget             *ui_image;
         ImageView             *image_view;
@@ -209,126 +208,6 @@ image_view_popup_menu_cb (GtkWidget *widget, gpointer data)
 
 	gtk_item_factory_popup (priv->item_factory, x, y, 0, gtk_get_current_event_time ());
 	return TRUE;
-}
-
-static void
-listener_Interpolation_cb (BonoboUIComponent           *uic,
-			   const char                  *path,
-			   Bonobo_UIComponent_EventType type,
-			   const char                  *state,
-			   gpointer                     user_data)
-{
-	EogImageView *image_view;
-	GdkInterpType interpolation;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	if (type != Bonobo_UIComponent_STATE_CHANGED)
-		return;
-
-	if (!state || !atoi (state))
-		return;
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	if (!strcmp (path, "InterpolationNearest")) {
-		interpolation = GDK_INTERP_NEAREST;
-	}
-	else if (!strcmp (path, "InterpolationBilinear")) {
-		interpolation = GDK_INTERP_BILINEAR;
-	}
-	else if (!strcmp (path, "InterpolationHyperbolic")) {
-		interpolation = GDK_INTERP_HYPER;
-	}
-	else {
-		g_warning ("Unknown interpolation type `%s'", path);
-		return;
-	}
-
-	gconf_client_set_int (image_view->priv->client, 
-			      GCONF_EOG_VIEW_INTERP_TYPE, 
-			      (int) interpolation, NULL);
-}
-
-static void
-listener_Dither_cb (BonoboUIComponent           *uic,
-		    const char                  *path,
-		    Bonobo_UIComponent_EventType type,
-		    const char                  *state,
-		    gpointer                     user_data)
-{
-	EogImageView *image_view;
-	GNOME_EOG_Dither dither;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	if (type != Bonobo_UIComponent_STATE_CHANGED)
-		return;
-
-	if (!state || !atoi (state))
-		return;
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	if (!strcmp (path, "DitherNone"))
-		dither = GNOME_EOG_DITHER_NONE;
-	else if (!strcmp (path, "DitherNormal"))
-		dither = GNOME_EOG_DITHER_NORMAL;
-	else if (!strcmp (path, "DitherMaximum"))
-		dither = GNOME_EOG_DITHER_MAXIMUM;
-	else {
-		g_warning ("Unknown dither type `%s'", path);
-		return;
-	}
-
-	gconf_client_set_int (image_view->priv->client, 
-			      GCONF_EOG_VIEW_DITHER, 
-			      (int) dither, NULL);
-}
-
-static void
-listener_CheckType_cb (BonoboUIComponent           *uic,
-		       const char                  *path,
-		       Bonobo_UIComponent_EventType type,
-		       const char                  *state,
-		       gpointer                     user_data)
-{
-	EogImageView *image_view;
-	GNOME_EOG_CheckType check_type;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	if (type != Bonobo_UIComponent_STATE_CHANGED)
-		return;
-
-	if (!state || !atoi (state))
-		return;
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	if (!strcmp (path, "CheckTypeDark"))
-		check_type = GNOME_EOG_CHECK_TYPE_DARK;
-	else if (!strcmp (path, "CheckTypeMidtone"))
-		check_type = GNOME_EOG_CHECK_TYPE_MIDTONE;
-	else if (!strcmp (path, "CheckTypeLight"))
-		check_type = GNOME_EOG_CHECK_TYPE_LIGHT;
-	else if (!strcmp (path, "CheckTypeBlack"))
-		check_type = GNOME_EOG_CHECK_TYPE_BLACK;
-	else if (!strcmp (path, "CheckTypeGray"))
-		check_type = GNOME_EOG_CHECK_TYPE_GRAY;
-	else if (!strcmp (path, "CheckTypeWhite"))
-		check_type = GNOME_EOG_CHECK_TYPE_WHITE;
-	else {
-		g_warning ("Unknown check type `%s'", path);
-		return;
-	}
-
-	gconf_client_set_int (image_view->priv->client, 
-			      GCONF_EOG_VIEW_CHECK_TYPE, 
-			      (int) check_type, NULL);
 }
 
 static void
@@ -1251,113 +1130,6 @@ verb_PrintSetup_cb (BonoboUIComponent *uic, gpointer user_data,
 	gtk_widget_show (print_setup);
 }
 
-static void
-listener_CheckSize_cb (BonoboUIComponent           *uic,
-		       const char                  *path,
-		       Bonobo_UIComponent_EventType type,
-		       const char                  *state,
-		       gpointer                     user_data)
-{
-	EogImageView *image_view;
-	GNOME_EOG_CheckSize check_size;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	if (type != Bonobo_UIComponent_STATE_CHANGED)
-		return;
-
-	if (!state || !atoi (state))
-		return;
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	if (!strcmp (path, "CheckSizeSmall"))
-		check_size = GNOME_EOG_CHECK_SIZE_SMALL;
-	else if (!strcmp (path, "CheckSizeMedium"))
-		check_size = GNOME_EOG_CHECK_SIZE_MEDIUM;
-	else if (!strcmp (path, "CheckSizeLarge"))
-		check_size = GNOME_EOG_CHECK_SIZE_LARGE;
-	else {
-		g_warning ("Unknown check size `%s'", path);
-		return;
-	}
-
-	gconf_client_set_int (image_view->priv->client, 
-			      GCONF_EOG_VIEW_CHECK_SIZE, 
-			      (int) check_size, NULL);
-}
-
-
-/* Keep this in sync with interp_menu_index_from_value() below */
-static const gchar* ui_id_strings_interp_type [] = {
-	"InterpolationNearest",
-	"InterpolationBilinear",
-	"InterpolationHyperbolic"
-};
-
-static const int n_ui_id_strings_interp_type = (sizeof (ui_id_strings_interp_type) /
-						sizeof (ui_id_strings_interp_type[0]));
-
-/* Converts an enum value to the corresponding menu index for interpolation */
-static int
-interp_menu_index_from_value (int value)
-{
-	switch (value) {
-	case GDK_INTERP_NEAREST:
-		return 0;
-
-	case GDK_INTERP_BILINEAR:
-		return 1;
-
-	case GDK_INTERP_HYPER:
-		return 2;
-
-	default:
-		return 0;
-	}
-}
-
-static const gchar* ui_id_strings_dither [] = {
-	"DitherNone",
-	"DitherNormal",
-	"DitherMaximum"
-};
-
-static const gchar* ui_id_strings_check_type [] = {
-	"CheckTypeDark",
-	"CheckTypeMidtone",
-	"CheckTypeLight",
-	"CheckTypeBlack",
-	"CheckTypeGray",
-	"CheckTypeWhite"
-};
-
-static const gchar* ui_id_strings_check_size [] = {
-	"CheckSizeSmall",
-	"CheckSizeMedium",
-	"CheckSizeLarge"
-};
-
-static void
-set_ui_group_item (EogImageView *image_view, const gchar *group_cmd)
-{
-	gchar *path;
-	gchar *value;
-	
-	path = g_strconcat ("/commands/", group_cmd, NULL);
-
-	value = bonobo_ui_component_get_prop (image_view->priv->uic,
-					      path, "state", NULL);
-	if (value == NULL || !g_ascii_strcasecmp (value, "0")) {
-		bonobo_ui_component_set_prop (image_view->priv->uic, 
-					      path, "state", "1", NULL);
-	}
-
-	g_free (value);
-	g_free (path);
-}
-
 
 #define EVOLUTION_MENU "<menuitem name=\"Send\" _label=\"Send\" pixtype=\"stock\" pixname=\"New Mail\" verb=\"\"/>"
 #define GNOCAM_MENU "<menuitem name=\"AcquireFromCamera\" _label=\"Acquire from camera\" verb=\"\"/>"
@@ -1385,50 +1157,6 @@ eog_image_view_create_ui (EogImageView *image_view)
 					   "/menu/File/FileOperations",
 					   GNOCAM_MENU, NULL);
 #endif
-
-	value = gconf_client_get_int (image_view->priv->client, 
-				      GCONF_EOG_VIEW_INTERP_TYPE, 
-				      NULL);
-	value = interp_menu_index_from_value (value);
-	set_ui_group_item (image_view, ui_id_strings_interp_type [value]);
-	for (i = 0; i < n_ui_id_strings_interp_type; i++) {
-		bonobo_ui_component_add_listener (image_view->priv->uic, ui_id_strings_interp_type [i],
-						  listener_Interpolation_cb, image_view);
-	}
-
-	value = gconf_client_get_int (image_view->priv->client, 
-				      GCONF_EOG_VIEW_DITHER, 
-				       NULL);
-	set_ui_group_item (image_view, ui_id_strings_dither [value]);
-	for (i = 0; i < 3; i++) {
-		bonobo_ui_component_add_listener (image_view->priv->uic, ui_id_strings_dither [i],
-						  listener_Dither_cb, image_view);
-	}
-
-	value = gconf_client_get_int (image_view->priv->client, 
-				      GCONF_EOG_VIEW_CHECK_TYPE, 
-				      NULL);
-	set_ui_group_item (image_view, ui_id_strings_check_type [value]);
-	for (i = 0; i < 6; i++) {
-		bonobo_ui_component_add_listener (image_view->priv->uic, ui_id_strings_check_type [i],
-						  listener_CheckType_cb, image_view);
-	}
-
-	value = gconf_client_get_int (image_view->priv->client, 
-				      GCONF_EOG_VIEW_CHECK_SIZE, 
-				      NULL);
-	set_ui_group_item (image_view, ui_id_strings_check_size [value]);
-	for (i = 0; i < 3; i++) {
-		bonobo_ui_component_add_listener (image_view->priv->uic, ui_id_strings_check_size [i],
-						  listener_CheckSize_cb, image_view);
-	}
-
-	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeSmall",
-					  listener_CheckSize_cb, image_view);
-	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeMedium",
-					  listener_CheckSize_cb, image_view);
-	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeLarge",
-					  listener_CheckSize_cb, image_view);
 
 	bonobo_ui_component_add_verb (image_view->priv->uic, "SaveAs", 
 				      verb_SaveAs_cb, image_view);
@@ -1487,8 +1215,8 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		g_assert (arg->_type == TC_GNOME_EOG_Interpolation);
 
-		interp_type = (GdkInterpType) gconf_client_get_int (priv->client, 
-								    GCONF_EOG_VIEW_INTERP_TYPE, 
+		interp_type = (GdkInterpType) gconf_client_get_bool (priv->client, 
+								     GCONF_EOG_VIEW_INTERP_TYPE, 
 								    NULL);
 		switch (interp_type) {
 		case GDK_INTERP_NEAREST:
@@ -1930,9 +1658,8 @@ eog_image_view_destroy (BonoboObject *object)
 	priv = image_view->priv;
 
 	gconf_client_notify_remove (priv->client, priv->interp_type_notify_id);
-	gconf_client_notify_remove (priv->client, priv->dither_notify_id);
-	gconf_client_notify_remove (priv->client, priv->check_type_notify_id);
-	gconf_client_notify_remove (priv->client, priv->check_size_notify_id);
+	gconf_client_notify_remove (priv->client, priv->transparency_notify_id);
+	gconf_client_notify_remove (priv->client, priv->trans_color_notify_id);
 	g_object_unref (G_OBJECT (priv->client));
 
 	bonobo_object_unref (BONOBO_OBJECT (priv->property_bag));
@@ -2016,96 +1743,79 @@ interp_type_changed_cb (GConfClient *client,
 			gpointer     user_data)
 {
 	EogImageView *view;
-	GdkInterpType interpolation;
-	int i;
+	gboolean interpolate = TRUE;
 
 	view = EOG_IMAGE_VIEW (user_data);
 	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
-		interpolation = (GdkInterpType) gconf_value_get_int (entry->value);
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		interpolate = gconf_value_get_bool (entry->value);
+	}
+
+	if (interpolate) {
+		image_view_set_interp_type (view->priv->image_view,
+					    GDK_INTERP_BILINEAR);
 	}
 	else {
-		interpolation = GDK_INTERP_BILINEAR;
+		image_view_set_interp_type (view->priv->image_view,
+					    GDK_INTERP_NEAREST);
 	}
-
-	image_view_set_interp_type (view->priv->image_view, interpolation);
-	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
-					      "interpolation", NULL, NULL);
-
-	i = interp_menu_index_from_value (interpolation);
-	set_ui_group_item (view, ui_id_strings_interp_type [i]);
 }
 
 static void
-dither_changed_cb (GConfClient *client,
-		   guint        cnxn_id,
-		   GConfEntry  *entry,
-		   gpointer     user_data)
+transparency_changed_cb (GConfClient *client,
+			 guint        cnxn_id,
+			 GConfEntry  *entry,
+			 gpointer     user_data)
 {
 	EogImageView *view;
-	GdkRgbDither dither;
+	const char *value = NULL;
 
 	view = EOG_IMAGE_VIEW (user_data);
 	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
-		dither = (GdkRgbDither) gconf_value_get_int (entry->value);
-	} 
-	else {
-		dither = GDK_RGB_DITHER_NONE;
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
+		value = gconf_value_get_string (entry->value);
 	}
+	
+	if (g_strcasecmp (value, "COLOR") == 0) {
+		GdkColor color;
+		char *color_str;
 
-	image_view_set_dither (view->priv->image_view, dither);
-	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
-					      "dither", NULL, NULL);
-	set_ui_group_item (view, ui_id_strings_dither [dither]);
+		color_str = gconf_client_get_string (view->priv->client, 
+						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
+		if (gdk_color_parse (color_str, &color)) {
+			image_view_set_transparent_color (view->priv->image_view, &color);
+		}
+	}
+	else {
+		image_view_set_check_type (view->priv->image_view, CHECK_TYPE_MIDTONE);
+		image_view_set_check_size (view->priv->image_view, CHECK_SIZE_LARGE);
+	}
 }
 
 static void
-check_type_changed_cb (GConfClient *client,
-		       guint        cnxn_id,
-		       GConfEntry  *entry,
-		       gpointer     user_data)
+trans_color_changed_cb (GConfClient *client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			gpointer     user_data)
 {
 	EogImageView *view;
-	CheckType check_type;
+	GdkColor color;
+	char *value;
+	const char *color_str;
 
 	view = EOG_IMAGE_VIEW (user_data);
 	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
-		check_type = (CheckType) gconf_value_get_int (entry->value);
-	}
-	else {
-		check_type = CHECK_TYPE_MIDTONE;
-	}
+	value = gconf_client_get_string (view->priv->client, GCONF_EOG_VIEW_TRANSPARENCY, NULL);
 
-	image_view_set_check_type (view->priv->image_view, check_type);
-	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
-					      "check_type", NULL, NULL);
-	set_ui_group_item (view, ui_id_strings_check_type [check_type]);
-}
+	if (g_strcasecmp (value, "COLOR") != 0) return;
 
-static void
-check_size_changed_cb (GConfClient *client,
-		       guint        cnxn_id,
-		       GConfEntry  *entry,
-		       gpointer     user_data)
-{
-	EogImageView *view;
-	CheckSize check_size;
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
+		color_str = gconf_value_get_string (entry->value);
 
-	view = EOG_IMAGE_VIEW (user_data);
-	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
-		check_size = (CheckSize) gconf_value_get_int (entry->value);
+		if (gdk_color_parse (color_str, &color)) {
+			image_view_set_transparent_color (view->priv->image_view, &color);
+		}
 	}
-	else {
-		check_size = CHECK_SIZE_MEDIUM;
-	}
-
-	image_view_set_check_size (view->priv->image_view, check_size);
-	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
-					      "check_size", NULL, NULL);
-	set_ui_group_item (view, ui_id_strings_check_size [check_size]);
 }
 
 /* Callback for the item factory's popup menu */
@@ -2198,6 +1908,8 @@ EogImageView *
 eog_image_view_construct (EogImageView *image_view, EogImage *image,
 			  gboolean zoom_fit, gboolean need_close_item)
 {
+	char *transp_str;
+
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 	g_return_val_if_fail (image != NULL, NULL);
@@ -2240,61 +1952,53 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 			  G_CALLBACK (image_view_popup_menu_cb), image_view);
 
 	/* get preference values from gconf and add listeners */
+	if (gconf_client_get_bool (image_view->priv->client, GCONF_EOG_VIEW_INTERP_TYPE, NULL)) {
+		image_view_set_interp_type (image_view->priv->image_view, GDK_INTERP_BILINEAR);
+	}
+	else {
+		image_view_set_interp_type (image_view->priv->image_view, GDK_INTERP_NEAREST);
+	}
 
-	image_view_set_interp_type (image_view->priv->image_view,
-			            (GdkInterpType) gconf_client_get_int (image_view->priv->client,
-									  GCONF_EOG_VIEW_INTERP_TYPE,
-									  NULL));
-	image_view_set_dither (image_view->priv->image_view,
-			       (GdkRgbDither) gconf_client_get_int (image_view->priv->client,
-								    GCONF_EOG_VIEW_DITHER,
-								    NULL));
-	image_view_set_check_type (image_view->priv->image_view,
-				   (CheckType) gconf_client_get_int (image_view->priv->client,
-								     GCONF_EOG_VIEW_CHECK_TYPE,
-								     NULL));
-	image_view_set_check_size (image_view->priv->image_view,
-				   (CheckSize) gconf_client_get_int (image_view->priv->client,
-								     GCONF_EOG_VIEW_CHECK_SIZE,
-								     NULL));
+	image_view_set_dither (image_view->priv->image_view, GDK_RGB_DITHER_NONE);
+
+	transp_str = gconf_client_get_string (image_view->priv->client, 
+					      GCONF_EOG_VIEW_TRANSPARENCY, NULL);
+	if (g_strcasecmp (transp_str, "COLOR") == 0) {
+		GdkColor color;
+		char *color_str;
+
+		color_str = gconf_client_get_string (image_view->priv->client, 
+						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
+		if (gdk_color_parse (color_str, &color)) {
+			image_view_set_transparent_color (image_view->priv->image_view, &color);
+		}
+	}
+	else {
+		image_view_set_check_type (image_view->priv->image_view, CHECK_TYPE_MIDTONE);
+		image_view_set_check_size (image_view->priv->image_view, CHECK_SIZE_LARGE);
+	}
+
+	/* add gconf listeners */
 	image_view->priv->interp_type_notify_id = 
 		gconf_client_notify_add (image_view->priv->client,
 					 GCONF_EOG_VIEW_INTERP_TYPE, 
 					 interp_type_changed_cb,
 					 image_view, NULL, NULL);
-	image_view->priv->dither_notify_id = 
+	image_view->priv->transparency_notify_id = 
 		gconf_client_notify_add (image_view->priv->client,
-					 GCONF_EOG_VIEW_DITHER, 
-					 dither_changed_cb,
+					 GCONF_EOG_VIEW_TRANSPARENCY, 
+					 transparency_changed_cb,
 					 image_view, NULL, NULL);
-	image_view->priv->check_type_notify_id = 
+	image_view->priv->trans_color_notify_id = 
 		gconf_client_notify_add (image_view->priv->client,
-					 GCONF_EOG_VIEW_CHECK_TYPE, 
-					 check_type_changed_cb,
-					 image_view, NULL, NULL);
-	image_view->priv->check_size_notify_id = 
-		gconf_client_notify_add (image_view->priv->client,
-					 GCONF_EOG_VIEW_CHECK_SIZE, 
-					 check_size_changed_cb,
+					 GCONF_EOG_VIEW_TRANS_COLOR, 
+					 trans_color_changed_cb,
 					 image_view, NULL, NULL);
 	
 	/* Property Bag */
 	image_view->priv->property_bag = bonobo_property_bag_new (eog_image_view_get_prop,
 								  eog_image_view_set_prop,
 								  image_view);
-
-	bonobo_property_bag_add (image_view->priv->property_bag, "interpolation", PROP_INTERPOLATION,
-				 TC_GNOME_EOG_Interpolation, NULL, _("Interpolation"), 
-				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "dither", PROP_DITHER,
-				 TC_GNOME_EOG_Dither, NULL, _("Dither"), 
-				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "check_type", PROP_CHECK_TYPE,
-				 TC_GNOME_EOG_CheckType, NULL, _("Check Type"), 
-				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "check_size", PROP_CHECK_SIZE,
-				 TC_GNOME_EOG_CheckSize, NULL, _("Check Size"), 
-				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
 	bonobo_property_bag_add (image_view->priv->property_bag, "image/width", PROP_IMAGE_WIDTH,
 				 BONOBO_ARG_INT, NULL, _("Image Width"),
 				 BONOBO_PROPERTY_READABLE);

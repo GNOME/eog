@@ -97,6 +97,10 @@ struct _ImageViewPrivate {
 	/* Check type and size */
 	CheckType check_type;
 	CheckSize check_size;
+	
+	/* Transparency indicator */
+	gboolean use_check_pattern;
+	guint32  transparency_color;
 
 	/* Dither type */
 	GdkRgbDither dither;
@@ -245,6 +249,8 @@ image_view_instance_init (ImageView *view)
 	priv->check_type = CHECK_TYPE_MIDTONE;
 	priv->check_size = CHECK_SIZE_LARGE;
 	priv->dither = GDK_RGB_DITHER_MAX;
+	priv->use_check_pattern = TRUE;
+	priv->transparency_color = CHECK_BLACK;
 
 	/* We don't want to be double-buffered as we are SuperSmart(tm) */
 	gtk_widget_set_double_buffered (GTK_WIDGET (view), FALSE);
@@ -545,38 +551,42 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	}
 
 	/* Compute check parameters */
+	if (priv->use_check_pattern) {
+		switch (priv->check_type) {
+		case CHECK_TYPE_DARK:
+			check_1 = CHECK_BLACK;
+			check_2 = CHECK_DARK;
+			break;
+			
+		case CHECK_TYPE_MIDTONE:
+			check_1 = CHECK_DARK;
+			check_2 = CHECK_LIGHT;
+			break;
 
-	switch (priv->check_type) {
-	case CHECK_TYPE_DARK:
-		check_1 = CHECK_BLACK;
-		check_2 = CHECK_DARK;
-		break;
+		case CHECK_TYPE_LIGHT:
+			check_1 = CHECK_LIGHT;
+			check_2 = CHECK_WHITE;
+			break;
+		
+		case CHECK_TYPE_BLACK:
+			check_1 = check_2 = CHECK_BLACK;
+			break;
 
-	case CHECK_TYPE_MIDTONE:
-		check_1 = CHECK_DARK;
-		check_2 = CHECK_LIGHT;
-		break;
+		case CHECK_TYPE_GRAY:
+			check_1 = check_2 = CHECK_GRAY;
+			break;
 
-	case CHECK_TYPE_LIGHT:
-		check_1 = CHECK_LIGHT;
-		check_2 = CHECK_WHITE;
-		break;
+		case CHECK_TYPE_WHITE:
+			check_1 = check_2 = CHECK_WHITE;
+			break;
 
-	case CHECK_TYPE_BLACK:
-		check_1 = check_2 = CHECK_BLACK;
-		break;
-
-	case CHECK_TYPE_GRAY:
-		check_1 = check_2 = CHECK_GRAY;
-		break;
-
-	case CHECK_TYPE_WHITE:
-		check_1 = check_2 = CHECK_WHITE;
-		break;
-
-	default:
-		g_assert_not_reached ();
-		return;
+		default:
+			g_assert_not_reached ();
+			return;
+		}
+	}
+	else {
+		check_1 = check_2 = priv->transparency_color;
 	}
 
 	switch (priv->check_size) {
@@ -1689,10 +1699,12 @@ image_view_set_check_type (ImageView *view, CheckType check_type)
 
 	priv = view->priv;
 
-	if (priv->check_type == check_type)
+	if (priv->check_type == check_type &&
+	    priv->use_check_pattern)
 		return;
 
 	priv->check_type = check_type;
+	priv->use_check_pattern = TRUE;
 
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
@@ -1734,10 +1746,12 @@ image_view_set_check_size (ImageView *view, CheckSize check_size)
 
 	priv = view->priv;
 
-	if (priv->check_size == check_size)
+	if (priv->check_size == check_size &&
+	    priv->use_check_pattern)
 		return;
 
 	priv->check_size = check_size;
+	priv->use_check_pattern = TRUE;
 
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
@@ -1783,6 +1797,32 @@ image_view_set_dither (ImageView *view, GdkRgbDither dither)
 		return;
 
 	priv->dither = dither;
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+void 
+image_view_set_transparent_color (ImageView *view, const GdkColor *color)
+{
+	ImageViewPrivate *priv;
+	guint32 col = 0;
+	guint32 red_part;
+	guint32 green_part;
+	guint32 blue_part;
+	
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	red_part = (color->red / 256) << 16;
+	green_part = (color->green / 256) << 8;
+	blue_part = (color->blue / 256);
+
+	col = red_part + green_part + blue_part;
+
+	priv->use_check_pattern = FALSE;
+	priv->transparency_color = col;
 
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
@@ -1929,3 +1969,4 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->focus_in_event  = image_view_focus_in_event;
 	widget_class->focus_out_event = image_view_focus_out_event;
 }
+

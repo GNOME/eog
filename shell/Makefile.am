@@ -18,6 +18,8 @@ bin_PROGRAMS = eog
 eog_SOURCES =			\
 	eog-window.h		\
 	eog-window.c		\
+	eog-preferences.h	\
+	eog-preferences.c	\
 	main.c			\
 	session.c		\
 	session.h		\

@@ -1,88 +1,45 @@
 <gconfschemafile>
   <schemalist>
     <schema>
-      <key>/schemas/apps/eog/view/interp_type</key>
-      <applyto>/apps/eog/view/interp_type</applyto>
+      <key>/schemas/apps/eog/view/interpolate</key>
+      <applyto>/apps/eog/view/interpolate</applyto>
       <owner>eog</owner>
-      <type>int</type>
-      <default>2</default>
-      <locale name="C">
-	<short>Interpolation type</short>
-	<long>Type of interpolation to use for views.  Possible values
-	are:  0 (nearest neighbor), 2 (bilienar), 3 (hyperbolic).
-	Value 1 (tiles) is in effect the same as nearest neighbor and
-	thus is not used.</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/view/check_type</key>
-      <applyto>/apps/eog/view/check_type</applyto>
-      <owner>eog</owner>
-      <type>int</type>
+      <type>bool</type>
       <default>1</default>
       <locale name="C">
-	<short>Type of checks</short>
-	<long>Type of the checkered background that will be drawn
-	behind images with transparency.  Possible values are: 0 (dark
-	checks), 1 (midtone checks), 2 (light checks), 3 (black
-	background), 4 (gray background), 5 (white background).</long>
+	<short>Interpolate Image</short>
+	<long>Wether the image should be interpolated on zoom or not.
+	This leads to better quality but is somewhat slower than non 
+        interpolated images.</long>
       </locale>
     </schema>
 
     <schema>
-      <key>/schemas/apps/eog/view/check_size</key>
-      <applyto>/apps/eog/view/check_size</applyto>
+      <key>/schemas/apps/eog/view/transparency</key>
+      <applyto>/apps/eog/view/transparency</applyto>
       <owner>eog</owner>
-      <type>int</type>
-      <default>1</default>
+      <type>string</type>
+      <default>CHECK_PATTERN</default>
       <locale name="C">
-	<short>Size of checks</short>
-	<long>Size of the checks in the background that will be drawn
-	behind images with transparency.  Possible values are:  0
-	(small checks), 1 (medium checks), 2 (large checks).</long>
+	<short>Transparency indicator</short>
+	<long>Determines how transparency should be indicated. Valid values
+        are CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color 
+        key determines the used color value.
+        </long>
       </locale>
     </schema>
 
     <schema>
-      <key>/schemas/apps/eog/view/dither</key>
-      <applyto>/apps/eog/view/dither</applyto>
+      <key>/schemas/apps/eog/view/trans_color</key>
+      <applyto>/apps/eog/view/trans_color</applyto>
       <owner>eog</owner>
-      <type>int</type>
-      <default>0</default>
+      <type>string</type>
+      <default>#000000</default>
       <locale name="C">
-        <short>Dither type</short>
-	<long>Dither type to use.  Possible values are:  0 (none), 1
-	(normal, for pseudo-color displays), 2 (maximum, for extra
-	quality on high color displays).</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/view/scroll</key>
-      <applyto>/apps/eog/view/scroll</applyto>
-      <owner>eog</owner>
-      <type>int</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Scrolling method</short>
-	<long>Scrolling method to use.  Possible values are:  0
-	(normal), 1 (two-pass scrolling).</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/window/sb_policy</key>
-      <applyto>/apps/eog/window/sb_policy</applyto>
-      <owner>eog</owner>
-      <type>int</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Scrollbar policy for image windows</short>
-	<long>Whether to display scrollbars on image windows.
-	Possible values are:  1 (automatic; only display scrollbars if
-	the image is larger than the window), 2 (never display
-	scrollbars).</long>
+	<short>Transparency color</short>
+	<long>If the transparency key has the value COLOR, than this 
+        key determines the color which is used for indicating transparency.
+        </long>
       </locale>
     </schema>
 

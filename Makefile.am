@@ -13,6 +13,9 @@ EXTRA_DIST =			\
 	$(schema_DATA)		\
 	eog.desktop.in		\
 	eog.spec		\
+	eog.gladep		\
+	eog.glade		\
+	eog-glade.h		\
 	eog.spec.in		\
 	gnome-eog.png		\
 	intltool-extract.in	\
@@ -23,6 +26,9 @@ EXTRA_DIST =			\
 Graphicsdir = $(datadir)/applications
 Graphics_in_files = eog.desktop.in
 Graphics_DATA = $(Graphics_in_files:.desktop.in=.desktop)
+
+Gladedir = $(datadir)/eog/glade
+Glade_DATA = eog.glade
 
 @INTLTOOL_DESKTOP_RULE@
 

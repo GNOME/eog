@@ -112,6 +112,8 @@ GdkRgbDither image_view_get_dither (ImageView *view);
 
 void image_view_get_scaled_size (ImageView *view, gint *width, gint *height);
 
+void image_view_set_transparent_color (ImageView *view, const GdkColor *color);
+
 G_END_DECLS
 
 #endif

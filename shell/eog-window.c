@@ -173,6 +173,16 @@ verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 }
 
 static void
+verb_EditPreferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	GConfClient *client;
+
+	client = EOG_WINDOW (user_data)->priv->client;
+
+	eog_preferences_show (client);
+}
+
+static void
 verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
 	static GtkWidget *about;
@@ -613,6 +623,7 @@ static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB ("FileOpen",      verb_FileOpen_cb),
 	BONOBO_UI_VERB ("FileCloseWindow", verb_FileCloseWindow_cb),
 	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
+	BONOBO_UI_VERB ("EditPreferences", verb_EditPreferences_cb),
 	BONOBO_UI_VERB ("HelpAbout",     verb_HelpAbout_cb),
 	BONOBO_UI_VERB ("Help",          verb_HelpContent_cb),
 	BONOBO_UI_VERB ("DnDNewWindow",  verb_DnDNewWindow_cb),
