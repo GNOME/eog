@@ -58,6 +58,9 @@ typedef struct {
 	double zoom;
 	double old_zoom;
 
+	/* Full screen zoom type */
+	FullScreenZoom full_screen_zoom;
+	
 	/* Adjustments for scrolling */
 	GtkAdjustment *hadj;
 	GtkAdjustment *vadj;
@@ -99,6 +102,15 @@ typedef struct {
 
 	/* Whether we need to change the zoom factor */
 	guint need_zoom_change : 1;
+
+	/* GConf client notify id's */
+	guint interp_type_notify_id;
+	guint check_type_notify_id;
+	guint check_size_notify_id;
+	guint dither_notify_id;
+	guint scroll_notify_id;
+	guint full_screen_zoom_notify_id;
+	guint auto_size_notify_id;
 } ImageViewPrivate;
 
 /* Signal IDs */
@@ -216,38 +228,54 @@ image_view_class_init (ImageViewClass *class)
 
 /* Handler for changes on the interp_type value */
 static void
-interp_type_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+interp_type_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
 	image_view_set_interp_type (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
 /* Handler for changes on the check_type value */
 static void
-check_type_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+check_type_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
 	image_view_set_check_type (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
 /* Handler for changes on the check_size value */
 static void
-check_size_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+check_size_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
 	image_view_set_check_size (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
 /* Handler for changes on the dither value */
 static void
-dither_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+dither_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
 	image_view_set_dither (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
 /* Handler for changes on the scroll value */
 static void
-scroll_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+scroll_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
 	image_view_set_scroll (IMAGE_VIEW (data), gconf_value_int (value));
 }
+
+/* Handler for changes on the scroll value */
+static void
+full_screen_zoom_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+{
+	image_view_set_full_screen_zoom (IMAGE_VIEW (data), gconf_value_int (value));
+}
+
+#if 0
+/* Handler for changes on the auto size policy */
+static void
+auto_size_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+{
+	image_view_set_auto_size (IMAGE_VIEW (data), gconf_value_bool (value));
+}
+#endif
 
 /* Object initialization function for the image view */
 static void
@@ -262,31 +290,39 @@ image_view_init (ImageView *view)
 
 	priv->client = gconf_client_get_default ();
 
-	gconf_client_add_dir (priv->client,
-			      "/apps/eog",
-			      GCONF_CLIENT_PRELOAD_RECURSIVE,
-			      NULL);
+	gconf_client_add_dir (priv->client, "/apps/eog",
+			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
-	gconf_client_notify_add (
+	priv->interp_type_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/interp_type",
 		(GConfClientNotifyFunc)interp_type_changed_cb, view,
 		NULL, NULL);
-	gconf_client_notify_add (
+	priv->check_type_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/check_type",
 		(GConfClientNotifyFunc)check_type_changed_cb, view,
 		NULL, NULL);
-	gconf_client_notify_add (
+	priv->check_size_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/check_size",
 		(GConfClientNotifyFunc)check_size_changed_cb, view,
 		NULL, NULL);
-	gconf_client_notify_add (
+	priv->dither_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/dither",
 		(GConfClientNotifyFunc)dither_changed_cb, view,
 		NULL, NULL);
-	gconf_client_notify_add (
+	priv->scroll_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/scroll",
 		(GConfClientNotifyFunc)scroll_changed_cb, view,
 		NULL, NULL);
+	priv->full_screen_zoom_notify_id = gconf_client_notify_add (
+		priv->client, "/apps/eog/full_screen/zoom",
+		(GConfClientNotifyFunc)full_screen_zoom_changed_cb, view,
+		NULL, NULL);
+	/*
+	priv->auto_size_notify_id = gconf_client_notify_add (
+		priv->client, "/apps/eog/window/auto_size",
+		(GConfClientNotifyFunc)auto_size_changed_cb, view,
+		NULL, NULL);
+	*/
 	
 	priv->interp_type = gconf_client_get_int (
 		priv->client, "/apps/eog/view/interp_type",
@@ -303,8 +339,11 @@ image_view_init (ImageView *view)
 	priv->scroll = gconf_client_get_int (
 		priv->client, "/apps/eog/view/scroll",
 		NULL);
-	priv->zoom = gconf_client_get_int (
+	priv->full_screen_zoom = gconf_client_get_int (
 		priv->client, "/apps/eog/full_screen/zoom",
+		NULL);
+	priv->auto_size_notify_id = gconf_client_get_bool (
+		priv->client, "/apps/eog/window/auto_size",
 		NULL);
 
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
@@ -353,6 +392,15 @@ image_view_destroy (GtkObject *object)
 	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), view);
 	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
 
+	gconf_client_notify_remove (priv->client, priv->interp_type_notify_id);
+	gconf_client_notify_remove (priv->client, priv->check_type_notify_id);
+	gconf_client_notify_remove (priv->client, priv->check_size_notify_id);
+	gconf_client_notify_remove (priv->client, priv->dither_notify_id);
+	gconf_client_notify_remove (priv->client, priv->scroll_notify_id);
+	gconf_client_notify_remove (priv->client, priv->full_screen_zoom_notify_id);
+
+	gconf_client_remove_dir (priv->client, "/apps/eog");
+	
 	remove_dirty_region (view);
 
 	if (priv->image) {
@@ -1545,6 +1593,33 @@ image_view_get_image (ImageView *view)
 	return priv->image;
 }
 
+void
+image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom zoom)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	priv->full_screen_zoom = zoom;
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+FullScreenZoom
+image_view_get_full_screen_zoom (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, FULL_SCREEN_ZOOM_1);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), FULL_SCREEN_ZOOM_1);
+
+	priv = view->priv;
+	return priv->full_screen_zoom;
+}
+       
 /**
  * image_view_set_zoom:
  * @view: An image view.

@@ -1,3 +1,29 @@
+2000-07-13  Arik Devens  <cael@quetzalcoatl.helixcode.com>
+
+	* window.c: Added window_sb_policy to WindowPrivate structure.
+	(window_sb_policy_changed_cb): New function to poll gconf database
+	for window_sb_policy changes.
+	(window_init): Added gconf support and window_sb_policy
+	monitoring.
+	(window_destroy): Added gconf_client_remove handler for
+	window_sb_policy.
+	(window_construct): Added initial setting of scrollbar policy.
+	(window_set_window_sb_policy): New function to set
+	window_sb_policy value and update window.
+	(window_get_window_sb_policy): New function to get
+	window_sb_policy.
+
+	* window.h: Added window_set_window_sb_policy and
+	window_get_window_sb_policy.
+
+	* image-view.c: Removed window_sb_policy from ImageViewPrivate
+	structure.
+	(image_view_init): Removed window_sb_policy polling.
+	(image_view_destroy): Removed window_sb_policy.
+
+	* image-view.h: Removed image_view_get_window_sb_policy and
+	image_view_set_window_sb_policy.
+
 2000-07-13  Havoc Pennington  <hp@pobox.com>
 
 	* Makefile.am (INCLUDES): GCONF_CFLAGS

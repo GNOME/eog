@@ -26,8 +26,6 @@
 #include "image-view.h"
 #include "ui-image.h"
 
-
-
 /* Private part of the FullScreen structure */
 typedef struct {
 	/* Scrolling user interface for the image */
@@ -36,8 +34,6 @@ typedef struct {
 	/* Whether we have a keyboard grab */
 	guint have_grab : 1;
 } FullScreenPrivate;
-
-
 
 static void full_screen_class_init (FullScreenClass *class);
 static void full_screen_init (FullScreen *fs);
@@ -49,8 +45,6 @@ static void full_screen_hide (GtkWidget *widget);
 static gint full_screen_key_press (GtkWidget *widget, GdkEventKey *event);
 
 static GtkWindowClass *parent_class;
-
-
 
 /**
  * full_screen_get_type:

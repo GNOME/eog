@@ -52,6 +52,7 @@ struct _UIImageClass {
 };
 
 
+void ui_image_set_scroll_policy (UIImage *ui, GtkPolicyType policy);
 GtkType ui_image_get_type (void);
 
 GtkWidget *ui_image_new (void);

@@ -67,6 +67,9 @@ GtkWidget *image_view_new (void);
 void image_view_set_image (ImageView *view, Image *image);
 Image *image_view_get_image (ImageView *view);
 
+void image_view_set_full_screen_zoom (ImageView *view, FullScreenZoom zoom);
+FullScreenZoom image_view_get_full_screen_zoom (ImageView *view);
+
 void image_view_set_zoom (ImageView *view, double zoom);
 double image_view_get_zoom (ImageView *view);
 

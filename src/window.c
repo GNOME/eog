@@ -32,14 +32,10 @@
 #include "window.h"
 #include "zoom.h"
 
-
-
 /* Default size for windows */
 
 #define DEFAULT_WINDOW_WIDTH 400
 #define DEFAULT_WINDOW_HEIGHT 300
-
-
 
 /* Private part of the Window structure */
 typedef struct {
@@ -51,14 +47,21 @@ typedef struct {
 	 */
 	GtkWidget *file_sel;
 
+	/* Our GConf client */
+	GConfClient *client;
+	
 	/* View menu */
 	GtkWidget *view_menu;
 
 	/* Zoom toolbar items */
 	GtkWidget **zoom_tb_items;
-} WindowPrivate;
 
-
+	/* Window scrolling policy type */
+	GtkPolicyType window_sb_policy;
+
+	/* GConf client notify id's */
+	guint window_sb_policy_notify_id;
+} WindowPrivate;
 
 static void window_class_init (WindowClass *class);
 static void window_init (Window *window);
@@ -68,8 +71,6 @@ static gint window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint window_key_press (GtkWidget *widget, GdkEventKey *event);
 
 static GnomeAppClass *parent_class;
-
-
 
 /* The list of all open windows */
 static GList *window_list;
@@ -82,8 +83,6 @@ raise_and_focus (GtkWidget *widget)
 	gdk_window_show (widget->window);
 	gtk_widget_grab_focus (widget);
 }
-
-
 
 /* Creating a new window */
 
@@ -313,6 +312,13 @@ window_class_init (WindowClass *class)
 	widget_class->key_press_event = window_key_press;
 }
 
+/* Handler for changes on the window sb policy */
+static void
+window_sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+{
+	window_set_window_sb_policy (WINDOW (data), gconf_value_int (value));
+}
+
 /* Object initialization function for windows */
 static void
 window_init (Window *window)
@@ -321,6 +327,20 @@ window_init (Window *window)
 
 	priv = g_new0 (WindowPrivate, 1);
 	window->priv = priv;
+
+	priv->client = gconf_client_get_default ();
+
+	gconf_client_add_dir (priv->client, "/apps/eog",
+			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+	
+	priv->window_sb_policy_notify_id = gconf_client_notify_add (
+		priv->client, "/apps/eog/window/sb_policy",
+		(GConfClientNotifyFunc)window_sb_policy_changed_cb, window,
+		NULL, NULL);
+
+	priv->window_sb_policy = gconf_client_get_int (
+		priv->client, "/apps/eog/window/sb_policy",
+		NULL);
 
 	window_list = g_list_prepend (window_list, window);
 }
@@ -347,6 +367,13 @@ window_destroy (GtkObject *object)
 
 	window_list = g_list_remove (window_list, window);
 
+	gconf_client_notify_remove (priv->client, priv->window_sb_policy_notify_id);
+
+	gconf_client_remove_dir (priv->client, "/apps/eog");
+	
+	gtk_object_unref (GTK_OBJECT (priv->client));
+	priv->client = NULL;
+	
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -449,6 +476,9 @@ window_construct (Window *window)
 
 	priv->ui = ui_image_new ();
 	gnome_app_set_contents (GNOME_APP (window), priv->ui);
+	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui),
+				     window_get_window_sb_policy (WINDOW (window)),
+				     window_get_window_sb_policy (WINDOW (window)));
 	gtk_widget_show (priv->ui);
 
 	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
@@ -694,4 +724,38 @@ window_get_ui_image (Window *window)
 
 	priv = window->priv;
 	return priv->ui;
+}
+
+void
+window_set_window_sb_policy (Window *window, GtkPolicyType scrollbar)
+{
+	WindowPrivate *priv;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+
+	if (priv->window_sb_policy == scrollbar)
+		return;
+
+	priv->window_sb_policy = scrollbar;
+
+	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui),
+				     scrollbar,
+				     scrollbar);
+	
+	gtk_widget_queue_draw (GTK_WIDGET (window));
+}
+
+GtkPolicyType
+window_get_window_sb_policy (Window *window)
+{
+	WindowPrivate *priv;
+
+	g_return_val_if_fail (window != NULL, GTK_POLICY_NEVER);
+	g_return_val_if_fail (IS_WINDOW (window), GTK_POLICY_NEVER);
+
+	priv = window->priv;
+	return priv->window_sb_policy;
 }

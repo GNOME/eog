@@ -185,8 +185,6 @@ ui_image_construct (UIImage *ui)
 	return GTK_WIDGET (ui);
 }
 
-
-
 /**
  * ui_image_get_image_view:
  * @ui: An image view scroller.
