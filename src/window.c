@@ -22,7 +22,9 @@
 #include <config.h>
 #include <gnome.h>
 #include "commands.h"
+#if FEDERICO_CHECKS_FULL_SCREEN_IN
 #include "full-screen.h"
+#endif
 #include "tb-image.h"
 #include "ui-image.h"
 #include "util.h"
@@ -880,6 +882,7 @@ window_zoom_fit (Window *window)
 void
 window_full_screen (Window *window)
 {
+#if FEDERICO_CHECKS_FULL_SCREEN_IN
 	WindowPrivate *priv;
 	UIImage *ui;
 	GtkWidget *fs;
@@ -896,4 +899,5 @@ window_full_screen (Window *window)
 	fs = full_screen_new ();
 	full_screen_set_image (FULL_SCREEN (fs), ui_image_get_image (ui));
 	gtk_widget_show (fs);
+#endif
 }
