@@ -36,19 +36,12 @@ struct _EogControlClass {
 	BonoboControlClass parent_class;
 };
 
-EogControl *
-eog_control_new                         (EogImage                *image);
-
-GtkType
-eog_control_get_type                    (void) G_GNUC_CONST;
-
-Bonobo_Control
-eog_control_corba_object_create         (BonoboObject            *object);
-
-EogControl *
-eog_control_construct                   (EogControl              *control,
-                                         Bonobo_Control           corba_object,
-                                         EogImage                *image);
+GtkType        eog_control_get_type                    (void);
+EogControl    *eog_control_new                         (EogImage      *image);
+Bonobo_Control eog_control_corba_object_create         (BonoboObject  *object);
+EogControl    *eog_control_construct                   (EogControl    *control,
+							Bonobo_Control corba_object,
+							EogImage      *image);
 
 END_GNOME_DECLS
 

@@ -10,27 +10,6 @@
 
 #include <eog-util.h>
 
-void
-eog_util_add_interfaces (BonoboObject *object, BonoboObject *query_this,
-			 const gchar **interfaces)
-{
-	const gchar **ptr;
-
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (BONOBO_IS_OBJECT (object));
-	g_return_if_fail (query_this != NULL);
-	g_return_if_fail (BONOBO_IS_OBJECT (query_this));
-	g_return_if_fail (interfaces != NULL);
-
-	for (ptr = interfaces; *ptr; ptr++) {
-		BonoboObject *x;
-
-		x = bonobo_object_query_local_interface (query_this, *ptr);
-		if (x)
-			bonobo_object_add_interface (object, x);
-	}
-}
-
 GSList *
 eog_util_split_string (const gchar *string, const gchar *delimiter)
 {

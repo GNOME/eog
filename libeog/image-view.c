@@ -1496,7 +1496,8 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 /* Set_scroll_adjustments handler for the image view */
 static void
 image_view_set_scroll_adjustments (GtkWidget *widget,
-				   GtkAdjustment *hadj, GtkAdjustment *vadj)
+				   GtkAdjustment *hadj,
+				   GtkAdjustment *vadj)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;

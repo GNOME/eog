@@ -21,8 +21,6 @@ struct _EogEmbeddableViewPrivate {
 	EogImage           *image;
 	EogImageView       *image_view;
 
-	BonoboPropertyBag  *property_bag;
-
 	GtkWidget          *root;
 };
 
@@ -54,7 +52,8 @@ eog_embeddable_view_activate (BonoboControl *control, gboolean state)
 
 		ui_container = bonobo_control_get_remote_ui_container (control);
 		if (ui_container != CORBA_OBJECT_NIL) {
-			eog_image_view_set_ui_container (embeddable_view->priv->image_view, ui_container);
+			eog_image_view_set_ui_container (
+				embeddable_view->priv->image_view, ui_container);
 			bonobo_object_release_unref (ui_container, NULL);
 		}
 	} else {
@@ -75,19 +74,9 @@ eog_embeddable_view_destroy (GtkObject *object)
 
 	embeddable_view = EOG_EMBEDDABLE_VIEW (object);
 
-	if (embeddable_view->priv->property_bag) {
-		bonobo_object_unref (BONOBO_OBJECT (embeddable_view->priv->property_bag));
-		embeddable_view->priv->property_bag = NULL;
-	}
-
 	if (embeddable_view->priv->image) {
 		bonobo_object_unref (BONOBO_OBJECT (embeddable_view->priv->image));
 		embeddable_view->priv->image = NULL;
-	}
-
-	if (embeddable_view->priv->image_view) {
-		bonobo_object_unref (BONOBO_OBJECT (embeddable_view->priv->image_view));
-		embeddable_view->priv->image_view = NULL;
 	}
 
 	if (embeddable_view->priv->root) {
@@ -179,17 +168,13 @@ eog_embeddable_view_corba_object_create (BonoboObject *object)
 	return (Bonobo_View) bonobo_object_activate_servant (object, servant);
 }
 
-static const gchar *image_view_interfaces[] = {
-	"IDL:Bonobo/ItemContainer:1.0",
-	NULL
-};
-
 EogEmbeddableView *
 eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
-			       Bonobo_View corba_object,
-			       EogImage *image)
+			       Bonobo_View        corba_object,
+			       EogImage          *image)
 {
-	BonoboView *retval;
+	BonoboView        *retval;
+	BonoboPropertyBag *property_bag;
 
 	g_return_val_if_fail (embeddable_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_EMBEDDABLE_VIEW (embeddable_view), NULL);
@@ -200,21 +185,23 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 	embeddable_view->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	embeddable_view->priv->image_view = eog_image_view_new (image);
+	embeddable_view->priv->image_view = eog_image_view_new (image, TRUE);
 	embeddable_view->priv->root = eog_image_view_get_widget (embeddable_view->priv->image_view);
 
-	eog_util_add_interfaces (BONOBO_OBJECT (embeddable_view),
-				 BONOBO_OBJECT (embeddable_view->priv->image_view),
-				 image_view_interfaces);
+	bonobo_object_add_interface (BONOBO_OBJECT (embeddable_view),
+				     BONOBO_OBJECT (embeddable_view->priv->image_view));
 
-	retval = bonobo_view_construct (BONOBO_VIEW (embeddable_view), corba_object,
-					embeddable_view->priv->root);
-	if (retval == NULL)
+	retval = bonobo_view_construct (
+		BONOBO_VIEW (embeddable_view), corba_object,
+		embeddable_view->priv->root);
+
+	if (!retval)
 		return NULL;
 
-	embeddable_view->priv->property_bag = eog_image_view_get_property_bag (embeddable_view->priv->image_view);
-	bonobo_control_set_properties (BONOBO_CONTROL (embeddable_view), embeddable_view->priv->property_bag);
-	
+	property_bag = eog_image_view_get_property_bag (embeddable_view->priv->image_view);
+	bonobo_control_set_properties (BONOBO_CONTROL (embeddable_view), property_bag);
+	bonobo_object_unref (BONOBO_OBJECT (property_bag));
+
 	return embeddable_view;
 }
 
@@ -235,6 +222,5 @@ eog_embeddable_view_new (EogImage *image)
 		return NULL;
 	}
 	
-	return eog_embeddable_view_construct (embeddable_view, corba_object,
-					      image);
+	return eog_embeddable_view_construct (embeddable_view, corba_object, image);
 }

@@ -4,8 +4,10 @@
  *
  * Authors:
  *   Martin Baulig (baulig@suse.de)
+ *   Michael Meeks (michael@helixcode.com)
  *
  * Copyright 2000 SuSE GmbH.
+ * Copyright 2000 Helix Code, Inc.
  */
 #include <config.h>
 #include <stdio.h>
@@ -26,8 +28,6 @@
 struct _EogImagePrivate {
         Image                *image;
         GdkPixbuf            *pixbuf;
-
-	BonoboItemContainer  *item_container;
 };
 
 POA_GNOME_EOG_Image__vepv eog_image_vepv;
@@ -80,11 +80,6 @@ eog_image_destroy (GtkObject *object)
 	if (image->priv->pixbuf) {
 		gdk_pixbuf_unref (image->priv->pixbuf);
 		image->priv->pixbuf = NULL;
-	}
-
-	if (image->priv->item_container) {
-		bonobo_object_unref (BONOBO_OBJECT (image->priv->item_container));
-		image->priv->item_container = NULL;
 	}
 
 	GTK_OBJECT_CLASS (eog_image_parent_class)->destroy (object);
@@ -164,9 +159,11 @@ eog_image_get_type (void)
  * Loads an Image from a Bonobo_Stream
  */
 static void
-load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
-			Bonobo_Persist_ContentType type, void *data,
-			CORBA_Environment *ev)
+load_image_from_stream (BonoboPersistStream       *ps,
+			Bonobo_Stream              stream,
+			Bonobo_Persist_ContentType type,
+			void                      *data,
+			CORBA_Environment         *ev)
 {
 	EogImage             *image;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
@@ -373,64 +370,72 @@ eog_image_get_object (BonoboItemContainer *item_container,
 	return bonobo_object_dup_ref (corba_object, ev);
 }
 
+BonoboObject *
+eog_image_add_interfaces (EogImage     *image,
+			  BonoboObject *to_aggregate)
+{
+	BonoboPersistFile   *file;
+	BonoboPersistStream *stream;
+	BonoboItemContainer *item_container;
+	
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+	g_return_val_if_fail (BONOBO_IS_OBJECT (to_aggregate), NULL);
+
+	/* Interface Bonobo::PersistStream */
+	stream = bonobo_persist_stream_new (load_image_from_stream, 
+					    save_image_to_stream,
+					    NULL, NULL, image);
+	if (!stream) {
+		bonobo_object_unref (BONOBO_OBJECT (to_aggregate));
+		return NULL;
+	}
+
+	bonobo_object_add_interface (BONOBO_OBJECT (to_aggregate),
+				     BONOBO_OBJECT (stream));
+
+	/* Interface Bonobo::PersistFile */
+	file = bonobo_persist_file_new (load_image_from_file, NULL, image);
+	if (!file) {
+		bonobo_object_unref (BONOBO_OBJECT (to_aggregate));
+		return NULL;
+	}
+
+	bonobo_object_add_interface (BONOBO_OBJECT (to_aggregate),
+				     BONOBO_OBJECT (file));
+
+	/* BonoboItemContainer */
+	item_container = bonobo_item_container_new ();
+
+	gtk_signal_connect (GTK_OBJECT (item_container),
+			    "get_object",
+			    GTK_SIGNAL_FUNC (eog_image_get_object),
+			    image);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (to_aggregate),
+				     BONOBO_OBJECT (item_container));
+
+	return to_aggregate;
+}
+
 EogImage *
 eog_image_construct (EogImage *image, GNOME_EOG_Image corba_object)
 {
-	BonoboPersistStream *stream;
-	BonoboPersistFile *file;
 	BonoboObject *retval;
 
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
 
-	/*
-	 * Interface Bonobo::PersistStream 
-	 */
-	stream = bonobo_persist_stream_new (load_image_from_stream, 
-					    save_image_to_stream,
-					    NULL, NULL, image);
-	if (stream == NULL) {
-		gtk_object_unref (GTK_OBJECT (image));
-		return NULL;
-	}
+	retval = eog_image_add_interfaces (
+		image, BONOBO_OBJECT (image));
 
-	bonobo_object_add_interface (BONOBO_OBJECT (image),
-				     BONOBO_OBJECT (stream));
-
-	/*
-	 * Interface Bonobo::PersistFile 
-	 */
-	file = bonobo_persist_file_new (load_image_from_file, NULL, image);
-	if (file == NULL) {
-		gtk_object_unref (GTK_OBJECT (image));
-		return NULL;
-	}
-
-	bonobo_object_add_interface (BONOBO_OBJECT (image),
-				     BONOBO_OBJECT (file));
-
-	/*
-	 * BonoboItemContainer
-	 */
-	image->priv->item_container = bonobo_item_container_new ();
-
-	gtk_signal_connect (GTK_OBJECT (image->priv->item_container),
-			    "get_object",
-			    GTK_SIGNAL_FUNC (eog_image_get_object),
-			    image);
-
-	bonobo_object_add_interface (BONOBO_OBJECT (image),
-				     BONOBO_OBJECT (image->priv->item_container));
-
-	/*
-	 * Construct the BonoboObject
-	 */
-	retval = bonobo_object_construct (BONOBO_OBJECT (image), corba_object);
-	if (retval == NULL)
+	if (!retval)
 		return NULL;
 
-	return image;
+	/* Currently we do very little of substance in Image */
+
+	return EOG_IMAGE (bonobo_object_construct (
+		BONOBO_OBJECT (image), corba_object));
 }
 
 EogImage *
@@ -456,7 +461,9 @@ eog_image_get_image (EogImage *image)
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	image_ref (image->priv->image);
+	if (image->priv->image)
+		image_ref (image->priv->image);
+
 	return image->priv->image;
 }
 

@@ -74,7 +74,7 @@ eog_embeddable_class_init (EogEmbeddable *klass)
 
 	eog_embeddable_parent_class = gtk_type_class (bonobo_embeddable_get_type ());
 
-	object_class->destroy = eog_embeddable_destroy;
+	object_class->destroy  = eog_embeddable_destroy;
 	object_class->finalize = eog_embeddable_finalize;
 
 	init_eog_embeddable_corba_class ();
@@ -91,12 +91,12 @@ eog_embeddable_get_type (void)
 {
 	static GtkType type = 0;
 
-	if (!type){
+	if (!type) {
 		GtkTypeInfo info = {
 			"EogEmbeddable",
 			sizeof (EogEmbeddable),
 			sizeof (EogEmbeddableClass),
-			(GtkClassInitFunc) eog_embeddable_class_init,
+			(GtkClassInitFunc)  eog_embeddable_class_init,
 			(GtkObjectInitFunc) eog_embeddable_init,
 			NULL, /* reserved 1 */
 			NULL, /* reserved 2 */
@@ -130,16 +130,10 @@ eog_embeddable_corba_object_create (BonoboObject *object)
 	return (Bonobo_Embeddable) bonobo_object_activate_servant (object, servant);
 }
 
-static const gchar *image_interfaces[] = {
-	"IDL:Bonobo/ProgressiveDataSink:1.0",
-	"IDL:Bonobo/PersistStream:1.0",
-	"IDL:Bonobo/PersistFile:1.0",
-	NULL
-};
-
 static BonoboView *
-eog_embeddable_view_factory (BonoboEmbeddable *object, const Bonobo_ViewFrame view_frame,
-			     void *closure)
+eog_embeddable_view_factory (BonoboEmbeddable      *object,
+			     const Bonobo_ViewFrame view_frame,
+			     void                  *closure)
 {
 	EogEmbeddable *embeddable;
 	EogEmbeddableView *view;
@@ -159,30 +153,22 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 			  Bonobo_Embeddable corba_object,
 			  EogImage *image)
 {
-	BonoboEmbeddable *retval;
-
+	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (embeddable != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (EOG_IS_EMBEDDABLE (embeddable), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
-	g_return_val_if_fail (image != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	embeddable->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	eog_util_add_interfaces (BONOBO_OBJECT (embeddable),
-				 BONOBO_OBJECT (embeddable->priv->image),
-				 image_interfaces);
-
-	retval = bonobo_embeddable_construct (BONOBO_EMBEDDABLE (embeddable),
-					      corba_object,
-					      eog_embeddable_view_factory,
-					      NULL);
-
-	if (retval == NULL)
+	if (!eog_image_add_interfaces (image, BONOBO_OBJECT (embeddable)))
 		return NULL;
 
-	return embeddable;
+	return EOG_EMBEDDABLE (
+		bonobo_embeddable_construct (
+			BONOBO_EMBEDDABLE (embeddable),
+			corba_object, eog_embeddable_view_factory, NULL));
 }
 
 EogEmbeddable *

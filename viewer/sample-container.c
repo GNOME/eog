@@ -24,8 +24,10 @@ main (int argc, char *argv [])
 
 	CORBA_exception_init (&ev);
 
-	if (argc != 2)
-		g_error ("Usage: %s url", argv[0]);
+	if (argc != 2) {
+		g_print ("Usage: %s url\n", argv [0]);
+		exit (1);
+	}
 
 	gnome_init ("sample-container", "1.0", argc, (char **) argv);
 
@@ -38,7 +40,7 @@ main (int argc, char *argv [])
 	g_message ("Querying %s", url);
 
 	x = bonobo_get_object (url, "IDL:GNOME/EOG/Image:1.0", &ev);
-	if (ev._major != CORBA_NO_EXCEPTION)
+	if (BONOBO_EX (&ev))
 		g_warning ("Failed to get object: %s",
 			   bonobo_exception_get_text (&ev));
 

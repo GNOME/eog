@@ -1,3 +1,52 @@
+2000-12-09  Michael Meeks  <michael@helixcode.com>
+
+	* eog-image.c (eog_image_get_image): only ref if image != NULL.
+
+	* eog-image-view.c (eog_image_view_new),
+	(eog_image_view_construct): add control, add image_set_image_cb
+	call, so we can actualy see the image if we load data then request
+	a view, or create new views later on.
+
+	* eog-embeddable-view.c (eog_embeddable_view_destroy): upd.
+	(eog_embeddable_view_construct): upd.
+
+	* eog-embeddable.c (eog_embeddable_construct): update.
+
+	* eog-image-view.c (eog_image_view_set_dither),
+	(eog_image_view_get_interpolation),
+	(eog_image_view_set_interpolation), 
+	(eog_image_view_get_dither),
+	(eog_image_view_set_check_type),
+	(eog_image_view_get_check_type), 
+	(eog_image_view_get_check_size),
+	(eog_image_view_set_check_size): kill warnings.
+	misc. cleans.
+
+	* eog-control.c (eog_control_construct): drasticaly prune.
+	(eog_control_destroy): prune with a hook.
+
+	* eog-image.c (eog_image_add_interfaces): split from
+	(eog_image_construct): here.
+	(eog_image_destroy): don't double unref item container.
+
+	* main.c (bonobo_object_data_t): expunge
+	substantial cleans.
+
+	* eog-image.c (eog_image_construct): use bonobo_object_unref.
+
+	* eog-util.c (eog_util_add_interfaces): remove.
+
+	* GNOME_EOG.oafinfo: update naming convention.
+
+	* main.c (eog_image_viewer_factory): ditto.
+
+2000-12-08  Michael Meeks  <michael@helixcode.com>
+
+	* eog-image-view.c (eog_image_view_destroy): don't unref other
+	parts of the aggregate, they are fused with the view.
+
+	* sample-container.c (main): frendlify
+
 2000-12-05  Michael Meeks  <michael@helixcode.com>
 
 	* Makefile.am: install GNOME_EOG.oafinfo instead of
