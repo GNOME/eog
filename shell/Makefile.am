@@ -7,6 +7,7 @@ INCLUDES =                                              \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(EOG_CFLAGS)					\
+	-DDATADIR=\""$(datadir)"\"			\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog

@@ -337,7 +337,7 @@ main (int argc, char **argv)
 	program = gnome_program_init ("eog", VERSION,
 				      LIBGNOMEUI_MODULE, argc, argv,
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of Gnome"),
-				      NULL);
+				      GNOME_PARAM_APP_DATADIR,DATADIR,NULL);
 
 	error = NULL;
 	if (gconf_init (argc, argv, &error) == FALSE) {

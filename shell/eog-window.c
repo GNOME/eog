@@ -255,6 +255,14 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 }
 
 static void
+verb_HelpContent_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	GError *error = NULL;
+	gnome_help_display ("eog",NULL,&error);
+}
+
+
+static void
 verb_DnDNewWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
 	open_dnd_files (EOG_WINDOW (user_data), TRUE);
@@ -621,6 +629,7 @@ static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
 	BONOBO_UI_VERB ("Preferences",   verb_Preferences_cb),
 	BONOBO_UI_VERB ("HelpAbout",     verb_HelpAbout_cb),
+	BONOBO_UI_VERB ("Help",          verb_HelpContent_cb),
 	BONOBO_UI_VERB ("DnDNewWindow",  verb_DnDNewWindow_cb),
 	BONOBO_UI_VERB ("DnDSameWindow", verb_DnDSameWindow_cb),
 	BONOBO_UI_VERB ("DnDCancel",     verb_DnDCancel_cb),

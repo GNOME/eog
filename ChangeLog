@@ -1,3 +1,17 @@
+2002-04-25  Jens Finke  <jens@triq.net>
+
+	Applied patch from Satyajit Kanungo <satyajit.kanungo@wipro.com>.
+	This fixes bug #79156.
+	
+	* shell/eog-window.c (verb_HelpContent_cb): New function.
+
+	* shell/eog-shell-ui.xml: Added Help Contents menu item.
+
+	* shell/Makefile.am: Added DATADIR to INCLUDES.
+
+	* shell/Main.c (main): Added GNOME_PARAM_APP_DATADIR to program
+	init.
+
 2002-04-24  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-control.[ch]: Made BonoboControl the
