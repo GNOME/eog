@@ -441,7 +441,7 @@ eog_image_get_image (EogImage *image)
 	return image->priv->image;
 }
 
-gdk_pixbuf *
+GdkPixbuf *
 eog_image_get_pixbuf (EogImage *image)
 {
 	g_return_val_if_fail (image != NULL, NULL);

@@ -58,7 +58,7 @@ EogImage
 Image *
 eog_image_get_image                     (EogImage                *image);
 
-gdk_pixbuf *
+GdkPixbuf *
 eog_image_get_pixbuf                    (EogImage                *image);
 
 
