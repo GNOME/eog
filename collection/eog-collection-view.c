@@ -1287,16 +1287,11 @@ create_user_interface (EogCollectionView *list_view)
 	 * image view. Using an eog_horizontal_splitter for this. 
 	 */
 	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
-	sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), 
-					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (sw), priv->info_view);
 
 	/* left side holds the image view, right side the info view */
 	hpaned = eog_horizontal_splitter_new (); 
 	gtk_paned_pack1 (GTK_PANED (hpaned), frame, TRUE, TRUE);
-	gtk_paned_pack2 (GTK_PANED (hpaned), sw, FALSE, TRUE);
+	gtk_paned_pack2 (GTK_PANED (hpaned), priv->info_view, FALSE, TRUE);
 	gtk_widget_show_all (hpaned);
 
 	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);

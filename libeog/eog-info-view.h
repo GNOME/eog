@@ -17,13 +17,13 @@ typedef struct _EogInfoViewClass EogInfoViewClass;
 typedef struct _EogInfoViewPrivate EogInfoViewPrivate;
 
 struct _EogInfoView {
-	GtkTreeView widget;
+	GtkNotebook widget;
 
 	EogInfoViewPrivate *priv;
 };
 
 struct _EogInfoViewClass {
-	GtkTreeViewClass parent_class;
+	GtkNotebookClass parent_class;
 };
 
 GType eog_info_view_get_type (void);

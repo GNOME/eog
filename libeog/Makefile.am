@@ -62,6 +62,12 @@ libeog_a_SOURCES =			\
 	eog-scroll-view.h		\
 	eog-info-view.c			\
 	eog-info-view.h			\
+	eog-info-view-detail.h		\
+	eog-info-view-detail.c		\
+	eog-info-view-file.h		\
+	eog-info-view-file.c		\
+	eog-info-view-exif.h		\
+	eog-info-view-exif.c		\
 	eog-hig-dialog.h		\
 	eog-hig-dialog.c		\
 	eog-horizontal-splitter.c	\

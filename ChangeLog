@@ -1,3 +1,18 @@
+2004-04-25  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-info-view.c: Reworked this completely. Derived from
+	GtkNotebook now with separate pages for file and exif data.	
+
+	* libeog/eog-ifo-view-detail.[ch],
+	libeog/eog-info-view-file.[ch],
+	libeog/eog-info-view-exif.[ch]: 
+	EogInfoViewDetail is the base class derived from a
+	GtkTreeView. EogInfoViewFile and EogInfoViewExif implement the
+	code for viewing file properties resp. EXIF tag information.
+	
+	* collection/eog-collection-view.c (create_user_interface): Don't add
+	notebook with viewport.
+
 2004-04-23  Jens Finke  <jens@triq.net>
 
 	Synchron image loading.
