@@ -251,6 +251,11 @@ ui_image_set_image (UIImage *ui, Image *image)
 	} else
 		w = h = 0;
 
+	gnome_canvas_item_set (priv->image_item,
+			       "width", (double) w,
+			       "height", (double) h,
+			       NULL);
+
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w - 1, h - 1);
 }
 

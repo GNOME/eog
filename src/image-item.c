@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <math.h>
+#include "image.h"
 #include "image-item.h"
 #include "render.h"
 
@@ -37,17 +38,17 @@ typedef struct {
 	/* Image being displayed */
 	Image *image;
 
-	/* Zoom factor */
-	double zoom;
+	/* User-specified width and height */
+	double uwidth, uheight;
 
 	/* Size of the image after zooming */
-	int width, height;
+	int cwidth, cheight;
 
 	/* Whether the image has changed */
 	guint need_image_update : 1;
 
-	/* Whether the zoom has changed */
-	guint need_zoom_update : 1;
+	/* Whether the size has changed */
+	guint need_size_update : 1;
 } ImageItemPrivate;
 
 
@@ -56,7 +57,8 @@ typedef struct {
 enum {
 	ARG_0,
 	ARG_IMAGE,
-	ARG_ZOOM,
+	ARG_WIDTH,
+	ARG_HEIGHT
 };
 
 static void image_item_class_init (ImageItemClass *class);
@@ -124,8 +126,10 @@ image_item_class_init (ImageItemClass *class)
 
 	gtk_object_add_arg_type ("ImageItem::image",
 				 GTK_TYPE_POINTER, GTK_ARG_READWRITE, ARG_IMAGE);
-	gtk_object_add_arg_type ("ImageItem::zoom",
-				 GTK_TYPE_DOUBLE, GTK_ARG_READWRITE, ARG_ZOOM);
+	gtk_object_add_arg_type ("ImageItem::width",
+				 GTK_TYPE_DOUBLE, GTK_ARG_READWRITE, ARG_WIDTH);
+	gtk_object_add_arg_type ("ImageItem::height",
+				 GTK_TYPE_DOUBLE, GTK_ARG_READWRITE, ARG_HEIGHT);
 
 	object_class->destroy = image_item_destroy;
 	object_class->set_arg = image_item_set_arg;
@@ -146,7 +150,7 @@ image_item_init (ImageItem *ii)
 	priv = g_new0 (ImageItemPrivate, 1);
 	ii->priv = priv;
 
-	priv->zoom = 1.0;
+	priv->uwidth = priv->uheight = 0.0;
 }
 
 /* Destroy handler for the image item */
@@ -183,6 +187,7 @@ image_item_set_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 	ImageItem *ii;
 	ImageItemPrivate *priv;
 	Image *image;
+	double val;
 
 	item = GNOME_CANVAS_ITEM (object);
 	ii = IMAGE_ITEM (object);
@@ -205,9 +210,19 @@ image_item_set_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 		gnome_canvas_item_request_update (item);
 		break;
 
-	case ARG_ZOOM:
-		priv->zoom = fabs (GTK_VALUE_DOUBLE (*arg));
-		priv->need_zoom_update = TRUE;
+	case ARG_WIDTH:
+		val = GTK_VALUE_DOUBLE (*arg);
+		g_return_if_fail (val >= 0.0);
+		priv->uwidth = val;
+		priv->need_size_update = TRUE;
+		gnome_canvas_item_request_update (item);
+		break;
+
+	case ARG_HEIGHT:
+		val = GTK_VALUE_DOUBLE (*arg);
+		g_return_if_fail (val >= 0.0);
+		priv->uheight = val;
+		priv->need_size_update = TRUE;
 		gnome_canvas_item_request_update (item);
 		break;
 
@@ -231,8 +246,12 @@ image_item_get_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 		GTK_VALUE_POINTER (*arg) = priv->image;
 		break;
 
-	case ARG_ZOOM:
-		GTK_VALUE_DOUBLE (*arg) = priv->zoom;
+	case ARG_WIDTH:
+		GTK_VALUE_DOUBLE (*arg) = priv->uwidth;
+		break;
+
+	case ARG_HEIGHT:
+		GTK_VALUE_DOUBLE (*arg) = priv->uheight;
 		break;
 
 	default:
@@ -247,7 +266,7 @@ recompute_bounding_box (ImageItem *ii)
 {
 	GnomeCanvasItem *item;
 	ImageItemPrivate *priv;
-	ArtPixBuf *pixbuf;
+	ArtPixBuf *apb;
 	double i2c[6];
 	ArtPoint i, c;
 
@@ -255,14 +274,12 @@ recompute_bounding_box (ImageItem *ii)
 	priv = ii->priv;
 
 	if (priv->image) {
-		pixbuf = priv->image->buf->art_pixbuf;
+		apb = priv->image->buf->art_pixbuf;
 
-		priv->width = floor (pixbuf->width * item->canvas->pixels_per_unit * priv->zoom
-				     + 0.5);
-		priv->height = floor (pixbuf->height * item->canvas->pixels_per_unit * priv->zoom
-				      + 0.5);
+		priv->cwidth = floor (priv->uwidth * item->canvas->pixels_per_unit + 0.5);
+		priv->cheight = floor (priv->uheight * item->canvas->pixels_per_unit + 0.5);
 	} else
-		priv->width = priv->height = 0;
+		priv->cwidth = priv->cheight = 0;
 
 	gnome_canvas_item_i2c_affine (item, i2c);
 
@@ -272,8 +289,8 @@ recompute_bounding_box (ImageItem *ii)
 
 	item->x1 = c.x;
 	item->y1 = c.y;
-	item->x2 = item->x1 + priv->width;
-	item->y2 = item->y1 + priv->height;
+	item->x2 = item->x1 + priv->cwidth;
+	item->y2 = item->y1 + priv->cheight;
 }
 
 /* Update handler for the image item */
@@ -293,21 +310,21 @@ image_item_update (GnomeCanvasItem *item, double *affine, ArtSVP *clip_path, int
 	     && !(GTK_OBJECT_FLAGS (ii) & GNOME_CANVAS_ITEM_VISIBLE))
 	    || (flags & GNOME_CANVAS_UPDATE_AFFINE)
 	    || priv->need_image_update
-	    || priv->need_zoom_update)
+	    || priv->need_size_update)
 		gnome_canvas_request_redraw (item->canvas, item->x1, item->y1, item->x2, item->y2);
 
 	/* If we need an image update, or if the item changed visibility to
 	 * shown, recompute the bounding box.
 	 */
 	if (priv->need_image_update
-	    || priv->need_zoom_update
+	    || priv->need_size_update
 	    || ((flags & GNOME_CANVAS_UPDATE_VISIBILITY)
 		&& (GTK_OBJECT_FLAGS (ii) & GNOME_CANVAS_ITEM_VISIBLE))
 	    || (flags & GNOME_CANVAS_UPDATE_AFFINE)) {
 		recompute_bounding_box (ii);
 		gnome_canvas_request_redraw (item->canvas, item->x1, item->y1, item->x2, item->y2);
 		priv->need_image_update = FALSE;
-		priv->need_zoom_update = FALSE;
+		priv->need_size_update = FALSE;
 	}
 }
 
@@ -343,9 +360,10 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 	h = dest.y1 - dest.y0;
 
 	buf = g_new (guchar, w * h * 3);
-	render_image (priv->image, buf,
+	render_image (priv->image->buf, buf,
 		      w, h, w * 3,
-		      priv->zoom * item->canvas->pixels_per_unit,
+		      priv->uwidth * item->canvas->pixels_per_unit,
+		      priv->uheight * item->canvas->pixels_per_unit,
 		      dest.x0 - item->x1, dest.y0 - item->y1,
 		      priv->image->r_lut, priv->image->g_lut, priv->image->b_lut,
 		      DARK_CHECK, LIGHT_CHECK);
@@ -374,8 +392,8 @@ image_item_point (GnomeCanvasItem *item, double x, double y, int cx, int cy,
 
 	*actual_item = item;
 
-	w = priv->width / item->canvas->pixels_per_unit;
-	h = priv->height / item->canvas->pixels_per_unit;
+	w = priv->cwidth / item->canvas->pixels_per_unit;
+	h = priv->cheight / item->canvas->pixels_per_unit;
 
 	if (x < 0.0)
 		dx = -x;
@@ -406,6 +424,6 @@ image_item_bounds (GnomeCanvasItem *item, double *x1, double *y1, double *x2, do
 
 	*x1 = 0.0;
 	*y1 = 0.0;
-	*x2 = priv->width / item->canvas->pixels_per_unit;
-	*y2 = priv->height / item->canvas->pixels_per_unit;
+	*x2 = priv->uwidth;
+	*y2 = priv->uheight;
 }

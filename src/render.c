@@ -49,7 +49,7 @@ compute_coord_lut (guint size, double zoom, guint ofs)
 
 /* Renders a portion of an RGB image to a buffer */
 static void
-render_rgb (ArtPixBuf *pixbuf, guchar *dest,
+render_rgb (ArtPixBuf *apb, guchar *dest,
 	    guint dest_width, guint dest_height, guint dest_rowstride,
 	    int *xlut, int *ylut,
 	    guchar *r_lut, guchar *g_lut, guchar *b_lut)
@@ -58,13 +58,13 @@ render_rgb (ArtPixBuf *pixbuf, guchar *dest,
 	guchar *src_row, *s;
 	guchar *p;
 
-	g_assert (pixbuf->format == ART_PIX_RGB);
-	g_assert (pixbuf->n_channels == 3);
-	g_assert (!pixbuf->has_alpha);
-	g_assert (pixbuf->bits_per_sample == 8);
+	g_assert (apb->format == ART_PIX_RGB);
+	g_assert (apb->n_channels == 3);
+	g_assert (!apb->has_alpha);
+	g_assert (apb->bits_per_sample == 8);
 
 	for (y = 0; y < dest_height; y++) {
-		src_row = pixbuf->pixels + ylut[y];
+		src_row = apb->pixels + ylut[y];
 		p = dest + y * dest_rowstride;
 
 		for (x = 0; x < dest_width; x++) {
@@ -79,7 +79,7 @@ render_rgb (ArtPixBuf *pixbuf, guchar *dest,
 
 /* Renders a portion of an RGBA image to a buffer */
 static void
-render_rgba (ArtPixBuf *pixbuf, guchar *dest,
+render_rgba (ArtPixBuf *apb, guchar *dest,
 	     guint dest_width, guint dest_height, guint dest_rowstride,
 	     guint xofs, guint yofs, int *xlut, int *ylut,
 	     guchar *r_lut, guchar *g_lut, guchar *b_lut,
@@ -92,13 +92,13 @@ render_rgba (ArtPixBuf *pixbuf, guchar *dest,
 	int alpha;
 	guchar check;
 
-	g_assert (pixbuf->format == ART_PIX_RGB);
-	g_assert (pixbuf->n_channels == 4);
-	g_assert (pixbuf->has_alpha);
-	g_assert (pixbuf->bits_per_sample == 8);
+	g_assert (apb->format == ART_PIX_RGB);
+	g_assert (apb->n_channels == 4);
+	g_assert (apb->has_alpha);
+	g_assert (apb->bits_per_sample == 8);
 
 	for (y = 0; y < dest_height; y++) {
-		src_row = pixbuf->pixels + ylut[y];
+		src_row = apb->pixels + ylut[y];
 		p = dest + y * dest_rowstride;
 		dark_y = ((y + yofs) & CHECK_MASK) != 0;
 
@@ -134,12 +134,13 @@ render_rgba (ArtPixBuf *pixbuf, guchar *dest,
 
 /**
  * render_image:
- * @image: An image.
+ * @pixbuf: A pixbuf.
  * @dest: Destination RGB buffer.
  * @dest_width: Width of destination.
  * @dest_height: Height of destination.
  * @dest_rowstride: Rowstride of destination.
- * @zoom: Zoom factor for rendering.
+ * @scale_width: Width of scaled image.
+ * @scale_height: Height of scaled image.
  * @xofs: Horizontal rendering offset.
  * @yofs: Vertical rendering offset.
  * @r_lut: Color lookup table for the red channel.
@@ -147,45 +148,47 @@ render_rgba (ArtPixBuf *pixbuf, guchar *dest,
  * @b_lut: Color lookup table for the blue channel.
  * @dark_check: Intensity of dark checks.
  * @light_check: Intensity of light checks.
- * 
- * Renders the specified @image to the specified @dest buffer.  The specified
- * offsets and dimensions must define a rectangle that fit inside the image when
- * zoomed.
+ *
+ * Renders the specified @pixbuf to the specified @dest buffer.  The specified
+ * offsets and destination dimensions must define a rectangle that fits inside
+ * the image when scaled to the specified size.
  **/
 void
-render_image (Image *image, guchar *dest,
+render_image (GdkPixBuf *pixbuf, guchar *dest,
 	      guint dest_width, guint dest_height, guint dest_rowstride,
-	      double zoom, guint xofs, guint yofs,
+	      double scale_width, double scale_height, guint xofs, guint yofs,
 	      guchar *r_lut, guchar *g_lut, guchar *b_lut,
 	      guchar dark_check, guchar light_check)
 {
-	ArtPixBuf *pixbuf;
-	int xzoom_size, yzoom_size;
+	ArtPixBuf *apb;
+	int xscale_size, yscale_size;
 	double xzoom_adj, yzoom_adj;
 	int *xlut, *ylut;
 	int i;
 
-	pixbuf = image->buf->art_pixbuf;
-
 	/* Sanity checks */
 
-	g_return_if_fail (image != NULL);
-	g_return_if_fail (pixbuf->format == ART_PIX_RGB);
-	g_return_if_fail (pixbuf->n_channels == 3 || pixbuf->n_channels == 4);
-	g_return_if_fail (pixbuf->bits_per_sample == 8);
+	g_return_if_fail (pixbuf != NULL);
+	g_return_if_fail (pixbuf->art_pixbuf != NULL);
+	apb = pixbuf->art_pixbuf;
+
+	g_return_if_fail (apb->format == ART_PIX_RGB);
+	g_return_if_fail (apb->n_channels == 3 || apb->n_channels == 4);
+	g_return_if_fail (apb->bits_per_sample == 8);
 
 	g_return_if_fail (dest != NULL);
 	g_return_if_fail (dest_width > 0);
 	g_return_if_fail (dest_height > 0);
 	g_return_if_fail (dest_rowstride > 0);
-	g_return_if_fail (zoom > 0.0);
+	g_return_if_fail (scale_width > 0.0);
+	g_return_if_fail (scale_height > 0.0);
 
-	xzoom_size = floor (pixbuf->width * zoom + 0.5);
-	yzoom_size = floor (pixbuf->height * zoom + 0.5);
-	g_return_if_fail (xofs < xzoom_size);
-	g_return_if_fail (yofs < yzoom_size);
-	g_return_if_fail (xofs + dest_width <= xzoom_size);
-	g_return_if_fail (yofs + dest_height <= yzoom_size);
+	xscale_size = floor (scale_width + 0.5);
+	yscale_size = floor (scale_height + 0.5);
+	g_return_if_fail (xofs < xscale_size);
+	g_return_if_fail (yofs < yscale_size);
+	g_return_if_fail (xofs + dest_width <= xscale_size);
+	g_return_if_fail (yofs + dest_height <= yscale_size);
 
 	g_return_if_fail (r_lut != NULL);
 	g_return_if_fail (g_lut != NULL);
@@ -193,25 +196,25 @@ render_image (Image *image, guchar *dest,
 
 	/* Build rendering coordinate LUTs */
 
-	xzoom_adj = (double) xzoom_size  / pixbuf->width;
+	xzoom_adj = (double) xscale_size / apb->width;
 	xlut = compute_coord_lut (dest_width, xzoom_adj, xofs);
 	for (i = 0; i < dest_width; i++)
-		xlut[i] *= pixbuf->n_channels;
+		xlut[i] *= apb->n_channels;
 
-	yzoom_adj = (double) yzoom_size  / pixbuf->height;
+	yzoom_adj = (double) yscale_size / apb->height;
 	ylut = compute_coord_lut (dest_height, yzoom_adj, yofs);
 	for (i = 0; i < dest_height; i++)
-		ylut[i] *= pixbuf->rowstride;
+		ylut[i] *= apb->rowstride;
 
 	/* Render! */
 
-	if (pixbuf->has_alpha)
-		render_rgba (pixbuf, dest, dest_width, dest_height, dest_rowstride,
+	if (apb->has_alpha)
+		render_rgba (apb, dest, dest_width, dest_height, dest_rowstride,
 			     xofs, yofs, xlut, ylut,
 			     r_lut, g_lut, b_lut,
 			     dark_check, light_check);
 	else
-		render_rgb (pixbuf, dest, dest_width, dest_height, dest_rowstride,
+		render_rgb (apb, dest, dest_width, dest_height, dest_rowstride,
 			    xlut, ylut,
 			    r_lut, g_lut, b_lut);
 

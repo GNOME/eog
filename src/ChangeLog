@@ -1,3 +1,23 @@
+1999-09-22  Federico Mena Quintero  <federico@redhat.com>
+
+	* ui-image.c (ui_image_set_image): Set the width/height of the
+	image item.
+
+	* image-item.c (ImageItemPrivate): Added user width and height
+	values.  Removed the single zoom value.
+	(image_item_class_init): Register the width/ height arguments.
+	(image_item_init): Initialize the width/height values.
+	(image_item_set_arg): Handle the width/height arguments.
+	(image_item_get_arg): Likewise.
+	(recompute_bounding_box): Use width/height instead of zoom.
+	(image_item_update): Likewise.
+	(image_item_draw): Likewise.
+	(image_item_point): Likewise.
+	(image_item_bounds): Likewise.
+
+	* render.c (render_image): Changed so that it takes in a GdkPixbuf
+	instead of an Image.  Added support for anamorphic scaling.
+
 1999-09-18  Federico Mena Quintero  <federico@redhat.com>
 
 	* window.c (zoom_menu): Added a zoom factor menu.
