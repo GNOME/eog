@@ -51,6 +51,10 @@ struct _GnomeWrapList {
 
 struct _GnomeWrapListClass {
 	GnomeListViewClass parent_class;
+
+	/* GTK+ scrolling interface */
+	void (* set_scroll_adjustments) (GnomeWrapList *wlist,
+					 GtkAdjustment *hadj, GtkAdjustment *vadj);
 };
 
 

@@ -82,7 +82,12 @@ typedef struct {
 	int row_spacing;
 	int col_spacing;
 
-	/* Scroll offsets */
+	/* Scroll adjustments */
+
+	GtkAdjustment *hadj;
+	GtkAdjustment *vadj;
+
+	/* Real scroll offsets computed from the adjustment values */
 	int h_offset;
 	int v_offset;
 
@@ -141,6 +146,8 @@ static void gnome_wrap_list_forall (GtkContainer *container, gboolean include_in
 static void model_set (GnomeListView *view, GnomeListModel *old_model);
 static void selection_model_set (GnomeListView *view, GnomeListSelectionModel *old_sel_model);
 static void list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory);
+
+static void set_scroll_adjustments (GnomeWrapList *wlist, GtkAdjustment *hadj, GtkAdjustment *vadj);
 
 static GnomeListViewClass *parent_class;
 
@@ -208,6 +215,18 @@ gnome_wrap_list_class_init (GnomeWrapListClass *class)
 	list_view_class->model_set = model_set;
 	list_view_class->selection_model_set = selection_model_set;
 	list_view_class->list_item_factory_set = list_item_factory_set;
+
+	class->set_scroll_adjustments = set_scroll_adjustments;
+
+	widget_class->set_scroll_adjustments_signal =
+		gtk_signal_new ("set_scroll_adjustments",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeWrapListClass, set_scroll_adjustments),
+				gtk_marshal_NONE__POINTER_POINTER,
+				GTK_TYPE_NONE, 2,
+				GTK_TYPE_ADJUSTMENT,
+				GTK_TYPE_ADJUSTMENT);
 }
 
 /* object initialization function for the abstract wrapped list view */
@@ -1027,6 +1046,86 @@ list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory)
 
 	priv->need_factory_update = TRUE;
 	request_update (wlist);
+}
+
+
+
+/* Wrap list methods */
+
+static void
+adjustment_changed (GtkAdjustment *adj, gpointer data)
+{
+	GnomeWrapList *wlist;
+	WrapListPrivate *priv;
+	int val;
+
+	wlist = GNOME_WRAP_LIST (data);
+	priv = wlist->priv;
+
+	val = adj->value;
+
+	if (adj == priv->hadj) {
+		
+	}
+}
+
+/* Set_scroll_adjustments handler for the abstract wrapped list view.  We do the
+ * standard GTK+ scrolling interface stuff here.
+ */
+static void
+set_scroll_adjustments (GnomeWrapList *wlist, GtkAdjustment *hadj, GtkAdjustment *vadj)
+{
+	WrapListPrivate *priv;
+	gboolean need_adjust;
+
+	priv = wlist->priv;
+
+	if (hadh)
+		g_return_if_fail (GTK_IS_ADJUSTMENT (hadj));
+	else
+		hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+
+	if (vadj)
+		g_return_if_fail (GTK_IS_ADJUSTMENT (vadj));
+	else
+		vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+
+	need_adjust = FALSE;
+
+	if (priv->hadj && priv->hadj != hadj) {
+		gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), wlist);
+		gtk_object_unref (GTK_OBJECT (priv->hadj));
+	}
+
+	if (priv->vadj && priv->vadj != vadj) {
+		gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), wlist);
+		gtk_object_unref (GTK_OBJECT (priv->vadj));
+	}
+
+	if (priv->hadj != hadj) {
+		priv->hadj = hadj;
+		gtk_object_ref (GTK_OBJECT (priv->hadj));
+		gtk_object_sink (GTK_OBJECT (priv->hadj));
+
+		gtk_signal_connect (GTK_OBJECT (priv->hadj), "value_changed",
+				    GTK_SIGNAL_FUNC (adjustment_changed),
+				    wlist);
+		need_adjust = TRUE;
+	}
+
+	if (priv->vadj != vadj) {
+		priv->vadj = vadj;
+		gtk_object_ref (GTK_OBJECT (priv->vadj));
+		gtk_object_sink (GTK_OBJECT (priv->vadj));
+
+		gtk_signal_connect (GTK_OBJECT (priv->vadj), "value_changed",
+				    GTK_SIGNAL_FUNC (adjustment_changed),
+				    wlist);
+		need_adjust = TRUE;
+	}
+
+	if (need_adjust)
+		gtk_wiget_queue_resize (GTK_WIDGET (wlist));
 }
 
 

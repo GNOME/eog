@@ -1,5 +1,12 @@
 1999-12-09  Federico Mena Quintero  <federico@redhat.com>
 
+	* gnome-wrap-list.c (gnome_wrap_list_class_init): Register the
+	set_scroll_adjustments magic signal.
+	(set_scroll_adjustments): Handle adjustment changes.
+
+	* gnome-wrap-list.h (GnomeWrapListClass): Added the
+	set_scroll_adjustments signal.
+
 	* ui-image.c (ui_image_set_image): Fix off-by-one error when
 	setting the scroll region of the canvas.
 
