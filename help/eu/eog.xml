@@ -1,0 +1,549 @@
+<?xml version="1.0"?> 
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [  <!ENTITY legal SYSTEM "legal.xml"> 
+<!ENTITY appversion "2.3.5"> 
+<!ENTITY manrevision "2.5"> 
+<!ENTITY date "2003ko iraila"> 
+<!ENTITY app "GNOMEren begia">]> 
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+--> 
+<!-- =============Document Header ============================= --> 
+  <article id="index" lang="eu"> 
+  
+<!-- please do not change the id; for translations, change lang to --> 
+  
+<!-- appropriate code --> 
+    <articleinfo> 
+      <title>&app;ren eskuliburua &manrevision; bertsioa</title> 
+      <copyright> 
+        <year>2002</year> 
+        <year>2003</year> 
+        <holder>Sun Microsystems</holder> 
+      </copyright> 
+      <copyright> 
+        <year>2000</year> 
+        <holder>Eliot Landrum</holder> 
+      </copyright> 
+      <copyright> 
+        <year>2000</year> 
+        <holder>The Free Software Foundation</holder> 
+      </copyright> 
+    
+<!-- translators: uncomment this:   --> 
+
+  <copyright>
+   <year>2003</year>
+   <holder>Hizkuntza Politikarako Sailburuordetza <email>hizkpol@ej-gv.es</email> (euskarazko itzulpena)</holder>
+  </copyright>
+
+
+    
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  --> 
+      <publisher> 
+        <publishername>GNOMEren dokumentazio-proiektua</publishername> 
+      </publisher>&legal; 
+    
+<!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. --> 
+      <authorgroup> 
+        <author> 
+          <firstname>Sun</firstname> 
+          <surname>GNOMEren dokumentazio-taldea
+          </surname> 
+          <affiliation> 
+            <orgname>Sun Microsystems</orgname> 
+            <address></address> 
+          </affiliation> 
+        </author> 
+        <author> 
+          <firstname>Eliot</firstname> 
+          <surname>Landrum</surname> 
+          <affiliation> 
+            <orgname>GNOMEren dokumentazio-proiektua</orgname> 
+            <address> 
+              <email>eliot@landrum.cx</email> 
+            </address> 
+          </affiliation> 
+        </author> 
+        <author> 
+          <firstname>Federico 
+          </firstname> 
+          <surname>Mena Quintero 
+          </surname> 
+          <affiliation> 
+            <orgname>GNOMEren dokumentazio-proiektua</orgname> 
+            <address> 
+              <email>federico@gnu.org</email> 
+            </address> 
+          </affiliation> 
+        </author> 
+      
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email></address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+--> 
+      </authorgroup> 
+      <revhistory> 
+        <revision> 
+          <revnumber>&app;ren eskuliburua &manrevision; bertsioa</revnumber> 
+          <date>&date;</date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren eskuliburuaren 2.4 bertsioa</revnumber> 
+          <date>2003ko urtarrila</date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren eskuliburuaren 2.3 bertsioa</revnumber> 
+          <date>2002ko urria</date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren eskuliburuaren 2.2 bertsioa</revnumber> 
+          <date>2002ko abuztua</date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren eskuliburuaren 2.1 bertsioa</revnumber> 
+          <date>2002ko uztaila</date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren eskuliburuaren 2.0 bertsioa</revnumber> 
+          <date>2002ko maiatza
+          </date> 
+          <revdescription> 
+            <para role="author">Sun-eko GNOMEren dokumentazio-taldea</para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+        <revision> 
+          <revnumber>Eye of GNOME/GNOMEren begiaren erabiltzailearen gida</revnumber> 
+          <date>2000 
+          </date> 
+          <revdescription> 
+            <para role="author">Eliot Landrum <email>eliot@landrum.cx</email></para> 
+            <para role="author">Federico Mena Quintero <email>federico@gnu.org</email></para> 
+            <para role="publisher">GNOMEren dokumentazio-proiektua</para> 
+          </revdescription> 
+        </revision> 
+      </revhistory> 
+      <releaseinfo>Eskuliburu honetan &app;ren &appversion; bertsioa azaltzen da.</releaseinfo> 
+      <legalnotice> 
+        <title>Ohar-bidaltzea</title> 
+        <para>&app; aplikazioari buruzko akatsen berri emateko edo oharrak bidaltzeko, <ulink url="ghelp:gnome-feedback"	  type="help">GNOMEra oharrak bidaltzeko orria</ulink>n aurkituko dituzu argibideak.</para> 
+      
+<!-- Translators may also add here feedback address for translations --> 
+      </legalnotice> 
+    </articleinfo> 
+    <indexterm> 
+      <primary>GNOMEren begia</primary> 
+    </indexterm> 
+  
+<!-- ============= Document Body ============================= --> 
+  
+<!-- ============= Introduction ============================== --> 
+    <sect1 id="eog-introduction"> 
+      <title>Sarrera</title> 
+      <para><application>&app;</application> aplikazioa irudi-fitxategiak ikusteko erabil dezakezu. Eginbide hauek eskaintzen ditu:</para> 
+      <itemizedlist> 
+        <listitem> 
+          <para>Fitxategi-formatu hauek onartzen ditu:</para> 
+          <itemizedlist> 
+            <listitem> 
+              <para>BMP - Windows bit-mapa</para> 
+            </listitem> 
+            <listitem> 
+              <para>GIF - Graphics Interchange Format</para> 
+            </listitem> 
+            <listitem> 
+              <para>ICO - Windows ikonoa</para> 
+            </listitem> 
+            <listitem> 
+              <para>JPEG - Joint Photographic Experts Group</para> 
+            </listitem> 
+            <listitem> 
+              <para>PNG - Portable Network Graphics</para> 
+            </listitem> 
+            <listitem> 
+              <para>PNM - Portable Anymap PPM Toolkit-ekoa</para> 
+            </listitem> 
+            <listitem> 
+              <para>RAS - Sun Raster</para> 
+            </listitem> 
+            <listitem> 
+              <para>SVG - Scaleable Vector Graphics</para> 
+            </listitem> 
+            <listitem> 
+              <para>TGA - Targa</para> 
+            </listitem> 
+            <listitem> 
+              <para>TIFF - Tagged Image File Format</para> 
+            </listitem> 
+            <listitem> 
+              <para>XBM - X bit-mapa</para> 
+            </listitem> 
+            <listitem> 
+              <para>XPM - X pix mapa</para> 
+            </listitem> 
+          </itemizedlist> 
+          <note> 
+            <para>Goian azaldutako formatu guztietako irudiak ikus ditzakezu, baina PNG eta JPEG formatuetan bakarrik gorde ditzakezu irudiak.</para> 
+          </note> 
+        </listitem> 
+        <listitem> 
+          <para>Hainbat zoom-maila eta pantaila osoko ikuspegia izan ditzakezu, memoria gutxi erabilita, zoom-maila edozein izanda ere.</para> 
+        </listitem> 
+        <listitem> 
+          <para>Bonobo kapsulatzeko teknologia, irudi-ikuspegiak GNOMEren beste aplikazio batzuetan kapsulatzeko.</para> 
+        </listitem> 
+      </itemizedlist> 
+    </sect1> 
+  
+<!-- =========== Getting Started ============================== --> 
+    <sect1 id="eog-getting-started"> 
+      <title>Erabiltzen hasteko</title> 
+      <sect2 id="eog-tostartapp"> 
+        <title>&app; abiarazteko</title> 
+        <para>Aukera hauek dituzu <application>&app;</application> abiarazteko:</para> 
+        <variablelist> 
+          <varlistentry> 
+            <term> 
+              <guimenu>Aplikazioak</guimenu>menua 
+            </term> 
+            <listitem> 
+              <para>Aukeratu <menuchoice> <guisubmenu>Irudiak</guisubmenu> <guimenuitem>&app; irudi-ikustailea</guimenuitem></menuchoice>.</para> 
+            </listitem> 
+          </varlistentry> 
+          <varlistentry> 
+            <term>Komando-lerroa</term> 
+            <listitem> 
+              <para><application>&app;</application> komando-lerrotik abiarazi eta fitxategi bat irekitzeko, idatzi ondorengo komandoa, eta sakatu <keycap>Sartu</keycap>:</para> 
+              <para> <command>eog</command> <replaceable>fitxategiizena.jpg</replaceable></para> 
+              <para><replaceable>fitxategiizena.jpg</replaceable>-ren ordez ireki nahi duzun fitxategiaren izena idatzi behar duzu.</para> 
+              <para> Zuk zehaztutako fitxategietako bakoitza leiho berri batean irekiko du.</para> 
+            </listitem> 
+          </varlistentry> 
+        </variablelist> 
+      </sect2> 
+      <sect2 id="eog-whenyoustart"> 
+        <title>&app; abiarazten duzunean</title> 
+        <para><application>&app;</application> abiarazten duzunean, leiho hau azalduko da.</para> 
+      
+<!-- ==== Figure ==== --> 
+        <figure id="mainwindow-fig"> 
+          <title>&app;ren hasierako leihoa, fitxategi bat ireki aurretik</title> 
+          <screenshot> 
+            <mediaobject> 
+              <imageobject> 
+              <imagedata fileref="figures/eog_start_window.png" format="PNG"/></imageobject> 
+              <textobject> 
+                <phrase>GNOMEren begiaren leiho nagusia erakusten du</phrase> 
+              </textobject> 
+            </mediaobject> 
+          </screenshot> 
+        </figure> 
+      
+<!-- ==== End of Figure ==== --> 
+      </sect2> 
+    </sect1> 
+  
+<!-- ================ Usage ================================ --> 
+    <sect1 id="eog-usage"> 
+      <title>Erabilera</title> 
+    
+<!--=========== To Open an Image ============================= --> 
+      <sect2 id="eog-open-image"> 
+        <title>Irudi bat irekitzeko</title> 
+        <para>Irudi bat irekitzeko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Ireki</guimenuitem></menuchoice>. Irudia irekitzeko elkarrizketa-koadroa azalduko da. Hautatu ireki nahi duzun fitxategia, eta sakatu <guibutton>Ados</guibutton>.</para> 
+        <para>Beste leiho batean beste irudi bat ireki nahi baduzu, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Leiho berria</guimenuitem></menuchoice>. Ireki nahi duzun fitxategia hautatzeko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Ireki</guimenuitem></menuchoice>. Beste aplikazio batetik ere arrasta ditzakezu irudiak, esate baterako fitxategi-kudeatzailetik, <application>&app;</application> leihora. <application>&app;</application> leihoa hutsik badago, leiho horretan bertan erakutsiko du irudia. Leihoa hutsik ez badago, beste leiho bat irekiko du irudia erakusteko.</para> 
+        <para><application>&app;</application>k ezagutzen ez duen formaturen bateko irudi bat irekitzen saiatzen bazara, errore-mezu bat azalduko da.</para> 
+      </sect2> 
+    
+<!--=========== To View the Images in a Directory ==================== --> 
+      <sect2 id="eog-open-directory"> 
+        <title>Direktorio bateko irudiak ikusteko</title> 
+        <para>Direktorio batean dauden irudiak ikusteko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Ireki</guimenuitem></menuchoice>. Irudia irekitzeko elkarrizketa-koadroa azalduko da. Hautatu ireki nahi duzun direktorioa, eta sakatu <guibutton>Ados</guibutton>. Direktorioan dauden irudiak <application>&app;</application> leihoan agertuko dira.</para> 
+      </sect2> 
+    
+<!--============ To Scroll an Image ======================= --> 
+      <sect2 id="eog-scroll-image"> 
+        <title>Irudi bat korritzeko</title> 
+        <para>Irudi-leihoan edo pantaila osoko leihoan sartzeko baino handiagoa den irudi bat pantailan zehar korritzeko, aukera hauek dituzu:</para> 
+        <itemizedlist> 
+          <listitem> 
+            <para>Teklatuko gezi-teklak erabiltzea.</para> 
+          </listitem> 
+          <listitem> 
+            <para>Irudia saguaren bidez arrastatzea, korritu nahi duzun noranzkoaren kontrako aldera. Adibidez, irudiaren beheko zatia ikusteko, irudia gorantz arrastatu behar duzu leihoan.</para> 
+          </listitem> 
+          <listitem> 
+            <para>Leihoko korritze-barrak erabiltzea.</para> 
+          </listitem> 
+        </itemizedlist> 
+      </sect2> 
+      <sect2 id="eog-change-zoom"> 
+        <title>Zoom-faktorea aldatzeko</title> 
+        <para><application>&app;</application> leihoko irudi baten ikuspegiaren tamaina aldatzeko, aukera hauek dituzu:</para> 
+        <itemizedlist> 
+          <listitem> 
+            <para>Irudia handiago ikusteko, aukeratu <menuchoice><guimenu>Ikusi</guimenu> <guimenuitem>Handiagotu</guimenuitem></menuchoice>.</para></listitem> 
+          <listitem> 
+            <para>Irudia txikiago ikusteko, aukeratu <menuchoice><guimenu>Ikusi</guimenu> <guimenuitem>Txikiagotu</guimenuitem></menuchoice>.</para> 
+          </listitem> 
+          <listitem> 
+            <para>Irudia bere benetako tamainan ikusteko, aukeratu <menuchoice> <guimenu>Ikusi</guimenu> <guimenuitem>Tamaina normala</guimenuitem></menuchoice>.</para> 
+          </listitem> 
+          <listitem> 
+            <para>Irudi bat <application>&app;</application> leihoari egokitzeko ikuspegia handiagotu edo txikiagotzeko, aukeratu <menuchoice><guimenu>Ikusi</guimenu> <guimenuitem>Egokiena</guimenuitem></menuchoice>.</para> 
+          </listitem> 
+          <listitem> 
+            <para>Irudia pantaila osoan erakusteko, aukeratu <menuchoice> <guimenu>Ikusi</guimenu> <guimenuitem>Pantaila osoan</guimenuitem></menuchoice>. Pantaila osoko moduan, pantaila oso-osorik hartzen duen leiho batean erakusten da irudia. Leiho horrek ez du leiho-markorik, titulu-barrarik, menu-barrarik, edo tresna-barrarik. Modu horretatik irteteko. Sakatu <keycap>Ihes</keycap> tekla edo <keycombo><keycap>Ktrl</keycap> <keycap>W</keycap></keycombo>.</para> 
+          </listitem> 
+        </itemizedlist> 
+      </sect2> 
+      <sect2 id="eog-flip"> 
+        <title>Irudi bat iraultzeko</title> 
+        <para>Irudi bat ardatz horizontalari buruz iraultzeko, aukeratu <menuchoice><guimenu>Editatu</guimenu> <guimenuitem>Irauli horizontalki</guimenuitem></menuchoice>.</para> 
+        <para>Irudi bat ardatz bertikalari buruz iraultzeko, aukeratu <menuchoice><guimenu>Editatu</guimenu> <guimenuitem>Irauli bertikalki</guimenuitem></menuchoice>.</para> 
+      </sect2> 
+      <sect2 id="eog-rotate"> 
+        <title>Irudi bat biratzeko</title> 
+        <para>Irudi bat 90 gradu biratzeko erloju-orratzen antzera, aukeratu <menuchoice><guimenu>Editatu</guimenu> <guimenuitem>Biratu eskuinera</guimenuitem></menuchoice>.</para> 
+        <para>Irudi bat 90 gradu biratzeko erloju-orratzen kontrako aldera, aukeratu <menuchoice><guimenu>Editatu</guimenu> <guimenuitem>Biratu ezkerrera</guimenuitem></menuchoice>.</para> 
+        <para>Irudi bat 180 gradu biratzeko erloju-orratzen antzera, aukeratu <menuchoice><guimenu>Editatu</guimenu> <guimenuitem>Biratu 180 gradu</guimenuitem></menuchoice>.</para> 
+      </sect2> 
+    
+<!--			
+	<sect2 id="eog-change-interpolation">
+		<title>To Change the Interpolation Method</title>
+		<para>To change the interpolation method for the image, choose 
+			<menuchoice>
+			<guimenu>View</guimenu>
+			<guimenuitem>Interpolation</guimenuitem>
+			</menuchoice>, 
+		then select the interpolation method you require. 
+		Select one of the following options:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Nearest Neighbor</guimenuitem></para>
+			<para>This method of interpolation takes a location in the original image and replicates the 
+			pixel that is nearest to this location. When you zoom in on an image, the pixels are replicated. 
+			When you zoom out of an image, the image loses some of its detail. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Tiles</guimenuitem> </para>
+			<para>No information available at time of publication.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilinear</guimenuitem> </para>
+			<para>This is a simple and fast method of interpolation. When you zoom in on an image, 
+			<application>&app;</application> uses up to four adjacent pixels to compute the colors of 
+			the new pixels. When you zoom out of an image, <application>&app;</application> averages 
+			regions of color in the existing image to compute the colors of the pixels. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolic</guimenuitem> </para>
+			<para>This is a high-quality, slow method of interpolation. The application performs interpolation 
+			on the image in the manner described in Digital Image Warping by George Wolberg.</para>
+			</listitem>
+			</itemizedlist>
+	</sect2>	
+--> 
+    
+<!--	
+	<sect2 id="eog-change-dither">
+		<title>To Change the Dithering Method</title>
+		<para>To change the dithering method for the image, choose 
+			<menuchoice>
+			<guimenu>View</guimenu>
+			<guisubmenu>Dither</guisubmenu>
+			</menuchoice>, 
+		then select the dithering method you require.
+		Select one of the following options:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>None</guimenuitem></para>
+			<para>This option does not use dithering. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudocolor)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor displays, which use a limited palette of colors. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (high color)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor and high color displays. </para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+--> 
+    
+<!--
+	<sect2 id="eog-change-check-type">
+		<title>To Change the Check Type</title>
+		<para>To change the check type that <application>&app;</application>
+		uses to display transparent or partially opaque backgrounds in the image, choose 
+			<menuchoice>
+			<guimenu>View</guimenu>
+			<guisubmenu>Check type</guisubmenu>
+			</menuchoice>, 
+		then select the check type you require.
+		Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Dark</guimenuitem> </para>
+			<para>This option displays black and dark gray checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Midtone</guimenuitem> </para>
+			<para>This option displays dark gray and light gray checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Light</guimenuitem> </para>
+			<para>This option displays light gray and white checks.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Black</guimenuitem> </para>
+			<para>This option displays solid black.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gray</guimenuitem> </para>
+			<para>This option displays solid gray.</para>
+			</listitem>
+			<listitem><para><guimenuitem>White</guimenuitem> </para>
+			<para>This option displays solid white.</para>
+			</listitem>
+		</itemizedlist>
+
+	</sect2>
+--> 
+    
+<!--	
+	<sect2 id="eog-change-check-size">
+		<title>To Change the Check Size</title>
+		<para>To change the check size that <application>&app;</application>
+		uses to display transparent or partially opaque backgrounds in the image, choose 
+			<menuchoice>
+			<guimenu>View</guimenu>
+			<guisubmenu>Check size</guisubmenu>
+			</menuchoice>, 
+		then select the check size you require.
+		This option is only relevant if you choose <guimenuitem>Dark checks</guimenuitem>, 
+		<guimenuitem>Midtone checks</guimenuitem>, or <guimenuitem>Light checks</guimenuitem> from the 
+		<guisubmenu>Check type</guisubmenu> menu. Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Small</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medium</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Large</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+--> 
+      <sect2 id="eog-save-image"> 
+        <title>Irudi bat gordetzeko</title> 
+        <para>Irudi bat fitxategi-izen berri batekin gordetzeko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guisubmenu>Gorde honela</guisubmenu></menuchoice>. Zehaztu kokalekua eta fitxategiaren izena <guilabel>Hautapena</guilabel> eremuan, eta egin klik <guibutton>Ados</guibutton> botoian. PNG eta JPEG irudiak bakarrik gorde daitezke beste izen bateko mota bereko fitxategi gisa.</para> 
+      </sect2> 
+      <sect2 id="eog-close-image"> 
+        <title>Irudi bat ixteko</title> 
+        <para>Irudi bat ixteko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Itxi</guimenuitem></menuchoice>. <application>&app;</application>n irekita dagoen leiho bakarra bada, aplikazioa ere itxi egingo da.</para> 
+        <para><application>&app;</application>n irekita dauzkazun leiho guztiak itxi eta aplikaziotik irteteko, aukeratu <menuchoice> <guimenu>Fitxategia</guimenu> <guimenuitem>Irten</guimenuitem></menuchoice>.</para> 
+      </sect2> 
+    </sect1> 
+    <sect1 id="eog-prefs"> 
+      <title>Hobespenak</title> 
+      <para><application>&app;</application> konfiguratzeko, aukeratu <menuchoice> <guimenu>Editatu</guimenu> <guimenuitem>Hobespenak</guimenuitem></menuchoice>.</para> 
+      <variablelist> 
+        <varlistentry> 
+          <term> 
+            <guilabel>Irudi-interpolazioa</guilabel> 
+          </term> 
+          <listitem> 
+            <para>Irudiaren zoom-faktorea aldatzean irudia interpolatzeko, hautatu <guilabel>Interpolatu irudia zoomean (kalitatea hobea, baina mantsoago)</guilabel>. Aukera hau hautatzen baduzu, interpolazio bilineala erabiliko du <application>&app;</application>k. Interpolazio bilineala interpolatzeko metodo sinple eta azkar bat da. Irudi baten ikuspegia handiagotzen duzunean, <application>&app;</application>k aldameneko lau pixel (gehienez) erabiltzen ditu pixel berrien kolorea konputatzeko. Irudiaren ikuspegia txikiagotzen denean, <application>&app;</application>k irudiko kolore-eskualdeen batez bestekoa kalkulatzen du pixel berrien kolorea konputatzeko.</para> 
+          </listitem> 
+        </varlistentry> 
+      
+<!--
+	<varlistentry>
+		<term><guilabel>Dither</guilabel></term>
+		<listitem>
+		<para>Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>None</guimenuitem></para>
+			<para>This option does not use dithering. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudocolor)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor displays, which use a limited palette of colors. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (high color)</guimenuitem> </para>
+			<para>This option performs dithering on pseudocolor and high color displays. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+--> 
+        <varlistentry> 
+          <term> 
+            <guilabel>Gardentasuna</guilabel> 
+          </term> 
+          <listitem> 
+            <para>Aukera hauetako bat, irudiko zati gardenak nola bistaratuko diren erabakitzeko:</para> 
+            <itemizedlist> 
+              <listitem> 
+                <para> <guilabel>Koadrikula gisa</guilabel></para> 
+                <para>Irudiaren zati gardenak koadrikula baten gainean erakutsiko dira.</para> 
+              </listitem> 
+              <listitem> 
+                <para> <guilabel>Kolore pertsonalizatu gisa</guilabel></para> 
+                <para>Irudiaren zati gardenak zuk zehaztutako kolore solido baten gainean erakutsiko dira. Kolorea hautatzeko, egin klik kolore-hautatzailean.</para> 
+              </listitem> 
+              <listitem> 
+                <para> <guimenuitem>Atzeko plano gisa</guimenuitem></para> 
+                <para>Irudiaren zati gardenak <application>&app;</application> aplikazioaren atzeko planoko kolorearen gainean erakutsiko dira.</para> 
+              </listitem> 
+            </itemizedlist> 
+          </listitem> 
+        </varlistentry> 
+      
+<!--
+	<varlistentry>
+		<term><guilabel>Check size</guilabel></term>
+		<listitem>
+		<para>This option is only relevant if you choose <guimenuitem>Dark checks</guimenuitem>, 
+		<guimenuitem>Midtone checks</guimenuitem>, or <guimenuitem>Light checks</guimenuitem> from the 
+		<guilabel>Check type</guilabel> drop-down list. Select one of the following options:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Small</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medium</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Large</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+--> 
+      </variablelist> 
+    </sect1> 
+  </article> 
