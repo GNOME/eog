@@ -29,6 +29,8 @@
 
 
 
+#define SECTION "session_info/"
+
 static void
 load_uri_with_role (const char *uri, const char *role)
 {
@@ -45,6 +47,10 @@ session_save (const char *config_prefix)
 {
 	GList *l;
 	int i;
+
+	/* The config_prefix gives us the filename.  We store everything in a
+	 * single section.
+	 */
 
 	gnome_config_push_prefix (config_prefix);
 
@@ -65,11 +71,11 @@ session_save (const char *config_prefix)
 		role = gtk_window_get_role (GTK_WINDOW (window));
 		g_assert (role != NULL);
 
-		key = g_strdup_printf ("role_%d", i);
+		key = g_strdup_printf (SECTION "role_%d", i);
 		gnome_config_set_string (key, role);
 		g_free (key);
 
-		key = g_strdup_printf ("uri_%d", i);
+		key = g_strdup_printf (SECTION "uri_%d", i);
 		gnome_config_set_string (key, uri);
 		g_free (key);
 
@@ -85,6 +91,10 @@ session_load (const char *config_prefix)
 {
 	int i;
 
+	/* The config_prefix gives us the filename.  We load everything from a
+	 * single section.
+	 */
+
 	gnome_config_push_prefix (config_prefix);
 
 	i = 0;
@@ -94,14 +104,14 @@ session_load (const char *config_prefix)
 		char *role_value;
 		char *uri_value;
 
-		key = g_strdup_printf ("role_%d", i);
+		key = g_strdup_printf (SECTION "role_%d", i);
 		role_value = gnome_config_get_string (key);
 		g_free (key);
 
 		if (!role_value)
 			break;
 
-		key = g_strdup_printf ("uri_%d", i);
+		key = g_strdup_printf (SECTION "uri_%d", i);
 		uri_value = gnome_config_get_string (key);
 		g_free (key);
 

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <bonobo-activation/bonobo-activation.h>
 #include <libgnomevfs/gnome-vfs.h>
+#include <libgnome/gnome-config.h>
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
@@ -289,9 +290,14 @@ client_save_yourself_cb (GnomeClient *client,
 			 gpointer data)
 {
 	const char *prefix;
+	char *discard_argv[] = { "rm", "-f", NULL };
 
 	prefix = gnome_client_get_config_prefix (client);
 	session_save (prefix);
+
+	discard_argv[2] = gnome_config_get_real_path (prefix);
+	gnome_client_set_discard_command (client, 3, discard_argv);
+	g_free (discard_argv[2]);
 
 	return TRUE;
 }
@@ -328,12 +334,6 @@ main (int argc, char **argv)
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 
-#if 0
-
-	ctx = g_new0 (poptContext, 1);
-	gnome_init_with_popt_table ("Eye of Gnome", VERSION,
-		    argc, argv, NULL, 0, ctx);
-#endif
 	program = gnome_program_init ("eog", VERSION,
 				      LIBGNOMEUI_MODULE, argc, argv,
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of Gnome"),

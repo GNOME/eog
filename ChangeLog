@@ -1,3 +1,11 @@
+2002-05-28  Federico Mena Quintero  <federico@ximian.com>
+
+	* shell/session.c (session_save): 
+	(session_load): gnome-config expects a section name in addition to
+	the key name.  Fixes #82603.
+
+	* shell/main.c (client_save_yourself_cb): Set the discard command.
+
 2002-05-21  Federico Mena Quintero  <federico@ximian.com>
 
 	* shell/eog-preferences.c (eog_preferences_new): Save the signal
