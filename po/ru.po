@@ -6,17 +6,153 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog-0.2\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2001-02-12 14:03+03:00\n"
+"POT-Creation-Date: 2001-03-11 18:23+0300\n"
+"PO-Revision-Date: 2001-03-11 18:24+03:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
+#: src/preferences.c:220
 msgid "Preferences"
 msgstr "Настройки"
+
+#: src/preferences-dialog.glade.h:1
+msgid "Bilinear (normal)"
+msgstr "Билинейное (нормальное)"
+
+#: src/preferences-dialog.glade.h:2
+msgid "Black only"
+msgstr "Только черное"
+
+#: src/preferences-dialog.glade.h:3
+msgid "Check size"
+msgstr "Размер отметок"
+
+#: src/preferences-dialog.glade.h:4
+msgid "Dark checks"
+msgstr "Темные отметки"
+
+#: src/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1000
+msgid "Display"
+msgstr "Отображение"
+
+#: src/preferences-dialog.glade.h:6
+msgid "Dither type"
+msgstr "Тип смешивания"
+
+#: src/preferences-dialog.glade.h:7
+msgid "Fit all images to screen"
+msgstr "Заполнить все изображения по экрану"
+
+#: src/preferences-dialog.glade.h:8
+msgid "Fit standard-sized images to screen"
+msgstr "Заполнить изображения стандартного размера по экрану"
+
+#: src/preferences-dialog.glade.h:9
+msgid "Full Screen"
+msgstr "Полный экран"
+
+#: src/preferences-dialog.glade.h:10
+msgid "Gray only"
+msgstr "Только серое"
+
+#: src/preferences-dialog.glade.h:11
+msgid "Hyperbolic (slowest, best quality)"
+msgstr "Гиперболическое (самое медленное, наилучшее качество)"
+
+#: src/preferences-dialog.glade.h:12
+msgid "Image Windows"
+msgstr "Окна изображений"
+
+#: src/preferences-dialog.glade.h:13
+msgid "Interpolation type"
+msgstr "Тип интерполяции"
+
+#: src/preferences-dialog.glade.h:14
+msgid "Large"
+msgstr "Большие"
+
+#: src/preferences-dialog.glade.h:15
+msgid "Light checks"
+msgstr "Светлые отметки"
+
+#: src/preferences-dialog.glade.h:16
+msgid "Maximum (high color)"
+msgstr "Максимальное (многоцветное)"
+
+#: src/preferences-dialog.glade.h:17
+msgid "Medium"
+msgstr "Средние"
+
+#: src/preferences-dialog.glade.h:18
+msgid "Midtone checks"
+msgstr "Средние отметки"
+
+#: src/preferences-dialog.glade.h:19
+msgid "Nearest neighbor (fastest, low quality)"
+msgstr "Ближайший сосед (быстрейшее, низкое качество)"
+
+#: src/preferences-dialog.glade.h:20
+msgid "Never"
+msgstr "Никогда"
+
+#: src/preferences-dialog.glade.h:21
+msgid "None"
+msgstr "Нет"
+
+#: src/preferences-dialog.glade.h:22
+msgid "Normal (pseudocolor)"
+msgstr "Нормальное (псевдоцвет)"
+
+#: src/preferences-dialog.glade.h:23
+msgid "Only if image does not fit"
+msgstr "Только если изображение не заполнено"
+
+#: src/preferences-dialog.glade.h:24
+msgid "Open images in a new window"
+msgstr "Открыть изображения в новом окне"
+
+#: src/preferences-dialog.glade.h:25
+msgid "Pick window size and zoom factor automatically"
+msgstr "Выбирать размер окна и коэффициент увеличения автоматически"
+
+#: src/preferences-dialog.glade.h:26
+msgid "Put a bevel around the edge of the screen"
+msgstr "Создавать скос вокруг края экрана"
+
+#: src/preferences-dialog.glade.h:27
+msgid "Small"
+msgstr "Маленькие"
+
+#: src/preferences-dialog.glade.h:28
+msgid "Transparency type"
+msgstr "Тип прозрачности"
+
+#: src/preferences-dialog.glade.h:29
+msgid "Two-pass scrolling"
+msgstr "Двухпроходная прокрутка"
+
+#: src/preferences-dialog.glade.h:30
+msgid "Use 1:1 zoom factor"
+msgstr "Коэффициент увеличения 1:1"
+
+#: src/preferences-dialog.glade.h:31
+msgid "Use same zoom factor as image window"
+msgstr "Использовать тот же коэффициент увеличения, что и в окне изображения"
+
+#: src/preferences-dialog.glade.h:32
+msgid "Use scrollbars"
+msgstr "Использовать прокрутку"
+
+#: src/preferences-dialog.glade.h:33
+msgid "Viewers"
+msgstr "Окна"
+
+#: src/preferences-dialog.glade.h:34
+msgid "White only"
+msgstr "Только белое"
 
 #: src/tb-image.c:33
 msgid "Open"
@@ -55,7 +191,7 @@ msgstr "Подгон"
 msgid "Could not open `%s'"
 msgstr "Невозможно открыть \"%s\""
 
-#: src/window.c:162 src/window.c:573 src/window.c:812
+#: eog.desktop.in.h:1 src/window.c:162 src/window.c:573 src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -195,19 +331,132 @@ msgstr "Использовать для изображения весь экран"
 msgid "Open Image"
 msgstr "Открыть изображение"
 
-#: viewer/eog-image-view.c:915
+#: viewer/GNOME_EOG.oaf.in.h:1
+msgid "EOG Image"
+msgstr "EOG изображение"
+
+#: viewer/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "EOG Программа просмотра изображений"
+
+#: viewer/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "EOG Генератор программы просмотра изображений"
+
+#: viewer/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr "Встроенное EOG изображение"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Размер отметок"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Тип отметок"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Размер отметок больших"
+
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Размер отметок средних"
+
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Размер отметок маленьких"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Тип отметок черных"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Тип отметок темных"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "Тип отметок серых"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Тип отметок светлых"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "Тип отметок полутоновых"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Тип отметок белых"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Интерполяция по ближайшему соседу"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Нормальное (псевдоцветное) смешение"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Save _As"
+msgstr "Сохранить как"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Bilinear Interpolation"
+msgstr "Билинейная интерполяция"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dither"
+msgstr "Смешивание"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Hyperbolic Interpolation"
+msgstr "Гиперболическая интерполяция"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Interpolation"
+msgstr "Интерполяция"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Maximum (high color) dithering"
+msgstr "Максимальное (многоцветное) смешение"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_No dithering"
+msgstr "Без смешивания"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Tiles Interpolation"
+msgstr "Интерполяция элементов"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_View"
+msgstr "Окна"
+
+#: viewer/eog-image-view.c:262
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Не удалось сохранить изображение как \"%s\": %s."
+
+#: viewer/eog-image-view.c:293
+msgid "Save As"
+msgstr "Сохранить как"
+
+#: viewer/eog-image-view.c:1078
 msgid "Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1081
 msgid "Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1084
 msgid "Check Type"
 msgstr "Тип отметок"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1087
 msgid "Check Size"
 msgstr "Размер отметок"
 
@@ -215,183 +464,6 @@ msgstr "Размер отметок"
 msgid "I could not initialize Bonobo"
 msgstr "Не удалось инициализировать Bonobo"
 
-#~ msgid "Bilinear (normal)"
-#~ msgstr "Билинейное (нормальное)"
-
-#~ msgid "Black only"
-#~ msgstr "Только черное"
-
-#~ msgid "Check size"
-#~ msgstr "Размер отметок"
-
-#~ msgid "Dark checks"
-#~ msgstr "Темные отметки"
-
-#~ msgid "Display"
-#~ msgstr "Отображение"
-
-#~ msgid "Dither type"
-#~ msgstr "Тип смешивания"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "Заполнить все изображения по экрану"
-
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Заполнить изображения стандартного размера по экрану"
-
-#~ msgid "Full Screen"
-#~ msgstr "Полный экран"
-
-#~ msgid "Gray only"
-#~ msgstr "Только серое"
-
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Гиперболическое (самое медленное, наилучшее качество)"
-
-#~ msgid "Image Windows"
-#~ msgstr "Окна изображений"
-
-#~ msgid "Interpolation type"
-#~ msgstr "Тип интерполяции"
-
-#~ msgid "Large"
-#~ msgstr "Большие"
-
-#~ msgid "Light checks"
-#~ msgstr "Светлые отметки"
-
-#~ msgid "Maximum (high color)"
-#~ msgstr "Максимальное (многоцветное)"
-
-#~ msgid "Medium"
-#~ msgstr "Средние"
-
-#~ msgid "Midtone checks"
-#~ msgstr "Средние отметки"
-
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Ближайший сосед (быстрейшее, низкое качество)"
-
-#~ msgid "Never"
-#~ msgstr "Никогда"
-
-#~ msgid "None"
-#~ msgstr "Нет"
-
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "Нормальное (псевдоцвет)"
-
-#~ msgid "Only if image does not fit"
-#~ msgstr "Только если изображение не заполнено"
-
-#~ msgid "Open images in a new window"
-#~ msgstr "Открыть изображения в новом окне"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Выбирать размер окна и коэффициент увеличения автоматически"
-
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Создавать скос вокруг края экрана"
-
-#~ msgid "Small"
-#~ msgstr "Маленькие"
-
-#~ msgid "Transparency type"
-#~ msgstr "Тип прозрачности"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Двухпроходная прокрутка"
-
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Коэффициент увеличения 1:1"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr ""
-#~ "Использовать тот же коэффициент увеличения, что и в окне изображения"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Использовать прокрутку"
-
-#~ msgid "Viewers"
-#~ msgstr "Окна"
-
-#~ msgid "White only"
-#~ msgstr "Только белое"
-
-#~ msgid "EOG Image"
-#~ msgstr "EOG изображение"
-
-#~ msgid "EOG Image Viewer"
-#~ msgstr "EOG Программа просмотра изображений"
-
-#~ msgid "EOG Image viewer factory"
-#~ msgstr "EOG Генератор программы просмотра изображений"
-
-#~ msgid "Embeddable EOG Image"
-#~ msgstr "Встроенное EOG изображение"
-
-#~ msgid "Check _size"
-#~ msgstr "Размер отметок"
-
-#~ msgid "Check _type"
-#~ msgstr "Тип отметок"
-
-#~ msgid "Check size large"
-#~ msgstr "Размер отметок больших"
-
-#~ msgid "Check size medium"
-#~ msgstr "Размер отметок средних"
-
-#~ msgid "Check size small"
-#~ msgstr "Размер отметок маленьких"
-
-#~ msgid "Check type _black"
-#~ msgstr "Тип отметок черных"
-
-#~ msgid "Check type _dark"
-#~ msgstr "Тип отметок темных"
-
-#~ msgid "Check type _gray"
-#~ msgstr "Тип отметок серых"
-
-#~ msgid "Check type _light"
-#~ msgstr "Тип отметок светлых"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "Тип отметок полутоновых"
-
-#~ msgid "Check type _white"
-#~ msgstr "Тип отметок белых"
-
-#~ msgid "E_OG"
-#~ msgstr "EOG"
-
-#~ msgid "Nea_rest Neighbour Interpolation"
-#~ msgstr "Интерполяция по ближайшему соседу"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Нормальное (псевдоцветное) смешение"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "Билинейная интерполяция"
-
-#~ msgid "_Dither"
-#~ msgstr "Смешивание"
-
-#~ msgid "_Hyperbolic Interpolation"
-#~ msgstr "Гиперболическая интерполяция"
-
-#~ msgid "_Interpolation"
-#~ msgstr "Интерполяция"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "Максимальное (многоцветное) смешение"
-
-#~ msgid "_No dithering"
-#~ msgstr "Без смешивания"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "Интерполяция элементов"
-
-#~ msgid "Image Viewer"
-#~ msgstr "Программа просмотра изображений"
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Программа просмотра изображений"
