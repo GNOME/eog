@@ -85,6 +85,9 @@ struct _EogFullScreenPrivate
 	guint  switch_timeout_id;
 	gboolean switch_pause;      
 
+	/* timeout for screensaver blocking */
+	gint   activity_timeout_id;
+
 	/* skip loading on fast subsequent key presses */
 	guint32  last_key_press_time;
 	guint    display_id;
@@ -310,6 +313,41 @@ check_automatic_switch (gpointer data)
 	return TRUE;
 }
 
+/* Works only for xscreensaver */
+static gboolean
+disable_screen_saver (gpointer data)
+{
+	EogFullScreenPrivate *priv;
+	gboolean success = TRUE;
+	char *argv[] = { "xscreensaver-command", "-deactivate", NULL };
+
+	priv = EOG_FULL_SCREEN (data)->priv;
+	
+	if (!priv->switch_pause) {
+		GSpawnFlags flags = G_SPAWN_SEARCH_PATH | 
+		                    G_SPAWN_STDOUT_TO_DEV_NULL | 
+		                    G_SPAWN_STDERR_TO_DEV_NULL;
+		
+		success = g_spawn_sync (NULL,  /* working directory */
+								argv,  /* command */
+								NULL,  /* environment */
+								flags, /* flags */
+								NULL,  /* child setup func */
+								NULL,  /* function data */
+								NULL,  /* standard output */
+		                        NULL,  /* standard error */
+								NULL,  /* exit status */
+								NULL); /* GError */
+	}
+	
+	if (!success) {
+		priv->activity_timeout_id = 0;
+		g_print ("Disable xscreensaver failed.\n");		
+	}
+	
+	return success;
+}
+
 /* Show handler for the full screen view */
 static void
 eog_full_screen_show (GtkWidget *widget)
@@ -330,15 +368,21 @@ eog_full_screen_show (GtkWidget *widget)
 
 	priv->cursor_hidden = FALSE;
 	priv->mouse_move_counter = 0;
-        priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
+	priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
 					       check_cursor_hide,
 					       fs);
 
 	priv->switch_timeout_id = 0;
+	priv->activity_timeout_id = 0;
 	if (priv->switch_timeout > 0) {
 		priv->switch_timeout_id = g_timeout_add (1000 /* every second */,
 							 check_automatic_switch,
 							 fs);
+
+		/* disable screen saver */
+		priv->activity_timeout_id = g_timeout_add (6000 /* every minute */,
+											 disable_screen_saver,
+											 fs);
 	}
 }
 
@@ -357,6 +401,12 @@ eog_full_screen_hide (GtkWidget *widget)
 
 	if (fs->priv->switch_timeout_id > 0) {
 		g_source_remove (fs->priv->switch_timeout_id);
+		fs->priv->switch_timeout_id = 0;
+	}
+	
+	if (fs->priv->activity_timeout_id > 0) {
+		g_source_remove (fs->priv->activity_timeout_id);
+		fs->priv->activity_timeout_id = 0;
 	}
 
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
