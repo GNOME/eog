@@ -360,7 +360,6 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 						    "y", (double) caption_y,
 						    "fill_color", style->text[GTK_STATE_NORMAL],
 						    NULL);
-	g_free (basic_caption);
 	g_free (caption);
 	     
 	/* selection indicator */

@@ -1,3 +1,4 @@
+#include <string.h>
 #include "eog-collection-model.h"
 #include "bonobo/bonobo-moniker-util.h"
 #include <libgnome/gnome-i18n.h>
@@ -263,6 +264,18 @@ directory_visit_cb (const gchar *rel_uri,
 	return TRUE;
 }
 
+static int
+compare_filename_cb (gconstpointer a, gconstpointer b)
+{
+	EogImage *img_a;
+	EogImage *img_b;
+
+	img_a = EOG_IMAGE (a);
+	img_b = EOG_IMAGE (b);
+
+	return strcmp (eog_image_get_collate_key (img_a), eog_image_get_collate_key (img_b));
+}
+
 static gint
 real_dir_loading (LoadingContext *ctx)
 {
@@ -283,6 +296,8 @@ real_dir_loading (LoadingContext *ctx)
 				       ctx);
 
 	loading_context_free (ctx);
+
+	priv->image_list = g_list_sort (priv->image_list, compare_filename_cb);
 
 	g_signal_emit (G_OBJECT (model), eog_model_signals[PREPARED], 0);
 
@@ -316,7 +331,7 @@ real_file_loading (LoadingContext *ctx)
 
 		image = eog_image_new_uri (ctx->uri, EOG_IMAGE_LOAD_DEFAULT);			
 		
-		priv->image_list = g_list_append (priv->image_list, image);
+		priv->image_list = g_list_insert_sorted (priv->image_list, image, compare_filename_cb);
 
 		g_signal_emit (G_OBJECT (model), 
 			       eog_model_signals[IMAGE_ADDED], 0, image, (int) g_list_index (priv->image_list, image));
@@ -380,7 +395,7 @@ eog_collection_model_add_uri (EogCollectionModel *model,
 			g_idle_add ((GtkFunction) real_file_loading, ctx);
 		else {
 			loading_context_free (ctx);
-			g_warning (_("Can't handle URI: %s"), text_uri);
+			g_warning ("Can't handle URI: %s", text_uri);
 			return;
 		}
 	} else {

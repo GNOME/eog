@@ -1,3 +1,20 @@
+2003-03-11  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.[ch] (eog_image_dispose): Free caption and
+	caption_key.
+	(eog_image_get_caption): Save caption string for further
+	use. Assure that it's a proper UTF-8 string.
+	(eog_image_get_collate_key): New function, returns a key for fast
+	compare of UTF strings.
+	
+	* collection/eog-collection-item.c
+	(eog_collection_item_construct): Don't free caption string.
+
+	* collection/eog-collection-model.c (compare_filename_cb): New
+	function.
+	(real_dir_loading): Sort image list.
+	(real_file_loading): Insert image into sorted list.
+
 2003-03-10  Jens Finke  <jens@triq.net>
 
 	* collection/eog-wrap-list.c (ensure_item_is_visible): Removed

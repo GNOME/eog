@@ -32,6 +32,9 @@ struct _EogImagePrivate {
 	gint thumbnail_id;
 	
 	gboolean modified;
+
+	gchar *caption;
+	gchar *caption_key;
 };
 
 enum {
@@ -274,6 +277,16 @@ eog_image_dispose (GObject *object)
 	if (priv->image) {
 		g_object_unref (priv->image);
 		priv->image = NULL;
+	}
+
+	if (priv->caption) {
+		g_free (priv->caption);
+		priv->caption = NULL;
+	}
+
+	if (priv->caption_key) {
+		g_free (priv->caption_key);
+		priv->caption_key = NULL;
 	}
 }
 
@@ -857,7 +870,20 @@ eog_image_get_caption (EogImage *img)
 
 	if (priv->uri == NULL) return NULL;
 
-	return gnome_vfs_uri_extract_short_name (priv->uri);
+	if (priv->caption == NULL) {
+		char *short_str;
+
+		short_str = gnome_vfs_uri_extract_short_name (priv->uri);
+		if (g_utf8_validate (short_str, -1, NULL)) {
+			priv->caption = g_strdup (short_str);
+		}
+		else {
+			priv->caption = g_filename_to_utf8 (short_str, -1, NULL, NULL, NULL);
+		}
+		g_free (short_str);
+	}
+	
+	return priv->caption;
 }
 
 void
@@ -873,4 +899,23 @@ eog_image_free_mem (EogImage *img)
 		gdk_pixbuf_unref (priv->image);
 		priv->image = NULL;
 	}
+}
+
+const gchar*        
+eog_image_get_collate_key (EogImage *img)
+{
+	EogImagePrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+	
+	priv = img->priv;
+
+	if (priv->caption_key == NULL) {
+		char *caption;
+
+		caption = eog_image_get_caption (img);
+		priv->caption_key = g_utf8_collate_key (caption, -1);
+	}
+
+	return priv->caption_key;
 }

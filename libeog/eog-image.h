@@ -78,6 +78,7 @@ GdkPixbuf*          eog_image_get_pixbuf_thumbnail            (EogImage *img);
 void                eog_image_get_size                        (EogImage *img, int *width, int *height);
 gboolean            eog_image_is_modified                     (EogImage *img);
 gchar*              eog_image_get_caption                     (EogImage *img);
+const gchar*        eog_image_get_collate_key                 (EogImage *img);
 
 /* modification API */
 void                eog_image_rotate_clock_wise               (EogImage *img);
