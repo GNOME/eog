@@ -4,7 +4,9 @@
 
 %define ver      @VERSION@
 %define rel      1
-%define prefix   @prefix@
+%define prefix        %{_prefix}
+%define sysconfdir    %{_sysconfdir}
+%define localstatedir %{_localstatedir}
 %define name	 @PACKAGE@
 
 Summary: Eye Of Gnome
@@ -17,7 +19,7 @@ Source: ftp://ftp.gnome.org/pub/GNOME/unstable/sources/eog/eog-%{ver}.tar.gz
 BuildRoot: /var/tmp/eog
 Obsoletes: eog
 Packager: Federico Mena-Quintero <federico@gnu.org>
-URL: http://www.gnome.org
+URL: http://www.gnome.org/gnome-office/eog.shtml
 Prereq: /sbin/install-info
 Prefix: %{prefix}
 Docdir: %{prefix}/doc
@@ -35,11 +37,17 @@ program.
 
 %changelog
 
+* Sun Feb 25 2001  Jens Finke <jens@gnome.org>
+
+- Added glade and gconf schema files.
+- Removed /etc/CORBA/* from the files section.
+- Make use of _prefix, _sysconfdir and _localstatedir variables.
+- Updated URL.
+
 * Mon Sep 04 2000  Federico Mena Quintero  <federico@helixcode.com>
 
 - Updated the spec file; it is still not guaranteed to work out of the
   box.
-
 
 * Sun Jun 11 2000  Eskil Heyn Olsen <deity@eazel.com>
 
@@ -89,4 +97,5 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/share/locale/*
 %{prefix}/share/oaf/*
 %{prefix}/share/gnome/help/*
-%config /etc/CORBA/*
+%{prefix}/share/eog/glade/*
+%{sysconfdir}/gconf/schemas/*
