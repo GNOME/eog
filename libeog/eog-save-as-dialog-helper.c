@@ -99,7 +99,7 @@ on_browse_button_clicked (GtkWidget *widget, gpointer data)
 	if (response == GTK_RESPONSE_OK) {
 		char *folder;
 
-		folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (browse_dlg));
+		folder = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (browse_dlg));
 		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), folder);
 		gtk_editable_set_position (GTK_EDITABLE (sd->dir_entry), -1);
 
