@@ -90,12 +90,12 @@ prefs_init (void)
 	prefs_full_screen_zoom = gconf_client_get_int (
 		client, "/apps/eog/full_screen/zoom",
 		NULL); /* fit default=0 */
-//	prefs_full_screen_fit_standard = gconf_client_get_bool (
-//		client, "/apps/eog/full_screen/fit_standard",
-//		NULL); /* true default=1 */
-//	prefs_full_screen_bevel = gconf_client_get_bool (
-//		client, "/apps/eog/full_screen/bevel",
-//		NULL); /* false default=0 */
+	/*  	prefs_full_screen_fit_standard = gconf_client_get_bool (
+  		client, "/apps/eog/full_screen/fit_standard",
+  		NULL); /* true default=1 */
+	/* 	prefs_full_screen_bevel = gconf_client_get_bool (
+  		client, "/apps/eog/full_screen/bevel",
+  		NULL); /* false default=0 */
 }
 
 /* Glade definition and contents of the preferences dialog */
