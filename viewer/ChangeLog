@@ -1,3 +1,14 @@
+2001-05-21  Jens Finke <jens@gnome.org>
+
+	* eog-image-view.c: Added three new read-only properties:
+	'image_width', 'image_height' and 'bonobo:title'.
+	(eog_image_view_get_prop): Added handler for the new properties.
+	(eog_image_view_construct): Add new properties to the
+	property_bag.
+
+	* eog-image.c (load_image_from_file): Initialise filename in the
+	Image-struct.
+	
 2001-05-18  Jens Finke <jens@gnome.org>
 
 	* eog-image-view.c (image_set_image_cb): Enlarge window to image

@@ -50,7 +50,10 @@ enum {
 	PROP_INTERPOLATION,
 	PROP_DITHER,
 	PROP_CHECK_TYPE,
-	PROP_CHECK_SIZE
+	PROP_CHECK_SIZE,
+	PROP_IMAGE_WIDTH,
+	PROP_IMAGE_HEIGHT,
+	PROP_BONOBO_TITLE
 };
 
 enum {
@@ -1045,6 +1048,55 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		* (GNOME_EOG_CheckSize *) arg->_value = eog_check_size;
 		break;
 	}
+	case PROP_IMAGE_WIDTH: {
+		Image *img; 
+
+		g_assert (arg->_type == BONOBO_ARG_INT);
+
+		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		if (img->pixbuf) 
+			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_width (img->pixbuf));
+		else
+			BONOBO_ARG_SET_INT (arg, 0);
+		break;
+	}
+	case PROP_IMAGE_HEIGHT: {
+		Image *img; 
+
+		g_assert (arg->_type == BONOBO_ARG_INT);
+
+		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		if (img->pixbuf) 
+			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_height (img->pixbuf));
+		else
+			BONOBO_ARG_SET_INT (arg, 0);
+		break;
+	}
+	case PROP_BONOBO_TITLE: {
+		gchar *title;
+		gchar *buffer = NULL;
+		Image *img;
+
+		g_assert (arg->_type == BONOBO_ARG_STRING);
+		
+		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		
+		if (img != NULL && img->filename != NULL) {
+			if (img->pixbuf) {
+				buffer = g_new0 (gchar, 14);
+				g_snprintf (buffer, 12, "(%ix%i)", 
+					    gdk_pixbuf_get_width (img->pixbuf),
+					    gdk_pixbuf_get_height (img->pixbuf));
+				title = g_strconcat (img->filename, " ", buffer, NULL);
+			} else
+				title = g_strdup (img->filename);
+
+			BONOBO_ARG_SET_STRING (arg, title);
+			g_free (title);
+		} else 
+			BONOBO_ARG_SET_STRING (arg, "");
+		break;
+	}
 	default:
 		g_assert_not_reached ();
 	}
@@ -1639,6 +1691,15 @@ eog_image_view_construct (EogImageView       *image_view,
 	bonobo_property_bag_add (image_view->priv->property_bag, "check_size", PROP_CHECK_SIZE,
 				 TC_GNOME_EOG_CheckSize, NULL, _("Check Size"), 
 				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
+	bonobo_property_bag_add (image_view->priv->property_bag, "image_width", PROP_IMAGE_WIDTH,
+				 BONOBO_ARG_INT, NULL, _("Image Width"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (image_view->priv->property_bag, "image_height", PROP_IMAGE_HEIGHT,
+				 BONOBO_ARG_INT, NULL, _("Image Height"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (image_view->priv->property_bag, "bonobo:title", PROP_BONOBO_TITLE,
+				 BONOBO_ARG_STRING, NULL, _("Bonobo Title"),
+				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */
 

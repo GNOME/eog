@@ -260,6 +260,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,
 
 	image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
+	image->priv->image->filename = g_strdup (g_basename (filename));
 
 	gtk_signal_emit (GTK_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL]);
 
@@ -421,3 +422,5 @@ eog_image_save_to_stream (EogImage *image, BonoboStream *stream,
 	
 	save_image_to_stream (NULL, BONOBO_OBJREF (stream), type, image, ev);
 }
+
+
