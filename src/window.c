@@ -161,7 +161,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			_("Copyright (C) 2000 The Free Software Foundation"),
+			_("Copyright (C) 2000-2001 The Free Software Foundation"),
 			authors,
 			_("The GNOME image viewing and cataloging program"),
 			NULL);
