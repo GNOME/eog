@@ -1,3 +1,9 @@
+2001-03-16  Michael Meeks  <michael@ximian.com>
+
+	* eog-image-view.c (eog_image_view_construct): Use Bilinear as the
+	default interpolation type - Hyperbolic is buggy at ~1.0 zoom levels,
+	no crashes - just a tartan texture.
+
 2001-03-01  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
 	* eog-image-view-ui.xml: Added 'FileOperations' placeholder and
