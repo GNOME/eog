@@ -1,3 +1,9 @@
+2002-05-15  Federico Mena Quintero  <federico@ximian.com>
+
+	* viewer/eog-image-io.c (eog_image_save_png): We don't need to
+	tell libpng to flip bytes around as pixbufs are always in RGB or
+	RGBA order in memory.  Fixes #76239.
+
 2002-05-14  Federico Mena Quintero  <federico@ximian.com>
 
 	* viewer/eog-control.c (eog_control_construct): Do not set the

@@ -69,7 +69,7 @@ rgbhash (rgbkey *c)
 	return ((guint)c->r) ^ ((guint)c->g) ^ ((guint)c->b);
 }
 
-static guint 
+static guint
 compare (rgbkey *c1,
 	 rgbkey *c2)
 {
@@ -86,16 +86,16 @@ set_XpmImage (XpmColor *array,
 
 	indtemp = ie_index;
 	array[ie_index].string = p = g_new (gchar, cpp+1);
-  
+
 	/*convert the index number to base sizeof(linenoise)-1 */
 	for(i=0; i<cpp; ++i) {
 		charnum = indtemp%(sizeof(linenoise)-1);
 		indtemp = indtemp / (sizeof (linenoise)-1);
 		*p++=linenoise[charnum];
 	}
-  
+
 	*p = '\0'; /* C and its stupid null-terminated strings...*/
-  
+
 	array[ie_index].symbolic = NULL;
 	array[ie_index].m_color = NULL;
 	array[ie_index].g4_color = NULL;
@@ -165,16 +165,16 @@ eog_image_save_xpm (EogImage *eog_image, Bonobo_Stream stream,
 	for (y = 0; y < height; y++) {
 		guint *idata = ibuff + (y * width);
 		row = pixels + (y * rowstride);
-    
+
 		for (x = 0; x < width; x++) {
 			rgbkey *key = g_new (rgbkey, 1);
 			guchar a;
-      
+
 			key->r = *(row++);
 			key->g = *(row++);
 			key->b = *(row++);
 			a = has_alpha ? *(row++) : 255;
-      
+
 			if (a < 127)
 				*(idata++) = 0;
 			else {
@@ -189,12 +189,12 @@ eog_image_save_xpm (EogImage *eog_image, Bonobo_Stream stream,
 			}
 		}
 	}
-  
+
 	colormap = g_new (XpmColor, ncolors);
 	cpp = (double)1.0 + (double)log (ncolors) / (double)log (sizeof (linenoise) - 1.0);
-  
+
 	set_XpmImage (colormap, 0, "None");
-  
+
 	g_hash_table_foreach (hash, create_colormap_from_hash, colormap);
 
 	image = g_new (XpmImage, 1);
@@ -210,7 +210,7 @@ eog_image_save_xpm (EogImage *eog_image, Bonobo_Stream stream,
 	if (!retval)
 	    bonobo_stream_client_write (stream, data, strlen (data)+1, ev);
 	XpmFree (data);
-  
+
 	g_free (ibuff);
 	g_hash_table_foreach (hash, free_hash_table, NULL);
 	g_hash_table_destroy (hash);
@@ -292,10 +292,10 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	GdkPixbuf *pixbuf;
 	png_structp png_ptr;
 	png_infop info_ptr;
-	png_bytep row_ptr, data = NULL;
+	png_bytep row_ptr;
 	png_color_8 sig_bit;
 	png_text text;
-	int x, y, j;
+	int y;
 	int bpc, has_alpha;
 	BStreamData sdata;
 
@@ -327,7 +327,7 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 		g_object_unref (pixbuf);
 		return FALSE;
 	}
-  
+
 	if (setjmp (png_ptr->jmpbuf)) {
 		png_destroy_write_struct (&png_ptr, &info_ptr);
 		g_object_unref (pixbuf);
@@ -345,21 +345,15 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
 	has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
 
-	if (has_alpha) {
+	if (has_alpha)
 		png_set_IHDR (png_ptr, info_ptr, width, height, bpc,
 			      PNG_COLOR_TYPE_RGB_ALPHA, PNG_INTERLACE_NONE,
 			      PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
-#ifdef WORDS_BIGENDIAN
-		png_set_swap_alpha (png_ptr);
-#else
-		png_set_bgr (png_ptr);
-#endif
-	} else {
+	else
 		png_set_IHDR (png_ptr, info_ptr, width, height, bpc,
 			      PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
 			      PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
-		data = g_malloc (width * 3 * sizeof(char));
-	}
+
 	sig_bit.red = bpc;
 	sig_bit.green = bpc;
 	sig_bit.blue = bpc;
@@ -377,19 +371,10 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	png_set_packing (png_ptr);
 
 	for (y = 0; y < height; y++) {
-		if (has_alpha)
-			row_ptr = (png_bytep)pixels;
-		else {
-			for (j = 0, x = 0; x < width; x++)
-				memcpy (&(data [x * 3]), &(pixels [x * 3]), 3);
-
-			row_ptr = (png_bytep)data;
-		}
+		row_ptr = (png_bytep) (pixels + y * rowstride);
 		png_write_rows (png_ptr, &row_ptr, 1);
-		pixels += rowstride;
 	}
 
-	g_free (data);
 	png_write_end (png_ptr, info_ptr);
 	png_destroy_write_struct (&png_ptr, (png_infopp) NULL);
 
@@ -526,9 +511,9 @@ static void
 fatal_error_handler (j_common_ptr cinfo)
 {
 	struct error_handler_data *errmgr;
-        
+
 	errmgr = (struct error_handler_data *) cinfo->err;
-        
+
 	siglongjmp (errmgr->setjmp_buffer, 1);
 
         g_assert_not_reached ();
@@ -568,7 +553,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 	pixbuf = eog_image_get_pixbuf (eog_image);
 	if (pixbuf == NULL)
 		return FALSE;
-     
+
 	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
 
 	w = gdk_pixbuf_get_width (pixbuf);
@@ -588,7 +573,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 	jpeg_create_compress (&cinfo);
 	cinfo.image_width      = w;
 	cinfo.image_height     = h;
-	cinfo.input_components = 3; 
+	cinfo.input_components = 3;
 	cinfo.in_color_space   = JCS_RGB;
 
 	/* set up our destination manager */
@@ -605,7 +590,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 	/* set up error handling */
 	jerr.pub.error_exit = fatal_error_handler;
 	jerr.pub.output_message = output_message_handler;
-       
+
 	cinfo.err = jpeg_std_error (&(jerr.pub));
 	if (sigsetjmp (jerr.setjmp_buffer, 1)) {
 		jpeg_destroy_compress (&cinfo);
@@ -635,9 +620,9 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 		i++;
 		y++;
 	}
-       
+
 	/* finish off */
-	jpeg_finish_compress (&cinfo);   
+	jpeg_finish_compress (&cinfo);
 	g_object_unref (pixbuf);
 	free (buf);
 
