@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-23 14:16+0100\n"
-"PO-Revision-Date: 2003-12-23 21:05+0100\n"
+"POT-Creation-Date: 2003-12-31 19:21+0100\n"
+"PO-Revision-Date: 2003-12-31 22:42+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -308,38 +308,44 @@ msgstr "Zapouzdřený obrázek EOG"
 msgid "Image"
 msgstr "Obrázek"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Chcete přepsat %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr "Soubor existuje"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
 msgstr "Všechny obrázky"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s × %s pixelů"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Načíst obrázek"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
 msgstr "Otevřít adresář"
 
@@ -814,12 +820,6 @@ msgstr "Požadovaná výška okna"
 
 #~ msgid "By Extension"
 #~ msgstr "Podle přípony"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "Formát souboru nepodporovaný pro ukládání."
-
-#~ msgid "Determine File Type:"
-#~ msgstr "Určit typ souboru:"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "Automaticky zvolit velikost okna"
