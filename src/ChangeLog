@@ -1,5 +1,14 @@
 1999-11-18  Federico Mena Quintero  <federico@redhat.com>
 
+	* testicon.c: New test program for the icon view widget.
+
+	* gnome-wrap-list.c (bm_update_data): Set the translation affine
+	of the items.
+
+	* gnome-icon-item-factory.c (ii_factory_configure_item): Added a
+	missing NULL terminator.
+	(ii_factory_create_item): Do not hide the image and the caption.
+
 	* gnome-icon-view.[ch]: New files with the icon view widget.
 
 	* gnome-list-view.c (gnome_list_view_class_init): Per Owen's

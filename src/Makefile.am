@@ -7,24 +7,6 @@ INCLUDES =						\
 	-DG_LOG_DOMAIN=\"eog\"
 
 eog_SOURCES =				\
-	gnome-icon-item-factory.c	\
-	gnome-icon-item-factory.h	\
-	gnome-icon-list-model.c		\
-	gnome-icon-list-model.h		\
-	gnome-icon-view.c		\
-	gnome-icon-view.h		\
-	gnome-list-item-factory.c	\
-	gnome-list-item-factory.h	\
-	gnome-list-model.c		\
-	gnome-list-model.h		\
-	gnome-list-selection-model.c	\
-	gnome-list-selection-model.h	\
-	gnome-list-view.c		\
-	gnome-list-view.h		\
-	gnome-position-list-model.c	\
-	gnome-position-list-model.h	\
-	gnome-wrap-list.c		\
-	gnome-wrap-list.h		\
 	commands.c			\
 	commands.h			\
 	cursors.c			\
@@ -51,8 +33,35 @@ eog_SOURCES =				\
 	zoom.c				\
 	zoom.h
 
+testicon_SOURCES =			\
+	gnome-icon-item-factory.c	\
+	gnome-icon-item-factory.h	\
+	gnome-icon-list-model.c		\
+	gnome-icon-list-model.h		\
+	gnome-icon-view.c		\
+	gnome-icon-view.h		\
+	gnome-list-item-factory.c	\
+	gnome-list-item-factory.h	\
+	gnome-list-model.c		\
+	gnome-list-model.h		\
+	gnome-list-selection-model.c	\
+	gnome-list-selection-model.h	\
+	gnome-list-view.c		\
+	gnome-list-view.h		\
+	gnome-position-list-model.c	\
+	gnome-position-list-model.h	\
+	gnome-wrap-list.c		\
+	gnome-wrap-list.h		\
+	testicon.c
+
 eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\
 	$(INTLLIBS)
 
+testicon_LDADD =		\
+	$(EXTRA_GNOME_LIBS)	\
+	$(INTLLIBS)
+
 bin_PROGRAMS = eog
+
+noinst_PROGRAMS = testicon

@@ -339,6 +339,8 @@ bm_update_data (GnomeWrapList *wlist)
 	if (!(priv->need_factory_update || priv->need_data_update))
 		return;
 
+	g_print ("really updating!\n");
+
 	bm_compute_layout (wlist, &l);
 
 	/* If the item factory or the number of items per block changed, we need
@@ -432,6 +434,8 @@ bm_update_data (GnomeWrapList *wlist)
 		if (factory) {
 			gboolean is_selected;
 			gboolean is_focused;
+			int pos_minor, pos_major;
+			double affine[6];
 
 			if (!priv->u.bm.items[update_index + i])
 				priv->u.bm.items[update_index + i] =
@@ -452,6 +456,26 @@ bm_update_data (GnomeWrapList *wlist)
 				update_first + i,
 				is_selected,
 				is_focused);
+
+			pos_minor = (update_first + i) % priv->u.bm.items_per_block;
+			pos_major = (update_first + i) / priv->u.bm.items_per_block;
+
+			pos_minor *= l.item_minor + l.space_minor;
+			pos_major *= l.item_major + l.space_major;
+
+			if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR)
+				art_affine_translate (affine, pos_minor, pos_major);
+			else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
+				art_affine_translate (affine, pos_major, pos_minor);
+			else
+				g_assert_not_reached ();
+
+			g_print ("putting item %d at coords (%d, %d)\n",
+				 update_first + i,
+				 pos_minor, pos_major);
+
+			gnome_canvas_item_affine_absolute (priv->u.bm.items[update_index + i],
+							   affine);
 		} else if (priv->u.bm.items[update_index + i]) {
 			gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[update_index + i]));
 			priv->u.bm.items[update_index + i] = NULL;
@@ -484,6 +508,8 @@ update (gpointer data)
 	WrapListPrivate *priv;
 
 	GDK_THREADS_ENTER ();
+
+	g_print ("updating!\n");
 
 	wlist = GNOME_WRAP_LIST (data);
 	priv = wlist->priv;

@@ -213,7 +213,6 @@ ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent)
 	icon->image = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 					     GNOME_TYPE_CANVAS_PIXBUF,
 					     NULL);
-	gnome_canvas_item_hide (icon->image);
 
 	icon->sel_image = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 						 GNOME_TYPE_CANVAS_RECT,
@@ -230,7 +229,6 @@ ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent)
 	icon->caption = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 					       GNOME_TYPE_CANVAS_TEXT,
 					       NULL);
-	gnome_canvas_item_hide (icon->caption);
 
 	icon->focus_caption = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 						     GNOME_TYPE_CANVAS_RECT,
@@ -358,7 +356,8 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	else
 		gnome_canvas_item_set (icon->image,
 				       "width_set", FALSE,
-				       "height_set", FALSE);
+				       "height_set", FALSE,
+				       NULL);
 
 	/* Configure caption */
 
