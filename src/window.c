@@ -392,11 +392,11 @@ static GnomeUIInfo zoom_menu[] = {
 };
 
 static GnomeUIInfo view_menu[] = {
-	{ GNOME_APP_UI_ITEM, N_("Zoom In"), N_("Increase zoom factor by 5%"),
+	{ GNOME_APP_UI_ITEM, N_("Zoom In"), N_("Increase zoom factor by 5%%"),
 	  cmd_cb_zoom_in, NULL, NULL,
 	  GNOME_APP_PIXMAP_NONE, NULL,
 	  '=', 0, NULL },
-	{ GNOME_APP_UI_ITEM, N_("Zoom Out"), N_("Decrease zoom factor by 5%"),
+	{ GNOME_APP_UI_ITEM, N_("Zoom Out"), N_("Decrease zoom factor by 5%%"),
 	  cmd_cb_zoom_out, NULL, NULL,
 	  GNOME_APP_PIXMAP_NONE, NULL,
 	  '-', 0, NULL },
