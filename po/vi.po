@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-09-06 03:27+0200\n"
-"PO-Revision-Date: 2003-09-06 17:21+0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-09-28 11:24+0200\n"
+"PO-Revision-Date: 2003-10-01 20:45+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -100,15 +101,15 @@ msgstr "Cho vào thùng rác"
 msgid "Collection View"
 msgstr "Cửa sổ Tập hợp"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1281 viewer/eog-image-view.c:1342
 msgid "Window Title"
 msgstr "Tựa đề cửa sổ"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1284
 msgid "Status Text"
 msgstr "Tình trạng"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1287 viewer/eog-image-view.c:1354
 msgid "Progress of Image Loading"
 msgstr "Tiến trình nạp ảnh"
 
@@ -202,7 +203,10 @@ msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
-msgstr "Xác định cách chỉ thị trong suốt. Giá trị hợp lệ là CHECK_PATTERN, COLOR và NONE. Nếu chọn COLOR, thì khóa trans_color sẽ xác định giá trị màu trong suốt."
+msgstr ""
+"Xác định cách chỉ thị trong suốt. Giá trị hợp lệ là CHECK_PATTERN, COLOR và "
+"NONE. Nếu chọn COLOR, thì khóa trans_color sẽ xác định giá trị màu trong "
+"suốt."
 
 #: eog.schemas.in.h:2
 msgid ""
@@ -287,15 +291,15 @@ msgstr "Lưu ảnh"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Không thể cấp phát bộ nhớ để nạp ảnh JPEG"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:1341
 msgid "No image loaded."
 msgstr "Chưa nạp ảnh."
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1350
 msgid "Images can only be saved as local files."
 msgstr "Chỉ có thể lưu ảnh thành tập tin cục bộ."
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1385
 msgid "Unsupported image type for saving."
 msgstr "Dạng thức ảnh chưa được hỗ trợ lưu ảnh."
 
@@ -326,7 +330,7 @@ msgid "Page"
 msgstr "Trang"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:377
 msgid "Preview"
 msgstr "Xem trước"
 
@@ -514,10 +518,12 @@ msgstr "T_hoát"
 #.
 #: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Nguyễn Thái Ngọc Duy"
+msgstr ""
+"Nguyễn Thái Ngọc Duy\n"
+"Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 
 #: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:869 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Mắt Gnome"
 
@@ -555,7 +561,7 @@ msgstr "Cửa sổ đơn"
 msgid "Collection"
 msgstr "Tập hợp"
 
-#: shell/main.c:305
+#: shell/main.c:308
 msgid "Could not find files"
 msgstr "Không thể tìm tập tin"
 
@@ -636,40 +642,40 @@ msgstr "_Toàn màn hình"
 msgid "_Print..."
 msgstr "_In..."
 
-#: viewer/eog-image-view.c:811
+#: viewer/eog-image-view.c:812
 msgid "/Rotate C_lockwise"
 msgstr "/Quay theo chiều _kim đồng hồ"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:814
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Quay n_gược chiều kim đồng hồ"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:817
 msgid "/_Zoom In"
 msgstr "/Phóng _to"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:819
 msgid "/Zoom _Out"
 msgstr "/Thu _nhỏ"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:821
 msgid "/_Normal Size"
 msgstr "/_Cỡ bình thường"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:823
 msgid "/Best _Fit"
 msgstr "/Vừa khít _nhất"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:826
 msgid "/_Close"
 msgstr "/Đón_g"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:989
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Nạp ảnh %s thất bại"
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:996
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -679,492 +685,495 @@ msgstr ""
 "Nguyên nhân: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1005
 msgid "Loading failed"
 msgstr "Nạp ảnh thất bại"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1088
 msgid "Image successfully saved"
 msgstr "Ảnh đã lưu xong"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1092
 msgid "Image saving failed"
 msgstr "Lưu ảnh thất bại"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1336
 msgid "Image Width"
 msgstr "Chiều rộng ảnh"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1339
 msgid "Image Height"
 msgstr "Chiều cao ảnh"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1345
 msgid "Statusbar Text"
 msgstr "Text thanh trạng thái"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Width"
 msgstr "Chiều rộng cửa sổ cần thiết"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1351
 msgid "Desired Window Height"
 msgstr "Chiều cao cửa sổ cần thiết"
 
-msgid "Automatically pick window size"
-msgstr "Tự động chọn kích thước cửa sổ"
-
-msgid "Default zoom factor for the full screen view"
-msgstr "Hệ số phóng mặc định trong chế độ toàn màn hình"
-
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Hệ số phóng mặc định trong chế độ toàn màn hình. Giá trị hợp lệ là: 0 (tỷ lệ "
-"1:1), 1 (cùng hệ số với cửa sổ ảnh), 2 (vừa khít với màn hình)."
-
-msgid "Fit standard-sized images to the screen"
-msgstr "Khít ảnh cỡ-chuẩn trên màn hình"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Tự động chọn kích thước cửa sổ"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Hệ số phóng mặc định trong chế độ toàn màn hình"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Hệ số phóng mặc định trong chế độ toàn màn hình. Giá trị hợp lệ là: 0 (tỷ "
+#~ "lệ 1:1), 1 (cùng hệ số với cửa sổ ảnh), 2 (vừa khít với màn hình)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Khít ảnh cỡ-chuẩn trên màn hình"
 
-msgid "Put a bevel around the screen"
-msgstr "Đặt bevel quanh màn hình"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Đặt bevel quanh màn hình"
 
-msgid "Scrollbar policy for the full screen view"
-msgstr "Cách cuộn trong chế độ toàn màn hình"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Cách cuộn trong chế độ toàn màn hình"
 
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Cửa sổ ảnh có nên tự điều chỉnh kích thước và hệ số phóng dựa trên kích "
-"thước ảnh hay không. Nếu tùy chọn này bật, cửa sổ ảnh sẽ chọn bất kỳ kích "
-"thước nào mà trình quản lý cửa sổ đặt chọn."
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Cửa sổ ảnh có nên tự điều chỉnh kích thước và hệ số phóng dựa trên kích "
+#~ "thước ảnh hay không. Nếu tùy chọn này bật, cửa sổ ảnh sẽ chọn bất kỳ kích "
+#~ "thước nào mà trình quản lý cửa sổ đặt chọn."
 
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Nên hiện bevel quanh các cạnh màn hình trong chế độ toàn màn hình không."
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Nên hiện bevel quanh các cạnh màn hình trong chế độ toàn màn hình không."
 
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Nên hiển thị thanh cuộn trong chế độ toàn màn hình không. Giá trị hợp lệ là: "
-"1 (tự động, chỉ hiện khi ảnh lớn hơn cửa sổ), 2 (không bao giờ hiện)."
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Nên hiển thị thanh cuộn trong chế độ toàn màn hình không. Giá trị hợp lệ "
+#~ "là: 1 (tự động, chỉ hiện khi ảnh lớn hơn cửa sổ), 2 (không bao giờ hiện)."
 
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Có nên đặt vừa khít ảnh kích thước chuẩn trên màn hình trong chế độ toàn màn "
-"hình hay không. Những ảnh này có kích thước 320x400, 640x480, 800x800 ... "
-"Tùy chọn này cho biết có nên co dãn ảnh cho khít màn hình, bất kỷ thiết lập "
-"hệ số phóng mặc định trong chế độ toàn màn hình hay không."
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Có nên đặt vừa khít ảnh kích thước chuẩn trên màn hình trong chế độ toàn "
+#~ "màn hình hay không. Những ảnh này có kích thước 320x400, 640x480, "
+#~ "800x800 ... Tùy chọn này cho biết có nên co dãn ảnh cho khít màn hình, "
+#~ "bất kỷ thiết lập hệ số phóng mặc định trong chế độ toàn màn hình hay "
+#~ "không."
 
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Không thể khởi động GnomeVFS!\n"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Không thể khởi động GnomeVFS!\n"
 
-msgid "pts"
-msgstr "pts"
+#~ msgid "pts"
+#~ msgstr "pts"
 
-msgid "points"
-msgstr "điểm"
+#~ msgid "points"
+#~ msgstr "điểm"
 
-msgid "mm"
-msgstr "mm"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-msgid "cm"
-msgstr "cm"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-msgid "centimeter"
-msgstr "centimét"
+#~ msgid "centimeter"
+#~ msgstr "centimét"
 
-msgid "inch"
-msgstr "inch"
+#~ msgid "inch"
+#~ msgstr "inch"
 
-msgid "Print Setup"
-msgstr "Thiết lập in"
+#~ msgid "Print Setup"
+#~ msgstr "Thiết lập in"
 
-msgid "Print"
-msgstr "In"
+#~ msgid "Print"
+#~ msgstr "In"
 
-msgid "Print preview"
-msgstr "Xem thử bản in"
+#~ msgid "Print preview"
+#~ msgstr "Xem thử bản in"
 
-msgid "Units: "
-msgstr "Đơn vị: "
+#~ msgid "Units: "
+#~ msgstr "Đơn vị: "
 
-msgid "Paper size:"
-msgstr "Cỡ giấy:"
+#~ msgid "Paper size:"
+#~ msgstr "Cỡ giấy:"
 
-msgid "Orientation"
-msgstr "Hướng"
+#~ msgid "Orientation"
+#~ msgstr "Hướng"
 
-msgid "Portrait"
-msgstr "Đứng"
+#~ msgid "Portrait"
+#~ msgstr "Đứng"
 
-msgid "Landscape"
-msgstr "Ngang"
+#~ msgid "Landscape"
+#~ msgstr "Ngang"
 
-msgid "Top:"
-msgstr "Đỉnh:"
+#~ msgid "Top:"
+#~ msgstr "Đỉnh:"
 
-msgid "Left:"
-msgstr "Trái:"
+#~ msgid "Left:"
+#~ msgstr "Trái:"
 
-msgid "Right:"
-msgstr "Phải:"
+#~ msgid "Right:"
+#~ msgstr "Phải:"
 
-msgid "Bottom:"
-msgstr "Đáy:"
+#~ msgid "Bottom:"
+#~ msgstr "Đáy:"
 
-msgid "Overlap horizontally by "
-msgstr "Đè theo chiều ngang bởi "
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Đè theo chiều ngang bởi "
 
-msgid "Overlap vertically by "
-msgstr "Đè theo chiều dọc bởi "
+#~ msgid "Overlap vertically by "
+#~ msgstr "Đè theo chiều dọc bởi "
 
-msgid "Printing"
-msgstr "Đang in"
+#~ msgid "Printing"
+#~ msgstr "Đang in"
 
-msgid "Helpers"
-msgstr "Bộ trợ giúp"
+#~ msgid "Helpers"
+#~ msgstr "Bộ trợ giúp"
 
-msgid "Eye of Gnome Image Viewer"
-msgstr "Trình xem ảnh \"Mắt Gnome\""
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Trình xem ảnh \"Mắt Gnome\""
 
-msgid "By c_olor"
-msgstr "Theo _màu"
+#~ msgid "By c_olor"
+#~ msgstr "Theo _màu"
 
-msgid "Indicate Transparency"
-msgstr "Chỉ thị trong suốt"
+#~ msgid "Indicate Transparency"
+#~ msgstr "Chỉ thị trong suốt"
 
-msgid "Pick a color"
-msgstr "Chọn màu"
+#~ msgid "Pick a color"
+#~ msgstr "Chọn màu"
 
-msgid "interpolation type"
-msgstr "loại nội suy"
+#~ msgid "interpolation type"
+#~ msgstr "loại nội suy"
 
-msgid "the type of interpolation to use"
-msgstr "loại nội suy cần dùng"
+#~ msgid "the type of interpolation to use"
+#~ msgstr "loại nội suy cần dùng"
 
-msgid "check type"
-msgstr "kiểm tra loại"
+#~ msgid "check type"
+#~ msgstr "kiểm tra loại"
 
-msgid "dither"
-msgstr "dither"
+#~ msgid "dither"
+#~ msgstr "dither"
 
-msgid "dither type"
-msgstr "loại dither"
+#~ msgid "dither type"
+#~ msgstr "loại dither"
 
-msgid "BMP"
-msgstr "BMP"
+#~ msgid "BMP"
+#~ msgstr "BMP"
 
-msgid "GIF"
-msgstr "GIF"
+#~ msgid "GIF"
+#~ msgstr "GIF"
 
-msgid "ICO"
-msgstr "ICO"
+#~ msgid "ICO"
+#~ msgstr "ICO"
 
-msgid "JPEG"
-msgstr "JPEG"
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
 
-msgid "PNG"
-msgstr "PNG"
+#~ msgid "PNG"
+#~ msgstr "PNG"
 
-msgid "PNM"
-msgstr "PNM"
+#~ msgid "PNM"
+#~ msgstr "PNM"
 
-msgid "RAS"
-msgstr "RAS"
+#~ msgid "RAS"
+#~ msgstr "RAS"
 
-msgid "SVG"
-msgstr "SVG"
+#~ msgid "SVG"
+#~ msgstr "SVG"
 
-msgid "TGA"
-msgstr "TGA"
+#~ msgid "TGA"
+#~ msgstr "TGA"
 
-msgid "TIFF"
-msgstr "TIFF"
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
 
-msgid "XBM"
-msgstr "XBM"
+#~ msgid "XBM"
+#~ msgstr "XBM"
 
-msgid "XPM"
-msgstr "XPM"
+#~ msgid "XPM"
+#~ msgstr "XPM"
 
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Bạn định mở %i cửa sổ đồng\n"
-"thời. Bạn có muốn tiếp tục?"
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Bạn định mở %i cửa sổ đồng\n"
+#~ "thời. Bạn có muốn tiếp tục?"
 
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Không thể truy cập %s\n"
-"Mắt Gnome sẽ không thể hiển thị tập tin này."
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "Không thể truy cập %s\n"
+#~ "Mắt Gnome sẽ không thể hiển thị tập tin này."
 
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"Không thể hiển thị những tập tin sau vì Mắt Gnome không thể truy cập chúng:\n"
-"%s"
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Không thể hiển thị những tập tin sau vì Mắt Gnome không thể truy cập "
+#~ "chúng:\n"
+#~ "%s"
 
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Không thể khởi động GnomeVFS!\n"
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "Không thể khởi động GnomeVFS!\n"
 
-msgid "Could not initialize Bonobo!\n"
-msgstr "Không thể khởi động Bonobo!\n"
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Không thể khởi động Bonobo!\n"
 
-msgid "Could not save image as '%s': %s."
-msgstr "Không thể lưu ảnh vào '%s': %s."
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Không thể lưu ảnh vào '%s': %s."
 
-msgid "_New Window"
-msgstr "Cửa _sổ mới"
+#~ msgid "_New Window"
+#~ msgstr "Cửa _sổ mới"
 
-msgid "Unable to open %s."
-msgstr "Không thể mở %s."
+#~ msgid "Unable to open %s."
+#~ msgstr "Không thể mở %s."
 
-msgid "1:1"
-msgstr "1:1"
+#~ msgid "1:1"
+#~ msgstr "1:1"
 
-msgid "Zoom _1:1"
-msgstr "Phóng _1:1"
+#~ msgid "Zoom _1:1"
+#~ msgstr "Phóng _1:1"
 
-msgid "Zoom to _Fit"
-msgstr "Cỡ ảnh vừa khít"
+#~ msgid "Zoom to _Fit"
+#~ msgstr "Cỡ ảnh vừa khít"
 
-msgid "Check _size"
-msgstr "Kiểm tra _kích thước"
+#~ msgid "Check _size"
+#~ msgstr "Kiểm tra _kích thước"
 
-msgid "Check _type"
-msgstr "Kiểm tra kiể_u"
+#~ msgid "Check _type"
+#~ msgstr "Kiểm tra kiể_u"
 
-msgid "Large"
-msgstr "Lớn"
+#~ msgid "Large"
+#~ msgstr "Lớn"
 
-msgid "Medium"
-msgstr "Vừa"
+#~ msgid "Medium"
+#~ msgstr "Vừa"
 
-msgid "Nea_rest Neighbour"
-msgstr "Điểm _gần nhất"
+#~ msgid "Nea_rest Neighbour"
+#~ msgstr "Điểm _gần nhất"
 
-msgid "Normal (_pseudocolor)"
-msgstr "Thường (màu _giả)"
+#~ msgid "Normal (_pseudocolor)"
+#~ msgstr "Thường (màu _giả)"
 
-msgid "Print Pre_view"
-msgstr "_Xem trước bản in"
+#~ msgid "Print Pre_view"
+#~ msgstr "_Xem trước bản in"
 
-msgid "Print S_etup"
-msgstr "Thiết lập in"
+#~ msgid "Print S_etup"
+#~ msgstr "Thiết lập in"
 
-msgid "Small"
-msgstr "Nhỏ"
+#~ msgid "Small"
+#~ msgstr "Nhỏ"
 
-msgid "_Bilinear"
-msgstr "_Song tuyến tính"
+#~ msgid "_Bilinear"
+#~ msgstr "_Song tuyến tính"
 
-msgid "_Black"
-msgstr "Đ_en"
+#~ msgid "_Black"
+#~ msgstr "Đ_en"
 
-msgid "_Dark"
-msgstr "_Sẫm"
+#~ msgid "_Dark"
+#~ msgstr "_Sẫm"
 
-msgid "_Dither"
-msgstr "_Dither"
+#~ msgid "_Dither"
+#~ msgstr "_Dither"
 
-msgid "_Gray"
-msgstr "_Xám"
+#~ msgid "_Gray"
+#~ msgstr "_Xám"
 
-msgid "_Hyperbolic"
-msgstr "_Hyperbol"
+#~ msgid "_Hyperbolic"
+#~ msgstr "_Hyperbol"
 
-msgid "_Interpolation"
-msgstr "_Nội suy"
+#~ msgid "_Interpolation"
+#~ msgstr "_Nội suy"
 
-msgid "_Light"
-msgstr "Sán_g"
+#~ msgid "_Light"
+#~ msgstr "Sán_g"
 
-msgid "_Maximum (high color)"
-msgstr "_Tối đa (high color)"
+#~ msgid "_Maximum (high color)"
+#~ msgstr "_Tối đa (high color)"
 
-msgid "_Midtone"
-msgstr "_Vừa"
+#~ msgid "_Midtone"
+#~ msgstr "_Vừa"
 
-msgid "_White"
-msgstr "T_rắng"
+#~ msgid "_White"
+#~ msgstr "T_rắng"
 
-msgid "/Zoom _1:1"
-msgstr "/Phóng _1:1"
+#~ msgid "/Zoom _1:1"
+#~ msgstr "/Phóng _1:1"
 
-msgid "Dither"
-msgstr "Dither"
+#~ msgid "Dither"
+#~ msgstr "Dither"
 
-msgid "Check Type"
-msgstr "Kiểm tra kiểu"
+#~ msgid "Check Type"
+#~ msgstr "Kiểm tra kiểu"
 
-msgid "Check Size"
-msgstr "Kiểm tra kích thước"
+#~ msgid "Check Size"
+#~ msgstr "Kiểm tra kích thước"
 
-msgid "Close"
-msgstr "Đóng"
+#~ msgid "Close"
+#~ msgstr "Đóng"
 
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
-msgstr ""
-"Không thể hiển thị trợ giúp cho hộp thoại thông số.\n"
-"%s"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Không thể hiển thị trợ giúp cho hộp thoại thông số.\n"
+#~ "%s"
 
-msgid "Change preferences"
-msgstr "Thay đổi thông số"
+#~ msgid "Change preferences"
+#~ msgstr "Thay đổi thông số"
 
-msgid "_Tiles"
-msgstr "_Lợp"
+#~ msgid "_Tiles"
+#~ msgstr "_Lợp"
 
-msgid "Display"
-msgstr "Hiển thị"
+#~ msgid "Display"
+#~ msgstr "Hiển thị"
 
-msgid "Nearest Neighbour Interpolation"
-msgstr "Nội suy điểm gần nhất"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Nội suy điểm gần nhất"
 
-msgid "Bilinear Interpolation"
-msgstr "Nội suy song tuyến tính"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Nội suy song tuyến tính"
 
-msgid "Hyperbolic Interpolation"
-msgstr "Nội suy hyperbol"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Nội suy hyperbol"
 
-msgid "No dithering"
-msgstr "Không dither"
+#~ msgid "No dithering"
+#~ msgstr "Không dither"
 
-msgid "Normal (pseudocolor) dithering"
-msgstr "Dither thường (màu giả)"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Dither thường (màu giả)"
 
-msgid "Maximum (high color) dithering"
-msgstr "Dither tối đa (high color)"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Dither tối đa (high color)"
 
-msgid "Dark"
-msgstr "Sẫm"
+#~ msgid "Dark"
+#~ msgstr "Sẫm"
 
-msgid "Midtone"
-msgstr "Vừa"
+#~ msgid "Midtone"
+#~ msgstr "Vừa"
 
-msgid "Black"
-msgstr "Đen"
+#~ msgid "Black"
+#~ msgstr "Đen"
 
-msgid "Gray"
-msgstr "Xám"
+#~ msgid "Gray"
+#~ msgstr "Xám"
 
-msgid "White"
-msgstr "Trắng"
+#~ msgid "White"
+#~ msgstr "Trắng"
 
-msgid "_Interpolation:"
-msgstr "_Nội suy:"
+#~ msgid "_Interpolation:"
+#~ msgstr "_Nội suy:"
 
-msgid "_Dither:"
-msgstr "_Dither:"
+#~ msgid "_Dither:"
+#~ msgstr "_Dither:"
 
-msgid "Check _type:"
-msgstr "Kiểm tra _loại:"
+#~ msgid "Check _type:"
+#~ msgstr "Kiểm tra _loại:"
 
-msgid "Check _size:"
-msgstr "Kiểm tra _cỡ:"
+#~ msgid "Check _size:"
+#~ msgstr "Kiểm tra _cỡ:"
 
-msgid "scroll"
-msgstr "cuộn"
+#~ msgid "scroll"
+#~ msgstr "cuộn"
 
-msgid "scroll type"
-msgstr "loại cuộn"
+#~ msgid "scroll type"
+#~ msgstr "loại cuộn"
 
-msgid "enable full screen zoom"
-msgstr "bật toàn màn hình"
+#~ msgid "enable full screen zoom"
+#~ msgstr "bật toàn màn hình"
 
-msgid "whether we should allow full screen zoom"
-msgstr "có nên cho phép xem toàn màn hình hay không"
+#~ msgid "whether we should allow full screen zoom"
+#~ msgstr "có nên cho phép xem toàn màn hình hay không"
 
-msgid "Translator Credits"
-msgstr "Nguyễn Thái Ngọc Duy"
+#~ msgid "Translator Credits"
+#~ msgstr "Nguyễn Thái Ngọc Duy"
 
-msgid "Control doesn't support window_title property."
-msgstr "Điều khiển không hỗ trợ thuộc tính window_title."
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính window_title."
 
-msgid "Control doesn't support status_text property."
-msgstr "Điều khiển không hỗ trợ thuộc tính status_text."
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính status_text."
 
-msgid "Control doesn't have properties"
-msgstr "Điều khiển không hỗ trợ thuộc tính"
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính"
 
-msgid "Couldn't retrieve mime type for file."
-msgstr "Không thể nhận kiểu MIME của tập tin"
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Không thể nhận kiểu MIME của tập tin"
 
-msgid "Error while obtaining file informations."
-msgstr "Lỗi khi lấy thông tin trong tập tin."
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Lỗi khi lấy thông tin trong tập tin."
 
-msgid "_Settings"
-msgstr "Thiết _lập"
+#~ msgid "_Settings"
+#~ msgstr "Thiết _lập"
 
-msgid "Check size large"
-msgstr "Kiểm tra cỡ lớn"
+#~ msgid "Check size large"
+#~ msgstr "Kiểm tra cỡ lớn"
 
-msgid "Check size medium"
-msgstr "Kiểm tra cỡ vừa"
+#~ msgid "Check size medium"
+#~ msgstr "Kiểm tra cỡ vừa"
 
-msgid "Check size small"
-msgstr "Kiểm tra cỡ nhỏ"
+#~ msgid "Check size small"
+#~ msgstr "Kiểm tra cỡ nhỏ"
 
-msgid "Check type _black"
-msgstr "Kiểm tra kiểu đen"
+#~ msgid "Check type _black"
+#~ msgstr "Kiểm tra kiểu đen"
 
-msgid "Check type _dark"
-msgstr "Kiểm tra kiểu tối"
+#~ msgid "Check type _dark"
+#~ msgstr "Kiểm tra kiểu tối"
 
-msgid "Check type _gray"
-msgstr "Kiểm tra kiểu xám"
+#~ msgid "Check type _gray"
+#~ msgstr "Kiểm tra kiểu xám"
 
-msgid "Check type _light"
-msgstr "Kiểm tra kiểu sáng"
+#~ msgid "Check type _light"
+#~ msgstr "Kiểm tra kiểu sáng"
 
-msgid "Check type _white"
-msgstr "Kiểm tra kiểu trắng"
+#~ msgid "Check type _white"
+#~ msgstr "Kiểm tra kiểu trắng"
 
-msgid "Save _As"
-msgstr "Lư_u là"
+#~ msgid "Save _As"
+#~ msgstr "Lư_u là"
 
-msgid "_Bilinear Interpolation"
-msgstr "_Nội suy song tuyến tính"
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "_Nội suy song tuyến tính"
 
-msgid "_No dithering"
-msgstr "_Không dither"
+#~ msgid "_No dithering"
+#~ msgstr "_Không dither"
 
-msgid "_Tiles Interpolation"
-msgstr "Nội suy _lợp"
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "Nội suy _lợp"
 
-msgid "Zoom to _Default"
-msgstr "Cỡ ảnh mặc định"
+#~ msgid "Zoom to _Default"
+#~ msgstr "Cỡ ảnh mặc định"
 
-msgid "Interpolation:"
-msgstr "Nội suy:"
+#~ msgid "Interpolation:"
+#~ msgstr "Nội suy:"
 
-msgid "Dither:"
-msgstr "Dither:"
+#~ msgid "Dither:"
+#~ msgstr "Dither:"
 
-msgid "Check Type:"
-msgstr "Kiểm tra kiểu:"
+#~ msgid "Check Type:"
+#~ msgstr "Kiểm tra kiểu:"
 
-msgid "Check Size:"
-msgstr "Kiểm tra cỡ:"
+#~ msgid "Check Size:"
+#~ msgstr "Kiểm tra cỡ:"
