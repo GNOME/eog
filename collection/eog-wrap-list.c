@@ -1,6 +1,6 @@
 /* Eog Of Gnome - view of the image collection
  *
- * Copyright (C) 2001 The Free Software Foundation
+ * Copyright (C) 2001-2003 The Free Software Foundation
  *
  * Author: Jens Finke <jens@gnome.org>
  *
@@ -573,6 +573,7 @@ model_prepared (EogCollectionModel *model, gpointer data)
 	priv->view_order = g_list_reverse (priv->view_order);
 	priv->n_items = g_list_length (priv->view_order);
 
+	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
 	request_update (wlist);
 	
 	for (it = priv->view_order; it != NULL; it = it->next) {
@@ -607,6 +608,7 @@ model_image_added (EogCollectionModel *model, EogImage *image, int position, gpo
 	priv->view_order = g_list_insert (priv->view_order, item, position);
 	priv->n_items = g_list_length (priv->view_order);
 
+	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
 	request_update (wlist);
 	
 	eog_collection_item_load (EOG_COLLECTION_ITEM (item));

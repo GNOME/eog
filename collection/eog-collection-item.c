@@ -117,8 +117,6 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 	image_width = gdk_pixbuf_get_width (pixbuf);
 	image_height = gdk_pixbuf_get_height (pixbuf);
 
-	g_print ("w: %i, h: %i\n", image_width, image_height);
-
 	if ((image_width > EOG_COLLECTION_ITEM_THUMB_WIDTH) ||
 	    (image_height > EOG_COLLECTION_ITEM_THUMB_HEIGHT))
 	{
@@ -221,8 +219,6 @@ thumbnail_finished_cb (EogImage *image, gpointer data)
 	GdkPixbuf *pixbuf;
 
 	priv = EOG_COLLECTION_ITEM (data)->priv;
-
-	g_print ("pixmap finished .%s", eog_image_get_caption (image));
 
 	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
 
