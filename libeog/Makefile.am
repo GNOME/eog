@@ -48,8 +48,6 @@ libeog_a_SOURCES =			\
 	eog-pixbuf-util.c		\
 	eog-image.c			\
 	eog-image.h			\
-	eog-image-helper.h		\
-	eog-image-helper.c		\
 	eog-scroll-view.c		\
 	eog-scroll-view.h		\
 	eog-hig-dialog.h		\
