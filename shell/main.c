@@ -168,8 +168,7 @@ enum {
  *
  * @Return value: TRUE, if a collection should be used, else FALSE.
  * */
-#ifdef EOG_COLLECTION_WORKS
-
+#ifdef HAVE_COLLECTION
 static gint
 user_wants_collection (gint n_windows)
 {
@@ -224,7 +223,7 @@ user_wants_collection (gint n_windows)
 
 	return ret;
 }
-#endif /* EOG_COLLECTION WORKS */
+#endif /* HAVE_COLLECTION */
 
 /* Concatenates the strings in a list and separates them with newlines.  If the
  * list is empty, returns the empty string.  Returns the number of list elements in n.
