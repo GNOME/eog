@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gnome.h>
+#include <glade/glade.h>
 #include "preferences.h"
 #include "stock.h"
 #include "util.h"
@@ -40,6 +41,7 @@ main (int argc, char **argv)
 
 	gnome_init_with_popt_table (PACKAGE, VERSION, argc, argv, NULL, 0, &ctx);
 	gdk_rgb_init ();
+	glade_gnome_init ();
 
 	stock_init ();
 	prefs_init ();

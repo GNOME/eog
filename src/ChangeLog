@@ -1,3 +1,15 @@
+2000-05-18  Federico Mena Quintero  <federico@helixcode.com>
+
+	* preferences-dialog.glade: Use saner widget names; StudlyCaps are
+	evil!
+
+	* Makefile.am: Added the glade stuff.
+
+	* main.c (main): Initialize glade.
+
+	* window.c (settings_menu): New settings menu.
+	(preferences_cmd): Call preferences_dialog().
+
 2000-05-08  Federico Mena Quintero  <federico@helixcode.com>
 
 	* preferences.[ch]: New files with the preferences code.

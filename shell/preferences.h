@@ -89,8 +89,11 @@ extern gboolean prefs_full_screen_fit_standard;
 /* Put a bevel around the edge of the screen */
 extern gboolean prefs_full_screen_bevel;
 
+
 
 void prefs_init (void);
+
+void prefs_dialog (void);
 
 
 

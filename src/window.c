@@ -24,6 +24,7 @@
 #include "commands.h"
 #include "full-screen.h"
 #include "image-view.h"
+#include "preferences.h"
 #include "tb-image.h"
 #include "ui-image.h"
 #include "util.h"
@@ -326,6 +327,15 @@ exit_cmd (GtkWidget *widget, gpointer data)
 
 
 
+/* Settings/Preferences callback */
+static void
+preferences_cmd (GtkWidget *widget, gpointer data)
+{
+	prefs_dialog ();
+}
+
+
+
 /* Help/About */
 
 /* Help/About callback */
@@ -426,6 +436,11 @@ static GnomeUIInfo view_menu[] = {
 	GNOMEUIINFO_END
 };
 
+static GnomeUIInfo settings_menu[] = {
+	GNOMEUIINFO_MENU_PREFERENCES_ITEM (preferences_cmd, NULL),
+	GNOMEUIINFO_END
+};
+
 static GnomeUIInfo help_menu[] = {
 	GNOMEUIINFO_MENU_ABOUT_ITEM (about_cmd, NULL),
 	GNOMEUIINFO_END
@@ -434,6 +449,7 @@ static GnomeUIInfo help_menu[] = {
 static GnomeUIInfo main_menu[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
 	GNOMEUIINFO_MENU_VIEW_TREE (view_menu),
+	GNOMEUIINFO_MENU_SETTINGS_TREE (settings_menu),
 	GNOMEUIINFO_MENU_HELP_TREE (help_menu),
 	GNOMEUIINFO_END
 };

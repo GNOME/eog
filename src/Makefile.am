@@ -1,8 +1,11 @@
 SUBDIRS = cursors stock
 
+gladedir = $(datadir)/eog/glade
+
 INCLUDES =						\
 	-I$(includedir)					\
 	$(EXTRA_GNOME_CFLAGS)				\
+	-DEOG_GLADEDIR=\""$(gladedir)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 	-DG_LOG_DOMAIN=\"eog\"
 
@@ -69,3 +72,13 @@ testicon_LDADD =		\
 bin_PROGRAMS = eog
 
 noinst_PROGRAMS = testicon
+
+glade_DATA =				\
+	preferences-dialog.glade
+
+glade_messages =			\
+	preferences-dialog.glade.h
+
+EXTRA_DIST =				\
+	$(glade_DATA)			\
+	$(glade_messages)

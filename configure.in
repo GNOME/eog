@@ -95,13 +95,23 @@ else
 fi
 AM_CONDITIONAL(GPRINT, $have_gprint)
 
+dnl ******************************
+dnl LibGlade checking
+dnl ******************************
+AC_MSG_CHECKING(For Glade libraries)
+if gnome-config --libs libglade > /dev/null 2>&1; then 
+    AC_MSG_RESULT(found)
+else
+    AC_MSG_ERROR(Did not find libGlade installed)
+fi
+
 EXTRA_BONOBO_CFLAGS=`gnome-config --cflags $bonobo $gprint gnomecanvaspixbuf gdk_pixbuf gnomeui`
 EXTRA_BONOBO_LIBS=`gnome-config --libs $bonobo $gprint gnomecanvaspixbuf gdk_pixbuf gnomeui`
 AC_SUBST(EXTRA_BONOBO_CFLAGS)
 AC_SUBST(EXTRA_BONOBO_LIBS)
 
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomecanvaspixbuf gdk_pixbuf gnomeui`
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomecanvaspixbuf gdk_pixbuf gnomeui`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
+EXTRA_GNOME_LIBS=`gnome-config --libs libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 AC_SUBST(EXTRA_GNOME_LIBS)
 

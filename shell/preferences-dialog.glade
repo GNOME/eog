@@ -27,7 +27,7 @@
 
 <widget>
   <class>GnomePropertyBox</class>
-  <name>PreferencesDialog</name>
+  <name>preferences-dialog</name>
   <cxx_use_heap>True</cxx_use_heap>
 
   <widget>
@@ -155,7 +155,7 @@
 
 	<widget>
 	  <class>GtkOptionMenu</class>
-	  <name>TransparencyType</name>
+	  <name>transparency-type</name>
 	  <cxx_use_heap>True</cxx_use_heap>
 	  <can_focus>True</can_focus>
 	  <items>Dark checks
@@ -184,7 +184,7 @@ White only
 
 	<widget>
 	  <class>GtkOptionMenu</class>
-	  <name>CheckSize</name>
+	  <name>check-size</name>
 	  <cxx_use_heap>True</cxx_use_heap>
 	  <can_focus>True</can_focus>
 	  <items>Small
@@ -210,7 +210,7 @@ Large
 
 	<widget>
 	  <class>GtkOptionMenu</class>
-	  <name>InterpolationType</name>
+	  <name>interpolation-type</name>
 	  <cxx_use_heap>True</cxx_use_heap>
 	  <can_focus>True</can_focus>
 	  <items>Nearest neighbor
@@ -236,7 +236,7 @@ Hyperbolic
 
 	<widget>
 	  <class>GtkCheckButton</class>
-	  <name>TwoPassScrolling</name>
+	  <name>two-pass-scrolling</name>
 	  <cxx_use_heap>True</cxx_use_heap>
 	  <can_focus>True</can_focus>
 	  <label>Two-pass scrolling</label>
@@ -287,7 +287,7 @@ Hyperbolic
 
 	<widget>
 	  <class>GtkOptionMenu</class>
-	  <name>DitherType</name>
+	  <name>dither-type</name>
 	  <cxx_use_heap>True</cxx_use_heap>
 	  <can_focus>True</can_focus>
 	  <items>None
@@ -388,7 +388,7 @@ Maximum (high color)
 
 	    <widget>
 	      <class>GtkOptionMenu</class>
-	      <name>WindowScrollbars</name>
+	      <name>window-scrollbars</name>
 	      <cxx_use_heap>True</cxx_use_heap>
 	      <can_focus>True</can_focus>
 	      <items>Never
@@ -406,7 +406,7 @@ Only if image does not fit
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>WindowAutoSize</name>
+	    <name>window-auto-size</name>
 	    <cxx_use_heap>True</cxx_use_heap>
 	    <can_focus>True</can_focus>
 	    <label>Pick window size and zoom factor automatically</label>
@@ -421,7 +421,7 @@ Only if image does not fit
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>OpenNewWindow</name>
+	    <name>open-new-window</name>
 	    <cxx_use_heap>True</cxx_use_heap>
 	    <can_focus>True</can_focus>
 	    <label>Open images in a new window</label>
@@ -489,7 +489,7 @@ Only if image does not fit
 
 	    <widget>
 	      <class>GtkOptionMenu</class>
-	      <name>FullScreenScrollbars</name>
+	      <name>full-screen-scrollbars</name>
 	      <cxx_use_heap>True</cxx_use_heap>
 	      <can_focus>True</can_focus>
 	      <items>Never
@@ -507,13 +507,13 @@ Only if image does not fit
 
 	  <widget>
 	    <class>GtkRadioButton</class>
-	    <name>radiobutton1</name>
+	    <name>full-screen-zoom-radio</name>
 	    <cxx_use_heap>True</cxx_use_heap>
 	    <can_focus>True</can_focus>
 	    <label>Use 1:1 zoom factor</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
-	    <group>FullScreenZoom</group>
+	    <group>full-screen-zoom</group>
 	    <child>
 	      <padding>0</padding>
 	      <expand>False</expand>
@@ -529,7 +529,7 @@ Only if image does not fit
 	    <label>Use same zoom factor as image window</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
-	    <group>FullScreenZoom</group>
+	    <group>full-screen-zoom</group>
 	    <child>
 	      <padding>0</padding>
 	      <expand>False</expand>
@@ -545,7 +545,7 @@ Only if image does not fit
 	    <label>Fit all images to screen</label>
 	    <active>False</active>
 	    <draw_indicator>True</draw_indicator>
-	    <group>FullScreenZoom</group>
+	    <group>full-screen-zoom</group>
 	    <child>
 	      <padding>0</padding>
 	      <expand>False</expand>
@@ -566,7 +566,7 @@ Only if image does not fit
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>FullScreenFitStandard</name>
+	    <name>full-screen-fit-standard</name>
 	    <cxx_use_heap>True</cxx_use_heap>
 	    <can_focus>True</can_focus>
 	    <label>Fit standard-sized images to screen</label>
@@ -581,7 +581,7 @@ Only if image does not fit
 
 	  <widget>
 	    <class>GtkCheckButton</class>
-	    <name>FullScreenBevel</name>
+	    <name>full-screen-bevel</name>
 	    <cxx_use_heap>True</cxx_use_heap>
 	    <can_focus>True</can_focus>
 	    <label>Put a bevel around the edge of the screen</label>
