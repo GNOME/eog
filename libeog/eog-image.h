@@ -100,6 +100,7 @@ gchar*              eog_image_get_caption                     (EogImage *img);
 const gchar*        eog_image_get_collate_key                 (EogImage *img);
 gpointer            eog_image_get_exif_information            (EogImage *img);
 GnomeVFSURI*        eog_image_get_uri                         (EogImage *img);
+gchar*              eog_image_get_uri_for_display             (EogImage *img);
 gboolean            eog_image_has_metadata                    (EogImage *img);
 
 /* modification API */

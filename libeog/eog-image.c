@@ -1866,3 +1866,25 @@ eog_image_modified (EogImage *img)
 
 	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 }
+
+gchar*
+eog_image_get_uri_for_display (EogImage *img)
+{
+	EogImagePrivate *priv;
+	gchar *uri_str = NULL;
+	gchar *str = NULL;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+	
+	priv = img->priv;
+
+	if (priv->uri != NULL) {
+		uri_str = gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE);
+		if (uri_str != NULL) {
+			str = gnome_vfs_format_uri_for_display (uri_str);
+			g_free (uri_str);
+		}
+	}
+
+	return str;
+}

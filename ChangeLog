@@ -1,4 +1,11 @@
 2004-09-26  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.h,
+	* libeog/eog-image.c (eog_image_get_uri_for_display): New function.
+
+	* shell/eog-window.c (save_error): Use eog_image_get_uri_for_display.
+
+2004-09-26  Jens Finke  <jens@triq.net>
 	
 	This change re-introduce a string from the 2.6 series. Therefore 
 	the po files required an update too. See po/ChangeLog for more details.

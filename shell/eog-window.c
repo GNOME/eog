@@ -619,13 +619,11 @@ save_error (SaveData *data)
 
 	/* display generic error dialog, except for FILE_EXISTS error */
 	if (err_code == EOG_IMAGE_ERROR_FILE_EXISTS) {
-		GnomeVFSURI *uri;
-		char *uri_str;
+		char *str;
 
-		uri = eog_image_get_uri (image); /* FIXME: display uri correct */
-		uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		str = eog_image_get_uri_for_display (image); 
 
-		header = g_strdup_printf (_("Overwrite file %s?"), uri_str);
+		header = g_strdup_printf (_("Overwrite file %s?"), str);
 		detail = _("File exists. Do you want to overwrite it?");
 
 		dlg = eog_hig_dialog_new (GTK_WINDOW (data->window), 
@@ -633,8 +631,7 @@ save_error (SaveData *data)
 					  header, detail,
 					  TRUE);
 
-		g_free (uri_str);
-		gnome_vfs_uri_unref (uri);
+		g_free (str);
 
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Skip"), EOG_SAVE_RESPONSE_SKIP);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Overwrite"), EOG_SAVE_RESPONSE_OVERWRITE);
