@@ -40,7 +40,6 @@
 #include "eog-window.h"
 #include "util.h"
 #include "zoom.h"
-#include "Eog.h"
 #include "eog-file-selection.h"
 #include "eog-preferences.h"
 #include "libeog-marshal.h"
@@ -2020,7 +2019,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
-        filename = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_DATADIR, "gnome-2.0/ui/gtk-shell-ui.xml", TRUE, NULL);
+        filename = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_DATADIR, "gnome-2.0/ui/eog-gtk-ui.xml", TRUE, NULL);
         g_assert (filename);
 	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, filename, NULL);
         g_free (filename);

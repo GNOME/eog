@@ -45,7 +45,7 @@ eog_LDADD = 				\
 	$(EOG_LIBS)
 
 uidir = $(datadir)/gnome-2.0/ui
-UI_FILES = gtk-shell-ui.xml 
+UI_FILES = eog-gtk-ui.xml 
 ui_DATA = $(UI_FILES)
 
 EXTRA_DIST = $(UI_FILES)
