@@ -58,4 +58,4 @@ BonoboPropertyBag  *eog_collection_view_get_property_bag (EogCollectionView *vie
 
 END_GNOME_DECLS
 
-#endif _EOG_COLLECTION_VIEW_H_
+#endif /* _EOG_COLLECTION_VIEW_H_ */

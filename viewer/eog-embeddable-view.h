@@ -48,4 +48,4 @@ eog_embeddable_view_construct           (EogEmbeddableView       *embeddable_vie
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_EMBEDDABLE_VIEW
+#endif /* _EOG_EOG_EMBEDDABLE_VIEW */

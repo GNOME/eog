@@ -94,4 +94,4 @@ GNOME_EOG_CheckSize eog_image_view_get_check_size (EogImageView            *imag
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_IMAGE_VIEW
+#endif /* _EOG_EOG_IMAGE_VIEW */

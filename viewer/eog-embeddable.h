@@ -48,4 +48,4 @@ eog_embeddable_construct                (EogEmbeddable           *embeddable,
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_EMBEDDABLE
+#endif /* _EOG_EOG_EMBEDDABLE */

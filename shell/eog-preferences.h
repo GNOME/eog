@@ -43,4 +43,4 @@ EogPreferences *eog_preferences_construct    (EogPreferences *preferences,
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_PREFERENCES
+#endif /* _EOG_EOG_PREFERENCES */

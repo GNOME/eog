@@ -43,4 +43,4 @@ EogControl    *eog_control_construct                   (EogControl    *control,
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_CONTROL
+#endif /* _EOG_EOG_CONTROL */

@@ -63,4 +63,4 @@ void	eog_image_load_from_stream	(EogImage                  *image,
 
 END_GNOME_DECLS
 
-#endif _EOG_EOG_IMAGE
+#endif /* _EOG_EOG_IMAGE */
