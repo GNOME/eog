@@ -101,11 +101,13 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 	GtkWidget *show;
 	GList *images = NULL;
 	EogImage *start_image = NULL;
+	gboolean free_list = FALSE;
 
 	view = EOG_COLLECTION_VIEW (user_data);
 
 	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (view->priv->wraplist)) > 1) {
 		images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));
+		free_list = TRUE;
 	}
 	else {
 		images = eog_collection_model_get_image_list (view->priv->model);
@@ -113,6 +115,10 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 	start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (view->priv->wraplist));
 
 	show = eog_full_screen_new (images, start_image);
+	
+	if (free_list)
+		g_list_free (images);
+
 	gtk_widget_show (show);
 }
 

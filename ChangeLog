@@ -1,5 +1,13 @@
 2003-03-07  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-wrap-list.c: Reverted previous patch (was quite a bad
+	idea).
+
+	* collection/eog-collection-view.c (verb_SlideShow_cb): Free list
+	if it comes from the wrap list.
+
+2003-03-07  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-full-screen.[ch]: Improved the in advance loading of
 	images. Also frees image data, which is probably not shown
 	next. 

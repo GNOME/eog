@@ -984,10 +984,19 @@ GList*
 eog_wrap_list_get_selected_images (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
+	GList *list = NULL;
+	GList *it;
 
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
 
 	priv = wlist->priv;
 
-	return priv->selected_items;
+	for (it = priv->selected_items; it != NULL; it = it->next) {
+		EogCollectionItem *item = EOG_COLLECTION_ITEM (it->data);
+		list = g_list_prepend (list, eog_collection_item_get_image (item));
+	}
+
+	list = g_list_reverse (list);
+	
+	return list;
 }

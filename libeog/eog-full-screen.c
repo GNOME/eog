@@ -1,8 +1,10 @@
 /* Eye of Gnome image viewer - full-screen view mode
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2003 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gimp.org>
+ * Author: Jens Finke <jens@triq.net>
+ *
+ * Based on code by: Federico Mena-Quintero <federico@gimp.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
