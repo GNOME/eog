@@ -732,8 +732,6 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 
 	priv = view->priv;
 
-	g_warning ("Paint area %p %d", view, asynch);
-
 	if (!GTK_WIDGET_DRAWABLE (view))
 		return;
 
