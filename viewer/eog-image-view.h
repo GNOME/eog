@@ -59,9 +59,6 @@ eog_image_view_get_image                (EogImageView            *image_view);
 BonoboPropertyBag *
 eog_image_view_get_property_bag         (EogImageView            *image_view);
 
-BonoboZoomable *
-eog_image_view_get_zoomable             (EogImageView            *image_view);
-
 void
 eog_image_view_set_ui_container         (EogImageView            *image_view,
                                          Bonobo_UIContainer       ui_container);
@@ -72,6 +69,19 @@ eog_image_view_unset_ui_container       (EogImageView            *image_view);
 GtkWidget *
 eog_image_view_get_widget               (EogImageView            *image_view);
 
+
+/* Zooming */
+float
+eog_image_view_get_zoom_factor          (EogImageView            *image_view);
+
+void
+eog_image_view_set_zoom_factor          (EogImageView            *image_view,
+					 float                    zoom_factor);
+
+void
+eog_image_view_zoom_to_fit              (EogImageView            *image_view,
+					 gboolean                 keep_aspect_ratio);
+				 
 
 /* Properties */
 void

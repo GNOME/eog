@@ -1,5 +1,38 @@
 2000-11-19  Martin Baulig  <baulig@suse.de>
 
+	Moved the zoomable from the EogImageView into the EogControl.
+
+	* eog-image-view.h (eog_image_view_get_zoomable): Removed.
+	(eog_image_view_get_zoom_factor): New function.
+        (eog_image_view_set_zoom_factor): New function.
+        (eog_image_view_zoom_to_fit): New function.
+
+	* eog-control.c (eog_control_create_ui): New static function. This
+	creates the zoom menus and toolbar.
+	(eog_control_set_ui_container): New static function. This calls
+	eog_image_view_set_ui_container() and then eog_control_create_ui().
+	(eog_control_unset_ui_container): New static function. This calls
+	eog_image_view_unset_ui_container().
+	(eog_control_activate): Call eog_control_set/unset_ui_container()
+	instead of eog_image_view_set/unset_ui_container().
+	(eog_control_construct): Create the BonoboZoomable here.
+
+	* eog-image-view.c
+	(zoomable_set_frame_cb, zoomable_set_zoom_level_cb,
+	zoom_index_from_float, zoom_level_from_index, zoomable_zoom_in_cb,
+	zoomable_zoom_out_cb, zoomable_zoom_to_fit_cb,
+	zoomable_zoom_to_default_cb, verb_ZoomIn_cb, verb_ZoomOut_cb,
+	verb_ZoomToDefault_cb, verb_ZoomToFit_cb): Moved to eog-control.c.
+
+	* eog-control.c:
+	(zoomable_set_frame_cb, zoomable_set_zoom_level_cb,
+	zoom_index_from_float, zoom_level_from_index, zoomable_zoom_in_cb,
+	zoomable_zoom_out_cb, zoomable_zoom_to_fit_cb,
+	zoomable_zoom_to_default_cb, verb_ZoomIn_cb, verb_ZoomOut_cb,
+	verb_ZoomToDefault_cb, verb_ZoomToFit_cb): Moved here.
+
+2000-11-19  Martin Baulig  <baulig@suse.de>
+
 	* eog-image.[ch]: New files. This implements GNOME::EOG::Image which
 	is (currently) derived from GNOME::EOG::ImageData.
 

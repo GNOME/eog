@@ -27,10 +27,6 @@ struct _EogImageViewPrivate {
 
 	BonoboPropertyBag  *property_bag;
 
-	BonoboZoomable     *zoomable;
-	float               zoom_level;
-	gboolean            has_zoomable_frame;
-
 	BonoboUIComponent  *uic;
 };
 
@@ -95,11 +91,6 @@ eog_image_view_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
 	image_view = EOG_IMAGE_VIEW (object);
-
-	if (image_view->priv->zoomable) {
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->zoomable));
-		image_view->priv->zoomable = NULL;
-	}
 
 	if (image_view->priv->property_bag) {
 		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->property_bag));
@@ -222,140 +213,6 @@ image_data_set_image_cb (EogImageData *image_data, EogImageView *image_view)
 	image = eog_image_data_get_image (image_data);
 	image_view_set_image (IMAGE_VIEW (image_view->priv->image_view), image);
 	image_unref (image);
-}
-
-static void
-zoomable_set_frame_cb (BonoboZoomable *zoomable, EogImageView *image_view)
-{
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	image_view->priv->has_zoomable_frame = TRUE;
-}
-
-static void
-zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
-			    EogImageView *image_view)
-{
-	ImageView *view;
-
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	view = IMAGE_VIEW (image_view->priv->image_view);
-
-	image_view_set_zoom (view, (double) new_zoom_level);
-	image_view->priv->zoom_level = image_view_get_zoom (view);
-
-	bonobo_zoomable_report_zoom_level_changed (zoomable,
-						   image_view->priv->zoom_level);
-}
-
-static float preferred_zoom_levels[] = {
-	1.0 / 10.0, 1.0 / 9.0, 1.0 / 8.0, 1.0 / 7.0, 1.0 / 6.0,
-	1.0 / 5.0, 1.0 / 4.0, 1.0 / 3.0, 1.0 / 2.0, 1.0, 2.0,
-	3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
-};
-static const gchar *preferred_zoom_level_names[] = {
-	"1:10", "1:9", "1:8", "1:7", "1:6", "1:5", "1:4", "1:3",
-	"1:2", "1:1", "2:1", "3:1", "4:1", "5:1", "6:1", "7:1",
-	"8:1", "9:1", "10:1"
-};
-
-static const gint max_preferred_zoom_levels = (sizeof (preferred_zoom_levels) /
-					       sizeof (float)) - 1;
-
-static int
-zoom_index_from_float (float zoom_level)
-{
-	int i;
-
-	for (i = 0; i < max_preferred_zoom_levels; i++) {
-		float this, epsilon;
-
-		/* if we're close to a zoom level */
-		this = preferred_zoom_levels [i];
-		epsilon = this * 0.01;
-
-		if (zoom_level < this+epsilon)
-			return i;
-	}
-
-	return max_preferred_zoom_levels;
-}
-
-static float
-zoom_level_from_index (int index)
-{
-	if (index > max_preferred_zoom_levels)
-		index = max_preferred_zoom_levels;
-
-	return preferred_zoom_levels [index];
-}
-
-static void
-zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogImageView *image_view)
-{
-	float new_zoom_level;
-	int index;
-
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	index = zoom_index_from_float (image_view->priv->zoom_level);
-	if (index == max_preferred_zoom_levels)
-		return;
-
-	index++;
-	new_zoom_level = zoom_level_from_index (index);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level", new_zoom_level);
-}
-
-static void
-zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogImageView *image_view)
-{
-	float new_zoom_level;
-	int index;
-
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	index = zoom_index_from_float (image_view->priv->zoom_level);
-	if (index == 0)
-		return;
-
-	index--;
-	new_zoom_level = zoom_level_from_index (index);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level", new_zoom_level);
-}
-
-static void
-zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogImageView *image_view)
-{
-	ImageView *view;
-	float new_zoom_level;
-
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	view = IMAGE_VIEW (image_view->priv->image_view);
-
-	ui_image_zoom_fit (UI_IMAGE (image_view->priv->ui_image));
-	new_zoom_level = image_view_get_zoom (view);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level",
-				 new_zoom_level);
-}
-
-static void
-zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogImageView *image_view)
-{
-	g_return_if_fail (image_view != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
-
-	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level", 1.0);
 }
 
 static void
@@ -523,92 +380,6 @@ listener_CheckSize_cb (BonoboUIComponent *uic, const char *path,
 }
 
 static void
-verb_ZoomIn_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
-{
-	EogImageView *image_view;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
-				 "zoom_in");
-}
-
-static void
-verb_ZoomOut_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
-{
-	EogImageView *image_view;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
-				 "zoom_out");
-}
-
-static void
-verb_ZoomToDefault_cb (BonoboUIComponent *uic, gpointer user_data,
-		       const char *cname)
-{
-	EogImageView *image_view;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
-				 "zoom_to_default");
-}
-
-static void
-verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
-		   const char *cname)
-{
-	EogImageView *image_view;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-
-	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
-				 "zoom_to_fit");
-}
-
-static BonoboUIVerb eog_image_view_verbs[] = {
-	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
-	BONOBO_UI_VERB ("ZoomOut",       verb_ZoomOut_cb),
-	BONOBO_UI_VERB ("ZoomToDefault", verb_ZoomToDefault_cb),
-	BONOBO_UI_VERB ("ZoomToFit",     verb_ZoomToFit_cb),
-	BONOBO_UI_VERB_END
-};
-
-static const gchar *zoom_toolbar =
-"<dockitem name=\"EogZoomToolbar\" homogeneous=\"1\" hidden=\"1\">\n"
-"  <toolitem name=\"ZoomIn\" _label=\"In\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-out.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomOut\" _label=\"Out\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-in.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomToDefault\" _label=\"1:1\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-1.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomToFit\" _label=\"Fit\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-fit.xpm\" verb=\"\"/>\n"
-"</dockitem>";
-
-static const gchar *zoom_menu =
-"<placeholder name=\"ZoomMenu\">\n"
-"  <menuitem name=\"ZoomIn\" _label=\"Zoom _In\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomOut\" _label=\"Zoom _Out\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomToDefault\" _label=\"Zoom to _Default\" verb=\"\"/>\n"
-"  <menuitem name=\"ZoomToFit\" _label=\"Zoom to _Fit\" verb=\"\"/>\n"
-"</placeholder>";
-
-static void
 eog_image_view_create_ui (EogImageView *image_view)
 {
 	g_return_if_fail (image_view != NULL);
@@ -650,19 +421,6 @@ eog_image_view_create_ui (EogImageView *image_view)
 					  listener_CheckSize_cb, image_view);
 	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeLarge",
 					  listener_CheckSize_cb, image_view);
-
-	if (image_view->priv->has_zoomable_frame) {
-		bonobo_ui_component_set_translate (image_view->priv->uic,
-						   "/menu/EOG", zoom_menu,
-						   NULL);
-
-		bonobo_ui_component_set_translate (image_view->priv->uic,
-						   "/", zoom_toolbar, NULL);
-
-		bonobo_ui_component_add_verb_list_with_data
-			(image_view->priv->uic, eog_image_view_verbs,
-			 image_view);
-	}
 }
 
 static void
@@ -779,50 +537,6 @@ eog_image_view_construct (EogImageView *image_view,
 				 TC_GNOME_EOG_CheckSize, NULL, _("Check Size"), 
 				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
 
-	/*
-	 * Interface Bonobo::Zoomable 
-	 */
-	image_view->priv->zoomable = bonobo_zoomable_new ();
-
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "set_frame",
-			    GTK_SIGNAL_FUNC (zoomable_set_frame_cb),
-			    image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "set_zoom_level",
-			    GTK_SIGNAL_FUNC (zoomable_set_zoom_level_cb),
-			    image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "zoom_in",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_in_cb),
-			    image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "zoom_out",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_out_cb),
-			    image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "zoom_to_fit",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_fit_cb),
-			    image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
-			    "zoom_to_default",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb),
-			    image_view);
-
-	image_view->priv->zoom_level = 1.0;
-	bonobo_zoomable_set_parameters_full (image_view->priv->zoomable,
-					     image_view->priv->zoom_level,
-					     preferred_zoom_levels [0],
-					     preferred_zoom_levels [max_preferred_zoom_levels],
-					     TRUE, TRUE, TRUE,
-					     preferred_zoom_levels,
-					     preferred_zoom_level_names,
-					     max_preferred_zoom_levels + 1);
-
-	bonobo_object_add_interface (BONOBO_OBJECT (image_view),
-				     BONOBO_OBJECT (image_view->priv->zoomable));
-
-
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
 
 	return image_view;
@@ -868,18 +582,9 @@ eog_image_view_get_property_bag (EogImageView *image_view)
 	return image_view->priv->property_bag;
 }
 
-BonoboZoomable *
-eog_image_view_get_zoomable (EogImageView *image_view)
-{
-	g_return_val_if_fail (image_view != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
-
-	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->zoomable));
-	return image_view->priv->zoomable;
-}
-
 void
-eog_image_view_set_ui_container (EogImageView *image_view, Bonobo_UIContainer ui_container)
+eog_image_view_set_ui_container (EogImageView *image_view,
+				 Bonobo_UIContainer ui_container)
 {
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
@@ -907,6 +612,42 @@ eog_image_view_get_widget (EogImageView *image_view)
 
 	gtk_widget_ref (image_view->priv->ui_image);
 	return image_view->priv->ui_image;
+}
+
+float
+eog_image_view_get_zoom_factor (EogImageView *image_view)
+{
+	ImageView *view;
+
+	g_return_val_if_fail (image_view != NULL, 0.0);
+	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0.0);
+
+	view = IMAGE_VIEW (image_view->priv->image_view);
+	return image_view_get_zoom (view);
+}
+
+void
+eog_image_view_set_zoom_factor (EogImageView *image_view,
+				float zoom_factor)
+{
+	ImageView *view;
+
+	g_return_if_fail (image_view != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+	g_return_if_fail (zoom_factor > 0.0);
+
+	view = IMAGE_VIEW (image_view->priv->image_view);
+	image_view_set_zoom (view, zoom_factor);
+}
+
+void
+eog_image_view_zoom_to_fit (EogImageView *image_view,
+			    gboolean keep_aspect_ratio)
+{
+	g_return_if_fail (image_view != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+	ui_image_zoom_fit (UI_IMAGE (image_view->priv->ui_image));
 }
 
 void
@@ -1121,3 +862,4 @@ eog_image_view_get_check_size (EogImageView *image_view)
 
 	return 0;
 }
+
