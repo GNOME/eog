@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-01 16:32+0900\n"
-"PO-Revision-Date: 2003-10-31 01:15+0900\n"
-"Last-Translator: KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>\n"
+"POT-Creation-Date: 2003-12-20 00:11+0900\n"
+"PO-Revision-Date: 2003-12-20 00:05+0900\n"
+"Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,15 +52,15 @@ msgstr "前へ"
 msgid "Previous Image"
 msgstr "前の画像を表示します"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "180°回転(_D)"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "時計回りに回転(_L)"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "反時計回りに回転(_R)"
 
@@ -68,8 +68,8 @@ msgstr "反時計回りに回転(_R)"
 msgid "Slide Show"
 msgstr "スライドショー"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "編集(_E)"
 
@@ -78,40 +78,40 @@ msgid "_Save"
 msgstr "保存(_S)"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "やり直す(_U)"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "表示(_V)"
 
-#: collection/eog-collection-view.c:305
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "保存を取り消します"
 
-#: collection/eog-collection-view.c:308
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "保存が完了しました"
 
-#: collection/eog-collection-view.c:771
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "ゴミ箱に移動"
 
-#: collection/eog-collection-view.c:816
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "コレクション表示"
 
-#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
 msgid "Window Title"
 msgstr "ウインドウのタイトル"
 
-#: collection/eog-collection-view.c:1277
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "ステータス・テキスト"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
 msgid "Progress of Image Loading"
 msgstr "画像読み込みの経過"
 
@@ -154,7 +154,7 @@ msgstr "初期時に 100% より大きい表示を許可する(_Z)"
 
 #: eog.glade.h:8
 msgid "As _background"
-msgstr "背景として利用(_B)"
+msgstr "背景にセットする(_B)"
 
 #: eog.glade.h:9
 msgid "As check _pattern"
@@ -186,11 +186,11 @@ msgstr "スライドショー(_D)"
 
 #: eog.glade.h:16
 msgid "_Interpolate image on zoom"
-msgstr "拡大して画像を補正(_I)"
+msgstr "拡大して画像を補正する(_I)"
 
 #: eog.glade.h:17
 msgid "_Loop sequence"
-msgstr "ループの順番(_L)"
+msgstr "表示をループさせる(_L)"
 
 #: eog.glade.h:18
 msgid "seconds"
@@ -252,14 +252,22 @@ msgid "Open images in a new window"
 msgstr "新しいウインドウで画像を開く"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr "ウィンドウのステータスバーの表示/非表示"
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr "ウィンドウのツールバーの表示/非表示"
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "透過する部分の色"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "透過する部分の表示方法"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -267,11 +275,11 @@ msgstr ""
 "画像を開く際に、現在開いているウィンドウの中の画像を入れ替えるのではなく、新"
 "しいウィンドウを生成するかどうかを指定します。"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
 msgstr "一連の画像を無限ループで表示するかどうか指定します。"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -299,59 +307,74 @@ msgstr "埋込可能 EOG 画像"
 msgid "Image"
 msgstr "画像"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "拡張子順"
+#: libeog/eog-file-selection.c:44
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr "%s を上書きしますか？"
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "画像の保存でサポートしていないフォーマットです。"
+#: libeog/eog-file-selection.c:49
+msgid "File exists"
+msgstr "ファイルが存在します"
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "ファイル形式の指定:"
+#: libeog/eog-file-selection.c:117
+msgid "All Images"
+msgstr "全ての画像"
 
-#: libeog/eog-file-selection.c:333
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:135
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: libeog/eog-file-selection.c:180
 msgid "Load Image"
 msgstr "画像の読み込み"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:188
 msgid "Save Image"
 msgstr "画像の保存"
+
+#: libeog/eog-file-selection.c:230
+msgid "Open Folder"
+msgstr "フォルダを開きます"
 
 #: libeog/eog-image-jpeg.c:100
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ファイルを読み込むためのメモリを確保できませんでした"
 
-#: libeog/eog-image.c:1215
+#: libeog/eog-image.c:1296
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: libeog/eog-image.c:1224
+#: libeog/eog-image.c:1306
 msgid "Images can only be saved as local files."
 msgstr "画像はローカル・ファイルとしてのみ保存できます。"
 
-#: libeog/eog-image.c:1259
+#: libeog/eog-image.c:1317
 msgid "Unsupported image type for saving."
 msgstr "画像の保存でサポートしていない種類です。"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "属性"
 
-#: libeog/eog-info-view.c:92
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "値"
 
-#: libeog/eog-info-view.c:155
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "幅"
 
-#: libeog/eog-info-view.c:169
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "高さ"
 
-#: libeog/eog-info-view.c:186
+#: libeog/eog-info-view.c:181
+msgid "Filesize"
+msgstr "ファイルサイズ"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "ファイル名"
 
@@ -360,7 +383,7 @@ msgid "Page"
 msgstr "用紙"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:378
+#: viewer/eog-image-view.c:384
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -467,102 +490,126 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr "このウィンドウの中でステータスバーの表示を切り替えます"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr "このウィンドウの中でツールバーの表示を切り替えます"
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "ウインドウを閉じる"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "このアプリケーションのヘルプ"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "新規"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "開く"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a directory"
+msgstr "フォルダを開きます"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "ファイルを開きます"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "新しいウインドウを開きます"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "新しいウインドウで開きます"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "このウインドウで開きます"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "設定(_N)"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
-msgstr "Eye of GNOME コンポーネントの設定を行います"
+#: shell/eog-shell-ui.xml.h:15
+msgid "Preferences for Eye of Gnome"
+msgstr "Eye of GNOME の設定を行います"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "プログラムを終了します"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "情報(_A)"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "新規(_N)"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:24
+msgid "_Open Directory..."
+msgstr "フォルダを開く(_O)..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "開く(_O)..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "終了(_Q)"
+
+#: shell/eog-shell-ui.xml.h:27
+msgid "_Statusbar"
+msgstr "ステータスバー(_S)"
+
+#: shell/eog-shell-ui.xml.h:28
+msgid "_Toolbar"
+msgstr "ツールバー(_T)"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:512
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of GNOME"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 画像表示およびカタログ作成プログラムです"
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -571,7 +618,7 @@ msgstr ""
 "Eye of GNOME のヘルプを表示できませんでした。\n"
 "%s"
 
-#: shell/main.c:229
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -580,26 +627,26 @@ msgstr ""
 "同時に %i 個のウインドウを開こうとしています。代わりにコレクションで表示しま"
 "すか？"
 
-#: shell/main.c:233
+#: shell/main.c:234
 msgid "Open multiple single windows?"
-msgstr "複数の単一ウインドウで開きますか？"
+msgstr "それぞれ複数のウインドウで開きますか？"
 
-#: shell/main.c:237
+#: shell/main.c:238
 msgid "Single Windows"
-msgstr "単一ウインドウ"
+msgstr "ウインドウ表示"
 
-#: shell/main.c:239
+#: shell/main.c:240
 msgid "Collection"
-msgstr "コレクション"
+msgstr "コレクション表示"
 
-#: shell/main.c:312
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "ファイルが見つかりませんでした"
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "`%s'を開けませんでした"
+msgstr "'%s'を開けませんでした"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
@@ -634,85 +681,89 @@ msgid "_Zoom In"
 msgstr "拡大(_I)"
 
 #: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "フル・スクリーン"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "印刷する画像のプレビューを表示します"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "印刷プレビュー(_W)..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "印刷設定(_U)"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "画像をプリンタへ印刷します"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "左へ回転"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "右へ回転"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "別名で保存(_A)..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "現在使用中のプリンタに合わせて用紙の設定を変更します"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "フル・スクリーン(_F)"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "印刷(_P)..."
 
-#. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:518
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:535
 #, c-format
-msgid "%i x %i pixel    %i%%"
-msgstr "%i x %i ピクセル    %i%%"
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i x %i ピクセル  %s    %i%%"
 
-#: viewer/eog-image-view.c:808
+#: viewer/eog-image-view.c:827
 msgid "/Rotate C_lockwise"
 msgstr "/時計回りに回転(_L)"
 
-#: viewer/eog-image-view.c:810
+#: viewer/eog-image-view.c:829
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/反時計回りに回転(_R)"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:832
 msgid "/_Zoom In"
 msgstr "/拡大(_I)"
 
-#: viewer/eog-image-view.c:815
+#: viewer/eog-image-view.c:834
 msgid "/Zoom _Out"
 msgstr "/縮小(_O)"
 
-#: viewer/eog-image-view.c:817
+#: viewer/eog-image-view.c:836
 msgid "/_Normal Size"
 msgstr "/オリジナルのサイズ(_N)"
 
-#: viewer/eog-image-view.c:819
+#: viewer/eog-image-view.c:838
 msgid "/Best _Fit"
 msgstr "/ウインドウに合わせる(_F)"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:841
 msgid "/_Close"
 msgstr "/閉じる(_C)"
 
-#: viewer/eog-image-view.c:985
+#: viewer/eog-image-view.c:1004
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "画像 %s の読み込みに失敗しました。"
 
-#: viewer/eog-image-view.c:992
+#: viewer/eog-image-view.c:1011
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -722,43 +773,34 @@ msgstr ""
 "原因: %s"
 
 #. show error dialog
-#: viewer/eog-image-view.c:1001
+#: viewer/eog-image-view.c:1020
 msgid "Loading failed"
 msgstr "画像の保存に失敗しました"
 
-#: viewer/eog-image-view.c:1084
+#: viewer/eog-image-view.c:1103
 msgid "Image successfully saved"
 msgstr "画像の保存が完了しました"
 
-#: viewer/eog-image-view.c:1088
+#: viewer/eog-image-view.c:1107
 msgid "Image saving failed"
 msgstr "画像の保存に失敗しました"
 
-#: viewer/eog-image-view.c:1332
+#: viewer/eog-image-view.c:1351
 msgid "Image Width"
 msgstr "画像の幅"
 
-#: viewer/eog-image-view.c:1335
+#: viewer/eog-image-view.c:1354
 msgid "Image Height"
 msgstr "画像の高さ"
 
-#: viewer/eog-image-view.c:1341
+#: viewer/eog-image-view.c:1360
 msgid "Statusbar Text"
 msgstr "ステータスバーのテキスト"
 
-#: viewer/eog-image-view.c:1344
+#: viewer/eog-image-view.c:1363
 msgid "Desired Window Width"
 msgstr "ウィンドウの幅にする"
 
-#: viewer/eog-image-view.c:1347
+#: viewer/eog-image-view.c:1366
 msgid "Desired Window Height"
 msgstr "ウィンドウの高さにする"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "100% よりも大きくズームしない"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr "ズーム時に画像を補正する (高品質ですが描画は低速)"
