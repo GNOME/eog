@@ -731,7 +731,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="header_label">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">&lt;b&gt;Save image p13432.jpg&lt;/b&gt;</property>
+		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">True</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -752,7 +752,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="detail_label">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Saving lossless.</property>
+		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -787,7 +787,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="counter_label">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">5/10</property>
+	      <property name="label" translatable="yes"></property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1084,37 +1084,10 @@
 			    <widget class="GtkOptionMenu" id="token_option">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="history">0</property>
+			      <property name="history">-1</property>
 
 			      <child>
 				<widget class="GtkMenu" id="menu2">
-
-				  <child>
-				    <widget class="GtkMenuItem" id="date_(%d)1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Date (%d)</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_date_(%d)1_activate" last_modification_time="Mon, 21 Jun 2004 18:39:55 GMT"/>
-				    </widget>
-				  </child>
-
-				  <child>
-				    <widget class="GtkMenuItem" id="filename_(%f)1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Filename (%f)</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_filename_(%f)1_activate" last_modification_time="Mon, 21 Jun 2004 18:40:16 GMT"/>
-				    </widget>
-				  </child>
-
-				  <child>
-				    <widget class="GtkMenuItem" id="time_(%t)1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">Time (%t)</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_time_(%t)1_activate" last_modification_time="Mon, 21 Jun 2004 18:40:16 GMT"/>
-				    </widget>
-				  </child>
 				</widget>
 			      </child>
 			    </widget>
@@ -1201,38 +1174,11 @@
 			    <widget class="GtkOptionMenu" id="format_option">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="history">0</property>
+			      <property name="history">-1</property>
 			      <signal name="changed" handler="on_suffix_option_changed" last_modification_time="Wed, 30 Jun 2004 20:02:40 GMT"/>
 
 			      <child>
 				<widget class="GtkMenu" id="menu1">
-
-				  <child>
-				    <widget class="GtkMenuItem" id="jpg1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">jpg</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_jpg1_activate" last_modification_time="Mon, 21 Jun 2004 18:31:59 GMT"/>
-				    </widget>
-				  </child>
-
-				  <child>
-				    <widget class="GtkMenuItem" id="png1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">png</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_png1_activate" last_modification_time="Mon, 21 Jun 2004 18:32:15 GMT"/>
-				    </widget>
-				  </child>
-
-				  <child>
-				    <widget class="GtkMenuItem" id="as_is1">
-				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">as is</property>
-				      <property name="use_underline">True</property>
-				      <signal name="activate" handler="on_as_is1_activate" last_modification_time="Mon, 21 Jun 2004 18:32:24 GMT"/>
-				    </widget>
-				  </child>
 				</widget>
 			      </child>
 			    </widget>
@@ -1539,7 +1485,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="preview_label_from">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">-= FROM =-</property>
+		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1563,7 +1509,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="preview_label">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">-= TO =-</property>
+		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>

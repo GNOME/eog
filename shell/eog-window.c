@@ -1925,10 +1925,10 @@ add_eog_icon_factory (void)
 /* UI<->function mapping */
 /* Normal items */
 static GtkActionEntry action_entries_window[] = {
-  { "FileMenu", NULL, "_File" },
-  { "EditMenu", NULL, "_Edit" },
-  { "ViewMenu", NULL, "_View" },
-  { "HelpMenu", NULL, "_Help" },
+  { "FileMenu", NULL, N_("_File") },
+  { "EditMenu", NULL, N_("_Edit") },
+  { "ViewMenu", NULL, N_("_View") },
+  { "HelpMenu", NULL, N_("_Help") },
   { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileDirOpen",     GTK_STOCK_OPEN,  N_("Open _Directory..."), "<control><shift>O", N_("Open a directory"), G_CALLBACK (verb_DirOpen_cb) },
@@ -2001,11 +2001,13 @@ eog_window_construct_ui (EogWindow *window)
 	
 	/* build menu and toolbar */
 	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
+	gtk_action_group_set_translation_domain (priv->actions_window, PACKAGE);
 	gtk_action_group_add_actions (priv->actions_window, action_entries_window, G_N_ELEMENTS (action_entries_window), window);
 	gtk_action_group_add_toggle_actions (priv->actions_window, toggle_entries_window, G_N_ELEMENTS (toggle_entries_window), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_window, 0);
 
 	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
+	gtk_action_group_set_translation_domain (priv->actions_image, PACKAGE);
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
