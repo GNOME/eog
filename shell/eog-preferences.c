@@ -99,7 +99,7 @@ eog_preferences_get_type (void)
 static void
 add_property_control_page (EogPreferences *preferences,
 			   Bonobo_PropertyControl property_control,
-			   Bonobo_UIContainer uic,
+			   BonoboUIContainer *uic,
 			   CORBA_long page_num,
 			   CORBA_Environment *ev)
 {
@@ -127,7 +127,8 @@ add_property_control_page (EogPreferences *preferences,
 	g_free (title);
 
 	/* Get content for page */
-	content = bonobo_widget_new_control_from_objref (control, uic);
+	content = bonobo_widget_new_control_from_objref (control, 
+							 BONOBO_OBJREF (uic));
 	gtk_widget_show_all (content);
 
 	gnome_property_box_append_page (GNOME_PROPERTY_BOX (preferences),
@@ -139,7 +140,7 @@ eog_preferences_construct (EogPreferences *preferences,
 			   EogWindow      *window)
 {
 	Bonobo_PropertyControl prop_control;
-	Bonobo_UIContainer uic;
+	BonoboUIContainer *uic;
 	CORBA_Environment ev;
 	CORBA_long page_count, i;
 
@@ -161,7 +162,7 @@ eog_preferences_construct (EogPreferences *preferences,
 		return NULL;
 	}
 
-	uic = eog_window_get_ui_container (window, &ev);
+	uic = eog_window_get_ui_container (window);
 
 	if (uic == CORBA_OBJECT_NIL) {
 		gtk_object_destroy (GTK_OBJECT (preferences));

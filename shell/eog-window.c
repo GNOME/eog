@@ -37,7 +37,6 @@
 #include "eog-window.h"
 #include "util.h"
 #include "Eog.h"
-#include "eog-window.h"
 
 /* Default size for windows */
 
@@ -63,7 +62,7 @@ struct _EogWindowPrivate {
 	GConfClient *client;
 
 	/* ui container */
-	Bonobo_UIContainer  ui_container;
+	BonoboUIContainer  *ui_container;
 
 	/* control frame */
 	BonoboControlFrame *ctrl_frame;
@@ -171,7 +170,7 @@ verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 		gtk_widget_destroy (GTK_WIDGET (w));
 	}
 
-	gtk_main_quit ();
+	bonobo_main_quit ();
 }
 
 static void
@@ -301,7 +300,7 @@ eog_window_destroy (GtkObject *object)
 	/* Clean up GConf-related stuff */
 	gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
 	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
-	gtk_object_unref (GTK_OBJECT (priv->client));
+	g_object_unref (G_OBJECT (priv->client));
 
 	g_free (priv);
 
@@ -439,7 +438,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
-	GList *filenames;
+	GList *filenames = NULL;
 	GList *l;
 	gboolean need_new_window = TRUE;
 
@@ -472,11 +471,12 @@ eog_window_drag_data_received (GtkWidget *widget,
 		need_new_window = eog_window_has_contents (window);		
 	}
 
+#if 0
 	/* FIXME: This should use GnomeVFS later and it should not strip the
 	 * method prefix.
 	 */
-
 	filenames = gnome_uri_list_extract_filenames (selection_data->data);
+#endif
 
 	for (l = filenames; l; l = l->next) {
 		GtkWidget *new_window;
@@ -501,7 +501,9 @@ eog_window_drag_data_received (GtkWidget *widget,
 		}
 	}
 
+#if 0
 	gnome_uri_list_free_strings (filenames);
+#endif 
 }
 
 /**
@@ -578,7 +580,6 @@ eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	BonoboUIComponent *ui_comp;
-	BonoboUIContainer *ui_cont;
 	gchar *fname;
 	GtkArg args[1];
 	GdkGeometry geometry;
@@ -588,9 +589,8 @@ eog_window_construct (EogWindow *window)
 
 	priv = window->priv;
 
-	ui_cont = bonobo_ui_container_new ();
-	priv->ui_container = BONOBO_OBJREF (ui_cont);
-	bonobo_ui_container_set_win (ui_cont, BONOBO_WINDOW (window));
+	priv->ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
+
 	bonobo_ui_engine_config_set_path (
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
 		"/eog-shell/UIConf/kvps");
@@ -601,7 +601,8 @@ eog_window_construct (EogWindow *window)
 
 	/* add menu and toolbar */
 	ui_comp = bonobo_ui_component_new ("eog");
-	bonobo_ui_component_set_container (ui_comp, priv->ui_container, NULL);
+	bonobo_ui_component_set_container (ui_comp, 
+					   BONOBO_OBJREF (priv->ui_container), NULL);
 
 	fname = bonobo_ui_util_get_ui_fname (NULL, "eog-shell-ui.xml");
 	if (fname && g_file_exists (fname)) {
@@ -622,9 +623,9 @@ eog_window_construct (EogWindow *window)
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
 
 	/* add control frame interface */
-	priv->ctrl_frame = bonobo_control_frame_new (priv->ui_container);
-	gtk_signal_connect (GTK_OBJECT (priv->ctrl_frame), "activate_uri",
-			    activate_uri_cb, NULL);
+	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (priv->ui_container));
+	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
+			  (GtkSignalFunc) activate_uri_cb, NULL);
 
 	set_drag_dest (window);
 
@@ -638,6 +639,7 @@ eog_window_construct (EogWindow *window)
 				      &geometry, 
 				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
 	 
+#if 0
 	/* We want the window automatically shrink to the image
 	 * size. 
 	 */
@@ -645,6 +647,7 @@ eog_window_construct (EogWindow *window)
 	args[0].type = GTK_TYPE_BOOL;
 	GTK_VALUE_BOOL(args[0]) = TRUE;
 	gtk_object_setv(GTK_OBJECT(window), 1, args);
+#endif
 }
 
 /**
@@ -1248,7 +1251,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 
 	/* Show the new control */
 	priv->widget = bonobo_widget_new_control_from_objref
-					(control, priv->ui_container);
+					(control, BONOBO_OBJREF (priv->ui_container));
 	if (!priv->widget) {
 		g_warning ("Could not create a widget from the control!");
 		return;
@@ -1366,12 +1369,12 @@ eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
 	return (CORBA_Object_duplicate (window->priv->property_control, ev));
 }
 
-Bonobo_UIContainer
-eog_window_get_ui_container (EogWindow *window, CORBA_Environment *ev)
+BonoboUIContainer*
+eog_window_get_ui_container (EogWindow *window)
 {
-	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
-	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
-	g_return_val_if_fail (window->priv->ui_container != CORBA_OBJECT_NIL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (window != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (window->priv->ui_container, NULL);
 
-	return CORBA_Object_duplicate (window->priv->ui_container, ev);
+	return window->priv->ui_container;
 }

@@ -68,8 +68,7 @@ gboolean eog_window_get_auto_size (EogWindow *eog_window);
 Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
 							CORBA_Environment *ev);
 
-Bonobo_UIContainer eog_window_get_ui_container (EogWindow *eog_window,
-						CORBA_Environment *ev);
+BonoboUIContainer* eog_window_get_ui_container (EogWindow *eog_window);
 
 G_END_DECLS
 

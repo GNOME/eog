@@ -1,5 +1,22 @@
 2001-11-05  Jens Finke <jens@triq.net>
 
+	* eog-window.[ch] (verb_FileExit_cb),
+	(eog_window_destroy),
+	(eog_window_construct),
+	(add_control_to_ui): More GNOME2 porting.
+	(eog_window_get_ui_container): Return BonoboUIContainer rather
+	than Bonobo_UIContainer.
+	(eog_window_drag_data_received): Disabled the uri list extracting
+	for now so that it at least compiles. I suppose the whole function
+	needs more porting effort.
+
+	* eog-preferences.c: s/Bonobo_UIContainer/BonoboUIContainer,
+	needed due to the changes in eog_window_get_ui_container.
+	
+	The eog shell should now compile and run with GNOME2.
+
+2001-11-05  Jens Finke <jens@triq.net>
+
 	* Makefile.am: Removed idl related parts, it's in libeog.
 	(INCLUDES): Use EOG_CFLAGS.
 	(eog_LDADD): Use EOG_LIBS.
