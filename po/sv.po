@@ -2,7 +2,7 @@
 # Copyright (C) 1999, 2000, 2001 Free Software Foundation, Inc.
 # Richard Hult <rhult@hem.passagen.se>, 1999.
 # Andreas Hyden <a.hyden@cyberpoint.se>, 2000.
-# Christian Rose <menthos@menthos.com>, 2000-2001.
+# Christian Rose <menthos@menthos.com>, 2000, 2001.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2001.
 # Tomas Ögren <stric@ing.umu.se>, 2001.
 #
@@ -11,17 +11,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2001-06-03 08:42+0200\n"
-"PO-Revision-Date: 2001-06-03 08:51+0200\n"
+"POT-Creation-Date: 2001-06-08 01:47+0200\n"
+"PO-Revision-Date: 2001-06-08 01:51+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: bonobo/bonobo-image-generic.c:816 collection/main.c:97
-msgid "I could not initialize Bonobo"
-msgstr "Jag kunde inte initiera Bonobo"
 
 #: collection/eog-collection-control.c:161
 msgid "Couldn't get local BonoboControl interface.\n"
@@ -93,8 +89,11 @@ msgstr "EOG-bildsamlingsvisarfabrik"
 msgid "I could not initialize GnomeVFS!\n"
 msgstr "Jag kunde inte initiera GnomeVFS!\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:187 src/window.c:162 src/window.c:573
-#: src/window.c:812
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "Jag kunde inte initiera Bonobo"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:190
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -127,7 +126,7 @@ msgstr "Om det här programmet"
 msgid "Change preferences"
 msgstr "Ändra inställningar"
 
-#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+#: shell/eog-shell-ui.xml.h:3
 msgid "Close"
 msgstr "Stäng"
 
@@ -143,7 +142,7 @@ msgstr "_Avsluta"
 msgid "Exit the program"
 msgstr "Avsluta programmet"
 
-#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open"
 msgstr "Öppna"
 
@@ -187,350 +186,217 @@ msgstr "_Alternativ"
 msgid "_Settings"
 msgstr "_Inställningar"
 
-#: shell/eog-window.c:189 src/window.c:164
+#: shell/eog-window.c:192
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright © 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:191 src/window.c:166
+#: shell/eog-window.c:194
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
 
-#: shell/eog-window.c:477
+#: shell/eog-window.c:487
 msgid "Eye Of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:565
+#: shell/eog-window.c:575
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan inte hitta eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:721 src/window.c:704
+#: shell/eog-window.c:718 shell/eog-window.c:798
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:837
+#: shell/eog-window.c:954
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:853
+#: shell/eog-window.c:970
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:870
+#: shell/eog-window.c:987
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:904
+#: shell/eog-window.c:1021
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1058
+#: shell/eog-window.c:1279
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
-#: shell/main.c:55
+#: shell/main.c:157
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+"Du kommer att öppna %i fönster\n"
+"samtidigt. Vill du öppna dem i\n"
+"en bildsamling istället?"
+
+#: shell/main.c:165
+msgid "Single Windows"
+msgstr "Enkla fönster"
+
+#: shell/main.c:165
+msgid "Collection"
+msgstr "Bildsamling"
+
+#: shell/main.c:275
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
-#: shell/main.c:58
+#: shell/main.c:278
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kunde inte initiera Bonobo!\n"
 
-#: shell/preferences.c:219 src/preferences.c:220
+#: shell/preferences.c:219
 msgid "Preferences"
 msgstr "Alternativ"
 
-#: shell/preferences-dialog.glade.h:1 src/preferences-dialog.glade.h:1
+#: shell/preferences-dialog.glade.h:1
 msgid "Bilinear (normal)"
 msgstr "Bilinjär (normal)"
 
-#: shell/preferences-dialog.glade.h:2 src/preferences-dialog.glade.h:2
+#: shell/preferences-dialog.glade.h:2
 msgid "Black only"
 msgstr "Endast svart"
 
-#: shell/preferences-dialog.glade.h:3 src/preferences-dialog.glade.h:3
+#: shell/preferences-dialog.glade.h:3
 msgid "Check size"
 msgstr "Rutstorlek"
 
-#: shell/preferences-dialog.glade.h:4 src/preferences-dialog.glade.h:4
+#: shell/preferences-dialog.glade.h:4
 msgid "Dark checks"
 msgstr "Mörka rutor"
 
-#: shell/preferences-dialog.glade.h:5 src/preferences-dialog.glade.h:5
-#: viewer/eog-image-view.c:1630
+#: shell/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1630
 msgid "Display"
 msgstr "Visning"
 
-#: shell/preferences-dialog.glade.h:6 src/preferences-dialog.glade.h:6
+#: shell/preferences-dialog.glade.h:6
 msgid "Dither type"
 msgstr "Typ av färgutjämning"
 
-#: shell/preferences-dialog.glade.h:7 src/preferences-dialog.glade.h:7
+#: shell/preferences-dialog.glade.h:7
 msgid "Fit all images to screen"
 msgstr "Anpassa alla bilder till skärmens storlek"
 
-#: shell/preferences-dialog.glade.h:8 src/preferences-dialog.glade.h:8
+#: shell/preferences-dialog.glade.h:8
 msgid "Fit standard-sized images to screen"
 msgstr "Anpassa normalstora bilder till skärmens storlek"
 
-#: shell/preferences-dialog.glade.h:9 src/preferences-dialog.glade.h:9
+#: shell/preferences-dialog.glade.h:9
 msgid "Full Screen"
 msgstr "Helskärm"
 
-#: shell/preferences-dialog.glade.h:10 src/preferences-dialog.glade.h:10
+#: shell/preferences-dialog.glade.h:10
 msgid "Gray only"
 msgstr "Endast grått"
 
-#: shell/preferences-dialog.glade.h:11 src/preferences-dialog.glade.h:11
+#: shell/preferences-dialog.glade.h:11
 msgid "Hyperbolic (slowest, best quality)"
 msgstr "Hyperbolisk (långsammast, bäst kvalitet)"
 
-#: shell/preferences-dialog.glade.h:12 src/preferences-dialog.glade.h:12
+#: shell/preferences-dialog.glade.h:12
 msgid "Image Windows"
 msgstr "Bildfönster"
 
-#: shell/preferences-dialog.glade.h:13 src/preferences-dialog.glade.h:13
+#: shell/preferences-dialog.glade.h:13
 msgid "Interpolation type"
 msgstr "Typ av interpolation"
 
-#: shell/preferences-dialog.glade.h:14 src/preferences-dialog.glade.h:14
-#: viewer/preferences.c:68
+#: shell/preferences-dialog.glade.h:14 viewer/preferences.c:68
 msgid "Large"
 msgstr "Stor"
 
-#: shell/preferences-dialog.glade.h:15 src/preferences-dialog.glade.h:15
+#: shell/preferences-dialog.glade.h:15
 msgid "Light checks"
 msgstr "Ljusa rutor"
 
-#: shell/preferences-dialog.glade.h:16 src/preferences-dialog.glade.h:16
+#: shell/preferences-dialog.glade.h:16
 msgid "Maximum (high color)"
 msgstr "Maximal (high color)"
 
-#: shell/preferences-dialog.glade.h:17 src/preferences-dialog.glade.h:17
-#: viewer/preferences.c:67
+#: shell/preferences-dialog.glade.h:17 viewer/preferences.c:67
 msgid "Medium"
 msgstr "Mellan"
 
-#: shell/preferences-dialog.glade.h:18 src/preferences-dialog.glade.h:18
+#: shell/preferences-dialog.glade.h:18
 msgid "Midtone checks"
 msgstr "Mellanljusa rutor"
 
-#: shell/preferences-dialog.glade.h:19 src/preferences-dialog.glade.h:19
+#: shell/preferences-dialog.glade.h:19
 msgid "Nearest neighbor (fastest, low quality)"
 msgstr "Närmsta granne (snabbast, låg kvalitet)"
 
-#: shell/preferences-dialog.glade.h:20 src/preferences-dialog.glade.h:20
+#: shell/preferences-dialog.glade.h:20
 msgid "Never"
 msgstr "Aldrig"
 
-#: shell/preferences-dialog.glade.h:21 src/preferences-dialog.glade.h:21
+#: shell/preferences-dialog.glade.h:21
 msgid "None"
 msgstr "Ingen"
 
-#: shell/preferences-dialog.glade.h:22 src/preferences-dialog.glade.h:22
+#: shell/preferences-dialog.glade.h:22
 msgid "Normal (pseudocolor)"
 msgstr "Normal (pseudocolor)"
 
-#: shell/preferences-dialog.glade.h:23 src/preferences-dialog.glade.h:23
+#: shell/preferences-dialog.glade.h:23
 msgid "Only if image does not fit"
 msgstr "Bara om bilden inte får plats"
 
-#: shell/preferences-dialog.glade.h:24 src/preferences-dialog.glade.h:24
+#: shell/preferences-dialog.glade.h:24
 msgid "Open images in a new window"
 msgstr "Öppna bilder i ett nytt fönster"
 
-#: shell/preferences-dialog.glade.h:25 src/preferences-dialog.glade.h:25
+#: shell/preferences-dialog.glade.h:25
 msgid "Pick window size and zoom factor automatically"
 msgstr "Välj fönsterstorlek och zoomfaktor automatiskt"
 
-#: shell/preferences-dialog.glade.h:26 src/preferences-dialog.glade.h:26
+#: shell/preferences-dialog.glade.h:26
 msgid "Put a bevel around the edge of the screen"
 msgstr "Visa en ram runt kanten på skärmen"
 
-#: shell/preferences-dialog.glade.h:27 src/preferences-dialog.glade.h:27
-#: viewer/preferences.c:66
+#: shell/preferences-dialog.glade.h:27 viewer/preferences.c:66
 msgid "Small"
 msgstr "Liten"
 
-#: shell/preferences-dialog.glade.h:28 src/preferences-dialog.glade.h:28
+#: shell/preferences-dialog.glade.h:28
 msgid "Transparency type"
 msgstr "Typ av genomskinlighet"
 
-#: shell/preferences-dialog.glade.h:29 src/preferences-dialog.glade.h:29
+#: shell/preferences-dialog.glade.h:29
 msgid "Two-pass scrolling"
 msgstr "Tvåstegsrullning"
 
-#: shell/preferences-dialog.glade.h:30 src/preferences-dialog.glade.h:30
+#: shell/preferences-dialog.glade.h:30
 msgid "Use 1:1 zoom factor"
 msgstr "Använd zoomfaktorn 1:1"
 
-#: shell/preferences-dialog.glade.h:31 src/preferences-dialog.glade.h:31
+#: shell/preferences-dialog.glade.h:31
 msgid "Use same zoom factor as image window"
 msgstr "Använd samma zoomfaktor som bildfönstret"
 
-#: shell/preferences-dialog.glade.h:32 src/preferences-dialog.glade.h:32
+#: shell/preferences-dialog.glade.h:32
 msgid "Use scrollbars"
 msgstr "Använd rullningslister"
 
-#: shell/preferences-dialog.glade.h:33 src/preferences-dialog.glade.h:33
+#: shell/preferences-dialog.glade.h:33
 msgid "Viewers"
 msgstr "Visare"
 
-#: shell/preferences-dialog.glade.h:34 src/preferences-dialog.glade.h:34
+#: shell/preferences-dialog.glade.h:34
 msgid "White only"
 msgstr "Endast vitt"
 
-#: shell/util.c:47 src/util.c:47
+#: shell/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
-
-#: src/tb-image.c:33 src/window.c:181
-msgid "Open an image file"
-msgstr "Öppna en bildfil"
-
-#: src/tb-image.c:35 src/window.c:186
-msgid "Close the current window"
-msgstr "Stäng det aktiva fönstret"
-
-#: src/tb-image.c:43 viewer/eog-print-setup.c:75
-msgid "In"
-msgstr "In"
-
-#: src/tb-image.c:44
-msgid "Out"
-msgstr "Ut"
-
-#: src/tb-image.c:45
-msgid "1:1"
-msgstr "1:1"
-
-#: src/tb-image.c:46
-msgid "Fit"
-msgstr "Anpassa"
-
-#: src/window.c:181
-msgid "_Open Image..."
-msgstr "_Öppna bild..."
-
-#: src/window.c:186
-msgid "_Close This Window"
-msgstr "S_täng detta fönster"
-
-#: src/window.c:197
-msgid "2:1"
-msgstr "2:1"
-
-#: src/window.c:198
-msgid "3:1"
-msgstr "3:1"
-
-#: src/window.c:199
-msgid "4:1"
-msgstr "4:1"
-
-#: src/window.c:200
-msgid "5:1"
-msgstr "5:1"
-
-#: src/window.c:201
-msgid "6:1"
-msgstr "6:1"
-
-#: src/window.c:202
-msgid "7:1"
-msgstr "7:1"
-
-#: src/window.c:203
-msgid "8:1"
-msgstr "8:1"
-
-#: src/window.c:204
-msgid "9:1"
-msgstr "9:1"
-
-#: src/window.c:205
-msgid "10:1"
-msgstr "10:1"
-
-#: src/window.c:207
-msgid "1:2"
-msgstr "1:2"
-
-#: src/window.c:208
-msgid "1:3"
-msgstr "1:3"
-
-#: src/window.c:209
-msgid "1:4"
-msgstr "1:4"
-
-#: src/window.c:210
-msgid "1:5"
-msgstr "1:5"
-
-#: src/window.c:211
-msgid "1:6"
-msgstr "1:6"
-
-#: src/window.c:212
-msgid "1:7"
-msgstr "1:7"
-
-#: src/window.c:213
-msgid "1:8"
-msgstr "1:8"
-
-#: src/window.c:214
-msgid "1:9"
-msgstr "1:9"
-
-#: src/window.c:215
-msgid "1:10"
-msgstr "1:10"
-
-#: src/window.c:221
-msgid "Zoom In"
-msgstr "Zooma in"
-
-#: src/window.c:221
-msgid "Increase zoom factor by 5%%"
-msgstr "Öka zoomfaktorn med 5%%"
-
-#: src/window.c:225
-msgid "Zoom Out"
-msgstr "Zooma ut"
-
-#: src/window.c:225
-msgid "Decrease zoom factor by 5%%"
-msgstr "Minska zoomfaktorn med 5%%"
-
-#: src/window.c:229
-msgid "Zoom _1:1"
-msgstr "Zooma _1:1"
-
-#: src/window.c:229
-msgid "Display the image at 1:1 scale"
-msgstr "Visa bilden i skala 1:1"
-
-#: src/window.c:233
-msgid "_Zoom factor"
-msgstr "_Zoomfaktor"
-
-#: src/window.c:235
-msgid "_Fit to Window"
-msgstr "_Anpassa till fönstret"
-
-#: src/window.c:235
-msgid "Zoom the image to fit in the window"
-msgstr "Zooma bilden så att den passar i fönstret"
-
-#: src/window.c:239
-msgid "Full _Screen"
-msgstr "Full_skärm"
-
-#: src/window.c:239
-msgid "Use the whole screen for display"
-msgstr "Använd hela skärmen för visning"
 
 #: viewer/eog-image-view.c:273
 #, c-format
@@ -720,6 +586,10 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:74
 msgid "centimeter"
 msgstr "centimeter"
+
+#: viewer/eog-print-setup.c:75
+msgid "In"
+msgstr "In"
 
 #: viewer/eog-print-setup.c:75
 msgid "inch"
@@ -929,3 +799,111 @@ msgstr "Grått"
 #: viewer/preferences.c:61
 msgid "White"
 msgstr "Vitt"
+
+#~ msgid "Open an image file"
+#~ msgstr "Öppna en bildfil"
+
+#~ msgid "Close the current window"
+#~ msgstr "Stäng det aktiva fönstret"
+
+#~ msgid "Out"
+#~ msgstr "Ut"
+
+#~ msgid "1:1"
+#~ msgstr "1:1"
+
+#~ msgid "Fit"
+#~ msgstr "Anpassa"
+
+#~ msgid "_Open Image..."
+#~ msgstr "_Öppna bild..."
+
+#~ msgid "_Close This Window"
+#~ msgstr "S_täng detta fönster"
+
+#~ msgid "2:1"
+#~ msgstr "2:1"
+
+#~ msgid "3:1"
+#~ msgstr "3:1"
+
+#~ msgid "4:1"
+#~ msgstr "4:1"
+
+#~ msgid "5:1"
+#~ msgstr "5:1"
+
+#~ msgid "6:1"
+#~ msgstr "6:1"
+
+#~ msgid "7:1"
+#~ msgstr "7:1"
+
+#~ msgid "8:1"
+#~ msgstr "8:1"
+
+#~ msgid "9:1"
+#~ msgstr "9:1"
+
+#~ msgid "10:1"
+#~ msgstr "10:1"
+
+#~ msgid "1:2"
+#~ msgstr "1:2"
+
+#~ msgid "1:3"
+#~ msgstr "1:3"
+
+#~ msgid "1:4"
+#~ msgstr "1:4"
+
+#~ msgid "1:5"
+#~ msgstr "1:5"
+
+#~ msgid "1:6"
+#~ msgstr "1:6"
+
+#~ msgid "1:7"
+#~ msgstr "1:7"
+
+#~ msgid "1:8"
+#~ msgstr "1:8"
+
+#~ msgid "1:9"
+#~ msgstr "1:9"
+
+#~ msgid "1:10"
+#~ msgstr "1:10"
+
+#~ msgid "Zoom In"
+#~ msgstr "Zooma in"
+
+#~ msgid "Increase zoom factor by 5%%"
+#~ msgstr "Öka zoomfaktorn med 5%%"
+
+#~ msgid "Zoom Out"
+#~ msgstr "Zooma ut"
+
+#~ msgid "Decrease zoom factor by 5%%"
+#~ msgstr "Minska zoomfaktorn med 5%%"
+
+#~ msgid "Zoom _1:1"
+#~ msgstr "Zooma _1:1"
+
+#~ msgid "Display the image at 1:1 scale"
+#~ msgstr "Visa bilden i skala 1:1"
+
+#~ msgid "_Zoom factor"
+#~ msgstr "_Zoomfaktor"
+
+#~ msgid "_Fit to Window"
+#~ msgstr "_Anpassa till fönstret"
+
+#~ msgid "Zoom the image to fit in the window"
+#~ msgstr "Zooma bilden så att den passar i fönstret"
+
+#~ msgid "Full _Screen"
+#~ msgstr "Full_skärm"
+
+#~ msgid "Use the whole screen for display"
+#~ msgstr "Använd hela skärmen för visning"
