@@ -42,7 +42,7 @@ set_window_zoom (Window *window, double zoom, gboolean mult)
 	if (mult)
 		zoom *= image_view_get_zoom (view);
 
-	image_view_set_zoom (view, zoom);
+	image_view_set_zoom (view, zoom, zoom);
 }
 
 void
@@ -132,11 +132,11 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 
 	switch (zoom_type) {
 	case FULL_SCREEN_ZOOM_1:
-		image_view_set_zoom (view, 1.0);
+		image_view_set_zoom (view, 1.0, 1.0);
 		break;
 
 	case FULL_SCREEN_ZOOM_SAME_AS_WINDOW:
-		image_view_set_zoom (view, zoom);
+		image_view_set_zoom (view, zoom, zoom);
 		break;
 
 	case FULL_SCREEN_ZOOM_FIT:

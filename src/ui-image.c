@@ -227,7 +227,7 @@ ui_image_zoom_fit (UIImage *ui)
 
 	image = image_view_get_image (IMAGE_VIEW (priv->view));
 	if (!image) {
-		image_view_set_zoom (IMAGE_VIEW (priv->view), 1.0);
+		image_view_set_zoom (IMAGE_VIEW (priv->view), 1.0, 1.0);
 		return;
 	}
 
@@ -248,5 +248,5 @@ ui_image_zoom_fit (UIImage *ui)
 		iw = ih = 0;
 
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
-	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom);
+	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom);
 }

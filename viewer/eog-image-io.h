@@ -25,25 +25,23 @@
 
 BEGIN_GNOME_DECLS
 
-/* You may call all these functions with or without the image library
+/* 
+ * You may call all these functions with or without the image library
  * being installed; if the image library is not installed, this'll
  * set the Persist::WrongDataType exception and return FALSE.
  */
 
-gboolean
-eog_image_save_xpm                      (EogImage                *image,
-					 Bonobo_Stream            stream,
-					 CORBA_Environment       *ev);
+gboolean eog_image_save_xpm (EogImage           *image,
+			     Bonobo_Stream       stream,
+			     CORBA_Environment  *ev);
 
-gboolean
-eog_image_save_png                      (EogImage                *image,
-					 Bonobo_Stream            stream,
-					 CORBA_Environment       *ev);
+gboolean eog_image_save_png (EogImage           *image,
+			     Bonobo_Stream       stream,
+			     CORBA_Environment  *ev);
 
-gboolean
-eog_image_save_jpeg                     (EogImage                *image,
-					 Bonobo_Stream            stream,
-					 CORBA_Environment       *ev);
+gboolean eog_image_save_jpeg (EogImage          *image,
+			      Bonobo_Stream      stream,
+			      CORBA_Environment *ev);
 
 END_GNOME_DECLS
 

@@ -33,7 +33,8 @@ png_flush_fn (png_structp png_ptr)
 }
 
 void
-image_save (Bonobo_Stream stream, GdkPixbuf *pixbuf,
+image_save (Bonobo_Stream      stream,
+	    GdkPixbuf         *pixbuf,
 	    CORBA_Environment *ev)
 {
 	png_structp         png_ptr;

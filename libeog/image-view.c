@@ -61,11 +61,13 @@ struct _ImageViewPrivate {
 	/* Image being displayed */
 	Image *image;
 
-	/* Current zoom factor */
-	double zoom;
+	/* Current zoom factors */
+	double zoomx;
+	double zoomy;
 
 	/* Previous zoom factor and zoom anchor point stored for size_allocate */
-	double old_zoom;
+	double old_zoomx;
+	double old_zoomy;
 	double zoom_x_anchor;
 	double zoom_y_anchor;
 
@@ -322,7 +324,7 @@ image_view_init (ImageView *view)
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
-	priv->zoom = 1.0;
+	priv->zoomx = priv->zoomy = 1.0;
 }
 
 /* Frees the dirty region uta and removes the idle handler */
@@ -413,15 +415,15 @@ image_view_finalize (GtkObject *object)
 
 /* Computes the size in pixels of the scaled image */
 static void
-compute_scaled_size (ImageView *view, double zoom, int *width, int *height)
+compute_scaled_size (ImageView *view, double zoomx, double zoomy, int *width, int *height)
 {
 	ImageViewPrivate *priv;
 
 	priv = view->priv;
 
 	if (priv->image && priv->image->pixbuf) {
-		*width = floor (gdk_pixbuf_get_width (priv->image->pixbuf) * zoom + 0.5);
-		*height = floor (gdk_pixbuf_get_height (priv->image->pixbuf) * zoom + 0.5);
+		*width = floor (gdk_pixbuf_get_width (priv->image->pixbuf) * zoomx + 0.5);
+		*height = floor (gdk_pixbuf_get_height (priv->image->pixbuf) * zoomy + 0.5);
 	} else
 		*width = *height = 0;
 }
@@ -498,6 +500,14 @@ pack_pixbuf (GdkPixbuf *pixbuf)
 
 #endif
 
+#define DOUBLE_EQUAL(a,b) (fabs (a - b) < 1e-6)
+static gboolean
+unity_zoom (ImageViewPrivate *priv)
+{
+	return (DOUBLE_EQUAL (priv->zoomx, 1.0) &&
+		DOUBLE_EQUAL (priv->zoomx, 1.0));
+}
+
 /* Paints a rectangle of the dirty region */
 static void
 paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
@@ -513,7 +523,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	priv = view->priv;
 
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+	compute_scaled_size (view, priv->zoomx, priv->zoomy, &scaled_width, &scaled_height);
 
 	width = GTK_WIDGET (view)->allocation.width;
 	height = GTK_WIDGET (view)->allocation.height;
@@ -589,7 +599,8 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	/* Short-circuit the fast case to avoid a memcpy() */
 
-	if (priv->zoom == 1.0
+
+	if (unity_zoom (priv)
 	    && gdk_pixbuf_get_colorspace (priv->image->pixbuf) == GDK_COLORSPACE_RGB
 	    && !gdk_pixbuf_get_has_alpha (priv->image->pixbuf)
 	    && gdk_pixbuf_get_bits_per_sample (priv->image->pixbuf) == 8) {
@@ -687,8 +698,8 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 				    0, 0,
 				    d.x1 - d.x0, d.y1 - d.y0,
 				    -(d.x0 - xofs), -(d.y0 - yofs),
-				    priv->zoom, priv->zoom,
-				    (priv->zoom == 1.0) ? GDK_INTERP_NEAREST : interp_type,
+				    priv->zoomx, priv->zoomy,
+				    unity_zoom (priv) ? GDK_INTERP_NEAREST : interp_type,
 				    255,
 				    d.x0 - xofs, d.y0 - yofs,
 				    check_size,
@@ -813,7 +824,7 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
          * speed.
 	 */
 
-	if (!asynch && (priv->interp_type == GDK_INTERP_NEAREST || priv->zoom == 1.0)) {
+	if (!asynch && (priv->interp_type == GDK_INTERP_NEAREST || unity_zoom (priv))) {
 		paint_rectangle (view, &r, priv->interp_type);
 		return;
 	}
@@ -1091,29 +1102,29 @@ compute_center_zoom_offsets (ImageView *view,
 	priv = view->priv;
 	g_assert (priv->need_zoom_change);
 
-	compute_scaled_size (view, priv->old_zoom, &old_scaled_width, &old_scaled_height);
+	compute_scaled_size (view, priv->old_zoomx, priv->old_zoomy, &old_scaled_width, &old_scaled_height);
 
 	if (old_scaled_width < old_width)
-		view_cx = (priv->zoom_x_anchor * old_scaled_width) / priv->old_zoom;
+		view_cx = (priv->zoom_x_anchor * old_scaled_width) / priv->old_zoomx;
 	else
-		view_cx = (priv->xofs + priv->zoom_x_anchor * old_width) / priv->old_zoom;
+		view_cx = (priv->xofs + priv->zoom_x_anchor * old_width) / priv->old_zoomx;
 
 	if (old_scaled_height < old_height)
-		view_cy = (priv->zoom_y_anchor * old_scaled_height) / priv->old_zoom;
+		view_cy = (priv->zoom_y_anchor * old_scaled_height) / priv->old_zoomy;
 	else
-		view_cy = (priv->yofs + priv->zoom_y_anchor * old_height) / priv->old_zoom;
+		view_cy = (priv->yofs + priv->zoom_y_anchor * old_height) / priv->old_zoomy;
 
-	compute_scaled_size (view, priv->zoom, &new_scaled_width, &new_scaled_height);
+	compute_scaled_size (view, priv->zoomx, priv->zoomy, &new_scaled_width, &new_scaled_height);
 
 	if (new_scaled_width < new_width)
 		*xofs = 0;
 	else
-		*xofs = floor (view_cx * priv->zoom - priv->zoom_x_anchor * new_width + 0.5);
+		*xofs = floor (view_cx * priv->zoomx - priv->zoom_x_anchor * new_width + 0.5);
 
 	if (new_scaled_height < new_height)
 		*yofs = 0;
 	else
-		*yofs = floor (view_cy * priv->zoom - priv->zoom_y_anchor * new_height + 0.5);
+		*yofs = floor (view_cy * priv->zoomy - priv->zoom_y_anchor * new_height + 0.5);
 }
 
 /* Size_allocate handler for the image view */
@@ -1160,7 +1171,7 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	/* Set scroll increments */
 
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+	compute_scaled_size (view, priv->zoomx, priv->zoomy, &scaled_width, &scaled_height);
 
 	priv->hadj->page_size = MIN (scaled_width, allocation->width);
 	priv->hadj->page_increment = allocation->width / 2;
@@ -1262,12 +1273,12 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 
 	case 4:
 		set_zoom_anchor (view, event->x, event->y);
-		image_view_set_zoom (view, priv->zoom * 1.05);
+		image_view_set_zoom (view, priv->zoomx * 1.05, priv->zoomy * 1.05);
 		return TRUE;
 
 	case 5:
 		set_zoom_anchor (view, event->x, event->y);
-		image_view_set_zoom (view, priv->zoom / 1.05);
+		image_view_set_zoom (view, priv->zoomx / 1.05, priv->zoomy / 1.05);
 		return TRUE;
 
 	default:
@@ -1376,7 +1387,7 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 	ImageView *view;
 	ImageViewPrivate *priv;
 	gboolean do_zoom;
-	double zoom;
+	double zoomx, zoomy;
 	gboolean do_scroll;
 	int xofs, yofs;
 
@@ -1386,7 +1397,7 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 	do_zoom = FALSE;
 	do_scroll = FALSE;
 	xofs = yofs = 0;
-	zoom = 1.0;
+	zoomx = zoomy = 1.0;
 
 	if ((event->state & (GDK_MODIFIER_MASK & ~GDK_LOCK_MASK)) != 0)
 		return FALSE;
@@ -1419,18 +1430,20 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_equal:
 	case GDK_KP_Add:
 		do_zoom = TRUE;
-		zoom = priv->zoom * 1.05;
+		zoomx = priv->zoomx * 1.05;
+		zoomy = priv->zoomy * 1.05;
 		break;
 
 	case GDK_minus:
 	case GDK_KP_Subtract:
 		do_zoom = TRUE;
-		zoom = priv->zoom / 1.05;
+		zoomx = priv->zoomx / 1.05;
+		zoomy = priv->zoomy / 1.05;
 		break;
 
 	case GDK_1:
 		do_zoom = TRUE;
-		zoom = 1.0;
+		zoomx = zoomy = 1.0;
 		break;
 
 	case GDK_F:
@@ -1453,7 +1466,7 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 		else
 			set_default_zoom_anchor (view);
 
-		image_view_set_zoom (view, zoom);
+		image_view_set_zoom (view, zoomx, zoomy);
 	}
 
 	if (do_scroll) {
@@ -1650,28 +1663,34 @@ image_view_get_image (ImageView *view)
  * Sets the zoom factor for an image view.
  **/
 void
-image_view_set_zoom (ImageView *view, double zoom)
+image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 {
 	ImageViewPrivate *priv;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (IS_IMAGE_VIEW (view));
-	g_return_if_fail (zoom > 0.0);
+	g_return_if_fail (zoomx > 0.0);
+	g_return_if_fail (zoomy > 0.0);
 
 	priv = view->priv;
 
-	if (zoom > MAX_ZOOM_FACTOR)
-		zoom = MAX_ZOOM_FACTOR;
+	if (zoomx > MAX_ZOOM_FACTOR)
+		zoomx = MAX_ZOOM_FACTOR;
+	if (zoomy > MAX_ZOOM_FACTOR)
+		zoomy = MAX_ZOOM_FACTOR;
 
-	if (priv->zoom == zoom)
+	if (DOUBLE_EQUAL (priv->zoomx, zoomx) &&
+	    DOUBLE_EQUAL (priv->zoomy, zoomy))
 		return;
 
 	if (!priv->need_zoom_change) {
-		priv->old_zoom = priv->zoom;
+		priv->old_zoomx = priv->zoomx;
+		priv->old_zoomy = priv->zoomy;
 		priv->need_zoom_change = TRUE;
 	}
 
-	priv->zoom = zoom;
+	priv->zoomx = zoomx;
+	priv->zoomy = zoomy;
 
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
@@ -1693,7 +1712,7 @@ image_view_get_zoom (ImageView *view)
 	g_return_val_if_fail (IS_IMAGE_VIEW (view), -1.0);
 
 	priv = view->priv;
-	return priv->zoom;
+	return (priv->zoomx + priv->zoomy) / 2;
 }
 
 /**

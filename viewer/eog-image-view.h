@@ -60,6 +60,10 @@ void  eog_image_view_set_zoom_factor (EogImageView *image_view,
 				      float         zoom_factor);
 void  eog_image_view_zoom_to_fit     (EogImageView *image_view,
 				      gboolean      keep_aspect_ratio);
+void  eog_image_view_set_zoom        (EogImageView *image_view,
+				      double        zoomx,
+				      double        zoomy);
+			 
 				 
 
 /* Properties */

@@ -476,7 +476,25 @@ eog_image_view_set_zoom_factor (EogImageView *image_view,
 
 	view = IMAGE_VIEW (image_view->priv->image_view);
 
-	image_view_set_zoom (view, zoom_factor);
+	image_view_set_zoom (view, zoom_factor, zoom_factor);
+}
+
+void
+eog_image_view_set_zoom (EogImageView *image_view,
+			 double        zoomx,
+			 double        zoomy)
+			 
+{
+	ImageView *view;
+
+	g_return_if_fail (zoomx > 0.0);
+	g_return_if_fail (zoomy > 0.0);
+	g_return_if_fail (image_view != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+	view = IMAGE_VIEW (image_view->priv->image_view);
+
+	image_view_set_zoom (view, zoomx, zoomy);
 }
 
 void

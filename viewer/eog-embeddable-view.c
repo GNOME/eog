@@ -15,7 +15,9 @@
 
 #include <gnome.h>
 
-#include <eog-embeddable-view.h>
+#include "gtkscrollframe.h"
+#include "image-view.h"
+#include "eog-embeddable-view.h"
 
 struct _EogEmbeddableViewPrivate {
 	EogImage           *image;
@@ -168,6 +170,60 @@ eog_embeddable_view_corba_object_create (BonoboObject *object)
 	return (Bonobo_View) bonobo_object_activate_servant (object, servant);
 }
 
+#define EOG_DEBUG
+
+static void
+configure_size (EogEmbeddableView *view,
+		GtkAllocation     *allocation)
+{
+	GdkPixbuf *pixbuf;
+	double     zoomx, zoomy;
+
+	if (!view->priv->image)
+		return;
+
+	if (!allocation)
+		allocation = &view->priv->root->allocation;
+
+/*	g_warning ("Configure size allocation '%d' '%d'",
+	allocation->width, allocation->height);*/
+
+	pixbuf = eog_image_get_pixbuf (
+		view->priv->image);
+
+	if (!pixbuf)
+		return;
+
+	zoomx = (1.0 * allocation->width) /
+		gdk_pixbuf_get_width (pixbuf);
+	zoomy = (1.0 * allocation->height) /
+		gdk_pixbuf_get_height (pixbuf);
+
+/*	g_warning ("Set to zoom %f %f, pixbuf %d %d",
+		   zoomx, zoomy,
+		   gdk_pixbuf_get_width (pixbuf),
+		   gdk_pixbuf_get_height (pixbuf));*/
+
+	eog_image_view_set_zoom (view->priv->image_view,
+				 zoomx, zoomy);
+}
+
+static void
+view_size_allocate_cb (GtkWidget         *drawing_area,
+		       GtkAllocation     *allocation,
+		       EogEmbeddableView *view)
+{
+	configure_size (view, allocation);
+
+}
+
+static void
+set_image_cb (EogImage          *image,
+	      EogEmbeddableView *view)
+{
+	configure_size (view, NULL);
+}
+
 EogEmbeddableView *
 eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 			       Bonobo_View        corba_object,
@@ -187,6 +243,15 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 
 	embeddable_view->priv->image_view = eog_image_view_new (image, TRUE);
 	embeddable_view->priv->root = eog_image_view_get_widget (embeddable_view->priv->image_view);
+	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (embeddable_view->priv->root),
+				     GTK_POLICY_NEVER,
+				     GTK_POLICY_NEVER);
+
+	gtk_signal_connect (GTK_OBJECT (image), "set_image",
+			    GTK_SIGNAL_FUNC (set_image_cb), embeddable_view);
+
+	gtk_signal_connect (GTK_OBJECT (embeddable_view->priv->root), "size_allocate",
+			    GTK_SIGNAL_FUNC (view_size_allocate_cb), embeddable_view);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (embeddable_view),
 				     BONOBO_OBJECT (embeddable_view->priv->image_view));

@@ -69,7 +69,7 @@ GtkWidget *image_view_new (void);
 void image_view_set_image (ImageView *view, Image *image);
 Image *image_view_get_image (ImageView *view);
 
-void image_view_set_zoom (ImageView *view, double zoom);
+void image_view_set_zoom (ImageView *view, double zoomx, double zoomy);
 double image_view_get_zoom (ImageView *view);
 
 void image_view_set_interp_type (ImageView *view, GdkInterpType interp_type);
