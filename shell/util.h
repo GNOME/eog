@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef UTIL_H
-#define UTIL_H
+#ifndef EOG_UTIL_H
+#define EOG_UTIL_H
 
 #include <gtk/gtkwindow.h>
 
