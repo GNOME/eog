@@ -20,7 +20,6 @@ static GtkWidget* create_new_window (void);
 
 typedef struct {
 	EogWindow *window;
-	char      *iid;
 	GList     *uri_list;
 	gboolean  single_windows;
 } LoadContext;
@@ -39,13 +38,26 @@ free_string_list (GList *list)
 }
 
 static void
-free_load_context (LoadContext *ctx)
+load_context_free (LoadContext *ctx)
 {
 	if (ctx == NULL) return;
 
 	free_string_list (ctx->uri_list);
 
 	g_free (ctx);
+}
+
+static LoadContext*
+load_context_new (EogWindow *window, GList *uri_list)
+{
+	LoadContext *ctx;
+	
+	ctx = g_new0 (LoadContext, 1);
+	ctx->window = window;
+	ctx->uri_list = uri_list;
+	ctx->single_windows = FALSE;
+
+	return ctx;
 }
 
 static void
@@ -96,8 +108,6 @@ open_window (LoadContext *ctx)
 	GList *it;
 	GConfClient *client;
 
-	g_return_val_if_fail (ctx->iid != NULL, FALSE);
-
 	client = gconf_client_get_default ();
 
 	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
@@ -116,7 +126,7 @@ open_window (LoadContext *ctx)
 			}
 
 			if (window != NULL) {
-				if (!eog_window_open (EOG_WINDOW (window), ctx->iid, (char*) it->data, &error)) {
+				if (!eog_window_open (EOG_WINDOW (window), (char*) it->data, &error)) {
 					g_print ("error open %s\n", (char*)it->data);
 					/* FIXME: handle errors */
 				}
@@ -135,14 +145,14 @@ open_window (LoadContext *ctx)
 		}
 		
 		if (window != NULL) {
-			if (!eog_window_open_list (EOG_WINDOW (window), ctx->iid, ctx->uri_list, &error)) {
+			if (!eog_window_open_list (EOG_WINDOW (window), ctx->uri_list, &error)) {
 				g_print ("error");
 				/* report error */
 			}
 		}
 	}
 		
-	free_load_context (ctx);
+	load_context_free (ctx);
 
 	return FALSE;
 }
@@ -161,11 +171,9 @@ static GnomeVFSURI*
 make_canonical_uri (const char *path)
 {
 	char *uri_str;
-	GnomeVFSURI *uri;
+	GnomeVFSURI *uri = NULL;
 
 	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
-
-	uri = NULL;
 
 	if (uri_str) {
 		uri = gnome_vfs_uri_new (uri_str);
@@ -369,46 +377,26 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 		int n_files = 0;
 
 		n_files = g_list_length (file_list);
-		if (n_files > 3 && n_files < 10) {
-			result = user_wants_collection (g_list_length (file_list));
-		}
-		else if (n_files >= 10) {
+		if (n_files >= 10) {
 			result = COLLECTION_YES;
 		}
-		else {
-			result = COLLECTION_NO;
+		else if (n_files > 3) { /* 3 < n_files < 10  => ask user */
+			result = user_wants_collection (n_files);
 		}
 	
+		switch (result) {
+		case COLLECTION_CANCEL:
+			quit_program = (window == NULL);
+			break;
+		case COLLECTION_YES:
+		case COLLECTION_NO:
+			ctx = load_context_new (window, file_list);
+			ctx->single_windows = (result == COLLECTION_NO);
 
-		if (result == COLLECTION_YES) 
-		{
-			/* Do not free the file_list, this will be done
-			   in the create_app_list function! */
-			ctx = g_new0 (LoadContext, 1);
-			ctx->window = window;
-			ctx->iid = EOG_COLLECTION_CONTROL_IID;
-			ctx->uri_list = file_list;
-			ctx->single_windows = FALSE;
-			
 			g_idle_add ((GSourceFunc)open_window, ctx);
-		} 
-		else if (result == COLLECTION_NO)
-		{
-			ctx = g_new0 (LoadContext, 1);
-			ctx->window = window;
-			ctx->iid = EOG_VIEWER_CONTROL_IID;
-			ctx->uri_list = file_list;
-			ctx->single_windows = TRUE;
-			
-			/* open multiple windows */
-			g_idle_add ((GSourceFunc)open_window, ctx);
-		}
-		else if (result == COLLECTION_CANCEL && window == NULL) {
-			/* We quit the whole program only if we open the files
-			   from the commandline. We would get the signal emitting 
-			   window otherwise.
-			*/
-			quit_program = TRUE;
+			break;
+		default:
+			g_assert_not_reached ();
 		}
 	}
 		
@@ -416,10 +404,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	if (dir_list) {
 		quit_program = FALSE;
 
-		ctx = g_new0 (LoadContext, 1);
-		ctx->window = window;
-		ctx->iid = EOG_COLLECTION_CONTROL_IID;
-		ctx->uri_list = dir_list;
+		ctx = load_context_new (window, dir_list);
 		ctx->single_windows = TRUE;
 
 		g_idle_add ((GSourceFunc)open_window, ctx);
@@ -509,7 +494,6 @@ main (int argc, char **argv)
 	GnomeProgram *program;
 	GError *error;
 	poptContext ctx;
-	GValue value = { 0 };
 	GnomeClient *client;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
@@ -529,8 +513,10 @@ main (int argc, char **argv)
 		exit (EXIT_FAILURE);
 	}
 
-	if(gnome_vfs_init () == FALSE)
+	if(gnome_vfs_init () == FALSE) {
 		g_error ("Could not initialize GnomeVFS!");
+		exit (EXIT_FAILURE);
+	}
 
 	gnome_authentication_manager_init ();
 	eog_thumbnail_init ();
@@ -546,10 +532,9 @@ main (int argc, char **argv)
 		session_load (gnome_client_get_config_prefix (client));
 	}
 	else  {
-		g_value_init (&value, G_TYPE_POINTER);
-		g_object_get_property (G_OBJECT (program), GNOME_PARAM_POPT_CONTEXT, &value);
-		ctx = g_value_get_pointer (&value);
-		g_value_unset (&value);
+		g_object_get (G_OBJECT (program), 
+			      GNOME_PARAM_POPT_CONTEXT, &ctx,
+			      NULL);
 
 		g_idle_add (handle_cmdline_args, ctx);
 	}

@@ -3022,16 +3022,15 @@ image_list_prepared_cb (EogImageList *list, EogWindow *window)
 /**
  * eog_window_open:
  * @window: A window.
- * @iid: The object interface id of the bonobo control to load.
  * @text_uri: An escaped text URI for the object to load.
  * @error: An pointer to an error object or NULL.
  *
- * Tries to create an instance of the iid and loads the uri into it.
+ * Loads the uri into the window.
  *
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GError **error)
+eog_window_open (EogWindow *window, const char *text_uri, GError **error)
 {
 	EogWindowPrivate *priv;
 	GnomeVFSFileInfo *info;
@@ -3093,17 +3092,15 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 /**
  * eog_window_open_list:
  * @window: A window.
- * @iid: The object interface id of the bonobo control to load.
  * @text_uri_list: List of escaped text URIs for the object to load.
  * @error: An pointer to an error object or NULL.
  *
- * Tries to create an instance of the iid and loads all uri's 
- * contained in the list into it.
+ * Loads all uri's contained in the list into the window.
  *
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
+eog_window_open_list (EogWindow *window, GList *text_uri_list, GError **error)
 {
 	EogWindowPrivate *priv;
 	GList *it;

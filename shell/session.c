@@ -45,7 +45,7 @@ load_uri_with_role (const char *uri, const char *role)
 	}
 
 	if (strlen (uri) != 0)
-		eog_window_open (EOG_WINDOW (window), EOG_VIEWER_CONTROL_IID, uri, NULL);
+		eog_window_open (EOG_WINDOW (window), uri, NULL);
 
 	gtk_window_set_role (GTK_WINDOW (window), role);
 	gtk_widget_show (window);
