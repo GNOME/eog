@@ -32,8 +32,8 @@ BEGIN_GNOME_DECLS
 #define TYPE_EOG_WINDOW            (eog_window_get_type ())
 #define EOG_WINDOW(obj)            (GTK_CHECK_CAST ((obj), TYPE_EOG_WINDOW, EogWindow))
 #define EOG_WINDOW_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), TYPE_EOG_WINDOW, EogWindowClass))
-#define IS_EOG_WINDOW(obj)         (GTK_CHECK_TYPE ((obj), TYPE_EOG_WINDOW))
-#define IS_EOG_WINDOW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), TYPE_EOG_WINDOW))
+#define EOG_IS_WINDOW(obj)         (GTK_CHECK_TYPE ((obj), TYPE_EOG_WINDOW))
+#define EOG_IS_WINDOW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), TYPE_EOG_WINDOW))
 
 
 typedef struct _EogWindow         EogWindow;
@@ -65,6 +65,12 @@ gboolean eog_window_open (EogWindow *eog_window, const char *path);
 
 void eog_window_set_auto_size (EogWindow *eog_window, gboolean bool);
 gboolean eog_window_get_auto_size (EogWindow *eog_window);
+
+Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
+							CORBA_Environment *ev);
+
+Bonobo_UIContainer eog_window_get_ui_container (EogWindow *eog_window,
+						CORBA_Environment *ev);
 
 END_GNOME_DECLS
 

@@ -30,6 +30,7 @@
 #include <gconf/gconf-client.h>
 #include <liboaf/liboaf.h>
 #include <bonobo/Bonobo.h>
+#include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
 #include "preferences.h"
@@ -56,6 +57,9 @@ struct _EogWindowPrivate {
 
 	/* ui container */
 	BonoboUIContainer  *ui_container;
+
+	/* Property Control */
+	Bonobo_PropertyControl prop_control;
 
 	/* vbox */
 	GtkWidget           *box;
@@ -104,7 +108,18 @@ raise_and_focus (GtkWidget *widget)
 static void
 verb_Preferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
-	prefs_dialog ();
+	EogWindow *window;
+	EogPreferences *preferences;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+
+	preferences = eog_preferences_new (window);
+
+	if (preferences != NULL)
+		gnome_dialog_run_and_close (GNOME_DIALOG (preferences));
 }
 
 static void
@@ -279,7 +294,7 @@ eog_window_destroy (GtkObject *object)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (IS_EOG_WINDOW (object));
+	g_return_if_fail (EOG_IS_WINDOW (object));
 
 	window = EOG_WINDOW (object);
 	priv = window->priv;
@@ -491,7 +506,7 @@ eog_window_construct (EogWindow *window)
 	gchar *fname;
 
 	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_EOG_WINDOW (window));
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
 
@@ -539,7 +554,7 @@ void
 eog_window_close (EogWindow *window)
 {
 	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_EOG_WINDOW (window));
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	gtk_widget_destroy (GTK_WIDGET (window));
 
@@ -628,7 +643,7 @@ eog_window_open_dialog (EogWindow *window)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_EOG_WINDOW (window));
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
 
@@ -928,7 +943,7 @@ eog_window_open (EogWindow *window, const char *path)
 	CORBA_Environment ev;
 
 	g_return_val_if_fail (window != NULL, FALSE);
-	g_return_val_if_fail (IS_EOG_WINDOW (window), FALSE);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (path != NULL, FALSE);
 
 	priv = window->priv;
@@ -970,8 +985,37 @@ eog_window_open (EogWindow *window, const char *path)
 
 	Bonobo_Control_activate (control, TRUE, &ev);
 
+	/* Get property control */
+	priv->prop_control = Bonobo_Unknown_queryInterface
+		(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
+
+	g_message ("Property control: %p", priv->prop_control);
+
 	/* clean up */
 	CORBA_exception_free (&ev);
 
 	return TRUE;
+}
+
+Bonobo_PropertyControl
+eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
+{
+	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
+
+	return CORBA_Object_duplicate (window->priv->prop_control, ev);
+}
+
+Bonobo_UIContainer
+eog_window_get_ui_container (EogWindow *window, CORBA_Environment *ev)
+{
+	Bonobo_UIContainer corba_container;
+
+	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
+	g_return_val_if_fail (window->priv->ui_container != NULL, CORBA_OBJECT_NIL);
+
+	corba_container = bonobo_object_corba_objref (BONOBO_OBJECT (window->priv->ui_container));
+
+	return CORBA_Object_duplicate (corba_container, ev);
 }

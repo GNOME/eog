@@ -19,6 +19,8 @@ eog_shell_SOURCES =	\
 	e-dialog-widgets.c	\
 	eog-window.h		\
 	eog-window.c		\
+	eog-preferences.h	\
+	eog-preferences.c	\
 	main.c			\
 	preferences.h		\
 	preferences.c		\
