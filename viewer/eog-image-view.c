@@ -1691,13 +1691,13 @@ eog_image_view_construct (EogImageView       *image_view,
 	bonobo_property_bag_add (image_view->priv->property_bag, "check_size", PROP_CHECK_SIZE,
 				 TC_GNOME_EOG_CheckSize, NULL, _("Check Size"), 
 				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "image_width", PROP_IMAGE_WIDTH,
+	bonobo_property_bag_add (image_view->priv->property_bag, "image/width", PROP_IMAGE_WIDTH,
 				 BONOBO_ARG_INT, NULL, _("Image Width"),
 				 BONOBO_PROPERTY_READABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "image_height", PROP_IMAGE_HEIGHT,
+	bonobo_property_bag_add (image_view->priv->property_bag, "image/height", PROP_IMAGE_HEIGHT,
 				 BONOBO_ARG_INT, NULL, _("Image Height"),
 				 BONOBO_PROPERTY_READABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "window_title", PROP_WINDOW_TITLE,
+	bonobo_property_bag_add (image_view->priv->property_bag, "window/title", PROP_WINDOW_TITLE,
 				 BONOBO_ARG_STRING, NULL, _("Window Title"),
 				 BONOBO_PROPERTY_READABLE);
 
