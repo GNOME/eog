@@ -4,6 +4,7 @@ INCLUDES =                                              \
 	-DDATADIR=\""$(datadir)"\"			\
 	-I. 						\
 	-I$(top_srcdir) 				\
+	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
@@ -12,17 +13,9 @@ INCLUDES =                                              \
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)
 
-CORBA_SOURCE =			\
-	Eog.h			\
-	Eog-common.c		\
-	Eog-stubs.c		\
-	Eog-skels.c
-
-
 bin_PROGRAMS = eog-collection
 
 eog_collection_SOURCES = \
-	$(CORBA_SOURCE)			\
 	eog-image-list-model.c        	\
 	eog-image-list-model.h        	\
 	eog-image-selection-model.c  	\
@@ -59,24 +52,7 @@ eog_collection_LDADD = 			\
 	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_BONOBO_LIBS)			\
-	$(LIBPNG) $(LIBJPEG)			
+	$(LIBPNG) $(LIBJPEG)			\
+	../libeog/libeog.la
 
-idls =							\
-	$(top_srcdir)/idl/Eog.idl
 
-idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
-
-$(CORBA_SOURCE): $(idls)
-	$(ORBIT_IDL) $(top_srcdir)/idl/Eog.idl -I$(top_srcdir)/idl $(idl_flags)
-
-Eog.h: $(idls)
-
-BUILT_SOURCES=$(CORBA_SOURCE)
-
-CLEANFILES += $(BUILT_SOURCES)
-
-oafdir = $(datadir)/oaf
-OAF_FILES = GNOME_EOG_Collection.oafinfo
-oaf_DATA = $(OAF_FILES)
-
-EXTRA_DIST = $(OAF_FILES)
