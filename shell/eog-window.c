@@ -54,7 +54,6 @@ struct _EogWindowPrivate {
 	GtkWidget *file_sel;
 
 	/* Our GConf client */
-
 	GConfClient *client;
 
 	/* ui container */
@@ -71,6 +70,9 @@ struct _EogWindowPrivate {
 
 	/* the control embedded in the container */
 	GtkWidget           *control;
+
+	/* statusbar */
+	GtkWidget *statusbar;
 
 	/* Window scrolling policy type */
 	GtkPolicyType sb_policy;
@@ -183,7 +185,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			_("Copyright (C) 2000 The Free Software Foundation"),
+			_("Copyright (C) 2000-2001 The Free Software Foundation"),
 			authors,
 			_("The GNOME image viewing and cataloging program"),
 			NULL);
@@ -544,7 +546,7 @@ eog_window_construct (EogWindow *window)
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
 		"/eog-shell/UIConf/kvps");
 
-	priv->box = GTK_WIDGET (gtk_vbox_new (TRUE, 2));
+	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
 
 	priv->control = NULL;
@@ -562,10 +564,16 @@ eog_window_construct (EogWindow *window)
 		g_error (N_("Can't find eog-shell-ui.xml.\n"));
 	}
 	g_free (fname); /* we reuse this variable later! */
-
 	
 	gtk_signal_connect (GTK_OBJECT(window), "delete_event", 
 			    (GtkSignalFunc) eog_window_close, NULL);
+
+	/* add statusbar */
+	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
+	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
+			  FALSE, FALSE, 0);
+	gtk_widget_show (GTK_WIDGET (priv->statusbar));
+	gtk_widget_show (GTK_WIDGET (priv->box));
 
 	/* add control frame interface */
 	priv->ctrl_frame = bonobo_control_frame_new (corba_container);
@@ -777,28 +785,33 @@ auto_size (EogWindow *window)
 #endif
 
 static void
-title_changed_cb (BonoboListener    *listener,
+property_changed_cb (BonoboListener    *listener,
 		  char              *event_name, 
 		  CORBA_any         *any,
 		  CORBA_Environment *ev,
 		  gpointer           user_data)
 {
-
 	EogWindow *window;
 
 	window = EOG_WINDOW (user_data);
 
-        gtk_window_set_title (GTK_WINDOW (window), BONOBO_ARG_GET_STRING (any));
+	if (g_strcasecmp (event_name, "Bonobo/Property:change:window/title") == 0) {
+		gtk_window_set_title (GTK_WINDOW (window), BONOBO_ARG_GET_STRING (any));
+	} else if (g_strcasecmp (event_name, "Bonobo/Property:change:window/status") == 0) {
+		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
+					 BONOBO_ARG_GET_STRING (any));		
+	}
 }
 
 static void
-set_window_title (EogWindow *window)
+check_for_control_properties (EogWindow *window)
 {
         EogWindowPrivate *priv;
 	BonoboControlFrame *ctrl_frame;
 	Bonobo_PropertyBag pb;
 	gchar *title;
 	CORBA_Environment ev;
+	gchar *mask = NULL;
 
 	priv = window->priv;
 	
@@ -813,28 +826,48 @@ set_window_title (EogWindow *window)
                 ctrl_frame, &ev);
 	if (pb == CORBA_OBJECT_NIL) goto on_error;
 
-	title = bonobo_property_bag_client_get_value_string (pb, "window_title", &ev);
-	if (title == NULL) goto on_prop_error;
+	/* set window title */
+	title = bonobo_property_bag_client_get_value_string (pb, "window/title", &ev);
+	if (title != NULL) {
+		gtk_window_set_title (GTK_WINDOW (window), title);
+		g_free (title);
+		mask = g_strdup ("Bonobo/Property:change:window/title");
+	} else {
+		g_warning (_("Control doesn't support window_title property."));
+		gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
+	}
 
-	gtk_window_set_title (GTK_WINDOW (window), title);
-	g_free (title);
+	/* set status bar text */
+	title = bonobo_property_bag_client_get_value_string (pb, "window/status", &ev);
+	if (title != NULL) {
+		gchar *temp;
+		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar),
+					 title);
+		g_free (title);
+		/* append status_text property to list of properties to listen */
+		temp = g_strjoin (",", mask, "Bonobo/Property:change:window/status", NULL);
+		g_free (mask);
+		mask = temp;
+	} else {
+		g_warning (_("Control doesn't support status_text property."));
+	}
 
 	/* register for further changes */
-	bonobo_event_source_client_add_listener (pb, (BonoboListenerCallbackFn) title_changed_cb,
-						 "Bonobo/Property:change:window_title", NULL,
-						 window);
+	if (mask) {
+		g_print ("add listener: %s\n", mask);
+		bonobo_event_source_client_add_listener (pb, 
+							 (BonoboListenerCallbackFn)property_changed_cb,
+							 mask, NULL, window);
+		g_free (mask);
+	} 
 
 	bonobo_object_release_unref (pb, &ev);
 	CORBA_exception_free (&ev);
 	return;
 
- on_prop_error:
-	bonobo_object_release_unref (pb, &ev);
-	CORBA_exception_free (&ev);
-
- on_error:
+on_error:
+	g_warning (_("Control doesn't have properties"));
 	gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
-	
 }
 
 static void
@@ -992,6 +1025,7 @@ eog_window_open (EogWindow *window, const char *path)
 	EogWindowPrivate *priv;       
 	Bonobo_Control control;
 	CORBA_Environment ev;
+	gchar *abs_path = NULL;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
@@ -999,6 +1033,16 @@ eog_window_open (EogWindow *window, const char *path)
 
 	priv = window->priv;
  	CORBA_exception_init (&ev);
+
+	/* make path absolute */
+	if (path[0] != '/') {
+		gchar *cd;
+		cd = g_get_current_dir ();
+		abs_path = g_strconcat (cd, "/", path, NULL);
+		g_free (cd);
+	} else {
+		abs_path = g_strdup (path);
+	}
 
 	/* remove current component if neccessary */
 	if (priv->control != NULL) {
@@ -1009,17 +1053,17 @@ eog_window_open (EogWindow *window, const char *path)
 
 	/* get appropriate control */
 	control = CORBA_OBJECT_NIL;
-	if (g_file_test (path, G_FILE_TEST_ISFILE)) {
+	if (g_file_test (abs_path, G_FILE_TEST_ISFILE)) {
 
-		control = get_file_control (path);
+		control = get_file_control (abs_path);
 
-	} else if (g_file_test (path, G_FILE_TEST_ISDIR)) {
+	} else if (g_file_test (abs_path, G_FILE_TEST_ISDIR)) {
 
-		control = get_directory_control (path);
+		control = get_directory_control (abs_path);
 
 	} else {
 
-		g_warning ("Couldn't handle: %s.\n", path);
+		g_warning ("Couldn't handle: %s.\n", abs_path);
 		return FALSE;
 	}
 	if (control == CORBA_OBJECT_NIL) return FALSE;
@@ -1042,8 +1086,8 @@ eog_window_open (EogWindow *window, const char *path)
 
 	Bonobo_Control_activate (control, TRUE, &ev);
 
-	/* retrieve window title from control properties */
-	set_window_title (window);
+	/* retrieve control properties and install listeners*/
+	check_for_control_properties (window);
 
 	/* Get property control */
 	priv->prop_control = Bonobo_Unknown_queryInterface
