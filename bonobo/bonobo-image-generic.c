@@ -31,6 +31,8 @@
 #include <libart_lgpl/art_rgb_pixbuf_affine.h>
 #include <libart_lgpl/art_alphagamma.h>
 
+#undef EOG_DEBUG
+
 /*
  * Number of running objects
  */ 
@@ -345,7 +347,9 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	    !view_data->bod->pixbuf->art_pixbuf)
 		return;
 
+#ifdef EOG_DEBUG
 	g_warning ("Size allocate");
+#endif
 
 	if (allocation->width  == buf->art_pixbuf->width &&
 	    allocation->height == buf->art_pixbuf->height) {
@@ -360,7 +364,9 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	if (view_buf) {
 		if (allocation->width  == view_buf->art_pixbuf->width &&
 		    allocation->height == view_buf->art_pixbuf->height) {
+#ifdef EOG_DEBUG
 			g_warning ("Correct size %d, %d", allocation->width, allocation->height);
+#endif
 			return;
 		} else {
 			view_data->scaled = NULL;
@@ -369,7 +375,9 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 		}
 	}
 
+#ifdef EOG_DEBUG
 	g_warning ("Re-scale");
+#endif
 	/* FIXME: should we be FILTER_TILES / FILTER_NEAREST ? */
 	view_data->scaled = gdk_pixbuf_scale_simple (buf, allocation->width,
 						     allocation->height,
@@ -429,10 +437,6 @@ scaled_view_factory (BonoboEmbeddable *bonobo_object,
 	view = view_factory_common (bonobo_object, NULL, view_frame, data);
 
 	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
-
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (view_data->scrolled_window),
-					GTK_POLICY_NEVER,
-					GTK_POLICY_NEVER);
 
 	gtk_signal_connect (GTK_OBJECT (view_data->drawing_area), "size_allocate",
 			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
