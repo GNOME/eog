@@ -1,3 +1,25 @@
+2000-07-24  Arik Devens  <arik@helixcode.com>
+
+	* full-screen.c: Added bevel prefs to the full screen structure.
+	(full_screen_init): Added gconf stuff for bevel as well as setting
+	of the bevel type.
+	(full_screen_finalize): Added removal of gconf notification and
+	setting of the structures to 0.
+	(full_screen_set_bevel): New function to set the policy type of
+	the bevel.
+	(full_screen_get_bevel): New function to get the policy type of
+	the bevel.
+	
+2000-07-23  Arik Devens  <arik@helixcode.com>
+
+	* full-screen.c: Added scrollbar prefs to the full screen
+	structure.
+	(full_screen_init): Added actual setting of the scrollbar prefs
+	instead of just hoping the universe will be nice to me. ;-) Added
+	gconf code for scrollbar prefs.
+	(full_screen_sb_policy_changed_cb): New function to monitor the
+	gconf db for changes to the scrollbar prefs.
+
 2000-07-16  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (PAINT_UTA2_RECT_WIDTH): Have separate sets of
