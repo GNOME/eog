@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.x\n"
-"POT-Creation-Date: 2003-06-01 10:14+0200\n"
-"PO-Revision-Date: 2003-05-17 11:50+0200\n"
+"POT-Creation-Date: 2003-07-01 19:34+0200\n"
+"PO-Revision-Date: 2003-07-01 11:50+0200\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,38 +68,54 @@ msgid "Slide Show"
 msgstr "Diashow"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Speichern"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Rückgängig"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_Ansicht"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Speichern abbrechen"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Speichern abgeschlossen"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "In den Müll verschieben"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Sammlungsansicht"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1249
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1261
 msgid "Progress of Image Loading"
 msgstr "Fortschritt beim Laden eines Bildes"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Bild wird gespeichert"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -184,24 +200,6 @@ msgid "sec"
 msgstr "Sek"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Fenstergröße automatisch wählen"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Voreingestellter Vergrößerungsfaktor in Vollbildansicht"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Der voreingestellte Vergrößerungsfaktor in der Vollbildansicht. Zulässige "
-"Werte: 0 (Maßstab 1:1 verwenden), 1 (den selben Vergrößerungsfaktor wie für "
-"das Bildfenster verwenden) sowie 2 (Bild an den Bildschirm anpassen)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -211,11 +209,7 @@ msgstr ""
 "»CHECK_PATTERN«, »COLOR« sowie »NONE«. Falls Sie »COLOR« wählen, legt der "
 "»trans_color«-Schlüssel fest, welche Farbe verwendet werden soll."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Bilder mit Vorgabegröße an Bildschirm anpassen."
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -223,31 +217,23 @@ msgstr ""
 "Falls der Transparenzschlüssel den Wert »COLOR« hat, legt dieser Schlüssel "
 "fest, welche Farbe zum Anzeigen der Transparenz verwendet werden soll."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Bild interpolieren"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Bilder in einem neuem Fenster öffnen"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Einen Rahmen um den Bildschirm zeichnen"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Rollbalken-Verhalten in Vollbildansicht"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Transparenzfarbe"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Transparenzanzeiger"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -256,53 +242,13 @@ msgstr ""
 "besseren Bildqualität, ist jedoch etwas langsamer als eine nicht "
 "interpolierte Darstellung."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Sollen Bildfenster ihre Größe und den Vergrößerungsfaktor abhängig von der "
-"Größe des Bildes automatisch wählen? Falls dieser Wert nicht gesetzt ist, "
-"dann erhalten die Bildfenster die Größe, die ihnen vom Fenstermanager "
-"zugewiesen wurde."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Soll das Öffnen eines Bildes ein neues Fenster erzeugen, anstatt das Bild im "
 "momentan geöffneten Fenster zu ersetzen?"
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "Soll die Vollbildansicht einen Rahmen am Bildschirmrand zeichnen?"
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Sollen in der Vollbildansicht Rollbalken angezeigt werden? Zulässige Werte: "
-"1 (automatisch; Rollbalken nur anzeigen, falls das Bild größer als der "
-"Bildschirm ist) sowie 2 (Rollbalken keinesfalls anzeigen)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Sollen Bilder mit Vorgabegröße im Vollbildmodus an den Bildschirm angepasst "
-"werden? Dies bezieht sich auf Bilder mit Größen wie 320x240, 640x480, "
-"800x800 usw. Dieser Wert legt fest, ob solche Bilder an den Bildschirm "
-"angepasst werden sollen, unabhängig von der Einstellug für den "
-"voreingestellten Vergrößerungsfaktor für die Vollbildansicht."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -344,11 +290,19 @@ msgstr "Bild öffnen"
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: libeog/eog-image.c:1320
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Speicher zum Laden der JPEG Datei konnte nicht reserviert werden"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Kein Bild geöffnet."
 
-#: libeog/eog-image.c:1354
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "Bilder können nur als lokale Dateien gespeichert werden."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Nicht unterstützter Bildtyp zum Speichern."
 
@@ -379,7 +333,7 @@ msgid "Page"
 msgstr "Seite"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -466,20 +420,8 @@ msgid "Vertically by "
 msgstr "Vertikal um "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "Aktionsbereich"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "Dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "Dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -585,8 +527,8 @@ msgstr ""
 "Christian Neumair <chris@gnome-de.org>\n"
 "Matthias Warkus <mawa@iname.com>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -686,75 +628,82 @@ msgid "Print image to the printer"
 msgstr "Das Bild auf dem Drucker ausgeben"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Links drehen"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Rechts drehen"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Speichern _unter..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr ""
 "Die Seiteneinstellungen für den momentan verwendeten Drucker einrichten"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Vollbild"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Drucken..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/90° nach _rechts drehen"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/90° nach _links drehen"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/Ansicht ver_größern"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/Ansicht ver_kleinern"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/_Normale Ansichtsgröße"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/Ansicht an_passen"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/S_chließen"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:996
 msgid "Image successfully saved"
 msgstr "Bild erfolgreich gespeichert"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:1000
 msgid "Image saving failed"
 msgstr "Bild konnte nicht gespeichert werden"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1243
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1246
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1252
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1255
 msgid "Desired Window Width"
 msgstr "Gewünschte Fensterbreite"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1258
 msgid "Desired Window Height"
 msgstr "Gewünschte Fensterhöhe"
-
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
-
-#~ msgid ""
-#~ " .+@#$%&*=-;>,')!~{]^/(_:<[}|"
-#~ "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`"
-#~ msgstr "aha"
