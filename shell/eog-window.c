@@ -255,10 +255,34 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 }
 
 static void
-verb_HelpContent_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_HelpContent_cb (BonoboUIComponent *uic, gpointer data, const char *cname)
 {
-	GError *error = NULL;
-	gnome_help_display ("eog",NULL,&error);
+	GError *error;
+	EogWindow *window;
+
+	window = EOG_WINDOW (data);
+
+	error = NULL;
+	gnome_help_display ("eog", NULL, &error);
+
+	if (error) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (window),
+						 0,
+						 GTK_MESSAGE_ERROR,
+						 GTK_BUTTONS_CLOSE,
+						 _("Could not display help for Eye of Gnome.\n"
+						   "%s"),
+						 error->message);
+
+		g_signal_connect_swapped (dialog, "response",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dialog);
+		gtk_widget_show (dialog);
+
+		g_error_free (error);
+	}
 }
 
 

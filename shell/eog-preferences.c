@@ -16,6 +16,7 @@
 #include <gtk/gtktypeutils.h>
 #include <gtk/gtknotebook.h>
 #include <libgnome/gnome-macros.h>
+#include <libgnome/gnome-help.h>
 #include <eog-preferences.h>
 
 
@@ -30,6 +31,8 @@ struct _EogPreferencesPrivate {
 	GtkWidget          *notebook;
 	
 };
+
+static void eog_preferences_response (GtkDialog *dialog, gint id);
 
 static void
 eog_preferences_destroy (GtkObject *object)
@@ -64,13 +67,21 @@ eog_preferences_finalize (GObject *object)
 }
 
 static void
-eog_preferences_class_init (EogPreferencesClass *klass)
+eog_preferences_class_init (EogPreferencesClass *class)
 {
-	GtkObjectClass *object_class = (GtkObjectClass *)klass;
-	GObjectClass *gobject_class = (GObjectClass *)klass;
+	GObjectClass *gobject_class;
+	GtkObjectClass *object_class;
+	GtkDialogClass *dialog_class;
+
+	gobject_class = (GObjectClass *) class;
+	object_class = (GtkObjectClass *) class;
+	dialog_class = (GtkDialogClass *) class;
+
+	gobject_class->finalize = eog_preferences_finalize;
 
 	object_class->destroy = eog_preferences_destroy;
-	gobject_class->finalize = eog_preferences_finalize;
+
+	dialog_class->response = eog_preferences_response;
 }
 
 static void
@@ -121,6 +132,55 @@ add_property_control_page (EogPreferences *preferences,
 	bonobo_object_release_unref (control, ev);
 }
 
+/* Opens the help browser with help for the preferences dialog */
+static void
+show_help (EogPreferences *preferences)
+{
+	GError *error;
+
+	error = NULL;
+
+	gnome_help_display ("eog", "eog-prefs", &error);
+	if (error) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new (GTK_WINDOW (preferences),
+						 0,
+						 GTK_MESSAGE_ERROR,
+						 GTK_BUTTONS_CLOSE,
+						 _("Could not display help for the "
+						   "preferences dialog.\n"
+						   "%s"),
+						 error->message);
+
+		g_signal_connect_swapped (dialog, "response",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dialog);
+		gtk_widget_show (dialog);
+
+		g_error_free (error);
+	}
+}
+
+/* GtkDialog::response implementation */
+static void
+eog_preferences_response (GtkDialog *dialog, gint id)
+{
+	EogPreferences *preferences;
+
+	preferences = EOG_PREFERENCES (dialog);
+
+	switch (id) {
+	case GTK_RESPONSE_HELP:
+		show_help (preferences);
+		break;
+
+	default:
+		gtk_widget_destroy (GTK_WIDGET (dialog));
+		break;
+	}
+}
+
 EogPreferences *
 eog_preferences_construct (EogPreferences *preferences,
 			   EogWindow      *window)
@@ -138,17 +198,18 @@ eog_preferences_construct (EogPreferences *preferences,
 	preferences->priv->window = window;
 	g_object_ref (window);
 
+	gtk_window_set_resizable (GTK_WINDOW (preferences), FALSE)
+
 	gtk_window_set_title (GTK_WINDOW (preferences), _("Eye of Gnome Preferences"));
-	gtk_dialog_add_button (GTK_DIALOG (preferences), GTK_STOCK_CLOSE,
-			       GTK_RESPONSE_CLOSE);
+	gtk_dialog_add_buttons (GTK_DIALOG (preferences),
+				GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+				GTK_STOCK_HELP, GTK_RESPONSE_HELP,
+				NULL);
 	gtk_dialog_set_has_separator (GTK_DIALOG (preferences), FALSE);
 	preferences->priv->notebook = gtk_notebook_new ();
 	gtk_widget_show (preferences->priv->notebook);
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (preferences)->vbox), 
 			   preferences->priv->notebook);
-	g_signal_connect (preferences, "response", 
-			  G_CALLBACK (gtk_widget_destroy), 
-			  preferences);
 
 	CORBA_exception_init (&ev);
 
@@ -177,8 +238,8 @@ eog_preferences_construct (EogPreferences *preferences,
 	}
 	
 	for (i = 0; i < page_count; i++)
-	    add_property_control_page (preferences, prop_control,
-				       uic, i, &ev);
+		add_property_control_page (preferences, prop_control,
+					   uic, i, &ev);
 
 	bonobo_object_release_unref (prop_control, &ev);
 	CORBA_exception_free (&ev);

@@ -1,3 +1,22 @@
+2002-05-20  Federico Mena Quintero  <federico@ximian.com>
+
+	Patch from Satyajit Kanungo <satyajit.kanungo@wipro.com> to
+	include help in the preferences dialog, with some modifications.
+
+	* shell/eog-preferences.c (eog_preferences_response): Added a
+	handler for the help button.
+	(eog_preferences_construct): Added a help button.
+	(eog_preferences_construct): Do not let the user resize this
+	window.
+
+	* shell/eog-window.c (verb_HelpAbout_cb): Display an error dialog
+	if we cannot show help.
+
+	* help/C/eog.xml: Removed trailing carriage returns.
+
+	* viewer/eog-image.c (load_image_from_file): Removed unused
+	variable.
+
 2002-05-15  Federico Mena Quintero  <federico@ximian.com>
 
 	* viewer/eog-image-io.c (eog_image_save_png): We don't need to

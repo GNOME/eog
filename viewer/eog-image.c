@@ -270,7 +270,6 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	guchar *buffer;
 	gboolean write_rsvg   = TRUE;
 	gboolean write_pixbuf = TRUE;
-	int retval = 0;
 
 	g_return_val_if_fail (closure != NULL, -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (closure), -1);
