@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.5.2.1\n"
+"Project-Id-Version: eog 2.5.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-03 12:48+0100\n"
-"PO-Revision-Date: 2004-01-02 23:14+0100\n"
+"POT-Creation-Date: 2004-01-18 11:38+0100\n"
+"PO-Revision-Date: 2004-01-18 11:35+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -90,31 +90,31 @@ msgstr "A_nnuler"
 msgid "_View"
 msgstr "Afficha_ge"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Annuler l'enregistrement"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Enregistrement terminé"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Déplacer dans la corbeille"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:855
 msgid "Collection View"
 msgstr "Vue de collection"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Titre de la fenêtre"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1348
 msgid "Status Text"
 msgstr "Texte d'état"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progression du chargement de l'image"
 
@@ -352,7 +352,12 @@ msgstr "Enregistrez l'image"
 msgid "Open Folder"
 msgstr "Ouvrez un dossier"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Impossible de créer un fichier temporaire pour l'enregistrement : %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Impossible d'allouer de mémoire pour le chargement du fichier JPEG"
 
@@ -622,7 +627,7 @@ msgstr ""
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -639,7 +644,7 @@ msgstr ""
 "Impossible d'afficher l'aide de Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -648,21 +653,21 @@ msgstr ""
 "Vous êtes sur le point d'ouvrir %i fenêtres simultanément. Voulez-vous les "
 "ouvrir dans une collection plutôt ?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Ouvrir plusieurs fenêtres ?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Fenêtre unique"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Collection"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Impossible de trouver les fichiers"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Fichier(s) non trouvé(s)."
 
 #: shell/util.c:52
 #, c-format
@@ -798,33 +803,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Le chargement a échoué"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Image enregistrée avec succès"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "L'enregistrement de l'image a échoué"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Largeur de l'image"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Hauteur de l'image"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Texte de la barre d'état"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Largeur de fenêtre désirée"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Hauteur de fenêtre désirée"
+
+#~ msgid "Could not find files"
+#~ msgstr "Impossible de trouver les fichiers"
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -1229,7 +1237,7 @@ msgstr "Hauteur de fenêtre désirée"
 #~ msgstr "_Mosaïques"
 
 #~ msgid "Display"
-#~ msgstr "Affichage"
+#~ msgstr "Visuel"
 
 #~ msgid "Nearest Neighbour Interpolation"
 #~ msgstr "Interpolation plus proche voisin"
