@@ -1,3 +1,10 @@
+2002-06-12  Federico Mena Quintero  <federico@ximian.com>
+
+	* shell/main.c (sort_startup_files): Create a list of filenames
+	that had errors.  Call gnome_vfs_file_info_clear() between files.
+	(handle_cmdline_args): If there are files with errors, show an
+	error dialog.  Fixes bug #84890.
+
 2002-06-10  Jens Finke  <jens@triq.net>
 
 	* Released version 1.0.0

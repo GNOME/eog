@@ -82,7 +82,6 @@ make_canonical_uri (const gchar *path)
 	return uri;
 }
 
-
 /**
  * sort_startup_files:
  * @files: Input list of additional command line arguments.
@@ -95,7 +94,7 @@ make_canonical_uri (const gchar *path)
  * regular files and one list with all directories.
  **/
 static void
-sort_startup_files (const gchar **files, GList **file_list, GList **dir_list)
+sort_startup_files (const gchar **files, GList **file_list, GList **dir_list, GList **error_list)
 {
 	gint i;
 	GnomeVFSFileInfo *info;
@@ -104,21 +103,30 @@ sort_startup_files (const gchar **files, GList **file_list, GList **dir_list)
 
 	for (i = 0; files [i]; i++) {
 		GnomeVFSURI *uri;
+		GnomeVFSResult result;
+		char *filename;
 		
 		uri = make_canonical_uri (files[i]);
 
-		gnome_vfs_get_file_info_uri (uri, info,
-					     GNOME_VFS_FILE_INFO_DEFAULT |
-					     GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+		result = gnome_vfs_get_file_info_uri (uri, info,
+						      GNOME_VFS_FILE_INFO_DEFAULT |
+						      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
-		if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-			*file_list = g_list_append (*file_list, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
-		else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-			*dir_list = g_list_append (*dir_list, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
-		else g_warning ("%s has file type: %i\n", 
-				gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE),
-				info->type);
+		filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+
+		if (result != GNOME_VFS_OK)
+			*error_list = g_list_append (*error_list, filename);
+		else {
+			if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+				*file_list = g_list_append (*file_list, filename);
+			else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+				*dir_list = g_list_append (*dir_list, filename);
+			else
+				*error_list = g_list_append (*error_list, filename);
+		}
+
 		gnome_vfs_uri_unref (uri);
+		gnome_vfs_file_info_clear (info);
 	}
 
 	gnome_vfs_file_info_unref (info);
@@ -207,6 +215,100 @@ user_wants_collection (gint n_windows)
 }
 #endif /* EOG_COLLECTION WORKS */
 
+/* Concatenates the strings in a list and separates them with newlines.  If the
+ * list is empty, returns the empty string.  Returns the number of list elements in n.
+ */
+static char *
+concat_string_list_with_newlines (GList *strings, int *n)
+{
+	int len;
+	GList *l;
+	char *str, *p;
+
+	*n = 0;
+
+	if (!strings)
+		return g_strdup ("");
+
+	len = 0;
+
+	for (l = strings; l; l = l->next) {
+		char *s;
+
+		(*n)++;
+
+		s = l->data;
+		len += strlen (s) + 1; /* Add 1 for newline */
+	}
+
+	str = g_new (char, len);
+	p = str;
+	for (l = strings; l; l = l->next) {
+		char *s;
+
+		s = l->data;
+		p = g_stpcpy (p, s);
+		*p++ = '\n';
+	}
+
+	p--;
+	*p = '\0';
+
+	return str;
+}
+
+/* Callback used to process the response from the error dialog box */
+static void
+error_dialog_response_cb (GtkDialog *dialog, gint response_id)
+{
+	gtk_widget_destroy (GTK_WIDGET (dialog));
+
+	/* Terminate if there are no more windows open */
+	if (!eog_get_window_list ())
+		bonobo_main_quit ();
+}
+
+/* Shows an error dialog for files that do not exist */
+static void
+show_nonexistent_files (GList *error_list)
+{
+	char *str;
+	char *msg;
+	int n;
+	GtkWidget *dialog;
+
+	g_assert (error_list != NULL);
+
+	str = concat_string_list_with_newlines (error_list, &n);
+
+	if (n == 1)
+		msg = g_strdup_printf (_("Could not access %s\n"
+					 "Eye of Gnome will not be able to display this file."),
+				       str);
+	else
+		msg = g_strdup_printf (_("The following files cannot be displayed "
+					 "because Eye of Gnome was not able to "
+					 "access them:\n"
+					 "%s"),
+				       str);
+
+	g_free (str);
+
+	dialog = gtk_message_dialog_new (
+		NULL,
+		0,
+		GTK_MESSAGE_ERROR,
+		GTK_BUTTONS_CANCEL,
+		msg);
+	g_free (msg);
+
+	g_signal_connect (dialog, "response",
+			  G_CALLBACK (error_dialog_response_cb),
+			  NULL);
+	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+	gtk_widget_show (dialog);
+}
+
 /**
  * handle_cmdline_args:
  * @data: Pointer to the popt context provided by gnome_init_with_popt_table.
@@ -222,24 +324,27 @@ user_wants_collection (gint n_windows)
 static gboolean
 handle_cmdline_args (gpointer data)
 {
-	GList *dir_list = NULL;
-	GList *file_list = NULL;
+	GList *file_list;
+	GList *dir_list;
+	GList *error_list;
 	const gchar **startup_files;
 	poptContext ctx;
 
 	ctx = data;
 	startup_files = poptGetArgs (ctx);
 
+	file_list = dir_list = error_list = NULL;
+
 	/* sort cmdline arguments into file and dir list */
 	if (startup_files)
-		sort_startup_files (startup_files, &file_list, &dir_list);
+		sort_startup_files (startup_files, &file_list, &dir_list, &error_list);
 	else {
 		gtk_idle_add (create_app, NULL);
 		return FALSE;
 	}
 
 	/* open regular files */
-	if (file_list != NULL) {
+	if (file_list) {
 		if (g_list_length (file_list) > 3) {
 			gint ret = user_wants_collection (g_list_length (file_list));
 			if (ret == COLLECTION_YES) {
@@ -268,9 +373,24 @@ handle_cmdline_args (gpointer data)
 	}
 		
 	/* open every directory in an own window */
-	if (dir_list != NULL) {
+	if (dir_list) {
 		open_in_single_windows (dir_list);
 		g_list_free (dir_list);
+	}
+
+	if (error_list) {
+		GList *l;
+
+		show_nonexistent_files (error_list);
+
+		for (l = error_list; l; l = l->next) {
+			char *uri;
+
+			uri = l->data;
+			g_free (uri);
+		}
+
+		g_list_free (error_list);
 	}
 	
 	/* clean up */
