@@ -40,7 +40,6 @@ glade_DATA =				\
 glade_messages =			\
 	preferences-dialog.glade.h
 
-
 idls =							\
 	$(top_srcdir)/idl/Eog.idl
 
@@ -52,5 +51,6 @@ ui_DATA = $(UI_FILES)
 
 EXTRA_DIST = \
 	$(UI_FILES)		\
-	$(glade_DATA)		\
-	$(glade_messages)	
+	$(glade_DATA)
+
+#	$(glade_messages)	
