@@ -559,7 +559,7 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 
 
 	    /* if rectangle nonempty */
-	    if ((x1 ^ x0) | (y1 ^ y0))
+	    if ((x1 ^ x0) || (y1 ^ y0))
 	      {
 		/* try to glom onto an existing rectangle */
 		glom_rect = glom[left_ix];
