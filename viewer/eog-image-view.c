@@ -508,20 +508,17 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->widget)));
 
-		if (priv->image == NULL) {
-			text = g_strdup (" ");
+		if (priv->image != NULL) {
+			eog_image_get_size (priv->image, &width, &height);
+		}
+		
+		if ((width > 0) && (height > 0)) {
+			/* [image width] x [image height] pixel  [zoom in percent] */
+			text = g_strdup_printf (_("%i x %i pixel    %i%%"), 
+						width, height, zoom);
 		}
 		else {
-			eog_image_get_size (priv->image, &width, &height);
-
-			if ((width > 0) && (height > 0)) {
-				text = g_strdup_printf ("%i x %i %s    %i%%", 
-							width, height, 
-							_("pixel"), zoom);
-			} 
-			else { 
-				text = g_strdup_printf ("%i%%", zoom);
-			} 
+			text = g_strdup (" ");
 		}
 
 		BONOBO_ARG_SET_STRING (arg, text);
