@@ -1,16 +1,16 @@
 # French translation of eog.
 # Copyright (C) 2000-2002 Free Software Foundation, Inc.
 # Vincent Renardias <vincent@debian.org>, 2000.
-# maintainer: Christophe Merlet (RedFox) <christophe@merlet.net>, 2000-2002.
+# maintainer: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2000-2002.
 # Christophe Fergeau <teuf@users.sourceforge.net>, 2002.
 # Sun G11n <gnome_int_l10n@ireland.sun.com>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.1.0\n"
-"POT-Creation-Date: 2002-11-25 19:06+0100\n"
-"PO-Revision-Date: 2002-08-25 12:35+0200\n"
-"Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
+"Project-Id-Version: eog 1.1.3\n"
+"POT-Creation-Date: 2002-12-16 20:58+0100\n"
+"PO-Revision-Date: 2002-12-16 20:15+0100\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,11 +38,11 @@ msgstr "Affiche un grand nombre de type d'images"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr ""
+msgstr "Avec une c_ouleur"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "Avec un _damier"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
@@ -53,25 +53,24 @@ msgid "Image Viewer"
 msgstr "Visionneur d'images"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "Indicate Transparency"
-msgstr "Type de transparence"
+msgstr "Indiquer la transparence"
 
 #: eog.glade.h:6
 msgid "Pick a color"
-msgstr ""
+msgstr "Choisissez une couleur"
 
 #: eog.glade.h:7
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+msgstr "_Interpoler l'image au zoom (meilleure qualité mais plus lent)"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "Choisir la taille de la fenêtre automatiquement"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "Facteur de zoom par défaut pour la vue en plein écran"
 
 #: eog.schemas.in.h:3
 msgid ""
@@ -79,6 +78,9 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
+"Facteur de zoom par défaut pour la vue plein écran. Les valeurs possible "
+"sont : 0 (utilise le facteur de zoom 1:1), 1 (utilise le même facteur de "
+"zoom que la fenêtre d'image), 2 (ajuste l'image à l'écran)."
 
 #: eog.schemas.in.h:4
 msgid ""
@@ -86,9 +88,11 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
+"Détermine la manière dont la transparence doit être indiqué. Les valeurs "
+"valides sont CHECK_PATTERN et COLOR. Si COLOR est choisi, alors la clé "
+"trans_color détermine la valeur de la couleur utilisée."
 
 #: eog.schemas.in.h:5
-#, fuzzy
 msgid "Fit standard-sized images to the screen"
 msgstr "Ajuster les images de taille standard à l'écran"
 
@@ -97,41 +101,40 @@ msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
+"Si la clé transparency a la valeur COLOR, alors cette clé détermine la "
+"couleur qui sera utilisée pour indiquer la transparence."
 
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "Interpolation"
+msgstr "Interpoler l'image"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "Ouvrir dans une nouvelle fenêtre"
+msgstr "Ouvrir les images dans une nouvelle fenêtre"
 
 #: eog.schemas.in.h:9
-#, fuzzy
 msgid "Put a bevel around the screen"
-msgstr "Mettre une bordure sur les cotés de l'écran"
+msgstr "Mettre une bordure autour de l'écran"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "Politique d'ascenseur pour la vue en plein écran"
 
 #: eog.schemas.in.h:11
-#, fuzzy
 msgid "Transparency color"
-msgstr "Type de transparence"
+msgstr "Couleur de transparence"
 
 #: eog.schemas.in.h:12
-#, fuzzy
 msgid "Transparency indicator"
-msgstr "Type de transparence"
+msgstr "Indicateur de transparence"
 
 #: eog.schemas.in.h:13
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
+"Si l'image doit être interpolé au zoom ou non. Cela donne une meilleure "
+"qualité de rendu mais est plus lent que les images non interpolées."
 
 #: eog.schemas.in.h:14
 msgid ""
@@ -139,18 +142,25 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
+"Si les fenêtres d'images doivent choisir leur taille et leur facteur de zoom "
+"automatiquement en fonction de la taille de l'image. Si cette option n'est "
+"pas définie, les fenêtres d'image prendront la taille qui leur est assigné "
+"par le gestionnaire de fenêtres."
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
+"Si ouvrir une image doit créer une nouvelle fenêtre au lieu de remplacer "
+"l'image de la fenêtre existante."
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
 msgstr ""
+"Si la vue plein écran doit afficher une bordure sur les cotés de l'écran."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -158,6 +168,9 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
+"Si les ascenseurs doivent être affiché dans la vue plein écran. Les valeurs "
+"possible sont 1 (automatique ; n'affiche les ascenseurs que lsi l'image est "
+"plus grande que la fenêtre), 2 (n'affiche jamais les ascenseurs)."
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -166,6 +179,11 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
+"Si il faut ajuster les images de taille normal en mode plein écran. Ce sont "
+"les images avec des tailles comme 320x240, 640x480, 800x600, etc. Cela "
+"sélectionne si de telles images doivent être mise à l'échelle pour remplir "
+"l'écran quelque soit le réglage du facteur de zoom par défaut de la vue "
+"plein écran."
 
 #: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
@@ -325,13 +343,12 @@ msgid "Open in this window"
 msgstr "Ouvrir dans cette fenêtre"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
-msgstr "Préférences"
+msgstr "Préfére_nces"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "Préférences pour le composant EoG"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
@@ -346,9 +363,8 @@ msgid "_Close"
 msgstr "_Fermer"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "Contenu"
+msgstr "_Contenu"
 
 #: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
@@ -363,9 +379,8 @@ msgid "_Help"
 msgstr "_Aide"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "Nouveau"
+msgstr "_Nouveau"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -383,9 +398,9 @@ msgstr "_Quitter"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Mainteneur :\n"
-"Christophe Merlet <christophe@merlet.net>\n"
+"Christophe Merlet <redfox@redfoxcenter.org>\n"
 "\n"
-"Contributeur :\n"
+"Contributeurs :\n"
 "Christophe Fergeau <teuf@users.sourceforge.net>\n"
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
@@ -473,7 +488,7 @@ msgstr "Impossible d'ouvrir « %s »"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "Au _mieux"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -485,7 +500,7 @@ msgstr "Avant"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
@@ -497,22 +512,19 @@ msgstr "Zoom a_rrière"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "Taille _normal"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
 msgstr "Zoom a_vant"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "Horizontal"
+msgstr "Mirroir horizontal"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "Vertical"
+msgstr "Mirroir vertical"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -523,14 +535,12 @@ msgid "Previews the image to be printed"
 msgstr "Prévisualise l'image à imprimer"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "Aperçu avant impression"
+msgstr "_Aperçu avant impression..."
 
 #: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
 msgid "Print Set_up"
-msgstr "Paramètres d'impression"
+msgstr "_Paramètres d'impression"
 
 #: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
@@ -538,18 +548,17 @@ msgstr "Imprime l'image sur l'imprimante"
 
 #: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 Degrees"
-msgstr ""
+msgstr "Tourner à 180 degrés"
 
 #: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "Tourner dans le sens horaire"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counter Clockwise"
-msgstr ""
+msgstr "Tourner dans le sens antihoraire"
 
 #: viewer/eog-image-view-ui.xml.h:11
-#, fuzzy
 msgid "Save _As..."
 msgstr "Enregistrer _sous..."
 
@@ -558,11 +567,10 @@ msgid "Setup the page settings for your current printer"
 msgstr "Définit les paramètres la page pour l'imprimante courante"
 
 #: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
 msgid "_Print..."
-msgstr "_Imprimer"
+msgstr "_Imprimer..."
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
 msgstr "Afficha_ge"
 
@@ -588,7 +596,6 @@ msgid "Printing of image failed"
 msgstr "L'impression de l'image a échoué"
 
 #: viewer/eog-image-view.c:1873
-#, fuzzy
 msgid "/_Zoom In"
 msgstr "/Zoom a_vant"
 
@@ -598,12 +605,11 @@ msgstr "/Zoom a_rrière"
 
 #: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/Taille _normal"
 
 #: viewer/eog-image-view.c:1879
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "/Zoom pour _ajuster"
+msgstr "/Au _mieux"
 
 #: viewer/eog-image-view.c:1882
 msgid "/_Close"
@@ -799,7 +805,7 @@ msgstr "À droite, puis vers le bas"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
+msgstr "Diaporama"
 
 #~ msgid "_New Window"
 #~ msgstr "_Nouvelle fenêtre"
@@ -970,7 +976,7 @@ msgstr ""
 #~ msgid "Translator Credits"
 #~ msgstr ""
 #~ "Mainteneur :\n"
-#~ "Christophe Merlet <christophe@merlet.net>\n"
+#~ "Christophe Merlet <redfox@redfoxcenter.org>\n"
 #~ "Contributeur :\n"
 #~ "Christophe Fergeau <teuf@users.sourceforge.net>"
 
