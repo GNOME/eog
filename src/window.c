@@ -462,6 +462,7 @@ window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, g
 	WindowPrivate *priv;
 	GList *filenames;
 	GList *l;
+	gboolean need_new_window;
 
 	window = WINDOW (widget);
 	priv = window->priv;
@@ -475,6 +476,11 @@ window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, g
 
 	filenames = gnome_uri_list_extract_filenames (selection_data->data);
 
+	/* The first image is opened in the same window only if the current
+	 * window has no image in it.
+	 */
+	need_new_window = window_has_image (window);
+
 	for (l = filenames; l; l = l->next) {
 		GtkWidget *new_window;
 		char *filename;
@@ -482,18 +488,17 @@ window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, g
 		g_assert (l->data != NULL);
 		filename = l->data;
 
-		/* If the current window has no image, open the first image there */
-
-		if (l == filenames && !window_has_image (window))
-			new_window = GTK_WIDGET (window);
-		else
+		if (need_new_window)
 			new_window = window_new ();
+		else
+			new_window = GTK_WIDGET (window);
 
-		if (window_open_image (WINDOW (new_window), filename))
+		if (window_open_image (WINDOW (new_window), filename)) {
 			gtk_widget_show_now (new_window);
-		else {
+			need_new_window = TRUE;
+		} else {
 			open_failure_dialog (GTK_WINDOW (new_window), filename);
-
+			
 			if (new_window != GTK_WIDGET (window))
 				gtk_widget_destroy (new_window);
 		}
