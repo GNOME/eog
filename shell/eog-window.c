@@ -54,6 +54,7 @@
 #include "eog-hig-dialog.h"
 #include "eog-uri-converter.h"
 #include "eog-save-as-dialog-helper.h"
+#include "eog-pixbuf-util.h"
 
 /* Default size for windows */
 
@@ -922,18 +923,92 @@ save_as_image_list (gpointer user_data)
 	return NULL;
 }
 
+/* Asks user for a file location to save an image there. Returns the save target uri
+ * and the image format. The uri parameter is set to NULL if the user canceled the
+ * dialog.
+ */
+static void
+save_as_file_selection_dialog (EogWindow *window, char *folder_uri, char **uri, GdkPixbufFormat **format)
+{
+	GtkWidget *dlg;
+	gboolean success = FALSE;
+	gint response;
+
+	g_return_if_fail (uri != NULL);
+	g_return_if_fail (format != NULL);
+
+	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SAVE);
+	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
+						 folder_uri);
+	while (!success) {
+		success = TRUE;
+		if (*uri != NULL) {
+			g_free (*uri);
+			*uri = NULL;
+		}
+
+		gtk_widget_show_all (dlg);
+		response = gtk_dialog_run (GTK_DIALOG (dlg));
+		gtk_widget_hide (dlg);
+
+		if (response == GTK_RESPONSE_OK) {
+			*format = eog_file_selection_get_format (EOG_FILE_SELECTION (dlg));
+			*uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
+
+			if (*format == NULL && *uri != NULL) {
+				*format = eog_pixbuf_get_format_by_uri (*uri);
+			}
+				
+			success = (*format != NULL && *uri != NULL);
+		}
+		
+		if (!success) {
+			GtkWidget *err_dlg;
+			char *header;
+			char *detail;
+			char *short_name;
+			char *uesc_uri;
+
+			uesc_uri = gnome_vfs_unescape_string_for_display (*uri);
+			short_name = g_path_get_basename (uesc_uri);
+
+			header = g_strdup_printf (_("Couldn't determine file format of %s"), short_name);
+			detail = _("Please use an appropriate filename suffix or select a file format.");
+			
+			g_free (uesc_uri);
+			g_free (short_name);
+
+			err_dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+						      header, detail,
+						      TRUE);
+			
+			gtk_dialog_add_button (GTK_DIALOG (err_dlg), _("Retry"), GTK_RESPONSE_OK);
+			gtk_dialog_add_button (GTK_DIALOG (err_dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+			
+			gtk_window_set_transient_for (GTK_WINDOW (err_dlg), GTK_WINDOW (window));
+			gtk_window_set_position (GTK_WINDOW (err_dlg), GTK_WIN_POS_CENTER_ON_PARENT);
+			gtk_widget_show_all (err_dlg);
+			
+			response = gtk_dialog_run (GTK_DIALOG (err_dlg));
+			gtk_widget_destroy (err_dlg);
+			g_free (header);
+		}
+	}
+
+	gtk_widget_destroy (dlg);
+}
+
 static void
 save_as_single_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
-	GtkWidget *dlg;
 	char *uri = NULL;
 	SaveData *data;
 	GnomeVFSURI *img_uri;
 	GnomeVFSURI *parent;
 	char *folder_uri = NULL;
 	GdkPixbufFormat *format = NULL;
-	gint response;
 	GtkWidget *button;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -948,22 +1023,13 @@ save_as_single_image (EogWindow *window, EogImage *image)
 	gnome_vfs_uri_unref (img_uri);
 	gnome_vfs_uri_unref (parent);
 
-	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SAVE);
-	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
-						 folder_uri);
+	save_as_file_selection_dialog (window, folder_uri, &uri, &format);
 	g_free (folder_uri);
-
-	gtk_widget_show_all (dlg);
-	response = gtk_dialog_run (GTK_DIALOG (dlg));
-	if (response == GTK_RESPONSE_OK) {
-		uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
-		format = eog_file_selection_get_format (EOG_FILE_SELECTION (dlg));
-	}
-
-	gtk_widget_destroy (dlg);
 
 	if (uri == NULL)
 		return;
+
+	g_assert (uri != NULL && format != NULL);
 
 	data = g_new0 (SaveData, 1);
 	g_assert (data != NULL);

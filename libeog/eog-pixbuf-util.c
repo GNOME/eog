@@ -91,4 +91,52 @@ eog_pixbuf_get_common_suffix (GdkPixbufFormat *format)
 	return result;
 }
 
+GdkPixbufFormat* 
+eog_pixbuf_get_format_by_vfs_uri (GnomeVFSURI *uri)
+{
+	char *suffix;
+	char *short_name;
+	char *suffix_start;
+	guint len;
+	GdkPixbufFormat *format;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
+	/* get unescaped string */
+	short_name = gnome_vfs_uri_extract_short_name (uri); 
+	
+	/* FIXME: does this work for all locales? */
+	suffix_start = g_utf8_strrchr (short_name, -1, '.'); 
+	
+	if (suffix_start == NULL) 
+		return NULL;
+	
+	len = MAX (0, strlen (suffix_start) - 1);
+	suffix = g_strndup (suffix_start+1, len);
+	
+	format = eog_pixbuf_get_format_by_suffix (suffix);
+	
+	g_free (short_name);
+	g_free (suffix);
+
+	return format;
+
+}
+
+GdkPixbufFormat* 
+eog_pixbuf_get_format_by_uri (const char *txt_uri)
+{
+	GnomeVFSURI *uri;
+	GdkPixbufFormat *format;
+
+	g_return_val_if_fail (txt_uri != NULL, NULL);
+
+	uri = gnome_vfs_uri_new (txt_uri);
+
+	format = eog_pixbuf_get_format_by_vfs_uri (uri);
+
+	gnome_vfs_uri_unref (uri);
+
+	return format;
+}
 

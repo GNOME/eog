@@ -1,5 +1,14 @@
 2004-07-26  Jens Finke  <jens@triq.net>
 
+	* shell/eog-window.c (save_as_file_selection_dialog): New function.
+	(save_as_single_image): Assert that we can always determine
+	the image format - #148190.
+
+	* libeog/eog-pixbuf-util.[ch] (eog_pixbuf_get_format_by_vfs_uri),
+	(eog_pixbuf_get_format_by_uri): New functions.
+
+2004-07-26  Jens Finke  <jens@triq.net>
+
 	* shell/eog-window.c (add_eog_icon_factory): Don't free static
 	GnomeProgram object. Fixes #148096
 
