@@ -73,6 +73,8 @@ Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
 
 GList *eog_get_window_list (void);
 
+void eog_window_close_all (void);
+
 G_END_DECLS
 
 #endif

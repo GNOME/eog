@@ -201,18 +201,7 @@ verb_FileCloseWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char 
 static void
 verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
-	GList *l;
-	EogWindow *w;
-
-	/* Destroy windows and exit */
-	for (l = window_list; l != NULL; l = l->next) {
-		w = EOG_WINDOW (l->data);
-		gtk_widget_destroy (GTK_WIDGET (w));
-	}
-	g_list_free (window_list);
-	window_list = NULL;
-
-	bonobo_main_quit ();
+	eog_window_close_all ();
 }
 
 static void
@@ -1268,4 +1257,25 @@ eog_window_get_uri (EogWindow *eog_window)
 
 	priv = eog_window->priv;
 	return priv->uri;
+}
+
+/**
+ * eog_window_close_all:
+ * 
+ * Closes all EOG windows, causing the program to exit.
+ **/
+void
+eog_window_close_all (void)
+{
+	while (1) {
+		GList *l;
+		EogWindow *window;
+
+		l = window_list;
+		if (!l)
+			break;
+
+		window = EOG_WINDOW (l->data);
+		eog_window_close (window);
+	}
 }
