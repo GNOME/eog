@@ -405,8 +405,9 @@ EogControl *
 eog_control_construct (EogControl    *control,
 		       EogImage      *image)
 {
-	BonoboControl     *retval;
-	BonoboPropertyBag *property_bag;
+	BonoboControl         *retval;
+	BonoboPropertyBag     *property_bag;
+	BonoboPropertyControl *property_control;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (control != NULL, NULL);
@@ -477,6 +478,11 @@ eog_control_construct (EogControl    *control,
 	property_bag = eog_image_view_get_property_bag (control->priv->image_view);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), property_bag);
 	bonobo_object_unref (BONOBO_OBJECT (property_bag));
+
+	property_control = eog_image_view_get_property_control (control->priv->image_view);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (control),
+				     BONOBO_OBJECT (property_control));
 
 	control->priv->uic = bonobo_control_get_ui_component (
 		BONOBO_CONTROL (control));

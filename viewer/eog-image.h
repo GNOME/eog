@@ -31,13 +31,15 @@ typedef struct _EogImageClass    EogImageClass;
 typedef struct _EogImagePrivate  EogImagePrivate;
 
 struct _EogImage {
-        BonoboObject object;
+        BonoboXObject base;
 
         EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-        BonoboObjectClass parent_class;
+        BonoboXObjectClass parent_class;
+
+	POA_GNOME_EOG_Image__epv epv;
 
         void (*set_image)                       (EogImage       *image);
 };
@@ -46,11 +48,9 @@ POA_GNOME_EOG_Image__epv *eog_image_get_epv     (void);
 
 EogImage       *eog_image_new                   (void);
 GtkType         eog_image_get_type              (void);
-GNOME_EOG_Image eog_image_corba_object_create   (BonoboObject   *object);
 BonoboObject   *eog_image_add_interfaces        (EogImage       *image,
 						 BonoboObject   *to_aggregate);
-EogImage       *eog_image_construct             (EogImage       *image,
-						 GNOME_EOG_Image corba_object);
+EogImage       *eog_image_construct             (EogImage       *image);
 Image          *eog_image_get_image             (EogImage       *image);
 GdkPixbuf      *eog_image_get_pixbuf            (EogImage       *image);
 

@@ -42,9 +42,6 @@ eog_embeddable_view_new                 (EogImage                *image);
 GtkType
 eog_embeddable_view_get_type            (void) G_GNUC_CONST;
 
-Bonobo_View
-eog_embeddable_view_corba_object_create (BonoboObject            *object);
-
 EogEmbeddableView *
 eog_embeddable_view_construct           (EogEmbeddableView       *embeddable_view,
                                          EogImage                *image);

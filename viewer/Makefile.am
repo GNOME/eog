@@ -7,7 +7,6 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
-	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
@@ -46,6 +45,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable-view.h	\
 	eog-util.h		\
 	eog-util.c		\
+	preferences.h		\
+	preferences.c		\
 	main.c
 
 eog_image_viewer_LDADD = 			\

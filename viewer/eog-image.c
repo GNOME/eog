@@ -30,7 +30,7 @@ struct _EogImagePrivate {
         GdkPixbuf            *pixbuf;
 };
 
-POA_GNOME_EOG_Image__vepv eog_image_vepv;
+#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
 
 static BonoboObjectClass *eog_image_parent_class;
 
@@ -40,27 +40,6 @@ enum {
 };
 
 static guint eog_image_signals [LAST_SIGNAL];
-
-/**
- * eog_image_get_epv:
- */
-POA_GNOME_EOG_Image__epv *
-eog_image_get_epv (void)
-{
-	POA_GNOME_EOG_Image__epv *epv;
-
-	epv = g_new0 (POA_GNOME_EOG_Image__epv, 1);
-
-	return epv;
-}
-
-static void
-init_eog_image_corba_class (void)
-{
-	/* Setup the vector of epvs */
-	eog_image_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	eog_image_vepv.GNOME_EOG_Image_epv = eog_image_get_epv ();
-}
 
 static void
 eog_image_destroy (GtkObject *object)
@@ -104,8 +83,9 @@ static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	POA_GNOME_EOG_Image__epv *epv;
 
-	eog_image_parent_class = gtk_type_class (bonobo_object_get_type ());
+	eog_image_parent_class = gtk_type_class (PARENT_TYPE);
 
 	gtk_object_class_add_signals (object_class, eog_image_signals, LAST_SIGNAL);
 
@@ -123,7 +103,7 @@ eog_image_class_init (EogImageClass *klass)
 	object_class->destroy = eog_image_destroy;
 	object_class->finalize = eog_image_finalize;
 
-	init_eog_image_corba_class ();
+	epv = &klass->epv;
 }
 
 static void
@@ -132,28 +112,10 @@ eog_image_init (EogImage *image)
 	image->priv = g_new0 (EogImagePrivate, 1);
 }
 
-GtkType
-eog_image_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type){
-		GtkTypeInfo info = {
-			"EogImage",
-			sizeof (EogImage),
-			sizeof (EogImageClass),
-			(GtkClassInitFunc) eog_image_class_init,
-			(GtkObjectInitFunc) eog_image_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (bonobo_object_get_type (), &info);
-	}
-
-	return type;
-}
+BONOBO_X_TYPE_FUNC_FULL (EogImage,
+			 GNOME_EOG_Image,
+			 PARENT_TYPE,
+			 eog_image);
 
 /*
  * Loads an Image from a Bonobo_Stream
@@ -303,27 +265,6 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename,
 	return 0;
 }
 
-GNOME_EOG_Image
-eog_image_corba_object_create (BonoboObject *object)
-{
-	POA_GNOME_EOG_Image *servant;
-	CORBA_Environment ev;
-	
-	servant = (POA_GNOME_EOG_Image *) g_new0 (BonoboObjectServant, 1);
-	servant->vepv = &eog_image_vepv;
-
-	CORBA_exception_init (&ev);
-	POA_GNOME_EOG_Image__init ((PortableServer_Servant) servant, &ev);
-	if (ev._major != CORBA_NO_EXCEPTION){
-		g_free (servant);
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
-
-	CORBA_exception_free (&ev);
-	return (GNOME_EOG_Image) bonobo_object_activate_servant (object, servant);
-}
-
 static Bonobo_Unknown
 eog_image_get_object (BonoboItemContainer *item_container,
 		      CORBA_char *item_name, CORBA_boolean only_if_exists,
@@ -418,41 +359,31 @@ eog_image_add_interfaces (EogImage     *image,
 }
 
 EogImage *
-eog_image_construct (EogImage *image, GNOME_EOG_Image corba_object)
+eog_image_construct (EogImage *image)
 {
 	BonoboObject *retval;
 
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
-	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
 
-	retval = eog_image_add_interfaces (
-		image, BONOBO_OBJECT (image));
+	retval = eog_image_add_interfaces (image, BONOBO_OBJECT (image));
 
 	if (!retval)
 		return NULL;
 
 	/* Currently we do very little of substance in Image */
 
-	return EOG_IMAGE (bonobo_object_construct (
-		BONOBO_OBJECT (image), corba_object));
+	return image;
 }
 
 EogImage *
 eog_image_new (void)
 {
 	EogImage *image;
-	GNOME_EOG_Image corba_object;
 	
 	image = gtk_type_new (eog_image_get_type ());
 
-	corba_object = eog_image_corba_object_create (BONOBO_OBJECT (image));
-	if (corba_object == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (image));
-		return NULL;
-	}
-	
-	return eog_image_construct (image, corba_object);
+	return eog_image_construct (image);
 }
 
 Image *

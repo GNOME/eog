@@ -1,3 +1,34 @@
+2001-02-20  Martin Baulig  <baulig@suse.de>
+
+	* preferences.[ch]: New files.
+
+	* eog-image-view.c
+	(eog_image_view_get_property_control): New function.
+	(eog_image_view_construct): Create the BonoboPropertyControl.
+	(eog_image_view_get/set_interpolation/dither/check_type/check_size):
+	Get/set values from the PropertyBag and directly from the ImageView
+	directly. This way we can "hide" the property bag in the implementation
+	and transparently use the get/set function.
+	(eog_image_view_get/set_prop): Operate directly on the ImageView.
+
+	* eog-control.c (eog_control_construct): Get the PropertyControl
+	from the EogImageView and bonobo_object_add_interface() it.
+
+	* eog-image.[ch]: Use BonoboXObject.
+	(eog_image_corba_object_create): Removed.
+	(eog_image_construct): Removed `corba_object' argument.
+
+	* eog-image-data.[ch]: Use BonoboXObject.
+	(eog_image_data_corba_object_create): Removed.
+	(eog_image_data_construct): Removed `corba_object' argument.
+
+	* eog-image-view.[ch]: Use BonoboXObject.
+	(eog_image_view_corba_object_create): Removed.
+	(eog_image_view_construct): Removed `corba_object' argument.
+
+	* eog-embeddable-view.h (eog_embeddable_view_corba_object_create):
+	Removed prototype for non-existing function.
+
 2001-02-15  Jens Finke <jens@gnome.org>
 
 	* eog-control.c (toolbar definition): Changed name to 'Toolbar',

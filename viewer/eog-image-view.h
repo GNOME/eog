@@ -27,27 +27,27 @@ typedef struct _EogImageViewClass    EogImageViewClass;
 typedef struct _EogImageViewPrivate  EogImageViewPrivate;
 
 struct _EogImageView {
-	BonoboObject object;
+	BonoboXObject base;
 
 	EogImageViewPrivate *priv;
 };
 
 struct _EogImageViewClass {
-	BonoboObjectClass parent_class;
+	BonoboXObjectClass parent_class;
+
+	POA_GNOME_EOG_ImageView__epv epv;
 };
 
-POA_GNOME_EOG_ImageView__epv *eog_image_view_get_epv   (void);
-GtkType                       eog_image_view_get_type  (void);
+GtkType             eog_image_view_get_type            (void);
 
 EogImageView       *eog_image_view_new                 (EogImage           *image,
 							gboolean            zoom_fit);
-GNOME_EOG_ImageView eog_image_view_corba_object_create (BonoboObject       *object);
 EogImageView       *eog_image_view_construct           (EogImageView       *image_view,
-							GNOME_EOG_ImageView corba_object,
 							EogImage           *image,
 							gboolean            zoom_fit);
 EogImage           *eog_image_view_get_image           (EogImageView       *image_view);
 BonoboPropertyBag  *eog_image_view_get_property_bag    (EogImageView       *image_view);
+BonoboPropertyControl *eog_image_view_get_property_control (EogImageView   *image_view);
 void                eog_image_view_set_ui_container    (EogImageView       *image_view,
 							Bonobo_UIContainer  ui_container);
 void                eog_image_view_unset_ui_container  (EogImageView       *image_view);
