@@ -1,6 +1,6 @@
 2001-06-30  Jens Finke <jens@gnome.org>
 
-	* eog-image-loader.c: Call gdk_pixbuf_loader_close before
+	* eog-image.c: Call gdk_pixbuf_loader_close before
 	gdk_pixbuf_loader_get_pixbuf. Otherwise we fail to open xpm and tiff
 	images, due to some hacks in gdk-pixbuf.
 
