@@ -1,10 +1,14 @@
 <Root>
 
 <commands>
-         <cmd name="ZoomIn" _label="_Zoom In" accel="*Control*plus"/>
-         <cmd name="ZoomOut" _label="Zoom _Out" accel="*Control*minus"/>
-         <cmd name="ZoomToDefault" _label="_Normal Size" accel="*Control*equal"/>
-         <cmd name="ZoomToFit" _label="Best _Fit"/>
+         <cmd name="ZoomIn" _label="_Zoom In" accel="*Control*plus"
+              pixtype="stock" pixname="gtk-zoom-in"/>
+         <cmd name="ZoomOut" _label="Zoom _Out" accel="*Control*minus"
+              pixtype="stock" pixname="gtk-zoom-out"/>
+         <cmd name="ZoomToDefault" _label="_Normal Size" accel="*Control*equal"
+              pixtype="stock" pixname="gtk-zoom-100"/>
+         <cmd name="ZoomToFit" _label="Best _Fit"
+              pixtype="stock" pixname="gtk-zoom-fit"/>
 </commands>
 
 <menu>
@@ -20,14 +24,10 @@
           
 <dockitem name="Toolbar">
          <separator/>
-         <toolitem name="ZoomIn" _label="In" verb="" pixtype="stock"
-         	   pixname="gtk-zoom-in"/>
-         <toolitem name="ZoomOut" _label="Out" verb="" pixtype="stock"
-         	   pixname="gtk-zoom-out"/>
-         <toolitem name="ZoomToDefault" _label="Normal" verb=""  pixtype="stock"
-         	   pixname="gtk-zoom-100"/>
-         <toolitem name="ZoomToFit" _label="Fit" verb="" pixtype="stock"
-         	   pixname="gtk-zoom-fit"/>
+         <toolitem name="ZoomIn" _label="In" verb=""/>
+         <toolitem name="ZoomOut" _label="Out" verb=""/>
+         <toolitem name="ZoomToDefault" _label="Normal" verb=""/>
+         <toolitem name="ZoomToFit" _label="Fit" verb=""/>
 </dockitem>"
 
 </Root>

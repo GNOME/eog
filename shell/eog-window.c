@@ -269,7 +269,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			_("Copyright (C) 2000-2002 The Free Software Foundation"),
+			_("Copyright \xc2\xa9 2000-2003 The Free Software Foundation"),
 			_("The GNOME image viewing and cataloging program."),
 			authors,
 			documenters,

@@ -183,6 +183,18 @@ verb_FullScreen_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 	gtk_widget_show_all (fs);
 }
 
+static void 
+verb_Undo_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageViewPrivate *priv;
+
+	priv = EOG_IMAGE_VIEW (data)->priv;
+
+	if (priv->image != NULL) {
+		eog_image_undo (priv->image);
+	}
+}
+
 static void
 apply_transformation (EogImageView *view, EogTransform *trans)
 {
@@ -389,6 +401,7 @@ static BonoboUIVerb eog_zoom_verbs[] = {
 static BonoboUIVerb eog_verbs[] = {
 	BONOBO_UI_VERB ("SaveAs",        verb_SaveAs_cb),
 	BONOBO_UI_VERB ("FullScreen",    verb_FullScreen_cb),
+	BONOBO_UI_VERB ("Undo",          verb_Undo_cb),
 	BONOBO_UI_VERB ("FlipHorizontal",verb_FlipHorizontal_cb),
 	BONOBO_UI_VERB ("FlipVertical",  verb_FlipVertical_cb),
 	BONOBO_UI_VERB ("Rotate90cw",    verb_Rotate90cw_cb),
