@@ -139,6 +139,11 @@ render_fn (GnomePrintContext         *ctx,
 	gnome_print_gsave  (ctx);
 	gnome_print_concat (ctx, matrix);
 
+	/*
+	 * FIXME: here we probably need to think about doing some sort
+	 * of nice interpolation to feature reduce massive images.
+	 */
+
 	if (gdk_pixbuf_get_has_alpha (pixbuf))
 		gnome_print_rgbaimage  (ctx,
 					gdk_pixbuf_get_pixels    (pixbuf),

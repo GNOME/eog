@@ -8,7 +8,7 @@ PKG_NAME="Eye of Gnome image viewer"
 
 (test -f $srcdir/configure.in \
   && test -d $srcdir/src \
-  && test -f $srcdir/src/image-view.c) || {
+  && test -f $srcdir/bonobo/bonobo-image-generic.c) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level $PKG_NAME directory"
     exit 1
