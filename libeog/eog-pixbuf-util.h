@@ -3,6 +3,8 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+GSList*    eog_pixbuf_get_savable_formats (void);
+
 void       eog_pixbuf_flip_horizontal (GdkPixbuf *pixbuf);
 
 void       eog_pixbuf_flip_vertical   (GdkPixbuf *pixbuf);

@@ -53,7 +53,7 @@ struct _EogImageClass {
 	void (* thumbnail_failed) (EogImage *img);
 	void (* thumbnail_cancelled) (EogImage *img);
 
-	void (* changed) (EogImage *img);
+	void (* image_changed) (EogImage *img);
 };
 
 GType               eog_image_get_type                       (void) G_GNUC_CONST;

@@ -41,7 +41,7 @@ enum {
 	SIGNAL_LOADING_FINISHED,
 	SIGNAL_LOADING_FAILED,
 	SIGNAL_LOADING_CANCELLED,
-	SIGNAL_CHANGED,
+	SIGNAL_IMAGE_CHANGED,
 	SIGNAL_THUMBNAIL_FINISHED,
 	SIGNAL_THUMBNAIL_FAILED,
 	SIGNAL_THUMBNAIL_CANCELLED,
@@ -336,11 +336,11 @@ eog_image_class_init (EogImageClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-	eog_image_signals [SIGNAL_CHANGED] = 
-		g_signal_new ("changed",
+	eog_image_signals [SIGNAL_IMAGE_CHANGED] = 
+		g_signal_new ("image_changed",
 			      G_TYPE_OBJECT,
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, changed),
+			      G_STRUCT_OFFSET (EogImageClass, image_changed),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
@@ -686,7 +686,7 @@ eog_image_rotate_clock_wise (EogImage *img)
 	priv->image = rotated;
 
 	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_CHANGED], 0);
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 }
 
 void    
@@ -705,7 +705,7 @@ eog_image_rotate_counter_clock_wise (EogImage *img)
 	priv->image = rotated;
 
 	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_CHANGED], 0);	
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
 }
 
 void
@@ -721,7 +721,7 @@ eog_image_rotate_180 (EogImage *img)
 	eog_pixbuf_rotate_180 (priv->image);
 	
 	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_CHANGED], 0);
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 }
 
 void
@@ -737,7 +737,7 @@ eog_image_flip_horizontal (EogImage *img)
 	eog_pixbuf_flip_horizontal (priv->image);
 
 	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_CHANGED], 0);	
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
 }
 
 void
@@ -753,7 +753,7 @@ eog_image_flip_vertical (EogImage *img)
 	eog_pixbuf_flip_vertical (priv->image);
 
 	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_CHANGED], 0);	
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
 }
 
 gboolean
@@ -762,6 +762,8 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 	EogImagePrivate *priv;
 	char *file;
 	char *file_type = NULL;
+	GSList *savable_formats = NULL;
+	GSList *it;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	g_return_val_if_fail (uri != NULL, FALSE);
@@ -776,27 +778,33 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		return FALSE;
 	}
 	
-	if (!gnome_vfs_uri_is_local (uri)) {
-		g_set_error (error, EOG_IMAGE_ERROR, 
-			     EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
-			     _("Can't save non local files."));
-		return FALSE;
-	}
-
+	/* find file type for saving, according to filename suffix */
 	file = (char*) gnome_vfs_uri_get_path (uri); /* don't free file */
 	
-	if (g_str_has_suffix (file, ".png")) {
-		file_type = "png";
-	}
-	else if (g_str_has_suffix (file, ".jpg") ||
-		 g_str_has_suffix (file, ".jpeg"))
-	{
-		file_type = "jpeg";
-	}
-	else if (g_str_has_suffix (file, ".xpm")) {
-		return eog_image_helper_save_xpm (priv->image, file, error);
-	}
+	savable_formats = eog_pixbuf_get_savable_formats ();
+	for (it = savable_formats; it != NULL && file_type == NULL; it = it->next) {
+		GdkPixbufFormat *format;
+		char **extension;
+		int i;
 
+		format = (GdkPixbufFormat*) it->data;
+		extension = gdk_pixbuf_format_get_extensions (format);
+		
+		for (i = 0; extension[i] != NULL && file_type == NULL; i++) {
+			char *suffix;
+			
+			suffix = g_strconcat (".", extension[i], NULL);
+			if (g_str_has_suffix (file, suffix)) {
+				file_type = gdk_pixbuf_format_get_name (format);
+			}
+
+			g_free (suffix);
+		}
+
+		g_strfreev (extension);
+	}
+	g_slist_free (savable_formats);
+	
 	if (file_type == NULL) {
 		g_set_error (error, GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_UNKNOWN_TYPE,
@@ -804,7 +812,9 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		return FALSE;
 	}
 	else {
-		return gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
+		gboolean result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
+		g_free (file_type);
+		return result;
 	}
 
 	return FALSE;

@@ -1764,7 +1764,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 							  (GCallback) image_loading_failed_cb, view);
 		priv->image_cb_ids[3] = g_signal_connect (priv->image, "loading_cancelled", 
 							  (GCallback) image_loading_cancelled_cb, view);
-		priv->image_cb_ids[4] = g_signal_connect (priv->image, "changed", 
+		priv->image_cb_ids[4] = g_signal_connect (priv->image, "image_changed", 
 							  (GCallback) image_changed_cb, view);
 
 		if (eog_image_load (priv->image)) {

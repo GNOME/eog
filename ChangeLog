@@ -1,3 +1,31 @@
+2003-03-02  Jens Finke  <jens@triq.net>
+
+	Re-enabled image saving.
+
+	* libeog/eog-file-selection.c (get_save_formats): Moved to
+	eog-pixbuf-util.
+	(eog_append_menu_entry),
+	(check_extension),
+	(is_filename_valid),
+	(changed_cb): Free values from gdk_pixbuf_format calls.
+
+	* libeog/eog-image.c: Changed "changed" signal name to
+	"image_changed".
+	(eog_image_save): Rely completely on GdkPixbuf for image saving
+	and use GdkPixbufFormat information to determine the filetype.
+	This removes xpm saving support from eog, but the right way should
+	be to put this into gdk-pixbuf anyway.
+
+	* libeog/eog-pixbuf-util.c (eog_pixbuf_get_savable_formats): New
+	function, previously in eog-file-selection.c.
+
+	* libeog/eog-scroll-view.c (eog_scroll_view_set_image):
+	s/changed/image_changed.
+
+	* viewer/eog-iamge-view.c (verb_SaveAs_cb): Reenabled.
+	(item_factory_translate_cb): Use gettext again.
+	(save_uri_cb): Use HIG dialogs.
+
 2003-03-01  Jens Finke  <jens@triq.net>
 
 	Fixed compiler warnings in libeog.

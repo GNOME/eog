@@ -12,6 +12,7 @@
 #include <gtk/gtkmessagedialog.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-hig-dialog.h"
+#include "eog-pixbuf-util.h"
 
 struct _EogFileSelectionPrivate {
 	EogFileSelectionType type;
@@ -75,11 +76,13 @@ eog_append_menu_entry (GtkWidget *menu, GdkPixbufFormat *format)
 	else {
 		char *caption = NULL;
 		char **suffix;
+		char *name;
 		char *tmp;
 		int i;
 
 		suffix = gdk_pixbuf_format_get_extensions (format);
-		caption = g_ascii_strup (gdk_pixbuf_format_get_name (format), -1);
+		name = gdk_pixbuf_format_get_name (format);
+		caption = g_ascii_strup (name, -1);
 		for (i = 0; suffix[i] != NULL; i++) {
 			if (i == 0) {
 				tmp = g_strconcat (caption, " (*.", suffix[i], NULL);
@@ -96,34 +99,13 @@ eog_append_menu_entry (GtkWidget *menu, GdkPixbufFormat *format)
 		caption = tmp;
 
 		item = gtk_menu_item_new_with_label (caption);
+
 		g_free (caption);
+		g_free (name);
+		g_strfreev (suffix);
 	}
 	g_object_set_data (G_OBJECT (item), FILE_TYPE_INFO_KEY, format);
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-}
-
-static GSList*
-get_save_formats (void)
-{
-	GSList *list;
-	GSList *write_list = NULL;
-	GSList *it;
-
-	list = gdk_pixbuf_get_formats ();
-	
-	for (it = list; it != NULL; it = it->next) {
-		GdkPixbufFormat *format;
-
-		format = (GdkPixbufFormat*) it->data;
-		if (gdk_pixbuf_format_is_writable (format)) {
-			write_list = g_slist_prepend (write_list, format);
-		}
-	}
-
-	g_slist_free (list);
-	write_list = g_slist_reverse (write_list);
-
-	return write_list;
 }
 
 static gboolean
@@ -131,6 +113,7 @@ check_extension (const char *filename, GdkPixbufFormat *format)
 {
 	int i;
 	char **suffixes;
+	gboolean result;
 	
 	suffixes = gdk_pixbuf_format_get_extensions (format);
 	if (suffixes == NULL) return TRUE;
@@ -146,8 +129,12 @@ check_extension (const char *filename, GdkPixbufFormat *format)
 			break;
 		}
 	}
+
+	result = (suffixes [i] != NULL);
+
+	g_strfreev (suffixes);
 	
-	return (suffixes [i] != NULL);
+	return result;
 }
 
 /* FIXME: the function name doesn't really reflect it's purpose */
@@ -186,6 +173,7 @@ is_filename_valid (GtkDialog *dlg)
 			new_filename = g_strconcat (filename, ".", suffix[0], NULL);
 			gtk_file_selection_set_filename (GTK_FILE_SELECTION (dlg), new_filename);
 			g_free (new_filename);
+			g_strfreev (suffix);
 		}
 	}
 	else { 
@@ -246,6 +234,7 @@ changed_cb (GtkWidget *widget, gpointer data)
 		
 		gtk_file_selection_complete (GTK_FILE_SELECTION (data), pattern);
 
+		g_strfreev (suffix);
 		g_free (pattern);
 	}
 #endif
@@ -329,10 +318,10 @@ eog_file_selection_new (EogFileSelectionType type)
 	gchar *title = NULL;
 	EogFileSelectionPrivate *priv;
 
-	filesel = GTK_WIDGET (g_object_new (EOG_TYPE_FILE_SELECTION,
-					    "show_fileops", TRUE,
-					    "select_multiple", FALSE,
-					    NULL));
+	filesel = GTK_WIDGET (gtk_widget_new (EOG_TYPE_FILE_SELECTION,
+					      "show_fileops", TRUE,
+					      "select_multiple", FALSE,
+					      NULL));
 
 	priv = EOG_FILE_SELECTION (filesel)->priv;
 
@@ -344,7 +333,7 @@ eog_file_selection_new (EogFileSelectionType type)
 		title = _("Load Image");
 		break;
 	case EOG_FILE_SELECTION_SAVE:
-		priv->supported_types = get_save_formats ();
+		priv->supported_types = eog_pixbuf_get_savable_formats ();
 		priv->allow_directories = FALSE;
 		title = _("Save Image");
 		break;

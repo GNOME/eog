@@ -38,6 +38,7 @@
 #include "eog-scroll-view.h"
 #include "eog-file-selection.h"
 #include "eog-full-screen.h"
+#include "eog-hig-dialog.h"
 
 
 
@@ -301,10 +302,6 @@ verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
 	eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (view->priv->widget));
 }
 
-
-	/* FIXME: the gtk file dialog crashes here somehow !?!?
-	 */
-#if 0
 static void
 verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 		const char *cname)
@@ -339,7 +336,6 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 		g_free (filename);
 	}
 }
-#endif
 
 static BonoboUIVerb eog_zoom_verbs[] = {
 	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
@@ -350,7 +346,7 @@ static BonoboUIVerb eog_zoom_verbs[] = {
 };
 
 static BonoboUIVerb eog_verbs[] = {
-/*	BONOBO_UI_VERB ("SaveAs",        verb_SaveAs_cb), */
+	BONOBO_UI_VERB ("SaveAs",        verb_SaveAs_cb),
 	BONOBO_UI_VERB ("FullScreen",    verb_FullScreen_cb),
 	BONOBO_UI_VERB ("FlipHorizontal",verb_FlipHorizontal_cb),
 	BONOBO_UI_VERB ("FlipVertical",  verb_FlipVertical_cb),
@@ -759,9 +755,7 @@ static int n_popup_entries = sizeof (popup_entries) / sizeof (popup_entries[0]);
 static gchar *
 item_factory_translate_cb (const gchar *path, gpointer data)
 {
-	/* FIXME */
-	/* return _(path); */
-	return g_strdup (path);
+	return _(path);
 }
 
 /* Sets up a GTK+ item factory for the image view */
@@ -897,33 +891,29 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	view = EOG_IMAGE_VIEW (closure);
 	if (view->priv->image == NULL) return FALSE;
 
+	/* FIXME: what kind of escaping do we need here? */
 	uri = gnome_vfs_uri_new (text_uri);
-	
-	result = eog_image_save (view->priv->image, uri, &error);
 
+	result = eog_image_save (view->priv->image, uri, &error);
+	
 	if (result) {
-		dialog = gtk_message_dialog_new (NULL,
-						 0,
-						 GTK_MESSAGE_INFO,
-						 GTK_BUTTONS_CLOSE,
-						 _("Image successfully saved.\n"));
+		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_INFO, 
+					     _("Image successfully saved"), NULL, FALSE);
 	}
 	else {
-		dialog = gtk_message_dialog_new (NULL,
-						 0,
-						 GTK_MESSAGE_ERROR,
-						 GTK_BUTTONS_CLOSE,
-						 _("Image saving failed.\n"
-						   "%s"),
-						 error->message);
+		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, 
+					     _("Image saving failed"), error->message, FALSE);
 	}
-
+	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	g_signal_connect_swapped (dialog, "response",
 				  G_CALLBACK (gtk_widget_destroy),
 				  dialog);
 	gtk_widget_show (dialog);
 	
-	g_error_free (error);
+	if (error != NULL) {
+		g_error_free (error);
+	}
+
 	return result;
 }
 
