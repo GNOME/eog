@@ -80,7 +80,7 @@ BUILT_SOURCES=$(CORBA_SOURCE)
 CLEANFILES += $(BUILT_SOURCES)
 
 oafdir = $(datadir)/oaf
-OAF_FILES = eog-image-viewer.oafinfo
+OAF_FILES = GNOME_EOG.oafinfo
 oaf_DATA = $(OAF_FILES)
 
 uidir = $(datadir)/gnome/ui
