@@ -7,7 +7,7 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
-	$(EXTRA_GNOME_CFLAGS)				\
+	$(EOG_CFLAGS)				\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog
@@ -22,14 +22,9 @@ eog_SOURCES =	\
 	util.c
 
 eog_LDADD = 	\
-	$(EXTRA_GNOME_LIBS)	\
+	$(EOG_LIBS)	\
 	$(INTLLIBS)		\
 	../libeog/libeog.la
-
-idls =							\
-	$(top_srcdir)/idl/Eog.idl
-
-idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
 
 uidir = $(datadir)/gnome/ui
 UI_FILES = eog-shell-ui.xml 
