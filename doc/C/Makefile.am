@@ -19,14 +19,21 @@ dist-hook:
 	-cp fig/*.png $(distdir)/fig
 
 install-data-local: eog
-	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(eog_helpdir)/fig
 	-for file in $(srcdir)/eog/*.html $(srcdir)/eog/*.css; do \
 		basefile=`basename $$file`; \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(eog_helpdir)/$$basefile; \
 	done
+
+	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(eog_helpdir)/fig
 	-for file in $(srcdir)/fig/*.png; do \
 		basefile=`basename $$file`; \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(eog_helpdir)/fig/$$basefile; \
+	done
+
+	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(eog_helpdir)/stylesheet-images
+	-for file in $(srcdir)/eog/stylesheet-images/*; do \
+		basefile=`basename $$file`; \
+		$(INSTALL_DATA) $$file $(DESTDIR)$(eog_helpdir)/stylesheet-images/$$basefile; \
 	done
 
 eog.ps: eog.sgml
