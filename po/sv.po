@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-20 19:14+0200\n"
-"PO-Revision-Date: 2003-06-20 19:14+0200\n"
+"POT-Creation-Date: 2003-06-22 14:48+0200\n"
+"PO-Revision-Date: 2003-06-22 14:49+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,33 +77,49 @@ msgid "_Edit"
 msgstr "_Redigera"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Spara"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Ångra"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:14
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Visa"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Avbryt sparande"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Sparande slutfört"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Flytta till papperskorgen"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Bildsamlingsvy"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
 msgid "Window Title"
 msgstr "Fönstertitel"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
 msgid "Progress of Image Loading"
 msgstr "Förlopp för bildinläsning"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Sparar bild"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -732,37 +748,40 @@ msgstr "/Bästa _anpassning"
 msgid "/_Close"
 msgstr "/S_täng"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:982
 msgid "Image successfully saved"
 msgstr "Sparande av bilden lyckades"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:986
 msgid "Image saving failed"
 msgstr "Sparande av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1229
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1232
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1238
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1241
 msgid "Desired Window Width"
 msgstr "Önskad fönsterbredd"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1244
 msgid "Desired Window Height"
 msgstr "Önskad fönsterhöjd"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
+
+#~ msgid "Save"
+#~ msgstr "Spara"
 
 #~ msgid "Progress"
 #~ msgstr "Förlopp"
@@ -1114,9 +1133,6 @@ msgstr "Kunde inte initiera GnomeVFS!\n"
 
 #~ msgid "_Tiles"
 #~ msgstr "_Brickor"
-
-#~ msgid "Save As"
-#~ msgstr "Spara som"
 
 #~ msgid "Display"
 #~ msgstr "Visning"
