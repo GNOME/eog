@@ -131,6 +131,20 @@ create_prefs_menu (const PrefsEntry *menu_description,
 	return omenu;
 }
 
+static GtkWidget*
+create_label (gchar *text)
+{
+	GtkWidget *alignment;
+	GtkWidget *label;
+
+	label = gtk_label_new (text);
+	alignment = gtk_alignment_new (1.0, 0.5, 0.0, 0.0);
+	
+	gtk_container_add (GTK_CONTAINER (alignment), label);
+
+	return alignment;
+}
+
 GtkWidget *
 eog_create_preferences_page (EogImageView *image_view,
 			     guint page_number)
@@ -152,7 +166,7 @@ eog_create_preferences_page (EogImageView *image_view,
 				    image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Interpolation")),
+				   create_label (_("Interpolation:")),
 				   0, 1, 0, 1);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), interp,
@@ -163,7 +177,7 @@ eog_create_preferences_page (EogImageView *image_view,
 				    image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Dither")),
+				   create_label (_("Dither:")),
 				   0, 1, 1, 2);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), dither,
@@ -174,7 +188,7 @@ eog_create_preferences_page (EogImageView *image_view,
 					image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Check Type")),
+				   create_label (_("Check Type:")),
 				   0, 1, 2, 3);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), check_type,
@@ -185,11 +199,15 @@ eog_create_preferences_page (EogImageView *image_view,
 					image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Check Size")),
+				   create_label (_("Check Size:")),
 				   0, 1, 3, 4);
 
 	gtk_table_attach_defaults (GTK_TABLE (table), check_size,
 				   1, 2, 3, 4);
+
+	gtk_table_set_row_spacings (GTK_TABLE (table), 4);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 4);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 10);
 
 	return table;
 }
