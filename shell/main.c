@@ -3,6 +3,7 @@
 #include <gnome.h>
 #include <liboaf/liboaf.h>
 #include <libgnomevfs/gnome-vfs.h>
+#include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
 #include "eog-window.h"
