@@ -462,6 +462,11 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 		s = g_utf8_next_char (s);
 	}
 
+	if (state != PARSER_TOKEN && start >= 0) {
+		/* add remaining chars as string token */
+		list = g_list_append (list, create_token_string (string, start, substr_len));
+	}
+
 	return list;
 }
 
@@ -538,7 +543,6 @@ eog_uri_converter_new (GnomeVFSURI *base_uri, GdkPixbufFormat *img_format, const
 	EogURIConverter *conv;
 
 	g_return_val_if_fail (format_str != NULL, NULL);
-	g_return_val_if_fail (img_format != NULL, NULL);
 
 	conv = g_object_new (EOG_TYPE_URI_CONVERTER, NULL);
 	
@@ -863,7 +867,6 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 
 	g_return_val_if_fail (format_str != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
-	g_return_val_if_fail (format != NULL, NULL);
 
 	if (n_images == 0) return NULL;
 
@@ -1013,7 +1016,13 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 			disjunct = !gnome_vfs_uri_equal (uri, (GnomeVFSURI*) p->data);
 		}
 	}
-	
+
+	if (!disjunct) {
+		g_set_error (error, EOG_UC_ERROR,
+			     EOG_UC_ERROR_NON_DISJUNCT_FILENAMES,
+			     _("Filenames are not disjunct."));
+	}
+
 	return disjunct;
 }
 

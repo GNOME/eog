@@ -63,49 +63,34 @@ is_local_uri (const GnomeVFSURI* uri)
 static char*
 get_save_file_type_by_uri (const GnomeVFSURI *uri)
 {
-	GSList *savable_formats = NULL;
-	GSList *it;
-	char *file_type = NULL;
 	char *suffix;
-	const char *filepath;
+	char *short_name;
+	char *suffix_start;
+	guint len;
 	GdkPixbufFormat *format;
-	char **extension;
-	int i;
+	char *type = NULL;
 
-	filepath = gnome_vfs_uri_get_path (uri); /* don't free this, its static */
+        /* get unescaped string */
+	short_name = gnome_vfs_uri_extract_short_name (uri); 
 
-	/* FIXME: this is probably not unicode friendly */
-	suffix = g_strrstr (filepath, ".");
-	if (suffix == NULL) {
+	/* FIXME: does this work for all locales? */
+	suffix_start = g_utf8_strrchr (short_name, -1, '.'); 
+	
+	if (suffix_start == NULL) 
 		return NULL;
+	
+	len = MAX (0, strlen (suffix_start) - 1);
+	suffix = g_strndup (suffix_start+1, len);
+
+	format = eog_pixbuf_get_format_by_suffix (suffix);
+	if (format != NULL) {
+		type = gdk_pixbuf_format_get_name (format);
 	}
 
-	/* skip '.' from the suffix string */
-	if (strlen (suffix) > 1) {
-		suffix++;
-	}
+	g_free (short_name);
+	g_free (suffix);
 
-	savable_formats = eog_pixbuf_get_savable_formats ();
-
-	/* iterate over the availabe formats and check for every
-	 * possible format suffix if it matches the file suffix */
-	for (it = savable_formats; it != NULL && file_type == NULL; it = it->next) {
-
-		format = (GdkPixbufFormat*) it->data;
-		extension = gdk_pixbuf_format_get_extensions (format);
-		
-		for (i = 0; extension[i] != NULL && file_type == NULL; i++) {
-			if (g_ascii_strcasecmp (extension[i], suffix) == 0) {
-				file_type = gdk_pixbuf_format_get_name (format);
-			}
-		}
-
-		g_strfreev (extension);
-	}
-	g_slist_free (savable_formats);
-
-	/* file_type is either NULL or contains the name of the format */
-	return file_type;
+	return type;
 }
 
 static gboolean
@@ -152,14 +137,31 @@ eog_image_save_info_from_image (gpointer data)
 EogImageSaveInfo* 
 eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 {
+	GnomeVFSURI *uri;
 	EogImageSaveInfo *info;
 
 	g_return_val_if_fail (txt_uri != NULL, NULL);
 
+	uri = gnome_vfs_uri_new (txt_uri);
+
+	info = eog_image_save_info_from_vfs_uri (uri, format);
+	
+	gnome_vfs_uri_unref (uri);
+
+	return info;
+}
+
+EogImageSaveInfo* 
+eog_image_save_info_from_vfs_uri (GnomeVFSURI *uri, GdkPixbufFormat *format)
+{
+	EogImageSaveInfo *info;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
 	info = g_object_new (EOG_TYPE_IMAGE_SAVE_INFO, NULL);
 	
-	info->uri = gnome_vfs_uri_new (txt_uri);
-	if (format != NULL) {
+	info->uri = gnome_vfs_uri_ref (uri);
+	if (format == NULL) {
 		info->format = get_save_file_type_by_uri (info->uri);
 	}
 	else {
@@ -173,6 +175,7 @@ eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 
 	info->jpeg_quality = -1.0;
 
+	g_assert (info->format != NULL);
+
 	return info;
 }
-

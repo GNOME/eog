@@ -3,7 +3,11 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-GSList*    eog_pixbuf_get_savable_formats (void);
+GSList*          eog_pixbuf_get_savable_formats (void);
+
+GdkPixbufFormat* eog_pixbuf_get_format_by_suffix (const char *suffix);
+
+char*            eog_pixbuf_get_common_suffix (GdkPixbufFormat *format);
 
 #endif /* _EOG_PIXBUF_UTIL_H_ */
 

@@ -83,67 +83,16 @@ eog_file_selection_instance_init (EogFileSelection *filesel)
 	filesel->priv = priv;
 }
 
-static gboolean
-replace_file (GtkWindow *window, const gchar *file_name)
-{
-       GtkWidget *msgbox;
-       gchar *utf_file_name;
-       gchar *msg;
-       gint ret;
-
-       utf_file_name = g_filename_to_utf8 (file_name, -1,
-                                            NULL, NULL, NULL);
-       msg = g_strdup_printf (_("Do you want to overwrite %s?"),
-			      utf_file_name);
-       g_free (utf_file_name);
-       
-       msgbox = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
-                                    _("File exists"), 
-                                    msg,
-                                    TRUE);
-
-       gtk_dialog_add_buttons (GTK_DIALOG (msgbox),
-                               GTK_STOCK_NO,
-                               GTK_RESPONSE_CANCEL,
-                               GTK_STOCK_YES,
-                               GTK_RESPONSE_YES,
-                               NULL);
-
-       gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
-                                        GTK_RESPONSE_CANCEL);
-
-       ret = gtk_dialog_run (GTK_DIALOG (msgbox));
-       gtk_widget_destroy (msgbox);
-       g_free (msg);
-
-       return (ret == GTK_RESPONSE_YES);
-}
-
 static void
 response_cb (GtkDialog *dlg, gint id, gpointer data)
 {
 	char *dir;
 	GtkFileChooserAction action;
-		
-	dir = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
-	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (dlg));
-	
-        if (action == GTK_FILE_CHOOSER_ACTION_SAVE && id == GTK_RESPONSE_OK){
-		char *filename;
-		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dlg));
 
-		if (g_file_test (filename, G_FILE_TEST_EXISTS) &&
-		    !replace_file (GTK_WINDOW (dlg), filename)) 
-		{
-			g_signal_stop_emission_by_name (G_OBJECT (dlg), "response");
-			g_free (filename);
-			return;
-		}
-		
-		g_free (filename);
-	}
-	
 	if (id == GTK_RESPONSE_OK) {
+		dir = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
+		action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (dlg));
+		
 		if (last_dir [action] != NULL)
 			g_free (last_dir [action]);
 		

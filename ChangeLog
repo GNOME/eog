@@ -1,3 +1,35 @@
+2004-07-11  Jens Finke  <jens@triq.net>
+
+	'Save As' for single and multiple files.
+
+	* eog.glade: New "Save As" dialog.
+
+	* libeog/Makefile.am: Build eog-uri-converter and eog-save-as-dialog-helper.
+
+	* libeog/eog-file-selection.c: Removed 'overwrite file'-checks.
+      Now better handled by EogImage.
+
+	* liboeg/eog-image-save-info.c (get_save_file_type_by_uri): 
+	simplified
+	(eog_image_save_info_from_vfs_uri): New function.
+
+	* libeog/eog-image.c (eog-image_copy_file),
+	(tmp_file_move_to_uri): Do file-exists-check ourselves.
+	(eog_image_save_as_by_info): Don't emit changed signal.
+
+	* libeog/eog-pixbuf-util.[ch] (eog_pixbuf_get_format_by_suffix),
+	(eog_pixbuf_get_common_suffix): New method.
+
+	* libeog/eog-save-as-dialog-helper.c: Code cleanups, some fixes.
+
+	* libeog/eog-save-dialog-helper.c: Display target filename if available.
+
+	* libeog/eog-uri-converter.c (eog_uri_converter_parse_string):
+	Don't loose last string chars.
+	(eog_uri_converter_check): Set error message.
+
+	* shell/eog-window.c: Implemented 'Save As' function.
+
 2004-07-04  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-uri-converter.[ch],

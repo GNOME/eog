@@ -58,10 +58,14 @@ libeog_a_SOURCES =			\
 	eog-image-save-info.h		\
 	eog-save-dialog-helper.h	\
 	eog-save-dialog-helper.c	\
+	eog-save-as-dialog-helper.h	\
+	eog-save-as-dialog-helper.c	\
 	eog-image-cache.h		\
 	eog-image-cache.c		\
 	eog-image-list.c		\
 	eog-image-list.h		\
+	eog-uri-converter.h		\
+	eog-uri-converter.c		\
 	eog-scroll-view.c		\
 	eog-scroll-view.h		\
 	eog-info-view.c			\

@@ -626,6 +626,8 @@ load_emit_signal_done (gpointer data)
 		break;
 
 	case EOG_IMAGE_STATUS_LOADED:
+		g_assert (priv->file_type != NULL);
+
 		priv->progress = 1.0;
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
 		break;
@@ -998,6 +1000,11 @@ eog_image_load_sync (EogImage *img, EogImageLoadMode mode)
 		g_mutex_unlock (priv->status_mutex);
 	}
 
+
+	if (success) {
+		g_assert (priv->file_type != NULL);
+	}
+
 	return success;
 }
 
@@ -1226,6 +1233,17 @@ tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean over
 	GnomeVFSFileInfo *info;
 	GnomeVFSXferOverwriteMode overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_ABORT;
 
+	if (!overwrite && gnome_vfs_uri_exists ((GnomeVFSURI*) uri)) 
+	{
+		/* explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
+		 *  work as expected 
+		 */
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_FILE_EXISTS,
+			     _("File exists"));
+		return FALSE;
+	}
+
 	info = gnome_vfs_file_info_new ();
 	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
 	if (result != GNOME_VFS_OK) {
@@ -1425,6 +1443,21 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
 
+	if (target->overwrite != TRUE && 
+	    gnome_vfs_uri_exists (target->uri)) 
+	{
+		/* explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
+		 *  work as expected 
+		 */
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_FILE_EXISTS,
+			     _("File exists"));
+		return FALSE;
+	}
+	else if (target->overwrite == TRUE) {
+		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
+	}
+
 	info = gnome_vfs_file_info_new ();
 	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) target->uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
 	if (result != GNOME_VFS_OK) {
@@ -1434,10 +1467,6 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 		 */
 		gnome_vfs_file_info_unref (info);
 		info = NULL;
-	}
-
-	if (target->overwrite == TRUE) {
-		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
 	}
 
 	result = gnome_vfs_xfer_uri (source->uri,
@@ -1527,8 +1556,6 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		/* update image information to new uri */
 		eog_image_reset_modifications (img);
 		eog_image_link_with_target (img, target);
-
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 	}
 
 	tmp_file_delete (tmpfile);

@@ -1,6 +1,7 @@
 #include <glade/glade.h>
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-i18n.h>
+#include <eel/eel-vfs-extensions.h>
 #include "eog-save-dialog-helper.h"
 
 typedef struct {
@@ -119,8 +120,8 @@ eog_save_dialog_new  (GtkWindow *main, int n_images)
 	
 	g_object_set_data (G_OBJECT (dlg), "data", data);
 	
-	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), main);
+	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 
 	g_signal_connect (G_OBJECT (dlg), "delete-event", (GCallback) dlg_delete_cb, NULL);
 
@@ -136,6 +137,7 @@ eog_save_dialog_update    (GtkWindow *dlg, int n, EogImage *image,
 {
 	SaveDialogData *data;
 	char *header_str = NULL; 
+	GnomeVFSURI *uri = NULL;
 
 	g_return_if_fail (GTK_IS_WINDOW (dlg));
 
@@ -143,9 +145,26 @@ eog_save_dialog_update    (GtkWindow *dlg, int n, EogImage *image,
 	if (data == NULL)
 		return;
 
-	if (EOG_IS_IMAGE (image)) {
-		header_str = g_strdup_printf (_("Saving image %s."), eog_image_get_caption (image));
+	if (target != NULL && target->uri != NULL) {
+		uri = target->uri;
 	}
+	else if (source != NULL && source->uri != NULL) {
+		uri = source->uri;
+	}
+
+	if (uri != NULL) {
+		char *name;
+		char *utf8_name;
+
+		name = gnome_vfs_uri_extract_short_name (uri);
+		utf8_name = eel_make_valid_utf8 (name);
+
+		header_str = g_strdup_printf (_("Saving image %s."), utf8_name);
+
+		g_free (name);
+		g_free (utf8_name);
+	}
+
         gtk_label_set_text (GTK_LABEL (data->header), header_str);
 
 	update_counter_label (data->counter, n, data->n_images);

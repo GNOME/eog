@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdlib.h>
 #include <libgnome/libgnome.h>
 #include <glade/glade.h>
@@ -8,11 +9,12 @@
 
 typedef struct {
 	GtkWidget *dir_entry;
-	GtkWidget *format_entry;
+	GtkWidget *token_entry;
 	GtkWidget *replace_spaces_check;
 	GtkWidget *counter_spin;
 	GtkWidget *preview_label;
 	GtkWidget *format_option;
+	GtkWidget *token_option;
 
 	guint      idle_id;
 	gint       n_images;
@@ -24,8 +26,8 @@ static gboolean
 update_preview (gpointer user_data)
 {
 	SaveAsData *data;
-	char *preview_str;
-	const char *format_str;
+	char *preview_str = NULL;
+	const char *token_str;
 	gboolean convert_spaces;
 	gulong   counter_start;
 	GdkPixbufFormat *format;
@@ -37,7 +39,7 @@ update_preview (gpointer user_data)
 	if (data->image == NULL) return FALSE;
 
 	/* obtain required dialog data */
-	format_str = gtk_entry_get_text (GTK_ENTRY (data->format_entry));
+	token_str = gtk_entry_get_text (GTK_ENTRY (data->token_entry));
 	convert_spaces = gtk_toggle_button_get_active 
 		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));
 	counter_start = gtk_spin_button_get_value_as_int 
@@ -47,16 +49,20 @@ update_preview (gpointer user_data)
 	g_assert (item != NULL);
 	format = g_object_get_data (G_OBJECT (item), "format");
 	
-	/* generate preview filename */
-	preview_str = eog_uri_converter_preview (format_str, data->image, format,
-						 (counter_start + data->nth_image), 
-						 data->n_images,
-						 convert_spaces, '_' /* FIXME: make this editable */);
+	if (token_str != NULL) {
+		/* generate preview filename */
+		preview_str = eog_uri_converter_preview (token_str, data->image, format,
+							 (counter_start + data->nth_image), 
+							 data->n_images,
+							 convert_spaces, '_' /* FIXME: make this editable */);
+	}
 
 	gtk_label_set_text (GTK_LABEL (data->preview_label), preview_str);
 
 	if (preview_str != NULL)
 		g_free (preview_str);
+
+	data->idle_id = 0;
 
 	return FALSE;
 }
@@ -95,9 +101,12 @@ on_browse_button_clicked (GtkWidget *widget, gpointer data)
 
 		folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (browse_dlg));
 		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), folder);
+		gtk_editable_set_position (GTK_EDITABLE (sd->dir_entry), -1);
 
 		g_free (folder);
 	}
+
+	gtk_widget_destroy (browse_dlg);
 }
 
 static void
@@ -112,7 +121,7 @@ on_add_button_clicked (GtkWidget *widget, gpointer user_data)
 	data = g_object_get_data (G_OBJECT (user_data), "data");
 	g_assert (data != NULL);
 
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (widget));
+	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (data->token_option));
 	item = gtk_menu_get_active (GTK_MENU (menu));
 
 	index = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "index"));
@@ -126,13 +135,16 @@ on_add_button_clicked (GtkWidget *widget, gpointer user_data)
 		
 		dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING, _("Option not available."), 
 					  _("To use this function you need the libexif library. Please install"
-					    " libexif (http://libexif.sf.net) and recompile Eye of Gnome."), FALSE);
+					    " libexif (http://libexif.sf.net) and recompile Eye of Gnome."), TRUE);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-		g_signal_connect (G_OBJECT (dlg), "response", (GCallback) gtk_widget_destroy, NULL);
+		gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (user_data));
+		gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_widget_show_all (dlg);
+		gtk_dialog_run (GTK_DIALOG (dlg));
+		gtk_widget_destroy (dlg);
 	}
 	else {
-		gtk_entry_append_text (GTK_ENTRY (data->format_entry), uc_info[index].rep);
+		gtk_entry_append_text (GTK_ENTRY (data->token_entry), uc_info[index].rep);
 	}
 
 	request_preview_update (GTK_WIDGET (user_data));
@@ -145,13 +157,23 @@ on_format_option_changed (GtkWidget *widget, gpointer data)
 }
 
 static void
-on_format_entry_changed (GtkWidget *widget, gpointer data)
+on_token_entry_changed (GtkWidget *widget, gpointer user_data)
 {
-	request_preview_update (GTK_WIDGET (data));
+	SaveAsData *data;
+	gboolean enable_save;
+
+	data = g_object_get_data (G_OBJECT (user_data), "data");
+	g_assert (data != NULL);
+
+	request_preview_update (GTK_WIDGET (user_data));
+
+	enable_save = (strlen (gtk_entry_get_text (GTK_ENTRY (data->token_entry))) > 0);
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (user_data), GTK_RESPONSE_OK,
+					   enable_save);
 }
 
 static void
-on_replace_spaces_check_to (GtkWidget *widget, gpointer data)
+on_replace_spaces_check_clicked (GtkWidget *widget, gpointer data)
 {
 	request_preview_update (GTK_WIDGET (data));
 }
@@ -163,7 +185,7 @@ on_counter_spin_changed (GtkWidget *widget, gpointer data)
 }
 
 static void
-prepare_suffix_options (GladeXML *xml)
+prepare_format_options (SaveAsData *data)
 {
 	GtkWidget *widget;
 	GtkWidget *menu;
@@ -171,11 +193,8 @@ prepare_suffix_options (GladeXML *xml)
 	GtkWidget *item;
 	GSList *it;
 
-	widget = glade_xml_get_widget (xml, "suffix_option");
+	widget = data->format_option;
 	menu = gtk_menu_new ();
-
-	item = gtk_menu_item_new_with_label (_("as is"));
-	gtk_menu_prepend (GTK_MENU (menu), item);
 
 	formats = eog_pixbuf_get_savable_formats ();
 	for (it = formats; it != NULL; it = it->next) {
@@ -193,19 +212,22 @@ prepare_suffix_options (GladeXML *xml)
 		gtk_menu_prepend (GTK_MENU (menu), item);
 	}
 
+	item = gtk_menu_item_new_with_label (_("as is"));
+	gtk_menu_prepend (GTK_MENU (menu), item);
+
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
 	gtk_menu_set_active (GTK_MENU (menu), 0); /* 'as is' as default */
 }
 
 static void
-prepare_format_options (GladeXML *xml)
+prepare_token_options (SaveAsData *data)
 {
 	GtkWidget *widget;
 	GtkWidget *menu;
 	GtkWidget *item;
 	int i;
 
-	widget = glade_xml_get_widget (xml, "format_option");
+	widget = data->token_option;
 	menu = gtk_menu_new ();
 	
 	/* uc_info is defined in eog-uri-converter.h */
@@ -258,9 +280,12 @@ set_default_values (GtkWidget *dlg, GnomeVFSURI *base_uri)
 
 		uri_str = gnome_vfs_uri_to_string (base_uri, GNOME_VFS_URI_HIDE_NONE);
 		gtk_entry_set_text (GTK_ENTRY (sd->dir_entry), uri_str);
+		gtk_editable_set_position (GTK_EDITABLE (sd->dir_entry), -1);
 
 		g_free (uri_str);
 	}
+
+	gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), GTK_RESPONSE_OK, FALSE);
 
 	request_preview_update (dlg);
 }
@@ -272,6 +297,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	GladeXML  *xml;
 	GtkWidget *dlg;
 	SaveAsData *data;
+	GtkWidget *label;
 	
 	filepath = gnome_program_locate_file (NULL,
 					      GNOME_FILE_DOMAIN_APP_DATADIR,
@@ -284,11 +310,14 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	g_assert (xml != NULL);
 	
 	dlg = glade_xml_get_widget (xml, "Save As Dialog");
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (main));
+	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 
 	data = g_new0 (SaveAsData, 1);
 	/* init widget references */
 	data->dir_entry = glade_xml_get_widget (xml, "dir_entry");
-	data->format_entry = glade_xml_get_widget (xml, "format_entry");
+	data->token_entry = glade_xml_get_widget (xml, "token_entry");
+	data->token_option = glade_xml_get_widget (xml, "token_option");
 	data->replace_spaces_check = glade_xml_get_widget (xml, "replace_spaces_check");
 	data->counter_spin = glade_xml_get_widget (xml, "counter_spin");
 	data->preview_label = glade_xml_get_widget (xml, "preview_label");
@@ -297,7 +326,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	/* init preview information */
 	data->idle_id = 0;
 	data->n_images = g_list_length (images);
-	data->nth_image = (int) (data->n_images * rand() / (RAND_MAX+1.0));
+	data->nth_image = (int) ((float) data->n_images * rand() / (float) (RAND_MAX+1.0));
 	g_assert (data->nth_image >= 0 && data->nth_image < data->n_images);
 	data->image = g_object_ref (G_OBJECT (g_list_nth_data (images, data->nth_image)));
 	g_object_set_data_full (G_OBJECT (dlg), "data", data, destroy_data_cb);
@@ -308,22 +337,27 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	glade_xml_signal_connect_data (xml, "on_add_button_clicked",
 				       (GCallback) on_add_button_clicked, dlg);
 
-	glade_xml_signal_connect_data (xml, "on_format_option_changed",
+	g_signal_connect (G_OBJECT (data->format_option), "changed",
 				       (GCallback) on_format_option_changed, dlg);
 
-	glade_xml_signal_connect_data (xml, "on_format_entry_changed",
-				       (GCallback) on_format_entry_changed, dlg);
+	glade_xml_signal_connect_data (xml, "on_token_entry_changed",
+				       (GCallback) on_token_entry_changed, dlg);
 
-	glade_xml_signal_connect_data (xml, "on_replace_spaces_check_to",
-				       (GCallback) on_replace_spaces_check_to, dlg);
+	g_signal_connect (G_OBJECT (data->replace_spaces_check), "toggled",
+			  (GCallback) on_replace_spaces_check_clicked, dlg);
 
 	glade_xml_signal_connect_data (xml, "on_counter_spin_changed",
 				       (GCallback) on_counter_spin_changed, dlg);
 
-	prepare_suffix_options (xml);
-	prepare_format_options (xml);
+	label = glade_xml_get_widget (xml, "preview_label_from");
+	gtk_label_set_text (GTK_LABEL (label), eog_image_get_caption (data->image));
+
+	prepare_format_options (data);
+	prepare_token_options (data);
 	
 	set_default_values (dlg, base_uri);
+
+	return dlg;
 }
 
 EogURIConverter* 
@@ -344,7 +378,7 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 	g_assert (data != NULL);
 
 	/* obtain required dialog data */
-	format_str = gtk_entry_get_text (GTK_ENTRY (data->format_entry));
+	format_str = gtk_entry_get_text (GTK_ENTRY (data->token_entry));
 
 	convert_spaces = gtk_toggle_button_get_active 
 		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));

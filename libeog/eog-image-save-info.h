@@ -44,6 +44,7 @@ EogImageSaveInfo* eog_image_save_info_from_image (gpointer data);
 
 EogImageSaveInfo* eog_image_save_info_from_uri (const char *uri, GdkPixbufFormat *format);
 
+EogImageSaveInfo* eog_image_save_info_from_vfs_uri (GnomeVFSURI *uri, GdkPixbufFormat *format);
 
 G_END_DECLS
 
