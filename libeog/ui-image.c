@@ -229,7 +229,7 @@ ui_image_set_image (UIImage *ui, Image *image)
 		image_ref (image);
 
 	if (priv->image)
-		image_unref (image);
+		image_unref (priv->image);
 
 	priv->image = image;
 
