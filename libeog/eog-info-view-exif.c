@@ -7,6 +7,7 @@
 #if HAVE_EXIF
 
 #include <libexif/exif-entry.h>
+#include <libexif/exif-utils.h>
 
 typedef enum {
 	EXIF_CATEGORY_CAMERA,
@@ -323,6 +324,7 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	EogInfoViewExifPrivate *priv;
 	ExifCategory cat;
 	char *path;
+	char b[1024];
 
 	view = EOG_INFO_VIEW_EXIF (data);
 	priv = view->priv;
@@ -332,12 +334,21 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	path = g_hash_table_lookup (priv->id_path_hash, GINT_TO_POINTER (entry->tag));
 
 	if (path != NULL) {
+#ifdef HAVE_OLD_LIBEXIF
 		set_row_data (store, path, NULL, exif_tag_get_name (entry->tag), exif_entry_get_value (entry));	
+#else
+		set_row_data (store, path, NULL, exif_tag_get_name (entry->tag), exif_entry_get_value (entry, b, sizeof(b)));	
+#endif
 	}
 	else {
 		cat = get_exif_category (entry);
+#ifdef HAVE_OLD_LIBEXIF
 		path = set_row_data (store, NULL, exif_categories[cat].path,
 				     exif_tag_get_name (entry->tag), exif_entry_get_value (entry));	
+#else
+		path = set_row_data (store, NULL, exif_categories[cat].path,
+				     exif_tag_get_name (entry->tag), exif_entry_get_value (entry, b, sizeof(b)));	
+#endif
 
 		g_hash_table_insert (priv->id_path_hash,
 				     GINT_TO_POINTER (entry->tag),

@@ -58,13 +58,20 @@ dnl ============== optional exif support ====================
 
 AC_ARG_WITH(libexif, [  --without-libexif	  disable special EXIF support])
 have_exif=no
+have_old_libexif=no
 if test x$with_libexif != xno; then
-    PKG_CHECK_MODULES(EXIF, libexif = $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
+    PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
+    PKG_CHECK_MODULES(EXIF, libexif = $LIBEXIF_REQUIRED, have_old_libexif=yes, have_old_libexif=no)
 fi 
 
 if test "x$have_exif" = "xyes"; then
   AC_DEFINE(HAVE_EXIF,1)
-  EOG_MODULES="$EOG_MODULES libexif = $LIBEXIF_REQUIRED"
+  EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
+fi
+
+if test "x$have_old_libexif" = "xyes"; then
+  AC_DEFINE(HAVE_OLD_LIBEXIF,1)
+	EOG_MODULES="$EOG_MODULES libexif = $LIBEXIF_REQUIRED"
 fi
 
 dnl ============== semi optional libjpeg support ====================
@@ -200,6 +207,7 @@ Configuration:
 	Compiler:		  ${CC} 
 
 	Extra Compiler Warnings:  ${WARN_CFLAGS}
-	Use libexif:              ${have_exif}
+	Special EXIF support:     ${have_exif}
+	Use libexif = 0.5.12:     ${have_old_libexif}
 	Special JPEG support:     ${have_jpeg}
 "
