@@ -19,6 +19,8 @@ typedef enum {
 #define EOG_JPEG_MARKER_APP1	0xE1
 #define EOG_JPEG_MARKER_APP14	0xED
 
+#define NO_DEBUG
+
 struct _EogMetadataReaderPrivate {
 	EogMetadataReaderState  state;
 
@@ -130,7 +132,9 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->last_marker = buf [i];
 				priv->size = 0;
 				priv->state = EMR_READ_SIZE_HIGH_BYTE;
+#ifdef DEBUG
 				g_print ("APPx marker found: %x\n", priv->last_marker);
+#endif
 			}
 			else {
 				/* otherwise simply consume the byte */
@@ -170,7 +174,9 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;			
 			
 		case EMR_SKIP_BYTES:
+#ifdef DEBUG
 			g_print ("skip bytes: %i\n", priv->size);
+#endif
 			if (i + priv->size < len) { 
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 				priv->size = 0;
@@ -185,7 +191,9 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;
 			
 		case EMR_READ_EXIF:			
+#ifdef DEBUG
 			g_print ("Read EXIF data, length: %i\n", priv->size);
+#endif
 			if (priv->exif_chunk == NULL) { 
 				priv->exif_chunk = g_new0 (guchar, priv->size);
 				priv->exif_len = priv->size;

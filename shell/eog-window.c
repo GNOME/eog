@@ -70,6 +70,9 @@
 #define EOG_STOCK_FLIP_HORIZONTAL "eog-stock-flip-horizontal"
 #define EOG_STOCK_FLIP_VERTICAL   "eog-stock-flip-vertical"
 
+#define NO_DEBUG
+#define NO_SAVE_DEBUG
+
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
 	/* Our GConf client */
@@ -754,14 +757,18 @@ save_image_list (gpointer user_data)
 		g_idle_add ((GSourceFunc) save_dialog_update, data);
 		
 		while (!success && !data->cancel_save) {
+#ifdef SAVE_DEBUG
 			g_print ("Save image at %s ", 
 				 gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE));
+#endif
 			success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT);
 			
 			if (success) {
 				success = eog_image_save_by_info (image, data->source, &error);
 			}
+#ifdef SAVE_DEBUG
 			g_print ("successful: %i\n", success);
+#endif
 			
 			if (!success && !data->cancel_save) {
 				g_mutex_lock (data->lock);
@@ -881,7 +888,9 @@ save_as_image_list (gpointer user_data)
 						       &target_uri,
 						       &format,
 						       &error);
+#ifdef SAVE_DEBUG
 			g_print ("convert uri: %s\n", gnome_vfs_uri_to_string (target_uri, GNOME_VFS_URI_HIDE_NONE));
+#endif
 
 			if (result) {
 				tinfo = eog_image_save_info_from_vfs_uri (target_uri,
@@ -916,9 +925,11 @@ save_as_image_list (gpointer user_data)
 		/* try to save image source to target */
 		success = FALSE;
 		while (!success && !data->cancel_save) {
+#ifdef SAVE_DEBUG
 			g_print ("Save image from: %s to: %s\n", 
 				 gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE),
 				 gnome_vfs_uri_to_string (data->target->uri, GNOME_VFS_URI_HIDE_NONE));
+#endif
 			
 			/* load source image */
 			success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT);
@@ -933,7 +944,9 @@ save_as_image_list (gpointer user_data)
 		
 				success = eog_image_save_as_by_info (image, data->source, data->target, &error);
 			}
+#ifdef SAVE_DEBUG
 			g_print ("successful: %i\n", success);
+#endif
 				
 			if (!success && !data->cancel_save) {
 				g_mutex_lock (data->lock);
@@ -1908,9 +1921,18 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 gboolean
 eog_window_has_contents (EogWindow *window)
 {
-	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	EogWindowPrivate *priv;
+	gboolean has_contents = FALSE;
 
-	return (eog_image_list_length (window->priv->image_list) > 0);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	
+	priv = window->priv;
+
+	if (priv->image_list != NULL) {
+		has_contents = (eog_image_list_length (priv->image_list) > 0);
+	}
+	
+	return has_contents;
 }
 
 /* Drag_data_received handler for windows */
@@ -2033,7 +2055,9 @@ image_loading_finished_cb (EogImage *image, gpointer data)
 		eog_image_get_size (image, &width, &height);
 		adapt_window_size (window, width, height);
 
+#ifdef DEBUG
 		g_print ("loading finished: %s - (%i|%i)\n", eog_image_get_caption (image), width, height);
+#endif
 	}
 }
 
@@ -2514,7 +2538,9 @@ adapt_window_size (EogWindow *window, int width, int height)
 static void
 image_list_prepared_cb (EogImageList *list, EogWindow *window)
 {
+#ifdef DEBUG
 	g_print ("EogWindow: Image list prepared: %i images\n", eog_image_list_length (EOG_IMAGE_LIST (list)));
+#endif
 	update_ui_visibility (EOG_WINDOW (window));
 }
 
@@ -2539,7 +2565,9 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 
 	priv = window->priv;
 
+#ifdef DEBUG
 	g_print ("EogWindow.c: eog_window_open single uri\n");
+#endif
 
 	/* create new image list */
 	if (priv->image_list != NULL) {
@@ -2605,7 +2633,9 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 
 	priv = window->priv;
 
+#ifdef DEBUG
 	g_print ("EogWindow.c: eog_window_open  uri list\n");
+#endif
 
 	if (priv->image_list != NULL) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);

@@ -678,8 +678,10 @@ static EogMetadataReader*
 check_for_metadata_img_format (EogImage *img, guchar *buffer, int bytes_read)
 {
 	EogMetadataReader *md_reader = NULL;
-	
+
+#ifdef DEBUG	
 	g_print ("check img format for jpeg: %x%x - length: %i\n", buffer[0], buffer[1], bytes_read);
+#endif
 	
 	if (bytes_read >= 2) {
 		/* SOI (start of image) marker for JPEGs is 0xFFD8 */
