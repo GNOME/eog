@@ -40,6 +40,7 @@
 #include "eog-file-selection.h"
 #include "eog-full-screen.h"
 #include "eog-hig-dialog.h"
+#include "eog-config-keys.h"
 
 #include <libgpi/gpi-dialog-pixbuf.h>
 #include <libgpi/gpi-mgr-pixbuf.h>
@@ -726,7 +727,7 @@ transparency_changed_cb (GConfClient *client,
 		char *color_str;
 
 		color_str = gconf_client_get_string (priv->client,
-						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
+						     EOG_CONF_VIEW_TRANS_COLOR, NULL);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
 							  TRANSP_COLOR, &color);
@@ -755,7 +756,7 @@ trans_color_changed_cb (GConfClient *client,
 
 	priv = EOG_IMAGE_VIEW (user_data)->priv;
 
-	value = gconf_client_get_string (priv->client, GCONF_EOG_VIEW_TRANSPARENCY, NULL);
+	value = gconf_client_get_string (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
 
 	if (g_strcasecmp (value, "COLOR") != 0) return;
 
@@ -1169,23 +1170,23 @@ init_gconf_defaults (EogImageView *view)
 
 	priv->client = gconf_client_get_default ();
 	gconf_client_add_dir (priv->client,
-			      GCONF_EOG_VIEW_DIR,
+			      EOG_CONF_VIEW_DIR,
 			      GCONF_CLIENT_PRELOAD_ONELEVEL,
 			      NULL);
 
 
 	/* get preference values from gconf */
 	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (priv->widget),
-					  gconf_client_get_bool (priv->client, GCONF_EOG_VIEW_INTERP_TYPE, NULL));
+					  gconf_client_get_bool (priv->client, EOG_CONF_VIEW_INTERPOLATE, NULL));
 
 	transp_str = gconf_client_get_string (priv->client,
-					      GCONF_EOG_VIEW_TRANSPARENCY, NULL);
+					      EOG_CONF_VIEW_TRANSPARENCY, NULL);
 	if (g_strcasecmp (transp_str, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
 		color_str = gconf_client_get_string (priv->client,
-						     GCONF_EOG_VIEW_TRANS_COLOR, NULL);
+						     EOG_CONF_VIEW_TRANS_COLOR, NULL);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->widget),
 							  TRANSP_COLOR, &color);
@@ -1203,17 +1204,17 @@ init_gconf_defaults (EogImageView *view)
 	/* add gconf listeners */
 	priv->interp_type_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_INTERP_TYPE,
+					 EOG_CONF_VIEW_INTERPOLATE,
 					 interp_type_changed_cb,
 					 view, NULL, NULL);
 	priv->transparency_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_TRANSPARENCY,
+					 EOG_CONF_VIEW_TRANSPARENCY,
 					 transparency_changed_cb,
 					 view, NULL, NULL);
 	priv->trans_color_notify_id =
 		gconf_client_notify_add (priv->client,
-					 GCONF_EOG_VIEW_TRANS_COLOR,
+					 EOG_CONF_VIEW_TRANS_COLOR,
 					 trans_color_changed_cb,
 					 view, NULL, NULL);
 }

@@ -67,6 +67,7 @@ libeog_a_SOURCES =			\
 	eog-horizontal-splitter.h	\
 	eog-vertical-splitter.c		\
 	eog-vertical-splitter.h		\
+	eog-config-keys.h		\
 	uta.c				\
 	uta.h				\
 	cursors.c			\
@@ -99,7 +100,7 @@ BUILT_SOURCES = 			\
 
 CLEANFILES = $(BUILT_SOURCES) $(server_DATA)
 
-EXTRA_DIST = $(server_in_files) libeog-marshal.list
+EXTRA_DIST = $(server_in_files) libeog-marshal.list 
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)

@@ -32,10 +32,7 @@
 #include "eog-full-screen.h"
 #include "eog-scroll-view.h"
 #include "cursors.h"
-
-#define  EOG_FULLSCREEN_CONF_LOOP     "/apps/eog/full_screen/loop"
-#define  EOG_FULLSCREEN_CONF_UPSCALE  "/apps/eog/full_screen/upscale"
-#define  EOG_FULLSCREEN_CONF_SECONDS  "/apps/eog/full_screen/seconds"
+#include "eog-config-keys.h"
 
 GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 eog_full_screen,
@@ -639,9 +636,9 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 
 	/* read configuration */
 	client = gconf_client_get_default ();
-	priv->loop = gconf_client_get_bool (client, EOG_FULLSCREEN_CONF_LOOP, NULL);
-	priv->switch_timeout = gconf_client_get_int (client, EOG_FULLSCREEN_CONF_SECONDS, NULL);
-	upscale = gconf_client_get_bool (client, EOG_FULLSCREEN_CONF_UPSCALE, NULL);
+	priv->loop = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_LOOP, NULL);
+	priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
+	upscale = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
 	g_object_unref (G_OBJECT (client));
 

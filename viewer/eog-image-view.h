@@ -25,15 +25,6 @@ G_BEGIN_DECLS
 #define EOG_IS_IMAGE_VIEW_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_IMAGE_VIEW_TYPE))
 #define EOG_IMAGE_VIEW_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_IMAGE_VIEW_TYPE, EogImageViewClass))
 
-#define GCONF_EOG_VIEW_DIR               "/apps/eog/view"
-#define GCONF_EOG_VIEW_INTERP_TYPE       "/apps/eog/view/interpolate"
-#define GCONF_EOG_VIEW_TRANSPARENCY      "/apps/eog/view/transparency"
-#define GCONF_EOG_VIEW_TRANS_COLOR       "/apps/eog/view/trans_color"
-
-#define GCONF_EOG_VIEW_CHECK_TYPE        "/apps/eog/view/check_type"
-#define GCONF_EOG_VIEW_CHECK_SIZE        "/apps/eog/view/check_size"
-#define GCONF_EOG_VIEW_DITHER            "/apps/eog/view/dither"
-
 typedef struct _EogImageView         EogImageView;
 typedef struct _EogImageViewClass    EogImageViewClass;
 typedef struct _EogImageViewPrivate  EogImageViewPrivate;

@@ -13,6 +13,7 @@
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
 #include "session.h"
+#include "eog-config-keys.h"
 
 static void open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data); 
 static GtkWidget* create_new_window (void);
@@ -81,7 +82,7 @@ open_window (LoadContext *ctx)
 
 	client = gconf_client_get_default ();
 
-	new_window = gconf_client_get_bool (client, "/apps/eog/window/open_new_window", NULL);
+	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
 	new_window = new_window && ((ctx->window == NULL) || eog_window_has_contents (ctx->window));
 
 	g_object_unref (client);
