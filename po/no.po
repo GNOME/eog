@@ -5,13 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-04-30 12:21+0200\n"
-"PO-Revision-Date: 2002-04-29 13:16+0200\n"
+"POT-Creation-Date: 2002-05-16 22:44+0200\n"
+"PO-Revision-Date: 2002-05-16 22:46+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG bildesamling"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG visning av bildesamling"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Factory for EOG visning av bildesamling"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -37,6 +49,54 @@ msgstr "Factory for EOG bildevisning"
 msgid "Embeddable EOG Image"
 msgstr "Innbyggbart EOG-bilde"
 
+#: libeog/image-view.c:1965
+msgid "interpolation type"
+msgstr "type interpolasjon"
+
+#: libeog/image-view.c:1966
+msgid "the type of interpolation to use"
+msgstr "type interpolasjon som skal brukes"
+
+#: libeog/image-view.c:1972 libeog/image-view.c:1979
+msgid "check type"
+msgstr "rutetype"
+
+#: libeog/image-view.c:1973
+msgid "the type of chequering to use"
+msgstr "type ruter som skal brukes"
+
+#: libeog/image-view.c:1980
+msgid "the size of chequers to use"
+msgstr "størrelsen på rutene som skal brukes"
+
+#: libeog/image-view.c:1986
+msgid "dither"
+msgstr "dither"
+
+#: libeog/image-view.c:1987
+msgid "dither type"
+msgstr "type dithering"
+
+#: libeog/image-view.c:1993
+msgid "scroll"
+msgstr "rulling"
+
+#: libeog/image-view.c:1994
+msgid "scroll type"
+msgstr "type rulling"
+
+#: libeog/image-view.c:2000
+msgid "enable full screen zoom"
+msgstr "aktiver zoom til fullskjerm"
+
+#: libeog/image-view.c:2001
+msgid "whether we should allow full screen zoom"
+msgstr "om zoom til full skjerm skal tillates"
+
+#: shell/eog-preferences.c:141
+msgid "Eye of Gnome Preferences"
+msgstr "Brukervalg for Eye of GNOME"
+
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
 msgstr "Om denne applikasjonen"
@@ -58,12 +118,12 @@ msgid "Close window"
 msgstr "Lukk vindu"
 
 #: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "Hjelp om denne applikasjonen"
+msgid "Contents"
+msgstr "Innhold"
 
 #: shell/eog-shell-ui.xml.h:7
-msgid "HelpContents"
-msgstr "Hjelpinnhold"
+msgid "Help On this application"
+msgstr "Hjelp om denne applikasjonen"
 
 #: shell/eog-shell-ui.xml.h:8 shell/main.c:196
 msgid "Open"
@@ -137,7 +197,7 @@ msgstr "_Vis"
 msgid "Translator Credits"
 msgstr "Kjartan Maraas"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -149,31 +209,31 @@ msgstr "Opphavsrett © 2000-2001 Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Gnome bildevisning og katalogisering"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:761
 msgid "Open Image"
 msgstr "Åpne bilde"
 
-#: shell/eog-window.c:816
+#: shell/eog-window.c:815
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen støtter ikke window_title korrekt."
 
-#: shell/eog-window.c:832
+#: shell/eog-window.c:831
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen støtter ikke status_text korrekt."
 
-#: shell/eog-window.c:851
+#: shell/eog-window.c:850
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ingen egenskaper"
 
-#: shell/eog-window.c:868
+#: shell/eog-window.c:867
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finne MIME-type for filen."
 
-#: shell/eog-window.c:1111
+#: shell/eog-window.c:1110
 msgid "Error while obtaining file informations."
 msgstr "Feil under henting av filinformasjon."
 
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1139
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan ikke åpne %s."
@@ -219,74 +279,37 @@ msgstr "Kunne ikke initiere Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
 
-#: shell/eog-preferences.c:141
-msgid "Eye of Gnome Preferences"
-msgstr "Brukervalg for Eye of GNOME"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kunne ikke initiere GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Tilpass"
 
-#: viewer/eog-image-view.c:304
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Kunne ikke lagre bilde som '%s': %s."
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "Inn"
 
-#: viewer/eog-image-view.c:355
-msgid "Save As"
-msgstr "Lagre som"
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Ut"
 
-#: viewer/eog-image-view.c:930
-msgid "Print Image"
-msgstr "Skriv ut bilde"
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Zoom _1:1"
 
-#: viewer/eog-image-view.c:938
-msgid "Pages"
-msgstr "Sider"
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Zoom _inn"
 
-#: viewer/eog-image-view.c:1025
-msgid "Print Preview"
-msgstr "Forhåndsvisning av utskrift"
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Zoom _ut"
 
-#: viewer/eog-image-view.c:1031
-msgid "Printing of image failed"
-msgstr "Feil under utskrift av bilde"
-
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "Skjerm"
-
-#: viewer/eog-image-view.c:2067
-msgid "Interpolation"
-msgstr "Interpolasjon"
-
-#: viewer/eog-image-view.c:2070
-msgid "Dither"
-msgstr "Dither"
-
-#: viewer/eog-image-view.c:2073
-msgid "Check Type"
-msgstr "Rutetype"
-
-#: viewer/eog-image-view.c:2076
-msgid "Check Size"
-msgstr "Rutestørrelse"
-
-#: viewer/eog-image-view.c:2079
-msgid "Image Width"
-msgstr "Bildebredde"
-
-#: viewer/eog-image-view.c:2082
-msgid "Image Height"
-msgstr "Bildehøyde"
-
-#: viewer/eog-image-view.c:2085
-msgid "Window Title"
-msgstr "Vindustittel"
-
-#: viewer/eog-image-view.c:2088
-msgid "Statusbar Text"
-msgstr "Statuslinjetekst"
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Zoom _tilpasset"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Check _size"
@@ -300,11 +323,11 @@ msgstr "Rute_type"
 msgid "Full Screen"
 msgstr "Full skjerm"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
 msgid "Large"
 msgstr "Stor"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
 msgid "Medium"
 msgstr "Middels"
 
@@ -336,7 +359,7 @@ msgstr "Skriv ut bildet på skriveren"
 msgid "Setup the page settings for your current printer"
 msgstr "Endre sideinstillingene for din skriver"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
 msgid "Small"
 msgstr "Liten"
 
@@ -400,37 +423,70 @@ msgstr "_Fliser"
 msgid "_White"
 msgstr "_Hvit"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+#: viewer/eog-image-view.c:304
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Kunne ikke lagre bilde som '%s': %s."
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Tilpass"
+#: viewer/eog-image-view.c:355
+msgid "Save As"
+msgstr "Lagre som"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
-msgid "In"
-msgstr "Inn"
+#: viewer/eog-image-view.c:930
+msgid "Print Image"
+msgstr "Skriv ut bilde"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Ut"
+#: viewer/eog-image-view.c:938
+msgid "Pages"
+msgstr "Sider"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "Zoom _1:1"
+#: viewer/eog-image-view.c:1025
+msgid "Print Preview"
+msgstr "Forhåndsvisning av utskrift"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "Zoom _inn"
+#: viewer/eog-image-view.c:1031
+msgid "Printing of image failed"
+msgstr "Feil under utskrift av bilde"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom _Out"
-msgstr "Zoom _ut"
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "Skjerm"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Zoom _tilpasset"
+#: viewer/eog-image-view.c:2067
+msgid "Interpolation"
+msgstr "Interpolasjon"
+
+#: viewer/eog-image-view.c:2070
+msgid "Dither"
+msgstr "Dither"
+
+#: viewer/eog-image-view.c:2073
+msgid "Check Type"
+msgstr "Rutetype"
+
+#: viewer/eog-image-view.c:2076
+msgid "Check Size"
+msgstr "Rutestørrelse"
+
+#: viewer/eog-image-view.c:2079
+msgid "Image Width"
+msgstr "Bildebredde"
+
+#: viewer/eog-image-view.c:2082
+msgid "Image Height"
+msgstr "Bildehøyde"
+
+#: viewer/eog-image-view.c:2085
+msgid "Window Title"
+msgstr "Vindustittel"
+
+#: viewer/eog-image-view.c:2088
+msgid "Statusbar Text"
+msgstr "Statuslinjetekst"
+
+#: viewer/eog-image.c:468
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Kunne ikke initiere GnomeVFS!\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -605,70 +661,70 @@ msgstr "Ned, så til høyre"
 msgid "Right, then down"
 msgstr "Høyre, så ned"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Nærmeste nabo interpolasjon"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Flis-interpolasjon"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Bilineær interpolasjon"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Hyperbolsk interpolasjon"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Ingen dithering"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normal (pseudofarge) dithering"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "Maksimal (mange farger) dithering"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Mørk"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "Mellomtone"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Lys"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Sort"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Grå"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Hvit"
 
-#: viewer/preferences.c:171
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
 msgstr "_Interpolasjon:"
 
-#: viewer/preferences.c:183
+#: viewer/preferences.c:187
 msgid "_Dither:"
 msgstr "_Dither:"
 
-#: viewer/preferences.c:195
+#: viewer/preferences.c:199
 msgid "Check _type:"
 msgstr "Rute_type:"
 
-#: viewer/preferences.c:207
+#: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Rute_størrelse:"
