@@ -1,5 +1,21 @@
 2005-01-06  Jens Finke  <jens@triq.net>
 
+  	* libeog/Makefile.am (SOURCES): Added eog-thumbnail.[ch].
+
+	* libeog/eog-collection-item.c: Use EogJob and new
+	thumbnail API for creating thumbnails.
+
+	* libeog/eog-image.[ch]: Moved thumbnail creation to 
+ 	eog_thumbnail.[ch].
+	(eog_image_load_thumbnail): Removed.
+	(eog_image_set_thumbnail): New function.
+
+	* libeog/eog_thumbnail.[ch]: New files.
+
+	* shell/main.c (main): Init thumbnail factory.
+
+2005-01-06  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-job-manager.c: Use GQueue data structure.
 	Added job priority handling.
 

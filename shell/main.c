@@ -10,6 +10,7 @@
 #include <gconf/gconf-client.h>
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
+#include "eog-thumbnail.h"
 #include "session.h"
 #include "eog-config-keys.h"
 
@@ -532,6 +533,7 @@ main (int argc, char **argv)
 		g_error ("Could not initialize GnomeVFS!");
 
 	gnome_authentication_manager_init ();
+	eog_thumbnail_init ();
 
 	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
 

@@ -56,6 +56,8 @@ libeog_a_SOURCES =			\
 	eog-image-jpeg.h		\
 	eog-image-save-info.c		\
 	eog-image-save-info.h		\
+	eog-thumbnail.h			\
+	eog-thumbnail.c			\
 	eog-save-dialog-helper.h	\
 	eog-save-dialog-helper.c	\
 	eog-save-as-dialog-helper.h	\

@@ -6,7 +6,6 @@
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
 #include <libgnome/gnome-i18n.h>
-#include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
 #if HAVE_EXIF
@@ -26,14 +25,6 @@
 #include "eog-image-jpeg.h"
 #endif
 
-static GThread     *thread                     = NULL;
-static gboolean     thread_running             = FALSE;
-static GQueue      *jobs_waiting               = NULL;
-static GQueue      *jobs_done                  = NULL;
-static gint         dispatch_callbacks_id      = -1;
-static GStaticMutex jobs_mutex                 = G_STATIC_MUTEX_INIT;
-
-
 enum {
 	SIGNAL_LOADING_UPDATE,
 	SIGNAL_LOADING_SIZE_PREPARED,
@@ -52,7 +43,6 @@ static gint eog_image_signals [SIGNAL_LAST];
 
 #define NO_DEBUG
 #define DEBUG_ASYNC 0
-#define THUMB_DEBUG 0
 #define OBJECT_WATCH 0
 
 #if OBJECT_WATCH
@@ -63,217 +53,6 @@ static int n_active_images = 0;
 
 /* Chunk size for reading image data */
 #define READ_BUFFER_SIZE 65536
-
-/*============================================
-
-  static thumbnail loader for all image objects
-
-  ------------------------------------------*/
-
-static gint
-dispatch_image_finished (gpointer data)
-{
-	EogImage *image;
- 
-#if DEBUG_ASYNC
-	g_print ("*** dispatch callback called ***");
-#endif
-
-	image = NULL;
-
-	g_static_mutex_lock (&jobs_mutex);
-	if (!g_queue_is_empty (jobs_done)) {
-		image = EOG_IMAGE (g_queue_pop_head (jobs_done));
-	}
-	else {
-		g_queue_free (jobs_done);
-		jobs_done = NULL;
-		dispatch_callbacks_id = -1;
-	}
-	g_static_mutex_unlock (&jobs_mutex);	
-
-	if (image == NULL) {
-#if DEBUG_ASYNC
-		g_print (" --- shutdown\n");
-#endif
-		return FALSE;
-	}
-		
-	if (image->priv->thumbnail != NULL) {
-		g_signal_emit (G_OBJECT (image), eog_image_signals [SIGNAL_THUMBNAIL_FINISHED], 0);
-	}
-	else {
-		g_signal_emit (G_OBJECT (image), eog_image_signals [SIGNAL_THUMBNAIL_FAILED], 0);
-	}
-	g_object_unref (image);
-
-#if DEBUG_ASYNC
-	g_print ("\n");
-#endif
-	
-	return TRUE;
-}
-
-static gpointer
-create_thumbnails (gpointer data)
-{
-	EogImage *image;
-	EogImagePrivate *priv;
-	char *uri_str = NULL;
-	char *path = NULL;
-	gboolean finished = FALSE;
-	gboolean create_thumb = FALSE;
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
-	GnomeThumbnailFactory *factory;
-
-#if DEBUG_ASYNC
-	g_print ("*** Start thread ***\n");
-#endif	
-
-	while (!finished) {
-	        create_thumb = FALSE;
-
-		/* get next image to process */
-		g_static_mutex_lock (&jobs_mutex);
-
-		image = EOG_IMAGE (g_queue_pop_head (jobs_waiting));
-		g_assert (image != NULL);
-
-		g_static_mutex_unlock (&jobs_mutex);
-
-		/* thumbnail loading/creation  */
-		priv = image->priv;
-
-		if (priv->thumbnail != NULL) {
-			g_object_unref (priv->thumbnail);
-			priv->thumbnail = NULL;
-		}
-
-		uri_str = gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE);
-		info = gnome_vfs_file_info_new ();
-		result = gnome_vfs_get_file_info_uri (priv->uri, info, 
-						      GNOME_VFS_FILE_INFO_DEFAULT |
-						      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-
-		if (result == GNOME_VFS_OK &&
-		    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) != 0 &&
-		    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) != 0) 
-		{
-			path = gnome_thumbnail_path_for_uri (uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
-
-			if (g_file_test (path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)) {
-				priv->thumbnail = gdk_pixbuf_new_from_file (path, NULL);
-
-				if (!gnome_thumbnail_is_valid (priv->thumbnail, uri_str, info->mtime)) {
-					g_object_unref (priv->thumbnail);
-					priv->thumbnail = NULL;
-					create_thumb = TRUE;
-#if THUMB_DEBUG
-					g_print ("uri: %s, thumbnail is invalid\n", uri_str);
-#endif
-				}
-			}
-			else {
-#if THUMB_DEBUG
-				g_print ("uri: %s, has no thumbnail file\n", uri_str);
-#endif
-				create_thumb = TRUE;
-			}
-		}
-		else {
-#if THUMB_DEBUG
-			g_print ("uri: %s vfs errror: %s\n", uri_str, gnome_vfs_result_to_string (result));
-#endif
-		}
-
-		if (create_thumb) {
-
-			g_assert (path != NULL);
-			g_assert (info != NULL);
-			g_assert ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) != 0);
-			g_assert ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) != 0);
-			g_assert (priv->thumbnail == NULL);
-		
-#if THUMB_DEBUG
-			g_print ("create thumbnail for uri: %s\n -> mtime: %i\n -> mime_type; %s\n -> thumbpath: %s\n", 
-				 uri_str, info->mtime, info->mime_type, path);
-#endif
-	
-			factory = gnome_thumbnail_factory_new (GNOME_THUMBNAIL_SIZE_NORMAL);
-	
-			if (!gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, uri_str, info->mtime) &&
-			    gnome_thumbnail_factory_can_thumbnail (factory, uri_str, info->mime_type, info->mtime)) 
-			{
-				priv->thumbnail = gnome_thumbnail_factory_generate_thumbnail (factory, uri_str, info->mime_type);
-				
-				if (priv->thumbnail != NULL) {
-					gnome_thumbnail_factory_save_thumbnail (factory, priv->thumbnail, uri_str, info->mtime);
-				}
-			}
-			
-			g_object_unref (factory);
-			
-		}
-		
-		gnome_vfs_file_info_unref (info);
-		g_free (uri_str);
-		g_free (path);
-		
-
-		/* check for thread shutdown */
-		g_static_mutex_lock (&jobs_mutex);
-
-		if (jobs_done == NULL) {
-			jobs_done = g_queue_new ();
-		}
-		g_queue_push_tail (jobs_done, image);
-		
-		if (dispatch_callbacks_id == -1) {
-			dispatch_callbacks_id = g_idle_add (dispatch_image_finished, NULL);
-		}
-
-		if (g_queue_is_empty (jobs_waiting)) {
-			g_queue_free (jobs_waiting);
-			jobs_waiting = NULL;
-			thread_running = FALSE;
-			finished = TRUE;
-		}
-			
-		g_static_mutex_unlock (&jobs_mutex);
-	}
-
-#if DEBUG_ASYNC
-	g_print ("*** Finish thread ***\n");
-#endif	
-
-
-	return NULL;
-}
-
-static void
-add_image_to_queue (EogImage *image)
-{
-	if (!g_thread_supported ()) {
-		g_thread_init (NULL);
-	}
-
-	g_static_mutex_lock (&jobs_mutex);
-
-	if (jobs_waiting == NULL) {
-		jobs_waiting = g_queue_new ();
-	}
-
-	g_object_ref (image);
-	g_queue_push_tail (jobs_waiting, image);
-
-	if (!thread_running) {
-		thread = g_thread_create (create_thumbnails, NULL, TRUE, NULL);
-		thread_running = TRUE;
-	}
-
-	g_static_mutex_unlock (&jobs_mutex);
-}
 
 
 /*======================================
@@ -1013,21 +792,29 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 }
 
 
-gboolean 
-eog_image_load_thumbnail (EogImage *img)
+void
+eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 {
 	EogImagePrivate *priv;
 
-	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+	g_return_if_fail (EOG_IS_IMAGE (img));
+	g_return_if_fail (thumbnail != NULL);
 
 	priv = img->priv;
 
-	if (priv->thumbnail == NULL)
+	if (priv->thumbnail != NULL)
 	{
-		add_image_to_queue (img);
+		g_object_unref (priv->thumbnail);
+		priv->thumbnail = NULL;
 	}
 	
-	return (priv->thumbnail != NULL);
+	if (priv->trans != NULL) {
+		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail, NULL);
+	}
+	else {
+		priv->thumbnail = thumbnail;
+		g_object_ref (priv->thumbnail);
+	}
 }
 
 gboolean 

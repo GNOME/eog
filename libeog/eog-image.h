@@ -79,7 +79,7 @@ gboolean            eog_image_load                           (EogImage *img,
 gboolean            eog_image_has_data                       (EogImage *img, guint req_data);
 
 
-gboolean            eog_image_load_thumbnail                 (EogImage *img);
+void                eog_image_set_thumbnail                  (EogImage *img, GdkPixbuf *pixbuf);
 void                eog_image_cancel_load                    (EogImage *img);
 EogImage*           eog_image_data_ref                       (EogImage *img);
 EogImage*           eog_image_data_unref                     (EogImage *img);
