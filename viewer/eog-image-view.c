@@ -230,6 +230,75 @@ listener_CheckType_cb (BonoboUIComponent           *uic,
 }
 
 static void
+filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
+{
+	EogImageView     *image_view;
+	GtkWidget        *fsel;
+	gchar            *filename;
+	gchar            *message;
+	CORBA_Environment ev;
+	BonoboStream     *stream;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+	fsel = gtk_widget_get_ancestor (ok_button, GTK_TYPE_FILE_SELECTION);
+	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fsel));
+
+	CORBA_exception_init (&ev);
+	
+	stream = bonobo_stream_open_full ("fs", filename, 
+		Bonobo_Storage_WRITE | Bonobo_Storage_CREATE, 0664, &ev);
+
+	if (!BONOBO_EX (&ev)) {
+		eog_image_save_to_stream (image_view->priv->image, stream, 
+			  (char*) gnome_mime_type_of_file (filename), &ev);
+		bonobo_object_unref (BONOBO_OBJECT (stream));
+	}
+
+	if (BONOBO_EX (&ev)) {
+		message = g_strdup_printf (
+			_("Could not save image as '%s': %s."), filename, 
+			bonobo_exception_get_text (&ev));
+		gnome_error_dialog_parented (message, GTK_WINDOW (fsel));
+		g_free (message);
+	}
+	
+	CORBA_exception_free (&ev);
+	
+	gtk_widget_destroy (fsel);
+}
+
+static void
+filesel_cancel_cb (GtkWidget* cancel_button, gpointer user_data)
+{
+	GtkWidget *filesel;
+
+	filesel = gtk_widget_get_ancestor (cancel_button, GTK_TYPE_WINDOW);
+	gtk_widget_destroy (filesel);
+}
+
+static void
+verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
+{
+	EogImageView     *image_view;
+	GtkFileSelection *filesel;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	filesel = GTK_FILE_SELECTION (gtk_file_selection_new (_("Save As")));
+	gtk_signal_connect (GTK_OBJECT (filesel->ok_button), "clicked", 
+			    GTK_SIGNAL_FUNC (filesel_ok_cb), image_view);
+	gtk_signal_connect (GTK_OBJECT (filesel->cancel_button), "clicked", 
+			    GTK_SIGNAL_FUNC (filesel_cancel_cb), image_view);
+	gtk_widget_show (GTK_WIDGET (filesel));
+}
+
+static void
 listener_CheckSize_cb (BonoboUIComponent           *uic,
 		       const char                  *path,
 		       Bonobo_UIComponent_EventType type,
@@ -314,6 +383,9 @@ eog_image_view_create_ui (EogImageView *image_view)
 					  listener_CheckSize_cb, image_view);
 	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeLarge",
 					  listener_CheckSize_cb, image_view);
+
+	bonobo_ui_component_add_verb (image_view->priv->uic, "SaveAs", 
+					  verb_SaveAs_cb, image_view);
 }
 
 static void

@@ -54,6 +54,11 @@ EogImage       *eog_image_construct             (EogImage       *image);
 Image          *eog_image_get_image             (EogImage       *image);
 GdkPixbuf      *eog_image_get_pixbuf            (EogImage       *image);
 
+void	eog_image_save_to_stream	(EogImage	           *image, 
+					 BonoboStream	           *stream, 
+					 Bonobo_Persist_ContentType type, 
+					 CORBA_Environment         *ev);
+
 
 END_GNOME_DECLS
 

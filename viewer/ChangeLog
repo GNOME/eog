@@ -1,3 +1,16 @@
+2001-03-01  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* eog-image-view-ui.xml: Added 'FileOperations' placeholder and
+	menuitem 'SaveAs'.
+
+	* eog-image-view.c
+	(filesel_ok_cb), (filesel_cancel_cb), (verb_SaveAs_cb): New functions.
+	(eog_image_view_create_ui): Added callback for 'SaveAs'.
+
+	* eog-image.[ch]
+	(save_image_to_stream): Handle type == CORBA_OBJECT_NIL.
+	(eog_image_save_to_stream): New function, redirects to function above.
+
 2001-02-27  Jens Finke <jens@gnome.org>
 
 	Applied patch from Lutz Mueller <urc8@rz.uni-karlsruhe.de>:

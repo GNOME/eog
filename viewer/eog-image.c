@@ -209,7 +209,8 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 
 	g_message ("save_image_to_stream: %s", type);
 
-	if (!strcmp (type, "image/png") ||
+	if ((type == CORBA_OBJECT_NIL) ||
+	    !strcmp (type, "image/png") ||
 	    !strcmp (type, "image/x-png") ||
 	    !strcmp (type, ""))
 		retval = eog_image_save_png (image, stream, ev);
@@ -408,4 +409,15 @@ eog_image_get_pixbuf (EogImage *image)
 		gdk_pixbuf_ref (image->priv->pixbuf);
 
 	return image->priv->pixbuf;
+}
+
+void
+eog_image_save_to_stream (EogImage *image, BonoboStream *stream, 
+			  Bonobo_Persist_ContentType type, 
+			  CORBA_Environment* ev)
+{
+	g_return_if_fail (image != NULL);
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	
+	save_image_to_stream (NULL, BONOBO_OBJREF (stream), type, image, ev);
 }
