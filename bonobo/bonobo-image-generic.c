@@ -37,7 +37,7 @@
 #include <libart_lgpl/art_rgb_pixbuf_affine.h>
 #include <libart_lgpl/art_alphagamma.h>
 
-#undef EOG_DEBUG
+#define EOG_DEBUG
 
 /*
  * Number of running objects
@@ -136,18 +136,27 @@ render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 {
 	g_return_if_fail (buf != NULL);
 
-	/* No drawing area yet ! */
-	if (!dest_widget || !dest_widget->window)
+	if (!GTK_IS_DRAWING_AREA (dest_widget)) {
+		g_warning ("Non drawing area widget");
 		return;
+	}
+
+	/* No drawing area yet ! */
+	if (!dest_widget || !dest_widget->window) {
+/*		g_warning ("No window drawable");*/
+		return;
+	}
 
 	/*
 	 * Do not draw outside the region that we know how to display
 	 */
-	if (rect->x > gdk_pixbuf_get_width (buf))
+	if (rect->x > gdk_pixbuf_get_width (buf) ||
+	    rect->y > gdk_pixbuf_get_height (buf)) {
+/*		g_warning ("Render outside range %d %d %d %d (%d, %d)", rect->x, rect->y,
+			   gdk_pixbuf_get_width (buf), gdk_pixbuf_get_height (buf),
+			   rect->width, rect->height);*/
 		return;
-
-	if (rect->y > gdk_pixbuf_get_height (buf))
-		return;
+	}
 
 	/*
 	 * Clip the draw region
@@ -158,9 +167,7 @@ render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 	if (rect->y + rect->height > gdk_pixbuf_get_height (buf))
 		rect->height = gdk_pixbuf_get_height (buf) - rect->y;
 
-	/*
-	 * Draw the exposed region.
-	 */
+	/* Draw into the exposed region. */
 	if (gdk_pixbuf_get_has_alpha (buf))
 		gdk_draw_rgb_32_image (dest_widget->window,
 				       dest_widget->style->white_gc,
@@ -195,9 +202,10 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 	 * so we don't screw up the size allocation process by drawing
 	 * an unscaled image too early.
 	 */
-
 	if (view_data->size_allocated)
 	        render_pixbuf (buf, view_data->drawing_area, rect);
+	else
+		g_warning ("No render, size not allocated");
 }
 
 static void
@@ -209,10 +217,10 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 	g_return_if_fail (view_data != NULL);
 
 	/*
-	 * Don't configure the size if it hsan't gotten allocated, to
+	 * Don't configure the size if it hasn't gotten allocated, to
 	 * avoid messing with size_allocate process.
 	 */
-	if (view_data->size_allocated) {
+	if (!view_data->size_allocated) {
 		gtk_widget_set_usize (view_data->drawing_area,
 				      gdk_pixbuf_get_width (buf),
 				      gdk_pixbuf_get_height (buf));
@@ -221,22 +229,30 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 		rect->y = 0;
 		rect->width  = gdk_pixbuf_get_width (buf);
 		rect->height = gdk_pixbuf_get_height (buf);
+
+		view_data->size_allocated = TRUE;
+		g_warning ("Configure size; allocate %d %d",
+			   gdk_pixbuf_get_width (buf),
+			   gdk_pixbuf_get_height (buf));
+	} else {
+		GtkAllocation *a = &view_data->drawing_area->allocation;
+		rect->x = a->x;
+		rect->y = a->y;
+		rect->width  = a->width;
+		rect->height = a->height;
 	}
 }
 
 static void
-redraw_all_cb (BonoboView *view, void *data)
+resize_all_cb (BonoboView *view, void *data)
 {
-	GdkRectangle rect;
-	view_data_t *view_data;
+	GtkWidget *widget;
 
 	g_return_if_fail (view != NULL);
 
-	view_data = gtk_object_get_data (GTK_OBJECT (view),
-					 "view_data");
-	configure_size (view_data, &rect);
-	
-	redraw_view (view_data, &rect);
+	widget = bonobo_control_get_widget (BONOBO_CONTROL (view));
+
+	gtk_widget_queue_resize (widget);
 }
 
 static void
@@ -294,7 +310,7 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 		return;
 	} else
 		bonobo_embeddable_foreach_view (bod->bonobo_object,
-						redraw_all_cb, bod);
+						resize_all_cb, bod);
 	
 	return;
 }
@@ -314,8 +330,10 @@ destroy_view (BonoboView *view, view_data_t *view_data)
 static int
 drawing_area_exposed (GtkWidget *widget, GdkEventExpose *event, view_data_t *view_data)
 {
-	if (!view_data->bod->pixbuf)
+	if (!view_data->bod->pixbuf) {
+/*		g_warning ("Exposed with no pixbuf");*/
 		return TRUE;
+	}
 	
 	redraw_view (view_data, &event->area);
 
@@ -331,6 +349,7 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 {
 	const GdkPixbuf *buf;
 	GdkPixbuf       *view_buf;
+	GdkInterpType    type;
 
 	g_return_if_fail (view_data != NULL);
 	g_return_if_fail (allocation != NULL);
@@ -372,12 +391,20 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	}
 
 #ifdef EOG_DEBUG
-	g_warning ("Re-scale");
+	g_warning ("Re-scale to %d, %d", allocation->width, allocation->height);
 #endif
-	/* FIXME: should we be FILTER_TILES / FILTER_NEAREST ? */
+	/* Too slow below this */
+	if (allocation->width < gdk_pixbuf_get_width (buf) / 4 ||
+	    allocation->width < gdk_pixbuf_get_width (buf) / 4)
+		type = ART_FILTER_NEAREST;
+	else
+		type = ART_FILTER_TILES;
+
 	view_data->scaled = gdk_pixbuf_scale_simple (buf, allocation->width,
-						     allocation->height,
-						     ART_FILTER_TILES);
+						     allocation->height, type);
+#ifdef EOG_DEBUG
+	g_warning ("Scaling done");
+#endif
 	view_update (view_data);
 }
 
@@ -437,7 +464,7 @@ view_factory_common (BonoboEmbeddable *bonobo_object,
 	view_data->bod = bod;
 	view_data->scaled = NULL;
 	view_data->drawing_area = gtk_drawing_area_new ();
-	view_data->size_allocated = TRUE;
+	view_data->size_allocated = FALSE;
 	view_data->scrolled_window = scrolled_window;
 
 	gtk_signal_connect (
@@ -630,7 +657,7 @@ typedef struct {
 	GdkPixbufAnimation *animation;
 	GdkPixbuf          *frame;
 	GList              *cur_frame;
-	guint               timeout;
+	gint                timeout;
 	
 	gboolean            animate;
 	char               *fname;
@@ -647,7 +674,23 @@ animation_state_clean (AnimationState *as)
 		gdk_pixbuf_unref (as->frame);
 	as->frame = NULL;
 
-	as->cur_frame    = NULL;
+	if (as->timeout >= 0)
+		gtk_timeout_remove (as->timeout);
+	as->timeout = -1;
+
+	as->cur_frame = NULL;
+}
+
+static GdkPixbufFrame *
+animation_cur_frame (AnimationState *as)
+{
+	if (!as->cur_frame)
+		as->cur_frame = gdk_pixbuf_animation_get_frames (as->animation);
+
+	if (!as->cur_frame)
+		return NULL;
+
+	return as->cur_frame->data;
 }
 
 static gint
@@ -662,12 +705,12 @@ skip_frame (AnimationState *as)
 	if (!as->animate)
 		return FALSE;
 
-	if (!as->cur_frame) {
+	frame = animation_cur_frame (as);
+	if (!frame) {
 		g_warning ("No frame to render");
 		return FALSE;
 	}
 
-	frame = as->cur_frame->data;
 	g_return_val_if_fail (frame != NULL, FALSE);
 	g_return_val_if_fail (gdk_pixbuf_frame_get_pixbuf (frame) != NULL, FALSE);
 
@@ -690,6 +733,11 @@ skip_frame (AnimationState *as)
 
 	layer = gdk_pixbuf_frame_get_pixbuf (frame);
 
+/*
+ * NB. None of this is used, the expose event just renders the raw
+ * frame pixbuf; since this code looks nice but is broken.
+ */
+
 	if (!as->cur_frame->prev ||
 	    gdk_pixbuf_frame_get_action (frame) == GDK_PIXBUF_FRAME_REVERT) {
 		gdk_pixbuf_copy_area (layer, 0, 0, w, h, as->frame,
@@ -711,10 +759,9 @@ skip_frame (AnimationState *as)
 				    w, h);
 	as->timeout = gtk_timeout_add (gdk_pixbuf_frame_get_delay_time (frame) * 10,
 				       (GtkFunction) skip_frame, as);
+/*	g_warning ("Delay %d\n", gdk_pixbuf_frame_get_delay_time (frame) * 10);*/
 
 	as->cur_frame = as->cur_frame->next;
-	if (!as->cur_frame)
-		as->cur_frame = gdk_pixbuf_animation_get_frames (as->animation);
 
 	return FALSE;
 }
@@ -728,7 +775,10 @@ animation_init (AnimationState *as, char *fname)
 	if (as->animation) {
 		GdkPixbufFrame *frame;
 
-		as->cur_frame = gdk_pixbuf_animation_get_frames (as->animation);
+		/*
+		 * So, as we skip onto the next frame we start at the beggining.
+		 */
+		as->cur_frame = g_list_last (gdk_pixbuf_animation_get_frames (as->animation));
 		g_return_if_fail (as->cur_frame != NULL);
 
 		frame = as->cur_frame->data;
@@ -745,8 +795,12 @@ animation_init (AnimationState *as, char *fname)
 		gtk_widget_set_usize (as->drawing_area,
 				      gdk_pixbuf_get_width  (as->frame),
 				      gdk_pixbuf_get_height (as->frame));
-	} else
+	}
+#ifdef EOG_DEBUG
+	/* As you type into glade you get this a lot */
+	else
 		g_warning ("Error loading animation '%s'", fname);
+#endif
 }
 
 static void
@@ -756,8 +810,6 @@ animation_destroy (BonoboView *view, AnimationState *as)
 
 	animation_state_clean (as);
 	as->drawing_area = NULL;
-
-	gtk_timeout_remove (as->timeout);
 
 	if (as->fname)
 		g_free (as->fname);
@@ -777,12 +829,15 @@ animation_area_exposed (GtkWidget *widget, GdkEventExpose *event,
 	if (!as->frame)
 		return TRUE;
 
-	if (!as->cur_frame && !as->cur_frame->data)
+/*
+ * FIXME: herin lies the problem ... this needs to be fixed
+ * should use a nicely composited as->frame.
+ */
+	frame = animation_cur_frame (as);
+	if (!frame) {
+		g_warning ("No frame to render");
 		return TRUE;
-
-/*	render_pixbuf (as->frame, as->drawing_area, &event->area);*/
-/* FIXME: herin lies the problem ... this needs to be fixed */
-	frame = as->cur_frame->data;
+	}
 
 	render_pixbuf (gdk_pixbuf_frame_get_pixbuf (frame), as->drawing_area, &event->area);
 
@@ -854,6 +909,8 @@ bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
 
 	as = g_new0 (AnimationState, 1);
 	as->fname = NULL;
+	as->timeout = -1;
+	as->animate = TRUE;
 
 	/* Create the control. */
 	as->drawing_area = gtk_drawing_area_new ();

@@ -1,3 +1,26 @@
+2000-07-04  Michael Meeks  <michael@helixcode.com>
+
+	* bonobo/bonobo-image-generic.c (configure_size): set allocation.
+	(view_size_allocate_cb): change interpolation depending on size.
+
+2000-06-13  Michael Meeks  <michael@helixcode.com>
+
+	* bonobo/bonobo-image-generic.c (redraw_all_cb): rename to
+	(resize_all_cb): and update to just resize.
+	(load_image_from_stream): use it.
+	(animation_destroy): don't kill timeout.
+	(animation_state_clean): instead do it here.
+	(animation_init): make it start at the beggining of the
+	animation. (skip_frame): re-order frame walking.
+	(animation_cur_frame): implement.
+	(animation_area_exposed): use it here.
+
+2000-06-12  Michael Meeks  <michael@helixcode.com>
+
+	* bonobo/bonobo-image-generic.c (view_size_allocate_cb): set
+	size_allocated to false initially. (configure_size): set size
+	allocated flag.
+
 2000-06-26  Federico Mena Quintero  <federico@helixcode.com>
 
 	* eog.schemas: Beautified and completed the schema file.
@@ -17,10 +40,14 @@
 2000-06-20  Arik Devens  <arik@helixcode.com>
 	
 	* configure.in: added gconf support
+
 	* Makefile.am: added gconf support
+
 	* src/main.c: added gconf_init
+
 	* src/preferences.c (prefs_init): added loading of gconf values 
 	from database...
+
 	* eog.schemas: added eog defaults for the gconf database
 
 2000-06-12  Maciej Stachowiak  <mjs@eazel.com>
