@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-06-01 13:22+0300\n"
-"PO-Revision-Date: 2002-06-01 12:32+0200\n"
+"POT-Creation-Date: 2002-06-29 15:11+0300\n"
+"PO-Revision-Date: 2002-06-29 14:23+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgid "Help On this application"
 msgstr "Довідка про програму"
 
 #: shell/eog-shell-ui.xml.h:8
-#: shell/main.c:197
+#: shell/main.c:205
 msgid "Open"
 msgstr "Відкрити"
 
@@ -187,41 +187,41 @@ msgstr "_Відображення"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:237
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Юрій Сирота"
 
-#: shell/eog-window.c:253
-#: shell/eog-window.c:643
-#: shell/main.c:339
+#: shell/eog-window.c:242
+#: shell/eog-window.c:631
+#: shell/main.c:449
 msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgstr "Око GNOME"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:244
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторське право © 2000-2002 Фундація Вільного Програмного Забезпечення"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:245
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Програма перегляду та каталогізації зображень для GNOME"
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:282
 #, c-format
 msgid "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr "Не вдалося відобразити довідку до Ока GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:797
 msgid "Open Image"
 msgstr "Відкрити зображення"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1165
 #, c-format
 msgid "Unable to open %s."
 msgstr "Неможливо відкрити %s."
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -232,26 +232,40 @@ msgstr ""
 "одночасно. Чи не чочете ви відкрити\n"
 "їх в колекції?"
 
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "Одинокі вікна"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "Колекція"
 
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
 msgstr "Ви збираєтесь відкрити %i вікон\n"
 "одночасно. Продовжити?"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid "Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr "Не вдалося отримати доступ до %s\n"
+"Око GNOME не в змозі відобразити цей файл."
+
+#: shell/main.c:289
+#, c-format
+msgid "The following files cannot be displayed because Eye of Gnome was not able to access them:\n"
+"%s"
+msgstr "Наступні файли не можуть бути показані через відсутність доступу до них:\n"
+"%s"
+
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
 
-#: shell/main.c:354
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Не вдалось ініціалізувати Bonobo!\n"
 
@@ -469,7 +483,7 @@ msgstr "Заголовок вікна"
 msgid "Statusbar Text"
 msgstr "Текст панелі стану"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
 
