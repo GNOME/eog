@@ -1,5 +1,5 @@
 #include <libgnome/gnome-macros.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <gtk/gtk.h>
 
 #include "eog-info-view-exif.h"

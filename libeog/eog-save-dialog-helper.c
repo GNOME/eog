@@ -1,6 +1,6 @@
 #include <glade/glade.h>
 #include <libgnome/gnome-program.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include "eog-save-dialog-helper.h"
 #include "eog-util.h"
 

@@ -43,7 +43,7 @@
 #include <transupp.h>
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>

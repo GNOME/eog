@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-config.h>
-#include <glib/gi18n.h>
+#include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
