@@ -38,6 +38,7 @@
 #include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
+#include "zoom.h"
 #include "Eog.h"
 
 /* Default size for windows */
@@ -1069,6 +1070,96 @@ get_collection_control_list (GList *text_uri_list)
 	return control;
 }
 
+void
+adapt_shell_size_to_control (EogWindow *window, Bonobo_Control control)
+{
+	CORBA_Environment ev;
+	EogWindowPrivate *priv;
+	Bonobo_PropertyBag pb;
+	gint32 width, height;
+	gint32 image_width, image_height;
+	int sw, sh;
+	Bonobo_Zoomable zi;
+	double zoom_x;
+	double zoom_y;
+	gboolean need_zoom;
+	int req_width, req_height;
+	int xthick, ythick;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	CORBA_exception_init (&ev);
+	priv = window->priv;
+
+	/* calculate initial eog window size */
+	pb = bonobo_control_frame_get_control_property_bag (priv->ctrl_frame, &ev);
+	if (pb == CORBA_OBJECT_NIL) return;
+
+		
+	/* FIXME: We try to obtain the desired size of the component
+	 * here. The image/width image/height properties aren't
+	 * generally available in controls and work only with the
+	 * eog-image-viewer component!  
+	 */
+	image_width = bonobo_pbclient_get_long (pb, "image/width", &ev);
+	image_height = bonobo_pbclient_get_long (pb, "image/height", &ev);
+	
+	sw = gdk_screen_width ();
+	sh = gdk_screen_height ();
+	need_zoom = FALSE;
+
+	if (image_width >= sw) {
+		width = 0.75 * sw;
+		need_zoom = TRUE;
+	}
+	else {
+		width = image_width;
+	}
+	if (image_height >= sh) {
+		height = 0.75 * sh;
+		need_zoom = TRUE;
+	}
+	else {
+		height = image_height;
+	}
+
+	if (!width  || !height) {
+		bonobo_object_release_unref (pb, &ev);
+		return;
+	}		
+
+	/* this is the size of the frame around the vbox */
+	xthick = priv->box->style->xthickness;
+	ythick = priv->box->style->ythickness;
+	
+	req_height = 
+		height + 
+		(GTK_WIDGET(window)->allocation.height - priv->box->allocation.height) +
+		priv->statusbar->allocation.height + 
+		2 * ythick;
+	
+	req_width = 
+		width + 
+		(GTK_WIDGET(window)->allocation.width - priv->box->allocation.width) +
+		2 * xthick;
+
+	gtk_window_resize (GTK_WINDOW (window), req_width, req_height);
+
+	if (need_zoom) {
+		zi = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/Zoomable:1.0", &ev);
+		if (zi != CORBA_OBJECT_NIL) {
+			double zoom_level;
+			zoom_level = zoom_fit_scale (width, height, 
+						     image_width, image_height, TRUE);
+			Bonobo_Zoomable_setLevel (zi, zoom_level, &ev);
+			bonobo_object_release_unref (zi, &ev);
+		}
+	}
+	
+	bonobo_object_release_unref (pb, &ev);
+	CORBA_exception_free (&ev);
+}
+
 static void 
 add_control_to_ui (EogWindow *window, Bonobo_Control control)
 {
@@ -1102,11 +1193,14 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	 */
 	bonobo_ui_component_set_prop (priv->ui_comp, "/menu/View", "hidden", "0", &ev);
 
+	adapt_shell_size_to_control (window, control);
+
 	CORBA_exception_free (&ev);
 
 	/* retrieve control properties and install listeners */
 	check_for_control_properties (window);
 }
+
 
 /**
  * window_open:

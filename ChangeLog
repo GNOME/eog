@@ -1,3 +1,17 @@
+2002-06-21  Jens Finke  <jens@triq.net>
+
+	Fixes #72352 and #75713. 
+	
+	* libeog/ui-image.c (ui_image_fit_to_screen): Removed.
+
+	* shell/eog-window.c (adapt_shell_size_to_control): New function
+	which tries to read the desired size of the control and to adapt
+	the size of the eog window to it.
+	(add_control_to_ui): Call adapt_shell_size_to_control.
+
+	* viewer/eog-image-view.c (image_set_image_cb): Don't call
+	ui_image_fit_to_screen.
+ 
 2002-06-21  Peteris Krisjanis <pecisk@inbox.lv>
 
 	* configure.in: Added Latvian language support.
