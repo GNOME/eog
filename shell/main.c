@@ -259,72 +259,52 @@ user_wants_collection (gint n_windows)
 	return ret;
 }
 
-/* Concatenates the strings in a list and separates them with newlines.  If the
- * list is empty, returns the empty string.  Returns the number of list elements in n.
- */
-static char *
-concat_string_list_with_newlines (GList *strings, int *n)
-{
-	int len;
-	GList *l;
-	char *str, *p;
-
-	*n = 0;
-
-	if (!strings)
-		return g_strdup ("");
-
-	len = 0;
-
-	for (l = strings; l; l = l->next) {
-		char *s;
-
-		(*n)++;
-
-		s = l->data;
-		len += strlen (s) + 1; /* Add 1 for newline */
-	}
-
-	str = g_new (char, len);
-	p = str;
-	for (l = strings; l; l = l->next) {
-		char *s;
-
-		s = l->data;
-		p = g_stpcpy (p, s);
-		*p++ = '\n';
-	}
-
-	p--;
-	*p = '\0';
-
-	return str;
-}
-
 /* Shows an error dialog for files that do not exist */
 static void
 show_nonexistent_files (GList *error_list)
 {
-	char *str;
-	int n;
 	GtkWidget *dlg;
-	char *path;
+	GList *it;
+	int n = 0;
+	int len;
+	GString *detail;
 
 	g_assert (error_list != NULL);
 
-	str = concat_string_list_with_newlines (error_list, &n);
+	len = g_list_length (error_list);
+	detail = g_string_new ("");
 
-	path = gnome_vfs_format_uri_for_display (str);
+	/* build string of newline separated filepaths */
+	for (it = error_list; it != NULL; it = it->next) {
+		char *str;
 
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("File(s) not found."), path, TRUE);
+		if (n > 9) {
+			/* don't display more than 10 files */
+			detail = g_string_append (detail, "\n...");
+			break;
+		}
+
+		str = gnome_vfs_format_uri_for_display ((char*) it->data);
+
+		if (it != error_list) {
+			detail = g_string_append (detail, "\n");
+		}
+		detail = g_string_append (detail, str);
+
+		g_free (str);
+		n++;
+	}
+	
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, 
+				  ngettext ("File not found.", "Files not found.", len),
+				  detail->str, TRUE);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	
 	gtk_widget_show (dlg);
 	gtk_dialog_run (GTK_DIALOG (dlg));
 	gtk_widget_destroy (dlg);
 
-	g_free (path);
-	g_free (str);
+	g_string_free (detail, TRUE);
 }
 
 static GSList*
