@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-27 18:28+0200\n"
+"POT-Creation-Date: 2004-09-26 13:45+0200\n"
 "PO-Revision-Date: 2004-08-27 18:29+0200\n"
 "Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -294,19 +294,19 @@ msgstr "Kunne ikke oprette midlertidig fil til gemning: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunne ikke allokere hukommelse til indlæsning af JPEG-fil"
 
-#: libeog/eog-image.c:812
+#: libeog/eog-image.c:814
 msgid "empty file"
 msgstr "tom fil"
 
-#: libeog/eog-image.c:1245 libeog/eog-image.c:1456
+#: libeog/eog-image.c:1247 libeog/eog-image.c:1458
 msgid "File exists"
 msgstr "Fil eksisterer"
 
-#: libeog/eog-image.c:1398 libeog/eog-image.c:1524
+#: libeog/eog-image.c:1400 libeog/eog-image.c:1526
 msgid "No image loaded."
 msgstr "Intet billede indlæst."
 
-#: libeog/eog-image.c:1407 libeog/eog-image.c:1533
+#: libeog/eog-image.c:1409 libeog/eog-image.c:1535
 msgid "Temporary file creation failed."
 msgstr "Oprettelse af midlertidig fil mislykkedes."
 
@@ -444,7 +444,7 @@ msgstr "Sekund"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:318
+#: shell/eog-window.c:314
 msgid "translator-credits"
 msgstr ""
 "Keld Simonsen <keld@dkuug.dk>\n"
@@ -452,16 +452,16 @@ msgstr ""
 "Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Ole Laursen <olau@hardworking.dk>"
 
-#: shell/eog-window.c:323 shell/eog-window.c:2103 shell/eog-window.c:2408
+#: shell/eog-window.c:319 shell/eog-window.c:2170 shell/eog-window.c:2485
 #: shell/main.c:498
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
-#: shell/eog-window.c:326
+#: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Billedfremviser og -katalogiseringsprogram til Gnome."
 
-#: shell/eog-window.c:363
+#: shell/eog-window.c:359
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -470,208 +470,200 @@ msgstr ""
 "Kunne ikke vise hjælp til programmet.\n"
 "%s"
 
-#: shell/eog-window.c:632
+#: shell/eog-window.c:628
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Overskriv filen %s?"
 
-#: shell/eog-window.c:633
+#: shell/eog-window.c:629
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Filen eksisterer. Ønsker du at overskrive den?"
 
-#: shell/eog-window.c:643 shell/eog-window.c:656
+#: shell/eog-window.c:639 shell/eog-window.c:652
 msgid "Skip"
 msgstr "Udelad"
 
-#: shell/eog-window.c:644
+#: shell/eog-window.c:640
 msgid "Overwrite"
 msgstr "Overskriv"
 
-#: shell/eog-window.c:649
+#: shell/eog-window.c:645
 #, c-format
 msgid "Error on saving %s."
 msgstr "Fejl ved skrivning af %s."
 
-#: shell/eog-window.c:657 shell/eog-window.c:1031
+#: shell/eog-window.c:653 shell/eog-window.c:1037
 msgid "Retry"
 msgstr "Prøv igen"
 
-#: shell/eog-window.c:1020
+#: shell/eog-window.c:1026
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Kunne ikke bestemme %s's filformat"
 
-#: shell/eog-window.c:1021
+#: shell/eog-window.c:1027
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Vær venlig at bruge en filnavn-endelse eller vælg et filformat."
 
-#: shell/eog-window.c:1163
+#: shell/eog-window.c:1169
 msgid "Error on saving images."
 msgstr "Fejl ved gemning af billeder."
 
-#: shell/eog-window.c:1397
+#: shell/eog-window.c:1402
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Ønsker du at flytte %i billede til papirkurven?"
 msgstr[1] "Ønsker du at flytte %i billeder til papirkurven?"
 
-#: shell/eog-window.c:1435
+#: shell/eog-window.c:1440
 msgid "Couldn't access trash."
 msgstr "Kunne ikke tilgå papirkurven."
 
-#: shell/eog-window.c:1509
+#: shell/eog-window.c:1514
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fejl ved sletning af billede %s"
 
-#. Images: (n_selected_images) / (n_total_images)
-#: shell/eog-window.c:2091
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: shell/eog-window.c:2099
 #, c-format
-msgid "Images: %i/%i"
-msgstr "Billeder: %i/%i"
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i x %i punkter  %s    %i%%"
 
-#: shell/eog-window.c:2170
+#: shell/eog-window.c:2236
 msgid "_File"
 msgstr "_Fil"
 
-#: shell/eog-window.c:2171
+#: shell/eog-window.c:2237
 msgid "_Edit"
 msgstr "_Redigér"
 
-#: shell/eog-window.c:2172
+#: shell/eog-window.c:2238
 msgid "_View"
 msgstr "_Vis"
 
-#: shell/eog-window.c:2173
+#: shell/eog-window.c:2239
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: shell/eog-window.c:2174
+#: shell/eog-window.c:2240
 msgid "_New"
 msgstr "_Ny"
 
-#: shell/eog-window.c:2174
+#: shell/eog-window.c:2240
 msgid "Open a new window"
 msgstr "Åbn et nyt vindue"
 
-#: shell/eog-window.c:2175
+#: shell/eog-window.c:2241
 msgid "_Open..."
 msgstr "Å_bn..."
 
-#: shell/eog-window.c:2175
+#: shell/eog-window.c:2241
 msgid "Open a file"
 msgstr "Åbn en fil"
 
-#: shell/eog-window.c:2176
+#: shell/eog-window.c:2242
 msgid "Open _Directory..."
 msgstr "_Åbn mappe..."
 
-#: shell/eog-window.c:2176
+#: shell/eog-window.c:2242
 msgid "Open a directory"
 msgstr "Åbn en mappe"
 
-#: shell/eog-window.c:2177
+#: shell/eog-window.c:2243
 msgid "_Close"
 msgstr "_Luk"
 
-#: shell/eog-window.c:2177
+#: shell/eog-window.c:2243
 msgid "Close window"
 msgstr "Luk vinduet"
 
-#: shell/eog-window.c:2178
-msgid "_Quit"
-msgstr "_Afslut"
-
-#: shell/eog-window.c:2178
-msgid "Close all windows and quit"
-msgstr "Luk alle vinduer og afslut"
-
-#: shell/eog-window.c:2179
+#: shell/eog-window.c:2244
 msgid "Prefere_nces"
 msgstr "_Indstillinger"
 
-#: shell/eog-window.c:2179
+#: shell/eog-window.c:2244
 msgid "Preferences for Eye of Gnome"
 msgstr "Indstillinger for Gnomes øje"
 
-#: shell/eog-window.c:2180
+#: shell/eog-window.c:2245
 msgid "_Contents"
 msgstr "_Indhold"
 
-#: shell/eog-window.c:2180
+#: shell/eog-window.c:2245
 msgid "Help On this application"
 msgstr "Hjælp til dette program"
 
-#: shell/eog-window.c:2181
+#: shell/eog-window.c:2246
 msgid "_About"
 msgstr "_Om"
 
-#: shell/eog-window.c:2181
+#: shell/eog-window.c:2246
 msgid "About this application"
 msgstr "Om dette program"
 
-#: shell/eog-window.c:2186
+#: shell/eog-window.c:2251
 msgid "_Toolbar"
 msgstr "_Værktøjslinje"
 
-#: shell/eog-window.c:2187
+#: shell/eog-window.c:2252
 msgid "_Statusbar"
 msgstr "_Statuslinje"
 
-#: shell/eog-window.c:2192
+#: shell/eog-window.c:2257
 msgid "_Save"
 msgstr "_Gem"
 
-#: shell/eog-window.c:2193
+#: shell/eog-window.c:2258
 msgid "Save _As"
 msgstr "Gem _som"
 
-#: shell/eog-window.c:2195
+#: shell/eog-window.c:2260
 msgid "_Undo"
 msgstr "_Fortryd"
 
-#: shell/eog-window.c:2197
+#: shell/eog-window.c:2262
 msgid "Flip _Horizontal"
 msgstr "Vend om _vandret"
 
-#: shell/eog-window.c:2198
+#: shell/eog-window.c:2263
 msgid "Flip _Vertical"
 msgstr "Vend om _lodret"
 
-#: shell/eog-window.c:2200
+#: shell/eog-window.c:2265
 msgid "_Rotate Clockwise"
 msgstr "Rotér m_ed uret"
 
-#: shell/eog-window.c:2201
+#: shell/eog-window.c:2266
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotér m_od uret"
 
-#: shell/eog-window.c:2202
+#: shell/eog-window.c:2267
 msgid "Rotat_e 180°"
 msgstr "Rotér 180 grad_er"
 
-#: shell/eog-window.c:2204
+#: shell/eog-window.c:2269
 msgid "Delete"
 msgstr "Slet"
 
-#: shell/eog-window.c:2206
+#: shell/eog-window.c:2271
 msgid "_Full Screen"
 msgstr "_Fuldskærm"
 
-#: shell/eog-window.c:2207
+#: shell/eog-window.c:2272
 msgid "_Zoom In"
 msgstr "Zoom _ind"
 
-#: shell/eog-window.c:2208
+#: shell/eog-window.c:2273
 msgid "Zoom _Out"
 msgstr "Zoom _ud"
 
-#: shell/eog-window.c:2209
+#: shell/eog-window.c:2274
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: shell/eog-window.c:2210
+#: shell/eog-window.c:2275
 msgid "Best _Fit"
 msgstr "Til_pas"
 
@@ -706,6 +698,15 @@ msgstr[1] "Filer ikke fundet."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
+
+#~ msgid "Images: %i/%i"
+#~ msgstr "Billeder: %i/%i"
+
+#~ msgid "_Quit"
+#~ msgstr "_Afslut"
+
+#~ msgid "Close all windows and quit"
+#~ msgstr "Luk alle vinduer og afslut"
 
 #~ msgid "EOG Image Collection Viewer"
 #~ msgstr "EOG-billedsamlingsfremviser"
@@ -832,9 +833,6 @@ msgstr "Kunne ikke åbne '%s'"
 
 #~ msgid "Preview"
 #~ msgstr "Forhåndsvisning"
-
-#~ msgid "%i x %i pixel  %s    %i%%"
-#~ msgstr "%i x %i punkter  %s    %i%%"
 
 #~ msgid "/Rotate C_lockwise"
 #~ msgstr "/Rotér m_ed uret"
