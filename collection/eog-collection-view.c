@@ -54,6 +54,8 @@
 #include "eog-info-view.h"
 #include "eog-transform.h"
 #include "eog-save-dialog.h"
+#include "eog-horizontal-splitter.h"
+#include "eog-vertical-splitter.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -919,7 +921,9 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 		
 		priv->progress_handler_id = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
-		eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+		if (priv->info_view != NULL) {
+			eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+		}
 		
 		priv->displayed_image = image;
 	}
@@ -1134,6 +1138,7 @@ create_user_interface (EogCollectionView *list_view)
 	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
+#if HAVE_EXIF
 	/* info view for additional image information */
 	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
 	sw = gtk_scrolled_window_new (NULL, NULL);
@@ -1141,15 +1146,15 @@ create_user_interface (EogCollectionView *list_view)
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (sw), priv->info_view);
+#else
+	priv->info_view = NULL;
+	sw = NULL;
+#endif
 
-	hpaned = gtk_hpaned_new ();
+	hpaned = eog_horizontal_splitter_new ();
 	gtk_paned_pack1 (GTK_PANED (hpaned), frame, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (hpaned), sw, FALSE, TRUE);
 	gtk_widget_show_all (hpaned);
-
-#if !HAVE_EXIF
-	gtk_paned_set_position (GTK_PANED (hpaned), 10000);
-#endif
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
@@ -1168,7 +1173,7 @@ create_user_interface (EogCollectionView *list_view)
 	gtk_widget_show_all (sw);
 
 	/* put it all together */
-	vpaned = gtk_vpaned_new ();
+	vpaned = eog_vertical_splitter_new ();
 	
 	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (vpaned), sw, TRUE, TRUE);

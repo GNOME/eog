@@ -1,3 +1,17 @@
+2003-07-05  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view.c (handle_selection_changed):
+	Check for info_view != NULL.
+	(create_user_interface): Create info view only if exif library is
+	installed (we don't show any other relevant infos yet.)  Use
+	special eog splitter widgets.
+
+	* libeog/Makefile.am (SOURCES): Added new eog splitter files.
+
+	* libeog/eog-horizontal-splitter.[ch], 
+	* libeog/eog-vertical-splitter.[ch]: Specilised new eog splitters
+	widgets.
+
 2003-07-02  Jens Finke  <jens@triq.net>
 
 	General UI polishing.
@@ -6,7 +20,7 @@
 	pixmaps to rotate menu functions.
 
 	* shell/eog-window.c (verb_HelpAbout_cb): Unified copyright sign.-
-	#101726.
+	#101726, patch by Christian Neumair.
 
 	* viewer/eog-image-view-ctrl-ui.xml: Added pixmaps to zoom menu
 	items.

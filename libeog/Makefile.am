@@ -59,6 +59,10 @@ libeog_a_SOURCES =			\
 	eog-info-view.h			\
 	eog-hig-dialog.h		\
 	eog-hig-dialog.c		\
+	eog-horizontal-splitter.c	\
+	eog-horizontal-splitter.h	\
+	eog-vertical-splitter.c		\
+	eog-vertical-splitter.h		\
 	uta.c				\
 	uta.h				\
 	cursors.c			\
