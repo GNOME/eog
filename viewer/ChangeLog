@@ -1,3 +1,14 @@
+2000-11-18  Martin Baulig  <baulig@suse.de>
+
+	* eog-image-view.c (EogImageViewPrivate): Added `has_zoomable_frame'.
+	(zoomable_set_frame_cb): New callback function for the "set_frame"
+	signal on the Zoomable; this sets image_view->priv->has_zoomable_frame.
+	(eog_image_view_create_ui): Manually create the UI for the zoom toolbar
+	and the zoom menu entries here, but only if `has_zoomable_frame'.
+
+	* eog-image-view-ui.xml: Removed the EogZoomToolbar and the
+	zoom menus.
+
 2000-11-17  Martin Baulig  <baulig@suse.de>
 
 	* eog-image-view.c (verb_ZoomIn_cb, verb_ZoomOut_cb,

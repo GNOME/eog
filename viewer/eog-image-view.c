@@ -29,6 +29,7 @@ struct _EogImageViewPrivate {
 
 	BonoboZoomable     *zoomable;
 	float               zoom_level;
+	gboolean            has_zoomable_frame;
 
 	BonoboUIComponent  *uic;
 };
@@ -221,6 +222,15 @@ image_data_set_image_cb (EogImageData *image_data, EogImageView *image_view)
 	image = eog_image_data_get_image (image_data);
 	image_view_set_image (IMAGE_VIEW (image_view->priv->image_view), image);
 	image_unref (image);
+}
+
+static void
+zoomable_set_frame_cb (BonoboZoomable *zoomable, EogImageView *image_view)
+{
+	g_return_if_fail (image_view != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+	image_view->priv->has_zoomable_frame = TRUE;
 }
 
 static void
@@ -578,6 +588,26 @@ static BonoboUIVerb eog_image_view_verbs[] = {
 	BONOBO_UI_VERB_END
 };
 
+static const gchar *zoom_toolbar =
+"<dockitem name=\"EogZoomToolbar\" homogeneous=\"1\" hidden=\"1\">\n"
+"  <toolitem name=\"ZoomIn\" _label=\"In\" pixtype=\"filename\"\n"
+"            pixname=\"eog/stock-zoom-out.xpm\" verb=\"\"/>\n"
+"  <toolitem name=\"ZoomOut\" _label=\"Out\" pixtype=\"filename\"\n"
+"            pixname=\"eog/stock-zoom-in.xpm\" verb=\"\"/>\n"
+"  <toolitem name=\"ZoomToDefault\" _label=\"1:1\" pixtype=\"filename\"\n"
+"            pixname=\"eog/stock-zoom-1.xpm\" verb=\"\"/>\n"
+"  <toolitem name=\"ZoomToFit\" _label=\"Fit\" pixtype=\"filename\"\n"
+"            pixname=\"eog/stock-zoom-fit.xpm\" verb=\"\"/>\n"
+"</dockitem>";
+
+static const gchar *zoom_menu =
+"<placeholder name=\"ZoomMenu\">\n"
+"  <menuitem name=\"ZoomIn\" _label=\"Zoom _In\" verb=\"\"/>\n"
+"  <menuitem name=\"ZoomOut\" _label=\"Zoom _Out\" verb=\"\"/>\n"
+"  <menuitem name=\"ZoomToDefault\" _label=\"Zoom to _Default\" verb=\"\"/>\n"
+"  <menuitem name=\"ZoomToFit\" _label=\"Zoom to _Fit\" verb=\"\"/>\n"
+"</placeholder>";
+
 static void
 eog_image_view_create_ui (EogImageView *image_view)
 {
@@ -621,9 +651,18 @@ eog_image_view_create_ui (EogImageView *image_view)
 	bonobo_ui_component_add_listener (image_view->priv->uic, "CheckSizeLarge",
 					  listener_CheckSize_cb, image_view);
 
-	bonobo_ui_component_add_verb_list_with_data (image_view->priv->uic,
-						     eog_image_view_verbs,
-						     image_view);
+	if (image_view->priv->has_zoomable_frame) {
+		bonobo_ui_component_set_translate (image_view->priv->uic,
+						   "/menu/EOG", zoom_menu,
+						   NULL);
+
+		bonobo_ui_component_set_translate (image_view->priv->uic,
+						   "/", zoom_toolbar, NULL);
+
+		bonobo_ui_component_add_verb_list_with_data
+			(image_view->priv->uic, eog_image_view_verbs,
+			 image_view);
+	}
 }
 
 static void
@@ -745,16 +784,30 @@ eog_image_view_construct (EogImageView *image_view,
 	 */
 	image_view->priv->zoomable = bonobo_zoomable_new ();
 
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable), "set_zoom_level",
-			    GTK_SIGNAL_FUNC (zoomable_set_zoom_level_cb), image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable), "zoom_in",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_in_cb), image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable), "zoom_out",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_out_cb), image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable), "zoom_to_fit",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_fit_cb), image_view);
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable), "zoom_to_default",
-			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb), image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "set_frame",
+			    GTK_SIGNAL_FUNC (zoomable_set_frame_cb),
+			    image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "set_zoom_level",
+			    GTK_SIGNAL_FUNC (zoomable_set_zoom_level_cb),
+			    image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "zoom_in",
+			    GTK_SIGNAL_FUNC (zoomable_zoom_in_cb),
+			    image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "zoom_out",
+			    GTK_SIGNAL_FUNC (zoomable_zoom_out_cb),
+			    image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "zoom_to_fit",
+			    GTK_SIGNAL_FUNC (zoomable_zoom_to_fit_cb),
+			    image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->zoomable),
+			    "zoom_to_default",
+			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb),
+			    image_view);
 
 	image_view->priv->zoom_level = 1.0;
 	bonobo_zoomable_set_parameters_full (image_view->priv->zoomable,
