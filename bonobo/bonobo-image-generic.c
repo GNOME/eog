@@ -405,13 +405,19 @@ render_fn (GnomePrintContext         *ctx,
 
 	gnome_print_gsave     (ctx);
 	gnome_print_concat    (ctx, matrix);
+
 	if (gdk_pixbuf_get_has_alpha (buf))
-		g_warning ("We need to loose our alpha channel somehow");
-	gnome_print_rgbimage  (ctx,
-			       gdk_pixbuf_get_pixels    (buf),
-			       gdk_pixbuf_get_width     (buf),
-			       gdk_pixbuf_get_height    (buf),
-			       gdk_pixbuf_get_rowstride (buf));
+		gnome_print_rgbaimage  (ctx,
+					gdk_pixbuf_get_pixels    (buf),
+					gdk_pixbuf_get_width     (buf),
+					gdk_pixbuf_get_height    (buf),
+					gdk_pixbuf_get_rowstride (buf));
+	else
+		gnome_print_rgbimage  (ctx,
+				       gdk_pixbuf_get_pixels    (buf),
+				       gdk_pixbuf_get_width     (buf),
+				       gdk_pixbuf_get_height    (buf),
+				       gdk_pixbuf_get_rowstride (buf));
 	gnome_print_grestore  (ctx);
 }
 
