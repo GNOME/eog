@@ -30,8 +30,16 @@ struct _EogCollectionViewPrivate {
 	GtkWidget               *wraplist;
 	GtkWidget               *root;
 
+	BonoboPropertyBag       *property_bag;
+
 	BonoboUIComponent       *uic;
 	BonoboPropertyControl   *prop_control;
+
+	gint                    idle_id;
+};
+
+enum {
+	PROP_WINDOW_TITLE
 };
 
 enum {
@@ -80,7 +88,7 @@ impl_GNOME_EOG_ImageCollection_openURIList (PortableServer_Servant servant,
 	priv = cview->priv;
 	
         list = NULL;
-	g_print ("uri_list->_lenght: %i\n", uri_list->_length);
+	g_print ("uri_list->_length: %i\n", uri_list->_length);
         for (i = 0; i < uri_list->_length; i++) {
                 list = g_list_append
                         (list, g_strdup (uri_list->_buffer[i]));
@@ -153,6 +161,10 @@ eog_collection_view_destroy (GtkObject *object)
 		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->prop_control));
 	list_view->priv->prop_control = NULL;
 
+	if (list_view->priv->property_bag)
+		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->property_bag));
+	list_view->priv->property_bag = NULL;
+
 	list_view->priv->wraplist = NULL;
 	list_view->priv->root = NULL;
 
@@ -206,9 +218,10 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 }
 
 static void
-eog_collection_view_init (EogCollectionView *image_view)
+eog_collection_view_init (EogCollectionView *view)
 {
-	image_view->priv = g_new0 (EogCollectionViewPrivate, 1);
+	view->priv = g_new0 (EogCollectionViewPrivate, 1);
+	view->priv->idle_id = -1;
 }
 
 BONOBO_X_TYPE_FUNC_FULL (EogCollectionView, 
@@ -234,6 +247,78 @@ handle_item_dbl_click (GtkObject *obj, gint n, gpointer data)
 	gtk_signal_emit (GTK_OBJECT (view), eog_collection_view_signals [OPEN_URI], uri);
 
 	g_free (uri);
+}
+
+
+static void
+eog_collection_view_get_prop (BonoboPropertyBag *bag,
+			      BonoboArg         *arg,
+			      guint              arg_id,
+			      CORBA_Environment *ev,
+			      gpointer           user_data)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+	
+	switch (arg_id) {
+	case PROP_WINDOW_TITLE: {
+		gchar *base_uri;
+		gchar *title;
+		gint length;
+		gchar *buffer;
+
+		base_uri = eog_collection_model_get_base_uri (view->priv->model);
+		length = eog_collection_model_get_length (view->priv->model);
+		if (length == 1)
+			buffer = g_strdup("(1 image)");
+		else {
+			buffer = g_new0 (guchar, 20);
+			g_snprintf (buffer, 20, "(%i images)", length);
+		}
+		
+		if (base_uri == NULL)
+			title = g_strconcat (_("Collection View "), buffer, NULL);
+		else {
+			if (g_strncasecmp ("file:", base_uri, 5) == 0)
+				title = g_strconcat ((base_uri+5*sizeof(guchar)), " ", 
+						     buffer, NULL );
+			else
+				title = g_strconcat (base_uri, " ", buffer, NULL);
+		}
+
+		BONOBO_ARG_SET_STRING (arg, title);
+		g_free (title);
+		g_free (buffer);
+		break;
+	}
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+static void
+eog_collection_view_set_prop (BonoboPropertyBag *bag,
+			      const BonoboArg   *arg,
+			      guint              arg_id,
+			      CORBA_Environment *ev,
+			      gpointer           user_data)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	switch (arg_id) {
+		/* all properties are read only yet */
+	default:
+		g_assert_not_reached ();
+	}
 }
 
 static void
@@ -291,6 +376,39 @@ prop_control_get_cb (BonoboPropertyControl *property_control,
 	return control;
 }
 
+static gint
+update_title_property (EogCollectionView *view)
+{
+	BonoboArg *arg;
+
+	arg = bonobo_arg_new (BONOBO_ARG_STRING);
+
+	eog_collection_view_get_prop (NULL, arg,
+				      PROP_WINDOW_TITLE,
+				      NULL,
+				      view);
+
+	bonobo_property_bag_notify_listeners (view->priv->property_bag,
+					      "window_title",
+					      arg, NULL);
+ 
+	bonobo_arg_release (arg);
+	view->priv->idle_id = -1;
+	
+	return FALSE;
+}
+
+static void
+model_interval_size_changed (EogCollectionModel *model, GList *id_list, gpointer data)
+{
+	EogCollectionView *view;
+	
+	view = EOG_COLLECTION_VIEW (data);
+	
+	if (view->priv->idle_id == -1)
+		view->priv->idle_id = gtk_idle_add ((GtkFunction) update_title_property, view);
+}
+
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
 {
@@ -304,6 +422,12 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	/* construct widget */
 	priv = list_view->priv;
 	priv->model = eog_collection_model_new ();
+	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_added", 
+			    GTK_SIGNAL_FUNC (model_interval_size_changed),
+			    list_view);
+	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_removed", 
+			    GTK_SIGNAL_FUNC (model_interval_size_changed),
+			    list_view);
 
 	priv->factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
 
@@ -321,6 +445,14 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
+
+	/* Property Bag */
+	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,
+						      eog_collection_view_set_prop,
+						      list_view);
+	bonobo_property_bag_add (priv->property_bag, "window_title", PROP_WINDOW_TITLE,
+				 BONOBO_ARG_STRING, NULL, _("Window Title"),
+				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */
 	priv->prop_control = bonobo_property_control_new (prop_control_get_cb, 2, 
@@ -364,4 +496,11 @@ eog_collection_view_set_background_color (EogCollectionView *list_view,
 					    color);
 }
 
+BonoboPropertyBag*
+eog_collection_view_get_property_bag (EogCollectionView *view)
+{
+	g_return_val_if_fail (view != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (view), NULL);
 
+	return view->priv->property_bag;
+}

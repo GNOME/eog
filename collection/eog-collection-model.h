@@ -105,6 +105,9 @@ void
 eog_collection_model_set_select_status_all  (EogCollectionModel *model, 
                                              gboolean status);
 
+gchar*
+eog_collection_model_get_base_uri           (EogCollectionModel *model);
+
 END_GNOME_DECLS
 
 #endif /* EOG_COLLECTION_MODEL_H */

@@ -54,6 +54,9 @@ void                eog_collection_view_set_ui_container  (EogCollectionView    
 							   Bonobo_UIContainer       ui_container);
 GtkWidget          *eog_collection_view_get_widget          (EogCollectionView       *list_view);
 
+BonoboPropertyBag  *eog_collection_view_get_property_bag (EogCollectionView *view);
+
+
 void                eog_collection_view_set_layout_mode    (EogCollectionView *list_view,
 							    EogLayoutMode lm);
 

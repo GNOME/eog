@@ -1,3 +1,25 @@
+2001-05-21  Jens Finke <jens@gnome.org
+
+	* eog-collection-control.c (eog_control_construct): Add property
+	bag to control.
+
+	* eog-collection-model.[ch]: Added a base_uri attribute, which stores
+	the common part of all viewed URIs. Maybe this doesn't work under
+	all conditions.
+	(eog_collection_model_set_uri),
+	(eog_collection_model_set_uri_list): Set base_uri.
+	(eog_collection_model_get_base_uri): New function.
+
+	* eog-collection-view.[ch]: Added property bag attribute.
+	(eog_collection_view_get_property_bag),
+	(eog_collection_view_get_prop),
+	(eog_collection_view_set_prop): New functions.
+	(update_title_property),
+	(model_interval_size_changed): New functions to update the
+	'window_title' property correctly.
+	(eog_collection_view_construct): Create property bag and listen to
+	model interval changes.
+
 2001-04-23  Jens Finke <jens@gnome.org>
         
 	This patch enables the collection component to load a bunch of

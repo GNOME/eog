@@ -172,6 +172,7 @@ EogControl *
 eog_control_construct (EogControl    *eog_ctrl)
 {
 	BonoboControl     *bctrl;	
+	BonoboPropertyBag *property_bag;
 
 	g_return_val_if_fail (eog_ctrl != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (eog_ctrl), NULL);
@@ -193,6 +194,10 @@ eog_control_construct (EogControl    *eog_ctrl)
 	gtk_signal_connect (GTK_OBJECT (bctrl), "activate", 
 			    eog_control_activate, eog_ctrl);
 
+	/* add properties */
+	property_bag = eog_collection_view_get_property_bag (EOG_COLLECTION_VIEW (eog_ctrl));
+	bonobo_control_set_properties (BONOBO_CONTROL (bctrl), property_bag);
+	bonobo_object_unref (BONOBO_OBJECT (property_bag));
 
 	/* connect collection view signals */
 	gtk_signal_connect (GTK_OBJECT (eog_ctrl),

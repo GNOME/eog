@@ -38,6 +38,9 @@ struct _EogCollectionModelPrivate {
 
 	/* list of images to load with loader */ 
 	GSList *images_to_load;
+	
+	/* base uri e.g. from a directory */
+	gchar *base_uri;
 };
 
 
@@ -56,12 +59,10 @@ static void
 eog_collection_model_destroy (GtkObject *obj)
 {
 	EogCollectionModel *model;
-	CORBA_Environment ev;
 	
 	g_return_if_fail (obj != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (obj));
 
-	CORBA_exception_init (&ev);
 	model = EOG_COLLECTION_MODEL (obj);
 
 	if (model->priv->loader)
@@ -77,7 +78,9 @@ eog_collection_model_destroy (GtkObject *obj)
 	g_hash_table_destroy (model->priv->id_image_mapping);
 	model->priv->id_image_mapping = NULL;
 
-	CORBA_exception_free (&ev);
+	if (model->priv->base_uri)
+		g_free (model->priv->base_uri);
+	model->priv->base_uri = NULL;
 }
 
 static void
@@ -103,6 +106,7 @@ eog_collection_model_init (EogCollectionModel *obj)
 	priv->id_image_mapping = NULL;
 	priv->selected_images = NULL;
 	priv->images_to_load = NULL;
+	priv->base_uri = NULL;
 	obj->priv = priv;
 }
 
@@ -386,7 +390,7 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	priv = model->priv;
 
 	ctx = prepare_context (model, uri);
-	
+
 	if (ctx != NULL) {
 		if (ctx->type == LC_BONOBO_STORAGE)
 			gtk_idle_add ((GtkFunction) real_storage_loading, ctx);
@@ -395,6 +399,13 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	} else {
 		g_warning (_("Can't handle URI: %s"), uri);
 	}	
+	
+	if (priv->base_uri == NULL)
+		priv->base_uri = g_strdup (uri);
+	else {
+		g_free (priv->base_uri);
+		priv->base_uri = g_strdup("multiple"));
+	}
 }
 
 void 
@@ -425,6 +436,10 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 
 		node = node->next;
 	}
+	
+	if (model->priv->base_uri != NULL)
+		g_free (model->priv->base_uri);
+	model->priv->base_uri = g_strdup ("multiple");
 }
 
 void
@@ -567,3 +582,14 @@ void eog_collection_model_toggle_select_status (EogCollectionModel *model,
 }
 
 
+gchar*
+eog_collection_model_get_base_uri (EogCollectionModel *model)
+{
+	g_return_val_if_fail (model != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
+
+	if (g_strcasecmp ("multiple", model->priv->base_uri) == 0)
+		return NULL;
+	else
+		return model->priv->base_uri;
+}
