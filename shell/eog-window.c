@@ -40,8 +40,8 @@
 
 /* Default size for windows */
 
-#define DEFAULT_WINDOW_WIDTH 400
-#define DEFAULT_WINDOW_HEIGHT 300
+#define DEFAULT_WINDOW_WIDTH 200
+#define DEFAULT_WINDOW_HEIGHT 200
 
 #define EOG_VIEWER_CONTROL_IID "OAFIID:GNOME_EOG_Control"
 
@@ -505,18 +505,6 @@ eog_window_new (void)
 	return GTK_WIDGET (window);
 }
 
-#if 0
-/* Sets the sensitivity of all the items */
-static void
-sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
-{
-	g_assert (widgets != NULL);
-
-	for (; *widgets != NULL; widgets++)
-		gtk_widget_set_sensitive (*widgets, sensitive);
-}
-#endif
-
 /* Sets the window as a drag destination */
 static void
 set_drag_dest (EogWindow *window)
@@ -603,14 +591,10 @@ eog_window_construct (EogWindow *window)
 	set_drag_dest (window);
 
 	/* set default geometry */
-	geometry.min_width = 200;
-	geometry.min_height = 200;
-	geometry.base_width = DEFAULT_WINDOW_WIDTH;
-	geometry.base_height = DEFAULT_WINDOW_HEIGHT;
-	gtk_window_set_geometry_hints(GTK_WINDOW (window), 
-				      GTK_WIDGET (window),
-				      &geometry, 
-				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
+	gtk_window_set_default_size (GTK_WINDOW (window), 
+				     DEFAULT_WINDOW_WIDTH,
+				     DEFAULT_WINDOW_HEIGHT);
+	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
 }
 
 /**
@@ -689,43 +673,6 @@ eog_window_open_dialog (EogWindow *window)
 		g_free (filename);
 	}
 }
-
-#if 0
-/* Picks a reasonable size for the window and zoom factor based on the image size */
-static void
-auto_size (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	GtkWidget *view;
-	Image *image;
-	int iwidth, iheight;
-	int swidth, sheight;
-	int zwidth, zheight;
-	double zoom;
-
-	priv = window->priv;
-
-	if (!window_has_image (window))
-		return;
-
-	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
-	image = image_view_get_image (IMAGE_VIEW (view));
-
-	iwidth = gdk_pixbuf_get_width (image->pixbuf);
-	iheight = gdk_pixbuf_get_height (image->pixbuf);
-
-	swidth = gdk_screen_width () * 0.75;
-	sheight = gdk_screen_height () * 0.75;
-
-	zoom = zoom_fit_scale (swidth, sheight, iwidth, iheight, FALSE);
-	image_view_set_zoom (IMAGE_VIEW (view), zoom);
-
-	zwidth = floor (iwidth * zoom + 0.5);
-	zheight = floor (iheight * zoom + 0.5);
-
-	gtk_widget_set_usize (view, zwidth, zheight);
-}
-#endif
 
 static void
 property_changed_cb (BonoboListener    *listener,
