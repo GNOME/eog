@@ -5,13 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-04-23 12:13+0200\n"
-"PO-Revision-Date: 2000-06-13 02:25+0200\n"
+"POT-Creation-Date: 2002-06-07 21:47+0200\n"
+"PO-Revision-Date: 2002-06-07 21:50+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "Zbirka slik EOG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Pregledovalnik zbirke slik EOG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Tovarna pregledovalnikov zbirk slik EOG"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -21,7 +33,7 @@ msgstr "Pregledovalnik slik Gnomovo oko"
 msgid "View many different types of images"
 msgstr "Prikaz različnih vrst slik"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "Slika EOG"
 
@@ -36,6 +48,47 @@ msgstr "Tovarna pregledovalnikov slik EOG"
 #: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Vgradljiva slika EOG"
+
+#: libeog/image-view.c:1853
+msgid "interpolation type"
+msgstr "vrsta interpolacije"
+
+#: libeog/image-view.c:1854
+msgid "the type of interpolation to use"
+msgstr "vrsta interpolacije, ki naj se uporabi"
+
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
+msgid "check type"
+msgstr "vrsta preverjanja"
+
+#: libeog/image-view.c:1861
+msgid "the type of chequering to use"
+msgstr "vrsta preverjanja, ki naj se uporabi"
+
+#: libeog/image-view.c:1868
+msgid "the size of chequers to use"
+msgstr "velikost preverjalnikov, ki naj se uporabijo"
+
+#: libeog/image-view.c:1874
+msgid "dither"
+msgstr "način zmanjševanja števila barv"
+
+#: libeog/image-view.c:1875
+msgid "dither type"
+msgstr "Način zmanjševanja števila barv"
+
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Nisem mogel prikazati pomoči za dialog nastavitev.\n"
+"%s"
+
+#: shell/eog-preferences.c:214
+msgid "Eye of Gnome Preferences"
+msgstr "Nastavitve Gnomovega očesa"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -57,120 +110,117 @@ msgstr "Zapri"
 msgid "Close window"
 msgstr "Zapri okno"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:6
+msgid "Contents"
+msgstr "Vsebina"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Help On this application"
+msgstr "Pomoč o tem programu"
+
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Odpri"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Odpri datoteko"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Odpiraj novo okno"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in new window"
 msgstr "Odpri v novem oknu"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in this window"
 msgstr "Odpri v tem oknu"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
 msgstr "Izhod iz programa"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:14
 msgid "_About"
 msgstr "_O programu..."
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "_Zapri"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:17
 msgid "_File"
 msgstr "_Datoteka"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Help"
 msgstr "_Pomoč"
 
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:19
 msgid "_New Window"
 msgstr "_Novo okno"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:20
 msgid "_Open..."
 msgstr "_Odpri..."
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Preferences..."
 msgstr "_Nastavitve..."
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
 msgstr "Iz_hod"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:23
 msgid "_View"
 msgstr "_Pogled"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
-msgstr "Prevedel: Andraž Tori"
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Andraž Tori"
 
-#: shell/eog-window.c:240 shell/eog-window.c:597 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Gnomovo oko"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Avtorske pravice pridržane (C) 2000-2002 Fundacija za prosto programje"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Program za gledanje in katalogizacijo slik GNOME"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
+msgstr "Program za gledanje in katalogizacijo slik GNOME."
 
-#: shell/eog-window.c:756
+#: shell/eog-window.c:293
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Nisem mogel prikazati pomoči za Gnomovo oko.\n"
+"%s"
+
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "Odpri sliko"
 
-#: shell/eog-window.c:810
-msgid "Control doesn't support window_title property."
-msgstr "Kontrola ne podpira lastnosti window_title."
-
-#: shell/eog-window.c:826
-msgid "Control doesn't support status_text property."
-msgstr "Kontrola ne podpira lastnosti status_text."
-
-#: shell/eog-window.c:845
-msgid "Control doesn't have properties"
-msgstr "Kontrola nima lastnosti"
-
-#: shell/eog-window.c:862
-msgid "Couldn't retrieve mime type for file."
-msgstr "Iz datoteke nisem mogel ugotoviti tipa mime."
-
-#: shell/eog-window.c:1105
-msgid "Error while obtaining file informations."
-msgstr "Napaka ob pridobivanju podatkov o datoteki."
-
-#: shell/eog-window.c:1134
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
 msgstr "Ne morem odpreti %s."
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -180,15 +230,16 @@ msgstr ""
 "Hkrati boste odprli boste %i oken\n"
 "Jih želite raje odpreti v zbirki?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Enojna okna"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Zbirka"
 
-#: shell/main.c:193
+#: shell/main.c:194
+#, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
@@ -209,74 +260,37 @@ msgstr "Nisem mogel inicializirati Bonoba!\n"
 msgid "Could not open `%s'"
 msgstr "Ne morem odpreti `%s'"
 
-#: shell/eog-preferences.c:141
-msgid "Eye of Gnome Preferences"
-msgstr "Nastavitve Gnomovega očesa"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Nisem mogel inicializirati GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Prilagodi"
 
-#: viewer/eog-image-view.c:304
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Nisem mogel shraniti slike kot '%s': %s."
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "Povečaj"
 
-#: viewer/eog-image-view.c:355
-msgid "Save As"
-msgstr "Shrani kot"
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Pomanjšaj"
 
-#: viewer/eog-image-view.c:930
-msgid "Print Image"
-msgstr "Natisni sliko"
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Povečaj _1:1"
 
-#: viewer/eog-image-view.c:938
-msgid "Pages"
-msgstr "Strani"
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Po_večaj"
 
-#: viewer/eog-image-view.c:1025
-msgid "Print Preview"
-msgstr "Predogled tiskanja"
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Po_manjšaj"
 
-#: viewer/eog-image-view.c:1031
-msgid "Printing of image failed"
-msgstr "Tiskanje slike ni uspelo"
-
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "Prikaz"
-
-#: viewer/eog-image-view.c:2069
-msgid "Interpolation"
-msgstr "Interpolacija"
-
-#: viewer/eog-image-view.c:2072
-msgid "Dither"
-msgstr "Način zmanjševanja števila barv"
-
-#: viewer/eog-image-view.c:2075
-msgid "Check Type"
-msgstr "Preverjanje načina"
-
-#: viewer/eog-image-view.c:2078
-msgid "Check Size"
-msgstr "Preverjanje velikosti"
-
-#: viewer/eog-image-view.c:2081
-msgid "Image Width"
-msgstr "Širina slike"
-
-#: viewer/eog-image-view.c:2084
-msgid "Image Height"
-msgstr "Višina slike"
-
-#: viewer/eog-image-view.c:2087
-msgid "Window Title"
-msgstr "Naslov okna"
-
-#: viewer/eog-image-view.c:2090
-msgid "Statusbar Text"
-msgstr "Besedilo v vrstici stanja"
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Pri_lagodi"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Check _size"
@@ -290,11 +304,11 @@ msgstr "Preveri _vrsto"
 msgid "Full Screen"
 msgstr "Čez cel zaslon"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
 msgid "Large"
 msgstr "Veliko"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
 msgid "Medium"
 msgstr "Srednje"
 
@@ -326,7 +340,7 @@ msgstr "Natisni sliko s tiskalnikom"
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavi lastnosti strani za vaš trenutni tiskalnik"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
 msgid "Small"
 msgstr "Malo"
 
@@ -390,37 +404,70 @@ msgstr "_Ploščice"
 msgid "_White"
 msgstr "_Bela"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+#: viewer/eog-image-view.c:302
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Nisem mogel shraniti slike kot '%s': %s."
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Prilagodi"
+#: viewer/eog-image-view.c:353
+msgid "Save As"
+msgstr "Shrani kot"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
-msgid "In"
-msgstr "Povečaj"
+#: viewer/eog-image-view.c:928
+msgid "Print Image"
+msgstr "Natisni sliko"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Pomanjšaj"
+#: viewer/eog-image-view.c:936
+msgid "Pages"
+msgstr "Strani"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "Povečaj _1:1"
+#: viewer/eog-image-view.c:1023
+msgid "Print Preview"
+msgstr "Predogled tiskanja"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "Po_večaj"
+#: viewer/eog-image-view.c:1029
+msgid "Printing of image failed"
+msgstr "Tiskanje slike ni uspelo"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom _Out"
-msgstr "Po_manjšaj"
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "Prikaz"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Pri_lagodi"
+#: viewer/eog-image-view.c:2066
+msgid "Interpolation"
+msgstr "Interpolacija"
+
+#: viewer/eog-image-view.c:2069
+msgid "Dither"
+msgstr "Način zmanjševanja števila barv"
+
+#: viewer/eog-image-view.c:2072
+msgid "Check Type"
+msgstr "Preverjanje načina"
+
+#: viewer/eog-image-view.c:2075
+msgid "Check Size"
+msgstr "Preverjanje velikosti"
+
+#: viewer/eog-image-view.c:2078
+msgid "Image Width"
+msgstr "Širina slike"
+
+#: viewer/eog-image-view.c:2081
+msgid "Image Height"
+msgstr "Višina slike"
+
+#: viewer/eog-image-view.c:2084
+msgid "Window Title"
+msgstr "Naslov okna"
+
+#: viewer/eog-image-view.c:2087
+msgid "Statusbar Text"
+msgstr "Besedilo v vrstici stanja"
+
+#: viewer/eog-image.c:467
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -595,73 +642,91 @@ msgstr "Dol, potem desno"
 msgid "Right, then down"
 msgstr "Desno, potem dol"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Interpolacija najbližjega soseda"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Interpolacija ploščic"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Bilinearna interpolacija"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Hiperbolična interpolacija"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Brez zmanjševanja števila barv"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Običajno zmanjševanje števila barv (psevdo barve)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "_Največje možno število barv (polne barve)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Temno"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "Srednji toni"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Svetlo"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Črna"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Siva"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Bela"
 
-#: viewer/preferences.c:171
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
 msgstr "_Interpolacija:"
 
-#: viewer/preferences.c:183
+#: viewer/preferences.c:187
 msgid "_Dither:"
 msgstr "_Zmanjševanje števila barv:"
 
-#: viewer/preferences.c:195
+#: viewer/preferences.c:199
 msgid "Check _type:"
 msgstr "Preveri v_rsto:"
 
-#: viewer/preferences.c:207
+#: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Preveri _velikost:"
+
+#~ msgid "Translator Credits"
+#~ msgstr "Prevedel: Andraž Tori"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Kontrola ne podpira lastnosti window_title."
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Kontrola ne podpira lastnosti status_text."
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Kontrola nima lastnosti"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Iz datoteke nisem mogel ugotoviti tipa mime."
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Napaka ob pridobivanju podatkov o datoteki."
 
 #~ msgid "Image Viewer"
 #~ msgstr "Pregledovalnik slik"
@@ -755,15 +820,6 @@ msgstr "Preveri _velikost:"
 
 #~ msgid "Status Text"
 #~ msgstr "Besedilo stanja"
-
-#~ msgid "EOG Image Collection"
-#~ msgstr "Zbirka slik EOG"
-
-#~ msgid "EOG Image Collection Viewer"
-#~ msgstr "Pregledovalnik zbirke slik EOG"
-
-#~ msgid "EOG Image collection view factory"
-#~ msgstr "Tovarna pregledovalnikov zbirk slik EOG"
 
 #~ msgid "I could not initialize GnomeVFS!\n"
 #~ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
@@ -876,9 +932,6 @@ msgstr "Preveri _velikost:"
 #~ msgid "Dark checks"
 #~ msgstr "Preverjanje temnih tonov"
 
-#~ msgid "Dither type"
-#~ msgstr "Način zmanjševanja števila barv"
-
 #~ msgid "Fit all images to screen"
 #~ msgstr "Velikost slik prilagodi zaslonu"
 
@@ -887,9 +940,6 @@ msgstr "Preveri _velikost:"
 
 #~ msgid "Hyperbolic (slowest, best quality)"
 #~ msgstr "Hiperbolično (najpočasnejše, najboljša kvaliteta)"
-
-#~ msgid "Interpolation type"
-#~ msgstr "Tip interpolacije"
 
 #~ msgid "Light checks"
 #~ msgstr "Preverjanje svetlih tonov"
