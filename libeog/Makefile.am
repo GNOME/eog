@@ -63,8 +63,6 @@ Eog.h: $(idls)
 BUILT_SOURCES=$(CORBA_SOURCES)
 CLEANFILES += $(BUILT_SOURCES)
 
-CLEANFILES += $(BUILT_SOURCES)
-
 oafdir = $(datadir)/oaf
 oaf_in_files = GNOME_EOG.oaf.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
