@@ -1121,12 +1121,19 @@ static GtkWidget*
 create_user_interface (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv;
+#if HAVE_EXIF
 	GtkWidget *hpaned;
+#endif
 	GtkWidget *vpaned;
 	GtkWidget *sw;
 	GtkWidget *frame;
 	
 	priv = list_view->priv;
+
+	/* the upper part contains the image view, the
+	 * lower part contains the thumbnail list
+	 */
+	vpaned = eog_vertical_splitter_new ();
 
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
@@ -1139,22 +1146,33 @@ create_user_interface (EogCollectionView *list_view)
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
 #if HAVE_EXIF
-	/* info view for additional image information */
+	/* If we have additional information through libexif, we 
+	 * create an info view widget and put it to left of the 
+	 * image view. Using an eog_horizontal_splitter for this. 
+	 */
 	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), 
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (sw), priv->info_view);
-#else
-	priv->info_view = NULL;
-	sw = NULL;
-#endif
 
-	hpaned = gtk_hpaned_new (); /* FIXME: use specalised eog splitter */
+	/* left side holds the image view, right side the info view */
+	hpaned = eog_horizontal_splitter_new (); 
 	gtk_paned_pack1 (GTK_PANED (hpaned), frame, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (hpaned), sw, FALSE, TRUE);
 	gtk_widget_show_all (hpaned);
+
+	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);
+
+#else
+	/* If libexif isn't available we put the image view (frame)
+	 * directly into the vpaned created above.
+	 */
+	priv->info_view = NULL;
+	gtk_widget_show_all (frame);
+	gtk_paned_pack1 (GTK_PANED (vpaned), frame, TRUE, TRUE);	
+#endif
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
@@ -1174,11 +1192,7 @@ create_user_interface (EogCollectionView *list_view)
 					GTK_POLICY_AUTOMATIC);
 	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
 	gtk_widget_show_all (sw);
-
-	/* put it all together */
-	vpaned = eog_vertical_splitter_new ();
 	
-	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (vpaned), sw, TRUE, TRUE);
 
 	/* by default make the wrap list keyboard active */

@@ -1,3 +1,14 @@
+2003-09-21  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view.c (create_user_interface): Create
+	horizontal splitter to hold info view only if libexif is
+	available. Otherwise put the image view directly into the vertical
+	pane.
+
+	* libeog/eog-scroll-view.c (paint_rectangle): Check if widget is
+	drawable (fixes crash on shutdown). Check if scaled image width
+	and height is > 1.
+
 2003-09-21  Hidetoshi Tajima <hidetoshi.tajima@sun.com>
 
 	* shell/main.c (show_nonexistent_files): Prepare non-ascii uris

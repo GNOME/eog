@@ -474,7 +474,13 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	priv = view->priv;
 
+	if (!GTK_WIDGET_DRAWABLE (priv->display))
+		return;
+
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
+
+	if (scaled_width <= 1 || scaled_height <= 1)
+		return;
 
 	width = GTK_WIDGET (priv->display)->allocation.width;
 	height = GTK_WIDGET (priv->display)->allocation.height;
@@ -1805,7 +1811,7 @@ eog_scroll_view_dispose (GObject *object)
 
 	view = EOG_SCROLL_VIEW (object);
 	priv = view->priv;
-
+	
 	if (priv->uta != NULL) {
 		art_uta_free (priv->uta);
 		priv->uta = NULL;
