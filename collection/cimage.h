@@ -34,7 +34,8 @@ CImage    *cimage_new (gchar *path);
 /* collection image operations */
 void       cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail);
 void       cimage_set_loading_failed (CImage *img);
-void       cimage_set_selected (CImage *img, gboolean status);
+void       cimage_toggle_select_status (CImage *img);
+void       cimage_set_select_status (CImage *img, gboolean status);
 void       cimage_set_caption (CImage *img, gchar *caption);
 
 /* collection image attributes */

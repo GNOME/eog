@@ -101,13 +101,13 @@ GList*
 eog_collection_model_get_images             (EogCollectionModel *model,
                                              guint min_id, guint len);
 
-GList*
-eog_collection_model_get_selection          (EogCollectionModel *model);
+void
+eog_collection_model_toggle_select_status   (EogCollectionModel *model,
+                                             guint id);
 
-GList*
-eog_collection_model_get_selection_in_range (EogCollectionModel *model,
-					     guint min_id, guint len);
-				    
+void 
+eog_collection_model_set_select_status_all  (EogCollectionModel *model, 
+                                             gboolean status);
 
 END_GNOME_DECLS
 

@@ -1,3 +1,64 @@
+2001-04-10  Jens Finke <jens@gnome.org>
+
+	I did the changes since 2001-04-02 on holidays in the south france
+	sun without internet access, so I commit these at once now. Its
+	likely that I forgot some minor changes.
+	
+	* eog-item-factory-simple.c (eog_item_factory_simple_construct):
+	New Function.
+	(eog_item_factory_simple_new): Call construct method.
+	(shade_bgr_destroy_notify_cb): New function.
+	(ii_factory_update_item): Set item border to black, use shaded
+	background for images, set font color to white.
+
+2001-04-07  Jens Finke <jens@gnome.org>
+
+	* eog-wrap-list.c (handle_item_event): Recognize CTRL and SHIFT
+	key modifiers and behave accordingly.
+	(get_item_view_position): New handy function.
+
+	* eog-collection-model.c
+	(eog_collection_model_toggle_select_status): Takes a single id now
+	instead of a GList of ids. The list isn't really needed and its much
+	easier to use it this way.
+
+2001-04-05  Jens Finke <jens@gnome.org>
+
+	* eog-wrap-list.c (EogWrapListPrivate struct): Added view_order
+	list.
+	(compare_item_caption): New function to create a sorted list of
+	items according to their caption.
+	(do_item_added_update): Attach caption to item object and insert
+	it into the sorted view_order list.
+	(do_item_rearrangement): Traverse view_order list instead of hash
+	table.
+	(rearrange_single_item): Use GFunc like signature.
+	
+2001-04-04  Jens Finke <jens@gnome.org>
+
+	* cimage.[ch] (cimage_toggle_select_status): New function
+
+	* eog-collection-model.[ch] 
+	(eog_collection_model_toggle_select_status),
+	(eog_collection_model_set_select_status_all)
+	(select_all_images),
+	(unselect_all_images): New functions.
+
+	* eog-wrap-list.c (handle_canvas_click): New function.
+	(eog_wrap_list_construct): Connect to canvas "button-press-event"
+	signal.
+	(handle_item_event): Process GDK_BUTTON_PRESS event.
+
+	* eog-item-factory-simple.c (ii_factory_update_item): Indicate if
+	the thumbnail is selected or not.	
+
+2001-04-02  Jens Finke <jens@gnome.org>
+
+	* eog-wrap-list.c (do_item_added_update): Attach unique id to
+	canvas item and connect to 'event' signal.
+	(handle_item_event): Read unique id from item and propagate it
+	together with emmited signal.
+	
 2001-03-29  Jens Finke <jens@gnome.org>
 
 	* Makefile.am (SOURCES): Removed gnome-icon-item-factory.[ch] and

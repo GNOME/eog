@@ -64,6 +64,9 @@ typedef struct {
 struct _EogWrapListPrivate {
 	/* List of all items currently in the view. */
 	GHashTable *item_table;
+
+	/* Sorted list of items */
+	GSList *view_order;
 	
 	/* Factory to use. */
 	EogItemFactory *factory;
@@ -104,6 +107,9 @@ struct _EogWrapListPrivate {
 
 	/* unique IDs to update */
 	GList *item_update_list;
+
+	/* last id of thumbnail the user clicked */
+	guint last_id_clicked;
 };
 
 static void eog_wrap_list_class_init (EogWrapListClass *class);
@@ -117,6 +123,8 @@ static void eog_wrap_list_clear (EogWrapList *wlist);
 
 static void request_update (EogWrapList *wlist);
 static void update (EogWrapList *wlist);
+static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data);
+
 
 static GnomeCanvasClass *parent_class;
 #define PARENT_TYPE gnome_canvas_get_type ()
@@ -193,6 +201,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 	wlist->priv = priv;
 	
 	priv->item_table = NULL;
+	priv->view_order = NULL;
 	priv->model = NULL;
 	priv->factory = NULL;
 	priv->row_spacing = 0;
@@ -202,6 +211,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 	priv->n_items = 0;
 	priv->n_rows = 0;
 	priv->n_cols = 0;
+	priv->last_id_clicked = -1;
 }
 
 /* Destroy handler for the abstract wrapped list view */
@@ -251,7 +261,14 @@ eog_wrap_list_finalize (GtkObject *object)
 static void
 eog_wrap_list_construct (EogWrapList *wlist)
 {
-	wlist->priv->item_table = g_hash_table_new (NULL, NULL);
+	wlist->priv->item_table = g_hash_table_new ((GHashFunc) g_direct_hash, 
+						    (GCompareFunc) g_direct_equal);
+
+	gtk_widget_set_events (GTK_WIDGET (wlist), GDK_ALL_EVENTS_MASK);
+	gtk_signal_connect_after (GTK_OBJECT (wlist), 
+				  "button-press-event",
+				  (GtkSignalFunc) handle_canvas_click,
+				  wlist);
 }
 
 
@@ -269,59 +286,153 @@ eog_wrap_list_new (void)
         gtk_widget_pop_colormap ();
 
 	eog_wrap_list_construct (EOG_WRAP_LIST (wlist));
-
+	
 	return wlist;
 }
 
+static GnomeCanvasItem*
+get_item_by_unique_id (EogWrapList *wlist,
+		       gint unique_id)
+{
+	g_return_val_if_fail (wlist != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
+	
+	return (GnomeCanvasItem*) g_hash_table_lookup (wlist->priv->item_table, 
+						       GINT_TO_POINTER (unique_id));
+}
+
+static gint
+get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
+{
+	EogWrapListPrivate *priv;
+	double x1, y1, x2, y2;
+	gint row, col, n;
+	
+	priv = wlist->priv;
+	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
+
+	col = x1 / (priv->item_width + priv->col_spacing);
+	row = y1 / (priv->item_height + priv->row_spacing);
+
+	n = col + priv->n_cols * row;
+
+	return n;
+}
+
+static gint
+handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data)
+{
+	EogWrapList *wlist;
+	EogCollectionModel *model;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (EOG_IS_WRAP_LIST (data), FALSE);
+
+	wlist = EOG_WRAP_LIST (data);
+	model = wlist->priv->model;
+	if (model == NULL) return FALSE;
+
+	eog_collection_model_set_select_status_all (model, FALSE);
+	wlist->priv->last_id_clicked = -1;
+	
+	return TRUE;
+}
 
 static gint
 handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  gpointer data) 
 {
 	EogWrapList *wlist;
-	gint n;
+	EogWrapListPrivate *priv;
+	EogCollectionModel *model;
+	gint id;
 
 	wlist = EOG_WRAP_LIST (data);
 
-#if 0
-	smodel = gnome_list_view_get_selection_model (GNOME_LIST_VIEW (view));
-	if (smodel == NULL) return FALSE;
-#endif
+	priv = wlist->priv;
+	model = priv->model;
+	if (model == NULL) return FALSE;
 
-	n = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), "IconNumber"));
+	id = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), "ImageID"));
 
 	switch (event->type) {
 	case GDK_BUTTON_PRESS:
-#if 0
+
 		if ((event->button.state & GDK_SHIFT_MASK) == GDK_SHIFT_MASK) {
-			/* shift button pressed */
-			if (previous_n == -1) {
-				gnome_list_selection_model_set_interval (smodel, n, 1);
+			/* shift key pressed */
+			if (wlist->priv->last_id_clicked == -1) {
+				eog_collection_model_toggle_select_status (model, id);
 			} else {
-				gint max, min;
+				GnomeCanvasItem *prev_item;
+				GSList *node = NULL;
+				gint prev_n, n;
+				gint i;
 				
-				max = MAX (previous_n, n);
-				min = MIN (previous_n, n);
+				prev_item = get_item_by_unique_id (wlist, 
+								   priv->last_id_clicked);
+
+				prev_n = get_item_view_position (wlist, prev_item);
+				n = get_item_view_position (wlist, item);
+
+				/* assert that always prev_n <= n is valid */
+				if (n < prev_n) {
+					gint tmp;
+					tmp = prev_n;
+					prev_n = n - 1;
+					n = tmp - 1;
+				}
+
+				/* init variables */
+				if (prev_n == -1) {
+					/* happens if n == 0 and prev_n > 0 */
+					node = priv->view_order;
+					i = 0;
+				} else {
+					node = g_slist_nth (priv->view_order, prev_n);
+					node = node->next;
+					i = ++prev_n;
+				}
 				
-				gnome_list_selection_model_add_interval (smodel, min, max-min+1);
+				/* change select status for items in range (prev_n, n] */
+				while (node && (i <= n)) {
+					GnomeCanvasItem *item;
+					gint id;
+					
+					item = (GnomeCanvasItem*) node->data;
+					id = (gint) gtk_object_get_data (GTK_OBJECT (item),
+									 "ImageID");
+					eog_collection_model_toggle_select_status (model, id);
+
+					node = node->next;
+					i++;
+				} 
 			}
 		} else if ((event->button.state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-			/* ctrl button pressed */ 
-			if (gnome_list_selection_model_is_selected (smodel, n))
-				gnome_list_selection_model_remove_interval (smodel, n, 1);
-			else
-				gnome_list_selection_model_add_interval (smodel, n, 1);
-		} else
-			gnome_list_selection_model_set_interval (smodel, n, 1);
-
-		previous_n = n;
-#endif
-		break;
+			/* control key pressed */
 		
+			/* add item with id to selection*/
+			eog_collection_model_toggle_select_status (model, id);
+		} else {
+			/* clear selection */
+			eog_collection_model_set_select_status_all (model, FALSE);
+
+			/* select only item with id */
+			eog_collection_model_toggle_select_status (model, id);
+		}
+
+		wlist->priv->last_id_clicked = id;
+
+		/* stop further event handling through handle_canvas_click */
+		gtk_signal_emit_stop_by_name (GTK_OBJECT (item->canvas), "button-press-event");
+
+		break;
+			
 	case GDK_2BUTTON_PRESS:
-		g_print ("Double click on item: %i\n", n);
+		/* stop further event handling through handle_canvas_click */
+		gtk_signal_emit_stop_by_name (GTK_OBJECT (item->canvas), "button-press-event");
+
 		gtk_signal_emit (GTK_OBJECT (wlist), 
 				 eog_wrap_list_signals [ITEM_DBL_CLICKED],
-				 n);
+				 id);
 		break;
 		
 	default:
@@ -604,7 +715,8 @@ void eog_wrap_list_clear (EogWrapList *wlist)
 				       NULL);
 						  
 	g_hash_table_destroy (priv->item_table);
-	priv->item_table = g_hash_table_new (NULL, NULL);
+	priv->item_table = g_hash_table_new ((GHashFunc) g_direct_hash, 
+					     (GCompareFunc) g_direct_equal);
 }
 
 static void 
@@ -618,6 +730,18 @@ request_update (EogWrapList *wlist)
 	if ((wlist->priv->idle_handler_id == -1) &&
 	    (!wlist->priv->is_updating))
 		wlist->priv->idle_handler_id = gtk_idle_add ((GtkFunction) update, wlist);
+}
+
+static gint 
+compare_item_caption (const GnomeCanvasItem *item1, const GnomeCanvasItem *item2)
+{
+	gchar *cap1;
+	gchar *cap2;
+
+	cap1 = (gchar*) gtk_object_get_data (GTK_OBJECT (item1), "Caption");
+	cap2 = (gchar*) gtk_object_get_data (GTK_OBJECT (item2), "Caption");
+	
+	return g_strcasecmp (cap1, cap2);
 }
 
 static GList*
@@ -647,17 +771,6 @@ get_next_unique_id (GList *id_list,
 	*id_range_end = GPOINTER_TO_INT (id_list->data);
 	
 	return id_list->next;
-}
-
-static GnomeCanvasItem*
-get_item_by_unique_id (EogWrapList *wlist,
-		       gint unique_id)
-{
-	g_return_val_if_fail (wlist != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
-	
-	return (GnomeCanvasItem*) g_hash_table_lookup (wlist->priv->item_table, 
-						       GINT_TO_POINTER (unique_id));
 }
 
 static void 
@@ -785,7 +898,9 @@ do_item_added_update (EogWrapList *wlist,
 		if (id_range_start != EOG_MODEL_ID_NONE) {
 			gint id;
 			GnomeCanvasItem *item;
+			CImage *img;
 			for (id = id_range_start; id <= id_range_end; id++) {
+				g_print ("item_added: %i\n", id);
 				item = eog_item_factory_create_item (priv->factory,
 								     GNOME_CANVAS_GROUP (priv->item_group),
 								     id);
@@ -795,6 +910,20 @@ do_item_added_update (EogWrapList *wlist,
 			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
 						     item);
 				priv->n_items++;
+				gtk_signal_connect (GTK_OBJECT (item),
+						    "event",
+						    (GtkSignalFunc) handle_item_event,
+						    (gpointer) wlist);
+				gtk_object_set_data (GTK_OBJECT (item),
+						     "ImageID", GINT_TO_POINTER (id));
+
+				img = eog_collection_model_get_image (priv->model, id);
+				gtk_object_set_data (GTK_OBJECT (item),
+						     "Caption", cimage_get_caption (img));
+				priv->view_order = 
+					g_slist_insert_sorted (priv->view_order,
+							       item,
+							       (GCompareFunc) compare_item_caption);
 			}
 
 		}
@@ -864,7 +993,7 @@ typedef struct {
 } RearrangeData; 
 
 static void
-rearrange_single_item (gpointer key, gpointer value, RearrangeData *data)
+rearrange_single_item (gpointer value, RearrangeData *data)
 {
 	GnomeCanvasItem *item;
 	double x1, x2, y1, y2;
@@ -900,9 +1029,9 @@ do_item_rearrangement (EogWrapList *wlist)
 
 	priv = wlist->priv;
 
-	g_hash_table_foreach (priv->item_table, 
-			      (GHFunc) rearrange_single_item, 
-			      &data);
+	g_slist_foreach (priv->view_order, 
+			 (GFunc) rearrange_single_item, 
+			 &data);
 
 	/* set new canvas scroll region */
 	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) - priv->col_spacing;
@@ -922,8 +1051,6 @@ update (EogWrapList *wlist)
 
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	g_message ("update called\n");
 
 	priv = wlist->priv;
 

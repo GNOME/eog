@@ -30,6 +30,7 @@
 #include "eog-item-factory-simple.h"
 #include "eog-collection-model.h"
 #include "cimage.h"
+#include <math.h>
 
 
 
@@ -40,6 +41,8 @@ struct _EogItemFactorySimplePrivate {
 
 	/* default pixmap if the image is not loaded so far */
 	GdkPixbuf *dummy;
+
+	GdkPixbuf *shaded_bgr;
 };
 
 
@@ -60,6 +63,9 @@ typedef struct {
 
 	/* border */
 	GnomeCanvasItem *border;
+
+	/* image background */
+	GnomeCanvasItem *bgr;
 } IconItem;
 
 
@@ -68,6 +74,7 @@ static void eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class
 static void eog_item_factory_simple_init (EogItemFactorySimple *factory);
 static void eog_item_factory_simple_destroy (GtkObject *object);
 static void eog_item_factory_simple_finalize (GtkObject *object);
+static EogItemFactorySimple* eog_item_factory_simple_construct (EogItemFactorySimple *factory);
 
 static GnomeCanvasItem *ii_factory_create_item (EogItemFactory *factory,
 						GnomeCanvasGroup *parent, guint id);
@@ -147,23 +154,17 @@ eog_item_factory_simple_init (EogItemFactorySimple *factory)
 {
 	EogItemFactorySimplePrivate *priv;
 	EogSimpleMetrics *metrics;
-	char *dummy_file;
 
 	priv = g_new0 (EogItemFactorySimplePrivate, 1);
-	factory->priv = priv;
 
-	/* load dummy pixmap file */
-	dummy_file = gnome_pixmap_file ("gnome-eog.png");
-	priv->dummy = gdk_pixbuf_new_from_file (dummy_file);
-	g_free (dummy_file);
-
-	/* set semi sane default values for item metrics */
 	metrics = g_new0 (EogSimpleMetrics, 1);
-	metrics->twidth = 100;
-	metrics->theight = 100;
+	metrics->twidth = 92;
+	metrics->theight = 69;
 	metrics->cspace = 10;
 	metrics->border = 5;
 	priv->metrics = metrics;
+
+	factory->priv = priv;
 }
 
 /* Destroy handler for the icon list item factory */
@@ -186,6 +187,10 @@ eog_item_factory_simple_destroy (GtkObject *object)
 	if (priv->metrics)
 		g_free (priv->metrics);
 	priv->metrics = NULL;
+
+	if (priv->shaded_bgr)
+		gdk_pixbuf_unref (priv->shaded_bgr);
+	priv->shaded_bgr = NULL;
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -245,6 +250,16 @@ ii_factory_create_item (EogItemFactory *factory,
 			    icon_destroyed,
 			    icon);
 
+	/* Border */
+	icon->border = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
+					      GNOME_TYPE_CANVAS_RECT,
+					      NULL);
+	
+	/* background */
+	icon->bgr = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
+					   GNOME_TYPE_CANVAS_PIXBUF,
+					   NULL);
+
 	/* Image */
 	icon->image = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 					     GNOME_TYPE_CANVAS_PIXBUF,
@@ -254,13 +269,10 @@ ii_factory_create_item (EogItemFactory *factory,
 					       GNOME_TYPE_CANVAS_TEXT,
 					       NULL);
 
-	/* Border */
-	icon->border = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
-					      GNOME_TYPE_CANVAS_RECT,
-					      NULL);
 	return icon->item;
 }
 
+#if 0
 /* Converts a GdkColor's RGB fields into a packed color integer */
 static guint
 color_to_rgba (GdkColor *color)
@@ -269,6 +281,58 @@ color_to_rgba (GdkColor *color)
 		| ((color->green & 0xff00) << 8)
 		| (color->blue & 0xff00)
 		| 0xff);
+}
+#endif 
+
+static void
+create_shaded_background (GdkPixbuf *pbf) 
+{
+	int width, height;
+	double dl;       
+	double tmp;
+	int x, y;
+	int n_cols;    
+	int cvd = 5;        /* color value decrement */
+	int light = 230;     /* gray value */
+	int dark  = 150;     /* gray value */
+	int ppc;             /* pixels per color */
+	guchar *buf;
+
+	g_return_if_fail (pbf != NULL);
+	
+	width =  gdk_pixbuf_get_width (pbf);
+	height = gdk_pixbuf_get_height (pbf);
+	buf = gdk_pixbuf_get_pixels (pbf);
+
+	tmp = width*width + height*height;
+	g_print ("tmp: %f\n", tmp);
+	dl = sqrt (tmp);
+	g_print ("dl: %f\n", dl);
+	
+	n_cols = (light - dark)/cvd;
+	ppc = dl / n_cols;
+	g_print ("ppc: %i\n", ppc);
+
+	for (y = 0; y < height; y++) {
+		gint color;
+		gint ppcy; /* pixels per color yet */
+		
+		color = light - (cvd * (y/ppc));
+		ppcy =  y % ppc;
+ 
+		for (x = 0; x < width; x++) {
+			*buf = color;
+			*(buf+1) = color;
+			*(buf+2) = color;
+			buf += 3;
+			
+			ppcy++;
+			if (ppcy == ppc) {
+				ppcy = 0;
+				color = color - cvd;
+			}
+		}
+	}
 }
 
 /* Shrink the string until its pixel width is <= width */
@@ -417,22 +481,55 @@ ii_factory_update_item (EogItemFactory *factory,
 			       "anchor", GTK_ANCHOR_NW,
 			       "x", (double) caption_x,
 			       "y", (double) caption_y,
-			       "fill_color_rgba", color_to_rgba (&style->fg[GTK_STATE_NORMAL]),
+			       "fill_color", "White",
 			       NULL);
 	g_free (caption);
 
 	/* configure border */
 	ii_factory_get_item_size (factory, &item_w, &item_h);
-	gnome_canvas_item_set (icon->border,
-			       "x1", 0.0,
-			       "y1", 0.0,
-			       "x2", (double) item_w,
-			       "y2", (double) item_h,
-			       "fill_color", NULL,
-			       "outline_color", "DarkBlue",
-			       "width_pixels", 2,
-			       NULL);
+
+	if (cimage_is_selected (cimage))
+		gnome_canvas_item_set (icon->border,
+				       "x1", 0.0,
+				       "y1", 0.0,
+				       "x2", (double) item_w,
+				       "y2", (double) item_h,
+				       "fill_color", NULL,
+				       "outline_color", "Red",
+				       "fill_color", "Black",
+				       "width_pixels", 2,
+				       NULL);
+	else 
+		gnome_canvas_item_set (icon->border,
+				       "x1", 0.0,
+				       "y1", 0.0,
+				       "x2", (double) item_w,
+				       "y2", (double) item_h,
+				       "fill_color", NULL,
+				       "outline_color", "DarkBlue",
+				       "fill_color", "Black",
+				       "width_pixels", 2,
+				       NULL);
 	
+
+	/* configure background */
+	{
+		double x1, y1, x2, y2;
+		x1 = metrics->border;
+		y1 = metrics->border;
+#if 0
+		x2 = x1 + metrics->twidth;
+		y2 = y1 + metrics->theight;
+#endif
+
+		gnome_canvas_item_set (icon->bgr,
+				       "pixbuf", priv->shaded_bgr,
+				       "x", (double) x1,
+				       "y", (double) y1,
+				       "width_set", FALSE,
+				       "height_set", FALSE,
+				       NULL);
+	}
 }
 
 /* Get_item_size handler for the icon list item factory */
@@ -456,12 +553,50 @@ ii_factory_get_item_size (EogItemFactory *factory,
 
 
 
-/* Exported functions */
+static void
+shade_bgr_destroy_notify_cb (guchar *pixels, gpointer data)
+{
+	g_free (pixels);
+}
+
+static EogItemFactorySimple*
+eog_item_factory_simple_construct (EogItemFactorySimple *factory)
+{
+	EogItemFactorySimplePrivate *priv;
+	char *dummy_file;
+	guchar *buffer;
+
+	priv = factory->priv;
+
+	/* load dummy pixmap file */
+	dummy_file = gnome_pixmap_file ("gnome-eog.png");
+	priv->dummy = gdk_pixbuf_new_from_file (dummy_file);
+	g_free (dummy_file);
+
+	buffer = g_new0 (guchar, 3*priv->metrics->twidth * priv->metrics->theight);
+	priv->shaded_bgr = gdk_pixbuf_new_from_data (buffer,
+						     GDK_COLORSPACE_RGB,
+						     FALSE,
+						     8, 
+						     priv->metrics->twidth,
+						     priv->metrics->theight,
+						     3 * priv->metrics->twidth,
+						     (GdkPixbufDestroyNotify) shade_bgr_destroy_notify_cb,
+						     NULL);
+	gdk_pixbuf_ref (priv->shaded_bgr);
+	create_shaded_background (priv->shaded_bgr);
+
+	return factory;
+}
+
 
 EogItemFactorySimple *
 eog_item_factory_simple_new (void)
 {
-	return EOG_ITEM_FACTORY_SIMPLE (gtk_type_new (eog_item_factory_simple_get_type ()));
+	EogItemFactorySimple *factory;
+
+	factory = EOG_ITEM_FACTORY_SIMPLE (gtk_type_new (eog_item_factory_simple_get_type ()));
+	return eog_item_factory_simple_construct (factory);
 }
 
 /**

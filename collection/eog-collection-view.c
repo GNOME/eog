@@ -37,7 +37,6 @@ enum {
 	LAST_SIGNAL
 };
 
-
 static guint eog_collection_view_signals [LAST_SIGNAL];
 
 #define PARENT_TYPE BONOBO_X_OBJECT_TYPE
@@ -214,7 +213,7 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	priv = list_view->priv;
 	priv->model = eog_collection_model_new ();
 
-	priv->factory = gtk_type_new (EOG_TYPE_ITEM_FACTORY_SIMPLE);
+	priv->factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
@@ -230,6 +229,7 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
+
 
 
 	return list_view;

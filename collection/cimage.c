@@ -174,6 +174,22 @@ cimage_set_loading_failed (CImage *img)
 	img->priv->loading_failed = TRUE;
 }
 
+void       
+cimage_toggle_select_status (CImage *img)
+{
+	g_return_if_fail (img != NULL);
+
+	img->priv->is_selected = img->priv->is_selected ? FALSE : TRUE;
+}
+
+void       
+cimage_set_select_status (CImage *img, gboolean status)
+{
+	g_return_if_fail (img != NULL);
+	
+	img->priv->is_selected = status;
+}
+
 void
 cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail)
 {
