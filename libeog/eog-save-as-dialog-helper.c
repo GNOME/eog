@@ -133,12 +133,11 @@ on_add_button_clicked (GtkWidget *widget, gpointer user_data)
 	if (uc_info[index].req_exif && !has_libexif) {
 		GtkWidget *dlg;
 		
-		dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING, _("Option not available."), 
+		dlg = eog_hig_dialog_new (GTK_WINDOW (user_data),
+					  GTK_STOCK_DIALOG_WARNING, _("Option not available."), 
 					  _("To use this function you need the libexif library. Please install"
 					    " libexif (http://libexif.sf.net) and recompile Eye of Gnome."), TRUE);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-		gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (user_data));
-		gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 		gtk_widget_show_all (dlg);
 		gtk_dialog_run (GTK_DIALOG (dlg));
 		gtk_widget_destroy (dlg);

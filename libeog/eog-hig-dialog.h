@@ -26,7 +26,8 @@ struct _EogHigDialogClass {
 
 
 GType       eog_hig_dialog_get_type         (void);
-GtkWidget*  eog_hig_dialog_new              (const char *stock_id, const char *header, const char *body, gboolean modal);
+GtkWidget*  eog_hig_dialog_new              (GtkWindow *window, const char *stock_id, 
+					     const char *header, const char *body, gboolean modal);
 
 
 G_END_DECLS

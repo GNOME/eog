@@ -587,7 +587,8 @@ save_error (SaveData *data)
 		header = g_strdup_printf (_("Overwrite file %s?"), uri_str);
 		detail = _("File exists. Do you want to overwrite it?");
 
-		dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+		dlg = eog_hig_dialog_new (GTK_WINDOW (data->window), 
+					  GTK_STOCK_DIALOG_ERROR,
 					  header, detail,
 					  TRUE);
 
@@ -602,7 +603,8 @@ save_error (SaveData *data)
 	else {
 		header = g_strdup_printf (_("Error on saving %s."), eog_image_get_caption (image));
 		
-		dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+		dlg = eog_hig_dialog_new (GTK_WINDOW (data->window), 
+					  GTK_STOCK_DIALOG_ERROR,
 					  header, detail,
 					  TRUE);
 	
@@ -612,8 +614,6 @@ save_error (SaveData *data)
 		gtk_dialog_set_default_response (GTK_DIALOG (dlg), EOG_SAVE_RESPONSE_SKIP);
 	}
 	
-	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (data->window));
-	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_widget_show_all (dlg);
 
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -978,16 +978,14 @@ save_as_file_selection_dialog (EogWindow *window, char *folder_uri, char **uri, 
 			g_free (uesc_uri);
 			g_free (short_name);
 
-			err_dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+			err_dlg = eog_hig_dialog_new (GTK_WINDOW (window),
+						      GTK_STOCK_DIALOG_ERROR,
 						      header, detail,
 						      TRUE);
 			
 			gtk_dialog_add_button (GTK_DIALOG (err_dlg), _("Retry"), GTK_RESPONSE_OK);
 			gtk_dialog_add_button (GTK_DIALOG (err_dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
-			
-			gtk_window_set_transient_for (GTK_WINDOW (err_dlg), GTK_WINDOW (window));
-			gtk_window_set_position (GTK_WINDOW (err_dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 			gtk_widget_show_all (err_dlg);
 			
 			response = gtk_dialog_run (GTK_DIALOG (err_dlg));
@@ -1115,11 +1113,11 @@ save_as_multiple_images (EogWindow *window, GList *images)
 		if (!success) {
 			GtkWidget *error_dlg;
 
-			error_dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+			error_dlg = eog_hig_dialog_new (GTK_WINDOW (window),
+							GTK_STOCK_DIALOG_ERROR,
 							_("Error on saving images."),
 							error->message,
 							TRUE);
-			gtk_window_set_transient_for (GTK_WINDOW (error_dlg), GTK_WINDOW (window));
 			gtk_dialog_add_button (GTK_DIALOG (error_dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 			gtk_dialog_run (GTK_DIALOG (error_dlg));
 			gtk_widget_destroy (error_dlg);
@@ -1353,16 +1351,13 @@ show_delete_confirm_dialog (EogWindow *window, int n_images)
 
 	header = g_strdup_printf (_("Do you really want to move %i images to trash?"), n_images);
 
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
+	dlg = eog_hig_dialog_new (GTK_WINDOW (window), GTK_STOCK_DIALOG_WARNING,
 				  header, NULL, TRUE);
 	g_free (header);
 
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
-
-	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
-	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 	gtk_widget_show_all (dlg);
 
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -1467,14 +1462,12 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 			
 			header = g_strdup_printf (_("Error on deleting image %s"), eog_image_get_caption (image));
 			
-			dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING, header, 
+			dlg = eog_hig_dialog_new (GTK_WINDOW (window), 
+						  GTK_STOCK_DIALOG_WARNING, header, 
 						  error->message, TRUE);
 			
 			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
-			
-			gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
-			gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 			gtk_widget_show_all (dlg);
 			
 			gtk_dialog_run (GTK_DIALOG (dlg));

@@ -324,7 +324,9 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	EogInfoViewExifPrivate *priv;
 	ExifCategory cat;
 	char *path;
+#if !HAVE_OLD_LIBEXIF
 	char b[1024];
+#endif
 
 	view = EOG_INFO_VIEW_EXIF (data);
 	priv = view->priv;

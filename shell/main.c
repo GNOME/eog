@@ -236,7 +236,7 @@ user_wants_collection (gint n_windows)
 		    _("You are about to open %i windows simultanously. Do you want to open them in a collection instead?"), 
 		    n_windows);
 
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
+	dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_WARNING,
 				  _("Open multiple single windows?"),
 				  body,
 				  TRUE);
@@ -245,7 +245,6 @@ user_wants_collection (gint n_windows)
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, COLLECTION_CANCEL);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Collection"), COLLECTION_YES);
        	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
-
 
 	gtk_widget_show_all (dlg);
 
@@ -295,7 +294,7 @@ show_nonexistent_files (GList *error_list)
 		n++;
 	}
 	
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, 
+	dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR, 
 				  ngettext ("File not found.", "Files not found.", len),
 				  detail->str, TRUE);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);

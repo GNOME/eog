@@ -21,7 +21,7 @@ eog_hig_dialog_instance_init (EogHigDialog *dlg)
 
 
 GtkWidget*  
-eog_hig_dialog_new (const char *stock_id, const char *header, const char *body, gboolean modal)
+eog_hig_dialog_new (GtkWindow *window, const char *stock_id, const char *header, const char *body, gboolean modal)
 {
 	GtkWidget *dlg;
 	GtkWidget *hbox;
@@ -85,5 +85,10 @@ eog_hig_dialog_new (const char *stock_id, const char *header, const char *body, 
 	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dlg)->vbox), hbox);
 	g_object_set (G_OBJECT (GTK_DIALOG (dlg)->vbox), "spacing", 12, NULL);
 
+	if (window != NULL) {
+		gtk_window_set_transient_for (GTK_WINDOW (dlg), window);
+		gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
+	}
+	
 	return dlg;
 }
