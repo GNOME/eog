@@ -5,13 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eyes of Gnome HEAD\n"
-"POT-Creation-Date: 2002-04-29 15:13+0200\n"
+"POT-Creation-Date: 2002-05-20 06:03+0800\n"
 "PO-Revision-Date: 2002-01-25 05:15+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "Koleksi Imej OEG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Pelihat Koleksi Imej EOG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Kilang pelihat koleksi Imej EOG"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -37,6 +49,57 @@ msgstr "Kilang pelihat Imej EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imej EOG boleh diembed"
 
+#: libeog/image-view.c:1965
+msgid "interpolation type"
+msgstr "Jenis interpolasi"
+
+#: libeog/image-view.c:1966
+msgid "the type of interpolation to use"
+msgstr "Jenis interpolasi untuk digunakan"
+
+#: libeog/image-view.c:1972 libeog/image-view.c:1979
+msgid "check type"
+msgstr "Semak jenis"
+
+# lom
+#: libeog/image-view.c:1973
+msgid "the type of chequering to use"
+msgstr "jenis chequering untuk digunakan"
+
+# lom
+#: libeog/image-view.c:1980
+msgid "the size of chequers to use"
+msgstr "saiz chequer untuk digunakan"
+
+#: libeog/image-view.c:1986
+msgid "dither"
+msgstr "dither"
+
+# lom
+#: libeog/image-view.c:1987
+msgid "dither type"
+msgstr "jenis dither"
+
+#: libeog/image-view.c:1993
+msgid "scroll"
+msgstr "skrol"
+
+#: libeog/image-view.c:1994
+msgid "scroll type"
+msgstr "jenis skrol"
+
+#: libeog/image-view.c:2000
+msgid "enable full screen zoom"
+msgstr "hidupkan zoom skrin penuh"
+
+#: libeog/image-view.c:2001
+msgid "whether we should allow full screen zoom"
+msgstr "samada zoom skrin penuh dibolehkan"
+
+#: shell/eog-preferences.c:141
+msgid "Eye of Gnome Preferences"
+msgstr "Keutamaan Ainul Gnome"
+
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
 msgstr "Perihal aplikasi ini"
@@ -58,12 +121,12 @@ msgid "Close window"
 msgstr "Tutup tetingkap"
 
 #: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "Bantuan perihal aplikasi ini"
+msgid "Contents"
+msgstr "Kandungan"
 
 #: shell/eog-shell-ui.xml.h:7
-msgid "HelpContents"
-msgstr "Kandungan Bantuan"
+msgid "Help On this application"
+msgstr "Bantuan perihal aplikasi ini"
 
 #: shell/eog-shell-ui.xml.h:8 shell/main.c:196
 msgid "Open"
@@ -91,7 +154,7 @@ msgstr "Keluar program"
 
 #: shell/eog-shell-ui.xml.h:14
 msgid "_About"
-msgstr "Perih_al..."
+msgstr "_Perihal"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
@@ -137,7 +200,7 @@ msgstr "_Lihat"
 msgid "Translator Credits"
 msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Ainul Gnome"
 
@@ -149,34 +212,34 @@ msgstr "Hakcipta (C) 2000-2002 The Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program untuk mengkatalog dan melihat imej GNOME"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:761
 msgid "Open Image"
 msgstr "Buka imej"
 
-#: shell/eog-window.c:816
+#: shell/eog-window.c:815
 msgid "Control doesn't support window_title property."
 msgstr "Kawalan tidak mempunyai ciri-ciri window_title"
 
-#: shell/eog-window.c:832
+#: shell/eog-window.c:831
 msgid "Control doesn't support status_text property."
 msgstr "Kawalan tidak mempunyai ciri-ciri status_text"
 
-#: shell/eog-window.c:851
+#: shell/eog-window.c:850
 msgid "Control doesn't have properties"
 msgstr "Kawalan tidak mempunyai Ciri-ciri"
 
-#: shell/eog-window.c:868
+#: shell/eog-window.c:867
 msgid "Couldn't retrieve mime type for file."
 msgstr "Tak dapat menerima jenis mime bagi fail."
 
-#: shell/eog-window.c:1111
+#: shell/eog-window.c:1110
 msgid "Error while obtaining file informations."
 msgstr "Ralat bila memperolehi maklumat fail."
 
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1139
 #, c-format
 msgid "Unable to open %s."
-msgstr "Tak dapat buka &s."
+msgstr "Tak dapat buka %s."
 
 #: shell/main.c:163
 #, c-format
@@ -219,74 +282,37 @@ msgstr "Gagal menginitialisasikan Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Gagal membuka : %s"
 
-#: shell/eog-preferences.c:141
-msgid "Eye of Gnome Preferences"
-msgstr "Keutamaan Ainul Gnome"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Tak dapat menginitialisasikan GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Muat"
 
-#: viewer/eog-image-view.c:304
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Tak dapat menyimpan imej sebagai '%s': %s."
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "Masuk"
 
-#: viewer/eog-image-view.c:355
-msgid "Save As"
-msgstr "Seimpan Sebagai"
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Keluar"
 
-#: viewer/eog-image-view.c:930
-msgid "Print Image"
-msgstr "Cetak imej"
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Zoom _1:1"
 
-#: viewer/eog-image-view.c:938
-msgid "Pages"
-msgstr "Halaman"
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Zoom _Masuk"
 
-#: viewer/eog-image-view.c:1025
-msgid "Print Preview"
-msgstr "Prebiu Cetakan"
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Zoom _Keluar"
 
-#: viewer/eog-image-view.c:1031
-msgid "Printing of image failed"
-msgstr "Cetakan imej gagal"
-
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "Paparan"
-
-#: viewer/eog-image-view.c:2067
-msgid "Interpolation"
-msgstr "Interpolasi"
-
-#: viewer/eog-image-view.c:2070
-msgid "Dither"
-msgstr "Dither"
-
-#: viewer/eog-image-view.c:2073
-msgid "Check Type"
-msgstr "Semak Jenis"
-
-#: viewer/eog-image-view.c:2076
-msgid "Check Size"
-msgstr "Semak Saiz"
-
-#: viewer/eog-image-view.c:2079
-msgid "Image Width"
-msgstr "Lebar Imej"
-
-#: viewer/eog-image-view.c:2082
-msgid "Image Height"
-msgstr "Tinggi Imej"
-
-#: viewer/eog-image-view.c:2085
-msgid "Window Title"
-msgstr "Tajuk Tetingkap"
-
-#: viewer/eog-image-view.c:2088
-msgid "Statusbar Text"
-msgstr "Teks Bar Status"
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Zoom supaya _Muat"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Check _size"
@@ -300,11 +326,11 @@ msgstr "Semak _jenis"
 msgid "Full Screen"
 msgstr "Skrin Penuh"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
 msgid "Large"
 msgstr "Besar"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
 msgid "Medium"
 msgstr "Sederhana"
 
@@ -336,7 +362,7 @@ msgstr "Cetak imej ke pencetak"
 msgid "Setup the page settings for your current printer"
 msgstr "Tetapan halaman bagi pencetak semasa"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
 msgid "Small"
 msgstr "Kecil"
 
@@ -400,37 +426,70 @@ msgstr "_Tile"
 msgid "_White"
 msgstr "_Putih"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+#: viewer/eog-image-view.c:304
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Tak dapat menyimpan imej sebagai '%s': %s."
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Muat"
+#: viewer/eog-image-view.c:355
+msgid "Save As"
+msgstr "Simpan Sebagai"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
-msgid "In"
-msgstr "Masuk"
+#: viewer/eog-image-view.c:930
+msgid "Print Image"
+msgstr "Cetak imej"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Keluar"
+#: viewer/eog-image-view.c:938
+msgid "Pages"
+msgstr "Halaman"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "Zoom _1:1"
+#: viewer/eog-image-view.c:1025
+msgid "Print Preview"
+msgstr "Prebiu Cetakan"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "Zoom _Masuk"
+#: viewer/eog-image-view.c:1031
+msgid "Printing of image failed"
+msgstr "Cetakan imej gagal"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom _Out"
-msgstr "Zoom _Keluar"
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "Paparan"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Zoom supaya _Muat"
+#: viewer/eog-image-view.c:2067
+msgid "Interpolation"
+msgstr "Interpolasi"
+
+#: viewer/eog-image-view.c:2070
+msgid "Dither"
+msgstr "Dither"
+
+#: viewer/eog-image-view.c:2073
+msgid "Check Type"
+msgstr "Semak Jenis"
+
+#: viewer/eog-image-view.c:2076
+msgid "Check Size"
+msgstr "Semak Saiz"
+
+#: viewer/eog-image-view.c:2079
+msgid "Image Width"
+msgstr "Lebar Imej"
+
+#: viewer/eog-image-view.c:2082
+msgid "Image Height"
+msgstr "Tinggi Imej"
+
+#: viewer/eog-image-view.c:2085
+msgid "Window Title"
+msgstr "Tajuk Tetingkap"
+
+#: viewer/eog-image-view.c:2088
+msgid "Statusbar Text"
+msgstr "Teks Bar Status"
+
+#: viewer/eog-image.c:468
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Tak dapat menginitialisasikan GnomeVFS!\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -605,71 +664,71 @@ msgstr "Bawah, kemudian kanan"
 msgid "Right, then down"
 msgstr "Kanan, kemudian bawah"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Interpolasi Jiran Terdekat"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Interpolasi Tiles"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Interpolasi Bilinear"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Interpolasi Hiperbola"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Tiada Dithering"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Dithering normal (_pseudocolor)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "Dithering maksima (warna tinggi)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Gelap"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "Midtone"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Cerah"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Hitam"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Kelabu"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Putih"
 
-#: viewer/preferences.c:171
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
 msgstr "_Interpolasi:"
 
-#: viewer/preferences.c:183
+#: viewer/preferences.c:187
 msgid "_Dither:"
 msgstr "_Dither:"
 
-#: viewer/preferences.c:195
+#: viewer/preferences.c:199
 msgid "Check _type:"
 msgstr "Semak _jenis:"
 
-#: viewer/preferences.c:207
+#: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Semak _saiz:"
 
