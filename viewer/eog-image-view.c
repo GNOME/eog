@@ -577,7 +577,12 @@ print_page (GnomePrintContext 	*context,
 }
 
 void
-eog_image_view_print (EogImageView *image_view, gboolean preview)
+eog_image_view_print (EogImageView *image_view, gboolean preview, 
+		      const gchar *paper_size, gboolean landscape, 
+		      gdouble bottom, gdouble top, gdouble right, gdouble left, 
+		      gboolean vertically, gboolean horizontally, 
+		      gboolean down_right, gboolean cut, gboolean fit_to_page, 
+		      gint adjust_to)
 {
 	GdkPixbuf	  *pixbuf;
 	GdkPixbuf	  *pixbuf_orig;
@@ -587,63 +592,18 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 	GnomePrinter      *printer = NULL;
 	const GnomePaper  *paper = NULL;
 	int		   first, last, current;
-	gboolean 	   landscape, horizontally, vertically, fit_to_page;
-	gboolean	   down_right, cut;
-	gchar		  *paper_size;
-	gdouble		   left, bottom, right, top;
-	gint		   adj;
 	gint		   pixbuf_width, pixbuf_height;
 	gint		   width, height;
 	gdouble		   paper_width, paper_height;
 
-	landscape = gconf_client_get_bool (image_view->priv->client, 
-					"/apps/eog/viewer/landscape", NULL);
-	horizontally = gconf_client_get_bool (image_view->priv->client,
-					"/apps/eog/viewer/horizontally", NULL);
-	vertically = gconf_client_get_bool (image_view->priv->client,
-					"/apps/eog/viewer/vertically", NULL);
-	fit_to_page = gconf_client_get_bool (image_view->priv->client, 
-					"/apps/eog/viewer/fit_to_page", NULL);
-	paper_size = gconf_client_get_string (image_view->priv->client,
-					"/apps/eog/viewer/paper_size", NULL);
-	adj = gconf_client_get_int (image_view->priv->client, 
-					"/apps/eog/viewer/adjust_to", NULL);
-	left = gconf_client_get_float (image_view->priv->client,
-					"/apps/eog/viewer/left", NULL);
-	bottom = gconf_client_get_float (image_view->priv->client,
-					"/apps/eog/viewer/bottom", NULL);
-	right = gconf_client_get_float (image_view->priv->client,
-					"/apps/eog/viewer/right", NULL);
-	top = gconf_client_get_float (image_view->priv->client,
-					"/apps/eog/viewer/top", NULL);
-	down_right = gconf_client_get_bool (image_view->priv->client,
-					"/apps/eog/viewer/down_right", NULL);
-	cut = gconf_client_get_bool (image_view->priv->client,
-					"/apps/eog/viewer/cut", NULL);
-						
-	if (adj == 0)
-		adj = 100;
-
-	if (paper_size) {
-		paper = gnome_paper_with_name (paper_size);
-		g_free (paper_size);
-	}
-
 	print_master = gnome_print_master_new ();
 
 	/* What paper do we use? */
-	if (paper)
-		gnome_print_master_set_paper (print_master, paper);
-	else
-		paper = gnome_print_master_get_paper (print_master);
+	paper = gnome_paper_with_name (paper_size);
+	gnome_print_master_set_paper (print_master, paper);
 
-	if (landscape) {
-		paper_width = gnome_paper_psheight (paper);
-		paper_height = gnome_paper_pswidth (paper);
-	} else {
-		paper_width = gnome_paper_pswidth (paper);
-		paper_height = gnome_paper_psheight (paper);
-	}
+	eog_util_paper_size (paper_size, landscape, 
+			     &paper_width, &paper_height);
 
 	pixbuf_orig = eog_image_get_pixbuf (image_view->priv->image);
 
@@ -651,7 +611,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 	first = 1;
 	last = count_pages (paper_width, paper_height, 
 			    top, left, right, bottom, 
-			    fit_to_page, adj, pixbuf_orig);
+			    fit_to_page, adjust_to, pixbuf_orig);
 
 	if (!preview) {
 		GnomePrintDialog *gpd;
@@ -726,8 +686,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 			height = avail_width * prop_pixbuf; 
 		}
 	} else {
-		width = pixbuf_width * adj / 100;
-		height = pixbuf_height * adj / 100;
+		width = pixbuf_width * adjust_to / 100;
+		height = pixbuf_height * adjust_to / 100;
 	}
 	g_return_if_fail (width > 0);
 	g_return_if_fail (height > 0);
@@ -743,7 +703,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 		    landscape,
 		    top, left, right, bottom,
 		    vertically, horizontally,
-		    fit_to_page, adj,
+		    fit_to_page, adjust_to,
 		    down_right, cut,
 		    pixbuf, 0, 0);
 	gdk_pixbuf_unref (pixbuf);
@@ -772,27 +732,55 @@ verb_PrintPreview_cb (BonoboUIComponent *uic,
 		      gpointer 		 user_data, 
 		      const char 	*name)
 {
-	EogImageView *image_view;
+	EogImageView 	*image_view;
+	gchar		*paper_size;
+	gboolean	 landscape, down_right;
+	gdouble		 bottom, top, right, left;
+	gboolean	 vertically, horizontally, cut, fit_to_page;
+	gint		 adjust_to, unit;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 
 	image_view = EOG_IMAGE_VIEW (user_data);
 
-	eog_image_view_print (image_view, TRUE);
+	eog_util_load_print_settings (image_view->priv->client,
+				      &paper_size, &top, &bottom, &left,
+				      &right, &landscape, &cut, &horizontally, 
+				      &vertically, &down_right, &fit_to_page, 
+				      &adjust_to, &unit);
+	eog_image_view_print (image_view, TRUE, paper_size, landscape,
+			      bottom, top, right, left, vertically, 
+			      horizontally, down_right, cut, fit_to_page, 
+			      adjust_to);
+	g_free (paper_size);
 }
 
 static void
 verb_Print_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 {
-	EogImageView *image_view;
+	EogImageView 	*image_view;
+	gchar	 	*paper_size;
+	gboolean	 landscape, down_right;
+	gdouble		 bottom, top, right, left;
+	gboolean	 vertically, horizontally, cut, fit_to_page;
+	gint		 adjust_to, unit;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 
 	image_view = EOG_IMAGE_VIEW (user_data);
 
-	eog_image_view_print (image_view, FALSE);
+	eog_util_load_print_settings (image_view->priv->client, 
+				      &paper_size, &top, &bottom, &left, 
+				      &right, &landscape, &cut, &horizontally, 
+				      &vertically, &down_right, &fit_to_page, 
+				      &adjust_to, &unit);
+	eog_image_view_print (image_view, FALSE, paper_size, landscape, 
+			      bottom, top, right, left, vertically, 
+			      horizontally, down_right, cut, fit_to_page, 
+			      adjust_to);
+	g_free (paper_size);
 }
 
 static void
@@ -1574,8 +1562,6 @@ eog_image_view_construct (EogImageView       *image_view,
 		gconf_init (0, NULL, NULL);
 	
 	image_view->priv->client = gconf_client_get_default ();
-	gconf_client_add_dir (image_view->priv->client, "/apps/eog/viewer",
-			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 	
 	image_view->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));

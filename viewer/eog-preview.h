@@ -2,7 +2,6 @@
 #define _EOG_PREVIEW_H_
 
 #include <gnome.h>
-#include <gconf/gconf-client.h>
 #include <eog-image-view.h>
 
 BEGIN_GNOME_DECLS
@@ -30,7 +29,15 @@ struct _EogPreviewClass
 };
 
 GtkType	   eog_preview_get_type (void);
-GtkWidget *eog_preview_new (GConfClient *client, EogImageView *image_view);
+GtkWidget *eog_preview_new (EogImageView *image_view);
+
+void	   eog_preview_update (EogPreview *preview, 
+			       gdouble width, gdouble height,
+			       gdouble bottom, gdouble top,
+			       gdouble right, gdouble left,
+			       gboolean vertically, gboolean horizontally,
+			       gboolean cut, gboolean fit_to_page, 
+			       gint adjust_to);
 
 END_GNOME_DECLS
 

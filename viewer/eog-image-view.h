@@ -52,8 +52,13 @@ void                eog_image_view_set_ui_container    (EogImageView       *imag
 							Bonobo_UIContainer  ui_container);
 void                eog_image_view_unset_ui_container  (EogImageView       *image_view);
 GtkWidget          *eog_image_view_get_widget          (EogImageView       *image_view);
-void		    eog_image_view_print               (EogImageView       *image_view, gboolean preview);
 
+void  eog_image_view_print (EogImageView *image_view, gboolean preview, 
+			    const gchar *paper_size, gboolean landscape, 
+			    gdouble bottom, gdouble top, gdouble right, 
+			    gdouble left, gboolean vertically, 
+			    gboolean horizontally, gboolean down_right, 
+			    gboolean cut, gboolean fit_to_page, gint adjust_to);
 
 /* Zooming */
 float eog_image_view_get_zoom_factor (EogImageView *image_view);

@@ -29,6 +29,7 @@ sample_container_LDADD = 	\
 	$(GNOME_LIBS)		\
 	$(GNOME_LIBDIR)		\
 	$(GNOME_LIBS)		\
+	$(GCONF_LIBS)		\
 	$(OAF_LIBS)		\
 	$(INTLLIBS)		\
 	$(EXTRA_BONOBO_LIBS)	\

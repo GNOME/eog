@@ -6,6 +6,7 @@
 #include <eog-image.h>
 #include <eog-print-setup.h>
 #include <eog-preview.h>
+#include <eog-util.h>
 #include <gconf/gconf-client.h>
 
 #define PARENT_TYPE GNOME_TYPE_DIALOG
@@ -14,16 +15,21 @@ static GnomeDialogClass *parent_class = NULL;
 struct _EogPrintSetupPrivate 
 {
 	EogImageView	*image_view;
+	EogPreview	*preview;
+
 	GConfClient	*client;
 
-	GtkWidget	*adjust_to;
-	GtkWidget	*right_down;
-	GtkWidget	*down_right;
+	GtkWidget	*spin_adj;
+
+	GtkWidget	*image_right_down;
+	GtkWidget	*image_down_right;
 
 	GtkSpinButton	*spin_top;
 	GtkSpinButton	*spin_bottom;
 	GtkSpinButton	*spin_left;
 	GtkSpinButton	*spin_right;
+
+	gchar		*paper_size;
 
 	guint		 unit;
 
@@ -35,6 +41,15 @@ struct _EogPrintSetupPrivate
 	gdouble		 bottom;
 	gdouble		 left;
 	gdouble		 right;
+
+	gboolean	 fit_to_page;
+	gint		 adjust_to;
+
+	gboolean	 vertically;
+	gboolean	 horizontally;
+
+	gboolean 	 cut;
+	gboolean	 down_right;
 };
 
 static struct 
@@ -54,25 +69,60 @@ static struct
 };
 
 static void
-on_right_down_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+save_settings (EogPrintSetup *ps)
 {
-	if (button->active) {
-		gconf_client_set_bool (print_setup->priv->client,
-			       "/apps/eog/viewer/down_right", FALSE, NULL);
-		gtk_widget_show (print_setup->priv->right_down);
-		gtk_widget_hide (print_setup->priv->down_right);
+	gconf_client_set_string (ps->priv->client,
+		"/apps/eog/viewer/paper_size", ps->priv->paper_size, NULL);
+	gconf_client_set_float (ps->priv->client, 
+		"/apps/eog/viewer/top", ps->priv->top, NULL);
+	gconf_client_set_float (ps->priv->client,
+		"/apps/eog/viewer/bottom", ps->priv->bottom, NULL);
+	gconf_client_set_float (ps->priv->client,
+		"/apps/eog/viewer/left", ps->priv->left, NULL);
+	gconf_client_set_float (ps->priv->client,
+		"/apps/eog/viewer/right", ps->priv->right, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/landscape", ps->priv->landscape, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/cut", ps->priv->cut, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/horizontally", ps->priv->horizontally, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/vertically", ps->priv->vertically, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/down_right", ps->priv->down_right, NULL);
+	gconf_client_set_bool (ps->priv->client,
+		"/apps/eog/viewer/fit_to_page", ps->priv->fit_to_page, NULL);
+	gconf_client_set_int (ps->priv->client,
+		"/apps/eog/viewer/adjust_to", ps->priv->adjust_to, NULL);
+	gconf_client_set_int (ps->priv->client,
+		"/apps/eog/viewer/unit", ps->priv->unit, NULL);
+	gconf_client_suggest_sync (ps->priv->client, NULL);
+}
+
+static void
+on_down_right_toggled (GtkToggleButton *button, EogPrintSetup *ps)
+{
+	ps->priv->down_right = button->active;
+
+	if (ps->priv->down_right) {
+		gtk_widget_show (ps->priv->image_right_down);
+		gtk_widget_hide (ps->priv->image_down_right);
+	} else {
+		gtk_widget_show (ps->priv->image_down_right);
+		gtk_widget_hide (ps->priv->image_right_down);
 	}
 }
 
 static void
-on_down_right_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+update_preview (EogPrintSetup *ps)
 {
-	if (button->active) {
-		gconf_client_set_bool (print_setup->priv->client,
-				"/apps/eog/viewer/down_right", TRUE, NULL);
-		gtk_widget_show (print_setup->priv->down_right);
-		gtk_widget_hide (print_setup->priv->right_down);
-	}
+	eog_preview_update (ps->priv->preview, ps->priv->width, 
+			    ps->priv->height, ps->priv->bottom, ps->priv->top, 
+			    ps->priv->right, ps->priv->left, 
+			    ps->priv->vertically, ps->priv->horizontally, 
+			    ps->priv->cut, ps->priv->fit_to_page, 
+			    ps->priv->adjust_to);
 }
 
 static void 
@@ -108,46 +158,35 @@ adjust_margins (EogPrintSetup *ps)
 static void
 on_paper_size_changed (GtkEntry *entry, EogPrintSetup *ps)
 {
-	const gchar	 *size;
-	const GnomePaper *paper;
+	g_free (ps->priv->paper_size);
+	ps->priv->paper_size = g_strdup (gtk_entry_get_text (entry));
 
-	size = gtk_entry_get_text (entry);
-	paper = gnome_paper_with_name (size);
+	eog_util_paper_size (ps->priv->paper_size, ps->priv->landscape, 
+			     &ps->priv->width, &ps->priv->height);
 
-	gconf_client_set_string (ps->priv->client, 
-				 "/apps/eog/viewer/paper_size", size, NULL);
-
-	if (ps->priv->landscape) {
-		ps->priv->width = gnome_paper_psheight (paper);
-		ps->priv->height = gnome_paper_pswidth (paper);
-	} else {
-		ps->priv->height = gnome_paper_psheight (paper);
-		ps->priv->width = gnome_paper_pswidth (paper);
-	}
 	adjust_margins (ps);
+	update_preview (ps);
 }
 
 static void
-on_horizontally_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+on_horizontally_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
-	gconf_client_set_bool (print_setup->priv->client,
-			       "/apps/eog/viewer/horizontally", button->active,
-			       NULL);
+	ps->priv->horizontally = button->active;
+	update_preview (ps);
 }
 
 static void
-on_vertically_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+on_vertically_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
-	gconf_client_set_bool (print_setup->priv->client,
-			       "/apps/eog/viewer/vertically", button->active,
-			       NULL);
+	ps->priv->vertically = button->active;
+	update_preview (ps);
 }
 
 static void
-on_cut_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
+on_cut_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
-	gconf_client_set_bool (print_setup->priv->client,
-			       "/apps/eog/viewer/cut", button->active, NULL);
+	ps->priv->cut = button->active;
+	update_preview (ps);
 }
 
 static void
@@ -155,55 +194,22 @@ on_landscape_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
 	gdouble tmp;
 
-	if (button->active) {
-		gconf_client_set_bool (ps->priv->client,
-				       "/apps/eog/viewer/landscape", TRUE, 
-				       NULL);
-		ps->priv->landscape = TRUE;
-		tmp = ps->priv->height;
-		ps->priv->height = ps->priv->width;
-		ps->priv->width = tmp;
-		adjust_margins (ps);
-	}
+	ps->priv->landscape = button->active;
+
+	tmp = ps->priv->height;
+	ps->priv->height = ps->priv->width;
+	ps->priv->width = tmp;
+
+	adjust_margins (ps);
+	update_preview (ps);
 }
 
 static void
-on_portrait_toggled (GtkToggleButton *button, EogPrintSetup *ps)
+on_fit_to_page_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
-	gdouble tmp;
-
-	if (button->active) {
-		gconf_client_set_bool (ps->priv->client,
-				       "/apps/eog/viewer/landscape", FALSE,
-				       NULL);
-		ps->priv->landscape = FALSE;
-		tmp = ps->priv->height;
-		ps->priv->height = ps->priv->width;
-		ps->priv->width = tmp;
-		adjust_margins (ps);
-	}
-}
-
-static void
-on_adjust_to_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
-{
-	if (button->active) {
-		gconf_client_set_bool (print_setup->priv->client,
-				       "/apps/eog/viewer/fit_to_page", FALSE, 
-				       NULL);
-		gtk_widget_set_sensitive (print_setup->priv->adjust_to, TRUE); 
-	}
-}
-
-static void
-on_fit_to_page_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
-{
-	if (button->active) {
-		gconf_client_set_bool (print_setup->priv->client,
-				       "/apps/eog/viewer/fit_to_page", TRUE,
-				       NULL);
-		gtk_widget_set_sensitive (print_setup->priv->adjust_to, FALSE);
-	}
+	ps->priv->fit_to_page = button->active;
+	gtk_widget_set_sensitive (ps->priv->spin_adj, !button->active);
+	update_preview (ps);
 }
 
 static void
@@ -214,8 +220,7 @@ on_top_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 		gtk_adjustment_set_value (ps->priv->spin_bottom->adjustment,
 				(ps->priv->height - ps->priv->top) * 
 					unit [ps->priv->unit].multiplier);
-	gconf_client_set_float (ps->priv->client, "/apps/eog/viewer/top", 
-				ps->priv->top, NULL);
+	update_preview (ps);
 }
 
 static void
@@ -226,8 +231,7 @@ on_right_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 		gtk_adjustment_set_value (ps->priv->spin_left->adjustment,
 				(ps->priv->width - ps->priv->right) * 
 					unit [ps->priv->unit].multiplier);
-	gconf_client_set_float (ps->priv->client, "/apps/eog/viewer/right", 
-				ps->priv->right, NULL);
+	update_preview (ps);
 }
 
 
@@ -239,8 +243,7 @@ on_left_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 		gtk_adjustment_set_value (ps->priv->spin_right->adjustment,
 				(ps->priv->width - ps->priv->left) * 
 					unit [ps->priv->unit].multiplier);
-	gconf_client_set_float (ps->priv->client, "/apps/eog/viewer/left",
-				ps->priv->left, NULL);
+	update_preview (ps);
 }
 
 static void
@@ -251,32 +254,49 @@ on_bottom_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 		gtk_adjustment_set_value (ps->priv->spin_top->adjustment,
 				(ps->priv->height - ps->priv->bottom) * 
 					unit [ps->priv->unit].multiplier);
-	gconf_client_set_float (ps->priv->client, "/apps/eog/viewer/bottom",
-				ps->priv->bottom, NULL);
+	update_preview (ps);
 }
 
 static void
-on_adjust_to_value_changed (GtkAdjustment *adjustment, 
-			    EogPrintSetup *print_setup)
+on_adjust_to_value_changed (GtkAdjustment *adjustment, EogPrintSetup *ps)
 {
-	gconf_client_set_int (print_setup->priv->client, 
-			"/apps/eog/viewer/adjust_to", adjustment->value, NULL);
+	ps->priv->adjust_to = adjustment->value;
+	update_preview (ps);
 }
 
 static void
-on_dialog_clicked (GnomeDialog *dialog, gint button_number, 
-		   EogPrintSetup *print_setup)
+on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
 {
 	switch (button_number) {
 	case 0:
-		gtk_widget_unref (GTK_WIDGET (print_setup));
+		save_settings (ps);
+		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
 	case 1:
-		eog_image_view_print (print_setup->priv->image_view, FALSE);
-		gtk_widget_unref (GTK_WIDGET (print_setup));
+		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
 	case 2:
-		eog_image_view_print (print_setup->priv->image_view, TRUE);
+		eog_image_view_print (ps->priv->image_view, FALSE, 
+				      ps->priv->paper_size, ps->priv->landscape,
+				      ps->priv->bottom, ps->priv->top, 
+				      ps->priv->right, ps->priv->left, 
+				      ps->priv->vertically, 
+				      ps->priv->horizontally, 
+				      ps->priv->down_right, ps->priv->cut, 
+				      ps->priv->fit_to_page, 
+				      ps->priv->adjust_to);
+		gtk_widget_unref (GTK_WIDGET (ps));
+		break;
+	case 3:
+		eog_image_view_print (ps->priv->image_view, TRUE,
+				      ps->priv->paper_size, ps->priv->landscape,
+				      ps->priv->bottom, ps->priv->top, 
+				      ps->priv->right, ps->priv->left, 
+				      ps->priv->vertically, 
+				      ps->priv->horizontally, 
+				      ps->priv->down_right, ps->priv->cut, 
+				      ps->priv->fit_to_page, 
+				      ps->priv->adjust_to);
 		break;
 	default:
 		break;
@@ -299,21 +319,17 @@ do_conversion (GtkSpinButton *spin, guint old, guint new)
 static void
 on_unit_activate (GtkMenuItem *item, EogPrintSetup *ps)
 {
-	GConfClient	*client;
-	guint		 old_unit, new_unit;
+	guint		 old;
 
-	client = ps->priv->client;
-	old_unit = ps->priv->unit;
-	new_unit = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), 
-							 "unit"));
-	ps->priv->unit = new_unit;
-	gconf_client_set_int (client, "/apps/eog/viewer/unit", new_unit, NULL);
+	old = ps->priv->unit;
+	ps->priv->unit = GPOINTER_TO_INT (
+			gtk_object_get_data (GTK_OBJECT (item), "unit"));
 
 	/* Adjust the margin values */
-	do_conversion (ps->priv->spin_top, old_unit, new_unit);
-	do_conversion (ps->priv->spin_bottom, old_unit, new_unit);
-	do_conversion (ps->priv->spin_left, old_unit, new_unit);
-	do_conversion (ps->priv->spin_right, old_unit, new_unit);
+	do_conversion (ps->priv->spin_top, old, ps->priv->unit);
+	do_conversion (ps->priv->spin_bottom, old, ps->priv->unit);
+	do_conversion (ps->priv->spin_left, old, ps->priv->unit);
+	do_conversion (ps->priv->spin_right, old, ps->priv->unit);
 }
 
 static void
@@ -324,6 +340,7 @@ eog_print_setup_destroy (GtkObject *object)
 	print_setup = EOG_PRINT_SETUP (object);
 
 	gtk_object_unref (GTK_OBJECT (print_setup->priv->client));
+	g_free (print_setup->priv->paper_size);
 
 	g_free (print_setup->priv);
 
@@ -406,15 +423,11 @@ eog_print_setup_new (EogImageView *image_view)
 	GtkObject		*adjustment;
 	GSList			*group;
 	GList			*list;
-	const GnomePaper	*paper;
 	const gchar		*buttons[] = {GNOME_STOCK_BUTTON_OK,
+					      GNOME_STOCK_BUTTON_CANCEL,
 					      _("Print"),
 					      _("Print preview"), NULL};
 	gint			 i;
-	gint			 adjust_to;
-	gboolean		 fit_to_page, horizontally, vertically, cut;
-	gboolean		 down_right;
-	gchar			*paper_size;
 
 	widget = eog_image_view_get_widget (image_view);
 	window = gtk_widget_get_ancestor (widget, GTK_TYPE_WINDOW);
@@ -431,44 +444,16 @@ eog_print_setup_new (EogImageView *image_view)
 	priv->client = gconf_client_get_default ();
 	priv->image_view = image_view;
 
-	priv->landscape = gconf_client_get_bool (new->priv->client, 
-					"/apps/eog/viewer/landscape", NULL);
-	fit_to_page = gconf_client_get_bool (new->priv->client,
-					"/apps/eog/viewer/fit_to_page", NULL);
-	horizontally = gconf_client_get_bool (new->priv->client,
-					"/apps/eog/viewer/horizontally", NULL);
-	vertically = gconf_client_get_bool (new->priv->client,
-					"/apps/eog/viewer/vertically", NULL);
-	cut = gconf_client_get_bool (new->priv->client,
-					"/apps/eog/viewer/cut", NULL);
-	adjust_to = gconf_client_get_int (new->priv->client, 
-					"/apps/eog/viewer/adjust_to", NULL);
-	priv->unit = gconf_client_get_int (new->priv->client, 
-					"/apps/eog/viewer/unit", NULL);
-	priv->left = gconf_client_get_float (new->priv->client,
-					"/apps/eog/viewer/left", NULL);
-	priv->right = gconf_client_get_float (new->priv->client,
-					"/apps/eog/viewer/right", NULL);
-	priv->bottom = gconf_client_get_float (new->priv->client,
-					"/apps/eog/viewer/bottom", NULL);
-	priv->top = gconf_client_get_float (new->priv->client,
-					"/apps/eog/viewer/top", NULL);
-	paper_size = gconf_client_get_string (new->priv->client,
-					"/apps/eog/viewer/paper_size", NULL);
-	down_right = gconf_client_get_bool (new->priv->client,
-					"/apps/eog/viewer/down_right", NULL);
-	
-	/* Extract the width and height of the paper */
-	if (!paper_size)
-		paper_size = g_strdup (gnome_paper_name_default ());
-	paper = gnome_paper_with_name (paper_size);
-	if (priv->landscape) {
-		priv->width = gnome_paper_psheight (paper);
-		priv->height = gnome_paper_pswidth (paper);
-	} else {
-		priv->width = gnome_paper_pswidth (paper);
-		priv->height = gnome_paper_psheight (paper);
-	}
+	eog_util_load_print_settings (priv->client, 
+				      &priv->paper_size, &priv->top, 
+				      &priv->bottom, &priv->left, &priv->right, 
+				      &priv->landscape, &priv->cut, 
+				      &priv->horizontally, &priv->vertically, 
+				      &priv->down_right, &priv->fit_to_page, 
+				      &priv->adjust_to, &priv->unit);
+
+	eog_util_paper_size (priv->paper_size, priv->landscape, &priv->width,
+			     &priv->height);
 
 	hbox = gtk_hbox_new (FALSE, 8);
 	gtk_widget_show (hbox);
@@ -484,10 +469,12 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_set_usize (GTK_WIDGET (window), 300, 300);
 
 	/* Preview */
-	widget = eog_preview_new (new->priv->client, new->priv->image_view);
+	widget = eog_preview_new (new->priv->image_view);
 	gtk_widget_show (widget);
 	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (window),
 					       widget);
+	priv->preview = EOG_PREVIEW (widget);
+	update_preview (new);
 
 	/* Notebook */
 	notebook = gtk_notebook_new ();
@@ -516,8 +503,8 @@ eog_print_setup_new (EogImageView *image_view)
 	list = gnome_paper_name_list ();
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), list);
 	gtk_combo_set_value_in_list (GTK_COMBO (combo), TRUE, 0); 
-	gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry), paper_size);
-	g_free (paper_size);
+	gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry), 
+			    priv->paper_size);
 	gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed", 
 			    GTK_SIGNAL_FUNC (on_paper_size_changed), new); 
 
@@ -535,8 +522,6 @@ eog_print_setup_new (EogImageView *image_view)
 	button = gtk_radio_button_new_with_label (NULL, _("Portrait"));
 	gtk_widget_show (button);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
-			    GTK_SIGNAL_FUNC (on_portrait_toggled), new);
 	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
 	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-horizontal.png");
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
@@ -669,30 +654,27 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
 	button = gtk_radio_button_new_with_label (NULL, _("Adjust to:"));
 	gtk_widget_show (button);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled",
-			    GTK_SIGNAL_FUNC (on_adjust_to_toggled), new);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 0, 1, 
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
 	button = gtk_radio_button_new_with_label (group, _("Fit to page"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), fit_to_page);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
+				      priv->fit_to_page);
 	gtk_widget_show (button);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_fit_to_page_toggled), new);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 1, 2, 
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	adjustment = gtk_adjustment_new (adjust_to, 1, 10000, 1, 10, 10);
-	new->priv->adjust_to = gtk_spin_button_new (
+	adjustment = gtk_adjustment_new (priv->adjust_to, 1, 10000, 1, 10, 10);
+	priv->spin_adj = gtk_spin_button_new (
 					GTK_ADJUSTMENT (adjustment), 1, 0);
-	gtk_widget_show (new->priv->adjust_to);
-	gtk_spin_button_set_update_policy (
-			GTK_SPIN_BUTTON (new->priv->adjust_to), 
-			GTK_UPDATE_IF_VALID);
-	gtk_widget_set_sensitive (new->priv->adjust_to, 
-				  !fit_to_page);
-	gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+	gtk_widget_show (priv->spin_adj);
+	gtk_signal_connect (adjustment, "value_changed", 
 			    GTK_SIGNAL_FUNC (on_adjust_to_value_changed), new);
-	gtk_table_attach (GTK_TABLE (table), new->priv->adjust_to, 1, 2, 0, 1,
+	gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (priv->spin_adj), 
+					   GTK_UPDATE_IF_VALID);
+	gtk_widget_set_sensitive (priv->spin_adj, !priv->fit_to_page);
+	gtk_table_attach (GTK_TABLE (table), priv->spin_adj, 1, 2, 0, 1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	label = gtk_label_new (_("% of original size"));
 	gtk_widget_show (label);
@@ -706,13 +688,15 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (hbox);
 	button = gtk_check_button_new_with_label (_("Horizontally"));
 	gtk_widget_show (button);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), horizontally);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
+				      priv->horizontally);
 	gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_horizontally_toggled), new);
 	button = gtk_check_button_new_with_label (_("Vertically"));
 	gtk_widget_show (button);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), vertically);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
+				      priv->vertically);
 	gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_vertically_toggled), new);
@@ -729,7 +713,7 @@ eog_print_setup_new (EogImageView *image_view)
 	make_header (vbox, _("Cutting help"));
 	button = gtk_check_button_new_with_label (_("Print cutting help"));
 	gtk_widget_show (button);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), cut);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), priv->cut);
 	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
 			    GTK_SIGNAL_FUNC (on_cut_toggled), new);
@@ -748,13 +732,14 @@ eog_print_setup_new (EogImageView *image_view)
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/down-right.png");
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	new->priv->down_right = gtk_pixmap_new (pixmap, bitmap);
+	new->priv->image_down_right = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);
-	gtk_table_attach (GTK_TABLE (table), new->priv->down_right, 1, 2, 0, 2, 
-			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	if (down_right) {
+	gtk_table_attach (GTK_TABLE (table), new->priv->image_down_right, 
+			  1, 2, 0, 2, GTK_FILL | GTK_EXPAND, 
+			  GTK_FILL | GTK_EXPAND, 0, 0);
+	if (priv->down_right) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-		gtk_widget_show (new->priv->down_right);
+		gtk_widget_show (new->priv->image_down_right);
 	}
 	gtk_signal_connect (GTK_OBJECT (button), "toggled",
 			    GTK_SIGNAL_FUNC (on_down_right_toggled), new);
@@ -766,16 +751,15 @@ eog_print_setup_new (EogImageView *image_view)
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/right-down.png");
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	new->priv->right_down = gtk_pixmap_new (pixmap, bitmap);
+	new->priv->image_right_down = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);
-	gtk_table_attach (GTK_TABLE (table), new->priv->right_down, 1, 2, 0, 2,
-			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	if (!down_right) {
+	gtk_table_attach (GTK_TABLE (table), new->priv->image_right_down, 
+			  1, 2, 0, 2, GTK_FILL | GTK_EXPAND, 
+			  GTK_FILL | GTK_EXPAND, 0, 0);
+	if (!priv->down_right) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-		gtk_widget_show (new->priv->right_down);
+		gtk_widget_show (new->priv->image_right_down);
 	}
-	gtk_signal_connect (GTK_OBJECT (button), "toggled",
-			   GTK_SIGNAL_FUNC (on_right_down_toggled), new);
 	
 	return (GTK_WIDGET (new));
 }

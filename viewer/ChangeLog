@@ -1,5 +1,18 @@
 2001-04-06  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
+	* Makefile.am: Added $(GCONF_LIBS) to sample_container as I put some
+	gconf stuff into...
+	* eog-util.[ch]: Put some gconf stuff here from...
+	* eog-print-setup.[ch]: Give the user the option to cancel everything.
+	We now update the preview manually from here instead of doing it 
+	through gconf. That makes a move away from gconf easier.
+	* eog-image-view.[ch]: Use the functions in eog-util.c to retreive
+	the settings.
+	* eog-preview-page.c: If cutting help is not wanted, move it to (0,0)
+	where we can hide it even if the page size shrinks.
+	
+2001-04-06  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
 	* eog-image-view.c:
 	* eog-preview-page.[ch]:
 	* eog-preview.c:

@@ -104,6 +104,10 @@ redraw_cut (EogPreviewPage *page, gdouble x, gdouble y,
 	if (!cut) {
 		gnome_canvas_item_lower_to_bottom (
 			GNOME_CANVAS_ITEM (page->priv->cut_group));
+		move_line (page->priv->cut_right_top, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_right_bottom, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_bottom_left, 0.0, 0.0, 0.0, 0.0);
+		move_line (page->priv->cut_bottom_right, 0.0, 0.0, 0.0, 0.0);
 		return;
 	}
 

@@ -60,3 +60,59 @@ eog_util_split_string (const gchar *string, const gchar *delimiter)
 
 	return list;
 }
+
+void
+eog_util_load_print_settings (GConfClient *client,
+			      gchar **paper_size, gdouble *top, 
+			      gdouble *bottom, gdouble *left, gdouble *right, 
+			      gboolean *landscape, gboolean *cut, 
+			      gboolean *horizontally, gboolean *vertically, 
+			      gboolean *down_right, gboolean *fit_to_page, 
+			      gint *adjust_to, gint *unit)
+{
+
+	*paper_size = gconf_client_get_string (client, 
+				"/apps/eog/viewer/paper_size", NULL);
+	*top = gconf_client_get_float (client, "/apps/eog/viewer/top", NULL); 
+	*bottom = gconf_client_get_float (client, 
+				"/apps/eog/viewer/bottom", NULL); 
+	*left = gconf_client_get_float (client, "/apps/eog/viewer/left", NULL); 
+	*right = gconf_client_get_float (client, 
+				"/apps/eog/viewer/right", NULL); 
+	*landscape = gconf_client_get_bool (client, 
+				"/apps/eog/viewer/landscape", NULL);
+	*cut = gconf_client_get_bool (client, "/apps/eog/viewer/cut", NULL); 
+	*horizontally = gconf_client_get_bool (client, 
+				"/apps/eog/viewer/horizontally", NULL);
+	*vertically = gconf_client_get_bool (client, 
+				"/apps/eog/viewer/vertically", NULL); 
+	*down_right = gconf_client_get_bool (client, 
+				"/apps/eog/viewer/down_right", NULL); 
+	*fit_to_page = gconf_client_get_bool (client, 
+				"/apps/eog/viewer/fit_to_page", NULL); 
+	*adjust_to = gconf_client_get_int (client, 
+				"/apps/eog/viewer/adjust_to", NULL); 
+	*unit = gconf_client_get_int (client, "/apps/eog/viewer/unit", NULL);
+
+	/* First time users */
+	if (*adjust_to == 0)
+		*adjust_to = 100;
+	if (*paper_size == NULL)
+		*paper_size = g_strdup (gnome_paper_name_default ());
+}
+
+void
+eog_util_paper_size (const gchar *paper_size, gboolean landscape, 
+		     gdouble *width, gdouble *height)
+{
+	const GnomePaper *paper;
+
+	paper = gnome_paper_with_name (paper_size);
+	if (landscape) {
+		*width = gnome_paper_psheight (paper); 
+		*height = gnome_paper_pswidth (paper); 
+	} else { 
+		*width = gnome_paper_pswidth (paper); 
+		*height = gnome_paper_psheight (paper);
+	}
+} 
