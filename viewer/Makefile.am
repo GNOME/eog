@@ -10,6 +10,7 @@ INCLUDES =                                              \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
+	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)
 
 bin_PROGRAMS = eog-image-viewer
