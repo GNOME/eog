@@ -6,13 +6,143 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-02-27 14:01+0300\n"
-"Last-Translator: Priit Laes <amd@tt.ee>\n"
+"POT-Creation-Date: 2004-08-06 11:08+0200\n"
+"PO-Revision-Date: 2005-01-15 16:54+0200\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <linux-vestlus@eenet.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
+#, fuzzy
+msgid "EOG Image Collection Viewer"
+msgstr "Pildivaatlusprogramm"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
+#, fuzzy
+msgid "EOG Image collection view factory"
+msgstr "Pildivaatlusprogramm"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#, fuzzy
+msgid "Image Collection"
+msgstr "Kas salvestada pildikollektsioon '%s'?"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "Image Collection Viewer"
+msgstr "Pildivaatlusprogramm"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Kas salvestada pildikollektsioon '%s'?"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:6
+#, fuzzy
+msgid "View as Image Collection"
+msgstr "Kas salvestada pildikollektsioon '%s'?"
+
+#: collection/eog-collection-view-ui.xml.h:1 shell/eog-window.c:2077
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2 shell/eog-window.c:2078
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Next"
+msgstr "Järgmine"
+
+#: collection/eog-collection-view-ui.xml.h:4
+msgid "Next Image"
+msgstr "Järgmine pilt"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr "Eelmine"
+
+#: collection/eog-collection-view-ui.xml.h:6
+msgid "Previous Image"
+msgstr "Eelmine pilt"
+
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate C_lockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Counte_r Clockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:10
+msgid "Slide Show"
+msgstr "Slaidiesitlus"
+
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-window.c:2051
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Edit"
+msgstr "_Redigeeri"
+
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-window.c:2072
+msgid "_Save"
+msgstr "_Salvesta"
+
+#: collection/eog-collection-view-ui.xml.h:13 shell/eog-window.c:2075
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Undo"
+msgstr "_Tühista"
+
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-window.c:2052
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_View"
+msgstr "_Näita"
+
+#: collection/eog-collection-view.c:337
+msgid "Cancel saving"
+msgstr ""
+
+#: collection/eog-collection-view.c:340
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:809
+msgid "Move to Trash"
+msgstr "Tõsta prügikasti"
+
+#: collection/eog-collection-view.c:926
+#, fuzzy
+msgid "Collection View"
+msgstr "Pildivaatlusprogramm"
+
+#. Images: (n_selected_images) / (n_total_images)
+#: collection/eog-collection-view.c:946 shell/eog-window.c:1971
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
+
+#: collection/eog-collection-view.c:1404 viewer/eog-image-view.c:1393
+msgid "Window Title"
+msgstr "Akna pealkiri"
+
+#: collection/eog-collection-view.c:1407
+msgid "Status Text"
+msgstr "Olekutekst"
+
+#: collection/eog-collection-view.c:1410 viewer/eog-image-view.c:1405
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:100
+msgid "Saving image"
+msgstr "Pildi salvestamine"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -90,7 +220,7 @@ msgstr "Avab kataloog"
 
 #: eog.glade.h:18
 msgid "Eye of Gnome Preferences"
-msgstr "GNOME silma häälestus"
+msgstr "Eye of Gnome (gnoomi silma) eelistused"
 
 #: eog.glade.h:19
 #, fuzzy
@@ -233,6 +363,27 @@ msgid ""
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
 
+#: libeog/GNOME_EOG.server.in.in.h:1
+msgid "EOG Image"
+msgstr "EOG pilt"
+
+#: libeog/GNOME_EOG.server.in.in.h:2
+msgid "EOG Image Viewer"
+msgstr "EOG pildivaatur"
+
+#: libeog/GNOME_EOG.server.in.in.h:3
+#, fuzzy
+msgid "EOG Image viewer factory"
+msgstr "Pildivaatlusprogramm"
+
+#: libeog/GNOME_EOG.server.in.in.h:4
+msgid "Embeddable EOG Image"
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.in.h:5
+msgid "Image"
+msgstr "Pilt"
+
 #: libeog/eog-file-selection.c:124
 msgid "All Files"
 msgstr "Kõik failid"
@@ -276,19 +427,19 @@ msgstr ""
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr ""
 
-#: libeog/eog-image.c:814
+#: libeog/eog-image.c:810
 msgid "empty file"
 msgstr "tühi fail"
 
-#: libeog/eog-image.c:1247 libeog/eog-image.c:1458
+#: libeog/eog-image.c:1243 libeog/eog-image.c:1454
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-image.c:1400 libeog/eog-image.c:1526
+#: libeog/eog-image.c:1396 libeog/eog-image.c:1522
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1409 libeog/eog-image.c:1535
+#: libeog/eog-image.c:1405 libeog/eog-image.c:1531
 msgid "Temporary file creation failed."
 msgstr ""
 
@@ -431,234 +582,207 @@ msgstr "sekundit"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:314
+#: shell/eog-window.c:320
 msgid "translator-credits"
 msgstr ""
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
+#: shell/eog-window.c:325 shell/eog-window.c:1983 shell/eog-window.c:2256
 #: shell/main.c:498
 msgid "Eye of Gnome"
-msgstr "GNOME silm"
+msgstr "Eye of Gnome (gnoomi silm)"
 
-#: shell/eog-window.c:322
+#: shell/eog-window.c:328
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME pildiesitus ja kataloogimisprogramm"
 
-#: shell/eog-window.c:359
+#: shell/eog-window.c:365
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:634
 #, c-format
 msgid "Overwrite file %s?"
 msgstr ""
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:635
 msgid "File exists. Do you want to overwrite it?"
 msgstr ""
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:645 shell/eog-window.c:658
 msgid "Skip"
 msgstr ""
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:646
 msgid "Overwrite"
 msgstr ""
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:651
 #, c-format
 msgid "Error on saving %s."
 msgstr ""
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:659 shell/eog-window.c:1033
 msgid "Retry"
 msgstr ""
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1022
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr ""
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1023
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1165
 #, fuzzy
 msgid "Error on saving images."
 msgstr "Pildi salvestamine"
 
 #: shell/eog-window.c:1399
 #, c-format
-msgid "Do you really want to move %i image to trash?"
-msgid_plural "Do you really want to move %i images to trash?"
-msgstr[0] ""
-msgstr[1] ""
+msgid "Do you really want to move %i images to trash?"
+msgstr ""
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1436
 msgid "Couldn't access trash."
 msgstr ""
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1510
 #, c-format
 msgid "Error on deleting image %s"
 msgstr ""
 
-#  [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
-#, c-format
-msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i pikslit  %s    %i%%"
-
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2050
 msgid "_File"
 msgstr "_Fail"
 
-#: shell/eog-window.c:2234
-msgid "_Edit"
-msgstr "_Redigeeri"
-
-#: shell/eog-window.c:2235
-msgid "_View"
-msgstr "_Näita"
-
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2053
 msgid "_Help"
 msgstr "_Abi"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2054
 msgid "_New"
 msgstr "_Uus"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2054
 msgid "Open a new window"
 msgstr "Ava uus aken"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2055
 msgid "_Open..."
 msgstr "_Ava..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2055
 msgid "Open a file"
 msgstr "Ava fail"
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2056
 #, fuzzy
 msgid "Open _Directory..."
 msgstr "_Ava kataloog..."
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2056
 msgid "Open a directory"
 msgstr "Ava kataloog"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2057
 msgid "_Close"
 msgstr "_Sulge"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2057
 msgid "Close window"
 msgstr "Sulge aken"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2058
+msgid "_Quit"
+msgstr "_Välju"
+
+#: shell/eog-window.c:2058
 #, fuzzy
+msgid "Close all windows and quit"
+msgstr "Sulge aken"
+
+#: shell/eog-window.c:2059
 msgid "Prefere_nces"
-msgstr "GNOME silm"
+msgstr "_Eelistused"
 
-#: shell/eog-window.c:2241
-#, fuzzy
+#: shell/eog-window.c:2059
 msgid "Preferences for Eye of Gnome"
-msgstr "GNOME silm"
+msgstr "Eye of Gnome (gnoomi silm) eelistused"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2060
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2060
 msgid "Help On this application"
 msgstr ""
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2061
 msgid "_About"
 msgstr "_Programmist"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2061
 msgid "About this application"
 msgstr "Info selle programmi kohta"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2066
 msgid "_Toolbar"
 msgstr ""
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2067
 msgid "_Statusbar"
 msgstr "_Olekuriba"
 
-#: shell/eog-window.c:2254
-msgid "_Save"
-msgstr "_Salvesta"
-
-#: shell/eog-window.c:2255
-#, fuzzy
+#: shell/eog-window.c:2073
 msgid "Save _As"
-msgstr "Salvesta _kui..."
+msgstr "Salvesta _kui"
 
-#: shell/eog-window.c:2257
-msgid "_Undo"
-msgstr "_Tühista"
-
-#: shell/eog-window.c:2259
-msgid "Flip _Horizontal"
-msgstr ""
-
-#: shell/eog-window.c:2260
-msgid "Flip _Vertical"
-msgstr ""
-
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2080
 msgid "_Rotate Clockwise"
 msgstr ""
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2081
 msgid "Rotate Counter C_lockwise"
 msgstr ""
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2082
 msgid "Rotat_e 180°"
 msgstr ""
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2084
 msgid "Delete"
 msgstr ""
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2086 viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "_Täisekraan"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2087 viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "_Zoom In"
 msgstr "_Suurenda"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2088 viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
 msgstr "_Vähenda"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2089 viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
 msgstr "_Normaalsuurus"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2090 viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
 msgstr "Parim _mahutus"
 
 #: shell/main.c:236
 #, c-format
 msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
+"You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
 
@@ -687,185 +811,145 @@ msgstr[1] "Faili(e) ei leitud"
 msgid "Could not open `%s'"
 msgstr ""
 
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Sobita"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "In"
+msgstr "Suur"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Normal"
+msgstr "Normaalne"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Out"
+msgstr "Väike"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "Täisekraan"
+
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Previews the image to be printed"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Print Previe_w..."
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:6
 #, fuzzy
-#~ msgid "EOG Image Collection Viewer"
-#~ msgstr "Pildivaatlusprogramm"
+msgid "Print Set_up"
+msgstr "Ava pilt"
 
-#, fuzzy
-#~ msgid "EOG Image collection view factory"
-#~ msgstr "Pildivaatlusprogramm"
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Print image to the printer"
+msgstr ""
 
-#, fuzzy
-#~ msgid "View as I_mage Collection"
-#~ msgstr "Kas salvestada pildikollektsioon '%s'?"
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Left"
+msgstr "Pööra vasakule"
 
-#, fuzzy
-#~ msgid "View as Image Collection"
-#~ msgstr "Kas salvestada pildikollektsioon '%s'?"
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Rotate Right"
+msgstr "Pööra paremale"
 
-#~ msgid "Next"
-#~ msgstr "Järgmine"
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Save _As..."
+msgstr "Salvesta _kui..."
 
-#~ msgid "Next Image"
-#~ msgstr "Järgmine pilt"
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Setup the page settings for your current printer"
+msgstr ""
 
-#~ msgid "Previous"
-#~ msgstr "Eelmine"
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Print..."
+msgstr "_Trüki..."
 
-#~ msgid "Previous Image"
-#~ msgstr "Eelmine pilt"
+#: viewer/eog-image-view.c:385
+msgid "Preview"
+msgstr "Eelvaade"
 
-#~ msgid "Slide Show"
-#~ msgstr "Slaidiesitlus"
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
+#, c-format
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i x %i pikslit  %s    %i%%"
 
-#~ msgid "Move to Trash"
-#~ msgstr "Tõsta prügikasti"
+#: viewer/eog-image-view.c:841
+msgid "/Rotate C_lockwise"
+msgstr ""
 
-#, fuzzy
-#~ msgid "Collection View"
-#~ msgstr "Pildivaatlusprogramm"
+#: viewer/eog-image-view.c:843
+msgid "/Rotate Counte_r Clockwise"
+msgstr ""
 
-#~ msgid "Window Title"
-#~ msgstr "Akna pealkiri"
+#: viewer/eog-image-view.c:846
+msgid "/_Zoom In"
+msgstr "/_Suurenda"
 
-#~ msgid "Status Text"
-#~ msgstr "Olekutekst"
+#: viewer/eog-image-view.c:848
+msgid "/Zoom _Out"
+msgstr "/_Vähenda"
 
-#~ msgid "EOG Image"
-#~ msgstr "EOG pilt"
+#: viewer/eog-image-view.c:850
+msgid "/_Normal Size"
+msgstr "/_Normaalsuurus"
 
-#~ msgid "EOG Image Viewer"
-#~ msgstr "EOG pildivaatur"
+#: viewer/eog-image-view.c:852
+msgid "/Best _Fit"
+msgstr "/_Parim suurus"
 
-#, fuzzy
-#~ msgid "EOG Image viewer factory"
-#~ msgstr "Pildivaatlusprogramm"
+#: viewer/eog-image-view.c:855
+msgid "/_Close"
+msgstr "/_Sulge"
 
-#~ msgid "Image"
-#~ msgstr "Pilt"
+#: viewer/eog-image-view.c:1026
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Tõrge pildifaili %s laadimisel."
 
-#~ msgid "Page"
-#~ msgstr "Lehekülg"
+#: viewer/eog-image-view.c:1033
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Tõrge pildifaili %s laadimisel.\n"
+"Põhjus: %s"
 
-#~ msgid "Preview"
-#~ msgstr "Eelvaade"
+#. show error dialog
+#: viewer/eog-image-view.c:1042
+msgid "Loading failed"
+msgstr "Tõrge laadimisel"
 
-#~ msgid "Millimeter"
-#~ msgstr "Millimeeter"
+#: viewer/eog-image-view.c:1133
+msgid "Image successfully saved"
+msgstr ""
 
-#  First page of notebook: Paper selection and margins.
-#~ msgid "Paper"
-#~ msgstr "Paber"
+#: viewer/eog-image-view.c:1143
+msgid "Image saving failed"
+msgstr ""
 
-#~ msgid "% of original size"
-#~ msgstr "% originaalsuurusest"
+#: viewer/eog-image-view.c:1387
+msgid "Image Width"
+msgstr "Pildi laius"
 
-#~ msgid "Down, then right"
-#~ msgstr "Alla, seejärel paremale"
+#: viewer/eog-image-view.c:1390
+msgid "Image Height"
+msgstr ""
 
-#~ msgid "Fit to page"
-#~ msgstr "Mahuta lehele"
+#: viewer/eog-image-view.c:1396
+msgid "Statusbar Text"
+msgstr "Tekst olekuribal"
 
-#~ msgid "Horizontally"
-#~ msgstr "Horisontaalselt"
+#: viewer/eog-image-view.c:1399
+msgid "Desired Window Width"
+msgstr ""
 
-#~ msgid "Margins"
-#~ msgstr "Veerised"
+#: viewer/eog-image-view.c:1402
+msgid "Desired Window Height"
+msgstr ""
 
-#~ msgid "Page order"
-#~ msgstr "Lehekülgede järjekord"
-
-#~ msgid "Right, then down"
-#~ msgstr "Paremale, seejärel alla"
-
-#~ msgid "Scale"
-#~ msgstr "Skaala"
-
-#~ msgid "Show"
-#~ msgstr "Näita"
-
-#~ msgid "Vertically"
-#~ msgstr "Vertikaalselt"
-
-#~ msgid "Cancel"
-#~ msgstr "Katkesta"
-
-#~ msgid "New"
-#~ msgstr "Uus"
-
-#~ msgid "Open"
-#~ msgstr "Ava"
-
-#~ msgid "Open in new window"
-#~ msgstr "Ava uues aknas"
-
-#~ msgid "Open in this window"
-#~ msgstr "Ava aktiivses aknas"
-
-#~ msgid "_Quit"
-#~ msgstr "_Välju"
-
-#  Translators should localize the following string
-#  * which will give them credit in the About box.
-#  * E.g. "Fulano de Tal <fulano@detal.com>"
-#~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-#~ msgstr "Tõlge eesti keelde:    Priit Laes <amd@tt.ee>"
-
-#~ msgid "Fit"
-#~ msgstr "Sobita"
-
-#~ msgid "In"
-#~ msgstr "Suur"
-
-#~ msgid "Normal"
-#~ msgstr "Normaalne"
-
-#~ msgid "Out"
-#~ msgstr "Väike"
-
-#~ msgid "Full Screen"
-#~ msgstr "Täisekraan"
-
-#, fuzzy
-#~ msgid "Print Set_up"
-#~ msgstr "Ava pilt"
-
-#~ msgid "Rotate Left"
-#~ msgstr "Pööra vasakule"
-
-#~ msgid "Rotate Right"
-#~ msgstr "Pööra paremale"
-
-#~ msgid "_Print..."
-#~ msgstr "_Prindi..."
-
-#~ msgid "/_Zoom In"
-#~ msgstr "/_Suurenda"
-
-#~ msgid "/Zoom _Out"
-#~ msgstr "/_Vähenda"
-
-#~ msgid "/_Normal Size"
-#~ msgstr "/_Normaalsuurus"
-
-#~ msgid "/Best _Fit"
-#~ msgstr "/_Parim suurus"
-
-#~ msgid "/_Close"
-#~ msgstr "/_Sulge"
-
-#~ msgid "Loading of image %s failed."
-#~ msgstr "Pildifaili %s laadimine ebaõnnestus."
-
-#~ msgid ""
-#~ "Loading of image %s failed.\n"
-#~ "Reason: %s."
-#~ msgstr ""
-#~ "Pildifaili %s laadimine ebaõnnestus.\n"
-#~ "Põhjus: %s"
-
-#~ msgid "Loading failed"
-#~ msgstr "Laadimine ebaõnnestus"
-
-#~ msgid "Statusbar Text"
-#~ msgstr "Tekst olekuribal"
