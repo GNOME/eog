@@ -23,7 +23,7 @@
 #ifndef EOG_WINDOW_H
 #define EOG_WINDOW_H
 
-#include <bonobo.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS 
 
@@ -52,14 +52,14 @@ typedef struct _EogWindowPrivate  EogWindowPrivate;
 
 
 struct _EogWindow {
-	BonoboWindow win;
+	GtkWindow win;
 
 	/* Private data */
 	EogWindowPrivate *priv;
 };
 
 struct _EogWindowClass {
-	BonoboWindowClass parent_class;
+	GtkWindowClass parent_class;
 
 	void (* open_uri_list) (EogWindow *window, GSList *text_uri_list);
 	void (* new_window) (EogWindow *window);

@@ -44,6 +44,12 @@
 #include "libeog-marshal.h"
 #include "egg-recent.h"
 #include "eog-config-keys.h"
+#include "eog-scroll-view.h"
+#include "eog-wrap-list.h"
+#include "eog-vertical-splitter.h"
+#include "eog-horizontal-splitter.h"
+#include "eog-info-view.h"
+#include "eog-image-list.h"
 
 /* Default size for windows */
 
@@ -64,18 +70,17 @@ struct _EogWindowPrivate {
 	/* Our GConf client */
 	GConfClient *client;
 
-	/* URI we are displaying */
-	char *uri;
+	/* Images we are displaying */
+	EogImageList        *image_list;
 
-	/* control frame */
-	BonoboControlFrame  *ctrl_frame;
-
-	/* UI component - arn't these comments banal */
-	BonoboUIComponent   *ui_comp;
-
-	/* vbox */
+	/* ui/widget stuff */
+	GtkUIManager        *ui_mgr;
 	GtkWidget           *box;
-	GtkWidget           *ctrl_widget;
+	GtkWidget           *hpane;
+	GtkWidget           *vpane;
+	GtkWidget           *scroll_view;
+	GtkWidget           *wraplist;
+	GtkWidget           *info_view;
 
 	/* statusbar */
 	GtkWidget *statusbar;
@@ -83,12 +88,21 @@ struct _EogWindowPrivate {
 	int desired_width;
 	int desired_height;
 
+	/* recent files stuff */
 	EggRecentModel      *recent_model;
-	EggRecentViewBonobo *recent_view;
+	EggRecentViewGtk    *recent_view;
 
 	/* gconf notification ids */
 	guint view_statusbar_id;
 	guint view_toolbar_id;
+
+	/* signal ids */
+	guint sig_id_list_prepared;
+
+	/* deprecated */
+	BonoboControlFrame  *ctrl_frame;
+	BonoboUIComponent   *ui_comp;
+	GtkWidget           *ctrl_widget;
 };
 
 enum {
@@ -108,7 +122,7 @@ static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *co
 				    GtkSelectionData *selection_data, guint info, guint time);
 static void adapt_window_size (EogWindow *window);
 
-static BonoboWindowClass *parent_class;
+static GtkWindowClass *parent_class;
 
 /* The list of all open windows */
 static GList *window_list = NULL;
@@ -171,13 +185,13 @@ raise_and_focus (GtkWidget *widget)
 }
 
 static void
-verb_FileNewWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_FileNewWindow_cb (GtkAction *action, gpointer user_data)
 {
 	g_signal_emit (G_OBJECT (user_data), eog_window_signals [SIGNAL_NEW_WINDOW], 0);
 }
 
 static void
-verb_FileOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -206,7 +220,7 @@ verb_FileOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 }
 
 static void
-verb_DirOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_DirOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -238,38 +252,39 @@ verb_DirOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 }
 
 static void
-verb_FileCloseWindow_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_FileCloseWindow_cb (GtkAction *action, gpointer user_data)
 {
 	eog_window_close (EOG_WINDOW (user_data));
 }
 
 static void
-verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_FileExit_cb (GtkAction *action, gpointer data)
 {
 	eog_window_close_all ();
 }
 
 static void
-verb_EditPreferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_EditPreferences_cb (GtkAction *action, gpointer data)
 {
 	GConfClient *client;
 
-	client = EOG_WINDOW (user_data)->priv->client;
+	client = EOG_WINDOW (data)->priv->client;
 
 	eog_preferences_show (client);
 }
 
 static void
-verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+verb_HelpAbout_cb (GtkAction *action, gpointer data)
 {
 	static GtkWidget *about;
 	static const char *authors[] = {
-		"Federico Mena-Quintero <federico@gnu.org>",
 		"Jens Finke <jens@triq.net>",
-		"Lutz Mueller <urc8@rz.uni-karlsruhe.de>",
+		"",
 		"Martin Baulig <martin@home-of-linux.org>",
 		"Arik Devens <arik@gnome.org>",
 		"Michael Meeks <mmeeks@gnu.org>",
+		"Federico Mena-Quintero <federico@gnu.org>",
+		"Lutz M\xc3\xbcller <urc8@rz.uni-karlsruhe.de>",
 		NULL
 	};
 	static const char *documenters[] = {
@@ -289,7 +304,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 		 * which will give them credit in the About box.
 		 * E.g. "Fulano de Tal <fulano@detal.com>"
 		 */
-		translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
+		translators = _("translator-credits");
 
 		pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
 
@@ -300,7 +315,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 			_("The GNOME image viewing and cataloging program."),
 			authors,
 			documenters,
-			(strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+			(strcmp (translators, "translator-credits")
 			 ? translators : NULL),
 			pixbuf);
 
@@ -317,7 +332,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 }
 
 static void
-verb_HelpContent_cb (BonoboUIComponent *uic, gpointer data, const char *cname)
+verb_HelpContent_cb (GtkAction *action, gpointer data)
 {
 	GError *error;
 	EogWindow *window;
@@ -348,40 +363,27 @@ verb_HelpContent_cb (BonoboUIComponent *uic, gpointer data, const char *cname)
 }
 
 static void
-verb_ShowHideAnyBar_cb (BonoboUIComponent           *ui_component,
-			const char                  *path,
-			Bonobo_UIComponent_EventType type,
-			const char                  *state,
-			gpointer                    *user_data)
+verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 {
 	EogWindow *window;     
 	EogWindowPrivate *priv;
 	gboolean visible;
-	char *key = NULL;
 
-	g_return_if_fail(EOG_IS_WINDOW (user_data));
+	g_return_if_fail(EOG_IS_WINDOW (data));
 
-	window = EOG_WINDOW (user_data);
+	window = EOG_WINDOW (data);
 	priv = window->priv;
 
-	if (type != Bonobo_UIComponent_STATE_CHANGED) {
-		return;
-	}
+	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
-	if (state == NULL || path == NULL) {
-		return;
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewToolbar") == 0) {
+		GtkWidget *widget = gtk_ui_manager_get_widget (priv->ui_mgr, "/ToolBar");
+		g_object_set (G_OBJECT (widget), "visible", visible, NULL);
+		gconf_client_set_bool (priv->client, EOG_CONF_UI_TOOLBAR, visible, NULL);
 	}
-
-	if (g_strcasecmp (path, "ShowHideToolbar") == 0) {
-		key = EOG_CONF_UI_TOOLBAR;
-	}
-	else if (g_strcasecmp (path, "ShowHideStatusbar") == 0) {
-		key = EOG_CONF_UI_STATUSBAR;
-	}
-
-	if (key != NULL) {
-		visible = (g_strcasecmp (state, "1") == 0);
-		gconf_client_set_bool (priv->client, key, visible, NULL);
+	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
+		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+		gconf_client_set_bool (priv->client, EOG_CONF_UI_STATUSBAR, visible, NULL);
 	}
 }
 
@@ -433,45 +435,6 @@ open_uri_list_cleanup (EogWindow *window, GSList *txt_uri_list)
 }
 
 
-static void
-toolbar_visibility_changed_cb (GConfClient *client,
-			       guint        cnxn_id,
-			       GConfEntry  *entry,
-			       gpointer     user_data)
-{
-	EogWindow *window;
-	gboolean visible = TRUE;
-	
-	window = EOG_WINDOW (user_data);
-	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
-		visible = gconf_value_get_bool (entry->value);
-	}
-
-	bonobo_ui_component_set_prop (window->priv->ui_comp, "/Toolbar", "hidden", visible ? "0" : "1", NULL);
-}
-
-static void
-statusbar_visibility_changed_cb (GConfClient *client,
-				 guint        cnxn_id,
-				 GConfEntry  *entry,
-				 gpointer     user_data)
-{
-	EogWindow *window;
-	gboolean visible = TRUE;
-	
-	window = EOG_WINDOW (user_data);
-	
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
-		visible = gconf_value_get_bool (entry->value);
-	}
-
-	if (visible)
-		gtk_widget_show (GTK_WIDGET (window->priv->statusbar));
-	else
-		gtk_widget_hide (GTK_WIDGET (window->priv->statusbar));
-}
-
 GType
 eog_window_get_type (void) 
 {
@@ -491,7 +454,7 @@ eog_window_get_type (void)
 			(GInstanceInitFunc) eog_window_init,
 		};
 		
-		eog_window_type = g_type_register_static (BONOBO_TYPE_WINDOW, 
+		eog_window_type = g_type_register_static (GTK_TYPE_WINDOW, 
 							  "EogWindow", 
 							  &eog_window_info, 0);
 	}
@@ -513,11 +476,6 @@ eog_window_destroy (GtkObject *object)
 	priv = window->priv;
 
 	window_list = g_list_remove (window_list, window);
-
-	if (priv->uri) {
-		g_free (priv->uri);
-		priv->uri = NULL;
-	}
 
 	if (priv->ctrl_frame != NULL) {
 		bonobo_object_unref (BONOBO_OBJECT (priv->ctrl_frame));
@@ -627,8 +585,6 @@ eog_window_init (EogWindow *window)
 	gtk_window_set_role (GTK_WINDOW (window), role);
 	g_free(role);
 	
-	priv->uri = NULL;
-
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client, EOG_CONF_DIR,
@@ -639,6 +595,9 @@ eog_window_init (EogWindow *window)
 
 	priv->desired_width = -1;
 	priv->desired_height = -1;
+
+	priv->image_list = NULL;
+	priv->sig_id_list_prepared = 0;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
 }
@@ -668,7 +627,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	switch (event->keyval) {
 	case GDK_Q:
 	case GDK_q:
-		verb_FileExit_cb (NULL, widget, NULL);
+		verb_FileExit_cb (NULL, NULL);
 		break;
 
 	default:
@@ -737,24 +696,108 @@ set_drag_dest (EogWindow *window)
 			   GDK_ACTION_COPY | GDK_ACTION_ASK);
 }
 
-
-static BonoboUIVerb eog_app_verbs[] = {
-	BONOBO_UI_VERB ("FileNewWindow", verb_FileNewWindow_cb),
-	BONOBO_UI_VERB ("FileOpen",      verb_FileOpen_cb),
-	BONOBO_UI_VERB ("DirOpen",      verb_DirOpen_cb),
-	BONOBO_UI_VERB ("FileCloseWindow", verb_FileCloseWindow_cb),
-	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
-	BONOBO_UI_VERB ("EditPreferences", verb_EditPreferences_cb),
-	BONOBO_UI_VERB ("HelpAbout",     verb_HelpAbout_cb),
-	BONOBO_UI_VERB ("Help",          verb_HelpContent_cb),
-	BONOBO_UI_VERB_END
-};
-
 static void
 widget_realized_cb (GtkWidget *widget, gpointer data)
 {
 	adapt_window_size (EOG_WINDOW (data));
 }
+
+static void
+update_ui_visibility (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	int n_images = 0;
+
+	priv = window->priv;
+	
+	if (priv->image_list != NULL) {
+		n_images = eog_image_list_length (priv->image_list);
+	}
+
+	g_print ("n_images: %i\n", n_images);
+
+	if (n_images == 0) {
+		gtk_widget_hide_all (priv->vpane);
+	}
+	else if (n_images == 1) {
+		gtk_widget_show_all (priv->vpane);
+		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+	}
+	else {
+		gtk_widget_show_all (priv->vpane);
+	}
+}
+
+static void
+handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
+{
+	EogWindowPrivate *priv;
+	EogImage *image;
+	gchar *str;
+	gint nimg, nsel;
+
+	priv = window->priv;
+
+	g_assert (priv->image_list != NULL);
+
+#if 0
+	if (priv->displayed_image != image) {
+		if (priv->displayed_image != NULL) {
+			g_signal_handler_disconnect (priv->displayed_image, priv->progress_handler_id);
+
+			g_object_unref (priv->displayed_image);
+			priv->displayed_image = NULL;
+		}
+	}
+#endif
+	
+	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	/* priv->progress_handler_id = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view); */
+	
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
+	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+	
+	/* update status bar text */	
+	nimg = eog_image_list_length (priv->image_list);
+	nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	
+	str = g_strdup_printf (_("Images: %i/%i"), nsel, nimg);
+	gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), str);
+	g_free (str);
+}
+
+
+/* UI<->function mapping */
+/* Normal items */
+static GtkActionEntry entries[] = {
+  { "FileMenu", NULL, "_File" },
+  { "EditMenu", NULL, "_Edit" },
+  { "ViewMenu", NULL, "_View" },
+  { "HelpMenu", NULL, "_Help" },
+  { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
+  { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
+  { "FileDirOpen",     GTK_STOCK_OPEN,  N_("Open _Directory..."), "<control><shift>O", N_("Open a directory"), G_CALLBACK (verb_DirOpen_cb) },
+  { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
+  { "FileExit",        GTK_STOCK_QUIT,  N_("_Quit"),     "<control>Q",  N_("Close all windows and quit"),   G_CALLBACK (verb_FileExit_cb) },
+  { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of Gnome"), G_CALLBACK (verb_EditPreferences_cb) },
+  { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
+  { "HelpAbout",       NULL,            N_("_About"),    NULL,          N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
+};
+
+/* Toggle items */
+static GtkToggleActionEntry toggle_entries[] = {
+  { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, "Change the visibility of the toolbar in the current window",   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
+  { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, "Change the visibility of the statusbar in the current window", G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
+};
+
+#if 0
+/* Radio items */
+static GtkRadioActionEntry radio_entries[] = {
+  { "HighQuality", NULL, "_High Quality", NULL, "Display images in high quality, slow mode", 0 },
+  { "NormalQuality", NULL, "_Normal Quality", NULL, "Display images in normal quality", 1 },
+  { "LowQuality", NULL, "_Low Quality", NULL, "Display images in low quality, fast mode", 2 }
+};
+#endif
 
 
 /**
@@ -764,40 +807,52 @@ widget_realized_cb (GtkWidget *widget, gpointer data)
  * Constructs the window widget.
  **/
 static void
-eog_window_construct (EogWindow *window)
+eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	BonoboUIContainer *ui_container;
 	gboolean visible;
+	GtkWidget *menubar;
+	GtkWidget *toolbar;
+	GtkActionGroup *action_group;
+	GtkWidget *recent_widget;
+	GtkAction *action;
+	GtkWidget *sw;
+	GtkWidget *frame;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
 
-	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
-
+	priv->ui_mgr = gtk_ui_manager_new ();
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
+	gtk_container_add (GTK_CONTAINER (window), priv->box);
 
-	gtk_widget_show (priv->box);
-	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
+	/* build menu and toolbar */
+	action_group = gtk_action_group_new ("MenuActions");
+	gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), window);
+	gtk_action_group_add_toggle_actions (action_group, toggle_entries, G_N_ELEMENTS (toggle_entries), window);
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, action_group, 0);
+	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, "gtk-shell-ui.xml", NULL);
 
-	/* add menu and toolbar */
-	priv->ui_comp = bonobo_ui_component_new ("eog");
-	bonobo_ui_component_set_container (priv->ui_comp, 
-					   BONOBO_OBJREF (ui_container), NULL);
+	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
+	g_assert (menubar != NULL);
+	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
 
-	bonobo_ui_util_set_ui (priv->ui_comp, DATADIR, "eog-shell-ui.xml", "EOG", NULL);
-	bonobo_ui_component_add_verb_list_with_data (priv->ui_comp, eog_app_verbs, window);
+	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/ToolBar");
+	g_assert (toolbar != NULL);
+	gtk_box_pack_start (GTK_BOX (priv->box), toolbar, FALSE, FALSE, 0);
 
 	/* recent files support */
 	priv->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
 	egg_recent_model_set_filter_groups (priv->recent_model, RECENT_FILES_GROUP, NULL);
 	egg_recent_model_set_limit (priv->recent_model, 5);
 
-	priv->recent_view = egg_recent_view_bonobo_new (priv->ui_comp,
-							"/menu/File/EggRecentDocuments/");
-	egg_recent_view_bonobo_show_icons (priv->recent_view, TRUE);
+	recent_widget = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu/FileMenu/EggRecentDocuments");
+	priv->recent_view = egg_recent_view_gtk_new (gtk_widget_get_parent (recent_widget),
+						     recent_widget);
+	egg_recent_view_gtk_set_trailing_sep (priv->recent_view, TRUE);
+
 	egg_recent_view_set_model (EGG_RECENT_VIEW (priv->recent_view), priv->recent_model);
 	g_signal_connect (G_OBJECT (priv->recent_view), "activate",
 			  G_CALLBACK (open_recent_cb), window);
@@ -806,6 +861,54 @@ eog_window_construct (EogWindow *window)
 	priv->statusbar = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_NEVER);
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
+
+	/* content display */
+	priv->vpane = gtk_vpaned_new (); /* eog_vertical_splitter_new (); */
+
+	/* the image view for the full size image */
+ 	priv->scroll_view = eog_scroll_view_new ();
+	/* g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL); */
+	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
+	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
+
+	/* Create an info view widget to view additional image information and 
+	 * put it to left of the image view. Using an eog_horizontal_splitter for this. 
+	 */
+	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
+
+	/* left side holds the image view, right side the info view */
+	priv->hpane = gtk_hpaned_new (); /* eog_horizontal_splitter_new ();  */
+	gtk_paned_pack1 (GTK_PANED (priv->hpane), frame, TRUE, TRUE);
+	gtk_paned_pack2 (GTK_PANED (priv->hpane), priv->info_view, FALSE, TRUE);
+
+	gtk_paned_pack1 (GTK_PANED (priv->vpane), priv->hpane, TRUE, TRUE);
+
+	/* the wrap list for all the thumbnails */
+	priv->wraplist = eog_wrap_list_new ();
+	/* g_object_set (G_OBJECT (priv->wraplist), 
+		      "height_request", 200, 
+		      "width_request", 500,
+		      NULL);*/
+	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
+	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
+	g_signal_connect (G_OBJECT (priv->wraplist), "selection_changed",
+			  G_CALLBACK (handle_image_selection_changed), window);
+
+	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
+	
+	gtk_paned_pack2 (GTK_PANED (priv->vpane), sw, TRUE, TRUE);
+
+	/* by default make the wrap list keyboard active */
+	/* gtk_widget_grab_focus (priv->wraplist); */
+
+	gtk_box_pack_start (GTK_BOX (priv->box), priv->vpane, TRUE, TRUE, 0);
+
+#if 0
 	/* We connect to the realize signal here, because we must know
 	 * when all the child widgets of an eog window have determined
 	 * their size in order to get a working adapt_window_size
@@ -820,7 +923,7 @@ eog_window_construct (EogWindow *window)
 
 	/* add control frame interface */
 	priv->ctrl_frame = NULL;
-
+#endif
 	set_drag_dest (window);
 
 	/* set default geometry */
@@ -828,37 +931,22 @@ eog_window_construct (EogWindow *window)
 				     DEFAULT_WINDOW_WIDTH,
 				     DEFAULT_WINDOW_HEIGHT);
 	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
+	gtk_widget_show_all (GTK_WIDGET (window));
+	gtk_widget_hide_all (GTK_WIDGET (priv->vpane));
 
 	/* show/hide toolbar? */
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
-	bonobo_ui_component_set_prop (priv->ui_comp, "/commands/ShowHideToolbar", "state",
-				      visible ? "1" : "0", NULL);
-	bonobo_ui_component_set_prop (priv->ui_comp, "/Toolbar", "hidden", visible ? "0" : "1", NULL);
-	bonobo_ui_component_add_listener (priv->ui_comp, "ShowHideToolbar",
-					  (BonoboUIListenerFn) verb_ShowHideAnyBar_cb,
-					  (gpointer) window);
-	priv->view_toolbar_id =
-		gconf_client_notify_add (priv->client,
-					 EOG_CONF_UI_TOOLBAR,
-					 toolbar_visibility_changed_cb,
-					 window, NULL, NULL);
-
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/ViewMenu/ToolbarToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	g_object_set (G_OBJECT (toolbar), "visible", visible, NULL);
 
 	/* show/hide statusbar? */
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_STATUSBAR, NULL);
-	bonobo_ui_component_set_prop (priv->ui_comp, "/commands/ShowHideStatusbar", "state",
-				      visible ? "1" : "0", NULL);
-	if (!visible) {
-		gtk_widget_hide (GTK_WIDGET (priv->statusbar));
-	}
-	bonobo_ui_component_add_listener (priv->ui_comp, "ShowHideStatusbar",
-					  (BonoboUIListenerFn) verb_ShowHideAnyBar_cb,
-					  (gpointer) window);
-	priv->view_statusbar_id =
-		gconf_client_notify_add (priv->client,
-					 EOG_CONF_UI_STATUSBAR,
-					 statusbar_visibility_changed_cb,
-					 window, NULL, NULL);
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/ViewMenu/StatusbarToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 }
 
 /**
@@ -876,7 +964,7 @@ eog_window_new (void)
 
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "win_name", "eog", "title", _("Eye of Gnome"), NULL));
 
-	eog_window_construct (window);
+	eog_window_construct_ui (window);
 
 	return GTK_WIDGET (window);
 }
@@ -946,166 +1034,12 @@ adapt_window_size (EogWindow *window)
 }
 
 static void
-property_changed_cb (BonoboListener    *listener,
-		     char              *event_name, 
-		     CORBA_any         *any,
-		     CORBA_Environment *ev,
-		     gpointer           user_data)
+image_list_prepared_cb (EogImageList *list, EogWindow *window)
 {
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	if (any == NULL) return;
-
-	if (!g_ascii_strcasecmp (event_name, PROPERTY_IMAGE_PROGRESS)) {
-		gnome_appbar_set_progress_percentage (GNOME_APPBAR (window->priv->statusbar),
-						      BONOBO_ARG_GET_FLOAT (any));
-	}
-	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_TITLE)) {
-		char *title;
-
-		title = BONOBO_ARG_GET_STRING (any);
-		if (title == NULL) {
-			gtk_window_set_title (GTK_WINDOW (window), _("Eye of Gnome"));
-		}
-		else {
-			gtk_window_set_title (GTK_WINDOW (window), title);
-		}
-	}
-	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_STATUS)) {
-		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
-					 BONOBO_ARG_GET_STRING (any));	
-	}
-	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_WIDTH)) {
-		priv->desired_width = BONOBO_ARG_GET_INT (any);
-		adapt_window_size (window);
-	}
-	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_HEIGHT)) {
-		priv->desired_height = BONOBO_ARG_GET_INT (any);
-		adapt_window_size (window);
-	}
+	g_print ("EogWindow: Image list prepared: %i images\n", eog_image_list_length (EOG_IMAGE_LIST (list)));
+	update_ui_visibility (EOG_WINDOW (window));
 }
 
-
-static void
-check_for_control_properties (EogWindow *window)
-{
-        EogWindowPrivate *priv;
-	Bonobo_PropertyBag pb;
-	CORBA_any *any;
-	CORBA_Environment ev;
-	GList *properties = NULL;
-	GList *it = NULL;
-	gint width, height;
-
-	priv = window->priv;
-	width = height = -1;
-
-	CORBA_exception_init (&ev);
-
-	pb = bonobo_control_frame_get_control_property_bag (priv->ctrl_frame, &ev);
-	if (pb == CORBA_OBJECT_NIL) {
-		gtk_window_set_title (GTK_WINDOW (window), _("Eye of Gnome"));
-		return;
-	}
-
-	/* check for exisiting properties */
-	properties = bonobo_pbclient_get_keys (pb, &ev);
-	for (it = properties; it != NULL; it = it->next) {
-		if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_WINDOW_TITLE) == 0) {
-			bonobo_event_source_client_add_listener (pb, 
-								 (BonoboListenerCallbackFn) property_changed_cb,
-								 PROPERTY_WINDOW_TITLE, &ev, window);
-
-			/* set window title */
-			any = bonobo_pbclient_get_value (pb, PROPERTY_WINDOW_TITLE, TC_CORBA_string, &ev);
-			property_changed_cb (0, PROPERTY_WINDOW_TITLE, any, &ev, window);
-		}
-		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_WINDOW_STATUS) == 0) {
-			bonobo_event_source_client_add_listener (pb, 
-								 (BonoboListenerCallbackFn) property_changed_cb,
-								 PROPERTY_WINDOW_STATUS, &ev, window);
-
-			/* set status bar text */
-			any = bonobo_pbclient_get_value (pb, PROPERTY_WINDOW_STATUS, TC_CORBA_string, &ev);
-			property_changed_cb (0, PROPERTY_WINDOW_STATUS, any, &ev, window);
-		}
-		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_WINDOW_WIDTH) == 0) {
-			bonobo_event_source_client_add_listener (pb, 
-								 (BonoboListenerCallbackFn) property_changed_cb,
-								 PROPERTY_WINDOW_WIDTH, &ev, window);
-
-			/* query window size */
-			priv->desired_width = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_WIDTH, &ev);
-		}
-		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_WINDOW_HEIGHT) == 0) {
-			bonobo_event_source_client_add_listener (pb, 
-								 (BonoboListenerCallbackFn) property_changed_cb,
-								 PROPERTY_WINDOW_HEIGHT, &ev, window);
-
-			/* query window size */
-			priv->desired_height = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_HEIGHT, &ev);
-		}
-		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_IMAGE_PROGRESS) == 0) {
-			bonobo_event_source_client_add_listener (pb, 
-								 (BonoboListenerCallbackFn) property_changed_cb,
-								 PROPERTY_IMAGE_PROGRESS, &ev, window);
-		}
-	}
-
-	adapt_window_size (window);
-
-	bonobo_object_release_unref (pb, &ev);
-	CORBA_exception_free (&ev);
-}
-
-static void
-add_control_to_ui (EogWindow *window, Bonobo_Control control)
-{
-	EogWindowPrivate *priv;
-	BonoboUIContainer *ui_container;
-	CORBA_Environment ev;
-
-	CORBA_exception_init (&ev);
-
-	priv = window->priv;
-
-	/* remove previously loaded control */
-	if (priv->ctrl_frame != NULL) {
-		bonobo_control_frame_control_deactivate (priv->ctrl_frame);
-		bonobo_object_unref (priv->ctrl_frame);
-		gtk_widget_destroy (priv->ctrl_widget);
-		priv->ctrl_widget = NULL;
-		priv->ctrl_frame = NULL;
-	}
-
-	/* create control frame */
-	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
-	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (ui_container));
-	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
-	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
-			  (GtkSignalFunc) activate_uri_cb, NULL);
-
-	priv->desired_width = -1;
-	priv->desired_height = -1;
-
-	/* add control to UI */
-	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
-	bonobo_control_frame_control_activate (priv->ctrl_frame);
-	priv->ctrl_widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
-	if (!priv->ctrl_widget) {
-		g_assert_not_reached ();
-	}
-	
-	gtk_box_pack_start (GTK_BOX (priv->box), priv->ctrl_widget, TRUE, TRUE, 0);
-	gtk_widget_show (priv->ctrl_widget);
-
-	/* clean up */
-	CORBA_exception_free (&ev);
-}
 
 /**
  * eog_window_open:
@@ -1121,46 +1055,47 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 gboolean
 eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GError **error)
 {
-	Bonobo_Control control;
-	Bonobo_PersistFile pfile;
-	CORBA_Environment ev;
-	gboolean result = FALSE;
-	EggRecentItem *recent_item;
 	EogWindowPrivate *priv;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
-	g_return_val_if_fail (iid != NULL, FALSE);
-	g_return_val_if_fail (text_uri != NULL, FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+	GnomeVFSFileInfo *info;
+	GnomeVFSResult result;
 
 	priv = window->priv;
-	CORBA_exception_init (&ev);
 
-	/* get control component */
-	control = bonobo_get_object (iid, "Bonobo/Control", &ev);
-	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
+	g_print ("EogWindow.c: eog_window_open single uri\n");
+
+	/* create new image list */
+	if (priv->image_list != NULL) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
+		g_object_unref (priv->image_list);
 	}
+	priv->image_list = eog_image_list_new ();
+	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), "list_prepared", G_CALLBACK (image_list_prepared_cb),
+						       window);
 
-	/* try to obtain a PersistFile interface from the control */
-	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
-	if (BONOBO_EX (&ev) || pfile == CORBA_OBJECT_NIL) {
-		bonobo_object_release_unref (control, NULL);
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
+	/* fill list with uris */
+	info = gnome_vfs_file_info_new ();
+	result = gnome_vfs_get_file_info (text_uri, info,
+					  GNOME_VFS_FILE_INFO_DEFAULT |
+					  GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	if (result == GNOME_VFS_OK) {
+		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+			eog_image_list_add_directory (priv->image_list, (char*) text_uri);
+		}
+		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
+			GList *list = NULL;
+
+			list = g_list_prepend (list, (gpointer) text_uri);
+			eog_image_list_add_files (priv->image_list, list);
+
+			g_list_free (list);
+		}
 	}
+	gnome_vfs_file_info_unref (info);
 
-	add_control_to_ui (window, control);
+	/* attach model to view */
+	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
-	/* load single file */
-	Bonobo_PersistFile_load (pfile, text_uri, &ev);
+#if 0 /* FIXME: update recent files */
 	if (BONOBO_EX (&ev)) {
 		g_set_error (error, EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_IO,
@@ -1178,17 +1113,11 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 		egg_recent_model_add_full (priv->recent_model, recent_item);
 		egg_recent_item_unref (recent_item);		
 	}
+#endif
 
-	bonobo_object_release_unref (pfile, &ev);
-	bonobo_object_release_unref (control, &ev);
+	update_ui_visibility (window);
 
-	/* register and check for existing properties */
-	check_for_control_properties (window);
-
-	/* clean up */
-	CORBA_exception_free (&ev);
-
-	return result;
+	return TRUE;
 }
 
 /**
@@ -1206,81 +1135,46 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 gboolean
 eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
 {
-	Bonobo_Control control;
-	GNOME_EOG_CollectionView cview;
-	CORBA_Environment ev;
 	EogWindowPrivate *priv;
-	GNOME_EOG_URIList *uri_list;
-	gint length, i;
-	GList *uri;
-	gboolean result = FALSE;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
-	g_return_val_if_fail (iid != NULL, FALSE);
-	g_return_val_if_fail (text_uri_list != NULL, FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	priv = window->priv;
 
-	CORBA_exception_init (&ev);
+	g_print ("EogWindow.c: eog_window_open  uri list\n");
 
-	/* get control component */
-	control = bonobo_get_object (iid, "Bonobo/Control", &ev);
-	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
-	}
-	
-	/* try to obtaion CollectionView interface */
-	cview = Bonobo_Unknown_queryInterface (control, "IDL:GNOME/EOG/CollectionView:1.0", &ev);
-	if (BONOBO_EX (&ev) || cview == CORBA_OBJECT_NIL) {
-		bonobo_object_release_unref (control, NULL);
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
+	if (priv->image_list != NULL) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
+		g_object_unref (priv->image_list);
 	}
 
-	add_control_to_ui (window, control);
-	
-	/* convert GList to CORBA sequence */
-	length = g_list_length (text_uri_list);
-	uri_list = GNOME_EOG_URIList__alloc ();
-	uri_list->_maximum = length;
-	uri_list->_length = length;
-	uri_list->_buffer = CORBA_sequence_GNOME_EOG_URI_allocbuf (length);
-	uri = text_uri_list;	
-	for (i = 0; i < length; i++) {
-		uri_list->_buffer[i] = CORBA_string_dup ((gchar*)uri->data);
-		uri = uri->next;
-	}
-	CORBA_sequence_set_release (uri_list, CORBA_TRUE);
-	
-	/* open list of uris */
-	GNOME_EOG_CollectionView_loadURIList (cview, uri_list, &ev);
+	priv->image_list = eog_image_list_new ();
+	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), "list_prepared", G_CALLBACK (image_list_prepared_cb),
+						       window);
+	eog_image_list_add_files (priv->image_list, text_uri_list);
+	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
+
+#if 0 /* FIXME: update recent files */
 	if (BONOBO_EX (&ev)) {
 		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
+			     EOG_WINDOW_ERROR_IO,
 			     bonobo_exception_get_text (&ev));
 	}
 	else {
 		result = TRUE;
+
+		if (priv->uri == NULL) {
+			priv->uri = g_strdup ((char*) text_uri);
+		}
+		
+		recent_item = egg_recent_item_new_from_uri (text_uri);
+		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
+		egg_recent_model_add_full (priv->recent_model, recent_item);
+		egg_recent_item_unref (recent_item);		
 	}
+#endif
 
-	bonobo_object_release_unref (cview, &ev);
-	bonobo_object_release_unref (control, &ev);
+	update_ui_visibility (window);
 
-	/* register and check for existing properties */
-	check_for_control_properties (window);
-
-	/* clean up */
-	CORBA_exception_free (&ev);
-
-	return result;
+	return TRUE;
 }
 
 
@@ -1310,12 +1204,16 @@ eog_get_window_list (void)
 const char *
 eog_window_get_uri (EogWindow *eog_window)
 {
+#if 0
 	EogWindowPrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (eog_window), NULL);
 
 	priv = eog_window->priv;
 	return priv->uri;
+#else
+	return NULL;
+#endif
 }
 
 /**

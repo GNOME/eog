@@ -1,3 +1,23 @@
+2004-05-25  Jens Finke  <jens@triq.net>
+
+	This is a fairly large patch, which makes fundamental changes. It
+	is a work in progress and is not fully functional yet again. Use
+	the BEFORE_GTK_UI_MANAGER_SWITCH tag to checkout the latest
+	working version.
+	
+	* libeog/Makefile.am: Moved eog-wrap-list.[ch],
+	eog-canvas-pixbuf.[ch], eog-collection-item.[ch] here.
+
+	* collection/Makefile.am: Removed above files from here. Killed
+	eog-collection-marshal.list.
+
+	* shell/Makefile.am: Link with jpegutils.
+	
+	* shell/eog-window.c: Made this a GtkWindow, using GtkUIManager
+	and related stuff. 
+
+	* shell/gtk-shell-ui.xml: New file.
+
 2004-05-11  Narayana Pattipati <narayana.pattipati@wipro.com>
 
 	* collection/GNOME_EOG_Collection.server.in.in:

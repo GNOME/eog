@@ -50,7 +50,6 @@
 #include "eog-scroll-view.h"
 #include "eog-collection-view.h"
 #include "eog-image-list.h"
-#include "eog-collection-marshal.h"
 #include "eog-full-screen.h"
 #include "eog-info-view.h"
 #include "eog-transform.h"

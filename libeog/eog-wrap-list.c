@@ -28,7 +28,7 @@
 #include <gtk/gtkdnd.h>
 
 #include "eog-wrap-list.h"
-#include "eog-collection-marshal.h"
+#include "libeog-marshal.h"
 #include "eog-image.h"
 #include "eog-collection-item.h"
 
@@ -185,7 +185,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 			      G_STRUCT_OFFSET (EogWrapListClass, right_click),
 			      NULL,
 			      NULL,
-			      eog_collection_marshal_BOOLEAN__INT_POINTER,
+			      libeog_marshal_BOOLEAN__INT_POINTER,
 			      G_TYPE_BOOLEAN,
 			      2,
 			      G_TYPE_INT,
@@ -197,7 +197,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 			      G_STRUCT_OFFSET (EogWrapListClass, double_click),
 			      NULL,
 			      NULL,
-			      eog_collection_marshal_VOID__INT,
+			      libeog_marshal_VOID__INT,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_INT);
@@ -844,6 +844,8 @@ model_prepared (EogImageList *model, gpointer data)
 	priv = wlist->priv;
 	
 	g_assert (priv->view_order == NULL);
+	g_assert (priv->selected_items == NULL);
+	g_assert (priv->n_selected_items == 0);
 
 	iter = eog_image_list_get_first_iter (model);
 	success = (iter != NULL);
@@ -920,6 +922,7 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 {
 	EogWrapListPrivate *priv;
 	int i;
+	GList *it;
 
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
@@ -931,8 +934,19 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 			g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids[i]);
 			priv->model_ids[i] = 0;
 		}
+		g_object_unref (G_OBJECT (priv->model));
 	}
 	priv->model = NULL;
+
+	/* free/remove all the collection items */
+	for (it = priv->view_order; it != NULL; it = it->next) {
+		gtk_object_destroy (GTK_OBJECT (it->data));
+	}
+	g_list_free (priv->selected_items);
+	priv->selected_items = NULL;
+	priv->n_selected_items = 0;
+	g_list_free (priv->view_order);
+	priv->view_order = NULL;
 
 	if (model) {
 		priv->model = model;

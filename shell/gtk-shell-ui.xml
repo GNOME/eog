@@ -1,0 +1,32 @@
+<ui>
+  <menubar name="MainMenu">
+    <menu name="FileMenu" action="FileMenu">
+      <menuitem action="FileNewWindow"/>
+      <menuitem action="FileOpen"/>
+      <menuitem action="FileDirOpen"/>
+      <separator/>
+      <placeholder name="EggRecentDocuments"/>
+      <separator/>
+      <menuitem action="FileCloseWindow"/>
+      <menuitem action="FileExit"/>
+    </menu>
+    <menu action="EditMenu">
+      <placeholder name="Edit Items Placeholder"/>
+      <menuitem action="EditPreferences"/>
+    </menu>
+    <menu action="ViewMenu">
+      <menuitem name="ToolbarToggle" action="ViewToolbar"/>
+      <menuitem name="StatusbarToggle" action="ViewStatusbar"/>
+      <placeholder name="View Items Placeholder"/>
+    </menu>
+    <menu action="HelpMenu">
+      <menuitem action="HelpManual"/>
+      <menuitem action="HelpAbout"/>
+    </menu>
+  </menubar>
+  <toolbar name="ToolBar">
+    <toolitem action="FileNewWindow"/>
+    <toolitem action="FileOpen"/>
+    <separator/>
+  </toolbar>
+</ui>

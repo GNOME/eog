@@ -77,6 +77,12 @@ libeog_a_SOURCES =			\
 	eog-vertical-splitter.c		\
 	eog-vertical-splitter.h		\
 	eog-config-keys.h		\
+	eog-wrap-list.h			\
+	eog-wrap-list.c			\
+	eog-collection-item.h		\
+	eog-collection-item.c		\
+	eog-canvas-pixbuf.h		\
+	eog-canvas-pixbuf.c		\
 	uta.c				\
 	uta.h				\
 	cursors.c			\
