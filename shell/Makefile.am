@@ -7,9 +7,7 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
-	$(EXTRA_GNOME_CFLAGS)				\
-	$(EXTRA_BONOBO_CFLAGS)				\
-	$(EXTRA_VFS_CFLAGS)
+	$(EXTRA_GNOME_CFLAGS)
 
 bin_PROGRAMS = eog
 
@@ -25,8 +23,6 @@ eog_SOURCES =	\
 eog_LDADD = 	\
 	$(GCONF_LIBS)		\
 	$(EXTRA_GNOME_LIBS)	\
-	$(EXTRA_BONOBO_LIBS)	\
-	$(EXTRA_VFS_LIBS)	\
 	$(INTLLIBS)		\
 	../libeog/libeog.la
 

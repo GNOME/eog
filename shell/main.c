@@ -1,7 +1,6 @@
 #include "../config.h"
 
 #include <gnome.h>
-#include <glade/glade.h>
 #include <liboaf/liboaf.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <gconf/gconf-client.h>
@@ -257,8 +256,6 @@ main (int argc, char **argv)
 	ctx = g_new0 (poptContext, 1);
 	gnome_init_with_popt_table ("Eye of Gnome", VERSION,
 		    argc, argv, NULL, 0, ctx);
-
-	glade_gnome_init ();
 
 	CORBA_exception_init (&ev);
 	orb = oaf_init (argc, argv);
