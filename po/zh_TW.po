@@ -1,13 +1,13 @@
 # traditional Chinese translation of eog.
 # Copyright (C) 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Jing-Jong Shyue <shyue@sonoma.com.tw>,2000
+# Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000
 # Abel Cheung <maddog@linux.org.hk>, 2001-2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.1\n"
-"POT-Creation-Date: 2003-05-15 09:50+0800\n"
-"PO-Revision-Date: 2003-05-15 10:05+0800\n"
+"POT-Creation-Date: 2003-06-05 04:47+0800\n"
+"PO-Revision-Date: 2003-06-05 19:45+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -68,14 +68,14 @@ msgstr "逆時針方向旋轉(_R)"
 msgid "Slide Show"
 msgstr "投影片"
 
-#: collection/eog-collection-view-ui.xml.h:11
-msgid "Undo"
-msgstr "復原"
-
-#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "編輯(_E)"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Undo"
+msgstr "復原(_U)"
 
 # src/preferences-dialog.glade.h:49
 #: collection/eog-collection-view-ui.xml.h:13
@@ -83,21 +83,25 @@ msgstr "編輯(_E)"
 msgid "_View"
 msgstr "顯示(_V)"
 
-#: collection/eog-collection-view.c:480
+#: collection/eog-collection-view.c:535
 msgid "Move to Trash"
 msgstr "丟進垃圾桶"
 
-#: collection/eog-collection-view.c:524
+#: collection/eog-collection-view.c:579
 msgid "Collection View"
 msgstr "圖像集顯示模式"
 
-#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
+#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: collection/eog-collection-view.c:984
+#: collection/eog-collection-view.c:1042
 msgid "Status Text"
 msgstr "狀態文字"
+
+#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+msgid "Progress of Image Loading"
+msgstr "載入圖像的進度"
 
 # src/preferences-dialog.glade.h:32
 #: eog.desktop.in.h:1
@@ -208,7 +212,7 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "決定表示透明的方式。有效的值為 CHECK_PATTERN、COLOR 及 NONE。如果選取 COLOR，"
@@ -267,8 +271,8 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
-"視窗會否從圖像的尺寸來自動決定視窗本身的尺寸及圖像的縮放倍率。如果不啟用本選"
-"項，則會由視窗管理程式來決定視窗尺寸。"
+"會否從圖像的尺寸來自動決定視窗本身的尺寸及圖像的縮放倍率。如果不啟用本選項，"
+"則會由視窗總管來決定視窗的尺寸。"
 
 #: eog.schemas.in.h:15
 msgid ""
@@ -294,7 +298,7 @@ msgstr ""
 #: eog.schemas.in.h:18
 msgid ""
 "Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
@@ -346,11 +350,11 @@ msgstr "載入圖像"
 msgid "Save Image"
 msgstr "儲存圖像"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image.c:1320
 msgid "No image loaded."
 msgstr "沒有載入圖像。"
 
-#: libeog/eog-image.c:1250
+#: libeog/eog-image.c:1354
 msgid "Unsupported image type for saving."
 msgstr "儲存時嘗試使用不支援的圖像格式。"
 
@@ -382,7 +386,7 @@ msgid "Page"
 msgstr "頁"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:359
 msgid "Preview"
 msgstr "預覽"
 
@@ -590,7 +594,7 @@ msgstr "離開(_Q)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "i18n 程式中文化計劃\n"
@@ -602,22 +606,22 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
+#: shell/eog-window.c:849 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 # src/window.c:164
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版權所有 © 2000-2002 自由軟體基金會"
 
 # src/window.c:166
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖像瀏覽及分類程式。"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -631,7 +635,7 @@ msgstr ""
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr "將會同時開啟 %i 個視窗。其實閣下是否想以圖像集方式開啟？"
+msgstr "將會同時開啟 %i 個視窗。其實您是否想以圖像集方式開啟？"
 
 # src/preferences-dialog.glade.h:38
 #: shell/main.c:229
@@ -729,55 +733,55 @@ msgid "_Print..."
 msgstr "列印(_P)..."
 
 # src/window.c:221
-#: viewer/eog-image-view.c:778
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/拉近(_Z)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:780
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/拉遠(_O)"
 
-#: viewer/eog-image-view.c:782
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/原來尺寸(_N)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:784
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/符合視窗(_F)"
 
 # src/tb-image.c:35
-#: viewer/eog-image-view.c:787
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/關閉(_C)"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:962
 msgid "Image successfully saved"
 msgstr "成功儲存圖像"
 
-#: viewer/eog-image-view.c:943
+#: viewer/eog-image-view.c:966
 msgid "Image saving failed"
 msgstr "儲存圖像失敗"
 
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:1186
+#: viewer/eog-image-view.c:1209
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:1189
+#: viewer/eog-image-view.c:1212
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:1195
+#: viewer/eog-image-view.c:1218
 msgid "Statusbar Text"
 msgstr "狀態列文字"
 
-#: viewer/eog-image-view.c:1198
+#: viewer/eog-image-view.c:1221
 msgid "Desired Window Width"
 msgstr "要求的視窗寬度"
 
-#: viewer/eog-image-view.c:1201
+#: viewer/eog-image-view.c:1224
 msgid "Desired Window Height"
 msgstr "要求的視窗高度"
 
@@ -878,32 +882,6 @@ msgstr "無法初始化 GnomeVFS！\n"
 #~ msgid "the size of chequers to use"
 #~ msgstr "方格的大小"
 
-# src/preferences-dialog.glade.h:9
-#~ msgid "dither type"
-#~ msgstr "擬色方式"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "將會同時開啟 %i 個\n"
-#~ "視窗。是否繼續？"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "無法存取 %s\n"
-#~ "Eye of Gnome 將不能顯示該檔案。"
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "因無法存取，Eye of Gnome 將不能顯示以下的檔案：\n"
-#~ "%s"
-
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "無法將圖像儲存為‘%s’：%s。"
 
@@ -973,10 +951,6 @@ msgstr "無法初始化 GnomeVFS！\n"
 #~ msgid "_White"
 #~ msgstr "白色(_W)"
 
-# src/preferences-dialog.glade.h:26
-#~ msgid "Dither"
-#~ msgstr "擬色(Dither)"
-
 # src/preferences-dialog.glade.h:9
 #~ msgid "Check Type"
 #~ msgstr "方格類型"
@@ -988,13 +962,6 @@ msgstr "無法初始化 GnomeVFS！\n"
 # src/tb-image.c:35
 #~ msgid "Close"
 #~ msgstr "關閉"
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "無法顯示有關偏好設定對話窗的說明文件。\n"
-#~ "%s"
 
 # src/preferences.c:219
 #~ msgid "Change preferences"
