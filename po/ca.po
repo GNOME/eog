@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-02 18:10+0200\n"
-"PO-Revision-Date: 2003-07-02 18:11+0200\n"
+"POT-Creation-Date: 2003-07-15 13:39+0200\n"
+"PO-Revision-Date: 2003-07-15 13:41+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -77,39 +77,40 @@ msgid "_Save"
 msgstr "_Desa"
 
 #: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Desfés"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Visualitza"
 
-#: collection/eog-collection-view.c:289
+#: collection/eog-collection-view.c:291
 msgid "Cancel saving"
 msgstr "Cancel·la el desat"
 
-#: collection/eog-collection-view.c:292
+#: collection/eog-collection-view.c:294
 msgid "Saving finished"
 msgstr "El desat ha finalitzat"
 
-#: collection/eog-collection-view.c:754
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "Mou a la paperera"
 
-#: collection/eog-collection-view.c:798
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "Mostra la col·lecció"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: collection/eog-collection-view.c:1262
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Text d'estat"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
 msgid "Progress of Image Loading"
 msgstr "Progrés de la càrrega de la imatge"
 
@@ -333,7 +334,7 @@ msgid "Page"
 msgstr "Pàgina"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:361
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Previsualització"
 
@@ -520,27 +521,22 @@ msgstr "S_urt"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Softcatalà <info@softcatala.org>\n"
 "Jordi Mallach <jordi@sindominio.net>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
-#: shell/eog-window.c:857 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "El programa del GNOME per visualitzar i catalogar imatges."
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -654,63 +650,86 @@ msgstr "Pantalla _sencera"
 msgid "_Print..."
 msgstr "Im_primeix..."
 
-#: viewer/eog-image-view.c:786
+#: viewer/eog-image-view.c:811
 msgid "/Rotate C_lockwise"
 msgstr "/Rota en sentit de les agulles del re_llotge"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:813
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rota en sentit contra_ri de les agulles del rellotge"
 
 #
-#: viewer/eog-image-view.c:791
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Amplia el _zoom"
 
 #
-#: viewer/eog-image-view.c:793
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Re_dueix el zoom"
 
-#: viewer/eog-image-view.c:795
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Mida _normal"
 
-#: viewer/eog-image-view.c:797
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Millor a_just"
 
-#: viewer/eog-image-view.c:800
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Tanca"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "No s'ha pogut carregar la imatge %s."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"No s'ha pogut carregar la imatge %s.\n"
+"Raó: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "La càrrega de la imatge ha fallat"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "S'ha desat la imatge correctament"
 
-#: viewer/eog-image-view.c:998
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "El desat de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:1250
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
-#: viewer/eog-image-view.c:1253
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "Amplada de finestra desitjada"
 
-#: viewer/eog-image-view.c:1256
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "Alçada de finestra desitjada"
+
+#
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "Obté la mida de la finestra automàticament"
@@ -958,9 +977,6 @@ msgstr "Alçada de finestra desitjada"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "No s'ha pogut desar la imatge com a '%s': %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "No s'ha pogut imprimir la imatge"
 
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
