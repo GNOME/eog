@@ -1,3 +1,42 @@
+2001-06-01  Jens Finke <jens@gnome.org>
+
+	* Makefile.am (INCLUDES), (eog_collection_LDADD): Added gnome-vfs
+	flags.
+
+	* cimage.[ch] (cimage_new): Create GnomeVFSURI from text uri and
+	use cimage_new_uri.
+	(cimage_new_uri): New function, creates an cimage from
+	GnomeVFSURI.
+	(cimage_get_uri): Return GnomeVFSURI object.
+	(cimage_is_directory): Use GnomeVFS functions to determine file
+	type.
+
+	* eog-collection-model.c (loading_context_free): New helper
+	function.
+	(directory_visit_cb): New function, opens a single file contained
+	in a directory.
+	(real_storage_loading): Renamed to real_dir_loading, uses GnomeVFS
+	functions now, removed all the BonoboStorage/Stream stuff.
+	(directory_filter_cb): New function, determines what kind of files
+	we can handle within a directory.
+	(real_stream_loading): Renamed to real_file_loading, uses GnomeVFS
+	functions now, removed all the BonoboStorage/Stream stuff.
+	(eog_collection_model_set_uri),
+	(eog_collection_model_set_uri_list),
+	(prepare_context): Use GnomeVFS functions, removed all the
+	BonoboStorage/Stream stuff.
+
+	* eog-collection-view.c (eog_collection_view_get_prop): Adapted to
+	cimage changes.
+
+	* eog-image-loader.c (load_uri): Use GnomeVFS functions, removed
+	all the BonoboStorage/Stream stuff.
+
+	* eog-item-factory-simple.c (ii_factory_update_item): Adapted to
+	cimage changes.
+
+	* main.c (init_server_factory): Call gnome-vfs-init.
+	
 2001-05-31  Jens Finke <jens@gnome.org>
 
 	* Makefile.am (INCLUDES): Added $(EXTRA_GNOME_CFLAGS) [all these

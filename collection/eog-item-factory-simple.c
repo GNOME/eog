@@ -26,6 +26,8 @@
 #include <gdk-pixbuf/gnome-canvas-pixbuf.h>
 #include <libgnomeui/gnome-canvas-rect-ellipse.h>
 #include <libgnomeui/gnome-canvas-text.h>
+#include <libgnomevfs/gnome-vfs-types.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
 #include "eog-item-factory-simple.h"
 #include "eog-collection-model.h"
 #include "cimage.h"
@@ -430,10 +432,10 @@ ii_factory_update_item (EogItemFactory *factory,
 		caption_w = gdk_string_width (font, caption);
 		caption_h = gdk_string_height (font, caption);
 	} else {
-		gchar *uri;
+		GnomeVFSURI *uri;
 		uri = cimage_get_uri (cimage);
-		caption = g_strdup (g_basename (uri));
-		g_free (uri);
+		caption = g_strdup (gnome_vfs_uri_get_basename (uri));
+	        gnome_vfs_uri_unref (uri);
 		
 		if (caption) {
 			caption_w = gdk_string_width (font, caption);

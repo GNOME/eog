@@ -1,6 +1,7 @@
 #include "eog-collection-model.h"
 #include "eog-image-loader.h"
 #include "bonobo/bonobo-moniker-util.h"
+#include <libgnomevfs/gnome-vfs.h>
 
 /* Signal IDs */
 enum {
@@ -16,16 +17,11 @@ static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func
 					   gpointer data, GtkArg *args);
 static guint eog_model_signals[LAST_SIGNAL];
 
-typedef enum {
-	LC_BONOBO_STORAGE,
-	LC_BONOBO_STREAM
-} LCType; 
-
 typedef struct {
 	EogCollectionModel *model;
-	gchar *uri;
-	LCType type;
-	Bonobo_Unknown storage_stream;
+	GnomeVFSURI *uri;
+	GnomeVFSFileInfo *info;
+	GnomeVFSHandle *handle;
 } LoadingContext;
 
 struct _EogCollectionModelPrivate {
@@ -54,6 +50,24 @@ static void
 free_hash_image (gpointer key, gpointer value, gpointer data)
 {
 	gtk_object_unref (GTK_OBJECT (value));
+}
+
+static void
+loading_context_free (LoadingContext *ctx)
+{
+	if (ctx->uri)
+		gnome_vfs_uri_unref (ctx->uri);
+	ctx->uri = NULL;
+
+	if (ctx->info)
+		gnome_vfs_file_info_unref (ctx->info);
+	ctx->info = NULL;
+	
+	if (ctx->handle)
+		gnome_vfs_close (ctx->handle);
+	ctx->handle = NULL;
+	
+	g_free (ctx);
 }
 
 static void
@@ -233,98 +247,118 @@ eog_collection_model_new (void)
 	return model;
 }
 
-static gint
-real_storage_loading (LoadingContext *ctx)
+
+static gboolean
+directory_visit_cb (const gchar *rel_path,
+		    GnomeVFSFileInfo *info,
+		    gboolean recursing_will_loop,
+		    gpointer data,
+		    gboolean *recurse)
 {
+	CImage *img;
+	LoadingContext *ctx;
+	GnomeVFSURI *uri;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
-	CORBA_Environment ev;
-	Bonobo_Storage_DirectoryList *dir_list;
-	gint i;
-
-	g_return_val_if_fail (ctx->type == LC_BONOBO_STORAGE, FALSE);
-
+	GList *id_list = NULL;
+	gint id;
+	static gint count = 0;
+	
+	ctx = (LoadingContext*) data;
 	model = ctx->model;
 	priv = model->priv;
 
-	CORBA_exception_init (&ev);
+	g_print ("rel_path: %s\n", rel_path);
+	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_path);
+	g_print ("uri.toString(): %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 
-	dir_list = Bonobo_Storage_listContents (ctx->storage_stream, "",
-						Bonobo_FIELD_CONTENT_TYPE,
-						&ev);
+	img = cimage_new_uri (uri);			
+	gnome_vfs_uri_unref (uri);
+	id = cimage_get_unique_id (img);
 
-	/* Create a list of images to load and their
-	 * initial image object.
-	 */
-	for (i = 0; i < dir_list->_length; i++) {
-		Bonobo_StorageInfo info;
+	/* add image infos to internal lists */
+	g_hash_table_insert (priv->id_image_mapping,
+			     GINT_TO_POINTER (id),
+			     img);
+	id_list = g_list_append (id_list, 
+				 GINT_TO_POINTER (id));
+	gtk_signal_emit (GTK_OBJECT (model), 
+			 eog_model_signals [INTERVAL_ADDED],
+			 id_list);
+	
+	eog_image_loader_start (priv->loader, img);
 
-		info = (Bonobo_StorageInfo) dir_list->_buffer[i];
-		
-		if(g_strncasecmp(info.content_type, "image/", 6) == 0) {
-			CImage *img;
-			gchar *uri;
-			GList *id_list = NULL;
-			gint id;
+	if (count++ % 50 == 0)
+		while (gtk_events_pending ())
+			gtk_main_iteration ();
 
-			uri = g_strconcat (ctx->uri, "/", info.name, NULL);
-			img = cimage_new (uri);			
-			g_free (uri);
-			id = cimage_get_unique_id (img);
+	return TRUE;
+}
 
-			/* add image infos to internal lists */
-			g_hash_table_insert (priv->id_image_mapping,
-					     GINT_TO_POINTER (id),
-					     img);
-			id_list = g_list_append (id_list, 
-						 GINT_TO_POINTER (id));
-			gtk_signal_emit (GTK_OBJECT (model), 
-					 eog_model_signals [INTERVAL_ADDED],
-					 id_list);
-
-			eog_image_loader_start (priv->loader, img);
-		}
-
-		/* update gui every 20th time */
-		if (i % 20 == 0)
-			while (gtk_events_pending ())
-				gtk_main_iteration ();
-	}
-
-	g_free (ctx->uri);
-	Bonobo_Unknown_unref (ctx->storage_stream, &ev);
-	CORBA_Object_release (ctx->storage_stream, &ev);
-	g_free (ctx);
-
-	CORBA_exception_free (&ev);
-
-	return FALSE;
+static gboolean  
+directory_filter_cb (const GnomeVFSFileInfo *info, gpointer data)
+{
+	g_print ("check for mime type: %s\n", info->mime_type);
+	return (g_strncasecmp (info->mime_type, "image/", 6) == 0);	
 }
 
 static gint
-real_stream_loading (LoadingContext *ctx)
+real_dir_loading (LoadingContext *ctx)
 {
-	CORBA_Environment ev;
-	Bonobo_StorageInfo *info;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
+	GnomeVFSDirectoryFilter *filter;
 
-	g_return_val_if_fail (ctx->type == LC_BONOBO_STREAM, FALSE);
+	g_return_val_if_fail (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY, FALSE);
 
 	model = ctx->model;
 	priv = model->priv;
-	CORBA_exception_init (&ev);
+
+	filter = gnome_vfs_directory_filter_new_custom (directory_filter_cb,
+							GNOME_VFS_DIRECTORY_FILTER_NEEDS_MIMETYPE,
+							NULL);
+
+	gnome_vfs_directory_visit_uri (ctx->uri,
+				       GNOME_VFS_FILE_INFO_DEFAULT |
+				       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+				       GNOME_VFS_FILE_INFO_GET_MIME_TYPE,
+				       filter,
+				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
+				       directory_visit_cb,
+				       ctx);
+
+	loading_context_free (ctx);
+	return FALSE;
+}
 	
-	info =  Bonobo_Stream_getInfo (ctx->storage_stream, 
-				       Bonobo_FIELD_CONTENT_TYPE, 
-				       &ev);
+
+static gint
+real_file_loading (LoadingContext *ctx)
+{
+	EogCollectionModel *model;
+	EogCollectionModelPrivate *priv;
+	GnomeVFSResult result;
+
+	g_return_val_if_fail (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR, FALSE);
+
+	model = ctx->model;
+	priv = model->priv;
+
+	result = gnome_vfs_get_file_info_uri (ctx->uri,
+					      ctx->info, 
+					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+
+	if (result != GNOME_VFS_OK) {
+		g_warning ("Error while obtaining file informations.\n");
+		return FALSE;
+	}
 	
-	if(g_strncasecmp(info->content_type, "image/", 6) == 0) {
+	if(g_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
 		CImage *img;
 		GList *id_list = NULL;
 		gint id;
 
-		img = cimage_new (ctx->uri);			
+		img = cimage_new_uri (ctx->uri);			
 		id = cimage_get_unique_id (img);
 		
 		/* add image infos to internal lists */
@@ -340,78 +374,74 @@ real_stream_loading (LoadingContext *ctx)
 		eog_image_loader_start (priv->loader, img);
 	}
 
-	g_free (ctx->uri);
-	Bonobo_Unknown_unref (ctx->storage_stream, &ev);
-	CORBA_Object_release (ctx->storage_stream, &ev);
-	g_free (ctx);
-	
-	CORBA_exception_free (&ev);
+	loading_context_free (ctx);
+
 	return FALSE;
 }
 
-static LoadingContext*
-prepare_context (EogCollectionModel *model, const gchar *uri) 
-{
-	CORBA_Environment ev;
-	LoadingContext *ctx;
 
-	CORBA_exception_init (&ev);
+static LoadingContext*
+prepare_context (EogCollectionModel *model, const gchar *text_uri) 
+{
+	LoadingContext *ctx;
+	GnomeVFSFileInfo *info;
+	GnomeVFSResult result;
+
 	ctx = g_new0 (LoadingContext, 1);
+	ctx->uri = gnome_vfs_uri_new (text_uri);
 
 #ifdef COLLECTION_DEBUG
-	g_message ("Prepare context for URI: %s", uri);
+	g_message ("Prepare context for URI: %s", text_uri);
 #endif
-	
-	/* check for BonoboStorage interface */
-	ctx->storage_stream = bonobo_get_object (uri, "IDL:Bonobo/Storage:1.0", &ev);
-	if (ev._major == CORBA_NO_EXCEPTION) {
-		ctx->type = LC_BONOBO_STORAGE;
-	} else {
-		ev._major = CORBA_NO_EXCEPTION;
-		/* if failed, check for BonoboStream interface */
-		ctx->storage_stream = bonobo_get_object (uri, "IDL:Bonobo/Stream:1.0", &ev);
-		if (ev._major == CORBA_NO_EXCEPTION) {
-			ctx->type = LC_BONOBO_STREAM;
-		} else {
-			CORBA_exception_free (&ev);
-			g_free (ctx);
-			return NULL;
-		}
+
+	info = gnome_vfs_file_info_new ();
+	result = gnome_vfs_get_file_info_uri (ctx->uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	if (result != GNOME_VFS_OK) {
+		loading_context_free (ctx);
+		return NULL;
 	}
 
-	ctx->uri = g_strdup (uri);
+	ctx->info = info;
+	ctx->handle = 0;
 	ctx->model = model;
 
-	CORBA_exception_free (&ev);
 	return ctx;
 }
 
 void
 eog_collection_model_set_uri (EogCollectionModel *model, 
-			      const gchar *uri)
+			      const gchar *text_uri)
 {
 	EogCollectionModelPrivate *priv;
 	LoadingContext *ctx;
 
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-	g_return_if_fail (uri != NULL);
+	g_return_if_fail (text_uri != NULL);
 	
 	priv = model->priv;
 
-	ctx = prepare_context (model, uri);
+	ctx = prepare_context (model, text_uri);
 
 	if (ctx != NULL) {
-		if (ctx->type == LC_BONOBO_STORAGE)
-			gtk_idle_add ((GtkFunction) real_storage_loading, ctx);
-		else
-			gtk_idle_add ((GtkFunction) real_stream_loading, ctx);
+		if (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+			gtk_idle_add ((GtkFunction) real_dir_loading, ctx);
+		else if (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+			gtk_idle_add ((GtkFunction) real_file_loading, ctx);
+		else {
+			loading_context_free (ctx);
+			g_warning (_("Can't handle URI: %s"), text_uri);
+			return;
+		}
 	} else {
-		g_warning (_("Can't handle URI: %s"), uri);
+		g_warning (_("Can't handle URI: %s"), text_uri);
+		return;
 	}	
 	
 	if (priv->base_uri == NULL) {
-		priv->base_uri = g_strdup (uri);
+		priv->base_uri = g_strdup (gnome_vfs_uri_get_basename (ctx->uri));
 		gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
 	} else {
 		g_free (priv->base_uri);
@@ -426,7 +456,7 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 {
 	GList *node;
 	LoadingContext *ctx;
-	gchar *uri;
+	gchar *text_uri;
 
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
@@ -434,16 +464,22 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 	node = uri_list;
 
 	while (node != NULL) {
-		uri = (gchar*) node->data;
-		ctx = prepare_context (model, uri);
-		
+		text_uri = (gchar*) node->data;
+		ctx = prepare_context (model, text_uri);
+
 		if (ctx != NULL) {
-			if (ctx->type == LC_BONOBO_STORAGE)
-				gtk_idle_add ((GtkFunction) real_storage_loading, ctx);
-			else
-				gtk_idle_add ((GtkFunction) real_stream_loading, ctx);
+			if (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+				gtk_idle_add ((GtkFunction) real_dir_loading, ctx);
+			else if (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+				gtk_idle_add ((GtkFunction) real_file_loading, ctx);
+			else {
+				loading_context_free (ctx);
+				g_warning (_("Can't handle URI: %s"), text_uri);
+				return;
+			}
 		} else {
-			g_warning ("Can't handle URI: %s", uri);
+			g_warning (_("Can't handle URI: %s"), text_uri);
+			return;
 		}	
 
 		node = node->next;
@@ -502,7 +538,7 @@ eog_collection_model_get_uri (EogCollectionModel *model,
 	img = eog_collection_model_get_image (model, unique_id);
 	if (img == NULL) return NULL;
 	
-	return cimage_get_uri (img);
+	return gnome_vfs_uri_to_string (cimage_get_uri (img), GNOME_VFS_URI_HIDE_NONE);
 }
 
 static void

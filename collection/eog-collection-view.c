@@ -15,6 +15,8 @@
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
 #include <gtk/gtklabel.h>
+#include <libgnomevfs/gnome-vfs-types.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
 
 #include <gnome.h>
 
@@ -310,15 +312,16 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 			g_snprintf (str, 70, "Images: %i", nimg);
 		else if (nsel == 1) {
 			CImage *img; 
-			gchar *uri;
+			GnomeVFSURI *uri;
 
 			img = eog_collection_model_get_selected_image (priv->model);
 			uri = cimage_get_uri (img);
+			g_assert (uri != NULL);
 			g_snprintf (str, 70, "Images: %i  %s (%i x %i)", nimg,
-				    g_basename (uri),
+				    gnome_vfs_uri_get_basename (uri),
 				    cimage_get_width (img),
 				    cimage_get_height (img));
-			g_free (uri);
+			gnome_vfs_uri_unref (uri);
 		} else
 			g_snprintf (str, 70, "Images: %i  Selected: %i", nimg, nsel);
 	       

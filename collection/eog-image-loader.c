@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <bonobo/Bonobo.h>
 #include <bonobo/bonobo-moniker-util.h>
+#include <libgnomevfs/gnome-vfs-types.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 
 #include "eog-image-loader.h"
 #include "cimage.h"
@@ -261,7 +264,7 @@ loading_finished (EILContext *ctx)
 	
 	if (loading_failed) {
 #ifdef COLLECTION_DEBUG
- 		g_message ("Loading failed for: %s\n", cimage_get_uri (ctx->cimg));
+ 		g_message ("Loading failed for: %s\n", cimage_get_uri (ctx->cimg)->text);
 #endif
 		cimage_set_loading_failed (ctx->cimg);
 		gtk_signal_emit (GTK_OBJECT (ctx->loader),
@@ -279,58 +282,59 @@ loading_finished (EILContext *ctx)
 static gint
 load_uri (EILContext *ctx)
 {
-	CORBA_Environment ev;
 	EogImageLoaderPrivate *priv;
-	Bonobo_Unknown stream;
-	Bonobo_Stream_iobuf *buf;
+	guchar *buffer;
 	gint p = 0;
+	GnomeVFSResult result;
+	GnomeVFSHandle *handle;
+	GnomeVFSFileSize bytes_read;
 
 	priv = ctx->loader->priv;
-	CORBA_exception_init (&ev);
 
 	/* remove idle handler */
 	gtk_idle_remove (priv->idle_handler_id);
 	priv->idle_handler_id = -1;
 
 	/* try to obtain BonoboStream */
-	stream = bonobo_get_object (cimage_get_uri (ctx->cimg), 
-				    "IDL:Bonobo/Stream:1.0", &ev);
-	if (ev._major != CORBA_NO_EXCEPTION) {
+	result = gnome_vfs_open_uri (&handle, cimage_get_uri (ctx->cimg),
+				     GNOME_VFS_OPEN_READ);
+	if (result != GNOME_VFS_OK) {
 		cimage_set_loading_failed (ctx->cimg);
 		loading_finished (ctx);
 		return FALSE;
 	}
-	g_assert (stream != CORBA_OBJECT_NIL);
+	g_assert (handle != NULL);
 
 	/* create loader */
 	ctx->pbf_loader = gdk_pixbuf_loader_new ();
 		
 	/* loading image from stream */
+	buffer = g_new0 (guchar, 4096);
 	while (!priv->cancel_loading) {
 
-		Bonobo_Stream_read (stream, 4096, &buf, &ev);
-		if (ev._major != CORBA_NO_EXCEPTION) {
-			goto loading_error;
-		}
+		result = gnome_vfs_read (handle, buffer, 
+					 4096, &bytes_read);
 
-		if (buf->_length == 0) break; /* reached end of stream */
+		if (result == GNOME_VFS_ERROR_EOF) break;
+
+		if (result != GNOME_VFS_OK)
+			goto loading_error;
+
+		if (bytes_read == 0) break; /* reached end of stream */
 			
 		if(!gdk_pixbuf_loader_write(ctx->pbf_loader,
-					    buf->_buffer, buf->_length)) {
+					    buffer, bytes_read)) {
 			goto loading_error;
 		}
 		
-		CORBA_free (buf);
-
 		/* update gui every 50th time */
 		if (p++ % 50 == 0)
 			while (gtk_events_pending ())
 				gtk_main_iteration ();
 	}
 
-	CORBA_free (buf);
-	Bonobo_Unknown_unref (stream, &ev);
-	CORBA_exception_free (&ev);
+	g_free (buffer);
+	gnome_vfs_close (handle);
 		
 	if (priv->cancel_loading) 
 		loading_canceled (ctx);
@@ -341,9 +345,8 @@ load_uri (EILContext *ctx)
 
 loading_error: 
 	cimage_set_loading_failed (ctx->cimg);
-	CORBA_free (buf);
-	Bonobo_Unknown_unref (stream, &ev);
-	CORBA_exception_free (&ev);
+	g_free (buffer);
+	gnome_vfs_close (handle);
 	loading_finished (ctx);
 
 	return FALSE;

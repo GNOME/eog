@@ -1,6 +1,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkobject.h>
 #include <gnome.h>
+#include <libgnomevfs/gnome-vfs-types.h>
 
 #ifndef _COLLECTION_IMAGE_H_
 #define _COLLECTION_IMAGE_H_
@@ -29,7 +30,8 @@ struct _CImage {
 };
 
 GtkType    cimage_get_type (void);
-CImage    *cimage_new (gchar *uri);
+CImage    *cimage_new (gchar *text_uri);
+CImage    *cimage_new_uri (GnomeVFSURI *uri);
 
 /* collection image operations */
 void       cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail);
@@ -41,7 +43,7 @@ void       cimage_set_image_dimensions (CImage *img, guint widht, guint height);
 
 /* collection image attributes */
 guint      cimage_get_unique_id (CImage *img);
-gchar     *cimage_get_uri (CImage *img);
+GnomeVFSURI *cimage_get_uri (CImage *img);
 GdkPixbuf *cimage_get_thumbnail (CImage *img);
 gchar     *cimage_get_caption (CImage *img);
 guint      cimage_get_width (CImage *img);

@@ -13,6 +13,7 @@ INCLUDES =                                              \
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
+	$(EXTRA_VFS_CFLAGS)				\
 	$(GNOME_CFLAGS)
 
 bin_PROGRAMS = eog-collection
@@ -45,6 +46,7 @@ eog_collection_LDADD = 			\
 	$(INTLLIBS)				\
 	$(EXTRA_GNOME_LIBS)			\
 	$(EXTRA_BONOBO_LIBS)			\
+	$(EXTRA_VFS_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 

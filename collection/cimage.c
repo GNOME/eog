@@ -1,10 +1,13 @@
 #include "cimage.h"
 #include <gnome.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
+#include <libgnomevfs/gnome-vfs-file-info.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 
 struct _CImagePrivate {
 	guint unique_id;
 
-	gchar *uri;
+	GnomeVFSURI *uri;
 	
 	GdkPixbuf *thumbnail;
 
@@ -69,7 +72,7 @@ cimage_destroy (GtkObject *obj)
 	priv = CIMAGE (obj)->priv;
 
 	if (priv->uri) {
-		g_free (priv->uri);
+		gnome_vfs_uri_unref (priv->uri);
 		priv->uri = NULL;
 	}
 
@@ -126,14 +129,29 @@ cimage_init (CImage *img)
 
 
 CImage*
-cimage_new (gchar *uri)
+cimage_new (gchar *text_uri)
 {
 	CImage *img;
+	GnomeVFSURI *uri;
 
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (text_uri != NULL, NULL);
+	
+	uri = gnome_vfs_uri_new (text_uri);
+	img = cimage_new_uri (uri);
+	gnome_vfs_uri_unref (uri);
+	
+	return img;
+}
+
+CImage*
+cimage_new_uri (GnomeVFSURI *uri)
+{
+	CImage *img;
+	
 	img = gtk_type_new (cimage_get_type ());
 	
-	img->priv->uri = g_strdup (uri);
+	img->priv->uri = uri;
+	gnome_vfs_uri_ref (img->priv->uri);
 	
 	return img;
 }
@@ -145,13 +163,14 @@ cimage_get_unique_id (CImage *img)
 	return (img->priv->unique_id);
 }
 
-gchar*
+GnomeVFSURI*
 cimage_get_uri (CImage *img)
 {
 	g_return_val_if_fail (img != NULL, NULL);
-	if (img->priv->uri)
-		return g_strdup (img->priv->uri);
-	else
+	if (img->priv->uri) {
+		gnome_vfs_uri_ref (img->priv->uri);
+		return img->priv->uri;
+	} else
 		return NULL;
 }
 
@@ -240,9 +259,19 @@ cimage_get_caption (CImage *img)
 gboolean 
 cimage_is_directory (CImage *img)
 {
+	GnomeVFSFileInfo *info;
+	gboolean result;
+
 	g_return_val_if_fail (img != NULL, FALSE);
+
+	info = gnome_vfs_file_info_new ();
+	gnome_vfs_get_file_info_uri (img->priv->uri,
+				     info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	
-	return g_file_test (img->priv->uri, G_FILE_TEST_ISDIR);
+	result = (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY);
+	gnome_vfs_file_info_unref (info);
+
+	return result;
 }
 
 gboolean 
