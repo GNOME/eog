@@ -5,6 +5,7 @@ noinst_LIBRARIES = librecent.a
 INCLUDES = $(EOG_CFLAGS)
 
 librecent_a_SOURCES =		\
+	egg-recent.h		\
 	egg-recent-model.c	\
 	egg-recent-model.h	\
 	egg-recent-item.c	\
