@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.118.0\n"
-"POT-Creation-Date: 2002-06-01 15:16+0200\n"
+"POT-Creation-Date: 2002-06-13 22:42+0200\n"
 "PO-Revision-Date: 2002-06-01 00:03+02:00\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -120,7 +120,7 @@ msgstr "_Hilfe"
 msgid "Help On this application"
 msgstr "Hilfe für diese Anwendung"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
 msgid "Open"
 msgstr "Öffnen"
 
@@ -190,11 +190,12 @@ msgstr "_Ansicht"
 #.
 #: shell/eog-window.c:248
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Jens Finke <jens@gnome.org>\n"
+msgstr ""
+"Jens Finke <jens@gnome.org>\n"
 "Christian Meyer <chrisime@gnome.org>\n"
 "Matthias Warkus <mawa@iname.com>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -207,6 +208,7 @@ msgid "The GNOME image viewing and cataloging program."
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
 #: shell/eog-window.c:293
+#, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
@@ -218,12 +220,12 @@ msgstr ""
 msgid "Open Image"
 msgstr "Bild öffnen"
 
-#: shell/eog-window.c:1281
+#: shell/eog-window.c:1288
 #, c-format
 msgid "Unable to open %s."
 msgstr "Unfähig %s zu öffnen."
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -234,15 +236,15 @@ msgstr ""
 "zu öffnen. Möchten Sie diese lieber in\n"
 "einer Sammlung öffnen?"
 
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "Einzelne Fenster"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -251,11 +253,31 @@ msgstr ""
 "Sie sind dabei, %i Fenster gleichzeitig\n"
 "zu öffnen. Möchten Sie fortfahren?"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid ""
+"Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr ""
+"Die Datei %s ist nicht zugreifbar.\n"
+" Eye of Gnome ist nicht in der Lage sie anzuzeigen."
+
+#: shell/main.c:289
+#, c-format
+msgid ""
+"The following files cannot be displayed because Eye of Gnome was not able to "
+"access them:\n"
+"%s"
+msgstr ""
+"Die folgenden Dateien können nicht angzeigt werden, da Eye of Gnome auf "
+"diese nicht zugreifen kann:\n"
+"%s"
+
+#: shell/main.c:471
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: shell/main.c:354
+#: shell/main.c:474
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo konnte nicht initialisiert werden!\n"
 
