@@ -135,6 +135,8 @@ static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *co
 				    GtkSelectionData *selection_data, guint info, guint time);
 static void adapt_window_size (EogWindow *window, int width, int height);
 static void update_status_bar (EogWindow *window);
+static void job_default_progress (EogJob *job, gpointer data, float progress);
+
 
 static GtkWindowClass *parent_class;
 
@@ -146,10 +148,18 @@ enum {
 	TARGET_URI_LIST
 };
 
+/* Data storage for EogJobs */
 typedef struct {
-	EogImage  *image;
 	EogWindow *window;
+} EogJobData;
+
+typedef struct {
+	EogJobData generic;
+	EogImage   *image;
 } EogJobImageLoadData;
+
+#define EOG_JOB_DATA(o) ((EogJobData*) o)
+
 
 static GQuark
 eog_window_error_quark (void)
@@ -1277,104 +1287,105 @@ verb_SaveAs_cb (GtkAction *action, gpointer data)
  * -----------------------------------------------*/
 
 typedef struct {
-	EogWindow *window;
-	float max_progress;
-	int counter;
-} ProgressData;
+	EogJobData    generic;
+	GList        *image_list;
+	EogTransform *trans;
+} EogJobTransformData;
 
-static void
-transformation_progress_cb (EogImage *image, float progress, ProgressData *data)
+static gboolean
+job_transform_image_modified (gpointer data)
 {
-	float total;
-	EogWindowPrivate *priv;
+	g_return_val_if_fail (EOG_IS_IMAGE (data), FALSE);
 
-	priv = data->window->priv;
+	eog_image_modified (EOG_IMAGE (data));
+	g_object_unref (G_OBJECT (data));
 
-	total = ((float) data->counter + progress) / data->max_progress;
-
-	gnome_appbar_set_progress_percentage (GNOME_APPBAR (priv->statusbar), progress);
+	return FALSE;
 }
 
+/* runs in its own thread */
+/* If there is no EogTransform object, an Undo function is performed */
 static void
-verb_Undo_cb (GtkAction *action, gpointer user_data)
+job_transform_action (EogJob *job, gpointer data, GError **error)
 {
-	GList *images;
 	GList *it;
-	gint id;
-	ProgressData data;
-	EogWindowPrivate *priv;
+	EogJobTransformData *td;
 
-	priv = EOG_WINDOW (user_data)->priv;
-	
-	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
-	data.window       = EOG_WINDOW (user_data);
-	data.max_progress = g_list_length (images);
-	data.counter      = 0;
-	
-	/* block progress changes for actual displayed image */
-	if (priv->displayed_image != NULL) {
-		g_signal_handler_block (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
-	}
+	td = (EogJobTransformData*) data;
 
-	for (it = images; it != NULL; it = it->next) {
+	for (it = td->image_list; it != NULL; it = it->next) {
 		EogImage *image = EOG_IMAGE (it->data);
-
-		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) transformation_progress_cb, &data);
 		
-		eog_image_undo (image);
+		if (td->trans == NULL) {
+			eog_image_undo (image);
+		}
+		else {
+			eog_image_transform (image, td->trans, job);
+		}
 		
-		g_signal_handler_disconnect (image, id);
-		data.counter++;
+		eog_job_part_finished (job);
+		
+		if (eog_image_is_modified (image) || td->trans == NULL) {
+			g_object_ref (image);
+			g_idle_add (job_transform_image_modified, image);
+		}
 	}
+}
 
-	g_list_foreach (images, (GFunc) g_object_unref, NULL);
-	g_list_free (images);
+static void 
+job_transform_free_data (gpointer data)
+{
+	EogJobTransformData *td = (EogJobTransformData*) data;
 
-	if (priv->displayed_image != NULL) {
-		g_signal_handler_unblock (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
-	}
+	g_list_foreach (td->image_list, (GFunc) g_object_unref, NULL);
+	g_list_free (td->image_list);
+
+	if (td->trans != NULL) 
+		g_object_unref (td->trans);	
+
+	g_free (td);
 }
 
 static void 
 apply_transformation (EogWindow *window, EogTransform *trans)
 {
 	GList *images;
-	GList *it;
-	gint id;
-	ProgressData data;
-	EogWindowPrivate *priv;
+	EogJobTransformData *data;
+	EogJob *job;
 
-	priv = window->priv;
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (window->priv->wraplist));	
+	if (images == NULL)
+		return;
+
+	/* setup job data */
+	data = g_new0 (EogJobTransformData, 1);
+	EOG_JOB_DATA (data)->window = window;
+	data->image_list = images;
+	data->trans = trans;
 	
-	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
-	data.window       = window;
-	data.max_progress = g_list_length (images);
-	data.counter      = 0;
-	
-	/* block progress changes for actual displayed image */
-	if (priv->displayed_image != NULL) {
-		g_signal_handler_block (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
-	}
+	/* create job */
+	job = eog_job_new_full (data, 
+				job_transform_action,
+				NULL, /* FIXME: Finished func should call save dialog */
+				NULL, /* FIXME: Let this be cancelable */
+				job_default_progress,
+				job_transform_free_data);
+	g_object_set (G_OBJECT (job), "progress-n-parts", 
+		      (guint) g_list_length (data->image_list),
+		      NULL);
 
-	for (it = images; it != NULL; it = it->next) {
-		EogImage *image = EOG_IMAGE (it->data);
+	/* run job */
+	eog_job_manager_add (job);
+}
 
-		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) transformation_progress_cb, &data);
-		
-		/* FIXME: Use EogJob API */
-		/* eog_image_transform (image, trans); */
-		
-		g_signal_handler_disconnect (image, id);
-		data.counter++;
-	}
+static void
+verb_Undo_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	g_list_foreach (images, (GFunc) g_object_unref, NULL);
-	g_list_free (images);
-	g_object_unref (trans);	
-
-	if (priv->displayed_image != NULL) {
-		g_signal_handler_unblock (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
-	}
+	apply_transformation (EOG_WINDOW (data), NULL);
 }
 
 static void
@@ -2244,26 +2255,26 @@ static void
 job_image_load_finished (EogJob *job, gpointer data, GError *error)
 {
 	EogJobImageLoadData *job_data;
-	EogWindowPrivate *priv;
+	EogWindow *window;
 	EogImage *image;
 	
 	job_data = (EogJobImageLoadData*) data;
-	priv = job_data->window->priv;
+	window = EOG_JOB_DATA (job_data)->window;
 	image = job_data->image;
 
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
 		if (eog_job_get_success (job)) { 
 			/* successfull */
-			display_image_data (job_data->window, image);
+			display_image_data (window, image);
 		}
 		else {  /* failed */
 			char *header; 
 
-			display_image_data (job_data->window, NULL);			
+			display_image_data (window, NULL);			
 
 			header = g_strdup_printf (_("Image loading failed for %s"),
 						  eog_image_get_caption (image));
-			show_error_dialog (job_data->window, header, error);
+			show_error_dialog (window, header, error);
 			g_free (header);
 		}
 	}
@@ -2288,12 +2299,12 @@ job_image_load_cancel_job (EogJob *job, gpointer data)
 }
 
 static void 
-job_image_load_progress (EogJob *job, gpointer data, float progress)
+job_default_progress (EogJob *job, gpointer data, float progress)
 {
-	EogJobImageLoadData *job_data;
+	EogJobData *job_data;
 	EogWindow *window;
 	
-	job_data = (EogJobImageLoadData*) data;
+	job_data = EOG_JOB_DATA (data);
 	window = job_data->window;
 	
 	gnome_appbar_set_progress_percentage (GNOME_APPBAR (EOG_WINDOW (window)->priv->statusbar), progress);
@@ -2318,7 +2329,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	}
 
 	data = g_new0 (EogJobImageLoadData, 1);
-	data->window = window;
+	EOG_JOB_DATA (data)->window = window;
 	data->image = image; /* no additional ref required, since 
 			      * its already increased by 
 			      * eog_wrap_lsit_get_first_selected_image
@@ -2328,7 +2339,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 				job_image_load_action,
 				job_image_load_finished,
 				job_image_load_cancel_job,
-				job_image_load_progress,
+				job_default_progress,
 				(EogJobFreeDataFunc) g_free);
 	g_object_set (G_OBJECT (job), "progress-threshold", 0.25, NULL);
 

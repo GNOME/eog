@@ -1172,7 +1172,6 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *j
 #if HAVE_EXIF
 		update_exif_data (img);
 #endif 
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 	}
 
 	if (priv->trans == NULL) {
