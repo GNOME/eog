@@ -1,4 +1,20 @@
-2003-07-13 John Fleck <jfleck@inkstain.net>
+2003-07-14  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-item.[ch]
+	(eog_collection_item_get_size): New function.
+
+	* collection/eog-collection-view.c
+	(create_user_interface): Set wrap list scroll policy to
+	automatic. Patch by Andreas Köhler.
+
+	* collection/eog-wrap-list.c
+	(get_item_view_position),
+	(do_layout_check),
+	(calculate_item_position),
+	(do_item_rearrangement): Improved horizontal item
+	arrangement. Should produce less empty space now.
+
+2003-07-13  John Fleck <jfleck@inkstain.net>
 
 	* Makefile.am
 	* autogen.sh

@@ -33,6 +33,8 @@
 
 #define COLLECTION_DEBUG 0
 
+#define EOG_WRAP_LIST_BORDER  12
+
 #define EOG_DND_URI_LIST_TYPE 	         "text/uri-list"
 
 enum {
@@ -313,8 +315,8 @@ get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
 	priv = wlist->priv;
 	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
 
-	col = (x1 - priv->col_spacing) / (priv->item_width + priv->col_spacing);
-	row = (y1 - priv->row_spacing) / (priv->item_height + priv->row_spacing);
+	col = x1 / (priv->item_width + priv->col_spacing);
+	row = (y1 - EOG_WRAP_LIST_BORDER) / (priv->item_height + priv->row_spacing);
 
 	n = col + priv->n_cols * row;
 
@@ -1036,11 +1038,8 @@ do_layout_check (EogWrapList *wlist)
 
 	if (priv->item_width == -1 || priv->item_height == -1) {
 		if (priv->view_order != NULL) {
-			double x1, y1, x2, y2;
-
-			gnome_canvas_item_get_bounds (GNOME_CANVAS_ITEM (priv->view_order->data), &x1, &y1, &x2, &y2);
-			priv->item_width = (int) x2 - x1; 
-			priv->item_height = (int) y2 - y1;
+			eog_collection_item_get_size (EOG_COLLECTION_ITEM (priv->view_order->data), 
+						      &priv->item_width, &priv->item_height);
 		}
 		else {
 			return FALSE;
@@ -1056,6 +1055,10 @@ do_layout_check (EogWrapList *wlist)
 	switch (priv->lm) {
 	case EOG_LAYOUT_MODE_VERTICAL:
 		n_cols_new = cw / (priv->item_width + priv->col_spacing);
+		
+		if (cw > (n_cols_new * (priv->item_width + priv->col_spacing) + priv->item_width))
+			n_cols_new++;
+
 		if (n_cols_new == 0)
 			n_cols_new = 1;
 		n_rows_new = (priv->n_items + n_cols_new - 1) / n_cols_new;
@@ -1112,8 +1115,8 @@ calculate_item_position (EogWrapList *wlist,
 	row = item_number / priv->n_cols;
 	col = item_number % priv->n_cols;
 		
-	*world_x = col * (priv->item_width + priv->col_spacing) + priv->col_spacing;
-	*world_y = row * (priv->item_height + priv->row_spacing) + priv->row_spacing;
+	*world_x = col * (priv->item_width + priv->col_spacing);
+	*world_y = row * (priv->item_height + priv->row_spacing) + EOG_WRAP_LIST_BORDER;
 }
 
 typedef struct {
@@ -1165,8 +1168,8 @@ do_item_rearrangement (EogWrapList *wlist)
 			 &data);
 
 	/* set new canvas scroll region */
-	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) + priv->col_spacing;
-	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) + priv->row_spacing;
+	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) - priv->col_spacing;
+	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) + EOG_WRAP_LIST_BORDER;
  	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
 					0.0, 0.0,
 					sr_width, sr_height);

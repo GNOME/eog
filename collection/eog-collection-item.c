@@ -507,3 +507,21 @@ eog_collection_item_get_image (EogCollectionItem *item)
 
 	return priv->image;
 }
+
+void 
+eog_collection_item_get_size (EogCollectionItem *item, int *width, int *height)
+{
+	int caption_height;
+	double x1, x2, y1, y2;
+
+	gnome_canvas_item_get_bounds (item->priv->selected_item, &x1, &y1, &x2, &y2); 
+
+	caption_height = y2 - y1;
+
+	*height = 
+		EOG_COLLECTION_ITEM_THUMB_HEIGHT + 
+		EOG_COLLECTION_ITEM_CAPTION_PADDING + 
+		caption_height;
+
+	*width = EOG_COLLECTION_ITEM_THUMB_WIDTH + 4;
+}
