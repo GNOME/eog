@@ -44,6 +44,7 @@
 #include <bonobo/bonobo-property-bag.h>
 #include <bonobo/bonobo-zoomable.h>
 #include <bonobo/bonobo-ui-util.h>
+#include <eel/eel-vfs-extensions.h>
 
 #include "eog-wrap-list.h"
 #include "eog-scroll-view.h"
@@ -801,10 +802,7 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		if (base_uri == NULL)
 			title = g_strdup (_("Collection View"));
 		else {
-			if (g_strncasecmp ("file:", base_uri, 5) == 0)
-				title = g_strdup ((base_uri+5*sizeof(guchar)));
-			else
-				title = g_strdup (base_uri);
+			title = eel_format_uri_for_display (base_uri);
 		}
 
 		BONOBO_ARG_SET_STRING (arg, title);
