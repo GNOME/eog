@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-05 16:57+0200\n"
-"PO-Revision-Date: 2002-06-06 02:55+0200\n"
+"POT-Creation-Date: 2002-06-16 20:57+0200\n"
+"PO-Revision-Date: 2002-06-17 00:00+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,12 +85,12 @@ msgid ""
 "Could not display help for the preferences dialog.\n"
 "%s"
 msgstr ""
-"Kon hulp voor het instellingen-dialoogvenster niet weergeven.\n"
+"Kon hulp voor het voorkeuren-dialoogvenster niet weergeven.\n"
 "%s"
 
 #: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome Instellingen"
+msgstr "Eye of Gnome Voorkeuren"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -102,7 +102,7 @@ msgstr "Annuleren"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Change preferences"
-msgstr "Intellingen veranderen"
+msgstr "Voorkeuren veranderen"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Close"
@@ -120,7 +120,7 @@ msgstr "Inhoud"
 msgid "Help On this application"
 msgstr "Hulp bij dit programma"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
 msgid "Open"
 msgstr "Openen"
 
@@ -174,7 +174,7 @@ msgstr "_Openen..."
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Preferences..."
-msgstr "_Instellingen"
+msgstr "_Voorkeuren..."
 
 #: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
@@ -182,7 +182,7 @@ msgstr "_Afsluiten"
 
 #: shell/eog-shell-ui.xml.h:23
 msgid "_View"
-msgstr "_Tonen"
+msgstr "_Weergave"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
@@ -194,7 +194,7 @@ msgstr ""
 "Henrik Goijer <henrikgoijer@home.nl>\n"
 "Tino Meinen <a.t.meinen@chello.nl>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -224,7 +224,7 @@ msgstr "Openen Afbeelding"
 msgid "Unable to open %s."
 msgstr "Kon %s niet openen."
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -235,15 +235,15 @@ msgstr ""
 "tegelijk te openen. Wilt u deze niet\n"
 "liever in een verzamelvenster openen?"
 
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "Enkele Vensters"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "Verzameling"
 
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -252,11 +252,30 @@ msgstr ""
 "U staat op 't punt om %i vensters\n"
 "tegelijk te openen. Wilt u doorgaan?"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid ""
+"Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr ""
+"Kon geen toegang krijgen tot %s\n"
+"Eye of Gnome zal dit bestand niet kunnen weergeven."
+
+#: shell/main.c:289
+#, c-format
+msgid ""
+"The following files cannot be displayed because Eye of Gnome was not able to "
+"access them:\n"
+"%s"
+msgstr ""
+"De volgende bestanden kunnen niet worden weergegeven omdat Eye of Gnome geen toegang kon krijgen tot deze bestanden:\n"
+"%s"
+
+#: shell/main.c:471
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kan GnomeVFS niet inschakelen!\n"
 
-#: shell/main.c:354
+#: shell/main.c:474
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kan Bonobo niet inschakelen!\n"
 
@@ -649,7 +668,7 @@ msgstr "Naar rechts, dan beneden"
 
 #: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
-msgstr "Dichtstbijzijnde Buur Interpolatie"
+msgstr "Dichtstbijzijnde-Buur Interpolatie"
 
 #: viewer/preferences.c:35
 msgid "Tiles Interpolation"
@@ -714,3 +733,4 @@ msgstr "Controleer _type:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Controleer _grootte:"
+
