@@ -79,6 +79,9 @@ int gnome_wrap_list_get_row_spacing (GnomeWrapList *wlist);
 void gnome_wrap_list_set_col_spacing (GnomeWrapList *wlist, int spacing);
 int gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist);
 
+void gnome_wrap_list_set_use_unit_scrolling (GnomeWrapList *wlist, gboolean use_unit_scrolling);
+gboolean gnome_wrap_list_get_use_unit_scrolling (GnomeWrapList *wlist);
+
 
 
 END_GNOME_DECLS

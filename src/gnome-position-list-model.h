@@ -53,16 +53,23 @@ struct _GnomePositionListModel {
 struct _GnomePositionListModelClass {
 	GnomeListModelClass parent_class;
 
+	/* Mutation signals */
+
+	void (* set_position) (GnomePositionListModel *model, guint n, gint x, gint y);
+
 	/* Query signals */
 
-	void (* get_position) (GnomePositionListModel *model, guint n, gint *x, gint *y);
+	gboolean (* get_position) (GnomePositionListModel *model, guint n, gint *x, gint *y);
 };
 
 
 GtkType gnome_position_list_model_get_type (void);
 
-void gnome_position_list_model_get_position (GnomePositionListModel *model, guint n,
-					     gint *x, gint *y);
+void gnome_position_list_model_set_position (GnomePositionListModel *model, guint n,
+					     gint x, gint y);
+
+gboolean gnome_position_list_model_get_position (GnomePositionListModel *model, guint n,
+						 gint *x, gint *y);
 
 
 

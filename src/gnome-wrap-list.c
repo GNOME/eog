@@ -25,8 +25,26 @@
 
 
 
+/* Layout information for row/col major modes */
+typedef struct {
+	/* Number of icons per row/col */
+	int icons_per_block;
+
+	/* Index of first displayed icon and number of displayed icons */
+	int first_index;
+	int n_displayed;
+
+	/* Array of displayed icons */
+	GnomeCanvasItem **icons;
+} BlockModeInfo;
+
+
+
 /* Private part of the GnomeWrapList structure */
 typedef struct {
+	/* Our canvas */
+	GtkWidget *canvas;
+
 	/* Layout mode */
 	GnomeWrapListMode mode;
 
@@ -40,6 +58,21 @@ typedef struct {
 	/* Spacing between rows and columns */
 	int row_spacing;
 	int col_spacing;
+
+	/* Scroll offsets */
+	int h_offset;
+	int v_offset;
+
+	/* Layout information */
+	union {
+		BlockModeInfo bm;
+	} u;
+
+	/* Idle handler ID */
+	guint idle_id;
+
+	/* Whether to scroll in whole rows/cols or with arbitrary offsets */
+	guint use_unit_scrolling : 1;
 } WrapListPrivate;
 
 
@@ -47,6 +80,9 @@ typedef struct {
 static void gnome_wrap_list_class_init (GnomeWrapListClass *class);
 static void gnome_wrap_list_init (GnomeWrapList *wlist);
 static void gnome_wrap_list_destroy (GtkObject *object);
+
+static void gnome_wrap_list_forall (GtkContainer *container, gboolean include_internals,
+				    GtkCallback callback, gpointer callback_data);
 
 static GnomeListViewClass *parent_class;
 
@@ -89,12 +125,16 @@ static void
 gnome_wrap_list_class_init (GnomeWrapListClass *class)
 {
 	GtkObjectClass *object_class;
+	GtkContainerClass *container_class;
 
 	object_class = (GtkObjectClass *) class;
+	container_class = (GtkContainerClass *) class;
 
 	parent_class = gtk_type_class (gnome_list_view_get_type ());
 
 	object_class->destroy = gnome_wrap_list_destroy;
+
+	container_class->forall = gnome_wrap_list_forall;
 }
 
 /* Object initialization function for the abstract wrapped list view */
@@ -107,6 +147,18 @@ gnome_wrap_list_init (GnomeWrapList *wlist)
 	wlist->priv = priv;
 
 	priv->mode = GNOME_WRAP_LIST_ROW_MAJOR;
+
+	/* Create our canvas */
+
+	gtk_widget_push_visual (gdk_rgb_get_visual ());
+	gtk_widget_push_colormap (gdk_rgb_get_cmap ());
+
+	priv->canvas = gnome_canvas_new ();
+
+	gtk_widget_pop_colormap ();
+	gtk_widget_pop_visual ();
+
+	gtk_widget_set_parent (priv->canvas, GTK_WIDGET (wlist));
 }
 
 /* Destroy handler for the abstract wrapped list view */
@@ -126,6 +178,123 @@ gnome_wrap_list_destroy (GtkObject *object)
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
+
+
+/* Container methods */
+
+/* Forall handler for the abstract wrapped list view */
+static void
+gnome_wrap_list_forall (GtkContainer *container, gboolean include_internals,
+			GtkCallback callback, gpointer callback_data)
+{
+	GnomeWrapList *wlist;
+	WrapListPrivate *priv;
+
+	wlist = GNOME_WRAP_LIST (container);
+	priv = wlist->priv;
+
+	if (!include_internals)
+		return;
+
+	(* callback) (priv->canvas, callback_data);
+}
+
+
+
+/* Row/col (block mode) functions */
+
+/* Returns the major and minor layout dimensions based on the orientation of the
+ * block mode.
+ */
+static void
+bm_get_dimensions (GnomeWrapList *wlist,
+		   int *icon_minor, int *icon_major,
+		   int *space_minor, int *space_major,
+		   int *size_minor, int *size_major)
+{
+	WrapListPrivate *priv;
+
+	priv = wlist->priv;
+
+	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
+		*icon_minor = priv->icon_width;
+		*icon_major = priv->icon_height;
+		*space_minor = priv->col_spacing;
+		*space_major = priv->row_spacing;
+		*size_minor = GTK_WIDGET (wlist)->allocation.width;
+		*size_major = GTK_WIDGET (wlist)->allocation.height;
+	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
+		*icon_minor = priv->icon_height;
+		*icon_major = priv->icon_width;
+		*space_minor = priv->row_spacing;
+		*space_major = priv->col_spacing;
+		*size_minor = GTK_WIDGET (wlist)->allocation.height;
+		*size_major = GTK_WIDGET (wlist)->allocation.width;
+	} else
+		g_assert_not_reached ();
+}
+
+/* Returns the major and minor scroll offsets */
+static void
+bm_get_scroll_offsets (GnomeWrapList *wlist, int *scroll_major, int *scroll_minor)
+{
+	WrapListPrivate *priv;
+
+	priv = wlist->priv;
+
+	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
+		*scroll_minor = priv->h_offset;
+		*scroll_major = priv->v_offset;
+	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
+		*scroll_minor = priv->v_offset;
+		*scroll_major = priv->h_offset;
+	} else
+		g_assert_not_reached ();
+}
+
+/* Computes the range of icons that can be displayed based on the current size
+ * and scroll offset.
+ */
+static void
+bm_compute_display_range (GnomeWrapList *wlist, int *first, int *n)
+{
+	WrapListPrivate *priv;
+	int icon_minor, icon_major;
+	int space_minor, space_major;
+	int size_minor, size_major;
+	int scroll_minor, scroll_major;
+	int n_minor;
+	int n_major;
+
+	priv = wlist->priv;
+
+	bm_get_dimensions (wlist,
+			   &icon_minor, &icon_major,
+			   &space_minor, &space_major,
+			   &size_minor, &size_major);
+
+	bm_get_scroll_offsets (wlist, &scroll_minor, &scroll_major);
+
+	n_minor = (size_minor - space_minor) / (icon_minor + space_minor);
+	if (n_minor <= 0)
+		n_minor = 1;
+
+	n_major = (size_major - space_major) / (icon_major + space_major);
+	if (n_major <= 0)
+		n_major = 1;
+
+	*first = scroll_major / (icon_major + space_major);
+	*n = n_major * n_minor;
+}
+
+static void
+bm_update_range (GnomeWrapList *wlist, int first, int n_items)
+{
+	int disp_first, disp_n;
+
+	bm_compute_display_range (wlist, &disp_first, &disp_n);
 }
 
 
@@ -251,7 +420,6 @@ gnome_wrap_list_set_item_size (GnomeWrapList *wlist, int width, int height)
 	g_return_if_fail (height > 0);
 
 	priv = wlist->priv;
-
 	priv->item_width = width;
 	priv->item_height = height;
 
@@ -302,7 +470,6 @@ gnome_wrap_list_set_row_spacing (GnomeWrapList *wlist, int spacing)
 	g_return_if_fail (spacing >= 0);
 
 	priv = wlist->priv;
-
 	priv->row_spacing = spacing;
 
 	/* FIXME: layout */
@@ -345,7 +512,6 @@ gnome_wrap_list_set_col_spacing (GnomeWrapList *wlist, int spacing)
 	g_return_if_fail (spacing >= 0);
 
 	priv = wlist->priv;
-
 	priv->col_spacing = spacing;
 
 	/* FIXME: layout */
@@ -369,4 +535,47 @@ gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist)
 
 	priv = wlist->priv;
 	return priv->col_spacing;
+}
+
+/**
+ * gnome_wrap_list_set_use_unit_scrolling:
+ * @wlist: A wrapped list view.
+ * @use_unit_scrolling: TRUE for scrolling by whole rows or columns, FALSE, otherwise.
+ * 
+ * Sets whether a wrapped list view should scroll in whole row or column
+ * increments, or whether arbitrary scroll offsets should be allowed.
+ **/
+void
+gnome_wrap_list_set_use_unit_scrolling (GnomeWrapList *wlist, gboolean use_unit_scrolling)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+
+	priv = wlist->priv;
+	priv->use_unit_scrolling = use_unit_scrolling ? TRUE : FALSE;
+
+	/* FIXME: scroll a bit if necessary */
+}
+
+/**
+ * gnome_wrap_list_get_use_unit_scrolling:
+ * @wlist: A wrapped list view.
+ * 
+ * Queries whether a wrapped list view scrolls by whole rows or columns.
+ * 
+ * Return value: TRUE if it scrolls by whole rows or columns, or FALSE if
+ * arbitrary scroll offsets are allowed.
+ **/
+gboolean
+gnome_wrap_list_get_use_unit_scrolling (GnomeWrapList *wlist)
+{
+	WrapListPrivate *priv;
+
+	g_return_val_if_fail (wlist != NULL, FALSE);
+	g_return_val_if_fail (GNOME_IS_WRAP_LIST (wlist), FALSE);
+
+	priv = wlist->priv;
+	return priv->use_unit_scrolling;
 }

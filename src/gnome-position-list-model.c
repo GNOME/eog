@@ -28,12 +28,14 @@
 
 /* Signal IDs */
 enum {
+	SET_POSITION,
 	GET_POSITION,
 	LAST_SIGNAL
 };
 
 static void gnome_position_list_model_class_init (GnomePositionListModelClass *class);
 
+static void marshal_set_position (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
 static void marshal_get_position (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
 
 static guint plm_signals[LAST_SIGNAL];
@@ -80,13 +82,23 @@ gnome_position_list_model_class_init (GnomePositionListModelClass *class)
 
 	object_class = (GtkObjectClass *) class;
 
+	plm_signals[SET_POSITION] =
+		gtk_signal_new ("set_position",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomePositionListModelClass, set_position),
+				marshal_set_position,
+				GTK_TYPE_NONE, 3,
+				GTK_TYPE_UINT,
+				GTK_TYPE_INT,
+				GTK_TYPE_INT);
 	plm_signals[GET_POSITION] =
 		gtk_signal_new ("get_position",
-				GTK_RUN_FIRST,
+				GTK_RUN_LAST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GnomePositionListModelClass, get_position),
 				marshal_get_position,
-				GTK_TYPE_NONE, 3,
+				GTK_TYPE_BOOL, 3,
 				GTK_TYPE_UINT,
 				GTK_TYPE_POINTER,
 				GTK_TYPE_POINTER);
@@ -98,21 +110,54 @@ gnome_position_list_model_class_init (GnomePositionListModelClass *class)
 
 /* Marshalers */
 
-typedef void (* GetPositionFunc) (GtkObject *object, guint n, gpointer x, gpointer y, gpointer data);
+typedef void (* SetPositionFunc) (GtkObject *object, guint n, gint x, gint y, gpointer data);
+
+static void
+marshal_set_position (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+{
+	SetPositionFunc rfunc;
+
+	rfunc = (SetPositionFunc) func;
+	(* rfunc) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_INT (args[1]),
+		   GTK_VALUE_INT (args[2]), data);
+}
+
+typedef gboolean (* GetPositionFunc) (GtkObject *object, guint n, gpointer x, gpointer y,
+				      gpointer data);
 
 static void
 marshal_get_position (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
 {
 	GetPositionFunc rfunc;
+	gboolean *retval;
 
+	retval = GTK_RETLOC_BOOL (args[3]);
 	rfunc = (GetPositionFunc) func;
-	(* rfunc) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_POINTER (args[1]),
-		   GTK_VALUE_POINTER (args[2]), data);
+	*retval = (* rfunc) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_POINTER (args[1]),
+			     GTK_VALUE_POINTER (args[2]), data);
 }
 
 
 
 /* Exported functions */
+
+/**
+ * gnome_position_list_model_set_position:
+ * @model: A position list model.
+ * @n: Index of item.
+ * @x: X coordinate for item.
+ * @y: Y coordinate for item.
+ *
+ * Sets the position of an item in a position list model.
+ **/
+void
+gnome_position_list_model_set_position (GnomePositionListModel *model, guint n, gint x, gint y)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_POSITION_LIST_MODEL (model));
+
+	gtk_signal_emit (GTK_OBJECT (model), plm_signals[SET_POSITION], n, x, y);
+}
 
 /**
  * gnome_position_list_model_get_position:
@@ -122,23 +167,30 @@ marshal_get_position (GtkObject *object, GtkSignalFunc func, gpointer data, GtkA
  * @y: Return value for the Y coordinate.
  *
  * Queries the coordinate data for a position in a position list model.
+ *
+ * Return value: TRUE if the specified item had a position set, FALSE if the
+ * item has not had its position specified yet.
  **/
-void
+gboolean
 gnome_position_list_model_get_position (GnomePositionListModel *model, guint n,
 					gint *x, gint *y)
 {
+	gboolean retval;
 	gint rx, ry;
 
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (GNOME_IS_POSITION_LIST_MODEL (model));
+	g_return_val_if_fail (model != NULL, FALSE);
+	g_return_val_if_fail (GNOME_IS_POSITION_LIST_MODEL (model), FALSE);
 
 	rx = ry = 0;
 
-	gtk_signal_emit (GTK_OBJECT (model), plm_signals[GET_POSITION], n, &rx, &ry);
+	retval = FALSE;
+	gtk_signal_emit (GTK_OBJECT (model), plm_signals[GET_POSITION], n, &rx, &ry, &retval);
 
 	if (x)
 		*x = rx;
 
 	if (y)
 		*y = ry;
+
+	return retval;
 }

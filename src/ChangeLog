@@ -1,3 +1,19 @@
+1999-11-12  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-wrap-list.c (gnome_wrap_list_forall): Implemented.
+	(gnome_wrap_list_set_use_unit_scrolling): New function to set
+	whether to use block scrolling or abritrary offsets.
+	(gnome_wrap_list_get_use_unit_scrolling): Getter for the above
+	property.
+	(BlockModeInfo): New structure to describe automatic layout mode.
+
+	* gnome-position-list-model.c
+	(gnome_position_list_model_get_position): Modified so that it
+	returns a boolean value to say whether an item has a set position
+	or not.
+	(gnome_position_list_model_set_position): New function to set the
+	position of an item.  Added a "set_position" signal to the class.
+
 1999-11-09  Federico Mena Quintero  <federico@redhat.com>
 
 	* gnome-icon-item-factory.c (ii_factory_configure_item):
@@ -14,7 +30,7 @@
 
 	Upgrade to gdk-pixbuf 0.3:
 
-	* *.[ch]: Changed GdkPixBuf to GdkPixbuf everywhere.  
+	* *.[ch]: Changed GdkPixBuf to GdkPixbuf everywhere.
 
 	* image.c (image_load): Use gdk_pixbuf_new_from_file().
 
