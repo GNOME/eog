@@ -331,8 +331,10 @@ window_init (Window *window)
 
 	priv->client = gconf_client_get_default ();
 
+#if 0
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+#endif
 
 	priv->window_sb_policy_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/window/sb_policy",
@@ -384,7 +386,9 @@ window_destroy (GtkObject *object)
 	priv->window_sb_policy_notify_id = 0;
 	priv->auto_size_notify_id = 0;
 
+#if 0
 	gconf_client_remove_dir (priv->client, "/apps/eog");
+#endif
 
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;

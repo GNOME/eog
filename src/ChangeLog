@@ -1,5 +1,12 @@
 2000-07-14  Federico Mena Quintero  <federico@helixcode.com>
 
+	* image-view.c (image_view_button_press): Make the scroll wheel
+	control zooming by itself, i.e. without having to press shift.
+	This makes more sense than scrolling, since the scroll wheel is
+	for 1D data and images are 2D.  It also "feels" better.
+
+2000-07-14  Federico Mena Quintero  <federico@helixcode.com>
+
 	* image-view.c (image_view_button_press): If you hold down shift,
 	you can zoom with the scroll wheel.
 

@@ -282,8 +282,10 @@ image_view_init (ImageView *view)
 
 	priv->client = gconf_client_get_default ();
 
+#if 0
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+#endif
 
 	priv->interp_type_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/view/interp_type",
@@ -385,7 +387,9 @@ image_view_destroy (GtkObject *object)
 	priv->dither_notify_id = 0;
 	priv->scroll_notify_id = 0;
 
+#if 0
 	gconf_client_remove_dir (priv->client, "/apps/eog");
+#endif
 
 	/* Clean up */
 
@@ -1246,18 +1250,12 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 		return TRUE;
 
 	case 4:
-		if (event->state & GDK_SHIFT_MASK) {
-			image_view_set_zoom (view, priv->zoom * 1.05);
-			return TRUE;
-		}
-		break;
+		image_view_set_zoom (view, priv->zoom * 1.05);
+		return TRUE;
 
 	case 5:
-		if (event->state & GDK_SHIFT_MASK) {
-			image_view_set_zoom (view, priv->zoom / 1.05);
-			return TRUE;
-		}
-		break;
+		image_view_set_zoom (view, priv->zoom / 1.05);
+		return TRUE;
 
 	default:
 		break;
