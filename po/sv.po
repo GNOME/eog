@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-05-18 16:48+0200\n"
-"PO-Revision-Date: 2002-05-18 16:48+0200\n"
+"POT-Creation-Date: 2002-05-23 02:11+0200\n"
+"PO-Revision-Date: 2002-05-23 02:12+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,16 @@ msgstr "använd helskärmszoomning"
 msgid "whether we should allow full screen zoom"
 msgstr "huruvida vi ska tillåta helskärmszoomning"
 
-#: shell/eog-preferences.c:141
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Kunde inte visa hjälp för inställningsdialogen.\n"
+"%s"
+
+#: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
 msgstr "Inställningar för Eye of Gnome"
 
@@ -209,7 +218,7 @@ msgstr ""
 "Andreas Hydén\n"
 "Rapportera fel i översättningen till sv@li.org"
 
-#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -221,31 +230,40 @@ msgstr "Copyright © 2000-2002 Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
 
-#: shell/eog-window.c:761
+#: shell/eog-window.c:275
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Kunde inte visa hjälp för Eye of Gnome.\n"
+"%s"
+
+#: shell/eog-window.c:785
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:815
+#: shell/eog-window.c:839
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:855
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:850
+#: shell/eog-window.c:874
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:867
+#: shell/eog-window.c:891
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1110
+#: shell/eog-window.c:1134
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
-#: shell/eog-window.c:1139
+#: shell/eog-window.c:1163
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan inte öppna %s."
@@ -496,7 +514,7 @@ msgstr "Fönstertitel"
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image.c:468
+#: viewer/eog-image.c:467
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
