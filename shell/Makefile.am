@@ -1,35 +1,67 @@
+
+gladedir = $(datadir)/eog/glade
+
 INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
-	-DG_LOG_DOMAIN=\"Eog\"				\
-	-DDATADIR=\""$(datadir)"\"			\
 	-I. 						\
-	-I$(srcdir) -I$(top_srcdir) 			\
-	-I$(top_srcdir)/src				\
-	-I$(top_builddir)				\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
-        $(GNOME_INCLUDEDIR)				\
+	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
-	$(EXTRA_WARNING_CFLAGS)				\
-	$(GNOME_CFLAGS)
+	-DEOG_GLADEDIR=\""$(gladedir)"\"
+
+CORBA_SOURCE =			\
+	Eog.h			\
+	Eog-common.c		\
+	Eog-stubs.c		\
+	Eog-skels.c
 
 bin_PROGRAMS = eog-shell
 
 eog_shell_SOURCES =	\
-	main.c			\
+	$(CORBA_SOURCE)		\
+	e-dialog-widgets.h	\
+	e-dialog-widgets.c	\
 	eog-window.h		\
-	eog-window.c
+	eog-window.c		\
+	main.c			\
+	preferences.h		\
+	preferences.c		\
+	util.h			\
+	util.c
 
 eog_shell_LDADD = 	\
-	$(GNOME_LIBS)		\
-	$(GNOME_LIBDIR)		\
-	$(GNOME_LIBS)		\
-	$(OAF_LIBS)		\
-	$(INTLLIBS)		\
+	$(GCONF_LIBS)		\
+	$(EXTRA_GNOME_LIBS)	\
 	$(EXTRA_BONOBO_LIBS)	\
-	../src/libeog.la
+	$(INTLLIBS)
+
+glade_DATA =				\
+	preferences-dialog.glade
+
+glade_messages =			\
+	preferences-dialog.glade.h
+
+
+idls =							\
+	$(top_srcdir)/idl/Eog.idl
+
+idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
+
+$(CORBA_SOURCE): $(idls)
+	$(ORBIT_IDL) $(top_srcdir)/idl/Eog.idl -I$(top_srcdir)/idl $(idl_flags)
+
+Eog.h: $(idls)
+
+BUILT_SOURCES=$(CORBA_SOURCE)
+
+CLEANFILES += $(BUILT_SOURCES)
 
 uidir = $(datadir)/gnome/ui
-ui_DATA = eog-shell-ui.xml
+UI_FILES = eog-shell-ui.xml 
+ui_DATA = $(UI_FILES)
 
-
+EXTRA_DIST = \
+	$(UI_FILES)		\
+	$(glade_DATA)		\
+	$(glade_messages)	

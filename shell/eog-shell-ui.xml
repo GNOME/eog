@@ -1,49 +1,57 @@
 <Root>
 
-  <status/>
+<commands>
+	<cmd name="FileNewWindow" _label="Create _New Window"/>
 
-  <commands>
+	<cmd name="FileOpen" _label="_Open..."
+	     pixtype="stock" pixname="Open" _tip="Open an file"/>
 
-    <cmd name="FileOpen" _label="_Open..."
-	     _tip="Open a file" pixtype="stock" pixname="Open" accel="F3"/>
+	<cmd name="FileCloseWindow" _label="_Close Window"
+             pixtype="stock" pixname="Close" _tip="Close window"/>
 
-    <cmd name="FileSave" _label="_Save"
-	     _tip="Save the current file"
-	     pixtype="stock" pixname="Save" accel="*Control*s"/>
+        <cmd name="FileExit" _label="E_xit" _tip="Exit the program"
+	     pixtype="stock" pixname="Quit" accel="*Control*q"/>
 	
-    <cmd name="FileSaveAs" _label="Save _As..."
-	     _tip="Save the current file with a different name"
-	     pixtype="stock" pixname="Save As"/>
+	<cmd name="Preferences" _label="_Preferences" _tip="Change preferences"
+	     pixtype="stock" pixname="Preferences"/>
 
-    <cmd name="FileExit" _label="E_xit" _tip="Exit the program"
-	     pixtype="stock" pixname="Exit" accel="*Control*q"/>
-
-    <cmd name="HelpAbout" _label="_About..." _tip="About this application"
+	<cmd name="HelpAbout" _label="_About..." _tip="About this application"
 	     pixtype="stock" pixname="About"/>
+</commands>
 
-  </commands>
+<menu>
+        <submenu name="File" _label="_File">
 
-  <menu>
-      
-    <submenu name="File" _label="_File">
-        
-      <menuitem name="FileOpen" verb="" accel="F3"/>
+		<menuitem name="FileNewWindow" verb=""/>
 
-      <separator/>
+		<menuitem name="FileOpen" verb=""/>
+
+		<separator/>
+
+		<menuitem name="FileCloseWindow" verb=""/>
+
+		<menuitem name="FileExit" verb=""/>
+
+	</submenu>
 	
-      <menuitem name="FileSave" verb="" accel="*Control*s"/>
-	
-      <menuitem name="FileSaveAs" verb=""/>
+	<submenu name="Settings" _label="_Settings">
+	        <menuitem name="Preferences" verb=""/>
+	</submenu>
 
-      <separator/>
-	
-      <menuitem name="FileExit" verb="" accel="*Control*q"/>
+	<placeholder name="Component"/>
 
-    </submenu>
+	<submenu name="Help" _label="_Help">
+	        <menuitem name="HelpAbout" verb=""/>
+	</submenu>
+</menu>
 
-    <submenu name="Help" _label="_Help">
-      <menuitem name="HelpAbout" verb=""/>
-    </submenu>
+<dockitem name="Toolbar" relief="none" homogeneous="1" behavior="exclusive">
 
-  </menu>
+        <toolitem name="TBOpen" _label="Open" pixtype="stock"
+                  pixname="Open" verb="FileOpen"/>
+
+        <toolitem name="TBCloseWindow" _label="Close" pixtype="stock"
+                  pixname="Close" verb="FileCloseWindow"/>
+</dockitem>
+
 </Root>
