@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-06-15 13:55+0200\n"
-"PO-Revision-Date: 2002-06-15 13:56+0200\n"
+"POT-Creation-Date: 2002-06-26 23:05+0200\n"
+"PO-Revision-Date: 2002-06-26 23:06+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr "Eye of GNOME bildevisning"
 msgid "View many different types of images"
 msgstr "Vis forskjellige typer bilder"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
 msgstr "EOG-bilde"
 
@@ -49,31 +49,36 @@ msgstr "Factory for EOG bildevisning"
 msgid "Embeddable EOG Image"
 msgstr "Innbyggbart EOG-bilde"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Bilde"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "type interpolasjon"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "type interpolasjon som skal brukes"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "rutetype"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "type ruter som skal brukes"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "størrelsen på rutene som skal brukes"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "dither"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "type dithering"
 
@@ -186,23 +191,23 @@ msgstr "_Vis"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:238
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:245
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Opphavsrett © 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:246
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program for bildevisning og katalogisering for GNOME."
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:283
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -211,11 +216,11 @@ msgstr ""
 "Kunne ikke vise hjelp for Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:798
 msgid "Open Image"
 msgstr "Åpne bilde"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1257
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan ikke åpne %s."
@@ -267,11 +272,11 @@ msgstr ""
 "Følgende filer kan ikke vises fordi Eye og GNOME ikke kunne aksessere dem.:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kunne ikke initiere GnomeVFS!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kunne ikke initiere Bonobo!\n"
 
@@ -424,68 +429,88 @@ msgstr "_Fliser"
 msgid "_White"
 msgstr "_Hvit"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunne ikke lagre bilde som '%s': %s."
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "Lagre som"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "Skriv ut bilde"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "Forhåndsvisning av utskrift"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "Feil under utskrift av bilde"
 
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "Skjerm"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/Zoom _inn"
+
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/Zoom _ut"
+
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/Zoom _1:1"
+
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/Zoom _tilpasset"
+
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/L_ukk"
+
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "Interpolasjon"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "Dither"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "Rutetype"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "Rutestørrelse"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "Bildebredde"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "Bildehøyde"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "Vindustittel"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunne ikke initiere GnomeVFS!\n"
 
@@ -579,11 +604,6 @@ msgstr "Høyre:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Bunn:"
-
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Bilde"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
@@ -729,24 +749,3 @@ msgstr "Rute_type:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Rute_størrelse:"
-
-#~ msgid "whether we should allow full screen zoom"
-#~ msgstr "om zoom til full skjerm skal tillates"
-
-#~ msgid "Translator Credits"
-#~ msgstr "Kjartan Maraas"
-
-#~ msgid "Control doesn't support window_title property."
-#~ msgstr "Kontrollen støtter ikke window_title korrekt."
-
-#~ msgid "Control doesn't support status_text property."
-#~ msgstr "Kontrollen støtter ikke status_text korrekt."
-
-#~ msgid "Control doesn't have properties"
-#~ msgstr "Kontrollen har ingen egenskaper"
-
-#~ msgid "Couldn't retrieve mime type for file."
-#~ msgstr "Kunne ikke finne MIME-type for filen."
-
-#~ msgid "Error while obtaining file informations."
-#~ msgstr "Feil under henting av filinformasjon."
