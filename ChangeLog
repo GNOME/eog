@@ -1,3 +1,11 @@
+2002-08-19  Jens Finke  <jens@triq.net>
+
+	* collection/eog-image-loader-preview.c: Manage a reference to a
+	PreviewCacheAsync object. Removed USE_ASYNC flag.
+
+	* collection/eog-item-factory-clean.c (update_item_image): Handle
+	the case where the thumbnail is NULL properly.
+
 2002-08-18  Jens Finke  <jens@triq.net>
 
 	Fixes bug #85222.

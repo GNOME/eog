@@ -417,7 +417,7 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 	int image_w, image_h;
 	int image_x, image_y;
 	double x1, y1, x2, y2;
-	GdkPixbuf *thumb;
+	GdkPixbuf *thumb = NULL;
 	gboolean start_thumb_creation = FALSE;
 	
 	metrics = factory->priv->metrics;
@@ -437,7 +437,9 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 #endif
 		thumb = cimage_get_thumbnail (cimage);
 	} 
-	else {
+	else if (priv->dummy != NULL) { /* priv->dummy should be always valid, only in case
+					   of destroying the factory object this may 
+					   be NULL. */
 		thumb = priv->dummy;
 		g_object_ref (thumb);
 		
@@ -449,7 +451,11 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 			g_object_set_data (G_OBJECT (cimage), "CanvasItem", item);
 		}
 	}
-	g_assert (thumb != NULL);
+
+	if (thumb == NULL) {
+		/* This may happen if we destroy the factory object. */
+		return;
+	}
 
 	if (icon->image != NULL) {
 		gtk_object_destroy (GTK_OBJECT (icon->image));
