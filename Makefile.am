@@ -6,7 +6,7 @@ EXTRA_DIST = 			\
 	MAINTAINERS		\
 	TODO			\
 	$(schemas_in_files)	\
-	$(Graphics_in_files)	\
+	$(desktop_in_files)	\
 	eog.spec		\
 	eog.gladep		\
 	eog.glade		\
@@ -16,12 +16,12 @@ EXTRA_DIST = 			\
 	intltool-update.in	\
 	intltool-merge.in	
 
-Graphicsdir = $(datadir)/applications
-Graphics_in_files = eog.desktop.in
-Graphics_DATA = $(Graphics_in_files:.desktop.in=.desktop)
+desktopdir = $(datadir)/applications
+desktop_in_files = eog.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-Gladedir = $(datadir)/eog/glade
-Glade_DATA = eog.glade
+gladedir = $(datadir)/eog/glade
+glade_DATA = eog.glade
 
 @INTLTOOL_DESKTOP_RULE@
 
