@@ -1,3 +1,5 @@
+SUBDIRS = stock cursors
+
 INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Eog\"				\
