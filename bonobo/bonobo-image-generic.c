@@ -254,26 +254,25 @@ view_update (view_data_t *view_data)
 /*
  * Loads an Image from a Bonobo_Stream
  */
-static int
-load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *data)
+static void
+load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *data,
+			Bonobo_Persist_ContentType type, CORBA_Environment *ev)
 {
-	int                   retval = 0;
 	bonobo_object_data_t *bod = data;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
 	Bonobo_Stream_iobuf   *buffer;
-	CORBA_Environment     ev;
 
-	CORBA_exception_init (&ev);
+	CORBA_exception_init (ev);
 
 	do {
 		buffer = Bonobo_Stream_iobuf__alloc ();
-		Bonobo_Stream_read (stream, 4096, &buffer, &ev);
+		Bonobo_Stream_read (stream, 4096, &buffer, ev);
 		if (buffer->_buffer &&
-		    (ev._major != CORBA_NO_EXCEPTION ||
+		    (ev->_major != CORBA_NO_EXCEPTION ||
 		     !gdk_pixbuf_loader_write (loader,
 					       buffer->_buffer,
 					       buffer->_length))) {
-			if (ev._major != CORBA_NO_EXCEPTION)
+			if (ev->_major != CORBA_NO_EXCEPTION)
 				g_warning ("Fatal error loading from stream");
 			else
 				g_warning ("Fatal image format error");
@@ -281,8 +280,8 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *dat
 			gdk_pixbuf_loader_close (loader);
 			gtk_object_destroy (GTK_OBJECT (loader));
 			CORBA_free (buffer);
-			CORBA_exception_free (&ev);
-			return -1;
+			CORBA_exception_free (ev);
+			return;
 		}
 		CORBA_free (buffer);
 	} while (buffer->_length > 0);
@@ -293,14 +292,14 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *dat
 	gtk_object_destroy (GTK_OBJECT (loader));
 
 	if (!bod->pixbuf)
-		retval = -1;
+		return;
 	else
 		bonobo_embeddable_foreach_view (bod->bonobo_object,
 						redraw_all_cb, bod);
 	
-	CORBA_exception_free (&ev);
+	CORBA_exception_free (ev);
 
-	return retval;
+	return;
 }
 
 static void
@@ -561,8 +560,8 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	/*
 	 * Interface Bonobo::PersistStream 
 	 */
-	stream = bonobo_persist_stream_new (load_image_from_stream,
-					    NULL, bod);
+	stream = bonobo_persist_stream_new (load_image_from_stream, NULL, 
+					    NULL, NULL, bod);
 	if (stream == NULL) {
 		gtk_object_unref (GTK_OBJECT (bonobo_object));
 		g_free (bod);
