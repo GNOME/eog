@@ -1,3 +1,12 @@
+2000-11-16  Martin Baulig  <baulig@suse.de>
+
+	* eog-image-view.c (zoomable_zoom_to_fit_cb): Implemented;
+	first call ui_image_zoom_fit(), then get the new zoom level
+	from the ImageView and emit the "set_zoom_level" signal on
+	the zoomable.
+	(eog_image_view_construct): Set `has_min_zoom_level' and
+	`has_max_zoom_level' on the zoomable.
+
 2000-10-27  Martin Baulig  <baulig@suse.de>
 
 	* eog-image-control.[ch]: Renamed to eog-control.[ch].

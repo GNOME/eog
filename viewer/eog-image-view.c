@@ -372,8 +372,19 @@ zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogImageView *image_view)
 static void
 zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogImageView *image_view)
 {
+	ImageView *view;
+	float new_zoom_level;
+
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+	view = IMAGE_VIEW (image_view->priv->image_view);
+
+	ui_image_zoom_fit (UI_IMAGE (image_view->priv->ui_image));
+	new_zoom_level = image_view_get_zoom (view);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level",
+				 new_zoom_level);
 }
 
 static void
@@ -735,7 +746,7 @@ eog_image_view_construct (EogImageView *image_view, EOG_ImageView corba_object,
 					     image_view->priv->zoom_level,
 					     preferred_zoom_levels [0],
 					     preferred_zoom_levels [max_preferred_zoom_levels],
-					     FALSE, FALSE, TRUE,
+					     TRUE, TRUE, TRUE,
 					     preferred_zoom_levels,
 					     preferred_zoom_level_names,
 					     max_preferred_zoom_levels + 1);
