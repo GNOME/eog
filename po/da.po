@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-05-25 20:42+0200\n"
-"PO-Revision-Date: 2002-05-25 20:44+0200\n"
+"POT-Creation-Date: 2002-05-31 19:05+0200\n"
+"PO-Revision-Date: 2002-05-31 19:05+0200\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Billedfremviseren Gnomes øje"
 msgid "View many different types of images"
 msgstr "Vis mange forskellige typer billeder"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "EOG-billede"
 
@@ -58,49 +58,33 @@ msgstr "EOG-billedfremviserfabrik"
 msgid "Embeddable EOG Image"
 msgstr "Indlejret EOG-billede"
 
-#: libeog/image-view.c:1965
+#: libeog/image-view.c:1853
 msgid "interpolation type"
 msgstr "Interpoleringstype"
 
-#: libeog/image-view.c:1966
+#: libeog/image-view.c:1854
 msgid "the type of interpolation to use"
 msgstr "den type interpolering der skal bruges"
 
-#: libeog/image-view.c:1972 libeog/image-view.c:1979
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
 msgid "check type"
 msgstr "terntype"
 
-#: libeog/image-view.c:1973
+#: libeog/image-view.c:1861
 msgid "the type of chequering to use"
 msgstr "den type tern der skal bruges"
 
-#: libeog/image-view.c:1980
+#: libeog/image-view.c:1868
 msgid "the size of chequers to use"
 msgstr "størrelsen af ternene"
 
-#: libeog/image-view.c:1986
+#: libeog/image-view.c:1874
 msgid "dither"
 msgstr "farvereducering"
 
-#: libeog/image-view.c:1987
+#: libeog/image-view.c:1875
 msgid "dither type"
 msgstr "type farvereducering"
-
-#: libeog/image-view.c:1993
-msgid "scroll"
-msgstr "rulning"
-
-#: libeog/image-view.c:1994
-msgid "scroll type"
-msgstr "type rulning"
-
-#: libeog/image-view.c:2000
-msgid "enable full screen zoom"
-msgstr "aktivér fuldskærmszoom"
-
-#: libeog/image-view.c:2001
-msgid "whether we should allow full screen zoom"
-msgstr "om fuldskærmszoom skal være tillad"
 
 #: shell/eog-preferences.c:162
 #, c-format
@@ -143,7 +127,7 @@ msgstr "Indhold"
 msgid "Help On this application"
 msgstr "Hjælp til dette program"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Åbn"
 
@@ -208,26 +192,26 @@ msgid "_View"
 msgstr "_Vis"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Ole Laursen <olau@hardworking.dk>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Billedfremviser og -katalogiseringsprogram til Gnome"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
+msgstr "Billedfremviser og -katalogiseringsprogram til Gnome."
 
-#: shell/eog-window.c:275
+#: shell/eog-window.c:293
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -236,36 +220,16 @@ msgstr ""
 "Kunne ikke vise hjælp til programmet.\n"
 "%s"
 
-#: shell/eog-window.c:785
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: shell/eog-window.c:839
-msgid "Control doesn't support window_title property."
-msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
-
-#: shell/eog-window.c:855
-msgid "Control doesn't support status_text property."
-msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
-
-#: shell/eog-window.c:874
-msgid "Control doesn't have properties"
-msgstr "Kontrollen har ikke nogen egenskaber"
-
-#: shell/eog-window.c:891
-msgid "Couldn't retrieve mime type for file."
-msgstr "Kunne ikke finde ud af MIME-typen for filen."
-
-#: shell/eog-window.c:1134
-msgid "Error while obtaining file informations."
-msgstr "Fejl under indsamling af filoplysninger."
-
-#: shell/eog-window.c:1163
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kunne ikke åbne %s."
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -276,15 +240,15 @@ msgstr ""
 "på samme tid. Vil du åbne dem som en\n"
 "samling i stedet?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Enkelte vinduer"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:193
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -405,7 +369,7 @@ msgstr "_Mørk"
 
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
-msgstr "_Avanceret farvereducering"
+msgstr "_Farvereducering"
 
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Gray"
@@ -451,28 +415,28 @@ msgstr "_Fliser"
 msgid "_White"
 msgstr "_Hvid"
 
-#: viewer/eog-image-view.c:304
+#: viewer/eog-image-view.c:302
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunne ikke gemme billede som '%s': %s."
 
-#: viewer/eog-image-view.c:355
+#: viewer/eog-image-view.c:353
 msgid "Save As"
 msgstr "Gem som"
 
-#: viewer/eog-image-view.c:930
+#: viewer/eog-image-view.c:928
 msgid "Print Image"
 msgstr "Udskriv billede"
 
-#: viewer/eog-image-view.c:938
+#: viewer/eog-image-view.c:936
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:1025
+#: viewer/eog-image-view.c:1023
 msgid "Print Preview"
 msgstr "Vis udskrift"
 
-#: viewer/eog-image-view.c:1031
+#: viewer/eog-image-view.c:1029
 msgid "Printing of image failed"
 msgstr "Udskrivning af billede mislykkedes"
 
@@ -480,38 +444,38 @@ msgstr "Udskrivning af billede mislykkedes"
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:2067
+#: viewer/eog-image-view.c:2066
 msgid "Interpolation"
 msgstr "Interpolering"
 
-#: viewer/eog-image-view.c:2070
+#: viewer/eog-image-view.c:2069
 msgid "Dither"
-msgstr "Avanceret farvereducering"
+msgstr "Farvereducering"
 
 # det drejer sig om det skakternede mønster der bliver tegnet under et
 # halvgennemsigtigt billede
-#: viewer/eog-image-view.c:2073
+#: viewer/eog-image-view.c:2072
 msgid "Check Type"
 msgstr "Type af tern"
 
 # ditto
-#: viewer/eog-image-view.c:2076
+#: viewer/eog-image-view.c:2075
 msgid "Check Size"
 msgstr "Ternstørrelse"
 
-#: viewer/eog-image-view.c:2079
+#: viewer/eog-image-view.c:2078
 msgid "Image Width"
 msgstr "Billedbredde"
 
-#: viewer/eog-image-view.c:2082
+#: viewer/eog-image-view.c:2081
 msgid "Image Height"
 msgstr "Billedhøjde"
 
-#: viewer/eog-image-view.c:2085
+#: viewer/eog-image-view.c:2084
 msgid "Window Title"
 msgstr "Vinduestitel"
 
-#: viewer/eog-image-view.c:2088
+#: viewer/eog-image-view.c:2087
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
@@ -750,7 +714,7 @@ msgstr "_Interpolering:"
 
 #: viewer/preferences.c:187
 msgid "_Dither:"
-msgstr "_Avanceret farvereducering:"
+msgstr "_Farvereducering:"
 
 # det drejer sig om det skakternede mønster der bliver tegnet under et
 # halvgennemsigtigt billede
@@ -762,6 +726,36 @@ msgstr "_Type af tern:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Tern_størrelse:"
+
+#~ msgid "scroll"
+#~ msgstr "rulning"
+
+#~ msgid "scroll type"
+#~ msgstr "type rulning"
+
+#~ msgid "enable full screen zoom"
+#~ msgstr "aktivér fuldskærmszoom"
+
+#~ msgid "whether we should allow full screen zoom"
+#~ msgstr "om fuldskærmszoom skal være tillad"
+
+#~ msgid "Translator Credits"
+#~ msgstr "Ole Laursen <olau@hardworking.dk>"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Kontrollen har ikke nogen egenskaber"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Kunne ikke finde ud af MIME-typen for filen."
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Fejl under indsamling af filoplysninger."
 
 #~ msgid "Check size large"
 #~ msgstr "Stor størrelse tern"
