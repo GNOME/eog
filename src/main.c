@@ -36,20 +36,20 @@ main (int argc, char **argv)
 	GtkWidget *window;
 	const char **args;
 	gboolean opened;
-	GConfError *error;
-
+	GError *error;
+	
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	textdomain (PACKAGE);
-
+	
 	gnome_init_with_popt_table (PACKAGE, VERSION, argc, argv, NULL, 0, &ctx);
 	gdk_rgb_init ();
 	glade_gnome_init ();
-
+	
 	error = NULL;
 	if (!gconf_init (argc, argv, &error)) {
 		g_assert (error != NULL);
-		g_message ("GConf init failed: %s", error->str);
-		gconf_error_destroy (error);
+		g_message ("GConf init failed: %s", error->message);
+		g_error_free (error);
 		exit (EXIT_FAILURE);
 	}
 
