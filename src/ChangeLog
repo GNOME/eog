@@ -1,9 +1,36 @@
 1999-09-18  Federico Mena Quintero  <federico@redhat.com>
 
+	* ui-image.c (ui_image_get_zoom): New function to get the current
+	zoom factor.
+	(ui_image_zoom_fit): New function to zoom to fit the size of the
+	image view.
+
+	* window.c (window_construct): Create the toolbar.
+	(view_menu): Added the View menu.
+	(window_zoom_in): Zoom in by 5%.
+	(window_zoom_out): Zoom out by 5%.
+	(window_zoom_1): Zoom to 1:1 scale.
+	(window_zoom_fit): Zoom to fit the window.
+	(window_construct): Keep a pointer to the view menu and call
+	set_mode().
+	(set_menu_sensitivity): New function to set the sensitivity of
+	menu items according to the window mode.
+	(set_mode): Call set_menu_sensitivity().
+
+	* tb-image.[ch]: New files with the definition of a toolbar for
+	image windows.
+
+	* commands.[ch]: New files with command callbacks for menus and
+	toolbars.
+
 	* main.c (main): Open the images specified in the command line.
 
 	* window.c (window_open_image): Renamed from open_image() and made
 	public.
+	(window_open_image_dialog): Renamed from open_cmd() and made
+	public.
+	(window_close): Renamed from close_window() and made public.
+	(file_menu): Use the callbacks in commands.h.
 
 	* ui-image.c (ui_image_set_zoom): New function to set the zoom
 	factor of an image view.

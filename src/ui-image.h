@@ -57,7 +57,10 @@ GtkWidget *ui_image_new (void);
 void ui_image_construct (UIImage *ui);
 
 void ui_image_set_image (UIImage *ui, Image *image);
+
 void ui_image_set_zoom (UIImage *ui, double zoom);
+double ui_image_get_zoom (UIImage *ui);
+void ui_image_zoom_fit (UIImage *ui);
 
 
 

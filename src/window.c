@@ -21,6 +21,8 @@
 
 #include <config.h>
 #include <gnome.h>
+#include "commands.h"
+#include "tb-image.h"
 #include "ui-image.h"
 #include "window.h"
 
@@ -45,11 +47,6 @@ typedef struct {
 	/* What we are displaying */
 	WindowMode mode;
 
-	/* A bin to hold the content.  GnomeApp does not like its contents to be
-	 * removed and added again.
-	 */
-	GtkWidget *bin;
-
 	/* Our contents, which may change depending on the mode */
 	GtkWidget *content;
 
@@ -57,6 +54,9 @@ typedef struct {
 	 * that it will preserve its cwd.
 	 */
 	GtkWidget *file_sel;
+
+	/* View menu */
+	GtkWidget *view_menu;
 } WindowPrivate;
 
 
@@ -157,6 +157,34 @@ confirm_save (Window *window, gboolean ask_exit)
 
 /* Setting the mode of a window */
 
+/* Sets the sensitivity of menu items according to the mode */
+static void
+set_menu_sensitivity (Window *window)
+{
+	WindowPrivate *priv;
+
+	priv = window->priv;
+
+	switch (priv->mode) {
+	case WINDOW_MODE_NONE:
+		gtk_widget_set_sensitive (priv->view_menu, FALSE);
+		break;
+
+	case WINDOW_MODE_IMAGE:
+		gtk_widget_set_sensitive (priv->view_menu, TRUE);
+		break;
+
+	case WINDOW_MODE_COLLECTION:
+		gtk_widget_set_sensitive (priv->view_menu, FALSE);
+		/* FIXME: finish this */
+		break;
+
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+/* Sets the mode of a window */
 static void
 set_mode (Window *window, WindowMode mode)
 {
@@ -164,11 +192,7 @@ set_mode (Window *window, WindowMode mode)
 
 	priv = window->priv;
 
-	if (priv->mode == mode)
-		return;
-
 	/* FIXME: this test may be better outside this function */
-
 	switch (confirm_save (window, FALSE)) {
 	case CLOSE_SAVE:
 		; /* FIXME: save it */
@@ -190,9 +214,6 @@ set_mode (Window *window, WindowMode mode)
 	case WINDOW_MODE_IMAGE:
 		priv->content = ui_image_new ();
 		gnome_app_set_contents (GNOME_APP (window), priv->content);
-#if 0
-		gtk_container_add (GTK_CONTAINER (priv->bin), priv->content);
-#endif
 		gtk_widget_show (priv->content);
 		break;
 
@@ -202,37 +223,8 @@ set_mode (Window *window, WindowMode mode)
 	default:
 		g_assert_not_reached ();
 	}
-}
 
-
-
-/* File opening */
-
-
-/**
- * window_open_image:
- * @window: A window.
- * @filename: An image filename.
- * 
- * Opens an image file and puts it into a window.
- **/
-void
-window_open_image (Window *window, const char *filename)
-{
-	WindowPrivate *priv;
-	Image *image;
-
-	g_assert (filename != NULL);
-
-	priv = window->priv;
-
-	set_mode (window, WINDOW_MODE_IMAGE);
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-
-	image = image_new ();
-	image_load (image, filename);
-	ui_image_set_image (UI_IMAGE (priv->content), image);
-	image_unref (image);
+	set_menu_sensitivity (window);
 }
 
 
@@ -262,111 +254,7 @@ new_window_cmd (GtkWidget *widget, gpointer data)
 
 
 
-/* File/Open */
-
-/* OK button callback for the open file selection dialog */
-static void
-open_ok_clicked (GtkWidget *widget, gpointer data)
-{
-	GtkWidget *fs;
-	Window *window;
-	char *filename;
-
-	fs = GTK_WIDGET (data);
-
-	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
-	g_assert (window != NULL);
-
-	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
-	window_open_image (window, filename);
-
-	gtk_widget_hide (fs);
-}
-
-/* Cancel button callback for the open file selection dialog */
-static void
-open_cancel_clicked (GtkWidget *widget, gpointer data)
-{
-	gtk_widget_hide (GTK_WIDGET (data));
-}
-
-/* Delete_event handler for the open file selection dialog */
-static gint
-open_delete_event (GtkWidget *widget, gpointer data)
-{
-	gtk_widget_hide (widget);
-	return TRUE;
-}
-
-/* File/Open callback */
-static void
-open_cmd (GtkWidget *widget, gpointer data)
-{
-	Window *window;
-	WindowPrivate *priv;
-
-	window = WINDOW (data);
-	priv = window->priv;
-
-	if (!priv->file_sel) {
-		priv->file_sel = gtk_file_selection_new (_("Open Image"));
-		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
-		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
-
-		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
-				    "clicked",
-				    GTK_SIGNAL_FUNC (open_ok_clicked),
-				    priv->file_sel);
-		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
-				    "clicked",
-				    GTK_SIGNAL_FUNC (open_cancel_clicked),
-				    priv->file_sel);
-		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
-				    GTK_SIGNAL_FUNC (open_delete_event),
-				    window);
-	}
-
-	gtk_widget_show_now (priv->file_sel);
-	raise_and_focus (priv->file_sel);
-}
-
-
-
 /* File/Close and Exit */
-
-/* Closes a window with confirmation, and exits the main loop if this was the
- * last window in the list.
- */
-static void
-close_window (Window *window)
-{
-	switch (confirm_save (window, FALSE)) {
-	case CLOSE_SAVE:
-		; /* FIXME: save it */
-		break;
-
-	case CLOSE_DISCARD:
-		break;
-
-	default:
-		return;
-	}
-
-	gtk_widget_destroy (GTK_WIDGET (window));
-
-	if (!window_list)
-		gtk_main_quit ();
-}
-
-/* File/Close callback */
-static void
-close_cmd (GtkWidget *widget, gpointer data)
-{
-	Window *window;
-
-	window = WINDOW (data);
-	close_window (window);
-}
 
 /* File/Exit callback */
 static void
@@ -450,15 +338,35 @@ about_cmd (GtkWidget *widget, gpointer data)
 static GnomeUIInfo file_menu[] = {
 	GNOMEUIINFO_MENU_NEW_WINDOW_ITEM (new_window_cmd, NULL),
 	{ GNOME_APP_UI_ITEM, N_("_Open Image..."), N_("Open an image file"),
-	  open_cmd, NULL, NULL,
+	  cmd_cb_image_open, NULL, NULL,
 	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
 	  'o', GDK_CONTROL_MASK, NULL },
 	GNOMEUIINFO_SEPARATOR,
 	{ GNOME_APP_UI_ITEM, N_("_Close This Window"), N_("Close the current window"),
-	  close_cmd, NULL, NULL,
+	  cmd_cb_window_close, NULL, NULL,
 	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	  'w', GDK_CONTROL_MASK, NULL },
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cmd, NULL),
+	GNOMEUIINFO_END
+};
+
+static GnomeUIInfo view_menu[] = {
+	{ GNOME_APP_UI_ITEM, N_("Zoom In"), N_("Increase zoom factor by 5%"),
+	  cmd_cb_zoom_in, NULL, NULL,
+	  GNOME_APP_PIXMAP_NONE, NULL,
+	  '=', 0, NULL },
+	{ GNOME_APP_UI_ITEM, N_("Zoom Out"), N_("Decrease zoom factor by 5%"),
+	  cmd_cb_zoom_out, NULL, NULL,
+	  GNOME_APP_PIXMAP_NONE, NULL,
+	  '-', 0, NULL },
+	{ GNOME_APP_UI_ITEM, N_("Zoom _1:1"), N_("Display the image at 1:1 scale"),
+	  cmd_cb_zoom_1, NULL, NULL,
+	  GNOME_APP_PIXMAP_NONE, NULL,
+	  '1', 0, NULL },
+	{ GNOME_APP_UI_ITEM, N_("_Fit to Window"), N_("Zoom the image to fit in the window"),
+	  cmd_cb_zoom_fit, NULL, NULL,
+	  GNOME_APP_PIXMAP_NONE, NULL,
+	  'f', 0, NULL },
 	GNOMEUIINFO_END
 };
 
@@ -469,6 +377,7 @@ static GnomeUIInfo help_menu[] = {
 
 static GnomeUIInfo main_menu[] = {
 	GNOMEUIINFO_MENU_FILE_TREE (file_menu),
+	GNOMEUIINFO_MENU_VIEW_TREE (view_menu),
 	GNOMEUIINFO_MENU_HELP_TREE (help_menu),
 	GNOMEUIINFO_END
 };
@@ -567,7 +476,7 @@ window_delete (GtkWidget *widget, GdkEventAny *event)
 	Window *window;
 
 	window = WINDOW (widget);
-	close_window (window);
+	window_close (window);
 	return TRUE;
 }
 
@@ -600,6 +509,7 @@ void
 window_construct (Window *window)
 {
 	WindowPrivate *priv;
+	GtkWidget *tb;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (IS_WINDOW (window));
@@ -609,12 +519,250 @@ window_construct (Window *window)
 	gnome_app_construct (GNOME_APP (window), "eog", _("Eye of Gnome"));
 	gnome_app_create_menus_with_data (GNOME_APP (window), main_menu, window);
 
-#if 0
-	priv->bin = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-	gnome_app_set_contents (GNOME_APP (window), priv->bin);
-	gtk_widget_show (priv->bin);
-#endif
+	priv->view_menu = main_menu[1].widget;
+
+	tb = tb_image_new (window);
+	gnome_app_set_toolbar (GNOME_APP (window), GTK_TOOLBAR (tb));
 
 	gtk_window_set_default_size (GTK_WINDOW (window),
 				     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+
+	set_mode (window, WINDOW_MODE_NONE);
+}
+
+
+
+/**
+ * window_close:
+ * @window: A window.
+ *
+ * Closes a window with confirmation, and exits the main loop if this was the
+ * last window in the list.
+ **/
+void
+window_close (Window *window)
+{
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	switch (confirm_save (window, FALSE)) {
+	case CLOSE_SAVE:
+		; /* FIXME: save it */
+		break;
+
+	case CLOSE_DISCARD:
+		break;
+
+	default:
+		return;
+	}
+
+	gtk_widget_destroy (GTK_WIDGET (window));
+
+	if (!window_list)
+		gtk_main_quit ();
+}
+
+
+
+/* Open image dialog */
+
+/* OK button callback for the open file selection dialog */
+static void
+open_ok_clicked (GtkWidget *widget, gpointer data)
+{
+	GtkWidget *fs;
+	Window *window;
+	char *filename;
+
+	fs = GTK_WIDGET (data);
+
+	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
+	g_assert (window != NULL);
+
+	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
+	window_open_image (window, filename);
+
+	gtk_widget_hide (fs);
+}
+
+/* Cancel button callback for the open file selection dialog */
+static void
+open_cancel_clicked (GtkWidget *widget, gpointer data)
+{
+	gtk_widget_hide (GTK_WIDGET (data));
+}
+
+/* Delete_event handler for the open file selection dialog */
+static gint
+open_delete_event (GtkWidget *widget, gpointer data)
+{
+	gtk_widget_hide (widget);
+	return TRUE;
+}
+
+/**
+ * window_open_image_dialog:
+ * @window: A window.
+ *
+ * Creates an "open image" dialog for a window.
+ **/
+void
+window_open_image_dialog (Window *window)
+{
+	WindowPrivate *priv;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+
+	if (!priv->file_sel) {
+		priv->file_sel = gtk_file_selection_new (_("Open Image"));
+		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
+		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
+
+		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
+				    "clicked",
+				    GTK_SIGNAL_FUNC (open_ok_clicked),
+				    priv->file_sel);
+		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
+				    "clicked",
+				    GTK_SIGNAL_FUNC (open_cancel_clicked),
+				    priv->file_sel);
+		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
+				    GTK_SIGNAL_FUNC (open_delete_event),
+				    window);
+	}
+
+	gtk_widget_show_now (priv->file_sel);
+	raise_and_focus (priv->file_sel);
+}
+
+
+
+/**
+ * window_open_image:
+ * @window: A window.
+ * @filename: An image filename.
+ *
+ * Opens an image file and puts it into a window.
+ **/
+void
+window_open_image (Window *window, const char *filename)
+{
+	WindowPrivate *priv;
+	Image *image;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+	g_return_if_fail (filename != NULL);
+
+	priv = window->priv;
+
+	set_mode (window, WINDOW_MODE_IMAGE);
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+
+	image = image_new ();
+	image_load (image, filename);
+	ui_image_set_image (UI_IMAGE (priv->content), image);
+	image_unref (image);
+}
+
+
+
+/**
+ * window_zoom_in:
+ * @window: An image window.
+ *
+ * Zooms in an image window.
+ **/
+void
+window_zoom_in (Window *window)
+{
+	WindowPrivate *priv;
+	UIImage *ui;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
+
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+	ui = UI_IMAGE (priv->content);
+
+	ui_image_set_zoom (ui, ui_image_get_zoom (ui) * 1.05);
+}
+
+/**
+ * window_zoom_out:
+ * @window: An image window.
+ *
+ * Zooms out an image window.
+ **/
+void
+window_zoom_out (Window *window)
+{
+	WindowPrivate *priv;
+	UIImage *ui;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
+
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+	ui = UI_IMAGE (priv->content);
+
+	ui_image_set_zoom (ui, ui_image_get_zoom (ui) / 1.05);
+}
+
+/**
+ * window_zoom_1:
+ * @window: An image window.
+ * 
+ * Zooms the image to 1:1 scale.
+ **/
+void
+window_zoom_1 (Window *window)
+{
+	WindowPrivate *priv;
+	UIImage *ui;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
+
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+	ui = UI_IMAGE (priv->content);
+
+	ui_image_set_zoom (ui, 1.0);
+}
+
+/**
+ * window_zoom_fit:
+ * @window: An image window.
+ * 
+ * Zooms an image to fit the window size.
+ **/
+void
+window_zoom_fit (Window *window)
+{
+	WindowPrivate *priv;
+	UIImage *ui;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
+
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+	ui = UI_IMAGE (priv->content);
+
+	ui_image_zoom_fit (ui);
 }

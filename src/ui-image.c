@@ -23,6 +23,7 @@
 #include <gtk/gtksignal.h>
 #include "image-item.h"
 #include "ui-image.h"
+#include "zoom.h"
 
 
 
@@ -263,5 +264,60 @@ ui_image_set_zoom (UIImage *ui, double zoom)
 	g_return_if_fail (zoom > 0.0);
 
 	priv = ui->priv;
+	priv->zoom = zoom;
 	gnome_canvas_set_pixels_per_unit (GNOME_CANVAS (priv->canvas), zoom);
+}
+
+/**
+ * ui_image_get_zoom:
+ * @ui: An image view.
+ * 
+ * Gets the current zoom factor of an image view.
+ * 
+ * Return value: Current zoom factor.
+ **/
+double
+ui_image_get_zoom (UIImage *ui)
+{
+	UIImagePrivate *priv;
+
+	g_return_val_if_fail (ui != NULL, -1.0);
+	g_return_val_if_fail (IS_UI_IMAGE (ui), -1.0);
+
+	priv = ui->priv;
+	return priv->zoom;
+}
+
+/**
+ * ui_image_zoom_fit:
+ * @ui: An image view.
+ * 
+ * Sets the zoom factor to fit the size of an image view.
+ **/
+void
+ui_image_zoom_fit (UIImage *ui)
+{
+	UIImagePrivate *priv;
+	int w, h, xthick, ythick;
+	int iw, ih;
+	double zoom;
+
+	g_return_if_fail (ui != NULL);
+	g_return_if_fail (IS_UI_IMAGE (ui));
+
+	priv = ui->priv;
+
+	w = GTK_WIDGET (ui)->allocation.width;
+	h = GTK_WIDGET (ui)->allocation.height;
+	xthick = GTK_WIDGET (ui)->style->klass->xthickness;
+	ythick = GTK_WIDGET (ui)->style->klass->ythickness;
+
+	if (priv->image->buf) {
+		iw = priv->image->buf->art_pixbuf->width;
+		ih = priv->image->buf->art_pixbuf->height;
+	} else
+		iw = ih = 0;
+
+	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
+	ui_image_set_zoom (ui, zoom);
 }

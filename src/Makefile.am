@@ -5,6 +5,8 @@ INCLUDES =						\
 	-DG_LOG_DOMAIN=\"eog\"
 
 eog_SOURCES =			\
+	commands.c		\
+	commands.h		\
 	gtkscrollframe.c	\
 	gtkscrollframe.h	\
 	image.h			\
@@ -14,6 +16,8 @@ eog_SOURCES =			\
 	main.c			\
 	render.c		\
 	render.h		\
+	tb-image.c		\
+	tb-image.h		\
 	ui-image.c		\
 	ui-image.h		\
 	window.c		\
