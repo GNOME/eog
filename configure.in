@@ -22,6 +22,7 @@ LIBGNOMEPRINTUI_REQUIRED=2.2.1.1
 LIBGNOMECANVAS_REQUIRED=1.113.0
 GCONF_REQUIRED=2.2.0
 LIBART_REQUIRED=2.2.0
+GTK_REQUIRED=2.3.0
 
 dnl ===============================================================================
 
@@ -52,7 +53,7 @@ AC_SUBST(LDFLAGS)
 dnl ================= gnome libs check ====================================
 
 GPI_MODULES="libgnomeprintui-2.2 >= $LIBGNOMEPRINTUI_REQUIRED gconf-2.0 >= $GCONF_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED libgnomecanvas-2.0 >= $LIBGNOMECANVAS_REQUIRED"
-EOG_MODULES="gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED $GPI_MODULES libart-2.0 >= $LIBART_REQUIRED"
+EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED $GPI_MODULES libart-2.0 >= $LIBART_REQUIRED"
 
 dnl ============== optional exif support ====================
 

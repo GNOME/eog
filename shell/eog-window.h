@@ -61,7 +61,7 @@ struct _EogWindow {
 struct _EogWindowClass {
 	BonoboWindowClass parent_class;
 
-	void (* open_uri_list) (EogWindow *window, GList *text_uri_list);
+	void (* open_uri_list) (EogWindow *window, GSList *text_uri_list);
 	void (* new_window) (EogWindow *window);
 };
 

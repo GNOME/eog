@@ -3,7 +3,6 @@
 #include <libgnome/gnome-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <glib/gslist.h>
-#include <glib/gfileutils.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkmenuitem.h>
 #include <gtk/gtkmenu.h>
@@ -15,382 +14,222 @@
 #include "eog-hig-dialog.h"
 #include "eog-pixbuf-util.h"
 
-struct _EogFileSelectionPrivate {
-	EogFileSelectionType type;
-	GtkWidget            *options;
-	GdkPixbufFormat      *last_info;
-
-	GSList               *supported_types;
-	gboolean             allow_directories;
-	char                 *path;
-};
-
 static char* last_dir[] = { NULL, NULL };
-
-#define FILE_TYPE_INFO_KEY  "File Type Info"
 
 GNOME_CLASS_BOILERPLATE (EogFileSelection,
 			 eog_file_selection,
-			 GtkFileSelection,
-			 GTK_TYPE_FILE_SELECTION);
-
-static void
-eog_file_selection_dispose (GObject *object)
-{
-	EogFileSelectionPrivate *priv;
-
-	priv = EOG_FILE_SELECTION (object)->priv;
-	if (priv->supported_types != NULL) {
-		g_slist_free (priv->supported_types);
-		priv->supported_types = NULL;
-	}
-
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
-}
+			 GtkFileChooserDialog,
+			 GTK_TYPE_FILE_CHOOSER_DIALOG);
 
 static void
 eog_file_selection_class_init (EogFileSelectionClass *klass)
 {
-	GObjectClass *object_class = (GObjectClass*) klass;
-
-	object_class->dispose = eog_file_selection_dispose;
 }
 
 static void
 eog_file_selection_instance_init (EogFileSelection *filesel)
 {
-	EogFileSelectionPrivate *priv;
-
-	priv = g_new0 (EogFileSelectionPrivate, 1);
-
-	filesel->priv = priv;
-}
-
-static void
-eog_append_menu_entry (GtkWidget *menu, GdkPixbufFormat *format) 
-{
-	GtkWidget *item;
-	
-	if (format == NULL) {
-		item = gtk_menu_item_new_with_label (_("By Extension"));
-	}
-	else {
-		char *caption = NULL;
-		char **suffix;
-		char *name;
-		char *tmp;
-		int i;
-
-		suffix = gdk_pixbuf_format_get_extensions (format);
-		name = gdk_pixbuf_format_get_name (format);
-		caption = g_ascii_strup (name, -1);
-		for (i = 0; suffix[i] != NULL; i++) {
-			if (i == 0) {
-				tmp = g_strconcat (caption, " (*.", suffix[i], NULL);
-			}
-			else {
-				tmp = g_strconcat (caption, ", *.", suffix[i], NULL);
-			}
-			g_free (caption);
-			caption = tmp;
-		}
-		
-		tmp = g_strconcat (caption, ")", NULL);
-		g_free (caption);
-		caption = tmp;
-
-		item = gtk_menu_item_new_with_label (caption);
-
-		g_free (caption);
-		g_free (name);
-		g_strfreev (suffix);
-	}
-	g_object_set_data (G_OBJECT (item), FILE_TYPE_INFO_KEY, format);
-	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-}
-
-static gboolean
-check_extension (const char *filename, GdkPixbufFormat *format)
-{
-	int i;
-	char **suffixes;
-	gboolean result;
-	
-	suffixes = gdk_pixbuf_format_get_extensions (format);
-	if (suffixes == NULL) return TRUE;
-	
-	for (i = 0; suffixes[i] != NULL; i++) {
-		char *pattern = g_strconcat ("*.", suffixes[i], NULL);
-		gboolean match;
-		
-		match = g_pattern_match_simple (pattern, filename);
-		g_free (pattern);
-		
-		if (match) {
-			break;
-		}
-	}
-
-	result = (suffixes [i] != NULL);
-
-	g_strfreev (suffixes);
-	
-	return result;
-}
-
-/* FIXME: the function name doesn't really reflect it's purpose */
-static gboolean
-is_filename_valid (GtkDialog *dlg)
-{
-	EogFileSelection *filesel;
-	EogFileSelectionPrivate *priv;
-	GdkPixbufFormat *info;
-	GtkWidget *menu;
-	GtkWidget *item;
-	const gchar *filename;
-	gboolean result = TRUE;;
-
-	g_return_val_if_fail (EOG_IS_FILE_SELECTION (dlg), TRUE);
-
-	filesel = EOG_FILE_SELECTION (dlg);
-	priv = filesel->priv;
-
-	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg));
-	if (priv->allow_directories && g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-		return TRUE;
-	}
-
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (filesel->priv->options));
-	item = gtk_menu_get_active (GTK_MENU (menu));
-	g_assert (item != NULL);
-	info = g_object_get_data (G_OBJECT (item), FILE_TYPE_INFO_KEY);
-
-	if (info != NULL) { 
-                /* check specific extension */
-		if (!check_extension (filename, info)) {
-			char *new_filename;
-			char **suffix = gdk_pixbuf_format_get_extensions (info);
-
-			new_filename = g_strconcat (filename, ".", suffix[0], NULL);
-			gtk_file_selection_set_filename (GTK_FILE_SELECTION (dlg), new_filename);
-			g_free (new_filename);
-			g_strfreev (suffix);
-		}
-	}
-	else { 
-                /* check any possible extensions */
-		GSList *it;
-
-		for (it = priv->supported_types; it != NULL; it = it->next) {
-			GdkPixbufFormat *format = (GdkPixbufFormat*) it->data;
-			if (check_extension (filename, format)) {
-				break;
-			}
-		}
-
-		result = (it != NULL);
-	}
-
-	return result;
-}
-
-static void
-changed_cb (GtkWidget *widget, gpointer data)
-{
-	/* FIXME: We try to select only those files here, which match
-	   the choosen file type suffix. GtkFileSelection can't handle
-	   more complex file completions like multiple suffices for a
-	   single file type, so this doesn't work properly. That's why
-	   we disabled this functionality for now. Maybe there is a
-	   more complex workaround for this.
-	*/
-
-#if 0
-	GtkWidget *menu;
-	GtkWidget *item;
-	GdkPixbufFormat *info;
-	EogFileSelectionPrivate *priv;
-
-	priv = EOG_FILE_SELECTION (data)->priv;
-
-	/* obtain selected file type info struct */
-	menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (widget));
-	item = gtk_menu_get_active (GTK_MENU (menu));
-
-	info = g_object_get_data (G_OBJECT (item), FILE_TYPE_INFO_KEY);
-
-	if (info == NULL) {
-		gtk_file_selection_complete (GTK_FILE_SELECTION (data), "*");
-	}
-	else {
-		gchar **suffix = gdk_pixbuf_format_get_extensions (info);
-	        gchar *pattern = NULL;
-
-		if (suffix != NULL) {
-			pattern = g_strconcat ("*.", suffix[0], NULL);
-		}
-		else {
-			pattern = g_strdup ("*");
-		}
-		
-		gtk_file_selection_complete (GTK_FILE_SELECTION (data), pattern);
-
-		g_strfreev (suffix);
-		g_free (pattern);
-	}
-#endif
 }
 
 static gboolean
 replace_file (GtkWindow *window, const gchar *file_name)
 {
-	GtkWidget *msgbox;
-	gchar *utf_file_name;
-	gchar *msg;
-	gint ret;
+       GtkWidget *msgbox;
+       gchar *utf_file_name;
+       gchar *msg;
+       gint ret;
 
-	utf_file_name = g_filename_to_utf8 (file_name, -1,
+       utf_file_name = g_filename_to_utf8 (file_name, -1,
                                             NULL, NULL, NULL);
-        msg = g_strdup_printf (_("Do you want to overwrite %s?"),
-				utf_file_name);
-	g_free (utf_file_name);
+       msg = g_strdup_printf (_("Do you want to overwrite %s?"),
+			      utf_file_name);
+       g_free (utf_file_name);
+       
+       msgbox = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
+                                    _("File exists"), 
+                                    msg,
+                                    TRUE);
 
-	msgbox = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
-				     _("File exists"), 
-				     msg,
-				     TRUE);
+       gtk_dialog_add_buttons (GTK_DIALOG (msgbox),
+                               GTK_STOCK_NO,
+                               GTK_RESPONSE_CANCEL,
+                               GTK_STOCK_YES,
+                               GTK_RESPONSE_YES,
+                               NULL);
 
-	gtk_dialog_add_buttons (GTK_DIALOG (msgbox),
-				GTK_STOCK_NO,
-				GTK_RESPONSE_CANCEL,
-				GTK_STOCK_YES,
-				GTK_RESPONSE_YES,
-				NULL);
+       gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+                                        GTK_RESPONSE_CANCEL);
 
-	gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
-					 GTK_RESPONSE_CANCEL);
+       ret = gtk_dialog_run (GTK_DIALOG (msgbox));
+       gtk_widget_destroy (msgbox);
+       g_free (msg);
 
-	ret = gtk_dialog_run (GTK_DIALOG (msgbox));
-	gtk_widget_destroy (msgbox);
-	g_free (msg);
-
-	return (ret == GTK_RESPONSE_YES);
+       return (ret == GTK_RESPONSE_YES);
 }
 
 static void
 response_cb (GtkDialog *dlg, gint id, gpointer data)
 {
-	EogFileSelectionPrivate *priv;
 	char *dir;
-	const char *filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg));
-
-	priv = EOG_FILE_SELECTION (dlg)->priv;
-
-	if (id == GTK_RESPONSE_OK) {
-		if (last_dir [priv->type] != NULL)
-			g_free (last_dir [priv->type]);
+	GtkFileChooserAction action;
 		
-		dir = g_path_get_dirname (filename);
-		last_dir [priv->type] = g_build_filename (dir, ".", NULL);
-		g_free (dir);
+	dir = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
+	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (dlg));
+	
+        if (action == GTK_FILE_CHOOSER_ACTION_SAVE){
+		char *filename;
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dlg));
 
-		if ((priv->type == EOG_FILE_SELECTION_SAVE) &&
-		    (g_file_test (filename, G_FILE_TEST_EXISTS))) 
+		if (g_file_test (filename, G_FILE_TEST_EXISTS) &&
+		    !replace_file (GTK_WINDOW (dlg), filename)) 
 		{
-			if (!replace_file (GTK_WINDOW (dlg), filename)) {
-				g_signal_stop_emission_by_name (G_OBJECT (dlg), "response");
-				return;
-			}
+			g_signal_stop_emission_by_name (G_OBJECT (dlg), "response");
+			g_free (filename);
+			return;
 		}
 		
-		if (priv->type == EOG_FILE_SELECTION_SAVE && !is_filename_valid (dlg)) {
-			GtkWidget *dialog;
-			
-			g_signal_stop_emission_by_name (G_OBJECT (dlg), "response");
-			
-			dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, 
-						     _("Unsupported image file format for saving."),
-						     NULL,
-						     TRUE);
-			gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
-			
-			gtk_dialog_run (GTK_DIALOG (dialog));
-			gtk_widget_destroy (dialog);
-		}
+		g_free (filename);
+	}
+	
+	if (id == GTK_RESPONSE_OK) {
+		if (last_dir [action] != NULL)
+			g_free (last_dir [action]);
+		
+		last_dir [action] = dir;
 	}
 }
 
 static void
-eog_file_selection_construct (GtkWidget *widget)
+eog_file_selection_add_filter (GtkWidget *widget)
 {
 	EogFileSelection *filesel;
-	EogFileSelectionPrivate *priv;
-	GtkWidget *hbox;
-	GtkWidget *menu;
 	GSList *it;
+	GSList *formats;
+	GtkFileFilter *filter;
+	GtkFileFilter *all_filter;
+	gchar **mime_types, **pattern, *tmp;
+	int i;
 
 	filesel = EOG_FILE_SELECTION (widget);
-	priv = filesel->priv;
-	
-	hbox = gtk_hbox_new (FALSE, 4);
-	gtk_box_pack_start (GTK_BOX (hbox),
-			    gtk_label_new (_("Determine File Type:")),
-			    FALSE, FALSE, 0);
-	priv->options = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
-	
-	eog_append_menu_entry (menu, NULL);
-	for (it = priv->supported_types; it != NULL; it = it->next) {
-		GdkPixbufFormat *format = (GdkPixbufFormat*) it->data;
-		eog_append_menu_entry (menu, format);
+
+	/* Filter */
+	all_filter = gtk_file_filter_new ();
+	gtk_file_filter_set_name (all_filter, "All Images");
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_filter);
+
+	if (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel)) == GTK_FILE_CHOOSER_ACTION_SAVE) {
+		formats = eog_pixbuf_get_savable_formats ();
 	}
-	
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (filesel->priv->options), menu);
-	g_signal_connect (G_OBJECT (filesel->priv->options), "changed", 
-				  G_CALLBACK (changed_cb), filesel);
-	gtk_box_pack_start (GTK_BOX (hbox), filesel->priv->options, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (filesel)->vbox), hbox,
-				    FALSE, FALSE, 10);	
-	gtk_widget_show_all (hbox);
+	else {
+		formats = gdk_pixbuf_get_formats ();
+	}
+
+	for (it = formats; it != NULL; it = it->next) {
+		char *filter_name;
+		filter = gtk_file_filter_new ();
+		GdkPixbufFormat *format;
+
+		format = (GdkPixbufFormat*) it->data;
+
+		/* Filter name: First description then file extension, eg. "The PNG-Format (*.png)".*/
+		filter_name = g_strdup_printf (_("%s (*.%s)"), 
+					       gdk_pixbuf_format_get_description (format),
+					       gdk_pixbuf_format_get_name (format));
+		gtk_file_filter_set_name (filter, filter_name);
+		g_free (filter_name);
+
+		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
+		for (i = 0; mime_types[i] != NULL; i++) {
+			gtk_file_filter_add_mime_type (filter, mime_types[i]);
+			gtk_file_filter_add_mime_type (all_filter, mime_types[i]);
+		}
+		g_strfreev (mime_types);
+ 
+		pattern = gdk_pixbuf_format_get_extensions ((GdkPixbufFormat *) it->data);
+		for (i = 0; pattern[i] != NULL; i++) {
+			tmp = g_strconcat ("*.", pattern[i], NULL);
+			gtk_file_filter_add_pattern (filter, tmp);
+			gtk_file_filter_add_pattern (all_filter, tmp);
+			g_free (tmp);
+		}
+		g_strfreev (pattern);
+
+		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), filter);
+		
+	}
+	g_slist_free (formats);
 }
 
 GtkWidget* 
-eog_file_selection_new (EogFileSelectionType type)
+eog_file_selection_new (GtkFileChooserAction action)
 {
 	GtkWidget *filesel;
 	gchar *title = NULL;
-	EogFileSelectionPrivate *priv;
 
-	filesel = GTK_WIDGET (gtk_widget_new (EOG_TYPE_FILE_SELECTION,
-					      "show_fileops", TRUE,
-					      "select_multiple", FALSE,
-					      NULL));
-
-	priv = EOG_FILE_SELECTION (filesel)->priv;
-
-	priv->type = type;
-	switch (type) {
-	case EOG_FILE_SELECTION_LOAD:
-		priv->supported_types = gdk_pixbuf_get_formats ();
-		priv->allow_directories = TRUE;
+	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
+				"action", action,
+				"select-multiple", FALSE /* (action == GTK_FILE_CHOOSER_ACTION_OPEN) */,
+				"folder-mode", FALSE,
+				NULL);
+	switch (action) {
+	case GTK_FILE_CHOOSER_ACTION_OPEN:
+		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+					NULL);
 		title = _("Load Image");
 		break;
-	case EOG_FILE_SELECTION_SAVE:
-		priv->supported_types = eog_pixbuf_get_savable_formats ();
-		priv->allow_directories = FALSE;
+
+	case GTK_FILE_CHOOSER_ACTION_SAVE:
+		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					GTK_STOCK_SAVE, GTK_RESPONSE_OK,
+					NULL);
 		title = _("Save Image");
 		break;
+
 	default:
 		g_assert_not_reached ();
 	}
 
-	eog_file_selection_construct (filesel);
-	if (last_dir[priv->type] != NULL) {
-		gtk_file_selection_set_filename (GTK_FILE_SELECTION (filesel), last_dir [priv->type]);
+	eog_file_selection_add_filter (filesel);
+	if (last_dir[action] != NULL) {
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), last_dir [action]);
 	}
-	gtk_window_set_title (GTK_WINDOW (filesel), title);
+
 	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
+ 	gtk_window_set_title (GTK_WINDOW (filesel), title);
+	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
+	gtk_window_set_default_size (GTK_WINDOW (filesel), 600, 400);
 
 	return filesel;
 }
 
+GtkWidget* 
+eog_folder_selection_new (void)
+{
+	GtkWidget *filesel;
+
+	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
+				"action", GTK_FILE_CHOOSER_ACTION_OPEN,
+				"select-multiple", FALSE,
+				"folder-mode", TRUE,
+				NULL);
+	gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+				GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+				NULL);
+
+	if (last_dir[GTK_FILE_CHOOSER_ACTION_OPEN] != NULL) {
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), 
+						     last_dir [GTK_FILE_CHOOSER_ACTION_OPEN]);
+	}
+
+	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
+
+	gtk_window_set_title (GTK_WINDOW (filesel), _("Open Folder"));
+	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
+	gtk_window_set_default_size (GTK_WINDOW (filesel), 600, 400);
+
+	return filesel;
+}

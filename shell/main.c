@@ -15,7 +15,7 @@
 #include "session.h"
 #include "eog-config-keys.h"
 
-static void open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data); 
+static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
 static GtkWidget* create_new_window (void);
 
 
@@ -166,9 +166,9 @@ make_canonical_uri (const char *path)
  * regular files and one list with all directories.
  **/
 static void
-sort_files (GList *files, GList **file_list, GList **dir_list, GList **error_list)
+sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_list)
 {
-	GList *it;
+	GSList *it;
 	GnomeVFSFileInfo *info;
 	
 	info = gnome_vfs_file_info_new ();
@@ -337,7 +337,7 @@ string_array_to_list (const gchar **files)
 }
 
 static void 
-open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data)
+open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 {
 	GList *file_list = NULL;
 	GList *dir_list = NULL;

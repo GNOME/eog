@@ -183,30 +183,51 @@ verb_FileOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 	EogWindowPrivate *priv;
 	GtkWidget *dlg;
 	gint response;
-	GList *list = NULL;
+	GSList *list = NULL;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
-	dlg = eog_file_selection_new (EOG_FILE_SELECTION_LOAD);
-	gtk_file_selection_set_select_multiple (GTK_FILE_SELECTION (dlg), TRUE);
+	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
 	if (response == GTK_RESPONSE_OK) {
-		char **filenames;
-		int i;
+		list = gtk_file_chooser_get_uris (GTK_FILE_CHOOSER (dlg));
+	}
 
-		filenames = gtk_file_selection_get_selections (GTK_FILE_SELECTION (dlg));
-		if (filenames != NULL) {
-			for (i = 0; filenames[i] != NULL; i++) {
-				list = g_list_prepend (list, g_strdup (filenames[i]));
-			}
-			
-			list = g_list_reverse (list);
-		}
+	gtk_widget_destroy (dlg);
+
+	if (list) {
+		g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
+	}
+}
+
+static void
+verb_DirOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	GtkWidget *dlg;
+	gint response;
+	GSList *list = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	dlg = eog_folder_selection_new ();
+
+	gtk_widget_show_all (dlg);
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	if (response == GTK_RESPONSE_OK) {
+		char *folder;
+
+		folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
+		list = g_slist_append (list, folder);
 	}
 
 	gtk_widget_destroy (dlg);
@@ -397,9 +418,9 @@ open_recent_cb (GtkWidget *widget, const EggRecentItem *item, gpointer data)
 }
 
 static void
-open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
+open_uri_list_cleanup (EogWindow *window, GSList *txt_uri_list)
 {
-	GList *it;
+	GSList *it;
 
 	if (txt_uri_list != NULL) {
 
@@ -407,7 +428,7 @@ open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
 			g_free ((char*)it->data);
 		}
 		
-		g_list_free (txt_uri_list);
+		g_slist_free (txt_uri_list);
 	}
 }
 
@@ -675,7 +696,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 			       guint info, guint time)
 {
 	GList *uri_list;
-	GList *str_list = NULL;
+	GSList *str_list = NULL;
 	GList *it;
 	EogWindow *window;
 
@@ -690,12 +711,12 @@ eog_window_drag_data_received (GtkWidget *widget,
 		
 		for (it = uri_list; it != NULL; it = it->next) {
 			char *filename = gnome_vfs_uri_to_string (it->data, GNOME_VFS_URI_HIDE_NONE);
-			str_list = g_list_prepend (str_list, filename);
+			str_list = g_slist_prepend (str_list, filename);
 		}
 		
 		gnome_vfs_uri_list_free (uri_list);
 		/* FIXME: free string list */
-		str_list = g_list_reverse (str_list);
+		str_list = g_slist_reverse (str_list);
 
 		g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, str_list);
 	}
@@ -720,6 +741,7 @@ set_drag_dest (EogWindow *window)
 static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB ("FileNewWindow", verb_FileNewWindow_cb),
 	BONOBO_UI_VERB ("FileOpen",      verb_FileOpen_cb),
+	BONOBO_UI_VERB ("DirOpen",      verb_DirOpen_cb),
 	BONOBO_UI_VERB ("FileCloseWindow", verb_FileCloseWindow_cb),
 	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
 	BONOBO_UI_VERB ("EditPreferences", verb_EditPreferences_cb),

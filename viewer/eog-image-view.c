@@ -323,13 +323,13 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 
 	if (image_view->priv->image == NULL) return;
 
-	dlg = eog_file_selection_new (EOG_FILE_SELECTION_SAVE);
+	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 	gtk_widget_show_all (dlg);
 
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
 
 	if (response == GTK_RESPONSE_OK) {
-		filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg)));
+		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dlg));
 	}
 
 	gtk_widget_destroy (dlg);

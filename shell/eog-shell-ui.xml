@@ -6,6 +6,8 @@
 
 	<cmd name="FileOpen" _label="_Open..." _tip="Open a file"
 	     pixtype="stock" pixname="gtk-open" accel="*Control*o"/>
+	<cmd name="DirOpen" _label="_Open Directory..." _tip="Open a directory"
+             pixtype="stock" pixname="gtk-open" accel="*Control**Shift*o"/>
 
 	<cmd name="FileCloseWindow" _label="_Close" _tip="Close window"
              pixtype="stock" pixname="gtk-close" accel="*Control*w"/>
@@ -39,6 +41,7 @@
 
 		<placeholder name="Open Placeholder">
 			<menuitem name="FileOpen" verb=""/>
+			<menuitem name="DirOpen" verb=""/>
 		</placeholder>
 
 		<placeholder name="File Items Placeholder" delimit="top"/>

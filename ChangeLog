@@ -1,3 +1,30 @@
+2003-12-10  Jan Arne Petersen  <jpetersen@uni-bonn.de>
+
+	Use the new gtk+ 2.4 file chooser and add file filter support.
+
+	* libeog/eog-file-selection.c: (is_filename_valid): replace
+	gtk_file_selection_* methods with gtk_file_chooser_* methods.
+	(response_cb): use the new gtk_file_chooser_get_current_folder method.
+	(eog_file_selection_construct): add file filter support.
+	(eog_file_selection_new): replace gtk_file_selection_* methods with
+	gtk_file_chooser_* methods.
+
+	* libeog/eog-file-selection.h: change super class of EogFileSelection
+	from GtkFileSelection to GtkFileChooserDialog
+
+	* shell/eog-window.c: (verb_FileOpen_cb): replace gtk_file_selection_* methods with
+        gtk_file_chooser_* methods.
+	(open_uri_list_cleanup), (eog_window_drag_data_received): the uri-list is now a GSList
+	instead of a GList.
+
+	* shell/eog-window.h: the uri-list is now a GSList instead of a GList.
+
+	* shell/main.c: (sort_files), (open_uri_list_cb): the uri-list is now a GSList
+	instead of a GList.
+
+	* viewer/eog-image-view.c: (verb_SaveAs_cb): replace gtk_file_selection_* methods with
+        gtk_file_chooser_* methods.
+
 ===== 2.5.1 =====
 
 2003-12-08  Jens Finke  <jens@triq.net>

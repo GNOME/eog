@@ -1,7 +1,7 @@
 #ifndef _EOG_FILE_SELECTION_H_
 #define _EOG_FILE_SELECTION_H_
 
-#include <gtk/gtkfilesel.h>
+#include <gtk/gtkfilechooserdialog.h>
 
 G_BEGIN_DECLS
  
@@ -15,28 +15,22 @@ G_BEGIN_DECLS
 
 typedef struct _EogFileSelection         EogFileSelection;
 typedef struct _EogFileSelectionClass    EogFileSelectionClass;
-typedef struct _EogFileSelectionPrivate  EogFileSelectionPrivate;
-
-typedef enum {
-	EOG_FILE_SELECTION_LOAD,
-	EOG_FILE_SELECTION_SAVE
-} EogFileSelectionType;
 
 struct _EogFileSelection {
-	GtkFileSelection  parent_object;
-
-	EogFileSelectionPrivate *priv;
+	GtkFileChooserDialog  parent_object;
 };
 
 
 struct _EogFileSelectionClass {
-	GtkFileSelectionClass  parent_object;
+	GtkFileChooserDialogClass  parent_object;
 };
 
 
 GtkType    eog_file_selection_get_type            (void) G_GNUC_CONST;
 
-GtkWidget* eog_file_selection_new (EogFileSelectionType type);
+GtkWidget* eog_file_selection_new (GtkFileChooserAction action);
+
+GtkWidget* eog_folder_selection_new (void);
 
 G_END_DECLS
 
