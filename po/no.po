@@ -1,11 +1,11 @@
 # Norwegian translation of eog (bokmål dialect).
-# Copyright (C) 1999,2000 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 1999,2000.
+# Copyright (C) 1999-2001 Free Software Foundation, Inc.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2001.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
+"POT-Creation-Date: 2001-05-22 12:24+0200\n"
 "PO-Revision-Date: 2001-02-07 23:39+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -13,27 +13,378 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
+#: bonobo/bonobo-image-generic.c:816 collection/main.c:93 viewer/main.c:88
+msgid "I could not initialize Bonobo"
+msgstr "Kunne ikke initiere Bonobo"
+
+#: collection/eog-collection-control.c:161
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr ""
+
+#: collection/eog-collection-model.c:402
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:39
+msgid "Vertical"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:40
+msgid "Horizontal"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:41
+msgid "Rectangle"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:72
+msgid "Layout Mode:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:108
+msgid "Background Color:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:113
+#, fuzzy
+msgid "Image Collection Background Color"
+msgstr "Bildevisning"
+
+#: collection/eog-collection-view.c:286
+#, fuzzy
+msgid "Collection View "
+msgstr "Bildevisning"
+
+#: collection/eog-collection-view.c:336
+msgid "Layout"
+msgstr ""
+
+#: collection/eog-collection-view.c:340
+#, fuzzy
+msgid "Color"
+msgstr "Lukk"
+
+#: collection/eog-collection-view.c:456 viewer/eog-image-view.c:1701
+msgid "Window Title"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+#, fuzzy
+msgid "EOG Image Collection"
+msgstr "Bildevisning"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+#, fuzzy
+msgid "EOG Image Collection Viewer"
+msgstr "Bildevisning"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+#, fuzzy
+msgid "EOG Image collection view factory"
+msgstr "Bildevisning"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:184 src/window.c:162 src/window.c:573
+#: src/window.c:812
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Bildevisning"
+
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
+#: viewer/eog-image-view.c:441
+#, fuzzy
+msgid "EOG Image"
+msgstr "Åpne bilde"
+
+#: libeog/GNOME_EOG.oaf.in.h:2 viewer/GNOME_EOG.oaf.in.h:2
+#, fuzzy
+msgid "EOG Image Viewer"
+msgstr "Bildevisning"
+
+#: libeog/GNOME_EOG.oaf.in.h:3 viewer/GNOME_EOG.oaf.in.h:3
+#, fuzzy
+msgid "EOG Image viewer factory"
+msgstr "Bildevisning"
+
+#: libeog/GNOME_EOG.oaf.in.h:4 viewer/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:2
+#, fuzzy
+msgid "Change preferences"
 msgstr "Brukervalg"
 
-#: src/tb-image.c:33
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+msgid "Close"
+msgstr "Lukk"
+
+#: shell/eog-shell-ui.xml.h:4
+#, fuzzy
+msgid "Close window"
+msgstr "_Lukk dette vinduet"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "Åpne"
 
-#: src/tb-image.c:33 src/window.c:181
-msgid "Open an image file"
+#: shell/eog-shell-ui.xml.h:8
+#, fuzzy
+msgid "Open a file"
 msgstr "Åpne en bildefil"
 
-#: src/tb-image.c:35
-msgid "Close"
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a new window"
+msgstr "Åpne bilder i et nytt vindu"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "_Close"
 msgstr "Lukk"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_New Window"
+msgstr "Bildevinduer"
+
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "_Open..."
+msgstr "_Åpne bilde..."
+
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Preferences"
+msgstr "Brukervalg"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:186
+#, fuzzy
+msgid "Copyright (C) 2000 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
+
+#: shell/eog-window.c:188 src/window.c:166
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Gnome bildevisning og katalogisering"
+
+#: shell/eog-window.c:474
+#, fuzzy
+msgid "Eye Of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:562
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr ""
+
+#: shell/eog-window.c:712 src/window.c:704
+#, fuzzy
+msgid "Open Image"
+msgstr "Åpne bilde"
+
+#: shell/main.c:55
+#, fuzzy
+msgid "Could not initialize Bonobo!\n"
+msgstr "Kunne ikke initiere Bonobo"
+
+#: shell/preferences.c:219 src/preferences.c:220
+#, fuzzy
+msgid "Preferences"
+msgstr "Brukervalg"
+
+#: shell/preferences-dialog.glade.h:1 src/preferences-dialog.glade.h:1
+msgid "Bilinear (normal)"
+msgstr "Bilineær (normal)"
+
+#: shell/preferences-dialog.glade.h:2 src/preferences-dialog.glade.h:2
+#, fuzzy
+msgid "Black only"
+msgstr "Kun sort"
+
+#: shell/preferences-dialog.glade.h:3 src/preferences-dialog.glade.h:3
+msgid "Check size"
+msgstr "Rutestørrelse"
+
+#: shell/preferences-dialog.glade.h:4 src/preferences-dialog.glade.h:4
+msgid "Dark checks"
+msgstr "Mørke ruter"
+
+#: shell/preferences-dialog.glade.h:5 src/preferences-dialog.glade.h:5
+#: viewer/eog-image-view.c:1599
+msgid "Display"
+msgstr "Skjerm"
+
+#: shell/preferences-dialog.glade.h:6 src/preferences-dialog.glade.h:6
+msgid "Dither type"
+msgstr "Dither type"
+
+#: shell/preferences-dialog.glade.h:7 src/preferences-dialog.glade.h:7
+msgid "Fit all images to screen"
+msgstr "Tilpass alle bilder til skjermen"
+
+#: shell/preferences-dialog.glade.h:8 src/preferences-dialog.glade.h:8
+msgid "Fit standard-sized images to screen"
+msgstr "Tilpass bilder med standard størrelse til skjermen"
+
+#: shell/preferences-dialog.glade.h:9 src/preferences-dialog.glade.h:9
+msgid "Full Screen"
+msgstr "Full skjerm"
+
+#: shell/preferences-dialog.glade.h:10 src/preferences-dialog.glade.h:10
+#, fuzzy
+msgid "Gray only"
+msgstr "Kun gråtoner"
+
+#: shell/preferences-dialog.glade.h:11 src/preferences-dialog.glade.h:11
+msgid "Hyperbolic (slowest, best quality)"
+msgstr "Hyperbolsk (tregest, best kvalitet)"
+
+#: shell/preferences-dialog.glade.h:12 src/preferences-dialog.glade.h:12
+#, fuzzy
+msgid "Image Windows"
+msgstr "Bildevinduer"
+
+#: shell/preferences-dialog.glade.h:13 src/preferences-dialog.glade.h:13
+msgid "Interpolation type"
+msgstr "Type interpolasjon"
+
+#: shell/preferences-dialog.glade.h:14 src/preferences-dialog.glade.h:14
+#: viewer/preferences.c:68
+#, fuzzy
+msgid "Large"
+msgstr "Stor"
+
+#: shell/preferences-dialog.glade.h:15 src/preferences-dialog.glade.h:15
+msgid "Light checks"
+msgstr "Lyse ruter"
+
+#: shell/preferences-dialog.glade.h:16 src/preferences-dialog.glade.h:16
+msgid "Maximum (high color)"
+msgstr "Maksimum (mange farger)"
+
+#: shell/preferences-dialog.glade.h:17 src/preferences-dialog.glade.h:17
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "Middles"
+
+#: shell/preferences-dialog.glade.h:18 src/preferences-dialog.glade.h:18
+#, fuzzy
+msgid "Midtone checks"
+msgstr "Lyse ruter"
+
+#: shell/preferences-dialog.glade.h:19 src/preferences-dialog.glade.h:19
+msgid "Nearest neighbor (fastest, low quality)"
+msgstr "Nærmeste nabo (raskest, lav kvalitet)"
+
+#: shell/preferences-dialog.glade.h:20 src/preferences-dialog.glade.h:20
+msgid "Never"
+msgstr "Aldri"
+
+#: shell/preferences-dialog.glade.h:21 src/preferences-dialog.glade.h:21
+msgid "None"
+msgstr "Ingen"
+
+#: shell/preferences-dialog.glade.h:22 src/preferences-dialog.glade.h:22
+msgid "Normal (pseudocolor)"
+msgstr "Normal (pseudofarge)"
+
+#: shell/preferences-dialog.glade.h:23 src/preferences-dialog.glade.h:23
+msgid "Only if image does not fit"
+msgstr "Kun hvis bildet ikke passer"
+
+#: shell/preferences-dialog.glade.h:24 src/preferences-dialog.glade.h:24
+#, fuzzy
+msgid "Open images in a new window"
+msgstr "Åpne bilder i et nytt vindu"
+
+#: shell/preferences-dialog.glade.h:25 src/preferences-dialog.glade.h:25
+msgid "Pick window size and zoom factor automatically"
+msgstr "Velg vindustørrelse og zoom faktor automatisk"
+
+#: shell/preferences-dialog.glade.h:26 src/preferences-dialog.glade.h:26
+msgid "Put a bevel around the edge of the screen"
+msgstr "Lag en forhøyning rundt kanten av skjermen"
+
+#: shell/preferences-dialog.glade.h:27 src/preferences-dialog.glade.h:27
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "Liten"
+
+#: shell/preferences-dialog.glade.h:28 src/preferences-dialog.glade.h:28
+msgid "Transparency type"
+msgstr "Type gjennomsiktighet"
+
+#: shell/preferences-dialog.glade.h:29 src/preferences-dialog.glade.h:29
+msgid "Two-pass scrolling"
+msgstr "To-runder rulling"
+
+#: shell/preferences-dialog.glade.h:30 src/preferences-dialog.glade.h:30
+msgid "Use 1:1 zoom factor"
+msgstr "Bruk 1:1 zoom faktor"
+
+#: shell/preferences-dialog.glade.h:31 src/preferences-dialog.glade.h:31
+msgid "Use same zoom factor as image window"
+msgstr "Bruk samme zoom faktor som bildevinduet"
+
+#: shell/preferences-dialog.glade.h:32 src/preferences-dialog.glade.h:32
+msgid "Use scrollbars"
+msgstr "Bruk rullefelt"
+
+#: shell/preferences-dialog.glade.h:33 src/preferences-dialog.glade.h:33
+#, fuzzy
+msgid "Viewers"
+msgstr "Visere"
+
+#: shell/preferences-dialog.glade.h:34 src/preferences-dialog.glade.h:34
+#, fuzzy
+msgid "White only"
+msgstr "Kun hvitt"
+
+#: shell/util.c:47 src/util.c:47
+#, c-format
+msgid "Could not open `%s'"
+msgstr "Kunne ikke åpne `%s'"
+
+#: src/tb-image.c:33 src/window.c:181
+#, fuzzy
+msgid "Open an image file"
+msgstr "Åpne en bildefil"
 
 #: src/tb-image.c:35 src/window.c:186
 msgid "Close the current window"
 msgstr "Lukk aktivt vindu"
 
-#: src/tb-image.c:43
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
 msgid "In"
 msgstr "Inn"
 
@@ -49,28 +400,17 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Tilpass"
 
-#: src/util.c:47
-#, c-format
-msgid "Could not open `%s'"
-msgstr "Kunne ikke åpne `%s'"
-
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
-
 #: src/window.c:164
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Gnome bildevisning og katalogisering"
-
 #: src/window.c:181
+#, fuzzy
 msgid "_Open Image..."
 msgstr "_Åpne bilde..."
 
 #: src/window.c:186
+#, fuzzy
 msgid "_Close This Window"
 msgstr "_Lukk dette vinduet"
 
@@ -190,194 +530,413 @@ msgstr "Full _skjerm"
 msgid "Use the whole screen for display"
 msgstr "Bruk hele skjermen for visning"
 
-#: src/window.c:704
-msgid "Open Image"
+#: viewer/eog-image-view.c:272
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr ""
+
+#: viewer/eog-image-view.c:303
+msgid "Save As"
+msgstr ""
+
+#: viewer/eog-image-view.c:661
+#, fuzzy
+msgid "Print Image"
 msgstr "Åpne bilde"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:669
+#, fuzzy
+msgid "Pages"
+msgstr "Stor"
+
+#: viewer/eog-image-view.c:757
+msgid "Print Preview"
+msgstr ""
+
+#: viewer/eog-image-view.c:763
+#, fuzzy
+msgid "Printing of image failed"
+msgstr "Åpne en bildefil"
+
+#: viewer/eog-image-view.c:1683 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "Interpolasjon"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1686 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Dither"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1689 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Rutetype"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1692 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Rutestørrelse"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "Kunne ikke initiere Bonobo"
+#: viewer/eog-image-view.c:1695
+#, fuzzy
+msgid "Image Width"
+msgstr "Bildevinduer"
 
-#~ msgid "Interpolation type"
-#~ msgstr "Type interpolasjon"
+#: viewer/eog-image-view.c:1698
+msgid "Image Height"
+msgstr ""
 
-#~ msgid "Transparency type"
-#~ msgstr "Type gjennomsiktighet"
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Rute_størrelse"
 
-#~ msgid "Check size"
-#~ msgstr "Rutestørrelse"
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Rute_type"
 
-#~ msgid "Dark checks"
-#~ msgstr "Mørke ruter"
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Stor rutestørrelse"
 
-#~ msgid "Midtone checks"
-#~ msgstr "Mellomtoneruter"
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Middels rutestørrelse"
 
-#~ msgid "Light checks"
-#~ msgstr "Lyse ruter"
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Liten rutestørrelse"
 
-#~ msgid "Black only"
-#~ msgstr "Kun sort"
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Sor_t rutetype"
 
-#~ msgid "Gray only"
-#~ msgstr "Kun gråtoner"
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Mør_k rutetype"
 
-#~ msgid "White only"
-#~ msgstr "Kun hvitt"
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "_Grå rutetype"
 
-#~ msgid "Small"
-#~ msgstr "Liten"
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "_Lys rutetype"
 
-#~ msgid "Medium"
-#~ msgstr "Middles"
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "_Mellomtone rutetype"
 
-#~ msgid "Large"
-#~ msgstr "Stor"
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "H_vit rutetype"
 
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Nærmeste nabo (raskest, lav kvalitet)"
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Næ_rmeste nabo interpolasjon"
 
-#~ msgid "Bilinear (normal)"
-#~ msgstr "Bilineær (normal)"
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Normal (pseudofarge) dithering"
 
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Hyperbolsk (tregest, best kvalitet)"
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Previews the image to be printed"
+msgstr ""
 
-#~ msgid "Two-pass scrolling"
-#~ msgstr "To-runder rulling"
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Print Pre_view"
+msgstr ""
 
-#~ msgid "Dither type"
-#~ msgstr "Dither type"
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print S_etup"
+msgstr ""
 
-#~ msgid "None"
-#~ msgstr "Ingen"
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print image to the printer"
+msgstr ""
 
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "Normal (pseudofarge)"
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Save _As"
+msgstr ""
 
-#~ msgid "Maximum (high color)"
-#~ msgstr "Maksimum (mange farger)"
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Setup the page settings for your current printer"
+msgstr ""
 
-#~ msgid "Display"
-#~ msgstr "Skjerm"
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Bilinear Interpolation"
+msgstr "_Bilineær interpolasjon"
 
-#~ msgid "Image Windows"
-#~ msgstr "Bildevinduer"
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Dither"
+msgstr "_Dither"
 
-#~ msgid "Use scrollbars"
-#~ msgstr "Bruk rullefelt"
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Hyperbolic Interpolation"
+msgstr "_Hyperbolsk interpolasjon"
 
-#~ msgid "Never"
-#~ msgstr "Aldri"
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Interpolation"
+msgstr "_Interpolasjon"
 
-#~ msgid "Only if image does not fit"
-#~ msgstr "Kun hvis bildet ikke passer"
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Maximum (high color) dithering"
+msgstr "_Maksimal (mange farger) dithering"
 
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Velg vindustørrelse og zoom faktor automatisk"
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_No dithering"
+msgstr "I_ngen dithering"
 
-#~ msgid "Open images in a new window"
-#~ msgstr "Åpne bilder i et nytt vindu"
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Print"
+msgstr ""
 
-#~ msgid "Full Screen"
-#~ msgstr "Full skjerm"
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles Interpolation"
+msgstr "_Flis interpolasjon"
 
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Bruk 1:1 zoom faktor"
+#: viewer/eog-image-view-ui.xml.h:28
+#, fuzzy
+msgid "_View"
+msgstr "Visere"
 
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Bruk samme zoom faktor som bildevinduet"
+#: viewer/eog-print-setup.c:72
+msgid "pts"
+msgstr ""
 
-#~ msgid "Fit all images to screen"
-#~ msgstr "Tilpass alle bilder til skjermen"
+#: viewer/eog-print-setup.c:72
+msgid "points"
+msgstr ""
 
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Tilpass bilder med standard størrelse til skjermen"
+#: viewer/eog-print-setup.c:73
+msgid "mm"
+msgstr ""
 
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Lag en forhøyning rundt kanten av skjermen"
+#: viewer/eog-print-setup.c:73
+msgid "millimeter"
+msgstr ""
 
-#~ msgid "Viewers"
-#~ msgstr "Visere"
+#: viewer/eog-print-setup.c:74
+msgid "cm"
+msgstr ""
 
-#~ msgid "Check _size"
-#~ msgstr "Rute_størrelse"
+#: viewer/eog-print-setup.c:74
+msgid "centimeter"
+msgstr ""
 
-#~ msgid "Check _type"
-#~ msgstr "Rute_type"
+#: viewer/eog-print-setup.c:75
+msgid "inch"
+msgstr ""
 
-#~ msgid "Check size large"
-#~ msgstr "Stor rutestørrelse"
+#: viewer/eog-print-setup.c:471
+#, fuzzy
+msgid "Print"
+msgstr "Åpne bilde"
 
-#~ msgid "Check size medium"
-#~ msgstr "Middels rutestørrelse"
+#: viewer/eog-print-setup.c:472
+msgid "Print preview"
+msgstr ""
 
-#~ msgid "Check size small"
-#~ msgstr "Liten rutestørrelse"
+#: viewer/eog-print-setup.c:480
+#, fuzzy
+msgid "Print Setup"
+msgstr "Åpne bilde"
 
-#~ msgid "Check type _black"
-#~ msgstr "Sor_t rutetype"
+#: viewer/eog-print-setup.c:548
+msgid "Units: "
+msgstr ""
 
-#~ msgid "Check type _dark"
-#~ msgstr "Mør_k rutetype"
+#. First page
+#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+#, fuzzy
+msgid "Paper"
+msgstr "Stor"
 
-#~ msgid "Check type _gray"
-#~ msgstr "_Grå rutetype"
+#: viewer/eog-print-setup.c:570
+msgid "Paper size:"
+msgstr ""
 
-#~ msgid "Check type _light"
-#~ msgstr "_Lys rutetype"
+#. Orientation
+#: viewer/eog-print-setup.c:585
+msgid "Orientation"
+msgstr ""
 
-#~ msgid "Check type _midtone"
-#~ msgstr "_Mellomtone rutetype"
+#: viewer/eog-print-setup.c:595
+msgid "Portrait"
+msgstr ""
 
-#~ msgid "Check type _white"
-#~ msgstr "H_vit rutetype"
+#: viewer/eog-print-setup.c:605
+msgid "Landscape"
+msgstr ""
+
+#. Margins
+#: viewer/eog-print-setup.c:614
+msgid "Margins"
+msgstr ""
+
+#. Top margin
+#: viewer/eog-print-setup.c:622
+msgid "Top:"
+msgstr ""
+
+#. Left margin
+#: viewer/eog-print-setup.c:640
+msgid "Left:"
+msgstr ""
+
+#. Right margin
+#: viewer/eog-print-setup.c:658
+msgid "Right:"
+msgstr ""
+
+#. Bottom margin
+#: viewer/eog-print-setup.c:676
+msgid "Bottom:"
+msgstr ""
+
+#. Second page
+#: viewer/eog-print-setup.c:694
+#, fuzzy
+msgid "Image"
+msgstr "Åpne bilde"
+
+#. Scale
+#: viewer/eog-print-setup.c:702
+#, fuzzy
+msgid "Scale"
+msgstr "Liten"
+
+#: viewer/eog-print-setup.c:706
+msgid "Adjust to:"
+msgstr ""
+
+#: viewer/eog-print-setup.c:711
+msgid "Fit to page"
+msgstr ""
+
+#: viewer/eog-print-setup.c:729
+#, c-format
+msgid "% of original size"
+msgstr ""
+
+#. Center on page
+#: viewer/eog-print-setup.c:735
+msgid "Center"
+msgstr ""
+
+#: viewer/eog-print-setup.c:739
+msgid "Horizontally"
+msgstr ""
+
+#: viewer/eog-print-setup.c:746
+msgid "Vertically"
+msgstr ""
+
+#. Overlap
+#: viewer/eog-print-setup.c:755
+msgid "Overlapping"
+msgstr ""
+
+#: viewer/eog-print-setup.c:759
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:764
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:801
+#, fuzzy
+msgid "Printing"
+msgstr "Åpne bilde"
+
+#. Helpers
+#: viewer/eog-print-setup.c:809
+msgid "Helpers"
+msgstr ""
+
+#: viewer/eog-print-setup.c:810
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:816
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:825
+msgid "Page order"
+msgstr ""
+
+#. Down right
+#: viewer/eog-print-setup.c:831
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:851
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/preferences.c:38
+#, fuzzy
+msgid "Nearest Neighbour Interpolation"
+msgstr "Næ_rmeste nabo interpolasjon"
+
+#: viewer/preferences.c:40
+#, fuzzy
+msgid "Tiltes Interpolation"
+msgstr "_Flis interpolasjon"
+
+#: viewer/preferences.c:42
+#, fuzzy
+msgid "Bilinear Interpolation"
+msgstr "_Bilineær interpolasjon"
+
+#: viewer/preferences.c:44
+#, fuzzy
+msgid "Hyperbolic Interpolation"
+msgstr "_Hyperbolsk interpolasjon"
+
+#: viewer/preferences.c:49
+#, fuzzy
+msgid "No dithering"
+msgstr "I_ngen dithering"
+
+#: viewer/preferences.c:50
+#, fuzzy
+msgid "Normal (pseudocolor) dithering"
+msgstr "Normal (pseudofarge) dithering"
+
+#: viewer/preferences.c:51
+#, fuzzy
+msgid "Maximum (high color) dithering"
+msgstr "_Maksimal (mange farger) dithering"
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr ""
+
+#: viewer/preferences.c:57
+#, fuzzy
+msgid "Midtone"
+msgstr "Mellomtoneruter"
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr ""
+
+#: viewer/preferences.c:59
+#, fuzzy
+msgid "Black"
+msgstr "Kun sort"
+
+#: viewer/preferences.c:60
+#, fuzzy
+msgid "Gray"
+msgstr "Kun gråtoner"
+
+#: viewer/preferences.c:61
+#, fuzzy
+msgid "White"
+msgstr "Kun hvitt"
 
 #~ msgid "E_OG"
 #~ msgstr "E_OG"
-
-#~ msgid "Nea_rest Neighbour Interpolation"
-#~ msgstr "Næ_rmeste nabo interpolasjon"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Normal (pseudofarge) dithering"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "_Bilineær interpolasjon"
-
-#~ msgid "_Dither"
-#~ msgstr "_Dither"
-
-#~ msgid "_Hyperbolic Interpolation"
-#~ msgstr "_Hyperbolsk interpolasjon"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolasjon"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "_Maksimal (mange farger) dithering"
-
-#~ msgid "_No dithering"
-#~ msgstr "I_ngen dithering"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "_Flis interpolasjon"
-
-#~ msgid "Image Viewer"
-#~ msgstr "Bildevisning"
