@@ -1,5 +1,17 @@
 2001-12-27  Jens Finke <jens@triq.net>
 
+	* eog-window.c (eog_window_close): Use bonobo_main_quit instead of
+	gtk_main_quit.
+	(get_viewer_control): Rewrote this function. We don't make a
+	general bonobo activation query here anymore, but specify the
+	control through it's iid. This is because we want _our_ control
+	here and because the query mechanism doesn't work correctly.
+
+	* main.c (handle_cmdline_args): Use bonobo_main_quit instead of
+	gtk_main_quit.
+	
+2001-12-27  Jens Finke <jens@triq.net>
+
 	* Makefile.am (eog_LDADD): Removed $(INTLLIBS). Link the static
 	eog library with -leog. This reduces the link time a lot.
 	(eog_DEPENDENCIES): Added dependency to libeog.a.

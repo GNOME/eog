@@ -225,7 +225,7 @@ handle_cmdline_args (gpointer data)
 				for (node = dir_list; node; node = node->next) g_free (node->data);
 				g_list_free (file_list);
 				g_list_free (dir_list);
-				gtk_main_quit ();
+				bonobo_main_quit ();
 				return FALSE;
 			}
 		} else {

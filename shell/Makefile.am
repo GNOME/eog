@@ -24,8 +24,8 @@ eog_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
 
 eog_LDADD = 				\
 	-L$(top_builddir)/libeog 	\
-	$(EOG_LIBS)			\
-	-leog
+	-leog				\
+	$(EOG_LIBS)
 
 uidir = $(datadir)/gnome-2.0/ui
 UI_FILES = eog-shell-ui.xml 

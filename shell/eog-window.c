@@ -43,6 +43,8 @@
 #define DEFAULT_WINDOW_WIDTH 400
 #define DEFAULT_WINDOW_HEIGHT 300
 
+#define EOG_VIEWER_CONTROL_IID "OAFIID:GNOME_EOG_Control"
+
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
 	/* UIImage widget for our contents */
@@ -666,7 +668,7 @@ eog_window_close (EogWindow *window)
 	gtk_widget_destroy (GTK_WIDGET (window));
 
 	if (!window_list)
-		gtk_main_quit ();
+		bonobo_main_quit ();
 }
 
 /* Open image dialog */
@@ -1055,11 +1057,9 @@ on_error:
 static Bonobo_Control
 get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
-	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
 	Bonobo_PersistFile pfile;
 	CORBA_Environment ev;
-	gchar *oaf_query;
 	gchar *text_uri;
 
 	g_return_val_if_fail (uri != NULL, CORBA_OBJECT_NIL);
@@ -1071,52 +1071,43 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 		return CORBA_OBJECT_NIL;
 	}
 
-	/* assemble requirements for the component*/
-	oaf_query = g_new0(gchar, 255);
-	g_snprintf (oaf_query, 255,
-		    "repo_ids.has_all(['IDL:Bonobo/Control:1.0', " 
-		    "	               'IDL:Bonobo/PersistFile:1.0']) AND " 
-		    "bonobo:supported_mime_types.has('%s')", 
-		    info->mime_type);
-	  
-	/* activate component */
 	CORBA_exception_init (&ev);
-	unknown_obj = (Bonobo_Unknown) bonobo_activation_activate (oaf_query, NULL, 0, NULL, &ev);
-	g_free (oaf_query);	
-	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
+
+	/* get control component */
+	control = bonobo_get_object (EOG_VIEWER_CONTROL_IID,
+				     "Bonobo/Control", &ev);
+	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL))
+		goto ctrl_error;
 	
 	/* get PersistFile interface */
-	pfile = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/PersistFile:1.0", &ev);
-	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL)) {
-		CORBA_exception_free (&ev);
-		bonobo_object_release_unref (unknown_obj, NULL);
-		return CORBA_OBJECT_NIL;
-	}
+	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
+	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL))
+		goto persist_file_error;
 	
 	/* load the file */
 	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 	Bonobo_PersistFile_load (pfile, text_uri, &ev);
 	bonobo_object_release_unref (pfile, NULL);
 	g_free (text_uri);
-
-	if (BONOBO_EX (&ev)) {
-		CORBA_exception_free (&ev);
-		bonobo_object_release_unref (unknown_obj, NULL);
-		return CORBA_OBJECT_NIL;
-	}	
-
-	/* get Control interface */
-	control = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/Control:1.0", &ev);
-	bonobo_object_release_unref (unknown_obj, NULL);
-	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
+	if (BONOBO_EX (&ev))
+		goto persist_file_error;
 
 	/* clean up */
 	CORBA_exception_free (&ev);
 
 	return control;
+	
+	/* error handling */
+ persist_file_error:
+	bonobo_object_release_unref (control, NULL);
+	
+ ctrl_error:
+	if (BONOBO_EX (&ev))
+		g_error ("%s", bonobo_exception_get_text (&ev));
+
+	CORBA_exception_free (&ev);
+
+	return CORBA_OBJECT_NIL;
 }	
 
 static Bonobo_Control
