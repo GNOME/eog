@@ -236,16 +236,16 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 	};
 	const char *translators;
 
-#define EMPTY_TRANSLATORS "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+
 
 	if (!about) {
 		GdkPixbuf *pixbuf;
 
 		/* Translators should localize the following string
-		 * which will be displayed at the bottom of the about
-		 * box to give credit to the translator(s).
+		 * which will give them credit in the About box.
+		 * E.g. "Fulano de Tal <fulano@detal.com>"
 		 */
-		translators = _(EMPTY_TRANSLATORS);
+		translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
 
 		pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
 
@@ -256,7 +256,8 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 			_("The GNOME image viewing and cataloging program."),
 			authors,
 			documenters,
-			strcmp (translators, EMPTY_TRANSLATORS) ? translators : NULL,
+			(strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+			 ? translators : NULL),
 			pixbuf);
 
 		if (pixbuf)
