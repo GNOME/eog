@@ -61,6 +61,12 @@ cmd_cb_zoom_fit (GtkWidget *widget, gpointer data)
 	window_zoom_fit (WINDOW (data));
 }
 
+void
+cmd_cb_full_screen (GtkWidget *widget, gpointer data)
+{
+	window_full_screen (WINDOW (data));
+}
+
 
 
 void

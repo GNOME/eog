@@ -309,9 +309,52 @@ paint_background (ImageView *view, ArtIRect *r, ArtIRect *rect)
 				    d.x1 - d.x0, d.y1 - d.y0);
 }
 
+#if 0
+#define PACK_RGBA
+#endif
+
+#ifdef PACK_RGBA
+
+/* Packs an RGBA pixbuf into RGB scanlines.  The rowstride is preserved.  NOTE:
+ * This will produce a pixbuf that is NOT usable with any other normal function!
+ * This is just a hack to accommodate the lack of a
+ * gdk_draw_rgb_image_32_dithalign(); the provided
+ * gdk_draw_rgb_image_dithalign() does not take in 32-bit pixels.
+ */
+static void
+pack_pixbuf (GdkPixbuf *pixbuf)
+{
+	int x, y;
+	int width, height, rowstride;
+	guchar *pixels, *p, *q;
+
+	g_assert (gdk_pixbuf_get_n_channels (pixbuf) == 4);
+
+	width = gdk_pixbuf_get_width (pixbuf);
+	height = gdk_pixbuf_get_height (pixbuf);
+	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+	pixels = gdk_pixbuf_get_pixels (pixbuf);
+
+	for (y = 0; y < height; y++) {
+		p = pixels;
+		q = pixels;
+
+		for (x = 0; x < width; x++) {
+			*p++ = *q++;
+			*p++ = *q++;
+			*p++ = *q++;
+			q++;
+		}
+
+		pixels += rowstride;
+	}
+}
+
+#endif
+
 /* Paints a rectangle of the dirty region */
 static void
-paint_rectangle (ImageView *view, ArtIRect *rect)
+paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 {
 	ImageViewPrivate *priv;
 	int scaled_width, scaled_height;
@@ -396,7 +439,11 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 	if (art_irect_empty (&d))
 		return;
 
+#ifdef PACK_RGBA
+	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, d.x1 - d.x0, d.y1 - d.y0);
+#else
 	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
+#endif
 
 	gdk_pixbuf_composite_color (priv->image->pixbuf,
 				    tmp,
@@ -404,11 +451,15 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 				    d.x1 - d.x0, d.y1 - d.y0,
 				    -(d.x0 - xofs), -(d.y0 - yofs),
 				    priv->zoom, priv->zoom,
-				    GDK_INTERP_BILINEAR,
+				    interp_type,
 				    255,
 				    d.x0 - xofs, d.y0 - yofs,
 				    CHECK_SIZE,
 				    CHECK_DARK, CHECK_LIGHT);
+
+#ifdef PACK_RGBA
+	pack_pixbuf (tmp);
+#endif
 
 	gdk_draw_rgb_image_dithalign (GTK_WIDGET (view)->window,
 				      GTK_WIDGET (view)->style->black_gc,
@@ -463,7 +514,7 @@ paint_iteration_idle (gpointer data)
 		return FALSE;
 	}
 
-	paint_rectangle (view, &rect);
+	paint_rectangle (view, &rect, GDK_INTERP_BILINEAR);
 	return TRUE;
 }
 

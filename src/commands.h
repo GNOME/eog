@@ -38,6 +38,8 @@ void cmd_cb_zoom_out (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_1 (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_fit (GtkWidget *widget, gpointer data);
 
+void cmd_cb_full_screen (GtkWidget *widget, gpointer data);
+
 void cmd_cb_zoom_2_1 (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_3_1 (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_4_1 (GtkWidget *widget, gpointer data);

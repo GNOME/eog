@@ -196,6 +196,26 @@ ui_image_set_image (UIImage *ui, Image *image)
 }
 
 /**
+ * ui_image_get_image:
+ * @ui: An image view scroller.
+ * 
+ * Queries the image that an image view scroller is displaying.
+ * 
+ * Return value: An image, or NULL if no image is being displayed.
+ **/
+Image *
+ui_image_get_image (UIImage *ui)
+{
+	UIImagePrivate *priv;
+
+	g_return_val_if_fail (ui != NULL, NULL);
+	g_return_val_if_fail (IS_UI_IMAGE (ui), NULL);
+
+	priv = ui->priv;
+	return image_view_get_image (IMAGE_VIEW (priv->view));
+}
+
+/**
  * ui_image_set_zoom:
  * @ui: An image view scroller.
  * @zoom: Desired zoom factor.

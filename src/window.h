@@ -68,6 +68,8 @@ void window_zoom_out (Window *window);
 void window_zoom_1 (Window *window);
 void window_zoom_fit (Window *window);
 
+void window_full_screen (Window *window);
+
 
 
 END_GNOME_DECLS
