@@ -61,11 +61,18 @@ typedef struct {
  */
 typedef struct {
 	bonobo_object_data_t *bod;
+	BonoboView           *view;
 	GtkWidget            *drawing_area;
         GtkWidget            *scrolled_window;
 	GdkPixbuf            *scaled;
         gboolean              size_allocated;
+
+	GdkPixbuf            *zoomed;
+	float                 zoom_factor;
+	BonoboZoomable       *zoomable;
 } view_data_t;
+
+static void view_update (view_data_t *view_data);
 
 static void
 release_pixbuf_cb (BonoboView *view, void *data)
@@ -76,6 +83,9 @@ release_pixbuf_cb (BonoboView *view, void *data)
 	    !view_data->scaled)
 		return;
 	
+	gdk_pixbuf_unref (view_data->zoomed);
+	view_data->zoomed = NULL;
+
 	gdk_pixbuf_unref (view_data->scaled);
 	view_data->scaled = NULL;
 }
@@ -121,7 +131,9 @@ get_pixbuf (view_data_t *view_data)
 {
 	g_return_val_if_fail (view_data != NULL, NULL);
 
-	if (view_data->scaled)
+	if (view_data->zoomed)
+		return view_data->zoomed;
+	else if (view_data->scaled)
 		return view_data->scaled;
 	else {
 		bonobo_object_data_t *bod = view_data->bod;
@@ -246,11 +258,67 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 }
 
 static void
+rezoom_view (view_data_t *view_data, float new_zoom_factor)
+{
+	const GdkPixbuf *pixbuf;
+
+	float old_width, old_height;
+	float new_width, new_height;
+
+	pixbuf = view_data->bod->pixbuf;
+	old_width = gdk_pixbuf_get_width (pixbuf);
+	old_height = gdk_pixbuf_get_height (pixbuf);
+
+	new_width = old_width * new_zoom_factor;
+	new_height = old_height * new_zoom_factor;
+
+	if (view_data->zoomed)
+		gdk_pixbuf_unref (view_data->zoomed);
+
+	view_data->zoomed = gdk_pixbuf_scale_simple (pixbuf,
+						     new_width, new_height,
+						     ART_FILTER_NEAREST);
+}
+
+static void
+set_zoom_factor_cb (BonoboView *view, double new_zoom_factor, view_data_t *view_data)
+{
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (BONOBO_IS_VIEW (view));
+	g_return_if_fail (view_data != NULL);
+
+	g_message ("Setting zoom factor to %g", new_zoom_factor);
+
+	rezoom_view (view_data, new_zoom_factor);
+	view_data->zoom_factor = new_zoom_factor;
+
+	view_update (view_data);
+
+	if (view_data->zoomable)
+		bonobo_zoomable_report_zoom_level_changed (view_data->zoomable,
+							   new_zoom_factor);
+}
+
+static void
 resize_all_cb (BonoboView *view, void *data)
 {
+	view_data_t *view_data = data;
 	GtkWidget *widget;
 
 	g_return_if_fail (view != NULL);
+	g_return_if_fail (BONOBO_IS_VIEW (view));
+	g_return_if_fail (data != NULL);
+
+	g_message ("resize_all_cb");
+
+	if (view_data->zoomable) {
+		view_data->zoom_factor = 1.0;
+
+		bonobo_zoomable_set_parameters (view_data->zoomable, 0.0, 0.0,
+						FALSE, FALSE, TRUE, NULL, 0);
+
+		bonobo_zoomable_report_zoom_parameters_changed (view_data->zoomable);
+	}
 
 	widget = bonobo_control_get_widget (BONOBO_CONTROL (view));
 
@@ -263,6 +331,8 @@ view_update (view_data_t *view_data)
 	GdkRectangle rect;
 
 	g_return_if_fail (view_data != NULL);
+
+	g_message ("update_view");
 
 	configure_size (view_data, &rect);
 		
@@ -349,6 +419,10 @@ destroy_view (BonoboView *view, view_data_t *view_data)
 	if (view_data->scaled)
 		gdk_pixbuf_unref (view_data->scaled);
 	view_data->scaled = NULL;
+
+	if (view_data->zoomed)
+		gdk_pixbuf_unref (view_data->zoomed);
+	view_data->zoomed = NULL;
 
 	gtk_widget_destroy (view_data->drawing_area);
 	view_data->drawing_area = NULL;
@@ -483,6 +557,52 @@ render_fn (GnomePrintContext         *ctx,
 	gnome_print_grestore  (ctx);
 }
 
+static void
+zoom_in_cb (BonoboZoomable *zoomable, view_data_t *view_data)
+{
+    g_message ("zoom_in");
+
+    gtk_signal_emit_by_name (GTK_OBJECT (view_data->view), "set_zoom_factor",
+			     view_data->zoom_factor += 0.25);
+}
+
+
+static void
+zoom_out_cb (BonoboZoomable *zoomable, view_data_t *view_data)
+{
+    g_message ("zoom_out");
+
+    gtk_signal_emit_by_name (GTK_OBJECT (view_data->view), "set_zoom_factor",
+			     view_data->zoom_factor -= 0.25);
+}
+
+static void
+zoom_to_fit_cb (BonoboZoomable *zoomable, view_data_t *view_data)
+{
+    g_message ("zoom_to_fit");
+}
+
+static void
+zoom_to_default_cb (BonoboZoomable *zoomable, view_data_t *view_data)
+{
+    g_message ("zoom_to_default");
+
+    gtk_signal_emit_by_name (GTK_OBJECT (view_data->view), "set_zoom_factor",
+			     1.0);
+}
+
+static void
+view_activate_cb (BonoboView *view, gboolean activate, gpointer data)
+{
+	view_data_t *view_data = (view_data_t *) data;
+
+	/*
+	 * Notify the ViewFrame that we accept to be activated or
+	 * deactivated (we are an acquiescent BonoboView, yes we are).
+	 */
+	bonobo_view_activate_notify (view, activate);
+}
+
 static BonoboView *
 view_factory_common (BonoboEmbeddable *bonobo_object,
 		     GtkWidget        *scrolled_window,
@@ -491,11 +611,13 @@ view_factory_common (BonoboEmbeddable *bonobo_object,
 {
         BonoboView *view;
 	bonobo_object_data_t *bod = data;
-	view_data_t *view_data = g_new (view_data_t, 1);
+	view_data_t *view_data = g_new0 (view_data_t, 1);
 	GtkWidget   *root;
 
 	view_data->bod = bod;
 	view_data->scaled = NULL;
+	view_data->zoomed = NULL;
+	view_data->zoom_factor = 1.0;
 	view_data->drawing_area = gtk_drawing_area_new ();
 	view_data->size_allocated = FALSE;
 	view_data->scrolled_window = scrolled_window;
@@ -515,11 +637,32 @@ view_factory_common (BonoboEmbeddable *bonobo_object,
 	gtk_widget_show_all (root);
 	view = bonobo_view_new (root);
 
+	view_data->view = view;
+
 	gtk_object_set_data (GTK_OBJECT (view), "view_data",
 			     view_data);
 
 	gtk_signal_connect (GTK_OBJECT (view), "destroy",
 			    GTK_SIGNAL_FUNC (destroy_view), view_data);
+
+	view_data->zoomable = bonobo_zoomable_new ();
+
+	gtk_signal_connect (GTK_OBJECT (view_data->zoomable), "zoom_in",
+			    GTK_SIGNAL_FUNC (zoom_in_cb), view_data);
+	gtk_signal_connect (GTK_OBJECT (view_data->zoomable), "zoom_out",
+			    GTK_SIGNAL_FUNC (zoom_out_cb), view_data);
+	gtk_signal_connect (GTK_OBJECT (view_data->zoomable), "zoom_to_fit",
+			    GTK_SIGNAL_FUNC (zoom_to_fit_cb), view_data);
+	gtk_signal_connect (GTK_OBJECT (view_data->zoomable), "zoom_to_default",
+			    GTK_SIGNAL_FUNC (zoom_to_default_cb), view_data);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (view),
+				     BONOBO_OBJECT (view_data->zoomable));
+
+	gtk_signal_connect (GTK_OBJECT (view), "set_zoom_factor",
+			    GTK_SIGNAL_FUNC (set_zoom_factor_cb), view_data);
+	gtk_signal_connect (GTK_OBJECT (view), "activate",
+			    GTK_SIGNAL_FUNC (view_activate_cb), view_data);
 
 	running_objects++;
 

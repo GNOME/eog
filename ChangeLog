@@ -1,3 +1,19 @@
+2000-10-08  Martin Baulig  <baulig@suse.de>
+
+	Implement the new Bonobo::Zoomable interface.
+
+	* bonobo/bonobo-image-generic.c (view_data_t): Added new `view',
+	`zoomed', `zoom_factor' and `zoomable' fields.
+	(get_pixbuf): Return the `zoomed' pixbuf if it exists first.
+	(rezoom_view): New static function.
+	(set_zoom_factor_cb): New callback function.
+	(resize_all_cb): Initially set the the zoom factor to 1.0 here.
+	(zoom_in_cb, zoom_out_cb, zoom_to_fit_cb, zoom_to_default_cb):
+	New callback functions.
+	(view_activate_cb): New callback function.
+	(view_factory_common): Create and add the BonoboZoomable; connect
+	the view_activate_cb() to the "activate" signal on the view.
+
 2000-09-25  Yukihiro Nakai  <nakai@gnome.gr.jp>
 
 	* eog.desktop: Add Japanese entry.
