@@ -190,6 +190,8 @@ compute_viewport_affine (GnomeCanvasPixbuf *gcp, double *viewport_affine, double
 	art_affine_scale (scale, si_len, sj_len);
 	art_affine_translate (translate, ti_len, tj_len);
   	art_affine_multiply (viewport_affine, scale, translate); 
+
+	g_object_unref (pixbuf);
 }
 
 /* Computes the affine transformation with which the pixbuf needs to be
@@ -220,6 +222,7 @@ eog_canvas_pixbuf_point (GnomeCanvasItem *item, double x, double y, int cx, int 
 	ArtPoint c, p;
 	int px, py;
 	double no_hit;
+	double result = 0.0;
 	GdkPixbuf *pixbuf;
 
 	gcp = GNOME_CANVAS_PIXBUF (item);
@@ -245,9 +248,13 @@ eog_canvas_pixbuf_point (GnomeCanvasItem *item, double x, double y, int cx, int 
 
 	if (px < 0 || px >= gdk_pixbuf_get_width (pixbuf) ||
 	    py < 0 || py >= gdk_pixbuf_get_height (pixbuf))
-		return no_hit;
-	else
-		return 0.0;
+	{
+		result = no_hit;
+	}
+
+	g_object_unref (pixbuf);
+
+	return result;
 }
 
 static void

@@ -117,6 +117,7 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 	if (old_pixbuf != NULL) {
 		old_width = gdk_pixbuf_get_width (old_pixbuf);
 		old_height = gdk_pixbuf_get_height (old_pixbuf);
+		g_object_unref (old_pixbuf);
 	}
 
 	image_width = gdk_pixbuf_get_width (pixbuf);
