@@ -827,6 +827,76 @@ handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event,
 #endif
 }
 
+/*
+ * This function is extracted from 
+ * File: nautilus/libnautilus-private/nautilus-file.c
+ * Revision: 1.309
+ * Author: Darin Adler <darin@bentspoon.com>
+ */
+static gboolean
+have_broken_filenames (void)
+{
+	static gboolean initialized = FALSE;
+	static gboolean broken;
+	
+	if (initialized) {
+		return broken;
+	}
+	
+	broken = g_getenv ("G_BROKEN_FILENAMES") != NULL;
+  
+	initialized = TRUE;
+  
+	return broken;
+}
+
+static char*
+get_title_from_uri (GnomeVFSURI *uri)
+{
+	gboolean validated = FALSE;
+	gboolean broken_filenames;
+	char *title = NULL;
+	char *utf8_title;
+
+	title = gnome_vfs_uri_extract_short_name (uri);
+	
+	if (title != NULL && gnome_vfs_uri_is_local (uri)) {
+		/* Support the G_BROKEN_FILENAMES feature of
+		 * glib by using g_filename_to_utf8 to convert
+		 * local filenames to UTF-8. Also do the same
+		 * thing with any local filename that does not
+		 * validate as good UTF-8.
+		 */
+		broken_filenames = have_broken_filenames ();
+		if (broken_filenames || !g_utf8_validate (title, -1, NULL)) {
+			utf8_title = g_locale_to_utf8 (title, -1, NULL, NULL, NULL);
+			if (utf8_title != NULL) {
+				g_free (title);
+				title = utf8_title;
+				/* Guaranteed to be correct utf8 here */
+				validated = TRUE;
+			}
+		} 
+		else if (!broken_filenames) {
+			/* name was valid, no need to re-validate */
+			validated = TRUE;
+		}
+	}
+	
+	if (!validated && !g_utf8_validate (title, -1, NULL)) {
+		if (title == NULL) {
+			title = g_strdup ("[Invalid Unicode]");
+		}
+		else {
+			utf8_title = eel_make_valid_utf8 (title);
+			g_free (title);
+			title = utf8_title;
+		}
+	}
+
+	return title;
+}
+
 static void
 eog_collection_view_get_prop (BonoboPropertyBag *bag,
 			      BonoboArg         *arg,
@@ -845,19 +915,23 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 	
 	switch (arg_id) {
 	case PROP_WINDOW_TITLE: {
-		gchar *base_uri;
-		gchar *title;
+		GnomeVFSURI *base_uri = NULL;
+		char *title = NULL;
 
-		/* FIXME: what should happen with this? */
-		base_uri = NULL; /*  eog_collection_model_get_base_uri (priv->model); */
+		base_uri = eog_image_list_get_base_uri (priv->model);
+		if (base_uri != NULL) {
+			title = get_title_from_uri (base_uri);
+		}
 
-		if (base_uri == NULL)
+		if (title == NULL) {
 			title = g_strdup (_("Collection View"));
-		else {
-			title = eel_format_uri_for_display (base_uri);
 		}
 
 		BONOBO_ARG_SET_STRING (arg, title);
+
+		if (base_uri != NULL) {
+			gnome_vfs_uri_unref (base_uri);
+		}
 		g_free (title);
 		break;
 	}
@@ -996,7 +1070,7 @@ model_size_changed (EogImageList *model, GList *id_list,  gpointer data)
 
 
 static void
-model_base_uri_changed (EogImageList *model, gpointer data)
+model_list_prepared (EogImageList *model, gpointer data)
 {
 	EogCollectionView *view;
 
@@ -1004,7 +1078,6 @@ model_base_uri_changed (EogImageList *model, gpointer data)
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
 
 	view = EOG_COLLECTION_VIEW (data);
-	g_print ("model_base_uri_changed ...\n");
 	update_title_text (view);	
 }
 
@@ -1120,6 +1193,11 @@ get_collection_model (EogCollectionView *view)
 	if (priv->model == NULL) {
 		priv->model = eog_image_list_new ();
 		eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
+
+		g_signal_connect (G_OBJECT (priv->model), "list-prepared",
+				  G_CALLBACK (model_list_prepared),
+				  view);
+
 
 		/* construct widget */
 #if 0

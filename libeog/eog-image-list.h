@@ -3,6 +3,7 @@
 
 #include <glib-object.h>
 #include <glib/glist.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
 #include "eog-image.h"
 
 G_BEGIN_DECLS
@@ -44,6 +45,7 @@ EogImageList*       eog_image_list_new_from_glist                 (GList *list);
 void                eog_image_list_add_directory                  (EogImageList *list, char *uri);
 void                eog_image_list_add_files                      (EogImageList *list, GList *uri_list);
 
+GnomeVFSURI*        eog_image_list_get_base_uri                   (EogImageList *list);
 int                 eog_image_list_length                         (EogImageList *list);
 
 void                eog_image_list_add_image                      (EogImageList *list, EogImage *image);

@@ -1,3 +1,25 @@
+2004-02-02  Jens Finke   <jens@triq.net>
+
+	Fixes #132263.
+	
+	* collection/eog-collection-view.c (have_broken_filenames),
+	(get_title_from_uri): New function.
+	(eog_collection_view_get_prop): Obtain title from base_uri.
+	(get_collection_model): Connect to list-prepared signal.
+
+	* collection/eog-save-dialog.c (eg_save_dialog_update): Removed
+	debug output.
+
+	* libeog/eog-image-list.[ch] (eog_image_list_dispose),
+	(eog_image_list_instance_init): Init/free new attributes.
+	(real_dir_loading),
+	(real_file_loading): Determine base uri.
+	(prepare_loading_context): Don't leak info object on error.
+	(eog_image_list_get_base_uri): New function.
+
+	* libeog/eog-image.c (eog_image_get_caption): Copy static string
+	in error case.
+	
 2004-01-29  Jason Leach  <leach@wam.umd.edu>
 
 	* shell/recent-files/egg-recent-view-gtk.c:

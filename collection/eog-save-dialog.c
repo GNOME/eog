@@ -45,6 +45,7 @@ eog_save_dialog_new (void)
 			      "resizable", FALSE,
 			      "has-separator", FALSE,
 			      "modal", FALSE,
+			      "title", "",
 			      NULL);
 	priv = EOG_SAVE_DIALOG (dlg)->priv;
 			      
@@ -98,8 +99,6 @@ eog_save_dialog_update (EogSaveDialog *dlg, double fraction, const gchar *captio
 	int caption_len;
 	char *header = _("Saving image");
 	char *message;
-
-	g_print ("update save dialog: %.2f, %s\n", fraction, caption);
 
 	priv = dlg->priv;
 

@@ -1513,7 +1513,7 @@ eog_image_get_caption (EogImage *img)
 	
 	if (!validated && !g_utf8_validate (name, -1, NULL)) {
 		if (name == NULL) {
-			name = "[Invalid Unicode]";
+			name = g_strdup ("[Invalid Unicode]");
 		}
 		else {
 			utf8_name = eel_make_valid_utf8 (name);
