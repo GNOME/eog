@@ -47,25 +47,14 @@
 
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
-	/* UIImage widget for our contents */
-	GtkWidget *ui;
-
 	/* Our GConf client */
 	GConfClient *client;
-
-	/* ui container */
-	BonoboUIContainer  *ui_container;
 
 	/* control frame */
 	BonoboControlFrame *ctrl_frame;
 
 	/* vbox */
 	GtkWidget           *box;
-
-	/* the control embedded in the container */
-	GtkWidget           *widget;
-
-	Bonobo_PropertyControl property_control;
 
 	/* statusbar */
 	GtkWidget *statusbar;
@@ -257,10 +246,11 @@ eog_window_destroy (GtkObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
-	if (priv->property_control != CORBA_OBJECT_NIL)
-		bonobo_object_release_unref (priv->property_control, NULL);
-	priv->property_control = CORBA_OBJECT_NIL;
-	
+	if (priv->ctrl_frame != NULL) {
+		g_object_unref (G_OBJECT (priv->ctrl_frame));
+		priv->ctrl_frame = NULL;
+	}
+
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
 		gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
@@ -270,7 +260,7 @@ eog_window_destroy (GtkObject *object)
 	}
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+		GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
 static void
@@ -334,7 +324,6 @@ eog_window_init (EogWindow *window)
 	priv = g_new0 (EogWindowPrivate, 1);
 	window->priv = priv;
 
-	priv->property_control = CORBA_OBJECT_NIL;
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client, "/apps/eog",
@@ -395,9 +384,11 @@ eog_window_has_contents (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+
 	priv = window->priv;
 
-	return (priv->widget != NULL);
+	return (bonobo_control_frame_get_widget (priv->ctrl_frame) != NULL);
 }
 
 static GnomeUIInfo drag_ask_popup_menu [] = {
@@ -560,6 +551,7 @@ void
 eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+	BonoboUIContainer *ui_container;
 	BonoboUIComponent *ui_comp;
 	gchar *fname;
 	GdkGeometry geometry;
@@ -569,7 +561,7 @@ eog_window_construct (EogWindow *window)
 
 	priv = window->priv;
 
-	priv->ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
+	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
 
 	bonobo_ui_engine_config_set_path (
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
@@ -582,7 +574,7 @@ eog_window_construct (EogWindow *window)
 	/* add menu and toolbar */
 	ui_comp = bonobo_ui_component_new ("eog");
 	bonobo_ui_component_set_container (ui_comp, 
-					   BONOBO_OBJREF (priv->ui_container), NULL);
+					   BONOBO_OBJREF (ui_container), NULL);
 
 	fname = bonobo_ui_util_get_ui_fname (NULL, "eog-shell-ui.xml");
 	if (fname && g_file_exists (fname)) {
@@ -591,7 +583,7 @@ eog_window_construct (EogWindow *window)
 	} else {
 		g_error (N_("Can't find eog-shell-ui.xml.\n"));
 	}
-	g_free (fname); /* we reuse this variable later! */
+	g_free (fname); 
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
@@ -600,7 +592,7 @@ eog_window_construct (EogWindow *window)
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
 
 	/* add control frame interface */
-	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (priv->ui_container));
+	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (ui_container));
 	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
 	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
 			  (GtkSignalFunc) activate_uri_cb, NULL);
@@ -616,19 +608,6 @@ eog_window_construct (EogWindow *window)
 				      GTK_WIDGET (window),
 				      &geometry, 
 				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
-	 
-#if 0
-	{
-	GtkArg args[1];
-	/* We want the window automatically shrink to the image
-	 * size. 
-	 */
-	args[0].name = "GtkWindow::auto_shrink";
-	args[0].type = GTK_TYPE_BOOL;
-	GTK_VALUE_BOOL(args[0]) = TRUE;
-	gtk_object_setv(GTK_OBJECT(window), 1, args);
-	}
-#endif
 }
 
 /**
@@ -769,22 +748,16 @@ static void
 check_for_control_properties (EogWindow *window)
 {
         EogWindowPrivate *priv;
-	BonoboControlFrame *ctrl_frame;
 	Bonobo_PropertyBag pb;
 	gchar *title;
 	CORBA_Environment ev;
 	gchar *mask = NULL;
 
 	priv = window->priv;
-	
-	ctrl_frame = bonobo_widget_get_control_frame (
-		BONOBO_WIDGET (priv->widget));
-	if (ctrl_frame == NULL)
-		goto on_error;
 
 	CORBA_exception_init (&ev);
 
-	pb = bonobo_control_frame_get_control_property_bag (ctrl_frame, &ev);
+	pb = bonobo_control_frame_get_control_property_bag (priv->ctrl_frame, &ev);
 	if (pb == CORBA_OBJECT_NIL)
 		goto on_error;
 
@@ -1006,39 +979,28 @@ get_collection_control_list (GList *text_uri_list)
 static void 
 add_control_to_ui (EogWindow *window, Bonobo_Control control)
 {
+	GtkWidget *widget;
 	EogWindowPrivate *priv;
 	CORBA_Environment ev;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
-
+	
 	priv = window->priv;
-
-	/* Remove old control if necessary */
-	if (priv->widget)
-		gtk_container_remove (GTK_CONTAINER (priv->box), priv->widget);
-
-	/* Show the new control */
-	priv->widget = bonobo_widget_new_control_from_objref
-					(control, BONOBO_OBJREF (priv->ui_container));
-	if (!priv->widget) {
-		g_warning ("Could not create a widget from the control!");
+	CORBA_exception_init (&ev);
+	
+	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
+	widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
+	
+	if (!widget) {
+	        g_warning ("Could not create a widget from the control!");
 		return;
 	}
-	gtk_container_add (GTK_CONTAINER (priv->box), priv->widget);
-	gtk_widget_show (priv->widget);
+	gtk_container_add (GTK_CONTAINER (priv->box), widget);
+	gtk_widget_show (widget);
 
-	/* Set control frame and activate control. */
-	CORBA_exception_init (&ev);
-	Bonobo_Control_setFrame (control,
-				 BONOBO_OBJREF (priv->ctrl_frame), &ev);
-	Bonobo_Control_activate (control, TRUE, &ev);
+	bonobo_control_frame_control_activate (priv->ctrl_frame);
 
-	/* Get the property control. */
-	if (priv->property_control)
-		bonobo_object_release_unref (priv->property_control, NULL);
-	priv->property_control = Bonobo_Unknown_queryInterface
-			(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
 	CORBA_exception_free (&ev);
 
 	/* retrieve control properties and install listeners */
@@ -1099,6 +1061,7 @@ eog_window_open (EogWindow *window, const char *text_uri)
 
 	/* add it to the user interface */
 	add_control_to_ui (window, control);
+	bonobo_object_release_unref (control, NULL);
 
 	/* clean up */
 	gnome_vfs_file_info_unref (info);
@@ -1132,18 +1095,16 @@ eog_window_open_list (EogWindow *window, GList *text_uri_list)
 Bonobo_PropertyControl
 eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
 {
+	Bonobo_Control control;
+	Bonobo_PropertyControl prop_control;
+
 	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
 
-	return (CORBA_Object_duplicate (window->priv->property_control, ev));
-}
-
-BonoboUIContainer*
-eog_window_get_ui_container (EogWindow *window)
-{
-	g_return_val_if_fail (window != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
-	g_return_val_if_fail (window->priv->ui_container, NULL);
-
-	return window->priv->ui_container;
+	control = bonobo_control_frame_get_control (window->priv->ctrl_frame);
+	if (control == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
+	
+	prop_control = Bonobo_Unknown_queryInterface (control, 
+						      "IDL:Bonobo/PropertyControl:1.0", ev);
+	return prop_control;
 }

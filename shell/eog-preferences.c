@@ -162,9 +162,9 @@ eog_preferences_construct (EogPreferences *preferences,
 		return NULL;
 	}
 
-	uic = eog_window_get_ui_container (window);
+	uic = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
 
-	if (uic == CORBA_OBJECT_NIL) {
+	if (uic == NULL) {
 		gtk_object_destroy (GTK_OBJECT (preferences));
 		CORBA_exception_free (&ev);
 		return NULL;

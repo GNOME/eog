@@ -1,5 +1,25 @@
 2002-01-25  Jens Finke <jens@triq.net>
 
+	Clean up the references held by EogWindow.
+	
+	* eog-preferences.c (eog_preferences_construct): Obtain ui
+	container through standard bonobo_window interface.
+
+	* eog-window.c (_EogWindowPrivate): Removed ui_container, ui and
+	widget attributes from this struct. These are all accessable
+	through the ctrl_frame object. Removed property_control attribute,
+	this isn't neccessary here.
+	(eog_window_destroy), (eog_window_init),
+	(eog_window_has_contents), (eog_window_construct),
+	(check_for_control_properties),
+	(add_control_to_ui), (eog_window_open),
+	(eog_window_get_property_control): Made these functions work
+	without the removed global attributes.
+	(eog_window_get_ui_container): Removed function, use standard
+	bonobo_window access method instead.
+	
+2002-01-25  Jens Finke <jens@triq.net>
+
 	* eog-window.c (verb_HelpAbout_cb): Updated authors list and
 	copyright.
 	(check_for_control_properties): Use new property bag API names.
