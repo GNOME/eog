@@ -69,13 +69,13 @@ if $try_bonobo; then
 fi
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
-EXTRA_BONOBO_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf $bonobo`
-EXTRA_BONOBO_LIBS=`gnome-config --libs gnomeui gdk_pixbuf $bonobo`
+EXTRA_BONOBO_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo`
+EXTRA_BONOBO_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo`
 AC_SUBST(EXTRA_BONOBO_CFLAGS)
 AC_SUBST(EXTRA_BONOBO_LIBS)
 
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf`
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf`
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 AC_SUBST(EXTRA_GNOME_LIBS)
 

@@ -463,9 +463,11 @@ bm_update_scroll (GnomeWrapList *wlist)
 
 	/* Snap offset if necessary */
 
+#if 0
 	if ((priv->mode == GNOME_WRAP_LIST_ROW_MAJOR || priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
 	    && priv->use_unit_scrolling)
 		val = size * (val / size);
+#endif
 
 	priv->h_offset = priv->update_scroll_h_offset;
 	priv->v_offset = priv->update_scroll_v_offset;
