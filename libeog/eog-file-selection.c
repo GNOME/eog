@@ -18,7 +18,7 @@
 #include "eog-hig-dialog.h"
 #include "eog-pixbuf-util.h"
 
-static char* last_dir[] = { NULL, NULL };
+static char* last_dir[] = { NULL, NULL, NULL, NULL };
 
 #define FILE_FORMAT_KEY "file-format"
 
@@ -162,6 +162,13 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 	GSList *filters = NULL;
 	gchar **mime_types, **pattern, *tmp;
 	int i;
+	GtkFileChooserAction action;
+
+	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel));
+
+	if (action != GTK_FILE_CHOOSER_ACTION_SAVE && action != GTK_FILE_CHOOSER_ACTION_OPEN) {
+		return;
+	}
 
 	/* All Files Filter */
 	all_file_filter = gtk_file_filter_new ();
@@ -172,7 +179,7 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 	all_img_filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (all_img_filter, _("All Images"));
 
-	if (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel)) == GTK_FILE_CHOOSER_ACTION_SAVE) {
+	if (action == GTK_FILE_CHOOSER_ACTION_SAVE) {
 		formats = eog_pixbuf_get_savable_formats ();
 	}
 	else {
@@ -448,12 +455,22 @@ eog_file_selection_new (GtkFileChooserAction action)
 		title = _("Save Image");
 		break;
 
+	case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
+		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+					NULL);
+		title = _("Open Folder");
+		break;
+
 	default:
 		g_assert_not_reached ();
 	}
 
-	eog_file_selection_add_filter (EOG_FILE_SELECTION (filesel));
-	eog_file_selection_add_preview (filesel);
+	if (action != GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+		eog_file_selection_add_filter (EOG_FILE_SELECTION (filesel));
+		eog_file_selection_add_preview (filesel);
+	}
 
 	if (last_dir[action] != NULL) {
 		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), last_dir [action]);
@@ -466,32 +483,6 @@ eog_file_selection_new (GtkFileChooserAction action)
 	return filesel;
 }
 
-GtkWidget* 
-eog_folder_selection_new (void)
-{
-	GtkWidget *filesel;
-
-	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
-				"action", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-				"select-multiple", FALSE,
-				NULL);
-	gtk_dialog_add_buttons (GTK_DIALOG (filesel),
-				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				GTK_STOCK_OPEN, GTK_RESPONSE_OK,
-				NULL);
-
-	if (last_dir[GTK_FILE_CHOOSER_ACTION_OPEN] != NULL) {
-		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), 
-						     last_dir [GTK_FILE_CHOOSER_ACTION_OPEN]);
-	}
-
-	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
-
-	gtk_window_set_title (GTK_WINDOW (filesel), _("Open Folder"));
-	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
-
-	return filesel;
-}
 
 GdkPixbufFormat* 
 eog_file_selection_get_format (EogFileSelection *sel)

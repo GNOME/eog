@@ -34,8 +34,6 @@ GtkType    eog_file_selection_get_type            (void) G_GNUC_CONST;
 
 GtkWidget* eog_file_selection_new (GtkFileChooserAction action);
 
-GtkWidget* eog_folder_selection_new (void);
-
 GdkPixbufFormat* eog_file_selection_get_format (EogFileSelection *sel);
 
 G_END_DECLS

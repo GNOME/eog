@@ -219,7 +219,7 @@ verb_DirOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
-	dlg = eog_folder_selection_new ();
+	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
