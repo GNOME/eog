@@ -1,3 +1,18 @@
+2003-12-31  Jens Finke  <jens@triq.net>
+
+	Preview for the file selector.
+
+	* libeog/eog-file-selection.c (eog_file_selection_dispose),
+	(eog_file_selection_finalize), (eog_file_selection_class_init),
+	(eog_file_selection_instance_init), 
+	(set_preview_label),
+	(set_preview_pixbuf),
+	(update_preview_cb),
+	(eog_file_selection_add_preview): New functions.
+	(eog_file_selection_new): Add preview widget.
+
+	* libeog/eog-file-selection.h: Added pointer to private struct.
+
 ====== 2.5.2.1 =====
 
 2003-12-29  Jens Finke  <jens@triq.net>
@@ -12,7 +27,7 @@
 2003-12-27  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.c (ensure_max_string_width):
-	Prefer non-alphanumeric characters for positions to split caption. 
+	Prefer non-alphanumeric characters for positions to wrap caption. 
 	
 2003-12-27  Jens Finke  <jens@triq.net>
 

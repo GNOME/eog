@@ -16,9 +16,12 @@ G_BEGIN_DECLS
 
 typedef struct _EogFileSelection         EogFileSelection;
 typedef struct _EogFileSelectionClass    EogFileSelectionClass;
+typedef struct _EogFileSelectionPrivate  EogFileSelectionPrivate;
 
 struct _EogFileSelection {
 	GtkFileChooserDialog  parent_object;
+
+	EogFileSelectionPrivate *priv;
 };
 
 
