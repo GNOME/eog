@@ -152,7 +152,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 	eog_wrap_list_signals [RIGHT_CLICK] = 
 		g_signal_new ("right_click",
 			      G_TYPE_FROM_CLASS(object_class),
-			      G_SIGNAL_RUN_FIRST,
+			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogWrapListClass, right_click),
 			      NULL,
 			      NULL,
@@ -160,7 +160,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 			      G_TYPE_BOOLEAN,
 			      2,
 			      G_TYPE_INT,
-			      GDK_TYPE_EVENT);
+			      G_TYPE_POINTER);
 	eog_wrap_list_signals [DOUBLE_CLICK] = 
 		g_signal_new ("double_click",
 			      G_TYPE_FROM_CLASS(object_class),
@@ -622,7 +622,7 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 
 	if (model) {
 		priv->model = model;
-		gtk_object_ref (GTK_OBJECT (model));
+		g_object_ref (G_OBJECT (model));
 
 		priv->model_ids.interval_changed_id = g_signal_connect (
 			G_OBJECT (model), "interval_changed",

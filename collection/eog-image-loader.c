@@ -64,23 +64,23 @@ eog_image_loader_class_init (EogImageLoaderClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_POINTER);
 	eog_image_loader_signals [LOADING_CANCELED] = 
-		gtk_signal_new ("loading_canceled",
-				G_TYPE_FROM_CLASS (obj_class),
-				G_SIGNAL_RUN_FIRST,
-				G_STRUCT_OFFSET (EogImageLoaderClass, loading_canceled),
-				NULL, NULL,
-			        eog_collection_marshal_VOID__POINTER, 
-				G_TYPE_NONE, 1,
-				G_TYPE_POINTER);
+		g_signal_new ("loading_canceled",
+			      G_TYPE_FROM_CLASS (obj_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogImageLoaderClass, loading_canceled),
+			      NULL, NULL,
+			      eog_collection_marshal_VOID__POINTER, 
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 	eog_image_loader_signals [LOADING_FAILED] = 
-		gtk_signal_new ("loading_failed",
-				G_TYPE_FROM_CLASS (obj_class),
-				G_SIGNAL_RUN_FIRST,
-				G_STRUCT_OFFSET (EogImageLoaderClass, loading_failed),
-				NULL, NULL,
-				eog_collection_marshal_VOID__POINTER,
-				G_TYPE_NONE, 1,
-				G_TYPE_POINTER);
+		g_signal_new ("loading_failed",
+			      G_TYPE_FROM_CLASS (obj_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogImageLoaderClass, loading_failed),
+			      NULL, NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 
 	obj_class->dispose = eog_image_loader_dispose;
 }

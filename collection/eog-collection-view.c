@@ -93,8 +93,9 @@ static void eog_collection_view_class_init (EogCollectionViewClass *klass);
 static void eog_collection_view_instance_init (EogCollectionView *obj);
 static void eog_collection_view_dispose (GObject *object);
 
-BONOBO_CLASS_BOILERPLATE (EogCollectionView, eog_collection_view,
-			  BonoboObject, BONOBO_TYPE_OBJECT);
+BONOBO_CLASS_BOILERPLATE_FULL (EogCollectionView, eog_collection_view,
+			       GNOME_EOG_ImageCollection,
+			       BonoboObject, BONOBO_TYPE_OBJECT);
 
 
 static void 

@@ -1,3 +1,19 @@
+2002-04-24  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-control.[ch]: Made BonoboControl the
+	base class and use EogImageView as an attribute.
+
+	* collection/eog-collection-view.c: Use
+	BONOBO_CLASS_BOILERPLATE_FULL.
+	* collection/eog-collection-view.h: Use G_TYPE_CHECK functions.
+
+	* collection/eog-image-loader.c (eog_image_loader_class_init): Use
+	g_signal_new.
+	
+	* collection/eog-wrap-list.c 
+	(eog_wrap_list_class_init): Signal fixes.
+	(eog_wrap_list_set_model): Cast model to GObject.
+
 2002-04-23  Murray Cumming  <murrayc@usa.net>
 
 	* shell/eog-window.c eog_window_new():
