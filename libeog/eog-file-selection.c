@@ -128,7 +128,7 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 	dir = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
 	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (dlg));
 	
-        if (action == GTK_FILE_CHOOSER_ACTION_SAVE){
+        if (action == GTK_FILE_CHOOSER_ACTION_SAVE && id == GTK_RESPONSE_OK){
 		char *filename;
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dlg));
 
