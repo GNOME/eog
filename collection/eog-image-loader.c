@@ -222,11 +222,6 @@ real_image_loading (EogImageLoader *loader)
 	gtk_idle_remove (priv->idle_handler_id);
 	priv->idle_handler_id = 0;
 
-	/* create buffer */
-	buf = Bonobo_Stream_iobuf__alloc ();
-	buf->_length = 1024;
-	buf->_buffer = g_new0  (guchar, 1024);
-	
 	while ((lctx = eog_collection_model_get_next_loading_context (priv->model)) &&
 	       !priv->stop_loading) {
 		
@@ -239,7 +234,7 @@ real_image_loading (EogImageLoader *loader)
 		/* loading image from stream */
 		while (!priv->stop_loading) {
 
-			Bonobo_Stream_read (lctx->stream, 1024, &buf, &ev);
+			Bonobo_Stream_read (lctx->stream, 4096, &buf, &ev);
 
 			if (buf->_length == 0) break;
 			if (ev._major != CORBA_NO_EXCEPTION) break;
@@ -251,8 +246,10 @@ real_image_loading (EogImageLoader *loader)
 				gtk_signal_emit (GTK_OBJECT (loader), 
 						 eog_image_loader_signals [LOADING_FAILED],
 						 lctx->image);
+				CORBA_free (buf);
 				break;
 			}
+			CORBA_free (buf);
 
 			/* update gui every 50th time */
 			if (p++ % 50 == 0)
@@ -286,9 +283,6 @@ real_image_loading (EogImageLoader *loader)
 		Bonobo_Unknown_unref (lctx->stream, &ev);
 		g_free (lctx);
 	}
-
-	g_free (buf->_buffer);
-	CORBA_free (buf);
 
 	priv->active = FALSE;
 	priv->stop_loading = FALSE;

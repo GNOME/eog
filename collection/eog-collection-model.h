@@ -74,8 +74,8 @@ void
 eog_collection_model_construct (EogCollectionModel *model);
 
 void
-eog_collection_model_set_storage            (EogCollectionModel *model, 
-                                             Bonobo_Storage storage);
+eog_collection_model_set_uri            (EogCollectionModel *model, 
+                                         const gchar *uri);
 
 LoadingContext*
 eog_collection_model_get_next_loading_context (EogCollectionModel *model);
@@ -86,6 +86,10 @@ eog_collection_model_get_length (EogCollectionModel *model);
 
 CImage*
 eog_collection_model_get_image              (EogCollectionModel *model,
+                                             guint unique_id);
+
+gchar*
+eog_collection_model_get_uri                (EogCollectionModel *model,
                                              guint unique_id);
 
 GList*

@@ -1,8 +1,9 @@
 /* GNOME libraries - abstract wrapped list view
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2000-2001 The Free Software Foundation
  *
  * Author: Federico Mena-Quintero <federico@gnu.org>
+ *         Jens Finke <jens@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -55,6 +56,8 @@ struct _GnomeWrapListClass {
 	/* GTK+ scrolling interface */
 	void (* set_scroll_adjustments) (GnomeWrapList *wlist,
 					 GtkAdjustment *hadj, GtkAdjustment *vadj);
+	
+	void (* item_dbl_click) (gint unique_id);
 };
 
 

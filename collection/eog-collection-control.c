@@ -6,7 +6,8 @@
  *   Martin Baulig (baulig@suse.de)
  *   Jens Finke (jens@gnome.org)
  *
- * Copyright 2000 SuSE GmbH.
+ * Copyright 2000, SuSE GmbH.
+ * Copyright 2001, The Free Software Foundation
  */
 #include <config.h>
 #include <stdio.h>
@@ -15,19 +16,20 @@
 #include <gtk/gtktypeutils.h>
 
 #include <gnome.h>
+#include <bonobo.h>
 
 #include "eog-collection-control.h"
 #include "eog-collection-view.h"
 
 struct _EogControlPrivate {
-	EogCollectionView  *list_view;
-
 	GtkWidget         *root;
 
 	BonoboUIComponent *uic;
 };
 
-static BonoboControlClass *eog_control_parent_class;
+#define PARENT_TYPE EOG_COLLECTION_VIEW_TYPE
+
+static EogCollectionViewClass *eog_control_parent_class;
 
 static void
 eog_control_destroy (GtkObject *object)
@@ -68,69 +70,65 @@ eog_control_create_ui (EogControl *control)
 }
 
 static void
-eog_control_set_ui_container (EogControl *control,
+eog_control_set_ui_container (EogControl *eog_ctrl,
 			      Bonobo_UIContainer ui_container)
 {
-	g_return_if_fail (control != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (control));
+	g_return_if_fail (eog_ctrl != NULL);
+	g_return_if_fail (EOG_IS_CONTROL (eog_ctrl));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 	
-	eog_collection_view_set_ui_container (control->priv->list_view,
+	eog_collection_view_set_ui_container (EOG_COLLECTION_VIEW (eog_ctrl),
 					      ui_container);
 
-	bonobo_ui_component_set_container (control->priv->uic, ui_container);
+	bonobo_ui_component_set_container (eog_ctrl->priv->uic, ui_container);
 
-	eog_control_create_ui (control);
+	eog_control_create_ui (eog_ctrl);
 }
 
 static void
-eog_control_unset_ui_container (EogControl *control)
+eog_control_unset_ui_container (EogControl *eog_ctrl)
 {
-	g_return_if_fail (control != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (control));
+	g_return_if_fail (eog_ctrl != NULL);
+	g_return_if_fail (EOG_IS_CONTROL (eog_ctrl));
 
-	eog_collection_view_unset_ui_container (control->priv->list_view);
+	eog_collection_view_unset_ui_container (EOG_COLLECTION_VIEW (eog_ctrl));
 
-	bonobo_ui_component_unset_container (control->priv->uic);
+	bonobo_ui_component_unset_container (eog_ctrl->priv->uic);
 }
 
 static void
-eog_control_activate (BonoboControl *object, gboolean state)
+eog_control_activate (BonoboControl *bctrl, gboolean state, gpointer data)
 {
-	EogControl *control;
+	EogControl *eog_ctrl;
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (object));
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (EOG_IS_CONTROL (data));
+	g_return_if_fail (bctrl != NULL);
+	g_return_if_fail (BONOBO_IS_CONTROL (bctrl));
 
-	control = EOG_CONTROL (object);
+	eog_ctrl = EOG_CONTROL (data);
 
 	if (state) {
 		Bonobo_UIContainer ui_container;
 
-		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (control));
+		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (bctrl));
 		if (ui_container != CORBA_OBJECT_NIL) {
-			eog_control_set_ui_container (control, ui_container);
+			eog_control_set_ui_container (eog_ctrl, ui_container);
 			bonobo_object_release_unref (ui_container, NULL);
 		}
 	} else
-		eog_control_unset_ui_container (control);
-
-	if (BONOBO_CONTROL_CLASS (eog_control_parent_class)->activate)
-		BONOBO_CONTROL_CLASS (eog_control_parent_class)->activate (object, state);
+		eog_control_unset_ui_container (eog_ctrl);
 }
 
 static void
 eog_control_class_init (EogControl *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
-	BonoboControlClass *control_class = (BonoboControlClass *)klass;
 
-	eog_control_parent_class = gtk_type_class (bonobo_control_get_type ());
+	eog_control_parent_class = gtk_type_class (PARENT_TYPE);
 
 	object_class->destroy = eog_control_destroy;
 	object_class->finalize = eog_control_finalize;
-
-	control_class->activate = eog_control_activate;
 }
 
 static void
@@ -139,56 +137,71 @@ eog_control_init (EogControl *control)
 	control->priv = g_new0 (EogControlPrivate, 1);
 }
 
-GtkType
-eog_control_get_type (void)
+BONOBO_X_TYPE_FUNC (EogControl,
+		    PARENT_TYPE,
+		    eog_control);
+
+static void
+handle_open_uri (GtkObject *obj, gchar *uri, gpointer data)
 {
-	static GtkType type = 0;
+	EogControl *eog_ctrl;
+	BonoboObject *bctrl;
+	CORBA_Environment ev;
+	Bonobo_ControlFrame ctrl_frame;
 
-	if (!type) {
-		GtkTypeInfo info = {
-			"EogImageListControl",
-			sizeof (EogControl),
-			sizeof (EogControlClass),
-			(GtkClassInitFunc)  eog_control_class_init,
-			(GtkObjectInitFunc) eog_control_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
+	g_return_if_fail (obj != NULL);
+	g_return_if_fail (EOG_IS_CONTROL (obj));
 
-		type = gtk_type_unique (
-			bonobo_control_get_type (), &info);
+	eog_ctrl = EOG_CONTROL (obj);
+	CORBA_exception_init (&ev);
+	
+	bctrl = bonobo_object_query_local_interface (BONOBO_OBJECT (eog_ctrl),
+						     "IDL:Bonobo/Control:1.0");
+	if (bctrl == NULL) {
+		g_error (_("Couldn't get local BonoboControl interface.\n"));
+		return;
 	}
 
-	return type;
+	ctrl_frame = bonobo_control_get_control_frame (BONOBO_CONTROL (bctrl));
+	Bonobo_ControlFrame_activateURI (ctrl_frame, CORBA_string_dup (uri), CORBA_FALSE, &ev);
+	
+	CORBA_exception_free (&ev);
 }
 
 EogControl *
-eog_control_construct (EogControl    *control)
+eog_control_construct (EogControl    *eog_ctrl)
 {
-	BonoboControl     *retval;
+	BonoboControl     *bctrl;	
 
-	g_return_val_if_fail (control != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_CONTROL (control), NULL);
+	g_return_val_if_fail (eog_ctrl != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_CONTROL (eog_ctrl), NULL);
 
-	control->priv->list_view = eog_collection_view_new ();
-	control->priv->root = eog_collection_view_get_widget (control->priv->list_view);
-	if (!control->priv->list_view) {
-		bonobo_object_unref (BONOBO_OBJECT (control));
-		return NULL;
-	}
-	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (control->priv->list_view));
 
-	retval = bonobo_control_construct (BONOBO_CONTROL (control),
-					   control->priv->root);
-	if (!retval)
-		return NULL;
+	/* construct parent object */
+	eog_collection_view_construct (EOG_COLLECTION_VIEW (eog_ctrl));
 
-	control->priv->uic = bonobo_control_get_ui_component (
-		BONOBO_CONTROL (control));
+	eog_ctrl->priv->root = eog_collection_view_get_widget (EOG_COLLECTION_VIEW (eog_ctrl));
 	
-	return control;
+
+	/* add control interface */
+	bctrl = bonobo_control_new (eog_ctrl->priv->root);
+	bonobo_object_add_interface (BONOBO_OBJECT (eog_ctrl),
+				     BONOBO_OBJECT (bctrl));
+
+	eog_ctrl->priv->uic = bonobo_control_get_ui_component (bctrl);
+
+	gtk_signal_connect (GTK_OBJECT (bctrl), "activate", 
+			    eog_control_activate, eog_ctrl);
+
+
+	/* connect collection view signals */
+	gtk_signal_connect (GTK_OBJECT (eog_ctrl),
+			    "open_uri", 
+			    handle_open_uri, NULL);
+
+	bonobo_object_dump_interfaces (BONOBO_OBJECT (eog_ctrl));
+	
+	return eog_ctrl;
 }
 
 EogControl *

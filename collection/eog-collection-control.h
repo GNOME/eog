@@ -7,12 +7,13 @@
  *   Jens Finke (jens@gnome.org)
  *
  * Copyright 2000, SuSE GmbH.
+ * Copyright 2001, The Free Software Foundation
  */
 
 #ifndef _EOG_CONTROL_H_
 #define _EOG_CONTROL_H_
 
-#include <bonobo.h>
+#include "eog-collection-view.h"
 
 BEGIN_GNOME_DECLS
  
@@ -28,13 +29,13 @@ typedef struct _EogControlClass    EogControlClass;
 typedef struct _EogControlPrivate  EogControlPrivate;
 
 struct _EogControl {
-	BonoboControl control;
+	EogCollectionView view;
 
 	EogControlPrivate *priv;
 };
 
 struct _EogControlClass {
-	BonoboControlClass parent_class;
+	EogCollectionViewClass parent_class;
 };
 
 GtkType        eog_control_get_type                    (void);

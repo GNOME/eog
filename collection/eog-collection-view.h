@@ -37,6 +37,8 @@ struct _EogCollectionView {
 struct _EogCollectionViewClass {
 	BonoboXObjectClass parent_class;
 
+	void (*open_uri) (EogCollectionView *view, gchar *uri);
+
 	POA_GNOME_EOG_ImageCollection__epv epv;
 };
 

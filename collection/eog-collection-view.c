@@ -35,6 +35,7 @@ struct _EogCollectionViewPrivate {
 };
 
 enum {
+	OPEN_URI,
 	LAST_SIGNAL
 };
 
@@ -46,9 +47,9 @@ static guint eog_collection_view_signals [LAST_SIGNAL];
 static BonoboObjectClass *eog_collection_view_parent_class;
 
 static void 
-impl_GNOME_EOG_ImageCollection_setStorage(PortableServer_Servant servant,
-					  Bonobo_Storage storage,
-					  CORBA_Environment * ev)
+impl_GNOME_EOG_ImageCollection_openURI(PortableServer_Servant servant,
+				       GNOME_EOG_URI uri,
+				       CORBA_Environment * ev)
 {
 	EogCollectionView *cview;
 	EogCollectionViewPrivate *priv;
@@ -56,9 +57,9 @@ impl_GNOME_EOG_ImageCollection_setStorage(PortableServer_Servant servant,
 	cview = EOG_COLLECTION_VIEW (bonobo_object_from_servant (servant));
 	priv = cview->priv;
 
-	if (storage == CORBA_OBJECT_NIL) return;
+	if (uri == CORBA_OBJECT_NIL) return;
 
-	eog_collection_model_set_storage (priv->model, storage); 
+	eog_collection_model_set_uri (priv->model, (gchar*)uri); 
 }
 
 
@@ -159,7 +160,19 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 	object_class->finalize = eog_collection_view_finalize;
 
 	epv = &klass->epv;
-	epv->setStorage = impl_GNOME_EOG_ImageCollection_setStorage;
+	epv->openURI = impl_GNOME_EOG_ImageCollection_openURI;
+
+	eog_collection_view_signals [OPEN_URI] = 
+		gtk_signal_new ("open_uri",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (EogCollectionViewClass, open_uri),
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_POINTER);
+
+	gtk_object_class_add_signals (object_class, eog_collection_view_signals, LAST_SIGNAL);
+
 }
 
 static void
@@ -172,6 +185,26 @@ BONOBO_X_TYPE_FUNC_FULL (EogCollectionView,
 			 GNOME_EOG_ImageCollection,
 			 PARENT_TYPE,
 			 eog_collection_view);
+
+
+static void
+handle_item_dbl_click (GtkObject *obj, gint n, gpointer data)
+{
+	EogCollectionView *view;
+	gchar *uri;
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+	
+	view = EOG_COLLECTION_VIEW (data);
+
+	uri = eog_collection_model_get_uri (view->priv->model, n);
+	if (uri == NULL) return;
+
+	gtk_signal_emit (GTK_OBJECT (view), eog_collection_view_signals [OPEN_URI], uri);
+
+	g_free (uri);
+}
 
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
@@ -203,6 +236,9 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	gnome_wrap_list_set_col_spacing (GNOME_WRAP_LIST (priv->wraplist), 20);
 	gnome_wrap_list_set_shadow_type (GNOME_WRAP_LIST (priv->wraplist), GTK_SHADOW_IN);
 	gnome_wrap_list_set_use_unit_scrolling (GNOME_WRAP_LIST (priv->wraplist), TRUE);
+	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "item_dbl_click", 
+			    handle_item_dbl_click, list_view);
+
 
 	priv->factory = gtk_type_new (GNOME_TYPE_ICON_ITEM_FACTORY);
 	gnome_icon_item_factory_set_item_metrics (priv->factory, 120, 120, 100, 100);

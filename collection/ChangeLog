@@ -1,3 +1,36 @@
+2001-03-12  Jens Finke <jens@gnome.org>
+
+	* eog-collection-control.[ch]: Parent class is EogCollectionView
+	now. Use BonoboXObject functionality.
+	(handle_open_uri): New function.
+	(eog_control_construct): Rewrote this completely.
+
+	* eog-collection-model.[ch]: Handle URIs now instead of
+	 Bonobo_Storage objects. URIs will be resolved to storages
+	 internally.
+	(eog_control_set_storage): Removed.
+	(eog_control_set_uri): New function.
+	(eog_control_get_uri): New function.
+	(eog_control_destroy): Set attributes to NULL after freeing.
+
+	* eog-collection-view.c
+	(impl_GNOME_EOG_ImageCollection_setStorage): Removed.
+	(impl_GNOME_EOG_ImageCollection_openURI): New function.
+	(eog_collection_view_class_init): Add signal 'open_uri'.
+	(handle_item_dbl_click): New function.
+	(eog_collection_view_construct): Connect to signal 'item_dbl_click'.
+
+	* eog-collection-view.h (_EogCollectionViewClass): Signal 'open_uri' added.
+	
+	* eog_image_loader.c (real_image_loading): Removed unneccessary io
+	buffer initialisation. Free the buffer correctly.
+
+	* gnome-wrap-list.c (class_init): Add signal 'item_dbl_click'.
+	(handle_item_event): Added case for item double click. 
+
+	* gnome-wrap-list.h (_GnomeWrapListClass): Signal 'item_dbl_click'
+	added.
+	
 2001-03-07  Jens Finke <jens@gnome.org>
 
 	* Makefile.am: Added support for xml-i18n-tools.

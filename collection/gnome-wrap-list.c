@@ -34,6 +34,13 @@ typedef struct {
 	guint interval_removed_id;
 } ModelSignalIDs;
 
+enum {
+	ITEM_DBL_CLICK,
+	LAST_SIGNAL
+};
+
+static guint gnome_wrap_list_signals [LAST_SIGNAL];
+
 /* Layout information for row/col major modes.  Invariants:
  *
  *   - The items_per_block field specifies the number of items that fit in the
@@ -227,6 +234,16 @@ gnome_wrap_list_class_init (GnomeWrapListClass *class)
 				GTK_TYPE_NONE, 2,
 				GTK_TYPE_ADJUSTMENT,
 				GTK_TYPE_ADJUSTMENT);
+	
+	gnome_wrap_list_signals [ITEM_DBL_CLICK] = 
+		gtk_signal_new ("item_dbl_click",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeWrapListClass, item_dbl_click),
+				gtk_marshal_NONE__INT,
+				GTK_TYPE_NONE, 1,
+				GTK_TYPE_INT);
+	gtk_object_class_add_signals (object_class, gnome_wrap_list_signals, LAST_SIGNAL);
 }
 
 /* object initialization function for the abstract wrapped list view */
@@ -580,7 +597,7 @@ bm_ensure_array_size (GnomeWrapList *wlist, BMLayout *l)
 	g_assert (bm->items != NULL);
 }
 
-static void
+static gint
 handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  gpointer data) 
 {
 	GnomeListSelectionModel *smodel;
@@ -588,38 +605,52 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  gpointer data)
 	static gint previous_n = -1;
 	gint n;
 
-	if(event->type != GDK_BUTTON_PRESS) return;
-
 	view = GNOME_LIST_VIEW (data);
 
 	smodel = gnome_list_view_get_selection_model (GNOME_LIST_VIEW (view));
-	if (smodel == NULL) return;
+	if (smodel == NULL) return FALSE;
 
 	n = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), "IconNumber"));
 
-	if ((event->button.state & GDK_SHIFT_MASK) == GDK_SHIFT_MASK) {
-		/* shift button pressed */
-		if (previous_n == -1) {
-			gnome_list_selection_model_set_interval (smodel, n, 1);
-		} else {
-			gint max, min;
+	switch (event->type) {
+	case GDK_BUTTON_PRESS:
 
-			max = MAX (previous_n, n);
-			min = MIN (previous_n, n);
-			
-			gnome_list_selection_model_add_interval (smodel, min, max-min+1);
-		}
-	} else if ((event->button.state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
-		/* ctrl button pressed */ 
-		if (gnome_list_selection_model_is_selected (smodel, n)) {
-			gnome_list_selection_model_remove_interval (smodel, n, 1);
-		} else {
-			gnome_list_selection_model_add_interval (smodel, n, 1);
-		}
-	} else {
-		gnome_list_selection_model_set_interval (smodel, n, 1);
+		if ((event->button.state & GDK_SHIFT_MASK) == GDK_SHIFT_MASK) {
+			/* shift button pressed */
+			if (previous_n == -1) {
+				gnome_list_selection_model_set_interval (smodel, n, 1);
+			} else {
+				gint max, min;
+				
+				max = MAX (previous_n, n);
+				min = MIN (previous_n, n);
+				
+				gnome_list_selection_model_add_interval (smodel, min, max-min+1);
+			}
+		} else if ((event->button.state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK) {
+			/* ctrl button pressed */ 
+			if (gnome_list_selection_model_is_selected (smodel, n))
+				gnome_list_selection_model_remove_interval (smodel, n, 1);
+			else
+				gnome_list_selection_model_add_interval (smodel, n, 1);
+		} else
+			gnome_list_selection_model_set_interval (smodel, n, 1);
+
+		previous_n = n;
+		break;
+		
+	case GDK_2BUTTON_PRESS:
+		g_print ("Double click on item: %i\n", n);
+		gtk_signal_emit (GTK_OBJECT (view), 
+				 gnome_wrap_list_signals [ITEM_DBL_CLICK],
+				 n);
+		break;
+		
+	default:
+		return FALSE;
 	}
-	previous_n = n;
+
+	return TRUE;
 }
 
 /* Updates a range of items, assuming the range has been clipped to the visible

@@ -1,5 +1,6 @@
 #include "eog-collection-model.h"
 #include "eog-image-loader.h"
+#include "bonobo/bonobo-moniker-util.h"
 
 /* Signal IDs */
 enum {
@@ -16,7 +17,8 @@ static guint eog_model_signals[LAST_SIGNAL];
 
 
 struct _EogCollectionModelPrivate {
-	Bonobo_Storage storage;
+	Bonobo_Unknown storage;
+	gchar *uri;
 
 	GList *image_list;
 
@@ -45,9 +47,15 @@ eog_collection_model_destroy (GtkObject *obj)
 
 	if (model->priv->loader)
 		gtk_object_unref (GTK_OBJECT (model->priv->loader));
+	model->priv->loader = NULL;
 
 	if (model->priv->storage != CORBA_OBJECT_NIL)
 	        CORBA_Object_release (model->priv->storage, &ev);
+	model->priv->storage = CORBA_OBJECT_NIL;
+
+	if (model->priv->uri)
+		g_free (model->priv->uri);
+	model->priv->uri = NULL;
 
 	CORBA_exception_free (&ev);
 }
@@ -73,6 +81,7 @@ eog_collection_model_init (EogCollectionModel *obj)
 	priv = g_new0(EogCollectionModelPrivate, 1);
 	priv->storage = CORBA_OBJECT_NIL;
 	priv->loader = NULL;
+	priv->uri = NULL;
 	obj->priv = priv;
 }
 
@@ -214,7 +223,7 @@ real_image_loading (EogCollectionModel *model)
 						Bonobo_FIELD_CONTENT_TYPE,
 						&ev);
 
-	/* Create a list of images to load and there 
+	/* Create a list of images to load and their
 	 * initial image object.
 	 */
 	for (i = 0; i < dir_list->_length; i++) {
@@ -227,6 +236,11 @@ real_image_loading (EogCollectionModel *model)
 			img = cimage_new (info.name);			
 			priv->image_list = g_list_append (priv->image_list, img);
 		}
+
+		/* update gui every 20th time */
+		if (i % 20 == 0)
+			while (gtk_events_pending ())
+				gtk_main_iteration ();
 	}
 	
 	/* 
@@ -295,24 +309,33 @@ eog_collection_model_get_next_loading_context (EogCollectionModel *model)
 }
 
 void
-eog_collection_model_set_storage (EogCollectionModel *model, 
-				  Bonobo_Storage storage)
+eog_collection_model_set_uri (EogCollectionModel *model, 
+			      const gchar *uri)
 {
 	CORBA_Environment ev;
+	EogCollectionModelPrivate *priv;
 
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-	g_return_if_fail (storage != CORBA_OBJECT_NIL);
+	g_return_if_fail (uri != NULL);
 	
+	priv = model->priv;
+
 	/* FIXME: Currently, we don't support multiple
-	 *        storages or replacing one with another.
+	 *        uris or replacing one with another.
 	 */
 	g_assert (model->priv->storage == CORBA_OBJECT_NIL);
 
 	CORBA_exception_init (&ev);
-	
-	model->priv->storage = CORBA_Object_duplicate (storage, &ev);
-	
+
+	priv->storage = bonobo_get_object (uri, "IDL:Bonobo/Storage:1.0", &ev);
+	if (ev._major != CORBA_NO_EXCEPTION) {
+		priv->storage = CORBA_OBJECT_NIL;
+		g_warning (_("Couldn't retrieve storage from uri.\n"));
+		return;
+	}
+	priv->uri = g_strdup (uri);
+
 	model->priv->idle_handler_id = gtk_idle_add ((GtkFunction) real_image_loading, model);
 	
 	CORBA_exception_free (&ev);
@@ -346,13 +369,31 @@ eog_collection_model_get_image (EogCollectionModel *model,
 	g_return_val_if_fail (model != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
 
-	g_print ("get_image call nr: %i   id:%i\n", n_call++, unique_id);
-       
 	if (0 <= unique_id < g_list_length (model->priv->image_list)) {
 		CImage *img = (CImage*) g_list_nth_data (model->priv->image_list, unique_id);
 		return img;
 	} else
 		return NULL;
+}
+
+gchar*
+eog_collection_model_get_uri (EogCollectionModel *model,
+			      guint unique_id)
+{
+	CImage *img;
+	gchar *uri;
+
+	g_return_val_if_fail (model != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
+
+	img = eog_collection_model_get_image (model, unique_id);
+	if (img == NULL) return NULL;
+	
+	uri = g_strconcat (model->priv->uri, "/", cimage_get_path (img), NULL);
+	
+	g_print ("image uri is: %s\n", uri);
+
+	return uri;
 }
 
 GList*
