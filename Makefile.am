@@ -1,4 +1,4 @@
-SUBDIRS = intl macros po src
+SUBDIRS = intl macros po src bonobo
 
 EXTRA_DIST =		\
 	DEPENDS		\

@@ -1,3 +1,4 @@
+if BONOBO
 bin_PROGRAMS = bonobo-image-generic
 
 bonobo_image_generic_SOURCES =	\
@@ -9,18 +10,19 @@ INCLUDES =	\
 	-I. 						\
         -I$(includedir)                                 \
         $(GNOME_INCLUDEDIR)				\
-	$(GTK_CFLAGS)
+	$(EXTRA_BONOBO_CFLAGS)				\
+	$(GNOME_CFLAGS)
 
 bonobo_image_generic_LDADD = 			\
-	$(top_builddir)/bonobo/libbonobo.la	\
-	$(GTK_LIBS)				\
+	$(GNOME_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(GNOMEGNORBA_LIBS)			\
 	$(INTLLIBS)				\
-	-lgdk_pixbuf
+	$(EXTRA_BONOBO_LIBS)
 
 gnorbadir = $(sysconfdir)/CORBA/servers
 gnorba_DATA = image-generic.gnorba
+endif
 
 EXTRA_DIST = $(gnorba_DATA)
 
