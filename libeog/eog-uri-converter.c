@@ -987,7 +987,7 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 {
 	GList *it;
 	GList *uri_list = NULL;
-	gboolean disjunct = TRUE; 
+	gboolean all_different = TRUE; 
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (converter), FALSE);
 
@@ -1005,24 +1005,23 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 		}
 	}
 
-	/* check for disjunct uris */
-	for (it = uri_list; it != NULL && disjunct; it = it->next) {
+	/* check for all different uris */
+	for (it = uri_list; it != NULL && all_different; it = it->next) {
 		GList *p; 
 		GnomeVFSURI *uri;
 
 		uri = (GnomeVFSURI*) it->data;
 		
-		for (p = it->next; p != NULL && disjunct; p = p->next) {
-			disjunct = !gnome_vfs_uri_equal (uri, (GnomeVFSURI*) p->data);
+		for (p = it->next; p != NULL && all_different; p = p->next) {
+			all_different = !gnome_vfs_uri_equal (uri, (GnomeVFSURI*) p->data);
 		}
 	}
 
-	if (!disjunct) {
+	if (!all_different) {
 		g_set_error (error, EOG_UC_ERROR,
-			     EOG_UC_ERROR_NON_DISJUNCT_FILENAMES,
-			     _("Filenames are not disjunct."));
+			     EOG_UC_ERROR_EQUAL_FILENAMES,
+			     _("At least two file names are equal."));
 	}
 
-	return disjunct;
+	return all_different;
 }
-
