@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-03 17:14+0100\n"
-"PO-Revision-Date: 2003-11-03 17:20+0100\n"
+"POT-Creation-Date: 2003-11-17 14:22+0100\n"
+"PO-Revision-Date: 2003-11-17 14:24+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Rota en sentit contra_ri de les agulles del rellotge"
 msgid "Slide Show"
 msgstr "Pase de diapositives"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "E_dita"
@@ -81,7 +81,7 @@ msgstr "_Desa"
 msgid "_Undo"
 msgstr "_Desfés"
 
-#: collection/eog-collection-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Visualitza"
@@ -102,7 +102,7 @@ msgstr "Mou a la paperera"
 msgid "Collection View"
 msgstr "Mostra la col·lecció"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1344
+#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1345
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
@@ -110,7 +110,7 @@ msgstr "Títol de la finestra"
 msgid "Status Text"
 msgstr "Text d'estat"
 
-#: collection/eog-collection-view.c:1286 viewer/eog-image-view.c:1356
+#: collection/eog-collection-view.c:1286 viewer/eog-image-view.c:1357
 msgid "Progress of Image Loading"
 msgstr "Progrés de la càrrega de la imatge"
 
@@ -200,7 +200,10 @@ msgstr "segons"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr "Un valor més gran que 0 determina els segons que romandrà una imatge en pantalla fins que la següent es mostre automàticament. Zero inhabilita la navegació automàtica."
+msgstr ""
+"Un valor més gran que 0 determina els segons que romandrà una imatge en "
+"pantalla fins que la següent es mostre automàticament. Zero inhabilita la "
+"navegació automàtica."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -233,7 +236,9 @@ msgstr ""
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr "Si això és FALS, les imatges petites no s'estiraran per a ajustar a la finestra inicialment."
+msgstr ""
+"Si això és FALS, les imatges petites no s'estiraran per a ajustar a la "
+"finestra inicialment."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -248,14 +253,22 @@ msgid "Open images in a new window"
 msgstr "Obre les imatges en una finestra nova"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr "Mostra/amaga la barra d'estat de la finestra."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr "Mostra/amaga la barra d'eines de la finestra."
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Color de transparència"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Indicador de transparència"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -263,11 +276,11 @@ msgstr ""
 "Si a l'obrir una imatge s'hauria de crear una nova finestra en comptes de "
 "reemplaçar la imatge en la finestra actual."
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
 msgstr "Si la seqüència d'imatges s'hauria de mostrar en un bucle infinit."
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -356,7 +369,7 @@ msgid "Page"
 msgstr "Pàgina"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:378
+#: viewer/eog-image-view.c:379
 msgid "Preview"
 msgstr "Previsualització"
 
@@ -463,102 +476,118 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr "Canvia la visibilitat de la barra d'estat a la finestra actual"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr "Canvia la visibilitat de la barra d'eines a la finestra actual"
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Tanca la finestra"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Ajuda sobre aquesta aplicació"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Nou"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Obre"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Obre un fitxer"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in new window"
 msgstr "Obre en una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in this window"
 msgstr "Obre en aquesta finestra nova"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:13
 msgid "Prefere_nces"
 msgstr "Preferè_ncies"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
-msgstr "Preferències dels components d'EoG"
+#: shell/eog-shell-ui.xml.h:14
+msgid "Preferences for Eye of Gnome"
+msgstr "Preferències d'Eye of Gnome"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:15
 msgid "Quit the program"
 msgstr "Surt del programa"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:16
 msgid "_About"
 msgstr "_Quant a"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:17
 msgid "_Close"
 msgstr "_Tanca"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Contents"
 msgstr "_Continguts"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:20
 msgid "_File"
 msgstr "_Fitxer"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Help"
 msgstr "A_juda"
 
 #
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:22
 msgid "_New"
 msgstr "_Nou"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:23
 msgid "_Open..."
 msgstr "_Obre..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:24
 msgid "_Quit"
 msgstr "S_urt"
+
+#: shell/eog-shell-ui.xml.h:25
+msgid "_Statusbar"
+msgstr "Barra d'e_stat"
+
+#: shell/eog-shell-ui.xml.h:26
+msgid "_Toolbar"
+msgstr "Barra d'_eines"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Softcatalà <info@softcatala.org>\n"
 "Jordi Mallach <jordi@sindominio.net>"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:512
+#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
+#: shell/eog-window.c:989 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:279
 msgid "The GNOME image viewing and cataloging program."
 msgstr "El programa del GNOME per visualitzar i catalogar imatges."
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:316
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -567,7 +596,7 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda per a l'Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:229
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -576,19 +605,19 @@ msgstr ""
 "Esteu a punt d'obrir %i finestres simultàniament. Voleu obrir-les en una "
 "col·lecció?"
 
-#: shell/main.c:233
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Voleu obrir múltiples finestres individuals?"
 
-#: shell/main.c:237
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Finestres individuals"
 
-#: shell/main.c:239
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Col·lecció"
 
-#: shell/main.c:312
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "No s'han trobat fitxers"
 
@@ -677,47 +706,47 @@ msgid "_Print..."
 msgstr "Im_primeix..."
 
 #. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:524
+#: viewer/eog-image-view.c:525
 #, c-format
 msgid "%i x %i pixel    %i%%"
 msgstr "%i x %i píxel    %i%%"
 
-#: viewer/eog-image-view.c:814
+#: viewer/eog-image-view.c:815
 msgid "/Rotate C_lockwise"
 msgstr "/Rota en sentit de les agulles del re_llotge"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:817
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rota en sentit contra_ri de les agulles del rellotge"
 
 #
-#: viewer/eog-image-view.c:819
+#: viewer/eog-image-view.c:820
 msgid "/_Zoom In"
 msgstr "/Amplia el _zoom"
 
 #
-#: viewer/eog-image-view.c:821
+#: viewer/eog-image-view.c:822
 msgid "/Zoom _Out"
 msgstr "/Re_dueix el zoom"
 
-#: viewer/eog-image-view.c:823
+#: viewer/eog-image-view.c:824
 msgid "/_Normal Size"
 msgstr "/Mida _normal"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:826
 msgid "/Best _Fit"
 msgstr "/Millor a_just"
 
-#: viewer/eog-image-view.c:828
+#: viewer/eog-image-view.c:829
 msgid "/_Close"
 msgstr "/_Tanca"
 
-#: viewer/eog-image-view.c:991
+#: viewer/eog-image-view.c:992
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "No s'ha pogut carregar la imatge %s."
 
-#: viewer/eog-image-view.c:998
+#: viewer/eog-image-view.c:999
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -727,35 +756,35 @@ msgstr ""
 "Raó: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1007
+#: viewer/eog-image-view.c:1008
 msgid "Loading failed"
 msgstr "La càrrega de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1090
+#: viewer/eog-image-view.c:1091
 msgid "Image successfully saved"
 msgstr "S'ha desat la imatge correctament"
 
-#: viewer/eog-image-view.c:1094
+#: viewer/eog-image-view.c:1095
 msgid "Image saving failed"
 msgstr "El desat de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1338
+#: viewer/eog-image-view.c:1339
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:1341
+#: viewer/eog-image-view.c:1342
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:1347
+#: viewer/eog-image-view.c:1348
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
-#: viewer/eog-image-view.c:1350
+#: viewer/eog-image-view.c:1351
 msgid "Desired Window Width"
 msgstr "Amplada de finestra desitjada"
 
-#: viewer/eog-image-view.c:1353
+#: viewer/eog-image-view.c:1354
 msgid "Desired Window Height"
 msgstr "Alçada de finestra desitjada"
 
