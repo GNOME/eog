@@ -533,8 +533,8 @@ image_view_unrealize (GtkWidget *widget)
 
 	remove_dirty_region (IMAGE_VIEW (widget));
 
-	if (GTK_WIDGET_CLASS (parent_class)->unmap)
-		(* GTK_WIDGET_CLASS (parent_class)->unmap) (widget);
+	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
+		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
 
 /* Size_request handler for the image view */

@@ -1,3 +1,8 @@
+2000-04-14  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (image_view_unrealize): Doh, call the parent class
+	unrealize handler, not the unmap handler!  Another cut&paste bug.
+
 2000-04-13  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (image_view_size_allocate): Set the correct size
