@@ -950,6 +950,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	GtkWidget *widget;
 	EogWindowPrivate *priv;
 	CORBA_Environment ev;
+	Bonobo_PropertyControl prop_control;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -968,6 +969,24 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	gtk_widget_show (widget);
 
 	bonobo_control_frame_control_activate (priv->ctrl_frame);
+
+	/* update sensitivity of the properties menu item */
+	prop_control = Bonobo_Unknown_queryInterface (control, 
+						      "IDL:Bonobo/PropertyControl:1.0", &ev);
+	if (prop_control == CORBA_OBJECT_NIL) {
+		bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
+					       "/commands/Preferences",
+					       "sensitive", "0",
+					       "eog");
+	}
+	else {
+		bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
+					       "/commands/Preferences",
+					       "sensitive", "1",
+					       "eog");
+		bonobo_object_release_unref (prop_control, &ev);
+	}
+	
 
 	CORBA_exception_free (&ev);
 
