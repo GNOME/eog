@@ -14,8 +14,6 @@ struct _CImagePrivate {
 	gboolean  is_selected;	
 };
 
-static guint last_id = 0;
-
 static GtkObjectClass *parent_class;
 
 static void cimage_class_init (CImageClass *klass);
@@ -24,11 +22,15 @@ static void cimage_finalize (GtkObject *obj);
 static void cimage_destroy (GtkObject *obj);
 
 
+#if 0
 static guint
 get_unique_id (void)
 {
+	static guint last_id = 0;
+
 	return last_id++;
 }
+#endif
 
 
 GtkType
