@@ -758,7 +758,7 @@ auto_size (Window *window)
 	sheight = gdk_screen_height () * 0.75;
 
 	zoom = zoom_fit_scale (swidth, sheight, iwidth, iheight, FALSE);
-	image_view_set_zoom (IMAGE_VIEW (view), zoom);
+	image_view_set_zoom (IMAGE_VIEW (view), zoom, zoom);
 
 	zwidth = floor (iwidth * zoom + 0.5);
 	zheight = floor (iheight * zoom + 0.5);
