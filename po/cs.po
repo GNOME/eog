@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-14 12:12+0200\n"
-"PO-Revision-Date: 2003-06-14 19:40+0200\n"
+"POT-Creation-Date: 2003-06-23 12:06+0200\n"
+"PO-Revision-Date: 2003-06-23 20:48+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -73,33 +73,49 @@ msgid "_Edit"
 msgstr "Ú_pravy"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Uložit"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:14
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Zobrazení"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Zrušit ukládání"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Ukládání dokončeno"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Pohled kolekce"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
 msgid "Window Title"
 msgstr "Titulek okna"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Stavový text"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
 msgid "Progress of Image Loading"
 msgstr "Průběh načítání obrázku"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Ukládám obrázek"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -341,6 +357,10 @@ msgstr "Načíst obrázek"
 #: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Uložit obrázek"
+
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Nemohu alokovat paměť pro načtení JPEG souboru"
 
 #: libeog/eog-image.c:1316
 msgid "No image loaded."
@@ -718,31 +738,31 @@ msgstr "/Nejlepší _velikost"
 msgid "/_Close"
 msgstr "/_Zavřít"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:982
 msgid "Image successfully saved"
 msgstr "Obrázek úspěšně uložen"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:986
 msgid "Image saving failed"
 msgstr "Ukládání obrázku selhalo"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1229
 msgid "Image Width"
 msgstr "Šířka obrázku"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1232
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1238
 msgid "Statusbar Text"
 msgstr "Text stavové lišty"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1241
 msgid "Desired Window Width"
 msgstr "Požadovaná šířka okna"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1244
 msgid "Desired Window Height"
 msgstr "Požadovaná výška okna"
 
