@@ -1,10 +1,18 @@
+2002-02-19  Jens Finke <jens@triq.net>
+
+	* eog-window.c (property_changed_cb),
+	(check_for_control_properties): Removed "Bonobo/Property:change:"
+	prefix from the event names we are interested in. This makes the
+	status bar updates work again.
+
 2002-02-14  Jens Finke <jens@triq.net>
 
 	* eog-shell-ui.xml (commands/Preferences): Disable command by
-	default.
-	(add_control_to_ui): Check if the control has a Property_Control
-	interface and enable/disable preference menu item according to
-	this check. This fixes the useability issue in bug #70833.
+	default.  
+	* eog-window.c (add_control_to_ui): Check if the control has a
+	Property_Control interface and enable/disable preference menu item
+	according to this check. This fixes the useability issue in bug
+	#70833.
 	
 2002-02-10  Jens Finke <jens@triq.net>
 

@@ -703,11 +703,10 @@ property_changed_cb (BonoboListener    *listener,
 
 	window = EOG_WINDOW (user_data);
 
-	if (!g_strcasecmp (event_name, "Bonobo/Property:change:window/title"))
+	if (!g_strcasecmp (event_name, "window/title"))
 		gtk_window_set_title (GTK_WINDOW (window),
 				      BONOBO_ARG_GET_STRING (any));
-	else if (!g_strcasecmp (event_name,
-				"Bonobo/Property:change:window/status"))
+	else if (!g_strcasecmp (event_name, "window/status"))
 		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
 					 BONOBO_ARG_GET_STRING (any));		
 }
@@ -734,7 +733,7 @@ check_for_control_properties (EogWindow *window)
 	if (title != NULL) {
 		gtk_window_set_title (GTK_WINDOW (window), title);
 		g_free (title);
-		mask = g_strdup ("Bonobo/Property:change:window/title");
+		mask = g_strdup ("window/title");
 	} else {
 		g_warning (_("Control doesn't support window_title property."));
 		gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
@@ -748,7 +747,7 @@ check_for_control_properties (EogWindow *window)
 					 title);
 		g_free (title);
 		/* append status_text property to list of properties to listen */
-		temp = g_strjoin (",", mask, "Bonobo/Property:change:window/status", NULL);
+		temp = g_strjoin (",", mask, "window/status", NULL);
 		g_free (mask);
 		mask = temp;
 	} else {
@@ -757,10 +756,12 @@ check_for_control_properties (EogWindow *window)
 
 	/* register for further changes */
 	if (mask) {
-		g_print ("add listener: %s\n", mask);
 		bonobo_event_source_client_add_listener (pb, 
 							 (BonoboListenerCallbackFn)property_changed_cb,
-							 mask, NULL, window);
+							 mask, &ev, window);
+		if (BONOBO_EX (&ev))
+			g_warning ("add_listener failed '%s'",
+				   bonobo_exception_get_text (&ev));
 		g_free (mask);
 	} 
 
