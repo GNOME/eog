@@ -330,6 +330,23 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 	g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
 }
 
+static void
+open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
+{
+	GList *it;
+
+	g_print ("open uri list cleanup\n");
+
+	if (txt_uri_list != NULL) {
+
+		for (it = txt_uri_list; it != NULL; it = it->next) {
+			g_free ((char*)it->data);
+		}
+		
+		g_list_free (txt_uri_list);
+	}
+}
+
 GType
 eog_window_get_type (void) 
 {
@@ -425,7 +442,7 @@ eog_window_class_init (EogWindowClass *class)
 	eog_window_signals [SIGNAL_OPEN_URI_LIST] = 
 		g_signal_new ("open_uri_list",
 			      G_TYPE_FROM_CLASS(gobject_class),
-			      G_SIGNAL_RUN_LAST,
+			      G_SIGNAL_RUN_CLEANUP,
 			      G_STRUCT_OFFSET (EogWindowClass, open_uri_list),
 			      NULL,
 			      NULL,
@@ -451,6 +468,8 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
 	widget_class->drag_data_received = eog_window_drag_data_received;
+
+	class->open_uri_list = open_uri_list_cleanup;
 }
 
 /* Object initialization function for windows */

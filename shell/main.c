@@ -454,8 +454,6 @@ open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data)
 		quit_program = (eog_get_window_list () == NULL);
 	}
 
-	free_string_list (uri_list);
-
 	if (quit_program) {
 		bonobo_main_quit ();
 	}

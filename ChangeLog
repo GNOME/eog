@@ -1,5 +1,29 @@
 2003-03-03  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image.c (dispatch_image_finished): Unref image.
+	(add_image_to_queue): Ref image before putting it into the queue.
+	(eog_image_new_uri),
+	(eog_image_finalize): Added ref counting for all produced image
+	objects.
+	(real_image_load): Unref the processed image object.
+	(eog_image_load): Ref the image object before submitting it to the
+	real_image_load idle callback.
+
+	* libeog/eog-scroll-view.c (eog_scroll_view_dispose): Oops,
+	implemented this function. We finally free something.
+
+	* shell/eog-window.c (open_uri_list_cleanup): New function.
+	(eog_window_class_init): Register open_uri_list_cleanup as cleanup
+	handler for the open-uri-list signal.
+
+	* shell/main.c (open_uri_list_cb): Don't free the uri_list. Will
+	be done by the cleanup handler in eog-window.c.
+
+	* viewer/eog-image-view.c (load_uri_cb): Don't ref new created
+	image object.
+
+2003-03-03  Jens Finke  <jens@triq.net>
+
 	* viewer/eog-image-view-ctrl-ui.xml: Fixed keybindings for zoom
 	commands.
 

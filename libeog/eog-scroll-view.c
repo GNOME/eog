@@ -1828,6 +1828,20 @@ eog_scroll_view_instance_init (EogScrollView *view)
 static void
 eog_scroll_view_dispose (GObject *object)
 {
+	EogScrollViewPrivate *priv;
+
+	priv = EOG_SCROLL_VIEW (object)->priv;
+
+	if (priv->pixbuf != NULL) {
+		gdk_pixbuf_unref (priv->pixbuf);
+		priv->pixbuf = NULL;
+	}
+
+	if (priv->image != NULL) {
+		g_object_unref (priv->image);
+		priv->image = NULL;
+	}
+
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 

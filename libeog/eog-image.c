@@ -52,6 +52,11 @@ static gint eog_image_signals [SIGNAL_LAST];
 #define NO_DEBUG
 #define DEBUG_ASYNC 0
 #define THUMB_DEBUG 0
+#define OBJECT_WATCH 1
+
+#if OBJECT_WATCH
+static int n_active_images = 0;
+#endif
 
 /*============================================
 
@@ -94,6 +99,7 @@ dispatch_image_finished (gpointer data)
 	else {
 		g_signal_emit (G_OBJECT (image), eog_image_signals [SIGNAL_THUMBNAIL_FAILED], 0);
 	}
+	g_object_unref (image);
 
 #if DEBUG_ASYNC
 	g_print ("\n");
@@ -230,6 +236,7 @@ add_image_to_queue (EogImage *image)
 		jobs_waiting = g_queue_new ();
 	}
 
+	g_object_ref (image);
 	g_queue_push_tail (jobs_waiting, image);
 
 	if (!thread_running) {
@@ -278,6 +285,16 @@ eog_image_finalize (GObject *object)
 	priv = EOG_IMAGE (object)->priv;
 
 	g_free (priv);
+
+#if OBJECT_WATCH
+	n_active_images--;
+	if (n_active_images == 0) {
+		g_message ("All image objects destroyed.");
+	}
+	else {
+		g_message ("active image objects: %i", n_active_images);
+	}
+#endif
 }
 
 static void
@@ -397,6 +414,11 @@ eog_image_new_uri (GnomeVFSURI *uri, EogImageLoadMode mode)
 	priv->uri = gnome_vfs_uri_ref (uri);
 	priv->mode = mode;
 	priv->modified = FALSE;
+
+#if OBJECT_WATCH
+	n_active_images++;
+	g_message ("active image objects: %i", n_active_images);
+#endif
 	
 	return img;
 }
@@ -492,6 +514,7 @@ real_image_load (gpointer data)
 	if (result != GNOME_VFS_OK) {
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, gnome_vfs_result_to_string (result));
 		g_print ("VFS Error: %s\n", gnome_vfs_result_to_string (result));
+		g_object_unref (img);
 		return FALSE;
 	}
 	
@@ -500,8 +523,8 @@ real_image_load (gpointer data)
 	failed = FALSE;
 
 	if (priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
-		g_signal_connect (G_OBJECT (loader), "area-updated", (GCallback) load_area_updated, img);
-		g_signal_connect (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img);
+		g_signal_connect_object (G_OBJECT (loader), "area-updated", (GCallback) load_area_updated, img, 0);
+		g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 	}
 	
 	while (TRUE) {
@@ -553,6 +576,7 @@ real_image_load (gpointer data)
 
 	gdk_pixbuf_loader_close (loader, NULL);	
 	priv->load_idle_id = 0;
+	g_object_unref (img);
 
 	return FALSE;
 }
@@ -599,6 +623,8 @@ eog_image_load (EogImage *img)
 			}
 		}
 		
+		g_object_ref (img); /* make sure the object isn't destroyed when we enter the
+				       idle callback */
 		priv->load_idle_id = g_idle_add (real_image_load, img);
 	}
 	

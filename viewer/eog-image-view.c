@@ -554,7 +554,7 @@ eog_image_view_destroy (BonoboObject *object)
 	bonobo_object_unref (BONOBO_OBJECT (priv->uic));
 
 	if (priv->image != NULL) {
-		g_object_unref (G_OBJECT (priv->image));
+		g_object_unref (priv->image);
 		priv->image = NULL;
 	}
 	
@@ -866,7 +866,6 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		priv->image = NULL;
 	}
 	priv->image = image;
-	g_object_ref (priv->image);
 	
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->widget), image);
 
