@@ -168,6 +168,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 		CORBA_free (buffer);
 	} while (len > 0);
 
+	gdk_pixbuf_loader_close (loader);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 
 	if (!image->priv->pixbuf)
@@ -193,7 +194,6 @@ load_image_from_stream (BonoboPersistStream       *ps,
 			     ex_Bonobo_Persist_WrongDataType, NULL);
 
  exit_clean:
-	gdk_pixbuf_loader_close (loader);
 	gtk_object_unref (GTK_OBJECT (loader));
 	return;
 }
@@ -291,12 +291,12 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		return -1;
 	}
 	
+	gdk_pixbuf_loader_close (loader);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 	if (!image->priv->pixbuf)
 		return -1;
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
-	gdk_pixbuf_loader_close (loader);
 
 	image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);

@@ -271,9 +271,6 @@ loading_finished (EILContext *ctx)
 				 eog_image_loader_signals [LOADING_FAILED],
 				 ctx->cimg);
 	}
-
-	if (ctx->pbf_loader)
-		gdk_pixbuf_loader_close (ctx->pbf_loader);
 	g_free (ctx);
 
 	setup_next_uri (loader);
@@ -335,6 +332,7 @@ load_uri (EILContext *ctx)
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
+	gdk_pixbuf_loader_close (ctx->pbf_loader);
 		
 	if (priv->cancel_loading) 
 		loading_canceled (ctx);

@@ -155,6 +155,7 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 		CORBA_free (buffer);
 	} while (len > 0);
 
+	gdk_pixbuf_loader_close (loader);
 	image_data->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 
 	if (!image_data->priv->pixbuf)
