@@ -1,3 +1,12 @@
+2000-06-30  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (request_paint_area): New argument to support
+	explicit synch behavior for the first pass.
+	(scroll_to): Draw the first pass synchronously.  This eliminates
+	trailing.
+	(image_view_expose): Draw this asynchronously.
+	(image_view_draw): Ditto.
+
 2000-06-20  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (paint_rectangle): Special-case zoom == 1.0 to

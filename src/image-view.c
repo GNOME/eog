@@ -684,7 +684,7 @@ paint_iteration_idle (gpointer data)
 
 /* Queues a repaint of the specified area in window coordinates */
 static void
-request_paint_area (ImageView *view, GdkRectangle *area)
+request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 {
 	ImageViewPrivate *priv;
 	ArtIRect r;
@@ -718,7 +718,12 @@ request_paint_area (ImageView *view, GdkRectangle *area)
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
 	}
 
-	priv->uta1 = uta_add_rect (priv->uta1, r.x0, r.y0, r.x1, r.y1);
+	if (asynch || prefs_scroll != SCROLL_TWO_PASS)
+		priv->uta1 = uta_add_rect (priv->uta1, r.x0, r.y0, r.x1, r.y1);
+	else {
+		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
+		priv->uta2 = uta_add_rect (priv->uta2, r.x0, r.y0, r.x1, r.y1);
+	}
 }
 
 /* Scrolls the view to the specified offsets.  Does not perform range checking!  */
@@ -762,7 +767,7 @@ scroll_to (ImageView *view, int x, int y)
 		area.width = width;
 		area.height = height;
 
-		request_paint_area (view, &area);
+		request_paint_area (view, &area, FALSE);
 		return;
 	}
 
@@ -826,7 +831,7 @@ scroll_to (ImageView *view, int x, int y)
 		r.width = abs (xofs);
 		r.height = height;
 
-		request_paint_area (view, &r);
+		request_paint_area (view, &r, FALSE);
 	}
 
 	if (yofs) {
@@ -837,7 +842,7 @@ scroll_to (ImageView *view, int x, int y)
 		r.width = width;
 		r.height = abs (yofs);
 
-		request_paint_area (view, &r);
+		request_paint_area (view, &r, FALSE);
 	}
 
 	/* Process graphics exposures */
@@ -1081,7 +1086,7 @@ image_view_draw (GtkWidget *widget, GdkRectangle *area)
 
 	view = IMAGE_VIEW (widget);
 
-	request_paint_area (view, area);
+	request_paint_area (view, area, TRUE);
 }
 
 /* Button press handler for the image view */
@@ -1210,7 +1215,7 @@ image_view_expose (GtkWidget *widget, GdkEventExpose *event)
 
 	view = IMAGE_VIEW (widget);
 
-	request_paint_area (view, &event->area);
+	request_paint_area (view, &event->area, TRUE);
 	return TRUE;
 }
 
