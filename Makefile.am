@@ -6,6 +6,8 @@ EXTRA_DIST =		\
 	MAINTAINERS	\
 	TODO		\
 	eog.desktop	\
+	eog.spec	\
+	eog.spec.in	\
 	gnome-eog.png
 
 Graphicsdir = $(datadir)/gnome/apps/Graphics
