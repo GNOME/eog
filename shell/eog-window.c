@@ -987,7 +987,15 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 					       "eog");
 		bonobo_object_release_unref (prop_control, &ev);
 	}
-	
+
+	/* enable view menu */
+	/* FIXME: We should check if the component adds anything to 
+	 *        the menu, so that we don't view an empty menu.
+	 */
+	bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
+				       "/menu/View",
+				       "hidden", "0",
+				       "eog");
 
 	CORBA_exception_free (&ev);
 

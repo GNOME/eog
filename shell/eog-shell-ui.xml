@@ -30,11 +30,11 @@
 
 		<menuitem name="FileNewWindow" verb=""/>
 
-		<placeholder name="FileOperations">
+		<placeholder name="Open Placeholder" delimit="top">
 			<menuitem name="FileOpen" verb=""/>
 		</placeholder>
 
-		<placeholder name="PrintOperations" delimit="top"/>
+		<placeholder name="File Items Placeholder" delimit="top"/>
 
 		<separator/>
 
@@ -44,7 +44,10 @@
 
 	</submenu>
 
-	<placeholder name="ViewPlaceholder"/>
+	<submenu name="View" _label="_View" hidden="1">
+		<placeholder name="View Preferences Placeholder"/>
+		<placeholder name="View Items Placeholder" delimit="top"/>
+	</submenu>
 
 	<submenu name="Settings" _label="_Settings">
 	        <menuitem name="Preferences" verb=""/>
