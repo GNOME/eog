@@ -9,3 +9,15 @@ type=factory
 repo_id=IDL:BonoboObject/image-x-generic:1.0 IDL:GNOME/Embeddable:1.0 
 description=Generic generic image bonobo object
 location_info=embeddable-factory:image-generic
+
+[control-factory:animator]
+type=exe
+repo_id=IDL:GNOME/GenericFactory:1.0
+description=Factory for the image animator control
+location_info=bonobo-image-generic
+
+[control:animator]
+type=factory
+repo_id=IDL:BonoboControl/animator-control:1.0 IDL:GNOME/Control:1.0
+description=A control which displays an animated image.
+location_info=control-factory:animator

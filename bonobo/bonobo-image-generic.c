@@ -9,6 +9,8 @@
  *    Do not display more than required
  *    Queue request-resize on image size change/load
  *    Save image
+ *
+ * Copyright 2000, Helixcode Inc.
  */
 #include <config.h>
 #include <stdio.h>
@@ -33,7 +35,8 @@
  * Number of running objects
  */ 
 static int running_objects = 0;
-static BonoboEmbeddableFactory *factory = NULL;
+static BonoboEmbeddableFactory *image_factory = NULL;
+static BonoboGenericFactory    *animator_factory = NULL;
 
 /*
  * BonoboObject data
@@ -97,7 +100,7 @@ bod_destroy_cb (BonoboEmbeddable *embeddable, bonobo_object_data_t *bod)
 	/*
 	 * When last object has gone unref the factory & quit.
 	 */
-	bonobo_object_unref (BONOBO_OBJECT (factory));
+	bonobo_object_unref (BONOBO_OBJECT (image_factory));
 	gtk_main_quit ();
 }
 
@@ -118,19 +121,17 @@ get_pixbuf (view_data_t *view_data)
 }
 
 static void
-redraw_view (view_data_t *view_data, GdkRectangle *rect)
+render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
+	       GdkRectangle *rect)
 {
-	GdkPixbuf *buf = get_pixbuf (view_data);
 	ArtPixBuf *pixbuf;
-
-	g_return_if_fail (buf != NULL);
 
 	pixbuf = buf->art_pixbuf;
 
 	g_return_if_fail (pixbuf != NULL);
 
 	/* No drawing area yet ! */
-	if (!view_data->drawing_area->window)
+	if (!dest_widget || !dest_widget->window)
 		return;
 
 	/*
@@ -155,8 +156,8 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 	 * Draw the exposed region.
 	 */
 	if (pixbuf->has_alpha)
-		gdk_draw_rgb_32_image (view_data->drawing_area->window,
-				       view_data->drawing_area->style->white_gc,
+		gdk_draw_rgb_32_image (dest_widget->window,
+				       dest_widget->style->white_gc,
 				       rect->x, rect->y,
 				       rect->width,
 				       rect->height,
@@ -164,14 +165,24 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 				       pixbuf->pixels + (pixbuf->rowstride * rect->y + rect->x * 4),
 				       pixbuf->rowstride);
 	else
-		gdk_draw_rgb_image (view_data->drawing_area->window,
-				    view_data->drawing_area->style->white_gc,
+		gdk_draw_rgb_image (dest_widget->window,
+				    dest_widget->style->white_gc,
 				    rect->x, rect->y,
 				    rect->width,
 				    rect->height,
 				    GDK_RGB_DITHER_NORMAL,
 				    pixbuf->pixels + (pixbuf->rowstride * rect->y + rect->x * 3),
 				    pixbuf->rowstride);
+}
+
+static void
+redraw_view (view_data_t *view_data, GdkRectangle *rect)
+{
+	GdkPixbuf *buf = get_pixbuf (view_data);
+
+	g_return_if_fail (buf != NULL);
+
+	render_pixbuf (buf, view_data->drawing_area, rect);
 }
 
 static void
@@ -430,7 +441,7 @@ bonobo_object_factory (BonoboEmbeddableFactory *this, void *data)
 static void
 init_bonobo_image_generic_factory (void)
 {
-	factory = bonobo_embeddable_factory_new (
+	image_factory = bonobo_embeddable_factory_new (
 		"embeddable-factory:image-generic",
 		bonobo_object_factory, NULL);
 }
@@ -451,12 +462,221 @@ init_server_factory (int argc, char **argv)
 	CORBA_exception_free (&ev);
 }
 
+typedef struct {
+	GtkWidget          *drawing_area;
+	GdkPixbufAnimation *animation;
+	GdkPixbuf          *frame;
+	GList              *cur_frame;
+	
+	gboolean            animate;
+} AnimationState;
+
+static void
+animation_state_clean (AnimationState *as)
+{
+	if (as->animation)
+		gdk_pixbuf_animation_unref (as->animation);
+	as->animation = NULL;
+
+	if (as->frame)
+		gdk_pixbuf_unref (as->frame);
+	as->frame = NULL;
+
+	as->cur_frame    = NULL;
+}
+
+static gint
+skip_frame (AnimationState *as)
+{
+	GdkPixbufFrame *frame;
+	GdkPixbuf      *layer;
+	int w, h;
+
+	g_return_val_if_fail (as != NULL, FALSE);
+
+	if (!as->cur_frame) {
+		g_warning ("No frame to render");
+		return FALSE;
+	}
+
+	frame = as->cur_frame->data;
+
+	w = frame->pixbuf->art_pixbuf->width;
+	h = frame->pixbuf->art_pixbuf->height;
+
+	if (frame->x_offset + w > as->frame->art_pixbuf->width)
+		w = as->frame->art_pixbuf->width - frame->x_offset;
+
+	if (frame->y_offset + h > as->frame->art_pixbuf->height)
+		h = as->frame->art_pixbuf->height - frame->y_offset;
+
+	printf ("Rendering patch of size (%d %d) at (%d %d) for delay %d mode %d\n",
+		w, h, frame->x_offset, frame->y_offset, frame->delay_time, frame->action);
+
+	if (frame->pixbuf->art_pixbuf->has_alpha &&
+	    !as->frame->art_pixbuf->has_alpha) {
+		GdkPixbuf *old = as->frame;
+
+		as->frame = gdk_pixbuf_add_alpha (old, FALSE, 0, 0, 0);
+		/*		gdk_pixbuf_unref (old);*/
+	}
+
+	layer = frame->pixbuf;
+	if (!frame->pixbuf->art_pixbuf->has_alpha &&
+	    as->frame->art_pixbuf->has_alpha)
+		layer = gdk_pixbuf_add_alpha (layer, FALSE, 0, 0, 0);
+	  
+	gdk_pixbuf_copy_area (layer, 0, 0, w, h, as->frame,
+			      frame->x_offset, frame->y_offset);
+	/*	if (layer != frame->pixbuf)
+		gdk_pixbuf_unref (layer);*/
+
+	gtk_widget_queue_draw_area (as->drawing_area, frame->x_offset,
+				    frame->y_offset, w, h);
+	gtk_timeout_add ((frame->delay_time + 1)*10, (GtkFunction) skip_frame, as);
+
+	as->cur_frame = as->cur_frame->next;
+	if (!as->cur_frame)
+		as->cur_frame = as->animation->frames;
+
+	return FALSE;
+}
+
+static void
+animation_init (AnimationState *as, char *fname)
+{
+	as->animation = gdk_pixbuf_animation_new_from_file (fname);
+
+	if (as->animation) {
+		GdkPixbufFrame *frame;
+		
+		as->cur_frame = as->animation->frames;
+		g_return_if_fail (as->cur_frame != NULL);
+
+		frame = as->cur_frame->data;
+		as->frame = gdk_pixbuf_new_from_art_pixbuf (frame->pixbuf->art_pixbuf);
+		
+		skip_frame (as);
+	} else
+		g_warning ("Error loading animation '%s'", fname);
+}
+
+static void
+animation_destroy (BonoboView *view, AnimationState *as)
+{
+	g_return_if_fail (as != NULL);
+
+	animation_state_clean (as);
+	as->drawing_area = NULL;
+
+	g_free (as);
+}
+
+static int
+animation_area_exposed (GtkWidget *widget, GdkEventExpose *event,
+			AnimationState *as)
+{
+	g_return_val_if_fail (as != NULL, TRUE);
+
+	if (!as->frame)
+		return TRUE;
+
+	render_pixbuf (as->frame, as->drawing_area, &event->area);
+
+	return TRUE;
+}
+
+static void
+bonobo_animator_control_prop_value_changed_cb (BonoboPropertyBag *pb, char *name, char *type,
+					       gpointer old_value, gpointer new_value,
+					       gpointer user_data)
+{
+	AnimationState *as = user_data;
+
+	g_return_if_fail (as != NULL);
+
+	if (!strcmp (name, "running")) {
+		gboolean *b = new_value;
+
+		if (*b)
+			as->animate = FALSE;
+		else
+			as->animate = TRUE;
+	} else if (!strcmp (name, "filename")) {
+		CORBA_char *fname = new_value;
+		
+		animation_state_clean (as);
+		animation_init (as, fname);
+	}
+}
+
+static BonoboObject *
+bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
+{
+	BonoboPropertyBag *pb;
+	BonoboControl     *control;
+	CORBA_boolean	  *running;
+	CORBA_char        *fname;
+	AnimationState    *as;
+
+	as = g_new0 (AnimationState, 1);
+
+	/* Create the control. */
+	as->drawing_area = gtk_drawing_area_new ();
+	gtk_signal_connect (GTK_OBJECT (as->drawing_area), "expose_event",
+			    GTK_SIGNAL_FUNC (animation_area_exposed), as);
+
+	gtk_widget_set_usize (as->drawing_area, 10, 10);
+
+	gtk_widget_show (as->drawing_area);
+
+	g_warning ("New animator created");
+
+	control = bonobo_control_new (as->drawing_area);
+	gtk_signal_connect (GTK_OBJECT (control), "destroy",
+			    GTK_SIGNAL_FUNC (animation_destroy), as);
+
+	/* Create the properties. */
+	pb = bonobo_property_bag_new ();
+	bonobo_control_set_property_bag (control, pb);
+
+	running = g_new (CORBA_boolean, 1);
+	*running = FALSE;
+	fname = g_strdup ("");
+
+	gtk_signal_connect (GTK_OBJECT (pb), "value_changed",
+			    bonobo_animator_control_prop_value_changed_cb, as);
+
+	bonobo_property_bag_add (pb, "running", "boolean", (gpointer)running,
+				 NULL, "Whether or not we are animating", 0);
+
+	bonobo_property_bag_add (pb, "filename", "string", (gpointer)fname,
+				 NULL, "The filename of the animation", 0);
+
+	return BONOBO_OBJECT (control);
+}
+
+static void
+init_bonobo_animator_control_factory (void)
+{
+	if (animator_factory != NULL)
+		return;
+
+	animator_factory = bonobo_generic_factory_new ("control-factory:animator",
+						       bonobo_animator_factory, NULL);
+
+	if (animator_factory == NULL)
+		g_error ("I could not register an animator factory.");
+}
+
 int
 main (int argc, char *argv [])
 {
 	init_server_factory (argc, argv);
 
 	init_bonobo_image_generic_factory ();
+
+	init_bonobo_animator_control_factory ();
 
 	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
 	gtk_widget_set_default_visual   (gdk_rgb_get_visual ());
