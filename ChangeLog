@@ -1,5 +1,18 @@
 2002-03-21  Jens Finke  <jens@triq.net>
 
+	This patch fixes most of the issues in bug #73805.
+	
+	* shell/eog-preferences.[ch]: Switched to GtkDialog as parent
+	class, which makes it more HIG conform.
+
+	* shell/eog-window.c (preference_dlg_closed_cb): New function.
+	(verb_Preferences_cb): If a preference dialog is already visible
+	present it to the user. Otherwise create a new one.
+	(verb_HelpAbout_cb): Added translator credits placeholder.
+	(eog_window_init): Initialize pref_dlg attribute.
+	
+2002-03-21  Jens Finke  <jens@triq.net>
+
 	* viewer/preferences.c (create_label): New function.
 	(create_preferences_page): Align lables to the right, added
 	row and column spacings.

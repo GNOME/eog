@@ -11,6 +11,7 @@
 #ifndef _EOG_PREFERENCES_H_
 #define _EOG_PREFERENCES_H_
 
+#include <gtk/gtkdialog.h>
 #include <eog-window.h>
 
 G_BEGIN_DECLS
@@ -27,17 +28,17 @@ typedef struct _EogPreferencesClass    EogPreferencesClass;
 typedef struct _EogPreferencesPrivate  EogPreferencesPrivate;
 
 struct _EogPreferences {
-	GnomePropertyBox dialog;
+	GtkDialog dialog;
 
 	EogPreferencesPrivate *priv;
 };
 
 struct _EogPreferencesClass {
-	GnomePropertyBoxClass parent_class;
+	GtkDialogClass parent_class;
 };
 
 GtkType         eog_preferences_get_type     (void);
-EogPreferences *eog_preferences_new          (EogWindow      *window);
+GtkWidget      *eog_preferences_new          (EogWindow      *window);
 EogPreferences *eog_preferences_construct    (EogPreferences *preferences,
 					      EogWindow      *window);
 

@@ -57,6 +57,9 @@ struct _EogWindowPrivate {
 	/* vbox */
 	GtkWidget           *box;
 
+	/* preference dialog, if available */
+	GtkWidget           *pref_dlg;
+
 	/* statusbar */
 	GtkWidget *statusbar;
 
@@ -101,22 +104,36 @@ raise_and_focus (GtkWidget *widget)
 	gtk_widget_grab_focus (widget);
 }
 
+static void
+preference_dlg_closed_cb (GtkWidget *dlg, gpointer data)
+{
+	EogWindow *window;
+
+	window = EOG_WINDOW (data);
+	window->priv->pref_dlg = NULL;
+}
+
 /* Settings/Preferences callback */
 static void
 verb_Preferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
 	EogWindow *window;
-	EogPreferences *preferences;
+	EogWindowPrivate *priv;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	window = EOG_WINDOW (user_data);
+	priv = window->priv;
 
-	preferences = eog_preferences_new (window);
+	if (priv->pref_dlg == NULL) {
+		priv->pref_dlg = eog_preferences_new (window);
+		gtk_signal_connect (GTK_OBJECT (priv->pref_dlg), "destroy", 
+				    GTK_SIGNAL_FUNC (preference_dlg_closed_cb),
+				    window);
+	}
 
-	if (preferences != NULL)
-		gnome_dialog_run_and_close (GNOME_DIALOG (preferences));
+	gtk_window_present (GTK_WINDOW (priv->pref_dlg));
 }
 
 static void
@@ -171,8 +188,15 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 		"Lutz Mueller",
 		NULL
 	};
+	const char *translator_credits;
 
 	if (!about) {
+		/* Translators should localize the following string
+		 * which will be displayed at the bottom of the about
+		 * box to give credit to the translator(s).
+		 */
+		translator_credits = _("Translator Credits");
+
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
@@ -180,7 +204,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 			_("The GNOME image viewing and cataloging program"),
 			authors,
 			NULL, /* char **documentors */
-			NULL, /* char *translators */
+			translator_credits,
 			NULL);
 		gtk_signal_connect (GTK_OBJECT (about), "destroy",
 				    GTK_SIGNAL_FUNC (gtk_widget_destroyed),
@@ -355,6 +379,8 @@ eog_window_init (EogWindow *window)
 	priv = g_new0 (EogWindowPrivate, 1);
 	window->priv = priv;
 
+	priv->pref_dlg = NULL;
+	
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client, "/apps/eog",

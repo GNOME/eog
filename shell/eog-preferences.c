@@ -4,24 +4,28 @@
  *
  * Authors:
  *   Martin Baulig (baulig@suse.de)
+ *   Jens Finke (jens@triq.net)
  *
- * Copyright 2000 SuSE GmbH.
+ * Copyright: 2000 SuSE GmbH.
+ *            2002 Free Software Foundation
  */
 #include <config.h>
 #include <stdio.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
-
-#include <gnome.h>
+#include <gtk/gtknotebook.h>
 
 #include <eog-preferences.h>
 
 struct _EogPreferencesPrivate {
 	EogWindow          *window;
+	
+	GtkWidget          *notebook;
+	
 };
 
-static GnomePropertyBoxClass *eog_preferences_parent_class;
+static GtkDialogClass *eog_preferences_parent_class;
 
 static void
 eog_preferences_destroy (GtkObject *object)
@@ -64,7 +68,7 @@ eog_preferences_class_init (EogPreferences *klass)
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
 	GObjectClass *gobject_class = (GObjectClass *)klass;
 
-	eog_preferences_parent_class = gtk_type_class (gnome_property_box_get_type ());
+	eog_preferences_parent_class = gtk_type_class (GTK_TYPE_DIALOG);
 
 	object_class->destroy = eog_preferences_destroy;
 	gobject_class->finalize = eog_preferences_finalize;
@@ -93,7 +97,7 @@ eog_preferences_get_type (void)
 			(GtkClassInitFunc) NULL
 		};
 
-		type = gtk_type_unique (gnome_property_box_get_type (), &info);
+		type = gtk_type_unique (GTK_TYPE_DIALOG, &info);
 	}
 
 	return type;
@@ -135,8 +139,8 @@ add_property_control_page (EogPreferences *preferences,
 						      BONOBO_OBJREF (uic));
 	gtk_widget_show_all (page);
 
-	gnome_property_box_append_page (GNOME_PROPERTY_BOX (preferences),
-					page, label);
+	gtk_notebook_append_page (GTK_NOTEBOOK (preferences->priv->notebook),
+				  page, label);
 
 	bonobo_object_release_unref (control, ev);
 }
@@ -157,6 +161,18 @@ eog_preferences_construct (EogPreferences *preferences,
 
 	preferences->priv->window = window;
 	gtk_object_ref (GTK_OBJECT (window));
+
+	gtk_window_set_title (GTK_WINDOW (preferences), _("Eye of Gnome Preferences"));
+	gtk_dialog_add_button (GTK_DIALOG (preferences), GTK_STOCK_CLOSE,
+			       GTK_RESPONSE_CLOSE);
+	gtk_dialog_set_has_separator (GTK_DIALOG (preferences), FALSE);
+	preferences->priv->notebook = gtk_notebook_new ();
+	gtk_widget_show (preferences->priv->notebook);
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (preferences)->vbox), 
+			   preferences->priv->notebook);
+	gtk_signal_connect (GTK_OBJECT (preferences), "response", 
+			    GTK_SIGNAL_FUNC (gtk_widget_destroy), 
+			    preferences);
 
 	CORBA_exception_init (&ev);
 
@@ -189,7 +205,7 @@ eog_preferences_construct (EogPreferences *preferences,
 	return preferences;
 }
 
-EogPreferences *
+GtkWidget *
 eog_preferences_new (EogWindow *window)
 {
 	EogPreferences *preferences;
@@ -199,5 +215,5 @@ eog_preferences_new (EogWindow *window)
 
 	preferences = gtk_type_new (eog_preferences_get_type ());
 
-	return eog_preferences_construct (preferences, window);
+	return GTK_WIDGET (eog_preferences_construct (preferences, window));
 }
