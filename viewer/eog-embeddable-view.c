@@ -41,6 +41,9 @@ eog_embeddable_view_activate (BonoboControl *control, gboolean state)
 	if (state) {
 		Bonobo_UIContainer ui_container;
 
+		if (getenv ("DEBUG_EOG"))
+			g_message ("Activating EogEmbeddableView...");
+
 		ui_container = bonobo_control_get_remote_ui_container (control);
 		if (ui_container != CORBA_OBJECT_NIL) {
 			eog_image_view_set_ui_container (
@@ -48,6 +51,9 @@ eog_embeddable_view_activate (BonoboControl *control, gboolean state)
 			bonobo_object_release_unref (ui_container, NULL);
 		}
 	} else {
+		if (getenv ("DEBUG_EOG"))
+			g_message ("Deactivating EogEmbeddableView...");
+
 		eog_image_view_unset_ui_container (embeddable_view->priv->image_view);
 	}
 
@@ -63,6 +69,9 @@ eog_embeddable_view_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_EMBEDDABLE_VIEW (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogEmbeddableView...");
+
 	embeddable_view = EOG_EMBEDDABLE_VIEW (object);
 
 	if (embeddable_view->priv->image) {
@@ -74,6 +83,9 @@ eog_embeddable_view_destroy (GtkObject *object)
 		gtk_widget_unref (embeddable_view->priv->root);
 		embeddable_view->priv->root = NULL;
 	}
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("EogEmbeddableView destroyed.");
 
 	GTK_OBJECT_CLASS (eog_embeddable_view_parent_class)->destroy (object);
 }
@@ -242,6 +254,9 @@ eog_embeddable_view_new (EogImage *image)
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Creating EogEmbeddableView...");
 
 	embeddable_view = gtk_type_new (eog_embeddable_view_get_type ());
 

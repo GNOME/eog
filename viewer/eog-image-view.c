@@ -1634,6 +1634,9 @@ eog_image_view_destroy (GtkObject *object)
 
 	gtk_widget_unref (image_view->priv->ui_image);
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("EogImageView destroyed.");
+
 	GTK_OBJECT_CLASS (eog_image_view_parent_class)->destroy (object);
 }
 
