@@ -28,13 +28,13 @@ struct _EogPreviewPrivate
 	guint		 notify_vertically;
 	guint		 notify_cut;
 
-	gint		 width;
-	gint		 height;
+	gdouble		 width;
+	gdouble		 height;
 
-	gint		 top;
-	gint		 bottom;
-	gint		 right;
-	gint		 left;
+	gdouble		 top;
+	gdouble		 bottom;
+	gdouble		 right;
+	gdouble		 left;
 
 	gint		 adjust_to;
 	gboolean	 fit_to_page;
@@ -45,9 +45,10 @@ struct _EogPreviewPrivate
 	gboolean	 cut;
 };
 
-#define SCALE(param) (0.15 * param)
+#define SCALE(param) (0.2 * param)
 #define CHECK_INT(c,x,y)   {gint z; z = y; if (x != z) c = TRUE; x = z;}
 #define CHECK_BOOL(c,x,y)  {gboolean z; z = y; if (x != z) c = TRUE; x = z;}
+#define CHECK_FLOAT(c,x,y) {gdouble z; z = y; if (x != z) c = TRUE; x = z;}
 
 static gboolean
 settings_changed (EogPreview *preview)
@@ -56,7 +57,7 @@ settings_changed (EogPreview *preview)
 	gboolean	  changed;
 	gboolean	  landscape;
 	gchar		 *paper_size;
-	gint		  new_width, new_height;
+	gdouble		  new_width, new_height;
 	const GnomePaper *paper;
 
 	changed = FALSE;
@@ -86,17 +87,17 @@ settings_changed (EogPreview *preview)
 	preview->priv->width = new_width;
 	preview->priv->height = new_height;
 
-	CHECK_INT (changed, preview->priv->top, 
-		   SCALE (gconf_client_get_int (client,
+	CHECK_FLOAT (changed, preview->priv->top, 
+		     SCALE (gconf_client_get_float (client,
 					"/apps/eog/viewer/top", NULL)));
-	CHECK_INT (changed, preview->priv->bottom,
-		   SCALE (gconf_client_get_int (client,
+	CHECK_FLOAT (changed, preview->priv->bottom,
+		     SCALE (gconf_client_get_float (client,
 					"/apps/eog/viewer/bottom", NULL)));
-	CHECK_INT (changed, preview->priv->right,
-		   SCALE (gconf_client_get_int (client,
+	CHECK_FLOAT (changed, preview->priv->right,
+		     SCALE (gconf_client_get_float (client,
 					"/apps/eog/viewer/right", NULL)));
-	CHECK_INT (changed, preview->priv->left,
-		     SCALE (gconf_client_get_int (client,
+	CHECK_FLOAT (changed, preview->priv->left,
+		     SCALE (gconf_client_get_float (client,
 					"/apps/eog/viewer/left", NULL)));
 	CHECK_BOOL (changed, preview->priv->fit_to_page, 
 		    gconf_client_get_bool (client,
@@ -142,9 +143,10 @@ update (EogPreview *preview)
 	BonoboPropertyBag *bag;
 	BonoboArg	  *arg;
 	EogImage	  *image;
+	EogPreviewPrivate *priv;
 	GtkWidget 	  *page;
 	GtkWidget 	  *vbox;
-	GdkPixbuf	  *pixbuf;
+	GdkPixbuf	  *pixbuf = NULL;
 	GdkPixbuf	  *pixbuf_orig;
 	GdkInterpType	   interp;
 	GList	  	  *children;
@@ -154,8 +156,10 @@ update (EogPreview *preview)
 	gint		   width, height;
 	gint		   pixbuf_width, pixbuf_height;
 
+	priv = preview->priv;
+
 	/* Get the pixbuf */
-	image = eog_image_view_get_image (preview->priv->image_view);
+	image = eog_image_view_get_image (priv->image_view);
 	pixbuf_orig = eog_image_get_pixbuf (image);
 	bonobo_object_unref (BONOBO_OBJECT (image));
 	g_return_if_fail (pixbuf_orig);
@@ -191,15 +195,13 @@ update (EogPreview *preview)
 
 	/* Calculate width and height of image */
 	if (preview->priv->fit_to_page) {
-		double prop_paper, prop_pixbuf;
-		gint   avail_width, avail_height;
+		gdouble prop_paper, prop_pixbuf;
+		gdouble avail_width, avail_height;
 
-		avail_width = preview->priv->width - preview->priv->right 
-						   - preview->priv->left;
-		avail_height = preview->priv->height - preview->priv->top 
-						     - preview->priv->bottom;
-		prop_paper = (double) avail_height / avail_width;
-		prop_pixbuf = (double) pixbuf_height / pixbuf_width;
+		avail_width = priv->width - priv->left - priv->right;
+		avail_height = priv->height - priv->top - priv->bottom;
+		prop_paper = avail_height / avail_width;
+		prop_pixbuf = (gdouble) pixbuf_height / pixbuf_width;
 
 		if (prop_pixbuf > prop_paper) {
 			width = avail_height / prop_pixbuf;
@@ -209,25 +211,23 @@ update (EogPreview *preview)
 			height = avail_width * prop_pixbuf;
 		}
 	} else {
-		width = SCALE (pixbuf_width * preview->priv->adjust_to / 100);
-		height = SCALE (pixbuf_height * preview->priv->adjust_to / 100);
+		width = SCALE (pixbuf_width * priv->adjust_to / 100);
+		height = SCALE (pixbuf_height * priv->adjust_to / 100);
 	}
-	g_return_if_fail (width > 0);
-	g_return_if_fail (height > 0);
 
 	/* Scale the pixbuf */
-	pixbuf = gdk_pixbuf_scale_simple (pixbuf_orig, width, height, interp);
+	if ((width > 0.0) && (height > 0.0))
+		pixbuf = gdk_pixbuf_scale_simple (pixbuf_orig, width, height, 
+						  interp);
 	gdk_pixbuf_unref (pixbuf_orig);
 
 	/* Update the page (0, 0) in order to see how many pages we need */
-	eog_preview_page_update (EOG_PREVIEW_PAGE (preview->priv->root), 
-				 pixbuf,
-				 preview->priv->width, preview->priv->height,
-				 preview->priv->bottom, preview->priv->top,
-				 preview->priv->right, preview->priv->left,
-				 preview->priv->vertically,
-				 preview->priv->horizontally,
-				 preview->priv->cut,
+	eog_preview_page_update (EOG_PREVIEW_PAGE (priv->root), pixbuf,
+				 priv->width, priv->height,
+				 priv->bottom, priv->top,
+				 priv->right, priv->left,
+				 priv->vertically, priv->horizontally,
+				 priv->cut,
 				 &cols_needed, &rows_needed);
 
 	/* Do we need to remove VBoxes? */
@@ -251,8 +251,7 @@ update (EogPreview *preview)
 
 		/* Adding */
 		for (j = g_list_length (vbox_children); j < rows_needed; j++) {
-			page = eog_preview_page_new (preview->priv->image_view,
-						     i, j);
+			page = eog_preview_page_new (priv->image_view, i, j);
 			gtk_widget_show (page);
 			gtk_box_pack_start (GTK_BOX (vbox), page, 
 					    TRUE, TRUE, 0);
@@ -273,19 +272,18 @@ update (EogPreview *preview)
 			page = g_list_nth_data (vbox_children, j);
 			eog_preview_page_update (EOG_PREVIEW_PAGE (page),
 						 pixbuf,
-						 preview->priv->width,
-						 preview->priv->height,
-						 preview->priv->bottom,
-						 preview->priv->top,
-						 preview->priv->right,
-						 preview->priv->left,
-						 preview->priv->vertically,
-						 preview->priv->horizontally,
-						 preview->priv->cut,
+						 priv->width, priv->height,
+						 priv->bottom, priv->top,
+						 priv->right, priv->left,
+						 priv->vertically,
+						 priv->horizontally,
+						 priv->cut,
 						 &cols_needed, &rows_needed);
 		}
 	}
-	gdk_pixbuf_unref (pixbuf);
+
+	if (pixbuf)
+		gdk_pixbuf_unref (pixbuf);
 }
 
 static gboolean

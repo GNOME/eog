@@ -34,9 +34,9 @@ GtkWidget *eog_preview_page_new (EogImageView *image_view,
 
 void 	   eog_preview_page_update (EogPreviewPage *page,
 				    GdkPixbuf *pixbuf,
-				    gint width, gint height, 
-				    gint bottom, gint top, 
-				    gint right, gint left, 
+				    gdouble width, gdouble height, 
+				    gdouble bottom, gdouble top, 
+				    gdouble right, gdouble left, 
 				    gboolean vertically, gboolean horizontally,
 				    gboolean cut,
 				    gint *cols_needed, gint *rows_needed);

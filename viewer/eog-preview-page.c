@@ -35,28 +35,21 @@ struct _EogPreviewPagePrivate
 	GnomeCanvasItem  *cut_left_bottom;
 	GnomeCanvasItem  *cut_left_top;
 	
-	gint		  width;
-	gint		  height;
-
-	gint		  top;
-	gint		  bottom;
-	gint		  left;
-	gint		  right;
+	gdouble		  width;
+	gdouble		  height;
 };
 
 #define OFFSET_X 2
 #define OFFSET_Y 2
 
 static void
-resize_paper (EogPreviewPage *page, gint width, gint height)
+resize_paper (EogPreviewPage *page)
 {
-	page->priv->width = width;
-	page->priv->height = height;
-
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (page), 0.0, 0.0,
-					OFFSET_X + width, OFFSET_Y + height);
-	gtk_widget_set_usize (GTK_WIDGET (page), 
-			      OFFSET_X + width + 1, OFFSET_Y + height + 1);
+					OFFSET_X + page->priv->width, 
+					OFFSET_Y + page->priv->height);
+	gtk_widget_set_usize (GTK_WIDGET (page), OFFSET_X + page->priv->width,
+			      OFFSET_Y + page->priv->height);
 	
 	if (page->priv->bg_black)
 		gtk_object_destroy (GTK_OBJECT (page->priv->bg_black));
@@ -67,8 +60,8 @@ resize_paper (EogPreviewPage *page, gint width, gint height)
 		page->priv->group,
 		gnome_canvas_rect_get_type (), 
 		"x1", 0.0, "y1", 0.0, 
-		"x2", (double) width, 
-		"y2", (double) height, 
+		"x2", (double) page->priv->width, 
+		"y2", (double) page->priv->height, 
 		"fill_color", "black", 
 		"outline_color", "black", 
 		"width_pixels", 1, NULL);
@@ -77,15 +70,16 @@ resize_paper (EogPreviewPage *page, gint width, gint height)
 		gnome_canvas_rect_get_type (), 
 		"x1", (double) OFFSET_X, 
 		"y1", (double) OFFSET_Y, 
-		"x2", (double) OFFSET_X + width - 1, 
-		"y2", (double) OFFSET_Y + height - 1, 
+		"x2", (double) OFFSET_X + page->priv->width, 
+		"y2", (double) OFFSET_Y + page->priv->height, 
 		"fill_color", "white", 
 		"outline_color", "white", 
 		"width_pixels", 1, NULL); 
 }
 
 static void
-move_line (GnomeCanvasItem *item, gint x1, gint y1, gint x2, gint y2)
+move_line (GnomeCanvasItem *item, 
+	   gdouble x1, gdouble y1, gdouble x2, gdouble y2)
 {
 	GnomeCanvasPoints *points; 
 	
@@ -101,9 +95,11 @@ move_line (GnomeCanvasItem *item, gint x1, gint y1, gint x2, gint y2)
 }
 
 static void
-redraw_cut (EogPreviewPage *page, gint width, gint height, gint x, gint y,
-	    gint image_width, gint image_height, gboolean cut)
+redraw_cut (EogPreviewPage *page, gdouble x, gdouble y,
+	    gdouble image_width, gdouble image_height, gboolean cut)
 {
+	gdouble x1, y1, x2, y2, x3, y3;
+	
 	/* Do we have to display the cutting help? */
 	if (!cut) {
 		gnome_canvas_item_lower_to_bottom (
@@ -111,176 +107,189 @@ redraw_cut (EogPreviewPage *page, gint width, gint height, gint x, gint y,
 		return;
 	}
 
-	move_line (page->priv->cut_top_left, x, 0, x, 2 * y / 3);
-	move_line (page->priv->cut_top_right, x + image_width - 1, 0, 
-		   x + image_width - 1, 2 * y / 3);
-	move_line (page->priv->cut_bottom_left, 
-		   x, y + image_height  - 1 + (height - y - image_height) / 3, 
-		   x, height);
-	move_line (page->priv->cut_bottom_right, x + image_width - 1, 
-		   y + image_height - 1 + (height - y - image_height) / 3,
-		   x + image_width - 1, height);
-	move_line (page->priv->cut_left_top, 
-		   0, y, 2 * x / 3, y);
-	move_line (page->priv->cut_left_bottom, 
-		   0, y + image_height - 1, 2 * x / 3, y + image_height - 1);
-	move_line (page->priv->cut_right_top, 
-		   x + image_width + (width - x - image_width) / 3, y, 
-		   width, y);
-	move_line (page->priv->cut_right_bottom, 
-		   x + image_width + (width - x - image_width) / 3, 
-		   y + image_height - 1, width, y + image_height - 1);
+	x1 = x + image_width;
+	y1 = y + image_height;
+	x2 = x1 + (page->priv->width - x - image_width) / 3;
+	y2 = y1 + (page->priv->height - y - image_height) / 3;
+	x3 = page->priv->width;
+	y3 = page->priv->height;
+	
+	move_line (page->priv->cut_top_left, x, 0.0, x, 2 * y / 3);
+	move_line (page->priv->cut_top_right, x1, 0.0, x1, 2 * y / 3);
+	move_line (page->priv->cut_bottom_left, x, y2, x, y3);
+	move_line (page->priv->cut_bottom_right, x1, y2, x1, y3);
+	move_line (page->priv->cut_left_top, 0.0, y, 2 * x / 3, y);
+	move_line (page->priv->cut_left_bottom, 0.0, y1, 2 * x / 3, y1);
+	move_line (page->priv->cut_right_top, x2, y, x3, y);
+	move_line (page->priv->cut_right_bottom, x2, y1, x3, y1);
 
 	gnome_canvas_item_raise_to_top (
 		GNOME_CANVAS_ITEM (page->priv->cut_group));
 }
 
 static void
-redraw_margins (EogPreviewPage *page, gint top, gint bottom, 
-		gint left, gint right, gint width, gint height)
+redraw_margins (EogPreviewPage *page, gdouble top, gdouble bottom, 
+		gdouble left, gdouble right)
 {
-	move_line (page->priv->margin_top, 0, top, width, top);
-	move_line (page->priv->margin_bottom, 0, height - bottom - 1, 
-		   width, height - bottom - 1);
-	move_line (page->priv->margin_left, left, 0, left, height);
-	move_line (page->priv->margin_right, width - right - 1, 0, 
-		   width - right - 1, height);
+	move_line (page->priv->margin_top, 0.0, top, page->priv->width, top);
+	move_line (page->priv->margin_bottom, 0.0, page->priv->height - bottom, 
+		   page->priv->width, page->priv->height - bottom);
+	move_line (page->priv->margin_left, left, 0.0, left, 
+		   page->priv->height);
+	move_line (page->priv->margin_right, page->priv->width - right, 0.0, 
+		   page->priv->width - right, page->priv->height);
 }
 
 void
 eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
-			 gint width, gint height, 
-			 gint bottom, gint top, gint right, gint left,
+			 gdouble width, gdouble height, gdouble bottom, 
+			 gdouble top, gdouble right, gdouble left,
 			 gboolean vertically, gboolean horizontally, 
 			 gboolean cut,
-			 gint *cols_needed, gint *rows_needed)
+			 gint *cols, gint *rows)
 {
 	GtkWidget		*widget;
 	GdkPixbuf		*pixbuf_to_show;
 	GdkPixmap		*pixmap;
 	GdkBitmap		*bitmap;
 	gint			 pixbuf_width, pixbuf_height;
-	gint			 image_width, image_height;
-	gint			 avail_width, avail_height;
-	gint			 leftover_width, leftover_height;
-	gint			 x, y;
+	gdouble			 image_width, image_height;
+	gdouble			 avail_width, avail_height;
+	gdouble			 leftover_width, leftover_height;
+	gdouble			 x, y;
 	gboolean		 first_x, last_x;
 	gboolean		 first_y, last_y;
 
 	/* In case anything goes wrong... */
-	*cols_needed = 1;
-	*rows_needed = 1;
+	*cols = 1;
+	*rows = 1;
 
-	if ((width != page->priv->width) || (height != page->priv->height))
-		resize_paper (page, width, height);
+	if ((width != page->priv->width) || (height != page->priv->height)) {
+		page->priv->width = width;
+		page->priv->height = height;
+		resize_paper (page);
+	}
 	
+	/* Destroy old image */
+	if (page->priv->image) {
+		gtk_object_destroy (GTK_OBJECT (page->priv->image));
+		page->priv->image = NULL;
+	}
+
+	/* Redraw margins */
+	redraw_margins (page, top, bottom, left, right);
+
 	/* How much place do we have got on the paper? */
 	avail_width = width - left - right;
 	avail_height = height - top - bottom;
-	g_return_if_fail (avail_width > 0);
-	g_return_if_fail (avail_height > 0);
+	if (avail_width < 0)
+		avail_width = 0;
+	if (avail_height < 0)
+		avail_height = 0;
+
+	/* If no pixbuf is given or if we can't show a pixbuf because    */
+	/* there is no space available, we just redraw the cutting help. */
+	if (!pixbuf || !avail_width || !avail_height) {
+		redraw_cut (page, 0, 0, 0, 0, FALSE);
+		return;
+	}
 
 	/* How big is the pixbuf? */
 	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
 	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
 
 	/* Calculate the free place on the paper */
-	leftover_width = avail_width - (pixbuf_width % avail_width);
-	leftover_width = leftover_width % avail_width;
-	leftover_height = avail_height - (pixbuf_height % avail_height);
-	leftover_height = leftover_height % avail_height;
+	for (*cols = 1; pixbuf_width > *cols * avail_width; (*cols)++);
+	leftover_width = *cols * avail_width - pixbuf_width;
+	for (*rows = 1; pixbuf_height > *rows * avail_height; (*rows)++);
+	leftover_height = *rows * avail_height - pixbuf_height;
 
-	*cols_needed = (pixbuf_width + leftover_width) / avail_width;
-	*rows_needed = (pixbuf_height + leftover_height) / avail_height;
-	
-	if (*cols_needed <= page->priv->col)
-		return;
-	if (*rows_needed <= page->priv->row)
-		return;
+	g_return_if_fail (*cols > page->priv->col);
+	g_return_if_fail (*rows > page->priv->row);
 
 	first_x = (page->priv->col == 0);
 	first_y = (page->priv->row == 0);
-	last_x = (*cols_needed == page->priv->col + 1);
-	last_y = (*rows_needed == page->priv->row + 1);
+	last_x = (*cols == page->priv->col + 1);
+	last_y = (*rows == page->priv->row + 1);
 
 	/* Width of image? */
 	if (first_x && last_x)
 		image_width = pixbuf_width;
 	else if (last_x) {
-		image_width = ((pixbuf_width - 1) % avail_width) + 1;
-			if (horizontally)
-			image_width += leftover_width / 2;
+		image_width = pixbuf_width - (*cols - 1) * avail_width;
+		if (horizontally)
+			image_width += leftover_width / 2.0;
 	} else {
 		image_width = avail_width;
 		if (first_x && horizontally)
-			image_width -= leftover_width / 2;
+			image_width -= leftover_width / 2.0;
 	}
-	g_return_if_fail (image_width > 0);
+	if (image_width < 1.0)
+		image_width++;
 
 	/* Height of image? */
 	if (first_y && last_y) 
 		image_height = pixbuf_height; 
 	else if (last_y) { 
-		image_height = ((pixbuf_height - 1) % avail_height) + 1;
+		image_height = pixbuf_height - (*rows - 1) * avail_height;
 		if (vertically) 
-			image_height += leftover_height / 2; 
+			image_height += leftover_height / 2.0; 
 	} else { 
 		image_height = avail_height; 
 		if (first_y && vertically) 
-			image_height -= leftover_height / 2; 
+			image_height -= leftover_height / 2.0; 
 	} 
-	g_return_if_fail (image_height > 0); 
+	if (image_height < 1.0)
+		image_height++;
 
 	pixbuf_to_show = gdk_pixbuf_new (
 			gdk_pixbuf_get_colorspace (pixbuf),
 			gdk_pixbuf_get_has_alpha (pixbuf), 
 			gdk_pixbuf_get_bits_per_sample (pixbuf), 
-			image_width, image_height); 
+			(gint) image_width, (gint) image_height); 
 	
 	/* Where do we begin to copy (x)? */ 
 	if (first_x) 
-		x = 0; 
+		x = 0.0; 
 	else if (last_x) 
 		x = pixbuf_width - image_width; 
 	else { 
 		x = avail_width * page->priv->col; 
 		if (horizontally) 
-			x -= leftover_width / 2; 
+			x -= leftover_width / 2.0;
 	} 
-	g_return_if_fail (x >= 0); 
+	g_return_if_fail (x >= 0.0); 
 
 	/* Where do we begin to copy (y)? */ 
 	if (first_y) 
-		y = 0; 
+		y = 0.0; 
 	else if (last_y) 
 		y = pixbuf_height - image_height; 
 	else { 
 		y = avail_height * page->priv->row; 
 		if (vertically) 
-			y -= leftover_height / 2; 
+			y -= leftover_height / 2.0;
 	} 
-	g_return_if_fail (y >= 0); 
+	g_return_if_fail (y >= 0.0); 
 	
-	gdk_pixbuf_copy_area (pixbuf, x, y, 
-			      image_width, image_height, pixbuf_to_show, 0, 0);
+	gdk_pixbuf_copy_area (pixbuf, (gint) x, (gint) y,
+			      (gint) image_width, (gint) image_height, 
+			      pixbuf_to_show, 0, 0);
 
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf_to_show, &pixmap, &bitmap, 1);
-	gdk_pixbuf_unref (pixbuf_to_show); 
-	widget = gtk_pixmap_new (pixmap, bitmap); 
+	gdk_pixbuf_unref (pixbuf_to_show);
+	widget = gtk_pixmap_new (pixmap, bitmap);
 	gtk_widget_show (widget);
 
-	/* Where to put the image (x)? */ 
-	x = left; 
+	/* Where to put the image (x)? */
+	x = left;
 	if (horizontally && first_x)
-	    	x += leftover_width / 2; 
+	    	x += leftover_width / 2.0;
 	
-	/* Where to put the image (y)? */ 
-	y = top; 
-	if (vertically && first_y) 
-	    	y += leftover_height / 2; 
-	
-	if (page->priv->image) 
-		gtk_object_destroy (GTK_OBJECT (page->priv->image)); 
+	/* Where to put the image (y)? */
+	y = top;
+	if (vertically && first_y)
+	    	y += leftover_height / 2.0;
 	
 	page->priv->image = gnome_canvas_item_new (
 					page->priv->group, 
@@ -288,15 +297,12 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 					"widget", widget, 
 					"x", (double) OFFSET_X + x, 
 					"y", (double) OFFSET_Y + y, 
-					"width", (double) image_width, 
-					"height", (double) image_height, 
+					"width", (double) image_width + 1.0, 
+					"height", (double) image_height + 1.0, 
 					"anchor", GTK_ANCHOR_NORTH_WEST, 
 					"size_pixels", TRUE, NULL);
-	if ((top != page->priv->top) || (bottom != page->priv->bottom) ||
-	    (left != page->priv->left) || (right != page->priv->right))
-		redraw_margins (page, top, bottom, left, right, width, height);
 	
-	redraw_cut (page, width, height, x, y, image_width, image_height, cut);
+	redraw_cut (page, x, y, image_width, image_height, cut);
 }
 
 static void
@@ -393,7 +399,8 @@ eog_preview_page_new (EogImageView *image_view, gint col, gint row)
 				       gnome_canvas_group_get_type (), 
 				       "x", 0.0, "y", 0.0, NULL);
 	priv->group = GNOME_CANVAS_GROUP (group);
-	
+
+	/* Margins */
 	priv->margin_top = make_line (page->priv->group, "red");
 	priv->margin_bottom = make_line (page->priv->group, "red");
 	priv->margin_right = make_line (page->priv->group, "red");
