@@ -12,7 +12,6 @@ EXTRA_DIST =			\
 	eog.spec		\
 	eog.gladep		\
 	eog.glade		\
-	eog-glade.h		\
 	eog.spec.in		\
 	gnome-eog.png		\
 	intltool-extract.in	\

@@ -86,7 +86,7 @@ BUILT_SOURCES = 			\
 
 CLEANFILES = $(BUILT_SOURCES) $(server_DATA)
 
-EXTRA_DIST = $(server_in_files)
+EXTRA_DIST = $(server_in_files) libeog-marshal.list
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
