@@ -668,12 +668,21 @@ static int
 animation_area_exposed (GtkWidget *widget, GdkEventExpose *event,
 			AnimationState *as)
 {
+	GdkPixbufFrame *frame;
+
 	g_return_val_if_fail (as != NULL, TRUE);
 
 	if (!as->frame)
 		return TRUE;
 
-	render_pixbuf (as->frame, as->drawing_area, &event->area);
+	if (!as->cur_frame && !as->cur_frame->data)
+		return TRUE;
+
+/*	render_pixbuf (as->frame, as->drawing_area, &event->area);*/
+/* FIXME: herin lies the problem ... this needs to be fixed */
+	frame = as->cur_frame->data;
+
+	render_pixbuf (frame->pixbuf, as->drawing_area, &event->area);
 
 	return TRUE;
 }
