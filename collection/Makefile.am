@@ -1,12 +1,12 @@
-INCLUDES =                                              \
-        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
-	-DG_LOG_DOMAIN=\"Eog\"				\
-	-DDATADIR=\""$(datadir)"\"			\
-	-I$(top_srcdir) 				\
-	-I$(top_builddir)				\
-	-I$(top_srcdir)/libeog				\
-	-I$(top_builddir)/libeog			\
-	$(EOG_CFLAGS)					\
+INCLUDES =							\
+        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
+	-DG_LOG_DOMAIN=\"Eog\"					\
+	-DDATADIR=\""$(datadir)"\"				\
+	-I$(top_srcdir)						\
+	-I$(top_builddir)					\
+	-I$(top_srcdir)/libeog					\
+	-I$(top_builddir)/libeog				\
+	$(EOG_CFLAGS)						\
 	$(EXTRA_WARNING_CFLAGS)
 
 bin_PROGRAMS = eog-collection

@@ -1,11 +1,11 @@
-INCLUDES =                                              \
-        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
-	-I$(top_srcdir)/libeog				\
-	-I$(top_builddir)/libeog			\
-	$(GCONF_CFLAGS)					\
-	$(EXTRA_WARNING_CFLAGS)				\
-	$(EOG_CFLAGS)					\
-	-DDATADIR=\""$(datadir)"\"			\
+INCLUDES =							\
+        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
+	-I$(top_srcdir)/libeog					\
+	-I$(top_builddir)/libeog				\
+	$(GCONF_CFLAGS)						\
+	$(EXTRA_WARNING_CFLAGS)					\
+	$(EOG_CFLAGS)						\
+	-DDATADIR=\""$(datadir)"\"				\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog

@@ -1,13 +1,13 @@
 SUBDIRS = cursors
 
-INCLUDES =                                              \
-        -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
-	-DG_LOG_DOMAIN=\"Eog\"				\
-	-DDATADIR=\""$(datadir)"\"			\
-	-I$(srcdir) -I$(top_srcdir) 			\
-	-I$(top_srcdir)/src				\
-	-I$(top_builddir)				\
-	$(EOG_CFLAGS)					\
+INCLUDES =							\
+        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
+	-DG_LOG_DOMAIN=\"Eog\"					\
+	-DDATADIR=\""$(datadir)"\"				\
+	-I$(srcdir) -I$(top_srcdir)				\
+	-I$(top_srcdir)/src					\
+	-I$(top_builddir)					\
+	$(EOG_CFLAGS)						\
 	$(EXTRA_WARNING_CFLAGS)
 
 
