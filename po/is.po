@@ -2,13 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#Samúel Jón Gunnarsson <sammi@techattack.nu>, 2003
-
+# Samúel Jón Gunnarsson <sammi@techattack.nu>, 2003
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-10 19:58+0200\n"
-"PO-Revision-Date: 2003-06-10 19:58--100\n"
+"POT-Creation-Date: 2003-06-22 17:23+0200\n"
+"PO-Revision-Date: 2003-06-22 17:26--100\n"
 "Last-Translator: Samuel Jon Gunnarsson <sammi@techattack.nu>\n"
 "Language-Team: Icelandic <gnome@techattack.nu>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +26,13 @@ msgstr "Versmiðja EOG safnmyndarýnis"
 msgid "Image Collection"
 msgstr "Myndasafn"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "Velta Lá_rétt"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "Velta _Lóðrétt"
 
@@ -51,55 +52,78 @@ msgstr "Fyrri"
 msgid "Previous Image"
 msgstr "Fyrri mynd"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Rotate 180 _Degrees"
 msgstr "Snúa um 180 grá_ður"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate C_lockwise"
 msgstr "Snúa með k_lukku"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Counte_r Clockwise"
 msgstr "Snúa á móti kl_ukku"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
+#: eog.glade.h:18
 msgid "Slide Show"
 msgstr "Myndasyrpa"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: collection/eog-collection-view-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:17
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
-msgstr "_Sýsl"
+msgstr "Sýs_l"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "Vi_sta"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "Aft_urkalla"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:14
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "Sý_n"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Hætta við vistun"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Vistun lokið"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Henda í ruslið"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Safnsýn"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259
+#: viewer/eog-image-view.c:1235
 msgid "Window Title"
 msgstr "Titill glugga"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Tilkynningartexti"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265
+#: viewer/eog-image-view.c:1247
 msgid "Progress of Image Loading"
 msgstr "Staða á hleðslu myndar"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Vista mynd"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -167,11 +191,9 @@ msgid "Loop sequence"
 msgstr "Endurtaka syrpu"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
+msgid "Show next image automatically:\n"
 "(0 to disable)"
-msgstr ""
-"Sýna næstu mynd sjálfkrafa:\n"
+msgstr "Sýna næstu mynd sjálfkrafa:\n"
 "(0 til slá frá)"
 
 #: eog.glade.h:19
@@ -191,21 +213,12 @@ msgid "Default zoom factor for the full screen view"
 msgstr "Sjálfgefið súm hlutfall fyrir fullskjásýn"
 
 #: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Sjálfgefið súmm glidi fyrir heilskjá sýn. Möguleg gildi eru: 0 (nota 1:1 súm "
-"gildi), 1 (nota sömu súm gildi og myndagluggin), 2 (falla mynd að stærð "
-"skjá). "
+msgid "Default zoom factor for the full screen view. Possible values are: 0 (use 1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit the image to the screen)."
+msgstr "Sjálfgefið súmm glidi fyrir heilskjá sýn. Möguleg gildi eru: 0 (nota 1:1 súm gildi), 1 (nota sömu súm gildi og myndagluggin), 2 (falla mynd að stærð skjá). "
 
 #: eog.schemas.in.h:4
 #, fuzzy
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
 msgstr "Ákvarðar hvernig eigi að sýna eigi glærleika. "
 
 #: eog.schemas.in.h:5
@@ -213,12 +226,8 @@ msgid "Fit standard-sized images to the screen"
 msgstr "Fella myndir í stöðluðum stærðum að skjá"
 
 #: eog.schemas.in.h:6
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"Ef glærleikalykill inniheldur gildið LITUR, þá mun þessi lykill ákvarða "
-"litinn sem notaður verður til að sýna eigi glærleika."
+msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
+msgstr "Ef glærleikalykill inniheldur gildið LITUR, þá mun þessi lykill ákvarða litinn sem notaður verður til að sýna eigi glærleika."
 
 #: eog.schemas.in.h:7
 msgid "Interpolate Image"
@@ -245,55 +254,28 @@ msgid "Transparency indicator"
 msgstr "Staða glærleika"
 
 #: eog.schemas.in.h:13
-msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+msgid "Wether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
 msgstr "Hvort að innreikna eigi mynd við notkun á súmmi eður ei. "
 
 #: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Hvort mynd eigi að velja sér stærðar og súm hlutföll sjálfkrafa byggt á "
-"stærð myndar. Ef þessi valmöguleiki er ekki settur mun glugginn fá þá stærð "
-"sem gluggastjóri útdeilir."
+msgid "Whether image windows should pick their size and zooming factor automatically based on the size of the image. If this option is not set, image windows will get whatever size the window manager assigns to them."
+msgstr "Hvort mynd eigi að velja sér stærðar og súm hlutföll sjálfkrafa byggt á stærð myndar. Ef þessi valmöguleiki er ekki settur mun glugginn fá þá stærð sem gluggastjóri útdeilir."
 
 #: eog.schemas.in.h:15
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Hvort að opna eigi mynd í nýjum glugga í stað fyrir að útskipta mynd í "
-"núverandi glugga."
+msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
+msgstr "Hvort að opna eigi mynd í nýjum glugga í stað fyrir að útskipta mynd í núverandi glugga."
 
 #: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
+msgid "Whether the full screen view should display a bevel along the edges of the screen."
 msgstr "Hvort að sýna eigi sniðbrún í útjöðrum skjás í heilskjásýn."
 
 #: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Hvort birta eigi skrunstiku í heilskjásýn. Möguleg gildi eru: 1 (sjálfvirkt; "
-"sýna einungis skrunstiku ef myndin er stærri en skjá), 2 (ekki sýna "
-"skrunstikur)."
+msgid "Whether to display scrollbars on the full screen view. Possible values are: 1 (automatic; only display scrollbars if the image is larger than the window), 2 (never display scrollbars)."
+msgstr "Hvort birta eigi skrunstiku í heilskjásýn. Möguleg gildi eru: 1 (sjálfvirkt; sýna einungis skrunstiku ef myndin er stærri en skjá), 2 (ekki sýna skrunstikur)."
 
 #: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Hvort að fella eigi myndir í stöðluðum stærðum að skjá í heilskjásýn. Þetta "
-"eru myndir eins og 320x420, 640x480, 800x600, osfrv. Hér er valið hvort að "
-"þessar myndir eigi að falla að skjá þrátt fyrir súm stillingar í heilskjásýn."
+msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x600, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
+msgstr "Hvort að fella eigi myndir í stöðluðum stærðum að skjá í heilskjásýn. Þetta eru myndir eins og 320x420, 640x480, 800x600, osfrv. Hér er valið hvort að þessar myndir eigi að falla að skjá þrátt fyrir súm stillingar í heilskjásýn."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -308,9 +290,8 @@ msgid "EOG Image viewer factory"
 msgstr "Verksmiðja EOG myndarýnis"
 
 #: libeog/GNOME_EOG.server.in.in.h:4
-#, fuzzy
 msgid "Embeddable EOG Image"
-msgstr "Embeddable EOG Image"
+msgstr "Innfelld EOG mynd"
 
 #: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
@@ -336,11 +317,19 @@ msgstr "Hlaða mynd"
 msgid "Save Image"
 msgstr "Vista mynd"
 
-#: libeog/eog-image.c:1320
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Ekki tókst að tileinka minni fyrir hleðslu á JPEG skrá"
+
+#: libeog/eog-image.c:1316
 msgid "No image loaded."
 msgstr "Engar innhlaðnar myndir."
 
-#: libeog/eog-image.c:1354
+#: libeog/eog-image.c:1325
+msgid "Images can only be saved as local files."
+msgstr "Myndir er einungis hægt að vista sem staðbundar skrár."
+
+#: libeog/eog-image.c:1360
 msgid "Unsupported image type for saving."
 msgstr "Óstudd gerð myndar til vistunar."
 
@@ -352,12 +341,14 @@ msgstr "Egind"
 msgid "Value"
 msgstr "Gildi"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:170
+#: libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
 msgid "Width"
 msgstr "Breidd"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:178
+#: libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
 msgid "Height"
 msgstr "Hæð"
@@ -366,22 +357,26 @@ msgstr "Hæð"
 msgid "Filename"
 msgstr "Skráarnafn"
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#: libgpi/gpi-dialog-pixbuf.c:303
+#: libgpi/gpi-dialog.glade.h:14
 msgid "Page"
 msgstr "Síða"
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: libgpi/gpi-dialog.c:127
+#: libgpi/gpi-dialog.glade.h:17
 #: viewer/eog-image-view.c:359
 msgid "Preview"
 msgstr "Forsýn"
 
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#: libgpi/gpi-dialog.c:143
+#: libgpi/gpi-dialog.c:229
 msgid "Millimeter"
 msgstr "Millimetrar"
 
 #  First page of notebook: Paper selection and margins.
 #. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+#: libgpi/gpi-dialog.c:227
+#: libgpi/gpi-dialog.glade.h:16
 msgid "Paper"
 msgstr "Pappír"
 
@@ -574,8 +569,11 @@ msgstr "H_ætta"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Samúel Jón Gunnarsson  <sammi@techattack.nu>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270
+#: shell/eog-window.c:720
+#: shell/eog-window.c:812
+#: shell/eog-window.c:849
+#: shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -589,21 +587,15 @@ msgstr "Myndarýnir og myndflokkunarforrit fyrir GNOME"
 
 #: shell/eog-window.c:310
 #, c-format
-msgid ""
-"Could not display help for Eye of Gnome.\n"
+msgid "Could not display help for Eye of Gnome.\n"
 "%s"
-msgstr ""
-"Ekki tókst að sýna hjálp fyrir Eye of Gnome.\n"
+msgstr "Ekki tókst að sýna hjálp fyrir Eye of Gnome.\n"
 "%s"
 
 #: shell/main.c:225
 #, c-format
-msgid ""
-"You are about to open %i windows simultanously. Do you want to open them in "
-"a collection instead?"
-msgstr ""
-"Þú ert við það að opna %i glugga samtímis. Viltu opna þá sem í staðin sem "
-"safn?"
+msgid "You are about to open %i windows simultanously. Do you want to open them in a collection instead?"
+msgstr "Þú ert við það að opna %i glugga samtímis. Viltu opna þá sem í staðin sem safn?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -710,34 +702,35 @@ msgstr "/Besta _Snið"
 msgid "/_Close"
 msgstr "/_Loka"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:982
 msgid "Image successfully saved"
 msgstr "Vistun myndar tókst"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:986
 msgid "Image saving failed"
 msgstr "Vistun myndar mistókst"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1229
 msgid "Image Width"
 msgstr "Breidd myndar"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1232
 msgid "Image Height"
 msgstr "Hæð myndar"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1238
 msgid "Statusbar Text"
 msgstr "Texti tólstiku"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1241
 msgid "Desired Window Width"
 msgstr "Ósk um breidd glugga"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1244
 msgid "Desired Window Height"
 msgstr "Ósk um hæð glugga"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Ekki tókst að virkja GnomeVFS!\n"
+
