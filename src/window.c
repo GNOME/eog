@@ -587,15 +587,6 @@ open_delete_event (GtkWidget *widget, gpointer data)
 	return TRUE;
 }
 
-/* Hide handler for the open file selection dialog; removes the GTK+ grab we
- * keep on it.
- */
-static void
-hide_cb (GtkWidget *widget, gpointer data)
-{
-	gtk_grab_remove (widget);
-}
-
 /**
  * window_open_image_dialog:
  * @window: A window.
@@ -617,6 +608,7 @@ window_open_image_dialog (Window *window)
 
 		priv->file_sel = gtk_file_selection_new (_("Open Image"));
 		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
+		gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
 		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
 
 		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
@@ -630,9 +622,6 @@ window_open_image_dialog (Window *window)
 		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
 				    GTK_SIGNAL_FUNC (open_delete_event),
 				    window);
-		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "hide",
-				    GTK_SIGNAL_FUNC (hide_cb),
-				    window);
 
 		accel_group = gtk_accel_group_new ();
 		gtk_window_add_accel_group (GTK_WINDOW (priv->file_sel), accel_group);
@@ -645,7 +634,6 @@ window_open_image_dialog (Window *window)
 
 	gtk_widget_show_now (priv->file_sel);
 	raise_and_focus (priv->file_sel);
-	gtk_grab_add (priv->file_sel);
 }
 
 /* Picks a reasonable size for the window and zoom factor based on the image size */

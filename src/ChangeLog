@@ -1,3 +1,9 @@
+2000-08-19  Federico Mena Quintero  <federico@helixcode.com>
+
+	* window.c (window_open_image_dialog): The wonders of modern
+	living.  We can just use gtk_window_set_modal() instead of doing
+	the whole grab foo by ourselves.
+
 2000-08-18  Federico Mena Quintero  <federico@helixcode.com>
 
 	Another attempt at fixing auto-sizing; it seems to work now.
