@@ -1,20 +1,24 @@
+# eog.po fordítása Hungarianra
 # Hungarian translation of eog.
 # Copyright (C) 2001-2004 Free Software Foundation, Inc.
 # Gergo Erdi <cactus@cactus.rulez.org>, 2001.
 # Andras Timar <timar@gnome.hu>, 2002-2004.
 # Laszlo Dvornik <dvornikl@mailbox.hu>, 2004.
+# Gabor Kelemen <kg0021@stud.unideb.hu>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2004-03-22 19:33+0100\n"
-"PO-Revision-Date: 2004-03-19 19:54+0100\n"
-"Last-Translator: Laszlo Dvornik <dvornikl@mailbox.hu>\n"
-"Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-23 03:12+0100\n"
+"PO-Revision-Date: 2004-04-12 17:29+0200\n"
+"Last-Translator: Gabor Kelemen <kg0021@stud.unideb.hu>\n"
+"Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -30,11 +34,11 @@ msgstr "Képgyűjtemény"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
 msgid "View as I_mage Collection"
-msgstr ""
+msgstr "Megtekintés kép_gyűjteményként"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:5
 msgid "View as Image Collection"
-msgstr ""
+msgstr "Megtekintés képgyűjteményként"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -164,7 +168,7 @@ msgstr "<b>Átlátszó részek</b>"
 #: eog.glade.h:7
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+msgstr "100%-nál _nagyobb kezdeti nagyítás engedélyezése"
 
 #: eog.glade.h:8
 msgid "As _background"
@@ -214,16 +218,16 @@ msgstr "másodperc"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
+msgstr "0-nál nagyobb érték megadja a másodperceket, amíg egy kép a képernyőn marad mielőtt a következő automatikusan megjelenne. A nulla kikapcsolja az automatikus böngészést."
 
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr ""
+msgstr "100%-nál nagyobb kezdeti nagyítás engedélyezése"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
-msgstr ""
+msgstr "Késleltetés másodpercben a következő kép mutatásáig"
 
 #: eog.schemas.in.h:5
 msgid ""
@@ -247,7 +251,7 @@ msgstr ""
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr ""
+msgstr "Ha nincs beállítva, kezdetben a kis képek nem lesznek kifeszítve a teljes képernyőre."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -255,7 +259,7 @@ msgstr "Kép interpolálása"
 
 #: eog.schemas.in.h:9
 msgid "Loop through the image sequence"
-msgstr ""
+msgstr "A képsorozat ismétlése"
 
 #: eog.schemas.in.h:10
 msgid "Open images in a new window"
@@ -282,13 +286,12 @@ msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"Egy kép megnyitása új ablakban történjen-e, ahelyett hogy az aktuális "
+"Egy kép megnyitása új ablakban történjen-e, ahelyett hogy a jelenlegi "
 "ablakban lecseréli a képet."
 
 #: eog.schemas.in.h:16
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
-msgstr ""
+msgid "Whether or not the sequence of images should be shown in an endless loop."
+msgstr "A képek sorozata végtelen ismétlésben legyen-e megjelenítve?"
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -557,7 +560,7 @@ msgstr "Megnyitás új ablakban"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
-msgstr "Megnyitás az aktuális ablakban"
+msgstr "Megnyitás a jelenlegi ablakban"
 
 #: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
@@ -623,6 +626,7 @@ msgstr "_Eszköztár"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Érdi Gergő <cactus@cactus.rulez.org>\n"
+"Kelemen Gábor <kg0021@stud.unideb.hu>\n"
 "Tímár András <timar@gnome.hu>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
@@ -671,7 +675,7 @@ msgstr "A fájl nem található."
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "`%s' megnyitása nem sikerült"
+msgstr "Nem lehet`megnyitni ezt: %s"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
@@ -739,7 +743,7 @@ msgstr "Men_tés másként..."
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
-msgstr "Oldalbeállítások az aktuális nyomtatóhoz"
+msgstr "Oldalbeállítások a jelenlegi nyomtatóhoz"
 
 #: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
@@ -829,3 +833,4 @@ msgstr "Kívánt ablakszélesség"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Kívánt ablakmagasság"
+
