@@ -878,6 +878,11 @@ eog_image_view_construct (EogImageView       *image_view,
 	image_view->priv->image_view = ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image));
 	gtk_widget_ref (image_view->priv->image_view);
 
+	/* Some sensible defaults */
+	image_view_set_scroll      (IMAGE_VIEW (image_view->priv->image_view), SCROLL_TWO_PASS);
+	image_view_set_interp_type (IMAGE_VIEW (image_view->priv->image_view), GDK_INTERP_HYPER);
+	image_view_set_dither      (IMAGE_VIEW (image_view->priv->image_view), GDK_RGB_DITHER_MAX);
+
 	image_set_image_cb (image, image_view);
 	gtk_widget_show (image_view->priv->ui_image);
 
