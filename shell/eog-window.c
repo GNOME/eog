@@ -91,6 +91,7 @@ struct _EogWindowPrivate {
 	GtkWidget           *wraplist;
 	GtkWidget           *info_view;
 	GtkWidget           *statusbar;
+	GtkWidget           *n_img_label;
 
 	/* available action groups */
 	GtkActionGroup      *actions_window;
@@ -132,6 +133,7 @@ static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
 static void adapt_window_size (EogWindow *window, int width, int height);
+static void update_status_bar (EogWindow *window);
 
 static GtkWindowClass *parent_class;
 
@@ -2049,6 +2051,8 @@ image_loading_finished_cb (EogImage *image, gpointer data)
 		g_print ("loading finished: %s - (%i|%i)\n", eog_image_get_caption (image), width, height);
 #endif
 	}
+
+	update_status_bar  (window);
 }
 
 static void
@@ -2058,12 +2062,67 @@ image_loading_failed_cb (EogImage *image, const char* message,  gpointer data)
 }
 
 static void
+update_status_bar (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	int nimg;
+	int nsel;
+	char *n_img_str = NULL;
+	char *str = NULL;
+
+	priv = window->priv;
+
+	/* update number of selected images */	
+	nimg = eog_image_list_length (priv->image_list);
+	if (nimg > 0) {
+		nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+		/* Images: (n_selected_images) / (n_total_images) */
+		n_img_str = g_strdup_printf ("%i / %i", nsel, nimg);
+	}
+	gtk_label_set_text (GTK_LABEL (priv->n_img_label), n_img_str);
+	
+	if (priv->displayed_image != NULL) {
+		int zoom, width, height;
+		GnomeVFSFileSize bytes = 0;
+
+		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->scroll_view)));
+		
+		eog_image_get_size (priv->displayed_image, &width, &height);
+		bytes = eog_image_get_bytes (priv->displayed_image);
+		
+		if ((width > 0) && (height > 0)) {
+			char *size_string;
+
+			size_string = gnome_vfs_format_file_size_for_display (bytes);
+
+			/* [image width] x [image height] pixel  [bytes]    [zoom in percent] */
+			str = g_strdup_printf (_("%i x %i pixel  %s    %i%%"), 
+					       width, height, size_string, zoom);
+			
+			g_free (size_string);
+		}
+	}
+
+	if (str != NULL) {
+		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), str);
+		g_free (str);
+	}
+	else {
+		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), "");
+	}
+}
+
+static void
+view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer data)
+{
+	update_status_bar (EOG_WINDOW (data));
+}
+
+static void
 handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
 {
 	EogWindowPrivate *priv;
 	EogImage *image;
-	gchar *str;
-	gint nimg, nsel;
 	char *title = NULL; 
 
 	priv = window->priv;
@@ -2096,14 +2155,8 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	
         eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
-	
-	/* update status bar text */	
-	nimg = eog_image_list_length (priv->image_list);
-	nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
-	
-	/* Images: (n_selected_images) / (n_total_images) */
-	str = g_strdup_printf (_("Images: %i/%i"), nsel, nimg);
-	gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), str);
+
+	update_status_bar (window);
 
 	/* update window title */
 	if (image != NULL) {
@@ -2119,7 +2172,6 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	gtk_window_set_title (GTK_WINDOW (window), title);
 		
 	g_free (title);
-	g_free (str);
 }
 
 typedef struct {
@@ -2297,6 +2349,14 @@ eog_window_construct_ui (EogWindow *window)
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_NEVER);
+	{
+		GtkWidget *frame;
+		frame = g_object_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
+		priv->n_img_label = gtk_label_new ("       ");
+		gtk_container_add (GTK_CONTAINER (frame), priv->n_img_label);
+		gtk_box_pack_start (GTK_BOX (priv->statusbar), frame, FALSE, TRUE, 0);
+	}
+
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
 
@@ -2306,6 +2366,10 @@ eog_window_construct_ui (EogWindow *window)
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
 	/* g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL); */
+	g_signal_connect (G_OBJECT (priv->scroll_view),
+			  "zoom_changed",
+			  (GCallback) view_zoom_changed_cb, window);
+
 	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
