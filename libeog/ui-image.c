@@ -226,7 +226,6 @@ drag_to (UIImage *ui, int x, int y)
 {
 	UIImagePrivate *priv;
 	int dx, dy;
-	GtkAdjustment *adj;
 
 	priv = ui->priv;
 
