@@ -3,7 +3,7 @@ NULL=
 idldir = $(datadir)/idl
 
 idl_DATA =				\
-	eog.idl
+	Eog.idl
 	$(NULL)
 
 EXTRA_DIST = $(idl_DATA)
