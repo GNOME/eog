@@ -1374,6 +1374,9 @@ eog_image_view_set_ui_container (EogImageView      *image_view,
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Setting ui container for EogImageView...");
+
 	bonobo_ui_component_set_container (image_view->priv->uic, ui_container);
 
 	eog_image_view_create_ui (image_view);
@@ -1384,6 +1387,9 @@ eog_image_view_unset_ui_container (EogImageView *image_view)
 {
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Unsetting ui container for EogImageView...");
 
 	bonobo_ui_component_unset_container (image_view->priv->uic);
 }

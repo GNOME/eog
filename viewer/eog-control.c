@@ -277,7 +277,7 @@ static const gchar *zoom_toolbar =
 "</dockitem>";
 
 static const gchar *zoom_menu =
-"<placeholder name=\"ZoomMenu\">\n"
+"<placeholder name=\"ZoomOperations\">\n"
 "  <menuitem name=\"ZoomIn\" _label=\"Zoom _In\" verb=\"\"/>\n"
 "  <menuitem name=\"ZoomOut\" _label=\"Zoom _Out\" verb=\"\"/>\n"
 "  <menuitem name=\"ZoomToDefault\" _label=\"Zoom to _Default\" verb=\"\"/>\n"

@@ -32,6 +32,9 @@ eog_embeddable_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_EMBEDDABLE (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogEmbeddable...");
+
 	embeddable = EOG_EMBEDDABLE (object);
 
 	if (embeddable->priv->image) {
@@ -195,6 +198,9 @@ eog_embeddable_new (EogImage *image)
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Creating EogEmbeddable...");
 
 	embeddable = gtk_type_new (eog_embeddable_get_type ());
 

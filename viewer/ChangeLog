@@ -1,3 +1,15 @@
+2001-07-08  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* eog-control.c: ZoomMenu -> ZoomOperations
+	* eog-embeddable.c: Debugging stuff added.
+	* eog-image-view-ui.xml: Print -> PrintOperations
+	* eog-image-view.c: Debugging stuff added.
+
+2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* eog-image.c: Doh, free the old filename before loading a new image.
+	Use BONOBO_EX. Clean up on error: unref the uri.
+
 2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
 	* eog-image.[c,h]: Don't rely on libeog/image.[c,h] to keep pixbuf
