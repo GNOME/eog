@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eyes of Gnome HEAD\n"
-"POT-Creation-Date: 2003-06-14 02:16+0800\n"
-"PO-Revision-Date: 2003-06-14 02:17+0800\n"
+"POT-Creation-Date: 2003-08-02 02:43+0800\n"
+"PO-Revision-Date: 2003-07-31 15:25+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +25,11 @@ msgstr "Kilang pelihat koleksi Imej EOG"
 msgid "Image Collection"
 msgstr "Koleksi Imej"
 
-#: collection/eog-collection-view-ui.xml.h:1
-#: viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "Flip Meng_ufuk"
 
-#: collection/eog-collection-view-ui.xml.h:2
-#: viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "Flip Me_negak"
 
@@ -51,62 +49,72 @@ msgstr "Terdahulu"
 msgid "Previous Image"
 msgstr "Imej Terdahulu"
 
-#: collection/eog-collection-view-ui.xml.h:7
-#: viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
 msgid "Rotate 180 _Degrees"
 msgstr "Dikilas 180 _Darjah"
 
-#: collection/eog-collection-view-ui.xml.h:8
-#: viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate C_lockwise"
 msgstr "Kilas _Ikut Jam"
 
-#: collection/eog-collection-view-ui.xml.h:9
-#: viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Counte_r Clockwise"
 msgstr "Kilas Ber_lawanan Jam"
 
-#: collection/eog-collection-view-ui.xml.h:10
-#: eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Paparan Slaid"
 
-#: collection/eog-collection-view-ui.xml.h:11
-#: shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Edit"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Simpan"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Nyahcara"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Lihat"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Batal menyimpan"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Penyimpanan selesai"
+
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "Pindah ke Sampah"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "Paparan Koleksi"
 
-#: collection/eog-collection-view.c:1039
-#: viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "Tajuk Tetingkap"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Teks Status"
 
-#: collection/eog-collection-view.c:1045
-#: viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
 msgid "Progress of Image Loading"
 msgstr "Progrem Pemuatan Imej"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Simpan imej"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -190,76 +198,54 @@ msgid "sec"
 msgstr "saat"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Automatik pilih saiz tetingkap"
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
+"determines the used color value."
+msgstr ""
+"Menentukan bagaimana ketelusan patut ditunjuk. Nilai sah ialah "
+"CHECK_PATERN , COLOR dan NONE. Jika COLOR dipilih, kekunci trans_color "
+"menentukan nilai warna yg digunakan."
 
 #: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Faktor zoom default bagi paparan skrin penuh"
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+"Jika kekunci ketelusan mempunyai nilai COLOR, kemudian kekunci ini "
+"menentukan warna yang digunakan untuk menunjukkan ketelusan"
 
 #: eog.schemas.in.h:3
-msgid "Default zoom factor for the full screen view. Possible values are: 0 (use 1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit the image to the screen)."
-msgstr "Faktor zoom default bagi paparan skrin penuh. Nilai yang boleh adalah: 0 (guna faktor zoom 1:1), 1( guna faktor zoom sama dengan tetingkap imej), 2 (imej muat pada skrin)."
-
-#: eog.schemas.in.h:4
-msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
-msgstr "Menentukan bagaimana ketelusan patut ditunjuk. Nilai sah ialah CHECK_PATERN , COLOR dan NONE. Jika COLOR dipilih, kekunci trans_color menentukan nilai warna yg digunakan."
-
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Imej muat saiz-piawai ke skrin"
-
-#: eog.schemas.in.h:6
-msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
-msgstr "Jika kekunci ketelusan mempunyai nilai COLOR, kemudian kekunci ini menentukan warna yang digunakan untuk menunjukkan ketelusan"
-
-#: eog.schemas.in.h:7
 msgid "Interpolate Image"
 msgstr "Interpolasi Imej"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Buka imej di tetingkap baru"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Letak bevel sekeliling skrin"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Polisi bar skrol bagi paparan skrin penuh"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "warna ketelusan"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Penunjuk ketelusan"
 
-#: eog.schemas.in.h:13
-msgid "Wether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
-msgstr "Samada imej patut diinterpolasikan pada zoom atau tidak. Ini membawa kepada kualiti lebih baik tetapi lebih perlahan drpd imej bukan diinterpolasi"
+#: eog.schemas.in.h:7
+msgid ""
+"Wether the image should be interpolated on zoom or not. This leads to better "
+"quality but is somewhat slower than non interpolated images."
+msgstr ""
+"Samada imej patut diinterpolasikan pada zoom atau tidak. Ini membawa kepada "
+"kualiti lebih baik tetapi lebih perlahan drpd imej bukan diinterpolasi"
 
-#: eog.schemas.in.h:14
-msgid "Whether image windows should pick their size and zooming factor automatically based on the size of the image. If this option is not set, image windows will get whatever size the window manager assigns to them."
-msgstr "Samada tetingkap imej patut memilih saiznya dan faktor zoom berubah automatik berdasarkan saiz imej. JIka opsyen ini tidak ditetapkan, tetingkap imej akan mendapat apajua saiz yang diberikan oleh pengurus tetingkap padanya."
-
-#: eog.schemas.in.h:15
-msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
-msgstr "Samada imej patut mencipta tetingkap baru selain drpd mengganti imej pada tetingkap semasa."
-
-#: eog.schemas.in.h:16
-msgid "Whether the full screen view should display a bevel along the edges of the screen."
-msgstr "Samada paparan skrin penuh patut memapar bevel sepanjang pinggir skrin."
-
-#: eog.schemas.in.h:17
-msgid "Whether to display scrollbars on the full screen view. Possible values are: 1 (automatic; only display scrollbars if the image is larger than the window), 2 (never display scrollbars)."
-msgstr "Samada memapar bar skrol pada paparan skrin penuh"
-
-#: eog.schemas.in.h:18
-msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x600, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
-msgstr "Samada imej muat saiz-piawai ke skrin bila mod skrin penuh. Saiz Imej itu seperti 320x240, 640x480, 800x800, etc. Pemiliha ini menentukan samada imej patut diskalakan supaya muat dengan skrin tanpa mengambilkira tetapan faktor zoom default bagi paparan skrin penuh."
+#: eog.schemas.in.h:8
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Samada imej patut mencipta tetingkap baru selain drpd mengganti imej pada "
+"tetingkap semasa."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -301,15 +287,19 @@ msgstr "Muatkan imej"
 msgid "Save Image"
 msgstr "Simpan Imej"
 
-#: libeog/eog-image.c:1316
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Tak dapat memperuntukkan memori untuk memuatkan fail JPEG"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Tiada imej dimuatkan."
 
-#: libeog/eog-image.c:1325
+#: libeog/eog-image.c:1347
 msgid "Images can only be saved as local files."
 msgstr "Imej hanya boleh disimpan sebagai fail lokal."
 
-#: libeog/eog-image.c:1360
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Jenis fail imej tidak disokong untuk disimpan."
 
@@ -321,14 +311,12 @@ msgstr "Atribut"
 msgid "Value"
 msgstr "Nilai"
 
-#: libeog/eog-info-view.c:170
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
 msgid "Width"
 msgstr "Lebar"
 
-#: libeog/eog-info-view.c:178
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
 msgid "Height"
 msgstr "Tinggi"
@@ -337,25 +325,21 @@ msgstr "Tinggi"
 msgid "Filename"
 msgstr "Namafail"
 
-#: libgpi/gpi-dialog-pixbuf.c:303
-#: libgpi/gpi-dialog.glade.h:14
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
 msgid "Page"
 msgstr "Halaman"
 
-#: libgpi/gpi-dialog.c:127
-#: libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Prebiu"
 
-#: libgpi/gpi-dialog.c:143
-#: libgpi/gpi-dialog.c:229
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
 msgid "Millimeter"
 msgstr "Milimeter"
 
 #. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227
-#: libgpi/gpi-dialog.glade.h:16
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
 msgid "Paper"
 msgstr "Kertas"
 
@@ -433,20 +417,8 @@ msgid "Vertically by "
 msgstr "Menegak mengikut "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "kawasan_aksi"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -544,27 +516,20 @@ msgstr "_Keluar"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>, Merlimau. 2002"
 
-#: shell/eog-window.c:270
-#: shell/eog-window.c:720
-#: shell/eog-window.c:812
-#: shell/eog-window.c:849
-#: shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Ainul Gnome"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Hakcipta (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program untuk melihat dan mengkatalog imej GNOME."
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -575,8 +540,12 @@ msgstr ""
 
 #: shell/main.c:225
 #, c-format
-msgid "You are about to open %i windows simultanously. Do you want to open them in a collection instead?"
-msgstr "Anda cuba membuka %i tetingkap serentakAdakah anda ingin membukanyapada koleksi sebaliknya?"
+msgid ""
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
+msgstr ""
+"Anda cuba membuka %i tetingkap serentakAdakah anda ingin membukanyapada "
+"koleksi sebaliknya?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -648,74 +617,100 @@ msgid "Print image to the printer"
 msgstr "Cetak imej ke pencetak"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Kilas Kiri"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Kilas Kanan"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Simpan Seb_agai..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Tetapan halaman bagi pencetak semasa"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "Skrin _Penuh"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "?Kilas _Ikut Jam"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Kilas Ber_lawanan Jam"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Zoom _Masuk"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Zoom _Keluar"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Saiz _Normal"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Zoom supaya _Muat"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Tutup"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Pemuatan imej %s gagal."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Pemuatan imej %s gagal.\n"
+"Alasan: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Pemuatan gagal"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "Imej berjaya disimpan"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "Penyimpanan imej gagal"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "Lebar Imej"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "Tinggi Imej"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "Teks Bar Status"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "Lebar Tetingkap Digemari"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "Tinggi Tetingkap Digemari"
-
-#: viewer/eog-image.c:480
-msgid ""
-"Couldn't initialize GnomeVFS!\n"
-""
-msgstr ""
-"Tak dapat menginitialisasikan GnomeVFS!\n"
-""
-
