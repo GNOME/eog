@@ -1,5 +1,12 @@
 2001-05-21  Jens Finke <jens@gnome.org>
 
+	* eog-window.c (title_changed_cb) New function to update the
+	window title.
+	(set_window_title): Listen to changes to the 'window_title'
+	property of the embedded control.
+
+2001-05-21  Jens Finke <jens@gnome.org>
+
 	* eog-window.c (set_window_title): New function, which retrieves
 	the window title from the control property 'bonobo:title'.
 	(eog_window_open): Call set_window_title.

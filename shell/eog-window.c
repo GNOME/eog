@@ -777,9 +777,24 @@ auto_size (EogWindow *window)
 #endif
 
 static void
+title_changed_cb (BonoboListener    *listener,
+		  char              *event_name, 
+		  CORBA_any         *any,
+		  CORBA_Environment *ev,
+		  gpointer           user_data)
+{
+
+	EogWindow *window;
+
+	window = EOG_WINDOW (user_data);
+
+        gtk_window_set_title (GTK_WINDOW (window), BONOBO_ARG_GET_STRING (any));
+}
+
+static void
 set_window_title (EogWindow *window)
 {
-	EogWindowPrivate *priv;
+        EogWindowPrivate *priv;
 	BonoboControlFrame *ctrl_frame;
 	Bonobo_PropertyBag pb;
 	gchar *title;
@@ -798,11 +813,16 @@ set_window_title (EogWindow *window)
                 ctrl_frame, &ev);
 	if (pb == CORBA_OBJECT_NIL) goto on_error;
 
-	title = bonobo_property_bag_client_get_value_string (pb, "bonobo:title", &ev);
+	title = bonobo_property_bag_client_get_value_string (pb, "window_title", &ev);
 	if (title == NULL) goto on_prop_error;
 
 	gtk_window_set_title (GTK_WINDOW (window), title);
 	g_free (title);
+
+	/* register for further changes */
+	bonobo_event_source_client_add_listener (pb, (BonoboListenerCallbackFn) title_changed_cb,
+						 "Bonobo/Property:change:window_title", NULL,
+						 window);
 
 	bonobo_object_release_unref (pb, &ev);
 	CORBA_exception_free (&ev);
