@@ -3,6 +3,7 @@ SUBDIRS = cursors stock
 gladedir = $(datadir)/eog/glade
 
 INCLUDES =						\
+	-I$(top_srcdir)/libeog				\
 	-I$(includedir)					\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
@@ -10,27 +11,6 @@ INCLUDES =						\
 	-DEOG_GLADEDIR=\""$(gladedir)"\"		\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
 	-DG_LOG_DOMAIN=\"eog\"
-
-noinst_LTLIBRARIES = libeog.la
-
-libeog_la_SOURCES =			\
-	gtkscrollframe.c		\
-	gtkscrollframe.h		\
-	image-view.c			\
-	image-view.h			\
-	image.h				\
-	image.c				\
-	uta.c				\
-	uta.h				\
-	cursors.c			\
-	cursors.h			\
-	ui-image.c			\
-	ui-image.h			\
-	zoom.c				\
-	zoom.h
-
-libeog_la_LIBADD =			\
-	$(EXTRA_GNOME_LIBS)
 
 eog_SOURCES =				\
 	commands.c			\
@@ -41,12 +21,6 @@ eog_SOURCES =				\
 	full-screen.h			\
 	gnome-icon-list-model.c		\
 	gnome-icon-list-model.h		\
-	gtkscrollframe.c		\
-	gtkscrollframe.h		\
-	image.h				\
-	image.c				\
-	image-view.c			\
-	image-view.h			\
 	main.c				\
 	preferences.c			\
 	preferences.h			\
@@ -86,7 +60,7 @@ eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\
 	$(INTLLIBS)		\
 	$(GCONF_LIBS)		\
-	libeog.la
+	../libeog/libeog.la
 
 #testicon_LDADD =		\
 #	 $(EXTRA_GNOME_LIBS)	\
