@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-14 08:33+0400\n"
-"PO-Revision-Date: 2002-06-14 08:36+0400\n"
+"POT-Creation-Date: 2002-06-29 17:58+0400\n"
+"PO-Revision-Date: 2002-06-29 17:59+0400\n"
 "Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Программа просмотра изображений Eye of Gnom
 msgid "View many different types of images"
 msgstr "Позволяет просмотреть изображения различных типов"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
 msgstr "Изображение программы EOG"
 
@@ -50,31 +50,36 @@ msgstr "Фабрика программы просмотра изображен�
 msgid "Embeddable EOG Image"
 msgstr "Встраиваемое изображение программы EOG"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Изображение"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "тип интерполяции"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "тип применяемой интерполяция"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "тип отметок"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "тип используемых отметок"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "размер используемых отметок"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "смешивание"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "тип смешивания"
 
@@ -187,26 +192,26 @@ msgstr "_Вид"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:238
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Евгений Булгаков <bgav@netvision.net.il>\n"
 "Валёк Филлипов <frob@df.ru>\n"
 "Дмитрий Мастрюков <dmitry@taurussoft.org>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:245
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторское право (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:246
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Программа просмотра и каталогизации изображений для среды GNOME"
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:283
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -215,11 +220,11 @@ msgstr ""
 "Не удалось отобразить справку для программы Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:798
 msgid "Open Image"
 msgstr "Открыть изображение"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1257
 #, c-format
 msgid "Unable to open %s."
 msgstr "Невозможно открыть %s."
@@ -268,15 +273,15 @@ msgid ""
 "access them:\n"
 "%s"
 msgstr ""
-"Следующие файлы не могут быть отображены, так как программа Eye of Gnome "
-"не смогла получить доступ к ним:\n"
+"Следующие файлы не могут быть отображены, так как программа Eye of Gnome не "
+"смогла получить доступ к ним:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Не удалось инициализировать GnomeVFS!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Не удалось инициализировать Bonobo!\n"
 
@@ -429,68 +434,88 @@ msgstr "Интерполяция _элементов"
 msgid "_White"
 msgstr "_Белое"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не удалось сохранить изображение как \"%s\": %s."
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "Напечатать изображение"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "Страницы"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "Просмотр образца печати"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "Сбой печати изображения"
 
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "Отображение"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/У_величить масштаб"
+
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/У_меньшить масштаб"
+
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/Масштабировать _1:1"
+
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/Масштабировать до _заполнения"
+
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/_Закрыть"
+
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "Тип отметок"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "Размер отметок"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Не удалось инициализировать GnomeVFS!\n"
 
@@ -584,11 +609,6 @@ msgstr "Справа:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Снизу:"
-
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Изображение"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
