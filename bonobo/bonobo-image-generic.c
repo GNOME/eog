@@ -11,7 +11,8 @@
  *    Queue request-resize on image size change/load
  *    Save image
  */
-#if 0
+/*#define GENERIC_IMAGE*/
+#ifdef  GENERIC_IMAGE
 #include <config.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -37,7 +38,6 @@ typedef struct {
  * View data
  */
 typedef struct {
-	double                scale;
 	bonobo_object_data_t *bod;
 	GtkWidget            *drawing_area;
 	GdkPixBuf            *scaled;
@@ -188,6 +188,18 @@ redraw_all (bonobo_object_data_t *bod)
 	}
 }
 
+static void
+view_update (view_data_t *view_data)
+{
+	GdkRectangle rect;
+
+	g_return_if_fail (view_data != NULL);
+
+	configure_size (view_data, &rect);
+		
+	redraw_view (view_data, &rect);
+}
+
 /*
  * Callback for reading from a stream.
  */
@@ -287,6 +299,50 @@ view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
 	*desired_height = pixbuf->height;
 }
 
+/*
+ * This callback will be invoked when the container assigns us a size.
+ */
+static void
+view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
+		       view_data_t *view_data)
+{
+	const GdkPixBuf *buf;
+	GdkPixBuf       *view_buf;
+
+	g_return_if_fail (view_data != NULL);
+	g_return_if_fail (allocation != NULL);
+	g_return_if_fail (view_data->bod != NULL);
+	g_return_if_fail (view_data->bod->pixbuf != NULL);
+
+	buf = view_data->bod->pixbuf;
+
+	if (allocation->width  == buf->art_pixbuf->width &&
+	    allocation->height == buf->art_pixbuf->height) {
+		if (view_data->scaled) {
+			gdk_pixbuf_unref (view_data->scaled);
+			view_data->scaled = NULL;
+		}
+		return;
+	}
+
+	view_buf = view_data->scaled;
+	if (view_buf) {
+		if (allocation->width  == view_buf->art_pixbuf->width &&
+		    allocation->height == view_buf->art_pixbuf->height)
+			return;
+		else {
+			view_data->scaled = NULL;
+			gdk_pixbuf_unref (view_buf);
+			view_buf = NULL;
+		}
+	}
+
+	view_data->scaled = gdk_pixbuf_scale (buf,
+					      allocation->width,
+					      allocation->height);
+	view_update (view_data);
+}
+
 static GnomeView *
 view_factory (GnomeEmbeddable *bonobo_object,
 	      const GNOME_ViewFrame view_frame,
@@ -296,7 +352,6 @@ view_factory (GnomeEmbeddable *bonobo_object,
 	bonobo_object_data_t *bod = data;
 	view_data_t *view_data = g_new (view_data_t, 1);
 
-	view_data->scale = 1.0;
 	view_data->bod = bod;
 	view_data->drawing_area = gtk_drawing_area_new ();
 	view_data->scaled = NULL;
@@ -308,6 +363,8 @@ view_factory (GnomeEmbeddable *bonobo_object,
 
         gtk_widget_show (view_data->drawing_area);
         view = gnome_view_new (view_data->drawing_area);
+	gtk_signal_connect (GTK_OBJECT (view_data->drawing_area), "size_allocate",
+			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
 
 	gtk_signal_connect (GTK_OBJECT (view), "size_query",
 			    GTK_SIGNAL_FUNC (view_size_query_cb), view_data);
@@ -406,11 +463,11 @@ init_server_factory (int argc, char **argv)
 	CORBA_exception_free (&ev);
 }
 
-#endif
+#endif /* GENERIC_IMAGE */
 int
 main (int argc, char *argv [])
 {
-#if 0
+#ifdef GENERIC_IMAGE
 	init_server_factory (argc, argv);
 
 	init_bonobo_image_generic_factory ();
@@ -420,6 +477,6 @@ main (int argc, char *argv [])
 
 	bonobo_main ();
 	
-#endif
+#endif /* GENERIC_IMAGE */
 	return 0;
 }
