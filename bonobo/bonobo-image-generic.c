@@ -280,7 +280,6 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *dat
 			gdk_pixbuf_loader_close (loader);
 			gtk_object_destroy (GTK_OBJECT (loader));
 			CORBA_free (buffer);
-			CORBA_exception_free (ev);
 			return;
 		}
 		CORBA_free (buffer);
@@ -291,14 +290,14 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *dat
 	gdk_pixbuf_loader_close (loader);
 	gtk_object_destroy (GTK_OBJECT (loader));
 
-	if (!bod->pixbuf)
+	if (!bod->pixbuf) {
+		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+				     ex_Bonobo_Persist_WrongDataType, NULL);
 		return;
-	else
+	} else
 		bonobo_embeddable_foreach_view (bod->bonobo_object,
 						redraw_all_cb, bod);
 	
-	CORBA_exception_free (ev);
-
 	return;
 }
 
