@@ -32,16 +32,13 @@ module GNOME {
 			CHECK_SIZE_LARGE
 		};
 
-		interface ImageData : Bonobo::Unknown {
+		interface Image : Bonobo::Unknown {
 			/* This is just a handle to a pixbuf plus a loader
 			 * context and stuff; can be hydrated from a
 			 * PersistStream.  It may emit signals via a listener
 			 * to notify the world of regions of an image being
 			 * loaded or updated.
 			 */
-		};
-
-		interface Image : ImageData {
 		};
 
 		interface ImageView : Bonobo::Unknown {
