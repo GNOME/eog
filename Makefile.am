@@ -1,18 +1,16 @@
 SUBDIRS = art intl macros po idl libeog viewer doc shell collection
 
-schemadir = $(sysconfdir)/gconf/schemas
-schema_DATA = eog.schemas
-
-EXTRA_DIST =		\
-	DEPENDS		\
-	HACKING		\
-	MAINTAINERS	\
-	TODO		\
-	eog.desktop.in	\
-	eog.spec	\
-	eog.spec.in	\
-	gnome-eog.png	\
-	$(schema_DATA)	\
+EXTRA_DIST =			\
+	DEPENDS			\
+	HACKING			\
+	MAINTAINERS		\
+	TODO			\
+	eog.schemas		\
+	eog.desktop.in		\
+	eog.spec		\
+	eog.spec.in		\
+	gnome-eog.png		\
+	eog.schemas		\
 	xml-i18n-extract.in	\
 	xml-i18n-update.in	\
 	xml-i18n-merge.in
@@ -26,4 +24,4 @@ icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) gconftool --makefile-install-rule $(top_srcdir)/$(schema_DATA)
+	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) gconftool --makefile-install-rule $(top_srcdir)/eog.schemas
