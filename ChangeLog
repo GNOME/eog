@@ -1,3 +1,12 @@
+2002-06-26  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes #86469.
+
+	* shell/eog-window.c (eog_window_close_all): New function.
+	(verb_FileExit_cb): Use eog_window_close_all(); this function was
+	fantastically buggy.
+	* shell/main.c (client_die_cb): Use eog_window_close_all().
+
 2002-06-26  Yanko Kaneti <yaneti@declera.com>
 
 	* configure.in: (ALL_LINGUAS) Added Bulgarian (bg).
