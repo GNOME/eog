@@ -1,19 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# translation of eog.po to zh_CN
+# Copyright (C) 2003 Free Software Foundation, Inc.
 # Wang Li <charles@linux.net.cn>, 2002
 # Sun G11n <gnome_int_l10n@ireland.sun.com>, 2002
 # Updated by He Qiangqiang <carton@linux.net.cn>, 2002
+# Xiong Jiang <jxiong@offtopic.org>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
-"PO-Revision-Date: 2002-09-04 21:56+0800\n"
+"POT-Creation-Date: 2003-01-05 10:46+0100\n"
+"PO-Revision-Date: 2003-01-29 22:41+0800\n"
 "Last-Translator: Wang Li <charles@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
 
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -26,9 +28,8 @@ msgstr "EOG 图像集查看车间"
 
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
-#, fuzzy
 msgid "Image Collection"
-msgstr "EOG 图像集"
+msgstr "图像集"
 
 # SUN CHANGED MESSAGE
 #: eog.desktop.in.h:1
@@ -42,11 +43,11 @@ msgstr "查看许多不同类型的图像"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr ""
+msgstr "使用颜色(_O)"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "使用方格图案(_P)"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
@@ -57,25 +58,24 @@ msgid "Image Viewer"
 msgstr "图像查看器"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "Indicate Transparency"
-msgstr "透明类型"
+msgstr "指示透明区域"
 
 #: eog.glade.h:6
 msgid "Pick a color"
-msgstr ""
+msgstr "挑选颜色"
 
 #: eog.glade.h:7
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+msgstr "在放缩时插补图像(质量更好但较慢)(_I)"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "自动确定窗口大小"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "全屏显示的默认放缩因子"
 
 #: eog.schemas.in.h:3
 msgid ""
@@ -83,6 +83,8 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
+"全屏显示的默认放缩因子。可用的值有：0 (使用 1:1 放缩因子)，1 (使用和图像窗口"
+"相同的放缩因子)，2 (放缩图像适合屏幕)。"
 
 #: eog.schemas.in.h:4
 msgid ""
@@ -90,52 +92,51 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
+"确定如何指示透明区域。可用的值有 CHECK_PATTERN 和  COLOR。如果选择 COLOR，则 "
+"trans_color 键值将确定使用的颜色值。"
 
 #: eog.schemas.in.h:5
-#, fuzzy
 msgid "Fit standard-sized images to the screen"
-msgstr "以标准图像大小适合屏幕"
+msgstr "将标准大小的图像放缩到适合屏幕"
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
-msgstr ""
+msgstr "如果透明键值是 COLOR，这个键值则确定用来表示透明区域的颜色。"
 
 # SUN CHANGED MESSAGE
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "插补"
+msgstr "插补图像"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "在新窗口打开"
+msgstr "在新窗口打开图像"
 
 #: eog.schemas.in.h:9
 msgid "Put a bevel around the screen"
-msgstr ""
+msgstr "在屏幕四周绘制框架"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "全屏显示的滚动条设置"
 
 #: eog.schemas.in.h:11
-#, fuzzy
 msgid "Transparency color"
-msgstr "透明类型"
+msgstr "透明区域颜色"
 
 #: eog.schemas.in.h:12
-#, fuzzy
 msgid "Transparency indicator"
-msgstr "透明类型"
+msgstr "透明区域指示"
 
 #: eog.schemas.in.h:13
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
+"在放缩图像时是否应该进行插补。这样能得到更好的质量，但是比不插补的图像显示的"
+"速度要慢一点。"
 
 #: eog.schemas.in.h:14
 msgid ""
@@ -143,18 +144,20 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
+"是否应该根据图像的尺寸自动确定图像窗口的尺寸和放缩因子。如果未选中这个选项，"
+"图像窗口将使用窗口管理器指定的任何尺寸。"
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
+msgstr "打开图像时是否应该创建新窗口，或者替换当前窗口中的图像。"
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
-msgstr ""
+msgstr "全屏显示是是否应该在屏幕的四边显示框架。"
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -162,6 +165,8 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
+"全屏显示时是否显示滚动条。可用的值有：1 (自动；只有在图像比窗口大的时候才显示"
+"滚动条)，2 (从不显示滚动条)。"
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -170,6 +175,9 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
+"在全屏显示方式中是否将标准尺寸的图像放缩到适合屏幕大小。标准尺寸是比如 "
+"320x240、640x480、800x800 等等这样的图像。这选择无论全屏显示的默认放缩因子是"
+"如何设置的，这样的图像是否应该被放缩到适合屏幕大小。"
 
 #: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
@@ -227,77 +235,75 @@ msgstr "抖动类型"
 
 #: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
 msgid "By Extension"
-msgstr ""
+msgstr "根据扩展名"
 
 #: libeog/eog-file-selection.c:30
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 #: libeog/eog-file-selection.c:31
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: libeog/eog-file-selection.c:32
 msgid "ICO"
-msgstr ""
+msgstr "ICO"
 
 #: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: libeog/eog-file-selection.c:35
 msgid "PNM"
-msgstr ""
+msgstr "PNM"
 
 #: libeog/eog-file-selection.c:36
 msgid "RAS"
-msgstr ""
+msgstr "RAS"
 
 #: libeog/eog-file-selection.c:37
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: libeog/eog-file-selection.c:38
 msgid "TGA"
-msgstr ""
+msgstr "TGA"
 
 #: libeog/eog-file-selection.c:39
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: libeog/eog-file-selection.c:40
 msgid "XBM"
-msgstr ""
+msgstr "XBM"
 
 #: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
 msgid "XPM"
-msgstr ""
+msgstr "XPM"
 
 #: libeog/eog-file-selection.c:207
 msgid "Unsupported file format."
-msgstr ""
+msgstr "不支持的文件格式。"
 
 #: libeog/eog-file-selection.c:227
 msgid "Determine File Type:"
-msgstr ""
+msgstr "确定文件类型："
 
 #: libeog/eog-file-selection.c:270
-#, fuzzy
 msgid "Load Image"
-msgstr "图像"
+msgstr "载入图像"
 
 #: libeog/eog-file-selection.c:276
-#, fuzzy
 msgid "Save Image"
-msgstr "打开图像"
+msgstr "保存图像"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
-msgstr "关于该应用程序"
+msgstr "关于本应用程序"
 
 #: shell/eog-shell-ui.xml.h:2
 msgid "Cancel"
@@ -314,7 +320,7 @@ msgstr "关于该应用程序的帮助"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "新建"
 
 #: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
@@ -337,13 +343,12 @@ msgid "Open in this window"
 msgstr "在本窗口打开"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
-msgstr "选项"
+msgstr "首选项(_N)"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "EoG 组件的首选项"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
@@ -359,9 +364,8 @@ msgstr "关闭(_C)"
 
 # SUN CHANGED MESSAGE
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "内容"
+msgstr "内容(_C)"
 
 #: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
@@ -376,9 +380,8 @@ msgid "_Help"
 msgstr "帮助(_H)"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "无(_N)"
+msgstr "新建(_N)"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -458,6 +461,8 @@ msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
+"无法访问 %s\n"
+"Gnome 之眼将不能显示这个文件。"
 
 #: shell/main.c:293
 #, c-format
@@ -466,6 +471,8 @@ msgid ""
 "access them:\n"
 "%s"
 msgstr ""
+"下列文件不能显示，因为 Gnome 之眼无法访问它们：\n"
+"%s"
 
 #: shell/main.c:464
 msgid "Could not initialize GnomeVFS!\n"
@@ -482,7 +489,7 @@ msgstr "无法打开“%s”"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "最佳匹配(_F)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -494,7 +501,7 @@ msgstr "放大"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "普通"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
@@ -506,22 +513,19 @@ msgstr "缩小(_O)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "普通尺寸(_N)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
-msgstr "放大(_I)"
+msgstr "放大(_Z)"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "水平"
+msgstr "水平翻转"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "垂直"
+msgstr "垂直翻转"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -533,14 +537,12 @@ msgid "Previews the image to be printed"
 msgstr "预览要打印的图像"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "打印预览"
+msgstr "打印预览(_W)..."
 
 #: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
 msgid "Print Set_up"
-msgstr "打印设置"
+msgstr "打印设置(_U)"
 
 #: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
@@ -548,29 +550,27 @@ msgstr "将图像打印到打印机"
 
 #: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 Degrees"
-msgstr ""
+msgstr "旋转 180 度"
 
 #: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "顺时针旋转"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counter Clockwise"
-msgstr ""
+msgstr "逆时针旋转"
 
 #: viewer/eog-image-view-ui.xml.h:11
-#, fuzzy
 msgid "Save _As..."
-msgstr "另存为(_S)..."
+msgstr "另存为(_A)..."
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "为您的当前打印机设置页配置"
 
 #: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
 msgid "_Print..."
-msgstr "打印(_P)"
+msgstr "打印(_P)..."
 
 #: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
@@ -598,27 +598,24 @@ msgid "Printing of image failed"
 msgstr "打印图像失败"
 
 #: viewer/eog-image-view.c:1873
-#, fuzzy
 msgid "/_Zoom In"
-msgstr "放大(_I)"
+msgstr "/放大(_Z)"
 
 #: viewer/eog-image-view.c:1875
-#, fuzzy
 msgid "/Zoom _Out"
-msgstr "缩小(_O)"
+msgstr "/缩小(_O)"
 
 #: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/普通尺寸(_N)"
 
 #: viewer/eog-image-view.c:1879
 msgid "/Best _Fit"
-msgstr ""
+msgstr "/最佳匹配(_F)"
 
 #: viewer/eog-image-view.c:1882
-#, fuzzy
 msgid "/_Close"
-msgstr "关闭(_C)"
+msgstr "/关闭(_C)"
 
 #: viewer/eog-image-view.c:2008
 msgid "Image Width"
@@ -701,11 +698,11 @@ msgstr "方向"
 
 #: viewer/eog-print-setup.c:593
 msgid "Portrait"
-msgstr "照片"
+msgstr "纵向"
 
 #: viewer/eog-print-setup.c:600
 msgid "Landscape"
-msgstr "风景"
+msgstr "横向"
 
 #. Margins
 #: viewer/eog-print-setup.c:609
@@ -753,7 +750,7 @@ msgstr "原始大小的百分之"
 #. Center on page
 #: viewer/eog-print-setup.c:731
 msgid "Center"
-msgstr "中心"
+msgstr "居中"
 
 #: viewer/eog-print-setup.c:735
 msgid "Horizontally"
@@ -813,7 +810,7 @@ msgstr "右，而后下"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
+msgstr "幻灯片放映"
 
 # SUN CHANGED MESSAGE
 #~ msgid ""
