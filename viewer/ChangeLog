@@ -1,3 +1,14 @@
+2000-11-17  Martin Baulig  <baulig@suse.de>
+
+	* eog-image-view.c (verb_ZoomIn_cb, verb_ZoomOut_cb,
+	verb_ZoomToDefault_cb, verb_ZoomToFit_cb): New callback functions;
+	they emit the corresponding signals on the zoomable.
+	(eog_image_viewer_verbs): Added "ZoomIn", "ZoomOut", "ZoomToDefault"
+	and "ZoomToFit".
+
+	* eog-image-view-ui.xml: Moved the config stuff into submenus,
+	added some menu items for zooming and a "EogZoomToolbar".
+
 2000-11-16  Martin Baulig  <baulig@suse.de>
 
 	* eog-image-view.c (zoomable_zoom_to_fit_cb): Implemented;

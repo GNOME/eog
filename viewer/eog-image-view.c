@@ -560,7 +560,69 @@ listener_CheckSize_cb (BonoboUIComponent *uic, const char *path,
 	bonobo_arg_release (arg);
 }
 
+static void
+verb_ZoomIn_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
+				 "zoom_in");
+}
+
+static void
+verb_ZoomOut_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
+				 "zoom_out");
+}
+
+static void
+verb_ZoomToDefault_cb (BonoboUIComponent *uic, gpointer user_data,
+		       const char *cname)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
+				 "zoom_to_default");
+}
+
+static void
+verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
+		   const char *cname)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (image_view->priv->zoomable),
+				 "zoom_to_fit");
+}
+
 static BonoboUIVerb eog_image_view_verbs[] = {
+	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
+	BONOBO_UI_VERB ("ZoomOut",       verb_ZoomOut_cb),
+	BONOBO_UI_VERB ("ZoomToDefault", verb_ZoomToDefault_cb),
+	BONOBO_UI_VERB ("ZoomToFit",     verb_ZoomToFit_cb),
 	BONOBO_UI_VERB_END
 };
 

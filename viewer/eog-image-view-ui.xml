@@ -1,7 +1,16 @@
 <Root>
 
-    <menu>
-      <submenu name="EOG" _label="E_OG">
+  <menu>
+    <submenu name="EOG" _label="E_OG">
+
+      <menuitem name="ZoomIn" _label="Zoom _In" verb=""/>
+      <menuitem name="ZoomOut" _label="Zoom _Out" verb=""/>
+      <menuitem name="ZoomToDefault" _label="Zoom to _Default" verb=""/>
+      <menuitem name="ZoomToFit" _label="Zoom to _Fit" verb=""/>
+
+      <separator/>
+
+      <submenu name="Interpolation" _label="_Interpolation">
 	<menuitem name="InterpolationNearest" _label="Nea_rest Neighbour Interpolation"
 		  type="radio" group="Interpolation" verb=""/>
 	<menuitem name="InterpolationTiles" _label="_Tiles Interpolation"
@@ -10,18 +19,18 @@
 		  type="radio" group="Interpolation" verb=""/>
 	<menuitem name="InterpolationHyperbolic" _label="_Hyperbolic Interpolation"
 		  type="radio" group="Interpolation" verb=""/>
+      </submenu>
 
-	<separator/>
-
+      <submenu name="Dither" _label="_Dither">
 	<menuitem name="DitherNone" _label="_No dithering"
 		  type="radio" group="Dither" verb=""/>
 	<menuitem name="DitherNormal" _label="Normal (_pseudocolor) dithering"
 		  type="radio" group="Dither" verb=""/>
 	<menuitem name="DitherMaximum" _label="_Maximum (high color) dithering"
 		  type="radio" group="Dither" verb=""/>
+      </submenu>
 
-	<separator/>
-
+      <submenu name="CheckType" _label="Check _type">
 	<menuitem name="CheckTypeDark" _label="Check type _dark"
 		  type="radio" group="CheckType" verb=""/>
 	<menuitem name="CheckTypeMidtone" _label="Check type _midtone"
@@ -34,17 +43,28 @@
 		  type="radio" group="CheckType" verb=""/>
 	<menuitem name="CheckTypeWhite" _label="Check type _white"
 		  type="radio" group="CheckType" verb=""/>
+      </submenu>
 
-	<separator/>
-
+      <submenu name="CheckSize" _label="Check _size">
 	<menuitem name="CheckSizeSmall" _label="Check size small"
 		  type="radio" group="CheckSize" verb=""/>
 	<menuitem name="CheckSizeSmall" _label="Check size medium"
 		  type="radio" group="CheckSize" verb=""/>
 	<menuitem name="CheckSizeSmall" _label="Check size large"
 		  type="radio" group="CheckSize" verb=""/>
-
       </submenu>
-    </menu>
+    </submenu>
+  </menu>
+
+  <dockitem name="EogZoomToolbar" hidden="1">
+    <toolitem name="ZoomIn" _label="In" pixtype="filename"
+	      pixname="stock-zoom-out.xpm" verb=""/>
+    <toolitem name="ZoomOut" _label="Out" pixtype="filename"
+	      pixname="stock-zoom-in.xpm" verb=""/>
+    <toolitem name="ZoomToDefault" _label="1:1" pixtype="filename"
+	      pixname="stock-zoom-1.xpm" verb=""/>
+    <toolitem name="ZoomToFit" _label="Fit" pixtype="filename"
+	      pixname="stock-zoom-fit.xpm" verb=""/>
+  </dockitem>
 
 </Root>
