@@ -37,6 +37,8 @@ eog_collection_view_SOURCES =		\
 	eog-wrap-list.h			\
 	eog-collection-view.h		\
 	eog-collection-view.c		\
+	eog-collection-view-iface.h	\
+	eog-collection-view-iface.c	\
 	eog-canvas-pixbuf.h		\
 	eog-canvas-pixbuf.c		\
 	eog-collection-item.h		\

@@ -1062,71 +1062,16 @@ check_for_control_properties (EogWindow *window)
 	CORBA_exception_free (&ev);
 }
 
-
-/**
- * eog_window_open:
- * @window: A window.
- * @iid: The object interface id of the bonobo control to load.
- * @text_uri: An escaped text URI for the object to load.
- * @error: An pointer to an error object or NULL.
- *
- * Tries to create an instance of the iid and loads the uri into it.
- *
- * Return value: TRUE on success, FALSE otherwise.
- **/
-gboolean
-eog_window_open (EogWindow *win, const char *iid, const char *text_uri, GError **error)
+static void
+add_control_to_ui (EogWindow *window, Bonobo_Control control)
 {
-	GList *list = NULL;
-	gboolean result;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (win), FALSE);
-	g_return_val_if_fail (iid != NULL, FALSE);
-	g_return_val_if_fail (text_uri != NULL, FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-	
-	list = g_list_prepend (list, g_strdup (text_uri));
-	
-	result = eog_window_open_list (win, iid, list, error);
-
-	g_free (list->data);
-	g_list_free (list);
-
-	return result;
-}
-
-/**
- * eog_window_open_list:
- * @window: A window.
- * @iid: The object interface id of the bonobo control to load.
- * @text_uri_list: List of escaped text URIs for the object to load.
- * @error: An pointer to an error object or NULL.
- *
- * Tries to create an instance of the iid and loads all uri's 
- * contained in the list into it.
- *
- * Return value: TRUE on success, FALSE otherwise.
- **/
-gboolean
-eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
-{
-	BonoboUIContainer *ui_container;
-	Bonobo_Control control;
-	Bonobo_PersistFile pfile;
-	CORBA_Environment ev;
-	GList *it;
 	EogWindowPrivate *priv;
-	char *uri;
-	EggRecentItem *recent_item;
-
-	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
-	g_return_val_if_fail (iid != NULL, FALSE);
-	g_return_val_if_fail (text_uri_list != NULL, FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-	priv = window->priv;
+	BonoboUIContainer *ui_container;
+	CORBA_Environment ev;
 
 	CORBA_exception_init (&ev);
+
+	priv = window->priv;
 
 	/* remove previously loaded control */
 	if (priv->ctrl_frame != NULL) {
@@ -1147,28 +1092,6 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	priv->desired_width = -1;
 	priv->desired_height = -1;
 
-	/* get control component */
-	control = bonobo_get_object (iid, "Bonobo/Control", &ev);
-	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
-	}
-
-
-	/* get PersistFile interface */
-	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
-	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL)) {
-		bonobo_object_release_unref (control, NULL);
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
-			     bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		return FALSE;
-	}
-
 	/* add control to UI */
 	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
 	bonobo_control_frame_control_activate (priv->ctrl_frame);
@@ -1179,28 +1102,78 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->ctrl_widget, TRUE, TRUE, 0);
 	gtk_widget_show (priv->ctrl_widget);
-	
-	/* load the files */
-	for (it = text_uri_list; it != NULL; it = it->next) {
-		uri = (char*) it->data;
 
-		Bonobo_PersistFile_load (pfile, uri, &ev);
+	/* clean up */
+	CORBA_exception_free (&ev);
+}
 
-		if (BONOBO_EX (&ev)) {
-			g_set_error (error, EOG_WINDOW_ERROR,
-				     EOG_WINDOW_ERROR_IO,
-				     bonobo_exception_get_text (&ev));
-			continue;
+/**
+ * eog_window_open:
+ * @window: A window.
+ * @iid: The object interface id of the bonobo control to load.
+ * @text_uri: An escaped text URI for the object to load.
+ * @error: An pointer to an error object or NULL.
+ *
+ * Tries to create an instance of the iid and loads the uri into it.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ **/
+gboolean
+eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GError **error)
+{
+	Bonobo_Control control;
+	Bonobo_PersistFile pfile;
+	CORBA_Environment ev;
+	gboolean result = FALSE;
+	EggRecentItem *recent_item;
+	EogWindowPrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (iid != NULL, FALSE);
+	g_return_val_if_fail (text_uri != NULL, FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+	priv = window->priv;
+	CORBA_exception_init (&ev);
+
+	/* get control component */
+	control = bonobo_get_object (iid, "Bonobo/Control", &ev);
+	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
+			     bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return FALSE;
+	}
+
+	/* try to obtain a PersistFile interface from the control */
+	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
+	if (BONOBO_EX (&ev) || pfile == CORBA_OBJECT_NIL) {
+		bonobo_object_release_unref (control, NULL);
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
+			     bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return FALSE;
+	}
+
+	add_control_to_ui (window, control);
+
+	/* load single file */
+	Bonobo_PersistFile_load (pfile, text_uri, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_IO,
+			     bonobo_exception_get_text (&ev));
+	}
+	else {
+		result = TRUE;
+
+		if (priv->uri == NULL) {
+			priv->uri = g_strdup ((char*) text_uri);
 		}
 		
-		if (priv->uri == NULL) {
-			/* FIXME: if we really open several URI's in one window
-			 * than we save only the first uri. 
-			 */
-			priv->uri = g_strdup ((char*) it->data);
-		}
-
-		recent_item = egg_recent_item_new_from_uri (uri);
+		recent_item = egg_recent_item_new_from_uri (text_uri);
 		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
 		egg_recent_model_add_full (priv->recent_model, recent_item);
 		egg_recent_item_unref (recent_item);		
@@ -1215,7 +1188,99 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	/* clean up */
 	CORBA_exception_free (&ev);
 
-	return TRUE;
+	return result;
+}
+
+/**
+ * eog_window_open_list:
+ * @window: A window.
+ * @iid: The object interface id of the bonobo control to load.
+ * @text_uri_list: List of escaped text URIs for the object to load.
+ * @error: An pointer to an error object or NULL.
+ *
+ * Tries to create an instance of the iid and loads all uri's 
+ * contained in the list into it.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
+ **/
+gboolean
+eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
+{
+	Bonobo_Control control;
+	GNOME_EOG_CollectionView cview;
+	CORBA_Environment ev;
+	EogWindowPrivate *priv;
+	GNOME_EOG_URIList *uri_list;
+	gint length, i;
+	GList *uri;
+	gboolean result = FALSE;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (iid != NULL, FALSE);
+	g_return_val_if_fail (text_uri_list != NULL, FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+	priv = window->priv;
+
+	CORBA_exception_init (&ev);
+
+	/* get control component */
+	control = bonobo_get_object (iid, "Bonobo/Control", &ev);
+	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
+			     bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return FALSE;
+	}
+	
+	/* try to obtaion CollectionView interface */
+	cview = Bonobo_Unknown_queryInterface (control, "IDL:GNOME/EOG/CollectionView:1.0", &ev);
+	if (BONOBO_EX (&ev) || cview == CORBA_OBJECT_NIL) {
+		bonobo_object_release_unref (control, NULL);
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
+			     bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return FALSE;
+	}
+
+	add_control_to_ui (window, control);
+	
+	/* convert GList to CORBA sequence */
+	length = g_list_length (text_uri_list);
+	uri_list = GNOME_EOG_URIList__alloc ();
+	uri_list->_maximum = length;
+	uri_list->_length = length;
+	uri_list->_buffer = CORBA_sequence_GNOME_EOG_URI_allocbuf (length);
+	uri = text_uri_list;	
+	for (i = 0; i < length; i++) {
+		uri_list->_buffer[i] = CORBA_string_dup ((gchar*)uri->data);
+		uri = uri->next;
+	}
+	CORBA_sequence_set_release (uri_list, CORBA_TRUE);
+	
+	/* open list of uris */
+	GNOME_EOG_CollectionView_loadURIList (cview, uri_list, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
+			     bonobo_exception_get_text (&ev));
+	}
+	else {
+		result = TRUE;
+	}
+
+	bonobo_object_release_unref (cview, &ev);
+	bonobo_object_release_unref (control, &ev);
+
+	/* register and check for existing properties */
+	check_for_control_properties (window);
+
+	/* clean up */
+	CORBA_exception_free (&ev);
+
+	return result;
 }
 
 

@@ -4,59 +4,14 @@ module GNOME {
 
 	module EOG {
 
-		enum Interpolation {
-			INTERPOLATION_NEAREST,
-			INTERPOLATION_BILINEAR,
-			INTERPOLATION_HYPERBOLIC
-		};
-
-		enum Dither {
-			DITHER_NONE,
-			DITHER_NORMAL,
-			DITHER_MAXIMUM
-		};
-
-		enum CheckType {
-			CHECK_TYPE_DARK,
-			CHECK_TYPE_MIDTONE,
-			CHECK_TYPE_LIGHT,
-			CHECK_TYPE_BLACK,
-			CHECK_TYPE_GRAY,
-			CHECK_TYPE_WHITE
-		};
-
-		enum CheckSize {
-			CHECK_SIZE_SMALL,
-			CHECK_SIZE_MEDIUM,
-			CHECK_SIZE_LARGE
-		};
-
-		interface Image : Bonobo::Unknown {
-			/* This is just a handle to a pixbuf plus a loader
-			 * context and stuff; can be hydrated from a
-			 * PersistStream.  It may emit signals via a listener
-			 * to notify the world of regions of an image being
-			 * loaded or updated.
-			 */
-		};
-
-		interface ImageView : Bonobo::Unknown {
-			/* This is an actual EOG image view */
-
-			Image getImage ();
-			
-		};
-
 		/* URIs are just plain strings, but we use a typedef to make
 		 * the interface definitions clearer.
 		 */
 		typedef string URI;
            	typedef sequence<URI> URIList;
-		
-	        interface ImageCollection : Bonobo::Unknown {
-			oneway void openURI (in URI location);
-		        oneway void openURIList (in URIList locations);
-		};	  
-		
+                
+		interface CollectionView : Bonobo::Unknown {
+			oneway void loadURIList (in URIList locations);
+		};
 	};
 };

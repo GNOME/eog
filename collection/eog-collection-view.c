@@ -57,6 +57,7 @@
 #include "eog-save-dialog.h"
 #include "eog-horizontal-splitter.h"
 #include "eog-vertical-splitter.h"
+#include "eog-collection-view-iface.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -1109,17 +1110,12 @@ init_gconf_defaults (EogCollectionView *view)
 #endif
 }
 
-static gint
-load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
-	     CORBA_Environment *ev, void *closure)
+static EogImageList*
+get_collection_model (EogCollectionView *view)
 {
 	EogCollectionViewPrivate *priv;
-	EogCollectionView *view;
 
-	view = EOG_COLLECTION_VIEW (closure);
 	priv = view->priv;
-
-	if (text_uri == CORBA_OBJECT_NIL) return 0;
 
 	if (priv->model == NULL) {
 		priv->model = eog_image_list_new ();
@@ -1140,12 +1136,43 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 				  G_CALLBACK (model_base_uri_changed),
 				  list_view);
 #endif
-
 	}
 
-	eog_image_list_add_directory (priv->model, (gchar*)text_uri); 
+	return priv->model;
+}
+
+static gint
+load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
+	     CORBA_Environment *ev, void *closure)
+{
+	EogCollectionView *view;
+	EogImageList *model;
+	
+	view = EOG_COLLECTION_VIEW (closure);
+
+	if (text_uri == CORBA_OBJECT_NIL) return 0;
+
+	model = get_collection_model (view);
+
+	eog_image_list_add_directory (model, (gchar*)text_uri); 
 
 	return 0;
+}
+
+static void
+load_uri_list_cb (EogCollectionViewIface *collection, GList *uri_list, EogCollectionView *list_view)
+{
+
+	EogImageList *model;
+	
+	if (uri_list == NULL) return;
+
+	model = get_collection_model (list_view);
+
+	eog_image_list_add_files (model, uri_list);
+
+	g_list_foreach (uri_list, (GFunc) g_free, NULL);
+	g_list_free (uri_list);
 }
 
 static GtkWidget*
@@ -1234,7 +1261,6 @@ create_user_interface (EogCollectionView *list_view)
 	return vpaned;
 }
 
-
 static EogCollectionView *
 eog_collection_view_construct (EogCollectionView *list_view)
 {
@@ -1242,6 +1268,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	BonoboControl *control;
 	GtkWidget *root;
 	BonoboZoomable *zoomable;
+	EogCollectionViewIface *collection;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -1262,6 +1289,12 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
 				     BONOBO_OBJECT (control));
+
+	/* interface GNOME::EOG::CollectionView */
+	collection = eog_collection_view_iface_new ();
+	g_signal_connect (collection, "load_uri_list", G_CALLBACK (load_uri_list_cb), list_view);
+	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
+				     BONOBO_OBJECT (collection));
 
 
 	/* Interface Bonobo::Zoomable */

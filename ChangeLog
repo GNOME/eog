@@ -1,3 +1,34 @@
+2004-01-03  Jens Finke  <jens@triq.net>
+
+	Allow loading of multiple single images into a collection
+	view. [Got broken when switching to EogImageList.]
+
+	* collection/Makefile.am (SOURCES): Added
+	eog-collection-view-iface.[ch].
+
+	* collection/eog-collection-view-iface.[ch]: New files.
+
+	* idl/Eog.idl: Removed old cruft. New GNOME::EOG::CollectionView
+	interface.
+
+	* collection/eog-collection-view.c (get_collection_model): New func.
+	(load_uri_cb): Reworked
+	(load_uri_list_cb): New func.
+	(eog_collection_view_construct): Add EOG::CollectionView interface.
+
+	* collection/GNOME_EOG_Collection.server.in.in: Added
+	IDL:GNOME/EOG/CollectionView:1.0 to list of repo_ids.
+
+	* libeog/eog-image-list.c (real_file_loading),
+	(eog_image_list_add_files): New func.
+	(eog_image_list_add_directory): Clean up.
+
+	* shell/eog-window.c (add_control_to_ui): New func.
+	(eog_window_open_list),
+	(eog_window_open): Reworked functions. *_open_list uses the
+	CollectionView::loadURIList interface, while *_open uses
+	BonobPersistFile::load.
+
 2004-01-03  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" in ALL_LINGUAS.

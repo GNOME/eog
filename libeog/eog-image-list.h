@@ -42,6 +42,7 @@ EogImageList*       eog_image_list_new                            (void);
 EogImageList*       eog_image_list_new_from_glist                 (GList *list);
 
 void                eog_image_list_add_directory                  (EogImageList *list, char *uri);
+void                eog_image_list_add_files                      (EogImageList *list, GList *uri_list);
 
 int                 eog_image_list_length                         (EogImageList *list);
 
