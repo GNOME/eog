@@ -1,28 +1,39 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
-# Wang Li <charlesw1234@163.com>, 2002
+# Wang Li <charles@linux.net.cn>, 2002
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-04-29 15:13+0200\n"
-"PO-Revision-Date: 2002-03-16 22:54+0800\n"
-"Last-Translator: Wang Li <charlesw1234@163.com>\n"
+"POT-Creation-Date: 2002-06-11 21:33+0000\n"
+"PO-Revision-Date: 2002-06-11 21:46+0800\n"
+"Last-Translator: Wang Li <charles@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG图像集"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG图像集查看器"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "EOG 图像集查看车间"
+
 #: eog.desktop.in.h:1
-#, fuzzy
 msgid "Eye of Gnome Image Viewer"
-msgstr "EOG 图像查看器"
+msgstr "GNOME 之眼图像查看器"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
-msgstr ""
+msgstr "查看多种类型的图像"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "EOG 图像"
 
@@ -37,6 +48,47 @@ msgstr "EOG 图像查看器车间"
 #: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "可嵌入 EOG 图像"
+
+#: libeog/image-view.c:1853
+msgid "interpolation type"
+msgstr "插值类型"
+
+#: libeog/image-view.c:1854
+msgid "the type of interpolation to use"
+msgstr "使用的插值类型"
+
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
+msgid "check type"
+msgstr ""
+
+#: libeog/image-view.c:1861
+msgid "the type of chequering to use"
+msgstr ""
+
+#: libeog/image-view.c:1868
+msgid "the size of chequers to use"
+msgstr ""
+
+#: libeog/image-view.c:1874
+msgid "dither"
+msgstr "抖动"
+
+#: libeog/image-view.c:1875
+msgid "dither type"
+msgstr "抖动类型"
+
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"无法显示首选项对话的帮助。\n"
+"%s"
+
+#: shell/eog-preferences.c:214
+msgid "Eye of Gnome Preferences"
+msgstr "Gnome 之眼首选项"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -59,16 +111,14 @@ msgid "Close window"
 msgstr "关闭窗口"
 
 #: shell/eog-shell-ui.xml.h:6
-#, fuzzy
-msgid "Help On this application"
-msgstr "关于该应用程序"
+msgid "Contents"
+msgstr "内容"
 
 #: shell/eog-shell-ui.xml.h:7
-#, fuzzy
-msgid "HelpContents"
-msgstr "求助器"
+msgid "Help On this application"
+msgstr "本程序的帮助"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "打开"
 
@@ -89,23 +139,20 @@ msgid "Open in this window"
 msgstr "在本窗口打开"
 
 #: shell/eog-shell-ui.xml.h:13
-#, fuzzy
 msgid "Quit the program"
 msgstr "退出程序"
 
 #: shell/eog-shell-ui.xml.h:14
-#, fuzzy
 msgid "_About"
-msgstr "关于(_A)..."
+msgstr "关于(_A)"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "关闭(_C)"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Edit"
-msgstr "退出(_X)"
+msgstr "编辑(_E)"
 
 #: shell/eog-shell-ui.xml.h:17
 msgid "_File"
@@ -124,96 +171,81 @@ msgid "_Open..."
 msgstr "打开(_O)..."
 
 #: shell/eog-shell-ui.xml.h:21
-#, fuzzy
 msgid "_Preferences..."
-msgstr "首选项(_P)"
+msgstr "首选项(_P)..."
 
 #: shell/eog-shell-ui.xml.h:22
-#, fuzzy
 msgid "_Quit"
-msgstr "退出(_X)"
+msgstr "退出(_Q)"
 
 #: shell/eog-shell-ui.xml.h:23
 msgid "_View"
 msgstr "查看(_V)"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
-msgstr ""
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Wang Li <charles@linux.net.cn>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Gnome之眼"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版权所有 (C) 2000-2002 自由软件基金会"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME 图像查看与分类程序"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
+msgstr "GNOME 图像查看与分类程序。"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:293
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"无法显示GNOME之眼的帮助。\n"
+"%s"
+
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "打开图像"
 
-#: shell/eog-window.c:816
-msgid "Control doesn't support window_title property."
-msgstr "控制不支持 window_title 属性。"
-
-#: shell/eog-window.c:832
-msgid "Control doesn't support status_text property."
-msgstr "控制不支持 status_text 属性。"
-
-#: shell/eog-window.c:851
-msgid "Control doesn't have properties"
-msgstr "控制没有属性"
-
-#: shell/eog-window.c:868
-msgid "Couldn't retrieve mime type for file."
-msgstr "无法检索文件的 mime 类型。"
-
-#: shell/eog-window.c:1111
-msgid "Error while obtaining file informations."
-msgstr "获取文件信息时出错。"
-
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
-msgstr ""
+msgstr "无法打开 %s。"
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to open\n"
 "them in a collection instead?"
 msgstr ""
-"您将要同时打开 %i 个\n"
-"窗口。您是否希望在\n"
-"一个组合中打开？"
+"您将要同时打开 %i 个窗口。\n"
+"您是否希望在一个组合中打开？"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "单个窗口"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "组合"
 
-#: shell/main.c:193
-#, fuzzy, c-format
+#: shell/main.c:194
+#, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
 msgstr ""
-"您将要同时打开 %i 个\n"
-"窗口。您是否希望在\n"
-"一个组合中打开？"
+"您将要同时打开 %i 个窗口。\n"
+"您真的要继续吗？"
 
 #: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
@@ -227,200 +259,6 @@ msgstr "无法初始化 Bonobo！\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "无法打开“%s”"
-
-#: shell/eog-preferences.c:141
-#, fuzzy
-msgid "Eye of Gnome Preferences"
-msgstr "Gnome之眼"
-
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "无法初始化 GnomeVFS！\n"
-
-#: viewer/eog-image-view.c:304
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "无法将图像另存为“%s”：%s。"
-
-#: viewer/eog-image-view.c:355
-msgid "Save As"
-msgstr "另存为"
-
-#: viewer/eog-image-view.c:930
-msgid "Print Image"
-msgstr "打印图像"
-
-#: viewer/eog-image-view.c:938
-msgid "Pages"
-msgstr "页"
-
-#: viewer/eog-image-view.c:1025
-msgid "Print Preview"
-msgstr "打印预览"
-
-#: viewer/eog-image-view.c:1031
-msgid "Printing of image failed"
-msgstr "打印图像失败"
-
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "显示"
-
-#: viewer/eog-image-view.c:2067
-msgid "Interpolation"
-msgstr "填充"
-
-#: viewer/eog-image-view.c:2070
-msgid "Dither"
-msgstr "抖动"
-
-#: viewer/eog-image-view.c:2073
-msgid "Check Type"
-msgstr "检查类型"
-
-#: viewer/eog-image-view.c:2076
-msgid "Check Size"
-msgstr "检查大小"
-
-#: viewer/eog-image-view.c:2079
-msgid "Image Width"
-msgstr "图像宽度"
-
-#: viewer/eog-image-view.c:2082
-msgid "Image Height"
-msgstr "图像高度"
-
-#: viewer/eog-image-view.c:2085
-msgid "Window Title"
-msgstr "窗口标题"
-
-#: viewer/eog-image-view.c:2088
-msgid "Statusbar Text"
-msgstr "状态条文本"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "检查大小(_S)"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "检查类型(_T)"
-
-#: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "全屏"
-
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
-msgid "Large"
-msgstr "大"
-
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
-msgid "Medium"
-msgstr "中"
-
-#: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
-msgid "Nea_rest Neighbour"
-msgstr "最近相邻填充(_R)"
-
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Normal (_pseudocolor)"
-msgstr "普通抖动 (伪色)(_P)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Previews the image to be printed"
-msgstr "预览需打印的图像"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "打印预览(_V)"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "打印设置(_E)"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Print image to the printer"
-msgstr "将图像打印到打印机"
-
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "Setup the page settings for your current printer"
-msgstr "为您的当前打印机设置页配置"
-
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
-msgid "Small"
-msgstr "小"
-
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "_Bilinear"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:15
-#, fuzzy
-msgid "_Black"
-msgstr "黑"
-
-#: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
-msgid "_Dark"
-msgstr "暗"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "抖动(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:18
-#, fuzzy
-msgid "_Gray"
-msgstr "灰"
-
-#: viewer/eog-image-view-ui.xml.h:19
-#, fuzzy
-msgid "_Hyperbolic"
-msgstr "双曲线填充(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "填充(_I)"
-
-#: viewer/eog-image-view-ui.xml.h:21
-#, fuzzy
-msgid "_Light"
-msgstr "亮"
-
-#: viewer/eog-image-view-ui.xml.h:22
-#, fuzzy
-msgid "_Maximum (high color)"
-msgstr "最大抖动 (高色)(_M)"
-
-#: viewer/eog-image-view-ui.xml.h:23
-#, fuzzy
-msgid "_Midtone"
-msgstr "中"
-
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_None"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
-msgstr "打印(_P)"
-
-#: viewer/eog-image-view-ui.xml.h:26
-#, fuzzy
-msgid "_Save As..."
-msgstr "另存为"
-
-#: viewer/eog-image-view-ui.xml.h:27
-#, fuzzy
-msgid "_Tiles"
-msgstr "文件(_F)"
-
-#: viewer/eog-image-view-ui.xml.h:28
-#, fuzzy
-msgid "_White"
-msgstr "白"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -453,6 +291,183 @@ msgstr "缩小(_O)"
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "缩放到适当(_F)"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "检查大小(_S)"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "检查类型(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "全屏"
+
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "大"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "中"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Nea_rest Neighbour"
+msgstr "最近相邻(_R)"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Normal (_pseudocolor)"
+msgstr "普通(伪色)(_P)"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Previews the image to be printed"
+msgstr "预览要打印的图像"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Print Pre_view"
+msgstr "打印预览(_V)"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Print S_etup"
+msgstr "打印设置(_E)"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Print image to the printer"
+msgstr "将图像打印到打印机"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Setup the page settings for your current printer"
+msgstr "为您的当前打印机设置页配置"
+
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "小"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr "双线性(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Black"
+msgstr "黑(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dark"
+msgstr "暗(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Dither"
+msgstr "抖动(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Gray"
+msgstr "灰(_G)"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
+msgstr "双曲线(_H)"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Interpolation"
+msgstr "插值(_I)"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Light"
+msgstr "亮(_L)"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Maximum (high color)"
+msgstr "最大(高色)(_M)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
+msgstr "中(_M)"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr "无(_N)"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Print"
+msgstr "打印(_P)"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Save As..."
+msgstr "另存为(_S)..."
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles"
+msgstr "平铺(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_White"
+msgstr "白(_W)"
+
+#: viewer/eog-image-view.c:302
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "无法将图像另存为“%s”：%s。"
+
+#: viewer/eog-image-view.c:353
+msgid "Save As"
+msgstr "另存为"
+
+#: viewer/eog-image-view.c:928
+msgid "Print Image"
+msgstr "打印图像"
+
+#: viewer/eog-image-view.c:936
+msgid "Pages"
+msgstr "页"
+
+#: viewer/eog-image-view.c:1023
+msgid "Print Preview"
+msgstr "打印预览"
+
+#: viewer/eog-image-view.c:1029
+msgid "Printing of image failed"
+msgstr "打印图像失败"
+
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "显示"
+
+#: viewer/eog-image-view.c:2066
+msgid "Interpolation"
+msgstr "填充"
+
+#: viewer/eog-image-view.c:2069
+msgid "Dither"
+msgstr "抖动"
+
+#: viewer/eog-image-view.c:2072
+msgid "Check Type"
+msgstr "检查类型"
+
+#: viewer/eog-image-view.c:2075
+msgid "Check Size"
+msgstr "检查大小"
+
+#: viewer/eog-image-view.c:2078
+msgid "Image Width"
+msgstr "图像宽度"
+
+#: viewer/eog-image-view.c:2081
+msgid "Image Height"
+msgstr "图像高度"
+
+#: viewer/eog-image-view.c:2084
+msgid "Window Title"
+msgstr "窗口标题"
+
+#: viewer/eog-image-view.c:2087
+msgid "Statusbar Text"
+msgstr "状态条文本"
+
+#: viewer/eog-image.c:467
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "无法初始化 GnomeVFS！\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -606,11 +621,11 @@ msgstr "求助器"
 
 #: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
-msgstr "打印剪切求助"
+msgstr "打印剪切帮助"
 
 #: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
-msgstr "打印覆盖求助"
+msgstr "打印覆盖帮助"
 
 #. Page order
 #: viewer/eog-print-setup.c:821
@@ -627,77 +642,91 @@ msgstr "下，而后右"
 msgid "Right, then down"
 msgstr "右，而后下"
 
-#: viewer/preferences.c:31
-msgid "Nearest Neighbour Interpolation"
-msgstr "最近相邻填充"
-
 #: viewer/preferences.c:33
-msgid "Tiles Interpolation"
-msgstr "平铺填充"
+msgid "Nearest Neighbour Interpolation"
+msgstr "最近相邻插值"
 
 #: viewer/preferences.c:35
-msgid "Bilinear Interpolation"
-msgstr "双线性填充"
+msgid "Tiles Interpolation"
+msgstr "平铺插值"
 
 #: viewer/preferences.c:37
-msgid "Hyperbolic Interpolation"
-msgstr "双曲线填充"
+msgid "Bilinear Interpolation"
+msgstr "双线性插值"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:39
+msgid "Hyperbolic Interpolation"
+msgstr "双曲线插值"
+
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "无抖动"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "普通抖动 (伪色)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "最大抖动 (高色)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "暗"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "中"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "亮"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "黑"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "灰"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "白"
 
-#: viewer/preferences.c:171
-#, fuzzy
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
-msgstr "填充(_I)"
+msgstr "插值(_I)："
 
-#: viewer/preferences.c:183
-#, fuzzy
+#: viewer/preferences.c:187
 msgid "_Dither:"
-msgstr "抖动(_D)"
+msgstr "抖动(_D)："
 
-#: viewer/preferences.c:195
-#, fuzzy
+#: viewer/preferences.c:199
 msgid "Check _type:"
-msgstr "检查类型(_T)"
+msgstr "检查类型(_T)："
 
-#: viewer/preferences.c:207
-#, fuzzy
+#: viewer/preferences.c:211
 msgid "Check _size:"
-msgstr "检查大小(_S)"
+msgstr "检查大小(_S)："
+
+#~ msgid "Translator Credits"
+#~ msgstr "鸣谢翻译者"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "控制不支持 window_title 属性。"
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "控制不支持 status_text 属性。"
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "控制没有属性"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "无法检索文件的 mime 类型。"
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "获取文件信息时出错。"
 
 #~ msgid "Image Viewer"
 #~ msgstr "图像查看器"
@@ -750,10 +779,6 @@ msgstr "检查大小(_S)"
 #, fuzzy
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Gnome之眼"
-
-#, fuzzy
-#~ msgid "EOG Image Collection"
-#~ msgstr "保存图像集 \"%s\"?"
 
 #, fuzzy
 #~ msgid "I could not initialize GnomeVFS!\n"
