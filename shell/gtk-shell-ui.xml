@@ -17,7 +17,13 @@
     <menu action="ViewMenu">
       <menuitem name="ToolbarToggle" action="ViewToolbar"/>
       <menuitem name="StatusbarToggle" action="ViewStatusbar"/>
-      <placeholder name="View Items Placeholder"/>
+      <separator/>
+      <menuitem name="Fullscreen" action="ViewFullscreen"/>
+      <separator/>
+      <menuitem name="ZoomIn" action="ViewZoomIn"/>
+      <menuitem name="ZoomOut" action="ViewZoomOut"/>
+      <menuitem name="ZoomNormal" action="ViewZoomNormal"/>
+      <menuitem name="ZoomFit" action="ViewZoomFit"/>
     </menu>
     <menu action="HelpMenu">
       <menuitem action="HelpManual"/>
@@ -28,5 +34,9 @@
     <toolitem action="FileNewWindow"/>
     <toolitem action="FileOpen"/>
     <separator/>
+    <toolitem action="ViewZoomIn"/>
+    <toolitem action="ViewZoomOut"/>
+    <toolitem action="ViewZoomNormal"/>
+    <toolitem action="ViewZoomFit"/>
   </toolbar>
 </ui>

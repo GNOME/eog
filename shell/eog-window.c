@@ -50,6 +50,7 @@
 #include "eog-horizontal-splitter.h"
 #include "eog-info-view.h"
 #include "eog-image-list.h"
+#include "eog-full-screen.h"
 
 /* Default size for windows */
 
@@ -82,9 +83,12 @@ struct _EogWindowPrivate {
 	GtkWidget           *scroll_view;
 	GtkWidget           *wraplist;
 	GtkWidget           *info_view;
-
-	/* statusbar */
 	GtkWidget *statusbar;
+
+	/* available action groups */
+	GtkActionGroup      *actions_window;
+	GtkActionGroup      *actions_image;
+	GtkActionGroup      *actions_collection;
 
 	int desired_width;
 	int desired_height;
@@ -364,6 +368,78 @@ verb_HelpContent_cb (GtkAction *action, gpointer data)
 
 		g_error_free (error);
 	}
+}
+
+static void
+verb_ZoomIn_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	if (priv->scroll_view) {
+		eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (priv->scroll_view), FALSE);
+	}
+}
+
+static void
+verb_ZoomOut_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	if (priv->scroll_view) {
+		eog_scroll_view_zoom_out (EOG_SCROLL_VIEW (priv->scroll_view), FALSE);
+	}
+}
+
+static void
+verb_ZoomNormal_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	if (priv->scroll_view) {
+		eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (priv->scroll_view), 1.0);
+	}
+}
+
+static void
+verb_ZoomFit_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	if (priv->scroll_view) {
+		eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (priv->scroll_view));
+	}
+}
+
+static void
+verb_FullScreen_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+	GtkWidget *fs;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	fs = eog_full_screen_new (priv->image_list, NULL);
+	g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (gtk_widget_destroy), NULL);
+
+	gtk_widget_show_all (fs);
 }
 
 static void
@@ -719,17 +795,27 @@ update_ui_visibility (EogWindow *window)
 		n_images = eog_image_list_length (priv->image_list);
 	}
 
-	g_print ("n_images: %i\n", n_images);
-
 	if (n_images == 0) {
+		/* update window content */
 		gtk_widget_hide_all (priv->vpane);
+
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
 	}
 	else if (n_images == 1) {
+		/* update window content */
 		gtk_widget_show_all (priv->vpane);
 		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 	}
 	else {
+		/* update window content */
 		gtk_widget_show_all (priv->vpane);
+
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 	}
 }
 
@@ -819,7 +905,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 
 /* UI<->function mapping */
 /* Normal items */
-static GtkActionEntry entries[] = {
+static GtkActionEntry action_entries_window[] = {
   { "FileMenu", NULL, "_File" },
   { "EditMenu", NULL, "_Edit" },
   { "ViewMenu", NULL, "_View" },
@@ -835,19 +921,18 @@ static GtkActionEntry entries[] = {
 };
 
 /* Toggle items */
-static GtkToggleActionEntry toggle_entries[] = {
+static GtkToggleActionEntry toggle_entries_window[] = {
   { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, "Change the visibility of the toolbar in the current window",   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
   { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, "Change the visibility of the statusbar in the current window", G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 
-#if 0
-/* Radio items */
-static GtkRadioActionEntry radio_entries[] = {
-  { "HighQuality", NULL, "_High Quality", NULL, "Display images in high quality, slow mode", 0 },
-  { "NormalQuality", NULL, "_Normal Quality", NULL, "Display images in normal quality", 1 },
-  { "LowQuality", NULL, "_Low Quality", NULL, "Display images in low quality, fast mode", 2 }
+static GtkActionEntry action_entries_image[] = {
+  { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
+  { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
+  { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
+  { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>equal", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
+  { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) }
 };
-#endif
 
 
 /**
@@ -863,7 +948,6 @@ eog_window_construct_ui (EogWindow *window)
 	gboolean visible;
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
-	GtkActionGroup *action_group;
 	GtkWidget *recent_widget;
 	GtkAction *action;
 	GtkWidget *sw;
@@ -879,10 +963,15 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
 
 	/* build menu and toolbar */
-	action_group = gtk_action_group_new ("MenuActions");
-	gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), window);
-	gtk_action_group_add_toggle_actions (action_group, toggle_entries, G_N_ELEMENTS (toggle_entries), window);
-	gtk_ui_manager_insert_action_group (priv->ui_mgr, action_group, 0);
+	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
+	gtk_action_group_add_actions (priv->actions_window, action_entries_window, G_N_ELEMENTS (action_entries_window), window);
+	gtk_action_group_add_toggle_actions (priv->actions_window, toggle_entries_window, G_N_ELEMENTS (toggle_entries_window), window);
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_window, 0);
+
+	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
+	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
+
 	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, "gtk-shell-ui.xml", NULL);
 
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
@@ -892,6 +981,8 @@ eog_window_construct_ui (EogWindow *window)
 	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/ToolBar");
 	g_assert (toolbar != NULL);
 	gtk_box_pack_start (GTK_BOX (priv->box), toolbar, FALSE, FALSE, 0);
+
+	gtk_window_add_accel_group (GTK_WINDOW (window), gtk_ui_manager_get_accel_group (priv->ui_mgr));
 
 	/* recent files support */
 	priv->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
@@ -997,6 +1088,8 @@ eog_window_construct_ui (EogWindow *window)
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+
+	update_ui_visibility (window);
 }
 
 /**

@@ -1,5 +1,18 @@
 2004-05-27  Jens Finke  <jens@triq.net>
 
+	* shell/eog-window.c (verb_ZoomIn_cb),
+	(verb_ZoomOut_cb),
+	(verb_ZoomNormal_cb),
+	(verb_ZoomFit_cb): New functions.
+	(eog_window_construct_ui): Create functional different action
+	groups. Added accelators
+	(update_ui_visibility): Disable/enable action groups, depending on
+	window state.
+
+	* shell/gtk-shell-ui.xml: Added zoom and fullscreen items.
+	
+2004-05-27  Jens Finke  <jens@triq.net>
+
 	* shell/eog-window.c (eog_window_open_uri),
 	(eog_window_open_uri_list): Make recently used items work.
 	(image_loading_finished_cb),
