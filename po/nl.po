@@ -8,14 +8,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-20 03:14+0100\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-12-20 15:46+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0.2\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -105,7 +105,7 @@ msgstr "Verplaatsen naar prullenbak"
 msgid "Collection View"
 msgstr "Verzamelingsweergave"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1378
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Venstertitel"
 
@@ -113,7 +113,7 @@ msgstr "Venstertitel"
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1390
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Voortgang van laden afbeelding"
 
@@ -310,50 +310,59 @@ msgstr "Ingebedde EOG afbeelding"
 msgid "Image"
 msgstr "Afbeelding"
 
-#: libeog/eog-file-selection.c:44
+#: libeog/eog-file-selection.c:45
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Wilt u %s overschrijven?"
 
-#: libeog/eog-file-selection.c:49
+#: libeog/eog-file-selection.c:50
 msgid "File exists"
 msgstr "Bestand bestaat"
 
-#: libeog/eog-file-selection.c:117
+#: libeog/eog-file-selection.c:119
+#, fuzzy
+msgid "All Files"
+msgstr "Alle afbeeldingen"
+
+#: libeog/eog-file-selection.c:125
 msgid "All Images"
 msgstr "Alle afbeeldingen"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:135
+#: libeog/eog-file-selection.c:143
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Afbeelding laden"
 
-#: libeog/eog-file-selection.c:188
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Afbeelding opslaan"
 
-#: libeog/eog-file-selection.c:230
+#: libeog/eog-file-selection.c:246
 msgid "Open Folder"
 msgstr "Map openen"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Allocatie van geheugen voor JPEG-bestand is mislukt"
 
-#: libeog/eog-image.c:1296
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: libeog/eog-image.c:1306
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Afbeeldingen kunnen alleen als lokale bestanden opgeslagen worden."
 
-#: libeog/eog-image.c:1317
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Niet ondersteund afbeeldingstype om op te slaan."
 
@@ -386,7 +395,7 @@ msgid "Page"
 msgstr "Pagina"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:384
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -725,45 +734,45 @@ msgid "_Print..."
 msgstr "Af_drukken..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:548
+#: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i beeldpunt  %s    %i%%"
 
-#: viewer/eog-image-view.c:840
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/_Met de klok mee roteren"
 
-#: viewer/eog-image-view.c:842
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/_Tegen de klok in roteren"
 
-#: viewer/eog-image-view.c:845
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Inzoomen"
 
-#: viewer/eog-image-view.c:847
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/_Uitzoomen"
 
-#: viewer/eog-image-view.c:849
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/_Normale afmetingen"
 
-#: viewer/eog-image-view.c:851
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/_Passend"
 
-#: viewer/eog-image-view.c:854
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Sluiten"
 
-#: viewer/eog-image-view.c:1025
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Laden van afbeelding %s mislukt."
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -773,35 +782,35 @@ msgstr ""
 "Reden: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1041
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Laden mislukt"
 
-#: viewer/eog-image-view.c:1124
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Afbeelding succesvol opgeslagen"
 
-#: viewer/eog-image-view.c:1128
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Opslaan van afbeelding mislukt"
 
-#: viewer/eog-image-view.c:1372
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:1375
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:1381
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Statusbalk-tekst"
 
-#: viewer/eog-image-view.c:1384
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Gewenste vensterhoogte"
 
-#: viewer/eog-image-view.c:1387
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Gewenste vensterbreedte"
 

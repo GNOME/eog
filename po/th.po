@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-08-25 21:15+0200\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-12-05 21:51-0600\n"
 "Last-Translator: Paisa Seeluangsawat <paisa@users.sf.net>\n"
 "Language-Team: th <L10n@opentle.org>\n"
@@ -50,24 +50,24 @@ msgstr "ก่อนหน้า"
 msgid "Previous Image"
 msgstr "รูปก่อนหน้า"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "หมุน 180 องศา (_D)"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "หมุนตามเข็มนาฬิกา (_L)"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "หมุนย้อนเข็มนาฬิกา (_R)"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "แสดงสไลด์"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "แก้ไข (_E)"
 
@@ -76,40 +76,40 @@ msgid "_Save"
 msgstr "บันทึก (_S)"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "เรียกคืน (_U)"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "ดู (_V)"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "ยกเลิกการบันทึก"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "บันทึกเสร็จเรียบร้อย"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "ย้ายไปถังขยะ"
 
-#: collection/eog-collection-view.c:802
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "มุมมองสมุดรูป"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "ชื่อหน้าต่าง"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "ข้อความแสดงสถานะ"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "ความคืบหน้าของการอ่านรูป"
 
@@ -130,114 +130,158 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr ""
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>ขยายรูป</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>ลำดับ</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
+#: eog.glade.h:5
+#, fuzzy
+msgid "<b>Transparent Parts</b>"
 msgstr "<b>ส่วนที่โปร่งแสง</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "แสดงพื้นหลัง"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr ""
 
 #: eog.glade.h:8
+#, fuzzy
+msgid "As _background"
+msgstr "แสดงพื้นหลัง"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "แสดงลายตาราง (_P)"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "แสดงสีกำหนดเอง (_O)"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "สีสำหรับส่วนที่โปร่งแสง"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "อย่าขยายรูปให้ใหญ่กว่าต้นฉบับ"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "ปรับแต่ง Eye of Gnome"
 
-#: eog.glade.h:14
-msgid "Image View"
+#: eog.glade.h:13
+#, fuzzy
+msgid "Image _View"
 msgstr "มุมมองดูรูป"
 
-#: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "ลำดับการวนรอบ"
-
-#: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Show _next image automatically after:"
 msgstr ""
 "แสดงรูปถัดไปโดยอัตโนมัติ:\n"
 "(0 ถ้าไม่อยากใช้)"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
+#: eog.glade.h:15
+#, fuzzy
+msgid "Sli_de Show"
+msgstr "แสดงสไลด์"
+
+#: eog.glade.h:16
+#, fuzzy
+msgid "_Interpolate image on zoom"
 msgstr "Interpolate เมื่อขยายรูป (คุณรูปดีกว่าแต่ช้ากว่า) (_I)"
 
-#: eog.glade.h:20
-msgid "sec"
+#: eog.glade.h:17
+#, fuzzy
+msgid "_Loop sequence"
+msgstr "ลำดับการวนรอบ"
+
+#: eog.glade.h:18
+#, fuzzy
+msgid "seconds"
 msgstr "วินาที"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr ""
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr ""
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr ""
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr ""
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "เปิดรูปในหน้าต่างใหม่"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr ""
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr ""
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:15
+#, fuzzy
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr "ว่าควรเปิดรูปใหม่ทับรูปเก่าหรือในหน้าต่างใหม่"
+
+#: eog.schemas.in.h:16
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr ""
+
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr "ว่าควรเปิดรูปใหม่ทับรูปเก่าหรือในหน้าต่างใหม่"
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -259,61 +303,85 @@ msgstr ""
 msgid "Image"
 msgstr "รูป"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "ตามนามสกุล"
+#: libeog/eog-file-selection.c:45
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr ""
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "นามสกุลรูปที่บันทึกไม่เป็น"
+#: libeog/eog-file-selection.c:50
+msgid "File exists"
+msgstr ""
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "ตัดสินชนิดรูป:"
+#: libeog/eog-file-selection.c:119
+msgid "All Files"
+msgstr ""
 
-#: libeog/eog-file-selection.c:333
+#: libeog/eog-file-selection.c:125
+#, fuzzy
+msgid "All Images"
+msgstr "รูป"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:143
+#, c-format
+msgid "%s (*.%s)"
+msgstr ""
+
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "อ่านรูป"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "บันทึกรูป"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-file-selection.c:246
+#, fuzzy
+msgid "Open Folder"
+msgstr "เปิดแฟ้ม"
+
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "หน่วยความจำไม่พอที่จะอ่านรูป JPEG"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "ไม่มีรูปที่อ่านไว้"
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr ""
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "บันทืกรูปชนิดนี้ไม่เป็น"
 
-#: libeog/eog-info-view.c:76
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "คุณลักษณะ"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "ค่า"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
-#: libeog/eog-info-view.c:208
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "กว้าง"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
-#: libeog/eog-info-view.c:216
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "สูง"
 
-#: libeog/eog-info-view.c:269
+#: libeog/eog-info-view.c:181
+#, fuzzy
+msgid "Filesize"
+msgstr "ชื่อแฟ้ม"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "ชื่อแฟ้ม"
 
@@ -323,7 +391,7 @@ msgid "Page"
 msgstr "กระดาษ"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "ตัวอย่างงานพิมพ์"
 
@@ -432,99 +500,127 @@ msgid "Cancel"
 msgstr "ยกเลิก"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "ปิดหน้าต่าง"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "วิธีใช้โปรแกรมนี้"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "ใหม่"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "เปิด"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a directory"
+msgstr "เปิดแฟ้ม"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "เปิดหน้าต่างใหม่"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "เปิดในหน้าต่างใหม่"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "เปิดในหน้าต่างนี้"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "ปรับแต่ง (_N)"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "Preferences for Eye of Gnome"
 msgstr "ปรับแต่งคอมโพเนนต์ของ EoG"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "ออกจากโปรแกรม"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "เกี่ยวกับ (_A)"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "ปิด (_C)"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "เนื้อหา (_C)"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "แฟ้ม (_F)"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "วีธีใช้ (_H)"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "ใหม่ (_N)"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:24
+#, fuzzy
+msgid "_Open Directory..."
+msgstr "เปิด... (_O)"
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "เปิด... (_O)"
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "ออก (_Q)"
+
+#: shell/eog-shell-ui.xml.h:27
+#, fuzzy
+msgid "_Statusbar"
+msgstr "ข้อความบนแถบสถานะ"
+
+#: shell/eog-shell-ui.xml.h:28
+msgid "_Toolbar"
+msgstr ""
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "L10n@opentle.org"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "โปรแกรมแสดงและจัดเรียงรูปของ GNOME"
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -533,26 +629,26 @@ msgstr ""
 "ไม่สามารถแสดงวิธีใช้สำหรับ Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr "คุณกำลังจะเปิด %i หน้าต่างพร้อม ๆ กัน  ต้องการจะแสดงรูปเหล่านี้ในเป็นชุดใหม ?"
 
-#: shell/main.c:229
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "เปิดหลายๆหน้าต่าง ?"
 
-#: shell/main.c:233
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "หลายๆหน้าต่างรูปเดี่ยว"
 
-#: shell/main.c:235
+#: shell/main.c:240
 msgid "Collection"
 msgstr "หน้าต่างรูปชุด"
 
-#: shell/main.c:305
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "หาแฟ้มไม่เจอ"
 
@@ -594,79 +690,90 @@ msgid "_Zoom In"
 msgstr "ขยาย (_Z)"
 
 #: viewer/eog-image-view-ui.xml.h:3
+#, fuzzy
+msgid "Full Screen"
+msgstr "เต็มจอ (_F)"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "ดูตัวอย่างการพิมพ์"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "ตัวอย่างงานพิมพ์ (_W)..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "ตั้งค่าการพิมพ์ (_U)"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "พิมพ์รูปออกเครื่องพิมพ์"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "หมุนซ้าย"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "หมุนขวา"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "บันทืกเป็น (_A)"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "ปรับค่าการพิมพ์สำหรับเครื่องพิมพ์ปจุบัน"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "เต็มจอ (_F)"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "พิมพ์ (_P) ..."
 
-#: viewer/eog-image-view.c:811
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
+#, c-format
+msgid "%i x %i pixel  %s    %i%%"
+msgstr ""
+
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/หมุนตามเข็มนาฬิกา (_L)"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/หมุนย้อนเข็มนาฬิกา (_R)"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/ขยาย (_Z)"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/ย่อ (_O)"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/ขนาดปกติ (_N)"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/ขนาดพอดี (_F)"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/ปิด (_C)"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "อ่านรูป %s ไม่สำเร็จ"
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -676,37 +783,52 @@ msgstr ""
 "เหตุเพราะ: %s"
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "อ่านรูปไม่สำเร็จ"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "บันทึกรูปเรียบร้อย"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "บันทึกรูปไม่สำเร็จ"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "ความสูงรูป"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "ความกว้างรูป"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "ข้อความบนแถบสถานะ"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "ความกว้างหน้าต่างที่ต้องการ"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "ความสูงหน้าต่างที่ต้องการ"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "อย่าขยายรูปให้ใหญ่กว่าต้นฉบับ"
+
+#~ msgid "By Extension"
+#~ msgstr "ตามนามสกุล"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "นามสกุลรูปที่บันทึกไม่เป็น"
+
+#~ msgid "Determine File Type:"
+#~ msgstr "ตัดสินชนิดรูป:"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "เลือกขนาดหน้าต่างโดยอัตโนมัติ"

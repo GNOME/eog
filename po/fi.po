@@ -8,8 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-03 20:34+0300\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-08-13 06:09+0300\n"
 "Last-Translator: Jarkko Ranta <jjranta@cc.joensuu.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
@@ -17,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -54,24 +54,24 @@ msgstr "Edellinen"
 msgid "Previous Image"
 msgstr "Edellinen kuva"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "Kierrä 180 _astetta"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "Kierrä _myötäpäivään"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "Kierrä va_stapäivään"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "Diaesitys"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -80,40 +80,40 @@ msgid "_Save"
 msgstr "_Tallenna"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "K_umoa"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Katsele"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Peruuta tallennus"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Tallentaminen valmis"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Siirrä roskakoriin"
 
-#: collection/eog-collection-view.c:802
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Kokoelmanäkymä"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Ikkunan otsikko"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Tilateksti"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Kuvan lataamisen edistyminen"
 
@@ -134,76 +134,96 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Kuvan interpolointi</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Kuvan suurennos</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>Jakso</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
+#: eog.glade.h:5
+#, fuzzy
+msgid "<b>Transparent Parts</b>"
 msgstr "<b>Läpinäkyvyys</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Taustaväri"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr ""
 
 #: eog.glade.h:8
+#, fuzzy
+msgid "As _background"
+msgstr "Taustaväri"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "Tausta_ruudukko"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Mukautettu _väri"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Väri läpinäkyville alueille"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "Älä käytä yli 100% lähennystä"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Gnomen silmän asetukset"
 
-#: eog.glade.h:14
-msgid "Image View"
+#: eog.glade.h:13
+#, fuzzy
+msgid "Image _View"
 msgstr "Kuvanäkymä"
 
-#: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "Jatkuva esitys"
-
-#: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Show _next image automatically after:"
 msgstr ""
 "Näytä seuraava kuva automaattisesti:\n"
 "(0 asettaa pois päältä)"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
-"_Interpoloi kuvaa suhdetta muutettaessa (parempi laatu, mutta hitaampi)"
+#: eog.glade.h:15
+#, fuzzy
+msgid "Sli_de Show"
+msgstr "Diaesitys"
 
-#: eog.glade.h:20
-msgid "sec"
+#: eog.glade.h:16
+#, fuzzy
+msgid "_Interpolate image on zoom"
+msgstr "Interpoloi kuvaa"
+
+#: eog.glade.h:17
+#, fuzzy
+msgid "_Loop sequence"
+msgstr "Jatkuva esitys"
+
+#: eog.glade.h:18
+#, fuzzy
+msgid "seconds"
 msgstr "s"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr ""
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -213,7 +233,7 @@ msgstr ""
 "CHECK_PATTERN, COLOR ja NONE. Jos valitaan COLOR, trans_color -avain "
 "määrittää käytetyn väriarvon."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -221,37 +241,60 @@ msgstr ""
 "Jos läpinäkyvyysavaimen arvo on COLOR, tämä avain määrittää läpinäkyvyyden "
 "ilmaisemiseen käytetyn värin."
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr ""
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "Interpoloi kuvaa"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr ""
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "Avaa kuvia uudessa ikkunassa"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr ""
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Läpinäkyvä väri"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Läpinäkyvyyden ilmaisin"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:15
+#, fuzzy
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Avataanko kuva uuteen ikkunaan sen sijaan, että vaihdettaisiin nykyisen "
+"ikkunan kuva."
+
+#: eog.schemas.in.h:16
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr ""
+
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Interpoloidaanko kuvaa suhdetta muutettaessa, vai ei. Interpolointi parantaa "
 "kuvan laatua, mutta hidastaa toimintaa jonkin verran."
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Avataanko kuva uuteen ikkunaan sen sijaan, että vaihdettaisiin nykyisen "
-"ikkunan kuva."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -273,61 +316,85 @@ msgstr "Upotettava EOG-kuva"
 msgid "Image"
 msgstr "Kuva"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Tiedostopäätteen mukaan"
+#: libeog/eog-file-selection.c:45
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr ""
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Tiedostomuoto ei ole tuettu."
+#: libeog/eog-file-selection.c:50
+msgid "File exists"
+msgstr ""
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Määritä tiedostotyyppi:"
+#: libeog/eog-file-selection.c:119
+msgid "All Files"
+msgstr ""
 
-#: libeog/eog-file-selection.c:333
+#: libeog/eog-file-selection.c:125
+#, fuzzy
+msgid "All Images"
+msgstr "Kuva"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:143
+#, c-format
+msgid "%s (*.%s)"
+msgstr ""
+
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Lataa kuva"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Tallenna kuva"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-file-selection.c:246
+#, fuzzy
+msgid "Open Folder"
+msgstr "Avaa tiedosto"
+
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG:in lataamiseksi ei saatu jaettua riittävästi muistia"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Ei kuvaa ladattuna."
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Kuvat voi tallentaa ainoastaan paikallisesti."
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Tiedostotyyppi ei ole tuettu."
 
-#: libeog/eog-info-view.c:76
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Ominaisuus"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Arvo"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
-#: libeog/eog-info-view.c:208
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Leveys"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
-#: libeog/eog-info-view.c:216
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Korkeus"
 
-#: libeog/eog-info-view.c:269
+#: libeog/eog-info-view.c:181
+#, fuzzy
+msgid "Filesize"
+msgstr "Tiedostonimi"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Tiedostonimi"
 
@@ -336,7 +403,7 @@ msgid "Page"
 msgstr "Sivu"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Esikatselu"
 
@@ -443,86 +510,114 @@ msgid "Cancel"
 msgstr "Peru"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Sulje ikkuna"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Ohjeita sovelluksen käytöstä"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Uusi"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Avaa"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a directory"
+msgstr "Avaa tiedosto"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Avaa tiedosto"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Avaa uusi ikkuna"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "Avaa uudessa ikkunassa"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "Avaa tässä ikkunassa"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "_Asetukset"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "Preferences for Eye of Gnome"
 msgstr "Gnomen silmän komponenttien asetukset"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Lopeta ohjelma"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Tietoja"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "_Sulje"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "S_isältö"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Ohje"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_Uusi"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:24
+#, fuzzy
+msgid "_Open Directory..."
+msgstr "_Avaa..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Avaa..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "_Lopeta"
+
+#: shell/eog-shell-ui.xml.h:27
+#, fuzzy
+msgid "_Statusbar"
+msgstr "Tilarivin teksti"
+
+#: shell/eog-shell-ui.xml.h:28
+msgid "_Toolbar"
+msgstr ""
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Lauri Nurmi, 2003\n"
@@ -531,16 +626,16 @@ msgstr ""
 "\n"
 "http://gnome-fi.org/"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Gnomen silmä"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -549,7 +644,7 @@ msgstr ""
 "Gnomen silmän ohjetta ei voitu näyttää.\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -558,19 +653,19 @@ msgstr ""
 "Olet aikeissa avata %i ikkunaa samanaikaisesti. Haluatko ennemmin avata ne "
 "kokoelmaan?"
 
-#: shell/main.c:229
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Avaa useita yksittäisiä ikkunoita?"
 
-#: shell/main.c:233
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Yksittäiset ikkunat"
 
-#: shell/main.c:235
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Kokoelma"
 
-#: shell/main.c:305
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "Tiedostoja ei löytynyt"
 
@@ -612,79 +707,90 @@ msgid "_Zoom In"
 msgstr "_Lähennä"
 
 #: viewer/eog-image-view-ui.xml.h:3
+#, fuzzy
+msgid "Full Screen"
+msgstr "Koko_ruutu"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Näyttää tulostettavan kuvan esikatselunäkymässä"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "Tulostuksen _esikatselu..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "Tulostus_asetukset"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Tulosta kuva tulostimella"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "Kierrä vasemmalle"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "Kierrä oikealle"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Tallenna _nimellä..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "Tallenna sivuasetukset nykyiselle tulostimelle"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "Koko_ruutu"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Tulosta..."
 
-#: viewer/eog-image-view.c:811
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
+#, c-format
+msgid "%i x %i pixel  %s    %i%%"
+msgstr ""
+
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "Kierrä _myötäpäivään"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "Kierrä _vastapäivään"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Lähennä"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/L_oitonna"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/_Normaalikoko"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Paras sov_itus"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Sulje"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Kuvan %s lataaminen epäonnistui."
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -694,37 +800,56 @@ msgstr ""
 "Syy: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Lataaminen epäonnistui"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Kuvan tallentaminen onnistui"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Kuvan tallentaminen epäonnistui"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Kuvan leveys"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Kuvan korkeus"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Tilarivin teksti"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Haluttu ikkunan leveys"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Haluttu ikkunan korkeus"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "Älä käytä yli 100% lähennystä"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr ""
+#~ "_Interpoloi kuvaa suhdetta muutettaessa (parempi laatu, mutta hitaampi)"
+
+#~ msgid "By Extension"
+#~ msgstr "Tiedostopäätteen mukaan"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Tiedostomuoto ei ole tuettu."
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Määritä tiedostotyyppi:"
 
 #~ msgid "&lt;b&gt;Image Interpolation&lt;/b&gt;"
 #~ msgstr "&lt;b&gt;Kuvan pehmennys&lt;/b&gr;"

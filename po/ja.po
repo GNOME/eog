@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-20 00:11+0900\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-12-20 00:05+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -103,7 +103,7 @@ msgstr "ゴミ箱に移動"
 msgid "Collection View"
 msgstr "コレクション表示"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "ウインドウのタイトル"
 
@@ -111,7 +111,7 @@ msgstr "ウインドウのタイトル"
 msgid "Status Text"
 msgstr "ステータス・テキスト"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "画像読み込みの経過"
 
@@ -307,50 +307,59 @@ msgstr "埋込可能 EOG 画像"
 msgid "Image"
 msgstr "画像"
 
-#: libeog/eog-file-selection.c:44
+#: libeog/eog-file-selection.c:45
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "%s を上書きしますか？"
 
-#: libeog/eog-file-selection.c:49
+#: libeog/eog-file-selection.c:50
 msgid "File exists"
 msgstr "ファイルが存在します"
 
-#: libeog/eog-file-selection.c:117
+#: libeog/eog-file-selection.c:119
+#, fuzzy
+msgid "All Files"
+msgstr "全ての画像"
+
+#: libeog/eog-file-selection.c:125
 msgid "All Images"
 msgstr "全ての画像"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:135
+#: libeog/eog-file-selection.c:143
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "画像の読み込み"
 
-#: libeog/eog-file-selection.c:188
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "画像の保存"
 
-#: libeog/eog-file-selection.c:230
+#: libeog/eog-file-selection.c:246
 msgid "Open Folder"
 msgstr "フォルダを開きます"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ファイルを読み込むためのメモリを確保できませんでした"
 
-#: libeog/eog-image.c:1296
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: libeog/eog-image.c:1306
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "画像はローカル・ファイルとしてのみ保存できます。"
 
-#: libeog/eog-image.c:1317
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "画像の保存でサポートしていない種類です。"
 
@@ -383,7 +392,7 @@ msgid "Page"
 msgstr "用紙"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:384
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -725,45 +734,45 @@ msgid "_Print..."
 msgstr "印刷(_P)..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:535
+#: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i ピクセル  %s    %i%%"
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/時計回りに回転(_L)"
 
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/反時計回りに回転(_R)"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/拡大(_I)"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/縮小(_O)"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/オリジナルのサイズ(_N)"
 
-#: viewer/eog-image-view.c:838
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/ウインドウに合わせる(_F)"
 
-#: viewer/eog-image-view.c:841
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/閉じる(_C)"
 
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "画像 %s の読み込みに失敗しました。"
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -773,34 +782,34 @@ msgstr ""
 "原因: %s"
 
 #. show error dialog
-#: viewer/eog-image-view.c:1020
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "画像の保存に失敗しました"
 
-#: viewer/eog-image-view.c:1103
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "画像の保存が完了しました"
 
-#: viewer/eog-image-view.c:1107
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "画像の保存に失敗しました"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "画像の幅"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "画像の高さ"
 
-#: viewer/eog-image-view.c:1360
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "ステータスバーのテキスト"
 
-#: viewer/eog-image-view.c:1363
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "ウィンドウの幅にする"
 
-#: viewer/eog-image-view.c:1366
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "ウィンドウの高さにする"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-08-25 21:15+0200\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-07-07 17:55+0200\n"
 "Last-Translator: Andras Timar <timar@gnome.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -48,24 +48,24 @@ msgstr "Előző"
 msgid "Previous Image"
 msgstr "Előző kép"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "Forgatás 180 _fokkal"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "Forgatás az ó_ramutató irányába"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "Diavetítés"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
@@ -74,40 +74,40 @@ msgid "_Save"
 msgstr "M_entés"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Visszavonás"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Nézet"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Mentés megszakítása"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Mentés kész"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Áthelyezés a Kukába"
 
-#: collection/eog-collection-view.c:802
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Gyűjteménynézet"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Ablak címe"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Állapotsor szövege"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "A képbetöltés folyamata"
 
@@ -127,77 +127,98 @@ msgstr "Sokféle képtípus megtekintésére alkalmas program"
 msgid "    "
 msgstr "    "
 
-#: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
 # Nagyon szar...
-#: eog.glade.h:3
+#: eog.glade.h:2
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Kép interpolációja</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Kép nagyítása</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>Sorozat</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
+#: eog.glade.h:5
+#, fuzzy
+msgid "<b>Transparent Parts</b>"
 msgstr "<b>Átlátszóság</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Háttérként"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr ""
 
 #: eog.glade.h:8
+#, fuzzy
+msgid "As _background"
+msgstr "Háttérként"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "_Rácsmintaként"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Egyéni _színként"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Az átlátszó területek színe"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "A nagyítás ne legyen 100%-nál nagyobb"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Az Eye of Gnome beállításai"
 
-#: eog.glade.h:14
-msgid "Image View"
+#: eog.glade.h:13
+#, fuzzy
+msgid "Image _View"
 msgstr "Képnézet"
 
-#: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "Végtelenített sorozat"
-
-#: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Show _next image automatically after:"
 msgstr ""
 "Következő kép automatikus megjelenítése:\n"
 "(letiltás: 0)"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "Kép _interpolálása átméretezés esetén (jobb minőségű, de lassabb)"
+#: eog.glade.h:15
+#, fuzzy
+msgid "Sli_de Show"
+msgstr "Diavetítés"
 
-#: eog.glade.h:20
-msgid "sec"
+#: eog.glade.h:16
+#, fuzzy
+msgid "_Interpolate image on zoom"
+msgstr "Kép interpolálása"
+
+#: eog.glade.h:17
+#, fuzzy
+msgid "_Loop sequence"
+msgstr "Végtelenített sorozat"
+
+#: eog.glade.h:18
+#, fuzzy
+msgid "seconds"
 msgstr "mp"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr ""
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -207,7 +228,7 @@ msgstr ""
 "CHECK_PATTERN (sakktábla), COLOR (szín) és NONE (semmi). A COLOR választása "
 "esetén a trans_color kulcs határozza meg a használt színt."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -215,37 +236,60 @@ msgstr ""
 "Ha az átlátszósági kulcs értéke COLOR, akkor ez a kulcs határozza meg az "
 "átlátszóság kijelzéséhez használt színt."
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr ""
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "Kép interpolálása"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr ""
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "Képek megnyitása új ablakban"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr ""
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Átlátszóságot jelző szín"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Átlátszóság jelzése"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:15
+#, fuzzy
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Egy kép megnyitása új ablakban történjen-e, ahelyett hogy az aktuális "
+"ablakban lecseréli a képet."
+
+#: eog.schemas.in.h:16
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr ""
+
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Legyen-e a kép interpolálva a nagyításkor, vagy ne. Az interpolálás jobb "
 "képminőséget eredményez, de kicsit lassabb. "
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Egy kép megnyitása új ablakban történjen-e, ahelyett hogy az aktuális "
-"ablakban lecseréli a képet."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -267,61 +311,85 @@ msgstr "Beilleszthető EOG kép"
 msgid "Image"
 msgstr "Kép"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Kiterjesztés szerint"
+#: libeog/eog-file-selection.c:45
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr ""
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Nem támogatott mentési fájlformátum"
+#: libeog/eog-file-selection.c:50
+msgid "File exists"
+msgstr ""
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Fájltípus meghatározása:"
+#: libeog/eog-file-selection.c:119
+msgid "All Files"
+msgstr ""
 
-#: libeog/eog-file-selection.c:333
+#: libeog/eog-file-selection.c:125
+#, fuzzy
+msgid "All Images"
+msgstr "Kép"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:143
+#, c-format
+msgid "%s (*.%s)"
+msgstr ""
+
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Kép betöltése"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Kép mentése"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-file-selection.c:246
+#, fuzzy
+msgid "Open Folder"
+msgstr "Fájl megnyitása"
+
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nem sikerült a memóriafoglalás a JPEG-fájl betöltéséhez"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Nincs kép betöltve."
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "A képeket csak helyi fájlként lehet menteni."
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Nem támogatott mentési képtípus"
 
-#: libeog/eog-info-view.c:76
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Attribútum"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Érték"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
-#: libeog/eog-info-view.c:208
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Szélesség"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
-#: libeog/eog-info-view.c:216
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Magasság"
 
-#: libeog/eog-info-view.c:269
+#: libeog/eog-info-view.c:181
+#, fuzzy
+msgid "Filesize"
+msgstr "Fájlnév"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Fájlnév"
 
@@ -330,7 +398,7 @@ msgid "Page"
 msgstr "Oldal"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -437,101 +505,129 @@ msgid "Cancel"
 msgstr "Mégsem"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Ablak bezárása"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Az alkalmazás súgója"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Új"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Megnyitás"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
+#, fuzzy
+msgid "Open a directory"
+msgstr "Fájl megnyitása"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Fájl megnyitása"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Új ablak megnyitása"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "Megnyitás új ablakban"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "Megnyitás az aktuális ablakban"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "_Beállítások"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
+#: shell/eog-shell-ui.xml.h:15
+#, fuzzy
+msgid "Preferences for Eye of Gnome"
 msgstr "EOG-komponensek beállításai"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Kilépés a programból"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Névjegy"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "_Bezárás"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Fájl"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Súgó"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "Ú_j"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:24
+#, fuzzy
+msgid "_Open Directory..."
+msgstr "_Megnyitás..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Megnyitás..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "_Kilépés"
+
+#: shell/eog-shell-ui.xml.h:27
+#, fuzzy
+msgid "_Statusbar"
+msgstr "Állapotsor szövege"
+
+#: shell/eog-shell-ui.xml.h:28
+msgid "_Toolbar"
+msgstr ""
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Érdi Gergő <cactus@cactus.rulez.org>\n"
 "Tímár András <timar@gnome.hu>"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "A GNOME képnézegető és katalogizáló programja"
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -540,7 +636,7 @@ msgstr ""
 "Nem jeleníthető meg az Eye of Gnome súgója.\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -549,19 +645,19 @@ msgstr ""
 "%i ablak egyidejű megnyitására készülsz. Nem akarod inkább gyűjteményként "
 "megnyitni ezeket?"
 
-#: shell/main.c:229
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Megnyitás több külön ablakban?"
 
-#: shell/main.c:233
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Külön ablakokban"
 
-#: shell/main.c:235
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Gyűjteményként"
 
-#: shell/main.c:305
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "Nem találhatóak fájlok"
 
@@ -603,79 +699,90 @@ msgid "_Zoom In"
 msgstr "_Nagyítás"
 
 #: viewer/eog-image-view-ui.xml.h:3
+#, fuzzy
+msgid "Full Screen"
+msgstr "_Teljes képernyő"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Előnézetet ad a nyomtatandó képről"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "Nyomtatási _kép..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "Nyom_tatás beállítása"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Kinyomtatja a képet"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "Forgatás balra"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "Forgatás jobbra"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Men_tés másként..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "Oldalbeállítások az aktuális nyomtatóhoz"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "_Teljes képernyő"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Nyomtatás..."
 
-#: viewer/eog-image-view.c:811
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
+#, c-format
+msgid "%i x %i pixel  %s    %i%%"
+msgstr ""
+
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/Forgatás az ó_ramutató irányába"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Forgatás az óramutatóval _ellentétesen"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Nagyítás"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/_Kicsinyítés"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/_Normál méret"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Legjobb _illeszkedés"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Bezárás"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "A(z) %s kép betöltése nem sikerült."
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -685,37 +792,55 @@ msgstr ""
 "Az ok: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Betöltés sikertelen"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "A kép mentése sikeres volt"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "A kép mentése nem sikerült"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Kép szélessége"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Kép magassága"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Állapotsor szövege"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Kívánt ablakszélesség"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Kívánt ablakmagasság"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "A nagyítás ne legyen 100%-nál nagyobb"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr "Kép _interpolálása átméretezés esetén (jobb minőségű, de lassabb)"
+
+#~ msgid "By Extension"
+#~ msgstr "Kiterjesztés szerint"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Nem támogatott mentési fájlformátum"
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Fájltípus meghatározása:"
 
 #~ msgid "Copyright  2000-2003 The Free Software Foundation"
 #~ msgstr "Copyright © 2000-2002 The Free Software Foundation"

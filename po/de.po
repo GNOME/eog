@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.x\n"
-"POT-Creation-Date: 2003-12-10 19:27+0100\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-07-01 11:50+0200\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -102,7 +102,7 @@ msgstr "In den Müll verschieben"
 msgid "Collection View"
 msgstr "Sammlungsansicht"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Fenstertitel"
 
@@ -110,7 +110,7 @@ msgstr "Fenstertitel"
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Fortschritt beim Laden eines Bildes"
 
@@ -308,50 +308,59 @@ msgstr "Einbettbares EOG-Bild"
 msgid "Image"
 msgstr "Bild"
 
-#: libeog/eog-file-selection.c:44
+#: libeog/eog-file-selection.c:45
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Soll %s überschrieben werden?"
 
-#: libeog/eog-file-selection.c:49
+#: libeog/eog-file-selection.c:50
 msgid "File exists"
 msgstr "Datei ist vorhanden"
 
-#: libeog/eog-file-selection.c:117
+#: libeog/eog-file-selection.c:119
+#, fuzzy
+msgid "All Files"
+msgstr "Alle Bilder"
+
+#: libeog/eog-file-selection.c:125
 msgid "All Images"
 msgstr "Alle Bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:135
+#: libeog/eog-file-selection.c:143
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Bild öffnen"
 
-#: libeog/eog-file-selection.c:188
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: libeog/eog-file-selection.c:230
+#: libeog/eog-file-selection.c:246
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Speicher zum Laden der JPEG Datei konnte nicht reserviert werden"
 
-#: libeog/eog-image.c:1296
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Kein Bild geöffnet."
 
-#: libeog/eog-image.c:1306
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Bilder können nur als lokale Dateien gespeichert werden."
 
-#: libeog/eog-image.c:1317
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Nicht unterstützter Bildtyp zum Speichern."
 
@@ -384,7 +393,7 @@ msgid "Page"
 msgstr "Seite"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:384
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -728,45 +737,45 @@ msgid "_Print..."
 msgstr "_Drucken..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:535
+#: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i Bildpunkte  %s    %i%%"
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/90° nach _rechts drehen"
 
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/90° nach _links drehen"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/Ansicht ver_größern"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/Ansicht ver_kleinern"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/_Normale Ansichtsgröße"
 
-#: viewer/eog-image-view.c:838
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Ansicht an_passen"
 
-#: viewer/eog-image-view.c:841
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/S_chließen"
 
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Öffnen des Bildes %s fehlgeschlagen."
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -776,35 +785,35 @@ msgstr ""
 "Ursache: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1020
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Öffnen fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1103
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Bild erfolgreich gespeichert"
 
-#: viewer/eog-image-view.c:1107
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Bild konnte nicht gespeichert werden"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:1360
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image-view.c:1363
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Gewünschte Fensterbreite"
 
-#: viewer/eog-image-view.c:1366
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Gewünschte Fensterhöhe"
 

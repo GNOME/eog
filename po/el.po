@@ -15,14 +15,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-12 09:09+0200\n"
+"POT-Creation-Date: 2003-12-22 18:16+0100\n"
 "PO-Revision-Date: 2003-11-12 09:17+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.0\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -80,7 +80,7 @@ msgstr "Αν_τιωρολογιακή περιστροφή"
 msgid "Slide Show"
 msgstr "Προβολή Σλάϊντ "
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Επεξεργασία"
@@ -95,37 +95,37 @@ msgstr "Απο_θήκευση"
 msgid "_Undo"
 msgstr "Α_ναίρεση"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Προβολή"
 
-#: collection/eog-collection-view.c:305
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Ακύρωση αποθήκευσης"
 
-#: collection/eog-collection-view.c:308
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Η αποθήκευση ολοκληρώθηκε"
 
-#: collection/eog-collection-view.c:777
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Μετακίνηση στα απορρίματα"
 
 #
-#: collection/eog-collection-view.c:822
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Προβολή συλλογής"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1345
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Τίτλος Παραθύρου"
 
-#: collection/eog-collection-view.c:1283
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Κείμενο Γραμμής Κατάστασης"
 
-#: collection/eog-collection-view.c:1286 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Πρόοδος της φόρτωσης εικόνας"
 
@@ -327,61 +327,89 @@ msgstr "Ενσωματώσιμη Εικόνα EOG"
 msgid "Image"
 msgstr "Εικόνα"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Κατά επέκταση"
+#: libeog/eog-file-selection.c:45
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr ""
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Μη υποστηριζόμενος τύπος εικόνας για αποθήκευση."
+#: libeog/eog-file-selection.c:50
+msgid "File exists"
+msgstr ""
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Καθορισμός τύπου αρχείου"
+#: libeog/eog-file-selection.c:119
+msgid "All Files"
+msgstr ""
 
 #
-#: libeog/eog-file-selection.c:333
+#: libeog/eog-file-selection.c:125
+#, fuzzy
+msgid "All Images"
+msgstr "Εικόνα"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:143
+#, c-format
+msgid "%s (*.%s)"
+msgstr ""
+
+#
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Φόρτωση εικόνας"
 
 #
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Αποθήκευση εικόνας"
 
-#: libeog/eog-image-jpeg.c:100
+#
+#: libeog/eog-file-selection.c:246
+#, fuzzy
+msgid "Open Folder"
+msgstr "Άνοιγμα αρχείου"
+
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Αδυναμία διάθεσης μνήμης για την φόρτωση αρχείου JPEG "
 
-#: libeog/eog-image.c:1215
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Δεν έχει φορτωθεί εικόνα."
 
-#: libeog/eog-image.c:1224
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Οι εικόνες μπορούν να αποθηκευτούν μόνο ως τοπικά αρχεία."
 
-#: libeog/eog-image.c:1259
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Μη υποστηριζόμενος τύπος εικόνας για αποθήκευση."
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Γνώρισμα"
 
-#: libeog/eog-info-view.c:92
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Τιμή"
 
-#: libeog/eog-info-view.c:155
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Πλάτος"
 
-#: libeog/eog-info-view.c:169
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Ύψος"
 
-#: libeog/eog-info-view.c:186
+#: libeog/eog-info-view.c:181
+#, fuzzy
+msgid "Filesize"
+msgstr "Όνομα αρχείου"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
@@ -390,7 +418,7 @@ msgid "Page"
 msgstr "Σελίδα"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:379
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
@@ -524,75 +552,87 @@ msgstr "Άνοιγμα"
 
 #
 #: shell/eog-shell-ui.xml.h:9
-msgid "Open a file"
+#, fuzzy
+msgid "Open a directory"
 msgstr "Άνοιγμα αρχείου"
 
 #
 #: shell/eog-shell-ui.xml.h:10
+msgid "Open a file"
+msgstr "Άνοιγμα αρχείου"
+
+#
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Άνοιγμα νέου παραθύρου"
 
 #
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "Άνοιγμα σε νέο παράθυρο"
 
 #
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "Άνοιγμα σε αυτό το παράθυρο"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "Προτι_μήσεις"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "Preferences for Eye of Gnome"
 msgstr "Προτιμήσεις για το Eye of Gnome"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Έξοδος από το πρόγραμμα"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Περί"
 
 #
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "_Κλείσιμο"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "_Περιεχόμενα"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_Νέο"
 
 #
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:24
+#, fuzzy
+msgid "_Open Directory..."
+msgstr "_Άνοιγμα..."
+
+#
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Άνοιγμα..."
 
-#: shell/eog-shell-ui.xml.h:24
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "Έ_ξοδος"
 
-#: shell/eog-shell-ui.xml.h:25
+#: shell/eog-shell-ui.xml.h:27
 msgid "_Statusbar"
 msgstr "_Γραμμή Κατάστασης"
 
-#: shell/eog-shell-ui.xml.h:26
+#: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
 msgstr "Ερ_γαλειοθήκη"
 
@@ -600,24 +640,24 @@ msgstr "Ερ_γαλειοθήκη"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:271
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Συμεών (σίμος) Ξενιτέλλης <simos@hellug.gr>\n"
 "Κώστας Παπαδήμας <pkst@gmx.net>"
 
 #
-#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
-#: shell/eog-window.c:989 shell/main.c:513
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Μάτι του Gnome"
 
 #
-#: shell/eog-window.c:279
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Η εφαρμογή προβολής και καταλογοποίησης εικόνων του GNOME."
 
-#: shell/eog-window.c:316
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -741,51 +781,51 @@ msgstr "_Πλήρης Οθόνη"
 msgid "_Print..."
 msgstr "_Εκτύπωση..."
 
-#. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:525
-#, c-format
-msgid "%i x %i pixel    %i%%"
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
+#, fuzzy, c-format
+msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i εικονοστοιχεία    %i%%"
 
-#: viewer/eog-image-view.c:815
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/Ω_ρολογιακή περιστροφή"
 
-#: viewer/eog-image-view.c:817
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "?Αν_τιωρολογιακή περιστροφή"
 
 #
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Μεγέθυνση"
 
 #
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/Σ_μίκρυνση"
 
-#: viewer/eog-image-view.c:824
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/Κανονικό _Μέγεθος"
 
-#: viewer/eog-image-view.c:826
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Καλύτερο _ταίριασμα"
 
 #
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Κλείσιμο"
 
 #
-#: viewer/eog-image-view.c:992
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Αποτυχία φόρτωσης εικόνας %s"
 
 #
-#: viewer/eog-image-view.c:999
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -795,37 +835,46 @@ msgstr ""
 "Αιτία: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1008
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Αποτυχία φόρτωσης"
 
-#: viewer/eog-image-view.c:1091
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Η εικόνα αποθηκεύτηκε επιτυχώς"
 
-#: viewer/eog-image-view.c:1095
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Αποτυχία αποθήκευσης εικόνας"
 
-#: viewer/eog-image-view.c:1339
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Πλάτος Εικόνας"
 
-#: viewer/eog-image-view.c:1342
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Ύψος Εικόνας"
 
-#: viewer/eog-image-view.c:1348
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Κείμενο Γραμμής Κατάστασης"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Επιθυμητό πλάτος παραθύρου"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Επιθυμητό ύψος παραθύρου"
+
+#~ msgid "By Extension"
+#~ msgstr "Κατά επέκταση"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Μη υποστηριζόμενος τύπος εικόνας για αποθήκευση."
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Καθορισμός τύπου αρχείου"
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -1238,4 +1287,3 @@ msgstr "Επιθυμητό ύψος παραθύρου"
 
 #~ msgid "Check _size:"
 #~ msgstr "_Μέγεθος τετραγωνιδίων:"
-
