@@ -18,6 +18,10 @@ INCLUDES =                                              \
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)
 
+noinst_PROGRAMS = sample-container
+sample_container_SOURCE = sample-container.c
+sample_container_LDADD = $(GNOME_LIBS) $(EXTRA_BONOBO_LIBS)
+
 bin_PROGRAMS = eog-image-viewer
 
 if ENABLE_EVOLUTION
