@@ -13,8 +13,11 @@
 #include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkimage.h>
 #include <gtk/gtkvbox.h>
+#include <gtk/gtkcheckbutton.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeui/gnome-thumbnail.h>
+#include <gconf/gconf-client.h>
+#include "eog-config-keys.h"
 #include "eog-hig-dialog.h"
 #include "eog-pixbuf-util.h"
 
@@ -377,6 +380,38 @@ eog_file_selection_add_preview (GtkWidget *widget)
 			  G_CALLBACK (update_preview_cb), NULL);
 }
 
+static void
+eog_file_selection_toggle_button_cb (GtkToggleButton *button, gpointer user_data)
+{
+	GConfClient *client;	
+
+	client = gconf_client_get_default ();
+	gconf_client_set_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW,
+			       gtk_toggle_button_get_active (button), NULL);
+	g_object_unref (client);
+}
+
+static void
+eog_file_selection_add_open_new_window (GtkWidget *widget)
+{
+	GConfClient *client;
+	gboolean new_window;
+	GtkWidget *check_button;
+
+	client = gconf_client_get_default ();
+	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
+	g_object_unref (client);
+
+	check_button = gtk_check_button_new_with_label (_("Open in new window"));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), new_window);
+
+	g_signal_connect (G_OBJECT (check_button), "toggled", 
+			  (GCallback) eog_file_selection_toggle_button_cb, NULL);
+
+	gtk_box_pack_end (GTK_BOX (GTK_DIALOG (widget)->vbox), check_button, FALSE, FALSE, 0);
+	gtk_widget_show (check_button);
+}
+
 GtkWidget* 
 eog_file_selection_new (GtkFileChooserAction action)
 {
@@ -420,6 +455,7 @@ eog_file_selection_new (GtkFileChooserAction action)
 		eog_file_selection_add_filter (EOG_FILE_SELECTION (filesel));
 		eog_file_selection_add_preview (filesel);
 	}
+	eog_file_selection_add_open_new_window (filesel);
 
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (filesel), FALSE);
 
