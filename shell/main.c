@@ -8,6 +8,7 @@
 #include <bonobo.h>
 #include <bonobo/bonobo-ui-main.h>
 #include "eog-window.h"
+#include "session.h"
 
 static gboolean
 create_app (gpointer data)
@@ -222,10 +223,10 @@ handle_cmdline_args (gpointer data)
 	GList *dir_list = NULL;
 	GList *file_list = NULL;
 	const gchar **startup_files;
-	poptContext *ctx;
+	poptContext ctx;
 
-	ctx = (poptContext*) data;
-	startup_files = poptGetArgs (*ctx);
+	ctx = data;
+	startup_files = poptGetArgs (ctx);
 
 	/* sort cmdline arguments into file and dir list */
 	if (startup_files)
@@ -250,8 +251,7 @@ handle_cmdline_args (gpointer data)
 				g_list_free (file_list);
 			} else { /* quit whole program */
 				GList *node;
-				poptFreeContext (*ctx);
-				g_free (ctx);
+				poptFreeContext (ctx);
 				for (node = file_list; node; node = node->next) g_free (node->data);
 				for (node = dir_list; node; node = node->next) g_free (node->data);
 				g_list_free (file_list);
@@ -272,28 +272,71 @@ handle_cmdline_args (gpointer data)
 	}
 	
 	/* clean up */
-	poptFreeContext (*ctx);
-	g_free (ctx);
+	poptFreeContext (ctx);
 
 	return FALSE;
+}
+
+/* Callback used when the session manager asks us to save our state */
+static gboolean
+client_save_yourself_cb (GnomeClient *client,
+			 gint phase,
+			 GnomeSaveStyle save_style,
+			 gboolean shutdown,
+			 GnomeInteractStyle interact_style,
+			 gboolean fast,
+			 gpointer data)
+{
+	const char *prefix;
+
+	prefix = gnome_client_get_config_prefix (client);
+	session_save (prefix);
+
+	return TRUE;
+}
+
+/* Callback used when the session manager asks us to terminate.  We simply exit
+ * the application by destroying all open windows.
+ */
+static void
+client_die_cb (GnomeClient *client, gpointer data)
+{
+	GList *l;
+
+	do {
+		l = eog_get_window_list ();
+		if (l) {
+			EogWindow *window;
+
+			window = EOG_WINDOW (l->data);
+			gtk_widget_destroy (GTK_WIDGET (window));
+		}
+	} while (l);
 }
 
 int
 main (int argc, char **argv)
 {
-	CORBA_Environment ev;
+	GnomeProgram *program;
 	GError *error;
-	poptContext *ctx;
+	poptContext ctx;
+	GValue value = { 0 };
+	GnomeClient *client;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 
+#if 0
+
 	ctx = g_new0 (poptContext, 1);
 	gnome_init_with_popt_table ("Eye of Gnome", VERSION,
 		    argc, argv, NULL, 0, ctx);
-
-	CORBA_exception_init (&ev);
+#endif
+	program = gnome_program_init ("eog", VERSION,
+				      LIBGNOMEUI_MODULE, argc, argv,
+				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of Gnome"),
+				      NULL);
 
 	error = NULL;
 	if (gconf_init (argc, argv, &error) == FALSE) {
@@ -309,16 +352,25 @@ main (int argc, char **argv)
 	if (bonobo_ui_init ("Eye Of GNOME", VERSION, &argc, argv) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));
 
-	if (*ctx) {
-		gtk_idle_add (handle_cmdline_args, ctx);
-	} else
-		gtk_idle_add (create_app, NULL);
-
 	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
+
+	client = gnome_master_client ();
+
+	g_signal_connect (client, "save_yourself", G_CALLBACK (client_save_yourself_cb), NULL);
+	g_signal_connect (client, "die", G_CALLBACK (client_die_cb), NULL);
+
+	if (gnome_client_get_flags (client) & GNOME_CLIENT_RESTORED)
+		session_load (gnome_client_get_config_prefix (client));
+	else {
+		g_value_init (&value, G_TYPE_POINTER);
+		g_object_get_property (G_OBJECT (program), GNOME_PARAM_POPT_CONTEXT, &value);
+		ctx = g_value_get_pointer (&value);
+		g_value_unset (&value);
+
+		gtk_idle_add (handle_cmdline_args, ctx);
+	}
 
 	bonobo_main ();
 
-	CORBA_exception_free (&ev);
-	
 	return 0;
 }

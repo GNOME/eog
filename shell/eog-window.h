@@ -66,8 +66,12 @@ gboolean eog_window_open_list (EogWindow *eog_window, GList *text_uri_list);
 void eog_window_set_auto_size (EogWindow *eog_window, gboolean bool);
 gboolean eog_window_get_auto_size (EogWindow *eog_window);
 
+const char *eog_window_get_uri (EogWindow *eog_window);
+
 Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
 							CORBA_Environment *ev);
+
+GList *eog_get_window_list (void);
 
 G_END_DECLS
 

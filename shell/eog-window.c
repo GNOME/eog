@@ -25,6 +25,7 @@
 #include <errno.h>
 #include <config.h>
 #include <math.h>
+#include <time.h>
 #include <gnome.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
@@ -50,6 +51,9 @@
 struct _EogWindowPrivate {
 	/* Our GConf client */
 	GConfClient *client;
+
+	/* URI we are displaying */
+	char *uri;
 
 	/* control frame */
 	BonoboControlFrame *ctrl_frame;
@@ -94,6 +98,38 @@ enum {
 };
 
 
+
+/* Computes a unique ID string for use as the window role */
+static char *
+gen_role (void)
+{
+        char *ret;
+	static char *hostname;
+	time_t t;
+	static int serial;
+
+	t = time (NULL);
+
+	if (!hostname) {
+		static char buffer [512];
+
+		if ((gethostname (buffer, sizeof (buffer) - 1) == 0) &&
+		    (buffer [0] != 0))
+			hostname = buffer;
+		else
+			hostname = "localhost";
+	}
+
+	ret = g_strdup_printf ("eog-window-%d-%d-%d-%ld-%d@%s",
+			       getpid (),
+			       getgid (),
+			       getppid (),
+			       (long) t,
+			       serial++,
+			       hostname);
+
+	return ret;
+}
 
 /* Brings attention to a window by raising it and giving it focus */
 static void
@@ -299,6 +335,11 @@ eog_window_destroy (GtkObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
+	if (priv->uri) {
+		g_free (priv->uri);
+		priv->uri = NULL;
+	}
+
 	if (priv->ctrl_frame != NULL) {
 		bonobo_object_unref (BONOBO_OBJECT (priv->ctrl_frame));
 		priv->ctrl_frame = NULL;
@@ -375,9 +416,15 @@ static void
 eog_window_init (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+	char *role;
 
 	priv = g_new0 (EogWindowPrivate, 1);
 	window->priv = priv;
+
+	role = gen_role ();
+	gtk_window_set_role (GTK_WINDOW (window), role);
+
+	priv->uri = NULL;
 
 	priv->pref_dlg = NULL;
 	
@@ -1109,6 +1156,11 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	gnome_vfs_file_info_unref (info);
 	gnome_vfs_uri_unref (uri);
 
+	if (priv->uri)
+		g_free (priv->uri);
+
+	priv->uri = g_strdup (text_uri);
+
 	return TRUE;
 }
 
@@ -1149,4 +1201,38 @@ eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
 	prop_control = Bonobo_Unknown_queryInterface (control, 
 						      "IDL:Bonobo/PropertyControl:1.0", ev);
 	return prop_control;
+}
+
+/**
+ * eog_get_window_list:
+ *
+ * Gets a list of all #EogWindow objects.  You should not modify this list at
+ * all; it should be considered read-only.
+ * 
+ * Return value: A list with all the active #EogWindow objects.
+ **/
+GList *
+eog_get_window_list (void)
+{
+	return window_list;
+}
+
+/**
+ * eog_window_get_uri:
+ * @eog_window: A shell window.
+ * 
+ * Queries the URI that is being displayed by the specified window.  If the
+ * window is not displaying a single image or directory, this will return NULL.
+ * 
+ * Return value: The URI that is being displayed.
+ **/
+const char *
+eog_window_get_uri (EogWindow *eog_window)
+{
+	EogWindowPrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (eog_window), NULL);
+
+	priv = eog_window->priv;
+	return priv->uri;
 }

@@ -17,6 +17,8 @@ eog_SOURCES =			\
 	eog-preferences.h	\
 	eog-preferences.c	\
 	main.c			\
+	session.c		\
+	session.h		\
 	util.h			\
 	util.c
 

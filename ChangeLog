@@ -1,3 +1,13 @@
+2002-04-11  Federico Mena Quintero  <federico@ximian.com>
+
+	* shell/session.[ch]: New files with session management code.
+
+	* shell/main.c (main): Connect to the master client's signals.
+
+	* shell/eog-window.c (eog_get_window_list): New function to get
+	the window list from the outside.
+	(eog_window_init): Set up a unique role for the window.
+
 2002-04-11  Jens Finke <jens@triq.net>
 
 	* shell/eog-window.c: Increased default window widht/height to
