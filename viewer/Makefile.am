@@ -4,7 +4,7 @@ INCLUDES =                                              \
 	-DDATADIR=\""$(datadir)"\"			\
 	-I. 						\
 	-I$(srcdir) -I$(top_srcdir) 			\
-	-I$(top_srcdir)/src				\
+	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
@@ -29,16 +29,9 @@ sample_container_LDADD = 	\
 	$(OAF_LIBS)		\
 	$(INTLLIBS)		\
 	$(EXTRA_BONOBO_LIBS)	\
-	../src/libeog.la
-
-CORBA_SOURCE =			\
-	Eog.h			\
-	Eog-common.c		\
-	Eog-stubs.c		\
-	Eog-skels.c
+	../libeog/libeog.la
 
 eog_image_viewer_SOURCES =	\
-	$(CORBA_SOURCE)		\
 	eog-image.c		\
 	eog-image.h		\
 	eog-image-io.c		\
@@ -63,29 +56,10 @@ eog_image_viewer_LDADD = 			\
 	$(INTLLIBS)				\
 	$(EXTRA_BONOBO_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
-	../src/libeog.la
-
-idls =							\
-	$(top_srcdir)/idl/Eog.idl
-
-idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
-
-$(CORBA_SOURCE): $(idls)
-	$(ORBIT_IDL) $(top_srcdir)/idl/Eog.idl -I$(top_srcdir)/idl $(idl_flags)
-
-Eog.h: $(idls)
-
-BUILT_SOURCES=$(CORBA_SOURCE)
-
-CLEANFILES += $(BUILT_SOURCES)
-
-oafdir = $(datadir)/oaf
-oaf_in_files = GNOME_EOG.oaf.in
-oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
-@XML_I18N_MERGE_OAF_RULE@
+	../libeog/libeog.la
 
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
-EXTRA_DIST = $(oaf_in_files) $(ui_DATA)
+EXTRA_DIST = $(ui_DATA)
 
