@@ -206,6 +206,10 @@ handle_cmdline_args (gpointer data)
 
 	/* open regular files */
 	if (file_list != NULL) {
+		/* FIXME: The collection view is not yet ported to Gnome2 so 
+		 * we must disable the following stuff :-(.
+		 */
+#if 0
 		if (g_list_length (file_list) > 3) {
 			gint ret = user_wants_collection (g_list_length (file_list));
 			if (ret == COLLECTION_YES) {
@@ -229,9 +233,12 @@ handle_cmdline_args (gpointer data)
 				return FALSE;
 			}
 		} else {
+#endif
 			open_in_single_windows (file_list);
 			g_list_free (file_list);
+#if 0
 		}
+#endif
 	}
 		
 	/* open every directory in an own window */
@@ -264,9 +271,6 @@ main (int argc, char **argv)
 		    argc, argv, NULL, 0, ctx);
 
 	CORBA_exception_init (&ev);
-	/* FIXME GNOME2 shouldn't be necessary, right?
-	   orb = oaf_init (argc, argv);
-	*/
 
 	error = NULL;
 	if (gconf_init (argc, argv, &error) == FALSE) {
