@@ -5,14 +5,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.3\n"
-"POT-Creation-Date: 2004-03-22 19:33+0100\n"
-"PO-Revision-Date: 2004-02-25 00:03+0900\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-29 04:42+0900\n"
+"PO-Revision-Date: 2004-07-29 05:08+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -27,18 +28,24 @@ msgid "Image Collection"
 msgstr "그림 모음"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "Image Collection Viewer"
+msgstr "그림 모음 보기 프로그램"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
 msgid "View as I_mage Collection"
 msgstr "그림 모음으로 보기(_M)"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#: collection/GNOME_EOG_Collection.server.in.in.h:6
 msgid "View as Image Collection"
 msgstr "그림 모음으로 보기"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 shell/eog-window.c:2039
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "가로 방향으로 뒤집기(_H)"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2 shell/eog-window.c:2040
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "세로 방향으로 뒤집기(_V)"
 
@@ -74,55 +81,55 @@ msgstr "시계 반대 방향 회전(_R)"
 msgid "Slide Show"
 msgstr "슬라이드 쇼"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-window.c:2013
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "편집(_E)"
 
-#: collection/eog-collection-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-window.c:2034
 msgid "_Save"
 msgstr "저장(_S)"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:13 shell/eog-window.c:2037
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "실행 취소(_U)"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-window.c:2014
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "보기(_V)"
 
-#: collection/eog-collection-view.c:338
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "저장 취소"
 
-#: collection/eog-collection-view.c:341
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "저장 끝"
 
-#: collection/eog-collection-view.c:810
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "휴지통으로 옮기기"
 
-#: collection/eog-collection-view.c:927
+#: collection/eog-collection-view.c:926
 msgid "Collection View"
 msgstr "모음 보기"
 
-#: collection/eog-collection-view.c:947
+#: collection/eog-collection-view.c:946 shell/eog-window.c:1948
 #, c-format
 msgid "Images: %i/%i"
 msgstr "그림: %i/%i"
 
-#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1404 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "창 제목"
 
-#: collection/eog-collection-view.c:1426
+#: collection/eog-collection-view.c:1407
 msgid "Status Text"
 msgstr "상태 텍스트"
 
-#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1410 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "이미지 읽어들이기 진행률"
 
@@ -143,77 +150,131 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: eog.glade.h:3
+msgid "."
+msgstr "."
+
+#: eog.glade.h:4
+msgid "<b>File Name Preview</b>"
+msgstr "<b>파일이름 미리 보기</b>"
+
+#: eog.glade.h:5
+msgid "<b>File Path Specifications</b>"
+msgstr "<b>파일 경로 지정</b>"
+
+#: eog.glade.h:6
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>그림 인터폴레이션</b>"
 
-#: eog.glade.h:3
+#: eog.glade.h:7
 msgid "<b>Image Zoom</b>"
 msgstr "<b>그림 확대/축소</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:8
+msgid "<b>Options</b>"
+msgstr "<b>옵션</b>"
+
+#: eog.glade.h:9
 msgid "<b>Sequence</b>"
 msgstr "<b>시퀀스</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:10
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>투명한 부분</b>"
 
-#: eog.glade.h:7
+#: eog.glade.h:12
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
 msgstr "최초에 100%보다 크게 허용(_Z)"
 
-#: eog.glade.h:8
+#: eog.glade.h:13
 msgid "As _background"
 msgstr "바탕으로(_B)"
 
-#: eog.glade.h:9
+#: eog.glade.h:14
 msgid "As check _pattern"
 msgstr "체크무늬로(_P)"
 
-#: eog.glade.h:10
+#: eog.glade.h:15
 msgid "As custom c_olor"
 msgstr "지정한 색으로(_O)"
 
-#: eog.glade.h:11
+#: eog.glade.h:16
 msgid "Color for Transparent Areas"
 msgstr "투명한 부분의 색"
 
-#: eog.glade.h:12
+#: eog.glade.h:17
+msgid "Destination Folder:"
+msgstr "저장할 폴더:"
+
+#: eog.glade.h:18
 msgid "Eye of Gnome Preferences"
 msgstr "그놈의 눈 기본 설정"
 
-#: eog.glade.h:13
+#: eog.glade.h:19
+msgid "Filename Format:"
+msgstr "파일이름 형식:"
+
+#: eog.glade.h:20
 msgid "Image _View"
 msgstr "그림 보기(_V)"
 
-#: eog.glade.h:14
+#: eog.glade.h:21
+msgid "Rename From:"
+msgstr "원래 이름:"
+
+#: eog.glade.h:22
+msgid "Replace spaces by underscore"
+msgstr "공백을 밑줄로 바꾸기"
+
+#: eog.glade.h:23
+msgid "Save As"
+msgstr "다른 이름으로 저장"
+
+#: eog.glade.h:24
+msgid "Saving Image"
+msgstr "그림 저장하는 중입니다"
+
+#: eog.glade.h:25
 msgid "Show _next image automatically after:"
 msgstr "자동으로 다음 그림 보여주기:"
 
-#: eog.glade.h:15
+#: eog.glade.h:26
 msgid "Sli_de Show"
 msgstr "슬라이드 쇼(_D)"
 
-#: eog.glade.h:16
+#: eog.glade.h:27
+msgid "Start counter at:"
+msgstr "일련번호 시작:"
+
+#: eog.glade.h:28
+msgid "To:"
+msgstr "바꿀 이름:"
+
+#: eog.glade.h:29
+msgid "_Browse"
+msgstr "찾아보기(_B)"
+
+#: eog.glade.h:30
 msgid "_Interpolate image on zoom"
 msgstr "확대/축소할 때 인터폴레이션(_I)"
 
-#: eog.glade.h:17
+#: eog.glade.h:31
 msgid "_Loop sequence"
 msgstr "시퀀스 반복(_L)"
 
-#: eog.glade.h:18
+#: eog.glade.h:32
 msgid "seconds"
 msgstr "초"
 
 #: eog.schemas.in.h:1
 msgid ""
-"A value greater 0 determines the seconds an image stays on screen until the "
-"next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"0보다 큰 값이면 자동으로 다음 그림을 표시할 유지할 시간입니다. 0이면 자동 넘"
-"어가기를 끕니다."
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr "0보다 큰 값이면 다음 그림으로 자동으로 넘어갈 때까지 유지할 시간입니다. 0이면 자동 넘어가기를 끕니다."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -244,9 +305,9 @@ msgstr ""
 
 #: eog.schemas.in.h:7
 msgid ""
-"If this is set to FALSE small images will not be streched to fit into the "
+"If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
-msgstr "거짓이면, 최초에 작은 이미지라도 화면 전체에 맞게 늘리지 않습니다."
+msgstr "거짓이면, 최초에 작은 이미지를 화면에 맞게 늘리지 않습니다."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -316,324 +377,211 @@ msgstr "포함 가능한 그놈의 눈 그림"
 msgid "Image"
 msgstr "그림"
 
-#: libeog/eog-file-selection.c:96
-#, c-format
-msgid "Do you want to overwrite %s?"
-msgstr "%s을(를) 덮어쓰시겠습니까?"
-
-#: libeog/eog-file-selection.c:101
-msgid "File exists"
-msgstr "파일이 이미 있습니다"
-
-#: libeog/eog-file-selection.c:175
+#: libeog/eog-file-selection.c:124
 msgid "All Files"
 msgstr "모든 파일"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:129
 msgid "All Images"
 msgstr "모든 그림"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:198
+#: libeog/eog-file-selection.c:147
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:291
+#: libeog/eog-file-selection.c:240
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s pixel"
 
-#: libeog/eog-file-selection.c:447
+#: libeog/eog-file-selection.c:396
 msgid "Load Image"
 msgstr "그림 읽어오기"
 
-#: libeog/eog-file-selection.c:455
+#: libeog/eog-file-selection.c:404
 msgid "Save Image"
 msgstr "그림 저장"
 
-#: libeog/eog-file-selection.c:463
+#: libeog/eog-file-selection.c:412
 msgid "Open Folder"
 msgstr "폴더 열기"
 
-#: libeog/eog-image-jpeg.c:128
+#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "저장할 때 쓸 임시 파일을 만들지 못했습니다: %s"
 
-#: libeog/eog-image-jpeg.c:149
+#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG 파일을 읽어들일 때 필요한 메모리를 할당하지 못했습니다"
 
-#: libeog/eog-image.c:859
+#: libeog/eog-image.c:810
 msgid "empty file"
 msgstr "빈 파일"
 
-#: libeog/eog-image.c:1299
+#: libeog/eog-image.c:1243 libeog/eog-image.c:1454
+msgid "File exists"
+msgstr "파일이 이미 있습니다"
+
+#: libeog/eog-image.c:1396 libeog/eog-image.c:1522
 msgid "No image loaded."
 msgstr "읽어 온 그림이 없습니다."
 
-#: libeog/eog-image.c:1309
-msgid "Images can only be saved as local files."
-msgstr "그림은 로컬 파일로만 저장할 수 있습니다."
+#: libeog/eog-image.c:1405 libeog/eog-image.c:1531
+msgid "Temporary file creation failed."
+msgstr "임시 파일 만들기가 실패했습니다."
 
-#: libeog/eog-image.c:1334
-msgid "Unsupported image type for saving."
-msgstr "저장이 지원되지 않는 그림 종류입니다."
+#: libeog/eog-info-view-exif.c:26
+msgid "Camera"
+msgstr "카메라"
 
-#: libeog/eog-info-view.c:105
-msgid "Attribute"
-msgstr "속성"
+#: libeog/eog-info-view-exif.c:27
+msgid "Image Data"
+msgstr "그림 데이터"
 
-#: libeog/eog-info-view.c:113
+#: libeog/eog-info-view-exif.c:28
+msgid "Image Taking Conditions"
+msgstr "사진 찍을 때 조건"
+
+#: libeog/eog-info-view-exif.c:29
+msgid "Maker Note"
+msgstr "만든 사람 메모"
+
+#: libeog/eog-info-view-exif.c:30
+msgid "Other"
+msgstr "기타"
+
+#: libeog/eog-info-view-exif.c:212
+msgid "Tag"
+msgstr "태그"
+
+#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
 msgid "Value"
 msgstr "값"
 
-#: libeog/eog-info-view.c:209
-msgid "Width"
-msgstr "너비"
-
-#: libeog/eog-info-view.c:219
-msgid "Height"
-msgstr "높이"
-
-#: libeog/eog-info-view.c:222
-msgid "Filesize"
-msgstr "파일크기"
-
-#: libeog/eog-info-view.c:237
+#. only used for internal purpose
+#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
 msgid "Filename"
 msgstr "파일이름"
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
-msgid "Page"
-msgstr "용지"
+#: libeog/eog-info-view-file.c:26
+msgid "Width"
+msgstr "너비"
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:385
-msgid "Preview"
-msgstr "미리 보기"
+#: libeog/eog-info-view-file.c:27
+msgid "Height"
+msgstr "높이"
 
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
-msgid "Millimeter"
-msgstr "밀리미터"
+#: libeog/eog-info-view-file.c:28
+msgid "Filesize"
+msgstr "파일크기"
 
-#. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
-msgid "Paper"
-msgstr "용지"
+#: libeog/eog-info-view-file.c:88
+msgid "Attribute"
+msgstr "속성"
 
-#: libgpi/gpi-dialog.glade.h:2
-#, no-c-format
-msgid "% of original size"
-msgstr "% (원래 크기의)"
+#: libeog/eog-info-view.c:92
+msgid "File"
+msgstr "파일"
 
-#: libgpi/gpi-dialog.glade.h:3
-msgid "Adjust to "
-msgstr "조정:"
+#: libeog/eog-info-view.c:101
+msgid "EXIF"
+msgstr "EXIF"
 
-#: libgpi/gpi-dialog.glade.h:4
-msgid "Center"
-msgstr "가운데"
+#: libeog/eog-info-view.c:108
+msgid "IPTC"
+msgstr "IPTC"
 
-#: libgpi/gpi-dialog.glade.h:5
-msgid "Cutting help"
-msgstr "자름선 표시"
+#: libeog/eog-save-as-dialog-helper.c:137
+msgid "Option not available."
+msgstr "옵션을 사용할 수 없습니다."
 
-#: libgpi/gpi-dialog.glade.h:6
-msgid "Down, then right"
-msgstr "아래로, 그 다음에 오른쪽으로"
+#: libeog/eog-save-as-dialog-helper.c:138
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of Gnome."
+msgstr "이 기능을 사용하려면 libexif 라이브러리가 필요합니다. libexif를 설치하시고 (http://libexif.sf.net) 그놈의 눈을 다시 빌드하십시오."
 
-#: libgpi/gpi-dialog.glade.h:7
-msgid "Fit to page"
-msgstr "페이지에 맞게"
+#: libeog/eog-save-as-dialog-helper.c:214
+msgid "as is"
+msgstr "그대로"
 
-#: libgpi/gpi-dialog.glade.h:8
-msgid "Horizontally"
-msgstr "가로 방향으로"
+#: libeog/eog-save-dialog-helper.c:162
+#, c-format
+msgid "Saving image %s."
+msgstr "%s 그림을 저장합니다."
 
-#: libgpi/gpi-dialog.glade.h:9
-msgid "Horizontally by "
-msgstr "가로 방향으로"
+#: libeog/eog-save-dialog-helper.c:208
+msgid "Cancel saving ..."
+msgstr "저장을 취소합니다 ..."
 
-#: libgpi/gpi-dialog.glade.h:10
-msgid "Margins"
-msgstr "여백"
+#: libeog/eog-uri-converter.c:1023
+msgid "Filenames are not disjunct."
+msgstr "겹치는 파일이름이 있습니다."
 
-#: libgpi/gpi-dialog.glade.h:11
-msgid "Ordering help"
-msgstr "순서 표시"
+#: libeog/eog-uri-converter.h:46
+msgid "Counter"
+msgstr "일련 번호"
 
-#: libgpi/gpi-dialog.glade.h:12
-msgid "Overlap"
-msgstr "겹치기"
+#: libeog/eog-uri-converter.h:47
+msgid "Comment"
+msgstr "설명"
 
-#: libgpi/gpi-dialog.glade.h:13
-msgid "Overlap help"
-msgstr "겹치는 부분 표시"
+#: libeog/eog-uri-converter.h:48
+msgid "Date"
+msgstr "날짜"
 
-#: libgpi/gpi-dialog.glade.h:15
-msgid "Page order"
-msgstr "페이지 순서"
+#: libeog/eog-uri-converter.h:49
+msgid "Time"
+msgstr "시각"
 
-#: libgpi/gpi-dialog.glade.h:18
-msgid "Right, then down"
-msgstr "오른쪽으로, 그 다음에 아래로"
+#: libeog/eog-uri-converter.h:50
+msgid "Day"
+msgstr "일"
 
-#: libgpi/gpi-dialog.glade.h:19
-msgid "Scale"
-msgstr "크기 조정"
+#: libeog/eog-uri-converter.h:51
+msgid "Month"
+msgstr "월"
 
-#: libgpi/gpi-dialog.glade.h:20
-msgid "Show"
-msgstr "보여주기"
+#: libeog/eog-uri-converter.h:52
+msgid "Year"
+msgstr "연도"
 
-#: libgpi/gpi-dialog.glade.h:21
-msgid "Vertically"
-msgstr "세로 방향으로"
+#: libeog/eog-uri-converter.h:53
+msgid "Hour"
+msgstr "시간"
 
-#: libgpi/gpi-dialog.glade.h:22
-msgid "Vertically by "
-msgstr "세로 방향으로"
+#: libeog/eog-uri-converter.h:54
+msgid "Minute"
+msgstr "분"
 
-#: libgpi/gpi-mgr.c:78
-msgid "Name"
-msgstr "이름"
-
-#: libgpi/gpi-mgr.c:79
-msgid "The name of the file or data to print"
-msgstr "인쇄할 파일 혹은 데이타 이름"
-
-#: shell/eog-shell-ui.xml.h:1
-msgid "About this application"
-msgstr "이 프로그램 정보"
-
-#: shell/eog-shell-ui.xml.h:2
-msgid "Cancel"
-msgstr "취소"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Change the visibility of the statusbar in the current window"
-msgstr "현재 창의 상태 표시줄 표시 여부를 바꿉니다"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Change the visibility of the toolbar in the current window"
-msgstr "현재 창의 도구 모음 표시 여부를 바꿉니다"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "Close window"
-msgstr "창 닫기"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "이 프로그램에 대한 도움말"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "New"
-msgstr "새로 만들기"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open"
-msgstr "열기"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a directory"
-msgstr "디렉토리를 엽니다"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "Open a file"
-msgstr "파일을 엽니다"
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "Open a new window"
-msgstr "새 창을 엽니다"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "Open in new window"
-msgstr "새 창에서 엽니다"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "Open in this window"
-msgstr "이 창에서 엽니다"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "Prefere_nces"
-msgstr "기본 설정(_N)"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "Preferences for Eye of Gnome"
-msgstr "그놈의 눈 기본 설정"
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "Quit the program"
-msgstr "프로그램 끝내기"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_About"
-msgstr "정보(_A)"
-
-#: shell/eog-shell-ui.xml.h:18
-msgid "_Close"
-msgstr "닫기(_C)"
-
-#: shell/eog-shell-ui.xml.h:19
-msgid "_Contents"
-msgstr "목차(_C)"
-
-#: shell/eog-shell-ui.xml.h:21
-msgid "_File"
-msgstr "파일(_F)"
-
-#: shell/eog-shell-ui.xml.h:22
-msgid "_Help"
-msgstr "도움말(_H)"
-
-#: shell/eog-shell-ui.xml.h:23
-msgid "_New"
-msgstr "새로 만들기(_N)"
-
-#: shell/eog-shell-ui.xml.h:24
-msgid "_Open Directory..."
-msgstr "폴더 열기(_O)..."
-
-#: shell/eog-shell-ui.xml.h:25
-msgid "_Open..."
-msgstr "열기(_O)..."
-
-#: shell/eog-shell-ui.xml.h:26
-msgid "_Quit"
-msgstr "끝내기(_Q)"
-
-#: shell/eog-shell-ui.xml.h:27
-msgid "_Statusbar"
-msgstr "상태 표시줄(_S)"
-
-#: shell/eog-shell-ui.xml.h:28
-msgid "_Toolbar"
-msgstr "도구 모음(_T)"
+#: libeog/eog-uri-converter.h:55
+msgid "Second"
+msgstr "초"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:292
-msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#: shell/eog-window.c:320
+msgid "translator-credits"
 msgstr ""
-"남성현 <namsh@kldp.org>\n"
-"차영호 <ganadist@chollian.net>\n"
-"류창우 <cwryu@debian.org>"
+"남성현 <namsh@kldp.org>, 1999\n"
+"차영호 <ganadist@chollian.net>, 2000,2001\n"
+"류창우 <cwryu@debian.org>, 2002-2004"
 
-#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:520
+#: shell/eog-window.c:325 shell/eog-window.c:2218 shell/main.c:498
 msgid "Eye of Gnome"
 msgstr "그놈의 눈"
 
-#: shell/eog-window.c:300
+#: shell/eog-window.c:328
 msgid "The GNOME image viewing and cataloging program."
 msgstr "그놈 그림 보기 및 카타로그 프로그램."
 
-#: shell/eog-window.c:337
+#: shell/eog-window.c:365
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -642,7 +590,180 @@ msgstr ""
 "그놈의 눈에 대한 도움말을 보일 수 없습니다.\n"
 "%s"
 
-#: shell/main.c:237
+#: shell/eog-window.c:613
+#, c-format
+msgid "Overwrite file %s?"
+msgstr "%s 파일을 덮어쓰시겠습니까?"
+
+#: shell/eog-window.c:614
+msgid "File exists. Do you want to overwrite it?"
+msgstr "파일이 있습니다. 덮어쓰시겠습니까?"
+
+#: shell/eog-window.c:624 shell/eog-window.c:637
+msgid "Skip"
+msgstr "건너뛰기"
+
+#: shell/eog-window.c:625
+msgid "Overwrite"
+msgstr "덮어쓰기"
+
+#: shell/eog-window.c:630
+#, c-format
+msgid "Error on saving %s."
+msgstr "%s 저장에 오류가 발생했습니다."
+
+#: shell/eog-window.c:638 shell/eog-window.c:1012
+msgid "Retry"
+msgstr "다시 시도"
+
+#: shell/eog-window.c:1001
+#, c-format
+msgid "Couldn't determine file format of %s"
+msgstr "%s의 파일 형식을 알아낼 수 없습니다"
+
+#: shell/eog-window.c:1002
+msgid "Please use an appropriate filename suffix or select a file format."
+msgstr "적절한 파일 확장자를 쓰시거나 파일 형식을 지정하십시오."
+
+#: shell/eog-window.c:1144
+msgid "Error on saving images."
+msgstr "그림 저장에 오류가 발생했습니다."
+
+#: shell/eog-window.c:1378
+#, c-format
+msgid "Do you really want to move %i images to trash?"
+msgstr "정말로 %i개 그림을 휴지통에 옮기시겠습니까?"
+
+#: shell/eog-window.c:1415
+msgid "Couldn't access trash."
+msgstr "휴지통에 접근할 수 없습니다."
+
+#: shell/eog-window.c:1489
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "%s 그림을 지우는 데 오류가 발생했습니다"
+
+#: shell/eog-window.c:2012
+msgid "_File"
+msgstr "파일(_F)"
+
+#: shell/eog-window.c:2015
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: shell/eog-window.c:2016
+msgid "_New"
+msgstr "새로 만들기(_N)"
+
+#: shell/eog-window.c:2016
+msgid "Open a new window"
+msgstr "새 창을 엽니다"
+
+#: shell/eog-window.c:2017
+msgid "_Open..."
+msgstr "열기(_O)..."
+
+#: shell/eog-window.c:2017
+msgid "Open a file"
+msgstr "파일을 엽니다"
+
+#: shell/eog-window.c:2018
+msgid "Open _Directory..."
+msgstr "폴더 열기(_D)..."
+
+#: shell/eog-window.c:2018
+msgid "Open a directory"
+msgstr "폴더를 엽니다"
+
+#: shell/eog-window.c:2019
+msgid "_Close"
+msgstr "닫기(_C)"
+
+#: shell/eog-window.c:2019
+msgid "Close window"
+msgstr "창 닫기"
+
+#: shell/eog-window.c:2020
+msgid "_Quit"
+msgstr "끝내기(_Q)"
+
+#: shell/eog-window.c:2020
+msgid "Close all windows and quit"
+msgstr "모든 창을 닫고 끝냅니다"
+
+#: shell/eog-window.c:2021
+msgid "Prefere_nces"
+msgstr "기본 설정(_N)"
+
+#: shell/eog-window.c:2021
+msgid "Preferences for Eye of Gnome"
+msgstr "그놈의 눈 기본 설정"
+
+#: shell/eog-window.c:2022
+msgid "_Contents"
+msgstr "차례(_C)"
+
+#: shell/eog-window.c:2022
+msgid "Help On this application"
+msgstr "이 프로그램에 대한 도움말"
+
+#: shell/eog-window.c:2023
+msgid "_About"
+msgstr "정보(_A)"
+
+#: shell/eog-window.c:2023
+msgid "About this application"
+msgstr "이 프로그램 정보"
+
+#: shell/eog-window.c:2028
+msgid "_Toolbar"
+msgstr "도구 모음(_T)"
+
+#: shell/eog-window.c:2029
+msgid "_Statusbar"
+msgstr "상태 표시줄(_S)"
+
+#: shell/eog-window.c:2035
+msgid "Save _As"
+msgstr "다른 이름으로 저장(_A)"
+
+#: shell/eog-window.c:2042
+msgid "_Rotate Clockwise"
+msgstr "시계 방향 회전(_R)"
+
+#: shell/eog-window.c:2043
+msgid "Rotate Counter C_lockwise"
+msgstr "시계 반대 방향 회전(_L)"
+
+#: shell/eog-window.c:2044
+msgid "Rotat_e 180°"
+msgstr "180도 회전(_E)"
+
+#: shell/eog-window.c:2046
+msgid "Delete"
+msgstr "지우기"
+
+#: shell/eog-window.c:2048 viewer/eog-image-view-ui.xml.h:16
+msgid "_Full Screen"
+msgstr "전체 화면(_F)"
+
+#: shell/eog-window.c:2049 viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "_Zoom In"
+msgstr "확대(_Z)"
+
+#: shell/eog-window.c:2050 viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _Out"
+msgstr "축소(_O)"
+
+#: shell/eog-window.c:2051 viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr "보통 크기(_N)"
+
+#: shell/eog-window.c:2052 viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Best _Fit"
+msgstr "창에 맞게(_F)"
+
+#: shell/main.c:236
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -651,30 +772,27 @@ msgstr ""
 "%i개의 창을 동시에 열려고 하셨습니다. 대신에 한 개의 그림 모음을 여시겠습니"
 "까?"
 
-#: shell/main.c:241
+#: shell/main.c:240
 msgid "Open multiple single windows?"
 msgstr "여러 개의 창을 여시겠습니까?"
 
-#: shell/main.c:245
+#: shell/main.c:244
 msgid "Single Windows"
 msgstr "단일 창"
 
-#: shell/main.c:247
+#: shell/main.c:246
 msgid "Collection"
 msgstr "그림 모음"
 
-#: shell/main.c:320
-msgid "File(s) not found."
-msgstr "파일을 찾을 수 없습니다."
+#: shell/main.c:298
+msgid "File not found."
+msgid_plural "Files not found."
+msgstr[0] "파일을 찾을 수 없습니다."
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s'을(를) 열 수 없습니다"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Best _Fit"
-msgstr "창에 맞게(_F)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -691,18 +809,6 @@ msgstr "보통"
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
 msgstr "축소"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "축소(_O)"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "_Normal Size"
-msgstr "보통 크기(_N)"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "_Zoom In"
-msgstr "확대(_Z)"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -740,13 +846,13 @@ msgstr "다른 이름으로 저장(_A)..."
 msgid "Setup the page settings for your current printer"
 msgstr "현재 프린터에 대한 페이지 설정"
 
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Full Screen"
-msgstr "전체 화면(_F)"
-
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "인쇄(_P)..."
+
+#: viewer/eog-image-view.c:385
+msgid "Preview"
+msgstr "미리 보기"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
@@ -828,3 +934,102 @@ msgstr "원하는 창 너비"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "원하는 창 높이"
+
+#~ msgid "Images can only be saved as local files."
+#~ msgstr "그림은 로컬 파일로만 저장할 수 있습니다."
+
+#~ msgid "Unsupported image type for saving."
+#~ msgstr "저장이 지원되지 않는 그림 종류입니다."
+
+#~ msgid "Page"
+#~ msgstr "용지"
+
+#~ msgid "Millimeter"
+#~ msgstr "밀리미터"
+
+#~ msgid "Paper"
+#~ msgstr "용지"
+
+#~ msgid "% of original size"
+#~ msgstr "% (원래 크기의)"
+
+#~ msgid "Adjust to "
+#~ msgstr "조정:"
+
+#~ msgid "Cutting help"
+#~ msgstr "자름선 표시"
+
+#~ msgid "Down, then right"
+#~ msgstr "아래로, 그 다음에 오른쪽으로"
+
+#~ msgid "Fit to page"
+#~ msgstr "페이지에 맞게"
+
+#~ msgid "Horizontally"
+#~ msgstr "가로 방향으로"
+
+#~ msgid "Horizontally by "
+#~ msgstr "가로 방향으로"
+
+#~ msgid "Margins"
+#~ msgstr "여백"
+
+#~ msgid "Ordering help"
+#~ msgstr "순서 표시"
+
+#~ msgid "Overlap"
+#~ msgstr "겹치기"
+
+#~ msgid "Overlap help"
+#~ msgstr "겹치는 부분 표시"
+
+#~ msgid "Page order"
+#~ msgstr "페이지 순서"
+
+#~ msgid "Right, then down"
+#~ msgstr "오른쪽으로, 그 다음에 아래로"
+
+#~ msgid "Scale"
+#~ msgstr "크기 조정"
+
+#~ msgid "Show"
+#~ msgstr "보여주기"
+
+#~ msgid "Vertically"
+#~ msgstr "세로 방향으로"
+
+#~ msgid "Vertically by "
+#~ msgstr "세로 방향으로"
+
+#~ msgid "The name of the file or data to print"
+#~ msgstr "인쇄할 파일 혹은 데이타 이름"
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
+
+#~ msgid "Change the visibility of the statusbar in the current window"
+#~ msgstr "현재 창의 상태 표시줄 표시 여부를 바꿉니다"
+
+#~ msgid "Change the visibility of the toolbar in the current window"
+#~ msgstr "현재 창의 도구 모음 표시 여부를 바꿉니다"
+
+#~ msgid "New"
+#~ msgstr "새로 만들기"
+
+#~ msgid "Open"
+#~ msgstr "열기"
+
+#~ msgid "Open in new window"
+#~ msgstr "새 창에서 엽니다"
+
+#~ msgid "Open in this window"
+#~ msgstr "이 창에서 엽니다"
+
+#~ msgid "Quit the program"
+#~ msgstr "프로그램 끝내기"
+
+#~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#~ msgstr ""
+#~ "남성현 <namsh@kldp.org>\n"
+#~ "차영호 <ganadist@chollian.net>\n"
+#~ "류창우 <cwryu@debian.org>"
