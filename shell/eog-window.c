@@ -2279,8 +2279,8 @@ static GtkActionEntry action_entries_image[] = {
  *
  * Constructs the window widget.
  **/
-static void
-eog_window_construct_ui (EogWindow *window)
+static gboolean
+eog_window_construct_ui (EogWindow *window, GError **error)
 {
 	EogWindowPrivate *priv;
 	gboolean visible;
@@ -2291,9 +2291,10 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *sw;
 	GtkWidget *frame;
         char *filename;
+	guint merge_id;
 
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (EOG_IS_WINDOW (window));
+	g_return_val_if_fail (window != NULL, FALSE);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
 	priv = window->priv;
 
@@ -2315,13 +2316,26 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
-        filename = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_DATADIR, "gnome-2.0/ui/eog-gtk-ui.xml", TRUE, NULL);
-        g_assert (filename);
-	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, filename, NULL);
-        g_free (filename);
+	/* find and setup UI description */
+        filename = gnome_program_locate_file (NULL,
+                                              GNOME_FILE_DOMAIN_APP_DATADIR,
+                                              "eog/eog-gtk-ui.xml",
+                                              FALSE, NULL);
+
+	if (filename == NULL) {
+		g_set_error (error, EOG_WINDOW_ERROR, 
+			     EOG_WINDOW_ERROR_UI_NOT_FOUND,
+			     _("User interface description not found."));
+		return FALSE;
+	}
+
+	merge_id = gtk_ui_manager_add_ui_from_file (priv->ui_mgr, filename, error);
+	g_free (filename);
+	if (merge_id == 0)
+		return FALSE;
 
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
-	g_assert (menubar != NULL);
+	g_assert (GTK_IS_WIDGET (menubar));
 	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
 
 	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/ToolBar");
@@ -2334,7 +2348,7 @@ eog_window_construct_ui (EogWindow *window)
 	priv->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
 	egg_recent_model_set_filter_groups (priv->recent_model, RECENT_FILES_GROUP, NULL);
 	egg_recent_model_set_limit (priv->recent_model, 5);
-
+	
 	recent_widget = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu/FileMenu/EggRecentDocuments");
 	priv->recent_view = egg_recent_view_gtk_new (gtk_widget_get_parent (recent_widget),
 						     recent_widget);
@@ -2432,6 +2446,7 @@ eog_window_construct_ui (EogWindow *window)
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
 	update_ui_visibility (window);
+	return TRUE;
 }
 
 static void
@@ -2475,14 +2490,15 @@ eog_window_update_properties (EogWindow *window)
  * Return value: A newly-created main window.
  **/
 GtkWidget *
-eog_window_new (void)
+eog_window_new (GError **error)
 {
 	EogWindow *window;
 
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "title", _("Eye of Gnome"), NULL));
 
-	eog_window_construct_ui (window);
-	eog_window_update_properties (window);
+	if (eog_window_construct_ui (window, error)) {
+		eog_window_update_properties (window);
+	}
 
 	return GTK_WIDGET (window);
 }

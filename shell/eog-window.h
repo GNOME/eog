@@ -39,6 +39,7 @@ G_BEGIN_DECLS
 
 typedef enum {
 	EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
+	EOG_WINDOW_ERROR_UI_NOT_FOUND,
 	EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
 	EOG_WINDOW_ERROR_IO,
 	EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
@@ -68,7 +69,7 @@ struct _EogWindowClass {
 
 
 GType        eog_window_get_type                    (void);
-GtkWidget*   eog_window_new (void);
+GtkWidget*   eog_window_new (GError **error);
 
 void         eog_window_close (EogWindow *eog_window);
 

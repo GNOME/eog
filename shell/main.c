@@ -57,12 +57,31 @@ static GtkWidget*
 create_new_window (void)
 {
 	GtkWidget *window;
+	GError *error = NULL;
 
-	window = eog_window_new ();
-	g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
-	g_signal_connect (G_OBJECT (window), "new_window", G_CALLBACK (new_window_cb), NULL);
+	window = eog_window_new (&error);
 
-	gtk_widget_show (window);
+	if (error != NULL) {
+		GtkWidget *dlg;
+		dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
+					  _("Unable to create Eye of Gnome user interface"), error->message, TRUE);
+		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
+
+		g_error_free (error);
+
+		gtk_dialog_run (GTK_DIALOG (dlg));
+		gtk_widget_destroy (GTK_WIDGET (dlg));
+
+		gtk_main_quit ();
+	}
+	else {
+		g_assert (EOG_IS_WINDOW (window));
+
+		g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
+		g_signal_connect (G_OBJECT (window), "new_window", G_CALLBACK (new_window_cb), NULL);
+		
+		gtk_widget_show (window);
+	}
 
 	return window;
 }
@@ -95,12 +114,14 @@ open_window (LoadContext *ctx)
 				window = GTK_WIDGET (ctx->window);
 			}
 
-			if (!eog_window_open (EOG_WINDOW (window), ctx->iid, (char*) it->data, &error)) {
-				g_print ("error open %s\n", (char*)it->data);
-				/* FIXME: handle errors */
-			}
+			if (window != NULL) {
+				if (!eog_window_open (EOG_WINDOW (window), ctx->iid, (char*) it->data, &error)) {
+					g_print ("error open %s\n", (char*)it->data);
+					/* FIXME: handle errors */
+				}
 			
-			new_window = TRUE;
+				new_window = TRUE;
+			}
 		} 
 	}
 	else 
@@ -111,10 +132,12 @@ open_window (LoadContext *ctx)
 		else {
 			window = GTK_WIDGET (ctx->window);
 		}
-	
-		if (!eog_window_open_list (EOG_WINDOW (window), ctx->iid, ctx->uri_list, &error)) {
-			g_print ("error");
-			/* report error */
+		
+		if (window != NULL) {
+			if (!eog_window_open_list (EOG_WINDOW (window), ctx->iid, ctx->uri_list, &error)) {
+				g_print ("error");
+				/* report error */
+			}
 		}
 	}
 		
