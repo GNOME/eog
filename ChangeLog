@@ -1,5 +1,9 @@
 2003-04-02  Federico Mena Quintero  <federico@ximian.com>
 
+	* libeog/eog-image.c (real_image_load): Use a macro rather than a
+	hardcoded value for the buffer size.  Also, increased it to 64 KB
+	so that we don't do so many system calls.
+
 	* libeog/eog-scroll-view.c (eog_scroll_view_get_image_size):
 	"*width = *height = 0", not "width = height = 0".
 	(NUM_IMAGE_CALLBACKS): Use a macro rather than a hardcoded value

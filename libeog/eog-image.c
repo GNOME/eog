@@ -94,6 +94,9 @@ static int n_active_images = 0;
 
 #define CHECK_LOAD_TIMEOUT 5
 
+/* Chunk size for reading image data */
+#define READ_BUFFER_SIZE 65536
+
 /*============================================
 
   static thumbnail loader for all image objects
@@ -801,7 +804,7 @@ real_image_load (gpointer data)
 		return NULL;
 	}
 	
-	buffer = g_new0 (guchar, 4096);
+	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
 	loader = gdk_pixbuf_loader_new ();
 	failed = FALSE;
 #if HAVE_EXIF
@@ -815,7 +818,7 @@ real_image_load (gpointer data)
 	}
 	
 	while (!priv->cancel_loading) {
-		result = gnome_vfs_read (handle, buffer, 4096, &bytes_read);
+		result = gnome_vfs_read (handle, buffer, READ_BUFFER_SIZE, &bytes_read);
 		if (result == GNOME_VFS_ERROR_EOF || bytes_read == 0) {
 			break;
 		}
@@ -829,7 +832,7 @@ real_image_load (gpointer data)
 			break;
 		}
 #if HAVE_EXIF
-		if (exif_loader_write (eld, buffer, 4096)) {
+		if (exif_loader_write (eld, buffer, bytes_read)) {
 			g_mutex_lock (img->priv->status_mutex);
 			exif_data_ref (eld->data);
 			priv->exif = eld->data;
