@@ -1021,6 +1021,8 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	GnomeVFSResult result;
 	GnomeVFSFileInfo *info;
 	GnomeVFSURI *uri;
+	GtkWidget *dlg;
+	gchar *uri_str;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
@@ -1044,22 +1046,37 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	control = CORBA_OBJECT_NIL;
 
 	/* get appropriate control */
-	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
 		control = get_viewer_control (uri, info);
-	else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+	}
+	else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 		control = get_collection_control (uri, info);
-	else {
-		gchar *str;
-		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-		g_warning ("Couldn't handle: %s.\n", str);
-		g_free (str);
-		return FALSE;
 	}
 
 	if (control != CORBA_OBJECT_NIL) {
 		/* add it to the user interface */
 		add_control_to_ui (window, control);
 		bonobo_object_release_unref (control, NULL);
+	}
+	else {
+		uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+
+		/* FIXME: The error message should be more specific 
+		 *        (eg. "Unknown file format").
+		 */
+		dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+					      GTK_DIALOG_DESTROY_WITH_PARENT,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_CLOSE,
+					      _("Unable to open %s."),
+					      uri_str);
+
+		gtk_signal_connect_object (GTK_OBJECT (dlg), "response",
+					   GTK_SIGNAL_FUNC (gtk_widget_destroy),
+					   GTK_OBJECT (dlg));
+		gtk_widget_show (dlg);
+
+		g_free (uri_str);
 	}
 
 	/* clean up */
