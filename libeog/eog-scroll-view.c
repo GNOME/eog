@@ -45,7 +45,7 @@ typedef enum {
 typedef enum {
 	PROGRESSIVE_NONE,	/* We are not loading an image or it is already loaded */
 	PROGRESSIVE_LOADING,	/* An image is being loaded */
-	PROGRESSIVE_POLISHING,	/* We have finished loading an image but have not scaled it with interpolation */
+	PROGRESSIVE_POLISHING	/* We have finished loading an image but have not scaled it with interpolation */
 } ProgressiveState;
 
 /* Signal IDs */
@@ -966,8 +966,8 @@ set_zoom (EogScrollView *view, double zoom,
 				     &xofs, &yofs);
 
 	/* set new values */
-	priv->xofs = xofs; // (img_width * x_rel * zoom) - anchorx;
-	priv->yofs = yofs; // (img_height * y_rel * zoom) - anchory;
+	priv->xofs = xofs; /* (img_width * x_rel * zoom) - anchorx; */
+	priv->yofs = yofs; /* (img_height * y_rel * zoom) - anchory; */
 #if 0
 	g_print ("xofs: %i  yofs: %i\n", priv->xofs, priv->yofs);
 #endif
