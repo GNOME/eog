@@ -260,7 +260,7 @@ image_view_init (ImageView *view)
 
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
-	priv->client = gconf_client_new ();
+	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client,
 			      "/apps/eog",

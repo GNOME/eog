@@ -126,7 +126,7 @@ apply_cb (GnomePropertyBox *pbox, gint page_num, gpointer data)
 	if (page_num != -1)
 		return;
 
-	client = gconf_client_new();
+	client = gconf_client_get_default();
 
 	gconf_client_set_int (client, "/apps/eog/view/interp_type",
 			      e_dialog_option_menu_get (GTK_WIDGET (p_interp_type),
@@ -223,7 +223,7 @@ set_prefs_widgets (void)
 {
 	GConfClient *client;
 
-	client = gconf_client_new ();
+	client = gconf_client_get_default ();
 
 	e_dialog_option_menu_set (GTK_WIDGET (p_interp_type), gconf_client_get_int (
 		client, "/apps/eog/view/interp_type",

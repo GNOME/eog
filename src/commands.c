@@ -93,7 +93,7 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 	GtkWidget *fs;
 	double zoom;
 
-	client = gconf_client_new ();
+	client = gconf_client_get_default ();
 	
 	/* Get original parameters */
 
