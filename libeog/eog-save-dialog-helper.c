@@ -1,8 +1,8 @@
 #include <glade/glade.h>
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-i18n.h>
-#include <eel/eel-vfs-extensions.h>
 #include "eog-save-dialog-helper.h"
+#include "eog-util.h"
 
 typedef struct {
 	int n_images;
@@ -157,7 +157,7 @@ eog_save_dialog_update    (GtkWindow *dlg, int n, EogImage *image,
 		char *utf8_name;
 
 		name = gnome_vfs_uri_extract_short_name (uri);
-		utf8_name = eel_make_valid_utf8 (name);
+		utf8_name = eog_util_make_valid_utf8 (name);
 
 		header_str = g_strdup_printf (_("Saving image %s."), utf8_name);
 
