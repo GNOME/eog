@@ -23,17 +23,16 @@
 
 #include <gnome.h>
 
-static void
-ecp_activate_layout_cb (GtkWidget *widget, EogCollectionView *cview)
-{
-	EogLayoutMode mode;
-	
-	g_assert (EOG_IS_COLLECTION_VIEW (cview));
-	
-	mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget),
-						     "number"));
-	eog_collection_view_set_layout_mode (cview, mode);
-}
+enum {
+	PREF_LAYOUT,
+	PREF_COLOR,
+	PREF_LAST
+};
+
+static const gchar *pref_key[] = {
+	"/apps/eog/collection/layout",
+	"/apps/eog/collection/color"
+};
 
 static const char* prefs_layout [] = { 
 	N_("Vertical"),
@@ -41,18 +40,59 @@ static const char* prefs_layout [] = {
 	N_("Rectangle")
 };
 
+static void
+ecp_activate_layout_cb (GtkWidget *widget, GConfClient *client)
+{
+	EogLayoutMode mode;
+	
+	g_assert (GCONF_IS_CLIENT (client));
+	
+	mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget),
+						     "number"));
+	if(!gconf_client_set_int (client, pref_key[PREF_LAYOUT],
+				  mode, NULL))
+	{
+		g_warning ("Couldn't set layout value in gconf.\n");
+	}
+}
+
+static void 
+ecp_activate_color_cb (GtkWidget *cp, guint r, guint g, guint b, guint a, gpointer data)
+{
+	GConfClient *client;
+	GSList *l = NULL;
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (GCONF_IS_CLIENT (data));
+
+	client = GCONF_CLIENT (data);	
+	
+	l = g_slist_append (l, GUINT_TO_POINTER (r));
+	l = g_slist_append (l, GUINT_TO_POINTER (g));
+	l = g_slist_append (l, GUINT_TO_POINTER (b));
+	
+	gconf_client_set_list (client, pref_key[PREF_COLOR],
+			       GCONF_VALUE_INT, l, NULL);
+}
+
 static GtkWidget*
-ecp_create_layout_page (EogCollectionView *cview)
+ecp_create_view_page (GConfClient *client)
 {
 	GtkWidget *table;
 	GtkWidget *omenu, *menu;
- 	GSList *group;
+	GtkWidget *cp;
+ 	GSList *group = NULL;
+	GSList *l = NULL;
 	gint i;
 
-	table = gtk_table_new (1, 2, FALSE);
+	table = gtk_table_new (2, 2, FALSE);
+	gtk_table_set_row_spacings (GTK_TABLE (table), 5);
+	gtk_table_set_col_spacings (GTK_TABLE (table), 5);
+	gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+
+	/* create layout mode option menu */
 	omenu = gtk_option_menu_new ();
 	menu = gtk_menu_new ();
-	group = NULL;
 
 	for (i = 0; i < 3; i++) {
 		GtkWidget *item;		
@@ -62,80 +102,78 @@ ecp_create_layout_page (EogCollectionView *cview)
 		gtk_widget_show (item);
 
 		gtk_signal_connect (GTK_OBJECT (item), "activate",
-				    (GtkSignalFunc) ecp_activate_layout_cb, cview);
+				    (GtkSignalFunc) ecp_activate_layout_cb, client);
 		gtk_object_set_data (GTK_OBJECT (item), "number", GINT_TO_POINTER (i));
 	}
 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), 
+				     gconf_client_get_int (client, 
+							   pref_key[PREF_LAYOUT],
+							   NULL));
+	gtk_table_attach (GTK_TABLE (table),
+			  gtk_label_new (_("Layout Mode:")),
+			  0, 1, 0, 1,
+			  GTK_FILL, 0,
+			  0, 0);
+	gtk_table_attach (GTK_TABLE (table), omenu,
+			  1, 2, 0, 1,
+			  GTK_FILL, 0,
+			  0, 0);
 
-	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Layout Mode:")),
-				   0, 1, 0, 1);
-	gtk_table_attach_defaults (GTK_TABLE (table), omenu,
-				   1, 2, 0, 1);
-	gtk_widget_show_all (table);
-	
-	return table;
-}
-
-static void 
-ecp_activate_color_cb (GtkWidget *cp, guint r, guint g, guint b, guint a, gpointer data)
-{
-	EogCollectionView *cview;
-	GdkColor color;
-	
-	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
-
-	cview = EOG_COLLECTION_VIEW (data);
-
-	color.red = r;
-	color.green = g;
-	color.blue = b;
-
-	eog_collection_view_set_background_color (cview, &color);
-}
-
-static GtkWidget*
-ecp_create_color_page (EogCollectionView *cview)
-{
-	GtkWidget *table;
-	GtkWidget *cp;
-	
-	table = gtk_table_new (1, 2, FALSE);
-	
-	gtk_table_attach_defaults (GTK_TABLE (table),
-				   gtk_label_new (_("Background Color:")),
-				   0, 1, 0, 1);
-
+	/* create color picker */
 	cp = gnome_color_picker_new ();
 	gnome_color_picker_set_title (GNOME_COLOR_PICKER (cp), 
 				      _("Image Collection Background Color"));
 	gnome_color_picker_set_use_alpha (GNOME_COLOR_PICKER (cp), FALSE);
+	
+	l = gconf_client_get_list (client, pref_key[PREF_COLOR],
+				   GCONF_VALUE_INT, NULL);
+	if (l && (g_slist_length (l) == 3)) {
+		gushort r, g, b;
+		r = GPOINTER_TO_UINT (l->data);
+		g = GPOINTER_TO_UINT (l->next->data);
+		b = GPOINTER_TO_UINT (l->next->next->data);
+		
+		gnome_color_picker_set_i16 (GNOME_COLOR_PICKER (cp),
+					   r, g, b, 65535);
+		g_slist_free (l);
+	} else {
+		gnome_color_picker_set_i8 (GNOME_COLOR_PICKER (cp),
+					   222, 222, 222, 255);
+	}
+
 	gtk_signal_connect (GTK_OBJECT (cp), "color_set",
-			    GTK_SIGNAL_FUNC (ecp_activate_color_cb), cview);
+			    GTK_SIGNAL_FUNC (ecp_activate_color_cb), client);
 
-	gtk_table_attach_defaults (GTK_TABLE (table), cp, 1, 2, 0, 1);
-
+	gtk_table_attach (GTK_TABLE (table),
+			  gtk_label_new (_("Background Color:")),
+			  0, 1, 1, 2,
+			  GTK_FILL, 0,
+			  0, 0);
+	gtk_table_attach (GTK_TABLE (table), 
+			  cp, 
+			  1, 2, 1, 2,
+			  GTK_FILL, 0, 
+			  0, 0);
+	
+	/* show all widgets */
 	gtk_widget_show_all (table);
-
+	
 	return table;
 }
 
 GtkWidget*
-eog_collection_preferences_create_page (EogCollectionView *cview, int page_number)
+eog_collection_preferences_create_page (GConfClient *client, int page_number)
 {
 	GtkWidget *widget = NULL;
 
-	g_return_val_if_fail (cview != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (cview), NULL);
+	g_return_val_if_fail (client != NULL, NULL);
+	g_return_val_if_fail (GCONF_IS_CLIENT (client), NULL);
 	
 	switch (page_number) {
-	case 0: /* layout page */
-		widget = ecp_create_layout_page (cview);
-		break;
-	case 1: /* color */
-		widget = ecp_create_color_page (cview);
+	case 0: /* view page */
+		widget = ecp_create_view_page (client);
 		break;
 	default:
 		g_assert_not_reached ();

@@ -56,13 +56,6 @@ GtkWidget          *eog_collection_view_get_widget          (EogCollectionView  
 
 BonoboPropertyBag  *eog_collection_view_get_property_bag (EogCollectionView *view);
 
-
-void                eog_collection_view_set_layout_mode    (EogCollectionView *list_view,
-							    EogLayoutMode lm);
-
-void                eog_collection_view_set_background_color (EogCollectionView *list_view,
-							      GdkColor *color);
-
 END_GNOME_DECLS
 
 #endif _EOG_COLLECTION_VIEW_H_

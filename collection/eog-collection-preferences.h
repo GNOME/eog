@@ -19,5 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-GtkWidget* eog_collection_preferences_create_page (EogCollectionView *cview, 
+#include <gconf/gconf-client.h>
+
+GtkWidget* eog_collection_preferences_create_page (GConfClient *client,
 						   int page_number);

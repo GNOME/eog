@@ -20,6 +20,8 @@
 
 #include <gnome.h>
 
+#include <gconf/gconf-client.h>
+
 #include "eog-item-factory-simple.h"
 #include "eog-wrap-list.h"
 #include "eog-collection-view.h"
@@ -37,6 +39,18 @@ static const gchar *property_name[] = {
 	"window/status"
 };
 
+enum {
+	PREF_LAYOUT,
+	PREF_COLOR,
+	PREF_LAST
+};
+
+#define PREF_PREFIX  "/apps/eog/collection"
+static const gchar *pref_key[] = {
+	PREF_PREFIX"/layout",
+	PREF_PREFIX"/color"
+};
+
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
 	EogItemFactory          *factory;
@@ -48,6 +62,9 @@ struct _EogCollectionViewPrivate {
 
 	BonoboUIComponent       *uic;
 	BonoboPropertyControl   *prop_control;
+
+	GConfClient             *client;
+	guint                   notify_id[PREF_LAST];
 
 	gint                    idle_id;
 	gboolean                need_update_prop[PROP_LAST];
@@ -114,9 +131,9 @@ impl_GNOME_EOG_ImageCollection_openURIList (PortableServer_Servant servant,
 }
 
 static void
-eog_collection_view_create_ui (EogCollectionView *list_view)
+eog_collection_view_create_ui (EogCollectionView *view)
 {
-	/* Currently we have no additinal user interface. */
+	/* Currently we have no additional user interface. */
 }
 
 void
@@ -365,13 +382,8 @@ prop_control_get_prop (BonoboPropertyBag *bag,
 	switch (arg_id) {
 	case 0:
 		g_assert (arg->_type == BONOBO_ARG_STRING);
-		BONOBO_ARG_SET_STRING (arg, _("Layout"));
+		BONOBO_ARG_SET_STRING (arg, _("View"));
 		break;
-	case 1:
-		g_assert (arg->_type == BONOBO_ARG_STRING);
-		BONOBO_ARG_SET_STRING (arg, _("Color"));
-		break;
-		
 	default:
 		g_assert_not_reached ();
 	}
@@ -392,7 +404,7 @@ prop_control_get_cb (BonoboPropertyControl *property_control,
 	cview = EOG_COLLECTION_VIEW (closure);
 
 	/* create widget */
-	widget = eog_collection_preferences_create_page (cview, page_number);
+	widget = eog_collection_preferences_create_page (cview->priv->client, page_number);
 
 	control = bonobo_control_new (widget);
 
@@ -500,18 +512,122 @@ model_base_uri_changed (EogCollectionModel *model, gpointer data)
 	update_title_text (view);	
 }
 
+static void
+layout_changed_cb (GConfClient *client, guint cnxn_id, 
+		   GConfEntry *entry, gpointer user_data)
+{
+	EogCollectionView *view;
+	gint layout;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	layout = gconf_value_get_int (entry->value);
+	eog_wrap_list_set_layout_mode (EOG_WRAP_LIST (view->priv->wraplist), 
+				      layout);
+}
+
+static void
+color_changed_cb (GConfClient *client, guint cnxn_id, 
+		   GConfEntry *entry, gpointer user_data)
+{
+	EogCollectionView *view;
+	GdkColor color;
+	GSList *l = NULL;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+	g_return_if_fail (entry->value->type == GCONF_VALUE_LIST);
+
+	view = EOG_COLLECTION_VIEW (user_data);
+	
+	g_assert (gconf_value_get_list_type (entry->value) == GCONF_VALUE_INT);
+	
+	l = gconf_client_get_list (client, pref_key[PREF_COLOR],
+					   GCONF_VALUE_INT, NULL);
+	
+	color.red = GPOINTER_TO_UINT (l->data);
+	color.green = GPOINTER_TO_UINT (l->next->data);
+	color.blue = GPOINTER_TO_UINT (l->next->next->data);
+
+	eog_wrap_list_set_background_color (EOG_WRAP_LIST (view->priv->wraplist),
+					    &color);
+}
+
+/* read configuration */
+static void
+set_configuration_values (EogCollectionView *view)
+{
+	EogCollectionViewPrivate *priv = NULL;
+	gint layout;
+	GSList *l;
+	GdkColor color;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+	
+	priv = view->priv;
+	
+	/* set layout mode */
+	layout = gconf_client_get_int (priv->client, 
+				       pref_key[PREF_LAYOUT],
+				       NULL);
+	eog_wrap_list_set_layout_mode (EOG_WRAP_LIST (priv->wraplist),
+				       layout);
+	
+	/* set background color */
+	l = gconf_client_get_list (priv->client, pref_key[PREF_COLOR],
+				   GCONF_VALUE_INT, NULL);
+	if (l) {
+		color.red = GPOINTER_TO_UINT (l->data);
+		color.green = GPOINTER_TO_UINT (l->next->data);
+		color.blue = GPOINTER_TO_UINT (l->next->next->data);
+	} else {
+		color.red = 57015;   /* default gtk color */
+		color.green = 57015;
+		color.blue = 57015;
+	}
+	eog_wrap_list_set_background_color (EOG_WRAP_LIST (priv->wraplist),
+					    &color);
+	/* add configuration listeners */
+	priv->notify_id[PREF_LAYOUT] = 
+		gconf_client_notify_add (priv->client, 
+					 pref_key[PREF_LAYOUT],
+					 layout_changed_cb,
+					 view,
+					 NULL, NULL);
+	priv->notify_id[PREF_COLOR] = 
+		gconf_client_notify_add (priv->client, 
+					 pref_key[PREF_COLOR],
+					 color_changed_cb,
+					 view,
+					 NULL, NULL);
+}
+
+
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
 {
-	EogCollectionViewPrivate *priv;
+	EogCollectionViewPrivate *priv = NULL;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
 	
-	list_view->priv->uic = bonobo_ui_component_new ("EogCollectionView");
+	priv = list_view->priv;
+	
+	priv->uic = bonobo_ui_component_new ("EogCollectionView");
+
+	/* Make sure GConf is initialized */
+	if (!gconf_is_initialized ())
+		gconf_init (0, NULL, NULL);
+	
+	priv->client = gconf_client_get_default ();
+	gconf_client_add_dir (priv->client, PREF_PREFIX, 
+			      GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
 
 	/* construct widget */
-	priv = list_view->priv;
 	g_assert (EOG_IS_COLLECTION_VIEW (list_view));
 	priv->model = eog_collection_model_new ();
 	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_added", 
@@ -556,10 +672,13 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */
-	priv->prop_control = bonobo_property_control_new (prop_control_get_cb, 2, 
+	priv->prop_control = bonobo_property_control_new (prop_control_get_cb, 1,
 							  list_view);
 	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
 				     BONOBO_OBJECT (priv->prop_control));
+
+	/* read user defined configuration */
+	set_configuration_values (list_view);
 
 	return list_view;
 }
@@ -572,29 +691,6 @@ eog_collection_view_new (void)
 	list_view = gtk_type_new (eog_collection_view_get_type ());
 
 	return eog_collection_view_construct (list_view);
-}
-
-
-void                
-eog_collection_view_set_layout_mode    (EogCollectionView *list_view,
-					EogLayoutMode lm)
-{
-	g_return_if_fail (list_view != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
-
-	eog_wrap_list_set_layout_mode (EOG_WRAP_LIST (list_view->priv->wraplist),
-				       lm);
-}
-
-void                
-eog_collection_view_set_background_color (EogCollectionView *list_view,
-					  GdkColor *color)
-{
-	g_return_if_fail (list_view != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
-
-	eog_wrap_list_set_background_color (EOG_WRAP_LIST (list_view->priv->wraplist),
-					    color);
 }
 
 BonoboPropertyBag*

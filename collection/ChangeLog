@@ -1,3 +1,27 @@
+2001-06-14  Jens Finke <jens@gnome.org>
+
+	* eog-collection-preferences.c:
+	(ecp_create_view_page): Merged code from
+	ecp_create_(layout|color)_page into this new function, so we have
+	all properties on one page. Also added gconf support for storing
+	the settings and beautified the dialog.
+	(ecp_create_color_page), (ecp_create_layout_page): Removed.
+	(ecp_activate_layout_cb), (ecp_activate_color_cb): Use gconf for
+	storing settings.
+	(eog_collection_preferences_create_page): Create only one page
+	through ecp_create_view_page.
+
+	* eog-collection-view.[ch]:
+	(prop_control_get_prop): Handle only one property page.
+	(layout_changed_cb), (color_changed_cb): New functions, callbacks
+	for changes in the gconf database.
+	(set_configuration_values): New function, obtain values from gconf
+	database and install listeners to key changes.
+	(eog_collection_view_construct): Init gconf, use
+	set_configuration_values.
+	(eog_collection_view_set_layout_mode),
+	(eog_collection_view_set_background_color): Removed.
+	
 2001-06-01  Jens Finke <jens@gnome.org>
 
 	* Makefile.am (INCLUDES), (eog_collection_LDADD): Added gnome-vfs
