@@ -1,9 +1,4 @@
-if ENABLE_COLLECTION
-collection_DIRS = collection
-endif
-
-SUBDIRS = art idl libeog viewer $(collection_DIRS) shell po help omf-install
-DIST_SUBDIRS = $(SUBDIRS) collection
+SUBDIRS = art idl libeog viewer collection shell po help omf-install
 
 ACLOCAL_AMFLAGS = -I /usr/share/aclocal/gnome2-macros
 

@@ -8,16 +8,15 @@ AM_INIT_AUTOMAKE(eog, 2.3.0)
 
 AM_MAINTAINER_MODE
 
-GNOME_PLATFORM_GNOME_2(yes)
-
 dnl ================= Requirements ================================================
 
-GNOME_VFS_REQUIRED=2.0.4
-LIBGNOMEUI_REQUIRED=2.0.6
+GNOME_VFS_REQUIRED=2.2.0
+LIBGNOMEUI_REQUIRED=2.2.0
 LIBBONOBOUI_REQUIRED=2.0.3
 BONOBO_ACTIVATION_REQUIRED=1.0.3
 LIBRSVG_REQUIRED=2.0.1
 LIBGLADE_REQUIRED=2.0.1
+GDKPIXBUF_REQUIRED=2.2.1
 
 dnl ===============================================================================
 
@@ -27,9 +26,7 @@ AC_HEADER_STDC
 AC_ARG_PROGRAM
 AC_PROG_RANLIB
 
-GNOME_COMPILE_WARNINGS
-
-dnl ================= Translation Stuf ==============================================
+dnl ================= translation =============================================
 
 GETTEXT_PACKAGE=eog
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
@@ -41,9 +38,20 @@ AC_PROG_INTLTOOL
 
 dnl ===============================================================================
 
+GNOME_COMPILE_WARNINGS(yes)
+
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
+
+dnl ================= gnome libs check ====================================
+
+EOG_MODULES="gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED librsvg-2.0 >= $LIBRSVG_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED"
+PKG_CHECK_MODULES(EOG, $EOG_MODULES)
+AC_SUBST(EOG_CFLAGS)
+AC_SUBST(EOG_LIBS)
+
+dnl ================= corba/bonobo ===========================
 
 # glib-genmarshal
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
@@ -57,214 +65,16 @@ AC_SUBST(BONOBO_IDLDIR)
 BONOBO_ACT_IDLDIR="`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
 AC_SUBST(BONOBO_ACT_IDLDIR)
 
+dnl ================= GConf  =================================================
+
 AC_PATH_PROG(GCONFTOOL, gconftool-2)
-dnl Specify the gconf configuration source,
-dnl default to xml::$(sysconfdir)/gconf/gconf.xml.defaults
+AM_GCONF_SOURCE_2
 
-GCONF_CONFIG_SOURCE=
-
-AC_ARG_ENABLE(gconf-source, [  --enable-gconf-source=sourceaddress Where to install schema files.], GCONF_CONFIG_SOURCE=$enable_gconf_source,)
-if test "x$GCONF_CONFIG_SOURCE" = "x"; then
-        GCONF_CONFIG_SOURCE="xml::\${sysconfdir}/gconf/gconf.xml.defaults"
-fi
-
-AC_SUBST(GCONF_CONFIG_SOURCE)
-AC_SUBST(INSTALL_GCONF_CONFIG_SOURCE)
-
-dnl ******************************************************
-dnl Check if the collection component should be build 
-dnl ******************************************************
-collection=no
-AC_ARG_ENABLE(collection,
-	     [  --enable-collection     Build collection component.],
-	     if test x$enableval = xyes; then
-		     collection=yes
-	     fi)
-AM_CONDITIONAL(ENABLE_COLLECTION, test x$collection = xyes)
-
-dnl ******************************************************
-dnl Check if we have libpreview when the collection is desired
-dnl ******************************************************
-
-libpreview=no
-if test x$collection = xyes; then 
-   LIBPREVIEW_MODULE="libpreview"
-   PKG_CHECK_MODULES(LIBPREVIEW, $LIBPREVIEW_MODULE, libpreview=yes, libpreview=no)
-   AC_SUBST(LIBPREVIEW_CFLAGS)
-   AC_SUBST(LIBPREVIEW_LIBS)
-fi
-AM_CONDITIONAL(ENABLE_LIBPREVIEW, test x$libpreview = xyes)
-
-dnl *******************************************************
-dnl Check for evolution
-dnl *******************************************************
-dnl --> Reenable this if evolution is ported to gnome 2 <--
-dnl *******************************************************
-dnl  try_evolution=false
-dnl  evolution=no
-dnl  AC_ARG_WITH(evolution,
-dnl  	     [  --{with,without}-evolution          Use evolution to send images.],
-dnl  	     if test x$withval = xno; then
-dnl  		     try_evolution=false
-dnl  	     fi
-dnl  )
-dnl  try_evolution=false
-dnl  if $try_evolution; then
-dnl  	     path_to_composer_idl=`gnome-config --datadir`/idl/Evolution-Composer.idl
-dnl  	     AC_CHECK_FILE($path_to_composer_idl, evolution=yes, evolution=no)
-dnl  	     if test x"$evolution" = "xyes"; then
-dnl  		     AC_DEFINE(ENABLE_EVOLUTION)
-dnl  	     fi
-dnl  fi
-evolution=no
-AM_CONDITIONAL(ENABLE_EVOLUTION, false)
-
-dnl *******************************************************
-dnl Check for GnoCam
-dnl *******************************************************
-dnl --> Reenable this if GnoCam is ported to gnome 2 and 
-dnl     someone has tested this <--
-dnl *******************************************************
-dnl  try_gnocam=true
-dnl  gnocam=no
-dnl  AC_ARG_WITH(gnocam,
-dnl  	     [  --{with,without}-gnocam             Use gnocam to acquire images.],
-dnl  	     if test x$withval = xno; then
-dnl  		     try_gnocam=false
-dnl  	     fi
-dnl  )
-dnl  if $try_gnocam; then
-dnl  	     path_to_gnocam_idl=`gnome-config --datadir`/idl/GnoCam.idl
-dnl  	     AC_CHECK_FILE($path_to_gnocam_idl, gnocam=yes, gnocam=no)
-dnl  	     if test x"$gnocam" = "xyes"; then
-dnl  		     AC_DEFINE(ENABLE_GNOCAM)
-dnl  	     fi
-dnl  fi
-dnl  AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
-gnocam=no
-AM_CONDITIONAL(ENABLE_GNOCAM, false)
-
-EOG_MODULES="gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED librsvg-2.0 >= $LIBRSVG_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED"
-PKG_CHECK_MODULES(EOG, $EOG_MODULES)
-AC_SUBST(EOG_CFLAGS)
-AC_SUBST(EOG_LIBS)
-
-dnl
-dnl ******************************
-dnl Image Libraries
-dnl ******************************
-jpeg_ok=no
-dnl Test for libjpeg
-  if test -z "$LIBJPEG"; then
-    AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
-      jpeg_ok=yes,
-      jpeg_ok=no
-      AC_MSG_WARN(*** JPEG saving code will not be built (JPEG library not found) ***))
-    if test "$jpeg_ok" = yes; then
-      AC_MSG_CHECKING([for jpeglib.h])
-      AC_TRY_CPP(
-[#include <stdio.h>
-#undef PACKAGE
-#undef VERSION
-#undef HAVE_STDDEF_H
-#undef HAVE_STDLIB_H
-#include <jpeglib.h>],
-        jpeg_ok=yes,
-        jpeg_ok=no)
-      AC_MSG_RESULT($jpeg_ok)
-      if test "$jpeg_ok" = yes; then
-        LIBJPEG='-ljpeg'
-        AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
-          AC_DEFINE(HAVE_PROGRESSIVE_JPEG),
-          AC_MSG_WARN(JPEG library does not support progressive saving.))
-      else
-          AC_MSG_WARN(*** JPEG saving code will not be built (JPEG header file not found) ***)
-      fi
-    fi
-  fi
-if test "x$jpeg_ok" = "xyes" ; then
-  AC_DEFINE(HAVE_JPEG)
-fi
-
-png_ok=no
-dnl Test for libpng
-  if test -z "$LIBPNG"; then
-    AC_CHECK_LIB(png, png_read_info,
-     [ AC_CHECK_HEADER(png.h,
-        png_ok=yes,
-        png_ok=no) ],
-      AC_MSG_WARN(*** PNG saving code will not be built (PNG library not found) ***), -lz -lm)
-    if test "$png_ok" = yes; then
-      AC_MSG_CHECKING([for png_structp in png.h])
-      AC_TRY_COMPILE([#include <png.h>],
-        [png_structp pp; png_infop info; png_colorp cmap; png_create_read_struct;],
-        png_ok=yes,
-        png_ok=no)
-      AC_MSG_RESULT($png_ok)
-      if test "$png_ok" = yes; then
-        PNG='png'; LIBPNG='-lpng -lz'
-      else
-        AC_MSG_WARN(*** PNG saving code will not be built (PNG library is too old) ***)
-      fi
-    else
-     AC_MSG_WARN(*** PNG saving code will not be built (PNG header file not found) ***)
-    fi
-  fi
-if test "x$png_ok" = "xyes" ; then
-  AC_DEFINE(HAVE_PNG)
-fi
-
-AC_SUBST(LIBJPEG)
-AC_SUBST(LIBPNG)
 
 AC_CHECK_LIB(popt, poptGetArgs, [POPT_LIBS="-lpopt"],
 AC_MSG_ERROR([popt is required to build eog.
 You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/]))
 AC_SUBST(POPT_LIBS)
-
-dnl ******************************
-dnl More compiler warnings
-dnl ******************************
-
-AC_ARG_ENABLE(more-warnings,
-[  --enable-more-warnings  Maximum compiler warnings],
-set_more_warnings="$enableval",[set_more_warnings=no])
-warning_flags=
-realsave_CFLAGS="$CFLAGS"
-AC_MSG_CHECKING(for more warnings, including -Werror)
-if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
-	AC_MSG_RESULT(yes)
-	warning_flags="-Wall -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -Werror"
-	CFLAGS="$warning_flags $CFLAGS"
-
-	for option in -Wsign-promo -Wno-sign-compare; do
-		SAVE_CFLAGS="$CFLAGS"
-		CFLAGS="$CFLAGS $option"
-		AC_MSG_CHECKING([whether gcc understands $option])
-		AC_TRY_COMPILE([], [],
-			has_option=yes,
-			has_option=no,)
-		CFLAGS="$SAVE_CFLAGS"
-		AC_MSG_RESULT($has_option)
-		if test $has_option = yes; then
-		  warning_flags="$warning_flags $option"
-		fi
-		unset has_option
-		unset SAVE_CFLAGS
-	done
-	unset option
-else
-	AC_MSG_RESULT(no)
-fi
-CFLAGS="$realsave_CFLAGS"
-EXTRA_WARNING_CFLAGS=" \
-	-DG_DISABLE_DEPRECATED \
-	-DGDK_DISABLE_DEPRECATED \
-	-DGDK_PIXBUF_DISABLE_DEPRECATED \
-	-DGTK_DISABLE_DEPRECATED \
-	-DGNOME_DISABLE_DEPRECATED \
-	$warning_flags"
-AC_SUBST(EXTRA_WARNING_CFLAGS)
 
 AC_OUTPUT([
 Makefile
@@ -290,8 +100,5 @@ Configuration:
 	Source code location:	  ${srcdir}
 	Compiler:		  ${CC} 
 
-	Extra Compiler Warnings:  ${EXTRA_WARNING_CFLAGS}
-
-	Build collection view (experimental): ${collection}
- 	Use libpreview:  ${libpreview}
+	Extra Compiler Warnings:  ${WARN_CFLAGS}
 "

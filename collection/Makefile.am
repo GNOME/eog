@@ -7,7 +7,7 @@ INCLUDES =							\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
 	$(EOG_CFLAGS)						\
-	$(EXTRA_WARNING_CFLAGS)
+	$(WARN_CFLAGS)
 
 libexec_PROGRAMS = eog-collection-view
 
@@ -26,7 +26,6 @@ BUILT_SOURCES = \
 	eog-collection-marshal.h
 
 eog_collection_view_SOURCES =		\
-	$(EVOLUTION_GENERATED)		\
 	eog-collection-marshal.h	\
 	eog-collection-marshal.c	\
 	eog-wrap-list.c			\
@@ -50,8 +49,7 @@ eog_collection_view_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
 	$(EOG_LIBS)				\
-	$(INTLLIBS)				\
-	$(LIBPNG) $(LIBJPEG)
+	$(INTLLIBS)
 
 server_in_files = GNOME_EOG_Collection.server.in.in
 

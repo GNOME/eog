@@ -9,7 +9,7 @@ INCLUDES =							\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
 	$(EOG_CFLAGS)						\
-	$(EXTRA_WARNING_CFLAGS)
+	$(WARN_CFLAGS)
 
 libexec_PROGRAMS = eog-image-viewer
 
@@ -43,8 +43,7 @@ eog_image_viewer_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
 eog_image_viewer_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
-	$(EOG_LIBS)				\
-	$(LIBPNG) $(LIBJPEG)
+	$(EOG_LIBS)
 
 uidir = $(datadir)/gnome-2.0/ui
 ui_DATA = eog-image-view-ui.xml \

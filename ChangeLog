@@ -1,5 +1,28 @@
 2003-02-21  Jens Finke <jens@triq.net>
 
+	* configure.in: Removed deprecated tests for libjpeg, libpng,
+	libpreview, evolution, gnocam and more compiler warnings. Always
+	build collection view.  Updated library requirements and added
+	gdk-pixbuf to dependency list. Use gconf macro (bug #106130, patch
+	by Julio Merino <jmmv@hispabsd.org>).
+
+	* Makefile.am: Build collection always.
+
+	* viewer/Makefile.am,
+	* collection/Makefile.am (INCLUDES):
+	s/EXTRA_WARNING_CFLAGS/WARN_CFLAGS.
+	(LDADD) Removed graphic libs.
+
+	* libeog/Makefile.am,
+	* shell/Makefile.am (INCLUDES): Always have collection,
+	s/EXTRA_WARNING_CFLAGS/WARN_CFLAGS.
+
+
+	* shell/eog-preferences.c (eog_preferences_show):
+	s/g_strncascecmp/g_strcasecmp.
+	
+2003-02-21  Jens Finke <jens@triq.net>
+
 	Collection makes use of the new EogImage class.
 	
 	* collection/eog-collection-item.[ch]: New files. A class for

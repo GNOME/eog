@@ -1,15 +1,11 @@
-if ENABLE_COLLECTION
- COLLECTION_FLAGS=-DHAVE_COLLECTION
-endif
-
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
 	$(GCONF_CFLAGS)						\
-	$(EXTRA_WARNING_CFLAGS)					\
+	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
-	$(COLLECTION_FLAGS)					\
+	-DHAVE_COLLECTION					\
 	-DDATADIR=\""$(datadir)"\"				\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
