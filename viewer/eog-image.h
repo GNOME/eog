@@ -54,10 +54,12 @@ GdkPixbuf      *eog_image_get_pixbuf            (EogImage       *image);
 const gchar    *eog_image_get_filename          (EogImage       *image);
 
 void	eog_image_save_to_stream	(EogImage	           *image, 
-					 BonoboStream	           *stream, 
+					 Bonobo_Stream	            stream, 
 					 Bonobo_Persist_ContentType type, 
 					 CORBA_Environment         *ev);
-
+void	eog_image_load_from_stream	(EogImage                  *image,
+					 Bonobo_Stream              stream,
+					 CORBA_Environment         *ev);
 
 END_GNOME_DECLS
 

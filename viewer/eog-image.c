@@ -458,14 +458,20 @@ eog_image_get_pixbuf (EogImage *image)
 }
 
 void
-eog_image_save_to_stream (EogImage *image, BonoboStream *stream, 
+eog_image_save_to_stream (EogImage *image, Bonobo_Stream stream, 
 			  Bonobo_Persist_ContentType type, 
-			  CORBA_Environment* ev)
+			  CORBA_Environment *ev)
 {
-	g_return_if_fail (image != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (image));
 	
-	save_image_to_stream (NULL, BONOBO_OBJREF (stream), type, image, ev);
+	save_image_to_stream (NULL, stream, type, image, ev);
 }
 
+void
+eog_image_load_from_stream (EogImage *image, Bonobo_Stream stream,
+			    CORBA_Environment *ev)
+{
+	g_return_if_fail (EOG_IS_IMAGE (image));
 
+	load_image_from_stream (NULL, stream, "", image, ev);
+}

@@ -29,6 +29,9 @@
 #  include "Evolution-Composer.h"
 #  include <bonobo/bonobo-stream-memory.h>
 #endif
+#ifdef ENABLE_GNOCAM
+#  include "GnoCam.h"
+#endif
 
 struct _EogImageViewPrivate {
 	EogImage              *image;
@@ -268,8 +271,9 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 		Bonobo_Storage_WRITE | Bonobo_Storage_CREATE, 0664, &ev);
 
 	if (!BONOBO_EX (&ev)) {
-		eog_image_save_to_stream (image_view->priv->image, stream, 
-			  (char*) gnome_mime_type_of_file (filename), &ev);
+		eog_image_save_to_stream (image_view->priv->image,
+			BONOBO_OBJREF (stream), 
+			(char*) gnome_mime_type_of_file (filename), &ev);
 		bonobo_object_unref (BONOBO_OBJECT (stream));
 	}
 
@@ -326,10 +330,66 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	gtk_widget_show (GTK_WIDGET (filesel));
 }
 
+#ifdef ENABLE_GNOCAM
+static void
+verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
+			   const char *name)
+{
+	EogImageView *image_view;
+	CORBA_Object gnocam;
+	CORBA_Environment ev;
+	GNOME_Camera camera;
+	Bonobo_Stream stream;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+	
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	CORBA_exception_init (&ev);
+	
+	gnocam = oaf_activate_from_id ("OAFIID:GNOME_GnoCam", 0, NULL, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to start GnoCam: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	camera = GNOME_GnoCam_getCamera (gnocam, &ev);
+	bonobo_object_release_unref (gnocam, NULL);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to get camera: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	stream = GNOME_Camera_captureImage (camera, &ev);
+	bonobo_object_release_unref (camera, NULL);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Could not capture image: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	eog_image_load_from_stream (image_view->priv->image, stream, &ev);
+	bonobo_object_release_unref (stream, NULL);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Could not load image: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	CORBA_exception_free (&ev);
+}
+#endif
+
+#ifdef ENABLE_EVOLUTION
 static void
 verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 {
-#ifdef ENABLE_EVOLUTION
 	EogImageView *image_view;
 	CORBA_Object composer;
 	CORBA_Environment ev;
@@ -352,7 +412,8 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	}
 
 	stream = bonobo_stream_mem_create (NULL, 0, FALSE, TRUE);
-	eog_image_save_to_stream (image_view->priv->image, stream,
+	eog_image_save_to_stream (image_view->priv->image,
+				  BONOBO_OBJREF (stream),
 			          "image/png", &ev);
 	if (BONOBO_EX (&ev)) {
 		g_warning ("Unable to save image to stream: %s",
@@ -390,10 +451,8 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	}
 
 	CORBA_exception_free (&ev);
-#else
-	g_warning ("EOG has been compiled witout support for evolution!");
-#endif
 }
+#endif
 
 /* ***************************************************************************
  * Start of printing related code 
@@ -972,6 +1031,9 @@ listener_CheckSize_cb (BonoboUIComponent           *uic,
 	bonobo_arg_release (arg);
 }
 
+#define EVOLUTION_MENU "<menuitem name=\"Send\" _label=\"Send\" pixtype=\"stock\" pixname=\"New Mail\" verb=\"\"/>"
+#define GNOCAM_MENU "<menuitem name=\"AcquireFromCamera\" _label=\"Acquire from camera\" verb=\"\"/>"
+
 static void
 eog_image_view_create_ui (EogImageView *image_view)
 {
@@ -981,6 +1043,17 @@ eog_image_view_create_ui (EogImageView *image_view)
 	/* Set up the UI from an XML file. */
         bonobo_ui_util_set_ui (image_view->priv->uic, DATADIR,
 			       "eog-image-view-ui.xml", "EogImageView");
+
+#ifdef ENABLE_EVOLUTION
+	bonobo_ui_component_set_translate (image_view->priv->uic,
+					   "/menu/File/FileOperations", 
+					   EVOLUTION_MENU, NULL);
+#endif
+#ifdef ENABLE_GNOCAM
+	bonobo_ui_component_set_translate (image_view->priv->uic,
+					   "/menu/File/FileOperations",
+					   GNOCAM_MENU, NULL);
+#endif
 
 	bonobo_ui_component_add_listener (image_view->priv->uic, "InterpolationNearest",
 					  listener_Interpolation_cb, image_view);
@@ -1019,8 +1092,14 @@ eog_image_view_create_ui (EogImageView *image_view)
 				      verb_SaveAs_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "FullScreen", 
 			              verb_FullScreen_cb, image_view);
+#ifdef ENABLE_EVOLUTION
 	bonobo_ui_component_add_verb (image_view->priv->uic, "Send",
 				      verb_Send_cb, image_view);
+#endif
+#ifdef ENABLE_GNOCAM
+	bonobo_ui_component_add_verb (image_view->priv->uic, "AcquireFromCamera",
+				      verb_AcquireFromCamera_cb, image_view);
+#endif
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintSetup", 
 				      verb_PrintSetup_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintPreview",

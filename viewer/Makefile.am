@@ -30,8 +30,17 @@ EVOLUTION_GENERATED =			\
 	Evolution-Composer-stubs.c
 endif
 
+if ENABLE_GNOCAM
+GNOCAM_GENERATED =			\
+	GnoCam.h			\
+	GnoCam-common.c			\
+	GnoCam-skels.c			\
+	GnoCam-stubs.c
+endif
+
 eog_image_viewer_SOURCES =	\
 	$(EVOLUTION_GENERATED)	\
+	$(GNOCAM_GENERATED)	\
 	eog-image.c		\
 	eog-image.h		\
 	eog-image-io.c		\
@@ -68,13 +77,19 @@ eog_image_viewer_LDADD = 			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
+if ENABLE_EVOLUTION
 $(EVOLUTION_GENERATED):
 	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
+endif
+
+if ENABLE_GNOCAM
+$(GNOCAM_GENERATED):
+	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/GnoCam.idl
+endif
 
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
-BUILT_SOURCES = $(EVOLUTION_GENERATED)
-CLEANFILES += $(BUILT_SOURCES)
+CLEANFILES += $(EVOLUTION_GENERATED) $(GNOCAM_GENERATED)
 EXTRA_DIST = $(ui_DATA)
 
