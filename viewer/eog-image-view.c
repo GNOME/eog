@@ -57,10 +57,6 @@ struct _EogImageViewPrivate {
 };
 
 enum {
-	LAST_SIGNAL
-};
-
-enum {
 	PROP_INTERPOLATION,
 	PROP_DITHER,
 	PROP_CHECK_TYPE,
@@ -77,8 +73,6 @@ enum {
 
 static BonoboControl* property_control_get_cb (BonoboPropertyControl *property_control,
 					       int page_number, void *closure);
-
-static guint eog_image_view_signals [LAST_SIGNAL];
 
 static GObjectClass *eog_image_view_parent_class;
 
