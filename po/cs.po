@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-05-31 20:01+0200\n"
-"PO-Revision-Date: 2003-05-31 21:58+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-14 12:12+0200\n"
+"PO-Revision-Date: 2003-06-14 19:40+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -250,7 +251,7 @@ msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Zda-li se má obrázek při zvětšení interpolovat nebo ne. Interpolace vede k "
+"Jestli se má obrázek při zvětšení interpolovat nebo ne. Interpolace vede k "
 "lepší kvalitě, ale je pomalejší než u neinterpolovaných obrázků."
 
 #: eog.schemas.in.h:14
@@ -259,7 +260,7 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
-"Zda-li mají okna s obrázky zvolit svou velikost a poměr zvětšení automaticky "
+"Jestli mají okna s obrázky zvolit svou velikost a poměr zvětšení automaticky "
 "na základě velikosti obrázku. Pokud tato volba není nastavena, okna s "
 "obrázky budou tak velká, jakou velikost jim přiřadí správce oken."
 
@@ -268,7 +269,7 @@ msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"Zda-li má otevření obrázku vytvořit nové okno místo nahrazení obrázku v okně "
+"Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v okně "
 "stávajícím."
 
 #: eog.schemas.in.h:16
@@ -276,7 +277,7 @@ msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
 msgstr ""
-"Zda-li by měl celoobrazovkový pohled zobrazit rám okolo okrajů obrazovky."
+"Jestli by měl celoobrazovkový pohled zobrazit rám okolo okrajů obrazovky."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -284,20 +285,20 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
-"Zda-li se mají zobrazovat posuvníky při celoobrazovkovém pohledu. Možné "
+"Jestli se mají zobrazovat posuvníky při celoobrazovkovém pohledu. Možné "
 "hodnoty jsou: 1 (automaticky, pouze zobrazovat pokud je obrázek větší než "
 "okno), 2 (nikdy nezobrazovat)."
 
 #: eog.schemas.in.h:18
 msgid ""
 "Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"Zda-li se mají přizpůsobovat obrázky standardní velikosti obrazovce při "
-"celoobrazovkovém pohledu. Jedná se o obrázky o velikosti 320×200, 640×480, "
-"800×600 atd. Tato volba určuje, zda-li by takové obrázky měly být zvětšeny "
+"Jestli se mají přizpůsobovat obrázky standardní velikosti obrazovce při "
+"celoobrazovkovém pohledu. Jedná se o obrázky o velikosti 320×240, 640×480, "
+"800×600 atd. Tato volba určuje, jestli by takové obrázky měly být zvětšeny "
 "na velikost obrazovky bez ohledu na nastavení výchozího poměru pro "
 "celoobrazovkový pohled."
 
@@ -341,11 +342,15 @@ msgstr "Načíst obrázek"
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: libeog/eog-image.c:1320
+#: libeog/eog-image.c:1316
 msgid "No image loaded."
 msgstr "Nenačten žádný obrázek."
 
-#: libeog/eog-image.c:1354
+#: libeog/eog-image.c:1325
+msgid "Images can only be saved as local files."
+msgstr "Obrázky mohou být uloženy jen jako místní soubory."
+
+#: libeog/eog-image.c:1360
 msgid "Unsupported image type for saving."
 msgstr "Nepodporovaný typ obrázku pro ukládání."
 
