@@ -1247,19 +1247,7 @@ eog_window_open (EogWindow *window, const char *text_uri)
 		/* FIXME: The error message should be more specific 
 		 *        (eg. "Unknown file format").
 		 */
-		dlg = gtk_message_dialog_new (GTK_WINDOW (window),
-					      GTK_DIALOG_DESTROY_WITH_PARENT,
-					      GTK_MESSAGE_ERROR,
-					      GTK_BUTTONS_CLOSE,
-					      _("Unable to open %s."),
-					      uri_str);
-
-		g_signal_connect (dlg, "response",
-				  G_CALLBACK (gtk_widget_destroy),
-				  NULL);
-
-		gtk_widget_show (dlg);
-
+		open_failure_dialog (GTK_WINDOW (window), uri_str);
 		g_free (uri_str);
 	}
 
