@@ -775,6 +775,7 @@ real_image_load (gpointer data)
 	}
 	bytes_read_total = 0;
 	priv->progress = 0.0;
+	priv->bytes = info->size;
 	
 	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
 	loader = gdk_pixbuf_loader_new ();
@@ -1522,4 +1523,12 @@ eog_image_is_modified (EogImage *img)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	
 	return img->priv->modified;
+}
+
+GnomeVFSFileSize
+eog_image_get_bytes (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), 0);
+	
+	return img->priv->bytes;
 }

@@ -1,6 +1,7 @@
 #include <config.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnome/gnome-macros.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #if HAVE_EXIF
 #include <libexif/exif-entry.h>
 #include <libexif/exif-data.h>
@@ -137,12 +138,15 @@ add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *stor
 	char buffer[32];
 	GtkTreeIter iter;
 	int width, height;
+	GnomeVFSFileSize bytes;
+	char *size_str;
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 	g_return_if_fail (EOG_IS_INFO_VIEW (view));
 	g_return_if_fail (GTK_IS_LIST_STORE (store));
 
 	eog_image_get_size (image, &width, &height);
+	bytes = eog_image_get_bytes (image);
 
 	if (width > -1) {
 		g_snprintf (buffer, 32, "%i", width);	
@@ -171,6 +175,15 @@ add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *stor
 	else {
 		gtk_list_store_set (store, &iter, 1, buffer, -1);
 	}
+
+	size_str = gnome_vfs_format_file_size_for_display (bytes);
+	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "3")) {
+		append_row (store, _("Filesize"), size_str);
+	}
+	else {
+		gtk_list_store_set (store, &iter, 1, size_str, -1);
+	}
+	g_free (size_str);
 }
 
 static void
@@ -276,6 +289,7 @@ loading_info_finished_cb (EogImage *image, gpointer data)
 	view = EOG_INFO_VIEW (data);
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 
+	add_image_size_attribute (view, image, store);
 	add_image_exif_attribute (view, image, store);
 }
 

@@ -33,6 +33,7 @@
 #include <bonobo/bonobo-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <eel/eel-vfs-extensions.h>
 
 #include "eog-image-view.h"
@@ -510,9 +511,11 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 	}
 	case PROP_WINDOW_STATUS: {
 		gchar *text = NULL;
+		gchar *size_string;
 		int zoom = 0;
 		int width = 0;
 		int height = 0;
+		GnomeVFSFileSize bytes = 0;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 
@@ -520,12 +523,17 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		if (priv->image != NULL) {
 			eog_image_get_size (priv->image, &width, &height);
+			bytes = eog_image_get_bytes (priv->image);
 		}
 		
 		if ((width > 0) && (height > 0)) {
-			/* [image width] x [image height] pixel  [zoom in percent] */
-			text = g_strdup_printf (_("%i x %i pixel    %i%%"), 
-						width, height, zoom);
+			size_string = gnome_vfs_format_file_size_for_display (bytes);
+
+			/* [image width] x [image height] pixel  [bytes]    [zoom in percent] */
+			text = g_strdup_printf (_("%i x %i pixel  %s    %i%%"), 
+						width, height, size_string, zoom);
+
+			g_free (size_string);
 		}
 		else {
 			text = g_strdup (" ");

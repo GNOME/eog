@@ -1,5 +1,25 @@
 2003-11-24  Jens Finke  <jens@triq.net>
 
+	Display filesize information.
+
+	* libeog/eog-image-private.h: Added bytes attribute.
+
+	* libeog/eog-image.[ch](real_image_load): Init bytes attribute.
+	(eog_image_get_bytes): New public function.
+
+	* libeog/eog-info-view.c (add_image_size_attribute): Display
+	filesize information.
+	(loading_info_finished_cb): Load size attributes again (for the
+	special case, where the image is already loaded).
+
+	* viewer/eog-image-view.c (eog_image_view_get_prop): Display
+	filesize in the statusbar.
+
+2003-11-24  Jens Finke  <jens@triq.net>
+
+	Select/show the image in the wraplist, that was last viewed in the
+	slideshow on returning from fullscreen mode. Fixes #118617.
+	
 	* collection/eog-collection-view.c (slideshow_hide_cb): New function
 	(verb_SlideShow_cb): Register for hide signal of the fullscreen widget.
 

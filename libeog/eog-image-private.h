@@ -1,6 +1,7 @@
 #ifndef _EOG_IMAGE_PRIVATE_H_
 #define _EOG_IMAGE_PRIVATE_H_
 
+#include <libgnomevfs/gnome-vfs-file-size.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
@@ -35,6 +36,7 @@ struct _EogImagePrivate {
 	
 	gint width;
 	gint height;
+	GnomeVFSFileSize bytes;
 #if HAVE_EXIF
 	ExifData *exif;
 #endif
