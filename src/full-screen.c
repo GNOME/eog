@@ -23,6 +23,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include "full-screen.h"
+#include "image-view.h"
 #include "ui-image.h"
 
 
@@ -159,6 +160,8 @@ full_screen_show (GtkWidget *widget)
 
 	priv->have_grab = gdk_keyboard_grab (widget->window, TRUE, GDK_CURRENT_TIME) == 0;
 	gtk_grab_add (widget);
+
+	gtk_widget_grab_focus (ui_image_get_image_view (UI_IMAGE (priv->ui)));
 }
 
 /* Hide handler for the full screen view */
@@ -186,6 +189,16 @@ full_screen_hide (GtkWidget *widget)
 static gint
 full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 {
+	gint result;
+
+	result = FALSE;
+
+	if (GTK_WIDGET_CLASS (parent_class)->key_press_event)
+		result = (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
+
+	if (result)
+		return result;
+
 	if (event->keyval == GDK_Escape) {
 		gtk_widget_hide (widget);
 		return TRUE;
@@ -221,11 +234,13 @@ void
 full_screen_set_image (FullScreen *fs, Image *image)
 {
 	FullScreenPrivate *priv;
+	GtkWidget *view;
 
 	g_return_if_fail (fs != NULL);
 	g_return_if_fail (IS_FULL_SCREEN (fs));
 
 	priv = fs->priv;
 
-	ui_image_set_image (UI_IMAGE (priv->ui), image);
+	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
+	image_view_set_image (IMAGE_VIEW (view), image);
 }

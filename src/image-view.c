@@ -22,6 +22,7 @@
 #include <config.h>
 #include <math.h>
 #include <stdlib.h>
+#include <gdk/gdkkeysyms.h>
 #include <gtk/gtksignal.h>
 #include "cursors.h"
 #include "image-view.h"
@@ -81,6 +82,12 @@ typedef struct {
 
 
 
+/* Signal IDs */
+enum {
+	ZOOM_FIT,
+	LAST_SIGNAL
+};
+
 static void image_view_class_init (ImageViewClass *class);
 static void image_view_init (ImageView *view);
 static void image_view_destroy (GtkObject *object);
@@ -96,11 +103,14 @@ static gint image_view_button_press (GtkWidget *widget, GdkEventButton *event);
 static gint image_view_button_release (GtkWidget *widget, GdkEventButton *event);
 static gint image_view_motion (GtkWidget *widget, GdkEventMotion *event);
 static gint image_view_expose (GtkWidget *widget, GdkEventExpose *event);
+static gint image_view_key_press (GtkWidget *widget, GdkEventKey *event);
 
 static void image_view_set_scroll_adjustments (GtkWidget *widget,
 					       GtkAdjustment *hadj, GtkAdjustment *vadj);
 
 static GtkWidgetClass *parent_class;
+
+static guint image_view_signals[LAST_SIGNAL];
 
 
 
@@ -148,6 +158,14 @@ image_view_class_init (ImageViewClass *class)
 
 	parent_class = gtk_type_class (GTK_TYPE_WIDGET);
 
+	image_view_signals[ZOOM_FIT] =
+		gtk_signal_new ("zoom_fit",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
+
 	object_class->destroy = image_view_destroy;
 	object_class->finalize = image_view_finalize;
 
@@ -162,6 +180,8 @@ image_view_class_init (ImageViewClass *class)
 				GTK_TYPE_ADJUSTMENT,
 				GTK_TYPE_ADJUSTMENT);
 
+	gtk_object_class_add_signals (object_class, image_view_signals, LAST_SIGNAL);
+
 	widget_class->unmap = image_view_unmap;
 	widget_class->realize = image_view_realize;
 	widget_class->unrealize = image_view_unrealize;
@@ -172,6 +192,7 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->button_release_event = image_view_button_release;
 	widget_class->motion_notify_event = image_view_motion;
 	widget_class->expose_event = image_view_expose;
+	widget_class->key_press_event = image_view_key_press;
 }
 
 /* Object initialization function for the image view */
@@ -182,6 +203,8 @@ image_view_init (ImageView *view)
 
 	priv = g_new0 (ImageViewPrivate, 1);
 	view->priv = priv;
+
+	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
 	priv->zoom = 1.0;
 
@@ -707,7 +730,7 @@ image_view_realize (GtkWidget *widget)
 	attr.event_mask = (gtk_widget_get_events (widget)
 			   | GDK_EXPOSURE_MASK
 			   | GDK_BUTTON_PRESS_MASK
-			   | GDK_BUTTON_RELEASE_MASK);
+			   | GDK_KEY_PRESS_MASK);
 
 	attr_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
 
@@ -909,6 +932,9 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
 
+	if (!GTK_WIDGET_HAS_FOCUS (widget))
+		gtk_widget_grab_focus (widget);
+
 	if (priv->dragging || event->button != 1)
 		return FALSE;
 
@@ -1022,6 +1048,101 @@ image_view_expose (GtkWidget *widget, GdkEventExpose *event)
 	view = IMAGE_VIEW (widget);
 
 	request_paint_area (view, &event->area);
+	return TRUE;
+}
+
+/* Key press handler for the image view */
+static gint
+image_view_key_press (GtkWidget *widget, GdkEventKey *event)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+	gboolean do_zoom;
+	double zoom;
+	gboolean do_scroll;
+	int xofs, yofs;
+
+	view = IMAGE_VIEW (widget);
+	priv = view->priv;
+
+	do_zoom = FALSE;
+	do_scroll = FALSE;
+
+	switch (event->keyval) {
+	case GDK_Up:
+		do_scroll = TRUE;
+		xofs = 0;
+		yofs = -SCROLL_STEP_SIZE;
+		break;
+
+	case GDK_Down:
+		do_scroll = TRUE;
+		xofs = 0;
+		yofs = SCROLL_STEP_SIZE;
+		break;
+
+	case GDK_Left:
+		do_scroll = TRUE;
+		xofs = -SCROLL_STEP_SIZE;
+		yofs = 0;
+		break;
+
+	case GDK_Right:
+		do_scroll = TRUE;
+		xofs = SCROLL_STEP_SIZE;
+		yofs = 0;
+		break;
+
+	case GDK_equal:
+	case GDK_KP_Add:
+		do_zoom = TRUE;
+		zoom = priv->zoom * 1.05;
+		break;
+
+	case GDK_minus:
+	case GDK_KP_Subtract:
+		do_zoom = TRUE;
+		zoom = priv->zoom / 1.05;
+		break;
+
+	case GDK_1:
+		do_zoom = TRUE;
+		zoom = 1.0;
+		break;
+
+	case GDK_F:
+	case GDK_f:
+		gtk_signal_emit (GTK_OBJECT (view), image_view_signals[ZOOM_FIT]);
+		break;
+
+	default:
+		return FALSE;
+	}
+
+	if (do_zoom)
+		image_view_set_zoom (view, zoom);
+
+	if (do_scroll) {
+		int x, y;
+
+		x = CLAMP (priv->xofs + xofs, 0, priv->hadj->upper - priv->hadj->page_size);
+		y = CLAMP (priv->yofs + yofs, 0, priv->vadj->upper - priv->vadj->page_size);
+
+		scroll_to (view, x, y);
+
+		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
+		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
+
+		priv->hadj->value = x;
+		priv->vadj->value = y;
+
+		gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
+		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+	
+		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
+		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
+	}
+
 	return TRUE;
 }
 

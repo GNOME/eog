@@ -1,3 +1,35 @@
+2000-05-05  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c: New "zoom_fit" class to ask the parent to zoom to
+	fit.
+
+	* ui-image.c (zoom_fit_cb): New handler for the "zoom_fit" signal
+	of the image view.
+
+	* window.c (set_mode): Give the focus to the image view widget.
+
+	* full-screen.c (full_screen_key_press): Doh, call the parent
+	class handler.
+	(full_screen_show): Give the focus to the image view widget.
+
+	* image-view.c (image_view_key_press): New handler for key
+	presses.
+
+	* commands.c (set_window_zoom): New function.  Now we use this in
+	all other command callbacks.
+	(cmd_cb_zoom_fit): Use ui_image_zoom_fit().
+	(cmd_cb_full_screen): Use the FullScreen widget directly.
+
+	* full-screen.c (full_screen_set_image): Get the image view and
+	operate on it.
+
+	* window.c (window_open_image): Likewise.
+	Removed zooming functions.
+
+	* ui-image.c (ui_image_get_image_view): New function.
+	Removed image and zooming functions.
+	(ui_image_zoom_fit): Set the zoom directly on the image view.
+
 2000-04-27  Darin Adler  <darin@eazel.com>
 
 	* window.c (window_full_screen): 

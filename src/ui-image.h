@@ -57,11 +57,8 @@ GtkType ui_image_get_type (void);
 GtkWidget *ui_image_new (void);
 GtkWidget *ui_image_construct (UIImage *ui);
 
-void ui_image_set_image (UIImage *ui, Image *image);
-Image *ui_image_get_image (UIImage *ui);
+GtkWidget *ui_image_get_image_view (UIImage *ui);
 
-void ui_image_set_zoom (UIImage *ui, double zoom);
-double ui_image_get_zoom (UIImage *ui);
 void ui_image_zoom_fit (UIImage *ui);
 
 

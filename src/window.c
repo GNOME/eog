@@ -23,6 +23,7 @@
 #include <gnome.h>
 #include "commands.h"
 #include "full-screen.h"
+#include "image-view.h"
 #include "tb-image.h"
 #include "ui-image.h"
 #include "util.h"
@@ -232,6 +233,7 @@ set_mode (Window *window, WindowMode mode)
 		priv->content = ui_image_new ();
 		gnome_app_set_contents (GNOME_APP (window), priv->content);
 		gtk_widget_show (priv->content);
+		gtk_widget_grab_focus (ui_image_get_image_view (UI_IMAGE (priv->content)));
 		break;
 
 	case WINDOW_MODE_COLLECTION:
@@ -711,6 +713,7 @@ window_open_image (Window *window, const char *filename)
 	gboolean retval;
 	char *fname;
 	gboolean free_fname;
+	GtkWidget *view;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (IS_WINDOW (window), FALSE);
@@ -723,7 +726,8 @@ window_open_image (Window *window, const char *filename)
 
 	image = image_new ();
 	retval = image_load (image, filename);
-	ui_image_set_image (UI_IMAGE (priv->content), image);
+	view = ui_image_get_image_view (UI_IMAGE (priv->content));
+	image_view_set_image (IMAGE_VIEW (view), image);
 
 	free_fname = FALSE;
 
@@ -748,152 +752,22 @@ window_open_image (Window *window, const char *filename)
 	return retval;
 }
 
-
-
 /**
- * window_set_zoom:
- * @window: An image window.
- * @zoom: Desired zoom factor.
+ * window_get_ui_image:
+ * @window: A window.
  * 
- * Sets the zoom factor for an image window.
- **/
-void
-window_set_zoom (Window *window, double zoom)
-{
-	WindowPrivate *priv;
-	UIImage *ui;
-
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-
-	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	ui_image_set_zoom (ui, zoom);
-}
-
-/**
- * window_zoom_in:
- * @window: An image window.
- *
- * Zooms in an image window.
- **/
-void
-window_zoom_in (Window *window)
-{
-	WindowPrivate *priv;
-	UIImage *ui;
-
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-
-	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	ui_image_set_zoom (ui, ui_image_get_zoom (ui) * 1.05);
-}
-
-/**
- * window_zoom_out:
- * @window: An image window.
- *
- * Zooms out an image window.
- **/
-void
-window_zoom_out (Window *window)
-{
-	WindowPrivate *priv;
-	UIImage *ui;
-
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-
-	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	ui_image_set_zoom (ui, ui_image_get_zoom (ui) / 1.05);
-}
-
-/**
- * window_zoom_1:
- * @window: An image window.
+ * Queries the image view scroller inside a window.
  * 
- * Zooms the image to 1:1 scale.
+ * Return value: An image view scroller.
  **/
-void
-window_zoom_1 (Window *window)
+GtkWidget *
+window_get_ui_image (Window *window)
 {
 	WindowPrivate *priv;
-	UIImage *ui;
 
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-
-	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	ui_image_set_zoom (ui, 1.0);
-}
-
-/**
- * window_zoom_fit:
- * @window: An image window.
- * 
- * Zooms an image to fit the window size.
- **/
-void
-window_zoom_fit (Window *window)
-{
-	WindowPrivate *priv;
-	UIImage *ui;
-
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
+	g_return_val_if_fail (window != NULL, NULL);
+	g_return_val_if_fail (IS_WINDOW (window), NULL);
 
 	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	ui_image_zoom_fit (ui);
-}
-
-/**
- * window_full_screen:
- * @window: An image window.
- * 
- * Launches a full screen viewer for an image window.
- **/
-void
-window_full_screen (Window *window)
-{
-	WindowPrivate *priv;
-	UIImage *ui;
-	GtkWidget *fs;
-
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-
-	priv = window->priv;
-	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
-
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-	ui = UI_IMAGE (priv->content);
-
-	fs = full_screen_new ();
-	full_screen_set_image (FULL_SCREEN (fs), ui_image_get_image (ui));
-	gtk_widget_show (fs);
+	return priv->content;
 }
