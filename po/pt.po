@@ -5,21 +5,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2002-03-12 21:27+0100\n"
-"PO-Revision-Date: 2002-02-11 23:35+0000\n"
+"POT-Creation-Date: 2002-03-28 01:11+0000\n"
+"PO-Revision-Date: 2002-03-28 01:15+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"Language-Team: Portuguese <none@none.org>\n"
+"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Visualizador de Imagens Eye Of Gnome"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Visualizador de Imagens"
+msgid "View many different types of images"
+msgstr "Visualiza muitos tipos diferentes de imagens"
 
 #: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
 msgid "EOG Image"
@@ -65,7 +65,7 @@ msgstr "_Sair"
 msgid "Exit the program"
 msgstr "Sair do programa"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
 msgid "Open"
 msgstr "Abrir"
 
@@ -121,39 +121,56 @@ msgstr "_Definições"
 msgid "_View"
 msgstr "_Ver"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr "Traduzido por Duarte Loreto <happyguy_pt@hotmail.com>"
+
+#: shell/eog-window.c:201 shell/eog-window.c:549
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "A aplicação de de visualização e catalogação de imagens GNOME"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Abrir Imagem"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Controlo não suporta propriedade window_title."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Controlo não suporta propriedade status_text."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Controlo não tem propriedades"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "Incapaz de obter tipos mime do ficheiro."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Erro ao obter informações de ficheiro."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1097
+#, c-format
+msgid "Unable to open %s."
+msgstr "Incapaz de abrir %s."
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -168,15 +185,24 @@ msgstr ""
 msgid "Single Windows"
 msgstr "Janelas Únicas"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Catálogo"
 
-#: shell/main.c:284
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Está prestes a abrir %i janelas\n"
+"simultaneamente. Deseja continuar?"
+
+#: shell/main.c:307
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Incapaz de inicializar GnomeVFS!\n"
 
-#: shell/main.c:287
+#: shell/main.c:310
 msgid "Could not initialize Bonobo!\n"
 msgstr "Incapaz de inicializar Bonobo!\n"
 
@@ -184,6 +210,10 @@ msgstr "Incapaz de inicializar Bonobo!\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Incapaz de abrir `%s'"
+
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Preferências Eye of Gnome"
 
 #: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -218,19 +248,19 @@ msgstr "Impressão da imagem falhou"
 msgid "Display"
 msgstr "Mostrar"
 
-#: viewer/eog-image-view.c:2059 viewer/preferences.c:155
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Interpolação"
 
-#: viewer/eog-image-view.c:2062 viewer/preferences.c:166
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Esbater"
 
-#: viewer/eog-image-view.c:2065 viewer/preferences.c:177
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Verificar Tipo"
 
-#: viewer/eog-image-view.c:2068 viewer/preferences.c:188
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Verificar Tamanho"
 
@@ -630,6 +660,25 @@ msgstr "Médio"
 #: viewer/preferences.c:61
 msgid "Large"
 msgstr "Grande"
+
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Interpolação:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Esbater:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Verificar Tipo:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Verificar Tamanho:"
+
+#~ msgid "Image Viewer"
+#~ msgstr "Visualizador de Imagens"
 
 #~ msgid "View"
 #~ msgstr "Ver"
