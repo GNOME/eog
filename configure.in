@@ -119,16 +119,12 @@ fi
 AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
 
 
-EXTRA_GNOME_MODULES="gnome-vfs-2.0 gdk-pixbuf-2.0 libgnomecanvas-2.0 libgnomeui-2.0 libbonobo-2.0 libbonoboui-2.0 libgnomeprint-2.0 bonobo-activation-2.0"
-EXTRA_GNOME_CFLAGS=`$PKG_CONFIG --cflags $EXTRA_GNOME_MODULES`
-EXTRA_GNOME_LIBS=`$PKG_CONFIG --libs $EXTRA_GNOME_MODULES`
-GNOME_CFLAGS="$EXTRA_GNOME_CFLAGS"
-GNOME_LIBS="$EXTRA_GNOME_LIBS"
+EOG_MODULES="gnome-vfs-2.0 libgnomeprint-2.0 libgnomeui-2.0 libbonoboui-2.0 bonobo-activation-2.0"
+EOG_CFLAGS=`$PKG_CONFIG --cflags $EOG_MODULES`
+EOG_LIBS=`$PKG_CONFIG --libs $EOG_MODULES`
 
-AC_SUBST(EXTRA_GNOME_CFLAGS)
-AC_SUBST(EXTRA_GNOME_LIBS)
-AC_SUBST(GNOME_CFLAGS)
-AC_SUBST(GNOME_LIBS)
+AC_SUBST(EOG_CFLAGS)
+AC_SUBST(EOG_LIBS)
 
 dnl
 dnl ******************************
@@ -250,7 +246,6 @@ doc/Makefile
 doc/C/Makefile
 shell/Makefile
 collection/Makefile
-intl/Makefile
 po/Makefile.in
 ])
 
