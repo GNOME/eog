@@ -1,3 +1,13 @@
+2004-01-14  Jens Finke  <jens@triq.net>
+
+	* shell/main.c (sort_files): Deal with uri == NULL. Fixes bug
+	#130726 partly, at least doesn't crash anymore.
+	(show_nonexistent_file): Better error message.
+	(handle_cmdline_args),
+	(string_array_to_list): Use GSList instead of GList.
+
+====== 2.5.3 =======
+
 2004-01-13  Jens Finke  <jens@triq.net>
 
 	* configure.in: Release time again: 2.5.3.

@@ -175,18 +175,23 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 
 	for (it = files; it != NULL; it = it->next) {
 		GnomeVFSURI *uri;
-		GnomeVFSResult result;
+		GnomeVFSResult result = GNOME_VFS_OK;
 		char *filename;
 		
 		uri = make_canonical_uri ((char*)it->data);
 
-		result = gnome_vfs_get_file_info_uri (uri, info,
-						      GNOME_VFS_FILE_INFO_DEFAULT |
-						      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+		if (uri != NULL) {
+			result = gnome_vfs_get_file_info_uri (uri, info,
+							      GNOME_VFS_FILE_INFO_DEFAULT |
+							      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
-		filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+			filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		}
+		else {
+			filename = g_strdup ((char*) it->data);
+		}
 
-		if (result != GNOME_VFS_OK)
+		if (result != GNOME_VFS_OK || uri == NULL)
 			*error_list = g_list_append (*error_list, filename);
 		else {
 			if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
@@ -197,7 +202,9 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 				*error_list = g_list_append (*error_list, filename);
 		}
 
-		gnome_vfs_uri_unref (uri);
+		if (uri != NULL) {
+			gnome_vfs_uri_unref (uri);
+		}
 		gnome_vfs_file_info_clear (info);
 	}
 
@@ -310,7 +317,7 @@ show_nonexistent_files (GList *error_list)
 
 	path = gnome_vfs_format_uri_for_display (str);
 
-	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("Could not find files"), path, TRUE);
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("File(s) not found."), path, TRUE);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	
 	gtk_widget_show (dlg);
@@ -321,19 +328,19 @@ show_nonexistent_files (GList *error_list)
 	g_free (str);
 }
 
-static GList*
+static GSList*
 string_array_to_list (const gchar **files)
 {
 	gint i;
-	GList *list = NULL;
+	GSList *list = NULL;
 
 	if (files == NULL) return list;
 
 	for (i = 0; files [i]; i++) {
-		list = g_list_prepend (list, g_strdup (files[i]));
+		list = g_slist_prepend (list, g_strdup (files[i]));
 	}
 
-	return g_list_reverse (list);
+	return g_slist_reverse (list);
 }
 
 static void 
@@ -446,7 +453,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 static gboolean
 handle_cmdline_args (gpointer data)
 {
-	GList *startup_file_list = NULL;
+	GSList *startup_file_list = NULL;
 	const gchar **startup_files;
 	poptContext ctx;
 
