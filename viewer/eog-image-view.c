@@ -338,6 +338,41 @@ count_pages (double 	paper_width,
 }
 
 static void
+print_line (GnomePrintContext *context, 
+	    double x1, double y1, double x2, double y2)
+{
+	gnome_print_moveto (context, x1, y1);
+	gnome_print_lineto (context, x2, y2);
+	gnome_print_stroke (context);
+}
+
+static void
+print_cutting_help (GnomePrintContext *context, double width, double height,
+		    double x, double y, double image_width, double image_height)
+{
+	/* Bottom */
+	print_line (context, x, 0.0, x, 2 * y / 3);
+	print_line (context, x + image_width, 0.0, x + image_width, 2 * y / 3);
+	
+	/* Left */
+	print_line (context, 0.0, y, 2 * x / 3, y);
+	print_line (context, 0.0, y + image_height, 
+		    2 * x / 3, y + image_height);
+	
+	/* Right */
+	print_line (context, x + image_width + (width - x - image_width) / 3, 
+		    y + image_height, width, y + image_height);
+	print_line (context,  x + image_width + (width - x - image_width) / 3,
+		    y, width, y);
+	
+	/* Top */
+	print_line (context, x, height , x, 
+		    height - 2 * (height - y - image_height) / 3);
+	print_line (context, x + image_width, height, x + image_width,
+		    height - 2 * (height - y - image_height) / 3);
+}
+
+static void
 print_page (GnomePrintContext 	*context,
 	    gint		 first,
 	    gint		 last,
@@ -377,8 +412,12 @@ print_page (GnomePrintContext 	*context,
 
 	if (*current >= first) {
 		gnome_print_beginpage (context, _("EOG Image"));
-		if (landscape)
-			gnome_print_rotate (context, 90);
+
+		/* Move (0,0) to bottom left. */
+		if (landscape) { 
+			gnome_print_rotate (context, 90.0); 
+			gnome_print_translate (context, 0.0, - height); 
+		}
 	}
 
 	/* How much place do we have got on the paper? */
@@ -477,21 +516,24 @@ print_page (GnomePrintContext 	*context,
 		matrix [4] = x;
 	
 		/* Where to put the image (y)? */
-		y = 0 - top - image_height;
+		y = bottom + (avail_height - image_height);
 		if (vertically && first_y)
 		    	y -= leftover_height / 2;
-		if (!landscape)
-			y += height;
 		matrix [5] = y;
-	
+
+		/* Print the image */
+		gnome_print_gsave (context);
 		gnome_print_concat (context, matrix);
 		gnome_print_pixbuf (context, pixbuf_to_print);
 		gdk_pixbuf_unref (pixbuf_to_print);
-
-		/* Cutting help? */
-		if (cut) {
-			g_warning (_("Printing of cutting help not yet implemented!"));
-		}
+		gnome_print_grestore (context);
+		
+		/* Cutting help? */ 
+		if (cut)
+			print_cutting_help (context, width, height,
+					    (double) x, (double) y, 
+					    (double) image_width,
+					    (double) image_height);
 
 		gnome_print_showpage (context);
 	}

@@ -1,8 +1,15 @@
+2001-04-03  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* eog-image-view.c: 
+	(print_page): Always move (0,0) to bottom left at the beginning. This 
+	makes the code cleaner. If needed, ...
+	(print_cutting_help): ... print cutting help.
+
 2001-04-02  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
-	*eog-preview.c: 
-	*eog-preview-page.[ch]:
-	*eog-image-view.c: Resize the pixbuf once at the beginning. That 
+	* eog-preview.c: 
+	* eog-preview-page.[ch]:
+	* eog-image-view.c: Resize the pixbuf once at the beginning. That 
 	lets us get rid of the distinction fit_to_page - adjust_to and we
 	are able to determine the interpolation type (gnome-print chooses its
 	own otherwise).
