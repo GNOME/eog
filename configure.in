@@ -188,6 +188,10 @@ fi
 AC_SUBST(LIBJPEG)
 AC_SUBST(LIBPNG)
 
+AC_CHECK_LIB(popt, poptGetArgs, [POPT_LIBS="-lpopt"],
+AC_MSG_ERROR([popt is required to build eog.
+You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/]))
+AC_SUBST(POPT_LIBS)
 
 dnl ******************************
 dnl More compiler warnings
