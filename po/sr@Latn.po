@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-13 21:49+0200\n"
-"PO-Revision-Date: 2003-10-13 21:49+0200\n"
+"POT-Creation-Date: 2003-10-30 06:14+0100\n"
+"PO-Revision-Date: 2003-10-30 06:17+0100\n"
 "Last-Translator: Goran Rakić <gox@devbase.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Rotiraj u s_meru kazaljke na satu"
 msgid "Rotate Counte_r Clockwise"
 msgstr "Rotiraj suprotno od smera _kazaljke na satu"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "Automatski pokretni prikaz"
 
@@ -88,31 +88,31 @@ msgstr "_Opozovi"
 msgid "_View"
 msgstr "P_regled"
 
-#: collection/eog-collection-view.c:292
+#: collection/eog-collection-view.c:305
 msgid "Cancel saving"
 msgstr "Odustani od snimanja"
 
-#: collection/eog-collection-view.c:295
+#: collection/eog-collection-view.c:308
 msgid "Saving finished"
 msgstr "Snimanje završeno"
 
-#: collection/eog-collection-view.c:759
+#: collection/eog-collection-view.c:771
 msgid "Move to Trash"
 msgstr "Prebaci u smeće"
 
-#: collection/eog-collection-view.c:803
+#: collection/eog-collection-view.c:816
 msgid "Collection View"
 msgstr "Pregled kolekcije"
 
-#: collection/eog-collection-view.c:1262 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
 msgid "Window Title"
 msgstr "Naslov prozora"
 
-#: collection/eog-collection-view.c:1265
+#: collection/eog-collection-view.c:1277
 msgid "Status Text"
 msgstr "Opis stanja"
 
-#: collection/eog-collection-view.c:1268 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
 msgid "Progress of Image Loading"
 msgstr "Tok učitavanja slike"
 
@@ -133,75 +133,86 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolacija slike</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Uvećanje slike</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>Niz</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
-msgstr "<b>Providnost</b>"
+#: eog.glade.h:5
+msgid "<b>Transparent Parts</b>"
+msgstr "<b>Providni delovi</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Kao pozadina"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr "Dozvoli početno u_većanje veće od 100%"
 
 #: eog.glade.h:8
+msgid "As _background"
+msgstr "Kao _pozadina"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "Kao _kvadratići"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Kao boja po i_zboru"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Boja za providne površine"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "Ne koristi uvećanje veće od 100%"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Postavke EOG programa"
 
+#: eog.glade.h:13
+msgid "Image _View"
+msgstr "Pregled _slika"
+
 #: eog.glade.h:14
-msgid "Image View"
-msgstr "Pregled slika"
+msgid "Show _next image automatically after:"
+msgstr "Prikaži _sledeću sliku automatski nakon:"
 
 #: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "Vrti niz"
+msgid "Sli_de Show"
+msgstr "Automatski po_kretni prikaz"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
-msgstr ""
-"Prikaži sledeću sliku automatski:\n"
-"(0 da isključite)"
+msgid "_Interpolate image on zoom"
+msgstr "In_terpoliraj sliku pri uvećanju"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "_Interpoliraj sliku prilikom uvećanja (boljeg kvaliteta, ali sporije)"
+#: eog.glade.h:17
+msgid "_Loop sequence"
+msgstr "_Vrti niz"
 
-#: eog.glade.h:20
-msgid "sec"
-msgstr "sek."
+#: eog.glade.h:18
+msgid "seconds"
+msgstr "sekundi"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr "Vrednost veća od 0 određuje koliko sekundi slika ostaje na ekranu pre automatskog prikaza sledeće. Nula isključuje automatski pregled."
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Dozvoli početno uvećanje veće od 100%"
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr "Odloži koliko sekundi pre prikaza naredne slike"
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -211,7 +222,7 @@ msgstr ""
 "COLOR i NONE. Ako je izabran način COLOR, onda ključ trans_color određuje "
 "koja će boja biti korišćena."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -219,37 +230,54 @@ msgstr ""
 "Ako podešavanje providnosti ima vrednost COLOR, onda ovaj ključ utvrđuje boju "
 "koja će biti korišćena za obeležavanje providnosti."
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr "Ako ovo nije postavljeno, male slike se neće razvući u početku da stanu na ekran"
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "Interpoliraj sliku"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr "Vrti kroz niz slika"
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "Otvori sliku u novom prozoru"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
 msgid "Transparency color"
 msgstr "Boja providnosti"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:12
 msgid "Transparency indicator"
 msgstr "Obeleživač providnosti"
 
-#: eog.schemas.in.h:7
+# bug: Wether -> Whether
+#: eog.schemas.in.h:13
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Da li prilikom otvaranja slike treba napraviti novi prozor umesto otvaranja "
+"slike u tekućem prozoru."
+
+# bug: Wether -> Whether, squence -> sequence
+#: eog.schemas.in.h:14
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr "Da li ciklus slika treba da se beskonačno vrti."
+
+# bug: Wether -> Whether
+#: eog.schemas.in.h:15
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Da li slika treba biti interpolirana prilikom uvećanja. Interpolirana, slika "
 "ima bolji kvalitet ali je ponekad sporija nego neinterpolirana slika."
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Da li prilikom otvaranja slike treba napraviti novi prozor umesto otvaranja "
-"slike u tekućem prozoru."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -295,15 +323,15 @@ msgstr "Sačuvaj sliku"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Ne može da obezbedi memoriju za učitavanje JPEG slike"
 
-#: libeog/eog-image.c:1341
+#: libeog/eog-image.c:1215
 msgid "No image loaded."
 msgstr "Slika nije učitana."
 
-#: libeog/eog-image.c:1350
+#: libeog/eog-image.c:1224
 msgid "Images can only be saved as local files."
 msgstr "Slike se mogu snimiti samo kao lokalne datoteke."
 
-#: libeog/eog-image.c:1385
+#: libeog/eog-image.c:1259
 msgid "Unsupported image type for saving."
 msgstr "Ne podržava snimanje ove vrste slika."
 
@@ -332,7 +360,7 @@ msgid "Page"
 msgstr "Stranica"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:377
+#: viewer/eog-image-view.c:378
 msgid "Preview"
 msgstr "Pregled"
 
@@ -527,7 +555,7 @@ msgstr ""
 "http://Prevod.org/"
 
 #: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:508
+#: shell/eog-window.c:869 shell/main.c:512
 msgid "Eye of Gnome"
 msgstr "Oči gnoma"
 
@@ -544,7 +572,7 @@ msgstr ""
 "Ne može da prikaže pomoć za korišćenje programa.\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:229
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -553,19 +581,19 @@ msgstr ""
 "Na korak ste da otvorite %i prozora istovremeno. Da li želite da ih umesto "
 "toga otvorite kao kolekciju?"
 
-#: shell/main.c:229
+#: shell/main.c:233
 msgid "Open multiple single windows?"
 msgstr "Otvori više pojedinačnih prozora?"
 
-#: shell/main.c:233
+#: shell/main.c:237
 msgid "Single Windows"
 msgstr "Samostalni prozori"
 
-#: shell/main.c:235
+#: shell/main.c:239
 msgid "Collection"
 msgstr "Kolekcija"
 
-#: shell/main.c:308
+#: shell/main.c:312
 msgid "Could not find files"
 msgstr "Ne može da nađe datoteke"
 
@@ -648,45 +676,45 @@ msgstr "_Štampaj..."
 
 # bug: plural-forms
 #. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:517
+#: viewer/eog-image-view.c:518
 #, c-format
 msgid "%i x %i pixel    %i%%"
 msgstr "%i x %i tačaka    %i%%"
 
-#: viewer/eog-image-view.c:807
+#: viewer/eog-image-view.c:808
 msgid "/Rotate C_lockwise"
 msgstr "/Rotiraj u smeru _kazaljke na satu"
 
-#: viewer/eog-image-view.c:809
+#: viewer/eog-image-view.c:810
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rotiraj _suprotno od smera kazaljke na satu"
 
-#: viewer/eog-image-view.c:812
+#: viewer/eog-image-view.c:813
 msgid "/_Zoom In"
 msgstr "/U_većaj"
 
-#: viewer/eog-image-view.c:814
+#: viewer/eog-image-view.c:815
 msgid "/Zoom _Out"
 msgstr "/U_manji"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:817
 msgid "/_Normal Size"
 msgstr "/_Normalna veličina"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:819
 msgid "/Best _Fit"
 msgstr "/Uklopi na _najbolji način"
 
-#: viewer/eog-image-view.c:821
+#: viewer/eog-image-view.c:822
 msgid "/_Close"
 msgstr "/_Zatvori"
 
-#: viewer/eog-image-view.c:984
+#: viewer/eog-image-view.c:985
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Nije uspeo da učita sliku %s."
 
-#: viewer/eog-image-view.c:991
+#: viewer/eog-image-view.c:992
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -696,34 +724,43 @@ msgstr ""
 "Razlog: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1000
+#: viewer/eog-image-view.c:1001
 msgid "Loading failed"
 msgstr "Neuspešno učitavanje"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1084
 msgid "Image successfully saved"
 msgstr "Slika je uspešno sačuvana"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1088
 msgid "Image saving failed"
 msgstr "Neuspešno snimanje slike"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1332
 msgid "Image Width"
 msgstr "Širina slike"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1335
 msgid "Image Height"
 msgstr "Visina slike"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1341
 msgid "Statusbar Text"
 msgstr "Tekst u liniji sa stanjem"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1344
 msgid "Desired Window Width"
 msgstr "Željena širina prozora"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1347
 msgid "Desired Window Height"
 msgstr "Željena visina prozora"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "Ne koristi uvećanje veće od 100%"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr "_Interpoliraj sliku prilikom uvećanja (boljeg kvaliteta, ali sporije)"
