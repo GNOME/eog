@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
-"POT-Creation-Date: 2002-05-22 17:09+0200\n"
-"PO-Revision-Date: 2002-05-22 17:09+0200\n"
+"POT-Creation-Date: 2002-05-31 08:27+0200\n"
+"PO-Revision-Date: 2002-05-31 08:28+0200\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Prehliadač obrázkov Eye of Gnome"
 msgid "View many different types of images"
 msgstr "Prehliadač pre veľa rôznych typov obrázkov"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "Obrázok EOG"
 
@@ -52,49 +52,33 @@ msgstr "Vytváracie rozhranie prehliadača obrázkov EOG"
 msgid "Embeddable EOG Image"
 msgstr "Vložiteľný obrázok EOG"
 
-#: libeog/image-view.c:1965
+#: libeog/image-view.c:1853
 msgid "interpolation type"
 msgstr "Typ interpolácie"
 
-#: libeog/image-view.c:1966
+#: libeog/image-view.c:1854
 msgid "the type of interpolation to use"
 msgstr "použitý typ interpolácie"
 
-#: libeog/image-view.c:1972 libeog/image-view.c:1979
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
 msgid "check type"
 msgstr "skontrolovať typ"
 
-#: libeog/image-view.c:1973
+#: libeog/image-view.c:1861
 msgid "the type of chequering to use"
 msgstr "použitý typ rozdelenia na štvorce"
 
-#: libeog/image-view.c:1980
+#: libeog/image-view.c:1868
 msgid "the size of chequers to use"
 msgstr "veľkosť použitých štvorcov"
 
-#: libeog/image-view.c:1986
+#: libeog/image-view.c:1874
 msgid "dither"
 msgstr "dithering"
 
-#: libeog/image-view.c:1987
+#: libeog/image-view.c:1875
 msgid "dither type"
 msgstr "typ ditheringu"
-
-#: libeog/image-view.c:1993
-msgid "scroll"
-msgstr "posun"
-
-#: libeog/image-view.c:1994
-msgid "scroll type"
-msgstr "typ posunu"
-
-#: libeog/image-view.c:2000
-msgid "enable full screen zoom"
-msgstr "povoliť celú obrazovku"
-
-#: libeog/image-view.c:2001
-msgid "whether we should allow full screen zoom"
-msgstr "či je možné zväčšiť na celú obrazovku"
 
 #: shell/eog-preferences.c:162
 #, c-format
@@ -137,7 +121,7 @@ msgstr "Obsah"
 msgid "Help On this application"
 msgstr "Pomocník pre túto aplikáciu"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Otvoriť"
 
@@ -202,26 +186,26 @@ msgid "_View"
 msgstr "_Zobraziť"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
-msgstr "Stanislav Višňovský"
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Program pre prehliadanie obrázkov a ich katalogizáciu pre GNOME"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
+msgstr "Program pre prehliadanie obrázkov a ich katalogizáciu pre GNOME."
 
-#: shell/eog-window.c:275
+#: shell/eog-window.c:293
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -230,36 +214,16 @@ msgstr ""
 "Nepodarilo sa zobraziť pomocníka pre Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:785
+#: shell/eog-window.c:803
 msgid "Open Image"
 msgstr "Otvoriť obrázok"
 
-#: shell/eog-window.c:839
-msgid "Control doesn't support window_title property."
-msgstr "Ovládací prvok nepodporuje vlastnosť window_title."
-
-#: shell/eog-window.c:855
-msgid "Control doesn't support status_text property."
-msgstr "Ovládací prvok nepodporuje vlastnosť status_text."
-
-#: shell/eog-window.c:874
-msgid "Control doesn't have properties"
-msgstr "Ovládací prvok mená vlastnosti"
-
-#: shell/eog-window.c:891
-msgid "Couldn't retrieve mime type for file."
-msgstr "Nepodarilo sa získať typ MIME pre súbor."
-
-#: shell/eog-window.c:1134
-msgid "Error while obtaining file informations."
-msgstr "Chyba pri načítavaní informácií o súboroch."
-
-#: shell/eog-window.c:1163
+#: shell/eog-window.c:1181
 #, c-format
 msgid "Unable to open %s."
 msgstr "Nepodarilo sa otvoriť %s."
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -269,15 +233,15 @@ msgstr ""
 "Chystáte sa otvoriť %i okien.\n"
 "Nechcete ich radšej otvoriť v kolekcii?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Jednoduché okná"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Kolekcia"
 
-#: shell/main.c:193
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -443,28 +407,28 @@ msgstr "_Dlaždice"
 msgid "_White"
 msgstr "_Biela"
 
-#: viewer/eog-image-view.c:304
+#: viewer/eog-image-view.c:302
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Nepodarilo sa uložiť obrázok ako '%s'. %s"
 
-#: viewer/eog-image-view.c:355
+#: viewer/eog-image-view.c:353
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: viewer/eog-image-view.c:930
+#: viewer/eog-image-view.c:928
 msgid "Print Image"
 msgstr "Tlačiť obrázok"
 
-#: viewer/eog-image-view.c:938
+#: viewer/eog-image-view.c:936
 msgid "Pages"
 msgstr "Stránky"
 
-#: viewer/eog-image-view.c:1025
+#: viewer/eog-image-view.c:1023
 msgid "Print Preview"
 msgstr "Náhľad tlače"
 
-#: viewer/eog-image-view.c:1031
+#: viewer/eog-image-view.c:1029
 msgid "Printing of image failed"
 msgstr "Tlač obrázku zlyhala"
 
@@ -472,35 +436,35 @@ msgstr "Tlač obrázku zlyhala"
 msgid "Display"
 msgstr "Zobraziť"
 
-#: viewer/eog-image-view.c:2067
+#: viewer/eog-image-view.c:2066
 msgid "Interpolation"
 msgstr "Interpolácia"
 
-#: viewer/eog-image-view.c:2070
+#: viewer/eog-image-view.c:2069
 msgid "Dither"
 msgstr "Dithering"
 
-#: viewer/eog-image-view.c:2073
+#: viewer/eog-image-view.c:2072
 msgid "Check Type"
 msgstr "Skontrolovať typ"
 
-#: viewer/eog-image-view.c:2076
+#: viewer/eog-image-view.c:2075
 msgid "Check Size"
 msgstr "Skontrolovať veľkosť"
 
-#: viewer/eog-image-view.c:2079
+#: viewer/eog-image-view.c:2078
 msgid "Image Width"
 msgstr "Šírka obrázku"
 
-#: viewer/eog-image-view.c:2082
+#: viewer/eog-image-view.c:2081
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:2085
+#: viewer/eog-image-view.c:2084
 msgid "Window Title"
 msgstr "Titulok okna"
 
-#: viewer/eog-image-view.c:2088
+#: viewer/eog-image-view.c:2087
 msgid "Statusbar Text"
 msgstr "Text stavového riadku"
 
@@ -749,6 +713,36 @@ msgstr "Skontrolovať _typ:"
 msgid "Check _size:"
 msgstr "Skontrolovať _veľkosť:"
 
+#~ msgid "scroll"
+#~ msgstr "posun"
+
+#~ msgid "scroll type"
+#~ msgstr "typ posunu"
+
+#~ msgid "enable full screen zoom"
+#~ msgstr "povoliť celú obrazovku"
+
+#~ msgid "whether we should allow full screen zoom"
+#~ msgstr "či je možné zväčšiť na celú obrazovku"
+
+#~ msgid "Translator Credits"
+#~ msgstr "Stanislav Višňovský"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Ovládací prvok nepodporuje vlastnosť window_title."
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Ovládací prvok nepodporuje vlastnosť status_text."
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Ovládací prvok mená vlastnosti"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Nepodarilo sa získať typ MIME pre súbor."
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Chyba pri načítavaní informácií o súboroch."
+
 #~ msgid "_Settings"
 #~ msgstr "Nas_tavenia"
 
@@ -814,3 +808,4 @@ msgstr "Skontrolovať _veľkosť:"
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye Of Gnome"
+
