@@ -1,3 +1,20 @@
+2004-01-27  Jason Leach  <leach@wam.umd.edu>
+
+	* shell/recent-files/Makefile.am (regenerate-built-sources): New
+	make target to automate updating the libegg sources.
+
+	* shell/recent-files/update-from-egg.sh: The small script that
+	makes updating simple.
+
+	* shell/recent-files/egg-recent-item.c:
+	* shell/recent-files/egg-recent-item.h:
+	* shell/recent-files/egg-recent-model.c:
+	* shell/recent-files/egg-recent-util.c:
+	* shell/recent-files/egg-recent.h:
+	Sync these files with their latest copies from libegg so as to
+	include any bugfixes since 2003-04-12, the previous sync.
+	(#121455, Laurent Vivier)
+
 2004-01-18  Jens Finke  <jens@triq.net>
 
 	* shell/Makefile.am (INCLUDES): Removed $(GCONF_CFLAGS), these are
