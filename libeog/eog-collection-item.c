@@ -93,8 +93,10 @@ eog_collection_item_destroy (GtkObject *object)
 	if (priv) {
 	    gnome_canvas_request_redraw (item->canvas, item->x1, item->y1, item->x2, item->y2);
 
-	    if (priv->image)
+	    if (priv->image) {
 		g_object_unref (priv->image);
+		priv->image = NULL;
+	    }
 
 	    g_free (priv);
 	    EOG_COLLECTION_ITEM (object)->priv = NULL;

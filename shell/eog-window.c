@@ -1722,6 +1722,16 @@ eog_window_destroy (GtkObject *object)
 
 	window_list = g_list_remove (window_list, window);
 
+	if (priv->displayed_image != NULL) {
+		g_object_unref (priv->displayed_image);
+		priv->displayed_image = NULL;
+	}
+
+	if (priv->image_list != NULL) {
+		g_object_unref (priv->image_list);
+		priv->image_list = NULL;
+	}
+
 	if (priv->recent_view != NULL) {
 		g_object_unref (priv->recent_view);
 		priv->recent_view = NULL;
@@ -2065,11 +2075,12 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 									  G_CALLBACK (image_loading_finished_cb), window);
 			priv->sig_id_loading_failed   = g_signal_connect (image, "loading-failed", 
 									  G_CALLBACK (image_loading_failed_cb), window);
-			priv->displayed_image = g_object_ref (image);
+			priv->displayed_image = image; /* no g_object_ref required, since image has already
+							  increased ref count by eog_wrap_list_get_fist_selected_image */
 		}
 	}
 	
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
+        eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
 	
 	/* update status bar text */	

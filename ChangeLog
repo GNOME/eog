@@ -1,3 +1,13 @@
+2004-08-26  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-collection-item.c (eog_collection_item_destroy): NULL image variable.
+	
+	* libeog/eog-image.c (load_emit_signal_done):
+	* libeog/eog-wrap-list.c (eog_wrap_list_drag_data): Unref image.
+
+	* shell/eog-window.c (eog_window_destroy): Free all image objects.
+	(handle_image_selection_changed): Don't add ref to image.
+
 2004-08-18  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 2.7.2.

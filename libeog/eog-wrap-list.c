@@ -792,6 +792,7 @@ static void eog_wrap_list_drag_data_get_cb (GtkWidget *widget,
 			g_string_append (str, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 			g_string_append_c (str, '\n');
 
+			g_object_unref (image);
 			gnome_vfs_uri_unref (uri);
 		}
 		

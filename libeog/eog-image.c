@@ -621,8 +621,8 @@ load_emit_signal_done (gpointer data)
 		}
 		else {
 			g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_CANCELLED], 0);
-	}
-	
+		}
+		
 		break;
 
 	case EOG_IMAGE_STATUS_LOADED:
@@ -638,6 +638,8 @@ load_emit_signal_done (gpointer data)
 	}
 	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_PROGRESS], 0, img->priv->progress);
 
+	/* release reference we had for loading process */
+	g_object_unref (img);
 
 	return FALSE;
 }
