@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-17 23:25+0900\n"
-"PO-Revision-Date: 2004-02-17 23:24+0900\n"
+"POT-Creation-Date: 2004-02-27 01:17+0900\n"
+"PO-Revision-Date: 2004-02-27 01:16+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,11 @@ msgstr "ゴミ箱に移動"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "コレクション表示"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr "画像: %i/%i"
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -277,23 +282,24 @@ msgstr "透過する部分の表示方法"
 
 #: eog.schemas.in.h:15
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "画像を開く際に、現在開いているウィンドウの中の画像を入れ替えるのではなく、新"
 "しいウィンドウを生成するかどうかを指定します。"
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "一連の画像を無限ループで表示するかどうか指定します。"
 
 #: eog.schemas.in.h:17
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "ズームの際に画像を補正するかどうかを指定します。これは画像の品質を向上します"
-"が、補正しない場合と比較して多少、描画が低速になります。"
+"が、補正しない場合と比較して描画が少し低速になります。"
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -495,10 +501,6 @@ msgstr "垂直方向に合わせる"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "垂直方向 "
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialog1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
