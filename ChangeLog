@@ -1,3 +1,11 @@
+2002-04-25  Federico Mena Quintero  <federico@ximian.com>
+
+	* viewer/eog-image-view.c (eog_image_view_construct): Call the
+	image_set_image_cb() *after* we have created the property bag.
+	We'll get notification of a zoom change from this function, and
+	the zoom change callback does need the property bag to be
+	present.  Fixes bug #73606.
+
 2002-04-25  Jens Finke  <jens@triq.net>
 
 	Applied patch from Satyajit Kanungo <satyajit.kanungo@wipro.com>.

@@ -2058,8 +2058,6 @@ eog_image_view_construct (EogImageView       *image_view,
 					 check_size_changed_cb,
 					 image_view, NULL, NULL);
 	
-	image_set_image_cb (image, image_view);
-
 	/* Property Bag */
 	image_view->priv->property_bag = bonobo_property_bag_new (eog_image_view_get_prop,
 								  eog_image_view_set_prop,
@@ -2092,6 +2090,9 @@ eog_image_view_construct (EogImageView       *image_view,
 
 	/* UI Component */
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
+
+	/* Finally, set the image */
+	image_set_image_cb (image, image_view);
 
 	return image_view;
 }
