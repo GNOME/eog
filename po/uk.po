@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
+"POT-Creation-Date: 2001-12-13 11:02+0200\n"
 "PO-Revision-Date: 1999-12-27 11:23+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -13,27 +13,271 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-u\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
-msgstr "Параметри"
+#: collection/eog-collection-control.c:155
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr "Не вдалось отримати локальний ╕нтерфейс BonoboControl.\n"
 
-#: src/tb-image.c:33
+#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
+#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr "Неможливо обробити URI: %s"
+
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr "Вертикаль"
+
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr "Горизонталь"
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr "Прямокутник"
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr "Схема розташування:"
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr "Кол╕р тла колекц╕╖ зображень"
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr "Кол╕р тла:"
+
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr "В╕д╕слати"
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr "Перенести у см╕тник"
+
+#: collection/eog-collection-view.c:518
+msgid "Collection View"
+msgstr "Показ колекц╕╖"
+
+#: collection/eog-collection-view.c:596
+msgid "View"
+msgstr "В╕дображення"
+
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1965
+msgid "Window Title"
+msgstr "Заголовок в╕кна"
+
+#: collection/eog-collection-view.c:883
+msgid "Status Text"
+msgstr "Текст стану"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+msgid "EOG Image Collection"
+msgstr "Колекц╕я зображень EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Прорама перегляду колекц╕╖ зображень EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Фабрика перегляду колекц╕╖ зображень EOG"
+
+#: collection/main.c:94
+msgid "I could not initialize GnomeVFS!\n"
+msgstr "Не вдалося ╕н╕ц╕ал╕зувати GnomeVFS!\n"
+
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "Не вдалося ╕н╕ц╕ал╕зувати Bonobo"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: src/window.c:812
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Прорама перегляду зображень"
+
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:668
+msgid "EOG Image"
+msgstr "Зображення EOG"
+
+#: libeog/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "Прорама перегляду зображень EOG"
+
+#: libeog/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "Фабрика перегляду зображень EOG"
+
+#: libeog/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr "Вмонтувальне зображення EOG"
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr "Про цю програму"
+
+#: shell/eog-shell-ui.xml.h:2
+msgid "Change preferences"
+msgstr "Зм╕нити налаштування"
+
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+msgid "Close"
+msgstr "Закрити"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close window"
+msgstr "Закрити в╕кно"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr "Ви_йти"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr "Вийти з програми"
+
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "В╕дкрити"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open a file"
+msgstr "В╕дкрити файл"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a new window"
+msgstr "В╕дкрити нове в╕кно"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr "_Про..."
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "_Close"
+msgstr "_Закрити"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr "_Файл"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr "_Дов╕дка"
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_New Window"
+msgstr "_Нове в╕кно"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_Open..."
+msgstr "В╕дкрити..."
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Preferences"
+msgstr "Налаштування"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr "Параметри"
+
+#: shell/eog-window.c:191 src/window.c:164
+msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+msgstr "Copyright © 2000-1001 Фундац╕я В╕льного Програмного Забезпечення"
+
+#: shell/eog-window.c:192 src/window.c:166
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Програма перегляду та каталог╕зац╕╖ для GNOME"
+
+#: shell/eog-window.c:423
+msgid "Open in new window"
+msgstr "В╕дкрити у новому в╕кн╕"
+
+#: shell/eog-window.c:424
+msgid "Open in this window"
+msgstr "В╕дкрити у цьому в╕кн╕"
+
+#: shell/eog-window.c:426
+msgid "Cancel"
+msgstr "В╕дм╕нити"
+
+#: shell/eog-window.c:526
+msgid "Eye Of Gnome"
+msgstr "Око GNOME"
+
+#: shell/eog-window.c:612
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr "Неможливо знайти eog-shell-ui.xml.\n"
+
+#: shell/eog-window.c:747 shell/eog-window.c:876 src/window.c:704
+msgid "Open Image"
+msgstr "В╕дкрити зображення"
+
+#: shell/eog-window.c:1018
+msgid "Control doesn't support window_title property."
+msgstr "Елемент не п╕дтриму╓ властив╕сть window_title."
+
+#: shell/eog-window.c:1034
+msgid "Control doesn't support status_text property."
+msgstr "Елемент не п╕дтриму╓ властив╕сть status_text."
+
+#: shell/eog-window.c:1051
+msgid "Control doesn't have properties"
+msgstr "Елемент не ма╓ властивостей."
+
+#: shell/eog-window.c:1070
+msgid "Couldn't retrieve mime type for file."
+msgstr "Не вдалось отримати тип MIME файлу."
+
+#: shell/eog-window.c:1314
+msgid "Error while obtaining file informations."
+msgstr "Помилка п╕д час отримання ╕нформац╕╖ про файл."
+
+#: shell/main.c:158
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+
+#: shell/main.c:166
+msgid "Single Windows"
+msgstr "Одинок╕ в╕кна"
+
+#: shell/main.c:166
+msgid "Collection"
+msgstr "Колекц╕я"
+
+#: shell/main.c:276
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "Не вдалось ╕н╕ц╕ал╕зувати GnomeVFS!\n"
+
+#: shell/main.c:279
+msgid "Could not initialize Bonobo!\n"
+msgstr "Не вдалось ╕н╕ц╕ал╕зувати Bonobo!\n"
+
+#: shell/util.c:47 src/util.c:47
+#, c-format
+msgid "Could not open `%s'"
+msgstr "Не вдалось в╕дкрити \"%s\""
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "Налаштування"
 
 #: src/tb-image.c:33 src/window.c:181
 msgid "Open an image file"
 msgstr "В╕дкрити файл зображення"
 
-#: src/tb-image.c:35
-msgid "Close"
-msgstr "Закрити"
-
 #: src/tb-image.c:35 src/window.c:186
 msgid "Close the current window"
 msgstr "Закрити поточне в╕кно"
 
-#: src/tb-image.c:43
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
 msgid "In"
 msgstr "Б╕льше"
 
@@ -48,23 +292,6 @@ msgstr "1:1"
 #: src/tb-image.c:46
 msgid "Fit"
 msgstr "П╕д╕гнати"
-
-#: src/util.c:47
-#, c-format
-msgid "Could not open `%s'"
-msgstr "Не вдалося в╕дкрити \"%s\""
-
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
-
-#: src/window.c:164
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Copyright © 2000-1001 Фундац╕я В╕льного Програмного Забезпечення"
-
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Програма перегляду та каталог╕зац╕╖ для GNOME"
 
 #: src/window.c:181
 msgid "_Open Image..."
@@ -190,204 +417,416 @@ msgstr "На весь екран"
 msgid "Use the whole screen for display"
 msgstr "Використовувати весь екран для показу"
 
-#: src/window.c:704
-msgid "Open Image"
-msgstr "В╕дкрити зображення"
+#: viewer/eog-image.c:434
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Не вдалось ╕н╕ц╕ал╕зувати GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:287
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Не вдалось зберегти зображення як \"%s\": %s."
+
+#: viewer/eog-image-view.c:330
+msgid "Save As"
+msgstr "Зьерегти як"
+
+#: viewer/eog-image-view.c:890
+msgid "Print Image"
+msgstr "Надрукувати зображення"
+
+#: viewer/eog-image-view.c:898
+msgid "Pages"
+msgstr "Стор╕нки"
+
+#: viewer/eog-image-view.c:985
+msgid "Print Preview"
+msgstr "Перегляд друку"
+
+#: viewer/eog-image-view.c:991
+msgid "Printing of image failed"
+msgstr "Зб╕й друку зображення"
+
+#: viewer/eog-image-view.c:1858
+msgid "Display"
+msgstr "В╕дображення"
+
+#: viewer/eog-image-view.c:1947 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "╤нтерполяц╕я"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1950 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Зм╕шування"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1953 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Тип кл╕тинок"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1956 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Розм╕р кл╕тинок"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "Не вдалося ╕н╕ц╕ал╕зувати Bonobo"
+#: viewer/eog-image-view.c:1959
+msgid "Image Width"
+msgstr "Ширина зображення"
 
-#~ msgid "Bilinear (normal)"
-#~ msgstr "Б╕л╕н╕йна (звичайно)"
+#: viewer/eog-image-view.c:1962
+msgid "Image Height"
+msgstr "Висота зображення"
 
-#~ msgid "Black only"
-#~ msgstr "Лише чорне"
+#: viewer/eog-image-view.c:1968
+msgid "Statusbar Text"
+msgstr "Текст панел╕ стану"
 
-#~ msgid "Check size"
-#~ msgstr "Розм╕р кл╕тин"
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Розм╕р кл╕тинок"
 
-#~ msgid "Dark checks"
-#~ msgstr "Темн╕ кл╕тини"
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Тип кл╕тинок"
 
-#~ msgid "Display"
-#~ msgstr "В╕дображення"
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Великий розм╕р кл╕тинок"
 
-#~ msgid "Dither type"
-#~ msgstr "Тип зм╕шування"
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Середн╕й розм╕р кл╕тинок"
 
-#~ msgid "Fit all images to screen"
-#~ msgstr "Запровнити вс╕ зображення на екран"
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Малий розм╕р кл╕тинок"
 
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Заповнити вс╕ зображення стандартного розм╕ру на екран"
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Чорн╕ кл╕тинки"
 
-#~ msgid "Full Screen"
-#~ msgstr "На весь екран"
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Темн╕ кл╕тинки"
 
-#~ msgid "Gray only"
-#~ msgstr "Лише с╕ре"
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "С╕р╕ кл╕тинки"
 
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Г╕пербол╕чна (пов╕льно, висока як╕сть)"
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Св╕тл╕ кл╕тинки"
 
-#~ msgid "Image Windows"
-#~ msgstr "В╕кна зображень"
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "П╕втонов╕ кл╕тинки"
 
-#~ msgid "Interpolation type"
-#~ msgstr "Тип ╕нтерполяц╕╖"
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Б╕л╕ кл╕тинки"
 
-#~ msgid "Large"
-#~ msgstr "Велик╕"
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "На весь екран"
 
-#~ msgid "Light checks"
-#~ msgstr "Св╕тл╕ кл╕тини"
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "╤нтерполяц╕я найближчого сус╕да"
 
-#~ msgid "Maximum (high color)"
-#~ msgstr "Максимальний (як╕сний кол╕р)"
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Звичайне зм╕шування (псевдокол╕р)"
 
-#~ msgid "Medium"
-#~ msgstr "Середн╕"
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Previews the image to be printed"
+msgstr "Перегляд зображення до друку"
 
-#~ msgid "Midtone checks"
-#~ msgstr "П╕втонов╕ кл╕тини"
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print Pre_view"
+msgstr "Перегляд друку"
 
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Найблищий сус╕д (швидко, низька як╕сть)"
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print S_etup"
+msgstr "Налаштування друку"
 
-#~ msgid "Never"
-#~ msgstr "Н╕коли"
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Print image to the printer"
+msgstr "Надрукувати зображення на принтер╕"
 
-#~ msgid "None"
-#~ msgstr "Нема╓"
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Save _As"
+msgstr "Зберегти _як"
 
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "Звичайний (псевдокол╕р)"
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "Setup the page settings for your current printer"
+msgstr "Налаштувати параметри стор╕нки для вашого поточного принтера"
 
-#~ msgid "Only if image does not fit"
-#~ msgstr "Лише коли зображення не влазить"
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Bilinear Interpolation"
+msgstr "Б╕л╕н╕йна ╕нтерполяц╕я"
 
-#~ msgid "Open images in a new window"
-#~ msgstr "В╕дкрити зображення у новому в╕кн╕"
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Dither"
+msgstr "Зм╕шування"
 
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Вибирати розм╕р в╕кна ╕ коф╕ц╕╓нт зб╕льшення автоматично"
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Hyperbolic Interpolation"
+msgstr "Г╕пербол╕чна ╕нтерполяц╕я"
 
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Створювати ск╕с навколо краю екрана"
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Interpolation"
+msgstr "╤нтерполяц╕я"
 
-#~ msgid "Small"
-#~ msgstr "Мал╕"
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Maximum (high color) dithering"
+msgstr "Максимальне зм╕шування (як╕сний кол╕р)"
 
-#~ msgid "Transparency type"
-#~ msgstr "Тип прозорост╕"
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_No dithering"
+msgstr "Без зм╕шування"
 
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Двопрох╕дне прокручування"
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Print"
+msgstr "Надрукувати"
 
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Коф╕ц╕╓нт зб╕льшення 1:1"
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_Tiles Interpolation"
+msgstr "╤нтерполяц╕я елемент╕в"
 
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr ""
-#~ "Використовувати той же коф╕ц╕╓нт зб╕льшення, що й у в╕кн╕ зображення"
+#: viewer/eog-image-view-ui.xml.h:29
+msgid "_View"
+msgstr "В╕дображення"
 
-#~ msgid "Use scrollbars"
-#~ msgstr "Використання панелей прокрутки"
+#: viewer/eog-print-setup.c:72
+msgid "pts"
+msgstr "п"
 
-#~ msgid "Viewers"
-#~ msgstr "В╕кна"
+#: viewer/eog-print-setup.c:72
+msgid "points"
+msgstr "пункти"
 
-#~ msgid "White only"
-#~ msgstr "Лише б╕ле"
+#: viewer/eog-print-setup.c:73
+msgid "mm"
+msgstr "мм"
 
-#~ msgid "EOG Image"
-#~ msgstr "Зображення EOG"
+#: viewer/eog-print-setup.c:73
+msgid "millimeter"
+msgstr "м╕л╕метр"
 
-#~ msgid "EOG Image Viewer"
-#~ msgstr "Прорама перегляду зображень EOG"
+#: viewer/eog-print-setup.c:74
+msgid "cm"
+msgstr "см"
 
-#~ msgid "EOG Image viewer factory"
-#~ msgstr "Фабрика перегляду зображень EOG"
+#: viewer/eog-print-setup.c:74
+msgid "centimeter"
+msgstr "сантиметр"
 
-#~ msgid "Embeddable EOG Image"
-#~ msgstr "Вмонтувальне зображення EOG"
+#: viewer/eog-print-setup.c:75
+msgid "inch"
+msgstr "дюйм"
 
-#~ msgid "Check _size"
-#~ msgstr "Розм╕р кл╕тинок"
+#: viewer/eog-print-setup.c:471
+msgid "Print"
+msgstr "Надрукувати"
 
-#~ msgid "Check _type"
-#~ msgstr "Тип кл╕тинок"
+#: viewer/eog-print-setup.c:472
+msgid "Print preview"
+msgstr "Перегляд друку"
 
-#~ msgid "Check size large"
-#~ msgstr "Великий розм╕р кл╕тинок"
+#: viewer/eog-print-setup.c:480
+msgid "Print Setup"
+msgstr "Налаштування друку"
 
-#~ msgid "Check size medium"
-#~ msgstr "Середн╕й розм╕р кл╕тинок"
+#: viewer/eog-print-setup.c:548
+msgid "Units: "
+msgstr "Одиниц╕: "
 
-#~ msgid "Check size small"
-#~ msgstr "Малий розм╕р кл╕тинок"
+#. First page
+#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+msgid "Paper"
+msgstr "Пап╕р"
 
-#~ msgid "Check type _black"
-#~ msgstr "Чорн╕ кл╕тинки"
+#: viewer/eog-print-setup.c:570
+msgid "Paper size:"
+msgstr "Розм╕р паперу:"
 
-#~ msgid "Check type _dark"
-#~ msgstr "Темн╕ кл╕тинки"
+#. Orientation
+#: viewer/eog-print-setup.c:585
+msgid "Orientation"
+msgstr "Ор╕╓нтац╕я"
 
-#~ msgid "Check type _gray"
-#~ msgstr "С╕р╕ кл╕тинки"
+#: viewer/eog-print-setup.c:595
+msgid "Portrait"
+msgstr "Книжна"
 
-#~ msgid "Check type _light"
-#~ msgstr "Св╕тл╕ кл╕тинки"
+#: viewer/eog-print-setup.c:605
+msgid "Landscape"
+msgstr "Альбомна"
 
-#~ msgid "Check type _midtone"
-#~ msgstr "П╕втонов╕ кл╕тинки"
+#. Margins
+#: viewer/eog-print-setup.c:614
+msgid "Margins"
+msgstr "В╕дступи"
 
-#~ msgid "Check type _white"
-#~ msgstr "Б╕л╕ кл╕тинки"
+#. Top margin
+#: viewer/eog-print-setup.c:622
+msgid "Top:"
+msgstr "Вгор╕:"
 
-#~ msgid "E_OG"
-#~ msgstr "E_OG"
+#. Left margin
+#: viewer/eog-print-setup.c:640
+msgid "Left:"
+msgstr "Л╕воруч:"
 
-#~ msgid "Nea_rest Neighbour Interpolation"
-#~ msgstr "╤нтерполяц╕я найближчого сус╕да"
+#. Right margin
+#: viewer/eog-print-setup.c:658
+msgid "Right:"
+msgstr "Пр╕воруч:"
 
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Звичайне зм╕шування (псевдокол╕р)"
+#. Bottom margin
+#: viewer/eog-print-setup.c:676
+msgid "Bottom:"
+msgstr "Внизу:"
 
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "Б╕л╕н╕йна ╕нтерполяц╕я"
+#. Second page
+#: viewer/eog-print-setup.c:694
+msgid "Image"
+msgstr "Зображення"
 
-#~ msgid "_Dither"
-#~ msgstr "Зм╕шування"
+#. Scale
+#: viewer/eog-print-setup.c:702
+msgid "Scale"
+msgstr "Масштаб"
 
-#~ msgid "_Hyperbolic Interpolation"
-#~ msgstr "Г╕пербол╕чна ╕нтерполяц╕я"
+#: viewer/eog-print-setup.c:706
+msgid "Adjust to:"
+msgstr "Тип п╕длаштування:"
 
-#~ msgid "_Interpolation"
-#~ msgstr "╤нтерполяц╕я"
+#: viewer/eog-print-setup.c:711
+msgid "Fit to page"
+msgstr "П╕д стор╕нку"
 
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "Максимальне зм╕шування (як╕сний кол╕р)"
+#: viewer/eog-print-setup.c:730
+#, no-c-format
+msgid "% of original size"
+msgstr "% ори╜╕нального розм╕ру"
 
-#~ msgid "_No dithering"
-#~ msgstr "Без зм╕шування"
+#. Center on page
+#: viewer/eog-print-setup.c:736
+msgid "Center"
+msgstr "Центр"
 
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "╤нтерполяц╕я елемент╕в"
+#: viewer/eog-print-setup.c:740
+msgid "Horizontally"
+msgstr "Горизонтально"
+
+#: viewer/eog-print-setup.c:747
+msgid "Vertically"
+msgstr "Вертикально"
+
+#. Overlap
+#: viewer/eog-print-setup.c:756
+msgid "Overlapping"
+msgstr "Накладання"
+
+#: viewer/eog-print-setup.c:760
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:765
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:802
+msgid "Printing"
+msgstr "Друк"
+
+#. Helpers
+#: viewer/eog-print-setup.c:810
+msgid "Helpers"
+msgstr "Пом╕чники"
+
+#: viewer/eog-print-setup.c:811
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:817
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:826
+msgid "Page order"
+msgstr "Порядк стор╕нок"
+
+#. Down right
+#: viewer/eog-print-setup.c:832
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:852
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/preferences.c:38
+msgid "Nearest Neighbour Interpolation"
+msgstr "╤нтерполяц╕я найближчого сус╕да"
+
+#: viewer/preferences.c:40
+msgid "Tiles Interpolation"
+msgstr "╤нтерполяц╕я елемент╕в"
+
+#: viewer/preferences.c:42
+msgid "Bilinear Interpolation"
+msgstr "Б╕л╕н╕йна ╕нтерполяц╕я"
+
+#: viewer/preferences.c:44
+msgid "Hyperbolic Interpolation"
+msgstr "Г╕пербол╕чна ╕нтерполяц╕я"
+
+#: viewer/preferences.c:49
+msgid "No dithering"
+msgstr "Без зм╕шування"
+
+#: viewer/preferences.c:50
+msgid "Normal (pseudocolor) dithering"
+msgstr "Звичайне зм╕шування (псевдокол╕р)"
+
+#: viewer/preferences.c:51
+msgid "Maximum (high color) dithering"
+msgstr "Максимальне зм╕шування (як╕сний кол╕р)"
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr "Темне"
+
+#: viewer/preferences.c:57
+msgid "Midtone"
+msgstr "П╕втони"
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr "Св╕тле"
+
+#: viewer/preferences.c:59
+msgid "Black"
+msgstr "Чорне"
+
+#: viewer/preferences.c:60
+msgid "Gray"
+msgstr "С╕ре"
+
+#: viewer/preferences.c:61
+msgid "White"
+msgstr "Б╕ле"
+
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "Мал╕"
+
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "Середн╕"
+
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr "Велик╕"
