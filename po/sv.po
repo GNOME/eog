@@ -1,8 +1,8 @@
 # Swedish messages for eog.
-# Copyright (C) 1999, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
 # Richard Hult <rhult@hem.passagen.se>, 1999.
 # Andreas Hyden <a.hyden@cyberpoint.se>, 2000.
-# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003.
+# Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2001.
 # Tomas Ögren <stric@ing.umu.se>, 2001.
 #
@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
-"PO-Revision-Date: 2003-10-19 11:33+0200\n"
+"POT-Creation-Date: 2004-02-16 14:14+0100\n"
+"PO-Revision-Date: 2004-02-16 14:14+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,14 @@ msgstr "EOG-bildsamlingsvisarfabrik"
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
 msgstr "Bildsamling"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "View as I_mage Collection"
+msgstr "Visa som _bildsamling"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+msgid "View as Image Collection"
+msgstr "Visa som bildsamling"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -90,35 +98,35 @@ msgstr "_Ångra"
 msgid "_View"
 msgstr "_Visa"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Avbryt sparande"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Sparande slutfört"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Flytta till papperskorgen"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Bildsamlingsvy"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Fönstertitel"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Förlopp för bildinläsning"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Sparar bild"
 
@@ -144,22 +152,20 @@ msgstr "<b>Bildzoomning</b>"
 
 #: eog.glade.h:4
 msgid "<b>Sequence</b>"
-msgstr "Sekvens"
+msgstr "<b>Sekvens</b>"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "<b>Transparent Parts</b>"
-msgstr "<b>Genomskinlighet</b>"
+msgstr "<b>Genomskinliga delar</b>"
 
 #: eog.glade.h:7
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+msgstr "Tillåt _zoomning större än 100% i början"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As _background"
-msgstr "Som bakgrund"
+msgstr "Som _bakgrund"
 
 #: eog.glade.h:9
 msgid "As check _pattern"
@@ -178,52 +184,48 @@ msgid "Eye of Gnome Preferences"
 msgstr "Inställningar för Eye of Gnome"
 
 #: eog.glade.h:13
-#, fuzzy
 msgid "Image _View"
-msgstr "Bildvy"
+msgstr "Bild_vy"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Show _next image automatically after:"
-msgstr ""
-"Visa nästa bild automatiskt:\n"
-"(0 för att inaktivera)"
+msgstr "Visa _nästa bild automatiskt efter:"
 
 #: eog.glade.h:15
-#, fuzzy
 msgid "Sli_de Show"
-msgstr "Bildspel"
+msgstr "Bil_dspel"
 
 #: eog.glade.h:16
-#, fuzzy
 msgid "_Interpolate image on zoom"
-msgstr "Interpolera bild"
+msgstr "_Interpolera bild vid zoomning"
 
 # Osäker
 #: eog.glade.h:17
-#, fuzzy
 msgid "_Loop sequence"
-msgstr "Slingsekvens"
+msgstr "_Slingsekvens"
 
+# Antar att detta är i sammanhanget "...every [] seconds"
 #: eog.glade.h:18
-#, fuzzy
 msgid "seconds"
-msgstr "sek"
+msgstr "sekund"
 
 #: eog.schemas.in.h:1
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
+"Ett värde större än 0 bestämmer antalet sekunder en bild blir kvar på "
+"skärmen till nästa bild automatiskt visas. Noll inaktiverar automatisk "
+"bläddring."
 
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr ""
+msgstr "Tillåt zoomning större än 100% i början"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
-msgstr ""
+msgstr "Fördröjning i sekunder till nästa bild visas"
 
 #: eog.schemas.in.h:5
 msgid ""
@@ -248,6 +250,8 @@ msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
 msgstr ""
+"Om detta är satt till FALSKT kommer små bilder inte att sträckas för att "
+"passa skärmen i början."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -255,7 +259,7 @@ msgstr "Interpolera bild"
 
 #: eog.schemas.in.h:9
 msgid "Loop through the image sequence"
-msgstr ""
+msgstr "Bildsekvensen blir slinga"
 
 #: eog.schemas.in.h:10
 msgid "Open images in a new window"
@@ -263,11 +267,11 @@ msgstr "Öppna bilder i ett nytt fönster"
 
 #: eog.schemas.in.h:11
 msgid "Show/hide the window statusbar."
-msgstr ""
+msgstr "Visa/dölj fönsterstatusraden."
 
 #: eog.schemas.in.h:12
 msgid "Show/hide the window toolbar."
-msgstr ""
+msgstr "Visa/dölj fönsterverktygsraden."
 
 #: eog.schemas.in.h:13
 msgid "Transparency color"
@@ -278,7 +282,6 @@ msgid "Transparency indicator"
 msgstr "Genomskinlighetsindikator"
 
 #: eog.schemas.in.h:15
-#, fuzzy
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -286,9 +289,10 @@ msgstr ""
 "Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att "
 "ersätta bilden i det aktuella fönstret."
 
+# Count the typos!
 #: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
-msgstr ""
+msgstr "Huruvida sekvensen med bilder ska visas i en ändlös slinga eller inte."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -318,50 +322,59 @@ msgstr "Inbäddbar EOG-bild"
 msgid "Image"
 msgstr "Bild"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
-msgstr ""
+msgstr "Vill du skriva över %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
-msgstr ""
+msgstr "Filen finns"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr ""
+msgstr "Alla filer"
 
-#: libeog/eog-file-selection.c:125
-#, fuzzy
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
-msgstr "Bild"
+msgstr "Alla bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s × %s bildpunkt"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Läs in bild"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Spara bild"
 
-#: libeog/eog-file-selection.c:246
-#, fuzzy
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
-msgstr "Öppna en fil"
+msgstr "Öppna mapp"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Kunde inte skapa temporär fil för sparande: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunde inte allokera minne för inläsning av JPEG-fil"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "tom fil"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -375,28 +388,27 @@ msgstr "Bilder kan bara sparas som lokala filer."
 msgid "Unsupported image type for saving."
 msgstr "Bildtypen stöds inte för sparande."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Attribut"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Värde"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Bredd"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Höjd"
 
-#: libeog/eog-info-view.c:181
-#, fuzzy
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
-msgstr "Filnamn"
+msgstr "Filstorlek"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Filnamn"
 
@@ -513,11 +525,11 @@ msgstr "Avbryt"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Change the visibility of the statusbar in the current window"
-msgstr ""
+msgstr "Ändra synligheten för statusraden i det aktuella fönstret"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Change the visibility of the toolbar in the current window"
-msgstr ""
+msgstr "Ändra synligheten för verktygsraden i det aktuella fönstret"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
@@ -536,9 +548,8 @@ msgid "Open"
 msgstr "Öppna"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "Öppna en fil"
+msgstr "Öppna en katalog"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -561,9 +572,8 @@ msgid "Prefere_nces"
 msgstr "_Inställningar"
 
 #: shell/eog-shell-ui.xml.h:15
-#, fuzzy
 msgid "Preferences for Eye of Gnome"
-msgstr "Inställningar för EoG-komponenter"
+msgstr "Inställningar för Eye of Gnome"
 
 #: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
@@ -594,9 +604,8 @@ msgid "_New"
 msgstr "_Ny"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "_Öppna bild..."
+msgstr "_Öppna katalog..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -607,13 +616,12 @@ msgid "_Quit"
 msgstr "_Avsluta"
 
 #: shell/eog-shell-ui.xml.h:27
-#, fuzzy
 msgid "_Statusbar"
-msgstr "Statusradstext"
+msgstr "_Statusrad"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
-msgstr ""
+msgstr "_Verktygsrad"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
@@ -630,7 +638,7 @@ msgstr ""
 "Skicka synpunkter på översättningen till sv@li.org"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -647,7 +655,7 @@ msgstr ""
 "Kunde inte visa hjälp för Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -656,21 +664,21 @@ msgstr ""
 "Du kommer att öppna %i fönster samtidigt. Vill du öppna dem i en bildsamling "
 "istället?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Öppna flera enkla fönster?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Enkla fönster"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Bildsamling"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Kunde inte hitta filer"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Filerna hittades inte."
 
 #: shell/util.c:52
 #, c-format
@@ -755,9 +763,9 @@ msgstr "Skriv _ut..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i × %i bildpunkt  %i%%"
+msgstr "%i × %i bildpunkt  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
@@ -806,33 +814,77 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Inläsning misslyckades"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Sparande av bilden lyckades"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Sparande av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Önskad fönsterbredd"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Önskad fönsterhöjd"
+
+#~ msgid "Transparent Parts"
+#~ msgstr "Genomskinliga delar"
+
+#~ msgid "As background"
+#~ msgstr "Som bakgrund"
+
+#~ msgid "Image View"
+#~ msgstr "Bildvy"
+
+#~ msgid "Show next image automatically after:"
+#~ msgstr "Visa nästa bild automatiskt efter:"
+
+#~ msgid "Slide show"
+#~ msgstr "Bildspel"
+
+#~ msgid ""
+#~ "Whether opening an image should create a new window instead of replacing "
+#~ "the image in the current window."
+#~ msgstr ""
+#~ "Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att "
+#~ "ersätta bilden i det aktuella fönstret."
+
+#~ msgid ""
+#~ "Whether or not the sequence of images should be shown in an endless loop."
+#~ msgstr ""
+#~ "Huruvida sekvensen med bilder ska visas i en ändlös slinga eller inte."
+
+#~ msgid ""
+#~ "Whether the image should be interpolated on zoom or not. This leads to "
+#~ "better quality but is somewhat slower than non interpolated images."
+#~ msgstr ""
+#~ "Huruvida bilden ska interpoleras vid inzoomning eller inte. Detta leder "
+#~ "till bättre kvalitet men är något långsammare än icke interpolerade "
+#~ "bilder."
+
+#~ msgid "_Open Folder..."
+#~ msgstr "_Öppna mapp..."
+
+#~ msgid "%i x %i pixel  %i%%"
+#~ msgstr "%i × %i bildpunkt  %i%%"
+
+#~ msgid "Could not find files"
+#~ msgstr "Kunde inte hitta filer"
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -854,9 +906,6 @@ msgstr "Önskad fönsterhöjd"
 
 #~ msgid "%i%%"
 #~ msgstr "%i%%"
-
-#~ msgid "%i x %i pixel"
-#~ msgstr "%i × %i bildpunkt"
 
 #~ msgid "%i x %i pixels"
 #~ msgstr "%i × %i bildpunkter"
