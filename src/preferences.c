@@ -32,6 +32,8 @@
 #include "e-dialog-widgets.h"
 #include "preferences.h"
 
+
+
 /* Glade definition and contents of the preferences dialog */
 
 static GladeXML *p_xml;
@@ -47,9 +49,10 @@ static GtkWidget *p_window_auto_size;
 static GtkWidget *p_open_new_window;
 static GtkWidget *p_full_screen_sb_policy;
 static GtkWidget *p_full_screen_zoom_radio;
-static GSList    *p_full_screen_zoom;
 static GtkWidget *p_full_screen_fit_standard;
 static GtkWidget *p_full_screen_bevel;
+
+
 
 /* Brings attention to a window by raising it and giving it focus */
 static void
@@ -122,11 +125,13 @@ static void
 apply_cb (GnomePropertyBox *pbox, gint page_num, gpointer data)
 {
 	GConfClient *client;
-	
+
 	if (page_num != -1)
 		return;
 
 	client = gconf_client_get_default();
+
+	/* View options */
 
 	gconf_client_set_int (client, "/apps/eog/view/interp_type",
 			      e_dialog_option_menu_get (GTK_WIDGET (p_interp_type),
@@ -143,6 +148,8 @@ apply_cb (GnomePropertyBox *pbox, gint page_num, gpointer data)
 	gconf_client_set_int (client, "/apps/eog/view/scroll",
 			      e_dialog_toggle_get (GTK_WIDGET (p_scroll)), NULL);
 
+	/* Window options */
+
 	gconf_client_set_int (client, "/apps/eog/window/sb_policy",
 			      e_dialog_option_menu_get (GTK_WIDGET (p_window_sb_policy),
 							sb_policies), NULL);
@@ -150,6 +157,8 @@ apply_cb (GnomePropertyBox *pbox, gint page_num, gpointer data)
 			       e_dialog_toggle_get (GTK_WIDGET (p_window_auto_size)), NULL);
 	gconf_client_set_bool (client, "/apps/eog/window/open_new_window",
 			       e_dialog_toggle_get (GTK_WIDGET (p_open_new_window)), NULL);
+
+	/* Full screen options */
 
 	gconf_client_set_int (client, "/apps/eog/full_screen/sb_policy",
 			      e_dialog_option_menu_get (GTK_WIDGET (p_full_screen_sb_policy),
@@ -163,7 +172,6 @@ apply_cb (GnomePropertyBox *pbox, gint page_num, gpointer data)
 			       e_dialog_toggle_get (GTK_WIDGET (p_full_screen_bevel)), NULL);
 
 	gtk_object_unref (GTK_OBJECT (client));
-
 }
 
 /* Loads the preferences dialog from the Glade file */
@@ -225,44 +233,62 @@ set_prefs_widgets (void)
 
 	client = gconf_client_get_default ();
 
-	e_dialog_option_menu_set (GTK_WIDGET (p_interp_type), gconf_client_get_int (
-		client, "/apps/eog/view/interp_type",
-		NULL), interp_types);
-	e_dialog_option_menu_set (GTK_WIDGET (p_check_type), gconf_client_get_int (
-		client, "/apps/eog/view/check_type",
-		NULL), check_types);
-	e_dialog_option_menu_set (GTK_WIDGET (p_check_size), gconf_client_get_int (
-		client, "/apps/eog/view/check_size",
-		NULL), check_sizes);
-	e_dialog_option_menu_set (GTK_WIDGET (p_dither), gconf_client_get_int (
-		client, "/apps/eog/view/dither",
-		NULL), dither_types);
-	e_dialog_toggle_set (GTK_WIDGET (p_scroll), gconf_client_get_int (
-		client, "/apps/eog/view/scroll",
-		NULL));
+	/* View options */
 
-	e_dialog_option_menu_set (GTK_WIDGET (p_window_sb_policy), gconf_client_get_int (
-		client, "/apps/eog/window/sb_policy",
-		NULL), sb_policies);
-	e_dialog_toggle_set (GTK_WIDGET (p_window_auto_size), gconf_client_get_bool (
-		client, "/apps/eog/window/auto_size",
-		NULL));
-	e_dialog_toggle_set (GTK_WIDGET (p_open_new_window), gconf_client_get_bool (
-		client, "/apps/eog/window/open_new_window",
-		NULL));
+	e_dialog_option_menu_set (GTK_WIDGET (p_interp_type),
+				  gconf_client_get_int (
+					  client, "/apps/eog/view/interp_type",
+					  NULL), interp_types);
+	e_dialog_option_menu_set (GTK_WIDGET (p_check_type),
+				  gconf_client_get_int (
+					  client, "/apps/eog/view/check_type",
+					  NULL), check_types);
+	e_dialog_option_menu_set (GTK_WIDGET (p_check_size),
+				  gconf_client_get_int (
+					  client, "/apps/eog/view/check_size",
+					  NULL), check_sizes);
+	e_dialog_option_menu_set (GTK_WIDGET (p_dither),
+				  gconf_client_get_int (
+					  client, "/apps/eog/view/dither",
+					  NULL), dither_types);
+	e_dialog_toggle_set (GTK_WIDGET (p_scroll),
+			     gconf_client_get_int (
+				     client, "/apps/eog/view/scroll",
+				     NULL));
 
-	e_dialog_option_menu_set (GTK_WIDGET (p_full_screen_sb_policy), gconf_client_get_int (
-		client, "/apps/eog/full_screen/sb_policy",
-		NULL), sb_policies);
-	e_dialog_radio_set (GTK_WIDGET (p_full_screen_zoom_radio), gconf_client_get_int (
-		client, "/apps/eog/full_screen/zoom",
-		NULL), full_screen_zooms);
-	e_dialog_toggle_set (GTK_WIDGET (p_full_screen_fit_standard), gconf_client_get_bool (
-		client, "/apps/eog/full_screen/fit_standard",
-		NULL));
-	e_dialog_toggle_set (GTK_WIDGET (p_full_screen_bevel), gconf_client_get_bool (
-		client, "/apps/eog/full_screen/bevel",
-		NULL));
+	/* Window options */
+
+	e_dialog_option_menu_set (GTK_WIDGET (p_window_sb_policy),
+				  gconf_client_get_int (
+					  client, "/apps/eog/window/sb_policy",
+					  NULL), sb_policies);
+	e_dialog_toggle_set (GTK_WIDGET (p_window_auto_size),
+			     gconf_client_get_bool (
+				     client, "/apps/eog/window/auto_size",
+				     NULL));
+	e_dialog_toggle_set (GTK_WIDGET (p_open_new_window),
+			     gconf_client_get_bool (
+				     client, "/apps/eog/window/open_new_window",
+				     NULL));
+
+	/* Full screen options */
+
+	e_dialog_option_menu_set (GTK_WIDGET (p_full_screen_sb_policy),
+				  gconf_client_get_int (
+					  client, "/apps/eog/full_screen/sb_policy",
+					  NULL), sb_policies);
+	e_dialog_radio_set (GTK_WIDGET (p_full_screen_zoom_radio),
+			    gconf_client_get_int (
+				    client, "/apps/eog/full_screen/zoom",
+				    NULL), full_screen_zooms);
+	e_dialog_toggle_set (GTK_WIDGET (p_full_screen_fit_standard),
+			     gconf_client_get_bool (
+				     client, "/apps/eog/full_screen/fit_standard",
+				     NULL));
+	e_dialog_toggle_set (GTK_WIDGET (p_full_screen_bevel),
+			     gconf_client_get_bool (
+				     client, "/apps/eog/full_screen/bevel",
+				     NULL));
 
 	gtk_object_unref (GTK_OBJECT (client));
 }
@@ -271,15 +297,21 @@ set_prefs_widgets (void)
 static void
 hook_prefs_widgets (void)
 {
+	/* View options */
+
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_interp_type));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_check_type));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_check_size));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_dither));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_scroll));
 
+	/* Window options */
+
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_window_sb_policy));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_window_auto_size));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_open_new_window));
+
+	/* Full screen options */
 
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_full_screen_sb_policy));
 	e_dialog_widget_hook_property (GTK_WIDGET (p_dialog), GTK_WIDGET (p_full_screen_zoom_radio));
@@ -317,8 +349,8 @@ prefs_dialog (void)
 	gtk_object_unref (GTK_OBJECT (p_xml));
 	p_xml = NULL;
 
-#if 0
-	gtk_widget_destroy (p_dialog);
-#endif
+	/* The stupid thing already destroyed itself, so we don't destroy it
+         * ourselves.
+	 */
 	p_dialog = NULL;
 }

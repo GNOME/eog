@@ -49,7 +49,7 @@ typedef struct {
 
 	/* Our GConf client */
 	GConfClient *client;
-	
+
 	/* View menu */
 	GtkWidget *view_menu;
 
@@ -61,7 +61,7 @@ typedef struct {
 
 	/* Auto size preference */
 	gboolean auto_size;
-	
+
 	/* GConf client notify id's */
 	guint window_sb_policy_notify_id;
 	guint auto_size_notify_id;
@@ -306,14 +306,16 @@ window_class_init (WindowClass *class)
 
 /* Handler for changes on the window sb policy */
 static void
-window_sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+window_sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
+			     GConfValue *value, gboolean is_default, gpointer data)
 {
 	window_set_window_sb_policy (WINDOW (data), gconf_value_int (value));
 }
 
 /* Handler for changes on the auto size */
 static void
-auto_size_changed_cb (GConfClient *client, guint notify_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
+auto_size_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
+		      GConfValue *value, gboolean is_default, gpointer data)
 {
 	window_set_auto_size (WINDOW (data), gconf_value_bool (value));
 }
@@ -331,14 +333,14 @@ window_init (Window *window)
 
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-	
+
 	priv->window_sb_policy_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/window/sb_policy",
-		(GConfClientNotifyFunc)window_sb_policy_changed_cb, window,
+		window_sb_policy_changed_cb, window,
 		NULL, NULL);
 	priv->auto_size_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eof/window/auto_size",
-		(GConfClientNotifyFunc)auto_size_changed_cb, window,
+		auto_size_changed_cb, window,
 		NULL, NULL);
 
 	priv->window_sb_policy = gconf_client_get_int (
@@ -364,22 +366,34 @@ window_destroy (GtkObject *object)
 	window = WINDOW (object);
 	priv = window->priv;
 
-	if (priv->file_sel)
+	if (priv->file_sel) {
 		gtk_widget_destroy (priv->file_sel);
+		priv->file_sel = NULL;
+	}
 
 	g_free (priv->zoom_tb_items);
-
-	g_free (priv);
+	priv->zoom_tb_items = NULL;
 
 	window_list = g_list_remove (window_list, window);
 
+	/* Remove notification handlers */
+
 	gconf_client_notify_remove (priv->client, priv->window_sb_policy_notify_id);
+	gconf_client_notify_remove (priv->client, priv->auto_size_notify_id);
+
+	priv->window_sb_policy_notify_id = 0;
+	priv->auto_size_notify_id = 0;
 
 	gconf_client_remove_dir (priv->client, "/apps/eog");
-	
+
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;
-	
+
+	/* Clean up */
+
+	g_free (priv);
+	window->priv = NULL;
+
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -697,7 +711,7 @@ window_open_image (Window *window, const char *filename)
 	if (free_fname)
 		g_free (fname);
 
-	if (window_get_auto_size)
+	if (window_get_auto_size (window))
 		auto_size (window);
 
 	image_unref (image);
@@ -707,9 +721,9 @@ window_open_image (Window *window, const char *filename)
 /**
  * window_get_ui_image:
  * @window: A window.
- * 
+ *
  * Queries the image view scroller inside a window.
- * 
+ *
  * Return value: An image view scroller.
  **/
 GtkWidget *
@@ -726,11 +740,11 @@ window_get_ui_image (Window *window)
 
 /**
  * window_set_window_sb_policy:
- * @window: A window. 
+ * @window: A window.
  * @scrollbar: Scrollbar policy.
  *
  * Sets the policy for a window's GTK Scroll Frame.
- **/ 
+ **/
 void
 window_set_window_sb_policy (Window *window, GtkPolicyType scrollbar)
 {
@@ -749,7 +763,7 @@ window_set_window_sb_policy (Window *window, GtkPolicyType scrollbar)
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui),
 				     scrollbar,
 				     scrollbar);
-	
+
 	gtk_widget_queue_draw (GTK_WIDGET (window));
 }
 
@@ -776,11 +790,15 @@ window_get_window_sb_policy (Window *window)
 /**
  * window_set_auto_size
  * @window: A window.
- * @bool: A boolean pref value.
+ * @auto_size: Whether to automatically pick the window size and zoom factor
+ * based on the image size.
  *
- * Sets True/False for auto sizing an image in a window.
+ * Sets whether a window should pick its size and zoom factor automatically
+ * based on the size of the image it is viewing.  If this is set to FALSE, the
+ * window will remain the same size when it opens a new image.
  **/
-void window_set_auto_size (Window *window, gboolean bool)
+void
+window_set_auto_size (Window *window, gboolean do_auto_size)
 {
 	WindowPrivate *priv;
 
@@ -789,19 +807,19 @@ void window_set_auto_size (Window *window, gboolean bool)
 
 	priv = window->priv;
 
-	if (priv->auto_size == bool)
+	if (priv->auto_size == do_auto_size)
 		return;
 
-	priv->auto_size = bool;
+	priv->auto_size = do_auto_size;
 	auto_size (window);
-	gtk_widget_queue_draw (GTK_WIDGET (window));
 }
 
 /**
  * window_get_auto_size
  * @window: A window.
  *
- * Gets the True/False for auto sizing an image in a window.
+ * Queries whether a window should pick its size and zoom factor automatically
+ * based on the size of the image it is viewing.
  *
  * Return value: A boolean preference value.
  **/

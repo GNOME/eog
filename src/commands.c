@@ -113,7 +113,7 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 
 	gtk_widget_show_now (fs);
 
-	switch (image_view_get_full_screen_zoom (IMAGE_VIEW (view))) {
+	switch (gconf_client_get_int (client, "/apps/eog/full_screen/zoom", NULL)) {
 	case FULL_SCREEN_ZOOM_1:
 		image_view_set_zoom (view, 1.0);
 		break;

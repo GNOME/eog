@@ -1,3 +1,28 @@
+2000-07-13  Federico Mena Quintero  <federico@helixcode.com>
+
+	* preferences.h: Removed all the global variables for preferences,
+	since now we just use GConf.
+
+	* preferences.c (set_prefs_widgets): Formatting fixes.
+	(prefs_dialog): Actually destroy the dialog once we are done.
+
+	* image-view.c (image_view_init): Set the initial zoom factor to
+	1.0.  This had been accidentally removed.
+	(ImageViewPrivate): Removed the full_screen_zoom thing, since it
+	does not belong here.
+	(image_view_destroy): Reset notification IDs to zero.
+	(image_view_set_full_screen_zoom): Removed function.
+	(image_view_get_full_screen_zoom): Ditto.
+
+	* window.c (window_open_image): Actually call window_get_auto_size().
+	(window_set_auto_size): Do not queue a draw, since it is not needed.
+	(window_destroy): Eeeek!  Free the private structure *after* we
+	are done using it!
+	(window_destroy): Also remove the auto_size_notify_id.
+
+	* commands.c (cmd_cb_full_screen): Get the preferences from the
+	GConf client.
+
 2000-07-13  Pavel Cisler <pavel@eazel.com>
 
 	* image-view.c: (image_view_init):

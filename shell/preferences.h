@@ -25,9 +25,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkenums.h>
 
-/* Interpolation type for views */
-extern GdkInterpType prefs_interp_type;
-
 /* Type of checks for views */
 typedef enum {
 	CHECK_TYPE_DARK,
@@ -38,8 +35,6 @@ typedef enum {
 	CHECK_TYPE_WHITE
 } CheckType;
 
-extern CheckType prefs_check_type;
-
 /* Check size for views */
 typedef enum {
 	CHECK_SIZE_SMALL,
@@ -47,30 +42,11 @@ typedef enum {
 	CHECK_SIZE_LARGE
 } CheckSize;
 
-extern CheckSize prefs_check_size;
-
-/* Dither type */
-extern GdkRgbDither prefs_dither;
-
 /* Scrolling type for views */
 typedef enum {
 	SCROLL_NORMAL,
 	SCROLL_TWO_PASS
 } ScrollType;
-
-extern ScrollType prefs_scroll;
-
-/* Scrollbar policy for image windows */
-extern GtkPolicyType prefs_window_sb_policy;
-
-/* Pick window size and zoom factor automatically for image windows */
-extern gboolean prefs_window_auto_size;
-
-/* Open images in a new window */
-extern gboolean prefs_open_new_window;
-
-/* Scrollbar policy for full screen mode */
-extern GtkPolicyType prefs_full_screen_sb_policy;
 
 /* Automatic zoom for full screen mode */
 typedef enum {
@@ -79,13 +55,6 @@ typedef enum {
 	FULL_SCREEN_ZOOM_FIT
 } FullScreenZoom;
 
-extern FullScreenZoom prefs_full_screen_zoom;
-
-/* Fit standard-sized images to full screen mode */
-extern gboolean prefs_full_screen_fit_standard;
-
-/* Put a bevel around the edge of the screen */
-extern gboolean prefs_full_screen_bevel;
 
 void prefs_init (void);
 
