@@ -35,7 +35,6 @@ bonobo_object_destroy_cb (BonoboObject *object,
 			  gpointer      user_data)
 {
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (object));
 
 	running_objects--;
 	if (running_objects > 0)
