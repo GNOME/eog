@@ -689,6 +689,7 @@ eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	BonoboUIContainer *ui_container;
+	GtkWidget *widget;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -724,6 +725,13 @@ eog_window_construct (EogWindow *window)
 	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
 	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
 			  (GtkSignalFunc) activate_uri_cb, NULL);
+
+	widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
+	if (!widget)
+		g_assert_not_reached ();
+
+	gtk_box_pack_start (GTK_BOX (priv->box), widget, TRUE, TRUE, 0);
+	gtk_widget_show (widget);
 
 	set_drag_dest (window);
 
@@ -1067,7 +1075,6 @@ get_collection_control_list (GList *text_uri_list)
 static void 
 add_control_to_ui (EogWindow *window, Bonobo_Control control)
 {
-	GtkWidget *widget;
 	EogWindowPrivate *priv;
 	CORBA_Environment ev;
 	Bonobo_PropertyControl prop_control;
@@ -1077,17 +1084,8 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	
 	priv = window->priv;
 	CORBA_exception_init (&ev);
-	
-	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
-	widget = bonobo_control_frame_get_widget (priv->ctrl_frame);
-	
-	if (!widget) {
-	        g_warning ("Could not create a widget from the control!");
-		return;
-	}
-	gtk_container_add (GTK_CONTAINER (priv->box), widget);
-	gtk_widget_show (widget);
 
+	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
 	bonobo_control_frame_control_activate (priv->ctrl_frame);
 
 	/* update sensitivity of the properties menu item */

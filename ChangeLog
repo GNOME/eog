@@ -1,5 +1,16 @@
 2002-05-30  Federico Mena Quintero  <federico@ximian.com>
 
+	Fixes #83233.  Note that this depends on an updated libbonoboui,
+	as there was a buglet there that affected this.
+
+	* shell/eog-window.c (add_control_to_ui): Do not add the control
+	frame's widget to the box here, as it will always return the same
+	socket widget.
+	(eog_window_construct): Add the control frame's socket to the vbox
+	here.
+
+2002-05-30  Federico Mena Quintero  <federico@ximian.com>
+
 	* shell/eog-window.c (verb_HelpAbout_cb): Made the translators
 	translatable.
 
