@@ -1,3 +1,18 @@
+2003-03-16  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view-ui.xml: Added toolbar buttons for
+	selecting next/previous image.
+
+	* collection/eog-collection-view.c (verb_ImagePrev_cb),
+	(verb_ImageNext_cb): New functions.
+
+	* collection/eog-wrap-list.c (model_prepared): Set last_item_clicked.
+
+	* collection/eog-wrap-list.h (eog_wrap_list_select_left),
+	(eog_wrap_list_select_right): Made them public.
+
+	* shell/eog-shell-ui-xml: Added placholder for toolbar items.
+	
 2003-03-14  Jens Finke  <jens@triq.net>
 
 	* README: Updated.

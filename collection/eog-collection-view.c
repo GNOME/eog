@@ -140,9 +140,34 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 	gtk_widget_show (show);
 }
 
+static void
+verb_ImagePrev_cb (BonoboUIComponent *uic,
+		   gpointer user_data,
+		   const char *cname)
+{
+	EogCollectionView *view;
+	
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_wrap_list_select_left (EOG_WRAP_LIST (view->priv->wraplist));
+}
+
+static void
+verb_ImageNext_cb (BonoboUIComponent *uic,
+		   gpointer user_data,
+		   const char *cname)
+{
+	EogCollectionView *view;
+	
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_wrap_list_select_right (EOG_WRAP_LIST (view->priv->wraplist));
+}
 
 static BonoboUIVerb collection_verbs[] = {
 	BONOBO_UI_VERB ("SlideShow", verb_SlideShow_cb),
+	BONOBO_UI_VERB ("ImageNext", verb_ImageNext_cb),
+	BONOBO_UI_VERB ("ImagePrev", verb_ImagePrev_cb),
 	BONOBO_UI_VERB_END
 };
 
@@ -627,7 +652,7 @@ create_user_interface (EogCollectionView *list_view)
 	gtk_widget_show_all (hpaned);
 
 #if !HAVE_EXIF
-	gtk_paned_set_position (hpaned, 10000);
+	gtk_paned_set_position (GTK_PANED (hpaned), 10000);
 #endif
 
 	/* the wrap list for all the thumbnails */

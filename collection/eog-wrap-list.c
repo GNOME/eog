@@ -591,7 +591,6 @@ eog_wrap_list_select_up (EogWrapList *wlist)
 	priv->last_item_clicked = item;
 
 	ensure_item_is_visible (wlist, item);
-	/* FIXME: make sure item is visible */
 
 	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 }
@@ -624,12 +623,11 @@ eog_wrap_list_select_down (EogWrapList *wlist)
 	priv->last_item_clicked = item;
 
 	ensure_item_is_visible (wlist, item);
-	/* FIXME: make sure item is visible */
 
 	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 }
 
-static void 
+void 
 eog_wrap_list_select_left (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
@@ -657,12 +655,11 @@ eog_wrap_list_select_left (EogWrapList *wlist)
 	priv->last_item_clicked = item;
 
 	ensure_item_is_visible (wlist, item);
-	/* FIXME: make sure item is visible */
 
 	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 }
 
-static void
+void
 eog_wrap_list_select_right (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
@@ -690,7 +687,6 @@ eog_wrap_list_select_right (EogWrapList *wlist)
 	priv->last_item_clicked = item;
 
 	ensure_item_is_visible (wlist, item);
-	/* FIXME: make sure item is visible */
 
 	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 }
@@ -777,6 +773,7 @@ model_prepared (EogCollectionModel *model, gpointer data)
 	if (priv->view_order != NULL) {
 		deselect_all (wlist);
 		if (set_select_status (wlist, EOG_COLLECTION_ITEM (priv->view_order->data), TRUE)) {
+			priv->last_item_clicked = GNOME_CANVAS_ITEM (priv->view_order->data);
 			g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 		}
 	}
