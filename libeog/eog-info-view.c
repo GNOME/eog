@@ -8,11 +8,17 @@
 
 #include "eog-info-view.h"
 
+enum {
+	SIGNAL_ID_SIZE_PREPARED,
+	SIGNAL_ID_INFO_FINISHED,
+	SIGNAL_ID_CHANGED,
+	SIGNAL_ID_LAST
+};
+
 struct _EogInfoViewPrivate
 {
 	EogImage *image;
-	int image_cb_id;
-	int image_cb_id2;
+	int image_signal_ids [SIGNAL_ID_LAST];
 };
 
 GNOME_CLASS_BOILERPLATE (EogInfoView, eog_info_view,
@@ -63,13 +69,15 @@ eog_info_view_instance_init (EogInfoView *view)
 	EogInfoViewPrivate *priv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *cell;
+	int s;
 
 	priv = g_new0 (EogInfoViewPrivate, 1);
 
 	view->priv = priv;
 	priv->image = NULL;
-	priv->image_cb_id = 0;
-	priv->image_cb_id2 = 0;
+	for (s = 0; s < SIGNAL_ID_LAST; s++) {
+		priv->image_signal_ids [s] = 0;
+	} 
 
 	/* tag column */
 	cell = gtk_cell_renderer_text_new ();
@@ -123,6 +131,62 @@ append_row (GtkListStore *store, const char *attribute, const char *value)
 	}
 }
 
+static void
+add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *store)
+{
+	char buffer[32];
+	GtkTreeIter iter;
+	int width, height;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (EOG_IS_INFO_VIEW (view));
+	g_return_if_fail (GTK_IS_LIST_STORE (store));
+
+	eog_image_get_size (image, &width, &height);
+
+	if (width > -1) {
+		g_snprintf (buffer, 32, "%i", width);	
+	}
+	else {
+		buffer[0] = '\0';
+	}
+
+	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "1")) {
+		append_row (store, _("Width"), buffer);
+	}
+	else {
+		gtk_list_store_set (store, &iter, 1, buffer, -1);
+	}
+
+	if (height > -1) {
+		g_snprintf (buffer, 32, "%i", height);	
+	}
+	else {
+		buffer[0] = '\0';
+	}
+
+	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "2")) {
+		append_row (store, _("Height"), buffer);
+	}
+	else {
+		gtk_list_store_set (store, &iter, 1, buffer, -1);
+	}
+}
+
+static void
+add_image_filename_attribute (EogInfoView *view, EogImage *image, GtkListStore *store)
+{
+	char *caption;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (EOG_IS_INFO_VIEW (view));
+	g_return_if_fail (GTK_IS_LIST_STORE (store));
+
+	caption = eog_image_get_caption (image);
+	append_row (store, _("Filename"), caption);
+}
+
+
 #if HAVE_EXIF
 static void 
 exif_entry_cb (ExifEntry *entry, gpointer data)
@@ -147,26 +211,22 @@ fill_list_exif (EogImage *image, GtkListStore *store, ExifData *ed)
 }
 #endif
 
-/*  fill_list
+/*  add_image_exif_attribute
  *
  *  This function will only add information additional to filename,
  *  image width and image height. Main purpose is to present
  *  EXIF information.
  */
 static void
-fill_list (EogInfoView *view)
+add_image_exif_attribute (EogInfoView *view, EogImage *image, GtkListStore *store)
 {
-	GtkListStore *store;
-	EogImage *image;
 #if HAVE_EXIF
 	ExifData *ed;
 #endif
-	if (gtk_tree_view_get_model (GTK_TREE_VIEW (view)) == NULL) return;
 
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
-	image = view->priv->image;
-
-	g_assert (image != NULL);
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (EOG_IS_INFO_VIEW (view));
+	g_return_if_fail (GTK_IS_LIST_STORE (store));
 
 	/* add further information to the info view list here, which are not EXIF dependend 
 	 * (e.g. file size) 
@@ -190,30 +250,15 @@ static void
 loading_size_prepared_cb (EogImage *image, gint width, gint height, gpointer data)
 {
 	GtkListStore *store;
-	char buffer[32];
-	GtkTreeIter iter;
-	
-	EogInfoView *view = EOG_INFO_VIEW (data);
+	EogInfoView *view;
+
+	view = EOG_INFO_VIEW (data);
 
 	if (gtk_tree_view_get_model (GTK_TREE_VIEW (view)) == NULL) return;
 
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 
-	g_snprintf (buffer, 32, "%i", width);	
-	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "1")) {
-		append_row (store, _("Width"), buffer);
-	}
-	else {
-		gtk_list_store_set (store, &iter, 1, buffer, -1);
-	}
-
-	g_snprintf (buffer, 32, "%i", height);	
-	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "2")) {
-		append_row (store, _("Height"), buffer);
-	}
-	else {
-		gtk_list_store_set (store, &iter, 1, buffer, -1);
-	}
+	add_image_size_attribute (view, image, store);
 }
 
 /* loading_info_finished_cb
@@ -223,7 +268,42 @@ loading_size_prepared_cb (EogImage *image, gint width, gint height, gpointer dat
 static void
 loading_info_finished_cb (EogImage *image, gpointer data)
 {
-	fill_list (EOG_INFO_VIEW (data));
+	EogInfoView *view;
+	GtkListStore *store;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	view = EOG_INFO_VIEW (data);
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+
+	add_image_exif_attribute (view, image, store);
+}
+
+
+/* image_changed_cb
+ *
+ * This function is called every time the image changed somehow. We
+ * will clear everything and rewrite all attributes.
+ */
+static void
+image_changed_cb (EogImage *image, gpointer data)
+{
+	EogInfoView *view;
+	GtkListStore *store;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	view = EOG_INFO_VIEW (data);
+
+	/* create new list */
+	store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+
+	/* add image attributes */
+	add_image_filename_attribute (view, image, store);
+	add_image_size_attribute (view, image, store);
+	add_image_exif_attribute (view, image, store);
+
+	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (store));
 }
 
 void
@@ -231,7 +311,7 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 {
 	EogInfoViewPrivate *priv;
 	GtkListStore *store;
-	char *caption;
+	int s;
 
 	g_return_if_fail (EOG_IS_INFO_VIEW (view));
 
@@ -241,13 +321,11 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 		return;
 
 	if (priv->image != NULL) {
-		if (priv->image_cb_id > 0) {
-			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_cb_id);
-			priv->image_cb_id = 0;
-		}
-		if (priv->image_cb_id2 > 0) {
-			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_cb_id2);
-			priv->image_cb_id2 = 0;
+		for (s = 0; s < SIGNAL_ID_LAST; s++) {
+			if (priv->image_signal_ids [s] > 0) {
+				g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_signal_ids [s]);
+				priv->image_signal_ids [s] = 0;
+			}
 		}
 
 		g_object_unref (priv->image);
@@ -264,17 +342,23 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 	g_object_ref (image);
 	priv->image = image;
 
-	/* display at least the filename */
 	store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
-	caption = eog_image_get_caption (image);
-	append_row (store, _("Filename"), caption);
+	/* display at least the filename */
+	add_image_filename_attribute (view, image, store);
 	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (store));
 
 	/* prepare additional image information callbacks */
-	priv->image_cb_id = g_signal_connect (G_OBJECT (priv->image), "loading_info_finished", 
-					      G_CALLBACK (loading_info_finished_cb), view);
-	priv->image_cb_id2 = g_signal_connect (G_OBJECT (priv->image), "loading_size_prepared", 
-					      G_CALLBACK (loading_size_prepared_cb), view);
+	priv->image_signal_ids [SIGNAL_ID_INFO_FINISHED] = 
+		g_signal_connect (G_OBJECT (priv->image), "loading_info_finished", 
+				  G_CALLBACK (loading_info_finished_cb), view);
+
+	priv->image_signal_ids [SIGNAL_ID_SIZE_PREPARED] = 
+		g_signal_connect (G_OBJECT (priv->image), "loading_size_prepared", 
+				  G_CALLBACK (loading_size_prepared_cb), view);
+
+	priv->image_signal_ids [SIGNAL_ID_CHANGED] = 
+		g_signal_connect (G_OBJECT (priv->image), "image_changed", 
+				  G_CALLBACK (image_changed_cb), view);
 
 	/* start loading */
 	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);

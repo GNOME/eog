@@ -1,5 +1,18 @@
 2003-09-28  Jens Finke  <jens@triq.net>
 
+	Code cleanup. Monitor image modifications.
+
+	* libeog/eog-info-view.c: Better management of image callback ids.
+	(add_image_size_attribute),
+	(add_image_filename_attribute),
+	(add_image_exif_attribute): New functions
+	(fill_list): Removed.
+	(loading_size_prepared_cb): Use add_image_size_attribute.
+	(image_changed_cb): New function.
+	(eog_info_view_set_image): Use add_image_filname_attribute.
+
+2003-09-28  Jens Finke  <jens@triq.net>
+
 	Fixes the duplicated entries for width/height information in the
 	image info view.
 
