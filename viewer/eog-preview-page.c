@@ -9,18 +9,29 @@ static GnomeCanvasClass *parent_class = NULL;
 
 struct _EogPreviewPagePrivate
 {
-	EogImageView	*image_view;
+	EogImageView	 *image_view;
 
-	gint		 col;
-	gint		 row;
+	gint		  col;
+	gint		  row;
 
-	GnomeCanvasItem *group;
-	GnomeCanvasItem *bg_white;
-	GnomeCanvasItem *bg_black;
-	GnomeCanvasItem *image;
+	GnomeCanvasGroup *group;
+	
+	GnomeCanvasItem  *bg_white;
+	GnomeCanvasItem  *bg_black;
+	GnomeCanvasItem  *image;
 
-	gint		 width;
-	gint		 height;
+	GnomeCanvasItem  *margin_top;
+	GnomeCanvasItem	 *margin_bottom;
+	GnomeCanvasItem  *margin_right;
+	GnomeCanvasItem	 *margin_left;
+
+	gint		  width;
+	gint		  height;
+
+	gint		  top;
+	gint		  bottom;
+	gint		  left;
+	gint		  right;
 };
 
 #define SCALE(param) (0.15 * param)
@@ -44,24 +55,52 @@ resize_paper (EogPreviewPage *page, gint width, gint height)
 		gtk_object_destroy (GTK_OBJECT (page->priv->bg_white));
 	
 	page->priv->bg_black = gnome_canvas_item_new (
-		GNOME_CANVAS_GROUP (page->priv->group),
+		page->priv->group,
 		gnome_canvas_rect_get_type (), 
 		"x1", 0.0, "y1", 0.0, 
-		"x2", (double) page->priv->width, 
-		"y2", (double) page->priv->height, 
+		"x2", (double) width, 
+		"y2", (double) height, 
 		"fill_color", "black", 
 		"outline_color", "black", 
 		"width_pixels", 1, NULL);
 	page->priv->bg_white = gnome_canvas_item_new (
-		GNOME_CANVAS_GROUP (page->priv->group), 
+		page->priv->group, 
 		gnome_canvas_rect_get_type (), 
 		"x1", (double) OFFSET_X, 
 		"y1", (double) OFFSET_Y, 
-		"x2", (double) OFFSET_X + width, 
-		"y2", (double) OFFSET_Y + height, 
+		"x2", (double) OFFSET_X + width - 1, 
+		"y2", (double) OFFSET_Y + height - 1, 
 		"fill_color", "white", 
-		"outline_color", "black", 
+		"outline_color", "white", 
 		"width_pixels", 1, NULL); 
+}
+
+static void
+move_line (GnomeCanvasItem *item, gint x1, gint y1, gint x2, gint y2)
+{
+	GnomeCanvasPoints *points; 
+	
+	points = gnome_canvas_points_new (2); 
+	points->coords [0] = (double) OFFSET_X + x1; 
+	points->coords [1] = (double) OFFSET_Y + y1; 
+	points->coords [2] = (double) OFFSET_X + x2; 
+	points->coords [3] = (double) OFFSET_Y + y2; 
+	
+	gnome_canvas_item_set (item, "points", points, NULL); 
+	gnome_canvas_points_unref (points); 
+	gnome_canvas_item_raise_to_top (item);
+}
+
+static void
+redraw_margins (EogPreviewPage *page, gint top, gint bottom, 
+		gint left, gint right, gint width, gint height)
+{
+	move_line (page->priv->margin_top, 0, top, width, top);
+	move_line (page->priv->margin_bottom, 0, height - bottom - 1, 
+		   width, height - bottom - 1);
+	move_line (page->priv->margin_left, left, 0, left, height);
+	move_line (page->priv->margin_right, width - right - 1, 0, 
+		   width - right - 1, height);
 }
 
 void
@@ -290,15 +329,20 @@ eog_preview_page_update (EogPreviewPage *page,
 		gtk_object_destroy (GTK_OBJECT (page->priv->image)); 
 	
 	page->priv->image = gnome_canvas_item_new (
-				GNOME_CANVAS_GROUP (page->priv->group), 
-				gnome_canvas_widget_get_type (), 
-				"widget", widget, 
-				"x", (double) x, 
-				"y", (double) y, 
-				"width", (double) image_width, 
-				"height", (double) image_height, 
-				"anchor", GTK_ANCHOR_NORTH_WEST, 
-				"size_pixels", TRUE, NULL);
+					page->priv->group, 
+					gnome_canvas_widget_get_type (), 
+					"widget", widget, 
+					"x", (double) x, 
+					"y", (double) y, 
+					"width", (double) image_width, 
+					"height", (double) image_height, 
+					"anchor", GTK_ANCHOR_NORTH_WEST, 
+					"size_pixels", TRUE, NULL);
+	if ((top != page->priv->top) || (bottom != page->priv->bottom) ||
+	    (left != page->priv->left) || (right != page->priv->right))
+		redraw_margins (page, top, bottom, left, right, width, height);
+
+
 }
 
 static void
@@ -354,20 +398,49 @@ eog_preview_page_get_type (void)
 	return (page_type);
 }
 
+static GnomeCanvasItem*
+make_line (GnomeCanvasGroup *group)
+{ 
+	GnomeCanvasPoints *points; 
+	GnomeCanvasItem   *item; 
+	
+	points = gnome_canvas_points_new (2); 
+	points->coords [0] = 0.0; 
+	points->coords [1] = 0.0; 
+	points->coords [2] = 0.0; 
+	points->coords [3] = 0.0; 
+	
+	item = gnome_canvas_item_new (group,
+				      gnome_canvas_line_get_type (), 
+				      "points", points, 
+				      "width_pixels", 1, 
+				      "fill_color", "red",
+				      NULL); 
+	gnome_canvas_points_unref (points); 
+	
+	return (item); 
+}
+
 GtkWidget*
 eog_preview_page_new (EogImageView *image_view, gint col, gint row)
 {
-	EogPreviewPage *page;
+	EogPreviewPage  *page;
+	GnomeCanvasItem *group;
 
 	page = gtk_type_new (EOG_TYPE_PREVIEW_PAGE);
 	page->priv->image_view = image_view;
 	page->priv->col = col;
 	page->priv->row = row;
 
-	page->priv->group = gnome_canvas_item_new (
-				gnome_canvas_root (GNOME_CANVAS (page)), 
-				gnome_canvas_group_get_type (), 
-				"x", 0.0, "y", 0.0, NULL);
+	group = gnome_canvas_item_new (gnome_canvas_root (GNOME_CANVAS (page)), 
+				       gnome_canvas_group_get_type (), 
+				       "x", 0.0, "y", 0.0, NULL);
+	page->priv->group = GNOME_CANVAS_GROUP (group);
+	
+	page->priv->margin_top = make_line (page->priv->group);
+	page->priv->margin_bottom = make_line (page->priv->group);
+	page->priv->margin_right = make_line (page->priv->group);
+	page->priv->margin_left = make_line (page->priv->group);
 	
 	return (GTK_WIDGET (page));
 }
