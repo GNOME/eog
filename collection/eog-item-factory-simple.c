@@ -1,6 +1,6 @@
 /* Eye of Gnome - default item factory for icons
  *
- * Copyright (C) 2000-2001 The Free Software Foundation
+ * Copyright (C) 2000-2002 The Free Software Foundation
  *
  * Author: Federico Mena-Quintero <federico@gnu.org>
  *         Jens Finke <jens@gnome.org>
@@ -394,7 +394,7 @@ ii_factory_update_item (EogItemFactory *factory,
 	style = gtk_widget_get_style (GTK_WIDGET (icon->caption->canvas));
 	g_assert (style != NULL);
 
-	p_layout = pango_layout_new (NULL);
+	p_layout = pango_layout_new (gtk_widget_get_pango_context (GTK_WIDGET (icon->caption->canvas)));
 	pango_layout_set_font_description (p_layout, style->font_desc);
 
 	g_assert (p_layout != NULL);

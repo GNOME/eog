@@ -47,8 +47,8 @@ ecp_activate_layout_cb (GtkWidget *widget, GConfClient *client)
 	
 	g_assert (GCONF_IS_CLIENT (client));
 	
-	mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget),
-						     "number"));
+	mode = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget),
+						   "number"));
 	if(!gconf_client_set_int (client, pref_key[PREF_LAYOUT],
 				  mode, NULL))
 	{

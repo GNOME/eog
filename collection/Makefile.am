@@ -9,15 +9,15 @@ INCLUDES =							\
 	$(EOG_CFLAGS)						\
 	$(EXTRA_WARNING_CFLAGS)
 
-bin_PROGRAMS = eog-collection
+libexec_PROGRAMS = eog-collection-view
 
-$(eog_collection_OBJECTS): eog-collection-marshal.c eog-collection-marshal.h
+$(eog_collection-view_OBJECTS): eog-collection-marshal.c eog-collection-marshal.h
 
-eog-collection-marshal.h: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+eog-collection-view-marshal.h: eog-collection-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal h" && \
         $(GLIB_GENMARSHAL) $< --header --prefix=eog_collection_marshal > $@
 
-eog-collection-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+eog-collection-view-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal c" && \
         $(GLIB_GENMARSHAL) $< --body --prefix=eog_collection_marshal > $@
 
@@ -30,7 +30,7 @@ EVOLUTION_GENERATED =			\
 	Evolution-Composer-stubs.c
 endif
 
-eog_collection_SOURCES =		\
+eog_collection_view_SOURCES =		\
 	$(EVOLUTION_GENERATED)		\
 	eog-collection-marshal.h	\
 	eog-collection-marshal.c	\
@@ -54,9 +54,9 @@ eog_collection_SOURCES =		\
 	eog-collection-preferences.c	\
 	main.c
 
-eog_collection_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+eog_collection_view_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
 
-eog_collection_LDADD = 			\
+eog_collection_view_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
 	$(EOG_LIBS)				\

@@ -212,11 +212,11 @@ eog_wrap_list_dispose (GObject *object)
 	priv = wlist->priv;
 
 	if (priv->model)
-		gtk_object_unref (GTK_OBJECT (priv->model));
+		g_object_unref (G_OBJECT (priv->model));
 	priv->model = NULL;
 
 	if (priv->factory)
-		gtk_object_unref (GTK_OBJECT (priv->factory));
+		g_object_unref (G_OBJECT (priv->factory));
 	priv->factory = NULL;
 
 	/* FIXME: free the items and item array */
@@ -334,7 +334,7 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 	model = priv->model;
 	if (model == NULL) return FALSE;
 
-	id = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), "ImageID"));
+	id = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "ImageID"));
 
 	switch (event->type) {
 	case GDK_BUTTON_PRESS:
@@ -343,11 +343,11 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 			/* Right click */
 			eog_collection_model_set_select_status(model, id, TRUE);
 			ret_val = FALSE;
-			gtk_signal_emit (GTK_OBJECT (wlist),
-					 eog_wrap_list_signals [RIGHT_CLICK],
-					 id, event, &ret_val);
-			gtk_signal_emit_stop_by_name (GTK_OBJECT (item->canvas),
-						      "button-press-event");
+			g_signal_emit (GTK_OBJECT (wlist),
+				       eog_wrap_list_signals [RIGHT_CLICK], 0,
+				       id, event, &ret_val);
+			g_signal_stop_emission_by_name (G_OBJECT (item->canvas),
+							"button-press-event");
 			return (ret_val);
 		case 2:
 			/* Middle button */
@@ -440,19 +440,19 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 			 * stop further event handling through
 			 * handle_canvas_click
 			 */
-			gtk_signal_emit_stop_by_name (GTK_OBJECT (item->canvas),
-					              "button-press-event");
+			g_signal_stop_emission_by_name (G_OBJECT (item->canvas),
+							"button-press-event");
 		}
 
 		break;
 			
 	case GDK_2BUTTON_PRESS:
 		/* stop further event handling through handle_canvas_click */
-		gtk_signal_emit_stop_by_name (GTK_OBJECT (item->canvas), "button-press-event");
+		g_signal_stop_emission_by_name (G_OBJECT (item->canvas), "button-press-event");
 
-		gtk_signal_emit (GTK_OBJECT (wlist), 
-				 eog_wrap_list_signals [DOUBLE_CLICK],
-				 id);
+		g_signal_emit (G_OBJECT (wlist), 
+			       eog_wrap_list_signals [DOUBLE_CLICK], 0,
+			       id);
 		break;
 		
 	default:
@@ -656,7 +656,7 @@ eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory)
 	priv = wlist->priv;
 
 	if (priv->factory) {
-		gtk_object_unref (GTK_OBJECT (priv->factory));
+		g_object_unref (G_OBJECT (priv->factory));
 	}
 	priv->factory = NULL;
 
@@ -803,8 +803,8 @@ compare_item_caption (const GnomeCanvasItem *item1, const GnomeCanvasItem *item2
 	gchar *cap1;
 	gchar *cap2;
 
-	cap1 = (gchar*) gtk_object_get_data (GTK_OBJECT (item1), "Caption");
-	cap2 = (gchar*) gtk_object_get_data (GTK_OBJECT (item2), "Caption");
+	cap1 = (gchar*) g_object_get_data (G_OBJECT (item1), "Caption");
+	cap2 = (gchar*) g_object_get_data (G_OBJECT (item2), "Caption");
 	
 	return g_strcasecmp (cap1, cap2);
 }

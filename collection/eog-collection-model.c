@@ -57,7 +57,7 @@ image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer data);
 static void
 free_hash_image (gpointer key, gpointer value, gpointer data)
 {
-	gtk_object_unref (GTK_OBJECT (value));
+	g_object_unref (G_OBJECT (value));
 }
 
 static void
@@ -89,7 +89,7 @@ eog_collection_model_dispose (GObject *obj)
 	model = EOG_COLLECTION_MODEL (obj);
 
 	if (model->priv->loader)
-		gtk_object_unref (GTK_OBJECT (model->priv->loader));
+		g_object_unref (G_OBJECT (model->priv->loader));
 	model->priv->loader = NULL;
 
 	if (model->priv->selected_images)
@@ -656,7 +656,7 @@ unselect_all_images (EogCollectionModel *model)
 				       id_list);
 
 	g_signal_emit_by_name (G_OBJECT (model), 
-			       "slection_changed");
+			       "selection_changed");
 }
 
 void
@@ -731,7 +731,7 @@ void eog_collection_model_toggle_select_status (EogCollectionModel *model,
 				       "interval_changed",
 				       id_list);
 
-	gtk_signal_emit_by_name (G_OBJECT (model), "selection_changed");
+	g_signal_emit_by_name (G_OBJECT (model), "selection_changed");
 }
 
 

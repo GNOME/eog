@@ -47,6 +47,7 @@
 #define DEFAULT_WINDOW_HEIGHT 280
 
 #define EOG_VIEWER_CONTROL_IID "OAFIID:GNOME_EOG_Control"
+#define EOG_VIEWER_COLLECTION_IID "OAFIID:GNOME_EOG_CollectionControl"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
 
 /* Private part of the Window structure */
@@ -882,7 +883,7 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 				     "Bonobo/Control", &ev);
 	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL))
 		goto ctrl_error;
-	
+
 	/* get PersistFile interface */
 	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
 	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL))
@@ -914,6 +915,7 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	return CORBA_OBJECT_NIL;
 }	
 
+#ifdef HAVE_COLLECTION
 static Bonobo_Control
 get_collection_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
@@ -928,41 +930,36 @@ get_collection_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	
 	/* activate component */
  	CORBA_exception_init (&ev);
-	unknown_obj = (Bonobo_Unknown) bonobo_activation_activate 
-		("repo_ids.has_all(['IDL:GNOME/EOG/ImageCollection:1.0', 'IDL:Bonobo/Control:1.0'])",
-		 NULL, 0, NULL, &ev);
-	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
-	
-	/* get collection image interface */
-        collection = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:GNOME/EOG/ImageCollection:1.0", &ev);
-	if (collection == CORBA_OBJECT_NIL) {
-		Bonobo_Unknown_unref (unknown_obj, &ev);
-		CORBA_Object_release (unknown_obj, &ev);
-		return CORBA_OBJECT_NIL;		
-	}
+	control = bonobo_get_object (EOG_VIEWER_COLLECTION_IID,
+				     "Bonobo/Control", &ev);
+	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL))
+		goto coll_ctrl_error;
+
+	/* get PersistFile interface */
+	collection = Bonobo_Unknown_queryInterface (control, "IDL:GNOME/EOG/ImageCollection:1.0", &ev);
+	if (BONOBO_EX (&ev) || (collection == CORBA_OBJECT_NIL))
+		goto coll_error;
 
 	/* set uri */
 	eog_uri = (CORBA_char*) gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 	GNOME_EOG_ImageCollection_openURI (collection, eog_uri, &ev);
 	g_free (eog_uri);
+	bonobo_object_release_unref (collection, &ev);
 
-	Bonobo_Unknown_unref (collection, &ev);
-	CORBA_Object_release (collection, &ev);
-
-	/* get Control interface */
-	control = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/Control:1.0", &ev);
-	if (control == CORBA_OBJECT_NIL) {
-		Bonobo_Unknown_unref (unknown_obj, &ev);
-		CORBA_Object_release (unknown_obj, &ev);
-		return CORBA_OBJECT_NIL;		
-	}
-
-	/* clean up */ 
-	Bonobo_Unknown_unref (unknown_obj, &ev);
-        CORBA_Object_release (unknown_obj, &ev);
 	CORBA_exception_free (&ev);
 
 	return control;
+
+ coll_error:
+	bonobo_object_release_unref (control, NULL);
+
+ coll_ctrl_error:
+	if (BONOBO_EX (&ev))
+		g_warning ("%s", bonobo_exception_get_text (&ev));
+
+	CORBA_exception_free (&ev);
+
+	return CORBA_OBJECT_NIL;
 }
 
 static Bonobo_Control
@@ -1028,6 +1025,22 @@ get_collection_control_list (GList *text_uri_list)
 
 	return control;
 }
+#else
+
+static Bonobo_Control
+get_collection_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+{
+	return CORBA_OBJECT_NIL;
+}
+
+static Bonobo_Control
+get_collection_control_list (GList *text_uri_list)
+{
+	return CORBA_OBJECT_NIL;
+}
+
+#endif /* HAVE_COLLECTION */
+
 
 void
 adapt_shell_size_to_control (EogWindow *window, Bonobo_Control control)

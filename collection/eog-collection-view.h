@@ -39,10 +39,10 @@ struct _EogCollectionView {
 
 struct _EogCollectionViewClass {
 	BonoboObjectClass parent_class;
+	POA_GNOME_EOG_ImageCollection__epv epv;
 
 	void (*open_uri) (EogCollectionView *view, gchar *uri);
 
-	POA_GNOME_EOG_ImageCollection__epv epv;
 };
 
 GType                   eog_collection_view_get_type  (void);

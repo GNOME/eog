@@ -144,9 +144,9 @@ handle_open_uri (GObject *obj, gchar *uri, gpointer data)
 	Bonobo_ControlFrame ctrl_frame;
 
 	g_return_if_fail (obj != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (obj));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (data));
 
-	eog_ctrl = EOG_COLLECTION_CONTROL (obj);
+	eog_ctrl = EOG_COLLECTION_CONTROL (data);
 	CORBA_exception_init (&ev);
 	
 	bctrl = bonobo_object_query_local_interface (BONOBO_OBJECT (eog_ctrl),
@@ -168,7 +168,7 @@ eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 	EogCollectionControlPrivate *priv;
 	BonoboControl     *bctrl;	
 	BonoboPropertyBag *property_bag;
-	GtkWidget *root;
+	GtkWidget *widget;
 
 	g_return_val_if_fail (eog_ctrl != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl), NULL);
@@ -177,10 +177,13 @@ eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 
 	/* construct parent object */
 	priv->view =  EOG_COLLECTION_VIEW (eog_collection_view_new ());
-	root = eog_collection_view_get_widget (priv->view);
-	bonobo_control_construct (BONOBO_CONTROL (eog_ctrl), root);
+	widget = eog_collection_view_get_widget (priv->view);
+	bonobo_control_construct (BONOBO_CONTROL (eog_ctrl), widget);
 
-	gtk_widget_unref (root);
+	bonobo_object_add_interface (BONOBO_OBJECT (eog_ctrl),
+				     BONOBO_OBJECT (priv->view));
+
+	gtk_widget_unref (widget);
 
 	priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (eog_ctrl));
 
@@ -197,7 +200,7 @@ eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 	/* connect collection view signals */
 	g_signal_connect (G_OBJECT (priv->view),
 			  "open_uri", 
-			  G_CALLBACK (handle_open_uri), NULL);
+			  G_CALLBACK (handle_open_uri), eog_ctrl);
 
 	return eog_ctrl;
 }

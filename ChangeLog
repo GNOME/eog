@@ -1,3 +1,31 @@
+2002-07-19  Jens Finke <jens@triq.net>
+
+	* Makefile.am (SUBDIRS): Compile collection if desired.
+
+	* configure.in: Added compile option stuff, wether to enable the
+	collection view or not (off by default).
+
+	* collection/Makefile.am: Renamed program to eog-collection-view
+	and moved it to libexec dir.
+
+	* collection/eog-collection-control.c
+	* collection/eog-collection-model.c
+	* collection/eog-collection-preferences.c
+	* collection/eog-collection-view.c 
+	* collection/eog-warp-list.c: Ported remaining GtkObject stuff to
+	GObject.
+
+	* collection/eog-item-factory-simple (ii_factory_update_item): Get
+	correct pango_context.
+
+	* shell/Makefile.am: Enable collection support if desired.
+	
+	* shell/eog-window.c (get_collection_control): Load collection
+	component by iid.
+	(get_collection_control):
+	(get_collection_control_list): Define dummy functions of these if
+	we compile without collection support.
+ 
 2002-07-17  Michael Meeks  <michael@ximian.com>
 
 	* libeog/Makefile.am: use .server.in.in file instead, and

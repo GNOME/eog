@@ -89,8 +89,6 @@ enum {
 
 static guint eog_collection_view_signals [LAST_SIGNAL];
 
-static void eog_collection_view_class_init (EogCollectionViewClass *klass);
-static void eog_collection_view_instance_init (EogCollectionView *obj);
 static void eog_collection_view_dispose (GObject *object);
 
 BONOBO_CLASS_BOILERPLATE_FULL (EogCollectionView, eog_collection_view,
@@ -193,11 +191,11 @@ eog_collection_view_dispose (GObject *object)
 	list_view = EOG_COLLECTION_VIEW (object);
 
 	if (list_view->priv->model)
-		gtk_object_unref (GTK_OBJECT (list_view->priv->model));
+		g_object_unref (G_OBJECT (list_view->priv->model));
 	list_view->priv->model = NULL;
 
 	if (list_view->priv->factory)
-		gtk_object_unref (GTK_OBJECT (list_view->priv->factory));
+		g_object_unref (G_OBJECT (list_view->priv->factory));
 	list_view->priv->factory = NULL;
 
 	if (list_view->priv->prop_control)
@@ -271,7 +269,7 @@ handle_double_click (EogWrapList *wlist, gint n, EogCollectionView *view)
 	uri = eog_collection_model_get_uri (view->priv->model, n);
 	if (uri == NULL) return;
 
-	gtk_signal_emit (GTK_OBJECT (view), eog_collection_view_signals [OPEN_URI], uri);
+	g_signal_emit (G_OBJECT (view), eog_collection_view_signals [OPEN_URI], 0, uri);
 
 	g_free (uri);
 }
@@ -441,7 +439,7 @@ kill_popup_menu (GtkWidget *widget, GtkMenu *menu)
 {
 	g_return_if_fail (GTK_IS_MENU (menu));
 
-	gtk_object_unref (GTK_OBJECT (menu));
+	g_object_unref (G_OBJECT (menu));
 }
 
 static gboolean
@@ -463,8 +461,8 @@ handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event,
 
 	item = gtk_menu_item_new ();
 	gtk_widget_show (item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate",
-			    GTK_SIGNAL_FUNC (handle_send_activate), view);
+	g_signal_connect (G_OBJECT (item), "activate",
+			  G_CALLBACK (handle_send_activate), view);
 	gtk_container_add (GTK_CONTAINER (item), label);
 	gtk_menu_append (GTK_MENU (menu), item);
 #endif
