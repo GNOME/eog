@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-02 04:40-0500\n"
 "PO-Revision-Date: 2003-06-08 18:42+0530\n"
 "Last-Translator: Sayamindu Dasgupta <unmadindu@Softhome.net>\n"
 "Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.1\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -200,9 +200,8 @@ msgid "Allow _zoom greater than 100% initially"
 msgstr ""
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As _background"
-msgstr "পটভূমি হিসাবে"
+msgstr "পটভূমি হিসাবে (_প)"
 
 #: eog.glade.h:9
 msgid "As check _pattern"
@@ -224,27 +223,22 @@ msgid "Eye of Gnome Preferences"
 msgstr "গুহ্‌নোমের চোখ সম্বন্ধীয় পছন্দসমূহ"
 
 #: eog.glade.h:13
-#, fuzzy
 msgid "Image _View"
-msgstr "চিত্র দর্শন"
+msgstr "চিত্র দর্শন (_দ)"
 
 # বেশ কঠিন শোনাচ্ছে
 # msgstr "চক্র" অথবা
 # msgstr "চক্রাকারে"
 # #বুঝলাম না!
 #: eog.glade.h:14
-#, fuzzy
 msgid "Show _next image automatically after:"
-msgstr ""
-"স্বয়ংক্রিয়ভাবে পরবর্তী ছবিটি দেখান:\n"
-"(এই সিদ্ধান্ত বাতিল করার জন্য ০ লিখুন)"
+msgstr "স্বয়ংক্রিয়ভাবে পরবর্তী ছবিটি দেখান (_প):"
 
 # msgstr "ঘড়ির কাঁটার _উল্টোদিকে ঘোরানো হোক"
 #
 #: eog.glade.h:15
-#, fuzzy
 msgid "Sli_de Show"
-msgstr "স্লাইড শো"
+msgstr "স্লাইড শো (_স)"
 
 # "ঠিক এর পরিবর্তে "নির্ধারণ" লিখ। আর "স্বচ্ছতা" বানানে এখানেও গোলমাল। এটা কি Yudit/Lekho এর Inconsistency ?
 # #হতে পারে - কিন্তু আমি Yudit ব্যবহার করি না - জি-এডিট 
@@ -262,7 +256,6 @@ msgstr "চক্রাকার আবর্তনের ক্রমপর্�
 
 # msgstr "চিত্র ছোট/বড় করার সময় যাতে _প্রক্ষিপ্ত করা হয় (তাতে ছবির মান বেশি ভালো হবে, কিন্তু প্রক্রিয়াটিকে সম্পন্ন করতে বেশি সময় #লাগবে)"
 #: eog.glade.h:18
-#, fuzzy
 msgid "seconds"
 msgstr "সেকেন্ড"
 
@@ -342,7 +335,6 @@ msgstr "স্বচ্ছতা সূচক"
 # "তাহলে চিত্র উইন্ডোসমূহ উইন্ডো ম্যানেজারের দ্বারা নির্দেশিত আয়তন ধারন করবে।"
 # "ধারণ" বানান খেয়াল কর। অনেক কিছু Change করছি বলে বানান ভুল থাকার পরেও Comment হিসাবেই লিখলাম
 #: eog.schemas.in.h:15
-#, fuzzy
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -397,46 +389,50 @@ msgstr "গেঁথে দেয়ার যোগ্য (Embeddable) ইওজ�
 msgid "Image"
 msgstr "চিত্র"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr ""
+msgstr "সকল ফাইল"
 
 # Pro: এইটা নিয়ে Confusion আছে। Embed = ?
 # #আমারও মাথায় ঢুকছে না :-(
-#: libeog/eog-file-selection.c:125
-#, fuzzy
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
-msgstr "চিত্র"
+msgstr "সকল চিত্র"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s পিক্সেল"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "চিত্র প্রদর্শন করা হোক"
 
 # msgstr "চিত্র লোড করা হোক"
 #
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "চিত্র সংরক্ষণ করা হোক"
 
-#: libeog/eog-file-selection.c:246
-#, fuzzy
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
-msgstr "ফাইল খোলা হোক"
+msgstr "ফোল্ডার খোল"
 
 #: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
@@ -481,9 +477,8 @@ msgid "Height"
 msgstr "উচ্চতা"
 
 #: libeog/eog-info-view.c:181
-#, fuzzy
 msgid "Filesize"
-msgstr "ফাইলের নাম"
+msgstr "ফাইলের সাইজ"
 
 #: libeog/eog-info-view.c:199
 msgid "Filename"
@@ -644,9 +639,8 @@ msgid "Open"
 msgstr "খোলা হোক"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "ফাইল খোলা হোক"
+msgstr "ডিরেক্টরী খোল"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -708,9 +702,8 @@ msgid "_New"
 msgstr "নতুন (_ত)"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "খুলুন... (_খ)"
+msgstr "ডিরেক্টরী খুলুন... (_ড)"
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -721,9 +714,8 @@ msgid "_Quit"
 msgstr "বন্ধ করুন (_ধ)"
 
 #: shell/eog-shell-ui.xml.h:27
-#, fuzzy
 msgid "_Statusbar"
-msgstr "স্ট্যাটাসবারে প্রদর্শিত টেক্সট"
+msgstr "স্ট্যাটাসবার (_স)"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
@@ -841,9 +833,8 @@ msgstr "বড় করে দেখান (_ড়)"
 
 # msgstr "আপনার বর্তমান প্রিন্টারের পৃষ্ঠা বৈশিষ্টাবলী ঠিক করুন"
 #: viewer/eog-image-view-ui.xml.h:3
-#, fuzzy
 msgid "Full Screen"
-msgstr "সমগ্র পর্দা জুড়ে (_প)"
+msgstr "সমগ্র পর্দা জুড়ে"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
