@@ -19,7 +19,7 @@
 #include <eog-embeddable-view.h>
 
 struct _EogEmbeddablePrivate {
-	EogImageData       *image_data;
+	EogImage           *image;
 };
 
 POA_Bonobo_Embeddable__vepv eog_embeddable_vepv;
@@ -44,9 +44,9 @@ eog_embeddable_destroy (GtkObject *object)
 
 	embeddable = EOG_EMBEDDABLE (object);
 
-	if (embeddable->priv->image_data) {
-		bonobo_object_unref (BONOBO_OBJECT (embeddable->priv->image_data));
-		embeddable->priv->image_data = NULL;
+	if (embeddable->priv->image) {
+		bonobo_object_unref (BONOBO_OBJECT (embeddable->priv->image));
+		embeddable->priv->image = NULL;
 	}
 
 	GTK_OBJECT_CLASS (eog_embeddable_parent_class)->destroy (object);
@@ -149,7 +149,7 @@ eog_embeddable_view_factory (BonoboEmbeddable *object, const Bonobo_ViewFrame vi
 
 	embeddable = EOG_EMBEDDABLE (object);
 
-	view = eog_embeddable_view_new (embeddable->priv->image_data);
+	view = eog_embeddable_view_new (embeddable->priv->image);
 
 	return BONOBO_VIEW (view);
 }
@@ -172,20 +172,21 @@ eog_embeddable_add_interfaces (EogEmbeddable *embeddable, BonoboObject *query_th
 EogEmbeddable *
 eog_embeddable_construct (EogEmbeddable *embeddable,
 			  Bonobo_Embeddable corba_object,
-			  EogImageData *image_data)
+			  EogImage *image)
 {
 	BonoboEmbeddable *retval;
 
 	g_return_val_if_fail (embeddable != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_EMBEDDABLE (embeddable), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	embeddable->priv->image_data = image_data;
-	bonobo_object_ref (BONOBO_OBJECT (image_data));
+	embeddable->priv->image = image;
+	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	eog_embeddable_add_interfaces (embeddable, BONOBO_OBJECT (embeddable->priv->image_data),
+	eog_embeddable_add_interfaces (embeddable,
+				       BONOBO_OBJECT (embeddable->priv->image),
 				       image_data_interfaces);
 
 	retval = bonobo_embeddable_construct (BONOBO_EMBEDDABLE (embeddable), corba_object,
@@ -198,13 +199,13 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 }
 
 EogEmbeddable *
-eog_embeddable_new (EogImageData *image_data)
+eog_embeddable_new (EogImage *image)
 {
 	EogEmbeddable *embeddable;
 	Bonobo_Embeddable corba_object;
 	
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	embeddable = gtk_type_new (eog_embeddable_get_type ());
 
@@ -214,5 +215,5 @@ eog_embeddable_new (EogImageData *image_data)
 		return NULL;
 	}
 	
-	return eog_embeddable_construct (embeddable, corba_object, image_data);
+	return eog_embeddable_construct (embeddable, corba_object, image);
 }

@@ -20,7 +20,7 @@
 #include <ui-image.h>
 
 struct _EogImageViewPrivate {
-	EogImageData       *image_data;
+	EogImage           *image;
 
 	GtkWidget          *ui_image;
         GtkWidget          *image_view;
@@ -51,16 +51,16 @@ POA_GNOME_EOG_ImageView__vepv eog_image_view_vepv;
 
 static BonoboObjectClass *eog_image_view_parent_class;
 
-static GNOME_EOG_ImageData
-impl_GNOME_EOG_ImageView_getImageData (PortableServer_Servant servant,
-				       CORBA_Environment *ev)
+static GNOME_EOG_Image
+impl_GNOME_EOG_ImageView_getImage (PortableServer_Servant servant,
+				   CORBA_Environment *ev)
 {
 	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
-	GNOME_EOG_ImageData image_data;
+	GNOME_EOG_Image image;
 
-	image_data = bonobo_object_corba_objref (BONOBO_OBJECT (image_view->priv->image_data));
-	CORBA_Object_duplicate (image_data, ev);
-	return image_data;
+	image = bonobo_object_corba_objref (BONOBO_OBJECT (image_view->priv->image));
+	CORBA_Object_duplicate (image, ev);
+	return image;
 }
 
 /**
@@ -73,7 +73,7 @@ eog_image_view_get_epv (void)
 
 	epv = g_new0 (POA_GNOME_EOG_ImageView__epv, 1);
 
-	epv->getImageData = impl_GNOME_EOG_ImageView_getImageData;
+	epv->getImage = impl_GNOME_EOG_ImageView_getImage;
 
 	return epv;
 }
@@ -111,9 +111,9 @@ eog_image_view_destroy (GtkObject *object)
 		image_view->priv->uic = NULL;
 	}
 
-	if (image_view->priv->image_data) {
-		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->image_data));
-		image_view->priv->image_data = NULL;
+	if (image_view->priv->image) {
+		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->image));
+		image_view->priv->image = NULL;
 	}
 
 	if (image_view->priv->ui_image) {
@@ -732,26 +732,26 @@ eog_image_view_set_prop (BonoboPropertyBag *bag, const BonoboArg *arg, guint arg
 EogImageView *
 eog_image_view_construct (EogImageView *image_view,
 			  GNOME_EOG_ImageView corba_object,
-			  EogImageData *image_data)
+			  EogImage *image)
 {
 	BonoboObject *retval;
 
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
-	g_return_val_if_fail (image_data != CORBA_OBJECT_NIL, NULL);
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	
 	retval = bonobo_object_construct (BONOBO_OBJECT (image_view), corba_object);
 	if (retval == NULL)
 		return NULL;
 
-	image_view->priv->image_data = image_data;
-	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image_data));
+	image_view->priv->image = image;
+	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));
 
-	gtk_signal_connect (GTK_OBJECT (image_data), "set_image",
-			    GTK_SIGNAL_FUNC (image_data_set_image_cb), image_view);
+	gtk_signal_connect (GTK_OBJECT (image), "set_image",
+			    GTK_SIGNAL_FUNC (image_data_set_image_cb),
+			    image_view);
 
 	image_view->priv->ui_image = ui_image_new ();
 	image_view->priv->image_view = ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image));
@@ -829,13 +829,13 @@ eog_image_view_construct (EogImageView *image_view,
 }
 
 EogImageView *
-eog_image_view_new (EogImageData *image_data)
+eog_image_view_new (EogImage *image)
 {
 	EogImageView *image_view;
 	GNOME_EOG_ImageView corba_object;
 	
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	image_view = gtk_type_new (eog_image_view_get_type ());
 
@@ -845,17 +845,17 @@ eog_image_view_new (EogImageData *image_data)
 		return NULL;
 	}
 	
-	return eog_image_view_construct (image_view, corba_object, image_data);
+	return eog_image_view_construct (image_view, corba_object, image);
 }
 
-EogImageData *
-eog_image_view_get_image_data (EogImageView *image_view)
+EogImage *
+eog_image_view_get_image (EogImageView *image_view)
 {
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
-	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image_data));
-	return image_view->priv->image_data;
+	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));
+	return image_view->priv->image;
 }
 
 BonoboPropertyBag *

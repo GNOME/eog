@@ -37,7 +37,7 @@ struct _EogEmbeddableClass {
 };
 
 EogEmbeddable *
-eog_embeddable_new                      (EogImageData            *image_data);
+eog_embeddable_new                      (EogImage                *image_data);
 
 GtkType
 eog_embeddable_get_type                 (void) G_GNUC_CONST;
@@ -48,7 +48,7 @@ eog_embeddable_corba_object_create      (BonoboObject            *object);
 EogEmbeddable *
 eog_embeddable_construct                (EogEmbeddable           *embeddable,
                                          Bonobo_Embeddable        corba_object,
-                                         EogImageData            *image_data);
+                                         EogImage                *image);
 
 END_GNOME_DECLS
 

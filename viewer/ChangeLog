@@ -1,3 +1,19 @@
+2000-11-19  Martin Baulig  <baulig@suse.de>
+
+	* eog-image.[ch]: New files. This implements GNOME::EOG::Image which
+	is (currently) derived from GNOME::EOG::ImageData.
+
+	* eog-image-view.c (eog_image_view_new, eog_image_view_construct):
+	This now takes a GNOME::EOG::Image, not a GNOME::EOG::ImageData.
+	(eog_image_view_get_image_data): Renamed to eog_image_view_get_image().
+
+	* eog-control.c (eog_control_new, eog_control_construct):
+	This now takes a GNOME::EOG::Image, not a GNOME::EOG::ImageData.
+	* eog-embeddable.c (eog_embeddable_new): Likewise.
+	(eog_embeddable_construct): Likewise.
+	* eog-embeddable-view.c (eog_embeddable_view_new): Likewise.
+	(eog_embeddable_view_construct): Likewise.
+
 2000-11-18  Martin Baulig  <baulig@suse.de>
 
 	* eog-image-view.c (EogImageViewPrivate): Added `has_zoomable_frame'.

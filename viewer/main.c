@@ -39,11 +39,12 @@ static BonoboGenericFactory *image_factory = NULL;
 typedef struct {
 	BonoboObject       *bonobo_object;
 
-	EogImageData       *image_data;
+	EogImage           *image;
 } bonobo_object_data_t;
 
 static void
-bonobo_object_destroy_cb (BonoboObject *object, bonobo_object_data_t *bonobo_object_data)
+bonobo_object_destroy_cb (BonoboObject *object,
+			  bonobo_object_data_t *bonobo_object_data)
 {
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (object));
@@ -62,7 +63,8 @@ bonobo_object_destroy_cb (BonoboObject *object, bonobo_object_data_t *bonobo_obj
 }
 
 static BonoboObject *
-eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id, void *data)
+eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id,
+			  void *data)
 {
 	bonobo_object_data_t *bonobo_object_data;
 
@@ -71,13 +73,13 @@ eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id, void 
 
 	bonobo_object_data = g_new0 (bonobo_object_data_t, 1);
 
-	bonobo_object_data->image_data = eog_image_data_new ();
+	bonobo_object_data->image = eog_image_new ();
 	if (!strcmp (goad_id, "OAFIID:eog_image_viewer:a30dc90b-a68f-4ef8-a257-d2f8ab7e6c9f"))
 		bonobo_object_data->bonobo_object = (BonoboObject *)
-			eog_control_new (bonobo_object_data->image_data);
+			eog_control_new (bonobo_object_data->image);
 	else if (!strcmp (goad_id, "OAFIID:eog_embeddedable_image:759a2e09-31e1-4741-9ce7-8354d49a16bb"))
 		bonobo_object_data->bonobo_object = (BonoboObject *)
-			eog_embeddable_new (bonobo_object_data->image_data);
+			eog_embeddable_new (bonobo_object_data->image);
 	else {
 		g_warning ("Unknown ID `%s' requested", goad_id);
 		return NULL;

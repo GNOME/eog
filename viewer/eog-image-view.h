@@ -11,7 +11,7 @@
 #ifndef _EOG_IMAGE_VIEW_H_
 #define _EOG_IMAGE_VIEW_H_
 
-#include <eog-image-data.h>
+#include <eog-image.h>
 
 BEGIN_GNOME_DECLS
  
@@ -40,7 +40,7 @@ POA_GNOME_EOG_ImageView__epv *
 eog_image_view_get_epv                  (void);
 
 EogImageView *
-eog_image_view_new                      (EogImageData            *image_data);
+eog_image_view_new                      (EogImage                *image);
 
 GtkType
 eog_image_view_get_type                 (void) G_GNUC_CONST;
@@ -51,10 +51,10 @@ eog_image_view_corba_object_create      (BonoboObject            *object);
 EogImageView *
 eog_image_view_construct                (EogImageView            *image_view,
                                          GNOME_EOG_ImageView      corba_object,
-                                         EogImageData            *image_data);
+                                         EogImage                *image);
 
-EogImageData *
-eog_image_view_get_image_data           (EogImageView            *image_view);
+EogImage *
+eog_image_view_get_image                (EogImageView            *image_view);
 
 BonoboPropertyBag *
 eog_image_view_get_property_bag         (EogImageView            *image_view);

@@ -18,7 +18,7 @@
 #include <eog-control.h>
 
 struct _EogControlPrivate {
-	EogImageData       *image_data;
+	EogImage           *image;
 	EogImageView       *image_view;
 
 	BonoboPropertyBag  *property_bag;
@@ -79,9 +79,9 @@ eog_control_destroy (GtkObject *object)
 		control->priv->property_bag = NULL;
 	}
 
-	if (control->priv->image_data) {
-		bonobo_object_unref (BONOBO_OBJECT (control->priv->image_data));
-		control->priv->image_data = NULL;
+	if (control->priv->image) {
+		bonobo_object_unref (BONOBO_OBJECT (control->priv->image));
+		control->priv->image = NULL;
 	}
 
 	if (control->priv->image_view) {
@@ -191,7 +191,8 @@ static const gchar *image_view_interfaces[] = {
 };
 
 static void
-eog_control_add_interfaces (EogControl *control, BonoboObject *query_this, const gchar **interfaces)
+eog_control_add_interfaces (EogControl *control, BonoboObject *query_this,
+			    const gchar **interfaces)
 {
 	const gchar **ptr;
 
@@ -205,25 +206,28 @@ eog_control_add_interfaces (EogControl *control, BonoboObject *query_this, const
 }
 
 EogControl *
-eog_control_construct (EogControl *control, Bonobo_Control corba_object, EogImageData *image_data)
+eog_control_construct (EogControl *control, Bonobo_Control corba_object,
+		       EogImage *image)
 {
 	BonoboControl *retval;
 
 	g_return_val_if_fail (control != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (control), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	control->priv->image_data = image_data;
-	bonobo_object_ref (BONOBO_OBJECT (image_data));
+	control->priv->image = image;
+	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	control->priv->image_view = eog_image_view_new (image_data);
+	control->priv->image_view = eog_image_view_new (image);
 	control->priv->root = eog_image_view_get_widget (control->priv->image_view);
 
-	eog_control_add_interfaces (control, BONOBO_OBJECT (control->priv->image_data),
+	eog_control_add_interfaces (control,
+				    BONOBO_OBJECT (control->priv->image),
 				    image_data_interfaces);
-	eog_control_add_interfaces (control, BONOBO_OBJECT (control->priv->image_view),
+	eog_control_add_interfaces (control,
+				    BONOBO_OBJECT (control->priv->image_view),
 				    image_view_interfaces);
 
 	retval = bonobo_control_construct (BONOBO_CONTROL (control), corba_object,
@@ -238,13 +242,13 @@ eog_control_construct (EogControl *control, Bonobo_Control corba_object, EogImag
 }
 
 EogControl *
-eog_control_new (EogImageData *image_data)
+eog_control_new (EogImage *image)
 {
 	EogControl *control;
 	Bonobo_Control corba_object;
 	
-	g_return_val_if_fail (image_data != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_DATA (image_data), NULL);
+	g_return_val_if_fail (image != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	control = gtk_type_new (eog_control_get_type ());
 
@@ -254,5 +258,5 @@ eog_control_new (EogImageData *image_data)
 		return NULL;
 	}
 	
-	return eog_control_construct (control, corba_object, image_data);
+	return eog_control_construct (control, corba_object, image);
 }
