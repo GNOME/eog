@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.x\n"
-"POT-Creation-Date: 2003-10-29 18:31+0100\n"
+"POT-Creation-Date: 2003-12-10 19:27+0100\n"
 "PO-Revision-Date: 2003-07-01 11:50+0200\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -51,15 +51,15 @@ msgstr "Vorheriges"
 msgid "Previous Image"
 msgstr "Vorheriges Bild"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "180° _drehen"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "90° nach _rechts drehen"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "90° nach _links drehen"
 
@@ -67,8 +67,8 @@ msgstr "90° nach _links drehen"
 msgid "Slide Show"
 msgstr "Diashow"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -77,40 +77,40 @@ msgid "_Save"
 msgstr "_Speichern"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Rückgängig"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Ansicht"
 
-#: collection/eog-collection-view.c:305
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Speichern abbrechen"
 
-#: collection/eog-collection-view.c:308
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Speichern abgeschlossen"
 
-#: collection/eog-collection-view.c:771
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "In den Müll verschieben"
 
-#: collection/eog-collection-view.c:816
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Sammlungsansicht"
 
-#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: collection/eog-collection-view.c:1277
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
 msgid "Progress of Image Loading"
 msgstr "Fortschritt beim Laden eines Bildes"
 
@@ -252,14 +252,22 @@ msgid "Open images in a new window"
 msgstr "Bilder in einem neuem Fenster öffnen"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr "Zeigen/verstecken der Fenster-Statusleiste"
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr "Zeigen/verstecken der Fenster-Werkzeugleiste"
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Transparenzfarbe"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Transparenzanzeiger"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -267,11 +275,11 @@ msgstr ""
 "Soll das Öffnen eines Bildes ein neues Fenster erzeugen, anstatt das Bild im "
 "momentan geöffneten Fenster zu ersetzen?"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
 msgstr "Sollen die Bilder in einer Endlosschleife angezeigt werden?"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -300,59 +308,74 @@ msgstr "Einbettbares EOG-Bild"
 msgid "Image"
 msgstr "Bild"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Nach Endung"
+#: libeog/eog-file-selection.c:44
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr "Soll %s überschrieben werden?"
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Nicht unterstütztes Dateiformat zum Speichern."
+#: libeog/eog-file-selection.c:49
+msgid "File exists"
+msgstr "Datei ist vorhanden"
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Dateityp ermitteln:"
+#: libeog/eog-file-selection.c:117
+msgid "All Images"
+msgstr "Alle Bilder"
 
-#: libeog/eog-file-selection.c:333
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:135
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: libeog/eog-file-selection.c:180
 msgid "Load Image"
 msgstr "Bild öffnen"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:188
 msgid "Save Image"
 msgstr "Bild speichern"
+
+#: libeog/eog-file-selection.c:230
+msgid "Open Folder"
+msgstr "Ordner öffnen"
 
 #: libeog/eog-image-jpeg.c:100
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Speicher zum Laden der JPEG Datei konnte nicht reserviert werden"
 
-#: libeog/eog-image.c:1215
+#: libeog/eog-image.c:1296
 msgid "No image loaded."
 msgstr "Kein Bild geöffnet."
 
-#: libeog/eog-image.c:1224
+#: libeog/eog-image.c:1306
 msgid "Images can only be saved as local files."
 msgstr "Bilder können nur als lokale Dateien gespeichert werden."
 
-#: libeog/eog-image.c:1259
+#: libeog/eog-image.c:1317
 msgid "Unsupported image type for saving."
 msgstr "Nicht unterstützter Bildtyp zum Speichern."
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Attribut"
 
-#: libeog/eog-info-view.c:92
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Wert"
 
-#: libeog/eog-info-view.c:155
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Breite"
 
-#: libeog/eog-info-view.c:169
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Höhe"
 
-#: libeog/eog-info-view.c:186
+#: libeog/eog-info-view.c:181
+msgid "Filesize"
+msgstr "Dateigröße"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Dateiname"
 
@@ -361,7 +384,7 @@ msgid "Page"
 msgstr "Seite"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:378
+#: viewer/eog-image-view.c:384
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -468,86 +491,110 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr "Ändert die Sichtbarkeit der Statusleiste des aktuellen Fensters"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr "Ändert die Sichtbarkeit der Werkzeugleiste des aktuellen Fensters"
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Fenster schließen"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Hilfe zu dieser Anwendung"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Neu"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Öffnen"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a directory"
+msgstr "Einen Ordner öffnen"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Eine Datei öffnen"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Ein neues Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "In neuem Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "In diesem Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "_Einstellungen"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
-msgstr "Einstellungen für EoG Komponenten"
+#: shell/eog-shell-ui.xml.h:15
+msgid "Preferences for Eye of Gnome"
+msgstr "Einstellungen für Eye of Gnome"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Das Programm beenden"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Info"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "S_chließen"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "I_nhalt"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Datei"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_Neu"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:24
+msgid "_Open Directory..."
+msgstr "Ordner Ö_ffnen..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "Ö_ffnen..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "_Beenden"
+
+#: shell/eog-shell-ui.xml.h:27
+msgid "_Statusbar"
+msgstr "_Statusleiste"
+
+#: shell/eog-shell-ui.xml.h:28
+msgid "_Toolbar"
+msgstr "_Werkzeugleiste"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
@@ -555,16 +602,16 @@ msgstr ""
 "Christian Neumair <chris@gnome-de.org>\n"
 "Matthias Warkus <mawa@iname.com>"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:512
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -573,7 +620,7 @@ msgstr ""
 "Die Hilfe für Eye of Gnome konnte nicht angezeigt werden.\n"
 "%s"
 
-#: shell/main.c:229
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -582,19 +629,19 @@ msgstr ""
 "Sie sind dabei, %i Fenster gleichzeitig zu öffnen. Möchten Sie diese lieber\n"
 "in einer Sammlung öffnen?"
 
-#: shell/main.c:233
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Mehrere einzelne Fenster öffnen?"
 
-#: shell/main.c:237
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Einzelne Fenster"
 
-#: shell/main.c:239
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:312
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "Dateien konnten nicht gefunden werden"
 
@@ -636,86 +683,90 @@ msgid "_Zoom In"
 msgstr "Ansicht ver_größern"
 
 #: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "_Vollbild"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Eine Vorschau auf das zu druckende Bild anzeigen"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "Druck_vorschau..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "Sei_teneinstellungen"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Das Bild auf dem Drucker ausgeben"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "Links drehen"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "Rechts drehen"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Speichern _unter..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr ""
 "Die Seiteneinstellungen für den momentan verwendeten Drucker einrichten"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "_Vollbild"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Drucken..."
 
-#. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:518
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:535
 #, c-format
-msgid "%i x %i pixel    %i%%"
-msgstr "%i x %i Bildpunkte    %i%%"
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i x %i Bildpunkte  %s    %i%%"
 
-#: viewer/eog-image-view.c:808
+#: viewer/eog-image-view.c:827
 msgid "/Rotate C_lockwise"
 msgstr "/90° nach _rechts drehen"
 
-#: viewer/eog-image-view.c:810
+#: viewer/eog-image-view.c:829
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/90° nach _links drehen"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:832
 msgid "/_Zoom In"
 msgstr "/Ansicht ver_größern"
 
-#: viewer/eog-image-view.c:815
+#: viewer/eog-image-view.c:834
 msgid "/Zoom _Out"
 msgstr "/Ansicht ver_kleinern"
 
-#: viewer/eog-image-view.c:817
+#: viewer/eog-image-view.c:836
 msgid "/_Normal Size"
 msgstr "/_Normale Ansichtsgröße"
 
-#: viewer/eog-image-view.c:819
+#: viewer/eog-image-view.c:838
 msgid "/Best _Fit"
 msgstr "/Ansicht an_passen"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:841
 msgid "/_Close"
 msgstr "/S_chließen"
 
-#: viewer/eog-image-view.c:985
+#: viewer/eog-image-view.c:1004
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Öffnen des Bildes %s fehlgeschlagen."
 
-#: viewer/eog-image-view.c:992
+#: viewer/eog-image-view.c:1011
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -725,34 +776,43 @@ msgstr ""
 "Ursache: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1001
+#: viewer/eog-image-view.c:1020
 msgid "Loading failed"
 msgstr "Öffnen fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1084
+#: viewer/eog-image-view.c:1103
 msgid "Image successfully saved"
 msgstr "Bild erfolgreich gespeichert"
 
-#: viewer/eog-image-view.c:1088
+#: viewer/eog-image-view.c:1107
 msgid "Image saving failed"
 msgstr "Bild konnte nicht gespeichert werden"
 
-#: viewer/eog-image-view.c:1332
+#: viewer/eog-image-view.c:1351
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:1335
+#: viewer/eog-image-view.c:1354
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:1341
+#: viewer/eog-image-view.c:1360
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image-view.c:1344
+#: viewer/eog-image-view.c:1363
 msgid "Desired Window Width"
 msgstr "Gewünschte Fensterbreite"
 
-#: viewer/eog-image-view.c:1347
+#: viewer/eog-image-view.c:1366
 msgid "Desired Window Height"
 msgstr "Gewünschte Fensterhöhe"
+
+#~ msgid "By Extension"
+#~ msgstr "Nach Endung"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Nicht unterstütztes Dateiformat zum Speichern."
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Dateityp ermitteln:"
