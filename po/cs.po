@@ -5,15 +5,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.0.2\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
-"PO-Revision-Date: 2002-11-25 22:29GMT\n"
-"Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
+"Project-Id-Version: eog VERSION\n"
+"POT-Creation-Date: 2003-04-29 12:47+0200\n"
+"PO-Revision-Date: 2003-04-29 19:55+0200\n"
+"Last-Translator: Michal BMiloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -29,21 +28,19 @@ msgstr "Kolekce obrázků"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Next"
-msgstr ""
+msgstr "Následující"
 
 #: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
 msgid "Next Image"
-msgstr "Uložit obrázek"
+msgstr "Následující obrázek"
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Previous"
-msgstr ""
+msgstr "Předchozí"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
 msgid "Previous Image"
-msgstr "Tisknout obrázek"
+msgstr "Předchozí obrázek"
 
 #: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
 msgid "Slide Show"
@@ -53,23 +50,21 @@ msgstr "Promítání snímků"
 msgid "_View"
 msgstr "_Zobrazení"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
-msgstr ""
+msgstr "Přesunout do koše"
 
-#: collection/eog-collection-view.c:373
-#, fuzzy
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
-msgstr "Kolekce"
+msgstr "Pohled kolekce"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Titulek okna"
 
-#: collection/eog-collection-view.c:724
-#, fuzzy
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
-msgstr "Text stavové lišty"
+msgstr "Stavový text"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -81,70 +76,68 @@ msgstr "Prohlížení mnoha různých typů obrázků"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
-#, fuzzy
 msgid "<b>Image Interpolation</b>"
-msgstr "Interpolace dlaždicová"
+msgstr "<b>Interpolace obrázku</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>Zvětšení obrázku</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>Posloupnost</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "Barva průhlednosti"
+msgstr "<b>Průhlednost</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "Jako pozadí"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "Podle _vzoru čtverců"
+msgstr "Jako _vzor čtverců"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Jako vlastní _barva"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Barva pro průhledné oblasti"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Nepoužívat zvětšení větší než 100%"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Nastavení Očí pro GNOME"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "Prohlížeč obrázků"
+msgstr "Pohled na obrázek"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Opakovat sekvence"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Zobrazit následující obrázek automaticky:\n"
+"(0 pro zákaz)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -152,7 +145,7 @@ msgstr "_Interpolovat obrázky při zvětšení (lepší kvalita, ale pomalejš�
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "s"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -175,12 +168,12 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
-"Určuje, jakým způsobem se má indikovat průhlednost. Platné hodnoty jsou "
-"CHECK_PATTERN a COLOR. Pokud je zvolena hodnota COLOR, pak určuje hodnotu "
-"použité barvy klíč trans_color."
+"Určuje, jak se má indikovat průhlednost. Platné hodnoty jsou CHECK_PATTERN, "
+"COLOR a NONE. Pokud je zvolena hodnota COLOR, pak hodnotu použité barvy "
+"určuje klíč trans_color."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -300,9 +293,8 @@ msgid "By Extension"
 msgstr "Podle přípony"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "Nepodporovaný formát souboru."
+msgstr "Formát souboru nepodporovaný pro ukládání."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
@@ -316,40 +308,35 @@ msgstr "Načíst obrázek"
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
-msgstr ""
+msgstr "Nenačten žádný obrázek."
 
-#: libeog/eog-image.c:1163
-#, fuzzy
+#: libeog/eog-image.c:1196
 msgid "Unsupported image type for saving."
-msgstr "Nepodporovaný formát souboru."
+msgstr "Nepodporovaný typ obrázku pro ukládání."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Atribut"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Škálování"
+msgstr "Hodnota"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Šířka obrázku"
+msgstr "Šířka"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Světlé"
+msgstr "Výška"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "_Soubor"
+msgstr "Název souboru"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -415,7 +402,7 @@ msgstr "_Zavřít"
 msgid "_Contents"
 msgstr "O_bsah"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "Ú_pravy"
 
@@ -443,24 +430,24 @@ msgstr "U_končit"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Michal Bukovjan <bukm@centrum.cz>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Oči pro GNOME"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program pro prohlížení a katalogizaci obrázků pro GNOME"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -469,33 +456,29 @@ msgstr ""
 "Nelze zobrazit nápovědu pro Oči pro GNOME.\n"
 "%s"
 
-#: shell/main.c:226
-#, fuzzy, c-format
+#: shell/main.c:225
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Chystáte se otevřít %i oken\n"
-"najednou. Chcete tyto obrázky\n"
-"raději otevřít v kolekci?"
+"Chystáte se otevřít %i oken najednou. Chcete je raději otevřít v kolekci?"
 
-#: shell/main.c:230
-#, fuzzy
+#: shell/main.c:229
 msgid "Open multiple single windows?"
-msgstr "Otevřít v novém okně"
+msgstr "Otevřít více jednotlivých oken?"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Samostatná okna"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Kolekce"
 
-#: shell/main.c:306
-#, fuzzy
+#: shell/main.c:305
 msgid "Could not find files"
-msgstr "Nelze otevřít `%s'"
+msgstr "Nemohu najít soubory"
 
 #: shell/util.c:52
 #, c-format
@@ -535,52 +518,52 @@ msgid "_Zoom In"
 msgstr "_Zvětšit"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
-msgstr "Převrátit vodorovně"
+msgid "Flip _Horizontal"
+msgstr "Převrátit _vodorovně"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
-msgstr "Převrátit svisle"
+msgid "Flip _Vertical"
+msgstr "Převrátit _svisle"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Celá obrazovka"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Náhled na obrázek, který má být vytištěn"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Náhled t_isku..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "N_astavení tisku"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Vytištění obrázku na tiskárnu"
 
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Rotovat o 180 _stupňů"
+
 #: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
-msgstr "Rotovat o 180°"
+msgid "Rotate C_lockwise"
+msgstr "Rotovat _po směru hodinových ručiček"
 
 #: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
-msgstr "Rotovat po směru hodinových ručiček"
+msgid "Rotate Counte_r Clockwise"
+msgstr "Rotovat p_roti směru hodinových ručiček"
 
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
-msgstr "Rotovat proti směru hodinových ručiček"
-
-#: viewer/eog-image-view-ui.xml.h:11
 msgid "Save _As..."
 msgstr "Uložit _jako..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavení stránky pro vaši aktuální tiskárnu"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "_Full Screen"
+msgstr "_Celá obrazovka"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
@@ -608,11 +591,11 @@ msgstr "/_Zavřít"
 
 #: viewer/eog-image-view.c:902
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Obrázek úspěšně uložen"
 
 #: viewer/eog-image-view.c:906
 msgid "Image saving failed"
-msgstr ""
+msgstr "Ukládání obrázku selhalo"
 
 #: viewer/eog-image-view.c:1149
 msgid "Image Width"
@@ -628,11 +611,11 @@ msgstr "Text stavové lišty"
 
 #: viewer/eog-image-view.c:1161
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Požadovaná šířka okna"
 
 #: viewer/eog-image-view.c:1164
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Požadovaná výška okna"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -805,264 +788,3 @@ msgstr "Dolů, pak doprava"
 #: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Doprava, pak dolů"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Prohlížeč obrázků Oči pro GNOME"
-
-#~ msgid "By c_olor"
-#~ msgstr "Podle _barvy"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Indikace průhlednosti"
-
-#~ msgid "Pick a color"
-#~ msgstr "Vyberte barvu"
-
-#~ msgid "interpolation type"
-#~ msgstr "typ interpolace"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "typ interpolace, který se má použít"
-
-#~ msgid "check type"
-#~ msgstr "typ čtverce"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "použitý typ rozdělení na čtverce"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "velikost použitých čtverců"
-
-#~ msgid "dither"
-#~ msgstr "rozptyl"
-
-#~ msgid "dither type"
-#~ msgstr "typ rozptylu"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "Chystáte se otevřít %i oken\n"
-#~ "najednou. Chcete pokračovat?"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "Nelze přistoupit k %s.\n"
-#~ "Oči pro GNOME nebudou schopné tento soubor zobrazit."
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Následující soubory nelze zobrazit, jelikož Oči pro GNOME nebyly schopné "
-#~ "k nim přistoupit:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "Nelze inicializovat GnomeVFS!\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Nelze inicializovat Bonobo!\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Nelze uložit obrázek jako '%s': %s."
-
-#~ msgid "Pages"
-#~ msgstr "Stránky"
-
-#~ msgid "Print Preview"
-#~ msgstr "Náhled tisku"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Tisk obrázku selhal"
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Nelze zobrazit nápovědu pro dialog s nastaveními.\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "Změnit nastavení"
-
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgid "_New Window"
-#~ msgstr "_Nové okno"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Zobrazit _1:1"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "Při_způsobit velikost"
-
-#~ msgid "Check _size"
-#~ msgstr "Veliko_st čtverců"
-
-#~ msgid "Check _type"
-#~ msgstr "_Typ čtverců"
-
-#~ msgid "Large"
-#~ msgstr "Velké"
-
-#~ msgid "Medium"
-#~ msgstr "Střední"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "Nejbližší _soused"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "Normální (_pseudobarvy)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "_Náhled tisku"
-
-#~ msgid "Print S_etup"
-#~ msgstr "Nastav_ení tisku"
-
-#~ msgid "Small"
-#~ msgstr "Malé"
-
-#~ msgid "_Bilinear"
-#~ msgstr "_Bilineární"
-
-#~ msgid "_Black"
-#~ msgstr "Č_erné"
-
-#~ msgid "_Dark"
-#~ msgstr "_Tmavé"
-
-#~ msgid "_Dither"
-#~ msgstr "_Rozptyl"
-
-#~ msgid "_Gray"
-#~ msgstr "Še_dé"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "_Hyperbolická"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolace"
-
-#~ msgid "_Light"
-#~ msgstr "_Světlé"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "_Maximální (high color)"
-
-#~ msgid "_Midtone"
-#~ msgstr "Střední tón_y"
-
-#~ msgid "_Tiles"
-#~ msgstr "_Dlaždice"
-
-#~ msgid "_White"
-#~ msgstr "_Bílé"
-
-#~ msgid "Save As"
-#~ msgstr "Uložit jako"
-
-#~ msgid "Display"
-#~ msgstr "Zobrazit"
-
-#~ msgid "Dither"
-#~ msgstr "Rozptyl"
-
-#~ msgid "Check Type"
-#~ msgstr "Typ čtverců"
-
-#~ msgid "Check Size"
-#~ msgstr "Velikost čtverců"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "Interpolace Nejbližší soused"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "Bilineární interpolace"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "Hyperbolická interpolace"
-
-#~ msgid "No dithering"
-#~ msgstr "Bez rozptylu"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "Normální rozptyl (pseudobarvy)"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "Maximální (high color) rozptyl"
-
-#~ msgid "Dark"
-#~ msgstr "Tmavé"
-
-#~ msgid "Midtone"
-#~ msgstr "Střední tóny"
-
-#~ msgid "Black"
-#~ msgstr "Černé"
-
-#~ msgid "Gray"
-#~ msgstr "Šedé"
-
-#~ msgid "White"
-#~ msgstr "Bílé"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Interpolace:"
-
-#~ msgid "_Dither:"
-#~ msgstr "_Rozptyl:"
-
-#~ msgid "Check _type:"
-#~ msgstr "_Typ čtverců:"
-
-#~ msgid "Check _size:"
-#~ msgstr "Veliko_st čtverců:"
-
-#~ msgid "Unable to open %s."
-#~ msgstr "Nelze otevřít %s."
