@@ -71,18 +71,6 @@ radio_toggle_cb (GtkWidget *widget, gpointer data)
 				 NULL);
 }
 
-static gboolean
-key_press_cb (GtkWidget *dialog, GdkEventKey *event, gpointer user_data)
-{
-	if (event->keyval == GDK_Escape) {
-		gtk_widget_destroy (dialog);
-		return TRUE;
-	}
-	else {
-		return FALSE;
-	}
-}
-
 void
 eog_preferences_show (GConfClient *client)
 {
@@ -92,12 +80,10 @@ eog_preferences_show (GConfClient *client)
 	char *value;
 	GdkColor color;
 
-	xml = glade_xml_new (DATADIR "/eog/glade/eog.glade", "Preferences Dialog", "eog");
+	xml = glade_xml_new (DATADIR "/eog/glade/eog.glade", "Hig Preferences Dialog", "eog");
 	g_assert (xml != NULL);
 
-	dlg = glade_xml_get_widget (xml, "Preferences Dialog");
-	g_signal_connect (G_OBJECT (dlg), "key-press-event",
-			  G_CALLBACK (key_press_cb), NULL);
+	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
 
 	widget = glade_xml_get_widget (xml, "close_button");
 	g_signal_connect_swapped (G_OBJECT (widget), "clicked", 

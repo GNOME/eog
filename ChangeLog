@@ -1,3 +1,15 @@
+2003-03-20  Jens Finke  <jens@triq.net>
+
+	* eog.glade: Higified the preferences dialog and added a
+	preliminary page for the slideshow component.
+
+	* eog-glade.h: Removed from cvs (we list the glade file in
+	POTFILES.in directly).
+	
+	* eog-preferences.c (key_press_cb): Removed. Ignore ESC key,
+	fixes #105720.
+	(eog_preferences_show): Open HIGified glade dialog.
+
 2003-03-18  Federico Mena Quintero  <federico@ximian.com>
 
 	* configure.in: Require eel 2.2.0 or higher.
