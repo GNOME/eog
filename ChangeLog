@@ -1,3 +1,13 @@
+2002-02-23  Jens Finke  <jens@triq.net>
+
+	This fixes bug #72228. Due to the string freeze we can't add a
+	more verbose error dialog.
+	
+	* shell/eog-window.c (get_viewer_control): Use g_warning instead
+	of g_error.
+	(eog_window_open): Check if the control object could be created
+	before adding it to the window. Removed debug message.
+
 2002-02-22  Jens Finke  <jens@triq.net>
 
 	* configure.in: Check version numbers of required libraries.  Use

@@ -823,7 +823,7 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	
  ctrl_error:
 	if (BONOBO_EX (&ev))
-		g_error ("%s", bonobo_exception_get_text (&ev));
+		g_warning ("%s", bonobo_exception_get_text (&ev));
 
 	CORBA_exception_free (&ev);
 
@@ -1024,7 +1024,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 
 	/* obtain file infos */
 	info = gnome_vfs_file_info_new ();
-	g_print ("URI: %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 	result = gnome_vfs_get_file_info_uri (uri, info,
 					      GNOME_VFS_FILE_INFO_DEFAULT |
 					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
@@ -1034,6 +1033,8 @@ eog_window_open (EogWindow *window, const char *text_uri)
 		return FALSE;
 	}
 	
+	control = CORBA_OBJECT_NIL;
+
 	/* get appropriate control */
 	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
 		control = get_viewer_control (uri, info);
@@ -1047,9 +1048,11 @@ eog_window_open (EogWindow *window, const char *text_uri)
 		return FALSE;
 	}
 
-	/* add it to the user interface */
-	add_control_to_ui (window, control);
-	bonobo_object_release_unref (control, NULL);
+	if (control != CORBA_OBJECT_NIL) {
+		/* add it to the user interface */
+		add_control_to_ui (window, control);
+		bonobo_object_release_unref (control, NULL);
+	}
 
 	/* clean up */
 	gnome_vfs_file_info_unref (info);
