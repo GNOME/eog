@@ -1,3 +1,25 @@
+2003-03-30  Jens Finke  <jens@triq.net>
+
+	* eog.glade: Enable 'As background' radio button.
+
+	* eog.schemas.in: Updated transparency indicator description.
+
+	* libeog/eog-full-screen.c (eog_full_screen_new): Set black
+	background style for scroll view widget.
+
+	* libeog/eog-image.c (real_image_load): Use GError with
+	GdkPixbufLoader.
+
+	* libeog/eog-scroll-view.c (paint_background): Use
+	gdk_window_clear_area.
+	(paint_rectangle): Calculate background color correctly for
+	transparent parts.
+	(eog_scroll_view_style_set): New function.
+	(style_set_event): Removed.
+
+	* shell/eog-preferences.c (eog_preferences_show): Connect
+	background_radio button.
+	
 2003-03-25  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.c (real_image_load): Close the

@@ -411,12 +411,11 @@ paint_background (EogScrollView *view, ArtIRect *r, ArtIRect *rect)
 	priv = view->priv;
 
 	art_irect_intersect (&d, r, rect);
-	if (!art_irect_empty (&d))
-		gdk_draw_rectangle (GTK_WIDGET (priv->display)->window,
-				    GTK_WIDGET (priv->display)->style->bg_gc[GTK_STATE_NORMAL],
-				    TRUE,
-				    d.x0, d.y0,
-				    d.x1 - d.x0, d.y1 - d.y0);
+	if (!art_irect_empty (&d)) {
+		gdk_window_clear_area (GTK_WIDGET (priv->display)->window,
+				       d.x0, d.y0,
+				       d.x1 - d.x0, d.y1 - d.y0);
+	}
 }
 
 #if 0
@@ -461,8 +460,6 @@ pack_pixbuf (GdkPixbuf *pixbuf)
 }
 
 #endif
-
-
 
 /* Paints a rectangle of the dirty region */
 static void
@@ -615,12 +612,12 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	switch (priv->transp_style) {
 	case TRANSP_BACKGROUND:
 	        {
-			GdkColor *color = &GTK_WIDGET (priv->display)->style->bg[GTK_STATE_NORMAL];
-			guint32 red_part = (color->red >> 8) << 16;
-			guint32 green_part = (color->green >> 8) << 8;
-			guint32 blue_part = (color->blue >> 8);
+			GdkColor color = GTK_WIDGET (priv->display)->style->bg[GTK_STATE_NORMAL];
 
-			check_1 = check_2 = red_part + green_part + blue_part;
+			check_1 = check_2 = (0xFF000000
+					     | (color.red << 16) 
+					     | (color.green << 8) 
+					     | (color.blue << 0));
 		}
 		break;
 
@@ -1177,6 +1174,18 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 
   ---------------------------------*/
 
+static void
+eog_scroll_view_style_set (GtkWidget *widget, GtkStyle *old_style)
+{
+	GtkStyle *style;
+	EogScrollViewPrivate *priv;
+
+	style = gtk_widget_get_style (widget);
+	priv = EOG_SCROLL_VIEW (widget)->priv;
+
+	gtk_widget_set_style (priv->display, style);
+}
+
 
 /* Button release event handler for the image view */
 static gboolean
@@ -1411,22 +1420,6 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
 	return TRUE;
 }
 
-static void
-style_set_event (GtkWidget *widget, GtkStyle *old_style, gpointer data)
-{
-	EogScrollView *view; 
-	EogScrollViewPrivate *priv;
-	GtkStyle *style;
-	GdkColor *color;
-
-	view = EOG_SCROLL_VIEW (data);
-	priv = view->priv;
-	
-	/* adapt background of display */
-	style = gtk_widget_get_style (widget);
-	color = &(style->bg[GTK_STATE_NORMAL]);
-	gtk_widget_modify_bg (GTK_WIDGET (priv->display), GTK_STATE_NORMAL, color);
-}
 
 /*==================================
 
@@ -1507,7 +1500,7 @@ image_loading_failed_cb (EogImage *img, char *msg, gpointer data)
 
 	priv = EOG_SCROLL_VIEW (data)->priv;
 
-	g_print ("loading failed.\n");
+	g_print ("loading failed: %s.\n", msg);
 
 	if (priv->pixbuf != 0) {
 		g_object_unref (priv->pixbuf);
@@ -1902,6 +1895,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      G_TYPE_DOUBLE);
 	
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
+	widget_class->style_set = eog_scroll_view_style_set;
 }
 
 
@@ -1959,7 +1953,6 @@ eog_scroll_view_new (void)
 	g_signal_connect (G_OBJECT (priv->display), "focus_out_event", G_CALLBACK (eog_scroll_view_focus_out_event), NULL);
 
 	g_signal_connect (G_OBJECT (widget), "key_press_event", G_CALLBACK (display_key_press_event), view);
-	g_signal_connect (G_OBJECT (widget), "style-set", G_CALLBACK (style_set_event), view);
 
 	gtk_table_attach (table, priv->display, 
 			  0, 1, 0, 1, 

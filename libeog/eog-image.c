@@ -774,6 +774,7 @@ real_image_load (gpointer data)
 	guchar *buffer;
 	GnomeVFSFileSize bytes_read;
 	gboolean failed;
+	GError *error = NULL;
 #if HAVE_EXIF
 	ExifLoaderData *eld;
 #endif
@@ -823,7 +824,7 @@ real_image_load (gpointer data)
 			break;
 		}
 		
-		if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, NULL)) {
+		if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, &error)) {
 			failed = TRUE;
 			break;
 		}
@@ -851,7 +852,13 @@ real_image_load (gpointer data)
 			priv->image = NULL;
 		}
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_FAILED;
-		priv->error_message = NULL; /* FIXME: add descriptive error message */
+		
+		if (error != NULL) {
+			priv->error_message = g_strdup (error->message);
+		}
+		else {
+			priv->error_message = NULL;
+		}
 	}
 	else if (priv->cancel_loading) {
 		if (priv->image != NULL) {
@@ -886,6 +893,9 @@ real_image_load (gpointer data)
 	priv->load_thread = NULL;
 	g_mutex_unlock (priv->status_mutex);
 	
+	if (error != NULL) {
+		g_error_free (error);
+	}
 	g_object_unref (loader);
 
 	return NULL;

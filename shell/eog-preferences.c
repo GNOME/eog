@@ -115,13 +115,24 @@ eog_preferences_show (GConfClient *client)
 			  "toggled", 
 			  G_CALLBACK (radio_toggle_cb), 
 			  client);
+
+	widget = glade_xml_get_widget (xml, "background_radio");
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_VIEW_TRANSPARENCY);
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_VALUE, "NONE");
+	g_signal_connect (G_OBJECT (widget), 
+			  "toggled", 
+			  G_CALLBACK (radio_toggle_cb), 
+			  client);
 	
 	value = gconf_client_get_string (client, EOG_VIEW_TRANSPARENCY, NULL);
 	if (g_strcasecmp (value, "COLOR") == 0) {
 		widget = glade_xml_get_widget (xml, "color_radio");
 	}
-	else {
+	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		widget = glade_xml_get_widget (xml, "checkpattern_radio");
+	}
+	else {
+		widget = glade_xml_get_widget (xml, "background_radio");
 	}
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
 

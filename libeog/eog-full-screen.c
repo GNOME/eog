@@ -529,7 +529,7 @@ eog_full_screen_new (GList *image_list, EogImage *start_image)
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
 	GtkWidget     *widget;
-	GdkColor      black;
+	GtkStyle      *style;
 
 	g_return_val_if_fail (image_list != NULL, NULL);
 
@@ -539,11 +539,20 @@ eog_full_screen_new (GList *image_list, EogImage *start_image)
 
 	widget = eog_scroll_view_new ();
 	priv->view = widget;
-
-	if (gdk_color_black (gdk_colormap_get_system (), &black)) {
-		gtk_widget_modify_bg (widget, GTK_STATE_NORMAL, &black);
-	}
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), TRUE);
+
+	/* ensure black background */
+	style = gtk_widget_get_style (widget);
+	style->fg    [GTK_STATE_NORMAL] = style->black;
+	style->fg_gc [GTK_STATE_NORMAL] = style->black_gc;
+	style->bg    [GTK_STATE_NORMAL] = style->black;
+	style->bg_gc [GTK_STATE_NORMAL] = style->black_gc;
+	if (style->bg_pixmap [GTK_STATE_NORMAL])
+		gdk_pixmap_unref (style->bg_pixmap [GTK_STATE_NORMAL]);
+	style->bg_pixmap [GTK_STATE_NORMAL] = NULL;
+
+	gtk_widget_set_style (widget, style);
+	gtk_widget_ensure_style (widget);
 
 	gtk_widget_show (widget);
 	gtk_container_add (GTK_CONTAINER (fs), widget);
