@@ -213,6 +213,7 @@ eog_full_screen_init (EogFullScreen *fs)
 	gtk_widget_set_usize (GTK_WIDGET (fs),
 			      gdk_screen_width (), gdk_screen_height ());
 	gtk_widget_set_uposition (GTK_WIDGET (fs), 0, 0);
+	gtk_window_set_decorated (GTK_WINDOW (fs), FALSE);
 }
 
 /**
