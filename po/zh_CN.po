@@ -9,15 +9,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
-"PO-Revision-Date: 2003-08-04 04:02+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-06 03:16+0100\n"
+"PO-Revision-Date: 2004-03-06 12:23+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Generator: KBabel 1.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -35,15 +35,13 @@ msgstr "图像集"
 
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
-#, fuzzy
 msgid "View as I_mage Collection"
-msgstr "图像集"
+msgstr "以图像集查看(_M)"
 
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:5
-#, fuzzy
 msgid "View as Image Collection"
-msgstr "图像集"
+msgstr "以图像集查看"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -118,7 +116,12 @@ msgstr "移动到回收站"
 
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
-msgstr "组合查看"
+msgstr "图像集查看"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr "图像：%i/%i"
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -163,19 +166,17 @@ msgid "<b>Sequence</b>"
 msgstr "<b>序列</b>"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "<b>Transparent Parts</b>"
-msgstr "<b>透明</b>"
+msgstr "<b>透明部分</b>"
 
 #: eog.glade.h:7
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+msgstr "允许放大到超过原大(_Z)"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As _background"
-msgstr "为背景"
+msgstr "为背景(_B)"
 
 #: eog.glade.h:9
 msgid "As check _pattern"
@@ -194,35 +195,28 @@ msgid "Eye of Gnome Preferences"
 msgstr "Gnome 之眼首选项"
 
 #: eog.glade.h:13
-#, fuzzy
 msgid "Image _View"
-msgstr "图像查看"
+msgstr "图像查看(_V)"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Show _next image automatically after:"
 msgstr ""
-"自动显示下张图像：\n"
-"(0 可禁用)"
+"等几秒自动显示下张图像(_N)："
 
 #: eog.glade.h:15
-#, fuzzy
 msgid "Sli_de Show"
-msgstr "幻灯片放映"
+msgstr "幻灯片放映(_D)"
 
 # SUN CHANGED MESSAGE
 #: eog.glade.h:16
-#, fuzzy
 msgid "_Interpolate image on zoom"
-msgstr "插补图像"
+msgstr "缩放时插补图像(_I)"
 
 #: eog.glade.h:17
-#, fuzzy
 msgid "_Loop sequence"
-msgstr "循环"
+msgstr "循环(_L)"
 
 #: eog.glade.h:18
-#, fuzzy
 msgid "seconds"
 msgstr "秒"
 
@@ -231,11 +225,13 @@ msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
+"大于 0 的值将决定自动显示下张图像之前当前图像要在屏幕上停留几秒。"
+"0 代表禁用自动浏览。"
 
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr ""
+msgstr "允许放大至超过原大"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
@@ -277,11 +273,11 @@ msgstr "在新窗口打开图像"
 
 #: eog.schemas.in.h:11
 msgid "Show/hide the window statusbar."
-msgstr ""
+msgstr "显示/隐藏窗口状态栏。"
 
 #: eog.schemas.in.h:12
 msgid "Show/hide the window toolbar."
-msgstr ""
+msgstr "显示/隐藏窗口工具栏。"
 
 #: eog.schemas.in.h:13
 msgid "Transparency color"
@@ -294,18 +290,20 @@ msgstr "透明区域指示"
 #: eog.schemas.in.h:15
 #, fuzzy
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr "打开图像时是否应该创建新窗口，或者替换当前窗口中的图像。"
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "在放缩图像时是否应该进行插补。这样能得到更好的质量，但是比不插补的图像显示的"
 "速度要慢一点。"
@@ -333,50 +331,48 @@ msgstr "图像"
 #: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
-msgstr ""
+msgstr "您是否想要覆盖 %s？"
 
 #: libeog/eog-file-selection.c:101
 msgid "File exists"
-msgstr ""
+msgstr "文件已存在"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
-msgstr ""
+msgstr "全部文件"
 
-#: libeog/eog-file-selection.c:176
-#, fuzzy
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
-msgstr "图像"
+msgstr "全部图像"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
-msgstr ""
+msgstr "%s x %s 像素"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "装入图像"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "保存图像"
 
-#: libeog/eog-file-selection.c:488
-#, fuzzy
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
-msgstr "打开一个文件"
+msgstr "打开文件夹"
 
 #: libeog/eog-image-jpeg.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't create temporary file for saving: %s"
-msgstr "无法分配内存装入 JPEG 文件"
+msgstr "无法创建临时文件来保存 %s"
 
 #: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
@@ -384,7 +380,7 @@ msgstr "无法分配内存装入 JPEG 文件"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "空文件"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -416,9 +412,8 @@ msgid "Height"
 msgstr "高度"
 
 #: libeog/eog-info-view.c:222
-#, fuzzy
 msgid "Filesize"
-msgstr "文件名"
+msgstr "文件大小"
 
 #: libeog/eog-info-view.c:237
 msgid "Filename"
@@ -466,7 +461,7 @@ msgstr "下，而后右"
 
 #: libgpi/gpi-dialog.glade.h:7
 msgid "Fit to page"
-msgstr "适应于页"
+msgstr "适合页"
 
 #: libgpi/gpi-dialog.glade.h:8
 msgid "Horizontally"
@@ -517,10 +512,6 @@ msgstr "垂直"
 msgid "Vertically by "
 msgstr "垂直"
 
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialog1"
-
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
 msgstr "名称"
@@ -539,11 +530,11 @@ msgstr "取消"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Change the visibility of the statusbar in the current window"
-msgstr ""
+msgstr "更改当前窗口状态栏的可见性"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Change the visibility of the toolbar in the current window"
-msgstr ""
+msgstr "更改当前窗口工具栏的可见性"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
@@ -563,9 +554,8 @@ msgid "Open"
 msgstr "打开"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "打开一个文件"
+msgstr "打开一个目录"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -588,9 +578,8 @@ msgid "Prefere_nces"
 msgstr "首选项(_N)"
 
 #: shell/eog-shell-ui.xml.h:15
-#, fuzzy
 msgid "Preferences for Eye of Gnome"
-msgstr "EoG 组件的首选项"
+msgstr "Gnome 之眼的首选项"
 
 #: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
@@ -622,9 +611,8 @@ msgid "_New"
 msgstr "新建(_N)"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "打开(_O)..."
+msgstr "打开目录(_O)..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -635,13 +623,12 @@ msgid "_Quit"
 msgstr "退出(_Q)"
 
 #: shell/eog-shell-ui.xml.h:27
-#, fuzzy
 msgid "_Statusbar"
-msgstr "状态栏文本"
+msgstr "状态栏(_S)"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
-msgstr ""
+msgstr "工具栏(_T)"
 
 # SUN CHANGED MESSAGE
 #. Translators should localize the following string
@@ -658,7 +645,7 @@ msgstr ""
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
 #: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
-msgstr "Gnome之眼"
+msgstr "Gnome 之眼"
 
 # SUN CHANGED MESSAGE
 #: shell/eog-window.c:300
@@ -697,7 +684,7 @@ msgstr "组合"
 
 #: shell/main.c:320
 msgid "File(s) not found."
-msgstr ""
+msgstr "文件未找到。"
 
 #: shell/util.c:52
 #, c-format
@@ -737,9 +724,8 @@ msgid "_Zoom In"
 msgstr "放大(_Z)"
 
 #: viewer/eog-image-view-ui.xml.h:3
-#, fuzzy
 msgid "Full Screen"
-msgstr "全屏(_F)"
+msgstr "全屏"
 
 # SUN CHANGED MESSAGE
 #: viewer/eog-image-view-ui.xml.h:4
@@ -772,7 +758,7 @@ msgstr "另存为(_A)..."
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
-msgstr "为您的当前打印机设置页配置"
+msgstr "为您的当前打印机进行页面设置"
 
 #: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
@@ -786,11 +772,11 @@ msgstr "打印(_P)..."
 #: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr ""
+msgstr "%i x %i 像素  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
-msgstr "顺时针旋转(_L)"
+msgstr "/顺时针旋转(_L)"
 
 #: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
@@ -863,23 +849,3 @@ msgstr "目标窗口宽度"
 msgid "Desired Window Height"
 msgstr "目标窗口高度"
 
-#~ msgid "Could not find files"
-#~ msgstr "无法查找文件"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "不使用大于 100% 的缩放比例"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr "在缩放时对图像插值(质量更好但较慢)(_I)"
-
-#~ msgid "By Extension"
-#~ msgstr "根据扩展名"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "不支持的保存时图像文件格式。"
-
-#~ msgid "Determine File Type:"
-#~ msgstr "确定文件类型："
