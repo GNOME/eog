@@ -3,7 +3,7 @@
  * Copyright (C) 2000 The Free Software Foundation
  *
  * Authors: Federico Mena-Quintero <federico@gnu.org>
- *          Arik Devens <arik@helixcode.com>
+ *          Arik Devens <arik@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

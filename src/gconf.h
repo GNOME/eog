@@ -4,7 +4,7 @@
  *               2000 SuSE GmbH
  *
  * Authors: Federico Mena-Quintero <federico@gnu.org>
- *          Arik Devens <arik@helixcode.com>
+ *          Arik Devens <arik@gnome.org>
  *          Martin Baulig <baulig@suse.de>
  *
  * This program is free software; you can redistribute it and/or modify

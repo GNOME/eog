@@ -153,7 +153,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 	static GtkWidget *about;
 	static const char *authors[] = {
 		"Federico Mena-Quintero (federico@gnu.org)",
-		"Arik Devens (arik@helixcode.com)",
+		"Arik Devens (arik@gnome.org)",
 		NULL
 	};
 
