@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2003-01-05 10:46+0100\n"
-"PO-Revision-Date: 2002-12-09 09:13--500\n"
+"POT-Creation-Date: 2003-01-20 23:10+0200\n"
+"PO-Revision-Date: 2003-01-20 13:11--500\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,11 @@ msgstr "Відображення багатьох різних типіх зоб
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr "За к_ольром"
+msgstr "к_ольром"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "_клітинками"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
@@ -51,7 +51,7 @@ msgstr "Перегляд зображень"
 
 #: eog.glade.h:5
 msgid "Indicate Transparency"
-msgstr ""
+msgstr "Позначення прозорості"
 
 #: eog.glade.h:6
 msgid "Pick a color"
@@ -63,103 +63,78 @@ msgstr "_Інтерполювати зображення (краща якіст�
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "Автоматичний вибір розміру вікна"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "Початковий фактор масштабування для повноекранного режиму"
 
 #: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
+msgid "Default zoom factor for the full screen view. Possible values are: 0 (use 1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit the image to the screen)."
+msgstr "Початковий фактор масштабування для повноекранного режиму. Можливі значення: 0 (масштаб 1:1), 1 (використовувати фактор віконного режиму), 2 (підганяти зображення під екран)"
 
 #: eog.schemas.in.h:4
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
-"determines the used color value."
-msgstr ""
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key determines the used color value."
+msgstr "Визначає як потрібно позначати прозорість. Правильними значеннями є  CHECK_PATTERN (клітітинки) і COLOR (колір). Якщо вибрано COLOR, то колір, яким позначатиметься прозорість буде визначатися ключем trans_color."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
-msgstr ""
+msgstr "Підганяти зображення стандартних розмірів під екран"
 
 #: eog.schemas.in.h:6
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
+msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
+msgstr "Якщо ключ transparency має значення COLOR, то цей ключ визначає колір, яким позначатиметься прозорість."
 
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "тип інтерполяції"
+msgstr "Інтерполювати зображення"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "Відкрити у новому вікні"
+msgstr "Відкрити зображення у новому вікні"
 
 #: eog.schemas.in.h:9
 msgid "Put a bevel around the screen"
-msgstr ""
+msgstr "Малювати рамку навколо екрана"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "Поведінка панелей прокрутки у повноекранному режимі"
 
 #: eog.schemas.in.h:11
 msgid "Transparency color"
-msgstr ""
+msgstr "Колір прозорості"
 
 #: eog.schemas.in.h:12
 msgid "Transparency indicator"
-msgstr ""
+msgstr "Індикатор прозорості"
 
 #: eog.schemas.in.h:13
-msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
-msgstr ""
+msgid "Wether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
+msgstr "Визначає, чи потрібно інтерполювати зображення коли змінюється їхній масштаб. Інтерполяція дяє краще якість але це призводить до деякого сповільнення роботи."
 
 #: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
+msgid "Whether image windows should pick their size and zooming factor automatically based on the size of the image. If this option is not set, image windows will get whatever size the window manager assigns to them."
+msgstr "Визначає, чи вікна зображень мають вибирати свій розмір і фактор збільшення автоматично, ґрунтуючись на розмірі зображення. Якщо цей переметр не вибрано, вікна отримуватимуть свій розмір відповідно до налаштувань віконного менеджера."
 
 #: eog.schemas.in.h:15
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
+msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
+msgstr "Визначає, чи має відкривання зображення створювати нове вікно, замість того, щоб замінити зображення в поточному."
 
 #: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
+msgid "Whether the full screen view should display a bevel along the edges of the screen."
+msgstr "Визначає чи потрібно малювати рамку навколо екрана у повноекранному режимі."
 
 #: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
+msgid "Whether to display scrollbars on the full screen view. Possible values are: 1 (automatic; only display scrollbars if the image is larger than the window), 2 (never display scrollbars)."
+msgstr "Визначає, чи показувати панелі прокрутки у повноекранному режимі. Можливі значення: 1(автоматично, показувати панелі тільки якщо зображення більше екрана), 2 (не показувати панелей)."
 
 #: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
+msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x800, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
+msgstr "Визначає чи підганяти зображення стандартних розмірів під розмір екрану у повноекранному режимі. Стандартними розмірами вважаються 320x240, 640x480, 800x800 тощо."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
+#: viewer/eog-image-view.c:721
 msgid "EOG Image"
 msgstr "Зображення EOG"
 
@@ -176,7 +151,8 @@ msgid "Embeddable EOG Image"
 msgstr "Влаштовувальне зображення"
 
 #. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Зображення"
 
@@ -188,7 +164,8 @@ msgstr "тип інтерполяції"
 msgid "the type of interpolation to use"
 msgstr "тип інтерполяції, що використовуватиметься"
 
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
+#: libeog/image-view.c:1903
+#: libeog/image-view.c:1910
 msgid "check type"
 msgstr "тип клітинок"
 
@@ -208,7 +185,8 @@ msgstr "змішування"
 msgid "dither type"
 msgstr "тип змішування"
 
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:29
+#: libeog/eog-file-selection.c:46
 msgid "By Extension"
 msgstr "За розширенням"
 
@@ -224,11 +202,13 @@ msgstr "GIF"
 msgid "ICO"
 msgstr "ICO"
 
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
+#: libeog/eog-file-selection.c:33
+#: libeog/eog-file-selection.c:48
 msgid "JPEG"
 msgstr "JPEG"
 
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
+#: libeog/eog-file-selection.c:34
+#: libeog/eog-file-selection.c:51
 msgid "PNG"
 msgstr "PNG"
 
@@ -256,7 +236,8 @@ msgstr "TIFF"
 msgid "XBM"
 msgstr "XBM"
 
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
+#: libeog/eog-file-selection.c:41
+#: libeog/eog-file-selection.c:54
 msgid "XPM"
 msgstr "XPM"
 
@@ -294,9 +275,10 @@ msgstr "Довідка про програму"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "Новий"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
+#: shell/main.c:210
 msgid "Open"
 msgstr "Відкрити"
 
@@ -340,7 +322,8 @@ msgstr "_Закрити"
 msgid "_Contents"
 msgstr "В_міст"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
 msgstr "_Редагування"
 
@@ -353,9 +336,8 @@ msgid "_Help"
 msgstr "_Довідка"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "_Немає"
+msgstr "_Новий"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -371,11 +353,13 @@ msgstr "Ви_йти"
 #.
 #: shell/eog-window.c:215
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Юрій Сирота"
+msgstr "Юрій Сирота <yuriy@beer.com>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:220
+#: shell/eog-window.c:598
+#: shell/main.c:452
 msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgstr "Ого гнома"
 
 #: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
@@ -387,11 +371,9 @@ msgstr "Програма перегляду та каталогізації зо
 
 #: shell/eog-window.c:260
 #, c-format
-msgid ""
-"Could not display help for Eye of Gnome.\n"
+msgid "Could not display help for Eye of Gnome.\n"
 "%s"
-msgstr ""
-"Не вдалося відобразити довідку до Ока GNOME.\n"
+msgstr "Не вдалося відобразити довідку до Ока GNOME.\n"
 "%s"
 
 #: shell/main.c:177
@@ -415,27 +397,24 @@ msgstr "Колекція"
 
 #: shell/main.c:207
 #, c-format
-msgid ""
-"You are about to open %i windows\n"
+msgid "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
-msgstr ""
-"Ви збираєтесь відкрити %i вікон\n"
+msgstr "Ви збираєтесь відкрити %i вікон\n"
 "одночасно. Продовжити?"
 
 #: shell/main.c:290
 #, c-format
-msgid ""
-"Could not access %s\n"
+msgid "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
-msgstr ""
+msgstr "Не вдалося отримати доступ до %s\n"
+"Немає змоги відобразити цей файл."
 
 #: shell/main.c:293
 #, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
+msgid "The following files cannot be displayed because Eye of Gnome was not able to access them:\n"
 "%s"
-msgstr ""
+msgstr "Такі файли не можуть бути відображені через відсутність доступу до них:\n"
+"%s"
 
 #: shell/main.c:464
 msgid "Could not initialize GnomeVFS!\n"
@@ -458,7 +437,8 @@ msgstr "Піді_гнати"
 msgid "Fit"
 msgstr "Підігнати"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "Більше"
 
@@ -534,7 +514,8 @@ msgstr "Налаштувати параметри сторінки для ваш
 msgid "_Print..."
 msgstr "На_друкувати..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
+#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
 msgstr "_Відображення"
 
@@ -644,7 +625,8 @@ msgid "Units: "
 msgstr "Одиниці: "
 
 #. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
+#: viewer/eog-print-setup.c:557
+#: viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Папір"
 
@@ -769,4 +751,5 @@ msgstr "Праворуч і вниз"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
+msgstr "Слайд-шоу"
+
