@@ -1243,6 +1243,10 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	/* Show the new control */
 	priv->widget = bonobo_widget_new_control_from_objref
 					(control, priv->ui_container);
+	if (!priv->widget) {
+		g_warning ("Could not create a widget from the control!");
+		return;
+	}
 	gtk_container_add (GTK_CONTAINER (priv->box), priv->widget);
 	gtk_widget_show (priv->widget);
 
