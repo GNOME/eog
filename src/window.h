@@ -61,6 +61,8 @@ void window_close (Window *window);
 void window_open_image_dialog (Window *window);
 void window_open_image (Window *window, const char *filename);
 
+void window_set_zoom (Window *window, double zoom);
+
 void window_zoom_in (Window *window);
 void window_zoom_out (Window *window);
 void window_zoom_1 (Window *window);

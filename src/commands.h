@@ -38,6 +38,26 @@ void cmd_cb_zoom_out (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_1 (GtkWidget *widget, gpointer data);
 void cmd_cb_zoom_fit (GtkWidget *widget, gpointer data);
 
+void cmd_cb_zoom_2_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_3_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_4_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_5_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_6_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_7_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_8_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_9_1 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_10_1 (GtkWidget *widget, gpointer data);
+
+void cmd_cb_zoom_1_2 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_3 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_4 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_5 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_6 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_7 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_8 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_9 (GtkWidget *widget, gpointer data);
+void cmd_cb_zoom_1_10 (GtkWidget *widget, gpointer data);
+
 
 
 #endif

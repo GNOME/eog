@@ -33,6 +33,11 @@ static GnomeUIInfo toolbar[] = {
 				cmd_cb_image_open, GNOME_STOCK_PIXMAP_OPEN),
 	GNOMEUIINFO_ITEM_STOCK (N_("Close"), N_("Close the current window"),
 				cmd_cb_window_close, GNOME_STOCK_PIXMAP_CLOSE),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_ITEM_NONE (N_("In"), NULL, cmd_cb_zoom_in),
+	GNOMEUIINFO_ITEM_NONE (N_("Out"), NULL, cmd_cb_zoom_out),
+	GNOMEUIINFO_ITEM_NONE (N_("1:1"), NULL, cmd_cb_zoom_1),
+	GNOMEUIINFO_ITEM_NONE (N_("Fit"), NULL, cmd_cb_zoom_fit),
 	GNOMEUIINFO_END
 };
 

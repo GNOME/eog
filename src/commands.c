@@ -60,3 +60,115 @@ cmd_cb_zoom_fit (GtkWidget *widget, gpointer data)
 {
 	window_zoom_fit (WINDOW (data));
 }
+
+
+
+void
+cmd_cb_zoom_2_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 2.0);
+}
+
+void
+cmd_cb_zoom_3_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 3.0);
+}
+
+void
+cmd_cb_zoom_4_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 4.0);
+}
+
+void
+cmd_cb_zoom_5_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 5.0);
+}
+
+void
+cmd_cb_zoom_6_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 6.0);
+}
+
+void
+cmd_cb_zoom_7_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 7.0);
+}
+
+void
+cmd_cb_zoom_8_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 8.0);
+}
+
+void
+cmd_cb_zoom_9_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 9.0);
+}
+
+void
+cmd_cb_zoom_10_1 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 10.0);
+}
+
+
+
+void
+cmd_cb_zoom_1_2 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 2.0);
+}
+
+void
+cmd_cb_zoom_1_3 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 3.0);
+}
+
+void
+cmd_cb_zoom_1_4 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 4.0);
+}
+
+void
+cmd_cb_zoom_1_5 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 5.0);
+}
+
+void
+cmd_cb_zoom_1_6 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 6.0);
+}
+
+void
+cmd_cb_zoom_1_7 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 7.0);
+}
+
+void
+cmd_cb_zoom_1_8 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 8.0);
+}
+
+void
+cmd_cb_zoom_1_9 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 9.0);
+}
+
+void
+cmd_cb_zoom_1_10 (GtkWidget *widget, gpointer data)
+{
+	window_set_zoom (WINDOW (data), 1.0 / 10.0);
+}

@@ -350,6 +350,30 @@ static GnomeUIInfo file_menu[] = {
 	GNOMEUIINFO_END
 };
 
+static GnomeUIInfo zoom_menu[] = {
+	GNOMEUIINFO_ITEM_NONE (N_("2:1"), NULL, cmd_cb_zoom_2_1),
+	GNOMEUIINFO_ITEM_NONE (N_("3:1"), NULL, cmd_cb_zoom_3_1),
+	GNOMEUIINFO_ITEM_NONE (N_("4:1"), NULL, cmd_cb_zoom_4_1),
+	GNOMEUIINFO_ITEM_NONE (N_("5:1"), NULL, cmd_cb_zoom_5_1),
+	GNOMEUIINFO_ITEM_NONE (N_("6:1"), NULL, cmd_cb_zoom_6_1),
+	GNOMEUIINFO_ITEM_NONE (N_("7:1"), NULL, cmd_cb_zoom_7_1),
+	GNOMEUIINFO_ITEM_NONE (N_("8:1"), NULL, cmd_cb_zoom_8_1),
+	GNOMEUIINFO_ITEM_NONE (N_("9:1"), NULL, cmd_cb_zoom_9_1),
+	GNOMEUIINFO_ITEM_NONE (N_("10:1"), NULL, cmd_cb_zoom_10_1),
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_ITEM_NONE (N_("1:2"), NULL, cmd_cb_zoom_1_2),
+	GNOMEUIINFO_ITEM_NONE (N_("1:3"), NULL, cmd_cb_zoom_1_3),
+	GNOMEUIINFO_ITEM_NONE (N_("1:4"), NULL, cmd_cb_zoom_1_4),
+	GNOMEUIINFO_ITEM_NONE (N_("1:5"), NULL, cmd_cb_zoom_1_5),
+	GNOMEUIINFO_ITEM_NONE (N_("1:6"), NULL, cmd_cb_zoom_1_6),
+	GNOMEUIINFO_ITEM_NONE (N_("1:7"), NULL, cmd_cb_zoom_1_7),
+	GNOMEUIINFO_ITEM_NONE (N_("1:8"), NULL, cmd_cb_zoom_1_8),
+	GNOMEUIINFO_ITEM_NONE (N_("1:9"), NULL, cmd_cb_zoom_1_9),
+	GNOMEUIINFO_ITEM_NONE (N_("1:10"), NULL, cmd_cb_zoom_1_10),
+
+	GNOMEUIINFO_END
+};
+
 static GnomeUIInfo view_menu[] = {
 	{ GNOME_APP_UI_ITEM, N_("Zoom In"), N_("Increase zoom factor by 5%"),
 	  cmd_cb_zoom_in, NULL, NULL,
@@ -363,6 +387,8 @@ static GnomeUIInfo view_menu[] = {
 	  cmd_cb_zoom_1, NULL, NULL,
 	  GNOME_APP_PIXMAP_NONE, NULL,
 	  '1', 0, NULL },
+	GNOMEUIINFO_SUBTREE (N_("_Zoom factor"), zoom_menu),
+	GNOMEUIINFO_SEPARATOR,
 	{ GNOME_APP_UI_ITEM, N_("_Fit to Window"), N_("Zoom the image to fit in the window"),
 	  cmd_cb_zoom_fit, NULL, NULL,
 	  GNOME_APP_PIXMAP_NONE, NULL,
@@ -670,6 +696,31 @@ window_open_image (Window *window, const char *filename)
 }
 
 
+
+/**
+ * window_set_zoom:
+ * @window: An image window.
+ * @zoom: Desired zoom factor.
+ * 
+ * Sets the zoom factor for an image window.
+ **/
+void
+window_set_zoom (Window *window, double zoom)
+{
+	WindowPrivate *priv;
+	UIImage *ui;
+
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	priv = window->priv;
+	g_return_if_fail (priv->mode == WINDOW_MODE_IMAGE);
+
+	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
+	ui = UI_IMAGE (priv->content);
+
+	ui_image_set_zoom (ui, zoom);
+}
 
 /**
  * window_zoom_in:

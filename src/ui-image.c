@@ -168,7 +168,7 @@ canvas_realized (GtkWidget *widget, gpointer data)
 }
 
 /**
- * ui_image_constructd:
+ * ui_image_construct:
  * @ui: An image view.
  *
  * Constructs an image view.
@@ -198,6 +198,13 @@ ui_image_construct (UIImage *ui)
 
 	gtk_container_add (GTK_CONTAINER (ui), priv->canvas);
 	gtk_widget_show (priv->canvas);
+
+	/* Sigh, set the step_increments by hand */
+
+	g_assert (GTK_LAYOUT (priv->canvas)->vadjustment != NULL);
+	g_assert (GTK_LAYOUT (priv->canvas)->hadjustment != NULL);
+	GTK_LAYOUT (priv->canvas)->vadjustment->step_increment = 10;
+	GTK_LAYOUT (priv->canvas)->hadjustment->step_increment = 10;
 
 	priv->image_item = gnome_canvas_item_new (
 		gnome_canvas_root (GNOME_CANVAS (priv->canvas)),
@@ -244,7 +251,7 @@ ui_image_set_image (UIImage *ui, Image *image)
 	} else
 		w = h = 0;
 
-	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w, h);
+	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w - 1, h - 1);
 }
 
 /**

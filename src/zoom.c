@@ -100,6 +100,9 @@ zoom_fit_scale (guint dest_width, guint dest_height,
 	if (src_width == 0 || src_height == 0)
 		return 1.0;
 
+	if (dest_width == 0 || dest_height == 0)
+		return 0.0;
+
 	zoom_fit_size (dest_width, dest_height, src_width, src_height, upscale_smaller, &w, &h);
 
 	wfactor = (double) w / src_width;
