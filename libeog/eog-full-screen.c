@@ -609,6 +609,7 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	GtkStyle      *style;
 	GConfClient   *client;
 	gboolean       upscale = TRUE;
+	gboolean       antialiasing = TRUE;
 
 	g_return_val_if_fail (image_list != NULL, NULL);
 
@@ -646,7 +647,10 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	priv->loop = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_LOOP, NULL);
 	priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
 	upscale = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL);
+	antialiasing = gconf_client_get_bool (client, EOG_CONF_VIEW_INTERPOLATE, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
+	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (widget), antialiasing);
+	
 	g_object_unref (G_OBJECT (client));
 
 	/* load first image in the background */

@@ -64,12 +64,6 @@
 #define RECENT_FILES_GROUP         "Eye of Gnome"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
 
-#define PROPERTY_WINDOW_STATUS "window/status"
-#define PROPERTY_WINDOW_TITLE  "window/title"
-#define PROPERTY_WINDOW_WIDTH  "window/width"
-#define PROPERTY_WINDOW_HEIGHT "window/height"
-#define PROPERTY_IMAGE_PROGRESS "image/progress"
-
 #define EOG_STOCK_ROTATE_90    "eog-stock-rotate-90"
 #define EOG_STOCK_ROTATE_270   "eog-stock-rotate-270"
 #define EOG_STOCK_ROTATE_180   "eog-stock-rotate-180"
@@ -108,8 +102,9 @@ struct _EogWindowPrivate {
 	EggRecentViewGtk    *recent_view;
 
 	/* gconf notification ids */
-	guint view_statusbar_id;
-	guint view_toolbar_id;
+	guint interp_type_notify_id;
+	guint transparency_notify_id;
+	guint trans_color_notify_id;
 
 	/* signal ids */
 	guint sig_id_list_prepared;
@@ -280,8 +275,11 @@ static void
 verb_EditPreferences_cb (GtkAction *action, gpointer data)
 {
 	GConfClient *client;
+	EogWindowPrivate *priv;
 
-	client = EOG_WINDOW (data)->priv->client;
+	priv = EOG_WINDOW (data)->priv;
+
+	client = priv->client;
 
 	eog_preferences_show (client);
 }
@@ -1539,6 +1537,99 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 
 /* ========================================================================= */
 
+static void
+interp_type_changed_cb (GConfClient *client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			gpointer     user_data)
+{
+	EogWindowPrivate *priv;
+	gboolean interpolate = TRUE;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	if (!EOG_IS_SCROLL_VIEW (priv->scroll_view)) return;
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		interpolate = gconf_value_get_bool (entry->value);
+	}
+
+	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (priv->scroll_view), interpolate);
+}
+
+static void
+transparency_changed_cb (GConfClient *client,
+			 guint        cnxn_id,
+			 GConfEntry  *entry,
+			 gpointer     user_data)
+{
+	EogWindowPrivate *priv;
+	const char *value = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+	if (!EOG_IS_SCROLL_VIEW (priv->scroll_view)) return;
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
+		value = gconf_value_get_string (entry->value);
+	}
+
+	if (g_strcasecmp (value, "COLOR") == 0) {
+		GdkColor color;
+		char *color_str;
+
+		color_str = gconf_client_get_string (priv->client,
+						     EOG_CONF_VIEW_TRANS_COLOR, NULL);
+		if (gdk_color_parse (color_str, &color)) {
+			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
+							  TRANSP_COLOR, &color);
+		}
+	}
+	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
+		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
+						  TRANSP_CHECKED, 0);
+	}
+	else {
+		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
+						  TRANSP_BACKGROUND, 0);
+	}
+}
+
+static void
+trans_color_changed_cb (GConfClient *client,
+			guint        cnxn_id,
+			GConfEntry  *entry,
+			gpointer     user_data)
+{
+	EogWindowPrivate *priv;
+	GdkColor color;
+	char *value;
+	const char *color_str;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+	if (!EOG_IS_SCROLL_VIEW (priv->scroll_view)) return;
+
+	value = gconf_client_get_string (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
+
+	if (g_strcasecmp (value, "COLOR") != 0) return;
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
+		color_str = gconf_value_get_string (entry->value);
+
+		if (gdk_color_parse (color_str, &color)) {
+			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
+							  TRANSP_COLOR, &color);
+		}
+	}
+}
+
+/* ========================================================================= */
+
 #if 0
 static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
@@ -1643,11 +1734,12 @@ eog_window_destroy (GtkObject *object)
 
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
-		gconf_client_notify_remove (priv->client, priv->view_toolbar_id);
-		priv->view_toolbar_id = 0;
-
-		gconf_client_notify_remove (priv->client, priv->view_statusbar_id);
-		priv->view_statusbar_id = 0;
+		gconf_client_notify_remove (priv->client, priv->interp_type_notify_id);
+		gconf_client_notify_remove (priv->client, priv->transparency_notify_id);
+		gconf_client_notify_remove (priv->client, priv->trans_color_notify_id);
+		priv->interp_type_notify_id = 0;
+		priv->transparency_notify_id = 0;
+		priv->trans_color_notify_id = 0;
 
 		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
 		g_object_unref (G_OBJECT (priv->client));
@@ -1738,6 +1830,22 @@ eog_window_init (EogWindow *window)
 
 	gconf_client_add_dir (priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+
+	priv->interp_type_notify_id =
+		gconf_client_notify_add (priv->client,
+					 EOG_CONF_VIEW_INTERPOLATE,
+					 interp_type_changed_cb,
+					 window, NULL, NULL);
+	priv->transparency_notify_id =
+		gconf_client_notify_add (priv->client,
+					 EOG_CONF_VIEW_TRANSPARENCY,
+					 transparency_changed_cb,
+					 window, NULL, NULL);
+	priv->trans_color_notify_id =
+		gconf_client_notify_add (priv->client,
+					 EOG_CONF_VIEW_TRANS_COLOR,
+					 trans_color_changed_cb,
+					 window, NULL, NULL);
 
 	window_list = g_list_prepend (window_list, window);
 
@@ -2241,6 +2349,38 @@ eog_window_construct_ui (EogWindow *window)
 	update_ui_visibility (window);
 }
 
+static void
+eog_window_update_properties (EogWindow *window)
+{
+	GConfEntry *entry;
+	EogWindowPrivate *priv;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_INTERPOLATE, NULL, TRUE, NULL);
+	if (entry != NULL) {
+		interp_type_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_free (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL, TRUE, NULL);
+	if (entry != NULL) {
+		transparency_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_free (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_TRANS_COLOR, NULL, TRUE, NULL);
+	if (entry != NULL) {
+		trans_color_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_free (entry);
+		entry = NULL;
+	}
+}
+
 /**
  * eog_window_new:
  * @void:
@@ -2257,6 +2397,7 @@ eog_window_new (void)
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "title", _("Eye of Gnome"), NULL));
 
 	eog_window_construct_ui (window);
+	eog_window_update_properties (window);
 
 	return GTK_WIDGET (window);
 }
