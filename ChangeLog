@@ -1,5 +1,23 @@
 2002-08-04  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-control.c:
+	(eog_collection_control_set_ui_container),
+	(eog_collection_control_unset_ui_container),
+	(eog_collection_control_construct): Don't hold a BonoboUIComponent
+	reference per object, this isn't neccessary.
+	(eog_collection_control_activate): Use the first BonoboControl
+	parameter to access collection control reference.
+
+	* collection/eog-collection-view.c: Don't hold private reference
+	to the factory object. Removed property control stuff.
+	(prop_control_get_prop),
+	(prop_control_get_cb): Removed.
+
+	* collection/eog-wrap-list.c (eog_wrap_list_set_factory): Ref the
+	factory object.
+	
+2002-08-04  Jens Finke  <jens@triq.net>
+
 	* configure.in: Bumped version to 1.1.0 (development version
 	towards Gnome 2.2)
 

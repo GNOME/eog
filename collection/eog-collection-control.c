@@ -22,8 +22,6 @@
 
 struct _EogCollectionControlPrivate{
 	EogCollectionView *view;
-
-	BonoboUIComponent *uic;
 };
 
 static void eog_collection_control_dispose (GObject *object);
@@ -72,28 +70,34 @@ static void
 eog_collection_control_set_ui_container (EogCollectionControl *eog_ctrl,
 					 Bonobo_UIContainer ui_container)
 {
+	BonoboUIComponent *uic;
+
 	g_return_if_fail (eog_ctrl != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 	
+	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (eog_ctrl));
+
 	eog_collection_view_set_ui_container (EOG_COLLECTION_VIEW (eog_ctrl->priv->view),
 					      ui_container);
 
-	bonobo_ui_component_set_container (eog_ctrl->priv->uic, ui_container, 
-					   NULL);
-
+	bonobo_ui_component_set_container (uic, ui_container, NULL);
 	eog_collection_control_create_ui (eog_ctrl);
 }
 
 static void
 eog_collection_control_unset_ui_container (EogCollectionControl *eog_ctrl)
 {
+	 BonoboUIComponent *uic;
+
 	g_return_if_fail (eog_ctrl != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl));
 
+	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (eog_ctrl));
+
 	eog_collection_view_unset_ui_container (EOG_COLLECTION_VIEW (eog_ctrl->priv->view));
 
-	bonobo_ui_component_unset_container (eog_ctrl->priv->uic, NULL);
+	bonobo_ui_component_unset_container (uic, NULL);
 }
 
 static void
@@ -101,12 +105,10 @@ eog_collection_control_activate (BonoboControl *bctrl, gboolean state, gpointer 
 {
 	EogCollectionControl *eog_ctrl;
 
-	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (data));
 	g_return_if_fail (bctrl != NULL);
-	g_return_if_fail (BONOBO_IS_CONTROL (bctrl));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (bctrl));
 
-	eog_ctrl = EOG_COLLECTION_CONTROL (data);
+	eog_ctrl = EOG_COLLECTION_CONTROL (bctrl);
 
 	if (state) {
 		Bonobo_UIContainer ui_container;
@@ -118,6 +120,8 @@ eog_collection_control_activate (BonoboControl *bctrl, gboolean state, gpointer 
 		}
 	} else
 		eog_collection_control_unset_ui_container (eog_ctrl);
+
+	BONOBO_CALL_PARENT (BONOBO_CONTROL_CLASS, activate, (bctrl, state));
 }
 
 static void
@@ -185,10 +189,8 @@ eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 
 	gtk_widget_unref (widget);
 
-	priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (eog_ctrl));
-
 	g_signal_connect (eog_ctrl, "activate", 
-			  G_CALLBACK (eog_collection_control_activate), eog_ctrl);
+			  G_CALLBACK (eog_collection_control_activate), NULL);
 
 	/* add properties */
 	property_bag = eog_collection_view_get_property_bag (priv->view);

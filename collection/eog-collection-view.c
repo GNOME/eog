@@ -61,7 +61,6 @@ static const gchar *pref_key[] = {
 
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
-	EogItemFactory          *factory;
 
 	GtkWidget               *wraplist;
 	GtkWidget               *root;
@@ -69,7 +68,6 @@ struct _EogCollectionViewPrivate {
 	BonoboPropertyBag       *property_bag;
 
 	BonoboUIComponent       *uic;
-	BonoboPropertyControl   *prop_control;
 
 	GConfClient             *client;
 	guint                   notify_id[PREF_LAST];
@@ -78,9 +76,6 @@ struct _EogCollectionViewPrivate {
 	gboolean                need_update_prop[PROP_LAST];
 };
 
-enum {
-	PROP_CONTROL_TITLE
-};
 
 enum {
 	OPEN_URI,
@@ -193,14 +188,6 @@ eog_collection_view_dispose (GObject *object)
 	if (list_view->priv->model)
 		g_object_unref (G_OBJECT (list_view->priv->model));
 	list_view->priv->model = NULL;
-
-	if (list_view->priv->factory)
-		g_object_unref (G_OBJECT (list_view->priv->factory));
-	list_view->priv->factory = NULL;
-
-	if (list_view->priv->prop_control)
-		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->prop_control));
-	list_view->priv->prop_control = NULL;
 
 	if (list_view->priv->property_bag)
 		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->property_bag));
@@ -581,58 +568,6 @@ eog_collection_view_set_prop (BonoboPropertyBag *bag,
 	}
 }
 
-static void
-prop_control_get_prop (BonoboPropertyBag *bag,
-		       BonoboArg         *arg,
-		       guint              arg_id,
-		       CORBA_Environment *ev,
-		       gpointer           user_data)
-{
-	switch (arg_id) {
-	case 0:
-		g_assert (arg->_type == BONOBO_ARG_STRING);
-		BONOBO_ARG_SET_STRING (arg, _("View"));
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-}
-
-static BonoboControl *
-prop_control_get_cb (BonoboPropertyControl *property_control,
-		     int page_number, void *closure)
-{
-	EogCollectionView *cview;
-	GtkWidget *widget;
-	BonoboControl *control;
-	BonoboPropertyBag *property_bag;
-
-	g_return_val_if_fail (closure != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (closure), NULL);
-
-	cview = EOG_COLLECTION_VIEW (closure);
-
-	/* create widget */
-	widget = eog_collection_preferences_create_page (cview->priv->client, page_number);
-
-	control = bonobo_control_new (widget);
-
-	/* Property Bag */
-	property_bag = bonobo_property_bag_new (prop_control_get_prop,
-						NULL, control);
-
-	bonobo_property_bag_add (property_bag, "bonobo:title",
-				 page_number, BONOBO_ARG_STRING,
-				 NULL, NULL, BONOBO_PROPERTY_READABLE);
-
-	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (property_bag));
-
-	return control;
-}
-
-
-
 static gint
 update_properties (EogCollectionView *view)
 {
@@ -819,6 +754,7 @@ EogCollectionView *
 eog_collection_view_construct (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv = NULL;
+	EogItemFactory *factory;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -851,15 +787,14 @@ eog_collection_view_construct (EogCollectionView *list_view)
 			  G_CALLBACK (model_base_uri_changed),
 			  list_view);
 
-	priv->factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
+	factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
 	priv->wraplist = eog_wrap_list_new ();
 	gtk_container_add (GTK_CONTAINER (priv->root), priv->wraplist);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
-	eog_wrap_list_set_factory (EOG_WRAP_LIST (priv->wraplist),
-				   EOG_ITEM_FACTORY (priv->factory));
+	eog_wrap_list_set_factory (EOG_WRAP_LIST (priv->wraplist), factory);
 	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	g_signal_connect (G_OBJECT (priv->wraplist), "double_click", 
@@ -869,6 +804,8 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
+
+	g_object_unref (G_OBJECT (factory));
 
 	/* Property Bag */
 	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,
@@ -880,12 +817,6 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	bonobo_property_bag_add (priv->property_bag, property_name[1], PROP_WINDOW_STATUS,
 				 BONOBO_ARG_STRING, NULL, _("Status Text"),
 				 BONOBO_PROPERTY_READABLE);
-
-	/* Property Control */
-	priv->prop_control = bonobo_property_control_new (prop_control_get_cb, 1,
-							  list_view);
-	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
-				     BONOBO_OBJECT (priv->prop_control));
 
 	/* read user defined configuration */
 	set_configuration_values (list_view);
