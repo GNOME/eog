@@ -5,13 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2002-03-29 18:54-0500\n"
-"PO-Revision-Date: 2002-05-25 01:08+0700\n"
+"POT-Creation-Date: 2002-06-04 19:51+0200\n"
+"PO-Revision-Date: 2002-05-30 14:33+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "Bộ ảnh EOG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Trình xem tập ảnh EOG"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Factory của trình xem tập ảnh EOG"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -21,7 +33,7 @@ msgstr "Trình xem ảnh \"Mắt Gnome\""
 msgid "View many different types of images"
 msgstr "Xem nhiều loại ảnh khác nhau"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "Ảnh EOG"
 
@@ -36,6 +48,47 @@ msgstr "Factory Trình xem ảnh EOG"
 #: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Ảnh EOG nhúng"
+
+#: libeog/image-view.c:1853
+msgid "interpolation type"
+msgstr "loại nội suy"
+
+#: libeog/image-view.c:1854
+msgid "the type of interpolation to use"
+msgstr "loại nội suy cần dùng"
+
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
+msgid "check type"
+msgstr "kiểm tra loại"
+
+#: libeog/image-view.c:1861
+msgid "the type of chequering to use"
+msgstr ""
+
+#: libeog/image-view.c:1868
+msgid "the size of chequers to use"
+msgstr ""
+
+#: libeog/image-view.c:1874
+msgid "dither"
+msgstr "dither"
+
+#: libeog/image-view.c:1875
+msgid "dither type"
+msgstr "loại dither"
+
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Không thể hiển thị trợ giúp cho hộp thoại thông số.\n"
+"%s"
+
+#: shell/eog-preferences.c:214
+msgid "Eye of Gnome Preferences"
+msgstr "Thông số Mắt Gnome"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -58,14 +111,14 @@ msgid "Close window"
 msgstr "Đóng cửa sổ"
 
 #: shell/eog-shell-ui.xml.h:6
-msgid "E_xit"
-msgstr "T_hoát"
+msgid "Contents"
+msgstr "Nội dung"
 
 #: shell/eog-shell-ui.xml.h:7
-msgid "Exit the program"
-msgstr "Thoát chương trình"
+msgid "Help On this application"
+msgstr "Trợ giúp về ứng dụng này"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Mở"
 
@@ -86,91 +139,89 @@ msgid "Open in this window"
 msgstr "Mở trong cửa sổ này"
 
 #: shell/eog-shell-ui.xml.h:13
-msgid "_About..."
-msgstr "_Giới thiệu..."
+msgid "Quit the program"
+msgstr "Thoát chương trình"
 
 #: shell/eog-shell-ui.xml.h:14
+msgid "_About"
+msgstr "_Giới thiệu..."
+
+#: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "Đón_g"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Edit"
+msgstr "_Hiệu chỉnh"
+
+#: shell/eog-shell-ui.xml.h:17
 msgid "_File"
 msgstr "_Tập tin"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Help"
 msgstr "Trợ _giúp"
 
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:19
 msgid "_New Window"
 msgstr "Cửa _sổ mới"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:20
 msgid "_Open..."
 msgstr "Mở..."
 
-#: shell/eog-shell-ui.xml.h:19
-msgid "_Preferences"
-msgstr "_Thông số"
-
-#: shell/eog-shell-ui.xml.h:20
-msgid "_Settings"
-msgstr "Thiết _lập"
-
 #: shell/eog-shell-ui.xml.h:21
+msgid "_Preferences..."
+msgstr "_Thông số..."
+
+#: shell/eog-shell-ui.xml.h:22
+msgid "_Quit"
+msgstr "T_hoát"
+
+#: shell/eog-shell-ui.xml.h:23
 msgid "_View"
 msgstr "_Xem"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:198
-msgid "Translator Credits"
-msgstr "Nguyễn Thái Ngọc Duy"
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr ""
 
-#: shell/eog-window.c:201 shell/eog-window.c:549
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Mắt Gnome"
 
-#: shell/eog-window.c:203
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:204
-msgid "The GNOME image viewing and cataloging program"
+#: shell/eog-window.c:256
+#, fuzzy
+msgid "The GNOME image viewing and cataloging program."
 msgstr "Chương trình xem và phân loại ảnh của Gnome"
 
-#: shell/eog-window.c:710
+#: shell/eog-window.c:293
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Không thể hiển thị trợ giúp cho Mắt Gnome.\n"
+"%s"
+
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "Mở ảnh"
 
-#: shell/eog-window.c:764
-msgid "Control doesn't support window_title property."
-msgstr "Điều khiển không hỗ trợ thuộc tính window_title."
-
-#: shell/eog-window.c:780
-msgid "Control doesn't support status_text property."
-msgstr "Điều khiển không hỗ trợ thuộc tính status_text."
-
-#: shell/eog-window.c:799
-msgid "Control doesn't have properties"
-msgstr "Điều khiển không hỗ trợ thuộc tính"
-
-#: shell/eog-window.c:816
-msgid "Couldn't retrieve mime type for file."
-msgstr "Không thể nhận kiểu MIME của tập tin"
-
-#: shell/eog-window.c:1068
-msgid "Error while obtaining file informations."
-msgstr "Lỗi khi lấy thông tin trong tập tin."
-
-#: shell/eog-window.c:1097
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
 msgstr "Không thể mở %s."
 
-#: shell/main.c:161
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -181,15 +232,15 @@ msgstr ""
 "Bạn có muốn mở chúng trong một tập\n"
 "hợp không?"
 
-#: shell/main.c:166
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Cửa sổ đơn"
 
-#: shell/main.c:167
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Tập hợp"
 
-#: shell/main.c:191
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -198,87 +249,50 @@ msgstr ""
 "Bạn định mở %i cửa sổ đồng\n"
 "thời. Bạn có muốn tiếp tục?"
 
-#: shell/main.c:307
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Không thể khởi động GnomeVFS!\n"
 
-#: shell/main.c:310
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "Không thể khởi động Bonobo!\n"
 
-#: shell/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Không thể mở `%s'"
 
-#: shell/eog-preferences.c:165
-msgid "Eye of Gnome Preferences"
-msgstr "Thông số Mắt Gnome"
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
 
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Không thể khởi động GnomeVFS!\n"
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Vừa khít"
 
-#: viewer/eog-image-view.c:298
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Không thể lưu ảnh vào '%s': %s."
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "To"
 
-#: viewer/eog-image-view.c:347
-msgid "Save As"
-msgstr "Lưu là"
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Nhỏ"
 
-#: viewer/eog-image-view.c:920
-msgid "Print Image"
-msgstr "In ảnh"
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Phóng _1:1"
 
-#: viewer/eog-image-view.c:928
-msgid "Pages"
-msgstr "Trang"
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
+msgstr "Phóng _to"
 
-#: viewer/eog-image-view.c:1015
-msgid "Print Preview"
-msgstr "Xem thử bản in"
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
+msgstr "Thu _nhỏ"
 
-#: viewer/eog-image-view.c:1021
-msgid "Printing of image failed"
-msgstr "In ảnh thất bại"
-
-#: viewer/eog-image-view.c:1835
-msgid "Display"
-msgstr "Hiển thị"
-
-#: viewer/eog-image-view.c:2059
-msgid "Interpolation"
-msgstr "Nội suy"
-
-#: viewer/eog-image-view.c:2062
-msgid "Dither"
-msgstr "Dither"
-
-#: viewer/eog-image-view.c:2065
-msgid "Check Type"
-msgstr "Kiểm tra kiểu"
-
-#: viewer/eog-image-view.c:2068
-msgid "Check Size"
-msgstr "Kiểm tra kích thước"
-
-#: viewer/eog-image-view.c:2071
-msgid "Image Width"
-msgstr "Chiều rộng ảnh"
-
-#: viewer/eog-image-view.c:2074
-msgid "Image Height"
-msgstr "Chiều cao ảnh"
-
-#: viewer/eog-image-view.c:2077
-msgid "Window Title"
-msgstr "Tựa đề cửa sổ"
-
-#: viewer/eog-image-view.c:2080
-msgid "Statusbar Text"
-msgstr "Text thanh trạng thái"
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
+msgstr "Cỡ ảnh vừa khít"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Check _size"
@@ -289,390 +303,495 @@ msgid "Check _type"
 msgstr "Kiểm tra kiể_u"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr "Kiểm tra cỡ lớn"
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "Kiểm tra cỡ vừa"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "Kiểm tra cỡ nhỏ"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "Kiểm tra kiểu đen"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr "Kiểm tra kiểu tối"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "Kiểm tra kiểu xám"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr "Kiểm tra kiểu sáng"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "Kiểm tra kiểu trắng"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr "Toàn màn hình"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
-msgstr "Nội suy điểm _gần nhất"
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "Lớn"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
-msgstr "Dither thường (màu _giả0"
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "Vừa"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Nea_rest Neighbour"
+msgstr "Điểm _gần nhất"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Normal (_pseudocolor)"
+msgstr "Thường (màu _giả)"
+
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Xem trước ảnh cần được in"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr "_Xem trước bản in"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr "Thiết lập in"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr "In ảnh"
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr "Lư_u là"
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Thiết lập thông số trang in cho máy in của bạn"
 
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Bilinear Interpolation"
-msgstr "_Nội suy song tuyến tính"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "Nhỏ"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr "_Song tuyến tính"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Black"
+msgstr "Đ_en"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dark"
+msgstr "_Sẫm"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr "_Dither"
 
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Hyperbolic Interpolation"
-msgstr "Nội suy hyperbol"
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Gray"
+msgstr "_Xám"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
+msgstr "_Hyperbol"
+
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr "_Nội suy"
 
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Light"
+msgstr "Sán_g"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Maximum (high color)"
+msgstr "_Tối đa (high color)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
+msgstr "_Vừa"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr "_Không"
+
 #: viewer/eog-image-view-ui.xml.h:25
-msgid "_Maximum (high color) dithering"
-msgstr "Dither _tối đa (high color)"
-
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_No dithering"
-msgstr "_Không dither"
-
-#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "_In"
 
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Save As..."
+msgstr "Lư_u là..."
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles"
+msgstr "_Lợp"
+
 #: viewer/eog-image-view-ui.xml.h:28
-msgid "_Tiles Interpolation"
-msgstr "Nội suy _lợp"
+msgid "_White"
+msgstr "T_rắng"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+#: viewer/eog-image-view.c:302
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Không thể lưu ảnh vào '%s': %s."
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
-msgid "Fit"
-msgstr "Vừa khít"
+#: viewer/eog-image-view.c:353
+msgid "Save As"
+msgstr "Lưu là"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "To"
+#: viewer/eog-image-view.c:928
+msgid "Print Image"
+msgstr "In ảnh"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
-msgstr "Nhỏ"
+#: viewer/eog-image-view.c:936
+msgid "Pages"
+msgstr "Trang"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _In"
-msgstr "Phóng _to"
+#: viewer/eog-image-view.c:1023
+msgid "Print Preview"
+msgstr "Xem thử bản in"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "Thu _nhỏ"
+#: viewer/eog-image-view.c:1029
+msgid "Printing of image failed"
+msgstr "In ảnh thất bại"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom to _Default"
-msgstr "Cỡ ảnh mặc định"
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "Hiển thị"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "Cỡ ảnh vừa khít"
+#: viewer/eog-image-view.c:2066
+msgid "Interpolation"
+msgstr "Nội suy"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-image-view.c:2069
+msgid "Dither"
+msgstr "Dither"
+
+#: viewer/eog-image-view.c:2072
+msgid "Check Type"
+msgstr "Kiểm tra kiểu"
+
+#: viewer/eog-image-view.c:2075
+msgid "Check Size"
+msgstr "Kiểm tra kích thước"
+
+#: viewer/eog-image-view.c:2078
+msgid "Image Width"
+msgstr "Chiều rộng ảnh"
+
+#: viewer/eog-image-view.c:2081
+msgid "Image Height"
+msgstr "Chiều cao ảnh"
+
+#: viewer/eog-image-view.c:2084
+msgid "Window Title"
+msgstr "Tựa đề cửa sổ"
+
+#: viewer/eog-image-view.c:2087
+msgid "Statusbar Text"
+msgstr "Text thanh trạng thái"
+
+#: viewer/eog-image.c:467
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Không thể khởi động GnomeVFS!\n"
+
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr "pts"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "điểm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "milimét"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "centimét"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "inch"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "In"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr "Xem thử bản in"
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr "Thiết lập in"
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "In"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr "Xem thử bản in"
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "Đơn vị: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Giấy"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "Cỡ giấy:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr "Hướng"
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr "Đứng"
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr "Ngang"
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr "Lề"
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "Đỉnh:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "Trái:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "Phải:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Đáy:"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Ảnh"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr "Tỷ lệ"
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
-msgstr ""
+msgstr "Chỉnh theo:"
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr "Khít vừa trang"
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr "% ảnh gốc"
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr "Giữa"
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "Ngang"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "Dọc"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
-msgstr ""
+msgstr "Đè"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
-msgstr ""
+msgstr "Đè theo chiều ngang bởi "
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
-msgstr ""
+msgstr "Đè theo chiều dọc bởi "
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "Đang in"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "Bộ trợ giúp"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
-msgstr ""
+msgstr "In đoạn trợ giúp"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr ""
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "Thứ tự trang"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "Xuống, rồi sang phải"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Phải, rồi xuống"
 
-#: viewer/preferences.c:31
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "Nội suy điểm gần nhất"
 
-#: viewer/preferences.c:33
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "Nội suy lợp"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "Nội suy song tuyến tính"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "Nội suy hyperbol"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "Không dither"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "Dither thường (màu giả)"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "Dither tối đa (high color)"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "Sẫm"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
-msgstr ""
+msgstr "Vừa"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "Sáng"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "Đen"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "Xám"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "Trắng"
 
-#: viewer/preferences.c:59
-msgid "Small"
-msgstr "Nhỏ"
+#: viewer/preferences.c:175
+msgid "_Interpolation:"
+msgstr "_Nội suy:"
 
-#: viewer/preferences.c:60
-msgid "Medium"
-msgstr "Vừa"
+#: viewer/preferences.c:187
+msgid "_Dither:"
+msgstr "_Dither:"
 
-#: viewer/preferences.c:61
-msgid "Large"
-msgstr "Lớn"
+#: viewer/preferences.c:199
+msgid "Check _type:"
+msgstr "Kiểm tra _loại:"
 
-#: viewer/preferences.c:169
-msgid "Interpolation:"
-msgstr "Nội suy:"
+#: viewer/preferences.c:211
+msgid "Check _size:"
+msgstr "Kiểm tra _cỡ:"
 
-#: viewer/preferences.c:180
-msgid "Dither:"
-msgstr "Dither:"
+#~ msgid "scroll"
+#~ msgstr "cuộn"
 
-#: viewer/preferences.c:191
-msgid "Check Type:"
-msgstr "Kiểm tra kiểu:"
+#~ msgid "scroll type"
+#~ msgstr "loại cuộn"
 
-#: viewer/preferences.c:202
-msgid "Check Size:"
-msgstr "Kiểm tra cỡ:"
+#~ msgid "enable full screen zoom"
+#~ msgstr "bật toàn màn hình"
+
+#~ msgid "whether we should allow full screen zoom"
+#~ msgstr "có nên cho phép xem toàn màn hình hay không"
+
+#~ msgid "Translator Credits"
+#~ msgstr "Nguyễn Thái Ngọc Duy"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính window_title."
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính status_text."
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Điều khiển không hỗ trợ thuộc tính"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Không thể nhận kiểu MIME của tập tin"
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Lỗi khi lấy thông tin trong tập tin."
+
+#~ msgid "_Settings"
+#~ msgstr "Thiết _lập"
+
+#~ msgid "Check size large"
+#~ msgstr "Kiểm tra cỡ lớn"
+
+#~ msgid "Check size medium"
+#~ msgstr "Kiểm tra cỡ vừa"
+
+#~ msgid "Check size small"
+#~ msgstr "Kiểm tra cỡ nhỏ"
+
+#~ msgid "Check type _black"
+#~ msgstr "Kiểm tra kiểu đen"
+
+#~ msgid "Check type _dark"
+#~ msgstr "Kiểm tra kiểu tối"
+
+#~ msgid "Check type _gray"
+#~ msgstr "Kiểm tra kiểu xám"
+
+#~ msgid "Check type _light"
+#~ msgstr "Kiểm tra kiểu sáng"
+
+#~ msgid "Check type _white"
+#~ msgstr "Kiểm tra kiểu trắng"
+
+#~ msgid "Save _As"
+#~ msgstr "Lư_u là"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "_Nội suy song tuyến tính"
+
+#~ msgid "_No dithering"
+#~ msgstr "_Không dither"
+
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "Nội suy _lợp"
+
+#~ msgid "Zoom to _Default"
+#~ msgstr "Cỡ ảnh mặc định"
+
+#~ msgid "Interpolation:"
+#~ msgstr "Nội suy:"
+
+#~ msgid "Dither:"
+#~ msgstr "Dither:"
+
+#~ msgid "Check Type:"
+#~ msgstr "Kiểm tra kiểu:"
+
+#~ msgid "Check Size:"
+#~ msgstr "Kiểm tra cỡ:"
