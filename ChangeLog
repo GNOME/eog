@@ -1,3 +1,30 @@
+2003-10-25  Jens Finke  <jens@triq.net>
+
+	Introduced EogImageCache, which caches the last five loaded images
+	and takes care of free'ing them if the cache overflows.
+
+	* libeog/eog-image-cache.[ch]: New files.
+
+	* libeog/Makefile.am (SOURCES): Added new files.
+
+	* collection/eog-collection-view.c (handle_selection_changed):
+	Don't free used memory for displayed image explicitly.
+
+	* libeog/eog-full-screen.c (show_next_image),
+	(eog_full_screen_destroy): Dito.
+
+	* libeog/eog-image-private.h (eog_image_free_mem_private): New
+	declaration.
+
+	* libeog/eog-image.c (eog_image_dispose): Use eog_image_free_mem
+	function.
+	(real_image_load): Add image to cache on successful loading.
+	(eog_image_load): Inform cache that this is the last recently used
+	image.
+	(eog_image_free_mem): Free image resources and remove image from
+	cache.
+	(eog_image_free_mem_private): Only free image resources.
+	
 2003-10-21  Jens Finke  <jens@triq.net>
 
 	* collection/Makefile.am: Don't distribute auto-generated files in

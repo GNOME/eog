@@ -19,6 +19,7 @@
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
 #include "eog-image-jpeg.h"
+#include "eog-image-cache.h"
 
 static GThread     *thread                     = NULL;
 static gboolean     thread_running             = FALSE;
@@ -290,14 +291,11 @@ eog_image_dispose (GObject *object)
 
 	priv = EOG_IMAGE (object)->priv;
 
+	eog_image_free_mem (EOG_IMAGE (object));
+
 	if (priv->uri) {
 		gnome_vfs_uri_unref (priv->uri);
 		priv->uri = NULL;
-	}
-
-	if (priv->image) {
-		g_object_unref (priv->image);
-		priv->image = NULL;
 	}
 
 	if (priv->caption) {
@@ -328,13 +326,6 @@ eog_image_dispose (GObject *object)
 		g_list_free (priv->undo_stack);
 		priv->undo_stack = NULL;
 	}
-
-#if HAVE_EXIF
-	if (priv->exif) {
-		exif_data_unref (priv->exif);
-		priv->exif = NULL;
-	}
-#endif
 }
 
 static void
@@ -1015,9 +1006,12 @@ real_image_load (gpointer data)
 #if HAVE_EXIF
 		update_exif_data (img);
 #endif 
+		eog_image_cache_add (img);
+
 		if (trans != NULL && priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
 			priv->load_status |= EOG_IMAGE_LOAD_STATUS_TRANSFORMED;
 		}
+
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
 		g_mutex_unlock (priv->status_mutex);
 	}
@@ -1062,6 +1056,7 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 
 	if (image_loaded && !thread_running) {
 		g_assert (priv->image != NULL);
+		eog_image_cache_reload (img);
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
 	}
@@ -1522,14 +1517,12 @@ eog_image_get_caption (EogImage *img)
 	return priv->caption;
 }
 
-void
-eog_image_free_mem (EogImage *img)
+void 
+eog_image_free_mem_private (EogImage *image)
 {
 	EogImagePrivate *priv;
 	
-	g_return_if_fail (EOG_IS_IMAGE (img));
-	
-	priv = img->priv;
+	priv = image->priv;
 
 	if (priv->image != NULL) {
 		gdk_pixbuf_unref (priv->image);
@@ -1545,6 +1538,18 @@ eog_image_free_mem (EogImage *img)
 
 	priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
 }
+
+void
+eog_image_free_mem (EogImage *image)
+{
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	if (image->priv->image != NULL) {
+		eog_image_cache_remove (image);
+		eog_image_free_mem_private (image);
+	}
+}
+
 
 const gchar*        
 eog_image_get_collate_key (EogImage *img)

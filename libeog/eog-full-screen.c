@@ -204,7 +204,6 @@ show_next_image (EogFullScreen *fs)
 		free_index = get_index_modulo (priv->visible_index, 2*-priv->direction, priv->n_images);
 		g_print ("free: %i\n", free_index);
 		eog_image_cancel_load (priv->image_list [free_index]);
-		eog_image_free_mem (priv->image_list [free_index]);
 	}
 
 	check_advance_loading (fs);
@@ -294,7 +293,6 @@ eog_full_screen_destroy (GtkObject *object)
 	if (priv->image_list != NULL) {
 		for (i = 0; i < priv->n_images; i++) {
 			disconnect_image_callbacks (priv->image_list [i]);
-			eog_image_free_mem (priv->image_list[i]);
 		}
 		g_free (priv->image_list);
 		priv->image_list = NULL;

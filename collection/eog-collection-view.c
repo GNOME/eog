@@ -914,7 +914,6 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 		if (priv->displayed_image != NULL) {
 			g_signal_handler_disconnect (priv->displayed_image, priv->progress_handler_id);
 
-			eog_image_free_mem (priv->displayed_image);
 			g_object_unref (priv->displayed_image);
 			priv->displayed_image = NULL;
 		}

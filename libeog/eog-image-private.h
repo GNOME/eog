@@ -57,4 +57,6 @@ struct _EogImagePrivate {
 };
 
 
+void eog_image_free_mem_private (EogImage *image);
+
 #endif /* _EOG_IMAGE_PRIVATE_H_ */
