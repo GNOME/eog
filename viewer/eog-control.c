@@ -12,6 +12,7 @@
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
+#include <libeog/gtkscrollframe.h>
 
 #include <gnome.h>
 
@@ -421,6 +422,11 @@ eog_control_construct (EogControl    *control,
 		bonobo_object_unref (BONOBO_OBJECT (control));
 		return NULL;
 	}
+	widget = eog_image_view_get_widget (control->priv->image_view);
+	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (widget),
+					  GTK_SHADOW_IN);
+	gtk_widget_unref (widget);
+	
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (control->priv->image_view));
 
