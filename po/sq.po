@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-04 15:15+0100\n"
-"PO-Revision-Date: 2004-01-04 15:15+0100\n"
+"POT-Creation-Date: 2004-01-14 18:36+0100\n"
+"PO-Revision-Date: 2004-01-14 18:43+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Figura në vazhdim"
 
 #: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
-msgstr "Paraardhëse"
+msgstr "Paraardhësi"
 
 #: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
@@ -74,7 +74,7 @@ msgstr "_Ndrysho"
 
 #: collection/eog-collection-view-ui.xml.h:12
 msgid "_Save"
-msgstr "_Ruaje"
+msgstr "_Ruaj"
 
 #: collection/eog-collection-view-ui.xml.h:13
 #: viewer/eog-image-view-ui.xml.h:18
@@ -84,7 +84,7 @@ msgstr "_Anullo"
 #: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
-msgstr "_Shiko"
+msgstr "_Shfaq"
 
 #: collection/eog-collection-view.c:338
 msgid "Cancel saving"
@@ -102,15 +102,15 @@ msgstr "Hidhe në kosh"
 msgid "Collection View"
 msgstr "Shikuesi i Koleksionit"
 
-#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
 msgid "Window Title"
-msgstr "Titulli i Dritares"
+msgstr "Titulli i dritares"
 
 #: collection/eog-collection-view.c:1348
 msgid "Status Text"
 msgstr "Teksti i Status"
 
-#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progresi i Leximit të Figurës"
 
@@ -342,15 +342,20 @@ msgstr "Hap figurën"
 
 #: libeog/eog-file-selection.c:445
 msgid "Save Image"
-msgstr "Shpëto figurën"
+msgstr "Ruaje figurën"
 
 #: libeog/eog-file-selection.c:489
 msgid "Open Folder"
 msgstr "Hap kartelën"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "I pamundur krijimi i file të përkohshëm për të ruajtur: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "E pamundur përgatitja e kujtesës për të lexuar file JPEG"
+msgstr "E pamundur përgatitja e kujtesës për të ngarkuar file JPEG"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
@@ -378,7 +383,7 @@ msgstr "Vlera"
 
 #: libeog/eog-info-view.c:159
 msgid "Width"
-msgstr "Gjërësia"
+msgstr "Gjerësia"
 
 #: libeog/eog-info-view.c:173
 msgid "Height"
@@ -390,7 +395,7 @@ msgstr "Madhësia e file"
 
 #: libeog/eog-info-view.c:199
 msgid "Filename"
-msgstr "Emri i File"
+msgstr "Emri i file"
 
 #: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
 msgid "Page"
@@ -399,7 +404,7 @@ msgstr "Faqja"
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
 #: viewer/eog-image-view.c:385
 msgid "Preview"
-msgstr "Shikoje"
+msgstr "Pamja e parë"
 
 #: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
 msgid "Millimeter"
@@ -408,7 +413,7 @@ msgstr "Milimetër"
 #. First page of notebook: Paper selection and margins.
 #: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
 msgid "Paper"
-msgstr "Fleta"
+msgstr "Letra"
 
 #: libgpi/gpi-dialog.glade.h:2
 #, no-c-format
@@ -497,19 +502,19 @@ msgstr "Emri i file apo të dhënave për t'u printuar"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
-msgstr "Rreth këtij aplikativi"
+msgstr "Informacione mbi këtë aplikativ"
 
 #: shell/eog-shell-ui.xml.h:2
 msgid "Cancel"
-msgstr "Fshi"
+msgstr "Anullo"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Change the visibility of the statusbar in the current window"
-msgstr "Ndrysho dukshmërinë e menu së gjendjes në dritaren aktuale"
+msgstr "Ndrysho dukshmërinë e panelit të gjëndjes në dritaren aktuale"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Change the visibility of the toolbar in the current window"
-msgstr "Ndrysho dukshmërinë e menu së instrumentëve në dritaren aktuale"
+msgstr "Ndrysho dukshmërinë e panelit të instrumentëve në dritaren aktuale"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
@@ -561,11 +566,11 @@ msgstr "Mbyll programin"
 
 #: shell/eog-shell-ui.xml.h:17
 msgid "_About"
-msgstr "_Rreth"
+msgstr "_Informacione"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
-msgstr "_Mbyll"
+msgstr "_Mbylle"
 
 #: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
@@ -577,7 +582,7 @@ msgstr "_File"
 
 #: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
-msgstr "Ndi_Hmë"
+msgstr "_Ndihmë"
 
 #: shell/eog-shell-ui.xml.h:23
 msgid "_New"
@@ -593,15 +598,15 @@ msgstr "_Hap..."
 
 #: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
-msgstr "_Mbylle"
+msgstr "_Dil"
 
 #: shell/eog-shell-ui.xml.h:27
 msgid "_Statusbar"
-msgstr "_Menu e gjendjes"
+msgstr "_Paneli i gjendjes"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
-msgstr "_Menu e instrumentëve"
+msgstr "_Paneli i instrumentëve"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
@@ -665,11 +670,11 @@ msgstr "Për_shtate"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
-msgstr "Përshtat"
+msgstr "Përshtate"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
-msgstr "Rrit"
+msgstr "Zmadho"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
@@ -681,19 +686,19 @@ msgstr "Zvogëlo"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
-msgstr "Z_madhim"
+msgstr "Z_vogëlo"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr "Madhësi _Normale"
+msgstr "Madhësia _normale"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "_Zoom In"
-msgstr "_Zmadhim"
+msgstr "_Zmadho"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
-msgstr "Ekran i Plotë"
+msgstr "Ekran i plotë"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
@@ -701,7 +706,7 @@ msgstr "Pamja e parë e imazhit për t'u printuar"
 
 #: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
-msgstr "Pamja e Pa_rë..."
+msgstr "Pamja e _parë e printimit..."
 
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
@@ -721,7 +726,7 @@ msgstr "Rrutullo djathtas"
 
 #: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
-msgstr "Shpëtoje _Si..."
+msgstr "Ruaje _si..."
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
@@ -729,7 +734,7 @@ msgstr "Konfiguro rregullimet e faqes për printerin tuaj "
 
 #: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
-msgstr "_Ekran i Plotë"
+msgstr "Ekran i _Plotë"
 
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
@@ -755,7 +760,7 @@ msgstr "/_Zmadhim"
 
 #: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
-msgstr "/Z_vogëlim"
+msgstr "/Z_vogëlo"
 
 #: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
@@ -788,31 +793,31 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Ngarkimi dështoi"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Figura u ruajt me sukses"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Ruajtja e imazhit dështoi"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
-msgstr "Gjërësia e imazhit"
+msgstr "Gjerësia e imazhit"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Lartësia e imazhit"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Teksti i Statusbar"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Gjerësia e dëshiruar e dritares"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Lartësia e deshiruar e dritares"
 
