@@ -131,6 +131,72 @@ AM_PATH_OAF(0.6.0)
 AC_SUBST(OAF_LIBS)
 AC_SUBST(OAF_CFLAGS)
 
+dnl
+dnl ******************************
+dnl Image Libraries
+dnl ******************************
+jpeg_ok=no
+dnl Test for libjpeg
+  if test -z "$LIBJPEG"; then
+    AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
+      jpeg_ok=yes,
+      jpeg_ok=no
+      AC_MSG_WARN(*** JPEG saving code will not be built (JPEG library not found) ***))
+    if test "$jpeg_ok" = yes; then
+      AC_MSG_CHECKING([for jpeglib.h])
+      AC_TRY_CPP(
+[#include <stdio.h>
+#undef PACKAGE
+#undef VERSION
+#include <jpeglib.h>],
+        jpeg_ok=yes,
+        jpeg_ok=no)
+      AC_MSG_RESULT($jpeg_ok)
+      if test "$jpeg_ok" = yes; then
+        LIBJPEG='-ljpeg'
+        AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
+          AC_DEFINE(HAVE_PROGRESSIVE_JPEG),
+          AC_MSG_WARN(JPEG library does not support progressive saving.))
+      else
+          AC_MSG_WARN(*** JPEG saving code will not be built (JPEG header file not found) ***)
+      fi
+    fi
+  fi
+if test "x$jpeg_ok" = "xyes" ; then
+  AC_DEFINE(HAVE_JPEG)
+fi
+
+png_ok=no
+dnl Test for libpng
+  if test -z "$LIBPNG"; then
+    AC_CHECK_LIB(png, png_read_info,
+      AC_CHECK_HEADER(png.h,
+        png_ok=yes,
+        png_ok=no),
+      AC_MSG_WARN(*** PNG saving code will not be built (PNG library not found) ***), -lz -lm)
+    if test "$png_ok" = yes; then
+      AC_MSG_CHECKING([for png_structp in png.h])
+      AC_TRY_COMPILE([#include <png.h>],
+        [png_structp pp; png_infop info; png_colorp cmap; png_create_read_struct;],
+        png_ok=yes,
+        png_ok=no)
+      AC_MSG_RESULT($png_ok)
+      if test "$png_ok" = yes; then
+        PNG='png'; LIBPNG='-lpng -lz'
+      else
+        AC_MSG_WARN(*** PNG saving code will not be built (PNG library is too old) ***)
+      fi
+    else
+     AC_MSG_WARN(*** PNG saving code will not be built (PNG header file not found) ***)
+    fi
+  fi
+if test "x$png_ok" = "xyes" ; then
+  AC_DEFINE(HAVE_PNG)
+fi
+
+AC_SUBST(LIBJPEG)
+AC_SUBST(LIBPNG)
+
 
 dnl ******************************
 dnl More compiler warnings

@@ -9,3 +9,6 @@
 #undef ENABLE_BONOBO
 #undef ENABLE_GPRINT
 #undef USING_OAF
+#undef HAVE_PNG
+#undef HAVE_JPEG
+#undef HAVE_PROGRESSIVE_JPEG
