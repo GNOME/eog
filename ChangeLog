@@ -1,5 +1,10 @@
 2005-04-05  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-collection-item.c (get_item_image_caption): Escape caption before 
+	setting as markup string in text item. Fixes #164163.
+	
+2005-04-05  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-file-selection.c (set_preview_pixbuf),
 	* shell/eog-window.c (update_status_bar),
 	* shell/main.c (user_wants_collection): Use ngettext where useful.

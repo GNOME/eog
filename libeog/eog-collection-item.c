@@ -358,6 +358,7 @@ get_item_image_caption (GnomeCanvasItem *item, EogImage *image)
 	PangoLayout *layout;
 	char *basic_caption;
 	char *caption;
+	char *unescaped;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (GNOME_IS_CANVAS_ITEM (item), NULL);
@@ -369,16 +370,18 @@ get_item_image_caption (GnomeCanvasItem *item, EogImage *image)
 	g_assert (layout != NULL);
 
 	/* add line breaks */
-	caption = ensure_max_string_width (basic_caption, layout, EOG_COLLECTION_ITEM_THUMB_WIDTH);
-
+	unescaped = ensure_max_string_width (basic_caption, layout, EOG_COLLECTION_ITEM_THUMB_WIDTH);
+	caption = g_markup_escape_text (unescaped, strlen (unescaped));
+	g_free (unescaped);
+	
 	/* set bold caption to indicate image modification */
 	if (eog_image_is_modified (image)) {
-		char *tmp;
-
-		tmp = g_strdup_printf("<b>%s</b>", caption);
+		char *marked;
+		
+		marked = g_strdup_printf("<b>%s</b>", caption);
 
 		g_free (caption);
-		caption = tmp;
+		caption = marked;
 	}
 
 	g_object_unref (layout);
