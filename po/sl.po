@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-16 15:19+0200\n"
 "PO-Revision-Date: 2002-06-07 21:50+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -25,47 +26,79 @@ msgstr "Tovarna pregledovalnikov zbirk slik EOG"
 msgid "Image Collection"
 msgstr "Zbirka slik"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Preslikaj _vodoravno"
 
-#: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
-msgid "Next Image"
-msgstr "Shrani sliko"
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Preslikaj _navpično"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
-msgstr ""
+msgid "Next"
+msgstr "Naslednja"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
-msgid "Previous Image"
-msgstr "Natisni sliko"
+msgid "Next Image"
+msgstr "Naslednja slika"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr "Prejšnja"
+
+#: collection/eog-collection-view-ui.xml.h:6
+msgid "Previous Image"
+msgstr "Prejšnja slika"
+
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Obrni za 180 _stopinj"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Obrni v smeri _urinega kazalca"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Obrni _nasporti urinega kazalca"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Samodejni sprehod"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Undo"
+msgstr "_Razveljavi"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Pogled"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:535
 msgid "Move to Trash"
 msgstr "Prestavi v smeti"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:579
 msgid "Collection View"
 msgstr "Pogled zbirke"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
 msgid "Window Title"
 msgstr "Naslov okna"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1042
 msgid "Status Text"
 msgstr "Besedilo stanja"
+
+#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+msgid "Progress of Image Loading"
+msgstr "Napredek nalaganja slike"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -77,71 +110,68 @@ msgstr "Prikaz različnih vrst slik"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
-#, fuzzy
 msgid "<b>Image Interpolation</b>"
-msgstr "Interpolacija ploščic"
+msgstr "<b>Interpolacija slike</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>Povečava slike</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>Sekvenca</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "Barva prosojnosti"
+msgstr "<b>Prosojnost</b>"
 
 #: eog.glade.h:7
-#, fuzzy
 msgid "As background"
-msgstr "Barva ozadja:"
+msgstr "Kot ozadje"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "po označenem vzorcu"
+msgstr "Kot preizkusen _vzorec"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Kot _poljubno barvo"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Barva za prosojne površine"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Ne uporabi povečave večje od 100%"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Nastavitve Gnomeovega očesa"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "Pregledovalnik slik"
+msgstr "Pogled slike"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Krožna sekvenca"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Samodejno kaži naslednjo sliko:\n"
+"(0 za izklop)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -149,7 +179,7 @@ msgstr "_Interpoliraj sliko pri povečavi (boljša kvaliteta, a počasnejše)"
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "sekund"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -170,14 +200,13 @@ msgstr ""
 "(prilagodi velikost slike zaslonu)."
 
 #: eog.schemas.in.h:4
-#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Določa kako naj bo zaznamovana prosojnost. Veljavne vrednosti so "
-"CHECK_PATTEREN in COLOR. Če je izbran COLOR, potem uporabljeno barvo določa "
+"CHECK_PATTEREN, COLOR in NONE. Če je izbran COLOR, potem uporabljeno barvo določa "
 "ključ trans_color."
 
 #: eog.schemas.in.h:5
@@ -261,13 +290,13 @@ msgstr ""
 #: eog.schemas.in.h:18
 msgid ""
 "Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"Ali naj se slike standardnih velikosti prilagodi zaslonu v celozaslonskem "
-"načinu. Te velikosti so 320x240, 640x480, 800x600, itd. To izbere ali se "
-"takšne slike povečajo čez cel zaslon ne glede na privzet faktor povečave v "
+"Ali naj se slike standardnih velikosti v celozaslonskem "
+"načinu prilagodi zaslonu. Te velikosti so 320x240, 640x480, 800x600, itd. To izbere ali se "
+"takšne slike povečajo čez cel zaslon ne glede na nastavitev privzetega faktorja povečave v "
 "celozaslonskem načinu."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -286,8 +315,7 @@ msgstr "Tovarna pregledovalnikov slik EOG"
 msgid "Embeddable EOG Image"
 msgstr "Vgradljiva slika EOG"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Slika"
 
@@ -296,9 +324,8 @@ msgid "By Extension"
 msgstr "po končnici"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "Nepodprta oblika zapisa."
+msgstr "Nepodprta oblika zapisa slike za shranjevanje."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
@@ -312,40 +339,154 @@ msgstr "Naloži sliko"
 msgid "Save Image"
 msgstr "Shrani sliko"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1316
 msgid "No image loaded."
-msgstr ""
+msgstr "Nobena slika ni naložena."
 
-#: libeog/eog-image.c:1196
-#, fuzzy
+#: libeog/eog-image.c:1325
+msgid "Images can only be saved as local files."
+msgstr "Slike se lahko shranijo le kot krajevne datoteke."
+
+#: libeog/eog-image.c:1360
 msgid "Unsupported image type for saving."
-msgstr "Nepodprta oblika zapisa."
+msgstr "Nepodprta oblika zapisa slike za shranjevanje."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Lastnost"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Povečava"
+msgstr "Vrednost"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Širina slike"
+msgstr "Širina"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Svetlo"
+msgstr "Višina"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "_Datoteka"
+msgstr "Datoteka"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Stran"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:359
+msgid "Preview"
+msgstr "Predogled"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "milimeter"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Papir"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% izvorne velikosti"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Prilagodi na "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Središče"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Pomoč rezanja"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Dol, potem desno"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Prilagodi strani"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Vodoravno"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Vodoravno po "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Robovi"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Pomoč o razvrščanju"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Prekrivanje"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Pomoč o prekrivanju"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Vrstni red strani"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Desno, potem dol"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Povečava"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Kaži"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Navpično"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Navpično po "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "površina_dejanj"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialog"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbox"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Ime"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Ime datoteke ali podatkov, ki naj se natisnejo"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -411,10 +552,6 @@ msgstr "_Zapri"
 msgid "_Contents"
 msgstr "_Vsebina"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Uredi"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Datoteka"
@@ -439,24 +576,24 @@ msgstr "Iz_hod"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Andraž Tori <andraz.tori1@guest.arnes.si>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
+#: shell/eog-window.c:849 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Gnomeovo oko"
 
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Avtorske pravice pridržane (C) 2000-2002 Fundacija za prosto programje"
 
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program za gledanje in katalogizacijo slik GNOME."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -466,18 +603,15 @@ msgstr ""
 "%s"
 
 #: shell/main.c:225
-#, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Hkrati boste odprli boste %i oken\n"
-"Jih želite raje odpreti v zbirki?"
+"Hkrati boste odprli %i oken. Jih želite raje odpreti v zbirki?"
 
 #: shell/main.c:229
-#, fuzzy
 msgid "Open multiple single windows?"
-msgstr "Odpri v novem oknu"
+msgstr "Odpri več enojnih oken?"
 
 #: shell/main.c:233
 msgid "Single Windows"
@@ -488,9 +622,8 @@ msgid "Collection"
 msgstr "Zbirka"
 
 #: shell/main.c:305
-#, fuzzy
 msgid "Could not find files"
-msgstr "Ne morem odpreti `%s'"
+msgstr "Nisem našel datotek"
 
 #: shell/util.c:52
 #, c-format
@@ -505,7 +638,7 @@ msgstr "Najboljše _ujemanje"
 msgid "Fit"
 msgstr "Prilagodi"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Povečaj"
 
@@ -529,16 +662,6 @@ msgstr "_Običajna velikost"
 msgid "_Zoom In"
 msgstr "Po_večaj"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Preslikaj vodoravno"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Preslikaj navpično"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Predogled slike, ki bo natisnjena"
@@ -555,21 +678,6 @@ msgstr "Na_stavitev tiskanja"
 msgid "Print image to the printer"
 msgstr "Natisni sliko s tiskalnikom"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Obrni za 180 stopinj"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Obrni v smeri urinega kazalca"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Obrni nasporti urinega kazalca"
-
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Shrani _kot..."
@@ -579,233 +687,64 @@ msgid "Setup the page settings for your current printer"
 msgstr "Nastavi lastnosti strani za vaš trenutni tiskalnik"
 
 #: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
 msgid "_Full Screen"
-msgstr "Čez cel zaslon"
+msgstr "Č_ez cel zaslon"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
 msgstr "Na_tisni..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/Po_večaj"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/Po_manjšaj"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/_Običajna velikost"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/Najboljše _ujemanje"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/_Zapri"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:962
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Slika je bila uspešno shranjena"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:966
 msgid "Image saving failed"
-msgstr ""
+msgstr "Shranjevanje slike ni uspelo"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1209
 msgid "Image Width"
 msgstr "Širina slike"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1212
 msgid "Image Height"
 msgstr "Višina slike"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1218
 msgid "Statusbar Text"
 msgstr "Besedilo v vrstici stanja"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1221
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Želena širina okna"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1224
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Želena višina okna"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Nisem mogel inicializirati GnomeVFS!\n"
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "tčk"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "točk"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimeter"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimeter"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "palcev"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Nastavitev tiskanja"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Natisni"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Predogled tiskanja"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Enote: "
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Papir"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Velikost papirja:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Usmerjenost"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Pokončno"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Ležeče"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Robovi"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Zgoraj:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Levo:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Desno:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Spodaj:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Povečava"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Prilagodi na:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Prilagodi strani"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% izvorne velikosti"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Središče"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Vodoravno"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Navpično"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Prekrivanje"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Prekrij horizontalno za"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Prekrij navpično za"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Tiskanje"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Pomočniki"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Natisni pomoč rezanja"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Natisni pomoč prekrivanja"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Vrstni red strani"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Dol, potem desno"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Desno, potem dol"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Pregledovalnik slik Gnomeovo oko"
@@ -908,14 +847,74 @@ msgstr "Desno, potem dol"
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Nisem mogel shraniti slike kot '%s': %s."
 
-#~ msgid "Pages"
-#~ msgstr "Strani"
-
 #~ msgid "Print Preview"
 #~ msgstr "Predogled tiskanja"
 
 #~ msgid "Printing of image failed"
 #~ msgstr "Tiskanje slike ni uspelo"
+
+#~ msgid "pts"
+#~ msgstr "tčk"
+
+#~ msgid "points"
+#~ msgstr "točk"
+
+#~ msgid "mm"
+#~ msgstr "mm"
+
+#~ msgid "cm"
+#~ msgstr "cm"
+
+#~ msgid "centimeter"
+#~ msgstr "centimeter"
+
+#~ msgid "inch"
+#~ msgstr "palcev"
+
+#~ msgid "Print Setup"
+#~ msgstr "Nastavitev tiskanja"
+
+#~ msgid "Print"
+#~ msgstr "Natisni"
+
+#~ msgid "Units: "
+#~ msgstr "Enote: "
+
+#~ msgid "Paper size:"
+#~ msgstr "Velikost papirja:"
+
+#~ msgid "Orientation"
+#~ msgstr "Usmerjenost"
+
+#~ msgid "Portrait"
+#~ msgstr "Pokončno"
+
+#~ msgid "Landscape"
+#~ msgstr "Ležeče"
+
+#~ msgid "Top:"
+#~ msgstr "Zgoraj:"
+
+#~ msgid "Left:"
+#~ msgstr "Levo:"
+
+#~ msgid "Right:"
+#~ msgstr "Desno:"
+
+#~ msgid "Bottom:"
+#~ msgstr "Spodaj:"
+
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Prekrij horizontalno za"
+
+#~ msgid "Overlap vertically by "
+#~ msgstr "Prekrij navpično za"
+
+#~ msgid "Printing"
+#~ msgstr "Tiskanje"
+
+#~ msgid "Helpers"
+#~ msgstr "Pomočniki"
 
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
