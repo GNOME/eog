@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.90\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-23 19:30-0400\n"
-"PO-Revision-Date: 2004-10-23 13:42-0400\n"
+"POT-Creation-Date: 2004-10-25 13:16-0400\n"
+"PO-Revision-Date: 2004-10-25 13:42-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -91,8 +91,8 @@ msgid "Destination Folder:"
 msgstr "Destination Folder:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome Preferences"
+msgid "Eye of GNOME Preferences"
+msgstr "Eye of GNOME Preferences"
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -206,36 +206,44 @@ msgid "Open images in a new window"
 msgstr "Open images in a new window"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Show/hide image information for collection."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "Show/hide image information for single image."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Show/hide the window statusbar."
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Show/hide the window toolbar."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Transparency colour"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Transparency indicator"
 
-#: eog.schemas.in.h:15
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
-msgstr ""
-"Whether or not the sequence of images should be shown in an endless loop."
-
 #: eog.schemas.in.h:17
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+
+#: eog.schemas.in.h:18
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
+msgstr ""
+"Whether or not the sequence of images should be shown in an endless loop."
+
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -368,10 +376,10 @@ msgstr "Option not available."
 #: libeog/eog-save-as-dialog-helper.c:138
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
@@ -440,10 +448,10 @@ msgstr ""
 "Maintainer: Adam Weinberger  <adamw@gnome.org>Alexander Winston <alexander."
 "winston@comcast.net>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2497
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
 #: shell/main.c:520
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -452,216 +460,232 @@ msgstr "The GNOME image viewing and cataloguing program."
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Overwrite file %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "File exists. Do you want to overwrite it?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Skip"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Overwrite"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Error on saving %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Retry"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Couldn't determine file format of %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Please use an appropriate filename suffix or select a file format."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Error on saving images."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Do you really want to move %i image to trash?"
 msgstr[1] "Do you really want to move %i images to trash?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Couldn't access trash."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Error on deleting image %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i pixel  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_File"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "_Edit"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "_View"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_Help"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_New"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Open a new window"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Open..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Open a file"
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open _Folder..."
 msgstr "Open _Folder..."
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open a folder"
 msgstr "Open a folder"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "_Close"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Close window"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "Prefere_nces"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "Preferences for Eye of Gnome"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "Preferences for Eye of GNOME"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Contents"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Help On this application"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "_About"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "About this application"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "_Toolbar"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Changes the visibility of the toolbar in the current window"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "_Statusbar"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Changes the visibility of the statusbar in the current window"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_Save"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "Save _As"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "_Undo"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Flip _Horizontal"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Flip _Vertical"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "_Rotate Clockwise"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotate Counter C_lockwise"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Rotat_e 180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Delete"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "_Full Screen"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "_Zoom In"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "Zoom _Out"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "_Normal Size"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "Best _Fit"
 
-#: shell/eog-window.c:2328
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "Image _Information"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Change the visibility of the information pane in the current window"
+
+#: shell/eog-window.c:2374
 msgid "User interface description not found."
 msgstr "User interface description not found."
 
 #: shell/main.c:67
-msgid "Unable to create Eye of Gnome user interface"
-msgstr "Unable to create Eye of Gnome user interface"
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "Unable to create Eye of GNOME user interface"
 
 #: shell/main.c:258
 #, c-format
