@@ -777,6 +777,47 @@ auto_size (EogWindow *window)
 #endif
 
 static void
+set_window_title (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	BonoboControlFrame *ctrl_frame;
+	Bonobo_PropertyBag pb;
+	gchar *title;
+	CORBA_Environment ev;
+
+	priv = window->priv;
+	
+	if (priv->control == NULL) goto on_error;
+	
+	ctrl_frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (priv->control));
+	if (ctrl_frame == NULL) goto on_error;
+
+	CORBA_exception_init (&ev);
+
+	pb = bonobo_control_frame_get_control_property_bag (
+                ctrl_frame, &ev);
+	if (pb == CORBA_OBJECT_NIL) goto on_error;
+
+	title = bonobo_property_bag_client_get_value_string (pb, "bonobo:title", &ev);
+	if (title == NULL) goto on_prop_error;
+
+	gtk_window_set_title (GTK_WINDOW (window), title);
+	g_free (title);
+
+	bonobo_object_release_unref (pb, &ev);
+	CORBA_exception_free (&ev);
+	return;
+
+ on_prop_error:
+	bonobo_object_release_unref (pb, &ev);
+	CORBA_exception_free (&ev);
+
+ on_error:
+	gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
+	
+}
+
+static void
 remove_component (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -980,6 +1021,9 @@ eog_window_open (EogWindow *window, const char *path)
 	gtk_widget_show (priv->box);
 
 	Bonobo_Control_activate (control, TRUE, &ev);
+
+	/* retrieve window title from control properties */
+	set_window_title (window);
 
 	/* Get property control */
 	priv->prop_control = Bonobo_Unknown_queryInterface
