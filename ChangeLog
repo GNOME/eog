@@ -1,5 +1,13 @@
 2003-12-08  Jens Finke  <jens@triq.net>
 
+	Patch by pasupathi.duraisamy@wipro.com - Bug #119469
+	
+	* libeog/eog-file-selection.c (replace_file): New function
+	(response_cb): Check if the file exists and ask user if she wants
+	to overwrite it.
+	
+2003-12-08  Jens Finke  <jens@triq.net>
+
 	Lossless saving for local/unmodified files and local/modified jpeg
 	images. Needs more testing.
 

@@ -3,6 +3,7 @@
 #include <libgnome/gnome-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <glib/gslist.h>
+#include <glib/gfileutils.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtkmenuitem.h>
 #include <gtk/gtkmenu.h>
@@ -240,6 +241,41 @@ changed_cb (GtkWidget *widget, gpointer data)
 #endif
 }
 
+static gboolean
+replace_file (GtkWindow *window, const gchar *file_name)
+{
+	GtkWidget *msgbox;
+	gchar *utf_file_name;
+	gchar *msg;
+	gint ret;
+
+	utf_file_name = g_filename_to_utf8 (file_name, -1,
+                                            NULL, NULL, NULL);
+        msg = g_strdup_printf (_("Do you want to overwrite %s?"),
+				utf_file_name);
+	g_free (utf_file_name);
+
+	msgbox = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
+				     _("File exists"), 
+				     msg,
+				     TRUE);
+
+	gtk_dialog_add_buttons (GTK_DIALOG (msgbox),
+				GTK_STOCK_NO,
+				GTK_RESPONSE_CANCEL,
+				GTK_STOCK_YES,
+				GTK_RESPONSE_YES,
+				NULL);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
+					 GTK_RESPONSE_CANCEL);
+
+	ret = gtk_dialog_run (GTK_DIALOG (msgbox));
+	gtk_widget_destroy (msgbox);
+	g_free (msg);
+
+	return (ret == GTK_RESPONSE_YES);
+}
 
 static void
 response_cb (GtkDialog *dlg, gint id, gpointer data)
@@ -257,6 +293,15 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 		dir = g_path_get_dirname (filename);
 		last_dir [priv->type] = g_build_filename (dir, ".", NULL);
 		g_free (dir);
+
+		if ((priv->type == EOG_FILE_SELECTION_SAVE) &&
+		    (g_file_test (filename, G_FILE_TEST_EXISTS))) 
+		{
+			if (!replace_file (GTK_WINDOW (dlg), filename)) {
+				g_signal_stop_emission_by_name (G_OBJECT (dlg), "response");
+				return;
+			}
+		}
 		
 		if (priv->type == EOG_FILE_SELECTION_SAVE && !is_filename_valid (dlg)) {
 			GtkWidget *dialog;
@@ -307,8 +352,6 @@ eog_file_selection_construct (GtkWidget *widget)
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (filesel)->vbox), hbox,
 				    FALSE, FALSE, 10);	
 	gtk_widget_show_all (hbox);
-
-	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
 }
 
 GtkWidget* 
