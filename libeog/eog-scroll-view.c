@@ -1723,6 +1723,10 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 	priv = view->priv;
 
+	if (priv->image == image) {
+		return;
+	}
+
 	if (image != NULL) {
 		g_object_ref (image);
 	}
@@ -1741,13 +1745,14 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			g_object_unref (priv->pixbuf);
 			priv->pixbuf = NULL;
 		}
+
+		if (GTK_WIDGET_DRAWABLE (priv->display) && image == NULL) {
+			gdk_window_clear (GTK_WIDGET (priv->display)->window);
+		}
 	}
 	g_assert (priv->image == NULL);
 	g_assert (priv->pixbuf == NULL);
 
-	if (GTK_WIDGET_DRAWABLE (priv->display)) {
-		 gdk_window_clear (GTK_WIDGET (priv->display)->window);
-	}
 
 	priv->progressive_loading = PROGRESSIVE_NONE;
 	if (image != 0) {

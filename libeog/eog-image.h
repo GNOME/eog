@@ -3,6 +3,7 @@
 
 #include <glib-object.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
 
@@ -47,6 +48,11 @@ struct _EogImageClass {
 	void (* loading_finished) (EogImage *img);
 	void (* loading_failed) (EogImage *img, const char* message);
 	void (* loading_cancelled) (EogImage *img);
+	
+	void (* thumbnail_finished) (EogImage *img);
+	void (* thumbnail_failed) (EogImage *img);
+	void (* thumbnail_cancelled) (EogImage *img);
+
 	void (* changed) (EogImage *img);
 };
 
@@ -54,8 +60,10 @@ GType               eog_image_get_type                       (void) G_GNUC_CONST
 
 /* loading API */
 EogImage*           eog_image_new                            (const char *txt_uri, EogImageLoadMode mode);
+EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri, EogImageLoadMode mode);
 gboolean            eog_image_load                           (EogImage *img);
-void                eog_image_load_thumbnail                 (EogImage *img);
+gboolean            eog_image_load_thumbnail                 (EogImage *img);
+void                eog_image_free_mem                       (EogImage *img);
 
 /* saving API */
 gboolean            eog_image_save                            (EogImage *img, 
@@ -65,9 +73,10 @@ gboolean            eog_image_save                            (EogImage *img,
 /* query API */
 gboolean            eog_image_is_animation                    (EogImage *img);
 GdkPixbuf*          eog_image_get_pixbuf                      (EogImage *img);
-GdkPixbuf*          eog_image_get_thumbnail_pixbuf            (EogImage *img);
+GdkPixbuf*          eog_image_get_pixbuf_thumbnail            (EogImage *img);
 void                eog_image_get_size                        (EogImage *img, int *width, int *height);
 gboolean            eog_image_is_modified                     (EogImage *img);
+gchar*              eog_image_get_caption                     (EogImage *img);
 
 /* modification API */
 void                eog_image_rotate_clock_wise               (EogImage *img);

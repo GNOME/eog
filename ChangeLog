@@ -1,4 +1,17 @@
-2003-02-14  Jens Finke
+2003-02-21  Jens Finke <jens@triq.net>
+
+	* libeog/eog-image.[ch]: Added thumbnail generation stuff.
+	(eog_image_load_thumbnail),
+	(eog_image_get_pixbuf_thumbnail),
+	(eog_image_free_mem),
+	(eog_image_get_caption): New functions.
+
+	* libeog/scroll-view.c (eog_scroll_view_set_image): Reduced
+	flicker on image switching.
+
+	* libeog/.cvsignore: Added libeog-marshal.[ch].
+
+2003-02-14  Jens Finke <jens@triq.net>
 
 	New eog architecture. Moved more stuff into libeog and basically merged
 	image-view.[ch] and ui-image.[ch]. The result is eog-scroll-view.[ch].
