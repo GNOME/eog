@@ -1,3 +1,7 @@
+2003-05-10  Danilo Å egan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
 2003-04-07  Mike Lei <mike.lei@sun.com>
 
 	* configure.in: Added Makefile support for docs in
@@ -2262,13 +2266,13 @@
 	* libeog/image-view.c (image_view_set_zoom) : add a minimum zoom
 	  to avoid massive memory allocations in gdk-pixbuf.
 
-2001-08-29  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-08-29  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-window.c (add_control_to_ui): If we fail to create a
 	widget, print a warning and return instead of continuing (and
 	crashing).
 
-2001-08-21  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-08-21  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* collection/.cvsignore: Ignore Evolution-Composer*
 
@@ -2312,14 +2316,14 @@
 
 	* viewer/preferences.c: Fixed buglet in translation string.
 
-2001-08-07  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-08-07  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image.c: Our parent class is BonoboXObjectClass.
 
 	* viewer/eog-image-view.c: Unref the camera if operation has been
 	cancelled.
 
-2001-08-07  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-08-07  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: Remove the listener after capturing is
 	done.
@@ -2330,7 +2334,7 @@
 	dialog since bonobo size stuff happens after realize time
 	(eog_window_open_dialog): set the window icon on the open dialog
 
-2001-08-01  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-08-01  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: Make capturing of images async.
 
@@ -2357,13 +2361,13 @@
 	* shell/eog-window.c (create_bonobo_file_sel): set some of the new
 	properties on the file sel
 
-2001-07-17  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-17  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: GNOME_Camera_captureImage will just
 	return a path.  Therefore, get the storage, capture the image, and
 	then get a stream for the path.
 
-2001-07-17  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-17  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/.cvsignore: Ignore GnoCam*.
 
@@ -2381,11 +2385,11 @@
 	and make
 	(eog_image_save_to_stream) consistent.
 
-2001-07-17  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-07-17  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/main.c: #include <libgnomeui/gnome-window-icon.h>
 
-2001-07-17  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-07-17  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* configure.in: Fix check for evolution (--without didn't work). Add
 	check for GnoCam.idl
@@ -2405,21 +2409,21 @@
 
 	* configure.in: Added nn to ALL_LINGUAS.
 
-2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-11  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
         * viewer/Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS],
 	those are in EXTRA_GNOME_[LIBS,CFLAGS] now.
 
 	* viewer/eog-control.c: Set shadow type here.
 
-2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-11  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
         * shell/Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS], those are in
         EXTRA_GNOME_[LIBS,CFLAGS] now.
 
 	* shell/main.c: Remove glade_gnome_init - we don't need it.
 
-2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-11  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
         * libeog/Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS],
 	those are in EXTRA_GNOME_[LIBS,CFLAGS] now.
@@ -2427,18 +2431,18 @@
 	* libeog/image.[c,h]: Removed.
 	* libeog/ui-image.c: Set shadow type to GTK_SHADOW_NONE.
 
-2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-11  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* collection/Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS],
 	those are in EXTRA_GNOME_[LIBS,CFLAGS] now.
 
-2001-07-11  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-07-11  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* configure.in: Don't check for libglade - we don't use it. Remove
 	EXTRA_VFS_LIBS and EXTRA_BONOBO_LIBS, put those into EXTRA_GNOME_LIBS.
 	Same with *_CFLAGS. This greatly reduces compilation time on my system.
 
-2001-07-08  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-08  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	Now trying to plug ref counting leaks in gnumeric: even more debugging
 	stuff (shows up when DEBUG_EOG=1).
@@ -2447,28 +2451,28 @@
 
 	* viewer/eog-image-view.c: Debugging stuff.
 
-2001-07-08  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-08  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: Use the filename for filename and
 	description (attachment data).
 
-2001-07-08  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-08  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-control.c: ZoomMenu -> ZoomOperations
 	* viewer/eog-embeddable.c: Debugging stuff added.
 	* viewer/eog-image-view-ui.xml: Print -> PrintOperations
 	* viewer/eog-image-view.c: Debugging stuff added.
 
-2001-07-08  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-08  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-shell-ui.xml: Print -> PrintOperations
 
-2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image.c: Doh, free the old filename before loading a new image.
 	Use BONOBO_EX. Clean up on error: unref the uri.
 
-2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image.[c,h]: Don't rely on libeog/image.[c,h] to keep
 	pixbuf and filename - we can do that ourselves.
@@ -2476,12 +2480,12 @@
 	* viewer/eog-image-view.c: Get the pixbuf directly from eog-image,
 	not through libeog/Image.
 
-2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-data.[c,h]: Removed. Those two files have been
 	renamed to eog-image-io.[c,h] a long time ago.
 
-2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	Only show debugging messages if environment variable DEBUG_EOG is set
 	to some value.
@@ -2492,12 +2496,12 @@
 	time something gets loaded. Recycle an existing one.
 	* viewer/main.c: Debugging stuff added.
 	
-2001-07-05  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-window.c: Unref the old property control before
 	getting a new one.
 
-2001-07-04  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-07-04  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* configure.in: Use AC_CHECK_FILE instead of "test -f ...". This will
 	let configure have access to cached values, reduce configure.in by 2
@@ -2529,7 +2533,7 @@
 	* collection/eog-collection-control.c: Don't store reference to
 	root widget.
 
-2001-06-29  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-29  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-full-screen.[c,h]: New file (resurrected from eog/src).
 	* viewer/Makefile.am: Add above files.
@@ -2537,11 +2541,11 @@
 	full screen.
 	* viewer/eog-image-view.c: Callback for full screen. Formatting.
 
-2001-06-29  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-29  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-window.c: Remove debugging message which got checked in.
 
-2001-06-29  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-29  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/e-dialog-widgets.[c,h]:
 	* shell/preferences.[c,h]: 
@@ -2553,7 +2557,7 @@
 	* shell/eog-preferences.c: Plug leaks (i.e. unref the property bag
 	so that our eog-image-viewer can exit).
 
-2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	Ok, I got it. eog-image-viewer now exits when unused [1]. It basically
 	boils down to adding stuff with bonobo_object_add_interface only when
@@ -2567,23 +2571,23 @@
 	* viewer/eog-control.c: Small changes (see above).
 	* viewer/eog-image-view.c Small changes (see above).
 
-2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-control.c: Don't keep references to the widget (displayed by the
 	control) and the image - we simply don't need them. Unref the 
 	image-view on destroy - we created it during construction. 
 
-2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/main.c: Kill 50% of all lines by using BONOBO_OAF_FACTORY_MULTI.
 	* viewer/eog-image.c: Initialize gnome-vfs here (if needed).
 
-2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: In an attempt to clean up in order to be able
 	to find the ref-leaks, remove the (unused) BonoboItemContainer.
 
-2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/Makefile.am: Compile sample-container again (noinst)
 	* viewer/sample-container.c: Rewrite to properly clean up behind. The
@@ -2591,7 +2595,7 @@
 	therefore the ref-leaks seem to be in the eog-image-viewer and not
 	in the shell.
 
-2001-06-27  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-27  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-window.c: Unref the property control on destroy. Now,
 	the eog-image-viewer shuts down after exiting eog. Don't ref the
@@ -2599,11 +2603,11 @@
 	container_remove or exit.  All other changes to improve
 	readability (I needed them in order to discover above problem).
 
-2001-06-26  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-26  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/.cvsignore: Ignore generated Evolution* files
 
-2001-06-26  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-26  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	While searching why eog-image-viewer is still alive even after exiting
 	eog...
@@ -2612,11 +2616,11 @@
 	(ENABLE_BONOBO_FILESEL), use BONOBO_EX and
 	bonobo_object_release_unref (makes code more readable)
 
-2001-06-26  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-26  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/.cvsignore: Ignore eog (formerly eog-shell)
 
-2001-06-25  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-06-25  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view-ui.xml: Add menu entry "Send" for sending
 	images via email
@@ -2625,12 +2629,12 @@
 	and attaches the current image.
 	(eog_image_view_create_ui): Connect signal to above function.
 
-2001-06-25  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-25  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* configure.in: Check if evolution is there, but let the user override
 	this check with --without-evolution.
 
-2001-06-25  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-06-25  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* acconfig.h: #undef ENABLE_EVOLUTION
 	* configure.in: Give the user the option to compile with evolution
@@ -2885,7 +2889,7 @@
 	* viewer/eog-print-setup.c (eog_print_setup_new): Added gettext
 	hint for translation. This should fix bug #55349.
 
-2001-05-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-05-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* libeog/Makefile.am: $(BUILT_SOURCES) got added to CLEANFILES two
 	times? I guess one time is enough...
@@ -2987,7 +2991,7 @@
 	tries to show the whole image with zoom factor 1.0, if this
 	doesn't fit onto the screen, then it scales the image down.
 	
-2001-05-07  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-05-07  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	Reduce complexity, make Image obsolete.
 
@@ -3062,7 +3066,7 @@
 	* collection/eog-wrap-list.[ch]: Use standard program copyright
 	notice at top of file.
 
-2001-04-14  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-14  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.c: Move all cutting helps to top-left
 	when they are no longer shown. Like that, the lines will remain
@@ -3072,7 +3076,7 @@
 
 	* libeog/Makefile.am (dist-hook): add.
 
-2001-04-12  Martin Norbäck <d95mback@dtek.chalmers.se>
+2001-04-12  Martin NorbÃ¤ck <d95mback@dtek.chalmers.se>
 
 	* libeog/GNOME_EOG.oaf.in: make nautilus_view_as values
 	translatable.
@@ -3115,7 +3119,7 @@
 	(ii_factory_update_item): Set item border to black, use shaded
 	background for images, set font color to white.
 
-2001-04-07  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-07  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c: Change gdouble to gint in order to get
 	counting of pages right.
@@ -3123,7 +3127,7 @@
 	* viewer/eog-print-setup.c: Fix typo that resulted in the wrong
 	image for print order.
 
-2001-04-07  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-07  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.[ch]:
 	* viewer/eog-preview-page.[ch]:
@@ -3143,7 +3147,7 @@
 	instead of a GList of ids. The list isn't really needed and its
 	much easier to use it this way.
 
-2001-04-06  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-06  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/Makefile.am: Added $(GCONF_LIBS) to sample_container as I
 	put some gconf stuff into...
@@ -3161,7 +3165,7 @@
 	* viewer/eog-preview-page.c: If cutting help is not wanted, move
 	it to (0,0) where we can hide it even if the page size shrinks.
 	
-2001-04-06  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-06  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-image-view.c:
 	* eog-preview-page.[ch]:
@@ -3172,7 +3176,7 @@
 	Internally handle everything but pixmap sizes in gdouble. Get preview
 	and printing in sync again (not 100% done - but 99,9%...).
 
-2001-04-05  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-05  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.c: We don't need SCALE here anywhere.
 	
@@ -3190,7 +3194,7 @@
 	table.
 	(rearrange_single_item): Use GFunc like signature.
 	
-2001-04-04  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-04  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 	
 	* viewer/eog-print-setup.c: First work towards supporting
 	units. Not functional yet, though.
@@ -3214,7 +3218,7 @@
 	* collection/eog-item-factory-simple.c (ii_factory_update_item):
 	Indicate if the thumbnail is selected or not.
 
-2001-04-03  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-03  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view.c:
 	(print_page): Always move (0,0) to bottom left at the
@@ -3229,7 +3233,7 @@
 
 	* shell/eog-window.c (eog_window_construct): setup configuration.
 
-2001-04-02  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-02  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview.c: 
 	* viewer/eog-preview-page.[ch]:
@@ -3238,7 +3242,7 @@
 	adjust_to and we are able to determine the interpolation type
 	(gnome-print chooses its own otherwise).
 
-2001-04-02  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-02  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview.c: Give the user the option to print a
 	cutting help.
@@ -3255,13 +3259,13 @@
 	(handle_item_event): Read unique id from item and propagate it
 	together with emmited signal.
 	
-2001-04-01  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-04-01  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.c: Show the margins as a red line. Red
 	because those lines won't be printed. Shall we give the user the
 	option to print them?
 
-2001-03-31  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-31  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.[ch]: New files
 
@@ -3370,7 +3374,7 @@
 	Renamed to update_item, removed last 3 parameter.
 	(create_item signal): Added unique_id to paramter list.
 
-2001-03-27  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-27  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* art: New directory containing some icons (from gnumeric) the
 	viewer needs.
@@ -3381,7 +3385,7 @@
 
 	* collection/.cvsignore: Ignore the generated .oaf file.
 
-2002-03-25  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2002-03-25  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview.[ch]: New files
 	
@@ -3394,14 +3398,14 @@
 	* viewer/eog-print-setup.c: Added preview. Support for print order
 	specification. Support for multiple pages.
 
-2001-03-21  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-21  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/main.c (main): init_with_popt_table in order to be able to
 	load given files. If we are given files (or directories), load
 	each into a separate window.
 	(create_app): If we are given a parameter (== filename), load it.
 
-2001-03-20  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-20  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 	
 	* viewer/eog-print-setup.[ch]: New files
 
@@ -3417,7 +3421,7 @@
 	* viewer/eog-image-view.c: When printing, consider what the user
 	specified via the new print-setup-dialog.
 
-2001-03-18  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-18  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view-ui.xml: Added menuitems for printing
 	operations.
@@ -3427,7 +3431,7 @@
 	(verb_PrintPreview_cb),
 	(verb_Print_cb): New functions, redirect to above.
 
-2001-03-18  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+2001-03-18  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-shell-ui.xml: Added placeholder for printing
 	operations.
@@ -3555,7 +3559,7 @@
 
 	* collection/eog-collection-model.[ch]: New files.
 
-2001-03-01  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-03-01  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-image-view-ui.xml: Added 'FileOperations' placeholder
 	and menuitem 'SaveAs'.
@@ -3576,7 +3580,7 @@
 	Window' and 'Close Window' to 'Close'. So it's more consistent
 	with other applications.
 
-2001-03-01  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+2001-03-01  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-shell-ui.xml: Added 'FileOperations' placeholder and
 	put 'FileOpen' in it.
@@ -4554,7 +4558,7 @@
 	* bonobo/Makefile.am (gnorba_DATA): Do not install the stuff in
 	gnorba_DATA if we are not using bonobo.
 
-1999-12-30  Tomasz K³oczko  <kloczek@pld.org.pl>
+1999-12-30  Tomasz KÂ³oczko  <kloczek@pld.org.pl>
 
 	* configure.in, eog.desktop, po/pl.po: added Polish translation (based
 	on GNOME PL translation resources).
