@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-05-16 22:44+0200\n"
-"PO-Revision-Date: 2002-05-16 22:46+0200\n"
+"POT-Creation-Date: 2002-05-23 13:23+0200\n"
+"PO-Revision-Date: 2002-05-23 13:23+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,16 @@ msgstr "aktiver zoom til fullskjerm"
 msgid "whether we should allow full screen zoom"
 msgstr "om zoom til full skjerm skal tillates"
 
-#: shell/eog-preferences.c:141
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Kunne ikke vise hjelp for brukervalg-dialogen.\n"
+"%s"
+
+#: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
 msgstr "Brukervalg for Eye of GNOME"
 
@@ -197,7 +206,7 @@ msgstr "_Vis"
 msgid "Translator Credits"
 msgstr "Kjartan Maraas"
 
-#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -209,31 +218,40 @@ msgstr "Opphavsrett © 2000-2001 Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Gnome bildevisning og katalogisering"
 
-#: shell/eog-window.c:761
+#: shell/eog-window.c:275
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Kunne ikke vise hjelp for Eye of GNOME.\n"
+"%s"
+
+#: shell/eog-window.c:785
 msgid "Open Image"
 msgstr "Åpne bilde"
 
-#: shell/eog-window.c:815
+#: shell/eog-window.c:839
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen støtter ikke window_title korrekt."
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:855
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen støtter ikke status_text korrekt."
 
-#: shell/eog-window.c:850
+#: shell/eog-window.c:874
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ingen egenskaper"
 
-#: shell/eog-window.c:867
+#: shell/eog-window.c:891
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finne MIME-type for filen."
 
-#: shell/eog-window.c:1110
+#: shell/eog-window.c:1134
 msgid "Error while obtaining file informations."
 msgstr "Feil under henting av filinformasjon."
 
-#: shell/eog-window.c:1139
+#: shell/eog-window.c:1163
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kan ikke åpne %s."
@@ -484,7 +502,7 @@ msgstr "Vindustittel"
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image.c:468
+#: viewer/eog-image.c:467
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunne ikke initiere GnomeVFS!\n"
 
