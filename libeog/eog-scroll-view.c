@@ -106,6 +106,9 @@ struct _EogScrollViewPrivate {
 	/* how to indicate transparency in images */
 	TransparencyStyle transp_style;
 	guint32 transp_color;
+
+	/* the type of the cursor we are currently showing */
+	CursorType cursor_type;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -353,6 +356,16 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 
 	if (vbar_visible != GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar)))
 		g_object_set (G_OBJECT (priv->vbar), "visible", vbar_visible, NULL);
+
+
+	if ((hbar_visible || vbar_visible) && priv->cursor_type != CURSOR_HAND_OPEN) {
+		priv->cursor_type = CURSOR_HAND_OPEN;
+		cursor_set (priv->display, CURSOR_HAND_OPEN);
+	}
+	else if (!hbar_visible  && !vbar_visible && priv->cursor_type != CURSOR_DEFAULT) {
+		priv->cursor_type = CURSOR_DEFAULT;
+		cursor_set (priv->display, CURSOR_DEFAULT);
+	}
 }
 
 #define DOUBLE_EQUAL(a,b) (fabs (a - b) < 1e-6)
@@ -366,6 +379,20 @@ is_unity_zoom (EogScrollView *view)
 	priv = view->priv;
 	return DOUBLE_EQUAL (priv->zoom, 1.0);
 }
+
+/* Returns wether the image is movable, that means if it is larger then 
+ * the actual visible area.
+ */
+static gboolean
+is_image_movable (EogScrollView *view)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+
+	return (GTK_WIDGET_VISIBLE (priv->hbar) || GTK_WIDGET_VISIBLE (priv->vbar));
+}
+
 
 /* Computes the image offsets with respect to the window */
 static void
@@ -442,7 +469,8 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	ArtIRect r, d;
 	GdkPixbuf *tmp;
 	int check_size;
-	guint32 check_1, check_2;
+	guint32 check_1 = 0;
+	guint32 check_2 = 0;
 
 	priv = view->priv;
 
@@ -1089,7 +1117,6 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
-	GdkCursor *cursor;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -1102,18 +1129,19 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 
 	switch (event->button) {
 	case 1:
-		cursor = cursor_get (GTK_WIDGET (priv->display), CURSOR_HAND_CLOSED);
-		gdk_window_set_cursor (GTK_WIDGET (priv->display)->window, cursor);
-		gdk_cursor_unref (cursor);
+		if (is_image_movable (view)) {
+			priv->cursor_type = CURSOR_HAND_CLOSED;
+			cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_CLOSED);
 
-		priv->dragging = TRUE;
-		priv->drag_anchor_x = event->x;
-		priv->drag_anchor_y = event->y;
+			priv->dragging = TRUE;
+			priv->drag_anchor_x = event->x;
+			priv->drag_anchor_y = event->y;
+			
+			priv->drag_ofs_x = priv->xofs;
+			priv->drag_ofs_y = priv->yofs;
 
-		priv->drag_ofs_x = priv->xofs;
-		priv->drag_ofs_y = priv->yofs;
-
-		return TRUE;
+			return TRUE;
+		}
 	default:
 		break;
 	}
@@ -1140,7 +1168,6 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
-	GdkCursor *cursor;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -1151,9 +1178,14 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 	drag_to (view, event->x, event->y);
 	priv->dragging = FALSE;
 
-	cursor = cursor_get (GTK_WIDGET (priv->display), CURSOR_HAND_OPEN);
-	gdk_window_set_cursor (GTK_WIDGET (priv->display)->window, cursor);
-	gdk_cursor_unref (cursor);
+	if (is_image_movable (view)) {
+		priv->cursor_type = CURSOR_HAND_OPEN;
+		cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_OPEN);
+	}
+	else {
+		priv->cursor_type = CURSOR_DEFAULT;
+		cursor_set (GTK_WIDGET (priv->display), CURSOR_DEFAULT);
+	}
 
 	return TRUE;
 }
@@ -1768,7 +1800,7 @@ eog_scroll_view_instance_init (EogScrollView *view)
 	priv->progressive_state = PROGRESSIVE_NONE;
 	priv->transp_style = TRANSP_BACKGROUND;
 	priv->transp_color = 0;
-
+	priv->cursor_type = CURSOR_DEFAULT;
 }
 
 static void

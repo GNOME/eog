@@ -27,9 +27,11 @@
 typedef enum {
 	CURSOR_HAND_OPEN,
 	CURSOR_HAND_CLOSED,
-	CURSOR_NUM_CURSORS
+	CURSOR_INVISIBLE,
+	CURSOR_NUM_CURSORS,
+	CURSOR_DEFAULT
 } CursorType;
 
-GdkCursor *cursor_get (GtkWidget *window, CursorType type);
+void cursor_set (GtkWidget *widget, CursorType type);
 
 #endif

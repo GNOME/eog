@@ -33,6 +33,9 @@
 #include "cursors/hand-closed-data.xbm"
 #include "cursors/hand-closed-mask.xbm"
 
+static char invisible_data_bits[] = { 0x00 };
+static char invisible_mask_bits[] = { 0x00 };
+
 static struct {
 	char *data;
 	char *mask;
@@ -50,7 +53,9 @@ static struct {
 	  hand_closed_data_width, hand_closed_data_height,
 	  hand_closed_mask_width, hand_closed_mask_height,
 	  hand_closed_data_width / 2, hand_closed_data_height / 2 },
-	{ NULL, NULL, 0, 0, 0, 0 }
+	{ invisible_data_bits, invisible_mask_bits,
+	  1, 1, 1, 1, 1, 1 },
+	{ NULL, NULL, 0, 0, 0, 0, 0, 0 }
 };
 
 
@@ -64,13 +69,15 @@ static struct {
  * 
  * Return value: The newly-created cursor.
  **/
-GdkCursor *
+static GdkCursor*
 cursor_get (GtkWidget *window, CursorType type)
 {
 	GdkBitmap *data;
 	GdkBitmap *mask;
 	GdkCursor *cursor;
 	GtkStyle *style;
+
+	if (type == CURSOR_DEFAULT) return NULL;
 
 	g_return_val_if_fail (window != NULL, NULL);
 	g_return_val_if_fail (type >= 0 && type < CURSOR_NUM_CURSORS, NULL);
@@ -101,4 +108,26 @@ cursor_get (GtkWidget *window, CursorType type)
 	g_object_unref (mask);
 
 	return cursor;
+}
+
+/**
+ * cursor_set:
+ * @widget: The widget for which the cursor should be set.
+ * @type: The type of cursor. CURSOR_DEFAULT will use the cursor from
+ *        the parent widget.
+ *
+ * Sets the cursor for the widget.
+ */
+void
+cursor_set (GtkWidget *widget, CursorType type)
+{
+	GdkCursor *cursor = NULL;
+
+	cursor = cursor_get (widget, type);
+
+	gdk_window_set_cursor (widget->window, cursor);
+
+	if (cursor != NULL) {
+		gdk_cursor_unref (cursor);
+	}
 }

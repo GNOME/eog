@@ -1,3 +1,28 @@
+2003-04-06  Jens Finke  <jens@triq.net>
+
+	* libeog/cursors.c: Added invisible cursor data.
+	(cursor_get): Made it a non public function.
+	(cursor_set): New function, which directly set the desired cursor
+	for the widget.
+
+	* libeog/cursors.h: New cursor types: CURSOR_INVISBLE and
+	CURSOR_DEFAULT.
+
+	* libeog/eog-full-screen.c: Implemented automatic cursor
+	hiding. Fixes #92184.
+	(check_cursor_hide),
+	(eog_full_screen_motion): New functions.
+	(eog_full_screen_show): Init cursor hiding stuff.
+	(eog_full_screen_class_init): Register mouse motion event
+	callback.
+
+	* libeog/eog-scroll-view.c (check_scrollbar_visibility): Set
+	cursor type according to the state of the scrollbars.
+	(is_image_movable): New function.
+	(eog_scroll_view_button_press_event): Use cursor_set, set it only
+	if the image is movable.
+	(eog_scroll_view_button_release_event): Use cursor_set.
+	
 2003-04-02  Federico Mena Quintero  <federico@ximian.com>
 
 	* libeog/eog-image.c (real_image_load): Use a macro rather than a

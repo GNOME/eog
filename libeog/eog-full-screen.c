@@ -22,12 +22,14 @@
  */
 
 #include <config.h>
+#include <time.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
 
 #include "eog-full-screen.h"
 #include "eog-scroll-view.h"
+#include "cursors.h"
 
 GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 eog_full_screen,
@@ -69,6 +71,13 @@ struct _EogFullScreenPrivate
 	/* Wether or not we are in intialize mode. We ignore all user
 	 * input then. */
 	gboolean initialize;
+
+	/* if the mouse pointer is hidden */
+	gboolean cursor_hidden;
+	/* last server time on mouse movement */
+	time_t mouse_move_time;
+	/* timeout id which checks for cursor hiding */
+	guint hide_timeout_id;
 };
 
 static void preparation_finished (EogFullScreen *fs);
@@ -87,14 +96,74 @@ get_index_offset (int index, int offset, int n_indices)
 	return new_index;
 }
 
+static gboolean
+check_cursor_hide (gpointer data)
+{
+	EogFullScreen *fs;
+	EogFullScreenPrivate *priv;
+	int diff;
+
+	fs = EOG_FULL_SCREEN (data);
+	priv = fs->priv;
+
+	diff = (int) (time (NULL) - priv->mouse_move_time);
+
+	if (!priv->cursor_hidden && diff >= 2) {
+		/* hide the pointer after 2 seconds */
+		cursor_set (GTK_WIDGET (fs), CURSOR_INVISIBLE);
+
+		/* don't call timeout again */
+		priv->cursor_hidden = TRUE;
+		priv->hide_timeout_id = 0;
+	}
+
+	return (!priv->cursor_hidden);
+}
+
+static gboolean
+eog_full_screen_motion (GtkWidget *widget, GdkEventMotion *event)
+{
+	EogFullScreenPrivate *priv;
+	GdkCursor *cursor;
+	gboolean result;
+	int x, y;
+	GdkModifierType mods;
+
+	priv = EOG_FULL_SCREEN (widget)->priv;
+	
+	priv->mouse_move_time = time (NULL);
+
+	if (priv->cursor_hidden) {
+		/* show cursor */
+		cursor = gdk_cursor_new (GDK_LEFT_PTR);
+		gdk_window_set_cursor (GTK_WIDGET (widget)->window, cursor);
+		gdk_cursor_unref (cursor);
+		priv->cursor_hidden = FALSE;
+	}
+	
+	if (priv->hide_timeout_id == 0) {
+		priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
+						       check_cursor_hide,
+						       widget);
+	}
+
+	/* we call so to get also the next motion event */
+	gdk_window_get_pointer (GTK_WIDGET (widget)->window, &x, &y, &mods);
+
+	result = GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, motion_notify_event, (widget, event), FALSE);
+
+	return result;
+}
 
 /* Show handler for the full screen view */
 static void
 eog_full_screen_show (GtkWidget *widget)
 {
 	EogFullScreen *fs;
+	EogFullScreenPrivate *priv;
 
 	fs = EOG_FULL_SCREEN (widget);
+	priv = fs->priv;
 
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (widget));
 
@@ -103,6 +172,12 @@ eog_full_screen_show (GtkWidget *widget)
 	gtk_grab_add (widget);
 
 	gtk_widget_grab_focus (fs->priv->view);
+
+	priv->cursor_hidden = FALSE;
+	priv->mouse_move_time = 0;
+        priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
+					       check_cursor_hide,
+					       fs);
 }
 
 /* Hide handler for the full screen view */
@@ -322,6 +397,7 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 	widget_class->show = eog_full_screen_show;
 	widget_class->hide = eog_full_screen_hide;
 	widget_class->key_press_event = eog_full_screen_key_press;
+	widget_class->motion_notify_event = eog_full_screen_motion;
 }
 
 /* Object initialization function for the full screen view */
