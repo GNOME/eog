@@ -512,18 +512,16 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 			text = g_strdup (" ");
 		}
 		else {
-			text = g_new0 (char, 40);
-			
 			eog_image_get_size (priv->image, &width, &height);
 
 			if ((width > 0) && (height > 0)) {
-				g_snprintf (text, 39, "%i x %i pixel    %i%%",
-					    width, height,
-					    zoom);
-			}
-			else {
-				g_snprintf (text, 39, "%i%%", zoom);
-			}
+				text = g_strdup_printf ("%i x %i %s    %i%%", 
+							width, height, 
+							_("pixel"), zoom);
+			} 
+			else { 
+				text = g_strdup_printf ("%i%%", zoom);
+			} 
 		}
 
 		BONOBO_ARG_SET_STRING (arg, text);
