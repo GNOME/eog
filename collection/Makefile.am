@@ -63,3 +63,6 @@ ui_DATA = eog-collection-view-ui.xml
 
 CLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST = $(ui_DATA) $(server_in_files) eog-collection-marshal.list
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)
