@@ -7,15 +7,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2001-06-26 20:26+0200\n"
-"PO-Revision-Date: 2001-06-26 20:27+02:00\n"
+"POT-Creation-Date: 2001-07-13 01:52+0200\n"
+"PO-Revision-Date: 2001-07-13 01:51+02:00\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Dansk/Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: collection/eog-collection-control.c:161
+#: collection/eog-collection-control.c:155
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Kunne ikke få fat i lokal BonoboControl-grænseflade.\n"
 
@@ -57,7 +57,7 @@ msgstr "Samlingsfremviser"
 msgid "View"
 msgstr "Fremviser"
 
-#: collection/eog-collection-view.c:668 viewer/eog-image-view.c:1808
+#: collection/eog-collection-view.c:668 viewer/eog-image-view.c:1804
 msgid "Window Title"
 msgstr "Vinduestitel"
 
@@ -85,7 +85,7 @@ msgstr "Det lykkedes ikke at klargøre GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Det lykkedes ikke at klargøre Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:190
+#: eog.desktop.in.h:1 shell/eog-window.c:187
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
@@ -94,7 +94,7 @@ msgid "Image Viewer"
 msgstr "Billedfremviser"
 
 #: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:514
+#: viewer/eog-image-view.c:532
 msgid "EOG Image"
 msgstr "EOG billede"
 
@@ -178,47 +178,59 @@ msgstr "_Indstillinger"
 msgid "_Settings"
 msgstr "_Opsætning"
 
-#: shell/eog-window.c:192
+#: shell/eog-window.c:189
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Ophavsret © 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:194
+#: shell/eog-window.c:191
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Billedviser og katalogiseringsprogram til Gnome"
 
-#: shell/eog-window.c:487
+#: shell/eog-window.c:405
+msgid "Open in new window"
+msgstr "Åbn i et nyt vindue"
+
+#: shell/eog-window.c:406
+msgid "Open in this window"
+msgstr "Åbn i dette vindue"
+
+#: shell/eog-window.c:408
+msgid "Cancel"
+msgstr "Annullér"
+
+#: shell/eog-window.c:503
 msgid "Eye Of Gnome"
 msgstr "Gnomes øje"
 
-#: shell/eog-window.c:575
+#: shell/eog-window.c:589
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan ikke finde eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:718 shell/eog-window.c:800
+#: shell/eog-window.c:731 shell/eog-window.c:818
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: shell/eog-window.c:956
+#: shell/eog-window.c:975
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
 
-#: shell/eog-window.c:972
+#: shell/eog-window.c:991
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
 
-#: shell/eog-window.c:989
+#: shell/eog-window.c:1008
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ikke nogen egenskaber"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1027
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finde ud af MIME-typen for filen."
 
-#: shell/eog-window.c:1281
+#: shell/eog-window.c:1267
 msgid "Error while obtaining file informations."
 msgstr "Fejl under indsamling af filoplysninger."
 
-#: shell/main.c:157
+#: shell/main.c:156
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -229,161 +241,21 @@ msgstr ""
 "på samme tid. Vil du åbne dem som en\n"
 "samling i stedet?"
 
-#: shell/main.c:165
+#: shell/main.c:164
 msgid "Single Windows"
 msgstr "Enkelte vinduer"
 
-#: shell/main.c:165
+#: shell/main.c:164
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:275
+#: shell/main.c:272
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kunne ikke klargøre GnomeVFS!\n"
 
-#: shell/main.c:278
+#: shell/main.c:275
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kunne ikke klargøre Bonobo!\n"
-
-#: shell/preferences.c:219
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: shell/preferences-dialog.glade.h:1
-msgid "Bilinear (normal)"
-msgstr "Bilineær (normal)"
-
-#: shell/preferences-dialog.glade.h:2
-msgid "Black only"
-msgstr "Kun sort"
-
-#: shell/preferences-dialog.glade.h:3
-msgid "Check size"
-msgstr "Tjek størrelse"
-
-#: shell/preferences-dialog.glade.h:4
-msgid "Dark checks"
-msgstr "Tjek af mørke farver"
-
-#: shell/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1704
-msgid "Display"
-msgstr "Visning"
-
-#: shell/preferences-dialog.glade.h:6
-msgid "Dither type"
-msgstr "Dithertype"
-
-#: shell/preferences-dialog.glade.h:7
-msgid "Fit all images to screen"
-msgstr "Tilpas alle billeder til skærm"
-
-#: shell/preferences-dialog.glade.h:8
-msgid "Fit standard-sized images to screen"
-msgstr "Tilpas billeder med standard-størrelse til skærm"
-
-#: shell/preferences-dialog.glade.h:9
-msgid "Full Screen"
-msgstr "Fuld skærm"
-
-#: shell/preferences-dialog.glade.h:10
-msgid "Gray only"
-msgstr "Kun grå"
-
-#: shell/preferences-dialog.glade.h:11
-msgid "Hyperbolic (slowest, best quality)"
-msgstr "Hyperbolsk (langsomst, beste kvalitet)"
-
-#: shell/preferences-dialog.glade.h:12
-msgid "Image Windows"
-msgstr "Billedvinduer"
-
-#: shell/preferences-dialog.glade.h:13
-msgid "Interpolation type"
-msgstr "Interpoleringstype"
-
-#: shell/preferences-dialog.glade.h:14 viewer/preferences.c:68
-msgid "Large"
-msgstr "Stor"
-
-#: shell/preferences-dialog.glade.h:15
-msgid "Light checks"
-msgstr "Tjek af lyse farver"
-
-#: shell/preferences-dialog.glade.h:16
-msgid "Maximum (high color)"
-msgstr "Maksimum (meget farve)"
-
-#: shell/preferences-dialog.glade.h:17 viewer/preferences.c:67
-msgid "Medium"
-msgstr "Mellem"
-
-#: shell/preferences-dialog.glade.h:18
-msgid "Midtone checks"
-msgstr "Tjek af mellemtone"
-
-#: shell/preferences-dialog.glade.h:19
-msgid "Nearest neighbor (fastest, low quality)"
-msgstr "Nærmeste nabo (hurtigste, lav kvalitet)"
-
-#: shell/preferences-dialog.glade.h:20
-msgid "Never"
-msgstr "Aldrig"
-
-#: shell/preferences-dialog.glade.h:21
-msgid "None"
-msgstr "Ingen"
-
-#: shell/preferences-dialog.glade.h:22
-msgid "Normal (pseudocolor)"
-msgstr "Normal (pseudofarve)"
-
-#: shell/preferences-dialog.glade.h:23
-msgid "Only if image does not fit"
-msgstr "Kun hvis billedet ikke passer"
-
-#: shell/preferences-dialog.glade.h:24
-msgid "Open images in a new window"
-msgstr "Åbn billeder i et nyt vindue"
-
-#: shell/preferences-dialog.glade.h:25
-msgid "Pick window size and zoom factor automatically"
-msgstr "Vælg vinduesstørrelse og zoomfaktor automatisk"
-
-#: shell/preferences-dialog.glade.h:26
-msgid "Put a bevel around the edge of the screen"
-msgstr "Put en skråkant omkring kanten af skærmen"
-
-#: shell/preferences-dialog.glade.h:27 viewer/preferences.c:66
-msgid "Small"
-msgstr "Lille"
-
-#: shell/preferences-dialog.glade.h:28
-msgid "Transparency type"
-msgstr "Gennemsigtighedstype"
-
-#: shell/preferences-dialog.glade.h:29
-msgid "Two-pass scrolling"
-msgstr "Rulning i to trin"
-
-#: shell/preferences-dialog.glade.h:30
-msgid "Use 1:1 zoom factor"
-msgstr "Brug 1:1 zoomfaktor"
-
-#: shell/preferences-dialog.glade.h:31
-msgid "Use same zoom factor as image window"
-msgstr "Brug samme zoomfaktor som billedvindue"
-
-#: shell/preferences-dialog.glade.h:32
-msgid "Use scrollbars"
-msgstr "Benyt rullebjælker"
-
-#: shell/preferences-dialog.glade.h:33
-msgid "Viewers"
-msgstr "Fremvisere"
-
-#: shell/preferences-dialog.glade.h:34
-msgid "White only"
-msgstr "Kun hvid"
 
 #: shell/util.c:47
 #, c-format
@@ -395,51 +267,55 @@ msgstr "Kunne ikke åbne '%s'"
 msgid "Could not save image as '%s': %s."
 msgstr "Kunne ikke gemme billede som '%s': %s."
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:321
 msgid "Save As"
 msgstr "Gem som"
 
-#: viewer/eog-image-view.c:734
+#: viewer/eog-image-view.c:752
 msgid "Print Image"
 msgstr "Udskriv billede"
 
-#: viewer/eog-image-view.c:742
+#: viewer/eog-image-view.c:760
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:830
+#: viewer/eog-image-view.c:847
 msgid "Print Preview"
 msgstr "Vis udskrift"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:853
 msgid "Printing of image failed"
 msgstr "Udskrivning af billede mislykkedes"
 
-#: viewer/eog-image-view.c:1790 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1697
+msgid "Display"
+msgstr "Visning"
+
+#: viewer/eog-image-view.c:1786 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "Interpolering"
 
-#: viewer/eog-image-view.c:1793 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1789 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Dither"
 
-#: viewer/eog-image-view.c:1796 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1792 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Tjek type"
 
-#: viewer/eog-image-view.c:1799 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1795 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Tjek størrelse"
 
-#: viewer/eog-image-view.c:1802
+#: viewer/eog-image-view.c:1798
 msgid "Image Width"
 msgstr "Billedbredde"
 
-#: viewer/eog-image-view.c:1805
+#: viewer/eog-image-view.c:1801
 msgid "Image Height"
 msgstr "Billedhøjde"
 
-#: viewer/eog-image-view.c:1811
+#: viewer/eog-image-view.c:1807
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
@@ -488,74 +364,78 @@ msgid "Check type _white"
 msgstr "Tjek _hvid type"
 
 #: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "Fuld skærm"
+
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Nea_rest Neighbour Interpolation"
 msgstr "Nærmeste nabo-interpolation"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Normal (_pseudocolor) dithering"
 msgstr "Normal (_pseudofarve) dithering"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "Previews the image to be printed"
 msgstr "Viser billedet som det kommer til at se ud i udskriften"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "Print Pre_view"
 msgstr "_Vis udskrift"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "Print S_etup"
 msgstr "Udskrifts_opsætning"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "Print image to the printer"
 msgstr "Udskriv billedet på printeren"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "Save _As"
 msgstr "Gem _som"
 
-#: viewer/eog-image-view-ui.xml.h:19
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "Send"
 msgstr "Send"
 
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:21
 msgid "Setup the page settings for your current printer"
 msgstr "Opsætning af sideindstillinger for den aktuelle printer"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "_Bilineær interpolering"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Dither"
 msgstr "_Dither"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hyperbolsk interpolering"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Interpolation"
 msgstr "_Interpolering"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_Maximum (high color) dithering"
 msgstr "_Maksimal (farverig) dithering"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_No dithering"
 msgstr "_Ingen dithering"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Print"
 msgstr "_Udskriv"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "_Flise-interpolering"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:30
 msgid "_View"
 msgstr "_Fremvisere"
 
@@ -736,14 +616,6 @@ msgstr "Ned, så til højre"
 msgid "Right, then down"
 msgstr "Til højre, så ned"
 
-#: viewer/main.c:89
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kunne ikke klargøre GnomeVFS!\n"
-
-#: viewer/main.c:92
-msgid "I could not initialize Bonobo!\n"
-msgstr "Kunne ikke klargøre Bonobo!\n"
-
 #: viewer/preferences.c:38
 msgid "Nearest Neighbour Interpolation"
 msgstr "Nærmeste nabo-interpolering"
@@ -795,6 +667,114 @@ msgstr "Grå"
 #: viewer/preferences.c:61
 msgid "White"
 msgstr "Hvid"
+
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "Lille"
+
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "Mellem"
+
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr "Stor"
+
+#~ msgid "Preferences"
+#~ msgstr "Indstillinger"
+
+#~ msgid "Bilinear (normal)"
+#~ msgstr "Bilineær (normal)"
+
+#~ msgid "Black only"
+#~ msgstr "Kun sort"
+
+#~ msgid "Check size"
+#~ msgstr "Tjek størrelse"
+
+#~ msgid "Dark checks"
+#~ msgstr "Tjek af mørke farver"
+
+#~ msgid "Dither type"
+#~ msgstr "Dithertype"
+
+#~ msgid "Fit all images to screen"
+#~ msgstr "Tilpas alle billeder til skærm"
+
+#~ msgid "Fit standard-sized images to screen"
+#~ msgstr "Tilpas billeder med standard-størrelse til skærm"
+
+#~ msgid "Gray only"
+#~ msgstr "Kun grå"
+
+#~ msgid "Hyperbolic (slowest, best quality)"
+#~ msgstr "Hyperbolsk (langsomst, beste kvalitet)"
+
+#~ msgid "Image Windows"
+#~ msgstr "Billedvinduer"
+
+#~ msgid "Interpolation type"
+#~ msgstr "Interpoleringstype"
+
+#~ msgid "Light checks"
+#~ msgstr "Tjek af lyse farver"
+
+#~ msgid "Maximum (high color)"
+#~ msgstr "Maksimum (meget farve)"
+
+#~ msgid "Midtone checks"
+#~ msgstr "Tjek af mellemtone"
+
+#~ msgid "Nearest neighbor (fastest, low quality)"
+#~ msgstr "Nærmeste nabo (hurtigste, lav kvalitet)"
+
+#~ msgid "Never"
+#~ msgstr "Aldrig"
+
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgid "Normal (pseudocolor)"
+#~ msgstr "Normal (pseudofarve)"
+
+#~ msgid "Only if image does not fit"
+#~ msgstr "Kun hvis billedet ikke passer"
+
+#~ msgid "Open images in a new window"
+#~ msgstr "Åbn billeder i et nyt vindue"
+
+#~ msgid "Pick window size and zoom factor automatically"
+#~ msgstr "Vælg vinduesstørrelse og zoomfaktor automatisk"
+
+#~ msgid "Put a bevel around the edge of the screen"
+#~ msgstr "Put en skråkant omkring kanten af skærmen"
+
+#~ msgid "Transparency type"
+#~ msgstr "Gennemsigtighedstype"
+
+#~ msgid "Two-pass scrolling"
+#~ msgstr "Rulning i to trin"
+
+#~ msgid "Use 1:1 zoom factor"
+#~ msgstr "Brug 1:1 zoomfaktor"
+
+#~ msgid "Use same zoom factor as image window"
+#~ msgstr "Brug samme zoomfaktor som billedvindue"
+
+#~ msgid "Use scrollbars"
+#~ msgstr "Benyt rullebjælker"
+
+#~ msgid "Viewers"
+#~ msgstr "Fremvisere"
+
+#~ msgid "White only"
+#~ msgstr "Kun hvid"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Kunne ikke klargøre GnomeVFS!\n"
+
+#~ msgid "I could not initialize Bonobo!\n"
+#~ msgstr "Kunne ikke klargøre Bonobo!\n"
 
 #~ msgid "Layout"
 #~ msgstr "Udseende"
