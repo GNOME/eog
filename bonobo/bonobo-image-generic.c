@@ -467,6 +467,7 @@ typedef struct {
 	GdkPixbufAnimation *animation;
 	GdkPixbuf          *frame;
 	GList              *cur_frame;
+	guint               timeout;
 	
 	gboolean            animate;
 } AnimationState;
@@ -500,6 +501,9 @@ skip_frame (AnimationState *as)
 	}
 
 	frame = as->cur_frame->data;
+	g_return_val_if_fail (frame != NULL, FALSE);
+	g_return_val_if_fail (frame->pixbuf != NULL, FALSE);
+	g_return_val_if_fail (frame->pixbuf->art_pixbuf != NULL, FALSE);
 
 	w = frame->pixbuf->art_pixbuf->width;
 	h = frame->pixbuf->art_pixbuf->height;
@@ -510,30 +514,26 @@ skip_frame (AnimationState *as)
 	if (frame->y_offset + h > as->frame->art_pixbuf->height)
 		h = as->frame->art_pixbuf->height - frame->y_offset;
 
-	printf ("Rendering patch of size (%d %d) at (%d %d) for delay %d mode %d\n",
-		w, h, frame->x_offset, frame->y_offset, frame->delay_time, frame->action);
-
-	if (frame->pixbuf->art_pixbuf->has_alpha &&
-	    !as->frame->art_pixbuf->has_alpha) {
-		GdkPixbuf *old = as->frame;
-
-		as->frame = gdk_pixbuf_add_alpha (old, FALSE, 0, 0, 0);
-		/*		gdk_pixbuf_unref (old);*/
-	}
+/*	printf ("Rendering patch of size (%d %d) at (%d %d) for delay %d mode %d %d\n",
+		w, h, frame->x_offset, frame->y_offset, frame->delay_time,
+		frame->action, frame->pixbuf->art_pixbuf->has_alpha);*/
 
 	layer = frame->pixbuf;
-	if (!frame->pixbuf->art_pixbuf->has_alpha &&
-	    as->frame->art_pixbuf->has_alpha)
-		layer = gdk_pixbuf_add_alpha (layer, FALSE, 0, 0, 0);
-	  
-	gdk_pixbuf_copy_area (layer, 0, 0, w, h, as->frame,
-			      frame->x_offset, frame->y_offset);
-	/*	if (layer != frame->pixbuf)
-		gdk_pixbuf_unref (layer);*/
+
+	if (!as->cur_frame->prev ||
+	    frame->action == GDK_PIXBUF_FRAME_REVERT) {
+		gdk_pixbuf_copy_area (layer, 0, 0, w, h, as->frame,
+				      frame->x_offset, frame->y_offset);
+	} else
+		gdk_pixbuf_composite (layer, as->frame,
+				      frame->x_offset, frame->y_offset, w, h,
+				      frame->x_offset, frame->y_offset, 1.0, 1.0,
+				      ART_FILTER_NEAREST, 255);
 
 	gtk_widget_queue_draw_area (as->drawing_area, frame->x_offset,
 				    frame->y_offset, w, h);
-	gtk_timeout_add ((frame->delay_time + 1)*10, (GtkFunction) skip_frame, as);
+	as->timeout = gtk_timeout_add (frame->delay_time * 10,
+				       (GtkFunction) skip_frame, as);
 
 	as->cur_frame = as->cur_frame->next;
 	if (!as->cur_frame)
@@ -549,14 +549,26 @@ animation_init (AnimationState *as, char *fname)
 
 	if (as->animation) {
 		GdkPixbufFrame *frame;
-		
+		ArtPixBuf      *apb;
+
 		as->cur_frame = as->animation->frames;
 		g_return_if_fail (as->cur_frame != NULL);
 
 		frame = as->cur_frame->data;
-		as->frame = gdk_pixbuf_new_from_art_pixbuf (frame->pixbuf->art_pixbuf);
+
+		/*
+		 *  Pray we never have alpha on the base frame, since this
+		 * seriously sods up the use of it on subsequent frames as a mask.
+		 */
+		apb = art_pixbuf_duplicate (frame->pixbuf->art_pixbuf);
+		as->frame = gdk_pixbuf_new_from_art_pixbuf (apb);
 		
 		skip_frame (as);
+
+		/* re-size */
+		gtk_widget_set_usize (as->drawing_area,
+				      gdk_pixbuf_get_width  (as->frame),
+				      gdk_pixbuf_get_height (as->frame));
 	} else
 		g_warning ("Error loading animation '%s'", fname);
 }
@@ -568,6 +580,8 @@ animation_destroy (BonoboView *view, AnimationState *as)
 
 	animation_state_clean (as);
 	as->drawing_area = NULL;
+
+	gtk_timeout_remove (as->timeout);
 
 	g_free (as);
 }
