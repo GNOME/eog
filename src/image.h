@@ -31,14 +31,14 @@ typedef struct {
 	/* Reference count */
 	guint ref_count;
 
+	/* Name of file this image was loaded from */
+	char *filename;
+
 	/* Buffer with original image data */
 	GdkPixbuf *pixbuf;
 
 	/* Color substitution tables */
 	guchar *r_lut, *g_lut, *b_lut;
-
-	/* The file name this Image represents */
-	char *filename;
 } Image;
 
 Image *image_new (void);

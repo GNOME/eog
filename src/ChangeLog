@@ -1,3 +1,18 @@
+1999-11-21  Federico Mena Quintero  <federico@redhat.com>
+
+	* ui-image.c (ui_image_set_image): Do not set the window title
+	here, especially not with a gtk_widget_get_toplevel() hack.  An
+	UIImage object may not only be the content area of a toplevel
+	window; it may appear as a little preview pane in the future as
+	well.
+
+	* window.c (window_open_image): Set the window title to the image
+	filename here.  Revert to the default title if the image could not
+	be loaded.
+
+	* image.c (image_load): Free the previous filename if it exists.
+	Also, NULLify the filename field if the file could not be loaded.
+
 1999-11-19  Miguel de Icaza  <miguel@gnu.org>
 
 	* ui-image.c (ui_image_set_image): set the title here.

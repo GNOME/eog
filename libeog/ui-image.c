@@ -116,6 +116,9 @@ ui_image_init (UIImage *ui)
 
 	priv = g_new0 (UIImagePrivate, 1);
 	ui->priv = priv;
+
+	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
+
 	priv->zoom = 1.0;
 
 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui), GTK_SHADOW_IN);
@@ -360,7 +363,6 @@ void
 ui_image_set_image (UIImage *ui, Image *image)
 {
 	UIImagePrivate *priv;
-	GtkWidget *toplevel;
 	int w, h;
 
 	g_return_if_fail (ui != NULL);
@@ -374,10 +376,6 @@ ui_image_set_image (UIImage *ui, Image *image)
 	if (image)
 		image_ref (image);
 
-	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (ui));
-	if (toplevel && image->filename)
-		gtk_window_set_title (GTK_WINDOW (toplevel), g_basename (image->filename));
-	
 	if (priv->image)
 		image_unref (priv->image);
 

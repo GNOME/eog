@@ -26,10 +26,10 @@
 
 /**
  * image_new:
- * @void: 
- * 
+ * @void:
+ *
  * Creates a new empty image structure with a reference count of 1.
- * 
+ *
  * Return value: A newly-created image structure.
  **/
 Image *
@@ -59,7 +59,7 @@ image_new (void)
 /**
  * image_ref:
  * @image: An image structure.
- * 
+ *
  * Adds a reference to an image.
  **/
 void
@@ -74,7 +74,7 @@ image_ref (Image *image)
 /**
  * image_unref:
  * @image: An image structure.
- * 
+ *
  * Removes a reference from an image.  If the reference count drops to zero,
  * then the image is freed.
  **/
@@ -96,7 +96,7 @@ image_unref (Image *image)
 
 		if (image->filename)
 			g_free (image->filename);
-		
+
 		g_free (image);
 	}
 }
@@ -105,9 +105,9 @@ image_unref (Image *image)
  * image_load:
  * @image: An image structure.
  * @filename: Name of file with image data.
- * 
+ *
  * Loads an image from the specified file.
- * 
+ *
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
@@ -121,9 +121,13 @@ image_load (Image *image, const char *filename)
 
 	image->pixbuf = gdk_pixbuf_new_from_file (filename);
 
+	if (image->filename)
+		g_free (image->filename);
+
 	if (image->pixbuf)
 		image->filename = g_strdup (filename);
+	else
+		image->filename = NULL;
 
 	return (image->pixbuf != NULL);
 }
-
