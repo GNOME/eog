@@ -152,29 +152,25 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 }
 
 static void
-eog_file_selection_add_filter (GtkWidget *widget)
+eog_file_selection_add_filter (EogFileSelection *filesel)
 {
-	EogFileSelection *filesel;
 	GSList *it;
 	GSList *formats;
-	GtkFileFilter *filter;
-	GtkFileFilter *all_img_filter;
  	GtkFileFilter *all_file_filter;
+	GtkFileFilter *all_img_filter;
+	GtkFileFilter *filter;
+	GSList *filters = NULL;
 	gchar **mime_types, **pattern, *tmp;
 	int i;
-
-	filesel = EOG_FILE_SELECTION (widget);
 
 	/* All Files Filter */
 	all_file_filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (all_file_filter, _("All Files"));
 	gtk_file_filter_add_pattern (all_file_filter, "*");
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_file_filter);
 
 	/* All Image Filter */
 	all_img_filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (all_img_filter, _("All Images"));
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
 
 	if (gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel)) == GTK_FILE_CHOOSER_ACTION_SAVE) {
 		formats = eog_pixbuf_get_savable_formats ();
@@ -183,6 +179,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 		formats = gdk_pixbuf_get_formats ();
 	}
 
+	/* Image filters */
 	for (it = formats; it != NULL; it = it->next) {
 		char *filter_name;
 		GdkPixbufFormat *format;
@@ -196,7 +193,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 					       gdk_pixbuf_format_get_name (format));
 		gtk_file_filter_set_name (filter, filter_name);
 		g_free (filter_name);
-		
+
 		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
 		for (i = 0; mime_types[i] != NULL; i++) {
 			gtk_file_filter_add_mime_type (filter, mime_types[i]);
@@ -218,13 +215,20 @@ eog_file_selection_add_filter (GtkWidget *widget)
 		g_object_set_data (G_OBJECT (filter), 
 				   FILE_FORMAT_KEY,
 				   format);
-
-		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), filter);
 		
+		filters = g_slist_prepend (filters, filter);
 	}
 	g_slist_free (formats);
 
+	/* Add filter to filechooser */
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_file_filter);
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
 	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
+
+	for (it = filters; it != NULL; it = it->next) {
+		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), GTK_FILE_FILTER (it->data));
+	}
+	g_slist_free (filters);
 }
 
 static void
@@ -425,8 +429,7 @@ eog_file_selection_new (GtkFileChooserAction action)
 
 	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
 				"action", action,
-				"select-multiple", FALSE /* (action == GTK_FILE_CHOOSER_ACTION_OPEN) */,
-				"folder-mode", FALSE,
+				"select-multiple", (action == GTK_FILE_CHOOSER_ACTION_OPEN),
 				NULL);
 	switch (action) {
 	case GTK_FILE_CHOOSER_ACTION_OPEN:
@@ -449,7 +452,7 @@ eog_file_selection_new (GtkFileChooserAction action)
 		g_assert_not_reached ();
 	}
 
-	eog_file_selection_add_filter (filesel);
+	eog_file_selection_add_filter (EOG_FILE_SELECTION (filesel));
 	eog_file_selection_add_preview (filesel);
 
 	if (last_dir[action] != NULL) {
@@ -469,9 +472,8 @@ eog_folder_selection_new (void)
 	GtkWidget *filesel;
 
 	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
-				"action", GTK_FILE_CHOOSER_ACTION_OPEN,
+				"action", GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
 				"select-multiple", FALSE,
-				"folder-mode", TRUE,
 				NULL);
 	gtk_dialog_add_buttons (GTK_DIALOG (filesel),
 				GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,

@@ -1,3 +1,16 @@
+2004-03-01  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-file-selection.c: (eog_file_selection_new): Don't set
+	'folder-mode' property, allow multiple selections.
+	(eog_folder_selection_new): Set chooser action to
+	GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER.
+
+2004-03-01  Jan Arne Petersen  <jpetersen@uni-bonn.de>
+
+	* libeog/eog-file-selection.c: (eog_file_selection_add_filter),
+	(eog_file_selection_new):
+	Fix FileFilter (see #128396).
+
 2004-02-26  Breda McColgan <breda.mccolgan@sun.com>
 
 	* help/C/eog.xml: Updated based on technical review comments from Jens.
