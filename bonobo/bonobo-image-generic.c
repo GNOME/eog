@@ -315,7 +315,7 @@ resize_all_cb (BonoboView *view, void *data)
 		view_data->zoom_factor = 1.0;
 
 		bonobo_zoomable_set_parameters (view_data->zoomable, 1.0, 0.0, 0.0,
-						FALSE, FALSE, TRUE, NULL, 0);
+						FALSE, FALSE);
 
 		bonobo_zoomable_report_zoom_parameters_changed (view_data->zoomable);
 	}
