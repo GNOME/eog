@@ -4,8 +4,10 @@
  *
  * Authors:
  *   Martin Baulig (baulig@suse.de)
+ *   Jens Finke (jens@gnome.org)
  *
  * Copyright 2000 SuSE GmbH.
+ * Copyright 2001-2002 The Free Software Foundation
  */
 #include <config.h>
 #include <stdio.h>
@@ -457,25 +459,16 @@ eog_control_construct (EogControl    *control,
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (priv->zoomable));
 
-#if NEED_GNOME2_PORTING
 	pb = eog_image_view_get_property_bag (priv->image_view);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
 				       BONOBO_OBJREF (pb), 
 				       NULL);
-	bonobo_object_unref (BONOBO_OBJECT (pb));
-
+#if 0
 	pc = eog_image_view_get_property_control (priv->image_view);
-//FIXME: Ok, it seems crazy to get something, unref it, and process it further.
-//       But: bonobo_object_add_interface seems to need objects with
-//       ref_count == 1, otherwise, eog-image-viewer will never exit (even if
-//       it is no longer needed). If you don't believe me, put
-//       bonobo_object_unref after bonobo_object_add_interface and check it
-//       out...
-	bonobo_object_unref (BONOBO_OBJECT (pc));
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (pc));
-#endif
-	
+#endif	
+
 	return control;
 }
 

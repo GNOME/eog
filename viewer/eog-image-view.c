@@ -1531,8 +1531,6 @@ eog_image_view_get_property_bag (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
-	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->property_bag));
-
 	return image_view->priv->property_bag;
 }
 

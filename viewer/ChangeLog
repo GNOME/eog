@@ -1,5 +1,13 @@
 2002-01-30  Jens Finke <jens@triq.net>
 
+	* eog-control.c (eog_control_construct): Re-enabled the properties
+	stuff and fixed reference problems there.
+
+	* eog-image-view.c (eog_image_view_get_property_bag): Don't ref
+	the object before returning.
+	
+2002-01-30  Jens Finke <jens@triq.net>
+
 	* eog-control.c: (eog_control_create_ui),
 	(eog_control_set_ui_container), (eog_control_unset_ui_container),
 	(eog_control_construct): Removed uic pointer from the EogControl
