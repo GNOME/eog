@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-01-28 18:30+0200\n"
-"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
+"POT-Creation-Date: 2003-08-13 06:09+0300\n"
+"PO-Revision-Date: 2003-08-13 06:09+0300\n"
+"Last-Translator: Jarkko Ranta <jjranta@cc.joensuu.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
 "sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -29,49 +29,96 @@ msgstr "Gnomen silmän kokoelmakatselintehdas"
 msgid "Image Collection"
 msgstr "Kuvakokoelma"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Peilaa _vaakasuunnassa"
 
-#: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
-msgid "Next Image"
-msgstr "Tallenna kuva"
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Peilaa _pystysuunnassa"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
-msgstr ""
+msgid "Next"
+msgstr "Seuraava"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
-msgid "Previous Image"
-msgstr "Tulosta kuva"
+msgid "Next Image"
+msgstr "Seuraava kuva"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr "Edellinen"
+
+#: collection/eog-collection-view-ui.xml.h:6
+msgid "Previous Image"
+msgstr "Edellinen kuva"
+
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Kierrä 180 _astetta"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Kierrä _myötäpäivään"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Kierrä va_stapäivään"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Diaesitys"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Tallenna"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr "K_umoa"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Katsele"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Peruuta tallennus"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Tallentaminen valmis"
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
-msgstr ""
+msgstr "Siirrä roskakoriin"
 
-#: collection/eog-collection-view.c:444
-#, fuzzy
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
-msgstr "Kokoelma"
+msgstr "Kokoelmanäkymä"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Ikkunan otsikko"
 
-#: collection/eog-collection-view.c:902
-#, fuzzy
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
-msgstr "Tilarivin teksti"
+msgstr "Tilateksti"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr "Kuvan lataamisen edistyminen"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Tallennetaan kuvaa"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -83,70 +130,68 @@ msgstr "Katsele monia erilaisia kuvatyyppejä"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr ""
+msgid "&lt;b&gt;Image Interpolation&lt;/b&gt;"
+msgstr "&lt;b&gt;Kuvan interpolointi&lt;/b&gt;"
 
 #: eog.glade.h:3
-#, fuzzy
-msgid "<b>Image Interpolation</b>"
-msgstr "Tiili-interpolointi"
+msgid "&lt;b&gt;Image Zoom&lt;/b&gt;"
+msgstr "&lt;b&gt;Kuvan lähennys&lt;/b&gr;"
 
 #: eog.glade.h:4
-msgid "<b>Image Zoom</b>"
-msgstr ""
+msgid "&lt;b&gt;Sequence&lt;/b&gt;"
+msgstr "&lt;b&gt;Jatkuva esitys&lt;/b&gt;"
 
 #: eog.glade.h:5
-msgid "<b>Sequence</b>"
-msgstr ""
+msgid "&lt;b&gt;Transparency&lt;/b&gt;"
+msgstr "&lt;b&gt;Läpinäkyvyys&lt;/b&gt;"
 
 #: eog.glade.h:6
-#, fuzzy
-msgid "<b>Transparency</b>"
-msgstr "Läpinäkyvä väri"
+msgid "*"
+msgstr "*"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "Taustaväri"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "Tausta_ruudukolla"
+msgstr "Tausta_ruudukko"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Mukautettu _väri"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Väri läpinäkyville alueille"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Älä käytä yli 100% lähennystä"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Gnomen silmän asetukset"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "Kuvakatselin"
+msgstr "Kuvanäkymä"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Jatkuva esitys"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Näytä seuraava kuva automaattisesti:\n"
+"(0 asettaa pois päältä)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -155,123 +200,7 @@ msgstr ""
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
-
-#: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Valitse ikkunan koko automaattisesti"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Kokoruutunäkymän oletussuhde"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Kokoruutunäkymään oletussuhde. Mahdolliset arvot ovat: 0 (käytä suhdetta "
-"1:1), 1 (käytä kuvaikkunan suhdetta), 2 (sovita kuva ruutuun)."
-
-#: eog.schemas.in.h:4
-#, fuzzy
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
-"determines the used color value."
-msgstr ""
-"Määrittää läpinäkyvyyden ilmaisutavan. Kelvolliset arvot ovat CHECK_PATTERN "
-"ja COLOR. Jos valitaan COLOR, trans_color-avain määrittää käytetyn väriarvon."
-
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Sovita standardikokoiset kuvat ruutuun"
-
-#: eog.schemas.in.h:6
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"Jos läpinäkyvyysavaimen arvo on COLOR, tämä avain määrittää läpinäkyvyyden "
-"ilmaisemiseen käytetyn värin."
-
-#: eog.schemas.in.h:7
-msgid "Interpolate Image"
-msgstr "Interpoloi kuvaa"
-
-#: eog.schemas.in.h:8
-msgid "Open images in a new window"
-msgstr "Avaa kuvia uudessa ikkunassa"
-
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Ympäröi ruutu reunuksella"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Kokoruutunäkymän vierityspalkkikäytäntö"
-
-#: eog.schemas.in.h:11
-msgid "Transparency color"
-msgstr "Läpinäkyvä väri"
-
-#: eog.schemas.in.h:12
-msgid "Transparency indicator"
-msgstr "Läpinäkyvyyden ilmaisin"
-
-#: eog.schemas.in.h:13
-msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
-msgstr ""
-"Interpoloidaanko kuvaa suhdetta muutettaessa, vai ei. Interpolointi parantaa "
-"kuvan laatua, mutta hidastaa toimintaa jonkin verran."
-
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Valitaanko kuvaikkunoiden koko ja suhde automaattisesti kuvan koon "
-"perusteella. Jos tämä ei ole valittuna, kuvaikkunat saavat kokonsa "
-"ikkunointiohjelmalta."
-
-#: eog.schemas.in.h:15
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Avataanko kuva uuteen ikkunaan sen sijaan, että vaihdettaisiin nykyisen "
-"ikkunan kuva."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "Ympäröidäänkö ruutu reunuksella kokoruutunäkymässä."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Näytetäänkö vierityspalkit kokoruutunäkymässä. Mahdolliset arvot ovat: 1 "
-"(automaattinen; näytetään vierityspalkit vain jos kuva on suurempi kuin "
-"ikkuna), 2 (ei näytetä vierityspalkkeja milloinkaan)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Sovitetaanko standardikokoiset kuvat ruutuun kokoruutunäkymässä. Näiden "
-"kuvien koot ovat 320×240, 640×480, 800×600, jne. Tällä valitaan, "
-"sovitetaanko nämä kuvat ruutuun riippumatta kokoruutunäkymän oletussuhteesta."
+msgstr "s"
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -289,8 +218,7 @@ msgstr "Gnomen silmä-kuvakatselintehdas"
 msgid "Embeddable EOG Image"
 msgstr "Upotettava EOG-kuva"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Kuva"
 
@@ -299,7 +227,6 @@ msgid "By Extension"
 msgstr "Tiedostopäätteen mukaan"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
 msgstr "Tiedostomuoto ei ole tuettu."
 
@@ -315,40 +242,146 @@ msgstr "Lataa kuva"
 msgid "Save Image"
 msgstr "Tallenna kuva"
 
-#: libeog/eog-image.c:1162
-msgid "No image loaded."
-msgstr ""
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "JPEG:in lataamiseksi ei saatu jaettua riittävästi muistia"
 
-#: libeog/eog-image.c:1196
-#, fuzzy
+#: libeog/eog-image.c:1340
+msgid "No image loaded."
+msgstr "Ei kuvaa ladattuna."
+
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr "Kuvat voi tallentaa ainoastaan paikallisesti."
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
-msgstr "Tiedostomuoto ei ole tuettu."
+msgstr "Tiedostotyyppi ei ole tuettu."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Ominaisuus"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Suhde"
+msgstr "Arvo"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Kuvan leveys"
+msgstr "Leveys"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Vaaleat"
+msgstr "Korkeus"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "_Tiedosto"
+msgstr "Tiedostonimi"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Sivu"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+msgid "Preview"
+msgstr "Esikatselu"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "millimetri"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Paperi"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% alkuperäisestä koosta"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Sovita "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Keskitä"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Leikkausohje"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Alas, sitten oikealle"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Sovita sivulle"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Pystysuuntaisesti"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Pystysuuntaisesti, järjestäjänä "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Reunukset"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Järjestämisohje"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Limitä"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Limitysohje"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Sivujärjestys"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Oikealle, sitten alas"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Suhde"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Näytä"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Vaakasuuntaisesti"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Vaakasuuntaisesti, järjestäjänä "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr "ikkuna1"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Nimi"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Tulostettavan tiedoston tai datan nimi"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -414,10 +447,6 @@ msgstr "_Sulje"
 msgid "_Contents"
 msgstr "S_isältö"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Muokkaa"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Tiedosto"
@@ -442,24 +471,25 @@ msgstr "_Poistu"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Lauri Nurmi, 2003\nJarkko Ranta, 2000-2002\nVille Hautamäki, 2000\n\nhttp://gnome-fi.org/"
+msgstr ""
+"Lauri Nurmi, 2003\n"
+"Jarkko Ranta, 2000-2003\n"
+"Ville Hautamäki, 2000\n"
+"\n"
+"http://gnome-fi.org/"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Gnomen silmä"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -469,19 +499,17 @@ msgstr ""
 "%s"
 
 #: shell/main.c:225
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Olet aikeissa avata %i ikkunaa\n"
-"samanaikaisesti. Haluatko ennemmin\n"
-"avata ne kokoelmaan?"
+"Olet aikeissa avata %i ikkunaa samanaikaisesti. Haluatko ennemmin avata ne "
+"kokoelmaan?"
 
 #: shell/main.c:229
-#, fuzzy
 msgid "Open multiple single windows?"
-msgstr "Avaa uudessa ikkunassa"
+msgstr "Avaa useita yksittäisiä ikkunoita?"
 
 #: shell/main.c:233
 msgid "Single Windows"
@@ -492,9 +520,8 @@ msgid "Collection"
 msgstr "Kokoelma"
 
 #: shell/main.c:305
-#, fuzzy
 msgid "Could not find files"
-msgstr "Ei voinut avata: '%s'"
+msgstr "Tiedostoja ei löytynyt"
 
 #: shell/util.c:52
 #, c-format
@@ -509,7 +536,7 @@ msgstr "Paras sov_itus"
 msgid "Fit"
 msgstr "Sovita"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Lähennä"
 
@@ -533,16 +560,6 @@ msgstr "_Normaalikoko"
 msgid "_Zoom In"
 msgstr "_Lähennä"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Peilaa vaakasuunnassa"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Peilaa pystysuunnassa"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Näyttää tulostettavan kuvan esikatselunäkymässä"
@@ -559,257 +576,267 @@ msgstr "Tulostus_asetukset"
 msgid "Print image to the printer"
 msgstr "Tulosta kuva tulostimella"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Kierrä 180°"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Kierrä myötäpäivään"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Kierrä vastapäivään"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Kierrä vasemmalle"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Kierrä oikealle"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Tallenna _nimellä..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Tallenna sivuasetukset nykyiselle tulostimelle"
 
-#: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
-msgstr "Koko Ruutu"
+msgstr "Koko_ruutu"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Tulosta..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "Kierrä _myötäpäivään"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Kierrä _vastapäivään"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Lähennä"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/L_oitonna"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Normaalikoko"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Paras sov_itus"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Sulje"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Kuvan %s lataaminen epäonnistui."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Kuvan %s lataaminen epäonnistui.\n"
+"Syy: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Lataaminen epäonnistui"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Kuvan tallentaminen onnistui"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
-msgstr ""
+msgstr "Kuvan tallentaminen epäonnistui"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Kuvan leveys"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Kuvan korkeus"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Tilarivin teksti"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Haluttu ikkunan leveys"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Haluttu ikkunan korkeus"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS:n alustus epäonnistui!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Valitse ikkunan koko automaattisesti"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pist"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Kokoruutunäkymän oletussuhde"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "pistettä"
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Kokoruutunäkymään oletussuhde. Mahdolliset arvot ovat: 0 (käytä suhdetta "
+#~ "1:1), 1 (käytä kuvaikkunan suhdetta), 2 (sovita kuva ruutuun)."
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Sovita standardikokoiset kuvat ruutuun"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "millimetri"
+#~ msgid ""
+#~ "If the transparency key has the value COLOR, then this key determines the "
+#~ "color which is used for indicating transparency."
+#~ msgstr ""
+#~ "Jos läpinäkyvyysavaimen arvo on COLOR, tämä avain määrittää "
+#~ "läpinäkyvyyden ilmaisemiseen käytetyn värin."
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "Interpolate Image"
+#~ msgstr "Interpoloi kuvaa"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "senttimetri"
+#~ msgid "Open images in a new window"
+#~ msgstr "Avaa kuvia uudessa ikkunassa"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "tuuma"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Ympäröi ruutu reunuksella"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Tulostusasetukset"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Kokoruutunäkymän vierityspalkkikäytäntö"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Tulosta"
+#~ msgid "Transparency color"
+#~ msgstr "Läpinäkyvä väri"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Tulostuksen esikatselu"
+#~ msgid "Transparency indicator"
+#~ msgstr "Läpinäkyvyyden ilmaisin"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Yksikkö: "
+#~ msgid ""
+#~ "Wether the image should be interpolated on zoom or not. This leads to "
+#~ "better quality but is somewhat slower than non interpolated images."
+#~ msgstr ""
+#~ "Interpoloidaanko kuvaa suhdetta muutettaessa, vai ei. Interpolointi "
+#~ "parantaa kuvan laatua, mutta hidastaa toimintaa jonkin verran."
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Paperi"
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Valitaanko kuvaikkunoiden koko ja suhde automaattisesti kuvan koon "
+#~ "perusteella. Jos tämä ei ole valittuna, kuvaikkunat saavat kokonsa "
+#~ "ikkunointiohjelmalta."
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Paperin koko:"
+#~ msgid ""
+#~ "Whether opening an image should create a new window instead of replacing "
+#~ "the image in the current window."
+#~ msgstr ""
+#~ "Avataanko kuva uuteen ikkunaan sen sijaan, että vaihdettaisiin nykyisen "
+#~ "ikkunan kuva."
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Asettelu"
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr "Ympäröidäänkö ruutu reunuksella kokoruutunäkymässä."
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Pysty"
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Näytetäänkö vierityspalkit kokoruutunäkymässä. Mahdolliset arvot ovat: 1 "
+#~ "(automaattinen; näytetään vierityspalkit vain jos kuva on suurempi kuin "
+#~ "ikkuna), 2 (ei näytetä vierityspalkkeja milloinkaan)."
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Vaaka"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Sovitetaanko standardikokoiset kuvat ruutuun kokoruutunäkymässä. Näiden "
+#~ "kuvien koot ovat 320×240, 640×480, 800×600, jne. Tällä valitaan, "
+#~ "sovitetaanko nämä kuvat ruutuun riippumatta kokoruutunäkymän "
+#~ "oletussuhteesta."
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Reunukset"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Ylhäällä:"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "GnomeVFS:n alustus epäonnistui!\n"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Vasemmalla:"
+#~ msgid "pts"
+#~ msgstr "pist"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Oikealla:"
+#~ msgid "points"
+#~ msgstr "pistettä"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Alhaalla:"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Suhde"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Sovitus:"
+#~ msgid "centimeter"
+#~ msgstr "senttimetri"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Sovita sivulle"
+#~ msgid "inch"
+#~ msgstr "tuuma"
 
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% alkuperäisestä koosta"
+#~ msgid "Print Setup"
+#~ msgstr "Tulostusasetukset"
 
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Keskitä"
+#~ msgid "Print"
+#~ msgstr "Tulosta"
 
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Pystysuuntaisesti"
+#~ msgid "Print preview"
+#~ msgstr "Tulostuksen esikatselu"
 
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Vaakasuuntaisesti"
+#~ msgid "Units: "
+#~ msgstr "Yksikkö: "
 
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Limitä"
+#~ msgid "Paper size:"
+#~ msgstr "Paperin koko:"
 
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Vaakalimitys "
+#~ msgid "Orientation"
+#~ msgstr "Asettelu"
 
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Pystylimitys "
+#~ msgid "Portrait"
+#~ msgstr "Pysty"
 
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Tulostetaan"
+#~ msgid "Landscape"
+#~ msgstr "Vaaka"
 
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Avustimet"
+#~ msgid "Top:"
+#~ msgstr "Ylhäällä:"
 
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Tulostuksen leikkausohje"
+#~ msgid "Left:"
+#~ msgstr "Vasemmalla:"
 
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Tulostuksen limitysohje"
+#~ msgid "Right:"
+#~ msgstr "Oikealla:"
 
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Sivujärjestys"
+#~ msgid "Bottom:"
+#~ msgstr "Alhaalla:"
 
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Alas, sitten oikealle"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Vaakalimitys "
 
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Oikealle, sitten alas"
+#~ msgid "Overlap vertically by "
+#~ msgstr "Pystylimitys "
+
+#~ msgid "Printing"
+#~ msgstr "Tulostetaan"
+
+#~ msgid "Helpers"
+#~ msgstr "Avustimet"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Gnomen silmä -kuvakatselin"
@@ -881,13 +908,6 @@ msgstr "Oikealle, sitten alas"
 #~ msgstr "XPM"
 
 #~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "Olet aikeissa avata %i ikkunaa\n"
-#~ "samanaikaisesti. Haluatko jatkaa?"
-
-#~ msgid ""
 #~ "Could not access %s\n"
 #~ "Eye of Gnome will not be able to display this file."
 #~ msgstr ""
@@ -911,15 +931,6 @@ msgstr "Oikealle, sitten alas"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Tiedoston tallennus nimellä '%s' epäonnistui: %s."
-
-#~ msgid "Pages"
-#~ msgstr "Sivut"
-
-#~ msgid "Print Preview"
-#~ msgstr "Tulostuksen esikatselu"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Kuvan tulostaminen epäonnistui"
 
 #~ msgid "_New Window"
 #~ msgstr "_Uusi ikkuna"
@@ -1008,21 +1019,11 @@ msgstr "Oikealle, sitten alas"
 #~ msgid "Close"
 #~ msgstr "Sulje"
 
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Ohjeen näyttäminen asetusikkunalle epäonnistui.\n"
-#~ "%s"
-
 #~ msgid "Change preferences"
 #~ msgstr "Muuta asetuksia"
 
 #~ msgid "_Tiles"
 #~ msgstr "_Tiilet"
-
-#~ msgid "Save As"
-#~ msgstr "Tallenna nimellä"
 
 #~ msgid "Display"
 #~ msgstr "Näyttö"
