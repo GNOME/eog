@@ -170,18 +170,23 @@ sort_files (GList *files, GList **file_list, GList **dir_list, GList **error_lis
 
 	for (it = files; it != NULL; it = it->next) {
 		GnomeVFSURI *uri;
-		GnomeVFSResult result;
+		GnomeVFSResult result = GNOME_VFS_OK;
 		char *filename;
 		
 		uri = make_canonical_uri ((char*)it->data);
 
-		result = gnome_vfs_get_file_info_uri (uri, info,
-						      GNOME_VFS_FILE_INFO_DEFAULT |
-						      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-
-		filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-
-		if (result != GNOME_VFS_OK)
+		if (uri != NULL) {
+			result = gnome_vfs_get_file_info_uri (uri, info,
+							      GNOME_VFS_FILE_INFO_DEFAULT |
+							      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+			
+			filename = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		}
+		else {
+			filename = g_strdup ((char*) it->data);
+		}
+		
+		if (result != GNOME_VFS_OK || uri == NULL)
 			*error_list = g_list_append (*error_list, filename);
 		else {
 			if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
@@ -191,8 +196,10 @@ sort_files (GList *files, GList **file_list, GList **dir_list, GList **error_lis
 			else
 				*error_list = g_list_append (*error_list, filename);
 		}
-
-		gnome_vfs_uri_unref (uri);
+		
+		if (uri != NULL) {
+			gnome_vfs_uri_unref (uri);
+		}
 		gnome_vfs_file_info_clear (info);
 	}
 
