@@ -605,7 +605,7 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
-	GtkWidget     *widget;
+ 	GtkWidget     *widget;
 	GtkStyle      *style;
 	GConfClient   *client;
 	gboolean       upscale = TRUE;

@@ -1287,6 +1287,160 @@ verb_Rotate180_cb (GtkAction *action, gpointer data)
 
 /* ========================================================================= */
 
+static int
+show_delete_confirm_dialog (EogWindow *window, int n_images)
+{
+	GtkWidget *dlg;
+	char *header;
+	int response;
+
+	header = g_strdup_printf (_("Do you really want to move %i images to trash?"), n_images);
+
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING,
+				  header, NULL, TRUE);
+	g_free (header);
+
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
+	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_widget_show_all (dlg);
+
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
+
+	return response;
+}
+
+static gboolean
+delete_image_real (EogImage *image, GError **error)
+{
+	GnomeVFSURI *uri;
+	GnomeVFSURI *trash_dir;
+	GnomeVFSURI *trash_uri;
+	gint result;
+	char *name;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+
+	uri = eog_image_get_uri (image);
+
+        result = gnome_vfs_find_directory (uri,
+					   GNOME_VFS_DIRECTORY_KIND_TRASH,
+					   &trash_dir, FALSE, FALSE, 0777);
+	if (result != GNOME_VFS_OK) {
+		gnome_vfs_uri_unref (uri);
+		g_set_error (error, EOG_WINDOW_ERROR, 
+			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+			     _("Couldn't access trash."));
+		return FALSE;
+	}
+
+	name = gnome_vfs_uri_extract_short_name (uri);
+	trash_uri = gnome_vfs_uri_append_file_name (trash_dir, name);
+	g_free (name);
+	
+	result = gnome_vfs_move_uri (uri, trash_uri, TRUE);
+
+	gnome_vfs_uri_unref (uri);
+	gnome_vfs_uri_unref (trash_uri);
+	gnome_vfs_uri_unref (trash_dir);
+	
+	if (result != GNOME_VFS_OK) {
+		g_set_error (error, EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_UNKNOWN,
+			     gnome_vfs_result_to_string (result));
+	}
+
+	return (result == GNOME_VFS_OK);
+}
+
+static void
+verb_Delete_cb (GtkAction *action, gpointer data)
+{
+	GList *images;
+	GList *it;
+	EogWindowPrivate *priv;
+	EogImageList *list;
+	int pos;
+	EogImage *img;
+	EogWindow *window;
+	int n_images;
+	int response; 
+	gboolean success;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	window = EOG_WINDOW (data);
+	priv = window->priv;
+	list = priv->image_list;
+	
+	/* let user confirm this action */
+	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	if (n_images < 1) return;
+
+	response = show_delete_confirm_dialog (window, n_images);
+	if (response != GTK_RESPONSE_OK) return;
+
+	/* save position of selected image after the deletion */
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
+	g_assert (images != NULL);
+	pos = eog_image_list_get_pos_by_img (list, EOG_IMAGE (images->data));
+
+	/* FIXME: make a nice progress dialog */
+	/* Do the work actually. First try to delete the image from the disk. If this
+	 * is successfull, remove it from the screen. Otherwise show error dialog.
+	 */
+	for (it = images; it != NULL; it = it->next) {
+		GError *error = NULL;
+		EogImage *image;
+
+		image = EOG_IMAGE (it->data);
+
+		success = delete_image_real (image, &error);
+		if (success) {
+			/* EogWrapList gets notified by the EogImageList */
+			eog_image_list_remove_image (list, image);
+		}
+		else {
+			char *header;
+			GtkWidget *dlg;
+			
+			header = g_strdup_printf (_("Error on deleting image %s"), eog_image_get_caption (image));
+			
+			dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_WARNING, header, 
+						  error->message, TRUE);
+			
+			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
+			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+			
+			gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (window));
+			gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
+			gtk_widget_show_all (dlg);
+			
+			gtk_dialog_run (GTK_DIALOG (dlg));
+			gtk_widget_destroy (dlg);
+		}
+	}
+
+	/* free list */
+	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_list_free (images);
+
+	/* select image at previously saved position */
+	pos = MIN (pos, eog_image_list_length (list));
+	img = eog_image_list_get_img_by_pos (list, pos);
+
+	eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), img, TRUE);
+	if (img != NULL) {
+		g_object_unref (img);
+	}
+}
+
+/* ========================================================================= */
+
 static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
 {
@@ -1812,10 +1966,11 @@ static GtkActionEntry action_entries_image[] = {
   { "EditFlipHorizontal", EOG_STOCK_FLIP_HORIZONTAL, N_("Flip _Horizontal"), NULL, NULL, G_CALLBACK (verb_FlipHorizontal_cb) },
   { "EditFlipVertical", EOG_STOCK_FLIP_VERTICAL, N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
 
-
   { "EditRotate90",  EOG_STOCK_ROTATE_90,  N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
   { "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counter C_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
   { "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
+
+  { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
   { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },

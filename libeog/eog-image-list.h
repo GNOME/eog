@@ -33,8 +33,9 @@ struct _EogImageListClass {
 
 	/* Notification signals */
         void (* list_prepared) (EogImageList *list);
-	void (* image_added)   (EogImageList *list, EogIter *iter);
-	void (* image_removed) (EogImageList *list, EogIter *iter);
+	void (* reordered)     (EogImageList *list);
+	void (* image_added)   (EogImageList *list, int pos);
+	void (* image_removed) (EogImageList *list, int pos);
 };
 
 GType               eog_image_list_get_type                       (void) G_GNUC_CONST;
@@ -49,9 +50,7 @@ GnomeVFSURI*        eog_image_list_get_base_uri                   (EogImageList 
 int                 eog_image_list_length                         (EogImageList *list);
 
 void                eog_image_list_add_image                      (EogImageList *list, EogImage *image);
-#if 0 /* not required yet */
 void                eog_image_list_remove_image                   (EogImageList *list, EogImage *image);
-#endif 
 
 EogImage*           eog_image_list_get_img_by_iter                (EogImageList *list, EogIter *iter);
 EogImage*           eog_image_list_get_img_by_pos                 (EogImageList *list, unsigned int position);

@@ -71,6 +71,7 @@ enum {
 	GLOBAL_WIDGET_SIZE_CHANGED,
 	GLOBAL_SPACING_CHANGED,
 	ITEM_SIZE_CHANGED,
+	N_ITEMS_CHANGED,
 	UPDATE_HINT_LAST
 };
 
@@ -903,15 +904,43 @@ model_image_added (EogImageList *model, EogImage *image, int position, gpointer 
 
 /* Handler for the interval_changed signal from models */
 static void
-model_image_removed (EogImageList *model, GQuark id, gpointer data)
+model_image_removed (EogImageList *model, int pos, gpointer data)
 {
-#if 0
+	EogWrapList *wlist;
+	EogWrapListPrivate *priv;
+	GnomeCanvasItem *item;
+	GList *node;
+	gboolean selection_changed;
+
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-	g_message ("model_interval_removed called\n");
+	wlist = EOG_WRAP_LIST (data);
+	priv = wlist->priv;
 
-	/* FIXME: implement this. */
-#endif
+	if (pos == -1) return;
+
+	node = g_list_nth (priv->view_order, pos);
+	item = (GnomeCanvasItem*) node->data;
+
+	/* remove item from data structures */
+	if (priv->last_item_clicked == item) {
+		priv->last_item_clicked = NULL;
+	}
+	
+	selection_changed = set_select_status (wlist, EOG_COLLECTION_ITEM (item), FALSE);
+	priv->view_order = g_list_delete_link (priv->view_order, node);
+
+	/* delete object */
+	gtk_object_destroy (GTK_OBJECT (item));
+
+	/* update item arrangement */
+	priv->global_update_hints[N_ITEMS_CHANGED] = TRUE;
+	request_update (wlist);
+
+	/* inform others */
+	if (selection_changed) {
+		g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+	}
 }
 
 
@@ -1207,14 +1236,16 @@ do_update (EogWrapList *wlist)
 	priv = wlist->priv;
 	
 	/* handle global updates */
-	if (priv->global_update_hints [GLOBAL_SPACING_CHANGED] ||
-	    priv->global_update_hints [GLOBAL_WIDGET_SIZE_CHANGED]) 
+	if (priv->global_update_hints [N_ITEMS_CHANGED] ||
+	    priv->global_update_hints [GLOBAL_SPACING_CHANGED] ||
+	    priv->global_update_hints [GLOBAL_WIDGET_SIZE_CHANGED])
 	{
 		layout_check_needed = TRUE;
 		item_rearrangement_needed = TRUE;
 		
 		priv->global_update_hints[GLOBAL_SPACING_CHANGED] = FALSE;
 		priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = FALSE;
+		priv->global_update_hints[N_ITEMS_CHANGED] = FALSE;
 	} 
 	else if (priv->global_update_hints [ITEM_SIZE_CHANGED]) {
 		item_rearrangement_needed = TRUE;
@@ -1227,7 +1258,6 @@ do_update (EogWrapList *wlist)
 	if (item_rearrangement_needed) {
  		do_item_rearrangement (wlist);
 	}
-
 
 	priv->idle_handler_id = -1;
 	return FALSE;

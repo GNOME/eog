@@ -233,25 +233,54 @@ free_loading_context (DirLoadingContext *ctx)
 	g_free (ctx);
 }
 
+/* Inserts an image into a sorted list, returning the position where the 
+ * element has been inserted (starting at 0).
+ */
+static GList*
+list_insert_sorted_private  (GList *list, EogImage *image, GCompareFunc comp, int *pos)
+{
+	GList *it;
+	int position = 0;
+	
+	for (it = list; it != NULL; it = it->next, position++) {
+
+		if (comp (image, it->data) < 0) {
+			list = g_list_insert_before (list, it, image);
+			*pos = position;
+			break;
+		}
+		else if (it->next == NULL) {
+			list = g_list_insert_before (list, NULL, image);
+			*pos = position + 1;
+			break;
+		}
+	}
+
+	return list;
+}
+
+
 /* Increases the refcount of the image and adds the image to the
  * internal list. If sorted is true the image is sorted in with regard
  * to the filename. Otherwise the image is prepended to the list.
  */
-static void 
+static int
 add_image_private (EogImageList *list, EogImage *image, gboolean sorted) 
 { 
 	EogImageListPrivate *priv;
+	int pos = 0;
 
-	g_return_if_fail (EOG_IS_IMAGE_LIST (list));	
-	g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), -1);	
+	g_return_val_if_fail (EOG_IS_IMAGE (image), -1);
 
 	priv = list->priv;
 
 	g_object_ref (image);
 
 	if (sorted) {
-		priv->store = g_list_insert_sorted (priv->store, image, 
-						    (GCompareFunc) compare_filename_cb);
+		priv->store = list_insert_sorted_private (priv->store, image, 
+							  (GCompareFunc) compare_filename_cb,
+							  &pos);
 	}
 	else {
 		priv->store = g_list_prepend (priv->store, image);
@@ -259,6 +288,36 @@ add_image_private (EogImageList *list, EogImage *image, gboolean sorted)
 
 	priv->age++;
 	priv->n_images++;
+
+	return pos;
+}
+
+/* Removes the image at the specified iter position. Returns the previous image
+ * list position on success, else -1.
+ */
+static int
+remove_image_private (EogImageList *list, EogIter *iter)
+{
+	EogImageListPrivate *priv;
+	EogImage *image;
+	int pos;
+
+	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), -1);	
+
+	if (!eog_iter_is_valid_private (list, iter)) return -1;
+
+	priv = list->priv;
+
+	image = EOG_IMAGE (iter->node->data);
+	pos = iter->position;
+	priv->store = g_list_delete_link (priv->store, iter->node);
+
+	g_object_unref (image);
+	
+	priv->age++;
+	priv->n_images--;
+
+	return pos;
 }
 
 static gint
@@ -631,9 +690,26 @@ eog_image_list_add_image (EogImageList *list, EogImage *image)
 	add_image_private (list, image, TRUE);
 }
 
-#if 0
-void                eog_image_list_remove_image                   (EogImageList *list, EogImage *image);
-#endif 
+void
+eog_image_list_remove_image (EogImageList *list, EogImage *image)
+{
+	EogIter* iter;
+	int pos;
+	
+	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	iter = eog_image_list_get_iter_by_img (list, image);
+	if (iter == NULL) return;
+
+	pos = remove_image_private (list, iter);
+
+	g_free (iter);
+
+	if (pos >= 0) {
+		g_signal_emit (list, eog_image_list_signals[IMAGE_REMOVED], 0, pos);
+	}
+}
 
 /* Returns the EogImage object pointed by iter or NULL if the iter is invalid. */
 EogImage*

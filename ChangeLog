@@ -1,3 +1,21 @@
+2004-07-13  Jens Finke  <jens@triq.net>
+
+	Implemented delete function.
+
+	* libeog/eog-image-list.c (list_insert_sorted_private),
+	(eog_image_list_remove_image),
+	(remove_image_private): New function.
+	(add_image_private): Return inserted position.
+	
+	* libeog/eog-wrap-list.c (model_image_removed): Implemented.
+	(do_update): Handle N_ITEMS_CHANGED hint.
+
+	* shell/eog-window.c (show_delete_confirm_dialog),
+	(delete_image_real),
+	(verb_Delete_cb): New functions.
+	
+	* shell/gtk-shell-ui.xml: Delete item added.
+
 2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne Nepali in ALL_LINGUAS
