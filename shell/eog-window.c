@@ -1212,11 +1212,15 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	gtk_container_add (GTK_CONTAINER (priv->box), priv->widget);
 	gtk_widget_show (priv->widget);
 
-	/* Set control frame and activate control. Get property control. */
+	/* Set control frame and activate control. */
 	CORBA_exception_init (&ev);
 	Bonobo_Control_setFrame (control,
 				 BONOBO_OBJREF (priv->ctrl_frame), &ev);
 	Bonobo_Control_activate (control, TRUE, &ev);
+
+	/* Get the property control. */
+	if (priv->property_control)
+		bonobo_object_release_unref (priv->property_control, NULL);
 	priv->property_control = Bonobo_Unknown_queryInterface
 			(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
 	CORBA_exception_free (&ev);
