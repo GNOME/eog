@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-22 19:18+0100\n"
-"PO-Revision-Date: 2004-01-09 23:17+0100\n"
+"POT-Creation-Date: 2004-02-04 19:25+0100\n"
+"PO-Revision-Date: 2004-02-04 23:16+0100\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,14 @@ msgstr "مصنع آي·أوف·جنوم لمشهد مجموعات الصور"
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
 msgstr "مجموعة صور"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "View as I_mage Collection"
+msgstr "عرض كمجموعة _صور"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+msgid "View as Image Collection"
+msgstr "عرض كمجموعة صور"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -91,35 +99,35 @@ msgstr "_إلغاء"
 msgid "_View"
 msgstr "_عرض"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "الغاء الحفظ"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "انتهى الحفظ"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "نقل الى سلة المهملات"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "مشهد المجموعة"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "عنوان النافذة"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "نص الحالة"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "تقدم تحميل الصورة"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "جاري حفظ الصورة"
 
@@ -211,7 +219,7 @@ msgstr ""
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr "السماح بتكبير أكبر من 100% الأولى"
+msgstr "السماح بتكبير أكبر من 100% أولا"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
@@ -223,24 +231,22 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"يحدد كيفية الإشارة للشفافية. القيم الممكنة هي "
-"CHECK_PATTERN و·COLOR و NONE. اذا اختيرت القيمة COLOR "
-"فسيحدد مفتاح trans_color قيمة اللون المستخدم."
+"يحدد كيفية الإشارة للشفافية. القيم الممكنة هي CHECK_PATTERN و·COLOR و NONE. "
+"اذا اختيرت القيمة COLOR فسيحدد مفتاح trans_color قيمة اللون المستخدم."
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-"اذا كان لمفتاح الشفافية القيمة COLOR، فسيحدد هذا"
-"المفتاح اللون الذي سيستخدم للإشارة إلى الشفافية."
+"اذا كان لمفتاح الشفافية القيمة COLOR، فسيحدد هذاالمفتاح اللون الذي سيستخدم "
+"للإشارة إلى الشفافية."
 
 #: eog.schemas.in.h:7
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr ""
-"·لن·تمدد·الصور·الصغيرة·لملائمة·الشاشة·عند·البدأ اذا ضبط هذا كـ FALSE."
+msgstr "·لن·تمدد·الصور·الصغيرة·لملائمة·الشاشة·عند·البدأ اذا ضبط هذا كـ FALSE."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -275,8 +281,7 @@ msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"فيما اذا سينشأ فتح صورة نافذة جديدة عوض تبديل الصورة "
-"في النافذة الحالية."
+"فيما اذا سينشأ فتح صورة نافذة جديدة عوض تبديل الصورة في النافذة الحالية."
 
 #: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
@@ -287,8 +292,8 @@ msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
-"فيما·إذا·سيفترض·إستيفاء·الصورة·عند تكبيرها أم لا."
-"يؤدي هذا لجودة أفضل لكنه أبطأ من الصور الغير مستفات."
+"فيما·إذا·سيفترض·إستيفاء·الصورة·عند تكبيرها أم لا.يؤدي هذا لجودة أفضل لكنه "
+"أبطأ من الصور الغير مستفات."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -310,42 +315,53 @@ msgstr "صورة آي أوف جنوم قابلة للتضمين"
 msgid "Image"
 msgstr "صورة"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "هل تريد تنميق %s؟"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr "الملف موجود"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr "كل الملفات"
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
 msgstr "كل الصور"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s·x·%s بكسل"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "تحميل الصورة"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "حفظ الصورة"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
 msgstr "فتح دليل"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "لم يمكن إنشاء ملف وقتي لحفظ: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "لم يمكن تخصيص ذاكرة لتحميل ملف JPEG"
 
@@ -379,7 +395,7 @@ msgstr "العرض"
 
 #: libeog/eog-info-view.c:173
 msgid "Height"
-msgstr "الارتفاع"
+msgstr "الإرتفاع"
 
 #: libeog/eog-info-view.c:181
 msgid "Filesize"
@@ -387,11 +403,11 @@ msgstr "حجم الملف"
 
 #: libeog/eog-info-view.c:199
 msgid "Filename"
-msgstr "اسم الملف"
+msgstr "إسم الملف"
 
 #: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
 msgid "Page"
-msgstr "صفحة"
+msgstr "الصفحة"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
 #: viewer/eog-image-view.c:385
@@ -606,16 +622,13 @@ msgstr "عمود ال_أدوات"
 #.
 #: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "تحت اشراف عرب آيز (http://www.arabyes.org):"
-""
-"عرفات المديني، تونس <lumina@silverpen.de>"
-"عصام بايزيدي، الأردن"
-"حسن عابدين، مصر <habdin@link.net>"
-"سيد جعفر الموسوي، البحرين "
-"نور الدين أمين آغة، العربية السعودية "
+msgstr ""
+"تحت اشراف عرب آيز (http://www.arabyes.org):عرفات المديني، تونس "
+"<lumina@silverpen.de>عصام بايزيدي، الأردنحسن عابدين، مصر <habdin@link."
+"net>سيد جعفر الموسوي، البحرين نور الدين أمين آغة، العربية السعودية "
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "آي أوف جنوم"
 
@@ -632,7 +645,7 @@ msgstr ""
 "لم يمكن عرض المساعدة لآي أوف جنوم.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -642,21 +655,21 @@ msgstr ""
 " في ان واحد. هل تريد \n"
 "فتحها في مجموعة بدلا عن ذلك؟"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "هل تفتح نوافذ مفردة متعددة؟"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "نوافذ وحيدة"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "مجموعة"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "لا يمكن ايجاد الملفات"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "لم توجد الملفات."
 
 #: shell/util.c:52
 #, c-format
@@ -792,33 +805,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "فشل التحميل"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "حفظت الصورة بنجاح"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "فشل حفظ الصورة"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "عرض الصورة"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "ارتفاع الصورة"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "نص عمود الحالة"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "عرض النافذة المطلوب"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "ارتفاع النافذة المطلوب"
+
+#~ msgid "Could not find files"
+#~ msgstr "لا يمكن ايجاد الملفات"
 
 #~ msgid "*"
 #~ msgstr "*"
