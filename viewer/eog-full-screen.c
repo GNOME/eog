@@ -111,6 +111,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Q:
 	case GDK_q:
 	case GDK_Escape:
+	case GDK_F11:
 		do_hide = TRUE;
 		break;
 
