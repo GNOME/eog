@@ -15,7 +15,9 @@ endif
 bin_PROGRAMS = bonobo-image-generic
 
 bonobo_image_generic_SOURCES =	\
-	bonobo-image-generic.c
+	bonobo-image-generic.c	\
+	io-png.c		\
+	io-png.h
 
 INCLUDES =	\
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \

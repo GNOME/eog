@@ -37,7 +37,9 @@
 #include <libart_lgpl/art_rgb_pixbuf_affine.h>
 #include <libart_lgpl/art_alphagamma.h>
 
-#define EOG_DEBUG
+#include "io-png.h"
+
+#undef EOG_DEBUG
 
 /*
  * Number of running objects
@@ -268,50 +270,74 @@ view_update (view_data_t *view_data)
 }
 
 /*
+ * Loads a png to a Bonobo_Stream
+ */
+static void
+save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
+		      Bonobo_Persist_ContentType type, void *data,
+		      CORBA_Environment *ev)
+{
+	bonobo_object_data_t *bod = data;
+
+	if (!bod->pixbuf)
+		return;
+
+	image_save (stream, bod->pixbuf, ev);
+}
+
+/*
  * Loads an Image from a Bonobo_Stream
  */
 static void
 load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
-			Bonobo_Persist_ContentType type, void *data, CORBA_Environment *ev)
+			Bonobo_Persist_ContentType type, void *data,
+			CORBA_Environment *ev)
 {
 	bonobo_object_data_t *bod = data;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
-	Bonobo_Stream_iobuf   *buffer;
+	Bonobo_Stream_iobuf  *buffer;
+	CORBA_long            len;
 
 	do {
-		buffer = Bonobo_Stream_iobuf__alloc ();
 		Bonobo_Stream_read (stream, 4096, &buffer, ev);
+		if (ev->_major != CORBA_NO_EXCEPTION)
+			goto exit_clean;
+
 		if (buffer->_buffer &&
-		    (ev->_major != CORBA_NO_EXCEPTION ||
 		     !gdk_pixbuf_loader_write (loader,
 					       buffer->_buffer,
-					       buffer->_length))) {
-			if (ev->_major != CORBA_NO_EXCEPTION)
-				g_warning ("Fatal error loading from stream");
-			else
-				g_warning ("Fatal image format error");
-
-			gdk_pixbuf_loader_close (loader);
-			gtk_object_destroy (GTK_OBJECT (loader));
+					       buffer->_length)) {
 			CORBA_free (buffer);
-			return;
+			if (ev->_major != CORBA_NO_EXCEPTION)
+				goto exit_clean;
+			else
+				goto exit_wrong_type;
 		}
+		len = buffer->_length;
+
 		CORBA_free (buffer);
-	} while (buffer->_length > 0);
+	} while (len > 0);
 
 	bod->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-	gdk_pixbuf_ref (bod->pixbuf);
-	gdk_pixbuf_loader_close (loader);
-	gtk_object_destroy (GTK_OBJECT (loader));
 
-	if (!bod->pixbuf) {
-		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
-				     ex_Bonobo_Persist_WrongDataType, NULL);
-		return;
-	} else
+	if (!bod->pixbuf)
+		goto exit_wrong_type;
+
+	else {
+		gdk_pixbuf_ref (bod->pixbuf);
 		bonobo_embeddable_foreach_view (bod->bonobo_object,
 						resize_all_cb, bod);
-	
+	}
+
+	goto exit_clean;
+
+ exit_wrong_type:
+	CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+			     ex_Bonobo_Persist_WrongDataType, NULL);
+
+ exit_clean:
+	gdk_pixbuf_loader_close (loader);
+	gtk_object_unref (GTK_OBJECT (loader));
 	return;
 }
 
@@ -323,6 +349,13 @@ destroy_view (BonoboView *view, view_data_t *view_data)
 	if (view_data->scaled)
 		gdk_pixbuf_unref (view_data->scaled);
 	view_data->scaled = NULL;
+
+	gtk_widget_destroy (view_data->drawing_area);
+	view_data->drawing_area = NULL;
+
+	if (view_data->scrolled_window)
+		gtk_widget_destroy (view_data->scrolled_window);
+	view_data->scrolled_window = NULL;
 
 	g_free (view_data);
 }
@@ -584,7 +617,8 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	/*
 	 * Interface Bonobo::PersistStream 
 	 */
-	stream = bonobo_persist_stream_new (load_image_from_stream, NULL, 
+	stream = bonobo_persist_stream_new (load_image_from_stream, 
+					    save_image_to_stream, 
 					    NULL, NULL, bod);
 	if (stream == NULL) {
 		gtk_object_unref (GTK_OBJECT (bonobo_object));

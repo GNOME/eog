@@ -1,3 +1,15 @@
+2000-07-06  Michael Meeks  <michael@helixcode.com>
+
+	* bonobo/io-png.[ch]: Create; nicked from gdk-pixbuf-save
+	and updated.
+
+	* bonobo/bonobo-image-generic.c: turn off debug [ doh ]
+	(load_image_from_stream): fix some sillyness and clean, kill
+	leak. (save_image_to_stream): implement.
+	(destroy_view): free various widgets.
+
+	* bonobo/Makefile.am (bonobo_image_generic_SOURCES): add io-png.[ch]
+
 2000-07-04  Michael Meeks  <michael@helixcode.com>
 
 	* bonobo/bonobo-image-generic.c (configure_size): set allocation.
