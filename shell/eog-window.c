@@ -432,6 +432,28 @@ verb_ZoomFit_cb (GtkAction *action, gpointer data)
 }
 
 static void
+slideshow_hide_cb (GtkWidget *widget, gpointer data)
+{
+	EogImage *last_image;
+	EogFullScreen *fs;
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
+	fs = EOG_FULL_SCREEN (widget);
+	window = EOG_WINDOW (data);
+	priv = window->priv;
+
+	last_image = eog_full_screen_get_last_image (fs);
+	
+	if (last_image != NULL) {
+		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), last_image, TRUE);
+		g_object_unref (last_image);
+	}
+
+	gtk_widget_destroy (widget);
+}
+
+static void
 verb_FullScreen_cb (GtkAction *action, gpointer data)
 {
 	EogWindowPrivate *priv;
@@ -454,7 +476,6 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 		l = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
 
 		list = eog_image_list_new_from_glist (l);
-		start_image = NULL;
 
 		g_list_foreach (l, (GFunc) g_object_unref, NULL);
 		g_list_free (l);
@@ -462,7 +483,7 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 
 	if (list != NULL) {
 		fs = eog_full_screen_new (list, start_image);
-		g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (gtk_widget_destroy), NULL);
+		g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (slideshow_hide_cb), EOG_WINDOW (data));
 
 		gtk_widget_show_all (fs);
 
@@ -1910,6 +1931,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	EogImage *image;
 	gchar *str;
 	gint nimg, nsel;
+	char *title = NULL; 
 
 	priv = window->priv;
 
@@ -1945,8 +1967,24 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	nimg = eog_image_list_length (priv->image_list);
 	nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 	
+	/* Images: (n_selected_images) / (n_total_images) */
 	str = g_strdup_printf (_("Images: %i/%i"), nsel, nimg);
 	gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), str);
+
+	/* update window title */
+	if (image != NULL) {
+		GnomeVFSURI *uri;
+		
+		uri = eog_image_get_uri (image);
+		title = gnome_vfs_uri_extract_short_name (uri);
+		gnome_vfs_uri_unref (uri);
+	}
+	else {
+		title = g_strdup (_("Eye of Gnome"));
+	}
+	gtk_window_set_title (GTK_WINDOW (window), title);
+		
+	g_free (title);
 	g_free (str);
 }
 
