@@ -62,49 +62,6 @@ impl_GNOME_EOG_ImageView_getImageData (PortableServer_Servant servant,
 	return image_data;
 }
 
-static Bonobo_PropertyBag
-impl_GNOME_EOG_ImageView_getPropertyBag (PortableServer_Servant servant,
-					 CORBA_Environment *ev)
-{
-	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
-	Bonobo_PropertyBag property_bag;
-
-	property_bag = bonobo_object_corba_objref (BONOBO_OBJECT (image_view->priv->property_bag));
-	CORBA_Object_duplicate (property_bag, ev);
-	return property_bag;
-}
-
-static Bonobo_Zoomable
-impl_GNOME_EOG_ImageView_getZoomable (PortableServer_Servant servant,
-				      CORBA_Environment *ev)
-{
-	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
-	Bonobo_Zoomable zoomable;
-
-	zoomable = bonobo_object_corba_objref (BONOBO_OBJECT (image_view->priv->zoomable));
-	CORBA_Object_duplicate (zoomable, ev);
-	return zoomable;
-}
-
-static void
-impl_GNOME_EOG_ImageView_setUIContainer (PortableServer_Servant servant,
-					 Bonobo_UIContainer ui_container,
-					 CORBA_Environment *ev)
-{
-	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
-
-	eog_image_view_set_ui_container (image_view, ui_container);
-}
-
-static void
-impl_GNOME_EOG_ImageView_unsetUIContainer (PortableServer_Servant servant,
-					   CORBA_Environment *ev)
-{
-	EogImageView *image_view = EOG_IMAGE_VIEW (bonobo_object_from_servant (servant));
-
-	eog_image_view_unset_ui_container (image_view);
-}
-
 /**
  * eog_image_view_get_epv:
  */
@@ -116,11 +73,6 @@ eog_image_view_get_epv (void)
 	epv = g_new0 (POA_GNOME_EOG_ImageView__epv, 1);
 
 	epv->getImageData = impl_GNOME_EOG_ImageView_getImageData;
-	epv->getPropertyBag = impl_GNOME_EOG_ImageView_getPropertyBag;
-	epv->getZoomable = impl_GNOME_EOG_ImageView_getZoomable;
-
-	epv->setUIContainer = impl_GNOME_EOG_ImageView_setUIContainer;
-	epv->unsetUIContainer = impl_GNOME_EOG_ImageView_unsetUIContainer;
 
 	return epv;
 }
