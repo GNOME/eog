@@ -1,14 +1,15 @@
 # Indonesia translation of eog.
-# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2004 THE eog's COPYRIGHT HOLDER
+# This file is distributed under the same license as the eog package.
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2004.
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-25 08:38+0700\n"
-"PO-Revision-Date: 2004-10-25 08:45+0700\n"
+"POT-Creation-Date: 2005-03-02 09:24+0700\n"
+"PO-Revision-Date: 2005-03-02 09:26+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
 "Language-Team: Indonesia <sukarelawan@gnome.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -16,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
 msgstr "Pembuka Gambar"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
 msgstr "Tampilkan berbagai jenis gambar"
 
@@ -251,35 +252,39 @@ msgstr ""
 "akan berpengaruh pada kualitas tapi agak lebih lambat dari pada gambar yang "
 "tidak diinterpolasi."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Semua File"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Semua Gambar"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s piksel"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Buka pada jendela baru"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Buka Gambar"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Simpan Gambar"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "Buka Folder"
 
@@ -369,11 +374,11 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: libeog/eog-save-as-dialog-helper.c:137
+#: libeog/eog-save-as-dialog-helper.c:138
 msgid "Option not available."
 msgstr "Pilihan tidak tersedia."
 
-#: libeog/eog-save-as-dialog-helper.c:138
+#: libeog/eog-save-as-dialog-helper.c:139
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
@@ -382,7 +387,7 @@ msgstr ""
 "Silakan pasang dulu libexif dari http://libexif.sf.net dan lakukan kompilasi "
 "ulang program Eye of Gnome ini."
 
-#: libeog/eog-save-as-dialog-helper.c:214
+#: libeog/eog-save-as-dialog-helper.c:215
 msgid "as is"
 msgstr "apa adanya"
 
@@ -397,7 +402,7 @@ msgstr "Batalkan penyimpanan..."
 
 #: libeog/eog-uri-converter.c:1023
 msgid "Filenames are not disjunct."
-msgstr ""
+msgstr "Nama file tidak terpisah."
 
 #: libeog/eog-uri-converter.h:46
 msgid "Counter"
@@ -642,8 +647,8 @@ msgid "Rotate Counter C_lockwise"
 msgstr "Putar Be_rlawanan Jarum Jam"
 
 #: shell/eog-window.c:2305
-msgid "Rotat_e 180°"
-msgstr "Putar 180 D_erajat"
+msgid "Rotat_e 180"
+msgstr "Puta_r 180"
 
 #: shell/eog-window.c:2307
 msgid "Delete"
@@ -713,4 +718,12 @@ msgstr[0] "File tidak ada."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Tidak dapat membuka '%s'"
+
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (Unicode yang salah)"
+
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "Tidak dapat menampilkan layar bantuan untuk Mata GNOME"
 
