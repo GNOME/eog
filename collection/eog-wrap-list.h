@@ -39,6 +39,11 @@ BEGIN_GNOME_DECLS
 #define EOG_IS_WRAP_LIST(obj)         (GTK_CHECK_TYPE ((obj), EOG_TYPE_WRAP_LIST))
 #define EOG_IS_WRAP_LIST_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), EOG_TYPE_WRAP_LIST))
 
+typedef enum {
+	EOG_LAYOUT_MODE_VERTICAL,
+	EOG_LAYOUT_MODE_HORIZONTAL,
+	EOG_LAYOUT_MODE_RECTANGLE
+} EogLayoutMode;
 
 typedef struct _EogWrapList EogWrapList;
 typedef struct _EogWrapListPrivate EogWrapListPrivate;
@@ -66,6 +71,10 @@ void eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory);
 
 void eog_wrap_list_set_col_spacing (EogWrapList *wlist, guint spacing);
 void eog_wrap_list_set_row_spacing (EogWrapList *wlist, guint spacing);
+
+void eog_wrap_list_set_layout_mode (EogWrapList *wlist, EogLayoutMode lm);
+
+void eog_wrap_list_set_background_color (EogWrapList *wlist, GdkColor *color);
 
 
 

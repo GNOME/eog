@@ -1,3 +1,26 @@
+2001-04-11  Jens Finke <jens@gnome.org>
+
+	* eog-collection-preferences.[ch]: New files.
+
+	* Makefile.am (SOURCES): Added the new files.
+
+	* eog-collection-view.[ch]: 
+	(eog_collection_view_set_layout_mode),
+	(eog_collection_view_set_background_color),
+	(prop_control_get_prop),
+	(prop_control_get_cb): New functions.
+	(eog_collection_view_construct): Create BonoboPropertyControl object.
+
+	* eog_wrap_list.c: (eog_wrap_list_set_layout_mode),
+	(eog_wrap_list_set_background_color): New function.
+	(do_layout_check): Added support for different item layout
+	flavours: vertical, horizontal and rectangle.
+	(update): Check for new global update hint GLOBAL_LAYOUT_MODE_CHANGED.
+ 	
+	* eog_wrap_list.h: (eog_wrap_list_set_layout_mode),
+	(eog_wrap_list_set_background_color): New function declarations.
+	(EogLayoutMode): New enumeration.
+
 2001-04-10  Jens Finke <jens@gnome.org>
 
 	I did the changes since 2001-04-02 on holidays in the south france

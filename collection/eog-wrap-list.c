@@ -24,6 +24,7 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
 #include "eog-wrap-list.h"
+#include <math.h>
 
 
 
@@ -46,6 +47,7 @@ enum {
 	GLOBAL_SPACING_CHANGED,
 	GLOBAL_FACTORY_CHANGED,
 	GLOBAL_MODEL_CHANGED,
+	GLOBAL_LAYOUT_MODE_CHANGED,
 	GLOBAL_HINT_LAST
 };
 
@@ -90,6 +92,9 @@ struct _EogWrapListPrivate {
 
 	/* Number of items */
 	guint n_items; 
+
+	/* Layout mode to use for row/col calculating. */
+	EogLayoutMode lm;
 
 	/* Number of rows. */
 	guint n_rows;
@@ -209,6 +214,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 	priv->idle_handler_id = -1;
 	priv->is_updating = FALSE;
 	priv->n_items = 0;
+	priv->lm = EOG_LAYOUT_MODE_VERTICAL;
 	priv->n_rows = 0;
 	priv->n_cols = 0;
 	priv->last_id_clicked = -1;
@@ -648,7 +654,43 @@ eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory)
 	request_update (wlist);
 }
 
+void 
+eog_wrap_list_set_layout_mode (EogWrapList *wlist, EogLayoutMode lm)
+{
+	EogWrapListPrivate *priv;
 
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
+	priv = wlist->priv;
+
+	if (lm == priv->lm) return;
+
+	priv->lm = lm;
+	priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED] = TRUE;
+
+	request_update (wlist);
+}
+
+void 
+eog_wrap_list_set_background_color (EogWrapList *wlist, GdkColor *color)
+{
+	
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+	g_return_if_fail (color != NULL);
+
+	/* try to alloc color */
+	if(gdk_color_alloc (gdk_colormap_get_system (), color))
+	{
+		GtkStyle *style;
+		style = gtk_style_copy (gtk_widget_get_style (GTK_WIDGET (wlist)));
+
+		/* set new style */
+		style->bg[GTK_STATE_NORMAL] = *color;
+		gtk_widget_set_style (GTK_WIDGET (wlist), style);
+	}
+}
 
 /**
  * eog_wrap_list_set_row_spacing:
@@ -936,9 +978,10 @@ do_item_added_update (EogWrapList *wlist,
 static gboolean
 do_layout_check (EogWrapList *wlist)
 {
-	guint n_rows_new;
-	guint n_cols_new;
-	gint canvas_width;
+	unsigned int n_rows_new = 0;
+	unsigned int n_cols_new = 0;
+	gint cw;
+	gint ch;
 	
 	EogWrapListPrivate *priv;
 
@@ -947,15 +990,40 @@ do_layout_check (EogWrapList *wlist)
 	g_message ("do_layout_check called\n");
 
 	/* get canvas width */
-	canvas_width = GTK_WIDGET (wlist)->allocation.width;
+	cw = GTK_WIDGET (wlist)->allocation.width;
+	ch = GTK_WIDGET (wlist)->allocation.height;
 
 	/* calculate new number of  columns/rows */
-	n_cols_new = canvas_width / (priv->item_width + priv->col_spacing);
-	if (n_cols_new == 0) n_cols_new = 1;
-	n_rows_new = priv->n_items / n_cols_new;
-	n_rows_new = priv->n_items % n_cols_new ? n_rows_new++ : n_rows_new; 
+	switch (priv->lm) {
+	case EOG_LAYOUT_MODE_VERTICAL:
+		n_cols_new = cw / (priv->item_width + priv->col_spacing);
+		if (n_cols_new == 0) n_cols_new = 1;
+		n_rows_new = priv->n_items / n_cols_new;
+		n_rows_new = priv->n_items % n_cols_new ? n_rows_new++ : n_rows_new; 
+		break;
+
+	case EOG_LAYOUT_MODE_HORIZONTAL:
+		n_rows_new = ch / (priv->item_height + priv->row_spacing);
+		if (n_rows_new == 0) n_rows_new = 1;
+		n_cols_new = priv->n_items / n_rows_new;
+		n_cols_new = priv->n_items % n_rows_new ? n_cols_new++ : n_cols_new; 
+		break;
+
+	case EOG_LAYOUT_MODE_RECTANGLE:
+		n_rows_new = n_cols_new = sqrt (priv->n_items);
+		if (n_rows_new * n_cols_new < priv->n_items) {
+			if ((n_rows_new+1) * n_cols_new < priv->n_items)
+				n_rows_new = n_cols_new = n_rows_new + 1;
+			else 
+				n_rows_new = n_rows_new + 1;
+		}
+		break;
+
+	default:
+		g_assert_not_reached ();
+	}
 	
-	g_print ("  ** canvas width: %i\n", canvas_width);
+	g_print ("  ** canvas width: %i\n",cw);
 	g_print ("  ** n_cols_new: %i\n", n_cols_new);
 	g_print ("  ** n_rows_new: %i\n", n_rows_new);
 
@@ -1073,6 +1141,9 @@ update (EogWrapList *wlist)
 
 		priv->global_update_hints[GLOBAL_SPACING_CHANGED] = FALSE;
 		priv->global_update_hints[GLOBAL_SIZE_CHANGED] = FALSE;
+	} else if (priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED]) {
+		layout_check_needed = TRUE;
+		priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED] = FALSE;
 	}
 
 	item_update = priv->item_update_list;

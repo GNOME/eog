@@ -199,8 +199,6 @@ eog_control_construct (EogControl    *eog_ctrl)
 			    "open_uri", 
 			    handle_open_uri, NULL);
 
-	bonobo_object_dump_interfaces (BONOBO_OBJECT (eog_ctrl));
-	
 	return eog_ctrl;
 }
 

@@ -33,6 +33,8 @@ eog_collection_SOURCES = \
 	eog-item-factory.c		\
 	eog-item-factory-simple.h	\
 	eog-item-factory-simple.c	\
+	eog-collection-preferences.h	\
+	eog-collection-preferences.c	\
 	main.c
 
 eog_collection_LDADD = 			\

@@ -21,6 +21,7 @@
 #include "eog-wrap-list.h"
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
+#include "eog-collection-preferences.h"
 
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
@@ -30,6 +31,11 @@ struct _EogCollectionViewPrivate {
 	GtkWidget               *root;
 
 	BonoboUIComponent       *uic;
+	BonoboPropertyControl   *prop_control;
+};
+
+enum {
+	PROP_CONTROL_TITLE
 };
 
 enum {
@@ -117,6 +123,10 @@ eog_collection_view_destroy (GtkObject *object)
 		gtk_object_unref (GTK_OBJECT (list_view->priv->factory));
 	list_view->priv->factory = NULL;
 
+	if (list_view->priv->prop_control)
+		bonobo_object_unref (BONOBO_OBJECT (list_view->priv->prop_control));
+	list_view->priv->prop_control = NULL;
+
 	list_view->priv->wraplist = NULL;
 	list_view->priv->root = NULL;
 
@@ -199,6 +209,61 @@ handle_item_dbl_click (GtkObject *obj, gint n, gpointer data)
 	g_free (uri);
 }
 
+static void
+prop_control_get_prop (BonoboPropertyBag *bag,
+		       BonoboArg         *arg,
+		       guint              arg_id,
+		       CORBA_Environment *ev,
+		       gpointer           user_data)
+{
+	switch (arg_id) {
+	case 0:
+		g_assert (arg->_type == BONOBO_ARG_STRING);
+		BONOBO_ARG_SET_STRING (arg, _("Layout"));
+		break;
+	case 1:
+		g_assert (arg->_type == BONOBO_ARG_STRING);
+		BONOBO_ARG_SET_STRING (arg, _("Color"));
+		break;
+		
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+static BonoboControl *
+prop_control_get_cb (BonoboPropertyControl *property_control,
+		     int page_number, void *closure)
+{
+	EogCollectionView *cview;
+	GtkWidget *widget;
+	BonoboControl *control;
+	BonoboPropertyBag *property_bag;
+
+	g_return_val_if_fail (closure != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (closure), NULL);
+
+	cview = EOG_COLLECTION_VIEW (closure);
+
+	/* create widget */
+	widget = eog_collection_preferences_create_page (cview, page_number);
+
+	control = bonobo_control_new (widget);
+
+	/* Property Bag */
+	property_bag = bonobo_property_bag_new (prop_control_get_prop,
+						NULL, control);
+
+	bonobo_property_bag_add (property_bag, "bonobo:title",
+				 page_number, BONOBO_ARG_STRING,
+				 NULL, NULL, BONOBO_PROPERTY_READABLE);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (control),
+				     BONOBO_OBJECT (property_bag));
+
+	return control;
+}
+
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
 {
@@ -230,7 +295,11 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
 
-
+	/* Property Control */
+	priv->prop_control = bonobo_property_control_new (prop_control_get_cb, 2, 
+							  list_view);
+	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
+				     BONOBO_OBJECT (priv->prop_control));
 
 	return list_view;
 }
@@ -244,3 +313,28 @@ eog_collection_view_new (void)
 
 	return eog_collection_view_construct (list_view);
 }
+
+
+void                
+eog_collection_view_set_layout_mode    (EogCollectionView *list_view,
+					EogLayoutMode lm)
+{
+	g_return_if_fail (list_view != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
+
+	eog_wrap_list_set_layout_mode (EOG_WRAP_LIST (list_view->priv->wraplist),
+				       lm);
+}
+
+void                
+eog_collection_view_set_background_color (EogCollectionView *list_view,
+					  GdkColor *color)
+{
+	g_return_if_fail (list_view != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
+
+	eog_wrap_list_set_background_color (EOG_WRAP_LIST (list_view->priv->wraplist),
+					    color);
+}
+
+

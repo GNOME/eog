@@ -14,6 +14,7 @@
 
 #include <bonobo.h>
 #include <Eog.h>
+#include "eog-wrap-list.h"
 
 BEGIN_GNOME_DECLS
  
@@ -53,7 +54,11 @@ void                eog_collection_view_set_ui_container  (EogCollectionView    
 							   Bonobo_UIContainer       ui_container);
 GtkWidget          *eog_collection_view_get_widget          (EogCollectionView       *list_view);
 
+void                eog_collection_view_set_layout_mode    (EogCollectionView *list_view,
+							    EogLayoutMode lm);
 
+void                eog_collection_view_set_background_color (EogCollectionView *list_view,
+							      GdkColor *color);
 
 END_GNOME_DECLS
 
