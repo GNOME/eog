@@ -27,6 +27,8 @@ libeog_a_SOURCES =			\
         accessible-image-view-factory.c	\
         accessible-image-view.h		\
         accessible-image-view.c		\
+	eog-file-selection.h		\
+	eog-file-selection.c		\
 	image-view.c			\
 	image-view.h			\
 	uta.c				\

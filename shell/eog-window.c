@@ -39,6 +39,7 @@
 #include "util.h"
 #include "zoom.h"
 #include "Eog.h"
+#include "eog-file-selection.h"
 
 /* Default size for windows */
 
@@ -747,24 +748,32 @@ open_new_window (EogWindow *window, const char *filename)
 void
 eog_window_open_dialog (EogWindow *window)
 {
-	char *filename;
 	EogWindowPrivate *priv;
+	char *filename = NULL;
+	GtkWidget *dlg;
+	gint response;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
 
-	/* FIXME: we should specify only image mime types */
-	filename = bonobo_file_selector_open (
-		GTK_WINDOW (window), FALSE, _("Open Image"), NULL, NULL);
+	dlg = eog_file_selection_new (EOG_FILE_SELECTION_LOAD);
+	gtk_widget_show_all (dlg);
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	if (response == GTK_RESPONSE_OK)
+		filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg)));
 
-	if (filename) {
+	gtk_widget_destroy (dlg);
+
+	if (response == GTK_RESPONSE_OK) {
 		if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
 			open_new_window (window, filename);
 		else if (!eog_window_open (window, filename))
 			open_failure_dialog (GTK_WINDOW (window), filename);
-		g_free (filename);
 	}
+
+	if (filename)
+		g_free (filename);
 }
 
 static void

@@ -1,3 +1,21 @@
+2002-07-10  Jens Finke <jens@triq.net>
+
+	Fixes #85690.
+	
+	* libeog/eog-file-selection.[ch]: New files. An extended
+	GtkFileSelection dialog, which shows the list of supported file
+	types.
+ 	
+	* libeog/Makefile.am (SOURCES): Added new files.
+
+	* shell/eog-window.c (eog_window_open_dialog): Use new file
+	selector.
+
+	* viewer/eog-image-view.c (filesel_ok_cb): Removed.
+	(save_image_as_file): New function.
+	(filesel_cancel_cb): Removed.
+	(verb_SaveAs_cb): Use new file selector.
+
 2002-07-09  Federico Mena Quintero  <federico@ximian.com>
 
 	* idl/Eog.idl (GNOME::EOG::Interpolation): Removed tiles

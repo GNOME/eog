@@ -32,6 +32,7 @@
 #include <eog-full-screen.h>
 #include <image-view.h>
 #include <ui-image.h>
+#include <eog-file-selection.h>
 
 #include <bonobo/bonobo-stream.h>
 #include <bonobo/bonobo-ui-util.h>
@@ -290,11 +291,8 @@ listener_CheckType_cb (BonoboUIComponent           *uic,
 }
 
 static void
-filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
+save_image_as_file (EogImageView *image_view, gchar *filename)
 {
-	EogImageView     *image_view;
-	GtkWidget        *fsel;
-	const gchar      *filename;
 	char             *message;
 	CORBA_Environment ev;
 	Bonobo_Storage    storage = CORBA_OBJECT_NIL;
@@ -303,17 +301,15 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	gchar            *path_base = NULL;
         gchar            *mime_type = NULL;
 	gchar            *tmp_dir = NULL;
+	gchar            *str;
 	GtkWidget        *dialog;
 
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
-
-	image_view = EOG_IMAGE_VIEW (user_data);
-	fsel = gtk_widget_get_ancestor (ok_button, GTK_TYPE_FILE_SELECTION);
-	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fsel));
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+	g_return_if_fail (filename != NULL);
 
 	CORBA_exception_init (&ev);
-	
+
+	/* open stream */
 	tmp_dir = g_path_get_dirname (filename);
 	path_dir = g_strconcat ("file:", tmp_dir, NULL);
 	g_free (tmp_dir);
@@ -340,13 +336,12 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	bonobo_object_release_unref (storage, &ev);
 
 	CORBA_exception_free (&ev);
-	gtk_widget_destroy (fsel);
 
 	return;
 
  on_error:
 	dialog = gtk_message_dialog_new (
-		GTK_WINDOW (fsel), GTK_DIALOG_MODAL,
+		NULL, GTK_DIALOG_MODAL,
 		GTK_MESSAGE_ERROR,
 		GTK_BUTTONS_CLOSE,
 		_("Could not save image as '%s': %s."), filename, 
@@ -365,16 +360,6 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 		bonobo_object_release_unref (storage, &ev);
 
 	CORBA_exception_free (&ev);
-	gtk_widget_destroy (fsel);
-}
-
-static void
-filesel_cancel_cb (GtkWidget* cancel_button, gpointer user_data)
-{
-	GtkWidget *filesel;
-
-	filesel = gtk_widget_get_ancestor (cancel_button, GTK_TYPE_WINDOW);
-	gtk_widget_destroy (filesel);
 }
 
 static void
@@ -393,19 +378,29 @@ static void
 verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 {
 	EogImageView     *image_view;
-	GtkFileSelection *filesel;
+	GtkWidget        *dlg;
+	int              response;
+	gchar            *filename;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 
 	image_view = EOG_IMAGE_VIEW (user_data);
 
-	filesel = GTK_FILE_SELECTION (gtk_file_selection_new (_("Save As")));
-	g_signal_connect (filesel->ok_button, "clicked", 
-			  G_CALLBACK (filesel_ok_cb), image_view);
-	g_signal_connect (filesel->cancel_button, "clicked", 
-			  G_CALLBACK (filesel_cancel_cb), image_view);
-	gtk_widget_show (GTK_WIDGET (filesel));
+	dlg = eog_file_selection_new (EOG_FILE_SELECTION_SAVE);
+	gtk_widget_show (dlg);
+
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	
+	if (response == GTK_RESPONSE_OK) {
+		filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg)));
+		gtk_widget_destroy (dlg);
+		save_image_as_file (image_view, filename);
+		g_free (filename);
+	}
+	else {
+		gtk_widget_destroy (dlg);
+	}
 }
 
 #ifdef ENABLE_GNOCAM
