@@ -13,6 +13,7 @@ struct _EogCollectionItemPrivate {
 
 	gboolean selected;
 
+	GnomeCanvasItem *background;
 	GnomeCanvasItem *frame;
 	GnomeCanvasItem *pixbuf_item;
 	GnomeCanvasItem *caption_item;
@@ -147,16 +148,23 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 	g_assert (image_width <= EOG_COLLECTION_ITEM_THUMB_WIDTH);
 	g_assert (image_height <= EOG_COLLECTION_ITEM_THUMB_HEIGHT);
 
-	image_x = EOG_COLLECTION_ITEM_THUMB_WIDTH / 2;
-	image_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT;
+	image_x = (EOG_COLLECTION_ITEM_THUMB_WIDTH - image_width) / 2;
+	image_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT - image_height;
 
 	gnome_canvas_item_set (priv->pixbuf_item, 
 			       "pixbuf", scaled, 
 			       "x", (double) image_x,
 			       "y", (double) image_y,
-			       "width_set", FALSE,
-			       "height_set", FALSE,
 			       NULL);
+	
+	gnome_canvas_item_set (priv->frame,
+			       "x1", (double) (image_x - 1),
+			       "y1", (double) (image_y - 1),
+			       "x2", (double) (image_x + image_width - 1),
+			       "y2", (double) (image_y + image_height - 1),
+			       NULL);
+	gnome_canvas_item_show (priv->frame);
+
 
 	gdk_pixbuf_unref (scaled);
 }
@@ -350,15 +358,15 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	priv->image = image;
 	g_object_ref (priv->image);
 
-	/* frame */
-	priv->frame = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
-					     GNOME_TYPE_CANVAS_RECT,
-					     "x1", 0.0,
-					     "y2", 0.0,
-					     "x2", (double) EOG_COLLECTION_ITEM_THUMB_WIDTH,
-					     "y2", (double) EOG_COLLECTION_ITEM_THUMB_HEIGHT,
-					     "width_pixels", 1,
-					     NULL);
+	/* background */
+	priv->background = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
+						  GNOME_TYPE_CANVAS_RECT,
+						  "x1", 0.0,
+						  "y2", 0.0,
+						  "x2", (double) EOG_COLLECTION_ITEM_THUMB_WIDTH,
+						  "y2", (double) EOG_COLLECTION_ITEM_THUMB_HEIGHT,
+						  "width_pixels", 1,
+						  NULL);
 
 	/* Caption */
 	layout = gtk_widget_create_pango_layout (GTK_WIDGET (GNOME_CANVAS_ITEM (item)->canvas), NULL);
@@ -404,8 +412,15 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	/* Image */
 	priv->pixbuf_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						   GNOME_TYPE_CANVAS_PIXBUF,
-						   "anchor", GTK_ANCHOR_SOUTH,
 						   NULL);
+
+	/* Image Frame */
+	priv->frame = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
+					     GNOME_TYPE_CANVAS_RECT,
+					     "width_pixels", 1,
+					     "outline_color", "Black",
+					     NULL);
+	gnome_canvas_item_hide (priv->frame);
 
 	g_signal_connect (image, "thumbnail_failed", G_CALLBACK (thumbnail_failed_cb), item);
 	g_signal_connect (image, "thumbnail_finished", G_CALLBACK (thumbnail_finished_cb), item);
