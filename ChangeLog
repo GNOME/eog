@@ -1,3 +1,12 @@
+2003-10-26  Jens Finke  <jens@triq.net>
+
+	* configure.in: We require libexif 0.5.12.
+
+	* libeog/eog-image.c (exif_loader_write): Removed.
+	(real_image_load): Use ExifLoader from libexif.
+
+	* libeog/eog-image-private.h: Include exif-data.h
+
 2003-10-25  Jens Finke  <jens@triq.net>
 
 	Introduced EogImageCache, which caches the last five loaded images

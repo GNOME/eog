@@ -12,6 +12,7 @@
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
+#include <libexif/exif-loader.h>
 #endif
 
 #include "libeog-marshal.h"
@@ -708,124 +709,6 @@ update_exif_data (EogImage *image)
 	}	
 }
 
-#define JPEG_MARKER_SOI  0xd8
-#define	JPEG_MARKER_APP0 0xe0
-#define JPEG_MARKER_APP1 0xe1
-
-typedef enum {
-	EXIF_LOADER_READ,
-	EXIF_LOADER_READ_SIZE_HIGH_BYTE,
-	EXIF_LOADER_READ_SIZE_LOW_BYTE,
-	EXIF_LOADER_SKIP_BYTES,
-	EXIF_LOADER_EXIF_FOUND,
-	EXIF_LOADER_FAILED
-} ExifLoaderState;
-
-typedef struct {
-	ExifLoaderState state;
-	ExifData *data;
-	int      size;
-	int      last_marker;
-	guchar  *buffer_data;
-	int      bytes_read;
-} ExifLoaderData;
-
-/* This function imitates code from libexif, written by Lutz
- * Müller. See libexif/exif-data.c:exif_data_new_from_file. Here, it
- * can cope with a sequence of data chunks.
- */
-static gboolean
-exif_loader_write (ExifLoaderData *eld, guchar *buffer, int len)
-{
-	int i;
-	int len_remain;
-
-	if (eld->state == EXIF_LOADER_FAILED) return FALSE;
-	if (eld->state == EXIF_LOADER_EXIF_FOUND && eld->data != NULL) return FALSE;
-
-	for (i = 0; (i < len) && eld->state != EXIF_LOADER_EXIF_FOUND && eld->state != EXIF_LOADER_FAILED; i++) {
-
-		switch (eld->state) {
-		case EXIF_LOADER_SKIP_BYTES:
-			eld->size--;
-			if (eld->size == 0) {
-				eld->state = EXIF_LOADER_READ;
-			}
-			break;
-			
-		case EXIF_LOADER_READ_SIZE_HIGH_BYTE:
-			eld->size = buffer [i] << 8;
-			eld->state = EXIF_LOADER_READ_SIZE_LOW_BYTE;
-			break;
-			
-		case EXIF_LOADER_READ_SIZE_LOW_BYTE:
-			eld->size |= buffer [i];
-			eld->size = eld->size - 2;
-			
-			switch (eld->last_marker) {
-			case JPEG_MARKER_APP0:
-				eld->state = EXIF_LOADER_SKIP_BYTES;
-				break;
-
-			case JPEG_MARKER_APP1:
-				eld->state = EXIF_LOADER_EXIF_FOUND;
-				break;
-
-			default:
-				g_assert_not_reached ();
-			}
-
-			eld->last_marker = 0;
-			break;
-
-		default:
-			if (buffer[i] != 0xff) {
-				if (buffer [i] == JPEG_MARKER_APP0 ||
-				    buffer [i] == JPEG_MARKER_APP1) 
-				{
-					eld->state = EXIF_LOADER_READ_SIZE_HIGH_BYTE;
-					eld->last_marker = buffer [i];
-				}
-				else if (buffer [i] != JPEG_MARKER_SOI) {
-					eld->state = EXIF_LOADER_FAILED;
-				}
-			}
-		}
-
-	}
-	
-	len_remain = len - i;
-
-	if (eld->state == EXIF_LOADER_EXIF_FOUND && len_remain > 0) {
-
-		if (eld->buffer_data == NULL) {
-			eld->buffer_data = g_new0 (guchar, eld->size);
-			eld->bytes_read = 0;
-		}
-
-		if (eld->bytes_read < eld->size) {
-			int cp_len;
-			int rest;
-
-			/* the number of bytes we need to copy */
-			rest = eld->size - eld->bytes_read;
-			cp_len = MIN (rest, len_remain);
-			
-			g_assert ((cp_len + eld->bytes_read) <= eld->size);
-
-			/* copy memory */
-			memcpy (eld->buffer_data + eld->bytes_read, &buffer[i], cp_len);
-
-			eld->bytes_read += cp_len;
-		}
-
-		if (eld->bytes_read == eld->size) {
-			eld->data = exif_data_new_from_data (eld->buffer_data, eld->size);
-		}
-	}
-
-	return (eld->data != NULL);
-}
 
 #endif 
 
@@ -845,7 +728,7 @@ real_image_load (gpointer data)
 	gboolean failed;
 	GError *error = NULL;
 #if HAVE_EXIF
-	ExifLoaderData *eld;
+	ExifLoader *exif_loader;
 #endif
 
 	img = EOG_IMAGE (data);
@@ -896,8 +779,7 @@ real_image_load (gpointer data)
 	loader = gdk_pixbuf_loader_new ();
 	failed = FALSE;
 #if HAVE_EXIF
-	eld = g_new0 (ExifLoaderData, 1);
-	eld->state = EXIF_LOADER_READ;
+	exif_loader = exif_loader_new ();
 #endif
 
 	g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
@@ -930,12 +812,14 @@ real_image_load (gpointer data)
 		}
 
 #if HAVE_EXIF
-		if (exif_loader_write (eld, buffer, bytes_read)) {
+		if (exif_loader != NULL && (exif_loader_write (exif_loader, buffer, bytes_read) == 0)) {
 			g_mutex_lock (img->priv->status_mutex);
-			exif_data_ref (eld->data);
-			priv->exif = eld->data;
+			priv->exif = exif_loader_get_data (exif_loader);
 			priv->load_status |= EOG_IMAGE_LOAD_STATUS_INFO_DONE;
 			g_mutex_unlock (img->priv->status_mutex);
+			
+			exif_loader_unref (exif_loader);
+			exif_loader = NULL;
 		}
 #endif
 	}
@@ -1016,14 +900,6 @@ real_image_load (gpointer data)
 		g_mutex_unlock (priv->status_mutex);
 	}
 
-#if HAVE_EXIF
-	if (eld->buffer_data != NULL)
-		g_free (eld->buffer_data);
-	if (eld->data)
-		exif_data_unref (eld->data);
-	g_free (eld);
-#endif
-	
 	if (error != NULL) {
 		g_error_free (error);
 	}

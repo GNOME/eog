@@ -1,6 +1,9 @@
 #ifndef _EOG_IMAGE_PRIVATE_H_
 #define _EOG_IMAGE_PRIVATE_H_
 
+#if HAVE_EXIF
+#include <libexif/exif-data.h>
+#endif
 #include "eog-image.h"
 
 enum {
