@@ -93,10 +93,12 @@ create_prefs_menu (const PrefsEntry *menu_description,
 	group = NULL;
   
 	for (entry = menu_description; entry->string; entry++) {
+		const char *translated_string;
 		PrefsCbData *cb_data = g_new0 (PrefsCbData, 1);
 		GtkWidget *item;
 
-		item = gtk_radio_menu_item_new_with_label (group, entry->string);
+		translated_string = gettext (entry->string);
+		item = gtk_radio_menu_item_new_with_label (group, translated_string);
 		group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (item));
 		gtk_menu_append (GTK_MENU (menu), item);
 
