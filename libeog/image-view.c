@@ -531,6 +531,12 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
 #endif
 
+	if (!tmp) {
+		g_message ("paint_rectangle(): Could not allocate temporary pixbuf of "
+			   "size (%d, %d); skipping", d.x1 - d.x0, d.y1 - d.y0);
+		return;
+	}
+
 	/* Compute check parameters */
 
 	switch (priv->check_type) {
