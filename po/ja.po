@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"POT-Creation-Date: 2003-05-05 17:18+0900\n"
-"PO-Revision-Date: 2003-05-05 17:16+0900\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-07 16:31+0900\n"
+"PO-Revision-Date: 2003-06-07 16:25+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -26,45 +27,79 @@ msgstr "EOG 画像コレクション・ビューア・ファクトリ"
 msgid "Image Collection"
 msgstr "画像コレクション"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "水平方向にひっくり返す(_H)"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "垂直方向にひっくり返す(_V)"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "次へ"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "次の画像を表示します"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "前へ"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "前の画像を表示します"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "180°回転(_D)"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "時計回りに回転(_L)"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "反時計回りに回転(_R)"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "スライドショー"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "編集(_E)"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Undo"
+msgstr "やり直す(_U)"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "表示(_V)"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:535
 msgid "Move to Trash"
 msgstr "ゴミ箱に移動"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:579
 msgid "Collection View"
 msgstr "コレクション表示"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
 msgid "Window Title"
 msgstr "ウインドウのタイトル"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1042
 msgid "Status Text"
 msgstr "ステータス・テキスト"
+
+#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+msgid "Progress of Image Loading"
+msgstr "画像読み込みの経過"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -167,7 +202,7 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "画像を透過する部分をどのように表示させるかを指定します。指定可能な値は "
@@ -256,7 +291,7 @@ msgstr ""
 #: eog.schemas.in.h:18
 msgid ""
 "Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
@@ -281,8 +316,7 @@ msgstr "EOG 画像ビューア・ファクトリ"
 msgid "Embeddable EOG Image"
 msgstr "埋込可能 EOG 画像"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "画像"
 
@@ -306,11 +340,11 @@ msgstr "画像の読み込み"
 msgid "Save Image"
 msgstr "画像の保存"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1320
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1354
 msgid "Unsupported image type for saving."
 msgstr "画像の保存でサポートしていない種類です。"
 
@@ -335,6 +369,121 @@ msgstr "高さ"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "ファイル名"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "用紙"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:359
+msgid "Preview"
+msgstr "プレビュー"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "ミリメートル"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "用紙"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr " (%)"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "オリジナル・サイズに対する比率 "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "中央の位置"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "ヘルプを切り取る"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "下→右"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "用紙に合わせる"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "水平方向に合わせる"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "水平方向 "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "余白"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "ヘルプを並べる"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "オーバーラップ"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "ヘルプを重ねる"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "用紙の向き"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "右→下"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "スケール"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "表示"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "垂直方向に合わせる"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "垂直方向 "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "action_area"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialog"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbox"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "名前"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "印刷するファイルまたはデータの名前です"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -400,10 +549,6 @@ msgstr "閉じる(_C)"
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "編集(_E)"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "ファイル(_F)"
@@ -428,26 +573,26 @@ msgstr "終了(_Q)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Takeshi AIHANA <aihana@gnome.gr.jp>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
+#: shell/eog-window.c:849 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of GNOME"
 
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 画像表示およびカタログ作成プログラムです"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -494,7 +639,7 @@ msgstr "ウィンドウに合わせる(_F)"
 msgid "Fit"
 msgstr "合わせる"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "拡大"
 
@@ -518,14 +663,6 @@ msgstr "オリジナル(_N)"
 msgid "_Zoom In"
 msgstr "拡大(_I)"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "水平方向にひっくり返す(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "垂直方向にひっくり返す(_V)"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "印刷する画像のプレビューを表示します"
@@ -542,25 +679,13 @@ msgstr "印刷設定(_U)"
 msgid "Print image to the printer"
 msgstr "画像をプリンタへ印刷します"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "180°回転(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "時計回りに回転(_L)"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "反時計回りに回転(_R)"
-
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "別名で保存(_A)..."
 
 #: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
-msgstr "現在使用中のプリンタに合わせてページ設定を変更します"
+msgstr "現在使用中のプリンタに合わせて用紙の設定を変更します"
 
 #: viewer/eog-image-view-ui.xml.h:13
 msgid "_Full Screen"
@@ -570,222 +695,54 @@ msgstr "フル・スクリーン(_F)"
 msgid "_Print..."
 msgstr "印刷(_P)..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/拡大(_I)"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/縮小(_O)"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/オリジナル・サイズ(_N)"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/ウインドウに合わせる(_F)"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/閉じる(_C)"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:962
 msgid "Image successfully saved"
 msgstr "画像の保存が完了しました"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:966
 msgid "Image saving failed"
 msgstr "画像の保存に失敗しました"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1209
 msgid "Image Width"
 msgstr "画像の幅"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1212
 msgid "Image Height"
 msgstr "画像の高さ"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1218
 msgid "Statusbar Text"
 msgstr "ステータスバーのテキスト"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1221
 msgid "Desired Window Width"
 msgstr "ウィンドウの幅にする"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1224
 msgid "Desired Window Height"
 msgstr "ウィンドウの高さにする"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS を初期化できませんでした！\n"
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "ポイント"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "ミリメートル"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "センチメートル"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "インチ"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "印刷設定"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "印刷"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "印刷プレビュー"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "単位: "
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "用紙"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "用紙サイズ:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "方向"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "縦"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "横"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "余白"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "上:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "左:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "右:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "下："
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "スケール"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "大きさ調整:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "ページに合わせる"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "オリジナル・サイズに対する割合(%)"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "中央"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "水平"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "垂直"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "オーバーラップ"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "水平方向のオーバーラップ"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "垂直方向のオーバーラップ"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "印刷"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "ヘルパー"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "切り取るヘルプの印刷"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "オーバーラップのヘルプのインsなつ"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "ページの向き"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "下、そして右"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "右、そして下"
