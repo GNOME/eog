@@ -7,6 +7,7 @@
  *   Jens Finke (jens@gnome.org)
  *
  * Copyright 2000 SuSE GmbH.
+ * Copyright 2001 The Free Software Foundation
  */
 #include <config.h>
 #include <stdio.h>
@@ -23,6 +24,17 @@
 #include "eog-collection-model.h"
 #include "eog-collection-preferences.h"
 
+enum {
+	PROP_WINDOW_TITLE,
+	PROP_WINDOW_STATUS,
+	PROP_LAST
+};
+
+static const gchar *property_name[] = {
+	"window/title", 
+	"window/status"
+};
+
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
 	EogItemFactory          *factory;
@@ -36,10 +48,7 @@ struct _EogCollectionViewPrivate {
 	BonoboPropertyControl   *prop_control;
 
 	gint                    idle_id;
-};
-
-enum {
-	PROP_WINDOW_TITLE
+	gboolean                need_update_prop[PROP_LAST];
 };
 
 enum {
@@ -260,41 +269,50 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 			      gpointer           user_data)
 {
 	EogCollectionView *view;
+	EogCollectionViewPrivate *priv;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
 
 	view = EOG_COLLECTION_VIEW (user_data);
+	priv = view->priv;
 	
 	switch (arg_id) {
 	case PROP_WINDOW_TITLE: {
 		gchar *base_uri;
 		gchar *title;
-		gint length;
-		gchar *buffer;
 
-		base_uri = eog_collection_model_get_base_uri (view->priv->model);
-		length = eog_collection_model_get_length (view->priv->model);
-		if (length == 1)
-			buffer = g_strdup("(1 image)");
-		else {
-			buffer = g_new0 (guchar, 20);
-			g_snprintf (buffer, 20, "(%i images)", length);
-		}
-		
+		base_uri = eog_collection_model_get_base_uri (priv->model);
+
 		if (base_uri == NULL)
-			title = g_strconcat (_("Collection View "), buffer, NULL);
+			title = g_strdup (_("Collection View"));
 		else {
 			if (g_strncasecmp ("file:", base_uri, 5) == 0)
-				title = g_strconcat ((base_uri+5*sizeof(guchar)), " ", 
-						     buffer, NULL );
+				title = g_strdup ((base_uri+5*sizeof(guchar)));
 			else
-				title = g_strconcat (base_uri, " ", buffer, NULL);
+				title = g_strdup (base_uri);
 		}
 
 		BONOBO_ARG_SET_STRING (arg, title);
 		g_free (title);
-		g_free (buffer);
+		break;
+	}
+	case PROP_WINDOW_STATUS: {
+		gchar *str;
+		gint nimg, nsel;
+			
+		nimg = eog_collection_model_get_length (priv->model);
+		nsel = eog_collection_model_get_selected_length (priv->model);
+
+		str = g_new0 (guchar, 50);
+
+		if (nsel == 0)
+			g_snprintf (str, 50, "Images: %i", nimg);
+		else
+			g_snprintf (str, 50, "Images: %i  Selected: %i", nimg, nsel);
+	       
+		BONOBO_ARG_SET_STRING (arg, str);
+		g_free (str);
 		break;
 	}
 	default:
@@ -378,37 +396,94 @@ prop_control_get_cb (BonoboPropertyControl *property_control,
 	return control;
 }
 
+
+
 static gint
-update_title_property (EogCollectionView *view)
+update_properties (EogCollectionView *view)
 {
+	EogCollectionViewPrivate *priv;
 	BonoboArg *arg;
+	gint p;
+
+	g_return_val_if_fail (view != NULL, FALSE);
+
+	priv = view->priv;
 
 	arg = bonobo_arg_new (BONOBO_ARG_STRING);
 
-	eog_collection_view_get_prop (NULL, arg,
-				      PROP_WINDOW_TITLE,
-				      NULL,
-				      view);
+	for (p = 0; p < PROP_LAST; p++) {
+		if (priv->need_update_prop[p]) {
+			eog_collection_view_get_prop (NULL, arg,
+						      p, NULL,
+						      view);
+		
+			g_print ("notify %s listners.\n", property_name[p]);
+			bonobo_property_bag_notify_listeners (priv->property_bag,
+							      property_name[p],
+							      arg, NULL);
+			priv->need_update_prop[p] = FALSE;
+		}
+	}
 
-	bonobo_property_bag_notify_listeners (view->priv->property_bag,
-					      "window_title",
-					      arg, NULL);
- 
 	bonobo_arg_release (arg);
-	view->priv->idle_id = -1;
-	
+	priv->idle_id = -1;
+
 	return FALSE;
 }
 
+static void 
+update_status_text (EogCollectionView *view)
+{
+	view->priv->need_update_prop [PROP_WINDOW_STATUS] = TRUE;
+	if (view->priv->idle_id == -1) {
+		view->priv->idle_id = gtk_idle_add ((GtkFunction) update_properties, view);
+	}	
+}
+
+static void 
+update_title_text (EogCollectionView *view)
+{
+	view->priv->need_update_prop [PROP_WINDOW_TITLE] = TRUE;
+	if (view->priv->idle_id == -1) {
+		view->priv->idle_id = gtk_idle_add ((GtkFunction) update_properties, view);
+	}	
+}
+
 static void
-model_interval_size_changed (EogCollectionModel *model, GList *id_list, gpointer data)
+model_size_changed (EogCollectionModel *model, GList *id_list,  gpointer data)
 {
 	EogCollectionView *view;
-	
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
 	view = EOG_COLLECTION_VIEW (data);
-	
-	if (view->priv->idle_id == -1)
-		view->priv->idle_id = gtk_idle_add ((GtkFunction) update_title_property, view);
+	update_status_text (view);
+}
+
+static void
+model_selection_changed (EogCollectionModel *model, gpointer data)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	view = EOG_COLLECTION_VIEW (data);
+	update_status_text (view);
+}
+
+static void
+model_base_uri_changed (EogCollectionModel *model, gpointer data)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (data != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	view = EOG_COLLECTION_VIEW (data);
+	g_print ("model_base_uri_changed ...\n");
+	update_title_text (view);	
 }
 
 EogCollectionView *
@@ -423,12 +498,19 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 
 	/* construct widget */
 	priv = list_view->priv;
+	g_assert (EOG_IS_COLLECTION_VIEW (list_view));
 	priv->model = eog_collection_model_new ();
 	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_added", 
-			    GTK_SIGNAL_FUNC (model_interval_size_changed),
+			    model_size_changed,
 			    list_view);
 	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_removed", 
-			    GTK_SIGNAL_FUNC (model_interval_size_changed),
+			    model_size_changed,
+			    list_view);
+	gtk_signal_connect (GTK_OBJECT (priv->model), "selection_changed",
+			    model_selection_changed,
+			    list_view);
+	gtk_signal_connect (GTK_OBJECT (priv->model), "base_uri_changed",
+			    model_base_uri_changed,
 			    list_view);
 
 	priv->factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
@@ -452,8 +534,11 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,
 						      eog_collection_view_set_prop,
 						      list_view);
-	bonobo_property_bag_add (priv->property_bag, "window_title", PROP_WINDOW_TITLE,
+	bonobo_property_bag_add (priv->property_bag, property_name[0], PROP_WINDOW_TITLE,
 				 BONOBO_ARG_STRING, NULL, _("Window Title"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (priv->property_bag, property_name[1], PROP_WINDOW_STATUS,
+				 BONOBO_ARG_STRING, NULL, _("Status Text"),
 				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */

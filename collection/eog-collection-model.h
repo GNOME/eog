@@ -61,6 +61,7 @@ struct _EogCollectionModelClass {
 	void (* interval_removed) (EogCollectionModel *model, GList *id_list);
 
 	void (* selection_changed) (EogCollectionModel *model);
+        void (* base_uri_changed)  (EogCollectionModel *model);
 };
 
 
@@ -84,6 +85,8 @@ eog_collection_model_set_uri_list       (EogCollectionModel *model,
 gint
 eog_collection_model_get_length (EogCollectionModel *model);
 
+gint
+eog_collection_model_get_selected_length (EogCollectionModel *model);
 
 CImage*
 eog_collection_model_get_image              (EogCollectionModel *model,

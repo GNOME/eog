@@ -8,6 +8,7 @@ enum {
 	INTERVAL_ADDED,
 	INTERVAL_REMOVED,
 	SELECTION_CHANGED,
+	BASE_URI_CHANGED,
 	LAST_SIGNAL
 };
 
@@ -149,6 +150,13 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (EogCollectionModelClass, selection_changed),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
+	eog_model_signals[BASE_URI_CHANGED] = 
+		gtk_signal_new ("base_uri_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (EogCollectionModelClass, base_uri_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
 
@@ -402,11 +410,13 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 		g_warning (_("Can't handle URI: %s"), uri);
 	}	
 	
-	if (priv->base_uri == NULL)
+	if (priv->base_uri == NULL) {
 		priv->base_uri = g_strdup (uri);
-	else {
+		gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
+	} else {
 		g_free (priv->base_uri);
 		priv->base_uri = g_strdup("multiple");
+		gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
 	}
 }
 
@@ -442,6 +452,7 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 	if (model->priv->base_uri != NULL)
 		g_free (model->priv->base_uri);
 	model->priv->base_uri = g_strdup ("multiple");
+	gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
 }
 
 void
@@ -504,7 +515,9 @@ select_all_images (EogCollectionModel *model)
 	g_slist_free (priv->selected_images);
 	priv->selected_images = NULL;
 
-	
+	/* FIXME: not finished yet */
+	gtk_signal_emit (GTK_OBJECT (model), 
+			 eog_model_signals [SELECTION_CHANGED]);
 }
 
 static void
@@ -535,6 +548,9 @@ unselect_all_images (EogCollectionModel *model)
 		gtk_signal_emit (GTK_OBJECT (model), 
 				 eog_model_signals [INTERVAL_CHANGED],
 				 id_list);
+
+	gtk_signal_emit (GTK_OBJECT (model), 
+			 eog_model_signals [SELECTION_CHANGED]);
 }
 
 
@@ -581,6 +597,9 @@ void eog_collection_model_toggle_select_status (EogCollectionModel *model,
 		gtk_signal_emit (GTK_OBJECT (model), 
 				 eog_model_signals [INTERVAL_CHANGED],
 				 id_list);
+
+	gtk_signal_emit (GTK_OBJECT (model), 
+			 eog_model_signals [SELECTION_CHANGED]);
 }
 
 
@@ -590,8 +609,20 @@ eog_collection_model_get_base_uri (EogCollectionModel *model)
 	g_return_val_if_fail (model != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
 
+	if (!model->priv->base_uri) return NULL;
+
 	if (g_strcasecmp ("multiple", model->priv->base_uri) == 0)
 		return NULL;
 	else
 		return model->priv->base_uri;
+}
+
+
+gint
+eog_collection_model_get_selected_length (EogCollectionModel *model)
+{
+	g_return_val_if_fail (model != NULL, 0);
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
+	
+	return g_slist_length (model->priv->selected_images);
 }

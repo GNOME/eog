@@ -1,3 +1,30 @@
+2001-05-29  Jens Finke <jens@gnome.org>
+
+	* eog-collection-model.[ch]:
+	(eog_collection_model_class_init): Add 'base_uri_changed' signal.
+	(eog_collection_model_set_uri),
+	(eog_collection_model_set_uri_list): Emit 'base_uri_changed' if
+	neccessary.
+	(eog_collection_model_toggle_select_status),
+	(select_all_images),
+	(unselect_all_images): Emit 'selection_changed' signal.
+	(eog_collection_model_get_selected_length): New function, which
+	returns the number of selected images.
+
+	* eog-collection-view.c: Renamed properties to 'window/title' and
+	'window/status', which is more consistent with the rest of the
+	bonobo property naming scheme.
+	(eog_collection_view_get_prop): View only the base_uri of this
+	collection, new handler for the PROP_WINDOW_STATUS property.
+	(update_properties),
+	(update_status_text),
+	(update_title_text),
+	(model_size_changed),
+	(model_selection_changed),
+	(model_base_uri_changed): New functions (or slightly renamed),
+	which introduce a nice async property change client notification.
+	(eog_collection_view_construct): Connect to new model signals.
+	
 2001-05-22  Jens Finke <jens@gnome.org>
 
 	* eog-collection-view.c: Oops, forgot it at last commit.
