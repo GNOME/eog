@@ -14,6 +14,8 @@
 #include <gtk/gtktypeutils.h>
 
 #include <gnome.h>
+#include <libgnomeprint/gnome-print-master.h>
+#include <libgnomeprint/gnome-print-master-preview.h>
 
 #include <eog-image-view.h>
 #include <image-view.h>
@@ -299,6 +301,116 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 }
 
 static void
+do_print (EogImageView *image_view, gboolean preview)
+{
+	GdkPixbuf	  *pixbuf;
+	GnomePrintContext *print_context;
+	GnomePrintMaster  *print_master;
+	GnomePrinter      *printer = NULL;
+	int 		   copies = 1;
+	int 		   collate = FALSE;
+
+	if (!preview) {
+		GnomePrintDialog *gpd;
+
+		gpd = GNOME_PRINT_DIALOG (
+			gnome_print_dialog_new (_("Print Image"), 
+						GNOME_PRINT_DIALOG_COPIES));
+		gnome_dialog_set_default (GNOME_DIALOG (gpd), 
+					  GNOME_PRINT_PRINT);
+		switch (gnome_dialog_run (GNOME_DIALOG (gpd))) {
+		case GNOME_PRINT_PRINT:
+			break;
+		case GNOME_PRINT_PREVIEW:
+			preview = TRUE;
+			break;
+		case -1:
+			return;
+		default:
+			gnome_dialog_close (GNOME_DIALOG (gpd));
+			return;
+		}
+
+		gnome_print_dialog_get_copies (gpd, &copies, &collate);
+		printer = gnome_print_dialog_get_printer (gpd);
+		gnome_dialog_close (GNOME_DIALOG (gpd));
+	}
+
+	print_master = gnome_print_master_new ();
+	if (printer)
+		gnome_print_master_set_printer (print_master, printer);
+	gnome_print_master_set_copies (print_master, copies, collate);
+
+	/* Print the image */
+	{
+		double matrix[6];
+
+		print_context = gnome_print_master_get_context (print_master);
+		gnome_print_beginpage (print_context, _("EOG Image"));
+
+		pixbuf = eog_image_get_pixbuf (image_view->priv->image);
+		matrix[0] = gdk_pixbuf_get_width (pixbuf);
+		matrix[1] = 0; //distort
+		matrix[2] = 0; //distort
+		matrix[3] = gdk_pixbuf_get_height (pixbuf);
+		matrix[4] = 50; //Distance to left border of page
+		matrix[5] = 50; //Distance to bottom of page
+		gnome_print_concat (print_context, matrix);
+		gnome_print_pixbuf (print_context, pixbuf);
+		gdk_pixbuf_unref (pixbuf);
+
+		gnome_print_showpage (print_context);
+		gnome_print_context_close (print_context);
+	}
+
+	gnome_print_master_close (print_master);
+
+	if (preview) {
+		gboolean landscape = FALSE;
+		GnomePrintMasterPreview *preview;
+
+		preview = gnome_print_master_preview_new_with_orientation (
+			print_master, _("Print Preview"), landscape);
+		gtk_widget_show (GTK_WIDGET (preview));
+	} else {
+		int result = gnome_print_master_print (print_master);
+
+		if (result == -1)
+			g_warning (_("Printing of image failed"));
+	}
+
+	gtk_object_unref (GTK_OBJECT (print_master));
+}
+
+static void
+verb_PrintPreview_cb (BonoboUIComponent *uic, 
+		      gpointer 		 user_data, 
+		      const char 	*name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	do_print (image_view, TRUE);
+}
+
+static void
+verb_Print_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
+
+	image_view = EOG_IMAGE_VIEW (user_data);
+
+	do_print (image_view, FALSE);
+}
+
+static void
 listener_CheckSize_cb (BonoboUIComponent           *uic,
 		       const char                  *path,
 		       Bonobo_UIComponent_EventType type,
@@ -385,7 +497,11 @@ eog_image_view_create_ui (EogImageView *image_view)
 					  listener_CheckSize_cb, image_view);
 
 	bonobo_ui_component_add_verb (image_view->priv->uic, "SaveAs", 
-					  verb_SaveAs_cb, image_view);
+				      verb_SaveAs_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintPreview",
+				      verb_PrintPreview_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "Print",
+				      verb_Print_cb, image_view);
 }
 
 static void
