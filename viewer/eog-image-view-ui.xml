@@ -1,17 +1,17 @@
 <Root>
   
 <commands>
-        <cmd name="PrintSetup" _label="Print S_etup" 
+        <cmd name="PrintSetup" _label="Print Set_up" 
              _tip="Setup the page settings for your current printer" 
         	 pixtype="stock" pixname="Print"/>
-        <cmd name="PrintPreview" _label="Print Pre_view"
+        <cmd name="PrintPreview" _label="Print Previe_w.."
              _tip="Previews the image to be printed"
-        	 pixtype="pixbuf"/>
-        <cmd name="Print" _label="_Print"
+             pixtype="pixbuf" accel="*Control**Shift*P"/>
+        <cmd name="Print" _label="_Print..."
              _tip="Print image to the printer"
         	 pixtype="stock" pixname="Print" accel="*Control*P"/>
 
-	<cmd name="SaveAs" _label="_Save As..." 
+	<cmd name="SaveAs" _label="Save _As..." 
 	     pixtype="stock" pixname="Save As" accel="*Control**Shift*S"/>
 
         <cmd name="InterpolationNearest" _label="Nea_rest Neighbour"
@@ -72,7 +72,7 @@
             </placeholder>
     </submenu>
 
-    <submenu name="Edit" _label="Edit">
+    <submenu name="Edit" _label="_Edit">
            <placeholder name="Edit Items Placeholder">
                   <menuitem name="FlipHorizontal" verb=""/>
                   <menuitem name="FlipVertical" verb=""/>
@@ -83,7 +83,7 @@
            </placeholder>
     </submenu>
   
-    <submenu name="View" _label="View">
+    <submenu name="View" _label="_View">
 
             <placeholder name="View Preferences Placeholder">
 

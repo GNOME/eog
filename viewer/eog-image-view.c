@@ -2155,13 +2155,13 @@ popup_menu_cb (gpointer data, guint action, GtkWidget *widget)
 }
 
 static GtkItemFactoryEntry popup_entries[] = {
-	{ N_("/Zoom _In"), NULL, popup_menu_cb, POPUP_ZOOM_IN,
+	{ N_("/_Zoom In"), NULL, popup_menu_cb, POPUP_ZOOM_IN,
 	  "<StockItem>", GTK_STOCK_ZOOM_IN },
 	{ N_("/Zoom _Out"), NULL, popup_menu_cb, POPUP_ZOOM_OUT,
 	  "<StockItem>", GTK_STOCK_ZOOM_OUT },
-	{ N_("/Zoom _1:1"), NULL, popup_menu_cb, POPUP_ZOOM_1,
+	{ N_("/_Normal Size"), NULL, popup_menu_cb, POPUP_ZOOM_1,
 	  "<StockItem>", GTK_STOCK_ZOOM_100 },
-	{ N_("/Zoom to _Fit"), NULL, popup_menu_cb, POPUP_ZOOM_FIT,
+	{ N_("/Best _Fit"), NULL, popup_menu_cb, POPUP_ZOOM_FIT,
 	  "<StockItem>", GTK_STOCK_ZOOM_FIT },
 	{ "/sep", NULL, NULL, 0, "<Separator>", NULL },
 	{ N_("/_Close"), NULL, popup_menu_cb, POPUP_CLOSE,
