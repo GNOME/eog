@@ -1,0 +1,570 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "Octubre de 2002">
+  <!ENTITY app "Ojo de GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="es">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+    <title>Manual del &app; V&manrevision;</title>
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>The Free Software Foundation</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> Proyecto de documentaci&oacute;n de GNOME</publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Equipo de documentaci&oacute;n</firstname> 
+	<surname>de Sun GNOME</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de documentaci&oacute;n de GNOME</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de documentaci&oacute;n de GNOME</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>Manual de &app; V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentaci&oacute;n de Sun GNOME
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Proyecto de documentaci&oacute;n de GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manual del Ojo de GNOME V2.2</revnumber> 
+		<date>Agosto de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentaci&oacute;n de Sun GNOME
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Proyecto de documentaci&oacute;n de GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manual del Ojo de GNOME V2.1</revnumber> 
+		<date>Julio de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentaci&oacute;n de Sun GNOME
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Proyecto de documentaci&oacute;n de GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manual del Ojo de GNOME V2.0</revnumber> 
+		<date>Mayo de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentaci&oacute;n de Sun GNOME
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Proyecto de documentaci&oacute;n de GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Gu&iacute;a del usuario del Ojo de GNOME</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">Proyecto de documentaci&oacute;n de GNOME</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>Este manual describe la versi&oacute;n &appversion; del &app;.
+    </releaseinfo>
+    <legalnotice> 
+      <title>Comentarios</title>
+      <para>Para informar de un defecto o realizar una sugerencia sobre la aplicaci&oacute;n &app; o el presente manual, siga las indicaciones que aparecen en 
+	<ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>Ojo de GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	<title>Introducci&oacute;n</title>
+	<para>La aplicaci&oacute;n <application>&app;</application> permite ver archivos de im&aacute;genes. 
+	<application>&app;</application> incluye las funciones siguientes:</para>
+	<itemizedlist>
+		<listitem><para>Soporte para los formatos de imagen siguientes:</para>
+			<itemizedlist>
+				<listitem><para>BMP - Windows Bitmap</para>
+				</listitem>
+				<listitem><para>GIF - Graphics Interchange Format</para>
+				</listitem>
+				<listitem><para>ICO - Windows Icon</para>
+				</listitem>
+				<listitem><para>JPEG - Joint Photographic Experts Group</para>
+				</listitem>
+				<listitem><para>PNG - Portable Network Graphics </para>
+				</listitem>
+				<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
+				</listitem>
+				<listitem><para>RAS - Sun Raster </para>
+				</listitem>
+				<listitem><para>SVG - Scaleable Vector Graphics </para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - Tagged Image File Format</para>
+				</listitem>
+				<listitem><para>XBM - X Bitmap</para>
+				</listitem>
+				<listitem><para>XPM - X Pixmap</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>Varios niveles de ampliaci&oacute;n y visualizaci&oacute;n a pantalla completa, utilizando siempre pocos recursos de memoria. </para>
+		</listitem>
+		<listitem><para>Tecnolog&iacute;a de incrustaci&oacute;n Bonobo que permite incrustar im&aacute;genes en otras aplicaciones de GNOME. </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started">
+	<title>Procedimientos iniciales</title>
+	<sect2 id="eog-tostartapp">
+	<title>Iniciar &app;</title>
+	<para>Para iniciar <application>&app;</application>, siga los siguientes pasos:</para>
+		<variablelist>
+			<varlistentry>
+			<term>Men&uacute; <guimenu>Aplicaciones</guimenu></term>
+			<listitem>
+			<para>Seleccione 
+			<menuchoice>
+			<guisubmenu>Gr&aacute;ficos</guisubmenu>
+			<guimenuitem>Visor de im&aacute;genes &app;</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>L&iacute;nea de comandos</term>
+			<listitem>
+			<para>Si desea ejecutar <application>&app;</application> y abrir un archivo desde la l&iacute;nea de comandos, escriba el comando siguiente y, a continuaci&oacute;n, pulse <keycap>Intro</keycap>:</para>
+			<para><command>eog</command> <replaceable>nombredelarchivo.jpg</replaceable></para>
+			<para>donde <replaceable>nombredelarchivo.jpg</replaceable> es el nombre del archivo que desea abrir.</para>
+			<para><application>&app;</application> abre todos los archivos que especifique en una ventana nueva.</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	<title>Al iniciar &app;</title>
+	<para>Al iniciar <application>&app;</application>, se muestra la siguiente ventana.</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>Ventana de inicio de &app; antes de abrir un archivo</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Muestra la ventana principal del Ojo de GNOME</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	<title>Uso</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>Abrir una imagen</title>
+		<para>Para abrir una imagen, seleccione 
+		<menuchoice>
+		<guimenu>Archivo</guimenu>
+		<guimenuitem>Abrir</guimenuitem>
+		</menuchoice>. 
+		Aparece el cuadro de di&aacute;logo <guilabel>Abrir imagen</guilabel>. Seleccione el archivo que desea abrir y haga clic en <guibutton>Aceptar</guibutton>. </para>
+		<para>Para abrir otra imagen en una ventana nueva, seleccione 
+		<menuchoice>
+		<guimenu>Archivo</guimenu>
+		<guimenuitem>Ventana nueva</guimenuitem>
+		</menuchoice>. 
+		Seleccione 
+		<menuchoice>
+		<guimenu>Archivo</guimenu>
+		<guimenuitem>Abrir</guimenuitem>
+		</menuchoice> 
+		para seleccionar el archivo que desea abrir. Tambi&eacute;n puede arrastrar una imagen desde otra aplicaci&oacute;n, como por ejemplo un gestor de archivos, a la ventana de		<application>&app;</application>. 
+		Si la ventana de <application>&app;</application> est&aacute; vac&iacute;a, la aplicaci&oacute;n muestra la imagen en la ventana. Si la aplicaci&oacute;n no est&aacute; vac&iacute;a, inicia una ventana nueva 
+para mostrar el archivo. </para>
+		<para>Si se intenta abrir un archivo con un formato de imagen que <application>&app;</application> 
+no reconoce, la aplicaci&oacute;n muestra un mensaje de error.</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>Desplazarse por una imagen</title>
+		<para>Para desplazarse por una imagen mayor que la ventana de visualizaci&oacute;n o la pantalla completa, puede usar uno de los m&eacute;todos siguentes:</para>
+		<itemizedlist>
+			<listitem><para>Use las flechas del teclado.</para>
+			</listitem>
+			<listitem><para>Arrastre la imagen en direcci&oacute;n contraria a la que desea desplazarse. Por ejemplo, si desea desplazarse hacia la parte inferior de la imagen, arr&aacute;strela hacia la parte superior de la ventana.</para>
+			</listitem>
+			<listitem><para>Use las barras de desplazamiento de la ventana.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+	<title>Cambiar el factor de ampliaci&oacute;n</title>
+	<para>Para cambiar el tama&ntilde;o de la vista de una imagen en la ventana <application>&app;</application>, puede usar los m&eacute;todos siguientes:</para>
+		<itemizedlist>
+			<listitem><para>Para ampliar la vista de una imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Acercar la imagen</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Para reducir la vista de una imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Alejar la imagen</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Para ver la imagen a tama&ntilde;o natural, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Aumento 1:1</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			<listitem><para>Para ampliar o reducir la vista de una imagen para que encaje en la ventana de 
+			<application>&app;</application>, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Ajustar la imagen</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Para ver la imagen en modalidad de pantalla completa, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Pantalla completa</guimenuitem>
+			</menuchoice>. 
+			La modalidad de pantalla completa muestra la imagen en una ventana que ocupa toda la pantalla. 
+			Esta ventana no tiene marco ni barras de t&iacute;tulo, de men&uacute; o de herramientas. 
+			Para salir de esta modalidad, pulse la tecla <keycap>Esc</keycap> o <keycombo><keycap>Ctrl</keycap>			<keycap>W</keycap></keycombo>.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+		<title>Cambiar el m&eacute;todo de interpolaci&oacute;n</title>
+		<para>Para cambiar el m&eacute;todo de interpolaci&oacute;n de la imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guimenuitem>Interpolaci&oacute;n</guimenuitem>
+			</menuchoice>, 
+		y despu&eacute;s seleccione el m&eacute;todo de interpolaci&oacute;n que desee. 
+		Seleccione una de las opciones siguientes:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Por el vecino m&aacute;s cercano</guimenuitem> </para>
+			<para>Este m&eacute;todo de interpolaci&oacute;n toma una posici&oacute;n de la imagen original y replica el p&iacute;xel m&aacute;s cercano a esa posici&oacute;n. Cuando se acerca la imagen, los p&iacute;xeles se replican. 
+			Cuando se aleja la imagen, &eacute;sta pierde parte del detalle. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Fichas</guimenuitem> </para>
+			<para>No se dispone de informaci&oacute;n en el momento de la publicaci&oacute;n.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilineal</guimenuitem> </para>
+			<para>Se trata de un m&eacute;todo de interpolaci&oacute;n simple y r&aacute;pido. Cuando se acerca una imagen, <application>&app;</application> usa hasta cuatro p&iacute;xeles adyacentes para calcular los colores de los p&iacute;xeles nuevos. Cuando se aleja una imagen, <application>&app;</application> realiza el promedio de las regiones de color de la imagen existente para calcular el color de los p&iacute;xeles. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hiperb&oacute;lica</guimenuitem> </para>
+			<para>Se trata de un m&eacute;todo de interpolaci&oacute;n lento y de alta calidad. La aplicaci&oacute;n realiza la interpolaci&oacute;n en la imagen de la manera descrita por George Wolber en Digital Image Warping.</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para> -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+		<title>Cambiar el m&eacute;todo de reducci&oacute;n de color</title>
+		<para>Para cambiar el m&eacute;todo de reducci&oacute;n de color de la imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guisubmenu>Reducci&oacute;n de color</guisubmenu>
+			</menuchoice>, 
+		y despu&eacute;s elija el m&eacute;todo de reducci&oacute;n de color que desee.
+		Seleccione una de las opciones siguientes:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Ninguno</guimenuitem> </para>
+			<para>Esta opci&oacute;n no utiliza reducci&oacute;n de color. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudocolor)</guimenuitem> </para>
+			<para>Esta opci&oacute;n realiza la reducci&oacute;n en visualizaciones de pseudocolor, empleando una paleta de colores limitada. </para>
+			</listitem>
+			<listitem><para><guimenuitem>M&aacute;ximo (color vivo)</guimenuitem> </para>
+			<para>Esta opci&oacute;n lleva a cabo la reducci&oacute;n de color tanto en visualizaciones de pseudocolor como en las de color vivo. </para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+		<title>Cambiar el tipo de ajedrezado</title>
+		<para>Para cambiar el tipo de ajedrezado que <application>&app;</application>
+		usa para mostrar fondos transparentes o parcialmente opacos en la imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guisubmenu>Comprobar tipo</guisubmenu>
+			</menuchoice>
+		y, a continuaci&oacute;n, elija el tipo de ajedrezado que requiera.
+		Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Oscuro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color negro y gris oscuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Tono medio</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color gris claro y gris oscuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Claro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color gris claro y blanco.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Negro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo negro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gris</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo gris.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Blanco</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo blanco.</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>Cambiar el tama&ntilde;o del ajedrezado</title>
+		<para>Para cambiar el tama&ntilde;o del ajedrezado que <application>&app;</application>
+		usa para mostrar fondos transparentes o parcialmente opacos en la imagen, seleccione 
+			<menuchoice>
+			<guimenu>Vista</guimenu>
+			<guisubmenu>Comprobar tama&ntilde;o</guisubmenu>
+			</menuchoice>
+		y, a continuaci&oacute;n, elija el tama&ntilde;o de ajedrezado que requiera.
+		Esta opci&oacute;n s&oacute;lo es relevante si elije <guimenuitem>Cuadros oscuros</guimenuitem>, 
+		<guimenuitem>Cuadros de tono medio</guimenuitem> o <guimenuitem>Cuadros claros</guimenuitem> desde el men&uacute; 
+		<guisubmenu>Comprobar tipo</guisubmenu>. Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Peque&ntilde;o</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medio</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grande</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para> -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+		<title>Cerrar una imagen</title>
+		<para>Para cerrar una imagen, seleccione 
+		<menuchoice>
+		<guimenu>Archivo</guimenu>
+		<guimenuitem>Cerrar</guimenuitem>
+		</menuchoice>. 
+		Si la imagen est&aacute; en la &uacute;ltima ventana de <application>&app;</application> abierta, la aplicaci&oacute;n termina. </para>
+		<para>Para salir de <application>&app;</application> y cerrar todas las ventanas abiertas en la sesi&oacute;n actual, seleccione 
+		<menuchoice>
+		<guimenu>Archivo</guimenu>
+		<guimenuitem>Salir</guimenuitem>
+		</menuchoice>.
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">	
+<title>Preferencias</title>
+	<para>Para configurar <application>&app;</application>, seleccione <menuchoice>
+		<guimenu>Editar</guimenu>
+		<guimenuitem>Preferencias</guimenuitem>
+		</menuchoice>.
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interpolaci&oacute;n</guilabel></term>
+		<listitem>
+		<para>Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Por el vecino m&aacute;s cercano</guimenuitem> </para>
+			<para>Este m&eacute;todo de interpolaci&oacute;n toma una posici&oacute;n de la imagen original y replica el p&iacute;xel m&aacute;s cercano a esa posici&oacute;n. Cuando se acerca la imagen, los p&iacute;xeles se replican. 
+			Cuando se aleja de la imagen, &eacute;sta pierde algo de definici&oacute;n. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Fichas</guimenuitem> </para>
+			<para>No se dispone de informaci&oacute;n en el momento de la publicaci&oacute;n.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilineal</guimenuitem> </para>
+			<para>Se trata de un m&eacute;todo de interpolaci&oacute;n simple y r&aacute;pido. Cuando se acerca una imagen, <application>&app;</application> usa hasta cuatro p&iacute;xeles adyacentes para calcular los colores de los p&iacute;xels nuevos. Cuando se aleja una imagen, <application>&app;</application> realiza el promedio de las regiones de color de la imagen existente para calcular el color de los p&iacute;xeles. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hiperb&oacute;lica</guimenuitem> </para>
+			<para>Se trata de un m&eacute;todo de interpolaci&oacute;n lento y de alta calidad. La aplicaci&oacute;n realiza la interpolaci&oacute;n en la imagen de la manera descrita por George Wolber en Digital Image Warping.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Reducci&oacute;n</guilabel></term>
+		<listitem>
+		<para>Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Ninguno</guimenuitem> </para>
+			<para>Esta opci&oacute;n no utiliza reducci&oacute;n de color. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudocolor)</guimenuitem> </para>
+			<para>Esta opci&oacute;n realiza la reducci&oacute;n en visualizaciones de pseudocolor, empleando una paleta de colores limitada. </para>
+			</listitem>
+			<listitem><para><guimenuitem>M&aacute;ximo (color vivo)</guimenuitem> </para>
+			<para>Esta opci&oacute;n lleva a cabo la reducci&oacute;n de color tanto en visualizaciones de pseudocolor como en las de color vivo. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Comprobar tipo</guilabel></term>
+		<listitem>
+		<para>Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Oscuro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color negro y gris oscuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Tono medio</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color gris claro y gris oscuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Claro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra cuadros de color gris claro y blanco.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Negro</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo negro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gris</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo gris.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Blanco</guimenuitem> </para>
+			<para>Esta opci&oacute;n muestra un fondo blanco.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>Comprobar tama&ntilde;o</guilabel></term>
+		<listitem>
+		<para>S&oacute;lo es relevante esta opci&oacute;n si elige <guimenuitem>Cuadros oscuros</guimenuitem>, 
+		<guimenuitem>Cuadros de tono medio</guimenuitem> o <guimenuitem>Cuadros claros</guimenuitem> desde la lista desplegable 
+		<guilabel>Comprobar tipo</guilabel>. Seleccione una de las opciones siguientes:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Peque&ntilde;o</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medio</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grande</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>
