@@ -334,6 +334,8 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 
 	gtk_widget_destroy (dlg);
 
+	
+
 	if (response == GTK_RESPONSE_OK) {
 		save_uri_cb (NULL, filename, NULL, image_view);
 	}
