@@ -381,11 +381,9 @@ ui_image_set_image (UIImage *ui, Image *image)
 			       "image", image,
 			       NULL);
 
-	if (image->buf) {
-		g_assert (image->buf->art_pixbuf != NULL);
-
-		w = image->buf->art_pixbuf->width;
-		h = image->buf->art_pixbuf->height;
+	if (image->pixbuf) {
+		w = image->pixbuf->art_pixbuf->width;
+		h = image->pixbuf->art_pixbuf->height;
 	} else
 		w = h = 0;
 
@@ -462,9 +460,9 @@ ui_image_zoom_fit (UIImage *ui)
 	xthick = GTK_WIDGET (ui)->style->klass->xthickness;
 	ythick = GTK_WIDGET (ui)->style->klass->ythickness;
 
-	if (priv->image->buf) {
-		iw = priv->image->buf->art_pixbuf->width;
-		ih = priv->image->buf->art_pixbuf->height;
+	if (priv->image->pixbuf) {
+		iw = priv->image->pixbuf->art_pixbuf->width;
+		ih = priv->image->pixbuf->art_pixbuf->height;
 	} else
 		iw = ih = 0;
 

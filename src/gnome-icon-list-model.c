@@ -126,9 +126,9 @@ marshal_get_icon (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *
  **/
 void
 gnome_icon_list_model_get_icon (GnomeIconListModel *model, guint n,
-				GdkPixBuf **pixbuf, const char **caption)
+				GdkPixbuf **pixbuf, const char **caption)
 {
-	GdkPixBuf *p;
+	GdkPixbuf *p;
 	const char *c;
 
 	g_return_if_fail (model != NULL);

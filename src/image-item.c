@@ -273,9 +273,9 @@ recompute_bounding_box (ImageItem *ii)
 	item = GNOME_CANVAS_ITEM (ii);
 	priv = ii->priv;
 
-	if (priv->image && priv->image->buf) {
-		g_assert (priv->image->buf->art_pixbuf != NULL);
-		apb = priv->image->buf->art_pixbuf;
+	if (priv->image && priv->image->pixbuf) {
+		g_assert (priv->image->pixbuf->art_pixbuf != NULL);
+		apb = priv->image->pixbuf->art_pixbuf;
 
 		priv->cwidth = floor (priv->uwidth * item->canvas->pixels_per_unit + 0.5);
 		priv->cheight = floor (priv->uheight * item->canvas->pixels_per_unit + 0.5);
@@ -342,7 +342,7 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 	ii = IMAGE_ITEM (item);
 	priv = ii->priv;
 
-	if (!(priv->image && priv->image->buf))
+	if (!(priv->image && priv->image->pixbuf))
 		return;
 
 	i.x0 = item->x1;
@@ -364,7 +364,7 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 	h = dest.y1 - dest.y0;
 
 	buf = g_new (guchar, w * h * 3);
-	render_image (priv->image->buf, buf,
+	render_image (priv->image->pixbuf, buf,
 		      w, h, w * 3,
 		      priv->uwidth * item->canvas->pixels_per_unit,
 		      priv->uheight * item->canvas->pixels_per_unit,

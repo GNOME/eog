@@ -87,8 +87,8 @@ image_unref (Image *image)
 	image->ref_count--;
 
 	if (image->ref_count == 0) {
-		if (image->buf)
-			gdk_pixbuf_unref (image->buf);
+		if (image->pixbuf)
+			gdk_pixbuf_unref (image->pixbuf);
 
 		g_free (image->r_lut);
 		g_free (image->g_lut);
@@ -113,10 +113,10 @@ image_load (Image *image, const char *filename)
 	g_return_val_if_fail (image != NULL, FALSE);
 	g_return_val_if_fail (filename != NULL, FALSE);
 
-	if (image->buf)
-		gdk_pixbuf_unref (image->buf);
+	if (image->pixbuf)
+		gdk_pixbuf_unref (image->pixbuf);
 
-	image->buf = gdk_pixbuf_load_image (filename);
+	image->pixbuf = gdk_pixbuf_new_from_file (filename);
 
-	return (image->buf != NULL);
+	return (image->pixbuf != NULL);
 }

@@ -26,7 +26,7 @@
 
 
 
-void render_image (GdkPixBuf *pixbuf, guchar *dest,
+void render_image (GdkPixbuf *pixbuf, guchar *dest,
 		   guint dest_width, guint dest_height, guint dest_rowstride,
 		   double scale_width, double scale_height, guint xofs, guint yofs,
 		   guchar *r_lut, guchar *g_lut, guchar *b_lut,

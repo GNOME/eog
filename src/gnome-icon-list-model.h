@@ -54,14 +54,14 @@ struct _GnomeIconListModelClass {
 	/* Query signals */
 
 	void (* get_icon) (GnomeIconListModel *model, guint n,
-			   GdkPixBuf **pixbuf, const char **caption);
+			   GdkPixbuf **pixbuf, const char **caption);
 };
 
 
 GtkType gnome_icon_list_model_get_type (void);
 
 void gnome_icon_list_model_get_icon (GnomeIconListModel *model, guint n,
-				     GdkPixBuf **pixbuf, const char **caption);
+				     GdkPixbuf **pixbuf, const char **caption);
 
 
 

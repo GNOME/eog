@@ -32,7 +32,7 @@ typedef struct {
 	guint ref_count;
 
 	/* Buffer with original image data */
-	GdkPixBuf *buf;
+	GdkPixbuf *pixbuf;
 
 	/* Color substitution tables */
 	guchar *r_lut, *g_lut, *b_lut;
