@@ -7,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-09-12 14:26-0500\n"
-"Last-Translator: Paisa Seeluangsawat <paisa@users.sf.net>\n"
+"POT-Creation-Date: 2005-02-22 00:03+0700\n"
+"PO-Revision-Date: 2005-02-22 00:29+0700\n"
+"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: th <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
-msgstr "ตัวแสดงรูป"
+msgstr "แสดงรูป"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
 msgstr "ใช้ดูรูปชนิดต่างๆ"
 
@@ -42,7 +42,7 @@ msgstr "<b>ตัวอย่างชื่อแฟ้ม<b>"
 
 #: eog.glade.h:5
 msgid "<b>File Path Specifications</b>"
-msgstr ""
+msgstr "<b>ข้อกำหนดเรื่องพาธของแฟ้ม</b>"
 
 #: eog.glade.h:6
 msgid "<b>Image Interpolation</b>"
@@ -90,8 +90,8 @@ msgid "Destination Folder:"
 msgstr "โฟลเดอร์ปลายทาง:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "ปรับแต่ง Eye of Gnome"
+msgid "Eye of GNOME Preferences"
+msgstr "ปรับแต่ง Eye of GNOME"
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -200,33 +200,41 @@ msgid "Open images in a new window"
 msgstr "เปิดรูปในหน้าต่างใหม่"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "แสดง/ซ่อน ข้อมูลเกี่ยวกับอัลบัม"
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "แสดง/ซ่อน ข้อมูลเกี่ยวกับรูปภาพเดี่ยวๆ"
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "แสดง/ซ่อน แถบสถานะ"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "แสดง/ซ่อน แถบเครื่องมือ"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "สีโปร่งใส"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "ตัวบ่งชี้ส่วนโปร่งใส"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr "ว่ารูปใหม่เปิดมาควรทับรูปเก่า หรือเปิดไว้ในหน้าต่างใหม่"
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "ว่าหมดรูปที่แสดงแล้ว ควรกลับมาเริ่มต้นใหม่หรือไม่"
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -234,35 +242,39 @@ msgstr ""
 "ว่าเวลาขยายรูป ควรจะประมาณค่าสีจากข้อมูลรอบข้างหรือไม่ ถ้าใช้ คุณภาพรูปที่แสดงจะดีกว่า "
 "แต่อาจจะใช้เวลา ในการแสดงผล เพิ่มขึ้นเล็กน้อย"
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "ทุกแฟ้ม"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "ทุกรูป"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s พิกเซล"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "เปิดในหน้าต่างใหม่"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "อ่านรูป"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "บันทึกรูป"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "เปิดโฟลเดอร์"
 
@@ -352,19 +364,19 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: libeog/eog-save-as-dialog-helper.c:137
+#: libeog/eog-save-as-dialog-helper.c:138
 msgid "Option not available."
 msgstr "ตัวเลือกใช้ไม่ได้"
 
-#: libeog/eog-save-as-dialog-helper.c:138
+#: libeog/eog-save-as-dialog-helper.c:139
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
-"ความสามารถนี้ต้องพึ่งไลบรารี libexif  โปรดติดตั้ง libexif (http://libexif.sf.net) "
-"แล้วคอมไพล์ Eye of Gnome ใหม่"
+"ความสามารถนี้ต้องอาศัยไลบรารี libexif  โปรดติดตั้ง libexif (http://libexif.sf.net) "
+"แล้วคอมไพล์ Eye of GNOME ใหม่"
 
-#: libeog/eog-save-as-dialog-helper.c:214
+#: libeog/eog-save-as-dialog-helper.c:215
 msgid "as is"
 msgstr "ตามที่เป็น"
 
@@ -379,7 +391,7 @@ msgstr "ยกเลิกการบันทึก..."
 
 #: libeog/eog-uri-converter.c:1023
 msgid "Filenames are not disjunct."
-msgstr ""
+msgstr "มีชื่อแฟ้มซ้ำกัน"
 
 #: libeog/eog-uri-converter.h:46
 msgid "Counter"
@@ -433,10 +445,10 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล :-)\n"
 "http://gnome-th.sf.net"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-window.c:319 shell/eog-window.c:2208
+#: shell/eog-window.c:2543 shell/main.c:520
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -445,229 +457,253 @@ msgstr "โปรแกรมแสดงและจัดเรียงรู
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"ไม่สามารถแสดงวิธีใช้สำหรับ Eye of Gnome.\n"
+"ไม่สามารถแสดงเอกสารแนะนำวิธีใช้ Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "เขียนทับแฟ้ม %s ไหม"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "มีแฟ้มชื่อ %s อยู่แล้ว จะเขียนทับไหม?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "ข้าม"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "เขียนทับ"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "ผิดพลาดขณะบันทึก %s"
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "ลองใหม่"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "ไม่ทราบชนิดของแฟ้ม %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "โปรดใช้ชื่อสกุลแฟ้มสำหรับชนิดแฟ้มที่ต้องการ"
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "ผิดพลากขณะบันทึกรูป"
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "แน่ใจไหมว่าจะย้ายรูป %i รูปไปลงถังขยะ"
 msgstr[1] "แน่ใจไหมว่าจะย้ายรูป %i รูปไปลงถังขยะ"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "เปิดใช้ถังขยะไม่สำเร็จ"
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "ผิดพลาดขณะลบรูป %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i พิกเซล  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "มุ_มมอง"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_วีธีใช้"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "ใ_หม่"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "เปิดหน้าต่างใหม่"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_เปิด..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: shell/eog-window.c:2239
-msgid "Open _Directory..."
+#: shell/eog-window.c:2280
+msgid "Open _Folder..."
 msgstr "เปิดโ_ฟลเดอร์..."
 
-#: shell/eog-window.c:2239
-msgid "Open a directory"
+#: shell/eog-window.c:2280
+msgid "Open a folder"
 msgstr "เปิดโฟลเดอร์"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "ปิ_ด"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "ปิดหน้าต่าง"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "_ปรับแต่ง"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "ปรับแต่ง Eye of Gnome"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "ปรับแต่ง Eye of GNOME"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "วิธีใช้โปรแกรมนี้"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "เกี่ยวกับโปรแกรมนี้"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "แถบเ_ครื่องมือ"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "แสดง/ซ่อน แถบเครื่องมือในหน้าต่างปัจจุบัน"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "แถบ_สถานะ"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "แสดง/ซ่อน แถบสถานะในหน้าต่างปัจจุบัน"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_บันทึก"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "บันทึกเป็_น"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "พลิกแนว_นอน"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "พลิกแนว_ตั้ง"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "หมุนต_ามเข็มนาฬิกา"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
-msgstr "หมุนย้_อนเข็มนาฬิกา"
+msgstr "หมุน_ทวนเข็มนาฬิกา"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "หมุน 180 _องศา"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "ลบ"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "เ_ต็มจอ"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "ขย_าย"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "_ย่อ"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "ขนาด_ปกติ"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "ขนาด_พอดี"
 
-#: shell/main.c:236
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "_ข้อมูลเกี่ยวกับรูปภาพ"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "แสดง/ซ่อน ช่องแสดงข้อมูลในหน้าต่างปัจจุบัน"
+
+#: shell/eog-window.c:2374
+msgid "User interface description not found."
+msgstr "หาแฟ้มข้อมูลสำหรับสร้างหน้าต่างติดต่อผู้ใช้ไม่พบ"
+
+#: shell/main.c:67
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "ไม่สามารถสร้างหน้าต่างติดต่อผู้ใช้ของ Eye of GNOME ได้"
+
+#: shell/main.c:258
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
 "a collection instead?"
 msgstr "คุณกำลังจะเปิด %i หน้าต่างพร้อมกัน  คุณต้องการจะแสดงรูปเหล่านี้เป็นสมุดรูปแทนไหม?"
 
-#: shell/main.c:240
+#: shell/main.c:262
 msgid "Open multiple single windows?"
 msgstr "เปิดหลายหน้าต่าง?"
 
-#: shell/main.c:244
+#: shell/main.c:266
 msgid "Single Windows"
 msgstr "หลายหน้าต่าง"
 
-#: shell/main.c:246
+#: shell/main.c:268
 msgid "Collection"
 msgstr "สมุดรูป"
 
-#: shell/main.c:298
+#: shell/main.c:320
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "ไม่พบแฟ้ม"
@@ -677,6 +713,21 @@ msgstr[1] "ไม่พบแฟ้ม"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "เปิด '%s' ไม่สำเร็จ"
+
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (รหัสยูนิโค้ดผิด)"
+
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "ไม่สามารถแสดงเอกสารแนะนำวิธีใช้ Eye of GNOME.\n"
+"%s"
+
+#~ msgid "Open _Directory..."
+#~ msgstr "เปิดโ_ฟลเดอร์..."
+
+#~ msgid "Open a directory"
+#~ msgstr "เปิดโฟลเดอร์"
 
 #~ msgid "Images: %i/%i"
 #~ msgstr "รูป: %i/%i"
@@ -823,20 +874,11 @@ msgstr "เปิด '%s' ไม่สำเร็จ"
 #~ msgid "Cancel"
 #~ msgstr "ยกเลิก"
 
-#~ msgid "Change the visibility of the statusbar in the current window"
-#~ msgstr "แสดง/ซ่อน แถบสถานะในหน้าต่างปัจจุบัน"
-
-#~ msgid "Change the visibility of the toolbar in the current window"
-#~ msgstr "แสดง/ซ่อน แถบเครื่องมือในหน้าต่างปัจจุบัน"
-
 #~ msgid "New"
 #~ msgstr "ใหม่"
 
 #~ msgid "Open"
 #~ msgstr "เปิด"
-
-#~ msgid "Open in new window"
-#~ msgstr "เปิดในหน้าต่างใหม่"
 
 #~ msgid "Open in this window"
 #~ msgstr "เปิดในหน้าต่างนี้"
@@ -950,9 +992,6 @@ msgstr "เปิด '%s' ไม่สำเร็จ"
 
 #~ msgid "By Extension"
 #~ msgstr "ตามนามสกุล"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "นามสกุลรูปที่บันทึกไม่เป็น"
 
 #~ msgid "Determine File Type:"
 #~ msgstr "ตัดสินชนิดรูป:"
