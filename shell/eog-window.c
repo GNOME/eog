@@ -168,9 +168,12 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 {
 	static GtkWidget *about;
 	static const char *authors[] = {
-		"Federico Mena-Quintero (federico@gnu.org)",
-		"Arik Devens (arik@gnome.org)",
-		"Jens Finke (jens@gnome.org)",
+		"Federico Mena-Quintero",
+		"Martin Baulig",
+		"Arik Devens",
+		"Jens Finke",
+		"Michael Meeks",
+		"Lutz Mueller",
 		NULL
 	};
 
@@ -178,7 +181,7 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			_("Copyright (C) 2000-2001 The Free Software Foundation"),
+			_("Copyright (C) 2000-2002 The Free Software Foundation"),
 			_("The GNOME image viewing and cataloging program"),
 			authors,
 			NULL, /* char **documentors */
@@ -786,7 +789,7 @@ check_for_control_properties (EogWindow *window)
 		goto on_error;
 
 	/* set window title */
-	title = bonobo_property_bag_client_get_value_string (pb, "window/title", &ev);
+	title = bonobo_pbclient_get_string (pb, "window/title", &ev);
 	if (title != NULL) {
 		gtk_window_set_title (GTK_WINDOW (window), title);
 		g_free (title);
@@ -797,7 +800,7 @@ check_for_control_properties (EogWindow *window)
 	}
 
 	/* set status bar text */
-	title = bonobo_property_bag_client_get_value_string (pb, "window/status", &ev);
+	title = bonobo_pbclient_get_string (pb, "window/status", &ev);
 	if (title != NULL) {
 		gchar *temp;
 		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar),
