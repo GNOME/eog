@@ -2428,7 +2428,33 @@ update_ui_visibility (EogWindow *window)
 }
 
 static void
-obtain_desired_size (EogWindow *window, int *x11_flags, 
+get_window_decoration_size (EogWindow *window, int *width, int *height)
+{
+	int window_width, window_height;
+	int view_width, view_height;
+	GtkWidget *view;
+	
+	g_return_if_fail (EOG_IS_WINDOW (window));
+	
+	view = GTK_WIDGET (window->priv->scroll_view);
+	
+	if (!GTK_WIDGET_REALIZED (view))
+		gtk_widget_realize (view);
+	view_width  = view->allocation.width;
+	view_height = view->allocation.height;
+
+	if (!GTK_WIDGET_REALIZED (GTK_WIDGET (window))) 
+		gtk_widget_realize (GTK_WIDGET (window));
+	window_width  = GTK_WIDGET (window)->allocation.width;
+	window_height = GTK_WIDGET (window)->allocation.height;
+	
+	*width = window_width - view_width;
+	*height = window_height - view_height;
+}
+
+static void
+obtain_desired_size (EogWindow *window, int screen_width, 
+					 int screen_height, int *x11_flags, 
 					 int *x, int *y, int *width, int *height)
 {
 	char *key;
@@ -2441,16 +2467,37 @@ obtain_desired_size (EogWindow *window, int *x11_flags,
 	list = window->priv->image_list;
 	
 	if (list != NULL && eog_image_list_length (list) == 1) {
+		int img_width, img_height;
+		int deco_width, deco_height;
+		
 		img = eog_image_list_get_img_by_pos (list, 0);
-		eog_image_get_size (img, width, height);
+		g_assert (EOG_IS_IMAGE (img));
+		eog_image_get_size (img, &img_width, &img_height);
 		
-		g_print ("Use image dimension: %i/%i\n", *width, *height);
+		get_window_decoration_size (window, &deco_width, &deco_height);
 		
-		if ((*width > 0) && (*height > 0)) {
+		if (img_width > 0 && (img_height > 0)) {
+			if ((img_width + deco_width > screen_width) ||
+				(img_height + deco_height > screen_height))
+			{
+				double factor;
+				if (img_width > img_height) {
+					factor = (screen_width * 0.75 - deco_width) / (double) img_width;
+				}
+				else {
+					factor = (screen_height * 0.75 - deco_height) / (double) img_height;
+				}
+				img_width = img_width * factor;
+				img_height = img_height * factor;				
+			}
+			
+			/* determine size of whole window */
+			*width = img_width + deco_width;
+			*height = img_height + deco_height;
 			*x11_flags = *x11_flags | WidthValue | HeightValue;
-			finished = TRUE;
+			finished = TRUE;			
 		}
-		
+
 		g_object_unref (img);
 	}
 	
@@ -2489,13 +2536,13 @@ setup_initial_geometry (EogWindow *window)
 	
 	g_assert (EOG_IS_WINDOW (window));
 
-	obtain_desired_size (window, &x11_flags,
-						 &x, &y, &width, &height);
-	
 	screen = gtk_window_get_screen (GTK_WINDOW (window));
 	g_assert (screen != NULL);
 	screen_width  = gdk_screen_get_width  (screen);
 	screen_height = gdk_screen_get_height (screen);
+
+	obtain_desired_size (window, screen_width, screen_height, &x11_flags,
+						 &x, &y, &width, &height);
 	
 	/* set position first */
 	if ((x11_flags & XValue) && (x11_flags & YValue)) {
@@ -2523,17 +2570,10 @@ setup_initial_geometry (EogWindow *window)
 	}
 	
 	if ((x11_flags & WidthValue) && (x11_flags & HeightValue)) {
-		if ((width > screen_width) || (height > screen_height)) {
-			double factor;
-			if (width > height) {
-				factor = (screen_width * 0.75) / (double) width;
-			}
-			else {
-				factor = (screen_height * 0.75) / (double) height;
-			}
-			width = width * factor;
-			height = height * factor;
-		}
+		/* make sure window is usable */
+		width  = CLAMP (width, 100, screen_width);
+		height = CLAMP (height, 100, screen_height);
+	
 		g_print ("setting window size: %i/%i\n", width, height);
 		
 		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
