@@ -25,6 +25,7 @@
 
 #include <libgnome/gnome-defs.h>
 #include "gnome-list-item-factory.h"
+#include "eog-collection-model.h"
 #include "gnome-list-model.h"
 #include "gnome-list-selection-model.h"
 
@@ -58,7 +59,7 @@ struct _GnomeListViewClass {
 
 	/* Notification signals */
 
-	void (* model_set) (GnomeListView *view, GnomeListModel *old_model);
+	void (* model_set) (GnomeListView *view, EogCollectionModel *old_model);
 	void (* selection_model_set) (GnomeListView *view, GnomeListSelectionModel *old_sel_model);
 	void (* list_item_factory_set) (GnomeListView *view, GnomeListItemFactory *old_factory);
 };
@@ -66,8 +67,8 @@ struct _GnomeListViewClass {
 
 GtkType gnome_list_view_get_type (void);
 
-void gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model);
-GnomeListModel *gnome_list_view_get_model (GnomeListView *view);
+void gnome_list_view_set_model (GnomeListView *view, EogCollectionModel *model);
+EogCollectionModel *gnome_list_view_get_model (GnomeListView *view);
 
 void gnome_list_view_set_selection_model (GnomeListView *view, GnomeListSelectionModel *sel_model);
 GnomeListSelectionModel *gnome_list_view_get_selection_model (GnomeListView *view);

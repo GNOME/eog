@@ -73,10 +73,10 @@ static void gnome_icon_item_factory_destroy (GtkObject *object);
 static GnomeCanvasItem *ii_factory_create_item (GnomeListItemFactory *factory,
 						GnomeCanvasGroup *parent);
 static void ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				       GnomeListModel *model, guint n,
+				       EogCollectionModel *model, guint n,
 				       gboolean is_selected, gboolean is_focused);
 static void ii_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				      GnomeListModel *model, guint n,
+				      EogCollectionModel *model, guint n,
 				      gint *width, gint *height);
 
 static GnomeListItemFactoryClass *parent_class;
@@ -294,7 +294,7 @@ shrink_to_width (char *str, GdkFont *font,  int width)
 /* Configure_item handler for the icon list item factory */
 static void
 ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-			   GnomeListModel *model, guint n,
+			   EogCollectionModel *model, guint n,
 			   gboolean is_selected, gboolean is_focused)
 {
 	GnomeIconItemFactory *ii_factory;
@@ -316,8 +316,8 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	g_return_if_fail (item != NULL);
 	g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
 	g_return_if_fail (model != NULL);
-	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
-	g_return_if_fail (n < gnome_list_model_get_length (model));
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+	g_return_if_fail (n < eog_collection_model_get_length (model));
 
 	ii_factory = GNOME_ICON_ITEM_FACTORY (factory);
 	priv = ii_factory->priv;
@@ -325,8 +325,8 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	icon = gtk_object_get_data (GTK_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
 
-	gnome_icon_list_model_get_icon (GNOME_ICON_LIST_MODEL (model), n,
-					&cimage);
+	cimage = eog_collection_model_get_image (model, n);
+	if (cimage == NULL) return;
 	
 	/* Compute thumbnail image */
 	if (cimage_has_thumbnail (cimage)) {
@@ -449,7 +449,7 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 /* Get_item_size handler for the icon list item factory */
 static void
 ii_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-			  GnomeListModel *model, guint n,
+			  EogCollectionModel *model, guint n,
 			  gint *width, gint *height)
 {
 	GnomeIconItemFactory *ii_factory;

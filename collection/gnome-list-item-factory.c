@@ -102,7 +102,7 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 				marshal_configure_item,
 				GTK_TYPE_NONE, 5,
 				GNOME_TYPE_CANVAS_ITEM,
-				GNOME_TYPE_LIST_MODEL,
+				EOG_COLLECTION_MODEL_TYPE,
 				GTK_TYPE_UINT,
 				GTK_TYPE_BOOL,
 				GTK_TYPE_BOOL);
@@ -114,7 +114,7 @@ gnome_list_item_factory_class_init (GnomeListItemFactoryClass *class)
 				marshal_get_item_size,
 				GTK_TYPE_NONE, 5,
 				GNOME_TYPE_CANVAS_ITEM,
-				GNOME_TYPE_LIST_MODEL,
+				EOG_COLLECTION_MODEL_TYPE,
 				GTK_TYPE_UINT,
 				GTK_TYPE_POINTER,
 				GTK_TYPE_POINTER);
@@ -214,7 +214,7 @@ gnome_list_item_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasG
  **/
 void
 gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-					GnomeListModel *model, guint n,
+					EogCollectionModel *model, guint n,
 					gboolean is_selected, gboolean is_focused)
 {
 	g_return_if_fail (factory != NULL);
@@ -222,8 +222,8 @@ gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanv
 	g_return_if_fail (item != NULL);
 	g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
 	g_return_if_fail (model != NULL);
-	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
-	g_return_if_fail (n < gnome_list_model_get_length (model));
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+	g_return_if_fail (n < eog_collection_model_get_length (model));
 
 	gtk_signal_emit (GTK_OBJECT (factory), li_factory_signals[CONFIGURE_ITEM],
 			 item, model, n, is_selected, is_focused);
@@ -245,7 +245,7 @@ gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanv
  **/
 void
 gnome_list_item_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				       GnomeListModel *model, guint n,
+				       EogCollectionModel *model, guint n,
 				       int *width, int *height)
 {
 	int w, h;
@@ -257,8 +257,8 @@ gnome_list_item_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanva
 		g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
 
 	g_return_if_fail (model != NULL);
-	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
-	g_return_if_fail (n < gnome_list_model_get_length (model));
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+	g_return_if_fail (n < eog_collection_model_get_length (model));
 
 	w = h = 0;
 	gtk_signal_emit (GTK_OBJECT (factory), li_factory_signals[GET_ITEM_SIZE],

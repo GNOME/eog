@@ -2,19 +2,26 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <bonobo/Bonobo.h>
 
 #include "eog-image-loader.h"
 #include "cimage.h"
-#include "eog-image-list-model.h"
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
+enum {
+	LOADING_FINISHED,
+	LOADING_CANCELED,
+	LOADING_FAILED,
+	LAST_SIGNAL
+};
+
+static guint eog_image_loader_signals [LAST_SIGNAL];
+
 struct _EogImageLoaderPrivate {
-	EogImageListModel *model;
+	EogCollectionModel *model;
 	
 	gint thumb_width;
 	gint thumb_height;
-
-	CImage *image;
 
 	gint idle_handler_id;
 	gboolean active;
@@ -58,6 +65,33 @@ eog_image_loader_class_init (EogImageLoaderClass *klass)
 
 	parent_class = gtk_type_class (gtk_object_get_type ());
 
+	eog_image_loader_signals [LOADING_FINISHED] = 
+		gtk_signal_new ("loading_finished",
+				GTK_RUN_FIRST,
+				obj_class->type,
+				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_finished),
+				gtk_marshal_NONE__POINTER, 
+				GTK_TYPE_NONE, 1,
+				TYPE_CIMAGE);
+	eog_image_loader_signals [LOADING_CANCELED] = 
+		gtk_signal_new ("loading_canceled",
+				GTK_RUN_FIRST,
+				obj_class->type,
+				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_canceled),
+				gtk_marshal_NONE__POINTER, 
+				GTK_TYPE_NONE, 1,
+				TYPE_CIMAGE);
+	eog_image_loader_signals [LOADING_FAILED] = 
+		gtk_signal_new ("loading_failed",
+				GTK_RUN_FIRST,
+				obj_class->type,
+				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_failed),
+				gtk_marshal_NONE__POINTER, 
+				GTK_TYPE_NONE, 1,
+				TYPE_CIMAGE);
+
+	gtk_object_class_add_signals (obj_class, eog_image_loader_signals, LAST_SIGNAL);
+
 	obj_class->destroy = eog_image_loader_destroy;
 }
 
@@ -68,7 +102,6 @@ eog_image_loader_init (EogImageLoader *loader)
 
 	priv = g_new0 (EogImageLoaderPrivate, 1);
 	priv->model = NULL;
-	priv->image = NULL;
 	priv->active = FALSE;
 	priv->stop_loading = FALSE;
 
@@ -81,7 +114,7 @@ eog_image_loader_destroy (GtkObject *obj)
 	EogImageLoader *loader;
 
 	g_return_if_fail (obj != NULL);
-	g_return_if_fail (IS_EOG_IMAGE_LOADER (obj));
+	g_return_if_fail (EOG_IS_IMAGE_LOADER (obj));
 
 	loader = EOG_IMAGE_LOADER (obj);
 
@@ -105,12 +138,12 @@ eog_image_loader_new (gint thumb_width, gint thumb_height)
 }
 
 void 
-eog_image_loader_set_model (EogImageLoader *loader, EogImageListModel *model)
+eog_image_loader_set_model (EogImageLoader *loader, EogCollectionModel *model)
 {
 	g_return_if_fail (loader != NULL);
-	g_return_if_fail (IS_EOG_IMAGE_LOADER (loader));
+	g_return_if_fail (EOG_IS_IMAGE_LOADER (loader));
 	g_return_if_fail (model != NULL);
-	g_return_if_fail (IS_EOG_IMAGE_LIST_MODEL (model));
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
 	if (loader->priv->model)
 		gtk_object_unref (GTK_OBJECT (loader->priv->model));
@@ -172,92 +205,95 @@ scale_image (EogImageLoader *loader, GdkPixbuf *image)
 static gint
 real_image_loading (EogImageLoader *loader)
 {
+	CORBA_Environment ev;
 	EogImageLoaderPrivate *priv;
 	GdkPixbufLoader *pbf_loader;
-	int fd;
-	int size;
-	guchar *buffer;
-	gchar *path;
-	
+	LoadingContext *lctx;
+	Bonobo_Stream_iobuf *buf;
+	gint p = 0;
+
 	g_return_val_if_fail (loader != NULL, FALSE);
 	g_assert (loader->priv->model != NULL);
 
 	priv = loader->priv;
+	CORBA_exception_init (&ev);
 
 	/* remove idle handler */
 	gtk_idle_remove (priv->idle_handler_id);
 	priv->idle_handler_id = 0;
-		
-	while ((priv->image = eog_image_list_model_next_image_to_load (priv->model)) &&
+
+	/* create buffer */
+	buf = Bonobo_Stream_iobuf__alloc ();
+	buf->_length = 1024;
+	buf->_buffer = g_new0  (guchar, 1024);
+	
+	while ((lctx = eog_collection_model_get_next_loading_context (priv->model)) &&
 	       !priv->stop_loading) {
+		
+		g_assert (lctx->image != NULL);
+		g_assert (lctx->stream != CORBA_OBJECT_NIL);
+
 		/* create loader */
 		pbf_loader = gdk_pixbuf_loader_new ();
 		
-		/* open file and allocate buffer */
-		path = cimage_get_path (priv->image);
-#ifdef DEBUG	       
-		g_print ("loading: %s ... ", path);
-#endif
-		fd = open (path, O_RDONLY);
-		g_free (path);
-		
-		if (fd) {
-#ifdef DEBUG
-			g_print ("ok\n");
-#endif
-		} else {
-#ifdef DEBUG
-			g_print ("failed\n");
-#endif
-			cimage_set_loading_failed (priv->image);
-			gdk_pixbuf_loader_close (pbf_loader);
-			continue;
-		}
-
-		/* loading image from file */
-		buffer = g_new0 (guchar, 1024);
+		/* loading image from stream */
 		while (!priv->stop_loading) {
-			size = read (fd, buffer, 1024);
-			if (size == 0) break;
+
+			Bonobo_Stream_read (lctx->stream, 1024, &buf, &ev);
+
+			if (buf->_length == 0) break;
+			if (ev._major != CORBA_NO_EXCEPTION) break;
 			
 			if(!gdk_pixbuf_loader_write(pbf_loader,
-						    buffer, size)) {
-				cimage_set_loading_failed (priv->image);
+						    buf->_buffer, buf->_length)) {
+				cimage_set_loading_failed (lctx->image);
+
+				gtk_signal_emit (GTK_OBJECT (loader), 
+						 eog_image_loader_signals [LOADING_FAILED],
+						 lctx->image);
 				break;
 			}
 
-			/* execute gui events if neccessary */
-			while (gtk_events_pending ())
-				gtk_main_iteration ();
+			/* update gui every 50th time */
+			if (p++ % 50 == 0)
+				while (gtk_events_pending ())
+					gtk_main_iteration ();
 		}
 		
-		if (!cimage_has_loading_failed (priv->image) &&
+		if (!cimage_has_loading_failed (lctx->image) &&
 		    !priv->stop_loading) {
 			/* scale image and set it as thumbnail */
 			GdkPixbuf *pbf = gdk_pixbuf_loader_get_pixbuf (pbf_loader);
 			GdkPixbuf *thumb = scale_image (loader, pbf);
 			
-			cimage_set_thumbnail (priv->image, thumb);
+			cimage_set_thumbnail (lctx->image, thumb);
 			
 			gdk_pixbuf_unref (thumb);
 			gdk_pixbuf_unref (pbf);
 			
-			gnome_list_model_interval_changed (GNOME_LIST_MODEL (priv->model), 
-							   cimage_get_unique_id (priv->image),
-							   1);
+			gtk_signal_emit (GTK_OBJECT (loader),
+					 eog_image_loader_signals [LOADING_FINISHED],
+					 lctx->image);
+		} else if (priv->stop_loading) {
+			gtk_signal_emit (GTK_OBJECT (loader),
+					 eog_image_loader_signals [LOADING_CANCELED],
+					 lctx->image);
 		}
 		
 		/* clean up */
 		gdk_pixbuf_loader_close (pbf_loader);
-		gtk_object_unref (GTK_OBJECT (priv->image));
-		priv->image = NULL;
-		g_free (buffer);
-		close (fd);	
-		
+		gtk_object_unref (GTK_OBJECT (lctx->image));
+		Bonobo_Unknown_unref (lctx->stream, &ev);
+		g_free (lctx);
 	}
-	
+
+	g_free (buf->_buffer);
+	CORBA_free (buf);
+
 	priv->active = FALSE;
 	priv->stop_loading = FALSE;
+
+	CORBA_exception_free (&ev);
 	
 	return TRUE;
 }
@@ -269,10 +305,14 @@ eog_image_loader_start (EogImageLoader *loader)
 
 	if (loader->priv->model == NULL) return;
 
+	g_print ("eog-image-loader: start image loading\n");
+
 	if (loader->priv->active == FALSE) {
 		/* start the loading process */
 		loader->priv->idle_handler_id = 
 			gtk_idle_add ((GtkFunction)real_image_loading, loader);
+
+		// real_image_loading (loader);
 		loader->priv->active = TRUE;
 	}
 }

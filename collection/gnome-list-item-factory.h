@@ -26,6 +26,7 @@
 #include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-canvas.h>
 #include "gnome-list-model.h"
+#include "eog-collection-model.h"
 
 BEGIN_GNOME_DECLS
 
@@ -57,13 +58,13 @@ struct _GnomeListItemFactoryClass {
 
 	GnomeCanvasItem *(* create_item) (GnomeListItemFactory *factory, GnomeCanvasGroup *parent);
 	void (* configure_item) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				 GnomeListModel *model, guint n,
+				 EogCollectionModel *model, guint n,
 				 gboolean is_selected, gboolean is_focused);
 
 	/* Item query signals */
 
 	void (* get_item_size) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				GnomeListModel *model, guint n,
+				EogCollectionModel *model, guint n,
 				gint *width, gint *height);
 };
 
@@ -74,11 +75,11 @@ GnomeCanvasItem *gnome_list_item_factory_create_item (GnomeListItemFactory *fact
 						      GnomeCanvasGroup *parent);
 
 void gnome_list_item_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-					     GnomeListModel *model, guint n,
+					     EogCollectionModel *model, guint n,
 					     gboolean is_selected, gboolean is_focused);
 
 void gnome_list_item_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-					    GnomeListModel *model, guint n,
+					    EogCollectionModel *model, guint n,
 					    int *width, int *height);
 
 

@@ -19,16 +19,14 @@
 
 #include "gnome-icon-item-factory.h"
 #include "gnome-wrap-list.h"
-#include "eog-image-list-model.h"
 #include "eog-image-selection-model.h"
 #include "eog-collection-view.h"
-#include "eog-image-loader.h"
+#include "eog-collection-model.h"
 
 struct _EogCollectionViewPrivate {
-	GnomeListModel          *model;
+	EogCollectionModel      *model;
 	GnomeListSelectionModel *sel_model;
 	GnomeIconItemFactory    *factory;
-	EogImageLoader          *loader;
 
 	GtkWidget               *wraplist;
 	GtkWidget               *root;
@@ -48,31 +46,19 @@ static guint eog_collection_view_signals [LAST_SIGNAL];
 static BonoboObjectClass *eog_collection_view_parent_class;
 
 static void 
-impl_GNOME_EOG_ImageCollection_addImages(PortableServer_Servant servant,
-				       const GNOME_EOG_Files * list,
-				       CORBA_Environment * ev)
+impl_GNOME_EOG_ImageCollection_setStorage(PortableServer_Servant servant,
+					  Bonobo_Storage storage,
+					  CORBA_Environment * ev)
 {
-	GList *image_list = NULL;
-	int i;
 	EogCollectionView *cview;
 	EogCollectionViewPrivate *priv;
-	
+
 	cview = EOG_COLLECTION_VIEW (bonobo_object_from_servant (servant));
 	priv = cview->priv;
 
-	if (list == CORBA_OBJECT_NIL) return;
-	
-	for (i = 0; i < list->_length; i++) {
-		CImage *img;
+	if (storage == CORBA_OBJECT_NIL) return;
 
-		img = cimage_new ((char*)list->_buffer[i]);
-		
-		image_list = g_list_append (image_list, img);
-	}
-
-	eog_image_list_model_add_images (EOG_IMAGE_LIST_MODEL (priv->model),
-					 image_list);
-	eog_image_loader_start (priv->loader);
+	eog_collection_model_set_storage (priv->model, storage); 
 }
 
 
@@ -125,9 +111,20 @@ eog_collection_view_destroy (GtkObject *object)
 
 	list_view = EOG_COLLECTION_VIEW (object);
 
-	if (list_view->priv->wraplist)
-		gtk_widget_unref (list_view->priv->wraplist);
+	if (list_view->priv->model)
+		gtk_object_unref (GTK_OBJECT (list_view->priv->model));
+	list_view->priv->model = NULL;
+
+	if (list_view->priv->sel_model)
+		gtk_object_unref (GTK_OBJECT (list_view->priv->sel_model));
+	list_view->priv->sel_model = NULL;
+
+	if (list_view->priv->factory)
+		gtk_object_unref (GTK_OBJECT (list_view->priv->factory));
+	list_view->priv->factory = NULL;
+
 	list_view->priv->wraplist = NULL;
+	list_view->priv->root = NULL;
 
 	GTK_OBJECT_CLASS (eog_collection_view_parent_class)->destroy (object);
 }
@@ -144,7 +141,8 @@ eog_collection_view_finalize (GtkObject *object)
 
 	g_free (list_view->priv);
 
-	GTK_OBJECT_CLASS (eog_collection_view_parent_class)->finalize (object);
+	if(GTK_OBJECT_CLASS (eog_collection_view_parent_class)->finalize)
+		GTK_OBJECT_CLASS (eog_collection_view_parent_class)->finalize (object);
 }
 
 static void
@@ -153,7 +151,7 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
 	POA_GNOME_EOG_ImageCollection__epv *epv;
 
-	eog_collection_view_parent_class = gtk_type_class (bonobo_object_get_type ());
+	eog_collection_view_parent_class = gtk_type_class (PARENT_TYPE);
 
 	gtk_object_class_add_signals (object_class, eog_collection_view_signals, LAST_SIGNAL);
 
@@ -161,7 +159,7 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 	object_class->finalize = eog_collection_view_finalize;
 
 	epv = &klass->epv;
-	epv->addImages = impl_GNOME_EOG_ImageCollection_addImages;
+	epv->setStorage = impl_GNOME_EOG_ImageCollection_setStorage;
 }
 
 static void
@@ -170,12 +168,10 @@ eog_collection_view_init (EogCollectionView *image_view)
 	image_view->priv = g_new0 (EogCollectionViewPrivate, 1);
 }
 
-
 BONOBO_X_TYPE_FUNC_FULL (EogCollectionView, 
 			 GNOME_EOG_ImageCollection,
 			 PARENT_TYPE,
 			 eog_collection_view);
-
 
 EogCollectionView *
 eog_collection_view_construct (EogCollectionView       *list_view)
@@ -191,11 +187,9 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 
 	/* construct widget */
 	priv = list_view->priv;
-	priv->model = GNOME_LIST_MODEL (eog_image_list_model_new ());
+	priv->model = eog_collection_model_new ();
 
         priv->sel_model = GNOME_LIST_SELECTION_MODEL (eog_image_selection_model_new ());
-	priv->loader = eog_image_loader_new (100, 100);
-	eog_image_loader_set_model (priv->loader, EOG_IMAGE_LIST_MODEL (priv->model));
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 

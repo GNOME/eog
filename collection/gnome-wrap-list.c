@@ -143,7 +143,7 @@ static gint gnome_wrap_list_expose (GtkWidget *widget, GdkEventExpose *event);
 static void gnome_wrap_list_forall (GtkContainer *container, gboolean include_internals,
 				    GtkCallback callback, gpointer callback_data);
 
-static void model_set (GnomeListView *view, GnomeListModel *old_model);
+static void model_set (GnomeListView *view, EogCollectionModel *old_model);
 static void selection_model_set (GnomeListView *view, GnomeListSelectionModel *old_sel_model);
 static void list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory);
 
@@ -485,7 +485,7 @@ bm_update_scroll_adjustments (GnomeWrapList *wlist)
 	WrapListPrivate *priv;
 	BlockModeInfo *bm;
 	GtkAdjustment *adj = NULL;
-	GnomeListModel *model;
+	EogCollectionModel *model;
 	gint data_len;
 
 	priv = wlist->priv;
@@ -502,7 +502,7 @@ bm_update_scroll_adjustments (GnomeWrapList *wlist)
 
 	model = gnome_list_view_get_model (GNOME_LIST_VIEW (wlist));
 	if (model)
-		data_len = gnome_list_model_get_length (model);
+		data_len = eog_collection_model_get_length (model);
 	else
 		data_len = 0;
 
@@ -632,7 +632,7 @@ bm_update_range (GnomeWrapList *wlist, BMLayout *l, int update_first, int update
 	BlockModeInfo *bm;
 	GnomeListItemFactory *factory;
 	GnomeCanvasGroup *group;
-	GnomeListModel *model;
+	EogCollectionModel *model;
 	GnomeListSelectionModel *sel_model;
 	int data_len;
 	int i, disp_i;
@@ -646,7 +646,7 @@ bm_update_range (GnomeWrapList *wlist, BMLayout *l, int update_first, int update
 
 	model = gnome_list_view_get_model (GNOME_LIST_VIEW (wlist));
 	if (model)
-		data_len = gnome_list_model_get_length (model);
+		data_len = eog_collection_model_get_length (model);
 	else
 		data_len = 0;
 
@@ -732,7 +732,7 @@ bm_update (GnomeWrapList *wlist)
 	int req_update_first, req_update_last;
 	int display_first, display_last;
 	int update_first, update_last;
-	GnomeListModel *model;
+	EogCollectionModel *model;
 	int data_len;
 
 	priv = wlist->priv;
@@ -749,7 +749,7 @@ bm_update (GnomeWrapList *wlist)
 
 	model = gnome_list_view_get_model (GNOME_LIST_VIEW (wlist));
 	if (model)
-		data_len = gnome_list_model_get_length (model);
+		data_len = eog_collection_model_get_length (model);
 	else
 		data_len = 0;
 
@@ -1110,11 +1110,11 @@ model_interval_removed (GnomeListModel *model, guint start, guint length, gpoint
 
 /* Model_set handler for the abstract wrapped list view */
 static void
-model_set (GnomeListView *view, GnomeListModel *old_model)
+model_set (GnomeListView *view, EogCollectionModel *old_model)
 {
 	GnomeWrapList *wlist;
 	WrapListPrivate *priv;
-	GnomeListModel *model;
+	EogCollectionModel *model;
 
 	wlist = GNOME_WRAP_LIST (view);
 	priv = wlist->priv;

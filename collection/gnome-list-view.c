@@ -30,7 +30,7 @@
 /* Private part of the GnomeListView structure */
 typedef struct {
 	/* The model we are displaying */
-	GnomeListModel *model;
+	EogCollectionModel *model;
 
 	/* Selection model we are using */
 	GnomeListSelectionModel *sel_model;
@@ -108,7 +108,7 @@ gnome_list_view_class_init (GnomeListViewClass *class)
 				GTK_SIGNAL_OFFSET (GnomeListViewClass, model_set),
 				gtk_marshal_NONE__POINTER,
 				GTK_TYPE_NONE, 1,
-				GNOME_TYPE_LIST_MODEL);
+				EOG_COLLECTION_MODEL_TYPE);
 	list_view_signals[SELECTION_MODEL_SET] =
 		gtk_signal_new ("selection_model_set",
 				GTK_RUN_FIRST,
@@ -183,15 +183,15 @@ gnome_list_view_destroy (GtkObject *object)
  * the change of data model with the "model_set" signal.
  **/
 void
-gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model)
+gnome_list_view_set_model (GnomeListView *view, EogCollectionModel *model)
 {
 	ListViewPrivate *priv;
-	GnomeListModel *old_model;
+        EogCollectionModel *old_model;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
 	if (model)
-		g_return_if_fail (GNOME_IS_LIST_MODEL (model));
+		g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
 	priv = view->priv;
 
@@ -218,7 +218,7 @@ gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model)
  *
  * Return value: The list model.
  **/
-GnomeListModel *
+EogCollectionModel *
 gnome_list_view_get_model (GnomeListView *view)
 {
 	ListViewPrivate *priv;

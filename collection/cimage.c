@@ -22,7 +22,6 @@ static void cimage_finalize (GtkObject *obj);
 static void cimage_destroy (GtkObject *obj);
 
 
-#if 0
 static guint
 get_unique_id (void)
 {
@@ -30,7 +29,6 @@ get_unique_id (void)
 
 	return last_id++;
 }
-#endif
 
 
 GtkType
@@ -114,7 +112,7 @@ cimage_init (CImage *img)
 
 	priv = g_new0(CImagePrivate, 1);
 
-	priv->unique_id = 0;
+	priv->unique_id = get_unique_id ();
 	priv->path = NULL;
 	priv->thumbnail = NULL;
 	priv->caption = NULL;

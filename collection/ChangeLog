@@ -1,3 +1,40 @@
+2001-03-06   Jens Finke <jens@gnome.org>
+
+	* GNOME_EOG_Collection.oafinfo: Added 'x-directory/normal' to list
+	of supported mime types.
+
+	* Makefile.am (SOURCES): eog-collection-model.[ch] added.
+
+	* cimage.c (get_unique_id): Uncommented.
+	(cimage_new): Set unique_id again. I think we need this to support
+	basic file operations like 'rename' or 'remove'.
+
+	* eog-collection-view.c
+	(impl_GNOME_EOG_ImageCollection_addImages): Removed.
+	(impl_GNOME_EOG_ImageCollection_setStorage): New function.
+	(eog_collection_view_destroy): Free 'model', 'sel_model' and
+	'factory'.
+	(eog_collection_view_class_init): Set correct parent class. This
+	fixes the crash, which was introduced with the BonoboXObject
+	switch.
+	(eog_collection_view_construct): Use EogCollectionModel now.
+
+	* eog-image-loader.c: Added 'loading_finished', '_canceled' and
+	'_failed' signals.
+	(eog_image_loader_set_model), (eog_image_loader_destroy): Use
+	EogCollectionModel instead of EogImageListModel.
+	(real_image_loading): Use Bonobo_Stream Objects instead of native
+	file operations.
+	
+	* eog-image-loader.h: Renamed 'IS_EOG_IMAGE_LOADER[_CLASS]' to
+	'EOG_IS_IMAGE_LOADER[_CLASS]' for consistency.
+
+	* gnome-icon-item-factory.c, gnome-list-item-factory.[ch],
+	gnome-list-view.[ch], gnome-wrap-list.c: Updated to use
+	EogCollectionModel instead of EogImageListModel.
+
+	* eog-collection-model.[ch]: New files.
+	
 2001-03-01  Jens Finke <jens@gnome.org>
 
 	* eog_collection_view.[ch]: Use BonoboXObject.

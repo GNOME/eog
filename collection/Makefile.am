@@ -28,6 +28,8 @@ eog_collection_SOURCES = \
 	cimage.h			\
 	eog-image-loader.c		\
 	eog-image-loader.h		\
+	eog-collection-model.h		\
+	eog-collection-model.c		\
 	gnome-icon-item-factory.c    	\
 	gnome-icon-item-factory.h    	\
 	gnome-icon-list-model.c      	\
