@@ -401,17 +401,28 @@ eog_window_has_contents (EogWindow *window)
 	return (priv->widget != NULL);
 }
 
+static GnomeUIInfo drag_ask_popup_menu [] = {
+	GNOMEUIINFO_ITEM_NONE (N_("Open in new window"), NULL, NULL),
+	GNOMEUIINFO_ITEM_NONE (N_("Open in this window"), NULL, NULL), 
+	GNOMEUIINFO_SEPARATOR,
+	GNOMEUIINFO_ITEM_STOCK (N_("Cancel"), NULL , NULL, GNOME_STOCK_BUTTON_CANCEL),
+	GNOMEUIINFO_END
+};
+
 
 /* Drag_data_received handler for windows */
 static void
-eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
-			       GtkSelectionData *selection_data, guint info, guint time)
+eog_window_drag_data_received (GtkWidget *widget, 
+			       GdkDragContext *context, 
+			       gint x, gint y, 
+			       GtkSelectionData *selection_data, 
+			       guint info, guint time)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	GList *filenames;
 	GList *l;
-	gboolean need_new_window;
+	gboolean need_new_window = TRUE;
 
 	window = EOG_WINDOW (widget);
 	priv = window->priv;
@@ -419,16 +430,34 @@ eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint 
 	if (info != TARGET_URI_LIST)
 		return;
 
+	if (context->suggested_action == GDK_ACTION_ASK) {
+		GtkWidget *menu = gnome_popup_menu_new (drag_ask_popup_menu);
+		int i = gnome_popup_menu_do_popup_modal (menu, NULL, NULL,
+						     NULL, NULL);
+		gtk_object_unref (GTK_OBJECT (menu));
+		switch (i) {
+		case 0:
+			need_new_window = TRUE;
+			break;
+		case 1:
+			need_new_window = FALSE;
+			break;
+		default:
+			return;
+			break;
+		}
+	} else {
+		/* The first image is opened in the same window only if the
+		* current window has no image in it.
+		*/
+		need_new_window = eog_window_has_contents (window);		
+	}
+
 	/* FIXME: This should use GnomeVFS later and it should not strip the
 	 * method prefix.
 	 */
 
 	filenames = gnome_uri_list_extract_filenames (selection_data->data);
-
-	/* The first image is opened in the same window only if the current
-	 * window has no image in it.
-	 */
-	need_new_window = eog_window_has_contents (window);
 
 	for (l = filenames; l; l = l->next) {
 		GtkWidget *new_window;
@@ -501,7 +530,7 @@ set_drag_dest (EogWindow *window)
 			   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
 			   drag_types,
 			   sizeof (drag_types) / sizeof (drag_types[0]),
-			   GDK_ACTION_COPY);
+			   GDK_ACTION_COPY | GDK_ACTION_ASK);
 }
 
 
