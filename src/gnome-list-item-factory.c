@@ -50,10 +50,10 @@ static guint li_factory_signals[LAST_SIGNAL];
  * gnome_list_item_factory_get_type:
  * @void:
  *
- * Registers the &GnomeListItemFactory class if necessary, and returns the type
+ * Registers the #GnomeListItemFactory class if necessary, and returns the type
  * ID associated to it.
  *
- * Return value: The type ID of the &GnomeListItemFactory class.
+ * Return value: The type ID of the #GnomeListItemFactory class.
  **/
 GtkType
 gnome_list_item_factory_get_type (void)

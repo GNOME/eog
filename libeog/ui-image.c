@@ -66,10 +66,10 @@ static GtkScrollFrameClass *parent_class;
  * ui_image_get_type:
  * @void:
  *
- * Registers the &UIImage class if necessary, and returns the type ID associated
+ * Registers the #UIImage class if necessary, and returns the type ID associated
  * to it.
  *
- * Return value: the type ID of the &UIImage class.
+ * Return value: the type ID of the #UIImage class.
  **/
 GtkType
 ui_image_get_type (void)

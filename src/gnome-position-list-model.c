@@ -44,10 +44,10 @@ static guint plm_signals[LAST_SIGNAL];
  * gnome_position_list_model_get_type:
  * @void:
  *
- * Registers the &GnomePositionListModel class if necessary, and returns the
+ * Registers the #GnomePositionListModel class if necessary, and returns the
  * type ID associated to it.
  *
- * Return value: The type ID of the &GnomePositionListModel class.
+ * Return value: The type ID of the #GnomePositionListModel class.
  **/
 GtkType
 gnome_position_list_model_get_type (void)

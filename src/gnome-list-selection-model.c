@@ -65,10 +65,10 @@ static guint lsm_signals[LAST_SIGNAL];
  * gnome_list_selection_model_get_type:
  * @void:
  *
- * Registers the &GnomeListSelectionModel class if necessary, and returns the
+ * Registers the #GnomeListSelectionModel class if necessary, and returns the
  * type ID associated to it.
  *
- * Return value: The type ID of the &GnomeListSelectionModel class.
+ * Return value: The type ID of the #GnomeListSelectionModel class.
  **/
 GtkType
 gnome_list_selection_model_get_type (void)

@@ -430,10 +430,10 @@ static GnomeUIInfo main_menu[] = {
  * window_get_type:
  * @void:
  *
- * Registers the &Window class if necessary, and returns the type ID associated
+ * Registers the #Window class if necessary, and returns the type ID associated
  * to it.
  *
- * Return value: the type ID of the &Window class.
+ * Return value: the type ID of the #Window class.
  **/
 GtkType
 window_get_type (void)

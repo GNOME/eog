@@ -21,7 +21,10 @@
  */
 
 #include <config.h>
-#include "gnome-canvas-pixbuf.h"
+#include <gtk/gtksignal.h>
+#include <gdk-pixbuf/gnome-canvas-pixbuf.h>
+#include <libgnomeui/gnome-canvas-rect-ellipse.h>
+#include <libgnomeui/gnome-canvas-text.h>
 #include "gnome-icon-item-factory.h"
 #include "gnome-icon-list-model.h"
 
@@ -79,10 +82,10 @@ static GnomeListItemFactoryClass *parent_class;
  * gnome_icon_item_factory_get_type:
  * @void:
  *
- * Registers the &GnomeIconItemFactory class if necessary, and returns the type
+ * Registers the #GnomeIconItemFactory class if necessary, and returns the type
  * ID associated to it.
  *
- * Return value: The type ID of the &GnomeIconItemFactory class.
+ * Return value: The type ID of the #GnomeIconItemFactory class.
  **/
 GtkType
 gnome_icon_item_factory_get_type (void)
@@ -235,6 +238,8 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 			   gboolean is_selected, gboolean is_focused)
 {
 	IconItem *icon;
+	GdkPixbuf *pixbuf;
+	const char *caption;
 
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (GNOME_IS_ICON_ITEM_FACTORY (factory));
@@ -247,7 +252,32 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 	icon = gtk_object_get_data (GTK_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
 
-	
+	gnome_icon_list_model_get_icon (GNOME_ICON_LIST_MODEL (model), n,
+					&pixbuf, &caption);
+
+	gnome_canvas_item_set (icon->image,
+			       "pixbuf", pixbuf,
+			       NULL);
+
+	gnome_canvas_item_set (icon->caption,
+			       "text", caption,
+			       NULL);
+
+	if (is_selected) {
+		gnome_canvas_item_show (icon->sel_image);
+		gnome_canvas_item_show (icon->sel_caption);
+	} else {
+		gnome_canvas_item_hide (icon->sel_image);
+		gnome_canvas_item_hide (icon->sel_caption);
+	}
+
+	if (is_focused) {
+		gnome_canvas_item_show (icon->focus_image);
+		gnome_canvas_item_show (icon->focus_caption);
+	} else {
+		gnome_canvas_item_hide (icon->focus_image);
+		gnome_canvas_item_hide (icon->focus_caption);
+	}
 }
 
 /* Get_item_size handler for the icon list item factory */
@@ -325,7 +355,7 @@ gnome_icon_item_factory_get_item_metrics (GnomeIconItemFactory *factory,
 	if (item_height)
 		*item_height = priv->item_height;
 
-	if (image_widht)
+	if (image_width)
 		*image_width = priv->image_width;
 
 	if (image_height)

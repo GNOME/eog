@@ -84,10 +84,10 @@ static GnomeCanvasItemClass *parent_class;
  * image_item_get_type:
  * @void:
  *
- * Registers the &ImageItem class if necessary, and returns the type ID
+ * Registers the #ImageItem class if necessary, and returns the type ID
  * associated to it.
  *
- * Return value: The type ID of the &ImageItem class.
+ * Return value: The type ID of the #ImageItem class.
  **/
 GtkType
 image_item_get_type (void)

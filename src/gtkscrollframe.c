@@ -136,10 +136,10 @@ static GtkBinClass *parent_class;
  * gtk_scroll_frame_get_type:
  * @void:
  *
- * Registers the &GtkScrollFrame class if necessary, and returns the type ID
+ * Registers the #GtkScrollFrame class if necessary, and returns the type ID
  * associated to it.
  *
- * Return value: The type ID of the &GtkScrollFrame class.
+ * Return value: The type ID of the #GtkScrollFrame class.
  **/
 GtkType
 gtk_scroll_frame_get_type (void)
@@ -1174,7 +1174,7 @@ gtk_scroll_frame_set_scrollbar_spacing (GtkScrollFrame *sf, guint spacing)
  * @sf: A scroll frame widget.
  * @child: A widget.
  *
- * Creates a &GtkViewport and puts the specified child inside it, thus allowing
+ * Creates a #GtkViewport and puts the specified child inside it, thus allowing
  * the viewport to be scrolled by the scroll frame widget.  This is meant to be
  * used only when a child does not support the scrolling interface.
  **/

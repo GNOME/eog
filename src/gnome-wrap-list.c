@@ -56,10 +56,10 @@ static GnomeListViewClass *parent_class;
  * gnome_wrap_list_get_type:
  * @void:
  *
- * Registers the &GnomeWrapList class if necessary, and returns the type ID
+ * Registers the #GnomeWrapList class if necessary, and returns the type ID
  * associated to it.
  *
- * Return value: The type ID of the &GnomeWrapList class.
+ * Return value: The type ID of the #GnomeWrapList class.
  **/
 GtkType
 gnome_wrap_list_get_type (void)

@@ -49,10 +49,10 @@ static guint list_model_signals[LAST_SIGNAL];
  * gnome_list_model_get_type:
  * @void:
  *
- * Registers the &GnomeListModel class if necessary, and returns the type ID
+ * Registers the #GnomeListModel class if necessary, and returns the type ID
  * associated to it.
  *
- * Return value: The type ID of the &GnomeListModel class.
+ * Return value: The type ID of the #GnomeListModel class.
  **/
 GtkType
 gnome_list_model_get_type (void)

@@ -44,10 +44,10 @@ static guint ilm_signals[LAST_SIGNAL];
  * gnome_icon_list_model_get_type:
  * @void:
  *
- * Registers the &GnomeIconListModel class if necessary, and returns the type ID
+ * Registers the #GnomeIconListModel class if necessary, and returns the type ID
  * associated to it.
  *
- * Return value: The type ID of the &GnomeIconListModel class.
+ * Return value: The type ID of the #GnomeIconListModel class.
  **/
 GtkType
 gnome_icon_list_model_get_type (void)

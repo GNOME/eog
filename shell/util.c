@@ -26,6 +26,13 @@
 
 
 
+/**
+ * open_failure_dialog:
+ * @parent: Parent window for the dialog.
+ * @filename: Name of file that could not be loaded.
+ * 
+ * Displays a dialog to indicate failure when loading a file.
+ **/
 void
 open_failure_dialog (GtkWindow *parent, const char *filename)
 {
