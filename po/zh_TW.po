@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.0.0\n"
-"POT-Creation-Date: 2002-06-15 20:52+0800\n"
-"PO-Revision-Date: 2002-06-15 20:54+0800\n"
+"Project-Id-Version: eog 1.0.1\n"
+"POT-Creation-Date: 2002-06-27 04:48+0800\n"
+"PO-Revision-Date: 2002-06-27 04:48+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "View many different types of images"
 msgstr "瀏覽不同種類的圖像"
 
 # src/window.c:704
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
 msgstr "EOG 圖像"
 
@@ -51,36 +51,42 @@ msgstr "EOG 圖像瀏覽程式工廠"
 msgid "Embeddable EOG Image"
 msgstr "可嵌入式 EOG 圖像"
 
+# src/window.c:704
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "圖像"
+
 # src/preferences-dialog.glade.h:7
-#: libeog/image-view.c:1853
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "插值法方式"
 
 # src/preferences-dialog.glade.h:7
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "使用的插值法"
 
 # src/preferences-dialog.glade.h:9
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "方格類型"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "繪畫方格的方式"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "方格的大小"
 
 # src/preferences-dialog.glade.h:26
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "擬色(dither)"
 
 # src/preferences-dialog.glade.h:9
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "擬色方式"
 
@@ -210,7 +216,7 @@ msgstr "瀏覽(_V)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:238
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Abel Cheung <maddog@linux.org.hk>, 2001-2002\n"
@@ -219,21 +225,21 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 # src/window.c:164
-#: shell/eog-window.c:255
+#: shell/eog-window.c:245
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
 
 # src/window.c:166
-#: shell/eog-window.c:256
+#: shell/eog-window.c:246
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖像瀏覽及分類程式。"
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:283
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -243,11 +249,11 @@ msgstr ""
 "%s"
 
 # src/window.c:704
-#: shell/eog-window.c:811
+#: shell/eog-window.c:798
 msgid "Open Image"
 msgstr "開啟圖像"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1257
 #, c-format
 msgid "Unable to open %s."
 msgstr "無法開啟 %s。"
@@ -299,11 +305,11 @@ msgstr ""
 "因無法存取，Eye of Gnome 將不能顯示以下的檔案：\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "無法初始化 GnomeVFS！\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "無法初始化 Bonobo！\n"
 
@@ -472,77 +478,102 @@ msgstr "區塊(_T)"
 msgid "_White"
 msgstr "白色(_W)"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "無法將圖像儲存為‘%s’：%s。"
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "另存新檔"
 
 # src/window.c:704
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "列印圖像"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "頁"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "列印預覽"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "列印圖像失敗"
 
 # src/preferences-dialog.glade.h:31
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "顯示"
 
+# src/window.c:221
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/拉近(_I)"
+
+# src/window.c:225
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/拉遠(_O)"
+
+# src/window.c:229
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/原來大小(_1)"
+
+# src/window.c:225
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/符合視窗尺寸(_F)"
+
+# src/tb-image.c:35
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/關閉(_C)"
+
 # src/preferences-dialog.glade.h:7
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "插值法(Interpolation)"
 
 # src/preferences-dialog.glade.h:26
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "擬色(Dither)"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "方格類型"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "方格大小"
 
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "狀態列文字"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "無法初始化 GnomeVFS！\n"
 
@@ -636,12 +667,6 @@ msgstr "右："
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "底："
-
-# src/window.c:704
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "圖像"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
