@@ -1,3 +1,13 @@
+2001-06-29  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* e-dialog-widgets.[c,h]:
+	* preferences.[c,h]: 
+	* preferences-dialog.glade: Removed.
+	* eog-window.c:
+	* Makefile.am: Reflect above changes.
+	* eog-preferences.c: Plug leaks (i.e. unref the property bag so that
+	our eog-image-viewer can exit).
+
 2001-06-27  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-window.c: Unref the property control on destroy. Now, the 
