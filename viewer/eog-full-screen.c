@@ -65,7 +65,7 @@ eog_full_screen_show (GtkWidget *widget)
 	image_view = ui_image_get_image_view (UI_IMAGE (ui_image));
 
 	gtk_widget_grab_focus (image_view);
-	ui_image_zoom_fit (ui_image);
+	ui_image_zoom_fit (UI_IMAGE (ui_image));
 
 	gtk_widget_unref (ui_image);
 
@@ -111,6 +111,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Q:
 	case GDK_q:
 	case GDK_Escape:
+	case GDK_F11:
 		do_hide = TRUE;
 		break;
 

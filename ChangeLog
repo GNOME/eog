@@ -1,3 +1,15 @@
+2002-08-18  Jens Finke <jens@triq.net>
+
+	Fixes bug #89513.
+	
+	* viewer/eog-image-view-ui.xml: Added F11 as accel for fullscreen
+	mode.
+
+	* viewer/eog-full-screen.c (eog_full_screen_show): Fixed compiler
+	warning.
+	(eog_full_screen_key_press): Added F11 to the list of valid keys
+	to quit the fullscreen view.
+	
 2002-08-17  Jens Finke <jens@triq.net>
 
 	* NEWS: Updated.
