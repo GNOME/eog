@@ -40,11 +40,6 @@ eog_collection_view_SOURCES =		\
 	eog-save-dialog.c		\
 	main.c
 
-#	eog-collection-preferences.h	\
-#	eog-collection-preferences.c	\
-#	eog-slide-show.h		\
-#	eog-slide-show.c
-
 eog_collection_view_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
 
 eog_collection_view_LDADD = 			\

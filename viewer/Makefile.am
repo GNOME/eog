@@ -18,20 +18,6 @@ eog_image_viewer_SOURCES =	\
 	eog-image-view.c	\
 	eog-image-view.h	\
 	main.c
-#	 eog-embeddable.c	\
-#	 eog-embeddable.h	\
-#	 eog-embeddable-view.c	\
-#	 eog-embeddable-view.h	\
-#	eog-control.c		\
-#	eog-control.h		\
-#	eog-full-screen.c	\
-#	eog-full-screen.h	\
-#	eog-util.h		\
-#	eog-util.c		\
-#	eog-image.c		\
-#	eog-image.h		\
-#	eog-image-io.c		\
-#	eog-image-io.h		
 
 eog_image_viewer_DEPENDENCIES =		\
 	$(top_builddir)/libeog/libeog.a	\
