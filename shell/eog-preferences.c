@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <libgnomeui/libgnomeui.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include "eog-preferences.h"
 #include "eog-config-keys.h"
 #include "eog-hig-dialog.h"
