@@ -35,7 +35,6 @@
 #include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
-#include "preferences.h"
 #include "Eog.h"
 #include "eog-window.h"
 

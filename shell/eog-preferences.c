@@ -102,32 +102,35 @@ add_property_control_page (EogPreferences *preferences,
 			   CORBA_long page_num,
 			   CORBA_Environment *ev)
 {
-	GtkWidget *control_widget;
+	GtkWidget *content;
+	GtkWidget *label;
 	Bonobo_PropertyBag property_bag;
 	Bonobo_Control control;
 	gchar *title = NULL;
 
 	control = Bonobo_PropertyControl_getControl (property_control,
 						     page_num, ev);
-
 	if (control == CORBA_OBJECT_NIL)
 		return;
 
-	control_widget = bonobo_widget_new_control_from_objref (control, uic);
-
-	gtk_widget_show_all (control_widget);
-
+	/* Get title for page */
 	property_bag = Bonobo_Unknown_queryInterface
 		(control, "IDL:Bonobo/PropertyBag:1.0", ev);
-
-	if (property_bag != CORBA_OBJECT_NIL)
+	if (property_bag != CORBA_OBJECT_NIL) {
 		title = bonobo_property_bag_client_get_value_string
 			(property_bag, "bonobo:title", ev);
-	else
+		bonobo_object_release_unref (property_bag, NULL);
+	} else
 		title = g_strdup ("Unknown");
+	label = gtk_label_new (title);
+	g_free (title);
+
+	/* Get content for page */
+	content = bonobo_widget_new_control_from_objref (control, uic);
+	gtk_widget_show_all (content);
 
 	gnome_property_box_append_page (GNOME_PROPERTY_BOX (preferences),
-					control_widget, gtk_label_new (title));
+					content, label);
 }
 
 EogPreferences *
