@@ -1,5 +1,4 @@
-figs = \
-	figures/eog_start_window.png
+figdir = figures
 docname = eog
 lang = fr
 omffile = eog-fr.omf

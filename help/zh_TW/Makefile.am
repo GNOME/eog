@@ -1,5 +1,4 @@
-figs = \
-	figures/eog_start_window.png
+figdir = figures
 docname = eog
 lang = zh_TW
 omffile = eog-zh_TW.omf

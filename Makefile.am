@@ -1,4 +1,4 @@
-SUBDIRS = art idl libgpi libeog viewer collection shell po help omf-install
+SUBDIRS = art idl libgpi libeog viewer collection shell po help
 
 ACLOCAL_AMFLAGS = -I /usr/share/aclocal/gnome2-macros
 
@@ -16,8 +16,7 @@ EXTRA_DIST = 			\
 	gnome-eog.png		\
 	intltool-extract.in	\
 	intltool-update.in	\
-	intltool-merge.in	\
-	xmldocs.make
+	intltool-merge.in	
 
 Graphicsdir = $(datadir)/applications
 Graphics_in_files = eog.desktop.in
