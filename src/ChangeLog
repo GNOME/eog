@@ -1,3 +1,29 @@
+2000-07-24  Federico Mena Quintero  <federico@helixcode.com>
+
+	* zoom.c (zoom_image_has_standard_size): New function to see
+	whether an image has a well-known screen size.  Sizes stolen from
+	the standard resolutions listed in XF86Config.
+
+	* commands.c (cmd_cb_full_screen): Set the image on the image view
+	directly.  Also, if the image has a standard size and the
+	corresponding option is set, fit the image to the screen.
+
+	* full-screen.c (sb_policy_changed_cb): Set the policy directly.
+	(bevel_changed_cb): Set the bevel directly.
+	(full_screen_set_full_screen_sb_policy): Removed.
+	(full_screen_get_full_screen_sb_policy): Removed.
+	(full_screen_set_bevel): Removed.
+	(full_screen_get_bevel): Removed.
+	(full_screen_set_image): Removed.
+
+	* window.c (sb_policy_changed_cb): Set the policy directly here.
+	(window_set_window_sb_policy): Removed; this is a property of the
+	UIImage (which is a GtkScrollFrame), not of the Window.
+	(window_get_window_sb_policy): Removed.
+	(window_set_auto_size): Removed.
+	(window_get_auto_size): Removed.
+	(window_open_image): Get the auto_size preference directly here.
+
 2000-07-24  Arik Devens  <arik@helixcode.com>
 
 	* full-screen.c: Added bevel prefs to the full screen structure.

@@ -55,15 +55,7 @@ GtkType full_screen_get_type (void);
 
 GtkWidget *full_screen_new (void);
 
-void full_screen_set_image (FullScreen *fs, Image *image);
-
 GtkWidget *full_screen_get_ui_image (FullScreen *fs);
-
-void full_screen_set_full_screen_sb_policy (FullScreen *fs, GtkPolicyType scrollbar);
-GtkPolicyType full_screen_get_full_screen_sb_policy (FullScreen *fs);
-
-void full_screen_set_bevel (FullScreen *fs, gboolean bevel);
-GtkShadowType full_screen_get_bevel (FullScreen *fs);
 
 END_GNOME_DECLS
 

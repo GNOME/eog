@@ -35,6 +35,8 @@ double zoom_fit_scale (guint dest_width, guint dest_height,
 		       guint src_width, guint src_height,
 		       gboolean upscale_smaller);
 
+gboolean zoom_image_has_standard_size (int width, int height);
+
 
 
 #endif

@@ -110,3 +110,42 @@ zoom_fit_scale (guint dest_width, guint dest_height,
 
 	return MIN (wfactor, hfactor);
 }
+
+/**
+ * zoom_image_has_standard_size:
+ * @width: Width of the image.
+ * @height: Height of the image.
+ * 
+ * Computes whether an image has a standard screen size.
+ * 
+ * Return value: Whether the image has a well-known screen size like 640x480.
+ **/
+gboolean
+zoom_image_has_standard_size (int width, int height)
+{
+	/* Taken mostly from the standard resolutions listed in XF86Config */
+	static const struct { int w, h; } sizes[] = {
+		{ 320, 200 },
+		{ 320, 240 },
+		{ 400, 300 },
+		{ 480, 300 },
+		{ 512, 384 },
+		{ 640, 400 },
+		{ 640, 480 },
+		{ 800, 600 },
+		{ 1024, 768 },
+		{ 1152, 864 },
+		{ 1280, 960 },
+		{ 1280, 1024 },
+		{ 1600, 1200 },
+		{ 1800, 1440 }
+	};
+
+	int i;
+
+	for (i = 0; i < sizeof (sizes) / sizeof (sizes[0]); i++)
+		if (width == sizes[i].w && height == sizes[i].h)
+			return TRUE;
+
+	return FALSE;
+}

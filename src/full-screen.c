@@ -36,21 +36,19 @@ typedef struct {
 
 	/* Our GConf client */
 	GConfClient *client;
-	
+
 	/* Full Screen scrolling policy type */
-	GtkPolicyType full_screen_sb_policy;
+	GtkPolicyType sb_policy;
 
 	/* Full Screen bevel preference */
 	gboolean bevel;
 
 	/* GConf client notify id's */
-	guint full_screen_sb_policy_notify_id;
+	guint sb_policy_notify_id;
 	guint bevel_notify_id;
 } FullScreenPrivate;
 
-static const struct {
-	int widget, height;
-} Size;
+
 
 static void full_screen_class_init (FullScreenClass *class);
 static void full_screen_init (FullScreen *fs);
@@ -65,11 +63,11 @@ static GtkWindowClass *parent_class;
 
 /**
 
- * @void: 
- * 
+ * @void:
+ *
  * Registers the #FullScreen class if necessary, and returns the type ID
  * associated to it.
- * 
+ *
  * Return value: The type ID of the #FullScreen class.
  **/
 GtkType
@@ -116,18 +114,35 @@ full_screen_class_init (FullScreenClass *class)
 
 /* Handler for changes on the sb policy */
 static void
-full_screen_sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-				  GConfValue *value, gboolean is_default, gpointer data)
+sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
+		      GConfValue *value, gboolean is_default, gpointer data)
 {
-	full_screen_set_full_screen_sb_policy (FULL_SCREEN (data), gconf_value_int (value));
+	FullScreen *fs;
+	FullScreenPrivate *priv;
+
+	fs = FULL_SCREEN (data);
+	priv = fs->priv;
+
+	priv->sb_policy = gconf_value_int (value);
+
+	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);
 }
 
 /* Handler for changes on the bevel policy */
 static void
-full_screen_bevel_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
+bevel_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
 		  GConfValue *value, gboolean is_default, gpointer data)
 {
-	full_screen_set_bevel (FULL_SCREEN (data), gconf_value_bool (value));
+	FullScreen *fs;
+	FullScreenPrivate *priv;
+
+	fs = FULL_SCREEN (data);
+	priv = fs->priv;
+
+	priv->bevel = gconf_value_bool (value);
+
+	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (priv->ui),
+					  priv->bevel ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
 }
 
 /* Object initialization function for the full screen view */
@@ -141,25 +156,27 @@ full_screen_init (FullScreen *fs)
 
 	priv->client = gconf_client_get_default ();
 
+#if 0
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+#endif
 
-	priv->full_screen_sb_policy_notify_id = gconf_client_notify_add (
+	priv->sb_policy_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/full_screen/sb_policy",
-		full_screen_sb_policy_changed_cb, fs,
+		sb_policy_changed_cb, fs,
 		NULL, NULL);
 	priv->bevel_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/full_screen/bevel",
-		full_screen_bevel_changed_cb, fs,
+		bevel_changed_cb, fs,
 		NULL, NULL);
-	
-	priv->full_screen_sb_policy = gconf_client_get_int (
+
+	priv->sb_policy = gconf_client_get_int (
 		priv->client, "/apps/eog/full_screen/sb_policy",
 		NULL);
 	priv->bevel = gconf_client_get_bool (
 		priv->client, "/apps/eog/full_screen/bevel",
 		NULL);
-	
+
 	GTK_WINDOW (fs)->type = GTK_WINDOW_POPUP;
 	gtk_widget_set_usize (GTK_WIDGET (fs), gdk_screen_width (), gdk_screen_height ());
 	gtk_widget_set_uposition (GTK_WIDGET (fs), 0, 0);
@@ -167,11 +184,11 @@ full_screen_init (FullScreen *fs)
 	priv->ui = ui_image_new ();
 	gtk_container_add (GTK_CONTAINER (fs), priv->ui);
 
-	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui),
-				     full_screen_get_full_screen_sb_policy (FULL_SCREEN (fs)),
-				     full_screen_get_full_screen_sb_policy (FULL_SCREEN (fs)));
-	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (priv->ui), full_screen_get_bevel (FULL_SCREEN (fs)));
-	
+	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);
+
+	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (priv->ui),
+					  priv->bevel ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
+
 	gtk_widget_show (priv->ui);
 }
 
@@ -190,12 +207,12 @@ full_screen_finalize (GtkObject *object)
 
 	/* Remove notification handlers */
 
-	gconf_client_notify_remove (priv->client, priv->full_screen_sb_policy_notify_id);
+	gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
 	gconf_client_notify_remove (priv->client, priv->bevel_notify_id);
-	
-	priv->full_screen_sb_policy_notify_id = 0;
+
+	priv->sb_policy_notify_id = 0;
 	priv->bevel_notify_id = 0;
-	
+
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;
 
@@ -297,10 +314,10 @@ full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 
 /**
  * full_screen_new:
- * @void: 
- * 
+ * @void:
+ *
  * Creates a new empty full screen image viewer.
- * 
+ *
  * Return value: A newly-created full screen image viewer.
  **/
 GtkWidget *
@@ -310,33 +327,11 @@ full_screen_new (void)
 }
 
 /**
- * full_screen_set_image:
- * @fs: A full screen view.
- * @image: An image structure, or NULL if none.
- * 
- * Sets the image to be displayed in a full screen image view.
- **/
-void
-full_screen_set_image (FullScreen *fs, Image *image)
-{
-	FullScreenPrivate *priv;
-	GtkWidget *view;
-
-	g_return_if_fail (fs != NULL);
-	g_return_if_fail (IS_FULL_SCREEN (fs));
-
-	priv = fs->priv;
-
-	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
-	image_view_set_image (IMAGE_VIEW (view), image);
-}
-
-/**
  * full_screen_get_ui_image:
  * @fs: A full screen view.
- * 
+ *
  * Queries the image view scroller inside a full screen image view.
- * 
+ *
  * Return value: An image view scroller.
  **/
 GtkWidget *
@@ -349,94 +344,4 @@ full_screen_get_ui_image (FullScreen *fs)
 
 	priv = fs->priv;
 	return priv->ui;
-}
-
-/**
- * full_screen_set_full_screen_sb_policy:
- * @fs: A full screen view.
- * @scrollbar: Scrollbar policy.
- *
- * Sets the policy for a full screen view's GTK Scroll Frame.
- **/
-void
-full_screen_set_full_screen_sb_policy (FullScreen *fs, GtkPolicyType scrollbar)
-{
-	FullScreenPrivate *priv;
-
-	g_return_if_fail (fs != NULL);
-	g_return_if_fail (IS_FULL_SCREEN (fs));
-
-	priv = fs->priv;
-
-	if (priv->full_screen_sb_policy == scrollbar)
-		return;
-
-	priv->full_screen_sb_policy = scrollbar;
-}
-
-/**
- * full_screen_get_full_screen_sb_policy:
- * @fs: A full screen view.
- *
- * Gets the policy for a full screen view's GTK Scroll Frame.
- *
- * Return value: Scrollbar policy.
- **/
-GtkPolicyType
-full_screen_get_full_screen_sb_policy (FullScreen *fs)
-{
-	FullScreenPrivate *priv;
-
-	g_return_val_if_fail (fs != NULL, GTK_POLICY_NEVER);
-	g_return_val_if_fail (IS_FULL_SCREEN (fs), GTK_POLICY_NEVER);
-
-	priv = fs->priv;
-	return priv->full_screen_sb_policy;
-}
-
-/**
- * full_screen_set_bevel;
- * @fs: A full screen view.
- * @bevel: Bevel boolean.
- *
- * Sets the policy for the bevel of a full screen view's GTK Scroll Frame.
- **/
-void
-full_screen_set_bevel (FullScreen *fs, gboolean bevel)
-{
-	FullScreenPrivate *priv;
-
-	g_return_if_fail (fs != NULL);
-	g_return_if_fail (IS_FULL_SCREEN (fs));
-
-	priv = fs->priv;
-
-	if (priv->bevel == bevel)
-		return;
-
-	priv->bevel = bevel;
-}
-
-/**
- * full_screen_get_bevel:
- * @fs: A full screen view.
- *
- * Gets the policy for the bevel of a full screen view's GTK Scroll Frame.
- *
- * Return value: Bevel policy.
- **/
-GtkShadowType
-full_screen_get_bevel (FullScreen *fs)
-{
-	FullScreenPrivate *priv;
-
-	g_return_val_if_fail (fs != NULL, GTK_SHADOW_IN);
-	g_return_val_if_fail (IS_FULL_SCREEN (fs), GTK_SHADOW_IN);
-
-	priv = fs->priv;
-
-	if (priv->bevel == TRUE)
-		return GTK_SHADOW_IN;
-	else
-		return GTK_SHADOW_NONE;
 }

@@ -25,6 +25,7 @@
 #include "image-view.h"
 #include "ui-image.h"
 #include "window.h"
+#include "zoom.h"
 
 
 
@@ -92,6 +93,7 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 	Image *image;
 	GtkWidget *fs;
 	double zoom;
+	FullScreenZoom zoom_type;
 
 	client = gconf_client_get_default ();
 	
@@ -109,11 +111,26 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 	ui = UI_IMAGE (full_screen_get_ui_image (FULL_SCREEN (fs)));
 	view = IMAGE_VIEW (ui_image_get_image_view (ui));
 
-	full_screen_set_image (FULL_SCREEN (fs), image);
+	image_view_set_image (view, image);
 
 	gtk_widget_show_now (fs);
 
-	switch (gconf_client_get_int (client, "/apps/eog/full_screen/zoom", NULL)) {
+	zoom_type = gconf_client_get_int (client,
+					  "/apps/eog/full_screen/zoom",
+					  NULL);
+
+	if (gconf_client_get_bool (client, "/apps/eog/full_screen/fit_standard", NULL)
+	    && image->pixbuf) {
+		int w, h;
+
+		w = gdk_pixbuf_get_width (image->pixbuf);
+		h = gdk_pixbuf_get_height (image->pixbuf);
+
+		if (zoom_image_has_standard_size (w, h))
+			zoom_type = FULL_SCREEN_ZOOM_FIT;
+	}
+
+	switch (zoom_type) {
 	case FULL_SCREEN_ZOOM_1:
 		image_view_set_zoom (view, 1.0);
 		break;

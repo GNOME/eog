@@ -63,9 +63,6 @@ gboolean window_open_image (Window *window, const char *filename);
 
 GtkWidget *window_get_ui_image (Window *window);
 
-void window_set_window_sb_policy (Window *window, GtkPolicyType scrollbar);
-GtkPolicyType window_get_window_sb_policy (Window *window);
-
 void window_set_auto_size (Window *window, gboolean bool);
 gboolean window_get_auto_size (Window *window);
 
