@@ -2362,7 +2362,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
-	/* g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL); */
+	gtk_widget_set_usize (GTK_WIDGET (priv->scroll_view), 100, 100);
 	g_signal_connect (G_OBJECT (priv->scroll_view),
 			  "zoom_changed",
 			  (GCallback) view_zoom_changed_cb, window);
