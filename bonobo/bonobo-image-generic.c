@@ -43,7 +43,7 @@ static BonoboGenericFactory    *animator_factory = NULL;
  */
 typedef struct {
 	BonoboEmbeddable *bonobo_object;
-	GdkPixbuf       *pixbuf;
+	GdkPixbuf        *pixbuf;
 } bonobo_object_data_t;
 
 /*
@@ -345,6 +345,8 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	    !view_data->bod->pixbuf->art_pixbuf)
 		return;
 
+	g_warning ("Size allocate");
+
 	if (allocation->width  == buf->art_pixbuf->width &&
 	    allocation->height == buf->art_pixbuf->height) {
 		if (view_data->scaled) {
@@ -357,15 +359,17 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	view_buf = view_data->scaled;
 	if (view_buf) {
 		if (allocation->width  == view_buf->art_pixbuf->width &&
-		    allocation->height == view_buf->art_pixbuf->height)
+		    allocation->height == view_buf->art_pixbuf->height) {
+			g_warning ("Correct size %d, %d", allocation->width, allocation->height);
 			return;
-		else {
+		} else {
 			view_data->scaled = NULL;
 			gdk_pixbuf_unref (view_buf);
 			view_buf = NULL;
 		}
 	}
-       
+
+	g_warning ("Re-scale");
 	/* FIXME: should we be FILTER_TILES / FILTER_NEAREST ? */
 	view_data->scaled = gdk_pixbuf_scale_simple (buf, allocation->width,
 						     allocation->height,
@@ -375,30 +379,35 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 
 static BonoboView *
 view_factory_common (BonoboEmbeddable *bonobo_object,
+		     GtkWidget        *scrolled_window,
 		     const Bonobo_ViewFrame view_frame,
 		     void *data)
 {
         BonoboView *view;
 	bonobo_object_data_t *bod = data;
 	view_data_t *view_data = g_new (view_data_t, 1);
+	GtkWidget   *root;
 
 	view_data->bod = bod;
+	view_data->scaled = NULL;
 	view_data->drawing_area = gtk_drawing_area_new ();
-	
-	view_data->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-
-	gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (view_data->scrolled_window), 
-					       view_data->drawing_area);
-
 	view_data->size_allocated = TRUE;
+	view_data->scrolled_window = scrolled_window;
 
 	gtk_signal_connect (
 		GTK_OBJECT (view_data->drawing_area),
 		"expose_event",
 		GTK_SIGNAL_FUNC (drawing_area_exposed), view_data);
 
-        gtk_widget_show_all (view_data->scrolled_window);
-        view = bonobo_view_new (view_data->scrolled_window);
+	if (scrolled_window) {
+		root = scrolled_window;
+		gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (root), 
+						       view_data->drawing_area);
+	} else
+		root = view_data->drawing_area;
+
+	gtk_widget_show_all (root);
+	view = bonobo_view_new (root);
 
 	gtk_object_set_data (GTK_OBJECT (view), "view_data",
 			     view_data);
@@ -414,10 +423,10 @@ scaled_view_factory (BonoboEmbeddable *bonobo_object,
 		     const Bonobo_ViewFrame view_frame,
 		     void *data)
 {
-        BonoboView *view;
+        BonoboView  *view;
 	view_data_t *view_data;
 
-	view = view_factory_common (bonobo_object, view_frame, data);
+	view = view_factory_common (bonobo_object, NULL, view_frame, data);
 
 	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
 
@@ -438,14 +447,17 @@ scrollable_view_factory (BonoboEmbeddable *bonobo_object,
 {
         BonoboView *view;
 	view_data_t *view_data;
+	GtkWidget   *scroll;
 
-	view = view_factory_common (bonobo_object, view_frame, data);
+	scroll = gtk_scrolled_window_new (NULL, NULL);
 
-	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
-
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (view_data->scrolled_window),
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
+
+	view = view_factory_common (bonobo_object, scroll, view_frame, data);
+
+	view_data = gtk_object_get_data (GTK_OBJECT (view), "view_data");
 
 	view_data->size_allocated = TRUE;
 
