@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EOG\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2000-07-24 22:39+02:00\n"
+"POT-Creation-Date: 2001-07-03 19:12+0200\n"
+"PO-Revision-Date: 2001-07-03 19:15+02:00\n"
 "Last-Translator: Christopher R. Gabriel <cgabriel@pluto.linux.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,142 @@ msgstr ""
 #: src/preferences.c:219
 msgid "Preferences"
 msgstr "Preferenze"
+
+#: src/preferences-dialog.glade.h:1
+msgid "Bilinear (normal)"
+msgstr "Bilineare (normale)"
+
+#: src/preferences-dialog.glade.h:2
+msgid "Black only"
+msgstr "Solo nero"
+
+#: src/preferences-dialog.glade.h:3
+msgid "Check size"
+msgstr "Controlla dimensione"
+
+#: src/preferences-dialog.glade.h:4
+msgid "Dark checks"
+msgstr "Riquadri scuri"
+
+#: src/preferences-dialog.glade.h:5
+msgid "Display"
+msgstr "Schermo"
+
+#: src/preferences-dialog.glade.h:6
+msgid "Dither type"
+msgstr "Tipo di sfumatura"
+
+#: src/preferences-dialog.glade.h:7
+msgid "Fit all images to screen"
+msgstr "Adatta tutte le immagini alla finestra"
+
+#: src/preferences-dialog.glade.h:8
+msgid "Fit standard-sized images to screen"
+msgstr "Adatta le immagini di dimensioni standard allo schermo"
+
+#: src/preferences-dialog.glade.h:9
+msgid "Full Screen"
+msgstr "Schermo intero"
+
+#: src/preferences-dialog.glade.h:10
+msgid "Gray only"
+msgstr "Solo grigio"
+
+#: src/preferences-dialog.glade.h:11
+msgid "Hyperbolic (slowest, best quality)"
+msgstr "Iperbolica (lenta, migliore qualita')"
+
+#: src/preferences-dialog.glade.h:12
+msgid "Image Windows"
+msgstr "Finestre immagini"
+
+#: src/preferences-dialog.glade.h:13
+msgid "Interpolation type"
+msgstr "Tipo di interpolazione"
+
+#: src/preferences-dialog.glade.h:14
+msgid "Large"
+msgstr "LArgo"
+
+#: src/preferences-dialog.glade.h:15
+msgid "Light checks"
+msgstr "Riquadri chiari"
+
+#: src/preferences-dialog.glade.h:16
+msgid "Maximum (high color)"
+msgstr "Massimo (molti colori)"
+
+#: src/preferences-dialog.glade.h:17
+msgid "Medium"
+msgstr "Medio"
+
+#: src/preferences-dialog.glade.h:18
+msgid "Midtone checks"
+msgstr "Riquadri a mezzitoni"
+
+#: src/preferences-dialog.glade.h:19
+msgid "Nearest neighbor (fastest, low quality)"
+msgstr "Nearest neighbor (veloce, bassa qualità)"
+
+#: src/preferences-dialog.glade.h:20
+msgid "Never"
+msgstr "Mai"
+
+#: src/preferences-dialog.glade.h:21
+msgid "None"
+msgstr "Nessuno"
+
+#: src/preferences-dialog.glade.h:22
+msgid "Normal (pseudocolor)"
+msgstr "Normale (pseudocolor)"
+
+#: src/preferences-dialog.glade.h:23
+msgid "Only if image does not fit"
+msgstr "Solo se l'immagine non si adatta"
+
+#: src/preferences-dialog.glade.h:24
+msgid "Open images in a new window"
+msgstr "Apri immagine in nuova finestra"
+
+#: src/preferences-dialog.glade.h:25
+msgid "Pick window size and zoom factor automatically"
+msgstr "Seleziona dimensione finestra e fattore di scala automaticamente"
+
+#: src/preferences-dialog.glade.h:26
+msgid "Put a bevel around the edge of the screen"
+msgstr "Aggiungi una sfumatura al bordo dello schermo"
+
+#: src/preferences-dialog.glade.h:27
+msgid "Small"
+msgstr "Piccolo"
+
+#: src/preferences-dialog.glade.h:28
+msgid "Transparency type"
+msgstr "Tipo di trasparenza"
+
+#: src/preferences-dialog.glade.h:29
+msgid "Two-pass scrolling"
+msgstr "Scorrimento a due tempi"
+
+#: src/preferences-dialog.glade.h:30
+msgid "Use 1:1 zoom factor"
+msgstr "Usa scala 1:1"
+
+#: src/preferences-dialog.glade.h:31
+msgid "Use same zoom factor as image window"
+msgstr "Utilizza lo stesso fattore di scala della finestra dell'immagine"
+
+#: src/preferences-dialog.glade.h:32
+msgid "Use scrollbars"
+msgstr "Utilizza barre di scorrimento"
+
+#: src/preferences-dialog.glade.h:33
+msgid "Viewers"
+msgstr "Visualizzatori"
+
+#: src/preferences-dialog.glade.h:34
+msgid "White only"
+msgstr "Solo bianco"
 
 #: src/tb-image.c:33
 msgid "Open"
@@ -54,14 +190,13 @@ msgstr "Riempi"
 msgid "Could not open `%s'"
 msgstr "Impossibile aprire `%s'"
 
-#: src/window.c:162 src/window.c:573 src/window.c:812
+#: eog.desktop.in.h:1 src/window.c:162 src/window.c:573 src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 #: src/window.c:164
-#, fuzzy
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Copyright (C) 2000 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
 #: src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
@@ -152,6 +287,7 @@ msgid "Zoom In"
 msgstr "Ingrandisci"
 
 #: src/window.c:221
+#, c-format
 msgid "Increase zoom factor by 5%%"
 msgstr "Incrementa fattore di zoom del 5%%"
 
@@ -160,6 +296,7 @@ msgid "Zoom Out"
 msgstr "Riduci"
 
 #: src/window.c:225
+#, c-format
 msgid "Decrease zoom factor by 5%%"
 msgstr "Riduci fattore di zoom del 5%%"
 
@@ -195,23 +332,119 @@ msgstr "Utilizza tutto lo schermo per visualizzare l'immagine"
 msgid "Open Image"
 msgstr "Apri immagine"
 
+#: viewer/GNOME_EOG.oaf.in.h:1
+msgid "EOG Image"
+msgstr "Immagine EOG"
+
+#: viewer/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "Visualizzatore di immagini EOG"
+
+#: viewer/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "Factory Visualizzatore di Immagini EOG"
+
+#: viewer/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr "Immagine EOG Embeddable"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Controlla _dimensione"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Controlla _tipo"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Controlla dimensione massima"
+
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Controlla dimensione media"
+
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Controlla dimensione piccola"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Controlla tipo _nero"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Controlla tipo _scuro"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "Controlla tipo _grigio"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Controlla tipo _chiaro"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "Controlla tipo _mezzetinte"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Controlla tipo _bianco"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "E_OG"
+msgstr "E_OG"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Interpolazione _Nearest neighbor"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Sfumatura Normale (_pseudocolor)"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Bilinear Interpolation"
+msgstr "Interpolazione _bilineare"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dither"
+msgstr "_Sfumatura"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Hyperbolic Interpolation"
+msgstr "Interpolazione _Iperbolica"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Interpolation"
+msgstr "_Interpolazione"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Maximum (high color) dithering"
+msgstr "Dithering _massimo (molti colori)"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_No dithering"
+msgstr "_No dithering"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Tiles Interpolation"
+msgstr "Interpolazione riquadri"
+
 #: viewer/eog-image-view.c:915
-#, fuzzy
 msgid "Interpolation"
-msgstr "Tipo di interpolazione"
+msgstr "Interpolazione"
 
 #: viewer/eog-image-view.c:918
-#, fuzzy
 msgid "Dither"
-msgstr "Tipo di sfumatura"
+msgstr "Sfumatura"
 
 #: viewer/eog-image-view.c:921
-#, fuzzy
 msgid "Check Type"
-msgstr "Controlla dimensione"
+msgstr "Controlla tipo"
 
 #: viewer/eog-image-view.c:924
-#, fuzzy
 msgid "Check Size"
 msgstr "Controlla dimensione"
 
@@ -219,105 +452,7 @@ msgstr "Controlla dimensione"
 msgid "I could not initialize Bonobo"
 msgstr "Impossibile inizializzare Bonobo"
 
-#~ msgid "Transparency type"
-#~ msgstr "Tipo di trasparenza"
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Visualizzatore immagini"
 
-#~ msgid ""
-#~ "Dark checks\n"
-#~ "Midtone checks\n"
-#~ "Light checks\n"
-#~ "Black only\n"
-#~ "Gray only\n"
-#~ "White only\n"
-#~ msgstr ""
-#~ "Quadrati scuri\n"
-#~ "Quadrati medi\n"
-#~ "Quadrati chiari\n"
-#~ "Solo nero\n"
-#~ "Solo grigio\n"
-#~ "Solo bianco\n"
-
-#~ msgid ""
-#~ "Small\n"
-#~ "Medium\n"
-#~ "Large\n"
-#~ msgstr ""
-#~ "Piccolo\n"
-#~ "Medio\n"
-#~ "Grande\n"
-
-#~ msgid ""
-#~ "Nearest neighbor\n"
-#~ "Bilinear\n"
-#~ "Hyperbolic\n"
-#~ msgstr ""
-#~ "Nearest neighbor\n"
-#~ "Bilineare\n"
-#~ "Iperbolico\n"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Scorrimento a due tempi"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "Nessuno\n"
-#~ "Normale (pseudocolor)\n"
-#~ "Massimo (high color)\n"
-
-#~ msgid "Display"
-#~ msgstr "Schermo"
-
-#~ msgid "Image Windows"
-#~ msgstr "Finestre immagini"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Utilizza barre di scorrimento"
-
-#~ msgid ""
-#~ "Never\n"
-#~ "Only if image does not fit\n"
-#~ msgstr ""
-#~ "Mai\n"
-#~ "Solo se l'immagine non si adatta\n"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Seleziona dimensione finestra e fattore di scala automaticamente"
-
-#~ msgid "Open images in a new window"
-#~ msgstr "Apri immagine in nuova finestra"
-
-#~ msgid "Full Screen"
-#~ msgstr "Schermo intero"
-
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Usa scala 1:1"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Utilizza lo stesso fattore di scala della finestra dell'immagine"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "Adatta tutte le immagini alla finestra"
-
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Adatta le immagini di dimensioni standard allo schermo"
-
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Aggiungi una sfumatura al bordo dello schermo"
-
-#~ msgid "Viewers"
-#~ msgstr "Visualizzatori"
-
-#~ msgid "Save image collection `%s'?"
-#~ msgstr "Salva collezione di immagini `%s'?"
-
-#~ msgid "Save"
-#~ msgstr "Salva"
-
-#~ msgid "Don't save"
-#~ msgstr "Non salvare"
-
-#~ msgid "Don't exit"
-#~ msgstr "Non uscire"
