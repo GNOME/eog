@@ -26,7 +26,7 @@ eog_LDADD = 	\
 	$(INTLLIBS)		\
 	../libeog/libeog.la
 
-uidir = $(datadir)/gnome/ui
+uidir = $(datadir)/gnome-2.0/ui
 UI_FILES = eog-shell-ui.xml 
 ui_DATA = $(UI_FILES)
 
