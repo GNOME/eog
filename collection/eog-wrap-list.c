@@ -1169,7 +1169,8 @@ do_item_rearrangement (EogWrapList *wlist)
 
 	/* set new canvas scroll region */
 	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) - priv->col_spacing;
-	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) + EOG_WRAP_LIST_BORDER;
+	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) - priv->row_spacing + 
+		2 * EOG_WRAP_LIST_BORDER;
  	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
 					0.0, 0.0,
 					sr_width, sr_height);
