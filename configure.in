@@ -29,6 +29,8 @@ AC_SUBST(LDFLAGS)
 
 AM_PATH_GDK_PIXBUF(0.7.0, ,AC_MSG_ERROR([Need gdk-pixbuf-0.7.0 or later!]))
 
+AM_PATH_GCONF(,,,gconf-gtk)
+
 dnl ******************************
 dnl Check for Bonobo
 dnl ******************************

@@ -63,7 +63,8 @@ testicon_SOURCES =			\
 
 eog_LDADD =			\
 	$(EXTRA_GNOME_LIBS)	\
-	$(INTLLIBS)
+	$(INTLLIBS)		\
+	$(GCONF_LIBS)
 
 testicon_LDADD =		\
 	$(EXTRA_GNOME_LIBS)	\

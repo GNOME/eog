@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <gconf/gconf-client.h>
 #include <gnome.h>
 #include <glade/glade.h>
 #include "preferences.h"
@@ -35,6 +36,7 @@ main (int argc, char **argv)
 	GtkWidget *window;
 	const char **args;
 	gboolean opened;
+	GConfError *error = NULL;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	textdomain (PACKAGE);
@@ -43,6 +45,15 @@ main (int argc, char **argv)
 	gdk_rgb_init ();
 	glade_gnome_init ();
 
+	if (!gconf_init (argc, argv, &error)) {
+	  g_assert (error != NULL);
+	  g_warning ("GConf init failed:\n %s", error->str);
+	  gconf_error_destroy (error);
+	  error = NULL;
+	  return 1;
+	}
+
+	//gconf_init (argc, argv, NULL);
 	stock_init ();
 	prefs_init ();
 

@@ -25,8 +25,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkenums.h>
 
-
-
 /* Interpolation type for views */
 extern GdkInterpType prefs_interp_type;
 
@@ -89,12 +87,8 @@ extern gboolean prefs_full_screen_fit_standard;
 /* Put a bevel around the edge of the screen */
 extern gboolean prefs_full_screen_bevel;
 
-
-
 void prefs_init (void);
 
 void prefs_dialog (void);
-
-
 
 #endif

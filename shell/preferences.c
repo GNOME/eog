@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <gconf/gconf-client.h>
 #include <libgnome/libgnome.h>
 #include <gtk/gtkmenu.h>
 #include <gtk/gtkmenuitem.h>
@@ -29,8 +30,6 @@
 #include <libgnomeui/gnome-propertybox.h>
 #include <glade/glade.h>
 #include "preferences.h"
-
-
 
 GdkInterpType  prefs_interp_type;
 CheckType      prefs_check_type;
@@ -45,8 +44,6 @@ FullScreenZoom prefs_full_screen_zoom;
 gboolean       prefs_full_screen_fit_standard;
 gboolean       prefs_full_screen_bevel;
 
-
-
 /**
  * prefs_init:
  * @void: 
@@ -57,39 +54,49 @@ gboolean       prefs_full_screen_bevel;
 void
 prefs_init (void)
 {
-	gnome_config_push_prefix ("/eog/");
+  	GConfClient *client = NULL;
+	
+	client = gconf_client_new ();
+	
+	prefs_interp_type = gconf_client_get_int (
+		client, "/apps/eog/view/interp_type",
+		NULL); /* bilinear default=2 */
+	prefs_check_type = gconf_client_get_int (
+		client, "/apps/eog/view/check_type",		
+		NULL); /* midtone default=1 */
+	prefs_check_size = gconf_client_get_int (
+		client, "/apps/eog/view/check_size",
+		NULL); /* large default=2 */
+	prefs_dither = gconf_client_get_int (
+		client, "/apps/eog/view/dither",
+		NULL); /* normal default=1 */
+	prefs_scroll = gconf_client_get_int (
+		client, "/apps/eog/view/scroll",
+		NULL); /* two-pass default=1 */
+	
+	prefs_window_sb_policy = gconf_client_get_int (
+		client, "/apps/eog/window/sb_policy",
+		NULL); /* automatic default=1 */
+	prefs_window_auto_size = gconf_client_get_bool (
+		client, "/apps/eog/window/auto_size",
+		NULL); /* true default=1 */
+	prefs_open_new_window = gconf_client_get_bool (
+		client, "/apps/eog/window/open_new_window",
+		NULL); /* false default=0 */
 
-	prefs_interp_type = gnome_config_get_int (
-		"view/interp_type=2"); /* bilinear */
-	prefs_check_type = gnome_config_get_int (
-		"view/check_type=1"); /* midtone */
-	prefs_check_size = gnome_config_get_int (
-		"view/check_size=2"); /* large */
-	prefs_dither = gnome_config_get_int (
-		"view/dither=1"); /* normal */
-	prefs_scroll = gnome_config_get_int (
-		"view/scroll=1"); /* two-pass */
-
-	prefs_window_sb_policy = gnome_config_get_int (
-		"window/sb_policy=1"); /* automatic */
-	prefs_window_auto_size = gnome_config_get_bool (
-		"window/auto_size=1"); /* true */
-	prefs_open_new_window = gnome_config_get_bool (
-		"window/open_new_window=0"); /* false */
-
-	prefs_full_screen_sb_policy = gnome_config_get_int (
-		"full_screen/sb_policy=1"); /* never */
-	prefs_full_screen_zoom = gnome_config_get_int (
-		"full_screen/zoom=2"); /* fit */
-	prefs_full_screen_fit_standard = gnome_config_get_bool (
-		"full_screen/fit_standard=1"); /* true */
-	prefs_full_screen_bevel = gnome_config_get_bool (
-		"full_screen/bevel=0"); /* false */
-
-	gnome_config_pop_prefix ();
+	prefs_full_screen_sb_policy = gconf_client_get_int (
+		client, "/apps/eog/full_screen/sb_policy",
+		NULL); /* never default=0 */
+	prefs_full_screen_zoom = gconf_client_get_int (
+		client, "/apps/eog/full_screen/zoom",
+		NULL); /* fit default=0 */
+//	prefs_full_screen_fit_standard = gconf_client_get_bool (
+//		client, "/apps/eog/full_screen/fit_standard",
+//		NULL); /* true default=1 */
+//	prefs_full_screen_bevel = gconf_client_get_bool (
+//		client, "/apps/eog/full_screen/bevel",
+//		NULL); /* false default=0 */
 }
-
-
 
 /* Glade definition and contents of the preferences dialog */
 
