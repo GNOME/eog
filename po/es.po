@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-12 03:16+0100\n"
-"PO-Revision-Date: 2003-12-12 11:22+0100\n"
+"POT-Creation-Date: 2003-12-21 22:51+0100\n"
+"PO-Revision-Date: 2003-12-21 22:51+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "Mover a la papelera"
 msgid "Collection View"
 msgstr "Vista de colección"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Título de la ventana"
 
@@ -115,7 +115,7 @@ msgstr "Título de la ventana"
 msgid "Status Text"
 msgstr "Texto de estado"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Progreso de carga de la imagen"
 
@@ -314,50 +314,58 @@ msgstr "Imagen de EOG incrustada"
 msgid "Image"
 msgstr "Imagen"
 
-#: libeog/eog-file-selection.c:44
+#: libeog/eog-file-selection.c:45
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "¿Quiere sobreescribir %s?"
 
-#: libeog/eog-file-selection.c:49
+#: libeog/eog-file-selection.c:50
 msgid "File exists"
 msgstr "El archivo existe"
 
-#: libeog/eog-file-selection.c:117
+#: libeog/eog-file-selection.c:119
+msgid "All Files"
+msgstr "Todos los archivos"
+
+#: libeog/eog-file-selection.c:125
 msgid "All Images"
 msgstr "Todas las imágenes"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:135
+#: libeog/eog-file-selection.c:143
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:196
 msgid "Load Image"
 msgstr "Cargar imagen"
 
-#: libeog/eog-file-selection.c:188
+#: libeog/eog-file-selection.c:204
 msgid "Save Image"
 msgstr "Guardar imagen"
 
-#: libeog/eog-file-selection.c:230
+#: libeog/eog-file-selection.c:246
 msgid "Open Folder"
 msgstr "Abrir carpeta"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "No se pudo reservar suficiente memoria para cargar el archivo JPEG"
 
-#: libeog/eog-image.c:1296
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr "archivo vacío"
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "No se ha cargado ninguna imagen."
 
-#: libeog/eog-image.c:1306
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Las imágenes sólo pueden guardarse como archivos locales."
 
-#: libeog/eog-image.c:1317
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Tipo de imagen no soportado para guardar."
 
@@ -390,7 +398,7 @@ msgid "Page"
 msgstr "Página"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:384
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Vista previa"
 
@@ -502,7 +510,8 @@ msgstr "Cambiar la visibilidad de la barra de estado en la ventana actual"
 
 #: shell/eog-shell-ui.xml.h:4
 msgid "Change the visibility of the toolbar in the current window"
-msgstr "Cambiar la visibilidad de la barra de herramientas en la ventana actual"
+msgstr ""
+"Cambiar la visibilidad de la barra de herramientas en la ventana actual"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
@@ -734,45 +743,45 @@ msgid "_Print..."
 msgstr "Im_primir..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:535
+#: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i píxeles %s   %i%%"
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/Rotar en sentido _horario"
 
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rotar en sentido _antihorario"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Ampliar"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/_Reducir"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/Tamaño _normal"
 
-#: viewer/eog-image-view.c:838
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Ajus_te óptimo"
 
-#: viewer/eog-image-view.c:841
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Cerrar"
 
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "La carga de la imagen %s ha fallado."
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -782,35 +791,35 @@ msgstr ""
 "Razón: %s"
 
 #. show error dialog
-#: viewer/eog-image-view.c:1020
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "La carga ha fallado"
 
-#: viewer/eog-image-view.c:1103
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Imagen guardada con éxito"
 
-#: viewer/eog-image-view.c:1107
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Ha ocurrido un fallo al guardar la imagen"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Anchura de la imagen"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Altura de la imagen"
 
-#: viewer/eog-image-view.c:1360
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Texto de la barra de estado"
 
-#: viewer/eog-image-view.c:1363
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "Anchura de la ventana deseada"
 
-#: viewer/eog-image-view.c:1366
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "Altura de la ventana deseada"
 
