@@ -1,15 +1,15 @@
 # Lithuanian translation of eog
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Gediminas Paulauskas <menesis@delfi.lt>, 2000-2001.
-# Žygimantas Beručka <menesis@delfi.lt>, 2003.
+# Žygimantas Beručka <menesis@delfi.lt>, 2003-2004.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: eog\n"
+"Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-30 15:51+0200\n"
-"PO-Revision-Date: 2003-12-30 15:51+0200\n"
+"POT-Creation-Date: 2004-01-26 20:23+0200\n"
+"PO-Revision-Date: 2004-01-26 20:22+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@tuxfamily.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
-msgstr "EOG paveikslėlių kolekcijos žiūryklė"
+msgstr "EOG paveikslėlių kolekcijos žiūrėjimo programa"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image collection view factory"
@@ -26,7 +26,7 @@ msgstr "EOG paveikslėlių kolekcijos žiūryklės gamykla"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
-msgstr "Paveikslėlių kolekcija"
+msgstr "paveikslėlių kolekciją"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -87,31 +87,31 @@ msgstr "_Atšaukti"
 msgid "_View"
 msgstr "_Rodyti"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Atšaukti saugojimą"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Išsaugojimas baigtas"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Perkelti į šiukšlinę"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:855
 msgid "Collection View"
 msgstr "Kolekcijos vaizdas"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Lango antraštė"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1348
 msgid "Status Text"
 msgstr "Būsenos juostos tekstas"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Paveikslėlio įkėlimo progresas"
 
@@ -121,7 +121,7 @@ msgstr "Išsaugomas paveikslėlis"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
-msgstr "Paveikslėlių žiūryklė"
+msgstr "Paveiksliukų žiūrėjimo programa"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
@@ -170,7 +170,7 @@ msgstr "Skaidrių vietų spalva"
 
 #: eog.glade.h:12
 msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome nuostatos"
+msgstr "Eye of Gnome nustatymai"
 
 #: eog.glade.h:13
 msgid "Image _View"
@@ -294,7 +294,7 @@ msgstr "EOG paveikslėlis"
 
 #: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
-msgstr "EOG paveikslėlių žiūryklė"
+msgstr "EOG paveikslėlių žiūrėjimo programa"
 
 #: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
@@ -308,42 +308,53 @@ msgstr "Įdiegiamas EOG paveiksliukas"
 msgid "Image"
 msgstr "Paveiksliukas"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Ar norite perrašyti %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr "Byla egzistuoja"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr "Visos bylos"
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
 msgstr "Visi paveiksliukai"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s taškų"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Įkelti paveiksliuką"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Išsaugoti pavekslėlį"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
 msgstr "Atidaryti katalogą"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Negaliu sukurti laikinos bylos saugojimui: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Negaliu priskirti atminties JPEG bylos įkėlimui"
 
@@ -544,11 +555,11 @@ msgstr "Atidaryti šiame lange"
 
 #: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
-msgstr "_Nuostatos"
+msgstr "_Nustatymai"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "Preferences for Eye of Gnome"
-msgstr "Eye of Gnome nuostatos"
+msgstr "Eye of Gnome nustatymai"
 
 #: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
@@ -607,7 +618,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Žygimantas Beručka <uid0@tuxfamily.org>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -624,7 +635,7 @@ msgstr ""
 "Nepavyko parodyti Eye of Gnome pagalbos.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -633,21 +644,21 @@ msgstr ""
 "Tu ruošiesi atidaryti %i langus vienu metu. Gal geriau nori juos atidaryti "
 "kolekcijoje?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Atidaryti kelis pavienius langus?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Pavieniai langai"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Kolekcija"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Neradau bylų"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Byla(-ų) nerasta."
 
 #: shell/util.c:52
 #, c-format
@@ -783,33 +794,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Įkėlimas nepavyko"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Paveikslėlis sėkmingai išsaugotas"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Paveikslėlio išsaugojimas nepavyko"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Paveikslėlio plotis"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Paveikslėlio aukštis"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Būsėnos juostos tekstas"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Pasirinktas lango plotis"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Pasirinktas lango aukštis"
+
+#~ msgid "Could not find files"
+#~ msgstr "Neradau bylų"
 
 #~ msgid "By Extension"
 #~ msgstr "Pagal prievardį"
