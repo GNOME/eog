@@ -9,6 +9,9 @@
 
 #include "eog-info-view.h"
 
+#define MODEL_COLUMN_ATTRIBUTE 0
+#define MODEL_COLUMN_VALUE     1
+
 enum {
 	SIGNAL_ID_SIZE_PREPARED,
 	SIGNAL_ID_INFO_FINISHED,
@@ -16,10 +19,15 @@ enum {
 	SIGNAL_ID_LAST
 };
 
+
 struct _EogInfoViewPrivate
 {
 	EogImage *image;
 	int image_signal_ids [SIGNAL_ID_LAST];
+
+	GtkTreeModel *model;
+	GHashTable   *id_path_hash; /* saves the stringified GtkTreeModel path  
+				       for a given EXIF entry id */
 };
 
 GNOME_CLASS_BOILERPLATE (EogInfoView, eog_info_view,
@@ -38,6 +46,16 @@ eog_info_view_dispose (GObject *object)
 	if (priv->image) {
 		g_object_unref (priv->image);
 		priv->image = NULL;
+	}
+
+	if (priv->model) {
+		g_object_unref (priv->model);
+		priv->model = NULL;
+	}
+
+	if (priv->id_path_hash) {
+		g_hash_table_destroy (priv->id_path_hash);
+		priv->id_path_hash = NULL;
 	}
 }
 
@@ -79,12 +97,14 @@ eog_info_view_instance_init (EogInfoView *view)
 	for (s = 0; s < SIGNAL_ID_LAST; s++) {
 		priv->image_signal_ids [s] = 0;
 	} 
+	priv->model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING));
+	priv->id_path_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 
 	/* tag column */
 	cell = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (_("Attribute"),
 		                                           cell, 
-                                                           "text", 0,
+                                                           "text", MODEL_COLUMN_ATTRIBUTE,
 							   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
@@ -92,23 +112,54 @@ eog_info_view_instance_init (EogInfoView *view)
 	cell = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (_("Value"),
 		                                           cell, 
-                                                           "text", 1,
+                                                           "text", MODEL_COLUMN_VALUE,
 							   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
 }
 
+static gboolean
+clear_single_row (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
+{
+	gtk_list_store_set (GTK_LIST_STORE (model), iter, MODEL_COLUMN_ATTRIBUTE, " ", MODEL_COLUMN_VALUE, " ", -1);
+	return FALSE;
+}
+
 static void
-append_row (GtkListStore *store, const char *attribute, const char *value)
+clear_values (GtkListStore *store) 
+{
+	gtk_tree_model_foreach (GTK_TREE_MODEL (store), clear_single_row, NULL);
+}
+
+static char*
+set_row_data (GtkListStore *store, char *path, const char *attribute, const char *value)
 {
 	GtkTreeIter iter;
 	char *utf_attribute = NULL;
 	char *utf_value = NULL;
+	gboolean iter_valid = FALSE;
 
-	if (!attribute) return;
+	if (!attribute) return NULL;
 
-	gtk_list_store_append (store, &iter);
+	if (path != NULL) {
+		iter_valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, path);
+	}
+
+	if (!iter_valid) {
+		GtkTreePath *tree_path;
+
+		gtk_list_store_append (store, &iter);
+
+		if (path == NULL) {
+			tree_path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
+			
+			if (tree_path != NULL) {
+				path = gtk_tree_path_to_string (tree_path);
+				gtk_tree_path_free (tree_path);
+			}
+		}
+	}
 
 	if (g_utf8_validate (attribute, -1, NULL)) {
 		utf_attribute = g_strdup (attribute);
@@ -116,7 +167,7 @@ append_row (GtkListStore *store, const char *attribute, const char *value)
 	else {
 		utf_attribute = g_locale_to_utf8 (attribute, -1, NULL, NULL, NULL);
 	}
-	gtk_list_store_set (store, &iter, 0, utf_attribute, -1);
+	gtk_list_store_set (store, &iter, MODEL_COLUMN_ATTRIBUTE, utf_attribute, -1);
 	g_free (utf_attribute);
 
 	if (value != NULL) {
@@ -127,16 +178,17 @@ append_row (GtkListStore *store, const char *attribute, const char *value)
 			utf_value = g_locale_to_utf8 (value, -1, NULL, NULL, NULL);
 		}
 		
-		gtk_list_store_set (store, &iter, 1, utf_value, -1);
+		gtk_list_store_set (store, &iter, MODEL_COLUMN_VALUE, utf_value, -1);
 		g_free (utf_value);
 	}
+
+	return path;
 }
 
 static void
 add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *store)
 {
 	char buffer[32];
-	GtkTreeIter iter;
 	int width, height;
 	GnomeVFSFileSize bytes;
 	char *size_str;
@@ -154,13 +206,8 @@ add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *stor
 	else {
 		buffer[0] = '\0';
 	}
+	set_row_data (store, "1", _("Width"), buffer);
 
-	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "1")) {
-		append_row (store, _("Width"), buffer);
-	}
-	else {
-		gtk_list_store_set (store, &iter, 1, buffer, -1);
-	}
 
 	if (height > -1) {
 		g_snprintf (buffer, 32, "%i", height);	
@@ -169,20 +216,11 @@ add_image_size_attribute (EogInfoView *view, EogImage *image, GtkListStore *stor
 		buffer[0] = '\0';
 	}
 
-	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "2")) {
-		append_row (store, _("Height"), buffer);
-	}
-	else {
-		gtk_list_store_set (store, &iter, 1, buffer, -1);
-	}
+	set_row_data (store, "2",_("Height"), buffer);
 
 	size_str = gnome_vfs_format_file_size_for_display (bytes);
-	if (!gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &iter, "3")) {
-		append_row (store, _("Filesize"), size_str);
-	}
-	else {
-		gtk_list_store_set (store, &iter, 1, size_str, -1);
-	}
+	set_row_data (store, "3", _("Filesize"), size_str);
+
 	g_free (size_str);
 }
 
@@ -196,7 +234,7 @@ add_image_filename_attribute (EogInfoView *view, EogImage *image, GtkListStore *
 	g_return_if_fail (GTK_IS_LIST_STORE (store));
 
 	caption = eog_image_get_caption (image);
-	append_row (store, _("Filename"), caption);
+	set_row_data (store, "0", _("Filename"), caption);
 }
 
 
@@ -205,10 +243,28 @@ static void
 exif_entry_cb (ExifEntry *entry, gpointer data)
 {
 	GtkListStore *store;
+	EogInfoView *view;
+	EogInfoViewPrivate *priv;
+	char *path;
 
-	store = GTK_LIST_STORE (data);
+	view = EOG_INFO_VIEW (data);
+	priv = view->priv;
 
-	append_row (store, exif_tag_get_name (entry->tag), exif_entry_get_value (entry));	
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+	
+	path = g_hash_table_lookup (priv->id_path_hash, GINT_TO_POINTER (entry->tag));
+
+	if (path != NULL) {
+		set_row_data (store, path, exif_tag_get_name (entry->tag), exif_entry_get_value (entry));	
+	}
+	else {
+		path = set_row_data (store, NULL, 
+				     exif_tag_get_name (entry->tag), exif_entry_get_value (entry));	
+
+		g_hash_table_insert (priv->id_path_hash,
+				     GINT_TO_POINTER (entry->tag),
+				     path);
+	}
 }
 
 static void
@@ -218,9 +274,9 @@ exif_content_cb (ExifContent *content, gpointer data)
 }
 
 static void
-fill_list_exif (EogImage *image, GtkListStore *store, ExifData *ed)
+fill_list_exif (EogInfoView *view, ExifData *ed)
 {
-	exif_data_foreach_content (ed, exif_content_cb, store);
+	exif_data_foreach_content (ed, exif_content_cb, view);
 }
 #endif
 
@@ -248,7 +304,7 @@ add_image_exif_attribute (EogInfoView *view, EogImage *image, GtkListStore *stor
 #if HAVE_EXIF
 	ed = (ExifData*) eog_image_get_exif_information (image);
 	if (ed != NULL) {
-		fill_list_exif (image, store, ed);
+		fill_list_exif (view, ed);
 		exif_data_unref (ed);
 	}
 #endif
@@ -310,21 +366,19 @@ image_changed_cb (EogImage *image, gpointer data)
 	view = EOG_INFO_VIEW (data);
 
 	/* create new list */
-	store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+	clear_values (store);
 
 	/* add image attributes */
 	add_image_filename_attribute (view, image, store);
 	add_image_size_attribute (view, image, store);
 	add_image_exif_attribute (view, image, store);
-
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (store));
 }
 
 void
 eog_info_view_set_image (EogInfoView *view, EogImage *image)
 {
 	EogInfoViewPrivate *priv;
-	GtkListStore *store;
 	int s;
 
 	g_return_if_fail (EOG_IS_INFO_VIEW (view));
@@ -351,15 +405,16 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 		return;
 	}
 
+	clear_values (GTK_LIST_STORE (priv->model));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (view), priv->model);
+
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	g_object_ref (image);
 	priv->image = image;
 
-	store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 	/* display at least the filename */
-	add_image_filename_attribute (view, image, store);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (store));
+	add_image_filename_attribute (view, image, GTK_LIST_STORE (priv->model));
 
 	/* prepare additional image information callbacks */
 	priv->image_signal_ids [SIGNAL_ID_INFO_FINISHED] = 

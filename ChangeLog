@@ -1,3 +1,19 @@
+2004-02-15  Jens Finke  <jens@triq.net>
+
+	Don't lost exif data scroll position when switching to a new image
+	in collection view. Fixes #123463.
+	
+	* libeog/eog-info-view.c (clear_single_row), (clear_values): New
+	functions.
+	(set_row_data): New function. Set data for a given treeview path
+	or appends a new row if it doesn't exist.
+	(append_row): Removed.
+	(add_image_size_attribute): Use set_row_data.
+	(exif_entry_cb): Use hashtable to determine the row for a given
+	exif attribute.
+	(eog_info_view_set_image),
+	(image_changed_cb): Clear list, but don't use new model.
+
 ====== 2.5.4 =======
 
 2004-02-03  Jens Finke  <jens@triq.net>
