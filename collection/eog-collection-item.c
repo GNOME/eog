@@ -98,7 +98,7 @@ eog_collection_item_destroy (GtkObject *object)
 }
 
 static void
-set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
+set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 {
 	EogCollectionItemPrivate *priv;
 	GdkPixbuf *scaled;
@@ -168,7 +168,12 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf)
 			       "x2", (double) (image_x + image_width - 1),
 			       "y2", (double) (image_y + image_height - 1),
 			       NULL);
-	gnome_canvas_item_show (priv->frame);
+	if (view_frame) {
+		gnome_canvas_item_show (priv->frame);
+	}
+	else {
+		gnome_canvas_item_hide (priv->frame);
+	}
 
 	gdk_pixbuf_unref (scaled);
 
@@ -239,7 +244,7 @@ thumbnail_finished_cb (EogImage *image, gpointer data)
 
 	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
 
-	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf);
+	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, TRUE);
 
 	gdk_pixbuf_unref (pixbuf);
 }
@@ -251,9 +256,7 @@ thumbnail_failed_cb (EogImage *image, gpointer data)
 
 	pixbuf = get_failed_pixbuf ();
 
-	g_print ("pixmap failed.%s", eog_image_get_caption (image));
-
-	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf);
+	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, FALSE);
 
 	gdk_pixbuf_unref (pixbuf);
 }	
@@ -268,7 +271,7 @@ image_changed_cb (EogImage *image, gpointer data)
 
 	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
 
-	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf);
+	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, TRUE);
 
 	gdk_pixbuf_unref (pixbuf);
 }
@@ -426,7 +429,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), item);
 
 	pixbuf = get_busy_pixbuf ();
-	set_pixbuf (item, pixbuf);
+	set_pixbuf (item, pixbuf, FALSE);
 	gdk_pixbuf_unref (pixbuf);
 
 	gnome_canvas_item_request_update (GNOME_CANVAS_ITEM (item));

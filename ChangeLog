@@ -1,5 +1,16 @@
 2003-10-12  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-item.c (set_pixbuf): Added flag wether
+	or not a frame should be shown around the thumbnail.
+	(thumbnail_finished_cb),
+	(image_changed_cb): Show frame.
+	(thumbnail_failed_cb),
+	(eog_collection_item_construct): Hide frame.
+
+	* configure.in: Bumped version to 2.5.0.
+
+2003-10-12  Jens Finke  <jens@triq.net>
+
 	* collection/eog-canvas-pixbuf.c (compute_viewport_affine),
 	(eog_canvas_pixbuf_point): Free pixbuf.
 
