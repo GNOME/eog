@@ -1,3 +1,54 @@
+2002-08-17  Jens Finke <jens@triq.net>
+
+	Added optional usage of libpreview (CVS version), which
+	implements thumbnail creation/storage after Thumbnail Management
+	Standard.
+
+	* configure.in: Added check for libpreview if collection view is
+	enabled.
+
+	* collection/Makefile.am (EXTRA_DIST): Added
+	eog-collection-marshal.list.
+	
+	* collection/eog-image-loader-simple.[ch]: New files. 
+	
+	* collection/eog-image-loader-preview.[ch]: New files. Image
+	loader, which utilizes libpreview library.
+	
+	* collection/Makefile.am: Added libpreview conditional stuff and
+	the new files.
+
+	* collection/eog-collection-model.c: Removed image loading stuff.
+
+	* collection/eog-collection-view.c
+	(eog_collection_view_construct): Create either simple or
+	libpreview image loader.
+
+	* collection/eog-image-loader.[ch]: Reworked this as abstract
+	interface. Moved previous implementation to
+	eog-image-loader-simple.[ch].
+
+	* collection/eog-item-factory-clean.[ch]: Added FACTORY DEBUG flag.
+	(eog_item_factory_clean_instance_init): Set default thumbnail size
+	to 96x96.
+	(eog_item_factory_clean_dispose): Free image loader.
+	(update_item_image): Added debug messages. Start thumbnail
+	creation.
+	(image_loading_finished),
+	(image_loading_failed_cb): New functions.
+	(eog_item_factory_clean_construct): Aded loader argument, setup
+	loader object.
+	(eog_item_factory_clean_new): Added loader argument.
+
+	* collection/eog-item-factory.c: Removed marshal_* function
+	declarations.
+
+	* collection/eog-item-factory.h: Removed eog_item_factory_new
+	declaration.
+
+	* collection/eog-wrap-list.c: Fixed debug message guards.
+	(do_item_selection_changed_update): Check for item != NULL.
+	
 2002-08-11  Ross Burton  <ross@burtonini.com>
 
 	* eog.desktop.in: Add encoding keyword, and fix up Terminal and
