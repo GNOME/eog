@@ -1,4 +1,19 @@
-2002-04-10  Iain <iain@ximian.com>
+2002-04-11  Jens Finke <jens@triq.net>
+
+	Applied slightly modified patch by Iain Holmes, which fixes most
+	of the remaining issues in bug #76430.
+
+	* shell/eog-shell-ui.xml: Rename "Exit" to "Quit". Added "..." to
+	preferences item, removed these from about item. Moved preferences
+	item into Edit menu. Removed settings menu.
+
+	* viewer/eog-image-view-ctrl-ui.xml: Renamed "Zoom to Default" to
+	"Zoom 1:1".
+
+	* viewer/eog-image-view-ui.xml: Removed all the redundant words
+	from the menu, added accel to "Save As"
+	
+2002-04-10  Iain Holmes <iain@ximian.com>
 
 	* viewer/preferences.c (create_label): Take a widget that will be
 	activated by the labels mnemonic.

@@ -10,13 +10,13 @@
 	<cmd name="FileCloseWindow" _label="_Close" _tip="Close window"
              pixtype="stock" pixname="gtk-close" accel="*Control*w"/>
 
-        <cmd name="FileExit" _label="E_xit" _tip="Exit the program"
+        <cmd name="FileExit" _label="_Quit" _tip="Quit the program"
 	     pixtype="stock" pixname="gtk-quit" accel="*Control*q"/>
 	
-	<cmd name="Preferences" _label="_Preferences" _tip="Change preferences"  sensitive="0"
+	<cmd name="Preferences" _label="_Preferences..." _tip="Change preferences"  sensitive="0"
 	     pixtype="stock" pixname="gtk-preferences"/>
 
-	<cmd name="HelpAbout" _label="_About..." _tip="About this application"
+	<cmd name="HelpAbout" _label="_About" _tip="About this application"
 	     pixtype="stock" pixname="About"/>
 
 	<cmd name="DnDNewWindow" _label="Open in new window"/>
@@ -44,13 +44,13 @@
 
 	</submenu>
 
+	<submenu name="Edit" _label="_Edit">
+		<menuitem name="Preferences" verb=""/>
+        </submenu>
+
 	<submenu name="View" _label="_View" hidden="1">
 		<placeholder name="View Preferences Placeholder"/>
 		<placeholder name="View Items Placeholder" delimit="top"/>
-	</submenu>
-
-	<submenu name="Settings" _label="_Settings">
-	        <menuitem name="Preferences" verb=""/>
 	</submenu>
 
 	<submenu name="Help" _label="_Help">
