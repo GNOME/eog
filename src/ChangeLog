@@ -1,4 +1,14 @@
+1999-09-16  Federico Mena Quintero  <federico@redhat.com>
+
+	* window.c (exit_cmd): Change of plans.  Do not confirm for
+	unsaved files using the Emacs way of doing it, but rather present
+	a save/don't save/don't exit dialog.
+	(confirm_close): Present a confirmation dialog.
+
 1999-09-15  Federico Mena Quintero  <federico@redhat.com>
+
+	* window.c (window_init): Add the window to the window list.
+	(window_destroy): Remove the window from the window list.
 
 	* window.c (window_delete): Confirm before closing.
 	(close_cmd): Confirm before closing.

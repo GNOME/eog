@@ -33,6 +33,13 @@ static GnomeAppClass *parent_class;
 
 
 
+/* What the user may respond to a close window confirmation */
+typedef enum {
+	CLOSE_SAVE,
+	CLOSE_DISCARD,
+	CLOSE_DONT_EXIT
+} CloseStatus;
+
 /* The list of all open windows */
 static GList *window_list;
 
@@ -40,10 +47,71 @@ static GList *window_list;
 static gboolean
 is_unsaved (Window *window)
 {
-	if (window->mode == WINDOW_MODE_COLLECTION)
-		return FALSE; /* FIXME */
+	WindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (priv->mode == WINDOW_MODE_COLLECTION)
+		return TRUE; /* FIXME: is it dirty? */
 	else
 		return FALSE;
+}
+
+/* Brings attention to a window by raising it and giving it focus */
+static void
+raise_and_focus (GtkWidget *widget)
+{
+	g_assert (GTK_WIDGET_REALIZED (widget));
+	gdk_window_show (widget->window);
+	gtk_widget_grab_focus (widget);
+}
+
+/* Asks for confirmation for closing an unsaved window */
+static CloseStatus
+confirm_close (Window *window, gboolean ask_exit)
+{
+	WindowPrivate *priv;
+	GtkWidget *msg;
+	char *buf;
+	int result;
+
+	priv = window->priv;
+
+	if (!is_unsaved (window))
+		return CLOSE_DISCARD;
+
+	g_assert (priv->mode == WINDOW_MODE_COLLECTION);
+
+	raise_and_focus (GTK_WIDGET (window));
+
+	buf = g_strdup_printf (_("Save image collection `%s'?"),
+			       "fubari"); /* FIXME: put in title */
+
+	msg = gnome_message_box_new (buf, GNOME_MESSAGE_BOX_QUESTION,
+				     _("Save"),
+				     _("Don't save"),
+				     ask_exit ? _("Don't exit") : NULL,
+				     NULL);
+	g_free (buf);
+
+	gnome_dialog_set_parent (GNOME_DIALOG (msg), GTK_WINDOW (window));
+	gnome_dialog_set_default (GNOME_DIALOG (msg), 0);
+
+	result = gnome_dialog_run (GNOME_DIALOG (msg));
+
+	switch (result) {
+	case 0:
+		return CLOSE_SAVE;
+
+	case 1:
+		return CLOSE_DISCARD;
+
+	case 2:
+		return CLOSE_DONT_EXIT;
+
+	default:
+		return CLOSE_DONT_EXIT;
+	}
 }
 
 
@@ -57,28 +125,25 @@ open_cmd (GtkWidget *widget, gpointer data)
 	/* FIXME */
 }
 
-/* Closes a window with confirmation */
- */
-static void
-try_close (Window *window)
-{
-	GtkWidget *msg;
-
-	if (!is_unsaved (window)) {
-		gtk_widget_destroy (window);
-		return;
-	}
-
-	msg = gnome_
-}
-
 /* Closes a window with confirmation, and exits the main loop if this was the
  * last window in the list.
  */
 static void
 close_window (Window *window)
 {
-	try_close (window);
+	switch (confirm_close (window, FALSE)) {
+	case CLOSE_SAVE:
+		; /* FIXME: save it */
+		break;
+
+	case CLOSE_DISCARD:
+		break;
+
+	default:
+		return;
+	}
+
+	gtk_widget_destroy (GTK_WIDGET (window));
 
 	if (!window_list)
 		gtk_main_quit ();
@@ -98,10 +163,44 @@ close_cmd (GtkWidget *widget, gpointer data)
 static void
 exit_cmd (GtkWidget *widget, gpointer data)
 {
-	if (close_all ()) {
-		if (!unsaved_windows () || confirm_unsaved_exit ())
-			gtk_main_quit ();
+	gboolean do_exit;
+	GList *l;
+	Window *w;
+
+	/* Ask for confirmation on unsaved windows */
+
+	do_exit = TRUE;
+
+	for (l = window_list; l && do_exit; l = l->next) {
+		w = l->data;
+
+		switch (confirm_close (w, TRUE)) {
+		case CLOSE_SAVE:
+			; /* FIXME: save it */
+			break;
+
+		case CLOSE_DONT_EXIT:
+			do_exit = FALSE;
+			break;
+
+		default:
+			break;
+		}
 	}
+
+	if (!do_exit)
+		return;
+
+	/* Destroy windows and exit */
+
+	l = window_list;
+	while (l) {
+		w = l->data;
+		l = l->next;
+		gtk_widget_destroy (GTK_WIDGET (w));
+	}
+
+	gtk_main_quit ();
 }
 
 /* Help/About callback */
@@ -120,7 +219,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 			VERSION,
 			_("Copyright (C) 1999 The Free Software Foundation"),
 			authors,
-			_("The GNOME image viewer and image cataloging program"),
+			_("The GNOME image viewing and cataloging program"),
 			NULL);
 		gtk_signal_connect (GTK_OBJECT (about), "destroy",
 				    GTK_SIGNAL_FUNC (gtk_widget_destroyed),
@@ -128,9 +227,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 	}
 
 	gtk_widget_show_now (about);
-	g_assert (GTK_WIDGET_REALIZED (about));
-	gdk_window_show (about->window);
-	gtk_widget_grab_focus (about);
+	raise_and_focus (about);
 }
 
 
@@ -221,6 +318,9 @@ window_init (Window *window)
 
 	priv = g_new0 (WindowPrivate, 1);
 	window->priv = priv;
+	priv->mode = WINDOW_MODE_COLLECTION;
+
+	window_list = g_list_prepend (window_list, window);
 }
 
 /* Destroy handler for windows */
@@ -239,6 +339,8 @@ window_destroy (GtkObject *object)
 	/* FIXME: destroy the rest */
 
 	g_free (priv);
+
+	window_list = g_list_remove (window_list, window);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
