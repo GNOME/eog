@@ -11,7 +11,8 @@
 #ifndef _EOG_IMAGE_H_
 #define _EOG_IMAGE_H_
 
-#include <eog-image-data.h>
+#include <eog-util.h>
+#include <image.h>
 
 BEGIN_GNOME_DECLS
  
@@ -27,13 +28,15 @@ typedef struct _EogImageClass    EogImageClass;
 typedef struct _EogImagePrivate  EogImagePrivate;
 
 struct _EogImage {
-        EogImageData object;
+        BonoboObject object;
 
         EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-        EogImageDataClass parent_class;
+        BonoboObjectClass parent_class;
+
+        void (*set_image)               (EogImage                *image);
 };
 
 POA_GNOME_EOG_Image__epv *
@@ -49,8 +52,15 @@ GNOME_EOG_Image
 eog_image_corba_object_create           (BonoboObject            *object);
 
 EogImage
-*eog_image_construct                    (EogImage            *image,
-                                         GNOME_EOG_Image      corba_object);
+*eog_image_construct                    (EogImage                *image,
+                                         GNOME_EOG_Image          corba_object);
+
+Image *
+eog_image_get_image                     (EogImage                *image);
+
+gdk_pixbuf *
+eog_image_get_pixbuf                    (EogImage                *image);
+
 
 END_GNOME_DECLS
 

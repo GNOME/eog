@@ -39,8 +39,6 @@ CORBA_SOURCE =			\
 
 eog_image_viewer_SOURCES =	\
 	$(CORBA_SOURCE)		\
-	eog-image-data.c	\
-	eog-image-data.h	\
 	eog-image.c		\
 	eog-image.h		\
 	eog-image-view.c	\

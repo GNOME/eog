@@ -208,16 +208,16 @@ eog_image_view_corba_object_create (BonoboObject *object)
 }
 
 static void
-image_data_set_image_cb (EogImageData *image_data, EogImageView *image_view)
+image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 {
 	Image *image;
 
-	g_return_if_fail (image_data != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_DATA (image_data));
+	g_return_if_fail (eog_image != NULL);
+	g_return_if_fail (EOG_IS_IMAGE (eog_image));
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 
-	image = eog_image_data_get_image (image_data);
+	image = eog_image_get_image (eog_image);
 	image_view_set_image (IMAGE_VIEW (image_view->priv->image_view), image);
 	image_unref (image);
 }
@@ -529,7 +529,7 @@ eog_image_view_construct (EogImageView *image_view,
 	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));
 
 	gtk_signal_connect (GTK_OBJECT (image), "set_image",
-			    GTK_SIGNAL_FUNC (image_data_set_image_cb),
+			    GTK_SIGNAL_FUNC (image_set_image_cb),
 			    image_view);
 
 	image_view->priv->ui_image = ui_image_new ();
