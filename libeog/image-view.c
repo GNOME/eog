@@ -19,15 +19,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* TODO:
- *
- * - Handle GdkEventScroll events; these come from the scrollwheel.
- *
- * - Rewrite scrolling mechanism.
- *
- * - Check if + and - work with caps lock / num lock / etc.
- */
-
 
 
 #include <config.h>

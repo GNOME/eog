@@ -1,5 +1,12 @@
 2002-06-20  Federico Mena Quintero  <federico@ximian.com>
 
+	* libeog/image-view.c: Removed obsolete comment.
+
+	* libeog/GNOME_EOG.server.in: Make the nautilus:view_as_name be
+	"Image" so that Nautilus will say, "View as Image".  Fixes #73651.
+
+2002-06-20  Federico Mena Quintero  <federico@ximian.com>
+
 	* viewer/eog-image.c (load_image_from_file): Initialize the loader
 	and rsvg_handle variables, otherwise we'll b0rk if we can't open
 	the URI.  Fixes #85263.
