@@ -20,6 +20,8 @@ eog_SOURCES =			\
 	tb-image.h		\
 	ui-image.c		\
 	ui-image.h		\
+	util.c			\
+	util.h			\
 	window.c		\
 	window.h		\
 	zoom.c			\

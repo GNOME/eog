@@ -1,5 +1,26 @@
 1999-09-22  Federico Mena Quintero  <federico@redhat.com>
 
+	These changes are based on a patch by Michael Meeks (mmeeks@gnu.org).
+
+	* Makefile.am (eog_SOURCES): Added util.[ch] to the list of sources.
+
+	* util.c (open_failure_dialog): New function to run a failure
+	message box.
+
+	* window.c (window_open_image): Return a status value.
+	(open_ok_clicked): Use open_failure_dialog() if the image could
+	not be loaded.  Also, hide the file selector before we attempt to
+	load the image.
+
+	* main.c (main): Use open_failure_dialog() if the image could not
+	be loaded.  Exit with an error value if no image could be opened.
+
+	* image-item.c (recompute_bounding_box): Fetch the image
+	dimensions only if the pixbuf exists.
+	(image_item_draw): Likewise.
+
+1999-09-22  Federico Mena Quintero  <federico@redhat.com>
+
 	* ui-image.c (ui_image_set_image): Set the width/height of the
 	image item.
 

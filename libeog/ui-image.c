@@ -246,6 +246,8 @@ ui_image_set_image (UIImage *ui, Image *image)
 			       NULL);
 
 	if (image->buf) {
+		g_assert (image->buf->art_pixbuf != NULL);
+
 		w = image->buf->art_pixbuf->width;
 		h = image->buf->art_pixbuf->height;
 	} else

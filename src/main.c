@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gnome.h>
+#include "util.h"
 #include "window.h"
 
 
@@ -30,6 +31,7 @@ main (int argc, char **argv)
 	poptContext ctx;
 	GtkWidget *window;
 	const char **args;
+	gboolean opened;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	textdomain (PACKAGE);
@@ -39,17 +41,30 @@ main (int argc, char **argv)
 
 	args = poptGetArgs (ctx);
 
+	opened = FALSE;
+
 	if (args)
 		for (; *args; args++) {
 			window = window_new ();
-			window_open_image (WINDOW (window), *args);
-			gtk_widget_show (window);
+			if (window_open_image (WINDOW (window), *args)) {
+				gtk_widget_show (window);
+				opened = TRUE;
+			} else {
+				open_failure_dialog (GTK_WINDOW (window), *args);
+				gtk_widget_destroy (window);
+			}
 		}
 	else {
 		window = window_new ();
 		gtk_widget_show (window);
+		opened = TRUE;
 	}
 
-	gtk_main ();
-	return 0;
+	poptFreeContext (ctx);
+
+	if (opened) {
+		gtk_main ();
+		return 0;
+	} else
+		return 1;
 }

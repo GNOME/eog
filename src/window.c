@@ -24,6 +24,7 @@
 #include "commands.h"
 #include "tb-image.h"
 #include "ui-image.h"
+#include "util.h"
 #include "window.h"
 
 
@@ -606,10 +607,13 @@ open_ok_clicked (GtkWidget *widget, gpointer data)
 	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
 	g_assert (window != NULL);
 
-	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
-	window_open_image (window, filename);
-
+	filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs)));
 	gtk_widget_hide (fs);
+
+	if (!window_open_image (window, filename))
+		open_failure_dialog (GTK_WINDOW (window), filename);
+
+	g_free (filename);
 }
 
 /* Cancel button callback for the open file selection dialog */
@@ -672,17 +676,21 @@ window_open_image_dialog (Window *window)
  * @window: A window.
  * @filename: An image filename.
  *
- * Opens an image file and puts it into a window.
+ * Opens an image file and puts it into a window.  Even if loading fails, the
+ * image structure will be created and put in the window.
+ *
+ * Return value: TRUE on success, FALSE otherwise.
  **/
-void
+gboolean
 window_open_image (Window *window, const char *filename)
 {
 	WindowPrivate *priv;
 	Image *image;
+	gboolean retval;
 
-	g_return_if_fail (window != NULL);
-	g_return_if_fail (IS_WINDOW (window));
-	g_return_if_fail (filename != NULL);
+	g_return_val_if_fail (window != NULL, FALSE);
+	g_return_val_if_fail (IS_WINDOW (window), FALSE);
+	g_return_val_if_fail (filename != NULL, FALSE);
 
 	priv = window->priv;
 
@@ -690,9 +698,10 @@ window_open_image (Window *window, const char *filename)
 	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
 
 	image = image_new ();
-	image_load (image, filename);
+	retval = image_load (image, filename);
 	ui_image_set_image (UI_IMAGE (priv->content), image);
 	image_unref (image);
+	return retval;
 }
 
 

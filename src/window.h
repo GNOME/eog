@@ -59,7 +59,7 @@ void window_construct (Window *window);
 void window_close (Window *window);
 
 void window_open_image_dialog (Window *window);
-void window_open_image (Window *window, const char *filename);
+gboolean window_open_image (Window *window, const char *filename);
 
 void window_set_zoom (Window *window, double zoom);
 

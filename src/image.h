@@ -42,7 +42,7 @@ Image *image_new (void);
 void image_ref (Image *image);
 void image_unref (Image *image);
 
-int image_load (Image *image, const char *filename);
+gboolean image_load (Image *image, const char *filename);
 
 
 
