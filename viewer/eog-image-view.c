@@ -4,8 +4,10 @@
  *
  * Authors:
  *   Martin Baulig (baulig@suse.de)
+ *   Jens Finke (jens@triq.net)
  *
  * Copyright 2000 SuSE GmbH.
+ * Copyright 2001-2002 Free Software Foundation
  */
 
 #include <config.h>
@@ -1803,7 +1805,7 @@ eog_image_view_destroy (BonoboObject *object)
 	image_view = EOG_IMAGE_VIEW (object);
 	priv = image_view->priv;
 
-	gtk_object_unref (GTK_OBJECT (priv->client));
+	g_object_unref (G_OBJECT (priv->client));
 
 	bonobo_object_unref (BONOBO_OBJECT (priv->property_bag));
 	bonobo_object_unref (BONOBO_OBJECT (priv->image));
