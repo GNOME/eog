@@ -65,6 +65,15 @@ GtkType gnome_wrap_list_get_type (void);
 void gnome_wrap_list_set_mode (GnomeWrapList *wlist, GnomeWrapListMode mode);
 GnomeWrapListMode gnome_wrap_list_get_mode (GnomeWrapList *wlist);
 
+void gnome_wrap_list_set_item_size (GnomeWrapList *wlist, int width, int height);
+void gnome_wrap_list_get_item_size (GnomeWrapList *wlist, int *width, int *height);
+
+void gnome_wrap_list_set_row_spacing (GnomeWrapList *wlist, int spacing);
+int gnome_wrap_list_get_row_spacing (GnomeWrapList *wlist);
+
+void gnome_wrap_list_set_col_spacing (GnomeWrapList *wlist, int spacing);
+int gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist);
+
 
 
 END_GNOME_DECLS

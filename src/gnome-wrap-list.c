@@ -28,6 +28,14 @@
 typedef struct {
 	/* Layout mode */
 	GnomeWrapListMode mode;
+
+	/* Width and height of items */
+	int item_width;
+	int item_height;
+
+	/* Spacing between rows and columns */
+	int row_spacing;
+	int col_spacing;
 } WrapListPrivate;
 
 
@@ -125,7 +133,7 @@ gnome_wrap_list_destroy (GtkObject *object)
  * @wlist: A wrapped list view.
  * @mode: Desired layout mode.
  *
- * Sets the layout mode of a wrapped list view widget.
+ * Sets the layout mode of a wrapped list view.
  **/
 void
 gnome_wrap_list_set_mode (GnomeWrapList *wlist, GnomeWrapListMode mode)
@@ -149,7 +157,7 @@ gnome_wrap_list_set_mode (GnomeWrapList *wlist, GnomeWrapListMode mode)
  * gnome_wrap_list_get_mode:
  * @wlist: A wrapped list view.
  *
- * Queries the current layout mode of a wrapped list view widget.
+ * Queries the current layout mode of a wrapped list view.
  *
  * Return value: The layout mode of the specified wrapped list view.
  **/
@@ -163,4 +171,144 @@ gnome_wrap_list_get_mode (GnomeWrapList *wlist)
 
 	priv = wlist->priv;
 	return priv->mode;
+}
+
+/**
+ * gnome_wrap_list_set_item_size:
+ * @wlist: A wrapped list view.
+ * @width: Width of items in pixels.
+ * @height: Height of items in pixels.
+ * 
+ * Sets the size of items in a wrapped list view.  All items will have the same
+ * base size.
+ **/
+void
+gnome_wrap_list_set_item_size (GnomeWrapList *wlist, int width, int height)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+	g_return_if_fail (width > 0);
+	g_return_if_fail (height > 0);
+
+	priv = wlist->priv;
+
+	priv->item_width = width;
+	priv->item_height = height;
+
+	/* FIXME: layout */
+}
+
+/**
+ * gnome_wrap_list_get_item_size:
+ * @wlist: A wrapped list view.
+ * @width: Return value for the width of items.
+ * @height: Return value for the height of items.
+ * 
+ * Queries the size of items in a wrapped list view.
+ **/
+void
+gnome_wrap_list_get_item_size (GnomeWrapList *wlist, int *width, int *height)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+	g_return_if_fail (width > 0);
+	g_return_if_fail (height > 0);
+
+	priv = wlist->priv;
+
+	if (width)
+		*width = priv->item_width;
+
+	if (height)
+		*height = priv->item_height;
+}
+
+/**
+ * gnome_wrap_list_set_row_spacing:
+ * @wlist: A wrapped list view.
+ * @spacing: Spacing between rows in pixels.
+ * 
+ * Sets the spacing between the rows of a wrapped list view.
+ **/
+void
+gnome_wrap_list_set_row_spacing (GnomeWrapList *wlist, int spacing)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+	g_return_if_fail (spacing >= 0);
+
+	priv = wlist->priv;
+
+	priv->row_spacing = spacing;
+
+	/* FIXME: layout */
+}
+
+/**
+ * gnome_wrap_list_get_row_spacing:
+ * @wlist: A wrapped list view.
+ * 
+ * Queries the spacing between rows of a wrapped list view.
+ * 
+ * Return value: Spacing between rows in pixels.
+ **/
+int
+gnome_wrap_list_get_row_spacing (GnomeWrapList *wlist)
+{
+	WrapListPrivate *priv;
+
+	g_return_val_if_fail (wlist != NULL, -1);
+	g_return_val_if_fail (GNOME_IS_WRAP_LIST (wlist), -1);
+
+	priv = wlist->priv;
+	return priv->row_spacing;
+}
+
+/**
+ * gnome_wrap_list_set_col_spacing:
+ * @wlist: A wrapped list view.
+ * @spacing: Spacing between columns in pixels.
+ * 
+ * Sets the spacing between the columns of a wrapped list view.
+ **/
+void
+gnome_wrap_list_set_col_spacing (GnomeWrapList *wlist, int spacing)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+	g_return_if_fail (spacing >= 0);
+
+	priv = wlist->priv;
+
+	priv->col_spacing = spacing;
+
+	/* FIXME: layout */
+}
+
+/**
+ * gnome_wrap_list_get_col_spacing:
+ * @wlist: A wrapped list view.
+ * 
+ * Queries the spacing between columns of a wrapped list view.
+ * 
+ * Return value: Spacing between columns in pixels.
+ **/
+int
+gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist)
+{
+	WrapListPrivate *priv;
+
+	g_return_val_if_fail (wlist != NULL, -1);
+	g_return_val_if_fail (GNOME_IS_WRAP_LIST (wlist), -1);
+
+	priv = wlist->priv;
+	return priv->col_spacing;
 }
