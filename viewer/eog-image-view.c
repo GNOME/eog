@@ -412,13 +412,6 @@ eog_image_view_create_ui (EogImageView *image_view)
 	bonobo_ui_component_add_verb_list_with_data (priv->uic, eog_verbs,
 						     image_view);
 
-	bonobo_ui_component_set_prop (priv->uic, "/commands/PrintSetup",
-		"sensitive", "0", NULL);
-	bonobo_ui_component_set_prop (priv->uic, "/commands/PrintPreview",
-		"sensitive", "0", NULL);
-	bonobo_ui_component_set_prop (priv->uic, "/commands/Print",
-		"sensitive", "0", NULL);
-
 	if (!priv->has_zoomable_frame) {
 		bonobo_ui_util_set_ui (priv->uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
 
