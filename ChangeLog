@@ -1,3 +1,32 @@
+2003-10-29  Jens Finke  <jens@triq.net>
+
+	Improved slideshow component: automatic browsing, upscale flag,
+	endless loop / single run
+	
+	* eog.glade: Reworked the slideshow preferences page.
+
+	* eog.schemas.in: New keys in /apps/eog/full_screen: loop,
+	upscale, seconds.
+
+	* libeog/eog-full-screen.c:
+	(check_automatic_switch): New function.
+	(eog_full_screen_show): Setup timer for automatic browsing.
+	(eog_full_screen_hide): Remove timer.
+	(show_next_image): Consider loop flag. If set, stop browsing on
+	first or last image.
+	(eog_full_screen_key_press): Pause/continue automatic browsing
+	with 'p' key.
+	(eog_full_screen_destroy): Free first iter.
+	(eog_full_screen_instance_init): Init new attributes.
+	(prepare_data): Remeber first iter.
+	(eog_full_screen_new): Obtain configuration values.
+
+	* eog_image_list.[ch] (eog_image_list_iter_equal): New function.
+
+	* eog-preferences.c (spin_button_changed_cb): New function.
+	(eog_preferences_show): Connect widgets on slideshow preferences
+	page.
+	
 2003-10-27  Jens Finke  <jens@triq.net>
 
 	Consider eog/window/open_new_window configuration key again. Fixes

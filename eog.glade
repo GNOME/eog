@@ -95,7 +95,7 @@
 			<widget class="GtkCheckButton" id="interpolate_check">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">_Interpolate image on zoom (better quality but slower)</property>
+			  <property name="label" translatable="yes">_Interpolate image on zoom</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="active">False</property>
@@ -132,7 +132,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label8">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">&lt;b&gt;Transparency&lt;/b&gt;</property>
+		      <property name="label" translatable="yes">&lt;b&gt;Transparent Parts&lt;/b&gt;</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">True</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -252,7 +252,7 @@
 			    <widget class="GtkRadioButton" id="background_radio">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">As background</property>
+			      <property name="label" translatable="yes">As _background</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="active">False</property>
@@ -297,8 +297,8 @@
 	  <child>
 	    <widget class="GtkLabel" id="label4">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Image View</property>
-	      <property name="use_underline">False</property>
+	      <property name="label" translatable="yes">Image _View</property>
+	      <property name="use_underline">True</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
 	      <property name="wrap">False</property>
@@ -381,11 +381,10 @@
 			  <property name="spacing">6</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton3">
+			    <widget class="GtkCheckButton" id="upscale_check">
 			      <property name="visible">True</property>
-			      <property name="sensitive">False</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Don't use zoom larger than 100%</property>
+			      <property name="label" translatable="yes">Allow _zoom greater than 100% initially</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="active">False</property>
@@ -481,11 +480,10 @@
 			  <property name="spacing">6</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton4">
+			    <widget class="GtkCheckButton" id="loop_check">
 			      <property name="visible">True</property>
-			      <property name="sensitive">False</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Loop sequence</property>
+			      <property name="label" translatable="yes">_Loop sequence</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="active">False</property>
@@ -508,10 +506,8 @@
 			      <child>
 				<widget class="GtkLabel" id="label17">
 				  <property name="visible">True</property>
-				  <property name="sensitive">False</property>
-				  <property name="label" translatable="yes">Show next image automatically:
-(0 to disable)</property>
-				  <property name="use_underline">False</property>
+				  <property name="label" translatable="yes">Show _next image automatically after:</property>
+				  <property name="use_underline">True</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
 				  <property name="wrap">True</property>
@@ -520,6 +516,7 @@
 				  <property name="yalign">0.5</property>
 				  <property name="xpad">0</property>
 				  <property name="ypad">0</property>
+				  <property name="mnemonic_widget">seconds_spin</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -529,21 +526,20 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkEntry" id="entry1">
+				<widget class="GtkSpinButton" id="seconds_spin">
 				  <property name="visible">True</property>
-				  <property name="sensitive">False</property>
 				  <property name="can_focus">True</property>
-				  <property name="editable">True</property>
-				  <property name="visibility">True</property>
-				  <property name="max_length">0</property>
-				  <property name="text" translatable="yes"></property>
-				  <property name="has_frame">True</property>
-				  <property name="invisible_char" translatable="yes">*</property>
-				  <property name="activates_default">False</property>
+				  <property name="climb_rate">1</property>
+				  <property name="digits">0</property>
+				  <property name="numeric">True</property>
+				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
+				  <property name="snap_to_ticks">False</property>
+				  <property name="wrap">False</property>
+				  <property name="adjustment">0 0 100 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
-				  <property name="expand">True</property>
+				  <property name="expand">False</property>
 				  <property name="fill">True</property>
 				</packing>
 			      </child>
@@ -551,8 +547,7 @@
 			      <child>
 				<widget class="GtkLabel" id="label18">
 				  <property name="visible">True</property>
-				  <property name="sensitive">False</property>
-				  <property name="label" translatable="yes">sec</property>
+				  <property name="label" translatable="yes">seconds</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -607,8 +602,8 @@
 	  <child>
 	    <widget class="GtkLabel" id="label5">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Slide Show</property>
-	      <property name="use_underline">False</property>
+	      <property name="label" translatable="yes">Sli_de Show</property>
+	      <property name="use_underline">True</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
 	      <property name="wrap">False</property>

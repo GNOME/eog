@@ -64,7 +64,7 @@ EogIter*            eog_image_list_iter_copy                      (EogImageList 
 gboolean            eog_image_list_iter_valid                     (EogImageList *list, EogIter *iter); 
 gboolean            eog_image_list_iter_prev                      (EogImageList *list, EogIter *iter, gboolean loop);
 gboolean            eog_image_list_iter_next                      (EogImageList *list, EogIter *iter, gboolean loop);
-
+gboolean            eog_image_list_iter_equal                     (EogImageList *list, EogIter *a, EogIter *b);
 
 #if 0 
 /* FIXME: allow discrimination function, which decides if an image

@@ -6,6 +6,9 @@
 #define EOG_VIEW_INTERPOLATE_IMAGE   "/apps/eog/view/interpolate"
 #define EOG_VIEW_TRANSPARENCY        "/apps/eog/view/transparency"
 #define EOG_VIEW_TRANS_COLOR         "/apps/eog/view/trans_color"
+#define EOG_FULLSCREEN_UPSCALE       "/apps/eog/full_screen/upscale"
+#define EOG_FULLSCREEN_SECONDS       "/apps/eog/full_screen/seconds"
+#define EOG_FULLSCREEN_LOOP          "/apps/eog/full_screen/loop"
 #define GCONF_OBJECT_KEY             "GCONF_KEY"
 #define GCONF_OBJECT_VALUE           "GCONF_VALUE"
 
@@ -23,6 +26,19 @@ check_toggle_cb (GtkWidget *widget, gpointer data)
 			       NULL);
 }
 
+static void
+spin_button_changed_cb (GtkWidget *widget, gpointer data)
+{
+	char *key = NULL;
+
+	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
+	if (key == NULL) return;
+
+	gconf_client_set_int (GCONF_CLIENT (data),
+			      key,
+			      gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget)),
+			      NULL);
+}
 
 static void
 color_change_cb (GtkWidget *widget, guint red, guint green, guint blue, guint a, gpointer data)
@@ -90,9 +106,7 @@ eog_preferences_show (GConfClient *client)
 				  G_CALLBACK (gtk_widget_destroy), dlg);
 
 	/* remove the 'slide show' page, since it is not implemented yet */
-	/* FIXME: This should be fixed after the feature freeze. */
 	widget = glade_xml_get_widget (xml, "notebook2");
-	gtk_notebook_remove_page (GTK_NOTEBOOK (widget), 1);
 
 	/* interpolate flag */
 	widget = glade_xml_get_widget (xml, "interpolate_check");
@@ -155,6 +169,35 @@ eog_preferences_show (GConfClient *client)
 	g_signal_connect (G_OBJECT (widget),
 			  "color-set",
 			  G_CALLBACK (color_change_cb),
+			  client);
+
+	/* slideshow page */
+	widget = glade_xml_get_widget (xml, "upscale_check");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
+				      gconf_client_get_bool (client, EOG_FULLSCREEN_UPSCALE, NULL));
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_FULLSCREEN_UPSCALE);
+	g_signal_connect (G_OBJECT (widget), 
+			  "toggled", 
+			  G_CALLBACK (check_toggle_cb), 
+			  client);
+
+	widget = glade_xml_get_widget (xml, "loop_check");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
+				      gconf_client_get_bool (client, EOG_FULLSCREEN_LOOP, NULL));
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_FULLSCREEN_LOOP);
+	g_signal_connect (G_OBJECT (widget), 
+			  "toggled", 
+			  G_CALLBACK (check_toggle_cb), 
+			  client);
+
+
+	widget = glade_xml_get_widget (xml, "seconds_spin");
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), 
+				   gconf_client_get_int (client, EOG_FULLSCREEN_SECONDS, NULL));
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_FULLSCREEN_SECONDS);
+	g_signal_connect (G_OBJECT (widget), 
+			  "changed", 
+			  G_CALLBACK (spin_button_changed_cb), 
 			  client);
 }
 

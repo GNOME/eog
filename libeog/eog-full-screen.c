@@ -25,10 +25,15 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
+#include <gconf/gconf-client.h>
 
 #include "eog-full-screen.h"
 #include "eog-scroll-view.h"
 #include "cursors.h"
+
+#define  EOG_FULLSCREEN_CONF_LOOP     "/apps/eog/full_screen/loop"
+#define  EOG_FULLSCREEN_CONF_UPSCALE  "/apps/eog/full_screen/upscale"
+#define  EOG_FULLSCREEN_CONF_SECONDS  "/apps/eog/full_screen/seconds"
 
 GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 eog_full_screen,
@@ -66,11 +71,22 @@ struct _EogFullScreenPrivate
 	int mouse_move_counter;
 	/* timeout id which checks for cursor hiding */
 	guint hide_timeout_id;
+
+	/* wether we should loop the sequence */
+	EogIter *first_iter;
+	gboolean loop;
+
+	/* timeout for switching to the next image */
+	gint   switch_time_counter;
+	gint   switch_timeout;      /* in seconds */
+	guint  switch_timeout_id;
+	gboolean switch_pause;      
 };
 
 static void connect_image_callbacks (EogFullScreen *fs, EogImage *image);
 static void disconnect_image_callbacks (EogImage *image);
 static void prepare_load_image (EogFullScreen *fs, EogIter *iter);
+static void show_next_image (EogFullScreen *fs);
 
 static gboolean
 check_cursor_hide (gpointer data)
@@ -130,6 +146,28 @@ eog_full_screen_motion (GtkWidget *widget, GdkEventMotion *event)
 	return result;
 }
 
+static gboolean
+check_automatic_switch (gpointer data)
+{
+	EogFullScreen *fs;
+	EogFullScreenPrivate *priv;
+
+	fs = EOG_FULL_SCREEN (data);
+	priv = fs->priv;
+
+	if (priv->switch_pause)
+		return TRUE;
+
+	priv->switch_time_counter++;
+
+	if (priv->switch_time_counter == priv->switch_timeout) {
+		priv->direction = EOG_DIRECTION_FORWARD;
+		show_next_image (fs);
+	}
+
+	return TRUE;
+}
+
 /* Show handler for the full screen view */
 static void
 eog_full_screen_show (GtkWidget *widget)
@@ -153,6 +191,13 @@ eog_full_screen_show (GtkWidget *widget)
         priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
 					       check_cursor_hide,
 					       fs);
+
+	priv->switch_timeout_id = 0;
+	if (priv->switch_timeout > 0) {
+		priv->switch_timeout_id = g_timeout_add (1000 /* every second */,
+							 check_automatic_switch,
+							 fs);
+	}
 }
 
 /* Hide handler for the full screen view */
@@ -166,6 +211,10 @@ eog_full_screen_hide (GtkWidget *widget)
 	if (fs->priv->have_grab) {
 		fs->priv->have_grab = FALSE;
 		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
+	}
+
+	if (fs->priv->switch_timeout_id > 0) {
+		g_source_remove (fs->priv->switch_timeout_id);
 	}
 
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
@@ -186,16 +235,35 @@ show_next_image (EogFullScreen *fs)
 	/* point the current iterator to the next image in the choosen direction */
 	if (priv->direction == EOG_DIRECTION_FORWARD) {
 		success = eog_image_list_iter_next (priv->list, priv->current, TRUE);
+
+		/* quit the diashow, if the user don't want to loop
+		 * and we are pointing to the first image again */
+		if (!priv->loop && eog_image_list_iter_equal (priv->list, priv->first_iter, priv->current)) {
+			success = FALSE;
+		}
 	}
 	else {
-		success = eog_image_list_iter_prev (priv->list, priv->current, TRUE);
+		/* quit the diashow, if the user don't want to loop
+		 * and we are pointing currently to the first image */
+		if (!priv->loop && eog_image_list_iter_equal (priv->list, priv->first_iter, priv->current)) {
+			success = FALSE;
+		}
+		else {
+			success = eog_image_list_iter_prev (priv->list, priv->current, TRUE);
+		}
 	}
 
 	if (success) {
 		/* view next image */
 		image = eog_image_list_get_img_by_iter (priv->list, priv->current);
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+		priv->switch_time_counter = 0;
 		g_object_unref (image);
+	}
+	else {
+		/* quit diashow */
+		gtk_widget_hide (GTK_WIDGET (fs));
+		return;
 	}
 
 	/* preload next image in current direction */
@@ -210,6 +278,7 @@ show_next_image (EogFullScreen *fs)
 	if (success) {
 		prepare_load_image (fs, iter_copy);
 	}
+
 	g_free (iter_copy);
 }
 
@@ -252,6 +321,11 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 			show_next_image (fs);
 			handled = TRUE;
 		}
+		break;
+
+	case GDK_P:
+	case GDK_p:
+		priv->switch_pause = !priv->switch_pause;
 		break;
 
 	case GDK_BackSpace:
@@ -317,6 +391,11 @@ eog_full_screen_destroy (GtkObject *object)
 		priv->list = NULL;
 	}
 
+	if (priv->first_iter != NULL) {
+		g_free (priv->first_iter);
+		priv->first_iter = NULL;
+	}
+
 	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
 }	
 
@@ -363,13 +442,23 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 static void
 eog_full_screen_instance_init (EogFullScreen *fs)
 {
-	fs->priv = g_new0 (EogFullScreenPrivate, 1);
+	EogFullScreenPrivate *priv;
 
-	gtk_window_set_default_size (
-		GTK_WINDOW (fs),
-	        gdk_screen_width (),
-		gdk_screen_height ()); 
+	priv = g_new0 (EogFullScreenPrivate, 1);
+	fs->priv = priv;
+
+	gtk_window_set_default_size (GTK_WINDOW (fs),
+				     gdk_screen_width (),
+				     gdk_screen_height ()); 
 	gtk_window_move (GTK_WINDOW (fs), 0, 0);
+
+	priv->loop = TRUE;
+	priv->first_iter = NULL;
+
+	priv->switch_timeout = 0;
+	priv->switch_timeout_id = 0;
+	priv->switch_time_counter = 0;
+	priv->switch_pause = FALSE;
 }
 
 static void
@@ -498,6 +587,7 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 		if (priv->current == NULL) 
 			priv->current = eog_image_list_get_first_iter (image_list);
 
+		priv->first_iter = eog_image_list_iter_copy (image_list, priv->current);
 		priv->first_image = TRUE;
 		prepare_load_image (fs, priv->current);
 	}
@@ -510,6 +600,8 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	EogFullScreenPrivate *priv;
 	GtkWidget     *widget;
 	GtkStyle      *style;
+	GConfClient   *client;
+	gboolean       upscale = TRUE;
 
 	g_return_val_if_fail (image_list != NULL, NULL);
 
@@ -519,7 +611,6 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 
 	widget = eog_scroll_view_new ();
 	priv->view = widget;
-	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), TRUE);
 
 	/* ensure black background */
 	style = gtk_widget_get_style (widget);
@@ -543,6 +634,15 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	if (FAILED_QUARK == 0) 
 		FAILED_QUARK = g_quark_from_static_string ("EogFullScreen Failed Callback");
 
+	/* read configuration */
+	client = gconf_client_get_default ();
+	priv->loop = gconf_client_get_bool (client, EOG_FULLSCREEN_CONF_LOOP, NULL);
+	priv->switch_timeout = gconf_client_get_int (client, EOG_FULLSCREEN_CONF_SECONDS, NULL);
+	upscale = gconf_client_get_bool (client, EOG_FULLSCREEN_CONF_UPSCALE, NULL);
+	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
+	g_object_unref (G_OBJECT (client));
+
+	/* load first image in the background */
 	prepare_data (fs, image_list, start_image);
 
 	return GTK_WIDGET (fs);
