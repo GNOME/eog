@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"POT-Creation-Date: 2003-06-30 13:59+0700\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-02-06 23:34+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
 "Language-Team: Indonesia <sukarelawan@gnome.linux.or.id>\n"
@@ -76,39 +76,40 @@ msgid "_Save"
 msgstr "_Simpan"
 
 #: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Batalkan"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Lihat"
 
-#: collection/eog-collection-view.c:289
+#: collection/eog-collection-view.c:291
 msgid "Cancel saving"
 msgstr "Batalkan penyimpanan"
 
-#: collection/eog-collection-view.c:292
+#: collection/eog-collection-view.c:294
 msgid "Saving finished"
 msgstr "Penyimpanan selesai"
 
-#: collection/eog-collection-view.c:754
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Pindahkan ke keranjang sampah"
 
-#: collection/eog-collection-view.c:798
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Tampilan Koleksi"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Judul Window"
 
-#: collection/eog-collection-view.c:1262
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Teks status"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
 msgid "Progress of Image Loading"
 msgstr "Progres pembukaan gambar"
 
@@ -198,24 +199,6 @@ msgid "sec"
 msgstr "detik"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Pilih ukuran window secara otomatis"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Nilai faktor zoom default untuk tampilan layar penuh"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Nilai faktor zoom default pada tampilan layar penuh. Nilai yang diterima "
-"adalah: 0 (dengan faktor zoom 1:1), 1 (dengan nilai faktor zoom yang sama "
-"dengan window gambar), atau 2 (gambar dipaskan pada layar)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -225,11 +208,7 @@ msgstr ""
 "POLA_KOTAK_KOTAK, WARNA dan TAK ADA. Bila WARNA yang dipilih, maka key "
 "trans_color akan digunakan untuk menandai adanya transparansi."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Paskan gambar pada layar"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -237,31 +216,23 @@ msgstr ""
 "Bila key transparnsi adalah WARNA, maka key ini menentukan warna apa yang "
 "digunakan untuk menandai adanya transparansi"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolasi Gambar"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Buka gambar pada window baru"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Tambahkan bevel di sekeliling layar"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Ketentuan scroolbar untuk tampilan layar penuh"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Warna transparansi"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Indikator transparansi"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -270,18 +241,7 @@ msgstr ""
 "akan berpengaruh pada kualitas tapi agak lebih lambat dari pada gambar yang "
 "tidak diinterpolasi"
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Menentukan apakah window gambar bisa menentukan ukurannya dan nilai faktor "
-"zoom secara otomatis berdasarkan ukuran gambar atau tidak. Bila ini tidak "
-"diset, window gambar akan memiliki ukuran standar yang diberikan window "
-"manager."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -289,37 +249,6 @@ msgstr ""
 "Menentukan apakah program akan membuat window baru pada saat membuka gambar "
 "atau tidak. Atau gambar yang dibuka apakah menggantikan gambar yang telah "
 "dibuka sebelumnya atau tidak."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Menentukan apakah tampilan layar penuh boleh diberi bevel pada sekeliling "
-"sisi layar atau tidak."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Menentukan apakah hendak menampilkan scrollbar pada tampilan layar penuh "
-"atau tidak. Settingnya bisa bernilai 1 (otomatis, hanya tampilkan toolbar "
-"bila gambar lebih besar dari window), atau 2 (jangan tampilkan scroolbar)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Menentukan apakah boleh mengepaskan gambar ukuran standar pada layar pada "
-"mode layar penuh. Gambar yang bisa dipas adalah gambar yang berukuran "
-"seperti 320x240, 640x480, 800x600, dsb. Pilihan ini menentukan apakah gambar "
-"sedemikian bisa dipaskan tanpa harus memperhatikan faktor zoom awal pada "
-"mode layar penuh."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -365,15 +294,15 @@ msgstr "Simpan Gambar"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Tidak dapat mengalokasikan memori untuk membuka file JPEG"
 
-#: libeog/eog-image.c:1338
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Tidak ada gambar yang dibuka"
 
-#: libeog/eog-image.c:1347
+#: libeog/eog-image.c:1349
 msgid "Images can only be saved as local files."
 msgstr "Gambar hanya bisa disimpan pada file lokal saja."
 
-#: libeog/eog-image.c:1382
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Format gambar tidak dapat ditulis."
 
@@ -404,7 +333,7 @@ msgid "Page"
 msgstr "Halaman"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:361
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Lihat Contoh Jadi"
 
@@ -590,24 +519,20 @@ msgstr "_Keluar"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Mohammad DAMT <mdamt@bisnisweb.com>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
-#: shell/eog-window.c:857 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program GNOME untuk menampilkan dan katalog gambar"
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -718,61 +643,145 @@ msgstr "Layar _penuh"
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: viewer/eog-image-view.c:786
+#: viewer/eog-image-view.c:811
 msgid "/Rotate C_lockwise"
 msgstr "/Putar searah jarum _jam"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:813
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Putar be_rlawanan jarum jam"
 
-#: viewer/eog-image-view.c:791
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Zoom Besar"
 
-#: viewer/eog-image-view.c:793
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Z_oom Kecil"
 
-#: viewer/eog-image-view.c:795
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Ukuran _Normal"
 
-#: viewer/eog-image-view.c:797
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/_Pas Sempurna"
 
-#: viewer/eog-image-view.c:800
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Tutup"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Pencetakan gambar gagal"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Pencetakan gambar gagal"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+#, fuzzy
+msgid "Loading failed"
+msgstr "Gambar gagal disimpan"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Gambar disimpan sempurna"
 
-#: viewer/eog-image-view.c:998
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Gambar gagal disimpan"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Lebar Gambar"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Tinggi Gambar"
 
-#: viewer/eog-image-view.c:1250
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Teks status bar"
 
-#: viewer/eog-image-view.c:1253
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Lebar window yang dikehendaki"
 
-#: viewer/eog-image-view.c:1256
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Tinggi Window yang dikehendaki"
+
+#~ msgid "Automatically pick window size"
+#~ msgstr "Pilih ukuran window secara otomatis"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Nilai faktor zoom default untuk tampilan layar penuh"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Nilai faktor zoom default pada tampilan layar penuh. Nilai yang diterima "
+#~ "adalah: 0 (dengan faktor zoom 1:1), 1 (dengan nilai faktor zoom yang sama "
+#~ "dengan window gambar), atau 2 (gambar dipaskan pada layar)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Paskan gambar pada layar"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Tambahkan bevel di sekeliling layar"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Ketentuan scroolbar untuk tampilan layar penuh"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Menentukan apakah window gambar bisa menentukan ukurannya dan nilai "
+#~ "faktor zoom secara otomatis berdasarkan ukuran gambar atau tidak. Bila "
+#~ "ini tidak diset, window gambar akan memiliki ukuran standar yang "
+#~ "diberikan window manager."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Menentukan apakah tampilan layar penuh boleh diberi bevel pada sekeliling "
+#~ "sisi layar atau tidak."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Menentukan apakah hendak menampilkan scrollbar pada tampilan layar penuh "
+#~ "atau tidak. Settingnya bisa bernilai 1 (otomatis, hanya tampilkan toolbar "
+#~ "bila gambar lebih besar dari window), atau 2 (jangan tampilkan scroolbar)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Menentukan apakah boleh mengepaskan gambar ukuran standar pada layar pada "
+#~ "mode layar penuh. Gambar yang bisa dipas adalah gambar yang berukuran "
+#~ "seperti 320x240, 640x480, 800x600, dsb. Pilihan ini menentukan apakah "
+#~ "gambar sedemikian bisa dipaskan tanpa harus memperhatikan faktor zoom "
+#~ "awal pada mode layar penuh."
+
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
 #~ msgid "action_area"
 #~ msgstr "action_area"
@@ -952,6 +961,3 @@ msgstr "Tinggi Window yang dikehendaki"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Tidak dapat menyimpan gambar sebagai '%s': %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Pencetakan gambar gagal"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog CVS\n"
-"POT-Creation-Date: 2003-05-23 16:35+0100\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-02-17 15:00+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -68,35 +68,59 @@ msgstr "Cuir thart a_th-deiseal"
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:11
-msgid "Undo"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Eagar"
 
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Scála"
+
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Féach ar"
 
-#: collection/eog-collection-view.c:480
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Cealaigh"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Chuir sa Bosca Bruscair"
 
-#: collection/eog-collection-view.c:524
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Radharc Bailiúchán"
 
-#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Teideal an Fhuinneog"
 
-#: collection/eog-collection-view.c:984
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Téacs an Stádas"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Sábháil an  Íomha"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -180,99 +204,44 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr ""
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr ""
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr ""
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Oscail íomhann i fhuinneog nua"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr ""
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr ""
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -317,11 +286,19 @@ msgstr "Oscail Íomha"
 msgid "Save Image"
 msgstr "Sábháil an  Íomha"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1250
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -353,7 +330,7 @@ msgid "Page"
 msgstr "Páipéar"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:376
 #, fuzzy
 msgid "Preview"
 msgstr "Roimh Ré"
@@ -444,20 +421,8 @@ msgid "Vertically by "
 msgstr "Ceartingearach"
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr ""
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr ""
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr ""
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbosca"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -555,24 +520,20 @@ msgstr "_Ealu"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Aistritheoir: Pól Ó Dubhthaigh <dubhthach@zion.nuigalway.ie>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Súil do Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Cóipcheart (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "An feidhmchlár GNOME le haighaidh fechaint ar íomhanna"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -660,71 +621,107 @@ msgid "Print image to the printer"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Sábháil _mar..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 #, fuzzy
 msgid "_Print..."
 msgstr "Oscail Íomha"
 
-#: viewer/eog-image-view.c:778
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "Cuir thart deisea_l"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Cuir thart a_th-deiseal"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Formhéadaigh Isteach"
 
-#: viewer/eog-image-view.c:780
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Formhéadaigh _Amach"
 
-#: viewer/eog-image-view.c:782
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:784
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:787
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Dún"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr ""
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:943
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1186
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Leithead an íomha"
 
-#: viewer/eog-image-view.c:1189
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Airde an íomha"
 
-#: viewer/eog-image-view.c:1195
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-image-view.c:1198
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1201
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr ""
+#~ msgid "vbox"
+#~ msgstr "vbosca"
 
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Cóipcheart (C) 2000-2002 The Free Software Foundation"

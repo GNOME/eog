@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2002-05-31 17:50-0300\n"
 "Last-Translator: Isam Bayazidi <bayazidi@arabeyes.org>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
@@ -27,47 +27,103 @@ msgstr "مصنع عرض مجموعة صور EOG"
 msgid "Image Collection"
 msgstr "مجموعة صور EOG"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Next Image"
-msgstr "افتح صورة"
+msgid "Flip _Horizontal"
+msgstr "افقي"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Flip _Vertical"
+msgstr "عمودي"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "افتح صورة"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "اطبع الصورة"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "تحرير"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "احفظ باسم"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "عرض"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "الغاء"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "انقل الى سلة المهملات"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "مجموعة"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "عنوان الشباك"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "نص وضع"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "افتح صورة"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -152,101 +208,46 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr ""
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr ""
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 #, fuzzy
 msgid "Interpolate Image"
 msgstr "توقيع"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 #, fuzzy
 msgid "Open images in a new window"
 msgstr "افتح في شباك جديد"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr ""
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr ""
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -265,8 +266,7 @@ msgstr "مصنع عارض صور EOG"
 msgid "Embeddable EOG Image"
 msgstr "صورة مضمنة لـ EOG"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "صورة"
 
@@ -292,11 +292,19 @@ msgstr "صورة"
 msgid "Save Image"
 msgstr "افتح صورة"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -325,6 +333,118 @@ msgstr "مضيء"
 #, fuzzy
 msgid "Filename"
 msgstr "ملف"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "صفحات"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "معاينة طباعة"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "ميلليمتر"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "ورق"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% من الحجم اﻷصلي"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "ضبط إلى:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "وسط"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "مساعدة قص الطباعة"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "أسفل ثم الى اليمين"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "ملائمة للصفحة"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "أفقي"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "أفقي"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "الحواشي"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "تداخل"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "مساعدة تداخل الطباعة"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "ترتيب الصفحات"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "يمين ثم الى اﻷسفل"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "القياس"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "عمودي"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "عمودي"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -392,10 +512,6 @@ msgstr "أغلق"
 msgid "_Contents"
 msgstr "المحتويات"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "تحرير"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "ملف"
@@ -421,25 +537,21 @@ msgstr "خروج"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "عيون جينوم"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "حقوق النشر (C) 2000-2002 مؤسسة البرامج الحرة"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "برنامج جينوم لعرض الصور وفهرستها"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -489,7 +601,7 @@ msgstr ""
 msgid "Fit"
 msgstr "ملائمة"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "داخل"
 
@@ -514,16 +626,6 @@ msgstr ""
 msgid "_Zoom In"
 msgstr "تكبير"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "افقي"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "عمودي"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "تعاين الصور التي ستطبع"
@@ -542,260 +644,181 @@ msgstr "تعيين الطباعة"
 msgid "Print image to the printer"
 msgstr "اطبع الصورة بالطابعة"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 #, fuzzy
 msgid "Save _As..."
 msgstr "احفظ باسم"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "عيّن إعدادات الصفحة لطابعتك الحالية"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "امتلاء الشاشة"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 #, fuzzy
 msgid "_Print..."
 msgstr "اطبع"
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:816
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "تكبير"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "تصغير"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "تكبير للملائمة"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 #, fuzzy
 msgid "/_Close"
 msgstr "أغلق"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "فشلت طباعة الصورة"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "فشلت طباعة الصورة"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "عرض الصورة"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "طول الصورة"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "نص شريط الحالة"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "تعذرت تهيئة جينومVFS!\n"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "حقوق النشر (C) 2000-2002 مؤسسة البرامج الحرة"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "نقاط"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "تعذرت تهيئة جينومVFS!\n"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "نقاط"
+#~ msgid "pts"
+#~ msgstr "نقاط"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "مم"
+#~ msgid "points"
+#~ msgstr "نقاط"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "ميلليمتر"
+#~ msgid "mm"
+#~ msgstr "مم"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "سم"
+#~ msgid "cm"
+#~ msgstr "سم"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "سنتمتر"
+#~ msgid "centimeter"
+#~ msgstr "سنتمتر"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "انش"
+#~ msgid "inch"
+#~ msgstr "انش"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "تعيين الطباعة"
+#~ msgid "Print Setup"
+#~ msgstr "تعيين الطباعة"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "اطبع"
+#~ msgid "Print"
+#~ msgstr "اطبع"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "معاينة طباعة"
+#~ msgid "Print preview"
+#~ msgstr "معاينة طباعة"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "الوحدات: "
+#~ msgid "Units: "
+#~ msgstr "الوحدات: "
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "ورق"
+#~ msgid "Paper size:"
+#~ msgstr "حجم الورق:"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "حجم الورق:"
+#~ msgid "Orientation"
+#~ msgstr "الاتجاه"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "الاتجاه"
+#~ msgid "Portrait"
+#~ msgstr "طولي"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "طولي"
+#~ msgid "Landscape"
+#~ msgstr "عرضي"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "عرضي"
+#~ msgid "Top:"
+#~ msgstr "فوق:"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "الحواشي"
+#~ msgid "Left:"
+#~ msgstr "يسار:"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "فوق:"
+#~ msgid "Right:"
+#~ msgstr "يمين:"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "يسار:"
+#~ msgid "Bottom:"
+#~ msgstr "تحت:"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "يمين:"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "يتداخل أفقيا من قبل"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "تحت:"
+#~ msgid "Overlap vertically by "
+#~ msgstr "يتداخل عموديا من قبل"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "القياس"
+#~ msgid "Printing"
+#~ msgstr "جاري الطبع"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "ضبط إلى:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "ملائمة للصفحة"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% من الحجم اﻷصلي"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "وسط"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "أفقي"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "عمودي"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "تداخل"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "يتداخل أفقيا من قبل"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "يتداخل عموديا من قبل"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "جاري الطبع"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "المساعدون"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "مساعدة قص الطباعة"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "مساعدة تداخل الطباعة"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "ترتيب الصفحات"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "أسفل ثم الى اليمين"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "يمين ثم الى اﻷسفل"
+#~ msgid "Helpers"
+#~ msgstr "المساعدون"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "عارض صور عين جينوم"
@@ -836,15 +859,6 @@ msgstr "يمين ثم الى اﻷسفل"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "تعذر حفظ الصورة باسم '%s': %s."
-
-#~ msgid "Pages"
-#~ msgstr "صفحات"
-
-#~ msgid "Print Preview"
-#~ msgstr "معاينة طباعة"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "فشلت طباعة الصورة"
 
 #~ msgid "_New Window"
 #~ msgstr "نافذة جديدة"
@@ -982,9 +996,6 @@ msgstr "يمين ثم الى اﻷسفل"
 
 #~ msgid "_Tiles"
 #~ msgstr "أرضيات"
-
-#~ msgid "Save As"
-#~ msgstr "احفظ باسم"
 
 #~ msgid "Display"
 #~ msgstr "عرض"

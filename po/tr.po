@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-02-09 22:25+0200\n"
 "Last-Translator: Arman Aksoy (Armish) <armish@linux-sevenler.de>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -29,47 +29,106 @@ msgstr "EOG Resim kolleksiyonu gösterim aracı"
 msgid "Image Collection"
 msgstr "Resim Kolleksiyonu"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Next Image"
-msgstr "Resmi Kaydet"
+msgid "Flip _Horizontal"
+msgstr "Yatay Uzat"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Flip _Vertical"
+msgstr "Dikey Uzat"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "Resmi Kaydet"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "Resmi Yazdır"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
+msgstr "180 Derece Döndür"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
+msgstr "Saat Yönünde Döndür"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
+msgstr "Saat Yönünün Tersine Döndür"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Slayt Gösterisi"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "D_üzenle"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Farklı Kaydet"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Görüntüle"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "İptal"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Çöpe Gönder"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Kolleksiyon Görünümü"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Pencere Başlığı"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Durum Metni"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Resmi Kaydet"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -156,38 +215,16 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Pencere boyutunu kendiliğinden al"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Tam ekran görüntü için öntanımlı büyütme ayarı"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Tam ekran görüntü için öntanımlı yakınlaştırma ayarı. Olası değerler: 0 (1:1 "
-"yakınlaştırma kullan), 1 (görüntü penceresindeki yakınlaştırma ayarını "
-"kullan), 2 (görüntüyü ekranasığdır)."
-
-#: eog.schemas.in.h:4
 #, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Şeffaflık oranını belirtir. Geçerli değerler- CHECK_PATTERN ve RENK. Eğer "
 "RENK seçilirse, renk_geçiş tuşu kullanılan renk değerini belirtir."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Belirli boyuta sahip görüntüleri eksana sığdır."
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -195,31 +232,23 @@ msgstr ""
 "Eğer şeffaflık tuşunda RENK değeri seçilmiş ise, bu tuş şeffaflığı ayarlamak "
 "için kullanılan rengi belirler"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Resmi interpole et"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Reimleri yeni pencerede aç"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Ekranın etrafına eğim ekle"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Tam ekran görünümü için kaydırma çubuğu davranışı"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Şeffaflık rengi"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Şeffaflık belirteci"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -227,53 +256,13 @@ msgstr ""
 "Akıllı büyütmenin kullanılıp kullanılmayacağını belirtir. Bu, daha iyi bir "
 "görüntü sağlar ama bu özelliğin kullanılmadığı resimlerden daha yavaştır."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Resim pencerelerinin boyutlarını ve yakınlaştırma ayarlarını seçili resme "
-"göre kendiliğinden ayarlayıp ayarlamayacağını belirtir. Eğer bu seçenek "
-"ayarlanmazsa, görüntü penceresi, pencere yöneticisinde belirlenmiş olan "
-"boyutta olur."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Yeni açılan görüntünün daha önceki pencereyi kullanmamasını, yeni bir "
 "pencerede açılmasını belirtir."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Tam ekran görüntüleme sırasında ekran çeperlerinde bir boşluk bırakılır."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Tam ekran görüntülemede kaydırma çubuklarının olup olmayacağını belirtir. "
-"Olası değerler: 1 (eğer görüntü pencereden daha büyükse kendiliğinden "
-"kaydırma çubuğu kullan), 2 (hiç bir zaman kaydırma çubuğu kullanma)"
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Standart boyutlu resimlerin tam ekran görünümünde ne şekilde büyütüleceğini "
-"belirtir. Bu resimler, 320x240, 640x480, 800x600 gibi boyutlarda bulunan "
-"resimlerdir. Bu seçenek, bu gibi resimlerin belirlenmiş büyütme değerini "
-"kullanmadan doğrudan tam ekran görüntülenmesini sağlar."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -291,8 +280,7 @@ msgstr "EOG Resim gösterici yapımcısı"
 msgid "Embeddable EOG Image"
 msgstr "Gömülebilir EOG Resmi"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Resim"
 
@@ -317,11 +305,19 @@ msgstr "Resim Yükle"
 msgid "Save Image"
 msgstr "Resmi Kaydet"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Desteklenmeyen dosya biçimi"
@@ -351,6 +347,118 @@ msgstr "Aydınlık"
 #, fuzzy
 msgid "Filename"
 msgstr "_Dosya"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Sayfalar"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Yazdırma Önizlemesi"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milimetre"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Kağıt"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "/100 özgün boyut"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "Ayarla:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Orta"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "Baskı kesme yardımı"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Önce aşağı sonra sağa"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Sayfaya sığdır"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Yatay olarak"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Yatay olarak"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Kenar boşlukları"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "Bindirmeli"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Baskı bindirme yardımı"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Sayfa sırası"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Önce sağa sonra aşağı"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Ölçek"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Dikey olarak"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Dikey olarak"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -416,10 +524,6 @@ msgstr "_Kapat"
 msgid "_Contents"
 msgstr "_İçindekiler"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "D_üzenle"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Dosya"
@@ -444,24 +548,20 @@ msgstr "Çı_k"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Barbaros Ulutas <barbaros@ekolojikpolitika.org>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Telif hakkı (C) 2000-2002 Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME resim görüntüleme ve kataloglama uygulaması."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -511,7 +611,7 @@ msgstr "En iyi sığdırma"
 msgid "Fit"
 msgstr "Sığdır"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "İçeri"
 
@@ -535,16 +635,6 @@ msgstr "_Normal Boyut"
 msgid "_Zoom In"
 msgstr "_Büyüt"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Yatay Uzat"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Dikey Uzat"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Yazdırılacak resim önizleme"
@@ -561,257 +651,239 @@ msgstr "Yazdırma _Ayarları"
 msgid "Print image to the printer"
 msgstr "Resmi yazıcıya gönder"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "180 Derece Döndür"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Saat Yönünde Döndür"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Saat Yönünün Tersine Döndür"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "_Farklı Kaydet..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Geçerli yazıcının sayfa ayarları diyaloğunu açar"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Tam Ekran"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Yazdır..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "Saat Yönünde Döndür"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Saat Yönünün Tersine Döndür"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Küçült"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/_Küçült"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Normal Boyut"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/En İyi _Sığdırma"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Kapat"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Resim yazdırılamadı"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Resim yazdırılamadı"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Resim Genişliği"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Resim Yüksekliği"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Durum çubuğu Metni"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS başlatılamadı!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Pencere boyutunu kendiliğinden al"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "punto"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Tam ekran görüntü için öntanımlı büyütme ayarı"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "nokta"
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Tam ekran görüntü için öntanımlı yakınlaştırma ayarı. Olası değerler: 0 "
+#~ "(1:1 yakınlaştırma kullan), 1 (görüntü penceresindeki yakınlaştırma "
+#~ "ayarını kullan), 2 (görüntüyü ekranasığdır)."
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Belirli boyuta sahip görüntüleri eksana sığdır."
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetre"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Ekranın etrafına eğim ekle"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Tam ekran görünümü için kaydırma çubuğu davranışı"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "santimetre"
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Resim pencerelerinin boyutlarını ve yakınlaştırma ayarlarını seçili resme "
+#~ "göre kendiliğinden ayarlayıp ayarlamayacağını belirtir. Eğer bu seçenek "
+#~ "ayarlanmazsa, görüntü penceresi, pencere yöneticisinde belirlenmiş olan "
+#~ "boyutta olur."
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inç"
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Tam ekran görüntüleme sırasında ekran çeperlerinde bir boşluk bırakılır."
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Yazıcı Ayarları"
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Tam ekran görüntülemede kaydırma çubuklarının olup olmayacağını belirtir. "
+#~ "Olası değerler: 1 (eğer görüntü pencereden daha büyükse kendiliğinden "
+#~ "kaydırma çubuğu kullan), 2 (hiç bir zaman kaydırma çubuğu kullanma)"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Yazdır"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Standart boyutlu resimlerin tam ekran görünümünde ne şekilde "
+#~ "büyütüleceğini belirtir. Bu resimler, 320x240, 640x480, 800x600 gibi "
+#~ "boyutlarda bulunan resimlerdir. Bu seçenek, bu gibi resimlerin "
+#~ "belirlenmiş büyütme değerini kullanmadan doğrudan tam ekran "
+#~ "görüntülenmesini sağlar."
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Yazdırma önizleme penceresini açar"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Telif hakkı (C) 2000-2002 Free Software Foundation"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Birimler: "
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "GnomeVFS başlatılamadı!\n"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Kağıt"
+#~ msgid "pts"
+#~ msgstr "punto"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Kağıt boyutu:"
+#~ msgid "points"
+#~ msgstr "nokta"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Yazdırma yönü"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Dikey"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Yatay"
+#~ msgid "centimeter"
+#~ msgstr "santimetre"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Kenar boşlukları"
+#~ msgid "inch"
+#~ msgstr "inç"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Üst:"
+#~ msgid "Print Setup"
+#~ msgstr "Yazıcı Ayarları"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Sol:"
+#~ msgid "Print"
+#~ msgstr "Yazdır"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Sağ:"
+#~ msgid "Print preview"
+#~ msgstr "Yazdırma önizleme penceresini açar"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Alt:"
+#~ msgid "Units: "
+#~ msgstr "Birimler: "
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Ölçek"
+#~ msgid "Paper size:"
+#~ msgstr "Kağıt boyutu:"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Ayarla:"
+#~ msgid "Orientation"
+#~ msgstr "Yazdırma yönü"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Sayfaya sığdır"
+#~ msgid "Portrait"
+#~ msgstr "Dikey"
 
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "/100 özgün boyut"
+#~ msgid "Landscape"
+#~ msgstr "Yatay"
 
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Orta"
+#~ msgid "Top:"
+#~ msgstr "Üst:"
 
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Yatay olarak"
+#~ msgid "Left:"
+#~ msgstr "Sol:"
 
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Dikey olarak"
+#~ msgid "Right:"
+#~ msgstr "Sağ:"
 
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Bindirmeli"
+#~ msgid "Bottom:"
+#~ msgstr "Alt:"
 
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Yatay olarak üstüste binme: "
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Yatay olarak üstüste binme: "
 
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Dikey olarak üstüste binme: "
+#~ msgid "Overlap vertically by "
+#~ msgstr "Dikey olarak üstüste binme: "
 
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Yazdırma"
+#~ msgid "Printing"
+#~ msgstr "Yazdırma"
 
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Yardımcılar"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Baskı kesme yardımı"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Baskı bindirme yardımı"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Sayfa sırası"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Önce aşağı sonra sağa"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Önce sağa sonra aşağı"
+#~ msgid "Helpers"
+#~ msgstr "Yardımcılar"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Eye Of Gnome Resim Gösterici"
@@ -913,15 +985,6 @@ msgstr "Önce sağa sonra aşağı"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Resim %s olarak kaydedilemedi: %s."
-
-#~ msgid "Pages"
-#~ msgstr "Sayfalar"
-
-#~ msgid "Print Preview"
-#~ msgstr "Yazdırma Önizlemesi"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Resim yazdırılamadı"
 
 #~ msgid "_New Window"
 #~ msgstr "_Yeni Pencere"
@@ -1040,9 +1103,6 @@ msgstr "Önce sağa sonra aşağı"
 
 #~ msgid "Error while obtaining file informations."
 #~ msgstr "Dosya bilgileri alınırken hata oluştu."
-
-#~ msgid "Save As"
-#~ msgstr "Farklı Kaydet"
 
 #~ msgid "Display"
 #~ msgstr "Görünüm"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-07-05 18:33+0400\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-07-05 18:36+0400\n"
 "Last-Translator: \"Andrew W. Nosenko\" <awn@bcs.zp.ua>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -95,23 +95,23 @@ msgstr "Отменить сохранение"
 msgid "Saving finished"
 msgstr "Сохранение завершено"
 
-#: collection/eog-collection-view.c:756
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Переместить в корзину"
 
-#: collection/eog-collection-view.c:800
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Окно коллекции"
 
-#: collection/eog-collection-view.c:1264 viewer/eog-image-view.c:1260
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: collection/eog-collection-view.c:1267
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Текст о состоянии"
 
-#: collection/eog-collection-view.c:1270 viewer/eog-image-view.c:1272
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
 msgid "Progress of Image Loading"
 msgstr "Програсс загрузки изображения"
 
@@ -295,15 +295,15 @@ msgstr "Сохранить изображение"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Не удалось получить память для загрузки файла JPEG"
 
-#: libeog/eog-image.c:1338
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Изображение не загружено."
 
-#: libeog/eog-image.c:1347
+#: libeog/eog-image.c:1349
 msgid "Images can only be saved as local files."
 msgstr "Изображения могут быть сохранены только как локальные файлы."
 
-#: libeog/eog-image.c:1382
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Сохранение в данный тип изображения не поддерживается."
 
@@ -334,7 +334,7 @@ msgid "Page"
 msgstr "Страница"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:373
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Просмотр образца"
 
@@ -520,7 +520,7 @@ msgstr "В_ыйти"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Евгений Булгаков <bgav@netvision.net.il>\n"
@@ -528,20 +528,16 @@ msgstr ""
 "Дмитрий Мастрюков <dmitry@taurussoft.org>\n"
 "Андрей Носенко <awn@bcs.zp.ua>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
-#: shell/eog-window.c:857 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Глаз Гнома"
 
-#: shell/eog-window.c:272
-msgid "Copyright  2000-2003 The Free Software Foundation"
-msgstr "Авторское право (C) 2000-2003 The Free Software Foundation"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Программа просмотра и каталогизации изображений для среды Гном"
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -652,58 +648,79 @@ msgstr "Развернуть на полный _экран"
 msgid "_Print..."
 msgstr "На_печатать"
 
-#: viewer/eog-image-view.c:799
+#: viewer/eog-image-view.c:811
 msgid "/Rotate C_lockwise"
 msgstr "/Повернуть по _часовой стрелке"
 
-#: viewer/eog-image-view.c:801
+#: viewer/eog-image-view.c:813
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Повернуть против часовой _стрелки"
 
-#: viewer/eog-image-view.c:804
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/У_величить масштаб"
 
-#: viewer/eog-image-view.c:806
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/У_меньшить масштаб"
 
-#: viewer/eog-image-view.c:808
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Показать в обы_чном размере"
 
-#: viewer/eog-image-view.c:810
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Подо_гнать по размеру окна"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Закрыть"
 
-#: viewer/eog-image-view.c:1007
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr ""
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+#, fuzzy
+msgid "Loading failed"
+msgstr "Сбой при попытке сохранить изображение"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Изображение успешно сохранено"
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Сбой при попытке сохранить изображение"
 
-#: viewer/eog-image-view.c:1254
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:1257
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:1263
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
-#: viewer/eog-image-view.c:1266
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Желаемая ширина окна"
 
-#: viewer/eog-image-view.c:1269
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Желаемая высота окна"
+
+#~ msgid "Copyright  2000-2003 The Free Software Foundation"
+#~ msgstr "Авторское право (C) 2000-2003 The Free Software Foundation"

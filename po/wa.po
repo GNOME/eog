@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: control-center 1.0\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-07-11 10:12+0200\n"
 "Last-Translator: Pablo Saratxaga <pablo@mandrakesoft.com>\n"
 "Language-Team: Walon <linux-wa@chanae.alphanet.ch>\n"
@@ -26,45 +26,99 @@ msgstr "Oujhene di håyneu di ramexhnêyes d' imådjes EOG"
 msgid "Image Collection"
 msgstr "Ramexhnêye d' imådjes"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "Shuvant"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "Imådje shuvante"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Di dvant"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "Imådje di dvant"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Candjî"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Schaper et rlomer"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Vey"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Rinoncî"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Taper å batch"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Vuwe di ramexhnêye"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Tite do purnea"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Tecse del bår ås messaedjes"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Schaper imådje"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -148,101 +202,44 @@ msgid "sec"
 msgstr "seg"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Tchoezi otomaticmint l' grandeu do purnea"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Prémetou zoumaedje pol vuwe di forrimplixhaedje del waitroûle"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Prémetou zoumaedje pol vuwe di forrimplixhaedje del waitroûle. "
-"Les valixhances possibes sont: 0 (eployî ene schåle 1:1 pol zoumaedje), 1 (eployî l' minme zoumaedje ki pol vuwe d' imådje), 2 (zoumer po rimpli l' waitroûle)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr ""
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Eterpoler l' imådje"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Drovi les imådjes en on novea purnea"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr ""
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr ""
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -261,8 +258,7 @@ msgstr "Oujhene di håyneu d' imådjes EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imådje EOG ravalåve"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Imådje"
 
@@ -286,11 +282,19 @@ msgstr "Tcherdjî imådje"
 msgid "Save Image"
 msgstr "Schaper imådje"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Nole imådje di tcherdjeye"
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Sôre d' imådje nén sopoirté pol schapaedje."
 
@@ -315,6 +319,114 @@ msgstr "Hôteu"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "No do fitchî"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Pådjes"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Vey divant"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milimetes"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Papî"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% del grandeu d' oridjene"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Å mitan"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Rimpli l' pådje"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Di coûtchî"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Di coûtchî"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Mådjes"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Ôre des pådjes"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Schåle"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "D' astampé"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "D' astampé"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -380,10 +492,6 @@ msgstr "_Clôre"
 msgid "_Contents"
 msgstr "Å d_vins"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Candjî"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fitchî"
@@ -408,24 +516,20 @@ msgstr "Moussî _foû"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Pablo Saratxaga <pablo@walon.org>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 li Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Li programe di håynaedje et di catalogaedje d' imådjes di Gnome"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -439,7 +543,9 @@ msgstr ""
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr "Vos alez drovi %i purneas e minme tins. Les vôrîz vs purade drovi come ene ramexhnêye?"
+msgstr ""
+"Vos alez drovi %i purneas e minme tins. Les vôrîz vs purade drovi come ene "
+"ramexhnêye?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -470,7 +576,7 @@ msgstr ""
 msgid "Fit"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr ""
 
@@ -494,14 +600,6 @@ msgstr "Grandeu _normåle"
 msgid "_Zoom In"
 msgstr "_Zoumer"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Vey l' imådje divant di l' eprimî"
@@ -518,253 +616,175 @@ msgstr "A_pontiaedje del sicrirece"
 msgid "Print image to the printer"
 msgstr "Rexhe l' imådje sol sicrirece"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Schaper et r_lomer..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Apontyî li pådje po vosse sicrirece do moumint"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Forrimpli li waitroûle"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Eprimî..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Zoumer"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/_Diszoumer"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Zoumer po _rimpli"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Clôre"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "L' eprimaedje di l' imådje a fwait berwete"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "L' eprimaedje di l' imådje a fwait berwete"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Lårdjeu di l' imådje"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Hôteu di l' imådje"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Tecse del bår ås messaedjes"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Dji n' a savou inicyî GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Tchoezi otomaticmint l' grandeu do purnea"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr ""
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Prémetou zoumaedje pol vuwe di forrimplixhaedje del waitroûle"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr ""
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Prémetou zoumaedje pol vuwe di forrimplixhaedje del waitroûle. Les "
+#~ "valixhances possibes sont: 0 (eployî ene schåle 1:1 pol zoumaedje), 1 "
+#~ "(eployî l' minme zoumaedje ki pol vuwe d' imådje), 2 (zoumer po rimpli "
+#~ "l' waitroûle)."
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright © 2000-2002 li Free Software Foundation"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetes"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Dji n' a savou inicyî GnomeVFS!\n"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "cintimetes"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "pôces"
+#~ msgid "centimeter"
+#~ msgstr "cintimetes"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Apontiaedje del sicrirece"
+#~ msgid "inch"
+#~ msgstr "pôces"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Eprimî"
+#~ msgid "Print Setup"
+#~ msgstr "Apontiaedje del sicrirece"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Vey divant"
+#~ msgid "Print"
+#~ msgstr "Eprimî"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Unités: "
+#~ msgid "Print preview"
+#~ msgstr "Vey divant"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Papî"
+#~ msgid "Units: "
+#~ msgstr "Unités: "
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Grandeu do papî:"
+#~ msgid "Paper size:"
+#~ msgstr "Grandeu do papî:"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Plaeçmint"
+#~ msgid "Orientation"
+#~ msgstr "Plaeçmint"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "D' astampé"
+#~ msgid "Portrait"
+#~ msgstr "D' astampé"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Di coûtchî"
+#~ msgid "Landscape"
+#~ msgstr "Di coûtchî"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Mådjes"
+#~ msgid "Top:"
+#~ msgstr "Al copete:"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Al copete:"
+#~ msgid "Left:"
+#~ msgstr "Hintche:"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Hintche:"
+#~ msgid "Right:"
+#~ msgstr "Droete:"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Droete:"
+#~ msgid "Bottom:"
+#~ msgstr "Al valeye:"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Al valeye:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Schåle"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr ""
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Rimpli l' pådje"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% del grandeu d' oridjene"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Å mitan"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Di coûtchî"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "D' astampé"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr ""
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr ""
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr ""
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Eprimaedje"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr ""
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr ""
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr ""
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Ôre des pådjes"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr ""
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr ""
+#~ msgid "Printing"
+#~ msgstr "Eprimaedje"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Håyneu d' imådjes Eye of Gnome"
@@ -796,15 +816,6 @@ msgstr ""
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Dji n' a savou schaper l' imådje come «%s»: %s."
-
-#~ msgid "Pages"
-#~ msgstr "Pådjes"
-
-#~ msgid "Print Preview"
-#~ msgstr "Vey divant"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "L' eprimaedje di l' imådje a fwait berwete"
 
 #~ msgid "_New Window"
 #~ msgstr "_Novea purnea"
@@ -895,9 +906,6 @@ msgstr ""
 #~ msgid "Error while obtaining file informations."
 #~ msgstr "Åk n' a nén stî tot rcwerant les informåcions sol fitchî."
 
-#~ msgid "Save As"
-#~ msgstr "Schaper et rlomer"
-
 #~ msgid "Display"
 #~ msgstr "Håynaedje"
 
@@ -924,4 +932,3 @@ msgstr ""
 
 #~ msgid "Check _size:"
 #~ msgstr "_Grandeu di l' echikî:"
-

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-01-06 23:11+0200\n"
 "Last-Translator: Artis Trops <hornet@navigator.lv>\n"
 "Language-Team: Latvian <ll10nt@os.lv>\n"
@@ -25,49 +25,108 @@ msgstr "EOG attēlu kolekcijas skatu darbnīca"
 msgid "Image Collection"
 msgstr "Attēlu Kolekcija"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Next Image"
-msgstr "Saglabāt Attēlu"
+msgid "Flip _Horizontal"
+msgstr "Apmest Horizontāli"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Flip _Vertical"
+msgstr "Apmest Vertikāli"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "Saglabāt Attēlu"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "Drukāt attēlu"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
+msgstr "Rotēt pa 180 grādiem"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
+msgstr "Rotēt pulkstņrādītāja virzienā"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
+msgstr "Rotēt pretēji pulkstņrādītāja virzienam"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Slīdrāde"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Rediģēt"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Mērogs"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Skats"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Atcelt"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 #, fuzzy
 msgid "Collection View"
 msgstr "Kolekcija"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Loga nosaukums"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 #, fuzzy
 msgid "Status Text"
 msgstr "Statusjoslas teksts"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Saglabāt Attēlu"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -152,39 +211,17 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Automātiski izvēlēties loga izmēru"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Noklusētais tālummaiņas faktors pilnekrāna skatam"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Noklusētais tālummaiņas faktors pilnekrāna skatam. Iespējamās vērtības ir: 0 "
-"(lietot 1:1 tālummaiņas faktoru), 1 (lietot to pašu tālummaiņas faktoru, "
-"kāds attēla logam), 2 (attēls iederas ekrānā)"
-
-#: eog.schemas.in.h:4
 #, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Nosaka, kā caurspīdīgums būtu jāattēlo. Derīgas vērtības ir CHECK_PATTERN un "
 "COLOR. Ja tiek izvēlēts COLOR, tad trans_color atslēga nosaka lietojamās "
 "krāsas vērtību."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Standartizmēra attēli iederas ekrānā"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -192,31 +229,23 @@ msgstr ""
 "Ja caurspīdīguma atslēgai ir vērtība COLOR, tad šī atslēga nosaka "
 "caurspīdīguma attēlošanai lietojamās krāsas vērtību."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolēt Attēlu"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Atvērt attēlus jaunā logā"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Attēlot konusu ap ekrānu"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Ritjoslas politika pilnekrāna skatā"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Caurspīdīguma krāsa"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Caurspīdīguma indikators"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -224,51 +253,13 @@ msgstr ""
 "Vai attēlu interpolēt pie tālummaiņas. Tas nodrošina labāku kvalitāti, bet "
 "ir arī lēnāk, kā neinterpolēti attēli."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Vai attēlu logiem jāizvēlas to izmērs un mēroga faktors automātiski, "
-"balstoties uz attēla izmēru. Ja šī opcija nav iestatīta, attēlu logi saņems "
-"jebkādu izmēru, kādu tiem piešķirs logu pārvaldnieks."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Vai attēla atvēršana izveidos jaunu logu nevis aizvietos attēlu pašreizējā "
 "logā."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "Vai pilnekrāna skats parādīs konusu gar ekrāna malām."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Vai parādīt ritjoslas pilnekrāna skatā. Iespējamās vērtības ir: 1 "
-"(automātiski; parādīt ritjoslas tikai tad, ja attēls ir lielāks par logu), 2 "
-"(nekad nerādīt ritjoslas)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Vai sarūmēt standartizmēra attēlus ekrānā, kad pinekrāna režīmā. Tie ir "
-"attēli ar izmēriem, kā 320x240, 640x480, 800x800, utt. Tas nosaka, vai šādi "
-"attēli ir mērogojami, lai iederētos ekrānā, neskatoties uz noklusēto mēroga "
-"faktora uzstādījumu pilnekrāna skatam."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -286,8 +277,7 @@ msgstr "EOG attēlu skatītāja darbnīca"
 msgid "Embeddable EOG Image"
 msgstr "Iedarināms EOG Attēls"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Attēls"
 
@@ -312,11 +302,19 @@ msgstr "Ielādēt Attēlu"
 msgid "Save Image"
 msgstr "Saglabāt Attēlu"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Neatbalstīts faila formāts."
@@ -346,6 +344,118 @@ msgstr "Labā puse:"
 #, fuzzy
 msgid "Filename"
 msgstr "_Fails"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Lapas"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Drukāšanas Pirmsapskate"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milimetri"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Sākumlapa"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% no oriģinālā lieluma"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "Pielāgot:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Centrs"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "Drukāt palīga atgriezumu"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Lejā, pa labi"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Piekļauties lapai"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Horizontāli"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Horizontāli"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Robežas"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "Pārklāšanās"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Drukāt pārklājušos palīgu"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Lapu kārtība"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Pa labi. lejā"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Mērogs"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Vertikāli"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Vertikāli"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -411,10 +521,6 @@ msgstr "Aiz_vērt"
 msgid "_Contents"
 msgstr "_Saturs"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Rediģēt"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fails"
@@ -439,26 +545,22 @@ msgstr "_Iziet"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Mad Evil <madevil@inbox.lv>\n"
 "Artis Trops <hornet@navigator.lv"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Autortiesības © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "The GNOME attēlu skatīšanas un kataloģizēšanas programma"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -508,7 +610,7 @@ msgstr "Labākais _Izmērs"
 msgid "Fit"
 msgstr "Derēt"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Iekšā"
 
@@ -532,16 +634,6 @@ msgstr "_Normāls Izmērs"
 msgid "_Zoom In"
 msgstr "_Tuvināt"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Apmest Horizontāli"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Apmest Vertikāli"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Drukājamā attēla priekšapskate"
@@ -558,257 +650,236 @@ msgstr "Drukāšanas Uzs_tādījumi"
 msgid "Print image to the printer"
 msgstr "Drukāt attēlu"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Rotēt pa 180 grādiem"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Rotēt pulkstņrādītāja virzienā"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Rotēt pretēji pulkstņrādītāja virzienam"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "_Saglabāt Kā..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Uzstādīt lapas uzstādījumus tagadējam printerim"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Pa visu ekrānu"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Drukāt..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "Rotēt pulkstņrādītāja virzienā"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Rotēt pretēji pulkstņrādītāja virzienam"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/T_uvināt"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Tā_lināt"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Normāls Izmērs"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Labākais _Izmērs"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/Aiz_vērt"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Attēla drukāšana neveiksmīga"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Attēla drukāšana neveiksmīga"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Attēla platums"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Attēla augstums"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Statusjoslas teksts"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Nevarēju inicializēt GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Automātiski izvēlēties loga izmēru"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Noklusētais tālummaiņas faktors pilnekrāna skatam"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "punkti"
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Noklusētais tālummaiņas faktors pilnekrāna skatam. Iespējamās vērtības "
+#~ "ir: 0 (lietot 1:1 tālummaiņas faktoru), 1 (lietot to pašu tālummaiņas "
+#~ "faktoru, kāds attēla logam), 2 (attēls iederas ekrānā)"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Standartizmēra attēli iederas ekrānā"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetri"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Attēlot konusu ap ekrānu"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Ritjoslas politika pilnekrāna skatā"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimetri"
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Vai attēlu logiem jāizvēlas to izmērs un mēroga faktors automātiski, "
+#~ "balstoties uz attēla izmēru. Ja šī opcija nav iestatīta, attēlu logi "
+#~ "saņems jebkādu izmēru, kādu tiem piešķirs logu pārvaldnieks."
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "Colla"
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr "Vai pilnekrāna skats parādīs konusu gar ekrāna malām."
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Drukāšanas Uzstādījumi"
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Vai parādīt ritjoslas pilnekrāna skatā. Iespējamās vērtības ir: 1 "
+#~ "(automātiski; parādīt ritjoslas tikai tad, ja attēls ir lielāks par "
+#~ "logu), 2 (nekad nerādīt ritjoslas)."
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Drukāt"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Vai sarūmēt standartizmēra attēlus ekrānā, kad pinekrāna režīmā. Tie ir "
+#~ "attēli ar izmēriem, kā 320x240, 640x480, 800x800, utt. Tas nosaka, vai "
+#~ "šādi attēli ir mērogojami, lai iederētos ekrānā, neskatoties uz noklusēto "
+#~ "mēroga faktora uzstādījumu pilnekrāna skatam."
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Drukāšanas Pirmsapskate"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Autortiesības © 2000-2002 The Free Software Foundation"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Vienības:"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Nevarēju inicializēt GnomeVFS!\n"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Sākumlapa"
+#~ msgid "pts"
+#~ msgstr "pts"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Papīra izmērs:"
+#~ msgid "points"
+#~ msgstr "punkti"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Orientācija"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Portrets"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Ainava"
+#~ msgid "centimeter"
+#~ msgstr "centimetri"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Robežas"
+#~ msgid "inch"
+#~ msgstr "Colla"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Augša:"
+#~ msgid "Print Setup"
+#~ msgstr "Drukāšanas Uzstādījumi"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Kresā puse:"
+#~ msgid "Print"
+#~ msgstr "Drukāt"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Labā puse:"
+#~ msgid "Print preview"
+#~ msgstr "Drukāšanas Pirmsapskate"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Apakša:"
+#~ msgid "Units: "
+#~ msgstr "Vienības:"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Mērogs"
+#~ msgid "Paper size:"
+#~ msgstr "Papīra izmērs:"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Pielāgot:"
+#~ msgid "Orientation"
+#~ msgstr "Orientācija"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Piekļauties lapai"
+#~ msgid "Portrait"
+#~ msgstr "Portrets"
 
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% no oriģinālā lieluma"
+#~ msgid "Landscape"
+#~ msgstr "Ainava"
 
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Centrs"
+#~ msgid "Top:"
+#~ msgstr "Augša:"
 
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Horizontāli"
+#~ msgid "Left:"
+#~ msgstr "Kresā puse:"
 
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Vertikāli"
+#~ msgid "Right:"
+#~ msgstr "Labā puse:"
 
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Pārklāšanās"
+#~ msgid "Bottom:"
+#~ msgstr "Apakša:"
 
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Pārklāt horizontāli"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Pārklāt horizontāli"
 
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Pārklāt vertikāli"
+#~ msgid "Overlap vertically by "
+#~ msgstr "Pārklāt vertikāli"
 
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Drukāšana"
+#~ msgid "Printing"
+#~ msgstr "Drukāšana"
 
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Palīgi"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Drukāt palīga atgriezumu"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Drukāt pārklājušos palīgu"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Lapu kārtība"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Lejā, pa labi"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Pa labi. lejā"
+#~ msgid "Helpers"
+#~ msgstr "Palīgi"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Eye of Gnome Attēlu Pārlūks"
@@ -910,12 +981,3 @@ msgstr "Pa labi. lejā"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Nevarēju saglabāt attēlu kā '%s': %s"
-
-#~ msgid "Pages"
-#~ msgstr "Lapas"
-
-#~ msgid "Print Preview"
-#~ msgstr "Drukāšanas Pirmsapskate"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Attēla drukāšana neveiksmīga"

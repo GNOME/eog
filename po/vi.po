@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-07-24 15:08+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -25,45 +25,99 @@ msgstr "Factory của trình xem tập ảnh EOG"
 msgid "Image Collection"
 msgstr "Bộ ảnh"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Lật _ngang"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Lật _dọc"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "Tới"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "Ảnh kế"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Lùi"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "Ảnh trước"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Quay _180 độ"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Quay theo chiều _kim đồng hồ"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Quay n_gược chiều kim đồng hồ"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Xem trình diễn"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Hiệu chỉnh"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Lưu là"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Xem"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Hủy bỏ"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Cho vào thùng rác"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Cửa sổ Tập hợp"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Tựa đề cửa sổ"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Tình trạng"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Lưu ảnh"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -147,34 +201,17 @@ msgid "sec"
 msgstr "giây"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Tự động chọn kích thước cửa sổ"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Hệ số phóng mặc định trong chế độ toàn màn hình"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Hệ số phóng mặc định trong chế độ toàn màn hình. Giá trị hợp lệ là: 0 (tỷ lệ "
-"1:1), 1 (cùng hệ số với cửa sổ ảnh), 2 (vừa khít với màn hình)."
-
-#: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
-msgstr "Xác định cách chỉ thị trong suốt. Giá trị hợp lệ là CHECK_PATTERN, COLOR và NONE. Nếu chọn COLOR, thì khóa trans_color sẽ xác định giá trị màu trong suốt."
+msgstr ""
+"Xác định cách chỉ thị trong suốt. Giá trị hợp lệ là CHECK_PATTERN, COLOR và "
+"NONE. Nếu chọn COLOR, thì khóa trans_color sẽ xác định giá trị màu trong "
+"suốt."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Khít ảnh cỡ-chuẩn trên màn hình"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -182,31 +219,23 @@ msgstr ""
 "Nếu khóa trong suốt có giá trị COLOR, thì khóa này xác định màu được dùng để "
 "biểu thị trong suốt."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Nội suy ảnh"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Mở ảnh trong cửa sổ mới"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Đặt bevel quanh màn hình"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Cách cuộn trong chế độ toàn màn hình"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Màu trong suốt"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Chỉ thị trong suốt"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -214,50 +243,12 @@ msgstr ""
 "Ảnh nên được nội suy hay không. Nếu nội suy thì ảnh phóng to có chất lượng "
 "tốt hơn, nhưng chậm hơn."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Cửa sổ ảnh có nên tự điều chỉnh kích thước và hệ số phóng dựa trên kích "
-"thước ảnh hay không. Nếu tùy chọn này bật, cửa sổ ảnh sẽ chọn bất kỳ kích "
-"thước nào mà trình quản lý cửa sổ đặt chọn."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Có nên tạo cửa sổ mới khi mở ảnh, hay là thay thế ảnh trong cửa sổ hiện thời."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Nên hiện bevel quanh các cạnh màn hình trong chế độ toàn màn hình không."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Nên hiển thị thanh cuộn trong chế độ toàn màn hình không. Giá trị hợp lệ là: "
-"1 (tự động, chỉ hiện khi ảnh lớn hơn cửa sổ), 2 (không bao giờ hiện)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Có nên đặt vừa khít ảnh kích thước chuẩn trên màn hình trong chế độ toàn màn "
-"hình hay không. Những ảnh này có kích thước 320x400, 640x480, 800x800 ... "
-"Tùy chọn này cho biết có nên co dãn ảnh cho khít màn hình, bất kỷ thiết lập "
-"hệ số phóng mặc định trong chế độ toàn màn hình hay không."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -275,8 +266,7 @@ msgstr "Factory Trình xem ảnh EOG"
 msgid "Embeddable EOG Image"
 msgstr "Ảnh EOG nhúng"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Ảnh"
 
@@ -300,11 +290,19 @@ msgstr "Nạp ảnh"
 msgid "Save Image"
 msgstr "Lưu ảnh"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Chưa nạp ảnh."
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Dạng thức ảnh chưa được hỗ trợ lưu ảnh."
 
@@ -329,6 +327,118 @@ msgstr "Cao"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "Tên tập tin"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Trang"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Xem thử bản in"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milimét"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Giấy"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% ảnh gốc"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "Chỉnh theo:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Giữa"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "In đoạn trợ giúp"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Xuống, rồi sang phải"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Khít vừa trang"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Ngang"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Ngang"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Lề"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "Đè"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Trợ giúp in đè"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Thứ tự trang"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Phải, rồi xuống"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Tỷ lệ"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Dọc"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Dọc"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -394,10 +504,6 @@ msgstr "Đón_g"
 msgid "_Contents"
 msgstr "_Nội dung"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Hiệu chỉnh"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Tập tin"
@@ -422,24 +528,20 @@ msgstr "T_hoát"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Nguyễn Thái Ngọc Duy"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Mắt Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Chương trình xem và phân loại ảnh của Gnome."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -453,7 +555,9 @@ msgstr ""
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr "Bạn định mở %i cửa sổ đồng thời. Bạn có muốn mở chúng trong một tập hợp không thay vì mở nhiều cửa sổ?"
+msgstr ""
+"Bạn định mở %i cửa sổ đồng thời. Bạn có muốn mở chúng trong một tập hợp "
+"không thay vì mở nhiều cửa sổ?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -484,7 +588,7 @@ msgstr "Vừa khít _nhất"
 msgid "Fit"
 msgstr "Vừa khít"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "To"
 
@@ -508,14 +612,6 @@ msgstr "_Cỡ bình thường"
 msgid "_Zoom In"
 msgstr "Phóng _to"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "Lật _ngang"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "Lật _dọc"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Xem trước ảnh cần được in"
@@ -532,253 +628,236 @@ msgstr "_Thiết lập in"
 msgid "Print image to the printer"
 msgstr "In ảnh"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "Quay _180 độ"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "Quay theo chiều _kim đồng hồ"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "Quay n_gược chiều kim đồng hồ"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Lư_u là..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Thiết lập thông số trang in cho máy in của bạn"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Toàn màn hình"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_In..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "Quay theo chiều _kim đồng hồ"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Quay n_gược chiều kim đồng hồ"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Phóng _to"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Thu _nhỏ"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Cỡ bình thường"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Vừa khít _nhất"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/Đón_g"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "In ảnh thất bại"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "In ảnh thất bại"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+#, fuzzy
+msgid "Loading failed"
+msgstr "Lưu ảnh thất bại"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Ảnh đã lưu xong"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Lưu ảnh thất bại"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Chiều rộng ảnh"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Chiều cao ảnh"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Text thanh trạng thái"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Chiều rộng cửa sổ cần thiết"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Chiều cao cửa sổ cần thiết"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Không thể khởi động GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Tự động chọn kích thước cửa sổ"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Hệ số phóng mặc định trong chế độ toàn màn hình"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "điểm"
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Hệ số phóng mặc định trong chế độ toàn màn hình. Giá trị hợp lệ là: 0 (tỷ "
+#~ "lệ 1:1), 1 (cùng hệ số với cửa sổ ảnh), 2 (vừa khít với màn hình)."
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Khít ảnh cỡ-chuẩn trên màn hình"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimét"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Đặt bevel quanh màn hình"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Cách cuộn trong chế độ toàn màn hình"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimét"
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Cửa sổ ảnh có nên tự điều chỉnh kích thước và hệ số phóng dựa trên kích "
+#~ "thước ảnh hay không. Nếu tùy chọn này bật, cửa sổ ảnh sẽ chọn bất kỳ kích "
+#~ "thước nào mà trình quản lý cửa sổ đặt chọn."
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inch"
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Nên hiện bevel quanh các cạnh màn hình trong chế độ toàn màn hình không."
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Thiết lập in"
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Nên hiển thị thanh cuộn trong chế độ toàn màn hình không. Giá trị hợp lệ "
+#~ "là: 1 (tự động, chỉ hiện khi ảnh lớn hơn cửa sổ), 2 (không bao giờ hiện)."
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "In"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Có nên đặt vừa khít ảnh kích thước chuẩn trên màn hình trong chế độ toàn "
+#~ "màn hình hay không. Những ảnh này có kích thước 320x400, 640x480, "
+#~ "800x800 ... Tùy chọn này cho biết có nên co dãn ảnh cho khít màn hình, "
+#~ "bất kỷ thiết lập hệ số phóng mặc định trong chế độ toàn màn hình hay "
+#~ "không."
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Xem thử bản in"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Đơn vị: "
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Không thể khởi động GnomeVFS!\n"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Giấy"
+#~ msgid "pts"
+#~ msgstr "pts"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Cỡ giấy:"
+#~ msgid "points"
+#~ msgstr "điểm"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Hướng"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Đứng"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Ngang"
+#~ msgid "centimeter"
+#~ msgstr "centimét"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Lề"
+#~ msgid "inch"
+#~ msgstr "inch"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Đỉnh:"
+#~ msgid "Print Setup"
+#~ msgstr "Thiết lập in"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Trái:"
+#~ msgid "Print"
+#~ msgstr "In"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Phải:"
+#~ msgid "Print preview"
+#~ msgstr "Xem thử bản in"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Đáy:"
+#~ msgid "Units: "
+#~ msgstr "Đơn vị: "
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Tỷ lệ"
+#~ msgid "Paper size:"
+#~ msgstr "Cỡ giấy:"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Chỉnh theo:"
+#~ msgid "Orientation"
+#~ msgstr "Hướng"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Khít vừa trang"
+#~ msgid "Portrait"
+#~ msgstr "Đứng"
 
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% ảnh gốc"
+#~ msgid "Landscape"
+#~ msgstr "Ngang"
 
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Giữa"
+#~ msgid "Top:"
+#~ msgstr "Đỉnh:"
 
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Ngang"
+#~ msgid "Left:"
+#~ msgstr "Trái:"
 
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Dọc"
+#~ msgid "Right:"
+#~ msgstr "Phải:"
 
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Đè"
+#~ msgid "Bottom:"
+#~ msgstr "Đáy:"
 
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Đè theo chiều ngang bởi "
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Đè theo chiều ngang bởi "
 
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Đè theo chiều dọc bởi "
+#~ msgid "Overlap vertically by "
+#~ msgstr "Đè theo chiều dọc bởi "
 
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Đang in"
+#~ msgid "Printing"
+#~ msgstr "Đang in"
 
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Bộ trợ giúp"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "In đoạn trợ giúp"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Trợ giúp in đè"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Thứ tự trang"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Xuống, rồi sang phải"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Phải, rồi xuống"
+#~ msgid "Helpers"
+#~ msgstr "Bộ trợ giúp"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Trình xem ảnh \"Mắt Gnome\""
@@ -874,15 +953,6 @@ msgstr "Phải, rồi xuống"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Không thể lưu ảnh vào '%s': %s."
-
-#~ msgid "Pages"
-#~ msgstr "Trang"
-
-#~ msgid "Print Preview"
-#~ msgstr "Xem thử bản in"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "In ảnh thất bại"
 
 #~ msgid "_New Window"
 #~ msgstr "Cửa _sổ mới"
@@ -986,9 +1056,6 @@ msgstr "Phải, rồi xuống"
 
 #~ msgid "_Tiles"
 #~ msgstr "_Lợp"
-
-#~ msgid "Save As"
-#~ msgstr "Lưu là"
 
 #~ msgid "Display"
 #~ msgstr "Hiển thị"

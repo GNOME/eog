@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2001-02-10 00:54+0200\n"
 "Last-Translator: Gediminas Paulauskas <menesis@delfi.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -28,49 +28,102 @@ msgstr "EOG paveikslėlių žiūrėklės gamykla"
 msgid "Image Collection"
 msgstr "EOG paveikslėlių žiūrėklės gamykla"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
-msgid "Next Image"
-msgstr "Atidaryti paveikslėlį"
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "Atidaryti paveikslėlį"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "Atidaryti paveikslėlį"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Maži"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 #, fuzzy
 msgid "_View"
 msgstr "Žiūrėklės"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr ""
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 #, fuzzy
 msgid "Collection View"
 msgstr "EOG paveikslėlių žiūrėklė"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr ""
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr ""
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Atidaryti paveikslėlį"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -156,105 +209,48 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr ""
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:5
-#, fuzzy
-msgid "Fit standard-sized images to the screen"
-msgstr "Sutalpinti standartinio dydžio paveikslėlius į ekraną"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 #, fuzzy
 msgid "Interpolate Image"
 msgstr "Interpoliacija"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 #, fuzzy
 msgid "Open images in a new window"
 msgstr "Atidaryti paveikslėlius naujame lange"
 
-#: eog.schemas.in.h:9
-#, fuzzy
-msgid "Put a bevel around the screen"
-msgstr "Rodyti rėmelį ekrano pakraščiuose"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 #, fuzzy
 msgid "Transparency color"
 msgstr "Skaidrumo tipas"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 #, fuzzy
 msgid "Transparency indicator"
 msgstr "Skaidrumo tipas"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -274,8 +270,7 @@ msgstr "EOG paveikslėlių žiūrėklės gamykla"
 msgid "Embeddable EOG Image"
 msgstr "EOG paveikslėlis"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 #, fuzzy
 msgid "Image"
 msgstr "EOG paveikslėlis"
@@ -302,11 +297,19 @@ msgstr "EOG paveikslėlis"
 msgid "Save Image"
 msgstr "Atidaryti paveikslėlį"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -332,6 +335,111 @@ msgstr ""
 
 #: libeog/eog-info-view.c:269
 msgid "Filename"
+msgstr ""
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Dideli"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+msgid "Preview"
+msgstr ""
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr ""
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:19
+#, fuzzy
+msgid "Scale"
+msgstr "Maži"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
 msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
@@ -405,10 +513,6 @@ msgstr "Uždaryti"
 msgid "_Contents"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr ""
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr ""
@@ -435,26 +539,21 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Gnome Akis"
 
-#: shell/eog-window.c:271
-#, fuzzy
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME paveikslėlių žiūrėjimo ir katalogavimo programa"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -500,7 +599,7 @@ msgstr ""
 msgid "Fit"
 msgstr "Tilpti"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Artyn"
 
@@ -526,14 +625,6 @@ msgstr ""
 msgid "_Zoom In"
 msgstr "Pritraukti"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr ""
@@ -551,261 +642,124 @@ msgstr "Atidaryti paveikslėlį"
 msgid "Print image to the printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Save _As..."
+msgid "Rotate Left"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:11
-msgid "Setup the page settings for your current printer"
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Save _As..."
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:13
+msgid "Setup the page settings for your current printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Visame ekrane"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr ""
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:816
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "Pritraukti"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "Atitraukti"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "Atitraukti"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 #, fuzzy
 msgid "/_Close"
 msgstr "Uždaryti"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Atidaryti paveikslėlio bylą"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Atidaryti paveikslėlio bylą"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 #, fuzzy
 msgid "Image Width"
 msgstr "Paveikslėlių langai"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr ""
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
 #, fuzzy
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Negalėjau inicializuoti Bonobo"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Sutalpinti standartinio dydžio paveikslėlius į ekraną"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr ""
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr ""
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr ""
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr ""
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr ""
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr ""
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr ""
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr ""
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr ""
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr ""
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr ""
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr ""
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr ""
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr ""
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr ""
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr ""
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr ""
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr ""
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr ""
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr ""
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr ""
-
-#. Scale
-#: viewer/eog-print-setup.c:697
 #, fuzzy
-msgid "Scale"
-msgstr "Maži"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Rodyti rėmelį ekrano pakraščiuose"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr ""
+#, fuzzy
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr ""
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr ""
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr ""
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr ""
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr ""
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr ""
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr ""
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr ""
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr ""
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr ""
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr ""
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr ""
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr ""
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr ""
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr ""
+#, fuzzy
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Negalėjau inicializuoti Bonobo"
 
 #, fuzzy
 #~ msgid "Eye of Gnome Image Viewer"
@@ -838,14 +792,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Could not initialize Bonobo!\n"
 #~ msgstr "Negalėjau inicializuoti Bonobo"
-
-#, fuzzy
-#~ msgid "Pages"
-#~ msgstr "Dideli"
-
-#, fuzzy
-#~ msgid "Printing of image failed"
-#~ msgstr "Atidaryti paveikslėlio bylą"
 
 #, fuzzy
 #~ msgid "_New Window"

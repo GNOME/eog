@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.1\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2003-01-19 22:06+0200\n"
 "Last-Translator: Mugurel Tudor <mugurelu@go.ro>\n"
 "Language-Team: română <ro@li.org>\n"
@@ -26,49 +26,108 @@ msgstr "Factory pentru colecţiile de imagini EOG"
 msgid "Image Collection"
 msgstr "Colecţie de imagini"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Next Image"
-msgstr "Salvează imagine"
+msgid "Flip _Horizontal"
+msgstr "Răstoarnă"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Flip _Vertical"
+msgstr "Oglindeşte"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "Salvează imagine"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "Tipăreşte imaginea"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
+msgstr "Roteşte la 180 de grade"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
+msgstr "Roteşte în sens orar"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
+msgstr "Roteşte în sens trigonometric"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Schimbă imaginile automat"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Editare"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Salvează ca"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Vizualizare"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Anulează"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 #, fuzzy
 msgid "Collection View"
 msgstr "Colecţie"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Titlul ferestrei"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 #, fuzzy
 msgid "Status Text"
 msgstr "Text în bara de status"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Salvează imagine"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -154,39 +213,17 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Alege automat dimensiunea ferestrei"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Gradul de zoom implicit pentru vizualizarea pe tot ecranul"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Modul implicit de zoom pentru vizualizarea pe tot ecranul. Valori posibile "
-"sunt: 0 (foloseşte un factor de zoom 1:1), 1 (foloseşte acelaşi factor de "
-"zoom ca fereastra de imagine), 2 ( potriveşte imaginea la ecran)."
-
-#: eog.schemas.in.h:4
 #, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Determină cum transparenţa ar trebui indicată. Valori valide sunt "
 "CHECK_PATTERN şi COLOR. Dacă este aleasă COLOR, atunci cheia trans_color "
 "determină valoarea folosită a culorii."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Potriveşte imaginile cu dimensiuni standard la ecran"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -194,32 +231,23 @@ msgstr ""
 "Dacă cheia de transparenţă are valoarea COLOR, atunci această cheie "
 "determină culoarea care este folosită pentru a indica transparenţa."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolează imaginea"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Deschide imaginile într-o nouă fereastră"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Pune un cadru în jurul ecranului"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-"Comportamenul bărilor de defilare în modul de vizualizare pe tot ecranul"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Culoarea de transparenţă"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Indicator de transparenţă"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -227,56 +255,13 @@ msgstr ""
 "Dacă imaginea ar trebui să fie interpolată la zoom sau nu. Acest lucru duce "
 "la calitate mai bună dar este mai lentă decât în lipsa interpolării."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Dacă ferestrele de imagini ar trebui să-şi aleagă automat dimensiunile şi "
-"factorul de zoom bazându-se pe dimensiunea imaginii. Dacă această opţiune nu "
-"este bifată, ferestrele de imagini vor avea dimensiunea care le va fi "
-"furnizată de managerul de ferestre."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Dacă deschizând o imagine ar trebui să creez o nouă fereastră în loc să "
 "înlocuiesc imaginea din ferestra curentă."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Dacă vizualizarea pe tot ecranul ar trebui să afişeze un cadru de-a lungul "
-"marginilor ecranului."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Dacă să fie afişate bările de defilare în modul de vizualizare pe tot "
-"ecranul. Valori posibile sunt: 1 (automat; afişează bările de defilare doar "
-"dacă imaginea este mai mare decât fereastra), 2 (bările de defilare nu sunt "
-"afişate niciodată)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Dacă să fie potrivite imaginile de dimensiune standard pe ecran în "
-"vizualizare pe tot ecranul. Acestea sunt imagini cu dimensiuni de genul "
-"320x240, 640x480, 800x800, etc. Selectând acest lucru, aceste imagini vor fi "
-"scalate să se potrivească la ecran fără a se mai ţine seama de setările "
-"pentru factorul de zoom din modul de vizualizare pe tot ecranul."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -294,8 +279,7 @@ msgstr "Fabrica de vizualizare a imaginilor EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imagine EOG încorporată"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Imagine"
 
@@ -320,11 +304,19 @@ msgstr "Încarcă imagine"
 msgid "Save Image"
 msgstr "Salvează imagine"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Tip de fişier nesuportat."
@@ -354,6 +346,118 @@ msgstr "Luminos"
 #, fuzzy
 msgid "Filename"
 msgstr "_Fişier"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Pagini"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Previzualizează printarea"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milimetru"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Pagină"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% din mărimea iniţială"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "Ajustează la:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Centrează"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "Tipăreşte ajutorul marcat"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Jos, apoi dreapta"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Încadrează în pagină"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Orizontal"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Orizontal"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Margini"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "Suprapunere"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Tipăreşte ajutorul suprapus"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Ordinea paginilor"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Dreapta, apoi jos"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Scalează"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Vertical"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Vertical"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -419,10 +523,6 @@ msgstr "În_chide"
 msgid "_Contents"
 msgstr "_Conţinut"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Editare"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fişier"
@@ -447,24 +547,20 @@ msgstr "_Ieşire"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Mugurel Tudor <mugurelu@go.ro>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Aplicaţia GNOME pentru vizualizarea şi catalogarea imaginilor."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -514,7 +610,7 @@ msgstr "Cea mai bună _potrivire"
 msgid "Fit"
 msgstr "Potriveşte"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Apropie"
 
@@ -538,16 +634,6 @@ msgstr "Dimensiune _normală"
 msgid "_Zoom In"
 msgstr "_Măreşte"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Răstoarnă"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Oglindeşte"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Previzualizează imaginea care va fi printată"
@@ -564,257 +650,243 @@ msgstr "Se_tare printare"
 msgid "Print image to the printer"
 msgstr "Tipăreşte imaginea către imprimantă"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Roteşte la 180 de grade"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Roteşte în sens orar"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Roteşte în sens trigonometric"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "S_alvează ca..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Setează pagina pentru imprimanta curentă"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Pe tot ecranul"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Printează..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+#, fuzzy
+msgid "/Rotate C_lockwise"
+msgstr "Roteşte în sens orar"
+
+#: viewer/eog-image-view.c:813
+#, fuzzy
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Roteşte în sens trigonometric"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Măreşte"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/M_icşorează"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Dimensiune _normală"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Cea mai bună _potrivire"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Închide"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Printarea imaginii a eşuat"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Printarea imaginii a eşuat"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Lăţimea imaginii"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Înălţimea imaginii"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Text în bara de status"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Nu am putut iniţializa GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Alege automat dimensiunea ferestrei"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pct"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Gradul de zoom implicit pentru vizualizarea pe tot ecranul"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "puncte"
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Modul implicit de zoom pentru vizualizarea pe tot ecranul. Valori "
+#~ "posibile sunt: 0 (foloseşte un factor de zoom 1:1), 1 (foloseşte acelaşi "
+#~ "factor de zoom ca fereastra de imagine), 2 ( potriveşte imaginea la "
+#~ "ecran)."
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Potriveşte imaginile cu dimensiuni standard la ecran"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetru"
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Pune un cadru în jurul ecranului"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr ""
+#~ "Comportamenul bărilor de defilare în modul de vizualizare pe tot ecranul"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimetru"
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Dacă ferestrele de imagini ar trebui să-şi aleagă automat dimensiunile şi "
+#~ "factorul de zoom bazându-se pe dimensiunea imaginii. Dacă această opţiune "
+#~ "nu este bifată, ferestrele de imagini vor avea dimensiunea care le va fi "
+#~ "furnizată de managerul de ferestre."
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inch"
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Dacă vizualizarea pe tot ecranul ar trebui să afişeze un cadru de-a "
+#~ "lungul marginilor ecranului."
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Setare printare"
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Dacă să fie afişate bările de defilare în modul de vizualizare pe tot "
+#~ "ecranul. Valori posibile sunt: 1 (automat; afişează bările de defilare "
+#~ "doar dacă imaginea este mai mare decât fereastra), 2 (bările de defilare "
+#~ "nu sunt afişate niciodată)."
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Printare"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Dacă să fie potrivite imaginile de dimensiune standard pe ecran în "
+#~ "vizualizare pe tot ecranul. Acestea sunt imagini cu dimensiuni de genul "
+#~ "320x240, 640x480, 800x800, etc. Selectând acest lucru, aceste imagini vor "
+#~ "fi scalate să se potrivească la ecran fără a se mai ţine seama de "
+#~ "setările pentru factorul de zoom din modul de vizualizare pe tot ecranul."
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Previzualizare printare"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Unităţi:"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Nu am putut iniţializa GnomeVFS!\n"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Pagină"
+#~ msgid "pts"
+#~ msgstr "pct"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Mărimea paginii:"
+#~ msgid "points"
+#~ msgstr "puncte"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Orientare"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Verticală"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Orizontală"
+#~ msgid "centimeter"
+#~ msgstr "centimetru"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Margini"
+#~ msgid "inch"
+#~ msgstr "inch"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Sus:"
+#~ msgid "Print Setup"
+#~ msgstr "Setare printare"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Stânga:"
+#~ msgid "Print"
+#~ msgstr "Printare"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Dreapta:"
+#~ msgid "Print preview"
+#~ msgstr "Previzualizare printare"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Jos:"
+#~ msgid "Units: "
+#~ msgstr "Unităţi:"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Scalează"
+#~ msgid "Paper size:"
+#~ msgstr "Mărimea paginii:"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Ajustează la:"
+#~ msgid "Orientation"
+#~ msgstr "Orientare"
 
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Încadrează în pagină"
+#~ msgid "Portrait"
+#~ msgstr "Verticală"
 
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% din mărimea iniţială"
+#~ msgid "Landscape"
+#~ msgstr "Orizontală"
 
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Centrează"
+#~ msgid "Top:"
+#~ msgstr "Sus:"
 
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Orizontal"
+#~ msgid "Left:"
+#~ msgstr "Stânga:"
 
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Vertical"
+#~ msgid "Right:"
+#~ msgstr "Dreapta:"
 
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Suprapunere"
+#~ msgid "Bottom:"
+#~ msgstr "Jos:"
 
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Suprapune orizontal cu "
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Suprapune orizontal cu "
 
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Suprapune vertical cu "
+#~ msgid "Overlap vertically by "
+#~ msgstr "Suprapune vertical cu "
 
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Tipărire"
+#~ msgid "Printing"
+#~ msgstr "Tipărire"
 
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Asistenţi"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Tipăreşte ajutorul marcat"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Tipăreşte ajutorul suprapus"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Ordinea paginilor"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Jos, apoi dreapta"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Dreapta, apoi jos"
+#~ msgid "Helpers"
+#~ msgstr "Asistenţi"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Vizualizator imagini EoG"
@@ -917,15 +989,6 @@ msgstr "Dreapta, apoi jos"
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Nu am putut salva imaginea ca '%s': %s"
 
-#~ msgid "Pages"
-#~ msgstr "Pagini"
-
-#~ msgid "Print Preview"
-#~ msgstr "Previzualizează printarea"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Printarea imaginii a eşuat"
-
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
 #~ "%s"
@@ -1016,9 +1079,6 @@ msgstr "Dreapta, apoi jos"
 
 #~ msgid "_White"
 #~ msgstr "_Alb"
-
-#~ msgid "Save As"
-#~ msgstr "Salvează ca"
 
 #~ msgid "Display"
 #~ msgstr "Afişaj"

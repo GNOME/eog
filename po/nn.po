@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 10.0\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
+"POT-Creation-Date: 2003-08-25 21:15+0200\n"
 "PO-Revision-Date: 2002-01-30 03:47+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <nn@li.org>\n"
@@ -29,49 +29,106 @@ msgstr "EOG-biletevisarfabrikk"
 msgid "Image Collection"
 msgstr "Samling"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
-
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Next Image"
-msgstr "Opne bilete"
+msgid "Flip _Horizontal"
+msgstr "Horisontalt"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#, fuzzy
+msgid "Flip _Vertical"
+msgstr "Vertikalt"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
+msgid "Next"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:4
 #, fuzzy
+msgid "Next Image"
+msgstr "Opne bilete"
+
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6
+#, fuzzy
 msgid "Previous Image"
 msgstr "Skriv ut bilete"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+#, fuzzy
+msgid "_Edit"
+msgstr "_Avslutt"
+
+#: collection/eog-collection-view-ui.xml.h:12
+#, fuzzy
+msgid "_Save"
+msgstr "Lagre som"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Vis"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+#, fuzzy
+msgid "Cancel saving"
+msgstr "Avbryt"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr ""
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 #, fuzzy
 msgid "Collection View"
 msgstr "Samling"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Vindaugstittel"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 #, fuzzy
 msgid "Status Text"
 msgstr "Statuslinjetekst"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr ""
+
+#: collection/eog-save-dialog.c:99
+#, fuzzy
+msgid "Saving image"
+msgstr "Opne bilete"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -156,101 +213,46 @@ msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr ""
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr ""
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 #, fuzzy
 msgid "Interpolate Image"
 msgstr "Interpolering"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 #, fuzzy
 msgid "Open images in a new window"
 msgstr "Opne i eit vindauge"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr ""
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr ""
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr ""
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -269,8 +271,7 @@ msgstr "EOG-biletevisarfabrikk"
 msgid "Embeddable EOG Image"
 msgstr "Innvevbar EOG-bilete"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Bilete"
 
@@ -296,11 +297,19 @@ msgstr "Bilete"
 msgid "Save Image"
 msgstr "Opne bilete"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr ""
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr ""
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -329,6 +338,118 @@ msgstr "Lys"
 #, fuzzy
 msgid "Filename"
 msgstr "_Fil"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Sider"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+#, fuzzy
+msgid "Preview"
+msgstr "Førehandsvising av utskrift"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "millimeter"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Papir"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "prosent av opprinneleg storleik"
+
+#: libgpi/gpi-dialog.glade.h:3
+#, fuzzy
+msgid "Adjust to "
+msgstr "Justér til:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Sentrert"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "Hjelp om utskriftsklipping"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Ned og mot høgre"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Tilpass til side"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Horisontalt"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Horisontalt"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Margar"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+#, fuzzy
+msgid "Overlap"
+msgstr "Overlapping"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Hjelp om overlapp av utskrift"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Rekkjefølgje for sider"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Høgre og ned"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Skalert"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Vertikalt"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Vertikalt"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -399,11 +520,6 @@ msgstr "_Lukk"
 msgid "_Contents"
 msgstr "Hjelpeprogram"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-#, fuzzy
-msgid "_Edit"
-msgstr "_Avslutt"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fil"
@@ -430,25 +546,21 @@ msgstr "_Avslutt"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Opphavsrett © 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnome biletevisar og katalogprogram"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -496,7 +608,7 @@ msgstr ""
 msgid "Fit"
 msgstr "Tilpass"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Inn"
 
@@ -521,16 +633,6 @@ msgstr ""
 msgid "_Zoom In"
 msgstr "For_størr"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Horisontalt"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Vertikalt"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Førehandsvis biletet som skal skrivast ut"
@@ -549,260 +651,181 @@ msgstr "Skrivaroppsett"
 msgid "Print image to the printer"
 msgstr "Utskrift til skrivar"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr ""
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:12
 #, fuzzy
 msgid "Save _As..."
 msgstr "Lagre som"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Sett opp sideinnstillingar for aktiv skrivar"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
 msgid "_Full Screen"
 msgstr "Fullskjerm"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 #, fuzzy
 msgid "_Print..."
 msgstr "_Skriv ut"
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view.c:816
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "For_størr"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "For_minsk"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "_Tilpass visning"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 #, fuzzy
 msgid "/_Close"
 msgstr "_Lukk"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, fuzzy, c-format
+msgid "Loading of image %s failed."
+msgstr "Utskrift mislukkast"
+
+#: viewer/eog-image-view.c:995
+#, fuzzy, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Utskrift mislukkast"
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Biletebreidde"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Biletehøgde"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr ""
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Klarte ikkje å initialisere GnomeVFS!\n"
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Opphavsrett © 2000-2002 The Free Software Foundation"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pkt"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Klarte ikkje å initialisere GnomeVFS!\n"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "punkt"
+#~ msgid "pts"
+#~ msgstr "pkt"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "points"
+#~ msgstr "punkt"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "millimeter"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centimeter"
+#~ msgid "centimeter"
+#~ msgstr "centimeter"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "tomme"
+#~ msgid "inch"
+#~ msgstr "tomme"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Skrivaroppsett"
+#~ msgid "Print Setup"
+#~ msgstr "Skrivaroppsett"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Skriv ut"
+#~ msgid "Print"
+#~ msgstr "Skriv ut"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Førehandsvising av utskrift"
+#~ msgid "Print preview"
+#~ msgstr "Førehandsvising av utskrift"
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Einingar:"
+#~ msgid "Units: "
+#~ msgstr "Einingar:"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Papir"
+#~ msgid "Paper size:"
+#~ msgstr "Papirstorleik:"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Papirstorleik:"
+#~ msgid "Orientation"
+#~ msgstr "Retning"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Retning"
+#~ msgid "Portrait"
+#~ msgstr "Ståande"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Ståande"
+#~ msgid "Landscape"
+#~ msgstr "Liggjande"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Liggjande"
+#~ msgid "Top:"
+#~ msgstr "Topp:"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Margar"
+#~ msgid "Left:"
+#~ msgstr "Venstre:"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Topp:"
+#~ msgid "Right:"
+#~ msgstr "Høgre:"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Venstre:"
+#~ msgid "Bottom:"
+#~ msgstr "Botn:"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Høgre:"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Overlapp vassrett med "
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Botn:"
+#~ msgid "Overlap vertically by "
+#~ msgstr "Overlapp loddrett med "
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Skalert"
+#~ msgid "Printing"
+#~ msgstr "Utskrift"
 
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Justér til:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Tilpass til side"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "prosent av opprinneleg storleik"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Sentrert"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Horisontalt"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Vertikalt"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Overlapping"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Overlapp vassrett med "
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Overlapp loddrett med "
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Utskrift"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Hjelpeprogram"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Hjelp om utskriftsklipping"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Hjelp om overlapp av utskrift"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Rekkjefølgje for sider"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Ned og mot høgre"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Høgre og ned"
+#~ msgid "Helpers"
+#~ msgstr "Hjelpeprogram"
 
 #, fuzzy
 #~ msgid "Eye of Gnome Image Viewer"
@@ -845,15 +868,6 @@ msgstr "Høgre og ned"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Klarte ikkje å lagre bilete som «%s»: %s"
-
-#~ msgid "Pages"
-#~ msgstr "Sider"
-
-#~ msgid "Print Preview"
-#~ msgstr "Førehandsvising av utskrift"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Utskrift mislukkast"
 
 #~ msgid "_New Window"
 #~ msgstr "_Nytt vindauge"
@@ -968,9 +982,6 @@ msgstr "Høgre og ned"
 
 #~ msgid "Error while obtaining file informations."
 #~ msgstr "Feil ved lesing av filinfo."
-
-#~ msgid "Save As"
-#~ msgstr "Lagre som"
 
 #~ msgid "Display"
 #~ msgstr "Vising"
