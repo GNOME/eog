@@ -9,7 +9,7 @@
  */
 
 #ifndef _EOG_IMAGE_VIEW_H_
-#define _EOG_IMAGE_VIEW_H
+#define _EOG_IMAGE_VIEW_H_
 
 #include <eog-image-data.h>
 

@@ -24,7 +24,8 @@
 
 #include <bonobo.h>
 
-#include <eog-image-control.h>
+#include <eog-control.h>
+#include <eog-embeddable.h>
 
 /*
  * Number of running objects
@@ -36,7 +37,7 @@ static BonoboGenericFactory *image_factory = NULL;
  * BonoboObject data
  */
 typedef struct {
-	EogImageControl    *bonobo_object;
+	BonoboObject       *bonobo_object;
 
 	EogImageData       *image_data;
 } bonobo_object_data_t;
@@ -45,7 +46,7 @@ static void
 bonobo_object_destroy_cb (BonoboObject *object, bonobo_object_data_t *bonobo_object_data)
 {
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_CONTROL (object));
+	g_return_if_fail (EOG_IS_CONTROL (object));
 	g_return_if_fail (bonobo_object_data != NULL);
 
 	g_message ("bonobo_object_destroy_cb: %p", object);
@@ -63,7 +64,7 @@ bonobo_object_destroy_cb (BonoboObject *object, bonobo_object_data_t *bonobo_obj
 }
 
 static BonoboObject *
-eog_image_viewer_factory (BonoboGenericFactory *this, void *data)
+eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id, void *data)
 {
 	bonobo_object_data_t *bonobo_object_data;
 
@@ -75,7 +76,16 @@ eog_image_viewer_factory (BonoboGenericFactory *this, void *data)
 	bonobo_object_data = g_new0 (bonobo_object_data_t, 1);
 
 	bonobo_object_data->image_data = eog_image_data_new ();
-	bonobo_object_data->bonobo_object = eog_image_control_new (bonobo_object_data->image_data);
+	if (!strcmp (goad_id, "OAFIID:eog_image_viewer:a30dc90b-a68f-4ef8-a257-d2f8ab7e6c9f"))
+		bonobo_object_data->bonobo_object = (BonoboObject *)
+			eog_control_new (bonobo_object_data->image_data);
+	else if (!strcmp (goad_id, "OAFIID:eog_embeddedable_image:759a2e09-31e1-4741-9ce7-8354d49a16bb"))
+		bonobo_object_data->bonobo_object = (BonoboObject *)
+			eog_embeddable_new (bonobo_object_data->image_data);
+	else {
+		g_warning ("Unknown ID `%s' requested", goad_id);
+		return NULL;
+	}
 
 	running_objects++;
 
@@ -88,7 +98,7 @@ eog_image_viewer_factory (BonoboGenericFactory *this, void *data)
 static void
 init_eog_image_viewer_factory (void)
 {
-	image_factory = bonobo_generic_factory_new
+	image_factory = bonobo_generic_factory_new_multi
 		("OAFIID:eog_image_viewer_factory:8241bcf2-30ca-4c58-ab45-cfb1393e13a4",
 		 eog_image_viewer_factory, NULL);
 }

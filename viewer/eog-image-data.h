@@ -9,7 +9,7 @@
  */
 
 #ifndef _EOG_IMAGE_DATA_H_
-#define _EOG_IMAGE_DATA_H
+#define _EOG_IMAGE_DATA_H_
 
 #include <Eog.h>
 #include <bonobo.h>

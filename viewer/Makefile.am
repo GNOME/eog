@@ -26,8 +26,12 @@ eog_image_viewer_SOURCES =	\
 	eog-image-data.h	\
 	eog-image-view.c	\
 	eog-image-view.h	\
-	eog-image-control.c	\
-	eog-image-control.h	\
+	eog-control.c		\
+	eog-control.h		\
+	eog-embeddable.c	\
+	eog-embeddable.h	\
+	eog-embeddable-view.c	\
+	eog-embeddable-view.h	\
 	main.c
 
 eog_image_viewer_LDADD = 			\
