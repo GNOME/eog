@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eyes of Gnome HEAD\n"
-"POT-Creation-Date: 2003-05-11 08:13+0800\n"
-"PO-Revision-Date: 2003-05-11 08:22+0800\n"
+"POT-Creation-Date: 2003-06-14 02:16+0800\n"
+"PO-Revision-Date: 2003-06-14 02:17+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -26,47 +26,87 @@ msgid "Image Collection"
 msgstr "Koleksi Imej"
 
 #: collection/eog-collection-view-ui.xml.h:1
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Flip Meng_ufuk"
+
+#: collection/eog-collection-view-ui.xml.h:2
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Flip Me_negak"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "Berikutnya"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "Imej Berikutnya"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Terdahulu"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "Imej Terdahulu"
 
-#: collection/eog-collection-view-ui.xml.h:5
+#: collection/eog-collection-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Dikilas 180 _Darjah"
+
+#: collection/eog-collection-view-ui.xml.h:8
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Kilas _Ikut Jam"
+
+#: collection/eog-collection-view-ui.xml.h:9
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Kilas Ber_lawanan Jam"
+
+#: collection/eog-collection-view-ui.xml.h:10
 #: eog.glade.h:18
 msgid "Slide Show"
 msgstr "Paparan Slaid"
 
-#: collection/eog-collection-view-ui.xml.h:6
+#: collection/eog-collection-view-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "_Edit"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Undo"
+msgstr "_Nyahcara"
+
+#: collection/eog-collection-view-ui.xml.h:13
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Lihat"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:535
 msgid "Move to Trash"
 msgstr "Pindah ke Sampah"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:579
 msgid "Collection View"
 msgstr "Paparan Koleksi"
 
-#: collection/eog-collection-view.c:899
-#: viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1039
+#: viewer/eog-image-view.c:1215
 msgid "Window Title"
 msgstr "Tajuk Tetingkap"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1042
 msgid "Status Text"
 msgstr "Teks Status"
+
+#: collection/eog-collection-view.c:1045
+#: viewer/eog-image-view.c:1227
+msgid "Progress of Image Loading"
+msgstr "Progrem Pemuatan Imej"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -162,7 +202,7 @@ msgid "Default zoom factor for the full screen view. Possible values are: 0 (use
 msgstr "Faktor zoom default bagi paparan skrin penuh. Nilai yang boleh adalah: 0 (guna faktor zoom 1:1), 1( guna faktor zoom sama dengan tetingkap imej), 2 (imej muat pada skrin)."
 
 #: eog.schemas.in.h:4
-msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key determines the used color value."
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
 msgstr "Menentukan bagaimana ketelusan patut ditunjuk. Nilai sah ialah CHECK_PATERN , COLOR dan NONE. Jika COLOR dipilih, kekunci trans_color menentukan nilai warna yg digunakan."
 
 #: eog.schemas.in.h:5
@@ -218,7 +258,7 @@ msgid "Whether to display scrollbars on the full screen view. Possible values ar
 msgstr "Samada memapar bar skrol pada paparan skrin penuh"
 
 #: eog.schemas.in.h:18
-msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x800, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
+msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x600, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
 msgstr "Samada imej muat saiz-piawai ke skrin bila mod skrin penuh. Saiz Imej itu seperti 320x240, 640x480, 800x800, etc. Pemiliha ini menentukan samada imej patut diskalakan supaya muat dengan skrin tanpa mengambilkira tetapan faktor zoom default bagi paparan skrin penuh."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -237,9 +277,7 @@ msgstr "Kilang pelihat Imej EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imej EOG boleh diembed"
 
-#. Second page
 #: libeog/GNOME_EOG.server.in.in.h:5
-#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Imej"
 
@@ -263,11 +301,15 @@ msgstr "Muatkan imej"
 msgid "Save Image"
 msgstr "Simpan Imej"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1316
 msgid "No image loaded."
 msgstr "Tiada imej dimuatkan."
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1325
+msgid "Images can only be saved as local files."
+msgstr "Imej hanya boleh disimpan sebagai fail lokal."
+
+#: libeog/eog-image.c:1360
 msgid "Unsupported image type for saving."
 msgstr "Jenis fail imej tidak disokong untuk disimpan."
 
@@ -294,6 +336,125 @@ msgstr "Tinggi"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "Namafail"
+
+#: libgpi/gpi-dialog-pixbuf.c:303
+#: libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Halaman"
+
+#: libgpi/gpi-dialog.c:127
+#: libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:359
+msgid "Preview"
+msgstr "Prebiu"
+
+#: libgpi/gpi-dialog.c:143
+#: libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "Milimeter"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227
+#: libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Kertas"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% saiz asal"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Sesuaikan ke "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Tengah"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Bantuan pemotongan"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Bawah, kemudian kanan"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Muat satu halaman"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Mengufuk"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Mengufuk mengikut "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Margin"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Bantuan ordering"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Overlap"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Bantuan overlap"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Turutan Halaman"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Kanan, kemudian bawah"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Skala"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Papar"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Menegak"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Menegak mengikut "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "kawasan_aksi"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialog"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbox"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Nama"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Nama bagi fail atau data untuk dicetak"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -359,11 +520,6 @@ msgstr "_Tutup"
 msgid "_Contents"
 msgstr "_Kandungan"
 
-#: shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Edit"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fail"
@@ -388,27 +544,27 @@ msgstr "_Keluar"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>, Merlimau. 2002"
 
-#: shell/eog-window.c:269
-#: shell/eog-window.c:719
-#: shell/eog-window.c:807
-#: shell/eog-window.c:844
+#: shell/eog-window.c:270
+#: shell/eog-window.c:720
+#: shell/eog-window.c:812
+#: shell/eog-window.c:849
 #: shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Ainul Gnome"
 
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Hakcipta (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program untuk melihat dan mengkatalog imej GNOME."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -452,7 +608,6 @@ msgid "Fit"
 msgstr "Muat"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3
-#: viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "Masuk"
 
@@ -476,14 +631,6 @@ msgstr "Saiz _Normal"
 msgid "_Zoom In"
 msgstr "Zoom _Masuk"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "Flip Meng_ufuk"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "Flip Me_negak"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Prebiu imej untuk dicetak"
@@ -499,18 +646,6 @@ msgstr "T_etapan Cetakan..."
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Cetak imej ke pencetak"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "Dikilas 180 _Darjah"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "Kilas _Ikut Jam"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "Kilas Ber_lawanan Jam"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
@@ -528,51 +663,51 @@ msgstr "Skrin _Penuh"
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/Zoom _Masuk"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/Zoom _Keluar"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/Saiz _Normal"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/Zoom supaya _Muat"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/_Tutup"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:962
 msgid "Image successfully saved"
 msgstr "Imej berjaya disimpan"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:966
 msgid "Image saving failed"
 msgstr "Penyimpanan imej gagal"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1209
 msgid "Image Width"
 msgstr "Lebar Imej"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1212
 msgid "Image Height"
 msgstr "Tinggi Imej"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1218
 msgid "Statusbar Text"
 msgstr "Teks Bar Status"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1221
 msgid "Desired Window Width"
 msgstr "Lebar Tetingkap Digemari"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1224
 msgid "Desired Window Height"
 msgstr "Tinggi Tetingkap Digemari"
 
@@ -583,173 +718,4 @@ msgid ""
 msgstr ""
 "Tak dapat menginitialisasikan GnomeVFS!\n"
 ""
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "ttk"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "titik"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimeter"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "sm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "sentimeter"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "Inci"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Tetapan Cetakan"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Cetak"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Prebiu Cetakan"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Unit:"
-
-#. First page
-#: viewer/eog-print-setup.c:557
-#: viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Kertas"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Saiz kertas:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Orientasi"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Potret"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Lanskap"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Margin"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Atas:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Kiri:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Kanan:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Bawah:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Skala"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Sesuaikan ke:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Muat satu halaman"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% saiz asal"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Tengah"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Mengufuk"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Menegak"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Overlapping"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Overlap mengufuk dengan"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Overlap menegak dengan"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Cetakan"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Pembantu"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Bantuan Potongan Cetakan"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Bantuan overlap cetakan"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Turutan Halaman"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Bawah, kemudian kanan"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Kanan, kemudian bawah"
 
