@@ -17,14 +17,23 @@ static guint eog_model_signals[LAST_SIGNAL];
 
 
 struct _EogCollectionModelPrivate {
+	/* the bonobo storage were we are getting the images from */
 	Bonobo_Unknown storage;
+	
+	/* the uri which will be resolved to a Bonobo_Storage */
 	gchar *uri;
 
-	GList *image_list;
+	/* holds for every id the corresponding cimage */
+	GHashTable *id_image_mapping;
 
+	/* does all the image loading work */
 	EogImageLoader *loader;
-	GList *last_loaded_image;
-	guint idle_handler_id;
+
+	/* list of images to load with loader */ 
+	GSList *images_to_load;
+
+	/* id of the idle function */
+	gint idle_id;
 };
 
 
@@ -32,6 +41,12 @@ static GtkObjectClass *parent_class;
 
 static void
 image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer data);
+
+static void
+free_hash_image (gpointer key, gpointer value, gpointer data)
+{
+	gtk_object_unref (GTK_OBJECT (value));
+}
 
 static void
 eog_collection_model_destroy (GtkObject *obj)
@@ -56,6 +71,11 @@ eog_collection_model_destroy (GtkObject *obj)
 	if (model->priv->uri)
 		g_free (model->priv->uri);
 	model->priv->uri = NULL;
+
+	g_hash_table_foreach (model->priv->id_image_mapping, 
+			      (GHFunc) free_hash_image, NULL);
+	g_hash_table_destroy (model->priv->id_image_mapping);
+	model->priv->id_image_mapping = NULL;
 
 	CORBA_exception_free (&ev);
 }
@@ -82,6 +102,9 @@ eog_collection_model_init (EogCollectionModel *obj)
 	priv->storage = CORBA_OBJECT_NIL;
 	priv->loader = NULL;
 	priv->uri = NULL;
+	priv->id_image_mapping = NULL;
+	priv->images_to_load = NULL;
+	priv->idle_id = -1;
 	obj->priv = priv;
 }
 
@@ -176,12 +199,16 @@ eog_collection_model_construct (EogCollectionModel *model)
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
        
+	/* init loader */
 	loader = eog_image_loader_new (100,100);
         eog_image_loader_set_model (loader, model);
 	gtk_signal_connect (GTK_OBJECT (loader), "loading_finished", 
 			    image_loading_finished_cb, model);
 
 	model->priv->loader = loader;
+
+	/* init hash table */
+	model->priv->id_image_mapping = g_hash_table_new (NULL, NULL);
 }
 
 EogCollectionModel*
@@ -212,8 +239,8 @@ real_image_loading (EogCollectionModel *model)
 	priv = model->priv;
 
 	/* remove idle handler */
-	gtk_idle_remove (priv->idle_handler_id);
-	priv->idle_handler_id = 0;
+	gtk_idle_remove (priv->idle_id);
+	priv->idle_id = -1;
 
 	CORBA_exception_init (&ev);
 
@@ -230,11 +257,20 @@ real_image_loading (EogCollectionModel *model)
 		info = (Bonobo_StorageInfo) dir_list->_buffer[i];
 		
 		if(g_strncasecmp(info.content_type, "image/", 6) == 0) {
-			CImage *img;			
+			CImage *img;
+			gint id;
+
 			img = cimage_new (info.name);			
-			priv->image_list = g_list_append (priv->image_list, img);
+			id = cimage_get_unique_id (img);
+
+			/* add image infos to internal lists */
+			g_hash_table_insert (priv->id_image_mapping,
+					     GINT_TO_POINTER (id),
+					     img);
+			priv->images_to_load = g_slist_append (priv->images_to_load, img);
+
 			id_list = g_list_append (id_list, 
-						 GINT_TO_POINTER (cimage_get_unique_id (img)));
+						 GINT_TO_POINTER (id));
 		}
 
 		/* update gui every 20th time */
@@ -250,7 +286,6 @@ real_image_loading (EogCollectionModel *model)
 	/* 
 	 * Start the image loading through EogImageLoader.
 	 */
-	priv->last_loaded_image = NULL;
 	eog_image_loader_start (priv->loader);
 
 	return TRUE;
@@ -262,7 +297,7 @@ eog_collection_model_get_next_loading_context (EogCollectionModel *model)
 {
 	EogCollectionModelPrivate *priv;
 	CORBA_Environment ev;
-	GList *current_image;
+	GSList *current_image;
 	CImage *img;
 	LoadingContext *lctx;
 	gchar *path;
@@ -274,11 +309,9 @@ eog_collection_model_get_next_loading_context (EogCollectionModel *model)
 
 	priv = model->priv;
 
-	if (priv->last_loaded_image == NULL) {
-		current_image = priv->image_list;
-	} else {
-		current_image = priv->last_loaded_image->next;
-	}
+	if (priv->images_to_load == NULL) return NULL;
+
+	current_image = priv->images_to_load;
 
 	CORBA_exception_init (&ev);
 
@@ -296,7 +329,10 @@ eog_collection_model_get_next_loading_context (EogCollectionModel *model)
 	
 		if (ev._major != CORBA_NO_EXCEPTION) {
 			cimage_set_loading_failed (img);
-			current_image = current_image->next;
+			priv->images_to_load = 
+				g_slist_remove_link (priv->images_to_load, current_image);
+			g_slist_free_1 (current_image);
+			current_image = priv->images_to_load;
 		} else {
 			loading_failed = FALSE;
 		}
@@ -305,7 +341,9 @@ eog_collection_model_get_next_loading_context (EogCollectionModel *model)
 	lctx->image = (CImage*)current_image->data;
 	gtk_object_ref (GTK_OBJECT (lctx->image));
 
-	priv->last_loaded_image = current_image;
+	priv->images_to_load = 
+		g_slist_remove_link (priv->images_to_load, current_image);
+	g_slist_free_1 (current_image);
 
 	CORBA_exception_free (&ev);
 
@@ -340,7 +378,7 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	}
 	priv->uri = g_strdup (uri);
 
-	model->priv->idle_handler_id = gtk_idle_add ((GtkFunction) real_image_loading, model);
+	model->priv->idle_id = gtk_idle_add ((GtkFunction) real_image_loading, model);
 	
 	CORBA_exception_free (&ev);
 }
@@ -365,7 +403,7 @@ eog_collection_model_get_length (EogCollectionModel *model)
 	g_return_val_if_fail (model != NULL, 0);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
 
-	return g_list_length (model->priv->image_list);
+	return g_hash_table_size (model->priv->id_image_mapping);
 }
 
 
@@ -373,16 +411,11 @@ CImage*
 eog_collection_model_get_image (EogCollectionModel *model,
 				guint unique_id)
 {
-	static int n_call = 1;
-
 	g_return_val_if_fail (model != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
 
-	if (0 <= unique_id < g_list_length (model->priv->image_list)) {
-		CImage *img = (CImage*) g_list_nth_data (model->priv->image_list, unique_id);
-		return img;
-	} else
-		return NULL;
+	return CIMAGE (g_hash_table_lookup (model->priv->id_image_mapping,
+					    GINT_TO_POINTER (unique_id)));
 }
 
 gchar*

@@ -63,7 +63,7 @@ typedef struct {
 
 struct _EogWrapListPrivate {
 	/* List of all items currently in the view. */
-	GList *item_list;
+	GHashTable *item_table;
 	
 	/* Factory to use. */
 	GnomeListItemFactory *factory;
@@ -192,7 +192,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 	priv = g_new0 (EogWrapListPrivate, 1);
 	wlist->priv = priv;
 	
-	priv->item_list = NULL;
+	priv->item_table = NULL;
 	priv->model = NULL;
 	priv->factory = NULL;
 	priv->row_spacing = 0;
@@ -248,6 +248,12 @@ eog_wrap_list_finalize (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
+static void
+eog_wrap_list_construct (EogWrapList *wlist)
+{
+	wlist->priv->item_table = g_hash_table_new (NULL, NULL);
+}
+
 
 GtkWidget*
 eog_wrap_list_new (void)
@@ -262,6 +268,7 @@ eog_wrap_list_new (void)
         gtk_widget_pop_visual ();
         gtk_widget_pop_colormap ();
 
+	eog_wrap_list_construct (EOG_WRAP_LIST (wlist));
 
 	return wlist;
 }
@@ -593,8 +600,8 @@ void eog_wrap_list_clear (EogWrapList *wlist)
 				       "y", 0.0,
 				       NULL);
 						  
-	g_list_free (priv->item_list);
-	priv->item_list = NULL;
+	g_hash_table_destroy (priv->item_table);
+	priv->item_table = g_hash_table_new (NULL, NULL);
 }
 
 static void 
@@ -646,9 +653,8 @@ get_item_by_unique_id (EogWrapList *wlist,
 	g_return_val_if_fail (wlist != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), NULL);
 	
-	/* FIXME: this calculation is wrong if we
-	   remove items. */
-	return (GnomeCanvasItem*) g_list_nth_data (wlist->priv->item_list, unique_id);
+	return (GnomeCanvasItem*) g_hash_table_lookup (wlist->priv->item_table, 
+						       GINT_TO_POINTER (unique_id));
 }
 
 static void 
@@ -726,7 +732,8 @@ do_item_removed_update (EogWrapList *wlist,
 			GnomeCanvasItem *item;			
 			for (id = id_range_start; id <= id_range_end; id++) {
 				item = get_item_by_unique_id (wlist, id);
-				priv->item_list = g_list_remove (priv->item_list, item);
+				g_hash_table_remove (priv->item_table, 
+						     GINT_TO_POINTER (id));
 				gtk_object_destroy (GTK_OBJECT (item));
 				priv->n_items--;
 			}
@@ -782,7 +789,8 @@ do_item_added_update (EogWrapList *wlist,
 				gnome_list_item_factory_update_item (priv->factory,
 								     priv->model,
 								     item);
-				priv->item_list = g_list_append (priv->item_list, item);
+			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
+						     item);
 				priv->n_items++;
 			}
 
@@ -796,7 +804,6 @@ do_item_added_update (EogWrapList *wlist,
 static gboolean
 do_layout_check (EogWrapList *wlist)
 {
-	GtkArg args[1];
 	guint n_rows_new;
 	guint n_cols_new;
 	gint canvas_width;
@@ -848,45 +855,54 @@ calculate_item_position (EogWrapList *wlist,
 	*world_y = row * (120 /*priv->item_height*/ + priv->row_spacing);
 }
 
+typedef struct {
+	EogWrapList *wlist;
+	gint n;
+} RearrangeData; 
+
+static void
+rearrange_single_item (gpointer key, gpointer value, RearrangeData *data)
+{
+	GnomeCanvasItem *item;
+	double x1, x2, y1, y2;
+	double x3, y3;
+	double xoff, yoff;
+	
+	item = (GnomeCanvasItem*) value;
+	
+	gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
+	
+	calculate_item_position (data->wlist, data->n, &x3, &y3);
+	
+	xoff = x3-x1;
+	yoff = y3-y1;
+		
+	if (xoff || yoff)
+		gnome_canvas_item_move (item, xoff, yoff);
+	
+	data->n++;
+}
 
 static void
 do_item_rearrangement (EogWrapList *wlist)
 {
-	GList *il;
 	EogWrapListPrivate *priv;
-	GnomeCanvasItem *item;
-	double x1, x2, y1, y2;
-	double x3, y3;
+        RearrangeData data;
 	double sr_width, sr_height;
-	gint n = 0;
-	double xoff, yoff;
-        
+
+	data.wlist = wlist;
+	data.n = 0;
+
 	g_message ("do_item_rearrangement called\n");
 
 	priv = wlist->priv;
 
-	il = priv->item_list;
-
-	/* move items to correct position */
-	while (il) {
-	       
-		item = (GnomeCanvasItem*) il->data;
-		
-		gnome_canvas_item_get_bounds (item, &x1, &y1, &x2, &y2);
-		
-		calculate_item_position (wlist, n, &x3, &y3);
-		
-		xoff = x3-x1;
-		yoff = y3-y1;
-		
-		if (xoff || yoff)
-			gnome_canvas_item_move (item, xoff, yoff);
-
-		n++;
-		il = il->next;
-	}
+	g_hash_table_foreach (priv->item_table, 
+			      (GHFunc) rearrange_single_item, 
+			      &data);
 
 	/* set new canvas scroll region */
+	/* FIXME: don't use hardcoded item dimensions */
 	sr_width =  priv->n_cols * (120 /*priv->item_width*/ + priv->col_spacing);
 	sr_height = priv->n_rows * (120 /*priv->item_height*/ + priv->row_spacing);
  	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
