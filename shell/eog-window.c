@@ -436,15 +436,41 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 {
 	EogWindowPrivate *priv;
 	GtkWidget *fs;
+	EogImageList *list = NULL;
+	EogImage *start_image = NULL;
+	int n_selected;
 
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
 	priv = EOG_WINDOW (data)->priv;
 
-	fs = eog_full_screen_new (priv->image_list, NULL);
-	g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (gtk_widget_destroy), NULL);
+	n_selected = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	if (n_selected == 1) {
+		list = g_object_ref (priv->image_list);
+		start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	}
+	else if (n_selected > 1) {
+		GList *l;
+		l = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
 
-	gtk_widget_show_all (fs);
+		list = eog_image_list_new_from_glist (l);
+		start_image = NULL;
+
+		g_list_foreach (l, (GFunc) g_object_unref, NULL);
+		g_list_free (l);
+	}
+
+	if (list != NULL) {
+		fs = eog_full_screen_new (list, start_image);
+		g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (gtk_widget_destroy), NULL);
+
+		gtk_widget_show_all (fs);
+
+		g_object_unref (list);
+	}
+
+	if (start_image != NULL) 
+		g_object_unref (start_image);
 }
 
 static void
