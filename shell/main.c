@@ -9,6 +9,7 @@
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
 #include <bonobo/bonobo-ui-main.h>
+#include <eel/eel-vfs-extensions.h>
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
 #include "session.h"
@@ -133,51 +134,16 @@ create_empty_window (gpointer data)
 static GnomeVFSURI*
 make_canonical_uri (const char *path)
 {
-	GnomeVFSURI *uri = NULL;
+	char *uri_str;
+	GnomeVFSURI *uri;
 
-	g_return_val_if_fail (path != NULL, NULL);
+	uri_str = eel_make_uri_from_shell_arg (path);
 
-	/* check if it's some kind of URI */
-	if (g_strrstr (path, ":/") != NULL) {
-		/* an URI should be encoded/escaped already properly */
-		uri = gnome_vfs_uri_new (path);
-	}
-	else {
-		/* we assume that it's an local file path */
-		/* apply some encoding/escaping magic */
-		GError *error = NULL;
-		char *fullpath;
-		char *escape;
-		char *utf;
+	uri = NULL;
 
-		if (g_path_is_absolute (path)) {
-			fullpath = g_strdup (path);
-		}
-		else {
-			char *current_dir;
-			current_dir = g_get_current_dir ();
-			fullpath = g_build_filename (current_dir, path, NULL);
-			g_free (current_dir);
-		}
-
-		escape = gnome_vfs_escape_path_string (fullpath);
-		g_free (fullpath);
-
-		if (g_utf8_validate (escape, -1, NULL)) {
-			utf = g_strdup (escape);
-		}
-		else {
-			utf = g_filename_to_utf8 (escape, -1, NULL, NULL, &error);
-		}
-		g_free (escape);
-		
-		if (utf == NULL) {
-			g_error ("Couldn't utf encode path: %s", error != NULL ? error->message : "unknown error");
-		}
-		else {
-			uri = gnome_vfs_uri_new (utf);
-			g_free (utf);
-		}
+	if (uri_str) {
+		uri = gnome_vfs_uri_new (uri_str);
+		g_free (uri_str);
 	}
 
 	return uri;
