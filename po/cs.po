@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-25 03:38+0200\n"
-"PO-Revision-Date: 2004-10-25 10:06+0200\n"
+"POT-Creation-Date: 2004-12-07 11:33+0100\n"
+"PO-Revision-Date: 2004-12-07 18:00+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
 msgstr "Prohlížeč obrázků"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
 msgstr "Prohlížení mnoha různých typů obrázků"
 
@@ -252,35 +252,39 @@ msgstr ""
 "Jestli se má obrázek při zvětšení interpolovat nebo ne. Interpolace vede k "
 "lepší kvalitě, ale je o něco pomalejší než neinterpolované obrázky."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Všechny obrázky"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s × %s pixelů"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Otevřít v novém okně"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Načíst obrázek"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "Otevřít adresář"
 
@@ -378,7 +382,9 @@ msgstr "Možnost není k dispozici."
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr "Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím libexif (http://libexif.sf.net) a znovu přeložte Eye of GNOME."
+msgstr ""
+"Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím "
+"libexif (http://libexif.sf.net) a znovu přeložte Eye of GNOME."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
