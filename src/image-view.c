@@ -1059,7 +1059,6 @@ image_view_size_request (GtkWidget *widget, GtkRequisition *requisition)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
-	int scaled_width, scaled_height;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (IS_IMAGE_VIEW (widget));
@@ -1068,10 +1067,7 @@ image_view_size_request (GtkWidget *widget, GtkRequisition *requisition)
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
 
-	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
-
-	requisition->width = scaled_width ? scaled_width : 1;
-	requisition->height = scaled_height ? scaled_height : 1;
+	requisition->width = requisition->height = 0;
 }
 
 /* Sets the zoom anchor point with respect to the specified window position */

@@ -341,6 +341,8 @@ window_init (Window *window)
 		NULL);
 
 	window_list = g_list_prepend (window_list, window);
+
+	gtk_window_set_policy (GTK_WINDOW (window), TRUE, TRUE, FALSE);
 }
 
 /* Destroy handler for windows */
@@ -479,9 +481,6 @@ window_construct (Window *window)
 	tb = tb_image_new (window, &priv->zoom_tb_items);
 	gnome_app_set_toolbar (GNOME_APP (window), GTK_TOOLBAR (tb));
 
-	gtk_window_set_default_size (GTK_WINDOW (window),
-				     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-
 	priv->ui = ui_image_new ();
 	gnome_app_set_contents (GNOME_APP (window), priv->ui);
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);
@@ -588,6 +587,15 @@ open_delete_event (GtkWidget *widget, gpointer data)
 	return TRUE;
 }
 
+/* Hide handler for the open file selection dialog; removes the GTK+ grab we
+ * keep on it.
+ */
+static void
+hide_cb (GtkWidget *widget, gpointer data)
+{
+	gtk_grab_remove (widget);
+}
+
 /**
  * window_open_image_dialog:
  * @window: A window.
@@ -605,6 +613,8 @@ window_open_image_dialog (Window *window)
 	priv = window->priv;
 
 	if (!priv->file_sel) {
+		GtkAccelGroup *accel_group;
+
 		priv->file_sel = gtk_file_selection_new (_("Open Image"));
 		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
 		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
@@ -620,10 +630,22 @@ window_open_image_dialog (Window *window)
 		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
 				    GTK_SIGNAL_FUNC (open_delete_event),
 				    window);
+		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "hide",
+				    GTK_SIGNAL_FUNC (hide_cb),
+				    window);
+
+		accel_group = gtk_accel_group_new ();
+		gtk_window_add_accel_group (GTK_WINDOW (priv->file_sel), accel_group);
+		gtk_widget_add_accelerator (GTK_FILE_SELECTION (priv->file_sel)->cancel_button,
+					    "clicked",
+					    accel_group,
+					    GDK_Escape,
+					    0, 0);
 	}
 
 	gtk_widget_show_now (priv->file_sel);
 	raise_and_focus (priv->file_sel);
+	gtk_grab_add (priv->file_sel);
 }
 
 /* Picks a reasonable size for the window and zoom factor based on the image size */
@@ -637,9 +659,6 @@ auto_size (Window *window)
 	int swidth, sheight;
 	int zwidth, zheight;
 	double zoom;
-	int window_width, window_height;
-	int view_width, view_height;
-	GtkAllocation allocation;
 
 	priv = window->priv;
 
@@ -661,25 +680,7 @@ auto_size (Window *window)
 	zwidth = floor (iwidth * zoom + 0.5);
 	zheight = floor (iheight * zoom + 0.5);
 
-	window_width = GTK_WIDGET (window)->allocation.width;
-	window_height = GTK_WIDGET (window)->allocation.height;
-
-	view_width = view->allocation.width;
-	view_height = view->allocation.height;
-
-	window_width = zwidth + (window_width - view_width);
-	window_height = zheight + (window_height - view_height);
-
-	allocation.x = GTK_WIDGET (window)->allocation.x;
-	allocation.y = GTK_WIDGET (window)->allocation.y;
-	allocation.width = window_width;
-	allocation.height = window_height;
-
-	if (!GTK_WIDGET_REALIZED (window))
-		gtk_widget_realize (GTK_WIDGET (window));
-
-	gtk_widget_size_allocate (GTK_WIDGET (window), &allocation);
-	gdk_window_resize (GTK_WIDGET (window)->window, allocation.width, allocation.height);
+	gtk_widget_set_usize (view, zwidth, zheight);
 }
 
 /**

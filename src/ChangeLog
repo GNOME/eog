@@ -1,3 +1,26 @@
+2000-08-18  Federico Mena Quintero  <federico@helixcode.com>
+
+	Another attempt at fixing auto-sizing; it seems to work now.
+	Maybe GtkScrollFrame is not *that* broken...
+
+	* window.c (window_construct): Do not set the default size of the
+	window.
+	(window_init): Set the window policy to allow_shrink.
+	(auto_size): Set the usize of the image view to our preferred size.
+	(window_open_image_dialog): Add a grab on the dialog so that the
+	user cannot invoke commands on the window!
+	(hide_cb): Remove the grab when the dialog is hidden.
+	(window_open_image_dialog): Sigh.  Add an accel group so that
+	pressing Escape can close the open dialog.
+
+	* gtkscrollframe.c (gtk_scroll_frame_size_request): Do pay
+	attention to the child's requisition; this restores the code to
+	its original state.
+	(gtk_scroll_frame_size_allocate): Make sure the the
+	child_allocation is nonnegative (bugfix merge from Evolution).
+
+	* image-view.c (image_view_size_request): Request a size of zero.
+
 2000-08-18  arik devens  <arik@helixcode.com>
 
 	* full-screen.c (full_screen_finalize): see below.

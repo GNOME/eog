@@ -3,9 +3,13 @@ Federico Mena-Quintero (federico@gnu.org).
 
 * Bugs:
 
-	- When a window is created with a new image (i.e. by running
-	  the program from the command line or by turning on "open
-	  images in a new window", auto-sizing does not work.
+	- Turn on window auto-sizing and create a new window with an
+          image in it (i.e. by turning on the "open images in a new
+          window" option or by specifying an image filename in the
+          command line).  The image view comes up a little bit larger
+          than the right auto-fit size.  This is GtkScrollFrame's
+          fault; for some reason it is including the (un-needed)
+          scrollbars' requisitions in its own space.
 
 * Finish the ImageView widget:
 
