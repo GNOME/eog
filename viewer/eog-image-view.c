@@ -301,13 +301,14 @@ verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
 	eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (view->priv->widget));
 }
 
+
+	/* FIXME: the gtk file dialog crashes here somehow !?!?
+	 */
+#if 0
 static void
 verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 		const char *cname)
 {
-	/* FIXME: the gtk file dialog crashes here somehow !?!?
-	 */
-#if 0
 	EogImageView     *image_view;
 	GtkWidget        *dlg;
 	int              response;
@@ -337,8 +338,8 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 	if (filename != NULL) {
 		g_free (filename);
 	}
-#endif
 }
+#endif
 
 static BonoboUIVerb eog_zoom_verbs[] = {
 	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
@@ -430,8 +431,6 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		break;
 	}
 	case PROP_WINDOW_TITLE: {
-		const gchar *filename;
-
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
 		if (priv->image != NULL) {
@@ -549,9 +548,6 @@ eog_image_view_destroy (BonoboObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
-	if (getenv ("DEBUG_EOG"))
-		g_message ("Destroying EogImageView...");
-
 	image_view = EOG_IMAGE_VIEW (object);
 	priv = image_view->priv;
 
@@ -568,9 +564,6 @@ eog_image_view_destroy (BonoboObject *object)
 		priv->image = NULL;
 	}
 	
-	if (getenv ("DEBUG_EOG"))
-		g_message ("EogImageView destroyed.");
-
 	BONOBO_CALL_PARENT (BONOBO_OBJECT_CLASS, destroy, (object));
 }
 
@@ -716,7 +709,6 @@ popup_menu_cb (gpointer data, guint action, GtkWidget *widget)
 {
 	EogImageView *image_view;
 	EogImageViewPrivate *priv;
-	double zoomx, zoomy;
 
 	image_view = EOG_IMAGE_VIEW (data);
 	priv = image_view->priv;
@@ -794,8 +786,6 @@ static void
 control_set_ui_container (EogImageView *view,
 			  Bonobo_UIContainer ui_container)
 {
-	BonoboUIComponent *uic;
-	
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (view));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 
@@ -807,8 +797,6 @@ control_set_ui_container (EogImageView *view,
 static void
 control_unset_ui_container (EogImageView *view)
 {
-	BonoboUIComponent *uic;
-
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (view));
 
 	bonobo_ui_component_unset_container (view->priv->uic, NULL);
@@ -907,7 +895,7 @@ save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	g_return_val_if_fail (text_uri != NULL, 1);
 	
 	view = EOG_IMAGE_VIEW (closure);
-	if (view->priv->image == NULL) return;
+	if (view->priv->image == NULL) return FALSE;
 
 	uri = gnome_vfs_uri_new (text_uri);
 	
@@ -988,7 +976,7 @@ zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogImageView *view)
 	eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (view->priv->widget), 1.0);
 }
 	
-void 
+static void 
 init_gconf_defaults (EogImageView *view) 
 {
 	EogImageViewPrivate *priv;
@@ -1084,7 +1072,6 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 	EogImageViewPrivate *priv;
 	BonoboControl *control;
 	BonoboZoomable *zoomable;
-	BonoboPersistFile *persist_file;
 
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
