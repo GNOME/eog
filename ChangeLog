@@ -1,5 +1,22 @@
 2003-03-07  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-full-screen.[ch]: Improved the in advance loading of
+	images. Also frees image data, which is probably not shown
+	next. 
+
+	* libeog/eog-scroll-view.c (eog_scroll_view_dispose): Free uta and
+	remove possibly active idle handler.
+
+	* collection/eog-wrap-list.c (eog_wrap_list_get_selected_images):
+	Just return pointer to internal list.
+	
+	* collection/eog-collection-view.c (verb_SlideShow_cb): Consider
+	selections when assembling the list of images for the slide show.
+
+	* viewer/eog-image-view.c (verb_FullScreen_cb): Free list.
+	
+2003-03-07  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image.c (load_image_real): Unref GdkPixbufLoader.
 
 2003-03-06  Jens Finke  <jens@triq.net>

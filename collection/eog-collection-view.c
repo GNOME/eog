@@ -99,10 +99,20 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 {
 	EogCollectionView *view;
 	GtkWidget *show;
+	GList *images = NULL;
+	EogImage *start_image = NULL;
 
 	view = EOG_COLLECTION_VIEW (user_data);
 
-	show = eog_full_screen_new (eog_collection_model_get_image_list (view->priv->model), NULL);
+	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (view->priv->wraplist)) > 1) {
+		images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));
+	}
+	else {
+		images = eog_collection_model_get_image_list (view->priv->model);
+	}
+	start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (view->priv->wraplist));
+
+	show = eog_full_screen_new (images, start_image);
 	gtk_widget_show (show);
 }
 

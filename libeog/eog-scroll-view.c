@@ -1843,11 +1843,23 @@ static void
 eog_scroll_view_dispose (GObject *object)
 {
 	EogScrollView *view;
+	EogScrollViewPrivate *priv;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (object));
 
 	view = EOG_SCROLL_VIEW (object);
-	
+	priv = view->priv;
+
+	if (priv->uta != NULL) {
+		art_uta_free (priv->uta);
+		priv->uta = NULL;
+	}
+
+	if (priv->idle_id != 0) {
+		g_source_remove (priv->idle_id);
+		priv->idle_id = 0;
+	}
+
 	free_image_resources (view);
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
