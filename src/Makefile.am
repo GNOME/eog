@@ -11,6 +11,8 @@ eog_SOURCES =				\
 	commands.h			\
 	cursors.c			\
 	cursors.h			\
+	full-screen.c			\
+	full-screen.h			\
 	gtkscrollframe.c		\
 	gtkscrollframe.h		\
 	image.h				\
