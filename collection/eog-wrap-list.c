@@ -66,7 +66,7 @@ struct _EogWrapListPrivate {
 	GHashTable *item_table;
 	
 	/* Factory to use. */
-	GnomeListItemFactory *factory;
+	EogItemFactory *factory;
 
 	/* Model to use. */
 	EogCollectionModel *model;
@@ -511,7 +511,7 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 }
 
 void
-eog_wrap_list_set_factory (EogWrapList *wlist, GnomeListItemFactory *factory)
+eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory)
 {
 	EogWrapListPrivate *priv;
 
@@ -527,6 +527,9 @@ eog_wrap_list_set_factory (EogWrapList *wlist, GnomeListItemFactory *factory)
 
 	if (factory) {
 		priv->factory = factory;
+		eog_item_factory_get_item_size (priv->factory,
+						&priv->item_width,
+						&priv->item_height);
 	}
 
 	priv->global_update_hints[GLOBAL_MODEL_CHANGED] = TRUE;
@@ -689,9 +692,9 @@ do_item_changed_update (EogWrapList *wlist,
 				GnomeCanvasItem *item;
 				item = get_item_by_unique_id (wlist, id);
 				g_print ("update item id: %i\n", id);
- 				gnome_list_item_factory_update_item (wlist->priv->factory,
-								     wlist->priv->model,
-								     item);
+ 				eog_item_factory_update_item (wlist->priv->factory,
+							      wlist->priv->model,
+							      item);
 			}
 		}
 	}
@@ -783,12 +786,12 @@ do_item_added_update (EogWrapList *wlist,
 			gint id;
 			GnomeCanvasItem *item;
 			for (id = id_range_start; id <= id_range_end; id++) {
-				item = gnome_list_item_factory_create_item (priv->factory,
-									    GNOME_CANVAS_GROUP (priv->item_group),
-									    id);
-				gnome_list_item_factory_update_item (priv->factory,
-								     priv->model,
-								     item);
+				item = eog_item_factory_create_item (priv->factory,
+								     GNOME_CANVAS_GROUP (priv->item_group),
+								     id);
+				eog_item_factory_update_item (priv->factory,
+							      priv->model,
+							      item);
 			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
 						     item);
 				priv->n_items++;
@@ -818,7 +821,7 @@ do_layout_check (EogWrapList *wlist)
 	canvas_width = GTK_WIDGET (wlist)->allocation.width;
 
 	/* calculate new number of  columns/rows */
-	n_cols_new = canvas_width / (120 /*priv->item_width*/ + priv->col_spacing);
+	n_cols_new = canvas_width / (priv->item_width + priv->col_spacing);
 	if (n_cols_new == 0) n_cols_new = 1;
 	n_rows_new = priv->n_items / n_cols_new;
 	n_rows_new = priv->n_items % n_cols_new ? n_rows_new++ : n_rows_new; 
@@ -851,8 +854,8 @@ calculate_item_position (EogWrapList *wlist,
 	row = item_number / priv->n_cols;
 	col = item_number % priv->n_cols;
 		
-	*world_x = col * (120 /*priv->item_width*/ + priv->col_spacing);
-	*world_y = row * (120 /*priv->item_height*/ + priv->row_spacing);
+	*world_x = col * (priv->item_width + priv->col_spacing);
+	*world_y = row * (priv->item_height + priv->row_spacing);
 }
 
 typedef struct {
@@ -902,9 +905,8 @@ do_item_rearrangement (EogWrapList *wlist)
 			      &data);
 
 	/* set new canvas scroll region */
-	/* FIXME: don't use hardcoded item dimensions */
-	sr_width =  priv->n_cols * (120 /*priv->item_width*/ + priv->col_spacing);
-	sr_height = priv->n_rows * (120 /*priv->item_height*/ + priv->row_spacing);
+	sr_width =  priv->n_cols * (priv->item_width + priv->col_spacing) - priv->col_spacing;
+	sr_height = priv->n_rows * (priv->item_height + priv->row_spacing) - priv->row_spacing;
  	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
 					0.0, 0.0,
 					sr_width, sr_height);

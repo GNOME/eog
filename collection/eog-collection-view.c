@@ -17,14 +17,14 @@
 
 #include <gnome.h>
 
-#include "gnome-icon-item-factory.h"
+#include "eog-item-factory-simple.h"
 #include "eog-wrap-list.h"
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
 
 struct _EogCollectionViewPrivate {
 	EogCollectionModel      *model;
-	GnomeIconItemFactory    *factory;
+	EogItemFactory          *factory;
 
 	GtkWidget               *wraplist;
 	GtkWidget               *root;
@@ -214,8 +214,7 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	priv = list_view->priv;
 	priv->model = eog_collection_model_new ();
 
-	priv->factory = gtk_type_new (GNOME_TYPE_ICON_ITEM_FACTORY);
-	gnome_icon_item_factory_set_item_metrics (priv->factory, 120, 120, 100, 100);
+	priv->factory = gtk_type_new (EOG_TYPE_ITEM_FACTORY_SIMPLE);
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
@@ -223,7 +222,7 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 	gtk_container_add (GTK_CONTAINER (priv->root), priv->wraplist);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), priv->model);
 	eog_wrap_list_set_factory (EOG_WRAP_LIST (priv->wraplist),
-				   GNOME_LIST_ITEM_FACTORY (priv->factory));
+				   EOG_ITEM_FACTORY (priv->factory));
 	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "item_dbl_click", 

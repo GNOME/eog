@@ -1,3 +1,30 @@
+2001-03-29  Jens Finke <jens@gnome.org>
+
+	* Makefile.am (SOURCES): Removed gnome-icon-item-factory.[ch] and
+	gnome-list-item-factory.[ch], added eog-item-factory.[ch] and
+	eog-item-factory-simple.[ch]
+
+	* gnome-icon-item-factory.[ch], gnome-list-item-factory.[ch]: Removed.
+
+	* eog-item-factory.[ch]: New files, improved abstract interface for
+	item factories.
+
+	* eog-item-factory-simple.[ch]: New files, implements abstract
+	factory interface.
+
+	* eog-collection-view.c (eog_collection_view_construct): Use
+	EogItemFactorySimple.
+
+	* eog-warp-list.c
+	(eog_wrap_list_set_factory),
+	(do_item_added_update),
+	(do_item_changed_update): Use EogItemFactory interface.
+	(eog_wrap_list_set_factory): Initialize item_width, item_height.
+	(do_layout_check),
+	(calculate_item_position),
+	(do_item_rearrangement): Removed hardcoded item size values,
+	instead use item_width and item_height variables.
+	
 2001-03-28  Jason Leach  <jasonleach@usa.net>
 
 	* Makefile.am (INCLUDES): builddir != srcdir fix.

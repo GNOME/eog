@@ -29,10 +29,10 @@ eog_collection_SOURCES = \
 	eog-image-loader.h		\
 	eog-collection-model.h		\
 	eog-collection-model.c		\
-	gnome-icon-item-factory.c    	\
-	gnome-icon-item-factory.h    	\
-	gnome-list-item-factory.c	\
-	gnome-list-item-factory.h	\
+	eog-item-factory.h		\
+	eog-item-factory.c		\
+	eog-item-factory-simple.h	\
+	eog-item-factory-simple.c	\
 	main.c
 
 eog_collection_LDADD = 			\

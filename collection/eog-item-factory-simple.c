@@ -1,8 +1,9 @@
-/* GNOME libraries - default item factory for icon lists
+/* Eye of Gnome - default item factory for icons
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2000-2001 The Free Software Foundation
  *
  * Author: Federico Mena-Quintero <federico@gnu.org>
+ *         Jens Finke <jens@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -26,26 +27,20 @@
 #include <gdk-pixbuf/gnome-canvas-pixbuf.h>
 #include <libgnomeui/gnome-canvas-rect-ellipse.h>
 #include <libgnomeui/gnome-canvas-text.h>
-#include "gnome-icon-item-factory.h"
+#include "eog-item-factory-simple.h"
 #include "eog-collection-model.h"
 #include "cimage.h"
 
 
 
-/* Private part of the GnomeIconItemFactory structure */
-typedef struct {
-	/* Size of items */
-	int item_width;
-	int item_height;
+/* Private part of the EogItemFactorySimple structure */
+struct _EogItemFactorySimplePrivate {
+	/* item metrics */
+	EogSimpleMetrics *metrics;
 
-	/* Size of icon images */
-	int image_width;
-	int image_height;
-
-	/* Stipple pattern for selection and focus */
-	GdkBitmap *stipple;
+	/* default pixmap if the image is not loaded so far */
 	GdkPixbuf *dummy;
-} IIFactoryPrivate;
+};
 
 
 
@@ -59,60 +54,60 @@ typedef struct {
 
 	/* Icon image and its selection rectangle */
 	GnomeCanvasItem *image;
-	GnomeCanvasItem *sel_image;
 
 	/* Caption and its selection and focus rectangles */
 	GnomeCanvasItem *caption;
-	GnomeCanvasItem *sel_caption;
-	GnomeCanvasItem *focus_caption;
+
+	/* border */
+	GnomeCanvasItem *border;
 } IconItem;
 
 
 
-static void gnome_icon_item_factory_class_init (GnomeIconItemFactoryClass *class);
-static void gnome_icon_item_factory_init (GnomeIconItemFactory *factory);
-static void gnome_icon_item_factory_destroy (GtkObject *object);
+static void eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class);
+static void eog_item_factory_simple_init (EogItemFactorySimple *factory);
+static void eog_item_factory_simple_destroy (GtkObject *object);
+static void eog_item_factory_simple_finalize (GtkObject *object);
 
-static GnomeCanvasItem *ii_factory_create_item (GnomeListItemFactory *factory,
+static GnomeCanvasItem *ii_factory_create_item (EogItemFactory *factory,
 						GnomeCanvasGroup *parent, guint id);
-static void ii_factory_update_item (GnomeListItemFactory *factory,
+static void ii_factory_update_item (EogItemFactory *factory,
 				    EogCollectionModel *model, 
 				    GnomeCanvasItem *item);
-static void ii_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-				      EogCollectionModel *model, guint n,
+static void ii_factory_get_item_size (EogItemFactory *factory,
 				      gint *width, gint *height);
 
-static GnomeListItemFactoryClass *parent_class;
+static EogItemFactoryClass *parent_class;
 
 
 
 /**
- * gnome_icon_item_factory_get_type:
+ * eog_item_factory_simple_get_type:
  * @void:
  *
- * Registers the #GnomeIconItemFactory class if necessary, and returns the type
+ * Registers the #EogItemFactorySimple class if necessary, and returns the type
  * ID associated to it.
  *
- * Return value: The type ID of the #GnomeIconItemFactory class.
+ * Return value: The type ID of the #EogItemFactorySimple class.
  **/
 GtkType
-gnome_icon_item_factory_get_type (void)
+eog_item_factory_simple_get_type (void)
 {
 	static GtkType ii_factory_type = 0;
 
 	if (!ii_factory_type) {
 		static const GtkTypeInfo ii_factory_info = {
-			"GnomeIconItemFactory",
-			sizeof (GnomeIconItemFactory),
-			sizeof (GnomeIconItemFactoryClass),
-			(GtkClassInitFunc) gnome_icon_item_factory_class_init,
-			(GtkObjectInitFunc) gnome_icon_item_factory_init,
+			"EogItemFactorySimple",
+			sizeof (EogItemFactorySimple),
+			sizeof (EogItemFactorySimpleClass),
+			(GtkClassInitFunc) eog_item_factory_simple_class_init,
+			(GtkObjectInitFunc) eog_item_factory_simple_init,
 			NULL, /* reserved_1 */
 			NULL, /* reserved_2 */
 			(GtkClassInitFunc) NULL
 		};
 
-		ii_factory_type = gtk_type_unique (gnome_list_item_factory_get_type (),
+		ii_factory_type = gtk_type_unique (eog_item_factory_get_type (),
 						   &ii_factory_info);
 	}
 
@@ -121,66 +116,94 @@ gnome_icon_item_factory_get_type (void)
 
 /* Class initialization function for the icon list item factory */
 static void
-gnome_icon_item_factory_class_init (GnomeIconItemFactoryClass *class)
+eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class)
 {
 	GtkObjectClass *object_class;
-	GnomeListItemFactoryClass *li_factory_class;
+        EogItemFactoryClass *ei_factory_class;
 
 	object_class = (GtkObjectClass *) class;
-	li_factory_class = (GnomeListItemFactoryClass *) class;
+	ei_factory_class = (EogItemFactoryClass *) class;
 
-	parent_class = gtk_type_class (gnome_list_item_factory_get_type ());
+	parent_class = gtk_type_class (eog_item_factory_get_type ());
 
-	object_class->destroy = gnome_icon_item_factory_destroy;
+	object_class->destroy = eog_item_factory_simple_destroy;
+	object_class->finalize = eog_item_factory_simple_finalize;
 
-	li_factory_class->create_item = ii_factory_create_item;
-	li_factory_class->update_item = ii_factory_update_item;
-	li_factory_class->get_item_size = ii_factory_get_item_size;
+	ei_factory_class->create_item = ii_factory_create_item;
+	ei_factory_class->update_item = ii_factory_update_item;
+	ei_factory_class->get_item_size = ii_factory_get_item_size;
 }
 
+#if 0
 #define gray50_width 2
 #define gray50_height 2
 static char gray50_bits[] = {
   0x02, 0x01, };
+#endif
 
 /* Object initialization function for the icon list item factory */
 static void
-gnome_icon_item_factory_init (GnomeIconItemFactory *factory)
+eog_item_factory_simple_init (EogItemFactorySimple *factory)
 {
-	IIFactoryPrivate *priv;
+	EogItemFactorySimplePrivate *priv;
+	EogSimpleMetrics *metrics;
 	char *dummy_file;
 
-	priv = g_new0 (IIFactoryPrivate, 1);
+	priv = g_new0 (EogItemFactorySimplePrivate, 1);
 	factory->priv = priv;
 
-	priv->stipple = gdk_bitmap_create_from_data (GDK_ROOT_PARENT (),
-						     gray50_bits,
- 						     gray50_width, gray50_height);
-       
+	/* load dummy pixmap file */
 	dummy_file = gnome_pixmap_file ("gnome-eog.png");
 	priv->dummy = gdk_pixbuf_new_from_file (dummy_file);
 	g_free (dummy_file);
+
+	/* set semi sane default values for item metrics */
+	metrics = g_new0 (EogSimpleMetrics, 1);
+	metrics->twidth = 100;
+	metrics->theight = 100;
+	metrics->cspace = 10;
+	metrics->border = 5;
+	priv->metrics = metrics;
 }
 
 /* Destroy handler for the icon list item factory */
 static void
-gnome_icon_item_factory_destroy (GtkObject *object)
+eog_item_factory_simple_destroy (GtkObject *object)
 {
-	GnomeIconItemFactory *factory;
-	IIFactoryPrivate *priv;
+	EogItemFactorySimple *factory;
+	EogItemFactorySimplePrivate *priv;
 
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (GNOME_IS_ICON_ITEM_FACTORY (object));
+	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (object));
 
-	factory = GNOME_ICON_ITEM_FACTORY (object);
+	factory = EOG_ITEM_FACTORY_SIMPLE (object);
 	priv = factory->priv;
-
-	gdk_bitmap_unref (priv->stipple);
-
-	g_free (priv);
+	
+	if (priv->dummy)
+		gdk_pixbuf_unref (priv->dummy);
+	priv->dummy = NULL;
+	
+	if (priv->metrics)
+		g_free (priv->metrics);
+	priv->metrics = NULL;
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
+static void
+eog_item_factory_simple_finalize (GtkObject *object)
+{
+	EogItemFactorySimple *factory;
+
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (object));
+
+	factory = EOG_ITEM_FACTORY_SIMPLE (object);
+	g_free (factory->priv);
+
+	if (GTK_OBJECT_CLASS (parent_class)->finalize)
+		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 
@@ -193,18 +216,19 @@ icon_destroyed (GtkObject *object, gpointer data)
 {
 	IconItem *icon;
 
-	icon = data;
+	icon = (IconItem*)data;
 	g_free (icon);
 }
 
 /* Create_item handler for the icon list item factory */
 static GnomeCanvasItem *
-ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent, guint unique_id)
+ii_factory_create_item (EogItemFactory *factory, 
+			GnomeCanvasGroup *parent, guint unique_id)
 {
 	IconItem *icon;
 
 	g_return_val_if_fail (factory != NULL, NULL);
-	g_return_val_if_fail (GNOME_IS_ICON_ITEM_FACTORY (factory), NULL);
+	g_return_val_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory), NULL);
 	g_return_val_if_fail (parent != NULL, NULL);
 	g_return_val_if_fail (GNOME_IS_CANVAS_GROUP (parent), NULL);
 
@@ -222,32 +246,18 @@ ii_factory_create_item (GnomeListItemFactory *factory, GnomeCanvasGroup *parent,
 			    icon);
 
 	/* Image */
-
 	icon->image = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 					     GNOME_TYPE_CANVAS_PIXBUF,
 					     NULL);
-
-	icon->sel_image = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
-						 GNOME_TYPE_CANVAS_RECT,
-						 NULL);
-	gnome_canvas_item_hide (icon->sel_image);
-
 	/* Caption */
-
-	icon->sel_caption = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
-						   GNOME_TYPE_CANVAS_RECT,
-						   NULL);
-	gnome_canvas_item_hide (icon->sel_caption);
-
 	icon->caption = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
 					       GNOME_TYPE_CANVAS_TEXT,
 					       NULL);
 
-	icon->focus_caption = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
-						     GNOME_TYPE_CANVAS_RECT,
-						     NULL);
-	gnome_canvas_item_hide (icon->focus_caption);
-
+	/* Border */
+	icon->border = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
+					      GNOME_TYPE_CANVAS_RECT,
+					      NULL);
 	return icon->item;
 }
 
@@ -299,35 +309,36 @@ shrink_to_width (char *str, GdkFont *font,  int width)
 
 /* Configure_item handler for the icon list item factory */
 static void
-ii_factory_update_item (GnomeListItemFactory *factory, 
+ii_factory_update_item (EogItemFactory *factory, 
 			EogCollectionModel *model,
 			GnomeCanvasItem *item)
 {
-	GnomeIconItemFactory *ii_factory;
+	EogItemFactorySimple *ii_factory;
 	GdkPixbuf *thumb;
-	IIFactoryPrivate *priv;
+	EogItemFactorySimplePrivate *priv;
+	EogSimpleMetrics *metrics;
 	CImage *cimage = NULL;
 	IconItem *icon;
 	int image_w, image_h;
 	int image_x, image_y;
 	int caption_w, caption_h;
 	int caption_x, caption_y;
+	int item_w, item_h;
 	gchar *caption;
-#if 0
-	guint sel_color;
-#endif
+
 	GtkStyle *style;
 	GdkFont *font;
 
 	g_return_if_fail (factory != NULL);
-	g_return_if_fail (GNOME_IS_ICON_ITEM_FACTORY (factory));
+	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory));
 	g_return_if_fail (item != NULL);
 	g_return_if_fail (GNOME_IS_CANVAS_ITEM (item));
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
-	ii_factory = GNOME_ICON_ITEM_FACTORY (factory);
+	ii_factory = EOG_ITEM_FACTORY_SIMPLE (factory);
 	priv = ii_factory->priv;
+	metrics = priv->metrics;
 	
 	icon = gtk_object_get_data (GTK_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
@@ -335,7 +346,7 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 	cimage = eog_collection_model_get_image (model, icon->id);
 	g_assert (cimage != NULL);
 	
-	/* Compute thumbnail image */
+	/* obtain thumbnail image */
 	if (cimage_has_thumbnail (cimage)) {
 		thumb = cimage_get_thumbnail (cimage);
 		image_w = gdk_pixbuf_get_width (thumb);
@@ -346,8 +357,8 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 		image_w = gdk_pixbuf_get_width (thumb);
 		image_h = gdk_pixbuf_get_height (thumb);
 	}
+	g_assert (thumb != NULL);
 	
-		
 	/* Compute caption size; the font comes from the widget style */
 	style = gtk_widget_get_style (GTK_WIDGET (icon->caption->canvas));
 	g_assert (style != NULL);
@@ -367,8 +378,10 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 		if (caption) {
 			caption_w = gdk_string_width (font, caption);
 			caption_h = font->ascent + font->descent;
-			if (caption_w > priv->item_width) {
-				caption = shrink_to_width (caption, font, priv->item_width);
+			if (caption_w > metrics->twidth) {
+				caption = shrink_to_width (caption, 
+							   font, 
+							   metrics->twidth);
 				caption_w = gdk_string_width (font, caption);
 			}
 			cimage_set_caption (cimage, caption);
@@ -378,9 +391,8 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 	} 
 
 	/* Configure image */
-
-	image_x = (priv->item_width - image_w) / 2;
-	image_y = (priv->image_height - image_h) / 2;
+	image_x = metrics->border + (metrics->twidth - image_w) / 2;
+	image_y = metrics->border + (metrics->theight - image_h) / 2;
 
 	gnome_canvas_item_set (icon->image,
 			       "pixbuf", thumb,
@@ -395,8 +407,9 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 
 	/* Configure caption */
 
-	caption_x = (priv->item_width - caption_w) / 2;
-	caption_y = priv->image_height + 3;
+	caption_x = metrics->border + (metrics->twidth - caption_w) / 2;
+	caption_y = metrics->border + metrics->theight + metrics->cspace;
+	g_print ("caption_y: %d\n", caption_y);
 
 	gnome_canvas_item_set (icon->caption,
 			       "text", caption,
@@ -408,83 +421,51 @@ ii_factory_update_item (GnomeListItemFactory *factory,
 			       NULL);
 	g_free (caption);
 
-	/* Configure selection and focus */
-
-#if 0
-	if (is_selected) {
-		gnome_canvas_item_show (icon->sel_image);
-		gnome_canvas_item_show (icon->sel_caption);
-
-		sel_color = color_to_rgba (&style->bg[GTK_STATE_SELECTED]);
-
-		gnome_canvas_item_set (icon->sel_image,
-				       "x1", (double) image_x,
-				       "y1", (double) image_y,
-				       "x2", (double) (image_x + image_w - 1),
-				       "y2", (double) (image_y + image_h - 1),
-				       "fill_color_rgba", sel_color,
-				       "fill_stipple", priv->stipple,
-				       NULL);
-
-		gnome_canvas_item_set (icon->sel_caption,
-				       "x1", (double) caption_x,
-				       "y1", (double) caption_y,
-				       "x2", (double) (caption_x + caption_w - 1),
-				       "y2", (double) (caption_y + caption_h - 1),
-				       "fill_color_rgba", sel_color,
-				       NULL);
-	} else {
-		gnome_canvas_item_hide (icon->sel_image);
-		gnome_canvas_item_hide (icon->sel_caption);
-	}
-
-	if (is_focused) {
-		gnome_canvas_item_show (icon->focus_caption);
-
-		gnome_canvas_item_set (icon->focus_caption,
-				       "x1", (double) (caption_x - 2),
-				       "y1", (double) (caption_y - 2),
-				       "x2", (double) (caption_x + caption_w - 1 + 2),
-				       "y2", (double) (caption_y + caption_h - 1 + 2),
-				       "width_pixels", 0,
-				       "outline_color_rgba", 0x000000ff,
-				       "outline_stipple", priv->stipple,
-				       NULL);
-	} else
-		gnome_canvas_item_hide (icon->focus_caption);
-#endif
+	/* configure border */
+	ii_factory_get_item_size (factory, &item_w, &item_h);
+	gnome_canvas_item_set (icon->border,
+			       "x1", 0.0,
+			       "y1", 0.0,
+			       "x2", (double) item_w,
+			       "y2", (double) item_h,
+			       "fill_color", NULL,
+			       "outline_color", "DarkBlue",
+			       "width_pixels", 2,
+			       NULL);
+	
 }
 
 /* Get_item_size handler for the icon list item factory */
 static void
-ii_factory_get_item_size (GnomeListItemFactory *factory, GnomeCanvasItem *item,
-			  EogCollectionModel *model, guint n,
+ii_factory_get_item_size (EogItemFactory *factory,
 			  gint *width, gint *height)
 {
-	GnomeIconItemFactory *ii_factory;
-	IIFactoryPrivate *priv;
+	EogItemFactorySimple *ii_factory;
+	EogSimpleMetrics *metrics;
 
-	ii_factory = GNOME_ICON_ITEM_FACTORY (factory);
-	priv = ii_factory->priv;
+	g_return_if_fail (factory != NULL);
+	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory));
 
-	/* FIXME: return real canvas item size */
+	ii_factory = EOG_ITEM_FACTORY_SIMPLE (factory);
+	metrics = ii_factory->priv->metrics;
 
-	*width = priv->item_width;
-	*height = priv->item_height;
+	*width = metrics->twidth + 2*metrics->border;
+	*height = metrics->theight + 2*metrics->border + 
+		metrics->cspace + 12 /* font height; FIXME don't hardcode this */;
 }
 
 
 
 /* Exported functions */
 
-GnomeIconItemFactory *
-gnome_icon_item_factory_new (void)
+EogItemFactorySimple *
+eog_item_factory_simple_new (void)
 {
-	return GNOME_ICON_ITEM_FACTORY (gtk_type_new (gnome_icon_item_factory_get_type ()));
+	return EOG_ITEM_FACTORY_SIMPLE (gtk_type_new (eog_item_factory_simple_get_type ()));
 }
 
 /**
- * gnome_icon_item_factory_set_item_metrics:
+ * eog_item_factory_simple_set_item_metrics:
  * @factory: An icon list item factory.
  * @item_width: Total width of items, in pixels.
  * @item_height: Total height of items, in pixels.
@@ -496,58 +477,33 @@ gnome_icon_item_factory_new (void)
  * size of icon images.
  **/
 void
-gnome_icon_item_factory_set_item_metrics (GnomeIconItemFactory *factory,
-					  int item_width, int item_height,
-					  int image_width, int image_height)
+eog_item_factory_simple_set_metrics (EogItemFactorySimple *factory,
+				     EogSimpleMetrics *metrics)
 {
-	IIFactoryPrivate *priv;
+	EogItemFactorySimplePrivate *priv;
 
 	g_return_if_fail (factory != NULL);
-	g_return_if_fail (GNOME_IS_ICON_ITEM_FACTORY (factory));
-	g_return_if_fail (item_width > 0);
-	g_return_if_fail (item_height > 0);
-	g_return_if_fail (image_width <= item_width);
-	g_return_if_fail (image_height <= item_height);
+	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory));
+	g_return_if_fail (metrics->twidth > 0);
+	g_return_if_fail (metrics->theight > 0);
+	g_return_if_fail (metrics->cspace >= 0);
+	g_return_if_fail (metrics->border >= 0);
 
 	priv = factory->priv;
-	priv->item_width = item_width;
-	priv->item_height = item_height;
-	priv->image_width = image_width;
-	priv->image_height = image_height;
+
+	if (priv->metrics)
+		g_free (priv->metrics);
+	
+	priv->metrics = metrics;
+
+	eog_item_factory_configuration_changed (EOG_ITEM_FACTORY (factory));
 }
 
-/**
- * gnome_icon_item_factory_get_item_metrics:
- * @factory: An icon list item factory.
- * @item_width: Return value for the total width of items, in pixels.
- * @item_height: Return value for the total height of items, in pixels.
- * @image_width: Return value for the maximum width of icon images, in pixels.
- * @image_height: Return value for the maximum height of icon images, in pixels.
- *
- * Queries the metrics of items that an icon list item factory is configured to
- * create.
- **/
-void
-gnome_icon_item_factory_get_item_metrics (GnomeIconItemFactory *factory,
-					  int *item_width, int *item_height,
-					  int *image_width, int *image_height)
+EogSimpleMetrics* 
+eog_item_factory_simple_get_metrics (EogItemFactorySimple *factory)
 {
-	IIFactoryPrivate *priv;
+	g_return_val_if_fail (factory != NULL, NULL);
+	g_return_val_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory), NULL);
 
-	g_return_if_fail (factory != NULL);
-	g_return_if_fail (GNOME_IS_ICON_ITEM_FACTORY (factory));
-
-	priv = factory->priv;
-
-	if (item_width)
-		*item_width = priv->item_width;
-
-	if (item_height)
-		*item_height = priv->item_height;
-
-	if (image_width)
-		*image_width = priv->image_width;
-
-	if (image_height)
-		*image_height = priv->image_height;
+	return factory->priv->metrics;
 }

@@ -26,7 +26,7 @@
 #include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-canvas.h>
 #include "eog-collection-model.h"
-#include "gnome-list-item-factory.h"
+#include "eog-item-factory.h"
 
 BEGIN_GNOME_DECLS
 
@@ -62,7 +62,7 @@ GtkType eog_wrap_list_get_type (void);
 GtkWidget* eog_wrap_list_new (void);
 
 void eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model);
-void eog_wrap_list_set_factory (EogWrapList *wlist, GnomeListItemFactory *factory);
+void eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory);
 
 void eog_wrap_list_set_col_spacing (EogWrapList *wlist, guint spacing);
 void eog_wrap_list_set_row_spacing (EogWrapList *wlist, guint spacing);
