@@ -15,9 +15,17 @@
 	<cmd name="Rotate180" _label="Rotate 180 _Degrees"/>
 
         <cmd name="Undo" _label="_Undo" accel="*Control*z"/>
+        <cmd name="Save" _label="_Save" accel="*Control*s" 
+             pixtype="stock" pixname="Save" sensitive="1"/>
 </commands>
 
 <menu>
+
+    <submenu name="File">
+            <placeholder name="File Items Placeholder">
+	             <menuitem name="Save" verb=""/>
+            </placeholder>
+    </submenu>
 
     <submenu name="Edit" _label="_Edit">
            <placeholder name="Edit Items Placeholder">

@@ -53,6 +53,7 @@
 #include "eog-full-screen.h"
 #include "eog-info-view.h"
 #include "eog-transform.h"
+#include "eog-save-dialog.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -88,6 +89,7 @@ struct _EogCollectionViewPrivate {
 
 	BonoboPropertyBag       *property_bag;
 	BonoboZoomable          *zoomable;
+	BonoboControl           *control;
 
 	BonoboUIComponent       *uic;
 
@@ -186,6 +188,222 @@ verb_Undo_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 		eog_image_undo (image);
 	}
 }
+
+/*
+ * Image saving stuff.
+ *
+ */
+
+typedef struct {
+	EogCollectionView *view;
+	GList             *image_list;
+	GtkWidget         *dlg;
+	gboolean          cancel;
+	gulong            finished_id;
+	gulong            failed_id;
+	int               n_images;
+	int               count;
+} SaveContext;
+
+static const char* save_threat_cmds[] = {
+	"/commands/FlipHorizontal",
+	"/commands/FlipVertical",
+        "/commands/Rotate90cw",
+	"/commands/Rotate90ccw",
+	"/commands/Rotate180",
+        "/commands/Undo",
+        "/commands/Save", 
+	"/commands/SlideShow",
+	NULL
+};
+
+static void save_image_init_loading (SaveContext *ctx);
+
+static void
+set_commands_sensitive_state (EogCollectionView *view, const char *command[], gboolean sensitive)
+{
+	int i = 0;
+	
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	for (i = 0; command[i] != NULL; i++) {
+		bonobo_ui_component_set_prop (view->priv->uic, command[i], "sensitive",
+					      sensitive ? "1" : "0", NULL);
+	}
+}
+
+
+static void
+save_image_loading_failed (EogImage *image, char *message, gpointer data)
+{
+	SaveContext *ctx;
+
+	ctx = (SaveContext *) data;
+
+	g_signal_handler_disconnect (G_OBJECT (image), ctx->finished_id);
+	g_signal_handler_disconnect (G_OBJECT (image), ctx->failed_id);
+	
+	g_object_unref (image);
+
+	save_image_init_loading (ctx);
+}
+
+static void
+save_image_loading_finished (EogImage *image, gpointer data)
+{
+	SaveContext *ctx;
+
+	ctx = (SaveContext *) data;
+
+	g_signal_handler_disconnect (G_OBJECT (image), ctx->finished_id);
+	g_signal_handler_disconnect (G_OBJECT (image), ctx->failed_id);
+
+	if (eog_image_is_modified (image) && !ctx->cancel) {
+			GError *error = NULL;
+			GnomeVFSURI *uri;
+			
+			uri = eog_image_get_uri (image);
+			
+			if (!eog_image_save (image, uri, &error)) {
+				/* FIXME: indicate failed state to the user */
+			}
+			gnome_vfs_uri_unref (uri);
+	}
+
+	if (image != ctx->view->priv->displayed_image) {
+		eog_image_free_mem (image);
+	}
+
+	g_object_unref (image);
+
+	save_image_init_loading (ctx);
+}
+
+
+static void
+save_image_init_loading (SaveContext *ctx)
+{
+	if (ctx->image_list == NULL || ctx->cancel) {
+		if (ctx->cancel) 
+			eog_save_dialog_update (EOG_SAVE_DIALOG (ctx->dlg), (double) ctx->count / (double) ctx->n_images,
+						_("Cancel saving"));
+		else 
+			eog_save_dialog_update (EOG_SAVE_DIALOG (ctx->dlg), 1.0,
+						_("Saving finished"));
+		
+		gtk_dialog_response (GTK_DIALOG (ctx->dlg), GTK_RESPONSE_OK);
+	}
+	else {
+		EogImage *image = EOG_IMAGE (ctx->image_list->data);
+
+		eog_save_dialog_update (EOG_SAVE_DIALOG (ctx->dlg), (double) ctx->count++ / (double) ctx->n_images,
+					eog_image_get_caption (image));
+
+		ctx->finished_id = g_signal_connect (image, "loading_finished", G_CALLBACK (save_image_loading_finished), ctx);
+		ctx->failed_id = g_signal_connect (image, "loading_failed", G_CALLBACK (save_image_loading_failed), ctx);
+		ctx->image_list = g_list_delete_link (ctx->image_list, ctx->image_list);
+
+		g_object_ref (image);
+
+		eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE);
+	}
+
+	while (gtk_events_pending ()) {
+		gtk_main_iteration ();
+	}
+}
+
+static gboolean
+save_dlg_close (gpointer data)
+{
+	gtk_widget_destroy (GTK_WIDGET (data));
+	return FALSE;
+}
+
+static gboolean
+save_dlg_delete_cb (GtkWidget *dialog,
+		    GdkEvent *event,
+		    gpointer user_data)
+{
+	SaveContext *ctx;
+
+	ctx = (SaveContext*) user_data;
+	ctx->cancel = TRUE;
+
+	return TRUE;
+}
+
+static void
+save_dlg_response_cb (GtkDialog *dialog,
+		      gint response_id,
+		      gpointer user_data)
+{
+	SaveContext *ctx;
+	EogCollectionView *view;
+
+	ctx = (SaveContext*) user_data;
+
+	switch (response_id) {
+	case GTK_RESPONSE_OK:
+		view = ctx->view;
+		if (ctx->image_list != NULL) {
+			g_list_free (ctx->image_list);
+		}
+		g_free (ctx);
+		g_timeout_add (1250, save_dlg_close, dialog);
+
+		/* reenable commands that may disturb the save state */
+		set_commands_sensitive_state (view, save_threat_cmds, TRUE);
+
+		break;
+
+	default:
+		ctx->cancel = TRUE;
+	}
+}
+
+static void 
+verb_Save_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogCollectionView *view;
+	EogCollectionViewPrivate *priv;
+	SaveContext *ctx;
+
+	view = EOG_COLLECTION_VIEW (data);
+	priv = view->priv;
+
+	ctx = g_new0 (SaveContext, 1);
+	ctx->image_list = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
+	ctx->view = view;
+	ctx->cancel = FALSE;
+
+	if (ctx->image_list == NULL) {
+		g_free (ctx);
+		return;
+	}
+
+	ctx->n_images = g_list_length (ctx->image_list);
+	ctx->count = 0;
+
+	/* disable commands that may disturb the save state */
+	set_commands_sensitive_state (view, save_threat_cmds, FALSE);
+
+	ctx->dlg = eog_save_dialog_new ();
+
+	bonobo_control_set_transient_for (BONOBO_CONTROL (priv->control), GTK_WINDOW (ctx->dlg), NULL);
+	g_signal_connect (G_OBJECT (ctx->dlg), "delete-event", G_CALLBACK (save_dlg_delete_cb), ctx);
+	g_signal_connect (G_OBJECT (ctx->dlg), "response", G_CALLBACK (save_dlg_response_cb), ctx);
+
+	gtk_widget_show_now (GTK_WIDGET (ctx->dlg));
+
+	save_image_init_loading (ctx);
+}
+
+
+/*
+ *  Image transforming stuff.
+ *
+ */
 
 typedef struct {
 	EogCollectionView *view;
@@ -363,6 +581,7 @@ static BonoboUIVerb collection_verbs[] = {
 	BONOBO_UI_VERB ("Rotate90ccw",   verb_Rotate90ccw_cb),
 	BONOBO_UI_VERB ("Rotate180",     verb_Rotate180_cb),
 	BONOBO_UI_VERB ("Undo",          verb_Undo_cb),
+	BONOBO_UI_VERB ("Save",          verb_Save_cb),
 	BONOBO_UI_VERB_END
 };
 
@@ -985,6 +1204,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	/* interface Bonobo::Control */
 	control = bonobo_control_new (root);
+	priv->control = control;
 	g_signal_connect (control, "activate", G_CALLBACK (control_activate_cb), list_view);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (list_view),

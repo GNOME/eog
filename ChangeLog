@@ -1,3 +1,29 @@
+2003-06-21  Jens Finke  <jens@triq.net>
+
+	* collection/eog-save-dialog.[ch]: New files.
+
+	* collection/Makefile.am (LDADD): Added libjpeg flags.
+	(SOURCES): Added eog-save-dialg.[ch].
+
+	* collection/eog-collection-view-ui.xml: Added File/Save item.
+	
+	* collection/eog-collection-view.c
+	(save_image_init_loading),
+	(set_commands_sensitive_state),
+	(save_image_loading_failed),
+	(save_image_loading_finished),
+	(save_dlg_close),
+	(save_dlg_delete_cb),
+	(save_dlg_response_cb),
+	(verb_Save_cb): New functions for saving a bunch of files.
+	(eog_collection_view_construct): Save reference to control object.
+
+	* viewer/Makefile.am (LDADD): Added libjpeg flags.
+
+	* viewer/eog-image-view.c (image_changed_cb): New
+	function. Notifies bonobo listeners when the image changed.
+	(load_uri_cb): Connect to image_changed signal.
+	
 2003-06-15  Taneem Ahmed  <taneem@eyetap.org>
 
 	* configure.in: Added "bn" to ALL_LINGUAS.

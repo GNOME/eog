@@ -870,8 +870,6 @@ image_size_prepared_cb (EogImage *img, int width, int height, gpointer data)
 	view = EOG_IMAGE_VIEW (data);
 	priv = view->priv;
 
-	g_print ("size prepared cb\n");
-
 	arg = bonobo_arg_new (BONOBO_ARG_INT);
 
 	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_WIDTH, NULL, view);
@@ -907,6 +905,27 @@ image_progress_cb (EogImage *img, float progress, gpointer data)
 	bonobo_arg_release (arg);
 }
 
+static void
+image_changed_cb (EogImage *img, gpointer data)
+{
+	EogImageView *view;
+	BonoboArg *arg;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+	g_return_if_fail (EOG_IS_IMAGE (img));
+	
+	view = EOG_IMAGE_VIEW (data);
+
+	/* update interested window status listeners */
+	arg = bonobo_arg_new (BONOBO_ARG_STRING);
+	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_STATUS, NULL, view);
+
+	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
+					      "window/status",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+}
+
 static gint
 load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	     CORBA_Environment *ev, void *closure)
@@ -923,6 +942,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	image = eog_image_new (text_uri);
 	g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
 	g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
+	g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), view);
 
 	/* FIXME: remove potential signal handlers from old image object */
 	if (priv->image != NULL) {

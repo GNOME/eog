@@ -36,6 +36,8 @@ eog_collection_view_SOURCES =		\
 	eog-collection-item.c		\
 	eog-collection-model.h		\
 	eog-collection-model.c		\
+	eog-save-dialog.h		\
+	eog-save-dialog.c		\
 	main.c
 
 #	eog-collection-preferences.h	\
@@ -49,7 +51,8 @@ eog_collection_view_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
 	$(EOG_LIBS)				\
-	$(INTLLIBS)
+	$(INTLLIBS)				\
+	$(LIBJPEG)
 
 server_in_files = GNOME_EOG_Collection.server.in.in
 
