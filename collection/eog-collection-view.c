@@ -944,7 +944,7 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 
 		str = g_new0 (guchar, 70);
 
-		g_snprintf (str, 70, "Images: %i/%i", nsel, nimg);
+		g_snprintf (str, 70, _("Images: %i/%i"), nsel, nimg);
 	       
 		BONOBO_ARG_SET_STRING (arg, str);
 		g_free (str);
