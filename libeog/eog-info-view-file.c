@@ -1,6 +1,6 @@
 #include <libgnome/gnome-macros.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
 #include "eog-info-view-file.h"

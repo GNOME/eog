@@ -1,6 +1,6 @@
 #include <string.h>
 #include <libgnome/gnome-macros.h>
-#include <libgnome/gnome-i18n.h>
+#include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-directory.h>
 
