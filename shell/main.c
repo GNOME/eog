@@ -307,6 +307,7 @@ show_nonexistent_files (GList *error_list)
 	
 	gtk_widget_show (dlg);
 	gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
 
 	g_free (str);
 }
