@@ -1,3 +1,14 @@
+1999-12-10  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-wrap-list.c (bm_compute_item_size): New helper function to
+	compute item and space sizes.
+	(bm_compute_layout): Use the above function; it will also be used
+	by other functions.
+	(adjustment_value_changed): Queue a scroll update when an
+	adjustment changes.
+	(bm_update): Renamed from bm_update_data(); now this handles both
+	scrolling and data updates for block mode.
+
 1999-12-09  Federico Mena Quintero  <federico@redhat.com>
 
 	* gnome-wrap-list.c (gnome_wrap_list_class_init): Register the

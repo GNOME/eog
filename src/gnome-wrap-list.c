@@ -321,6 +321,46 @@ typedef struct {
 	int first_block, last_block;
 } BMLayout;
 
+/* Computes the minor and major sizes for items and spaces */
+static void
+bm_compute_item_size (GnomeWrapList *wlist,
+		      int *item_minor, int *item_major,
+		      int *space_minor, int *space_major)
+{
+	WrapListPrivate *priv;
+	int i_minor, i_major;
+	int s_minor, s_major;
+
+	priv = wlist->priv;
+
+	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
+		i_minor = priv->item_width;
+		i_major = priv->item_height;
+		s_minor = priv->col_spacing;
+		s_major = priv->row_spacing;
+	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
+		i_minor = priv->item_height;
+		i_major = priv->item_width;
+		s_minor = priv->row_spacing;
+		s_major = priv->col_spacing;
+	} else {
+		i_minor = i_major = s_minor = s_major = 0;
+		g_assert_not_reached ();
+	}
+
+	if (item_minor)
+		*item_minor = i_minor;
+
+	if (item_major)
+		*item_major = i_major;
+
+	if (space_minor)
+		*space_minor = s_minor;
+
+	if (space_major)
+		*space_major = s_major;
+}
+
 /* Fills a layout information structure */
 static void
 bm_compute_layout (GnomeWrapList *wlist, BMLayout *l)
@@ -344,20 +384,16 @@ bm_compute_layout (GnomeWrapList *wlist, BMLayout *l)
 	width = GTK_WIDGET (wlist)->allocation.width - 2 * (border_width + xthickness);
 	height = GTK_WIDGET (wlist)->allocation.height - 2 * (border_width + ythickness);
 
+	bm_compute_item_size (wlist,
+			      &l->item_minor, &l->item_major,
+			      &l->space_minor, &l->space_major);
+
 	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
-		l->item_minor = priv->item_width;
-		l->item_major = priv->item_height;
-		l->space_minor = priv->col_spacing;
-		l->space_major = priv->row_spacing;
 		l->size_minor = width;
 		l->size_major = height;
 		l->scroll_minor = priv->h_offset;
 		l->scroll_major = priv->v_offset;
 	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
-		l->item_minor = priv->item_height;
-		l->item_major = priv->item_width;
-		l->space_minor = priv->row_spacing;
-		l->space_major = priv->col_spacing;
 		l->size_minor = height;
 		l->size_major = width;
 		l->scroll_minor = priv->v_offset;
@@ -408,6 +444,31 @@ bm_adjust_scroll_region (GnomeWrapList *wlist, BMLayout *l, int n_items)
 
 		gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w - 1, h - 1);
 	}
+}
+
+/* Updates the scroll offsets */
+static void
+bm_update_scroll (GnomeWrapList *wlist)
+{
+	WrapListPrivate *priv;
+	int item_major, space_major, size;
+
+	priv = wlist->priv;
+
+	if (!priv->need_scroll_update)
+		return;
+
+	bm_compute_item_size (wlist, NULL, &item_major, NULL, &space_major);
+	size = item_major + space_major;
+
+	/* Snap offset if necessary */
+
+	if ((priv->mode == GNOME_WRAP_LIST_ROW_MAJOR || priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
+	    && priv->use_unit_scrolling)
+		val = size * (val / size);
+
+	priv->h_offset = priv->update_scroll_h_offset;
+	priv->v_offset = priv->update_scroll_v_offset;
 }
 
 /* Ensures that the item array has the correct size and layout information */
@@ -557,9 +618,9 @@ bm_update_range (GnomeWrapList *wlist, BMLayout *l, int update_first, int update
 		}
 }
 
-/* Updates the wrap list when a data model has changed */
+/* Updates the wrap list when in block mode */
 static void
-bm_update_data (GnomeWrapList *wlist)
+bm_update (GnomeWrapList *wlist)
 {
 	WrapListPrivate *priv;
 	BMLayout l;
@@ -573,9 +634,10 @@ bm_update_data (GnomeWrapList *wlist)
 	priv = wlist->priv;
 	bm = &priv->u.bm;
 
-	if (!(priv->need_factory_update || priv->need_data_update))
+	if (!(priv->need_factory_update || priv->need_scroll_update || priv->need_data_update))
 		return;
 
+	bm_update_scroll (wlist);
 	bm_compute_layout (wlist, &l);
 	bm_ensure_array_size (wlist, &l);
 
@@ -650,10 +712,9 @@ update (gpointer data)
 
 	priv->idle_id = 0;
 
-	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR || priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
-		/* FIXME: update scroll as well */
-		bm_update_data (wlist);
-	} else if (priv->mode == GNOME_WRAP_LIST_MANUAL) {
+	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR || priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
+		bm_update (wlist);
+	else if (priv->mode == GNOME_WRAP_LIST_MANUAL) {
 		/* FIXME */
 	} else
 		g_assert_not_reached ();
@@ -1052,8 +1113,9 @@ list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory)
 
 /* Wrap list methods */
 
+/* Handles the value_changed signal from the scrolling adjustments */
 static void
-adjustment_changed (GtkAdjustment *adj, gpointer data)
+adjustment_value_changed (GtkAdjustment *adj, gpointer data)
 {
 	GnomeWrapList *wlist;
 	WrapListPrivate *priv;
@@ -1064,9 +1126,15 @@ adjustment_changed (GtkAdjustment *adj, gpointer data)
 
 	val = adj->value;
 
-	if (adj == priv->hadj) {
-		
-	}
+	if (adj == priv->hadj)
+		priv->update_scroll_h_offset = val;
+	else if (adj == priv->vadj)
+		priv->update_scroll_v_offset = val;
+	else
+		g_assert_not_reached ();
+
+	priv->need_scroll_update = TRUE;
+	request_update (wlist);
 }
 
 /* Set_scroll_adjustments handler for the abstract wrapped list view.  We do the
@@ -1080,7 +1148,7 @@ set_scroll_adjustments (GnomeWrapList *wlist, GtkAdjustment *hadj, GtkAdjustment
 
 	priv = wlist->priv;
 
-	if (hadh)
+	if (hadj)
 		g_return_if_fail (GTK_IS_ADJUSTMENT (hadj));
 	else
 		hadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
@@ -1108,7 +1176,7 @@ set_scroll_adjustments (GnomeWrapList *wlist, GtkAdjustment *hadj, GtkAdjustment
 		gtk_object_sink (GTK_OBJECT (priv->hadj));
 
 		gtk_signal_connect (GTK_OBJECT (priv->hadj), "value_changed",
-				    GTK_SIGNAL_FUNC (adjustment_changed),
+				    GTK_SIGNAL_FUNC (adjustment_value_changed),
 				    wlist);
 		need_adjust = TRUE;
 	}
@@ -1119,13 +1187,13 @@ set_scroll_adjustments (GnomeWrapList *wlist, GtkAdjustment *hadj, GtkAdjustment
 		gtk_object_sink (GTK_OBJECT (priv->vadj));
 
 		gtk_signal_connect (GTK_OBJECT (priv->vadj), "value_changed",
-				    GTK_SIGNAL_FUNC (adjustment_changed),
+				    GTK_SIGNAL_FUNC (adjustment_value_changed),
 				    wlist);
 		need_adjust = TRUE;
 	}
 
 	if (need_adjust)
-		gtk_wiget_queue_resize (GTK_WIDGET (wlist));
+		gtk_widget_queue_resize (GTK_WIDGET (wlist));
 }
 
 
