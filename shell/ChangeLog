@@ -1,3 +1,10 @@
+2001-05-18  Jens Finke <jens@gnome.org>
+
+	* eog-window.c (eog_window_construct): Removed
+	gtk_widget_set_usize function and replaced it with
+	gtk_window_set_geometry_hints. Added window icon and allowed the
+	window to shrink automatically.
+	
 2001-04-03  Michael Meeks  <michael@ximian.com>
 
 	* main.c (main): bind text domain so we get translations.

@@ -30,6 +30,7 @@
 #include <gconf/gconf-client.h>
 #include <liboaf/liboaf.h>
 #include <bonobo/Bonobo.h>
+#include <libgnomeui/gnome-window-icon.h>
 #include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
@@ -529,6 +530,8 @@ eog_window_construct (EogWindow *window)
 	BonoboUIComponent *ui_comp;
 	BonoboUIContainer *ui_cont;
 	gchar *fname;
+	GtkArg args[1];
+	GdkGeometry geometry;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -558,15 +561,11 @@ eog_window_construct (EogWindow *window)
 	} else {
 		g_error (N_("Can't find eog-shell-ui.xml.\n"));
 	}
-	g_free (fname);
+	g_free (fname); /* we reuse this variable later! */
 
 	
 	gtk_signal_connect (GTK_OBJECT(window), "delete_event", 
 			    (GtkSignalFunc) eog_window_close, NULL);
-
-	gtk_widget_set_usize (GTK_WIDGET (window), 
-			      DEFAULT_WINDOW_WIDTH,
-			      DEFAULT_WINDOW_HEIGHT);
 
 	/* add control frame interface */
 	priv->ctrl_frame = bonobo_control_frame_new (corba_container);
@@ -574,6 +573,33 @@ eog_window_construct (EogWindow *window)
 			    activate_uri_cb, NULL);
 
 	set_drag_dest (window);
+
+	/* set default geometry */
+	geometry.min_width = 200;
+	geometry.min_height = 200;
+	geometry.base_width = DEFAULT_WINDOW_WIDTH;
+	geometry.base_height = DEFAULT_WINDOW_HEIGHT;
+	gtk_window_set_geometry_hints(GTK_WINDOW (window), 
+				      GTK_WIDGET (window),
+				      &geometry, 
+				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
+	 
+
+	/* add gnome window icon */
+	fname = gnome_pixmap_file ("gnome-eog.png");
+	if (fname) {
+		gnome_window_icon_set_from_file (GTK_WINDOW (window), 
+						 fname);
+		g_free (fname);
+	}
+
+	/* We want the window automatically shrink to the image
+	 * size. 
+	 */
+	args[0].name = "GtkWindow::auto_shrink";
+	args[0].type = GTK_TYPE_BOOL;
+	GTK_VALUE_BOOL(args[0]) = TRUE;
+	gtk_object_setv(GTK_OBJECT(window), 1, args);
 }
 
 /**
