@@ -1,0 +1,496 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "October 2002">
+  <!ENTITY app "Eye of GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="zh_cn">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+    <title>&app; 手册 V&manrevision;</title>
+
+    <copyright> 
+      <year>2002</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>自由软件基金会</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> GNOME Documentation Project </publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>GNOME Documentation Team</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>&app; 手册 V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>GNOME 之眼手册 V2.2</revnumber> 
+		<date>2002 年 8 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>GNOME 之眼手册 V2.1</revnumber> 
+		<date>2002 年 7 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>GNOME 之眼手册 V2.0</revnumber> 
+		<date>2002 年 5 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>GNOME 之眼用户指南</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>本手册介绍  &app; &appversion; 版。
+    </releaseinfo>
+    <legalnotice> 
+      <title>反馈</title>
+      <para>要报告关于 &app; 应用程序或本手册的错误或提出建议，请遵循 <ulink url="ghelp:gnome-feedback" type="help">GNOME 反馈页</ulink>中的指导。 
+     </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>GNOME 之眼</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	<title>简介</title>
+	<para><application>&app;</application> 应用程序使您可以查看图像文件。 
+	<application>&app;</application> 提供以下功能：</para>
+	<itemizedlist>
+		<listitem><para>支持以下图像文件格式：</para>
+			<itemizedlist>
+				<listitem><para>BMP - Windows 位图</para>
+				</listitem>
+				<listitem><para>GIF - 可交换的图形格式</para>
+				</listitem>
+				<listitem><para>ICO - Windows 图标</para>
+				</listitem>
+				<listitem><para>JPEG - 联合摄影专家组</para>
+				</listitem>
+				<listitem><para>PNG - 可移植网络图形</para>
+				</listitem>
+				<listitem><para>PNM - PPM 工具包的可移植 Anymap 格式</para>
+				</listitem>
+				<listitem><para>RAS - Sun 光栅</para>
+				</listitem>
+				<listitem><para>SVG - 可缩放的矢量图形</para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - 标记图像文件格式</para>
+				</listitem>
+				<listitem><para>XBM - X 位图</para>
+				</listitem>
+				<listitem><para>XPM - X 像素图</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>对于此应用程序而言，不管哪一种缩放级别，使用较少的内存就能实现多种缩放水平和全屏显示。</para>
+		</listitem>
+		<listitem><para>Bonobo 嵌入技术使您可以将图像视图嵌入其它 GNOME 应用程序中。 </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started"> 
+	 <title>入门</title>
+	<sect2 id="eog-tostartapp">
+	<title>启动 &app;</title>
+	<para>可以通过以下方式启动 <application>&app;</application>：</para>
+		<variablelist>
+			<varlistentry>
+			<term><guimenu>"应用程序"</guimenu>菜单</term>
+			<listitem>
+			<para>选择<menuchoice><guisubmenu>"图形"</guisubmenu><guimenuitem>"&app; 图像查看器"</guimenuitem></menuchoice>。</para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>命令行</term>
+			<listitem>
+			<para>要从命令行运行 <application>&app;</application> 并且打开文件，请键入下面的命令，然后按下<keycap>回车</keycap>键：</para>
+			<para><command>eog</command> <replaceable>filename.jpg</replaceable></para>
+			<para>其中 <replaceable>filename.jpg</replaceable> 是要打开的文件的名称。</para>
+			<para><application>&app;</application> 会在新窗口中打开每个指定的文件。</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	<title>在启动 &app; 时</title>
+	<para>在启动 <application>&app;</application> 之后，系统会显示下面的窗口。</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>打开文件之前的 &app; 启动窗口</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>显示"GNOME 之眼"主窗口</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	<title>用法</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>打开图像</title>
+		<para>要打开图像，请选择<menuchoice><guimenu>"文件"</guimenu><guimenuitem>"打开"</guimenuitem></menuchoice>。
+		即可显示<guilabel>"打开图像"</guilabel>对话框。选择您想要打开的文件，然后单击<guibutton>"确定"</guibutton>。</para>
+		<para>要在新窗口中打开另一个图像，请选择<menuchoice><guimenu>"文件"</guimenu><guimenuitem>"新建窗口"</guimenuitem></menuchoice>。
+		选择<menuchoice><guimenu>"文件"</guimenu><guimenuitem>"打开"</guimenuitem></menuchoice>以选择要打开的文件。您也可以将图像从其它应用程序（如文件管理器）中拖到 <application>&app;</application> 窗口中。
+		如果 <application>&app;</application> 窗口是空的，该应用程序就在此窗口中显示该图像。如果该窗口不是空的，该应用程序就会启动一个新的窗口来显示该文件。</para>
+		<para>如果您试图打开一种 <application>&app;</application> 无法识别的图像文件格式，该应用程序就会显示一条错误消息。</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>卷动图像</title>
+		<para>要卷动浏览一幅比图像窗口或者全屏窗口还要大的图像，您可以使用以下方法：</para>
+		<itemizedlist>
+			<listitem><para>使用键盘上的箭头键。</para>
+			</listitem>
+			<listitem><para>朝着您想要卷动图像的相反方向拖动图像。例如，如果您想要朝下卷动图像，那么请在窗口中向上拖动该图像。</para>
+			</listitem>
+			<listitem><para>使用该窗口中的滚动条。</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+	<title>更改缩放因子</title>
+	<para>您可以使用以下方法
+调整 <application>&app;</application> 窗口中图像视图的大小：</para>
+		<itemizedlist>
+			<listitem><para>要放大一幅图像的视图，请选择<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"放大"</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>要缩小一幅图像的视图，请选择<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"缩小"</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>要以实际尺寸显示一幅图像，请选择<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"缩放 1:1"</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>要放大或者缩小一幅图像的视图，使其适合 <application>&app;</application> 的窗口大小，请选择
+<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"适屏缩放"</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>要以全屏模式显示图像，请选择<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"全屏"</guimenuitem></menuchoice>。
+			全屏模式会在充满整个屏幕的窗口中显示图像。
+			该窗口不包括窗口框、标题栏、菜单栏或工具栏。
+			要从该模式中退出，请按下 <keycap>Esc</keycap> 键或 <keycombo><keycap>Ctrl</keycap> <keycap>W</keycap></keycombo> 组合键。</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+		<title>更改插值方法</title>
+		<para>要更改图像的插值方法，请选择<menuchoice><guimenu>"视图"</guimenu><guimenuitem>"插值"</guimenuitem></menuchoice>，然后选择您需要的插值方法。
+		选择以下选项之一：</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>最近邻</guimenuitem></para>
+			<para>这种插值方法是在原始图像上选取一个位置，然后复制离这个位置最近的像素。当您放大一幅图像时，就会复制这些像素。
+			当您缩小一幅图像时，图像就会丢失一些细节。</para>
+			</listitem>
+			<listitem><para><guimenuitem>平铺</guimenuitem> </para>
+			<para>在发行时没有可用的信息。</para>
+			</listitem>
+			<listitem><para><guimenuitem>双线性</guimenuitem> </para>
+			<para>这是一种简单快捷的插值方法。当您放大一幅图像时，<application>&app;</application> 会使用多达四个相邻的像素来计算新像素的颜色。当您缩小一幅图像时，<application>&app;</application> 会对现有图像的颜色区域取平均值，以此计算像素的颜色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>双曲线</guimenuitem></para>
+			<para>这是一种高品质但速度慢的插值方法。该应用程序会按照 George Wolberg 所著的《Digital Image Warping》中介绍的方式对图像进行插值。</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para>
+ -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+		<title>更改抖动方法</title>
+		<para>要更改图像的抖动方法，请选择<menuchoice><guimenu>"视图"</guimenu><guisubmenu>"抖动"</guisubmenu></menuchoice>，然后选择您需要的抖动方法。
+		选择以下选项之一：</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>无</guimenuitem> </para>
+			<para>该选项不使用抖动。</para>
+			</listitem>
+			<listitem><para><guimenuitem>普通（伪彩色）</guimenuitem> </para>
+			<para>该选项对伪彩色显示执行抖动，该方式使用颜色数目有限的调色板。</para>
+			</listitem>
+			<listitem><para><guimenuitem>最高（高彩色）</guimenuitem></para>
+			<para>该选项对伪彩色和高彩色显示执行抖动。</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+		<title>更改方格类型</title>
+		<para>要更改 <application>&app;</application> 用来显示图像中透明或半透明背景的方格的类型，请选择<menuchoice><guimenu>"视图"</guimenu><guisubmenu>"方格类型"</guisubmenu></menuchoice>，然后选择您需要的方格类型。
+		选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>深色</guimenuitem></para>
+			<para>该选项显示黑色和深灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>中间色</guimenuitem></para>
+			<para>该选项显示深灰色和浅灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>浅色</guimenuitem></para>
+			<para>该选项显示浅灰色和白色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>黑色</guimenuitem></para>
+			<para>该选项显示纯黑色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>灰色</guimenuitem> </para>
+			<para>该选项显示纯灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>白色</guimenuitem> </para>
+			<para>该选项显示纯白色方格。</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>更改方格大小</title>
+		<para>要更改 <application>&app;</application> 用于显示图像中透明或半透明背景的方格的大小，请选择<menuchoice><guimenu>"视图"</guimenu><guisubmenu>"方格大小"</guisubmenu></menuchoice>，然后选择您需要的方格大小。
+		只有当您在<guisubmenu>"方格类型"</guisubmenu>菜单中选择了<guimenuitem>"深色方格"</guimenuitem>、<guimenuitem>"中间色方格"</guimenuitem>或<guimenuitem>"浅色方格"</guimenuitem>时，此选项才会起作用。选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>小型</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>中型</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>大型</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para>
+ -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+		<title>关闭图像</title>
+		<para>要关闭图像，请选择<menuchoice><guimenu>"文件"</guimenu><guimenuitem>"关闭"</guimenuitem></menuchoice>。
+		如果该窗口是最后一个打开的 <application>&app;</application> 窗口，该应用程序将退出。</para>
+		<para>要退出 <application>&app;</application> 并且要关闭当前会话中所有已打开的窗口，请选择<menuchoice><guimenu>"文件"</guimenu><guimenuitem>"退出"</guimenuitem></menuchoice>。
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs"> 
+<title>首选项</title>
+	<para>要配置 <application>&app;</application>，请选择<menuchoice><guimenu>"编辑"</guimenu><guimenuitem>"首选项"</guimenuitem></menuchoice>。 
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>插值</guilabel></term>
+		<listitem>
+		<para>选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>最近邻</guimenuitem></para>
+			<para>这种插值方法是在原始图像上选取一个位置，然后复制离这个位置最近的像素。当您放大一幅图像时，就会复制这些像素。
+			当您缩小一幅图像时，图像就会丢失一些细节。</para>
+			</listitem>
+			<listitem><para><guimenuitem>平铺</guimenuitem> </para>
+			<para>在发行时没有可用的信息。</para>
+			</listitem>
+			<listitem><para><guimenuitem>双线性</guimenuitem> </para>
+			<para>这是一种简单快捷的插值方法。当您放大一幅图像时，<application>&app;</application> 会使用多达四个相邻的像素来计算新像素的颜色。当您缩小一幅图像时，<application>&app;</application> 会对现有图像的颜色区域取平均值，以此计算像素的颜色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>双曲线</guimenuitem></para>
+			<para>这是一种高品质但速度慢的插值方法。该应用程序会按照 George Wolberg 所著的《Digital Image Warping》中介绍的方式对图像进行插值。</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>抖动</guilabel></term>
+		<listitem>
+		<para>选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>无</guimenuitem> </para>
+			<para>该选项不使用抖动。</para>
+			</listitem>
+			<listitem><para><guimenuitem>普通（伪彩色）</guimenuitem> </para>
+			<para>该选项对伪彩色显示执行抖动，该方式使用颜色数目有限的调色板。</para>
+			</listitem>
+			<listitem><para><guimenuitem>最高（高彩色）</guimenuitem></para>
+			<para>该选项对伪彩色和高彩色显示执行抖动。</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>方格类型</guilabel></term>
+		<listitem>
+		<para>选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>深色</guimenuitem></para>
+			<para>该选项显示黑色和深灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>中间色</guimenuitem></para>
+			<para>该选项显示深灰色和浅灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>浅色</guimenuitem></para>
+			<para>该选项显示浅灰色和白色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>黑色</guimenuitem></para>
+			<para>该选项显示纯黑色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>灰色</guimenuitem> </para>
+			<para>该选项显示纯灰色方格。</para>
+			</listitem>
+			<listitem><para><guimenuitem>白色</guimenuitem> </para>
+			<para>该选项显示纯白色方格。</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>方格大小</guilabel></term>
+		<listitem>
+		<para>只有当您在<guilabel>"方格类型"</guilabel>下拉式列表中选择了<guimenuitem>"深色方格"</guimenuitem>、<guimenuitem>"中间色方格"</guimenuitem>或<guimenuitem>"浅色方格"</guimenuitem>时，此选项才会起作用。选择以下选项之一：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>小型</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>中型</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>大型</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>

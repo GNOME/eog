@@ -1,0 +1,482 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "October 2002">
+  <!ENTITY app "Eye of GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="zh_tw">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+    <title>&app; 手冊 V&manrevision;</title>
+
+    <copyright><year>2002</year><holder>Sun Microsystems</holder></copyright><copyright><year>2000</year><holder>Eliot Landrum</holder></copyright><copyright>      <year>2000</year><holder>The Free Software Foundation</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> GNOME 文件專案 </publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Sun</firstname><surname>GNOME 文件小組</surname><affiliation><orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname><surname>Landrum</surname><affiliation><orgname>GNOME 文件專案</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname><surname>Mena Quintero</surname><affiliation><orgname>GNOME 文件專案</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>&app; 手冊 V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME 文件小組
+	  
+<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME 文件專案</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME 手冊 V2.2</revnumber> 
+		<date>2002 年 8 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME 文件小組
+
+<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME 文件專案</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME 手冊 V2.1</revnumber> 
+		<date>2002 年 7 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME 文件小組
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME 文件專案</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME 手冊 V2.0</revnumber> 
+		<date>2002 年 5 月</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME 文件小組
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME 文件專案</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME 使用者指南</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">GNOME 文件專案</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>本手冊的內容是說明 &appversion; 版的 &app;。
+    </releaseinfo>
+    <legalnotice> 
+      <title>回饋</title>
+      <para>關於本 &app; 應用程式或手冊，如果要報告錯誤或提出建議，請遵照 <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink> 的指示。 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>Eye of GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	<title>介紹</title>
+	<para>使用 <application>&app;</application> 應用程式，您可以檢視影像檔案。 
+	<application>&app;</application> 提供了下列功能：</para>
+	<itemizedlist>
+		<listitem><para>支援以下的影像檔案格式：</para>
+			<itemizedlist>
+				<listitem><para>BMP - Windows 點陣圖</para>
+				</listitem>
+				<listitem><para>GIF - 圖形交換格式</para>
+				</listitem>
+				<listitem><para>ICO - Windows 圖示</para>
+				</listitem>
+				<listitem><para>JPEG - 聯合圖像專業團體</para>
+				</listitem>
+				<listitem><para>PNG - 可攜式網路圖形 </para>
+				</listitem>
+				<listitem><para>PNM - PPM 圖形檔工具箱中的圖形轉換格式</para>
+				</listitem>
+				<listitem><para>RAS - Sun Raster 格式</para>
+				</listitem>
+				<listitem><para>SVG - 可變式向量圖形 </para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - 標籤影像檔案格式</para>
+				</listitem>
+				<listitem><para>XBM - X 點陣圖</para>
+				</listitem>
+				<listitem><para>XPM - X 像素對映圖</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>各種放大縮小顯示層級以及全螢幕顯示，同時不論縮放層級為何，佔用的記憶體量都很小。 </para>
+		</listitem>
+		<listitem><para>Bonobo 的內嵌技術，可以讓您將影像檢視內嵌至 GNOME 其他的應用程式中。 </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started">
+	<title>入門</title>
+	<sect2 id="eog-tostartapp">
+	<title>啟動 &app;</title>
+	<para>您可以使用下列方式啟動 <application>&app;</application>：</para>
+		<variablelist>
+			<varlistentry>
+			
+ <term><guimenu>應用程式</guimenu>功能表</term>
+			<listitem>
+			<para>請選擇 <menuchoice><guisubmenu>圖形 </guisubmenu><guimenuitem>&app; 影像檢視器 </guimenuitem></menuchoice>。</para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>指令行</term>
+			<listitem>
+			<para>如果要從指令行執行 <application>&app;</application> 並開啟檔案，
+			請鍵入下列指令，再按一下 <keycap> Return</keycap>：</para>
+			<para><command>eog</command> <replaceable>filename.jpg</replaceable></para>
+			<para>其中 <replaceable>filename.jpg</replaceable> 指的是您想要開啟檔案的名稱。</para>
+			<para><application>&app;</application> 會將您指定的檔案分別開啟在不同的新視窗中。</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	<title>當您啟動 &app; 時</title>
+	<para>當您啟動 <application>&app;</application> 時，會顯示下面的視窗。</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>開啟檔案前的 &app; 啟動視窗</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>顯示 Eye of GNOME 主視窗</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	 <title>使用</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>開啟影像</title>
+		<para>如果要開啟影像，請選擇<menuchoice>		<guimenu>檔案</guimenu><guimenuitem>開啟</guimenuitem></menuchoice>。 
+		此時會顯示<guilabel>開啟影像</guilabel>對話方塊。 選取您要開啟的檔案，然後按一下<guibutton>確定</guibutton>。</para>
+		<para>如果要在新視窗開啟另一個影像，請選擇<menuchoice><guimenu>檔案</guimenu><guimenuitem>新視窗</guimenuitem></menuchoice>。
+		請選擇<menuchoice><guimenu>檔案</guimenu><guimenuitem>開啟</guimenuitem></menuchoice>，選取您想要開啟的檔案。 您也可以由其他的應用程式 (例如檔案管理員) 中，將影像拖曳到 <application>&app;</application>視窗內。 
+		如果 <application>&app;</application> 的視窗為空白的，應用程式便會將直接將影像顯示在視窗中。 但是如果視窗不是空白的，應用程式就會開啟一個新視窗來顯示檔案。 
+</para>
+		<para>如果您想開啟的檔案，其格式 <application>&app;</application> 無法辨識，應用程式便會顯示錯誤訊息。</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>捲動檢視影像</title>
+		<para>當影像尺寸比影像視窗或全螢幕還要大的時候，您可以用下列的方法，以捲動的方式檢視影像：</para>
+		<itemizedlist>
+			<listitem><para>使用鍵盤上的箭號鍵。</para>
+			</listitem>
+			<listitem><para>朝您想捲動的反方向，直接拖曳影像。
+ 例如，如果您想將影像向下捲動，就請向上拖曳視窗中的影像。</para>
+			</listitem>
+			<listitem><para>使用視窗的捲動軸。</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+	<title>變更縮放係數</title>
+	<para>您可以使用下列方式，調整 <application>&app;</application> 視窗中影像檢視的大小：</para>
+		<itemizedlist>
+			<listitem><para>如果要放大影像的檢視，請選擇 <menuchoice><guimenu>檢視</guimenu><guimenuitem> 放大</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>如果要縮小影像的檢視，請選擇 <menuchoice><guimenu>檢視</guimenu><guimenuitem>縮小</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>如果要檢視影像的實際尺寸，請選擇 <menuchoice><guimenu>檢視</guimenu><guimenuitem> 縮放比例 1:1</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>如果要放大或縮小影像的檢視，以便符合 <application>&app;</application> 視窗的大小，請選擇 <menuchoice><guimenu>檢視</guimenu><guimenuitem>縮放至同視窗大小</guimenuitem></menuchoice>。</para>
+			</listitem>
+			<listitem><para>如果要以全螢幕模式顯示影像，請選擇<menuchoice><guimenu>檢視</guimenu><guimenuitem>全螢幕</guimenuitem></menuchoice>。 
+			全螢幕模式會將影像顯示在一個跟螢幕大小相同的視窗內。 
+			但是這個視窗並不含視窗框架、標題列、功能表列，或是工具列。 
+			要結束這個模式，請按一下 <keycap>Esc</keycap> 鍵或是<keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>。</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+		<title>變更插入法</title>
+		<para>如果要變更影像的插入法，請選擇<menuchoice><guimenu>檢視</guimenu><guimenuitem>插入法</guimenuitem></menuchoice>，然後選擇您想要的插入法。 
+		請選取下列任一項選項：</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>最近鄰域內插法</guimenuitem> </para>
+			<para>這個插入法會以原始影像的某個位置為樣本，然後將最接近這個位置的像素以樣本重製。 當您將影像放大檢視的時候，像素會因為重製而增加。 
+			但是當您將影像縮小檢視的時候，影像就會遺失部分的細節。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>並列</guimenuitem> </para>
+			<para>本手冊出版之時，尚無此相關資訊。</para>
+			</listitem>
+			<listitem><para><guimenuitem>雙線性內插法</guimenuitem> </para>
+			<para>這是一個簡單又快速的插入法。 當您放大影像時，<application>&app;</application> 會以四個相鄰的像素來計算新像素的顏色。 當您縮小影像時，<application>&app;</application> 會將現有影像區域中的顏色平均，以計算像素的顏色。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>雙曲線插入法</guimenuitem> </para>
+			<para>這是一個品質高但是費時的插入法。 應用程式在影像上進行的這種插入法，是根據 George Wolberg 在其著作《Digital Image Warping》中所描述的方法。</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para>
+ -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+		<title>變更混色法</title>
+		<para>如果要變更影像的混色法，請選擇<menuchoice><guimenu>檢視</guimenu><guisubmenu>混色</guisubmenu></menuchoice>，然後選擇您所想要的混色法。
+		請選取下列任一項選項：</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>無</guimenuitem> </para>
+			<para> 選取這個選項，表示不使用混色。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>一般 (虛擬色彩)</guimenuitem> </para>
+			<para>選取這個選項，會在虛擬色彩的顯示器上進行混色，因為這些顯示器使用的調色版顏色有限。</para>
+			</listitem>
+			<listitem><para><guimenuitem>最大 (高畫質)</guimenuitem> </para>
+			<para>選取這個選項，會在虛擬色彩或是高畫質的顯示器上，進行混色。 </para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+		<title>變更格點類型</title>
+		<para> <application>&app;</application>是使用格點顯示影像中透明或是部分透明的背景，如果要變更所使用的格點類型，請選擇<menuchoice><guimenu>檢視</guimenu><guisubmenu>格點類型</guisubmenu></menuchoice>，然後選取您想要的格點類型。請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>深色</guimenuitem> </para>
+			<para>選取這個選項，會顯示黑或深灰色的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>中間調</guimenuitem> </para>
+			<para>選取這個選項，會顯示深灰以及淺灰的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>淺色</guimenuitem> </para>
+			<para>選取這個選項，會顯示淺灰以及白色的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>黑色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純黑色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>灰色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純灰色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>白色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純白色。</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>變更格點大小</title>
+		<para>如果要變更 <application>&app;</application>在顯示影像透明或部分透明背景時，所用的格點大小，請選擇<menuchoice><guimenu>檢視</guimenu><guisubmenu>格點大小</guisubmenu></menuchoice>，然後選取您想要的格點大小。
+		只有當您從<guisubmenu>格點類型</guisubmenu>功能表中，選擇了<guimenuitem>深色格點</guimenuitem>、<guimenuitem>中間調格點</guimenuitem>，或是<guimenuitem>淺色格點</guimenuitem>時，選取這個選項才有意義。 請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>小</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>中</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>大</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para>
+ -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+		<title>關閉影像</title>
+		<para>如果要關閉影像，請選擇<menuchoice><guimenu>檔案</guimenu><guimenuitem>關閉</guimenuitem></menuchoice>。 
+		如果關閉的是 <application>&app;</application> 的最後一個視窗，應用程式也會跟著結束。 </para>
+		<para>如果要結束 <application>&app;</application>，並關閉目前階段作業中所開啟的所有視窗，請選擇 <menuchoice><guimenu>檔案</guimenu><guimenuitem>結束</guimenuitem></menuchoice>。
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">	
+<title>個人喜好</title>
+	<para>如果要配置 <application>&app;</application>，請選擇 <menuchoice><guimenu>編輯</guimenu><guimenuitem>個人喜好</guimenuitem></menuchoice>。
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		
+<term><guilabel>插入法</guilabel></term>
+		<listitem>
+		<para>請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>最近鄰域內插法</guimenuitem> </para>
+			<para>這個插入法會以原始影像的某個位置為樣本，然後將最接近這個位置的像素以樣本重製。 當您將影像放大檢視的時候，像素會因為重製而增加。 
+			但是當您將影像縮小檢視的時候，影像就會遺失部分的細節。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>並列</guimenuitem> </para>
+			<para>本手冊出版之時，尚無此相關資訊。</para>
+			</listitem>
+			<listitem><para><guimenuitem>雙線性內插法</guimenuitem> </para>
+			<para>這是一個簡單又快速的插入法。 當您放大影像時，<application>&app;</application> 會以四個相鄰的像素來計算新像素的顏色。 當您縮小影像時，<application>&app;</application> 會將現有影像區域中的顏色平均，以計算像素的顏色。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>雙曲線插入法</guimenuitem> </para>
+			<para>這是一個品質高但是費時的插入法。 應用程式在影像上進行的這種插入法，是根據 George Wolberg 在其著作《Digital Image Warping》中所描述的方法。</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		
+<term><guilabel>混色</guilabel></term>
+		<listitem>
+		<para>請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>無</guimenuitem> </para>
+			<para> 選取這個選項，表示不使用混色。 </para>
+			</listitem>
+			<listitem><para><guimenuitem>一般 (虛擬色彩)</guimenuitem> </para>
+			<para>選取這個選項，會在虛擬色彩的顯示器上進行混色，因為這些顯示器使用的調色版顏色有限。</para>
+			</listitem>
+			<listitem><para><guimenuitem>最大 (高畫質)</guimenuitem> </para>
+			<para>選取這個選項，會在虛擬色彩或是高畫質的顯示器上，進行混色。 </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+	<term><guilabel>格點類型</guilabel></term>
+		<listitem>
+		<para>請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>深色</guimenuitem> </para>
+			<para>選取這個選項，會顯示黑或深灰色的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>中間調</guimenuitem> </para>
+			<para>選取這個選項，會顯示深灰以及淺灰的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>淺色</guimenuitem> </para>
+			<para>選取這個選項，會顯示淺灰以及白色的格點。</para>
+			</listitem>
+			<listitem><para><guimenuitem>黑色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純黑色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>灰色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純灰色。</para>
+			</listitem>
+			<listitem><para><guimenuitem>白色</guimenuitem> </para>
+			<para>選取這個選項，會顯示純白色。</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+	<term><guilabel>格點大小</guilabel></term>
+		<listitem>
+		<para>只有當您從<guilabel>格點類型</guilabel>下拉式清單中，選擇了<guimenuitem>深色格點</guimenuitem>、<guimenuitem>中間調格點</guimenuitem>或是<guimenuitem>淺色格點</guimenuitem>時，這個選項才會有意義。 請選取下列任一項選項：</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>小</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>中</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>大</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>

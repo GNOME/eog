@@ -1,0 +1,561 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "Ottobre 2002">
+  <!ENTITY app "Eye of GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="it">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+     <title>Manuale di &app; V&manrevision;</title>
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>The Free Software Foundation</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> GNOME Documentation Project </publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>GNOME Documentation Team</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>GNOME Documentation Project</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>Manuale di &app; V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuale di Eye of GNOME V2.2</revnumber> 
+		<date>Agosto 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuale di Eye of GNOME V2.1</revnumber> 
+		<date>Luglio 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuale di Eye of GNOME V2.0</revnumber> 
+		<date>Maggio 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuale utente di Eye of GNOME</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>Questo manuale descrive la versione &appversion; di &app;.
+    </releaseinfo>
+    <legalnotice> 
+        <title>Commenti</title>
+      <para>Per segnalare un problema o inviare suggerimenti sull'applicazione &app; o su questo manuale, seguire le istruzioni presenti alla <ulink url="ghelp:gnome-feedback" type="help">Pagina di commenti su GNOME</ulink>. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>Eye of GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	 <title>Introduzione</title>
+	<para>L'applicazione <application>&app;</application> permette di visualizzare vari formati grafici. 
+	<application>&app;</application> comprende le seguenti funzionalit&agrave;:</para>
+	<itemizedlist>
+		<listitem><para>Supporto per i seguenti formati grafici:</para>
+			<itemizedlist>
+				<listitem><para>BMP - Windows Bitmap</para>
+				</listitem>
+				<listitem><para>GIF - Graphics Interchange Format</para>
+				</listitem>
+				<listitem><para>ICO - Windows Icon</para>
+				</listitem>
+				<listitem><para>JPEG - Joint Photographic Experts Group</para>
+				</listitem>
+				<listitem><para>PNG - Portable Network Graphics </para>
+				</listitem>
+				<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
+				</listitem>
+				<listitem><para>RAS - Sun Raster </para>
+				</listitem>
+				<listitem><para>SVG - Scaleable Vector Graphics </para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - Tagged Image File Format</para>
+				</listitem>
+				<listitem><para>XBM - X Bitmap</para>
+				</listitem>
+				<listitem><para>XPM - X Pixmap</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>Una vasta gamma di livelli di ingrandimento e una funzione di visualizzazione a schermo intero, con utilizzo ridotto della memoria indipendentemente dal livello di ingrandimento. </para>
+		</listitem>
+		<listitem><para>La tecnologia di embedding Bonobo che permette di incorporare le visualizzazioni delle immagini in altre applicazioni GNOME. </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started"> 
+	 <title>Per iniziare</title>
+	<sect2 id="eog-tostartapp">
+   <title>Avviare &app;</title>
+	<para>Sono disponibili i seguenti metodi per avviare <application>&app;</application>:</para>
+		<variablelist>
+			<varlistentry>
+			<term>Menu <guimenu>Programmi</guimenu></term>
+			<listitem>
+			<para>Scegliere 
+			<menuchoice>
+			<guisubmenu>Grafica</guisubmenu>
+			<guimenuitem>Visualizzatore immagini &app;</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>Dalla riga di comando</term>
+			<listitem>
+			<para>Per eseguire <application>&app;</application> e aprire un file dalla riga di comando, digitare il seguente comando e premere <keycap> Return</keycap>:</para>
+			<para><command>eog</command> <replaceable>nomefile.jpg</replaceable></para>
+			<para>dove <replaceable>nomefile.jpg</replaceable> &egrave; il nome del file da aprire.</para>
+			<para><application>&app;</application> apre i file specificati in una nuova finestra.</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	<title>Avvio di &app;</title>
+	<para>All'avvio di <application>&app;</application> viene visualizzata la finestra seguente.</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>Finestra iniziale di &app; prima del caricamento di un file</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Mostra la finestra principale di Eye of GNOME</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	<title>Utilizzo</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+<title>Aprire un'immagine</title>
+		<para>Per aprire un'immagine, scegliere 
+		<menuchoice>
+		<guimenu>File</guimenu>
+		<guimenuitem>Apri</guimenuitem>
+		</menuchoice>. 
+		Viene visualizzata la finestra di dialogo <guilabel>Apri immagine</guilabel>. Selezionare il file da aprire e fare clic su <guibutton>OK</guibutton>. </para>
+		<para>Per aprire un'altra immagine in una diversa finestra, scegliere <menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Nuova finestra</guimenuitem>
+</menuchoice>. 
+		Scegliere  
+		<menuchoice>
+		<guimenu>File</guimenu>
+		<guimenuitem>Apri</guimenuitem>
+		</menuchoice> 
+		per selezionare il file da aprire. &Egrave; anche possibile trascinare un'immagine da un'altra applicazione, ad esempio un'applicazione di gestione dei file, sulla finestra di <application>&app;</application>. 
+		Se la finestra di <application>&app;</application> &egrave; vuota, l'immagine viene visualizzata in quella finestra. Se la finestra non &egrave; vuota, l'immagine viene visualizzata in una nuova finestra. </para>
+		<para>Se si tenta di aprire un formato di file non riconosciuto da <application>&app;</application>, viene visualizzato un messaggio di errore.</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>Scorrere un'immagine</title>
+		<para>Per scorrere un'immagine pi&ugrave; grande della finestra dell'immagine o della finestra a schermo intero, usare uno dei seguenti metodi:</para>
+		<itemizedlist>
+			<listitem><para>Usare i tasti freccia.</para>
+			</listitem>
+			<listitem><para>Trascinare l'immagine nella direzione opposta a quella di scorrimento. Ad esempio, per far scorrere l'immagine verso il basso, trascinarla verso l'alto.</para>
+			</listitem>
+			<listitem><para>Usare le barre di scorrimento della finestra.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+		<title>Modificare l'ingrandimento</title>
+	<para>Sono disponibili i seguenti metodi per ridimensionare un'immagine nella finestra di <application>&app;</application>:</para>
+		<itemizedlist>
+			<listitem><para>Per ingrandire l'immagine, scegliere  
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guimenuitem>Aumenta ingrandimento</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Per ridurre l'immagine, scegliere  
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guimenuitem>Riduci ingrandimento</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Per visualizzare l'immagine nella grandezza originale, scegliere  
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guimenuitem>Ingrandimento 1:1</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			<listitem><para>Per ingrandire o ridurre l'immagine in modo che si adatti alle dimensioni della finestra di <application>&app;</application>, scegliere <menuchoice>
+<guimenu>Visualizza</guimenu>
+<guimenuitem>Adatta a finestra</guimenuitem>
+</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Per visualizzare l'immagine a schermo intero, scegliere  
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guimenuitem>Ingrandimento 1:1</guimenuitem>
+			</menuchoice>. 
+			La modalit&agrave; a schermo intero mostra l'immagine in una finestra che occupa lo schermo. 
+			La finestra non contiene la cornice, la barra del titolo, la barra dei menu o quella degli strumenti. 
+			Per uscire da questa modalit&agrave;, premere il tasto <keycap>Esc</keycap> o  <keycombo><keycap>Ctrl</keycap> <keycap>W</keycap></keycombo>.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+		<title>Modificare il metodo di interpolazione</title>
+		<para>Per modificare il metodo di interpolazione dell'immagine, scegliere 
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guimenuitem>Interpolazione</guimenuitem>
+			</menuchoice>, quindi selezionare il metodo di interpolazione pi&ugrave; appropriato. 
+		Selezionare una delle seguenti opzioni:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Selezione pi&ugrave; simile</guimenuitem> </para>
+			<para>Questo metodo di interpolazione prende in considerazione una posizione dell'immagine originale e replica il pixel pi&ugrave; vicino a questa posizione. Quando si ingrandisce un'immagine, i pixel vengono replicati. 
+			Quando si riduce un'immagine, l'immagine perde parte della definizione. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Riquadri</guimenuitem> </para>
+			<para>Nessuna informazione disponibile al momento della pubblicazione.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilineare</guimenuitem> </para>
+			<para>Si tratta di un metodo di interpolazione semplice e veloce. Quando si ingrandisce un'immagine, <application>&app;</application> usa fino a un massimo di quattro pixel adiacenti per calcolare il colore dei nuovi pixel. Quando si riduce un'immagine, <application>&app;</application> elabora una media delle regioni di colore dell'immagine esistente per calcolare il colore dei pixel. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Iperbolico</guimenuitem> </para>
+			<para>Si tratta di un metodo di interpolazione lento ma di qualit&agrave; molto elevata. L'applicazione esegue l'interpolazione dell'immagine secondo quanto descritto da George Wolberg in Digital Image Warping.</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para>
+ -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+		<title>Modificare il metodo di retinatura</title>
+		<para>Per modificare il metodo di retinatura di un'immagine, scegliere 
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guisubmenu>Retinatura</guisubmenu>
+			</menuchoice>, 
+		e quindi selezionare il metodo pi&ugrave; appropriato.
+		Selezionare una delle seguenti opzioni:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Nessuno</guimenuitem> </para>
+			<para>Questa opzione non utilizza nessuna retinatura. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normale (pseudocolor)</guimenuitem> </para>
+			<para>Questa opzione esegue la retinatura su schermi in pseudocolore che usano una tavolozza di colori limitata. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Massimo (high color)</guimenuitem> </para>
+			<para>Questa opzione esegue la retinatura sugli schermi in pseudocolore e high color. </para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+		<title>Modificare il tipo di riquadri</title>
+		<para>Per modificare il tipo di riquadri usato da <application>&app;</application> per visualizzare gli sfondi trasparenti o parzialmente opachi delle immagini, scegliere
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guisubmenu>Tipo riquadri</guisubmenu>
+			</menuchoice>, 
+		e quindi selezionare il tipo pi&ugrave; appropriato di riquadro.
+		Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Scuro</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore nero e grigio scuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Mezzitoni</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore grigio chiaro e grigio scuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Chiaro</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore bianco e grigio chiaro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Nero</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore nero a tinta unita.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Grigio</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore grigio a tinta unita.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bianco</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore bianco a tinta unita.</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>Modificare la dimensione dei riquadri</title>
+		<para>Per modificare la dimensione dei riquadri usati da <application>&app;</application> per visualizzare gli sfondi trasparenti o parzialmente opachi delle immagini, scegliere
+			<menuchoice>
+			<guimenu>Visualizza</guimenu>
+			<guisubmenu>Dimensione riquadri</guisubmenu>
+			</menuchoice>, 
+		e quindi selezionare la dimensione appropriata.
+		Questa opzione &egrave; di una certa utilit&agrave; solo quando sono state selezionate le voci  <guimenuitem>Scuro</guimenuitem>, 
+		<guimenuitem>Mezzitoni</guimenuitem> o <guimenuitem>Chiaro</guimenuitem> dal menu <guisubmenu>Tipo riquadri</guisubmenu>. Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Piccolo</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medio</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grande</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para>
+ -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+<title>Chiudere un'immagine</title>
+		<para>Per chiudere un'immagine, scegliere 
+		<menuchoice>
+		<guimenu>File</guimenu>
+		<guimenuitem>Chiudi</guimenuitem>
+		</menuchoice>. 
+		Se la finestra &egrave; l'ultima finestra aperta di <application>&app;</application>, l'applicazione si chiude. </para>
+		<para>Per uscire da <application>&app;</application> e chiudere tutte le finestre che sono state aperte nella sessione corrente, scegliere <menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Esci</guimenuitem>
+</menuchoice>.
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">	
+<title>Preferenze</title>
+	<para>Per configurare <application>&app;</application>, scegliere
+		<menuchoice> 
+		<guimenu>Modifica</guimenu>
+		<guimenuitem>Preferenze</guimenuitem> 
+		</menuchoice>.
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interpolazione</guilabel></term>
+		<listitem>
+		<para>Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Selezione pi&ugrave; simile</guimenuitem> </para>
+			<para>Questo metodo di interpolazione prende in considerazione una posizione dell'immagine originale e replica il pixel pi&ugrave; vicino a questa posizione. Quando si ingrandisce un'immagine, i pixel vengono replicati. 
+			Quando si riduce un'immagine, l'immagine perde parte della definizione. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Riquadri</guimenuitem> </para>
+			<para>Nessuna informazione disponibile al momento della pubblicazione.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilineare</guimenuitem> </para>
+			<para>Si tratta di un metodo di interpolazione semplice e veloce. Quando si ingrandisce un'immagine, <application>&app;</application> usa fino a un massimo di quattro pixel adiacenti per calcolare il colore dei nuovi pixel. Quando si riduce un'immagine, <application>&app;</application> elabora una media delle regioni di colore dell'immagine esistente per calcolare il colore dei pixel. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Iperbolico</guimenuitem> </para>
+			<para>Si tratta di un metodo di interpolazione lento ma di qualit&agrave; molto elevata. L'applicazione esegue l'interpolazione dell'immagine secondo quanto descritto da George Wolberg in Digital Image Warping.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Retinatura</guilabel></term>
+		<listitem>
+		<para>Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Nessuno</guimenuitem> </para>
+			<para>Questa opzione non utilizza nessuna retinatura. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normale (pseudocolor)</guimenuitem> </para>
+			<para>Questa opzione esegue la retinatura su schermi in pseudocolore che usano una tavolozza di colori limitata. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Massimo (high color)</guimenuitem> </para>
+			<para>Questa opzione esegue la retinatura su schermi in pseudocolore e high color. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Tipo riquadri</guilabel></term>
+		<listitem>
+		<para>Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Scuro</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore nero e grigio scuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Mezzitoni</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore grigio chiaro e grigio scuro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Chiaro</guimenuitem> </para>
+			<para>Questa opzione visualizza riquadri di colore bianco e grigio chiaro.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Nero</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore nero a tinta unita.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Grigio</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore grigio a tinta unita.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bianco</guimenuitem> </para>
+			<para>Questa opzione visualizza un colore bianco a tinta unita.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>Dimensione riquadri</guilabel></term>
+		<listitem>
+		<para>Questa opzione &egrave; utile solo quando sono state selezionate le voci  <guimenuitem>Scuro</guimenuitem>, 
+		<guimenuitem>Mezzitoni</guimenuitem> o <guimenuitem>Chiaro</guimenuitem> dal menu <guisubmenu>Tipo riquadri</guisubmenu>. Selezionare una delle seguenti opzioni:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Piccolo</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Medio</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grande</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>

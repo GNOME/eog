@@ -1,0 +1,567 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "October 2002">
+  <!ENTITY app "Eye of GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="de">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+    <title>&app; Handbuch V&manrevision;</title>
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>The Free Software Foundation</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> GNOME-Dokumentationsprojekt </publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>GNOME-Dokumentationsteam</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>GNOME-Dokumentationsprojekt</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>GNOME-Dokumentationsprojekt</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>&app; Handbuch V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME-Dokumentationsteam
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME-Dokumentationsprojekt</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME-Handbuch V2.2</revnumber> 
+		<date>August 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME-Dokumentationsteam
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME-Dokumentationsprojekt</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME-Handbuch V2.1</revnumber> 
+		<date>Juli 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME-Dokumentationsteam
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME-Dokumentationsprojekt</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME-Handbuch V2.0</revnumber> 
+		<date>Mai 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME-Dokumentationsteam
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME-Dokumentationsprojekt</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Eye of GNOME-Benutzerhandbuch</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">GNOME-Dokumentationsprojekt</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>In diesem Handbuch wird Version &appversion; von &app; beschrieben.
+    </releaseinfo>
+    <legalnotice> 
+      <title>Feedback</title>
+      <para>Wenn Sie Fehler finden oder Vorschl&auml;ge zur &app;-Anwendung oder zu diesem Handbuch haben, folgen Sie den Anweisungen auf der <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>Eye of GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	<title>Einf&uuml;hrung</title>
+	<para>Mit der <application>&app;</application>-Anwendung k&ouml;nnen Sie sich Bilddateien anzeigen lassen. 
+	<application>&app;</application> verf&uuml;gt &uuml;ber folgende Funktionen:</para>
+	<itemizedlist>
+		<listitem><para>Die folgenden Bilddateiformate werden unterst&uuml;tzt:</para>
+			<itemizedlist>
+				<listitem><para>BMP - Windows Bitmap</para>
+				</listitem>
+				<listitem><para>GIF - Graphics Interchange Format</para>
+				</listitem>
+				<listitem><para>ICO - Windows Icon</para>
+				</listitem>
+				<listitem><para>JPEG - Joint Photographic Experts Group</para>
+				</listitem>
+				<listitem><para>PNG - Portable Network Graphics </para>
+				</listitem>
+				<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
+				</listitem>
+				<listitem><para>RAS - Sun Raster </para>
+				</listitem>
+				<listitem><para>SVG - Scaleable Vector Graphics </para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - Tagged Image File Format</para>
+				</listitem>
+				<listitem><para>XBM - X Bitmap</para>
+				</listitem>
+				<listitem><para>XPM - X Pixmap</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>Verschiedene Zoomstufen und Vollbildanzeige bei geringer Speicherverwendung unabh&auml;ngig von der Zoomstufe. </para>
+		</listitem>
+		<listitem><para>Die Einbettungstechnologie von Bonobo erm&ouml;glicht es Ihnen, Bilder in andere GNOME-Anwendungen einzubetten. </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started">
+	<title>Erste Schritte</title>
+	<sect2 id="eog-tostartapp">
+	<title>So starten Sie &app;</title>
+	<para>Sie k&ouml;nnen die <application>&app;</application>-Anwendung auf eine der folgenden Arten starten:</para>
+		<variablelist>
+			<varlistentry>
+			<term>Men&uuml; <guimenu>Anwendungen</guimenu></term>
+			<listitem>
+			<para>W&auml;hlen Sie 
+			<menuchoice>
+			<guisubmenu>Grafik</guisubmenu>
+			<guimenuitem>&app;Bildbetrachter</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>Befehlszeile</term>
+			<listitem>
+			<para>Um <application>&app;</application> auszuf&uuml;hren und eine Datei aus einer Befehlszeile zu &ouml;ffnen, geben Sie folgenden Befehl ein und dr&uuml;cken anschlie&szlig;end die <keycap> Eingabetaste</keycap>:</para>
+			<para><command>eog</command> <replaceable>Dateiname.jpg</replaceable></para>
+			<para>Bei <replaceable>Dateiname.jpg</replaceable> handelt es sich um den Namen der Datei, die Sie &ouml;ffnen m&ouml;chten.</para>
+			<para><application>&app;</application> &ouml;ffnet jede von Ihnen angegebene Datei in einem neuen Fenster.</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	<title>Wenn Sie starten &app;</title>
+	<para>Wenn Sie die Anwendung <application>&app;</application> starten, wird das folgende Fenster angezeigt.</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>&app; Startfenster vor dem &Ouml;ffnen einer Datei </title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Zeigt das Eye of GNOME-Hauptfenster</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	<title>Verwendung</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>So &ouml;ffnen Sie eine Bilddatei</title>
+		<para>Um eine Bilddatei zu &ouml;ffnen, w&auml;hlen Sie <menuchoice>
+		<guimenu>Datei</guimenu>
+		<guimenuitem>&Ouml;ffnen</guimenuitem>
+		</menuchoice>. 
+		Das Dialogfeld <guilabel>Bild &ouml;ffnen</guilabel> wird angezeigt. W&auml;hlen Sie die Datei aus, die Sie &ouml;ffnen m&ouml;chten, und klicken Sie auf <guibutton>OK</guibutton>. </para>
+		<para>Um ein anderes Bild in einem neuen Fenster zu &ouml;ffnen, w&auml;hlen Sie <menuchoice>
+		<guimenu>Datei</guimenu>
+		<guimenuitem>Neues Fenster</guimenuitem>
+		</menuchoice>. 
+		W&auml;hlen Sie 
+		<menuchoice>
+		<guimenu>Datei</guimenu>
+		<guimenuitem>&Ouml;ffnen</guimenuitem>
+		</menuchoice>, 
+		um die Datei auszuw&auml;hlen, die ge&ouml;ffnet werden soll. Sie k&ouml;nnen ein Bild auch von einer anderen Anwendung, z. B. vom Dateimanager, auf das <application>&app;</application>-Fenster ziehen. 
+		Wenn das <application>&app;</application>-Fenster leer ist, wird das Bild von der Anwendung im ge&ouml;ffneten Fenster gezeigt. Wenn das Fenster nicht leer ist, wird ein neues Fenster ge&ouml;ffnet, um die Datei anzuzeigen. </para>
+		<para>Wenn Sie versuchen, ein Bilddateiformat zu &ouml;ffnen, das nicht von <application>&app;</application> 
+		unterst&uuml;tzt wird, wird von der Anwendung eine Fehlermeldung angezeigt.</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>So bewegen Sie sich in einem Bild</title>
+		<para>Um sich in einem Bild zu bewegen, das gr&ouml;&szlig;er als Ihr Bildfenster oder das Vollbild ist, stehen Ihnen die folgenden Methoden zur Verf&uuml;gung:</para>
+		<itemizedlist>
+			<listitem><para>Bewegen Sie sich mit den Pfeiltasten der Tastatur durch das Bild.</para>
+			</listitem>
+			<listitem><para>Ziehen Sie das Bild entgegen der Richtung, in die Sie auf dem Bild rollen m&ouml;chten. Wenn Sie zum Beispiel das Bild nach unten rollen m&ouml;chten, ziehen Sie es im Fenster nach oben. </para>
+			</listitem>
+			<listitem><para>Verwenden Sie die Bildlaufleisten im Fenster.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+	<title>So &auml;ndern Sie den Zoomfaktor</title>
+	<para>Um die Bildanzeige im Fenster <application>&app;</application> in der Gr&ouml;&szlig;e zu ver&auml;ndern, stehen Ihnen die folgenden M&ouml;glichkeiten zur Verf&uuml;gung:</para>
+		<itemizedlist>
+			<listitem><para>Um die Bildanzeige zu vergr&ouml;&szlig;ern, w&auml;hlen Sie  
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>Vergr&ouml;&szlig;ern</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Um die Bildanzeige zu verkleinern, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>Verkleinern</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Um das Bild in seiner Originalgr&ouml;&szlig;e anzuzeigen, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>1:1 zoomen</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			<listitem><para>Um die Bildanzeige so zu vergr&ouml;&szlig;ern oder zu verkleinern, dass die Gr&ouml;&szlig;e dem <application>&app;</application>-Fenster entspricht, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>Optimale Gr&ouml;&szlig;e</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Um das Bild im Vollbildmodus anzeigen zu lassen, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>Vollbild</guimenuitem>
+			</menuchoice>. 
+			Im Vollbildmodus wird das Bild in einem Fenster angezeigt, das den gesamten Bildschirm ausf&uuml;llt. 
+			Dieses Fenster hat weder Rahmen noch Titelleiste, Men&uuml;leiste oder Symbolleiste. 
+			Um diesen Modus zu beenden, dr&uuml;cken Sie die Taste <keycap>Esc</keycap> oder <keycombo><keycap>Strg</keycap>
+			<keycap>W</keycap></keycombo>.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+<title>So &auml;ndern Sie die Interpolationsmethode</title>
+		<para>Um die Interpolationsmethode f&uuml;r das Bild zu &auml;ndern, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guimenuitem>Interpolation</guimenuitem>
+			</menuchoice> 
+		und anschlie&szlig;end die gew&uuml;nschte Interpolationsmethode. 
+		W&auml;hlen Sie eine der folgenden Optionen:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>N&auml;chster Nachbar</guimenuitem> </para>
+			<para>Bei dieser Interpolationsmethode wird ein Punkt im Originalbild gesucht und das Pixel, das diesem Punkt am n&auml;chsten liegt, wird reproduziert. Wenn Sie die Ansicht eines Bildes vergr&ouml;&szlig;ern, werden die Pixel reproduziert. 
+			Wenn Sie die Ansicht eines Bildes verkleinern, gehen einige der Details verloren. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Kacheln</guimenuitem> </para>
+			<para>Zum Zeitpunkt der Ver&ouml;ffentlichung lagen hierzu keine Informationen vor.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilinear</guimenuitem> </para>
+			<para>Diese Interpolationsmethode ist einfach und schnell. Wenn Sie ein Bild vergr&ouml;&szlig;ern, verwendet 
+			<application>&app;</application> bis zu vier angrenzende Pixel, um die Farben der neuen Pixel zu berechnen. Wenn Sie ein Bild verkleinern, ermittelt <application>&app;</application> durchschnittliche Farbbereiche im vorhandenen Bild, um die Farbe der Pixel zu berechnen. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolisch</guimenuitem> </para>
+			<para>Diese Methode ist eine langsame, qualitativ hochwertige Interpolationsmethode. Die Interpolation des Bildes wird von der Anwendung so durchgef&uuml;hrt, wie es in George Wolbergs Buch "Digital Image Warping" beschrieben wird.</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>The default interpolation method is 
+		<guimenuitem>Nearest Neighbor</guimenuitem>.</para> -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+<title>So &auml;ndern Sie die Rasterungsmethode</title>
+		<para>Um die Rasterungsmethode zu &auml;ndern, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guisubmenu>Raster</guisubmenu>
+			</menuchoice>, 
+		und anschlie&szlig;end die gew&uuml;nschte Rasterungsmethode.
+		W&auml;hlen Sie eine der folgenden Optionen:</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Keine</guimenuitem> </para>
+			<para>Bei dieser Option wird keine Rasterung verwendet. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (Pseudocolor)</guimenuitem> </para>
+			<para>Bei dieser Option wird die Rasterung mit Pseudocolor-Anzeigen durchgef&uuml;hrt, die begrenzte Farbpaletten verwenden. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (High Color)</guimenuitem> </para>
+			<para>Bei dieser Option wird die Rasterung mit Pseudocolor und High Color-Anzeigen durchgef&uuml;hrt. </para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default dithering method is <guimenuitem>None</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+<title>So &auml;ndern Sie den Rautentyp</title>
+		<para>Um den Rautentyp zu &auml;ndern, der von <application>&app;</application>
+		verwendet wird, um durchsichtige oder teilweise lichtundurchl&auml;ssige Hintergr&uuml;nde im Bild anzuzeigen, w&auml;hlen Sie
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guisubmenu>Rautentyp</guisubmenu>
+			</menuchoice> 
+		und anschlie&szlig;end den gew&uuml;nschten Rautentyp.
+		W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Dunkel</guimenuitem> </para>
+			<para>Bei dieser Option werden schwarze und dunkelgraue Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Mittel</guimenuitem> </para>
+			<para>Bei dieser Option werden dunkel- und hellgraue Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Hell</guimenuitem> </para>
+			<para>Bei dieser Option werden hellgraue und wei&szlig;e Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Schwarz</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in schwarzer Farbe.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Grau</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in grauer Farbe.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Wei&szlig;</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in wei&szlig;er Farbe.</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check type is <guimenuitem>Dark</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>So &auml;ndern Sie die Rautengr&ouml;&szlig;e</title>
+		<para>Um die Rautengr&ouml;&szlig;e zu &auml;ndern, die von <application>&app;</application>
+		verwendet wird, um durchsichtige oder teilweise lichtundurchl&auml;ssige Hintergr&uuml;nde im Bild anzuzeigen, w&auml;hlen Sie 
+			<menuchoice>
+			<guimenu>Ansicht</guimenu>
+			<guisubmenu>Rautengr&ouml;&szlig;e</guisubmenu>
+			</menuchoice> 
+		und anschlie&szlig;end die gew&uuml;nschte Rautengr&ouml;&szlig;e.
+		Diese Option ist nur dann relevant, wenn <guimenuitem>Dunkel</guimenuitem>, 
+		<guimenuitem>Mittel</guimenuitem> oder <guimenuitem>Hell</guimenuitem> im Men&uuml; 
+		<guisubmenu>Rautentyp</guisubmenu> ausgew&auml;hlt wurde. W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Klein</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Mittel</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Gro&szlig;</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para> -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+		<title>So schlie&szlig;en Sie eine Bilddatei</title>
+		<para>Um eine Bilddatei zu schlie&szlig;en, w&auml;hlen Sie <menuchoice>
+		<guimenu>Datei</guimenu>
+		<guimenuitem>Schlie&szlig;en</guimenuitem>
+		</menuchoice>. 
+		Ist dieses Fenster das letzte offene <application>&app;</application>-Fenster, wird die Anwendung automatisch beendet. </para>
+		<para>Um <application>&app;</application> zu beenden und alle Fenster, die w&auml;hrend der aktuellen Sitzung ge&ouml;ffnet wurden, zu schlie&szlig;en, w&auml;hlen Sie 
+		<menuchoice>
+		<guimenu>Datei</guimenu>
+		<guimenuitem>Beenden</guimenuitem>
+		</menuchoice>.
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">	
+<title>Einstellungen</title>
+	<para>Um <application>&app;</application> zu konfigurieren, w&auml;hlen Sie <menuchoice>
+		<guimenu>Bearbeiten</guimenu>
+		<guimenuitem>Einstellungen</guimenuitem>
+		</menuchoice>.
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interpolation</guilabel></term>
+		<listitem>
+		<para>W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>N&auml;chster Nachbar</guimenuitem> </para>
+			<para>Bei dieser Interpolationsmethode wird ein Punkt im Originalbild gesucht und das Pixel, das diesem Punkt am n&auml;chsten liegt, wird reproduziert. Wenn Sie die Ansicht eines Bildes vergr&ouml;&szlig;ern, werden die Pixel reproduziert. 
+			Wenn Sie die Ansicht eines Bildes verkleinern, gehen einige der Details verloren. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Kacheln</guimenuitem> </para>
+			<para>Zum Zeitpunkt der Ver&ouml;ffentlichung lagen hierzu keine Informationen vor.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilinear</guimenuitem> </para>
+			<para>Diese Interpolationsmethode ist einfach und schnell. Wenn Sie ein Bild vergr&ouml;&szlig;ern, verwendet 
+			<application>&app;</application> bis zu vier angrenzende Pixel, um die Farben der neuen Pixel zu berechnen. Wenn Sie ein Bild verkleinern, ermittelt <application>&app;</application> durchschnittliche Farbbereiche im vorhandenen Bild, um die Farbe der Pixel zu berechnen. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolisch</guimenuitem> </para>
+			<para>Diese Methode ist eine langsame, qualitativ hochwertige Interpolationsmethode. Die Interpolation des Bildes wird von der Anwendung so durchgef&uuml;hrt, wie es in George Wolbergs Buch "Digital Image Warping" beschrieben wird.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Raster</guilabel></term>
+		<listitem>
+		<para>W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Keine</guimenuitem> </para>
+			<para>Bei dieser Option wird keine Rasterung verwendet. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (Pseudocolor)</guimenuitem> </para>
+			<para>Bei dieser Option wird die Rasterung mit Pseudocolor-Anzeigen durchgef&uuml;hrt, die begrenzte Farbpaletten verwenden. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (High Color)</guimenuitem> </para>
+			<para>Bei dieser Option wird die Rasterung mit Pseudocolor- und High Color-Anzeigen durchgef&uuml;hrt. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Rautentyp</guilabel></term>
+		<listitem>
+		<para>W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Dunkel</guimenuitem> </para>
+			<para>Bei dieser Option werden schwarze und dunkelgraue Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Mittel</guimenuitem> </para>
+			<para>Bei dieser Option werden dunkel- und hellgraue Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Hell</guimenuitem> </para>
+			<para>Bei dieser Option werden hellgraue und wei&szlig;e Rauten angezeigt.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Schwarz</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in schwarzer Farbe.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Grau</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in grauer Farbe.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Wei&szlig;</guimenuitem> </para>
+			<para>Bei dieser Option erfolgt die Anzeige in wei&szlig;er Farbe.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>Rautengr&ouml;&szlig;e</guilabel></term>
+		<listitem>
+		<para>Diese Option ist nur dann relevant, wenn <guimenuitem>Dunkel</guimenuitem>, 
+		<guimenuitem>Mittel</guimenuitem> oder <guimenuitem>Hell</guimenuitem> im Men&uuml; 
+		 <guilabel>Rautentyp</guilabel> ausgew&auml;hlt wurde. W&auml;hlen Sie eine der folgenden Optionen:</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Klein</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Mittel</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Gro&szlig;</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>
