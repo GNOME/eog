@@ -28,6 +28,14 @@
 #include "eog-image.h"
 #include "eog-image-list.h"
 
+#ifdef HAVE_SUNKEYSYM_H
+#include <X11/Sunkeysym.h>
+#endif
+
+#ifndef HAVE_SUNKEYSYM_H
+#define SunXK_F36 0x1005FF10
+#endif
+
 G_BEGIN_DECLS
 
 #define EOG_TYPE_FULL_SCREEN            (eog_full_screen_get_type ())
@@ -52,6 +60,8 @@ struct _EogFullScreenClass {
 
 GType      eog_full_screen_get_type (void);
 GtkWidget *eog_full_screen_new (EogImageList *list, EogImage *start_image);
+
+gboolean   eog_full_screen_enable_SunF36 (void);
 
 G_END_DECLS
 

@@ -1,3 +1,23 @@
+2003-11-02  Jens Finke  <jens@triq.net>
+
+	Based on a patch by Shivaram Upadhyayula. Fixex #104805.
+	
+	* acconfig.h: undef HAVE_SUNKEYSYM_H
+
+	* configure.in: Ensure that we link against X libs.
+
+	* libeog/eog-full-screen.[ch] (eog_full_screen_enable_SunF36): New
+	function.
+	(eog_full_screen_key_press): Quit on SunXK_F36.
+
+	* viewer/eog-image-view-ui.xml: 
+	* collection/eog-collection-view-ui.xml: Added hidden
+	slideshow/fullscreen menuitem with SunF36 accel.
+
+	* viewer/eog-image-view.c (eog_image_view_create_ui):
+	* collection/eog-collection-view.c (eog_collection_view_create_ui):
+	Add callback for hidden fullscreen item on Sun keyboards.
+
 2003-10-29  Jens Finke  <jens@triq.net>
 
 	Improved slideshow component: automatic browsing, upscale flag,

@@ -22,6 +22,8 @@
  */
 
 #include <config.h>
+#include <gdk/gdkx.h>
+#include <X11/Xlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
@@ -302,6 +304,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_q:
 	case GDK_Escape:
 	case GDK_F11:
+	case SunXK_F36:
 		do_hide = handled = TRUE;
 		break;
 
@@ -646,4 +649,10 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	prepare_data (fs, image_list, start_image);
 
 	return GTK_WIDGET (fs);
+}
+
+gboolean
+eog_full_screen_enable_SunF36 (void)
+{
+	return (XKeysymToKeycode (GDK_DISPLAY (), SunXK_F36) != 0);
 }

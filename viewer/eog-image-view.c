@@ -435,6 +435,12 @@ eog_image_view_create_ui (EogImageView *image_view)
 	bonobo_ui_component_add_verb_list_with_data (priv->uic, eog_verbs,
 						     image_view);
 
+	/* special case for SUN keyboards where F11 key has different keysym */
+	if (eog_full_screen_enable_SunF36()) {
+		bonobo_ui_component_add_verb (priv->uic, "FullScreenHiddenSun",
+					      verb_FullScreen_cb, image_view);
+	}
+
 	if (!priv->has_zoomable_frame) {
 		bonobo_ui_util_set_ui (priv->uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
 

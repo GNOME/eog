@@ -27,6 +27,7 @@ eog_image_viewer_LDADD = 			\
 	-L$(top_builddir)/libeog -leog		\
 	-L$(top_builddir)/libgpi -lgpi		\
 	$(EOG_LIBS)				\
+	$(X_LIBS)				\
 	$(LIBJPEG)
 
 uidir = $(datadir)/gnome-2.0/ui

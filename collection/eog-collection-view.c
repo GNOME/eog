@@ -619,6 +619,12 @@ eog_collection_view_create_ui (EogCollectionView *view)
 						     collection_verbs,
 						     view);
 
+	/* special case for SUN keyboards where F11 key has different keysym */
+	if (eog_full_screen_enable_SunF36()) {
+		bonobo_ui_component_add_verb (priv->uic, "FullScreenHiddenSun",
+					      verb_SlideShow_cb, view);
+	}
+
 	if (!priv->has_zoomable_frame) {
 		bonobo_ui_util_set_ui (priv->uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EogCollectionView", NULL);
 		
