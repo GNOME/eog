@@ -675,7 +675,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		/* update file format */
 		format = gdk_pixbuf_loader_get_format (loader);
 		if (format != NULL) {
-			priv->file_type = g_strdup (gdk_pixbuf_format_get_name (format));
+			priv->file_type = gdk_pixbuf_format_get_name (format);
 		}
 	}
 	
