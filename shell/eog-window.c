@@ -40,8 +40,8 @@
 
 /* Default size for windows */
 
-#define DEFAULT_WINDOW_WIDTH 200
-#define DEFAULT_WINDOW_HEIGHT 200
+#define DEFAULT_WINDOW_WIDTH 310
+#define DEFAULT_WINDOW_HEIGHT 280
 
 #define EOG_VIEWER_CONTROL_IID "OAFIID:GNOME_EOG_Control"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
