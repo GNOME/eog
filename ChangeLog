@@ -1,7 +1,19 @@
+2003-07-21  Andreas Köhler <andi5.py@gmx.net>
+
+	Fixes bug #117270.
+	
+	* collection/eog-collection-view.c
+	(eog_collection_view_create_ui),
+	* viewer/eog-image-view.c (eog_image_view_create_ui): Make
+	separator in edit menu visible.
+
+	* shell/eog-shell-ui.xml: Added initially hidden separator which
+	will be shown explicitly if required.
+	
 2003-07-20  Martin Kretzschmar <m_kretzschmar@gmx.net>
 
 	* libeog/eog-hig-dialog.c (eog_hig_dialog_new): Don't print
-	additional newline after message text. 
+	additional newline after message text - #117799.
 
 ====== 2.3.5 =====
 

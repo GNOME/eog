@@ -597,9 +597,11 @@ eog_collection_view_create_ui (EogCollectionView *view)
 	priv = view->priv;
 
 	/* Set up the UI from an XML file. */
-        bonobo_ui_util_set_ui (priv->uic, DATADIR,
-			       "eog-collection-view-ui.xml", "EogCollectionView", NULL);
+	bonobo_ui_util_set_ui (priv->uic, DATADIR,
+						   "eog-collection-view-ui.xml", "EogCollectionView", NULL);
 
+	bonobo_ui_component_set_prop (priv->uic, "/menu/Edit/Eog EditPreferences Separator",
+								  "hidden", "0", NULL);
 	bonobo_ui_component_add_verb_list_with_data (priv->uic,
 						     collection_verbs,
 						     view);

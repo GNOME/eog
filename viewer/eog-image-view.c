@@ -428,6 +428,8 @@ eog_image_view_create_ui (EogImageView *image_view)
 	/* Set up the UI from XML file. */
         bonobo_ui_util_set_ui (priv->uic, DATADIR,
 			       "eog-image-view-ui.xml", "EogImageView", NULL);
+	bonobo_ui_component_set_prop (priv->uic, "/menu/Edit/Eog EditPreferences Separator",
+				      "hidden", "0", NULL);
 	bonobo_ui_component_add_verb_list_with_data (priv->uic, eog_verbs,
 						     image_view);
 
