@@ -1,13 +1,13 @@
 # traditional Chinese translation of eog.
-# Copyright (C) 2000, 01, 02, 03 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jing-Jong Shyue <shyue@sonoma.com.tw>,2000
 # Abel Cheung <maddog@linux.org.hk>, 2001-2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.1\n"
-"POT-Creation-Date: 2003-05-08 11:44+0800\n"
-"PO-Revision-Date: 2003-05-08 12:06+0800\n"
+"POT-Creation-Date: 2003-05-15 09:50+0800\n"
+"PO-Revision-Date: 2003-05-15 10:05+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -26,46 +26,76 @@ msgstr "EOG 圖像集顯示模式工廠"
 msgid "Image Collection"
 msgstr "圖像集"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "左右倒置(_H)"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "上下倒置(_V)"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "下一幅"
 
 # src/window.c:704
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "下一幅圖像"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "上一幅"
 
 # src/window.c:704
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "上一幅圖像"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "旋轉 180 度(_D)"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "順時針方向旋轉(_L)"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "逆時針方向旋轉(_R)"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "投影片"
 
+#: collection/eog-collection-view-ui.xml.h:11
+msgid "Undo"
+msgstr "復原"
+
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "編輯(_E)"
+
 # src/preferences-dialog.glade.h:49
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "顯示(_V)"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:480
 msgid "Move to Trash"
 msgstr "丟進垃圾桶"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:524
 msgid "Collection View"
 msgstr "圖像集顯示模式"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:984
 msgid "Status Text"
 msgstr "狀態文字"
 
@@ -290,8 +320,7 @@ msgid "Embeddable EOG Image"
 msgstr "可嵌入式 EOG 圖像"
 
 # src/window.c:704
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "圖像"
 
@@ -317,11 +346,11 @@ msgstr "載入圖像"
 msgid "Save Image"
 msgstr "儲存圖像"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1216
 msgid "No image loaded."
 msgstr "沒有載入圖像。"
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1250
 msgid "Unsupported image type for saving."
 msgstr "儲存時嘗試使用不支援的圖像格式。"
 
@@ -347,6 +376,121 @@ msgstr "高度"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "檔案名稱"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "頁"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:358
+msgid "Preview"
+msgstr "預覽"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "毫米"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "紙張"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "原來大小的百分比"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "調校至"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "中央"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "切割輔助線"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "向下，然後向右"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "符合頁面"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "水平"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "水平長度"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "邊緣"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "排序輔助線"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "重疊"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "重疊輔助線"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "列印頁次序"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "向右，然後向下"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "縮放"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "顯示"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "垂直"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "垂直長度"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "action_area"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialog"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbox"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "名稱"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "準備列印的檔案/資料的名稱"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -420,10 +564,6 @@ msgstr "關閉(_C)"
 #: shell/eog-shell-ui.xml.h:16
 msgid "_Contents"
 msgstr "內容(_C)"
-
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "編輯(_E)"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
@@ -528,7 +668,7 @@ msgid "Fit"
 msgstr "符合視窗"
 
 # src/tb-image.c:43
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "拉近"
 
@@ -555,14 +695,6 @@ msgstr "原來尺寸(_N)"
 msgid "_Zoom In"
 msgstr "拉近(_Z)"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "左右倒置(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "上下倒置(_V)"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "預覽準備列印的圖像"
@@ -578,18 +710,6 @@ msgstr "列印設定(_U)"
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "在印表機列印圖像"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "旋轉 180 度(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "順時針方向旋轉(_L)"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "逆時針方向旋轉(_R)"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
@@ -609,55 +729,55 @@ msgid "_Print..."
 msgstr "列印(_P)..."
 
 # src/window.c:221
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:778
 msgid "/_Zoom In"
 msgstr "/拉近(_Z)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:780
 msgid "/Zoom _Out"
 msgstr "/拉遠(_O)"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:782
 msgid "/_Normal Size"
 msgstr "/原來尺寸(_N)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:784
 msgid "/Best _Fit"
 msgstr "/符合視窗(_F)"
 
 # src/tb-image.c:35
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:787
 msgid "/_Close"
 msgstr "/關閉(_C)"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:939
 msgid "Image successfully saved"
 msgstr "成功儲存圖像"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:943
 msgid "Image saving failed"
 msgstr "儲存圖像失敗"
 
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1186
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1189
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1195
 msgid "Statusbar Text"
 msgstr "狀態列文字"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1198
 msgid "Desired Window Width"
 msgstr "要求的視窗寬度"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1201
 msgid "Desired Window Height"
 msgstr "要求的視窗高度"
 
@@ -665,173 +785,71 @@ msgstr "要求的視窗高度"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "無法初始化 GnomeVFS！\n"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "點"
+#~ msgid "pts"
+#~ msgstr "點"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "點"
+#~ msgid "points"
+#~ msgstr "點"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "毫米"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "centimeter"
+#~ msgstr "厘米"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "厘米"
+#~ msgid "inch"
+#~ msgstr "英吋"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "英吋"
+#~ msgid "Print Setup"
+#~ msgstr "列印設定"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "列印設定"
+#~ msgid "Print"
+#~ msgstr "列印"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "列印"
+#~ msgid "Print preview"
+#~ msgstr "列印預覽"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "列印預覽"
+#~ msgid "Units: "
+#~ msgstr "單位："
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "單位："
+#~ msgid "Paper size:"
+#~ msgstr "紙張尺寸："
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "紙張"
+#~ msgid "Orientation"
+#~ msgstr "方向"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "紙張尺寸："
+#~ msgid "Portrait"
+#~ msgstr "直向"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "方向"
+#~ msgid "Landscape"
+#~ msgstr "橫向"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "直向"
+#~ msgid "Top:"
+#~ msgstr "上："
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "橫向"
+#~ msgid "Left:"
+#~ msgstr "左："
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "邊緣"
+#~ msgid "Right:"
+#~ msgstr "右："
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "上："
+#~ msgid "Bottom:"
+#~ msgstr "下："
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "左："
+#~ msgid "Overlap horizontally by "
+#~ msgstr "橫向重疊的尺寸是"
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "右："
+#~ msgid "Overlap vertically by "
+#~ msgstr "直向重疊的尺寸是"
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "下："
+#~ msgid "Printing"
+#~ msgstr "列印"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "縮放"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "調校至："
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "符合頁面"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "原來大小的百分比"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "中央"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "水平"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "垂直"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "重疊"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "橫向重疊的尺寸是"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "直向重疊的尺寸是"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "列印"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "輔助線"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "列印切割輔助線"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "列印重疊輔助線"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "列印頁次序"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "向下，然後向右"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "向右，然後向下"
+#~ msgid "Helpers"
+#~ msgstr "輔助線"
 
 #~ msgid "By c_olor"
 #~ msgstr "以顏色表示(_O)"
@@ -888,12 +906,6 @@ msgstr "向右，然後向下"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "無法將圖像儲存為‘%s’：%s。"
-
-#~ msgid "Pages"
-#~ msgstr "頁"
-
-#~ msgid "Print Preview"
-#~ msgstr "列印預覽"
 
 # src/tb-image.c:33
 # src/window.c:181
