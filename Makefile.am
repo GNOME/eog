@@ -1,4 +1,4 @@
-SUBDIRS = intl macros po src bonobo
+SUBDIRS = intl macros po src bonobo doc
 
 schemadir = $(sysconfdir)/gconf/schemas
 schema_DATA = eog.schemas
