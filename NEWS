@@ -1,3 +1,30 @@
+Version 0.3
+-----------
+
+* Requires gdk-pixbuf 0.7, gnome-print 0.18, bonobo > 0.9.
+
+* The old canvas-based rendering engine is gone.  We now have a custom
+  rendering engine using gdk-pixbuf's fast scaling functions (right
+  now only bilinear interpolation is supported, but that will change).
+  Zooming and scrolling can be interrupted by the user at any time,
+  leading to a smoother user interface experience (Federico).
+
+  Scrolling is not finished, look at the TODO list to see what is
+  missing.  The final scrolling support will be in the next version.
+
+* Image windows now display the filename and image size in the title
+  (Miguel, Federico).
+
+* Many enhancements to the Bonobo component (Michael).
+
+* RGBA print support for the Bonobo component (Michael).
+
+* We now install an eog.desktop file and a cool icon (Tuomas).
+
+* Many new and updated translations (Ville, Jarkko, Pablo, Dan, Gergo,
+  Alastair, Tomasz, Richard, Yuri, Matthias, Sergey, Fatih, Dennis,
+  Christopher, George, Lauris, Vincent, Simos, Kjartan).
+
 Version 0.2
 -----------
 
