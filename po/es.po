@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0\n"
-"POT-Creation-Date: 2002-06-04 01:11+0200\n"
-"PO-Revision-Date: 2002-05-30 15:17-0500\n"
+"POT-Creation-Date: 2002-06-16 15:08+0200\n"
+"PO-Revision-Date: 2002-06-16 15:10+0200\n"
 "Last-Translator: Federico Mena-Quintero <federico@gnu.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -121,7 +121,7 @@ msgstr "Indice"
 msgid "Help On this application"
 msgstr "Ayuda de esta aplicación"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
 msgid "Open"
 msgstr "Abrir"
 
@@ -197,7 +197,7 @@ msgstr ""
 "Hector García Álvarez <hector@scouts-es.org>\n"
 "Germán Poo Caamaño <gpoo@ubiobio.cl>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Ojo de GNOME"
 
@@ -227,7 +227,7 @@ msgstr "Abrir imagen"
 msgid "Unable to open %s."
 msgstr "No se pudo abrir %s."
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -238,15 +238,15 @@ msgstr ""
 "simultáneamente. ¿Quiere abrirlas\n"
 "como una colección?"
 
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "Ventanas simples"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "Colección"
 
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -255,11 +255,31 @@ msgstr ""
 "Estás a punto de abrir %i ventanas\n"
 "simultáneamente. ¿Quiere continuar?"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid ""
+"Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr ""
+"No se puede acceder a %s\n"
+"El ojo de GNOME no podrá mostrar ese archivo."
+
+#: shell/main.c:289
+#, c-format
+msgid ""
+"The following files cannot be displayed because Eye of Gnome was not able to "
+"access them:\n"
+"%s"
+msgstr ""
+"Los siguientes archivos no se pueden mostrar porque el ojo de GNOME no ha "
+"podido acceder a ellos:\n"
+"%s"
+
+#: shell/main.c:471
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "No se puede inicializar GnomeVFS\n"
 
-#: shell/main.c:354
+#: shell/main.c:474
 msgid "Could not initialize Bonobo!\n"
 msgstr "No se puede inicializar Bonobo\n"
 
@@ -717,4 +737,3 @@ msgstr "Comprobar _tipo:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Comprobar _tamaño:"
-
