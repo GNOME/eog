@@ -1741,11 +1741,28 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	g_assert (priv->image == NULL);
 	g_assert (priv->pixbuf == NULL);
 
-
 	priv->progressive_state = PROGRESSIVE_NONE;
 	if (image != NULL) {
-		priv->image = image;
+		if (priv->pixbuf == NULL) {
+			priv->pixbuf = eog_image_get_pixbuf (image);
+			priv->progressive_state = PROGRESSIVE_NONE;
+			set_zoom_fit (view);
+			check_scrollbar_visibility (view, NULL);
+			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 
+		}
+		else if (priv->interp_type != GDK_INTERP_NEAREST &&
+			 !is_unity_zoom (view))
+		{
+			/* paint antialiased image version */
+			priv->progressive_state = PROGRESSIVE_POLISHING;
+			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+		}
+	}
+	
+	priv->image = image;
+
+#if 0 /* FIXME: DEAD CODE */
 		priv->image_cb_ids[0] = g_signal_connect (priv->image, "loading_update",
 							  (GCallback) image_loading_update_cb, view);
 		priv->image_cb_ids[1] = g_signal_connect (priv->image, "loading_finished",
@@ -1761,6 +1778,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		 */
 		/* eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT); */
 	}
+#endif
 }
 
 void

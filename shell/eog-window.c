@@ -55,6 +55,7 @@
 #include "eog-uri-converter.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
+#include "eog-job-manager.h"
 
 /* Default size for windows */
 
@@ -144,6 +145,11 @@ static GList *window_list = NULL;
 enum {
 	TARGET_URI_LIST
 };
+
+typedef struct {
+	EogImage  *image;
+	EogWindow *window;
+} EogJobImageLoadData;
 
 static GQuark
 eog_window_error_quark (void)
@@ -772,7 +778,8 @@ save_image_list (gpointer user_data)
 			g_print ("Save image at %s ", 
 				 gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE));
 #endif
-			success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT);
+			/* FIXME: Use EogJob */
+			/* success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT); */
 			
 			if (success) {
 				success = eog_image_save_by_info (image, data->source, &error);
@@ -943,7 +950,8 @@ save_as_image_list (gpointer user_data)
 #endif
 			
 			/* load source image */
-			success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT);
+			/* FIXME: Use EogJob */
+			/* success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT); */
 			
 			if (success) {
 				sinfo = eog_image_save_info_from_image (image);
@@ -1353,7 +1361,8 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 
 		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) transformation_progress_cb, &data);
 		
-		eog_image_transform (image, trans);
+		/* FIXME: Use EogJob API */
+		/* eog_image_transform (image, trans); */
 		
 		g_signal_handler_disconnect (image, id);
 		data.counter++;
@@ -2059,6 +2068,7 @@ update_ui_visibility (EogWindow *window)
 	}
 }
 
+#if 0 /* FIXME: DEAD CODE */
 static void 
 image_progress_cb (EogImage *image, float progress, gpointer data) 
 {
@@ -2098,6 +2108,7 @@ image_loading_failed_cb (EogImage *image, const char* message,  gpointer data)
 {
 	g_print ("loading failed: %s\n", eog_image_get_caption (image));
 }
+#endif
 
 static void
 update_status_bar (EogWindow *window)
@@ -2157,59 +2168,171 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer data)
 }
 
 static void
+show_error_dialog (EogWindow *window, char *header, GError *error) 
+{
+	GtkWidget *dlg;
+	char *detail = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	if (header == NULL)
+		return;
+	
+	if (error != NULL) {
+		detail = g_strdup_printf (_("Reason: %s"), error->message);
+	}
+
+	dlg = eog_hig_dialog_new (GTK_WINDOW (window), 
+				  GTK_STOCK_DIALOG_ERROR,
+				  header, detail,
+				  TRUE);
+
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+	g_signal_connect_swapped (G_OBJECT (dlg), "response",
+				  G_CALLBACK (gtk_widget_destroy),
+				  dlg);
+	gtk_widget_show_all (dlg);
+}
+
+static void 
+display_image_data (EogWindow *window, EogImage *image)
+{
+	EogWindowPrivate *priv;
+	char *title = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	g_assert (eog_image_has_data (image, EOG_IMAGE_DATA_ALL));
+
+	priv = window->priv;
+
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
+	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+	update_status_bar (window);
+
+	if (priv->displayed_image != NULL)
+		g_object_unref (priv->displayed_image);
+
+	if (image != NULL) {
+		priv->displayed_image = g_object_ref (image);
+		title = eog_image_get_caption (image);
+	}
+	else {
+		title = _("Eye of GNOME");		
+	}
+
+	gtk_window_set_title (GTK_WINDOW (window), title);		
+}
+
+/* this runs in its own thread */
+static void
+job_image_load_action (EogJob *job, gpointer data, GError **error)
+{
+	EogJobImageLoadData *job_data;
+
+	job_data = (EogJobImageLoadData*) data;
+
+	eog_image_load (EOG_IMAGE (job_data->image),
+			EOG_IMAGE_DATA_ALL,
+			job,
+			error);
+}
+
+static void
+job_image_load_finished (EogJob *job, gpointer data, GError *error)
+{
+	EogJobImageLoadData *job_data;
+	EogWindowPrivate *priv;
+	EogImage *image;
+	
+	job_data = (EogJobImageLoadData*) data;
+	priv = job_data->window->priv;
+	image = job_data->image;
+
+	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
+		if (eog_job_get_success (job)) { 
+			/* successfull */
+			display_image_data (job_data->window, image);
+		}
+		else {  /* failed */
+			char *header; 
+
+			display_image_data (job_data->window, NULL);			
+
+			header = g_strdup_printf (_("Image loading failed for %s"),
+						  eog_image_get_caption (image));
+			show_error_dialog (job_data->window, header, error);
+			g_free (header);
+		}
+	}
+	else if (eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED) {
+		/* actually nothing to do */
+	}
+	else {
+		g_assert_not_reached ();
+	}
+
+	g_object_unref (image);
+}
+
+static void
+job_image_load_cancel_job (EogJob *job, gpointer data)
+{
+	EogJobImageLoadData *job_data;
+
+	job_data = (EogJobImageLoadData*) data;
+	
+	eog_image_cancel_load (EOG_IMAGE (job_data->image));
+}
+
+static void 
+job_image_load_progress (EogJob *job, gpointer data, float progress)
+{
+	EogJobImageLoadData *job_data;
+	EogWindow *window;
+	
+	job_data = (EogJobImageLoadData*) data;
+	window = job_data->window;
+	
+	gnome_appbar_set_progress_percentage (GNOME_APPBAR (EOG_WINDOW (window)->priv->statusbar), progress);
+}
+
+static void
 handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
 {
 	EogWindowPrivate *priv;
 	EogImage *image;
-	char *title = NULL; 
+	EogJob *job;
+	EogJobImageLoadData *data;
 
 	priv = window->priv;
 
-	g_assert (priv->image_list != NULL);
-
 	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	g_assert (EOG_IS_IMAGE (image));
 
-	if (priv->displayed_image != image) {
-		if (priv->displayed_image != NULL) {
-			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_progress);
-			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_loading_finished);
-			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_loading_failed);
-
-			g_object_unref (priv->displayed_image);
-			priv->displayed_image = NULL;
-		}
-		
-		if (image != NULL) {
-			priv->sig_id_progress         = g_signal_connect (image, "progress", 
-									  G_CALLBACK (image_progress_cb), window);
-			priv->sig_id_loading_finished = g_signal_connect (image, "loading-finished", 
-									  G_CALLBACK (image_loading_finished_cb), window);
-			priv->sig_id_loading_failed   = g_signal_connect (image, "loading-failed", 
-									  G_CALLBACK (image_loading_failed_cb), window);
-			priv->displayed_image = image; /* no g_object_ref required, since image has already
-							  increased ref count by eog_wrap_list_get_fist_selected_image */
-		}
+	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+		display_image_data (window, image);
+		return;
 	}
+
+	data = g_new0 (EogJobImageLoadData, 1);
+	data->window = window;
+	data->image = image; /* no additional ref required, since 
+			      * its already increased by 
+			      * eog_wrap_lsit_get_first_selected_image
+			      */
 	
-        eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
-	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+	job = eog_job_new_full (data,
+				job_image_load_action,
+				job_image_load_finished,
+				job_image_load_cancel_job,
+				job_image_load_progress,
+				(EogJobFreeDataFunc) g_free);
+	g_object_set (G_OBJECT (job), "progress-threshold", 0.25, NULL);
 
-	update_status_bar (window);
-
-	/* update window title */
-	if (image != NULL) {
-		GnomeVFSURI *uri;
-		
-		uri = eog_image_get_uri (image);
-		title = gnome_vfs_uri_extract_short_name (uri);
-		gnome_vfs_uri_unref (uri);
-	}
-	else {
-		title = g_strdup (_("Eye of GNOME"));
-	}
-	gtk_window_set_title (GTK_WINDOW (window), title);
-		
-	g_free (title);
+	eog_job_manager_add (job); 
 }
 
 typedef struct {
