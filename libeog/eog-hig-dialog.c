@@ -65,11 +65,11 @@ eog_hig_dialog_new (const char *stock_id, const char *header, const char *body, 
 
 	if (body != NULL) {
 		g_snprintf (message, message_len,
-			    "<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n", header, body);
+			    "<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s", header, body);
 	}
 	else {
 		g_snprintf (message, message_len,
-			    "<span weight=\"bold\" size=\"larger\">%s</span>\n", header);
+			    "<span weight=\"bold\" size=\"larger\">%s</span>", header);
 	}
 	
 	label = gtk_label_new (message);
