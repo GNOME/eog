@@ -537,6 +537,9 @@ eog_window_construct (EogWindow *window)
 
 	priv->ui_container = ui_cont = bonobo_ui_container_new ();
 	bonobo_ui_container_set_win (ui_cont, BONOBO_WINDOW (window));
+	bonobo_ui_engine_config_set_path (
+		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
+		"/eog-shell/UIConf/kvps");
 
 	priv->box = GTK_WIDGET (gtk_vbox_new (TRUE, 2));
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
