@@ -233,7 +233,7 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 }
 
 static void
-verb_DirOpen_cb (GtkAction *action, gpointer user_data)
+verb_FolderOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
@@ -2236,7 +2236,7 @@ static GtkActionEntry action_entries_window[] = {
   { "HelpMenu", NULL, N_("_Help") },
   { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
-  { "FileDirOpen",     GTK_STOCK_OPEN,  N_("Open _Directory..."), "<control><shift>O", N_("Open a directory"), G_CALLBACK (verb_DirOpen_cb) },
+  { "FileFolderOpen",     GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of Gnome"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
@@ -2731,7 +2731,7 @@ eog_get_window_list (void)
  * @eog_window: A shell window.
  * 
  * Queries the URI that is being displayed by the specified window.  If the
- * window is not displaying a single image or directory, this will return NULL.
+ * window is not displaying a single image or folder, this will return NULL.
  * 
  * Return value: The URI that is being displayed.
  **/
