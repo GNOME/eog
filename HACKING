@@ -3,7 +3,7 @@ Hacking on the Eye of Gnome
 
 o spec file: 
   People from the gnome packaging project are welcome to contribute fixes for
-  the spec file.
+  the spec file. 
 
 o build fixes:
   "build sheriff commits welcome". Please send a mail with your patch to either 
@@ -13,34 +13,18 @@ o build fixes:
    
 o In all other cases the following rules apply:
 
-I have tried to write the code in the Eye of Gnome with several goals
-in mind:
+The code for Eye of Gnome was written with several goals in mind:
 
-	- It has to be maintainable.
+	- maintainable,
+        - extensible,
+	- correct,
+	- documented.
 
-	- It has to be extensible.
+If you want to work on EOG as well, please read the GNOME Programming
+Guidelines first, understand their purpose, and keep them in mind when
+writing code for EOG.
 
-	- It has to be correct.
+If you have a patch you would like to put into EOG, please file a bug
+using http://bugzilla.gnome.org for the product EOG and attach the
+patch to it.  This way your submisson won't get lost.
 
-	- It has to be documented.
-
-Being one of the authors of the GNOME Programming Guidelines, I have
-tried to apply the principles mentioned there in the code for the Eye
-of Gnome.  If you want to work on EOG as well, please read the GNOME
-Programming Guidelines, understand their purpose, and keep them in
-mind when writing code for EOG.
-
-If you want to put code in EOG, I would like to review it first.
-Please mail me a patch to <federico@gnu.org>.  If you wish to commit
-to the Bonobo component please send a patch to <mmeeks@gnu.org>.  This
-is to ensure that the code fits well within the grand plan for EOG.
-This is not fascism, it is simple and innocent paranoia.
-
-The reason for this is that EOG code base will grow to be
-substantially big.  It will be a full product for image viewing and
-cataloging; it is not "yet another image viewer".  I have to make sure
-that the code will be able to sustain such work.
-
-
-Federico Mena-Quintero
-federico@gnu.org

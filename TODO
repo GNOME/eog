@@ -1,15 +1,9 @@
-If you intend to work on any of these issues, please contact
-Federico Mena-Quintero (federico@gnu.org) and/or eog-list@gnome.org.
 
-* Bugs:
+Please see also bugzilla for a more accurate list of open bugs, things todo:
 
-	- Turn on window auto-sizing and create a new window with an
-          image in it (i.e. by turning on the "open images in a new
-          window" option or by specifying an image filename in the
-          command line).  The image view comes up a little bit larger
-          than the right auto-fit size.  This is GtkScrollFrame's
-          fault; for some reason it is including the (un-needed)
-          scrollbars' requisitions in its own space.
+http://bugzilla.gnome.org/buglist.cgi?product=EOG&bug_status=NEW&bug_status=REOPENED
+
+================================================================
 
 * Finish the ImageView widget:
 
@@ -20,28 +14,9 @@ Federico Mena-Quintero (federico@gnu.org) and/or eog-list@gnome.org.
 	- Figure out what to do with the color correction tables; we
           are not using them right now.
 
-* Write a directory browser.  Maybe this should be done using Nautilus
-  controls, or maybe we should have a simple and dumb thing of our
-  own.
-
 * Write the image category mechanism.
 
-* Write the image collection mechanism and its GUI.
-
-* Progressive loading.  Write something like
-
-	typedef struct {
-		GdkPixbufLoader *loader;
-		GdkPixbuf *result;
-		ArtUta *loaded_area;
-	} ImageLoadContext;
-
-  to allow images to be loaded progressively in the idle loop.  This
-  should be interruptible, etc.
-
 * Animation support:
-
-	- Enhance the above structure to support animations.
 
 	- Make the ImageView widget understand animations.  What to do
           about tearing when compositing the frames?  Should we
