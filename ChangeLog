@@ -1,3 +1,23 @@
+2003-04-08  Jens Finke  <jens@triq.net>
+
+	* collection/GNOME_EOG_Collection.server.in.in: Added
+	BonoboZoomable interface.
+
+	* collection/eog-collection-view.c (verb_ZoomIn_cb),
+	(verb_ZoomOut_cb), (verb_ZoomToDefault_cb), (verb_ZoomToFit_cb),
+	(zoomable_set_frame_cb),
+	(zoomable_set_zoom_level_cb),
+	(zoomable_zoom_in_cb),
+	(zoomable_zoom_out_cb),
+	(zoomable_zoom_to_fit_cb),
+	(zoomable_zoom_to_default_cb),
+	(view_zoom_changed_cb): New functions.
+	(create_user_interface): Connect to zoom_changed signal of scroll
+	view.
+	(eog_collection_view_construct): Add BonoboZoomable interface.
+	(eog_collection_view_create_ui): Merge zoom verbs to user
+	interface if neccessary.
+
 2003-04-07  Mike Lei <mike.lei@sun.com>
 
 	* configure.in: Added Makefile support for docs in 

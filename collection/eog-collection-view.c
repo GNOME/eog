@@ -95,6 +95,8 @@ struct _EogCollectionViewPrivate {
 	gboolean                need_update_prop[PROP_LAST];
 
 	EogImage                *displayed_image;
+
+	gboolean                has_zoomable_frame;
 };
 
 
@@ -164,6 +166,64 @@ verb_ImageNext_cb (BonoboUIComponent *uic,
 	eog_wrap_list_select_right (EOG_WRAP_LIST (view->priv->wraplist));
 }
 
+static void
+verb_ZoomIn_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (view->priv->scroll_view), FALSE);
+}
+
+static void
+verb_ZoomOut_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_scroll_view_zoom_out (EOG_SCROLL_VIEW (view->priv->scroll_view), FALSE);
+}
+
+static void
+verb_ZoomToDefault_cb (BonoboUIComponent *uic, gpointer user_data,
+		       const char *cname)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (view->priv->scroll_view), 1.0);
+}
+
+static void
+verb_ZoomToFit_cb (BonoboUIComponent *uic, gpointer user_data,
+		   const char *cname)
+{
+	EogCollectionView *view;
+
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (view->priv->scroll_view));
+}
+
+static BonoboUIVerb eog_zoom_verbs[] = {
+	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
+	BONOBO_UI_VERB ("ZoomOut",       verb_ZoomOut_cb),
+	BONOBO_UI_VERB ("ZoomToDefault", verb_ZoomToDefault_cb),
+	BONOBO_UI_VERB ("ZoomToFit",     verb_ZoomToFit_cb),
+	BONOBO_UI_VERB_END
+};
+
 static BonoboUIVerb collection_verbs[] = {
 	BONOBO_UI_VERB ("SlideShow", verb_SlideShow_cb),
 	BONOBO_UI_VERB ("ImageNext", verb_ImageNext_cb),
@@ -174,15 +234,26 @@ static BonoboUIVerb collection_verbs[] = {
 static void
 eog_collection_view_create_ui (EogCollectionView *view)
 {
+	EogCollectionViewPrivate *priv;
+
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
 
+	priv = view->priv;
+
 	/* Set up the UI from an XML file. */
-        bonobo_ui_util_set_ui (view->priv->uic, DATADIR,
+        bonobo_ui_util_set_ui (priv->uic, DATADIR,
 			       "eog-collection-view-ui.xml", "EogCollectionView", NULL);
 
-	bonobo_ui_component_add_verb_list_with_data (view->priv->uic,
+	bonobo_ui_component_add_verb_list_with_data (priv->uic,
 						     collection_verbs,
 						     view);
+
+	if (!priv->has_zoomable_frame) {
+		bonobo_ui_util_set_ui (priv->uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EogCollectionView", NULL);
+		
+		bonobo_ui_component_add_verb_list_with_data (priv->uic, eog_zoom_verbs,
+							     view);
+	}
 }
 
 static void
@@ -540,6 +611,68 @@ layout_changed_cb (GConfClient *client, guint cnxn_id,
 				      layout);
 }
 
+static void
+zoomable_set_frame_cb (BonoboZoomable *zoomable, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	view->priv->has_zoomable_frame = TRUE;
+}
+
+static void
+zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, CORBA_float new_zoom_level,
+			    EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (view->priv->scroll_view), new_zoom_level);
+}
+
+static void
+zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_scroll_view_zoom_in (EOG_SCROLL_VIEW (view->priv->scroll_view), FALSE);
+}
+
+static void
+zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_scroll_view_zoom_out (EOG_SCROLL_VIEW (view->priv->scroll_view), FALSE);
+}
+
+static void
+zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_scroll_view_zoom_fit (EOG_SCROLL_VIEW (view->priv->scroll_view));
+}
+
+static void
+zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_scroll_view_set_zoom (EOG_SCROLL_VIEW (view->priv->scroll_view), 1.0);
+}
+
+static void
+view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer data)
+{
+	EogCollectionView *view;
+	EogCollectionViewPrivate *priv;
+
+	view = EOG_COLLECTION_VIEW (data);
+	priv = view->priv;
+
+	/* inform zoom interface listeners */
+	bonobo_zoomable_report_zoom_level_changed (priv->zoomable, zoom, NULL);
+}
+
 /* read configuration */
 static void
 init_gconf_defaults (EogCollectionView *view)
@@ -635,6 +768,10 @@ create_user_interface (EogCollectionView *list_view)
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
 	g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL);
+	g_signal_connect (G_OBJECT (priv->scroll_view),
+			  "zoom_changed",
+			  (GCallback) view_zoom_changed_cb,
+			  list_view);
 	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
 
@@ -692,6 +829,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	EogCollectionViewPrivate *priv = NULL;
 	BonoboControl *control;
 	GtkWidget *root;
+	BonoboZoomable *zoomable;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -711,6 +849,46 @@ eog_collection_view_construct (EogCollectionView *list_view)
 
 	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
 				     BONOBO_OBJECT (control));
+
+
+	/* Interface Bonobo::Zoomable */
+	zoomable = bonobo_zoomable_new ();
+	priv->zoomable = zoomable;
+
+	g_signal_connect (G_OBJECT (zoomable),
+			  "set_frame",
+			  G_CALLBACK (zoomable_set_frame_cb),
+			  list_view);
+	g_signal_connect (G_OBJECT (zoomable),
+			  "set_zoom_level",
+			  G_CALLBACK (zoomable_set_zoom_level_cb),
+			  list_view);
+	g_signal_connect (G_OBJECT (zoomable),
+			  "zoom_in",
+			  G_CALLBACK (zoomable_zoom_in_cb),
+			  list_view);
+	g_signal_connect (G_OBJECT (zoomable),
+			  "zoom_out",
+			  G_CALLBACK (zoomable_zoom_out_cb),
+			  list_view);
+	g_signal_connect (G_OBJECT (zoomable),
+			  "zoom_to_fit",
+			  G_CALLBACK (zoomable_zoom_to_fit_cb),
+			  list_view);
+	g_signal_connect (G_OBJECT (zoomable),
+			  "zoom_to_default",
+			  G_CALLBACK (zoomable_zoom_to_default_cb),
+			  list_view);
+
+	bonobo_zoomable_set_parameters (zoomable,
+					1.0,   /* current */
+					0.01,  /* min */
+					20.0,  /* max */
+					TRUE,
+					TRUE);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (list_view),
+				     BONOBO_OBJECT (zoomable));
 
 
 	/* Property Bag */
