@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-02-10 20:09+0100\n"
+"POT-Creation-Date: 2002-02-24 19:12+0100\n"
 "PO-Revision-Date: 2001-11-08 23:23+0200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -23,7 +23,7 @@ msgstr "GNOME Gözü"
 msgid "Image Viewer"
 msgstr "Resim Gösterici"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
 msgid "EOG Image"
 msgstr "EOG Resmi"
 
@@ -119,6 +119,10 @@ msgstr "_Tercihler"
 msgid "_Settings"
 msgstr "_Ayarlar"
 
+#: shell/eog-shell-ui.xml.h:21
+msgid "_View"
+msgstr "_Görünüm"
+
 #: shell/eog-window.c:179
 #, fuzzy
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
@@ -132,23 +136,23 @@ msgstr "GNOME resim gösterme ve kataloglama uygulaması"
 msgid "Open Image"
 msgstr "Resmi Aç"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr "Kontrol window_title alanını desteklemiyor."
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr "Kontrol status_text alanını desteklemiyor."
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr "Kontrol tercihli alanlar içermiyor"
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Dosya için mime türü yok."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1040
 msgid "Error while obtaining file informations."
 msgstr "Dosya bilgileri alınırken hata oluştu."
 
@@ -188,64 +192,64 @@ msgstr "%s açılamadı"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS başlatılamadı!\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Resim %s olarak kaydedilemedi: %s."
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Resmi Bas"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Sayfalar"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Önizlemeyi Yazdır"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "Resim yazdırılamadı"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Görünüm"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Bozma"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Titreşim"
 
-#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Tür Denetimi"
 
-#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Boyut Denetimi"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Resim Genişliği"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Resim Yüksekliği"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Pencere Başlığı"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Durum çubuğu Metni"
 
@@ -330,56 +334,68 @@ msgid "Setup the page settings for your current printer"
 msgstr "Geçerli yazıcının sayfa ayarları diyaloğunu açar"
 
 #: viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "Görünüm"
-
-#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "İki çi_zgili Bozma"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "_Titreşim"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hiperbolik Bozma"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "_Bozma"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "E_n çok (yüksek renk) titreşim"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "Titreşim_siz"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "_Yazdır"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "Ka_relerle Bozma"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Oranla"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "İçeri"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Dışarı"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 #, fuzzy
 msgid "Zoom _In"
 msgstr "Büyüt"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 #, fuzzy
 msgid "Zoom _Out"
 msgstr "Küçült"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 #, fuzzy
 msgid "Zoom to _Fit"
 msgstr "Küçült"
@@ -407,10 +423,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "santimetre"
-
-#: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "İçeri"
 
 #: viewer/eog-print-setup.c:76
 msgid "inch"
@@ -625,6 +637,9 @@ msgstr "Orta"
 msgid "Large"
 msgstr "Büyük"
 
+#~ msgid "View"
+#~ msgstr "Görünüm"
+
 #~ msgid "Can't find eog-shell-ui.xml.\n"
 #~ msgstr "eog-shell-ui.xml bulunamıyor.\n"
 
@@ -693,15 +708,6 @@ msgstr "Büyük"
 
 #~ msgid "Close the current window"
 #~ msgstr "Geçerli pencereyi kapat"
-
-#~ msgid "Out"
-#~ msgstr "Dışarı"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Fit"
-#~ msgstr "Oranla"
 
 #~ msgid "_Open Image..."
 #~ msgstr "_Resmi aç..."
@@ -789,6 +795,3 @@ msgstr "Büyük"
 
 #~ msgid "Use the whole screen for display"
 #~ msgstr "Resimleri göstermek için tüm ekranı kullan"
-
-#~ msgid "_View"
-#~ msgstr "_Görünüm"

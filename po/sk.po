@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2002-02-10 20:09+0100\n"
+"POT-Creation-Date: 2002-02-24 19:12+0100\n"
 "PO-Revision-Date: 2002-01-30 15:19CET\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -22,7 +22,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Prehliadač obrázkov"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
 msgid "EOG Image"
 msgstr "Obrázok EOG"
 
@@ -118,6 +118,11 @@ msgstr "Nas_tavenia"
 msgid "_Settings"
 msgstr "Nas_tavenia"
 
+#: shell/eog-shell-ui.xml.h:21
+#, fuzzy
+msgid "_View"
+msgstr "Zobraziť"
+
 #: shell/eog-window.c:179
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
@@ -130,23 +135,23 @@ msgstr "Program pre prehliadanie obrázkov a ich katalogizáciu pre GNOME"
 msgid "Open Image"
 msgstr "Otvoriť obrázok"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr "Ovládací prvok nepodporuje vlastnosť window_title."
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr "Ovládací prvok nepodporuje vlastnosť status_text."
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr "Ovládací prvok mená vlastnosti"
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Nepodarilo sa získať typ MIME pre súbor."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1040
 msgid "Error while obtaining file informations."
 msgstr "Chyba pri načítavaní informácií o súboroch."
 
@@ -185,64 +190,64 @@ msgstr "Nepodarilo sa otvoriť '%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Nepodarilo sa inicializovať GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Nepodarilo sa uložiť obrázok ako '%s'. %s"
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Tlačiť obrázok"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Stránky"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Náhľad tlače"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "Tlač obrázku zlyhala"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Zobraziť"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolácia"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Dithering"
 
-#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Skontrolovať typ"
 
-#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Skontrolovať veľkosť"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Šírka obrázku"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Titulok okna"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Text stavového riadku"
 
@@ -327,54 +332,66 @@ msgid "Setup the page settings for your current printer"
 msgstr "Nastavenie stránky pre vašu aktuálnu tlačiareň"
 
 #: viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "Zobraziť"
-
-#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "_Bilineárna interpolácia"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "_Dithering"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hyperbolická interpolácia"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "_Interpolácia"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "Ma_ximálny dithering (veľa farieb)"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "_Bez ditheringu"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "_Tlačiť"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "_Dlaždicová interpolácia"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Zoom _In"
+msgid "1:1"
 msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "Zväčšiť"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _In"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr ""
 
@@ -401,10 +418,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "centimetre"
-
-#: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "Zväčšiť"
 
 #: viewer/eog-print-setup.c:76
 msgid "inch"

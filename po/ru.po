@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog-0.2\n"
-"POT-Creation-Date: 2002-02-10 20:09+0100\n"
+"POT-Creation-Date: 2002-02-24 19:12+0100\n"
 "PO-Revision-Date: 2001-10-13 13:22+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -21,7 +21,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Программа просмотра изображений"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
 msgid "EOG Image"
 msgstr "EOG изображение"
 
@@ -117,6 +117,10 @@ msgstr "Настройки"
 msgid "_Settings"
 msgstr "Установки"
 
+#: shell/eog-shell-ui.xml.h:21
+msgid "_View"
+msgstr "Окна"
+
 #: shell/eog-window.c:179
 #, fuzzy
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
@@ -130,23 +134,23 @@ msgstr "Программа просмотра и каталогизации изображений для GNOME"
 msgid "Open Image"
 msgstr "Открыть изображение"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr ""
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr ""
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr ""
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Не удалось получить mime-тип для файла."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1040
 msgid "Error while obtaining file informations."
 msgstr "Ошибка при получении информации о файле."
 
@@ -186,64 +190,64 @@ msgstr "Не удалось открыть `%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Не удалось инициализировать GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не удалось сохранить изображение как \"%s\": %s."
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Напечатать изображение"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Страницы"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Просмотр печати"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "Сбой печати изображения"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Отображение"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Тип отметок"
 
-#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Размер отметок"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
@@ -328,56 +332,68 @@ msgid "Setup the page settings for your current printer"
 msgstr "Выполнить настройку страницы для текущего принтера"
 
 #: viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "Вид"
-
-#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Билинейная интерполяция"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "Гиперболическая интерполяция"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "Максимальное (многоцветное) смешение"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "Без смешивания"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "Печать"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "Интерполяция элементов"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Заполнить"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "В"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Из"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 #, fuzzy
 msgid "Zoom _In"
 msgstr "Масштаб +"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 #, fuzzy
 msgid "Zoom _Out"
 msgstr "Масштаб -"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 #, fuzzy
 msgid "Zoom to _Fit"
 msgstr "Масштаб -"
@@ -405,10 +421,6 @@ msgstr "см"
 #: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "сантиметры"
-
-#: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "В"
 
 #: viewer/eog-print-setup.c:76
 msgid "inch"
@@ -623,6 +635,9 @@ msgstr "Средние"
 msgid "Large"
 msgstr "Большие"
 
+#~ msgid "View"
+#~ msgstr "Вид"
+
 #~ msgid "Can't find eog-shell-ui.xml.\n"
 #~ msgstr "Не удалось найти eog-shell-ui.xml.\n"
 
@@ -691,15 +706,6 @@ msgstr "Большие"
 
 #~ msgid "Close the current window"
 #~ msgstr "Закрыть текущее окно"
-
-#~ msgid "Out"
-#~ msgstr "Из"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Fit"
-#~ msgstr "Заполнить"
 
 #~ msgid "_Open Image..."
 #~ msgstr "Открыть изображение..."
@@ -787,6 +793,3 @@ msgstr "Большие"
 
 #~ msgid "Use the whole screen for display"
 #~ msgstr "Использовать весь экран для отображения"
-
-#~ msgid "_View"
-#~ msgstr "Окна"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-02-12 17:37+0200\n"
+"POT-Creation-Date: 2002-02-24 19:12+0100\n"
 "PO-Revision-Date: 2002-02-12 16:43+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -13,15 +13,32 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1
-#: shell/eog-window.c:177
-#: shell/eog-window.c:523
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 #: eog.desktop.in.h:2
 msgid "Image Viewer"
 msgstr "Прорама перегляду зображень"
+
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+msgid "EOG Image"
+msgstr "Зображення EOG"
+
+#: libeog/GNOME_EOG.server.in.h:2
+#, fuzzy
+msgid "EOG Image Viewer"
+msgstr "Прорама перегляду зображень"
+
+#: libeog/GNOME_EOG.server.in.h:3
+#, fuzzy
+msgid "EOG Image viewer factory"
+msgstr "Прорама перегляду зображень"
+
+#: libeog/GNOME_EOG.server.in.h:4
+#, fuzzy
+msgid "Embeddable EOG Image"
+msgstr "Зображення EOG"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -103,6 +120,11 @@ msgstr "Налаштування"
 msgid "_Settings"
 msgstr "Параметри"
 
+#: shell/eog-shell-ui.xml.h:21
+#, fuzzy
+msgid "_View"
+msgstr "Відображення"
+
 #: shell/eog-window.c:179
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторське право © 2000-2002 Фундація Вільного Програмного Забезпечення"
@@ -115,23 +137,23 @@ msgstr "Програма перегляду та каталогізації дл
 msgid "Open Image"
 msgstr "Відкрити зображення"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr "Елемент не підтримує властивість window_title."
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr "Елемент не підтримує властивість status_text."
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr "Елемент не має властивостей."
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Не вдалось отримати тип MIME файлу."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1040
 msgid "Error while obtaining file informations."
 msgstr "Помилка під час отримання інформації про файл."
 
@@ -152,20 +174,12 @@ msgid "Collection"
 msgstr "Колекція"
 
 #: shell/main.c:280
-msgid ""
-"Could not initialize GnomeVFS!\n"
-""
-msgstr ""
-"Не вдалось ініціалізувати GnomeVFS!\n"
-""
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
 
 #: shell/main.c:283
-msgid ""
-"Could not initialize Bonobo!\n"
-""
-msgstr ""
-"Не вдалось ініціалізувати Bonobo!\n"
-""
+msgid "Could not initialize Bonobo!\n"
+msgstr "Не вдалось ініціалізувати Bonobo!\n"
 
 #: shell/util.c:47
 #, c-format
@@ -173,79 +187,67 @@ msgid "Could not open `%s'"
 msgstr "Не вдалось відкрити \"%s\""
 
 #: viewer/eog-image.c:432
-msgid ""
-"Couldn't initialize GnomeVFS!\n"
-""
-msgstr ""
-"Не вдалось ініціалізувати GnomeVFS!\n"
-""
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не вдалось зберегти зображення як \"%s\": %s."
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Зьерегти як"
 
-#: viewer/eog-image-view.c:702
-msgid "EOG Image"
-msgstr "Зображення EOG"
-
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Надрукувати зображення"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Сторінки"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Перегляд друку"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "Збій друку зображення"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Відображення"
 
-#: viewer/eog-image-view.c:1994
-#: viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Інтерполяція"
 
-#: viewer/eog-image-view.c:1997
-#: viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Змішування"
 
-#: viewer/eog-image-view.c:2000
-#: viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Тип клітинок"
 
-#: viewer/eog-image-view.c:2003
-#: viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Розмір клітинок"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Ширина зображення"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Висота зображення"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Заголовок вікна"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Текст панелі стану"
 
@@ -330,54 +332,66 @@ msgid "Setup the page settings for your current printer"
 msgstr "Налаштувати параметри сторінки для вашого поточного принтера"
 
 #: viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "Відображення"
-
-#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Білінійна інтерполяція"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "Змішування"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "Гіперболічна інтерполяція"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "Інтерполяція"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "Максимальне змішування (якісний колір)"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "Без змішування"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "Надрукувати"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "Інтерполяція елементів"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "Більше"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Zoom _In"
 msgstr "З_більшити"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
 msgstr "З_меншити"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr "_Типове збільшення"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "Підігнати"
 
@@ -406,10 +420,6 @@ msgid "centimeter"
 msgstr "сантиметр"
 
 #: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "Більше"
-
-#: viewer/eog-print-setup.c:76
 msgid "inch"
 msgstr "дюйм"
 
@@ -430,8 +440,7 @@ msgid "Units: "
 msgstr "Одиниці: "
 
 #. First page
-#: viewer/eog-print-setup.c:579
-#: viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
 msgid "Paper"
 msgstr "Папір"
 
@@ -622,4 +631,3 @@ msgstr "Середні"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Великі"
-

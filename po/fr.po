@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.109.1\n"
-"POT-Creation-Date: 2002-02-10 20:09+0100\n"
+"POT-Creation-Date: 2002-02-24 19:12+0100\n"
 "PO-Revision-Date: 2002-02-02 14:08+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -22,7 +22,7 @@ msgstr "Eye of GNOME"
 msgid "Image Viewer"
 msgstr "Visionneur d'images"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
 msgid "EOG Image"
 msgstr "Image EOG"
 
@@ -118,6 +118,10 @@ msgstr "_Préférences"
 msgid "_Settings"
 msgstr "_Réglages"
 
+#: shell/eog-shell-ui.xml.h:21
+msgid "_View"
+msgstr "_Vue"
+
 #: shell/eog-window.c:179
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 La Free Software Foundation"
@@ -130,23 +134,23 @@ msgstr "Le programme GNOME pour voir et cataloguer les images"
 msgid "Open Image"
 msgstr "Ouvrir une image"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr "Le contrôle ne supporte pas la propriété window_title."
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr "Le contrôle ne supporte pas la propriété status_text."
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr "Le contrôle n'a pas de propriétés"
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Ne peut récupérer le type MIME pour ce fichier."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1040
 msgid "Error while obtaining file informations."
 msgstr "Erreur durant l'obtention des informations du fichier."
 
@@ -186,64 +190,64 @@ msgstr "Ne peut ouvrir « %s »"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Ne peut initialiser GnomeVFS !\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Ne peut enregistrer l'image sous « %s » : %s."
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Enregistrer sous"
 
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Imprimer l'image"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Pages"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Aperçu de l'impression"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "L'impression de l'image a échoué"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Affichage"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Tramage"
 
-#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Vérifier le type"
 
-#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Vérifier la taille"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Largeur de l'image"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Hauteur de l'image"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Titre de la fenêtre"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Texte de la barre d'état"
 
@@ -328,56 +332,68 @@ msgid "Setup the page settings for your current printer"
 msgstr "Défini les réglages de la page pour votre imprimante"
 
 #: viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "Vue"
-
-#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Bilinear Interpolation"
 msgstr "Interpolation _bilinéaire"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "_Tramage"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "Interpolation _hyperbolique"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "_Interpolation"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "Tramage _maximum (vrai couleur)"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "_Pas de tramage"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "_Imprimer"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "Interpolation des _tuiles"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Ajuster"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "Avant"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Arrière"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 #, fuzzy
 msgid "Zoom _In"
 msgstr "Zoom avant"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 #, fuzzy
 msgid "Zoom _Out"
 msgstr "Zoom arrière"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 #, fuzzy
 msgid "Zoom to _Fit"
 msgstr "Zoom arrière"
@@ -405,10 +421,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "centimètre"
-
-#: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "Avant"
 
 #: viewer/eog-print-setup.c:76
 msgid "inch"
@@ -623,6 +635,9 @@ msgstr "Moyen"
 msgid "Large"
 msgstr "Grand"
 
+#~ msgid "View"
+#~ msgstr "Vue"
+
 #~ msgid "Can't find eog-shell-ui.xml.\n"
 #~ msgstr "Ne peut trouver eog-shell-ui.xml.\n"
 
@@ -691,15 +706,6 @@ msgstr "Grand"
 
 #~ msgid "Close the current window"
 #~ msgstr "Fermer la fenêtre courante"
-
-#~ msgid "Out"
-#~ msgstr "Arrière"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Fit"
-#~ msgstr "Ajuster"
 
 #~ msgid "_Open Image..."
 #~ msgstr "_Ouvrir une image..."
@@ -787,9 +793,6 @@ msgstr "Grand"
 
 #~ msgid "Use the whole screen for display"
 #~ msgstr "Utiliser tout l'écran pour l'affichage"
-
-#~ msgid "_View"
-#~ msgstr "_Vue"
 
 #~ msgid "Bilinear (normal)"
 #~ msgstr "Bilinéaire (normal)"
