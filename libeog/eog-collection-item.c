@@ -474,7 +474,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 						    "justification", GTK_JUSTIFY_CENTER,
 						    "x", (double) caption_x,
 						    "y", (double) caption_y,
-						    "fill_color", style->text[GTK_STATE_NORMAL],
+						    "fill_color_gdk", &style->text[GTK_STATE_NORMAL],
 						    NULL);
 	g_free (caption);
 	     
