@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-26 04:02+0200\n"
-"PO-Revision-Date: 2003-06-26 14:27+0300\n"
+"POT-Creation-Date: 2003-06-30 12:04+0200\n"
+"PO-Revision-Date: 2003-06-30 15:20+0300\n"
 "Last-Translator: Gil 'Dolfin' Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgid "Slide Show"
 msgstr "מצגת"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_עריכה"
 
@@ -83,7 +83,7 @@ msgid "_Undo"
 msgstr "_בטל"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_תצוגה"
 
@@ -103,7 +103,7 @@ msgstr "זרוק לאשפה"
 msgid "Collection View"
 msgstr "תצוגת אוסף"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
 msgid "Window Title"
 msgstr "כותרת החלון"
 
@@ -111,7 +111,7 @@ msgstr "כותרת החלון"
 msgid "Status Text"
 msgstr "טקסט מצב"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
 msgid "Progress of Image Loading"
 msgstr "התקדמות טעינת התמונה"
 
@@ -224,8 +224,8 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"מזהה כיצד השקיפות תצוין. ערכים אפשריים הם CHECK_PATTERN, COLOR ו NONE. אם COLOR "
-"נבחר, אז המפתח trans_color מזהה את ערך הצבע לשימוש."
+"מזהה כיצד השקיפות תצוין. ערכים אפשריים הם CHECK_PATTERN, COLOR ו NONE. אם "
+"COLOR נבחר, אז המפתח trans_color מזהה את ערך הצבע לשימוש."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -309,10 +309,9 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"האם להתאים תמונות בגודל רגיל למסך בתצוגת מסך מלא. "
-" אלו תמונות בגדלים כמו 320x240, 640x480, 800x600 וכו'. זה "
-"מציין אם תמונות כאלו יתרחבו להתאים למסך בהתעלמות "
-"מהגדרות פקטור ההתקרבות ברירת המחדל של תצוגת מסך מלא."
+"האם להתאים תמונות בגודל רגיל למסך בתצוגת מסך מלא.  אלו תמונות בגדלים כמו "
+"320x240, 640x480, 800x600 וכו'. זה מציין אם תמונות כאלו יתרחבו להתאים למסך "
+"בהתעלמות מהגדרות פקטור ההתקרבות ברירת המחדל של תצוגת מסך מלא."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -397,7 +396,7 @@ msgid "Page"
 msgstr "עמוד"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
@@ -484,20 +483,8 @@ msgid "Vertically by "
 msgstr "אנכית ב "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "אזור _פעולה"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "דו-שיח"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "דו-שיח1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -631,9 +618,7 @@ msgstr ""
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr ""
-"אתה עומד לפתוח %i חלונות בו זמנית. האם אתה רוצה לפתוח "
-"אותם באוסף במקום?"
+msgstr "אתה עומד לפתוח %i חלונות בו זמנית. האם אתה רוצה לפתוח אותם באוסף במקום?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -705,68 +690,93 @@ msgid "Print image to the printer"
 msgstr "הדפס תמונה למדפסת"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "סובב שמאלה"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "סובב ימינה"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "_שמירה בשם..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "הגדר את הגדרות העמוד למדפסת הנוכחית שלך"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_מסך מלא"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_הדפסה..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/סובב _עם כיוון השעון"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/סובב _נגד כיוון השעון"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/הת_קרב"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/הת_רחק"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/גודל _רגיל"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/_ההתאמה הטובה ביותר"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/_סגור"
 
-#: viewer/eog-image-view.c:982
+#: viewer/eog-image-view.c:994
 msgid "Image successfully saved"
 msgstr "התמונה נשמרה בהצלחה"
 
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:998
 msgid "Image saving failed"
 msgstr "שמירת התמונה נכשלה"
 
-#: viewer/eog-image-view.c:1229
+#: viewer/eog-image-view.c:1241
 msgid "Image Width"
 msgstr "רוחב התמונה"
 
-#: viewer/eog-image-view.c:1232
+#: viewer/eog-image-view.c:1244
 msgid "Image Height"
 msgstr "גובה התמונה"
 
-#: viewer/eog-image-view.c:1238
+#: viewer/eog-image-view.c:1250
 msgid "Statusbar Text"
 msgstr "טקסט שורת המצב"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1253
 msgid "Desired Window Width"
 msgstr "רוחה חלון רצוי"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1256
 msgid "Desired Window Height"
 msgstr "גובה חלון רצוי"
+
+#~ msgid "action_area"
+#~ msgstr "אזור _פעולה"
+
+#~ msgid "dialog"
+#~ msgstr "דו-שיח"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
 
 #~ msgid "Couldn't initialize GnomeVFS!\n"
 #~ msgstr "לא ניתן לאתחל את GnomeVFS!\n"
