@@ -81,6 +81,19 @@ AC_ARG_ENABLE(collection,
 	     fi)
 AM_CONDITIONAL(ENABLE_COLLECTION, test x$collection = xyes)
 
+dnl ******************************************************
+dnl Check if we have libpreview when the collection is desired
+dnl ******************************************************
+
+libpreview=no
+if test x$collection = xyes; then 
+   LIBPREVIEW_MODULE="libpreview"
+   PKG_CHECK_MODULES(LIBPREVIEW, $LIBPREVIEW_MODULE, libpreview=yes, libpreview=no)
+   AC_SUBST(LIBPREVIEW_CFLAGS)
+   AC_SUBST(LIBPREVIEW_LIBS)
+fi
+AM_CONDITIONAL(ENABLE_LIBPREVIEW, test x$libpreview = xyes)
+
 dnl *******************************************************
 dnl Check for evolution
 dnl *******************************************************
@@ -279,4 +292,5 @@ Configuration:
 	Extra Compiler Warnings:  ${EXTRA_WARNING_CFLAGS}
 
 	Build collection view (experimental): ${collection}
+ 	Use libpreview:  ${libpreview}
 "

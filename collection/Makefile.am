@@ -1,12 +1,18 @@
+if ENABLE_LIBPREVIEW
+  LIBPREVIEW_FLAGS=-DHAVE_LIBPREVIEW
+endif
+
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DDATADIR=\""$(datadir)"\"				\
+	$(LIBPREVIEW_FLAGS)					\
 	-I$(top_srcdir)						\
 	-I$(top_builddir)					\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
 	$(EOG_CFLAGS)						\
+	$(LIBPREVIEW_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 
 libexec_PROGRAMS = eog-collection-view
@@ -47,6 +53,10 @@ eog_collection_view_SOURCES =		\
 	cimage.h			\
 	eog-image-loader.c		\
 	eog-image-loader.h		\
+	eog-image-loader-simple.c	\
+	eog-image-loader-simple.h	\
+	eog-image-loader-preview.c	\
+	eog-image-loader-preview.h	\
 	eog-collection-model.h		\
 	eog-collection-model.c		\
 	eog-item-factory.h		\
@@ -65,6 +75,7 @@ eog_collection_view_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
 	$(EOG_LIBS)				\
+	$(LIBPREVIEW_LIBS)			\
 	$(INTLLIBS)				\
 	$(LIBPNG) $(LIBJPEG)
 
@@ -83,4 +94,4 @@ $(EVOLUTION_GENERATED):
 endif
 
 CLEANFILES += $(EVOLUTION_GENERATED) $(BUILT_SOURCES)
-EXTRA_DIST = $(server_in_files)
+EXTRA_DIST = $(server_in_files) eog-collection-marshal.list

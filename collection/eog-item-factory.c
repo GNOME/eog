@@ -41,14 +41,6 @@ enum {
 static void eog_item_factory_class_init (EogItemFactoryClass *class);
 static void eog_item_factory_instance_init (EogItemFactory *obj);
 
-
-static void marshal_create_item (GtkObject *object, GtkSignalFunc func,
-				 gpointer data, GtkArg *args);
-static void marshal_update_item (GtkObject *object, GtkSignalFunc func,
-				 gpointer data, GtkArg *args);
-static void marshal_get_item_size (GtkObject *object, GtkSignalFunc func,
-				   gpointer data, GtkArg *args);
-
 static guint ei_factory_signals[LAST_SIGNAL];
 
 GNOME_CLASS_BOILERPLATE (EogItemFactory, eog_item_factory,

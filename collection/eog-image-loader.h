@@ -19,26 +19,31 @@ typedef struct _EogImageLoaderPrivate EogImageLoaderPrivate;
 struct _EogImageLoaderClass {
 	GObjectClass parent_class;
 
+	/* signals */
 	void (* loading_finished) (EogImageLoader *loader, CImage *img);
 	void (* loading_canceled) (EogImageLoader *loader, CImage *img);
 	void (* loading_failed) (EogImageLoader *loader, CImage *img);
+	
+	/* virtuell functions */
+	void (* start) (EogImageLoader *loader, CImage *img);
+	void (* stop)  (EogImageLoader *loader);
 };
 
 struct _EogImageLoader {
 	GObject parent;
-	
-	EogImageLoaderPrivate *priv;
 };
 
 
 GType eog_image_loader_get_type (void);
 
-EogImageLoader* 
-eog_image_loader_new (gint thumb_width, gint thumb_height);
-
 void eog_image_loader_start (EogImageLoader *loader, CImage *img);
 
 void eog_image_loader_stop (EogImageLoader *loader);
+
+/* only for internal use */
+void _eog_image_loader_loading_finished (EogImageLoader *loader, CImage *img);
+void _eog_image_loader_loading_canceled (EogImageLoader *loader, CImage *img);
+void _eog_image_loader_loading_failed (EogImageLoader *loader, CImage *img);
 
 G_END_DECLS
 

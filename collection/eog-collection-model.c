@@ -1,5 +1,4 @@
 #include "eog-collection-model.h"
-#include "eog-image-loader.h"
 #include "bonobo/bonobo-moniker-util.h"
 #include <libgnomevfs/gnome-vfs-directory.h>
 #include <libgnome/gnome-macros.h>
@@ -35,12 +34,6 @@ struct _EogCollectionModelPrivate {
 
 	GSList *selected_images;
 
-	/* does all the image loading work */
-	EogImageLoader *loader;
-
-	/* list of images to load with loader */ 
-	GSList *images_to_load;
-	
 	/* base uri e.g. from a directory */
 	gchar *base_uri;
 };
@@ -52,9 +45,6 @@ static void eog_collection_model_finalize (GObject *object);
 
 GNOME_CLASS_BOILERPLATE (EogCollectionModel, eog_collection_model,
 			 GObject, G_TYPE_OBJECT);
-
-static void
-image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer data);
 
 static void
 free_hash_image (gpointer key, gpointer value, gpointer data)
@@ -89,10 +79,6 @@ eog_collection_model_dispose (GObject *obj)
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (obj));
 
 	model = EOG_COLLECTION_MODEL (obj);
-
-	if (model->priv->loader)
-		g_object_unref (G_OBJECT (model->priv->loader));
-	model->priv->loader = NULL;
 
 	if (model->priv->selected_images)
 		g_slist_free (model->priv->selected_images);
@@ -131,10 +117,8 @@ eog_collection_model_instance_init (EogCollectionModel *obj)
 	EogCollectionModelPrivate *priv;
 
 	priv = g_new0(EogCollectionModelPrivate, 1);
-	priv->loader = NULL;
 	priv->id_image_mapping = NULL;
 	priv->selected_images = NULL;
-	priv->images_to_load = NULL;
 	priv->base_uri = NULL;
 	obj->priv = priv;
 }
@@ -226,17 +210,8 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 void
 eog_collection_model_construct (EogCollectionModel *model)
 {
-	EogImageLoader *loader;
-
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-       
-	/* init loader */
-	loader = eog_image_loader_new (92,68);
-	g_signal_connect (G_OBJECT (loader), "loading_finished", 
-			  G_CALLBACK (image_loading_finished_cb), model);
-
-	model->priv->loader = loader;
 
 	/* init hash table */
 	model->priv->id_image_mapping = g_hash_table_new ((GHashFunc) g_direct_hash, 
@@ -380,8 +355,6 @@ directory_visit_cb (const gchar *rel_path,
 
 	g_signal_emit_by_name (G_OBJECT (model), 
 			       "image-added", id);
-	
-	eog_image_loader_start (priv->loader, img);
 
 	if (count++ % 50 == 0)
 		while (gtk_events_pending ())
@@ -448,8 +421,6 @@ real_file_loading (LoadingContext *ctx)
 				     img);
 		g_signal_emit_by_name (G_OBJECT (model), 
 				       "image-added", id);
-		
-		eog_image_loader_start (priv->loader, img);
 	}
 
 	loading_context_free (ctx);
@@ -568,15 +539,6 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 	model->priv->base_uri = g_strdup ("multiple");
 	g_signal_emit_by_name (G_OBJECT (model), "base-uri-changed");
 }
-
-void
-image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer model)
-{
-	g_signal_emit_by_name (G_OBJECT (model), 
-			       "image-changed",
-			       cimage_get_unique_id (img));
-}
-
 
 gint
 eog_collection_model_get_length (EogCollectionModel *model)

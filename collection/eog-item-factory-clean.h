@@ -23,6 +23,7 @@
 #define EOG_ITEM_FACTORY_CLEAN_H
 
 #include "eog-item-factory.h"
+#include "eog-image-loader.h"
 
 G_BEGIN_DECLS
 
@@ -75,7 +76,7 @@ typedef struct {
 
 GType eog_item_factory_clean_get_type (void);
 
-EogItemFactoryClean *eog_item_factory_clean_new (void);
+EogItemFactoryClean *eog_item_factory_clean_new (EogImageLoader *loader);
 
 void eog_item_factory_clean_set_metrics (EogItemFactoryClean *factory,
 					  EogCleanMetrics *metrics);

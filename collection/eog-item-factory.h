@@ -80,8 +80,6 @@ struct _EogItemFactoryClass {
 
 GType eog_item_factory_get_type (void);
 
-GObject* eog_item_factory_new (void);
-
 GnomeCanvasItem *eog_item_factory_create_item (EogItemFactory *factory,
 					       GnomeCanvasGroup *parent,
 					       guint id);

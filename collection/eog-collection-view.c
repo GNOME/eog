@@ -29,6 +29,12 @@
 #  include "Evolution-Composer.h"
 #endif
 
+#if HAVE_LIBPREVIEW
+#include "eog-image-loader-preview.h"
+#else
+#include "eog-image-loader-simple.h"
+#endif
+
 #include "eog-item-factory-clean.h"
 #include "eog-wrap-list.h"
 #include "eog-collection-view.h"
@@ -760,6 +766,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv = NULL;
 	EogItemFactory *factory;
+	EogImageLoader *loader;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
@@ -792,7 +799,12 @@ eog_collection_view_construct (EogCollectionView *list_view)
 			  G_CALLBACK (model_base_uri_changed),
 			  list_view);
 
-	factory = EOG_ITEM_FACTORY (eog_item_factory_clean_new ());
+#if HAVE_LIBPREVIEW
+	loader = eog_image_loader_preview_new (96, 96);
+#else
+	loader = eog_image_loader_simple_new (96, 96);
+#endif
+	factory = EOG_ITEM_FACTORY (eog_item_factory_clean_new (loader));
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
@@ -811,6 +823,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	gtk_widget_show (priv->root);
 
 	g_object_unref (G_OBJECT (factory));
+	g_object_unref (G_OBJECT (loader));
 
 	/* Property Bag */
 	priv->property_bag = bonobo_property_bag_new (eog_collection_view_get_prop,

@@ -35,9 +35,12 @@
 
 
 #define MAX_CAPTION_LINES 2
+#define FACTORY_DEBUG 0
 
 /* Private part of the EogItemFactoryClean structure */
 struct _EogItemFactoryCleanPrivate {
+	EogImageLoader *loader;
+
 	/* item metrics */
 	EogCleanMetrics *metrics;
 
@@ -69,13 +72,11 @@ typedef struct {
 	GnomeCanvasItem *bgr;
 } IconItem;
 
-
-
 static void eog_item_factory_clean_class_init (EogItemFactoryCleanClass *class);
 static void eog_item_factory_clean_instance_init (EogItemFactoryClean *factory);
 static void eog_item_factory_clean_dispose (GObject *object);
 static void eog_item_factory_clean_finalize (GObject *object);
-static EogItemFactoryClean* eog_item_factory_clean_construct (EogItemFactoryClean *factory);
+static EogItemFactoryClean* eog_item_factory_clean_construct (EogItemFactoryClean *factory, EogImageLoader *loader);
 
 static GnomeCanvasItem *ii_factory_create_item (EogItemFactory *factory,
 						GnomeCanvasGroup *parent, guint id);
@@ -118,14 +119,15 @@ eog_item_factory_clean_instance_init (EogItemFactoryClean *factory)
 	priv = g_new0 (EogItemFactoryCleanPrivate, 1);
 
 	metrics = g_new0 (EogCleanMetrics, 1);
-	metrics->twidth = 92;
-	metrics->theight = 69;
+	metrics->twidth = 96;
+	metrics->theight = 96;
 	metrics->cspace = 5;
 	metrics->cpadding = 2;
 	metrics->font_height = 12;
 	priv->metrics = metrics;
 
 	priv->stipple = gdk_bitmap_create_from_data (NULL, stipple_bits, 2, 2);      
+	priv->loader = NULL;
 
 	factory->priv = priv;
 }
@@ -154,6 +156,10 @@ eog_item_factory_clean_dispose (GObject *object)
 	if (priv->stipple) 
 		g_object_unref (G_OBJECT (priv->stipple));
 	priv->stipple = NULL;
+
+	if (priv->loader)
+		g_object_unref (G_OBJECT (priv->loader));
+	priv->loader = NULL;
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
@@ -412,20 +418,36 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 	int image_x, image_y;
 	double x1, y1, x2, y2;
 	GdkPixbuf *thumb;
+	gboolean start_thumb_creation = FALSE;
 	
 	metrics = factory->priv->metrics;
 	priv = factory->priv;
 
+#if FACTORY_DEBUG
+	g_message ("update_item_image - id:%i", cimage_get_unique_id (cimage));
+#endif
+
 	icon = g_object_get_data (G_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
-
+	
 	/* obtain thumbnail image */
 	if (cimage_has_thumbnail (cimage)) {
+#if FACTORY_DEBUG
+		g_message ("   ** have thumbnail - id:%i", cimage_get_unique_id (cimage));
+#endif
 		thumb = cimage_get_thumbnail (cimage);
 	} 
 	else {
 		thumb = priv->dummy;
 		g_object_ref (thumb);
+		
+		if (!cimage_has_loading_failed (cimage)) {
+			start_thumb_creation = TRUE;
+#if FACTORY_DEBUG
+			g_message ("   ** start thumbnail creation - id:%i", cimage_get_unique_id (cimage));
+#endif
+			g_object_set_data (G_OBJECT (cimage), "CanvasItem", item);
+		}
 	}
 	g_assert (thumb != NULL);
 
@@ -448,6 +470,10 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 					     NULL);
 	
 	g_object_unref (thumb);
+
+	if (start_thumb_creation) {
+		eog_image_loader_start (EOG_IMAGE_LOADER (priv->loader), cimage);
+	}
 }
 
 static void
@@ -635,8 +661,35 @@ ii_factory_get_item_size (EogItemFactory *factory,
 		+ 4;                    /* padding between caption lines */ 
 }
 
+static void
+image_loading_finished_cb (EogImageLoader *loader, CImage *image, EogItemFactoryClean *factory)
+{
+	GnomeCanvasItem *item;
+
+#if FACTORY_DEBUG
+	g_message ("image_loading_finished - id:%i", cimage_get_unique_id (image));
+#endif
+
+	if (IS_CIMAGE (image)) {
+		item = (GnomeCanvasItem*) g_object_get_data (G_OBJECT (image), "CanvasItem");
+		update_item_image (factory, item, image);
+	}
+}
+
+static void
+image_loading_failed_cb (EogImageLoader *loader, CImage *image, EogItemFactoryClean *factory)
+{
+	GnomeCanvasItem *item;
+
+	if (IS_CIMAGE (image)) {
+		cimage_set_loading_failed (image);
+		item = (GnomeCanvasItem*) g_object_get_data (G_OBJECT (image), "CanvasItem");
+		update_item_image (factory, item, image);
+	}
+}
+
 static EogItemFactoryClean*
-eog_item_factory_clean_construct (EogItemFactoryClean *factory)
+eog_item_factory_clean_construct (EogItemFactoryClean *factory, EogImageLoader *loader)
 {
 	EogItemFactoryCleanPrivate *priv;
 	char *dummy_file;
@@ -650,17 +703,29 @@ eog_item_factory_clean_construct (EogItemFactoryClean *factory)
 	priv->dummy = gdk_pixbuf_new_from_file (dummy_file, NULL);
 	g_free (dummy_file);
 
+	/* image loader setup */
+	priv->loader = loader;
+	if (loader != NULL) {
+		g_signal_connect (G_OBJECT (loader), "loading_finished", 
+				  G_CALLBACK (image_loading_finished_cb), factory);
+		g_signal_connect (G_OBJECT (loader), "loading_canceled", 
+				  G_CALLBACK (image_loading_failed_cb), factory);
+		g_signal_connect (G_OBJECT (loader), "loading_failed", 
+				  G_CALLBACK (image_loading_failed_cb), factory);
+		g_object_ref (priv->loader);
+	}
+
 	return factory;
 }
 
 
 EogItemFactoryClean *
-eog_item_factory_clean_new (void)
+eog_item_factory_clean_new (EogImageLoader *loader)
 {
 	EogItemFactoryClean *factory;
 
 	factory = EOG_ITEM_FACTORY_CLEAN (g_object_new (EOG_TYPE_ITEM_FACTORY_CLEAN, NULL));
-	return eog_item_factory_clean_construct (factory);
+	return eog_item_factory_clean_construct (factory, loader);
 }
 
 /**

@@ -529,7 +529,7 @@ model_image_changed (EogCollectionModel *model, GQuark id, gpointer data)
 
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_interval_changed called");
 #endif
 	priv = EOG_WRAP_LIST (data)->priv;
@@ -552,7 +552,7 @@ model_image_added (EogCollectionModel *model, GQuark id, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_interval_added called\n");
 #endif
 
@@ -565,7 +565,7 @@ model_image_removed (EogCollectionModel *model, GQuark id, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_interval_removed called\n");
 #endif
 	
@@ -579,7 +579,7 @@ model_selection_changed (EogCollectionModel *model, GQuark id, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_selection_changed called");
 #endif
 
@@ -591,7 +591,7 @@ model_selected_all (EogCollectionModel *model, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_selected_all called");
 #endif
 
@@ -603,7 +603,7 @@ model_selected_none (EogCollectionModel *model, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("model_selected_none called");
 #endif
 
@@ -813,7 +813,7 @@ request_update (EogWrapList *wlist)
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("request_update called.");
 #endif
 
@@ -849,7 +849,7 @@ do_item_changed_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_changed_update called - id:%i", id);
 #endif
 
@@ -879,7 +879,7 @@ do_item_removed_update (EogWrapList *wlist,
 	*layout_check_needed = FALSE;
 	*item_rearrangement_needed = FALSE;
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_removed_update called - id:%i", id);
 #endif
 
@@ -914,7 +914,7 @@ do_item_added_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_added_update called - id:%i", id);
 #endif
 
@@ -971,16 +971,18 @@ do_item_selection_changed_update (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_selection_changed - id:%i", id);
 #endif
 	priv = wlist->priv;
 
 	item = get_item_by_unique_id (wlist, id);
 
-	eog_item_factory_update_item (priv->factory,
-				      priv->model,
-				      item, EOG_ITEM_UPDATE_SELECTION_STATE);
+	if (item != NULL) {
+		eog_item_factory_update_item (priv->factory,
+					      priv->model,
+					      item, EOG_ITEM_UPDATE_SELECTION_STATE);
+	}
 }
 
 static void 
@@ -1012,7 +1014,7 @@ do_item_selection_update_all (EogWrapList *wlist,
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_selection_update_all");
 #endif
 	priv = wlist->priv;
@@ -1033,7 +1035,7 @@ do_layout_check (EogWrapList *wlist)
 
 	priv = wlist->priv;
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_layout_check called");
 #endif
 
@@ -1071,7 +1073,7 @@ do_layout_check (EogWrapList *wlist)
 		g_assert_not_reached ();
 	}
 
-#ifdef COLLECTION_DEBUG	
+#if COLLECTION_DEBUG	
 	g_print ("  ** canvas width: %i\n",cw);
 	g_print ("  ** n_cols_new: %i\n", n_cols_new);
 	g_print ("  ** n_rows_new: %i\n", n_rows_new);
@@ -1143,7 +1145,7 @@ do_item_rearrangement (EogWrapList *wlist)
 	data.wlist = wlist;
 	data.n = 0;
 
-#ifdef COLLECTION_DEBUG
+#if COLLECTION_DEBUG
 	g_message ("do_item_rearrangement called");
 #endif
 
@@ -1159,6 +1161,10 @@ do_item_rearrangement (EogWrapList *wlist)
  	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
 					0.0, 0.0,
 					sr_width, sr_height);
+
+#if COLLECTION_DEBUG
+	g_message ("do_item_rearrangement leaved");
+#endif
 }
 
 static void 
