@@ -43,6 +43,7 @@
 #include "eog-preferences.h"
 #include "libeog-marshal.h"
 #include "egg-recent.h"
+#include "eog-config-keys.h"
 
 /* Default size for windows */
 
@@ -84,6 +85,10 @@ struct _EogWindowPrivate {
 
 	EggRecentModel      *recent_model;
 	EggRecentViewBonobo *recent_view;
+
+	/* gconf notification ids */
+	guint view_statusbar_id;
+	guint view_toolbar_id;
 };
 
 enum {
@@ -322,6 +327,44 @@ verb_HelpContent_cb (BonoboUIComponent *uic, gpointer data, const char *cname)
 }
 
 static void
+verb_ShowHideAnyBar_cb (BonoboUIComponent           *ui_component,
+			const char                  *path,
+			Bonobo_UIComponent_EventType type,
+			const char                  *state,
+			gpointer                    *user_data)
+{
+	EogWindow *window;     
+	EogWindowPrivate *priv;
+	gboolean visible;
+	char *key = NULL;
+
+	g_return_if_fail(EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (type != Bonobo_UIComponent_STATE_CHANGED) {
+		return;
+	}
+
+	if (state == NULL || path == NULL) {
+		return;
+	}
+
+	if (g_strcasecmp (path, "ShowHideToolbar") == 0) {
+		key = EOG_CONF_UI_TOOLBAR;
+	}
+	else if (g_strcasecmp (path, "ShowHideStatusbar") == 0) {
+		key = EOG_CONF_UI_STATUSBAR;
+	}
+
+	if (key != NULL) {
+		visible = (g_strcasecmp (state, "1") == 0);
+		gconf_client_set_bool (priv->client, key, visible, NULL);
+	}
+}
+
+static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
 {
 
@@ -366,6 +409,46 @@ open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
 		
 		g_list_free (txt_uri_list);
 	}
+}
+
+
+static void
+toolbar_visibility_changed_cb (GConfClient *client,
+			       guint        cnxn_id,
+			       GConfEntry  *entry,
+			       gpointer     user_data)
+{
+	EogWindow *window;
+	gboolean visible = TRUE;
+	
+	window = EOG_WINDOW (user_data);
+	
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		visible = gconf_value_get_bool (entry->value);
+	}
+
+	bonobo_ui_component_set_prop (window->priv->ui_comp, "/Toolbar", "hidden", visible ? "0" : "1", NULL);
+}
+
+static void
+statusbar_visibility_changed_cb (GConfClient *client,
+				 guint        cnxn_id,
+				 GConfEntry  *entry,
+				 gpointer     user_data)
+{
+	EogWindow *window;
+	gboolean visible = TRUE;
+	
+	window = EOG_WINDOW (user_data);
+	
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		visible = gconf_value_get_bool (entry->value);
+	}
+
+	if (visible)
+		gtk_widget_show (GTK_WIDGET (window->priv->statusbar));
+	else
+		gtk_widget_hide (GTK_WIDGET (window->priv->statusbar));
 }
 
 GType
@@ -432,7 +515,13 @@ eog_window_destroy (GtkObject *object)
 
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
-		gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
+		gconf_client_notify_remove (priv->client, priv->view_toolbar_id);
+		priv->view_toolbar_id = 0;
+
+		gconf_client_notify_remove (priv->client, priv->view_statusbar_id);
+		priv->view_statusbar_id = 0;
+
+		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
 		g_object_unref (G_OBJECT (priv->client));
 		priv->client = NULL;
 	}
@@ -521,7 +610,7 @@ eog_window_init (EogWindow *window)
 
 	priv->client = gconf_client_get_default ();
 
-	gconf_client_add_dir (priv->client, "/apps/eog",
+	gconf_client_add_dir (priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
 	window_list = g_list_prepend (window_list, window);
@@ -657,6 +746,7 @@ eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	BonoboUIContainer *ui_container;
+	gboolean visible;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -665,18 +755,6 @@ eog_window_construct (EogWindow *window)
 
 	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
 
-#if 0
-	/* FIXME: it would be nice to allow toolbar
-	   configuration/visibility changes from within eog. But this
-	   has some issues at the moment, see bug #114231. Needs
-	   fixing for 2.4.x.
-	*/
-
-	bonobo_ui_engine_config_set_path (
-		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
-		"/apps/eog/shell/ui"); 
-#endif
-						   
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
 
 	gtk_widget_show (priv->box);
@@ -728,6 +806,37 @@ eog_window_construct (EogWindow *window)
 				     DEFAULT_WINDOW_WIDTH,
 				     DEFAULT_WINDOW_HEIGHT);
 	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
+
+	/* show/hide toolbar? */
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
+	bonobo_ui_component_set_prop (priv->ui_comp, "/commands/ShowHideToolbar", "state",
+				      visible ? "1" : "0", NULL);
+	bonobo_ui_component_set_prop (priv->ui_comp, "/Toolbar", "hidden", visible ? "0" : "1", NULL);
+	bonobo_ui_component_add_listener (priv->ui_comp, "ShowHideToolbar",
+					  (BonoboUIListenerFn) verb_ShowHideAnyBar_cb,
+					  (gpointer) window);
+	priv->view_toolbar_id =
+		gconf_client_notify_add (priv->client,
+					 EOG_CONF_UI_TOOLBAR,
+					 toolbar_visibility_changed_cb,
+					 window, NULL, NULL);
+
+
+	/* show/hide statusbar? */
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_STATUSBAR, NULL);
+	bonobo_ui_component_set_prop (priv->ui_comp, "/commands/ShowHideStatusbar", "state",
+				      visible ? "1" : "0", NULL);
+	if (!visible) {
+		gtk_widget_hide (GTK_WIDGET (priv->statusbar));
+	}
+	bonobo_ui_component_add_listener (priv->ui_comp, "ShowHideStatusbar",
+					  (BonoboUIListenerFn) verb_ShowHideAnyBar_cb,
+					  (gpointer) window);
+	priv->view_statusbar_id =
+		gconf_client_notify_add (priv->client,
+					 EOG_CONF_UI_STATUSBAR,
+					 statusbar_visibility_changed_cb,
+					 window, NULL, NULL);
 }
 
 /**
@@ -774,12 +883,17 @@ adapt_window_size (EogWindow *window)
 {
 	int xthick, ythick;
 	int req_height, req_width;
+	int sb_height;
 	EogWindowPrivate *priv;
+	gboolean sb_visible;
 
 	priv = window->priv;
 
+	/* check if the statusbar is visible */
+	g_object_get (G_OBJECT (priv->statusbar), "visible", &sb_visible, NULL);
+
 	if ((priv->desired_width > 0) && (priv->desired_height > 0) &&
-	    GTK_WIDGET_REALIZED (priv->statusbar) &&
+	    (!sb_visible || GTK_WIDGET_REALIZED (priv->statusbar)) &&
 	    GTK_WIDGET_REALIZED (priv->box) &&
 	    GTK_WIDGET_REALIZED (GTK_WIDGET (window)))
 	{
@@ -788,11 +902,17 @@ adapt_window_size (EogWindow *window)
 		ythick = priv->box->style->ythickness;
 		req_width = req_height = -1;
 		
+		if (sb_visible) {
+			sb_height = priv->statusbar->allocation.height;
+		}
+		else {
+			sb_height = 0;
+		}
+
 		req_height = 
 			priv->desired_height + 
 			(GTK_WIDGET(window)->allocation.height - priv->box->allocation.height) +
-			priv->statusbar->allocation.height + 
-			2 * ythick;
+		        sb_height + 2 * ythick;
 		
 		req_width = 
 			priv->desired_width + 

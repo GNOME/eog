@@ -1,6 +1,24 @@
 2003-11-03  Jens Finke  <jens@triq.net>
 
-	* libeog/Makefile.am (SOURCES): Adde eog-config-keys.h
+	Allow tool-/statusbar hiding. Based on a patch by Kaushal Kumar,
+	fixes #114231.
+	
+	* eog.schemas.in: Added new keys for storing toolbar and statusbar
+	visibility state.
+
+	* shell/eog-shell-ui.xml: Added View/Toolbar and View/Statusbar items.
+
+	* shell/eog-window.c (verb_ShowHideAnyBar_cb),
+	(toolbar_visibility_changed_cb),
+	(statusbar_visibility_changed_cb): New functions.
+	(eog_window_destroy): Remove config change listener.
+	(eog_window_construct): Setup show/hide stuff.
+	(adapt_window_size): Consider statusbar visibility on window
+	height calculation.
+
+2003-11-03  Jens Finke  <jens@triq.net>
+
+	* libeog/Makefile.am (SOURCES): Added eog-config-keys.h
 
 	* libeog/eog-config-keys.h: New file. Contains definitions for all GConf keys.
 
@@ -16,7 +34,7 @@
 
 2003-11-02  Jens Finke  <jens@triq.net>
 
-	Based on a patch by Shivaram Upadhyayula. Fixex #104805.
+	Based on a patch by Shivaram Upadhyayula. Fixes #104805.
 	
 	* acconfig.h: undef HAVE_SUNKEYSYM_H
 
@@ -41,8 +59,9 @@
 	Improved slideshow component: automatic browsing, upscale flag,
 	endless loop / single run
 	
-	* eog.glade: Reworked the slideshow preferences page.
-
+	* eog.glade: Reworked the slideshow preferences page. 
+	Rephrased image interpolation text - #122543.
+	
 	* eog.schemas.in: New keys in /apps/eog/full_screen: loop,
 	upscale, seconds.
 
