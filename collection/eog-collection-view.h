@@ -29,22 +29,23 @@ typedef struct _EogCollectionViewClass    EogCollectionViewClass;
 typedef struct _EogCollectionViewPrivate  EogCollectionViewPrivate;
 
 struct _EogCollectionView {
-	BonoboObject object;
+	BonoboXObject base;
 
 	EogCollectionViewPrivate *priv;
 };
 
 struct _EogCollectionViewClass {
-	BonoboObjectClass parent_class;
+	BonoboXObjectClass parent_class;
+
+	POA_GNOME_EOG_ImageCollection__epv epv;
 };
 
-POA_GNOME_EOG_ImageCollection__epv *eog_collection_view_get_epv   (void);
-GtkType                           eog_collection_view_get_type  (void);
+GtkType                  eog_collection_view_get_type  (void);
 
 EogCollectionView       *eog_collection_view_new                 (void);
 GNOME_EOG_ImageCollection eog_collection_view_corba_object_create (BonoboObject       *object);
-EogCollectionView       *eog_collection_view_construct      (EogCollectionView       *list_view,
-							     GNOME_EOG_ImageCollection corba_object);
+EogCollectionView       *eog_collection_view_construct      (EogCollectionView       *list_view);
+
 void                eog_collection_view_unset_ui_container  (EogCollectionView       *list_view);
 void                eog_collection_view_set_ui_container  (EogCollectionView       *list_view,
 							   Bonobo_UIContainer       ui_container);

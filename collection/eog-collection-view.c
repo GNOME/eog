@@ -43,7 +43,7 @@ enum {
 
 static guint eog_collection_view_signals [LAST_SIGNAL];
 
-POA_GNOME_EOG_ImageCollection__vepv eog_collection_view_vepv;
+#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
 
 static BonoboObjectClass *eog_collection_view_parent_class;
 
@@ -115,29 +115,6 @@ eog_collection_view_get_widget (EogCollectionView *list_view)
 	return list_view->priv->root;
 }
 
-/**
- * eog_collection_view_get_epv:
- */
-POA_GNOME_EOG_ImageCollection__epv *
-eog_collection_view_get_epv (void)
-{
-	POA_GNOME_EOG_ImageCollection__epv *epv;
-
-	epv = g_new0 (POA_GNOME_EOG_ImageCollection__epv, 1);
-
-	epv->addImages = impl_GNOME_EOG_ImageCollection_addImages;
-
-	return epv;
-}
-
-static void
-init_eog_collection_view_corba_class (void)
-{
-	/* Setup the vector of epvs */
-	eog_collection_view_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	eog_collection_view_vepv.GNOME_EOG_ImageCollection_epv = eog_collection_view_get_epv ();
-}
-
 static void
 eog_collection_view_destroy (GtkObject *object)
 {
@@ -174,6 +151,7 @@ static void
 eog_collection_view_class_init (EogCollectionViewClass *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	POA_GNOME_EOG_ImageCollection__epv *epv;
 
 	eog_collection_view_parent_class = gtk_type_class (bonobo_object_get_type ());
 
@@ -182,7 +160,8 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 	object_class->destroy = eog_collection_view_destroy;
 	object_class->finalize = eog_collection_view_finalize;
 
-	init_eog_collection_view_corba_class ();
+	epv = &klass->epv;
+	epv->addImages = impl_GNOME_EOG_ImageCollection_addImages;
 }
 
 static void
@@ -191,68 +170,23 @@ eog_collection_view_init (EogCollectionView *image_view)
 	image_view->priv = g_new0 (EogCollectionViewPrivate, 1);
 }
 
-GtkType
-eog_collection_view_get_type (void)
-{
-	static GtkType type = 0;
 
-	if (!type) {
-		GtkTypeInfo info = {
-			"EogCollectionView",
-			sizeof (EogCollectionView),
-			sizeof (EogCollectionViewClass),
-			(GtkClassInitFunc)  eog_collection_view_class_init,
-			(GtkObjectInitFunc) eog_collection_view_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
+BONOBO_X_TYPE_FUNC_FULL (EogCollectionView, 
+			 GNOME_EOG_ImageCollection,
+			 PARENT_TYPE,
+			 eog_collection_view);
 
-		type = gtk_type_unique (bonobo_object_get_type (), &info);
-	}
-
-	return type;
-}
-
-GNOME_EOG_ImageCollection
-eog_collection_view_corba_object_create (BonoboObject *object)
-{
-	POA_GNOME_EOG_ImageCollection *servant;
-	CORBA_Environment ev;
-	
-	servant = (POA_GNOME_EOG_ImageCollection *) g_new0 (BonoboObjectServant, 1);
-	servant->vepv = &eog_collection_view_vepv;
-
-	CORBA_exception_init (&ev);
-	POA_GNOME_EOG_ImageCollection__init ((PortableServer_Servant) servant, &ev);
-	if (ev._major != CORBA_NO_EXCEPTION){
-		g_free (servant);
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
-
-	CORBA_exception_free (&ev);
-	return (GNOME_EOG_ImageCollection) bonobo_object_activate_servant (object, servant);
-}
 
 EogCollectionView *
-eog_collection_view_construct (EogCollectionView       *list_view,
-			       GNOME_EOG_ImageView corba_object)
+eog_collection_view_construct (EogCollectionView       *list_view)
 {
-	BonoboObject *retval;
 	EogCollectionViewPrivate *priv;
 	GtkAdjustment *vadj;
 	GtkAdjustment *hadj;
 
 	g_return_val_if_fail (list_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (list_view), NULL);
-	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
 	
-	retval = bonobo_object_construct (
-		BONOBO_OBJECT (list_view), corba_object);
-	if (!retval)
-		return NULL;
-
 	list_view->priv->uic = bonobo_ui_component_new ("EogCollectionView");
 
 	/* construct widget */
@@ -298,17 +232,8 @@ EogCollectionView *
 eog_collection_view_new (void)
 {
 	EogCollectionView *list_view;
-	GNOME_EOG_ImageCollection corba_object;
-	
+
 	list_view = gtk_type_new (eog_collection_view_get_type ());
 
-	corba_object = eog_collection_view_corba_object_create (
-		BONOBO_OBJECT (list_view));
-
-	if (corba_object == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (list_view));
-		return NULL;
-	}
-	
-	return eog_collection_view_construct (list_view, corba_object);
+	return eog_collection_view_construct (list_view);
 }

@@ -1,3 +1,12 @@
+2001-03-01  Jens Finke <jens@gnome.org>
+
+	* eog_collection_view.[ch]: Use BonoboXObject.
+	(eog_collection_view_get_epv): Removed.
+	(init_eog_collection_view_corba_class): Removed.
+	(eog_collection_view_construct): Removed 'corba_object' argument.
+	(eog_collection_view_get_type): Replaced with BONOBO_X_TYPE_FUNC_FULL.
+	(eog_collection_view_corba_object_create): Removed.
+	
 2001-02-18  Martin Baulig  <baulig@suse.de>
 
 	* Makefile.am: Don't build the CORBA stuff here but
