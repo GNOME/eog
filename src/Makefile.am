@@ -11,6 +11,8 @@ eog_SOURCES =				\
 	gnome-icon-item-factory.h	\
 	gnome-icon-list-model.c		\
 	gnome-icon-list-model.h		\
+	gnome-icon-view.c		\
+	gnome-icon-view.h		\
 	gnome-list-item-factory.c	\
 	gnome-list-item-factory.h	\
 	gnome-list-model.c		\

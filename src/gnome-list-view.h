@@ -56,19 +56,23 @@ struct _GnomeListView {
 struct _GnomeListViewClass {
 	GtkContainerClass parent_class;
 
-	void (* set_model) (GnomeListView *view, GnomeListModel *model);
-	void (* set_selection_model) (GnomeListView *view, GnomeListSelectionModel *sel_model);
-	void (* set_list_item_factory) (GnomeListView *view, GnomeListItemFactory *factory);
+	/* Notification signals */
+
+	void (* model_set) (GnomeListView *view);
+	void (* selection_model_set) (GnomeListView *view);
+	void (* list_item_factory_set) (GnomeListView *view);
 };
 
 
 GtkType gnome_list_view_get_type (void);
 
+void gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model);
 GnomeListModel *gnome_list_view_get_model (GnomeListView *view);
 
 void gnome_list_view_set_selection_model (GnomeListView *view, GnomeListSelectionModel *sel_model);
 GnomeListSelectionModel *gnome_list_view_get_selection_model (GnomeListView *view);
 
+void gnome_list_view_set_list_item_factory (GnomeListView *view, GnomeListItemFactory *factory);
 GnomeListItemFactory *gnome_list_view_get_list_item_factory (GnomeListView *view);
 
 

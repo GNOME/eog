@@ -1,3 +1,43 @@
+1999-11-18  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-icon-view.[ch]: New files with the icon view widget.
+
+	* gnome-list-view.c (gnome_list_view_class_init): Per Owen's
+	suggestion, changed the signals that were used to set the
+	different models to just signals that notify when the models have
+	been set.  Derived classes can use these to queue updates or
+	whatever.
+	(gnome_list_view_set_model): New function, for derived classes
+	only, to set a list view's model.
+	(gnome_list_view_set_selection_model): Changed to the above
+	architecture.
+	(gnome_list_view_set_list_item_factory): New function, likewise.
+
+	* gnome-wrap-list.c (model_set): Implemented.
+	(selection_model_set): Implemented.
+	(list_item_factory_set): Implemented.
+	(gnome_wrap_list_set_item_size): Implemented.
+	(gnome_wrap_list_set_row_spacing): Implemented.
+	(gnome_wrap_list_set_col_spacing): Implemented.
+	(bm_update_data): Implemented delayed updates for when the data
+	models change.
+	(WrapListPrivate): Added a shadow_type parameter.
+	(gnome_wrap_list_size_request): Implemented.
+	(gnome_wrap_list_size_allocate): Implemented.
+	(gnome_wrap_list_set_shadow_type): New function to set the shadow type.
+	(gnome_wrap_list_destroy): Unparent/destroy the canvas.  Unref the
+	position list model.
+	(gnome_wrap_list_map): Implemented.
+	(gnome_wrap_list_unmap): Implemented.
+	(gnome_wrap_list_draw): Implemented.
+	(gnome_wrap_list_expose): Implemented.
+
+1999-11-16  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-wrap-list.c (bm_compute_layout): New function to compute
+	layout information for block mode.
+	(gnome_wrap_list_init): Provide semi-sane defaults for the item size.
+
 1999-11-12  Federico Mena Quintero  <federico@redhat.com>
 
 	* gnome-wrap-list.c (gnome_wrap_list_forall): Implemented.

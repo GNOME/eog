@@ -82,6 +82,9 @@ int gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist);
 void gnome_wrap_list_set_use_unit_scrolling (GnomeWrapList *wlist, gboolean use_unit_scrolling);
 gboolean gnome_wrap_list_get_use_unit_scrolling (GnomeWrapList *wlist);
 
+void gnome_wrap_list_set_shadow_type (GnomeWrapList *wlist, GtkShadowType shadow_type);
+GtkShadowType gnome_wrap_list_get_shadow_type (GnomeWrapList *wlist);
+
 
 
 END_GNOME_DECLS
