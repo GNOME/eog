@@ -33,6 +33,21 @@ static GnomeAppClass *parent_class;
 
 
 
+/* The list of all open windows */
+static GList *window_list;
+
+/* Returns whether a window contains unsaved data */
+static gboolean
+is_unsaved (Window *window)
+{
+	if (window->mode == WINDOW_MODE_COLLECTION)
+		return FALSE; /* FIXME */
+	else
+		return FALSE;
+}
+
+
+
 /* Menu callbacks */
 
 /* File/Open callback */
@@ -42,6 +57,33 @@ open_cmd (GtkWidget *widget, gpointer data)
 	/* FIXME */
 }
 
+/* Closes a window with confirmation */
+ */
+static void
+try_close (Window *window)
+{
+	GtkWidget *msg;
+
+	if (!is_unsaved (window)) {
+		gtk_widget_destroy (window);
+		return;
+	}
+
+	msg = gnome_
+}
+
+/* Closes a window with confirmation, and exits the main loop if this was the
+ * last window in the list.
+ */
+static void
+close_window (Window *window)
+{
+	try_close (window);
+
+	if (!window_list)
+		gtk_main_quit ();
+}
+
 /* File/Close callback */
 static void
 close_cmd (GtkWidget *widget, gpointer data)
@@ -49,22 +91,17 @@ close_cmd (GtkWidget *widget, gpointer data)
 	Window *window;
 
 	window = WINDOW (data);
-
-	/* FIXME */
-	gtk_widget_destroy (GTK_WIDGET (window));
+	close_window (window);
 }
 
 /* File/Exit callback */
 static void
 exit_cmd (GtkWidget *widget, gpointer data)
 {
-	Window *window;
-
-	window = WINDOW (data);
-
-	/* FIXME */
-
-	gtk_main_quit ();
+	if (close_all ()) {
+		if (!unsaved_windows () || confirm_unsaved_exit ())
+			gtk_main_quit ();
+	}
 }
 
 /* Help/About callback */
@@ -207,14 +244,15 @@ window_destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
-/* delete_event handler for windows.  We prompt the user if he has an unsaved
- * image collection and exit the program if this was the last open window.
- */
+/* delete_event handler for windows */
 static gint
 window_delete (GtkWidget *widget, GdkEventAny *event)
 {
-	/* FIXME */
-	return FALSE;
+	Window *window;
+
+	window = WINDOW (widget);
+	close_window (window);
+	return TRUE;
 }
 
 /**
