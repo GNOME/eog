@@ -5,24 +5,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EOG\n"
-"POT-Creation-Date: 2002-07-27 17:22+0200\n"
+"POT-Creation-Date: 2002-08-17 19:16+0200\n"
 "PO-Revision-Date: 2002-07-27 22:43GMT\n"
-"Last-Translator: Laurent Dhima , Team Gnome-albanian <laurenti@alblinux.net>\n"
+"Last-Translator: Laurent Dhima , Team Gnome-albanian <laurenti@alblinux."
+"net>\n"
 "Language-Team: albanian <Gnome-albanian-perkthyesit@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: collection/GNOME_EOG_Collection.server.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection"
 msgstr "Galeria e imazheve tÃ« EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "Vizualizues Galeria EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "Factory pÃ«r koleksionin e imazheve EOG"
 
@@ -34,7 +35,7 @@ msgstr "Vizualizues Imazheve tÃ« EOG"
 msgid "View many different types of images"
 msgstr "Vizualizo shumÃ« lloj imazhesh"
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:691
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "Imazh EOG"
 
@@ -50,44 +51,108 @@ msgstr "factory vizualizues imazhesh EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imazh EOG embeddable"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Imazh"
+
+#: libeog/image-view.c:1847
 msgid "interpolation type"
 msgstr "interpolim"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1848
 msgid "the type of interpolation to use"
 msgstr "tipi i interpelimit qÃ« do tÃ« pÃ«rdoret"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1854 libeog/image-view.c:1861
 msgid "check type"
 msgstr "kontrollo tipin"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1855
 msgid "the type of chequering to use"
 msgstr ""
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1862
 msgid "the size of chequers to use"
 msgstr ""
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1868
 msgid "dither"
 msgstr "sfumaturÃ«"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1869
 msgid "dither type"
 msgstr "lloji i sfumaturÃ«s"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
+#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+msgid "By Extension"
 msgstr ""
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Preferimet tek Eye of Gnome"
+#: libeog/eog-file-selection.c:30
+msgid "BMP"
+msgstr ""
+
+#: libeog/eog-file-selection.c:31
+msgid "GIF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:32
+msgid "ICO"
+msgstr ""
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
+msgid "JPEG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
+msgid "PNG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:35
+msgid "PNM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:36
+msgid "RAS"
+msgstr ""
+
+#: libeog/eog-file-selection.c:37
+msgid "SVG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:38
+msgid "TGA"
+msgstr ""
+
+#: libeog/eog-file-selection.c:39
+msgid "TIFF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:40
+msgid "XBM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
+msgid "XPM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:207
+msgid "Unsupported file format."
+msgstr ""
+
+#: libeog/eog-file-selection.c:227
+msgid "Determine File Type:"
+msgstr ""
+
+#: libeog/eog-file-selection.c:270
+#, fuzzy
+msgid "Load Image"
+msgstr "Imazh"
+
+#: libeog/eog-file-selection.c:276
+#, fuzzy
+msgid "Save Image"
+msgstr "Hap Imazhin"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -98,86 +163,74 @@ msgid "Cancel"
 msgstr "Anullo"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Ndrysho preferimet"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close"
-msgstr "Mbylle"
-
-#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Mbyll dritaren"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:4
 msgid "Contents"
 msgstr "PÃ«rmbajtja"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:5
 msgid "Help On this application"
 msgstr "NdihmÃ« pÃ«r kÃ«tÃ« program"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:6
+msgid "New"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:216
 msgid "Open"
 msgstr "Hap"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Hap njÃ« file"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Hap njÃ« dritare tÃ« re"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "Hape nÃ« njÃ« dritare tÃ« re"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "Hape nÃ« kÃ«tÃ« dritare"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Dil nga programi"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_Informacione"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "_Mbyll"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Ndrysho"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_File"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_NdihmÃ«"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Dritare e Re"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "_Hap..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "_Preferencat..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "_Dil"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Pamja"
 
@@ -185,23 +238,23 @@ msgstr "_Pamja"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:238
+#: shell/eog-window.c:210
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "translator_credits-Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
+#: shell/eog-window.c:215 shell/eog-window.c:592 shell/main.c:458
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:245
+#: shell/eog-window.c:217
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:246
+#: shell/eog-window.c:218
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Programi i vizualizimit dhe katalogimit tÃ« imazheve tÃ« GNOME."
 
-#: shell/eog-window.c:283
+#: shell/eog-window.c:255
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -210,16 +263,12 @@ msgstr ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:798
-msgid "Open Image"
-msgstr "Hap Imazhin"
-
-#: shell/eog-window.c:1258
+#: shell/eog-window.c:1234
 #, c-format
 msgid "Unable to open %s."
 msgstr "E pamundur hapja e %s."
 
-#: shell/main.c:172
+#: shell/main.c:183
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -230,15 +279,15 @@ msgstr ""
 "njÃ«kohÃ«sisht. DÃ«shironi t'i hapni ato\n"
 "pÃ«rkundrazi nÃ« njÃ« koleksion?"
 
-#: shell/main.c:177
+#: shell/main.c:188
 msgid "Single Windows"
 msgstr "Dritare tÃ« vetme"
 
-#: shell/main.c:178
+#: shell/main.c:189
 msgid "Collection"
 msgstr "Koleksion"
 
-#: shell/main.c:202
+#: shell/main.c:213
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -247,7 +296,7 @@ msgstr ""
 "Jeni duke hapur %i dritare\n"
 "njÃ«kohÃ«sisht. DÃ«shironi tÃ« vazhdoj?"
 
-#: shell/main.c:285
+#: shell/main.c:296
 #, c-format
 msgid ""
 "Could not access %s\n"
@@ -256,26 +305,26 @@ msgstr ""
 "Nuk arrij tÃ« futem tek %s\n"
 "Eye of Gnome nuk Ã«shtÃ« nÃ« gjendje tÃ« shfaqÃ« kÃ«tÃ« file."
 
-#: shell/main.c:289
+#: shell/main.c:299
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
 "access them:\n"
 "%s"
 msgstr ""
-"Files nÃ« vazhdim nuk mund tÃ« shfaqen pasi Eye of Gnome nuk arrin tÃ« "
-"futet nÃ« ta:\n"
+"Files nÃ« vazhdim nuk mund tÃ« shfaqen pasi Eye of Gnome nuk arrin tÃ« futet "
+"nÃ« ta:\n"
 "%s"
 
-#: shell/main.c:461
+#: shell/main.c:470
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "I pamundur fillimi i GnomeVFS!\n"
 
-#: shell/main.c:464
+#: shell/main.c:473
 msgid "Could not initialize Bonobo!\n"
 msgstr "I pamundur fillimi i Bonobo!\n"
 
-#: shell/util.c:48
+#: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nuk arrij tÃ« hap `%s'"
@@ -324,11 +373,11 @@ msgstr "Kontrollo _llojin"
 msgid "Full Screen"
 msgstr "Ekran i PlotÃ«"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Madh"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "MesÃ«m"
 
@@ -360,7 +409,7 @@ msgstr "Stampo imazhin nÃ« stampante"
 msgid "Setup the page settings for your current printer"
 msgstr "Konfiguro faqen pÃ«r stampanten e tanishme"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "VogÃ«l"
 
@@ -417,71 +466,84 @@ msgid "_Save As..."
 msgstr "_ShpÃ«toje Si..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Tiles"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_BardhÃ«"
 
-#: viewer/eog-image-view.c:300
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "I mapundur shpÃ«timi i imazhit si '%s': %s."
 
-#: viewer/eog-image-view.c:351
-msgid "Save As"
-msgstr "ShpÃ«toje Si"
-
-#: viewer/eog-image-view.c:926
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Stampo Imazhin"
 
-#: viewer/eog-image-view.c:934
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Faqe"
 
-#: viewer/eog-image-view.c:1021
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Pamja e parÃ« e Stampimit"
 
-#: viewer/eog-image-view.c:1027
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Stampimi i imazhit dÃ«shtoi"
 
-#: viewer/eog-image-view.c:1843
-msgid "Display"
-msgstr "Ekran"
+#: viewer/eog-image-view.c:2048
+#, fuzzy
+msgid "/Zoom _In"
+msgstr "Zoom _In"
 
-#: viewer/eog-image-view.c:2064
+#: viewer/eog-image-view.c:2050
+#, fuzzy
+msgid "/Zoom _Out"
+msgstr "Zoom _Out"
+
+#: viewer/eog-image-view.c:2052
+#, fuzzy
+msgid "/Zoom _1:1"
+msgstr "Zmadhim _1:1"
+
+#: viewer/eog-image-view.c:2054
+#, fuzzy
+msgid "/Zoom to _Fit"
+msgstr "Zoom to _Fit"
+
+#: viewer/eog-image-view.c:2057
+#, fuzzy
+msgid "/_Close"
+msgstr "_Mbyll"
+
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Interpolim"
 
-#: viewer/eog-image-view.c:2067
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "SfumaturÃ«"
 
-#: viewer/eog-image-view.c:2070
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Kontrollo llojin"
 
-#: viewer/eog-image-view.c:2073
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Kontrollo MadhÃ«sinÃ«"
 
-#: viewer/eog-image-view.c:2076
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "GjÃ«rÃ«sia e imazhit"
 
-#: viewer/eog-image-view.c:2079
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "LartÃ«sia e imazhit"
 
-#: viewer/eog-image-view.c:2082
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Titulli i Dritares"
 
-#: viewer/eog-image-view.c:2085
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Teksti i Statusbar"
 
@@ -580,11 +642,6 @@ msgstr "Djathtas:"
 msgid "Bottom:"
 msgstr "PoshtÃ«:"
 
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Imazh"
-
 #. Scale
 #: viewer/eog-print-setup.c:697
 msgid "Scale"
@@ -662,71 +719,74 @@ msgstr "PoshtÃ«, pastaj djathtas"
 msgid "Right, then down"
 msgstr "Djatthtas, pastaj poshtÃ«"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Interpolim Nearest Neighbour"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Preferimet tek Eye of Gnome"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr ""
+#~ msgid "Change preferences"
+#~ msgstr "Ndrysho preferimet"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Interpolim Bilinear"
+#~ msgid "Close"
+#~ msgstr "Mbylle"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Interpolim Hiperbolik"
+#~ msgid "_Edit"
+#~ msgstr "_Ndrysho"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Pa sfumaturÃ«"
+#~ msgid "_Preferences..."
+#~ msgstr "_Preferencat..."
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "SfumaturÃ« normale (psudocolor)"
+#~ msgid "_Tiles"
+#~ msgstr "_Tiles"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Maksimumi i sfumaturÃ«s (shumÃ« ngjyra)"
+#~ msgid "Save As"
+#~ msgstr "ShpÃ«toje Si"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "ErrÃ«t"
+#~ msgid "Display"
+#~ msgstr "Ekran"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Gjysmatone"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Interpolim Nearest Neighbour"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "QartÃ«si"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Interpolim Bilinear"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "ZezÃ«"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Interpolim Hiperbolik"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Gri"
+#~ msgid "No dithering"
+#~ msgstr "Pa sfumaturÃ«"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "BardhÃ«"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "SfumaturÃ« normale (psudocolor)"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Interpolim:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Maksimumi i sfumaturÃ«s (shumÃ« ngjyra)"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "_SfumaturÃ«:"
+#~ msgid "Dark"
+#~ msgstr "ErrÃ«t"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "Kontrollo _tipin:"
+#~ msgid "Midtone"
+#~ msgstr "Gjysmatone"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "Kontrollo _madhÃ«sinÃ«:"
+#~ msgid "Light"
+#~ msgstr "QartÃ«si"
 
+#~ msgid "Black"
+#~ msgstr "ZezÃ«"
+
+#~ msgid "Gray"
+#~ msgstr "Gri"
+
+#~ msgid "White"
+#~ msgstr "BardhÃ«"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Interpolim:"
+
+#~ msgid "_Dither:"
+#~ msgstr "_SfumaturÃ«:"
+
+#~ msgid "Check _type:"
+#~ msgstr "Kontrollo _tipin:"
+
+#~ msgid "Check _size:"
+#~ msgstr "Kontrollo _madhÃ«sinÃ«:"
