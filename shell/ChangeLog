@@ -1,3 +1,10 @@
+2001-03-21  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* main.c (main): init_with_popt_table in order to be able to load 
+	given files. If we are given files (or directories), load each 
+	into a separate window.
+	(create_app): If we are given a parameter (== filename), load it.
+
 2001-03-18  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-shell-ui.xml: Added placeholder for printing operations.

@@ -6,7 +6,11 @@
 #include "eog-window.h"
 #include "../config.h"
 
-static guint
+static const gchar **startup_files;
+
+poptContext ctx;
+
+static gboolean
 create_app (gpointer data)
 {
 	GtkWidget *win;
@@ -14,6 +18,9 @@ create_app (gpointer data)
 	win = eog_window_new ();
 
 	gtk_widget_show (win);
+
+	if (data)
+		eog_window_open (EOG_WINDOW (win), data);
 
 	return FALSE;
 }
@@ -24,9 +31,11 @@ main (int argc, char **argv)
 	CORBA_Environment ev;
 	CORBA_ORB orb;
 	GError *error;
+	gint i;
 
-	gnome_init ("Eye of Gnome", VERSION,
-		    argc, argv);
+	gnome_init_with_popt_table ("Eye of Gnome", VERSION,
+		    argc, argv, NULL, 0, &ctx);
+
 	glade_gnome_init ();
 
 	CORBA_exception_init (&ev);
@@ -44,7 +53,24 @@ main (int argc, char **argv)
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));
 
-	gtk_idle_add ((GtkFunction) create_app, NULL);
+	if (ctx) {
+		startup_files = poptGetArgs (ctx);
+		if (startup_files) {
+
+			/* Load each file into a separate window */
+			for (i = 0; startup_files [i]; i++)
+				gtk_idle_add (create_app,
+					      (gchar*) startup_files [i]);
+			}
+		else {
+
+			/* Create an empty window */
+			gtk_idle_add (create_app, NULL);
+		}
+
+		poptFreeContext (ctx);
+	} else
+		gtk_idle_add (create_app, NULL);
 
 	bonobo_main ();
 
