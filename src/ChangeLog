@@ -1,3 +1,12 @@
+2000-07-16  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (PAINT_UTA2_RECT_WIDTH): Have separate sets of
+	constants for the sizes of the glommed rectangles.  For now we set
+	both the size for uta1 and uta2 to be 128x128.  This "looks"
+	better when repainting than 256x64, I think.  Is there a special
+	reason to use 256x64, as the canvas does?  (Photoshop seems to use
+	128x128 most of the time).
+
 2000-07-14  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (image_view_button_press): Make the scroll wheel

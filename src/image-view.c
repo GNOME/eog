@@ -20,11 +20,12 @@
  */
 
 #include <config.h>
-#include <gconf/gconf-client.h>
 #include <math.h>
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
+#include <gconf/gconf-client.h>
 #include "cursors.h"
 #include "image-view.h"
 #include "uta.h"
@@ -42,8 +43,11 @@
 
 /* Maximum size of repaint rectangles */
 
-#define PAINT_RECT_WIDTH 256
-#define PAINT_RECT_HEIGHT 64
+#define PAINT_UTA1_RECT_WIDTH 128
+#define PAINT_UTA1_RECT_HEIGHT 128
+
+#define PAINT_UTA2_RECT_WIDTH 128
+#define PAINT_UTA2_RECT_HEIGHT 128
 
 /* Scroll step increment */
 
@@ -764,7 +768,7 @@ paint_iteration_idle (gpointer data)
 	g_assert (priv->uta1 != NULL || priv->uta2 != NULL);
 
 	if (priv->uta1) {
-		pull_rectangle (priv->uta1, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
+		pull_rectangle (priv->uta1, &rect, PAINT_UTA1_RECT_WIDTH, PAINT_UTA1_RECT_HEIGHT);
 
 		if (art_irect_empty (&rect)) {
 			art_uta_free (priv->uta1);
@@ -785,7 +789,7 @@ paint_iteration_idle (gpointer data)
  uta2:
 
 	if (priv->uta2) {
-		pull_rectangle (priv->uta2, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
+		pull_rectangle (priv->uta2, &rect, PAINT_UTA2_RECT_WIDTH, PAINT_UTA2_RECT_HEIGHT);
 
 		if (art_irect_empty (&rect)) {
 			art_uta_free (priv->uta2);
