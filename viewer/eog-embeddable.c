@@ -22,17 +22,7 @@ struct _EogEmbeddablePrivate {
 	EogImage           *image;
 };
 
-POA_Bonobo_Embeddable__vepv eog_embeddable_vepv;
-
 static BonoboEmbeddableClass *eog_embeddable_parent_class;
-
-static void
-init_eog_embeddable_corba_class (void)
-{
-	/* Setup the vector of epvs */
-	eog_embeddable_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	eog_embeddable_vepv.Bonobo_Embeddable_epv = bonobo_embeddable_get_epv ();
-}
 
 static void
 eog_embeddable_destroy (GtkObject *object)
@@ -76,8 +66,6 @@ eog_embeddable_class_init (EogEmbeddable *klass)
 
 	object_class->destroy  = eog_embeddable_destroy;
 	object_class->finalize = eog_embeddable_finalize;
-
-	init_eog_embeddable_corba_class ();
 }
 
 static void
@@ -107,27 +95,6 @@ eog_embeddable_get_type (void)
 	}
 
 	return type;
-}
-
-Bonobo_Embeddable
-eog_embeddable_corba_object_create (BonoboObject *object)
-{
-	POA_Bonobo_Embeddable *servant;
-	CORBA_Environment ev;
-	
-	servant = (POA_Bonobo_Embeddable *) g_new0 (BonoboObjectServant, 1);
-	servant->vepv = &eog_embeddable_vepv;
-
-	CORBA_exception_init (&ev);
-	POA_Bonobo_Embeddable__init ((PortableServer_Servant) servant, &ev);
-	if (ev._major != CORBA_NO_EXCEPTION){
-		g_free (servant);
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
-
-	CORBA_exception_free (&ev);
-	return (Bonobo_Embeddable) bonobo_object_activate_servant (object, servant);
 }
 
 static BonoboView *
@@ -191,7 +158,6 @@ render_fn (GnomePrintContext         *ctx,
 
 EogEmbeddable *
 eog_embeddable_construct (EogEmbeddable *embeddable,
-			  Bonobo_Embeddable corba_object,
 			  EogImage *image)
 {
 	BonoboPrint *print;
@@ -200,7 +166,6 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 	g_return_val_if_fail (embeddable != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (EOG_IS_EMBEDDABLE (embeddable), NULL);
-	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
 
 	embeddable->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
@@ -215,25 +180,18 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 	return EOG_EMBEDDABLE (
 		bonobo_embeddable_construct (
 			BONOBO_EMBEDDABLE (embeddable),
-			corba_object, eog_embeddable_view_factory, NULL));
+			eog_embeddable_view_factory, NULL));
 }
 
 EogEmbeddable *
 eog_embeddable_new (EogImage *image)
 {
 	EogEmbeddable *embeddable;
-	Bonobo_Embeddable corba_object;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	embeddable = gtk_type_new (eog_embeddable_get_type ());
 
-	corba_object = eog_embeddable_corba_object_create (BONOBO_OBJECT (embeddable));
-	if (corba_object == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (embeddable));
-		return NULL;
-	}
-	
-	return eog_embeddable_construct (embeddable, corba_object, image);
+	return eog_embeddable_construct (embeddable, image);
 }
