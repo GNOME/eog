@@ -5,34 +5,31 @@
 # Kjartan Maraas  <kmaraas@gnome.org>, 2001.
 # Roy-Magne Mo <rmo@sunnmore.net>, 2002.
 # Åsmund Skjæveland <aasmunds@fys.uio.no>, 2003.
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: nn\n"
+"Project-Id-Version: Eye of GNOME\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-01 14:32+0200\n"
-"PO-Revision-Date: 2003-10-01 15:46+0200\n"
+"POT-Creation-Date: 2003-11-02 18:52+0100\n"
+"PO-Revision-Date: 2003-11-02 22:20+0100\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
-"Language-Team: Norwegian (nynorsk) <i18n-nn@lister.ping.uio.no>\n"
+"Language-Team: Norwegian/Nynorsk <nn@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
-#, fuzzy
 msgid "EOG Image Collection Viewer"
-msgstr "EOG Biletevisar"
+msgstr "EOG Framsyning av biletesamlingar"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
-#, fuzzy
 msgid "EOG Image collection view factory"
-msgstr "EOG-biletevisarfabrikk"
+msgstr "EOG-biletesamlingvisarfabrikk"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
-#, fuzzy
 msgid "Image Collection"
-msgstr "Samling"
+msgstr "Samling av bilete"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -68,11 +65,11 @@ msgstr "Roter med _klokka"
 
 #: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Counte_r Clockwise"
-msgstr "Roter mot k_lokka"
+msgstr "Roter _mot klokka"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
-msgstr ""
+msgstr "Lysbileteframsyning"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
 #: viewer/eog-image-view-ui.xml.h:14
@@ -93,34 +90,33 @@ msgstr "_Angra"
 msgid "_View"
 msgstr "_Vis"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:305
 msgid "Cancel saving"
 msgstr "Avbryt lagring"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:308
 msgid "Saving finished"
 msgstr "Lagring ferdig"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:771
 msgid "Move to Trash"
 msgstr "Flytt til papirkorga"
 
-#: collection/eog-collection-view.c:802
-#, fuzzy
+#: collection/eog-collection-view.c:816
 msgid "Collection View"
-msgstr ""
+msgstr "Samlingframsyning"
 
-#: collection/eog-collection-view.c:1281 viewer/eog-image-view.c:1342
+#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
 msgid "Window Title"
 msgstr "Vindaugstittel"
 
-#: collection/eog-collection-view.c:1284
+#: collection/eog-collection-view.c:1277
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1287 viewer/eog-image-view.c:1354
+#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
 msgid "Progress of Image Loading"
-msgstr ""
+msgstr "Framdrift i biletelastinga"
 
 #: collection/eog-save-dialog.c:99
 msgid "Saving image"
@@ -139,115 +135,154 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolering av bilete</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
-msgstr "<b>Zoom i bilete</b>"
+msgstr "<b>Zooming av bilete</b>"
+
+#: eog.glade.h:4
+msgid "<b>Sequence</b>"
+msgstr "<b>Bileteframsyning</b>"
 
 #: eog.glade.h:5
-msgid "<b>Sequence</b>"
-msgstr ""
-
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
-msgstr ""
+msgid "<b>Transparent Parts</b>"
+msgstr "<b>Gjennomskinlege delar</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Som bakgrunn"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr "_Tillat at bileta er forstørra når dei vert viste fyrste gong"
 
 #: eog.glade.h:8
+msgid "As _background"
+msgstr "Som _bakgrunn"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "Som _rutemønster"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Som eigendefinert f_arge"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Farge på gjennomsiktige område"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "Ikkje bruk større zoom enn 100%"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Eye of Gnome brukarval"
 
+#: eog.glade.h:13
+msgid "Image _View"
+msgstr "Bilete_visar"
+
 #: eog.glade.h:14
-#, fuzzy
-msgid "Image View"
-msgstr "Biletevisar"
+msgid "Show _next image automatically after:"
+msgstr "Vis _neste bilete automatisk etter:"
 
 #: eog.glade.h:15
-msgid "Loop sequence"
-msgstr ""
+msgid "Sli_de Show"
+msgstr "_Lysbileteframsyning"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
-msgstr ""
+msgid "_Interpolate image on zoom"
+msgstr "_Interpoler bilete når det er forstørra eller forminska"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+#: eog.glade.h:17
+msgid "_Loop sequence"
+msgstr "Vis bilete i _løkke"
 
-#: eog.glade.h:20
-msgid "sec"
-msgstr "sek"
+#: eog.glade.h:18
+msgid "seconds"
+msgstr "sekund"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"Ein verdi større enn 0 er kor mange sekund eit bilete held seg på skjermen "
+"før det neste vert vist automatisk. Null slår av automatisk bytte av bilete."
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Tillat at biletet er forstørra fyrste gong det vert vist"
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr "Pause i sekund før neste bilete vert vist"
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
+"Avgjer korleis det skal visast at ein del av eit bilete er gjennomskinleg. "
+"Gyldige verdiar er <i>CHECK_PATTERN</i>, <i>COLOR</i> og </i>NONE</i>. "
+"Dersom <i>COLOR</i> er valt, "
+"vil nøkkelen <b>trans_color</b> avgjera kva for farge som vert brukt."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-
-#: eog.schemas.in.h:3
-#, fuzzy
-msgid "Interpolate Image"
-msgstr "Interpolering"
-
-#: eog.schemas.in.h:4
-#, fuzzy
-msgid "Open images in a new window"
-msgstr "Opne i eit vindauge"
-
-#: eog.schemas.in.h:5
-msgid "Transparency color"
-msgstr ""
-
-#: eog.schemas.in.h:6
-msgid "Transparency indicator"
-msgstr ""
+"Dersom nøkkelen <b>transparency</b> har verdien <i>COLOR</i>, vil denne "
+"nøkkelen styra kva for ein farge som vert brukt til å markera gjennomskinlege "
+"delar av eit bilete."
 
 #: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr "Dersom denne er slått av, vert ikkje små bilete strekte ut til å passa til vindauget "
+"når dei vert lasta inn."
+
+#: eog.schemas.in.h:8
+msgid "Interpolate Image"
+msgstr "Interpoler bilete"
+
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr "Vis bileta i ei løkke i staden for å stoppa når siste bilete er vist"
+
+#: eog.schemas.in.h:10
+msgid "Open images in a new window"
+msgstr "Opna bilete i nye vindauge"
+
+#: eog.schemas.in.h:11
+msgid "Transparency color"
+msgstr "Farge som markerer gjennomskining."
+
+#: eog.schemas.in.h:12
+msgid "Transparency indicator"
+msgstr "Indikator på gjennomskin"
+
+#: eog.schemas.in.h:13
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Om bilete skal opnast i nye vindauge i staden for å erstatta biletet i "
+"det aktive vindauget."
+
+#: eog.schemas.in.h:14
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr "Om bileta skal visast i ei uendeleg løkke eller ikkje"
+
+#: eog.schemas.in.h:15
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
+"Om biletet skal interpolerast når det er forstørra eller forminska. Dette "
+"gjerat biletet ser betre ut, men det går litt tregare å visa enn eit ikkje-"
+"interpolertbilete."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -271,7 +306,7 @@ msgstr "Bilete"
 
 #: libeog/eog-file-selection.c:74
 msgid "By Extension"
-msgstr ""
+msgstr "Frå filetternamnet"
 
 #: libeog/eog-file-selection.c:267
 msgid "Unsupported image file format for saving."
@@ -279,7 +314,7 @@ msgstr "Lagring i dette filformatet er ikkje støtta."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
-msgstr ""
+msgstr "Avgjer filtype:"
 
 #: libeog/eog-file-selection.c:333
 msgid "Load Image"
@@ -293,35 +328,33 @@ msgstr "Lagra bilete"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kan ikkje setja av minne til å lasta JPEG-bilete"
 
-#: libeog/eog-image.c:1341
+#: libeog/eog-image.c:1215
 msgid "No image loaded."
 msgstr "Ingen bilete lasta."
 
-#: libeog/eog-image.c:1350
+#: libeog/eog-image.c:1224
 msgid "Images can only be saved as local files."
 msgstr "Bilete kan berre lagrast som lokale filer."
 
-#: libeog/eog-image.c:1385
+#: libeog/eog-image.c:1259
 msgid "Unsupported image type for saving."
-msgstr ""
+msgstr "Lagring av denne filtypen er ikkje støtta."
 
 #: libeog/eog-info-view.c:84
 msgid "Attribute"
-msgstr ""
+msgstr "Eigenskap"
 
 #: libeog/eog-info-view.c:92
 msgid "Value"
 msgstr "Verdi"
 
 #: libeog/eog-info-view.c:155
-#, fuzzy
 msgid "Width"
 msgstr "Biletebreidde"
 
 #: libeog/eog-info-view.c:169
-#, fuzzy
 msgid "Height"
-msgstr "Lys"
+msgstr "Høgd"
 
 #: libeog/eog-info-view.c:186
 msgid "Filename"
@@ -332,8 +365,7 @@ msgid "Page"
 msgstr "Side"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:377
-#, fuzzy
+#: viewer/eog-image-view.c:378
 msgid "Preview"
 msgstr "Førehandsvising av utskrift"
 
@@ -353,33 +385,31 @@ msgstr "prosent av opprinneleg storleik"
 
 #: libgpi/gpi-dialog.glade.h:3
 msgid "Adjust to "
-msgstr "Justér til"
+msgstr "Juster til"
 
 #: libgpi/gpi-dialog.glade.h:4
 msgid "Center"
 msgstr "Sentrert"
 
 #: libgpi/gpi-dialog.glade.h:5
-#, fuzzy
 msgid "Cutting help"
 msgstr "Hjelp om utskriftsklipping"
 
 #: libgpi/gpi-dialog.glade.h:6
 msgid "Down, then right"
-msgstr "Ned og mot høgre"
+msgstr "Nedover og mot høgre"
 
 #: libgpi/gpi-dialog.glade.h:7
 msgid "Fit to page"
-msgstr "Tilpass til side"
+msgstr "Tilpass til sida"
 
 #: libgpi/gpi-dialog.glade.h:8
 msgid "Horizontally"
-msgstr "Horisontalt"
+msgstr "Vassrett"
 
 #: libgpi/gpi-dialog.glade.h:9
-#, fuzzy
 msgid "Horizontally by "
-msgstr "Horisontalt"
+msgstr "Vassrett med"
 
 #: libgpi/gpi-dialog.glade.h:10
 msgid "Margins"
@@ -387,54 +417,51 @@ msgstr "Margar"
 
 #: libgpi/gpi-dialog.glade.h:11
 msgid "Ordering help"
-msgstr ""
+msgstr "Hjelp om overlapping"
 
 #: libgpi/gpi-dialog.glade.h:12
-#, fuzzy
 msgid "Overlap"
 msgstr "Overlapping"
 
 #: libgpi/gpi-dialog.glade.h:13
-#, fuzzy
 msgid "Overlap help"
 msgstr "Hjelp om overlapp av utskrift"
 
 #: libgpi/gpi-dialog.glade.h:15
 msgid "Page order"
-msgstr "Rekkjefølgje for sider"
+msgstr "Rekkjefølgje på sidene"
 
 #: libgpi/gpi-dialog.glade.h:18
 msgid "Right, then down"
-msgstr "Høgre og ned"
+msgstr "Høgre og nedover"
 
 #: libgpi/gpi-dialog.glade.h:19
 msgid "Scale"
-msgstr "Skalert"
+msgstr "Skalering"
 
 #: libgpi/gpi-dialog.glade.h:20
 msgid "Show"
-msgstr ""
+msgstr "Vis"
 
 #: libgpi/gpi-dialog.glade.h:21
 msgid "Vertically"
-msgstr "Vertikalt"
+msgstr "Loddrett"
 
 #: libgpi/gpi-dialog.glade.h:22
-#, fuzzy
 msgid "Vertically by "
-msgstr "Vertikalt"
+msgstr "Loddrett med"
 
 #: libgpi/gpi-dialog.glade.h:23
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: libgpi/gpi-mgr.c:79
 msgid "The name of the file or data to print"
-msgstr ""
+msgstr "Namn på fil eller data som skal skrivast ut"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -449,13 +476,12 @@ msgid "Close window"
 msgstr "Lukk vindauge"
 
 #: shell/eog-shell-ui.xml.h:4
-#, fuzzy
 msgid "Help On this application"
-msgstr "Om dette programmet"
+msgstr "Hjelp om dette programmet"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: shell/eog-shell-ui.xml.h:6
 msgid "Open"
@@ -478,32 +504,28 @@ msgid "Open in this window"
 msgstr "Opne i dette vindauget"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
 msgstr "_Oppsett"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "Brukarval for EoG-komponentar"
 
 #: shell/eog-shell-ui.xml.h:13
-#, fuzzy
 msgid "Quit the program"
 msgstr "Avslutt programmet"
 
 #: shell/eog-shell-ui.xml.h:14
-#, fuzzy
 msgid "_About"
-msgstr "_Om ..."
+msgstr "_Om"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "_Lukk"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "Hjelpeprogram"
+msgstr "_Innhald"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
@@ -514,16 +536,14 @@ msgid "_Help"
 msgstr "_Hjelp"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "_Vis"
+msgstr "_Ny"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
 msgstr "_Opne ..."
 
 #: shell/eog-shell-ui.xml.h:22
-#, fuzzy
 msgid "_Quit"
 msgstr "_Avslutt"
 
@@ -533,17 +553,16 @@ msgstr "_Avslutt"
 #.
 #: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "Åsmund Skjæveland <aasmunds@fys.uio.no>"
 
 #: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:508
+#: shell/eog-window.c:869 shell/main.c:512
 msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:274
-#, fuzzy
 msgid "The GNOME image viewing and cataloging program."
-msgstr "Gnome biletevisar og katalogprogram"
+msgstr "Biletevisar og katalogprogram for GNOME"
 
 #: shell/eog-window.c:311
 #, c-format
@@ -551,34 +570,33 @@ msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
+"Kan ikkje visa hjelp for Eye of GNOME.\n"
+"%s"
 
-#: shell/main.c:225
-#, fuzzy, c-format
+#: shell/main.c:229
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Du er i ferd med å opne %i vindauge\n"
-"samstundes. Vil du opne dei i ei samling\n"
+"Du er i ferd med å opna %i vindauge samstundes. Vil du opna dei i ei samling "
 "i staden?"
 
-#: shell/main.c:229
-#, fuzzy
-msgid "Open multiple single windows?"
-msgstr "Opne i eit vindauge"
-
 #: shell/main.c:233
+msgid "Open multiple single windows?"
+msgstr "Opna fleire enkle vindauge?"
+
+#: shell/main.c:237
 msgid "Single Windows"
 msgstr "Enkle vindauge"
 
-#: shell/main.c:235
+#: shell/main.c:239
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:308
-#, fuzzy
+#: shell/main.c:312
 msgid "Could not find files"
-msgstr "Klarte ikkje å opne «%s»"
+msgstr "Kan ikkje finna filene"
 
 #: shell/util.c:52
 #, c-format
@@ -587,7 +605,7 @@ msgstr "Klarte ikkje å opne «%s»"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "Tilpass til _vindauget"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -599,7 +617,7 @@ msgstr "Inn"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "Vanleg storleik"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
@@ -611,10 +629,9 @@ msgstr "For_minsk"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "V_anleg storleik"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
 msgstr "For_størr"
 
@@ -623,14 +640,12 @@ msgid "Previews the image to be printed"
 msgstr "Førehandsvis biletet som skal skrivast ut"
 
 #: viewer/eog-image-view-ui.xml.h:4
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "Førehandsvising av utskrift"
+msgstr "_Førehandsvising av utskrift"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Set_up"
-msgstr "Skrivaroppsett"
+msgstr "_Skrivaroppsett"
 
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
@@ -638,107 +653,119 @@ msgstr "Utskrift til skrivar"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Left"
-msgstr ""
+msgstr "Roter mot venstre"
 
 #: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Right"
-msgstr ""
+msgstr "Roter mot høgre"
 
 #: viewer/eog-image-view-ui.xml.h:12
-#, fuzzy
 msgid "Save _As..."
-msgstr "Lagre som"
+msgstr "L_agra som ..."
 
 #: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Sett opp sideinnstillingar for aktiv skrivar"
 
 #: viewer/eog-image-view-ui.xml.h:15
-#, fuzzy
 msgid "_Full Screen"
-msgstr "Fullskjerm"
+msgstr "_Fullskjerm"
 
 #: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
 msgid "_Print..."
-msgstr "_Skriv ut"
+msgstr "_Skriv ut ..."
 
-#: viewer/eog-image-view.c:812
+#. [image width] x [image height] pixel  [zoom in percent]
+#: viewer/eog-image-view.c:518
+#, c-format
+msgid "%i x %i pixel    %i%%"
+msgstr "%i × %i pikslar – %i %%"
+
+#: viewer/eog-image-view.c:808
 msgid "/Rotate C_lockwise"
-msgstr ""
+msgstr "/Roter med k_lokka"
 
-#: viewer/eog-image-view.c:814
+#: viewer/eog-image-view.c:810
 msgid "/Rotate Counte_r Clockwise"
-msgstr ""
+msgstr "Rote_r mot klokka"
+
+#: viewer/eog-image-view.c:813
+msgid "/_Zoom In"
+msgstr "/For_størr"
+
+#: viewer/eog-image-view.c:815
+msgid "/Zoom _Out"
+msgstr "/For_minsk"
 
 #: viewer/eog-image-view.c:817
-#, fuzzy
-msgid "/_Zoom In"
-msgstr "For_størr"
+msgid "/_Normal Size"
+msgstr "/V_anleg storleik"
 
 #: viewer/eog-image-view.c:819
-#, fuzzy
-msgid "/Zoom _Out"
-msgstr "For_minsk"
-
-#: viewer/eog-image-view.c:821
-msgid "/_Normal Size"
-msgstr ""
-
-#: viewer/eog-image-view.c:823
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "_Tilpass visning"
+msgstr "/_Tilpass til vindauget"
 
-#: viewer/eog-image-view.c:826
-#, fuzzy
+#: viewer/eog-image-view.c:822
 msgid "/_Close"
-msgstr "_Lukk"
+msgstr "/_Lukk"
 
-#: viewer/eog-image-view.c:989
-#, fuzzy, c-format
+#: viewer/eog-image-view.c:985
+#, c-format
 msgid "Loading of image %s failed."
-msgstr "Utskrift mislukkast"
+msgstr "Lasting av biletet «%s» feila."
 
-#: viewer/eog-image-view.c:996
-#, fuzzy, c-format
+#: viewer/eog-image-view.c:992
+#, c-format
 msgid ""
 "Loading of image %s failed.\n"
 "Reason: %s."
-msgstr "Utskrift mislukkast"
+msgstr ""
+"Lasting av biletet «%s» feila.\n"
+"Årsak: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1005
+#: viewer/eog-image-view.c:1001
 msgid "Loading failed"
-msgstr ""
+msgstr "Lasting feila"
+
+#: viewer/eog-image-view.c:1084
+msgid "Image successfully saved"
+msgstr "Lagring vellukka"
 
 #: viewer/eog-image-view.c:1088
-msgid "Image successfully saved"
-msgstr ""
-
-#: viewer/eog-image-view.c:1092
 msgid "Image saving failed"
-msgstr ""
+msgstr "Lagring feila"
 
-#: viewer/eog-image-view.c:1336
+#: viewer/eog-image-view.c:1332
 msgid "Image Width"
 msgstr "Biletebreidde"
 
-#: viewer/eog-image-view.c:1339
+#: viewer/eog-image-view.c:1335
 msgid "Image Height"
 msgstr "Biletehøgde"
 
-#: viewer/eog-image-view.c:1345
+#: viewer/eog-image-view.c:1341
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image-view.c:1348
+#: viewer/eog-image-view.c:1344
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Ynskja breidde på vindauget"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1347
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Ynskja høgde på vindauget"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "Ikkje bruk større zoom enn 100%"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr ""
+#~ "_Interpoler bilete når forstørra eller forminska (betre kvalitet, men går "
+#~ "tregare)"
 
 #~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 #~ msgstr "Opphavsrett © 2000-2002 The Free Software Foundation"
@@ -1071,4 +1098,3 @@ msgstr ""
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye Of Gnome"
-
