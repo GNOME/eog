@@ -123,6 +123,7 @@ static void gtk_scroll_frame_draw (GtkWidget *widget, GdkRectangle *area);
 static void gtk_scroll_frame_size_request (GtkWidget *widget, GtkRequisition *requisition);
 static void gtk_scroll_frame_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 static gint gtk_scroll_frame_expose (GtkWidget *widget, GdkEventExpose *event);
+static gint gtk_scroll_frame_button_press (GtkWidget *widget, GdkEventButton *event);
 
 static void gtk_scroll_frame_add (GtkContainer *container, GtkWidget *widget);
 static void gtk_scroll_frame_remove (GtkContainer *container, GtkWidget *widget);
@@ -218,7 +219,8 @@ gtk_scroll_frame_class_init (GtkScrollFrameClass *class)
 	widget_class->size_request = gtk_scroll_frame_size_request;
 	widget_class->size_allocate = gtk_scroll_frame_size_allocate;
 	widget_class->expose_event = gtk_scroll_frame_expose;
-
+	widget_class->button_press_event = gtk_scroll_frame_button_press;
+	
 	container_class->add = gtk_scroll_frame_add;
 	container_class->remove = gtk_scroll_frame_remove;
 	container_class->forall = gtk_scroll_frame_forall;
@@ -771,6 +773,37 @@ gtk_scroll_frame_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_widget_size_allocate (priv->vsb, &child_allocation);
 	} else if (GTK_WIDGET_VISIBLE (priv->vsb))
 		gtk_widget_hide (priv->vsb);
+}
+
+/* Button press handler for the scroll framw diget */
+static gint
+gtk_scroll_frame_button_press (GtkWidget *widget, GdkEventButton *event)
+{
+	g_return_val_if_fail (widget != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_SCROLL_FRAME (widget), FALSE);
+	g_return_val_if_fail (event != NULL, FALSE);
+
+	/* This is to handle mouse wheel scrolling */
+	if (event->button == 4 || event->button == 5) {
+		GtkAdjustment *adj;
+		gfloat new_value;
+
+		gtk_object_get (GTK_OBJECT (widget),
+				(event->state & GDK_SHIFT_MASK) ?
+				 "hadjustment" : "vadjustment", 
+				 &adj,
+				 NULL);
+
+		new_value = adj->value + ((event->button == 4) ? 
+					  -adj->page_increment / 2: 
+					  adj->page_increment / 2);
+		new_value = CLAMP (new_value, adj->lower, adj->upper - adj->page_size);
+		gtk_adjustment_set_value (adj, new_value);
+
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 /* Expose handler for the scroll frame widget */
