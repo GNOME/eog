@@ -1,323 +1,789 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# Tristan Tarrant <ttarrant@etnoteam.it>
+# Italian translation for the Eye Of Gnome
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Christopher R. Gabriel <cgabriel@pluto.linux.it>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: EOG\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2000-07-24 22:39+02:00\n"
+"POT-Creation-Date: 2001-06-17 19:33+0200\n"
+"PO-Revision-Date: 2001-06-18 01:23+02:00\n"
 "Last-Translator: Christopher R. Gabriel <cgabriel@pluto.linux.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
-msgstr "Preferenze"
+#: collection/eog-collection-control.c:161
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr ""
 
-#: src/tb-image.c:33
-msgid "Open"
-msgstr "Apri"
+#: collection/eog-collection-model.c:435 collection/eog-collection-model.c:439
+#: collection/eog-collection-model.c:477 collection/eog-collection-model.c:481
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr "Impossibile gestire URI: %s"
 
-#: src/tb-image.c:33 src/window.c:181
-msgid "Open an image file"
-msgstr "Apri un'immagine"
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr "Verticale"
 
-#: src/tb-image.c:35
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr "Orizzontale"
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr "Rettangolo"
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr "Colore sfondo galleria:"
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr "Colore sfondo:"
+
+#: collection/eog-collection-view.c:307
+msgid "Collection View"
+msgstr "Vista Galleria"
+
+#: collection/eog-collection-view.c:385
+msgid "View"
+msgstr "Vista"
+
+#: collection/eog-collection-view.c:668 viewer/eog-image-view.c:1734
+msgid "Window Title"
+msgstr "Titolo finestra"
+
+#: collection/eog-collection-view.c:671
+msgid "Status Text"
+msgstr "Testo di stato"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+msgid "EOG Image Collection"
+msgstr "Galleria di immagini di EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Visualizzatore Galleria EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr ""
+
+#: collection/main.c:94
+msgid "I could not initialize GnomeVFS!\n"
+msgstr "Impossibile inizializzare GnomeVFS!\n"
+
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "Impossibile inizializzare Bonobo"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:190
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Visualizzatore Immagini"
+
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
+#: viewer/eog-image-view.c:442
+msgid "EOG Image"
+msgstr "Immagine EOG"
+
+#: libeog/GNOME_EOG.oaf.in.h:2 viewer/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "Visualizzatore Immagini EOG"
+
+#: libeog/GNOME_EOG.oaf.in.h:3 viewer/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr ""
+
+#: libeog/GNOME_EOG.oaf.in.h:4 viewer/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr "Informazioni su questa applicazione"
+
+#: shell/eog-shell-ui.xml.h:2
+msgid "Change preferences"
+msgstr "Cambia impostazioni"
+
+#: shell/eog-shell-ui.xml.h:3
 msgid "Close"
 msgstr "Chiudi"
 
-#: src/tb-image.c:35 src/window.c:186
-msgid "Close the current window"
-msgstr "Chiudi la finestra corrente"
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close window"
+msgstr "Chiudi finestra"
 
-#: src/tb-image.c:43
-msgid "In"
-msgstr "Ingrandisci"
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr "_Esci"
 
-#: src/tb-image.c:44
-msgid "Out"
-msgstr "Riduci"
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr "Esci dal programma"
 
-#: src/tb-image.c:45
-msgid "1:1"
-msgstr "1:1"
+#: shell/eog-shell-ui.xml.h:7
+msgid "Open"
+msgstr "Apri"
 
-#: src/tb-image.c:46
-msgid "Fit"
-msgstr "Riempi"
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open a file"
+msgstr "Apri un file"
 
-#: src/util.c:47
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a new window"
+msgstr "Apri in nuova finestra"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr "Informazioni..."
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "_Close"
+msgstr "_Chiudi"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr "_File"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr "_Aiuto"
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_New Window"
+msgstr "_Nuova finestra"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_Open..."
+msgstr "_Apri..."
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Preferences"
+msgstr "_Preferenze"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr "_Impostazioni"
+
+#: shell/eog-window.c:192
+msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
+
+#: shell/eog-window.c:194
+msgid "The GNOME image viewing and cataloging program"
+msgstr "L'applicazione di visualizzazione e catalogazione di immagini di GNOME"
+
+#: shell/eog-window.c:487
+msgid "Eye Of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:575
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr "Impossibile trovare eog-shell-ui.xml.\n"
+
+#: shell/eog-window.c:718 shell/eog-window.c:800
+msgid "Open Image"
+msgstr "Apri immagine"
+
+#: shell/eog-window.c:956
+msgid "Control doesn't support window_title property."
+msgstr ""
+
+#: shell/eog-window.c:972
+msgid "Control doesn't support status_text property."
+msgstr ""
+
+#: shell/eog-window.c:989
+msgid "Control doesn't have properties"
+msgstr ""
+
+#: shell/eog-window.c:1023
+msgid "Couldn't retrieve mime type for file."
+msgstr ""
+
+#: shell/eog-window.c:1281
+msgid "Error while obtaining file informations."
+msgstr ""
+
+#: shell/main.c:157
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+
+#: shell/main.c:165
+msgid "Single Windows"
+msgstr "Finestre singole"
+
+#: shell/main.c:165
+msgid "Collection"
+msgstr ""
+
+#: shell/main.c:275
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "Impossibile inizializzare GnomeVFS!\n"
+
+#: shell/main.c:278
+msgid "Could not initialize Bonobo!\n"
+msgstr "Impossibile inizializzare Bonobo!\n"
+
+#: shell/preferences.c:219
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: shell/preferences-dialog.glade.h:1
+msgid "Bilinear (normal)"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:2
+msgid "Black only"
+msgstr "Solo nero"
+
+#: shell/preferences-dialog.glade.h:3
+msgid "Check size"
+msgstr "Controlla dimensione"
+
+#: shell/preferences-dialog.glade.h:4
+msgid "Dark checks"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1630
+msgid "Display"
+msgstr "Schermo"
+
+#: shell/preferences-dialog.glade.h:6
+msgid "Dither type"
+msgstr "Tipo di sfumatura"
+
+#: shell/preferences-dialog.glade.h:7
+msgid "Fit all images to screen"
+msgstr "Adatta tutte le immagini alla finestra"
+
+#: shell/preferences-dialog.glade.h:8
+msgid "Fit standard-sized images to screen"
+msgstr "Adatta le immagini di dimensioni standard allo schermo"
+
+#: shell/preferences-dialog.glade.h:9
+msgid "Full Screen"
+msgstr "Schermo intero"
+
+#: shell/preferences-dialog.glade.h:10
+msgid "Gray only"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:11
+msgid "Hyperbolic (slowest, best quality)"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:12
+msgid "Image Windows"
+msgstr "Finestre immagini"
+
+#: shell/preferences-dialog.glade.h:13
+msgid "Interpolation type"
+msgstr "Tipo di interpolazione"
+
+#: shell/preferences-dialog.glade.h:14 viewer/preferences.c:68
+msgid "Large"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:15
+msgid "Light checks"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:16
+msgid "Maximum (high color)"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:17 viewer/preferences.c:67
+msgid "Medium"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:18
+msgid "Midtone checks"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:19
+msgid "Nearest neighbor (fastest, low quality)"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:20
+msgid "Never"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:21
+msgid "None"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:22
+msgid "Normal (pseudocolor)"
+msgstr ""
+
+#: shell/preferences-dialog.glade.h:23
+msgid "Only if image does not fit"
+msgstr "Solo se l'immagine non si adatta"
+
+#: shell/preferences-dialog.glade.h:24
+msgid "Open images in a new window"
+msgstr "Apri immagine in nuova finestra"
+
+#: shell/preferences-dialog.glade.h:25
+msgid "Pick window size and zoom factor automatically"
+msgstr "Seleziona dimensione finestra e fattore di scala automaticamente"
+
+#: shell/preferences-dialog.glade.h:26
+msgid "Put a bevel around the edge of the screen"
+msgstr "Aggiungi una sfumatura al bordo dello schermo"
+
+#: shell/preferences-dialog.glade.h:27 viewer/preferences.c:66
+msgid "Small"
+msgstr "Piccolo"
+
+#: shell/preferences-dialog.glade.h:28
+msgid "Transparency type"
+msgstr "Tipo di trasparenza"
+
+#: shell/preferences-dialog.glade.h:29
+msgid "Two-pass scrolling"
+msgstr "Scorrimento a due tempi"
+
+#: shell/preferences-dialog.glade.h:30
+msgid "Use 1:1 zoom factor"
+msgstr "Usa scala 1:1"
+
+#: shell/preferences-dialog.glade.h:31
+msgid "Use same zoom factor as image window"
+msgstr "Utilizza lo stesso fattore di scala della finestra dell'immagine"
+
+#: shell/preferences-dialog.glade.h:32
+msgid "Use scrollbars"
+msgstr "Utilizza barre di scorrimento"
+
+#: shell/preferences-dialog.glade.h:33
+msgid "Viewers"
+msgstr "Visualizzatori"
+
+#: shell/preferences-dialog.glade.h:34
+msgid "White only"
+msgstr "Solo bianco"
+
+#: shell/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Impossibile aprire `%s'"
 
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: viewer/eog-image-view.c:273
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr ""
 
-#: src/window.c:164
-#, fuzzy
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Copyright (C) 2000 The Free Software Foundation"
+#: viewer/eog-image-view.c:304
+msgid "Save As"
+msgstr "Salva con nome"
 
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "L'applicazione di visualizzazione e catalogazione di immagini di GNOME"
+#: viewer/eog-image-view.c:662
+msgid "Print Image"
+msgstr "Stampa immagine"
 
-#: src/window.c:181
-msgid "_Open Image..."
-msgstr "_Apri Immagine"
+#: viewer/eog-image-view.c:670
+msgid "Pages"
+msgstr ""
 
-#: src/window.c:186
-msgid "_Close This Window"
-msgstr "_Chiudi questa finestra"
+#: viewer/eog-image-view.c:758
+msgid "Print Preview"
+msgstr ""
 
-#: src/window.c:197
-msgid "2:1"
-msgstr "2:1"
+#: viewer/eog-image-view.c:764
+msgid "Printing of image failed"
+msgstr "Stampa dell'immagine fallita"
 
-#: src/window.c:198
-msgid "3:1"
-msgstr "3:1"
-
-#: src/window.c:199
-msgid "4:1"
-msgstr "4:1"
-
-#: src/window.c:200
-msgid "5:1"
-msgstr "5:1"
-
-#: src/window.c:201
-msgid "6:1"
-msgstr "6:1"
-
-#: src/window.c:202
-msgid "7:1"
-msgstr "7:1"
-
-#: src/window.c:203
-msgid "8:1"
-msgstr "8:1"
-
-#: src/window.c:204
-msgid "9:1"
-msgstr "9:1"
-
-#: src/window.c:205
-msgid "10:1"
-msgstr "10:1"
-
-#: src/window.c:207
-msgid "1:2"
-msgstr "1:2"
-
-#: src/window.c:208
-msgid "1:3"
-msgstr "1:3"
-
-#: src/window.c:209
-msgid "1:4"
-msgstr "1:4"
-
-#: src/window.c:210
-msgid "1:5"
-msgstr "1:5"
-
-#: src/window.c:211
-msgid "1:6"
-msgstr "1:6"
-
-#: src/window.c:212
-msgid "1:7"
-msgstr "1:7"
-
-#: src/window.c:213
-msgid "1:8"
-msgstr "1:8"
-
-#: src/window.c:214
-msgid "1:9"
-msgstr "1:9"
-
-#: src/window.c:215
-msgid "1:10"
-msgstr "1:10"
-
-#: src/window.c:221
-msgid "Zoom In"
-msgstr "Ingrandisci"
-
-#: src/window.c:221
-msgid "Increase zoom factor by 5%%"
-msgstr "Incrementa fattore di zoom del 5%%"
-
-#: src/window.c:225
-msgid "Zoom Out"
-msgstr "Riduci"
-
-#: src/window.c:225
-msgid "Decrease zoom factor by 5%%"
-msgstr "Riduci fattore di zoom del 5%%"
-
-#: src/window.c:229
-msgid "Zoom _1:1"
-msgstr "Zoom _1:1"
-
-#: src/window.c:229
-msgid "Display the image at 1:1 scale"
-msgstr "Mostra l'immagine in scala 1:1"
-
-#: src/window.c:233
-msgid "_Zoom factor"
-msgstr "Ingrandimento"
-
-#: src/window.c:235
-msgid "_Fit to Window"
-msgstr "_Riempi finestra"
-
-#: src/window.c:235
-msgid "Zoom the image to fit in the window"
-msgstr "Ingrandisce l'immagine in modo che riempia la finestra"
-
-#: src/window.c:239
-msgid "Full _Screen"
-msgstr "_Schermo intero"
-
-#: src/window.c:239
-msgid "Use the whole screen for display"
-msgstr "Utilizza tutto lo schermo per visualizzare l'immagine"
-
-#: src/window.c:704
-msgid "Open Image"
-msgstr "Apri immagine"
-
-#: viewer/eog-image-view.c:915
-#, fuzzy
+#: viewer/eog-image-view.c:1716 viewer/preferences.c:147
 msgid "Interpolation"
-msgstr "Tipo di interpolazione"
+msgstr "Interpolazione"
 
-#: viewer/eog-image-view.c:918
-#, fuzzy
+#: viewer/eog-image-view.c:1719 viewer/preferences.c:159
 msgid "Dither"
-msgstr "Tipo di sfumatura"
+msgstr "Sfumatura"
 
-#: viewer/eog-image-view.c:921
-#, fuzzy
+#: viewer/eog-image-view.c:1722 viewer/preferences.c:170
 msgid "Check Type"
-msgstr "Controlla dimensione"
+msgstr "Tipo controllo"
 
-#: viewer/eog-image-view.c:924
-#, fuzzy
+#: viewer/eog-image-view.c:1725 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Controlla dimensione"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "Impossibile inizializzare Bonobo"
+#: viewer/eog-image-view.c:1728
+msgid "Image Width"
+msgstr "Larghezza immagine"
 
-#~ msgid "Transparency type"
-#~ msgstr "Tipo di trasparenza"
+#: viewer/eog-image-view.c:1731
+msgid "Image Height"
+msgstr "Altezza immagine"
 
-#~ msgid ""
-#~ "Dark checks\n"
-#~ "Midtone checks\n"
-#~ "Light checks\n"
-#~ "Black only\n"
-#~ "Gray only\n"
-#~ "White only\n"
-#~ msgstr ""
-#~ "Quadrati scuri\n"
-#~ "Quadrati medi\n"
-#~ "Quadrati chiari\n"
-#~ "Solo nero\n"
-#~ "Solo grigio\n"
-#~ "Solo bianco\n"
+#: viewer/eog-image-view.c:1737
+msgid "Statusbar Text"
+msgstr "Testo Barra di Stato"
 
-#~ msgid ""
-#~ "Small\n"
-#~ "Medium\n"
-#~ "Large\n"
-#~ msgstr ""
-#~ "Piccolo\n"
-#~ "Medio\n"
-#~ "Grande\n"
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Controlla _dimensione"
 
-#~ msgid ""
-#~ "Nearest neighbor\n"
-#~ "Bilinear\n"
-#~ "Hyperbolic\n"
-#~ msgstr ""
-#~ "Nearest neighbor\n"
-#~ "Bilineare\n"
-#~ "Iperbolico\n"
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Controlla _tipo"
 
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Scorrimento a due tempi"
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Controlla dimensione grande"
 
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "Nessuno\n"
-#~ "Normale (pseudocolor)\n"
-#~ "Massimo (high color)\n"
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Controlla dimensione media"
 
-#~ msgid "Display"
-#~ msgstr "Schermo"
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Controlla dimensione piccola"
 
-#~ msgid "Image Windows"
-#~ msgstr "Finestre immagini"
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Controlla tipo _nero"
 
-#~ msgid "Use scrollbars"
-#~ msgstr "Utilizza barre di scorrimento"
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Controlla tipo _scuro"
 
-#~ msgid ""
-#~ "Never\n"
-#~ "Only if image does not fit\n"
-#~ msgstr ""
-#~ "Mai\n"
-#~ "Solo se l'immagine non si adatta\n"
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "Controlla tipo _grigio"
 
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Seleziona dimensione finestra e fattore di scala automaticamente"
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Controlla tipo _chiaro"
 
-#~ msgid "Open images in a new window"
-#~ msgstr "Apri immagine in nuova finestra"
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "Controlla tipo _medio"
 
-#~ msgid "Full Screen"
-#~ msgstr "Schermo intero"
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Controlla tipo _bianco"
 
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Usa scala 1:1"
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Interpolazione Nearest neighbor"
 
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Utilizza lo stesso fattore di scala della finestra dell'immagine"
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Interpolazione normale (pseudocolor)"
 
-#~ msgid "Fit all images to screen"
-#~ msgstr "Adatta tutte le immagini alla finestra"
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Previews the image to be printed"
+msgstr ""
 
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Adatta le immagini di dimensioni standard allo schermo"
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Print Pre_view"
+msgstr ""
 
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Aggiungi una sfumatura al bordo dello schermo"
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print S_etup"
+msgstr ""
 
-#~ msgid "Viewers"
-#~ msgstr "Visualizzatori"
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print image to the printer"
+msgstr ""
 
-#~ msgid "Save image collection `%s'?"
-#~ msgstr "Salva collezione di immagini `%s'?"
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Save _As"
+msgstr "_Salva con nome"
 
-#~ msgid "Save"
-#~ msgstr "Salva"
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Setup the page settings for your current printer"
+msgstr ""
 
-#~ msgid "Don't save"
-#~ msgstr "Non salvare"
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Bilinear Interpolation"
+msgstr "Interpolazione _Bilineare"
 
-#~ msgid "Don't exit"
-#~ msgstr "Non uscire"
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Dither"
+msgstr "_Sfumatura"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Hyperbolic Interpolation"
+msgstr "Interpolazione I_perbolica"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Interpolation"
+msgstr "_Interpolazione"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Maximum (high color) dithering"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_No dithering"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Print"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles Interpolation"
+msgstr "Interpolazione mattonelle"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_View"
+msgstr "_Vista"
+
+#: viewer/eog-print-setup.c:72
+msgid "pts"
+msgstr ""
+
+#: viewer/eog-print-setup.c:72
+msgid "points"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "mm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "millimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "cm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "centimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "In"
+msgstr "Ingrandisci"
+
+#: viewer/eog-print-setup.c:75
+msgid "inch"
+msgstr ""
+
+#: viewer/eog-print-setup.c:471
+msgid "Print"
+msgstr ""
+
+#: viewer/eog-print-setup.c:472
+msgid "Print preview"
+msgstr ""
+
+#: viewer/eog-print-setup.c:480
+msgid "Print Setup"
+msgstr ""
+
+#: viewer/eog-print-setup.c:548
+msgid "Units: "
+msgstr ""
+
+#. First page
+#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+msgid "Paper"
+msgstr ""
+
+#: viewer/eog-print-setup.c:570
+msgid "Paper size:"
+msgstr ""
+
+#. Orientation
+#: viewer/eog-print-setup.c:585
+msgid "Orientation"
+msgstr ""
+
+#: viewer/eog-print-setup.c:595
+msgid "Portrait"
+msgstr ""
+
+#: viewer/eog-print-setup.c:605
+msgid "Landscape"
+msgstr ""
+
+#. Margins
+#: viewer/eog-print-setup.c:614
+msgid "Margins"
+msgstr ""
+
+#. Top margin
+#: viewer/eog-print-setup.c:622
+msgid "Top:"
+msgstr ""
+
+#. Left margin
+#: viewer/eog-print-setup.c:640
+msgid "Left:"
+msgstr ""
+
+#. Right margin
+#: viewer/eog-print-setup.c:658
+msgid "Right:"
+msgstr ""
+
+#. Bottom margin
+#: viewer/eog-print-setup.c:676
+msgid "Bottom:"
+msgstr ""
+
+#. Second page
+#: viewer/eog-print-setup.c:694
+msgid "Image"
+msgstr "Immagine"
+
+#. Scale
+#: viewer/eog-print-setup.c:702
+msgid "Scale"
+msgstr "Scala"
+
+#: viewer/eog-print-setup.c:706
+msgid "Adjust to:"
+msgstr ""
+
+#: viewer/eog-print-setup.c:711
+msgid "Fit to page"
+msgstr ""
+
+#: viewer/eog-print-setup.c:730
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#. Center on page
+#: viewer/eog-print-setup.c:736
+msgid "Center"
+msgstr ""
+
+#: viewer/eog-print-setup.c:740
+msgid "Horizontally"
+msgstr ""
+
+#: viewer/eog-print-setup.c:747
+msgid "Vertically"
+msgstr ""
+
+#. Overlap
+#: viewer/eog-print-setup.c:756
+msgid "Overlapping"
+msgstr ""
+
+#: viewer/eog-print-setup.c:760
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:765
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:802
+msgid "Printing"
+msgstr ""
+
+#. Helpers
+#: viewer/eog-print-setup.c:810
+msgid "Helpers"
+msgstr ""
+
+#: viewer/eog-print-setup.c:811
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:817
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:826
+msgid "Page order"
+msgstr ""
+
+#. Down right
+#: viewer/eog-print-setup.c:832
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:852
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/main.c:89
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "Impossibile inizializzare GnomeVFS!\n"
+
+#: viewer/main.c:92
+msgid "I could not initialize Bonobo!\n"
+msgstr "Impossibile inizializzare Bonobo!\n"
+
+#: viewer/preferences.c:38
+msgid "Nearest Neighbour Interpolation"
+msgstr "Interpolazione Nearest neighbor"
+
+#: viewer/preferences.c:40
+msgid "Tiltes Interpolation"
+msgstr "Tipo di interpolazione"
+
+#: viewer/preferences.c:42
+msgid "Bilinear Interpolation"
+msgstr "Interpolazione bilineare"
+
+#: viewer/preferences.c:44
+msgid "Hyperbolic Interpolation"
+msgstr "Interpolazione iperbolica"
+
+#: viewer/preferences.c:49
+msgid "No dithering"
+msgstr ""
+
+#: viewer/preferences.c:50
+msgid "Normal (pseudocolor) dithering"
+msgstr "Sfumatura Normale (pseudocolor)"
+
+#: viewer/preferences.c:51
+msgid "Maximum (high color) dithering"
+msgstr ""
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr ""
+
+#: viewer/preferences.c:57
+msgid "Midtone"
+msgstr ""
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr ""
+
+#: viewer/preferences.c:59
+msgid "Black"
+msgstr ""
+
+#: viewer/preferences.c:60
+msgid "Gray"
+msgstr ""
+
+#: viewer/preferences.c:61
+msgid "White"
+msgstr ""
+
