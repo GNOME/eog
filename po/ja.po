@@ -4,25 +4,36 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 0.110.0\n"
-"POT-Creation-Date: 2002-04-29 15:13+0200\n"
-"PO-Revision-Date: 2002-03-02 14:17+0900\n"
+"Project-Id-Version: eog 1.0.0\n"
+"POT-Creation-Date: 2002-06-13 18:34+0900\n"
+"PO-Revision-Date: 2002-06-13 18:47+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: collection/GNOME_EOG_Collection.server.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG 画像コレクション"
+
+#: collection/GNOME_EOG_Collection.server.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG 画像コレクションビューア"
+
+#: collection/GNOME_EOG_Collection.server.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "EOG 画像コレクションビューア ファクトリ"
+
 #: eog.desktop.in.h:1
-#, fuzzy
 msgid "Eye of Gnome Image Viewer"
-msgstr "EOG 画像ビューア"
+msgstr "Eye of Gnome 画像ビューア"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
-msgstr ""
+msgstr "いろんな種類の画像を表示"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "EOG 画像"
 
@@ -37,6 +48,47 @@ msgstr "EOG 画像ビューア ファクトリ"
 #: libeog/GNOME_EOG.server.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "埋込可能 EOG 画像"
+
+#: libeog/image-view.c:1853
+msgid "interpolation type"
+msgstr "補間の種類"
+
+#: libeog/image-view.c:1854
+msgid "the type of interpolation to use"
+msgstr "使用する補間の種類"
+
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
+msgid "check type"
+msgstr "チェックの種類"
+
+#: libeog/image-view.c:1861
+msgid "the type of chequering to use"
+msgstr "使用するチェックの種類"
+
+#: libeog/image-view.c:1868
+msgid "the size of chequers to use"
+msgstr "使用するチェックの大きさ"
+
+#: libeog/image-view.c:1874
+msgid "dither"
+msgstr "ディザ"
+
+#: libeog/image-view.c:1875
+msgid "dither type"
+msgstr "ディザの種類"
+
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"設定ダイアログのヘルプを表示できませんでした。\n"
+"%s"
+
+#: shell/eog-preferences.c:214
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome 設定"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -59,15 +111,14 @@ msgid "Close window"
 msgstr "ウインドウを閉じる"
 
 #: shell/eog-shell-ui.xml.h:6
-#, fuzzy
-msgid "Help On this application"
-msgstr "このアプリケーションについて"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "HelpContents"
+msgid "Contents"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:7
+msgid "Help On this application"
+msgstr "このアプリケーションのヘルプ"
+
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "開く"
 
@@ -88,23 +139,20 @@ msgid "Open in this window"
 msgstr "このウインドウで開く"
 
 #: shell/eog-shell-ui.xml.h:13
-#, fuzzy
 msgid "Quit the program"
 msgstr "プログラムを終了"
 
 #: shell/eog-shell-ui.xml.h:14
-#, fuzzy
 msgid "_About"
-msgstr "情報(_A)..."
+msgstr "情報(_A)"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "閉じる(_C)"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Edit"
-msgstr "終了(_X)"
+msgstr "編集(_E)"
 
 #: shell/eog-shell-ui.xml.h:17
 msgid "_File"
@@ -123,90 +171,82 @@ msgid "_Open..."
 msgstr "開く(_O)..."
 
 #: shell/eog-shell-ui.xml.h:21
-#, fuzzy
 msgid "_Preferences..."
-msgstr "設定(_P)"
+msgstr "設定(_P)..."
 
 #: shell/eog-shell-ui.xml.h:22
-#, fuzzy
 msgid "_Quit"
-msgstr "終了(_X)"
+msgstr "終了(_Q)"
 
 #: shell/eog-shell-ui.xml.h:23
 msgid "_View"
 msgstr "表示(_V)"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
-msgstr ""
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:602 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 画像表示およびカタログ作成プログラム"
 
-#: shell/eog-window.c:762
+#: shell/eog-window.c:293
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Eye of Gnome のヘルプを表示できませんでした\n"
+"%s"
+
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "画像を開く"
 
-#: shell/eog-window.c:816
-msgid "Control doesn't support window_title property."
-msgstr "コントールは window_title プロパティをサポートしていません。"
-
-#: shell/eog-window.c:832
-msgid "Control doesn't support status_text property."
-msgstr "コントロールは status_text プロパティをサポートしていません。"
-
-#: shell/eog-window.c:851
-msgid "Control doesn't have properties"
-msgstr "コントールにはプロパティがありません"
-
-#: shell/eog-window.c:868
-msgid "Couldn't retrieve mime type for file."
-msgstr "ファイルの MIME タイプを取得でいませんでした。"
-
-#: shell/eog-window.c:1111
-msgid "Error while obtaining file informations."
-msgstr "ファイル情報の取得でエラーが発生しました。"
-
-#: shell/eog-window.c:1140
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
-msgstr ""
+msgstr "%s を開けません。"
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to open\n"
 "them in a collection instead?"
 msgstr ""
+"同時に %i 個のウインドウを\n"
+"開こうとしています。代わりに\n"
+"コレクションで表示しますか?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "単一ウインドウ"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "コレクション"
 
-#: shell/main.c:193
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
 msgstr ""
+"同時に %i 個のウインドウを\n"
+"開こうとしています。続けますか?"
 
 #: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
@@ -220,202 +260,6 @@ msgstr "Bonobo を初期化できませんでした\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s'を開けませんでした"
-
-#: shell/eog-preferences.c:141
-#, fuzzy
-msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome"
-
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS を初期化できませんでした\n"
-
-#: viewer/eog-image-view.c:304
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "画像を '%s' として保存でませんでした: %s"
-
-#: viewer/eog-image-view.c:355
-msgid "Save As"
-msgstr "名前を変えて保存"
-
-#: viewer/eog-image-view.c:930
-msgid "Print Image"
-msgstr "画像の印刷"
-
-#: viewer/eog-image-view.c:938
-msgid "Pages"
-msgstr "ページ"
-
-#: viewer/eog-image-view.c:1025
-msgid "Print Preview"
-msgstr "印刷のプレビュー"
-
-#: viewer/eog-image-view.c:1031
-msgid "Printing of image failed"
-msgstr "画像の印刷に失敗"
-
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "表示"
-
-#: viewer/eog-image-view.c:2067
-msgid "Interpolation"
-msgstr "補間"
-
-#: viewer/eog-image-view.c:2070
-msgid "Dither"
-msgstr "ディザ"
-
-#: viewer/eog-image-view.c:2073
-msgid "Check Type"
-msgstr "チェックの種類"
-
-#: viewer/eog-image-view.c:2076
-msgid "Check Size"
-msgstr "チェックの大きさ"
-
-#: viewer/eog-image-view.c:2079
-msgid "Image Width"
-msgstr "画像の幅"
-
-#: viewer/eog-image-view.c:2082
-msgid "Image Height"
-msgstr "画像の高さ"
-
-#: viewer/eog-image-view.c:2085
-msgid "Window Title"
-msgstr "ウインドウのタイトル"
-
-#: viewer/eog-image-view.c:2088
-msgid "Statusbar Text"
-msgstr "ステータスバーのテキスト"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "チェックの大きさ(_S)"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "チェックの種類(_T)"
-
-#: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "フルスクリーン"
-
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
-msgid "Large"
-msgstr "大"
-
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
-msgid "Medium"
-msgstr "中"
-
-#: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
-msgid "Nea_rest Neighbour"
-msgstr "最近隣 補間"
-
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Normal (_pseudocolor)"
-msgstr "通常 (擬似カラー) ディザ"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Previews the image to be printed"
-msgstr "印刷する画像をプレビュー"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "印刷のプレビュー(_V)"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "印刷の設定(_E)"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Print image to the printer"
-msgstr "画像をプリンタへ印刷"
-
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "Setup the page settings for your current printer"
-msgstr "現在のプリンタのページ設定を変更"
-
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
-msgid "Small"
-msgstr "小"
-
-#: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
-msgid "_Bilinear"
-msgstr "双一次 (普通)"
-
-#: viewer/eog-image-view-ui.xml.h:15
-#, fuzzy
-msgid "_Black"
-msgstr "黒"
-
-#: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
-msgid "_Dark"
-msgstr "暗"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "ディザ(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:18
-#, fuzzy
-msgid "_Gray"
-msgstr "グレー"
-
-#: viewer/eog-image-view-ui.xml.h:19
-#, fuzzy
-msgid "_Hyperbolic"
-msgstr "双曲線 補間(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "補間(_I)"
-
-#: viewer/eog-image-view-ui.xml.h:21
-#, fuzzy
-msgid "_Light"
-msgstr "明"
-
-#: viewer/eog-image-view-ui.xml.h:22
-#, fuzzy
-msgid "_Maximum (high color)"
-msgstr "最大 (ハイカラー) ディザ"
-
-#: viewer/eog-image-view-ui.xml.h:23
-#, fuzzy
-msgid "_Midtone"
-msgstr "中間調"
-
-#: viewer/eog-image-view-ui.xml.h:24
-#, fuzzy
-msgid "_None"
-msgstr "なし"
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
-msgstr "印刷(_P)"
-
-#: viewer/eog-image-view-ui.xml.h:26
-#, fuzzy
-msgid "_Save As..."
-msgstr "名前を変えて保存"
-
-#: viewer/eog-image-view-ui.xml.h:27
-#, fuzzy
-msgid "_Tiles"
-msgstr "ファイル(_F)"
-
-#: viewer/eog-image-view-ui.xml.h:28
-#, fuzzy
-msgid "_White"
-msgstr "白"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -448,6 +292,183 @@ msgstr "縮小 (_O)"
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "ウインドウに合わせる (_F)"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "チェックの大きさ(_S)"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "チェックの種類(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "フルスクリーン"
+
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "大"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "中"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Nea_rest Neighbour"
+msgstr "最近隣(_R)"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Normal (_pseudocolor)"
+msgstr "通常 (擬似カラー) ディザ(_P)"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Previews the image to be printed"
+msgstr "印刷する画像をプレビュー"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Print Pre_view"
+msgstr "印刷のプレビュー(_V)"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Print S_etup"
+msgstr "印刷の設定(_E)"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Print image to the printer"
+msgstr "画像をプリンタへ印刷"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Setup the page settings for your current printer"
+msgstr "現在のプリンタのページ設定を変更"
+
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "小"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr "双一次(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Black"
+msgstr "黒(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Dark"
+msgstr "暗(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Dither"
+msgstr "ディザ(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Gray"
+msgstr "グレー(_G)"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
+msgstr "双曲線(_H)"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Interpolation"
+msgstr "補間(_I)"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Light"
+msgstr "明(_L)"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Maximum (high color)"
+msgstr "最大 (ハイカラー)(_M)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
+msgstr "中間調(_M)"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr "なし(_N)"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Print"
+msgstr "印刷(_P)"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Save As..."
+msgstr "名前を変えて保存(_S)..."
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles"
+msgstr "タイル(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_White"
+msgstr "白(_W)"
+
+#: viewer/eog-image-view.c:302
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "画像を '%s' として保存でませんでした: %s"
+
+#: viewer/eog-image-view.c:353
+msgid "Save As"
+msgstr "名前を変えて保存"
+
+#: viewer/eog-image-view.c:928
+msgid "Print Image"
+msgstr "画像の印刷"
+
+#: viewer/eog-image-view.c:936
+msgid "Pages"
+msgstr "ページ"
+
+#: viewer/eog-image-view.c:1023
+msgid "Print Preview"
+msgstr "印刷のプレビュー"
+
+#: viewer/eog-image-view.c:1029
+msgid "Printing of image failed"
+msgstr "画像の印刷に失敗"
+
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "表示"
+
+#: viewer/eog-image-view.c:2066
+msgid "Interpolation"
+msgstr "補間"
+
+#: viewer/eog-image-view.c:2069
+msgid "Dither"
+msgstr "ディザ"
+
+#: viewer/eog-image-view.c:2072
+msgid "Check Type"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view.c:2075
+msgid "Check Size"
+msgstr "チェックの大きさ"
+
+#: viewer/eog-image-view.c:2078
+msgid "Image Width"
+msgstr "画像の幅"
+
+#: viewer/eog-image-view.c:2081
+msgid "Image Height"
+msgstr "画像の高さ"
+
+#: viewer/eog-image-view.c:2084
+msgid "Window Title"
+msgstr "ウインドウのタイトル"
+
+#: viewer/eog-image-view.c:2087
+msgid "Statusbar Text"
+msgstr "ステータスバーのテキスト"
+
+#: viewer/eog-image.c:467
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "GnomeVFS を初期化できませんでした\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -509,11 +530,11 @@ msgstr "方向"
 
 #: viewer/eog-print-setup.c:593
 msgid "Portrait"
-msgstr ""
+msgstr "縦"
 
 #: viewer/eog-print-setup.c:600
 msgid "Landscape"
-msgstr ""
+msgstr "横"
 
 #. Margins
 #: viewer/eog-print-setup.c:609
@@ -548,7 +569,7 @@ msgstr "画像"
 #. Scale
 #: viewer/eog-print-setup.c:697
 msgid "Scale"
-msgstr ""
+msgstr "スケール"
 
 #: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
@@ -556,7 +577,7 @@ msgstr ""
 
 #: viewer/eog-print-setup.c:706
 msgid "Fit to page"
-msgstr ""
+msgstr "ページに合わせる"
 
 #: viewer/eog-print-setup.c:725
 #, no-c-format
@@ -566,15 +587,15 @@ msgstr ""
 #. Center on page
 #: viewer/eog-print-setup.c:731
 msgid "Center"
-msgstr ""
+msgstr "中央"
 
 #: viewer/eog-print-setup.c:735
 msgid "Horizontally"
-msgstr ""
+msgstr "水平"
 
 #: viewer/eog-print-setup.c:742
 msgid "Vertically"
-msgstr ""
+msgstr "垂直"
 
 #. Overlap
 #: viewer/eog-print-setup.c:751
@@ -592,12 +613,12 @@ msgstr ""
 #. Third page
 #: viewer/eog-print-setup.c:797
 msgid "Printing"
-msgstr ""
+msgstr "印刷"
 
 #. Helpers
 #: viewer/eog-print-setup.c:805
 msgid "Helpers"
-msgstr ""
+msgstr "ヘルパー"
 
 #: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
@@ -610,89 +631,100 @@ msgstr ""
 #. Page order
 #: viewer/eog-print-setup.c:821
 msgid "Page order"
-msgstr ""
+msgstr "ページの向き"
 
 #. Down right
 #: viewer/eog-print-setup.c:827
 msgid "Down, then right"
-msgstr ""
+msgstr "下、そして右"
 
 #. Right down
 #: viewer/eog-print-setup.c:844
 msgid "Right, then down"
-msgstr ""
-
-#: viewer/preferences.c:31
-msgid "Nearest Neighbour Interpolation"
-msgstr "最近隣 補間"
+msgstr "右、そして下"
 
 #: viewer/preferences.c:33
+msgid "Nearest Neighbour Interpolation"
+msgstr "最近隣補間"
+
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "タイル補間"
 
-#: viewer/preferences.c:35
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr "双一次 補間"
 
-#: viewer/preferences.c:37
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr "双曲線 補間"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "ディザ無し"
 
-#: viewer/preferences.c:43
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "通常 (擬似カラー) ディザ"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "最大 (ハイカラー) ディザ"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "暗"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr "中間調"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "明"
 
-#: viewer/preferences.c:52
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "黒"
 
-#: viewer/preferences.c:53
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "グレー"
 
-#: viewer/preferences.c:54
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "白"
 
-#: viewer/preferences.c:171
-#, fuzzy
+#: viewer/preferences.c:175
 msgid "_Interpolation:"
-msgstr "補間(_I)"
+msgstr "補間(_I):"
 
-#: viewer/preferences.c:183
-#, fuzzy
+#: viewer/preferences.c:187
 msgid "_Dither:"
-msgstr "ディザ(_D)"
+msgstr "ディザ(_D):"
 
-#: viewer/preferences.c:195
-#, fuzzy
+#: viewer/preferences.c:199
 msgid "Check _type:"
-msgstr "チェックの種類(_T)"
+msgstr "チェックの種類(_T):"
 
-#: viewer/preferences.c:207
-#, fuzzy
+#: viewer/preferences.c:211
 msgid "Check _size:"
-msgstr "チェックの大きさ(_S)"
+msgstr "チェックの大きさ(_S):"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "コントールは window_title プロパティをサポートしていません。"
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "コントロールは status_text プロパティをサポートしていません。"
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "コントールにはプロパティがありません"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "ファイルの MIME タイプを取得でいませんでした。"
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "ファイル情報の取得でエラーが発生しました。"
 
 #~ msgid "Image Viewer"
 #~ msgstr "画像ビューア"
@@ -750,12 +782,6 @@ msgstr "チェックの大きさ(_S)"
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye Of Gnome"
-
-#~ msgid "EOG Image Collection"
-#~ msgstr "EOG 画像コレクション"
-
-#~ msgid "EOG Image Collection Viewer"
-#~ msgstr "EOG 画像コレクションビューア"
 
 #~ msgid "I could not initialize GnomeVFS!\n"
 #~ msgstr "GnomeVFS を初期化できませんでした!\n"
@@ -859,9 +885,6 @@ msgstr "チェックの大きさ(_S)"
 #~ msgid "Use the whole screen for display"
 #~ msgstr "画面全体を表示に使う"
 
-#~ msgid "Interpolation type"
-#~ msgstr "補間の種類"
-
 #~ msgid "Transparency type"
 #~ msgstr "透過の種類"
 
@@ -879,9 +902,6 @@ msgstr "チェックの大きさ(_S)"
 
 #~ msgid "Two-pass scrolling"
 #~ msgstr "2パス・スクロール"
-
-#~ msgid "Dither type"
-#~ msgstr "ディザの種類"
 
 #~ msgid "Use scrollbars"
 #~ msgstr "スクロールバー"
