@@ -241,18 +241,22 @@ list_insert_sorted_private  (GList *list, EogImage *image, GCompareFunc comp, in
 {
 	GList *it;
 	int position = 0;
-	
-	for (it = list; it != NULL; it = it->next, position++) {
 
-		if (comp (image, it->data) < 0) {
-			list = g_list_insert_before (list, it, image);
-			*pos = position;
-			break;
-		}
-		else if (it->next == NULL) {
-			list = g_list_insert_before (list, NULL, image);
-			*pos = position + 1;
-			break;
+	if (list == NULL) {
+		list = g_list_prepend (list, image);
+	}
+	else {
+		for (it = list; it != NULL; it = it->next, position++) {
+			if (comp (image, it->data) < 0) {
+				list = g_list_insert_before (list, it, image);
+				*pos = position;
+				break;
+			}
+			else if (it->next == NULL) {
+				list = g_list_insert_before (list, NULL, image);
+				*pos = position + 1;
+				break;
+			}
 		}
 	}
 
