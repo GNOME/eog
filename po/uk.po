@@ -5,40 +5,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2002-02-24 19:27+0100\n"
-"PO-Revision-Date: 2002-02-12 16:43+0200\n"
+"POT-Creation-Date: 2002-04-06 15:42+0300\n"
+"PO-Revision-Date: 2002-04-06 14:59+0200\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Переглядач зображень Око GNOME"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Прорама перегляду зображень"
-
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
-msgid "EOG Image"
-msgstr "Зображення EOG"
-
-#: libeog/GNOME_EOG.server.in.h:2
-#, fuzzy
-msgid "EOG Image Viewer"
-msgstr "Прорама перегляду зображень"
-
-#: libeog/GNOME_EOG.server.in.h:3
-#, fuzzy
-msgid "EOG Image viewer factory"
-msgstr "Прорама перегляду зображень"
-
-#: libeog/GNOME_EOG.server.in.h:4
-#, fuzzy
-msgid "Embeddable EOG Image"
-msgstr "Зображення EOG"
+msgid "View many different types of images"
+msgstr "Відображення багатьох різних типіх зображень"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -69,6 +50,7 @@ msgid "Exit the program"
 msgstr "Вийти з програми"
 
 #: shell/eog-shell-ui.xml.h:8
+#: shell/main.c:194
 msgid "Open"
 msgstr "Відкрити"
 
@@ -121,133 +103,182 @@ msgid "_Settings"
 msgstr "Параметри"
 
 #: shell/eog-shell-ui.xml.h:21
-#, fuzzy
 msgid "_View"
-msgstr "Відображення"
+msgstr "_Відображення"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr "Інформація про перекладача"
+
+#: shell/eog-window.c:201
+#: shell/eog-window.c:549
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторське право © 2000-2002 Фундація Вільного Програмного Забезпечення"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Програма перегляду та каталогізації для GNOME"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Відкрити зображення"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Елемент не підтримує властивість window_title."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Елемент не підтримує властивість status_text."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Елемент не має властивостей."
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "Не вдалось отримати тип MIME файлу."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Помилка під час отримання інформації про файл."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1097
+#, c-format
+msgid "Unable to open %s."
+msgstr "Неможливо відкрити %s."
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to open\n"
 "them in a collection instead?"
 msgstr ""
+"Ви збираєтесь відкрити %i вікон\n"
+"одночасно. Чи не чочете ви відкрити\n"
+"їх в колекції?"
 
 #: shell/main.c:166
 msgid "Single Windows"
 msgstr "Одинокі вікна"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Колекція"
 
-#: shell/main.c:280
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Ви збираєтесь відкрити %i вікон\n"
+"одночасно. Продовжити?"
 
-#: shell/main.c:283
-msgid "Could not initialize Bonobo!\n"
-msgstr "Не вдалось ініціалізувати Bonobo!\n"
+#: shell/main.c:307
+msgid ""
+"Could not initialize GnomeVFS!\n"
+""
+msgstr ""
+"Не вдалось ініціалізувати GnomeVFS!\n"
+""
+
+#: shell/main.c:310
+msgid ""
+"Could not initialize Bonobo!\n"
+""
+msgstr ""
+"Не вдалось ініціалізувати Bonobo!\n"
+""
 
 #: shell/util.c:47
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Не вдалось відкрити \"%s\""
 
-#: viewer/eog-image.c:432
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Вподобання"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image.c:433
+msgid ""
+"Couldn't initialize GnomeVFS!\n"
+""
+msgstr ""
+"Не вдалось ініціалізувати GnomeVFS!\n"
+""
+
+#: viewer/eog-image-view.c:298
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не вдалось зберегти зображення як \"%s\": %s."
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:347
 msgid "Save As"
 msgstr "Зьерегти як"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:685
+msgid "EOG Image"
+msgstr "Зображення EOG"
+
+#: viewer/eog-image-view.c:920
 msgid "Print Image"
 msgstr "Надрукувати зображення"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:928
 msgid "Pages"
 msgstr "Сторінки"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1015
 msgid "Print Preview"
 msgstr "Перегляд друку"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1021
 msgid "Printing of image failed"
 msgstr "Збій друку зображення"
 
-#: viewer/eog-image-view.c:1897
+#: viewer/eog-image-view.c:1835
 msgid "Display"
 msgstr "Відображення"
 
-#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Інтерполяція"
 
-#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Змішування"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Тип клітинок"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Розмір клітинок"
 
-#: viewer/eog-image-view.c:2000
+#: viewer/eog-image-view.c:2071
 msgid "Image Width"
 msgstr "Ширина зображення"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2074
 msgid "Image Height"
 msgstr "Висота зображення"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2077
 msgid "Window Title"
 msgstr "Заголовок вікна"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2080
 msgid "Statusbar Text"
 msgstr "Текст панелі стану"
 
@@ -365,19 +396,20 @@ msgstr "Інтерполяція елементів"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
-msgstr ""
+msgstr "1:1"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
-msgstr ""
+msgstr "Підігнати"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-print-setup.c:76
 msgid "In"
 msgstr "Більше"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Out"
-msgstr ""
+msgstr "Менше"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Zoom _In"
@@ -440,7 +472,8 @@ msgid "Units: "
 msgstr "Одиниці: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:579
+#: viewer/eog-print-setup.c:587
 msgid "Paper"
 msgstr "Папір"
 
@@ -529,11 +562,11 @@ msgstr "Накладання"
 
 #: viewer/eog-print-setup.c:783
 msgid "Overlap horizontally by "
-msgstr ""
+msgstr "Перекривати горизонтально"
 
 #: viewer/eog-print-setup.c:788
 msgid "Overlap vertically by "
-msgstr ""
+msgstr "Перекривати вертикально"
 
 #. Third page
 #: viewer/eog-print-setup.c:825
@@ -547,11 +580,11 @@ msgstr "Помічники"
 
 #: viewer/eog-print-setup.c:834
 msgid "Print cutting help"
-msgstr ""
+msgstr "Довідка про друк з відсіканням"
 
 #: viewer/eog-print-setup.c:840
 msgid "Print overlap help"
-msgstr ""
+msgstr "Довідка про друк з перекриванням"
 
 #. Page order
 #: viewer/eog-print-setup.c:849
@@ -568,66 +601,83 @@ msgstr "Вниз і праворуч"
 msgid "Right, then down"
 msgstr "Праворуч і вниз"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "Інтерполяція найближчого сусіда"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 msgid "Tiles Interpolation"
 msgstr "Інтерполяція елементів"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "Білінійна інтерполяція"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Гіперболічна інтерполяція"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Без змішування"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Звичайне змішування (псевдоколір)"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "Максимальне змішування (якісний колір)"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Темне"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "Півтони"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Світле"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Чорне"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Сіре"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Біле"
 
-#: viewer/preferences.c:66
+#: viewer/preferences.c:59
 msgid "Small"
 msgstr "Малі"
 
-#: viewer/preferences.c:67
+#: viewer/preferences.c:60
 msgid "Medium"
 msgstr "Середні"
 
-#: viewer/preferences.c:68
+#: viewer/preferences.c:61
 msgid "Large"
 msgstr "Великі"
+
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Інтерполяція:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Змішування:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Тип клітинок:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Розмір клітинок:"
+
