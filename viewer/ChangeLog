@@ -1,5 +1,11 @@
 2001-05-21  Jens Finke <jens@gnome.org>
 
+	* eog-image-view.c: Renamed bonobo:title property to window_title,
+	due to problems with the bonobo_event_make_name function in
+	bonobo-listener.c.
+ 
+2001-05-21  Jens Finke <jens@gnome.org>
+
 	* eog-image.c (load_image_from_stream): Try to retrieve the name
 	of the stream and set it as filename. We need this to assemble a
 	nice bonobo:title. Unfourtunately the bonobo stream implementation

@@ -53,7 +53,7 @@ enum {
 	PROP_CHECK_SIZE,
 	PROP_IMAGE_WIDTH,
 	PROP_IMAGE_HEIGHT,
-	PROP_BONOBO_TITLE
+	PROP_WINDOW_TITLE
 };
 
 enum {
@@ -1072,7 +1072,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 			BONOBO_ARG_SET_INT (arg, 0);
 		break;
 	}
-	case PROP_BONOBO_TITLE: {
+	case PROP_WINDOW_TITLE: {
 		gchar *title;
 		gchar *buffer = NULL;
 		Image *img;
@@ -1697,8 +1697,8 @@ eog_image_view_construct (EogImageView       *image_view,
 	bonobo_property_bag_add (image_view->priv->property_bag, "image_height", PROP_IMAGE_HEIGHT,
 				 BONOBO_ARG_INT, NULL, _("Image Height"),
 				 BONOBO_PROPERTY_READABLE);
-	bonobo_property_bag_add (image_view->priv->property_bag, "bonobo:title", PROP_BONOBO_TITLE,
-				 BONOBO_ARG_STRING, NULL, _("Bonobo Title"),
+	bonobo_property_bag_add (image_view->priv->property_bag, "window_title", PROP_WINDOW_TITLE,
+				 BONOBO_ARG_STRING, NULL, _("Window Title"),
 				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */
