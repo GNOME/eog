@@ -1,8 +1,8 @@
-SUBDIRS = art idl libeog viewer collection shell po help omf-install
+SUBDIRS = art idl libgpi libeog viewer collection shell po help omf-install
 
 ACLOCAL_AMFLAGS = -I /usr/share/aclocal/gnome2-macros
 
-EXTRA_DIST =			\
+EXTRA_DIST = config.rpath 			\
 	DEPENDS			\
 	HACKING			\
 	MAINTAINERS		\

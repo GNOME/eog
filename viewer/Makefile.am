@@ -8,6 +8,7 @@ INCLUDES =							\
 	-I$(top_builddir)					\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
+	-I$(top_srcdir)/libgpi					\
 	$(EOG_CFLAGS)						\
 	$(WARN_CFLAGS)
 
@@ -17,8 +18,6 @@ eog_image_viewer_SOURCES =	\
 	eog-image-view.c	\
 	eog-image-view.h	\
 	main.c
-#	 eog-print-setup.c	\
-#	 eog-print-setup.h	\
 #	 eog-embeddable.c	\
 #	 eog-embeddable.h	\
 #	 eog-embeddable-view.c	\
@@ -27,10 +26,6 @@ eog_image_viewer_SOURCES =	\
 #	eog-control.h		\
 #	eog-full-screen.c	\
 #	eog-full-screen.h	\
-#	eog-preview.c		\
-#	eog-preview.h		\
-#	eog-preview-page.c	\
-#	eog-preview-page.h	\
 #	eog-util.h		\
 #	eog-util.c		\
 #	eog-image.c		\
@@ -38,11 +33,13 @@ eog_image_viewer_SOURCES =	\
 #	eog-image-io.c		\
 #	eog-image-io.h		
 
-eog_image_viewer_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+eog_image_viewer_DEPENDENCIES =		\
+	$(top_builddir)/libeog/libeog.a	\
+	$(top_builddir)/libgpi/libgpi.a
 
 eog_image_viewer_LDADD = 			\
-	-L$(top_builddir)/libeog		\
-	-leog					\
+	-L$(top_builddir)/libeog -leog		\
+	-L$(top_builddir)/libgpi -lgpi		\
 	$(EOG_LIBS)
 
 uidir = $(datadir)/gnome-2.0/ui

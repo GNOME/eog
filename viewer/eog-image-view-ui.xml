@@ -2,14 +2,14 @@
   
 <commands>
         <cmd name="PrintSetup" _label="Print Set_up" 
-             _tip="Setup the page settings for your current printer" 
-        	 pixtype="stock" pixname="Print"/>
+             _tip="Setup the page settings for your current printer"/>
         <cmd name="PrintPreview" _label="Print Previe_w..."
              _tip="Previews the image to be printed"
-             pixtype="pixbuf" accel="*Control**Shift*P"/>
+             pixtype="stock" pixname="gtk-print-preview"
+	     accel="*Control**Shift*P"/>
         <cmd name="Print" _label="_Print..."
              _tip="Print image to the printer"
-        	 pixtype="stock" pixname="Print" accel="*Control*P"/>
+	     pixtype="stock" pixname="gtk-print" accel="*Control*P"/>
 
 	<cmd name="SaveAs" _label="Save _As..." 
 	     pixtype="stock" pixname="Save As" accel="*Control**Shift*S"/>
@@ -28,13 +28,10 @@
             <placeholder name="File Items Placeholder">
 	             <menuitem name="SaveAs" verb=""/>
 
-<!-- FIXME: Enable this if printing operations has been
-            ported to Gnome2.
 	             <separator/>
                      <menuitem name="PrintSetup" verb=""/>
 		     <menuitem name="PrintPreview" verb=""/>
 		     <menuitem name="Print" verb=""/>
--->
 
             </placeholder>
     </submenu>

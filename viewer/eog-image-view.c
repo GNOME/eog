@@ -40,6 +40,10 @@
 #include "eog-full-screen.h"
 #include "eog-hig-dialog.h"
 
+#include <libgpi/gpi-dialog-pixbuf.h>
+#include <libgpi/gpi-mgr-pixbuf.h>
+#include <libgnomeprintui/gnome-print-job-preview.h>
+
 
 
 
@@ -315,6 +319,62 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 	}
 }
 
+static void
+on_ok_clicked (GPIDialog *d, EogImageView *iv)
+{
+	gtk_idle_add ((GtkFunction) gtk_object_destroy, d);
+}
+
+static void
+on_cancel_clicked (GPIDialog *d, EogImageView *iv)
+{
+	gtk_idle_add ((GtkFunction) gtk_object_destroy, d);
+}
+
+static void
+verb_PrintSetup_cb (BonoboUIComponent *uic, gpointer user_data,
+		    const char *cname)
+{
+	EogImageView *iv = EOG_IMAGE_VIEW (user_data);
+	GdkPixbuf *pixbuf = eog_image_get_pixbuf (iv->priv->image);
+	GPIDialogPixbuf *d = gpi_dialog_pixbuf_new (pixbuf);
+
+	g_signal_connect (d, "ok_clicked", G_CALLBACK (on_ok_clicked), iv);
+	g_signal_connect (d, "cancel_clicked",
+			  G_CALLBACK (on_cancel_clicked), iv);
+	gtk_widget_show (GTK_WIDGET (d));
+}
+
+static void
+verb_PrintPreview_cb (BonoboUIComponent *uic, gpointer user_data,
+		      const char *cname)
+{
+	EogImageView *iv = EOG_IMAGE_VIEW (user_data);
+	GdkPixbuf *pixbuf = eog_image_get_pixbuf (iv->priv->image);
+	GPIMgrPixbuf *mgr = gpi_mgr_pixbuf_new (pixbuf);
+	GnomePrintJob *job = gpi_mgr_get_job (GPI_MGR (mgr));
+	GtkWidget *d;
+
+	d = gnome_print_job_preview_new (job, _("Preview"));
+	g_object_unref (job);
+	g_object_unref (mgr);
+	gtk_widget_show (d);
+}
+
+static void
+verb_Print_cb (BonoboUIComponent *uic, gpointer user_data,
+	       const char *cname)
+{
+	EogImageView *iv = EOG_IMAGE_VIEW (user_data);
+	GdkPixbuf *pixbuf = eog_image_get_pixbuf (iv->priv->image);
+	GPIMgrPixbuf *mgr = gpi_mgr_pixbuf_new (pixbuf);
+	GnomePrintJob *job = gpi_mgr_get_job (GPI_MGR (mgr));
+
+	gnome_print_job_print (job);
+	g_object_unref (job);
+	g_object_unref (mgr);
+}
+
 static BonoboUIVerb eog_zoom_verbs[] = {
 	BONOBO_UI_VERB ("ZoomIn",        verb_ZoomIn_cb),
 	BONOBO_UI_VERB ("ZoomOut",       verb_ZoomOut_cb),
@@ -331,6 +391,9 @@ static BonoboUIVerb eog_verbs[] = {
 	BONOBO_UI_VERB ("Rotate90cw",    verb_Rotate90cw_cb),
 	BONOBO_UI_VERB ("Rotate90ccw",   verb_Rotate90ccw_cb),
 	BONOBO_UI_VERB ("Rotate180",     verb_Rotate180_cb),
+	BONOBO_UI_VERB ("PrintSetup",    verb_PrintSetup_cb),
+	BONOBO_UI_VERB ("Print",         verb_Print_cb),
+	BONOBO_UI_VERB ("PrintPreview",  verb_PrintPreview_cb),
 	BONOBO_UI_VERB_END
 };
 
@@ -348,6 +411,13 @@ eog_image_view_create_ui (EogImageView *image_view)
 			       "eog-image-view-ui.xml", "EogImageView", NULL);
 	bonobo_ui_component_add_verb_list_with_data (priv->uic, eog_verbs,
 						     image_view);
+
+	bonobo_ui_component_set_prop (priv->uic, "/commands/PrintSetup",
+		"sensitive", "0", NULL);
+	bonobo_ui_component_set_prop (priv->uic, "/commands/PrintPreview",
+		"sensitive", "0", NULL);
+	bonobo_ui_component_set_prop (priv->uic, "/commands/Print",
+		"sensitive", "0", NULL);
 
 	if (!priv->has_zoomable_frame) {
 		bonobo_ui_util_set_ui (priv->uic, DATADIR, "eog-image-view-ctrl-ui.xml", "EOG", NULL);
