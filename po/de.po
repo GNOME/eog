@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2002-02-24 19:27+0100\n"
-"PO-Revision-Date: 2001-06-16 00:03+02:00\n"
+"Project-Id-Version: eog 0.115.0\n"
+"POT-Creation-Date: 2002-03-19 22:41+0100\n"
+"PO-Revision-Date: 2002-03-19 00:03+02:00\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
 msgid "EOG Image"
 msgstr "EOG-Bild"
 
@@ -67,7 +67,7 @@ msgstr "_Beenden"
 msgid "Exit the program"
 msgstr "Das Programm beenden"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
 msgid "Open"
 msgstr "Öffnen"
 
@@ -151,34 +151,48 @@ msgstr "Control hat keine Eigenschaften"
 msgid "Couldn't retrieve mime type for file."
 msgstr "MIME-Typ für Datei konnte nicht erhalten werden."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1042
 msgid "Error while obtaining file informations."
-msgstr "Fehler beim Entnehmen von Dateiinformationen."
+msgstr "Fehler beim Erhalten von Dateiinformationen."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1071
+#, c-format
+msgid "Unable to open %s."
+msgstr "Unfähig %s zu öffnen."
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to open\n"
 "them in a collection instead?"
 msgstr ""
-"Sie stehen davor, %i Fenster\n"
-"gleichzeitig zu öffnen. Möchten Sie\n"
-"sie lieber in einer Sammlung öffnen?"
+"Sie sind dabei, %i Fenster gleichzeitig\n"
+"zu öffnen. Möchten Sie diese lieber in\n" 
+"einer Sammlung öffnen?"
 
 #: shell/main.c:166
 msgid "Single Windows"
 msgstr "Einzelne Fenster"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:280
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Sie sind dabei, %i Fenster gleichzeitig\n"
+"zu öffnen. Möchten Sie fortfahren?"
+
+#: shell/main.c:307
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: shell/main.c:283
+#: shell/main.c:310
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo konnte nicht initialisiert werden!\n"
 
@@ -187,68 +201,68 @@ msgstr "Bonobo konnte nicht initialisiert werden!\n"
 msgid "Could not open `%s'"
 msgstr "`%s' konnte nicht geöffnet werden"
 
-#: viewer/eog-image.c:432
+#: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:298
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Bild konnte nicht unter '%s' gespeichert werden: %s"
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:347
 msgid "Save As"
 msgstr "Speichern unter"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:920
 msgid "Print Image"
 msgstr "Bild drucken"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:928
 msgid "Pages"
 msgstr "Seiten"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1015
 msgid "Print Preview"
 msgstr "Druckvorschau"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1021
 msgid "Printing of image failed"
 msgstr "Drucken des Bildes fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1897
+#: viewer/eog-image-view.c:1835
 msgid "Display"
 msgstr "Anzeige"
 
-#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2059 viewer/preferences.c:155
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2062 viewer/preferences.c:166
 msgid "Dither"
 msgstr "Raster"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2065 viewer/preferences.c:177
 msgid "Check Type"
-msgstr "Typ prüfen"
+msgstr "Karotyp"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2068 viewer/preferences.c:188
 msgid "Check Size"
-msgstr "Größe prüfen"
+msgstr "Karogröße"
 
-#: viewer/eog-image-view.c:2000
+#: viewer/eog-image-view.c:2071
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2074
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2077
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2080
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
@@ -569,67 +583,67 @@ msgstr "Runter, dann nach rechts"
 msgid "Right, then down"
 msgstr "Nach rechts, dann runter"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "Nächster-Nachbar-Interpolation"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 msgid "Tiles Interpolation"
 msgstr "Kachel-Interpolation"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "Bilineare Interpolation"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Hyperbolische Interpolation"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Keine Rasterung"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normale (PseudoColor-)Rasterung"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "Maximum- (HighColor-)Rasterung"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Dunkel"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "Mittel"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Hell"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Schwarz"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Grau"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Weiß"
 
-#: viewer/preferences.c:66
+#: viewer/preferences.c:59
 msgid "Small"
 msgstr "Klein"
 
-#: viewer/preferences.c:67
+#: viewer/preferences.c:60
 msgid "Medium"
 msgstr "Mittel"
 
-#: viewer/preferences.c:68
+#: viewer/preferences.c:61
 msgid "Large"
 msgstr "Groß"
 
