@@ -316,7 +316,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 		pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
 
 		about = gnome_about_new (
-			_("Eye of Gnome"),
+			_("Eye of GNOME"),
 			VERSION,
 			"Copyright \xc2\xa9 2000-2004 Free Software Foundation, Inc.",
 			_("The GNOME image viewing and cataloging program."),
@@ -356,7 +356,7 @@ verb_HelpContent_cb (GtkAction *action, gpointer data)
 						 0,
 						 GTK_MESSAGE_ERROR,
 						 GTK_BUTTONS_CLOSE,
-						 _("Could not display help for Eye of Gnome.\n"
+						 _("Could not display help for Eye of GNOME.\n"
 						   "%s"),
 						 error->message);
 
@@ -2205,7 +2205,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 		gnome_vfs_uri_unref (uri);
 	}
 	else {
-		title = g_strdup (_("Eye of Gnome"));
+		title = g_strdup (_("Eye of GNOME"));
 	}
 	gtk_window_set_title (GTK_WINDOW (window), title);
 		
@@ -2279,7 +2279,7 @@ static GtkActionEntry action_entries_window[] = {
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileFolderOpen",     GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
-  { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of Gnome"), G_CALLBACK (verb_EditPreferences_cb) },
+  { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of GNOME"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
   { "HelpAbout",       GNOME_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
 };
@@ -2540,7 +2540,7 @@ eog_window_new (GError **error)
 {
 	EogWindow *window;
 
-	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "title", _("Eye of Gnome"), NULL));
+	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "title", _("Eye of GNOME"), NULL));
 
 	if (eog_window_construct_ui (window, error)) {
 		eog_window_update_properties (window);

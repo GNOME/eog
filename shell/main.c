@@ -64,7 +64,7 @@ create_new_window (void)
 	if (error != NULL) {
 		GtkWidget *dlg;
 		dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
-					  _("Unable to create Eye of Gnome user interface"), error->message, TRUE);
+					  _("Unable to create Eye of GNOME user interface"), error->message, TRUE);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 
 		g_error_free (error);
@@ -517,7 +517,7 @@ main (int argc, char **argv)
 
 	program = gnome_program_init ("eog", VERSION,
 				      LIBGNOMEUI_MODULE, argc, argv,
-				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of Gnome"),
+				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
 				      GNOME_PARAM_APP_DATADIR,DATADIR,NULL);
 
 	error = NULL;

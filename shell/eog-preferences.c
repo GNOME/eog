@@ -95,7 +95,7 @@ help_cb (GtkWidget *widget, gpointer data)
 		GtkWidget *dialog;
 
 		dialog = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
-					     _("Could not display help for Eye of Gnome"),
+					     _("Could not display help for Eye of GNOME"),
 					     error->message, TRUE);
 
 		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
