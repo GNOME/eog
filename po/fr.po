@@ -9,15 +9,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.5.3\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
-"PO-Revision-Date: 2004-01-18 11:35+0100\n"
+"Project-Id-Version: eog 2.5.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-25 23:01+0100\n"
+"PO-Revision-Date: 2004-02-25 22:57+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -32,14 +32,12 @@ msgid "Image Collection"
 msgstr "collection d'images"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
-#, fuzzy
 msgid "View as I_mage Collection"
-msgstr "collection d'images"
+msgstr "Voir en tant que Collection d'_images"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:5
-#, fuzzy
 msgid "View as Image Collection"
-msgstr "collection d'images"
+msgstr "Voir en tant que Collection d'images"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
@@ -115,6 +113,11 @@ msgstr "Déplacer dans la corbeille"
 #: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Vue de collection"
+
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr "Images : %i/%i"
 
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
@@ -283,22 +286,23 @@ msgstr "Indicateur de transparence"
 
 #: eog.schemas.in.h:15
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Indique si ouvrir une image doit créer une nouvelle fenêtre au lieu de "
-"remplacer l'image de la fenêtre existante."
+"remplacer l'image de la fenêtre courante."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Indique si une séquence d'images doit être affichée en boucle."
 
 #: eog.schemas.in.h:17
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Indique si l'image doit être interpolé au zoom ou non. Cela donne une "
+"Indique si l'image doit être interpolée au zoom ou non. Cela donne une "
 "meilleure qualité de rendu mais est plus lent que les images non interpolées."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -502,10 +506,6 @@ msgstr "Verticalement"
 msgid "Vertically by "
 msgstr "Verticalement par "
 
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialog1"
-
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
 msgstr "Nom"
@@ -548,7 +548,7 @@ msgstr "Ouvrir"
 
 #: shell/eog-shell-ui.xml.h:9
 msgid "Open a directory"
-msgstr "Ouvre un répertoire"
+msgstr "Ouvre un dossier"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -604,7 +604,7 @@ msgstr "_Nouveau"
 
 #: shell/eog-shell-ui.xml.h:24
 msgid "_Open Directory..."
-msgstr "_Ouvrir un répertoire..."
+msgstr "_Ouvrir un dossier..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -840,728 +840,3 @@ msgstr "Largeur de fenêtre désirée"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Hauteur de fenêtre désirée"
-
-#~ msgid "Could not find files"
-#~ msgstr "Impossible de trouver les fichiers"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "Ne pas utiliser de zoom supérieur à 100%"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr "_Interpoler l'image au zoom (meilleure qualité mais plus lent)"
-
-#~ msgid "By Extension"
-#~ msgstr "Par l'extension"
-
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "Format du fichier d'images non supporté pour l'enregistrement."
-
-#~ msgid "Determine File Type:"
-#~ msgstr "Déterminer le type du fichier :"
-
-#~ msgid "Automatically pick window size"
-#~ msgstr "Choisir la taille de la fenêtre automatiquement"
-
-#~ msgid "Default zoom factor for the full screen view"
-#~ msgstr "Facteur de zoom par défaut pour la vue en plein écran"
-
-#~ msgid ""
-#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
-#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
-#~ "(fit the image to the screen)."
-#~ msgstr ""
-#~ "Facteur de zoom par défaut pour la vue plein écran. Les valeurs possible "
-#~ "sont : 0 (utilise le facteur de zoom 1:1), 1 (utilise le même facteur de "
-#~ "zoom que la fenêtre d'image), 2 (ajuste l'image à l'écran)."
-
-#~ msgid "Fit standard-sized images to the screen"
-#~ msgstr "Ajuster les images de taille standard à l'écran"
-
-#~ msgid "Put a bevel around the screen"
-#~ msgstr "Mettre une bordure autour de l'écran"
-
-#~ msgid "Scrollbar policy for the full screen view"
-#~ msgstr "Politique d'ascenseur pour la vue en plein écran"
-
-#~ msgid ""
-#~ "Whether image windows should pick their size and zooming factor "
-#~ "automatically based on the size of the image. If this option is not set, "
-#~ "image windows will get whatever size the window manager assigns to them."
-#~ msgstr ""
-#~ "Si les fenêtres d'images doivent choisir leur taille et leur facteur de "
-#~ "zoom automatiquement en fonction de la taille de l'image. Si cette option "
-#~ "n'est pas définie, les fenêtres d'image prendront la taille qui leur est "
-#~ "assigné par le gestionnaire de fenêtres."
-
-#~ msgid ""
-#~ "Whether the full screen view should display a bevel along the edges of "
-#~ "the screen."
-#~ msgstr ""
-#~ "Si la vue plein écran doit afficher une bordure sur les cotés de l'écran."
-
-#~ msgid ""
-#~ "Whether to display scrollbars on the full screen view. Possible values "
-#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
-#~ "the window), 2 (never display scrollbars)."
-#~ msgstr ""
-#~ "Si les ascenseurs doivent être affiché dans la vue plein écran. Les "
-#~ "valeurs possible sont 1 (automatique ; n'affiche les ascenseurs que lsi "
-#~ "l'image est plus grande que la fenêtre), 2 (n'affiche jamais les "
-#~ "ascenseurs)."
-
-#~ msgid ""
-#~ "Whether to fit standard-sized images to the screen when in full screen "
-#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
-#~ "This selects whether such images should be scaled to fit the screen "
-#~ "regardless of the setting for the default zoom factor of the full screen "
-#~ "view."
-#~ msgstr ""
-#~ "Si il faut ajuster les images de taille normale en mode plein écran. Ce "
-#~ "sont les images avec des tailles comme 320x240, 640x480, 800x600, etc. "
-#~ "Cela sélectionne si de telles images doivent être mise à l'échelle pour "
-#~ "remplir l'écran quelque soit le réglage du facteur de zoom par défaut de "
-#~ "la vue plein écran."
-
-#~ msgid "action_area"
-#~ msgstr "action_area"
-
-#~ msgid "dialog"
-#~ msgstr "dialog"
-
-#~ msgid "vbox"
-#~ msgstr "vbox"
-
-#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-#~ msgstr "Copyright © 2000-2002 La Free Software Foundation"
-
-#~ msgid "Couldn't initialize GnomeVFS!\n"
-#~ msgstr "Impossible d'initialiser GnomeVFS !\n"
-
-#~ msgid "pts"
-#~ msgstr "pts"
-
-#~ msgid "points"
-#~ msgstr "points"
-
-#~ msgid "mm"
-#~ msgstr "mm"
-
-#~ msgid "cm"
-#~ msgstr "cm"
-
-#~ msgid "centimeter"
-#~ msgstr "centimètre"
-
-#~ msgid "inch"
-#~ msgstr "pouce"
-
-#~ msgid "Print Setup"
-#~ msgstr "Paramètres d'impression"
-
-#~ msgid "Print"
-#~ msgstr "Imprimer"
-
-#~ msgid "Units: "
-#~ msgstr "Unités : "
-
-#~ msgid "Paper size:"
-#~ msgstr "Taille du papier :"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientation"
-
-#~ msgid "Portrait"
-#~ msgstr "Portrait"
-
-#~ msgid "Landscape"
-#~ msgstr "Paysage"
-
-#~ msgid "Top:"
-#~ msgstr "Supérieure :"
-
-#~ msgid "Left:"
-#~ msgstr "Gauche :"
-
-#~ msgid "Right:"
-#~ msgstr "Droite :"
-
-#~ msgid "Bottom:"
-#~ msgstr "Inférieure :"
-
-#~ msgid "Overlap horizontally by "
-#~ msgstr "Recouvrir horizontalement par "
-
-#~ msgid "Overlap vertically by "
-#~ msgstr "Recouvrir verticalement par "
-
-#~ msgid "Printing"
-#~ msgstr "Impression"
-
-#~ msgid "Helpers"
-#~ msgstr "Assistants"
-
-#~ msgid "Couldn't get local BonoboControl interface.\n"
-#~ msgstr "Ne peut obtenir l'interface local BonoboControl.\n"
-
-#~ msgid "Can't handle URI: %s"
-#~ msgstr "Ne peut gérer l'URI : %s"
-
-#~ msgid "Vertical"
-#~ msgstr "Vertical"
-
-#~ msgid "Horizontal"
-#~ msgstr "Horizontal"
-
-#~ msgid "Rectangle"
-#~ msgstr "Rectangle"
-
-#~ msgid "Layout Mode:"
-#~ msgstr "Mode d'agencement :"
-
-#~ msgid "Image Collection Background Color"
-#~ msgstr "Couleur d'arrière-plan de la collection d'images"
-
-#~ msgid "Send"
-#~ msgstr "Envoyer"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Visionneur d'images Eye of GNOME"
-
-#~ msgid "By c_olor"
-#~ msgstr "Avec une _couleur"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Indiquer la transparence"
-
-#~ msgid "Pick a color"
-#~ msgstr "Choisissez une couleur"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid "Unsupported file format."
-#~ msgstr "Format de fichier non supporté."
-
-#~ msgid "Unsupported image type for saving: xpm"
-#~ msgstr "Type d'image non supporté pour l'enregistrement : xpm"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "Vous êtes sur le point d'ouvrir %i fenêtres\n"
-#~ "simultanément. Voulez-vous continuer ?"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "Ne peut accéder à %s\n"
-#~ "Eye of Gnome ne sera pas capable d'afficher ce fichier."
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Les fichiers suivants ne peuvent être affichés car Eye of Gnome n'a pas "
-#~ "été capable d'y accéder :\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "Impossible d'initialiser GnomeVFS !\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Impossible d'initialiser Bonobo !\n"
-
-#~ msgid "interpolation type"
-#~ msgstr "type d'interpolation"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "le type d'interpolation à utiliser"
-
-#~ msgid "check type"
-#~ msgstr "type de damier"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "le type de damier à utiliser"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "la taille de damiers à utiliser"
-
-#~ msgid "dither"
-#~ msgstr "tramage"
-
-#~ msgid "dither type"
-#~ msgstr "type de tramage"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Impossible d'enregistrer l'image sous « %s » : %s."
-
-#~ msgid "Print Preview"
-#~ msgstr "Aperçu avant impression"
-
-#~ msgid "_New Window"
-#~ msgstr "_Nouvelle fenêtre"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Zoom _1:1"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "Zoom pour _ajuster"
-
-#~ msgid "Check _size"
-#~ msgstr "T_aille du damier"
-
-#~ msgid "Check _type"
-#~ msgstr "T_ype du damier"
-
-#~ msgid "Large"
-#~ msgstr "Grand"
-
-#~ msgid "Medium"
-#~ msgstr "Moyen"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "_Plus proche voisin"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "_Normal (pseudo couleur)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "_Aperçu avant impression"
-
-#~ msgid "Print S_etup"
-#~ msgstr "_Paramètres d'impression"
-
-#~ msgid "Small"
-#~ msgstr "Petit"
-
-#~ msgid "_Bilinear"
-#~ msgstr "_Bilinéaire"
-
-#~ msgid "_Black"
-#~ msgstr "_Noir"
-
-#~ msgid "_Dark"
-#~ msgstr "_Sombre"
-
-#~ msgid "_Dither"
-#~ msgstr "_Tramage"
-
-#~ msgid "_Gray"
-#~ msgstr "_Gris"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "_Hyperbolique"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolation"
-
-#~ msgid "_Light"
-#~ msgstr "_Clair"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "_Maximum (couleurs réelles)"
-
-#~ msgid "_Midtone"
-#~ msgstr "_Demi-ton"
-
-#~ msgid "_None"
-#~ msgstr "_Aucun"
-
-#~ msgid "_White"
-#~ msgstr "_Blanc"
-
-#~ msgid "/Zoom _1:1"
-#~ msgstr "/Zoom _1:1"
-
-#~ msgid "Dither"
-#~ msgstr "Tramage"
-
-#~ msgid "Check Type"
-#~ msgstr "Type du damier"
-
-#~ msgid "Check Size"
-#~ msgstr "Taille du damier"
-
-#~ msgid "Unable to open %s."
-#~ msgstr "Impossible d'ouvrir %s."
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible d'afficher l'aide de la boîte de dialogue de préférences.\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "Modifier les préférences"
-
-#~ msgid "Close"
-#~ msgstr "Fermer"
-
-#~ msgid "_Preferences..."
-#~ msgstr "_Préférences..."
-
-#~ msgid "_Tiles"
-#~ msgstr "_Mosaïques"
-
-#~ msgid "Display"
-#~ msgstr "Visuel"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "Interpolation plus proche voisin"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "Interpolation bilinéaire"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "Interpolation hyperbolique"
-
-#~ msgid "No dithering"
-#~ msgstr "Pas de tramage"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "Tramage normal (pseudo couleur)"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "Tramage maximum (couleurs réelles)"
-
-#~ msgid "Dark"
-#~ msgstr "Sombre"
-
-#~ msgid "Midtone"
-#~ msgstr "Demi-ton"
-
-#~ msgid "Black"
-#~ msgstr "Noir"
-
-#~ msgid "Gray"
-#~ msgstr "Gris"
-
-#~ msgid "White"
-#~ msgstr "Blanc"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Interpolation :"
-
-#~ msgid "_Dither:"
-#~ msgstr "_Tramage :"
-
-#~ msgid "Check _type:"
-#~ msgstr "T_ype de damier :"
-
-#~ msgid "Check _size:"
-#~ msgstr "T_aille du damier :"
-
-#~ msgid "Translator Credits"
-#~ msgstr ""
-#~ "Mainteneur :\n"
-#~ "Christophe Merlet <redfox@redfoxcenter.org>\n"
-#~ "Contributeur :\n"
-#~ "Christophe Fergeau <teuf@users.sourceforge.net>"
-
-#~ msgid "Control doesn't support window_title property."
-#~ msgstr "Le contrôle ne supporte pas la propriété window_title."
-
-#~ msgid "Control doesn't support status_text property."
-#~ msgstr "Le contrôle ne supporte pas la propriété status_text."
-
-#~ msgid "Control doesn't have properties"
-#~ msgstr "Le contrôle n'a pas de propriétés"
-
-#~ msgid "Couldn't retrieve mime type for file."
-#~ msgstr "Ne peut récupérer le type MIME pour ce fichier."
-
-#~ msgid "Error while obtaining file informations."
-#~ msgstr "Erreur durant l'obtention des informations du fichier."
-
-#~ msgid "E_xit"
-#~ msgstr "_Quitter"
-
-#~ msgid "_Settings"
-#~ msgstr "_Réglages"
-
-#~ msgid "Check size large"
-#~ msgstr "Vérifier la taille large"
-
-#~ msgid "Check size medium"
-#~ msgstr "Vérifier la taille moyenne"
-
-#~ msgid "Check size small"
-#~ msgstr "Vérifier la petite taille"
-
-#~ msgid "Check type _black"
-#~ msgstr "Vérifier le type _noir"
-
-#~ msgid "Check type _dark"
-#~ msgstr "Vérifier le type _foncé"
-
-#~ msgid "Check type _gray"
-#~ msgstr "Vérifier le type _gris"
-
-#~ msgid "Check type _light"
-#~ msgstr "Vérifier le type c_lair"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "Vérifierle type _moyen"
-
-#~ msgid "Check type _white"
-#~ msgstr "Vérifier le type _blanc"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Diffusion normal (_pseudo couleur)"
-
-#~ msgid "Save _As"
-#~ msgstr "Enregistrer _sous"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "Interpolation _bilinéaire"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "Tramage _maximum (vrai couleur)"
-
-#~ msgid "_No dithering"
-#~ msgstr "_Pas de tramage"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "Interpolation des _tuiles"
-
-#~ msgid "Interpolation:"
-#~ msgstr "Interpolation :"
-
-#~ msgid "Dither:"
-#~ msgstr "Tramage :"
-
-#~ msgid "Check Type:"
-#~ msgstr "Vérifier le type :"
-
-#~ msgid "Check Size:"
-#~ msgstr "Vérifier la taille :"
-
-#~ msgid "View"
-#~ msgstr "Affichage"
-
-#~ msgid "Can't find eog-shell-ui.xml.\n"
-#~ msgstr "Ne peut trouver eog-shell-ui.xml.\n"
-
-#~ msgid "Eye Of Gnome"
-#~ msgstr "Eye of GNOME"
-
-#~ msgid "I could not initialize GnomeVFS!\n"
-#~ msgstr "Ne peut initialiser GnomeVFS !\n"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Ne peut initialiser Bonobo"
-
-#~ msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-#~ msgstr "Copyright (C) 2000-2001 La Free Software Foundation"
-
-#~ msgid "Open an image file"
-#~ msgstr "Ouvrir un fichier image"
-
-#~ msgid "Close the current window"
-#~ msgstr "Fermer la fenêtre courante"
-
-#~ msgid "_Close This Window"
-#~ msgstr "_Fermer la fenêtre"
-
-#~ msgid "2:1"
-#~ msgstr "2:1"
-
-#~ msgid "3:1"
-#~ msgstr "3:1"
-
-#~ msgid "4:1"
-#~ msgstr "4:1"
-
-#~ msgid "5:1"
-#~ msgstr "5:1"
-
-#~ msgid "6:1"
-#~ msgstr "6:1"
-
-#~ msgid "7:1"
-#~ msgstr "7:1"
-
-#~ msgid "8:1"
-#~ msgstr "8:1"
-
-#~ msgid "9:1"
-#~ msgstr "9:1"
-
-#~ msgid "10:1"
-#~ msgstr "10:1"
-
-#~ msgid "1:2"
-#~ msgstr "1:2"
-
-#~ msgid "1:3"
-#~ msgstr "1:3"
-
-#~ msgid "1:4"
-#~ msgstr "1:4"
-
-#~ msgid "1:5"
-#~ msgstr "1:5"
-
-#~ msgid "1:6"
-#~ msgstr "1:6"
-
-#~ msgid "1:7"
-#~ msgstr "1:7"
-
-#~ msgid "1:8"
-#~ msgstr "1:8"
-
-#~ msgid "1:9"
-#~ msgstr "1:9"
-
-#~ msgid "1:10"
-#~ msgstr "1:10"
-
-#~ msgid "Increase zoom factor by 5%%"
-#~ msgstr "Augmenter le facteur du zoom de 5%%"
-
-#~ msgid "Decrease zoom factor by 5%%"
-#~ msgstr "Diminuer le facteur du zoom de 5%%"
-
-#~ msgid "Display the image at 1:1 scale"
-#~ msgstr "Afficher l'image à l'échelle 1:1"
-
-#~ msgid "_Zoom factor"
-#~ msgstr "Facteur de _zoom"
-
-#~ msgid "_Fit to Window"
-#~ msgstr "Ajuster à la _fenêtre"
-
-#~ msgid "Zoom the image to fit in the window"
-#~ msgstr "Zoomer l'image pour s'ajuster à la fenêtre"
-
-#~ msgid "Full _Screen"
-#~ msgstr "_Plein écran"
-
-#~ msgid "Use the whole screen for display"
-#~ msgstr "Utiliser tout l'écran pour l'affichage"
-
-#~ msgid "Check size"
-#~ msgstr "Taille du damier"
-
-#~ msgid "Dark checks"
-#~ msgstr "Damier sombre"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "Ajuster toutes les images à l'écran"
-
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Hyperbolique (Lent, meilleur qualité)"
-
-#~ msgid "Light checks"
-#~ msgstr "Damier clair"
-
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Plus proche voisin (rapide, faible qualité)"
-
-#~ msgid "Never"
-#~ msgstr "Jamais"
-
-#~ msgid "Only if image does not fit"
-#~ msgstr "Seulement si l'image ne rentre pas"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr ""
-#~ "Choisir la taille de la fenêtre et le facteur de zoom automatiquement"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Défilement en deux passes"
-
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Utiliser un facteur de zoom 1:1"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Utiliser le même facteur de zoom que la fenêtre d'image"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Utiliser des barres de défilement"
-
-#~ msgid "E_OG"
-#~ msgstr "E_OG"
-
-#~ msgid ""
-#~ "Dark checks\n"
-#~ "Midtone checks\n"
-#~ "Light checks\n"
-#~ "Black only\n"
-#~ "Gray only\n"
-#~ "White only\n"
-#~ msgstr ""
-#~ "Damier sombre\n"
-#~ "Damier grisé\n"
-#~ "Damier clair\n"
-#~ "Noir uni\n"
-#~ "Gris uni\n"
-#~ "Blanc uni\n"
-
-#~ msgid ""
-#~ "Small\n"
-#~ "Medium\n"
-#~ "Large\n"
-#~ msgstr ""
-#~ "Petit\n"
-#~ "Moyen\n"
-#~ "Grand\n"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "Aucun\n"
-#~ "Normal (pseudocouleur)\n"
-#~ "Maximum (vrai couleur)\n"
-
-#~ msgid "Don't save"
-#~ msgstr "Ne pas enregistrer"
-
-#~ msgid "Don't exit"
-#~ msgstr "Ne pas quitter"
