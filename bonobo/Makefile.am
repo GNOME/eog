@@ -6,6 +6,12 @@ else
 PRINT_LIBS =
 endif
 
+if USING_OAF
+OBJECT_DIRECTORY_LIBS = $(GNOME_LIBS) $(OAF_LIBS)
+else
+OBJECT_DIRECTORY_LIBS = $(GNOMEGNORBA_LIBS)
+endif
+
 bin_PROGRAMS = bonobo-image-generic
 
 bonobo_image_generic_SOURCES =	\
@@ -23,14 +29,25 @@ INCLUDES =	\
 bonobo_image_generic_LDADD = 			\
 	$(GNOME_LIBS)				\
 	$(GNOME_LIBDIR)				\
-	$(GNOMEGNORBA_LIBS)			\
+	$(OBJECT_DIRECTORY_LIBS)		\
 	$(INTLLIBS)				\
 	$(PRINT_LIBS)				\
 	$(EXTRA_BONOBO_LIBS)
-
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = image-generic.gnorba
 endif
 
-EXTRA_DIST = image-generic.gnorba
+gnorbadir = $(sysconfdir)/CORBA/servers
+oafdir = $(datadir)/oaf
 
+
+GOAD_FILES = image-generic.gnorba
+OAF_FILES = image-generic.oafinfo
+
+if BONOBO
+if USING_OAF
+oaf_DATA = $(OAF_FILES)
+else
+gnorba_DATA = $(GOAD_FILES)
+endif
+endif
+
+EXTRA_DIST = $(GOAD_FILES) $(OAF_FILES)

@@ -1,3 +1,19 @@
+2000-04-23  Maciej Stachowiak  <mjs@eazel.com>
+
+	Optionally use OAF:
+
+	* configure.in, acconfig.h: Add --enable-oaf configure option to
+	allow building the bonobo control OAF-enabled instead of
+	GOAD-enabled.
+
+	* bonobo/Makefile.am: Link against OAf and install .oafinfo file when
+	configured with --enable-oaf
+
+	* bonobo/bonobo-image-generic.c: Use OAF calls and IIDs when
+	configured with --enable-oaf.
+
+	* bonobo/image-generic.oafinfo: New OAF activation record.	
+
 2000-04-23  Federico Mena Quintero  <federico@helixcode.com>
 
 	* THANKS: Thanks.

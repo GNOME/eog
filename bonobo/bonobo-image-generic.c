@@ -11,6 +11,7 @@
  *    Save image
  *
  * Copyright 2000, Helixcode Inc.
+ * Copyright 2000, Eazel, Inc.
  */
 #include <config.h>
 #include <stdio.h>
@@ -20,7 +21,12 @@
 #include <errno.h>
 
 #include <gnome.h>
+#if USING_OAF
+#include <liboaf/liboaf.h>
+#else
 #include <libgnorba/gnorba.h>
+#endif
+
 #include <bonobo.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -523,10 +529,19 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	 * Creates the BonoboObject server
 	 */
 
+#if USING_OAF
+	if (!strcmp (goad_id, "OAFIID:eog_image-generic:0d77ee99-ce0d-4463-94ec-99969f567f33"))
+#else
 	if (!strcmp (goad_id, "embeddable:image-generic"))
+#endif
 		bonobo_object = bonobo_embeddable_new (scaled_view_factory, bod);
 
+
+#if USING_OAF
+	else if (!strcmp (goad_id, "OAFIID:eog-image-viewer:f67c01c8-a44d-4c50-8ce1-dc893c961876"))
+#else
 	else if (!strcmp (goad_id, "eog-image-viewer"))
+#endif
 		bonobo_object = bonobo_embeddable_new (scrollable_view_factory, bod);
 
 	else {
@@ -575,9 +590,15 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 static void
 init_bonobo_image_generic_factory (void)
 {
+#if USING_OAF
 	image_factory = bonobo_generic_factory_new_multi 
-		("embeddable-factory:image-generic",
+		("OAFIID:eog_viewer_factory:777e0cdf-2b79-4e36-93d8-e9d490c9c4b8",
 		 bonobo_object_factory, NULL);
+#else
+        image_factory = bonobo_generic_factory_new_multi 
+	        ("embeddable-factory:image-generic",
+		 bonobo_object_factory, NULL);
+#endif
 }
 
 static void
@@ -586,9 +607,16 @@ init_server_factory (int argc, char **argv)
 	CORBA_Environment ev;
 	CORBA_exception_init (&ev);
 
+#ifdef USING_OAF
+        gnome_init_with_popt_table("bonobo-image-generic", VERSION,
+				   argc, argv,
+				   oaf_popt_options, 0, NULL); 
+	oaf_init (argc, argv);
+#else
 	gnome_CORBA_init_with_popt_table (
 		"bonobo-image-generic", "1.0",
 		&argc, argv, NULL, 0, NULL, GNORBA_INIT_SERVER_FUNC, &ev);
+#endif
 
 	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
 		g_error (_("I could not initialize Bonobo"));
@@ -865,8 +893,13 @@ init_bonobo_animator_control_factory (void)
 	if (animator_factory != NULL)
 		return;
 
+#if USING_OAF
+	animator_factory = bonobo_generic_factory_new ("OAFIID:eog_animator_factory:8d2380ad-6e60-4986-ae27-152501839f57",
+						       bonobo_animator_factory, NULL);
+#else
 	animator_factory = bonobo_generic_factory_new ("control-factory:animator",
 						       bonobo_animator_factory, NULL);
+#endif
 
 	if (animator_factory == NULL)
 		g_error ("I could not register an animator factory.");

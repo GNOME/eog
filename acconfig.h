@@ -8,4 +8,4 @@
 #undef ENABLE_NLS
 #undef ENABLE_BONOBO
 #undef ENABLE_GPRINT
-
+#undef USING_OAF

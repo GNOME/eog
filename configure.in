@@ -105,6 +105,36 @@ EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf`
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 AC_SUBST(EXTRA_GNOME_LIBS)
 
+
+dnl Whether to use OAF
+AC_ARG_ENABLE(oaf, 
+            [  --enable-oaf=[no/yes]      Use OAF instead of GOAD.],,enable_oaf=no)
+
+if test "x$enable_oaf" = "xyes"; then
+        AC_PATH_PROG(OAF_CONFIG,oaf-config,no)
+        if test x$OAF_CONFIG = xno; then
+                AC_MSG_ERROR("You enabled OAF support but oaf-config was not found")
+        else
+                OAF_LIBS=`$OAF_CONFIG --libs`
+                OAF_CFLAGS=`$OAF_CONFIG --cflags`
+                GNORBA_LIBNAME=
+        fi
+else
+        OAF_LIBS=
+        OAF_CFLAGS=
+        GNORBA_LIBNAME=gnorba
+fi
+
+AC_SUBST(OAF_LIBS)
+AC_SUBST(OAF_CFLAGS)
+
+AM_CONDITIONAL(USING_OAF, test "x$enable_oaf" = "xyes")
+
+if test "x$enable_oaf" = "xyes"; then
+	AC_DEFINE(USING_OAF)
+fi
+
+
 AC_OUTPUT([
 Makefile
 intl/Makefile
