@@ -11,12 +11,20 @@ eog_SOURCES =				\
 	commands.h			\
 	cursors.c			\
 	cursors.h			\
+	gnome-icon-list-model.c		\
+	gnome-icon-list-model.h		\
 	gnome-list-item-factory.c	\
 	gnome-list-item-factory.h	\
 	gnome-list-model.c		\
 	gnome-list-model.h		\
+	gnome-list-selection-model.c	\
+	gnome-list-selection-model.h	\
 	gnome-list-view.c		\
 	gnome-list-view.h		\
+	gnome-position-list-model.c	\
+	gnome-position-list-model.h	\
+	gnome-wrap-list.c		\
+	gnome-wrap-list.h		\
 	gtkscrollframe.c		\
 	gtkscrollframe.h		\
 	image.h				\

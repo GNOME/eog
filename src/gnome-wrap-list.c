@@ -4,19 +4,20 @@
  *
  * Author: Federico Mena-Quintero <federico@gimp.org>
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #include <config.h>
@@ -28,6 +29,9 @@
 typedef struct {
 	/* Layout mode */
 	GnomeWrapListMode mode;
+
+	/* Position list model */
+	GnomePositionListModel *pos_model;
 
 	/* Width and height of items */
 	int item_width;
@@ -171,6 +175,60 @@ gnome_wrap_list_get_mode (GnomeWrapList *wlist)
 
 	priv = wlist->priv;
 	return priv->mode;
+}
+
+/**
+ * gnome_wrap_list_set_position_model:
+ * @wlist: A wrapped list view.
+ * @pos_model: A position list model.
+ * 
+ * sets the position list model for a wrapped list view.
+ **/
+void
+gnome_wrap_list_set_position_model (GnomeWrapList *wlist, GnomePositionListModel *pos_model)
+{
+	WrapListPrivate *priv;
+
+	g_return_if_fail (wlist != NULL);
+	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
+
+	if (pos_model)
+		g_return_if_fail (GNOME_IS_POSITION_LIST_MODEL (pos_model));
+
+	priv = wlist->priv;
+
+	if (pos_model == priv->pos_model)
+		return;
+
+	if (pos_model)
+		gtk_object_ref (GTK_OBJECT (pos_model));
+
+	if (priv->pos_model)
+		gtk_object_unref (GTK_OBJECT (priv->pos_model));
+
+	priv->pos_model = pos_model;
+
+	/* FIXME: update if necessary */
+}
+
+/**
+ * gnome_wrap_list_get_position_model:
+ * @wlist: A wrapped list view.
+ * 
+ * Queries the position list model that a wrapped list view is using.
+ * 
+ * Return value: The position list model.
+ **/
+GnomePositionListModel *
+gnome_wrap_list_get_position_model (GnomeWrapList *wlist)
+{
+	WrapListPrivate *priv;
+
+	g_return_val_if_fail (wlist != NULL, NULL);
+	g_return_val_if_fail (GNOME_IS_WRAP_LIST (wlist), NULL);
+
+	priv = wlist->priv;
+	return priv->pos_model;
 }
 
 /**

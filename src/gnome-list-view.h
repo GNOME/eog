@@ -4,19 +4,20 @@
  *
  * Author: Federico Mena-Quintero <federico@gimp.org>
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifndef GNOME_LIST_VIEW_H
@@ -25,6 +26,7 @@
 #include <libgnome/gnome-defs.h>
 #include "gnome-list-item-factory.h"
 #include "gnome-list-model.h"
+#include "gnome-list-selection-model.h"
 
 BEGIN_GNOME_DECLS
 
@@ -55,6 +57,7 @@ struct _GnomeListViewClass {
 	GtkContainerClass parent_class;
 
 	void (* set_model) (GnomeListView *view, GnomeListModel *model);
+	void (* set_selection_model) (GnomeListView *view, GnomeListSelectionModel *sel_model);
 	void (* set_list_item_factory) (GnomeListView *view, GnomeListItemFactory *factory);
 };
 
@@ -62,6 +65,10 @@ struct _GnomeListViewClass {
 GtkType gnome_list_view_get_type (void);
 
 GnomeListModel *gnome_list_view_get_model (GnomeListView *view);
+
+void gnome_list_view_set_selection_model (GnomeListView *view, GnomeListSelectionModel *sel_model);
+GnomeListSelectionModel *gnome_list_view_get_selection_model (GnomeListView *view);
+
 GnomeListItemFactory *gnome_list_view_get_list_item_factory (GnomeListView *view);
 
 
