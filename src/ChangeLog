@@ -1,5 +1,14 @@
 1999-09-17  Federico Mena Quintero  <federico@redhat.com>
 
+	* window.c (window_construct): Set the default size of windows to
+	something resonable.
+	(open_cmd): Keep the file selection dialog around so that it
+	preserves its cwd.  Added a field to WindowPrivate to hold it.
+	(open_ok_clicked): Just hide, don't destroy the dialog.
+	(open_cancel_clicked): Likewise.
+	(open_delete_event): Likewise.
+	(window_destroy): Destroy the file selection dialog.
+
 	* ui-image.c (ui_image_set_image): Set the canvas scroll region
 	based on the image size.
 

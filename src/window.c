@@ -26,6 +26,13 @@
 
 
 
+/* Default size for windows */
+
+#define DEFAULT_WINDOW_WIDTH 400
+#define DEFAULT_WINDOW_HEIGHT 300
+
+
+
 /* What a window is displaying */
 typedef enum {
 	WINDOW_MODE_NONE,
@@ -45,6 +52,11 @@ typedef struct {
 
 	/* Our contents, which may change depending on the mode */
 	GtkWidget *content;
+
+	/* The file selection widget used by this window.  We keep it around so
+	 * that it will preserve its cwd.
+	 */
+	GtkWidget *file_sel;
 } WindowPrivate;
 
 
@@ -233,14 +245,22 @@ open_ok_clicked (GtkWidget *widget, gpointer data)
 	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
 	open_image (window, filename);
 
-	gtk_widget_destroy (fs);
+	gtk_widget_hide (fs);
 }
 
 /* Cancel button callback for the open file selection dialog */
 static void
 open_cancel_clicked (GtkWidget *widget, gpointer data)
 {
-	gtk_widget_destroy (GTK_WIDGET (data));
+	gtk_widget_hide (GTK_WIDGET (data));
+}
+
+/* Delete_event handler for the open file selection dialog */
+static gint
+open_delete_event (GtkWidget *widget, gpointer data)
+{
+	gtk_widget_hide (widget);
+	return TRUE;
 }
 
 /* File/Open callback */
@@ -248,22 +268,32 @@ static void
 open_cmd (GtkWidget *widget, gpointer data)
 {
 	Window *window;
+	WindowPrivate *priv;
 	GtkWidget *fs;
 
 	window = WINDOW (data);
+	priv = window->priv;
 
-	fs = gtk_file_selection_new (_("Open Image"));
-	gtk_window_set_transient_for (GTK_WINDOW (fs), GTK_WINDOW (window));
-	gtk_object_set_data (GTK_OBJECT (fs), "window", window);
+	if (!priv->file_sel) {
+		priv->file_sel = gtk_file_selection_new (_("Open Image"));
+		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
+		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
 
-	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (fs)->ok_button), "clicked",
-			    GTK_SIGNAL_FUNC (open_ok_clicked),
-			    fs);
-	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (fs)->cancel_button), "clicked",
-			    GTK_SIGNAL_FUNC (open_cancel_clicked),
-			    fs);
+		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
+				    "clicked",
+				    GTK_SIGNAL_FUNC (open_ok_clicked),
+				    priv->file_sel);
+		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
+				    "clicked",
+				    GTK_SIGNAL_FUNC (open_cancel_clicked),
+				    fs);
+		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
+				    GTK_SIGNAL_FUNC (open_delete_event),
+				    window);
+	}
 
-	gtk_widget_show (fs);
+	gtk_widget_show_now (priv->file_sel);
+	raise_and_focus (priv->file_sel);
 }
 
 /* Closes a window with confirmation, and exits the main loop if this was the
@@ -476,6 +506,9 @@ window_destroy (GtkObject *object)
 	window = WINDOW (object);
 	priv = window->priv;
 
+	if (priv->file_sel)
+		gtk_widget_destroy (priv->file_sel);
+
 	g_free (priv);
 
 	window_list = g_list_remove (window_list, window);
@@ -536,4 +569,7 @@ window_construct (Window *window)
 	priv->bin = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
 	gnome_app_set_contents (GNOME_APP (window), priv->bin);
 	gtk_widget_show (priv->bin);
+
+	gtk_window_set_default_size (GTK_WINDOW (window),
+				     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 }
