@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-09-05 22:37+0200\n"
+"POT-Creation-Date: 2004-11-25 10:43+0100\n"
+"PO-Revision-Date: 2004-11-25 10:45+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -89,7 +89,7 @@ msgid "Destination Folder:"
 msgstr "Målmappe:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
+msgid "Eye of GNOME Preferences"
 msgstr "Brukervalg for Eye of GNOME"
 
 #: eog.glade.h:19
@@ -204,22 +204,30 @@ msgid "Open images in a new window"
 msgstr "Åpne bilder i et nytt vindu"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Vis/skjul bildeinformasjon for samlingen."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "Vis/skjul bildeinformasjon for enkeltbilder."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Vis/skjul vinduets statuslinje."
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Vis/skjul vinduets verktøylinje."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Farge for gjennomsiktighet"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Indikator for gjennomsiktighet"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -227,12 +235,12 @@ msgstr ""
 "Om du skal opprette et nytt vindu ved åpning av et bilde i stedet for å "
 "erstatte bildet i aktivt vindu."
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Om bildesekvensen skal vises kontinuerlig."
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -365,7 +373,7 @@ msgstr "Alternativ ikke tilgjengelig."
 #: libeog/eog-save-as-dialog-helper.c:138
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
 "For å bruke denne funksjonen må du ha biblioteket libexif. Vennligst "
 "installer libexif (http://libexif.sf.net) og kompiler Eye of GNOME på nytt."
@@ -435,10 +443,10 @@ msgstr "Sekund"
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
+#: shell/main.c:520
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -447,210 +455,234 @@ msgstr "Program for bildevisning og katalogisering for GNOME."
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
 "Kunne ikke vise hjelp for Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Overskriv fil %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Filen eksisterer. Vil du overskrive den?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Hopp over"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Overskriv"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Feil under lagring av %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Prøv igjen"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Kunne ikke bestemme filformat for %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Vennligst bruk en passende filtype eller velg et filformat."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Feil under lagring av bilder."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Vil du virkelig flytte %i bilde til papirkurven?"
 msgstr[1] "Vil du virkelig flytte %i bilder til papirkurven?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i piksel  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_Fil"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "_Vis"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_Ny"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Åpne et nytt vindu"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Åpne..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Åpne en fil"
 
-#: shell/eog-window.c:2239
-msgid "Open _Directory..."
-msgstr "Åpne _katalog..."
+#: shell/eog-window.c:2280
+msgid "Open _Folder..."
+msgstr "Åpne _mappe..."
 
-#: shell/eog-window.c:2239
-msgid "Open a directory"
-msgstr "Åpne en katalog"
+#: shell/eog-window.c:2280
+msgid "Open a folder"
+msgstr "Åpne en mappe"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "L_ukk"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Lukk vindu"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "_Brukervalg"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
 msgstr "Brukervalg for Eye of GNOME"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Hjelp om denne applikasjonen"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "_Om"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "Om denne applikasjonen"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "Verk_tøylinje"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Endrer synlighet for verktøylinjen i aktivt vindu"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "_Statuslinje"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Endrer synlighet for statuslinjen i aktivt vindu"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_Lagre"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "L_agre som"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "_Angre"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Vend _horisontalt"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Vend _vertikalt"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "_Roter med klokken"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Roter mot k_lokken"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Rot_er 180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Slett"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "_Full skjerm"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "_Zoom inn"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "_Tilpasset"
 
-#: shell/main.c:236
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "Bilde_informasjon"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Endre synlighet for informasjonsfeltet i aktivt vindu"
+
+#: shell/eog-window.c:2374
+msgid "User interface description not found."
+msgstr "Beskrivelse av brukergrensesnitt ikke funnet."
+
+#: shell/main.c:67
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "Kan ikke opprette brukergrensesnitt for Eye of GNOME"
+
+#: shell/main.c:258
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -659,19 +691,19 @@ msgstr ""
 "Du er i ferd med å åpne %i vinduer samtidig. Vil du åpne dem som en samling "
 "i stedet?"
 
-#: shell/main.c:240
+#: shell/main.c:262
 msgid "Open multiple single windows?"
 msgstr "Åpne flere enkeltvinduer?"
 
-#: shell/main.c:244
+#: shell/main.c:266
 msgid "Single Windows"
 msgstr "Enkle vinduer"
 
-#: shell/main.c:246
+#: shell/main.c:268
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:298
+#: shell/main.c:320
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Fil ikke funnet."
@@ -681,6 +713,12 @@ msgstr[1] "Filer ikke funnet."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
+
+#~ msgid "Open _Directory..."
+#~ msgstr "Åpne _katalog..."
+
+#~ msgid "Open a directory"
+#~ msgstr "Åpne en katalog"
 
 #~ msgid "Images: %i/%i"
 #~ msgstr "Bilder: %i/%i"
@@ -696,9 +734,6 @@ msgstr "Kunne ikke åpne `%s'"
 
 #~ msgid "EOG Image collection view factory"
 #~ msgstr "Factory for EOG visning av bildesamling"
-
-#~ msgid "Image Collection"
-#~ msgstr "Bildesamling"
 
 #~ msgid "Image Collection Viewer"
 #~ msgstr "Visning av bildesamling"
@@ -943,12 +978,6 @@ msgstr "Kunne ikke åpne `%s'"
 
 #~ msgid "Cancel"
 #~ msgstr "Avbryt"
-
-#~ msgid "Change the visibility of the statusbar in the current window"
-#~ msgstr "Endre synlighet for statuslinjen i aktivt vindu"
-
-#~ msgid "Change the visibility of the toolbar in the current window"
-#~ msgstr "Endre synlighet for verktøylinjen i aktivt vindu"
 
 #~ msgid "New"
 #~ msgstr "Ny"
