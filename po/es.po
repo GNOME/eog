@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-21 11:27+0200\n"
-"PO-Revision-Date: 2003-10-10 22:40+0200\n"
+"POT-Creation-Date: 2003-11-02 14:15+0100\n"
+"PO-Revision-Date: 2003-11-02 19:47+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgid "Rotate Counte_r Clockwise"
 msgstr "Rotar en sentido _antihorario"
 
 # Slide es diapositiva en este contexto
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "Muestra de diapositivas"
 
@@ -91,31 +91,31 @@ msgstr "_Deshacer"
 msgid "_View"
 msgstr "_Ver"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:305
 msgid "Cancel saving"
 msgstr "Cancelar guardado"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:308
 msgid "Saving finished"
 msgstr "Guardado finalizado"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:771
 msgid "Move to Trash"
 msgstr "Mover a la papelera"
 
-#: collection/eog-collection-view.c:802
+#: collection/eog-collection-view.c:816
 msgid "Collection View"
 msgstr "Vista de colección"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
 msgid "Window Title"
 msgstr "Título de la ventana"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1277
 msgid "Status Text"
 msgstr "Texto de estado"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
 msgid "Progress of Image Loading"
 msgstr "Progreso de carga de la imagen"
 
@@ -136,75 +136,87 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolación de imagen</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Ampliación de imagen</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>Secuencia</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
-msgstr "<b>Transparencia</b>"
+#: eog.glade.h:5
+msgid "<b>Transparent Parts</b>"
+msgstr "<b>Partes transparentes</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Como fondo"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr "Permitir _ampliación mayor del 100% inicialmente"
 
 #: eog.glade.h:8
+msgid "As _background"
+msgstr "Como _fondo"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "Como _patrón de cuadrícula"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Como c_olor personalizado"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Color para áreas transparentes"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "No usar una ampliación mayor que el 100%"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Preferencias del Ojo de GNOME"
 
-#: eog.glade.h:14
-msgid "Image View"
-msgstr "Vista de imágenes"
+#: eog.glade.h:13
+msgid "Image _View"
+msgstr "_Vista de imágenes"
 
+#: eog.glade.h:14
+msgid "Show _next image automatically after:"
+msgstr "Mostrar siguie_nte imagen automáticamente tras:"
+
+# Slide es diapositiva en este contexto
 #: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "Secuencia en bucle"
+msgid "Sli_de Show"
+msgstr "Muestra de diapositivas"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
-msgstr ""
-"Mostrar siguiente imagen automáticamente:\n"
-"(0 para desactivar)"
+msgid "_Interpolate image on zoom"
+msgstr "_Interpolar imagen al ampliar"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "_Interpolar imagen al hacer ampliar (mejor calidad pero más lento)"
+#: eog.glade.h:17
+msgid "_Loop sequence"
+msgstr "Secuencia en _bucle"
 
-#: eog.glade.h:20
-msgid "sec"
-msgstr "sec"
+#: eog.glade.h:18
+msgid "seconds"
+msgstr "segundos"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr "Un valor mayor que 0 determina los segundos que una imagen permanece en la pantalla hasta que la siguiente se muestra automáticamente. Cero deactiva la visualización automática."
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Permite una ampliación mayor que el 100% inicialmente"
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr "Retardo en seguntos para que se muestre la siguiente imagen"
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -214,43 +226,59 @@ msgstr ""
 "CHECK_PATTERN; COLOR y NONE. Si se elige COLOR, entonces la clave "
 "trans_color determina el valor del color usado."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
-msgstr "Si la clave de transparencia tiene un valor COLOR, entonces, esta clave determina el color que se usa para indicar la transparencia."
+msgstr ""
+"Si la clave de transparencia tiene un valor COLOR, entonces, esta clave "
+"determina el color que se usa para indicar la transparencia."
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr "Si esto se establece a FALSE las imágenes pequeñas no serán estiradas hasta cubrir toda la pantalla inicialmente."
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "Interpolar imagen"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr "Ciclar a través de la secuencia de imágenes"
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "Abrir imágenes en una ventana nueva"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
 msgid "Transparency color"
 msgstr "Color de transparencia"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:12
 msgid "Transparency indicator"
 msgstr "Indicador de transparencia"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:13
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Indica si al abrir una imagen debería crearse una ventana nueva en vez de "
+"reemplazar la imagen en la ventana actual."
+
+#: eog.schemas.in.h:14
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr "Indica si la secuencia de imágenes debe mostrarse en un bucle infinito."
+
+#: eog.schemas.in.h:15
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Indica si la imagen debería ser interpolada al ampliar o no. Esto produce "
 "mejor calidad pero es algo más lento que las imágenes no interpoladas."
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Indica si al abrir una imagen debería crearse una ventana nueva en vez de "
-"reemplazar la imagen en la ventana actual."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -296,37 +324,35 @@ msgstr "Guardar imagen"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "No se pudo reservar suficiente memoria para cargar el archivo JPEG"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:1215
 msgid "No image loaded."
 msgstr "No se ha cargado ninguna imagen."
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1224
 msgid "Images can only be saved as local files."
 msgstr "Las imágenes sólo pueden guardarse como archivos locales."
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1259
 msgid "Unsupported image type for saving."
 msgstr "Tipo de imagen no soportado para guardar."
 
-#: libeog/eog-info-view.c:76
+#: libeog/eog-info-view.c:84
 msgid "Attribute"
 msgstr "Atributo"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:92
 msgid "Value"
 msgstr "Valor"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
-#: libeog/eog-info-view.c:208
+#: libeog/eog-info-view.c:155
 msgid "Width"
 msgstr "Anchura"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
-#: libeog/eog-info-view.c:216
+#: libeog/eog-info-view.c:169
 msgid "Height"
 msgstr "Altura"
 
-#: libeog/eog-info-view.c:269
+#: libeog/eog-info-view.c:186
 msgid "Filename"
 msgstr "Nombre de archivo"
 
@@ -335,7 +361,7 @@ msgid "Page"
 msgstr "Página"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:378
 msgid "Preview"
 msgstr "Vista previa"
 
@@ -531,7 +557,7 @@ msgstr ""
 "Francisco Javier Fernández <serrador@arrakis.es>"
 
 #: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:869 shell/main.c:512
 msgid "Eye of Gnome"
 msgstr "Ojo de GNOME"
 
@@ -548,7 +574,7 @@ msgstr ""
 "No se pudo mostrar la ayuda para el Ojo de GNOME\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:229
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -557,19 +583,19 @@ msgstr ""
 "Está a punto de abrir %i ventanas simultáneamente. ¿Quiere abrirlas como una "
 "colección?"
 
-#: shell/main.c:229
+#: shell/main.c:233
 msgid "Open multiple single windows?"
 msgstr "¿Quiere abrir ventanas individuales múltiples?"
 
-#: shell/main.c:233
+#: shell/main.c:237
 msgid "Single Windows"
 msgstr "Ventanas simples"
 
-#: shell/main.c:235
+#: shell/main.c:239
 msgid "Collection"
 msgstr "Colección"
 
-#: shell/main.c:305
+#: shell/main.c:312
 msgid "Could not find files"
 msgstr "No se pudieron encontrar los archivos"
 
@@ -650,40 +676,46 @@ msgstr "_Pantalla completa"
 msgid "_Print..."
 msgstr "Im_primir..."
 
-#: viewer/eog-image-view.c:811
+#. [image width] x [image height] pixel  [zoom in percent]
+#: viewer/eog-image-view.c:518
+#, c-format
+msgid "%i x %i pixel    %i%%"
+msgstr "%i x %i píxeles    %i%%"
+
+#: viewer/eog-image-view.c:808
 msgid "/Rotate C_lockwise"
 msgstr "/Rotar en sentido _horario"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:810
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rotar en sentido _antihorario"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:813
 msgid "/_Zoom In"
 msgstr "/_Ampliar"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:815
 msgid "/Zoom _Out"
 msgstr "/_Reducir"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:817
 msgid "/_Normal Size"
 msgstr "/Tamaño _normal"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:819
 msgid "/Best _Fit"
 msgstr "/Ajus_te óptimo"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:822
 msgid "/_Close"
 msgstr "/_Cerrar"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:985
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "La carga de la imagen %s ha fallado."
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:992
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -693,37 +725,46 @@ msgstr ""
 "Razón: %s"
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1001
 msgid "Loading failed"
 msgstr "La carga ha fallado"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1084
 msgid "Image successfully saved"
 msgstr "Imagen guardada con éxito"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1088
 msgid "Image saving failed"
 msgstr "Ha ocurrido un fallo al guardar la imagen"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1332
 msgid "Image Width"
 msgstr "Anchura de la imagen"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1335
 msgid "Image Height"
 msgstr "Altura de la imagen"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1341
 msgid "Statusbar Text"
 msgstr "Texto de la barra de estado"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1344
 msgid "Desired Window Width"
 msgstr "Anchura de la ventana deseada"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1347
 msgid "Desired Window Height"
 msgstr "Altura de la ventana deseada"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "No usar una ampliación mayor que el 100%"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr "_Interpolar imagen al hacer ampliar (mejor calidad pero más lento)"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "Tomar automáticamente el tamaño de la ventana"
@@ -785,7 +826,13 @@ msgstr "Altura de la ventana deseada"
 #~ "This selects whether such images should be scaled to fit the screen "
 #~ "regardless of the setting for the default zoom factor of the full screen "
 #~ "view."
-#~ msgstr "Indica si debe ajustar las imágenes de tamaño estándar a la pantalla cuando se esté en modo a pantalla completa. Estas imágenes son las de tamaños como320x240, 640x480, 800x800, etc. Esto selecciona si dichas imágenes deberíanser escaladas para ajustarse a la pantalla con independencia de lo que estéestablecido en los ajustes para el factor de zoom predeterminado para la vista a pantalla completa"
+#~ msgstr ""
+#~ "Indica si debe ajustar las imágenes de tamaño estándar a la pantalla "
+#~ "cuando se esté en modo a pantalla completa. Estas imágenes son las de "
+#~ "tamaños como320x240, 640x480, 800x800, etc. Esto selecciona si dichas "
+#~ "imágenes deberíanser escaladas para ajustarse a la pantalla con "
+#~ "independencia de lo que estéestablecido en los ajustes para el factor de "
+#~ "zoom predeterminado para la vista a pantalla completa"
 
 #~ msgid "action_area"
 #~ msgstr "area_accion"
@@ -968,4 +1015,3 @@ msgstr "Altura de la ventana deseada"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "No se puede guardar la imagen como «%s»: %s."
-
