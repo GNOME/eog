@@ -37,6 +37,14 @@ AC_ARG_ENABLE(gconf-source,
 
 AC_DEFUN([AC_FYI], [echo "FYI: " $1])
 
+# find the actual value for $prefix that we'll end up with
+REAL_PREFIX=
+if test "x$prefix" = "xNONE"; then
+  REAL_PREFIX=$ac_default_prefix
+else
+  REAL_PREFIX=$prefix
+fi
+
 # Have to go $sysconfdir->$prefix/etc->/usr/local/etc   
 # if you actually know how to code shell then fix this :-)
 SYSCONFDIR_TMP="$sysconfdir"
