@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 14:36+0200\n"
-"PO-Revision-Date: 2005-03-03 14:54+0200\n"
+"POT-Creation-Date: 2005-03-29 10:25+0200\n"
+"PO-Revision-Date: 2005-03-23 09:35+0200\n"
 "Last-Translator: Canonical Ltd <translations@canonical.com>\n"
 "Language-Team: Xhosa <xh-translate@ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -70,9 +70,8 @@ msgid "Allow _zoom greater than 100% initially"
 msgstr "Vumela _isandisi esingaphezulu kwe-100% xa uqalayo"
 
 #: ../eog.glade.h:13
-#, fuzzy
 msgid "As _background"
-msgstr "Nje_Ngokungasemva"
+msgstr "Nje_ngokungasemva"
 
 #: ../eog.glade.h:14
 msgid "As check _pattern"
@@ -110,7 +109,7 @@ msgstr "Nika igama kwakhona ukusuka:"
 msgid "Replace spaces by underscore"
 msgstr "Faka umgca endaweni yesithuba"
 
-#: ../eog.glade.h:23
+#: ../eog.glade.h:23 ../shell/eog-window.c:2931
 msgid "Save As"
 msgstr "Gcina Njenge"
 
@@ -199,38 +198,46 @@ msgid "Interpolate Image"
 msgstr "Ukufakela umfanekiso"
 
 #: ../eog.schemas.in.h:9
+msgid "Last collection window geometry"
+msgstr ""
+
+#: ../eog.schemas.in.h:10
+msgid "Last singleton window geometry"
+msgstr ""
+
+#: ../eog.schemas.in.h:11
 msgid "Loop through the image sequence"
 msgstr "Setha iingxelo uyidlulise kulandelwano lwemfanekiso"
 
-#: ../eog.schemas.in.h:10
+#: ../eog.schemas.in.h:12
 msgid "Open images in a new window"
 msgstr "Vula imifanekiso kwifestile entsha"
 
-#: ../eog.schemas.in.h:11
+#: ../eog.schemas.in.h:13
 msgid "Show/hide image information for collection."
 msgstr "Bonisa/fihla ulwazi lomfanekiso ukuze luqokelelwe."
 
-#: ../eog.schemas.in.h:12
+#: ../eog.schemas.in.h:14
 msgid "Show/hide image information for single image."
 msgstr "Bonisa/fihla ulwazi lomfanekiso womfanekiso omnye."
 
-#: ../eog.schemas.in.h:13
+#: ../eog.schemas.in.h:15
 msgid "Show/hide the window statusbar."
 msgstr "Bonisa/fihla ifestile yomgca wobume obuqhubekayo."
 
-#: ../eog.schemas.in.h:14
+#: ../eog.schemas.in.h:16
 msgid "Show/hide the window toolbar."
 msgstr "Bonisa/fihla ifestile ye-toolbar."
 
-#: ../eog.schemas.in.h:15
+#: ../eog.schemas.in.h:17
 msgid "Transparency color"
 msgstr "Umbala ocace gca"
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:18
 msgid "Transparency indicator"
 msgstr "Isalathisi esicace gca"
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:19
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -238,14 +245,14 @@ msgstr ""
 "Ukuba ukuvula umfanekiso kuza kwenza ifestile entsha endaweni yokuma "
 "endaweni yomfanekiso osefestileni ngokwangoku."
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:20
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 "Ukuba kunjalo okanye akunjalo ukulandelana kwemifanekiso kufuneka kubonisiwe "
 "kwisethi yeengxelo ezingenasiphelo."
 
-#: ../eog.schemas.in.h:19
+#: ../eog.schemas.in.h:21
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -298,19 +305,24 @@ msgstr "Ayikwazanga ukwenza ifayili yexeshana yovimba wolwazi lokugcina: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Ayikwazanga ukwabela uvimba wolwazi lokufakwa kwefayili ye-JPEG"
 
-#: ../libeog/eog-image.c:814
-msgid "empty file"
-msgstr "ifayili engenanto"
+#: ../libeog/eog-image.c:404
+#, fuzzy
+msgid "Transformation on unloaded image."
+msgstr "Bonisa/fihla ulwazi lomfanekiso womfanekiso omnye."
 
-#: ../libeog/eog-image.c:1247 ../libeog/eog-image.c:1458
+#: ../libeog/eog-image.c:515
+msgid "EXIF not supported for this file format."
+msgstr ""
+
+#: ../libeog/eog-image.c:1002 ../libeog/eog-image.c:1213
 msgid "File exists"
 msgstr "Le fayili sele ikho"
 
-#: ../libeog/eog-image.c:1400 ../libeog/eog-image.c:1526
+#: ../libeog/eog-image.c:1155 ../libeog/eog-image.c:1281
 msgid "No image loaded."
 msgstr "Akukho mfanekiso ufakiweyo."
 
-#: ../libeog/eog-image.c:1409 ../libeog/eog-image.c:1535
+#: ../libeog/eog-image.c:1164 ../libeog/eog-image.c:1290
 msgid "Temporary file creation failed."
 msgstr "Ukwenziwa kwefayili yexeshana akuphumelelanga."
 
@@ -363,15 +375,15 @@ msgstr "Ubungakanani befayili"
 msgid "Attribute"
 msgstr "Uphawu"
 
-#: ../libeog/eog-info-view.c:92
+#: ../libeog/eog-info-view.c:81
 msgid "File"
 msgstr "Ifayili"
 
-#: ../libeog/eog-info-view.c:101
+#: ../libeog/eog-info-view.c:90
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ../libeog/eog-info-view.c:108
+#: ../libeog/eog-info-view.c:97
 msgid "IPTC"
 msgstr "IPTC"
 
@@ -392,12 +404,12 @@ msgstr ""
 msgid "as is"
 msgstr "njengoko injalo"
 
-#: ../libeog/eog-save-dialog-helper.c:162
+#: ../libeog/eog-save-dialog-helper.c:192
 #, c-format
 msgid "Saving image %s."
 msgstr "Ukugcina umfanekiso %s."
 
-#: ../libeog/eog-save-dialog-helper.c:208
+#: ../libeog/eog-save-dialog-helper.c:238
 msgid "Cancel saving ..."
 msgstr "Rhoxisa ukugcina ..."
 
@@ -449,20 +461,20 @@ msgstr "Umzuzwana"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:314
+#: ../shell/eog-window.c:491
 msgid "translator-credits"
 msgstr "Canonical Ltd <translations@canonical.com>"
 
-#: ../shell/eog-window.c:319 ../shell/eog-window.c:2208
-#: ../shell/eog-window.c:2543 ../shell/main.c:520
+#: ../shell/eog-window.c:496 ../shell/eog-window.c:2693
+#: ../shell/eog-window.c:3181 ../shell/main.c:602
 msgid "Eye of GNOME"
 msgstr "Iliso le-GNOME"
 
-#: ../shell/eog-window.c:322
+#: ../shell/eog-window.c:499
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Ukubonisa umfanekiso we-GNOME kunye nenkqubo yekhathalogu."
 
-#: ../shell/eog-window.c:359
+#: ../shell/eog-window.c:536
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -471,230 +483,296 @@ msgstr ""
 "Ayikwazanga ukubonisa uncedo lweskrini seLiso le-GNOME.\n"
 "%s"
 
-#: ../shell/eog-window.c:647
+#: ../shell/eog-window.c:831
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Ufuna ukubhala phezu kwale fayili %s?"
 
-#: ../shell/eog-window.c:648
+#: ../shell/eog-window.c:832
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Le fayili sele ikhona. Ufuna ukubhala phezu kwayo?"
 
-#: ../shell/eog-window.c:657 ../shell/eog-window.c:670
+#: ../shell/eog-window.c:841 ../shell/eog-window.c:854
 msgid "Skip"
 msgstr "Tsiba"
 
-#: ../shell/eog-window.c:658
+#: ../shell/eog-window.c:842
 msgid "Overwrite"
 msgstr "Bhala phezu kwayo"
 
-#: ../shell/eog-window.c:663
+#: ../shell/eog-window.c:847
 #, c-format
 msgid "Error on saving %s."
 msgstr "Kwenzeke impazamo ngelixa ugcina %s."
 
-#: ../shell/eog-window.c:671 ../shell/eog-window.c:1055
+#: ../shell/eog-window.c:855 ../shell/eog-window.c:1405
 msgid "Retry"
 msgstr "Zama kwakhona"
 
-#: ../shell/eog-window.c:1044
+#: ../shell/eog-window.c:1272
+#, fuzzy
+msgid "Couldn't determine destination uri."
+msgstr "Ayikwazanga ukumisa ubume bale fayili %s"
+
+#: ../shell/eog-window.c:1394
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Ayikwazanga ukumisa ubume bale fayili %s"
 
-#: ../shell/eog-window.c:1045
+#: ../shell/eog-window.c:1395
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Nceda usebenzise isimamva segama lefayili esifanelekileyo okanye chonga "
 "ubume befayili."
 
-#: ../shell/eog-window.c:1187
+#: ../shell/eog-window.c:1528
 msgid "Error on saving images."
 msgstr "Kwenzeke impazamo ngelixa kugcinwa umfanekiso."
 
-#: ../shell/eog-window.c:1420
+#: ../shell/eog-window.c:1781
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../shell/eog-window.c:1458
+#: ../shell/eog-window.c:1819
 msgid "Couldn't access trash."
 msgstr "Ayikwazanga ukufikelela emgqomeni."
 
-#: ../shell/eog-window.c:1532
+#: ../shell/eog-window.c:1893
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Kwenzeke impazamo ngelixa kucinywa umfanekiso %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2137
+#: ../shell/eog-window.c:2618
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i i-pixel  %s    %i%%"
 
-#: ../shell/eog-window.c:2274
+#: ../shell/eog-window.c:2652
+#, c-format
+msgid "Reason: %s"
+msgstr ""
+
+#: ../shell/eog-window.c:2734
+#, c-format
+msgid "Image loading failed for %s"
+msgstr ""
+
+#: ../shell/eog-window.c:2872
 msgid "_File"
 msgstr "I_Fayili"
 
-#: ../shell/eog-window.c:2275
+#: ../shell/eog-window.c:2873
 msgid "_Edit"
 msgstr "_Hlela"
 
-#: ../shell/eog-window.c:2276
+#: ../shell/eog-window.c:2874
 msgid "_View"
 msgstr "_Bonisa"
 
-#: ../shell/eog-window.c:2277
+#: ../shell/eog-window.c:2875
 msgid "_Help"
 msgstr "_Uncedo"
 
-#: ../shell/eog-window.c:2278
+#: ../shell/eog-window.c:2876
 msgid "_New"
 msgstr "_Entsha"
 
-#: ../shell/eog-window.c:2278
+#: ../shell/eog-window.c:2876
 msgid "Open a new window"
 msgstr "Vula ifestile entsha"
 
-#: ../shell/eog-window.c:2279
+#: ../shell/eog-window.c:2877
 msgid "_Open..."
 msgstr "_Vula..."
 
-#: ../shell/eog-window.c:2279
+#: ../shell/eog-window.c:2877
 msgid "Open a file"
 msgstr "Vula ifayili"
 
-#: ../shell/eog-window.c:2280
+#: ../shell/eog-window.c:2878
 msgid "Open _Folder..."
 msgstr "Vula _Isiqulathi Seefayili..."
 
-#: ../shell/eog-window.c:2280
+#: ../shell/eog-window.c:2878
 msgid "Open a folder"
 msgstr "Vula isiqulathi seefayili"
 
-#: ../shell/eog-window.c:2281
+#: ../shell/eog-window.c:2879
 msgid "_Close"
 msgstr "_Vala"
 
-#: ../shell/eog-window.c:2281
+#: ../shell/eog-window.c:2879
 msgid "Close window"
 msgstr "Vala ifestile"
 
-#: ../shell/eog-window.c:2282
+#: ../shell/eog-window.c:2880
 msgid "Prefere_nces"
 msgstr "Uluhlu lwezinto ezikhe_thwayo"
 
-#: ../shell/eog-window.c:2282
+#: ../shell/eog-window.c:2880
 msgid "Preferences for Eye of GNOME"
 msgstr "Uluhlu Lwezinto ezikhethwayo zeLiso le-GNOME"
 
-#: ../shell/eog-window.c:2283
+#: ../shell/eog-window.c:2881
 msgid "_Contents"
 msgstr "_Okuqulathiweyo"
 
-#: ../shell/eog-window.c:2283
+#: ../shell/eog-window.c:2881
 msgid "Help On this application"
 msgstr "Nika Uncedo kule nkqubo"
 
-#: ../shell/eog-window.c:2284
+#: ../shell/eog-window.c:2882
 msgid "_About"
 msgstr "_Malunga"
 
-#: ../shell/eog-window.c:2284
+#: ../shell/eog-window.c:2882
 msgid "About this application"
 msgstr "Malunga nale nkqubo"
 
-#: ../shell/eog-window.c:2289
+#: ../shell/eog-window.c:2887
 msgid "_Toolbar"
 msgstr "I-_Toolbar"
 
-#: ../shell/eog-window.c:2289
+#: ../shell/eog-window.c:2887
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Iguqula ukubonakala kwe-toolbar kule festile ikhoyo ngoku"
 
-#: ../shell/eog-window.c:2290
+#: ../shell/eog-window.c:2888
 msgid "_Statusbar"
 msgstr "_Umgca wobume bokuqhubekayo"
 
-#: ../shell/eog-window.c:2290
+#: ../shell/eog-window.c:2888
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Iguqula ukubonakala komgca wobume befestile okuyo ngoku"
 
-#: ../shell/eog-window.c:2295
+#: ../shell/eog-window.c:2893
 msgid "_Save"
 msgstr "_Gcina"
 
-#: ../shell/eog-window.c:2296
+#: ../shell/eog-window.c:2894
 msgid "Save _As"
 msgstr "Gcina N_jenge"
 
-#: ../shell/eog-window.c:2298
+#: ../shell/eog-window.c:2896
 msgid "_Undo"
 msgstr "_Buyela Emva"
 
-#: ../shell/eog-window.c:2300
+#: ../shell/eog-window.c:2898
 msgid "Flip _Horizontal"
 msgstr "Jikelezisa Ngobu_banzi"
 
-#: ../shell/eog-window.c:2301
+#: ../shell/eog-window.c:2899
 msgid "Flip _Vertical"
 msgstr "Jikelezisa Ngobu_de"
 
-#: ../shell/eog-window.c:2303
+#: ../shell/eog-window.c:2901
 msgid "_Rotate Clockwise"
 msgstr "_Jikelezisa Usa Ngakwicala Eya Kulo Iwotshi"
 
-#: ../shell/eog-window.c:2304
+#: ../shell/eog-window.c:2902
 msgid "Rotate Counter C_lockwise"
 msgstr "Jikelezisa NgokuchaseneY Noku_hamba Kwewotshi"
 
-#: ../shell/eog-window.c:2305
+#: ../shell/eog-window.c:2903
 msgid "Rotat_e 180°"
 msgstr "Jikelezis_a 180°"
 
-#: ../shell/eog-window.c:2307
+#: ../shell/eog-window.c:2905
 msgid "Delete"
 msgstr "Cima"
 
-#: ../shell/eog-window.c:2309
+#: ../shell/eog-window.c:2907
 msgid "_Full Screen"
 msgstr "_Iskrini Esizeleyo"
 
-#: ../shell/eog-window.c:2310
+#: ../shell/eog-window.c:2908
 msgid "_Zoom In"
 msgstr "_Yandisa"
 
-#: ../shell/eog-window.c:2311
+#: ../shell/eog-window.c:2909
 msgid "Zoom _Out"
 msgstr "Nciphi _sa"
 
-#: ../shell/eog-window.c:2312
+#: ../shell/eog-window.c:2910
 msgid "_Normal Size"
 msgstr "_Ubungakanani Obuqhelekileyo"
 
-#: ../shell/eog-window.c:2313
+#: ../shell/eog-window.c:2911
 msgid "Best _Fit"
 msgstr "Ilingana _Kakuhle"
 
-#: ../shell/eog-window.c:2318
+#: ../shell/eog-window.c:2916
 msgid "Image _Information"
 msgstr "Ulwazi _Ngemifanekiso"
 
-#: ../shell/eog-window.c:2318
+#: ../shell/eog-window.c:2916
 msgid "Change the visibility of the information pane in the current window"
 msgstr "Ukuguqula ukubonakala kolwazi olukwigilasi kwifestile okuyo ngoku"
 
-#: ../shell/eog-window.c:2374
+#: ../shell/eog-window.c:2926
+#, fuzzy
+msgid "New"
+msgstr "_Entsha"
+
+#: ../shell/eog-window.c:2927 ../shell/eog-window.c:2928
+#, fuzzy
+msgid "Open"
+msgstr "_Vula..."
+
+#: ../shell/eog-window.c:2929
+#, fuzzy
+msgid "Close"
+msgstr "_Vala"
+
+#: ../shell/eog-window.c:2930
+#, fuzzy
+msgid "Save"
+msgstr "_Gcina"
+
+#: ../shell/eog-window.c:2932
+#, fuzzy
+msgid "Undo"
+msgstr "_Buyela Emva"
+
+#: ../shell/eog-window.c:2935
+#, fuzzy
+msgid "Right"
+msgstr "Ubude"
+
+#: ../shell/eog-window.c:2936
+msgid "Left"
+msgstr ""
+
+#: ../shell/eog-window.c:2938
+msgid "In"
+msgstr ""
+
+#: ../shell/eog-window.c:2939
+msgid "Out"
+msgstr ""
+
+#: ../shell/eog-window.c:2940
+#, fuzzy
+msgid "Normal"
+msgstr "_Ubungakanani Obuqhelekileyo"
+
+#: ../shell/eog-window.c:2941
+msgid "Fit"
+msgstr ""
+
+#: ../shell/eog-window.c:3019
 msgid "User interface description not found."
 msgstr "Inkcazelo yomdibanisi wemida ayifumanekanga."
 
-#: ../shell/main.c:67
+#: ../shell/main.c:92
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Ayikwazanga ukwenza umdibaniso wemida yomsebenzisi weLiso le-GNOME"
 
-#: ../shell/main.c:258
+#: ../shell/main.c:272
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -703,19 +781,19 @@ msgstr ""
 "Sele uza kuvula ezi festile %i ngexesha elinye. Ingaba ufuna ukuzivula "
 "njengengqokelela?"
 
-#: ../shell/main.c:262
+#: ../shell/main.c:276
 msgid "Open multiple single windows?"
 msgstr "Ufuna ukuvula uninzi lweefestile ezinganye?"
 
-#: ../shell/main.c:266
+#: ../shell/main.c:280
 msgid "Single Windows"
 msgstr "Iifesitle Ngazinye"
 
-#: ../shell/main.c:268
+#: ../shell/main.c:282
 msgid "Collection"
 msgstr "Ingqokelela"
 
-#: ../shell/main.c:320
+#: ../shell/main.c:334
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] ""
@@ -727,10 +805,12 @@ msgid "Could not open `%s'"
 msgstr "Ayikwazi ukuyivula `%s'"
 
 #: ../libeog/eog-util.c:40
-#, fuzzy
 msgid " (invalid Unicode)"
-msgstr " (IKhowudi enye engaqinisekiswanga)"
+msgstr " (i-Unicode engaqinisekiswanga)"
 
 #: ../shell/eog-preferences.c:98
 msgid "Could not display help for Eye of GNOME"
 msgstr "Ayikwazanga ukubonisa uncedo lweLiso le-GNOME"
+
+#~ msgid "empty file"
+#~ msgstr "ifayili engenanto"
