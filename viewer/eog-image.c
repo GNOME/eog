@@ -131,6 +131,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
 	Bonobo_Stream_iobuf  *buffer;
 	CORBA_long            len;
+	Bonobo_StorageInfo   *info;
 
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (data));
@@ -174,6 +175,12 @@ load_image_from_stream (BonoboPersistStream       *ps,
 
 	image->priv->image = image_new ();
 	image_load_pixbuf (image->priv->image, image->priv->pixbuf);
+
+	info = Bonobo_Stream_getInfo (stream, 0, ev);
+	if (ev->_major == CORBA_NO_EXCEPTION) {
+		image->priv->image->filename = g_strdup (g_basename (info->name));
+		CORBA_free (info);
+	}
 
 	gtk_signal_emit (GTK_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL]);
 

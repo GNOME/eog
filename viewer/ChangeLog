@@ -1,12 +1,19 @@
 2001-05-21  Jens Finke <jens@gnome.org>
 
+	* eog-image.c (load_image_from_stream): Try to retrieve the name
+	of the stream and set it as filename. We need this to assemble a
+	nice bonobo:title. Unfourtunately the bonobo stream implementation
+	is broken, so it doesn't work yet.
+
+2001-05-21  Jens Finke <jens@gnome.org>
+
 	* eog-image-view.c: Added three new read-only properties:
 	'image_width', 'image_height' and 'bonobo:title'.
 	(eog_image_view_get_prop): Added handler for the new properties.
 	(eog_image_view_construct): Add new properties to the
 	property_bag.
 
-	* eog-image.c (load_image_from_file): Initialise filename in the
+	* eog-image.c (load_image_from_file): Initialize filename in the
 	Image-struct.
 	
 2001-05-18  Jens Finke <jens@gnome.org>
