@@ -19,9 +19,9 @@ CORBA_SOURCES =			\
 	Eog-stubs.c		\
 	Eog-skels.c
 
-noinst_LTLIBRARIES = libeog.la
+noinst_LIBRARIES = libeog.a
 
-libeog_la_SOURCES =			\
+libeog_a_SOURCES =			\
 	$(CORBA_SOURCES)		\
 	image-view.c			\
 	image-view.h			\
@@ -33,12 +33,6 @@ libeog_la_SOURCES =			\
 	ui-image.h			\
 	zoom.c				\
 	zoom.h
-
-
-libeog_la_LIBADD = 			\
-	$(EOG_LIBS)			\
-	$(INTLLIBS)			\
-	$(LIBPNG) $(LIBJPEG)
 
 idls =							\
 	$(top_srcdir)/idl/Eog.idl
@@ -53,12 +47,12 @@ Eog.h: $(idls)
 BUILT_SOURCES=$(CORBA_SOURCES)
 CLEANFILES += $(BUILT_SOURCES)
 
-oafdir = $(datadir)/oaf
-oaf_in_files = GNOME_EOG.oaf.in
-oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
-@INTLTOOL_OAF_RULE@
+serverdir = $(libdir)/bonobo/servers
+server_in_files = GNOME_EOG.server.in
+server_DATA = $(server_in_files:.server.in=.server)
+@INTLTOOL_SERVER_RULE@
 
-EXTRA_DIST = $(oaf_in_files)
+EXTRA_DIST = $(server_in_files)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)

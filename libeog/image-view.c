@@ -243,8 +243,6 @@ image_view_class_init (ImageViewClass *class)
 				GTK_TYPE_ADJUSTMENT,
 				GTK_TYPE_ADJUSTMENT);
 
-	gtk_object_class_add_signals (object_class, image_view_signals, LAST_SIGNAL);
-
 	widget_class->unmap = image_view_unmap;
 	widget_class->realize = image_view_realize;
 	widget_class->unrealize = image_view_unrealize;

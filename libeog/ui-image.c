@@ -39,7 +39,7 @@ struct _UIImagePrivate {
 
 static void ui_image_class_init (UIImageClass *class);
 static void ui_image_init (UIImage *ui);
-static void ui_image_destroy (GtkObject *object);
+static void ui_image_finalize (GObject *object);
 
 
 static GtkScrolledWindowClass *parent_class;
@@ -58,21 +58,25 @@ static GtkScrolledWindowClass *parent_class;
 GtkType
 ui_image_get_type (void)
 {
-	static GtkType ui_image_type = 0;
+	static GType ui_image_type = 0;
 
 	if (!ui_image_type) {
-		static const GtkTypeInfo ui_image_info = {
-			"UIImage",
-			sizeof (UIImage),
+		static const GTypeInfo ui_image_info = {
 			sizeof (UIImageClass),
-			(GtkClassInitFunc) ui_image_class_init,
-			(GtkObjectInitFunc) ui_image_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) ui_image_class_init,
+			NULL,
+			NULL,
+			sizeof (UIImage),
+			0,
+			(GInstanceInitFunc) ui_image_init,
+			NULL,
 		};
 
-		ui_image_type = gtk_type_unique (gtk_scrolled_window_get_type (), &ui_image_info);
+		ui_image_type = g_type_register_static (gtk_scrolled_window_get_type (), 
+							"UIImage",
+							&ui_image_info, 0);
 	}
 
 	return ui_image_type;
@@ -80,15 +84,15 @@ ui_image_get_type (void)
 
 /* Class initialization function for an image view */
 static void
-ui_image_class_init (UIImageClass *class)
+ui_image_class_init (UIImageClass *klass)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *object_class;
 
-	object_class = (GtkObjectClass *) class;
+	object_class = (GObjectClass *) klass;
 
-	parent_class = gtk_type_class (gtk_scrolled_window_get_type ());
+	parent_class = g_type_class_peek_parent (klass);
 
-	object_class->destroy = ui_image_destroy;
+	object_class->finalize = ui_image_finalize;
 }
 
 /* Object initialization function for an image view */
@@ -103,15 +107,15 @@ ui_image_init (UIImage *ui)
 	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
 
  	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ui),
-					  GTK_SHADOW_NONE);
+					     GTK_SHADOW_NONE);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ui),
-				     GTK_POLICY_AUTOMATIC,
-				     GTK_POLICY_AUTOMATIC);
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
 }
 
 /* Destroy handler for an image view */
 static void
-ui_image_destroy (GtkObject *object)
+ui_image_finalize (GObject *object)
 {
 	UIImage *ui;
 	UIImagePrivate *priv;
@@ -124,8 +128,8 @@ ui_image_destroy (GtkObject *object)
 
 	g_free (priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 /**
@@ -141,10 +145,12 @@ ui_image_new (void)
 {
 	UIImage *ui;
 
-	ui = UI_IMAGE (gtk_widget_new (TYPE_UI_IMAGE,
-				       "hadjustment", NULL,
-				       "vadjustment", NULL,
-				       NULL));
+	ui = UI_IMAGE (g_object_new (TYPE_UI_IMAGE,
+				     "hadjustment", 
+				     GTK_ADJUSTMENT (gtk_object_new (GTK_TYPE_ADJUSTMENT, NULL)),
+				     "vadjustment",
+				     GTK_ADJUSTMENT (gtk_object_new (GTK_TYPE_ADJUSTMENT, NULL)),
+				     NULL));
 	return ui_image_construct (ui);
 }
 

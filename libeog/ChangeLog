@@ -1,3 +1,16 @@
+2001-12-27  Jens Finke <jens@triq.net>
+
+	* Makefile.am: Build only a convenience library without
+	libtool. This reduces the link time for the other eog components a
+	lot.
+	(oaf_DATA),
+	(oafdir),
+	(oaf_in_files): s/oaf/server. Changed file suffix to
+	'.server'. Install .server files in $(libdir)/bonobo/servers.
+	(@INTLTOOL_OAF_RULE@): Use @INTLTOOL_SERVER_RULE@ instead.
+
+	* GNOME_EOG.oaf.in: Renamed to GNOME_EOG.server.in.
+
 2001-12-05  Jens Finke <jens@triq.net>
 
 	* Makefile.am: (libeog_la_LIBADD): Use EOG_LIBS.
