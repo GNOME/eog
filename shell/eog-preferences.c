@@ -29,7 +29,9 @@ struct _EogPreferencesPrivate {
 	EogWindow          *window;
 	
 	GtkWidget          *notebook;
-	
+
+	/* Destroy signal handler ID relative to the parent window */
+	guint parent_window_destroy_id;
 };
 
 static void eog_preferences_response (GtkDialog *dialog, gint id);
@@ -38,6 +40,7 @@ static void
 eog_preferences_destroy (GtkObject *object)
 {
 	EogPreferences *preferences;
+	EogPreferencesPrivate *priv;
 
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_PREFERENCES (object));
@@ -46,10 +49,18 @@ eog_preferences_destroy (GtkObject *object)
 		g_message ("Destroying EogPreferences...");
 
 	preferences = EOG_PREFERENCES (object);
+	priv = preferences->priv;
 
-	if (preferences->priv->window)
-		g_object_unref (preferences->priv->window);
-	preferences->priv->window = NULL;
+	if (priv->parent_window_destroy_id) {
+		g_assert (priv->window != NULL);
+		g_signal_handler_disconnect (G_OBJECT (priv->window), priv->parent_window_destroy_id);
+		priv->parent_window_destroy_id = 0;
+	}
+
+	if (priv->window) {
+		g_object_unref (priv->window);
+		priv->window = NULL;
+	}
 
 	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
 }
@@ -258,15 +269,19 @@ GtkWidget *
 eog_preferences_new (EogWindow *window)
 {
 	EogPreferences *preferences;
+	EogPreferencesPrivate *priv;
 	
 	g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
 
 	preferences = g_object_new (eog_preferences_get_type (), NULL);
 
+	priv = preferences->priv;
+
 	/* Kind of hack, but can't seem to find a way to change
 	   a GtkDialog's flags after its been created */
-	g_signal_connect (G_OBJECT (window), "destroy",
-			  G_CALLBACK (destroy_prefs_window), preferences);
+	priv->parent_window_destroy_id = g_signal_connect (G_OBJECT (window), "destroy",
+							   G_CALLBACK (destroy_prefs_window),
+							   preferences);
 	
 	return GTK_WIDGET (eog_preferences_construct (preferences, window));
 }
