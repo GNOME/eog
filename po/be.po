@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.be\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-02 12:08+0200\n"
-"PO-Revision-Date: 2003-07-02 23:42+0300\n"
-"Last-Translator: Vital Khilko <dojlid@mova.org>\n"
+"POT-Creation-Date: 2003-08-01 11:27+0200\n"
+"PO-Revision-Date: 2003-08-04 14:42+0300\n"
+"Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -79,39 +79,40 @@ msgid "_Save"
 msgstr "_Захаваць"
 
 #: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Адкаціць"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Выгляд"
 
-#: collection/eog-collection-view.c:289
+#: collection/eog-collection-view.c:291
 msgid "Cancel saving"
 msgstr "Адменяніць захаваньне"
 
-#: collection/eog-collection-view.c:292
+#: collection/eog-collection-view.c:294
 msgid "Saving finished"
 msgstr "Захаваньне завершана"
 
-#: collection/eog-collection-view.c:754
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Перанесьці ў сьметніцу"
 
-#: collection/eog-collection-view.c:798
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Прагляд збора"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Загаловак акна"
 
-#: collection/eog-collection-view.c:1262
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Тэкст стану"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
 msgid "Progress of Image Loading"
 msgstr "Прагрэс загрузкі відарыса"
 
@@ -207,8 +208,8 @@ msgid ""
 "determines the used color value."
 msgstr ""
 "Вызначае як адлюстроўваецца празрыстасьць. Дапушчальныя значэньні: "
-"\"CHECK_PATTERN, COLOR і NONE\". Калі выбрана COLOR, тады ключ \"trans_color\" "
-"задае колер."
+"\"CHECK_PATTERN, COLOR і NONE\". Калі выбрана COLOR, тады ключ \"trans_color"
+"\" задае колер."
 
 #: eog.schemas.in.h:2
 msgid ""
@@ -246,9 +247,7 @@ msgstr ""
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr ""
-"Ці адкрываць відарыс у новым акне замест таго каб адлюстраваць яго ў "
-"бягучым."
+msgstr "Ці адкрываць відарыс у новым акне замест таго каб адлюстраваць яго ў бягучым."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -294,15 +293,15 @@ msgstr "Захаваць відарыс"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Немагчыма вызваліць памяць для загрузкі файла JPEG"
 
-#: libeog/eog-image.c:1338
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Відарыс не загружаны."
 
-#: libeog/eog-image.c:1347
+#: libeog/eog-image.c:1349
 msgid "Images can only be saved as local files."
 msgstr "Відарысы могуць быць захаваны толькі як мясцовыя файлы."
 
-#: libeog/eog-image.c:1382
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Гэты тып відарыса не падтрымліваецца для захаваньня."
 
@@ -333,7 +332,7 @@ msgid "Page"
 msgstr "Старонка"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:361
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Перадпрагляд"
 
@@ -501,7 +500,7 @@ msgstr "_Файл"
 
 #: shell/eog-shell-ui.xml.h:19
 msgid "_Help"
-msgstr "_Дапамога"
+msgstr "_Даведка"
 
 #: shell/eog-shell-ui.xml.h:20
 msgid "_New"
@@ -509,7 +508,7 @@ msgstr "_Стварыць"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
-msgstr "_Адкрыць..."
+msgstr "_Адчыніць..."
 
 #: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
@@ -519,33 +518,29 @@ msgstr "В_ыйсьці"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Belarusian Language Linux Team\n"
 "Пляцоўка: http://www.mova.linux.by\n"
 "Э.скрыня:  i18n@mova.org"
 
-#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
-#: shell/eog-window.c:857 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Вока GNOME"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Аўтарскія правы © 2000-2002, Фонд вольнага праграмовага забясьпячэньня"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME праграма для прагляду й каталягізацыі відарысаў."
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"Немагчыма адлюстраваць дапамогу для \"Вока Gnome.\"\n"
+"Немагчыма адлюстраваць даведку для \"Вока GNOME.\"\n"
 "%s"
 
 #: shell/main.c:225
@@ -650,61 +645,84 @@ msgstr "_Поўны экран"
 msgid "_Print..."
 msgstr "Др_укаваць..."
 
-#: viewer/eog-image-view.c:786
+#: viewer/eog-image-view.c:811
 msgid "/Rotate C_lockwise"
 msgstr "/Павярнуць па-_сонцу"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:813
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Павярнуць лі_чыльнік па-сонцу"
 
-#: viewer/eog-image-view.c:791
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Маштаб _+"
 
-#: viewer/eog-image-view.c:793
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Маштаб _-"
 
-#: viewer/eog-image-view.c:795
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Нармальны памер"
 
-#: viewer/eog-image-view.c:797
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Най_лепшы памер"
 
-#: viewer/eog-image-view.c:800
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/За_крыць"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Збой загрузкі відарыса %s."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Збой загрузкі відарыса %s.\n"
+"Тлумачэньне: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Збой загрузкі"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Відарыс пасьпяхова захаваны"
 
-#: viewer/eog-image-view.c:998
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Памылка захаваньня відарыса"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Шырыня відарыса"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Вышыня відарыса"
 
-#: viewer/eog-image-view.c:1250
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Тэкст радка стану"
 
-#: viewer/eog-image-view.c:1253
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Пажаданая шырыня акна"
 
-#: viewer/eog-image-view.c:1256
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Пажаданая вышыня акна"
+
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr ""
+#~ "Аўтарскія правы © 2000-2002, Фонд вольнага праграмовага забясьпячэньня"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "Самастойна падхопліваць памер акна"
@@ -945,9 +963,6 @@ msgstr "Пажаданая вышыня акна"
 
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Немагчыма захаваць відарыс як \"%s\": %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Памылка друку"
 
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
