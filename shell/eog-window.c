@@ -757,6 +757,7 @@ listener_cb (BonoboListener *listener,
 	EogWindow *window;
 	EogWindowPrivate *priv;
 
+
 	g_print ("listener_cb(): %s\n", event_name);
 
 	g_return_if_fail (EOG_IS_WINDOW (data));
@@ -764,21 +765,38 @@ listener_cb (BonoboListener *listener,
 	window = EOG_WINDOW (data);
 	priv = window->priv;
 
-	if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Action")) {
-		char *uri = BONOBO_ARG_GET_STRING (any);
+	if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Action")) {		
+		CORBA_sequence_CORBA_string *seq;
+		char *uri;
+		int i, max;
+		gboolean open_new;
+
 		gtk_widget_hide (priv->file_sel);
+		open_new = gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL);
+		seq = any->_value;
 
-		if (g_strncasecmp ("file:", uri, 5) == 0)
-			uri = g_strdup (uri+5);
-		else
-			uri = g_strdup (uri);
+		/* FIXME: if we are opening in one window, we only
+		 * want one url this is temporary as file sel will
+		 * take care of this soon
+		 */
 
-		if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
-			open_new_window (window, uri);
-		else if (!eog_window_open (window, uri))
-			open_failure_dialog (GTK_WINDOW (window), uri);
-		
-		g_free (uri);
+		max = MIN (open_new ? seq->_length : 1, seq->_length);
+
+		for (i = 0; i < max; i++) {
+			uri = seq->_buffer[i];
+
+			if (g_strncasecmp ("file:", uri, 5) == 0)
+				uri = g_strdup (uri+5);
+			else
+				uri = g_strdup (uri);
+
+			if (open_new)
+				open_new_window (window, uri);
+			else if (!eog_window_open (window, uri))
+				open_failure_dialog (GTK_WINDOW (window), uri);
+			
+			g_free (uri);
+		}
 	} else if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Cancel")) {
 		gtk_widget_hide (priv->file_sel);
 	}
@@ -797,10 +815,10 @@ create_bonobo_file_sel (EogWindow *window)
 
 	priv = window->priv;
 
-	moniker_string = "OAFIID:GNOME_FileSelector!"
+	moniker_string = g_strdup_printf (
+		"OAFIID:GNOME_FileSelector!"
 		"Application=Eog;"
 		"AcceptDirectories=True;"
-		"ActionButtonLabel=_Open;"
 		"MimeTypes="
 		"All Images:image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm"
 		"::image/png"
@@ -809,9 +827,13 @@ create_bonobo_file_sel (EogWindow *window)
 		"::image/x-bmp"
 		"::image/x-ico"
 		"::image/tiff"
-		"::image/x-xpm";
+		"::image/x-xpm;"
+		"MultipleSelection=%d", 
+		gconf_client_get_bool (priv->client,
+				       "/apps/eog/window/open_new_window", NULL));
 
 	control = bonobo_widget_new_control (moniker_string, CORBA_OBJECT_NIL);
+	g_free (moniker_string);
 
 	if (!control) {
 		create_gtk_file_sel (window);
