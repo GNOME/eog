@@ -1,6 +1,6 @@
 # translation of el.po to Greek
 # Greek eog translation.
-# Copyright (C) 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
 #
 # Initial translation by Simos.
 # kostas: 164 messages, 04Nov2002, compelted translation.
@@ -9,21 +9,22 @@
 # kostas: updated translation, 25May2003, for Gnome 2.4x
 # kostas: updated translation, 18Jul2003
 # kostas: 29Oct2003, first update for Gnome 2.6
+# kostas: 25Jan2004, update
 # Simos Xenitellis <simos@hellug.gr>, 2000, 2001, 2002.2003.
-# Kostas Papadimas <pkst@gnome.org>, 2002,2003.
+# Kostas Papadimas <pkst@gnome.org>, 2002,2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
-"PO-Revision-Date: 2003-11-12 09:17+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-25 11:54+0200\n"
+"PO-Revision-Date: 2004-01-25 12:11+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -40,11 +41,11 @@ msgstr "Συλλογή Εικόνων"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
-msgstr "Ορι_ζόντιo στρίψιμο"
+msgstr "Ορι_ζόντια περιστροφή"
 
 #: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
-msgstr "Κά_θετο στρίψιμο"
+msgstr "Κά_θετη περιστροφή"
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
@@ -100,32 +101,32 @@ msgstr "Α_ναίρεση"
 msgid "_View"
 msgstr "_Προβολή"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Ακύρωση αποθήκευσης"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Η αποθήκευση ολοκληρώθηκε"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Μετακίνηση στα απορρίματα"
 
 #
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:855
 msgid "Collection View"
 msgstr "Προβολή συλλογής"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Τίτλος Παραθύρου"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1348
 msgid "Status Text"
 msgstr "Κείμενο Γραμμής Κατάστασης"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Πρόοδος της φόρτωσης εικόνας"
 
@@ -152,7 +153,7 @@ msgstr "<b>Παρεμβολή εικόνας</b>"
 
 #: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
-msgstr "<b>Μεγένθυνση εικόνας</b>"
+msgstr "<b>Μεγέθυνση εικόνας</b>"
 
 #: eog.glade.h:4
 msgid "<b>Sequence</b>"
@@ -238,7 +239,7 @@ msgid ""
 msgstr ""
 "Καθορίζει τον τρόπο που θα ορίζεται η διαφάνεια. Οι έγκυρες τιμές είναι "
 "CHECK_PATTERN ,COLOR και NONE. Αν επιλεχθεί το COLOR τότε το κλειδί  "
-"trans_color θα καθορίζει την τιμή του χρώματος που θα χρησιμοποείται."
+"trans_color θα καθορίζει την τιμή του χρώματος που θα χρησιμοποιείται."
 
 #: eog.schemas.in.h:6
 msgid ""
@@ -246,7 +247,7 @@ msgid ""
 "color which is used for indicating transparency."
 msgstr ""
 "Αν το κλειδί διαφάνειας έχει τη τιμή COLOR, τότε το κλειδί καθορίζει το "
-"χρώμα το οποίο θα χρησιμοποείται για την σήμανση διαφάνειας."
+"χρώμα το οποίο θα χρησιμοποιείται για την σήμανση διαφάνειας."
 
 #: eog.schemas.in.h:7
 msgid ""
@@ -320,61 +321,70 @@ msgstr "Εργοστάσιο εφαρμογής προβολής Εικόνων 
 
 #: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
-msgstr "Ενσωματώσιμη Εικόνα EOG"
+msgstr "Ενσωματωμένη Εικόνα EOG"
 
 #
 #: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Εικόνα"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
-msgstr ""
+msgstr "Θέλετε να αντικαταστήσετε το  %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
-msgstr ""
+msgstr "Το αρχείο υπάρχει"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr ""
+msgstr "Όλα τα αρχεία"
 
 #
-#: libeog/eog-file-selection.c:125
-#, fuzzy
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
-msgstr "Εικόνα"
+msgstr "Όλες οι εικόνες"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
+
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s εικονοστοιχεία"
 
 #
-#: libeog/eog-file-selection.c:196
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Φόρτωση εικόνας"
 
 #
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Αποθήκευση εικόνας"
 
 #
-#: libeog/eog-file-selection.c:246
-#, fuzzy
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
-msgstr "Άνοιγμα αρχείου"
+msgstr "Άνοιγμα φακέλου"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Αδυναμία δημιουργίας προσωρινού αρχείου για την αποθήκευση: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Αδυναμία διάθεσης μνήμης για την φόρτωση αρχείου JPEG "
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "κενό αρχείο"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -405,9 +415,8 @@ msgid "Height"
 msgstr "Ύψος"
 
 #: libeog/eog-info-view.c:181
-#, fuzzy
 msgid "Filesize"
-msgstr "Όνομα αρχείου"
+msgstr "Μέγεθος αρχείου"
 
 #: libeog/eog-info-view.c:199
 msgid "Filename"
@@ -552,9 +561,8 @@ msgstr "Άνοιγμα"
 
 #
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "Άνοιγμα αρχείου"
+msgstr "Άνοιγμα ενός καταλόγου"
 
 #
 #: shell/eog-shell-ui.xml.h:10
@@ -615,9 +623,8 @@ msgstr "_Νέο"
 
 #
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "_Άνοιγμα..."
+msgstr "_Άνοιγμα καταλόγου..."
 
 #
 #: shell/eog-shell-ui.xml.h:25
@@ -644,11 +651,11 @@ msgstr "Ερ_γαλειοθήκη"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Συμεών (σίμος) Ξενιτέλλης <simos@hellug.gr>\n"
-"Κώστας Παπαδήμας <pkst@gmx.net>"
+"Κώστας Παπαδήμας <pkst@gnome.org>"
 
 #
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Μάτι του Gnome"
 
@@ -666,32 +673,32 @@ msgstr ""
 "Δεν είναι δυνατή η προβολή βοήθειας για το Μάτι του Gnome.\n"
 "%s "
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Πρόκειται να ανοίξετε %i παράθυρα συγχρόνως. Μήπως θέλετε να τα ανοίξετεσε "
+"Πρόκειται να ανοίξετε %i παράθυρα συγχρόνως. Μήπως θέλετε να τα ανοίξετε σε "
 "συλλογή;"
 
 #
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Άνοιγμα πολλαπλών παραθύρων?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Μονά Παράθυρα"
 
 #
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Συλλογή"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Αδύνατη η εύρεση αρχείων"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr "Αρχείο(α) δεν βρέθηκαν."
 
 #: shell/util.c:52
 #, c-format
@@ -754,7 +761,7 @@ msgstr "Διαμόρφωση Εκτ_ύπωσης"
 
 #: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
-msgstr "Εκτύπωση εικόνας στον εκτπωτή"
+msgstr "Εκτύπωση εικόνας στον εκτυπωτή"
 
 #: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
@@ -783,9 +790,9 @@ msgstr "_Εκτύπωση..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i εικονοστοιχεία    %i%%"
+msgstr "%i x %i εικονοστοιχεία  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
@@ -793,7 +800,7 @@ msgstr "/Ω_ρολογιακή περιστροφή"
 
 #: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
-msgstr "?Αν_τιωρολογιακή περιστροφή"
+msgstr "/Αν_τιωρολογιακή περιστροφή"
 
 #
 #: viewer/eog-image-view.c:846
@@ -839,33 +846,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Αποτυχία φόρτωσης"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Η εικόνα αποθηκεύτηκε επιτυχώς"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Αποτυχία αποθήκευσης εικόνας"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Πλάτος Εικόνας"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Ύψος Εικόνας"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Κείμενο Γραμμής Κατάστασης"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Επιθυμητό πλάτος παραθύρου"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Επιθυμητό ύψος παραθύρου"
+
+#~ msgid "Could not find files"
+#~ msgstr "Αδύνατη η εύρεση αρχείων"
 
 #~ msgid "By Extension"
 #~ msgstr "Κατά επέκταση"
@@ -1287,3 +1297,4 @@ msgstr "Επιθυμητό ύψος παραθύρου"
 
 #~ msgid "Check _size:"
 #~ msgstr "_Μέγεθος τετραγωνιδίων:"
+
