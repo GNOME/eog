@@ -402,14 +402,14 @@ bm_ensure_array_size (GnomeWrapList *wlist, BMLayout *l)
 	priv = wlist->priv;
 	bm = &priv->u.bm;
 
-	n_display = (l->last_index - l->first_index + 1) * l->n_items_minor;
+	n_display = (l->last_block - l->first_block + 1) * l->n_items_minor;
 
 	/* If the item factory changed or the array layout changed, we must
 	 * discard everything.
 	 */
 
 	if (bm->items_per_block != 0 && (priv->need_factory_update
-					 || bm->items_per_block != l.n_items_minor
+					 || bm->items_per_block != l->n_items_minor
 					 || bm->n_display != n_display)) {
 		int i;
 
@@ -445,6 +445,99 @@ bm_ensure_array_size (GnomeWrapList *wlist, BMLayout *l)
 	g_assert (bm->items != NULL);
 }
 
+/* Updates a range of items, assuming the range has been clipped to the visible
+ * range.
+ */
+static void
+bm_update_range (GnomeWrapList *wlist, BMLayout *l, int update_first, int update_last)
+{
+	WrapListPrivate *priv;
+	BlockModeInfo *bm;
+	GnomeListItemFactory *factory;
+	GnomeCanvasGroup *group;
+	GnomeListModel *model;
+	GnomeListSelectionModel *sel_model;
+	int data_len;
+	int i, disp_i;
+
+	priv = wlist->priv;
+	bm = &priv->u.bm;
+
+	g_assert (update_first < update_last);
+	g_assert (update_first >= bm->first_index);
+	g_assert (update_last <= bm->first_index + bm->n_display);
+
+	model = gnome_list_view_get_model (GNOME_LIST_VIEW (wlist));
+	if (model)
+		data_len = gnome_list_model_get_length (model);
+	else
+		data_len = 0;
+
+	sel_model = gnome_list_view_get_selection_model (GNOME_LIST_VIEW (wlist));
+	if (sel_model)
+		g_assert (gnome_list_model_get_length (GNOME_LIST_MODEL (sel_model)) >= data_len);
+
+	factory = gnome_list_view_get_list_item_factory (GNOME_LIST_VIEW (wlist));
+	group = gnome_canvas_root (GNOME_CANVAS (priv->canvas));
+
+	disp_i = update_first - bm->first_index;
+	g_assert (disp_i >= 0 && disp_i < bm->n_display);
+
+	for (i = update_first; i < update_last; i++, disp_i++)
+		if (factory) {
+			gboolean is_selected;
+			gboolean is_focused;
+			int pos_minor, pos_major;
+			double affine[6];
+
+			/* Create the item if needed */
+
+			if (!bm->items[disp_i]) {
+				bm->items[disp_i] = gnome_list_item_factory_create_item (
+					factory, group);
+				g_assert (bm->items[disp_i] != NULL);
+			}
+
+			/* Configure the item */
+
+			if (sel_model)
+				is_selected = gnome_list_selection_model_is_selected (
+					sel_model, i);
+			else
+				is_selected = FALSE;
+
+			is_focused = FALSE; /* FIXME */
+
+			gnome_list_item_factory_configure_item (
+				factory,
+				bm->items[disp_i],
+				model,
+				i,
+				is_selected,
+				is_focused);
+
+			/* Compute position */
+
+			pos_minor = i % bm->items_per_block;
+			pos_major = i / bm->items_per_block;
+
+			pos_minor *= l->item_minor + l->space_minor;
+			pos_major *= l->item_major + l->space_major;
+
+			if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR)
+				art_affine_translate (affine, pos_minor, pos_major);
+			else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
+				art_affine_translate (affine, pos_major, pos_minor);
+			else
+				g_assert_not_reached ();
+
+			gnome_canvas_item_affine_absolute (bm->items[disp_i], affine);
+		} else if (bm->items[disp_i]) {
+			gtk_object_destroy (GTK_OBJECT (bm->items[disp_i]));
+			bm->items[disp_i] = NULL;
+		}
+}
+
 /* Updates the wrap list when a data model has changed */
 static void
 bm_update_data (GnomeWrapList *wlist)
@@ -452,15 +545,11 @@ bm_update_data (GnomeWrapList *wlist)
 	WrapListPrivate *priv;
 	BMLayout l;
 	BlockModeInfo *bm;
-	int i;
-	int req_update_first, req_update_n;
-	int update_first, update_first_index;
-	int update_n;
+	int req_update_first, req_update_last;
+	int display_first, display_last;
+	int update_first, update_last;
 	GnomeListModel *model;
 	int data_len;
-	GnomeListSelectionModel *sel_model;
-	GnomeListItemFactory *factory;
-	GnomeCanvasGroup *group;
 
 	priv = wlist->priv;
 	bm = &priv->u.bm;
@@ -474,7 +563,6 @@ bm_update_data (GnomeWrapList *wlist)
 	/* Compute the range of items that needs to be updated */
 
 	model = gnome_list_view_get_model (GNOME_LIST_VIEW (wlist));
-
 	if (model)
 		data_len = gnome_list_model_get_length (model);
 	else
@@ -482,87 +570,43 @@ bm_update_data (GnomeWrapList *wlist)
 
 	if (bm->first_index == -1) {
 		req_update_first = 0;
-		req_update_n = data_len;
+		req_update_last = data_len;
 
 		bm->first_index = l.first_block * l.n_items_minor;
 	} else {
 		req_update_first = priv->update_start;
 
 		if (priv->update_n == -1)
-			req_update_n = data_len - priv->update_start;
+			req_update_last = req_update_first + data_len - priv->update_start;
 		else
-			req_update_n = priv->update_n;
+			req_update_last = req_update_first + priv->update_n;
 	}
 
 	/* Clip update range to visible range */
 
-	
+	display_first = l.first_block * l.n_items_minor;
+	display_last = display_first + bm->n_display;
+
+	update_first = MAX (req_update_first, display_first);
+	update_last = MIN (req_update_last, display_last);
 
 	/* Update the items that need it */
 
-	factory = gnome_list_view_get_list_item_factory (GNOME_LIST_VIEW (wlist));
-	group = gnome_canvas_root (GNOME_CANVAS (priv->canvas));
-
-	sel_model = gnome_list_view_get_selection_model (GNOME_LIST_VIEW (wlist));
-	if (sel_model)
-		g_assert (gnome_list_model_get_length (GNOME_LIST_MODEL (sel_model)) >= data_len);
-
-	for (i = 0; i < update_n; i++) {
-		if (factory) {
-			gboolean is_selected;
-			gboolean is_focused;
-			int pos_minor, pos_major;
-			double affine[6];
-
-			if (!priv->u.bm.items[update_index + i])
-				priv->u.bm.items[update_index + i] =
-					gnome_list_item_factory_create_item (factory, group);
-
-			if (sel_model)
-				is_selected = gnome_list_selection_model_is_selected (
-					sel_model, update_first + i);
-			else
-				is_selected = FALSE;
-
-			is_focused = FALSE; /* FIXME */
-
-			gnome_list_item_factory_configure_item (
-				factory,
-				priv->u.bm.items[update_index + i],
-				model,
-				update_first + i,
-				is_selected,
-				is_focused);
-
-			pos_minor = (update_first + i) % priv->u.bm.items_per_block;
-			pos_major = (update_first + i) / priv->u.bm.items_per_block;
-
-			pos_minor *= l.item_minor + l.space_minor;
-			pos_major *= l.item_major + l.space_major;
-
-			if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR)
-				art_affine_translate (affine, pos_minor, pos_major);
-			else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR)
-				art_affine_translate (affine, pos_major, pos_minor);
-			else
-				g_assert_not_reached ();
-
-			gnome_canvas_item_affine_absolute (priv->u.bm.items[update_index + i],
-							   affine);
-		} else if (priv->u.bm.items[update_index + i]) {
-			gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[update_index + i]));
-			priv->u.bm.items[update_index + i] = NULL;
-		}
-	}
+	if (update_first < update_last)
+		bm_update_range (wlist, &l, update_first, update_last);
 
 	/* Clear items that are past the end of the data */
 
-	if (update_first + update_n >= data_len)
-		for (; i < n_display - update_n; i++)
+#if 0	
+
+	if (t >= data_len) {
+		for (i = ; i < n_display - update_n; i++)
 			if (priv->u.bm.items[update_index + i]) {
 				gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[update_index + i]));
 				priv->u.bm.items[update_index + i] = NULL;
 			}
+	}
+#endif
 
 	/* Done */
 
