@@ -1,4 +1,3 @@
-# translation of eog.HEAD.po to Azerbaijani Turkish
 # translation of eog.HEAD.az.po to Azerbaijani Turkish
 # Copyright (C) 1999-2000,2003, 2004 Free Software Foundation, Inc.
 # Vasif Ismailoglu MD <azerb_linux@hotmail.com>, 2001.
@@ -7,10 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-05 14:12+0100\n"
 "PO-Revision-Date: 2004-02-14 15:22+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
-"Language-Team: Azerbaijani Turkish <gnome@azitt.com>\n"
+"Language-Team: Azerbaijani Turkish <translation-team-az@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,6 +111,11 @@ msgstr "Zibil Qutusuna At"
 msgid "Collection View"
 msgstr "Yığcam Nümayiş"
 
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr "Rəsmlər: %i/%i"
+
 #: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Pəncərə Başlığı"
@@ -125,7 +130,7 @@ msgstr "Rəsm Yüklənmə İrəliləyişi"
 
 #: collection/eog-save-dialog.c:100
 msgid "Saving image"
-msgstr "Rəsm üeyd edilir"
+msgstr "Rəsm qeyd edilir"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -141,7 +146,7 @@ msgstr "    "
 
 #: eog.glade.h:2
 msgid "<b>Image Interpolation</b>"
-msgstr "<b>Rism İnterpolyasiyası</b>"
+msgstr "<b>Rəsm İnterpolyasiyası</b>"
 
 #: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
@@ -178,7 +183,7 @@ msgstr "Şəffaf Sahələrin Rəngi"
 
 #: eog.glade.h:12
 msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome'un seçənəkləri"
+msgstr "Eye of Gnome Seçimləri"
 
 #: eog.glade.h:13
 msgid "Image _View"
@@ -278,20 +283,21 @@ msgstr "Şəffaflıq işarəsi"
 
 #: eog.schemas.in.h:15
 msgid ""
-"Wether opening an image should create a new window instead of replacing the "
+"Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"Açılan rəsmin başqa rəsmin olduğu pəncərədəki rəsmin yerini alması yaxud "
+"Açılan rəsmin başqa rəsmin olduğu pəncərədəki rəsmin yerini alması yerinə "
 "yeni pəncərədə açılması."
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Rəsm ardıcıllığının sonsuz ilgək ilə göstərilməsi."
 
 #: eog.schemas.in.h:17
 msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+"Whether the image should be interpolated on zoom or not. This leads to "
+"better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Yaxınlaşdırma ərzində rəsmin interpolyasiya ediləcəyi. Bu daha ə'la "
 "keyfiyyətə yalnız interpolyasiya edilməmiş rəsmlərə nəzarən biraz daha yavaş "
@@ -326,35 +332,35 @@ msgstr "%s faylının üstünə yazmaq istəyirsiniz?"
 msgid "File exists"
 msgstr "Fayl mövcuddur"
 
-#: libeog/eog-file-selection.c:170
+#: libeog/eog-file-selection.c:175
 msgid "All Files"
 msgstr "Bütün Fayllar"
 
-#: libeog/eog-file-selection.c:176
+#: libeog/eog-file-selection.c:180
 msgid "All Images"
 msgstr "Bütün Rəsmlər"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:194
+#: libeog/eog-file-selection.c:198
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:280
+#: libeog/eog-file-selection.c:291
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s piksel"
 
-#: libeog/eog-file-selection.c:437
+#: libeog/eog-file-selection.c:447
 msgid "Load Image"
 msgstr "Rəsmi Yüklə"
 
-#: libeog/eog-file-selection.c:445
+#: libeog/eog-file-selection.c:455
 msgid "Save Image"
 msgstr "Rəsmi Qeyd Et"
 
-#: libeog/eog-file-selection.c:488
+#: libeog/eog-file-selection.c:463
 msgid "Open Folder"
 msgstr "Qovluğu Aç"
 
@@ -464,11 +470,11 @@ msgstr "Kənarlar"
 
 #: libgpi/gpi-dialog.glade.h:11
 msgid "Ordering help"
-msgstr "Yardım sifariş vermə"
+msgstr "Yardım sifarişi"
 
 #: libgpi/gpi-dialog.glade.h:12
 msgid "Overlap"
-msgstr "/Üst Üstə Gətir"
+msgstr "Üst Üstə Gətir"
 
 #: libgpi/gpi-dialog.glade.h:13
 msgid "Overlap help"
@@ -476,7 +482,7 @@ msgstr "Yardımı üst üstə gətir"
 
 #: libgpi/gpi-dialog.glade.h:15
 msgid "Page order"
-msgstr "Səhifə sırası"
+msgstr "Səhifə ardıcıllığı"
 
 #  Right down
 #: libgpi/gpi-dialog.glade.h:18
@@ -498,10 +504,6 @@ msgstr "Şaquli olaraq"
 #: libgpi/gpi-dialog.glade.h:22
 msgid "Vertically by "
 msgstr "Şaquli olaraq"
-
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr "dialoq1"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -754,7 +756,7 @@ msgstr "_Tam Ekran"
 
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
-msgstr "_Çap Et"
+msgstr "Ç_ap Et..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
@@ -807,7 +809,7 @@ msgstr ""
 #. show error dialog
 #: viewer/eog-image-view.c:1042
 msgid "Loading failed"
-msgstr "Yükləmə bacarılmadı"
+msgstr "Yüklənmə bacarılmadı"
 
 #: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
@@ -819,11 +821,11 @@ msgstr "Rəsm qeyd edilə bilmədi"
 
 #: viewer/eog-image-view.c:1387
 msgid "Image Width"
-msgstr "Rəsm Nümayişcisi"
+msgstr "Rəsmin Eni"
 
 #: viewer/eog-image-view.c:1390
 msgid "Image Height"
-msgstr "Rəsm Hündürlüyü"
+msgstr "Rəsmin Hündürlüyü"
 
 #: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
@@ -831,8 +833,8 @@ msgstr "Vəziyyət Çubuğu Mətni"
 
 #: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
-msgstr "Pəncərənin Əsas Eni"
+msgstr "Pəncərənin Ön Qurğulu Eni"
 
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
-msgstr "Pəncərənin Əsas Hündürlüyü"
+msgstr "Pəncərənin Ön Qurğulu Hündürlüyü"
