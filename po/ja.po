@@ -1,13 +1,14 @@
-# eog ja.po
+# eog ja.po.
 # Copyright (C) 1999-2002 Free Software Foundation, Inc.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 1999-2002.
+# Takeshi AIHANA <aihana@gnome.gr.jp>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.0.0\n"
-"POT-Creation-Date: 2003-01-05 10:46+0100\n"
-"PO-Revision-Date: 2002-06-14 02:14+0900\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"Project-Id-Version: eog 1.1.4\n"
+"POT-Creation-Date: 2003-01-20 09:49+0900\n"
+"PO-Revision-Date: 2003-01-20 09:43+0900\n"
+"Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,61 +16,59 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
-msgstr "EOG 画像コレクションビューア"
+msgstr "EOG 画像コレクション・ビューア"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image collection view factory"
-msgstr "EOG 画像コレクションビューア ファクトリ"
+msgstr "EOG 画像コレクション・ビューア・ファクトリ"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
-#, fuzzy
 msgid "Image Collection"
-msgstr "EOG 画像コレクション"
+msgstr "画像コレクション"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
-msgstr "Eye of Gnome 画像ビューア"
+msgstr "Eye of GNOME 画像ビューア"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
-msgstr "いろんな種類の画像を表示"
+msgstr "いろんな種類の画像を表示します"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr ""
+msgstr "色で指定する(_O)"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "格子で指定する(_P)"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome 設定"
+msgstr "Eye of GNOME の設定"
 
 #: eog.glade.h:4
 msgid "Image Viewer"
 msgstr "画像ビューア"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "Indicate Transparency"
-msgstr "透過の種類"
+msgstr "透過する部分の表示方法"
 
 #: eog.glade.h:6
 msgid "Pick a color"
-msgstr ""
+msgstr "色の取得"
 
 #: eog.glade.h:7
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+msgstr "ズーム時に画像を補正する (高品質ですが描画は低速)"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "自動的にウィンドウサイズを取得する"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "フルスクリーン表示のデフォルト拡大率"
 
 #: eog.schemas.in.h:3
 msgid ""
@@ -77,6 +76,8 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
+"フル・スクリーン表示の際のデフォルトの拡大率です。指定可能な値は次のとおり: "
+"0 (1:1の拡大率)、1 (画像ウィンドウと同じ拡大率)、2 (スクリーンに合わせる)"
 
 #: eog.schemas.in.h:4
 msgid ""
@@ -84,52 +85,53 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
+"画像を透過する部分をどのように表示させるかを指定します。指定可能な値は "
+"CHECK_PATTERN と COLOR です。COLOR を選択した場合、キー trans_color には使用"
+"する色の値を指定します。"
 
 #: eog.schemas.in.h:5
-#, fuzzy
 msgid "Fit standard-sized images to the screen"
-msgstr "標準サイズの画像をスクリーンの大きさに合わせる"
+msgstr "オリジナル・サイズの画像を画面に合わせる"
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
+"キー transparency が COLOR の場合、このキーは透過する部分に使用する色を表しま"
+"す。"
 
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "補間"
+msgstr "画像の補正"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "新しいウインドウで開く"
+msgstr "新しいウインドウで画像を開く"
 
 #: eog.schemas.in.h:9
-#, fuzzy
 msgid "Put a bevel around the screen"
-msgstr "スクリーンの端のまわりに bevel を付ける"
+msgstr "画面のまわりに傾斜を付ける"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "フル・スクリーン表示の際のスクロールバーの取り扱い"
 
 #: eog.schemas.in.h:11
-#, fuzzy
 msgid "Transparency color"
-msgstr "透過の種類"
+msgstr "透過する部分の色"
 
 #: eog.schemas.in.h:12
-#, fuzzy
 msgid "Transparency indicator"
-msgstr "透過の種類"
+msgstr "透過する部分の表示方法"
 
 #: eog.schemas.in.h:13
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
+"ズームの際に画像を補正するかどうかを指定します。これは画像の品質を向上します"
+"が、補正しない場合と比較して多少、描画が低速になります。"
 
 #: eog.schemas.in.h:14
 msgid ""
@@ -137,18 +139,24 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
+"画像ウィンドウがウィンドウのサイズを取得して自動的に画像のサイズに基づいた拡"
+"大率にするかどうかを指定します。このオプションを無効にすると、画像ウィンドウ"
+"はウィンドウ・マネージャによって管理されるサイズになります。"
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
+"画像を開く際に、現在開いているウィンドウの中に画像を表示するのではなく、新し"
+"いウィンドウを生成するかどうかを指定します。"
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
 msgstr ""
+"フル・スクリーン表示の際に、画面の四隅に傾斜を表示するかどうかを指定します。"
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -156,6 +164,9 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
+"フル・スクリーン表示の際にスクロールバーを表示するかどうかを指定します。指定"
+"可能は値は次のとおり: 1 (自動 - 画像がウィンドウのサイズより大きい場合にのみ"
+"スクロールバーを表示する)、2 (常にスクロールバーを表示しない)"
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -164,6 +175,10 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
+"フル・スクリーン表示の際に、画像のサイズを画面のサイズに合わせるかどうかを指"
+"定します。画像のサイズは 320x240, 640x480, 800x800 等の画面サイズになります。"
+"これはフル・スクリーン表示の際のデフォルト拡大率の設定を無視して、強制的に画"
+"面のサイズに合わせるかどうかを指定します。"
 
 #: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
@@ -175,7 +190,7 @@ msgstr "EOG 画像ビューア"
 
 #: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
-msgstr "EOG 画像ビューア ファクトリ"
+msgstr "EOG 画像ビューア・ファクトリ"
 
 #: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
@@ -196,15 +211,15 @@ msgstr "使用する補間の種類"
 
 #: libeog/image-view.c:1903 libeog/image-view.c:1910
 msgid "check type"
-msgstr "チェックの種類"
+msgstr "格子の種類"
 
 #: libeog/image-view.c:1904
 msgid "the type of chequering to use"
-msgstr "使用するチェックの種類"
+msgstr "使用する格子の種類"
 
 #: libeog/image-view.c:1911
 msgid "the size of chequers to use"
-msgstr "使用するチェックの大きさ"
+msgstr "使用する格子の大きさ"
 
 #: libeog/image-view.c:1917
 msgid "dither"
@@ -216,73 +231,71 @@ msgstr "ディザの種類"
 
 #: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
 msgid "By Extension"
-msgstr ""
+msgstr "拡張子順"
 
 #: libeog/eog-file-selection.c:30
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 #: libeog/eog-file-selection.c:31
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: libeog/eog-file-selection.c:32
 msgid "ICO"
-msgstr ""
+msgstr "ICO"
 
 #: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: libeog/eog-file-selection.c:35
 msgid "PNM"
-msgstr ""
+msgstr "PNM"
 
 #: libeog/eog-file-selection.c:36
 msgid "RAS"
-msgstr ""
+msgstr "RAS"
 
 #: libeog/eog-file-selection.c:37
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: libeog/eog-file-selection.c:38
 msgid "TGA"
-msgstr ""
+msgstr "TGA"
 
 #: libeog/eog-file-selection.c:39
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: libeog/eog-file-selection.c:40
 msgid "XBM"
-msgstr ""
+msgstr "XBM"
 
 #: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
 msgid "XPM"
-msgstr ""
+msgstr "XPM"
 
 #: libeog/eog-file-selection.c:207
 msgid "Unsupported file format."
-msgstr ""
+msgstr "サポートしていない画像の種類です。"
 
 #: libeog/eog-file-selection.c:227
 msgid "Determine File Type:"
-msgstr ""
+msgstr "ファイル形式の指定:"
 
 #: libeog/eog-file-selection.c:270
-#, fuzzy
 msgid "Load Image"
-msgstr "画像"
+msgstr "画像の読み込み"
 
 #: libeog/eog-file-selection.c:276
-#, fuzzy
 msgid "Save Image"
-msgstr "画像を開く"
+msgstr "画像の保存"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -290,7 +303,7 @@ msgstr "このアプリケーションについて"
 
 #: shell/eog-shell-ui.xml.h:2
 msgid "Cancel"
-msgstr "中止"
+msgstr "キャンセル"
 
 #: shell/eog-shell-ui.xml.h:3
 msgid "Close window"
@@ -302,7 +315,7 @@ msgstr "このアプリケーションのヘルプ"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "新規"
 
 #: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
@@ -310,32 +323,31 @@ msgstr "開く"
 
 #: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
-msgstr "ファイルを開く"
+msgstr "ファイルを開きます"
 
 #: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
-msgstr "新しいウインドウを開く"
+msgstr "新しいウインドウを開きます"
 
 #: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
-msgstr "新しいウインドウで開く"
+msgstr "新しいウインドウで開きます"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
-msgstr "このウインドウで開く"
+msgstr "このウインドウで開きます"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
-msgstr "設定"
+msgstr "設定(_N)"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "Eye of GNOME コンポーネントの設定を行います"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
-msgstr "プログラムを終了"
+msgstr "プログラムを終了します"
 
 #: shell/eog-shell-ui.xml.h:14
 msgid "_About"
@@ -346,9 +358,8 @@ msgid "_Close"
 msgstr "閉じる(_C)"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "目次"
+msgstr "目次(_C)"
 
 #: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
@@ -363,9 +374,8 @@ msgid "_Help"
 msgstr "ヘルプ(_H)"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "なし(_N)"
+msgstr "新規(_N)"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -381,11 +391,13 @@ msgstr "終了(_Q)"
 #.
 #: shell/eog-window.c:215
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>"
+msgstr ""
+"Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"Takeshi AIHANA <aihana@gnome.gr.jp>"
 
 #: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
 msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
@@ -393,7 +405,7 @@ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
 #: shell/eog-window.c:223
 msgid "The GNOME image viewing and cataloging program."
-msgstr "GNOME 画像表示およびカタログ作成プログラム"
+msgstr "GNOME 画像表示およびカタログ作成プログラムです"
 
 #: shell/eog-window.c:260
 #, c-format
@@ -401,7 +413,7 @@ msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"Eye of Gnome のヘルプを表示できませんでした\n"
+"Eye of GNOME のヘルプを表示できませんでした。\n"
 "%s"
 
 #: shell/main.c:177
@@ -413,7 +425,7 @@ msgid ""
 msgstr ""
 "同時に %i 個のウインドウを\n"
 "開こうとしています。代わりに\n"
-"コレクションで表示しますか?"
+"コレクションで表示しますか？"
 
 #: shell/main.c:182
 msgid "Single Windows"
@@ -430,7 +442,7 @@ msgid ""
 "simultanously. Do you want to continue?"
 msgstr ""
 "同時に %i 個のウインドウを\n"
-"開こうとしています。続けますか?"
+"開こうとしています。続けますか？"
 
 #: shell/main.c:290
 #, c-format
@@ -438,6 +450,8 @@ msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
+"%s にアクセスできませんでした。\n"
+"Eye of GNOME はこのファイルを開くことはできません。"
 
 #: shell/main.c:293
 #, c-format
@@ -446,14 +460,17 @@ msgid ""
 "access them:\n"
 "%s"
 msgstr ""
+"Eye of GNOME は次のファイルにアクセスできないので、表示することができませ"
+"ん:\n"
+"%s"
 
 #: shell/main.c:464
 msgid "Could not initialize GnomeVFS!\n"
-msgstr "GnomeVFS を初期化できませんでした!\n"
+msgstr "GnomeVFS を初期化できませんでした！\n"
 
 #: shell/main.c:467
 msgid "Could not initialize Bonobo!\n"
-msgstr "Bonobo を初期化できませんでした\n"
+msgstr "Bonobo を初期化できませんでした！\n"
 
 #: shell/util.c:52
 #, c-format
@@ -462,94 +479,87 @@ msgstr "`%s'を開けませんでした"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "ウィンドウに合わせる(_F)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
-msgstr "自動"
+msgstr "合わせる"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
-msgstr "In"
+msgstr "拡大"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "標準"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
-msgstr "Out"
+msgstr "縮小"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
-msgstr "縮小 (_O)"
+msgstr "縮小(_O)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "オリジナル(_N)"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
-msgstr "拡大 (_I)"
+msgstr "拡大(_I)"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "水平"
+msgstr "水平方向にひっくり返す"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "垂直"
+msgstr "垂直方向にひっくり返す"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
-msgstr "フルスクリーン"
+msgstr "フル・スクリーン"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
-msgstr "印刷する画像をプレビュー"
+msgstr "印刷する画像のプレビューを表示します"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "印刷のプレビュー"
+msgstr "印刷プレビュー(_W)..."
 
 #: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
 msgid "Print Set_up"
-msgstr "印刷設定"
+msgstr "印刷設定(_U)"
 
 #: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
-msgstr "画像をプリンタへ印刷"
+msgstr "画像をプリンタへ印刷します"
 
 #: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 Degrees"
-msgstr ""
+msgstr "180°回転"
 
 #: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "時計回りに回転します"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counter Clockwise"
-msgstr ""
+msgstr "時計回りに回転する角度"
 
 #: viewer/eog-image-view-ui.xml.h:11
-#, fuzzy
 msgid "Save _As..."
-msgstr "名前を変えて保存(_S)..."
+msgstr "別名で保存(_A)..."
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
-msgstr "現在のプリンタのページ設定を変更"
+msgstr "現在使用中のプリンタに合わせてページ設定を変更します"
 
 #: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
 msgid "_Print..."
-msgstr "印刷(_P)"
+msgstr "印刷(_P)..."
 
 #: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
@@ -562,7 +572,7 @@ msgstr "画像を '%s' として保存でませんでした: %s"
 
 #: viewer/eog-image-view.c:954
 msgid "Print Image"
-msgstr "画像の印刷"
+msgstr "画像を印刷します"
 
 #: viewer/eog-image-view.c:962
 msgid "Pages"
@@ -570,35 +580,31 @@ msgstr "ページ"
 
 #: viewer/eog-image-view.c:1049
 msgid "Print Preview"
-msgstr "印刷のプレビュー"
+msgstr "印刷プレビュー"
 
 #: viewer/eog-image-view.c:1055
 msgid "Printing of image failed"
 msgstr "画像の印刷に失敗"
 
 #: viewer/eog-image-view.c:1873
-#, fuzzy
 msgid "/_Zoom In"
-msgstr "拡大 (_I)"
+msgstr "/拡大(_I)"
 
 #: viewer/eog-image-view.c:1875
-#, fuzzy
 msgid "/Zoom _Out"
-msgstr "縮小 (_O)"
+msgstr "/縮小(_O)"
 
 #: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/オリジナル・サイズ(_N)"
 
 #: viewer/eog-image-view.c:1879
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "ウインドウに合わせる (_F)"
+msgstr "/ウインドウに合わせる(_F)"
 
 #: viewer/eog-image-view.c:1882
-#, fuzzy
 msgid "/_Close"
-msgstr "閉じる(_C)"
+msgstr "/閉じる(_C)"
 
 #: viewer/eog-image-view.c:2008
 msgid "Image Width"
@@ -618,7 +624,7 @@ msgstr "ステータスバーのテキスト"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFS を初期化できませんでした\n"
+msgstr "GnomeVFS を初期化できませんでした！\n"
 
 #: viewer/eog-print-setup.c:76
 msgid "pts"
@@ -727,7 +733,7 @@ msgstr "ページに合わせる"
 #: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
-msgstr ""
+msgstr "オリジナル・サイズに対する割合(%)"
 
 #. Center on page
 #: viewer/eog-print-setup.c:731
@@ -745,15 +751,15 @@ msgstr "垂直"
 #. Overlap
 #: viewer/eog-print-setup.c:751
 msgid "Overlapping"
-msgstr ""
+msgstr "オーバーラップ"
 
 #: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
-msgstr ""
+msgstr "水平方向のオーバーラップ"
 
 #: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
-msgstr ""
+msgstr "垂直方向のオーバーラップ"
 
 #. Third page
 #: viewer/eog-print-setup.c:797
@@ -767,11 +773,11 @@ msgstr "ヘルパー"
 
 #: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
-msgstr ""
+msgstr "切り取るヘルプの印刷"
 
 #: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
-msgstr ""
+msgstr "オーバーラップのヘルプのインsなつ"
 
 #. Page order
 #: viewer/eog-print-setup.c:821
@@ -790,396 +796,4 @@ msgstr "右、そして下"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
-
-#~ msgid "_New Window"
-#~ msgstr "新規ウインドウ(_N)"
-
-#~ msgid "Unable to open %s."
-#~ msgstr "%s を開けません。"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "1:1で表示(_1)"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "ウインドウに合わせる (_F)"
-
-#~ msgid "Check _size"
-#~ msgstr "チェックの大きさ(_S)"
-
-#~ msgid "Check _type"
-#~ msgstr "チェックの種類(_T)"
-
-#~ msgid "Large"
-#~ msgstr "大"
-
-#~ msgid "Medium"
-#~ msgstr "中"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "最近隣(_R)"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "通常 (擬似カラー)(_P)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "印刷のプレビュー(_V)"
-
-#~ msgid "Print S_etup"
-#~ msgstr "印刷の設定(_E)"
-
-#~ msgid "Small"
-#~ msgstr "小"
-
-#~ msgid "_Bilinear"
-#~ msgstr "双一次(_B)"
-
-#~ msgid "_Black"
-#~ msgstr "黒(_B)"
-
-#~ msgid "_Dark"
-#~ msgstr "暗(_D)"
-
-#~ msgid "_Dither"
-#~ msgstr "ディザ(_D)"
-
-#~ msgid "_Gray"
-#~ msgstr "グレー(_G)"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "双曲線(_H)"
-
-#~ msgid "_Interpolation"
-#~ msgstr "補間(_I)"
-
-#~ msgid "_Light"
-#~ msgstr "明(_L)"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "最大 (ハイカラー)(_M)"
-
-#~ msgid "_Midtone"
-#~ msgstr "中間調(_M)"
-
-#~ msgid "_White"
-#~ msgstr "白(_W)"
-
-#, fuzzy
-#~ msgid "/Zoom _1:1"
-#~ msgstr "1:1で表示(_1)"
-
-#~ msgid "Dither"
-#~ msgstr "ディザ"
-
-#~ msgid "Check Type"
-#~ msgstr "チェックの種類"
-
-#~ msgid "Check Size"
-#~ msgstr "チェックの大きさ"
-
-#~ msgid "Close"
-#~ msgstr "閉じる"
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "設定ダイアログのヘルプを表示できませんでした。\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "設定を変更"
-
-#~ msgid "_Preferences..."
-#~ msgstr "設定(_P)..."
-
-#~ msgid "_Tiles"
-#~ msgstr "タイル(_T)"
-
-#~ msgid "Save As"
-#~ msgstr "名前を変えて保存"
-
-#~ msgid "Display"
-#~ msgstr "表示"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "最近隣補間"
-
-#~ msgid "Tiles Interpolation"
-#~ msgstr "タイル補間"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "双一次 補間"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "双曲線 補間"
-
-#~ msgid "No dithering"
-#~ msgstr "ディザ無し"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "通常 (擬似カラー) ディザ"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "最大 (ハイカラー) ディザ"
-
-#~ msgid "Dark"
-#~ msgstr "暗"
-
-#~ msgid "Midtone"
-#~ msgstr "中間調"
-
-#~ msgid "Light"
-#~ msgstr "明"
-
-#~ msgid "Black"
-#~ msgstr "黒"
-
-#~ msgid "Gray"
-#~ msgstr "グレー"
-
-#~ msgid "White"
-#~ msgstr "白"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "補間(_I):"
-
-#~ msgid "_Dither:"
-#~ msgstr "ディザ(_D):"
-
-#~ msgid "Check _type:"
-#~ msgstr "チェックの種類(_T):"
-
-#~ msgid "Check _size:"
-#~ msgstr "チェックの大きさ(_S):"
-
-#~ msgid "Control doesn't support window_title property."
-#~ msgstr "コントールは window_title プロパティをサポートしていません。"
-
-#~ msgid "Control doesn't support status_text property."
-#~ msgstr "コントロールは status_text プロパティをサポートしていません。"
-
-#~ msgid "Control doesn't have properties"
-#~ msgstr "コントールにはプロパティがありません"
-
-#~ msgid "Couldn't retrieve mime type for file."
-#~ msgstr "ファイルの MIME タイプを取得でいませんでした。"
-
-#~ msgid "Error while obtaining file informations."
-#~ msgstr "ファイル情報の取得でエラーが発生しました。"
-
-#~ msgid "_Settings"
-#~ msgstr "設定(_S)"
-
-#~ msgid "Check size large"
-#~ msgstr "チェックの大きさ: 大"
-
-#~ msgid "Check size medium"
-#~ msgstr "チェックの大きさ: 中"
-
-#~ msgid "Check size small"
-#~ msgstr "チェックの大きさ: 小"
-
-#~ msgid "Check type _black"
-#~ msgstr "チェックの種類: 黒(_B)"
-
-#~ msgid "Check type _dark"
-#~ msgstr "チェックの種類: 暗(_D)"
-
-#~ msgid "Check type _gray"
-#~ msgstr "チェックの種類: 灰(_G)"
-
-#~ msgid "Check type _light"
-#~ msgstr "チェックの種類: 明(_L)"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "チェックの種類: 中間調(_M)"
-
-#~ msgid "Check type _white"
-#~ msgstr "チェックの種類: 白(_W)"
-
-#~ msgid "Save _As"
-#~ msgstr "名前を変えて保存(_A)"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "双一次 補間(_B)"
-
-#~ msgid "_No dithering"
-#~ msgstr "ディザ無し(_N)"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "タイル補間(_T)"
-
-#~ msgid "Zoom to _Default"
-#~ msgstr "デフォルトの大きさに (_D)"
-
-#~ msgid "View"
-#~ msgstr "表示"
-
-#~ msgid "Can't find eog-shell-ui.xml.\n"
-#~ msgstr "eog-shell-ui.xml が見つかりません。\n"
-
-#~ msgid "Eye Of Gnome"
-#~ msgstr "Eye Of Gnome"
-
-#~ msgid "I could not initialize GnomeVFS!\n"
-#~ msgstr "GnomeVFS を初期化できませんでした!\n"
-
-#~ msgid "I could not initialize Bonobo"
-#~ msgstr "Bonoboを初期化できませんでした"
-
-#~ msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-#~ msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#~ msgid "Open an image file"
-#~ msgstr "画像ファイルを開く"
-
-#~ msgid "Close the current window"
-#~ msgstr "このウインドウを閉じる"
-
-#~ msgid "_Open Image..."
-#~ msgstr "画像を開く(_O)"
-
-#~ msgid "_Close This Window"
-#~ msgstr "このウインドウを閉じる(_C)"
-
-#~ msgid "2:1"
-#~ msgstr "2:1"
-
-#~ msgid "3:1"
-#~ msgstr "3:1"
-
-#~ msgid "4:1"
-#~ msgstr "4:1"
-
-#~ msgid "5:1"
-#~ msgstr "5:1"
-
-#~ msgid "6:1"
-#~ msgstr "6:1"
-
-#~ msgid "7:1"
-#~ msgstr "7:1"
-
-#~ msgid "8:1"
-#~ msgstr "8:1"
-
-#~ msgid "9:1"
-#~ msgstr "9:1"
-
-#~ msgid "10:1"
-#~ msgstr "10:1"
-
-#~ msgid "1:2"
-#~ msgstr "1:2"
-
-#~ msgid "1:3"
-#~ msgstr "1:3"
-
-#~ msgid "1:4"
-#~ msgstr "1:4"
-
-#~ msgid "1:5"
-#~ msgstr "1:5"
-
-#~ msgid "1:6"
-#~ msgstr "1:6"
-
-#~ msgid "1:7"
-#~ msgstr "1:7"
-
-#~ msgid "1:8"
-#~ msgstr "1:8"
-
-#~ msgid "1:9"
-#~ msgstr "1:9"
-
-#~ msgid "1:10"
-#~ msgstr "1:10"
-
-#~ msgid "Increase zoom factor by 5%%"
-#~ msgstr "拡大率を5%増やす"
-
-#~ msgid "Decrease zoom factor by 5%%"
-#~ msgstr "拡大率を5%減らす"
-
-#~ msgid "Display the image at 1:1 scale"
-#~ msgstr "1:1スケールで画像を表示"
-
-#~ msgid "_Zoom factor"
-#~ msgstr "拡大率(_Z)"
-
-#~ msgid "_Fit to Window"
-#~ msgstr "ウインドウの大きさに合わせる(_F)"
-
-#~ msgid "Zoom the image to fit in the window"
-#~ msgstr "ウインドウの大きさに合うように画像を拡大する"
-
-#~ msgid "Full _Screen"
-#~ msgstr "フルスクリーン(_S)"
-
-#~ msgid "Use the whole screen for display"
-#~ msgstr "画面全体を表示に使う"
-
-#~ msgid "Dark checks"
-#~ msgstr "暗いチェック"
-
-#~ msgid "Light checks"
-#~ msgstr "明るいチェック"
-
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "最近隣 (高速・低品質)"
-
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "双曲線 (低速・最高品質)"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "2パス・スクロール"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "スクロールバー"
-
-#~ msgid "Never"
-#~ msgstr "使用しない"
-
-#~ msgid "Only if image does not fit"
-#~ msgstr "画像のサイズが合わない時だけ"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "ウインドウの大きさと拡大率を自動的に設定"
-
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "1:1の拡大率を使用"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "画像ウインドウと同じ拡大率を使用"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "すべての画像をスクリーンの大きさに合わせる"
-
-#~ msgid ""
-#~ "Small\n"
-#~ "Medium\n"
-#~ "Large\n"
-#~ msgstr ""
-#~ "小\n"
-#~ "中\n"
-#~ "大\n"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "なし\n"
-#~ "通常 (擬似カラー)\n"
-#~ "最大 (ハイカラー)\n"
-
-#~ msgid "Don't save"
-#~ msgstr "保存しない"
-
-#~ msgid "Don't exit"
-#~ msgstr "終了しない"
+msgstr "スライドショー"
