@@ -22,6 +22,7 @@
 #include <config.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkwindow.h>
+#include <libgnome/gnome-i18n.h>
 #include "image-view.h"
 #include "ui-image.h"
 #include "zoom.h"
@@ -45,7 +46,6 @@ struct _UIImagePrivate {
 static void ui_image_class_init (UIImageClass *class);
 static void ui_image_init (UIImage *ui);
 static void ui_image_finalize (GObject *object);
-
 
 static GtkScrolledWindowClass *parent_class;
 
@@ -136,6 +136,7 @@ ui_image_finalize (GObject *object)
 	}
 
 	g_free (priv);
+	ui->priv = NULL;
 
 	if (G_OBJECT_CLASS (parent_class)->finalize)
 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
@@ -143,7 +144,6 @@ ui_image_finalize (GObject *object)
 
 /**
  * ui_image_new:
- * @void:
  *
  * Creates a new scrolling user interface for an image view.
  *
@@ -193,8 +193,10 @@ ui_image_construct (UIImage *ui)
 	priv = ui->priv;
 
 	priv->view = image_view_new ();
+
 	g_signal_connect (priv->view, "zoom_fit",
 			  G_CALLBACK (zoom_fit_cb), ui);
+
 	gtk_container_add (GTK_CONTAINER (ui), priv->view);
 	gtk_widget_show (priv->view);
 
@@ -264,7 +266,7 @@ ui_image_zoom_fit (UIImage *ui)
 
 	pixbuf = image_view_get_pixbuf (IMAGE_VIEW (priv->view));
 	if (!pixbuf) {
-		image_view_set_zoom (IMAGE_VIEW (priv->view), 1.0, 1.0);
+		image_view_set_zoom (IMAGE_VIEW (priv->view), 1.0, 1.0, FALSE, 0, 0);
 		return;
 	}
 
@@ -313,9 +315,8 @@ ui_image_zoom_fit (UIImage *ui)
 					GTK_POLICY_NEVER,
 					GTK_POLICY_NEVER);
 
-	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom);
+	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom, FALSE, 0, 0);
 
 	if (!priv->idle_id)
 		priv->idle_id = g_idle_add (set_policy_idle_cb, ui);
 }
-

@@ -1,3 +1,25 @@
+2002-06-25  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes #75889.
+
+	* viewer/eog-image-view.c (setup_item_factory): Set up a
+	GtkItemFactory for the image view's popup menu.
+	(image_view_button_press_event_cb): Added a button press handler
+	so that we can present a popup menu.
+	(eog_image_view_class_init): Created a "close_item_activated"
+	signal.
+
+	* viewer/eog-full-screen.c (eog_full_screen_new): Connect to the
+	"close_item_activated" signal of the image view.
+
+	* libeog/image-view.c (image_view_button_press_event): Use
+	IMAGE_VIEW_ZOOM_MULTIPLIER.
+	(image_view_key_press_event): Likewise.
+	(image_view_set_zoom): Added arguments to specify the zoom anchor.
+	(image_view_set_zoom): Queue a resize even if we did not need to
+	change the zoom factor.  This makes things work even when 1:1 and
+	then zoom-fit would produce the same results.
+
 2002-06-21  Jens Finke  <jens@triq.net>
 
 	Fixes #72352 and #75713. 

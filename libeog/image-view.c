@@ -1122,13 +1122,17 @@ image_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 		return TRUE;
 
 	case 4:
-		set_zoom_anchor (view, event->x, event->y);
-		image_view_set_zoom (view, priv->zoomx * 1.05, priv->zoomy * 1.05);
+		image_view_set_zoom (view,
+				     priv->zoomx * IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     priv->zoomy * IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     TRUE, event->x, event->y);
 		return TRUE;
 
 	case 5:
-		set_zoom_anchor (view, event->x, event->y);
-		image_view_set_zoom (view, priv->zoomx / 1.05, priv->zoomy / 1.05);
+		image_view_set_zoom (view,
+				     priv->zoomx / IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     priv->zoomy / IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     TRUE, event->x, event->y);
 		return TRUE;
 
 	default:
@@ -1231,10 +1235,10 @@ image_view_scroll_event (GtkWidget *widget, GdkEventScroll *event)
 		return FALSE;
 	}
 
-	if ((event->state & GDK_SHIFT_MASK) == 0) {
-		set_zoom_anchor (view, event->x, event->y);
-		image_view_set_zoom (view, priv->zoomx * zoom_factor, priv->zoomy * zoom_factor);
-	} else
+	if ((event->state & GDK_SHIFT_MASK) == 0)
+		image_view_set_zoom (view, priv->zoomx * zoom_factor, priv->zoomy * zoom_factor,
+				     TRUE, event->x, event->y);
+	else
 		scroll_by (view, xofs, yofs);
 
 	return TRUE;
@@ -1345,15 +1349,15 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 	case GDK_plus:
 	case GDK_KP_Add:
 		do_zoom = TRUE;
-		zoomx = priv->zoomx * 1.05;
-		zoomy = priv->zoomy * 1.05;
+		zoomx = priv->zoomx * IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoomy = priv->zoomy * IMAGE_VIEW_ZOOM_MULTIPLIER;
 		break;
 
 	case GDK_minus:
 	case GDK_KP_Subtract:
 		do_zoom = TRUE;
-		zoomx = priv->zoomx / 1.05;
-		zoomy = priv->zoomy / 1.05;
+		zoomx = priv->zoomx / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoomy = priv->zoomy / IMAGE_VIEW_ZOOM_MULTIPLIER;
 		break;
 
 	case GDK_1:
@@ -1374,14 +1378,7 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 		gint x, y;
 
 		gdk_window_get_pointer (widget->window, &x, &y, NULL);
-
-		if (x >= 0 && x < widget->allocation.width
-		    && y >= 0 && y < widget->allocation.height)
-			set_zoom_anchor (view, x, y);
-		else
-			set_default_zoom_anchor (view);
-
-		image_view_set_zoom (view, zoomx, zoomy);
+		image_view_set_zoom (view, zoomx, zoomy, TRUE, x, y);
 	}
 
 	if (do_scroll)
@@ -1548,12 +1545,22 @@ image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf)
 /**
  * image_view_set_zoom:
  * @view: An image view.
- * @zoom: Zoom factor.
+ * @zoomx: Horizontal zoom factor.
+ * @zoomy: Vertical zoom factor.
+ * @have_anchor: Whether the anchor point specified by (@anchorx, @anchory)
+ * should be used.
+ * @anchorx: Horizontal anchor point in pixels.
+ * @anchory: Vertical anchor point in pixels.
  *
- * Sets the zoom factor for an image view.
+ * Sets the zoom factor for an image view.  The anchor point can be used to
+ * specify the point that stays fixed when the image is zoomed.  If @have_anchor
+ * is %TRUE, then (@anchorx, @anchory) specify the point relative to the image
+ * view widget's allocation that will stay fixed when zooming.  If @have_anchor
+ * is %FALSE, then the center point of the image view will be used.
  **/
 void
-image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
+image_view_set_zoom (ImageView *view, double zoomx, double zoomy,
+		     gboolean have_anchor, int anchorx, int anchory)
 {
 	ImageViewPrivate *priv;
 
@@ -1575,7 +1582,7 @@ image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 
 	if (DOUBLE_EQUAL (priv->zoomx, zoomx) &&
 	    DOUBLE_EQUAL (priv->zoomy, zoomy))
-		return;
+		goto out;
 
 	if (!priv->need_zoom_change) {
 		priv->old_zoomx = priv->zoomx;
@@ -1587,6 +1594,15 @@ image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 	priv->zoomy = zoomy;
 
 	g_signal_emit (view, image_view_signals [ZOOM_CHANGED], 0);
+
+	if (have_anchor) {
+		anchorx = CLAMP (anchorx, 0, GTK_WIDGET (view)->allocation.width);
+		anchory = CLAMP (anchory, 0, GTK_WIDGET (view)->allocation.height);
+		set_zoom_anchor (view, anchorx, anchory);
+	} else
+		set_default_zoom_anchor (view);
+
+ out:
 
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }

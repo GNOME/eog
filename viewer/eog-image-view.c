@@ -15,8 +15,11 @@
 #include <string.h>
 #include <math.h>
 #include <glib/gstrfuncs.h>
-#include <gtk/gtksignal.h>
+#include <gtk/gtkitemfactory.h>
 #include <gtk/gtkmarshal.h>
+#include <gtk/gtkmenu.h>
+#include <gtk/gtksignal.h>
+#include <gtk/gtkstock.h>
 #include <gtk/gtktypeutils.h>
 #include <gconf/gconf-client.h>
 
@@ -43,6 +46,18 @@
 #  include "GnoCam.h"
 #endif
 
+
+
+/* Commands from the popup menu */
+enum {
+	POPUP_ZOOM_IN,
+	POPUP_ZOOM_OUT,
+	POPUP_ZOOM_1,
+	POPUP_ZOOM_FIT,
+	POPUP_CLOSE
+};
+
+/* Private part of the EogImageView structure */
 struct _EogImageViewPrivate {
 	EogImage              *image;
 
@@ -60,6 +75,14 @@ struct _EogImageViewPrivate {
 	BonoboUIComponent     *uic;
 
 	gboolean               zoom_fit;
+
+	/* Item factory for popup menu */
+	GtkItemFactory *item_factory;
+
+	/* Mouse position, relative to the image view, when the popup menu was
+	 * invoked.
+	 */
+	int popup_x, popup_y;
 };
 
 enum {
@@ -77,10 +100,22 @@ enum {
 	PROP_CONTROL_TITLE
 };
 
+/* Signal IDs */
+enum {
+	CLOSE_ITEM_ACTIVATED,
+	LAST_SIGNAL
+};
+
 static BonoboControl* property_control_get_cb (BonoboPropertyControl *property_control,
 					       int page_number, void *closure);
 
+static void popup_menu_cb (gpointer data, guint action, GtkWidget *widget);
+
 static GObjectClass *eog_image_view_parent_class;
+
+static guint signals[LAST_SIGNAL] = { 0 };
+
+
 
 static GNOME_EOG_Image
 impl_GNOME_EOG_ImageView_getImage (PortableServer_Servant servant,
@@ -112,6 +147,31 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
 		g_object_unref (pixbuf);
 	}
+}
+
+static gboolean
+image_view_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+	EogImageView *view;
+	EogImageViewPrivate *priv;
+	int x, y;
+
+	view = EOG_IMAGE_VIEW (data);
+	priv = view->priv;
+
+	if (event->button != 3)
+		return FALSE;
+
+	priv->popup_x = event->x;
+	priv->popup_y = event->y;
+
+	gdk_window_get_origin (event->window, &x, &y);
+
+	x += event->x;
+	y += event->y;
+
+	gtk_item_factory_popup (priv->item_factory, x, y, event->button, event->time);
+	return TRUE;
 }
 
 static void
@@ -1696,7 +1756,7 @@ eog_image_view_set_zoom_factor (EogImageView *image_view,
 
 	view = image_view->priv->image_view;
 
-	image_view_set_zoom (view, zoom_factor, zoom_factor);
+	image_view_set_zoom (view, zoom_factor, zoom_factor, FALSE, 0, 0);
 }
 
 void
@@ -1710,7 +1770,7 @@ eog_image_view_set_zoom (EogImageView *image_view,
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 
-	image_view_set_zoom (image_view->priv->image_view, zoomx, zoomy);
+	image_view_set_zoom (image_view->priv->image_view, zoomx, zoomy, FALSE, 0, 0);
 }
 
 void
@@ -1789,13 +1849,19 @@ static void
 eog_image_view_finalize (GObject *object)
 {
 	EogImageView *image_view;
+	EogImageViewPrivate *priv;
 
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
 	image_view = EOG_IMAGE_VIEW (object);
+	priv = image_view->priv;
 
-	g_free (image_view->priv);
+	g_object_unref (G_OBJECT (priv->item_factory));
+	priv->item_factory = NULL;
+
+	g_free (priv);
+	image_view->priv = NULL;
 
 	if (G_OBJECT_CLASS (eog_image_view_parent_class)->finalize)
 		G_OBJECT_CLASS (eog_image_view_parent_class)->finalize (object);
@@ -1813,6 +1879,18 @@ eog_image_view_class_init (EogImageViewClass *klass)
 
 	bonobo_object_class->destroy = eog_image_view_destroy;
 	gobject_class->finalize = eog_image_view_finalize;
+
+	signals[CLOSE_ITEM_ACTIVATED] =
+		g_signal_new ("close_item_activated",
+			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogImageViewClass, close_item_activated),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+
+	klass->close_item_activated = NULL;
 
 	epv = &klass->epv;
 
@@ -1978,11 +2056,95 @@ check_size_changed_cb (GConfClient *client,
 	set_ui_group_item (view, ui_id_strings_check_size [check_size]);
 }
 
+/* Callback for the item factory's popup menu */
+static void
+popup_menu_cb (gpointer data, guint action, GtkWidget *widget)
+{
+	EogImageView *image_view;
+	EogImageViewPrivate *priv;
+	double zoomx, zoomy;
+
+	image_view = EOG_IMAGE_VIEW (data);
+	priv = image_view->priv;
+
+	switch (action) {
+	case POPUP_ZOOM_IN:
+		image_view_get_zoom (priv->image_view, &zoomx, &zoomy);
+		image_view_set_zoom (priv->image_view,
+				     zoomx * IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     zoomy * IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     TRUE, priv->popup_x, priv->popup_y);
+		break;
+
+	case POPUP_ZOOM_OUT:
+		image_view_get_zoom (priv->image_view, &zoomx, &zoomy);
+		image_view_set_zoom (priv->image_view,
+				     zoomx / IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     zoomy / IMAGE_VIEW_ZOOM_MULTIPLIER,
+				     TRUE, priv->popup_x, priv->popup_y);
+		break;
+
+	case POPUP_ZOOM_1:
+		image_view_set_zoom (priv->image_view, 1.0, 1.0,
+				     TRUE, priv->popup_x, priv->popup_y);
+		break;
+
+	case POPUP_ZOOM_FIT:
+		ui_image_zoom_fit (UI_IMAGE (priv->ui_image));
+		break;
+
+	case POPUP_CLOSE:
+		g_signal_emit (image_view, signals[CLOSE_ITEM_ACTIVATED], 0);
+		break;
+
+	default:
+		g_assert_not_reached ();
+	}
+}
+
+static GtkItemFactoryEntry popup_entries[] = {
+	{ N_("/Zoom _In"), NULL, popup_menu_cb, POPUP_ZOOM_IN,
+	  "<StockItem>", GTK_STOCK_ZOOM_IN },
+	{ N_("/Zoom _Out"), NULL, popup_menu_cb, POPUP_ZOOM_OUT,
+	  "<StockItem>", GTK_STOCK_ZOOM_OUT },
+	{ N_("/Zoom _1:1"), NULL, popup_menu_cb, POPUP_ZOOM_1,
+	  "<StockItem>", GTK_STOCK_ZOOM_100 },
+	{ N_("/Zoom to _Fit"), NULL, popup_menu_cb, POPUP_ZOOM_FIT,
+	  "<StockItem>", GTK_STOCK_ZOOM_FIT },
+	{ "/sep", NULL, NULL, 0, "<Separator>", NULL },
+	{ N_("/_Close"), NULL, popup_menu_cb, POPUP_CLOSE,
+	  "<StockItem>", GTK_STOCK_CLOSE }
+};
+
+static int n_popup_entries = sizeof (popup_entries) / sizeof (popup_entries[0]);
+
+/* Translate function for the GTK+ item factory.  Sigh. */
+static gchar *
+item_factory_translate_cb (const gchar *path, gpointer data)
+{
+	return _(path);
+}
+
+/* Sets up a GTK+ item factory for the image view */
+static void
+setup_item_factory (EogImageView *image_view, gboolean need_close_item)
+{
+	EogImageViewPrivate *priv;
+
+	priv = image_view->priv;
+
+	priv->item_factory = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+	gtk_item_factory_set_translate_func (priv->item_factory, item_factory_translate_cb,
+					     NULL, NULL);
+	gtk_item_factory_create_items (priv->item_factory,
+				       need_close_item ? n_popup_entries : n_popup_entries - 2,
+				       popup_entries,
+				       image_view);
+}
 
 EogImageView *
-eog_image_view_construct (EogImageView       *image_view,
-			  EogImage           *image,
-			  gboolean            zoom_fit)
+eog_image_view_construct (EogImageView *image_view, EogImage *image,
+			  gboolean zoom_fit, gboolean need_close_item)
 {
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
@@ -1991,7 +2153,8 @@ eog_image_view_construct (EogImageView       *image_view,
 
 	/* setup gconf stuff */
 	if (!gconf_is_initialized ())
-		gconf_init (0, NULL, NULL);	
+		gconf_init (0, NULL, NULL);
+
 	image_view->priv->client = gconf_client_get_default ();
 	gconf_client_add_dir (image_view->priv->client,
 			      GCONF_EOG_VIEW_DIR,
@@ -2015,6 +2178,9 @@ eog_image_view_construct (EogImageView       *image_view,
 			  "zoom_changed", 
 			  (GCallback) image_view_zoom_changed_cb, 
 			  image_view);
+
+	g_signal_connect (image_view->priv->image_view, "button_press_event",
+			  G_CALLBACK (image_view_button_press_event_cb), image_view);
 
 	/* get preference values from gconf and add listeners */
 
@@ -2088,6 +2254,8 @@ eog_image_view_construct (EogImageView       *image_view,
 	/* UI Component */
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
 
+	setup_item_factory (image_view, need_close_item);
+
 	/* Finally, set the image */
 	image_set_image_cb (image, image_view);
 
@@ -2095,8 +2263,7 @@ eog_image_view_construct (EogImageView       *image_view,
 }
 
 EogImageView *
-eog_image_view_new (EogImage *image,
-		    gboolean  zoom_fit)
+eog_image_view_new (EogImage *image, gboolean zoom_fit, gboolean need_close_item)
 {
 	EogImageView *image_view;
 	
@@ -2108,5 +2275,5 @@ eog_image_view_new (EogImage *image,
 
 	image_view = g_object_new (EOG_IMAGE_VIEW_TYPE, NULL);
 
-	return eog_image_view_construct (image_view, image, zoom_fit);
+	return eog_image_view_construct (image_view, image, zoom_fit, need_close_item);
 }

@@ -382,7 +382,7 @@ eog_control_construct (EogControl    *control,
 		return NULL;
 
 	/* Create the image-view */
-	priv->image_view = eog_image_view_new (image, FALSE);
+	priv->image_view = eog_image_view_new (image, FALSE, FALSE);
 	if (!priv->image_view) {
 		bonobo_object_unref (BONOBO_OBJECT (control));
 		return NULL;

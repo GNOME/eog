@@ -196,6 +196,17 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 	gtk_window_set_decorated (GTK_WINDOW (fs), FALSE);
 }
 
+/* Callback used when the image view requests to be closed */
+static void
+close_item_activated_cb (EogImageView *image_view, gpointer data)
+{
+	EogFullScreen *fs;
+
+	fs = EOG_FULL_SCREEN (data);
+
+	gtk_widget_hide (GTK_WIDGET (fs));
+}
+
 GtkWidget *
 eog_full_screen_new (EogImage *image)
 {
@@ -206,11 +217,14 @@ eog_full_screen_new (EogImage *image)
 
 	fs = g_object_new (EOG_TYPE_FULL_SCREEN, NULL);
 
-	fs->priv->image_view = eog_image_view_new (image, TRUE);
+	fs->priv->image_view = eog_image_view_new (image, TRUE, TRUE);
+
+	g_signal_connect (fs->priv->image_view, "close_item_activated",
+			  G_CALLBACK (close_item_activated_cb), fs);
+
 	widget = eog_image_view_get_widget (fs->priv->image_view);
 	gtk_widget_show (widget);
 	gtk_container_add (GTK_CONTAINER (fs), widget);
 
 	return GTK_WIDGET (fs);
 }
-
