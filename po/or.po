@@ -1,20 +1,21 @@
 # Oriya translation of eog.HEAD.pot.
 # This file is distributed under the same license as the eog package.
-# Copyright (C) 2004 Free Software Foundtion, Inc.
+# Copyright (C) 2004 Free Software Foundation, Inc.
 # Gita/Shakti <gita_lee@rediffmail.com>, 2004
+# Gora Mohanty <gora_mohanty@yahoo.co.in>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.or\n"
-"POT-Creation-Date: 2004-03-22 19:33+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-03 11:12+0200\n"
 "PO-Revision-Date: 2004-07-18 14:05+0530\n"
-"Last-Translator: Gita/Sakti <gita_lee@rediffmail.com>\n"
+"Last-Translator: Gora Mohanty <gora_mohanty@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
-"X-Generator: KBabel 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -29,18 +30,24 @@ msgid "Image Collection"
 msgstr "ଚିତ୍ର ସଂଗ୍ରହ"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "Image Collection Viewer"
+msgstr "ଇଓଜି ଚିତ୍ର ସଂଗ୍ରହ ପ୍ରଦର୍ଶକ"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
 msgid "View as I_mage Collection"
 msgstr "ଚିତ୍ର ସଂଗ୍ରହ ରୂପରେ ଦେଖନ୍ତୁ (_m)"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#: collection/GNOME_EOG_Collection.server.in.in.h:6
 msgid "View as Image Collection"
-msgstr "ଚିତ୍ର ସଂଗ୍ରହ ରୁପରେ  େଦଖନ୍ତୁ"
+msgstr "ଚିତ୍ର ସଂଗ୍ରହ ରୂପରେ  େଦଖନ୍ତୁ"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 shell/eog-window.c:2077
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "ଭୂସମାନ୍ତର ଭାବରେ ଓଲଟାନ୍ତୁ (_H)"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2 shell/eog-window.c:2078
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "ଭୂଲମ୍ବ ଭାବରେ ଓଲଟାନ୍ତୁ (_V) "
 
@@ -76,62 +83,63 @@ msgstr "ବାମାବର୍ତ୍ତୀ ଘୂରାନ୍ତୁ(_r)"
 msgid "Slide Show"
 msgstr "ସ୍ଲାଇଡ ପ୍ରଦର୍ଶନ"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-window.c:2051
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "ସମ୍ପାଦନ କରନ୍ତୁ (_E)"
 
 # libgnomeui/gnome-app-helper.c:114
-#: collection/eog-collection-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-window.c:2072
 msgid "_Save"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ (_S)"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:13 shell/eog-window.c:2075
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "ପଦକ୍ଷେପ ବାତିଲ କରନ୍ତୁ (_U)"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-window.c:2052
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "ଦେଖନ୍ତୁ  (_V)"
 
-#: collection/eog-collection-view.c:338
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "ସଂରକ୍ଷଣ ବାତିଲ କରନ୍ତୁ"
 
-#: collection/eog-collection-view.c:341
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "ସଂରକ୍ଷଣ ସମାପ୍ତ ହେଲା"
 
-#: collection/eog-collection-view.c:810
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "ବର୍ଜିତକୁ ପଠାନ୍ତୁ"
 
-#: collection/eog-collection-view.c:927
+#: collection/eog-collection-view.c:926
 msgid "Collection View"
 msgstr "ସଂଗ୍ରହ ଦୃଶ୍ଯ"
 
-#: collection/eog-collection-view.c:947
+#. Images: (n_selected_images) / (n_total_images)
+#: collection/eog-collection-view.c:946 shell/eog-window.c:1971
 #, c-format
 msgid "Images: %i/%i"
-msgstr "ଚିତ୍ର: %i/%i"
+msgstr "ଚିତ୍ରଗୁଡ଼ିକ: %i/%i"
 
-#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1404 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "ଓ୍ବ୍ବିଣ୍ଡୋ ଶୀର୍ଷକ"
 
-#: collection/eog-collection-view.c:1426
+#: collection/eog-collection-view.c:1407
 msgid "Status Text"
 msgstr "ଅବସ୍ଥିତି ପାଠ୍ଯ"
 
-#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1410 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
-msgstr "ଚିତ୍ର ଧାରଣ କରିବାର ଅଗ୍ରଗତି"
+msgstr "ଚିତ୍ର ଧାରଣ ଅଗ୍ରଗତି"
 
 #: collection/eog-save-dialog.c:100
 msgid "Saving image"
-msgstr "ଚିତ୍ର ସଂରକ୍ଷଣ ହେଉଛି "
+msgstr "ଚିତ୍ର ସଂରକ୍ଷଣ"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -146,115 +154,185 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: eog.glade.h:3
+msgid "."
+msgstr "."
+
+#: eog.glade.h:4
+msgid "<b>File Name Preview</b>"
+msgstr "<b>ଫାଇଲ ନାମର ପ୍ରାକ୍ଦର୍ଶନ</b>"
+
+#: eog.glade.h:5
+msgid "<b>File Path Specifications</b>"
+msgstr "<b>ଫାଇଲ ପଥ ନିର୍ଦ୍ଦିଷ୍ଟକରଣ</b>"
+
+#: eog.glade.h:6
+#, fuzzy
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>ଚିତ୍ର ପ୍ରକ୍ଷେପ</b>"
 
-#: eog.glade.h:3
+#: eog.glade.h:7
 msgid "<b>Image Zoom</b>"
 msgstr "<b> ଚିତ୍ର ସାନବଡ଼ କରିବା"
 
-#: eog.glade.h:4
+#: eog.glade.h:8
+msgid "<b>Options</b>"
+msgstr "<b>ପସନ୍ଦ</b>"
+
+#: eog.glade.h:9
 msgid "<b>Sequence</b>"
 msgstr "<b>ଅନୁକ୍ରମ</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:10
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>ସ୍ବଚ୍ଛ ଅଂଶ</b>"
 
-#: eog.glade.h:7
+#: eog.glade.h:12
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
 msgstr "ପ୍ରଥମରୁ ୧୦୦%ରୁ ଅଧିକା ସାନବଡ଼ କରିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ (_z)"
 
-#: eog.glade.h:8
+#: eog.glade.h:13
 msgid "As _background"
 msgstr "ପୃଷ୍ଠଭୂମି ରୂପେ (_b)"
 
-#: eog.glade.h:9
+#: eog.glade.h:14
 msgid "As check _pattern"
 msgstr "ଯାଞ୍ଚ ନମୁନା ରୂପେ (_p)"
 
-#: eog.glade.h:10
+#: eog.glade.h:15
 msgid "As custom c_olor"
 msgstr "ଇଚ୍ଛାରୂପ ରଙ୍ଗ ରୂପେ (_o)"
 
-#: eog.glade.h:11
+#: eog.glade.h:16
 msgid "Color for Transparent Areas"
 msgstr "ସ୍ବଚ୍ଛ କ୍ଷେତ୍ର ପାଇଁ ରଙ୍ଗ"
 
-#: eog.glade.h:12
+#: eog.glade.h:17
+msgid "Destination Folder:"
+msgstr "ଲକ୍ଷ ଫୋଲଡର:"
+
+#: eog.glade.h:18
 msgid "Eye of Gnome Preferences"
 msgstr "ଇଓଜି ପସନ୍ଦ"
 
-#: eog.glade.h:13
+# #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui-2.0.hi)  #-#-#-#-#
+# libgnomeui/gnome-file-entry.c:224 libgnomeui/gnome-icon-entry.c:188
+#: eog.glade.h:19
+msgid "Filename Format:"
+msgstr "ଫାଇଲ ନାମର ସଂରୂପ"
+
+#: eog.glade.h:20
 msgid "Image _View"
 msgstr "ଚିତ୍ର ଦୃଶ୍ଯ (_V)"
 
-#: eog.glade.h:14
-msgid "Show  _next image automaticaly after:"
-msgstr "ଏହାପରେ, ପରବର୍ତ୍ତି ଚିତ୍ର ସ୍ବଂୟଚାଳିତ ଭାବରେ ଦେଖାନ୍ତୁ (_n)"
+#: eog.glade.h:21
+msgid "Rename From:"
+msgstr "ଏହା ଭିତରୁ ନାମ ବଦଳାନ୍ତୁ:"
 
-#: eog.glade.h:15
+#: eog.glade.h:22
+msgid "Replace spaces by underscore"
+msgstr "ଖାଲି ସ୍ଥାନଙ୍କୁ ଅବରେଖା ସହିତ ବଦଳାନ୍ତୁ"
+
+#: eog.glade.h:23
+msgid "Save As"
+msgstr "ନିର୍ଦ୍ଦିଷ୍ତ ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
+
+#: eog.glade.h:24
+msgid "Saving Image"
+msgstr "ଚିତ୍ର ସଂରକ୍ଷଣ ହେଉଛି"
+
+#: eog.glade.h:25
+msgid "Show _next image automatically after:"
+msgstr "ପରବର୍ତ୍ତୀ ଚିତ୍ରକୁ ସ୍ବଂୟଚାଳିତ ଭାବରେ ଦେଖାନ୍ତୁ (_n)"
+
+#: eog.glade.h:26
 msgid "Sli_de Show"
-msgstr "ସ୍ଳାଇଡ଼ ପ୍ରଦର୍ଶନୀ (_d)"
+msgstr "ସ୍ଲାଇଡ ପ୍ରଦର୍ଶନ (_d)"
 
-#: eog.glade.h:16
+#: eog.glade.h:27
+msgid "Start counter at:"
+msgstr "ଏହି ମୂଲ୍ଯଠାରୁ ଗଣକ ପ୍ରାରମ୍ଭ କରନ୍ତୁ:"
+
+#: eog.glade.h:28
+msgid "To:"
+msgstr "ପ୍ରତି:"
+
+#: eog.glade.h:29
+msgid "_Browse"
+msgstr "ବ୍ରାଉଜ (_B)"
+
+#: eog.glade.h:30
+#, fuzzy
 msgid "_Interpolate image on zoom"
-msgstr "ଚିତ୍ରକୁ ସାନବଡ଼ କରିବା ସମୟରେ ପ୍ରକ୍ଷିପ୍ତ କରନ୍ତୁ"
+msgstr "ଚିତ୍ରକୁ ସାନବଡ଼ କରିବା ସମୟରେ ପ୍ରକ୍ଷିପ୍ତ କରନ୍ତୁ (_I)"
 
-#: eog.glade.h:17
+#: eog.glade.h:31
 msgid "_Loop sequence"
-msgstr "ଚକ୍ରିଳ କ୍ରମେ (_L)"
+msgstr "ଚକ୍ରିଳ କ୍ରମ (_L)"
 
-#: eog.glade.h:18
+#: eog.glade.h:32
 msgid "seconds"
-msgstr "ସେକେଣ୍ଡଗୁଡ଼ିକ"
+msgstr "ସେକେଣ୍ଡ"
 
 #: eog.schemas.in.h:1
 msgid ""
-"A value greater 0 determines the seconds an image stays on screen until the "
-"next one is shown automatically. Zero disables the automatic browsing."
-msgstr "୦ରୁ ଅଧୀକ ମୁ୍୍୍ଲ୍ଯ ସ୍ଥିର କରେ ଗୋଟିଏ ଚିତ୍ର ପରଦା ଉପରେ କେତେ ସେକେଣ୍ଡ ରହିବ ଯେତେପର୍ଯନ୍ତ ପରବତ୍ତୀ ଚିତ୍ରଟି ସ୍ବତଃ ଦେଖାଯାଇନାହଁି ା ଶୁନ ସ୍ବତଃ ବ୍ରାଉଜ୍ କୁ ନିଷ୍କି୍୍ୟ କରେ ା"
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"ପରବତ୍ତୀ ଚିତ୍ରଟି ସ୍ବତଃ ପ୍ରଦର୍ଶିତ ହେବା ଯାଏଁ ଗୋଟିଏ ଚିତ୍ର ପରଦା ଉପରେ କେତେ ସେକେଣ୍ଡ ରହିବ ତାହା ଶୂନ୍ଯରୁ "
+"ଅଧିକ ମୁ୍୍୍ଲ୍ଯ ସ୍ଥିର କରେ. ଶୁନ୍ଯ ସ୍ବଂୟ ବ୍ରାଉଜକୁ ନିଷ୍କ୍ରିୟ କରେ."
 
 #: eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr "ଆରମ୍ବର୍ୁ ୧୦୦ ପ୍ରତିଶତର୍ୁ ଅଧୀକ ସାନବଡ କରିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ"
+msgstr "ଆରମ୍ବର୍ୁ ୧୦୦ ପ୍ରତିଶତର୍ୁ ଅଧିକ ସାନବଡ଼ କରିବାକୁ ଅନୁମତି ଦିଅନ୍ତୁ"
 
 #: eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
-msgstr " ପରବତ୍ତୀ ଚିତ୍ର ଦେଖାନଯିବା ଯାଏ ମୁହୁତ୍ତେ ବିଳମ୍ବ କରନ୍ତୁ ା"
+msgstr "ପରବର୍ତ୍ତୀ ଚିତ୍ର ପ୍ରଦର୍ଶିତ କରିବା ଆଗରୁ କିଛି ସେକେଣ୍ଡ ବିଳମ୍ବ କରନ୍ତୁ."
 
 #: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
-msgstr " କେମିତି ସ୍ବଚ୍ଚତା ସୂଚିତ କରିବାକୁ ହେବ, ନିଦ୍ଧାରିତ କରେ ା ବୈଧ ମୂଲ୍ଯ ଗୁଡିକ ହେଲା- ଯାଞ୍ଚ ଧାରା, ରଙ୍ଗ ଓ କିଛିନାହି୍ ା ଯଦି ରଙ୍ଗ ବଛା ଯାଇଛି, ତାହେଲେ ଏପାଖରୁ ସେପାଖ ରଙ୍ଗ ଚାବିଟି ବ୍ଯବହାର କରାଯଇଥିହା ରଙ୍ଗର ମୁଲ୍ଯକୁ ନିର୍ଦ୍ଧାରୀତ କରେ ା"
+msgstr ""
+"କିପରି ସ୍ବଚ୍ଛତା ସୂଚୀତ କରାଯିବ ନିର୍ଦ୍ଧାରିତ କରେ. ବୈଧ ମୂଲ୍ଯଗୁଡିକ ହେଲା , "
+"CHECK_PATTERN, COLOR ଓ NONE. COLOR ବଛା ହେଲେ, "
+"ଟ୍ରାନ୍ସ_ରଙ୍ଗ ଚାବି ବ୍ଯବହାର କରାଯିବା ରଙ୍ଗକୁ ନିର୍ଦ୍ଧାରିତ କରେ."
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
-msgstr "ଯଦି ସ୍ବଚ୍ଛତା ଚାବିର ମୂଲ୍ଯ ରଙ୍ଗ,ତାହେଲେ ଏହି ଚାବିଟି ନିର୍ଦ୍ଧାରୀତ କରେ ସେହି ରଙ୍ଗଟି,ଯେଉଁଟା ସ୍ବଚ୍ଛତାକୁ ସୂଚିତ କରିବା ପାଇଁ ବ୍ଯବହାର କରାଯାଏ ା"
+msgstr ""
+"ଯଦି ସ୍ବଚ୍ଛତା ଚାବିର ମୂଲ୍ଯ COLOR, ତାହେଲେ ଏହି ଚାବି ସ୍ବଚ୍ଛତାକୁ ସୂଚୀତ କରିବା ପାଇଁ ବ୍ଯବହାର "
+"କରାଯିବା ରଙ୍ଗକୁ ନିର୍ଦ୍ଧାରିତ କରେ."
 
 #: eog.schemas.in.h:7
 msgid ""
-"If this is set to FALSE small images will not be streched to fit into the "
+"If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
-msgstr "ଯଦି ଏହାକୁ ଭୁଲ ବୋଲି ସ୍ଥାପିତ କରାଯାଏ, ଛୋଟ ଚିତ୍ର ଗୁଡିକ ପ୍ରାରମ୍ବରେ ପରଦାରେ ଠିକ ଭାବରେ ପ୍ରସାରିତ ହେବନାହିଁଁ ା"
+msgstr ""
+"ଯଦି ଏହାକୁ FALSE ବୋଲି ବିନ୍ଯାସ କରାଯାଏ, ଛୋଟ ଚିତ୍ରଗୁଡ଼ିକ ପ୍ରାରମ୍ବରେ ପରଦାରେ ଠିକ "
+"ଭାବରେ ପ୍ରସାରିତ ହେବନାହିଁଁ."
 
 #: eog.schemas.in.h:8
+#, fuzzy
 msgid "Interpolate Image"
-msgstr "ପ୍ରକ୍ଷିପ୍ତ ଚିତ୍ର"
+msgstr "ଚିତ୍ର ପ୍ରକ୍ଷିପ୍ତ କରନ୍ତୁ"
 
 #: eog.schemas.in.h:9
 msgid "Loop through the image sequence"
-msgstr "କ୍ରମାଗତ ଚିତ୍ର ଗୁଡିକୁ ଚକ୍ତିଳ କରନ୍ତୁ" 
+msgstr "ଚିତ୍ରକୁ କ୍ରମାଗତ ଚକ୍ରିଳ କରନ୍ତୁ"
 
 #: eog.schemas.in.h:10
 msgid "Open images in a new window"
-msgstr "ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଚିତ୍ର ଗୁଡିକୁ ଖୋଲନ୍ତୁ"
+msgstr "ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଚିତ୍ରଗୁଡ଼ିକ ଖୋଲନ୍ତୁ"
 
 #: eog.schemas.in.h:11
 msgid "Show/hide the window statusbar."
@@ -266,28 +344,33 @@ msgstr "ସାଧନ ପଟିକୁ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଦେ
 
 #: eog.schemas.in.h:13
 msgid "Transparency color"
-msgstr "ସ୍ବଚ୍ଚ ରଙ୍ଗ"
+msgstr "ସ୍ବଚ୍ଛତା ରଙ୍ଗ"
 
 #: eog.schemas.in.h:14
 msgid "Transparency indicator"
-msgstr "ସ୍ବଚ୍ଛତାର ସୂଚକ"
+msgstr "ସ୍ବଚ୍ଛତା ସୂଚକ"
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr "ଚିତ୍ରଟିଏ ଖୋଲିବାକୁ ହେଲେ, ସାମ୍ପ୍ରତିକ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଚିତ୍ରକୁ ବଦଳାଇବା ପରିବର୍ତ୍ତେ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋଟିଏ ସୃଷ୍ଟି କରିବା ଉଚିତ ହେବକି ?"
+msgstr ""
+"ଚିତ୍ରଟିଏ ଖୋଲିବାକୁ ହେଲେ, ସାମ୍ପ୍ରତିକ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଚିତ୍ରକୁ ବଦଳାଇବା ପରିବର୍ତ୍ତେ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋଟିଏ ସୃଷ୍ଟି "
+"କରାଯିବ କି?"
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr "କ୍ରମାନ୍ବୟ ଚିତ୍ରଗୁଡିକ ଅସରନ୍ତି ଚକ୍ରରେ ଦେଖାଇବା ଉଚିତ ହେବ କି ନାହି ା"
+msgstr "ଚିତ୍ର ଅନୁକ୍ରମ ଅସରନ୍ତି ଚକ୍ରରେ ଦେଖାଇବା ଉଚିତ କି ନାହିଁ."
 
 #: eog.schemas.in.h:17
+#, fuzzy
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
-msgstr "ଚିତ୍ରଟି ସାନବଡ ଉପରେ ପ୍ରକ୍ଷିପ୍ତ ହେବା ଉଚିତ କି ନାହିଁ? ଏହା ଭଲ ଗୁଣ ଆଡକୁ ଅଗ୍ରସର କରାଏ କିନ୍ତୁ ଅପ୍ରକ୍ଷିପ୍ତ ଚିତ୍ରଠାରୁ କିଛି ଧିର ଅଟେ ା"
+msgstr ""
+"ଚିତ୍ରଟି ସାନବଡ଼ କରିବା ସମୟରେ ପ୍ରକ୍ଷିପ୍ତ ହେବା ଉଚିତ କି ନାହିଁ. ଏହା ଭଲ ଗୁଣ ଆଡ଼କୁ ଅଗ୍ରସର "
+"କରାଏ କିନ୍ତୁ ଅପ୍ରକ୍ଷିପ୍ତ ଚିତ୍ରଠାରୁ କିଛି ଧୀର ଅଟେ."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -299,7 +382,7 @@ msgstr "ଇଓଜି ଚିତ୍ର ପ୍ରଦର୍ଶକ"
 
 #: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
-msgstr "ଇଓଜି ଚିତ୍ର ପ୍ରଦର୍ଶକ ତିଆରି ସ୍ଥାନ"
+msgstr "ଇଓଜି ଚିତ୍ର ପ୍ରଦର୍ଶକ କାରଖାନା"
 
 #: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
@@ -309,372 +392,432 @@ msgstr "ସନ୍ନିବେଶଯୋଗ୍ଯ ଇଓଜି ଚିତ୍ର"
 msgid "Image"
 msgstr "ଚିତ୍ର"
 
-#: libeog/eog-file-selection.c:96
-#, c-format
-msgid "Do you want to overwrite %s?"
-msgstr "ଆପଣ ଦୋବାରା ଲେଖିବାକୁ ଚାହାନ୍ତିକି %s?"
-
-#: libeog/eog-file-selection.c:101
-msgid "File exists"
-msgstr "ଫାଇଲଟି ଅଛି"
-
-#: libeog/eog-file-selection.c:175
+#: libeog/eog-file-selection.c:124
 msgid "All Files"
-msgstr "ସବୁ ଫାଇଲ ଗୁଡିକ"
+msgstr "ସବୁ ଫାଇଲ"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:129
 msgid "All Images"
-msgstr "ସବୁ ଚିତ୍ରଗୁଡ଼ିକ"
+msgstr "ସବୁ ଚିତ୍ର"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:198
+#: libeog/eog-file-selection.c:147
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:291
+#: libeog/eog-file-selection.c:240
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s ପିକ୍ସେଲ"
 
-#: libeog/eog-file-selection.c:447
+#: libeog/eog-file-selection.c:396
 msgid "Load Image"
-msgstr "ଚିତ୍ରକୁ ଧାରଣ କର"
+msgstr "ଚିତ୍ରକୁ ଧାରଣ କରନ୍ତୁ"
 
-#: libeog/eog-file-selection.c:455
+#: libeog/eog-file-selection.c:404
 msgid "Save Image"
-msgstr "ଚିତ୍ରକୁ  ସଂରକ୍ଷଣ କର"
+msgstr "ଚିତ୍ରକୁ  ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
-#: libeog/eog-file-selection.c:463
+#: libeog/eog-file-selection.c:412
 msgid "Open Folder"
 msgstr "ଫୋଲଡର ଖୋଲନ୍ତୁ"
 
-#: libeog/eog-image-jpeg.c:128
+#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
-msgstr " ସଂରକ୍ଷଣ କରିବା ପାଇଁ ଅସ୍ଥାୟୀ ଫାଇଲ ସ୍ରୁଷ୍ଟି କରିହେଲା ନାହିଂ : %s JPEG "
+msgstr "ସଂରକ୍ଷଣ କରିବା ପାଇଁ ଅସ୍ଥାୟୀ ଫାଇଲ ସ୍ରୁଷ୍ଟି କରିହେଲା ନାହିଁ : %s"
 
-#: libeog/eog-image-jpeg.c:149
+#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
 msgid "Couldn't allocate memory for loading JPEG file"
-msgstr " ଜେପିଇଜି ଫାଇଲକୁ ଧାରଣ କରିବା ପାଇଁ ସ୍ନ୍ର୍ୁତିକୁ ସ୍ଥାପନ କରିହେଲା ନାହିଂ"
+msgstr "ଜେ.ପି.ଇ.ଜି. ଫାଇଲକୁ ଧାରଣ କରିବା ପାଇଁ ସ୍ନ୍ର୍ୁତିକୁ ସ୍ଥାପନ କରିହେଲା ନାହିଁ"
 
-#: libeog/eog-image.c:859
+#: libeog/eog-image.c:810
 msgid "empty file"
 msgstr "ଖାଲି ଫାଇଲ"
 
-#: libeog/eog-image.c:1299
+#: libeog/eog-image.c:1243 libeog/eog-image.c:1454
+msgid "File exists"
+msgstr "ଫାଇଲ ପୂର୍ବରୁ ଅଛି"
+
+#: libeog/eog-image.c:1396 libeog/eog-image.c:1522
 msgid "No image loaded."
-msgstr "ଚିତ୍ର ଧାରଣ କରିହେଲା ନାହିଂ"
+msgstr "ଚିତ୍ର ଧାରଣ ହୋଇ ନାହିଁ"
 
-#: libeog/eog-image.c:1309
-msgid "Images can only be saved as local files."
-msgstr "ଚିତ୍ର  ଗୁଡିକ କେବଳ ସ୍ଥାନିୟ ଫାଇଲ ଭାବରେ ସଂରକ୍ଷିତ ହୋଇପାରିବ "
+#: libeog/eog-image.c:1405 libeog/eog-image.c:1531
+msgid "Temporary file creation failed."
+msgstr "ଅସ୍ଥାୟୀ ଫାଇଲ ସୃଷ୍ଟି କରିହେଲା ନାହିଁ."
 
-#: libeog/eog-image.c:1334
-msgid "Unsupported image type for saving."
-msgstr "ଅସହାୟକ ଚିତ୍ର ପ୍ରକାର ସଂରକ୍ଷଣ ପାଇଁ  "
+#: libeog/eog-info-view-exif.c:26
+msgid "Camera"
+msgstr "କ୍ଯାମେରା"
 
-#: libeog/eog-info-view.c:105
-msgid "Attribute"
-msgstr "ଗୁଣ"
+#: libeog/eog-info-view-exif.c:27
+msgid "Image Data"
+msgstr "ଚିତ୍ର ତଥ୍ଯ"
+
+#: libeog/eog-info-view-exif.c:28
+msgid "Image Taking Conditions"
+msgstr "ଚିତ୍ର ଉଠେଇବାର ଅବସ୍ଥା"
+
+#: libeog/eog-info-view-exif.c:29
+msgid "Maker Note"
+msgstr "ସ୍ରଷ୍ଟାର ଟିପ୍ପଣୀ"
+
+#: libeog/eog-info-view-exif.c:30
+msgid "Other"
+msgstr "ଅନ୍ଯ"
+
+#: libeog/eog-info-view-exif.c:212
+msgid "Tag"
+msgstr "ସୂଚକ"
 
 # src/gconf-editor-window.c:579
-#: libeog/eog-info-view.c:113
+#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
 msgid "Value"
 msgstr "ମୂଲ୍ଯ"
 
-#: libeog/eog-info-view.c:209
-msgid "Width"
-msgstr "ଓସାର"
-
-#: libeog/eog-info-view.c:219
-msgid "Height"
-msgstr "ଉଚତା"
-
 # #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui-2.0.hi)  #-#-#-#-#
 # libgnomeui/gnome-file-entry.c:224 libgnomeui/gnome-icon-entry.c:188
-#: libeog/eog-info-view.c:222
-msgid "Filesize"
-msgstr "ଫାଇଲ ଆକାର"
-
-# #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui-2.0.hi)  #-#-#-#-#
-# libgnomeui/gnome-file-entry.c:224 libgnomeui/gnome-icon-entry.c:188
-#: libeog/eog-info-view.c:237
+#. only used for internal purpose
+#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
 msgid "Filename"
 msgstr "ଫାଇଲ ନାମ"
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
-msgid "Page"
-msgstr" ପୃଷ୍ଠା"
+#: libeog/eog-info-view-file.c:26
+msgid "Width"
+msgstr "ଓସାର"
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:385
-msgid "Preview"
-msgstr "ପ୍ରାକଦର୍ଶନ"
+#: libeog/eog-info-view-file.c:27
+msgid "Height"
+msgstr "ଉଚ୍ଚତା"
 
-# libgnomeprint/gnome-print-paper.c:52
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
-msgid "Millimeter"
-msgstr "ମିଲିମିଟର"
+# #-#-#-#-#  libgnomeui.HEAD.hi.po (libgnomeui-2.0.hi)  #-#-#-#-#
+# libgnomeui/gnome-file-entry.c:224 libgnomeui/gnome-icon-entry.c:188
+#: libeog/eog-info-view-file.c:28
+msgid "Filesize"
+msgstr "ଫାଇଲ ଆକାର"
 
-# libgnomeprintui/gnome-print-dialog.c:156
-#. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
-msgid "Paper"
-msgstr "କାଗଜ"
+#: libeog/eog-info-view-file.c:88
+msgid "Attribute"
+msgstr "ଗୁଣ"
 
-#: libgpi/gpi-dialog.glade.h:2
-#, no-c-format
-msgid "% of original size"
-msgstr "ପ୍ରକୃତ ଆକାରର %"
+#: libeog/eog-info-view.c:92
+msgid "File"
+msgstr "ଫାଇଲ"
 
-#: libgpi/gpi-dialog.glade.h:3
-msgid "Adjust to "
-msgstr "ମେଳାନ୍ତୁ"
+#: libeog/eog-info-view.c:101
+msgid "EXIF"
+msgstr "ଏକ୍ସିଫ (ଇ.ଏକ୍ସ.ଆଇ.ଏଫ.)"
 
-#: libgpi/gpi-dialog.glade.h:4
-msgid "Center"
-msgstr "କେନ୍ଦ୍ର"
+#: libeog/eog-info-view.c:108
+msgid "IPTC"
+msgstr "ଆଇ.ପି.ଟି.ସି."
 
-#: libgpi/gpi-dialog.glade.h:5
-msgid "Cutting help"
-msgstr "ସାହାଯ୍ଯକୁ କାଟନ୍ତୁ"
+#: libeog/eog-save-as-dialog-helper.c:137
+msgid "Option not available."
+msgstr "ପସନ୍ଦ ଉପଲବ୍ଧ ନାହିଁ."
 
-#: libgpi/gpi-dialog.glade.h:6
-msgid "Down, then right"
-msgstr "ତଳକୁ, ତାପରେ ଡାହାଣକୁ"
+#: libeog/eog-save-as-dialog-helper.c:138
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of Gnome."
+msgstr ""
+"ଏହି ଫଳନକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କୁ libexif ଲାଇବ୍ରେରୀ ଦରକାର. ଦୟାକରି "
+"libexifକୁ (http://libexif.sf.net) ସ୍ଥାପିତ କରି, ଇଓଜିକୁ ପୁଣି ସଂକଳନ କରନ୍ତୁ."
 
-#: libgpi/gpi-dialog.glade.h:7
-msgid "Fit to page"
-msgstr "ପୃଷ୍ଠାକୁ ଉପଯୁକ୍ତ କରିବା"
+#: libeog/eog-save-as-dialog-helper.c:214
+msgid "as is"
+msgstr "ଯେପରି ଅଛି"
 
-#: libgpi/gpi-dialog.glade.h:8
-msgid "Horizontally"
-msgstr "ଭୂସମାନ୍ତରରେ"
+#: libeog/eog-save-dialog-helper.c:162
+#, c-format
+msgid "Saving image %s."
+msgstr "%s ଚିତ୍ର ସଂରକ୍ଷଣ ହେଉଛି "
 
-#: libgpi/gpi-dialog.glade.h:9
-msgid "Horizontally by "
-msgstr "ଭୂସମାନ୍ତର ଦ୍ବାରା"
+#: libeog/eog-save-dialog-helper.c:208
+msgid "Cancel saving ..."
+msgstr "ସଂରକ୍ଷଣ ବାତିଲ କରନ୍ତୁ ..."
 
-# libgnomeprintui/gnome-print-paper-selector.c:1988
-#: libgpi/gpi-dialog.glade.h:10
-msgid "Margins"
-msgstr "ସୀମାରେଖାଗୁଡିକ"
+#: libeog/eog-uri-converter.c:1023
+msgid "Filenames are not disjunct."
+msgstr "ଫାଇଲ ନାମ ପୃଥକ ନୁହେଁ."
 
-#: libgpi/gpi-dialog.glade.h:11
-msgid "Ordering help"
-msgstr "ସାହାଯ୍ଯ ପାଇଁ ଆଦେଶ"
+#: libeog/eog-uri-converter.h:46
+msgid "Counter"
+msgstr "ଗଣକ"
 
-#: libgpi/gpi-dialog.glade.h:12
-msgid "Overlap"
-msgstr "ପରସ୍ପର ଉପରେ"
+#: libeog/eog-uri-converter.h:47
+msgid "Comment"
+msgstr "ଟିପ୍ପଣୀ"
 
-#: libgpi/gpi-dialog.glade.h:13
-msgid "Overlap help"
-msgstr "ପରସ୍ପର ଉପରେ ସାହାଯ୍ଯ"
+#: libeog/eog-uri-converter.h:48
+msgid "Date"
+msgstr "ତାରିଖ"
 
-#: libgpi/gpi-dialog.glade.h:15
-msgid "Page order"
-msgstr "ପୃଷ୍ଠାକ୍ରମ"
+#: libeog/eog-uri-converter.h:49
+msgid "Time"
+msgstr "ସମୟ"
 
-#: libgpi/gpi-dialog.glade.h:18
-msgid "Right, then down"
-msgstr "ଡାହାଣ, ତାପରେ ତଳ"
+#: libeog/eog-uri-converter.h:50
+msgid "Day"
+msgstr "ଦିନ"
 
-# libgnomecanvas/gnome-canvas-text.c:367
-#: libgpi/gpi-dialog.glade.h:19
-msgid "Scale"
-msgstr "ମାପ"
+#: libeog/eog-uri-converter.h:51
+msgid "Month"
+msgstr "ମାସ"
 
-#: libgpi/gpi-dialog.glade.h:20
-msgid "Show"
-msgstr "ଦେଖାଅ"
+#: libeog/eog-uri-converter.h:52
+msgid "Year"
+msgstr "ବର୍ଷ"
 
-#: libgpi/gpi-dialog.glade.h:21
-msgid "Vertically"
-msgstr "ଭୂଲମ୍ବଭାବେ"
+#: libeog/eog-uri-converter.h:53
+msgid "Hour"
+msgstr "ଘଣ୍ତା"
 
-#: libgpi/gpi-dialog.glade.h:22
-msgid "Vertically by "
-msgstr "ଭୂଲମ୍ବଭାବରେ"
+#: libeog/eog-uri-converter.h:54
+msgid "Minute"
+msgstr "ମିନିଟ"
 
-#: libgpi/gpi-mgr.c:78
-msgid "Name"
-msgstr "ନାମ"
-
-#: libgpi/gpi-mgr.c:79
-msgid "The name of the file or data to print"
-msgstr "ମୁଦ୍ରଣ କରିବା ପାଇଁ ଫାଇଲର ନାମ ବା ତଥ୍ଯ"
-
-#: shell/eog-shell-ui.xml.h:1
-msgid "About this application"
-msgstr "ଏହି ଦରଖାସ୍ତ ବିଷୟରେ"
-
-#: shell/eog-shell-ui.xml.h:2
-msgid "Cancel"
-msgstr "ବାତିଲ"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Change the visibility of the statusbar in the current window"
-msgstr "ସାମ୍ପ୍ରତିକ  ଓ୍ବ୍ବିଣ୍ଡୋରେ ଅବସ୍ଥିତି ପଟିର ଦୃଶ୍ଯ ବଦଳାଇଦିଅ"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Change the visibility of the toolbar in the current window"
-msgstr "ସାମ୍ପ୍ରତିକ  ଓ୍ବ୍ବିଣ୍ଡୋରେ ସାଧନ ପଟିର ଦୃଶ୍ଯ ବଦଳାଇଦିଅ"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "Close window"
-msgstr "ଓ୍ବ୍ବିଣ୍ଡୋ ବନ୍ଦ କର"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "ଏହି ପ୍ରୟୋଗ ଉପରେ ସାହାଯ୍ଯ କର"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "New"
-msgstr "ନୂଆ"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open"
-msgstr "ଖୋଲନ୍ତୁ"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a directory"
-msgstr "ଗୋଟିଏ ଡିରେକ୍ଟୋରି ଖୋଲନ୍ତୁ"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "Open a file"
-msgstr "ଗୋଟିଏ ଫାଇଲ ଖୋଲନ୍ତୁ"
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "Open a new window"
-msgstr "ଗୋଟିଏ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋ ଖୋଲନ୍ତୁ"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "Open in new window"
-msgstr "ଗୋଟିଏ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଖୋଲନ୍ତୁ"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "Open in this window"
-msgstr "ଏହି ଓ୍ବ୍ବିଣ୍ଡୋରେ ଖୋଲନ୍ତୁ"
-
-# libgnomeui/gnome-app-helper.c:211
-#: shell/eog-shell-ui.xml.h:14
-msgid "Prefere_nces"
-msgstr "ପସନ୍ଦ (_n)"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "Preferences for Eye of Gnome"
-msgstr "ନୋମର ଆଖି ପାଇଁ ପସନ୍ଦ"
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "Quit the program"
-msgstr "ପ୍ରୋଗ୍ରାମରୁ ବିଦାୟ ନିଅ"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_About"
-msgstr "ବିବରଣି (_A)"
-
-#: shell/eog-shell-ui.xml.h:18
-msgid "_Close"
-msgstr "ବନ୍ଦକର (_C)"
-
-#: shell/eog-shell-ui.xml.h:19
-msgid "_Contents"
-msgstr "ସୂଚିପତ୍ର (_C)"
-
-#: shell/eog-shell-ui.xml.h:21
-msgid "_File"
-msgstr "ଫାଇଲ (_F)"
-
-#: shell/eog-shell-ui.xml.h:22
-msgid "_Help"
-msgstr "ସାହାଯ୍ଯ (_H)"
-
-#: shell/eog-shell-ui.xml.h:23
-msgid "_New"
-msgstr "ନୂଆ (_N)"
-
-#: shell/eog-shell-ui.xml.h:24
-msgid "_Open Directory..."
-msgstr "ଡିରେକ୍ଟୋରି ଖୋଲନ୍ତୁ (_O). ..."
-
-#: shell/eog-shell-ui.xml.h:25
-msgid "_Open..."
-msgstr "ଖୋଲନ୍ତୁ  (_O). ..."
-
-#: shell/eog-shell-ui.xml.h:26
-msgid "_Quit"
-msgstr "ବିଦାୟ ନିଅନ୍ତୁ (_Q)"
-
-#: shell/eog-shell-ui.xml.h:27
-msgid "_Statusbar"
-msgstr "ଅବସ୍ଥିତି ପଟି"
-
-#: shell/eog-shell-ui.xml.h:28
-msgid "_Toolbar"
-msgstr "ସାଧନ ପଟି"
+#: libeog/eog-uri-converter.h:55
+msgid "Second"
+msgstr "ସେକେଣ୍ଡ"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:292
-msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "ଗିତା/ଶକ୍ତି <gita_lee@rediffmail.com>"
+#: shell/eog-window.c:320
+msgid "translator-credits"
+msgstr "ଗୀତା/ଶକ୍ତି <gita_lee@rediffmail.com>"
 
-#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:520
+#: shell/eog-window.c:325 shell/eog-window.c:1983 shell/eog-window.c:2256
+#: shell/main.c:498
 msgid "Eye of Gnome"
-msgstr "ନୋମର ଆଖି"
+msgstr "ଇଓଜି"
 
-#: shell/eog-window.c:300
+#: shell/eog-window.c:328
 msgid "The GNOME image viewing and cataloging program."
-msgstr "ନୋମର ଚିତ୍ର ପ୍ରଦର୍ଶନୀ ଏବଁ ସୂଚି ତିଆରି କରାଯାଉଥିବା ପ୍ରୋଗ୍ରାମ"
+msgstr "ନୋମର ଚିତ୍ର ପ୍ରଦର୍ଶନ ଏବଂ ସୂଚୀ ତିଆରି କରିବାର କାରିକା"
 
-#: shell/eog-window.c:337
+#: shell/eog-window.c:365
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
-msgstr "ନୋମର ଆଖି ପାଇଁ ସାହାଯ୍ଯ ପ୍ରଦର୍ଶନ କରି ହେଉନାହଁ ା \n %s"
+msgstr "ଇଓଜି ପାଇଁ ସାହାଯ୍ଯ ପ୍ରଦର୍ଶନ କରିହେଲା ନାହଁ.\n%s"
 
-#: shell/main.c:237
+#: shell/eog-window.c:634
+#, c-format
+msgid "Overwrite file %s?"
+msgstr "%s ଫାଇଲକୁ ନବଲିଖିତ କରାଯିବ କି?"
+
+#: shell/eog-window.c:635
+msgid "File exists. Do you want to overwrite it?"
+msgstr "%s ଫାଇଲ ପୂର୍ବରୁ ଅଛି. ଆପଣ ଏହାକୁ ନବଲିଖିତ କରିବାକୁ ଚାହାନ୍ତି କି?"
+
+#: shell/eog-window.c:645 shell/eog-window.c:658
+msgid "Skip"
+msgstr "ଏଡ଼ାଇ ଯାଆନ୍ତୁ"
+
+#: shell/eog-window.c:646
+msgid "Overwrite"
+msgstr "ନବଲିଖିତ କରନ୍ତୁ"
+
+#: shell/eog-window.c:651
+#, c-format
+msgid "Error on saving %s."
+msgstr "%s ସଂରକ୍ଷଣ କରିବାରେ ତ୍ରୁଟି."
+
+#: shell/eog-window.c:659 shell/eog-window.c:1033
+msgid "Retry"
+msgstr "ପୁନଃ ପ୍ରଚେଷ୍ଟା"
+
+#: shell/eog-window.c:1022
+#, c-format
+msgid "Couldn't determine file format of %s"
+msgstr "%s ଫାଇଲର ସଂରୂପ ନିର୍ଦ୍ଧାରିତ କରିହେଲା ନାହିଁ"
+
+#: shell/eog-window.c:1023
+msgid "Please use an appropriate filename suffix or select a file format."
+msgstr "ଏକ ଯୁକ୍ତିଯୁକ୍ତ ଫାଇଲ ନାମ ବ୍ଯବହାର କରନ୍ତୁ ବା ଏକ ଫାଇଲର ସଂରୂପ ବାଛନ୍ତୁ."
+
+#: shell/eog-window.c:1165
+msgid "Error on saving images."
+msgstr "ଚିତ୍ରଗୁଡ଼ିକୁ ସଂରକ୍ଷଣ କରିବାରେ ତ୍ରୁଟି."
+
+#: shell/eog-window.c:1399
+#, c-format
+msgid "Do you really want to move %i images to trash?"
+msgstr "ଆପଣ ବାସ୍ତବରେ %i ଚିତ୍ରଗୁଡ଼ିକୁ ବର୍ଜିତ କରିବାକୁ ଚାହାନ୍ତି କି?"
+
+#: shell/eog-window.c:1436
+#, fuzzy
+msgid "Couldn't access trash."
+msgstr "ଆବର୍ଜନା ପାତ୍ରକୁ ପ୍ରୟୋଗ କରିହେଲା ନାହିଁ"
+
+#: shell/eog-window.c:1510
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "%s ଚିତ୍ର ଲିଭାଇବାରେ ତ୍ରୁଟି"
+
+#: shell/eog-window.c:2050
+msgid "_File"
+msgstr "ଫାଇଲ (_F)"
+
+#: shell/eog-window.c:2053
+msgid "_Help"
+msgstr "ସାହାଯ୍ଯ (_H)"
+
+#: shell/eog-window.c:2054
+msgid "_New"
+msgstr "ନୂଆ (_N)"
+
+#: shell/eog-window.c:2054
+msgid "Open a new window"
+msgstr "ଗୋଟିଏ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋ ଖୋଲନ୍ତୁ"
+
+#: shell/eog-window.c:2055
+msgid "_Open..."
+msgstr "ଖୋଲନ୍ତୁ... (_O)"
+
+#: shell/eog-window.c:2055
+msgid "Open a file"
+msgstr "ଗୋଟିଏ ଫାଇଲ ଖୋଲନ୍ତୁ"
+
+#: shell/eog-window.c:2056
+msgid "Open _Directory..."
+msgstr "ଡିରେକ୍ଟୋରି ଖୋଲନ୍ତୁ... (_D)"
+
+#: shell/eog-window.c:2056
+msgid "Open a directory"
+msgstr "ଗୋଟିଏ ଡିରେକ୍ଟୋରି ଖୋଲନ୍ତୁ"
+
+#: shell/eog-window.c:2057
+msgid "_Close"
+msgstr "ବନ୍ଦ କରନ୍ତୁ (_C)"
+
+#: shell/eog-window.c:2057
+msgid "Close window"
+msgstr "ଓ୍ବ୍ବିଣ୍ଡୋ ବନ୍ଦ କରନ୍ତୁ"
+
+#: shell/eog-window.c:2058
+msgid "_Quit"
+msgstr "ବିଦାୟ ନିଅନ୍ତୁ (_Q)"
+
+#: shell/eog-window.c:2058
+msgid "Close all windows and quit"
+msgstr "ସବୁ ଓ୍ବ୍ବିଣ୍ଡୋ ବନ୍ଦ କରି ବିଦାୟ ନିଅନ୍ତୁ"
+
+# libgnomeui/gnome-app-helper.c:211
+#: shell/eog-window.c:2059
+msgid "Prefere_nces"
+msgstr "ପସନ୍ଦ (_n)"
+
+#: shell/eog-window.c:2059
+msgid "Preferences for Eye of Gnome"
+msgstr "ଇଓଜି ପାଇଁ ପସନ୍ଦ"
+
+#: shell/eog-window.c:2060
+msgid "_Contents"
+msgstr "ସୂଚୀପତ୍ର (_C)"
+
+#: shell/eog-window.c:2060
+msgid "Help On this application"
+msgstr "ଏହି ପ୍ରୟୋଗରେ ସାହାଯ୍ଯ କରନ୍ତୁ"
+
+#: shell/eog-window.c:2061
+msgid "_About"
+msgstr "ବିବରଣୀ (_A)"
+
+#: shell/eog-window.c:2061
+msgid "About this application"
+msgstr "ଏହି ପ୍ରୟୋଗ ବିଷୟରେ"
+
+#: shell/eog-window.c:2066
+msgid "_Toolbar"
+msgstr "ସାଧନ ପଟି (_T)"
+
+#: shell/eog-window.c:2067
+msgid "_Statusbar"
+msgstr "ଅବସ୍ଥିତି ପଟି (_S)"
+
+#: shell/eog-window.c:2073
+msgid "Save _As"
+msgstr "ନିର୍ଦ୍ଦିଷ୍ଟ ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ (_A)"
+
+#: shell/eog-window.c:2080
+msgid "_Rotate Clockwise"
+msgstr "ଦକ୍ଷିଣାବର୍ତ୍ତୀ ଘୂରାନ୍ତୁ (_R) "
+
+#: shell/eog-window.c:2081
+msgid "Rotate Counter C_lockwise"
+msgstr "ବାମାବର୍ତ୍ତୀ ଘୂରାନ୍ତୁ (_l)"
+
+#: shell/eog-window.c:2082
+msgid "Rotat_e 180°"
+msgstr "୧୮୦ ଡିଗ୍ରୀ ଘୂରାନ୍ତୁ (_e)"
+
+#: shell/eog-window.c:2084
+msgid "Delete"
+msgstr "ଲିଭାନ୍ତୁ"
+
+#: shell/eog-window.c:2086 viewer/eog-image-view-ui.xml.h:16
+msgid "_Full Screen"
+msgstr "ପୂର୍ଣ୍ଣ ପରଦା (_F)"
+
+#: shell/eog-window.c:2087 viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "_Zoom In"
+msgstr "ବଡ଼ କରନ୍ତୁ (_Z)"
+
+#: shell/eog-window.c:2088 viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _Out"
+msgstr "ସାନ କରନ୍ତୁ (_O)"
+
+#: shell/eog-window.c:2089 viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr "ସାଧାରଣ ଆକାର (_N)"
+
+#: shell/eog-window.c:2090 viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Best _Fit"
+msgstr "ସର୍ବୋତ୍ତମ ଭାବରେ ଖାପ ଖାଇବା (_F)"
+
+#: shell/main.c:236
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr "ତୁମେ ଏକକାଳୀନ %i ଓ୍ବ୍ବିଣ୍ଡୋଗୁଡିକୁ ଖୋଲିବାକୁ ଯାଉଛ ା ଆପଣ ଏହାକୁ ସଂଗ୍ରହରେ ଖୋଲିବାକୁ ଚାହାନ୍ତିକି? "
+msgstr ""
+"ଆପଣ ଏକାବେଳେ %i ଓ୍ବ୍ବିଣ୍ଡୋଗୁଡ଼ିକୁ ଖୋଲିବାକୁ ଯାଉଛନ୍ତି. ଏହା ବଦଳରେ ଆପଣ ତାଙ୍କୁ ଏକ "
+"ସଂଗ୍ରହରେ ଖୋଲିବାକୁ ଚାହାନ୍ତି କି?"
 
-#: shell/main.c:241
+#: shell/main.c:240
 msgid "Open multiple single windows?"
-msgstr "ଅନେକ ଏକାକି ଓ୍ବ୍ବିଣ୍ଡୋଗୁଡିକୁ ଖୋଲନ୍ତୁ?"
+msgstr "ଅନେକ ଏକାକି ଓ୍ବ୍ବିଣ୍ଡୋ ଖୋଲିବେ କି?"
 
-#: shell/main.c:245
+#: shell/main.c:244
 msgid "Single Windows"
-msgstr "ଏକାକି ଓ୍ବ୍ବିଣ୍ଡୋଗୁଡିକ"
+msgstr "ଏକାକି ଓ୍ବ୍ବିଣ୍ଡୋଗୁଡ଼ିକ"
 
-#: shell/main.c:247
+#: shell/main.c:246
 msgid "Collection"
 msgstr "ସଂଗ୍ରହ"
 
-#: shell/main.c:320
-msgid "File(s) not found."
-msgstr "ଫାଇଲ ଗୁଡିକ ମିଳିଲା ନାହିଁ"
+#: shell/main.c:298
+msgid "File not found."
+msgid_plural "Files not found."
+msgstr[0] "ଫାଇଲ ମିଳିଲା ନାହିଁ"
+msgstr[1] "ଫାଇଲଗୁଡ଼ିକ ମିଳିଲେ ନାହିଁ"
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "'%s' ଖୋଲି ପାରିଲୁ ନାହିଁ"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Best _Fit"
-msgstr "ସର୍ବୋଚ୍ଚ ଯୋଗ୍ଯ (_F)"
+msgstr "'%s' ଖୋଲିବାରେ ଅସମର୍ଥ"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
-msgstr " ଯୋଗ୍ଯ "
+msgstr "ଖାପ ଖୁଆନ୍ତୁ"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
@@ -688,25 +831,13 @@ msgstr "ସାଧାରଣ"
 msgid "Out"
 msgstr "ବାହାରେ"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "ସାନ କରିବା (_O)"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "_Normal Size"
-msgstr "  ସାଧାରଣ ଆକାର (_N)"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "_Zoom In"
-msgstr "ବଡ କରିବା (_Z)"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
-msgstr "ପୂର୍ଣ୍ଣ ପରଦା (_F)"
+msgstr "ପୂର୍ଣ୍ଣ ପରଦା"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
-msgstr "ମୁଦ୍ରଣ ଗେବାକୁ ଯାଉଥିବା ଚିତ୍ର ଗୁଡିକୁ ପ୍ରାକ୍ଦର୍ଶନ କରାଏ"
+msgstr "ମୁଦ୍ରିତ ହେବାକୁ ଥିବା ଚିତ୍ର ପ୍ରାକ୍ଦର୍ଶନ କରାଏ"
 
 #: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
@@ -730,37 +861,37 @@ msgstr "ଡାହାଣକୁ ଘୁରାନ୍ତୁ"
 
 #: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
-msgstr "... ନୂଆ ନାଁରେ ସଂରକ୍ଷଣ (_A)"
+msgstr "ନିର୍ଦ୍ଦିଷ୍ଟ ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ... (_A)"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
-msgstr "ତୁମର ସଂାପ୍ରତିକ ମିଦ୍ରଣୀ ପାଇଁ ପୃଷ୍ଠା ବିନ୍ଯାସଗୁଡିକୁ ବ୍ଯବସ୍ଥା କରନ୍ତୁ"
-
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Full Screen"
-msgstr "ପୂର୍ଣ୍ଣ ପରଦା (_F)"
+msgstr "ଆପଣଙ୍କର ସାମ୍ପ୍ରତିକ ମୁଦ୍ରଣୀ ପାଇଁ ପୃଷ୍ଠା ବିନ୍ଯାସର ବ୍ଯବସ୍ଥା କରନ୍ତୁ"
 
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
-msgstr "ମୁଦ୍ରଣ  (_P) ..."
+msgstr "ମୁଦ୍ରଣ... (_P)"
+
+#: viewer/eog-image-view.c:385
+msgid "Preview"
+msgstr "ପ୍ରାକ୍ଦର୍ଶନ"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i ପିକ୍ସେଲ୍ %s    %i%%"
+msgstr "%i x %i ପିକ୍ସେଳ୍ %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
-msgstr "/ଦକ୍ଷିଣାବର୍ତୀ ଘୂରାନ୍ତୁ (_l)"
+msgstr "/ଦକ୍ଷିଣାବର୍ତ୍ତୀ ଘୂରାନ୍ତୁ (_l)"
 
 #: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
-msgstr "ବାମାବର୍ତୀ ଘୂରାନ୍ତୁ (_r)"
+msgstr "ବାମାବର୍ତ୍ତୀ ଘୂରାନ୍ତୁ (_r)"
 
 #: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
-msgstr "ବଡ କରନ୍ତୁ "
+msgstr "ବଡ଼ କରନ୍ତୁ (_Z)"
 
 #: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
@@ -772,32 +903,34 @@ msgstr "/ସାଧାରଣ ଆକାର (_N)"
 
 #: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
-msgstr "ସର୍ବୋଚ୍ଚ ଯୋଗ୍ଯ (_F)"
+msgstr "ସର୍ବୋତ୍ତମ ଭାବରେ ଖାପ ଖୁଆନ୍ତୁ (_F)"
 
 #: viewer/eog-image-view.c:855
 msgid "/_Close"
-msgstr "/ବନ୍ଦ  (_C)"
+msgstr "/ବନ୍ଦ କରନ୍ତୁ (_C)"
 
 #: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
-msgstr "%s ଚିତ୍ର ଧାରଣ କରିବା ଅସଫଳ ହେଲା ା "
+msgstr "%s ଚିତ୍ର ଧାରଣ କରିବାରେ ଅସମର୍ଥ."
 
 #: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
 "Reason: %s."
-msgstr "%s ଚିତ୍ର ଧାରଣ କରିବା ଅସଫଳ ହେଲା ା \n କାରଣ :%s."
+msgstr ""
+"%s ଚିତ୍ର ଧାରଣ କରିବାରେ ଅସମର୍ଥ.\n"
+"କାରଣ :%s."
 
 #. show error dialog
 #: viewer/eog-image-view.c:1042
 msgid "Loading failed"
-msgstr "ଧାରଣ କରିବା ଅସଫଳ ହେଲା"
+msgstr "ଧାରଣ କରିବାରେ ଅସମର୍ଥ."
 
 #: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
-msgstr "ଚିତ୍ର ସଫଳଭାବରେ ସଂରକ୍ଷିତ ହେଲା"
+msgstr "ସଫଳ ଭାବରେ ଚିତ୍ର ସଂରକ୍ଷିତ ହେଲା"
 
 #: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
@@ -822,6 +955,106 @@ msgstr "ଚାହିଦା ଓ୍ବ୍ବିଣ୍ଡୋ ଓସାର "
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "ଚାହିଦା ଓ୍ବ୍ବିଣ୍ଡୋ ଉଚ୍ଚତା"
+
+#~ msgid "Images can only be saved as local files."
+#~ msgstr "ଚିତ୍ରଗୁଡିକ କେବଳ ସ୍ଥାନୀୟ ଫାଇଲ ଭାବରେ ସଂରକ୍ଷିତ ହୋଇପାରିବ."
+
+#~ msgid "Unsupported image type for saving."
+#~ msgstr "ଅସହାୟକ ଚିତ୍ର ପ୍ରକାର ସଂରକ୍ଷଣ ପାଇଁ  "
+
+#~ msgid "Page"
+#~ msgstr " ପୃଷ୍ଠା"
+
+# libgnomeprint/gnome-print-paper.c:52
+#~ msgid "Millimeter"
+#~ msgstr "ମିଲିମିଟର"
+
+# libgnomeprintui/gnome-print-dialog.c:156
+#~ msgid "Paper"
+#~ msgstr "କାଗଜ"
+
+#~ msgid "% of original size"
+#~ msgstr "ପ୍ରକୃତ ଆକାରର %"
+
+#~ msgid "Adjust to "
+#~ msgstr "ମେଳାନ୍ତୁ"
+
+#~ msgid "Cutting help"
+#~ msgstr "ସାହାଯ୍ଯକୁ କାଟନ୍ତୁ"
+
+#~ msgid "Down, then right"
+#~ msgstr "ତଳକୁ, ତାପରେ ଡାହାଣକୁ"
+
+#~ msgid "Fit to page"
+#~ msgstr "ପୃଷ୍ଠାକୁ ଉପଯୁକ୍ତ କରିବା"
+
+#~ msgid "Horizontally"
+#~ msgstr "ଭୂସମାନ୍ତରରେ"
+
+#~ msgid "Horizontally by "
+#~ msgstr "ଭୂସମାନ୍ତର ଦ୍ବାରା"
+
+# libgnomeprintui/gnome-print-paper-selector.c:1988
+#~ msgid "Margins"
+#~ msgstr "ସୀମାରେଖାଗୁଡିକ"
+
+#~ msgid "Ordering help"
+#~ msgstr "ସାହାଯ୍ଯ ପାଇଁ ଆଦେଶ"
+
+#~ msgid "Overlap"
+#~ msgstr "ପରସ୍ପର ଉପରେ"
+
+#~ msgid "Overlap help"
+#~ msgstr "ପରସ୍ପର ଉପରେ ସାହାଯ୍ଯ"
+
+#~ msgid "Page order"
+#~ msgstr "ପୃଷ୍ଠାକ୍ରମ"
+
+#~ msgid "Right, then down"
+#~ msgstr "ଡାହାଣ, ତାପରେ ତଳ"
+
+# libgnomecanvas/gnome-canvas-text.c:367
+#~ msgid "Scale"
+#~ msgstr "ମାପ"
+
+#~ msgid "Show"
+#~ msgstr "ଦେଖାଅ"
+
+#~ msgid "Vertically"
+#~ msgstr "ଭୂଲମ୍ବଭାବେ"
+
+#~ msgid "Vertically by "
+#~ msgstr "ଭୂଲମ୍ବଭାବରେ"
+
+#~ msgid "The name of the file or data to print"
+#~ msgstr "ମୁଦ୍ରଣ କରିବା ପାଇଁ ଫାଇଲର ନାମ ବା ତଥ୍ଯ"
+
+#~ msgid "Cancel"
+#~ msgstr "ବାତିଲ"
+
+#~ msgid "Change the visibility of the statusbar in the current window"
+#~ msgstr "ସାମ୍ପ୍ରତିକ  ଓ୍ବ୍ବିଣ୍ଡୋରେ ଅବସ୍ଥିତି ପଟିର ଦୃଶ୍ଯ ବଦଳାଇଦିଅ"
+
+#~ msgid "Change the visibility of the toolbar in the current window"
+#~ msgstr "ସାମ୍ପ୍ରତିକ  ଓ୍ବ୍ବିଣ୍ଡୋରେ ସାଧନ ପଟିର ଦୃଶ୍ଯ ବଦଳାଇଦିଅ"
+
+#~ msgid "New"
+#~ msgstr "ନୂଆ"
+
+#~ msgid "Open"
+#~ msgstr "ଖୋଲନ୍ତୁ"
+
+#~ msgid "Open in new window"
+#~ msgstr "ଗୋଟିଏ ନୂଆ ଓ୍ବ୍ବିଣ୍ଡୋରେ ଖୋଲନ୍ତୁ"
+
+#~ msgid "Open in this window"
+#~ msgstr "ଏହି ଓ୍ବ୍ବିଣ୍ଡୋରେ ଖୋଲନ୍ତୁ"
+
+#~ msgid "Quit the program"
+#~ msgstr "ପ୍ରୋଗ୍ରାମରୁ ବିଦାୟ ନିଅ"
+
+#~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#~ msgstr "ଗିତା/ଶକ୍ତି <gita_lee@rediffmail.com>"
 
 #~ msgid "dialog1"
 #~ msgstr "ସଂଳାପ 1"
