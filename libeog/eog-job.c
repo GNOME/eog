@@ -8,7 +8,8 @@ static guint last_job_id = 0;
 enum {
 	PROP_0,
 	PROP_PROGRESS_THRESHOLD,
-	PROP_PROGRESS_N_PARTS
+	PROP_PROGRESS_N_PARTS,
+	PROP_PRIORITY
 };
 
 struct _EogJobPrivate {
@@ -23,6 +24,7 @@ struct _EogJobPrivate {
 	guint         progress_nth_part;
 	guint         progress_n_parts;
 	float         progress_threshold;
+	guint         priority;
 	
 	EogJobActionFunc af;
 	EogJobCancelFunc cf;
@@ -52,6 +54,10 @@ eog_job_set_property (GObject      *object,
 		job->priv->progress_n_parts = 
 			g_value_get_uint (value);
 		break;
+	case PROP_PRIORITY:
+		job->priv->priority = 
+			g_value_get_uint (value);
+		break;
         default:
                 g_assert_not_reached ();
 	}
@@ -77,6 +83,10 @@ eog_job_get_property (GObject    *object,
 	case PROP_PROGRESS_N_PARTS:
 		g_value_set_uint (value,				  
 				  job->priv->progress_n_parts);
+		break;
+	case PROP_PRIORITY:
+		g_value_set_uint (value,
+				  job->priv->priority);
 		break;
         default:
                 g_assert_not_reached ();
@@ -152,6 +162,7 @@ eog_job_instance_init (EogJob *obj)
 	priv->progress_idle_id = 0;
 	priv->progress_threshold = 0.1;
 	priv->progress_n_parts = 1;
+	priv->priority = EOG_JOB_PRIORITY_NORMAL;
 
 	obj->priv = priv;
 }
@@ -185,6 +196,14 @@ eog_job_class_init (EogJobClass *klass)
 				   "for each part devided through number of parts.",
 				   0, G_MAXINT, 1,
 				   G_PARAM_READWRITE));
+
+        g_object_class_install_property (
+                object_class,
+                PROP_PRIORITY,
+                g_param_spec_uint ("priority", NULL,
+				   "Priority of the job.",
+				   0, G_MAXINT, 1,
+				   G_PARAM_WRITABLE));
 }
 
 
@@ -416,4 +435,12 @@ eog_job_call_finished (EogJob *job)
 		/* call finished callback */
 		(*job->priv->ff) (job, job->priv->data, job->priv->error);
 	}
+}
+
+EogJobPriority      
+eog_job_get_priority (EogJob *job)
+{
+	g_return_val_if_fail (EOG_IS_JOB (job), EOG_JOB_PRIORITY_NORMAL);
+
+	return job->priv->priority;
 }

@@ -9,7 +9,7 @@ typedef struct {
 #define DEBUG_JOB_MANAGER 1
 GMutex       *mutex       = NULL;
 GCond        *cond        = NULL;
-GSList       *job_list    = NULL;
+GQueue       *job_list    = NULL;
 guint         n_threads   = 0;
 ThreadData    threads[MAX_THREADS];
 gboolean      init = FALSE;
@@ -27,6 +27,8 @@ eog_job_manager_init ()
 		}
 		mutex = g_mutex_new ();
 		cond = g_cond_new ();
+
+		job_list = g_queue_new ();
 		
 		init = TRUE;
 	}
@@ -68,10 +70,8 @@ thread_start_func (gpointer data)
 		job = NULL;
 		
 		g_mutex_lock (mutex);
-		if (job_list != NULL) {
-			g_assert (EOG_IS_JOB (job_list->data));
-			job = EOG_JOB (job_list->data);
-			job_list = g_slist_delete_link (job_list, job_list);
+		if (!g_queue_is_empty (job_list)) {
+			job = EOG_JOB (g_queue_pop_head (job_list));
 			threads[thread_id].job = job;
 		}
 		g_mutex_unlock (mutex);
@@ -121,7 +121,10 @@ eog_job_manager_add (EogJob *job)
 	
 	g_mutex_lock (mutex);
 	
-	job_list = g_slist_append (job_list, g_object_ref (job));
+	if (eog_job_get_priority (job) == EOG_JOB_PRIORITY_NORMAL)
+		g_queue_push_tail (job_list, g_object_ref (job));
+	else
+		g_queue_push_head (job_list, g_object_ref (job));
 
 	if (n_threads < MAX_THREADS) {
 		n_threads++;
@@ -145,9 +148,27 @@ eog_job_manager_add (EogJob *job)
 	return eog_job_get_id (job);
 }
 
+static gint
+compare_job_id (gconstpointer a, gconstpointer b)
+{
+	EogJob *job;
+	guint job_id;
+
+	if (EOG_IS_JOB (a)) {
+		job = EOG_JOB (a);
+		job_id = GPOINTER_TO_UINT (b);
+	}
+	else {
+		job = EOG_JOB (b);
+		job_id = GPOINTER_TO_UINT (a);
+	}
+
+	return (job_id - eog_job_get_id (job));
+}
+
 /* this function doesn't lock the mutex! */
 static EogJob*
-eog_job_manager_get_job_private (guint id, GSList **link)
+eog_job_manager_get_job_private (guint id, GList **link)
 {
 	guint thread_id;
 	EogJob *job = NULL;
@@ -169,16 +190,14 @@ eog_job_manager_get_job_private (guint id, GSList **link)
 	}
 	
 	if (job == NULL) {
-		GSList *it;
-		/* try to find the job in the list of waiting jobs */
-		for (it = job_list; it != NULL; it = it->next) {
-			EogJob *j;
+		GList *it;
+		
+		it = g_queue_find_custom (job_list,
+					  GUINT_TO_POINTER (id),
+					  (GCompareFunc) compare_job_id);
 
-			j = EOG_JOB (it->data);
-			if (eog_job_get_id (j) == id) {
-				job = j;
-				break;
-			}
+		if (it != NULL) {
+			job = EOG_JOB (it->data);
 		}
 
 		if (link != NULL) {
@@ -194,7 +213,7 @@ gboolean
 eog_job_manager_cancel_job (guint id)
 {
 	EogJob *job;
-	GSList *link = NULL;
+	GList *link = NULL;
 	gboolean success = FALSE;
 	gboolean call_finished = FALSE;
 
@@ -203,7 +222,7 @@ eog_job_manager_cancel_job (guint id)
 	g_mutex_lock (mutex);
 	job = eog_job_manager_get_job_private (id, &link);
 	if (link != NULL) {
-		job_list = g_slist_delete_link (job_list, link);
+		g_queue_delete_link (job_list, link);
 	}
 	g_mutex_unlock (mutex);
 
@@ -246,14 +265,28 @@ eog_job_manager_get_job (guint id)
 	return job;
 }
 
+static void
+cancel_each_job (gpointer data, gpointer user_data)
+{
+	EogJob *job = EOG_JOB (data);
+	gboolean success;
+
+	g_assert (eog_job_get_status (job) == EOG_JOB_STATUS_WAITING);
+
+	success = eog_job_call_canceled (job);
+	if (success) {
+		g_idle_add (job_finished_cb, job);
+	}
+	else {
+		g_object_unref (G_OBJECT (job));
+	}
+}
+
 /* called from main thread */
 void      
 eog_job_manager_cancel_all_jobs (void)
 {
-	EogJob *job;
 	guint thread_id;
-	GSList *it;
-	gboolean success;
 
 	eog_job_manager_init ();
 
@@ -268,22 +301,9 @@ eog_job_manager_cancel_all_jobs (void)
 
 	/* remove all jobs from waiting list and free list structure
 	 * in one run */
-	it = job_list;
-	while (it != NULL) {
-		job = EOG_JOB (it->data);
-		g_assert (eog_job_get_status (job) == EOG_JOB_STATUS_WAITING);
-
-		success = eog_job_call_canceled (job);
-		if (success) {
-			g_idle_add (job_finished_cb, job);
-		}
-		else {
-			g_object_unref (G_OBJECT (job));
-		}
-		
-		it = g_slist_delete_link (it, it);
-	}
-	job_list = NULL;
+	g_queue_foreach (job_list, (GFunc) cancel_each_job, NULL);
+	g_queue_free (job_list);
+	job_list = g_queue_new ();
 		
 	g_mutex_unlock (mutex);
 }

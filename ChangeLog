@@ -1,3 +1,13 @@
+2005-01-06  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-job-manager.c: Use GQueue data structure.
+	Added job priority handling.
+
+	* libeog/eog-job.[ch]: Allow setting of job priority.
+
+	* shell/eog-window.c (handle_image_selection_changed):
+	Set high job priority.
+
 2005-01-03  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (eog_window_construct_ui):

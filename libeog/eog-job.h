@@ -35,6 +35,11 @@ typedef enum {
 	EOG_JOB_STATUS_CANCELED
 } EogJobStatus;
 
+typedef enum {
+	EOG_JOB_PRIORITY_NORMAL = 0,
+	EOG_JOB_PRIORITY_HIGH   = 1
+} EogJobPriority;
+
 typedef void  ((* EogJobActionFunc)    (EogJob *job, gpointer data, GError **error));
 typedef void  ((* EogJobFinishedFunc)  (EogJob *job, gpointer data, GError *error));
 typedef void  ((* EogJobCancelFunc)    (EogJob *job, gpointer data));
@@ -61,6 +66,7 @@ EogJobStatus        eog_job_get_status   (EogJob *job);
 guint               eog_job_get_id       (EogJob *job);
 gboolean            eog_job_get_success  (EogJob *job);
 void                eog_job_set_progress (EogJob *job, float progress);
+EogJobPriority      eog_job_get_priority (EogJob *job);
 
 /* API only used by the EogJobManager */
 void                eog_job_call_action   (EogJob *job);

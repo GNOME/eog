@@ -2521,7 +2521,10 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 				job_image_load_cancel_job,
 				job_default_progress,
 				(EogJobFreeDataFunc) g_free);
-	g_object_set (G_OBJECT (job), "progress-threshold", 0.25, NULL);
+	g_object_set (G_OBJECT (job), 
+		      "progress-threshold", 0.25,
+		      "priority", EOG_JOB_PRIORITY_HIGH, 
+		      NULL);
 
 	eog_job_manager_add (job); 
 	g_object_unref (G_OBJECT (job));
