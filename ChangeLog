@@ -1,3 +1,8 @@
+2003-03-25  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.c (real_image_load): Close the
+	gdk_pixbuf_loader before we access the pixbuf. Fixes #109139.
+
 2003-03-24  Jens Finke  <jens@triq.net>
 
 	* NEWS: Updated.

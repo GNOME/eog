@@ -838,6 +838,8 @@ real_image_load (gpointer data)
 #endif
 	}
 
+	gdk_pixbuf_loader_close (loader, NULL);	
+
 	g_free (buffer);
 	gnome_vfs_close (handle);
 	
@@ -863,13 +865,13 @@ real_image_load (gpointer data)
 	else {
 		if (priv->image == NULL) {
 			priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
+			g_assert (priv->image != NULL);
 			g_object_ref (priv->image);
 
 			priv->width = gdk_pixbuf_get_width (priv->image);
 			priv->height = gdk_pixbuf_get_height (priv->image);
 			priv->load_status |= EOG_IMAGE_LOAD_STATUS_PREPARED;
 		}
-
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
 	}
 
@@ -884,7 +886,6 @@ real_image_load (gpointer data)
 	priv->load_thread = NULL;
 	g_mutex_unlock (priv->status_mutex);
 	
-	gdk_pixbuf_loader_close (loader, NULL);	
 	g_object_unref (loader);
 
 	return NULL;
