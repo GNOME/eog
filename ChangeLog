@@ -1,6 +1,12 @@
+2001-07-04  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* configure.in: Use AC_CHECK_FILE instead of "test -f ...". This will
+	let configure have access to cached values, reduce configure.in by 2
+	lines and print a nice warning about cross compilation issues.
+
 2001-06-25  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
-	*configure.in: Check if evolution is there, but let the user override
+	* configure.in: Check if evolution is there, but let the user override
 	this check with --without-evolution.
 
 2001-06-25  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
