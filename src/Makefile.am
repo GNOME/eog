@@ -30,8 +30,7 @@ libeog_la_SOURCES =			\
 	zoom.h
 
 libeog_la_LIBADD =			\
-	$(EXTRA_GNOME_LIBS)		\
-	$(INTLLIBS)
+	$(EXTRA_GNOME_LIBS)
 
 eog_SOURCES =				\
 	commands.c			\
@@ -58,6 +57,7 @@ eog_SOURCES =				\
 	util.c				\
 	util.h				\
 	gconf.c				\
+	gconf.h				\
 	window.c			\
 	window.h
 
