@@ -1,3 +1,21 @@
+2003-11-24  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view.c (slideshow_hide_cb): New function
+	(verb_SlideShow_cb): Register for hide signal of the fullscreen widget.
+
+	* collection/eog-wrap-list.c (eog_wrap_list_set_current_image):
+	New function.
+
+	* libeog/eog-full-screen.[ch] (eog_full_screen_hide): Don't
+	destroy widget.
+	(prepare_data): Set current iter also in the single image case.
+	(eog_full_screen_get_last_image): New public function.
+
+	* libeog/eog-image-list.c (eog_image_list_iter_valid): Check for iter != NULL.
+
+	* viewer/eog-image-view.c (verb_FullScreen_cb): Destroy fullscreen
+	widget on hide signal. 
+	
 ===== 2.5.0.1 ====
 	
 2003-11-10  Jens Finke  <jens@triq.net>

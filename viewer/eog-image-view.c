@@ -184,6 +184,8 @@ verb_FullScreen_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 	list = eog_image_list_new ();
 	eog_image_list_add_image (list, EOG_IMAGE (image_view->priv->image));
 	fs = eog_full_screen_new (list, NULL);
+	g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (gtk_widget_destroy), NULL);
+
 	g_object_unref (list);
 
 	gtk_widget_show_all (fs);

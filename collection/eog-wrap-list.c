@@ -1269,3 +1269,45 @@ eog_wrap_list_get_selected_images (EogWrapList *wlist)
 	
 	return list;
 }
+
+/* eog_wrap_list_set_current_image
+ *
+ * This function makes sure that the corresponding item to image is in
+ * the list of selected items. Also it is marked as the last clicked
+ * item. If the flag deselect_other is TRUE than all other selected
+ * item will be deselected.
+ */
+void
+eog_wrap_list_set_current_image (EogWrapList *wlist, EogImage *image, gboolean deselect_other)
+{
+	EogWrapListPrivate *priv;
+	EogCollectionItem *item;
+	gboolean selection_changed = FALSE;
+	int pos;
+
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = wlist->priv;
+
+	/* Warning: We rely on the fact that the model list and the
+	   view_order list are totally in sync wrt to the
+	   sequence. AFAICS this is a valid assumption currently. */
+	pos = eog_image_list_get_pos_by_img (priv->model, image); 
+	if (pos == -1) return;
+
+	item = g_list_nth_data (priv->view_order, pos);
+
+	priv->last_item_clicked = GNOME_CANVAS_ITEM (item);
+
+	if (deselect_other || (priv->n_selected_items == 1)) {
+		deselect_all (wlist);
+	}
+
+	selection_changed = set_select_status (wlist, item, TRUE);
+	if (selection_changed) {
+		g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+	}
+
+	ensure_item_is_visible (wlist, GNOME_CANVAS_ITEM (item));
+}

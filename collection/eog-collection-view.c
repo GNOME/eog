@@ -114,6 +114,8 @@ enum {
 	LAST_SIGNAL
 };
 
+static void handle_selection_changed (EogWrapList *list, EogCollectionView *view);
+
 static guint eog_collection_view_signals [LAST_SIGNAL];
 
 BONOBO_CLASS_BOILERPLATE (EogCollectionView, eog_collection_view,
@@ -130,6 +132,34 @@ free_image_list (GList *list)
 	g_list_free (list);
 }
 
+static void
+slideshow_hide_cb (GtkWidget *widget, gpointer data)
+{
+	EogImage *last_image;
+	EogFullScreen *fs;
+	EogCollectionView *view;
+	EogCollectionViewPrivate *priv;
+
+	fs = EOG_FULL_SCREEN (widget);
+	view = EOG_COLLECTION_VIEW (data);
+	priv = view->priv;
+
+	last_image = eog_full_screen_get_last_image (fs);
+	
+	if (last_image != NULL) {
+		g_signal_handlers_block_by_func(G_OBJECT (priv->wraplist),
+						G_CALLBACK (handle_selection_changed), view);
+
+		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), last_image, FALSE);
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), last_image);
+
+		g_signal_handlers_unblock_by_func(G_OBJECT (priv->wraplist),
+						  G_CALLBACK (handle_selection_changed), view);
+		g_object_unref (last_image);
+	}
+
+	gtk_widget_destroy (widget);
+}
 
 static void
 verb_SlideShow_cb (BonoboUIComponent *uic, 
@@ -157,6 +187,8 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 	start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (view->priv->wraplist));
 
 	show = eog_full_screen_new (list, start_image);
+	g_signal_connect (G_OBJECT (show), "hide", G_CALLBACK (slideshow_hide_cb), view);
+
 	g_object_unref (start_image);
 	g_object_unref (list);
 

@@ -217,8 +217,6 @@ eog_full_screen_hide (GtkWidget *widget)
 	}
 
 	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
-
-	gtk_widget_destroy (widget);
 }
 
 static void
@@ -571,22 +569,23 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 	priv->list = g_object_ref (image_list);
 	priv->current = NULL;
 
+	/* determine first image to show */
+	if (start_image != NULL) 
+		priv->current = eog_image_list_get_iter_by_img (image_list, start_image);
+	
+	if (priv->current == NULL) 
+		priv->current = eog_image_list_get_first_iter (image_list);
+
+	/* special case if we only have one image */
 	if (eog_image_list_length (image_list) == 1) {
 		EogImage *single_image;
-		single_image = eog_image_list_get_img_by_pos (image_list, 0);
+		single_image = eog_image_list_get_img_by_iter (image_list, priv->current);
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), 
 					   single_image);
 		g_object_unref (single_image);
 	}
 	else {
-		/* determine first image to show */
 		priv->direction = EOG_DIRECTION_FORWARD;
-		if (start_image != NULL) 
-			priv->current = eog_image_list_get_iter_by_img (image_list, start_image);
-		
-		if (priv->current == NULL) 
-			priv->current = eog_image_list_get_first_iter (image_list);
-
 		priv->first_iter = eog_image_list_iter_copy (image_list, priv->current);
 		priv->first_image = TRUE;
 		prepare_load_image (fs, priv->current);
@@ -652,4 +651,19 @@ gboolean
 eog_full_screen_enable_SunF36 (void)
 {
 	return (XKeysymToKeycode (GDK_DISPLAY (), SunXK_F36) != 0);
+}
+
+EogImage*  
+eog_full_screen_get_last_image (EogFullScreen *fs)
+{
+	EogFullScreenPrivate *priv;
+	EogImage *image;
+
+	g_return_val_if_fail (EOG_IS_FULL_SCREEN (fs), NULL);
+	
+	priv = fs->priv;
+
+	image = eog_image_list_get_img_by_iter (priv->list, priv->current);
+
+	return image;
 }

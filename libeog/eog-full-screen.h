@@ -63,6 +63,8 @@ GtkWidget *eog_full_screen_new (EogImageList *list, EogImage *start_image);
 
 gboolean   eog_full_screen_enable_SunF36 (void);
 
+EogImage*  eog_full_screen_get_last_image (EogFullScreen *fs);
+
 G_END_DECLS
 
 #endif /* _EOG_FULL_SCREEN_H_ */

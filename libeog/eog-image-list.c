@@ -638,9 +638,13 @@ gboolean
 eog_image_list_iter_valid (EogImageList *list, EogIter *iter)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), FALSE);
-	g_return_val_if_fail (iter != NULL, FALSE);
-
-	return eog_iter_is_valid_private (list, iter);
+	
+	if (iter == NULL) {
+		return FALSE;
+	}
+	else {
+		return eog_iter_is_valid_private (list, iter);
+	}
 }
 
 /* Points the iter to the previous position in the list. If loop is
