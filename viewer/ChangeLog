@@ -1,3 +1,16 @@
+2002-01-30  Jens Finke <jens@triq.net>
+
+	* eog-control.c: (eog_control_create_ui),
+	(eog_control_set_ui_container), (eog_control_unset_ui_container),
+	(eog_control_construct): Removed uic pointer from the EogControl
+	struct, obtain this by bonobo_control_get_ui_component where it's
+	needed.
+	(zoomable_set_zoom_level_cb): Code cleanup.
+
+	* eog-image-view.c: (eog_image_view_get_property_control),
+	(eog_image_view_construct): Create control on demand, don't store
+	global pointer in the EogImageView struct.
+ 	
 2002-01-15  Michael Meeks  <michael@ximian.com>
 
 	* eog-control.c (eog_control_construct): fix remaining

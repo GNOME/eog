@@ -47,7 +47,6 @@ struct _EogImageViewPrivate {
         ImageView             *image_view;
 
 	BonoboPropertyBag     *property_bag;
-	BonoboPropertyControl *property_control;
 
 	BonoboUIComponent     *uic;
 
@@ -72,6 +71,9 @@ enum {
 enum {
 	PROP_CONTROL_TITLE
 };
+
+static BonoboControl* property_control_get_cb (BonoboPropertyControl *property_control,
+					       int page_number, void *closure);
 
 static guint eog_image_view_signals [LAST_SIGNAL];
 
@@ -1540,9 +1542,8 @@ eog_image_view_get_property_control (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
-	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->property_control));
-
-	return image_view->priv->property_control;
+	return bonobo_property_control_new (property_control_get_cb, 
+					    1, image_view);
 }
 
 void
@@ -1988,13 +1989,7 @@ eog_image_view_construct (EogImageView       *image_view,
 				 BONOBO_ARG_STRING, NULL, _("Statusbar Text"),
 				 BONOBO_PROPERTY_READABLE);
 
-	/* Property Control */
-
-	image_view->priv->property_control = bonobo_property_control_new
-		(property_control_get_cb, 1, image_view);
-
 	/* UI Component */
-
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
 
 	return image_view;

@@ -24,8 +24,6 @@ struct _EogControlPrivate {
 	BonoboZoomable     *zoomable;
 	float               zoom_level;
 	gboolean            has_zoomable_frame;
-
-	BonoboUIComponent  *uic;
 };
 
 static GObjectClass *eog_control_parent_class;
@@ -79,16 +77,17 @@ static void
 zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 			    EogControl *control)
 {
+	EogControlPrivate *priv;
+
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	eog_image_view_set_zoom_factor
-		(control->priv->image_view, new_zoom_level);
-	control->priv->zoom_level = eog_image_view_get_zoom_factor
-		(control->priv->image_view);
+	priv = control->priv;
 
-	bonobo_zoomable_report_zoom_level_changed
-		(zoomable, control->priv->zoom_level, NULL);
+	eog_image_view_set_zoom_factor (priv->image_view, new_zoom_level);
+	priv->zoom_level = eog_image_view_get_zoom_factor (priv->image_view);
+	bonobo_zoomable_report_zoom_level_changed (zoomable, priv->zoom_level, 
+						   NULL);
 }
 
 static float preferred_zoom_levels[] = {
@@ -288,25 +287,27 @@ static const gchar *zoom_menu =
 static void
 eog_control_create_ui (EogControl *control)
 {
+	BonoboUIComponent *uic;
+
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	bonobo_ui_component_set_translate (control->priv->uic,
-					   "/menu/ViewPlaceholder/View", zoom_menu,
-					   NULL);
+	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 
-	bonobo_ui_component_set_translate (control->priv->uic,
-					   "/", zoom_toolbar, NULL);
+	bonobo_ui_component_set_translate (uic, "/menu/ViewPlaceholder/View", 
+					   zoom_menu, NULL);
+	bonobo_ui_component_set_translate (uic, "/", zoom_toolbar, NULL);
 
-	bonobo_ui_component_add_verb_list_with_data
-		(control->priv->uic, eog_control_verbs,
-		 control);
+	bonobo_ui_component_add_verb_list_with_data (uic, eog_control_verbs,
+						     control);
 }
 
 static void
 eog_control_set_ui_container (EogControl *control,
 			      Bonobo_UIContainer ui_container)
 {
+	BonoboUIComponent *uic;
+	
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
@@ -314,7 +315,8 @@ eog_control_set_ui_container (EogControl *control,
 	eog_image_view_set_ui_container (control->priv->image_view,
 					 ui_container);
 
-	bonobo_ui_component_set_container (control->priv->uic, ui_container, NULL);
+	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
+	bonobo_ui_component_set_container (uic, ui_container, NULL);
 
 	eog_control_create_ui (control);
 }
@@ -322,12 +324,15 @@ eog_control_set_ui_container (EogControl *control,
 static void
 eog_control_unset_ui_container (EogControl *control)
 {
+	BonoboUIComponent *uic;
+
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
 	eog_image_view_unset_ui_container (control->priv->image_view);
 
-	bonobo_ui_component_unset_container (control->priv->uic, NULL);
+	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
+	bonobo_ui_component_unset_container (uic, NULL);
 }
 
 static void
@@ -470,8 +475,6 @@ eog_control_construct (EogControl    *control,
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (pc));
 #endif
-
-	priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 	
 	return control;
 }
