@@ -6,13 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-08 20:15+0200\n"
-"PO-Revision-Date: 2004-05-08 20:18+0200\n"
+"POT-Creation-Date: 2004-07-27 03:07+0200\n"
+"PO-Revision-Date: 2004-07-27 12:01+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -27,18 +28,24 @@ msgid "Image Collection"
 msgstr "Albumi i figurave"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "Image Collection Viewer"
+msgstr "Shikuesi i Albumeve me Figura"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
 msgid "View as I_mage Collection"
 msgstr "Shikoje si Album me I_mazhe"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#: collection/GNOME_EOG_Collection.server.in.in.h:6
 msgid "View as Image Collection"
 msgstr "Shikoje si Album me Figura"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 shell/eog-window.c:2039
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "Përmbyse _Horizontalisht"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2 shell/eog-window.c:2040
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "Përmbyse _Vertikalisht"
 
@@ -74,55 +81,55 @@ msgstr "Rrotullim Antio_rar"
 msgid "Slide Show"
 msgstr "Diapozitivë"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-window.c:2013
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Ndrysho"
 
-#: collection/eog-collection-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-window.c:2034
 msgid "_Save"
 msgstr "_Ruaj"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:13 shell/eog-window.c:2037
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Anullo"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-window.c:2014
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Shfaq"
 
-#: collection/eog-collection-view.c:338
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Anullo ruajtjen"
 
-#: collection/eog-collection-view.c:341
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Ruajtja përfundoi"
 
-#: collection/eog-collection-view.c:810
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Hidhe në Kosh"
 
-#: collection/eog-collection-view.c:927
+#: collection/eog-collection-view.c:926
 msgid "Collection View"
 msgstr "Shikuesi i Albumit"
 
-#: collection/eog-collection-view.c:947
+#: collection/eog-collection-view.c:946 shell/eog-window.c:1948
 #, c-format
 msgid "Images: %i/%i"
 msgstr "Figurat: %i/%i"
 
-#: collection/eog-collection-view.c:1405 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1404 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Titulli i dritares"
 
-#: collection/eog-collection-view.c:1408
+#: collection/eog-collection-view.c:1407
 msgid "Status Text"
 msgstr "Teksti i Gjëndjes"
 
-#: collection/eog-collection-view.c:1411 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1410 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progresi i Ngarkimit të Figurës"
 
@@ -143,67 +150,123 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: eog.glade.h:3
+msgid "."
+msgstr "."
+
+#: eog.glade.h:4
+msgid "<b>File Name Preview</b>"
+msgstr "<b>Pamja e para e File</b>"
+
+#: eog.glade.h:5
+msgid "<b>File Path Specifications</b>"
+msgstr "<b>Përcaktimet e Pozicionit të File</b>"
+
+#: eog.glade.h:6
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolimi i Figurave</b>"
 
-#: eog.glade.h:3
+#: eog.glade.h:7
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Zmadhimi i Figurave</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:8
+msgid "<b>Options</b>"
+msgstr "<b>Opcione</b>"
+
+#: eog.glade.h:9
 msgid "<b>Sequence</b>"
 msgstr "<b>Sekuenca</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:10
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>Pjesët e tejdukshme</b>"
 
-#: eog.glade.h:7
+#: eog.glade.h:12
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
 msgstr "Lejo _zmadhimin më shumë se 100% gjatë hapjes"
 
-#: eog.glade.h:8
+#: eog.glade.h:13
 msgid "As _background"
 msgstr "Si _sfond"
 
-#: eog.glade.h:9
+#: eog.glade.h:14
 msgid "As check _pattern"
 msgstr "Si _fushë shahu"
 
-#: eog.glade.h:10
+#: eog.glade.h:15
 msgid "As custom c_olor"
 msgstr "Si ngjyrë e pers_onalizuar"
 
-#: eog.glade.h:11
+#: eog.glade.h:16
 msgid "Color for Transparent Areas"
 msgstr "Ngjyra për zonat e tejdukshme"
 
-#: eog.glade.h:12
+#: eog.glade.h:17
+msgid "Destination Folder:"
+msgstr "Kartela e destinuar:"
+
+#: eog.glade.h:18
 msgid "Eye of Gnome Preferences"
 msgstr "Preferimet e Eye of Gnome"
 
-#: eog.glade.h:13
+#: eog.glade.h:19
+msgid "Filename Format:"
+msgstr "Formati i emrit të file:"
+
+#: eog.glade.h:20
 msgid "Image _View"
 msgstr "_Shikuesi i figurave"
 
-#: eog.glade.h:14
+#: eog.glade.h:21
+msgid "Rename From:"
+msgstr "Riemërto nga:"
+
+#: eog.glade.h:22
+msgid "Replace spaces by underscore"
+msgstr "Zëvendëso hapësirat me underscore (nën ndarës)"
+
+#: eog.glade.h:23
+msgid "Save As"
+msgstr "Ruaje Si"
+
+#: eog.glade.h:24
+msgid "Saving Image"
+msgstr "Duke ruajtur figurën"
+
+#: eog.glade.h:25
 msgid "Show _next image automatically after:"
 msgstr "Trego figurën _në vazhdim automatikisht mbas:"
 
-#: eog.glade.h:15
+#: eog.glade.h:26
 msgid "Sli_de Show"
 msgstr "_Diapozitivët"
 
-#: eog.glade.h:16
+#: eog.glade.h:27
+msgid "Start counter at:"
+msgstr "Fillo numëruesin tek:"
+
+#: eog.glade.h:28
+msgid "To:"
+msgstr "Deri:"
+
+#: eog.glade.h:29
+msgid "_Browse"
+msgstr "_Shfleto"
+
+#: eog.glade.h:30
 msgid "_Interpolate image on zoom"
 msgstr "_Interpolo figurën gjatë zmadhimit"
 
-#: eog.glade.h:17
+#: eog.glade.h:31
 msgid "_Loop sequence"
 msgstr "Sekuenca e _Loop"
 
-#: eog.glade.h:18
+#: eog.glade.h:32
 msgid "seconds"
 msgstr "sekonda"
 
@@ -320,85 +383,93 @@ msgstr "Imazh EOG embeddable"
 msgid "Image"
 msgstr "Figura"
 
-#: libeog/eog-file-selection.c:96
-#, c-format
-msgid "Do you want to overwrite %s?"
-msgstr "Dëshironi të mbishkruani %s?"
-
-#: libeog/eog-file-selection.c:101
-msgid "File exists"
-msgstr "Ky file ekziston"
-
-#: libeog/eog-file-selection.c:175
+#: libeog/eog-file-selection.c:124
 msgid "All Files"
 msgstr "Të gjithë files"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:129
 msgid "All Images"
 msgstr "Të gjitha figurat"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:198
+#: libeog/eog-file-selection.c:147
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:291
+#: libeog/eog-file-selection.c:240
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s pixel"
 
-#: libeog/eog-file-selection.c:447
+#: libeog/eog-file-selection.c:396
 msgid "Load Image"
 msgstr "Hap figurën"
 
-#: libeog/eog-file-selection.c:455
+#: libeog/eog-file-selection.c:404
 msgid "Save Image"
 msgstr "Ruaje figurën"
 
-#: libeog/eog-file-selection.c:463
+#: libeog/eog-file-selection.c:412
 msgid "Open Folder"
 msgstr "Hap kartelën"
 
-#: libeog/eog-image-jpeg.c:128
+#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "I pamundur krijimi i file të përkohshëm për të ruajtur: %s"
 
-#: libeog/eog-image-jpeg.c:149
+#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "E pamundur përgatitja e kujtesës për të ngarkuar file JPEG"
 
-#: libeog/eog-image.c:806
+#: libeog/eog-image.c:810
 msgid "empty file"
 msgstr "file bosh"
 
-#: libeog/eog-image.c:1268
+#: libeog/eog-image.c:1243 libeog/eog-image.c:1454
+msgid "File exists"
+msgstr "Ky file ekziston"
+
+#: libeog/eog-image.c:1396 libeog/eog-image.c:1522
 msgid "No image loaded."
 msgstr "Asnjë figurë e ngarkuar."
 
-#: libeog/eog-image.c:1278
-msgid "Images can only be saved as local files."
-msgstr "Figurat mund të ruhen vetëm si file lokalë."
+#: libeog/eog-image.c:1405 libeog/eog-image.c:1531
+msgid "Temporary file creation failed."
+msgstr "Krijimi i file të përkohshëm dështoi."
 
-#: libeog/eog-image.c:1303
-msgid "Unsupported image type for saving."
-msgstr "Lloj figure e pasuportuar për tu ruajtur."
+#: libeog/eog-info-view-exif.c:26
+msgid "Camera"
+msgstr "Kamer"
 
-#: libeog/eog-info-view.c:92
-msgid "File"
-msgstr "File"
+#: libeog/eog-info-view-exif.c:27
+msgid "Image Data"
+msgstr "Të dhënat e figurës"
 
-#: libeog/eog-info-view.c:101
-msgid "EXIF"
-msgstr "EXIF"
+#: libeog/eog-info-view-exif.c:28
+msgid "Image Taking Conditions"
+msgstr "Kushtet e marrjes së figurës"
 
-#: libeog/eog-info-view.c:108
-msgid "IPTC"
-msgstr "IPTC"
+#: libeog/eog-info-view-exif.c:29
+msgid "Maker Note"
+msgstr "Shënime mbi marrjen"
 
-#: libeog/eog-info-view-file.c:25
+#: libeog/eog-info-view-exif.c:30
+msgid "Other"
+msgstr "Tjetër"
+
+#: libeog/eog-info-view-exif.c:212
+msgid "Tag"
+msgstr "Tag"
+
+#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
+msgid "Value"
+msgstr "Vlera"
+
+#. only used for internal purpose
+#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
 msgid "Filename"
 msgstr "Emri i file"
 
@@ -414,266 +485,108 @@ msgstr "Lartësia"
 msgid "Filesize"
 msgstr "Madhësia e file"
 
-#. GRUT modified this item
 #: libeog/eog-info-view-file.c:88
 msgid "Attribute"
 msgstr "Pronësi"
 
-#: libeog/eog-info-view-file.c:96 libeog/eog-info-view-exif.c:219
-msgid "Value"
-msgstr "Vlera"
+#: libeog/eog-info-view.c:92
+msgid "File"
+msgstr "File"
 
-#. GRUT modified this item
-#: libeog/eog-info-view-exif.c:25
-msgid "Camera"
-msgstr "Kamer"
+#: libeog/eog-info-view.c:101
+msgid "EXIF"
+msgstr "EXIF"
 
-#: libeog/eog-info-view-exif.c:26
-msgid "Image Data"
-msgstr "Të dhënat e figurës"
+#: libeog/eog-info-view.c:108
+msgid "IPTC"
+msgstr "IPTC"
 
-#: libeog/eog-info-view-exif.c:27
-msgid "Image Taking Conditions"
-msgstr "Kushtet e marrjes së figurës"
+#: libeog/eog-save-as-dialog-helper.c:137
+msgid "Option not available."
+msgstr "Opcion jo në dispozicion."
 
-#: libeog/eog-info-view-exif.c:28
-msgid "Maker Note"
-msgstr "Shënime mbi marrjen"
+#: libeog/eog-save-as-dialog-helper.c:138
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of Gnome."
+msgstr ""
+"Për të përdorur këtë funksion ju nevoitet libraria libexif. Instalo "
+"libexif (http://libexif.sf.net) dhe rikompilo Eye of Gnome."
 
-#: libeog/eog-info-view-exif.c:29
-msgid "Other"
-msgstr "Tjetër"
+#: libeog/eog-save-as-dialog-helper.c:214
+msgid "as is"
+msgstr "si është"
 
-#: libeog/eog-info-view-exif.c:211
-msgid "Tag"
-msgstr "Tag"
+#: libeog/eog-save-dialog-helper.c:162
+#, c-format
+msgid "Saving image %s."
+msgstr "Duke ruajtur figurën %s."
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
-msgid "Page"
-msgstr "Faqja"
+#: libeog/eog-save-dialog-helper.c:208
+msgid "Cancel saving ..."
+msgstr "Anullo ruajtjen ..."
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:385
-msgid "Preview"
-msgstr "Shikoje"
+#: libeog/eog-uri-converter.c:1023
+msgid "Filenames are not disjunct."
+msgstr "Emrat e file nuk janë të veçantë."
 
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
-msgid "Millimeter"
-msgstr "Milimetër"
+#: libeog/eog-uri-converter.h:46
+msgid "Counter"
+msgstr "Numërues"
 
-#. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
-msgid "Paper"
-msgstr "Letra"
+#: libeog/eog-uri-converter.h:47
+msgid "Comment"
+msgstr "Komenti"
 
-#: libgpi/gpi-dialog.glade.h:2
-#, no-c-format
-msgid "% of original size"
-msgstr "% e madhësisë orgjinale"
+#: libeog/eog-uri-converter.h:48
+msgid "Date"
+msgstr "Data"
 
-#: libgpi/gpi-dialog.glade.h:3
-msgid "Adjust to "
-msgstr "Përshtate në "
+#: libeog/eog-uri-converter.h:49
+msgid "Time"
+msgstr "Ora"
 
-#: libgpi/gpi-dialog.glade.h:4
-msgid "Center"
-msgstr "Qendër"
+#: libeog/eog-uri-converter.h:50
+msgid "Day"
+msgstr "Dita"
 
-#: libgpi/gpi-dialog.glade.h:5
-msgid "Cutting help"
-msgstr "Ndihmë gjatë prerjes"
+#: libeog/eog-uri-converter.h:51
+msgid "Month"
+msgstr "Muaji"
 
-#: libgpi/gpi-dialog.glade.h:6
-msgid "Down, then right"
-msgstr "Poshtë, pastaj djathtas"
+#: libeog/eog-uri-converter.h:52
+msgid "Year"
+msgstr "Viti"
 
-#: libgpi/gpi-dialog.glade.h:7
-msgid "Fit to page"
-msgstr "Përshtatja faqes"
+#: libeog/eog-uri-converter.h:53
+msgid "Hour"
+msgstr "Orë"
 
-#: libgpi/gpi-dialog.glade.h:8
-msgid "Horizontally"
-msgstr "Horizontalisht"
+#: libeog/eog-uri-converter.h:54
+msgid "Minute"
+msgstr "Minuta"
 
-#: libgpi/gpi-dialog.glade.h:9
-msgid "Horizontally by "
-msgstr "Horizontalisht sipas "
-
-#: libgpi/gpi-dialog.glade.h:10
-msgid "Margins"
-msgstr "Kufijtë"
-
-#: libgpi/gpi-dialog.glade.h:11
-msgid "Ordering help"
-msgstr "Ndihmuesi për rregullimin"
-
-#: libgpi/gpi-dialog.glade.h:12
-msgid "Overlap"
-msgstr "Mbulo"
-
-#: libgpi/gpi-dialog.glade.h:13
-msgid "Overlap help"
-msgstr "Ndihmë për mbulimin"
-
-#: libgpi/gpi-dialog.glade.h:15
-msgid "Page order"
-msgstr "Renditja e faqeve"
-
-#: libgpi/gpi-dialog.glade.h:18
-msgid "Right, then down"
-msgstr "Djathtas, pastaj poshtë"
-
-#: libgpi/gpi-dialog.glade.h:19
-msgid "Scale"
-msgstr "Shkalla"
-
-#: libgpi/gpi-dialog.glade.h:20
-msgid "Show"
-msgstr "Shfaq"
-
-#: libgpi/gpi-dialog.glade.h:21
-msgid "Vertically"
-msgstr "Vertikalisht"
-
-#: libgpi/gpi-dialog.glade.h:22
-msgid "Vertically by "
-msgstr "Vertikalisht sipas "
-
-#: libgpi/gpi-mgr.c:78
-msgid "Name"
-msgstr "Emri"
-
-#: libgpi/gpi-mgr.c:79
-msgid "The name of the file or data to print"
-msgstr "Emri i file apo të dhënave për tu printuar"
-
-#: shell/eog-shell-ui.xml.h:1
-msgid "About this application"
-msgstr "Informacione mbi këtë program"
-
-#: shell/eog-shell-ui.xml.h:2
-msgid "Cancel"
-msgstr "Anulloje"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Change the visibility of the statusbar in the current window"
-msgstr "Ndrysho dukshmërinë e panelit të gjëndjes në dritaren aktuale"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Change the visibility of the toolbar in the current window"
-msgstr "Ndrysho dukshmërinë e panelit të instrumentëve në dritaren aktuale"
-
-#. GRUT modified this item
-#: shell/eog-shell-ui.xml.h:5
-msgid "Close window"
-msgstr "Mbylle dritaren"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "Ndihmë në këtë program"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "New"
-msgstr "E re"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open"
-msgstr "Hap"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a directory"
-msgstr "Hap një kartelë"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "Open a file"
-msgstr "Hap një file"
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "Open a new window"
-msgstr "Hap një dritare të re"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "Open in new window"
-msgstr "Hape në një dritare të re"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "Open in this window"
-msgstr "Hape në këtë dritare"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "Prefere_nces"
-msgstr "Preferi_met"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "Preferences for Eye of Gnome"
-msgstr "Preferimet për Eye of Gnome"
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "Quit the program"
-msgstr "Mbyll programin"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_About"
-msgstr "_Informacione"
-
-#: shell/eog-shell-ui.xml.h:18
-msgid "_Close"
-msgstr "_Mbylle"
-
-#: shell/eog-shell-ui.xml.h:19
-msgid "_Contents"
-msgstr "_Përmbajtja"
-
-#: shell/eog-shell-ui.xml.h:21
-msgid "_File"
-msgstr "_File"
-
-#: shell/eog-shell-ui.xml.h:22
-msgid "_Help"
-msgstr "_Ndihmë"
-
-#: shell/eog-shell-ui.xml.h:23
-msgid "_New"
-msgstr "_E re"
-
-#: shell/eog-shell-ui.xml.h:24
-msgid "_Open Directory..."
-msgstr "_Hap directory..."
-
-#: shell/eog-shell-ui.xml.h:25
-msgid "_Open..."
-msgstr "_Hap..."
-
-#: shell/eog-shell-ui.xml.h:26
-msgid "_Quit"
-msgstr "_Dil"
-
-#: shell/eog-shell-ui.xml.h:27
-msgid "_Statusbar"
-msgstr "_Paneli i gjendjes"
-
-#: shell/eog-shell-ui.xml.h:28
-msgid "_Toolbar"
-msgstr "_Paneli i instrumentëve"
+#: libeog/eog-uri-converter.h:55
+msgid "Second"
+msgstr "Sekonda"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:292
-msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#: shell/eog-window.c:320
+msgid "translator-credits"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:520
+#: shell/eog-window.c:325 shell/eog-window.c:2218 shell/main.c:498
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:300
+#: shell/eog-window.c:328
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Programi i shfaqjes dhe katallogimit të figurave për GNOME."
 
-#: shell/eog-window.c:337
+#: shell/eog-window.c:365
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -682,7 +595,182 @@ msgstr ""
 "Nuk arrij të vizualizoj ndihmën për Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:237
+#: shell/eog-window.c:613
+#, c-format
+msgid "Overwrite file %s?"
+msgstr "Mbishkruaj file %s?"
+
+#: shell/eog-window.c:614
+msgid "File exists. Do you want to overwrite it?"
+msgstr "File ekziston. Dëshironi t'a mbishkruani?"
+
+#: shell/eog-window.c:624 shell/eog-window.c:637
+msgid "Skip"
+msgstr "Kapërce"
+
+#: shell/eog-window.c:625
+msgid "Overwrite"
+msgstr "Mbishkruaj"
+
+#: shell/eog-window.c:630
+#, c-format
+msgid "Error on saving %s."
+msgstr "Gabim gjatë ruajtjes së %s."
+
+#: shell/eog-window.c:638 shell/eog-window.c:1012
+msgid "Retry"
+msgstr "Anullo"
+
+#: shell/eog-window.c:1001
+#, c-format
+msgid "Couldn't determine file format of %s"
+msgstr "I pamundur përcaktimi i formatit të file për %s"
+
+#: shell/eog-window.c:1002
+msgid "Please use an appropriate filename suffix or select a file format."
+msgstr ""
+"Ju lutem përdorni një prapashtesë të pranueshme për emrin e e file "
+"ose zgjidh një nga formatet në dispozicion."
+
+#: shell/eog-window.c:1144
+msgid "Error on saving images."
+msgstr "Gabim gjatë ruajtjes së figurave."
+
+#: shell/eog-window.c:1378
+#, c-format
+msgid "Do you really want to move %i images to trash?"
+msgstr "Me të vërtetë dëshironi të hidhni %i figura në kosh?"
+
+#: shell/eog-window.c:1415
+msgid "Couldn't access trash."
+msgstr "Nuk kam hyrje në kosh."
+
+#: shell/eog-window.c:1489
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "Gabim gjatë fshirjes së figurës %s"
+
+#: shell/eog-window.c:2012
+msgid "_File"
+msgstr "_File"
+
+#: shell/eog-window.c:2015
+msgid "_Help"
+msgstr "_Ndihmë"
+
+#: shell/eog-window.c:2016
+msgid "_New"
+msgstr "_E re"
+
+#: shell/eog-window.c:2016
+msgid "Open a new window"
+msgstr "Hap një dritare të re"
+
+#: shell/eog-window.c:2017
+msgid "_Open..."
+msgstr "_Hap..."
+
+#: shell/eog-window.c:2017
+msgid "Open a file"
+msgstr "Hap një file"
+
+#: shell/eog-window.c:2018
+msgid "Open _Directory..."
+msgstr "Hap _Directory..."
+
+#: shell/eog-window.c:2018
+msgid "Open a directory"
+msgstr "Hap një kartelë"
+
+#: shell/eog-window.c:2019
+msgid "_Close"
+msgstr "_Mbylle"
+
+#: shell/eog-window.c:2019
+msgid "Close window"
+msgstr "Mbylle dritaren"
+
+#: shell/eog-window.c:2020
+msgid "_Quit"
+msgstr "_Dil"
+
+#: shell/eog-window.c:2020
+msgid "Close all windows and quit"
+msgstr "Mbyll të gjitha dritaret dhe dil"
+
+#: shell/eog-window.c:2021
+msgid "Prefere_nces"
+msgstr "Preferi_met"
+
+#: shell/eog-window.c:2021
+msgid "Preferences for Eye of Gnome"
+msgstr "Preferimet për Eye of Gnome"
+
+#: shell/eog-window.c:2022
+msgid "_Contents"
+msgstr "_Përmbajtja"
+
+#: shell/eog-window.c:2022
+msgid "Help On this application"
+msgstr "Ndihmë në këtë program"
+
+#: shell/eog-window.c:2023
+msgid "_About"
+msgstr "_Informacione"
+
+#: shell/eog-window.c:2023
+msgid "About this application"
+msgstr "Informacione mbi këtë program"
+
+#: shell/eog-window.c:2028
+msgid "_Toolbar"
+msgstr "_Paneli i instrumentëve"
+
+#: shell/eog-window.c:2029
+msgid "_Statusbar"
+msgstr "_Paneli i gjendjes"
+
+#: shell/eog-window.c:2035
+msgid "Save _As"
+msgstr "Ruaj _Si"
+
+#: shell/eog-window.c:2042
+msgid "_Rotate Clockwise"
+msgstr "_Rrotullim Orar"
+
+#: shell/eog-window.c:2043
+msgid "Rotate Counter C_lockwise"
+msgstr "Rrotullo numëruesin në drejtim o_rar"
+
+#: shell/eog-window.c:2044
+msgid "Rotat_e 180°"
+msgstr "Rrotulloj_e 180°"
+
+#: shell/eog-window.c:2046
+msgid "Delete"
+msgstr "Fshi"
+
+#: shell/eog-window.c:2048 viewer/eog-image-view-ui.xml.h:16
+msgid "_Full Screen"
+msgstr "Ekran i _Plotë"
+
+#: shell/eog-window.c:2049 viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "_Zoom In"
+msgstr "_Zmadho"
+
+#: shell/eog-window.c:2050 viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _Out"
+msgstr "Z_vogëlo"
+
+#: shell/eog-window.c:2051 viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr "Madhësia _Normale"
+
+#: shell/eog-window.c:2052 viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Best _Fit"
+msgstr "Për_shtate"
+
+#: shell/main.c:236
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -691,31 +779,28 @@ msgstr ""
 "Jeni duke hapur %i dritare njëkohësisht. Dëshironi t'i hapni ato në formën e "
 "një koleksioni?"
 
-#: shell/main.c:241
+#: shell/main.c:240
 msgid "Open multiple single windows?"
 msgstr "Hap dritare të vetme shumëfishe?"
 
-#: shell/main.c:245
+#: shell/main.c:244
 msgid "Single Windows"
 msgstr "Dritare të Vetme"
 
-#. GRUT modified this item
-#: shell/main.c:247
+#: shell/main.c:246
 msgid "Collection"
 msgstr "Koleksioni"
 
-#: shell/main.c:320
-msgid "File(s) not found."
-msgstr "File(s) nuk u gjet."
+#: shell/main.c:298
+msgid "File not found."
+msgid_plural "Files not found."
+msgstr[0] "File nuk u gjet."
+msgstr[1] "Files nuk u gjetën."
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nuk arrij të hap `%s'"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Best _Fit"
-msgstr "Për_shtate"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -732,18 +817,6 @@ msgstr "Normal"
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
 msgstr "Zvogëlo"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "Z_vogëlo"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "_Normal Size"
-msgstr "Madhësia _Normale"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "_Zoom In"
-msgstr "_Zmadho"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -773,7 +846,6 @@ msgstr "Rrotullo majtas"
 msgid "Rotate Right"
 msgstr "Rrutullo djathtas"
 
-#. GRUT modified this item
 #: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Ruaje _Si..."
@@ -782,13 +854,13 @@ msgstr "Ruaje _Si..."
 msgid "Setup the page settings for your current printer"
 msgstr "Konfiguro rregullimet e faqes për printerin tuaj aktual"
 
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Full Screen"
-msgstr "Ekran i _Plotë"
-
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Printo..."
+
+#: viewer/eog-image-view.c:385
+msgid "Preview"
+msgstr "Shikoje"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
