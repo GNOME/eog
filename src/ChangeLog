@@ -1,3 +1,15 @@
+1999-11-09  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-icon-item-factory.c (ii_factory_configure_item):
+	Implemented the ::configure_item() method, now that we have
+	GnomeCanvasPixbuf.
+	(gnome_icon_item_factory_new): New function to create an icon item
+	factory.
+	(gnome_icon_item_factory_init): Create a stipple pattern for the
+	selection and focus rectangles.
+
+	The ChangeLog for the rest of the icon list framework starts here.
+
 1999-10-20  Federico Mena Quintero  <federico@redhat.com>
 
 	Upgrade to gdk-pixbuf 0.3:

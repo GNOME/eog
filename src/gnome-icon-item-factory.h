@@ -58,6 +58,8 @@ struct _GnomeIconItemFactoryClass {
 
 GtkType gnome_icon_item_factory_get_type (void);
 
+GnomeIconItemFactory *gnome_icon_item_factory_new (void);
+
 void gnome_icon_item_factory_set_item_metrics (GnomeIconItemFactory *factory,
 					       int item_width, int item_height,
 					       int image_width, int image_height);
