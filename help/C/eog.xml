@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.3.5">
-  <!ENTITY manrevision "2.5">
-  <!ENTITY date "September 2003">
+  <!ENTITY appversion "2.4.1">
+  <!ENTITY manrevision "2.6">
+  <!ENTITY date "November 2003">
   <!ENTITY app "Eye of GNOME">
 ]>
 <!-- 
@@ -104,6 +104,14 @@
 		</revdescription> 
     </revision> 
     <revision> 
+		<revnumber>Eye of GNOME Manual V2.5</revnumber> 
+		<date>September 2003</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription> 
+    </revision>
+    <revision> 
 		<revnumber>Eye of GNOME Manual V2.4</revnumber> 
 		<date>January 2003</date> 
 		<revdescription> 
@@ -185,6 +193,8 @@
 	<itemizedlist>
 		<listitem><para>Support for the following image file formats:</para>
 			<itemizedlist>
+				<listitem><para>ANI - Animation</para>
+				</listitem>
 				<listitem><para>BMP - Windows Bitmap</para>
 				</listitem>
 				<listitem><para>GIF - Graphics Interchange Format</para>
@@ -204,6 +214,8 @@
 				<listitem><para>TGA - Targa</para>
 				</listitem>
 				<listitem><para>TIFF - Tagged Image File Format</para>
+				</listitem>
+				<listitem><para>WBMP - Wireless Bitmap</para>
 				</listitem>
 				<listitem><para>XBM - X Bitmap</para>
 				</listitem>
@@ -236,7 +248,7 @@
 			<para>Choose 
 			<menuchoice>
 			<guisubmenu>Graphics</guisubmenu>
-			<guimenuitem>&app; Image Viewer</guimenuitem>
+			<guimenuitem>Image Viewer</guimenuitem>
 			</menuchoice>. </para>
 			</listitem>
 			</varlistentry>
@@ -287,12 +299,12 @@
 		<guimenu>File</guimenu>
 		<guimenuitem>Open</guimenuitem>
 		</menuchoice>. 
-		The <guilabel>Open Image</guilabel> dialog is displayed. Select the file that you 
+		The <guilabel>Load Image</guilabel> dialog is displayed. Select the file that you 
 		want to open, then click <guibutton>OK</guibutton>. </para>
 		<para>To open another image in a new window, choose 
 		<menuchoice>
 		<guimenu>File</guimenu>
-		<guimenuitem>New Window</guimenuitem>
+		<guimenuitem>New</guimenuitem>
 		</menuchoice>. 
 		Choose 
 		<menuchoice>
@@ -316,7 +328,7 @@
 		<guimenu>File</guimenu>
 		<guimenuitem>Open</guimenuitem>
 		</menuchoice>. 
-		The <guilabel>Open Image</guilabel> dialog is displayed. Select the directory that you 
+		The <guilabel>Load Image</guilabel> dialog is displayed. Select the directory that you 
 		want to open, then click <guibutton>OK</guibutton>. <application>&app;</application>
 		displays the images that the directory contains in the <application>&app;</application> window. </para>
 	</sect2>
@@ -355,7 +367,7 @@
 			<guimenuitem>Zoom Out</guimenuitem>
 			</menuchoice>.</para>
 			</listitem>
-			<listitem><para>To view the image at its actual size, choose 
+			<listitem><para>To view the image at actual size, choose 
 			<menuchoice>
 			<guimenu>View</guimenu>
 			<guimenuitem>Normal Size</guimenuitem>
@@ -423,12 +435,12 @@
 			<guimenuitem>Interpolation</guimenuitem>
 			</menuchoice>, 
 		then select the interpolation method you require. 
-		Select one of the following options:</para>
+		Select one of the following options:</para>
 			<itemizedlist>
 			<listitem><para><guimenuitem>Nearest Neighbor</guimenuitem> </para>
 			<para>This method of interpolation takes a location in the original image and replicates the 
 			pixel that is nearest to this location. When you zoom in on an image, the pixels are replicated. 
-			When you zoom out of an image, the image loses some of its detail. </para>
+			When you zoom out of an image, the image loses some detail. </para>
 			</listitem>
 			<listitem><para><guimenuitem>Tiles</guimenuitem> </para>
 			<para>No information available at time of publication.</para>
