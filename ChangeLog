@@ -1,3 +1,13 @@
+2004-10-24  Jens Finke  <jens@triq.net>
+
+	* eog.schemas.in,
+	* eog-config-keys.h:  Added keys for visibility of 
+	info view.
+	* eog-gtk-ui.xml: Added info view toggle.
+	* eog-window.c (verb_ShowHideAnyBar_cb)
+	(update_ui_visiblity): Consider info view updates.
+	Partially fixes #154859.
+
 2004-10-23  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (eog_window_construct_ui)

@@ -1,6 +1,6 @@
 /* Eye of Gnome image viewer - main window widget
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2000-2004 The Free Software Foundation
  *
  * Author: Federico Mena-Quintero <federico@gnu.org>
  *         Jens Finke <jens@gnome.org>
@@ -510,6 +510,27 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_STATUSBAR, visible, NULL);
+	}
+	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewInfo") == 0) {
+		const char *key = NULL;
+		int n_images = 0;
+
+		g_object_set (G_OBJECT (priv->info_view), "visible", visible, NULL);
+
+		if (priv->image_list != NULL) {
+			n_images = eog_image_list_length (priv->image_list);
+		}
+
+		if (n_images == 1) {
+			key = EOG_CONF_UI_INFO_IMAGE;
+		}
+		else if (n_images > 1) {
+			key = EOG_CONF_UI_INFO_COLLECTION;
+		}
+		
+		if (key != NULL) {
+			gconf_client_set_bool (priv->client, key, visible, NULL);
+		}
 	}
 }
 
@@ -1987,9 +2008,12 @@ update_ui_visibility (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	int n_images = 0;
+	gboolean show_info_pane = TRUE;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
-	
+
 	if (priv->image_list != NULL) {
 		n_images = eog_image_list_length (priv->image_list);
 	}
@@ -2002,19 +2026,36 @@ update_ui_visibility (EogWindow *window)
 		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
 	}
 	else if (n_images == 1) {
-		/* update window content */
+		/* update window content for single image mode */
+		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_IMAGE, NULL);
+
 		gtk_widget_show_all (priv->vpane);
 		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+		if (!show_info_pane) 
+			gtk_widget_hide (priv->info_view);
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 	}
 	else {
-		/* update window content */
+		/* update window content for collection mode */
+		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_COLLECTION, NULL);
 		gtk_widget_show_all (priv->vpane);
+		if (!show_info_pane)
+			gtk_widget_hide (priv->info_view);
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+	}
+
+	/* update the toggle menu item for image information pane too */
+	if (n_images > 0) {
+		GtkAction *action;
+
+		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/ViewMenu/InfoToggle");
+		g_assert (action != NULL);
+
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show_info_pane);
 	}
 }
 
@@ -2245,8 +2286,8 @@ static GtkActionEntry action_entries_window[] = {
 
 /* Toggle items */
 static GtkToggleActionEntry toggle_entries_window[] = {
-  { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, "Change the visibility of the toolbar in the current window",   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
-  { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, "Change the visibility of the statusbar in the current window", G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
+  { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, N_("Changes the visibility of the toolbar in the current window"),   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
+  { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, N_("Changes the visibility of the statusbar in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
 };
 
 
@@ -2272,6 +2313,10 @@ static GtkActionEntry action_entries_image[] = {
   { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) }
 };
 
+
+static GtkToggleActionEntry toggle_entries_image[] = {
+  { "ViewInfo",      NULL, N_("Image _Information"), NULL, N_("Change the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
+};
 
 /**
  * window_construct:
@@ -2314,6 +2359,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
 	gtk_action_group_set_translation_domain (priv->actions_image, PACKAGE);
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
+	gtk_action_group_add_toggle_actions (priv->actions_image, toggle_entries_image, G_N_ELEMENTS (toggle_entries_image), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
 	/* find and setup UI description */
@@ -2641,7 +2687,9 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 		g_object_unref (priv->image_list);
 	}
 	priv->image_list = eog_image_list_new ();
-	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), "list_prepared", G_CALLBACK (image_list_prepared_cb),
+	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), 
+						       "list_prepared", 
+						       G_CALLBACK (image_list_prepared_cb),
 						       window);
 
 	/* fill list with uris */
