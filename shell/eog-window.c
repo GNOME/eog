@@ -597,7 +597,6 @@ GtkWidget *
 eog_window_new (void)
 {
 	EogWindow *window;
-	BonoboUIContainer *uic;
 
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, "win_name", "eog", "title", _("Eye of Gnome"), NULL));
 

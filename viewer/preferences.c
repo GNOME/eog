@@ -18,6 +18,8 @@
 
 #include <eog-image-view.h>
 
+#include <libeog/access.h>
+
 #include "preferences.h"
 
 typedef struct {
@@ -141,6 +143,8 @@ create_label (gchar *text,
 	label = gtk_label_new_with_mnemonic (text);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), widget);
 	alignment = gtk_alignment_new (1.0, 0.5, 0.0, 0.0);
+
+	access_add_atk_relation (label, widget, ATK_RELATION_LABEL_FOR, ATK_RELATION_LABELLED_BY);
 	
 	gtk_container_add (GTK_CONTAINER (alignment), label);
 

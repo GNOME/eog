@@ -21,6 +21,12 @@ noinst_LIBRARIES = libeog.a
 
 libeog_a_SOURCES =			\
 	$(CORBA_SOURCES)		\
+	access.c			\
+	access.h			\
+        accessible-image-view-factory.h	\
+        accessible-image-view-factory.c	\
+        accessible-image-view.h		\
+        accessible-image-view.c		\
 	image-view.c			\
 	image-view.h			\
 	uta.c				\
