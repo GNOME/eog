@@ -55,41 +55,36 @@ create_app_list (gpointer data)
 static GnomeVFSURI*
 make_canonical_uri (const char *path)
 {
-	GnomeVFSURI *uri;
-	char *escaped;
+	GnomeVFSURI *uri = NULL;
+	char *plain;
 	char *current_dir;
 	char *canonical;
 	char *concat_path;
 
 	g_return_val_if_fail (path != NULL, NULL);
 
-	uri = NULL;
+	plain = gnome_vfs_unescape_string (path, "/");
 
-	escaped = gnome_vfs_escape_path_string (path);
-
-	if (strchr (escaped, ':') != NULL) {
-		uri = gnome_vfs_uri_new (escaped);
-		goto out;
+	if (strchr (plain, ':') != NULL) {
+		uri = gnome_vfs_uri_new (plain);
 	}
-
-	if (escaped[0] == '/') {
-		uri = gnome_vfs_uri_new (escaped);
-		goto out;
+	else if (plain[0] == '/') {
+		uri = gnome_vfs_uri_new (plain);
 	}
-
-	current_dir = g_get_current_dir ();
-	/* g_get_current_dir returns w/o trailing / */
-	concat_path = g_strconcat (current_dir, "/", escaped, NULL);
-	canonical = gnome_vfs_make_path_name_canonical (concat_path);
+	else {
+		current_dir = g_get_current_dir ();
+		/* g_get_current_dir returns w/o trailing / */
+		concat_path = g_build_filename (current_dir, plain, NULL);
+		canonical = gnome_vfs_make_path_name_canonical (concat_path);
 	
-	uri = gnome_vfs_uri_new (canonical);
+		uri = gnome_vfs_uri_new (canonical);
 
-	g_free (current_dir);
-	g_free (canonical);
-	g_free (concat_path);
+		g_free (current_dir);
+		g_free (canonical);
+		g_free (concat_path);
+	}
 
- out:
-	g_free (escaped);
+	g_free (plain);
 	return uri;
 }
 
