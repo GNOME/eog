@@ -1,4 +1,20 @@
 /*
+ * THIS FILE IS DEAD!
+ *
+ * All code in this file has been merged into the
+ * nautilus-image-viewer.
+ *
+ * We only keep this file here because of the animator
+ * code since we may want to copy some bits from it when
+ * we add animation support to either EOG or the
+ * nautilus-image-view.
+ *
+ * November 16, 2000
+ * Martin Baulig <baulig@suse.de>
+ *
+ */
+
+/*
  * Generic image loading embeddable using gdk-pixbuf.
  *
  * Author:
