@@ -40,11 +40,13 @@ BEGIN_GNOME_DECLS
 typedef struct _FullScreen FullScreen;
 typedef struct _FullScreenClass FullScreenClass;
 
+typedef struct _FullScreenPrivate FullScreenPrivate;
+
 struct _FullScreen {
 	GtkWindow window;
 
 	/* Private data */
-	gpointer priv;
+	FullScreenPrivate *priv;
 };
 
 struct _FullScreenClass {

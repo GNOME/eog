@@ -41,11 +41,13 @@ BEGIN_GNOME_DECLS
 typedef struct _ImageView ImageView;
 typedef struct _ImageViewClass ImageViewClass;
 
+typedef struct _ImageViewPrivate ImageViewPrivate;
+
 struct _ImageView {
 	GtkWidget widget;
 
 	/* Private data */
-	gpointer priv;
+	ImageViewPrivate *priv;
 };
 
 struct _ImageViewClass {

@@ -27,7 +27,7 @@
 #include "ui-image.h"
 
 /* Private part of the FullScreen structure */
-typedef struct {
+struct _FullScreenPrivate {
 	/* Scrolling user interface for the image */
 	GtkWidget *ui;
 
@@ -46,7 +46,7 @@ typedef struct {
 	/* GConf client notify id's */
 	guint sb_policy_notify_id;
 	guint bevel_notify_id;
-} FullScreenPrivate;
+};
 
 
 

@@ -39,12 +39,14 @@ BEGIN_GNOME_DECLS
 typedef struct _Window Window;
 typedef struct _WindowClass WindowClass;
 
+typedef struct _WindowPrivate WindowPrivate;
+
 
 struct _Window {
 	GnomeApp app;
 
 	/* Private data */
-	gpointer priv;
+	WindowPrivate *priv;
 };
 
 struct _WindowClass {

@@ -58,7 +58,7 @@
 #define MAX_ZOOM_FACTOR 128
 
 /* Private part of the ImageView structure */
-typedef struct {
+struct _ImageViewPrivate {
 	/* Image being displayed */
 	Image *image;
 
@@ -121,7 +121,7 @@ typedef struct {
 
 	/* Whether we need to change the zoom factor */
 	guint need_zoom_change : 1;
-} ImageViewPrivate;
+};
 
 /* Signal IDs */
 enum {

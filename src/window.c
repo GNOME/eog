@@ -38,7 +38,7 @@
 #define DEFAULT_WINDOW_HEIGHT 300
 
 /* Private part of the Window structure */
-typedef struct {
+struct _WindowPrivate {
 	/* UIImage widget for our contents */
 	GtkWidget *ui;
 
@@ -61,7 +61,7 @@ typedef struct {
 
 	/* GConf client notify id's */
 	guint sb_policy_notify_id;
-} WindowPrivate;
+};
 
 static void window_class_init (WindowClass *class);
 static void window_init (Window *window);
@@ -69,11 +69,20 @@ static void window_destroy (GtkObject *object);
 
 static gint window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint window_key_press (GtkWidget *widget, GdkEventKey *event);
+static void window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
+				       GtkSelectionData *selection_data, guint info, guint time);
 
 static GnomeAppClass *parent_class;
 
 /* The list of all open windows */
 static GList *window_list;
+
+/* Drag target types */
+enum {
+	TARGET_URI_LIST
+};
+
+
 
 /* Brings attention to a window by raising it and giving it focus */
 static void
@@ -299,6 +308,7 @@ window_class_init (WindowClass *class)
 
 	widget_class->delete_event = window_delete;
 	widget_class->key_press_event = window_key_press;
+	widget_class->drag_data_received = window_drag_data_received;
 }
 
 /* Handler for changes on the window sb policy */
@@ -426,6 +436,72 @@ window_key_press (GtkWidget *widget, GdkEventKey *event)
 	return TRUE;
 }
 
+/* Returns whether a window has an image loaded in it */
+static gboolean
+window_has_image (Window *window)
+{
+	WindowPrivate *priv;
+	ImageView *view;
+	Image *image;
+
+	priv = window->priv;
+
+	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
+	image = image_view_get_image (view);
+
+	return (image && image->pixbuf);
+}
+
+
+/* Drag_data_received handler for windows */
+static void
+window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
+			   GtkSelectionData *selection_data, guint info, guint time)
+{
+	Window *window;
+	WindowPrivate *priv;
+	GList *filenames;
+	GList *l;
+
+	window = WINDOW (widget);
+	priv = window->priv;
+
+	if (info != TARGET_URI_LIST)
+		return;
+
+	/* FIXME: This should use GnomeVFS later and it should not strip the
+	 * method prefix.
+	 */
+
+	filenames = gnome_uri_list_extract_filenames (selection_data->data);
+
+	for (l = filenames; l; l = l->next) {
+		GtkWidget *new_window;
+		char *filename;
+
+		g_assert (l->data != NULL);
+		filename = l->data;
+
+		/* If the current window has no image, open the first image there */
+
+		if (l == filenames && !window_has_image (window))
+			new_window = GTK_WIDGET (window);
+		else
+			new_window = window_new ();
+
+		if (window_open_image (WINDOW (new_window), filename))
+			gtk_widget_show_now (new_window);
+		else {
+			open_failure_dialog (GTK_WINDOW (new_window), filename);
+
+			if (new_window != GTK_WIDGET (window))
+				gtk_widget_destroy (new_window);
+		}
+	}
+
+	gnome_uri_list_free_strings (filenames);
+}
+
 /**
  * window_new:
  * @void:
@@ -453,6 +529,21 @@ sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
 
 	for (; *widgets != NULL; widgets++)
 		gtk_widget_set_sensitive (*widgets, sensitive);
+}
+
+/* Sets the window as a drag destination */
+static void
+set_drag_dest (Window *window)
+{
+	static const GtkTargetEntry drag_types[] = {
+		{ "text/uri-list", 0, TARGET_URI_LIST }
+	};
+
+	gtk_drag_dest_set (GTK_WIDGET (window),
+			   GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
+			   drag_types,
+			   sizeof (drag_types) / sizeof (drag_types[0]),
+			   GDK_ACTION_COPY);
 }
 
 /**
@@ -492,6 +583,8 @@ window_construct (Window *window)
 
 	gtk_widget_set_sensitive (priv->view_menu, TRUE);
 	sensitize_zoom_items (priv->zoom_tb_items, TRUE);
+
+	set_drag_dest (window);
 }
 
 /**
@@ -520,16 +613,11 @@ static void
 open_new_window (Window *window, const char *filename)
 {
 	WindowPrivate *priv;
-	ImageView *view;
-	Image *image;
 	GtkWidget *new_window;
 
 	priv = window->priv;
 
-	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
-	image = image_view_get_image (view);
-
-	if (!(image && image->pixbuf))
+	if (!window_has_image (window))
 		new_window = GTK_WIDGET (window);
 	else
 		new_window = window_new ();
@@ -650,11 +738,11 @@ auto_size (Window *window)
 
 	priv = window->priv;
 
+	if (!window_has_image (window))
+		return;
+
 	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
 	image = image_view_get_image (IMAGE_VIEW (view));
-
-	if (!(image && image->pixbuf))
-		return;
 
 	iwidth = gdk_pixbuf_get_width (image->pixbuf);
 	iheight = gdk_pixbuf_get_height (image->pixbuf);

@@ -1,5 +1,26 @@
 2000-09-02  Federico Mena Quintero  <federico@helixcode.com>
 
+	Lightly-modified patch from Juan Pablo Mendoza Mendoza
+	<pablo_juan@yahoo.com> to support DnD of URIs to windows.
+
+	* window.c (window_drag_data_received): Drop handler for windows;
+	opens a bunch of filenames.
+	(set_drag_dest): New function.
+	(window_construct): Use set_drag_dest().
+
+	* window.c (window_has_image): New helper function.
+	(open_new_window): Use window_has_image().
+	(auto_size): Use window_has_image().
+
+	* window.h (Window): Declare the private structure here so GDB
+	will give me love.
+
+	* image-view.h (ImageView): Likewise.
+
+	* full-screen.h (FullScreen): Likewise.
+
+	* ui-image.h (UIImage): Likewise.
+
 	* image-view.c (image_view_set_zoom): Define a maximum zoom
 	factor.
 

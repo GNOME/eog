@@ -30,10 +30,10 @@
 
 /* Private part of the UIImage structure */
 
-typedef struct {
+struct _UIImagePrivate {
 	/* Image view widget */
 	GtkWidget *view;
-} UIImagePrivate;
+};
 
 
 

@@ -40,11 +40,13 @@ BEGIN_GNOME_DECLS
 typedef struct _UIImage UIImage;
 typedef struct _UIImageClass UIImageClass;
 
+typedef struct _UIImagePrivate UIImagePrivate;
+
 struct _UIImage {
 	GtkScrollFrame sf;
 
 	/* Private data */
-	gpointer priv;
+	UIImagePrivate *priv;
 };
 
 struct _UIImageClass {
