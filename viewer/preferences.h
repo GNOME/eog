@@ -13,13 +13,13 @@
 
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 GtkWidget *
 eog_create_preferences_page (EogImageView *image_view,
 			     guint page_number);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif
 

@@ -12,8 +12,9 @@
 #define _EOG_EMBEDDABLE_H_
 
 #include <eog-image-view.h>
+#include <bonobo/Bonobo.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_EMBEDDABLE_TYPE          (eog_embeddable_get_type ())
 #define EOG_EMBEDDABLE(o)            (GTK_CHECK_CAST ((o), EOG_EMBEDDABLE_TYPE, EogEmbeddable))
@@ -27,13 +28,15 @@ typedef struct _EogEmbeddableClass    EogEmbeddableClass;
 typedef struct _EogEmbeddablePrivate  EogEmbeddablePrivate;
 
 struct _EogEmbeddable {
-	BonoboEmbeddable embeddable;
+	// FIXME: changed from parent as BonobEmbeddable, is this right??
+	BonoboObject embeddable;
 
 	EogEmbeddablePrivate *priv;
 };
 
 struct _EogEmbeddableClass {
-	BonoboEmbeddableClass parent_class;
+	// FIXME: changed from parent as BonobEmbeddableClass, is this right??
+	BonoboObjectClass parent_class;
 };
 
 EogEmbeddable *
@@ -46,6 +49,6 @@ EogEmbeddable *
 eog_embeddable_construct                (EogEmbeddable           *embeddable,
                                          EogImage                *image);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_EMBEDDABLE */

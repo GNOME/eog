@@ -13,7 +13,7 @@
 
 #include <eog-image.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_IMAGE_VIEW_TYPE          (eog_image_view_get_type ())
 #define EOG_IMAGE_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_IMAGE_VIEW_TYPE, EogImageView))
@@ -92,6 +92,6 @@ void                eog_image_view_set_check_size (EogImageView            *imag
 						   GNOME_EOG_CheckSize      check_size);
 GNOME_EOG_CheckSize eog_image_view_get_check_size (EogImageView            *image_view);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_IMAGE_VIEW */

@@ -11,9 +11,10 @@
 #ifndef _EOG_EMBEDDABLE_VIEW_H_
 #define _EOG_EMBEDDABLE_VIEW_H_
 
+#include <glib/gmacros.h>
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_EMBEDDABLE_VIEW_TYPE          (eog_embeddable_view_get_type ())
 #define EOG_EMBEDDABLE_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_EMBEDDABLE_VIEW_TYPE, EogEmbeddableView))
@@ -46,6 +47,6 @@ EogEmbeddableView *
 eog_embeddable_view_construct           (EogEmbeddableView       *embeddable_view,
                                          EogImage                *image);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_EMBEDDABLE_VIEW */

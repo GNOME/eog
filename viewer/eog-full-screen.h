@@ -22,11 +22,11 @@
 #ifndef _EOG_FULL_SCREEN_H_
 #define _EOG_FULL_SCREEN_H_
 
-#include <libgnome/gnome-defs.h>
+#include <glib/gmacros.h>
 #include <gtk/gtkwindow.h>
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define EOG_TYPE_FULL_SCREEN            (eog_full_screen_get_type ())
 #define EOG_FULL_SCREEN(obj)            (GTK_CHECK_CAST ((obj), EOG_TYPE_FULL_SCREEN, EogFullScreen))
@@ -51,6 +51,6 @@ struct _EogFullScreenClass {
 GtkType    eog_full_screen_get_type (void);
 GtkWidget *eog_full_screen_new (EogImage *eog_image);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_FULL_SCREEN_H_ */

@@ -4,7 +4,7 @@
 #include <gnome.h>
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define EOG_TYPE_PRINT_SETUP		(eog_print_setup_get_type ())
 #define EOG_PRINT_SETUP(obj)		(GTK_CHECK_CAST ((obj), EOG_TYPE_PRINT_SETUP, EogPrintSetup))
@@ -32,7 +32,7 @@ GtkType		eog_print_setup_get_type (void);
 
 GtkWidget*	eog_print_setup_new	 (EogImageView *image_view);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_PRINT_SETUP_H_ */
 

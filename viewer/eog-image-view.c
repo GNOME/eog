@@ -7,6 +7,7 @@
  *
  * Copyright 2000 SuSE GmbH.
  */
+
 #include <config.h>
 #include <stdio.h>
 #include <gtk/gtksignal.h>
@@ -15,7 +16,8 @@
 #include <gconf/gconf-client.h>
 
 #include <gnome.h>
-#include <libgnomeprint/gnome-print-master-preview.h>
+#include <libgnomeprint/gnome-print-master.h>
+#include <libgnomeprint/gnome-print.h>
 
 #include <eog-print-setup.h>
 #include <eog-image-view.h>
@@ -24,6 +26,9 @@
 #include <ui-image.h>
 
 #include <preferences.h>
+
+#include <bonobo/bonobo-stream.h>
+#include <bonobo/bonobo-ui-util.h>
 
 #ifdef ENABLE_EVOLUTION
 #  include "Evolution-Composer.h"
@@ -253,7 +258,7 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 {
 	EogImageView     *image_view;
 	GtkWidget        *fsel;
-	gchar            *filename;
+	const gchar      *filename;
 	gchar            *message;
 	CORBA_Environment ev;
 	BonoboStream     *stream;
@@ -844,6 +849,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 		      gint adjust_to, gdouble overlap_x, gdouble overlap_y,
 		      gboolean overlap)
 {
+#if 0 
+/* FIXME GNOME2: make printing work! */
 	GdkPixbuf	  *pixbuf;
 	GdkPixbuf	  *pixbuf_orig;
 	GdkInterpType	   interp;
@@ -985,6 +992,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 	}
 
 	gtk_object_unref (GTK_OBJECT (print_master));
+#endif /* FIXME GNOME2: make printing work */
 }
 
 static void
@@ -1114,7 +1122,7 @@ eog_image_view_create_ui (EogImageView *image_view)
 
 	/* Set up the UI from an XML file. */
         bonobo_ui_util_set_ui (image_view->priv->uic, DATADIR,
-			       "eog-image-view-ui.xml", "EogImageView");
+			       "eog-image-view-ui.xml", "EogImageView", NULL);
 
 #ifdef ENABLE_EVOLUTION
 	bonobo_ui_component_set_translate (image_view->priv->uic,
@@ -1530,7 +1538,7 @@ eog_image_view_set_ui_container (EogImageView      *image_view,
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Setting ui container for EogImageView...");
 
-	bonobo_ui_component_set_container (image_view->priv->uic, ui_container);
+	bonobo_ui_component_set_container (image_view->priv->uic, ui_container, NULL);
 
 	eog_image_view_create_ui (image_view);
 }
@@ -1544,7 +1552,7 @@ eog_image_view_unset_ui_container (EogImageView *image_view)
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Unsetting ui container for EogImageView...");
 
-	bonobo_ui_component_unset_container (image_view->priv->uic);
+	bonobo_ui_component_unset_container (image_view->priv->uic, NULL);
 }
 
 GtkWidget *
@@ -1792,7 +1800,7 @@ eog_image_view_destroy (GtkObject *object)
 }
 
 static void
-eog_image_view_finalize (GtkObject *object)
+eog_image_view_finalize (GObject *object)
 {
 	EogImageView *image_view;
 
@@ -1803,13 +1811,15 @@ eog_image_view_finalize (GtkObject *object)
 
 	g_free (image_view->priv);
 
-	GTK_OBJECT_CLASS (eog_image_view_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_image_view_parent_class)->finalize (object);
 }
 
 static void
 eog_image_view_class_init (EogImageViewClass *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
+
 	POA_GNOME_EOG_ImageView__epv *epv;
 
 	eog_image_view_parent_class = gtk_type_class (PARENT_TYPE);
@@ -1817,7 +1827,7 @@ eog_image_view_class_init (EogImageViewClass *klass)
 	gtk_object_class_add_signals (object_class, eog_image_view_signals, LAST_SIGNAL);
 
 	object_class->destroy = eog_image_view_destroy;
-	object_class->finalize = eog_image_view_finalize;
+	gobject_class->finalize = eog_image_view_finalize;
 
 	epv = &klass->epv;
 

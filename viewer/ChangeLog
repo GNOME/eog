@@ -1,3 +1,43 @@
+2001-11-28  Seth Nickell  <snickell@stanford.edu>
+
+	* Makefile.am:
+	* eog-control.c: (eog_control_finalize),
+	(zoomable_set_zoom_level_cb), (eog_control_set_ui_container),
+	(eog_control_unset_ui_container), (eog_control_activate),
+	(eog_control_class_init), (eog_control_construct):
+	* eog-control.h:
+	* eog-embeddable-view.c: (eog_embeddable_view_finalize),
+	(eog_embeddable_view_class_init), (eog_embeddable_view_construct):
+	* eog-embeddable-view.h:
+	* eog-embeddable.c: (eog_embeddable_finalize),
+	(eog_embeddable_class_init):
+	* eog-embeddable.h:
+	* eog-full-screen.c: (eog_full_screen_finalize),
+	(eog_full_screen_class_init):
+	* eog-full-screen.h:
+	* eog-image-io.h:
+	* eog-image-view.c: (filesel_ok_cb), (eog_image_view_print),
+	(eog_image_view_create_ui), (eog_image_view_set_ui_container),
+	(eog_image_view_unset_ui_container), (eog_image_view_finalize),
+	(eog_image_view_class_init):
+	* eog-image-view.h:
+	* eog-image.c: (eog_image_finalize), (eog_image_class_init),
+	(load_image_from_stream), (load_image_from_file),
+	(eog_image_add_interfaces):
+	* eog-image.h:
+	* eog-preview-page.c:
+	* eog-preview-page.h:
+	* eog-preview.h:
+	* eog-print-setup.c: (eog_print_setup_new):
+	* eog-print-setup.h:
+	* eog-util.c: (eog_util_load_print_settings),
+	(eog_util_paper_size):
+	* eog-util.h:
+	* preferences.h:
+	* sample-container.c:
+
+	Initial port to GNOME2.
+	
 2001-09-30  Benedikt Roth  <Benedikt.Roth@gmx.net>
 
 	* GNOME_EOG.oaf.in:

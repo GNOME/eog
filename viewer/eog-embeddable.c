@@ -46,7 +46,7 @@ eog_embeddable_destroy (GtkObject *object)
 }
 
 static void
-eog_embeddable_finalize (GtkObject *object)
+eog_embeddable_finalize (GObject *object)
 {
 	EogEmbeddable *embeddable;
 
@@ -57,18 +57,19 @@ eog_embeddable_finalize (GtkObject *object)
 
 	g_free (embeddable->priv);
 
-	GTK_OBJECT_CLASS (eog_embeddable_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_embeddable_parent_class)->finalize (object);
 }
 
 static void
 eog_embeddable_class_init (EogEmbeddable *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
 
 	eog_embeddable_parent_class = gtk_type_class (bonobo_embeddable_get_type ());
 
 	object_class->destroy  = eog_embeddable_destroy;
-	object_class->finalize = eog_embeddable_finalize;
+	gobject_class->finalize = eog_embeddable_finalize;
 }
 
 static void

@@ -586,7 +586,7 @@ eog_print_setup_new (EogImageView *image_view)
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-vertical.png");
+	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-vertical.png", NULL);
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
 	widget = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);
@@ -596,7 +596,7 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (button);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-horizontal.png");
+	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-horizontal.png", NULL);
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
 	widget = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);
@@ -834,7 +834,7 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 0, 1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/down-right.png");
+	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/down-right.png", NULL);
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
 	new->priv->image_down_right = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);
@@ -853,7 +853,7 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 1, 2,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/right-down.png");
+	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/right-down.png", NULL);
 	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
 	new->priv->image_right_down = gtk_pixmap_new (pixmap, bitmap);
 	gdk_pixbuf_unref (pixbuf);

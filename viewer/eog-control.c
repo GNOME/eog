@@ -12,7 +12,7 @@
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
-#include <libeog/gtkscrollframe.h>
+#include <gtk/gtkscrolledwindow.h>
 
 #include <gnome.h>
 
@@ -52,7 +52,7 @@ eog_control_destroy (GtkObject *object)
 }
 
 static void
-eog_control_finalize (GtkObject *object)
+eog_control_finalize (GObject *object)
 {
 	EogControl *control;
 
@@ -63,7 +63,7 @@ eog_control_finalize (GtkObject *object)
 
 	g_free (control->priv);
 
-	GTK_OBJECT_CLASS (eog_control_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_control_parent_class)->finalize (object);
 }
 
 static void
@@ -88,7 +88,7 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 		(control->priv->image_view);
 
 	bonobo_zoomable_report_zoom_level_changed
-		(zoomable, control->priv->zoom_level);
+		(zoomable, control->priv->zoom_level, NULL);
 }
 
 static float preferred_zoom_levels[] = {
@@ -314,7 +314,7 @@ eog_control_set_ui_container (EogControl *control,
 	eog_image_view_set_ui_container (control->priv->image_view,
 					 ui_container);
 
-	bonobo_ui_component_set_container (control->priv->uic, ui_container);
+	bonobo_ui_component_set_container (control->priv->uic, ui_container, NULL);
 
 	eog_control_create_ui (control);
 }
@@ -327,7 +327,7 @@ eog_control_unset_ui_container (EogControl *control)
 
 	eog_image_view_unset_ui_container (control->priv->image_view);
 
-	bonobo_ui_component_unset_container (control->priv->uic);
+	bonobo_ui_component_unset_container (control->priv->uic, NULL);
 }
 
 static void
@@ -343,7 +343,7 @@ eog_control_activate (BonoboControl *object, gboolean state)
 	if (state) {
 		Bonobo_UIContainer ui_container;
 
-		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (control));
+		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (control), NULL);
 		if (ui_container != CORBA_OBJECT_NIL) {
 			eog_control_set_ui_container (control, ui_container);
 			bonobo_object_release_unref (ui_container, NULL);
@@ -359,12 +359,13 @@ static void
 eog_control_class_init (EogControl *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
 	BonoboControlClass *control_class = (BonoboControlClass *)klass;
 
 	eog_control_parent_class = gtk_type_class (bonobo_control_get_type ());
 
 	object_class->destroy = eog_control_destroy;
-	object_class->finalize = eog_control_finalize;
+	gobject_class->finalize = eog_control_finalize;
 
 	control_class->activate = eog_control_activate;
 }
@@ -423,7 +424,7 @@ eog_control_construct (EogControl    *control,
 		return NULL;
 	}
 	widget = eog_image_view_get_widget (control->priv->image_view);
-	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (widget),
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget),
 					  GTK_SHADOW_IN);
 	gtk_widget_unref (widget);
 	
@@ -475,7 +476,9 @@ eog_control_construct (EogControl    *control,
 	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
 
 	pb = eog_image_view_get_property_bag (control->priv->image_view);
-	bonobo_control_set_properties (BONOBO_CONTROL (control), pb);
+	bonobo_control_set_properties (BONOBO_CONTROL (control), 
+				       /* FIXME GNOME2: is this cast right? */(Bonobo_PropertyBag)pb, 
+				       NULL);
 	bonobo_object_unref (BONOBO_OBJECT (pb));
 
 	pc = eog_image_view_get_property_control (control->priv->image_view);

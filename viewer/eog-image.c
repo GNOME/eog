@@ -65,7 +65,7 @@ eog_image_destroy (GtkObject *object)
 }
 
 static void
-eog_image_finalize (GtkObject *object)
+eog_image_finalize (GObject *object)
 {
 	EogImage *image;
 
@@ -76,13 +76,15 @@ eog_image_finalize (GtkObject *object)
 
 	g_free (image->priv);
 
-	GTK_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
 }
 
 static void
 eog_image_class_init (EogImageClass *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
+
 	POA_GNOME_EOG_Image__epv *epv;
 
 	eog_image_parent_class = gtk_type_class (PARENT_TYPE);
@@ -92,7 +94,7 @@ eog_image_class_init (EogImageClass *klass)
 	eog_image_signals [SET_IMAGE_SIGNAL] =
                 gtk_signal_new ("set_image",
                                 GTK_RUN_LAST,
-                                object_class->type,
+                                GTK_CLASS_TYPE (object_class),
                                 GTK_SIGNAL_OFFSET (EogImageClass, set_image),
                                 gtk_marshal_NONE__NONE,
                                 GTK_TYPE_NONE, 0);
@@ -101,7 +103,7 @@ eog_image_class_init (EogImageClass *klass)
 				      LAST_SIGNAL);
 
 	object_class->destroy = eog_image_destroy;
-	object_class->finalize = eog_image_finalize;
+	gobject_class->finalize = eog_image_finalize;
 
 	epv = &klass->epv;
 }
@@ -156,7 +158,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 		if (buffer->_buffer &&
 		     !gdk_pixbuf_loader_write (loader,
 					       buffer->_buffer,
-					       buffer->_length)) {
+					       buffer->_length, NULL)) {
 			CORBA_free (buffer);
 			if (ev->_major == CORBA_NO_EXCEPTION)
 				goto exit_clean;
@@ -168,7 +170,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 		CORBA_free (buffer);
 	} while (len > 0);
 
-	gdk_pixbuf_loader_close (loader);
+	gdk_pixbuf_loader_close (loader, NULL);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 
 	if (!image->priv->pixbuf)
@@ -282,17 +284,17 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		if (result != GNOME_VFS_OK)
 			break;
 		
-		if(!gdk_pixbuf_loader_write (loader, buffer, bytes_read))
+		if(!gdk_pixbuf_loader_write (loader, buffer, bytes_read, NULL))
 			break;
 	}
 
 	if (result != GNOME_VFS_ERROR_EOF) {
-		gdk_pixbuf_loader_close (loader);
+		gdk_pixbuf_loader_close (loader, NULL);
 		gnome_vfs_uri_unref (uri);
 		return -1;
 	}
 	
-	gdk_pixbuf_loader_close (loader);
+	gdk_pixbuf_loader_close (loader, NULL);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
 	if (!image->priv->pixbuf) {
 		gnome_vfs_uri_unref (uri);
@@ -301,7 +303,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	gdk_pixbuf_ref (image->priv->pixbuf);
 
-	image->priv->filename = g_strdup (gnome_vfs_uri_get_basename (uri));
+	image->priv->filename = gnome_vfs_uri_extract_short_name (uri);
 	
 	gnome_vfs_uri_unref (uri);
 
@@ -380,7 +382,7 @@ eog_image_add_interfaces (EogImage     *image,
 				     BONOBO_OBJECT (stream));
 
 	/* Interface Bonobo::PersistFile */
-	file = bonobo_persist_file_new (load_image_from_file, NULL, image);
+	file = bonobo_persist_file_new (load_image_from_file, NULL, NULL /*FIXME: "iid this interface is aggragated to"*/, image);
 	if (!file) {
 		bonobo_object_unref (BONOBO_OBJECT (to_aggregate));
 		return NULL;

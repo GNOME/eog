@@ -15,7 +15,7 @@
 
 #include <gnome.h>
 
-#include "gtkscrollframe.h"
+#include <gtk/gtkscrolledwindow.h>
 #include "image-view.h"
 #include "eog-embeddable-view.h"
 
@@ -91,7 +91,7 @@ eog_embeddable_view_destroy (GtkObject *object)
 }
 
 static void
-eog_embeddable_view_finalize (GtkObject *object)
+eog_embeddable_view_finalize (GObject *object)
 {
 	EogEmbeddableView *embeddable_view;
 
@@ -102,19 +102,20 @@ eog_embeddable_view_finalize (GtkObject *object)
 
 	g_free (embeddable_view->priv);
 
-	GTK_OBJECT_CLASS (eog_embeddable_view_parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_embeddable_view_parent_class)->finalize (object);
 }
 
 static void
 eog_embeddable_view_class_init (EogEmbeddableView *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *gobject_class = (GObjectClass *)klass;
 	BonoboControlClass *control_class = (BonoboControlClass *)klass;
 
 	eog_embeddable_view_parent_class = gtk_type_class (bonobo_view_get_type ());
 
 	object_class->destroy = eog_embeddable_view_destroy;
-	object_class->finalize = eog_embeddable_view_finalize;
+	gobject_class->finalize = eog_embeddable_view_finalize;
 
 	control_class->activate = eog_embeddable_view_activate;
 }
@@ -221,7 +222,7 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 
 	embeddable_view->priv->image_view = eog_image_view_new (image, TRUE);
 	embeddable_view->priv->root = eog_image_view_get_widget (embeddable_view->priv->image_view);
-	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (embeddable_view->priv->root),
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (embeddable_view->priv->root),
 				     GTK_POLICY_NEVER,
 				     GTK_POLICY_NEVER);
 

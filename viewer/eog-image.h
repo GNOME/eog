@@ -13,10 +13,11 @@
 
 #include <Eog.h>
 #include <bonobo.h>
+#include <bonobo/bonobo-xobject.h>
 
 #include <eog-util.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_IMAGE_TYPE          (eog_image_get_type ())
 #define EOG_IMAGE(o)            (GTK_CHECK_CAST ((o), EOG_IMAGE_TYPE, EogImage))
@@ -61,6 +62,6 @@ void	eog_image_load_from_stream	(EogImage                  *image,
 					 Bonobo_Stream              stream,
 					 CORBA_Environment         *ev);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_IMAGE */

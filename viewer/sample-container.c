@@ -8,7 +8,7 @@
  * Copyright 2000 SuSE GmbH.
  */
 #include <gnome.h>
-#include <liboaf/liboaf.h>
+#include <bonobo-activation/bonobo-activation.h>
 #include <bonobo.h>
 
 static void

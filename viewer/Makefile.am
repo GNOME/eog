@@ -10,7 +10,6 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
-	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
@@ -22,25 +21,7 @@ sample_container_LDADD = $(GNOME_LIBS) $(EXTRA_GNOME_LIBS)
 
 bin_PROGRAMS = eog-image-viewer
 
-if ENABLE_EVOLUTION
-EVOLUTION_GENERATED =			\
-	Evolution-Composer.h		\
-	Evolution-Composer-common.c	\
-	Evolution-Composer-skels.c	\
-	Evolution-Composer-stubs.c
-endif
-
-if ENABLE_GNOCAM
-GNOCAM_GENERATED =			\
-	GnoCam.h			\
-	GnoCam-common.c			\
-	GnoCam-skels.c			\
-	GnoCam-stubs.c
-endif
-
 eog_image_viewer_SOURCES =	\
-	$(EVOLUTION_GENERATED)	\
-	$(GNOCAM_GENERATED)	\
 	eog-image.c		\
 	eog-image.h		\
 	eog-image-io.c		\
@@ -69,27 +50,12 @@ eog_image_viewer_SOURCES =	\
 
 eog_image_viewer_LDADD = 			\
 	$(GNOME_LIBS)				\
-	$(GNOME_LIBDIR)				\
-	$(GCONF_LIBS)				\
-	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_GNOME_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
 
-if ENABLE_EVOLUTION
-$(EVOLUTION_GENERATED):
-	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
-endif
-
-if ENABLE_GNOCAM
-$(GNOCAM_GENERATED):
-	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/GnoCam.idl
-endif
-
 uidir = $(datadir)/gnome/ui
 ui_DATA = eog-image-view-ui.xml
 
-CLEANFILES += $(EVOLUTION_GENERATED) $(GNOCAM_GENERATED)
 EXTRA_DIST = $(ui_DATA)
-

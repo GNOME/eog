@@ -13,7 +13,7 @@
 
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
  
 #define EOG_CONTROL_TYPE           (eog_control_get_type ())
 #define EOG_CONTROL(o)             (GTK_CHECK_CAST ((o), EOG_CONTROL_TYPE, EogControl))
@@ -41,6 +41,6 @@ EogControl    *eog_control_new                         (EogImage      *image);
 EogControl    *eog_control_construct                   (EogControl    *control,
 							EogImage      *image);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_EOG_CONTROL */

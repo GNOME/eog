@@ -165,7 +165,7 @@ eog_full_screen_destroy (GtkObject *object)
 
 /* Finalize handler for the full screen view */
 static void
-eog_full_screen_finalize (GtkObject *object)
+eog_full_screen_finalize (GObject *object)
 {
 	EogFullScreen *fs;
 
@@ -176,8 +176,8 @@ eog_full_screen_finalize (GtkObject *object)
 
 	g_free (fs->priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+	  (* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 /* Class initialization function for the full screen mode */
@@ -185,15 +185,17 @@ static void
 eog_full_screen_class_init (EogFullScreenClass *class)
 {
 	GtkObjectClass *object_class;
+	GObjectClass *gobject_class;
 	GtkWidgetClass *widget_class;
 
 	object_class = (GtkObjectClass *) class;
+	gobject_class = (GObjectClass *) class;
 	widget_class = (GtkWidgetClass *) class;
 
 	parent_class = gtk_type_class (GTK_TYPE_WINDOW);
 
 	object_class->destroy = eog_full_screen_destroy;
-	object_class->finalize = eog_full_screen_finalize;
+	gobject_class->finalize = eog_full_screen_finalize;
 
 	widget_class->show = eog_full_screen_show;
 	widget_class->hide = eog_full_screen_hide;

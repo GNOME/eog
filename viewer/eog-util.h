@@ -15,7 +15,7 @@
 #include <bonobo.h>
 #include <gconf/gconf-client.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 void
 eog_util_add_interfaces                 (BonoboObject            *object,
@@ -51,6 +51,6 @@ eog_util_paper_size			(const gchar 		 *paper_size,
 					 gdouble		 *width,
 					 gdouble		 *height);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_UTIL_H_ */

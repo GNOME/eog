@@ -3,7 +3,7 @@
 #endif
 
 #include <eog-preview-page.h>
-#include <gdk-pixbuf/gnome-canvas-pixbuf.h>
+#include <libgnomecanvas/gnome-canvas-pixbuf.h>
 
 #define PARENT_TYPE GNOME_TYPE_CANVAS
 static GnomeCanvasClass *parent_class = NULL;

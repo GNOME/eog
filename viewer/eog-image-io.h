@@ -23,7 +23,7 @@
 
 #include <eog-image.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 /* 
  * You may call all these functions with or without the image library
@@ -43,7 +43,7 @@ gboolean eog_image_save_jpeg (EogImage          *image,
 			      Bonobo_Stream      stream,
 			      CORBA_Environment *ev);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_IMAGE_IO_H_ */
 

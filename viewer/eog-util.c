@@ -9,6 +9,7 @@
  */
 
 #include <eog-util.h>
+#include <libgnomeprint/gnome-print-paper.h>
 
 GSList *
 eog_util_split_string (const gchar *string, const gchar *delimiter)
@@ -104,22 +105,24 @@ eog_util_load_print_settings (GConfClient *client,
 	/* First time users */
 	if (*adjust_to == 0)
 		*adjust_to = 100;
-	if (*paper_size == NULL)
-		*paper_size = g_strdup (gnome_paper_name_default ());
+	/* FIXME GNOME2
+	   if (*paper_size == NULL)
+	   *paper_size = g_strdup (gnome_print_paper_get_default ());
+	 */
 }
 
 void
 eog_util_paper_size (const gchar *paper_size, gboolean landscape, 
 		     gdouble *width, gdouble *height)
 {
-	const GnomePaper *paper;
+	const GnomePrintPaper *paper;
 
-	paper = gnome_paper_with_name (paper_size);
+	paper = gnome_print_paper_get_by_name (paper_size);
 	if (landscape) {
-		*width = gnome_paper_psheight (paper); 
-		*height = gnome_paper_pswidth (paper); 
+		*width = gnome_print_paper_psheight (paper); 
+		*height = gnome_print_paper_pswidth (paper); 
 	} else { 
-		*width = gnome_paper_pswidth (paper); 
-		*height = gnome_paper_psheight (paper);
+		*width = gnome_print_paper_pswidth (paper); 
+		*height = gnome_print_paper_psheight (paper);
 	}
 } 

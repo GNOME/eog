@@ -4,7 +4,7 @@
 #include <gnome.h>
 #include <eog-image-view.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 #define EOG_TYPE_PREVIEW_PAGE		 (eog_preview_page_get_type ())
 #define EOG_PREVIEW_PAGE(obj)		 (GTK_CHECK_CAST ((obj), EOG_TYPE_PREVIEW_PAGE, EogPreviewPage))
@@ -42,7 +42,7 @@ void 	   eog_preview_page_update (EogPreviewPage *page,
 				    gdouble overlap_y, gboolean overlap,
 				    gint *cols_needed, gint *rows_needed);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif /* _EOG_PREVIEW_PAGE_H_ */
 
