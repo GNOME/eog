@@ -46,6 +46,8 @@ libeog_a_SOURCES =			\
 	eog-full-screen.c		\
 	eog-pixbuf-util.h		\
 	eog-pixbuf-util.c		\
+	eog-transform.h			\
+	eog-transform.c			\
 	eog-image.c			\
 	eog-image.h			\
 	eog-scroll-view.c		\

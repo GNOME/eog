@@ -177,83 +177,57 @@ verb_FullScreen_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 }
 
 static void
-verb_FlipHorizontal_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+apply_transformation (EogImageView *view, EogTransform *trans)
 {
-	EogImageView *image_view;
 	EogImageViewPrivate *priv;
 
-	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
-
-	image_view = EOG_IMAGE_VIEW (data);
-	priv = image_view->priv;
+	priv = view->priv;
 
 	if (priv->image != NULL) {
-		eog_image_flip_horizontal (priv->image);
+		eog_image_transform (priv->image, trans);
 	}
+
+	g_object_unref (trans);
+}
+
+static void
+verb_FlipHorizontal_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_HORIZONTAL));
 }
 
 static void
 verb_FlipVertical_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 {
-	EogImageView *image_view;
-	EogImageViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
 
-	image_view = EOG_IMAGE_VIEW (data);
-	priv = image_view->priv;
-
-	if (priv->image != NULL) {
-		eog_image_flip_vertical (priv->image);
-	}
+	apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_VERTICAL));
 }
 
 static void
 verb_Rotate90ccw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 {
-	EogImageView *image_view;
-	EogImageViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
 
-	image_view = EOG_IMAGE_VIEW (data);
-	priv = image_view->priv;
-
-	if (priv->image != NULL) {
-		eog_image_rotate_counter_clock_wise (priv->image);
-	}
+	apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_rotate_new (270));
 }
 
 static void
 verb_Rotate90cw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 {
-	EogImageView *image_view;
-	EogImageViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
 
-	image_view = EOG_IMAGE_VIEW (data);
-	priv = image_view->priv;
-
-	if (priv->image != NULL) {
-		eog_image_rotate_clock_wise (priv->image);
-	}
+	apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_rotate_new (90));
 }
 
 static void
 verb_Rotate180_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 {
-	EogImageView *image_view;
-	EogImageViewPrivate *priv;
-
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
 
-	image_view = EOG_IMAGE_VIEW (data);
-	priv = image_view->priv;
-
-	if (priv->image != NULL) {
-		eog_image_rotate_180 (priv->image);
-	}
+	apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_rotate_new (180));
 }
 
 static void

@@ -4,6 +4,7 @@
 #include <glib-object.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include "eog-transform.h"
 
 G_BEGIN_DECLS
 
@@ -85,11 +86,8 @@ const gchar*        eog_image_get_collate_key                 (EogImage *img);
 gpointer            eog_image_get_exif_information            (EogImage *img);
 
 /* modification API */
-void                eog_image_rotate_clock_wise               (EogImage *img);
-void                eog_image_rotate_counter_clock_wise       (EogImage *img);
-void                eog_image_rotate_180                      (EogImage *img);
-void                eog_image_flip_horizontal                 (EogImage *img);
-void                eog_image_flip_vertical                   (EogImage *img);
+void                eog_image_transform                       (EogImage *img, EogTransform *trans);
+void                eog_image_undo                            (EogImage *img);
 
 G_END_DECLS
 

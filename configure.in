@@ -18,6 +18,7 @@ LIBGLADE_REQUIRED=2.0.1
 GDKPIXBUF_REQUIRED=2.2.1
 LIBEXIF_REQUIRED=0.5.9
 EEL_REQUIRED=2.2.0
+LIBART_REQUIRED=2.2.0
 
 dnl ===============================================================================
 
@@ -47,7 +48,7 @@ AC_SUBST(LDFLAGS)
 
 dnl ================= gnome libs check ====================================
 
-EOG_MODULES="gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED"
+EOG_MODULES="gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED libart-2.0 >= $LIBART_REQUIRED"
 
 dnl ============== optional exif support ====================
 

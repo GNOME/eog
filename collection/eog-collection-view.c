@@ -52,6 +52,7 @@
 #include "eog-collection-marshal.h"
 #include "eog-full-screen.h"
 #include "eog-info-view.h"
+#include "eog-transform.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -166,6 +167,79 @@ verb_ImageNext_cb (BonoboUIComponent *uic,
 	eog_wrap_list_select_right (EOG_WRAP_LIST (view->priv->wraplist));
 }
 
+static void 
+verb_Undo_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	GList *images;
+	GList *it;
+	EogCollectionView *view;
+
+	view = EOG_COLLECTION_VIEW (data);
+
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));	
+
+	for (it = images; it != NULL; it = it->next) {
+		EogImage *image = EOG_IMAGE (it->data);
+		eog_image_undo (image);
+	}
+}
+
+static void 
+apply_transformation (EogCollectionView *view, EogTransform *trans)
+{
+	GList *images;
+	GList *it;
+
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));	
+
+	for (it = images; it != NULL; it = it->next) {
+		EogImage *image = EOG_IMAGE (it->data);
+		eog_image_transform (image, trans);
+	}
+
+	g_object_unref (trans);
+}
+
+static void
+verb_FlipHorizontal_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	apply_transformation (EOG_COLLECTION_VIEW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_HORIZONTAL));
+}
+
+static void
+verb_FlipVertical_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	apply_transformation (EOG_COLLECTION_VIEW (data), eog_transform_flip_new (EOG_TRANSFORM_FLIP_VERTICAL));
+}
+
+static void
+verb_Rotate90ccw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	apply_transformation (EOG_COLLECTION_VIEW (data), eog_transform_rotate_new (270));
+}
+
+static void
+verb_Rotate90cw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	apply_transformation (EOG_COLLECTION_VIEW (data), eog_transform_rotate_new (90));
+}
+
+static void
+verb_Rotate180_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+
+	apply_transformation (EOG_COLLECTION_VIEW (data), eog_transform_rotate_new (180));
+}
+
 static void
 verb_ZoomIn_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
@@ -228,6 +302,12 @@ static BonoboUIVerb collection_verbs[] = {
 	BONOBO_UI_VERB ("SlideShow", verb_SlideShow_cb),
 	BONOBO_UI_VERB ("ImageNext", verb_ImageNext_cb),
 	BONOBO_UI_VERB ("ImagePrev", verb_ImagePrev_cb),
+	BONOBO_UI_VERB ("FlipHorizontal",verb_FlipHorizontal_cb),
+	BONOBO_UI_VERB ("FlipVertical",  verb_FlipVertical_cb),
+	BONOBO_UI_VERB ("Rotate90cw",    verb_Rotate90cw_cb),
+	BONOBO_UI_VERB ("Rotate90ccw",   verb_Rotate90ccw_cb),
+	BONOBO_UI_VERB ("Rotate180",     verb_Rotate180_cb),
+	BONOBO_UI_VERB ("Undo",          verb_Undo_cb),
 	BONOBO_UI_VERB_END
 };
 
@@ -554,17 +634,19 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 
 	priv = view->priv;
 
-	if (priv->displayed_image != NULL) {
-		eog_image_free_mem (priv->displayed_image);
-		g_object_unref (priv->displayed_image);
-		priv->displayed_image = NULL;
+	if (priv->displayed_image != image) {
+		if (priv->displayed_image != NULL) {
+			eog_image_free_mem (priv->displayed_image);
+			g_object_unref (priv->displayed_image);
+			priv->displayed_image = NULL;
+		}
+		
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
+		eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+		
+		priv->displayed_image = image;
 	}
-
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
-	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
-
-	priv->displayed_image = image;
-	
+		
 	update_status_text (view);
 }
 

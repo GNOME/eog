@@ -7,9 +7,30 @@
              _tip=""/>
         <cmd name="SlideShow" _label="Slide Show" 
              _tip="" accel="F11"/>
+
+	<cmd name="FlipHorizontal" _label="Flip _Horizontal"/>
+	<cmd name="FlipVertical" _label="Flip _Vertical"/>
+        <cmd name="Rotate90cw" _label="Rotate C_lockwise"/>
+	<cmd name="Rotate90ccw" _label="Rotate Counte_r Clockwise"/>
+	<cmd name="Rotate180" _label="Rotate 180 _Degrees"/>
+
+        <cmd name="Undo" _label="Undo"/>
 </commands>
 
 <menu>
+
+    <submenu name="Edit" _label="_Edit">
+           <placeholder name="Edit Items Placeholder">
+	          <menuitem name="Undo" verb=""/>
+	          <separator/>
+                  <menuitem name="FlipHorizontal" verb=""/>
+                  <menuitem name="FlipVertical" verb=""/>
+	          <separator/>
+                  <menuitem name="Rotate90cw" verb=""/>
+                  <menuitem name="Rotate90ccw" verb=""/>
+	          <menuitem name="Rotate180" verb=""/>
+           </placeholder>
+    </submenu>
 
     <submenu name="View" _label="_View">
 

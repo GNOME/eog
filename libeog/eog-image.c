@@ -30,7 +30,8 @@ enum {
 	EOG_IMAGE_LOAD_STATUS_DONE     = 1 << 2,
 	EOG_IMAGE_LOAD_STATUS_FAILED   = 1 << 3,
 	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4,
-	EOG_IMAGE_LOAD_STATUS_INFO_DONE = 1 << 5
+	EOG_IMAGE_LOAD_STATUS_INFO_DONE = 1 << 5,
+	EOG_IMAGE_LOAD_STATUS_TRANSFORMED = 1 << 6
 };
 
 struct _EogImagePrivate {
@@ -65,6 +66,11 @@ struct _EogImagePrivate {
 	int update_x2;
 	int update_y2;
 	char *error_message;
+	
+	/* stack of transformations recently applied */
+	GList *undo_stack;
+	/* composition of all applied transformations */
+	EogTransform *trans;
 };
 
 enum {
@@ -302,6 +308,7 @@ static void
 eog_image_dispose (GObject *object)
 {
 	EogImagePrivate *priv;
+	GList *it;
 
 	priv = EOG_IMAGE (object)->priv;
 
@@ -328,6 +335,20 @@ eog_image_dispose (GObject *object)
 	if (priv->status_mutex) {
 		g_mutex_free (priv->status_mutex);
 		priv->status_mutex = NULL;
+	}
+
+	if (priv->trans) {
+		g_object_unref (priv->trans);
+		priv->trans = NULL;
+	}
+
+	if (priv->undo_stack) {
+		for (it = priv->undo_stack; it != NULL; it = it->next){
+			g_object_unref (G_OBJECT (it->data));
+		}
+
+		g_list_free (priv->undo_stack);
+		priv->undo_stack = NULL;
 	}
 
 #if HAVE_EXIF
@@ -489,6 +510,9 @@ eog_image_new_uri (GnomeVFSURI *uri)
 	priv->modified = FALSE;
 	priv->load_thread = NULL;
 
+	priv->undo_stack = NULL;
+	priv->trans = NULL;
+
 #if OBJECT_WATCH
 	n_active_images++;
 	g_message ("active image objects: %i", n_active_images);
@@ -575,7 +599,12 @@ check_load_status (gpointer data)
 	}
 	
  	if ((load_status & EOG_IMAGE_LOAD_STATUS_DONE) > 0) {
-		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
+		if ((load_status & EOG_IMAGE_LOAD_STATUS_TRANSFORMED) > 0) {
+			g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
+		}
+		else {
+			g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
+		}
 		call_again = FALSE;
 	}
 
@@ -850,9 +879,8 @@ real_image_load (gpointer data)
 	g_free (buffer);
 	gnome_vfs_close (handle);
 	
-	g_mutex_lock (priv->status_mutex);
-
 	if (failed) {
+		g_mutex_lock (priv->status_mutex);
 		if (priv->image != NULL) {
 			g_object_unref (priv->image);
 			priv->image = NULL;
@@ -865,8 +893,10 @@ real_image_load (gpointer data)
 		else {
 			priv->error_message = NULL;
 		}
+		g_mutex_unlock (priv->status_mutex);
 	}
 	else if (priv->cancel_loading) {
+		g_mutex_lock (priv->status_mutex);
 		if (priv->image != NULL) {
 			g_object_unref (priv->image);
 			priv->image = NULL;
@@ -874,19 +904,42 @@ real_image_load (gpointer data)
 		priv->cancel_loading = TRUE;
 
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_CANCELLED;
+		g_mutex_unlock (priv->status_mutex);
 	}
 	else {
-		if (priv->image == NULL) {
-			priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
-			g_assert (priv->image != NULL);
-			g_object_ref (priv->image);
+		GdkPixbuf *image;
+		GdkPixbuf *transformed = NULL;
+		EogTransform *trans;
 
-			priv->width = gdk_pixbuf_get_width (priv->image);
-			priv->height = gdk_pixbuf_get_height (priv->image);
-			priv->load_status |= EOG_IMAGE_LOAD_STATUS_PREPARED;
+		g_mutex_lock (priv->status_mutex);
+		image = priv->image;
+		trans = priv->trans;
+		g_mutex_unlock (priv->status_mutex);
+		
+		if (image == NULL) {
+			image = gdk_pixbuf_loader_get_pixbuf (loader);
+		}
+		g_assert (image != NULL);
+		g_object_ref (image);
+
+		if (trans != NULL) {
+			transformed = eog_transform_apply (trans, image);
+			g_object_unref (image);
+			image = transformed;
+		}
+
+		g_mutex_lock (priv->status_mutex);
+		g_object_unref (priv->image);
+		priv->image = image;
+		priv->width = gdk_pixbuf_get_width (priv->image);
+		priv->height = gdk_pixbuf_get_height (priv->image);
+		if (trans != NULL) {
+			priv->load_status |= EOG_IMAGE_LOAD_STATUS_TRANSFORMED;
 		}
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
+		g_mutex_unlock (priv->status_mutex);
 	}
+
 
 #if HAVE_EXIF
 	if (eld->buffer_data != NULL)
@@ -895,14 +948,15 @@ real_image_load (gpointer data)
 		exif_data_unref (eld->data);
 	g_free (eld);
 #endif
-
-	priv->load_thread = NULL;
-	g_mutex_unlock (priv->status_mutex);
 	
 	if (error != NULL) {
 		g_error_free (error);
 	}
 	g_object_unref (loader);
+
+	g_mutex_lock (priv->status_mutex);
+	priv->load_thread = NULL;
+	g_mutex_unlock (priv->status_mutex);
 
 	return NULL;
 }
@@ -1054,91 +1108,91 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 	*height = priv->height;
 }
 
-
-void    
-eog_image_rotate_clock_wise (EogImage *img)
+static void
+image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 {
 	EogImagePrivate *priv;
-	GdkPixbuf *rotated;
+	GdkPixbuf *transformed;
+	gboolean modified = FALSE;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
+	g_return_if_fail (EOG_IS_TRANSFORM (trans));
 
 	priv = img->priv;
-	if (priv->image == NULL) return;
 
-	rotated = eog_pixbuf_rotate_90_cw (priv->image);
-	g_object_unref (priv->image);
-	priv->image = rotated;
+	if (priv->image != NULL) {
+		transformed = eog_transform_apply (trans, priv->image);
+		
+		g_object_unref (priv->image);
+		priv->image = transformed;
+       
+		modified = TRUE;
+	}
 
-	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
+	if (priv->thumbnail != NULL) {
+		transformed = eog_transform_apply (trans, priv->thumbnail);
+
+		g_object_unref (priv->thumbnail);
+		priv->thumbnail = transformed;
+       
+		modified = TRUE;
+	}
+
+	if (modified) {
+		priv->modified = TRUE;
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
+	}
+
+	if (priv->trans == NULL) {
+		g_object_ref (trans);
+		priv->trans = trans;
+	}
+	else {
+		EogTransform *composition;
+
+		composition = eog_transform_compose (priv->trans, trans);
+
+		g_object_unref (priv->trans);
+		priv->trans = composition;
+	}
+	
+	if (!is_undo) {
+		g_object_ref (trans);
+		priv->undo_stack = g_list_prepend (priv->undo_stack, trans);
+	}
 }
 
-void    
-eog_image_rotate_counter_clock_wise (EogImage *img)
+void                
+eog_image_transform (EogImage *img, EogTransform *trans)
 {
-	EogImagePrivate *priv;
-	GdkPixbuf *rotated;
-
-	g_return_if_fail (EOG_IS_IMAGE (img));
-
-	priv = img->priv;
-	if (priv->image == NULL) return;
-
-	rotated = eog_pixbuf_rotate_90_ccw (priv->image);
-	g_object_unref (priv->image);
-	priv->image = rotated;
-
-	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
+	image_transform (img, trans, FALSE);
 }
 
-void
-eog_image_rotate_180 (EogImage *img)
+void 
+eog_image_undo (EogImage *img)
 {
 	EogImagePrivate *priv;
+	EogTransform *trans;
+	EogTransform *inverse;
 
-	g_return_if_fail (EOG_IS_IMAGE (img));
-	
-	priv = img->priv;
-	if (priv->image == NULL) return;
-
-	eog_pixbuf_rotate_180 (priv->image);
-	
-	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
-}
-
-void
-eog_image_flip_horizontal (EogImage *img)
-{
-	EogImagePrivate *priv;
-	
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	priv = img->priv;
-	if (priv->image == NULL) return;
 
-	eog_pixbuf_flip_horizontal (priv->image);
+	if (priv->undo_stack != NULL) {
+		trans = EOG_TRANSFORM (priv->undo_stack->data);
 
-	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
-}
+		inverse = eog_transform_reverse (trans);
 
-void
-eog_image_flip_vertical (EogImage *img)
-{
-	EogImagePrivate *priv;
-	
-	g_return_if_fail (EOG_IS_IMAGE (img));
+		image_transform (img, inverse, TRUE);
 
-	priv = img->priv;
-	if (priv->image == NULL) return;
+		priv->undo_stack = g_list_delete_link (priv->undo_stack, priv->undo_stack);
 
-	eog_pixbuf_flip_vertical (priv->image);
-
-	priv->modified = TRUE;
-	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);	
+		if (eog_transform_is_identity (priv->trans)) {
+			g_object_unref (priv->trans);
+			priv->trans = NULL;
+		}
+	}
 }
 
 gboolean

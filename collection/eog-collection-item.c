@@ -241,6 +241,21 @@ thumbnail_failed_cb (EogImage *image, gpointer data)
 	gdk_pixbuf_unref (pixbuf);
 }	
 
+static void
+image_changed_cb (EogImage *image, gpointer data)
+{
+	EogCollectionItemPrivate *priv;
+	GdkPixbuf *pixbuf;
+
+	priv = EOG_COLLECTION_ITEM (data)->priv;
+
+	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
+
+	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf);
+
+	gdk_pixbuf_unref (pixbuf);
+}
+
 /* Shrink the string until its pixel width is <= max_width */
 static char*
 ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
@@ -394,6 +409,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 
 	g_signal_connect (image, "thumbnail_failed", G_CALLBACK (thumbnail_failed_cb), item);
 	g_signal_connect (image, "thumbnail_finished", G_CALLBACK (thumbnail_finished_cb), item);
+	g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), item);
 
 	pixbuf = get_busy_pixbuf ();
 	set_pixbuf (item, pixbuf);

@@ -1,3 +1,50 @@
+2003-05-12  Jens Finke <jens@triq.net>
+
+	Using affine matrices for describing transformations applied to an
+	image. In collection view, transformations will be delayed and
+	applied only on the thumbnails until the image is really
+	loaded.
+
+	* configure.in: Check for libart.
+
+	* collection/eog-collection-item.c (image_changed_cb): Update
+	thumbnail if image has been modified.
+	(eog_collection_item_construct): Connect to changed signal.
+
+	* collection/eog-collection-view-ui.xml: Added menu entries for
+	rotation, flipping and undo.
+
+	* collection/eog-collection-view.c (verb_Undo_cb),
+	(apply_transformation), (verb_FlipHorizontal_cb),
+	(verb_FlipVertical_cb), (verb_Rotate90ccw_cb),
+	(verb_Rotate90cw_cb), (verb_Rotate180_cb): New functions.
+	(handle_selection_changed): Check if the same image is selected.
+
+	* libeog/Makefile.am (SOURCES): Added eog-transform.[ch]
+
+	* libeog/eog-transform.[ch]: New files. GObject wrapper around an
+	affine transformation.
+
+	* libeog/eog-image.[ch] (eog_image_dispose): Consider undo stack and
+	current transformation.
+	(check_load_status): Emit image changed if loading is done and
+	transformation applied.
+	(real_image_load): Changed the mutex locking strategie. The
+	post-loading transformation is done asynchronously.
+	(image_transform),
+	(eog_image_undo),
+	(eog_image_transform): New functions, which provide the
+	modification interface.
+	(eog_iamge_flip_vertical), (eog_image_flip_horizontal),
+	(eog_image_rotate_clock_wise),
+	(eog_image_rotate_counter_clock_wise), (eog_image_rotate180): Removed.
+
+	* viewer/eog-image-view.c (apply_transformation): New function,
+	which applies a transformation to an EogImage object.
+	(verb_FlipHorizontal_cb), (verb_FlipVertical_cb),
+	(verb_Rotate*_cb): Instantiate an appropriate EogTransform object
+	and use the apply_transformation function.
+
 2003-05-09  Paisa Seeluangsawat  <paisa@colorado.edu>
 
 	* configure.in (ALL_LINGUAS): Added "th".
