@@ -17,7 +17,7 @@
 #include "eog-job-manager.h"
 
 static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
-static GtkWidget* create_new_window (void);
+static void new_window_cb (EogWindow *window, gpointer data);
 
 
 typedef struct {
@@ -78,12 +78,6 @@ load_context_new (EogWindow *window, GList *uri_list)
 	return ctx;
 }
 
-static void
-new_window_cb (EogWindow *window, gpointer data)
-{
-	create_new_window ();
-}
-
 static GtkWidget*
 create_new_window (void)
 {
@@ -125,7 +119,9 @@ assign_model_to_window (EogWindow *window, EogImageList *list)
 	
 	if (window == NULL) return;
 	
-	eog_image_list_print_debug (list);
+	if (list != NULL) {
+		eog_image_list_print_debug (list);
+	}
 	
 	if (!eog_window_open (window, list, &error)) {
 		/* FIXME: show error, free image list */
@@ -135,14 +131,23 @@ assign_model_to_window (EogWindow *window, EogImageList *list)
 	gtk_widget_show (GTK_WIDGET (window));
 }
 
-static gboolean
-create_empty_window (gpointer data)
+static void
+create_empty_window (void)
 {
-	create_new_window ();
-
-	return FALSE;
+	GtkWidget *window; 
+	
+	window = create_new_window ();
+	if (window != NULL) {
+		eog_window_open (EOG_WINDOW (window), NULL, NULL);
+		gtk_widget_show (window);
+	}
 }
 
+static void
+new_window_cb (EogWindow *window, gpointer data)
+{
+	create_empty_window ();
+}
 
 static GnomeVFSURI*
 make_canonical_uri (const char *path)
@@ -447,7 +452,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	
 	if (uri_list == NULL) {
 		if (window == NULL) {
-			g_idle_add (create_empty_window, NULL);
+			create_empty_window ();
 		}
 
 		return;

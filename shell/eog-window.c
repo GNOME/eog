@@ -30,6 +30,7 @@
 #include <gnome.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-program.h>
 #include <libgnomeui/gnome-window-icon.h>
@@ -98,6 +99,9 @@ struct _EogWindowPrivate {
 	GtkActionGroup      *actions_image;
 	GtkActionGroup      *actions_collection;
 
+	/* window geometry */
+	guint save_geometry_timeout_id;
+	char *last_geometry;	
 	int desired_width;
 	int desired_height;
 
@@ -122,6 +126,12 @@ enum {
 	SIGNAL_NEW_WINDOW,
 	SIGNAL_LAST
 };
+
+typedef enum {
+	EOG_WINDOW_MODE_UNKNOWN,
+	EOG_WINDOW_MODE_SINGLETON,
+	EOG_WINDOW_MODE_COLLECTION
+} EogWindowMode;
 
 static int eog_window_signals [SIGNAL_LAST];
 
@@ -202,6 +212,158 @@ gen_role (void)
 
 	return ret;
 }
+
+/** 
+ * Copied from eel/eel-gtk-extensions.c
+ * eel_gtk_window_get_geometry_string:
+ * @window: a #GtkWindow
+ * 
+ * Obtains the geometry string for this window, suitable for
+ * set_geometry_string(); assumes the window has NorthWest gravity
+ * 
+ * Return value: geometry string, must be freed
+ **/
+static char*
+eog_gtk_window_get_geometry_string (GtkWindow *window)
+{
+	char *str;
+	int w, h, x, y;
+	
+	g_return_val_if_fail (GTK_IS_WINDOW (window), NULL);
+	g_return_val_if_fail (gtk_window_get_gravity (window) ==
+			      GDK_GRAVITY_NORTH_WEST, NULL);
+
+	gtk_window_get_position (window, &x, &y);
+	gtk_window_get_size (window, &w, &h);
+	
+	str = g_strdup_printf ("%dx%d+%d+%d", w, h, x, y);
+
+	return str;
+}
+
+static EogWindowMode
+eog_window_get_mode (EogWindow *window)
+{
+	EogWindowMode mode = EOG_WINDOW_MODE_UNKNOWN;
+
+	g_return_val_if_fail (EOG_IS_WINDOW (window), EOG_WINDOW_MODE_UNKNOWN);
+
+	if (window->priv->image_list != NULL) {
+		int n_images = eog_image_list_length (window->priv->image_list);
+		
+		if (n_images == 1) 
+			mode = EOG_WINDOW_MODE_SINGLETON;
+		else if (n_images > 1) 
+			mode = EOG_WINDOW_MODE_COLLECTION;
+	}
+
+	return mode;
+}
+
+static gboolean
+save_window_geometry_timeout (gpointer callback_data)
+{
+	EogWindow *window;
+	
+	window = EOG_WINDOW (callback_data);
+	
+	eog_window_save_geometry (window);
+
+	window->priv->save_geometry_timeout_id = 0;
+
+	return FALSE;
+}
+
+static gboolean
+eog_window_configure_event (GtkWidget *widget,
+			    GdkEventConfigure *event)
+{
+	EogWindow *window;
+	char *geometry_string;
+	
+	window = EOG_WINDOW (widget);
+
+	GTK_WIDGET_CLASS (parent_class)->configure_event (widget, event);
+	
+	/* Only save the geometry if the user hasn't resized the window
+	 * for a second. Otherwise delay the callback another second.
+	 */
+	if (window->priv->save_geometry_timeout_id != 0) {
+		g_source_remove (window->priv->save_geometry_timeout_id);
+	}
+	if (GTK_WIDGET_VISIBLE (GTK_WIDGET (window))) {
+		geometry_string = eog_gtk_window_get_geometry_string (GTK_WINDOW (window));
+	
+		/* If the last geometry is NULL the window must have just
+		 * been shown. No need to save geometry to disk since it
+		 * must be the same.
+		 */
+		if (window->priv->last_geometry == NULL) {
+			window->priv->last_geometry = geometry_string;
+			return FALSE;
+		}
+	
+		/* Don't save geometry if it's the same as before. */
+		if (!strcmp (window->priv->last_geometry, 
+			     geometry_string)) {
+			g_free (geometry_string);
+			return FALSE;
+		}
+
+		g_free (window->priv->last_geometry);
+		window->priv->last_geometry = geometry_string;
+
+		window->priv->save_geometry_timeout_id = 
+			g_timeout_add (1000, save_window_geometry_timeout, window);
+	}
+	
+	return FALSE;
+}
+
+static void
+eog_window_unrealize (GtkWidget *widget)
+{
+	EogWindow *window;
+	
+	window = EOG_WINDOW (widget);
+
+	GTK_WIDGET_CLASS (parent_class)->unrealize (widget);
+
+	if (window->priv->save_geometry_timeout_id != 0) {
+		g_source_remove (window->priv->save_geometry_timeout_id);
+		window->priv->save_geometry_timeout_id = 0;
+		eog_window_save_geometry (window);
+	}
+}
+
+void
+eog_window_save_geometry (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	char *geometry_string;
+	EogWindowMode mode;
+	char *key = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	mode = eog_window_get_mode (window);
+	if (mode == EOG_WINDOW_MODE_SINGLETON)
+		key = EOG_CONF_WINDOW_GEOMETRY_SINGLETON;
+	else if (mode == EOG_WINDOW_MODE_COLLECTION)
+		key = EOG_CONF_WINDOW_GEOMETRY_COLLECTION;
+	
+	if (GTK_WIDGET(window)->window && key != NULL && 
+	    !(gdk_window_get_state (GTK_WIDGET(window)->window) & GDK_WINDOW_STATE_MAXIMIZED)) {
+		geometry_string = eog_gtk_window_get_geometry_string (GTK_WINDOW (window));
+
+		gconf_client_set_string (priv->client, key, geometry_string, NULL);
+
+		g_free (geometry_string);
+	}
+}
+
 
 /* Brings attention to a window by raising it and giving it focus */
 static void
@@ -1964,6 +2126,11 @@ eog_window_destroy (GtkObject *object)
 		priv->recent_model = NULL;
 	}
 
+	if (priv->last_geometry != NULL) {
+		g_free (priv->last_geometry);
+		priv->last_geometry = NULL;
+	}
+
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
 		gconf_client_notify_remove (priv->client, priv->interp_type_notify_id);
@@ -2040,6 +2207,8 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
 	widget_class->drag_data_received = eog_window_drag_data_received;
+        widget_class->configure_event = eog_window_configure_event;
+	widget_class->unrealize = eog_window_unrealize;
 
 	class->open_uri_list = open_uri_list_cleanup;
 }
@@ -2258,47 +2427,118 @@ update_ui_visibility (EogWindow *window)
 	}
 }
 
-#if 0 /* FIXME: DEAD CODE */
-static void 
-image_progress_cb (EogImage *image, float progress, gpointer data) 
-{
-	gnome_appbar_set_progress_percentage (GNOME_APPBAR (EOG_WINDOW (data)->priv->statusbar), progress);
-}
-
 static void
-image_loading_finished_cb (EogImage *image, gpointer data) 
+obtain_desired_size (EogWindow *window, int *x11_flags, 
+					 int *x, int *y, int *width, int *height)
 {
-	EogWindow *window;
-	EogWindowPrivate *priv;
-	int n_images = 0;
-
-	window = EOG_WINDOW (data);
-	priv = window->priv;
-
-	if (priv->image_list != NULL) {
-		n_images = eog_image_list_length (priv->image_list);
-	}
-
-	if (n_images == 1) {
-		int width, height;
+	char *key;
+	char *geometry_string;
+	EogImageList *list;
+	EogWindowMode mode;
+	gboolean finished = FALSE;
+	EogImage *img;
+	
+	list = window->priv->image_list;
+	
+	if (list != NULL && eog_image_list_length (list) == 1) {
+		img = eog_image_list_get_img_by_pos (list, 0);
+		eog_image_get_size (img, width, height);
 		
-		eog_image_get_size (image, &width, &height);
-		adapt_window_size (window, width, height);
-
-#ifdef DEBUG
-		g_print ("loading finished: %s - (%i|%i)\n", eog_image_get_caption (image), width, height);
-#endif
+		g_print ("Use image dimension: %i/%i\n", *width, *height);
+		
+		if ((*width > 0) && (*height > 0)) {
+			*x11_flags = *x11_flags | WidthValue | HeightValue;
+			finished = TRUE;
+		}
+		
+		g_object_unref (img);
 	}
-
-	update_status_bar  (window);
+	
+	if (!finished) {
+		/* retrieve last saved geometry */
+		mode = eog_window_get_mode (window);
+		if (mode == EOG_WINDOW_MODE_COLLECTION)
+			key = EOG_CONF_WINDOW_GEOMETRY_COLLECTION;
+		else
+			key = EOG_CONF_WINDOW_GEOMETRY_SINGLETON;
+		
+		geometry_string = gconf_client_get_string (window->priv->client,
+												   key, NULL);
+		/* parse resulting string */
+		if (geometry_string == NULL) {
+			*width = DEFAULT_WINDOW_WIDTH;
+			*height = DEFAULT_WINDOW_HEIGHT;
+			*x11_flags = *x11_flags | WidthValue | HeightValue;
+		}
+		else {
+			*x11_flags = XParseGeometry (geometry_string,
+									   x, y,
+									   width, height);
+		}
+	}
 }
 
 static void
-image_loading_failed_cb (EogImage *image, const char* message,  gpointer data) 
+setup_initial_geometry (EogWindow *window)
 {
-	g_print ("loading failed: %s\n", eog_image_get_caption (image));
+	int x11_flags = 0;
+	guint width, height;
+	int x, y;
+	GdkScreen *screen;
+	int screen_width, screen_height;
+	
+	g_assert (EOG_IS_WINDOW (window));
+
+	obtain_desired_size (window, &x11_flags,
+						 &x, &y, &width, &height);
+	
+	screen = gtk_window_get_screen (GTK_WINDOW (window));
+	g_assert (screen != NULL);
+	screen_width  = gdk_screen_get_width  (screen);
+	screen_height = gdk_screen_get_height (screen);
+	
+	/* set position first */
+	if ((x11_flags & XValue) && (x11_flags & YValue)) {
+		int real_x = x;
+		int real_y = y;
+		
+		/* This is sub-optimal. GDK doesn't allow us to set win_gravity
+		* to South/East types, which should be done if using negative
+		* positions (so that the right or bottom edge of the window
+		* appears at the specified position, not the left or top).
+		* However it does seem to be consistent with other GNOME apps.
+		*/
+		if (x11_flags & XNegative) {
+			real_x = screen_width - real_x;
+		}
+		if (x11_flags & YNegative) {
+			real_y = screen_height - real_y;
+		}
+		
+		/* sanity check */
+		real_x = CLAMP (real_x, 0, screen_width - 100);
+		real_y = CLAMP (real_y, 0, screen_height - 100);
+		
+		gtk_window_move (GTK_WINDOW (window), real_x, real_y);
+	}
+	
+	if ((x11_flags & WidthValue) && (x11_flags & HeightValue)) {
+		if ((width > screen_width) || (height > screen_height)) {
+			double factor;
+			if (width > height) {
+				factor = (screen_width * 0.75) / (double) width;
+			}
+			else {
+				factor = (screen_height * 0.75) / (double) height;
+			}
+			width = width * factor;
+			height = height * factor;
+		}
+		g_print ("setting window size: %i/%i\n", width, height);
+		
+		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
+	}
 }
-#endif
 
 static void
 update_status_bar (EogWindow *window)
@@ -2695,7 +2935,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	GtkAction *action;
 	GtkWidget *sw;
 	GtkWidget *frame;
-        char *filename;
+	char *filename;
 	guint merge_id;
 
 	g_return_val_if_fail (window != NULL, FALSE);
@@ -2725,10 +2965,10 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
 	/* find and setup UI description */
-        filename = gnome_program_locate_file (NULL,
-                                              GNOME_FILE_DOMAIN_APP_DATADIR,
-                                              "eog/eog-gtk-ui.xml",
-                                              FALSE, NULL);
+	filename = gnome_program_locate_file (NULL,
+										  GNOME_FILE_DOMAIN_APP_DATADIR,
+                                          "eog/eog-gtk-ui.xml",
+                                          FALSE, NULL);
 
 	if (filename == NULL) {
 		g_set_error (error, EOG_WINDOW_ERROR, 
@@ -2831,13 +3071,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 
 	set_drag_dest (window);
 
-	/* set default geometry */
-	gtk_window_set_default_size (GTK_WINDOW (window), 
-				     DEFAULT_WINDOW_WIDTH,
-				     DEFAULT_WINDOW_HEIGHT);
-	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
-	gtk_widget_show_all (GTK_WIDGET (window));
-	gtk_widget_hide_all (GTK_WIDGET (priv->vpane));
+	gtk_widget_show_all (GTK_WIDGET (priv->box));
 
 	/* show/hide toolbar? */
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
@@ -2853,7 +3087,6 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
-	update_ui_visibility (window);
 	return TRUE;
 }
 
@@ -3010,15 +3243,6 @@ adapt_window_size (EogWindow *window, int width, int height)
 }
 
 static void
-image_list_prepared_cb (EogImageList *list, EogWindow *window)
-{
-#ifdef DEBUG
-	g_print ("EogWindow: Image list prepared: %i images\n", eog_image_list_length (EOG_IMAGE_LIST (list)));
-#endif
-	update_ui_visibility (EOG_WINDOW (window));
-}
-
-static void
 add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 {
 	EggRecentItem *recent_item;
@@ -3054,7 +3278,6 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
 
-	g_return_val_if_fail (EOG_IS_IMAGE_LIST (model), FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 	
 	priv = window->priv;
@@ -3067,16 +3290,24 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	if (priv->image_list != NULL) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
 		g_object_unref (priv->image_list);
+		priv->image_list = NULL;
 	}
-	g_object_ref (model);
-	priv->image_list = model;
+	
+	if (model != NULL) {
+		g_object_ref (model);
+		priv->image_list = model;
+	}
 
 	/* update ui */
 	update_ui_visibility (window);
 	
+	if (!GTK_WIDGET_MAPPED (GTK_WIDGET (window))) {
+		setup_initial_geometry (window);
+	}
+		
 	/* attach model to view */
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
-
+	
 	/* update recent files */
 #if 0
 	add_uri_to_recent_files (window, uri);

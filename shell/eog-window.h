@@ -79,6 +79,7 @@ gboolean     eog_window_open      (EogWindow *win, EogImageList *model, GError *
 
 const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);
+void         eog_window_save_geometry (EogWindow *eog_window);
 
 GList*       eog_get_window_list  (void);
 
