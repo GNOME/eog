@@ -4,36 +4,280 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2001-02-08 19:41+09:00\n"
+"Project-Id-Version: eog 0.7\n"
+"POT-Creation-Date: 2001-12-21 01:15+0900\n"
+"PO-Revision-Date: 2001-12-21 01:26+0900\n"
 "Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
-msgstr "設定"
+#: collection/eog-collection-control.c:155
+msgid "Couldn't get local BonoboControl interface.\n"
+msgstr ""
 
-#: src/tb-image.c:33
+#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
+#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
+#, c-format
+msgid "Can't handle URI: %s"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:38
+msgid "Vertical"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:39
+msgid "Horizontal"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:40
+msgid "Rectangle"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:115
+msgid "Layout Mode:"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:127
+msgid "Image Collection Background Color"
+msgstr ""
+
+#: collection/eog-collection-preferences.c:150
+msgid "Background Color:"
+msgstr ""
+
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr ""
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:518
+msgid "Collection View"
+msgstr ""
+
+#: collection/eog-collection-view.c:596
+msgid "View"
+msgstr "表示"
+
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1965
+msgid "Window Title"
+msgstr ""
+
+#: collection/eog-collection-view.c:883
+msgid "Status Text"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+msgid "EOG Image Collection"
+msgstr "EOG 画像コレクション"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "EOG 画像コレクションビューア"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr ""
+
+#: collection/main.c:94
+msgid "I could not initialize GnomeVFS!\n"
+msgstr "GnomeVFS を初期化できませんでした!\n"
+
+#: collection/main.c:97
+msgid "I could not initialize Bonobo"
+msgstr "Bonoboを初期化できませんでした"
+
+#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
+#: src/window.c:812
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "イメージビューア"
+
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:668
+msgid "EOG Image"
+msgstr "EOG 画像"
+
+#: libeog/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "EOG イメージビューア"
+
+#: libeog/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "EOG イメージビューア ファクトリ"
+
+#: libeog/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:2
+msgid "Change preferences"
+msgstr "設定を変更"
+
+#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
+msgid "Close"
+msgstr "閉じる"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close window"
+msgstr "ウインドウを閉じる"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr "終了(_X)"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr "プログラムを終了"
+
+#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
 msgid "Open"
 msgstr "開く"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open a file"
+msgstr "ファイルを開く"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a new window"
+msgstr "新しいウインドウを開く"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr "情報(_A)..."
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "_Close"
+msgstr "閉じる(_C)"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr "ヘルプ(_H)"
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_New Window"
+msgstr "新規ウインドウ(_N)"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_Open..."
+msgstr "開く(_O)..."
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Preferences"
+msgstr "設定(_P)"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr ""
+
+#: shell/eog-window.c:191 src/window.c:164
+msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
+
+#: shell/eog-window.c:192 src/window.c:166
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME 画像表示およびカタログ作成プログラム"
+
+#: shell/eog-window.c:423
+msgid "Open in new window"
+msgstr "新しいウインドウで開く"
+
+#: shell/eog-window.c:424
+msgid "Open in this window"
+msgstr "このウインドウで開く"
+
+#: shell/eog-window.c:426
+msgid "Cancel"
+msgstr "中止"
+
+#: shell/eog-window.c:526
+msgid "Eye Of Gnome"
+msgstr "Eye Of Gnome"
+
+#: shell/eog-window.c:612
+msgid "Can't find eog-shell-ui.xml.\n"
+msgstr ""
+
+#: shell/eog-window.c:747 shell/eog-window.c:876 src/window.c:704
+msgid "Open Image"
+msgstr "画像を開く"
+
+#: shell/eog-window.c:1018
+msgid "Control doesn't support window_title property."
+msgstr ""
+
+#: shell/eog-window.c:1034
+msgid "Control doesn't support status_text property."
+msgstr ""
+
+#: shell/eog-window.c:1051
+msgid "Control doesn't have properties"
+msgstr ""
+
+#: shell/eog-window.c:1070
+msgid "Couldn't retrieve mime type for file."
+msgstr ""
+
+#: shell/eog-window.c:1314
+msgid "Error while obtaining file informations."
+msgstr ""
+
+#: shell/main.c:158
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to open\n"
+"them in a collection instead?"
+msgstr ""
+
+#: shell/main.c:166
+msgid "Single Windows"
+msgstr "単一ウインドウ"
+
+#: shell/main.c:166
+msgid "Collection"
+msgstr "コレクション"
+
+#: shell/main.c:276
+msgid "Could not initialize GnomeVFS!\n"
+msgstr "GnomeVFS を初期化できませんでした!\n"
+
+#: shell/main.c:279
+msgid "Could not initialize Bonobo!\n"
+msgstr "Bonobo を初期化できませんでした\n"
+
+#: shell/util.c:47 src/util.c:47
+#, c-format
+msgid "Could not open `%s'"
+msgstr "`%s'を開けませんでした"
+
+#: src/preferences.c:220
+msgid "Preferences"
+msgstr "設定"
 
 #: src/tb-image.c:33 src/window.c:181
 msgid "Open an image file"
 msgstr "画像ファイルを開く"
 
-#: src/tb-image.c:35
-msgid "Close"
-msgstr "閉じる"
-
 #: src/tb-image.c:35 src/window.c:186
 msgid "Close the current window"
 msgstr "このウインドウを閉じる"
 
-#: src/tb-image.c:43
+#: src/tb-image.c:43 viewer/eog-print-setup.c:75
 msgid "In"
 msgstr "拡大"
 
@@ -48,23 +292,6 @@ msgstr "1:1"
 #: src/tb-image.c:46
 msgid "Fit"
 msgstr "自動"
-
-#: src/util.c:47
-#, c-format
-msgid "Could not open `%s'"
-msgstr "`%s'を開けませんでした"
-
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
-
-#: src/window.c:164
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME 画像表示およびカタログ作成プログラム"
 
 #: src/window.c:181
 msgid "_Open Image..."
@@ -151,6 +378,7 @@ msgid "Zoom In"
 msgstr "拡大"
 
 #: src/window.c:221
+#, c-format
 msgid "Increase zoom factor by 5%%"
 msgstr "拡大率を5%増やす"
 
@@ -159,6 +387,7 @@ msgid "Zoom Out"
 msgstr "縮小"
 
 #: src/window.c:225
+#, c-format
 msgid "Decrease zoom factor by 5%%"
 msgstr "拡大率を5%減らす"
 
@@ -190,29 +419,428 @@ msgstr "フルスクリーン(_S)"
 msgid "Use the whole screen for display"
 msgstr "画面全体を表示に使う"
 
-#: src/window.c:704
-msgid "Open Image"
-msgstr "画像を開く"
+#: viewer/eog-image.c:434
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr "GnomeVFS を初期化できませんでした\n"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:287
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr ""
+
+#: viewer/eog-image-view.c:330
+msgid "Save As"
+msgstr "名前を変えて保存"
+
+#: viewer/eog-image-view.c:890
+msgid "Print Image"
+msgstr "画像の印刷"
+
+#: viewer/eog-image-view.c:898
+msgid "Pages"
+msgstr "ページ"
+
+#: viewer/eog-image-view.c:985
+msgid "Print Preview"
+msgstr "印刷のプレビュー"
+
+#: viewer/eog-image-view.c:991
+msgid "Printing of image failed"
+msgstr "画像の印刷に失敗"
+
+#: viewer/eog-image-view.c:1858
+msgid "Display"
+msgstr "表示"
+
+#: viewer/eog-image-view.c:1947 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "補間"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1950 viewer/preferences.c:159
 msgid "Dither"
 msgstr "ディザ"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1953 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "チェックの種類"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1956 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "チェックの大きさ"
 
-#: viewer/main.c:88
-msgid "I could not initialize Bonobo"
-msgstr "Bonoboを初期化できませんでした"
+#: viewer/eog-image-view.c:1959
+msgid "Image Width"
+msgstr "画像の幅"
+
+#: viewer/eog-image-view.c:1962
+msgid "Image Height"
+msgstr "画像の高さ"
+
+#: viewer/eog-image-view.c:1968
+msgid "Statusbar Text"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "チェックの大きさ(_S)"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "チェックの種類(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:3
+#, fuzzy
+msgid "Check size large"
+msgstr "チェックの大きさ"
+
+#: viewer/eog-image-view-ui.xml.h:4
+#, fuzzy
+msgid "Check size medium"
+msgstr "チェックの大きさ"
+
+#: viewer/eog-image-view-ui.xml.h:5
+#, fuzzy
+msgid "Check size small"
+msgstr "チェックの大きさ"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Check type _black"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Check type _dark"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Check type _gray"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Check type _light"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:10
+#, fuzzy
+msgid "Check type _midtone"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:11
+#, fuzzy
+msgid "Check type _white"
+msgstr "チェックの種類"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Full Screen"
+msgstr "フルスクリーン"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "最近隣 補間"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Normal (_pseudocolor) dithering"
+msgstr "通常 (擬似カラー) ディザ"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Previews the image to be printed"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print Pre_view"
+msgstr "印刷のプレビュー(_V)"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print S_etup"
+msgstr "印刷の設定(_E)"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Print image to the printer"
+msgstr "画像をプリンタへ印刷"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Save _As"
+msgstr "名前を変えて保存(_A)"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "Setup the page settings for your current printer"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Bilinear Interpolation"
+msgstr "双一次 補間(_B)"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Dither"
+msgstr "ディザ(_D)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Hyperbolic Interpolation"
+msgstr "双曲線 補間(_H)"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Interpolation"
+msgstr "補間(_I)"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_Maximum (high color) dithering"
+msgstr "最大 (ハイカラー) ディザ"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_No dithering"
+msgstr "ディザ無し(_N)"
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Print"
+msgstr "印刷(_P)"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_Tiles Interpolation"
+msgstr "タイル補間(_T)"
+
+#: viewer/eog-image-view-ui.xml.h:29
+msgid "_View"
+msgstr "表示(_V)"
+
+#: viewer/eog-print-setup.c:72
+msgid "pts"
+msgstr ""
+
+#: viewer/eog-print-setup.c:72
+msgid "points"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "mm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:73
+msgid "millimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "cm"
+msgstr ""
+
+#: viewer/eog-print-setup.c:74
+msgid "centimeter"
+msgstr ""
+
+#: viewer/eog-print-setup.c:75
+msgid "inch"
+msgstr ""
+
+#: viewer/eog-print-setup.c:471
+msgid "Print"
+msgstr ""
+
+#: viewer/eog-print-setup.c:472
+msgid "Print preview"
+msgstr ""
+
+#: viewer/eog-print-setup.c:480
+msgid "Print Setup"
+msgstr ""
+
+#: viewer/eog-print-setup.c:548
+msgid "Units: "
+msgstr ""
+
+#. First page
+#: viewer/eog-print-setup.c:558 viewer/eog-print-setup.c:566
+msgid "Paper"
+msgstr ""
+
+#: viewer/eog-print-setup.c:570
+msgid "Paper size:"
+msgstr ""
+
+#. Orientation
+#: viewer/eog-print-setup.c:585
+msgid "Orientation"
+msgstr ""
+
+#: viewer/eog-print-setup.c:595
+msgid "Portrait"
+msgstr ""
+
+#: viewer/eog-print-setup.c:605
+msgid "Landscape"
+msgstr ""
+
+#. Margins
+#: viewer/eog-print-setup.c:614
+msgid "Margins"
+msgstr ""
+
+#. Top margin
+#: viewer/eog-print-setup.c:622
+msgid "Top:"
+msgstr ""
+
+#. Left margin
+#: viewer/eog-print-setup.c:640
+msgid "Left:"
+msgstr ""
+
+#. Right margin
+#: viewer/eog-print-setup.c:658
+msgid "Right:"
+msgstr ""
+
+#. Bottom margin
+#: viewer/eog-print-setup.c:676
+msgid "Bottom:"
+msgstr ""
+
+#. Second page
+#: viewer/eog-print-setup.c:694
+msgid "Image"
+msgstr "画像"
+
+#. Scale
+#: viewer/eog-print-setup.c:702
+msgid "Scale"
+msgstr ""
+
+#: viewer/eog-print-setup.c:706
+msgid "Adjust to:"
+msgstr ""
+
+#: viewer/eog-print-setup.c:711
+msgid "Fit to page"
+msgstr ""
+
+#: viewer/eog-print-setup.c:730
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#. Center on page
+#: viewer/eog-print-setup.c:736
+msgid "Center"
+msgstr ""
+
+#: viewer/eog-print-setup.c:740
+msgid "Horizontally"
+msgstr ""
+
+#: viewer/eog-print-setup.c:747
+msgid "Vertically"
+msgstr ""
+
+#. Overlap
+#: viewer/eog-print-setup.c:756
+msgid "Overlapping"
+msgstr ""
+
+#: viewer/eog-print-setup.c:760
+msgid "Overlap horizontally by "
+msgstr ""
+
+#: viewer/eog-print-setup.c:765
+msgid "Overlap vertically by "
+msgstr ""
+
+#. Third page
+#: viewer/eog-print-setup.c:802
+msgid "Printing"
+msgstr ""
+
+#. Helpers
+#: viewer/eog-print-setup.c:810
+msgid "Helpers"
+msgstr ""
+
+#: viewer/eog-print-setup.c:811
+msgid "Print cutting help"
+msgstr ""
+
+#: viewer/eog-print-setup.c:817
+msgid "Print overlap help"
+msgstr ""
+
+#. Page order
+#: viewer/eog-print-setup.c:826
+msgid "Page order"
+msgstr ""
+
+#. Down right
+#: viewer/eog-print-setup.c:832
+msgid "Down, then right"
+msgstr ""
+
+#. Right down
+#: viewer/eog-print-setup.c:852
+msgid "Right, then down"
+msgstr ""
+
+#: viewer/preferences.c:38
+msgid "Nearest Neighbour Interpolation"
+msgstr "最近隣 補間"
+
+#: viewer/preferences.c:40
+msgid "Tiles Interpolation"
+msgstr "タイル補間"
+
+#: viewer/preferences.c:42
+msgid "Bilinear Interpolation"
+msgstr "双一次 補間"
+
+#: viewer/preferences.c:44
+msgid "Hyperbolic Interpolation"
+msgstr "双曲線 補間"
+
+#: viewer/preferences.c:49
+msgid "No dithering"
+msgstr "ディザ無し"
+
+#: viewer/preferences.c:50
+msgid "Normal (pseudocolor) dithering"
+msgstr "通常 (擬似カラー) ディザ"
+
+#: viewer/preferences.c:51
+msgid "Maximum (high color) dithering"
+msgstr "最大 (ハイカラー) ディザ"
+
+#: viewer/preferences.c:56
+msgid "Dark"
+msgstr ""
+
+#: viewer/preferences.c:57
+msgid "Midtone"
+msgstr "中間調"
+
+#: viewer/preferences.c:58
+msgid "Light"
+msgstr ""
+
+#: viewer/preferences.c:59
+msgid "Black"
+msgstr "黒"
+
+#: viewer/preferences.c:60
+msgid "Gray"
+msgstr "グレー"
+
+#: viewer/preferences.c:61
+msgid "White"
+msgstr "白"
+
+#: viewer/preferences.c:66
+msgid "Small"
+msgstr "小"
+
+#: viewer/preferences.c:67
+msgid "Medium"
+msgstr "中"
+
+#: viewer/preferences.c:68
+msgid "Large"
+msgstr "大"
 
 #~ msgid "Interpolation type"
 #~ msgstr "補間の種類"
@@ -220,35 +848,11 @@ msgstr "Bonoboを初期化できませんでした"
 #~ msgid "Transparency type"
 #~ msgstr "透過の種類"
 
-#~ msgid "Check size"
-#~ msgstr "チェックの大きさ"
-
 #~ msgid "Dark checks"
 #~ msgstr "暗いチェック"
 
-#~ msgid "Midtone checks"
-#~ msgstr "中間調のチェック"
-
 #~ msgid "Light checks"
 #~ msgstr "明るいチェック"
-
-#~ msgid "Black only"
-#~ msgstr "黒のみ"
-
-#~ msgid "Gray only"
-#~ msgstr "グレーのみ"
-
-#~ msgid "White only"
-#~ msgstr "白のみ"
-
-#~ msgid "Small"
-#~ msgstr "小"
-
-#~ msgid "Medium"
-#~ msgstr "中"
-
-#~ msgid "Large"
-#~ msgstr "大"
 
 #~ msgid "Nearest neighbor (fastest, low quality)"
 #~ msgstr "最近隣 (高速・低品質)"
@@ -268,18 +872,6 @@ msgstr "Bonoboを初期化できませんでした"
 #~ msgid "None"
 #~ msgstr "なし"
 
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "通常 (擬似カラー)"
-
-#~ msgid "Maximum (high color)"
-#~ msgstr "最大 (ハイカラー)"
-
-#~ msgid "Display"
-#~ msgstr "表示"
-
-#~ msgid "Image Windows"
-#~ msgstr "画像ウインドウ"
-
 #~ msgid "Use scrollbars"
 #~ msgstr "スクロールバー"
 
@@ -291,12 +883,6 @@ msgstr "Bonoboを初期化できませんでした"
 
 #~ msgid "Pick window size and zoom factor automatically"
 #~ msgstr "ウインドウの大きさと拡大率を自動的に設定"
-
-#~ msgid "Open images in a new window"
-#~ msgstr "新しいウインドウで画像を開く"
-
-#~ msgid "Full Screen"
-#~ msgstr "フルスクリーン"
 
 #~ msgid "Use 1:1 zoom factor"
 #~ msgstr "1:1の拡大率を使用"
@@ -313,9 +899,6 @@ msgstr "Bonoboを初期化できませんでした"
 #~ msgid "Put a bevel around the edge of the screen"
 #~ msgstr "スクリーンの端のまわりに bevel を付ける"
 
-#~ msgid "Viewers"
-#~ msgstr "ビューワ"
-
 #~ msgid ""
 #~ "Small\n"
 #~ "Medium\n"
@@ -326,15 +909,6 @@ msgstr "Bonoboを初期化できませんでした"
 #~ "大\n"
 
 #~ msgid ""
-#~ "Nearest neighbor\n"
-#~ "Bilinear\n"
-#~ "Hyperbolic\n"
-#~ msgstr ""
-#~ "最近隣\n"
-#~ "双一次\n"
-#~ "双曲線\n"
-
-#~ msgid ""
 #~ "None\n"
 #~ "Normal (pseudocolor)\n"
 #~ "Maximum (high color)\n"
@@ -343,17 +917,8 @@ msgstr "Bonoboを初期化できませんでした"
 #~ "通常 (擬似カラー)\n"
 #~ "最大 (ハイカラー)\n"
 
-#~ msgid "Save image collection `%s'?"
-#~ msgstr "画像コレクション '%s' を保存しまか?"
-
-#~ msgid "Save"
-#~ msgstr "保存"
-
 #~ msgid "Don't save"
 #~ msgstr "保存しない"
 
 #~ msgid "Don't exit"
 #~ msgstr "終了しない"
-
-#~ msgid "Image Viewer"
-#~ msgstr "イメージビューア"
