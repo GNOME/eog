@@ -534,16 +534,19 @@ real_file_loading (DirLoadingContext *ctx)
 	
 /* Helper function to initialize the DirLoadingContext structure */
 static DirLoadingContext*
-prepare_loading_context (EogImageList *list, const gchar *text_uri) 
+prepare_loading_context (EogImageList *list, GnomeVFSURI *uri)
 {
 	DirLoadingContext *ctx;
 	GnomeVFSResult result;
 
+	if (uri == NULL) return NULL;
+
 	ctx = g_new0 (DirLoadingContext, 1);
-	ctx->uri = gnome_vfs_uri_new (text_uri);
+	ctx->uri = gnome_vfs_uri_ref (uri);
 
 #ifdef IMAGE_LIST_DEBUG
-	g_message ("Prepare context for URI: %s", text_uri);
+	g_message ("Prepare context for URI: %s", 
+		   gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 #endif
 
 	ctx->info = gnome_vfs_file_info_new ();
@@ -565,17 +568,17 @@ prepare_loading_context (EogImageList *list, const gchar *text_uri)
  * image files in the directory pointed by the text_uri
  */
 void
-eog_image_list_add_directory (EogImageList *list, char *text_uri)
+eog_image_list_add_directory (EogImageList *list, GnomeVFSURI *uri)
 {
 	EogImageListPrivate *priv;
 	DirLoadingContext *ctx;
 
 	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
-	g_return_if_fail (text_uri != NULL);
+	g_return_if_fail (uri != NULL);
 	
 	priv = list->priv;
 
-	ctx = prepare_loading_context (list, text_uri);
+	ctx = prepare_loading_context (list, uri);
 	
 	if ((ctx != NULL) && (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)) {
 		g_idle_add ((GSourceFunc)real_dir_loading, ctx);
@@ -584,7 +587,8 @@ eog_image_list_add_directory (EogImageList *list, char *text_uri)
 		if (ctx != NULL) {
 			free_loading_context (ctx);
 		}
-		g_warning ("Can't handle URI: %s", text_uri);
+		g_warning ("Can't handle URI: %s", 
+			   gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 	}	
 }
 
@@ -604,7 +608,7 @@ eog_image_list_add_files (EogImageList *list, GList *uri_list)
 	priv->load_n_files = g_list_length (uri_list);
 
 	for (it = uri_list; it != NULL; it = it->next) {
-		ctx = prepare_loading_context (list, (char*) it->data);
+		ctx = prepare_loading_context (list, (GnomeVFSURI*) it->data);
 
 		if ((ctx != NULL) && (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)) {
 			g_idle_add ((GSourceFunc) real_file_loading, ctx);

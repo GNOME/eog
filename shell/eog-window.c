@@ -3019,6 +3019,27 @@ image_list_prepared_cb (EogImageList *list, EogWindow *window)
 	update_ui_visibility (EOG_WINDOW (window));
 }
 
+static void
+add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
+{
+	EggRecentItem *recent_item;
+	char *text_uri;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+	if (uri == NULL) return;
+
+	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	if (text_uri == NULL)
+		return;
+
+	recent_item = egg_recent_item_new_from_uri (text_uri);
+	egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
+	egg_recent_model_add_full (window->priv->recent_model, recent_item);
+	egg_recent_item_unref (recent_item);
+
+	g_free (text_uri);
+}
+
 /**
  * eog_window_open:
  * @window: A window.
@@ -3030,12 +3051,11 @@ image_list_prepared_cb (EogImageList *list, EogWindow *window)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open (EogWindow *window, const char *text_uri, GError **error)
+eog_window_open (EogWindow *window, GnomeVFSURI *uri, GError **error)
 {
 	EogWindowPrivate *priv;
 	GnomeVFSFileInfo *info;
 	GnomeVFSResult result;
-	EggRecentItem *recent_item;
 
 	priv = window->priv;
 
@@ -3056,17 +3076,17 @@ eog_window_open (EogWindow *window, const char *text_uri, GError **error)
 
 	/* fill list with uris */
 	info = gnome_vfs_file_info_new ();
-	result = gnome_vfs_get_file_info (text_uri, info,
-					  GNOME_VFS_FILE_INFO_DEFAULT |
-					  GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	if (result == GNOME_VFS_OK) {
 		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-			eog_image_list_add_directory (priv->image_list, (char*) text_uri);
+			eog_image_list_add_directory (priv->image_list, uri);
 		}
 		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
 			GList *list = NULL;
 
-			list = g_list_prepend (list, (gpointer) text_uri);
+			list = g_list_prepend (list, uri);
 			eog_image_list_add_files (priv->image_list, list);
 
 			g_list_free (list);
@@ -3078,10 +3098,7 @@ eog_window_open (EogWindow *window, const char *text_uri, GError **error)
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
 	/* update recent files */
-	recent_item = egg_recent_item_new_from_uri (text_uri);
-	egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
-	egg_recent_model_add_full (priv->recent_model, recent_item);
-	egg_recent_item_unref (recent_item);		
+	add_uri_to_recent_files (window, uri);
 
 	/* update ui */
 	update_ui_visibility (window);
@@ -3100,7 +3117,7 @@ eog_window_open (EogWindow *window, const char *text_uri, GError **error)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open_list (EogWindow *window, GList *text_uri_list, GError **error)
+eog_window_open_list (EogWindow *window, GList *uri_list, GError **error)
 {
 	EogWindowPrivate *priv;
 	GList *it;
@@ -3117,17 +3134,15 @@ eog_window_open_list (EogWindow *window, GList *text_uri_list, GError **error)
 	}
 
 	priv->image_list = eog_image_list_new ();
-	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), "list_prepared", G_CALLBACK (image_list_prepared_cb),
+	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), 
+						       "list_prepared", G_CALLBACK (image_list_prepared_cb),
 						       window);
-	eog_image_list_add_files (priv->image_list, text_uri_list);
+	eog_image_list_add_files (priv->image_list, uri_list);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
 	/* update recent files list */
-	for (it = text_uri_list; it != NULL; it = it->next) {
-		EggRecentItem *recent_item = egg_recent_item_new_from_uri ((char*) it->data);
-		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
-		egg_recent_model_add_full (priv->recent_model, recent_item);
-		egg_recent_item_unref (recent_item);		
+	for (it = uri_list; it != NULL; it = it->next) {
+		add_uri_to_recent_files (window, (GnomeVFSURI*) it->data);
 	}
 
 	update_ui_visibility (window);

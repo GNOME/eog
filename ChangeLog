@@ -1,7 +1,20 @@
 2005-01-10  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image-list.[ch] (eog_image_list_add_directory),
+	(eog_image_list_add_files),	
+	* shell/eog-window.[ch] (eog_window_open),
+	(eog_window_open_list): Take GnomeVFSURI as argument, 
+	instead of text uris.
+
+	* shell/main.c (sort_files): Create lists of GnomeVFSURI objects.
+	
+	* shell/session.c (load_uri_with_role): Adapt to eog_window_open
+	 changes.
+
+2005-01-10  Jens Finke  <jens@triq.net>
+
 	* shell/main.c,
-	* shell/eog-window.c
+	* shell/eog-window.[ch]
 	* shell/session.c: Code cleanup.
 
 2005-01-06  Jens Finke  <jens@triq.net>

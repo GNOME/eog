@@ -24,6 +24,7 @@
 #define EOG_WINDOW_H
 
 #include <gtk/gtk.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
 
 G_BEGIN_DECLS 
 
@@ -69,18 +70,18 @@ struct _EogWindowClass {
 };
 
 
-GType        eog_window_get_type                    (void);
-GtkWidget*   eog_window_new (GError **error);
+GType        eog_window_get_type  (void);
+GtkWidget*   eog_window_new       (GError **error);
 
-void         eog_window_close (EogWindow *eog_window);
+void         eog_window_close     (EogWindow *eog_window);
 
-gboolean     eog_window_open (EogWindow *win, const char *text_uri, GError **error);
-gboolean     eog_window_open_list (EogWindow *win, GList *text_uri_list, GError **error);
+gboolean     eog_window_open      (EogWindow *win, GnomeVFSURI *uri, GError **error);
+gboolean     eog_window_open_list (EogWindow *win, GList *uri_list, GError **error);
 
-const char*  eog_window_get_uri (EogWindow *eog_window);
+const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);
 
-GList*       eog_get_window_list (void);
+GList*       eog_get_window_list  (void);
 
 void         eog_window_close_all (void);
 

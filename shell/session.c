@@ -25,6 +25,7 @@
 
 #include <string.h>
 #include <libgnome/gnome-config.h>
+#include <libgnomevfs/gnome-vfs-uri.h>
 #include "eog-window.h"
 #include "session.h"
 
@@ -33,10 +34,11 @@
 #define SECTION "session_info/"
 
 static void
-load_uri_with_role (const char *uri, const char *role)
+load_uri_with_role (const char *txt_uri, const char *role)
 {
 	GtkWidget *window;
 	GError *error = NULL;
+	GnomeVFSURI *uri;
 
 	window = eog_window_new (&error);
 
@@ -44,8 +46,11 @@ load_uri_with_role (const char *uri, const char *role)
 		gtk_main_quit ();
 	}
 
-	if (strlen (uri) != 0)
+	if (strlen (txt_uri) != 0) {
+		uri = gnome_vfs_uri_new (txt_uri);
 		eog_window_open (EOG_WINDOW (window), uri, NULL);
+		gnome_vfs_uri_unref (uri);
+	}
 
 	gtk_window_set_role (GTK_WINDOW (window), role);
 	gtk_widget_show (window);
