@@ -58,7 +58,9 @@ eog_image_loader_preview_dispose (GObject *obj)
 {
 	EogImageLoaderPreview *loader;
 	
-	loader = EOG_IMAGE_LOADER_PREVIEW (obj);	
+	loader = EOG_IMAGE_LOADER_PREVIEW (obj);
+	
+	preview_cache_async_shutdown ();
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
