@@ -67,6 +67,13 @@ enum {
 	ARG_EDITED_TEXT
 };
 
+/* Signal IDs */
+
+enum {
+	REQUEST_TEXT,
+	LAST_SIGNAL
+};
+
 static void gnome_icon_caption_class_init (GnomeIconCaptionClass *class);
 static void gnome_icon_caption_init (GnomeIconCaption *caption);
 static void gnome_icon_caption_destroy (GtkObject *object);
@@ -82,7 +89,11 @@ statid double gnome_icon_caption_point (GnomeCanvasItem *item, double x, double 
 static void gnome_icon_caption_bounds (GnomeCanvasItem *item,
 				       double *x1, double *y1, double *x2, double *y2);
 
+static void marshal_request_text (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args);
+
 static GnomeCanvasItemClass *parent_class;
+
+static guint caption_signals[LAST_SIGNAL];
 
 
 
@@ -139,6 +150,16 @@ gnome_icon_caption_class_init (GnomeIconCaptionClass *class)
 				 GTK_TYPE_BOOL, GTK_ARG_READWRITE, ARG_IS_EDITING);
 	gtk_object_add_arg_type ("GnomeIconCaption::edited_text",
 				 GTK_TYPE_STRING, GTK_ARG_READABLE, ARG_EDITED_TEXT);
+
+	caption_signals[REQUEST_TEXT] =
+		gtk_signal_new ("request_text",
+				GTK_RUN_LAST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (GnomeIconCaptionClass, request_text),
+				marshal_request_text,
+				GTK_TYPE_STRING, 0);
+
+	gtk_object_class_add_signals (object_class, caption_signals, LAST_SIGNAL);
 
 	object_class->destroy = gnome_icon_caption_destroy;
 	object_class->set_arg = gnome_icon_caption_set_arg;
@@ -263,6 +284,23 @@ gnome_icon_caption_get_arg (GtkObject *object, GtkArg *arg, guint arg_id)
 		arg->type = GTK_TYPE_INVALID;
 		break;
 	}
+}
+
+
+
+/* Marshalers */
+
+typedef const char *(* RequestTextfunc) (GtkObject *object, gpointer data);
+
+static void
+marshal_request_text (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+{
+	RequestTextFunc rfunc;
+	const char **retval;
+
+	retval = GTK_RETLOC_STRING (args[0]);
+	rfunc = (RequestTextFunc) func;
+	*retval = (* rfunc) (object, data);
 }
 
 
