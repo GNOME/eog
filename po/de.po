@@ -7,15 +7,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.115.0\n"
-"POT-Creation-Date: 2002-03-19 22:41+0100\n"
-"PO-Revision-Date: 2002-03-19 00:03+02:00\n"
+"POT-Creation-Date: 2002-03-21 22:53+0100\n"
+"PO-Revision-Date: 2002-03-21 00:03+02:00\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
+#: eog.desktop.in.h:1 shell/eog-window.c:201 shell/eog-window.c:549
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -123,39 +123,50 @@ msgstr "_Einstellungen"
 msgid "_View"
 msgstr "_Ansicht"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr ""
+"Jens Finke\n"
+"Christian Meyer\n"
+"Matthias Warkus"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Bild öffnen"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Control unterstützt die Eigenschaft window_title nicht."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Control unterstützt die Eigenschaft status_text nicht."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Control hat keine Eigenschaften"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "MIME-Typ für Datei konnte nicht erhalten werden."
 
-#: shell/eog-window.c:1042
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Fehler beim Erhalten von Dateiinformationen."
 
-#: shell/eog-window.c:1071
+#: shell/eog-window.c:1097
 #, c-format
 msgid "Unable to open %s."
 msgstr "Unfähig %s zu öffnen."
@@ -168,7 +179,7 @@ msgid ""
 "them in a collection instead?"
 msgstr ""
 "Sie sind dabei, %i Fenster gleichzeitig\n"
-"zu öffnen. Möchten Sie diese lieber in\n" 
+"zu öffnen. Möchten Sie diese lieber in\n"
 "einer Sammlung öffnen?"
 
 #: shell/main.c:166
@@ -200,6 +211,10 @@ msgstr "Bonobo konnte nicht initialisiert werden!\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s' konnte nicht geöffnet werden"
+
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome Vorlieben"
 
 #: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -234,19 +249,19 @@ msgstr "Drucken des Bildes fehlgeschlagen"
 msgid "Display"
 msgstr "Anzeige"
 
-#: viewer/eog-image-view.c:2059 viewer/preferences.c:155
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:2062 viewer/preferences.c:166
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Raster"
 
-#: viewer/eog-image-view.c:2065 viewer/preferences.c:177
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Karotyp"
 
-#: viewer/eog-image-view.c:2068 viewer/preferences.c:188
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Karogröße"
 
@@ -646,6 +661,22 @@ msgstr "Mittel"
 #: viewer/preferences.c:61
 msgid "Large"
 msgstr "Groß"
+
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Interpolation:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Raster:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Karotyp:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Karogröße:"
 
 #~ msgid "View"
 #~ msgstr "Ansicht"
