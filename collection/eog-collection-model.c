@@ -335,7 +335,6 @@ directory_visit_cb (const gchar *rel_path,
 	CImage *img;
 	LoadingContext *ctx;
 	GnomeVFSURI *uri;
-	GnomeVFSResult result;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
 	GList *id_list = NULL;
@@ -346,19 +345,11 @@ directory_visit_cb (const gchar *rel_path,
 	model = ctx->model;
 	priv = model->priv;
 
-	result = gnome_vfs_get_file_info_uri (ctx->uri, 
-					      info,
-					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-	if (result != GNOME_VFS_OK || 
-	    !g_strncasecmp (info->mime_type, "image/", 6))
-	{
+	if (g_strncasecmp (info->mime_type, "image/", 6) != 0) {
 		return TRUE;
 	}
 		
-	g_print ("rel_path: %s\n", rel_path);
-	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_path);
-	g_print ("uri.toString(): %s\n", 
-		 gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_path);	
 
 	img = cimage_new_uri (uri);			
 	gnome_vfs_uri_unref (uri);
@@ -427,6 +418,8 @@ real_file_loading (LoadingContext *ctx)
 		g_warning ("Error while obtaining file informations.\n");
 		return FALSE;
 	}
+
+	g_print ("mime type: %s\n", ctx->info->mime_type);
 	
 	if(g_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
 		CImage *img;

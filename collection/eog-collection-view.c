@@ -534,15 +534,20 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		else if (nsel == 1) {
 			CImage *img; 
 			GnomeVFSURI *uri;
+			gchar *basename;
 
 			img = eog_collection_model_get_selected_image (priv->model);
 			uri = cimage_get_uri (img);
 			g_assert (uri != NULL);
+
+			basename = g_path_get_basename (gnome_vfs_uri_get_path (uri));
 			g_snprintf (str, 70, "Images: %i  %s (%i x %i)", nimg,
-				    gnome_vfs_uri_get_path (uri),
+				    basename,
 				    cimage_get_width (img),
 				    cimage_get_height (img));
+
 			gnome_vfs_uri_unref (uri);
+			g_free (basename);
 		} else
 			g_snprintf (str, 70, "Images: %i  Selected: %i", nimg, nsel);
 	       

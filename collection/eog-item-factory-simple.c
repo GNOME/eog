@@ -33,7 +33,6 @@
 #include "eog-collection-model.h"
 #include "cimage.h"
 #include <math.h>
-
 
 
 /* Private part of the EogItemFactorySimple structure */
@@ -82,7 +81,8 @@ static GnomeCanvasItem *ii_factory_create_item (EogItemFactory *factory,
 						GnomeCanvasGroup *parent, guint id);
 static void ii_factory_update_item (EogItemFactory *factory,
 				    EogCollectionModel *model, 
-				    GnomeCanvasItem *item);
+				    GnomeCanvasItem *item,
+				    EogItemUpdateHint hint);
 static void ii_factory_get_item_size (EogItemFactory *factory,
 				      gint *width, gint *height);
 
@@ -106,13 +106,6 @@ eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class)
 	ei_factory_class->update_item = ii_factory_update_item;
 	ei_factory_class->get_item_size = ii_factory_get_item_size;
 }
-
-#if 0
-#define gray50_width 2
-#define gray50_height 2
-static char gray50_bits[] = {
-  0x02, 0x01, };
-#endif
 
 /* Object initialization function for the icon list item factory */
 static void
@@ -296,53 +289,221 @@ create_shaded_background (GdkPixbuf *pbf)
 	}
 }
 
-/* Shrink the string until its pixel width is <= width */
+/* Shrink the string until its pixel width is <= max_width */
 static char*
-shrink_to_width (char *str, PangoLayout *layout,  int width)
+ensure_max_caption_width (gchar *str, PangoLayout *layout,  int max_width)
 {
-	char *buffer;
 	char *result;
+	char *buffer;
 	const char *dots = "...";
 	int dot_width;
 	int len; 
+	int str_len;
 	int px_width, px_height;
 
-	buffer =  g_strdup (str);
-	len = strlen (buffer);	
-	g_assert (len > 0);
+	pango_layout_set_text (layout, str, -1);
+	pango_layout_get_pixel_size (layout, &px_width, &px_height);
 
-	/* FIXME: doesn't work with unicode */
+	if (px_width < max_width) return g_strdup (str);
 
 	pango_layout_set_text (layout, dots, -1);
 	pango_layout_get_pixel_size (layout, &dot_width, &px_height);
 
-	if (dot_width > width) {
-		g_warning ("Couldn't shrink %s to width %i.\n", str, width);
-		return NULL;
-	}
+	buffer =  g_strdup (str);
+	str_len = g_utf8_strlen (str, -1);
+	len = str_len;
+	g_assert (len > 0);
 
-	do {
-		--len;
-		if(len > 0)
-			buffer[len] = '\0';
-		else
+	while (px_width > (max_width - dot_width)) {
+		len--;
+
+		if (len > 0) {
+			g_free (buffer);
+			buffer = g_new0 (gchar, str_len);
+			buffer = g_utf8_strncpy (buffer, str, len);
+		}
+		else {
 			break;
+		}
+
 		pango_layout_set_text (layout, buffer, -1);
 		pango_layout_get_pixel_size (layout, &px_width, &px_height);
-	} while (px_width > (width - dot_width));
+	}
 
 	result = g_strconcat (buffer, dots, NULL);
 	g_free (buffer);	
-	
+
 	return result;
 }
 
+static void
+update_item_image (EogItemFactorySimple *factory, GnomeCanvasItem *item, CImage *cimage)
+{
+	EogItemFactorySimplePrivate *priv;
+	EogSimpleMetrics *metrics;
+	IconItem *icon;
+	int image_w, image_h;
+	int image_x, image_y;
+	double x1, y1, x2, y2;
+	GdkPixbuf *thumb;
+	
+	metrics = factory->priv->metrics;
+	priv = factory->priv;
+
+	icon = g_object_get_data (G_OBJECT (item), "IconItem");
+	g_assert (icon != NULL);
+
+	/* obtain thumbnail image */
+	if (cimage_has_thumbnail (cimage)) {
+		thumb = cimage_get_thumbnail (cimage);
+		image_w = gdk_pixbuf_get_width (thumb);
+		image_h = gdk_pixbuf_get_height (thumb);
+	} 
+	else {
+		thumb = priv->dummy;
+		g_object_ref (thumb);
+		image_w = gdk_pixbuf_get_width (thumb);
+		image_h = gdk_pixbuf_get_height (thumb);
+	}
+	g_assert (thumb != NULL);
+
+	/* Configure image */
+	image_x = metrics->border + (metrics->twidth - image_w) / 2;
+	image_y = metrics->border + (metrics->theight - image_h) / 2;
+
+	gnome_canvas_item_set (icon->image,
+			       "pixbuf", thumb,
+			       "x", (double) image_x,
+			       "y", (double) image_y,
+			       "width_set", FALSE,
+			       "height_set", FALSE,
+			       NULL);
+
+	/* configure background */
+	x1 = metrics->border;
+	y1 = metrics->border;
+#if 0
+	x2 = x1 + metrics->twidth;
+	y2 = y1 + metrics->theight;
+#endif
+
+        gnome_canvas_item_set (icon->bgr,
+			       "pixbuf", priv->shaded_bgr,
+			       "x", (double) x1,
+			       "y", (double) y1,
+			       "width_set", FALSE,
+			       "height_set", FALSE,
+			       NULL);
+
+	g_object_unref (thumb);
+}
+
+static void
+update_item_caption (EogItemFactorySimple *factory, GnomeCanvasItem *item, CImage *cimage)
+{
+	GtkStyle *style;
+	PangoLayout  *layout;
+	IconItem *icon;
+	gchar *caption;
+	gchar *temp;
+	EogSimpleMetrics *metrics;
+	int caption_h;
+	int caption_w;
+	int caption_x;
+	int caption_y;
+
+	icon = g_object_get_data (G_OBJECT (item), "IconItem");
+	g_assert (icon != NULL);
+	metrics = factory->priv->metrics;
+	
+	layout = gtk_widget_create_pango_layout (GTK_WIDGET (icon->caption->canvas), NULL);
+	g_assert (layout != NULL);
+
+	/* obtain caption text */
+	if (cimage_has_caption (cimage)) {
+		caption = cimage_get_caption (cimage);
+	}
+	else {
+		GnomeVFSURI *uri;
+		uri = cimage_get_uri (cimage);
+		caption = g_path_get_basename (gnome_vfs_uri_get_path (uri));
+		gnome_vfs_uri_unref (uri);
+
+		if (!g_utf8_validate (caption, -1, 0)) {
+			gchar *tmp = g_locale_to_utf8 (caption, -1, 0, 0, 0);
+			g_free (caption);
+			caption = tmp;
+		}
+
+		cimage_set_caption (cimage, caption);
+	}
+
+	temp = ensure_max_caption_width (caption, layout, metrics->twidth);
+	g_free (caption);
+	caption = temp;
+       
+	pango_layout_set_text (layout, caption, -1);
+	pango_layout_get_pixel_size (layout, &caption_w, &caption_h);
+
+	caption_x = metrics->border + (metrics->twidth - caption_w) / 2;
+	caption_y = metrics->border + metrics->theight + metrics->cspace;
+
+	style = gtk_widget_get_style (GTK_WIDGET (item->canvas));
+	g_assert (style != NULL);
+
+	gnome_canvas_item_set (icon->caption,
+			       "text", caption,
+			       "font_desc", style->font_desc,
+			       "anchor", GTK_ANCHOR_NW,
+			       "x", (double) caption_x,
+			       "y", (double) caption_y,
+			       "fill_color", "White",
+			       NULL);
+
+	g_object_unref (layout);
+	g_free (caption);
+}	
+
+static void
+update_item_selection (EogItemFactorySimple *factory, GnomeCanvasItem *item, CImage *cimage)
+{
+	IconItem *icon;
+	int item_w, item_h;
+
+	ii_factory_get_item_size (EOG_ITEM_FACTORY (factory), &item_w, &item_h);
+
+	icon = g_object_get_data (G_OBJECT (item), "IconItem");
+	g_assert (icon != NULL);
+
+	if (cimage_is_selected (cimage))
+		gnome_canvas_item_set (icon->border,
+				       "x1", 0.0,
+				       "y1", 0.0,
+				       "x2", (double) item_w,
+				       "y2", (double) item_h,
+				       "outline_color", "Red",
+				       "fill_color",  "Black",
+				       "width_pixels", 2,
+				       NULL);
+	else 
+		gnome_canvas_item_set (icon->border,
+				       "x1", 0.0,
+				       "y1", 0.0,
+				       "x2", (double) item_w,
+				       "y2", (double) item_h,
+				       "outline_color", "DarkBlue",
+				       "fill_color", "Black",
+				       "width_pixels", 2,
+				       NULL);
+
+}
 
 /* Configure_item handler for the icon list item factory */
 static void
 ii_factory_update_item (EogItemFactory *factory, 
 			EogCollectionModel *model,
-			GnomeCanvasItem *item)
+			GnomeCanvasItem *item,
+			EogItemUpdateHint hint)
 {
 	EogItemFactorySimple *ii_factory;
 	GdkPixbuf *thumb;
@@ -368,138 +529,21 @@ ii_factory_update_item (EogItemFactory *factory,
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
 	ii_factory = EOG_ITEM_FACTORY_SIMPLE (factory);
-	priv = ii_factory->priv;
-	metrics = priv->metrics;
 	
 	icon = g_object_get_data (G_OBJECT (item), "IconItem");
-	g_assert (icon != NULL);
-
 	cimage = eog_collection_model_get_image (model, icon->id);
-	g_assert (cimage != NULL);
-	
-	/* obtain thumbnail image */
-	if (cimage_has_thumbnail (cimage)) {
-		thumb = cimage_get_thumbnail (cimage);
-		image_w = gdk_pixbuf_get_width (thumb);
-		image_h = gdk_pixbuf_get_height (thumb);
-	} else {
-		thumb = priv->dummy;
-		g_object_ref (thumb);
-		image_w = gdk_pixbuf_get_width (thumb);
-		image_h = gdk_pixbuf_get_height (thumb);
+	g_return_if_fail (cimage != NULL);
+
+	if ((hint & EOG_ITEM_UPDATE_IMAGE) == EOG_ITEM_UPDATE_IMAGE) {
+		update_item_image (ii_factory, item, cimage);
 	}
-	g_assert (thumb != NULL);
-	
-	/* Compute caption size; the font comes from the widget style */
-	style = gtk_widget_get_style (GTK_WIDGET (icon->caption->canvas));
-	g_assert (style != NULL);
 
-	p_layout = pango_layout_new (gtk_widget_get_pango_context (GTK_WIDGET (icon->caption->canvas)));
-	pango_layout_set_font_description (p_layout, style->font_desc);
+	if ((hint & EOG_ITEM_UPDATE_CAPTION) == EOG_ITEM_UPDATE_CAPTION) {
+		update_item_caption (ii_factory, item, cimage);
+	}
 
-	g_assert (p_layout != NULL);
-
-	if (cimage_has_caption (cimage)) {
-		caption = cimage_get_caption (cimage);
-		pango_layout_set_text (p_layout, caption, -1);
-		pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
-	} else {
-		GnomeVFSURI *uri;
-		uri = cimage_get_uri (cimage);
-		caption = g_strdup (gnome_vfs_uri_get_path (uri));
-	        gnome_vfs_uri_unref (uri);
-		
-		if (caption) {
-			pango_layout_set_text (p_layout, caption, -1);
-			pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
-
-			if (caption_w > metrics->twidth) {
-				caption = shrink_to_width (caption, 
-							   p_layout, 
-							   metrics->twidth);
-				pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
-			}
-			cimage_set_caption (cimage, caption);
-			
-		} else
-			caption_w = caption_h = 0;
-	} 
-	g_object_unref (p_layout);
-
-	/* Configure image */
-	image_x = metrics->border + (metrics->twidth - image_w) / 2;
-	image_y = metrics->border + (metrics->theight - image_h) / 2;
-
-	gnome_canvas_item_set (icon->image,
-			       "pixbuf", thumb,
-			       "x", (double) image_x,
-			       "y", (double) image_y,
-			       "width_set", FALSE,
-			       "height_set", FALSE,
-			       NULL);
-
-	g_object_unref (thumb);
-
-
-	/* Configure caption */
-
-	caption_x = metrics->border + (metrics->twidth - caption_w) / 2;
-	caption_y = metrics->border + metrics->theight + metrics->cspace;
-
-	gnome_canvas_item_set (icon->caption,
-			       "text", caption,
-			       "font_desc", style->font_desc,
-			       "anchor", GTK_ANCHOR_NW,
-			       "x", (double) caption_x,
-			       "y", (double) caption_y,
-			       "fill_color", "White",
-			       NULL);
-	g_free (caption);
-
-	/* configure border */
-	ii_factory_get_item_size (factory, &item_w, &item_h);
-
-	if (cimage_is_selected (cimage))
-		gnome_canvas_item_set (icon->border,
-				       "x1", 0.0,
-				       "y1", 0.0,
-				       "x2", (double) item_w,
-				       "y2", (double) item_h,
-				       "fill_color", NULL,
-				       "outline_color", "Red",
-				       "fill_color", "Black",
-				       "width_pixels", 2,
-				       NULL);
-	else 
-		gnome_canvas_item_set (icon->border,
-				       "x1", 0.0,
-				       "y1", 0.0,
-				       "x2", (double) item_w,
-				       "y2", (double) item_h,
-				       "fill_color", NULL,
-				       "outline_color", "DarkBlue",
-				       "fill_color", "Black",
-				       "width_pixels", 2,
-				       NULL);
-	
-
-	/* configure background */
-	{
-		double x1, y1, x2, y2;
-		x1 = metrics->border;
-		y1 = metrics->border;
-#if 0
-		x2 = x1 + metrics->twidth;
-		y2 = y1 + metrics->theight;
-#endif
-
-		gnome_canvas_item_set (icon->bgr,
-				       "pixbuf", priv->shaded_bgr,
-				       "x", (double) x1,
-				       "y", (double) y1,
-				       "width_set", FALSE,
-				       "height_set", FALSE,
-				       NULL);
+	if ((hint & EOG_ITEM_UPDATE_SELECTION_STATE) == EOG_ITEM_UPDATE_SELECTION_STATE) {
+		update_item_selection (ii_factory, item, cimage);
 	}
 }
 

@@ -876,7 +876,7 @@ do_item_changed_update (EogWrapList *wlist,
 #endif
  				eog_item_factory_update_item (wlist->priv->factory,
 							      wlist->priv->model,
-							      item);
+							      item, EOG_ITEM_UPDATE_ALL);
 			}
 		}
 	}
@@ -985,7 +985,7 @@ do_item_added_update (EogWrapList *wlist,
 								     id);
 				eog_item_factory_update_item (priv->factory,
 							      priv->model,
-							      item);
+							      item, EOG_ITEM_UPDATE_ALL);
 			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
 						     item);
 				priv->n_items++;

@@ -45,6 +45,15 @@ G_BEGIN_DECLS
 typedef struct _EogItemFactory EogItemFactory;
 typedef struct _EogItemFactoryClass EogItemFactoryClass;
 
+typedef enum {
+	EOG_ITEM_UPDATE_NONE = 0,
+	EOG_ITEM_UPDATE_IMAGE = 1 << 0,
+	EOG_ITEM_UPDATE_CAPTION = 1 << 1,
+	EOG_ITEM_UPDATE_SELECTION_STATE = 1 << 3
+} EogItemUpdateHint;
+
+#define EOG_ITEM_UPDATE_ALL  EOG_ITEM_UPDATE_IMAGE | EOG_ITEM_UPDATE_CAPTION | EOG_ITEM_UPDATE_SELECTION_STATE
+
 struct _EogItemFactory {
 	GObject object;
 };
@@ -58,7 +67,7 @@ struct _EogItemFactoryClass {
 					  guint id);
 	void (* update_item) (EogItemFactory *factory, 
 			      EogCollectionModel *model, 
-			      GnomeCanvasItem *item);
+			      GnomeCanvasItem *item, EogItemUpdateHint hint);
 
 	/* Item query signals */
 	void (* get_item_size) (EogItemFactory *factory, 
@@ -79,7 +88,8 @@ GnomeCanvasItem *eog_item_factory_create_item (EogItemFactory *factory,
 
 void eog_item_factory_update_item (EogItemFactory *factory,
 				   EogCollectionModel *model,
-				   GnomeCanvasItem *item);
+				   GnomeCanvasItem *item,
+				   EogItemUpdateHint hint);
 
 void eog_item_factory_get_item_size (EogItemFactory *factory, 
 				     gint *width, gint *height);

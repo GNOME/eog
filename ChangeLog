@@ -1,3 +1,32 @@
+2002-08-02  Jens Finke <jens@triq.net>
+
+	* collection/eog-collection-model.c (directory_visit_cb): Fixed
+	mime type based check, which files we display (only images).
+
+	* collection/eog-collection-view.c (eog_collection_view_get_prop):
+	Display only the filename of the selected image not the whole path.
+
+	* collection/eog-item-factory-simple.c (ensure_max_caption_width):
+	Pango aware rewrite of previous shrink_to_width function.
+	(update_item_image),
+	(update_item_caption),
+	(update_item_selection): New functions.
+	(ii_factory_update_item): Split functionality across the three new
+	functions. Added hint parameter to decide which parts of the icon
+	needs an update.
+
+	* collection/eog-item-factory.[ch]
+	(eog_item_factory_update_item),
+	(eog_item_factory_class_init): Added hint parameter to abstract
+	item update function.
+
+	* collection/eog-wrap-list.c 
+	(do_item_changed_update),
+	(do_item_added_update): Set update hint parameter.
+
+	* collection/eog-collection-marshal.list: Changed paramter list
+	for factory update item marshaller.
+	
 2002-07-29  Federico Mena Quintero  <federico@ximian.com>
 
 	Fixes #89372.

@@ -79,10 +79,11 @@ eog_item_factory_class_init (EogItemFactoryClass *class)
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (EogItemFactoryClass, update_item),
 			      NULL, NULL,
-			      eog_collection_marshal_VOID__OBJECT_OBJECT,
-			      G_TYPE_NONE, 2,
+			      eog_collection_marshal_VOID__OBJECT_OBJECT_INT,
+			      G_TYPE_NONE, 3,
 			      EOG_TYPE_COLLECTION_MODEL,
-			      GNOME_TYPE_CANVAS_ITEM);
+			      GNOME_TYPE_CANVAS_ITEM,
+			      G_TYPE_INT);
 	ei_factory_signals[GET_ITEM_SIZE] =
 		g_signal_new ("get_item_size",
 			      G_TYPE_FROM_CLASS (object_class),
@@ -150,7 +151,8 @@ eog_item_factory_create_item (EogItemFactory *factory, GnomeCanvasGroup *parent,
 void
 eog_item_factory_update_item (EogItemFactory *factory, 
 			      EogCollectionModel *model, 
-			      GnomeCanvasItem *item)
+			      GnomeCanvasItem *item,
+			      EogItemUpdateHint hint)
 {
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (EOG_IS_ITEM_FACTORY (factory));
@@ -161,7 +163,7 @@ eog_item_factory_update_item (EogItemFactory *factory,
 
 	g_signal_emit_by_name (G_OBJECT (factory), 
 			       "update_item",
-			       model, item);
+			       model, item, hint);
 }
 
 /**
