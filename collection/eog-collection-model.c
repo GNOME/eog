@@ -1,5 +1,6 @@
 #include "eog-collection-model.h"
 #include "bonobo/bonobo-moniker-util.h"
+#include <libgnomevfs/gnome-vfs-ops.h>
 #include <libgnomevfs/gnome-vfs-directory.h>
 #include <libgnome/gnome-macros.h>
 
@@ -17,8 +18,6 @@ enum {
 	LAST_SIGNAL
 };
 
-static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func, 
-					   gpointer data, GtkArg *args);
 static guint eog_model_signals[LAST_SIGNAL];
 
 typedef struct {
@@ -338,7 +337,7 @@ directory_visit_cb (const gchar *rel_path,
 	model = ctx->model;
 	priv = model->priv;
 
-	if (g_strncasecmp (info->mime_type, "image/", 6) != 0) {
+	if (g_ascii_strncasecmp (info->mime_type, "image/", 6) != 0) {
 		return TRUE;
 	}
 		
@@ -408,7 +407,7 @@ real_file_loading (LoadingContext *ctx)
 		return FALSE;
 	}
 	
-	if(g_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
+	if(g_ascii_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
 		CImage *img;
 		GQuark id;
 

@@ -1139,9 +1139,6 @@ verb_PrintSetup_cb (BonoboUIComponent *uic, gpointer user_data,
 static void
 eog_image_view_create_ui (EogImageView *image_view)
 {
-	int value;
-	int i;
-
 	g_return_if_fail (image_view != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 
@@ -1781,7 +1778,7 @@ transparency_changed_cb (GConfClient *client,
 		value = gconf_value_get_string (entry->value);
 	}
 	
-	if (g_strcasecmp (value, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
@@ -1812,7 +1809,7 @@ trans_color_changed_cb (GConfClient *client,
 	
 	value = gconf_client_get_string (view->priv->client, GCONF_EOG_VIEW_TRANSPARENCY, NULL);
 
-	if (g_strcasecmp (value, "COLOR") != 0) return;
+	if (g_ascii_strcasecmp (value, "COLOR") != 0) return;
 
 	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
 		color_str = gconf_value_get_string (entry->value);
@@ -1968,7 +1965,7 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 
 	transp_str = gconf_client_get_string (image_view->priv->client, 
 					      GCONF_EOG_VIEW_TRANSPARENCY, NULL);
-	if (g_strcasecmp (transp_str, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (transp_str, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 

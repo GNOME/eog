@@ -131,7 +131,7 @@ eog_preferences_show (GConfClient *client)
 			  client);
 	
 	value = gconf_client_get_string (client, EOG_VIEW_TRANSPARENCY, NULL);
-	if (g_strncasecmp (value, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		widget = glade_xml_get_widget (xml, "color_radio");
 	}
 	else {

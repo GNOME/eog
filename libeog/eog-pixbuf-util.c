@@ -6,7 +6,6 @@ eog_pixbuf_flip_horizontal (GdkPixbuf *pixbuf)
 	int x, y, i;
 	int n_channels;
 	int width, height;
-	int half_width;
 	int rowstride;
 	guchar *src;
 	guchar *dest;
@@ -45,7 +44,6 @@ eog_pixbuf_flip_vertical (GdkPixbuf *pixbuf)
 	int x, y, i;
 	int n_channels;
 	int width, height;
-	int half_width;
 	int rowstride;
 	guchar *src;
 	guchar *dest;
@@ -94,7 +92,7 @@ eog_pixbuf_rotate_90_cw (GdkPixbuf *pixbuf)
 	int src_x, src_y, dest_x, dest_y, i;
 	GdkPixbuf *dest;
 
-	g_return_if_fail (pixbuf != NULL);
+	g_return_val_if_fail (pixbuf != NULL, NULL);
 
 	g_object_ref (pixbuf);
 
@@ -157,7 +155,7 @@ eog_pixbuf_rotate_90_ccw (GdkPixbuf *pixbuf)
 	int src_x, src_y, dest_x, dest_y, i;
 	GdkPixbuf *dest;
 
-	g_return_if_fail (pixbuf != NULL);
+	g_return_val_if_fail (pixbuf != NULL, NULL);
 
 	g_object_ref (pixbuf);
 

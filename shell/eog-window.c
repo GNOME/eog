@@ -40,6 +40,7 @@
 #include "zoom.h"
 #include "Eog.h"
 #include "eog-file-selection.h"
+#include "eog-preferences.h"
 
 /* Default size for windows */
 
@@ -1187,7 +1188,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	GnomeVFSResult result;
 	GnomeVFSFileInfo *info;
 	GnomeVFSURI *uri;
-	GtkWidget *dlg;
 	gchar *uri_str;
 
 	g_return_val_if_fail (window != NULL, FALSE);

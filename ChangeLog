@@ -1,3 +1,41 @@
+2003-03-14  Jens Finke  <jens@triq.net>
+
+	Fixed bunch of compiler warnings, based on a patch by Kelledin (#
+	108342).
+
+	* collection/eog-collection-control.c
+	(eog_collection_control_construct): Removed unused variables.
+
+	* collection/eog-collection-model.c: Include vfs header,
+	s/g_str?casecmp/g_ascii_str?casecmp.
+
+	* collection/eog-collection-view.c (delete_item): Removed unused
+	variables. Use gtk_message_dialog for error dialog.
+	(eog_collection_view_get_prop):
+	s/g_strncasecmp/g_ascii_strncasecmp
+	(load_uri_cb): Return FALSE if uri is NULL.
+
+	* collection/eog-item-factory-clean.c,
+	* collection/eog-slide-show.c,
+	* collection/eog-item-factory-simple.c: Removed bunch of unused
+	variables.
+
+	* collection/eog-wrap-list.c: Replace deprecated functions with
+	new ones.
+
+	* shell/eog-preferences.c,
+	* libeog/eog-file-selection.c: s/g_strcasecmp/g_ascii_strcasecmp.
+
+	* libeog/eog-pixbuf-util.c: Removed unused variables.
+
+	* shell/eog-window.c: Include eog-preferences.h.
+
+	* viewer/eog-image-view.c: Removed unused
+	variables. s/g_strcasecmp/g_ascii_strcasecmp
+
+	* viewer/eog-control.c: Declare bonobo_control_get_plug
+	function. This is a bad hack, but not fixable for Gnome 2.2.
+		
 2003-03-13  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "ml" to ALL_LINGUAS.

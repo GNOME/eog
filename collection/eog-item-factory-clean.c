@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <string.h>
 #include <pango/pango-layout.h>
 #include <gtk/gtksignal.h>
 #include <libgnome/gnome-macros.h>
@@ -259,7 +260,7 @@ ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width, gchar *
 	int len; 
 	int str_len;
 	int str_bytes;
-	gchar* str_pt;
+	gchar* str_pt = NULL;
 	int px_width, px_height;
 	
 	if (tail != NULL) *tail = NULL;
@@ -311,8 +312,6 @@ create_item_caption_lines (gchar *str, PangoLayout *layout, int max_width,
 			   char **line, int n_lines)
 {
 	char *remaining;
-	const char *dots = "...";
-	int dot_width;
 	int px_width, px_height;
 	gchar *tail;
 	int l;
@@ -416,7 +415,6 @@ update_item_image (EogItemFactoryClean *factory, GnomeCanvasItem *item, CImage *
 	IconItem *icon;
 	int image_w, image_h;
 	int image_x, image_y;
-	double x1, y1, x2, y2;
 	GdkPixbuf *thumb = NULL;
 	gboolean start_thumb_creation = FALSE;
 	
@@ -600,17 +598,8 @@ ii_factory_update_item (EogItemFactory *factory,
 			EogItemUpdateHint hint)
 {
 	EogItemFactoryClean *ii_factory;
-	GdkPixbuf *thumb;
-	EogItemFactoryCleanPrivate *priv;
-	EogCleanMetrics *metrics;
 	CImage *cimage = NULL;
 	IconItem *icon;
-	int image_w, image_h;
-	int image_x, image_y;
-	int caption_w, caption_h;
-	int caption_x, caption_y;
-	int item_w, item_h;
-	gchar *caption;
 
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (EOG_IS_ITEM_FACTORY_CLEAN (factory));
@@ -699,7 +688,6 @@ eog_item_factory_clean_construct (EogItemFactoryClean *factory, EogImageLoader *
 {
 	EogItemFactoryCleanPrivate *priv;
 	char *dummy_file;
-	guchar *buffer;
 
 	priv = factory->priv;
 

@@ -125,7 +125,7 @@ is_filename_valid (GtkDialog *dlg)
 		return TRUE;
 	}
 
-	if (g_strcasecmp (info->suffix, "") == 0) { /* check by extension */
+	if (g_ascii_strcasecmp (info->suffix, "") == 0) { /* check by extension */
 		
 		for (i = 0; priv->supported_types[i].label != NULL; i++) {
 			if (g_pattern_match_simple (priv->supported_types[i].suffix, filename))
@@ -176,7 +176,7 @@ changed_cb (GtkWidget *widget, gpointer data)
 	else if (priv->last_info != NULL) {
 		gchar *basename = g_path_get_basename (filename);
 
-		if (g_strcasecmp (basename, priv->last_info->suffix) == 0) {
+		if (g_ascii_strcasecmp (basename, priv->last_info->suffix) == 0) {
 			do_completion = TRUE;
 		}
 		g_free (basename);
@@ -186,7 +186,7 @@ changed_cb (GtkWidget *widget, gpointer data)
 		gtk_file_selection_complete (GTK_FILE_SELECTION (data), info->suffix);		
 	}
 	
-	if (g_strcasecmp (info->suffix, "") == 0) 
+	if (g_ascii_strcasecmp (info->suffix, "") == 0) 
 		priv->last_info = NULL;
 	else 
 		priv->last_info = info;
@@ -215,9 +215,7 @@ eog_file_selection_construct (GtkWidget *widget)
 {
 	EogFileSelection *filesel;
 	GtkWidget *hbox;
-	GtkWidget *item;
 	GtkWidget *menu;
-	FileTypeInfo *info;
 	gint i;
 
 	filesel = EOG_FILE_SELECTION (widget);
@@ -248,7 +246,7 @@ GtkWidget*
 eog_file_selection_new (EogFileSelectionType type)
 {
 	GtkWidget *filesel;
-	gchar *title;
+	gchar *title = NULL;
 	EogFileSelectionPrivate *priv;
 
 	filesel = GTK_WIDGET (g_object_new (EOG_TYPE_FILE_SELECTION,

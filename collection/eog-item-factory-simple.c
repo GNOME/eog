@@ -344,7 +344,7 @@ update_item_image (EogItemFactorySimple *factory, GnomeCanvasItem *item, CImage 
 	IconItem *icon;
 	int image_w, image_h;
 	int image_x, image_y;
-	double x1, y1, x2, y2;
+	double x1, y1;
 	GdkPixbuf *thumb;
 	
 	metrics = factory->priv->metrics;
@@ -506,20 +506,8 @@ ii_factory_update_item (EogItemFactory *factory,
 			EogItemUpdateHint hint)
 {
 	EogItemFactorySimple *ii_factory;
-	GdkPixbuf *thumb;
-	EogItemFactorySimplePrivate *priv;
-	EogSimpleMetrics *metrics;
 	CImage *cimage = NULL;
 	IconItem *icon;
-	int image_w, image_h;
-	int image_x, image_y;
-	int caption_w, caption_h;
-	int caption_x, caption_y;
-	int item_w, item_h;
-	gchar *caption;
-
-	GtkStyle *style;
-	PangoLayout  *p_layout;
 
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory));

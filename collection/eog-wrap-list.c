@@ -407,8 +407,8 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 						item = GNOME_CANVAS_ITEM (
 								node->data);
 						id = GPOINTER_TO_INT (
-							gtk_object_get_data (
-							GTK_OBJECT (item),
+							g_object_get_data (
+							G_OBJECT (item),
 							"ImageID"));
 						eog_collection_model_toggle_select_status (model, id);
 
@@ -725,7 +725,7 @@ eog_wrap_list_set_background_color (EogWrapList *wlist, GdkColor *color)
 	g_return_if_fail (color != NULL);
 
 	/* try to alloc color */
-	if(gdk_color_alloc (gdk_colormap_get_system (), color))
+	if(gdk_colormap_alloc_color (gdk_colormap_get_system (), color, FALSE, TRUE))
 	{
 		GtkStyle *style;
 		style = gtk_style_copy (gtk_widget_get_style (GTK_WIDGET (wlist)));
@@ -832,7 +832,7 @@ compare_item_caption (const GnomeCanvasItem *item1, const GnomeCanvasItem *item2
 	cap1 = (gchar*) g_object_get_data (G_OBJECT (item1), "Caption");
 	cap2 = (gchar*) g_object_get_data (G_OBJECT (item2), "Caption");
 	
-	return g_strcasecmp (cap1, cap2);
+	return g_ascii_strcasecmp (cap1, cap2);
 }
 
 static void 
@@ -963,7 +963,6 @@ do_item_selection_changed_update (EogWrapList *wlist,
 {
 	EogWrapListPrivate *priv;
 	GnomeCanvasItem *item;
-	CImage *img;
 
 	*layout_check_needed = FALSE;
 	*item_rearrangement_needed = FALSE;
@@ -1005,8 +1004,6 @@ do_item_selection_update_all (EogWrapList *wlist,
 			      gboolean *item_rearrangement_needed)
 {
 	EogWrapListPrivate *priv;
-	GnomeCanvasItem *item;
-	CImage *img;
 
 	*layout_check_needed = FALSE;
 	*item_rearrangement_needed = FALSE;

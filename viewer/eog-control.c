@@ -23,6 +23,10 @@
 #include "libeog/image-view.h"
 #include <eog-control.h>
 
+/* defined in libbonoboui, but not prototyped in any installed headers. */ 
+#warning FIXME: bonobo_contro_get_plug() needs to be prototyped in libbonoboui headers 
+BonoboPlug *bonobo_control_get_plug(BonoboControl *control); 
+
 /* See plug_size_allocate_cb() below */
 #define BROKEN_SIZE_ALLOCATIONS 3
 

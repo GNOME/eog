@@ -172,7 +172,6 @@ EogCollectionControl *
 eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 {
 	EogCollectionControlPrivate *priv;
-	BonoboControl     *bctrl;	
 	BonoboPropertyBag *property_bag;
 	GtkWidget *widget;
 

@@ -310,9 +310,9 @@ delete_item (EogCollectionModel *model, CImage *image, gpointer user_data)
 {
 	GnomeVFSURI *uri, *trash = NULL, *path;
 	GnomeVFSResult result = GNOME_VFS_OK;
-	GtkWidget *window;
 	const gchar *msg;
 	EogCollectionView *view;
+	GtkWidget *dialog;
 
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (user_data), FALSE);
 	view = EOG_COLLECTION_VIEW (user_data);
@@ -338,15 +338,18 @@ delete_item (EogCollectionModel *model, CImage *image, gpointer user_data)
 
 	if (result != GNOME_VFS_OK) {
 		msg = gnome_vfs_result_to_string (result);
-		window = gtk_widget_get_ancestor (
-			GTK_WIDGET (view->priv->root), GTK_TYPE_WINDOW);
-		if (window)
-			gnome_error_dialog_parented (msg, GTK_WINDOW (window));
-		else
-			gnome_error_dialog (msg);
+
+		dialog = gtk_message_dialog_new (
+			NULL, GTK_DIALOG_MODAL,
+			GTK_MESSAGE_ERROR,
+			GTK_BUTTONS_CLOSE,
+			msg);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		
 		return (FALSE);
 	}
-
+	
 	return (TRUE);
 }
 
@@ -354,7 +357,7 @@ static void
 handle_delete_activate (GtkMenuItem *item, EogCollectionView *view)
 {
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
-
+	
 	eog_collection_model_foreach (view->priv->model, delete_item, view);
 }
 
@@ -538,7 +541,7 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		if (base_uri == NULL)
 			title = g_strdup (_("Collection View"));
 		else {
-			if (g_strncasecmp ("file:", base_uri, 5) == 0)
+			if (g_ascii_strncasecmp ("file:", base_uri, 5) == 0)
 				title = g_strdup ((base_uri+5*sizeof(guchar)));
 			else
 				title = g_strdup (base_uri);
@@ -799,7 +802,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	
 	priv = EOG_COLLECTION_VIEW (closure)->priv;
 
-	if (text_uri == CORBA_OBJECT_NIL) return;
+	if (text_uri == CORBA_OBJECT_NIL) return FALSE;
 
 	eog_collection_model_set_uri (priv->model, (gchar*)text_uri); 
 

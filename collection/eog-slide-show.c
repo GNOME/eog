@@ -134,7 +134,6 @@ eog_slide_show_show (GtkWidget *widget)
 	EogSlideShow *show;
 	EogSlideShowPrivate *priv;
 	GtkWidget *image_view;
-	GdkPixbuf *pixbuf;
 	CImage *image;
 
 	show = EOG_SLIDE_SHOW (widget);
@@ -182,7 +181,6 @@ eog_slide_show_key_press (GtkWidget *widget, GdkEventKey *event)
 	gboolean do_hide;
 	gboolean result;
 	EogSlideShowPrivate *priv;
-	GdkPixbuf *pixbuf;
 
 	priv = EOG_SLIDE_SHOW (widget)->priv;
 
