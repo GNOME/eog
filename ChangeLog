@@ -1,3 +1,12 @@
+2004-05-27  Jens Finke  <jens@triq.net>
+
+	* shell/eog-window.c (eog_window_open_uri),
+	(eog_window_open_uri_list): Make recently used items work.
+	(image_loading_finished_cb),
+	(image_loading_failed_cb): New functions.
+	(handle_image_selection_changed): (Dis-)connect to image signals.
+	(adapt_window_size): Reworked.
+
 2004-05-25  Jens Finke  <jens@triq.net>
 
 	This is a fairly large patch, which makes fundamental changes. It

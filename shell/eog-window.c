@@ -72,6 +72,7 @@ struct _EogWindowPrivate {
 
 	/* Images we are displaying */
 	EogImageList        *image_list;
+	EogImage            *displayed_image;
 
 	/* ui/widget stuff */
 	GtkUIManager        *ui_mgr;
@@ -98,6 +99,9 @@ struct _EogWindowPrivate {
 
 	/* signal ids */
 	guint sig_id_list_prepared;
+	guint sig_id_progress;
+	guint sig_id_loading_finished;
+	guint sig_id_loading_failed;
 
 	/* deprecated */
 	BonoboControlFrame  *ctrl_frame;
@@ -120,7 +124,7 @@ static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
-static void adapt_window_size (EogWindow *window);
+static void adapt_window_size (EogWindow *window, int width, int height);
 
 static GtkWindowClass *parent_class;
 
@@ -597,6 +601,7 @@ eog_window_init (EogWindow *window)
 	priv->desired_height = -1;
 
 	priv->image_list = NULL;
+	priv->displayed_image = NULL;
 	priv->sig_id_list_prepared = 0;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
@@ -699,7 +704,7 @@ set_drag_dest (EogWindow *window)
 static void
 widget_realized_cb (GtkWidget *widget, gpointer data)
 {
-	adapt_window_size (EOG_WINDOW (data));
+	adapt_window_size (EOG_WINDOW (data), 250, 250);
 }
 
 static void
@@ -728,6 +733,42 @@ update_ui_visibility (EogWindow *window)
 	}
 }
 
+static void 
+image_progress_cb (EogImage *image, float progress, gpointer data) 
+{
+	gnome_appbar_set_progress_percentage (GNOME_APPBAR (EOG_WINDOW (data)->priv->statusbar), progress);
+}
+
+static void
+image_loading_finished_cb (EogImage *image, gpointer data) 
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	int n_images = 0;
+
+	window = EOG_WINDOW (data);
+	priv = window->priv;
+
+	if (priv->image_list != NULL) {
+		n_images = eog_image_list_length (priv->image_list);
+	}
+
+	if (n_images == 1) {
+		int width, height;
+		
+		eog_image_get_size (image, &width, &height);
+		adapt_window_size (window, width, height);
+
+		g_print ("loading finished: %s - (%i|%i)\n", eog_image_get_caption (image), width, height);
+	}
+}
+
+static void
+image_loading_failed_cb (EogImage *image, const char* message,  gpointer data) 
+{
+	g_print ("loading failed: %s\n", eog_image_get_caption (image));
+}
+
 static void
 handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
 {
@@ -740,19 +781,28 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 
 	g_assert (priv->image_list != NULL);
 
-#if 0
+	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+
 	if (priv->displayed_image != image) {
 		if (priv->displayed_image != NULL) {
-			g_signal_handler_disconnect (priv->displayed_image, priv->progress_handler_id);
+			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_progress);
+			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_loading_finished);
+			g_signal_handler_disconnect (priv->displayed_image, priv->sig_id_loading_failed);
 
 			g_object_unref (priv->displayed_image);
 			priv->displayed_image = NULL;
 		}
+		
+		if (image != NULL) {
+			priv->sig_id_progress         = g_signal_connect (image, "progress", 
+									  G_CALLBACK (image_progress_cb), window);
+			priv->sig_id_loading_finished = g_signal_connect (image, "loading-finished", 
+									  G_CALLBACK (image_loading_finished_cb), window);
+			priv->sig_id_loading_failed   = g_signal_connect (image, "loading-failed", 
+									  G_CALLBACK (image_loading_failed_cb), window);
+			priv->displayed_image = g_object_ref (image);
+		}
 	}
-#endif
-	
-	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
-	/* priv->progress_handler_id = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view); */
 	
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
@@ -989,16 +1039,46 @@ eog_window_close (EogWindow *window)
 }
 
 static void
-adapt_window_size (EogWindow *window)
+adapt_window_size (EogWindow *window, int width, int height)
 {
 	int xthick, ythick;
 	int req_height, req_width;
 	int sb_height;
 	EogWindowPrivate *priv;
 	gboolean sb_visible;
+	int new_height;
+	int new_width;
+	int sw, sh;
 
 	priv = window->priv;
+	
+	new_width = GTK_WIDGET (window)->allocation.width - 
+		GTK_WIDGET (window->priv->scroll_view)->allocation.width +
+		width;
 
+	new_height = GTK_WIDGET (window)->allocation.height - 
+		GTK_WIDGET (window->priv->scroll_view)->allocation.height + 
+		height;
+
+	sw = gdk_screen_width (); /* FIXME: Multihead issue? */
+	sh = gdk_screen_height ();
+	
+	if ((new_width >= sw) || (new_height >= sh)) {
+		double factor;
+		if (new_width > new_height) {
+			factor = (sw * 0.75) / (double) new_width;
+		}
+		else {
+			factor = (sh * 0.75) / (double) new_height;
+		}
+		new_width = new_width * factor;
+		new_height = new_height * factor;
+	}
+
+
+	gtk_window_resize (GTK_WINDOW (window), new_width, new_height);
+
+#if 0
 	/* check if the statusbar is visible */
 	g_object_get (G_OBJECT (priv->statusbar), "visible", &sb_visible, NULL);
 
@@ -1031,6 +1111,7 @@ adapt_window_size (EogWindow *window)
 
 		gtk_window_resize (GTK_WINDOW (window), req_width, req_height);
 	}
+#endif
 }
 
 static void
@@ -1039,7 +1120,6 @@ image_list_prepared_cb (EogImageList *list, EogWindow *window)
 	g_print ("EogWindow: Image list prepared: %i images\n", eog_image_list_length (EOG_IMAGE_LIST (list)));
 	update_ui_visibility (EOG_WINDOW (window));
 }
-
 
 /**
  * eog_window_open:
@@ -1058,6 +1138,7 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 	EogWindowPrivate *priv;
 	GnomeVFSFileInfo *info;
 	GnomeVFSResult result;
+	EggRecentItem *recent_item;
 
 	priv = window->priv;
 
@@ -1095,26 +1176,13 @@ eog_window_open (EogWindow *window, const char *iid, const char *text_uri, GErro
 	/* attach model to view */
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
-#if 0 /* FIXME: update recent files */
-	if (BONOBO_EX (&ev)) {
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_IO,
-			     bonobo_exception_get_text (&ev));
-	}
-	else {
-		result = TRUE;
+	/* update recent files */
+	recent_item = egg_recent_item_new_from_uri (text_uri);
+	egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
+	egg_recent_model_add_full (priv->recent_model, recent_item);
+	egg_recent_item_unref (recent_item);		
 
-		if (priv->uri == NULL) {
-			priv->uri = g_strdup ((char*) text_uri);
-		}
-		
-		recent_item = egg_recent_item_new_from_uri (text_uri);
-		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
-		egg_recent_model_add_full (priv->recent_model, recent_item);
-		egg_recent_item_unref (recent_item);		
-	}
-#endif
-
+	/* update ui */
 	update_ui_visibility (window);
 
 	return TRUE;
@@ -1136,6 +1204,7 @@ gboolean
 eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
 {
 	EogWindowPrivate *priv;
+	GList *it;
 
 	priv = window->priv;
 
@@ -1152,25 +1221,13 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	eog_image_list_add_files (priv->image_list, text_uri_list);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
-#if 0 /* FIXME: update recent files */
-	if (BONOBO_EX (&ev)) {
-		g_set_error (error, EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_IO,
-			     bonobo_exception_get_text (&ev));
-	}
-	else {
-		result = TRUE;
-
-		if (priv->uri == NULL) {
-			priv->uri = g_strdup ((char*) text_uri);
-		}
-		
-		recent_item = egg_recent_item_new_from_uri (text_uri);
+	/* update recent files list */
+	for (it = text_uri_list; it != NULL; it = it->next) {
+		EggRecentItem *recent_item = egg_recent_item_new_from_uri ((char*) it->data);
 		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
 		egg_recent_model_add_full (priv->recent_model, recent_item);
 		egg_recent_item_unref (recent_item);		
 	}
-#endif
 
 	update_ui_visibility (window);
 
