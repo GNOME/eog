@@ -1,7 +1,10 @@
+SUBDIRS = recent-files
+
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
+	-I$(top_srcdir)/shell/recent-files			\
 	$(GCONF_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
@@ -22,11 +25,15 @@ eog_SOURCES =			\
 	util.h			\
 	util.c
 
-eog_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+eog_DEPENDENCIES = 				\
+	$(top_builddir)/libeog/libeog.a 	\
+	$(top_builddir)/shell/recent-files/librecent.a
 
 eog_LDADD = 				\
 	-L$(top_builddir)/libeog 	\
+	-L$(top_builddir)/shell/recent-files \
 	-leog				\
+	-lrecent			\
 	$(POPT_LIBS)			\
 	$(EOG_LIBS)
 

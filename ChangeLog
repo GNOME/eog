@@ -1,3 +1,20 @@
+2003-04-12  Jens Finke  <jens@triq.net>
+
+	Support for list of recent files.
+
+	* configure.in (AC_OUTPUT): Added shell/recent-files/Makefile
+
+	* shell/Makefile.am: Build and link against recent files helper
+	library.
+
+	* shell/eog-shell-ui.xml: Placeholder for list of recent files.
+
+	* shell/eog-window.c (open_recent_cb): New function.
+	(eog_window_destroy): Free recent model/view.
+	(eog_window_construct): Setup recent file objects.
+	(eog_window_open_list): Add file to the list of recently opened
+	files.
+	
 2003-04-08  Jens Finke  <jens@triq.net>
 
 	* collection/GNOME_EOG_Collection.server.in.in: Added

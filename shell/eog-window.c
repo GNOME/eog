@@ -42,12 +42,14 @@
 #include "eog-file-selection.h"
 #include "eog-preferences.h"
 #include "libeog-marshal.h"
+#include "egg-recent.h"
 
 /* Default size for windows */
 
 #define DEFAULT_WINDOW_WIDTH  310
 #define DEFAULT_WINDOW_HEIGHT 280
 
+#define RECENT_FILES_GROUP         "Eye of Gnome"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
 
 #define PROPERTY_WINDOW_STATUS "window/status"
@@ -78,6 +80,9 @@ struct _EogWindowPrivate {
 
 	int desired_width;
 	int desired_height;
+
+	EggRecentModel      *recent_model;
+	EggRecentViewBonobo *recent_view;
 };
 
 enum {
@@ -331,6 +336,22 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 }
 
 static void
+open_recent_cb (GtkWidget *widget, const EggRecentItem *item, gpointer data)
+{
+	EogWindow *window;
+	char *uri;
+	GList *list = NULL;
+
+	window = EOG_WINDOW (data);
+
+	uri = egg_recent_item_get_uri (item);
+	
+	list = g_list_prepend (list, uri);
+	
+	g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
+}
+
+static void
 open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
 {
 	GList *it;
@@ -397,6 +418,16 @@ eog_window_destroy (GtkObject *object)
 	if (priv->ctrl_frame != NULL) {
 		bonobo_object_unref (BONOBO_OBJECT (priv->ctrl_frame));
 		priv->ctrl_frame = NULL;
+	}
+
+	if (priv->recent_view != NULL) {
+		g_object_unref (priv->recent_view);
+		priv->recent_view = NULL;
+	}
+
+	if (priv->recent_model != NULL) {
+		g_object_unref (priv->recent_model);
+		priv->recent_model = NULL;
 	}
 
 	/* Clean up GConf-related stuff */
@@ -646,6 +677,17 @@ eog_window_construct (EogWindow *window)
 
 	bonobo_ui_util_set_ui (priv->ui_comp, DATADIR, "eog-shell-ui.xml", "EOG", NULL);
 	bonobo_ui_component_add_verb_list_with_data (priv->ui_comp, eog_app_verbs, window);
+
+	/* recent files support */
+	priv->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
+	egg_recent_model_set_filter_groups (priv->recent_model, RECENT_FILES_GROUP, NULL);
+
+	priv->recent_view = egg_recent_view_bonobo_new (priv->ui_comp,
+							"/menu/File/EggRecentDocuments/");
+	egg_recent_view_bonobo_show_icons (priv->recent_view, TRUE);
+	egg_recent_view_set_model (EGG_RECENT_VIEW (priv->recent_view), priv->recent_model);
+	g_signal_connect (G_OBJECT (priv->recent_view), "activate",
+			  G_CALLBACK (open_recent_cb), window);
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
@@ -908,6 +950,8 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	CORBA_Environment ev;
 	GList *it;
 	EogWindowPrivate *priv;
+	char *uri;
+	EggRecentItem *recent_item;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (iid != NULL, FALSE);
@@ -975,18 +1019,28 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	
 	/* load the files */
 	for (it = text_uri_list; it != NULL; it = it->next) {
-		Bonobo_PersistFile_load (pfile, (char*)it->data, &ev);
+		uri = (char*) it->data;
+
+		Bonobo_PersistFile_load (pfile, uri, &ev);
+
 		if (BONOBO_EX (&ev)) {
 			g_set_error (error, EOG_WINDOW_ERROR,
 				     EOG_WINDOW_ERROR_IO,
 				     bonobo_exception_get_text (&ev));
+			continue;
 		}
-		else if (priv->uri == NULL) {
+		
+		if (priv->uri == NULL) {
 			/* FIXME: if we really open several URI's in one window
 			 * than we save only the first uri. 
 			 */
 			priv->uri = g_strdup ((char*) it->data);
 		}
+
+		recent_item = egg_recent_item_new_from_uri (uri);
+		egg_recent_item_add_group (recent_item, RECENT_FILES_GROUP);
+		egg_recent_model_add_full (priv->recent_model, recent_item);
+		egg_recent_item_unref (recent_item);		
 	}
 
 	bonobo_object_release_unref (pfile, &ev);
