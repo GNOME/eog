@@ -170,6 +170,28 @@ image_view_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, gpoi
 	return TRUE;
 }
 
+/* Callback for the popup_menu signal of the image view */
+static gboolean
+image_view_popup_menu_cb (GtkWidget *widget, gpointer data)
+{
+	EogImageView *view;
+	EogImageViewPrivate *priv;
+	int x, y;
+
+	view = EOG_IMAGE_VIEW (data);
+	priv = view->priv;
+
+	priv->popup_x = widget->allocation.width / 2;
+	priv->popup_y = widget->allocation.height / 2;
+
+	gdk_window_get_origin (widget->window, &x, &y);
+	x += priv->popup_x;
+	y += priv->popup_y;
+
+	gtk_item_factory_popup (priv->item_factory, x, y, 0, gtk_get_current_event_time ());
+	return TRUE;
+}
+
 static void
 listener_Interpolation_cb (BonoboUIComponent           *uic,
 			   const char                  *path,
@@ -301,7 +323,6 @@ save_image_as_file (EogImageView *image_view, gchar *filename)
 	gchar            *path_base = NULL;
         gchar            *mime_type = NULL;
 	gchar            *tmp_dir = NULL;
-	gchar            *str;
 	GtkWidget        *dialog;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
@@ -2084,6 +2105,17 @@ setup_item_factory (EogImageView *image_view, gboolean need_close_item)
 				       image_view);
 }
 
+static void
+ui_image_size_allocate_cb (GtkWidget *widget, GtkAllocation *allocation)
+{
+	fprintf (stderr, "%p size_allocate (%d, %d, %d, %d)\n",
+		 widget,
+		 allocation->x,
+		 allocation->y,
+		 allocation->width,
+		 allocation->height);
+}
+
 EogImageView *
 eog_image_view_construct (EogImageView *image_view, EogImage *image,
 			  gboolean zoom_fit, gboolean need_close_item)
@@ -2114,6 +2146,9 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 	image_view->priv->ui_image = ui_image_new ();
 	gtk_widget_show (image_view->priv->ui_image);
 
+	g_signal_connect (image_view->priv->ui_image, "size_allocate",
+			  G_CALLBACK (ui_image_size_allocate_cb), NULL);
+
 	image_view->priv->image_view = 
 		IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image)));
 	g_signal_connect (G_OBJECT (image_view->priv->image_view), 
@@ -2123,6 +2158,8 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 
 	g_signal_connect (image_view->priv->image_view, "button_press_event",
 			  G_CALLBACK (image_view_button_press_event_cb), image_view);
+	g_signal_connect (image_view->priv->image_view, "popup_menu",
+			  G_CALLBACK (image_view_popup_menu_cb), image_view);
 
 	/* get preference values from gconf and add listeners */
 

@@ -1292,6 +1292,7 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
+	gboolean handled;
 	gboolean do_zoom;
 	double zoomx, zoomy;
 	gboolean do_scroll;
@@ -1300,13 +1301,15 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 	view = IMAGE_VIEW (widget);
 	priv = view->priv;
 
+	handled = FALSE;
+
 	do_zoom = FALSE;
 	do_scroll = FALSE;
 	xofs = yofs = 0;
 	zoomx = zoomy = 1.0;
 
 	if ((event->state & (GDK_MODIFIER_MASK & ~GDK_LOCK_MASK)) != 0)
-		return FALSE;
+		goto out;
 
 	switch (event->keyval) {
 	case GDK_Up:
@@ -1358,7 +1361,7 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 		break;
 
 	default:
-		return FALSE;
+		goto out;
 	}
 
 	if (do_zoom) {
@@ -1371,7 +1374,13 @@ image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 	if (do_scroll)
 		scroll_by (view, xofs, yofs);
 
-	return TRUE;
+	handled = TRUE;
+
+ out:
+	if (handled)
+		return TRUE;
+	else
+		return (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
 }
 
 /* Callback used when an adjustment is changed */
