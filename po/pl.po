@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-27 23:43+0200\n"
-"PO-Revision-Date: 2003-06-27 13:20+0200\n"
-"Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
+"POT-Creation-Date: 2003-07-01 01:09+0200\n"
+"PO-Revision-Date: 2003-06-30 07:03+0100\n"
+"Last-Translator: Gnome PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgid "Slide Show"
 msgstr "Przeglądanie slajdowe"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Edycja"
 
@@ -83,7 +83,7 @@ msgid "_Undo"
 msgstr "_Cofnij"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_Widok"
 
@@ -103,7 +103,7 @@ msgstr "Przenieś do śmietnika"
 msgid "Collection View"
 msgstr "Przegląd kolekcji"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
 msgid "Window Title"
 msgstr "Tytuł okna"
 
@@ -111,7 +111,7 @@ msgstr "Tytuł okna"
 msgid "Status Text"
 msgstr "Napis na pasku stanu"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
 msgid "Progress of Image Loading"
 msgstr "Postęp wczytywania obrazu"
 
@@ -201,25 +201,6 @@ msgid "sec"
 msgstr "sek."
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Automatyczny dobór wymiarów okna"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Domyślny współczynnik powiększenia w trybie pełnoekranowym"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Domyślny współczynnik powiększenia w trybie pełnoekranowym. Dopuszczalne "
-"wartości: 0 (współczynnik powiększenia 1:1), 1 (współczynnik powiększenia "
-"taki, jak w oknie obrazu), 2 (dopasowanie powiększenia obrazu do wymiarów "
-"ekranu)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -229,11 +210,7 @@ msgstr ""
 "CHECK_PATTERN (wzór szachownicy), COLOR (kolor) i NONE (brak). Jeśli wybrano "
 "opcję COLOR, wówczas klucz trans_key określa wartość użytego koloru."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Dopasowanie obrazów o standardowych wymiarach do obrazu"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -241,31 +218,23 @@ msgstr ""
 "Jeśli klucz transparency (przezroczystość) ma wartość COLOR (kolor), wówczas "
 "opcja ta określa kolor wykorzystywany do prezentacji przezroczystości."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolacja obrazu"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Otwieranie obrazów w nowym oknie"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Rysowanie kantu przy krawędziach ekranu"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Zachowanie pasków przewijania w trybie pełnoekranowym"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Kolor przezroczystości"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Wskaźnik przezroczystości"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -273,55 +242,13 @@ msgstr ""
 "Określa, czy przy powiększaniu obrazu powinien on być interpolowany. "
 "Interpolacja poprawia jakość obrazu jednak spowalnia jego wyświetlanie."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Określa, czy okna z obrazami powinny automatycznie dopasowywać do obrazu swe "
-"wymiary i współczynnik powiększenia. Jeśli opcja będzie wyłączona, o "
-"rozmiarach okien zadecyduje wyłącznie menedżer okien."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Określa, czy przy otwieraniu obrazu powinno być tworzone nowe okno, zamiast "
 "umieszczania obrazu w bieżącym oknie."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Określa, czy w trybie pełnoekranowym przy krawędziach ekranu powinien być "
-"rysowany skos."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Określa, czy w trybie pełnoekranowym powinny być wyświetlane paski "
-"przewijania. Poprawne wartości: 1 (automatycznie - wyświetlanie pasków "
-"przewijania tylko, jeśli obraz jest większy niż wymiary ekranu), 2 (bez "
-"wyświetlania pasków przewijania)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Określa, czy w trybie pełnoekranowym obrazy o standardowych wymiarach "
-"powinny być dopasowywane do ekranu. Standardowymi wymiarami są: 320x240, "
-"640x480, 800x800, itp. Opcja ta określa, czy takie obrazy powinny być "
-"skalowane do wymiarów ekranu, niezależnie od ustawień domyślnego "
-"współczynnika powiększenia dla trybu pełnoekranowego."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -406,7 +333,7 @@ msgid "Page"
 msgstr "Strona"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "Podgląd"
 
@@ -433,9 +360,8 @@ msgid "Center"
 msgstr "Wyśrodkowanie"
 
 #: libgpi/gpi-dialog.glade.h:5
-#, fuzzy
 msgid "Cutting help"
-msgstr "Pomoc obcinania"
+msgstr "Wydruk linii do cięcia"
 
 #: libgpi/gpi-dialog.glade.h:6
 msgid "Down, then right"
@@ -450,7 +376,6 @@ msgid "Horizontally"
 msgstr "Poziomo"
 
 #: libgpi/gpi-dialog.glade.h:9
-#, fuzzy
 msgid "Horizontally by "
 msgstr "Poziomo"
 
@@ -460,14 +385,13 @@ msgstr "Marginesy"
 
 #: libgpi/gpi-dialog.glade.h:11
 msgid "Ordering help"
-msgstr ""
+msgstr "Wspomaganie układania"
 
 #: libgpi/gpi-dialog.glade.h:12
 msgid "Overlap"
 msgstr "Nakładanie"
 
 #: libgpi/gpi-dialog.glade.h:13
-#, fuzzy
 msgid "Overlap help"
 msgstr "Wydruk linii do nakładania"
 
@@ -492,25 +416,12 @@ msgid "Vertically"
 msgstr "Pionowo"
 
 #: libgpi/gpi-dialog.glade.h:22
-#, fuzzy
 msgid "Vertically by "
 msgstr "Pionowo"
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "obszar_czynności"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr ""
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -713,388 +624,145 @@ msgid "Print image to the printer"
 msgstr "Drukuje obraz na drukarce"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Obrót w lewo"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Obrót w prawo"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Z_apisz jako..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Zmienia ustawienia drukowania dla bieżącej drukarki"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Pełny ekran"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "Wy_drukuj..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/Obróć zgodnie ze _wskazówkami zegara"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/O_bróć przeciwnie do wskazówek zegara"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/Po_większ"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/Po_mniejsz"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/_Zwykły rozmiar"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/D_opasowanie powiększenia"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/Za_mknij"
 
-#: viewer/eog-image-view.c:982
+#: viewer/eog-image-view.c:994
 msgid "Image successfully saved"
 msgstr "Obraz został pomyślnie zapisany"
 
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:998
 msgid "Image saving failed"
 msgstr "Zapis pliku zakończony niepowodzeniem"
 
-#: viewer/eog-image-view.c:1229
+#: viewer/eog-image-view.c:1241
 msgid "Image Width"
 msgstr "Szerokość obrazu"
 
-#: viewer/eog-image-view.c:1232
+#: viewer/eog-image-view.c:1244
 msgid "Image Height"
 msgstr "Wysokość obrazu"
 
-#: viewer/eog-image-view.c:1238
+#: viewer/eog-image-view.c:1250
 msgid "Statusbar Text"
 msgstr "Napis na pasku stanu"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1253
 msgid "Desired Window Width"
 msgstr "Żądana szerokość okna"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1256
 msgid "Desired Window Height"
 msgstr "Żądana wysokość okna"
 
-#~ msgid "Couldn't initialize GnomeVFS!\n"
-#~ msgstr "Nie można zainicjować GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Automatyczny dobór wymiarów okna"
 
-#~ msgid "pts"
-#~ msgstr "pkt"
-
-#~ msgid "points"
-#~ msgstr "punkty"
-
-#~ msgid "mm"
-#~ msgstr "mm"
-
-#~ msgid "cm"
-#~ msgstr "cm"
-
-#~ msgid "centimeter"
-#~ msgstr "centymetry"
-
-#~ msgid "inch"
-#~ msgstr "cale"
-
-#~ msgid "Print Setup"
-#~ msgstr "Ustawienia wydruku"
-
-#~ msgid "Print"
-#~ msgstr "Wydrukuj"
-
-#~ msgid "Print preview"
-#~ msgstr "Podgląd wydruku"
-
-#~ msgid "Units: "
-#~ msgstr "Jednostki: "
-
-#~ msgid "Paper size:"
-#~ msgstr "Rozmiar papieru:"
-
-#~ msgid "Orientation"
-#~ msgstr "Ułożenie"
-
-#~ msgid "Portrait"
-#~ msgstr "Portret"
-
-#~ msgid "Landscape"
-#~ msgstr "Pejzaż"
-
-#~ msgid "Top:"
-#~ msgstr "Górny:"
-
-#~ msgid "Left:"
-#~ msgstr "Lewy:"
-
-#~ msgid "Right:"
-#~ msgstr "Prawy:"
-
-#~ msgid "Bottom:"
-#~ msgstr "Dolny:"
-
-#~ msgid "Overlap horizontally by "
-#~ msgstr "Nakładanie poziomo o "
-
-#~ msgid "Overlap vertically by "
-#~ msgstr "Nakładanie pionowo o "
-
-#~ msgid "Printing"
-#~ msgstr "Drukowanie"
-
-#~ msgid "Helpers"
-#~ msgstr "Elementy pomocnicze"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Oko Gnoma - przeglądarka obrazów"
-
-#~ msgid "By c_olor"
-#~ msgstr "Używając _koloru"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Prezentacja przezroczystości"
-
-#~ msgid "Pick a color"
-#~ msgstr "Wybór koloru"
-
-#~ msgid "interpolation type"
-#~ msgstr "typ interpolacji"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "używany typ interpolacji"
-
-#~ msgid "check type"
-#~ msgstr "typ szachownicy"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "typ wyświetlanej szachownicy"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "rozmiar wyświetlanych pól szachownicy"
-
-#~ msgid "dither"
-#~ msgstr "ditherowanie"
-
-#~ msgid "dither type"
-#~ msgstr "typ ditherowania"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Domyślny współczynnik powiększenia w trybie pełnoekranowym"
 
 #~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
 #~ msgstr ""
-#~ "Operacja spowoduje jednoczesne otwarcie %i okien.\n"
-#~ "Czy chcesz kontynuować?"
+#~ "Domyślny współczynnik powiększenia w trybie pełnoekranowym. Dopuszczalne "
+#~ "wartości: 0 (współczynnik powiększenia 1:1), 1 (współczynnik powiększenia "
+#~ "taki, jak w oknie obrazu), 2 (dopasowanie powiększenia obrazu do wymiarów "
+#~ "ekranu)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Dopasowanie obrazów o standardowych wymiarach do obrazu"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Rysowanie kantu przy krawędziach ekranu"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Zachowanie pasków przewijania w trybie pełnoekranowym"
 
 #~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
 #~ msgstr ""
-#~ "Brak dostępu do pliku %s\n"
-#~ "Nie można wyświetlić tego pliku."
+#~ "Określa, czy okna z obrazami powinny automatycznie dopasowywać do obrazu "
+#~ "swe wymiary i współczynnik powiększenia. Jeśli opcja będzie wyłączona, o "
+#~ "rozmiarach okien zadecyduje wyłącznie menedżer okien."
 
 #~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
 #~ msgstr ""
-#~ "Z powodu braku dostępu nie można wyświetlić następujących plików:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "Nie można zainicjować GnomeVFS!\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Nie można zainicjować Bonobo!\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Nie można zapisać obrazu jako \"%s\": %s."
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Wydruk obrazu nie powiódł się"
+#~ "Określa, czy w trybie pełnoekranowym przy krawędziach ekranu powinien być "
+#~ "rysowany skos."
 
 #~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
 #~ msgstr ""
-#~ "Nie można wyświetlić pomocy na temat okna preferencji.\n"
-#~ "%s"
+#~ "Określa, czy w trybie pełnoekranowym powinny być wyświetlane paski "
+#~ "przewijania. Poprawne wartości: 1 (automatycznie - wyświetlanie pasków "
+#~ "przewijania tylko, jeśli obraz jest większy niż wymiary ekranu), 2 (bez "
+#~ "wyświetlania pasków przewijania)."
 
-#~ msgid "Change preferences"
-#~ msgstr "Zmienia preferencje"
-
-#~ msgid "Close"
-#~ msgstr "Zamknij"
-
-#~ msgid "_New Window"
-#~ msgstr "_Nowe okno"
-
-#~ msgid "Unable to open %s."
-#~ msgstr "Nie można otworzyć %s."
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Powiększenie _1:1"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "D_opasowanie powiększenia"
-
-#~ msgid "Check _size"
-#~ msgstr "_Rozmiar pola szachownicy"
-
-#~ msgid "Check _type"
-#~ msgstr "_Kolorystyka szachownicy"
-
-#~ msgid "Large"
-#~ msgstr "Duże"
-
-#~ msgid "Medium"
-#~ msgstr "Średnie"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "Do _najbliższego sąsiada"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "_Zwykłe (odwzorowanie paletowe)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "Podgląd _wydruku"
-
-#~ msgid "Print S_etup"
-#~ msgstr "_Ustawienia wydruku"
-
-#~ msgid "Small"
-#~ msgstr "Małe"
-
-#~ msgid "_Bilinear"
-#~ msgstr "_Dwuliniowa"
-
-#~ msgid "_Black"
-#~ msgstr "Cz_arna"
-
-#~ msgid "_Dark"
-#~ msgstr "_Ciemna"
-
-#~ msgid "_Dither"
-#~ msgstr "_Ditherowanie"
-
-#~ msgid "_Gray"
-#~ msgstr "_Szara"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "Interpolacja _hiperboliczna"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolacja"
-
-#~ msgid "_Light"
-#~ msgstr "_Jasna"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "_Maksymalne (16-bitowy tryb bezpośredni)"
-
-#~ msgid "_Midtone"
-#~ msgstr "_Zwykła"
-
-#~ msgid "_Tiles"
-#~ msgstr "_Kafle"
-
-#~ msgid "_White"
-#~ msgstr "_Biała"
-
-#~ msgid "Display"
-#~ msgstr "Wyświetlanie"
-
-#~ msgid "/Zoom _1:1"
-#~ msgstr "/Powiększenie _1:1"
-
-#~ msgid "Dither"
-#~ msgstr "Ditherowanie"
-
-#~ msgid "Check Type"
-#~ msgstr "Typ szachownicy"
-
-#~ msgid "Check Size"
-#~ msgstr "Wielkość pól szachownicy"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "Interpolacja do najbliższego sąsiada"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "Interpolacja dwuliniowa"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "Interpolacja hiperboliczna"
-
-#~ msgid "No dithering"
-#~ msgstr "Bez ditherowania"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "Zwykłe ditherowanie (odwzorowanie paletowe)"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "Maksymalne ditherowanie (16-bitowy tryb bezpośredni)"
-
-#~ msgid "Dark"
-#~ msgstr "Jasna"
-
-#~ msgid "Midtone"
-#~ msgstr "Zwykła"
-
-#~ msgid "Black"
-#~ msgstr "Czarna"
-
-#~ msgid "Gray"
-#~ msgstr "Szara"
-
-#~ msgid "White"
-#~ msgstr "Biała"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Interpolacja:"
-
-#~ msgid "_Dither:"
-#~ msgstr "_Ditherowanie:"
-
-#~ msgid "Check _type:"
-#~ msgstr "_Typ szachownicy:"
-
-#~ msgid "Check _size:"
-#~ msgstr "_Rozmiar pola szachownicy:"
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Określa, czy w trybie pełnoekranowym obrazy o standardowych wymiarach "
+#~ "powinny być dopasowywane do ekranu. Standardowymi wymiarami są: 320x240, "
+#~ "640x480, 800x800, itp. Opcja ta określa, czy takie obrazy powinny być "
+#~ "skalowane do wymiarów ekranu, niezależnie od ustawień domyślnego "
+#~ "współczynnika powiększenia dla trybu pełnoekranowego."
