@@ -5,9 +5,10 @@ typedef struct {
 	EogJob  *job;
 } ThreadData;
 
-#define MAX_THREADS  3
+#define MAX_THREADS  2
 #define DEBUG_JOB_MANAGER 1
-GStaticMutex  stat_mutex  = G_STATIC_MUTEX_INIT;
+GMutex       *mutex       = NULL;
+GCond        *cond        = NULL;
 GSList       *job_list    = NULL;
 guint         n_threads   = 0;
 ThreadData    threads[MAX_THREADS];
@@ -24,6 +25,8 @@ eog_job_manager_init ()
 			threads[i].thread = NULL;
 			threads[i].job = NULL;
 		}
+		mutex = g_mutex_new ();
+		cond = g_cond_new ();
 		
 		init = TRUE;
 	}
@@ -64,29 +67,34 @@ thread_start_func (gpointer data)
 	while (TRUE) {
 		job = NULL;
 		
-		g_static_mutex_lock (&stat_mutex);
+		g_mutex_lock (mutex);
 		if (job_list != NULL) {
 			g_assert (EOG_IS_JOB (job_list->data));
 			job = EOG_JOB (job_list->data);
 			job_list = g_slist_delete_link (job_list, job_list);
 			threads[thread_id].job = job;
 		}
-		g_static_mutex_unlock (&stat_mutex);
+		g_mutex_unlock (mutex);
 
-		if (job == NULL)
-			break;
-
-		if (eog_job_get_status (job) == EOG_JOB_STATUS_WAITING) {
-			eog_job_call_action (job);
+		if (job != NULL) {
+			if (eog_job_get_status (job) == EOG_JOB_STATUS_WAITING) {
+				eog_job_call_action (job);
+				
+				g_assert (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
+					  eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED);
+			}
 			
-			g_assert (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
-				  eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED);
+			if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
+			    eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED)
+			{
+				g_idle_add (job_finished_cb, job);
+			}
 		}
-
-		if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
-		    eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED)
-		{
-			g_idle_add (job_finished_cb, job);
+		else {
+			g_mutex_lock (mutex);
+			threads[thread_id].job = NULL;
+			g_cond_wait (cond, mutex);
+			g_mutex_unlock (mutex);
 		}
 	}
 
@@ -94,12 +102,12 @@ thread_start_func (gpointer data)
 	g_print ("Stopping thread with id %i.\n", thread_id);
 #endif
 	/* clean up and remove thread */
-	g_static_mutex_lock (&stat_mutex);
+	g_mutex_lock (mutex);
 	n_threads--;
 	g_assert (n_threads >= 0);
 	threads[thread_id].thread = NULL;
 	threads[thread_id].job = NULL;
-	g_static_mutex_unlock (&stat_mutex);
+	g_mutex_unlock (mutex);
 	
 	return NULL;
 }
@@ -111,7 +119,7 @@ eog_job_manager_add (EogJob *job)
 	g_return_val_if_fail (EOG_IS_JOB (job), 0);
 	eog_job_manager_init ();
 	
-	g_static_mutex_lock (&stat_mutex);
+	g_mutex_lock (mutex);
 	
 	job_list = g_slist_append (job_list, g_object_ref (job));
 
@@ -129,7 +137,10 @@ eog_job_manager_add (EogJob *job)
 			threads[thread_id].job = NULL;
 		}
 	}
-	g_static_mutex_unlock (&stat_mutex);
+	else {
+		g_cond_broadcast (cond);
+	}
+	g_mutex_unlock (mutex);
 
 	return eog_job_get_id (job);
 }
@@ -189,12 +200,12 @@ eog_job_manager_cancel_job (guint id)
 
 	eog_job_manager_init ();
 
-	g_static_mutex_lock (&stat_mutex);
+	g_mutex_lock (mutex);
 	job = eog_job_manager_get_job_private (id, &link);
 	if (link != NULL) {
 		job_list = g_slist_delete_link (job_list, link);
 	}
-	g_static_mutex_unlock (&stat_mutex);
+	g_mutex_unlock (mutex);
 
 	if (job != NULL) {
 		call_finished = (eog_job_get_status (job) == EOG_JOB_STATUS_WAITING);
@@ -225,9 +236,12 @@ eog_job_manager_get_job (guint id)
 
 	eog_job_manager_init ();
 
-	g_static_mutex_lock (&stat_mutex);
+	g_mutex_lock (mutex);
 	job = eog_job_manager_get_job_private (id, NULL);
-	g_static_mutex_unlock (&stat_mutex);
+	g_mutex_unlock (mutex);
+	
+	if (job != NULL) 
+		g_object_ref (job);
 	
 	return job;
 }
@@ -243,7 +257,7 @@ eog_job_manager_cancel_all_jobs (void)
 
 	eog_job_manager_init ();
 
-	g_static_mutex_lock (&stat_mutex);
+	g_mutex_lock (mutex);
 
 	/* stop all currently running threads */
 	for (thread_id = 0; thread_id < MAX_THREADS; thread_id++) {
@@ -271,5 +285,5 @@ eog_job_manager_cancel_all_jobs (void)
 	}
 	job_list = NULL;
 		
-	g_static_mutex_unlock (&stat_mutex);
+	g_mutex_unlock (mutex);
 }
