@@ -618,7 +618,7 @@ main (int argc, char **argv)
 	gnome_authentication_manager_init ();
 	eog_thumbnail_init ();
 
-	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
+	gtk_window_set_default_icon_from_file (EOG_ICONDIR"/gnome-eog.png", NULL);
 
 	client = gnome_master_client ();
 
