@@ -31,6 +31,9 @@ eog_preferences_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_PREFERENCES (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogPreferences...");
+
 	preferences = EOG_PREFERENCES (object);
 
 	if (preferences->priv->window)
@@ -103,7 +106,7 @@ add_property_control_page (EogPreferences *preferences,
 			   CORBA_long page_num,
 			   CORBA_Environment *ev)
 {
-	GtkWidget *content;
+	GtkWidget *page;
 	GtkWidget *label;
 	Bonobo_PropertyBag property_bag;
 	Bonobo_Control control;
@@ -113,13 +116,14 @@ add_property_control_page (EogPreferences *preferences,
 						     page_num, ev);
 	if (control == CORBA_OBJECT_NIL)
 		return;
-
+	
 	/* Get title for page */
-	property_bag = Bonobo_Unknown_queryInterface
-		(control, "IDL:Bonobo/PropertyBag:1.0", ev);
+	property_bag = Bonobo_Unknown_queryInterface (control, 
+						      "IDL:Bonobo/PropertyBag:1.0", 
+						      ev);
 	if (property_bag != CORBA_OBJECT_NIL) {
-		title = bonobo_property_bag_client_get_value_string
-			(property_bag, "bonobo:title", ev);
+		title = bonobo_pbclient_get_string (property_bag, 
+						    "bonobo:title", ev);
 		bonobo_object_release_unref (property_bag, NULL);
 	} else
 		title = g_strdup ("Unknown");
@@ -127,12 +131,14 @@ add_property_control_page (EogPreferences *preferences,
 	g_free (title);
 
 	/* Get content for page */
-	content = bonobo_widget_new_control_from_objref (control, 
-							 BONOBO_OBJREF (uic));
-	gtk_widget_show_all (content);
+	page = bonobo_widget_new_control_from_objref (control, 
+						      BONOBO_OBJREF (uic));
+	gtk_widget_show_all (page);
 
 	gnome_property_box_append_page (GNOME_PROPERTY_BOX (preferences),
-					content, label);
+					page, label);
+
+	bonobo_object_release_unref (control, ev);
 }
 
 EogPreferences *
@@ -166,6 +172,7 @@ eog_preferences_construct (EogPreferences *preferences,
 
 	if (uic == NULL) {
 		gtk_object_destroy (GTK_OBJECT (preferences));
+		bonobo_object_release_unref (prop_control, &ev);
 		CORBA_exception_free (&ev);
 		return NULL;
 	}
@@ -176,6 +183,7 @@ eog_preferences_construct (EogPreferences *preferences,
 	    add_property_control_page (preferences, prop_control,
 				       uic, i, &ev);
 
+	bonobo_object_release_unref (prop_control, &ev);
 	CORBA_exception_free (&ev);
 
 	return preferences;

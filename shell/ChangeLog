@@ -1,3 +1,12 @@
+2002-02-02  Jens Finke <jens@triq.net>
+
+	* eog-preferences.c (add_property_control_page): Unref control
+	object at end of function, code cleanup.
+	(eog_preferences_construct): Unref prop_control object.
+
+	* eog-window.c (eog_window_destroy): Use bonobo_object_unref to
+	free control frame object.
+	
 2002-01-25  Jens Finke <jens@triq.net>
 
 	Clean up the references held by EogWindow.

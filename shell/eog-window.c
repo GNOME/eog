@@ -243,11 +243,14 @@ eog_window_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (object));
 
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Destroying EogWindow...");
+
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
 	if (priv->ctrl_frame != NULL) {
-		g_object_unref (G_OBJECT (priv->ctrl_frame));
+		bonobo_object_unref (BONOBO_OBJECT (priv->ctrl_frame));
 		priv->ctrl_frame = NULL;
 	}
 
