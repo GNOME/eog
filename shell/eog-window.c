@@ -33,6 +33,7 @@
 #include <bonobo-activation/bonobo-activation.h>
 #include <bonobo/Bonobo.h>
 #include <bonobo/bonobo-window.h>
+#include <libgnome/gnome-program.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
@@ -1184,6 +1185,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkAction *action;
 	GtkWidget *sw;
 	GtkWidget *frame;
+        char *filename;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -1206,7 +1208,10 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
-	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, "gtk-shell-ui.xml", NULL);
+        filename = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_DATADIR, "gnome-2.0/ui/gtk-shell-ui.xml", TRUE, NULL);
+        g_assert (filename);
+	gtk_ui_manager_add_ui_from_file (priv->ui_mgr, filename, NULL);
+        g_free (filename);
 
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
 	g_assert (menubar != NULL);
