@@ -15,7 +15,6 @@
 #include <gconf/gconf-client.h>
 
 #include <gnome.h>
-#include <libgnomeprint/gnome-print-master.h>
 #include <libgnomeprint/gnome-print-master-preview.h>
 
 #include <eog-print-setup.h>
@@ -360,10 +359,15 @@ print_page (GnomePrintContext 	*context,
 	    gint 		 row)
 {
 	double     	 matrix [] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-	double     	 available_x, available_y;
-	double     	 image_width, image_height;
+	double		 x, y;
+	gint     	 available_x, available_y;
+	gint    	 leftover_x, leftover_y;
+	gint     	 image_width, image_height;
+	gint		 pixbuf_width, pixbuf_height;
 	gboolean   	 go_right = FALSE;
 	gboolean   	 go_down = FALSE;
+	gboolean	 first_x, last_x;
+	gboolean	 first_y, last_y;
 	GdkPixbuf 	*pixbuf_to_print = NULL;
 
 	(*current)++;
@@ -379,84 +383,147 @@ print_page (GnomePrintContext 	*context,
 	g_return_if_fail (available_x > 0);
 	g_return_if_fail (available_y > 0);
 
+	pixbuf_width = gdk_pixbuf_get_width (pixbuf);
+	pixbuf_height = gdk_pixbuf_get_height (pixbuf);
+
 	/* How big should the image be? */
 	if (fit_to_page) {
-		double prop_image, prop_paper;
-		double tmp;
+		double prop_pixbuf, prop_paper;
 
-		image_width = gdk_pixbuf_get_width (pixbuf);
-		image_height = gdk_pixbuf_get_height (pixbuf);
+		g_return_if_fail ((col == 0) && (row == 0));
 
-		prop_paper = available_y / available_x;
-		prop_image = image_height / image_width;
+		first_x = TRUE;
+		first_y = TRUE;
+		last_x = TRUE;
+		last_y = TRUE;
 
-		if (prop_image > prop_paper) {
-			matrix [0] = available_y;
-			matrix [3] = available_y / prop_image;
+		prop_paper = (double) available_y / available_x;
+		prop_pixbuf = (double) pixbuf_height / pixbuf_width;
+
+		/* Calculate width and height of image */
+		if (prop_pixbuf > prop_paper) {
+			image_width = available_y / prop_pixbuf;
+			image_height = available_y;
 		} else {
-			matrix [0] = available_x;
-			matrix [3] = available_x * prop_image;
+			image_width = available_x;
+			image_height = available_x * prop_pixbuf;
 		}
+		g_return_if_fail (image_width > 0);
+		g_return_if_fail (image_height > 0);
 
-		if (landscape) {
-			tmp = matrix [0];
-			matrix [0] = matrix [3];
-			matrix [3] = tmp;
-		}
-		
+		matrix [0] = image_width;
+		matrix [3] = image_height;
+
+		leftover_x = available_x - image_width;
+		leftover_y = available_y - image_height;
+
+		pixbuf_to_print = gdk_pixbuf_ref (pixbuf);
+
 	} else {
-		gint	adjusted_width, adjusted_height;
+		gint	adjusted_x, adjusted_y;
+		gint	start_x, start_y;
 
-		image_width = gdk_pixbuf_get_width (pixbuf);
-		image_height = gdk_pixbuf_get_height (pixbuf);
+		adjusted_x = pixbuf_width * adj / 100;
+		adjusted_y = pixbuf_height * adj / 100;
 
-		adjusted_width = image_width * adj / 100;
-		adjusted_height = image_height * adj / 100;
+		leftover_x = available_x - (adjusted_x % available_x);
+		leftover_y = available_y - (adjusted_y % available_y);
+		leftover_x = leftover_x % available_x;
+		leftover_y = leftover_y % available_y;
 
-		if (adjusted_width > available_x * (col + 1)) {
-			matrix [0] = available_x;
+		first_x = (col == 0);
+		first_y = (row == 0);
+		last_x = (adjusted_x <= available_x * (col + 1));
+		last_y = (adjusted_y <= available_y * (row + 1));
+
+		/* Width of image? */
+		if (first_x && last_x)
+			image_width = adjusted_x;
+		else if (last_x) {
+			image_width = ((adjusted_x - 1) % available_x) + 1;
+			if (horizontally)
+				image_width += leftover_x / 2;
+		} else {
 			go_right = TRUE;
-		} else
-			matrix [0] = adjusted_width - available_x * col;
+			image_width = available_x;
+			if (first_x && horizontally)
+				image_width -= leftover_x / 2;
+		}
+		g_return_if_fail (image_width > 0);
 
-		if (adjusted_height > available_y * (row + 1)) {
-			matrix [3] = available_y;
+		/* Height of image? */
+		if (first_y && last_y)
+			image_height = adjusted_y;
+		else if (last_y) {
+			image_height = ((adjusted_y - 1) % available_y) + 1;
+			if (vertically)
+				image_height += leftover_y / 2;
+		} else {
 			go_down = TRUE;
-		} else
-			matrix [3] = adjusted_height - available_y * row;
+			image_height = available_y;
+			if (first_y && vertically)
+				image_height -= leftover_y / 2;
+		}
+		g_return_if_fail (image_height > 0);
+		
+		matrix [0] = image_width;
+		matrix [3] = image_height;
 
 		pixbuf_to_print = gdk_pixbuf_new (
 			gdk_pixbuf_get_colorspace (pixbuf),
 			gdk_pixbuf_get_has_alpha (pixbuf),
 			gdk_pixbuf_get_bits_per_sample (pixbuf),
-			matrix [0] / adj * 100, 
-			matrix [3] / adj * 100);
+			image_width * 100 / adj, 
+			image_height * 100 / adj);
 
-		gdk_pixbuf_copy_area (pixbuf, 
-				      col * available_x / adj * 100,
-				      row * available_y / adj * 100,
-				      matrix [0] / adj * 100, 
-				      matrix [3] / adj * 100,
+		/* Where do we begin to copy (x)? */
+		if (first_x)
+			start_x = 0;
+		else if (last_x)
+			start_x = adjusted_x - image_width;
+		else {
+			start_x = available_x * col;
+			if (horizontally)
+				start_x -= leftover_x / 2;
+		}
+		start_x = start_x * 100 / adj;
+		g_return_if_fail (start_x >= 0);
+
+		/* Where do we begin to copy (y)? */
+		if (first_y)
+			start_y = 0;
+		else if (last_y)
+			start_y = adjusted_y - image_height;
+		else {
+			start_y = available_y * row;
+			if (vertically)
+				start_y -= leftover_y / 2;
+		}
+		start_y = start_y * 100 / adj;
+		g_return_if_fail (start_y >= 0);
+
+		gdk_pixbuf_copy_area (pixbuf,
+				      start_x, start_y,
+				      image_width * 100 / adj, 
+				      image_height * 100 / adj,
 				      pixbuf_to_print, 0, 0);
 	}
 
-	if (!pixbuf_to_print) {
-		pixbuf_to_print = pixbuf;
-		gdk_pixbuf_ref (pixbuf);
-	}
+	/* Where to put the image (x)? */
+	x = left;
+	if ((horizontally && !fit_to_page && first_x) ||
+	    (horizontally && fit_to_page))
+	    	x += leftover_x / 2;
+	matrix [4] = x;
 
-	/* Where should the picture be? */
-	matrix [4] = left;
-	matrix [5] = 0 - top - matrix [3];
-
-	if (vertically)
-		matrix[5] -= (paper_height - top - bottom 
-					   - matrix [3]) / 2;
-	if (horizontally)
-		matrix[4] += (paper_width - left - right 
-					  - matrix [0]) / 2;
+	/* Where to put the image (y)? */
+	y = 0 - top - image_height;
+	if ((vertically && !fit_to_page && first_y) ||
+	    (vertically && fit_to_page))
+	    	y -= leftover_y / 2;
 	if (!landscape)
-		matrix [5] += paper_height;
+		y += paper_height;
+	matrix [5] = y;
 
 	gnome_print_concat (context, matrix);
 	gnome_print_pixbuf (context, pixbuf_to_print);

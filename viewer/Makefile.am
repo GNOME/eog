@@ -49,6 +49,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable-view.h	\
 	eog-preview.c		\
 	eog-preview.h		\
+	eog-preview-page.c	\
+	eog-preview-page.h	\
 	eog-print-setup.c	\
 	eog-print-setup.h	\
 	eog-util.h		\

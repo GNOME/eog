@@ -4,20 +4,16 @@
 
 #include <eog-preview.h>
 
-#define PARENT_TYPE GNOME_TYPE_CANVAS
-static GnomeCanvasClass *parent_class = NULL;
+#include <eog-preview-page.h>
+
+#define PARENT_TYPE GTK_TYPE_HBOX
+static GtkHBoxClass *parent_class = NULL;
 
 struct _EogPreviewPrivate
 {
-	GdkPixbuf	*pixbuf;
+	EogImageView	*image_view;
 
-	EogPreview	*above;
-	EogPreview	*below;
-	EogPreview	*right;
-	EogPreview	*left;
-
-	gint		 col;
-	gint		 row;
+	GtkWidget	*root;
 
 	GConfClient	*client;
 	guint		 notify_orientation;
@@ -31,18 +27,13 @@ struct _EogPreviewPrivate
 	guint		 notify_horizontally;
 	guint		 notify_vertically;
 
-	GnomeCanvasItem	*group;
-	GnomeCanvasItem	*bg_white;
-	GnomeCanvasItem	*bg_black;
-	GnomeCanvasItem *image;
-
-	double		 width;
-	double		 height;
+	gint		 width;
+	gint		 height;
 
 	gint		 top;
 	gint		 bottom;
-	gint		 right_margin;
-	gint		 left_margin;
+	gint		 right;
+	gint		 left;
 
 	gint		 adjust_to;
 	gboolean	 fit_to_page;
@@ -52,458 +43,232 @@ struct _EogPreviewPrivate
 };
 
 #define SCALE(param) (0.15 * param)
-#define OFFSET_X 2.0
-#define OFFSET_Y 2.0
-
-#define CHECK_INT(c,x,y) {gint i = y; if (i != x) c = TRUE; x = i;}
-#define CHECK_BOOL(c,x,y) {gboolean b = y; if (b != x) c = TRUE; x = b;}
-
-static EogPreview*
-get_root_page (EogPreview *page)
-{
-	while (page->priv->left)
-		page = page->priv->left;
-	while (page->priv->above)
-		page = page->priv->above;
-	return (page);
-}
+#define CHECK_INT(c,x,y)    {gint z; z = y; if (x != z) c = TRUE; x = z;}
+#define CHECK_BOOL(c, x, y) {gboolean z; z = y; if (x != z) c = TRUE; x = z;}
 
 static gboolean
-remove_page (gpointer data)
+settings_changed (EogPreview *preview)
 {
-	GtkWidget 	*vbox;
-	GtkWidget	*hbox;
-	EogPreview	*page;
+	GConfClient 	 *client;
+	gboolean	  changed;
+	gboolean	  landscape;
+	gchar		 *paper_size;
+	gint		  new_width, new_height;
+	const GnomePaper *paper;
 
-	page = EOG_PREVIEW (data);
+	changed = FALSE;
+	client = preview->priv->client;
 
-	/* Don't remove (0, 0)! */
-	if ((page->priv->col == 0) && (page->priv->row == 0))
-		return (FALSE);
-
-	if (page->priv->left)
-		page->priv->left->priv->right = NULL;
-	if (page->priv->right)
-		page->priv->right->priv->left = NULL;
-	if (page->priv->above)
-		page->priv->above->priv->below = NULL;
-	if (page->priv->below)
-		page->priv->below->priv->above = NULL;
-
-	/* Remove the page (myself!) */
-	vbox = gtk_widget_get_ancestor (GTK_WIDGET (page), GTK_TYPE_VBOX);
-	gtk_container_remove (GTK_CONTAINER (vbox), GTK_WIDGET (page));
+	paper_size = gconf_client_get_string (client, 
+					"/apps/eog/viewer/paper_size", NULL); 
+        if (!paper_size) 
+		paper_size = g_strdup (gnome_paper_name_default ()); 
 	
-	/* If empty, remove VBox */
-	hbox = gtk_widget_get_ancestor (GTK_WIDGET (vbox), GTK_TYPE_HBOX);
-	if (!gtk_container_children (GTK_CONTAINER (vbox)))
-		gtk_container_remove (GTK_CONTAINER (hbox), vbox);
+	paper = gnome_paper_with_name (paper_size); 
+	g_free (paper_size); 
+	
+	landscape = gconf_client_get_bool (client, 
+					"/apps/eog/viewer/landscape", NULL); 
+	if (landscape) { 
+		new_width = SCALE (gnome_paper_psheight (paper)); 
+		new_height = SCALE (gnome_paper_pswidth (paper)); 
+	} else { 
+		new_height = SCALE (gnome_paper_psheight (paper)); 
+		new_width = SCALE (gnome_paper_pswidth (paper)); 
+	}
+	if ((new_width != preview->priv->width) ||
+	    (new_height != preview->priv->height))
+		changed = TRUE;
+	
+	preview->priv->width = new_width;
+	preview->priv->height = new_height;
 
-	return (FALSE);
-}
-
-static gboolean
-settings_changed (EogPreview *page)
-{
-	gboolean changed = FALSE;
-
-	CHECK_INT (changed, page->priv->top, 
-		   SCALE (gconf_client_get_int (page->priv->client,
+	CHECK_INT (changed, preview->priv->top, 
+		   SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/top", NULL)));
-	CHECK_INT (changed, page->priv->bottom, 
-		   SCALE (gconf_client_get_int (page->priv->client,
+	CHECK_INT (changed, preview->priv->bottom,
+		   SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/bottom", NULL)));
-	CHECK_INT (changed, page->priv->right_margin,
-		   SCALE (gconf_client_get_int (page->priv->client,
+	CHECK_INT (changed, preview->priv->right,
+		   SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/right", NULL)));
-	CHECK_INT (changed, page->priv->left_margin, 
-		   SCALE (gconf_client_get_int (page->priv->client,
+	CHECK_INT (changed, preview->priv->left,
+		   SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/left", NULL)));
-	CHECK_BOOL (changed, page->priv->fit_to_page,
-		    gconf_client_get_bool (page->priv->client,
+	CHECK_BOOL (changed, preview->priv->fit_to_page, 
+		    gconf_client_get_bool (client,
 					"/apps/eog/viewer/fit_to_page", NULL));
-	CHECK_INT (changed, page->priv->adjust_to,
-		   gconf_client_get_int (page->priv->client,
+	CHECK_INT (changed, preview->priv->adjust_to, 
+		   gconf_client_get_int (client,
 					"/apps/eog/viewer/adjust_to", NULL));
-	CHECK_BOOL (changed, page->priv->vertically,
-		    gconf_client_get_bool (page->priv->client,
+	CHECK_BOOL (changed, preview->priv->vertically, 
+		    gconf_client_get_bool (client,
 					"/apps/eog/viewer/vertically", NULL));
-	CHECK_BOOL (changed, page->priv->horizontally,
-		    gconf_client_get_bool (page->priv->client,
+	CHECK_BOOL (changed, preview->priv->horizontally,
+		    gconf_client_get_bool (client,
 					"/apps/eog/viewer/horizontally", NULL));
+	
 	return (changed);
 }
 
-static gboolean
-create_page_right (gpointer data)
+static void
+create_vbox (EogPreview *preview, gint col, gint rows_needed)
 {
-	EogPreview 	*page;
-	EogPreview	*root;
-	EogPreview	*new;
+	GtkWidget *vbox;
+	GtkWidget *page;
+	gint 	   i;
+
+	vbox = gtk_vbox_new (TRUE, 8); 
+	gtk_widget_show (vbox); 
+	gtk_box_pack_start (GTK_BOX (preview), vbox, TRUE, TRUE, 0); 
+	gtk_container_set_resize_mode (GTK_CONTAINER (vbox), GTK_RESIZE_PARENT);
+
+	for (i = 0; i < rows_needed; i++) {
+		page = eog_preview_page_new (preview->priv->image_view, col, i);
+		gtk_widget_show (page);
+		gtk_box_pack_start (GTK_BOX (vbox), page, TRUE, TRUE, 0);
+	}
+}
+
+static void
+update (EogPreview *preview)
+{
+	GtkWidget 	*page;
 	GtkWidget 	*vbox;
-	GtkWidget 	*hbox;
 	GList	  	*children;
-	gint		 i;
+	GList	  	*vbox_children;
+	gint	  	 cols_needed, rows_needed;
+	gint	  	 i, j;
 
-	page = EOG_PREVIEW (data);
+	/* Update the page (0, 0) in order to see how many pages we need */
+	eog_preview_page_update (EOG_PREVIEW_PAGE (preview->priv->root), 
+				 preview->priv->width, preview->priv->height,
+				 preview->priv->bottom, preview->priv->top,
+				 preview->priv->right, preview->priv->left,
+				 preview->priv->adjust_to,
+				 preview->priv->fit_to_page,
+				 preview->priv->vertically,
+				 preview->priv->horizontally,
+				 &cols_needed, &rows_needed);
 
-	root = get_root_page (page);
-	hbox = gtk_widget_get_ancestor (GTK_WIDGET (root), GTK_TYPE_HBOX);
-	g_return_val_if_fail (hbox, FALSE);
+	/* Do we need to remove VBoxes? */
+	children = gtk_container_children (GTK_CONTAINER (preview));
+	for (i = g_list_length (children) - 1; i >= cols_needed; i--) {
+		vbox = g_list_nth_data (children, i);
+		gtk_container_remove (GTK_CONTAINER (preview), vbox);
+	}
 
-	children = gtk_container_children (GTK_CONTAINER (hbox));
-	if (g_list_length (children) <= page->priv->col + 1) {
-		vbox = gtk_vbox_new (TRUE, 8);
-		gtk_widget_show (vbox);
-		gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
-	} else
-		vbox = g_list_nth_data (children, page->priv->col + 1);
-	
-	new = EOG_PREVIEW (eog_preview_new (
-					page->priv->client, page->priv->pixbuf,
-					page->priv->col + 1, page->priv->row));
-	gtk_widget_show (GTK_WIDGET (new));
-	gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (new), FALSE, FALSE, 0);
-
-	/* Bring the pages in correct order */
-	children = gtk_container_children (GTK_CONTAINER (vbox));
+	/* Do we need to add or remove pages (rows)? */
+	children = gtk_container_children (GTK_CONTAINER (preview));
 	for (i = 0; i < g_list_length (children); i++) {
-		EogPreview *page;
+		vbox = g_list_nth_data (children, i);
+		vbox_children = gtk_container_children (GTK_CONTAINER (vbox));
 
-		page = EOG_PREVIEW (g_list_nth_data (children, i));
-		gtk_box_reorder_child (GTK_BOX (vbox), GTK_WIDGET (page), 
-			       page->priv->row);
+		/* Removing */
+		for (j = g_list_length (vbox_children); j > rows_needed; j--) {
+			page = g_list_nth_data (vbox_children, j - 1);
+			gtk_container_remove (GTK_CONTAINER (vbox), page);
+		}
+
+		/* Adding */
+		for (j = g_list_length (vbox_children); j < rows_needed; j++) {
+			page = eog_preview_page_new (preview->priv->image_view,
+						     i, j);
+			gtk_widget_show (page);
+			gtk_box_pack_start (GTK_BOX (vbox), page, 
+					    TRUE, TRUE, 0);
+		}
 	}
 
-	new->priv->left = page;
-	page->priv->right = new;
-	if (page->priv->above && page->priv->above->priv->right) {
-		g_return_val_if_fail (
-			!page->priv->above->priv->right->priv->below, FALSE);
-		new->priv->above = page->priv->above->priv->right;
-		page->priv->above->priv->right->priv->below = new;
-	}
+	/* Do we need additional VBoxes? */
+	children = gtk_container_children (GTK_CONTAINER (preview));
+	for (i = g_list_length (children); i < cols_needed; i++)
+		create_vbox (preview, i, rows_needed);
 
-	return (FALSE);
+	/* Update all pages */
+	children = gtk_container_children (GTK_CONTAINER (preview));
+	for (i = 0; i < g_list_length (children); i++) {
+		vbox = g_list_nth_data (children, i);
+		vbox_children = gtk_container_children (GTK_CONTAINER (vbox));
+		for (j = 0; j < g_list_length (vbox_children); j++) {
+			page = g_list_nth_data (vbox_children, j);
+			eog_preview_page_update (EOG_PREVIEW_PAGE (page),
+						 preview->priv->width,
+						 preview->priv->height,
+						 preview->priv->bottom,
+						 preview->priv->top,
+						 preview->priv->right,
+						 preview->priv->left,
+						 preview->priv->adjust_to,
+						 preview->priv->fit_to_page,
+						 preview->priv->vertically,
+						 preview->priv->horizontally,
+						 &cols_needed, &rows_needed);
+		}
+	}
 }
 
 static gboolean
-create_page_below (gpointer data)
+notify_idle (gpointer data)
 {
-	EogPreview 	*page;
-	EogPreview	*root;
-	GtkWidget 	*vbox;
-	EogPreview 	*new;
+	EogPreview *preview;
 
-	page = EOG_PREVIEW (data);
+	preview = EOG_PREVIEW (data);
 
-	root = get_root_page (page);
-	vbox = gtk_widget_get_ancestor (GTK_WIDGET (root), GTK_TYPE_VBOX);
-	g_return_val_if_fail (vbox, FALSE);
-
-	new = EOG_PREVIEW (eog_preview_new (
-					page->priv->client, page->priv->pixbuf, 
-					page->priv->col, page->priv->row + 1));
-	gtk_widget_show (GTK_WIDGET (new));
-	gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (new), FALSE, FALSE, 0);
-	gtk_box_reorder_child (GTK_BOX (vbox), GTK_WIDGET (new), 
-			       page->priv->row + 1);
-	
-	new->priv->above = page;
-	page->priv->below = new;
-	if (page->priv->left && page->priv->left->priv->below) {
-		g_return_val_if_fail (
-			!page->priv->left->priv->below->priv->right, FALSE);
-		page->priv->left->priv->below->priv->right = new;
-		new->priv->left = page->priv->left->priv->below;
-	}
+	if (settings_changed (preview))
+		update (preview);
 
 	return (FALSE);
 }
 
 static void
-adjust_image (EogPreview *page)
+notify (GConfClient *client, guint cnxn, GConfEntry *entry, gpointer data)
 {
-	GtkWidget	*widget;
-	GdkPixmap	*pixmap;
-	GdkBitmap	*bitmap;
-	GdkPixbuf	*pixbuf;
-	gint		 pixbuf_width, pixbuf_height;
-	gint		 image_width, image_height;
-	double		 available_x, available_y;
-	double		 x, y;
+	EogPreview *preview;
 
-	/* How big is the pixbuf? */
-	pixbuf_width = SCALE (gdk_pixbuf_get_width (page->priv->pixbuf));
-	pixbuf_height = SCALE (gdk_pixbuf_get_height (page->priv->pixbuf));
-	g_return_if_fail (pixbuf_width > 0);
-	g_return_if_fail (pixbuf_height > 0);
+	preview = EOG_PREVIEW (data);
 
-	/* How much place do we have got on the paper? */
-	available_x = page->priv->width - page->priv->left_margin 
-					- page->priv->right_margin;
-	available_y = page->priv->height - page->priv->top - page->priv->bottom;
-	g_return_if_fail (available_x > 0);
-	g_return_if_fail (available_y > 0);
-
-	/* Shall we fit the image onto one page? */
-	if (page->priv->fit_to_page) {
-		double prop_paper, prop_pixbuf;
-
-		/* Fit the image onto the page (0, 0). 	*/
-		/* If we aren't page (0, 0), remove us.	*/
-		if (page->priv->col != 0 || page->priv->row != 0) {
-			gtk_idle_add (remove_page, page);
-			return;
-		}
-
-		prop_paper = available_y / available_x;
-		prop_pixbuf = (double) pixbuf_height / pixbuf_width;
-
-		/* Calculate width and height of image */
-		if (prop_pixbuf > prop_paper) {
-			image_width = available_y / prop_pixbuf;
-			image_height = available_y;
-		} else {
-			image_width = available_x;
-			image_height = available_x * prop_pixbuf;
-		}
-		g_return_if_fail (image_width > 0);
-		g_return_if_fail (image_height > 0);
-
-		pixbuf = gdk_pixbuf_scale_simple (page->priv->pixbuf,
-						  image_width, image_height,
-						  GDK_INTERP_NEAREST);
-	} else {
-		GdkPixbuf *adjusted_pixbuf;
-		gint	   adjusted_width;
-		gint	   adjusted_height;
-
-		adjusted_width = pixbuf_width * page->priv->adjust_to / 100;
-		adjusted_height = pixbuf_height * page->priv->adjust_to / 100;
-
-		adjusted_pixbuf = gdk_pixbuf_scale_simple (page->priv->pixbuf,
-							   adjusted_width,
-							   adjusted_height,
-							   GDK_INTERP_NEAREST);
-	
-		/* Width of image? */
-		if (adjusted_width > available_x * (page->priv->col + 1)) {
-			image_width = available_x;
-			if (!page->priv->right) {
-				gtk_idle_add (create_page_right, page);
-			}
-				
-		} else {
-			image_width = adjusted_width - available_x * 
-							page->priv->col;
-		}
-
-		/* Height of image? */
-		if (adjusted_height > available_y * (page->priv->row + 1)) {
-			image_height = available_y;
-			if (!page->priv->below && page->priv->col == 0) {
-				gtk_idle_add (create_page_below, page);
-			}
-		} else {
-			image_height = adjusted_height - available_y * 
-							page->priv->row;
-		}
-
-		if ((image_height <= 0) || (image_width <= 0)) {
-			gtk_idle_add (remove_page, page);
-			return;
-		}
-
-		pixbuf = gdk_pixbuf_new (
-			gdk_pixbuf_get_colorspace (adjusted_pixbuf),
-			gdk_pixbuf_get_has_alpha (adjusted_pixbuf),
-			gdk_pixbuf_get_bits_per_sample (adjusted_pixbuf),
-			image_width,
-			image_height);
-
-		gdk_pixbuf_copy_area (adjusted_pixbuf,
-				      page->priv->col * available_x,
-				      page->priv->row * available_y,
-				      image_width,
-				      image_height,
-				      pixbuf, 0, 0);
-
-		gdk_pixbuf_unref (adjusted_pixbuf);
-	}
-
-	if (page->priv->image)
-		gtk_object_destroy (GTK_OBJECT (page->priv->image));
-
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	gdk_pixbuf_unref (pixbuf);
-	widget = gtk_pixmap_new (pixmap, bitmap);
-	gtk_widget_show (widget);
-
-	/* Where to put the image? */
-	x = OFFSET_X + page->priv->left_margin;
-	if (page->priv->horizontally)
-		x += (page->priv->width - page->priv->left_margin
-					- page->priv->right_margin 
-					- image_width) / 2;
-	y = OFFSET_Y + page->priv->top;
-	if (page->priv->vertically)
-		y += (page->priv->height - page->priv->bottom 
-					 - page->priv->top 
-					 - image_height) / 2;
-
-	page->priv->image = gnome_canvas_item_new (
-				GNOME_CANVAS_GROUP (page->priv->group), 
-				gnome_canvas_widget_get_type (), 
-				"widget", widget, 
-				"x", x,
-				"y", y,
-				"width", (double) image_width,
-				"height", (double) image_height,
-				"anchor", GTK_ANCHOR_NORTH_WEST, 
-				"size_pixels", FALSE, NULL);
+	gtk_idle_add (notify_idle, preview);
 }
 
 static void
-adjust_paper (EogPreview *page)
+remove_notification (EogPreview *preview)
 {
-	const GnomePaper *paper;
-	gchar		 *paper_size;
-	gboolean	  landscape;
+	GConfClient	  *client;
 
-	paper_size = gconf_client_get_string (page->priv->client,
-					      "/apps/eog/viewer/paper_size", 
-					      NULL);
-	if (!paper_size)
-		paper_size = g_strdup (gnome_paper_name_default ());
-	
-	paper = gnome_paper_with_name (paper_size);
-	g_free (paper_size);
-	
-	landscape = gconf_client_get_bool (page->priv->client,
-					   "/apps/eog/viewer/landscape", NULL);
-	if (landscape) {
-		page->priv->width = SCALE (gnome_paper_psheight (paper));
-		page->priv->height = SCALE (gnome_paper_pswidth (paper));
-	} else {
-		page->priv->height = SCALE (gnome_paper_psheight (paper));
-		page->priv->width = SCALE (gnome_paper_pswidth (paper));
-	}
+	client = preview->priv->client;
 
-	gnome_canvas_set_scroll_region (GNOME_CANVAS (page), 0.0, 0.0, 
-				OFFSET_X + page->priv->width,
-				OFFSET_Y + page->priv->height);
-	gtk_widget_set_usize (GTK_WIDGET (page), 
-			      OFFSET_X + page->priv->width,
-			      OFFSET_Y + page->priv->height);
-
-	/* gnome_canvas_item_scale is listed in gnome-canvas.h but not
-	   implemented in gnome-canvas.c. How could that happen?!? */
-
-	if (page->priv->bg_black)
-		gtk_object_destroy (GTK_OBJECT (page->priv->bg_black));
-	if (page->priv->bg_white)
-		gtk_object_destroy (GTK_OBJECT (page->priv->bg_white));
-
-	page->priv->bg_black = gnome_canvas_item_new (
-			GNOME_CANVAS_GROUP (page->priv->group), 
-			gnome_canvas_rect_get_type (), 
-			"x1", 0.0, "y1", 0.0, 
-			"x2", page->priv->width,
-			"y2", page->priv->height,
-			"fill_color", "black", 
-			"outline_color", "black", 
-			"width_pixels", 1, NULL);
-	page->priv->bg_white = gnome_canvas_item_new (
-			GNOME_CANVAS_GROUP (page->priv->group), 
-			gnome_canvas_rect_get_type (), 
-			"x1", OFFSET_X, "y1", OFFSET_Y, 
-			"x2", OFFSET_X + page->priv->width, 
-			"y2", OFFSET_Y + page->priv->height, 
-			"fill_color", "white", 
-			"outline_color", "black",
-			"width_pixels", 1, NULL);
-
-	adjust_image (page);
-}
-
-static void
-notify_paper_and_orientation (GConfClient *client, guint cnxn,
-			      GConfEntry *entry, gpointer data)
-{
-	EogPreview *page;
-
-	page = EOG_PREVIEW (data);
-
-	adjust_paper (page);
-}
-
-static gboolean
-adjust_image_idle (gpointer data)
-{
-	EogPreview *page;
-
-	page = EOG_PREVIEW (data);
-	
-	if (settings_changed (page))
-		adjust_image (page);
-
-	return (FALSE);
-}
-
-static void
-notify_image (GConfClient *client, guint cnxn, GConfEntry *entry, 
-	      gpointer data)
-{
-	EogPreview *page;
-
-	page = EOG_PREVIEW (data);
-
-	gtk_idle_add (adjust_image_idle, page);
+	gconf_client_notify_remove (client, preview->priv->notify_orientation);
+	gconf_client_notify_remove (client, preview->priv->notify_paper);
+	gconf_client_notify_remove (client, preview->priv->notify_right);
+	gconf_client_notify_remove (client, preview->priv->notify_left);
+	gconf_client_notify_remove (client, preview->priv->notify_top);
+	gconf_client_notify_remove (client, preview->priv->notify_bottom);
+	gconf_client_notify_remove (client, preview->priv->notify_fit);
+	gconf_client_notify_remove (client, preview->priv->notify_adjust);
+	gconf_client_notify_remove (client, preview->priv->notify_vertically);
+	gconf_client_notify_remove (client, preview->priv->notify_horizontally);
 }
 
 static void
 eog_preview_destroy (GtkObject *object)
 {
-	EogPreview	*page;
+	EogPreview *preview;
 
-	page = EOG_PREVIEW (object);
+	preview = EOG_PREVIEW (object);
 
-	gconf_client_notify_remove (page->priv->client, 
-				    page->priv->notify_orientation);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_paper);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_right);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_left);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_top);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_bottom);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_fit);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_adjust);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_vertically);
-	gconf_client_notify_remove (page->priv->client,
-				    page->priv->notify_horizontally);
+	remove_notification (preview);
 
-	gtk_object_unref (GTK_OBJECT (page->priv->client));
-
-	gdk_pixbuf_unref (page->priv->pixbuf);
-
-	g_free (page->priv);
+	g_free (preview->priv);
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		GTK_OBJECT_CLASS (parent_class)->destroy (object);
 }
 
 static void
-eog_preview_init (EogPreview *page)
+eog_preview_init (EogPreview *preview)
 {
-	page->priv = g_new0 (EogPreviewPrivate, 1);
+	preview->priv = g_new0 (EogPreviewPrivate, 1);
 }
 
 static void
@@ -520,10 +285,10 @@ eog_preview_class_init (EogPreviewClass *klass)
 GtkType
 eog_preview_get_type (void)
 {
-	static GtkType page_type = 0;
+	static GtkType preview_type = 0;
 
-	if (!page_type) {
-		static const GtkTypeInfo page_info = {
+	if (!preview_type) {
+		static const GtkTypeInfo preview_info = {
 			"EogPreview",
 			sizeof (EogPreview),
 			sizeof (EogPreviewClass),
@@ -534,77 +299,82 @@ eog_preview_get_type (void)
 			(GtkClassInitFunc) NULL
 		};
 
-		page_type = gtk_type_unique (PARENT_TYPE, &page_info);
+		preview_type = gtk_type_unique (PARENT_TYPE, &preview_info);
 	}
 
-	return (page_type);
+	return (preview_type);
+}
+
+static void
+add_notification (EogPreview *preview)
+{
+	GConfClient *client;
+
+	client = preview->priv->client;
+
+	preview->priv->notify_orientation = gconf_client_notify_add (
+				client, "/apps/eog/viewer/landscape",
+				notify, preview, 
+				NULL, NULL);
+	preview->priv->notify_paper = gconf_client_notify_add (
+				client, "/apps/eog/viewer/paper_size",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_top = gconf_client_notify_add (
+				client, "/apps/eog/viewer/top",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_bottom = gconf_client_notify_add (
+				client, "/apps/eog/viewer/bottom",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_right = gconf_client_notify_add (
+				client, "/apps/eog/viewer/right",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_left = gconf_client_notify_add (
+				client, "/apps/eog/viewer/left",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_adjust = gconf_client_notify_add (
+				client, "/apps/eog/viewer/adjust_to",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_fit = gconf_client_notify_add (
+				client, "/apps/eog/viewer/fit_to_page",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_horizontally = gconf_client_notify_add (
+				client, "/apps/eog/viewer/horizontally",
+				notify, preview, NULL, NULL);
+	preview->priv->notify_vertically = gconf_client_notify_add (
+				client, "/apps/eog/viewer/vertically",
+				notify, preview, NULL, NULL);
 }
 
 GtkWidget*
-eog_preview_new (GConfClient *client, GdkPixbuf *pixbuf, 
-		      gint col, gint row)
+eog_preview_new (GConfClient *client, EogImageView *image_view)
 {
-	EogPreview	*page;
+	EogPreview	*preview;
+	GtkWidget	*vbox;
 
-	page = gtk_type_new (EOG_TYPE_PREVIEW);
+	preview = gtk_type_new (EOG_TYPE_PREVIEW);
+	gtk_container_set_resize_mode (GTK_CONTAINER (preview), 
+				       GTK_RESIZE_PARENT);
 
-	page->priv->client = client;
-	gtk_object_ref (GTK_OBJECT (client));
+	preview->priv->client = client;
+	preview->priv->image_view = image_view;
 
-	page->priv->pixbuf = gdk_pixbuf_ref (pixbuf);
+	settings_changed (preview);
 
-	page->priv->row = row;
-	page->priv->col = col;
+	/* Create the first vbox */ 
+	vbox = gtk_vbox_new (TRUE, 8); 
+	gtk_widget_show (vbox); 
+	gtk_box_pack_start (GTK_BOX (preview), vbox, TRUE, TRUE, 0); 
+	gtk_container_set_resize_mode (GTK_CONTAINER (vbox), GTK_RESIZE_PARENT);
 
-	page->priv->group = gnome_canvas_item_new (
-				gnome_canvas_root (GNOME_CANVAS (page)),
-				gnome_canvas_group_get_type (),
-				"x", 0.0, "y", 0.0, NULL);
+	/* Create the first page (0, 0) */
+	preview->priv->root = eog_preview_page_new (image_view, 0, 0);
+	gtk_widget_show (preview->priv->root);
+	gtk_box_pack_start (GTK_BOX (vbox), preview->priv->root, TRUE, TRUE, 0);
 
-	settings_changed (page);
-	adjust_paper (page);
+	update (preview);
 
-	page->priv->notify_orientation = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/landscape",
-				notify_paper_and_orientation, page, NULL, NULL);
-	page->priv->notify_paper = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/paper_size",
-				notify_paper_and_orientation, page, NULL, NULL);
-	page->priv->notify_top = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/top",
-				notify_image, page, NULL, NULL);
-	page->priv->notify_bottom = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/bottom", 
-				notify_image, page, NULL, NULL);
-	page->priv->notify_right = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/right", 
-				notify_image, page, NULL, NULL);
-	page->priv->notify_left = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/left", 
-				notify_image, page, NULL, NULL);
-	page->priv->notify_adjust = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/adjust_to",
-				notify_image, page, NULL, NULL);
-	page->priv->notify_fit = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/fit_to_page",
-				notify_image, page, NULL, NULL);
-	page->priv->notify_horizontally = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/horizontally",
-				notify_image, page, NULL, NULL);
-	page->priv->notify_vertically = gconf_client_notify_add (
-				page->priv->client,
-				"/apps/eog/viewer/vertically",
-				notify_image, page, NULL, NULL);
-
-	return (GTK_WIDGET (page));
+	add_notification (preview);
+	
+	return (GTK_WIDGET (preview));
 }
 

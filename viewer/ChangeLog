@@ -1,3 +1,12 @@
+2001-03-31  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* eog-preview-page.[ch]: New files
+	* eog-preview.c: This is now a hbox with one or more vboxes containing
+	eog-preview-pages. It creates, removes, and updates eog-preview-pages 
+	when gconf-settings change. The whole thing is much cleaner now.
+	* eog-print-setup: Just show a eog-preview instead of creating hboxes 
+	and vboxes.
+
 2001-03-28  Jason Leach  <jasonleach@usa.net>
 
 	* Makefile.am (INCLUDES): builddir != srcdir fix.

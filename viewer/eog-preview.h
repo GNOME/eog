@@ -2,8 +2,8 @@
 #define _EOG_PREVIEW_H_
 
 #include <gnome.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gconf/gconf-client.h>
+#include <eog-image-view.h>
 
 BEGIN_GNOME_DECLS
 
@@ -19,20 +19,18 @@ typedef struct _EogPreviewClass		EogPreviewClass;
 
 struct _EogPreview
 {
-	GnomeCanvas		 canvas;
+	GtkHBox			 parent; 
 	
 	EogPreviewPrivate	*priv;
 };
 
 struct _EogPreviewClass
 {
-	GnomeCanvasClass	 parent_class;
+	GtkHBoxClass		  parent_class;
 };
 
 GtkType	   eog_preview_get_type (void);
-
-GtkWidget *eog_preview_new (GConfClient *client, GdkPixbuf *pixbuf, 
-			    gint col, gint row);
+GtkWidget *eog_preview_new (GConfClient *client, EogImageView *image_view);
 
 END_GNOME_DECLS
 
