@@ -13,6 +13,7 @@ struct _EogCollectionItemPrivate {
 	EogImage *image;
 
 	gboolean selected;
+	gboolean emit_changed_signal;
 
 	GnomeCanvasItem *frame;
 	GnomeCanvasItem *pixbuf_item;
@@ -28,6 +29,7 @@ enum {
 static gint eog_collection_item_signals [SIGNAL_LAST];
 
 static void eog_collection_item_destroy (GtkObject *object);
+static void eog_collection_item_update (GnomeCanvasItem *item, double *affine, ArtSVP *clip_path, int flags);
 static char* get_item_image_caption (GnomeCanvasItem *item, EogImage *image);
 static char* ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width);
 
@@ -40,11 +42,14 @@ eog_collection_item_class_init (EogCollectionItemClass *klass)
 {
         GObjectClass *gobject_class;
 	GtkObjectClass *object_class;
+	GnomeCanvasItemClass *item_class;
 
         gobject_class = (GObjectClass *) klass;
 	object_class = (GtkObjectClass *) klass;
+	item_class = (GnomeCanvasItemClass *) klass;
 
 	object_class->destroy = eog_collection_item_destroy;
+	item_class->update = eog_collection_item_update;
 
 	eog_collection_item_signals [SIGNAL_SIZE_CHANGED] = 
 		g_signal_new ("size_changed",
@@ -66,6 +71,7 @@ eog_collection_item_instance_init (EogCollectionItem *item)
 	priv->pixbuf_item = NULL;
 	priv->caption_item = NULL;
 	priv->selected = FALSE;
+	priv->emit_changed_signal = FALSE;
 	
 	item->priv = priv;
 }
@@ -95,6 +101,21 @@ eog_collection_item_destroy (GtkObject *object)
 	}
 
 	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
+}
+
+static void
+eog_collection_item_update (GnomeCanvasItem *item, double *affine, ArtSVP *clip_path, int flags)
+{
+	EogCollectionItemPrivate *priv;
+
+	priv = EOG_COLLECTION_ITEM (item)->priv;
+
+	GNOME_CALL_PARENT (GNOME_CANVAS_ITEM_CLASS, update, (item, affine, clip_path, flags));
+
+	if (priv->emit_changed_signal) {
+		priv->emit_changed_signal = FALSE;
+		g_signal_emit (G_OBJECT (item), eog_collection_item_signals [SIGNAL_SIZE_CHANGED], 0);
+	}
 }
 
 static void
@@ -179,7 +200,7 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 
 	/* emit size changed signal if pixbuf size changed */
 	if (image_width != old_width || image_height != old_height) {
-		g_signal_emit (G_OBJECT (item), eog_collection_item_signals [SIGNAL_SIZE_CHANGED], 0);
+		priv->emit_changed_signal = TRUE;
 	}
 }
 

@@ -1,5 +1,15 @@
+2004-03-08  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-item.c (eog_collection_item_update):
+	New function.
+	(eog_collection_item_set_pixbuf): Delay emit of SIZE_CHANGED
+	signal until the item actually has been updated on the canvas
+	level.
+
 2004-03-05  Jens Finke  <jens@triq.net>
 
+	Fixes #134981.
+	
 	* art/loading.png: New file, borrowed from nautilus.
 
 	* art/Makefile.am: Added loading.png to icons data.
