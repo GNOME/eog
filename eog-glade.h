@@ -5,9 +5,9 @@
  */
 
 gchar *s = N_("Eye of Gnome Preferences");
-gchar *s = N_("Interpolate image on zoom (better quality but slower)");
-gchar *s = N_("By checkpattern ");
-gchar *s = N_("By color");
+gchar *s = N_("_Interpolate image on zoom (better quality but slower)");
+gchar *s = N_("By check_pattern ");
+gchar *s = N_("By c_olor");
 gchar *s = N_("Pick a color");
 gchar *s = N_("Indicate Transparency");
 gchar *s = N_("Image Viewer");

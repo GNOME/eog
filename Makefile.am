@@ -10,8 +10,8 @@ EXTRA_DIST =			\
 	HACKING			\
 	MAINTAINERS		\
 	TODO			\
-	$(schema_DATA)		\
-	eog.desktop.in		\
+	$(schemas_in_files)	\
+	$(Graphics_in_files)	\
 	eog.spec		\
 	eog.gladep		\
 	eog.glade		\
@@ -32,8 +32,11 @@ Glade_DATA = eog.glade
 
 @INTLTOOL_DESKTOP_RULE@
 
-schemadir = $(sysconfdir)/gconf/schemas
-schema_DATA = eog.schemas
+schemasdir = $(sysconfdir)/gconf/schemas
+schemas_in_files = eog.schemas.in
+schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
+
+@INTLTOOL_SCHEMAS_RULE@
 
 icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
