@@ -21,6 +21,8 @@
 #include <eog-control.h>
 #include <eog-embeddable.h>
 
+#include <eog-image-io.h>
+
 struct _EogImagePrivate {
         Image                *image;
         GdkPixbuf            *pixbuf;
@@ -237,19 +239,36 @@ save_image_to_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
 		      CORBA_Environment *ev)
 {
 	EogImage *image;
+	gboolean retval = FALSE;
 
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (data));
 
 	image = EOG_IMAGE (data);
 
-	CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
-			     ex_Bonobo_Persist_WrongDataType, NULL);
+	CORBA_exception_free (ev);
+
+	g_message ("save_image_to_stream: %s", type);
+
+	if (!strcmp (type, "image/png") ||
+	    !strcmp (type, "image/x-png") ||
+	    !strcmp (type, ""))
+		retval = eog_image_save_png (image, stream, ev);
+	else if (!strcmp (type, "image/xpm") ||
+		 !strcmp (type, "image/x-xpixmap"))
+		retval = eog_image_save_xpm (image, stream, ev);
+	else if (!strcmp (type, "image/jpeg"))
+		retval = eog_image_save_jpeg (image, stream, ev);
+
+	if (retval)
+		return;
+
+	if (ev->_major == CORBA_NO_EXCEPTION)
+		CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
+				     ex_Bonobo_Persist_WrongDataType, NULL);
 
 	return;
 }
-
-
 
 /*
  * Loads an Image from a Bonobo_File

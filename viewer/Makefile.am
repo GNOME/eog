@@ -41,6 +41,8 @@ eog_image_viewer_SOURCES =	\
 	$(CORBA_SOURCE)		\
 	eog-image.c		\
 	eog-image.h		\
+	eog-image-io.c		\
+	eog-image-io.h		\
 	eog-image-view.c	\
 	eog-image-view.h	\
 	eog-control.c		\
@@ -60,6 +62,7 @@ eog_image_viewer_LDADD = 			\
 	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_BONOBO_LIBS)			\
+	$(LIBPNG) $(LIBJPEG)			\
 	../src/libeog.la
 
 idls =							\

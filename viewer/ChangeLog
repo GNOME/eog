@@ -1,5 +1,13 @@
 2000-11-20  Martin Baulig  <baulig@suse.de>
 
+	* eog-image-io.[ch]: New files. This provides saving code for
+	XPM, PNG and JPEG.
+
+	* eog-image.c (save_image_to_stream): New static function; calls
+	one of the eog-image-io.c function depending on the content type.
+
+2000-11-20  Martin Baulig  <baulig@suse.de>
+
 	* eog-image-data.[ch]: Removed.
 
 	* eog-image.[ch]: Moved everything from eog-image-data.[ch] here.
