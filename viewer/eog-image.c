@@ -32,9 +32,7 @@ struct _EogImagePrivate {
         GdkPixbuf *pixbuf;
 };
 
-#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
-
-static BonoboXObjectClass *eog_image_parent_class;
+static GObjectClass *eog_image_parent_class;
 
 enum {
 	SET_IMAGE_SIGNAL,
@@ -44,7 +42,7 @@ enum {
 static guint eog_image_signals [LAST_SIGNAL];
 
 static void
-eog_image_destroy (GtkObject *object)
+eog_image_destroy (BonoboObject *object)
 {
 	EogImage *image;
 
@@ -61,7 +59,8 @@ eog_image_destroy (GtkObject *object)
 	if (image->priv->filename)
 		g_free (image->priv->filename);
 
-	GTK_OBJECT_CLASS (eog_image_parent_class)->destroy (object);
+	if (BONOBO_OBJECT_CLASS (eog_image_parent_class)->destroy)
+		BONOBO_OBJECT_CLASS (eog_image_parent_class)->destroy (object);
 }
 
 static void
@@ -76,28 +75,30 @@ eog_image_finalize (GObject *object)
 
 	g_free (image->priv);
 
-	G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
+	if (G_OBJECT_CLASS (eog_image_parent_class)->finalize)
+		G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
 }
 
 static void
 eog_image_class_init (EogImageClass *klass)
 {
-	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	BonoboObjectClass *bonobo_object_class = (BonoboObjectClass *)klass;
 	GObjectClass *gobject_class = (GObjectClass *)klass;
 
 	POA_GNOME_EOG_Image__epv *epv;
 
-	eog_image_parent_class = gtk_type_class (PARENT_TYPE);
+	eog_image_parent_class = g_type_class_peek_parent (klass);
 
 	eog_image_signals [SET_IMAGE_SIGNAL] =
-                gtk_signal_new ("set_image",
-                                GTK_RUN_LAST,
-                                GTK_CLASS_TYPE (object_class),
-                                GTK_SIGNAL_OFFSET (EogImageClass, set_image),
-                                gtk_marshal_NONE__NONE,
-                                GTK_TYPE_NONE, 0);
+                g_signal_new ("set_image",
+			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, set_image),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 
-	object_class->destroy = eog_image_destroy;
+	bonobo_object_class->destroy = eog_image_destroy;
 	gobject_class->finalize = eog_image_finalize;
 
 	epv = &klass->epv;
@@ -109,10 +110,10 @@ eog_image_init (EogImage *image)
 	image->priv = g_new0 (EogImagePrivate, 1);
 }
 
-BONOBO_X_TYPE_FUNC_FULL (EogImage,
-			 GNOME_EOG_Image,
-			 PARENT_TYPE,
-			 eog_image);
+BONOBO_TYPE_FUNC_FULL (EogImage,
+		       GNOME_EOG_Image,
+		       BONOBO_TYPE_OBJECT,
+		       eog_image);
 
 /*
  * Loads an Image from a Bonobo_Stream
@@ -179,7 +180,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 		CORBA_free (info);
 	}
 
-	gtk_signal_emit (GTK_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL]);
+	g_signal_emit (G_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL], 0);
 
 	goto exit_clean;
 
@@ -302,7 +303,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	
 	gnome_vfs_uri_unref (uri);
 
-	gtk_signal_emit (GTK_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL]);
+	g_signal_emit (G_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL], 0);
 
 	return 0;
 }
@@ -369,7 +370,7 @@ eog_image_add_interfaces (EogImage     *image,
 	/* Interface Bonobo::PersistStream */
 	stream = bonobo_persist_stream_new (load_image_from_stream, 
 					    save_image_to_stream,
-					    NULL, NULL, image);
+					    NULL, "OAFIID:GNOME_EOG_Image", image);
 	if (!stream) {
 		bonobo_object_unref (BONOBO_OBJECT (to_aggregate));
 		return NULL;
@@ -379,7 +380,8 @@ eog_image_add_interfaces (EogImage     *image,
 				     BONOBO_OBJECT (stream));
 
 	/* Interface Bonobo::PersistFile */
-	file = bonobo_persist_file_new (load_image_from_file, NULL, NULL /*FIXME: "iid this interface is aggragated to"*/, image);
+	file = bonobo_persist_file_new (load_image_from_file, NULL,
+					"OAFIID:GNOME_EOG_Image", image);
 	if (!file) {
 		bonobo_object_unref (BONOBO_OBJECT (to_aggregate));
 		return NULL;
@@ -391,10 +393,10 @@ eog_image_add_interfaces (EogImage     *image,
 	/* BonoboItemContainer */
 	item_container = bonobo_item_container_new ();
 
-	gtk_signal_connect (GTK_OBJECT (item_container),
-			    "get_object",
-			    GTK_SIGNAL_FUNC (eog_image_get_object),
-			    image);
+	g_signal_connect (G_OBJECT (item_container),
+			  "get_object",
+			  G_CALLBACK (eog_image_get_object),
+			  image);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (to_aggregate),
 				     BONOBO_OBJECT (item_container));
@@ -432,7 +434,7 @@ eog_image_new (void)
 			return (NULL);
 		}
 	
-	image = gtk_type_new (eog_image_get_type ());
+	image = EOG_IMAGE (g_object_new (EOG_IMAGE_TYPE, NULL));
 
 	return eog_image_construct (image);
 }

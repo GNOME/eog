@@ -75,9 +75,7 @@ enum {
 
 static guint eog_image_view_signals [LAST_SIGNAL];
 
-#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
-
-static BonoboObjectClass *eog_image_view_parent_class;
+static GObjectClass *eog_image_view_parent_class;
 
 static GNOME_EOG_Image
 impl_GNOME_EOG_ImageView_getImage (PortableServer_Servant servant,
@@ -1788,7 +1786,7 @@ eog_image_view_get_check_size (EogImageView *image_view)
  * ***************************************************************************/
 
 static void
-eog_image_view_destroy (GtkObject *object)
+eog_image_view_destroy (BonoboObject *object)
 {
 	EogImageView *image_view;
 	EogImageViewPrivate *priv;
@@ -1816,7 +1814,8 @@ eog_image_view_destroy (GtkObject *object)
 	if (getenv ("DEBUG_EOG"))
 		g_message ("EogImageView destroyed.");
 
-	GTK_OBJECT_CLASS (eog_image_view_parent_class)->destroy (object);
+	if (BONOBO_OBJECT_CLASS (eog_image_view_parent_class)->destroy)
+		BONOBO_OBJECT_CLASS (eog_image_view_parent_class)->destroy (object);
 }
 
 static void
@@ -1831,20 +1830,21 @@ eog_image_view_finalize (GObject *object)
 
 	g_free (image_view->priv);
 
-	G_OBJECT_CLASS (eog_image_view_parent_class)->finalize (object);
+	if (G_OBJECT_CLASS (eog_image_view_parent_class)->finalize)
+		G_OBJECT_CLASS (eog_image_view_parent_class)->finalize (object);
 }
 
 static void
 eog_image_view_class_init (EogImageViewClass *klass)
 {
-	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	BonoboObjectClass *bonobo_object_class = (BonoboObjectClass *)klass;
 	GObjectClass *gobject_class = (GObjectClass *)klass;
 
 	POA_GNOME_EOG_ImageView__epv *epv;
 
-	eog_image_view_parent_class = gtk_type_class (PARENT_TYPE);
+	eog_image_view_parent_class = g_type_class_peek_parent (klass);
 
-	object_class->destroy = eog_image_view_destroy;
+	bonobo_object_class->destroy = eog_image_view_destroy;
 	gobject_class->finalize = eog_image_view_finalize;
 
 	epv = &klass->epv;
@@ -1858,10 +1858,10 @@ eog_image_view_init (EogImageView *image_view)
 	image_view->priv = g_new0 (EogImageViewPrivate, 1);
 }
 
-BONOBO_X_TYPE_FUNC_FULL (EogImageView, 
-			 GNOME_EOG_ImageView,
-			 PARENT_TYPE,
-			 eog_image_view);
+BONOBO_TYPE_FUNC_FULL (EogImageView, 
+		       GNOME_EOG_ImageView,
+		       BONOBO_TYPE_OBJECT,
+		       eog_image_view);
 
 static void
 property_control_get_prop (BonoboPropertyBag *bag,
@@ -1935,18 +1935,18 @@ eog_image_view_construct (EogImageView       *image_view,
 	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));
 	image_view->priv->zoom_fit = zoom_fit;
 
-	gtk_signal_connect (GTK_OBJECT (image), "set_image",
-			    GTK_SIGNAL_FUNC (image_set_image_cb),
-			    image_view);
+	g_signal_connect (G_OBJECT (image), "set_image",
+			  (GCallback) image_set_image_cb,
+			  image_view);
 
 	image_view->priv->ui_image = ui_image_new ();
 	gtk_widget_show (image_view->priv->ui_image);
 
 	image_view->priv->image_view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image)));
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->image_view), 
-			    "zoom_changed", 
-			    (GtkSignalFunc) image_view_zoom_changed_cb, 
-			    image_view);
+	g_signal_connect (G_OBJECT (image_view->priv->image_view), 
+			  "zoom_changed", 
+			  (GCallback) image_view_zoom_changed_cb, 
+			  image_view);
 
 	/* Some sensible defaults */
 	image_view_set_scroll      (image_view->priv->image_view,
@@ -2012,7 +2012,7 @@ eog_image_view_new (EogImage *image,
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Creating EogImageView...");
 
-	image_view = gtk_type_new (eog_image_view_get_type ());
+	image_view = g_object_new (EOG_IMAGE_VIEW_TYPE, NULL);
 
 	return eog_image_view_construct (image_view, image, zoom_fit);
 }

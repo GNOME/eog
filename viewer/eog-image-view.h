@@ -11,29 +11,31 @@
 #ifndef _EOG_IMAGE_VIEW_H_
 #define _EOG_IMAGE_VIEW_H_
 
-#include <eog-image.h>
+#include <bonobo/bonobo-object.h>
+#include "eog-image.h"
 
 G_BEGIN_DECLS
  
 #define EOG_IMAGE_VIEW_TYPE          (eog_image_view_get_type ())
-#define EOG_IMAGE_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_IMAGE_VIEW_TYPE, EogImageView))
-#define EOG_IMAGE_VIEW_CLASS(k)      (GTK_CHECK_CLASS_CAST((k), EOG_IMAGE_VIEW_TYPE, EogImageViewClass))
+#define EOG_IMAGE_VIEW(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_IMAGE_VIEW_TYPE, EogImageView))
+#define EOG_IMAGE_VIEW_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_IMAGE_VIEW_TYPE, EogImageViewClass))
 
-#define EOG_IS_IMAGE_VIEW(o)         (GTK_CHECK_TYPE ((o), EOG_IMAGE_VIEW_TYPE))
-#define EOG_IS_IMAGE_VIEW_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), EOG_IMAGE_VIEW_TYPE))
+#define EOG_IS_IMAGE_VIEW(o)         (G_TYPE_CHECK_INSTANCE_TYPE ((o), EOG_IMAGE_VIEW_TYPE))
+#define EOG_IS_IMAGE_VIEW_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_IMAGE_VIEW_TYPE))
+#define EOG_IMAGE_VIEW_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_IMAGE_VIEW_TYPE, EogImageViewClass))
 
 typedef struct _EogImageView         EogImageView;
 typedef struct _EogImageViewClass    EogImageViewClass;
 typedef struct _EogImageViewPrivate  EogImageViewPrivate;
 
 struct _EogImageView {
-	BonoboXObject base;
+	BonoboObject base;
 
 	EogImageViewPrivate *priv;
 };
 
 struct _EogImageViewClass {
-	BonoboXObjectClass parent_class;
+	BonoboObjectClass parent_class;
 
 	POA_GNOME_EOG_ImageView__epv epv;
 };

@@ -28,10 +28,10 @@ struct _EogControlPrivate {
 	BonoboUIComponent  *uic;
 };
 
-static BonoboControlClass *eog_control_parent_class;
+static GObjectClass *eog_control_parent_class;
 
 static void
-eog_control_destroy (GtkObject *object)
+eog_control_destroy (BonoboObject *object)
 {
 	EogControl *control;
 
@@ -48,7 +48,7 @@ eog_control_destroy (GtkObject *object)
 //	bonobo_object_unref (BONOBO_OBJECT (control->priv->image_view));
 //	bonobo_object_unref (BONOBO_OBJECT (control->priv->zoomable));
 
-	GTK_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
+	BONOBO_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
 }
 
 static void
@@ -358,15 +358,14 @@ eog_control_activate (BonoboControl *object, gboolean state)
 static void
 eog_control_class_init (EogControl *klass)
 {
-	GtkObjectClass *object_class = (GtkObjectClass *)klass;
 	GObjectClass *gobject_class = (GObjectClass *)klass;
+	BonoboObjectClass *bonobo_object_class = (BonoboObjectClass *)klass;
 	BonoboControlClass *control_class = (BonoboControlClass *)klass;
 
-	eog_control_parent_class = gtk_type_class (bonobo_control_get_type ());
+	eog_control_parent_class = g_type_class_peek_parent (klass);
 
-	object_class->destroy = eog_control_destroy;
+	bonobo_object_class->destroy = eog_control_destroy;
 	gobject_class->finalize = eog_control_finalize;
-
 	control_class->activate = eog_control_activate;
 }
 
@@ -376,29 +375,7 @@ eog_control_init (EogControl *control)
 	control->priv = g_new0 (EogControlPrivate, 1);
 }
 
-GtkType
-eog_control_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type) {
-		GtkTypeInfo info = {
-			"EogControl",
-			sizeof (EogControl),
-			sizeof (EogControlClass),
-			(GtkClassInitFunc)  eog_control_class_init,
-			(GtkObjectInitFunc) eog_control_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (
-			bonobo_control_get_type (), &info);
-	}
-
-	return type;
-}
+BONOBO_TYPE_FUNC (EogControl, BONOBO_TYPE_CONTROL, eog_control);
 
 EogControl *
 eog_control_construct (EogControl    *control,
@@ -425,12 +402,14 @@ eog_control_construct (EogControl    *control,
 	}
 	widget = eog_image_view_get_widget (control->priv->image_view);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget),
-					  GTK_SHADOW_IN);
-	gtk_widget_unref (widget);
+					     GTK_SHADOW_IN);
+
+	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
 	
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (control->priv->image_view));
 
+#if NEED_GNOME2_PORTING
 	/* Interface Bonobo::Zoomable */
 	control->priv->zoomable = bonobo_zoomable_new ();
 
@@ -471,13 +450,9 @@ eog_control_construct (EogControl    *control,
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (control->priv->zoomable));
 
-	/* Construct the control */
-	widget = eog_image_view_get_widget (control->priv->image_view);
-	retval = bonobo_control_construct (BONOBO_CONTROL (control), widget);
-
 	pb = eog_image_view_get_property_bag (control->priv->image_view);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
-				       /* FIXME GNOME2: is this cast right? */(Bonobo_PropertyBag)pb, 
+				       BONOBO_OBJREF (pb), 
 				       NULL);
 	bonobo_object_unref (BONOBO_OBJECT (pb));
 
@@ -491,9 +466,9 @@ eog_control_construct (EogControl    *control,
 	bonobo_object_unref (BONOBO_OBJECT (pc));
 	bonobo_object_add_interface (BONOBO_OBJECT (control),
 				     BONOBO_OBJECT (pc));
+#endif
 
-	control->priv->uic = bonobo_control_get_ui_component (
-		BONOBO_CONTROL (control));
+	control->priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 	
 	return control;
 }
@@ -509,7 +484,7 @@ eog_control_new (EogImage *image)
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Creating EogControl...");
 
-	control = gtk_type_new (eog_control_get_type ());
+	control = g_object_new (EOG_CONTROL_TYPE, NULL);
 
 	return eog_control_construct (control, image);
 }

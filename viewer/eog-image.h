@@ -13,31 +13,31 @@
 
 #include <Eog.h>
 #include <bonobo.h>
-#include <bonobo/bonobo-xobject.h>
+#include <bonobo/bonobo-object.h>
 
 #include <eog-util.h>
 
 G_BEGIN_DECLS
  
 #define EOG_IMAGE_TYPE          (eog_image_get_type ())
-#define EOG_IMAGE(o)            (GTK_CHECK_CAST ((o), EOG_IMAGE_TYPE, EogImage))
-#define EOG_IMAGE_CLASS(k)      (GTK_CHECK_CLASS_CAST((k), EOG_IMAGE_TYPE, EogImageClass))
+#define EOG_IMAGE(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_IMAGE_TYPE, EogImage))
+#define EOG_IMAGE_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_IMAGE_TYPE, EogImageClass))
 
-#define EOG_IS_IMAGE(o)         (GTK_CHECK_TYPE ((o), EOG_IMAGE_TYPE))
-#define EOG_IS_IMAGE_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), EOG_IMAGE_TYPE))
+#define EOG_IS_IMAGE(o)         (G_TYPE_CHECK_INSTANCE_TYPE ((o), EOG_IMAGE_TYPE))
+#define EOG_IS_IMAGE_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_IMAGE_TYPE))
 
 typedef struct _EogImage         EogImage;
 typedef struct _EogImageClass    EogImageClass;
 typedef struct _EogImagePrivate  EogImagePrivate;
 
 struct _EogImage {
-        BonoboXObject base;
+        BonoboObject base;
 
         EogImagePrivate *priv;
 };
 
 struct _EogImageClass {
-        BonoboXObjectClass parent_class;
+        BonoboObjectClass parent_class;
 
 	POA_GNOME_EOG_Image__epv epv;
 
@@ -47,7 +47,7 @@ struct _EogImageClass {
 POA_GNOME_EOG_Image__epv *eog_image_get_epv     (void);
 
 EogImage       *eog_image_new                   (void);
-GtkType         eog_image_get_type              (void);
+GType          eog_image_get_type              (void);
 BonoboObject   *eog_image_add_interfaces        (EogImage       *image,
 						 BonoboObject   *to_aggregate);
 EogImage       *eog_image_construct             (EogImage       *image);
