@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eyes of Gnome HEAD\n"
-"POT-Creation-Date: 2002-03-01 02:32+0800\n"
+"POT-Creation-Date: 2002-03-22 13:25+0800\n"
 "PO-Revision-Date: 2002-01-25 05:15+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
@@ -13,15 +13,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Ainul Gnome"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Pelihat Imeg Ainul Gnome"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Pemapar Imej"
+msgid "View many different types of images"
+msgstr "Lihat banyak jenis imej berlainan"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
 msgid "EOG Image"
 msgstr "Imej EOG"
 
@@ -65,7 +65,7 @@ msgstr "_Keluar"
 msgid "Exit the program"
 msgstr "Keluar program"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
 msgid "Open"
 msgstr "Buka"
 
@@ -121,39 +121,56 @@ msgstr "_Tetapan"
 msgid "_View"
 msgstr "_Lihat"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>"
+
+#: shell/eog-window.c:201 shell/eog-window.c:549
+msgid "Eye of Gnome"
+msgstr "Ainul Gnome"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Hakcipta (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program untuk mengkatalog dan melihat imej GNOME"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Buka imej"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Kawalan tidak mempunyai ciri-ciri window_title"
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Kawalan tidak mempunyai ciri-ciri status_text"
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Kawalan tidak mempunyai Ciri-ciri"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "Tak dapat menerima jenis mime bagi fail."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Ralat bila memperolehi maklumat fail."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1097
+#, c-format
+msgid "Unable to open %s."
+msgstr "Tak dapat buka &s."
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -168,15 +185,24 @@ msgstr ""
 msgid "Single Windows"
 msgstr "Tetingkap Tunggal"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Koleksi"
 
-#: shell/main.c:280
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Anda cuba membuka %i tetingkap serentak\n"
+"Adakah anda ingin membukanya?"
+
+#: shell/main.c:307
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Gagal menginitialisasikan GnomeVFS!\n"
 
-#: shell/main.c:283
+#: shell/main.c:310
 msgid "Could not initialize Bonobo!\n"
 msgstr "Gagal menginitialisasikan Bonobo!\n"
 
@@ -185,68 +211,72 @@ msgstr "Gagal menginitialisasikan Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Gagal membuka : %s"
 
-#: viewer/eog-image.c:432
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Keutamaan Ainul Gnome"
+
+#: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Tak dapat menginitialisasikan GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:298
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Tak dapat menyimpan imej sebagai '%s': %s."
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:347
 msgid "Save As"
 msgstr "Seimpan Sebagai"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:920
 msgid "Print Image"
 msgstr "Cetak imej"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:928
 msgid "Pages"
 msgstr "Halaman"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1015
 msgid "Print Preview"
 msgstr "Prebiu Cetakan"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1021
 msgid "Printing of image failed"
 msgstr "Cetakan imej gagal"
 
-#: viewer/eog-image-view.c:1897
+#: viewer/eog-image-view.c:1835
 msgid "Display"
 msgstr "Paparan"
 
-#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Interpolasi"
 
-#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Dither"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Semak Jenis"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Semak Saiz"
 
-#: viewer/eog-image-view.c:2000
+#: viewer/eog-image-view.c:2071
 msgid "Image Width"
 msgstr "Lebar Imej"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2074
 msgid "Image Height"
 msgstr "Tinggi Imej"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2077
 msgid "Window Title"
 msgstr "Tajuk Tetingkap"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2080
 msgid "Statusbar Text"
 msgstr "Teks Statusbar"
 
@@ -567,66 +597,82 @@ msgstr "Bawah, kemudian kanan"
 msgid "Right, then down"
 msgstr "Kanan, kemudian bawah"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "Interpolasi Jiran Terdekat"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 msgid "Tiles Interpolation"
 msgstr "Interpolasi Tiles"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "Interpolasi Bilinear"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Interpolasi Hiperbola"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Tiada Dithering"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Dithering normal (_pseudocolor)"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "Dithering maksima (warna tinggi)"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Gelap"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "Midtone"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Cerah"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Hitam"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Kelabu"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Putih"
 
-#: viewer/preferences.c:66
+#: viewer/preferences.c:59
 msgid "Small"
 msgstr "Kecil"
 
-#: viewer/preferences.c:67
+#: viewer/preferences.c:60
 msgid "Medium"
 msgstr "Sederhana"
 
-#: viewer/preferences.c:68
+#: viewer/preferences.c:61
 msgid "Large"
 msgstr "Besar"
+
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Interpolasi:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Dither:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Semak Jenis:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Semak Saiz:"
