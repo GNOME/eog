@@ -55,6 +55,7 @@
 /* Maximum zoom factor */
 
 #define MAX_ZOOM_FACTOR 128
+#define MIN_ZOOM_FACTOR 0.01
 
 /* Private part of the ImageView structure */
 struct _ImageViewPrivate {
@@ -1669,8 +1670,12 @@ image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 
 	if (zoomx > MAX_ZOOM_FACTOR)
 		zoomx = MAX_ZOOM_FACTOR;
+	else if (zoomx < MIN_ZOOM_FACTOR)
+		zoomx = MIN_ZOOM_FACTOR;
 	if (zoomy > MAX_ZOOM_FACTOR)
 		zoomy = MAX_ZOOM_FACTOR;
+	else if (zoomy < MIN_ZOOM_FACTOR)
+		zoomy = MIN_ZOOM_FACTOR;
 
 	if (DOUBLE_EQUAL (priv->zoomx, zoomx) &&
 	    DOUBLE_EQUAL (priv->zoomy, zoomy))
