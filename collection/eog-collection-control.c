@@ -22,8 +22,6 @@
 #include "eog-collection-view.h"
 
 struct _EogControlPrivate {
-	GtkWidget         *root;
-
 	BonoboUIComponent *uic;
 };
 
@@ -40,10 +38,6 @@ eog_control_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_CONTROL (object));
 
 	control = EOG_CONTROL (object);
-
-	if (control->priv->root)
-		gtk_widget_unref (control->priv->root);
-	control->priv->root = NULL;
 
 	GTK_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
 }
@@ -173,6 +167,7 @@ eog_control_construct (EogControl    *eog_ctrl)
 {
 	BonoboControl     *bctrl;	
 	BonoboPropertyBag *property_bag;
+	GtkWidget *root;
 
 	g_return_val_if_fail (eog_ctrl != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (eog_ctrl), NULL);
@@ -181,13 +176,14 @@ eog_control_construct (EogControl    *eog_ctrl)
 	/* construct parent object */
 	eog_collection_view_construct (EOG_COLLECTION_VIEW (eog_ctrl));
 
-	eog_ctrl->priv->root = eog_collection_view_get_widget (EOG_COLLECTION_VIEW (eog_ctrl));
+	root = eog_collection_view_get_widget (EOG_COLLECTION_VIEW (eog_ctrl));
 	
 
 	/* add control interface */
-	bctrl = bonobo_control_new (eog_ctrl->priv->root);
+	bctrl = bonobo_control_new (root);
 	bonobo_object_add_interface (BONOBO_OBJECT (eog_ctrl),
 				     BONOBO_OBJECT (bctrl));
+	gtk_widget_unref (root);
 
 	eog_ctrl->priv->uic = bonobo_control_get_ui_component (bctrl);
 
