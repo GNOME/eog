@@ -486,6 +486,7 @@ eog_image_new_uri (GnomeVFSURI *uri)
 
 	priv->uri = gnome_vfs_uri_ref (uri);
 	priv->mode = EOG_IMAGE_LOAD_DEFAULT;
+	priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	priv->modified = FALSE;
 	priv->load_thread = NULL;
 
@@ -845,6 +846,7 @@ real_image_load (gpointer data)
 		else {
 			priv->error_message = NULL;
 		}
+		priv->status = EOG_IMAGE_STATUS_FAILED;
 		g_mutex_unlock (priv->status_mutex);
 	}
 	else if (priv->cancel_loading) {
@@ -853,10 +855,17 @@ real_image_load (gpointer data)
 			g_object_unref (priv->image);
 			priv->image = NULL;
 		}
-		priv->cancel_loading = TRUE;
+#if HAVE_EXIF
+		if (priv->exif != NULL) {
+			exif_data_unref (priv->exif);
+			priv->exif = NULL;
+		}
+#endif
+		priv->cancel_loading = FALSE;
 		priv->progress = 0.0;
 
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_CANCELLED;
+		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 		g_mutex_unlock (priv->status_mutex);
 	}
 	else {
@@ -897,6 +906,7 @@ real_image_load (gpointer data)
 		}
 
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
+		priv->status = EOG_IMAGE_STATUS_LOADED;
 		g_mutex_unlock (priv->status_mutex);
 	}
 
@@ -916,28 +926,21 @@ void
 eog_image_load (EogImage *img, EogImageLoadMode mode)
 {
 	EogImagePrivate *priv;
-	gboolean image_loaded;
-	gboolean thread_running;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	priv = EOG_IMAGE (img)->priv;
 
-	g_return_if_fail (priv->uri != NULL);
-
-	g_mutex_lock (priv->status_mutex);
-	image_loaded = priv->image != NULL;
-	thread_running = priv->load_thread != NULL;
-	g_mutex_unlock (priv->status_mutex);
-
-	if (image_loaded && !thread_running) {
+	if (priv->status == EOG_IMAGE_STATUS_LOADED) {
 		g_assert (priv->image != NULL);
 		eog_image_cache_reload (img);
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
 	}
-	else if (!image_loaded && !thread_running) { 
-                /* we assume that in all other cases there is no image loaded */
+	else if (priv->status == EOG_IMAGE_STATUS_FAILED) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, "");		
+	}
+	else if (priv->status == EOG_IMAGE_STATUS_UNKNOWN) { 
 		g_assert (priv->image == NULL);
 		
                 /* make sure the object isn't destroyed while we try to load it */
@@ -987,9 +990,9 @@ eog_image_load (EogImage *img, EogImageLoadMode mode)
 		}
 
 		/* start the thread machinery */
-		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
+		priv->status      = EOG_IMAGE_STATUS_LOADING;
+		priv->load_id     = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
 		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
-		
 	}
 }
 
@@ -1400,19 +1403,25 @@ eog_image_free_mem_private (EogImage *image)
 	
 	priv = image->priv;
 
-	if (priv->image != NULL) {
-		gdk_pixbuf_unref (priv->image);
-		priv->image = NULL;
+	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
+		eog_image_cancel_load (image);
 	}
-
+	else {
+		if (priv->image != NULL) {
+			gdk_pixbuf_unref (priv->image);
+			priv->image = NULL;
+		}
+		
 #if HAVE_EXIF
-	if (priv->exif != NULL) {
-		exif_data_unref (priv->exif);
-		priv->exif = NULL;
-	}
+		if (priv->exif != NULL) {
+			exif_data_unref (priv->exif);
+			priv->exif = NULL;
+		}
 #endif
 
-	priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
+		priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
+		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
+	}
 }
 
 void
@@ -1450,21 +1459,16 @@ void
 eog_image_cancel_load (EogImage *img)
 {
 	EogImagePrivate *priv;
-	gboolean join_thread = FALSE;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 	
 	priv = img->priv;
 
 	g_mutex_lock (priv->status_mutex);
-	if (priv->load_thread != NULL) {
+	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
 		priv->cancel_loading = TRUE;
-		join_thread = TRUE;
 	}
 	g_mutex_unlock (priv->status_mutex);
-
-	if (join_thread)
-		g_thread_join (priv->load_thread);
 }
 
 gpointer
@@ -1498,7 +1502,7 @@ eog_image_is_loaded (EogImage *img)
 	priv = img->priv;
 
 	g_mutex_lock (priv->status_mutex);
-	result = (priv->load_thread == NULL && priv->image != NULL);
+	result = (priv->status == EOG_IMAGE_STATUS_LOADED);
 	g_mutex_unlock (priv->status_mutex);
 	
 	return result;

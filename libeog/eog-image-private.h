@@ -18,9 +18,17 @@ enum {
 	EOG_IMAGE_LOAD_STATUS_PROGRESS = 1 << 7
 };
 
+typedef enum {
+	EOG_IMAGE_STATUS_UNKNOWN,
+	EOG_IMAGE_STATUS_LOADING,
+	EOG_IMAGE_STATUS_LOADED,
+	EOG_IMAGE_STATUS_FAILED
+} EogImageStatus;
+ 
 struct _EogImagePrivate {
 	GnomeVFSURI *uri;
 	EogImageLoadMode mode;
+	EogImageStatus status;
 
 	GdkPixbuf *image;
 	GdkPixbuf *thumbnail;

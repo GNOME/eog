@@ -1,5 +1,21 @@
 2003-10-26  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image-private.h: Added EogImageStatus enumeration.
+
+	* libeog/eog-image.c:
+	(eog_image_new_uri),
+	(real_image_load),
+	(eog_image_load),
+	(eog_image_free_mem_private),
+	(eog_image_cancel_load),
+	(eog_image_is_loaded): Store image status explicitly in private
+	status attribute.
+	(real_image_load): Free exif data on cancel.
+	(eog_image_cancel_load): Don't join thread, this isn't actually
+	required in the current design.
+	
+2003-10-26  Jens Finke  <jens@triq.net>
+
 	* configure.in: We require libexif 0.5.12.
 
 	* libeog/eog-image.c (exif_loader_write): Removed.
