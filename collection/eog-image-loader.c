@@ -162,7 +162,7 @@ scale_image (EogImageLoader *loader, GdkPixbuf *image)
 		thumb = gdk_pixbuf_scale_simple (image, 
 						 thumb_w,
 						 thumb_h,
-						 GDK_INTERP_NEAREST);
+						 GDK_INTERP_BILINEAR);
 	} else {
 		thumb_w = pixbuf_w;
 		thumb_h = pixbuf_h;

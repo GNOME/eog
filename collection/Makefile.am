@@ -51,8 +51,10 @@ eog_collection_view_SOURCES =		\
 	eog-collection-model.c		\
 	eog-item-factory.h		\
 	eog-item-factory.c		\
-	eog-item-factory-simple.h	\
 	eog-item-factory-simple.c	\
+	eog-item-factory-simple.h	\
+	eog-item-factory-clean.h	\
+	eog-item-factory-clean.c	\
 	eog-collection-preferences.h	\
 	eog-collection-preferences.c	\
 	main.c

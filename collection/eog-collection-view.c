@@ -29,7 +29,7 @@
 #  include "Evolution-Composer.h"
 #endif
 
-#include "eog-item-factory-simple.h"
+#include "eog-item-factory-clean.h"
 #include "eog-wrap-list.h"
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
@@ -795,7 +795,7 @@ eog_collection_view_construct (EogCollectionView *list_view)
 			  G_CALLBACK (model_base_uri_changed),
 			  list_view);
 
-	factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
+	factory = EOG_ITEM_FACTORY (eog_item_factory_clean_new ());
 
 	priv->root = gtk_scrolled_window_new (NULL, NULL);
 
