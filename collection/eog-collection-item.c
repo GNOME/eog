@@ -28,6 +28,9 @@ enum {
 static gint eog_collection_item_signals [SIGNAL_LAST];
 
 static void eog_collection_item_destroy (GtkObject *object);
+static char* get_item_image_caption (GnomeCanvasItem *item, EogImage *image);
+static char* ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width);
+
 
 GNOME_CLASS_BOILERPLATE (EogCollectionItem, eog_collection_item,
 			 GnomeCanvasGroup, GNOME_TYPE_CANVAS_GROUP);
@@ -263,14 +266,65 @@ image_changed_cb (EogImage *image, gpointer data)
 {
 	EogCollectionItemPrivate *priv;
 	GdkPixbuf *pixbuf;
+	char *caption;
+	double x1, x2, y1, y2;
 
 	priv = EOG_COLLECTION_ITEM (data)->priv;
 
+	/* update thumnbail */
 	pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);
-
 	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, TRUE);
-
 	gdk_pixbuf_unref (pixbuf);
+
+	/* update caption */
+	caption = get_item_image_caption (GNOME_CANVAS_ITEM (data), image);
+	gnome_canvas_item_set (GNOME_CANVAS_ITEM (priv->caption_item),
+			       "markup", caption,
+			       NULL);
+	g_free (caption);
+
+	/* update caption frame size */
+	gnome_canvas_item_get_bounds (priv->caption_item, &x1, &y1, &x2, &y2); 
+	gnome_canvas_item_set (GNOME_CANVAS_ITEM (priv->selected_item),
+			       "x1", (double) (x1 - EOG_COLLECTION_ITEM_CAPTION_PADDING),
+			       "y1", (double) (y1 - EOG_COLLECTION_ITEM_CAPTION_PADDING),
+			       "x2", (double) (x2 + EOG_COLLECTION_ITEM_CAPTION_PADDING),
+			       "y2", (double) (y2 + EOG_COLLECTION_ITEM_CAPTION_PADDING),
+			       NULL);
+}
+
+static char*
+get_item_image_caption (GnomeCanvasItem *item, EogImage *image)
+{
+	PangoLayout *layout;
+	char *basic_caption;
+	char *caption;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+	g_return_val_if_fail (GNOME_IS_CANVAS_ITEM (item), NULL);
+
+	basic_caption = eog_image_get_caption (image); /* don't free basic_caption */
+	if (basic_caption == NULL) return NULL;
+
+	layout = gtk_widget_create_pango_layout (GTK_WIDGET (item->canvas), NULL);
+	g_assert (layout != NULL);
+
+	/* add line breaks */
+	caption = ensure_max_string_width (basic_caption, layout, EOG_COLLECTION_ITEM_THUMB_WIDTH);
+
+	/* set bold caption to indicate image modification */
+	if (eog_image_is_modified (image)) {
+		char *tmp;
+
+		tmp = g_strdup_printf("<b>%s</b>", caption);
+
+		g_free (caption);
+		caption = tmp;
+	}
+
+	g_object_unref (layout);
+	
+	return caption;
 }
 
 /* Shrink the string until its pixel width is <= max_width */
@@ -326,37 +380,12 @@ ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
 	return NULL;
 }
 
-
-/* Transforms the string into UTF-8 and inserts line breaks so that no substring is wider than 
- * EOG_COLLECTION_ITEM_THUMB_WIDTH.
- */
-static char*
-transform_caption (gchar *str, PangoLayout *layout)
-{
-	char *result;
-	char *utf8_str;
-	
-	if (!g_utf8_validate (str, -9, NULL)) {
-		utf8_str = g_locale_to_utf8 (str, -1, NULL, NULL, NULL);
-	}
-	else {
-		utf8_str = g_strdup (str);
-	}
-
-	result = ensure_max_string_width (utf8_str, layout, EOG_COLLECTION_ITEM_THUMB_WIDTH);
-	g_free (utf8_str);
-	
-	return result;
-}
-
 static void
 eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 {
 	GdkPixbuf *pixbuf;
 	EogCollectionItemPrivate *priv;
 	GtkStyle *style;
-	PangoLayout *layout;
-	char *basic_caption;
 	char *caption;
 	int caption_x;
 	int caption_y;
@@ -368,21 +397,17 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	g_object_ref (priv->image);
 
 	/* Caption */
-	layout = gtk_widget_create_pango_layout (GTK_WIDGET (GNOME_CANVAS_ITEM (item)->canvas), NULL);
-	g_assert (layout != NULL);
-
 	style = GTK_WIDGET (GNOME_CANVAS_ITEM (item)->canvas)->style;
 	g_assert (style != NULL);
 
-	basic_caption = eog_image_get_caption (image);
-	caption = transform_caption (basic_caption, layout);
+	caption = get_item_image_caption (GNOME_CANVAS_ITEM (item), image);
 
 	caption_x = EOG_COLLECTION_ITEM_THUMB_WIDTH / 2;
 	caption_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT + 2 * EOG_COLLECTION_ITEM_FRAME_WIDTH + EOG_COLLECTION_ITEM_SPACING;
 
 	priv->caption_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						    GNOME_TYPE_CANVAS_TEXT,
-						    "text", caption,
+						    "markup", caption,
 						    "font_desc", style->font_desc,
 						    "anchor", GTK_ANCHOR_NORTH,
 						    "justification", GTK_JUSTIFY_CENTER,

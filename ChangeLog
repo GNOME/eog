@@ -1,3 +1,14 @@
+2003-12-27  Jens Finke  <jens@triq.net>
+
+	Indicate modified images by bold caption in collection view.
+	
+	* collection/eog-collection-item.c (image_changed_cb): Update
+	caption too.
+	(get_item_image_caption): New function.
+	(transform_caption): Removed.
+	(eog_collection_item_construct): Use get_item_image_caption, use
+	markup property for caption item.
+
 ===== 2.5.2 =====
 
 2003-12-22  Jens Finke  <jens@triq.net>
@@ -71,7 +82,7 @@
 
 2003-12-10  Jens Finke  <jens@triq.net>
 
-	* libeog/eog-file-selection.c: Mark "All Images" string for translation.
+m	* libeog/eog-file-selection.c: Mark "All Images" string for translation.
 
 2003-12-10  Jan Arne Petersen  <jpetersen@uni-bonn.de>
 
