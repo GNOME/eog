@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-03-22 16:10+0100\n"
-"PO-Revision-Date: 2002-03-22 15:13+0100\n"
+"POT-Creation-Date: 2002-04-12 20:43+0200\n"
+"PO-Revision-Date: 2002-04-12 20:49+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,14 +61,6 @@ msgstr "Zamknij"
 msgid "Close window"
 msgstr "Zamyka okno"
 
-#: shell/eog-shell-ui.xml.h:1
-msgid "E_xit"
-msgstr "Za_kończ"
-
-#: shell/eog-shell-ui.xml.h:1
-msgid "Exit the program"
-msgstr "Kończy pracę programu"
-
 #: shell/eog-shell-ui.xml.h:1 shell/main.c:1
 msgid "Open"
 msgstr "Otwórz"
@@ -90,12 +82,20 @@ msgid "Open in this window"
 msgstr "Otwórz w tym oknie"
 
 #: shell/eog-shell-ui.xml.h:1
-msgid "_About..."
+msgid "Quit the program"
+msgstr "Kończy pracę programu"
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "_About"
 msgstr "_Informacje o..."
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "_Close"
 msgstr "Za_mknij"
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "_Edit"
+msgstr "Z_modyfikuj"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "_File"
@@ -114,12 +114,12 @@ msgid "_Open..."
 msgstr "_Otwórz..."
 
 #: shell/eog-shell-ui.xml.h:1
-msgid "_Preferences"
-msgstr "_Preferencje"
+msgid "_Preferences..."
+msgstr "_Preferencje..."
 
 #: shell/eog-shell-ui.xml.h:1
-msgid "_Settings"
-msgstr "_Ustawienia"
+msgid "_Quit"
+msgstr "Za_kończ"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "_View"
@@ -133,7 +133,7 @@ msgstr "_Widok"
 msgid "Translator Credits"
 msgstr "GNOME PL Team <translators@gnome.pl>"
 
-#: shell/eog-window.c:1 shell/eog-window.c:1
+#: shell/eog-window.c:1 shell/eog-window.c:1 shell/main.c:1
 msgid "Eye of Gnome"
 msgstr "Oko Gnoma"
 
@@ -193,6 +193,7 @@ msgid "Collection"
 msgstr "Kolekcja"
 
 #: shell/main.c:1
+#, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
@@ -291,52 +292,24 @@ msgid "Check _type"
 msgstr "_Kolorystyka szachownicy"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Check size large"
-msgstr "Duże pola szachownicy"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check size medium"
-msgstr "Średnie pola szachownicy"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check size small"
-msgstr "Małe pola szachownicy"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _black"
-msgstr "_Czarna szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _dark"
-msgstr "C_iemna szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _gray"
-msgstr "_Szara szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _light"
-msgstr "_Jasna szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _midtone"
-msgstr "Średnia szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Check type _white"
-msgstr "Biała szachownica"
-
-#: viewer/eog-image-view-ui.xml.h:1
 msgid "Full Screen"
 msgstr "Pełny ekran"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Nea_rest Neighbour Interpolation"
-msgstr "_Interpolacja do najbliższego sąsiada"
+#: viewer/eog-image-view-ui.xml.h:1 viewer/preferences.c:1
+msgid "Large"
+msgstr "Duże"
+
+#: viewer/eog-image-view-ui.xml.h:1 viewer/preferences.c:1
+msgid "Medium"
+msgstr "Średnie"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Normal (_pseudocolor) dithering"
-msgstr "Zwykłe (odwzorowanie paletowe) ditherowanie"
+msgid "Nea_rest Neighbour"
+msgstr "Do _najbliższego sąsiada"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Normal (_pseudocolor)"
+msgstr "_Zwykłe (odwzorowanie paletowe)"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "Previews the image to be printed"
@@ -355,23 +328,35 @@ msgid "Print image to the printer"
 msgstr "Drukuje obraz na drukarce"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Save _As"
-msgstr "Z_apisz jako"
-
-#: viewer/eog-image-view-ui.xml.h:1
 msgid "Setup the page settings for your current printer"
 msgstr "Zmienia ustawienia drukowania dla bieżącej drukarki"
 
+#: viewer/eog-image-view-ui.xml.h:1 viewer/preferences.c:1
+msgid "Small"
+msgstr "Małe"
+
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "_Bilinear Interpolation"
-msgstr "Interpolacja _dwuliniowa"
+msgid "_Bilinear"
+msgstr "_Dwuliniowa"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_Black"
+msgstr "Cz_arna"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_Dark"
+msgstr "_Ciemna"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "_Dither"
 msgstr "_Ditherowanie"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "_Hyperbolic Interpolation"
+msgid "_Gray"
+msgstr "_Szara"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_Hyperbolic"
 msgstr "Interpolacja _hiperboliczna"
 
 #: viewer/eog-image-view-ui.xml.h:1
@@ -379,20 +364,36 @@ msgid "_Interpolation"
 msgstr "_Interpolacja"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "_Maximum (high color) dithering"
-msgstr "_Maksymalne (16-bitowy tryb bezpośredni) ditherowanie"
+msgid "_Light"
+msgstr "_Jasna"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "_No dithering"
-msgstr "_Bez ditherowania"
+msgid "_Maximum (high color)"
+msgstr "_Maksymalne (16-bitowy tryb bezpośredni)"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_Midtone"
+msgstr "_Zwykła"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_None"
+msgstr "_Brak"
 
 #: viewer/eog-image-view-ui.xml.h:1
 msgid "_Print"
 msgstr "Wy_drukuj"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "_Tiles Interpolation"
-msgstr "Interpolacja _kaflowa"
+msgid "_Save As..."
+msgstr "Z_apisz jako..."
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_Tiles"
+msgstr "_Kafle"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "_White"
+msgstr "_Biała"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -402,6 +403,7 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Dopasuj"
 
+# FIXME
 # [cyba]
 # no to k%!@#$! mamy problem:
 # - "In" - cal
@@ -415,16 +417,16 @@ msgid "Out"
 msgstr "Dalej"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Zoom _1:1"
+msgstr "Powiększenie _1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Zoom _In"
 msgstr "Po_większ"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Zoom _Out"
 msgstr "Po_mniejsz"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Zoom to _Default"
-msgstr "_Domyślne powiększenie"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Zoom to _Fit"
@@ -656,29 +658,17 @@ msgid "White"
 msgstr "Biała"
 
 #: viewer/preferences.c:1
-msgid "Small"
-msgstr "Małe"
+msgid "_Interpolation:"
+msgstr "_Interpolacja:"
 
 #: viewer/preferences.c:1
-msgid "Medium"
-msgstr "Średnie"
+msgid "_Dither:"
+msgstr "_Ditherowanie:"
 
 #: viewer/preferences.c:1
-msgid "Large"
-msgstr "Duże"
+msgid "Check _type:"
+msgstr "_Typ szachownicy:"
 
 #: viewer/preferences.c:1
-msgid "Interpolation:"
-msgstr "Interpolacja:"
-
-#: viewer/preferences.c:1
-msgid "Dither:"
-msgstr "Ditherowanie:"
-
-#: viewer/preferences.c:1
-msgid "Check Type:"
-msgstr "Typ szachownicy:"
-
-#: viewer/preferences.c:1
-msgid "Check Size:"
-msgstr "Wielkość pól szachownicy:"
+msgid "Check _size:"
+msgstr "_Rozmiar pola szachownicy:"
