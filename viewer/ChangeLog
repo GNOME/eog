@@ -1,5 +1,15 @@
 2001-05-29  Jens Finke <jens@gnome.org>
 
+	* eog-image-view.c:
+	(eog_image_view_get_prop): Set only image filename as window
+	title, add handler for 'window/status' property.
+	(image_view_zoom_changed_cb): New function, informs listeners to
+	'window/status' about changed zoom factor.
+	(eog_image_view_construct): Connect to 'zoom_changed' signal, add
+	bonobo property 'window/status'.
+	
+2001-05-29  Jens Finke <jens@gnome.org>
+
 	* eog-image-view.c (eog_image_view_construct): Changed properties
 	to 'image/width', 'image/height' and 'window/title'. This is more
 	consistent with the rest of the bonobo property naming scheme.

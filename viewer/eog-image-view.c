@@ -53,7 +53,8 @@ enum {
 	PROP_CHECK_SIZE,
 	PROP_IMAGE_WIDTH,
 	PROP_IMAGE_HEIGHT,
-	PROP_WINDOW_TITLE
+	PROP_WINDOW_TITLE,
+	PROP_WINDOW_STATUS
 };
 
 enum {
@@ -943,11 +944,13 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 			 gpointer           user_data)
 {
 	EogImageView *image_view;
+	EogImageViewPrivate *priv;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 
 	image_view = EOG_IMAGE_VIEW (user_data);
+	priv = image_view->priv;
 
 	switch (arg_id) {
 	case PROP_INTERPOLATION: {
@@ -1053,7 +1056,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		g_assert (arg->_type == BONOBO_ARG_INT);
 
-		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		img = image_view_get_image (IMAGE_VIEW (priv->image_view));
 		if (img->pixbuf) 
 			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_width (img->pixbuf));
 		else
@@ -1065,7 +1068,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		g_assert (arg->_type == BONOBO_ARG_INT);
 
-		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		img = image_view_get_image (IMAGE_VIEW (priv->image_view));
 		if (img->pixbuf) 
 			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_height (img->pixbuf));
 		else
@@ -1073,28 +1076,40 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		break;
 	}
 	case PROP_WINDOW_TITLE: {
-		gchar *title;
-		gchar *buffer = NULL;
 		Image *img;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
-		img = image_view_get_image (IMAGE_VIEW (image_view->priv->image_view));
+		img = image_view_get_image (IMAGE_VIEW (priv->image_view));
 		
-		if (img != NULL && img->filename != NULL) {
-			if (img->pixbuf) {
-				buffer = g_new0 (gchar, 14);
-				g_snprintf (buffer, 12, "(%ix%i)", 
-					    gdk_pixbuf_get_width (img->pixbuf),
-					    gdk_pixbuf_get_height (img->pixbuf));
-				title = g_strconcat (img->filename, " ", buffer, NULL);
-			} else
-				title = g_strdup (img->filename);
-
-			BONOBO_ARG_SET_STRING (arg, title);
-			g_free (title);
-		} else 
+		if (img != NULL && img->filename != NULL)
+			BONOBO_ARG_SET_STRING (arg, img->filename);
+		else 
 			BONOBO_ARG_SET_STRING (arg, "");
+		break;
+	}
+	case PROP_WINDOW_STATUS: {
+		gchar *text = NULL;
+		gint zoom;
+		Image *img;
+
+		g_assert (arg->_type == BONOBO_ARG_STRING);
+		
+		img = image_view_get_image (IMAGE_VIEW (priv->image_view));
+
+		zoom = (gint) 100*image_view_get_zoom (IMAGE_VIEW (priv->image_view));
+		
+		text = g_new0 (gchar, 40);
+		if (img->pixbuf) {
+			g_snprintf (text, 39, "%i x %i pixels    %i%%", 
+				    gdk_pixbuf_get_width (img->pixbuf),
+				    gdk_pixbuf_get_height (img->pixbuf),
+				    zoom);
+		} else {
+			g_snprintf (text, 39, "%i%%", zoom); 
+		}
+		BONOBO_ARG_SET_STRING (arg, text);
+		g_free (text);
 		break;
 	}
 	default:
@@ -1366,6 +1381,22 @@ eog_image_view_zoom_to_fit (EogImageView *image_view,
 	ui_image_zoom_fit (UI_IMAGE (image_view->priv->ui_image));
 }
 
+static void
+image_view_zoom_changed_cb (ImageView *image_view, gpointer data)
+{
+	BonoboArg *arg;
+	EogImageView *view;
+	
+	view = EOG_IMAGE_VIEW (data);
+	
+	arg = bonobo_arg_new (BONOBO_ARG_STRING);
+	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_STATUS, NULL, view);
+		
+	bonobo_property_bag_notify_listeners (view->priv->property_bag,
+					      "window/status",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+}
 
 void
 eog_image_view_set_interpolation (EogImageView           *image_view,
@@ -1665,6 +1696,8 @@ eog_image_view_construct (EogImageView       *image_view,
 	image_view->priv->ui_image = ui_image_new ();
 	image_view->priv->image_view = ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image));
 	gtk_widget_ref (image_view->priv->image_view);
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->image_view), 
+			    "zoom_changed", image_view_zoom_changed_cb, image_view);
 
 	/* Some sensible defaults */
 	image_view_set_scroll      (IMAGE_VIEW (image_view->priv->image_view), SCROLL_TWO_PASS);
@@ -1699,6 +1732,9 @@ eog_image_view_construct (EogImageView       *image_view,
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_property_bag_add (image_view->priv->property_bag, "window/title", PROP_WINDOW_TITLE,
 				 BONOBO_ARG_STRING, NULL, _("Window Title"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (image_view->priv->property_bag, "window/status", PROP_WINDOW_STATUS,
+				 BONOBO_ARG_STRING, NULL, _("Statusbar Text"),
 				 BONOBO_PROPERTY_READABLE);
 
 	/* Property Control */
