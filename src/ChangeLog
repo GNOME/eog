@@ -1,5 +1,15 @@
 2000-08-18  arik devens  <arik@helixcode.com>
 
+	* full-screen.c (full_screen_finalize): see below.
+
+	* image-view.c (image_view_destroy): see below.
+
+	* window.c (window_destroy): ok so i am officially a moron. ;-)
+	gconf_client_notify_remove_dir _does_ take an error
+	handler... goddamn havoc stupid gconf naming scheme.
+
+2000-08-18  arik devens  <arik@helixcode.com>
+
 	* full-screen.c (full_screen_finalize):
 	gconf_client_notify_remove_dir doesn't take an error handler
 	argument.

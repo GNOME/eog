@@ -372,7 +372,7 @@ window_destroy (GtkObject *object)
 
 	priv->sb_policy_notify_id = 0;
 
-	gconf_client_remove_dir (priv->client, "/apps/eog");
+	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
 
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;

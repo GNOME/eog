@@ -393,7 +393,7 @@ image_view_destroy (GtkObject *object)
 	priv->dither_notify_id = 0;
 	priv->scroll_notify_id = 0;
 
-	gconf_client_remove_dir (priv->client, "/apps/eog");
+	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
 
 	/* Clean up */
 
