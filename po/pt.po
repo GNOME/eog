@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
-"POT-Creation-Date: 2003-05-19 00:04+0000\n"
-"PO-Revision-Date: 2003-05-19 00:08+0100\n"
+"POT-Creation-Date: 2003-07-17 23:53+0100\n"
+"PO-Revision-Date: 2003-07-17 23:58+0100\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -66,35 +66,56 @@ msgstr "Rodar Sentido _Contrário Ponteiros"
 msgid "Slide Show"
 msgstr "Apresentação Slides"
 
-#: collection/eog-collection-view-ui.xml.h:11
-msgid "Undo"
-msgstr "Desfazer"
-
-#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Editar"
 
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Gravar"
+
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr "_Desfazer"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Ver"
 
-#: collection/eog-collection-view.c:480
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Cancelar gravação"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Gravação terminada"
+
+#: collection/eog-collection-view.c:756
 msgid "Move to Trash"
 msgstr "Mover para Lixo"
 
-#: collection/eog-collection-view.c:524
+#: collection/eog-collection-view.c:800
 msgid "Collection View"
 msgstr "Vista em Catálogo"
 
-#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1339
 msgid "Window Title"
 msgstr "Título Janela"
 
-#: collection/eog-collection-view.c:984
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Texto de Estado"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1351
+msgid "Progress of Image Loading"
+msgstr "Progresso da Leitura da Imagem"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "A gravar imagem"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -178,38 +199,16 @@ msgid "sec"
 msgstr "seg"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Seleccionar automaticamente tamanho da janela"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Zoom por omissão para a vista de ecrã completo"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Zoom por omissão para a vista de ecrã completo. Valores possíveis são: 0 "
-"(utlizar factor de zoom 1:1), 1 (utilizar o mesmo factor de zoom que a "
-"janela de imagem), 2 (dimensionar imagem para o ecrã)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Determina como deverá ser indicada a transparência. Valores válidos são "
 "CHECK_PATTERN, COLOR e NONE. Se COLOR for seleccionada, então a chave "
 "trans_color determina o valor da cor utilizada."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Dimensionar imagens de tamanho standard ao ecrã"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -217,31 +216,23 @@ msgstr ""
 "Se a chave de transparência tiver o valor COLOR, então esta chave determina "
 "a cor que é utilizada para indicar transparência."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpolar Imagem"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Abrir imagens numa nova janela"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Colocar um rebordo à volta do ecrã"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Politica de barras de rolamento para a vista de ecrã completo"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Cor de transparência"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Indicador de transparência"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -249,55 +240,13 @@ msgstr ""
 "Se a imagem deverá ou não ser interpolada no zoom. Isto oferece melhor "
 "qualidade mas é mais lento que imagens não interpoladas."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Se as janelas de imagem deverão ou não seleccionar o seu tamanho e factor de "
-"zoom automaticamente baseadas no tamanho da imagem. Se esta opção não "
-"estiver definida, as janelas de imagem terão o tamanho que o gestor de "
-"janelas lhes atribuir."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Se abrir uma imagem deverá ou não criar uma nova janela em vez de substituir "
 "a imagem na janela actual."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr ""
-"Se a vista de ecrã completo deverá ou não mostrar um rebordo à volta das "
-"margens do ecrã."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Se deverão ser ou não mostradas barras de rolamento na cvista de ecrã "
-"completo. Valores possíveis são: 1 (automático; apenas mostrar barras se a "
-"imagem for maior que a janela), 2 (nunca mostrar barras)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Se dimensionar ou não imagens de tamanho standard ao ecrã quando em modo de "
-"ecrã completo. Estas são imagens com tamanhos tais como 320x240, 640x480, "
-"800x800, etc. Selecciona se tais imagens deverão ser dimensionadas para "
-"ocupar o ecrã independentemente das definições de factor de zoom da vista de "
-"ecrã completo."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -339,11 +288,19 @@ msgstr "Ler Imagem"
 msgid "Save Image"
 msgstr "Gravar Imagem"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Incapaz de alocar memória para ler ficheiro JPEG"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Nenhuma imagem carregada."
 
-#: libeog/eog-image.c:1250
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "Imagens apenas podem ser gravadas como ficheiros locais."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Tipo de imagem não suportado para gravação."
 
@@ -374,7 +331,7 @@ msgid "Page"
 msgstr "Página"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Antever"
 
@@ -461,20 +418,8 @@ msgid "Vertically by "
 msgstr "Verticalmente por "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "área_acção"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "diálogo"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "diálogo1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vcaixa"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -572,24 +517,20 @@ msgstr "_Sair"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Duarte Loreto <happyguy_pt@hotmail.com>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "A aplicação de de visualização e catalogação de imagens GNOME."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -677,72 +618,181 @@ msgid "Print image to the printer"
 msgstr "Imprimir imagem na impressora"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Rodar à Esquerda"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Rodar à Direita"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Gr_avar Como..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Definir as configurações de impressão para a impressora actual"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Ecrã Completo"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "Im_primir..."
 
-#: viewer/eog-image-view.c:778
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "/Rodar Sentido _Ponteiros"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Rodar Sentido _Contrário Ponteiros"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Aum _Zoom"
 
-#: viewer/eog-image-view.c:780
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/D_im Zoom"
 
-#: viewer/eog-image-view.c:782
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/Tamanho _Normal"
 
-#: viewer/eog-image-view.c:784
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Mel_hor Dimensão"
 
-#: viewer/eog-image-view.c:787
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/Fe_char"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Leitura da imagem %s falhou."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Leitura da imagem %s falhou.\n"
+"Motivo: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Leitura falhou"
+
+#: viewer/eog-image-view.c:1085
 msgid "Image successfully saved"
 msgstr "Imagem gravada com sucesso"
 
-#: viewer/eog-image-view.c:943
+#: viewer/eog-image-view.c:1089
 msgid "Image saving failed"
 msgstr "Falha ao gravar imagem"
 
-#: viewer/eog-image-view.c:1186
+#: viewer/eog-image-view.c:1333
 msgid "Image Width"
 msgstr "Largura Imagem"
 
-#: viewer/eog-image-view.c:1189
+#: viewer/eog-image-view.c:1336
 msgid "Image Height"
 msgstr "Altura Imagem"
 
-#: viewer/eog-image-view.c:1195
+#: viewer/eog-image-view.c:1342
 msgid "Statusbar Text"
 msgstr "Texto de Barra Estados"
 
-#: viewer/eog-image-view.c:1198
+#: viewer/eog-image-view.c:1345
 msgid "Desired Window Width"
 msgstr "Largura de Janela Desejada"
 
-#: viewer/eog-image-view.c:1201
+#: viewer/eog-image-view.c:1348
 msgid "Desired Window Height"
 msgstr "Altura de Janela Desejada"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Incapaz de inicializar GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Seleccionar automaticamente tamanho da janela"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Zoom por omissão para a vista de ecrã completo"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Zoom por omissão para a vista de ecrã completo. Valores possíveis são: 0 "
+#~ "(utlizar factor de zoom 1:1), 1 (utilizar o mesmo factor de zoom que a "
+#~ "janela de imagem), 2 (dimensionar imagem para o ecrã)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Dimensionar imagens de tamanho standard ao ecrã"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Colocar um rebordo à volta do ecrã"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Politica de barras de rolamento para a vista de ecrã completo"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Se as janelas de imagem deverão ou não seleccionar o seu tamanho e factor "
+#~ "de zoom automaticamente baseadas no tamanho da imagem. Se esta opção não "
+#~ "estiver definida, as janelas de imagem terão o tamanho que o gestor de "
+#~ "janelas lhes atribuir."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr ""
+#~ "Se a vista de ecrã completo deverá ou não mostrar um rebordo à volta das "
+#~ "margens do ecrã."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Se deverão ser ou não mostradas barras de rolamento na cvista de ecrã "
+#~ "completo. Valores possíveis são: 1 (automático; apenas mostrar barras se "
+#~ "a imagem for maior que a janela), 2 (nunca mostrar barras)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Se dimensionar ou não imagens de tamanho standard ao ecrã quando em modo "
+#~ "de ecrã completo. Estas são imagens com tamanhos tais como 320x240, "
+#~ "640x480, 800x800, etc. Selecciona se tais imagens deverão ser "
+#~ "dimensionadas para ocupar o ecrã independentemente das definições de "
+#~ "factor de zoom da vista de ecrã completo."
+
+#~ msgid "action_area"
+#~ msgstr "área_acção"
+
+#~ msgid "dialog"
+#~ msgstr "diálogo"
+
+#~ msgid "vbox"
+#~ msgstr "vcaixa"
+
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Incapaz de inicializar GnomeVFS!\n"
 
 #~ msgid "pts"
 #~ msgstr "pts"
@@ -911,9 +961,6 @@ msgstr "Incapaz de inicializar GnomeVFS!\n"
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Incapaz de gravar imagem como '%s': %s"
 
-#~ msgid "Printing of image failed"
-#~ msgstr "Impressão da imagem falhou"
-
 #~ msgid "_New Window"
 #~ msgstr "_Nova Janela"
 
@@ -1019,9 +1066,6 @@ msgstr "Incapaz de inicializar GnomeVFS!\n"
 
 #~ msgid "_Tiles"
 #~ msgstr "_Mosaicos"
-
-#~ msgid "Save As"
-#~ msgstr "Gravar Como"
 
 #~ msgid "Display"
 #~ msgstr "Mostrar"
