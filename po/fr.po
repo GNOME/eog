@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.0\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-02-18 00:35+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -54,19 +54,19 @@ msgstr "Diaporama"
 msgid "_View"
 msgstr "Afficha_ge"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr "Déplacer vers la corbeille"
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
 msgstr "Vue de collection"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Titre de la fenêtre"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
 msgstr "Texte d'état"
 
@@ -173,9 +173,10 @@ msgstr ""
 "zoom que la fenêtre d'image), 2 (ajuste l'image à l'écran)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Détermine la manière dont la transparence doit être indiqué. Les valeurs "
@@ -317,11 +318,11 @@ msgstr "Chargez une image"
 msgid "Save Image"
 msgstr "Enregistrez l'image"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr "Aucune image chargée."
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 msgid "Unsupported image type for saving."
 msgstr "Type d'image non supporté pour l'enregistrement."
 
@@ -415,7 +416,7 @@ msgstr "_Fermer"
 msgid "_Contents"
 msgstr "_Contenu"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Édition"
 
@@ -443,7 +444,7 @@ msgstr "_Quitter"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Mainteneur :\n"
@@ -453,20 +454,20 @@ msgstr ""
 "Christophe Fergeau <teuf@users.sourceforge.net>\n"
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of GNOME"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 La Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Le programme de catalogage et de visualisation d'images de GNOME."
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -475,7 +476,7 @@ msgstr ""
 "Impossible d'afficher l'aide de Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -485,20 +486,20 @@ msgstr ""
 "simultanément. Voulez-vous les ouvrir dans\n"
 "une collection plutôt ?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Ouvrir dans une nouvelle fenêtre"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Fenêtre unique"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Collection"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "Impossible d'ouvrir « %s »"
@@ -541,52 +542,58 @@ msgid "_Zoom In"
 msgstr "Zoom a_vant"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Miroir horizontal"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Miroir vertical"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Plein écran"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Prévisualise l'image à imprimer"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "_Aperçu avant impression..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "_Paramètres d'impression"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Imprime l'image sur l'imprimante"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "Tourner à 180 degrés"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Tourner dans le sens horaire"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Tourner dans le sens antihoraire"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Enregistrer _sous..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Définit les paramètres la page pour l'imprimante courante"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Plein écran"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

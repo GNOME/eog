@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-02-13 21:58+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani Turkic <linuxaz@azerimail.net>\n"
@@ -51,20 +51,20 @@ msgstr "Ardıcıl Nümayiş"
 msgid "_View"
 msgstr "_Göstər"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 #, fuzzy
 msgid "Collection View"
 msgstr "Yığcamlaşma"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Pəncərə Başlığı"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 #, fuzzy
 msgid "Status Text"
 msgstr "Vəziyyət Çubuğu Mətni"
@@ -172,9 +172,10 @@ msgstr ""
 "eynisi), 2 (rəsmi ekrana sığdır)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Şəffaflığın necə göstəriləcəyi müəyyən edir. Hökmlü qiymətlər CHECK_PATTERN "
@@ -314,11 +315,11 @@ msgstr "Rəsmi yüklə"
 msgid "Save Image"
 msgstr "Rəsmi qeyd et"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Dəstəklənməyən fayl şəkli"
@@ -413,7 +414,7 @@ msgstr "_Qapat"
 msgid "_Contents"
 msgstr "_Məzmun"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Düzəlt"
 
@@ -441,26 +442,26 @@ msgstr "Çı_x"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Vasif İsmailoğlu azerblinux@hotmail.com \n"
 "Mətin Əmirov metin@karegen.com"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Gnome'un gözü"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Təlif haqqı (C) 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME rəsm nümayiş və dəyişdirmə proqramı"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -469,7 +470,7 @@ msgstr ""
 "Eye of Gnome üçün yardımı göstərə bilmədim.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -479,20 +480,20 @@ msgstr ""
 "istəyirsiniz. Onları yığcam açmaq\n"
 "istəyirsiniz?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Yeni pəncərədə aç"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Tək Pəncərələr"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Yığcamlaşma"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "`%s' açıla bilmir"
@@ -535,52 +536,58 @@ msgid "_Zoom In"
 msgstr "_Yaxınlaşdır"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Üfüqi istiqamətdə çevir"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Şaquli  istiqamətdə çevir"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Tam ekran"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Çap ediləcək rəsm nümayişi"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Çap _Etmə nümayişi"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Ç_ap Qurğuları"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Rəsmi çap ediciyə çap et"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "180 dərəcə çevir"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Saat əqrəbi istiqamətində çevir"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Saat əqrəbinin tərs istiqamətində çevir"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "_Fərqli Qeyd Et"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Hazırkı çap edici üçün qurğuları quraşdır"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Tam ekran"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

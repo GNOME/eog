@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-02-06 23:34+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
 "Language-Team: Indonesia <id@li.org>\n"
@@ -52,20 +52,20 @@ msgstr "Slide Show"
 msgid "_View"
 msgstr "_Lihat"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 #, fuzzy
 msgid "Collection View"
 msgstr "Koleksi"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Judul Window"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 #, fuzzy
 msgid "Status Text"
 msgstr "Teks status bar"
@@ -171,9 +171,10 @@ msgstr ""
 "dengan window gambar), atau 2 (gambar dipaskan pada layar)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Menentukan bagaimana transparansi ditandai. Nilai yang diterima adalah "
@@ -317,11 +318,11 @@ msgstr "Buka Gambar"
 msgid "Save Image"
 msgstr "Simpan Gambar"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Format file tidak dapat dibaca."
@@ -416,7 +417,7 @@ msgstr "_Tutup"
 msgid "_Contents"
 msgstr "_Isi"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Edit"
 
@@ -444,24 +445,24 @@ msgstr "_Keluar"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Mohammad DAMT <mdamt@bisnisweb.com>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program GNOME untuk menampilkan dan katalog gambar"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -470,7 +471,7 @@ msgstr ""
 "Tidak dapat menampilkan layar bantuan untuk Eye of Gnome\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -480,20 +481,20 @@ msgstr ""
 "bersamaan. Apakah Anda ingin membukanya\n"
 "dalam koleksi saja?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Buka dalam window baru"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Window Mandiri"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Koleksi"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "Tidak dapat membuka '%s'"
@@ -536,52 +537,58 @@ msgid "_Zoom In"
 msgstr "_Zoom perbesar"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Balik arah horisontal"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Balik arah vertikal"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Layar penuh"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Lihat contoh gambar yang hendak dicetak"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Contoh Ce_takan..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Set_up Cetakan"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Cetak gambar pada printer"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "Putar 180 Derajat"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Putar searah jarum jam"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Putar berlawanan jarum jam"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Simp_an sebagai..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Setup setting halaman untuk printer yang aktif"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Layar penuh"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

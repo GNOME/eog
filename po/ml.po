@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.2.x\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-03-05 10:29+0530\n"
 "Last-Translator: FSF-India <locale@gnu.org.in>\n"
 "Language-Team: Malayalam <locale@gnu.org.in>\n"
@@ -52,20 +52,20 @@ msgstr "‌ഒന്നൊന്നായി കാണുക"
 msgid "_View"
 msgstr "കാഴ്ച"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 #, fuzzy
 msgid "Collection View"
 msgstr "ശേഖരം"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "ജാലക തലക്കുറി"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 #, fuzzy
 msgid "Status Text"
 msgstr "അവസ്ഥാപ്പട്ട വാചകം"
@@ -169,7 +169,7 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 
@@ -290,11 +290,11 @@ msgstr "ചിത്രം കൊണ്ടുവരിക"
 msgid "Save Image"
 msgstr "ചിത്രം‌ സംരക്ഷിക്കുക"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "പിന്തുണയ്‌ക്കപ്പെടാത്ത രചനാരീതി"
@@ -389,7 +389,7 @@ msgstr "അടയ്‍ക്കുക"
 msgid "_Contents"
 msgstr "ഉള്ളടക്കം"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "ചിട്ട"
 
@@ -417,51 +417,51 @@ msgstr "പുറത്ത് കടക്കുക"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "ഗ്നോം മിഴി"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr ""
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, fuzzy, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr "%s രചന സംരക്ഷിക്കാന്‌ കഴിയുന്നില്ല."
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "പുതിയ ജാലത്തില് തുറക്കുക"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "ഏക ജാലകങ്ങള്"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "ശേഖരം"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "%s തുറക്കാനാകുന്നില്ല"
@@ -504,52 +504,57 @@ msgid "_Zoom In"
 msgstr "വലുതാക്കുക"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "തിരശ്ചീശ്ചീനമായി തിരിച്ചിടുക"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "ലംബമായി തിരിച്ചിടുക"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "മുഴുവന്‌ ഭാഗവും"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "അച്ചടിതിരനോട്ടം കാണുക"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "അച്ചടി-തിരനോട്ടം..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "അച്ചടി സജ്ജീകരണം"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "അച്ചടിയന്ത്രത്തില്‌ അച്ചടിക്കുക"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "ഘടികാര ദിശയില് കറക്കുക"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "എതിര് ഘടികാര ദിശയില് കറക്കുക"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "പേ‍ര‍് മാറ്റി‌ സംരക്ഷിക്കുക"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "നിലവിലുള്ള അച്ചടിയന്ത്രത്തിന് വേണ്ടി താളിന്റെ ക്രമീകരണം സജ്ജീകരിക്കുക"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "മുഴുവന്‌ ഭാഗവും"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

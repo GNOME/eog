@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-01-10 23:24+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -51,20 +51,20 @@ msgstr "Xem liên tục"
 msgid "_View"
 msgstr "_Xem"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 #, fuzzy
 msgid "Collection View"
 msgstr "Tập hợp"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Tựa đề cửa sổ"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 #, fuzzy
 msgid "Status Text"
 msgstr "Text thanh trạng thái"
@@ -170,9 +170,10 @@ msgstr ""
 "1:1), 1 (cùng hệ số với cửa sổ ảnh), 2 (vừa khít với màn hình)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Xác định cách chỉ thị trong suốt. Giá trị hợp lệ là CHECK_PATTERN và COLOR. "
@@ -309,11 +310,11 @@ msgstr "Nạp ảnh"
 msgid "Save Image"
 msgstr "Lưu ảnh"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Dạng thức ảnh lạ."
@@ -408,7 +409,7 @@ msgstr "Đón_g"
 msgid "_Contents"
 msgstr "_Nội dung"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Hiệu chỉnh"
 
@@ -436,24 +437,24 @@ msgstr "T_hoát"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Nguyễn Thái Ngọc Duy"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Mắt Gnome"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Chương trình xem và phân loại ảnh của Gnome."
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -462,7 +463,7 @@ msgstr ""
 "Không thể hiển thị trợ giúp cho Mắt Gnome.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -472,20 +473,20 @@ msgstr ""
 "Bạn có muốn mở chúng trong một tập\n"
 "hợp không?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Mở trong cửa sổ mới"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Cửa sổ đơn"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Tập hợp"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "Không thể mở `%s'"
@@ -528,52 +529,58 @@ msgid "_Zoom In"
 msgstr "Phóng _to"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Lật ngang"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Lật dọc"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Toàn màn hình"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Xem trước ảnh cần được in"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "_Xem trước bản in..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "_Thiết lập in"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "In ảnh"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "Quay 180 độ"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Quay theo chiều kim đồng hồ"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Quay ngược chiều kim đồng hồ"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Lư_u là..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Thiết lập thông số trang in cho máy in của bạn"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Toàn màn hình"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2002-12-23 12:01+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -60,19 +60,19 @@ msgstr "Billedserie"
 msgid "_View"
 msgstr "_Vis"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
 msgstr "Samlingsfremviser"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Vinduestitel"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
 msgstr "Statustekst"
 
@@ -179,9 +179,10 @@ msgstr ""
 "billedet til skærmen)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Bestemmer hvordan gennemsigtighed vises. Gyldige væærdier er CHECK_PATTERN "
@@ -321,11 +322,11 @@ msgstr "Indlæs billede"
 msgid "Save Image"
 msgstr "Gem billede"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Filformat ikke understøttet."
@@ -420,7 +421,7 @@ msgstr "_Luk"
 msgid "_Contents"
 msgstr "_Indhold"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Redigér"
 
@@ -448,24 +449,24 @@ msgstr "_Afslut"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Ole Laursen <olau@hardworking.dk>"
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Billedfremviser og -katalogiseringsprogram til Gnome."
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -474,7 +475,7 @@ msgstr ""
 "Kunne ikke vise hjælp til programmet.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -484,20 +485,20 @@ msgstr ""
 "på samme tid. Vil du åbne dem som en\n"
 "samling i stedet?"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Åbn i et nyt vindue"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Enkelte vinduer"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "Kunne ikke åbne '%s'"
@@ -540,52 +541,58 @@ msgid "_Zoom In"
 msgstr "Zoom _ind"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Vend om vandret"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Vend om lodret"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Fuldskærm"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Viser billedet som det kommer til at se ud udskrevet"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "_Vis udskrift..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Udskrifts_opsætning"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Udskriv billedet på printeren"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "Rotér 180 grader"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Rotér med uret"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Rotér mod uret"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "_Gem som..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Opsætning af sideindstillinger for den aktuelle printer"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Fuldskærm"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

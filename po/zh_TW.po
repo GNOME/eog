@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.1.3\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2003-01-02 05:16+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -55,19 +55,19 @@ msgstr "投影片"
 msgid "_View"
 msgstr "瀏覽(_V)"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
 msgstr "圖像集檢視模式"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
 msgstr "狀態文字"
 
@@ -179,9 +179,10 @@ msgstr ""
 "時一樣)、2 (將圖像縮放至填滿畫面)。"
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "決定表示透明的方式。有效的值為 CHECK_PATTERN 及 COLOR。如果選取 COLOR，則以 "
@@ -321,11 +322,11 @@ msgstr "載入圖像"
 msgid "Save Image"
 msgstr "儲存圖像"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "不支援的檔案格式。"
@@ -430,7 +431,7 @@ msgstr "關閉(_C)"
 msgid "_Contents"
 msgstr "內容(_C)"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "編輯(_E)"
 
@@ -459,7 +460,7 @@ msgstr "離開(_Q)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "i18n 程式中文化計劃\n"
@@ -471,22 +472,22 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 # src/window.c:164
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
 
 # src/window.c:166
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖像瀏覽及分類程式。"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -495,7 +496,7 @@ msgstr ""
 "無法顯示 Eye of Gnome 的說明文件。\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -505,22 +506,22 @@ msgstr ""
 "其實是否想以圖像集方式開啟？"
 
 # src/preferences-dialog.glade.h:38
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "在新視窗中開啟"
 
 # src/preferences-dialog.glade.h:32
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "個別視窗"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "圖像集"
 
 # src/util.c:47
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "無法開啟‘%s’"
@@ -569,53 +570,59 @@ msgid "_Zoom In"
 msgstr "拉近(_Z)"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "左右倒置"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "上下倒置"
 
-# src/preferences-dialog.glade.h:39
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "全螢幕"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "預覽準備列印的圖像"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "列印預覽(_W)..."
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "列印設定(_U)"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "在印表機列印圖像"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "旋轉 180 度"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "順時針方向旋轉"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "逆時針方向旋轉"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "另存新檔(_A)..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "更改目前印表機的頁面設定"
+
+# src/preferences-dialog.glade.h:39
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "全螢幕"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."

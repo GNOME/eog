@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2002-05-31 17:50-0300\n"
 "Last-Translator: Isam Bayazidi <bayazidi@arabeyes.org>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
@@ -53,19 +53,19 @@ msgstr ""
 msgid "_View"
 msgstr "عرض"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr "انقل الى سلة المهملات"
 
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 msgid "Collection View"
 msgstr "مجموعة"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "عنوان الشباك"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 msgid "Status Text"
 msgstr "نص وضع"
 
@@ -169,7 +169,7 @@ msgstr ""
 #: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 
@@ -292,11 +292,11 @@ msgstr "صورة"
 msgid "Save Image"
 msgstr "افتح صورة"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr "أغلق"
 msgid "_Contents"
 msgstr "المحتويات"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "تحرير"
 
@@ -421,25 +421,25 @@ msgstr "خروج"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "عيون جينوم"
 
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "حقوق النشر (C) 2000-2002 مؤسسة البرامج الحرة"
 
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "برنامج جينوم لعرض الصور وفهرستها"
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -448,7 +448,7 @@ msgstr ""
 "لا يمكن عرض المساعدة لعين جينوم.\n"
 "%s"
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -458,20 +458,20 @@ msgstr ""
 "في ان واحد.هل تريد \n"
 "فتحها بجﻻ عن ذلكفي مجموعة"
 
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "افتح في شباك جديد"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "نوافذ مفردة"
 
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "مجموعة"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "لم استطع فتح `%s'"
@@ -516,56 +516,57 @@ msgstr "تكبير"
 
 #: viewer/eog-image-view-ui.xml.h:1
 #, fuzzy
-msgid "Flip Horizontal"
+msgid "Flip _Horizontal"
 msgstr "افقي"
 
 #: viewer/eog-image-view-ui.xml.h:2
 #, fuzzy
-msgid "Flip Vertical"
+msgid "Flip _Vertical"
 msgstr "عمودي"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "امتلاء الشاشة"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "تعاين الصور التي ستطبع"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 #, fuzzy
 msgid "Print Previe_w..."
 msgstr "معاينة طباعة"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 #, fuzzy
 msgid "Print Set_up"
 msgstr "تعيين الطباعة"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "اطبع الصورة بالطابعة"
 
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr ""
+
 #: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+msgid "Rotate C_lockwise"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+msgid "Rotate Counte_r Clockwise"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:11
 #, fuzzy
 msgid "Save _As..."
 msgstr "احفظ باسم"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "عيّن إعدادات الصفحة لطابعتك الحالية"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "امتلاء الشاشة"
 
 #: viewer/eog-image-view-ui.xml.h:14
 #, fuzzy

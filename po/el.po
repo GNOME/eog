@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.2\n"
-"POT-Creation-Date: 2003-03-24 04:39+0100\n"
+"POT-Creation-Date: 2003-05-04 16:02+0200\n"
 "PO-Revision-Date: 2002-12-03 18:57+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -61,21 +61,21 @@ msgstr "Προβολή Σλάϊντ "
 msgid "_View"
 msgstr "_Προβολή"
 
-#: collection/eog-collection-view.c:329
+#: collection/eog-collection-view.c:400
 msgid "Move to Trash"
 msgstr ""
 
 #
-#: collection/eog-collection-view.c:373
+#: collection/eog-collection-view.c:444
 #, fuzzy
 msgid "Collection View"
 msgstr "Συλλογή"
 
-#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "Τίτλος Παραθύρου"
 
-#: collection/eog-collection-view.c:724
+#: collection/eog-collection-view.c:902
 #, fuzzy
 msgid "Status Text"
 msgstr "Κείμενο Γραμμής Κατάστασης"
@@ -183,9 +183,10 @@ msgstr ""
 "παράθυρο εικόνας), 2 (ταίριασμα της εικόνας στην οθόνη)."
 
 #: eog.schemas.in.h:4
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "Καθορίζει τον τρόπο που θα ορίζεται η διαφάνεια. Οι έγκυρες τιμές είναι "
@@ -333,11 +334,11 @@ msgstr "Φόρτωση εικόνας"
 msgid "Save Image"
 msgstr "Αποθήκευση εικόνας"
 
-#: libeog/eog-image.c:1129
+#: libeog/eog-image.c:1162
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1163
+#: libeog/eog-image.c:1196
 #, fuzzy
 msgid "Unsupported image type for saving."
 msgstr "Μη υποστηριζόμενος τύπος εικόνας."
@@ -439,7 +440,7 @@ msgstr "_Κλείσιμο"
 msgid "_Contents"
 msgstr "_Περιεχόμενα"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
@@ -468,29 +469,29 @@ msgstr "Έ_ξοδος"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:259
+#: shell/eog-window.c:264
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Συμεών (σίμος) Ξενιτέλλης <simos@hellug.gr>\n"
 "Κώστας Παπαδήμας <pkst@gmx.net>"
 
 #
-#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
-#: shell/eog-window.c:808 shell/main.c:508
+#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
+#: shell/eog-window.c:844 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Μάτι του Gnome"
 
 #
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Πνευματικά Δικαιώματα (C) 2000-2002 Το Free Software Foundation"
 
 #
-#: shell/eog-window.c:267
+#: shell/eog-window.c:272
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Η εφαρμογή προβολής και καταλογοποίησης εικόνων του GNOME."
 
-#: shell/eog-window.c:304
+#: shell/eog-window.c:309
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -499,7 +500,7 @@ msgstr ""
 "Δεν είναι δυνατή η προβολή βοήθειας για το Μάτι του Gnome.\n"
 "%s "
 
-#: shell/main.c:226
+#: shell/main.c:225
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -510,21 +511,21 @@ msgstr ""
 "σε συλλογή;"
 
 #
-#: shell/main.c:230
+#: shell/main.c:229
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "Άνοιγμα σε νέο παράθυρο"
 
-#: shell/main.c:234
+#: shell/main.c:233
 msgid "Single Windows"
 msgstr "Μονά Παράθυρα"
 
 #
-#: shell/main.c:236
+#: shell/main.c:235
 msgid "Collection"
 msgstr "Συλλογή"
 
-#: shell/main.c:306
+#: shell/main.c:305
 #, fuzzy
 msgid "Could not find files"
 msgstr "Αδύνατο το άνοιγμα του `%s'"
@@ -572,54 +573,60 @@ msgid "_Zoom In"
 msgstr "Μεγέ_θυνση"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip Horizontal"
+#, fuzzy
+msgid "Flip _Horizontal"
 msgstr "Οριζόντιo στρίψιμο"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip Vertical"
+#, fuzzy
+msgid "Flip _Vertical"
 msgstr "Κάθετο στρίψιμο"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Full Screen"
-msgstr "Πλήρης Οθόνη"
-
-#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Προεπισκόπηση της εικόνας που θα εκτυπωθεί"
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
 msgstr "Προεπισκόπηση εκτύπ_ωσης..."
 
 #
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
 msgstr "Διαμόρφωση Εκτ_ύπωσης"
 
-#: viewer/eog-image-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Εκτύπωση εικόνας στον εκτπωτή"
 
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate 180 Degrees"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Rotate 180 _Degrees"
 msgstr "Περιστροφή 180 μοίρες"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Clockwise"
+#: viewer/eog-image-view-ui.xml.h:8
+#, fuzzy
+msgid "Rotate C_lockwise"
 msgstr "Ωρολογιακή περιστροφή"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Rotate Counter Clockwise"
+#: viewer/eog-image-view-ui.xml.h:9
+#, fuzzy
+msgid "Rotate Counte_r Clockwise"
 msgstr "Αντιωρολογιακή περιστροφή"
 
 #
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Αποθήκευση _Ως..."
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Setup the page settings for your current printer"
 msgstr "Διαμόρφωση των ρυθμίσεων της σελίδας για τον τρέχοντα εκτυπωτή"
+
+#: viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Full Screen"
+msgstr "Πλήρης Οθόνη"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
