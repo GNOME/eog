@@ -62,6 +62,45 @@ if test "x$have_exif" = "xyes"; then
   EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
 fi
 
+dnl ============== semi optional libjpeg support ====================
+AC_ARG_WITH(libjpeg, [  --without-libjpeg	  disable special JPEG support])
+  have_jpeg=no
+  if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
+    AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
+      have_jpeg=yes,
+      have_jpeg=no
+      AC_MSG_WARN(*** JPEG loader will not be built (JPEG library not found) ***))
+    if test "$have_jpeg" = yes; then
+      AC_MSG_CHECKING([for jpeglib.h])
+      AC_TRY_CPP(
+[#include <stdio.h>
+#undef PACKAGE
+#undef VERSION
+#undef HAVE_STDLIB_H
+#include <jpeglib.h>],
+        have_jpeg=yes,
+        have_jpeg=no)
+      AC_MSG_RESULT($have_jpeg)
+      if test "$have_jpeg" = yes; then
+        LIBJPEG='-ljpeg'
+	AC_DEFINE(HAVE_JPEG, 1)
+        AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
+          AC_DEFINE(HAVE_PROGRESSIVE_JPEG),
+          AC_MSG_WARN(JPEG library does not support progressive saving.))
+      else
+          AC_MSG_WARN(*** JPEG loader will not be built (JPEG header file not found) ***)
+      fi
+    fi
+  fi
+
+  if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
+     AC_MSG_ERROR([
+*** Checks for JPEG loader failed. You can build without it by passing 
+*** --without-libjpeg to configure but some programs using GTK+ may
+*** not work properly])
+  fi
+AC_SUBST(LIBJPEG)
+
 dnl ============ CFLAGS & LIBS initialization ===============
 
 PKG_CHECK_MODULES(GPI, $GPI_MODULES)
@@ -133,4 +172,5 @@ Configuration:
 
 	Extra Compiler Warnings:  ${WARN_CFLAGS}
 	Use libexif:              ${have_exif}
+	Special JPEG support:     ${have_jpeg}
 "

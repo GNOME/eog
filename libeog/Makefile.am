@@ -50,6 +50,9 @@ libeog_a_SOURCES =			\
 	eog-transform.c			\
 	eog-image.c			\
 	eog-image.h			\
+	eog-image-private.h		\
+	eog-image-jpeg.c		\
+	eog-image-jpeg.h		\
 	eog-scroll-view.c		\
 	eog-scroll-view.h		\
 	eog-info-view.c			\

@@ -10,11 +10,14 @@
 #include <libgnomevfs/gnome-vfs.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
+#include <libexif/exif-utils.h>
 #endif
 
 #include "libeog-marshal.h"
 #include "eog-image.h"
+#include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
+#include "eog-image-jpeg.h"
 
 static GThread     *thread                     = NULL;
 static gboolean     thread_running             = FALSE;
@@ -23,58 +26,6 @@ static GQueue      *jobs_done                  = NULL;
 static gint         dispatch_callbacks_id      = -1;
 static GStaticMutex jobs_mutex                 = G_STATIC_MUTEX_INIT;
 
-enum {
-	EOG_IMAGE_LOAD_STATUS_NONE     = 0,
-	EOG_IMAGE_LOAD_STATUS_PREPARED = 1 << 0,
-	EOG_IMAGE_LOAD_STATUS_UPDATED  = 1 << 1,
-	EOG_IMAGE_LOAD_STATUS_DONE     = 1 << 2,
-	EOG_IMAGE_LOAD_STATUS_FAILED   = 1 << 3,
-	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4,
-	EOG_IMAGE_LOAD_STATUS_INFO_DONE = 1 << 5,
-	EOG_IMAGE_LOAD_STATUS_TRANSFORMED = 1 << 6,
-	EOG_IMAGE_LOAD_STATUS_PROGRESS = 1 << 7
-};
-
-struct _EogImagePrivate {
-	GnomeVFSURI *uri;
-	EogImageLoadMode mode;
-
-	GdkPixbuf *image;
-	GdkPixbuf *thumbnail;
-	
-	gint width;
-	gint height;
-#if HAVE_EXIF
-	ExifData *exif;
-#endif
-
-	gint thumbnail_id;
-	
-	gboolean modified;
-
-	gchar *caption;
-	gchar *caption_key;
-
-	GThread *load_thread;
-	gint load_id;
-	GMutex *status_mutex;
-	gint load_status;
-	gboolean cancel_loading;
-	float progress; /* Range from [0.0...1.0] indicate the progress of 
-			   actions in percent */
-
-	/* data which depends on the load status */
-	int update_x1;
-	int update_y1;
-	int update_x2;
-	int update_y2;
-	char *error_message;
-	
-	/* stack of transformations recently applied */
-	GList *undo_stack;
-	/* composition of all applied transformations */
-	EogTransform *trans;
-};
 
 enum {
 	SIGNAL_LOADING_UPDATE,
@@ -620,6 +571,7 @@ check_load_status (gpointer data)
 		else {
 			g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
 		}
+
 		call_again = FALSE;
 	}
 
@@ -711,6 +663,35 @@ load_size_prepared (GdkPixbufLoader *loader, gint width, gint height, gpointer d
 }
 
 #if HAVE_EXIF
+
+static void
+update_exif_data (EogImage *image)
+{
+	EogImagePrivate *priv;
+	ExifEntry *entry;
+	ExifByteOrder bo;
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+	
+	priv = image->priv;
+	
+	g_message ("update exif data");
+	if (priv->exif == NULL) return;
+
+	/* FIXME: Must we update more properties here? */
+	bo = exif_data_get_byte_order (priv->exif);
+
+	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_X_DIMENSION);
+	if (entry != NULL) {
+		exif_set_long (entry->data, bo, priv->width);
+	}
+
+	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_Y_DIMENSION);
+	if (entry != NULL) {
+		exif_set_long (entry->data, bo, priv->height);
+	}	
+}
+
 #define JPEG_MARKER_SOI  0xd8
 #define	JPEG_MARKER_APP0 0xe0
 #define JPEG_MARKER_APP1 0xe1
@@ -742,7 +723,7 @@ exif_loader_write (ExifLoaderData *eld, guchar *buffer, int len)
 {
 	int i;
 	int len_remain;
-	
+
 	if (eld->state == EXIF_LOADER_FAILED) return FALSE;
 	if (eld->state == EXIF_LOADER_EXIF_FOUND && eld->data != NULL) return FALSE;
 
@@ -763,6 +744,7 @@ exif_loader_write (ExifLoaderData *eld, guchar *buffer, int len)
 			
 		case EXIF_LOADER_READ_SIZE_LOW_BYTE:
 			eld->size |= buffer [i];
+			eld->size = eld->size - 2;
 			
 			switch (eld->last_marker) {
 			case JPEG_MARKER_APP0:
@@ -793,6 +775,7 @@ exif_loader_write (ExifLoaderData *eld, guchar *buffer, int len)
 				}
 			}
 		}
+
 	}
 	
 	len_remain = len - i;
@@ -1004,7 +987,10 @@ real_image_load (gpointer data)
 		priv->image = image;
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
-		if (trans != NULL) {
+#if HAVE_EXIF
+		update_exif_data (img);
+#endif 
+		if (trans != NULL && priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
 			priv->load_status |= EOG_IMAGE_LOAD_STATUS_TRANSFORMED;
 		}
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
@@ -1220,6 +1206,8 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 		
 		g_object_unref (priv->image);
 		priv->image = transformed;
+		priv->width = gdk_pixbuf_get_width (transformed);
+		priv->height = gdk_pixbuf_get_height (transformed);
        
 		modified = TRUE;
 	}
@@ -1235,6 +1223,9 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 
 	if (modified) {
 		priv->modified = TRUE;
+#if HAVE_EXIF
+		update_exif_data (img);
+#endif 
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 	}
 
@@ -1291,12 +1282,16 @@ eog_image_undo (EogImage *img)
 		image_transform (img, inverse, TRUE);
 
 		priv->undo_stack = g_list_delete_link (priv->undo_stack, priv->undo_stack);
+		g_object_unref (trans);
+		g_object_unref (inverse);
 
 		if (eog_transform_is_identity (priv->trans)) {
 			g_object_unref (priv->trans);
 			priv->trans = NULL;
 		}
 	}
+
+	priv->modified = (priv->undo_stack != NULL);
 }
 
 gboolean
@@ -1307,6 +1302,7 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 	char *file_type = NULL;
 	GSList *savable_formats = NULL;
 	GSList *it;
+	gboolean result;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	g_return_val_if_fail (uri != NULL, FALSE);
@@ -1320,6 +1316,16 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 			     _("No image loaded."));
 		return FALSE;
 	}
+
+#if 0
+	/* FIXME: Why does this not work for local files? */
+	if (!gnome_vfs_uri_is_local (uri)) {
+		g_set_error (error, EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_NOT_LOADED,
+			     _("Images can only be saved as local files."));
+		return FALSE;
+	}
+#endif
 	
 	/* find file type for saving, according to filename suffix */
 	file = (char*) gnome_vfs_uri_get_path (uri); /* don't free file */
@@ -1354,13 +1360,36 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 			     _("Unsupported image type for saving."));
 		return FALSE;
 	}
+
+#if HAVE_EXIF
+	if ((g_ascii_strcasecmp (file_type, "jpeg") == 0) && priv->exif != NULL) {
+		result = eog_image_jpeg_save (img, file, error);
+	}
 	else {
-		gboolean result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
-		g_free (file_type);
-		return result;
+		result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
+	}
+#else
+	result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
+#endif
+
+
+	if (result) {
+		/* free the transformation since it's not needed anymore */
+		/* FIXME: You can't undo prev transformations then anymore. */
+		GList *it = priv->undo_stack;
+		for (; it != NULL; it = it->next) 
+			g_object_unref (G_OBJECT (it->data));
+
+		g_list_free (priv->undo_stack);
+		g_object_unref (priv->trans);
+		priv->trans = NULL;
+		priv->undo_stack = NULL;
+		priv->modified = FALSE;
 	}
 
-	return FALSE;
+	g_free (file_type);
+
+	return result;
 }
 
 gchar*               
@@ -1497,4 +1526,12 @@ eog_image_get_uri (EogImage *img)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 	
 	return gnome_vfs_uri_ref (img->priv->uri);
+}
+
+gboolean
+eog_image_is_modified (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
+	
+	return img->priv->modified;
 }

@@ -1,3 +1,28 @@
+2003-06-12  Jens Finke  <jens@triq.net>
+
+	* configure.in: Added check for optional libjpeg.
+	
+	* libeog/Makefile.am (SOURCES): Added eog-image-private.h,
+	eog-image-jpeg.[ch].
+	
+	* libeog/eog-image.c (update_exif_data): New function.
+	(exif_loader_write): Fixed byte skipping computation.
+	(real_image_load): Update image size in exif data if
+	transformation has been applied. Emit transformed signal only in
+	progressive mode.
+	(image_transform): Update image size in exif and private data.
+	(eog_image_undo): Update modified flag, fixed mem leaks.
+	(eog_image_save): If target file is jpeg and image has exif data,
+	use jpeg save method to preserve exif data. Remove all
+	transformation objects.
+	(eog_image_is_modified): New function.
+
+	* libeog/eog-image-private.h: New. Moved EogImagePrivate definition to
+	here. Makeing it accessable by associated classes.
+
+	* libeog/eog-image-jpeg.[ch]: New. Provides special functions for
+	saving jpegs.
+
 2003-06-10  Samúel Jón Gunnarsson  <sammi@techattack.nu>
 
 	* configure.in: Added "is" into ALL_LINGUAS
