@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gnome.h>
+#include "preferences.h"
 #include "stock.h"
 #include "util.h"
 #include "window.h"
@@ -41,6 +42,7 @@ main (int argc, char **argv)
 	gdk_rgb_init ();
 
 	stock_init ();
+	prefs_init ();
 
 	args = poptGetArgs (ctx);
 

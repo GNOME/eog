@@ -32,9 +32,14 @@
 
 /* Checks */
 
-#define CHECK_SIZE 16
+#define CHECK_SMALL 4
+#define CHECK_MEDIUM 8
+#define CHECK_LARGE 16
+#define CHECK_BLACK 0x00000000
 #define CHECK_DARK 0x00555555
+#define CHECK_GRAY 0x00808080
 #define CHECK_LIGHT 0x00aaaaaa
+#define CHECK_WHITE 0x00ffffff
 
 /* Maximum size of repaint rectangles */
 
@@ -72,6 +77,19 @@ typedef struct {
 	/* Anchor point and offsets for dragging */
 	int drag_anchor_x, drag_anchor_y;
 	int drag_ofs_x, drag_ofs_y;
+
+	/* Interpolation type */
+	GdkInterpType interp_type;
+
+	/* Check type and size */
+	CheckType check_type;
+	CheckSize check_size;
+
+	/* Dither type */
+	GdkRgbDither dither;
+
+	/* Scroll type */
+	ScrollType scroll;
 
 	/* Whether the image is being dragged */
 	guint dragging : 1;
@@ -207,6 +225,11 @@ image_view_init (ImageView *view)
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
 	priv->zoom = 1.0;
+	priv->interp_type = prefs_interp_type;
+	priv->check_type = prefs_check_type;
+	priv->check_size = prefs_check_size;
+	priv->dither = prefs_dither;
+	priv->scroll = prefs_scroll;
 
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
 }
@@ -385,6 +408,8 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	int xofs, yofs;
 	ArtIRect r, d;
 	GdkPixbuf *tmp;
+	int check_size;
+	guint32 check_1, check_2;
 
 	priv = view->priv;
 
@@ -468,6 +493,61 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, d.x1 - d.x0, d.y1 - d.y0);
 #endif
 
+	/* Compute check parameters */
+
+	switch (priv->check_type) {
+	case CHECK_TYPE_DARK:
+		check_1 = CHECK_BLACK;
+		check_2 = CHECK_DARK;
+		break;
+
+	case CHECK_TYPE_MIDTONE:
+		check_1 = CHECK_DARK;
+		check_2 = CHECK_LIGHT;
+		break;
+
+	case CHECK_TYPE_LIGHT:
+		check_1 = CHECK_LIGHT;
+		check_2 = CHECK_WHITE;
+		break;
+
+	case CHECK_TYPE_BLACK:
+		check_1 = check_2 = CHECK_BLACK;
+		break;
+
+	case CHECK_TYPE_GRAY:
+		check_1 = check_2 = CHECK_GRAY;
+		break;
+
+	case CHECK_TYPE_WHITE:
+		check_1 = check_2 = CHECK_WHITE;
+		break;
+
+	default:
+		check_1 = CHECK_DARK;
+		check_2 = CHECK_LIGHT;
+	}
+
+	switch (priv->check_size) {
+	case CHECK_SIZE_SMALL:
+		check_size = CHECK_SMALL;
+		break;
+
+	case CHECK_SIZE_MEDIUM:
+		check_size = CHECK_MEDIUM;
+		break;
+
+	case CHECK_SIZE_LARGE:
+		check_size = CHECK_LARGE;
+		break;
+
+	default:
+		check_size = CHECK_LARGE;
+		break;
+	}
+
+	/* Draw! */
+
 	gdk_pixbuf_composite_color (priv->image->pixbuf,
 				    tmp,
 				    0, 0,
@@ -477,8 +557,8 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 				    interp_type,
 				    255,
 				    d.x0 - xofs, d.y0 - yofs,
-				    CHECK_SIZE,
-				    CHECK_DARK, CHECK_LIGHT);
+				    check_size,
+				    check_1, check_2);
 
 #ifdef PACK_RGBA
 	pack_pixbuf (tmp);
@@ -488,7 +568,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 				      GTK_WIDGET (view)->style->black_gc,
 				      d.x0, d.y0,
 				      d.x1 - d.x0, d.y1 - d.y0,
-				      GDK_RGB_DITHER_NORMAL,
+				      priv->dither,
 				      gdk_pixbuf_get_pixels (tmp),
 				      gdk_pixbuf_get_rowstride (tmp),
 				      d.x0 - xofs, d.y0 - yofs);
@@ -537,7 +617,7 @@ paint_iteration_idle (gpointer data)
 		return FALSE;
 	}
 
-	paint_rectangle (view, &rect, GDK_INTERP_BILINEAR);
+	paint_rectangle (view, &rect, priv->interp_type);
 	return TRUE;
 }
 
@@ -1241,6 +1321,25 @@ image_view_new (void)
 }
 
 /**
+ * image_view_set_preferences:
+ * @view: An image view.
+ * 
+ * Sets an image view's parameters from the preferences mechanism.
+ **/
+void
+image_view_set_preferences (ImageView *view)
+{
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	image_view_set_interp_type (view, prefs_interp_type);
+	image_view_set_check_type (view, prefs_check_type);
+	image_view_set_check_size (view, prefs_check_size);
+	image_view_set_dither (view, prefs_dither);
+	image_view_set_scroll (view, prefs_scroll);
+}
+
+/**
  * image_view_set_image:
  * @view: An image view.
  * @image: An image.
@@ -1339,4 +1438,224 @@ image_view_get_zoom (ImageView *view)
 
 	priv = view->priv;
 	return priv->zoom;
+}
+
+/**
+ * image_view_set_interp_type:
+ * @view: An image view.
+ * @interp_type: Interpolation type.
+ * 
+ * Sets the interpolation type on an image view.
+ **/
+void
+image_view_set_interp_type (ImageView *view, GdkInterpType interp_type)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->interp_type == interp_type)
+		return;
+
+	priv->interp_type = interp_type;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+/**
+ * image_view_get_interp_type:
+ * @view: An image view.
+ * 
+ * Queries the interpolation type of an image view.
+ * 
+ * Return value: Interpolation type.
+ **/
+GdkInterpType
+image_view_get_interp_type (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, GDK_INTERP_NEAREST);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), GDK_INTERP_NEAREST);
+
+	priv = view->priv;
+	return priv->interp_type;
+}
+
+/**
+ * image_view_set_check_type:
+ * @view: An image view.
+ * @check_type: Check type.
+ * 
+ * Sets the check type on an image view.
+ **/
+void
+image_view_set_check_type (ImageView *view, CheckType check_type)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->check_type == check_type)
+		return;
+
+	priv->check_type = check_type;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+/**
+ * image_view_get_check_type:
+ * @view: An image view.
+ * 
+ * Queries the check type of an image view.
+ * 
+ * Return value: Check type.
+ **/
+CheckType
+image_view_get_check_type (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, CHECK_TYPE_BLACK);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), CHECK_TYPE_BLACK);
+
+	priv = view->priv;
+	return priv->check_type;
+}
+
+/**
+ * image_view_set_check_size:
+ * @view: An image view.
+ * @check_size: Check size.
+ * 
+ * Sets the check size on an image view.
+ **/
+void
+image_view_set_check_size (ImageView *view, CheckSize check_size)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->check_size == check_size)
+		return;
+
+	priv->check_size = check_size;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+/**
+ * image_view_get_check_size:
+ * @view: An image view.
+ * 
+ * Queries the check size on an image view.
+ * 
+ * Return value: Check size.
+ **/
+CheckSize
+image_view_get_check_size (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, CHECK_SIZE_SMALL);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), CHECK_SIZE_SMALL);
+
+	priv = view->priv;
+	return priv->check_size;
+}
+
+/**
+ * image_view_set_dither:
+ * @view: An image view.
+ * @dither: Dither type.
+ * 
+ * Sets the dither type on an image view.
+ **/
+void
+image_view_set_dither (ImageView *view, GdkRgbDither dither)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->dither == dither)
+		return;
+
+	priv->dither = dither;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+/**
+ * image_view_get_dither:
+ * @view: An image view.
+ * 
+ * Queries the dither type of an image view.
+ * 
+ * Return value: Dither type.
+ **/
+GdkRgbDither
+image_view_get_dither (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, GDK_RGB_DITHER_NONE);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), GDK_RGB_DITHER_NONE);
+
+	priv = view->priv;
+	return priv->dither;
+}
+
+/**
+ * image_view_set_scroll:
+ * @view: An image view.
+ * @scroll: Scrolling type.
+ * 
+ * Sets the scrolling type on an image view.
+ **/
+void
+image_view_set_scroll (ImageView *view, ScrollType scroll)
+{
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	if (priv->scroll == scroll)
+		return;
+
+	priv->scroll = scroll;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+/**
+ * image_view_get_scroll:
+ * @view: An image view.
+ * 
+ * Queries the scrolling type of an image view.
+ * 
+ * Return value: Scrolling type.
+ **/
+ScrollType
+image_view_get_scroll (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, SCROLL_NORMAL);
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), SCROLL_NORMAL);
+
+	priv = view->priv;
+	return priv->scroll;
 }

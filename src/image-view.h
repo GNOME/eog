@@ -25,6 +25,7 @@
 #include <libgnome/gnome-defs.h>
 #include <gtk/gtkwidget.h>
 #include "image.h"
+#include "preferences.h"
 
 BEGIN_GNOME_DECLS
 
@@ -62,11 +63,28 @@ GtkType image_view_get_type (void);
 
 GtkWidget *image_view_new (void);
 
+void image_view_set_preferences (ImageView *view);
+
 void image_view_set_image (ImageView *view, Image *image);
 Image *image_view_get_image (ImageView *view);
 
 void image_view_set_zoom (ImageView *view, double zoom);
 double image_view_get_zoom (ImageView *view);
+
+void image_view_set_interp_type (ImageView *view, GdkInterpType interp_type);
+GdkInterpType image_view_get_interp_type (ImageView *view);
+
+void image_view_set_check_type (ImageView *view, CheckType check_type);
+CheckType image_view_get_check_type (ImageView *view);
+
+void image_view_set_check_size (ImageView *view, CheckSize check_size);
+CheckSize image_view_get_check_size (ImageView *view);
+
+void image_view_set_dither (ImageView *view, GdkRgbDither dither);
+GdkRgbDither image_view_get_dither (ImageView *view);
+
+void image_view_set_scroll (ImageView *view, ScrollType scroll);
+ScrollType image_view_get_scroll (ImageView *view);
 
 
 

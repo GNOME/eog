@@ -190,6 +190,7 @@ static gint
 full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 {
 	gint result;
+	gboolean do_hide;
 
 	result = FALSE;
 
@@ -199,12 +200,32 @@ full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	if (result)
 		return result;
 
-	if (event->keyval == GDK_Escape) {
-		gtk_widget_hide (widget);
-		return TRUE;
+	do_hide = FALSE;
+
+	switch (event->keyval) {
+	case GDK_Escape:
+		do_hide = TRUE;
+		break;
+
+	case GDK_W:
+	case GDK_w:
+		if (event->state & GDK_CONTROL_MASK)
+			do_hide = TRUE;
+		break;
+
+	case GDK_Q:
+	case GDK_q:
+		do_hide = TRUE;
+		break;
+
+	default:
+		return FALSE;
 	}
 
-	return FALSE;
+	if (do_hide)
+		gtk_widget_hide (widget);
+
+	return TRUE;
 }
 
 

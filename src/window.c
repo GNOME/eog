@@ -72,7 +72,7 @@ static void window_init (Window *window);
 static void window_destroy (GtkObject *object);
 
 static gint window_delete (GtkWidget *widget, GdkEventAny *event);
-
+static gint window_key_press (GtkWidget *widget, GdkEventKey *event);
 
 static GnomeAppClass *parent_class;
 
@@ -207,6 +207,7 @@ static void
 set_mode (Window *window, WindowMode mode)
 {
 	WindowPrivate *priv;
+	ImageView *view;
 
 	priv = window->priv;
 
@@ -233,7 +234,11 @@ set_mode (Window *window, WindowMode mode)
 		priv->content = ui_image_new ();
 		gnome_app_set_contents (GNOME_APP (window), priv->content);
 		gtk_widget_show (priv->content);
-		gtk_widget_grab_focus (ui_image_get_image_view (UI_IMAGE (priv->content)));
+
+		view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->content)));
+		image_view_set_preferences (view);
+
+		gtk_widget_grab_focus (GTK_WIDGET (view));
 		break;
 
 	case WINDOW_MODE_COLLECTION:
@@ -365,6 +370,8 @@ static GnomeUIInfo file_menu[] = {
 	  cmd_cb_window_close, NULL, NULL,
 	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
 	  'w', GDK_CONTROL_MASK, NULL },
+
+#define FILE_EXIT_INDEX 4
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cmd, NULL),
 	GNOMEUIINFO_END
 };
@@ -480,6 +487,7 @@ window_class_init (WindowClass *class)
 	object_class->destroy = window_destroy;
 
 	widget_class->delete_event = window_delete;
+	widget_class->key_press_event = window_key_press;
 }
 
 /* Object initialization function for windows */
@@ -528,6 +536,33 @@ window_delete (GtkWidget *widget, GdkEventAny *event)
 
 	window = WINDOW (widget);
 	window_close (window);
+	return TRUE;
+}
+
+/* Key press handler for windows */
+static gint
+window_key_press (GtkWidget *widget, GdkEventKey *event)
+{
+	gint result;
+
+	result = FALSE;
+
+	if (GTK_WIDGET_CLASS (parent_class)->key_press_event)
+		result = (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
+
+	if (result)
+		return result;
+
+	switch (event->keyval) {
+	case GDK_Q:
+	case GDK_q:
+		exit_cmd (NULL, widget);
+		break;
+
+	default:
+		return FALSE;
+	}
+
 	return TRUE;
 }
 

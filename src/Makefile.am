@@ -20,6 +20,8 @@ eog_SOURCES =				\
 	image-view.c			\
 	image-view.h			\
 	main.c				\
+	preferences.c			\
+	preferences.h			\
 	stock.c				\
 	stock.h				\
 	tb-image.c			\

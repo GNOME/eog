@@ -1,3 +1,39 @@
+2000-05-08  Federico Mena Quintero  <federico@helixcode.com>
+
+	* preferences.[ch]: New files with the preferences code.
+
+	* main.c (main): Call prefs_init().
+
+	* image-view.c (ImageViewPrivate): Added the per-view
+	configuration options for interpolation and checks.
+	(image_view_init): Initialize the configuration options.
+	(paint_iteration_idle): Use priv->interp_type.
+	(paint_rectangle): Compute the check color and size.  Use the
+	user-specified dither mode.
+	(image_view_set_interp_type): New function.
+	(image_view_get_interp_type): New function.
+	(image_view_set_check_type): New function.
+	(image_view_get_check_type): New function.
+	(image_view_set_check_size): New function.
+	(image_view_get_check_size): New function.
+	(image_view_set_dither): New function.
+	(image_view_get_dither): New function.
+	(image_view_set_preferences): New function.
+	(image_view_set_scroll): New function.
+	(image_view_get_scroll): New function.
+
+	* window.c (set_mode): Set the image view parameters from the
+	preferences.
+
+	* commands.c (cmd_cb_full_screen): Likewise.
+
+	* window.c (window_key_press): Accept q for exiting the program.
+
+	* full-screen.c (full_screen_key_press): Also accept C-w and q for
+	exiting full-screen mode.
+
+	* Makefile.am (eog_SOURCES): Added preferences.[ch].
+
 2000-05-05  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c: New "zoom_fit" class to ask the parent to zoom to

@@ -92,6 +92,7 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 
 	ui = UI_IMAGE (window_get_ui_image (WINDOW (data)));
 	view = IMAGE_VIEW (ui_image_get_image_view (ui));
+	image_view_set_preferences (view);
 
 	fs = full_screen_new ();
 	full_screen_set_image (FULL_SCREEN (fs), image_view_get_image (view));

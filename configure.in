@@ -95,13 +95,13 @@ else
 fi
 AM_CONDITIONAL(GPRINT, $have_gprint)
 
-EXTRA_BONOBO_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo $gprint`
-EXTRA_BONOBO_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo $gprint`
+EXTRA_BONOBO_CFLAGS=`gnome-config --cflags $bonobo $gprint gnomecanvaspixbuf gdk_pixbuf gnomeui`
+EXTRA_BONOBO_LIBS=`gnome-config --libs $bonobo $gprint gnomecanvaspixbuf gdk_pixbuf gnomeui`
 AC_SUBST(EXTRA_BONOBO_CFLAGS)
 AC_SUBST(EXTRA_BONOBO_LIBS)
 
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf`
-EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomecanvaspixbuf gdk_pixbuf gnomeui`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomecanvaspixbuf gdk_pixbuf gnomeui`
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 AC_SUBST(EXTRA_GNOME_LIBS)
 
