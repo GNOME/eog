@@ -255,14 +255,12 @@ view_update (view_data_t *view_data)
  * Loads an Image from a Bonobo_Stream
  */
 static void
-load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *data,
-			Bonobo_Persist_ContentType type, CORBA_Environment *ev)
+load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream,
+			Bonobo_Persist_ContentType type, void *data, CORBA_Environment *ev)
 {
 	bonobo_object_data_t *bod = data;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
 	Bonobo_Stream_iobuf   *buffer;
-
-	CORBA_exception_init (ev);
 
 	do {
 		buffer = Bonobo_Stream_iobuf__alloc ();
