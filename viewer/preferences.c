@@ -37,7 +37,7 @@ static PrefsEntry prefs_interpolation [] = {
 	{ GNOME_EOG_INTERPOLATION_NEAREST,
 	  N_("Nearest Neighbour Interpolation") },
 	{ GNOME_EOG_INTERPOLATION_TILES,
-	  N_("Tiltes Interpolation") },
+	  N_("Tiles Interpolation") },
 	{ GNOME_EOG_INTERPOLATION_BILINEAR,
 	  N_("Bilinear Interpolation") },
 	{ GNOME_EOG_INTERPOLATION_HYPERBOLIC,
