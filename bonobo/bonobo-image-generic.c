@@ -22,15 +22,13 @@
 #include <gnome.h>
 #include <libgnorba/gnorba.h>
 #include <bonobo/gnome-bonobo.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
 /*
  * BonoboObject data
  */
 typedef struct {
 	GnomeEmbeddable *bonobo_object;
-	GdkPixBuf       *pixbuf;
+	GdkPixbuf       *pixbuf;
 	char            *repoid;
 } bonobo_object_data_t;
 
@@ -40,33 +38,36 @@ typedef struct {
 typedef struct {
 	bonobo_object_data_t *bod;
 	GtkWidget            *drawing_area;
-	GdkPixBuf            *scaled;
+	GdkPixbuf            *scaled;
 } view_data_t;
 
+static void
+release_pixbuf_cb (GnomeView *view, void *data)
+{
+	view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (view),
+						      "view_data");
+	if (!view_data ||
+	    !view_data->scaled)
+		return;
+	
+	gdk_pixbuf_unref (view_data->scaled);
+	view_data->scaled = NULL;
+}
 /*
  * Releases an image
  */
 static void
 release_pixbuf (bonobo_object_data_t *bod)
 {
-	GList *l;
 	g_return_if_fail (bod != NULL);
 
 	if (bod->pixbuf)
 		gdk_pixbuf_unref (bod->pixbuf);
 	bod->pixbuf = NULL;
 	
-	for (l = bod->bonobo_object->views; l;
-	     l = g_list_next (l)) {
-		view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (l->data),
-							      "view_data");
-		if (!view_data ||
-		    !view_data->scaled)
-			continue;
-
-		gdk_pixbuf_unref (view_data->scaled);
-		view_data->scaled = NULL;
-	}
+	gnome_embeddable_foreach_view (bod->bonobo_object,
+				       release_pixbuf_cb,
+				       NULL);
 }
 
 static void
@@ -84,7 +85,7 @@ bod_destroy (bonobo_object_data_t *bod)
 	g_free (bod);
 }
 
-static GdkPixBuf *
+static GdkPixbuf *
 get_pixbuf (view_data_t *view_data)
 {
 	g_return_val_if_fail (view_data != NULL, NULL);
@@ -103,7 +104,7 @@ get_pixbuf (view_data_t *view_data)
 static void
 redraw_view (view_data_t *view_data, GdkRectangle *rect)
 {
-	GdkPixBuf *buf = get_pixbuf (view_data);
+	GdkPixbuf *buf = get_pixbuf (view_data);
 	ArtPixBuf *pixbuf;
 
 	g_return_if_fail (buf != NULL);
@@ -154,7 +155,7 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 static void
 configure_size (view_data_t *view_data, GdkRectangle *rect)
 {
-	GdkPixBuf *buf = get_pixbuf (view_data);
+	GdkPixbuf *buf = get_pixbuf (view_data);
 	ArtPixBuf *pixbuf;
 
 	g_return_if_fail (buf != NULL);
@@ -173,19 +174,15 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 }
 
 static void
-redraw_all (bonobo_object_data_t *bod)
+redraw_all_cb (GnomeView *view, bonobo_object_data_t *bod)
 {
-	GList *l;
-	
-	for (l = bod->bonobo_object->views; l; l = l->next) {
-		GdkRectangle rect;
-		view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (l->data),
-							      "view_data");
+	GdkRectangle rect;
+	view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (view),
+						      "view_data");
 
-		configure_size (view_data, &rect);
-		
-		redraw_view (view_data, &rect);
-	}
+	configure_size (view_data, &rect);
+	
+	redraw_view (view_data, &rect);
 }
 
 static void
@@ -251,14 +248,15 @@ load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
 	if (!name)
 		return -1;
 
-	bod->pixbuf = gdk_pixbuf_load_image (name);
+	bod->pixbuf = gdk_pixbuf_new_from_file (name);
 	if (!bod->pixbuf)
 		return -1;
 
 	unlink (name);
 	free (name);
 
-	redraw_all (bod);
+	gnome_embeddable_foreach_view (bod->bonobo_object,
+				       redraw_all_cb, bod);
 	return 0;
 }
 
@@ -306,8 +304,8 @@ static void
 view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 		       view_data_t *view_data)
 {
-	const GdkPixBuf *buf;
-	GdkPixBuf       *view_buf;
+	const GdkPixbuf *buf;
+	GdkPixbuf       *view_buf;
 
 	g_return_if_fail (view_data != NULL);
 	g_return_if_fail (allocation != NULL);
