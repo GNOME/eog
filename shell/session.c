@@ -50,7 +50,7 @@ session_save (const char *config_prefix)
 
 	i = 0;
 
-	for (l = eog_get_window_list (); l; l++) {
+	for (l = eog_get_window_list (); l != NULL; l = l->next) {
 		EogWindow *window;
 		const char *uri;
 		const char *role;
