@@ -9,21 +9,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-02-28 17:36+0100\n"
-"PO-Revision-Date: 2002-02-28 17:36+0100\n"
+"POT-Creation-Date: 2002-03-22 16:10+0100\n"
+"PO-Revision-Date: 2002-03-22 15:13+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:1 shell/eog-window.c:1
-msgid "Eye of Gnome"
-msgstr "Oko Gnoma"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Oko Gnoma - przeglądarka obrazów"
 
 #: eog.desktop.in.h:1
-msgid "Image Viewer"
-msgstr "Przeglądarka obrazów"
+msgid "View many different types of images"
+msgstr "Przeglądarka plików graficznych w różnych formatach"
 
 #: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:1
 msgid "EOG Image"
@@ -69,7 +69,7 @@ msgstr "Za_kończ"
 msgid "Exit the program"
 msgstr "Kończy pracę programu"
 
-#: shell/eog-shell-ui.xml.h:1
+#: shell/eog-shell-ui.xml.h:1 shell/main.c:1
 msgid "Open"
 msgstr "Otwórz"
 
@@ -125,13 +125,25 @@ msgstr "_Ustawienia"
 msgid "_View"
 msgstr "_Widok"
 
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:1
+msgid "Translator Credits"
+msgstr "GNOME PL Team <translators@gnome.pl>"
+
+#: shell/eog-window.c:1 shell/eog-window.c:1
+msgid "Eye of Gnome"
+msgstr "Oko Gnoma"
+
 #: shell/eog-window.c:1
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
 #: shell/eog-window.c:1
 msgid "The GNOME image viewing and cataloging program"
-msgstr "Program GNOME do przeglądania oraz katalogowanie obrazków"
+msgstr "Program dla GNOME do przeglądania oraz katalogowanie obrazów"
 
 #: shell/eog-window.c:1
 msgid "Open Image"
@@ -157,6 +169,11 @@ msgstr "Nie można uzyskać typu MIME pliku."
 msgid "Error while obtaining file informations."
 msgstr "Przy pobieraniu informacji o pliku wystąpił błąd."
 
+#: shell/eog-window.c:1
+#, c-format
+msgid "Unable to open %s."
+msgstr "Nie można otworzyć %s."
+
 #: shell/main.c:1
 #, c-format
 msgid ""
@@ -176,6 +193,14 @@ msgid "Collection"
 msgstr "Kolekcja"
 
 #: shell/main.c:1
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Operacja spowoduje jednoczesne otwarcie %i okien.\n"
+"Czy chcesz kontynuować?"
+
+#: shell/main.c:1
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Nie można zainicjować GnomeVFS!\n"
 
@@ -187,6 +212,10 @@ msgstr "Nie można zainicjować Bonobo!\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nie można otworzyć \"%s\""
+
+#: shell/eog-preferences.c:1
+msgid "Eye of Gnome Preferences"
+msgstr "Ustawienia Oka Gnoma"
 
 #: viewer/eog-image.c:1
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -221,19 +250,19 @@ msgstr "Wydruk obrazu nie powiódł się"
 msgid "Display"
 msgstr "Wyświetlanie"
 
-#: viewer/eog-image-view.c:1 viewer/preferences.c:1
+#: viewer/eog-image-view.c:1
 msgid "Interpolation"
 msgstr "Interpolacja"
 
-#: viewer/eog-image-view.c:1 viewer/preferences.c:1
+#: viewer/eog-image-view.c:1
 msgid "Dither"
 msgstr "Ditherowanie"
 
-#: viewer/eog-image-view.c:1 viewer/preferences.c:1
+#: viewer/eog-image-view.c:1
 msgid "Check Type"
 msgstr "Typ szachownicy"
 
-#: viewer/eog-image-view.c:1 viewer/preferences.c:1
+#: viewer/eog-image-view.c:1
 msgid "Check Size"
 msgstr "Wielkość pól szachownicy"
 
@@ -637,3 +666,19 @@ msgstr "Średnie"
 #: viewer/preferences.c:1
 msgid "Large"
 msgstr "Duże"
+
+#: viewer/preferences.c:1
+msgid "Interpolation:"
+msgstr "Interpolacja:"
+
+#: viewer/preferences.c:1
+msgid "Dither:"
+msgstr "Ditherowanie:"
+
+#: viewer/preferences.c:1
+msgid "Check Type:"
+msgstr "Typ szachownicy:"
+
+#: viewer/preferences.c:1
+msgid "Check Size:"
+msgstr "Wielkość pól szachownicy:"
