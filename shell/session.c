@@ -77,6 +77,7 @@ session_save (const char *config_prefix)
 	}
 
 	gnome_config_pop_prefix ();
+	gnome_config_sync ();
 }
 
 void
