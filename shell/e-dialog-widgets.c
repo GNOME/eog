@@ -244,7 +244,7 @@ hook_toggle (GtkWidget *dialog, GtkToggleButton *toggle, gpointer value_var, gpo
 
 /* Hooks a toggle button to the GnomePropertyBox */
 static void
-hook_toggle_property (GtkWidget *dialog, GtkToggleButton *toggle);
+hook_toggle_property (GtkWidget *dialog, GtkToggleButton *toggle)
 {
 	if (GNOME_IS_PROPERTY_BOX (dialog))
 		gtk_signal_connect (GTK_OBJECT (toggle), "toggled",
@@ -331,7 +331,7 @@ hook_editable (GtkWidget *dialog, GtkEditable *editable, gpointer value_var, gpo
 
 /* Hooks a GtkEditable widget to the GnomePropertyBox */
 static void
-hook_editable_property (GtkWidget *dialog, GtkEditable *editable);
+hook_editable_property (GtkWidget *dialog, GtkEditable *editable)
 {
 	if (GNOME_IS_PROPERTY_BOX (dialog))
 		gtk_signal_connect (GTK_OBJECT (editable), "changed",

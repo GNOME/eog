@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <gconf/gconf-client.h>
 #include <math.h>
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
@@ -27,8 +28,6 @@
 #include "cursors.h"
 #include "image-view.h"
 #include "uta.h"
-
-
 
 /* Checks */
 
@@ -49,8 +48,6 @@
 /* Scroll step increment */
 
 #define SCROLL_STEP_SIZE 32
-
-
 
 /* Private part of the ImageView structure */
 typedef struct {
@@ -94,14 +91,15 @@ typedef struct {
 	/* Scroll type */
 	ScrollType scroll;
 
+	/* GConf client for monitoring changes to the preferences */
+	GConfClient *client;
+
 	/* Whether the image is being dragged */
 	guint dragging : 1;
 
 	/* Whether we need to change the zoom factor */
 	guint need_zoom_change : 1;
 } ImageViewPrivate;
-
-
 
 /* Signal IDs */
 enum {
@@ -202,7 +200,7 @@ image_view_class_init (ImageViewClass *class)
 				GTK_TYPE_ADJUSTMENT);
 
 	gtk_object_class_add_signals (object_class, image_view_signals, LAST_SIGNAL);
-
+	
 	widget_class->unmap = image_view_unmap;
 	widget_class->realize = image_view_realize;
 	widget_class->unrealize = image_view_unrealize;
@@ -216,6 +214,113 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->key_press_event = image_view_key_press;
 }
 
+void
+change_interp_type (GConfClient *client,
+		    guint cnxn_id,
+		    const gchar *key,
+		    GConfValue *value,
+		    gboolean is_default,
+		    gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+	
+	priv->interp_type = gconf_value_int (value);
+}
+
+void
+change_check_type (GConfClient *client,
+		   guint cnxn_id,
+		   const gchar *key,
+		   GConfValue *value,
+		   gboolean is_default,
+		   gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+
+	priv->check_type = gconf_value_int (value);
+}
+
+void
+change_check_size (GConfClient *client,
+		   guint cnxn_id,
+		   const gchar *key,
+		   GConfValue *value,
+		   gboolean is_default,
+		   gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+
+	priv->check_size = gconf_value_int (value);
+}
+
+void
+change_dither (GConfClient *client,
+	       guint cnxn_id,
+	       const gchar *key,
+	       GConfValue *value,
+	       gboolean is_default,
+	       gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+
+	priv->dither = gconf_value_int (value);
+}
+
+void
+change_scroll (GConfClient *client,
+	       guint cnxn_id,
+	       const gchar *key,
+	       GConfValue *value,
+	       gboolean is_default,
+	       gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+
+	priv->scroll = gconf_value_int (value);
+}
+
+void change_zoom (GConfClient *client,
+		  guint cnxn_id,
+		  const gchar *key,
+		  GConfValue *value,
+		  gboolean is_default,
+		  gpointer user_data)
+{
+	ImageViewPrivate *priv;
+
+	priv = user_data;
+
+	if (is_default != FALSE)
+		return;
+
+	priv->scroll = gconf_value_int (value);
+}
+
 /* Object initialization function for the image view */
 static void
 image_view_init (ImageView *view)
@@ -227,12 +332,56 @@ image_view_init (ImageView *view)
 
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
-	priv->zoom = 1.0;
-	priv->interp_type = prefs_interp_type;
-	priv->check_type = prefs_check_type;
-	priv->check_size = prefs_check_size;
-	priv->dither = prefs_dither;
-	priv->scroll = prefs_scroll;
+	priv->client = gconf_client_new ();
+
+	gconf_client_add_dir (priv->client,
+			      "/apps/eog",
+			      GCONF_CLIENT_PRELOAD_RECURSIVE,
+			      NULL);
+
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/view/interp_type",
+		change_interp_type, priv,
+		NULL, NULL);
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/view/check_type",
+		change_check_type, priv,
+		NULL, NULL);
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/view/check_size",
+		change_check_size, priv,
+		NULL, NULL);
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/view/dither",
+		change_dither, priv,
+		NULL, NULL);
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/view/scroll",
+		change_scroll, priv,
+		NULL, NULL);
+	gconf_client_notify_add (
+		priv->client, "/apps/eog/full_screen/zoom",
+		change_zoom, priv,
+		NULL, NULL);
+	
+	priv->interp_type = gconf_client_get_int (
+		priv->client, "/apps/eog/view/interp_type",
+		NULL);
+	priv->check_type = gconf_client_get_int (
+		priv->client, "/apps/eog/view/check_type",
+		NULL);
+	priv->check_size = gconf_client_get_int (
+		priv->client, "/apps/eog/view/check_size",
+		NULL);
+	priv->dither = gconf_client_get_int (
+		priv->client, "/apps/eog/view/dither",
+		NULL);
+	priv->scroll = gconf_client_get_int (
+		priv->client, "/apps/eog/view/scroll",
+		NULL);
+	priv->zoom = gconf_client_get_int (
+		priv->client, "/apps/eog/full_screen/zoom",
+		NULL);
 
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
 }
@@ -309,6 +458,9 @@ image_view_finalize (GtkObject *object)
 
 	gtk_object_unref (GTK_OBJECT (priv->vadj));
 	priv->vadj = NULL;
+
+	gtk_object_unref (GTK_OBJECT (priv->client));
+	priv->client = NULL;
 
 	g_free (priv);
 	view->priv = NULL;
@@ -656,9 +808,9 @@ paint_iteration_idle (gpointer data)
 			goto uta2;
 		}
 
-		if (prefs_scroll == SCROLL_TWO_PASS) {
+		if (priv->scroll == SCROLL_TWO_PASS) {
 			paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
-
+			
 			priv->uta2 = uta_add_rect (priv->uta2, rect.x0, rect.y0, rect.x1, rect.y1);
 		} else
 			paint_rectangle (view, &rect, priv->interp_type);
@@ -724,7 +876,7 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
 	}
 
-	if (asynch || prefs_scroll != SCROLL_TWO_PASS)
+	if (asynch || priv->scroll != SCROLL_TWO_PASS)
 		priv->uta1 = uta_add_rect (priv->uta1, r.x0, r.y0, r.x1, r.y1);
 	else {
 		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
@@ -803,7 +955,7 @@ scroll_to (ImageView *view, int x, int y)
 		       dest_x, dest_y,
 		       width - abs (xofs), height - abs (yofs));
 
-	if (prefs_scroll == SCROLL_TWO_PASS && priv->uta2) {
+	if (priv->scroll == SCROLL_TWO_PASS && priv->uta2) {
 		priv->uta2 = uta_ensure_size (priv->uta2, 0, 0, twidth, theight);
 
 		uta_copy_area (priv->uta2,
@@ -1425,14 +1577,18 @@ image_view_new (void)
 void
 image_view_set_preferences (ImageView *view)
 {
+	ImageViewPrivate *priv;
+	
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (IS_IMAGE_VIEW (view));
 
-	image_view_set_interp_type (view, prefs_interp_type);
-	image_view_set_check_type (view, prefs_check_type);
-	image_view_set_check_size (view, prefs_check_size);
-	image_view_set_dither (view, prefs_dither);
-	image_view_set_scroll (view, prefs_scroll);
+	priv = view->priv;
+
+	image_view_set_interp_type (view, priv->interp_type);
+	image_view_set_check_type (view, priv->check_type);
+	image_view_set_check_size (view, priv->check_size);
+	image_view_set_dither (view, priv->dither);
+	image_view_set_scroll (view, priv->scroll);
 }
 
 /**

@@ -54,7 +54,6 @@ main (int argc, char **argv)
 	}
 
 	stock_init ();
-	prefs_init ();
 
 	args = poptGetArgs (ctx);
 

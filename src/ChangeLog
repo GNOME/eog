@@ -1,3 +1,38 @@
+2000-07-10  Arik Devens  <cael@quetzalcoatl.helixcode.com>
+
+	* commands.c (cmd_cb_full_screen): Removed global prefs variable.
+
+	* preferences.c: Removed prefs_init and the global prefs
+	variables.
+	(apply_cb): New function to save preferences on an apply signal
+	from our property box.
+	(load_prefs_dialog): Connect to our apply signal and run apply_cb.
+	(set_prefs_widgets): Replaced our own functions with ones from
+	e-dialog-widgets.
+	(hook_prefs_widgets): Replaced our own functions with ones from
+	e-dialog-widgets.
+
+	* main.c: Removed prefs_init.
+
+	* Makefile.am (eog_SOURCES): Added e-dialog-widgets.[c,h].
+
+	* e-dialog-widgets.h: Add public function for
+	e-dialog-widget-hook_property.
+
+	* image-view.h: Add public function decs for the change prefs
+	functions.
+
+	* image-view.c: Removed global prefs variables.
+	(image_view_init): Create our GConfClient, register our notify
+	events, and get the current values.
+	(image_view_finalize): Destroy the client.
+	(change_zoom): New function to set prefs on gconf change.
+	(change_scroll): Same as above.
+	(change_dither): Same as above.
+	(change_check_size): Same as above.
+	(change_check_type): Same as above.
+	(change_interp_type): Same as above.
+
 2000-07-10  Federico Mena Quintero  <federico@helixcode.com>
 
 	* preferences.c (prefs_init): Removed hardcoded values that were
@@ -7,8 +42,24 @@
 
 	* e-dialog-widgets.c: Moved all the property box hooking code into
 	new functions.
+	(e_dialog_widget_hook_value): Added property box hook functions.
 	(e_dialog_widget_hook_property): New function to hook widgets to
 	property box.
+	(hook_radio): Removed property box hooks.
+	(hook_radio_property): New function to hook radio widgets to a
+	property box.
+	(hook_option_menu): Removed property box hooks.
+	(hook_option_menu_property): New function to hook option menus to
+	a property box.
+	(hook_toggle): Removed property box hooks.
+	(hook_toggle_property): New function to hook toggle buttons to a
+	property box.
+	(hook_spin_button): Removed property box hooks.
+	(hook_spin_button_property): New function to hook spin buttons to
+	a property box.
+	(hook_editable): Removed Property box hooks.
+	(hook_editable_property): New function to hook editable widgets to
+	a property box.
 
 2000-07-07  Federico Mena Quintero  <federico@helixcode.com>
 

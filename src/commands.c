@@ -86,12 +86,15 @@ cmd_cb_zoom_fit (GtkWidget *widget, gpointer data)
 void
 cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 {
+	GConfClient *client;
 	UIImage *ui;
 	ImageView *view;
 	Image *image;
 	GtkWidget *fs;
 	double zoom;
 
+	client = gconf_client_new ();
+	
 	/* Get original parameters */
 
 	ui = UI_IMAGE (window_get_ui_image (WINDOW (data)));
@@ -111,7 +114,10 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 
 	gtk_widget_show_now (fs);
 
-	switch (prefs_full_screen_zoom) {
+	switch (
+		gconf_client_get_int (
+		client, "/apps/eog/full_screen/zoom",
+		NULL)) {
 	case FULL_SCREEN_ZOOM_1:
 		image_view_set_zoom (view, 1.0);
 		break;
@@ -127,9 +133,9 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 	default:
 		g_assert_not_reached ();
 	}
-}
 
-
+	gtk_object_unref (GTK_OBJECT (client));
+}
 
 void
 cmd_cb_zoom_2_1 (GtkWidget *widget, gpointer data)

@@ -14,6 +14,8 @@ eog_SOURCES =				\
 	commands.h			\
 	cursors.c			\
 	cursors.h			\
+	e-dialog-widgets.c		\
+	e-dialog-widgets.h		\
 	full-screen.c			\
 	full-screen.h			\
 	gtkscrollframe.c		\
