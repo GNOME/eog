@@ -56,6 +56,7 @@
 #define PROPERTY_WINDOW_TITLE  "window/title"
 #define PROPERTY_WINDOW_WIDTH  "window/width"
 #define PROPERTY_WINDOW_HEIGHT "window/height"
+#define PROPERTY_IMAGE_PROGRESS "image/progress"
 
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
@@ -686,7 +687,7 @@ eog_window_construct (EogWindow *window)
 			  G_CALLBACK (open_recent_cb), window);
 
 	/* add statusbar */
-	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
+	priv->statusbar = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_NEVER);
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
@@ -799,7 +800,11 @@ property_changed_cb (BonoboListener    *listener,
 
 	if (any == NULL) return;
 
-	if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_TITLE)) {
+	if (!g_ascii_strcasecmp (event_name, PROPERTY_IMAGE_PROGRESS)) {
+		gnome_appbar_set_progress_percentage (GNOME_APPBAR (window->priv->statusbar),
+						      BONOBO_ARG_GET_FLOAT (any));
+	}
+	else if (!g_ascii_strcasecmp (event_name, PROPERTY_WINDOW_TITLE)) {
 		char *title;
 
 		title = BONOBO_ARG_GET_STRING (any);
@@ -881,6 +886,11 @@ check_for_control_properties (EogWindow *window)
 
 			/* query window size */
 			height = bonobo_pbclient_get_long (pb, PROPERTY_WINDOW_HEIGHT, &ev);
+		}
+		else if (g_ascii_strcasecmp ((char*) it->data, PROPERTY_IMAGE_PROGRESS) == 0) {
+			bonobo_event_source_client_add_listener (pb, 
+								 (BonoboListenerCallbackFn) property_changed_cb,
+								 PROPERTY_IMAGE_PROGRESS, &ev, window);
 		}
 	}
 

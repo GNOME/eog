@@ -89,6 +89,7 @@ enum {
 	PROP_CHECK_SIZE,
 	PROP_IMAGE_WIDTH,
 	PROP_IMAGE_HEIGHT,
+	PROP_IMAGE_PROGRESS,
 	PROP_WINDOW_WIDTH,
 	PROP_WINDOW_HEIGHT,
 	PROP_WINDOW_TITLE,
@@ -885,6 +886,27 @@ image_size_prepared_cb (EogImage *img, int width, int height, gpointer data)
 	bonobo_arg_release (arg);
 }
 
+static void
+image_progress_cb (EogImage *img, float progress, gpointer data)
+{
+	EogImageView *view;
+	EogImageViewPrivate *priv;
+	BonoboArg *arg;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	view = EOG_IMAGE_VIEW (data);
+	priv = view->priv;
+
+	arg = bonobo_arg_new (BONOBO_ARG_FLOAT);
+	BONOBO_ARG_SET_FLOAT (arg, progress);
+
+	bonobo_event_source_notify_listeners (priv->property_bag->es,
+					      "image/progress",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+}
+
 static gint
 load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	     CORBA_Environment *ev, void *closure)
@@ -900,6 +922,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	image = eog_image_new (text_uri);
 	g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
+	g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
 
 	/* FIXME: remove potential signal handlers from old image object */
 	if (priv->image != NULL) {
@@ -1199,6 +1222,9 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_property_bag_add (priv->property_bag, "window/height", PROP_WINDOW_HEIGHT,
 				 BONOBO_ARG_INT, NULL, _("Desired Window Height"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (priv->property_bag, "image/progress", PROP_IMAGE_PROGRESS,
+				 BONOBO_ARG_FLOAT, NULL, _("Progress of Image Loading"),
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_control_set_properties (BONOBO_CONTROL (control),
 				       BONOBO_OBJREF (priv->property_bag),

@@ -57,12 +57,14 @@
 enum {
 	PROP_WINDOW_TITLE,
 	PROP_WINDOW_STATUS,
+	PROP_IMAGE_PROGRESS,
 	PROP_LAST
 };
 
 static const gchar *property_name[] = {
 	"window/title", 
-	"window/status"
+	"window/status",
+	"image/progress"
 };
 
 enum {
@@ -96,6 +98,7 @@ struct _EogCollectionViewPrivate {
 	gboolean                need_update_prop[PROP_LAST];
 
 	EogImage                *displayed_image;
+	guint                   progress_handler_id;
 
 	gboolean                has_zoomable_frame;
 };
@@ -184,19 +187,71 @@ verb_Undo_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 	}
 }
 
+typedef struct {
+	EogCollectionView *view;
+	float max_progress;
+	int counter;
+} ProgressData;
+
+static void
+image_progress_cb (EogImage *image, float progress, gpointer data)
+{
+	ProgressData *pd;
+	float total;
+	BonoboArg *arg;
+	EogCollectionViewPrivate *priv;
+
+	if (EOG_IS_COLLECTION_VIEW (data)) {
+		pd = NULL;
+		priv = EOG_COLLECTION_VIEW (data)->priv;
+	}
+	else {
+		pd = (ProgressData*) data;
+		priv = pd->view->priv;
+	}
+
+	if (!pd) {
+		total = progress;
+	}
+	else {
+		total = ((float) pd->counter + progress) / pd->max_progress;
+	}
+
+	arg = bonobo_arg_new (BONOBO_ARG_FLOAT);
+	BONOBO_ARG_SET_FLOAT (arg, total);
+
+	bonobo_event_source_notify_listeners (priv->property_bag->es,
+					      "image/progress",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+}
+
 static void 
 apply_transformation (EogCollectionView *view, EogTransform *trans)
 {
 	GList *images;
 	GList *it;
+	gint id;
+	ProgressData *data;
 
 	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));	
+	data = g_new0 (ProgressData, 1);
+	data->view = view;
+	data->max_progress = g_list_length (images);
+	data->counter = 0;
 
 	for (it = images; it != NULL; it = it->next) {
 		EogImage *image = EOG_IMAGE (it->data);
+
+		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) image_progress_cb, data);
+
 		eog_image_transform (image, trans);
+
+		g_signal_handler_disconnect (image, id);
+		data->counter++;
 	}
 
+	g_free (data);
 	g_object_unref (trans);
 }
 
@@ -636,11 +691,14 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 
 	if (priv->displayed_image != image) {
 		if (priv->displayed_image != NULL) {
+			g_signal_handler_disconnect (priv->displayed_image, priv->progress_handler_id);
+
 			eog_image_free_mem (priv->displayed_image);
 			g_object_unref (priv->displayed_image);
 			priv->displayed_image = NULL;
 		}
 		
+		priv->progress_handler_id = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 		eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
 		
@@ -982,6 +1040,9 @@ eog_collection_view_construct (EogCollectionView *list_view)
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_property_bag_add (priv->property_bag, property_name[PROP_WINDOW_STATUS], PROP_WINDOW_STATUS,
 				 BONOBO_ARG_STRING, NULL, _("Status Text"),
+				 BONOBO_PROPERTY_READABLE);
+	bonobo_property_bag_add (priv->property_bag, "image/progress", PROP_IMAGE_PROGRESS,
+				 BONOBO_ARG_FLOAT, NULL, _("Progress of Image Loading"),
 				 BONOBO_PROPERTY_READABLE);
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
 				       BONOBO_OBJREF (priv->property_bag),

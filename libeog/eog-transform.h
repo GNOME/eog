@@ -11,7 +11,6 @@ typedef enum {
 	EOG_TRANSFORM_FLIP_VERTICAL
 } EogTransformFlipType;
 
-
 #define EOG_TYPE_TRANSFORM          (eog_transform_get_type ())
 #define EOG_TRANSFORM(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_TRANSFORM, EogTransform))
 #define EOG_TRANSFORM_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_TYPE_TRANSFORM, EogTransformClass))
@@ -39,9 +38,12 @@ struct _EogTransformClass {
 	GObjectClass parent_klass;
 };
 
+typedef void ((* EogProgressHook) (EogTransform *trans, float progress, gpointer data));
+
+
 GType         eog_transform_get_type (void);
 
-GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf);
+GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogProgressHook hook, gpointer hook_data);
 EogTransform* eog_transform_reverse (EogTransform *trans);
 EogTransform* eog_transform_compose (EogTransform *trans, EogTransform *compose);
 gboolean      eog_transform_is_identity (EogTransform *trans);

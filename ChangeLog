@@ -1,3 +1,39 @@
+2003-05-31  Jens Finke <jens@triq.net>
+
+	Added progress indication.
+	
+	* collection/eog-collection-view.c: New property "image/progress".
+	(image_progress_cb): New function.
+	(apply_transformation): Setup the progress indication stuff.
+	(handle_selection_changed): Connect to the image progress changed
+	signal.
+	(eog_collection_view_construct): Register "image/progress" property.
+
+	* collection/eog-collection-view-ui.xml: Added "Undo" mnemonic.
+	
+	* libeog/eog-image.c (eog_image_class_init): New signal
+	"progress".
+	(check_load_status): Check for progress changes and emit signal if
+	appropriate.
+	(transform_progress_hook_async): New function.
+	(real_image_load): Determine file size of image to load and update
+	progress status. Ref/unref clean up when transforming the image.
+	(check_progress_sync),
+	(transform_progress_hook_sync): New functions.
+	(image_transform): Register progress hooks on image transformation.
+	(eog_image_transform): Init progress check function.
+
+	* libeog/eog-transform.[ch] (eog_transform_apply): Added callback
+	function, which is called in intervalls to update progress status.
+
+	* shell/eog-window.c (eog_window_construct): Put progressbar on statusbar.
+	(check_for_control_properties),
+	(property_changed_cb): Handle progress property.
+
+	* viewer/eog-image-view.c (image_progress_cb): New functin.
+	(load_uri_cb): Connect to object's progress signal.
+	(eog_image_view_construct): Register "image/progress" property.
+
 2003-05-27  Abel Cheung  <maddog@linux.org.hk>
 
 	* eog.schemas.in: Fix description typo.

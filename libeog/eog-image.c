@@ -31,7 +31,8 @@ enum {
 	EOG_IMAGE_LOAD_STATUS_FAILED   = 1 << 3,
 	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4,
 	EOG_IMAGE_LOAD_STATUS_INFO_DONE = 1 << 5,
-	EOG_IMAGE_LOAD_STATUS_TRANSFORMED = 1 << 6
+	EOG_IMAGE_LOAD_STATUS_TRANSFORMED = 1 << 6,
+	EOG_IMAGE_LOAD_STATUS_PROGRESS = 1 << 7
 };
 
 struct _EogImagePrivate {
@@ -59,6 +60,8 @@ struct _EogImagePrivate {
 	GMutex *status_mutex;
 	gint load_status;
 	gboolean cancel_loading;
+	float progress; /* Range from [0.0...1.0] indicate the progress of 
+			   actions in percent */
 
 	/* data which depends on the load status */
 	int update_x1;
@@ -80,6 +83,7 @@ enum {
 	SIGNAL_LOADING_INFO_FINISHED,
 	SIGNAL_LOADING_FAILED,
 	SIGNAL_LOADING_CANCELLED,
+	SIGNAL_PROGRESS,
 	SIGNAL_IMAGE_CHANGED,
 	SIGNAL_THUMBNAIL_FINISHED,
 	SIGNAL_THUMBNAIL_FAILED,
@@ -442,6 +446,15 @@ eog_image_class_init (EogImageClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
+	eog_image_signals [SIGNAL_PROGRESS] = 
+		g_signal_new ("progress",
+			      G_TYPE_OBJECT,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, progress),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__FLOAT,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_FLOAT);
 	eog_image_signals [SIGNAL_IMAGE_CHANGED] = 
 		g_signal_new ("image_changed",
 			      G_TYPE_OBJECT,
@@ -552,6 +565,7 @@ check_load_status (gpointer data)
 	int load_status;
 	int x, y, width, height;
 	gboolean call_again = TRUE;
+	float progress;
 
 	img = EOG_IMAGE (data);
 	priv = img->priv;
@@ -566,6 +580,7 @@ check_load_status (gpointer data)
 	y = priv->update_y1;
 	width = priv->update_x2 - x;
 	height = priv->update_y2 - y;
+	progress = priv->progress;
 
 	priv->load_status = 0;
 	priv->update_x1 = 10000;
@@ -574,7 +589,7 @@ check_load_status (gpointer data)
 	priv->update_y2 = 0;
 
 	g_mutex_unlock (priv->status_mutex);
-	
+
 	if ((load_status & EOG_IMAGE_LOAD_STATUS_FAILED) > 0) {
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 0, priv->error_message);
 		call_again = FALSE;
@@ -608,6 +623,10 @@ check_load_status (gpointer data)
 		call_again = FALSE;
 	}
 
+ 	if ((load_status & EOG_IMAGE_LOAD_STATUS_PROGRESS) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_PROGRESS], 0, progress);
+	}
+
 	if (call_again) {
 		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
 	}
@@ -618,6 +637,23 @@ check_load_status (gpointer data)
 	return FALSE;
 }
 
+
+static void
+transform_progress_hook_async (EogTransform *trans, float progress, gpointer hook_data)
+{
+	EogImage *img;
+	EogImagePrivate *priv;
+
+	img = EOG_IMAGE(hook_data);
+	priv = img->priv;
+
+	if (progress != priv->progress) {
+		g_mutex_lock (priv->status_mutex);
+		priv->progress = progress;
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_PROGRESS;
+		g_mutex_unlock (priv->status_mutex);		
+	}
+}
 
 static void 
 load_area_updated (GdkPixbufLoader *loader, gint x, gint y, gint width, gint height, gpointer data)
@@ -801,10 +837,12 @@ real_image_load (gpointer data)
 	EogImage *img;
 	EogImagePrivate *priv;
 	GdkPixbufLoader *loader;
+	GnomeVFSFileInfo *info;
 	GnomeVFSResult result;
 	GnomeVFSHandle *handle;
 	guchar *buffer;
 	GnomeVFSFileSize bytes_read;
+	GnomeVFSFileSize bytes_read_total;
 	gboolean failed;
 	GError *error = NULL;
 #if HAVE_EXIF
@@ -835,6 +873,25 @@ real_image_load (gpointer data)
 
 		return NULL;
 	}
+
+	/* determine file size */
+	/* FIXME: we should reuse the values gained in eog_image_load here */
+	info = gnome_vfs_file_info_new ();
+	result = gnome_vfs_get_file_info_uri (priv->uri,
+					      info,
+					      GNOME_VFS_FILE_INFO_DEFAULT);
+	if ((result != GNOME_VFS_OK) || (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) == 0) {
+		g_mutex_lock (priv->status_mutex);
+		priv->load_status |= EOG_IMAGE_LOAD_STATUS_FAILED;
+		priv->error_message = (char*) gnome_vfs_result_to_string (result);
+		g_mutex_unlock (priv->status_mutex);
+
+		gnome_vfs_file_info_unref (info);
+
+		return NULL;
+	}
+	bytes_read_total = 0;
+	priv->progress = 0.0;
 	
 	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
 	loader = gdk_pixbuf_loader_new ();
@@ -848,8 +905,10 @@ real_image_load (gpointer data)
 		g_signal_connect_object (G_OBJECT (loader), "area-updated", (GCallback) load_area_updated, img, 0);
 		g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
 	}
-	
+
 	while (!priv->cancel_loading) {
+		float new_progress;
+		
 		result = gnome_vfs_read (handle, buffer, READ_BUFFER_SIZE, &bytes_read);
 		if (result == GNOME_VFS_ERROR_EOF || bytes_read == 0) {
 			break;
@@ -863,6 +922,14 @@ real_image_load (gpointer data)
 			failed = TRUE;
 			break;
 		}
+
+		bytes_read_total += bytes_read;
+		new_progress = (float) bytes_read_total / (float) info->size;
+		if (priv->progress != new_progress) {
+			priv->progress = new_progress;
+			priv->load_status |= EOG_IMAGE_LOAD_STATUS_PROGRESS;
+		}
+
 #if HAVE_EXIF
 		if (exif_loader_write (eld, buffer, bytes_read)) {
 			g_mutex_lock (img->priv->status_mutex);
@@ -878,6 +945,7 @@ real_image_load (gpointer data)
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
+	gnome_vfs_file_info_unref (info);
 	
 	if (failed) {
 		g_mutex_lock (priv->status_mutex);
@@ -886,6 +954,7 @@ real_image_load (gpointer data)
 			priv->image = NULL;
 		}
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_FAILED;
+		priv->progress = 0.0;
 		
 		if (error != NULL) {
 			priv->error_message = g_strdup (error->message);
@@ -902,6 +971,7 @@ real_image_load (gpointer data)
 			priv->image = NULL;
 		}
 		priv->cancel_loading = TRUE;
+		priv->progress = 0.0;
 
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_CANCELLED;
 		g_mutex_unlock (priv->status_mutex);
@@ -918,18 +988,19 @@ real_image_load (gpointer data)
 		
 		if (image == NULL) {
 			image = gdk_pixbuf_loader_get_pixbuf (loader);
+			g_object_ref (image);
 		}
 		g_assert (image != NULL);
-		g_object_ref (image);
-
+		
 		if (trans != NULL) {
-			transformed = eog_transform_apply (trans, image);
+			transformed = eog_transform_apply (trans, image, transform_progress_hook_async, img);
+
 			g_object_unref (image);
 			image = transformed;
 		}
 
 		g_mutex_lock (priv->status_mutex);
-		g_object_unref (priv->image);
+		priv->progress = 1.0;
 		priv->image = image;
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
@@ -939,7 +1010,6 @@ real_image_load (gpointer data)
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
 		g_mutex_unlock (priv->status_mutex);
 	}
-
 
 #if HAVE_EXIF
 	if (eld->buffer_data != NULL)
@@ -1108,6 +1178,31 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 	*height = priv->height;
 }
 
+static gboolean
+check_progress_sync (gpointer data)
+{
+	g_signal_emit (G_OBJECT (data), eog_image_signals [SIGNAL_PROGRESS], 0, EOG_IMAGE (data)->priv->progress);
+	
+	return TRUE;
+}
+
+static void
+transform_progress_hook_sync (EogTransform *trans, float progress, gpointer hook_data)
+{
+	EogImagePrivate *priv;
+
+	priv = EOG_IMAGE (hook_data)->priv;
+
+	if (progress != priv->progress) {
+		
+		priv->progress = progress;
+
+		if (gtk_events_pending ()) {
+			gtk_main_iteration ();
+		}
+	}
+}
+
 static void
 image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 {
@@ -1121,7 +1216,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 	priv = img->priv;
 
 	if (priv->image != NULL) {
-		transformed = eog_transform_apply (trans, priv->image);
+		transformed = eog_transform_apply (trans, priv->image, transform_progress_hook_sync, img);
 		
 		g_object_unref (priv->image);
 		priv->image = transformed;
@@ -1130,7 +1225,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 	}
 
 	if (priv->thumbnail != NULL) {
-		transformed = eog_transform_apply (trans, priv->thumbnail);
+		transformed = eog_transform_apply (trans, priv->thumbnail, transform_progress_hook_sync, img);
 
 		g_object_unref (priv->thumbnail);
 		priv->thumbnail = transformed;
@@ -1162,10 +1257,19 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 	}
 }
 
+
 void                
 eog_image_transform (EogImage *img, EogTransform *trans)
 {
+	gint signal_id;
+
+	signal_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_progress_sync, img);
+
 	image_transform (img, trans, FALSE);
+
+	g_source_remove (signal_id);
+
+	g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_PROGRESS], 0, 1.0);
 }
 
 void 

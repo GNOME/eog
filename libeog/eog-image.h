@@ -50,6 +50,7 @@ struct _EogImageClass {
 	void (* loading_failed) (EogImage *img, const char* message);
 	void (* loading_cancelled) (EogImage *img);
 	void (* loading_info_finished) (EogImage *img);
+	void (* progress) (EogImage *img, float progress);
 	
 	void (* thumbnail_finished) (EogImage *img);
 	void (* thumbnail_failed) (EogImage *img);

@@ -1,6 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
+#include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
 #include <libart_lgpl/art_affine.h>
 #include "eog-transform.h"
@@ -46,7 +47,7 @@ GNOME_CLASS_BOILERPLATE (EogTransform,
 
 
 GdkPixbuf*    
-eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf)
+eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogProgressHook hook, gpointer hook_data)
 {
 	ArtPoint dest_top_left;
 	ArtPoint dest_bottom_right;
@@ -73,6 +74,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf)
 	guchar *dest_pos;
 	int dx, dy, sx, sy;
 	int i, x, y;
+	float progress = 0.0;
 
 	g_return_val_if_fail (pixbuf != NULL, NULL);
 
@@ -130,7 +132,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf)
 	inverted[4] = -trans->priv->affine[4] * inverted[0] - trans->priv->affine[5] * inverted[2];
 	inverted[5] = -trans->priv->affine[4] * inverted[1] - trans->priv->affine[5] * inverted[3];
 
-	/* for every destination pixel compute the source one and copy the
+	/* for every destination pixel (dx,dy) compute the source pixel (sx, sy) and copy the
 	   color values */
 	for (y = 0; y < dest_height; y++) {
 		for (x = 0; x < dest_width; x++) {
@@ -149,6 +151,11 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf)
 					dest_pos[i] = src_pos[i];
 				}
 			}
+		}
+
+		if (hook != NULL) {
+			progress = (float) (y + 1.0) / (float) dest_height;
+			(*hook) (trans, progress, hook_data);
 		}
 	}
 
