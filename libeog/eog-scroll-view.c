@@ -116,6 +116,34 @@ GNOME_CLASS_BOILERPLATE (EogScrollView,
         util functions 
   ---------------------------------*/
 
+static void
+free_image_resources (EogScrollView *view)
+{
+	EogScrollViewPrivate *priv;
+	int i;
+	
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	priv = view->priv;
+	
+	for (i = 0; i < 5; i++) {
+		if (priv->image_cb_ids[i] > 0 ) {
+			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_cb_ids[i]);
+			priv->image_cb_ids[i] = 0;
+		}
+	}
+
+	if (priv->image != NULL) {
+		g_object_unref (priv->image);
+		priv->image = NULL;
+	}
+	
+	if (priv->pixbuf != NULL) {
+		g_object_unref (priv->pixbuf);
+		priv->pixbuf = NULL;
+	}
+}
+
 /* Computes the size in pixels of the scaled image */
 static void
 compute_scaled_size (EogScrollView *view, double zoom, int *width, int *height)
@@ -1711,7 +1739,6 @@ eog_scroll_view_get_zoom (EogScrollView *view)
 	return view->priv->zoom;
 }
 
-
 void 
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {
@@ -1730,20 +1757,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	}
 	
 	if (priv->image != NULL) {
-		int i;
-		for (i = 0; i < 5; i++) {
-			if (priv->image_cb_ids[i] > 0 ) {
-				g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_cb_ids[i]);
-			}
-		}
-		g_object_unref (priv->image);
-		priv->image = NULL;
-		
-		if (priv->pixbuf != NULL) {
-			g_object_unref (priv->pixbuf);
-			priv->pixbuf = NULL;
-		}
-
+		free_image_resources (view);
 		if (GTK_WIDGET_DRAWABLE (priv->display) && image == NULL) {
 			gdk_window_clear (GTK_WIDGET (priv->display)->window);
 		}
@@ -1828,19 +1842,13 @@ eog_scroll_view_instance_init (EogScrollView *view)
 static void
 eog_scroll_view_dispose (GObject *object)
 {
-	EogScrollViewPrivate *priv;
+	EogScrollView *view;
 
-	priv = EOG_SCROLL_VIEW (object)->priv;
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (object));
 
-	if (priv->pixbuf != NULL) {
-		gdk_pixbuf_unref (priv->pixbuf);
-		priv->pixbuf = NULL;
-	}
-
-	if (priv->image != NULL) {
-		g_object_unref (priv->image);
-		priv->image = NULL;
-	}
+	view = EOG_SCROLL_VIEW (object);
+	
+	free_image_resources (view);
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }

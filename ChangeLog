@@ -1,5 +1,13 @@
 2003-03-03  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-scroll-view.c (free_image_resources): New function
+	which cleans up all resources related to the viewed image.
+	(eog_scroll_view_set_image): Call free_image_resources if there
+	has been an image loaded already.
+	(eog_scroll_view_dispose): Call free_image_resources.
+
+2003-03-03  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image.c (dispatch_image_finished): Unref image.
 	(add_image_to_queue): Ref image before putting it into the queue.
 	(eog_image_new_uri),
