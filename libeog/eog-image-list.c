@@ -49,6 +49,7 @@ enum {
 };
 static guint eog_image_list_signals[LAST_SIGNAL];
 
+static GSList *supported_mime_types = NULL;
 
 /* ====================================================== */
 /*               Cache Area                               */
@@ -245,6 +246,65 @@ add_image_private (EogImageList *list, EogImage *image, gboolean sorted) {
 	priv->n_images++;
 }
 
+static gint
+compare_quarks (gconstpointer a, gconstpointer b)
+{
+	return GPOINTER_TO_INT (a) - GPOINTER_TO_INT (b);
+}
+
+/* Creates a list of Quarks which represent all mime types supported
+ * by GdkPixbuf at the moment */
+static GSList*
+get_supported_mime_types (void)
+{
+	GSList *format_list;
+	GSList *it;
+	GSList *list = NULL;
+	gchar **mime_types;
+	int i;
+	
+	format_list = gdk_pixbuf_get_formats ();
+
+	for (it = format_list; it != NULL; it = it->next) {
+		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
+
+		for (i = 0; mime_types[i] != NULL; i++) {
+			GQuark quark;
+
+			quark = g_quark_from_string (mime_types[i]);
+			list = g_slist_prepend (list,
+						GINT_TO_POINTER (quark));
+		}
+
+		g_strfreev (mime_types);
+	}
+
+	list = g_slist_sort (list, (GCompareFunc) compare_quarks);
+	
+	g_slist_free (format_list);
+
+	return list;
+}
+
+/* checks if the mime type is in our static list of 
+ * supported mime types.
+ */
+static gboolean 
+is_supported_mime_type (const char *mime_type) 
+{
+	GQuark quark;
+	GSList *result;
+
+	if (supported_mime_types == NULL) {
+		supported_mime_types = get_supported_mime_types ();
+	}
+
+	quark = g_quark_from_string (mime_type);
+	
+	result = g_slist_find (supported_mime_types, GINT_TO_POINTER (quark));
+
+	return (result != NULL);
+}
 
 /* ================== Directory Loading stuff ===================*/
 
@@ -271,7 +331,7 @@ directory_visit_cb (const gchar *rel_uri,
 	priv = list->priv;
 
 	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0) {
-		if (g_strncasecmp (info->mime_type, "image/", 6) == 0) {
+		if (is_supported_mime_type (info->mime_type)) {
 			load_uri = TRUE;
 		}
 	}

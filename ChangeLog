@@ -1,5 +1,13 @@
 2003-12-21  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-image-list.c (compare_quarks),
+	(get_supported_mime_types), (is_supported_mime_type): New
+	functions.
+	(directory_visit_cb): Put only images into the list, which are
+	actually supported by GdkPixbuf.
+
+2003-12-21  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-file-selection.c (eog_file_selection_add_filter): 
 	Added filter which displays 'All Files'.
 
