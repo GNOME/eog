@@ -116,12 +116,17 @@ create_thumbnails (gpointer data)
 	char *uri_str = NULL;
 	char *path = NULL;
 	gboolean finished = FALSE;
+	gboolean create_thumb = FALSE;
+	GnomeVFSFileInfo *info;
+	GnomeVFSResult result;
+	GnomeThumbnailFactory *factory;
 
 #if DEBUG_ASYNC
 	g_print ("*** Start thread ***\n");
 #endif	
 
 	while (!finished) {
+	        create_thumb = FALSE;
 
 		/* get next image to process */
 		g_static_mutex_lock (&jobs_mutex);
@@ -132,63 +137,80 @@ create_thumbnails (gpointer data)
 		g_static_mutex_unlock (&jobs_mutex);
 
 		/* thumbnail loading/creation  */
-
 		priv = image->priv;
 
-		uri_str = gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE);
-#if THUMB_DEBUG
-		g_message ("uri:  %s", uri_str);
-#endif
-		path = gnome_thumbnail_path_for_uri (uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
-
-#if THUMB_DEBUG
-		g_message ("thumb path: %s", path);
-#endif
-		
-		if (g_file_test (path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)) {
-			priv->thumbnail = gdk_pixbuf_new_from_file (path, NULL);
+		if (priv->thumbnail != NULL) {
+			g_object_unref (priv->thumbnail);
+			priv->thumbnail = NULL;
 		}
-		else {
-			GnomeThumbnailFactory *factory;
-			GnomeVFSFileInfo *info;
-			GnomeVFSResult result;
-			
-			info = gnome_vfs_file_info_new ();
-			result = gnome_vfs_get_file_info_uri (priv->uri, info, 
-							      GNOME_VFS_FILE_INFO_DEFAULT |
-							      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-			
-			if (result == GNOME_VFS_OK &&
-			    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) != 0 &&
-			    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) != 0) 
-			{
+
+		uri_str = gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE);
+		info = gnome_vfs_file_info_new ();
+		result = gnome_vfs_get_file_info_uri (priv->uri, info, 
+						      GNOME_VFS_FILE_INFO_DEFAULT |
+						      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+
+		if (result == GNOME_VFS_OK &&
+		    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) != 0 &&
+		    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) != 0) 
+		{
+			path = gnome_thumbnail_path_for_uri (uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
+
+			if (g_file_test (path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)) {
+				priv->thumbnail = gdk_pixbuf_new_from_file (path, NULL);
+
+				if (!gnome_thumbnail_is_valid (priv->thumbnail, uri_str, info->mtime)) {
+					g_object_unref (priv->thumbnail);
+					priv->thumbnail = NULL;
+					create_thumb = TRUE;
 #if THUMB_DEBUG
-				g_print ("uri: %s, mtime: %i, mime_type %s\n", uri_str, info->mtime, info->mime_type);
+					g_print ("uri: %s, thumbnail is invalid\n", uri_str);
 #endif
-				
-				factory = gnome_thumbnail_factory_new (GNOME_THUMBNAIL_SIZE_NORMAL);
-				
-				if (!gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, uri_str, info->mtime) &&
-				    gnome_thumbnail_factory_can_thumbnail (factory, uri_str, info->mime_type, info->mtime)) 
-				{
-					priv->thumbnail = gnome_thumbnail_factory_generate_thumbnail (factory, uri_str, info->mime_type);
-					
-					if (priv->thumbnail != NULL) {
-						gnome_thumbnail_factory_save_thumbnail (factory, priv->thumbnail, uri_str, info->mtime);
-					}
 				}
-				
-				g_object_unref (factory);
 			}
 			else {
 #if THUMB_DEBUG
-				g_print ("uri: %s vfs errror: %s\n", uri_str, gnome_vfs_result_to_string (result));
+				g_print ("uri: %s, has no thumbnail file\n", uri_str);
 #endif
+				create_thumb = TRUE;
+			}
+		}
+		else {
+#if THUMB_DEBUG
+			g_print ("uri: %s vfs errror: %s\n", uri_str, gnome_vfs_result_to_string (result));
+#endif
+		}
+
+		if (create_thumb) {
+
+			g_assert (path != NULL);
+			g_assert (info != NULL);
+			g_assert ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) != 0);
+			g_assert ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) != 0);
+			g_assert (priv->thumbnail == NULL);
+		
+#if THUMB_DEBUG
+			g_print ("create thumbnail for uri: %s\n -> mtime: %i\n -> mime_type; %s\n -> thumbpath: %s\n", 
+				 uri_str, info->mtime, info->mime_type, path);
+#endif
+	
+			factory = gnome_thumbnail_factory_new (GNOME_THUMBNAIL_SIZE_NORMAL);
+	
+			if (!gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, uri_str, info->mtime) &&
+			    gnome_thumbnail_factory_can_thumbnail (factory, uri_str, info->mime_type, info->mtime)) 
+			{
+				priv->thumbnail = gnome_thumbnail_factory_generate_thumbnail (factory, uri_str, info->mime_type);
+				
+				if (priv->thumbnail != NULL) {
+					gnome_thumbnail_factory_save_thumbnail (factory, priv->thumbnail, uri_str, info->mtime);
+				}
 			}
 			
-			gnome_vfs_file_info_unref (info);
+			g_object_unref (factory);
+			
 		}
 		
+		gnome_vfs_file_info_unref (info);
 		g_free (uri_str);
 		g_free (path);
 		
