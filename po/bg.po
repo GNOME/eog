@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-26 06:03+0200\n"
+"POT-Creation-Date: 2002-07-24 12:16-0500\n"
 "PO-Revision-Date: 2002-06-26 06:05+0200\n"
 "Last-Translator: Borislav Aleksandrov <B.Aleksandrov@cnsys.bg>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
@@ -14,15 +14,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: collection/GNOME_EOG_Collection.server.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection"
 msgstr "Колекция Картинки на EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "Програма за преглед на Колекция с Картинки на EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "Фабрика за преглед на Колекция с Картинки на EOG"
 
@@ -34,24 +34,24 @@ msgstr "Програма за преглед на картинки 'Eye' на Г
 msgid "View many different types of images"
 msgstr "Преглед на различни типове картинки"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "EOG Картинка"
 
-#: libeog/GNOME_EOG.server.in.h:2
+#: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG Програма за преглед на Картинка"
 
-#: libeog/GNOME_EOG.server.in.h:3
+#: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Фабрика за Преглд на Картинки EOG"
 
-#: libeog/GNOME_EOG.server.in.h:4
+#: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Вградена EOG Картинка"
 
 #. Second page
-#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Картинка"
 
@@ -83,18 +83,75 @@ msgstr "трептене"
 msgid "dither type"
 msgstr "тип на трептене"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
 msgstr ""
-"Не мога да покажа помощ на диалога за настройки.\n"
-"%s"
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Настройки за 'Eye' на Гноме"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr ""
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr ""
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr ""
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr ""
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr ""
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr ""
+
+#: libeog/eog-file-selection.c:260
+#, fuzzy
+msgid "Load Image"
+msgstr "Картинка"
+
+#: libeog/eog-file-selection.c:265
+#, fuzzy
+msgid "Save Image"
+msgstr "Отваря Картинка"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -105,86 +162,74 @@ msgid "Cancel"
 msgstr "Прекъсва"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Промяна на настройки"
-
-#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Затваря"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "Зарваря прозорец"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "Съдържания"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Помощ на това приложение"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "Отваря"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Отваря файл"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Отваря нов прозорец"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "Отваря в нов прозорец"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "Отваря в този прозорец"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Напуска програмата"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_Относно"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "_Затваря"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Редактиране"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_Файл"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_Помощ"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Нов Прозорец"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "_Отваря..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "_Настройки..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "_Напуска"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Преглед"
 
@@ -192,23 +237,23 @@ msgstr "_Преглед"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:249
+#: shell/eog-window.c:204
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Борислав Александров"
 
-#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:209 shell/eog-window.c:596 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye на Гноме"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:211
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:257
+#: shell/eog-window.c:212
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Програма за преглед и коталогизиране на картинки на ГНОМЕ"
 
-#: shell/eog-window.c:294
+#: shell/eog-window.c:249
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -217,11 +262,7 @@ msgstr ""
 "Не мога да покажа помощ за 'Eye' на Гноме.\n"
 "%s"
 
-#: shell/eog-window.c:809
-msgid "Open Image"
-msgstr "Отваря Картинка"
-
-#: shell/eog-window.c:1270
+#: shell/eog-window.c:1228
 #, c-format
 msgid "Unable to open %s."
 msgstr "Не мога да отворя %s."
@@ -274,11 +315,11 @@ msgstr ""
 "достъп до тях:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Не мога да инициализирам GnomeVFS!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Не мога да инициализирам Bonobo!\n"
 
@@ -331,11 +372,11 @@ msgstr "Тип на _маркер"
 msgid "Full Screen"
 msgstr "Пълен Екран"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Голям"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "Среден"
 
@@ -367,7 +408,7 @@ msgstr "Печат на картинка на принтер"
 msgid "Setup the page settings for your current printer"
 msgstr "Настройка на страницата за вашият текущ принтер"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "Малко"
 
@@ -424,91 +465,79 @@ msgid "_Save As..."
 msgstr "_запазва Като..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Заглавия"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_Бяло"
 
-#: viewer/eog-image-view.c:360
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не мога да запазя картинка като '%s': %s."
 
-#: viewer/eog-image-view.c:411
-msgid "Save As"
-msgstr "Запазва Като"
-
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Печат на Картинка"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Страници"
 
-#: viewer/eog-image-view.c:1081
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Преглед преди Печат"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Печатането на картинката не е успешно"
 
-#: viewer/eog-image-view.c:1921
-msgid "Display"
-msgstr "Показва"
-
-#: viewer/eog-image-view.c:2106
+#: viewer/eog-image-view.c:2048
 msgid "/Zoom _In"
 msgstr "/Мащаб _Увеличава"
 
-#: viewer/eog-image-view.c:2108
+#: viewer/eog-image-view.c:2050
 msgid "/Zoom _Out"
 msgstr "/Мащаб _Намалява"
 
-#: viewer/eog-image-view.c:2110
+#: viewer/eog-image-view.c:2052
 msgid "/Zoom _1:1"
 msgstr "/Мащаб _1:1"
 
-#: viewer/eog-image-view.c:2112
+#: viewer/eog-image-view.c:2054
 msgid "/Zoom to _Fit"
 msgstr "/Мащаб до _Изпълване"
 
-#: viewer/eog-image-view.c:2115
+#: viewer/eog-image-view.c:2057
 msgid "/_Close"
 msgstr "/_Затваря"
 
-#: viewer/eog-image-view.c:2230
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Интерполация"
 
-#: viewer/eog-image-view.c:2233
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "Смесване"
 
-#: viewer/eog-image-view.c:2236
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Тип ма Маркер"
 
-#: viewer/eog-image-view.c:2239
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Размер на Маркер"
 
-#: viewer/eog-image-view.c:2242
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "Ширина на картинка"
 
-#: viewer/eog-image-view.c:2245
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "Височина на Картинка"
 
-#: viewer/eog-image-view.c:2248
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Заглавие на прозорец"
 
-#: viewer/eog-image-view.c:2251
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Текстови низ за състояние"
 
@@ -684,70 +713,81 @@ msgstr "Долу, след това в дясно"
 msgid "Right, then down"
 msgstr "Дясно, след това долу"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Интерполация до най-близкия съсед"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Не мога да покажа помощ на диалога за настройки.\n"
+#~ "%s"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "Интерполация на елементи"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Настройки за 'Eye' на Гноме"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Билинеарна Интерполация"
+#~ msgid "Change preferences"
+#~ msgstr "Промяна на настройки"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Хиперболична Интерполация"
+#~ msgid "_Edit"
+#~ msgstr "_Редактиране"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Без смесване"
+#~ msgid "_Preferences..."
+#~ msgstr "_Настройки..."
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "Нормално (псевдоцвят) смесване"
+#~ msgid "_Tiles"
+#~ msgstr "_Заглавия"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Максимум (многоцветно) смесване"
+#~ msgid "Save As"
+#~ msgstr "Запазва Като"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "Тъмно"
+#~ msgid "Display"
+#~ msgstr "Показва"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Полутон"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Интерполация до най-близкия съсед"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "Светло"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "Интерполация на елементи"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "Черно"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Билинеарна Интерполация"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Сиво"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Хиперболична Интерполация"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "Бяло"
+#~ msgid "No dithering"
+#~ msgstr "Без смесване"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Интерполация:"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Нормално (псевдоцвят) смесване"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "_Смесване:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Максимум (многоцветно) смесване"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "_Тип на маркер:"
+#~ msgid "Dark"
+#~ msgstr "Тъмно"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "Размер на _маркер:"
+#~ msgid "Midtone"
+#~ msgstr "Полутон"
+
+#~ msgid "Light"
+#~ msgstr "Светло"
+
+#~ msgid "Black"
+#~ msgstr "Черно"
+
+#~ msgid "Gray"
+#~ msgstr "Сиво"
+
+#~ msgid "White"
+#~ msgstr "Бяло"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Интерполация:"
+
+#~ msgid "_Dither:"
+#~ msgstr "_Смесване:"
+
+#~ msgid "Check _type:"
+#~ msgstr "_Тип на маркер:"
+
+#~ msgid "Check _size:"
+#~ msgstr "Размер на _маркер:"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0.1\n"
-"POT-Creation-Date: 2002-06-27 04:48+0800\n"
+"POT-Creation-Date: 2002-07-24 12:16-0500\n"
 "PO-Revision-Date: 2002-06-27 04:48+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -14,15 +14,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: collection/GNOME_EOG_Collection.server.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection"
 msgstr "EOG 圖像集"
 
-#: collection/GNOME_EOG_Collection.server.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "EOG 圖像集瀏覽程式"
 
-#: collection/GNOME_EOG_Collection.server.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "EOG 圖像集瀏覽程式工廠"
 
@@ -35,25 +35,25 @@ msgid "View many different types of images"
 msgstr "瀏覽不同種類的圖像"
 
 # src/window.c:704
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "EOG 圖像"
 
-#: libeog/GNOME_EOG.server.in.h:2
+#: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG 圖像瀏覽程式"
 
-#: libeog/GNOME_EOG.server.in.h:3
+#: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG 圖像瀏覽程式工廠"
 
-#: libeog/GNOME_EOG.server.in.h:4
+#: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "可嵌入式 EOG 圖像"
 
 # src/window.c:704
 #. Second page
-#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "圖像"
 
@@ -90,21 +90,77 @@ msgstr "擬色(dither)"
 msgid "dither type"
 msgstr "擬色方式"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
 msgstr ""
-"無法顯示有關偏好設定對話窗的說明文件。\n"
-"%s"
 
-# src/window.c:162
-# src/window.c:573
-# src/window.c:812
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome 偏好設定"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr ""
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr ""
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr ""
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr ""
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr ""
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr ""
+
+# src/window.c:704
+#: libeog/eog-file-selection.c:260
+#, fuzzy
+msgid "Load Image"
+msgstr "圖像"
+
+# src/window.c:704
+#: libeog/eog-file-selection.c:265
+#, fuzzy
+msgid "Save Image"
+msgstr "開啟圖像"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -114,101 +170,87 @@ msgstr "關於此應用程式"
 msgid "Cancel"
 msgstr "取消"
 
-# src/preferences.c:219
-#: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "更改偏好設定"
-
 # src/tb-image.c:35
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:3
 msgid "Close"
 msgstr "關閉"
 
 # src/window.c:186
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "關閉視窗"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "內容"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "關於此應用程式的說明"
 
 # src/tb-image.c:33
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "開啟"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "開啟檔案"
 
 # src/preferences-dialog.glade.h:38
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "開啟新視窗"
 
 # src/preferences-dialog.glade.h:38
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "在新視窗中開啟"
 
 # src/preferences-dialog.glade.h:38
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "在此視窗中開啟"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "離開此程式"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "關於(_A)"
 
 # src/tb-image.c:35
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "關閉(_C)"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "編輯(_E)"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "說明(_H)"
 
 # src/preferences-dialog.glade.h:32
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "新增視窗(_N)"
 
 # src/window.c:181
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "開啟(_O)..."
 
-# src/preferences.c:219
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "偏好設定(_P)..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "離開(_Q)"
 
 # src/preferences-dialog.glade.h:49
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "瀏覽(_V)"
 
@@ -216,7 +258,7 @@ msgstr "瀏覽(_V)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:238
+#: shell/eog-window.c:204
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Abel Cheung <maddog@linux.org.hk>, 2001-2002\n"
@@ -225,21 +267,21 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
+#: shell/eog-window.c:209 shell/eog-window.c:596 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 # src/window.c:164
-#: shell/eog-window.c:245
+#: shell/eog-window.c:211
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
 
 # src/window.c:166
-#: shell/eog-window.c:246
+#: shell/eog-window.c:212
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖像瀏覽及分類程式。"
 
-#: shell/eog-window.c:283
+#: shell/eog-window.c:249
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -248,12 +290,7 @@ msgstr ""
 "無法顯示 Eye of Gnome 的說明文件。\n"
 "%s"
 
-# src/window.c:704
-#: shell/eog-window.c:798
-msgid "Open Image"
-msgstr "開啟圖像"
-
-#: shell/eog-window.c:1257
+#: shell/eog-window.c:1228
 #, c-format
 msgid "Unable to open %s."
 msgstr "無法開啟 %s。"
@@ -373,11 +410,11 @@ msgstr "方格類型(_T)"
 msgid "Full Screen"
 msgstr "全螢幕"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "大"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "中"
 
@@ -411,7 +448,7 @@ msgstr "在印表機列印圖像"
 msgid "Setup the page settings for your current printer"
 msgstr "更改目前印表機的頁面設定"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "小"
 
@@ -471,105 +508,92 @@ msgid "_Save As..."
 msgstr "另存新檔(_S)..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "區塊(_T)"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "白色(_W)"
 
-#: viewer/eog-image-view.c:360
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "無法將圖像儲存為‘%s’：%s。"
 
-#: viewer/eog-image-view.c:411
-msgid "Save As"
-msgstr "另存新檔"
-
 # src/window.c:704
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "列印圖像"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "頁"
 
-#: viewer/eog-image-view.c:1081
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "列印預覽"
 
 # src/tb-image.c:33
 # src/window.c:181
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "列印圖像失敗"
 
-# src/preferences-dialog.glade.h:31
-#: viewer/eog-image-view.c:1921
-msgid "Display"
-msgstr "顯示"
-
 # src/window.c:221
-#: viewer/eog-image-view.c:2106
+#: viewer/eog-image-view.c:2048
 msgid "/Zoom _In"
 msgstr "/拉近(_I)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:2108
+#: viewer/eog-image-view.c:2050
 msgid "/Zoom _Out"
 msgstr "/拉遠(_O)"
 
 # src/window.c:229
-#: viewer/eog-image-view.c:2110
+#: viewer/eog-image-view.c:2052
 msgid "/Zoom _1:1"
 msgstr "/原來大小(_1)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:2112
+#: viewer/eog-image-view.c:2054
 msgid "/Zoom to _Fit"
 msgstr "/符合視窗尺寸(_F)"
 
 # src/tb-image.c:35
-#: viewer/eog-image-view.c:2115
+#: viewer/eog-image-view.c:2057
 msgid "/_Close"
 msgstr "/關閉(_C)"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/eog-image-view.c:2230
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "插值法(Interpolation)"
 
 # src/preferences-dialog.glade.h:26
-#: viewer/eog-image-view.c:2233
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "擬色(Dither)"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:2236
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "方格類型"
 
 # src/preferences-dialog.glade.h:9
-#: viewer/eog-image-view.c:2239
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "方格大小"
 
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:2242
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:2245
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:2248
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "視窗標題"
 
-#: viewer/eog-image-view.c:2251
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "狀態列文字"
 
@@ -745,82 +769,99 @@ msgstr "向下，然後向右"
 msgid "Right, then down"
 msgstr "向右，然後向下"
 
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "無法顯示有關偏好設定對話窗的說明文件。\n"
+#~ "%s"
+
+# src/window.c:162
+# src/window.c:573
+# src/window.c:812
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Eye of Gnome 偏好設定"
+
+# src/preferences.c:219
+#~ msgid "Change preferences"
+#~ msgstr "更改偏好設定"
+
+#~ msgid "_Edit"
+#~ msgstr "編輯(_E)"
+
+# src/preferences.c:219
+#~ msgid "_Preferences..."
+#~ msgstr "偏好設定(_P)..."
+
+#~ msgid "_Tiles"
+#~ msgstr "區塊(_T)"
+
+#~ msgid "Save As"
+#~ msgstr "另存新檔"
+
+# src/preferences-dialog.glade.h:31
+#~ msgid "Display"
+#~ msgstr "顯示"
+
 # src/preferences-dialog.glade.h:21
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "最近點插值法"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "最近點插值法"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "區塊插值法"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "區塊插值法"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "雙線性插值法"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "雙線性插值法"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "雙曲線插值法"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "雙曲線插值法"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "不使用擬色"
+#~ msgid "No dithering"
+#~ msgstr "不使用擬色"
 
 # src/preferences-dialog.glade.h:27
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "正常（pseudocolor）擬色"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "正常（pseudocolor）擬色"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "最高品質（高彩）擬色"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "最高品質（高彩）擬色"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "深色"
+#~ msgid "Dark"
+#~ msgstr "深色"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "半調色"
+#~ msgid "Midtone"
+#~ msgstr "半調色"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "淺色"
+#~ msgid "Light"
+#~ msgstr "淺色"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "黑色"
+#~ msgid "Black"
+#~ msgstr "黑色"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "灰色"
+#~ msgid "Gray"
+#~ msgstr "灰色"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "白色"
+#~ msgid "White"
+#~ msgstr "白色"
 
 # src/preferences-dialog.glade.h:7
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "插值法(_I)："
+#~ msgid "_Interpolation:"
+#~ msgstr "插值法(_I)："
 
 # src/preferences-dialog.glade.h:26
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "擬色(_D)："
+#~ msgid "_Dither:"
+#~ msgstr "擬色(_D)："
 
 # src/preferences-dialog.glade.h:9
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "方格類型(_T)："
+#~ msgid "Check _type:"
+#~ msgstr "方格類型(_T)："
 
 # src/preferences-dialog.glade.h:9
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "方格大小(_S)："
+#~ msgid "Check _size:"
+#~ msgstr "方格大小(_S)："
 
 #~ msgid "scroll"
 #~ msgstr "捲動"

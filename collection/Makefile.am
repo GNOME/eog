@@ -21,6 +21,9 @@ eog-collection-view-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal c" && \
         $(GLIB_GENMARSHAL) $< --body --prefix=eog_collection_marshal > $@
 
+BUILT_SOURCES = \
+	eog-collection-view-marshal.c	\
+	eog-collection-view-marshal.h
 
 if ENABLE_EVOLUTION
 EVOLUTION_GENERATED =			\
@@ -77,5 +80,5 @@ $(EVOLUTION_GENERATED):
 	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
 endif
 
-CLEANFILES += $(EVOLUTION_GENERATED)
+CLEANFILES += $(EVOLUTION_GENERATED) $(BUILT_SOURCES)
 EXTRA_DIST = $(server_in_files)

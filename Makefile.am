@@ -2,7 +2,7 @@ if ENABLE_COLLECTION
 collection_DIRS = collection
 endif
 
-SUBDIRS = art idl libeog viewer $(collection_DIRS) shell po help omf-install 
+SUBDIRS = art idl libeog viewer $(collection_DIRS) shell po help omf-install
 DIST_SUBDIRS = $(SUBDIRS) collection
 
 EXTRA_DIST =			\

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
-"POT-Creation-Date: 2002-06-20 16:05+0200\n"
+"POT-Creation-Date: 2002-07-24 12:16-0500\n"
 "PO-Revision-Date: 2002-06-20 16:06+0200\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0beta2\n"
 
-#: collection/GNOME_EOG_Collection.server.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection"
 msgstr "Kolekcia obrázkov EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "Prehliadač kolekcie obrázkov EOG"
 
-#: collection/GNOME_EOG_Collection.server.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "Vytváracie rozhranie prehliadača kolekcie obrázkov EOG"
 
@@ -36,62 +36,124 @@ msgstr "Prehliadač obrázkov Eye of Gnome"
 msgid "View many different types of images"
 msgstr "Prehliadač pre veľa rôznych typov obrázkov"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "Obrázok EOG"
 
-#: libeog/GNOME_EOG.server.in.h:2
+#: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
 msgstr "Prehliadač obrázkov EOG"
 
-#: libeog/GNOME_EOG.server.in.h:3
+#: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "Vytváracie rozhranie prehliadača obrázkov EOG"
 
-#: libeog/GNOME_EOG.server.in.h:4
+#: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Vložiteľný obrázok EOG"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Obrázok"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "Typ interpolácie"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "použitý typ interpolácie"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "skontrolovať typ"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "použitý typ rozdelenia na štvorce"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "veľkosť použitých štvorcov"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "dithering"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "typ ditheringu"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
 msgstr ""
-"Nepodarilo sa zobraziť pomocníka pre dialóg s nastavením.\n"
-"%s"
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Nastavenie Eye of Gnome"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr ""
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr ""
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr ""
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr ""
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr ""
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr ""
+
+#: libeog/eog-file-selection.c:260
+#, fuzzy
+msgid "Load Image"
+msgstr "Obrázok"
+
+#: libeog/eog-file-selection.c:265
+#, fuzzy
+msgid "Save Image"
+msgstr "Otvoriť obrázok"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -102,86 +164,74 @@ msgid "Cancel"
 msgstr "Zrušiť"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Zmeniť nastavenie"
-
-#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Zavrieť"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "Zavrie okno"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "Obsah"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Pomocník pre túto aplikáciu"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "Otvoriť"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Otvorí súbor"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Otvoriť nové okno"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "Otvoriť v novom okne"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "Otvoriť v tomto okne"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Ukončí program"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_O programe"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "_Zavrieť"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Upraviť"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_Súbor"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Nové okno"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "_Otvoriť..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "Nas_tavenia..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "_Koniec"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Zobraziť"
 
@@ -189,23 +239,23 @@ msgstr "_Zobraziť"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:204
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:642 shell/main.c:459
+#: shell/eog-window.c:209 shell/eog-window.c:596 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:211
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:212
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program pre prehliadanie obrázkov a ich katalogizáciu pre GNOME."
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:249
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -214,11 +264,7 @@ msgstr ""
 "Nepodarilo sa zobraziť pomocníka pre Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:808
-msgid "Open Image"
-msgstr "Otvoriť obrázok"
-
-#: shell/eog-window.c:1176
+#: shell/eog-window.c:1228
 #, c-format
 msgid "Unable to open %s."
 msgstr "Nepodarilo sa otvoriť %s."
@@ -270,11 +316,11 @@ msgstr ""
 "prístup:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Nepodarilo sa inicializovať GnomeVFS\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Nepodarilo sa inicializovať Bonobo\n"
 
@@ -327,11 +373,11 @@ msgstr "Skontrolovať _typ"
 msgid "Full Screen"
 msgstr "Celá obrazovka"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Veľký"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "Stredný"
 
@@ -363,7 +409,7 @@ msgstr "Vytlačiť obrázok na tlačiarni"
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavenie stránky pre vašu aktuálnu tlačiareň"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "Malý"
 
@@ -420,75 +466,88 @@ msgid "_Save As..."
 msgstr "Uložiť _ako..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Dlaždice"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_Biela"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Nepodarilo sa uložiť obrázok ako '%s'. %s"
 
-#: viewer/eog-image-view.c:353
-msgid "Save As"
-msgstr "Uložiť ako"
-
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Tlačiť obrázok"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Stránky"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Náhľad tlače"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Tlač obrázku zlyhala"
 
-#: viewer/eog-image-view.c:1845
-msgid "Display"
-msgstr "Zobraziť"
+#: viewer/eog-image-view.c:2048
+#, fuzzy
+msgid "/Zoom _In"
+msgstr "Z_väčšiť"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2050
+#, fuzzy
+msgid "/Zoom _Out"
+msgstr "Z_menšiť"
+
+#: viewer/eog-image-view.c:2052
+#, fuzzy
+msgid "/Zoom _1:1"
+msgstr "Zobraziť 1:1"
+
+#: viewer/eog-image-view.c:2054
+#, fuzzy
+msgid "/Zoom to _Fit"
+msgstr "Pri_spôsobiť veľkosť"
+
+#: viewer/eog-image-view.c:2057
+#, fuzzy
+msgid "/_Close"
+msgstr "_Zavrieť"
+
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Interpolácia"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "Dithering"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Skontrolovať typ"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Skontrolovať veľkosť"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "Šírka obrázku"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Titulok okna"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Text stavového riadku"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Nepodarilo sa inicializovať GnomeVFS!\n"
 
@@ -583,11 +642,6 @@ msgstr "Pravý:"
 msgid "Bottom:"
 msgstr "Spodný:"
 
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Obrázok"
-
 #. Scale
 #: viewer/eog-print-setup.c:697
 msgid "Scale"
@@ -665,73 +719,84 @@ msgstr "Dolu, potom vpravo"
 msgid "Right, then down"
 msgstr "Vpravo, potom dolu"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Interpolácia najbližším susedom"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nepodarilo sa zobraziť pomocníka pre dialóg s nastavením.\n"
+#~ "%s"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "Dlaždicová interpolácia"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Nastavenie Eye of Gnome"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Bilineárna interpolácia"
+#~ msgid "Change preferences"
+#~ msgstr "Zmeniť nastavenie"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Hyperbolická interpolácia"
+#~ msgid "_Edit"
+#~ msgstr "_Upraviť"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Bez ditheringu"
+#~ msgid "_Preferences..."
+#~ msgstr "Nas_tavenia..."
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "Normálny dithering (pseudofarby)"
+#~ msgid "_Tiles"
+#~ msgstr "_Dlaždice"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Maximálny dithering (veľa farieb)"
+#~ msgid "Save As"
+#~ msgstr "Uložiť ako"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "Tmavé"
+#~ msgid "Display"
+#~ msgstr "Zobraziť"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Poltón"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Interpolácia najbližším susedom"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "Svetlé"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "Dlaždicová interpolácia"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "Čierna"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Bilineárna interpolácia"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Šedá"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Hyperbolická interpolácia"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "Biela"
+#~ msgid "No dithering"
+#~ msgstr "Bez ditheringu"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Interpolácia:"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Normálny dithering (pseudofarby)"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "_Dithering:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Maximálny dithering (veľa farieb)"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "Skontrolovať _typ:"
+#~ msgid "Dark"
+#~ msgstr "Tmavé"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "Skontrolovať _veľkosť:"
+#~ msgid "Midtone"
+#~ msgstr "Poltón"
+
+#~ msgid "Light"
+#~ msgstr "Svetlé"
+
+#~ msgid "Black"
+#~ msgstr "Čierna"
+
+#~ msgid "Gray"
+#~ msgstr "Šedá"
+
+#~ msgid "White"
+#~ msgstr "Biela"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Interpolácia:"
+
+#~ msgid "_Dither:"
+#~ msgstr "_Dithering:"
+
+#~ msgid "Check _type:"
+#~ msgstr "Skontrolovať _typ:"
+
+#~ msgid "Check _size:"
+#~ msgstr "Skontrolovať _veľkosť:"
 
 #~ msgid "scroll"
 #~ msgstr "posun"
@@ -828,4 +893,3 @@ msgstr "Skontrolovať _veľkosť:"
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye Of Gnome"
-

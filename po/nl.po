@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-26 13:00+0200\n"
+"POT-Creation-Date: 2002-07-24 12:16-0500\n"
 "PO-Revision-Date: 2002-06-26 17:23+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: collection/GNOME_EOG_Collection.server.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection"
 msgstr "EOG Afbeeldingscollectie"
 
-#: collection/GNOME_EOG_Collection.server.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "EOG Afbeeldingscollectie-weergever"
 
-#: collection/GNOME_EOG_Collection.server.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "EOG afbeeldingscollectie weergavefabriek"
 
@@ -35,24 +35,24 @@ msgstr "Eye of Gnome afbeeldingsweergever"
 msgid "View many different types of images"
 msgstr "Toont vele verschillende soorten afbeeldingen"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "EOG Afbeelding"
 
-#: libeog/GNOME_EOG.server.in.h:2
+#: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
 msgstr "EOG Afbeeldingsweergever"
 
-#: libeog/GNOME_EOG.server.in.h:3
+#: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
 msgstr "EOG afbeeldingsweergeverfabriek"
 
-#: libeog/GNOME_EOG.server.in.h:4
+#: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Ingebedde EOG Afbeelding"
 
 #. Second page
-#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Afbeelding"
 
@@ -84,18 +84,75 @@ msgstr "ditheren"
 msgid "dither type"
 msgstr "dithertype"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
 msgstr ""
-"Kon hulp voor het voorkeuren-dialoogvenster niet weergeven.\n"
-"%s"
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome Voorkeuren"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr ""
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr ""
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr ""
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr ""
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr ""
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr ""
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr ""
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr ""
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr ""
+
+#: libeog/eog-file-selection.c:260
+#, fuzzy
+msgid "Load Image"
+msgstr "Afbeelding"
+
+#: libeog/eog-file-selection.c:265
+#, fuzzy
+msgid "Save Image"
+msgstr "Afbeelding Openen"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -106,86 +163,74 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Voorkeuren veranderen"
-
-#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Sluiten"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "Venster sluiten"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "Inhoud"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Hulp bij dit programma"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "Openen"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Open een bestand"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Open een nieuw venster"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "Open in een nieuw venster"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "Open in dit venster"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Het programma afsluiten"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_Info"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "_Sluiten"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Bewerken"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_Bestand"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_Hulp"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Nieuw Venster"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "_Openen..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "_Voorkeuren..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "_Afsluiten"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Weergave"
 
@@ -193,7 +238,7 @@ msgstr "_Weergave"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:249
+#: shell/eog-window.c:204
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Henrik Goijer <henrikgoijer@home.nl>\n"
@@ -201,19 +246,19 @@ msgstr ""
 "Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Tino Meinen <a.t.meinen@chello.nl>"
 
-#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:209 shell/eog-window.c:596 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:211
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:257
+#: shell/eog-window.c:212
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Het GNOME-programma om afbeeldingen te bekijken en te catalogiseren."
 
-#: shell/eog-window.c:294
+#: shell/eog-window.c:249
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -222,11 +267,7 @@ msgstr ""
 "Kon de hulp bij Eye of Gnome niet weergeven.\n"
 "%s"
 
-#: shell/eog-window.c:809
-msgid "Open Image"
-msgstr "Afbeelding Openen"
-
-#: shell/eog-window.c:1270
+#: shell/eog-window.c:1228
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kon %s niet openen."
@@ -279,11 +320,11 @@ msgstr ""
 "toegang kon krijgen tot deze bestanden:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kan GnomeVFS niet inschakelen!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kan Bonobo niet inschakelen!\n"
 
@@ -336,11 +377,11 @@ msgstr "Controleer _type"
 msgid "Full Screen"
 msgstr "Volledig Scherm"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Groot"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "Middelmatig"
 
@@ -372,7 +413,7 @@ msgstr "Afbeelding naar printer sturen."
 msgid "Setup the page settings for your current printer"
 msgstr "De paginainstellingen aanpassen voor uw huidige printer"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "Klein"
 
@@ -429,91 +470,79 @@ msgid "_Save As..."
 msgstr "Op_slaan Als..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Tegels"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_Wit"
 
-#: viewer/eog-image-view.c:360
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kon afbeelding niet opslaan als '%s': %s."
 
-#: viewer/eog-image-view.c:411
-msgid "Save As"
-msgstr "Opslaan als"
-
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Afbeelding afdrukken"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Pagina's"
 
-#: viewer/eog-image-view.c:1081
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Afdrukvoorbeeld"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Afdrukken mislukt"
 
-#: viewer/eog-image-view.c:1921
-msgid "Display"
-msgstr "Display"
-
-#: viewer/eog-image-view.c:2106
+#: viewer/eog-image-view.c:2048
 msgid "/Zoom _In"
 msgstr "/_Inzoomen"
 
-#: viewer/eog-image-view.c:2108
+#: viewer/eog-image-view.c:2050
 msgid "/Zoom _Out"
 msgstr "/_Uitzoomen"
 
-#: viewer/eog-image-view.c:2110
+#: viewer/eog-image-view.c:2052
 msgid "/Zoom _1:1"
 msgstr "/Zoomen _1:1"
 
-#: viewer/eog-image-view.c:2112
+#: viewer/eog-image-view.c:2054
 msgid "/Zoom to _Fit"
 msgstr "/Passend maken"
 
-#: viewer/eog-image-view.c:2115
+#: viewer/eog-image-view.c:2057
 msgid "/_Close"
 msgstr "/_Sluiten"
 
-#: viewer/eog-image-view.c:2230
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Interpolatie"
 
-#: viewer/eog-image-view.c:2233
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "Ditheren"
 
-#: viewer/eog-image-view.c:2236
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Controleer type"
 
-#: viewer/eog-image-view.c:2239
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Controleer grootte"
 
-#: viewer/eog-image-view.c:2242
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:2245
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:2248
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Venstertitel"
 
-#: viewer/eog-image-view.c:2251
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Statusbalk tekst"
 
@@ -689,71 +718,81 @@ msgstr "Naar beneden, dan rechts"
 msgid "Right, then down"
 msgstr "Naar rechts, dan beneden"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Dichtstbijzijnde-Buur Interpolatie"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kon hulp voor het voorkeuren-dialoogvenster niet weergeven.\n"
+#~ "%s"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "Tegels Interpolatie"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Eye of Gnome Voorkeuren"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Bilineaire Interpolatie"
+#~ msgid "Change preferences"
+#~ msgstr "Voorkeuren veranderen"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Hyperbolische Interpolatie"
+#~ msgid "_Edit"
+#~ msgstr "_Bewerken"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Niet ditheren"
+#~ msgid "_Preferences..."
+#~ msgstr "_Voorkeuren..."
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "Normaal (pseudokleuren) ditheren"
+#~ msgid "_Tiles"
+#~ msgstr "_Tegels"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Maximum (veel kleuren) ditheren"
+#~ msgid "Save As"
+#~ msgstr "Opslaan als"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "Donker"
+#~ msgid "Display"
+#~ msgstr "Display"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Middenwaarden"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Dichtstbijzijnde-Buur Interpolatie"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "Licht"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "Tegels Interpolatie"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "Zwart"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Bilineaire Interpolatie"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Grijs"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Hyperbolische Interpolatie"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "Wit"
+#~ msgid "No dithering"
+#~ msgstr "Niet ditheren"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Interpolatie:"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Normaal (pseudokleuren) ditheren"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "_Ditheren:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Maximum (veel kleuren) ditheren"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "Controleer _type:"
+#~ msgid "Dark"
+#~ msgstr "Donker"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "Controleer _grootte:"
+#~ msgid "Midtone"
+#~ msgstr "Middenwaarden"
 
+#~ msgid "Light"
+#~ msgstr "Licht"
+
+#~ msgid "Black"
+#~ msgstr "Zwart"
+
+#~ msgid "Gray"
+#~ msgstr "Grijs"
+
+#~ msgid "White"
+#~ msgstr "Wit"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Interpolatie:"
+
+#~ msgid "_Dither:"
+#~ msgstr "_Ditheren:"
+
+#~ msgid "Check _type:"
+#~ msgstr "Controleer _type:"
+
+#~ msgid "Check _size:"
+#~ msgstr "Controleer _grootte:"
