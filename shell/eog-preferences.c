@@ -89,6 +89,11 @@ eog_preferences_show (GConfClient *client)
 	g_signal_connect_swapped (G_OBJECT (widget), "clicked", 
 				  G_CALLBACK (gtk_widget_destroy), dlg);
 
+	/* remove the 'slide show' page, since it is not implemented yet */
+	/* FIXME: This should be fixed after the feature freeze. */
+	widget = glade_xml_get_widget (xml, "notebook2");
+	gtk_notebook_remove_page (GTK_NOTEBOOK (widget), 1);
+
 	/* interpolate flag */
 	widget = glade_xml_get_widget (xml, "interpolate_check");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
