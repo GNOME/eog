@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-06-22 14:48+0200\n"
-"PO-Revision-Date: 2003-06-22 14:49+0200\n"
+"POT-Creation-Date: 2003-06-30 11:23+0200\n"
+"PO-Revision-Date: 2003-06-30 11:23+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgid "Slide Show"
 msgstr "Bildspel"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -85,7 +85,7 @@ msgid "_Undo"
 msgstr "_Ångra"
 
 #: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_Visa"
 
@@ -105,7 +105,7 @@ msgstr "Flytta till papperskorgen"
 msgid "Collection View"
 msgstr "Bildsamlingsvy"
 
-#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
 msgid "Window Title"
 msgstr "Fönstertitel"
 
@@ -113,7 +113,7 @@ msgstr "Fönstertitel"
 msgid "Status Text"
 msgstr "Statustext"
 
-#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
 msgid "Progress of Image Loading"
 msgstr "Förlopp för bildinläsning"
 
@@ -365,15 +365,15 @@ msgstr "Spara bild"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunde inte allokera minne för inläsning av JPEG-fil"
 
-#: libeog/eog-image.c:1316
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Ingen bild inläst."
 
-#: libeog/eog-image.c:1325
+#: libeog/eog-image.c:1347
 msgid "Images can only be saved as local files."
 msgstr "Bilder kan bara sparas som lokala filer."
 
-#: libeog/eog-image.c:1360
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Bildtypen stöds inte för sparande."
 
@@ -404,7 +404,7 @@ msgid "Page"
 msgstr "Sida"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "Förhandsgranska"
 
@@ -491,20 +491,8 @@ msgid "Vertically by "
 msgstr "Lodrätt efter "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "åtgärdsarea"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -612,8 +600,8 @@ msgstr ""
 "Andreas Hydén\n"
 "Skicka synpunkter på översättningen till sv@li.org"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -713,72 +701,96 @@ msgid "Print image to the printer"
 msgstr "Skriv ut bilden på skrivaren"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Rotera vänster"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Rotera höger"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Spara so_m..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Ändra sidinställningar för den nuvarande skrivaren"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Helskärm"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "Skriv _ut..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/Rotera me_durs"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Rotera mo_turs"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/_Zooma in"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/Zooma _ut"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/_Normal storlek"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/Bästa _anpassning"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/S_täng"
 
-#: viewer/eog-image-view.c:982
+#: viewer/eog-image-view.c:994
 msgid "Image successfully saved"
 msgstr "Sparande av bilden lyckades"
 
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:998
 msgid "Image saving failed"
 msgstr "Sparande av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1229
+#: viewer/eog-image-view.c:1241
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:1232
+#: viewer/eog-image-view.c:1244
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:1238
+#: viewer/eog-image-view.c:1250
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
-#: viewer/eog-image-view.c:1241
+#: viewer/eog-image-view.c:1253
 msgid "Desired Window Width"
 msgstr "Önskad fönsterbredd"
 
-#: viewer/eog-image-view.c:1244
+#: viewer/eog-image-view.c:1256
 msgid "Desired Window Height"
 msgstr "Önskad fönsterhöjd"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Kunde inte initiera GnomeVFS!\n"
+#~ msgid "action_area"
+#~ msgstr "åtgärdsarea"
+
+#~ msgid "dialog"
+#~ msgstr "dialog"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Kunde inte initiera GnomeVFS!\n"
 
 #~ msgid "Save"
 #~ msgstr "Spara"
