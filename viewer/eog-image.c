@@ -24,10 +24,10 @@
 
 #include <libgnomevfs/gnome-vfs.h>
 
-#include <eog-image.h>
-#include <eog-control.h>
-
-#include <eog-image-io.h>
+#include "eog-image.h"
+#include "eog-control.h"
+#include "eog-image-io.h"
+#include "eog-pixbuf-util.h"
 
 struct _EogImagePrivate {
 	gchar     *filename;
@@ -38,6 +38,7 @@ static GObjectClass *eog_image_parent_class;
 
 enum {
 	SET_IMAGE_SIGNAL,
+	IMAGE_MODIFIED_SIGNAL,
 	LAST_SIGNAL
 };
 
@@ -93,6 +94,15 @@ eog_image_class_init (EogImageClass *klass)
 
 	eog_image_signals [SET_IMAGE_SIGNAL] =
                 g_signal_new ("set_image",
+			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, set_image),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+
+	eog_image_signals [IMAGE_MODIFIED_SIGNAL] =
+                g_signal_new ("image_modified",
 			      G_TYPE_FROM_CLASS (gobject_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, set_image),
@@ -512,4 +522,87 @@ eog_image_load_from_stream (EogImage *image, Bonobo_Stream stream,
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	load_image_from_stream (NULL, stream, "", image, ev);
+}
+
+void
+eog_image_rotate_clock_wise (EogImage *image)
+{
+	EogImagePrivate *priv;
+	GdkPixbuf *rotated;
+	
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = image->priv;
+	if (priv->pixbuf == NULL) return;
+
+	rotated = eog_pixbuf_rotate_90_cw (priv->pixbuf);
+
+	g_object_unref (priv->pixbuf);
+	priv->pixbuf = rotated;
+
+	g_signal_emit (G_OBJECT (image), eog_image_signals [IMAGE_MODIFIED_SIGNAL], 0);	
+}
+
+void
+eog_image_rotate_counter_clock_wise (EogImage *image)
+{
+	EogImagePrivate *priv;
+	GdkPixbuf *rotated;
+	
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = image->priv;
+	if (priv->pixbuf == NULL) return;
+
+	rotated = eog_pixbuf_rotate_90_ccw (priv->pixbuf);
+
+	g_object_unref (priv->pixbuf);
+	priv->pixbuf = rotated;
+
+	g_signal_emit (G_OBJECT (image), eog_image_signals [IMAGE_MODIFIED_SIGNAL], 0);	
+}
+
+void
+eog_image_rotate_180 (EogImage *image)
+{
+	EogImagePrivate *priv;
+	
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = image->priv;
+	if (priv->pixbuf == NULL) return;
+
+	eog_pixbuf_rotate_180 (priv->pixbuf);
+
+	g_signal_emit (G_OBJECT (image), eog_image_signals [IMAGE_MODIFIED_SIGNAL], 0);	
+}
+
+void 
+eog_image_flip_horizontal (EogImage *image)
+{
+	EogImagePrivate *priv;
+	
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = image->priv;
+	if (priv->pixbuf == NULL) return;
+
+	eog_pixbuf_flip_horizontal (priv->pixbuf);
+
+	g_signal_emit (G_OBJECT (image), eog_image_signals [IMAGE_MODIFIED_SIGNAL], 0);	
+}
+
+void
+eog_image_flip_vertical (EogImage *image)
+{
+	EogImagePrivate *priv;
+	
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	priv = image->priv;
+	if (priv->pixbuf == NULL) return;
+
+	eog_pixbuf_flip_vertical (priv->pixbuf);
+
+	g_signal_emit (G_OBJECT (image), eog_image_signals [IMAGE_MODIFIED_SIGNAL], 0);	
 }

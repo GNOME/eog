@@ -33,6 +33,7 @@
 #include <image-view.h>
 #include <ui-image.h>
 #include <eog-file-selection.h>
+#include <eog-pixbuf-util.h>
 
 #include <bonobo/bonobo-stream.h>
 #include <bonobo/bonobo-ui-util.h>
@@ -141,6 +142,24 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 	pixbuf = eog_image_get_pixbuf (eog_image);
 	if (pixbuf) {
 		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
+		g_object_unref (pixbuf);
+	}
+}
+
+static void
+image_modified_cb (EogImage *eog_image, EogImageView *image_view)
+{
+	GdkPixbuf *pixbuf;
+
+	g_return_if_fail (EOG_IS_IMAGE (eog_image));
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
+
+
+	pixbuf = eog_image_get_pixbuf (eog_image);
+
+	if (pixbuf != NULL) {
+		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);		
+	
 		g_object_unref (pixbuf);
 	}
 }
@@ -393,6 +412,66 @@ verb_FullScreen_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 	image_view = EOG_IMAGE_VIEW (data);
 
 	gtk_widget_show (eog_full_screen_new (image_view->priv->image));
+}
+
+static void
+verb_FlipHorizontal_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	image_view = EOG_IMAGE_VIEW (data);
+
+	eog_image_flip_horizontal (image_view->priv->image);
+}
+
+static void
+verb_FlipVertical_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	image_view = EOG_IMAGE_VIEW (data);
+
+	eog_image_flip_vertical (image_view->priv->image);
+}
+
+static void
+verb_Rotate90ccw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	image_view = EOG_IMAGE_VIEW (data);
+
+	eog_image_rotate_counter_clock_wise (image_view->priv->image);
+}
+
+static void
+verb_Rotate90cw_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	image_view = EOG_IMAGE_VIEW (data);
+
+	eog_image_rotate_clock_wise (image_view->priv->image);
+}
+
+static void
+verb_Rotate180_cb (BonoboUIComponent *uic, gpointer data, const char *name)
+{
+	EogImageView *image_view;
+
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (data));
+
+	image_view = EOG_IMAGE_VIEW (data);
+
+	eog_image_rotate_180 (image_view->priv->image);
 }
 
 static void
@@ -1355,6 +1434,16 @@ eog_image_view_create_ui (EogImageView *image_view)
 				      verb_SaveAs_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "FullScreen", 
 			              verb_FullScreen_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "FlipHorizontal", 
+			              verb_FlipHorizontal_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "FlipVertical", 
+			              verb_FlipVertical_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "Rotate90cw", 
+			              verb_Rotate90cw_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "Rotate90ccw", 
+			              verb_Rotate90ccw_cb, image_view);
+	bonobo_ui_component_add_verb (image_view->priv->uic, "Rotate180", 
+			              verb_Rotate180_cb, image_view);	
 #ifdef ENABLE_EVOLUTION
 	bonobo_ui_component_add_verb (image_view->priv->uic, "Send",
 				      verb_Send_cb, image_view);
@@ -2130,6 +2219,9 @@ eog_image_view_construct (EogImageView *image_view, EogImage *image,
 
 	g_signal_connect (G_OBJECT (image), "set_image",
 			  (GCallback) image_set_image_cb,
+			  image_view);
+	g_signal_connect (G_OBJECT (image), "image_modified",
+			  (GCallback) image_modified_cb,
 			  image_view);
 
 	image_view->priv->ui_image = ui_image_new ();

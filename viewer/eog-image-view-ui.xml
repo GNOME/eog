@@ -46,7 +46,13 @@
              type="radio" group="CheckSize"/>
         <cmd name="CheckSizeLarge" _label="Large"
              type="radio" group="CheckSize"/> 
+
 	<cmd name="FullScreen"  _label="Full Screen" accel="F11"/>
+	<cmd name="FlipHorizontal" _label="Flip Horizontal"/>
+	<cmd name="FlipVertical" _label="Flip Vertical"/>
+        <cmd name="Rotate90cw" _label="Rotate Clockwise"/>
+	<cmd name="Rotate90ccw" _label="Rotate Counter Clockwise"/>
+	<cmd name="Rotate180" _label="Rotate 180 Degrees"/>
 </commands>
 
 <menu>
@@ -65,8 +71,19 @@
 
             </placeholder>
     </submenu>
+
+    <submenu name="Edit" _label="Edit">
+           <placeholder name="Edit Items Placeholder">
+                  <menuitem name="FlipHorizontal" verb=""/>
+                  <menuitem name="FlipVertical" verb=""/>
+	          <separator/>
+                  <menuitem name="Rotate90cw" verb=""/>
+                  <menuitem name="Rotate90ccw" verb=""/>
+	          <menuitem name="Rotate180" verb=""/>
+           </placeholder>
+    </submenu>
   
-    <submenu name="View">
+    <submenu name="View" _label="View">
 
             <placeholder name="View Preferences Placeholder">
 

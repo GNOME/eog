@@ -1148,12 +1148,6 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 		priv->ctrl_widget = NULL;
 	}
 
-	/* enable view menu */
-	/* FIXME: We should check if the component adds anything to 
-	 *        the menu, so that we don't view an empty menu.
-	 */
-	bonobo_ui_component_set_prop (priv->ui_comp, "/menu/View", "hidden", "0", &ev);
-
 	adapt_shell_size_to_control (window, control);
 
 	CORBA_exception_free (&ev);

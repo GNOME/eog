@@ -42,12 +42,13 @@ struct _EogImageClass {
 	POA_GNOME_EOG_Image__epv epv;
 
         void (*set_image)                       (EogImage       *image);
+        void (*image_modified)                  (EogImage       *image);
 };
 
 POA_GNOME_EOG_Image__epv *eog_image_get_epv     (void);
 
 EogImage       *eog_image_new                   (void);
-GType          eog_image_get_type              (void);
+GType          eog_image_get_type               (void);
 BonoboObject   *eog_image_add_interfaces        (EogImage       *image,
 						 BonoboObject   *to_aggregate);
 EogImage       *eog_image_construct             (EogImage       *image);
@@ -61,6 +62,12 @@ void	eog_image_save_to_stream	(EogImage	           *image,
 void	eog_image_load_from_stream	(EogImage                  *image,
 					 Bonobo_Stream              stream,
 					 CORBA_Environment         *ev);
+
+void    eog_image_rotate_clock_wise         (EogImage *image);
+void    eog_image_rotate_counter_clock_wise (EogImage *image);
+void    eog_image_rotate_180                (EogImage *image);
+void    eog_image_flip_horizontal           (EogImage *image);
+void    eog_image_flip_vertical             (EogImage *image);
 
 G_END_DECLS
 

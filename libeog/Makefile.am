@@ -34,6 +34,8 @@ libeog_a_SOURCES =			\
         accessible-image-view.c		\
 	eog-file-selection.h		\
 	eog-file-selection.c		\
+	eog-pixbuf-util.h		\
+	eog-pixbuf-util.c		\
 	image-view.c			\
 	image-view.h			\
 	uta.c				\

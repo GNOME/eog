@@ -1,3 +1,41 @@
+2002-09-23  Jens Finke  <jens@triq.net>
+
+	* libeog/Makefile.am (SOURCES): Addee eog-pixbuf-util.[ch].
+
+	* libeog/eog-pixbuf-util.[ch]: New files.
+
+	* shell/eog-shell-ui.xml: Added placeholder for Edit and View
+	menu.
+
+	* shell/eog-window.c (add_control_to_ui): Don't make View menu
+	visible here. This will be done automatically by bonobo now.
+
+	* viewer/eog-image-view-ui.xml: Added Edit menu with rotate and
+	flip functions.
+
+	* viewer/eog-image-view.c (image_modified_cb),
+	(verb_FlipHorizontal_cb),
+	(verb_FlipVertical_cb),
+	(verb_Rotate90ccw_cb),
+	(verb_Rotate90cw_cb),
+	(verb_Rotate180_cb): New functions.
+	(eog_image_view_create_ui): Add ui callbacks for new functions.
+	(eog_image_view_construct): Connect to modified signal of
+	eog-image object.
+
+	* viewer/eog-image.[ch] (eog_image_class_init): Added modified
+	signal.
+	(eog_image_rotate_clock_wise),
+	(eog_image_rotate_counter_clock_wise),
+	(eog_image_rotate_180),
+	(eog_image_flip_horizontal),
+	(eog_image_flip_vertical): New functions.
+
+2002-09-23  Jens Finke  <jens@triq.net>
+
+	* collection/eog-image-loader-preview.c
+	(eog_image_loader_preview_dispose): Shutdown async cache.
+
 2002-09-20  Arvind Samptur <arvind.samptur@wipro.com>
 	* eog.desktop.in: added %U for Exec, will launch the application
 	with file dropped on the icon.
