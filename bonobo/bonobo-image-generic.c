@@ -11,8 +11,6 @@
  *    Queue request-resize on image size change/load
  *    Save image
  */
-/*#define GENERIC_IMAGE*/
-#ifdef  GENERIC_IMAGE
 #include <config.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -23,6 +21,12 @@
 #include <libgnorba/gnorba.h>
 #include <bonobo/gnome-bonobo.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <libart_lgpl/art_misc.h>
+#include <libart_lgpl/art_affine.h>
+#include <libart_lgpl/art_pixbuf.h>
+#include <libart_lgpl/art_rgb_pixbuf_affine.h>
+#include <libart_lgpl/art_alphagamma.h>
+
 /*
  * BonoboObject data
  */
@@ -174,12 +178,13 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 }
 
 static void
-redraw_all_cb (GnomeView *view, bonobo_object_data_t *bod)
+redraw_all_cb (GnomeView *view, void *data)
 {
 	GdkRectangle rect;
-	view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (view),
-						      "view_data");
+	view_data_t *view_data;
 
+	view_data = gtk_object_get_data (GTK_OBJECT (view),
+					 "view_data");
 	configure_size (view_data, &rect);
 	
 	redraw_view (view_data, &rect);
@@ -295,6 +300,42 @@ view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
 
 	*desired_width  = pixbuf->width;
 	*desired_height = pixbuf->height;
+}
+
+static GdkPixbuf *
+gdk_pixbuf_scale (const GdkPixbuf *pixbuf, gint w, gint h)
+{
+	art_u8 *pixels;
+	gint rowstride;
+	double affine[6];
+	ArtPixBuf *art_pixbuf = NULL;
+	GdkPixbuf *copy = NULL;
+
+	affine[1] = affine[2] = affine[4] = affine[5] = 0;
+
+	affine[0] = w / (double)(pixbuf->art_pixbuf->width);
+	affine[3] = h / (double)(pixbuf->art_pixbuf->height);
+
+	/* rowstride = w * pixbuf->art_pixbuf->n_channels; */
+	rowstride = w * 3;
+
+	pixels = art_alloc (h * rowstride);
+	art_rgb_pixbuf_affine (pixels, 0, 0, w, h, rowstride,
+			       pixbuf->art_pixbuf,
+			       affine, ART_FILTER_NEAREST, NULL);
+
+	if (pixbuf->art_pixbuf->has_alpha)
+		/* should be rgba */
+		art_pixbuf = art_pixbuf_new_rgb(pixels, w, h, rowstride);
+	else
+		art_pixbuf = art_pixbuf_new_rgb(pixels, w, h, rowstride);
+
+	copy = gdk_pixbuf_new_from_art_pixbuf (art_pixbuf);
+
+	if (!copy)
+		art_free (pixels);
+
+	return copy;
 }
 
 /*
@@ -461,11 +502,9 @@ init_server_factory (int argc, char **argv)
 	CORBA_exception_free (&ev);
 }
 
-#endif /* GENERIC_IMAGE */
 int
 main (int argc, char *argv [])
 {
-#ifdef GENERIC_IMAGE
 	init_server_factory (argc, argv);
 
 	init_bonobo_image_generic_factory ();
@@ -475,6 +514,5 @@ main (int argc, char *argv [])
 
 	bonobo_main ();
 	
-#endif /* GENERIC_IMAGE */
 	return 0;
 }
