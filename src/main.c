@@ -47,7 +47,7 @@ main (int argc, char **argv)
 		for (; *args; args++) {
 			window = window_new ();
 			if (window_open_image (WINDOW (window), *args)) {
-				gtk_widget_show (window);
+				gtk_widget_show_now (window);
 				opened = TRUE;
 			} else {
 				open_failure_dialog (GTK_WINDOW (window), *args);
