@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.2\n"
-"POT-Creation-Date: 2004-02-16 19:43+0100\n"
-"PO-Revision-Date: 2003-09-03 00:24+0300\n"
+"POT-Creation-Date: 2004-02-27 03:12+0100\n"
+"PO-Revision-Date: 2004-02-27 14:01+0300\n"
 "Last-Translator: Priit Laes <amd@tt.ee>\n"
 "Language-Team: Estonian <linux-vestlus@eenet.ee>\n"
 "MIME-Version: 1.0\n"
@@ -38,41 +38,44 @@ msgstr "Kas salvestada pildikollektsioon '%s'?"
 msgid "View as Image Collection"
 msgstr "Kas salvestada pildikollektsioon '%s'?"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
-msgstr ""
+msgstr "Järgmine"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
 msgid "Next Image"
-msgstr "Ava pilt"
+msgstr "Järgmine pilt"
 
 #: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
-msgstr ""
+msgstr "Eelmine"
 
 #: collection/eog-collection-view-ui.xml.h:6
-#, fuzzy
 msgid "Previous Image"
-msgstr "Ava pilt"
+msgstr "Eelmine pilt"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:8
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
+#: collection/eog-collection-view-ui.xml.h:9
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr ""
 
@@ -80,22 +83,23 @@ msgstr ""
 msgid "Slide Show"
 msgstr "Slaidiesitlus"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: collection/eog-collection-view-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:20
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Redigeeri"
 
 #: collection/eog-collection-view-ui.xml.h:12
-#, fuzzy
 msgid "_Save"
-msgstr "Salvesta"
+msgstr "_Salvesta"
 
 #: collection/eog-collection-view-ui.xml.h:13
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Tühista"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: collection/eog-collection-view-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Näita"
@@ -117,7 +121,13 @@ msgstr "Tõsta prügikasti"
 msgid "Collection View"
 msgstr "Pildivaatlusprogramm"
 
-#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:947
+#, c-format
+msgid "Images: %i/%i"
+msgstr ""
+
+#: collection/eog-collection-view.c:1423
+#: viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Akna pealkiri"
 
@@ -125,14 +135,14 @@ msgstr "Akna pealkiri"
 msgid "Status Text"
 msgstr "Olekutekst"
 
-#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1429
+#: viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr ""
 
 #: collection/eog-save-dialog.c:100
-#, fuzzy
 msgid "Saving image"
-msgstr "Ava pilt"
+msgstr "Pildi salvestamine"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -210,14 +220,11 @@ msgid "_Loop sequence"
 msgstr ""
 
 #: eog.glade.h:18
-#, fuzzy
 msgid "seconds"
-msgstr "sek"
+msgstr "sekundit"
 
 #: eog.schemas.in.h:1
-msgid ""
-"A value greater 0 determines the seconds an image stays on screen until the "
-"next one is shown automatically. Zero disables the automatic browsing."
+msgid "A value greater 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 
 #: eog.schemas.in.h:3
@@ -230,22 +237,15 @@ msgid "Delay in seconds until showing the next image"
 msgstr ""
 
 #: eog.schemas.in.h:5
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
 msgstr ""
 
 #: eog.schemas.in.h:6
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
+msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
 msgstr ""
 
 #: eog.schemas.in.h:7
-msgid ""
-"If this is set to FALSE small images will not be streched to fit into the "
-"screen initially."
+msgid "If this is set to FALSE small images will not be streched to fit into the screen initially."
 msgstr ""
 
 #: eog.schemas.in.h:8
@@ -257,9 +257,8 @@ msgid "Loop through the image sequence"
 msgstr ""
 
 #: eog.schemas.in.h:10
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "Mahutab pildi aktiivsesse aknasse"
+msgstr "Ava pildid uues aknas"
 
 #: eog.schemas.in.h:11
 msgid "Show/hide the window statusbar."
@@ -278,19 +277,15 @@ msgid "Transparency indicator"
 msgstr ""
 
 #: eog.schemas.in.h:15
-msgid ""
-"Wether opening an image should create a new window instead of replacing the "
-"image in the current window."
+msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
 msgstr ""
 
 #: eog.schemas.in.h:16
-msgid "Wether or not the squence of images should be shown in an endless loop."
+msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 
 #: eog.schemas.in.h:17
-msgid ""
-"Wether the image should be interpolated on zoom or not. This leads to better "
-"quality but is somewhat slower than non interpolated images."
+msgid "Whether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
@@ -325,24 +320,23 @@ msgstr ""
 
 #: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr ""
+msgstr "Kõik failid"
 
 #: libeog/eog-file-selection.c:176
-#, fuzzy
 msgid "All Images"
-msgstr "Pilt"
+msgstr "Kõik pildid"
 
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
 #: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
-#. Pixel size of image: width x height in pixel
+#  Pixel size of image: width x height in pixel
 #: libeog/eog-file-selection.c:280
 #, c-format
 msgid "%s x %s pixel"
-msgstr ""
+msgstr "%s x %s pikslit"
 
 #: libeog/eog-file-selection.c:437
 msgid "Load Image"
@@ -353,9 +347,8 @@ msgid "Save Image"
 msgstr "Salvesta pilt"
 
 #: libeog/eog-file-selection.c:488
-#, fuzzy
 msgid "Open Folder"
-msgstr "Avab pildifaili"
+msgstr "Avab kataloog"
 
 #: libeog/eog-image-jpeg.c:128
 #, c-format
@@ -368,7 +361,7 @@ msgstr ""
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "tühi fail"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -399,29 +392,32 @@ msgid "Height"
 msgstr "Kõrgus"
 
 #: libeog/eog-info-view.c:222
-#, fuzzy
 msgid "Filesize"
-msgstr "Failinimi"
+msgstr "Faili suurus"
 
 #: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Failinimi"
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#: libgpi/gpi-dialog-pixbuf.c:303
+#: libgpi/gpi-dialog.glade.h:14
 msgid "Page"
 msgstr "Lehekülg"
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: libgpi/gpi-dialog.c:127
+#: libgpi/gpi-dialog.glade.h:17
 #: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Eelvaade"
 
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#: libgpi/gpi-dialog.c:143
+#: libgpi/gpi-dialog.c:229
 msgid "Millimeter"
 msgstr "Millimeeter"
 
-#. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+#  First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227
+#: libgpi/gpi-dialog.glade.h:16
 msgid "Paper"
 msgstr "Paber"
 
@@ -498,10 +494,6 @@ msgstr "Vertikaalselt"
 msgid "Vertically by "
 msgstr ""
 
-#: libgpi/gpi-dialog.glade.h:23
-msgid "dialog1"
-msgstr ""
-
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
 msgstr "Nimi"
@@ -527,9 +519,8 @@ msgid "Change the visibility of the toolbar in the current window"
 msgstr ""
 
 #: shell/eog-shell-ui.xml.h:5
-#, fuzzy
 msgid "Close window"
-msgstr "_Sulge see aken"
+msgstr "Sulge aken"
 
 #: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
@@ -544,29 +535,24 @@ msgid "Open"
 msgstr "Ava"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "Avab pildifaili"
+msgstr "Ava kataloog"
 
 #: shell/eog-shell-ui.xml.h:10
-#, fuzzy
 msgid "Open a file"
-msgstr "Avab pildifaili"
+msgstr "Ava fail"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Open a new window"
-msgstr "Mahutab pildi aktiivsesse aknasse"
+msgstr "Ava uus aken"
 
 #: shell/eog-shell-ui.xml.h:12
-#, fuzzy
 msgid "Open in new window"
-msgstr "Mahutab pildi aktiivsesse aknasse"
+msgstr "Ava uues aknas"
 
 #: shell/eog-shell-ui.xml.h:13
-#, fuzzy
 msgid "Open in this window"
-msgstr "Mahutab pildi aktiivsesse aknasse"
+msgstr "Ava aktiivses aknas"
 
 #: shell/eog-shell-ui.xml.h:14
 #, fuzzy
@@ -607,9 +593,8 @@ msgid "_New"
 msgstr "_Uus"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "_Ava..."
+msgstr "_Ava kataloog..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -620,24 +605,25 @@ msgid "_Quit"
 msgstr "_Välju"
 
 #: shell/eog-shell-ui.xml.h:27
-#, fuzzy
 msgid "_Statusbar"
-msgstr "Tekst olekuribal"
+msgstr "_Olekuriba"
 
 #: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
 msgstr ""
 
-#. Translators should localize the following string
-#. * which will give them credit in the About box.
-#. * E.g. "Fulano de Tal <fulano@detal.com>"
-#.
+#  Translators should localize the following string
+#  * which will give them credit in the About box.
+#  * E.g. "Fulano de Tal <fulano@detal.com>"
 #: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "Tõlge eesti keelde:    Priit Laes <amd@tt.ee>"
 
-#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:520
+#: shell/eog-window.c:297
+#: shell/eog-window.c:877
+#: shell/eog-window.c:972
+#: shell/eog-window.c:1011
+#: shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "GNOME silm"
 
@@ -655,9 +641,7 @@ msgstr ""
 
 #: shell/main.c:237
 #, c-format
-msgid ""
-"You are about to open %i windows simultanously. Do you want to open them in "
-"a collection instead?"
+msgid "You are about to open %i windows simultanously. Do you want to open them in a collection instead?"
 msgstr ""
 
 #: shell/main.c:241
@@ -675,7 +659,7 @@ msgstr "Album"
 
 #: shell/main.c:320
 msgid "File(s) not found."
-msgstr ""
+msgstr "Faili(e) ei leitud"
 
 #: shell/util.c:52
 #, c-format
@@ -703,23 +687,20 @@ msgid "Out"
 msgstr "Väike"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-#, fuzzy
 msgid "Zoom _Out"
-msgstr "Vähenda"
+msgstr "_Vähenda"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
 msgstr "_Normaalsuurus"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
-msgstr "Suurenda"
+msgstr "_Suurenda"
 
 #: viewer/eog-image-view-ui.xml.h:3
-#, fuzzy
 msgid "Full Screen"
-msgstr "_Täisekraan"
+msgstr "Täisekraan"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
@@ -747,9 +728,8 @@ msgid "Rotate Right"
 msgstr "Pööra paremale"
 
 #: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
 msgid "Save _As..."
-msgstr "Salvesta"
+msgstr "Salvesta _kui..."
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
@@ -763,11 +743,11 @@ msgstr "_Täisekraan"
 msgid "_Print..."
 msgstr "_Prindi..."
 
-#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#  [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr ""
+msgstr "%i x %i pikslit  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
@@ -778,40 +758,38 @@ msgid "/Rotate Counte_r Clockwise"
 msgstr ""
 
 #: viewer/eog-image-view.c:846
-#, fuzzy
 msgid "/_Zoom In"
-msgstr "Suurenda"
+msgstr "/_Suurenda"
 
 #: viewer/eog-image-view.c:848
-#, fuzzy
 msgid "/Zoom _Out"
-msgstr "Vähenda"
+msgstr "/_Vähenda"
 
 #: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/_Normaalsuurus"
 
 #: viewer/eog-image-view.c:852
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "Vähenda"
+msgstr "/_Parim suurus"
 
 #: viewer/eog-image-view.c:855
-#, fuzzy
 msgid "/_Close"
-msgstr "Sulge"
+msgstr "/_Sulge"
 
 #: viewer/eog-image-view.c:1026
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of image %s failed."
-msgstr "Avab pildifaili"
+msgstr "Pildifaili %s laadimine ebaõnnestus."
 
 #: viewer/eog-image-view.c:1033
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Loading of image %s failed.\n"
 "Reason: %s."
-msgstr "Avab pildifaili"
+msgstr ""
+"Pildifaili %s laadimine ebaõnnestus.\n"
+"Põhjus: %s"
 
 #. show error dialog
 #: viewer/eog-image-view.c:1042
@@ -827,9 +805,8 @@ msgid "Image saving failed"
 msgstr ""
 
 #: viewer/eog-image-view.c:1387
-#, fuzzy
 msgid "Image Width"
-msgstr "Pildivaatlusprogramm"
+msgstr "Pildi laius"
 
 #: viewer/eog-image-view.c:1390
 msgid "Image Height"
@@ -847,11 +824,3 @@ msgstr ""
 msgid "Desired Window Height"
 msgstr ""
 
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "By Extension"
-#~ msgstr "Laiendi järgi"
-
-#~ msgid "Determine File Type:"
-#~ msgstr "Määra faili tüüp:"
