@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-16 20:57+0200\n"
-"PO-Revision-Date: 2002-06-17 00:00+0200\n"
+"POT-Creation-Date: 2002-06-26 13:00+0200\n"
+"PO-Revision-Date: 2002-06-26 17:23+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "EOG Afbeeldingscollectie"
 
 #: collection/GNOME_EOG_Collection.server.in.h:2
 msgid "EOG Image Collection Viewer"
-msgstr "EOG Afbeeldingscollectie Weergever"
+msgstr "EOG Afbeeldingscollectie-weergever"
 
 #: collection/GNOME_EOG_Collection.server.in.h:3
 msgid "EOG Image collection view factory"
@@ -35,9 +35,9 @@ msgstr "Eye of Gnome afbeeldingsweergever"
 msgid "View many different types of images"
 msgstr "Toont vele verschillende soorten afbeeldingen"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
 msgid "EOG Image"
-msgstr "Eog Afbeelding"
+msgstr "EOG Afbeelding"
 
 #: libeog/GNOME_EOG.server.in.h:2
 msgid "EOG Image Viewer"
@@ -51,31 +51,36 @@ msgstr "EOG afbeeldingsweergeverfabriek"
 msgid "Embeddable EOG Image"
 msgstr "Ingebedde EOG Afbeelding"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Afbeelding"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "interpolatietype"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "het te gebruiken type interpolatie"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "controleer type"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "het te gebruiken type schaakbord"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
-msgstr "De grootte van de schaakbordvelden"
+msgstr "de grootte van de schaakbordvelden"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "ditheren"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "dithertype"
 
@@ -188,25 +193,27 @@ msgstr "_Weergave"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:249
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Henrik Goijer <henrikgoijer@home.nl>\n"
+"Dennis Smit <synap@area101.penguin.nl>\n"
+"Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Tino Meinen <a.t.meinen@chello.nl>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:254 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:256
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:257
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Het GNOME-programma om afbeeldingen te bekijken en te catalogiseren."
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:294
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -215,11 +222,11 @@ msgstr ""
 "Kon de hulp bij Eye of Gnome niet weergeven.\n"
 "%s"
 
-#: shell/eog-window.c:811
+#: shell/eog-window.c:809
 msgid "Open Image"
-msgstr "Openen Afbeelding"
+msgstr "Afbeelding Openen"
 
-#: shell/eog-window.c:1179
+#: shell/eog-window.c:1270
 #, c-format
 msgid "Unable to open %s."
 msgstr "Kon %s niet openen."
@@ -268,7 +275,8 @@ msgid ""
 "access them:\n"
 "%s"
 msgstr ""
-"De volgende bestanden kunnen niet worden weergegeven omdat Eye of Gnome geen toegang kon krijgen tot deze bestanden:\n"
+"De volgende bestanden kunnen niet worden weergegeven omdat Eye of Gnome geen "
+"toegang kon krijgen tot deze bestanden:\n"
 "%s"
 
 #: shell/main.c:471
@@ -428,68 +436,88 @@ msgstr "_Tegels"
 msgid "_White"
 msgstr "_Wit"
 
-#: viewer/eog-image-view.c:302
+#: viewer/eog-image-view.c:360
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kon afbeelding niet opslaan als '%s': %s."
 
-#: viewer/eog-image-view.c:353
+#: viewer/eog-image-view.c:411
 msgid "Save As"
 msgstr "Opslaan als"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:986
 msgid "Print Image"
 msgstr "Afbeelding afdrukken"
 
-#: viewer/eog-image-view.c:936
+#: viewer/eog-image-view.c:994
 msgid "Pages"
 msgstr "Pagina's"
 
-#: viewer/eog-image-view.c:1023
+#: viewer/eog-image-view.c:1081
 msgid "Print Preview"
 msgstr "Afdrukvoorbeeld"
 
-#: viewer/eog-image-view.c:1029
+#: viewer/eog-image-view.c:1087
 msgid "Printing of image failed"
 msgstr "Afdrukken mislukt"
 
-#: viewer/eog-image-view.c:1845
+#: viewer/eog-image-view.c:1921
 msgid "Display"
 msgstr "Display"
 
-#: viewer/eog-image-view.c:2066
+#: viewer/eog-image-view.c:2106
+msgid "/Zoom _In"
+msgstr "/_Inzoomen"
+
+#: viewer/eog-image-view.c:2108
+msgid "/Zoom _Out"
+msgstr "/_Uitzoomen"
+
+#: viewer/eog-image-view.c:2110
+msgid "/Zoom _1:1"
+msgstr "/Zoomen _1:1"
+
+#: viewer/eog-image-view.c:2112
+msgid "/Zoom to _Fit"
+msgstr "/Passend maken"
+
+#: viewer/eog-image-view.c:2115
+msgid "/_Close"
+msgstr "/_Sluiten"
+
+#: viewer/eog-image-view.c:2230
 msgid "Interpolation"
 msgstr "Interpolatie"
 
-#: viewer/eog-image-view.c:2069
+#: viewer/eog-image-view.c:2233
 msgid "Dither"
 msgstr "Ditheren"
 
-#: viewer/eog-image-view.c:2072
+#: viewer/eog-image-view.c:2236
 msgid "Check Type"
 msgstr "Controleer type"
 
-#: viewer/eog-image-view.c:2075
+#: viewer/eog-image-view.c:2239
 msgid "Check Size"
 msgstr "Controleer grootte"
 
-#: viewer/eog-image-view.c:2078
+#: viewer/eog-image-view.c:2242
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:2081
+#: viewer/eog-image-view.c:2245
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:2084
+#: viewer/eog-image-view.c:2248
 msgid "Window Title"
 msgstr "Venstertitel"
 
-#: viewer/eog-image-view.c:2087
+#: viewer/eog-image-view.c:2251
 msgid "Statusbar Text"
 msgstr "Statusbalk tekst"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kan GnomeVFS niet inschakelen!\n"
 
@@ -583,11 +611,6 @@ msgstr "Rechts:"
 #: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Onder:"
-
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Afbeelding"
 
 #. Scale
 #: viewer/eog-print-setup.c:697
