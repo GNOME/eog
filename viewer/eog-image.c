@@ -20,6 +20,8 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
+#include <librsvg/rsvg.h>
+
 #include <libgnomevfs/gnome-vfs.h>
 
 #include <eog-image.h>
@@ -126,9 +128,12 @@ load_image_from_stream (BonoboPersistStream       *ps,
 {
 	EogImage             *image;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
+	RsvgHandle           *handle = rsvg_handle_new ();
 	Bonobo_Stream_iobuf  *buffer;
 	CORBA_long            len;
 	Bonobo_StorageInfo   *info;
+	gboolean              write_loader = TRUE;
+	gboolean              write_handle = TRUE;
 
 	g_return_if_fail (data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE (data));
@@ -150,15 +155,26 @@ load_image_from_stream (BonoboPersistStream       *ps,
 		if (ev->_major != CORBA_NO_EXCEPTION)
 			goto exit_clean;
 
-		if (buffer->_buffer &&
-		     !gdk_pixbuf_loader_write (loader,
-					       buffer->_buffer,
-					       buffer->_length, NULL)) {
-			CORBA_free (buffer);
-			if (ev->_major == CORBA_NO_EXCEPTION)
-				goto exit_clean;
-			else
-				goto exit_wrong_type;
+		if (buffer->_buffer) {
+			if (write_handle && 
+			    !rsvg_handle_write (handle,
+						buffer->_buffer,
+						buffer->_length,
+						NULL))
+				write_handle = FALSE;
+			if (write_loader &&
+			    !gdk_pixbuf_loader_write (loader,
+						      buffer->_buffer,
+						      buffer->_length, NULL))
+				write_loader = FALSE;
+
+			if (!write_loader && !write_handle) {
+				CORBA_free (buffer);
+				if (ev->_major == CORBA_NO_EXCEPTION)
+					goto exit_clean;
+				else
+					goto exit_wrong_type;
+			}
 		}
 		len = buffer->_length;
 
@@ -166,7 +182,11 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	} while (len > 0);
 
 	gdk_pixbuf_loader_close (loader, NULL);
+	rsvg_handle_close (handle, NULL);
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+
+	if (!image->priv->pixbuf)
+		image->priv->pixbuf = rsvg_handle_get_pixbuf (handle);
 
 	if (!image->priv->pixbuf)
 		goto exit_wrong_type;
@@ -189,6 +209,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 
  exit_clean:
 	g_object_unref (G_OBJECT (loader));
+	rsvg_handle_free (handle);
 	return;
 }
 
@@ -243,9 +264,13 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	GnomeVFSResult result;
 	GnomeVFSHandle *handle;
 	GdkPixbufLoader *loader;
+	RsvgHandle      *rsvg_handle;
 	GnomeVFSURI     *uri;
 	GnomeVFSFileSize bytes_read = 0;
 	guchar *buffer;
+	gboolean write_rsvg   = TRUE;
+	gboolean write_pixbuf = TRUE;
+	int retval = 0;
 
 	g_return_val_if_fail (closure != NULL, -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (closure), -1);
@@ -266,12 +291,11 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 
 	/* open uri */
 	result = gnome_vfs_open_uri (&handle, uri, GNOME_VFS_OPEN_READ);
-	if (result != GNOME_VFS_OK) {
-		gnome_vfs_uri_unref (uri);
-		return -1;
-	}
+	if (result != GNOME_VFS_OK)
+		goto file_exit_error;
 
 	loader = gdk_pixbuf_loader_new ();
+	rsvg_handle = rsvg_handle_new ();
 	buffer = g_new0 (guchar, 4096);
 	while (TRUE) {
 		result = gnome_vfs_read (handle, buffer,
@@ -279,33 +303,44 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		if (result != GNOME_VFS_OK)
 			break;
 		
-		if(!gdk_pixbuf_loader_write (loader, buffer, bytes_read, NULL))
+		if (write_pixbuf && !gdk_pixbuf_loader_write (loader, buffer, bytes_read, NULL))
+			write_pixbuf = FALSE;
+
+		if (write_rsvg && !rsvg_handle_write (rsvg_handle, buffer, bytes_read, NULL))
+			write_rsvg = FALSE;
+
+		if (!write_pixbuf && !write_rsvg)
 			break;
 	}
 
-	if (result != GNOME_VFS_ERROR_EOF) {
-		gdk_pixbuf_loader_close (loader, NULL);
-		gnome_vfs_uri_unref (uri);
-		return -1;
-	}
+	if (result != GNOME_VFS_ERROR_EOF)
+		goto file_exit_error;
 	
 	gdk_pixbuf_loader_close (loader, NULL);
+	rsvg_handle_close (rsvg_handle, NULL);
+
 	image->priv->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-	if (!image->priv->pixbuf) {
-		gnome_vfs_uri_unref (uri);
-		return -1;
-	}
+
+	if (!image->priv->pixbuf)
+		image->priv->pixbuf = rsvg_handle_get_pixbuf (rsvg_handle);
+
+	if (!image->priv->pixbuf)
+		goto file_exit_error;
 
 	g_object_ref (image->priv->pixbuf);
 
 	image->priv->filename = gnome_vfs_uri_extract_short_name (uri);
-	
-	gnome_vfs_uri_unref (uri);
-	g_object_unref (G_OBJECT (loader));
-
+      
 	g_signal_emit (G_OBJECT (image), eog_image_signals [SET_IMAGE_SIGNAL], 0);
 
-	return 0;
+ file_exit_error:
+	gnome_vfs_uri_unref (uri);
+	if (loader)
+		g_object_unref (G_OBJECT (loader));
+	if (rsvg_handle)
+		rsvg_handle_free (rsvg_handle);
+
+	return image->priv->pixbuf ? 0 : -1;
 }
 
 static Bonobo_Unknown

@@ -1,3 +1,15 @@
+2002-05-14  jacob berkman  <jacob@ximian.com>
+
+	* libeog/GNOME_EOG.server.in: we can load image/svg now
+
+	* viewer/eog-image.c (load_image_from_stream): 
+	(load_image_from_file): support loading svg images (and fix some
+	memleaks)
+
+	* configure.in: require librsvg
+
+	fixes bug #81528
+
 2002-05-13  Federico Mena Quintero  <federico@ximian.com>
 
 	Merging the accessibility patches from Muktha Narayan
