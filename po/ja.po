@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 1.1.4\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-01-20 09:43+0900\n"
+"Project-Id-Version: eog HEAD\n"
+"POT-Creation-Date: 2003-05-05 17:18+0900\n"
+"PO-Revision-Date: 2003-05-05 17:16+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
-"Language-Team: Japanese <translation@gnome.gr.jp>\n"
+"Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,21 +28,19 @@ msgstr "画像コレクション"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 #: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
 msgid "Next Image"
-msgstr "画像の保存"
+msgstr "次の画像を表示します"
 
 #: collection/eog-collection-view-ui.xml.h:3
 msgid "Previous"
-msgstr ""
+msgstr "前へ"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
 msgid "Previous Image"
-msgstr "画像を印刷します"
+msgstr "前の画像を表示します"
 
 #: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
 msgid "Slide Show"
@@ -54,21 +52,19 @@ msgstr "表示(_V)"
 
 #: collection/eog-collection-view.c:400
 msgid "Move to Trash"
-msgstr ""
+msgstr "ゴミ箱に移動"
 
 #: collection/eog-collection-view.c:444
-#, fuzzy
 msgid "Collection View"
-msgstr "コレクション"
+msgstr "コレクション表示"
 
 #: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
 msgid "Window Title"
 msgstr "ウインドウのタイトル"
 
 #: collection/eog-collection-view.c:902
-#, fuzzy
 msgid "Status Text"
-msgstr "ステータスバーのテキスト"
+msgstr "ステータス・テキスト"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -76,73 +72,72 @@ msgstr "画像ビューア"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
-msgstr "いろんな種類の画像を表示します"
+msgstr "いろいろな種類の画像を表示します"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
-msgstr ""
+msgstr "<b>画像の補正</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>画像のズーム</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>順番</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "透過する部分の色"
+msgstr "<b>透過する部分</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "背景を利用する"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "格子で指定する(_P)"
+msgstr "格子を使用する(_P)"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "カスタマイズする(_C)"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "透過する部分の色"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "100% よりも大きくズームしない"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Eye of GNOME の設定"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "画像ビューア"
+msgstr "画像の表示"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "ループする"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"次の画像を自動的に表示する間隔:\n"
+"(0: 無効)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -150,7 +145,7 @@ msgstr "ズーム時に画像を補正する (高品質ですが描画は低速)
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "秒"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -170,15 +165,14 @@ msgstr ""
 "0 (1:1の拡大率)、1 (画像ウィンドウと同じ拡大率)、2 (スクリーンに合わせる)"
 
 #: eog.schemas.in.h:4
-#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
 "画像を透過する部分をどのように表示させるかを指定します。指定可能な値は "
-"CHECK_PATTERN と COLOR です。COLOR を選択した場合、キー trans_color には使用"
-"する色の値を指定します。"
+"CHECK_PATTERN、COLOR と NONE です。COLOR を選択した場合、キー trans_color に"
+"は使用する色の値を指定します。"
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -297,9 +291,8 @@ msgid "By Extension"
 msgstr "拡張子順"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "サポートしていない画像の種類です。"
+msgstr "画像の保存でサポートしていないフォーマットです。"
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
@@ -315,38 +308,33 @@ msgstr "画像の保存"
 
 #: libeog/eog-image.c:1162
 msgid "No image loaded."
-msgstr ""
+msgstr "画像が読み込まれていません。"
 
 #: libeog/eog-image.c:1196
-#, fuzzy
 msgid "Unsupported image type for saving."
-msgstr "サポートしていない画像の種類です。"
+msgstr "画像の保存でサポートしていない種類です。"
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "属性"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "スケール"
+msgstr "値"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "画像の幅"
+msgstr "幅"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "右:"
+msgstr "高さ"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "ファイル(_F)"
+msgstr "ファイル名"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -469,19 +457,17 @@ msgstr ""
 "%s"
 
 #: shell/main.c:225
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"同時に %i 個のウインドウを\n"
-"開こうとしています。代わりに\n"
-"コレクションで表示しますか？"
+"同時に %i 個のウインドウを開こうとしています。代わりにコレクションで表示しま"
+"すか？"
 
 #: shell/main.c:229
-#, fuzzy
 msgid "Open multiple single windows?"
-msgstr "新しいウインドウで開きます"
+msgstr "複数の単一ウインドウで開きますか？"
 
 #: shell/main.c:233
 msgid "Single Windows"
@@ -492,9 +478,8 @@ msgid "Collection"
 msgstr "コレクション"
 
 #: shell/main.c:305
-#, fuzzy
 msgid "Could not find files"
-msgstr "`%s'を開けませんでした"
+msgstr "ファイルが見つかりませんでした"
 
 #: shell/util.c:52
 #, c-format
@@ -534,14 +519,12 @@ msgid "_Zoom In"
 msgstr "拡大(_I)"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip _Horizontal"
-msgstr "水平方向にひっくり返す"
+msgstr "水平方向にひっくり返す(_H)"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip _Vertical"
-msgstr "垂直方向にひっくり返す"
+msgstr "垂直方向にひっくり返す(_V)"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
@@ -560,19 +543,16 @@ msgid "Print image to the printer"
 msgstr "画像をプリンタへ印刷します"
 
 #: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
 msgid "Rotate 180 _Degrees"
-msgstr "180°回転"
+msgstr "180°回転(_D)"
 
 #: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
 msgid "Rotate C_lockwise"
-msgstr "時計回りに回転します"
+msgstr "時計回りに回転(_L)"
 
 #: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
 msgid "Rotate Counte_r Clockwise"
-msgstr "時計回りに回転する角度"
+msgstr "反時計回りに回転(_R)"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
@@ -583,9 +563,8 @@ msgid "Setup the page settings for your current printer"
 msgstr "現在使用中のプリンタに合わせてページ設定を変更します"
 
 #: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
 msgid "_Full Screen"
-msgstr "フル・スクリーン"
+msgstr "フル・スクリーン(_F)"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
@@ -613,11 +592,11 @@ msgstr "/閉じる(_C)"
 
 #: viewer/eog-image-view.c:902
 msgid "Image successfully saved"
-msgstr ""
+msgstr "画像の保存が完了しました"
 
 #: viewer/eog-image-view.c:906
 msgid "Image saving failed"
-msgstr ""
+msgstr "画像の保存に失敗しました"
 
 #: viewer/eog-image-view.c:1149
 msgid "Image Width"
@@ -633,11 +612,11 @@ msgstr "ステータスバーのテキスト"
 
 #: viewer/eog-image-view.c:1161
 msgid "Desired Window Width"
-msgstr ""
+msgstr "ウィンドウの幅にする"
 
 #: viewer/eog-image-view.c:1164
 msgid "Desired Window Height"
-msgstr ""
+msgstr "ウィンドウの高さにする"
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -810,113 +789,3 @@ msgstr "下、そして右"
 #: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "右、そして下"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Eye of GNOME 画像ビューア"
-
-#~ msgid "By c_olor"
-#~ msgstr "色で指定する(_O)"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "透過する部分の表示方法"
-
-#~ msgid "Pick a color"
-#~ msgstr "色の取得"
-
-#~ msgid "interpolation type"
-#~ msgstr "補間の種類"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "使用する補間の種類"
-
-#~ msgid "check type"
-#~ msgstr "格子の種類"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "使用する格子の種類"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "使用する格子の大きさ"
-
-#~ msgid "dither"
-#~ msgstr "ディザ"
-
-#~ msgid "dither type"
-#~ msgstr "ディザの種類"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "同時に %i 個のウインドウを\n"
-#~ "開こうとしています。続けますか？"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "%s にアクセスできませんでした。\n"
-#~ "Eye of GNOME はこのファイルを開くことはできません。"
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Eye of GNOME は次のファイルにアクセスできないので、表示することができませ"
-#~ "ん:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "GnomeVFS を初期化できませんでした！\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Bonobo を初期化できませんでした！\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "画像を '%s' として保存でませんでした: %s"
-
-#~ msgid "Pages"
-#~ msgstr "ページ"
-
-#~ msgid "Print Preview"
-#~ msgstr "印刷プレビュー"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "画像の印刷に失敗"
