@@ -44,21 +44,6 @@
     </schema>
 
     <schema>
-      <key>/schemas/apps/eog/window/auto_size</key>
-      <applyto>/apps/eog/window/auto_size</applyto>
-      <owner>eog</owner>
-      <type>bool</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Automatically pick window size</short>
-	<long>Whether image windows should pick their size and zooming
-	factor automatically based on the size of the image.  If this
-	option is not set, image windows will get whatever size the
-	window manager assigns to them.</long>
-      </locale>
-    </schema>
-
-    <schema>
       <key>/schemas/apps/eog/window/open_new_window</key>
       <applyto>/apps/eog/window/open_new_window</applyto>
       <owner>eog</owner>
@@ -68,65 +53,6 @@
         <short>Open images in a new window</short>
 	<long>Whether opening an image should create a new window
 	instead of replacing the image in the current window.</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/full_screen/sb_policy</key>
-      <applyto>/apps/eog/full_screen/sb_policy</applyto>
-      <owner>eog</owner>
-      <type>int</type>
-      <default>2</default>
-      <locale name="C">
-        <short>Scrollbar policy for the full screen view</short>
-	<long>Whether to display scrollbars on the full screen view.
-	Possible values are:  1 (automatic; only display scrollbars if
-	the image is larger than the window), 2 (never display
-	scrollbars).</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/full_screen/zoom</key>
-      <applyto>/apps/eog/full_screen/zoom</applyto>
-      <owner>eog</owner>
-      <type>int</type>
-      <default>2</default>
-      <locale name="C">
-        <short>Default zoom factor for the full screen view</short>
-	<long>Default zoom factor for the full screen view.  Possible
-	values are: 0 (use 1:1 zoom factor), 1 (use the same zoom
-	factor as the image window), 2 (fit the image to the
-	screen).</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/full_screen/fit_standard</key>
-      <applyto>/apps/eog/full_screen/fit_standard</applyto>
-      <owner>eog</owner>
-      <type>bool</type>
-      <default>1</default>
-      <locale name="C">
-        <short>Fit standard-sized images to the screen</short>
-	<long>Whether to fit standard-sized images to the screen when
-	in full screen mode.  These are images with sizes like
-	320x240, 640x480, 800x600, etc.  This selects whether such
-	images should be scaled to fit the screen regardless of the
-	setting for the default zoom factor of the full screen
-	view.</long>
-      </locale>
-    </schema>
-
-    <schema>
-      <key>/schemas/apps/eog/full_screen/bevel</key>
-      <applyto>/apps/eog/full_screen/bevel</applyto>
-      <type>bool</type>
-      <default>0</default>
-      <locale name="C">
-        <short>Put a bevel around the screen</short>
-	<long>Whether the full screen view should display a bevel
-	along the edges of the screen.</long>
       </locale>
     </schema>
   </schemalist>
