@@ -304,6 +304,206 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	gtk_widget_show (GTK_WIDGET (filesel));
 }
 
+static gint
+count_pages (double 	paper_width,
+	     double	paper_height,
+	     gint	top,
+	     gint	left,
+	     gint	right,
+	     gint	bottom,
+	     gboolean	fit_to_page,
+	     gint	adj,
+	     GdkPixbuf *pixbuf)
+{
+	gint 	adjusted_width, adjusted_height;
+	gint 	image_width, image_height;
+	double	available_x, available_y;
+	gint	rows, cols;
+
+	if (fit_to_page)
+		return (1);
+
+	available_x = paper_width - left - right;
+	available_y = paper_height - bottom - top;
+	
+	image_width = gdk_pixbuf_get_width (pixbuf);
+	image_height = gdk_pixbuf_get_height (pixbuf);
+
+	adjusted_width = image_width * adj / 100;
+	adjusted_height = image_height * adj / 100;
+
+	cols = adjusted_width / available_x + 1;
+	rows = adjusted_height / available_y + 1;
+
+	return (cols * rows);
+}
+
+static void
+print_page (GnomePrintContext 	*context,
+	    gint		 first,
+	    gint		 last,
+	    gint		*current,
+	    double		 paper_width,
+	    double 		 paper_height,
+	    gboolean		 landscape,
+	    gint		 top,
+	    gint		 left,
+	    gint		 right,
+	    gint		 bottom,
+	    gboolean		 vertically,
+	    gboolean		 horizontally,
+	    gboolean 		 fit_to_page,
+	    gint		 adj,
+	    gboolean		 down_right,
+	    GdkPixbuf 		*pixbuf, 
+	    gint 		 col, 
+	    gint 		 row)
+{
+	double     	 matrix [] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+	double     	 available_x, available_y;
+	double     	 image_width, image_height;
+	gboolean   	 go_right = FALSE;
+	gboolean   	 go_down = FALSE;
+	GdkPixbuf 	*pixbuf_to_print = NULL;
+
+	(*current)++;
+	if ((*current < first) || (*current > last))
+		return;
+
+	gnome_print_beginpage (context, _("EOG Image"));
+	if (landscape)
+		gnome_print_rotate (context, 90);
+
+	available_x = paper_width - left - right;
+	available_y = paper_height - bottom - top;
+	g_return_if_fail (available_x > 0);
+	g_return_if_fail (available_y > 0);
+
+	/* How big should the image be? */
+	if (fit_to_page) {
+		double prop_image, prop_paper;
+		double tmp;
+
+		image_width = gdk_pixbuf_get_width (pixbuf);
+		image_height = gdk_pixbuf_get_height (pixbuf);
+
+		prop_paper = available_y / available_x;
+		prop_image = image_height / image_width;
+
+		if (prop_image > prop_paper) {
+			matrix [0] = available_y;
+			matrix [3] = available_y / prop_image;
+		} else {
+			matrix [0] = available_x;
+			matrix [3] = available_x * prop_image;
+		}
+
+		if (landscape) {
+			tmp = matrix [0];
+			matrix [0] = matrix [3];
+			matrix [3] = tmp;
+		}
+		
+	} else {
+		gint	adjusted_width, adjusted_height;
+
+		image_width = gdk_pixbuf_get_width (pixbuf);
+		image_height = gdk_pixbuf_get_height (pixbuf);
+
+		adjusted_width = image_width * adj / 100;
+		adjusted_height = image_height * adj / 100;
+
+		if (adjusted_width > available_x * (col + 1)) {
+			matrix [0] = available_x;
+			go_right = TRUE;
+		} else
+			matrix [0] = adjusted_width - available_x * col;
+
+		if (adjusted_height > available_y * (row + 1)) {
+			matrix [3] = available_y;
+			go_down = TRUE;
+		} else
+			matrix [3] = adjusted_height - available_y * row;
+
+		pixbuf_to_print = gdk_pixbuf_new (
+			gdk_pixbuf_get_colorspace (pixbuf),
+			gdk_pixbuf_get_has_alpha (pixbuf),
+			gdk_pixbuf_get_bits_per_sample (pixbuf),
+			matrix [0] / adj * 100, 
+			matrix [3] / adj * 100);
+
+		gdk_pixbuf_copy_area (pixbuf, 
+				      col * available_x / adj * 100,
+				      row * available_y / adj * 100,
+				      matrix [0] / adj * 100, 
+				      matrix [3] / adj * 100,
+				      pixbuf_to_print, 0, 0);
+	}
+
+	if (!pixbuf_to_print) {
+		pixbuf_to_print = pixbuf;
+		gdk_pixbuf_ref (pixbuf);
+	}
+
+	/* Where should the picture be? */
+	matrix [4] = left;
+	matrix [5] = 0 - top - matrix [3];
+
+	if (vertically)
+		matrix[5] -= (paper_height - top - bottom 
+					   - matrix [3]) / 2;
+	if (horizontally)
+		matrix[4] += (paper_width - left - right 
+					  - matrix [0]) / 2;
+	if (!landscape)
+		matrix [5] += paper_height;
+
+	gnome_print_concat (context, matrix);
+	gnome_print_pixbuf (context, pixbuf_to_print);
+	gdk_pixbuf_unref (pixbuf_to_print);
+
+	gnome_print_showpage (context);
+
+	if (down_right) {
+		if (go_down)
+			print_page (context,
+				    first, last, current,
+				    paper_width, paper_height, landscape,
+				    top, left, right, bottom,
+				    vertically, horizontally,
+				    fit_to_page, adj, down_right,
+				    pixbuf, col, row + 1);
+		else if (go_right)
+			print_page (context,
+				    first, last, current,
+				    paper_width, paper_height, landscape,
+				    top, left, right, bottom,
+				    vertically, horizontally,
+				    fit_to_page, adj, down_right,
+				    pixbuf, col + 1, 0);
+		return;
+	}
+
+	if (!down_right) {
+		if (go_right)
+			print_page (context,
+				   first, last, current,
+				   paper_width, paper_height, landscape,
+				   top, left, right, bottom,
+				   vertically, horizontally,
+				   fit_to_page, adj, down_right,
+				   pixbuf, col + 1, row);
+		else if (go_down)
+			print_page (context,
+				    first, last, current,
+				    paper_width, paper_height, landscape,
+				    top, left, right, bottom,
+				    vertically, horizontally,
+				    fit_to_page, adj, down_right,
+				    pixbuf, 0, row + 1);
+	}
+}
+
 void
 eog_image_view_print (EogImageView *image_view, gboolean preview)
 {
@@ -312,12 +512,12 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 	GnomePrintMaster  *print_master;
 	GnomePrinter      *printer = NULL;
 	const GnomePaper  *paper = NULL;
-	int 		   copies = 1;
-	int 		   collate = FALSE;
+	int		   first, last, current;
 	gboolean 	   landscape, horizontally, vertically, fit_to_page;
+	gboolean	   down_right;
 	gchar		  *paper_size;
 	gint		   adj, left, bottom, right, top;
-	double		   matrix[6], paper_width, paper_height;
+	double		   paper_width, paper_height;
 
 	landscape = gconf_client_get_bool (image_view->priv->client, 
 					"/apps/eog/viewer/landscape", NULL);
@@ -339,6 +539,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 					"/apps/eog/viewer/right", NULL);
 	top = gconf_client_get_int (image_view->priv->client,
 					"/apps/eog/viewer/top", NULL);
+	down_right = gconf_client_get_bool (image_view->priv->client,
+					"/apps/eog/viewer/down_right", NULL);
 						
 	if (adj == 0)
 		adj = 100;
@@ -348,14 +550,46 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 		g_free (paper_size);
 	}
 
+	print_master = gnome_print_master_new ();
+
+	/* What paper do we use? */
+	if (paper)
+		gnome_print_master_set_paper (print_master, paper);
+	else
+		paper = gnome_print_master_get_paper (print_master);
+
+	if (landscape) {
+		paper_width = gnome_paper_psheight (paper);
+		paper_height = gnome_paper_pswidth (paper);
+	} else {
+		paper_width = gnome_paper_pswidth (paper);
+		paper_height = gnome_paper_psheight (paper);
+	}
+
+	pixbuf = eog_image_get_pixbuf (image_view->priv->image);
+
+	/* Per default, we print all pages */
+	first = 1;
+	last = count_pages (paper_width, paper_height, 
+			    top, left, right, bottom, 
+			    fit_to_page, adj, pixbuf);
+
 	if (!preview) {
 		GnomePrintDialog *gpd;
+		gint		  copies;
+		gint		  collate;
 
 		gpd = GNOME_PRINT_DIALOG (
 			gnome_print_dialog_new (_("Print Image"), 
-						GNOME_PRINT_DIALOG_COPIES));
+						GNOME_PRINT_DIALOG_COPIES | 
+						GNOME_PRINT_DIALOG_RANGE));
 		gnome_dialog_set_default (GNOME_DIALOG (gpd), 
 					  GNOME_PRINT_PRINT);
+		gnome_print_dialog_construct_range_page (gpd,
+					GNOME_PRINT_RANGE_ALL | 
+					GNOME_PRINT_RANGE_RANGE,
+					1, last , NULL, _("Pages"));
+
 		switch (gnome_dialog_run (GNOME_DIALOG (gpd))) {
 		case GNOME_PRINT_PRINT:
 			break;
@@ -363,108 +597,40 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 			preview = TRUE;
 			break;
 		case -1:
+			gtk_object_unref (GTK_OBJECT (print_master));
 			return;
 		default:
 			gnome_dialog_close (GNOME_DIALOG (gpd));
+			gtk_object_unref (GTK_OBJECT (print_master));
 			return;
 		}
 
 		gnome_print_dialog_get_copies (gpd, &copies, &collate);
+		gnome_print_master_set_copies (print_master, copies, collate);
+
 		printer = gnome_print_dialog_get_printer (gpd);
+		gnome_print_master_set_printer (print_master, printer);
+
+		gnome_print_dialog_get_range_page (gpd, &first, &last);
+
 		gnome_dialog_close (GNOME_DIALOG (gpd));
 	}
 
-	print_master = gnome_print_master_new ();
-	if (printer)
-		gnome_print_master_set_printer (print_master, printer);
-	gnome_print_master_set_copies (print_master, copies, collate);
-
-	/* What paper do we use? */
-	if (paper) 
-		gnome_print_master_set_paper (print_master, paper);
-	else
-		paper = gnome_print_master_get_paper (print_master);
-	paper_width = gnome_paper_pswidth (paper);
-	paper_height = gnome_paper_psheight (paper);
-
 	print_context = gnome_print_master_get_context (print_master);
-	gnome_print_beginpage (print_context, _("EOG Image"));
 
-	pixbuf = eog_image_get_pixbuf (image_view->priv->image);
-	matrix[1] = 0; //distort
-	matrix[2] = 0; //distort
-
-	/* How big should the image be? */
-	if (fit_to_page) {
-		double width;
-		double height;
-		double width_image = gdk_pixbuf_get_width (pixbuf);
-		double height_image = gdk_pixbuf_get_height (pixbuf);
-		double prop_image;
-		double prop;
-
-		if (landscape) {
-			width = paper_height - left - right;
-			height = paper_width - bottom - top;
-		} else {
-			width = paper_width - left - right;
-			height = paper_height - bottom - top;
-		}
-		prop = height / width;
-		prop_image = height_image / width_image;
-
-		if (prop_image > prop) {
-			matrix[0] = height;
-			matrix[3] = height / prop_image;
-		} else {
-			matrix[0] = width;
-			matrix[3] = width * prop_image;
-		}
-	} else {
-		if (landscape) {
-			matrix[0] = gdk_pixbuf_get_height (pixbuf) * adj / 100;
-			matrix[3] = gdk_pixbuf_get_width (pixbuf) * adj / 100;
-		} else {
-			matrix[0] = gdk_pixbuf_get_width (pixbuf) * adj / 100;
-			matrix[3] = gdk_pixbuf_get_height (pixbuf) * adj / 100;
-		}
-	}
-
-	/* Where should the picture be? */
-	if (landscape) {
-		if (vertically) {
-			double space = paper_width - top - bottom - matrix[0];
-			matrix[4] = paper_width - bottom - (space / 2);
-		} else
-			matrix[4] = paper_width - bottom;
-
-		if (horizontally) {
-			double space = paper_height - left - right - matrix[3];
-			matrix[5] = left + (space / 2);
-		} else
-			matrix[5] = left;
-
-	} else {
-		if (horizontally) {
-			double space = paper_width - left - right - matrix[0];
-			matrix[4] = left + (space / 2);
-		} else 
-			matrix[4] = left;
-
-		if (vertically) {
-			double space = paper_height - top - bottom - matrix[3];
-			matrix[5] = bottom + (space / 2);
-		} else
-			matrix[5] = bottom;
-	}
-
-	gnome_print_concat (print_context, matrix);
-	if (landscape)
-		gnome_print_rotate (print_context, 90);
-	gnome_print_pixbuf (print_context, pixbuf);
+	current = 0;			
+	print_page (print_context, 
+		    first, last, &current,
+		    paper_width, paper_height, 
+		    landscape,
+		    top, left, right, bottom,
+		    vertically, horizontally,
+		    fit_to_page, adj,
+		    down_right,
+		    pixbuf,
+		    0, 0);
 	gdk_pixbuf_unref (pixbuf);
 
-	gnome_print_showpage (print_context);
 	gnome_print_context_close (print_context);
 	gnome_print_master_close (print_master);
 
@@ -1291,6 +1457,8 @@ eog_image_view_construct (EogImageView       *image_view,
 		gconf_init (0, NULL, NULL);
 	
 	image_view->priv->client = gconf_client_get_default ();
+	gconf_client_add_dir (image_view->priv->client, "/apps/eog/viewer",
+			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 	
 	image_view->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image_view->priv->image));

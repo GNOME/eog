@@ -2,6 +2,7 @@ INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Eog\"				\
 	-DDATADIR=\""$(datadir)"\"			\
+	-DICONDIR=\""$(datadir)/pixmaps/eog"\"		\
 	-I. 						\
 	-I$(srcdir) -I$(top_srcdir) 			\
 	-I$(top_srcdir)/libeog				\
@@ -44,6 +45,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable.h	\
 	eog-embeddable-view.c	\
 	eog-embeddable-view.h	\
+	eog-preview.c		\
+	eog-preview.h		\
 	eog-print-setup.c	\
 	eog-print-setup.h	\
 	eog-util.h		\
