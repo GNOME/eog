@@ -344,7 +344,6 @@ prefs_dialog (void)
 	set_prefs_widgets ();
 	hook_prefs_widgets ();
 
-	/* FIXME: run and get value */
 	gnome_dialog_run (GNOME_DIALOG (p_dialog));
 
 	gtk_object_unref (GTK_OBJECT (p_xml));
