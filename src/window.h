@@ -56,6 +56,8 @@ GtkType window_get_type (void);
 GtkWidget *window_new (void);
 void window_construct (Window *window);
 
+void window_open_image (Window *window, const char *filename);
+
 
 
 END_GNOME_DECLS

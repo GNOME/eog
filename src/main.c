@@ -27,16 +27,28 @@
 int
 main (int argc, char **argv)
 {
+	poptContext ctx;
 	GtkWidget *window;
+	const char **args;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	textdomain (PACKAGE);
 
-	gnome_init (PACKAGE, VERSION, argc, argv);
+	gnome_init_with_popt_table (PACKAGE, VERSION, argc, argv, NULL, 0, &ctx);
 	gdk_rgb_init ();
 
-	window = window_new ();
-	gtk_widget_show (window);
+	args = poptGetArgs (ctx);
+
+	if (args)
+		for (; *args; args++) {
+			window = window_new ();
+			window_open_image (WINDOW (window), *args);
+			gtk_widget_show (window);
+		}
+	else {
+		window = window_new ();
+		gtk_widget_show (window);
+	}
 
 	gtk_main ();
 	return 0;

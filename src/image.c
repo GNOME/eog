@@ -108,7 +108,7 @@ image_unref (Image *image)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 int
-image_load (Image *image, char *filename)
+image_load (Image *image, const char *filename)
 {
 	g_return_val_if_fail (image != NULL, FALSE);
 	g_return_val_if_fail (filename != NULL, FALSE);

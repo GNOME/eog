@@ -208,9 +208,16 @@ set_mode (Window *window, WindowMode mode)
 
 /* File opening */
 
-/* Open an image file in a window */
-static void
-open_image (Window *window, char *filename)
+
+/**
+ * window_open_image:
+ * @window: A window.
+ * @filename: An image filename.
+ * 
+ * Opens an image file and puts it into a window.
+ **/
+void
+window_open_image (Window *window, const char *filename)
 {
 	WindowPrivate *priv;
 	Image *image;
@@ -271,7 +278,7 @@ open_ok_clicked (GtkWidget *widget, gpointer data)
 	g_assert (window != NULL);
 
 	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
-	open_image (window, filename);
+	window_open_image (window, filename);
 
 	gtk_widget_hide (fs);
 }

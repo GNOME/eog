@@ -245,3 +245,23 @@ ui_image_set_image (UIImage *ui, Image *image)
 
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w, h);
 }
+
+/**
+ * ui_image_set_zoom:
+ * @ui: An image view.
+ * @zoom: Desired zoom factor.
+ * 
+ * Sets the zoom factor of an image view.
+ **/
+void
+ui_image_set_zoom (UIImage *ui, double zoom)
+{
+	UIImagePrivate *priv;
+
+	g_return_if_fail (ui != NULL);
+	g_return_if_fail (IS_UI_IMAGE (ui));
+	g_return_if_fail (zoom > 0.0);
+
+	priv = ui->priv;
+	gnome_canvas_set_pixels_per_unit (GNOME_CANVAS (priv->canvas), zoom);
+}
