@@ -1419,6 +1419,7 @@ image_loading_update_cb (EogImage *img, int x, int y, int width, int height, gpo
 		set_zoom_fit (view);
 		check_scrollbar_visibility (view, NULL);
 	}
+	priv->progressive_state = PROGRESSIVE_LOADING;
 
 	get_image_offsets (view, &xofs, &yofs);
 
@@ -1729,7 +1730,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 
 	priv->progressive_state = PROGRESSIVE_NONE;
-	if (image != 0) {
+	if (image != NULL) {
 		priv->image = image;
 
 		priv->image_cb_ids[0] = g_signal_connect (priv->image, "loading_update",
@@ -1743,18 +1744,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		priv->image_cb_ids[4] = g_signal_connect (priv->image, "image_changed",
 							  (GCallback) image_changed_cb, view);
 
-		if (eog_image_load (priv->image)) {
-			priv->pixbuf = eog_image_get_pixbuf (priv->image);
-		}
-		else {
-			priv->progressive_state = PROGRESSIVE_LOADING;
-		}
-	}
-
-	if (priv->progressive_state == PROGRESSIVE_NONE) {
-		set_zoom_fit (view);
-		check_scrollbar_visibility (view, NULL);
-		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+		eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
 	}
 }
 

@@ -40,6 +40,9 @@ GNOME_CLASS_BOILERPLATE (EogFullScreen,
 static GQuark FINISHED_QUARK = 0; 
 static GQuark FAILED_QUARK = 0; 
 
+#define DIRECTION_FORWARD  1
+#define DIRECTION_BACKWARD  -1
+
 struct _EogFullScreenPrivate
 {
 	GtkWidget *view;
@@ -51,26 +54,12 @@ struct _EogFullScreenPrivate
 	EogImage **image_list;
 	/* Number of images in image_list */
 	int n_images;
-	/* The index of the displayed image in image_list */ 
-	int current_index;
-	
-	/* Kind of fifo which holds all the EogImage objects which are
-	   currently loaded completely into memory and need freeing
-	   eventually.
-	*/
-	EogImage *load_slots [MAX_LOAD_SLOTS];
-	/* Number of slots actually used. May be smaller than
-	   MAX_LOAD_SLOTS if there are less images to show */
-	int n_slots;
-	/* The index of the displayed image in load_slots */
-	int current_slot;
 
-	/* Number of images we have to load in advance on start up,
-	   before we show anyting on the screen */
-	gboolean n_prepare_loadings;
-	/* Wether or not we are in intialize mode. We ignore all user
-	 * input then. */
-	gboolean initialize;
+	int direction;
+	
+	/* indices to manage advance loading */
+	int visible_index;
+	int active_index;
 
 	/* if the mouse pointer is hidden */
 	gboolean cursor_hidden;
@@ -80,18 +69,20 @@ struct _EogFullScreenPrivate
 	guint hide_timeout_id;
 };
 
-static void preparation_finished (EogFullScreen *fs);
 static void connect_image_callbacks (EogFullScreen *fs, EogImage *image);
 static void disconnect_image_callbacks (EogImage *image);
+static void prepare_load_image (EogFullScreen *fs, int image_index);
+static void check_advance_loading (EogFullScreen *fs);
+
 
 static int
-get_index_offset (int index, int offset, int n_indices)
+get_index_modulo (int index, int offset, int modulo)
 {
 	int new_index;
 	
-	new_index = (index + offset) % n_indices;
+	new_index = (index + offset) % modulo;
 	if (new_index < 0) 
-		new_index = n_indices + new_index;
+		new_index = modulo + new_index;
 	
 	return new_index;
 }
@@ -201,80 +192,20 @@ static void
 show_next_image (EogFullScreen *fs)
 {
 	EogFullScreenPrivate *priv;
-	int load_img_index;
-	int load_slot_index;
-	EogImage *image;
-
+	int free_index;
+	
 	priv = fs->priv;
 
-	/* obtain the next image to show directly from the load_slots fifo */
-	priv->current_slot = get_index_offset (priv->current_slot, 1, priv->n_slots);
-	g_assert (priv->load_slots [priv->current_slot] != NULL);
-	image = priv->load_slots [priv->current_slot];
-		
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
-	
-        /* adapt current_index variable to point to the position of the visible
-	 * image in the global image list */
-	priv->current_index = get_index_offset (priv->current_index, 1, priv->n_images);
+	priv->visible_index = get_index_modulo (priv->visible_index, priv->direction, priv->n_images);
 
-	/* determine next image to load in advance */
-	load_img_index = get_index_offset (priv->current_index, 2, priv->n_images);
-	load_slot_index = get_index_offset (priv->current_slot, 2, priv->n_slots);
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->image_list [priv->visible_index]);
 
-	image = priv->image_list [load_img_index];
-	if (priv->load_slots [load_slot_index] != image) {
-		if (priv->load_slots [load_slot_index] != NULL) {
-			eog_image_free_mem (priv->load_slots [load_slot_index]);
-		}
-		priv->load_slots [load_slot_index] = image;
-		eog_image_load (image);
-	}
-}
+	free_index = get_index_modulo (priv->visible_index, 2*-priv->direction, priv->n_images);
+	g_print ("free: %i\n", free_index);
+	eog_image_cancel_load (priv->image_list [free_index]);
+	eog_image_free_mem (priv->image_list [free_index]);
 
-static void
-show_previous_image (EogFullScreen *fs)
-{
-	EogFullScreenPrivate *priv;
-	int load_img_index;
-	int load_slot_index;
-	EogImage *image;
-
-	priv = fs->priv;
-
-	/* obtain the previous image to show directly from the load_slots fifo */
-	priv->current_slot = get_index_offset (priv->current_slot, -1, priv->n_slots);
-	g_assert (priv->load_slots [priv->current_slot] != NULL);
-	image = priv->load_slots [priv->current_slot];
-		
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
-	
-        /* adapt current_index variable to point to the position of the visible
-	 * image in the global image list  */
-	priv->current_index = get_index_offset (priv->current_index, -1, priv->n_images);
-
-	/* determine next image to load in advance */
-	load_img_index = get_index_offset (priv->current_index, -2, priv->n_images);
-	load_slot_index = get_index_offset (priv->current_slot, -2, priv->n_slots);
-
-	image = priv->image_list [load_img_index];
-	if (priv->load_slots [load_slot_index] != image) {
-		if (priv->load_slots [load_slot_index] != NULL) {
-			eog_image_free_mem (priv->load_slots [load_slot_index]);
-		}
-		priv->load_slots [load_slot_index] = image;
-		eog_image_load (image);
-	}
-
-	load_slot_index = get_index_offset (priv->current_slot, -1, priv->n_slots);
-	if (priv->load_slots [load_slot_index] == NULL) { 
-		/* This is a special case, which may occur if the user
-		 * moves backward through the list. */
-		load_img_index = get_index_offset (priv->current_index, -1, priv->n_images);
-		image = priv->image_list [load_img_index];
-		priv->load_slots [load_slot_index] = image;
-		eog_image_load (image);
-	}
+	check_advance_loading (fs);
 }
 
 /* Key press handler for the full screen view */
@@ -310,7 +241,9 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_space:
 	case GDK_Right:
 	case GDK_Down:
-		if (priv->n_images > 1 && !priv->initialize) {
+		if (priv->n_images > 1 && priv->visible_index >= 0) {
+			priv->direction = DIRECTION_FORWARD;
+
 			show_next_image (fs);
 			handled = TRUE;
 		}
@@ -319,8 +252,10 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_BackSpace:
 	case GDK_Left:
 	case GDK_Up:
-		if (priv->n_images > 1 && !priv->initialize) {
-			show_previous_image (fs);
+		if (priv->n_images > 1 && priv->visible_index >= 0) {
+			priv->direction = DIRECTION_BACKWARD;
+
+			show_next_image (fs);
 			handled = TRUE;
 		}
 		break;
@@ -357,6 +292,7 @@ eog_full_screen_destroy (GtkObject *object)
 	if (priv->image_list != NULL) {
 		for (i = 0; i < priv->n_images; i++) {
 			disconnect_image_callbacks (priv->image_list [i]);
+			eog_image_free_mem (priv->image_list[i]);
 		}
 		g_free (priv->image_list);
 		priv->image_list = NULL;
@@ -412,9 +348,50 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 
 	gtk_window_set_default_size (
 		GTK_WINDOW (fs),
-	        gdk_screen_width (),
-		gdk_screen_height ()); 
+	        400, // gdk_screen_width (),
+		400); // gdk_screen_height ()); 
 	gtk_window_move (GTK_WINDOW (fs), 0, 0);
+}
+
+
+static void
+check_advance_loading (EogFullScreen *fs)
+{
+	EogFullScreenPrivate *priv;
+	int diff = 0;
+
+	g_return_if_fail (EOG_IS_FULL_SCREEN (fs));
+
+	priv = fs->priv;
+
+	if (priv->direction == DIRECTION_FORWARD) {
+		if (priv->active_index < priv->visible_index) {
+			diff = priv->n_images - priv->visible_index + priv->active_index;
+		}
+		else {
+			diff = priv->active_index - priv->visible_index;
+		}
+	}
+	else if (priv->direction == DIRECTION_BACKWARD) {
+		if (priv->active_index > priv->visible_index) {
+			diff = priv->n_images - priv->active_index + priv->visible_index;
+		}
+		else {
+			diff = priv->visible_index - priv->active_index;
+		}
+	}
+	g_assert (diff >= 0);
+
+	g_print ("visible: %i .... active: %i  - diff: %i\n", priv->visible_index, priv->active_index, diff);
+
+	if (diff < 2) {
+		/* load maximal one image in advance */
+		prepare_load_image (fs, priv->active_index);
+	}
+	else if (diff > 2) {
+		priv->active_index = get_index_modulo (priv->visible_index, priv->direction, priv->n_images);
+		prepare_load_image (fs, priv->active_index);
+	}
 }
 
 static void
@@ -429,18 +406,28 @@ image_loading_finished_cb (EogImage *image, gpointer data)
 
 	priv = fs->priv;
 
-	if (priv->initialize) {
-		priv->n_prepare_loadings--;
-		if (priv->n_prepare_loadings == 0)
-		{
-			preparation_finished (fs);
-		}
+	g_print ("image loading finished: %s\n", eog_image_get_caption (image));
+
+	disconnect_image_callbacks (image);
+
+	if (priv->visible_index == -1) {
+		/* happens if we load the first image */
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->image_list[priv->active_index]);
+		priv->visible_index = priv->active_index;
+
+		g_print ("initiale visible index: %i\n", priv->visible_index);
 	}
+
+	priv->active_index = get_index_modulo (priv->active_index, priv->direction, priv->n_images);
+
+	check_advance_loading (fs);
 }
 
 static void
 image_loading_failed_cb (EogImage *image, const char *message, gpointer data)
 {
+	disconnect_image_callbacks (image);
+
 	/* FIXME: What should we do if an image loading failed? */
 }
 
@@ -485,38 +472,7 @@ connect_image_callbacks (EogFullScreen *fs, EogImage *image)
 }
 
 static void
-preparation_finished (EogFullScreen *fs)
-{
-	EogFullScreenPrivate *priv;
-	int img_index;
-	int slot_index;
-	EogImage *image;
-
-	g_return_if_fail (EOG_IS_FULL_SCREEN (fs));
-
-	priv = fs->priv;
-
-	if (!priv->initialize) return;
-
-	/* display first image */
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), priv->load_slots [priv->current_slot]);
-
-	priv->initialize = FALSE;
-
-	/* prepare the next image */
-	if (priv->n_images > 3) {
-		img_index = get_index_offset (priv->current_index, 2, priv->n_images);
-		slot_index = get_index_offset (priv->current_slot, 2, priv->n_slots);
-
-		image = priv->image_list [img_index];
-		connect_image_callbacks (fs, image);
-		priv->load_slots [slot_index] = image;
-		eog_image_load (image);
-	}
-}
-
-static void
-prepare_load_image (EogFullScreen *fs, int image_index, int slot)
+prepare_load_image (EogFullScreen *fs, int image_index)
 {
 	EogFullScreenPrivate *priv;
 	EogImage *image;
@@ -525,10 +481,9 @@ prepare_load_image (EogFullScreen *fs, int image_index, int slot)
 	
 	image = priv->image_list [image_index];
 	connect_image_callbacks (fs, image);
-	priv->load_slots [slot] = image;
-	if (eog_image_load (image)) {
-		priv->n_prepare_loadings--;
-	}
+
+	g_print ("start image loading: %s\n", eog_image_get_caption (image));
+	eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE);
 }
 
 static void
@@ -537,9 +492,6 @@ prepare_data (EogFullScreen *fs, GList *image_list, EogImage *start_image)
 	EogFullScreenPrivate *priv;
 	int i;
 	GList *it;
-	int next_index;
-	int prev_index;
-	int slot;
 
 	priv = fs->priv;
 	priv->n_images = g_list_length (image_list);
@@ -554,12 +506,14 @@ prepare_data (EogFullScreen *fs, GList *image_list, EogImage *start_image)
 	}
 
 	/* determine first image to show */
-	priv->current_index = -1;
+	priv->active_index = -1;
+	priv->visible_index = -1;
+	priv->direction = DIRECTION_FORWARD;
 	if (start_image != NULL) 
-		priv->current_index = g_list_index (image_list, start_image);
+		priv->active_index = g_list_index (image_list, start_image);
 
-	if (priv->current_index == -1) 
-		priv->current_index = 0;
+	if (priv->active_index == -1) 
+		priv->active_index = 0;
 
 	if (priv->n_images == 1) {
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), 
@@ -567,40 +521,7 @@ prepare_data (EogFullScreen *fs, GList *image_list, EogImage *start_image)
 		return;
 	}
 
-	/* prepare load slots */
-	for (i = 0; i < MAX_LOAD_SLOTS; i++) {
-		priv->load_slots [i] = NULL;
-	}
-
-	/* setup some variables */
-	priv->n_slots = MIN (priv->n_images, MAX_LOAD_SLOTS);
-	priv->n_prepare_loadings = MIN (3, priv->n_images);
-	priv->initialize = TRUE;
-	slot = 0;
-
-	if (priv->n_prepare_loadings == 3) {
-		/* load previous image only if we have more than two images
-		 * in the list
-		 */
-		prev_index = get_index_offset (priv->current_index, -1, priv->n_images);
-		prepare_load_image (fs, prev_index, slot++);
-		
-		priv->current_slot = 1;
-	}
-	else {
-		priv->current_slot = 0;
-	}
-
-	/* load 'current' image always */
-	prepare_load_image (fs, priv->current_index, slot++);
-
-	/* load next image always (we have at least 2 images always at this point) */
-	next_index = get_index_offset (priv->current_index, 1, priv->n_images);
-	prepare_load_image (fs, next_index, slot++);
-
-	if (priv->n_prepare_loadings == 0) {
-		preparation_finished (fs);
-	}
+	prepare_load_image (fs, priv->active_index);
 }
 
 GtkWidget *

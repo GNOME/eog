@@ -476,7 +476,7 @@ eog_image_instance_init (EogImage *img)
 }
 
 EogImage* 
-eog_image_new_uri (GnomeVFSURI *uri, EogImageLoadMode mode)
+eog_image_new_uri (GnomeVFSURI *uri)
 {
 	EogImage *img;
 	EogImagePrivate *priv;
@@ -485,7 +485,7 @@ eog_image_new_uri (GnomeVFSURI *uri, EogImageLoadMode mode)
 	priv = img->priv;
 
 	priv->uri = gnome_vfs_uri_ref (uri);
-	priv->mode = mode;
+	priv->mode = EOG_IMAGE_LOAD_DEFAULT;
 	priv->modified = FALSE;
 	priv->load_thread = NULL;
 
@@ -498,13 +498,13 @@ eog_image_new_uri (GnomeVFSURI *uri, EogImageLoadMode mode)
 }
 
 EogImage* 
-eog_image_new (const char *txt_uri, EogImageLoadMode mode)
+eog_image_new (const char *txt_uri)
 {
 	GnomeVFSURI *uri;
 	EogImage *image;
 
 	uri = gnome_vfs_uri_new (txt_uri);
-	image = eog_image_new_uri (uri, mode);
+	image = eog_image_new_uri (uri);
 	gnome_vfs_uri_unref (uri);
 
 	return image;
@@ -904,25 +904,48 @@ real_image_load (gpointer data)
 	return NULL;
 }
 
-gboolean 
-eog_image_load (EogImage *img)
+void
+eog_image_load (EogImage *img, EogImageLoadMode mode)
 {
 	EogImagePrivate *priv;
 	gboolean image_loaded;
 	gboolean thread_running;
 
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
 	priv = EOG_IMAGE (img)->priv;
 
-	g_return_val_if_fail (priv->uri != NULL, FALSE);
+	g_return_if_fail (priv->uri != NULL);
 
 	g_mutex_lock (priv->status_mutex);
 	image_loaded = priv->image != NULL;
 	thread_running = priv->load_thread != NULL;
 	g_mutex_unlock (priv->status_mutex);
 
-	if (!image_loaded && !thread_running)
-	{
+	if (image_loaded && !thread_running) {
+		g_assert (priv->image != NULL);
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
+	}
+	else if (!image_loaded && !thread_running) { 
+                /* we assume that in all other cases there is no image loaded */
+		g_assert (priv->image == NULL);
+		
+                /* make sure the object isn't destroyed while we try to load it */
+		g_object_ref (img);
+
+		/* initialize data fields for progressive loading */
+		priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
+		priv->update_x1 = 10000;
+		priv->update_y1 = 10000;
+		priv->update_x2 = 0;
+		priv->update_y2 = 0;
+		priv->error_message = NULL;
+		priv->cancel_loading = FALSE;
+		priv->mode = mode;
+
 		if (priv->mode == EOG_IMAGE_LOAD_DEFAULT) {
+			/* determine if the image should be loaded progressively or not */
 			if (gnome_vfs_uri_is_local (priv->uri)) {
 				GnomeVFSFileInfo *info;
 				GnomeVFSResult result;
@@ -936,7 +959,7 @@ eog_image_load (EogImage *img)
 					g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FAILED], 
 						       0, gnome_vfs_result_to_string (result));
 					g_print ("VFS Error: %s\n", gnome_vfs_result_to_string (result));
-					return FALSE;
+					return;
 				}
 
 				priv->mode = EOG_IMAGE_LOAD_PROGRESSIVE;
@@ -950,22 +973,15 @@ eog_image_load (EogImage *img)
 			}
 			else {
 				priv->mode = EOG_IMAGE_LOAD_PROGRESSIVE;
+				
 			}
 		}
-		
-		g_object_ref (img); /* make sure the object isn't destroyed while we try to load it */
-		priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
-		priv->update_x1 = 10000;
-		priv->update_y1 = 10000;
-		priv->update_x2 = 0;
-		priv->update_y2 = 0;
-		priv->error_message = NULL;
-		priv->cancel_loading = FALSE;
+
+		/* start the thread machinery */
 		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
 		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
+		
 	}
-
-	return (image_loaded && !thread_running);
 }
 
 gboolean 
@@ -1233,6 +1249,8 @@ eog_image_free_mem (EogImage *img)
 		priv->exif = NULL;
 	}
 #endif
+
+	priv->load_status = EOG_IMAGE_LOAD_STATUS_NONE;
 }
 
 const gchar*        

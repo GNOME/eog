@@ -861,7 +861,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	view = EOG_IMAGE_VIEW (closure);
 	priv = view->priv;
 
-	image = eog_image_new (text_uri, EOG_IMAGE_LOAD_DEFAULT);
+	image = eog_image_new (text_uri);
 	g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
 
 	/* FIXME: remove potential signal handlers from old image object */

@@ -1,5 +1,25 @@
 2003-04-27  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-full-screen.c: Queue the images to load and load one
+	by one. Simplified the code.
+
+	* libeog/eog-image.[ch] (eog_image_new_uri),
+	(eog_image_new): Removed load mode parameter.
+	(eog_image_load): Removed return parameter. Instead, emit load
+	finished signal if the image is already loaded.
+	(eog_image_free_mem): Set load status to none.
+
+	* libeog/eog-info-view.c (eog_info_view_set_image): 
+	* viewer/eog-image-view.c (load_uri_cb):
+	* collection/eog-collection-model.c (directory_visit_cb):
+	(real_file_loading): Removed load mode paramter for eog_image_new.
+
+	* libeog/eog-scroll-view.c (eog_scroll_view_set_image): Removed
+	the special case when an image is already loaded. Submit
+	LOAD_DEFAULT to eog_image_load.
+
+2003-04-27  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-full-screen.c (eog_full_screen_destroy): Remove
 	cursor hide timeout handler.
 

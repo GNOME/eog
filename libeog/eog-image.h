@@ -61,9 +61,9 @@ GType               eog_image_get_type                       (void) G_GNUC_CONST
 GQuark              eog_image_error_quark                    (void);
 
 /* loading API */
-EogImage*           eog_image_new                            (const char *txt_uri, EogImageLoadMode mode);
-EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri, EogImageLoadMode mode);
-gboolean            eog_image_load                           (EogImage *img);
+EogImage*           eog_image_new                            (const char *txt_uri);
+EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
+void                eog_image_load                           (EogImage *img, EogImageLoadMode mode);
 gboolean            eog_image_load_thumbnail                 (EogImage *img);
 void                eog_image_cancel_load                    (EogImage *img);
 void                eog_image_free_mem                       (EogImage *img);

@@ -274,9 +274,7 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 	priv->image_cb_id2 = g_signal_connect (G_OBJECT (priv->image), "loading_size_prepared", 
 					      G_CALLBACK (loading_size_prepared_cb), view);
 
-	if (eog_image_load (priv->image)) {
-		fill_list (view);
-	}
+	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
 }
 
 

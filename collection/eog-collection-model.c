@@ -256,7 +256,7 @@ directory_visit_cb (const gchar *rel_uri,
 	/* FIXME: escape uri */
 	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);	
 
-	image = eog_image_new_uri (uri, EOG_IMAGE_LOAD_DEFAULT);			
+	image = eog_image_new_uri (uri);
 	gnome_vfs_uri_unref (uri);
 
 	priv->image_list = g_list_prepend (priv->image_list, image);
@@ -329,7 +329,7 @@ real_file_loading (LoadingContext *ctx)
 	if(g_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
 		EogImage *image;
 
-		image = eog_image_new_uri (ctx->uri, EOG_IMAGE_LOAD_DEFAULT);			
+		image = eog_image_new_uri (ctx->uri);
 		
 		priv->image_list = g_list_insert_sorted (priv->image_list, image, compare_filename_cb);
 
