@@ -20,14 +20,14 @@ libeog-marshal.c: libeog-marshal.list $(GLIB_GENMARSHAL)
 	echo "genmarshal c" && \
         $(GLIB_GENMARSHAL) $< --body --prefix=libeog_marshal > $@
 
-MARSHAL_SOURCES = 		\
+MARSHAL_OUTPUT = 		\
 	libeog-marshal.h	\
 	libeog-marshal.c
 
 noinst_LIBRARIES = libeog.a
 
 libeog_a_SOURCES =			\
-	$(MARSHAL_SOURCES)		\
+	$(MARSHAL_OUTPUT)		\
 	access.c			\
 	access.h			\
         accessible-image-view-factory.h	\
@@ -94,7 +94,7 @@ libeog_a_SOURCES =			\
 	zoom.h
 
 BUILT_SOURCES = 			\
-	$(MARSHAL_SOURCES)
+	$(MARSHAL_OUTPUT)
 
 CLEANFILES = $(BUILT_SOURCES)
 
