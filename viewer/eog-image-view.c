@@ -388,6 +388,8 @@ listener_cb (BonoboListener *listener, gchar *event_name, CORBA_any *any,
 				   bonobo_exception_get_text (ev));
 			return;
 		}
+	} else {
+		bonobo_object_release_unref (camera, NULL);
 	}
 }
 

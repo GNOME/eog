@@ -34,7 +34,7 @@ struct _EogImagePrivate {
 
 #define PARENT_TYPE BONOBO_X_OBJECT_TYPE
 
-static BonoboObjectClass *eog_image_parent_class;
+static BonoboXObjectClass *eog_image_parent_class;
 
 enum {
 	SET_IMAGE_SIGNAL,
