@@ -1,3 +1,18 @@
+2003-03-08  Jens Finke  <jens@triq.net>
+
+	* collection/eog-wrap-list.c (get_item_view_position): Consider
+	padding on the left/upper edge.
+	(handle_item_event): Make sure selected item is completely
+	visible.
+	(ensure_item_is_visible),
+	(eog_wrap_list_select_up),
+	(eog_wrap_list_select_down),
+	(eog_wrap_list_select_left),
+	(eog_wrap_list_select_right): New functions.
+	(eog_wrap_list_key_press_cb): Handle cursor keys.
+	(calculate_item_position), 
+	(do_item_rearrangement): Add padding on the left/upper side.
+
 2003-03-07  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.c (thumbnail_finished_cb),
