@@ -66,14 +66,13 @@ struct _EogWindowPrivate {
 	/* control frame */
 	BonoboControlFrame *ctrl_frame;
 
-	/* Property Control */
-	Bonobo_PropertyControl prop_control;
-
 	/* vbox */
 	GtkWidget           *box;
 
 	/* the control embedded in the container */
-	GtkWidget           *control;
+	GtkWidget           *widget;
+
+	Bonobo_PropertyControl property_control;
 
 	/* statusbar */
 	GtkWidget *statusbar;
@@ -87,7 +86,6 @@ struct _EogWindowPrivate {
 
 static void eog_window_class_init (EogWindowClass *class);
 static void eog_window_init (EogWindow *window);
-static void eog_window_destroy (GtkObject *object);
 
 static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
@@ -256,6 +254,45 @@ eog_window_get_type (void)
 	return eog_window_type;
 }
 
+/* Destroy handler for windows */
+static void
+eog_window_destroy (GtkObject *object)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (EOG_IS_WINDOW (object));
+
+	g_message ("Destroying EogWindow.");
+
+	window = EOG_WINDOW (object);
+	priv = window->priv;
+
+	if (window->priv->property_control)
+		bonobo_object_release_unref (priv->property_control, NULL);
+	
+	if (priv->file_sel)
+		gtk_widget_destroy (priv->file_sel);
+
+#ifdef ENABLE_BONOBO_FILESEL
+	if (priv->listener)
+		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
+#endif
+
+	window_list = g_list_remove (window_list, window);
+
+	/* Clean up GConf-related stuff */
+	gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
+	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
+	gtk_object_unref (GTK_OBJECT (priv->client));
+
+	g_free (priv);
+
+	if (GTK_OBJECT_CLASS (parent_class)->destroy)
+		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
 /* Class initialization function for windows */
 static void
 eog_window_class_init (EogWindowClass *class)
@@ -318,53 +355,6 @@ eog_window_init (EogWindow *window)
 	gtk_window_set_policy (GTK_WINDOW (window), TRUE, TRUE, FALSE);
 }
 
-/* Destroy handler for windows */
-static void
-eog_window_destroy (GtkObject *object)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_WINDOW (object));
-
-	window = EOG_WINDOW (object);
-	priv = window->priv;
-
-	if (priv->file_sel) {
-		gtk_widget_destroy (priv->file_sel);
-		priv->file_sel = NULL;
-	}
-
-#ifdef ENABLE_BONOBO_FILESEL
-	if (priv->listener) {
-		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
-		priv->listener = NULL;
-	}
-#endif
-
-	window_list = g_list_remove (window_list, window);
-
-	/* Remove notification handlers */
-
-	gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
-
-	priv->sb_policy_notify_id = 0;
-
-	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
-
-	gtk_object_unref (GTK_OBJECT (priv->client));
-	priv->client = NULL;
-
-	/* Clean up */
-
-	g_free (priv);
-	window->priv = NULL;
-
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
 /* delete_event handler for windows */
 static gint
 eog_window_delete (GtkWidget *widget, GdkEventAny *event)
@@ -411,7 +401,7 @@ eog_window_has_contents (EogWindow *window)
 
 	priv = window->priv;
 
-	return (priv->control != NULL);
+	return (priv->widget != NULL);
 }
 
 
@@ -551,17 +541,15 @@ eog_window_construct (EogWindow *window)
 	priv = window->priv;
 
 	ui_cont = bonobo_ui_container_new ();
-	priv->ui_container = bonobo_object_corba_objref
-						(BONOBO_OBJECT (ui_cont));
+	priv->ui_container = BONOBO_OBJREF (ui_cont);
 	bonobo_ui_container_set_win (ui_cont, BONOBO_WINDOW (window));
 	bonobo_ui_engine_config_set_path (
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
 		"/eog-shell/UIConf/kvps");
 
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
+	gtk_widget_show (priv->box);
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
-
-	priv->control = NULL;
 
 	/* add menu and toolbar */
 	ui_comp = bonobo_ui_component_new ("eog");
@@ -584,7 +572,6 @@ eog_window_construct (EogWindow *window)
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
-	gtk_widget_show (GTK_WIDGET (priv->box));
 
 	/* add control frame interface */
 	priv->ctrl_frame = bonobo_control_frame_new (priv->ui_container);
@@ -911,21 +898,22 @@ auto_size (EogWindow *window)
 
 static void
 property_changed_cb (BonoboListener    *listener,
-		  char              *event_name, 
-		  CORBA_any         *any,
-		  CORBA_Environment *ev,
-		  gpointer           user_data)
+		     char              *event_name, 
+		     CORBA_any         *any,
+		     CORBA_Environment *ev,
+		     gpointer           user_data)
 {
 	EogWindow *window;
 
 	window = EOG_WINDOW (user_data);
 
-	if (g_strcasecmp (event_name, "Bonobo/Property:change:window/title") == 0) {
-		gtk_window_set_title (GTK_WINDOW (window), BONOBO_ARG_GET_STRING (any));
-	} else if (g_strcasecmp (event_name, "Bonobo/Property:change:window/status") == 0) {
+	if (!g_strcasecmp (event_name, "Bonobo/Property:change:window/title"))
+		gtk_window_set_title (GTK_WINDOW (window),
+				      BONOBO_ARG_GET_STRING (any));
+	else if (!g_strcasecmp (event_name,
+				"Bonobo/Property:change:window/status"))
 		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
 					 BONOBO_ARG_GET_STRING (any));		
-	}
 }
 
 static void
@@ -940,16 +928,16 @@ check_for_control_properties (EogWindow *window)
 
 	priv = window->priv;
 	
-	if (priv->control == NULL) goto on_error;
-	
-	ctrl_frame = bonobo_widget_get_control_frame (BONOBO_WIDGET (priv->control));
-	if (ctrl_frame == NULL) goto on_error;
+	ctrl_frame = bonobo_widget_get_control_frame
+						(BONOBO_WIDGET (priv->widget));
+	if (ctrl_frame == NULL)
+		goto on_error;
 
 	CORBA_exception_init (&ev);
 
-	pb = bonobo_control_frame_get_control_property_bag (
-                ctrl_frame, &ev);
-	if (pb == CORBA_OBJECT_NIL) goto on_error;
+	pb = bonobo_control_frame_get_control_property_bag (ctrl_frame, &ev);
+	if (pb == CORBA_OBJECT_NIL)
+		goto on_error;
 
 	/* set window title */
 	title = bonobo_property_bag_client_get_value_string (pb, "window/title", &ev);
@@ -993,21 +981,6 @@ check_for_control_properties (EogWindow *window)
 on_error:
 	g_warning (_("Control doesn't have properties"));
 	gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
-}
-
-static void
-remove_component (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-
-	priv = window->priv;
-
-	if (priv->control == NULL) return;
-
-	gtk_container_remove (GTK_CONTAINER (priv->box), priv->control);
-	gtk_widget_unref (priv->control);
-
-	priv->control = NULL;
 }
 
 static Bonobo_Control
@@ -1202,37 +1175,28 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
- 	CORBA_exception_init (&ev);
 
-	/* obtain gtk widget */
-	priv->control = bonobo_widget_new_control_from_objref  
-						(control, priv->ui_container);
-	gtk_object_ref (GTK_OBJECT (priv->control));
+	/* Remove old control if necessary */
+	if (priv->widget)
+		gtk_container_remove (GTK_CONTAINER (priv->box), priv->widget);
 
-	/* set control frame */
-	g_assert (priv->ctrl_frame != NULL);
+	/* Show the new control */
+	priv->widget = bonobo_widget_new_control_from_objref
+					(control, priv->ui_container);
+	gtk_container_add (GTK_CONTAINER (priv->box), priv->widget);
+	gtk_widget_show (priv->widget);
+
+	/* Set control frame and activate control. Get property control. */
+	CORBA_exception_init (&ev);
 	Bonobo_Control_setFrame (control,
-				 bonobo_object_corba_objref (BONOBO_OBJECT (priv->ctrl_frame)),
-				 &ev);
-
-	/* add control to the application window */
-	gtk_container_add (GTK_CONTAINER (priv->box), priv->control);
-
-	/* view and activate it */
-	gtk_widget_show (priv->control);
-	gtk_widget_show (priv->box);
+				 BONOBO_OBJREF (priv->ctrl_frame), &ev);
 	Bonobo_Control_activate (control, TRUE, &ev);
+	priv->property_control = Bonobo_Unknown_queryInterface
+			(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
+	CORBA_exception_free (&ev);
 
 	/* retrieve control properties and install listeners */
 	check_for_control_properties (window);
-
-	/* Get property control */
-	priv->prop_control = Bonobo_Unknown_queryInterface
-		(control, "IDL:Bonobo/PropertyControl:1.0", &ev);
-	g_message ("Property control: %p", priv->prop_control);
-
-	/* clean up */
-	CORBA_exception_free (&ev);
 }
 
 /**
@@ -1248,7 +1212,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 gboolean
 eog_window_open (EogWindow *window, const char *text_uri)
 {
-	EogWindowPrivate *priv;       
+	EogWindowPrivate *priv;
 	Bonobo_Control control;
 	GnomeVFSResult result;
 	GnomeVFSFileInfo *info;
@@ -1261,13 +1225,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	priv = window->priv;
 
 	uri = gnome_vfs_uri_new (text_uri);
-
-	/* remove current component if neccessary */
-	if (priv->control != NULL) {
-		remove_component (window);
-	}
-	g_assert (priv->control == NULL);
-
 
 	/* obtain file infos */
 	info = gnome_vfs_file_info_new ();
@@ -1282,7 +1239,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 	}
 	
 	/* get appropriate control */
-	control = CORBA_OBJECT_NIL;
 	if (info->type == GNOME_VFS_FILE_TYPE_REGULAR)
 		control = get_viewer_control (uri, info);
 	else if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -1294,7 +1250,6 @@ eog_window_open (EogWindow *window, const char *text_uri)
 		g_free (str);
 		return FALSE;
 	}
-	if (control == CORBA_OBJECT_NIL) return FALSE;
 
 	/* add it to the user interface */
 	add_control_to_ui (window, control);
@@ -1310,7 +1265,7 @@ eog_window_open (EogWindow *window, const char *text_uri)
 gboolean 
 eog_window_open_list (EogWindow *window, GList *text_uri_list)
 {
-	EogWindowPrivate *priv;       
+	EogWindowPrivate *priv;
 	Bonobo_Control control;
 
 	g_return_val_if_fail (window != NULL, FALSE);
@@ -1319,16 +1274,8 @@ eog_window_open_list (EogWindow *window, GList *text_uri_list)
 
 	priv = window->priv;
 
-	/* remove current component if neccessary */
-	if (priv->control != NULL) {
-		remove_component (window);
-	}
-	g_assert (priv->control == NULL);
-
       	/* get appropriate control */
-	control = CORBA_OBJECT_NIL;
 	control = get_collection_control_list (text_uri_list);
-	if (control == CORBA_OBJECT_NIL) return FALSE;
 
 	/* add it to the user interface */
 	add_control_to_ui (window, control);
@@ -1342,7 +1289,7 @@ eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
 	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
 
-	return CORBA_Object_duplicate (window->priv->prop_control, ev);
+	return (CORBA_Object_duplicate (window->priv->property_control, ev));
 }
 
 Bonobo_UIContainer

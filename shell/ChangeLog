@@ -1,3 +1,11 @@
+2001-06-27  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
+	* eog-window.c: Unref the property control on destroy. Now, the 
+	eog-image-viewer shuts down after exiting eog. Don't ref the control
+	widget - it'll get unref'd automatically on container_remove or exit.
+	All other changes to improve readability (I needed them in order to 
+	discover above problem).
+
 2001-06-26  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
 	While searching why eog-image-viewer is still alive even after exiting
