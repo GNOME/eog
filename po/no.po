@@ -5,14 +5,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.2\n"
-"POT-Creation-Date: 2004-03-22 19:33+0100\n"
-"PO-Revision-Date: 2004-02-24 09:32+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-29 13:07+0200\n"
+"PO-Revision-Date: 2004-07-29 13:40+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -27,18 +28,24 @@ msgid "Image Collection"
 msgstr "Bildesamling"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "Image Collection Viewer"
+msgstr "Visning av bildesamling"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
 msgid "View as I_mage Collection"
 msgstr "Vis som bildesa_mling"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#: collection/GNOME_EOG_Collection.server.in.in.h:6
 msgid "View as Image Collection"
 msgstr "Vis som bildesamling"
 
-#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 shell/eog-window.c:2077
+#: viewer/eog-image-view-ui.xml.h:1
 msgid "Flip _Horizontal"
 msgstr "Vend _horisontalt"
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:2 shell/eog-window.c:2078
+#: viewer/eog-image-view-ui.xml.h:2
 msgid "Flip _Vertical"
 msgstr "Vend _vertikalt"
 
@@ -74,55 +81,56 @@ msgstr "_Roter mot klokken"
 msgid "Slide Show"
 msgstr "Lysbildevisning"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-window.c:2051
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: collection/eog-collection-view-ui.xml.h:12
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-window.c:2072
 msgid "_Save"
 msgstr "_Lagre"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:13 shell/eog-window.c:2075
 #: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Angre"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-window.c:2052
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Vis"
 
-#: collection/eog-collection-view.c:338
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Avbryt lagring"
 
-#: collection/eog-collection-view.c:341
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Lagring fullført"
 
-#: collection/eog-collection-view.c:810
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Flytt til søppel"
 
-#: collection/eog-collection-view.c:927
+#: collection/eog-collection-view.c:926
 msgid "Collection View"
 msgstr "Samlingsvisning"
 
-#: collection/eog-collection-view.c:947
+#. Images: (n_selected_images) / (n_total_images)
+#: collection/eog-collection-view.c:946 shell/eog-window.c:1971
 #, c-format
 msgid "Images: %i/%i"
 msgstr "Bilder: %i/%i"
 
-#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1404 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Vindustittel"
 
-#: collection/eog-collection-view.c:1426
+#: collection/eog-collection-view.c:1407
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1410 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Fremgang for lasting av bilde"
 
@@ -143,74 +151,130 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
+msgid "*"
+msgstr "*"
+
+#: eog.glade.h:3
+msgid "."
+msgstr "."
+
+#: eog.glade.h:4
+msgid "<b>File Name Preview</b>"
+msgstr "<b>Forhåndsvisning av filnavn</b>"
+
+#: eog.glade.h:5
+msgid "<b>File Path Specifications</b>"
+msgstr "<b>Spesifisert filsti</b>"
+
+#: eog.glade.h:6
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolasjon for bilde</b>"
 
-#: eog.glade.h:3
+#: eog.glade.h:7
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Zoom i bilde</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:8
+msgid "<b>Options</b>"
+msgstr "<b>Alternativer</b>"
+
+#: eog.glade.h:9
 msgid "<b>Sequence</b>"
 msgstr "<b>Sekvens</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:10
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>Gjennomsiktige deler</b>"
 
-#: eog.glade.h:7
+#: eog.glade.h:12
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
 msgstr "Tillat initiell _zoom større enn 100%"
 
-#: eog.glade.h:8
+#: eog.glade.h:13
 msgid "As _background"
 msgstr "Som _bakgrunn"
 
-#: eog.glade.h:9
+#: eog.glade.h:14
 msgid "As check _pattern"
 msgstr "Som _rutemønster"
 
-#: eog.glade.h:10
+#: eog.glade.h:15
 msgid "As custom c_olor"
 msgstr "Som tilpasset f_arge"
 
-#: eog.glade.h:11
+#: eog.glade.h:16
 msgid "Color for Transparent Areas"
 msgstr "Farge for gjennomsiktige områder"
 
-#: eog.glade.h:12
+#: eog.glade.h:17
+msgid "Destination Folder:"
+msgstr "Målmappe:"
+
+#: eog.glade.h:18
 msgid "Eye of Gnome Preferences"
 msgstr "Brukervalg for Eye of GNOME"
 
-#: eog.glade.h:13
+#: eog.glade.h:19
+msgid "Filename Format:"
+msgstr "Format for filnavn:"
+
+#: eog.glade.h:20
 msgid "Image _View"
 msgstr "Bilde_visning"
 
-#: eog.glade.h:14
+#: eog.glade.h:21
+msgid "Rename From:"
+msgstr "Endre navn fra:"
+
+#: eog.glade.h:22
+msgid "Replace spaces by underscore"
+msgstr "Erstatt mellomrom med understreking"
+
+#: eog.glade.h:23
+msgid "Save As"
+msgstr "Lagre som"
+
+#: eog.glade.h:24
+msgid "Saving Image"
+msgstr "Lagrer bilde"
+
+#: eog.glade.h:25
 msgid "Show _next image automatically after:"
 msgstr "Vis neste bilde automatisk etter:"
 
-#: eog.glade.h:15
+#: eog.glade.h:26
 msgid "Sli_de Show"
 msgstr "Lysbil_devisning"
 
-#: eog.glade.h:16
+#: eog.glade.h:27
+msgid "Start counter at:"
+msgstr "Start teller på:"
+
+#: eog.glade.h:28
+msgid "To:"
+msgstr "Til:"
+
+#: eog.glade.h:29
+msgid "_Browse"
+msgstr "_Bla gjennom"
+
+#: eog.glade.h:30
 msgid "_Interpolate image on zoom"
 msgstr "_Interpoler bilde ved zoom"
 
-#: eog.glade.h:17
+#: eog.glade.h:31
 msgid "_Loop sequence"
 msgstr "_Løkkesekvens"
 
-#: eog.glade.h:18
+#: eog.glade.h:32
 msgid "seconds"
 msgstr "sekunder"
 
 #: eog.schemas.in.h:1
 msgid ""
-"A value greater 0 determines the seconds an image stays on screen until the "
-"next one is shown automatically. Zero disables the automatic browsing."
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 "En verdi større enn 0 bestemmer antall sekunder før neste bilde vises "
 "automatisk. Null deaktiverer automatisk fremvisning."
@@ -244,11 +308,9 @@ msgstr ""
 
 #: eog.schemas.in.h:7
 msgid ""
-"If this is set to FALSE small images will not be streched to fit into the "
+"If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
-msgstr ""
-"Hvis dette settes til USANN vil ikke små bilder strekkes for å passe til "
-"skjermen."
+msgstr "Hvis dette settes til FALSE vil ikke små bilder strekkes for å passe til skjermen."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -319,321 +381,209 @@ msgstr "Innbyggbart EOG-bilde"
 msgid "Image"
 msgstr "Bilde"
 
-#: libeog/eog-file-selection.c:96
-#, c-format
-msgid "Do you want to overwrite %s?"
-msgstr "Vil du overskrive %s?"
-
-#: libeog/eog-file-selection.c:101
-msgid "File exists"
-msgstr "Filen eksisterer"
-
-#: libeog/eog-file-selection.c:175
+#: libeog/eog-file-selection.c:124
 msgid "All Files"
 msgstr "Alle filer"
 
-#: libeog/eog-file-selection.c:180
+#: libeog/eog-file-selection.c:129
 msgid "All Images"
 msgstr "Alle bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:198
+#: libeog/eog-file-selection.c:147
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:291
+#: libeog/eog-file-selection.c:240
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s piksler"
 
-#: libeog/eog-file-selection.c:447
+#: libeog/eog-file-selection.c:396
 msgid "Load Image"
 msgstr "Last bilde"
 
-#: libeog/eog-file-selection.c:455
+#: libeog/eog-file-selection.c:404
 msgid "Save Image"
 msgstr "Lagre bilde"
 
-#: libeog/eog-file-selection.c:463
+#: libeog/eog-file-selection.c:412
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
-#: libeog/eog-image-jpeg.c:128
+#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Kunne ikke opprette midlertidig fil for lagring: %s"
 
-#: libeog/eog-image-jpeg.c:149
+#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunne ikke allokere minne for lasting av JPEG-fil"
 
-#: libeog/eog-image.c:859
+#: libeog/eog-image.c:810
 msgid "empty file"
 msgstr "tom fil"
 
-#: libeog/eog-image.c:1299
+#: libeog/eog-image.c:1243 libeog/eog-image.c:1454
+msgid "File exists"
+msgstr "Filen eksisterer"
+
+#: libeog/eog-image.c:1396 libeog/eog-image.c:1522
 msgid "No image loaded."
 msgstr "Ingen bilder lastet."
 
-#: libeog/eog-image.c:1309
-msgid "Images can only be saved as local files."
-msgstr "Bilder kan kun lagres som lokale filer."
+#: libeog/eog-image.c:1405 libeog/eog-image.c:1531
+msgid "Temporary file creation failed."
+msgstr "Oppretting av midlertidig fil feilet."
 
-#: libeog/eog-image.c:1334
-msgid "Unsupported image type for saving."
-msgstr "Bildetype ikke støttet for lagring."
+#: libeog/eog-info-view-exif.c:26
+msgid "Camera"
+msgstr "Kamera"
 
-#: libeog/eog-info-view.c:105
-msgid "Attribute"
-msgstr "Attributt"
+#: libeog/eog-info-view-exif.c:27
+msgid "Image Data"
+msgstr "Bildedata"
 
-#: libeog/eog-info-view.c:113
+#: libeog/eog-info-view-exif.c:28
+msgid "Image Taking Conditions"
+msgstr ""
+
+#: libeog/eog-info-view-exif.c:29
+msgid "Maker Note"
+msgstr ""
+
+#: libeog/eog-info-view-exif.c:30
+msgid "Other"
+msgstr "Annet"
+
+#: libeog/eog-info-view-exif.c:212
+msgid "Tag"
+msgstr "Merking"
+
+#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
 msgid "Value"
 msgstr "Verdi"
 
-#: libeog/eog-info-view.c:209
-msgid "Width"
-msgstr "Bredde"
-
-#: libeog/eog-info-view.c:219
-msgid "Height"
-msgstr "Høyde"
-
-#: libeog/eog-info-view.c:222
-msgid "Filesize"
-msgstr "Filstørrelse"
-
-#: libeog/eog-info-view.c:237
+#. only used for internal purpose
+#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
 msgid "Filename"
 msgstr "Filnavn"
 
-#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
-msgid "Page"
-msgstr "Side"
+#: libeog/eog-info-view-file.c:26
+msgid "Width"
+msgstr "Bredde"
 
-#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:385
-msgid "Preview"
-msgstr "Foråndsvisning"
+#: libeog/eog-info-view-file.c:27
+msgid "Height"
+msgstr "Høyde"
 
-#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
-msgid "Millimeter"
-msgstr "Millimeter"
+#: libeog/eog-info-view-file.c:28
+msgid "Filesize"
+msgstr "Filstørrelse"
 
-#. First page of notebook: Paper selection and margins.
-#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
-msgid "Paper"
-msgstr "Papir"
+#: libeog/eog-info-view-file.c:88
+msgid "Attribute"
+msgstr "Attributt"
 
-#: libgpi/gpi-dialog.glade.h:2
-#, no-c-format
-msgid "% of original size"
-msgstr "% av opprinnelig størrelse"
+#: libeog/eog-info-view.c:92
+msgid "File"
+msgstr "Fil"
 
-#: libgpi/gpi-dialog.glade.h:3
-msgid "Adjust to "
-msgstr "Juster til "
+#: libeog/eog-info-view.c:101
+msgid "EXIF"
+msgstr "EXIF"
 
-#: libgpi/gpi-dialog.glade.h:4
-msgid "Center"
-msgstr "Sentrer"
+#: libeog/eog-info-view.c:108
+msgid "IPTC"
+msgstr "IPTC"
 
-#: libgpi/gpi-dialog.glade.h:5
-msgid "Cutting help"
-msgstr "Hjelp for kutting"
+#: libeog/eog-save-as-dialog-helper.c:137
+msgid "Option not available."
+msgstr "Alternativ ikke tilgjengelig."
 
-#: libgpi/gpi-dialog.glade.h:6
-msgid "Down, then right"
-msgstr "Ned, så til høyre"
+#: libeog/eog-save-as-dialog-helper.c:138
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of Gnome."
+msgstr "For å bruke denne funksjonen må du ha biblioteket libexif. Vennligst installer libexif (http://libexif.sf.net) og kompiler Eye of GNOME på nytt."
 
-#: libgpi/gpi-dialog.glade.h:7
-msgid "Fit to page"
-msgstr "Tilpass til siden"
+#: libeog/eog-save-as-dialog-helper.c:214
+msgid "as is"
+msgstr "som det er"
 
-#: libgpi/gpi-dialog.glade.h:8
-msgid "Horizontally"
-msgstr "Horisontalt"
+#: libeog/eog-save-dialog-helper.c:162
+#, c-format
+msgid "Saving image %s."
+msgstr "Lagrer bilde %s."
 
-#: libgpi/gpi-dialog.glade.h:9
-msgid "Horizontally by "
-msgstr "Horisontalt med"
+#: libeog/eog-save-dialog-helper.c:208
+msgid "Cancel saving ..."
+msgstr "Avbryt lagring..."
 
-#: libgpi/gpi-dialog.glade.h:10
-msgid "Margins"
-msgstr "Marger"
+#: libeog/eog-uri-converter.c:1023
+msgid "Filenames are not disjunct."
+msgstr ""
 
-#: libgpi/gpi-dialog.glade.h:11
-msgid "Ordering help"
-msgstr "Hjelp for rekkefølger"
+#: libeog/eog-uri-converter.h:46
+msgid "Counter"
+msgstr "Teller"
 
-#: libgpi/gpi-dialog.glade.h:12
-msgid "Overlap"
-msgstr "Overlapping"
+#: libeog/eog-uri-converter.h:47
+msgid "Comment"
+msgstr "Kommentar"
 
-#: libgpi/gpi-dialog.glade.h:13
-msgid "Overlap help"
-msgstr "Hjelp for overlapping"
+#: libeog/eog-uri-converter.h:48
+msgid "Date"
+msgstr "Dato"
 
-#: libgpi/gpi-dialog.glade.h:15
-msgid "Page order"
-msgstr "Siderekkefølge"
+#: libeog/eog-uri-converter.h:49
+msgid "Time"
+msgstr "Klokkeslett"
 
-#: libgpi/gpi-dialog.glade.h:18
-msgid "Right, then down"
-msgstr "Høyre, så ned"
+#: libeog/eog-uri-converter.h:50
+msgid "Day"
+msgstr "Dag"
 
-#: libgpi/gpi-dialog.glade.h:19
-msgid "Scale"
-msgstr "Skaler"
+#: libeog/eog-uri-converter.h:51
+msgid "Month"
+msgstr "Måned"
 
-#: libgpi/gpi-dialog.glade.h:20
-msgid "Show"
-msgstr "Vis"
+#: libeog/eog-uri-converter.h:52
+msgid "Year"
+msgstr "År"
 
-#: libgpi/gpi-dialog.glade.h:21
-msgid "Vertically"
-msgstr "Vertikalt"
+#: libeog/eog-uri-converter.h:53
+msgid "Hour"
+msgstr "Time"
 
-#: libgpi/gpi-dialog.glade.h:22
-msgid "Vertically by "
-msgstr "Vertikalt med "
+#: libeog/eog-uri-converter.h:54
+msgid "Minute"
+msgstr "Minutt"
 
-#: libgpi/gpi-mgr.c:78
-msgid "Name"
-msgstr "Navn"
-
-#: libgpi/gpi-mgr.c:79
-msgid "The name of the file or data to print"
-msgstr "Navn på filen eller data som skal skrives ut"
-
-#: shell/eog-shell-ui.xml.h:1
-msgid "About this application"
-msgstr "Om denne applikasjonen"
-
-#: shell/eog-shell-ui.xml.h:2
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: shell/eog-shell-ui.xml.h:3
-msgid "Change the visibility of the statusbar in the current window"
-msgstr "Endre synlighet for statuslinjen i aktivt vindu"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Change the visibility of the toolbar in the current window"
-msgstr "Endre synlighet for verktøylinjen i aktivt vindu"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "Close window"
-msgstr "Lukk vindu"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Help On this application"
-msgstr "Hjelp om denne applikasjonen"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "New"
-msgstr "Ny"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open"
-msgstr "Åpne"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a directory"
-msgstr "Åpne en katalog"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "Open a file"
-msgstr "Åpne en fil"
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "Open a new window"
-msgstr "Åpne et nytt vindu"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "Open in new window"
-msgstr "Åpne i et nytt vindu"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "Open in this window"
-msgstr "Åpne i dette vinduet"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "Prefere_nces"
-msgstr "_Brukervalg"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "Preferences for Eye of Gnome"
-msgstr "Brukervalg for Eye of GNOME"
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "Quit the program"
-msgstr "Avslutt programmet"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_About"
-msgstr "_Om"
-
-#: shell/eog-shell-ui.xml.h:18
-msgid "_Close"
-msgstr "L_ukk"
-
-#: shell/eog-shell-ui.xml.h:19
-msgid "_Contents"
-msgstr "_Innhold"
-
-#: shell/eog-shell-ui.xml.h:21
-msgid "_File"
-msgstr "_Fil"
-
-#: shell/eog-shell-ui.xml.h:22
-msgid "_Help"
-msgstr "_Hjelp"
-
-#: shell/eog-shell-ui.xml.h:23
-msgid "_New"
-msgstr "_Ny"
-
-#: shell/eog-shell-ui.xml.h:24
-msgid "_Open Directory..."
-msgstr "_Åpne katalog..."
-
-#: shell/eog-shell-ui.xml.h:25
-msgid "_Open..."
-msgstr "_Åpne..."
-
-#: shell/eog-shell-ui.xml.h:26
-msgid "_Quit"
-msgstr "_Avslutt"
-
-#: shell/eog-shell-ui.xml.h:27
-msgid "_Statusbar"
-msgstr "_Statuslinje"
-
-#: shell/eog-shell-ui.xml.h:28
-msgid "_Toolbar"
-msgstr "Verk_tøylinje"
+#: libeog/eog-uri-converter.h:55
+msgid "Second"
+msgstr "Sekund"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:292
-msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#: shell/eog-window.c:320
+msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:520
+#: shell/eog-window.c:325 shell/eog-window.c:1983 shell/eog-window.c:2256
+#: shell/main.c:498
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:300
+#: shell/eog-window.c:328
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program for bildevisning og katalogisering for GNOME."
 
-#: shell/eog-window.c:337
+#: shell/eog-window.c:365
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -642,7 +592,180 @@ msgstr ""
 "Kunne ikke vise hjelp for Eye of GNOME.\n"
 "%s"
 
-#: shell/main.c:237
+#: shell/eog-window.c:634
+#, c-format
+msgid "Overwrite file %s?"
+msgstr "Overskriv fil %s?"
+
+#: shell/eog-window.c:635
+msgid "File exists. Do you want to overwrite it?"
+msgstr "Filen eksisterer. Vil du overskrive den?"
+
+#: shell/eog-window.c:645 shell/eog-window.c:658
+msgid "Skip"
+msgstr "Hopp over"
+
+#: shell/eog-window.c:646
+msgid "Overwrite"
+msgstr "Overskriv"
+
+#: shell/eog-window.c:651
+#, c-format
+msgid "Error on saving %s."
+msgstr "Feil under lagring av %s."
+
+#: shell/eog-window.c:659 shell/eog-window.c:1033
+msgid "Retry"
+msgstr "Prøv igjen"
+
+#: shell/eog-window.c:1022
+#, c-format
+msgid "Couldn't determine file format of %s"
+msgstr "Kunne ikke bestemme filformat for %s"
+
+#: shell/eog-window.c:1023
+msgid "Please use an appropriate filename suffix or select a file format."
+msgstr "Vennligst bruk en passende filtype eller velg et filformat."
+
+#: shell/eog-window.c:1165
+msgid "Error on saving images."
+msgstr "Feil under lagring av bilder."
+
+#: shell/eog-window.c:1399
+#, c-format
+msgid "Do you really want to move %i images to trash?"
+msgstr "Vil du virkelig flytte %i bilder til papirkurven?"
+
+#: shell/eog-window.c:1436
+msgid "Couldn't access trash."
+msgstr "Kunne ikke aksessere papirkurv."
+
+#: shell/eog-window.c:1510
+#, c-format
+msgid "Error on deleting image %s"
+msgstr "Feil under sletting av bilde %s"
+
+#: shell/eog-window.c:2050
+msgid "_File"
+msgstr "_Fil"
+
+#: shell/eog-window.c:2053
+msgid "_Help"
+msgstr "_Hjelp"
+
+#: shell/eog-window.c:2054
+msgid "_New"
+msgstr "_Ny"
+
+#: shell/eog-window.c:2054
+msgid "Open a new window"
+msgstr "Åpne et nytt vindu"
+
+#: shell/eog-window.c:2055
+msgid "_Open..."
+msgstr "_Åpne..."
+
+#: shell/eog-window.c:2055
+msgid "Open a file"
+msgstr "Åpne en fil"
+
+#: shell/eog-window.c:2056
+msgid "Open _Directory..."
+msgstr "Åpne _katalog..."
+
+#: shell/eog-window.c:2056
+msgid "Open a directory"
+msgstr "Åpne en katalog"
+
+#: shell/eog-window.c:2057
+msgid "_Close"
+msgstr "L_ukk"
+
+#: shell/eog-window.c:2057
+msgid "Close window"
+msgstr "Lukk vindu"
+
+#: shell/eog-window.c:2058
+msgid "_Quit"
+msgstr "_Avslutt"
+
+#: shell/eog-window.c:2058
+msgid "Close all windows and quit"
+msgstr "Lukk alle vinduer og avslutt"
+
+#: shell/eog-window.c:2059
+msgid "Prefere_nces"
+msgstr "_Brukervalg"
+
+#: shell/eog-window.c:2059
+msgid "Preferences for Eye of Gnome"
+msgstr "Brukervalg for Eye of GNOME"
+
+#: shell/eog-window.c:2060
+msgid "_Contents"
+msgstr "_Innhold"
+
+#: shell/eog-window.c:2060
+msgid "Help On this application"
+msgstr "Hjelp om denne applikasjonen"
+
+#: shell/eog-window.c:2061
+msgid "_About"
+msgstr "_Om"
+
+#: shell/eog-window.c:2061
+msgid "About this application"
+msgstr "Om denne applikasjonen"
+
+#: shell/eog-window.c:2066
+msgid "_Toolbar"
+msgstr "Verk_tøylinje"
+
+#: shell/eog-window.c:2067
+msgid "_Statusbar"
+msgstr "_Statuslinje"
+
+#: shell/eog-window.c:2073
+msgid "Save _As"
+msgstr "L_agre som"
+
+#: shell/eog-window.c:2080
+msgid "_Rotate Clockwise"
+msgstr "_Roter med klokken"
+
+#: shell/eog-window.c:2081
+msgid "Rotate Counter C_lockwise"
+msgstr "Roter mot k_lokken"
+
+#: shell/eog-window.c:2082
+msgid "Rotat_e 180°"
+msgstr "Rot_er 180°"
+
+#: shell/eog-window.c:2084
+msgid "Delete"
+msgstr "Slett"
+
+#: shell/eog-window.c:2086 viewer/eog-image-view-ui.xml.h:16
+msgid "_Full Screen"
+msgstr "_Full skjerm"
+
+#: shell/eog-window.c:2087 viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "_Zoom In"
+msgstr "_Zoom inn"
+
+#: shell/eog-window.c:2088 viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _Out"
+msgstr "Zoom _ut"
+
+#: shell/eog-window.c:2089 viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr "_Normal størrelse"
+
+#: shell/eog-window.c:2090 viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Best _Fit"
+msgstr "_Tilpasset"
+
+#: shell/main.c:236
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -651,30 +774,28 @@ msgstr ""
 "Du er i ferd med å åpne %i vinduer samtidig. Vil du åpne dem i en samling i "
 "stedet?"
 
-#: shell/main.c:241
+#: shell/main.c:240
 msgid "Open multiple single windows?"
 msgstr "Åpne flere enkeltvinduer?"
 
-#: shell/main.c:245
+#: shell/main.c:244
 msgid "Single Windows"
 msgstr "Enkle vinduer"
 
-#: shell/main.c:247
+#: shell/main.c:246
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:320
-msgid "File(s) not found."
-msgstr "Fil(er) ikke funnet."
+#: shell/main.c:298
+msgid "File not found."
+msgid_plural "Files not found."
+msgstr[0] "Fil ikke funnet."
+msgstr[1] "Filer ikke funnet."
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "Best _Fit"
-msgstr "_Tilpasset"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -691,18 +812,6 @@ msgstr "Normal"
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
 msgstr "Ut"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "Zoom _ut"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "_Normal Size"
-msgstr "_Normal størrelse"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "_Zoom In"
-msgstr "_Zoom inn"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -740,13 +849,13 @@ msgstr "L_agre som..."
 msgid "Setup the page settings for your current printer"
 msgstr "Endre sideinstillingene for din skriver"
 
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Full Screen"
-msgstr "_Full skjerm"
-
 #: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Skriv ut..."
+
+#: viewer/eog-image-view.c:385
+msgid "Preview"
+msgstr "Foråndsvisning"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
@@ -828,3 +937,99 @@ msgstr "Ønsket bredde på vindu"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Ønsket høyde på vindu"
+
+#~ msgid "Images can only be saved as local files."
+#~ msgstr "Bilder kan kun lagres som lokale filer."
+
+#~ msgid "Unsupported image type for saving."
+#~ msgstr "Bildetype ikke støttet for lagring."
+
+#~ msgid "Page"
+#~ msgstr "Side"
+
+#~ msgid "Millimeter"
+#~ msgstr "Millimeter"
+
+#~ msgid "Paper"
+#~ msgstr "Papir"
+
+#~ msgid "% of original size"
+#~ msgstr "% av opprinnelig størrelse"
+
+#~ msgid "Adjust to "
+#~ msgstr "Juster til "
+
+#~ msgid "Cutting help"
+#~ msgstr "Hjelp for kutting"
+
+#~ msgid "Down, then right"
+#~ msgstr "Ned, så til høyre"
+
+#~ msgid "Fit to page"
+#~ msgstr "Tilpass til siden"
+
+#~ msgid "Horizontally"
+#~ msgstr "Horisontalt"
+
+#~ msgid "Horizontally by "
+#~ msgstr "Horisontalt med"
+
+#~ msgid "Margins"
+#~ msgstr "Marger"
+
+#~ msgid "Ordering help"
+#~ msgstr "Hjelp for rekkefølger"
+
+#~ msgid "Overlap"
+#~ msgstr "Overlapping"
+
+#~ msgid "Overlap help"
+#~ msgstr "Hjelp for overlapping"
+
+#~ msgid "Page order"
+#~ msgstr "Siderekkefølge"
+
+#~ msgid "Right, then down"
+#~ msgstr "Høyre, så ned"
+
+#~ msgid "Scale"
+#~ msgstr "Skaler"
+
+#~ msgid "Show"
+#~ msgstr "Vis"
+
+#~ msgid "Vertically"
+#~ msgstr "Vertikalt"
+
+#~ msgid "Vertically by "
+#~ msgstr "Vertikalt med "
+
+#~ msgid "The name of the file or data to print"
+#~ msgstr "Navn på filen eller data som skal skrives ut"
+
+#~ msgid "Cancel"
+#~ msgstr "Avbryt"
+
+#~ msgid "Change the visibility of the statusbar in the current window"
+#~ msgstr "Endre synlighet for statuslinjen i aktivt vindu"
+
+#~ msgid "Change the visibility of the toolbar in the current window"
+#~ msgstr "Endre synlighet for verktøylinjen i aktivt vindu"
+
+#~ msgid "New"
+#~ msgstr "Ny"
+
+#~ msgid "Open"
+#~ msgstr "Åpne"
+
+#~ msgid "Open in new window"
+#~ msgstr "Åpne i et nytt vindu"
+
+#~ msgid "Open in this window"
+#~ msgstr "Åpne i dette vinduet"
+
+#~ msgid "Quit the program"
+#~ msgstr "Avslutt programmet"
+
+#~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+#~ msgstr "Kjartan Maraas <kmaraas@gnome.org>"
