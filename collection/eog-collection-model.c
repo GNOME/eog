@@ -626,3 +626,15 @@ eog_collection_model_get_selected_length (EogCollectionModel *model)
 	
 	return g_slist_length (model->priv->selected_images);
 }
+
+CImage*
+eog_collection_model_get_selected_image (EogCollectionModel *model)
+{
+	g_return_val_if_fail (model != NULL, 0);
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
+	
+	if (eog_collection_model_get_selected_length (model) == 1) {
+		return CIMAGE (model->priv->selected_images->data);
+	} else
+		return NULL;
+}

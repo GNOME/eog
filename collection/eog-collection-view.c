@@ -304,12 +304,23 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 		nimg = eog_collection_model_get_length (priv->model);
 		nsel = eog_collection_model_get_selected_length (priv->model);
 
-		str = g_new0 (guchar, 50);
+		str = g_new0 (guchar, 70);
 
 		if (nsel == 0)
-			g_snprintf (str, 50, "Images: %i", nimg);
-		else
-			g_snprintf (str, 50, "Images: %i  Selected: %i", nimg, nsel);
+			g_snprintf (str, 70, "Images: %i", nimg);
+		else if (nsel == 1) {
+			CImage *img; 
+			gchar *uri;
+
+			img = eog_collection_model_get_selected_image (priv->model);
+			uri = cimage_get_uri (img);
+			g_snprintf (str, 70, "Images: %i  %s (%i x %i)", nimg,
+				    g_basename (uri),
+				    cimage_get_width (img),
+				    cimage_get_height (img));
+			g_free (uri);
+		} else
+			g_snprintf (str, 70, "Images: %i  Selected: %i", nimg, nsel);
 	       
 		BONOBO_ARG_SET_STRING (arg, str);
 		g_free (str);

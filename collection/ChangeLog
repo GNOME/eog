@@ -1,3 +1,19 @@
+2001-05-30  Jens Finke <jens@gnome.org>
+
+	* cimage.[ch]: (cimage_set_dimensions),
+	(cimage_get_width), (cimage_get_height): New functions.
+
+	* eog-collection-model.[ch]:
+	(eog_collection_model_get_selected_image): New function, which
+	returns the single selected image.
+
+	* eog-collection-view.c:
+	(eog_collection_view_get_prop): If only a single image is
+	selected, provide detailed informations about it in the
+	'window/status' text.
+
+	* eog-image-loader.c (loading_finished): Set image dimensions.
+	
 2001-05-29  Jens Finke <jens@gnome.org>
 
 	* eog-collection-model.[ch]:

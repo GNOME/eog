@@ -37,12 +37,15 @@ void       cimage_set_loading_failed (CImage *img);
 void       cimage_toggle_select_status (CImage *img);
 void       cimage_set_select_status (CImage *img, gboolean status);
 void       cimage_set_caption (CImage *img, gchar *caption);
+void       cimage_set_image_dimensions (CImage *img, guint widht, guint height);
 
 /* collection image attributes */
 guint      cimage_get_unique_id (CImage *img);
 gchar     *cimage_get_uri (CImage *img);
 GdkPixbuf *cimage_get_thumbnail (CImage *img);
 gchar     *cimage_get_caption (CImage *img);
+guint      cimage_get_width (CImage *img);
+guint      cimage_get_height (CImage *img);
 
 /* collection image queries */
 gboolean   cimage_is_directory (CImage *img);

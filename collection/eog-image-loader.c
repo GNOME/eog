@@ -244,6 +244,9 @@ loading_finished (EILContext *ctx)
 #endif
 			
 			cimage_set_thumbnail (ctx->cimg, thumb);
+			cimage_set_image_dimensions (ctx->cimg,
+						     gdk_pixbuf_get_width (pbf),
+						     gdk_pixbuf_get_height (pbf));
 			
 			gdk_pixbuf_unref (thumb);
 			gdk_pixbuf_unref (pbf);

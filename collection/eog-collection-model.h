@@ -92,6 +92,9 @@ CImage*
 eog_collection_model_get_image              (EogCollectionModel *model,
                                              guint unique_id);
 
+CImage*
+eog_collection_model_get_selected_image     (EogCollectionModel *model);
+
 gchar*
 eog_collection_model_get_uri                (EogCollectionModel *model,
                                              guint unique_id);

@@ -9,6 +9,8 @@ struct _CImagePrivate {
 	GdkPixbuf *thumbnail;
 
 	gchar *caption;	
+	guint  width;
+	guint  height;
 	
 	gboolean  loading_failed;
 	gboolean  is_selected;	
@@ -215,6 +217,15 @@ cimage_set_caption (CImage *img, gchar *caption)
 	img->priv->caption = g_strdup (caption);
 }
 
+void       
+cimage_set_image_dimensions (CImage *img, guint width, guint height)
+{
+	g_return_if_fail (img != NULL);
+	
+	img->priv->width = width;
+	img->priv->height = height;
+}
+
 gchar*
 cimage_get_caption (CImage *img)
 {
@@ -262,3 +273,16 @@ cimage_has_loading_failed (CImage *img)
 	return img->priv->loading_failed;
 }
 
+guint
+cimage_get_width (CImage *img)
+{
+	g_return_val_if_fail (img != NULL, FALSE);
+	return img->priv->width;
+}
+
+guint
+cimage_get_height (CImage *img)
+{
+	g_return_val_if_fail (img != NULL, FALSE);
+	return img->priv->height;
+}
