@@ -22,7 +22,6 @@
  */
 
 #include <config.h>
-#include <time.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
@@ -36,6 +35,7 @@ GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 GtkWindow,
 			 GTK_TYPE_WINDOW);
 
+#define POINTER_HIDE_DELAY  2   /* hide the pointer after 2 seconds */
 #define MAX_LOAD_SLOTS 5
 static GQuark FINISHED_QUARK = 0; 
 static GQuark FAILED_QUARK = 0; 
@@ -74,8 +74,8 @@ struct _EogFullScreenPrivate
 
 	/* if the mouse pointer is hidden */
 	gboolean cursor_hidden;
-	/* last server time on mouse movement */
-	time_t mouse_move_time;
+	/* seconds since last mouse movement */
+	int mouse_move_counter;
 	/* timeout id which checks for cursor hiding */
 	guint hide_timeout_id;
 };
@@ -101,15 +101,14 @@ check_cursor_hide (gpointer data)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
-	int diff;
 
 	fs = EOG_FULL_SCREEN (data);
 	priv = fs->priv;
 
-	diff = (int) (time (NULL) - priv->mouse_move_time);
+	priv->mouse_move_counter++;
 
-	if (!priv->cursor_hidden && diff >= 2) {
-		/* hide the pointer after 2 seconds */
+	if (!priv->cursor_hidden && priv->mouse_move_counter >= POINTER_HIDE_DELAY) {
+		/* hide the pointer  */
 		cursor_set (GTK_WIDGET (fs), CURSOR_INVISIBLE);
 
 		/* don't call timeout again */
@@ -131,7 +130,7 @@ eog_full_screen_motion (GtkWidget *widget, GdkEventMotion *event)
 
 	priv = EOG_FULL_SCREEN (widget)->priv;
 	
-	priv->mouse_move_time = time (NULL);
+	priv->mouse_move_counter = 0;
 
 	if (priv->cursor_hidden) {
 		/* show cursor */
@@ -174,7 +173,7 @@ eog_full_screen_show (GtkWidget *widget)
 	gtk_widget_grab_focus (fs->priv->view);
 
 	priv->cursor_hidden = FALSE;
-	priv->mouse_move_time = 0;
+	priv->mouse_move_counter = 0;
         priv->hide_timeout_id = g_timeout_add (1000 /* every second */,
 					       check_cursor_hide,
 					       fs);
