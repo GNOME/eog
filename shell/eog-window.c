@@ -858,6 +858,7 @@ create_bonobo_file_sel (EogWindow *window)
 	gtk_widget_show (control);
 
 	priv->file_sel = gtk_window_new (GTK_WINDOW_DIALOG);
+	gtk_widget_set_usize (priv->file_sel, 560, 450);
 	gtk_window_set_title (GTK_WINDOW (priv->file_sel), _("Open Image"));
 	gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
 			    GTK_SIGNAL_FUNC (open_delete_event),
@@ -908,6 +909,7 @@ eog_window_open_dialog (EogWindow *window)
 #endif
 	}
 
+	gnome_window_icon_set_from_default (GTK_WINDOW (priv->file_sel));
 	gtk_widget_show_now (priv->file_sel);
 	raise_and_focus (priv->file_sel);
 }
