@@ -1,3 +1,8 @@
+if ENABLE_JPEG
+jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
+jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
+endif
+
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
@@ -40,11 +45,12 @@ eog_collection_view_SOURCES =		\
 	eog-save-dialog.c		\
 	main.c
 
-eog_collection_view_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+eog_collection_view_DEPENDENCIES = $(top_builddir)/libeog/libeog.a $(jpeg_DEPS)
 
 eog_collection_view_LDADD = 			\
 	-L$(top_builddir)/libeog		\
 	-leog					\
+	$(jpeg_LIB)				\
 	$(EOG_LIBS)				\
 	$(INTLLIBS)				\
 	$(X_LIBS)				\

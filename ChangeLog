@@ -1,3 +1,35 @@
+2003-12-08  Jens Finke  <jens@triq.net>
+
+	Lossless saving for local/unmodified files and local/modified jpeg
+	images. Needs more testing.
+
+	* Makefile.am:
+	* acconfig.h: Added jpegutils compile magic.
+
+	* configure.in: Bumped version to 2.5.1. Define ENABLE_JPEG.
+
+	* viewer/Makefile.am,
+	* collection/Makefile.am: Link to libeog-jpegutils conditionally.
+
+	* libeog/Makefile.am: Include jpegutils dir.
+
+	* libeog/eog-image-jpeg.[ch]: Build only if HAVE_JPEG is true.
+	(eog_image_jpeg_save_lossless): New function.
+
+	* libeog/eog-image-private.h: New file_type attribute.
+
+	* libeog/eog-image.c (real_image_load): Store file format used for
+	loading of the image.
+	(is_local_uri),
+	(get_save_file_type_by_suffix): New functions.
+	(eog_image_save): Reworked function. Tries to be as smart as
+	possible in using the least lossy save method.
+
+	* libeog/eog-transform.[ch] (eog_transform_get_transform_type):
+	New function.
+
+	* jpegutils/*: New files, borrowed from GThumb.
+	
 2003-11-24  Jens Finke  <jens@triq.net>
 
 	Display filesize information.

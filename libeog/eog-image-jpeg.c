@@ -28,27 +28,27 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "eog-image-jpeg.h"
+
+#if HAVE_JPEG
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <setjmp.h>
-#if HAVE_JPEG
+#include <jpegtran.h>
 #include <jpeglib.h>
 #include <jerror.h>
-#endif
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnome/gnome-i18n.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
-#include "eog-image-jpeg.h"
 #include "eog-image-private.h"
 
 gboolean
 eog_image_jpeg_save (EogImage *image, const char *path, GError **error)
 {
-#if HAVE_JPEG
 	EogImagePrivate *priv;
 	GdkPixbuf *pixbuf;
 	struct jpeg_compress_struct cinfo;
@@ -63,7 +63,7 @@ eog_image_jpeg_save (EogImage *image, const char *path, GError **error)
 	int rowstride = 0;
 	FILE *outfile;
 	struct jpeg_error_mgr jerr;
-#ifdef HAVE_EXIF
+#if HAVE_EXIF
 	unsigned char *exif_buf;
 	unsigned int   exif_buf_len;
 #endif
@@ -118,7 +118,7 @@ eog_image_jpeg_save (EogImage *image, const char *path, GError **error)
 	jpeg_set_quality (&cinfo, quality, TRUE);
 	jpeg_start_compress (&cinfo, TRUE);
 	
-#ifdef HAVE_EXIF
+#if HAVE_EXIF
 	if (priv->exif != NULL)
 	{
 		g_print ("save exif data\n");
@@ -152,7 +152,48 @@ eog_image_jpeg_save (EogImage *image, const char *path, GError **error)
 	fclose (outfile);
 
 	return TRUE;
-#else
-	return gdk_pixbuf_save (image->priv->image, path, "jpeg", error, NULL);
-#endif
 }
+
+gboolean 
+eog_image_jpeg_save_lossless (EogImage *image, const char *path, GError **error)
+{
+	const char *img_path;
+	int result;
+	JXFORM_CODE trans_code = JXFORM_NONE;
+	EogTransformType transformation;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+	g_return_val_if_fail (path != NULL, FALSE);
+
+	img_path = gnome_vfs_uri_get_path (image->priv->uri);
+
+	if (image->priv->trans != NULL) {
+		transformation = eog_transform_get_transform_type (image->priv->trans);
+		switch (transformation) {
+		case EOG_TRANSFORM_ROT_90:
+			trans_code = JXFORM_ROT_90; 
+			break;
+		case EOG_TRANSFORM_ROT_270:
+			trans_code = JXFORM_ROT_270; 
+			break;
+		case EOG_TRANSFORM_ROT_180:
+			trans_code = JXFORM_ROT_180; 
+			break;
+		case EOG_TRANSFORM_FLIP_HORIZONTAL:
+			trans_code = JXFORM_FLIP_H;
+			break;
+		case EOG_TRANSFORM_FLIP_VERTICAL:
+			trans_code = JXFORM_FLIP_V;
+			break;
+		default:
+			trans_code = JXFORM_NONE;
+			break;
+		}
+	}
+
+	result = jpegtran ((char*) img_path, (char*) path, trans_code, error);
+
+	return (result == 0);
+}
+
+#endif

@@ -4,7 +4,7 @@ AC_INIT(shell/main.c)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(eog, 2.5.0.1)
+AM_INIT_AUTOMAKE(eog, 2.5.1)
 
 AM_MAINTAINER_MODE
 
@@ -89,6 +89,7 @@ AC_ARG_WITH(libjpeg, [  --without-libjpeg	  disable special JPEG support])
       if test "$have_jpeg" = yes; then
         LIBJPEG='-ljpeg'
 	AC_DEFINE(HAVE_JPEG, 1)
+        AC_DEFINE(HAVE_LIBJPEG, 1)
         AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
           AC_DEFINE(HAVE_PROGRESSIVE_JPEG),
           AC_MSG_WARN(JPEG library does not support progressive saving.))
@@ -105,6 +106,7 @@ AC_ARG_WITH(libjpeg, [  --without-libjpeg	  disable special JPEG support])
 *** not work properly])
   fi
 AC_SUBST(LIBJPEG)
+AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
 
 dnl ============ CFLAGS & LIBS initialization ===============
 
@@ -185,6 +187,7 @@ eog.spec
 art/Makefile
 libeog/Makefile
 libeog/cursors/Makefile
+jpegutils/Makefile
 libgpi/Makefile
 collection/Makefile
 viewer/Makefile

@@ -7,6 +7,7 @@ INCLUDES =							\
 	-DDATADIR=\""$(datadir)"\"				\
 	-I$(srcdir) -I$(top_srcdir)				\
 	-I$(top_srcdir)/src					\
+	-I$(top_srcdir)/jpegutils				\
 	-I$(top_builddir)					\
 	$(EOG_CFLAGS)						\
 	$(WARN_CFLAGS)

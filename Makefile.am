@@ -1,4 +1,9 @@
-SUBDIRS = art idl libgpi libeog viewer collection shell po help
+if ENABLE_JPEG
+jpeg_DIRS = jpegutils
+endif
+
+SUBDIRS = art idl libgpi $(jpeg_DIRS) libeog viewer collection shell po help
+DIST_SUBDIRS = $(SUBDIRS) jpegutils
 
 EXTRA_DIST = 			\
 	DEPENDS			\

@@ -37,6 +37,7 @@ struct _EogImagePrivate {
 	gint width;
 	gint height;
 	GnomeVFSFileSize bytes;
+	char *file_type;
 #if HAVE_EXIF
 	ExifData *exif;
 #endif

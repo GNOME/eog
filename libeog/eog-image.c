@@ -19,8 +19,10 @@
 #include "eog-image.h"
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
-#include "eog-image-jpeg.h"
 #include "eog-image-cache.h"
+#if HAVE_JPEG
+#include "eog-image-jpeg.h"
+#endif
 
 static GThread     *thread                     = NULL;
 static gboolean     thread_running             = FALSE;
@@ -309,6 +311,11 @@ eog_image_dispose (GObject *object)
 		priv->caption_key = NULL;
 	}
 
+	if (priv->file_type) {
+		g_free (priv->file_type);
+		priv->file_type = NULL;
+	}
+	
 	if (priv->status_mutex) {
 		g_mutex_free (priv->status_mutex);
 		priv->status_mutex = NULL;
@@ -746,6 +753,10 @@ real_image_load (gpointer data)
 		g_warning ("exif data not freed\n");
 	}
 #endif
+	if (priv->file_type != NULL) {
+		g_free (priv->file_type);
+		priv->file_type = NULL;
+	}
 
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 	if (result != GNOME_VFS_OK) {
@@ -873,6 +884,7 @@ real_image_load (gpointer data)
 		GdkPixbuf *image;
 		GdkPixbuf *transformed = NULL;
 		EogTransform *trans;
+		GdkPixbufFormat *format;
 
 		g_mutex_lock (priv->status_mutex);
 		image = priv->image;
@@ -897,6 +909,10 @@ real_image_load (gpointer data)
 		priv->image = image;
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
+		format = gdk_pixbuf_loader_get_format (loader);
+		if (format != NULL) {
+			priv->file_type = g_strdup (gdk_pixbuf_format_get_name (format));
+		}
 #if HAVE_EXIF
 		update_exif_data (img);
 #endif 
@@ -1194,15 +1210,78 @@ eog_image_undo (EogImage *img)
 	priv->modified = (priv->undo_stack != NULL);
 }
 
+/* is_local_uri: 
+ * 
+ * Checks if the URI points to a local file system. This tests simply
+ * if the URI scheme is 'file'. This function is used to ensure that
+ * we can write to the path-part of the URI with non-VFS aware
+ * filesystem calls.
+ */
+static gboolean 
+is_local_uri (const GnomeVFSURI* uri)
+{
+	const char *scheme;
+
+	g_return_val_if_fail (uri != NULL, FALSE);
+
+	scheme = gnome_vfs_uri_get_scheme (uri);
+	return (g_strcasecmp (scheme, "file") == 0);
+}
+
+static char*
+get_save_file_type_by_suffix (const char *local_path)
+{
+	GSList *savable_formats = NULL;
+	GSList *it;
+	char *file_type = NULL;
+	char *suffix;
+	GdkPixbufFormat *format;
+	char **extension;
+	int i;
+
+	/* FIXME: this is probably not unicode friendly */
+	suffix = g_strrstr (local_path, ".");
+	if (suffix == NULL) {
+		return NULL;
+	}
+
+	/* skip '.' from the suffix string */
+	if (strlen (suffix) > 1) {
+		suffix++;
+	}
+
+	savable_formats = eog_pixbuf_get_savable_formats ();
+
+	/* iterate over the availabe formats and check for every
+	 * possible format suffix if it matches the file suffix */
+	for (it = savable_formats; it != NULL && file_type == NULL; it = it->next) {
+
+		format = (GdkPixbufFormat*) it->data;
+		extension = gdk_pixbuf_format_get_extensions (format);
+		
+		for (i = 0; extension[i] != NULL && file_type == NULL; i++) {
+			if (g_ascii_strcasecmp (extension[i], suffix) == 0) {
+				file_type = gdk_pixbuf_format_get_name (format);
+			}
+		}
+
+		g_strfreev (extension);
+	}
+	g_slist_free (savable_formats);
+
+	/* file_type is either NULL or contains the name of the format */
+	return file_type;
+}
+
 gboolean
 eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 {
 	EogImagePrivate *priv;
 	char *file;
-	char *file_type = NULL;
-	GSList *savable_formats = NULL;
-	GSList *it;
-	gboolean result;
+	char *target_type = NULL;
+	char *source_type = NULL;
+	gboolean result = FALSE;
+	gboolean source_is_local;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	g_return_val_if_fail (uri != NULL, FALSE);
@@ -1210,6 +1289,7 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 
 	priv = img->priv;
 
+	/* fail if there is no image to save */
 	if (priv->image == NULL) {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
@@ -1217,69 +1297,94 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		return FALSE;
 	}
 
-#if 0
-	/* FIXME: Why does this not work for local files? */
-	if (!gnome_vfs_uri_is_local (uri)) {
+	/* Since we rely on some local system calls resp. non-VFS aware libs, 
+	 * we can write only to local files.
+	 */
+	if (!is_local_uri (uri)) {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("Images can only be saved as local files."));
 		return FALSE;
 	}
-#endif
 	
 	/* find file type for saving, according to filename suffix */
-	file = (char*) gnome_vfs_uri_get_path (uri); /* don't free file */
+	file = (char*) gnome_vfs_uri_get_path (uri); /* don't free file, it's a static string */
 	
-	savable_formats = eog_pixbuf_get_savable_formats ();
-	for (it = savable_formats; it != NULL && file_type == NULL; it = it->next) {
-		GdkPixbufFormat *format;
-		char **extension;
-		int i;
-
-		format = (GdkPixbufFormat*) it->data;
-		extension = gdk_pixbuf_format_get_extensions (format);
-		
-		for (i = 0; extension[i] != NULL && file_type == NULL; i++) {
-			char *suffix;
-			
-			suffix = g_strconcat (".", extension[i], NULL);
-			if (g_str_has_suffix (file, suffix)) {
-				file_type = gdk_pixbuf_format_get_name (format);
-			}
-
-			g_free (suffix);
-		}
-
-		g_strfreev (extension);
-	}
-	g_slist_free (savable_formats);
-	
-	if (file_type == NULL) {
+	target_type = get_save_file_type_by_suffix (file);
+	if (target_type == NULL) {
 		g_set_error (error, GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_UNKNOWN_TYPE,
 			     _("Unsupported image type for saving."));
 		return FALSE;
 	}
+	
+	source_is_local = (priv->uri != NULL && is_local_uri (priv->uri));
+	source_type = priv->file_type;
+	
+	/* Check for some special cases, so that we use always the least intrusive method 
+	 * for saving the image.
+	 */
+	if ((g_ascii_strcasecmp (target_type, source_type) == 0) &&
+	    !eog_image_is_modified (img))
+	{
+		/* If image source and target have the same type and
+		 * source is not modified in any way => copy file.
+		 */
+		GnomeVFSResult vfs_result;
+		
+		vfs_result = gnome_vfs_xfer_uri (priv->uri,
+						 uri, 
+						 GNOME_VFS_XFER_DEFAULT /* copy the data */,
+						 GNOME_VFS_XFER_ERROR_MODE_ABORT, /* abort on all errors */
+						 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE, /* we checked for existing 
+											   file already */
+						 NULL,  /* no progress callback */
+						 NULL);
+		result = (vfs_result == GNOME_VFS_OK);
+		if (!result) {
+			g_set_error (error, EOG_IMAGE_ERROR,
+				     EOG_IMAGE_ERROR_VFS, 
+				     gnome_vfs_result_to_string (vfs_result));
+		}
+		g_print ("copy image file\n");
+	}
+#if HAVE_JPEG
+	else if ((g_ascii_strcasecmp (source_type, "jpeg") == 0) &&
+		 (g_ascii_strcasecmp (target_type, "jpeg") == 0) && 
+		 source_is_local) 
+	{
+		/* If source is a local file and both are jpeg files,
+		 * then use lossless transformation through libjpeg.
+		 */
+		result = eog_image_jpeg_save_lossless (img, file, error);
 
+		g_print ("loseless saving of %s to %s\n", 
+			 gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE), file);
+	}
 #if HAVE_EXIF
-	if ((g_ascii_strcasecmp (file_type, "jpeg") == 0) && priv->exif != NULL) {
+	else if ((g_ascii_strcasecmp (target_type, "jpeg") == 0) && priv->exif != NULL) {
+		/* If the target is a jpeg file and the image has EXIF
+		 * information preserve these by saving through
+		 * libjpeg.
+		 */
 		result = eog_image_jpeg_save (img, file, error);
 	}
-	else {
-		result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
-	}
-#else
-	result = gdk_pixbuf_save (priv->image, file, file_type, error, NULL);
 #endif
-
-
+#endif
+	else {
+		/* In all other cases: Use default save method
+		 * provided by gdk-pixbuf library.
+		 */
+		result = gdk_pixbuf_save (priv->image, file, target_type, error, NULL);
+	}
+	
 	if (result) {
 		/* free the transformation since it's not needed anymore */
 		/* FIXME: You can't undo prev transformations then anymore. */
 		GList *it = priv->undo_stack;
 		for (; it != NULL; it = it->next) 
 			g_object_unref (G_OBJECT (it->data));
-
+		
 		g_list_free (priv->undo_stack);
 		g_object_unref (priv->trans);
 		priv->trans = NULL;
@@ -1287,7 +1392,7 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		priv->modified = FALSE;
 	}
 
-	g_free (file_type);
+	g_free (target_type);
 
 	return result;
 }
@@ -1377,9 +1482,6 @@ eog_image_get_caption (EogImage *img)
 	}
 
 	priv->caption = name;
-
-
-
 
 	if (priv->caption == NULL) {
 		char *short_str;

@@ -1,3 +1,8 @@
+if ENABLE_JPEG
+jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
+jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
+endif
+
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
@@ -21,11 +26,13 @@ eog_image_viewer_SOURCES =	\
 
 eog_image_viewer_DEPENDENCIES =		\
 	$(top_builddir)/libeog/libeog.a	\
-	$(top_builddir)/libgpi/libgpi.a
+	$(top_builddir)/libgpi/libgpi.a \
+	$(jpeg_DEPS)
 
 eog_image_viewer_LDADD = 			\
 	-L$(top_builddir)/libeog -leog		\
 	-L$(top_builddir)/libgpi -lgpi		\
+	$(jpeg_LIB)				\
 	$(EOG_LIBS)				\
 	$(X_LIBS)				\
 	$(LIBJPEG)

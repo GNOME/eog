@@ -219,7 +219,7 @@ eog_transform_rotate_new (int degree)
 }
 
 EogTransform* 
-eog_transform_flip_new   (EogTransformFlipType type)
+eog_transform_flip_new   (EogTransformType type)
 {
 	EogTransform *trans; 
 	gboolean horiz, vert;
@@ -248,4 +248,44 @@ eog_transform_scale_new  (double sx, double sy)
 	art_affine_scale (trans->priv->affine, sx, sy);
 
 	return trans;
+}
+
+EogTransformType
+eog_transform_get_transform_type (EogTransform *trans)
+{
+	double affine[6];
+	EogTransformPrivate *priv;
+
+	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), EOG_TRANSFORM_NONE);
+
+	priv = trans->priv;
+
+        art_affine_rotate (affine, 90);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_ROT_90;
+	}
+
+        art_affine_rotate (affine, 180);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_ROT_180;
+	}
+
+        art_affine_rotate (affine, 270);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_ROT_270;
+	}
+
+	art_affine_identity (affine);
+	art_affine_flip (affine, affine, TRUE, FALSE);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_FLIP_HORIZONTAL;
+	}
+
+	art_affine_identity (affine);
+	art_affine_flip (affine, affine, FALSE, TRUE);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_FLIP_VERTICAL;
+	}
+
+	return EOG_TRANSFORM_NONE;
 }
