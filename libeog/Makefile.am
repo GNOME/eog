@@ -44,13 +44,13 @@ $(CORBA_SOURCES): $(idls)
 
 Eog.h: $(idls)
 
-BUILT_SOURCES=$(CORBA_SOURCES)
-CLEANFILES += $(BUILT_SOURCES)
-
 serverdir = $(libdir)/bonobo/servers
 server_in_files = GNOME_EOG.server.in
 server_DATA = $(server_in_files:.server.in=.server)
 @INTLTOOL_SERVER_RULE@
+
+BUILT_SOURCES=$(CORBA_SOURCES)
+CLEANFILES += $(BUILT_SOURCES) $(server_DATA)
 
 EXTRA_DIST = $(server_in_files)
 
