@@ -1,4 +1,4 @@
-icondir = $(datadir)/pixmaps/eog-image-viewer
+icondir = $(datadir)/pixmaps/eog
 
 icon_DATA =                     \
 	stock-zoom-1.xpm	\
