@@ -1,5 +1,16 @@
 2003-04-12  Jens Finke  <jens@triq.net>
 
+	* shell/eog-window.c (open_uri_list_cleanup),
+	(eog_window_drag_data_received),
+	(adapt_window_size),
+	(eog_window_open_list): Removed debug messages.
+	(eog_window_construct): Limit list of recent files to 5.
+
+	* shell/main.c (open_window), 
+	(open_uri_list_cb): Removed debug messages.
+
+2003-04-12  Jens Finke  <jens@triq.net>
+
 	Support for list of recent files.
 
 	* configure.in (AC_OUTPUT): Added shell/recent-files/Makefile

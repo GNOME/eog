@@ -84,7 +84,6 @@ open_window (LoadContext *ctx)
 
 	if (ctx->single_windows) 
 	{
-		g_print ("single windows, new_window %i\n", (int)new_window);
 		for (it = ctx->uri_list; it != NULL; it = it->next) {
 			if (new_window || (ctx->window == NULL)) {
 				window = create_new_window ();
@@ -336,8 +335,6 @@ open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data)
 	LoadContext *ctx;
 	gboolean quit_program = FALSE;
 
-	g_print ("open_uri_list_cb\n");
-
 	if (uri_list == NULL) {
 		if (window == NULL) {
 			g_idle_add (create_empty_window, NULL);
@@ -347,8 +344,6 @@ open_uri_list_cb (EogWindow *window, GList *uri_list, gpointer data)
 	}
 
 	sort_files (uri_list, &file_list, &dir_list, &error_list);
-
-	g_print ("after sort files\n");
 
 	/* open regular files */
 	if (file_list) {

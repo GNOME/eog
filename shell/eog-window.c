@@ -356,8 +356,6 @@ open_uri_list_cleanup (EogWindow *window, GList *txt_uri_list)
 {
 	GList *it;
 
-	g_print ("open uri list cleanup\n");
-
 	if (txt_uri_list != NULL) {
 
 		for (it = txt_uri_list; it != NULL; it = it->next) {
@@ -595,8 +593,6 @@ eog_window_drag_data_received (GtkWidget *widget,
 
 	if (context->suggested_action == GDK_ACTION_COPY) { 
 
-		g_print ("drag data received\n");
-		
 		window = EOG_WINDOW (widget);
 		
 		uri_list = gnome_vfs_uri_list_parse (selection_data->data);
@@ -604,7 +600,6 @@ eog_window_drag_data_received (GtkWidget *widget,
 		for (it = uri_list; it != NULL; it = it->next) {
 			char *filename = gnome_vfs_uri_to_string (it->data, GNOME_VFS_URI_HIDE_NONE);
 			str_list = g_list_prepend (str_list, filename);
-			g_print ("dnd uri: %s\n", (char*)filename);
 		}
 		
 		gnome_vfs_uri_list_free (uri_list);
@@ -681,6 +676,7 @@ eog_window_construct (EogWindow *window)
 	/* recent files support */
 	priv->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
 	egg_recent_model_set_filter_groups (priv->recent_model, RECENT_FILES_GROUP, NULL);
+	egg_recent_model_set_limit (priv->recent_model, 5);
 
 	priv->recent_view = egg_recent_view_bonobo_new (priv->ui_comp,
 							"/menu/File/EggRecentDocuments/");
@@ -760,8 +756,6 @@ adapt_window_size (EogWindow *window, int width, int height)
 	xthick = priv->box->style->xthickness;
 	ythick = priv->box->style->ythickness;
 	req_width = req_height = -1;
-
-	g_print ("adapt window size cb\n");
 
 	if (height > 0) {
 		req_height = 
@@ -998,7 +992,6 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	pfile = Bonobo_Unknown_queryInterface (control, "IDL:Bonobo/PersistFile:1.0", &ev);
 	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL)) {
 		bonobo_object_release_unref (control, NULL);
-		g_print ("load_uri_cb error\n");
 		g_set_error (error, EOG_WINDOW_ERROR,
 			     EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
 			     bonobo_exception_get_text (&ev));
