@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"POT-Creation-Date: 2003-06-19 11:55+0700\n"
+"POT-Creation-Date: 2003-06-30 13:59+0700\n"
 "PO-Revision-Date: 2003-02-06 23:34+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
-"Language-Team: Indonesia <id@li.org>\n"
+"Language-Team: Indonesia <sukarelawan@gnome.linux.or.id>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,38 +67,54 @@ msgid "Slide Show"
 msgstr "Slide Show"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Edit"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Simpan"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Batalkan"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_View"
 msgstr "_Lihat"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Batalkan penyimpanan"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Penyimpanan selesai"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Pindahkan ke keranjang sampah"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Tampilan Koleksi"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1247
 msgid "Window Title"
 msgstr "Judul Window"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Teks status"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1259
 msgid "Progress of Image Loading"
 msgstr "Progres pembukaan gambar"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Simpan Gambar"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -110,7 +126,7 @@ msgstr "Tampilkan berbagai jenis gambar"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr "	"
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
@@ -206,8 +222,8 @@ msgid ""
 "determines the used color value."
 msgstr ""
 "Menentukan bagaimana transparansi ditandai. Nilai yang diterima adalah "
-"POLA_KOTAK_KOTAK, WARNA dan TAK ADA. Bila WARNA yang dipilih, maka key trans_color "
-"akan digunakan untuk menandai adanya transparansi."
+"POLA_KOTAK_KOTAK, WARNA dan TAK ADA. Bila WARNA yang dipilih, maka key "
+"trans_color akan digunakan untuk menandai adanya transparansi."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -299,10 +315,11 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"Menentukan apakah boleh mengepaskan gambar ukuran standar pada layar pada mode layar penuh. "
-"Gambar yang bisa dipas adalah gambar yang berukuran seperti 320x240, "
-"640x480, 800x600, dsb. Pilihan ini menentukan apakah gambar sedemikian bisa "
-"dipaskan tanpa harus memperhatikan faktor zoom awal pada mode layar penuh."
+"Menentukan apakah boleh mengepaskan gambar ukuran standar pada layar pada "
+"mode layar penuh. Gambar yang bisa dipas adalah gambar yang berukuran "
+"seperti 320x240, 640x480, 800x600, dsb. Pilihan ini menentukan apakah gambar "
+"sedemikian bisa dipaskan tanpa harus memperhatikan faktor zoom awal pada "
+"mode layar penuh."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -344,15 +361,19 @@ msgstr "Buka Gambar"
 msgid "Save Image"
 msgstr "Simpan Gambar"
 
-#: libeog/eog-image.c:1316
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Tidak dapat mengalokasikan memori untuk membuka file JPEG"
+
+#: libeog/eog-image.c:1338
 msgid "No image loaded."
 msgstr "Tidak ada gambar yang dibuka"
 
-#: libeog/eog-image.c:1325
+#: libeog/eog-image.c:1347
 msgid "Images can only be saved as local files."
 msgstr "Gambar hanya bisa disimpan pada file lokal saja."
 
-#: libeog/eog-image.c:1360
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
 msgstr "Format gambar tidak dapat ditulis."
 
@@ -383,7 +404,7 @@ msgid "Page"
 msgstr "Halaman"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:361
 msgid "Preview"
 msgstr "Lihat Contoh Jadi"
 
@@ -470,20 +491,8 @@ msgid "Vertically by "
 msgstr "Vertikal sebesar "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "action_area"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -585,8 +594,8 @@ msgstr "_Keluar"
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Mohammad DAMT <mdamt@bisnisweb.com>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -686,72 +695,96 @@ msgid "Print image to the printer"
 msgstr "Cetak gambar pada printer"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Putar ke kiri"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Putar ke kanan"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Simp_an sebagai..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Setup setting halaman untuk printer yang aktif"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "Layar _penuh"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:786
+msgid "/Rotate C_lockwise"
+msgstr "/Putar searah jarum _jam"
+
+#: viewer/eog-image-view.c:788
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Putar be_rlawanan jarum jam"
+
+#: viewer/eog-image-view.c:791
 msgid "/_Zoom In"
 msgstr "/_Zoom Besar"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:793
 msgid "/Zoom _Out"
 msgstr "/Z_oom Kecil"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:795
 msgid "/_Normal Size"
 msgstr "/Ukuran _Normal"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:797
 msgid "/Best _Fit"
 msgstr "/_Pas Sempurna"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:800
 msgid "/_Close"
 msgstr "/_Tutup"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:994
 msgid "Image successfully saved"
 msgstr "Gambar disimpan sempurna"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:998
 msgid "Image saving failed"
 msgstr "Gambar gagal disimpan"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1241
 msgid "Image Width"
 msgstr "Lebar Gambar"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1244
 msgid "Image Height"
 msgstr "Tinggi Gambar"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1250
 msgid "Statusbar Text"
 msgstr "Teks status bar"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1253
 msgid "Desired Window Width"
 msgstr "Lebar window yang dikehendaki"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1256
 msgid "Desired Window Height"
 msgstr "Tinggi Window yang dikehendaki"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Tidak dapat inisialisasi GnomeVFS!\n"
+#~ msgid "action_area"
+#~ msgstr "action_area"
+
+#~ msgid "dialog"
+#~ msgstr "dialog"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Tidak dapat inisialisasi GnomeVFS!\n"
 
 #~ msgid "pts"
 #~ msgstr "pt"
