@@ -1,3 +1,42 @@
+2002-05-30  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes #82417.
+
+	* libeog/image-view.c (unity_zoom): Oops, this was testing zoomx
+	twice instead of zoomx and zoomy.
+	(ImageViewPrivate): Now we only use a single microtile array.  It
+	represents the dirty region for delayed drawing, which is only
+	used when we are using interpolation --- the non-interpolated and
+	zoom==1:1 cases are handled synchronously for speed and
+	smoothness.
+	(remove_dirty_region): Handle a single microtile.
+	(paint_iteration_idle): Handle a single microtile.  Boy, is this
+	simpler or what?
+	(scroll_to): Use gdk_window_scroll() and process exposures
+	synchronously.  This is basically the old EOG magic but now done
+	cleanly with GDK stuff.
+	(image_view_set_pixbuf): Remove the dirty region and reset the
+	scrolling offsets.
+	(image_view_get_zoom): Return both the X and Y zoom factors.
+	(image_view_button_press_event): Do not grab the cursor now that
+	we can use implicit grabs reliably.
+	(image_view_button_release_event): Do not ungrab the cursor.
+
+	* viewer/eog-image-view.c (eog_image_view_get_prop): Take the
+	square root of the product of the X and Y zoom factors for the
+	actual zoom factor.
+
+	* viewer/eog-control.c (zoomable_set_zoom_level_cb): Likewise.
+	(zoomable_zoom_in_cb): Likewise.
+	(zoomable_zoom_out_cb): Likewise.
+	(zoomable_zoom_to_fit_cb): Likewise.
+
+	* viewer/eog-full-screen.c (eog_full_screen_button_press_event):
+	Removed.  
+
+	* shell/eog-window.c (verb_HelpAbout_cb): Add the EOG icon and the
+	documenters.
+
 2002-05-29  Federico Mena Quintero  <federico@ximian.com>
 
 	* libeog/image-view.h (ScrollType): Removed.

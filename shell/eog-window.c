@@ -27,6 +27,7 @@
 #include <math.h>
 #include <time.h>
 #include <gnome.h>
+#include <string.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 #include <bonobo-activation/bonobo-activation.h>
@@ -219,32 +220,48 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 {
 	static GtkWidget *about;
 	static const char *authors[] = {
-		"Federico Mena-Quintero",
-		"Martin Baulig",
-		"Arik Devens",
-		"Jens Finke",
-		"Michael Meeks",
-		"Lutz Mueller",
+		"Federico Mena-Quintero <federico@gnu.org>",
+		"Jens Finke <jens@triq.net>",
+		"Lutz Mueller <urc8@rz.uni-karlsruhe.de>",
+		"Martin Baulig <martin@home-of-linux.org>",
+		"Arik Devens <arik@gnome.org>",
+		"Michael Meeks <mmeeks@gnu.org>",
 		NULL
 	};
-	const char *translator_credits;
+	static const char *documenters[] = {
+		"Eliot Landrum <eliot@landrum.cx>",
+		"Sun GNOME Documentation Team <gdocteam@sun.com>",
+		"Federico Mena-Quintero <federico@gnu.org>",
+		NULL
+	};
+	const char *translators;
+
+#define EMPTY_TRANSLATORS "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 
 	if (!about) {
+		GdkPixbuf *pixbuf;
+
 		/* Translators should localize the following string
 		 * which will be displayed at the bottom of the about
 		 * box to give credit to the translator(s).
 		 */
-		translator_credits = _("Translator Credits");
+		translators = _(EMPTY_TRANSLATORS);
+
+		pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
 
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
 			_("Copyright (C) 2000-2002 The Free Software Foundation"),
-			_("The GNOME image viewing and cataloging program"),
+			_("The GNOME image viewing and cataloging program."),
 			authors,
-			NULL, /* char **documentors */
-			translator_credits,
-			NULL);
+			documenters,
+			strcmp (translators, EMPTY_TRANSLATORS) ? translators : NULL,
+			pixbuf);
+
+		if (pixbuf)
+			g_object_unref (pixbuf);
+
 		g_signal_connect (about, "destroy",
 				  G_CALLBACK (gtk_widget_destroyed),
 				  &about);
@@ -836,7 +853,7 @@ check_for_control_properties (EogWindow *window)
 		g_free (title);
 		mask = g_strdup ("window/title");
 	} else {
-		g_warning (_("Control doesn't support window_title property."));
+		g_warning ("Control doesn't support window_title property.");
 		gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
 	}
 
@@ -852,7 +869,7 @@ check_for_control_properties (EogWindow *window)
 		g_free (mask);
 		mask = temp;
 	} else {
-		g_warning (_("Control doesn't support status_text property."));
+		g_warning ("Control doesn't support status_text property.");
 	}
 
 	/* register for further changes */
@@ -871,7 +888,7 @@ check_for_control_properties (EogWindow *window)
 	return;
 
 on_error:
-	g_warning (_("Control doesn't have properties"));
+	g_warning ("Control doesn't have properties");
 	gtk_window_set_title (GTK_WINDOW (window), "Eye of Gnome");
 }
 
@@ -888,7 +905,7 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	
 	/* check for valid mime_type */
 	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0) {
-		g_warning (_("Couldn't retrieve mime type for file."));
+		g_warning ("Couldn't retrieve mime type for file.");
 		return CORBA_OBJECT_NIL;
 	}
 
@@ -1131,7 +1148,7 @@ eog_window_open (EogWindow *window, const char *text_uri)
 					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
 					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 	if (result != GNOME_VFS_OK) {
-		g_warning (_("Error while obtaining file informations."));
+		g_warning ("Error while obtaining file informations.");
 		return FALSE;
 	}
 	

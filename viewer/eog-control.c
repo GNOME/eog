@@ -11,6 +11,7 @@
  */
 #include <config.h>
 #include <stdio.h>
+#include <math.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
@@ -66,10 +67,11 @@ zoomable_set_frame_cb (BonoboZoomable *zoomable, EogControl *control)
 }
 
 static void
-zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
+zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, CORBA_float new_zoom_level,
 			    EogControl *control)
 {
 	EogControlPrivate *priv;
+	double zoomx, zoomy;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
@@ -77,8 +79,10 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 	priv = control->priv;
 
 	eog_image_view_set_zoom_factor (priv->image_view, new_zoom_level);
+
+	eog_image_view_get_zoom_factor (priv->image_view, &zoomx, &zoomy);
 	bonobo_zoomable_report_zoom_level_changed (zoomable, 
-						   eog_image_view_get_zoom_factor (priv->image_view),
+						   sqrt (zoomx * zoomy),
 						   NULL);
 }
 
@@ -97,7 +101,7 @@ static const gchar *preferred_zoom_level_names[] = {
 
 static const gint n_zoom_levels = (sizeof (preferred_zoom_levels) / sizeof (float));
 
-static float
+static double
 zoom_level_from_index (int index)
 {
 	if (index >= 0 && index < n_zoom_levels)
@@ -109,15 +113,17 @@ zoom_level_from_index (int index)
 static void
 zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogControl *control)
 {
-	float zoom_level;
-	float new_zoom_level;
+	double zoomx, zoomy;
+	double zoom_level;
+	double new_zoom_level;
 	int index;
 	int i;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
+	eog_image_view_get_zoom_factor (control->priv->image_view, &zoomx, &zoomy);
+	zoom_level = sqrt (zoomx * zoomy);
 	index = -1;
 
 	/* find next greater zoom level index */
@@ -139,14 +145,16 @@ zoomable_zoom_in_cb (BonoboZoomable *zoomable, EogControl *control)
 static void
 zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogControl *control)
 {
-	float zoom_level;
-	float new_zoom_level;
+	double zoomx, zoomy;
+	double zoom_level;
+	double new_zoom_level;
 	int index, i;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
-	zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
+	eog_image_view_get_zoom_factor (control->priv->image_view, &zoomx, &zoomy);
+	zoom_level = sqrt (zoomx * zoomy);
 	index = -1;
 	
 	/* find next lower zoom level index */
@@ -168,13 +176,15 @@ zoomable_zoom_out_cb (BonoboZoomable *zoomable, EogControl *control)
 static void
 zoomable_zoom_to_fit_cb (BonoboZoomable *zoomable, EogControl *control)
 {
-	float new_zoom_level;
+	double zoomx, zoomy;
+	double new_zoom_level;
 
 	g_return_if_fail (control != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
 	eog_image_view_zoom_to_fit (control->priv->image_view, TRUE);
-	new_zoom_level = eog_image_view_get_zoom_factor (control->priv->image_view);
+	eog_image_view_get_zoom_factor (control->priv->image_view, &zoomx, &zoomy);
+	new_zoom_level = sqrt (zoomx * zoomy);
 
 	g_signal_emit_by_name (G_OBJECT (zoomable), "set_zoom_level",
 			       new_zoom_level);

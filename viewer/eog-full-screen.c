@@ -126,32 +126,6 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	return TRUE;
 }
 
-static gint
-eog_full_screen_button_press_event (GtkWidget *widget,
-		                    GdkEventButton *event_button)
-{
-	EogFullScreen *fs;
-	gfloat zoom_factor;
-
-	fs = EOG_FULL_SCREEN (widget);
-
-	if (event_button->button == 2) {
-
-		/* Zoom in or out */
-		zoom_factor = eog_image_view_get_zoom_factor
-							(fs->priv->image_view);
-		if (event_button->state & GDK_SHIFT_MASK)
-			zoom_factor /= ZOOM_FACTOR;
-		else
-			zoom_factor *= ZOOM_FACTOR;
-		eog_image_view_set_zoom_factor (fs->priv->image_view,
-						zoom_factor);
-		return (TRUE);
-	}
-
-	return (FALSE);
-}
-
 static void
 eog_full_screen_destroy (GtkObject *object)
 {
@@ -205,7 +179,6 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 	widget_class->show = eog_full_screen_show;
 	widget_class->hide = eog_full_screen_hide;
 	widget_class->key_press_event = eog_full_screen_key_press;
-	widget_class->button_press_event = eog_full_screen_button_press_event;
 }
 
 /* Object initialization function for the full screen view */

@@ -71,9 +71,11 @@ void  eog_image_view_print (EogImageView *image_view, gboolean preview,
 			    gboolean overlap);
 
 /* Zooming */
-float eog_image_view_get_zoom_factor (EogImageView *image_view);
+void  eog_image_view_get_zoom_factor (EogImageView *image_view,
+				      double       *zoomx,
+				      double       *zoomy);
 void  eog_image_view_set_zoom_factor (EogImageView *image_view,
-				      float         zoom_factor);
+				      double        zoom_factor);
 void  eog_image_view_zoom_to_fit     (EogImageView *image_view,
 				      gboolean      keep_aspect_ratio);
 void  eog_image_view_set_zoom        (EogImageView *image_view,

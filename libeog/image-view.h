@@ -95,7 +95,7 @@ void image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf);
 GdkPixbuf *image_view_get_pixbuf (ImageView *view);
 
 void image_view_set_zoom (ImageView *view, double zoomx, double zoomy);
-double image_view_get_zoom (ImageView *view);
+void image_view_get_zoom (ImageView *view, double *zoomx, double *zoomy);
 
 void image_view_set_interp_type (ImageView *view, GdkInterpType interp_type);
 GdkInterpType image_view_get_interp_type (ImageView *view);

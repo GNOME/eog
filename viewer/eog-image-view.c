@@ -13,6 +13,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include <glib/gstrfuncs.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
@@ -108,9 +109,6 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 
 	pixbuf = eog_image_get_pixbuf (eog_image);
 	if (pixbuf) {
-	/* FIXME: Eog's internals can't cope with different zooms on different
-	   axis, this needs fixing in src/image-view.c */
-/*	if (image_view->priv->zoom_fit); */
 		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
 		g_object_unref (pixbuf);
 
@@ -1445,13 +1443,15 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 	}
 	case PROP_WINDOW_STATUS: {
 		gchar *text = NULL;
+		double zoomx, zoomy;
 		gint zoom;
 		GdkPixbuf *pixbuf;
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
 		pixbuf = image_view_get_pixbuf (priv->image_view);
-		zoom = (gint) 100 * image_view_get_zoom (priv->image_view);
+		image_view_get_zoom (priv->image_view, &zoomx, &zoomy);
+		zoom = 100 * sqrt (zoomx * zoomy);
 		
 		text = g_new0 (gchar, 40);
 		if (pixbuf) {
@@ -1677,18 +1677,18 @@ eog_image_view_get_widget (EogImageView *image_view)
 	return image_view->priv->ui_image;
 }
 
-float
-eog_image_view_get_zoom_factor (EogImageView *image_view)
+void
+eog_image_view_get_zoom_factor (EogImageView *image_view, double *zoomx, double *zoomy)
 {
-	g_return_val_if_fail (image_view != NULL, 0.0);
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0.0);
+	g_return_if_fail (image_view != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEW (image_view));
 
-	return image_view_get_zoom (image_view->priv->image_view);
+	image_view_get_zoom (image_view->priv->image_view, zoomx, zoomy);
 }
 
 void
 eog_image_view_set_zoom_factor (EogImageView *image_view,
-				float         zoom_factor)
+				double        zoom_factor)
 {
 	ImageView *view;
 
