@@ -3,13 +3,13 @@
 # Christopher R. Gabriel <cgabriel@pluto.linux.it>
 # Lapo Calamandrei <lapo@it.gnome.org>, 2003.
 # Luca Ferretti <elle.uca@infinito.it>, 2003.
-# Alessio Frusciante <algol@firenze.linux.it>, 2003.
+# Alessio Frusciante <algol@firenze.linux.it>, 2003, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: EOG\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-26 13:45+0200\n"
-"PO-Revision-Date: 2004-09-21 22:46+0200\n"
+"POT-Creation-Date: 2004-10-09 14:36+0200\n"
+"PO-Revision-Date: 2004-10-09 17:21+0200\n"
 "Last-Translator: Alessio Frusciante <algol@firenze.linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -39,11 +39,11 @@ msgstr "."
 
 #: eog.glade.h:4
 msgid "<b>File Name Preview</b>"
-msgstr ""
+msgstr "<b>Anteprima del nome del file"
 
 #: eog.glade.h:5
 msgid "<b>File Path Specifications</b>"
-msgstr ""
+msgstr "<b>Specificazione del percorso</b>"
 
 #: eog.glade.h:6
 msgid "<b>Image Interpolation</b>"
@@ -95,9 +95,8 @@ msgid "Eye of Gnome Preferences"
 msgstr "Preferenze di Eye of Gnome"
 
 #: eog.glade.h:19
-#, fuzzy
 msgid "Filename Format:"
-msgstr "Nome del file"
+msgstr "Formato del nome del file:"
 
 #: eog.glade.h:20
 msgid "Image _View"
@@ -109,7 +108,7 @@ msgstr "Rinomina da:"
 
 #: eog.glade.h:22
 msgid "Replace spaces by underscore"
-msgstr ""
+msgstr "Sostituisci spazi con underscore"
 
 #: eog.glade.h:23
 msgid "Save As"
@@ -129,7 +128,7 @@ msgstr "_Diapositive"
 
 #: eog.glade.h:27
 msgid "Start counter at:"
-msgstr ""
+msgstr "Avvia contatore a:"
 
 #: eog.glade.h:28
 msgid "To:"
@@ -304,22 +303,20 @@ msgid "Temporary file creation failed."
 msgstr "Creazione del file temporaneo fallita."
 
 #: libeog/eog-info-view-exif.c:26
-#, fuzzy
 msgid "Camera"
-msgstr "Nome"
+msgstr "Macchina fotografica"
 
 #: libeog/eog-info-view-exif.c:27
 msgid "Image Data"
 msgstr "Dati dell'immagine"
 
 #: libeog/eog-info-view-exif.c:28
-#, fuzzy
 msgid "Image Taking Conditions"
-msgstr "Galleria di immagini"
+msgstr "Condizioni di ripresa dell'immagine"
 
 #: libeog/eog-info-view-exif.c:29
 msgid "Maker Note"
-msgstr ""
+msgstr "Note"
 
 #: libeog/eog-info-view-exif.c:30
 msgid "Other"
@@ -327,7 +324,7 @@ msgstr "Altro"
 
 #: libeog/eog-info-view-exif.c:212
 msgid "Tag"
-msgstr ""
+msgstr "Etichetta"
 
 #: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
 msgid "Value"
@@ -375,10 +372,12 @@ msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of Gnome."
 msgstr ""
+"Per usare questa funzione è necessaria la libreria libexif. Installare "
+"libexif (http://libexif.sf.net) e ricompilare Eye of Gnome."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
-msgstr ""
+msgstr "come è"
 
 #: libeog/eog-save-dialog-helper.c:162
 #, c-format
@@ -441,7 +440,7 @@ msgstr "Secondi"
 msgid "translator-credits"
 msgstr "Alessio Frusciante <algol@firenze.linux.it>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2170 shell/eog-window.c:2485
+#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
 #: shell/main.c:498
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
@@ -460,205 +459,203 @@ msgstr ""
 "Impossibile visualizzare la guida per Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:628
+#: shell/eog-window.c:626
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Sovrascrivere il file %s?"
 
-#: shell/eog-window.c:629
+#: shell/eog-window.c:627
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Il file esiste. Si desidera sovrascriverlo?"
 
-#: shell/eog-window.c:639 shell/eog-window.c:652
+#: shell/eog-window.c:636 shell/eog-window.c:649
 msgid "Skip"
-msgstr ""
+msgstr "Salta"
 
-#: shell/eog-window.c:640
+#: shell/eog-window.c:637
 msgid "Overwrite"
 msgstr "Sovrascrivi"
 
-#: shell/eog-window.c:645
+#: shell/eog-window.c:642
 #, c-format
 msgid "Error on saving %s."
 msgstr "Errore durante il salvataggio di %s."
 
-#: shell/eog-window.c:653 shell/eog-window.c:1037
+#: shell/eog-window.c:650 shell/eog-window.c:1034
 msgid "Retry"
 msgstr "Riprova"
 
-#: shell/eog-window.c:1026
+#: shell/eog-window.c:1023
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Impossibile determinare il formato del file %s"
 
-#: shell/eog-window.c:1027
+#: shell/eog-window.c:1024
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Usare un suffisso appropriato per il nome del file o selezionare un formato "
 "file."
 
-#: shell/eog-window.c:1169
+#: shell/eog-window.c:1166
 msgid "Error on saving images."
 msgstr "Errore nel salvataggio delle immagini."
 
-#: shell/eog-window.c:1402
+#: shell/eog-window.c:1399
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Si desidera davvero spostare %i immagine nel cestino?"
 msgstr[1] "Si desidera davvero spostare %i immagini nel cestino?"
 
-#: shell/eog-window.c:1440
+#: shell/eog-window.c:1437
 msgid "Couldn't access trash."
 msgstr "Impossibile accedere al cestino."
 
-#: shell/eog-window.c:1514
+#: shell/eog-window.c:1511
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errore durante la cancellazione dell'immagine %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2099
+#: shell/eog-window.c:2096
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr ""
+msgstr "%i × %i pixel  %s    %i%%"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2233
 msgid "_File"
 msgstr "_File"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2234
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2235
 msgid "_View"
 msgstr "_Visualizza"
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2236
 msgid "_Help"
 msgstr "A_iuto"
 
 # è finestra --Luca
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2237
 msgid "_New"
 msgstr "_Nuova"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2237
 msgid "Open a new window"
 msgstr "Apre una nuova finestra"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2238
 msgid "_Open..."
 msgstr "_Apri..."
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2238
 msgid "Open a file"
 msgstr "Apre un file"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2239
 msgid "Open _Directory..."
 msgstr "Apri _directory..."
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2239
 msgid "Open a directory"
 msgstr "Apre una directory"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2240
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2240
 msgid "Close window"
 msgstr "Chiudi finestra"
 
-#: shell/eog-window.c:2244
+#: shell/eog-window.c:2241
 msgid "Prefere_nces"
 msgstr "Preferen_ze"
 
-#: shell/eog-window.c:2244
+#: shell/eog-window.c:2241
 msgid "Preferences for Eye of Gnome"
 msgstr "Preferenze per Eye of Gnome"
 
-#: shell/eog-window.c:2245
+#: shell/eog-window.c:2242
 msgid "_Contents"
 msgstr "_Sommario"
 
-#: shell/eog-window.c:2245
+#: shell/eog-window.c:2242
 msgid "Help On this application"
 msgstr "Aiuto su questa applicazione"
 
-#: shell/eog-window.c:2246
+#: shell/eog-window.c:2243
 msgid "_About"
 msgstr "I_nformazioni"
 
-#: shell/eog-window.c:2246
+#: shell/eog-window.c:2243
 msgid "About this application"
 msgstr "Informazioni su questa applicazione"
 
-#: shell/eog-window.c:2251
+#: shell/eog-window.c:2248
 msgid "_Toolbar"
 msgstr "Barra degli _strumenti"
 
-#: shell/eog-window.c:2252
+#: shell/eog-window.c:2249
 msgid "_Statusbar"
 msgstr "Barra di s_tato"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2254
 msgid "_Save"
 msgstr "_Salva"
 
-#: shell/eog-window.c:2258
-#, fuzzy
+#: shell/eog-window.c:2255
 msgid "Save _As"
-msgstr "Sa_lva come..."
+msgstr "Sa_lva come"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2257
 msgid "_Undo"
 msgstr "_Annulla"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2259
 msgid "Flip _Horizontal"
 msgstr "Capovolgi o_rizzontalmente"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2260
 msgid "Flip _Vertical"
 msgstr "Capovolgi _verticalmente"
 
-#: shell/eog-window.c:2265
+#: shell/eog-window.c:2262
 msgid "_Rotate Clockwise"
 msgstr "Ruota in senso _orario"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2263
 msgid "Rotate Counter C_lockwise"
 msgstr "Ruota in senso _antiorario"
 
-#: shell/eog-window.c:2267
-#, fuzzy
+#: shell/eog-window.c:2264
 msgid "Rotat_e 180°"
-msgstr "Ruota di 180 _gradi"
+msgstr "_Ruota di 180°"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2266
 msgid "Delete"
 msgstr "Cancella"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2268
 msgid "_Full Screen"
 msgstr "Schermo _intero"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2269
 msgid "_Zoom In"
 msgstr "Aum_enta ingrandimento"
 
-#: shell/eog-window.c:2273
+#: shell/eog-window.c:2270
 msgid "Zoom _Out"
 msgstr "Rid_uci ingrandimento"
 
-#: shell/eog-window.c:2274
+#: shell/eog-window.c:2271
 msgid "_Normal Size"
 msgstr "Dimensione _normale"
 
-#: shell/eog-window.c:2275
+#: shell/eog-window.c:2272
 msgid "Best _Fit"
 msgstr "_Adatta"
 
@@ -693,6 +690,3 @@ msgstr[1] "File non trovati."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Impossibile aprire `%s'"
-
-#~ msgid "Images: %i/%i"
-#~ msgstr "Immagini: %i/%i"
