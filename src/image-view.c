@@ -1221,28 +1221,49 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 	if (!GTK_WIDGET_HAS_FOCUS (widget))
 		gtk_widget_grab_focus (widget);
 
-	if (priv->dragging || event->button != 1)
+	if (priv->dragging)
 		return FALSE;
 
-	priv->dragging = TRUE;
-	priv->drag_anchor_x = event->x;
-	priv->drag_anchor_y = event->y;
+	switch (event->button) {
+	case 1:
+		priv->dragging = TRUE;
+		priv->drag_anchor_x = event->x;
+		priv->drag_anchor_y = event->y;
 
-	priv->drag_ofs_x = priv->xofs;
-	priv->drag_ofs_y = priv->yofs;
+		priv->drag_ofs_x = priv->xofs;
+		priv->drag_ofs_y = priv->yofs;
 
-	cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
-	gdk_pointer_grab (widget->window,
-			  FALSE,
-			  (GDK_POINTER_MOTION_MASK
-			   | GDK_POINTER_MOTION_HINT_MASK
-			   | GDK_BUTTON_RELEASE_MASK),
-			  NULL,
-			  cursor,
-			  event->time);
-	gdk_cursor_destroy (cursor);
+		cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
+		gdk_pointer_grab (widget->window,
+				  FALSE,
+				  (GDK_POINTER_MOTION_MASK
+				   | GDK_POINTER_MOTION_HINT_MASK
+				   | GDK_BUTTON_RELEASE_MASK),
+				  NULL,
+				  cursor,
+				  event->time);
+		gdk_cursor_destroy (cursor);
+		return TRUE;
 
-	return TRUE;
+	case 4:
+		if (event->state & GDK_SHIFT_MASK) {
+			image_view_set_zoom (view, priv->zoom * 1.05);
+			return TRUE;
+		}
+		break;
+
+	case 5:
+		if (event->state & GDK_SHIFT_MASK) {
+			image_view_set_zoom (view, priv->zoom / 1.05);
+			return TRUE;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	return FALSE;
 }
 
 /* Drags the image to the specified position */
