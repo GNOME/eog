@@ -6,6 +6,7 @@
 #include <libgnomevfs/gnome-vfs-file-size.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-transform.h"
+#include "eog-image-save-info.h"
 
 G_BEGIN_DECLS
 
@@ -30,6 +31,8 @@ typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
 	EOG_IMAGE_ERROR_NOT_LOADED,
 	EOG_IMAGE_ERROR_VFS,
+	EOG_IMAGE_ERROR_FILE_EXISTS,
+	EOG_IMAGE_ERROR_TMP_FILE_FAILED,
 	EOG_IMAGE_ERROR_UNKNOWN
 } EogImageError;
 
@@ -77,6 +80,13 @@ gboolean            eog_image_save                            (EogImage *img,
 							       GnomeVFSURI *uri,
 							       GdkPixbufFormat *format,
 							       GError **error);
+gboolean            eog_image_save_as_by_info                 (EogImage *img, 
+							       EogImageSaveInfo *source, 
+							       EogImageSaveInfo *target, 
+							       GError **error);
+gboolean            eog_image_save_by_info                    (EogImage *img, 
+							       EogImageSaveInfo *source, 
+							       GError **error);
 
 /* query API */
 gboolean            eog_image_is_animation                    (EogImage *img);
@@ -85,10 +95,12 @@ GdkPixbuf*          eog_image_get_pixbuf_thumbnail            (EogImage *img);
 void                eog_image_get_size                        (EogImage *img, int *width, int *height);
 GnomeVFSFileSize    eog_image_get_bytes                       (EogImage *img);
 gboolean            eog_image_is_modified                     (EogImage *img);
+void                eog_image_modified                        (EogImage *img);
 gchar*              eog_image_get_caption                     (EogImage *img);
 const gchar*        eog_image_get_collate_key                 (EogImage *img);
 gpointer            eog_image_get_exif_information            (EogImage *img);
 GnomeVFSURI*        eog_image_get_uri                         (EogImage *img);
+gboolean            eog_image_has_metadata                    (EogImage *img);
 
 /* modification API */
 void                eog_image_transform                       (EogImage *img, EogTransform *trans);

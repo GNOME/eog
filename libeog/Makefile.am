@@ -54,6 +54,10 @@ libeog_a_SOURCES =			\
 	eog-image-private.h		\
 	eog-image-jpeg.c		\
 	eog-image-jpeg.h		\
+	eog-image-save-info.c		\
+	eog-image-save-info.h		\
+	eog-save-dialog-helper.h	\
+	eog-save-dialog-helper.c	\
 	eog-image-cache.h		\
 	eog-image-cache.c		\
 	eog-image-list.c		\

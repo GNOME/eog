@@ -152,10 +152,14 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			if (priv->size == 0) {
 				priv->state = EMR_READ;
 			}
-			else if (priv->last_marker == EOG_JPEG_MARKER_APP1) {
+			else if (priv->last_marker == EOG_JPEG_MARKER_APP1 && 
+				 priv->exif_chunk == NULL) 
+			{
 				priv->state = EMR_READ_EXIF;
 			}
-			else if (priv->last_marker == EOG_JPEG_MARKER_APP14) {
+			else if (priv->last_marker == EOG_JPEG_MARKER_APP14 && 
+				priv->iptc_chunk == NULL) 
+			{
 				priv->state = EMR_READ_IPTC;
 			}
 			else {
@@ -189,7 +193,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			}
 
 			if (i + priv->size < len) {
-				memcpy (priv->exif_chunk + priv->bytes_read, &buf[i], priv->size); /* read data in one block */
+                                /* read data in one block */
+				memcpy (priv->exif_chunk + priv->bytes_read, &buf[i], priv->size); 
 				priv->state = EMR_READ;
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 			}
@@ -214,7 +219,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			}
 
 			if (i + priv->size < len) {
-				memcpy (priv->iptc_chunk + priv->bytes_read, &buf[i], priv->size); /* read data in one block */
+                                /* read data in one block */
+				memcpy (priv->iptc_chunk + priv->bytes_read, &buf[i], priv->size); 
 				priv->state = EMR_READ;
 			}
 			else {

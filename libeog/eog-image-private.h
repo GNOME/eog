@@ -33,7 +33,9 @@ struct _EogImagePrivate {
 	guchar  *iptc_chunk; /* holds IPTC raw data */
 	guint    iptc_chunk_len;
 #if HAVE_EXIF
-	ExifData *exif;
+	ExifData *exif;      /* this is mutual exclusive to exif_chunk. Only 
+			      * either of these are not NULL:
+			      */
 #endif
 	
 	gint thumbnail_id;

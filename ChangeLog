@@ -1,3 +1,19 @@
+2004-06-17  Jens Finke  <jens@triq.net>
+
+    * jpegutils/: Remove every source file but transupp.[ch].
+
+	* libeog/eog-image-save-info.[ch]
+    * libeog/eog-save-dialog-helper.[ch]: New files.
+
+    * eog.glade: New save file dialog.
+
+	* libeog/eog-metadata-reader.[ch]: Handle duplicated EXIF markers.
+
+	* libeog/eog-image-jpeg.[ch],
+    * libeog/eog-image.[ch],
+	* shell/eog-window.c: Huge patch, reworked "Save" function
+      completely.
+
 2004-06-07  Mariano Suárez-Alvarez  <mariano@gnome.org>
 
 	* shell/eog-window.c (eog_window_construct_ui): use

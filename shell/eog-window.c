@@ -26,6 +26,7 @@
 #include <config.h>
 #include <math.h>
 #include <time.h>
+#include <unistd.h>
 #include <gnome.h>
 #include <string.h>
 #include <gtk/gtk.h>
@@ -52,6 +53,9 @@
 #include "eog-info-view.h"
 #include "eog-image-list.h"
 #include "eog-full-screen.h"
+#include "eog-save-dialog-helper.h"
+#include "eog-image-save-info.h"
+#include "eog-hig-dialog.h"
 
 /* Default size for windows */
 
@@ -90,7 +94,7 @@ struct _EogWindowPrivate {
 	GtkWidget           *scroll_view;
 	GtkWidget           *wraplist;
 	GtkWidget           *info_view;
-	GtkWidget *statusbar;
+	GtkWidget           *statusbar;
 
 	/* available action groups */
 	GtkActionGroup      *actions_window;
@@ -474,9 +478,284 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 	}
 }
 
-static void
-verb_Save_cb (GtkAction *action, gpointer data)
+/* ================================================
+ *
+ *             Save functions 
+ * 
+ * -----------------------------------------------*/
+
+typedef enum {
+	EOG_SAVE_RESPONSE_NONE,
+	EOG_SAVE_RESPONSE_RETRY,
+	EOG_SAVE_RESPONSE_SKIP,
+	EOG_SAVE_RESPONSE_CANCEL
+} EogSaveResponse;
+
+typedef struct {
+	/* all images */
+	GList     *images;
+	int        n_images;
+	int        n_processed;
+
+	/* image currently processed */
+	GList     *current;
+	EogImageSaveInfo *source;
+	EogImageSaveInfo *target;
+
+	/* dialog handling */
+	EogWindow  *window;
+	GtkWindow  *dlg;
+	EogSaveResponse response;
+
+	/* in case of error on current image this
+	 * is set. */
+	GError    *error;
+	gboolean   cancel_save;
+
+	/* thread machinerie */
+	GThread   *thread;
+	GCond     *wait;
+	GMutex    *lock;
+} SaveData;
+
+static gboolean
+save_dialog_update (SaveData *data)
 {
+	EogImage *image = NULL;
+	EogImage *prev  = NULL;
+	EogImageSaveInfo *source = NULL;
+	EogImageSaveInfo *target = NULL;
+	
+	g_mutex_lock (data->lock);
+	if (data->current != NULL) {
+		image = EOG_IMAGE (data->current->data);
+
+		if (data->current->prev != NULL) {
+			prev = EOG_IMAGE (data->current->prev->data);
+		}
+	}
+	if (data->source != NULL) {
+		source = g_object_ref (data->source);
+	}
+	if (data->target != NULL) {
+		target = g_object_ref (data->target);
+	}
+	g_mutex_unlock (data->lock);
+
+	eog_save_dialog_update (data->dlg,
+				data->n_processed,
+				image,
+				source,
+				target);
+
+	if (prev != NULL) {
+		eog_image_modified (prev);
+	}
+
+	if (source != NULL) 
+		g_object_unref (source);
+	if (target != NULL) 
+		g_object_unref (target);
+
+	return FALSE;
+}
+
+static gboolean
+save_error (SaveData *data)
+{
+	GtkWidget *dlg;
+	EogImage  *image;
+	char *header;
+	char *detail = NULL;
+	int response;
+	
+	g_mutex_lock (data->lock);
+	image = EOG_IMAGE (data->current->data);
+	if (data->error != NULL) {
+		detail = data->error->message;
+	}
+	g_mutex_unlock (data->lock);
+
+	/* FIXME: Handel EOG_IMAGE_ERROR_FILE_EXISTS explicitly */
+	header = g_strdup_printf (_("Error on saving %s."), eog_image_get_caption (image));
+
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR,
+				  header, detail,
+				  TRUE);
+	
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Skip"), EOG_SAVE_RESPONSE_SKIP);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Retry"), EOG_SAVE_RESPONSE_RETRY);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, EOG_SAVE_RESPONSE_CANCEL);
+       	gtk_dialog_set_default_response (GTK_DIALOG (dlg), EOG_SAVE_RESPONSE_SKIP);
+	
+	gtk_widget_show_all (dlg);
+
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
+	g_free (header);
+	
+	g_mutex_lock (data->lock);
+	if (response == EOG_SAVE_RESPONSE_CANCEL)
+		data->cancel_save = TRUE;
+	data->response = (EogSaveResponse) response;
+	g_mutex_unlock (data->lock);
+
+	g_cond_broadcast (data->wait);
+
+	return FALSE;
+}
+
+static gboolean
+save_finished (SaveData *data)
+{
+	eog_save_dialog_close (data->dlg, !data->cancel_save);
+
+	g_mutex_free (data->lock);
+	g_cond_free (data->wait);
+
+	g_list_foreach (data->images, (GFunc) g_object_unref, NULL);
+	g_list_free (data->images);
+
+	if (data->source)
+		g_object_unref (data->source);
+
+	if (data->target)
+		g_object_unref (data->target);
+
+	/* enable image modification functions */
+	gtk_action_group_set_sensitive (data->window->priv->actions_image,  TRUE);
+
+	g_free (data);
+
+	return FALSE;
+}
+
+static void
+save_cancel (GtkWidget *button, SaveData *data)
+{
+	g_mutex_lock (data->lock);
+	data->cancel_save = TRUE;
+	g_mutex_unlock (data->lock);
+
+	eog_save_dialog_cancel (data->dlg);
+}
+
+/* this runs in its own thread */
+static gpointer
+save_image_list (gpointer user_data)
+{
+	SaveData *data; 
+
+	data = (SaveData*) user_data;
+
+	g_mutex_lock (data->lock);
+	data->current = data->images;
+	data->n_processed = 0;
+	g_mutex_unlock (data->lock);
+	
+	while (data->current != NULL && !data->cancel_save) {
+		EogImageSaveInfo *info;
+		EogImage *image;
+		GError *error = NULL;
+		gboolean success = FALSE;
+		
+		g_mutex_lock (data->lock);
+		image = EOG_IMAGE (data->current->data);
+		g_mutex_unlock (data->lock);
+		
+		info = eog_image_save_info_from_image (image);
+
+		g_mutex_lock (data->lock);
+		if (data->source != NULL)
+			g_object_unref (data->source);
+		data->source = info;
+		data->target = NULL;
+		g_mutex_unlock (data->lock);
+
+		g_idle_add ((GSourceFunc) save_dialog_update, data);
+		
+		while (!success && !data->cancel_save) {
+			g_print ("Save image at %s ", gnome_vfs_uri_to_string (data->source->uri, GNOME_VFS_URI_HIDE_NONE));
+			success = eog_image_load_sync (image, EOG_IMAGE_LOAD_DEFAULT);
+			
+			if (success) {
+				success = eog_image_save_by_info (image, data->source, &error);
+			}
+			g_print ("successful: %i\n", success);
+			
+			if (!success && !data->cancel_save) {
+				g_mutex_lock (data->lock);
+				data->error = g_error_copy (error);
+				data->response = EOG_SAVE_RESPONSE_NONE;
+				
+				g_idle_add ((GSourceFunc) save_error, data);
+				g_cond_wait (data->wait, data->lock);
+
+				if (data->response == EOG_SAVE_RESPONSE_SKIP)
+					success = TRUE;
+
+				g_error_free (data->error);
+				data->error = NULL;
+
+				g_mutex_unlock (data->lock);
+			}
+		}
+
+		g_mutex_lock (data->lock);
+		data->current = data->current->next;
+		data->n_processed++;
+		g_mutex_unlock (data->lock);
+	}
+
+	g_idle_add ((GSourceFunc) save_finished, data);
+
+	return NULL;
+}
+
+static void
+verb_Save_cb (GtkAction *action, gpointer user_data)
+{
+	EogWindowPrivate *priv;
+	int n_images;
+	SaveData *data;
+	GtkWidget *button;
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	if (n_images == 0) return;
+
+	data = g_new0 (SaveData, 1);
+	g_assert (data != NULL);
+
+	/* initialise data struct */
+	data->images      = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
+	data->n_images    = n_images;
+	data->n_processed = 0;
+	
+	data->current = NULL;
+	data->source  = data->target = NULL;
+
+	data->response = EOG_SAVE_RESPONSE_NONE;
+
+	data->error       = NULL;
+	data->cancel_save = FALSE;
+
+	data->wait = g_cond_new ();
+	data->lock = g_mutex_new ();
+
+	data->window = EOG_WINDOW (user_data);
+	data->dlg = GTK_WINDOW (eog_save_dialog_new (GTK_WINDOW (user_data), data->n_images));
+	button = eog_save_dialog_get_button (GTK_WINDOW (data->dlg));
+	g_signal_connect (G_OBJECT (button), "clicked", (GCallback) save_cancel, data);
+
+	/* disable image modification functions */
+	gtk_action_group_set_sensitive (priv->actions_image,  FALSE);
+
+	gtk_widget_show_all (GTK_WIDGET (data->dlg));
+	gtk_widget_show_now (GTK_WIDGET (data->dlg));
+
+	data->thread = g_thread_create (save_image_list, data, TRUE, NULL);
 }
 
 static void
@@ -542,6 +821,7 @@ verb_Undo_cb (GtkAction *action, gpointer user_data)
 	}
 
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_list_free (images);
 
 	if (priv->displayed_image != NULL) {
 		g_signal_handler_unblock (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
@@ -581,6 +861,7 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 	}
 
 	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_list_free (images);
 	g_object_unref (trans);	
 
 	if (priv->displayed_image != NULL) {
