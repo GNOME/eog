@@ -9,9 +9,7 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/src				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
-        $(GNOME_INCLUDEDIR)				\
-	$(GNOME_CFLAGS)					\
-	$(EXTRA_GNOME_CFLAGS)                           \
+	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 
 
@@ -38,18 +36,17 @@ libeog_la_SOURCES =			\
 
 
 libeog_la_LIBADD = 			\
-	$(GNOME_LIBS)			\
-	$(EXTRA_GNOME_LIBS)		\
+	$(EOG_LIBS)			\
 	$(INTLLIBS)			\
 	$(LIBPNG) $(LIBJPEG)
 
 idls =							\
 	$(top_srcdir)/idl/Eog.idl
 
-idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
+idl_flags =  -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl -D__EOG_COMPILATION -D__BONOBO_COMPILATION
 
 $(CORBA_SOURCES): $(idls)
-	$(ORBIT_IDL)   $(top_srcdir)/idl/Eog.idl -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl $(idl_flags)
+	$(ORBIT_IDL)   $(top_srcdir)/idl/Eog.idl $(idl_flags)
 
 Eog.h: $(idls)
 
