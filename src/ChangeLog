@@ -1,5 +1,14 @@
 2000-07-27  Federico Mena Quintero  <federico@helixcode.com>
 
+	* image-view.c (compute_center_zoom_offsets): When you do
+	wheel-zooming, the zoom center is now anchored to the mouse
+	position.
+	(image_view_size_allocate): Reset the zoom anchor point.
+	(image_view_button_press): Set the zoom anchor point.
+	(image_view_key_press): Likewise.
+
+2000-07-27  Federico Mena Quintero  <federico@helixcode.com>
+
 	* zoom.c (zoom_fit_size): Use rounding to get better results.
 
 	* ui-image.c (ui_image_zoom_fit): Do not subtract the frame

@@ -58,9 +58,13 @@ typedef struct {
 	/* Image being displayed */
 	Image *image;
 
-	/* Zoom factor and old zoom factor stored for size_allocate */
+	/* Current zoom factor */
 	double zoom;
+
+	/* Previous zoom factor and zoom anchor point stored for size_allocate */
 	double old_zoom;
+	double zoom_x_anchor;
+	double zoom_y_anchor;
 
 	/* Full screen zoom type */
 	FullScreenZoom full_screen_zoom;
@@ -1074,6 +1078,27 @@ image_view_size_request (GtkWidget *widget, GtkRequisition *requisition)
 	requisition->height = scaled_height ? scaled_height : 1;
 }
 
+/* Sets the zoom anchor point with respect to the specified window position */
+static void
+set_zoom_anchor (ImageView *view, int x, int y)
+{
+	ImageViewPrivate *priv;
+
+	priv = view->priv;
+	priv->zoom_x_anchor = (double) x / GTK_WIDGET (view)->allocation.width;
+	priv->zoom_y_anchor = (double) y / GTK_WIDGET (view)->allocation.height;
+}
+
+/* Sets the zoom anchor point to be the middle of the visible area */
+static void
+set_default_zoom_anchor (ImageView *view)
+{
+	ImageViewPrivate *priv;
+
+	priv = view->priv;
+	priv->zoom_x_anchor = priv->zoom_y_anchor = 0.5;
+}
+
 /* Computes the offsets for the new zoom value so that they keep the image
  * centered on the view.
  */
@@ -1094,26 +1119,26 @@ compute_center_zoom_offsets (ImageView *view,
 	compute_scaled_size (view, priv->old_zoom, &old_scaled_width, &old_scaled_height);
 
 	if (old_scaled_width < old_width)
-		view_cx = ((double) old_scaled_width / 2.0) / priv->old_zoom;
+		view_cx = (priv->zoom_x_anchor * old_scaled_width) / priv->old_zoom;
 	else
-		view_cx = (priv->xofs + (double) old_width / 2.0) / priv->old_zoom;
+		view_cx = (priv->xofs + priv->zoom_x_anchor * old_width) / priv->old_zoom;
 
 	if (old_scaled_height < old_height)
-		view_cy = ((double) old_scaled_height / 2.0) / priv->old_zoom;
+		view_cy = (priv->zoom_y_anchor * old_scaled_height) / priv->old_zoom;
 	else
-		view_cy = (priv->yofs + (double) old_height / 2.0) / priv->old_zoom;
+		view_cy = (priv->yofs + priv->zoom_y_anchor * old_height) / priv->old_zoom;
 
 	compute_scaled_size (view, priv->zoom, &new_scaled_width, &new_scaled_height);
 
 	if (new_scaled_width < new_width)
 		*xofs = 0;
 	else
-		*xofs = floor (view_cx * priv->zoom - (double) new_width / 2.0 + 0.5);
+		*xofs = floor (view_cx * priv->zoom - priv->zoom_x_anchor * new_width + 0.5);
 
 	if (new_scaled_height < new_height)
 		*yofs = 0;
 	else
-		*yofs = floor (view_cy * priv->zoom - (double) new_height / 2.0 + 0.5);
+		*yofs = floor (view_cy * priv->zoom - priv->zoom_y_anchor * new_height + 0.5);
 }
 
 /* Size_allocate handler for the image view */
@@ -1139,6 +1164,8 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 					     widget->allocation.width, widget->allocation.height,
 					     allocation->width, allocation->height,
 					     &xofs, &yofs);
+
+		set_default_zoom_anchor (view);
 		priv->need_zoom_change = FALSE;
 	} else {
 		xofs = priv->xofs;
@@ -1254,10 +1281,12 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 		return TRUE;
 
 	case 4:
+		set_zoom_anchor (view, event->x, event->y);
 		image_view_set_zoom (view, priv->zoom * 1.05);
 		return TRUE;
 
 	case 5:
+		set_zoom_anchor (view, event->x, event->y);
 		image_view_set_zoom (view, priv->zoom / 1.05);
 		return TRUE;
 
@@ -1430,8 +1459,19 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 		return FALSE;
 	}
 
-	if (do_zoom)
+	if (do_zoom) {
+		gint x, y;
+
+		gdk_window_get_pointer (widget->window, &x, &y, NULL);
+
+		if (x >= 0 && x < widget->allocation.width
+		    && y >= 0 && y < widget->allocation.height)
+			set_zoom_anchor (view, x, y);
+		else
+			set_default_zoom_anchor (view);
+
 		image_view_set_zoom (view, zoom);
+	}
 
 	if (do_scroll) {
 		int x, y;
