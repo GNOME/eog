@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-16 15:19+0200\n"
+"POT-Creation-Date: 2003-08-22 13:10+0200\n"
 "PO-Revision-Date: 2002-06-07 21:50+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -67,38 +67,55 @@ msgid "Slide Show"
 msgstr "Samodejni sprehod"
 
 #: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "_Edit"
 msgstr "_Uredi"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Shrani"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Undo"
 msgstr "_Razveljavi"
 
-#: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Pogled"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Prekliči shranjevanje"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Shranjevanje končano"
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Prestavi v smeti"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Pogled zbirke"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Naslov okna"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Besedilo stanja"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
 msgid "Progress of Image Loading"
 msgstr "Napredek nalaganja slike"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Shranjujem sliko"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -182,38 +199,16 @@ msgid "sec"
 msgstr "sekund"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Samodejno izberi velikost okna"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Privzet fatkor povečave za celozaslonski pogled"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Privzet faktor povečave za celozaslonski pogled. Možne vrednosti so: 0 "
-"(uporabi faktor 1:1), 1 (uporabi enak faktor povečave kot okno slike), 2 "
-"(prilagodi velikost slike zaslonu)."
-
-#: eog.schemas.in.h:4
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Določa kako naj bo zaznamovana prosojnost. Veljavne vrednosti so "
-"CHECK_PATTEREN, COLOR in NONE. Če je izbran COLOR, potem uporabljeno barvo določa "
-"ključ trans_color."
+"CHECK_PATTEREN, COLOR in NONE. Če je izbran COLOR, potem uporabljeno barvo "
+"določa ključ trans_color."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Prilagodi standardno velike slik na zaslon"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -221,31 +216,23 @@ msgstr ""
 "Če je ključ prosojnosti COLOR, potem ta ključ določa katera barva naj se "
 "uporabi za zaznambo transparentnosti."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Interpoliraj sliko"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Odpri slike v novem oknu"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Nariši obrobo okoli zaslona"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Obnašanje drsnikov v celozaslonskem pogledu"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Barva prosojnosti"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Zaznamovalec transparentnosti"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -253,51 +240,13 @@ msgstr ""
 "Ali naj bo slika interpolirana ob povečavi ali ne. To prinaša boljšo "
 "kvaliteto, a je nekoliko počasnejše."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Ali naj okna s slikami samodejno izberejo velikost in faktor povečave glede "
-"na velikost slike. Če ta možnost ni nastavljena, bodo velikosti slikovnih "
-"oken takšne kot jih nastavi upravljalnik oken."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Ali naj odpiranje slike ustvari novo okno namesto, da bi zamenjalo sliko v "
 "trenutnem oknu."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "Ali naj bo v celozaslonskem načinu prikazana obroba okoli zaslona."
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Ali naj se v celozaslonskem načinu kažejo drsniki. Možne vrednosti so: 1 "
-"(samodejno; prikaže drsnike kadar je slika večja od okna), 2 (nikoli ne kaži "
-"drsnikov)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Ali naj se slike standardnih velikosti v celozaslonskem "
-"načinu prilagodi zaslonu. Te velikosti so 320x240, 640x480, 800x600, itd. To izbere ali se "
-"takšne slike povečajo čez cel zaslon ne glede na nastavitev privzetega faktorja povečave v "
-"celozaslonskem načinu."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -339,15 +288,19 @@ msgstr "Naloži sliko"
 msgid "Save Image"
 msgstr "Shrani sliko"
 
-#: libeog/eog-image.c:1316
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Nisem mogel rezervirati pomnilnika za nalaganje datoteke JPEG"
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Nobena slika ni naložena."
 
-#: libeog/eog-image.c:1325
+#: libeog/eog-image.c:1349
 msgid "Images can only be saved as local files."
 msgstr "Slike se lahko shranijo le kot krajevne datoteke."
 
-#: libeog/eog-image.c:1360
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Nepodprta oblika zapisa slike za shranjevanje."
 
@@ -378,7 +331,7 @@ msgid "Page"
 msgstr "Stran"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:359
+#: viewer/eog-image-view.c:376
 msgid "Preview"
 msgstr "Predogled"
 
@@ -465,20 +418,8 @@ msgid "Vertically by "
 msgstr "Navpično po "
 
 #: libgpi/gpi-dialog.glade.h:23
-msgid "action_area"
-msgstr "površina_dejanj"
-
-#: libgpi/gpi-dialog.glade.h:24
-msgid "dialog"
-msgstr "dialog"
-
-#: libgpi/gpi-dialog.glade.h:25
 msgid "dialog1"
 msgstr "dialog1"
-
-#: libgpi/gpi-dialog.glade.h:26
-msgid "vbox"
-msgstr "vbox"
 
 #: libgpi/gpi-mgr.c:78
 msgid "Name"
@@ -576,24 +517,20 @@ msgstr "Iz_hod"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:265
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Andraž Tori <andraz.tori1@guest.arnes.si>"
 
-#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
-#: shell/eog-window.c:849 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Gnomeovo oko"
 
-#: shell/eog-window.c:272
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Avtorske pravice pridržane (C) 2000-2002 Fundacija za prosto programje"
-
-#: shell/eog-window.c:273
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program za gledanje in katalogizacijo slik GNOME."
 
-#: shell/eog-window.c:310
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -603,11 +540,11 @@ msgstr ""
 "%s"
 
 #: shell/main.c:225
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
-msgstr ""
-"Hkrati boste odprli %i oken. Jih želite raje odpreti v zbirki?"
+msgstr "Hkrati boste odprli %i oken. Jih želite raje odpreti v zbirki?"
 
 #: shell/main.c:229
 msgid "Open multiple single windows?"
@@ -679,72 +616,174 @@ msgid "Print image to the printer"
 msgstr "Natisni sliko s tiskalnikom"
 
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Obrni levo"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Obrni desno"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "Shrani _kot..."
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavi lastnosti strani za vaš trenutni tiskalnik"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "Č_ez cel zaslon"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "Na_tisni..."
 
-#: viewer/eog-image-view.c:779
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "/Obrni v smeri _urinega kazalca"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Obrni v _obratni smeri urinega kazalca"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/Po_večaj"
 
-#: viewer/eog-image-view.c:781
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/Po_manjšaj"
 
-#: viewer/eog-image-view.c:783
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Običajna velikost"
 
-#: viewer/eog-image-view.c:785
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Najboljše _ujemanje"
 
-#: viewer/eog-image-view.c:788
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Zapri"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:988
+msgid "Loading of image %s failed."
+msgstr "Nalaganje slike %s ni uspelo"
+
+#: viewer/eog-image-view.c:995
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr "Nalaganje slike %s ni uspelo\nRazlog: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Nalaganje ni uspelo"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Slika je bila uspešno shranjena"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Shranjevanje slike ni uspelo"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Širina slike"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Višina slike"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Besedilo v vrstici stanja"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Želena širina okna"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Želena višina okna"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Nisem mogel inicializirati GnomeVFS!\n"
+#~ msgid "Automatically pick window size"
+#~ msgstr "Samodejno izberi velikost okna"
+
+#~ msgid "Default zoom factor for the full screen view"
+#~ msgstr "Privzet fatkor povečave za celozaslonski pogled"
+
+#~ msgid ""
+#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
+#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
+#~ "(fit the image to the screen)."
+#~ msgstr ""
+#~ "Privzet faktor povečave za celozaslonski pogled. Možne vrednosti so: 0 "
+#~ "(uporabi faktor 1:1), 1 (uporabi enak faktor povečave kot okno slike), 2 "
+#~ "(prilagodi velikost slike zaslonu)."
+
+#~ msgid "Fit standard-sized images to the screen"
+#~ msgstr "Prilagodi standardno velike slik na zaslon"
+
+#~ msgid "Put a bevel around the screen"
+#~ msgstr "Nariši obrobo okoli zaslona"
+
+#~ msgid "Scrollbar policy for the full screen view"
+#~ msgstr "Obnašanje drsnikov v celozaslonskem pogledu"
+
+#~ msgid ""
+#~ "Whether image windows should pick their size and zooming factor "
+#~ "automatically based on the size of the image. If this option is not set, "
+#~ "image windows will get whatever size the window manager assigns to them."
+#~ msgstr ""
+#~ "Ali naj okna s slikami samodejno izberejo velikost in faktor povečave "
+#~ "glede na velikost slike. Če ta možnost ni nastavljena, bodo velikosti "
+#~ "slikovnih oken takšne kot jih nastavi upravljalnik oken."
+
+#~ msgid ""
+#~ "Whether the full screen view should display a bevel along the edges of "
+#~ "the screen."
+#~ msgstr "Ali naj bo v celozaslonskem načinu prikazana obroba okoli zaslona."
+
+#~ msgid ""
+#~ "Whether to display scrollbars on the full screen view. Possible values "
+#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
+#~ "the window), 2 (never display scrollbars)."
+#~ msgstr ""
+#~ "Ali naj se v celozaslonskem načinu kažejo drsniki. Možne vrednosti so: 1 "
+#~ "(samodejno; prikaže drsnike kadar je slika večja od okna), 2 (nikoli ne "
+#~ "kaži drsnikov)."
+
+#~ msgid ""
+#~ "Whether to fit standard-sized images to the screen when in full screen "
+#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
+#~ "This selects whether such images should be scaled to fit the screen "
+#~ "regardless of the setting for the default zoom factor of the full screen "
+#~ "view."
+#~ msgstr ""
+#~ "Ali naj se slike standardnih velikosti v celozaslonskem načinu prilagodi "
+#~ "zaslonu. Te velikosti so 320x240, 640x480, 800x600, itd. To izbere ali se "
+#~ "takšne slike povečajo čez cel zaslon ne glede na nastavitev privzetega "
+#~ "faktorja povečave v celozaslonskem načinu."
+
+#~ msgid "action_area"
+#~ msgstr "površina_dejanj"
+
+#~ msgid "dialog"
+#~ msgstr "dialog"
+
+#~ msgid "vbox"
+#~ msgstr "vbox"
+
+#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+#~ msgstr ""
+#~ "Avtorske pravice pridržane (C) 2000-2002 Fundacija za prosto programje"
+
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Pregledovalnik slik Gnomeovo oko"
@@ -849,9 +888,6 @@ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
 #~ msgid "Print Preview"
 #~ msgstr "Predogled tiskanja"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Tiskanje slike ni uspelo"
 
 #~ msgid "pts"
 #~ msgstr "tčk"
@@ -1009,9 +1045,6 @@ msgstr "Nisem mogel inicializirati GnomeVFS!\n"
 
 #~ msgid "_White"
 #~ msgstr "_Bela"
-
-#~ msgid "Save As"
-#~ msgstr "Shrani kot"
 
 #~ msgid "Display"
 #~ msgstr "Prikaz"
