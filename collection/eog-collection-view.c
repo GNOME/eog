@@ -91,6 +91,8 @@ struct _EogCollectionViewPrivate {
 
 	gint                    idle_id;
 	gboolean                need_update_prop[PROP_LAST];
+
+	EogImage                *displayed_image;
 };
 
 
@@ -128,7 +130,8 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 	start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (view->priv->wraplist));
 
 	show = eog_full_screen_new (images, start_image);
-	
+	g_object_unref (start_image);
+
 	if (free_list)
 		g_list_free (images);
 
@@ -205,11 +208,18 @@ static void
 eog_collection_view_dispose (GObject *object)
 {
 	EogCollectionView *list_view;
+	EogCollectionViewPrivate *priv;
 
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (object));
 
 	list_view = EOG_COLLECTION_VIEW (object);
+	priv = list_view->priv;
+
+	if (priv->displayed_image != NULL) {
+		g_object_unref (priv->displayed_image);
+		priv->displayed_image = NULL;
+	}
 
 	if (list_view->priv->model)
 		g_object_unref (G_OBJECT (list_view->priv->model));
@@ -263,6 +273,8 @@ eog_collection_view_instance_init (EogCollectionView *view)
 	view->priv = g_new0 (EogCollectionViewPrivate, 1);
 	view->priv->idle_id = -1;
 	view->priv->model = NULL;
+
+	view->priv->displayed_image = NULL;
 }
 
 static void
@@ -444,10 +456,15 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 
 	priv = view->priv;
 
+	if (priv->displayed_image != NULL) {
+		eog_image_free_mem (priv->displayed_image);
+		g_object_unref (priv->displayed_image);
+		priv->displayed_image = NULL;
+	}
+
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 	
-	if (image != NULL) 
-		g_object_unref (image);
+	priv->displayed_image = image;
 	
 	update_status_text (view);
 }

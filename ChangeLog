@@ -1,5 +1,14 @@
 2003-03-11  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-view.c (verb_SlideShow_cb): Unref
+	start image.
+	(eog_collection_view_dispose): Unref displayed image.
+	(eog_collection_view_instance_init): Init new variable.
+	(handle_selection_changed): Free ressources of the previously
+	viewed image and store reference the the new one.
+	
+2003-03-11  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image.[ch]: Switched to a thread based loading
 	mechanism.
 	(eog_image_dispose): Free mutex.
