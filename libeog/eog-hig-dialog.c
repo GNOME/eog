@@ -32,6 +32,9 @@ eog_hig_dialog_new (const char *stock_id, char *header, char *body, gboolean mod
 	int message_len;
 	char *message;
 	
+	g_return_val_if_fail (stock_id != NULL, NULL);
+	g_return_val_if_fail (header != NULL, NULL);
+	
 	dlg = gtk_widget_new (EOG_TYPE_HIG_DIALOG, 
 			      "border-width", 6, 
 			      "resizable", FALSE,
@@ -54,13 +57,19 @@ eog_hig_dialog_new (const char *stock_id, char *header, char *body, gboolean mod
 
 
 	header_len = strlen (header);
-	body_len = strlen (body);
+	body_len = body ? strlen (body) : 0;
 	message_len = header_len + body_len + 64;
 
 	message = g_new0 (char, message_len);
 
-	g_snprintf (message, message_len,
-		    "<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n", header, body);
+	if (body != NULL) {
+		g_snprintf (message, message_len,
+			    "<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s\n", header, body);
+	}
+	else {
+		g_snprintf (message, message_len,
+			    "<span weight=\"bold\" size=\"larger\">%s</span>\n", header);
+	}
 	
 	label = gtk_label_new (message);
 	g_object_set (G_OBJECT (label),

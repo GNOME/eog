@@ -1,3 +1,14 @@
+2003-03-01  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-file-selection.c: Use GdkPixbufFormat api for
+	querying the supported file formats. Remember last visited
+	directory during a session (#90767). Don't force selected file
+	type extensions on loading (#102117, #102116). Always allow
+	directory loading.
+
+	* libeog/eog-hig-dialog.c (eog_hig_dialog_new): Assert stock_id !=
+	NULL and header != NULL. Handle case where body is NULL.
+
 2003-02-28  Jens Finke  <jens@triq.net>
 	
 	* shell/main.c: Reworked the way file paths are converted to
