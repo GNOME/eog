@@ -37,6 +37,15 @@ AC_ARG_ENABLE(gconf-source,
 
 AC_DEFUN([AC_FYI], [echo "FYI: " $1])
 
+# Have to go $sysconfdir->$prefix/etc->/usr/local/etc   
+# if you actually know how to code shell then fix this :-)
+SYSCONFDIR_TMP="$sysconfdir"
+old_prefix=$prefix
+prefix=$REAL_PREFIX
+EXPANDED_SYSCONFDIR=`eval echo $SYSCONFDIR_TMP`
+prefix=$old_prefix
+AC_SUBST(EXPANDED_SYSCONFDIR)
+
 if test "x$GCONF_CONFIG_SOURCE" = "x"; then
         GCONF_CONFIG_SOURCE="xml::$EXPANDED_SYSCONFDIR/gconf/gconf.xml.defaults"
         AC_FYI("Using default config source $GCONF_CONFIG_SOURCE for schema installation")

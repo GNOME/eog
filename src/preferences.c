@@ -73,8 +73,6 @@ prefs_init (void)
 	prefs_scroll = gconf_client_get_int (
 		client, "/apps/eog/view/scroll",
 		NULL); /* two-pass default=1 */
-	prefs_scroll = SCROLL_TWO_PASS;
-	prefs_interp_type = GDK_INTERP_BILINEAR;
 
 	prefs_window_sb_policy = gconf_client_get_int (
 		client, "/apps/eog/window/sb_policy",
