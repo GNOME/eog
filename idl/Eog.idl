@@ -48,14 +48,12 @@ module GNOME {
 			
 		};
 
-		typedef sequence<string> Files; 
-
 		interface ImageCollection : Bonobo::Unknown {
 			/* This is an actual EOG view for 
 			 * a bunch of images. 
 			 */
 
-			void addImages (in Files list);
+                        void setStorage (in Bonobo::Storage storage);
 		};
 	};
 };
