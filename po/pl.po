@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-01-03 20:42+0100\n"
+"POT-Creation-Date: 2003-06-27 23:43+0200\n"
+"PO-Revision-Date: 2003-06-27 13:20+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,49 +29,95 @@ msgstr "EOG - generator przeglądarki kolekcji obrazów"
 msgid "Image Collection"
 msgstr "Kolekcja obrazów"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Odbij po_ziomo"
 
-#: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
-msgid "Next Image"
-msgstr "Zapis obrazu"
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Odbij pio_nowo"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
-msgstr ""
+msgid "Next"
+msgstr "Następny"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
-msgid "Previous Image"
-msgstr "Wydruk obrazu"
+msgid "Next Image"
+msgstr "Następny obraz"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr "Poprzedni"
+
+#: collection/eog-collection-view-ui.xml.h:6
+msgid "Previous Image"
+msgstr "Poprzedni obraz"
+
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Obróć o 180 _stopni"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Obróć zgodnie ze _wskazówkami zegara"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "O_bróć przeciwnie do wskazówek zegara"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Przeglądanie slajdowe"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "_Edycja"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Zapisz"
+
+#: collection/eog-collection-view-ui.xml.h:13
+msgid "_Undo"
+msgstr "_Cofnij"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Widok"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Anuluj zapis"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "Zapisywanie zakończone"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
-msgstr ""
+msgstr "Przenieś do śmietnika"
 
-#: collection/eog-collection-view.c:444
-#, fuzzy
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
-msgstr "Kolekcja"
+msgstr "Przegląd kolekcji"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
 msgid "Window Title"
 msgstr "Tytuł okna"
 
-#: collection/eog-collection-view.c:902
-#, fuzzy
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Napis na pasku stanu"
+
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
+msgid "Progress of Image Loading"
+msgstr "Postęp wczytywania obrazu"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Zapis obrazu"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -83,70 +129,68 @@ msgstr "Przeglądarka plików graficznych w różnych formatach"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
-#, fuzzy
 msgid "<b>Image Interpolation</b>"
-msgstr "Interpolacja kaflowa"
+msgstr "<b>Interpolacja obrazu</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>Skalowanie obrazu</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>Sekwencja</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "Kolor przezroczystości"
+msgstr "<b>Przezroczystość</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "Używając tła"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
 msgstr "Używając wzoru _szachownicy"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Używając dowolnego k_oloru"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Kolor dla przezroczystych obszarów"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Skalowanie większe niż 100% nie jest używane"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Ustawienia Oka Gnoma"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "Przeglądarka obrazów"
+msgstr "Przeglądanie obrazów"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Zapętlanie sekwencji"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Automatyczne wyświetlanie obrazu:\n"
+"(0 aby wyłączyć tą funkcję)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
@@ -154,7 +198,7 @@ msgstr "_Interpolacja obrazu przy powiększeniu (lepsza jakość lecz wolniejsze
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "sek."
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -176,15 +220,14 @@ msgstr ""
 "ekranu)."
 
 #: eog.schemas.in.h:4
-#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
 "Określa sposób prezentowania przezroczystości. Poprawnymi wartościami są: "
-"CHECK_PATTERN (wzór szachownicy) oraz COLOR (kolor). Jeśli opcja ma wartość "
-"COLOR, wówczas klucz trans_key określa wartość użytego koloru."
+"CHECK_PATTERN (wzór szachownicy), COLOR (kolor) i NONE (brak). Jeśli wybrano "
+"opcję COLOR, wówczas klucz trans_key określa wartość użytego koloru."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -254,7 +297,7 @@ msgid ""
 "screen."
 msgstr ""
 "Określa, czy w trybie pełnoekranowym przy krawędziach ekranu powinien być "
-"rysowany kant."
+"rysowany skos."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -270,15 +313,15 @@ msgstr ""
 #: eog.schemas.in.h:18
 msgid ""
 "Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"These are images with sizes like 320x240, 640x480, 800x600, etc. This "
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 "Określa, czy w trybie pełnoekranowym obrazy o standardowych wymiarach "
 "powinny być dopasowywane do ekranu. Standardowymi wymiarami są: 320x240, "
-"640x480, 800x800, itp. Określa to, czy takie obrazy powinny być skalowane do "
-"wymiarów ekranu, niezależnie od ustawień domyślnego współczynnika "
-"powiększenia dla trybu pełnoekranowego."
+"640x480, 800x800, itp. Opcja ta określa, czy takie obrazy powinny być "
+"skalowane do wymiarów ekranu, niezależnie od ustawień domyślnego "
+"współczynnika powiększenia dla trybu pełnoekranowego."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -296,8 +339,7 @@ msgstr "Generator przeglądarki obrazów EOG"
 msgid "Embeddable EOG Image"
 msgstr "Zagnieżdżony obraz EOG"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Obraz"
 
@@ -306,9 +348,8 @@ msgid "By Extension"
 msgstr "Według rozszerzenia"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "Nieobsługiwany format pliku."
+msgstr "Nieobsługiwany format pliku do zapisu."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
@@ -322,40 +363,162 @@ msgstr "Odczyt obrazu"
 msgid "Save Image"
 msgstr "Zapis obrazu"
 
-#: libeog/eog-image.c:1162
-msgid "No image loaded."
-msgstr ""
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Nie można przydzielić pamięci do wczytania pliku JPEG"
 
-#: libeog/eog-image.c:1196
-#, fuzzy
+#: libeog/eog-image.c:1338
+msgid "No image loaded."
+msgstr "Nie wczytano obrazu."
+
+#: libeog/eog-image.c:1347
+msgid "Images can only be saved as local files."
+msgstr "Obrazy mogą być zapisywane tylko jako pliki lokalne."
+
+#: libeog/eog-image.c:1382
 msgid "Unsupported image type for saving."
-msgstr "Nieobsługiwany format pliku."
+msgstr "Nieobsługiwany typ pliku do zapisu."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Atrybut"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Skalowanie"
+msgstr "Wartość"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Szerokość obrazu"
+msgstr "Szerokość"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Jasna"
+msgstr "Wysokość"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "_Plik"
+msgstr "Nazwa pliku"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Strona"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:359
+msgid "Preview"
+msgstr "Podgląd"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "Milimetr"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Papier"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% pierwotnego rozmiaru"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Dostosowanie do "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Wyśrodkowanie"
+
+#: libgpi/gpi-dialog.glade.h:5
+#, fuzzy
+msgid "Cutting help"
+msgstr "Pomoc obcinania"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "W dół, następnie w prawo"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Dopasowanie do strony"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Poziomo"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Poziomo"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Marginesy"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Nakładanie"
+
+#: libgpi/gpi-dialog.glade.h:13
+#, fuzzy
+msgid "Overlap help"
+msgstr "Wydruk linii do nakładania"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Kolejność stron"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "W prawo, następnie w dół"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Skalowanie"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Wyświetlanie"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Pionowo"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Pionowo"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr "obszar_czynności"
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr "dialog"
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr "dialog1"
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr ""
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Nazwa"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Nazwa pliku lub danych do wydruku"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -421,10 +584,6 @@ msgstr "Za_mknij"
 msgid "_Contents"
 msgstr "_Zawartość"
 
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Edycja"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Plik"
@@ -449,24 +608,24 @@ msgstr "Za_kończ"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "GNOME PL Team <translators@gnome.pl>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:728 shell/eog-window.c:820
+#: shell/eog-window.c:857 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Oko Gnoma"
 
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program dla GNOME do przeglądania oraz katalogowanie obrazów"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -476,18 +635,17 @@ msgstr ""
 "%s"
 
 #: shell/main.c:225
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Operacja spowoduje jednoczesne otwarcie %i okien.\n"
-"Czy chcesz zamiast tego otworzyć obrazy w kolekcji?"
+"Operacja spowoduje jednoczesne otwarcie %i okien. Czy chcesz zamiast tego "
+"otworzyć obrazy w kolekcji?"
 
 #: shell/main.c:229
-#, fuzzy
 msgid "Open multiple single windows?"
-msgstr "Otwórz w nowym oknie"
+msgstr "Czy chcesz otworzyć wiele pojedynczych okien?"
 
 #: shell/main.c:233
 msgid "Single Windows"
@@ -498,9 +656,8 @@ msgid "Collection"
 msgstr "Kolekcja"
 
 #: shell/main.c:305
-#, fuzzy
 msgid "Could not find files"
-msgstr "Nie można otworzyć \"%s\""
+msgstr "Nie można otworzyć odnaleźć pliku"
 
 #: shell/util.c:52
 #, c-format
@@ -515,12 +672,7 @@ msgstr "Najlepsze _dopasowanie"
 msgid "Fit"
 msgstr "Dopasuj"
 
-# FIXME
-# [cyba]
-# no to k%!@#$! mamy problem:
-# - "In" - cal
-# - "In" - "bliżej"
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Bliżej"
 
@@ -544,16 +696,6 @@ msgstr "_Zwykły rozmiar"
 msgid "_Zoom In"
 msgstr "Po_większ"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Odbij poziomo"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Odbij pionowo"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Wyświetla podgląd wydruku obrazu"
@@ -570,21 +712,6 @@ msgstr "_Ustawienia wydruku"
 msgid "Print image to the printer"
 msgstr "Drukuje obraz na drukarce"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Obrót o 180 stopni"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Obrót zgodnie ze wskazówkami zegara"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Obrót przeciwnie do wskazówek zegara"
-
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Z_apisz jako..."
@@ -594,233 +721,129 @@ msgid "Setup the page settings for your current printer"
 msgstr "Zmienia ustawienia drukowania dla bieżącej drukarki"
 
 #: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
 msgid "_Full Screen"
-msgstr "Pełny ekran"
+msgstr "_Pełny ekran"
 
 #: viewer/eog-image-view-ui.xml.h:14
 msgid "_Print..."
 msgstr "Wy_drukuj..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/Po_większ"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/Po_mniejsz"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/_Zwykły rozmiar"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/D_opasowanie powiększenia"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/Za_mknij"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:982
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Obraz został pomyślnie zapisany"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:986
 msgid "Image saving failed"
-msgstr ""
+msgstr "Zapis pliku zakończony niepowodzeniem"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1229
 msgid "Image Width"
 msgstr "Szerokość obrazu"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1232
 msgid "Image Height"
 msgstr "Wysokość obrazu"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1238
 msgid "Statusbar Text"
 msgstr "Napis na pasku stanu"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1241
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Żądana szerokość okna"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1244
 msgid "Desired Window Height"
-msgstr ""
+msgstr "Żądana wysokość okna"
 
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Nie można zainicjować GnomeVFS!\n"
+#~ msgid "Couldn't initialize GnomeVFS!\n"
+#~ msgstr "Nie można zainicjować GnomeVFS!\n"
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pkt"
+#~ msgid "pts"
+#~ msgstr "pkt"
 
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "punkty"
+#~ msgid "points"
+#~ msgstr "punkty"
 
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
+#~ msgid "mm"
+#~ msgstr "mm"
 
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milimetry"
+#~ msgid "cm"
+#~ msgstr "cm"
 
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
+#~ msgid "centimeter"
+#~ msgstr "centymetry"
 
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "centymetry"
+#~ msgid "inch"
+#~ msgstr "cale"
 
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "cale"
+#~ msgid "Print Setup"
+#~ msgstr "Ustawienia wydruku"
 
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Ustawienia wydruku"
+#~ msgid "Print"
+#~ msgstr "Wydrukuj"
 
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Wydrukuj"
+#~ msgid "Print preview"
+#~ msgstr "Podgląd wydruku"
 
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Podgląd wydruku"
+#~ msgid "Units: "
+#~ msgstr "Jednostki: "
 
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Jednostki: "
+#~ msgid "Paper size:"
+#~ msgstr "Rozmiar papieru:"
 
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Papier"
+#~ msgid "Orientation"
+#~ msgstr "Ułożenie"
 
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Rozmiar papieru:"
+#~ msgid "Portrait"
+#~ msgstr "Portret"
 
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Ułożenie"
+#~ msgid "Landscape"
+#~ msgstr "Pejzaż"
 
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Portret"
+#~ msgid "Top:"
+#~ msgstr "Górny:"
 
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Pejzaż"
+#~ msgid "Left:"
+#~ msgstr "Lewy:"
 
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Marginesy"
+#~ msgid "Right:"
+#~ msgstr "Prawy:"
 
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Górny:"
+#~ msgid "Bottom:"
+#~ msgstr "Dolny:"
 
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Lewy:"
+#~ msgid "Overlap horizontally by "
+#~ msgstr "Nakładanie poziomo o "
 
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Prawy:"
+#~ msgid "Overlap vertically by "
+#~ msgstr "Nakładanie pionowo o "
 
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Dolny:"
+#~ msgid "Printing"
+#~ msgstr "Drukowanie"
 
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Skalowanie"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Dostosowanie do:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Dopasowanie do strony"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% pierwotnego rozmiaru"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Wyśrodkowanie"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Poziomo"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Pionowo"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Nakładanie"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Nakładanie poziomo o "
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Nakładanie pionowo o "
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Drukowanie"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Elementy pomocnicze"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Wydruk linii do obcinania"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Wydruk linii do nakładania"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Kolejność stron"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "W dół, następnie w prawo"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "W prawo, następnie w dół"
+#~ msgid "Helpers"
+#~ msgstr "Elementy pomocnicze"
 
 #~ msgid "Eye of Gnome Image Viewer"
 #~ msgstr "Oko Gnoma - przeglądarka obrazów"
@@ -922,12 +945,6 @@ msgstr "W prawo, następnie w dół"
 #~ msgid "Could not save image as '%s': %s."
 #~ msgstr "Nie można zapisać obrazu jako \"%s\": %s."
 
-#~ msgid "Pages"
-#~ msgstr "Strony"
-
-#~ msgid "Print Preview"
-#~ msgstr "Podgląd wydruku"
-
 #~ msgid "Printing of image failed"
 #~ msgstr "Wydruk obrazu nie powiódł się"
 
@@ -1021,9 +1038,6 @@ msgstr "W prawo, następnie w dół"
 
 #~ msgid "_White"
 #~ msgstr "_Biała"
-
-#~ msgid "Save As"
-#~ msgstr "Zapis pliku pod podaną nazwą"
 
 #~ msgid "Display"
 #~ msgstr "Wyświetlanie"
