@@ -22,12 +22,12 @@
 #ifndef IMAGE_VIEW_H
 #define IMAGE_VIEW_H
 
-#include <libgnome/gnome-defs.h>
+#include <glib/gmacros.h>
 #include <gconf/gconf-client.h>
 #include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-BEGIN_GNOME_DECLS
+G_BEGIN_DECLS
 
 /* Type of checks for views */
 typedef enum {
@@ -122,6 +122,6 @@ FullScreenZoom image_view_get_full_screen_zoom (ImageView *view);
 
 void image_view_get_scaled_size (ImageView *view, gint *width, gint *height);
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

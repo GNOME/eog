@@ -9,11 +9,11 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/src				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
-	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
-	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)					\
-	$(EXTRA_GNOME_CFLAGS)
+	$(EXTRA_GNOME_CFLAGS)                           \
+	$(EXTRA_WARNING_CFLAGS)
+
 
 CORBA_SOURCES =			\
 	Eog.h			\
@@ -25,8 +25,6 @@ noinst_LTLIBRARIES = libeog.la
 
 libeog_la_SOURCES =			\
 	$(CORBA_SOURCES)		\
-	gtkscrollframe.c		\
-	gtkscrollframe.h		\
 	image-view.c			\
 	image-view.h			\
 	uta.c				\
@@ -41,9 +39,7 @@ libeog_la_SOURCES =			\
 
 libeog_la_LIBADD = 			\
 	$(GNOME_LIBS)			\
-	$(GNOME_LIBDIR)			\
 	$(EXTRA_GNOME_LIBS)		\
-	$(OAF_LIBS)			\
 	$(INTLLIBS)			\
 	$(LIBPNG) $(LIBJPEG)
 
@@ -53,7 +49,7 @@ idls =							\
 idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
 
 $(CORBA_SOURCES): $(idls)
-	$(ORBIT_IDL) $(top_srcdir)/idl/Eog.idl -I$(top_srcdir)/idl $(idl_flags)
+	$(ORBIT_IDL)   $(top_srcdir)/idl/Eog.idl -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl $(idl_flags)
 
 Eog.h: $(idls)
 
@@ -63,7 +59,7 @@ CLEANFILES += $(BUILT_SOURCES)
 oafdir = $(datadir)/oaf
 oaf_in_files = GNOME_EOG.oaf.in
 oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
-@XML_I18N_MERGE_OAF_RULE@
+@INTLTOOL_OAF_RULE@
 
 EXTRA_DIST = $(oaf_in_files)
 

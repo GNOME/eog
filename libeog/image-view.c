@@ -136,14 +136,13 @@ enum {
 static void image_view_class_init (ImageViewClass *class);
 static void image_view_init (ImageView *view);
 static void image_view_destroy (GtkObject *object);
-static void image_view_finalize (GtkObject *object);
+static void image_view_finalize (GObject *object);
 
 static void image_view_unmap (GtkWidget *widget);
 static void image_view_realize (GtkWidget *widget);
 static void image_view_unrealize (GtkWidget *widget);
 static void image_view_size_request (GtkWidget *widget, GtkRequisition *requisition);
 static void image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static void image_view_draw (GtkWidget *widget, GdkRectangle *area);
 static gint image_view_button_press (GtkWidget *widget, GdkEventButton *event);
 static gint image_view_button_release (GtkWidget *widget, GdkEventButton *event);
 static gint image_view_motion (GtkWidget *widget, GdkEventMotion *event);
@@ -200,9 +199,11 @@ image_view_class_init (ImageViewClass *class)
 {
 	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
+	GObjectClass *gobject_class;
 
 	object_class = (GtkObjectClass *) class;
 	widget_class = (GtkWidgetClass *) class;
+	gobject_class = (GObjectClass *) class;
 
 	parent_class = gtk_type_class (GTK_TYPE_WIDGET);
 
@@ -216,26 +217,26 @@ image_view_class_init (ImageViewClass *class)
 	image_view_signals[ZOOM_FIT] =
 		gtk_signal_new ("zoom_fit",
 				GTK_RUN_FIRST,
-				object_class->type,
+				GTK_CLASS_TYPE (object_class),
 				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
 	image_view_signals[ZOOM_CHANGED] =
 		gtk_signal_new ("zoom_changed",
 				GTK_RUN_FIRST,
-				object_class->type,
+				GTK_CLASS_TYPE(object_class),
 				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
 
 	object_class->destroy = image_view_destroy;
-	object_class->finalize = image_view_finalize;
+	gobject_class->finalize = image_view_finalize;
 
 	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
 	widget_class->set_scroll_adjustments_signal =
 		gtk_signal_new ("set_scroll_adjustments",
 				GTK_RUN_LAST,
-				object_class->type,
+				GTK_CLASS_TYPE(object_class),
 				GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
 				gtk_marshal_NONE__POINTER_POINTER,
 				GTK_TYPE_NONE, 2,
@@ -249,7 +250,6 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->unrealize = image_view_unrealize;
 	widget_class->size_request = image_view_size_request;
 	widget_class->size_allocate = image_view_size_allocate;
-	widget_class->draw = image_view_draw;
 	widget_class->button_press_event = image_view_button_press;
 	widget_class->button_release_event = image_view_button_release;
 	widget_class->motion_notify_event = image_view_motion;
@@ -391,7 +391,7 @@ image_view_destroy (GtkObject *object)
 
 /* Finalize handler for the image view */
 static void
-image_view_finalize (GtkObject *object)
+image_view_finalize (GObject *object)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
@@ -402,17 +402,17 @@ image_view_finalize (GtkObject *object)
 	view = IMAGE_VIEW (object);
 	priv = view->priv;
 
-	gtk_object_unref (GTK_OBJECT (priv->hadj));
+	g_object_unref (G_OBJECT (priv->hadj));
 	priv->hadj = NULL;
 
-	gtk_object_unref (GTK_OBJECT (priv->vadj));
+	g_object_unref (G_OBJECT (priv->vadj));
 	priv->vadj = NULL;
 
 	g_free (priv);
 	view->priv = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 
@@ -1217,21 +1217,6 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
 		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
 	}
-}
-
-/* Draw handler for the image view */
-static void
-image_view_draw (GtkWidget *widget, GdkRectangle *area)
-{
-	ImageView *view;
-
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (widget));
-	g_return_if_fail (area != NULL);
-
-	view = IMAGE_VIEW (widget);
-
-	request_paint_area (view, area, TRUE);
 }
 
 /* Button press handler for the image view */

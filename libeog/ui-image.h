@@ -22,12 +22,9 @@
 #ifndef UI_IMAGE_H
 #define UI_IMAGE_H
 
-#include <libgnome/gnome-defs.h>
-#include "gtkscrollframe.h"
+#include <gtk/gtkscrolledwindow.h>
 
-BEGIN_GNOME_DECLS
-
-
+G_BEGIN_DECLS
 
 #define TYPE_UI_IMAGE            (ui_image_get_type ())
 #define UI_IMAGE(obj)            (GTK_CHECK_CAST ((obj), TYPE_UI_IMAGE, UIImage))
@@ -42,14 +39,14 @@ typedef struct _UIImageClass UIImageClass;
 typedef struct _UIImagePrivate UIImagePrivate;
 
 struct _UIImage {
-	GtkScrollFrame sf;
+	GtkScrolledWindow sf;
 
 	/* Private data */
 	UIImagePrivate *priv;
 };
 
 struct _UIImageClass {
-	GtkScrollFrameClass parent_class;
+	GtkScrolledWindowClass parent_class;
 };
 
 
@@ -67,6 +64,6 @@ void ui_image_fit_to_screen (UIImage *ui);
 
 
 
-END_GNOME_DECLS
+G_END_DECLS
 
 #endif

@@ -42,7 +42,7 @@ static void ui_image_init (UIImage *ui);
 static void ui_image_destroy (GtkObject *object);
 
 
-static GtkScrollFrameClass *parent_class;
+static GtkScrolledWindowClass *parent_class;
 
 
 
@@ -72,7 +72,7 @@ ui_image_get_type (void)
 			(GtkClassInitFunc) NULL
 		};
 
-		ui_image_type = gtk_type_unique (gtk_scroll_frame_get_type (), &ui_image_info);
+		ui_image_type = gtk_type_unique (gtk_scrolled_window_get_type (), &ui_image_info);
 	}
 
 	return ui_image_type;
@@ -86,7 +86,7 @@ ui_image_class_init (UIImageClass *class)
 
 	object_class = (GtkObjectClass *) class;
 
-	parent_class = gtk_type_class (gtk_scroll_frame_get_type ());
+	parent_class = gtk_type_class (gtk_scrolled_window_get_type ());
 
 	object_class->destroy = ui_image_destroy;
 }
@@ -102,9 +102,9 @@ ui_image_init (UIImage *ui)
 
 	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
 
- 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui),
+ 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ui),
 					  GTK_SHADOW_NONE);
-	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (ui),
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ui),
 				     GTK_POLICY_AUTOMATIC,
 				     GTK_POLICY_AUTOMATIC);
 }
@@ -239,11 +239,13 @@ ui_image_zoom_fit (UIImage *ui)
 	w = GTK_WIDGET (ui)->allocation.width;
 	h = GTK_WIDGET (ui)->allocation.height;
 
-	if (gtk_scroll_frame_get_shadow_type (GTK_SCROLL_FRAME (ui)) == GTK_SHADOW_NONE)
+	if (gtk_scrolled_window_get_shadow_type (GTK_SCROLLED_WINDOW (ui)) == GTK_SHADOW_NONE)
 		xthick = ythick = 0;
 	else {
-		xthick = GTK_WIDGET (ui)->style->klass->xthickness;
-		ythick = GTK_WIDGET (ui)->style->klass->ythickness;
+	  /* FIXME: GNOME2
+	     xthick = GTK_WIDGET (ui)->style->klass->xthickness;
+	     ythick = GTK_WIDGET (ui)->style->klass->ythickness;
+	  */
 	}
 
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
