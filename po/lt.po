@@ -1,21 +1,21 @@
 # Lithuanian translation of eog
-# Copyright (C) 2000-2004 Free Software Foundation, Inc.
+# Copyright (C) 2000-2005 Free Software Foundation, Inc.
 # Gediminas Paulauskas <menesis@chatsubo.lt>, 2000-2003
-# Žygimantas Beručka <uid0@akl.lt>, 2003-2004
+# Žygimantas Beručka <uid0@akl.lt>, 2003-2005
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-03 18:43+0200\n"
-"PO-Revision-Date: 2004-12-03 19:08+0200\n"
+"POT-Creation-Date: 2005-01-30 14:41+0200\n"
+"PO-Revision-Date: 2005-01-30 14:44+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: eog.desktop.in.in.h:1
 msgid "Image Viewer"
@@ -72,15 +72,15 @@ msgstr "Leisti pradžioje didesnį _mastelį negu 100%"
 
 #: eog.glade.h:13
 msgid "As _background"
-msgstr "Kaip _foną"
+msgstr "Kaip _fonas"
 
 #: eog.glade.h:14
 msgid "As check _pattern"
-msgstr "Kaip lan_guotą raštą"
+msgstr "Kaip lan_guotas raštas"
 
 #: eog.glade.h:15
 msgid "As custom c_olor"
-msgstr "Kaip parinkta s_palvą"
+msgstr "Kaip parinkta s_palva"
 
 #: eog.glade.h:16
 msgid "Color for Transparent Areas"
@@ -251,46 +251,50 @@ msgstr ""
 "geresnę kokybę, bet paveikslėliai yra lėčiau užkraunami negu ne "
 "interpoliuoti paveikslėliai."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Visos bylos"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Visi paveiksliukai"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s taškų"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Atidaryti naujame lange"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Įkelti paveiksliuką"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Išsaugoti pavekslėlį"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
-msgstr "Atidaryti katalogą"
+msgstr "Atidaryti aplanką"
 
 #: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
-msgstr "Negaliu sukurti laikinos bylos saugojimui: %s"
+msgstr "Nepavyko sukurti laikinos bylos saugojimui: %s"
 
 #: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
 msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Negaliu priskirti atminties JPEG bylos įkėlimui"
+msgstr "Nepavyko priskirti atminties JPEG bylos įkėlimui"
 
 #: libeog/eog-image.c:814
 msgid "empty file"
@@ -378,8 +382,8 @@ msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
-"Tam, kad naudotis šia funkcija Jums reikia libexif bibliotekos. Prašom "
-"įdiegti libexif (http://libexif.sf.net) ir perkompiliuoti Eye of GNOME."
+"Norint naudotis šia funkcija Jums reikia libexif bibliotekos. Prašom, "
+"įdiekite libexif (http://libexif.sf.net) ir perkompiliuokite Eye of GNOME."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
@@ -698,8 +702,8 @@ msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"Jūs ketinate atidaryti %i langus vienu metu. Gal geriau norite juos atidaryti "
-"kaip kolekciją?"
+"Jūs ketinate atidaryti %i langus vienu metu. Gal geriau norite juos "
+"atidaryti kaip kolekciją?"
 
 #: shell/main.c:262
 msgid "Open multiple single windows?"
@@ -724,3 +728,11 @@ msgstr[2] "Bylų nerasta."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nepavyko atidaryti `%s'"
+
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (netinkamas Unikodas)"
+
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "Nepavyko parodyti Eye of GNOME pagalbos"
