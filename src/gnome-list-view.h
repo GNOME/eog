@@ -62,6 +62,8 @@ struct _GnomeListViewClass {
 
 GtkType gnome_list_view_get_type (void);
 
+GnomeListModel *gnome_list_view_get_model (GnomeListView *view);
+
 
 
 END_GNOME_DECLS
