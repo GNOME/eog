@@ -333,51 +333,83 @@ ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
 {
 	int str_len;
 	int str_bytes;
+	int split_point = -1;
 	gchar* str_pt;
 	int px_width, px_height;
 	int i;
-	
+	gunichar uc;
+	char *result = NULL;
+
 	str_len = g_utf8_strlen (str, -1);
 	str_bytes = strlen (str);
 	
 	pango_layout_set_text (layout, str, str_bytes);
 	pango_layout_get_pixel_size (layout, &px_width, &px_height);
 	
+	/* return the whole string if it's smaller than max_width */
 	if (px_width <= max_width) {
 		return g_strdup (str);
 	}
 	
+	/* The string is larger than max_width.  Now, try to find a
+	 * position in the string to split it into two parts, where
+	 * the first string mustn't be wider as max_width. The rest of
+	 * the string will be splitted by a recursive call to this
+	 * function then.
+	 */
+
+	/* check until which character position the string is not
+	 * larger than max_width */
 	for (i = 0; i < str_len; i++) {
 		str_pt = g_utf8_offset_to_pointer (str, i);
+
 		pango_layout_set_text (layout, str, (int) (str_pt - str));
 		pango_layout_get_pixel_size (layout, &px_width, &px_height);
+
 		if (px_width > max_width) {
-			i = i--;
+			/* set i to position to split */
+			if (split_point >= 0) {
+				i = split_point;
+			}
+			else {
+				i = i--;
+			}
 			break;
 		}
+
+		/* Store last sensible split position. This is any non
+		 * alphanumeric character (eg. dot, dash). If we can
+		 * split a string there it looks and reads much
+		 * better.
+		 */
+		uc = g_utf8_get_char (str_pt); 
+		if (!g_unichar_isalnum (uc)) { 
+			split_point = i; 
+		} 
 	}
 	
+	/* Variable i now points to the last character which may stay
+	 * in the first half of the string */
+
 	if (i >= str_len - 1) {
-		return g_strdup (str);
+		result = g_strdup (str);
 	}
 	else if (i < 0) {
-		return NULL;
+		result = NULL;
 	}
 	else {
-		char *result;
 		char *tail;
 		char *rest;
 
+		/* split remaining rest of string */
 		tail = g_utf8_offset_to_pointer (str, i+1);
 		rest = ensure_max_string_width (tail, layout, max_width);
 
 		result = g_strconcat (g_strndup (str, (tail - str)), "\n", rest, NULL);
 		g_free (rest);
-
-		return result;
 	}
 
-	return NULL;
+	return result;
 }
 
 static void
