@@ -38,9 +38,7 @@ struct _EogControlClass {
 
 GtkType        eog_control_get_type                    (void);
 EogControl    *eog_control_new                         (EogImage      *image);
-Bonobo_Control eog_control_corba_object_create         (BonoboObject  *object);
 EogControl    *eog_control_construct                   (EogControl    *control,
-							Bonobo_Control corba_object,
 							EogImage      *image);
 
 END_GNOME_DECLS

@@ -30,17 +30,7 @@ struct _EogControlPrivate {
 	BonoboUIComponent  *uic;
 };
 
-POA_Bonobo_Control__vepv eog_control_vepv;
-
 static BonoboControlClass *eog_control_parent_class;
-
-static void
-init_eog_control_corba_class (void)
-{
-	/* Setup the vector of epvs */
-	eog_control_vepv.Bonobo_Unknown_epv = bonobo_object_get_epv ();
-	eog_control_vepv.Bonobo_Control_epv = bonobo_control_get_epv ();
-}
 
 static void
 eog_control_destroy (GtkObject *object)
@@ -76,27 +66,6 @@ eog_control_finalize (GtkObject *object)
 	g_free (control->priv);
 
 	GTK_OBJECT_CLASS (eog_control_parent_class)->finalize (object);
-}
-
-Bonobo_Control
-eog_control_corba_object_create (BonoboObject *object)
-{
-	POA_Bonobo_Control *servant;
-	CORBA_Environment ev;
-	
-	servant = (POA_Bonobo_Control *) g_new0 (BonoboObjectServant, 1);
-	servant->vepv = &eog_control_vepv;
-
-	CORBA_exception_init (&ev);
-	POA_Bonobo_Control__init ((PortableServer_Servant) servant, &ev);
-	if (ev._major != CORBA_NO_EXCEPTION){
-		g_free (servant);
-		CORBA_exception_free (&ev);
-		return CORBA_OBJECT_NIL;
-	}
-
-	CORBA_exception_free (&ev);
-	return (Bonobo_Control) bonobo_object_activate_servant (object, servant);
 }
 
 static void
@@ -399,8 +368,6 @@ eog_control_class_init (EogControl *klass)
 	object_class->finalize = eog_control_finalize;
 
 	control_class->activate = eog_control_activate;
-
-	init_eog_control_corba_class ();
 }
 
 static void
@@ -435,7 +402,6 @@ eog_control_get_type (void)
 
 EogControl *
 eog_control_construct (EogControl    *control,
-		       Bonobo_Control corba_object,
 		       EogImage      *image)
 {
 	BonoboControl     *retval;
@@ -445,7 +411,6 @@ eog_control_construct (EogControl    *control,
 	g_return_val_if_fail (control != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (EOG_IS_CONTROL (control), NULL);
-	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
 
 	control->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
@@ -504,7 +469,6 @@ eog_control_construct (EogControl    *control,
 				     BONOBO_OBJECT (control->priv->zoomable));
 
 	retval = bonobo_control_construct (BONOBO_CONTROL (control),
-					   corba_object,
 					   control->priv->root);
 	if (!retval)
 		return NULL;
@@ -523,18 +487,11 @@ EogControl *
 eog_control_new (EogImage *image)
 {
 	EogControl *control;
-	Bonobo_Control corba_object;
 	
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	control = gtk_type_new (eog_control_get_type ());
 
-	corba_object = eog_control_corba_object_create (BONOBO_OBJECT (control));
-	if (corba_object == CORBA_OBJECT_NIL) {
-		bonobo_object_unref (BONOBO_OBJECT (control));
-		return NULL;
-	}
-	
-	return eog_control_construct (control, corba_object, image);
+	return eog_control_construct (control, image);
 }

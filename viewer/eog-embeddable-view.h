@@ -47,7 +47,6 @@ eog_embeddable_view_corba_object_create (BonoboObject            *object);
 
 EogEmbeddableView *
 eog_embeddable_view_construct           (EogEmbeddableView       *embeddable_view,
-                                         Bonobo_View              corba_object,
                                          EogImage                *image);
 
 END_GNOME_DECLS
