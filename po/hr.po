@@ -1,15 +1,22 @@
 # Translation of eog to Croatian
 # Copyright (C) Croatian team
 # Translators: Automatski Prijevod <>,Denis Lackovic <delacko@fly.srk.fer.hr>,Robert Sedak <robert.sedak@sk.tel.hr>,Željko Brajdić <zorz@iskon.hr>,
+
+# Translation of eog to Croatian
+# Copyright (C) Croatian team
+# Translators: Automatski Prijevod <>,Denis Lackovic <delacko@fly.srk.fer.hr>,Robert Sedak <robert.sedak@sk.tel.hr>,Željko Brajdić <zorz@iskon.hr>,
+# Translation of eog to Croatian
+# Copyright (C) Croatian team
+# Translators: Automatski Prijevod <>,Denis Lackovic <delacko@fly.srk.fer.hr>,Robert Sedak <robert.sedak@sk.tel.hr>,Željko Brajdić <zorz@iskon.hr>,
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0\n"
-"POT-Creation-Date: 2003-11-06 18:06+0100\n"
-"PO-Revision-Date: 2003-12-30 20:44+CET\n"
-"Last-Translator: auto\n"
+"POT-Creation-Date: 2004-01-02 14:17+0100\n"
+"PO-Revision-Date: 2004-01-02 20:30+CET\n"
+"Last-Translator: Robert Sedak <robert.sedak@sk.tel.hr>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: TransDict server\n"
 
@@ -65,7 +72,7 @@ msgstr "Rotacija u smjeru suprotnom od kazaljke na satu"
 msgid "Slide Show"
 msgstr "Pokaz prezentacije"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Uredi"
@@ -79,36 +86,36 @@ msgstr "_Spremi"
 msgid "_Undo"
 msgstr "_Vrati"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "P_ogled"
 
-#: collection/eog-collection-view.c:305
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Odustani od spremanja"
 
-#: collection/eog-collection-view.c:308
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Spremanje završeno"
 
-#: collection/eog-collection-view.c:777
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Pošalji u smeće"
 
-#: collection/eog-collection-view.c:822
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Pogled kolekcije"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1345
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Naslov prozora"
 
-#: collection/eog-collection-view.c:1283
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Tekst statusa"
 
-#: collection/eog-collection-view.c:1286 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Napredak učitavanja slike"
 
@@ -298,59 +305,88 @@ msgstr "Ugradiva EOG slika"
 msgid "Image"
 msgstr "Slika"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Po nastavku"
+#: libeog/eog-file-selection.c:96
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr "Želite li pisati preko %s?"
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Format datoteke je nepodržan za spremanje."
+#: libeog/eog-file-selection.c:101
+msgid "File exists"
+msgstr "Datoteka postoji"
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Određivanje vrste datoteke:"
+#: libeog/eog-file-selection.c:170
+msgid "All Files"
+msgstr "Sve datoteke"
 
-#: libeog/eog-file-selection.c:333
+#: libeog/eog-file-selection.c:176
+msgid "All Images"
+msgstr "Sve slike"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:194
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s pixel"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Učitavanje slike"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Spremi sliku"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-file-selection.c:489
+msgid "Open Folder"
+msgstr "Otvori mapu"
+
+#: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Ne mogu pronaći dovoljno memorije za učitavanje JPEG datoteke"
 
-#: libeog/eog-image.c:1215
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr "prazna datoteka"
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr "Nema učitane slike."
 
-#: libeog/eog-image.c:1224
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr "Slike se mogu spremati samo kao lokalne datoteke"
 
-#: libeog/eog-image.c:1259
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr "Vrsta slike je nepodržana za spremanje."
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Atribut"
 
-#: libeog/eog-info-view.c:92
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Vrijednost"
 
-#: libeog/eog-info-view.c:155
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Širina"
 
-#: libeog/eog-info-view.c:169
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Visina"
 
-#: libeog/eog-info-view.c:186
+#: libeog/eog-info-view.c:181
+msgid "Filesize"
+msgstr "Veličina datoteke"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Ime datoteke"
 
@@ -359,7 +395,7 @@ msgid "Page"
 msgstr "Stranica"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:379
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Pregled"
 
@@ -490,90 +526,98 @@ msgid "Open"
 msgstr "Otvori"
 
 #: shell/eog-shell-ui.xml.h:9
+msgid "Open a directory"
+msgstr "Otvori mapu"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Otvori datoteku"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Otvori novi prozor"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "Otvori u novom prozoru"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "Otvori u ovom prozoru"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "_Postavke"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "Preferences for Eye of Gnome"
 msgstr "Postavke za Gnome Eye"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Završi program"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_O"
 
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "_Zatvori"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "_Sadržaj"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_Datoteka"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "_Pomoć"
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_Novi"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:24
+msgid "_Open Directory..."
+msgstr "_Otvori mapu..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Otvori..."
 
-#: shell/eog-shell-ui.xml.h:24
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "_Završi"
 
-#: shell/eog-shell-ui.xml.h:25
+#: shell/eog-shell-ui.xml.h:27
 msgid "_Statusbar"
 msgstr "_Statusna traka"
 
-#: shell/eog-shell-ui.xml.h:26
+#: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
 msgstr "_Alatna traka"
 
 #. Translators should localize the following string
 #.  * which will give them credit in the About box.
 #.  * E.g. "Fulano de Tal <fulano@detal.com>"
-#: shell/eog-window.c:271
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "translator_credits-Denis Lacković"
 
-#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
-#: shell/eog-window.c:989 shell/main.c:513
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:279
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME program za pregled i katalogiziranje slika"
 
-#: shell/eog-window.c:316
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -688,46 +732,46 @@ msgstr "_Puni zaslon"
 msgid "_Print..."
 msgstr "_Ispis..."
 
-#. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:525
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:549
 #, c-format
-msgid "%i x %i pixel    %i%%"
-msgstr "%i x %i piksel    %i%%"
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i x %i točaka  %s    %i%%"
 
-#: viewer/eog-image-view.c:815
+#: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
 msgstr "/Rotacija u smjeru kazalje na satu"
 
-#: viewer/eog-image-view.c:817
+#: viewer/eog-image-view.c:843
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rotacija u smjeru _suprotnom od kazaljke na satu"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/U_većaj"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "Povećalo + & -"
 
-#: viewer/eog-image-view.c:824
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr "/_Normalna veličina"
 
-#: viewer/eog-image-view.c:826
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr "/Najbolje pristajanje"
 
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Zatvori"
 
-#: viewer/eog-image-view.c:992
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Učitavanje slike %s nije uspjelo"
 
-#: viewer/eog-image-view.c:999
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -737,35 +781,44 @@ msgstr ""
 "Razlog: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1008
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr "Učitavanje nije uspjelo"
 
-#: viewer/eog-image-view.c:1091
+#: viewer/eog-image-view.c:1129
 msgid "Image successfully saved"
 msgstr "Slika je uspješno spremljena"
 
-#: viewer/eog-image-view.c:1095
+#: viewer/eog-image-view.c:1133
 msgid "Image saving failed"
 msgstr "Spremanje slike nije uspjelo"
 
-#: viewer/eog-image-view.c:1339
+#: viewer/eog-image-view.c:1377
 msgid "Image Width"
 msgstr "Širina Slike"
 
-#: viewer/eog-image-view.c:1342
+#: viewer/eog-image-view.c:1380
 msgid "Image Height"
 msgstr "Visina Slike"
 
-#: viewer/eog-image-view.c:1348
+#: viewer/eog-image-view.c:1386
 msgid "Statusbar Text"
 msgstr "Tekst statusne trake"
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1389
 msgid "Desired Window Width"
 msgstr "željena širina prozora"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1392
 msgid "Desired Window Height"
 msgstr "željena visina prozora"
+
+#~ msgid "By Extension"
+#~ msgstr "Po nastavku"
+
+#~ msgid "Unsupported image file format for saving."
+#~ msgstr "Format datoteke je nepodržan za spremanje."
+
+#~ msgid "Determine File Type:"
+#~ msgstr "Određivanje vrste datoteke:"
 
