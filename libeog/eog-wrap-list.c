@@ -931,6 +931,8 @@ model_image_removed (EogImageList *model, int pos, gpointer data)
 	priv->view_order = g_list_delete_link (priv->view_order, node);
 
 	/* delete object */
+	gnome_canvas_item_hide (item);
+	gnome_canvas_update_now (GNOME_CANVAS (wlist));
 	gtk_object_destroy (GTK_OBJECT (item));
 
 	/* update item arrangement */
