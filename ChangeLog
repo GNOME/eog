@@ -1,3 +1,39 @@
+2002-03-12  Jens Finke  <jens@triq.net>
+
+	This patch should fix bug #74083. It makes gconf consistently the
+	model for all preference settings.
+
+	* eog.schemas (check_size), (dither): Changed default.  
+
+	* eog-image-view.[ch] 
+	(listener_Interpolation_cb),
+	(listener_Dither_cb), 
+	(listener_CheckType_cb),
+	(listener_CheckSize_cb): Removed the bonobo property bag stuff,
+	replaced it with a call to gconf.
+	(set_ui_group_item): New function, which syncs the gconf value
+	with the user interface.
+	(eog_image_view_create_ui): Initialize preferences with the values
+	stored in gconf, simplified the code.
+	(eog_image_view_get_prop): Get the value of the four settings from
+	gconf.
+	(eog_image_view_set_prop): Update just the gconf key.
+	(eog_image_view_[gs]et_interpolation),
+	(eog_image_view_[gs]et_dither),
+	(eog_image_view_[gs]et_check_size),
+	(eog_image_view_[gs]et_check_type): Removed these functions.
+	(eog_image_view_get_client): New function.
+	(interp_type_changed_cb),
+	(dither_changed_cb),
+	(check_type_changed_cb),
+	(check_size_changed_cb): New functions, central handler for all
+	changes to these properties. Take care of all ui updates.
+	(eog_image_view_construct): Initialize gconf, set image view
+	properties to gconf stored values.
+	
+	* preferences.c: Use gconf for retrieving and setting the values
+	in the preference dialog. Simplified the code.
+
 2002-03-12  Laszlo Peter  <laca@ireland.sun.com>
 
 	* configure.in: check for libpopt, define POPT_LIBS.

@@ -12,6 +12,7 @@
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
+#include <gconf/gconf-client.h>
 
 #include <gnome.h>
 
@@ -23,14 +24,6 @@ typedef struct {
 	int type;
 	const char *string;
 } PrefsEntry;
-
-typedef void (*PrefsChangeFunc) (EogImageView *, int);
-
-typedef struct {
-	PrefsChangeFunc cb_func;
-	gpointer cb_data;
-	int value;
-} PrefsCbData;
 
 /* Interpolation types for the index-mapping functions */
 static PrefsEntry prefs_interpolation [] = {
@@ -70,22 +63,35 @@ static PrefsEntry prefs_check_size [] = {
 };
 
 static void
-activate_cb (GtkWidget *widget, PrefsCbData *cb_data)
+activate_cb (GtkWidget *widget, gpointer data)
 {
-	g_assert (EOG_IS_IMAGE_VIEW (cb_data->cb_data));
+	EogImageView *view;
+	gchar *key; 
+	gint value; 
 
-	cb_data->cb_func (cb_data->cb_data, cb_data->value);
+	view = EOG_IMAGE_VIEW (data);
+
+	key = (gchar*) g_object_get_data (G_OBJECT (widget), "gconf_key");
+	value = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "value")); 
+
+	gconf_client_set_int (eog_image_view_get_client (view), 
+			      key, value, NULL);
 }
 
 static GtkWidget *
 create_prefs_menu (const PrefsEntry *menu_description,
-		   const int value, PrefsChangeFunc cb_func,
-		   gpointer user_data)
+		   gchar *key,
+		   EogImageView *view)
 {
 	GtkWidget *omenu, *menu;
 	const PrefsEntry *entry;
+	int value;
 	GSList *group;
 	int history = 0, i = 0;
+
+	g_print ("create_prefs for %s", key);
+	value = gconf_client_get_int (eog_image_view_get_client (view),
+				      key, NULL);
 
 	omenu = gtk_option_menu_new ();
 
@@ -94,7 +100,6 @@ create_prefs_menu (const PrefsEntry *menu_description,
   
 	for (entry = menu_description; entry->string; entry++) {
 		const char *translated_string;
-		PrefsCbData *cb_data = g_new0 (PrefsCbData, 1);
 		GtkWidget *item;
 
 		translated_string = gettext (entry->string);
@@ -102,18 +107,18 @@ create_prefs_menu (const PrefsEntry *menu_description,
 		group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (item));
 		gtk_menu_append (GTK_MENU (menu), item);
 
-		cb_data->value = i;
-		cb_data->cb_func = cb_func;
-		cb_data->cb_data = user_data;
-
-		gtk_signal_connect (GTK_OBJECT (item), "activate",
-				    (GtkSignalFunc) activate_cb, cb_data);
+		g_object_set_data (G_OBJECT (item), "value", GINT_TO_POINTER (i));
+		g_object_set_data (G_OBJECT (item), "gconf_key", key);
 
 		if (entry->type == value) {
+			g_print ("set start value %i\n", value);
 			gtk_check_menu_item_set_active
 				(GTK_CHECK_MENU_ITEM (item), TRUE);
 			history = i;
 		}
+
+		gtk_signal_connect (GTK_OBJECT (item), "activate",
+				    (GtkSignalFunc) activate_cb, view);
 
 		i++;
 
@@ -132,18 +137,19 @@ eog_create_preferences_page (EogImageView *image_view,
 {
 	GtkWidget *table, *interp, *dither;
 	GtkWidget *check_type, *check_size;
+	GConfClient *client;
 
 	g_return_val_if_fail (image_view != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 	g_return_val_if_fail (page_number == 0, NULL);
 
+	client = eog_image_view_get_client (image_view);
+
 	table = gtk_table_new (4, 2, FALSE);
 
-	interp = create_prefs_menu
-		(prefs_interpolation,
-		 eog_image_view_get_interpolation (image_view),
-		 (PrefsChangeFunc) eog_image_view_set_interpolation,
-		 image_view);
+	interp = create_prefs_menu (prefs_interpolation,
+				    GCONF_EOG_VIEW_INTERP_TYPE,
+				    image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
 				   gtk_label_new (_("Interpolation")),
@@ -152,10 +158,9 @@ eog_create_preferences_page (EogImageView *image_view,
 	gtk_table_attach_defaults (GTK_TABLE (table), interp,
 				   1, 2, 0, 1);
 
-	dither = create_prefs_menu
-		(prefs_dither,
-		 eog_image_view_get_dither (image_view),
-		 (PrefsChangeFunc) eog_image_view_set_dither, image_view);
+	dither = create_prefs_menu (prefs_dither,
+				    GCONF_EOG_VIEW_DITHER,
+				    image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
 				   gtk_label_new (_("Dither")),
@@ -164,9 +169,9 @@ eog_create_preferences_page (EogImageView *image_view,
 	gtk_table_attach_defaults (GTK_TABLE (table), dither,
 				   1, 2, 1, 2);
 
-	check_type = create_prefs_menu
-		(prefs_check_type, eog_image_view_get_check_type (image_view),
-		 (PrefsChangeFunc) eog_image_view_set_check_type, image_view);
+	check_type = create_prefs_menu (prefs_check_type,
+					GCONF_EOG_VIEW_CHECK_TYPE,
+					image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
 				   gtk_label_new (_("Check Type")),
@@ -175,9 +180,9 @@ eog_create_preferences_page (EogImageView *image_view,
 	gtk_table_attach_defaults (GTK_TABLE (table), check_type,
 				   1, 2, 2, 3);
 
-	check_size = create_prefs_menu
-		(prefs_check_size, eog_image_view_get_check_size (image_view),
-		 (PrefsChangeFunc) eog_image_view_set_check_size, image_view);
+	check_size = create_prefs_menu (prefs_check_size,
+					GCONF_EOG_VIEW_CHECK_SIZE,
+					image_view);
 
 	gtk_table_attach_defaults (GTK_TABLE (table),
 				   gtk_label_new (_("Check Size")),

@@ -24,6 +24,12 @@ G_BEGIN_DECLS
 #define EOG_IS_IMAGE_VIEW_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_IMAGE_VIEW_TYPE))
 #define EOG_IMAGE_VIEW_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_IMAGE_VIEW_TYPE, EogImageViewClass))
 
+#define GCONF_EOG_VIEW_DIR               "/apps/eog/view"
+#define GCONF_EOG_VIEW_INTERP_TYPE       "/apps/eog/view/interp_type"
+#define GCONF_EOG_VIEW_CHECK_TYPE        "/apps/eog/view/check_type"
+#define GCONF_EOG_VIEW_CHECK_SIZE        "/apps/eog/view/check_size"
+#define GCONF_EOG_VIEW_DITHER            "/apps/eog/view/dither"
+
 typedef struct _EogImageView         EogImageView;
 typedef struct _EogImageViewClass    EogImageViewClass;
 typedef struct _EogImageViewPrivate  EogImageViewPrivate;
@@ -73,27 +79,9 @@ void  eog_image_view_zoom_to_fit     (EogImageView *image_view,
 void  eog_image_view_set_zoom        (EogImageView *image_view,
 				      double        zoomx,
 				      double        zoomy);
+
+GConfClient* eog_image_view_get_client (EogImageView *image_view);
 			 
-/* Properties */
-void                    eog_image_view_set_interpolation (EogImageView            *image_view,
-							  GNOME_EOG_Interpolation  interpolation);
-
-GNOME_EOG_Interpolation eog_image_view_get_interpolation (EogImageView            *image_view);
-
-void                eog_image_view_set_dither     (EogImageView            *image_view,
-						   GNOME_EOG_Dither         dither);
-
-GNOME_EOG_Dither    eog_image_view_get_dither     (EogImageView            *image_view);
-
-void                eog_image_view_set_check_type (EogImageView            *image_view,
-						   GNOME_EOG_CheckType      check_type);
-
-GNOME_EOG_CheckType eog_image_view_get_check_type (EogImageView            *image_view);
-
-void                eog_image_view_set_check_size (EogImageView            *image_view,
-						   GNOME_EOG_CheckSize      check_size);
-GNOME_EOG_CheckSize eog_image_view_get_check_size (EogImageView            *image_view);
-
 G_END_DECLS
 
 #endif /* _EOG_EOG_IMAGE_VIEW */
