@@ -325,7 +325,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			"Copyright \xc2\xa9 2000-2003 Free Software Foundation, Inc.",
+			"Copyright \xc2\xa9 2000-2004 Free Software Foundation, Inc.",
 			_("The GNOME image viewing and cataloging program."),
 			authors,
 			documenters,
@@ -1242,7 +1242,6 @@ verb_SaveAs_cb (GtkAction *action, gpointer data)
 
 		image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 		save_as_single_image (window, image);
-		g_object_unref (image);
 	}
 	else {
 		GList *images;
