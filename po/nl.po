@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-05-28 03:54+0200\n"
-"PO-Revision-Date: 2003-05-28 12:20+0100\n"
+"POT-Creation-Date: 2003-06-02 03:54+0200\n"
+"PO-Revision-Date: 2003-06-02 12:09+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,35 +66,39 @@ msgstr "_Tegen de klok in draaien"
 msgid "Slide Show"
 msgstr "Diashow"
 
-#: collection/eog-collection-view-ui.xml.h:11
-msgid "Undo"
-msgstr "Ongedaan maken"
-
-#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "_Edit"
 msgstr "Be_werken"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Undo"
+msgstr "_Ongedaan maken"
 
 #: collection/eog-collection-view-ui.xml.h:13
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "Be_kijken"
 
-#: collection/eog-collection-view.c:480
+#: collection/eog-collection-view.c:535
 msgid "Move to Trash"
 msgstr "Verplaatsen naar prullenbak"
 
-#: collection/eog-collection-view.c:524
+#: collection/eog-collection-view.c:579
 msgid "Collection View"
 msgstr "Verzamelingsweergave"
 
-#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
+#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
 msgid "Window Title"
 msgstr "Venstertitel"
 
-#: collection/eog-collection-view.c:984
+#: collection/eog-collection-view.c:1042
 msgid "Status Text"
 msgstr "Statustekst"
+
+#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+msgid "Progress of Image Loading"
+msgstr "Voortgang van laden afbeelding"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -338,11 +342,11 @@ msgstr "Afbeelding laden"
 msgid "Save Image"
 msgstr "Afbeelding opslaan"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image.c:1320
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: libeog/eog-image.c:1250
+#: libeog/eog-image.c:1354
 msgid "Unsupported image type for saving."
 msgstr "Niet ondersteund afbeeldingstype om op te slaan."
 
@@ -373,7 +377,7 @@ msgid "Page"
 msgstr "Pagina"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:359
 msgid "Preview"
 msgstr "Voorbeeld"
 
@@ -571,24 +575,24 @@ msgstr "A_fsluiten"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:265
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:270 shell/eog-window.c:720 shell/eog-window.c:812
+#: shell/eog-window.c:849 shell/main.c:503
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:271
+#: shell/eog-window.c:272
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:272
+#: shell/eog-window.c:273
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Afbeeldingen bekijken en catalogusbeheer voor GNOME"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:310
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -691,51 +695,51 @@ msgstr "_Schermvullend"
 msgid "_Print..."
 msgstr "Af_drukken..."
 
-#: viewer/eog-image-view.c:778
+#: viewer/eog-image-view.c:779
 msgid "/_Zoom In"
 msgstr "/_Inzoomen"
 
-#: viewer/eog-image-view.c:780
+#: viewer/eog-image-view.c:781
 msgid "/Zoom _Out"
 msgstr "/_Uitzoomen"
 
-#: viewer/eog-image-view.c:782
+#: viewer/eog-image-view.c:783
 msgid "/_Normal Size"
 msgstr "/_Normale afmetingen"
 
-#: viewer/eog-image-view.c:784
+#: viewer/eog-image-view.c:785
 msgid "/Best _Fit"
 msgstr "/_Passend"
 
-#: viewer/eog-image-view.c:787
+#: viewer/eog-image-view.c:788
 msgid "/_Close"
 msgstr "/_Sluiten"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:962
 msgid "Image successfully saved"
 msgstr "Afbeelding succesvol opgeslagen"
 
-#: viewer/eog-image-view.c:943
+#: viewer/eog-image-view.c:966
 msgid "Image saving failed"
 msgstr "Opslaan van afbeelding mislukt"
 
-#: viewer/eog-image-view.c:1186
+#: viewer/eog-image-view.c:1209
 msgid "Image Width"
 msgstr "Afbeeldingsbreedte"
 
-#: viewer/eog-image-view.c:1189
+#: viewer/eog-image-view.c:1212
 msgid "Image Height"
 msgstr "Afbeeldingshoogte"
 
-#: viewer/eog-image-view.c:1195
+#: viewer/eog-image-view.c:1218
 msgid "Statusbar Text"
 msgstr "Statusbalk-tekst"
 
-#: viewer/eog-image-view.c:1198
+#: viewer/eog-image-view.c:1221
 msgid "Desired Window Width"
 msgstr "Gewenste vensterhoogte"
 
-#: viewer/eog-image-view.c:1201
+#: viewer/eog-image-view.c:1224
 msgid "Desired Window Height"
 msgstr "Gewenste vensterbreedte"
 
