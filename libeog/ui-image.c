@@ -248,10 +248,8 @@ ui_image_zoom_fit (UIImage *ui)
 	if (gtk_scrolled_window_get_shadow_type (GTK_SCROLLED_WINDOW (ui)) == GTK_SHADOW_NONE)
 		xthick = ythick = 0;
 	else {
-	  /* FIXME: GNOME2
-	     xthick = GTK_WIDGET (ui)->style->klass->xthickness;
-	     ythick = GTK_WIDGET (ui)->style->klass->ythickness;
-	  */
+	     xthick = GTK_WIDGET (ui)->style->xthickness;
+	     ythick = GTK_WIDGET (ui)->style->ythickness;
 	}
 
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
@@ -307,5 +305,6 @@ ui_image_fit_to_screen (UIImage *ui)
 	gtk_widget_set_usize (GTK_WIDGET (ui),
 			      width,
 			      height);
+
 }
 
