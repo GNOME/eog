@@ -2583,6 +2583,7 @@ add_eog_icon_factory (void)
 	g_object_unref (factory);
 }
 
+/* FIXME: The action and ui creation stuff should be moved to a separate file */
 /* UI<->function mapping */
 /* Normal items */
 static GtkActionEntry action_entries_window[] = {
@@ -2633,6 +2634,48 @@ static GtkToggleActionEntry toggle_entries_image[] = {
   { "ViewInfo",      NULL, N_("Image _Information"), NULL, N_("Change the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 
+typedef struct {
+	char *action_name;
+	char *short_label;
+} ShortLabelMap;
+
+/* mapping for short-labels, used for toolbar buttons */
+static ShortLabelMap short_label_map[] = {
+	{ "FileNewWindow", N_("New") },
+	{ "FileOpen",  N_("Open") },
+	{ "FileFolderOpen",  N_("Open") },
+	{ "FileCloseWindow", N_("Close") },
+	{ "FileSave", N_("Save") },
+	{ "FileSaveAs", N_("Save As") },
+	{ "EditUndo",  N_("Undo") },
+	{ "EditFlipHorizontal", NULL },
+	{ "EditFlipVertical", NULL },
+	{ "EditRotate90", N_("Right") },
+	{ "EditRotate270", N_("Left") },
+	{ "ViewFullscreen", NULL },
+	{ "ViewZoomIn", N_("In") },
+	{ "ViewZoomOut", N_("Out") },
+	{ "ViewZoomNormal", N_("Normal") },
+	{ "ViewZoomFit", N_("Fit") },
+	{ NULL, NULL }
+};
+
+static void
+add_short_labels (GtkActionGroup *group) 
+{
+	GtkAction *action;
+	int i;
+
+	for (i = 0; short_label_map[i].action_name != NULL; i++) {
+		action = gtk_action_group_get_action (group,
+						      short_label_map[i].action_name);
+		if (action != NULL) {
+			g_object_set (G_OBJECT (action), "short-label",
+				      short_label_map[i].short_label, NULL);
+		}
+	}
+}
+
 /**
  * window_construct:
  * @window: A window widget.
@@ -2669,12 +2712,14 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	gtk_action_group_set_translation_domain (priv->actions_window, PACKAGE);
 	gtk_action_group_add_actions (priv->actions_window, action_entries_window, G_N_ELEMENTS (action_entries_window), window);
 	gtk_action_group_add_toggle_actions (priv->actions_window, toggle_entries_window, G_N_ELEMENTS (toggle_entries_window), window);
+	add_short_labels (priv->actions_window);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_window, 0);
 
 	priv->actions_image = gtk_action_group_new ("MenuActionsImage");
 	gtk_action_group_set_translation_domain (priv->actions_image, PACKAGE);
 	gtk_action_group_add_actions (priv->actions_image, action_entries_image, G_N_ELEMENTS (action_entries_image), window);
 	gtk_action_group_add_toggle_actions (priv->actions_image, toggle_entries_image, G_N_ELEMENTS (toggle_entries_image), window);
+	add_short_labels (priv->actions_image);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
 	/* find and setup UI description */
