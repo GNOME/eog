@@ -1,7 +1,10 @@
 #include "eog-collection-model.h"
 #include "eog-image-loader.h"
 #include "bonobo/bonobo-moniker-util.h"
-#include <libgnomevfs/gnome-vfs.h>
+#include <libgnomevfs/gnome-vfs-directory.h>
+#include <libgnome/gnome-macros.h>
+
+#include "eog-collection-marshal.h"
 
 /* Signal IDs */
 enum {
@@ -40,8 +43,13 @@ struct _EogCollectionModelPrivate {
 	gchar *base_uri;
 };
 
+static void eog_collection_model_class_init (EogCollectionModelClass *klass);
+static void eog_collection_model_instance_init (EogCollectionModel *object);
+static void eog_collection_model_dispose (GObject *object);
+static void eog_collection_model_finalize (GObject *object);
 
-static GtkObjectClass *parent_class;
+GNOME_CLASS_BOILERPLATE (EogCollectionModel, eog_collection_model,
+			 GObject, G_TYPE_OBJECT);
 
 static void
 image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer data);
@@ -71,7 +79,7 @@ loading_context_free (LoadingContext *ctx)
 }
 
 static void
-eog_collection_model_destroy (GtkObject *obj)
+eog_collection_model_dispose (GObject *obj)
 {
 	EogCollectionModel *model;
 	
@@ -96,10 +104,12 @@ eog_collection_model_destroy (GtkObject *obj)
 	if (model->priv->base_uri)
 		g_free (model->priv->base_uri);
 	model->priv->base_uri = NULL;
+
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
-eog_collection_model_finalize (GtkObject *obj)
+eog_collection_model_finalize (GObject *obj)
 {
 	EogCollectionModel *model;
 	
@@ -109,10 +119,12 @@ eog_collection_model_finalize (GtkObject *obj)
 	model = EOG_COLLECTION_MODEL (obj);
 
 	g_free (model->priv);
+
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
-eog_collection_model_init (EogCollectionModel *obj)
+eog_collection_model_instance_init (EogCollectionModel *obj)
 {
 	EogCollectionModelPrivate *priv;
 
@@ -128,103 +140,64 @@ eog_collection_model_init (EogCollectionModel *obj)
 static void
 eog_collection_model_class_init (EogCollectionModelClass *klass)
 {
-	GtkObjectClass *object_class = (GtkObjectClass*) klass;
+	GObjectClass *object_class = (GObjectClass*) klass;
 	
-	parent_class = (GtkObjectClass*) gtk_type_class (gtk_object_get_type ());
-
-	object_class->destroy = eog_collection_model_destroy;
+	object_class->dispose = eog_collection_model_dispose;
 	object_class->finalize = eog_collection_model_finalize;
 
 	eog_model_signals[INTERVAL_CHANGED] =
 		g_signal_new ("interval_changed",
-				object_class->type,
-				G_SIGNAL_RUN_FIRST,
-				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_changed),
-				NULL,
-				NULL,
-				marshal_interval_notification,
-				G_TYPE_NONE,
-			       	1,
-				G_TYPE_POINTER);
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionModelClass, interval_changed),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_POINTER);
 	eog_model_signals[INTERVAL_ADDED] =
 		g_signal_new ("interval_added",
-				object_class->type,
-				G_SIGNAL_RUN_FIRST,
-				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_added),
-				NULL,
-				NULL,
-				marshal_interval_notification,
-				G_TYPE_NONE,
-			       	1,
-				G_TYPE_POINTER);
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionModelClass, interval_added),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_POINTER);
 	eog_model_signals[INTERVAL_REMOVED] =
 		g_signal_new ("interval_removed",
-				object_class->type,
-				G_SIGNAL_RUN_FIRST,
-				GTK_SIGNAL_OFFSET (EogCollectionModelClass, interval_removed),
-				NULL,
-				NULL,
-				marshal_interval_notification,
-				G_TYPE_NONE,
-			       	1,
-				G_TYPE_POINTER);
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionModelClass, interval_removed),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_POINTER);
 	eog_model_signals[SELECTION_CHANGED] = 
 		g_signal_new ("selection_changed",
-				object_class->type,
-				G_SIGNAL_RUN_FIRST,
-				GTK_SIGNAL_OFFSET (EogCollectionModelClass, selection_changed),
-				NULL,
-				NULL,
-				gtk_marshal_NONE__NONE,
-				G_TYPE_NONE,
-			       	0);
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionModelClass, selection_changed),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
 	eog_model_signals[BASE_URI_CHANGED] = 
 		g_signal_new ("base_uri_changed",
-				object_class->type,
-				G_SIGNAL_RUN_FIRST,
-				GTK_SIGNAL_OFFSET (EogCollectionModelClass, base_uri_changed),
-				NULL,
-				NULL,
-				gtk_marshal_NONE__NONE,
-				G_TYPE_NONE,
-			       	0);
-}
-
-typedef void (* IntervalNotificationFunc) (GtkObject *object, GList *id_list,
-					   gpointer data);
-
-static void
-marshal_interval_notification (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
-{
-	IntervalNotificationFunc rfunc;
-
-	rfunc = (IntervalNotificationFunc) func;
-	(* func) (object, GTK_VALUE_POINTER (args[0]), data);
-}
-
-
-GtkType 
-eog_collection_model_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type) {
-		GtkTypeInfo info = {
-			"EogCollectionModel",
-			sizeof (EogCollectionModel),
-			sizeof (EogCollectionModelClass),
-			(GtkClassInitFunc)  eog_collection_model_class_init,
-			(GtkObjectInitFunc) eog_collection_model_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (
-			gtk_object_get_type (), &info);
-	}
-
-	return type;
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionModelClass, base_uri_changed),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
 }
 
 void
@@ -237,8 +210,8 @@ eog_collection_model_construct (EogCollectionModel *model)
        
 	/* init loader */
 	loader = eog_image_loader_new (92,68);
-	gtk_signal_connect (GTK_OBJECT (loader), "loading_finished", 
-			    image_loading_finished_cb, model);
+	g_signal_connect (G_OBJECT (loader), "loading_finished", 
+			  G_CALLBACK (image_loading_finished_cb), model);
 
 	model->priv->loader = loader;
 
@@ -252,7 +225,7 @@ eog_collection_model_new (void)
 {
 	EogCollectionModel *model;
 	
-	model = gtk_type_new (EOG_TYPE_COLLECTION_MODEL);
+	model = EOG_COLLECTION_MODEL (g_object_new (EOG_TYPE_COLLECTION_MODEL, NULL));
 
 	eog_collection_model_construct (model);
 
@@ -322,13 +295,13 @@ remove_item_idle (gpointer user_data)
 	if (g_slist_find (priv->selected_images, image)) {
 		priv->selected_images = g_slist_remove (priv->selected_images,
 							image);
-		gtk_signal_emit (GTK_OBJECT (data->model),
-				 eog_model_signals [SELECTION_CHANGED]);
+		g_signal_emit_by_name (G_OBJECT (data->model),
+				       "selection_changed");
 	}
 
 	id_list = g_list_append (NULL, GINT_TO_POINTER (data->id));
-	gtk_signal_emit (GTK_OBJECT (data->model),
-			 eog_model_signals [INTERVAL_REMOVED], id_list);
+	g_signal_emit_by_name (G_OBJECT (data->model),
+			       "interval_removed", id_list);
 
 	g_free (data);
 
@@ -362,6 +335,7 @@ directory_visit_cb (const gchar *rel_path,
 	CImage *img;
 	LoadingContext *ctx;
 	GnomeVFSURI *uri;
+	GnomeVFSResult result;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
 	GList *id_list = NULL;
@@ -372,9 +346,19 @@ directory_visit_cb (const gchar *rel_path,
 	model = ctx->model;
 	priv = model->priv;
 
+	result = gnome_vfs_get_file_info_uri (ctx->uri, 
+					      info,
+					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+	if (result != GNOME_VFS_OK || 
+	    !g_strncasecmp (info->mime_type, "image/", 6))
+	{
+		return TRUE;
+	}
+		
 	g_print ("rel_path: %s\n", rel_path);
 	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_path);
-	g_print ("uri.toString(): %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+	g_print ("uri.toString(): %s\n", 
+		 gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 
 	img = cimage_new_uri (uri);			
 	gnome_vfs_uri_unref (uri);
@@ -386,9 +370,9 @@ directory_visit_cb (const gchar *rel_path,
 			     img);
 	id_list = g_list_append (id_list, 
 				 GINT_TO_POINTER (id));
-	gtk_signal_emit (GTK_OBJECT (model), 
-			 eog_model_signals [INTERVAL_ADDED],
-			 id_list);
+	g_signal_emit_by_name (G_OBJECT (model), 
+			       "interval_added",
+			       id_list);
 	
 	eog_image_loader_start (priv->loader, img);
 
@@ -399,34 +383,21 @@ directory_visit_cb (const gchar *rel_path,
 	return TRUE;
 }
 
-static gboolean  
-directory_filter_cb (const GnomeVFSFileInfo *info, gpointer data)
-{
-	g_print ("check for mime type: %s\n", info->mime_type);
-	return (g_strncasecmp (info->mime_type, "image/", 6) == 0);	
-}
-
 static gint
 real_dir_loading (LoadingContext *ctx)
 {
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
-	GnomeVFSDirectoryFilter *filter;
 
 	g_return_val_if_fail (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY, FALSE);
 
 	model = ctx->model;
 	priv = model->priv;
 
-	filter = gnome_vfs_directory_filter_new_custom (directory_filter_cb,
-							GNOME_VFS_DIRECTORY_FILTER_NEEDS_MIMETYPE,
-							NULL);
-
 	gnome_vfs_directory_visit_uri (ctx->uri,
 				       GNOME_VFS_FILE_INFO_DEFAULT |
 				       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
 				       GNOME_VFS_FILE_INFO_GET_MIME_TYPE,
-				       filter,
 				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
 				       directory_visit_cb,
 				       ctx);
@@ -471,9 +442,9 @@ real_file_loading (LoadingContext *ctx)
 				     img);
 		id_list = g_list_append (id_list, 
 					 GINT_TO_POINTER (id));
-		gtk_signal_emit (GTK_OBJECT (model), 
-				 eog_model_signals [INTERVAL_ADDED],
-				 id_list);
+		g_signal_emit_by_name (G_OBJECT (model), 
+				       "interval_added",
+				       id_list);
 		
 		eog_image_loader_start (priv->loader, img);
 	}
@@ -528,7 +499,7 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	priv = model->priv;
 
 	ctx = prepare_context (model, text_uri);
-
+	
 	if (ctx != NULL) {
 		if (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
 			gtk_idle_add ((GtkFunction) real_dir_loading, ctx);
@@ -545,13 +516,12 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	}	
 	
 	if (priv->base_uri == NULL) {
-		priv->base_uri = g_strdup (gnome_vfs_uri_get_basename (ctx->uri));
-		gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
+		priv->base_uri = g_strdup (gnome_vfs_uri_get_path (ctx->uri));
 	} else {
 		g_free (priv->base_uri);
 		priv->base_uri = g_strdup("multiple");
-		gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
 	}
+	g_signal_emit_by_name (G_OBJECT (model), "base_uri_changed");
 }
 
 void 
@@ -592,7 +562,7 @@ eog_collection_model_set_uri_list (EogCollectionModel *model,
 	if (model->priv->base_uri != NULL)
 		g_free (model->priv->base_uri);
 	model->priv->base_uri = g_strdup ("multiple");
-	gtk_signal_emit (GTK_OBJECT (model), eog_model_signals [BASE_URI_CHANGED]);
+	g_signal_emit_by_name (G_OBJECT (model), "base_uri_changed");
 }
 
 void
@@ -603,9 +573,9 @@ image_loading_finished_cb (EogImageLoader *loader, CImage *img, gpointer model)
 	id_list = g_list_append (id_list, 
 				 GINT_TO_POINTER (cimage_get_unique_id (img)));
 
-	gtk_signal_emit (GTK_OBJECT (model), 
-			 eog_model_signals [INTERVAL_CHANGED],
-			 id_list);
+	g_signal_emit_by_name (G_OBJECT (model), 
+			       "interval_changed",
+			       id_list);
 }
 
 
@@ -656,8 +626,7 @@ select_all_images (EogCollectionModel *model)
 	priv->selected_images = NULL;
 
 	/* FIXME: not finished yet */
-	gtk_signal_emit (GTK_OBJECT (model), 
-			 eog_model_signals [SELECTION_CHANGED]);
+	g_signal_emit_by_name (G_OBJECT (model), "selection_changed");
 }
 
 static void
@@ -682,12 +651,12 @@ unselect_all_images (EogCollectionModel *model)
 	model->priv->selected_images = NULL;
 
 	if (id_list)
-		gtk_signal_emit (GTK_OBJECT (model), 
-				 eog_model_signals [INTERVAL_CHANGED],
-				 id_list);
+		g_signal_emit_by_name (G_OBJECT (model), 
+				       "interval_changed",
+				       id_list);
 
-	gtk_signal_emit (GTK_OBJECT (model), 
-			 eog_model_signals [SELECTION_CHANGED]);
+	g_signal_emit_by_name (G_OBJECT (model), 
+			       "slection_changed");
 }
 
 void
@@ -713,11 +682,8 @@ eog_collection_model_set_select_status (EogCollectionModel *model,
 	id_list = g_list_append (NULL,
 			GINT_TO_POINTER (cimage_get_unique_id (image)));
 
-	gtk_signal_emit (GTK_OBJECT (model),
-			 eog_model_signals [INTERVAL_CHANGED], id_list);
-	
-	gtk_signal_emit (GTK_OBJECT (model),
-			 eog_model_signals [SELECTION_CHANGED]);
+	g_signal_emit_by_name (G_OBJECT (model), "interval_changed", id_list);
+	g_signal_emit_by_name (G_OBJECT (model), "selection_changed");
 }
 
 void
@@ -761,12 +727,11 @@ void eog_collection_model_toggle_select_status (EogCollectionModel *model,
 	id_list = g_list_append (id_list, GINT_TO_POINTER (id));
 
 	if (id_list != NULL) 
-		gtk_signal_emit (GTK_OBJECT (model), 
-				 eog_model_signals [INTERVAL_CHANGED],
-				 id_list);
+		g_signal_emit_by_name (G_OBJECT (model), 
+				       "interval_changed",
+				       id_list);
 
-	gtk_signal_emit (GTK_OBJECT (model), 
-			 eog_model_signals [SELECTION_CHANGED]);
+	gtk_signal_emit_by_name (G_OBJECT (model), "selection_changed");
 }
 
 

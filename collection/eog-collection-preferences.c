@@ -97,13 +97,13 @@ ecp_create_view_page (GConfClient *client)
 	for (i = 0; i < 3; i++) {
 		GtkWidget *item;		
 		item = gtk_radio_menu_item_new_with_label (group, prefs_layout[i]);
-		group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (item));
-		gtk_menu_append (GTK_MENU (menu), item);
+		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 		gtk_widget_show (item);
 
-		gtk_signal_connect (GTK_OBJECT (item), "activate",
-				    (GtkSignalFunc) ecp_activate_layout_cb, client);
-		gtk_object_set_data (GTK_OBJECT (item), "number", GINT_TO_POINTER (i));
+		g_signal_connect (G_OBJECT (item), "activate",
+				  G_CALLBACK (ecp_activate_layout_cb), client);
+		g_object_set_data (G_OBJECT (item), "number", GINT_TO_POINTER (i));
 	}
 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
@@ -143,8 +143,8 @@ ecp_create_view_page (GConfClient *client)
 					   222, 222, 222, 255);
 	}
 
-	gtk_signal_connect (GTK_OBJECT (cp), "color_set",
-			    GTK_SIGNAL_FUNC (ecp_activate_color_cb), client);
+	g_signal_connect (G_OBJECT (cp), "color_set",
+			  G_CALLBACK (ecp_activate_color_cb), client);
 
 	gtk_table_attach (GTK_TABLE (table),
 			  gtk_label_new (_("Background Color:")),

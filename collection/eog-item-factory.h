@@ -23,7 +23,7 @@
 #ifndef EOG_ITEM_FACTORY_H
 #define EOG_ITEM_FACTORY_H
 
-#include <libgnomeui/gnome-canvas.h>
+#include <libgnomecanvas/gnome-canvas.h>
 #include "eog-collection-model.h"
 
 G_BEGIN_DECLS
@@ -46,11 +46,11 @@ typedef struct _EogItemFactory EogItemFactory;
 typedef struct _EogItemFactoryClass EogItemFactoryClass;
 
 struct _EogItemFactory {
-	GtkObject object;
+	GObject object;
 };
 
 struct _EogItemFactoryClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 
 	/* Item mutation signals */
 	GnomeCanvasItem *(* create_item) (EogItemFactory *factory, 
@@ -69,9 +69,9 @@ struct _EogItemFactoryClass {
 };
 
 
-GtkType eog_item_factory_get_type (void);
+GType eog_item_factory_get_type (void);
 
-GtkObject* eog_item_factory_new (void);
+GObject* eog_item_factory_new (void);
 
 GnomeCanvasItem *eog_item_factory_create_item (EogItemFactory *factory,
 					       GnomeCanvasGroup *parent,

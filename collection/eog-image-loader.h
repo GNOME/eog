@@ -1,23 +1,23 @@
 #ifndef _EOG_IMAGE_LOADER_H_
 #define _EOG_IMAGE_LOADER_H_
 
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
 #include "cimage.h"
 
 G_BEGIN_DECLS
 
-#define EOG_IMAGE_LOADER_TYPE       (eog_image_loader_get_type ())
-#define EOG_IMAGE_LOADER(o)         (GTK_CHECK_CAST ((o), EOG_IMAGE_LOADER_TYPE, EogImageLoader))
-#define EOG_IMAGE_LOADER_CLASS(k)   (GTK_CHECK_CLASS_CAST((k), EOG_IMAGE_LOADER_TYPE, EogImageLoaderClass))
-#define EOG_IS_IMAGE_LOADER(o)      (GTK_CHECK_TYPE ((o), EOG_IMAGE_LOADER_TYPE))
-#define EOG_IS_IMAGE_LOADER_CLASS(k)    (GTK_CHECK_CLASS_TYPE ((k), EOG_IMAGE_LOADER_TYPE))
+#define EOG_TYPE_IMAGE_LOADER       (eog_image_loader_get_type ())
+#define EOG_IMAGE_LOADER(o)         (GTK_CHECK_CAST ((o), EOG_TYPE_IMAGE_LOADER, EogImageLoader))
+#define EOG_IMAGE_LOADER_CLASS(k)   (GTK_CHECK_CLASS_CAST((k), EOG_TYPE_IMAGE_LOADER, EogImageLoaderClass))
+#define EOG_IS_IMAGE_LOADER(o)      (GTK_CHECK_TYPE ((o), EOG_TYPE_IMAGE_LOADER))
+#define EOG_IS_IMAGE_LOADER_CLASS(k)    (GTK_CHECK_CLASS_TYPE ((k), EOG_TYPE_IMAGE_LOADER))
 
 typedef struct _EogImageLoader  EogImageLoader;
 typedef struct _EogImageLoaderClass EogImageLoaderClass;
 typedef struct _EogImageLoaderPrivate EogImageLoaderPrivate;
 
 struct _EogImageLoaderClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 
 	void (* loading_finished) (EogImageLoader *loader, CImage *img);
 	void (* loading_canceled) (EogImageLoader *loader, CImage *img);
@@ -25,13 +25,13 @@ struct _EogImageLoaderClass {
 };
 
 struct _EogImageLoader {
-	GtkObject parent;
+	GObject parent;
 	
 	EogImageLoaderPrivate *priv;
 };
 
 
-GtkType eog_image_loader_get_type (void);
+GType eog_image_loader_get_type (void);
 
 EogImageLoader* 
 eog_image_loader_new (gint thumb_width, gint thumb_height);

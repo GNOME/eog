@@ -21,11 +21,12 @@
  */
 
 #include <config.h>
-#include <gdk/gdkx.h>
+#include <pango/pango-layout.h>
 #include <gtk/gtksignal.h>
-#include <gdk-pixbuf/gnome-canvas-pixbuf.h>
-#include <libgnomeui/gnome-canvas-rect-ellipse.h>
-#include <libgnomeui/gnome-canvas-text.h>
+#include <libgnome/gnome-macros.h>
+#include <libgnomecanvas/gnome-canvas-pixbuf.h>
+#include <libgnomecanvas/gnome-canvas-rect-ellipse.h>
+#include <libgnomecanvas/gnome-canvas-text.h>
 #include <libgnomevfs/gnome-vfs-types.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include "eog-item-factory-simple.h"
@@ -72,9 +73,9 @@ typedef struct {
 
 
 static void eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class);
-static void eog_item_factory_simple_init (EogItemFactorySimple *factory);
-static void eog_item_factory_simple_destroy (GtkObject *object);
-static void eog_item_factory_simple_finalize (GtkObject *object);
+static void eog_item_factory_simple_instance_init (EogItemFactorySimple *factory);
+static void eog_item_factory_simple_dispose (GObject *object);
+static void eog_item_factory_simple_finalize (GObject *object);
 static EogItemFactorySimple* eog_item_factory_simple_construct (EogItemFactorySimple *factory);
 
 static GnomeCanvasItem *ii_factory_create_item (EogItemFactory *factory,
@@ -85,56 +86,20 @@ static void ii_factory_update_item (EogItemFactory *factory,
 static void ii_factory_get_item_size (EogItemFactory *factory,
 				      gint *width, gint *height);
 
-static EogItemFactoryClass *parent_class;
-
-
-
-/**
- * eog_item_factory_simple_get_type:
- * @void:
- *
- * Registers the #EogItemFactorySimple class if necessary, and returns the type
- * ID associated to it.
- *
- * Return value: The type ID of the #EogItemFactorySimple class.
- **/
-GtkType
-eog_item_factory_simple_get_type (void)
-{
-	static GtkType ii_factory_type = 0;
-
-	if (!ii_factory_type) {
-		static const GtkTypeInfo ii_factory_info = {
-			"EogItemFactorySimple",
-			sizeof (EogItemFactorySimple),
-			sizeof (EogItemFactorySimpleClass),
-			(GtkClassInitFunc) eog_item_factory_simple_class_init,
-			(GtkObjectInitFunc) eog_item_factory_simple_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		ii_factory_type = gtk_type_unique (eog_item_factory_get_type (),
-						   &ii_factory_info);
-	}
-
-	return ii_factory_type;
-}
+GNOME_CLASS_BOILERPLATE (EogItemFactorySimple, eog_item_factory_simple,
+			 EogItemFactory, EOG_TYPE_ITEM_FACTORY);
 
 /* Class initialization function for the icon list item factory */
 static void
 eog_item_factory_simple_class_init (EogItemFactorySimpleClass *class)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *object_class;
         EogItemFactoryClass *ei_factory_class;
 
-	object_class = (GtkObjectClass *) class;
+	object_class = (GObjectClass *) class;
 	ei_factory_class = (EogItemFactoryClass *) class;
 
-	parent_class = gtk_type_class (eog_item_factory_get_type ());
-
-	object_class->destroy = eog_item_factory_simple_destroy;
+	object_class->dispose = eog_item_factory_simple_dispose;
 	object_class->finalize = eog_item_factory_simple_finalize;
 
 	ei_factory_class->create_item = ii_factory_create_item;
@@ -151,7 +116,7 @@ static char gray50_bits[] = {
 
 /* Object initialization function for the icon list item factory */
 static void
-eog_item_factory_simple_init (EogItemFactorySimple *factory)
+eog_item_factory_simple_instance_init (EogItemFactorySimple *factory)
 {
 	EogItemFactorySimplePrivate *priv;
 	EogSimpleMetrics *metrics;
@@ -170,7 +135,7 @@ eog_item_factory_simple_init (EogItemFactorySimple *factory)
 
 /* Destroy handler for the icon list item factory */
 static void
-eog_item_factory_simple_destroy (GtkObject *object)
+eog_item_factory_simple_dispose (GObject *object)
 {
 	EogItemFactorySimple *factory;
 	EogItemFactorySimplePrivate *priv;
@@ -193,12 +158,11 @@ eog_item_factory_simple_destroy (GtkObject *object)
 		g_object_unref (priv->shaded_bgr);
 	priv->shaded_bgr = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 static void
-eog_item_factory_simple_finalize (GtkObject *object)
+eog_item_factory_simple_finalize (GObject *object)
 {
 	EogItemFactorySimple *factory;
 
@@ -208,8 +172,7 @@ eog_item_factory_simple_finalize (GtkObject *object)
 	factory = EOG_ITEM_FACTORY_SIMPLE (object);
 	g_free (factory->priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object)); 
 }
 
 
@@ -218,7 +181,7 @@ eog_item_factory_simple_finalize (GtkObject *object)
 
 /* Called when an icon's main group is destroyed */
 static void
-icon_destroyed (GtkObject *object, gpointer data)
+icon_destroyed (GObject *object, gpointer data)
 {
 	IconItem *icon;
 
@@ -246,10 +209,10 @@ ii_factory_create_item (EogItemFactory *factory,
 					    "x", 0.0,
 					    "y", 0.0,
 					    NULL);
-	gtk_object_set_data (GTK_OBJECT (icon->item), "IconItem", icon);
-	gtk_signal_connect (GTK_OBJECT (icon->item), "destroy",
-			    icon_destroyed,
-			    icon);
+	g_object_set_data (G_OBJECT (icon->item), "IconItem", icon);
+	g_signal_connect (G_OBJECT (icon->item), "destroy",
+			  G_CALLBACK (icon_destroyed),
+			  icon);
 
 	/* Border */
 	icon->border = gnome_canvas_item_new (GNOME_CANVAS_GROUP (icon->item),
@@ -335,32 +298,38 @@ create_shaded_background (GdkPixbuf *pbf)
 
 /* Shrink the string until its pixel width is <= width */
 static char*
-shrink_to_width (char *str, GdkFont *font,  int width)
+shrink_to_width (char *str, PangoLayout *layout,  int width)
 {
 	char *buffer;
 	char *result;
 	const char *dots = "...";
 	int dot_width;
 	int len; 
+	int px_width, px_height;
 
 	buffer =  g_strdup (str);
 	len = strlen (buffer);	
 	g_assert (len > 0);
 
-	dot_width = gdk_string_width (font, dots);
+	/* FIXME: doesn't work with unicode */
+
+	pango_layout_set_text (layout, dots, -1);
+	pango_layout_get_pixel_size (layout, &dot_width, &px_height);
+
 	if (dot_width > width) {
 		g_warning ("Couldn't shrink %s to width %i.\n", str, width);
 		return NULL;
 	}
 
-	while (gdk_string_width (font, buffer) > (width - dot_width))
-	{
+	do {
 		--len;
 		if(len > 0)
 			buffer[len] = '\0';
 		else
 			break;
-	}
+		pango_layout_set_text (layout, buffer, -1);
+		pango_layout_get_pixel_size (layout, &px_width, &px_height);
+	} while (px_width > (width - dot_width));
 
 	result = g_strconcat (buffer, dots, NULL);
 	g_free (buffer);	
@@ -389,7 +358,7 @@ ii_factory_update_item (EogItemFactory *factory,
 	gchar *caption;
 
 	GtkStyle *style;
-	GdkFont *font;
+	PangoLayout  *p_layout;
 
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (EOG_IS_ITEM_FACTORY_SIMPLE (factory));
@@ -402,7 +371,7 @@ ii_factory_update_item (EogItemFactory *factory,
 	priv = ii_factory->priv;
 	metrics = priv->metrics;
 	
-	icon = gtk_object_get_data (GTK_OBJECT (item), "IconItem");
+	icon = g_object_get_data (G_OBJECT (item), "IconItem");
 	g_assert (icon != NULL);
 
 	cimage = eog_collection_model_get_image (model, icon->id);
@@ -424,33 +393,38 @@ ii_factory_update_item (EogItemFactory *factory,
 	/* Compute caption size; the font comes from the widget style */
 	style = gtk_widget_get_style (GTK_WIDGET (icon->caption->canvas));
 	g_assert (style != NULL);
-	font = style->font;
-	g_assert (font != NULL);
+
+	p_layout = pango_layout_new (NULL);
+	pango_layout_set_font_description (p_layout, style->font_desc);
+
+	g_assert (p_layout != NULL);
 
 	if (cimage_has_caption (cimage)) {
 		caption = cimage_get_caption (cimage);
-		caption_w = gdk_string_width (font, caption);
-		caption_h = gdk_string_height (font, caption);
+		pango_layout_set_text (p_layout, caption, -1);
+		pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
 	} else {
 		GnomeVFSURI *uri;
 		uri = cimage_get_uri (cimage);
-		caption = g_strdup (gnome_vfs_uri_get_basename (uri));
+		caption = g_strdup (gnome_vfs_uri_get_path (uri));
 	        gnome_vfs_uri_unref (uri);
 		
 		if (caption) {
-			caption_w = gdk_string_width (font, caption);
-			caption_h = font->ascent + font->descent;
+			pango_layout_set_text (p_layout, caption, -1);
+			pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
+
 			if (caption_w > metrics->twidth) {
 				caption = shrink_to_width (caption, 
-							   font, 
+							   p_layout, 
 							   metrics->twidth);
-				caption_w = gdk_string_width (font, caption);
+				pango_layout_get_pixel_size (p_layout, &caption_w, &caption_h);
 			}
 			cimage_set_caption (cimage, caption);
 			
 		} else
 			caption_w = caption_h = 0;
 	} 
+	g_object_unref (p_layout);
 
 	/* Configure image */
 	image_x = metrics->border + (metrics->twidth - image_w) / 2;
@@ -474,7 +448,7 @@ ii_factory_update_item (EogItemFactory *factory,
 
 	gnome_canvas_item_set (icon->caption,
 			       "text", caption,
-			       "font_gdk", font,
+			       "font_desc", style->font_desc,
 			       "anchor", GTK_ANCHOR_NW,
 			       "x", (double) caption_x,
 			       "y", (double) caption_y,
@@ -566,8 +540,9 @@ eog_item_factory_simple_construct (EogItemFactorySimple *factory)
 	priv = factory->priv;
 
 	/* load dummy pixmap file */
-	dummy_file = gnome_pixmap_file ("gnome-eog.png");
-	priv->dummy = gdk_pixbuf_new_from_file (dummy_file);
+	dummy_file = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_PIXMAP, 
+						"gnome-eog.png", TRUE, NULL);
+	priv->dummy = gdk_pixbuf_new_from_file (dummy_file, NULL);
 	g_free (dummy_file);
 
 	buffer = g_new0 (guchar, 3*priv->metrics->twidth * priv->metrics->theight);
@@ -592,7 +567,7 @@ eog_item_factory_simple_new (void)
 {
 	EogItemFactorySimple *factory;
 
-	factory = EOG_ITEM_FACTORY_SIMPLE (gtk_type_new (eog_item_factory_simple_get_type ()));
+	factory = EOG_ITEM_FACTORY_SIMPLE (g_object_new (EOG_TYPE_ITEM_FACTORY_SIMPLE, NULL));
 	return eog_item_factory_simple_construct (factory);
 }
 

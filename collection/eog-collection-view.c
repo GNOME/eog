@@ -21,9 +21,9 @@
 #include <libgnomevfs/gnome-vfs-ops.h>
 #include <libgnomevfs/gnome-vfs-result.h>
 #include <libgnomevfs/gnome-vfs-find-directory.h>
-#include <libgnome/gnome-defs.h>
 #include <libgnomeui/gnome-dialog-util.h>
 #include <gconf/gconf-client.h>
+#include <bonobo/bonobo-macros.h>
 
 #ifdef ENABLE_EVOLUTION
 #  include "Evolution-Composer.h"
@@ -34,6 +34,7 @@
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
 #include "eog-collection-preferences.h"
+#include "eog-collection-marshal.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -88,13 +89,17 @@ enum {
 
 static guint eog_collection_view_signals [LAST_SIGNAL];
 
-#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
+static void eog_collection_view_class_init (EogCollectionViewClass *klass);
+static void eog_collection_view_instance_init (EogCollectionView *obj);
+static void eog_collection_view_dispose (GObject *object);
 
-static BonoboObjectClass *eog_collection_view_parent_class;
+BONOBO_CLASS_BOILERPLATE (EogCollectionView, eog_collection_view,
+			  BonoboObject, BONOBO_TYPE_OBJECT);
+
 
 static void 
 impl_GNOME_EOG_ImageCollection_openURI (PortableServer_Servant servant,
-					GNOME_EOG_URI uri,
+					const CORBA_char * uri,
 					CORBA_Environment * ev)
 {
 	EogCollectionView *cview;
@@ -151,7 +156,7 @@ eog_collection_view_set_ui_container (EogCollectionView      *list_view,
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 
-	bonobo_ui_component_set_container (list_view->priv->uic, ui_container);
+	bonobo_ui_component_set_container (list_view->priv->uic, ui_container, NULL);
 
 	eog_collection_view_create_ui (list_view);
 }
@@ -162,7 +167,7 @@ eog_collection_view_unset_ui_container (EogCollectionView *list_view)
 	g_return_if_fail (list_view != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (list_view));
 
-	bonobo_ui_component_unset_container (list_view->priv->uic);
+	bonobo_ui_component_unset_container (list_view->priv->uic, NULL);
 }
 
 GtkWidget *
@@ -177,7 +182,7 @@ eog_collection_view_get_widget (EogCollectionView *list_view)
 }
 
 static void
-eog_collection_view_destroy (GtkObject *object)
+eog_collection_view_dispose (GObject *object)
 {
 	EogCollectionView *list_view;
 
@@ -205,11 +210,11 @@ eog_collection_view_destroy (GtkObject *object)
 	list_view->priv->wraplist = NULL;
 	list_view->priv->root = NULL;
 
-	GTK_OBJECT_CLASS (eog_collection_view_parent_class)->destroy (object);
+	BONOBO_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 static void
-eog_collection_view_finalize (GtkObject *object)
+eog_collection_view_finalize (GObject *object)
 {
 	EogCollectionView *list_view;
 
@@ -220,21 +225,16 @@ eog_collection_view_finalize (GtkObject *object)
 
 	g_free (list_view->priv);
 
-	if(GTK_OBJECT_CLASS (eog_collection_view_parent_class)->finalize)
-		GTK_OBJECT_CLASS (eog_collection_view_parent_class)->finalize (object);
+	BONOBO_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
 static void
 eog_collection_view_class_init (EogCollectionViewClass *klass)
 {
-	GtkObjectClass *object_class = (GtkObjectClass *)klass;
+	GObjectClass *object_class = (GObjectClass *)klass;
 	POA_GNOME_EOG_ImageCollection__epv *epv;
 
-	eog_collection_view_parent_class = gtk_type_class (PARENT_TYPE);
-
-	gtk_object_class_add_signals (object_class, eog_collection_view_signals, LAST_SIGNAL);
-
-	object_class->destroy = eog_collection_view_destroy;
+	object_class->dispose = eog_collection_view_dispose;
 	object_class->finalize = eog_collection_view_finalize;
 
 	epv = &klass->epv;
@@ -242,29 +242,23 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 	epv->openURIList = impl_GNOME_EOG_ImageCollection_openURIList;
 
 	eog_collection_view_signals [OPEN_URI] = 
-		gtk_signal_new ("open_uri",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (EogCollectionViewClass, open_uri),
-				gtk_marshal_NONE__POINTER,
-				GTK_TYPE_NONE, 1,
-				GTK_TYPE_POINTER);
-
-	gtk_object_class_add_signals (object_class, eog_collection_view_signals, LAST_SIGNAL);
-
+		g_signal_new ("open_uri",
+			      G_TYPE_FROM_CLASS(object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogCollectionViewClass, open_uri),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 }
 
 static void
-eog_collection_view_init (EogCollectionView *view)
+eog_collection_view_instance_init (EogCollectionView *view)
 {
 	view->priv = g_new0 (EogCollectionViewPrivate, 1);
 	view->priv->idle_id = -1;
 }
-
-BONOBO_X_TYPE_FUNC_FULL (EogCollectionView, 
-			 GNOME_EOG_ImageCollection,
-			 PARENT_TYPE,
-			 eog_collection_view);
 
 static void
 handle_double_click (EogWrapList *wlist, gint n, EogCollectionView *view)
@@ -306,7 +300,7 @@ delete_item (EogCollectionModel *model, guint n, gpointer user_data)
 					&trash, FALSE, FALSE, 0777);
 	if (result == GNOME_VFS_OK) {
 		path = gnome_vfs_uri_append_file_name (trash, 
-				gnome_vfs_uri_get_basename (uri));
+				gnome_vfs_uri_get_path (uri));
 		gnome_vfs_uri_unref (trash);
 		result = gnome_vfs_move_uri (uri, path, TRUE);
 		gnome_vfs_uri_unref (path);
@@ -458,8 +452,8 @@ handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event,
 	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (view), FALSE);
 
 	menu = gtk_menu_new ();
-	gtk_signal_connect (GTK_OBJECT (menu), "hide",
-			    GTK_SIGNAL_FUNC (kill_popup_menu), menu);
+	g_signal_connect (G_OBJECT (menu), "hide",
+			  G_CALLBACK (kill_popup_menu), menu);
 
 #ifdef ENABLE_EVOLUTION
 	label = gtk_label_new (_("Send"));
@@ -480,10 +474,10 @@ handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event,
 
 	item = gtk_menu_item_new ();
 	gtk_widget_show (item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate",
-			    GTK_SIGNAL_FUNC (handle_delete_activate), view);
+	g_signal_connect (G_OBJECT (item), "activate",
+			  G_CALLBACK (handle_delete_activate), view);
 	gtk_container_add (GTK_CONTAINER (item), label);
-	gtk_menu_append (GTK_MENU (menu), item);
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
 	gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
 			event->button.button, event->button.time);
@@ -546,7 +540,7 @@ eog_collection_view_get_prop (BonoboPropertyBag *bag,
 			uri = cimage_get_uri (img);
 			g_assert (uri != NULL);
 			g_snprintf (str, 70, "Images: %i  %s (%i x %i)", nimg,
-				    gnome_vfs_uri_get_basename (uri),
+				    gnome_vfs_uri_get_path (uri),
 				    cimage_get_width (img),
 				    cimage_get_height (img));
 			gnome_vfs_uri_unref (uri);
@@ -655,7 +649,7 @@ update_properties (EogCollectionView *view)
 						      view);
 		
 			g_print ("notify %s listners.\n", property_name[p]);
-			bonobo_property_bag_notify_listeners (priv->property_bag,
+			bonobo_event_source_notify_listeners (priv->property_bag->es,
 							      property_name[p],
 							      arg, NULL);
 			priv->need_update_prop[p] = FALSE;
@@ -840,18 +834,18 @@ eog_collection_view_construct (EogCollectionView *list_view)
 	/* construct widget */
 	g_assert (EOG_IS_COLLECTION_VIEW (list_view));
 	priv->model = eog_collection_model_new ();
-	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_added", 
-			    model_size_changed,
-			    list_view);
-	gtk_signal_connect (GTK_OBJECT (priv->model), "interval_removed", 
-			    model_size_changed,
-			    list_view);
-	gtk_signal_connect (GTK_OBJECT (priv->model), "selection_changed",
-			    model_selection_changed,
-			    list_view);
-	gtk_signal_connect (GTK_OBJECT (priv->model), "base_uri_changed",
-			    model_base_uri_changed,
-			    list_view);
+	g_signal_connect (G_OBJECT (priv->model), "interval_added", 
+			  G_CALLBACK (model_size_changed),
+			  list_view);
+	g_signal_connect (G_OBJECT (priv->model), "interval_removed", 
+			  G_CALLBACK (model_size_changed),
+			  list_view);
+	g_signal_connect (G_OBJECT (priv->model), "selection_changed",
+			  G_CALLBACK (model_selection_changed),
+			  list_view);
+	g_signal_connect (G_OBJECT (priv->model), "base_uri_changed",
+			  G_CALLBACK (model_base_uri_changed),
+			  list_view);
 
 	priv->factory = EOG_ITEM_FACTORY (eog_item_factory_simple_new ());
 
@@ -864,10 +858,10 @@ eog_collection_view_construct (EogCollectionView *list_view)
 				   EOG_ITEM_FACTORY (priv->factory));
 	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
-	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "double_click", 
-			    GTK_SIGNAL_FUNC (handle_double_click), list_view);
-	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "right_click",
-			    GTK_SIGNAL_FUNC (handle_right_click), list_view);
+	g_signal_connect (G_OBJECT (priv->wraplist), "double_click", 
+			  G_CALLBACK (handle_double_click), list_view);
+	g_signal_connect (G_OBJECT (priv->wraplist), "right_click",
+			  G_CALLBACK (handle_right_click), list_view);
 
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);
@@ -900,7 +894,8 @@ eog_collection_view_new (void)
 {
 	EogCollectionView *list_view;
 
-	list_view = gtk_type_new (eog_collection_view_get_type ());
+	list_view = 
+		EOG_COLLECTION_VIEW (g_object_new (EOG_TYPE_COLLECTION_VIEW, NULL));
 
 	return eog_collection_view_construct (list_view);
 }

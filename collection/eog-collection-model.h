@@ -50,13 +50,13 @@ typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model,
 #define EOG_MODEL_ID_NONE  -3 /* Random number, same as NULL otherwise.*/
 
 struct _EogCollectionModel {
-	GtkObject parent_object;
+	GObject parent_object;
 	
 	EogCollectionModelPrivate *priv;
 };
 
 struct _EogCollectionModelClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 
 	/* Notification signals */
 	void (* interval_changed) (EogCollectionModel *model, GList *id_list);
@@ -68,7 +68,7 @@ struct _EogCollectionModelClass {
 };
 
 
-GtkType 
+GType 
 eog_collection_model_get_type               (void);
 
 EogCollectionModel*

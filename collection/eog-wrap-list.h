@@ -61,7 +61,7 @@ struct _EogWrapListClass {
 };
 
 
-GtkType eog_wrap_list_get_type (void);
+GType eog_wrap_list_get_type (void);
 
 GtkWidget* eog_wrap_list_new (void);
 

@@ -8,11 +8,21 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
         -I$(includedir)                                 \
-	$(GCONF_CFLAGS)					\
 	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 
 bin_PROGRAMS = eog-collection
+
+$(eog_collection_OBJECTS): eog-collection-marshal.c eog-collection-marshal.h
+
+eog-collection-marshal.h: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal h" && \
+        $(GLIB_GENMARSHAL) $< --header --prefix=eog_collection_marshal > $@
+
+eog-collection-marshal.c: eog-collection-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal c" && \
+        $(GLIB_GENMARSHAL) $< --body --prefix=eog_collection_marshal > $@
+
 
 if ENABLE_EVOLUTION
 EVOLUTION_GENERATED =			\
@@ -24,6 +34,8 @@ endif
 
 eog_collection_SOURCES =		\
 	$(EVOLUTION_GENERATED)		\
+	eog-collection-marshal.h	\
+	eog-collection-marshal.c	\
 	eog-wrap-list.c			\
 	eog-wrap-list.h			\
 	eog-collection-control.c        \
@@ -44,18 +56,20 @@ eog_collection_SOURCES =		\
 	eog-collection-preferences.c	\
 	main.c
 
+eog_collection_DEPENDENCIES = $(top_builddir)/libeog/libeog.a
+
 eog_collection_LDADD = 			\
+	-L$(top_builddir)/libeog		\
+	-leog					\
 	$(EOG_LIBS)				\
 	$(INTLLIBS)				\
-	$(LIBPNG) $(LIBJPEG)			\
-	../libeog/libeog.la
+	$(LIBPNG) $(LIBJPEG)
 
-oafdir = $(datadir)/oaf
+serverdir = $(libdir)/bonobo/servers
+server_in_files = GNOME_EOG_Collection.server.in
+server_DATA = $(server_in_files:.server.in=.server)
 
-oaf_in_files = GNOME_EOG_Collection.oaf.in
-oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
-
-@INTLTOOL_OAF_RULE@
+@INTLTOOL_SERVER_RULE@
 
 if ENABLE_EVOLUTION
 $(EVOLUTION_GENERATED):
@@ -63,4 +77,4 @@ $(EVOLUTION_GENERATED):
 endif
 
 CLEANFILES += $(EVOLUTION_GENERATED)
-EXTRA_DIST = $(oaf_in_files) $(oaf_DATA)
+EXTRA_DIST = $(server_in_files)

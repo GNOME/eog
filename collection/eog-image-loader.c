@@ -7,10 +7,12 @@
 #include <libgnomevfs/gnome-vfs-types.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
+#include <libgnome/gnome-macros.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "eog-image-loader.h"
 #include "cimage.h"
-#include <gdk-pixbuf/gdk-pixbuf-loader.h>
+#include "eog-collection-marshal.h"
 
 typedef struct {
 	EogImageLoader *loader;
@@ -38,77 +40,53 @@ struct _EogImageLoaderPrivate {
 	gboolean cancel_loading;
 };
 
-GtkObjectClass *parent_class;
-
 static void eog_image_loader_class_init (EogImageLoaderClass *klass);
-static void eog_image_loader_init (EogImageLoader *loader);
-static void eog_image_loader_destroy (GtkObject *obj);
+static void eog_image_loader_instance_init (EogImageLoader *loader);
+static void eog_image_loader_dispose (GObject *obj);
 
 static gint setup_next_uri (EogImageLoader *loader);
 
-GtkType 
-eog_image_loader_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type) {
-		GtkTypeInfo info = {
-			"EogImageLoader",
-			sizeof (EogImageLoader),
-			sizeof (EogImageLoaderClass),
-			(GtkClassInitFunc)  eog_image_loader_class_init,
-			(GtkObjectInitFunc) eog_image_loader_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (
-			gtk_object_get_type (), &info);
-	}
-
-	return type;
-}
+GNOME_CLASS_BOILERPLATE (EogImageLoader, eog_image_loader,
+			 GObject, G_TYPE_OBJECT);
 
 void 
 eog_image_loader_class_init (EogImageLoaderClass *klass)
 {
-	GtkObjectClass *obj_class = (GtkObjectClass*) klass;
-
-	parent_class = gtk_type_class (gtk_object_get_type ());
+	GObjectClass *obj_class = (GObjectClass*) klass;
 
 	eog_image_loader_signals [LOADING_FINISHED] = 
-		gtk_signal_new ("loading_finished",
-				GTK_RUN_FIRST,
-				obj_class->type,
-				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_finished),
-				gtk_marshal_NONE__POINTER, 
-				GTK_TYPE_NONE, 1,
-				TYPE_CIMAGE);
+		g_signal_new ("loading_finished",
+			      G_TYPE_FROM_CLASS (obj_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogImageLoaderClass, loading_finished),
+			      NULL, NULL,
+			      eog_collection_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_POINTER);
 	eog_image_loader_signals [LOADING_CANCELED] = 
 		gtk_signal_new ("loading_canceled",
-				GTK_RUN_FIRST,
-				obj_class->type,
-				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_canceled),
-				gtk_marshal_NONE__POINTER, 
-				GTK_TYPE_NONE, 1,
-				TYPE_CIMAGE);
+				G_TYPE_FROM_CLASS (obj_class),
+				G_SIGNAL_RUN_FIRST,
+				G_STRUCT_OFFSET (EogImageLoaderClass, loading_canceled),
+				NULL, NULL,
+			        eog_collection_marshal_VOID__POINTER, 
+				G_TYPE_NONE, 1,
+				G_TYPE_POINTER);
 	eog_image_loader_signals [LOADING_FAILED] = 
 		gtk_signal_new ("loading_failed",
-				GTK_RUN_FIRST,
-				obj_class->type,
-				GTK_SIGNAL_OFFSET (EogImageLoaderClass, loading_failed),
-				gtk_marshal_NONE__POINTER, 
-				GTK_TYPE_NONE, 1,
-				TYPE_CIMAGE);
+				G_TYPE_FROM_CLASS (obj_class),
+				G_SIGNAL_RUN_FIRST,
+				G_STRUCT_OFFSET (EogImageLoaderClass, loading_failed),
+				NULL, NULL,
+				eog_collection_marshal_VOID__POINTER,
+				G_TYPE_NONE, 1,
+				G_TYPE_POINTER);
 
-	gtk_object_class_add_signals (obj_class, eog_image_loader_signals, LAST_SIGNAL);
-
-	obj_class->destroy = eog_image_loader_destroy;
+	obj_class->dispose = eog_image_loader_dispose;
 }
 
 void 
-eog_image_loader_init (EogImageLoader *loader)
+eog_image_loader_instance_init (EogImageLoader *loader)
 {
 	EogImageLoaderPrivate *priv;
 
@@ -121,7 +99,7 @@ eog_image_loader_init (EogImageLoader *loader)
 }
 
 void 
-eog_image_loader_destroy (GtkObject *obj)
+eog_image_loader_dispose (GObject *obj)
 {
 	EogImageLoader *loader;
 
@@ -130,8 +108,7 @@ eog_image_loader_destroy (GtkObject *obj)
 
 	loader = EOG_IMAGE_LOADER (obj);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy (obj);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 EogImageLoader* 
@@ -139,7 +116,7 @@ eog_image_loader_new (gint thumb_width, gint thumb_height)
 {
 	EogImageLoader *loader;
 
-	loader = gtk_type_new (eog_image_loader_get_type ());
+	loader = EOG_IMAGE_LOADER (g_object_new (EOG_TYPE_IMAGE_LOADER, NULL));
 	loader->priv->thumb_width = thumb_width;
 	loader->priv->thumb_height = thumb_height;
 
@@ -209,11 +186,11 @@ loading_canceled (EILContext *ctx)
 #ifdef COLLECTION_DEBUG
 	g_message ("Loading canceled\n");
 #endif
-	gtk_signal_emit (GTK_OBJECT (ctx->loader),
-				 eog_image_loader_signals [LOADING_CANCELED],
-				 ctx->cimg);
+	g_signal_emit_by_name (G_OBJECT (ctx->loader),
+			       "loading_canceled",
+			       ctx->cimg);
 	if (ctx->pbf_loader)
-		gdk_pixbuf_loader_close (ctx->pbf_loader);
+		gdk_pixbuf_loader_close (ctx->pbf_loader, NULL);
 	g_free (ctx);
 
 	loader->priv->cancel_loading = FALSE;
@@ -254,9 +231,9 @@ loading_finished (EILContext *ctx)
 			g_object_unref (thumb);
 			g_object_unref (pbf);
 			
-			g_signal_emit (ctx->loader,
-				       eog_image_loader_signals [LOADING_FINISHED],
-				       ctx->cimg);
+			g_signal_emit_by_name (G_OBJECT (ctx->loader),
+					       "loading_finished",
+					       ctx->cimg);
 		} else {
 			loading_failed = TRUE;
 		}
@@ -267,9 +244,9 @@ loading_finished (EILContext *ctx)
  		g_message ("Loading failed for: %s\n", cimage_get_uri (ctx->cimg)->text);
 #endif
 		cimage_set_loading_failed (ctx->cimg);
-		g_signal_emit (ctx->loader,
-			       eog_image_loader_signals [LOADING_FAILED],
-			       ctx->cimg);
+		g_signal_emit_by_name (G_OBJECT (ctx->loader),
+				       "loading_failed",
+				       ctx->cimg);
 	}
 	g_free (ctx);
 
@@ -320,7 +297,7 @@ load_uri (EILContext *ctx)
 		if (bytes_read == 0) break; /* reached end of stream */
 			
 		if(!gdk_pixbuf_loader_write(ctx->pbf_loader,
-					    buffer, bytes_read)) {
+					    buffer, bytes_read, NULL)) {
 			goto loading_error;
 		}
 		
@@ -332,7 +309,7 @@ load_uri (EILContext *ctx)
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
-	gdk_pixbuf_loader_close (ctx->pbf_loader);
+	gdk_pixbuf_loader_close (ctx->pbf_loader, NULL);
 		
 	if (priv->cancel_loading) 
 		loading_canceled (ctx);

@@ -20,16 +20,16 @@ typedef struct _CImage CImage;
 typedef struct _CImagePrivate CImagePrivate;
 
 struct _CImageClass {
-	GtkObjectClass parent_class;
+	GObjectClass parent_class;
 };
 
 struct _CImage {
-	GtkObject parent;
+	GObject parent;
 	
 	CImagePrivate *priv;
 };
 
-GtkType    cimage_get_type (void);
+GType      cimage_get_type (void);
 CImage    *cimage_new (gchar *text_uri);
 CImage    *cimage_new_uri (GnomeVFSURI *uri);
 

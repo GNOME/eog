@@ -71,7 +71,7 @@ typedef struct {
 } EogSimpleMetrics;
 
 
-GtkType eog_item_factory_simple_get_type (void);
+GType eog_item_factory_simple_get_type (void);
 
 EogItemFactorySimple *eog_item_factory_simple_new (void);
 

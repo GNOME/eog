@@ -30,20 +30,20 @@ typedef struct _EogCollectionViewClass    EogCollectionViewClass;
 typedef struct _EogCollectionViewPrivate  EogCollectionViewPrivate;
 
 struct _EogCollectionView {
-	BonoboXObject base;
+	BonoboObject base;
 
 	EogCollectionViewPrivate *priv;
 };
 
 struct _EogCollectionViewClass {
-	BonoboXObjectClass parent_class;
+	BonoboObjectClass parent_class;
 
 	void (*open_uri) (EogCollectionView *view, gchar *uri);
 
 	POA_GNOME_EOG_ImageCollection__epv epv;
 };
 
-GtkType                  eog_collection_view_get_type  (void);
+GType                   eog_collection_view_get_type  (void);
 
 EogCollectionView       *eog_collection_view_new                 (void);
 GNOME_EOG_ImageCollection eog_collection_view_corba_object_create (BonoboObject       *object);

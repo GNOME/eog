@@ -19,12 +19,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include <config.h>
-
-//#include <gtk/gtkmain.h>
-//#include <gtk/gtksignal.h>
 #include <glib/gmain.h>
+#include <libgnome/gnome-macros.h>
 
 #include "eog-wrap-list.h"
+#include "eog-collection-marshal.h"
 #include <math.h>
 
 
@@ -120,8 +119,8 @@ struct _EogWrapListPrivate {
 };
 
 static void eog_wrap_list_class_init (EogWrapListClass *class);
-static void eog_wrap_list_init (EogWrapList *wlist);
-static void eog_wrap_list_destroy (GObject *object);
+static void eog_wrap_list_instance_init (EogWrapList *wlist);
+static void eog_wrap_list_dispose (GObject *object);
 static void eog_wrap_list_finalize (GObject *object);
 
 static void eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
@@ -130,108 +129,54 @@ static void request_update (EogWrapList *wlist);
 static void do_update (EogWrapList *wlist);
 static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data);
 
-
-static GnomeCanvasClass *parent_class;
-#define PARENT_TYPE gnome_canvas_get_type ()
-
-typedef gboolean (*EogWrapListSignal_BOOL__INT_POINTER) (GObject *object,
-							 gint arg1,
-							 gpointer arg3,
-							 gpointer data);
-
-static void
-eog_wrap_list_marshal_BOOL_INT_POINTER (GObject *object, GtkSignalFunc func,
-				        gpointer func_data, GtkArg *args)
-{
-	EogWrapListSignal_BOOL__INT_POINTER rfunc;
-	gboolean *return_val;
-
-	return_val = GTK_RETLOC_BOOL (args[2]);
-	rfunc = (EogWrapListSignal_BOOL__INT_POINTER) func;
-	*return_val = (*rfunc) (object, GTK_VALUE_INT     (args[0]),
-					GTK_VALUE_POINTER (args[1]),
-					func_data);
-}
-
-
-
-/**
- * eog_wrap_list_get_type:
- * @void:
- *
- * Registers the #EogWrapList class if necessary, and returns the type ID
- * associated to it.
- *
- * Return value: The type ID of the #EogWrapList class.
- **/
-GtkType
-eog_wrap_list_get_type (void)
-{
-	static GtkType wrap_list_type = 0;
-
-	if (!wrap_list_type) {
-		static const GtkTypeInfo wrap_list_info = {
-			"EogWrapList",
-			sizeof (EogWrapList),
-			sizeof (EogWrapListClass),
-			(GtkClassInitFunc) eog_wrap_list_class_init,
-			(GtkObjectInitFunc) eog_wrap_list_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		wrap_list_type = gtk_type_unique (PARENT_TYPE, &wrap_list_info);
-	}
-
-	return wrap_list_type;
-}
+GNOME_CLASS_BOILERPLATE (EogWrapList,
+			 eog_wrap_list,
+			 GnomeCanvas,
+			 GNOME_TYPE_CANVAS);
 
 /* Class initialization function for the abstract wrapped list view */
 static void
 eog_wrap_list_class_init (EogWrapListClass *class)
 {
 	GObjectClass *object_class;
-	GObjectClass *widget_class;
+	GtkWidgetClass *widget_class;
 
 	object_class = (GObjectClass *) class;
-	widget_class = (GObjectClass *) class;
+	widget_class = (GtkWidgetClass *) class;
 
-	parent_class = gtk_type_class (PARENT_TYPE);
-
-	object_class->destroy = eog_wrap_list_destroy;
+	object_class->dispose = eog_wrap_list_dispose;
 	object_class->finalize = eog_wrap_list_finalize;
 
 	widget_class->size_allocate = eog_wrap_list_size_allocate;
 
-	eog_wrap_list_signals [RIGHT_CLICK] = g_signal_new (
-			"right_click",
-		       	GTK_CLASS_TYPE(object_class),
-		       	G_SIGNAL_RUN_FIRST,
-			GTK_SIGNAL_OFFSET (EogWrapListClass, right_click),
-			NULL,
-			NULL,
-			eog_wrap_list_marshal_BOOL_INT_POINTER,
-		       	G_TYPE_BOOLEAN,
-			2,
-		       	G_TYPE_INT,
-		       	GDK_TYPE_EVENT);
-	eog_wrap_list_signals [DOUBLE_CLICK] = g_signal_new (
-			"double_click",
-		       	GTK_CLASS_TYPE(object_class),
-		       	G_SIGNAL_RUN_FIRST,
-			GTK_SIGNAL_OFFSET (EogWrapListClass, double_click),
-			NULL,
-			NULL,
-			gtk_marshal_NONE__INT,
-		       	G_TYPE_NONE,
-		       	1,
-		       	G_TYPE_INT);
+	eog_wrap_list_signals [RIGHT_CLICK] = 
+		g_signal_new ("right_click",
+			      G_TYPE_FROM_CLASS(object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogWrapListClass, right_click),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_BOOLEAN__INT_POINTER,
+			      G_TYPE_BOOLEAN,
+			      2,
+			      G_TYPE_INT,
+			      GDK_TYPE_EVENT);
+	eog_wrap_list_signals [DOUBLE_CLICK] = 
+		g_signal_new ("double_click",
+			      G_TYPE_FROM_CLASS(object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogWrapListClass, double_click),
+			      NULL,
+			      NULL,
+			      eog_collection_marshal_VOID__INT,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_INT);
 }
 
 /* object initialization function for the abstract wrapped list view */
 static void
-eog_wrap_list_init (EogWrapList *wlist)
+eog_wrap_list_instance_init (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
 
@@ -255,7 +200,7 @@ eog_wrap_list_init (EogWrapList *wlist)
 
 /* Destroy handler for the abstract wrapped list view */
 static void
-eog_wrap_list_destroy (GObject *object)
+eog_wrap_list_dispose (GObject *object)
 {
 	EogWrapList *wlist;
 	EogWrapListPrivate *priv;
@@ -275,9 +220,8 @@ eog_wrap_list_destroy (GObject *object)
 	priv->factory = NULL;
 
 	/* FIXME: free the items and item array */
-
-	if (G_OBJECT_CLASS (parent_class)->destroy)
-		(* G_OBJECT_CLASS (parent_class)->destroy) (object);
+	
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 static void
@@ -304,10 +248,10 @@ eog_wrap_list_construct (EogWrapList *wlist)
 						    (GCompareFunc) g_direct_equal);
 
 	gtk_widget_set_events (GTK_WIDGET (wlist), GDK_ALL_EVENTS_MASK);
-	gtk_signal_connect_after (GTK_OBJECT (wlist), 
-				  "button-press-event",
-				  (GtkSignalFunc) handle_canvas_click,
-				  wlist);
+	g_signal_connect_after (G_OBJECT (wlist), 
+				"button-press-event",
+				G_CALLBACK (handle_canvas_click),
+				wlist);
 }
 
 
@@ -316,13 +260,7 @@ eog_wrap_list_new (void)
 {
 	GtkWidget *wlist;
 
-        gtk_widget_push_visual (gdk_rgb_get_visual ());
-        gtk_widget_push_colormap (gdk_rgb_get_cmap ());
-
 	wlist = gtk_widget_new (eog_wrap_list_get_type (), NULL);
-
-        gtk_widget_pop_visual ();
-        gtk_widget_pop_colormap ();
 
 	eog_wrap_list_construct (EOG_WRAP_LIST (wlist));
 	
@@ -672,9 +610,9 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 	priv = wlist->priv;
 
 	if (priv->model) {
-		gtk_signal_disconnect (GTK_OBJECT (priv->model), priv->model_ids.interval_changed_id);
-		gtk_signal_disconnect (GTK_OBJECT (priv->model), priv->model_ids.interval_added_id);
-		gtk_signal_disconnect (GTK_OBJECT (priv->model), priv->model_ids.interval_removed_id);
+		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_changed_id);
+		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_added_id);
+		g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids.interval_removed_id);
 
 		priv->model_ids.interval_changed_id = 0;
 		priv->model_ids.interval_added_id = 0;
@@ -686,19 +624,19 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 		priv->model = model;
 		gtk_object_ref (GTK_OBJECT (model));
 
-		priv->model_ids.interval_changed_id = gtk_signal_connect (
-			GTK_OBJECT (model), "interval_changed",
-			GTK_SIGNAL_FUNC (model_interval_changed),
+		priv->model_ids.interval_changed_id = g_signal_connect (
+			G_OBJECT (model), "interval_changed",
+			G_CALLBACK (model_interval_changed),
 			wlist);
 
-		priv->model_ids.interval_added_id = gtk_signal_connect (
-			GTK_OBJECT (model), "interval_added",
-			GTK_SIGNAL_FUNC (model_interval_added),
+		priv->model_ids.interval_added_id = g_signal_connect (
+			G_OBJECT (model), "interval_added",
+			G_CALLBACK (model_interval_added),
 			wlist);
 
-		priv->model_ids.interval_removed_id = gtk_signal_connect (
-			GTK_OBJECT (model), "interval_removed",
-			GTK_SIGNAL_FUNC (model_interval_removed),
+		priv->model_ids.interval_removed_id = g_signal_connect (
+			G_OBJECT (model), "interval_removed",
+			G_CALLBACK (model_interval_removed),
 			wlist);
 	}
 
@@ -1051,16 +989,16 @@ do_item_added_update (EogWrapList *wlist,
 			        g_hash_table_insert (priv->item_table, GINT_TO_POINTER (id),
 						     item);
 				priv->n_items++;
-				gtk_signal_connect (GTK_OBJECT (item),
-						    "event",
-						    (GtkSignalFunc) handle_item_event,
-						    (gpointer) wlist);
-				gtk_object_set_data (GTK_OBJECT (item),
-						     "ImageID", GINT_TO_POINTER (id));
+				g_signal_connect (G_OBJECT (item),
+						  "event",
+						  G_CALLBACK (handle_item_event),
+						  (gpointer) wlist);
+				g_object_set_data (G_OBJECT (item),
+						   "ImageID", GINT_TO_POINTER (id));
 
 				img = eog_collection_model_get_image (priv->model, id);
-				gtk_object_set_data (GTK_OBJECT (item),
-						     "Caption", cimage_get_caption (img));
+				g_object_set_data (G_OBJECT (item),
+						   "Caption", cimage_get_caption (img));
 				priv->view_order = 
 					g_slist_insert_sorted (priv->view_order,
 							       item,

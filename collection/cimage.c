@@ -1,5 +1,5 @@
 #include "cimage.h"
-#include <gnome.h>
+#include <libgnome/gnome-macros.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <libgnomevfs/gnome-vfs-file-info.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
@@ -19,13 +19,13 @@ struct _CImagePrivate {
 	gboolean  is_selected;	
 };
 
-static GtkObjectClass *parent_class;
-
 static void cimage_class_init (CImageClass *klass);
-static void cimage_init (CImage *image);
-static void cimage_finalize (GtkObject *obj);
-static void cimage_destroy (GtkObject *obj);
+static void cimage_instance_init (CImage *image);
+static void cimage_finalize (GObject *obj);
+static void cimage_dispose (GObject *obj);
 
+GNOME_CLASS_BOILERPLATE (CImage, cimage, 
+			 GObject, G_TYPE_OBJECT);
 
 static guint
 get_unique_id (void)
@@ -35,34 +35,8 @@ get_unique_id (void)
 	return last_id++;
 }
 
-
-GtkType
-cimage_get_type (void)
-{
-	static GtkType type = 0;
-
-	if (!type) {
-		GtkTypeInfo info = {
-			"CollectionImage",
-			sizeof (CImage),
-			sizeof (CImageClass),
-			(GtkClassInitFunc)  cimage_class_init,
-			(GtkObjectInitFunc) cimage_init,
-			NULL, /* reserved 1 */
-			NULL, /* reserved 2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		type = gtk_type_unique (
-			gtk_object_get_type (), &info);
-	}
-
-	return type;
-}
-
-
 void
-cimage_destroy (GtkObject *obj)
+cimage_dispose (GObject *obj)
 {
 	CImagePrivate *priv;
 	
@@ -81,12 +55,11 @@ cimage_destroy (GtkObject *obj)
 		priv->thumbnail = NULL;
 	}
 	
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy (obj);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 void
-cimage_finalize (GtkObject *obj)
+cimage_finalize (GObject *obj)
 {
 	CImage *img;
 
@@ -95,23 +68,20 @@ cimage_finalize (GtkObject *obj)
 	if (img->priv)
 		g_free (img->priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->finalize)
-		GTK_OBJECT_CLASS (parent_class)->finalize (obj);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 void 
 cimage_class_init (CImageClass *klass)
 {
-	GtkObjectClass *obj_class = (GtkObjectClass*) klass;
-
-	parent_class = gtk_type_class (gtk_object_get_type ());
+	GObjectClass *obj_class = (GObjectClass*) klass;
 	
-	obj_class->destroy = cimage_destroy;
+	obj_class->dispose = cimage_dispose;
 	obj_class->finalize = cimage_finalize;
 }
 
 void
-cimage_init (CImage *img)
+cimage_instance_init (CImage *img)
 {
 	CImagePrivate *priv;
 
@@ -148,7 +118,7 @@ cimage_new_uri (GnomeVFSURI *uri)
 {
 	CImage *img;
 	
-	img = gtk_type_new (cimage_get_type ());
+	img = CIMAGE (g_object_new (cimage_get_type (), NULL));
 	
 	img->priv->uri = uri;
 	gnome_vfs_uri_ref (img->priv->uri);

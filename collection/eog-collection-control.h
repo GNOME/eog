@@ -38,7 +38,7 @@ struct _EogCollectionControlClass {
 	EogCollectionViewClass parent_class;
 };
 
-GtkType               eog_collection_control_get_type  (void);
+GType                 eog_collection_control_get_type  (void);
 EogCollectionControl *eog_collection_control_new       (void);
 EogCollectionControl *eog_collection_control_construct (EogCollectionControl*);
 

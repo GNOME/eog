@@ -1,60 +1,37 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * EOG image viewer.
+ * EOG Collection
  *
  * Authors:
- *   Michael Meeks (mmeeks@gnu.org)
- *   Martin Baulig (baulig@suse.de)
+ *   Jens Finke (jens@gnome.org)
  *
  * Copyright 2000, Helixcode Inc.
  * Copyright 2000, SuSE GmbH.
+ * Copyright 2002, The Free Software Foundation
  */
 
 #include <config.h>
-#include <stdio.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-
-#include <gnome.h>
-#include <liboaf/liboaf.h>
-#include <libgnomevfs/gnome-vfs-init.h>
-
-#include <bonobo.h>
+#include <string.h>
+/* This must be included _before_ bonobo-generic-factory.h,
+ * otherwise BONOBO_ACTIVATION_FACTORY won't initialize the
+ * gtk and other gui stuff! */
+#include <bonobo/bonobo-ui-main.h> 
+#include <bonobo/bonobo-generic-factory.h>
 
 #include "eog-collection-control.h"
 
-/* Number of running objects */ 
-static int running_objects = 0;
-static BonoboGenericFactory *list_factory = NULL;
-
-static void
-bonobo_object_destroy_cb (BonoboObject *object,
-			  gpointer      user_data)
-{
-	g_return_if_fail (object != NULL);
-
-	running_objects--;
-
-	if (running_objects > 0)
-		return;
-
-	/* When last object has gone unref the factory & quit. */
-	bonobo_object_unref (BONOBO_OBJECT (list_factory));
-	gtk_main_quit ();
-}
-
 static BonoboObject *
-eog_list_viewer_factory (BonoboGenericFactory *this,
-			  const char           *oaf_iid,
-			  void                 *data)
+eog_collection_factory (BonoboGenericFactory *this,
+			const char           *oaf_iid,
+			void                 *data)
 {
 	BonoboObject *retval;
 
 	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (oaf_iid != NULL, NULL);
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Trying to produce a '%s'...", oaf_iid);
 
 	if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_CollectionControl")) {
 		retval = BONOBO_OBJECT (eog_collection_control_new ());
@@ -63,61 +40,19 @@ eog_list_viewer_factory (BonoboGenericFactory *this,
 		return NULL;
 	}
 
-	running_objects++;
-
-	gtk_signal_connect (GTK_OBJECT (retval), "destroy",
-			    GTK_SIGNAL_FUNC (bonobo_object_destroy_cb), NULL);
-
 	return retval;
 }
 
-static void
-init_eog_list_viewer_factory (void)
-{
-	list_factory = bonobo_generic_factory_new_multi (
-		"OAFIID:GNOME_EOG_CollectionFactory",
-		eog_list_viewer_factory, NULL);
-}
 
-static void
-init_server_factory (int argc, char **argv)
-{
-	CORBA_Environment ev;
-	CORBA_exception_init (&ev);
+int main (int argc, char *argv [])					
+{									
+	bindtextdomain (PACKAGE, GNOMELOCALEDIR);                       
+	bind_textdomain_codeset (PACKAGE, "UTF-8");                     
+	textdomain (PACKAGE);                                           
+									
+	BONOBO_FACTORY_INIT ("eog-collection", VERSION, &argc, argv);		
+									
+	return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_CollectionFactory",
+					    eog_collection_factory, NULL);	
+}                                                                       
 
-        gnome_init_with_popt_table ("eog-collection", VERSION,
-				    argc, argv,
-				    oaf_popt_options, 0, NULL); 
-	oaf_init (argc, argv);
-
-	if (gnome_vfs_init () == FALSE)
-		g_error (_("I could not initialize GnomeVFS!\n"));
-		
-	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
-		g_error (_("I could not initialize Bonobo"));
-
-	CORBA_exception_free (&ev);
-}
-
-int
-main (int argc, char *argv [])
-{
-#if 0
-	GLogLevelFlags fatal_mask;
-	      
-	fatal_mask = g_log_set_always_fatal (G_LOG_FATAL_MASK);
-	fatal_mask |= G_LOG_LEVEL_WARNING | G_LOG_LEVEL_CRITICAL;
-	g_log_set_always_fatal (fatal_mask);
-#endif
-
-	init_server_factory (argc, argv);
-
-	init_eog_list_viewer_factory ();
-
-	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
-	gtk_widget_set_default_visual   (gdk_rgb_get_visual ());
-
-	bonobo_main ();
-	
-	return 0;
-}

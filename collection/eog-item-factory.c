@@ -22,7 +22,10 @@
 
 #include <config.h>
 #include <gtk/gtksignal.h>
+#include <libgnome/gnome-macros.h>
+
 #include "eog-item-factory.h"
+#include "eog-collection-marshal.h"
 
 
 
@@ -36,6 +39,8 @@ enum {
 };
 
 static void eog_item_factory_class_init (EogItemFactoryClass *class);
+static void eog_item_factory_instance_init (EogItemFactory *obj);
+
 
 static void marshal_create_item (GtkObject *object, GtkSignalFunc func,
 				 gpointer data, GtkArg *args);
@@ -46,134 +51,62 @@ static void marshal_get_item_size (GtkObject *object, GtkSignalFunc func,
 
 static guint ei_factory_signals[LAST_SIGNAL];
 
-
+GNOME_CLASS_BOILERPLATE (EogItemFactory, eog_item_factory,
+			 GObject, G_TYPE_OBJECT);
 
-/**
- * eog_item_factory_get_type:
- * @void:
- *
- * Registers the #EogItemFactory class if necessary, and returns the type
- * ID associated to it.
- *
- * Return value: The type ID of the #GnomeListItemFactory class.
- **/
-GtkType
-eog_item_factory_get_type (void)
-{
-	static GtkType ei_factory_type = 0;
-
-	if (!ei_factory_type) {
-		static const GtkTypeInfo ei_factory_info = {
-			"EogItemFactory",
-			sizeof (EogItemFactory),
-			sizeof (EogItemFactoryClass),
-			(GtkClassInitFunc) eog_item_factory_class_init,
-			(GtkObjectInitFunc) NULL,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		ei_factory_type = gtk_type_unique (gtk_object_get_type (), &ei_factory_info);
-	}
-
-	return ei_factory_type;
-}
 
 /* Class initialization function for the abstract list item factory */
 static void
 eog_item_factory_class_init (EogItemFactoryClass *class)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *object_class;
 
-	object_class = (GtkObjectClass *) class;
+	object_class = (GObjectClass *) class;
 
 	ei_factory_signals[CREATE_ITEM] =
-		gtk_signal_new ("create_item",
-				GTK_RUN_LAST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (EogItemFactoryClass, create_item),
-				marshal_create_item,
-				GNOME_TYPE_CANVAS_ITEM, 2,
-				GNOME_TYPE_CANVAS_GROUP,
-				GTK_TYPE_UINT);
+		g_signal_new ("create_item",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogItemFactoryClass, create_item),
+			      NULL, NULL,
+			      eog_collection_marshal_OBJECT__OBJECT_UINT,
+			      GNOME_TYPE_CANVAS_ITEM, 2,
+			      GNOME_TYPE_CANVAS_GROUP,
+			      G_TYPE_UINT);
 	ei_factory_signals[UPDATE_ITEM] =
-		gtk_signal_new ("update_item",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (EogItemFactoryClass, update_item),
-				marshal_update_item,
-				GTK_TYPE_NONE, 2,
-				EOG_TYPE_COLLECTION_MODEL,
-				GNOME_TYPE_CANVAS_ITEM);
+		g_signal_new ("update_item",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogItemFactoryClass, update_item),
+			      NULL, NULL,
+			      eog_collection_marshal_VOID__OBJECT_OBJECT,
+			      G_TYPE_NONE, 2,
+			      EOG_TYPE_COLLECTION_MODEL,
+			      GNOME_TYPE_CANVAS_ITEM);
 	ei_factory_signals[GET_ITEM_SIZE] =
-		gtk_signal_new ("get_item_size",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (EogItemFactoryClass, get_item_size),
-				marshal_get_item_size,
-				GTK_TYPE_NONE, 2,
-				GTK_TYPE_POINTER,
-				GTK_TYPE_POINTER);
+		g_signal_new ("get_item_size",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogItemFactoryClass, get_item_size),
+			      NULL, NULL,
+			      eog_collection_marshal_VOID__POINTER_POINTER,
+			      G_TYPE_NONE, 2,
+			      G_TYPE_POINTER,
+			      G_TYPE_POINTER);
 	ei_factory_signals[CONFIGURATION_CHANGED] =
-		gtk_signal_new ("configuration_changed",
-				GTK_RUN_FIRST,
-				object_class->type,
-				GTK_SIGNAL_OFFSET (EogItemFactoryClass, configuration_changed),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
-
-	gtk_object_class_add_signals (object_class, ei_factory_signals, LAST_SIGNAL);
+		g_signal_new ("configuration_changed",
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (EogItemFactoryClass, configuration_changed),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 }
-
-
-
-/* Marshalers */
-
-typedef GnomeCanvasItem *(* CreateItemFunc) (GtkObject *object, GtkObject *parent, 
-					     guint id, gpointer data);
 
 static void
-marshal_create_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
+eog_item_factory_instance_init (EogItemFactory *factory)
 {
-	CreateItemFunc rfunc;
-	GnomeCanvasItem **retval;
-
-	retval = (GnomeCanvasItem **) GTK_RETLOC_POINTER (args[2]);
-	rfunc = (CreateItemFunc) func;
-	*retval = (* rfunc) (object, GTK_VALUE_OBJECT (args[0]), GTK_VALUE_UINT (args[1]), data);
 }
-
-typedef void (* UpdateItemFunc) (GtkObject *object, 
-				 GtkObject *model, 
-				 GtkObject *item,
-				 gpointer data);
-
-static void
-marshal_update_item (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
-{
-	UpdateItemFunc rfunc;
-
-	rfunc = (UpdateItemFunc) func;
-	(* func) (object, GTK_VALUE_OBJECT (args[0]),
-		  GTK_VALUE_OBJECT (args[1]), data);
-}
-
-typedef void (* GetItemSizeFunc) (GtkObject *object, 
-				  gpointer width, gpointer height,
-				  gpointer data);
-
-static void
-marshal_get_item_size (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg *args)
-{
-	GetItemSizeFunc rfunc;
-
-	rfunc = (GetItemSizeFunc) func;
-	(* rfunc) (object,
-		   GTK_VALUE_POINTER (args[0]), GTK_VALUE_POINTER (args[1]), data);
-}
-
-
 
 /* Exported functions */
 
@@ -198,8 +131,9 @@ eog_item_factory_create_item (EogItemFactory *factory, GnomeCanvasGroup *parent,
 	g_return_val_if_fail (GNOME_IS_CANVAS_GROUP (parent), NULL);
 
 	retval = NULL;
-	gtk_signal_emit (GTK_OBJECT (factory), ei_factory_signals[CREATE_ITEM],
-			 parent, id, &retval);
+	g_signal_emit_by_name (G_OBJECT (factory), 
+			       "create_item",
+			       parent, id, &retval);
 	return retval;
 }
 
@@ -225,8 +159,9 @@ eog_item_factory_update_item (EogItemFactory *factory,
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
-	gtk_signal_emit (GTK_OBJECT (factory), ei_factory_signals[UPDATE_ITEM],
-			 model, item);
+	g_signal_emit_by_name (G_OBJECT (factory), 
+			       "update_item",
+			       model, item);
 }
 
 /**
@@ -253,8 +188,9 @@ eog_item_factory_get_item_size (EogItemFactory *factory,
 	g_return_if_fail (EOG_IS_ITEM_FACTORY (factory));
 
 	w = h = 0;
-	gtk_signal_emit (GTK_OBJECT (factory), ei_factory_signals[GET_ITEM_SIZE],
-			 &w, &h);
+	g_signal_emit_by_name (G_OBJECT (factory), 
+			       "get_item_size", 
+			       &w, &h);
 
 	if (width)
 		*width = w;
@@ -269,5 +205,5 @@ eog_item_factory_configuration_changed (EogItemFactory *factory)
 	g_return_if_fail (factory != NULL);
 	g_return_if_fail (EOG_IS_ITEM_FACTORY (factory));
 
-	gtk_signal_emit (GTK_OBJECT (factory), ei_factory_signals[CONFIGURATION_CHANGED]);
+	g_signal_emit_by_name (G_OBJECT (factory), "configuration_changed");
 }
