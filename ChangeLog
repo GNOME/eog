@@ -1,5 +1,17 @@
 2004-07-20  Jens Finke  <jens@triq.net>
 
+	* configure.in: Check for libexif = 0.5.12. Don't create Makefiles in 
+	libgpi, collection, viewer and idl directories.
+
+	* Makefile.am: Removed libgpi, collection, viewer and idl
+	from SUBDIRS.
+
+	* libeog/Makefile.am: Removed CORBA/Bonobo stuff.
+
+	* NEWS: Updated.
+	
+2004-07-20  Jens Finke  <jens@triq.net>
+
 	* libeog/eog-image-list.c (list_insert_sorted_private): Create new list 
 	if list argument is NULL.
 

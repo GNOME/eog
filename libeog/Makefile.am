@@ -24,16 +24,9 @@ MARSHAL_SOURCES = 		\
 	libeog-marshal.h	\
 	libeog-marshal.c
 
-CORBA_SOURCES =			\
-	Eog.h			\
-	Eog-common.c		\
-	Eog-stubs.c		\
-	Eog-skels.c
-
 noinst_LIBRARIES = libeog.a
 
 libeog_a_SOURCES =			\
-	$(CORBA_SOURCES)		\
 	$(MARSHAL_SOURCES)		\
 	access.c			\
 	access.h			\
@@ -76,7 +69,7 @@ libeog_a_SOURCES =			\
 	eog-info-view-file.c		\
 	eog-info-view-exif.h		\
 	eog-info-view-exif.c		\
-	eog-metdata-reader.h		\
+	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
 	eog-hig-dialog.h		\
 	eog-hig-dialog.c		\
@@ -98,32 +91,12 @@ libeog_a_SOURCES =			\
 	zoom.c				\
 	zoom.h
 
-idls =							\
-	$(top_srcdir)/idl/Eog.idl
-
-idl_flags =  -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl -D__EOG_COMPILATION
-
-$(CORBA_SOURCES): $(idls)
-	$(ORBIT_IDL)   $(top_srcdir)/idl/Eog.idl $(idl_flags)
-
-Eog.h: $(idls)
-
-
-server_in_files = GNOME_EOG.server.in.in
-
-serverdir = $(libdir)/bonobo/servers
-server_DATA = $(server_in_files:.server.in.in=.server)
-$(server_in_files:.server.in.in=.server.in): $(server_in_files)
-	sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
-@INTLTOOL_SERVER_RULE@
-
 BUILT_SOURCES = 			\
-	$(CORBA_SOURCES)		\
 	$(MARSHAL_SOURCES)
 
-CLEANFILES = $(BUILT_SOURCES) $(server_DATA)
+CLEANFILES = $(BUILT_SOURCES)
 
-EXTRA_DIST = $(server_in_files) libeog-marshal.list 
+EXTRA_DIST = libeog-marshal.list 
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)

@@ -843,7 +843,7 @@ model_prepared (EogImageList *model, gpointer data)
 
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
-	
+
 	g_assert (priv->view_order == NULL);
 	g_assert (priv->selected_items == NULL);
 	g_assert (priv->n_selected_items == 0);
