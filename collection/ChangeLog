@@ -1,4 +1,24 @@
 2001-04-23  Jens Finke <jens@gnome.org>
+        
+	This patch enables the collection component to load a bunch of
+	single files too. It's even possible to mix directory contents and
+	simple files.
+		
+	* eog-collection-model.c (EogCollectionModelPrivate): Removed
+	storage, uri and idle_id attributes.
+	(LoadingContext): New structure which holds all neccessary
+	informations to load an URI.
+	(real_image_loading): Removed.
+	(eog_collection_model_set_uri_list),
+	(prepare_context),
+	(real_storage_loading),
+	(real_stream_loading): New functions.
+	(eog_collection_model_set_uri): Rewrote this one.
+
+	* eog-collection-view.c
+	(impl_GNOME_EOG_ImageCollection_openURIList): New function.
+	
+2001-04-23  Jens Finke <jens@gnome.org>
 
 	* cimage.[ch]: s/path/uri/
 

@@ -50,9 +50,9 @@ static guint eog_collection_view_signals [LAST_SIGNAL];
 static BonoboObjectClass *eog_collection_view_parent_class;
 
 static void 
-impl_GNOME_EOG_ImageCollection_openURI(PortableServer_Servant servant,
-				       GNOME_EOG_URI uri,
-				       CORBA_Environment * ev)
+impl_GNOME_EOG_ImageCollection_openURI (PortableServer_Servant servant,
+					GNOME_EOG_URI uri,
+					CORBA_Environment * ev)
 {
 	EogCollectionView *cview;
 	EogCollectionViewPrivate *priv;
@@ -65,6 +65,32 @@ impl_GNOME_EOG_ImageCollection_openURI(PortableServer_Servant servant,
 	eog_collection_model_set_uri (priv->model, (gchar*)uri); 
 }
 
+
+static void 
+impl_GNOME_EOG_ImageCollection_openURIList (PortableServer_Servant servant,
+					    const GNOME_EOG_URIList *uri_list,
+					    CORBA_Environment * ev)
+{
+	EogCollectionView *cview;
+	EogCollectionViewPrivate *priv;
+        GList *list;
+        guint i;
+
+	cview = EOG_COLLECTION_VIEW (bonobo_object_from_servant (servant));
+	priv = cview->priv;
+	
+        list = NULL;
+	g_print ("uri_list->_lenght: %i\n", uri_list->_length);
+        for (i = 0; i < uri_list->_length; i++) {
+                list = g_list_append
+                        (list, g_strdup (uri_list->_buffer[i]));
+        }
+        
+	eog_collection_model_set_uri_list (priv->model, list);
+
+	g_list_foreach (list, (GFunc) g_free, NULL);
+	g_list_free (list);
+}
 
 static void
 eog_collection_view_create_ui (EogCollectionView *list_view)
@@ -164,6 +190,7 @@ eog_collection_view_class_init (EogCollectionViewClass *klass)
 
 	epv = &klass->epv;
 	epv->openURI = impl_GNOME_EOG_ImageCollection_openURI;
+	epv->openURIList = impl_GNOME_EOG_ImageCollection_openURIList;
 
 	eog_collection_view_signals [OPEN_URI] = 
 		gtk_signal_new ("open_uri",

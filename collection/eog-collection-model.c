@@ -15,14 +15,19 @@ static void marshal_interval_notification (GtkObject *object, GtkSignalFunc func
 					   gpointer data, GtkArg *args);
 static guint eog_model_signals[LAST_SIGNAL];
 
+typedef enum {
+	LC_BONOBO_STORAGE,
+	LC_BONOBO_STREAM
+} LCType; 
+
+typedef struct {
+	EogCollectionModel *model;
+	gchar *uri;
+	LCType type;
+	Bonobo_Unknown storage_stream;
+} LoadingContext;
 
 struct _EogCollectionModelPrivate {
-	/* the bonobo storage were we are getting the images from */
-	Bonobo_Unknown storage;
-	
-	/* the uri which will be resolved to a Bonobo_Storage */
-	gchar *uri;
-
 	/* holds for every id the corresponding cimage */
 	GHashTable *id_image_mapping;
 
@@ -33,9 +38,6 @@ struct _EogCollectionModelPrivate {
 
 	/* list of images to load with loader */ 
 	GSList *images_to_load;
-
-	/* id of the idle function */
-	gint idle_id;
 };
 
 
@@ -65,14 +67,6 @@ eog_collection_model_destroy (GtkObject *obj)
 	if (model->priv->loader)
 		gtk_object_unref (GTK_OBJECT (model->priv->loader));
 	model->priv->loader = NULL;
-
-	if (model->priv->storage != CORBA_OBJECT_NIL)
-	        CORBA_Object_release (model->priv->storage, &ev);
-	model->priv->storage = CORBA_OBJECT_NIL;
-
-	if (model->priv->uri)
-		g_free (model->priv->uri);
-	model->priv->uri = NULL;
 
 	if (model->priv->selected_images)
 		g_slist_free (model->priv->selected_images);
@@ -105,13 +99,10 @@ eog_collection_model_init (EogCollectionModel *obj)
 	EogCollectionModelPrivate *priv;
 
 	priv = g_new0(EogCollectionModelPrivate, 1);
-	priv->storage = CORBA_OBJECT_NIL;
 	priv->loader = NULL;
-	priv->uri = NULL;
 	priv->id_image_mapping = NULL;
 	priv->selected_images = NULL;
 	priv->images_to_load = NULL;
-	priv->idle_id = -1;
 	obj->priv = priv;
 }
 
@@ -231,26 +222,22 @@ eog_collection_model_new (void)
 }
 
 static gint
-real_image_loading (EogCollectionModel *model)
+real_storage_loading (LoadingContext *ctx)
 {
+	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
 	CORBA_Environment ev;
 	Bonobo_Storage_DirectoryList *dir_list;
 	gint i;
 
-	g_return_val_if_fail (model != NULL, FALSE);
-	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), FALSE);
-	g_assert (model->priv->storage != CORBA_OBJECT_NIL);
+	g_return_val_if_fail (ctx->type == LC_BONOBO_STORAGE, FALSE);
 
+	model = ctx->model;
 	priv = model->priv;
-
-	/* remove idle handler */
-	gtk_idle_remove (priv->idle_id);
-	priv->idle_id = -1;
 
 	CORBA_exception_init (&ev);
 
-	dir_list = Bonobo_Storage_listContents (priv->storage, "",
+	dir_list = Bonobo_Storage_listContents (ctx->storage_stream, "",
 						Bonobo_FIELD_CONTENT_TYPE,
 						&ev);
 
@@ -268,7 +255,7 @@ real_image_loading (EogCollectionModel *model)
 			GList *id_list = NULL;
 			gint id;
 
-			uri = g_strconcat (priv->uri, "/", info.name, NULL);
+			uri = g_strconcat (ctx->uri, "/", info.name, NULL);
 			img = cimage_new (uri);			
 			g_free (uri);
 			id = cimage_get_unique_id (img);
@@ -292,15 +279,105 @@ real_image_loading (EogCollectionModel *model)
 				gtk_main_iteration ();
 	}
 
-	return TRUE;
+	g_free (ctx->uri);
+	Bonobo_Unknown_unref (ctx->storage_stream, &ev);
+	CORBA_Object_release (ctx->storage_stream, &ev);
+	g_free (ctx);
+
+	CORBA_exception_free (&ev);
+
+	return FALSE;
 }
-	     
+
+static gint
+real_stream_loading (LoadingContext *ctx)
+{
+	CORBA_Environment ev;
+	Bonobo_StorageInfo *info;
+	EogCollectionModel *model;
+	EogCollectionModelPrivate *priv;
+
+	g_return_val_if_fail (ctx->type == LC_BONOBO_STREAM, FALSE);
+
+	model = ctx->model;
+	priv = model->priv;
+	CORBA_exception_init (&ev);
+	
+	info =  Bonobo_Stream_getInfo (ctx->storage_stream, 
+				       Bonobo_FIELD_CONTENT_TYPE, 
+				       &ev);
+	
+	if(g_strncasecmp(info->content_type, "image/", 6) == 0) {
+		CImage *img;
+		GList *id_list = NULL;
+		gint id;
+
+		img = cimage_new (ctx->uri);			
+		id = cimage_get_unique_id (img);
+		
+		/* add image infos to internal lists */
+		g_hash_table_insert (priv->id_image_mapping,
+				     GINT_TO_POINTER (id),
+				     img);
+		id_list = g_list_append (id_list, 
+					 GINT_TO_POINTER (id));
+		gtk_signal_emit (GTK_OBJECT (model), 
+				 eog_model_signals [INTERVAL_ADDED],
+				 id_list);
+		
+		eog_image_loader_start (priv->loader, img);
+	}
+
+	g_free (ctx->uri);
+	Bonobo_Unknown_unref (ctx->storage_stream, &ev);
+	CORBA_Object_release (ctx->storage_stream, &ev);
+	g_free (ctx);
+	
+	CORBA_exception_free (&ev);
+	return FALSE;
+}
+
+static LoadingContext*
+prepare_context (EogCollectionModel *model, const gchar *uri) 
+{
+	CORBA_Environment ev;
+	LoadingContext *ctx;
+
+	CORBA_exception_init (&ev);
+	ctx = g_new0 (LoadingContext, 1);
+
+	g_message ("Prepare context for URI: %s", uri);
+	
+	/* check for BonoboStorage interface */
+	ctx->storage_stream = bonobo_get_object (uri, "IDL:Bonobo/Storage:1.0", &ev);
+	if (ev._major == CORBA_NO_EXCEPTION) {
+		ctx->type = LC_BONOBO_STORAGE;
+	} else {
+		ev._major = CORBA_NO_EXCEPTION;
+		/* if failed, check for BonoboStream interface */
+		ctx->storage_stream = bonobo_get_object (uri, "IDL:Bonobo/Stream:1.0", &ev);
+		if (ev._major == CORBA_NO_EXCEPTION) {
+			ctx->type = LC_BONOBO_STREAM;
+		} else {
+			CORBA_exception_free (&ev);
+			g_free (ctx);
+			return NULL;
+		}
+	}
+
+	ctx->uri = g_strdup (uri);
+	ctx->model = model;
+
+	CORBA_exception_free (&ev);
+	return ctx;
+}
+
 void
 eog_collection_model_set_uri (EogCollectionModel *model, 
 			      const gchar *uri)
 {
-	CORBA_Environment ev;
 	EogCollectionModelPrivate *priv;
+	LoadingContext *ctx;
 
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
@@ -308,24 +385,46 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	
 	priv = model->priv;
 
-	/* FIXME: Currently, we don't support multiple
-	 *        uris or replacing one with another.
-	 */
-	g_assert (model->priv->storage == CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-
-	priv->storage = bonobo_get_object (uri, "IDL:Bonobo/Storage:1.0", &ev);
-	if (ev._major != CORBA_NO_EXCEPTION) {
-		priv->storage = CORBA_OBJECT_NIL;
-		g_warning (_("Couldn't retrieve storage from uri.\n"));
-		return;
-	}
-	priv->uri = g_strdup (uri);
-
-	model->priv->idle_id = gtk_idle_add ((GtkFunction) real_image_loading, model);
+	ctx = prepare_context (model, uri);
 	
-	CORBA_exception_free (&ev);
+	if (ctx != NULL) {
+		if (ctx->type == LC_BONOBO_STORAGE)
+			gtk_idle_add ((GtkFunction) real_storage_loading, ctx);
+		else
+			gtk_idle_add ((GtkFunction) real_stream_loading, ctx);
+	} else {
+		g_warning (_("Can't handle URI: %s"), uri);
+	}	
+}
+
+void 
+eog_collection_model_set_uri_list (EogCollectionModel *model,
+				   GList *uri_list)
+{
+	GList *node;
+	LoadingContext *ctx;
+	gchar *uri;
+
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+
+	node = uri_list;
+
+	while (node != NULL) {
+		uri = (gchar*) node->data;
+		ctx = prepare_context (model, uri);
+		
+		if (ctx != NULL) {
+			if (ctx->type == LC_BONOBO_STORAGE)
+				gtk_idle_add ((GtkFunction) real_storage_loading, ctx);
+			else
+				gtk_idle_add ((GtkFunction) real_stream_loading, ctx);
+		} else {
+			g_warning ("Can't handle URI: %s", uri);
+		}	
+
+		node = node->next;
+	}
 }
 
 void

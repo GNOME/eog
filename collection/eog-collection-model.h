@@ -77,6 +77,10 @@ void
 eog_collection_model_set_uri            (EogCollectionModel *model, 
                                          const gchar *uri);
 
+void
+eog_collection_model_set_uri_list       (EogCollectionModel *model,
+                                         GList *uri_list);
+
 gint
 eog_collection_model_get_length (EogCollectionModel *model);
 
