@@ -294,7 +294,7 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	png_infop info_ptr;
 	png_bytep row_ptr, data = NULL;
 	png_color_8 sig_bit;
-	png_text text[2];
+	png_text text;
 	int x, y, j;
 	int bpc, has_alpha;
 	BStreamData sdata;
@@ -365,14 +365,12 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	sig_bit.blue = bpc;
 	sig_bit.alpha = bpc;
 
-	/* Some text to go with the png image */
-	text[0].key = "Title";
-	text[0].compression = PNG_TEXT_COMPRESSION_NONE;
-	text[1].key = "Software";
-	text[1].text = "GNOME Icon Editor";
-	text[1].compression = PNG_TEXT_COMPRESSION_NONE;
+	/* Some text to go with the png image. */
+	text.key = "Software";
+	text.text = "Eye of Gnome";
+	text.compression = PNG_TEXT_COMPRESSION_NONE;
 
-	png_set_text    (png_ptr, info_ptr, text, 2);
+	png_set_text    (png_ptr, info_ptr, &text, 1);
 	png_set_sBIT    (png_ptr, info_ptr, &sig_bit);
 	png_write_info  (png_ptr, info_ptr);
 	png_set_shift   (png_ptr, &sig_bit);

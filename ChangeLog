@@ -1,5 +1,11 @@
 2002-04-17  Federico Mena Quintero  <federico@ximian.com>
 
+	* viewer/eog-image-io.c (eog_image_save_png): If we are going to
+	use a png_text property, fill out all the structure fields we
+	need.  Fixes #77173.
+
+2002-04-17  Federico Mena Quintero  <federico@ximian.com>
+
 	* shell/session.c (session_save): Call gnome_config_sync() when we
 	are done.
 
