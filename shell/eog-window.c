@@ -483,11 +483,6 @@ verb_SaveAs_cb (GtkAction *action, gpointer data)
 {
 }
 
-static void
-verb_Undo_cb (GtkAction *action, gpointer data)
-{
-}
-
 /* ================================================
  *
  *     Transformation functions 
@@ -511,6 +506,45 @@ transformation_progress_cb (EogImage *image, float progress, ProgressData *data)
 	total = ((float) data->counter + progress) / data->max_progress;
 
 	gnome_appbar_set_progress_percentage (GNOME_APPBAR (priv->statusbar), progress);
+}
+
+static void
+verb_Undo_cb (GtkAction *action, gpointer user_data)
+{
+	GList *images;
+	GList *it;
+	gint id;
+	ProgressData data;
+	EogWindowPrivate *priv;
+
+	priv = EOG_WINDOW (user_data)->priv;
+	
+	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
+	data.window       = EOG_WINDOW (user_data);
+	data.max_progress = g_list_length (images);
+	data.counter      = 0;
+	
+	/* block progress changes for actual displayed image */
+	if (priv->displayed_image != NULL) {
+		g_signal_handler_block (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
+	}
+
+	for (it = images; it != NULL; it = it->next) {
+		EogImage *image = EOG_IMAGE (it->data);
+
+		id = g_signal_connect (G_OBJECT (image), "progress", (GCallback) transformation_progress_cb, &data);
+		
+		eog_image_undo (image);
+		
+		g_signal_handler_disconnect (image, id);
+		data.counter++;
+	}
+
+	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+
+	if (priv->displayed_image != NULL) {
+		g_signal_handler_unblock (G_OBJECT (priv->displayed_image), priv->sig_id_progress);
+	}
 }
 
 static void 
