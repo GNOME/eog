@@ -1,3 +1,9 @@
+2004-01-18  Jens Finke  <jens@triq.net>
+
+	* shell/Makefile.am (INCLUDES): Removed $(GCONF_CFLAGS), these are
+	now all in $(EOG_CFLAGS). Patch by German Poo Caaman~o, fixes
+	#131766.
+
 2004-01-14  Jens Finke  <jens@triq.net>
 
 	* shell/main.c (sort_files): Deal with uri == NULL. Fixes bug

@@ -5,7 +5,6 @@ INCLUDES =							\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
 	-I$(top_srcdir)/shell/recent-files			\
-	$(GCONF_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
 	-DHAVE_COLLECTION					\
