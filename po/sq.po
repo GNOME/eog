@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-08 17:31+0100\n"
-"PO-Revision-Date: 2003-12-08 17:33+0100\n"
+"POT-Creation-Date: 2003-12-21 00:09+0100\n"
+"PO-Revision-Date: 2003-12-21 00:13+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -67,7 +67,7 @@ msgstr "Rrotullim Antio_rar"
 msgid "Slide Show"
 msgstr "Slide Show"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:20
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Ndrysho"
@@ -81,7 +81,7 @@ msgstr "_Ruaje"
 msgid "_Undo"
 msgstr "_Anullo"
 
-#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:29
 #: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Shiko"
@@ -102,7 +102,7 @@ msgstr "Hidhe në kosh"
 msgid "Collection View"
 msgstr "Shikuesi i Koleksionit"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1355
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1378
 msgid "Window Title"
 msgstr "Titulli i Dritares"
 
@@ -110,7 +110,7 @@ msgstr "Titulli i Dritares"
 msgid "Status Text"
 msgstr "Teksti i Status"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1367
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1390
 msgid "Progress of Image Loading"
 msgstr "Progresi i Leximit të Figurës"
 
@@ -307,39 +307,50 @@ msgstr "Imazh EOG embeddable"
 msgid "Image"
 msgstr "Imazhi"
 
-#: libeog/eog-file-selection.c:74
-msgid "By Extension"
-msgstr "Sipas ekstensionit"
+#: libeog/eog-file-selection.c:44
+#, c-format
+msgid "Do you want to overwrite %s?"
+msgstr "Dëshironi të mbishkruani %s?"
 
-#: libeog/eog-file-selection.c:267
-msgid "Unsupported image file format for saving."
-msgstr "Format file imazhi i pasuportuar për tu ruajtur."
+#: libeog/eog-file-selection.c:49
+msgid "File exists"
+msgstr "Ky file ekziston"
 
-#: libeog/eog-file-selection.c:292
-msgid "Determine File Type:"
-msgstr "Përcakto llojin e file:"
+#: libeog/eog-file-selection.c:117
+msgid "All Images"
+msgstr "Të gjitha imazhet"
 
-#: libeog/eog-file-selection.c:333
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: libeog/eog-file-selection.c:135
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#: libeog/eog-file-selection.c:180
 msgid "Load Image"
 msgstr "Hap figurën"
 
-#: libeog/eog-file-selection.c:338
+#: libeog/eog-file-selection.c:188
 msgid "Save Image"
 msgstr "Shpëto figurën"
+
+#: libeog/eog-file-selection.c:230
+msgid "Open Folder"
+msgstr "Hap kartelën"
 
 #: libeog/eog-image-jpeg.c:100
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "E pamundur përgatitja e kujtesës për të lexuar file JPEG"
 
-#: libeog/eog-image.c:1216
+#: libeog/eog-image.c:1296
 msgid "No image loaded."
 msgstr "Asnjë imazh i ngarkuar."
 
-#: libeog/eog-image.c:1225
+#: libeog/eog-image.c:1306
 msgid "Images can only be saved as local files."
 msgstr "Figurat mund të shpëtohen vetëm si files lokalë."
 
-#: libeog/eog-image.c:1260
+#: libeog/eog-image.c:1317
 msgid "Unsupported image type for saving."
 msgstr "Lloj imazhi i pasuportuar për tu ruajtur."
 
@@ -372,7 +383,7 @@ msgid "Page"
 msgstr "Faqja"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:382
+#: viewer/eog-image-view.c:384
 msgid "Preview"
 msgstr "Shikoje"
 
@@ -503,70 +514,78 @@ msgid "Open"
 msgstr "Hap"
 
 #: shell/eog-shell-ui.xml.h:9
+msgid "Open a directory"
+msgstr "Hap një kartelë"
+
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
 msgstr "Hap një file"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open a new window"
 msgstr "Hap një dritare të re"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in new window"
 msgstr "Hape në një dritare të re"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:13
 msgid "Open in this window"
 msgstr "Hape në këtë dritare"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 msgid "Prefere_nces"
 msgstr "Preferi_met"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "Preferences for Eye of Gnome"
 msgstr "Preferimet për Eye of Gnome"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
 msgid "Quit the program"
 msgstr "Mbyll programin"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:17
 msgid "_About"
 msgstr "_Rreth"
 
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Close"
 msgstr "_Mbyll"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Contents"
 msgstr "_Përmbajtja"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:21
 msgid "_File"
 msgstr "_File"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Help"
 msgstr "Ndi_Hmë"
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:23
 msgid "_New"
 msgstr "_E re"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:24
+msgid "_Open Directory..."
+msgstr "_Hap directory..."
+
+#: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
 msgstr "_Hap..."
 
-#: shell/eog-shell-ui.xml.h:24
+#: shell/eog-shell-ui.xml.h:26
 msgid "_Quit"
 msgstr "_Mbylle"
 
-#: shell/eog-shell-ui.xml.h:25
+#: shell/eog-shell-ui.xml.h:27
 msgid "_Statusbar"
 msgstr "_Menu e gjendjes"
 
-#: shell/eog-shell-ui.xml.h:26
+#: shell/eog-shell-ui.xml.h:28
 msgid "_Toolbar"
 msgstr "_Menu e instrumentëve"
 
@@ -574,20 +593,20 @@ msgstr "_Menu e instrumentëve"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:271
+#: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
-#: shell/eog-window.c:989 shell/main.c:513
+#: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
+#: shell/eog-window.c:1011 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:279
+#: shell/eog-window.c:300
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Programi i vizualizimit dhe katallogimit të imazheve për GNOME."
 
-#: shell/eog-window.c:316
+#: shell/eog-window.c:337
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -703,45 +722,45 @@ msgid "_Print..."
 msgstr "_Printo..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:533
+#: viewer/eog-image-view.c:548
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i pixel  %s    %i%%"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:840
 msgid "/Rotate C_lockwise"
 msgstr "/Rrotullim O_rar"
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:842
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rrotullim Antio_rar"
 
-#: viewer/eog-image-view.c:830
+#: viewer/eog-image-view.c:845
 msgid "/_Zoom In"
 msgstr "/_Zmadhim"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:847
 msgid "/Zoom _Out"
 msgstr "/Z_vogëlim"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:849
 msgid "/_Normal Size"
 msgstr "/_Madhësi Normale"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:851
 msgid "/Best _Fit"
 msgstr "/Për_shtate"
 
-#: viewer/eog-image-view.c:839
+#: viewer/eog-image-view.c:854
 msgid "/_Close"
 msgstr "/_Mbylle"
 
-#: viewer/eog-image-view.c:1002
+#: viewer/eog-image-view.c:1025
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Leximi i imazhit %s dështoi."
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1032
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -751,434 +770,35 @@ msgstr ""
 "Shkaku: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1018
+#: viewer/eog-image-view.c:1041
 msgid "Loading failed"
 msgstr "Ngarkimi dështoi"
 
-#: viewer/eog-image-view.c:1101
+#: viewer/eog-image-view.c:1124
 msgid "Image successfully saved"
 msgstr "Figura u ruajt me sukses"
 
-#: viewer/eog-image-view.c:1105
+#: viewer/eog-image-view.c:1128
 msgid "Image saving failed"
 msgstr "Ruajtja e imazhit dështoi"
 
-#: viewer/eog-image-view.c:1349
+#: viewer/eog-image-view.c:1372
 msgid "Image Width"
 msgstr "Gjërësia e imazhit"
 
-#: viewer/eog-image-view.c:1352
+#: viewer/eog-image-view.c:1375
 msgid "Image Height"
 msgstr "Lartësia e imazhit"
 
-#: viewer/eog-image-view.c:1358
+#: viewer/eog-image-view.c:1381
 msgid "Statusbar Text"
 msgstr "Teksti i Statusbar"
 
-#: viewer/eog-image-view.c:1361
+#: viewer/eog-image-view.c:1384
 msgid "Desired Window Width"
 msgstr "Gjerësia e dëshiruar e dritares"
 
-#: viewer/eog-image-view.c:1364
+#: viewer/eog-image-view.c:1387
 msgid "Desired Window Height"
 msgstr "Lartësia e deshiruar e dritares"
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid "Don't use zoom larger than 100%"
-#~ msgstr "Mos përdor një shkallë zmadhimi më të madhe se 100%"
-
-#~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr ""
-#~ "_Interpolo figurën gjatë zmadhimit (kualitet më i lartë por më i ngadaltë)"
-
-#~ msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-#~ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
-
-#~ msgid "Automatically pick window size"
-#~ msgstr "Zgjidh madhësinë e dritares automatikisht"
-
-#~ msgid "Default zoom factor for the full screen view"
-#~ msgstr "Shkalla default e zmadhimit për shikimin me ekran të plotë"
-
-#~ msgid ""
-#~ "Default zoom factor for the full screen view. Possible values are: 0 (use "
-#~ "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 "
-#~ "(fit the image to the screen)."
-#~ msgstr ""
-#~ "Shkalla default e zmadhimit për shikimin me ekran të plotë. Vlerat e "
-#~ "mundëshme janë: 0 (përdor shkallën 1:1), 1 (përdor të njëjtën shkallë "
-#~ "zmadhimi sa e dritares së figurës), 2 (përshtat figurën monitorit)."
-
-#~ msgid "Fit standard-sized images to the screen"
-#~ msgstr "Fit standard-sized images to the screen"
-
-#~ msgid "Put a bevel around the screen"
-#~ msgstr "Put a bevel around the screen"
-
-#~ msgid "Scrollbar policy for the full screen view"
-#~ msgstr "Rregullat e scrollbar per shikimin me ekran te plotë"
-
-#~ msgid ""
-#~ "Whether image windows should pick their size and zooming factor "
-#~ "automatically based on the size of the image. If this option is not set, "
-#~ "image windows will get whatever size the window manager assigns to them."
-#~ msgstr ""
-#~ "Whether image windows should pick their size and zooming factor "
-#~ "automatically based on the size of the image. If this option is not set, "
-#~ "image windows will get whatever size the window manager assigns to them."
-
-#~ msgid ""
-#~ "Whether the full screen view should display a bevel along the edges of "
-#~ "the screen."
-#~ msgstr ""
-#~ "Whether the full screen view should display a bevel along the edges of "
-#~ "the screen."
-
-#~ msgid ""
-#~ "Whether to display scrollbars on the full screen view. Possible values "
-#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
-#~ "the window), 2 (never display scrollbars)."
-#~ msgstr ""
-#~ "Whether to display scrollbars on the full screen view. Possible values "
-#~ "are: 1 (automatic; only display scrollbars if the image is larger than "
-#~ "the window), 2 (never display scrollbars)."
-
-#~ msgid ""
-#~ "Whether to fit standard-sized images to the screen when in full screen "
-#~ "mode. These are images with sizes like 320x240, 640x480, 800x600, etc. "
-#~ "This selects whether such images should be scaled to fit the screen "
-#~ "regardless of the setting for the default zoom factor of the full screen "
-#~ "view."
-#~ msgstr ""
-#~ "Whether to fit standard-sized images to the screen when in full screen "
-#~ "mode. These are images with sizes like 320x240, 640x480, 800x800, etc. "
-#~ "This selects whether such images should be scaled to fit the screen "
-#~ "regardless of the setting for the default zoom factor of the full screen "
-#~ "view."
-
-#~ msgid "action_area"
-#~ msgstr "zona_e_veprimit"
-
-#~ msgid "dialog"
-#~ msgstr "dialogu"
-
-#~ msgid "vbox"
-#~ msgstr "vbox"
-
-#~ msgid "Couldn't initialize GnomeVFS!\n"
-#~ msgstr "I pamundur fillimi i GnomeVFS!\n"
-
-#~ msgid "pts"
-#~ msgstr "pts"
-
-#~ msgid "points"
-#~ msgstr "pika"
-
-#~ msgid "mm"
-#~ msgstr "mm"
-
-#~ msgid "cm"
-#~ msgstr "cm"
-
-#~ msgid "centimeter"
-#~ msgstr "centimetër"
-
-#~ msgid "inch"
-#~ msgstr "inch"
-
-#~ msgid "Print Setup"
-#~ msgstr "Konfigurimi i Printimit"
-
-#~ msgid "Print"
-#~ msgstr "Print"
-
-#~ msgid "Print preview"
-#~ msgstr "Pamja e parë e stampimit"
-
-#~ msgid "Units: "
-#~ msgstr "Njësi: "
-
-#~ msgid "Paper size:"
-#~ msgstr "Përmasat e letrës:"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientimi"
-
-#~ msgid "Portrait"
-#~ msgstr "Vertikalisht"
-
-#~ msgid "Landscape"
-#~ msgstr "Horizontalisht"
-
-#~ msgid "Top:"
-#~ msgstr "Sipër:"
-
-#~ msgid "Left:"
-#~ msgstr "Majtas:"
-
-#~ msgid "Right:"
-#~ msgstr "Djathtas:"
-
-#~ msgid "Bottom:"
-#~ msgstr "Poshtë:"
-
-#~ msgid "Overlap horizontally by "
-#~ msgstr "Overlap horizontalisht me:"
-
-#~ msgid "Overlap vertically by "
-#~ msgstr "Overlap vertikalisht me:"
-
-#~ msgid "Printing"
-#~ msgstr "Printing"
-
-#~ msgid "Helpers"
-#~ msgstr "Ndihmues"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Vizualizuesi i Imazheve EOG"
-
-#~ msgid "By c_olor"
-#~ msgstr "Sipas n_gjyrës"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Vendos transparencën"
-
-#~ msgid "Pick a color"
-#~ msgstr "Zgjidh një ngjyrë"
-
-#~ msgid "interpolation type"
-#~ msgstr "tipi i interpolimit"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "tipi i interpolimit që do të përdoret"
-
-#~ msgid "check type"
-#~ msgstr "zgjidh tipin"
-
-#~ msgid "the type of chequering to use"
-#~ msgstr "tipi i shahut që duhet përdorur"
-
-#~ msgid "the size of chequers to use"
-#~ msgstr "madhësia e shahut që duhet përdorur"
-
-#~ msgid "dither"
-#~ msgstr "sfumaturë"
-
-#~ msgid "dither type"
-#~ msgstr "lloji i sfumaturës"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "Jeni duke hapur %i dritare\n"
-#~ "njëkohësisht. Dëshironi të vazhdoni?"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "Nuk arrij të futem tek %s\n"
-#~ "Eye of Gnome nuk do të arrijë të vizualizojë këtë file."
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Files në vazhdim nuk mund të shfaqen pasi Eye of Gnome nuk arrin të futet "
-#~ "në ta:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr "Nuk arrij të hap GnomeVFS!\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Nuk arrij të hap Bonobo!\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Nuk arrij të shpëtoj imazhin si '%s': %s."
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Nuk arrij të vizualizoj ndihmën për dialogun e preferimeve.\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "Ndrysho preferimet"
-
-#~ msgid "Close"
-#~ msgstr "Mbyll"
-
-#~ msgid "_New Window"
-#~ msgstr "_Dritare e Re"
-
-#~ msgid "1:1"
-#~ msgstr "1:1"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "Zmadhim _1:1"
-
-#~ msgid "Zoom to _Fit"
-#~ msgstr "Zmadhimi _Përshtate"
-
-#~ msgid "Check _size"
-#~ msgstr "Zgjidh _madhësinë"
-
-#~ msgid "Check _type"
-#~ msgstr "Zgjidh _tipin"
-
-#~ msgid "Large"
-#~ msgstr "Zmadho"
-
-#~ msgid "Medium"
-#~ msgstr "Mesatar"
-
-#~ msgid "Nea_rest Neighbour"
-#~ msgstr "Nea_rest Neighbour"
-
-#~ msgid "Normal (_pseudocolor)"
-#~ msgstr "Normal (_pseudocolor)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "Print Pre_view"
-
-#~ msgid "Print S_etup"
-#~ msgstr "Print S_etup"
-
-#~ msgid "Small"
-#~ msgstr "Vogël"
-
-#~ msgid "_Bilinear"
-#~ msgstr "_Bilinear"
-
-#~ msgid "_Black"
-#~ msgstr "_Zi"
-
-#~ msgid "_Dark"
-#~ msgstr "_Errët"
-
-#~ msgid "_Dither"
-#~ msgstr "_Sfumaturë"
-
-#~ msgid "_Gray"
-#~ msgstr "_Gri"
-
-#~ msgid "_Hyperbolic"
-#~ msgstr "_Hiperbolike"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolim"
-
-#~ msgid "_Light"
-#~ msgstr "_Ndriçim"
-
-#~ msgid "_Maximum (high color)"
-#~ msgstr "_Maksimum (shumë ngjyra)"
-
-#~ msgid "_Midtone"
-#~ msgstr "_Midtone"
-
-#~ msgid "_Tiles"
-#~ msgstr "_Tiles"
-
-#~ msgid "_White"
-#~ msgstr "_Bardhë"
-
-#~ msgid "Display"
-#~ msgstr "Display"
-
-#~ msgid "Dither"
-#~ msgstr "Sfumaturë"
-
-#~ msgid "Check Type"
-#~ msgstr "Zgjidh Tipin"
-
-#~ msgid "Check Size"
-#~ msgstr "Zgjidh Madhësinë"
-
-#~ msgid "Nearest Neighbour Interpolation"
-#~ msgstr "Nearest Neighbour Interpolation"
-
-#~ msgid "Bilinear Interpolation"
-#~ msgstr "Bilinear Interpolation"
-
-#~ msgid "Hyperbolic Interpolation"
-#~ msgstr "Hyperbolic Interpolation"
-
-#~ msgid "No dithering"
-#~ msgstr "Pa sfumaturë"
-
-#~ msgid "Normal (pseudocolor) dithering"
-#~ msgstr "Sfumaturë (pseudongjyrë) normale"
-
-#~ msgid "Maximum (high color) dithering"
-#~ msgstr "Sfumaturë maksimum (shumë ngjyra)"
-
-#~ msgid "Dark"
-#~ msgstr "Errët"
-
-#~ msgid "Midtone"
-#~ msgstr "Midtone"
-
-#~ msgid "Black"
-#~ msgstr "Zezë"
-
-#~ msgid "Gray"
-#~ msgstr "Gri"
-
-#~ msgid "White"
-#~ msgstr "Bardhë"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Interpolimi:"
-
-#~ msgid "_Dither:"
-#~ msgstr "_Sfumatura:"
-
-#~ msgid "Check _type:"
-#~ msgstr "Zgjidh _tipin:"
-
-#~ msgid "Check _size:"
-#~ msgstr "Zgjidh përma_sat:"
 
