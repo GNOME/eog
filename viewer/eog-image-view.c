@@ -434,11 +434,10 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 		
-		filename = "FIXME";
-		if (filename)
-			BONOBO_ARG_SET_STRING (arg, filename);
-		else 
-			BONOBO_ARG_SET_STRING (arg, "");
+		if (priv->image != NULL) {
+			BONOBO_ARG_SET_STRING (arg, eog_image_get_caption (priv->image));
+		}
+
 		break;
 	}
 	case PROP_WINDOW_STATUS: {
