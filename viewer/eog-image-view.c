@@ -313,6 +313,7 @@ static void
 eog_image_view_get_prop (BonoboPropertyBag *bag,
 			 BonoboArg         *arg,
 			 guint              arg_id,
+			 CORBA_Environment *ev,
 			 gpointer           user_data)
 {
 	EogImageView *image_view;
@@ -348,6 +349,7 @@ static void
 eog_image_view_set_prop (BonoboPropertyBag *bag,
 			 const BonoboArg   *arg,
 			 guint              arg_id,
+			 CORBA_Environment *ev,
 			 gpointer           user_data)
 {
 	EogImageView *image_view;
