@@ -335,7 +335,8 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 typedef struct
 {
 	EogImageView *image_view;
-	GNOME_Camera  camera;
+	GNOME_Camera camera;
+	Bonobo_EventSource_ListenerId id;
 } ListenerData;
 
 static void
@@ -346,18 +347,23 @@ listener_cb (BonoboListener *listener, gchar *event_name, CORBA_any *any,
 	Bonobo_Storage storage;
 	Bonobo_Stream stream;
 	EogImageView *image_view;
+	GNOME_Camera camera;
 
 	if (getenv ("DEBUG_EOG"))
 		g_message ("Got event: %s", event_name);
 
 	listener_data = data;
 	image_view = listener_data->image_view;
+	camera = listener_data->camera;
+
+	bonobo_event_source_client_remove_listener (listener_data->camera,
+						    listener_data->id, NULL);
+	g_free (listener_data);
 
 	if (!strcmp (event_name, "GNOME/Camera:CaptureImage:Action")) {
-		storage = Bonobo_Unknown_queryInterface (listener_data->camera,
+		storage = Bonobo_Unknown_queryInterface (camera,
 					"IDL:Bonobo/Storage:1.0", ev);
-		bonobo_object_release_unref (listener_data->camera, NULL);
-		g_free (listener_data);
+		bonobo_object_release_unref (camera, NULL);
 		if (BONOBO_EX (ev)) {
 			g_warning ("Could not get storage: %s",
 				   bonobo_exception_get_text (ev));
@@ -394,7 +400,6 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 	CORBA_Object gnocam;
 	GNOME_Camera camera;
 	ListenerData *listener_data;
-	Bonobo_EventSource_ListenerId id;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 	
@@ -422,8 +427,8 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 	listener_data = g_new0 (ListenerData, 1);
 	listener_data->image_view = image_view;
 	listener_data->camera = camera;
-	id = bonobo_event_source_client_add_listener (camera, listener_cb,
-				"GNOME/Camera:CaptureImage",
+	listener_data->id = bonobo_event_source_client_add_listener (camera,
+				listener_cb, "GNOME/Camera:CaptureImage",
 				&ev, listener_data);
 	if (BONOBO_EX (&ev)) {
 		g_warning ("Unable to add listener: %s", 
@@ -438,7 +443,9 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 	if (BONOBO_EX (&ev)) {
 		g_warning ("Could not capture image: %s",
 			   bonobo_exception_get_text (&ev));
-		bonobo_event_source_client_remove_listener (camera, id, NULL);
+		bonobo_event_source_client_remove_listener (camera,
+							    listener_data->id,
+							    NULL);
 		g_free (listener_data);
 		bonobo_object_release_unref (camera, NULL);
 		CORBA_exception_free (&ev);
