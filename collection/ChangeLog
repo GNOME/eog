@@ -1,3 +1,9 @@
+2001-05-31  Jens Finke <jens@gnome.org>
+
+	* Makefile.am (INCLUDES): Added $(EXTRA_GNOME_CFLAGS) [all these
+	extra flags are really a mess, maybe its time for a cleanup].
+	(eog_collection_LDADD): Added $(EXTAR_GNOME_LIBS).
+
 2001-05-30  Jens Finke <jens@gnome.org>
 
 	* cimage.[ch]: (cimage_set_dimensions),

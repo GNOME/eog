@@ -10,6 +10,7 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
+	$(EXTRA_GNOME_CFLAGS)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(GNOME_CFLAGS)
@@ -42,6 +43,7 @@ eog_collection_LDADD = 			\
 	$(GNOME_LIBS)				\
 	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
+	$(EXTRA_GNOME_LIBS)			\
 	$(EXTRA_BONOBO_LIBS)			\
 	$(LIBPNG) $(LIBJPEG)			\
 	../libeog/libeog.la
