@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.0.0\n"
-"POT-Creation-Date: 2002-08-17 19:16+0200\n"
+"POT-Creation-Date: 2002-10-10 19:04+0200\n"
 "PO-Revision-Date: 2002-06-26 12:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
@@ -14,16 +14,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
-msgid "EOG Image Collection"
-msgstr "EOG 그림 모음"
-
-#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "EOG 그림 모음 보기 프로그램"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image collection view factory"
 msgstr "EOG 그림 모음 보기 프로그램 팩토리"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#, fuzzy
+msgid "Image Collection"
+msgstr "EOG 그림 모음"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -33,7 +34,139 @@ msgstr "그놈의 눈 그림 보기 프로그램"
 msgid "View many different types of images"
 msgstr "여러가지 종류의 그림을 봅니다"
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
+#.
+#. * Datei für übersetzbare Zeichenketten, erzeugt durch Glade.
+#. * Fügen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
+#. * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
+#.
+#: eog-glade.h:7
+msgid "Eye of Gnome Preferences"
+msgstr "그놈의 눈 기본 설정"
+
+#: eog-glade.h:8
+msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog-glade.h:9
+msgid "By check_pattern "
+msgstr ""
+
+#: eog-glade.h:10
+msgid "By c_olor"
+msgstr ""
+
+#: eog-glade.h:11
+msgid "Pick a color"
+msgstr ""
+
+#: eog-glade.h:12
+msgid "Indicate Transparency"
+msgstr ""
+
+#: eog-glade.h:13
+#, fuzzy
+msgid "Image Viewer"
+msgstr "그놈의 눈 그림 보기 프로그램"
+
+#: eog.schemas.in.h:1
+msgid "Automatically pick window size"
+msgstr ""
+
+#: eog.schemas.in.h:2
+msgid "Default zoom factor for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:3
+msgid ""
+"Default zoom factor for the full screen view. Possible values are: 0 (use "
+"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
+"the image to the screen)."
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"determines the used color value."
+msgstr ""
+
+#: eog.schemas.in.h:5
+msgid "Fit standard-sized images to the screen"
+msgstr ""
+
+#: eog.schemas.in.h:6
+msgid ""
+"If the transparency key has the value COLOR, than this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+
+#: eog.schemas.in.h:7
+#, fuzzy
+msgid "Interpolate Image"
+msgstr "인터폴레이션"
+
+#: eog.schemas.in.h:8
+#, fuzzy
+msgid "Open images in a new window"
+msgstr "새 창에서 엽니다"
+
+#: eog.schemas.in.h:9
+msgid "Put a bevel around the screen"
+msgstr ""
+
+#: eog.schemas.in.h:10
+msgid "Scrollbar policy for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:11
+msgid "Transparency color"
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Transparency indicator"
+msgstr ""
+
+#: eog.schemas.in.h:13
+msgid ""
+"Wether the image should be interpolated on zoom or not. This leads to better "
+"quality but is somewhat slower than non interpolated images."
+msgstr ""
+
+#: eog.schemas.in.h:14
+msgid ""
+"Whether image windows should pick their size and zooming factor "
+"automatically based on the size of the image. If this option is not set, "
+"image windows will get whatever size the window manager assigns to them."
+msgstr ""
+
+#: eog.schemas.in.h:15
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+
+#: eog.schemas.in.h:16
+msgid ""
+"Whether the full screen view should display a bevel along the edges of the "
+"screen."
+msgstr ""
+
+#: eog.schemas.in.h:17
+msgid ""
+"Whether to display scrollbars on the full screen view. Possible values are: "
+"1 (automatic; only display scrollbars if the image is larger than the "
+"window), 2 (never display scrollbars)."
+msgstr ""
+
+#: eog.schemas.in.h:18
+msgid ""
+"Whether to fit standard-sized images to the screen when in full screen mode. "
+"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"selects whether such images should be scaled to fit the screen regardless of "
+"the setting for the default zoom factor of the full screen view."
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:717
 msgid "EOG Image"
 msgstr "그놈의 눈 그림"
 
@@ -54,31 +187,31 @@ msgstr "포함 가능한 그놈의 눈 그림"
 msgid "Image"
 msgstr "그림"
 
-#: libeog/image-view.c:1847
+#: libeog/image-view.c:1896
 msgid "interpolation type"
 msgstr "인터폴레이션 방법"
 
-#: libeog/image-view.c:1848
+#: libeog/image-view.c:1897
 msgid "the type of interpolation to use"
 msgstr "사용할 인터폴레이션 방법"
 
-#: libeog/image-view.c:1854 libeog/image-view.c:1861
+#: libeog/image-view.c:1903 libeog/image-view.c:1910
 msgid "check type"
 msgstr "체커 종류"
 
-#: libeog/image-view.c:1855
+#: libeog/image-view.c:1904
 msgid "the type of chequering to use"
 msgstr "사용할 체커 무늬의 종류"
 
-#: libeog/image-view.c:1862
+#: libeog/image-view.c:1911
 msgid "the size of chequers to use"
 msgstr "사용할 체커 무늬의 크기"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1917
 msgid "dither"
 msgstr "디더링"
 
-#: libeog/image-view.c:1869
+#: libeog/image-view.c:1918
 msgid "dither type"
 msgstr "디더링 방법"
 
@@ -165,97 +298,108 @@ msgid "Close window"
 msgstr "창 닫기"
 
 #: shell/eog-shell-ui.xml.h:4
-msgid "Contents"
-msgstr "목차"
-
-#: shell/eog-shell-ui.xml.h:5
 msgid "Help On this application"
 msgstr "이 프로그램에 대한 도움말"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:7 shell/main.c:216
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:215
 msgid "Open"
 msgstr "열기"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "파일 열기"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "새 창을 엽니다"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "새 창에서 엽니다"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "이 창에서 엽니다"
 
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Prefere_nces"
+msgstr "기본 설정(_P)..."
+
 #: shell/eog-shell-ui.xml.h:12
+msgid "Preferences for EoG components"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
 msgstr "프로그램 끝내기"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 msgid "_About"
 msgstr "정보(_A)"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "닫기(_C)"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Contents"
+msgstr "목차"
+
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+msgid "_Edit"
+msgstr "편집(_E)"
+
+#: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "파일(_F)"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: shell/eog-shell-ui.xml.h:17
-msgid "_New Window"
-msgstr "새 창(_N)"
+#: shell/eog-shell-ui.xml.h:20
+#, fuzzy
+msgid "_New"
+msgstr "없음(_N)"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
 msgstr "열기(_O)..."
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
 msgstr "끝내기(_Q)"
-
-#: shell/eog-shell-ui.xml.h:20
-msgid "_View"
-msgstr "보기(_V)"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:210
+#: shell/eog-window.c:215
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "남성현 <namsh@kldp.org>\n"
 "차영호 <ganadist@chollian.net>\n"
 "류창우 <cwryu@debian.org>"
 
-#: shell/eog-window.c:215 shell/eog-window.c:592 shell/main.c:458
+#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:457
 msgid "Eye of Gnome"
 msgstr "그놈의 눈"
 
-#: shell/eog-window.c:217
+#: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:218
+#: shell/eog-window.c:223
 msgid "The GNOME image viewing and cataloging program."
 msgstr "그놈 이미지 보기 및 카타로그 프로그램."
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:260
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -264,12 +408,7 @@ msgstr ""
 "그놈의 눈에 대한 도움말을 표시할 수 없습니다.\n"
 "%s"
 
-#: shell/eog-window.c:1234
-#, c-format
-msgid "Unable to open %s."
-msgstr "%s을(를) 열 수 없습니다."
-
-#: shell/main.c:183
+#: shell/main.c:182
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -280,15 +419,15 @@ msgstr ""
 "하셨습니다. 대신에 한 개의\n"
 "그림 모음을 열까요?"
 
-#: shell/main.c:188
+#: shell/main.c:187
 msgid "Single Windows"
 msgstr "단일 창"
 
-#: shell/main.c:189
+#: shell/main.c:188
 msgid "Collection"
 msgstr "그림 모음"
 
-#: shell/main.c:213
+#: shell/main.c:212
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -297,7 +436,7 @@ msgstr ""
 "%i개의 창을 동시에 열려고 하셨습니다. \n"
 "계속할까요?"
 
-#: shell/main.c:296
+#: shell/main.c:295
 #, c-format
 msgid ""
 "Could not access %s\n"
@@ -306,7 +445,7 @@ msgstr ""
 "%s에 접근할 수 없습니다\n"
 "그놈의 눈이 이 파일을 표시하지 못할 것입니다."
 
-#: shell/main.c:299
+#: shell/main.c:298
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
@@ -316,11 +455,11 @@ msgstr ""
 "그놈의 눈이 이 파일에 접근할 수 없으므로 다음 파일을 표시할 수 없습니다:\n"
 "%s"
 
-#: shell/main.c:470
+#: shell/main.c:469
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS를 초기화 할 수 없습니다!\n"
 
-#: shell/main.c:473
+#: shell/main.c:472
 msgid "Could not initialize Bonobo!\n"
 msgstr "보노보를 초기화 할 수 없습니다!\n"
 
@@ -330,8 +469,8 @@ msgid "Could not open `%s'"
 msgstr "`%s'을(를) 열 수 없습니다"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+msgid "Best _Fit"
+msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -342,207 +481,148 @@ msgid "In"
 msgstr "확대"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Normal"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
 msgstr "축소"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
-msgstr "_1:1"
-
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "확대(_I)"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom _Out"
 msgstr "축소(_O)"
 
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr ""
+
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "창 크기에 맞게(_F)"
+#, fuzzy
+msgid "_Zoom In"
+msgstr "확대(_I)"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "검사 크기(_S)"
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "가로 방향으로"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "검사 형식(_T)"
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "세로 방향으로"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
 msgstr "전체 화면"
 
 #: viewer/eog-image-view-ui.xml.h:4
-msgid "Large"
-msgstr "크게"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Medium"
-msgstr "중간 크기"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Nea_rest Neighbour"
-msgstr "가장 가까운 색으로"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Normal (_pseudocolor)"
-msgstr "보통 (가상 색상)(_P)"
-
-#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "인쇄할 그림을 미리 봅니다"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "인쇄 미리 보기(_V)"
+#: viewer/eog-image-view-ui.xml.h:5
+#, fuzzy
+msgid "Print Previe_w.."
+msgstr "인쇄 미리 보기"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "인쇄 설정(_E)"
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Print Set_up"
+msgstr "인쇄 설정"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "그림을 프린터로 인쇄합니다"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate 180 Degrees"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Counter Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+#, fuzzy
+msgid "Save _As..."
+msgstr "다른 이름으로 저장(_A)"
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "현재 프린터에 대한 페이지 설정"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Small"
-msgstr "작게"
-
 #: viewer/eog-image-view-ui.xml.h:14
-msgid "_Bilinear"
-msgstr "바이라이너(_B)"
-
-#: viewer/eog-image-view-ui.xml.h:15
-msgid "_Black"
-msgstr "검정(_B)"
-
-#: viewer/eog-image-view-ui.xml.h:16
-msgid "_Dark"
-msgstr "어두운 색(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "디더링(_D)"
-
-#: viewer/eog-image-view-ui.xml.h:18
-msgid "_Gray"
-msgstr "회색"
-
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "_Hyperbolic"
-msgstr "하이퍼볼릭(_H)"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "인터폴레이션(_I)"
-
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Light"
-msgstr "밝은 색(_L)"
-
-#: viewer/eog-image-view-ui.xml.h:22
-msgid "_Maximum (high color)"
-msgstr "최대 (하이컬러)(_M)"
-
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Midtone"
-msgstr "중간 톤(_M)"
-
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_None"
-msgstr "없음(_N)"
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
+#, fuzzy
+msgid "_Print..."
 msgstr "인쇄(_P)"
 
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_Save As..."
-msgstr "다른 이름으로 저장(_A)"
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "보기(_V)"
 
-#: viewer/eog-image-view-ui.xml.h:27
-msgid "_White"
-msgstr "흰색(_W)"
-
-#: viewer/eog-image-view.c:347
+#: viewer/eog-image-view.c:266
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "그림을 '%s'(으)로 저장할 수 없습니다: %s."
 
-#: viewer/eog-image-view.c:973
+#: viewer/eog-image-view.c:952
 msgid "Print Image"
 msgstr "그림 인쇄"
 
-#: viewer/eog-image-view.c:981
+#: viewer/eog-image-view.c:960
 msgid "Pages"
 msgstr "페이지"
 
-#: viewer/eog-image-view.c:1068
+#: viewer/eog-image-view.c:1047
 msgid "Print Preview"
 msgstr "인쇄 미리 보기"
 
-#: viewer/eog-image-view.c:1074
+#: viewer/eog-image-view.c:1053
 msgid "Printing of image failed"
 msgstr "그림을 인쇄하는 데 실패했습니다"
 
-#: viewer/eog-image-view.c:2048
-msgid "/Zoom _In"
+#: viewer/eog-image-view.c:1868
+#, fuzzy
+msgid "/_Zoom In"
 msgstr "/확대(_I)"
 
-#: viewer/eog-image-view.c:2050
+#: viewer/eog-image-view.c:1870
 msgid "/Zoom _Out"
 msgstr "/축소(_O)"
 
-#: viewer/eog-image-view.c:2052
-msgid "/Zoom _1:1"
-msgstr "/_1:1"
+#: viewer/eog-image-view.c:1872
+msgid "/_Normal Size"
+msgstr ""
 
-#: viewer/eog-image-view.c:2054
-msgid "/Zoom to _Fit"
+#: viewer/eog-image-view.c:1874
+#, fuzzy
+msgid "/Best _Fit"
 msgstr "/창 크기에 맞게(_F)"
 
-#: viewer/eog-image-view.c:2057
+#: viewer/eog-image-view.c:1877
 msgid "/_Close"
 msgstr "/닫기(_C)"
 
-#: viewer/eog-image-view.c:2172
-msgid "Interpolation"
-msgstr "인터폴레이션"
-
-#: viewer/eog-image-view.c:2175
-msgid "Dither"
-msgstr "디더링"
-
-#: viewer/eog-image-view.c:2178
-msgid "Check Type"
-msgstr "검사 형식"
-
-#: viewer/eog-image-view.c:2181
-msgid "Check Size"
-msgstr "검사 크기"
-
-#: viewer/eog-image-view.c:2184
+#: viewer/eog-image-view.c:2003
 msgid "Image Width"
 msgstr "그림 너비"
 
-#: viewer/eog-image-view.c:2187
+#: viewer/eog-image-view.c:2006
 msgid "Image Height"
 msgstr "그림 높이"
 
-#: viewer/eog-image-view.c:2190
+#: viewer/eog-image-view.c:2009
 msgid "Window Title"
 msgstr "창 제목"
 
-#: viewer/eog-image-view.c:2193
+#: viewer/eog-image-view.c:2012
 msgid "Statusbar Text"
 msgstr "상태 표시줄 텍스트"
 
-#: viewer/eog-image.c:470
+#: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS를 초기화 할 수 없습니다!\n"
 
@@ -714,6 +794,93 @@ msgstr "아래로, 그 다음에 오른쪽으로"
 msgid "Right, then down"
 msgstr "오른쪽으로, 그 다음에 아래로"
 
+#~ msgid "_New Window"
+#~ msgstr "새 창(_N)"
+
+#~ msgid "Unable to open %s."
+#~ msgstr "%s을(를) 열 수 없습니다."
+
+#~ msgid "1:1"
+#~ msgstr "1:1"
+
+#~ msgid "Zoom _1:1"
+#~ msgstr "_1:1"
+
+#~ msgid "Zoom to _Fit"
+#~ msgstr "창 크기에 맞게(_F)"
+
+#~ msgid "Check _size"
+#~ msgstr "검사 크기(_S)"
+
+#~ msgid "Check _type"
+#~ msgstr "검사 형식(_T)"
+
+#~ msgid "Large"
+#~ msgstr "크게"
+
+#~ msgid "Medium"
+#~ msgstr "중간 크기"
+
+#~ msgid "Nea_rest Neighbour"
+#~ msgstr "가장 가까운 색으로"
+
+#~ msgid "Normal (_pseudocolor)"
+#~ msgstr "보통 (가상 색상)(_P)"
+
+#~ msgid "Print Pre_view"
+#~ msgstr "인쇄 미리 보기(_V)"
+
+#~ msgid "Print S_etup"
+#~ msgstr "인쇄 설정(_E)"
+
+#~ msgid "Small"
+#~ msgstr "작게"
+
+#~ msgid "_Bilinear"
+#~ msgstr "바이라이너(_B)"
+
+#~ msgid "_Black"
+#~ msgstr "검정(_B)"
+
+#~ msgid "_Dark"
+#~ msgstr "어두운 색(_D)"
+
+#~ msgid "_Dither"
+#~ msgstr "디더링(_D)"
+
+#~ msgid "_Gray"
+#~ msgstr "회색"
+
+#~ msgid "_Hyperbolic"
+#~ msgstr "하이퍼볼릭(_H)"
+
+#~ msgid "_Interpolation"
+#~ msgstr "인터폴레이션(_I)"
+
+#~ msgid "_Light"
+#~ msgstr "밝은 색(_L)"
+
+#~ msgid "_Maximum (high color)"
+#~ msgstr "최대 (하이컬러)(_M)"
+
+#~ msgid "_Midtone"
+#~ msgstr "중간 톤(_M)"
+
+#~ msgid "_White"
+#~ msgstr "흰색(_W)"
+
+#~ msgid "/Zoom _1:1"
+#~ msgstr "/_1:1"
+
+#~ msgid "Dither"
+#~ msgstr "디더링"
+
+#~ msgid "Check Type"
+#~ msgstr "검사 형식"
+
+#~ msgid "Check Size"
+#~ msgstr "검사 크기"
+
 #~ msgid "Close"
 #~ msgstr "닫기"
 
@@ -724,17 +891,8 @@ msgstr "오른쪽으로, 그 다음에 아래로"
 #~ "기본 설정 대화 상자에 대한 도움말을 표시할 수 없습니다.\n"
 #~ "%s"
 
-#~ msgid "Eye of Gnome Preferences"
-#~ msgstr "그놈의 눈 기본 설정"
-
 #~ msgid "Change preferences"
 #~ msgstr "기본 설정 변경"
-
-#~ msgid "_Edit"
-#~ msgstr "편집(_E)"
-
-#~ msgid "_Preferences..."
-#~ msgstr "기본 설정(_P)..."
 
 #~ msgid "_Tiles"
 #~ msgstr "타일(_T)"

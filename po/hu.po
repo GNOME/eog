@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-08-17 19:16+0200\n"
+"POT-Creation-Date: 2002-10-10 19:04+0200\n"
 "PO-Revision-Date: 2000-11-03 23:05+01:00\n"
 "Last-Translator: Gergõ Érdi <cactus@cactus.rulez.org>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -14,17 +14,17 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 #, fuzzy
-msgid "EOG Image Collection"
-msgstr "EOG képnézõ factory"
-
-#: collection/GNOME_EOG_Collection.server.in.in.h:2
-#, fuzzy
 msgid "EOG Image Collection Viewer"
 msgstr "EOG képnézõ"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 #, fuzzy
 msgid "EOG Image collection view factory"
+msgstr "EOG képnézõ factory"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#, fuzzy
+msgid "Image Collection"
 msgstr "EOG képnézõ factory"
 
 #: eog.desktop.in.h:1
@@ -36,7 +36,139 @@ msgstr "EOG képnézõ"
 msgid "View many different types of images"
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
+#.
+#. * Datei fÃ¼r Ã¼bersetzbare Zeichenketten, erzeugt durch Glade.
+#. * FÃ¼gen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
+#. * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
+#.
+#: eog-glade.h:7
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome"
+
+#: eog-glade.h:8
+msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog-glade.h:9
+msgid "By check_pattern "
+msgstr ""
+
+#: eog-glade.h:10
+msgid "By c_olor"
+msgstr ""
+
+#: eog-glade.h:11
+msgid "Pick a color"
+msgstr ""
+
+#: eog-glade.h:12
+msgid "Indicate Transparency"
+msgstr ""
+
+#: eog-glade.h:13
+msgid "Image Viewer"
+msgstr "Képmegjelenítõ"
+
+#: eog.schemas.in.h:1
+msgid "Automatically pick window size"
+msgstr ""
+
+#: eog.schemas.in.h:2
+msgid "Default zoom factor for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:3
+msgid ""
+"Default zoom factor for the full screen view. Possible values are: 0 (use "
+"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
+"the image to the screen)."
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"determines the used color value."
+msgstr ""
+
+#: eog.schemas.in.h:5
+msgid "Fit standard-sized images to the screen"
+msgstr ""
+
+#: eog.schemas.in.h:6
+msgid ""
+"If the transparency key has the value COLOR, than this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+
+#: eog.schemas.in.h:7
+#, fuzzy
+msgid "Interpolate Image"
+msgstr "Interpoláció módja"
+
+#: eog.schemas.in.h:8
+#, fuzzy
+msgid "Open images in a new window"
+msgstr "Megnyitás új ablakban"
+
+#: eog.schemas.in.h:9
+msgid "Put a bevel around the screen"
+msgstr ""
+
+#: eog.schemas.in.h:10
+msgid "Scrollbar policy for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:11
+msgid "Transparency color"
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Transparency indicator"
+msgstr ""
+
+#: eog.schemas.in.h:13
+msgid ""
+"Wether the image should be interpolated on zoom or not. This leads to better "
+"quality but is somewhat slower than non interpolated images."
+msgstr ""
+
+#: eog.schemas.in.h:14
+msgid ""
+"Whether image windows should pick their size and zooming factor "
+"automatically based on the size of the image. If this option is not set, "
+"image windows will get whatever size the window manager assigns to them."
+msgstr ""
+
+#: eog.schemas.in.h:15
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+
+#: eog.schemas.in.h:16
+msgid ""
+"Whether the full screen view should display a bevel along the edges of the "
+"screen."
+msgstr ""
+
+#: eog.schemas.in.h:17
+msgid ""
+"Whether to display scrollbars on the full screen view. Possible values are: "
+"1 (automatic; only display scrollbars if the image is larger than the "
+"window), 2 (never display scrollbars)."
+msgstr ""
+
+#: eog.schemas.in.h:18
+msgid ""
+"Whether to fit standard-sized images to the screen when in full screen mode. "
+"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"selects whether such images should be scaled to fit the screen regardless of "
+"the setting for the default zoom factor of the full screen view."
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:717
 msgid "EOG Image"
 msgstr "EOG kép"
 
@@ -57,35 +189,35 @@ msgstr "Beilleszthetõ EOG kép"
 msgid "Image"
 msgstr ""
 
-#: libeog/image-view.c:1847
+#: libeog/image-view.c:1896
 #, fuzzy
 msgid "interpolation type"
 msgstr "Interpoláció módja"
 
-#: libeog/image-view.c:1848
+#: libeog/image-view.c:1897
 #, fuzzy
 msgid "the type of interpolation to use"
 msgstr "Hiperbolikus közelítés"
 
-#: libeog/image-view.c:1854 libeog/image-view.c:1861
+#: libeog/image-view.c:1903 libeog/image-view.c:1910
 #, fuzzy
 msgid "check type"
 msgstr "Rácsminta _típusa"
 
-#: libeog/image-view.c:1855
+#: libeog/image-view.c:1904
 msgid "the type of chequering to use"
 msgstr ""
 
-#: libeog/image-view.c:1862
+#: libeog/image-view.c:1911
 msgid "the size of chequers to use"
 msgstr ""
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1917
 #, fuzzy
 msgid "dither"
 msgstr "Színközelítés"
 
-#: libeog/image-view.c:1869
+#: libeog/image-view.c:1918
 #, fuzzy
 msgid "dither type"
 msgstr "Rácsminta _típusa"
@@ -173,111 +305,116 @@ msgid "Close window"
 msgstr "Ablak bezárása"
 
 #: shell/eog-shell-ui.xml.h:4
-msgid "Contents"
-msgstr ""
-
-#: shell/eog-shell-ui.xml.h:5
 #, fuzzy
 msgid "Help On this application"
 msgstr "Információk a programról"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:7 shell/main.c:216
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:215
 msgid "Open"
 msgstr "Megnyit"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Megnyit egy fájlt"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Új ablakot nyit"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "Megnyitás új ablakban"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "Megnyitás az aktuális ablakban"
 
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Prefere_nces"
+msgstr "_Beállítások"
+
 #: shell/eog-shell-ui.xml.h:12
+msgid "Preferences for EoG components"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
 #, fuzzy
 msgid "Quit the program"
 msgstr "Kilép a programból"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 #, fuzzy
 msgid "_About"
 msgstr "_Névjegy"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "_Bezár"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Contents"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Edit"
+msgstr "_Kilépés"
+
+#: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fájl"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Help"
 msgstr "_Súgó"
 
-#: shell/eog-shell-ui.xml.h:17
-msgid "_New Window"
-msgstr "Új _ablak"
+#: shell/eog-shell-ui.xml.h:20
+#, fuzzy
+msgid "_New"
+msgstr "_Fájl"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
 msgstr "_Megnyit..."
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 #, fuzzy
 msgid "_Quit"
 msgstr "_Kilépés"
-
-#: shell/eog-shell-ui.xml.h:20
-#, fuzzy
-msgid "_View"
-msgstr "_Fájl"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:210
+#: shell/eog-window.c:215
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:215 shell/eog-window.c:592 shell/main.c:458
+#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:457
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:217
+#: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr ""
 
-#: shell/eog-window.c:218
+#: shell/eog-window.c:223
 msgid "The GNOME image viewing and cataloging program."
 msgstr ""
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:260
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
 
-#: shell/eog-window.c:1234
-#, c-format
-msgid "Unable to open %s."
-msgstr ""
-
-#: shell/main.c:183
+#: shell/main.c:182
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -285,29 +422,29 @@ msgid ""
 "them in a collection instead?"
 msgstr ""
 
-#: shell/main.c:188
+#: shell/main.c:187
 msgid "Single Windows"
 msgstr ""
 
-#: shell/main.c:189
+#: shell/main.c:188
 msgid "Collection"
 msgstr ""
 
-#: shell/main.c:213
+#: shell/main.c:212
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
 "simultanously. Do you want to continue?"
 msgstr ""
 
-#: shell/main.c:296
+#: shell/main.c:295
 #, c-format
 msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
 
-#: shell/main.c:299
+#: shell/main.c:298
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
@@ -315,11 +452,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: shell/main.c:470
+#: shell/main.c:469
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Gnome-VFS inicializáció sikertelen!\n"
 
-#: shell/main.c:473
+#: shell/main.c:472
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo inicializáció sikertelen!\n"
 
@@ -329,7 +466,7 @@ msgid "Could not open `%s'"
 msgstr "`%s' megnyitása nem sikerült"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
+msgid "Best _Fit"
 msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
@@ -341,220 +478,148 @@ msgid "In"
 msgstr "In"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
-msgid "Out"
+msgid "Normal"
 msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _1:1"
+msgid "Out"
 msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr ""
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom _Out"
 msgstr ""
 
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr ""
+
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
+msgid "_Zoom In"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "Rácsminta _mérete"
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "Vízszintesen"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "Rácsminta _típusa"
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "Függõlegesen"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:4
-msgid "Large"
-msgstr "Nagy"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Medium"
-msgstr "Közepes"
-
-#: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
-msgid "Nea_rest Neighbour"
-msgstr "Közelítés a legközelebbi _szomszéd alapján"
-
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Normal (_pseudocolor)"
-msgstr "Normál színközelítés"
-
-#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Elõnézetet ad a nyomtatandó képrõl"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "Nyomtatási _kép"
+#: viewer/eog-image-view-ui.xml.h:5
+#, fuzzy
+msgid "Print Previe_w.."
+msgstr "Nyomtatási elõnézet"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "Nyomtatás _beállítása"
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Print Set_up"
+msgstr "Nyomtatás beállítása"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Kinyomtatja a képet"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate 180 Degrees"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Counter Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+#, fuzzy
+msgid "Save _As..."
+msgstr "Mentés másként"
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Small"
-msgstr "Kicsi"
-
 #: viewer/eog-image-view-ui.xml.h:14
-msgid "_Bilinear"
-msgstr ""
+#, fuzzy
+msgid "_Print..."
+msgstr "_Nyomtatás"
 
 #: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
-msgid "_Black"
-msgstr "Fekete"
+msgid "_View"
+msgstr "_Fájl"
 
-#: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
-msgid "_Dark"
-msgstr "Sötét"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "Szín_közelítés"
-
-#: viewer/eog-image-view-ui.xml.h:18
-#, fuzzy
-msgid "_Gray"
-msgstr "Szürke"
-
-#: viewer/eog-image-view-ui.xml.h:19
-#, fuzzy
-msgid "_Hyperbolic"
-msgstr "_Hiperbolikus közelítés"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "_Interpoláció módja"
-
-#: viewer/eog-image-view-ui.xml.h:21
-#, fuzzy
-msgid "_Light"
-msgstr "Világos"
-
-#: viewer/eog-image-view-ui.xml.h:22
-#, fuzzy
-msgid "_Maximum (high color)"
-msgstr "_Teljes (sokszínes) színközelítés"
-
-#: viewer/eog-image-view-ui.xml.h:23
-#, fuzzy
-msgid "_Midtone"
-msgstr "Közepes"
-
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_None"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
-msgstr "_Nyomtatás"
-
-#: viewer/eog-image-view-ui.xml.h:26
-#, fuzzy
-msgid "_Save As..."
-msgstr "Mentés másként"
-
-#: viewer/eog-image-view-ui.xml.h:27
-#, fuzzy
-msgid "_White"
-msgstr "Fehér"
-
-#: viewer/eog-image-view.c:347
+#: viewer/eog-image-view.c:266
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr ""
 "A kép `%s' néven való elmentése közben a következõ hiba lépett fel: %s."
 
-#: viewer/eog-image-view.c:973
+#: viewer/eog-image-view.c:952
 msgid "Print Image"
 msgstr "Kép nyomtatása"
 
-#: viewer/eog-image-view.c:981
+#: viewer/eog-image-view.c:960
 msgid "Pages"
 msgstr "Oldalak"
 
-#: viewer/eog-image-view.c:1068
+#: viewer/eog-image-view.c:1047
 msgid "Print Preview"
 msgstr "Nyomtatási elõnézet"
 
-#: viewer/eog-image-view.c:1074
+#: viewer/eog-image-view.c:1053
 msgid "Printing of image failed"
 msgstr "A kép nyomtatása nem sikerült"
 
-#: viewer/eog-image-view.c:2048
-msgid "/Zoom _In"
+#: viewer/eog-image-view.c:1868
+msgid "/_Zoom In"
 msgstr ""
 
-#: viewer/eog-image-view.c:2050
+#: viewer/eog-image-view.c:1870
 msgid "/Zoom _Out"
 msgstr ""
 
-#: viewer/eog-image-view.c:2052
-msgid "/Zoom _1:1"
+#: viewer/eog-image-view.c:1872
+msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:2054
-msgid "/Zoom to _Fit"
+#: viewer/eog-image-view.c:1874
+msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:2057
+#: viewer/eog-image-view.c:1877
 #, fuzzy
 msgid "/_Close"
 msgstr "_Bezár"
 
-#: viewer/eog-image-view.c:2172
-msgid "Interpolation"
-msgstr "Interpoláció módja"
-
-#: viewer/eog-image-view.c:2175
-msgid "Dither"
-msgstr "Színközelítés"
-
-#: viewer/eog-image-view.c:2178
-msgid "Check Type"
-msgstr "Rácsminta típusa"
-
-#: viewer/eog-image-view.c:2181
-msgid "Check Size"
-msgstr "Rácsminta mérete"
-
-#: viewer/eog-image-view.c:2184
+#: viewer/eog-image-view.c:2003
 msgid "Image Width"
 msgstr "Kép szélessége"
 
-#: viewer/eog-image-view.c:2187
+#: viewer/eog-image-view.c:2006
 msgid "Image Height"
 msgstr "Kép magassága"
 
-#: viewer/eog-image-view.c:2190
+#: viewer/eog-image-view.c:2009
 msgid "Window Title"
 msgstr ""
 
-#: viewer/eog-image-view.c:2193
+#: viewer/eog-image-view.c:2012
 msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-image.c:470
+#: viewer/eog-image.c:480
 #, fuzzy
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Gnome-VFS inicializáció sikertelen!\n"
@@ -727,6 +792,85 @@ msgstr "Lefelé, majd jobbra"
 msgid "Right, then down"
 msgstr "Jobbra, majd lefelé"
 
+#~ msgid "_New Window"
+#~ msgstr "Új _ablak"
+
+#~ msgid "Check _size"
+#~ msgstr "Rácsminta _mérete"
+
+#~ msgid "Check _type"
+#~ msgstr "Rácsminta _típusa"
+
+#~ msgid "Large"
+#~ msgstr "Nagy"
+
+#~ msgid "Medium"
+#~ msgstr "Közepes"
+
+#, fuzzy
+#~ msgid "Nea_rest Neighbour"
+#~ msgstr "Közelítés a legközelebbi _szomszéd alapján"
+
+#, fuzzy
+#~ msgid "Normal (_pseudocolor)"
+#~ msgstr "Normál színközelítés"
+
+#~ msgid "Print Pre_view"
+#~ msgstr "Nyomtatási _kép"
+
+#~ msgid "Print S_etup"
+#~ msgstr "Nyomtatás _beállítása"
+
+#~ msgid "Small"
+#~ msgstr "Kicsi"
+
+#, fuzzy
+#~ msgid "_Black"
+#~ msgstr "Fekete"
+
+#, fuzzy
+#~ msgid "_Dark"
+#~ msgstr "Sötét"
+
+#~ msgid "_Dither"
+#~ msgstr "Szín_közelítés"
+
+#, fuzzy
+#~ msgid "_Gray"
+#~ msgstr "Szürke"
+
+#, fuzzy
+#~ msgid "_Hyperbolic"
+#~ msgstr "_Hiperbolikus közelítés"
+
+#~ msgid "_Interpolation"
+#~ msgstr "_Interpoláció módja"
+
+#, fuzzy
+#~ msgid "_Light"
+#~ msgstr "Világos"
+
+#, fuzzy
+#~ msgid "_Maximum (high color)"
+#~ msgstr "_Teljes (sokszínes) színközelítés"
+
+#, fuzzy
+#~ msgid "_Midtone"
+#~ msgstr "Közepes"
+
+#, fuzzy
+#~ msgid "_White"
+#~ msgstr "Fehér"
+
+#~ msgid "Dither"
+#~ msgstr "Színközelítés"
+
+#~ msgid "Check Type"
+#~ msgstr "Rácsminta típusa"
+
+#~ msgid "Check Size"
+#~ msgstr "Rácsminta mérete"
+
 #~ msgid "Close"
 #~ msgstr "Bezár"
 
@@ -734,16 +878,8 @@ msgstr "Jobbra, majd lefelé"
 #~ msgstr "Beállítások megváltoztatása"
 
 #, fuzzy
-#~ msgid "_Edit"
-#~ msgstr "_Kilépés"
-
-#, fuzzy
 #~ msgid "_Preferences..."
 #~ msgstr "_Beállítások"
-
-#, fuzzy
-#~ msgid "Eye of Gnome Preferences"
-#~ msgstr "Eye of Gnome"
 
 #~ msgid "Save As"
 #~ msgstr "Mentés másként"
@@ -809,9 +945,6 @@ msgstr "Jobbra, majd lefelé"
 #~ msgid "Check _size:"
 #~ msgstr "Rácsminta _mérete"
 
-#~ msgid "Image Viewer"
-#~ msgstr "Képmegjelenítõ"
-
 #, fuzzy
 #~ msgid "_Settings"
 #~ msgstr "_Beállítások"
@@ -867,10 +1000,6 @@ msgstr "Jobbra, majd lefelé"
 
 #~ msgid "I could not initialize Bonobo"
 #~ msgstr "Bonobo inicializáció sikertelen"
-
-#, fuzzy
-#~ msgid "Preferences"
-#~ msgstr "_Beállítások"
 
 #, fuzzy
 #~ msgid "Open an image file"

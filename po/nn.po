@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 10.0\n"
-"POT-Creation-Date: 2002-08-17 19:16+0200\n"
+"POT-Creation-Date: 2002-10-10 19:04+0200\n"
 "PO-Revision-Date: 2002-01-30 03:47+0100\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian/Nynorsk <nn@li.org>\n"
@@ -16,18 +16,18 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 #, fuzzy
-msgid "EOG Image Collection"
-msgstr "Samling"
-
-#: collection/GNOME_EOG_Collection.server.in.in.h:2
-#, fuzzy
 msgid "EOG Image Collection Viewer"
 msgstr "EOG Biletevisar"
 
-#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.in.h:2
 #, fuzzy
 msgid "EOG Image collection view factory"
 msgstr "EOG-biletevisarfabrikk"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:3
+#, fuzzy
+msgid "Image Collection"
+msgstr "Samling"
 
 #: eog.desktop.in.h:1
 #, fuzzy
@@ -38,7 +38,139 @@ msgstr "EOG Biletevisar"
 msgid "View many different types of images"
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:738
+#.
+#. * Datei für übersetzbare Zeichenketten, erzeugt durch Glade.
+#. * Fügen Sie diese Datei zur POTFILES.in Ihres Projektes hinzu.
+#. * Compilieren Sie sie NICHT als Teil Ihrer Anwendung.
+#.
+#: eog-glade.h:7
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome"
+
+#: eog-glade.h:8
+msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog-glade.h:9
+msgid "By check_pattern "
+msgstr ""
+
+#: eog-glade.h:10
+msgid "By c_olor"
+msgstr ""
+
+#: eog-glade.h:11
+msgid "Pick a color"
+msgstr ""
+
+#: eog-glade.h:12
+msgid "Indicate Transparency"
+msgstr ""
+
+#: eog-glade.h:13
+msgid "Image Viewer"
+msgstr "Biletevisar"
+
+#: eog.schemas.in.h:1
+msgid "Automatically pick window size"
+msgstr ""
+
+#: eog.schemas.in.h:2
+msgid "Default zoom factor for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:3
+msgid ""
+"Default zoom factor for the full screen view. Possible values are: 0 (use "
+"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
+"the image to the screen)."
+msgstr ""
+
+#: eog.schemas.in.h:4
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"determines the used color value."
+msgstr ""
+
+#: eog.schemas.in.h:5
+msgid "Fit standard-sized images to the screen"
+msgstr ""
+
+#: eog.schemas.in.h:6
+msgid ""
+"If the transparency key has the value COLOR, than this key determines the "
+"color which is used for indicating transparency."
+msgstr ""
+
+#: eog.schemas.in.h:7
+#, fuzzy
+msgid "Interpolate Image"
+msgstr "Interpolering"
+
+#: eog.schemas.in.h:8
+#, fuzzy
+msgid "Open images in a new window"
+msgstr "Opne i eit vindauge"
+
+#: eog.schemas.in.h:9
+msgid "Put a bevel around the screen"
+msgstr ""
+
+#: eog.schemas.in.h:10
+msgid "Scrollbar policy for the full screen view"
+msgstr ""
+
+#: eog.schemas.in.h:11
+msgid "Transparency color"
+msgstr ""
+
+#: eog.schemas.in.h:12
+msgid "Transparency indicator"
+msgstr ""
+
+#: eog.schemas.in.h:13
+msgid ""
+"Wether the image should be interpolated on zoom or not. This leads to better "
+"quality but is somewhat slower than non interpolated images."
+msgstr ""
+
+#: eog.schemas.in.h:14
+msgid ""
+"Whether image windows should pick their size and zooming factor "
+"automatically based on the size of the image. If this option is not set, "
+"image windows will get whatever size the window manager assigns to them."
+msgstr ""
+
+#: eog.schemas.in.h:15
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+
+#: eog.schemas.in.h:16
+msgid ""
+"Whether the full screen view should display a bevel along the edges of the "
+"screen."
+msgstr ""
+
+#: eog.schemas.in.h:17
+msgid ""
+"Whether to display scrollbars on the full screen view. Possible values are: "
+"1 (automatic; only display scrollbars if the image is larger than the "
+"window), 2 (never display scrollbars)."
+msgstr ""
+
+#: eog.schemas.in.h:18
+msgid ""
+"Whether to fit standard-sized images to the screen when in full screen mode. "
+"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"selects whether such images should be scaled to fit the screen regardless of "
+"the setting for the default zoom factor of the full screen view."
+msgstr ""
+
+#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:717
 msgid "EOG Image"
 msgstr "EOG-bilete"
 
@@ -59,35 +191,35 @@ msgstr "Innvevbar EOG-bilete"
 msgid "Image"
 msgstr "Bilete"
 
-#: libeog/image-view.c:1847
+#: libeog/image-view.c:1896
 #, fuzzy
 msgid "interpolation type"
 msgstr "Interpolering"
 
-#: libeog/image-view.c:1848
+#: libeog/image-view.c:1897
 #, fuzzy
 msgid "the type of interpolation to use"
 msgstr "Hyperbolsk interpolering"
 
-#: libeog/image-view.c:1854 libeog/image-view.c:1861
+#: libeog/image-view.c:1903 libeog/image-view.c:1910
 #, fuzzy
 msgid "check type"
 msgstr "Rute_type"
 
-#: libeog/image-view.c:1855
+#: libeog/image-view.c:1904
 msgid "the type of chequering to use"
 msgstr ""
 
-#: libeog/image-view.c:1862
+#: libeog/image-view.c:1911
 msgid "the size of chequers to use"
 msgstr ""
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1917
 #, fuzzy
 msgid "dither"
 msgstr "Dither"
 
-#: libeog/image-view.c:1869
+#: libeog/image-view.c:1918
 #, fuzzy
 msgid "dither type"
 msgstr "Rute_type"
@@ -176,111 +308,117 @@ msgstr "Lukk vindauge"
 
 #: shell/eog-shell-ui.xml.h:4
 #, fuzzy
-msgid "Contents"
-msgstr "Hjelpeprogram"
-
-#: shell/eog-shell-ui.xml.h:5
-#, fuzzy
 msgid "Help On this application"
 msgstr "Om dette programmet"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:7 shell/main.c:216
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:215
 msgid "Open"
 msgstr "Opne"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Opne ei fil"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Opne eit nytt vindauge"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "Opne i eit vindauge"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "Opne i dette vindauget"
 
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Prefere_nces"
+msgstr "_Oppsett"
+
 #: shell/eog-shell-ui.xml.h:12
+msgid "Preferences for EoG components"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:13
 #, fuzzy
 msgid "Quit the program"
 msgstr "Avslutt programmet"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:14
 #, fuzzy
 msgid "_About"
 msgstr "_Om ..."
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
 msgstr "_Lukk"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Contents"
+msgstr "Hjelpeprogram"
+
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
+#, fuzzy
+msgid "_Edit"
+msgstr "_Avslutt"
+
+#: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fil"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: shell/eog-shell-ui.xml.h:17
-msgid "_New Window"
-msgstr "_Nytt vindauge"
+#: shell/eog-shell-ui.xml.h:20
+#, fuzzy
+msgid "_New"
+msgstr "_Vis"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
 msgstr "_Opne ..."
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:22
 #, fuzzy
 msgid "_Quit"
 msgstr "_Avslutt"
-
-#: shell/eog-shell-ui.xml.h:20
-msgid "_View"
-msgstr "_Vis"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:210
+#: shell/eog-window.c:215
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:215 shell/eog-window.c:592 shell/main.c:458
+#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:457
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:217
+#: shell/eog-window.c:222
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Opphavsrett © 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:218
+#: shell/eog-window.c:223
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnome biletevisar og katalogprogram"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:260
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
 
-#: shell/eog-window.c:1234
-#, c-format
-msgid "Unable to open %s."
-msgstr ""
-
-#: shell/main.c:183
+#: shell/main.c:182
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -291,15 +429,15 @@ msgstr ""
 "samstundes. Vil du opne dei i ei samling\n"
 "i staden?"
 
-#: shell/main.c:188
+#: shell/main.c:187
 msgid "Single Windows"
 msgstr "Enkle vindauge"
 
-#: shell/main.c:189
+#: shell/main.c:188
 msgid "Collection"
 msgstr "Samling"
 
-#: shell/main.c:213
+#: shell/main.c:212
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -309,14 +447,14 @@ msgstr ""
 "samstundes. Vil du opne dei i ei samling\n"
 "i staden?"
 
-#: shell/main.c:296
+#: shell/main.c:295
 #, c-format
 msgid ""
 "Could not access %s\n"
 "Eye of Gnome will not be able to display this file."
 msgstr ""
 
-#: shell/main.c:299
+#: shell/main.c:298
 #, c-format
 msgid ""
 "The following files cannot be displayed because Eye of Gnome was not able to "
@@ -324,11 +462,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: shell/main.c:470
+#: shell/main.c:469
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Klarte ikkje å initialisere GnomeVFS!\n"
 
-#: shell/main.c:473
+#: shell/main.c:472
 msgid "Could not initialize Bonobo!\n"
 msgstr "Klarte ikkje initialisere Bonobo!\n"
 
@@ -338,8 +476,8 @@ msgid "Could not open `%s'"
 msgstr "Klarte ikkje å opne «%s»"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
-msgid "1:1"
-msgstr "1:1"
+msgid "Best _Fit"
+msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -350,224 +488,150 @@ msgid "In"
 msgstr "Inn"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Normal"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
 msgstr "Ut"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:5
-#, fuzzy
-msgid "Zoom _1:1"
-msgstr "For_størr"
-
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _In"
-msgstr "For_størr"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom _Out"
 msgstr "For_minsk"
 
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "_Normal Size"
+msgstr ""
+
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-msgid "Zoom to _Fit"
-msgstr "_Tilpass visning"
+#, fuzzy
+msgid "_Zoom In"
+msgstr "For_størr"
 
 #: viewer/eog-image-view-ui.xml.h:1
-msgid "Check _size"
-msgstr "Rute _storleik"
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "Horisontalt"
 
 #: viewer/eog-image-view-ui.xml.h:2
-msgid "Check _type"
-msgstr "Rute_type"
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "Vertikalt"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
 msgstr "Fullskjerm"
 
 #: viewer/eog-image-view-ui.xml.h:4
-msgid "Large"
-msgstr "Stort"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Medium"
-msgstr "Middels"
-
-#: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
-msgid "Nea_rest Neighbour"
-msgstr "Næ_rmaste nabo-interpolering"
-
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Normal (_pseudocolor)"
-msgstr "Vanleg (_pseudofarge) dithering"
-
-#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Førehandsvis biletet som skal skrivast ut"
 
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Print Pre_view"
-msgstr "Førehands_vising av utskrift"
+#: viewer/eog-image-view-ui.xml.h:5
+#, fuzzy
+msgid "Print Previe_w.."
+msgstr "Førehandsvising av utskrift"
 
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Print S_etup"
-msgstr "Skrivaropps_ett"
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Print Set_up"
+msgstr "Skrivaroppsett"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Utskrift til skrivar"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate 180 Degrees"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Counter Clockwise"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:11
+#, fuzzy
+msgid "Save _As..."
+msgstr "Lagre som"
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Sett opp sideinnstillingar for aktiv skrivar"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Small"
-msgstr "Lite"
-
 #: viewer/eog-image-view-ui.xml.h:14
-msgid "_Bilinear"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:15
 #, fuzzy
-msgid "_Black"
-msgstr "Svart"
-
-#: viewer/eog-image-view-ui.xml.h:16
-#, fuzzy
-msgid "_Dark"
-msgstr "Mørk"
-
-#: viewer/eog-image-view-ui.xml.h:17
-msgid "_Dither"
-msgstr "_Dither"
-
-#: viewer/eog-image-view-ui.xml.h:18
-#, fuzzy
-msgid "_Gray"
-msgstr "Grå"
-
-#: viewer/eog-image-view-ui.xml.h:19
-#, fuzzy
-msgid "_Hyperbolic"
-msgstr "_Hyperbolsk-interpolering"
-
-#: viewer/eog-image-view-ui.xml.h:20
-msgid "_Interpolation"
-msgstr "_Interpolering"
-
-#: viewer/eog-image-view-ui.xml.h:21
-#, fuzzy
-msgid "_Light"
-msgstr "Lys"
-
-#: viewer/eog-image-view-ui.xml.h:22
-#, fuzzy
-msgid "_Maximum (high color)"
-msgstr "_Maksimum (mange fargar) dithering"
-
-#: viewer/eog-image-view-ui.xml.h:23
-#, fuzzy
-msgid "_Midtone"
-msgstr "Mellomtone"
-
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_None"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Print"
+msgid "_Print..."
 msgstr "_Skriv ut"
 
-#: viewer/eog-image-view-ui.xml.h:26
-#, fuzzy
-msgid "_Save As..."
-msgstr "Lagre som"
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Vis"
 
-#: viewer/eog-image-view-ui.xml.h:27
-#, fuzzy
-msgid "_White"
-msgstr "Kvit"
-
-#: viewer/eog-image-view.c:347
+#: viewer/eog-image-view.c:266
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Klarte ikkje å lagre bilete som «%s»: %s"
 
-#: viewer/eog-image-view.c:973
+#: viewer/eog-image-view.c:952
 msgid "Print Image"
 msgstr "Skriv ut bilete"
 
-#: viewer/eog-image-view.c:981
+#: viewer/eog-image-view.c:960
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:1068
+#: viewer/eog-image-view.c:1047
 msgid "Print Preview"
 msgstr "Førehandsvising av utskrift"
 
-#: viewer/eog-image-view.c:1074
+#: viewer/eog-image-view.c:1053
 msgid "Printing of image failed"
 msgstr "Utskrift mislukkast"
 
-#: viewer/eog-image-view.c:2048
+#: viewer/eog-image-view.c:1868
 #, fuzzy
-msgid "/Zoom _In"
+msgid "/_Zoom In"
 msgstr "For_størr"
 
-#: viewer/eog-image-view.c:2050
+#: viewer/eog-image-view.c:1870
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "For_minsk"
 
-#: viewer/eog-image-view.c:2052
-#, fuzzy
-msgid "/Zoom _1:1"
-msgstr "For_størr"
+#: viewer/eog-image-view.c:1872
+msgid "/_Normal Size"
+msgstr ""
 
-#: viewer/eog-image-view.c:2054
+#: viewer/eog-image-view.c:1874
 #, fuzzy
-msgid "/Zoom to _Fit"
+msgid "/Best _Fit"
 msgstr "_Tilpass visning"
 
-#: viewer/eog-image-view.c:2057
+#: viewer/eog-image-view.c:1877
 #, fuzzy
 msgid "/_Close"
 msgstr "_Lukk"
 
-#: viewer/eog-image-view.c:2172
-msgid "Interpolation"
-msgstr "Interpolering"
-
-#: viewer/eog-image-view.c:2175
-msgid "Dither"
-msgstr "Dither"
-
-#: viewer/eog-image-view.c:2178
-msgid "Check Type"
-msgstr "Sjakkbordrute"
-
-#: viewer/eog-image-view.c:2181
-msgid "Check Size"
-msgstr "Rute storleik"
-
-#: viewer/eog-image-view.c:2184
+#: viewer/eog-image-view.c:2003
 msgid "Image Width"
 msgstr "Biletebreidde"
 
-#: viewer/eog-image-view.c:2187
+#: viewer/eog-image-view.c:2006
 msgid "Image Height"
 msgstr "Biletehøgde"
 
-#: viewer/eog-image-view.c:2190
+#: viewer/eog-image-view.c:2009
 msgid "Window Title"
 msgstr "Vindaugstittel"
 
-#: viewer/eog-image-view.c:2193
+#: viewer/eog-image-view.c:2012
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image.c:470
+#: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Klarte ikkje å initialisere GnomeVFS!\n"
 
@@ -739,19 +803,104 @@ msgstr "Ned og mot høgre"
 msgid "Right, then down"
 msgstr "Høgre og ned"
 
+#~ msgid "_New Window"
+#~ msgstr "_Nytt vindauge"
+
+#~ msgid "1:1"
+#~ msgstr "1:1"
+
+#, fuzzy
+#~ msgid "Zoom _1:1"
+#~ msgstr "For_størr"
+
+#~ msgid "Zoom to _Fit"
+#~ msgstr "_Tilpass visning"
+
+#~ msgid "Check _size"
+#~ msgstr "Rute _storleik"
+
+#~ msgid "Check _type"
+#~ msgstr "Rute_type"
+
+#~ msgid "Large"
+#~ msgstr "Stort"
+
+#~ msgid "Medium"
+#~ msgstr "Middels"
+
+#, fuzzy
+#~ msgid "Nea_rest Neighbour"
+#~ msgstr "Næ_rmaste nabo-interpolering"
+
+#, fuzzy
+#~ msgid "Normal (_pseudocolor)"
+#~ msgstr "Vanleg (_pseudofarge) dithering"
+
+#~ msgid "Print Pre_view"
+#~ msgstr "Førehands_vising av utskrift"
+
+#~ msgid "Print S_etup"
+#~ msgstr "Skrivaropps_ett"
+
+#~ msgid "Small"
+#~ msgstr "Lite"
+
+#, fuzzy
+#~ msgid "_Black"
+#~ msgstr "Svart"
+
+#, fuzzy
+#~ msgid "_Dark"
+#~ msgstr "Mørk"
+
+#~ msgid "_Dither"
+#~ msgstr "_Dither"
+
+#, fuzzy
+#~ msgid "_Gray"
+#~ msgstr "Grå"
+
+#, fuzzy
+#~ msgid "_Hyperbolic"
+#~ msgstr "_Hyperbolsk-interpolering"
+
+#~ msgid "_Interpolation"
+#~ msgstr "_Interpolering"
+
+#, fuzzy
+#~ msgid "_Light"
+#~ msgstr "Lys"
+
+#, fuzzy
+#~ msgid "_Maximum (high color)"
+#~ msgstr "_Maksimum (mange fargar) dithering"
+
+#, fuzzy
+#~ msgid "_Midtone"
+#~ msgstr "Mellomtone"
+
+#, fuzzy
+#~ msgid "_White"
+#~ msgstr "Kvit"
+
+#, fuzzy
+#~ msgid "/Zoom _1:1"
+#~ msgstr "For_størr"
+
+#~ msgid "Dither"
+#~ msgstr "Dither"
+
+#~ msgid "Check Type"
+#~ msgstr "Sjakkbordrute"
+
+#~ msgid "Check Size"
+#~ msgstr "Rute storleik"
+
 #~ msgid "Close"
 #~ msgstr "Lukk"
 
 #~ msgid "Change preferences"
 #~ msgstr "Endre brukarval"
-
-#, fuzzy
-#~ msgid "_Edit"
-#~ msgstr "_Avslutt"
-
-#, fuzzy
-#~ msgid "_Preferences..."
-#~ msgstr "_Oppsett"
 
 #~ msgid "Control doesn't support window_title property."
 #~ msgstr "Kontrollen støttar ikkje window_title eigenskapen."
@@ -767,10 +916,6 @@ msgstr "Høgre og ned"
 
 #~ msgid "Error while obtaining file informations."
 #~ msgstr "Feil ved lesing av filinfo."
-
-#, fuzzy
-#~ msgid "Eye of Gnome Preferences"
-#~ msgstr "Eye of Gnome"
 
 #~ msgid "Save As"
 #~ msgstr "Lagre som"
@@ -833,9 +978,6 @@ msgstr "Høgre og ned"
 #, fuzzy
 #~ msgid "Check _size:"
 #~ msgstr "Rute _storleik"
-
-#~ msgid "Image Viewer"
-#~ msgstr "Biletevisar"
 
 #~ msgid "_Settings"
 #~ msgstr "_Innstillingar"
