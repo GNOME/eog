@@ -289,7 +289,7 @@ hook_spin_button_property (GtkWidget *dialog, GtkSpinButton *spin)
 {
 	GtkAdjustment *adj;
 
-}	adj = gtk_spin_button_get_adjustment (spin);
+	adj = gtk_spin_button_get_adjustment (spin);
 
 	if (GNOME_IS_PROPERTY_BOX (dialog))
 		gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
@@ -327,9 +327,12 @@ hook_editable (GtkWidget *dialog, GtkEditable *editable, gpointer value_var, gpo
 	value = (char **) value_var;
 
 	e_dialog_editable_set (GTK_WIDGET (editable), *value);
+}
 
-	/* Hook to changed */
-
+/* Hooks a GtkEditable widget to the GnomePropertyBox */
+static void
+hook_editable_property (GtkWidget *dialog, GtkEditable *editable);
+{
 	if (GNOME_IS_PROPERTY_BOX (dialog))
 		gtk_signal_connect (GTK_OBJECT (editable), "changed",
 				    GTK_SIGNAL_FUNC (changed_cb), dialog);
