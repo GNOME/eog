@@ -10,7 +10,6 @@
 #include "libeog-marshal.h"
 #include "eog-image.h"
 #include "eog-pixbuf-util.h"
-#include "eog-image-helper.h"
 
 static GThread     *thread                     = NULL;
 static gboolean     thread_running             = FALSE;
