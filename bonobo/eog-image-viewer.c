@@ -37,7 +37,6 @@ struct _EogImageViewerPrivate
 /* Parent object class in GTK hierarchy */
 static BonoboControlClass *eog_image_viewer_parent_class;
 
-static void eog_image_viewer_set_frame (BonoboControl *control);
 static void eog_image_viewer_activate (BonoboControl *control, gboolean state);
 
 static void
@@ -49,8 +48,6 @@ eog_image_viewer_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_IMAGE_VIEWER (object));
 	
 	image_viewer = EOG_IMAGE_VIEWER (object);
-
-	g_message ("eog_image_viewer_destroy: %p", image_viewer);
 
 	if (image_viewer->priv) {
 		if (image_viewer->priv->image_view)
@@ -76,7 +73,6 @@ eog_image_viewer_class_init (EogImageViewerClass *klass)
 
 	eog_image_viewer_parent_class = gtk_type_class (bonobo_control_get_type ());
 
-	control_class->set_frame = eog_image_viewer_set_frame;
 	control_class->activate = eog_image_viewer_activate;
 
 	object_class->destroy = eog_image_viewer_destroy;
@@ -97,8 +93,6 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 	g_return_if_fail (image_viewer != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEWER (image_viewer));
 
-	g_message ("New zoom level: %5.2f", new_zoom_level);
-
 	view = IMAGE_VIEW (image_viewer->priv->image_view);
 
 	image_view_set_zoom (view, (double) new_zoom_level);
@@ -106,33 +100,21 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 
 	bonobo_zoomable_report_zoom_level_changed (zoomable,
 						   image_viewer->priv->zoom_level);
-
-	g_message ("Done zooming to %5.2f", image_viewer->priv->zoom_level);
 }
 
-static BonoboZoomLevel preferred_zoom_levels[] = {
-	{ 1.0 / 10.0, "1:10" },
-	{ 1.0 /  9.0,  "1:9" },
-	{ 1.0 /  8.0,  "1:8" },
-	{ 1.0 /  7.0,  "1:7" },
-	{ 1.0 /  6.0,  "1:6" },
-	{ 1.0 /  5.0,  "1:5" },
-	{ 1.0 /  4.0,  "1:4" },
-	{ 1.0 /  3.0,  "1:3" },
-	{ 1.0 /  2.0,  "1:2" },
-	{	 1.0,  "1:1" },
-	{	 2.0,  "2:1" },
-	{	 3.0,  "3:1" },
-	{	 4.0,  "4:1" },
-	{	 5.0,  "5:1" },
-	{	 6.0,  "6:1" },
-	{	 7.0,  "7:1" },
-	{	 8.0,  "8:1" },
-	{	 9.0,  "9:1" },
-	{	10.0, "10:1" }
+static float preferred_zoom_levels[] = {
+	1.0 / 10.0, 1.0 / 9.0, 1.0 / 8.0, 1.0 / 7.0, 1.0 / 6.0,
+	1.0 / 5.0, 1.0 / 4.0, 1.0 / 3.0, 1.0 / 2.0, 1.0, 2.0,
+	3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
 };
+static const gchar *preferred_zoom_level_names[] = {
+	"1:10", "1:9", "1:8", "1:7", "1:6", "1:5", "1:4", "1:3",
+	"1:2", "1:1", "2:1", "3:1", "4:1", "5:1", "6:1", "7:1",
+	"8:1", "9:1", "10:1"
+};
+
 static const gint max_preferred_zoom_levels = (sizeof (preferred_zoom_levels) /
-					       sizeof (BonoboZoomLevel)) - 1;
+					       sizeof (float)) - 1;
 
 static int
 zoom_index_from_float (float zoom_level)
@@ -143,11 +125,8 @@ zoom_index_from_float (float zoom_level)
 		float this, epsilon;
 
 		/* if we're close to a zoom level */
-		this = preferred_zoom_levels [i].zoom_level;
+		this = preferred_zoom_levels [i];
 		epsilon = this * 0.01;
-
-		g_message ("check (%8.5f): %8.5f += %8.5f (check %5d - %8.5f <= %8.5f <= %8.5f)",
-			   zoom_level, this, epsilon, i, this-epsilon, zoom_level, this+epsilon);
 
 		if (zoom_level < this+epsilon)
 			return i;
@@ -162,7 +141,7 @@ zoom_level_from_index (int index)
 	if (index > max_preferred_zoom_levels)
 		index = max_preferred_zoom_levels;
 
-	return preferred_zoom_levels [index].zoom_level;
+	return preferred_zoom_levels [index];
 }
 
 static void
@@ -472,8 +451,6 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename, void *d
 
 	image_viewer = EOG_IMAGE_VIEWER (data);
 
-	g_message ("load_image_from_file: `%s'", filename);
-
 	if (image_viewer->priv->pixbuf)
 		gdk_pixbuf_unref (image_viewer->priv->pixbuf);
 
@@ -495,8 +472,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename, void *d
 }
 
 /*
- * When one of our controls is activated, we merge our menus
- * in with our container's menus.
+ * When we are activated, merge our menus with our container's menus.
  */
 static void
 eog_image_viewer_create_menus (EogImageViewer *image_viewer)
@@ -578,16 +554,17 @@ eog_image_viewer_create_menus (EogImageViewer *image_viewer)
 						     image_viewer);
 }
 
+/*
+ * When we are deactivated, unmerge our menus again.
+ */
 static void
-eog_image_viewer_set_frame (BonoboControl *control)
+eog_image_viewer_remove_menus (EogImageViewer *image_viewer)
 {
-	g_return_if_fail (control != NULL);
-	g_return_if_fail (EOG_IS_IMAGE_VIEWER (control));
+	g_return_if_fail (image_viewer != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (image_viewer));
 
-	if (BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->set_frame)
-		BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->set_frame (control);
-
-	eog_image_viewer_create_menus (EOG_IMAGE_VIEWER (control));
+	if (image_viewer->priv->uic)
+		bonobo_ui_component_unset_container (image_viewer->priv->uic);
 }
 
 static void
@@ -601,6 +578,8 @@ eog_image_viewer_activate (BonoboControl *control, gboolean state)
 
 	if (state)
 		eog_image_viewer_create_menus (EOG_IMAGE_VIEWER (control));
+	else
+		eog_image_viewer_remove_menus (EOG_IMAGE_VIEWER (control));
 }
 
 
@@ -641,12 +620,14 @@ eog_image_viewer_construct (EogImageViewer *image_viewer, Bonobo_Control corba_c
 			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb), image_viewer);
 
 	image_viewer->priv->zoom_level = 1.0;
-	bonobo_zoomable_set_parameters (image_viewer->priv->zoomable,
-					image_viewer->priv->zoom_level,
-					preferred_zoom_levels [0].zoom_level,
-					preferred_zoom_levels [max_preferred_zoom_levels].zoom_level,
-					FALSE, FALSE, TRUE,
-					preferred_zoom_levels, max_preferred_zoom_levels + 1);
+	bonobo_zoomable_set_parameters_full (image_viewer->priv->zoomable,
+					     image_viewer->priv->zoom_level,
+					     preferred_zoom_levels [0],
+					     preferred_zoom_levels [max_preferred_zoom_levels],
+					     FALSE, FALSE, TRUE,
+					     preferred_zoom_levels,
+					     preferred_zoom_level_names,
+					     max_preferred_zoom_levels + 1);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (image_viewer),
 				     BONOBO_OBJECT (image_viewer->priv->zoomable));
