@@ -59,6 +59,9 @@ struct _EogWindowPrivate {
 	/* ui container */
 	BonoboUIContainer  *ui_container;
 
+	/* control frame */
+	BonoboControlFrame *ctrl_frame;
+
 	/* Property Control */
 	Bonobo_PropertyControl prop_control;
 
@@ -190,6 +193,27 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 
 	gtk_widget_show_now (about);
 	raise_and_focus (about);
+}
+
+static void
+activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
+{
+	EogWindow *window;
+	char *path;
+
+	g_return_if_fail (uri != NULL);
+
+	window = EOG_WINDOW (eog_window_new ());
+	
+	if (g_strncasecmp ("file:", uri, 5) == 0) 		
+		path = g_strdup ((uri+5));
+	else
+		path = g_strdup (uri);
+
+	eog_window_open (window, path);
+	gtk_widget_show (GTK_WIDGET (window));
+
+	g_free (path);
 }
 
 
@@ -529,7 +553,7 @@ eog_window_construct (EogWindow *window)
 		bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG");
 		bonobo_ui_component_add_verb_list_with_data (ui_comp, eog_app_verbs, window);
 	} else {
-		g_error ("Can't find eog-shell-ui.xml.\n");
+		g_error (N_("Can't find eog-shell-ui.xml.\n"));
 	}
 	g_free (fname);
 
@@ -540,6 +564,11 @@ eog_window_construct (EogWindow *window)
 	gtk_widget_set_usize (GTK_WIDGET (window), 
 			      DEFAULT_WINDOW_WIDTH,
 			      DEFAULT_WINDOW_HEIGHT);
+
+	/* add control frame interface */
+	priv->ctrl_frame = bonobo_control_frame_new (corba_container);
+	gtk_signal_connect (GTK_OBJECT (priv->ctrl_frame), "activate_uri",
+			    activate_uri_cb, NULL);
 
 	set_drag_dest (window);
 }
@@ -686,7 +715,7 @@ eog_window_open_dialog (EogWindow *window)
 static void
 auto_size (EogWindow *window)
 {
-/*	EogWindowPrivate *priv;
+	EogWindowPrivate *priv;
 	GtkWidget *view;
 	Image *image;
 	int iwidth, iheight;
@@ -715,7 +744,6 @@ auto_size (EogWindow *window)
 	zheight = floor (iheight * zoom + 0.5);
 
 	gtk_widget_set_usize (view, zwidth, zheight);
-*/
 }
 #endif
 
@@ -810,10 +838,9 @@ get_directory_control (const gchar *path)
 {
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
-	GNOME_EOG_ImageCollection ilv;
-	Bonobo_Storage storage;
+	GNOME_EOG_ImageCollection collection;
 	CORBA_Environment ev;
-	gchar *uri;
+	GNOME_EOG_URI uri;
 
 	g_return_val_if_fail (path != NULL, CORBA_OBJECT_NIL);
 
@@ -826,23 +853,21 @@ get_directory_control (const gchar *path)
 		 NULL, 0, NULL, &ev);
 	if (unknown_obj == CORBA_OBJECT_NIL) return CORBA_OBJECT_NIL;
 	
-	/* get ImageListView interface */
-	ilv = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:GNOME/EOG/ImageCollection:1.0", &ev);
-	if (ilv == CORBA_OBJECT_NIL) {
+	/* get collection image interface */
+        collection = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:GNOME/EOG/ImageCollection:1.0", &ev);
+	if (collection == CORBA_OBJECT_NIL) {
 		Bonobo_Unknown_unref (unknown_obj, &ev);
 		CORBA_Object_release (unknown_obj, &ev);
 		return CORBA_OBJECT_NIL;		
 	}
 
-	/* add image file names to the list view */
-	uri = g_strconcat ("file:", path, NULL);
-	storage = bonobo_get_object (uri, "Bonobo/Storage", &ev);
-
-	GNOME_EOG_ImageCollection_setStorage (ilv, storage, &ev);
+	/* set uri */
+	uri = (CORBA_char*) g_strconcat ("file:", path, NULL);
+	GNOME_EOG_ImageCollection_openURI (collection, uri, &ev);
 	g_free (uri);
-	
-	Bonobo_Unknown_unref (ilv, &ev);
-	CORBA_Object_release (ilv, &ev);
+
+	Bonobo_Unknown_unref (collection, &ev);
+	CORBA_Object_release (collection, &ev);
 
 	/* get Control interface */
 	control = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/Control:1.0", &ev);
@@ -911,8 +936,14 @@ eog_window_open (EogWindow *window, const char *path)
 
 	/* add control to the application window */
 	priv->control = bonobo_widget_new_control_from_objref  
-		(control, bonobo_object_corba_objref(BONOBO_OBJECT(priv->ui_container)));
+		(control, bonobo_object_corba_objref (BONOBO_OBJECT (priv->ui_container)));
 	gtk_object_ref (GTK_OBJECT (priv->control));
+
+	/* set control frame */
+	g_assert (priv->ctrl_frame != NULL);
+	Bonobo_Control_setFrame (control,
+				 bonobo_object_corba_objref (BONOBO_OBJECT (priv->ctrl_frame)),
+				 &ev);
 
 	/* view and activate it */
 	gtk_container_add (GTK_CONTAINER (priv->box), priv->control);

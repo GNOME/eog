@@ -1,3 +1,11 @@
+2001-03-12  Jens Finke <jens@gnome.org>
+
+	* eog-window.c (eog_window_construct): Add BonoboControlFrame
+	interface to object.
+	(activate_uri_cb): New function.
+	(get_directory_control): Use new GNOME:EOG:ImageCollection interface.
+	(eog_window_open): Set BonoboControlFrame for controls. 
+
 2001-03-09  Jens Finke <jens@gnome.org>
 
 	* eog-shell-ui.xml: Added stock pixmap to 'FileNewWindow' command
