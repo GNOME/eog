@@ -219,7 +219,7 @@ gnome_wrap_list_init (GnomeWrapList *wlist)
 	gtk_widget_push_colormap (gdk_rgb_get_cmap ());
 
 	gtk_widget_push_composite_child ();
-	priv->canvas = gnome_canvas_new_aa ();
+	priv->canvas = gnome_canvas_new ();
 	gtk_widget_pop_composite_child ();
 
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0, 0, 10000, 10000);

@@ -156,6 +156,7 @@ main (int argc, char **argv)
 	gnome_init ("testicon", "1.0", argc, argv);
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
 	gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 			    GTK_SIGNAL_FUNC (gtk_main_quit),
 			    NULL);
