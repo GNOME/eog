@@ -42,4 +42,4 @@ icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_srcdir)/eog.schemas
+	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas
