@@ -1,5 +1,11 @@
 2001-07-17  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
+	* eog-image-view.c: GNOME_Camera_captureImage will just return a path.
+	Therefore, get the storage, capture the image, and then get a stream
+	for the path.
+
+2001-07-17  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
 	* .cvsignore: Ignore GnoCam*.
 	* Makefile.am: Build GnoCam[.h,-common.c,-skels.c,-stubs.c] if 
 	ENABLE_GNOCAM.

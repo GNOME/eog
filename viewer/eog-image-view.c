@@ -339,7 +339,9 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 	CORBA_Object gnocam;
 	CORBA_Environment ev;
 	GNOME_Camera camera;
+	CORBA_char* path;
 	Bonobo_Stream stream;
+	Bonobo_Storage storage;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 	
@@ -364,15 +366,38 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 		return;
 	}
 
-	stream = GNOME_Camera_captureImage (camera, &ev);
+	storage = Bonobo_Unknown_queryInterface (camera,
+						 "IDL:Bonobo/Storage:1.0", &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Could not get storage: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (camera, NULL);
+		return;
+	}
+
+	path = GNOME_Camera_captureImage (camera, &ev);
 	bonobo_object_release_unref (camera, NULL);
 	if (BONOBO_EX (&ev)) {
 		g_warning ("Could not capture image: %s",
 			   bonobo_exception_get_text (&ev));
 		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (storage, NULL);
 		return;
 	}
 
+	stream = Bonobo_Storage_openStream (storage, path, Bonobo_Storage_READ,
+					    &ev);
+	CORBA_free (path);
+	bonobo_object_release_unref (storage, NULL);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Could not get stream: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (storage, NULL);
+		return;
+	}
+	
 	eog_image_load_from_stream (image_view->priv->image, stream, &ev);
 	bonobo_object_release_unref (stream, NULL);
 	if (BONOBO_EX (&ev)) {
