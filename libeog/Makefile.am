@@ -19,10 +19,12 @@ CORBA_SOURCES =			\
 	Eog-stubs.c		\
 	Eog-skels.c
 
-libeog_SOURCES =		\
+noinst_LTLIBRARIES = libeog.la
+
+libeog_la_SOURCES =		\
 	$(CORBA_SOURCES)
 
-libeog_LDADD = 			\
+libeog_la_LIBADD = 			\
 	$(GNOME_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(GNOME_LIBS)				\
@@ -36,7 +38,7 @@ idls =							\
 
 idl_flags = `$(GNOME_CONFIG) --cflags idl` -D__EOG_COMPILATION
 
-$(CORBA_SOURCE): $(idls)
+$(CORBA_SOURCES): $(idls)
 	$(ORBIT_IDL) $(top_srcdir)/idl/Eog.idl -I$(top_srcdir)/idl $(idl_flags)
 
 Eog.h: $(idls)
