@@ -119,9 +119,9 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	ArtUtaBbox *utiles;
 	ArtUtaBbox bb;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
+	int xf1, yf1, xf2, yf2;
 	int x, y;
 	int ofs;
-	int xf1, yf1, xf2, yf2;
 
 	g_return_val_if_fail (x1 < x2, NULL);
 	g_return_val_if_fail (y1 < y2, NULL);
@@ -294,6 +294,18 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	return uta;
 }
 
+/**
+ * uta_remove_rect:
+ * @uta: A microtile array.
+ * @x1: Left coordinate of rectangle.
+ * @y1: Top coordinate of rectangle.
+ * @x2: Right coordinate of rectangle.
+ * @y2: Bottom coordinate of rectangle.
+ * 
+ * Removes a rectangular region from the specified microtile array.  Due to the
+ * way microtile arrays represent regions, the tiles at the edge of the
+ * rectangle may not be clipped exactly.
+ **/
 void
 uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 {
@@ -301,9 +313,11 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	ArtUtaBbox bb;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	int clip_x1, clip_y1, clip_x2, clip_y2;
-	int ofs;
 	int xf1, yf1, xf2, yf2;
+	int ofs;
+	int x, y;
 
+	g_return_if_fail (uta != NULL);
 	g_return_if_fail (x1 < x2);
 	g_return_if_fail (y1 < y2);
 
@@ -327,22 +341,147 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 
 	utiles = uta->utiles;
 
-	/* Top row */
-	if (rect_y1 >= uta->y0 && rect_y1 < uta->y0 + uta->height) {
-		ofs = (rect_y1 - uta->y0) * uta->width;
+	ofs = (clip_y1 - uta->y0) * uta->width + clip_x1 - uta->x0;
 
-		/* Leftmost tile */
-		if (rect_x1 >= uta->x0 && rect_x1 < uta->x0 + uta->width) {
-			ofs += rect_x1 - uta->x0;
+	for (y = clip_y1; y < clip_y2; y++) {
+		int cy1, cy2;
 
-			bb = utiles[ofs];
+		if (y == rect_y1)
+			cy1 = yf1;
+		else
+			cy1 = 0;
+
+		if (y == rect_y2 - 1)
+			cy2 = yf2;
+		else
+			cy2 = ART_UTILE_SIZE;
+
+		for (x = clip_x1; x < clip_x2; x++) {
+			int cx1, cx2;
+			int bb, bb_x1, bb_y1, bb_x2, bb_y2;
+			int bb_cx1, bb_cy1, bb_cx2, bb_cy2;
 			
+			bb = utiles[ofs];
+			bb_x1 = ART_UTA_BBOX_X0 (bb);
+			bb_y1 = ART_UTA_BBOX_Y0 (bb);
+			bb_x2 = ART_UTA_BBOX_X1 (bb);
+			bb_y2 = ART_UTA_BBOX_Y1 (bb);
+
+			if (x == rect_x1)
+				cx1 = xf1;
+			else
+				cx1 = 0;
+
+			if (x == rect_x2 - 1)
+				cx2 = xf2;
+			else
+				cx2 = ART_UTILE_SIZE;
+
+			/* Clip top and bottom */
+
+			if (cx1 <= bb_x1 && cx2 >= bb_x2) {
+				if (cy1 <= bb_y1 && cy2 > bb_y1)
+					bb_cy1 = cy2;
+				else
+					bb_cy1 = bb_y1;
+
+				if (cy1 < bb_y2 && cy2 >= bb_y2)
+					bb_cy2 = cy1;
+				else
+					bb_cy2 = bb_y2;
+			} else {
+				bb_cy1 = bb_y1;
+				bb_cy2 = bb_y2;
+			}
+
+			/* Clip left and right */
+
+			if (cy1 <= bb_y1 && cy2 >= bb_y2) {
+				if (cx1 <= bb_x1 && cx2 > bb_x1)
+					bb_cx1 = cx2;
+				else
+					bb_cx1 = bb_x1;
+
+				if (cx1 < bb_x2 && cx2 >= bb_x2)
+					bb_cx2 = cx1;
+				else
+					bb_cx2 = bb_x2;
+			} else {
+				bb_cx1 = bb_x1;
+				bb_cx2 = bb_x2;
+			}
+
+			if (bb_cx1 < bb_cx2 && bb_cy1 < bb_cy2)
+				utiles[ofs] = ART_UTA_BBOX_CONS (bb_cx1, bb_cy1,
+								 bb_cx2, bb_cy2);
+			else
+				utiles[ofs] = 0;
+
+			ofs++;
 		}
+
+		ofs += uta->width - (clip_x2 - clip_x1);
 	}
 }
 
 void
 uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
 {
-	/* FIXME */
+	ArtUtaBbox *utiles;
+	ArtUtaBbox bb;
+	int width, height;
+	int ofs;
+	int x, y;
+	int x1, y1, x2, y2;
+
+	g_return_if_fail (uta != NULL);
+	g_return_if_fail (rect != NULL);
+	g_return_if_fail (max_width > 0 && max_height > 0);
+
+	utiles = uta->utiles;
+	width = uta->width;
+	height = uta->height;
+
+	ofs = 0;
+
+	/* We find the first nonempty tile, and then grow the rectangle to the
+	 * right and then down.
+	 */
+
+	x1 = y1 = x2 = y2 = 0;
+
+	for (y = 0; y < height; y++) {
+		for (x = 0; x < width; x++) {
+			bb = utiles[ofs];
+
+			if (!bb) {
+				ofs++;
+				continue;
+			}
+
+			x1 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X0 (bb);
+			y1 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y0 (bb);
+			y2 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y1 (bb);
+
+			/* Grow to the right */
+
+			while (x != width - 1
+			       && ART_UTA_BBOX_X1 (bb) == ART_UTILE_SIZE
+			       && (((bb & 0xffffff) ^ utiles[ofs + 1]) & 0xffff00ff) == 0
+			       && (((uta->x0 + x + 1) << ART_UTILE_SHIFT)
+				   + ART_UTA_BBOX_X1 (utiles[ofs + 1])
+				   - x1) <= max_width) {
+				ofs++;
+				bb = utiles[ofs];
+				x++;
+			}
+
+			x2 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X1 (bb);
+			goto grow_down;
+		}
+	}
+
+ grow_down:
+
+	
 }
