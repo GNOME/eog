@@ -82,8 +82,8 @@ release_pixbuf (bonobo_object_data_t *bod)
 	bod->pixbuf = NULL;
 	
 	bonobo_embeddable_foreach_view (bod->bonobo_object,
-				       release_pixbuf_cb,
-				       NULL);
+					release_pixbuf_cb,
+					NULL);
 }
 
 static void
@@ -137,7 +137,8 @@ render_pixbuf (GdkPixbuf *buf, GtkWidget *dest_widget,
 		return;
 
 	/*
-	 * Do not draw outside the region that we know how to display */
+	 * Do not draw outside the region that we know how to display
+	 */
 	if (rect->x > pixbuf->width)
 		return;
 
@@ -183,13 +184,14 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 
 	g_return_if_fail (buf != NULL);
 
-	/* Don't actually render unless our size has been allocated,
-	   so we don't screw up the size allocation process by drawing
-	   an unscaled image too early. */
+	/*
+	 * Don't actually render unless our size has been allocated,
+	 * so we don't screw up the size allocation process by drawing
+	 * an unscaled image too early.
+	 */
 
-	if (view_data->size_allocated) {
+	if (view_data->size_allocated)
 	        render_pixbuf (buf, view_data->drawing_area, rect);
-	}
 }
 
 static void
@@ -201,21 +203,21 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 	g_return_if_fail (buf != NULL);
 	g_return_if_fail (view_data != NULL);
 
-	/* Don't configure the size if it hsan't gotten allocated, to
-           avoid messing with size_allocate process. */
-
+	/*
+	 * Don't configure the size if it hsan't gotten allocated, to
+	 * avoid messing with size_allocate process.
+	 */
 	if (view_data->size_allocated) {
-	  pixbuf = buf->art_pixbuf;
+		pixbuf = buf->art_pixbuf;
 	  
-	  gtk_widget_set_usize (
-				view_data->drawing_area,
-				pixbuf->width,
-				pixbuf->height);
+		gtk_widget_set_usize (view_data->drawing_area,
+				      pixbuf->width,
+				      pixbuf->height);
 	  
-	  rect->x = 0;
-	  rect->y = 0;
-	  rect->width  = pixbuf->width;
-	  rect->height = pixbuf->height;
+		rect->x = 0;
+		rect->y = 0;
+		rect->width  = pixbuf->width;
+		rect->height = pixbuf->height;
 	}
 }
 
@@ -291,7 +293,7 @@ load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *dat
 		retval = -1;
 	else
 		bonobo_embeddable_foreach_view (bod->bonobo_object,
-					       redraw_all_cb, bod);
+						redraw_all_cb, bod);
 	
 	CORBA_exception_free (&ev);
 
@@ -431,8 +433,8 @@ scaled_view_factory (BonoboEmbeddable *bonobo_object,
 
 static BonoboView *
 scrollable_view_factory (BonoboEmbeddable *bonobo_object,
-	      const Bonobo_ViewFrame view_frame,
-	      void *data)
+			 const Bonobo_ViewFrame view_frame,
+			 void *data)
 {
         BonoboView *view;
 	view_data_t *view_data;
@@ -469,13 +471,15 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	 * Creates the BonoboObject server
 	 */
 
-	if (!strcmp (goad_id, "embeddable:image-generic")) {
-	  bonobo_object = bonobo_embeddable_new (scaled_view_factory, bod);
-	} else if (!strcmp (goad_id, "eog-image-viewer")) {
-	  bonobo_object = bonobo_embeddable_new (scrollable_view_factory, bod);
-	} else {
-	  g_free (bod);
-	  return NULL;
+	if (!strcmp (goad_id, "embeddable:image-generic"))
+		bonobo_object = bonobo_embeddable_new (scaled_view_factory, bod);
+
+	else if (!strcmp (goad_id, "eog-image-viewer"))
+		bonobo_object = bonobo_embeddable_new (scrollable_view_factory, bod);
+
+	else {
+		g_free (bod);
+		return NULL;
 	}
 
 	if (bonobo_object == NULL) {
@@ -489,7 +493,7 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	 * Interface Bonobo::PersistStream 
 	 */
 	stream = bonobo_persist_stream_new (load_image_from_stream,
-					   NULL, bod);
+					    NULL, bod);
 	if (stream == NULL) {
 		gtk_object_unref (GTK_OBJECT (bonobo_object));
 		g_free (bod);
@@ -504,7 +508,7 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	 * Bind the interfaces
 	 */
 	bonobo_object_add_interface (BONOBO_OBJECT (bonobo_object),
-				    BONOBO_OBJECT (stream));
+				     BONOBO_OBJECT (stream));
 
 	return BONOBO_OBJECT (bonobo_object);
 }
@@ -513,8 +517,8 @@ static void
 init_bonobo_image_generic_factory (void)
 {
 	image_factory = bonobo_generic_factory_new_multi 
-	  ("embeddable-factory:image-generic",
-	   bonobo_object_factory, NULL);
+		("embeddable-factory:image-generic",
+		 bonobo_object_factory, NULL);
 }
 
 static void
