@@ -110,7 +110,6 @@ typedef struct {
 	guint dither_notify_id;
 	guint scroll_notify_id;
 	guint full_screen_zoom_notify_id;
-	guint auto_size_notify_id;
 } ImageViewPrivate;
 
 /* Signal IDs */
