@@ -7,6 +7,7 @@ INCLUDES =                                              \
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)				\
         -I$(includedir)                                 \
+	$(GCONF_CFLAGS)					\
         $(GNOME_INCLUDEDIR)				\
 	$(EXTRA_BONOBO_CFLAGS)				\
 	$(EXTRA_WARNING_CFLAGS)				\
