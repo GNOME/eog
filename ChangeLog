@@ -1,3 +1,18 @@
+2002-11-01  Jens Finke  <jens@triq.net>
+
+	Removed gnome-print dependency, this isn't supported
+	in the Gnome2 version yet.
+	
+	* configure.in: Removed libgnomeprint dependency. Updated required
+	library versions. Bumped version to 1.1.1.
+
+	* viewer/eog-image-view.c, 
+	* viewer/eog-util.c: Protected print related code with #if
+	GNOME2_PRINTING_WORKS.
+
+	* viewer/Makefile.am: Removed eog-print-setup.[ch] files from
+	SOURCES.
+
 2002-10-15  Irene Ryan <irene.ryan@sun.com>
 
 	* help/C/eog.xml: fix bug #91027

@@ -9,7 +9,10 @@
  */
 
 #include <eog-util.h>
+
+#if GNOME2_PRINTING_WORKS
 #include <libgnomeprint/gnome-print-paper.h>
+#endif
 
 GSList *
 eog_util_split_string (const gchar *string, const gchar *delimiter)
@@ -62,6 +65,7 @@ eog_util_split_string (const gchar *string, const gchar *delimiter)
 	return list;
 }
 
+#if GNOME2_PRINTING_WORKS
 void
 eog_util_load_print_settings (GConfClient *client,
 			      gchar **paper_size, gdouble *top, 
@@ -125,3 +129,4 @@ eog_util_paper_size (const gchar *paper_size, gboolean landscape,
 		*height = paper->height;
 	}
 } 
+#endif

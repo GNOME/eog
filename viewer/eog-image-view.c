@@ -23,11 +23,15 @@
 #include <gtk/gtktypeutils.h>
 #include <gconf/gconf-client.h>
 
+#if GNOME2_PRINTING_WORKS
 #include <libgnomeprint/gnome-print-master.h>
 #include <libgnomeprint/gnome-print.h>
+#endif 
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 
+#if GNOME2_PRINTING_WORKS
 #include <eog-print-setup.h>
+#endif
 #include <eog-image-view.h>
 #include <eog-full-screen.h>
 #include <image-view.h>
@@ -582,7 +586,8 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
  * Start of printing related code 
  * ***************************************************************************/
 
-#if 0 
+#if GNOME2_PRINTING_WORKS
+/* FIXME GNOME2: make printing work! */
 static gint
 count_pages (gdouble 	paper_width,
 	     gdouble	paper_height,
@@ -621,7 +626,6 @@ count_pages (gdouble 	paper_width,
 
 	return (cols * rows);
 }
-#endif
 
 static void
 print_line (GnomePrintContext *context, 
@@ -911,8 +915,6 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 		      gint adjust_to, gdouble overlap_x, gdouble overlap_y,
 		      gboolean overlap)
 {
-#if 0 
-/* FIXME GNOME2: make printing work! */
 	GdkPixbuf	  *pixbuf;
 	GdkPixbuf	  *pixbuf_orig;
 	GdkInterpType	   interp;
@@ -1054,7 +1056,6 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 	}
 
 	gtk_object_unref (GTK_OBJECT (print_master));
-#endif /* FIXME GNOME2: make printing work */
 }
 
 static void
@@ -1129,6 +1130,7 @@ verb_PrintSetup_cb (BonoboUIComponent *uic, gpointer user_data,
 	print_setup = eog_print_setup_new (image_view);
 	gtk_widget_show (print_setup);
 }
+#endif /* printing does not work */
 
 
 #define EVOLUTION_MENU "<menuitem name=\"Send\" _label=\"Send\" pixtype=\"stock\" pixname=\"New Mail\" verb=\"\"/>"
@@ -1180,12 +1182,15 @@ eog_image_view_create_ui (EogImageView *image_view)
 	bonobo_ui_component_add_verb (image_view->priv->uic, "AcquireFromCamera",
 				      verb_AcquireFromCamera_cb, image_view);
 #endif
+
+#if GNOME2_PRINTING_WORKS
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintSetup", 
 				      verb_PrintSetup_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "PrintPreview",
 				      verb_PrintPreview_cb, image_view);
 	bonobo_ui_component_add_verb (image_view->priv->uic, "Print",
 				      verb_Print_cb, image_view);
+#endif
 }
 
 /* ***************************************************************************

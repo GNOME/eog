@@ -28,11 +28,11 @@ eog_image_viewer_SOURCES =	\
 	eog-preview.h		\
 	eog-preview-page.c	\
 	eog-preview-page.h	\
-	eog-print-setup.c	\
-	eog-print-setup.h	\
 	eog-util.h		\
 	eog-util.c		\
 	main.c
+#	 eog-print-setup.c	\
+#	 eog-print-setup.h	\
 #	 eog-embeddable.c	\
 #	 eog-embeddable.h	\
 #	 eog-embeddable-view.c	\
