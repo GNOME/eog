@@ -75,12 +75,16 @@ open_window (LoadContext *ctx)
 	GError *error = NULL;
 	gboolean new_window;
 	GList *it;
+	GConfClient *client;
 
 	g_return_val_if_fail (ctx->iid != NULL, FALSE);
 
-	/* FIXME: load gconf key */
-	new_window = TRUE; /* gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL); */
+	client = gconf_client_get_default ();
+
+	new_window = gconf_client_get_bool (client, "/apps/eog/window/open_new_window", NULL);
 	new_window = new_window && ((ctx->window == NULL) || eog_window_has_contents (ctx->window));
+
+	g_object_unref (client);
 
 	if (ctx->single_windows) 
 	{

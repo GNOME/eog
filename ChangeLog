@@ -1,5 +1,17 @@
 2003-10-27  Jens Finke  <jens@triq.net>
 
+	Consider eog/window/open_new_window configuration key again. Fixes
+	long-time bug #91189.
+	
+	* eog.schemas.in: Set default of the open_new_window key to false.
+
+	* shell/eog-window.c (eog_window_open_list): Deactivate control.
+
+	* shell/main.c (open_window): Query open_new_window key to
+	determine if the current window should be reused or not.
+	
+2003-10-26  Jens Finke  <jens@triq.net>
+
 	* collection/eog-collection-view.c (free_image_list): New
 	function, which releases a list of images returned by
 	eog_wrap_list_get_selected_images.

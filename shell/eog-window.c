@@ -988,14 +988,12 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 
 	/* remove previously loaded control */
 	if (priv->ctrl_frame != NULL) {
-		gtk_container_remove (GTK_CONTAINER (priv->box), 
-				      GTK_WIDGET (priv->ctrl_widget));
+		bonobo_control_frame_control_deactivate (priv->ctrl_frame);
 		bonobo_object_unref (priv->ctrl_frame);
 		gtk_widget_destroy (priv->ctrl_widget);
 		priv->ctrl_widget = NULL;
 		priv->ctrl_frame = NULL;
 	}
-	g_assert (priv->ctrl_frame == NULL);
 
 	/* create control frame */
 	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
