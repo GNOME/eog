@@ -126,8 +126,8 @@ eog_file_selection_add_filter (GtkWidget *widget)
 
 	for (it = formats; it != NULL; it = it->next) {
 		char *filter_name;
-		filter = gtk_file_filter_new ();
 		GdkPixbufFormat *format;
+		filter = gtk_file_filter_new ();
 
 		format = (GdkPixbufFormat*) it->data;
 
