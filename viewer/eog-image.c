@@ -10,6 +10,7 @@
  * Copyright 2000 Helix Code, Inc.
  */
 #include <config.h>
+#include <string.h>
 #include <stdio.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
@@ -51,7 +52,7 @@ eog_image_destroy (BonoboObject *object)
 	image = EOG_IMAGE (object);
 
 	if (image->priv->pixbuf) {
-		gdk_pixbuf_unref (image->priv->pixbuf);
+		g_object_unref (image->priv->pixbuf);
 		image->priv->pixbuf = NULL;
 	}
 
@@ -113,7 +114,6 @@ BONOBO_TYPE_FUNC_FULL (EogImage,
 		       GNOME_EOG_Image,
 		       BONOBO_TYPE_OBJECT,
 		       eog_image);
-
 /*
  * Loads an Image from a Bonobo_Stream
  */
@@ -139,7 +139,7 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	image = EOG_IMAGE (data);
 
 	if (image->priv->pixbuf)
-		gdk_pixbuf_unref (image->priv->pixbuf);
+		g_object_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
 	if (image->priv->filename)
 		g_free (image->priv->filename);
@@ -171,11 +171,11 @@ load_image_from_stream (BonoboPersistStream       *ps,
 	if (!image->priv->pixbuf)
 		goto exit_wrong_type;
 
-	gdk_pixbuf_ref (image->priv->pixbuf);
+	g_object_ref (image->priv->pixbuf);
 
 	info = Bonobo_Stream_getInfo (stream, 0, ev);
 	if (!BONOBO_EX (ev)) {
-		image->priv->filename = g_strdup (g_basename (info->name));
+		image->priv->filename = g_path_get_basename (info->name);
 		CORBA_free (info);
 	}
 
@@ -256,7 +256,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	image = EOG_IMAGE (closure);
 
 	if (image->priv->pixbuf)
-		gdk_pixbuf_unref (image->priv->pixbuf);
+		g_object_unref (image->priv->pixbuf);
 	image->priv->pixbuf = NULL;
 	if (image->priv->filename)
 		g_free (image->priv->filename);
@@ -296,7 +296,7 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		return -1;
 	}
 
-	gdk_pixbuf_ref (image->priv->pixbuf);
+	g_object_ref (image->priv->pixbuf);
 
 	image->priv->filename = gnome_vfs_uri_extract_short_name (uri);
 	
@@ -453,7 +453,7 @@ eog_image_get_pixbuf (EogImage *image)
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
 	if (image->priv->pixbuf)
-		gdk_pixbuf_ref (image->priv->pixbuf);
+		g_object_ref (image->priv->pixbuf);
 
 	return image->priv->pixbuf;
 }

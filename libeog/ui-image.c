@@ -184,8 +184,8 @@ ui_image_construct (UIImage *ui)
 	priv = ui->priv;
 
 	priv->view = image_view_new ();
-	gtk_signal_connect (GTK_OBJECT (priv->view), "zoom_fit",
-			    GTK_SIGNAL_FUNC (zoom_fit_cb), ui);
+	g_signal_connect (priv->view, "zoom_fit",
+			  G_CALLBACK (zoom_fit_cb), ui);
 	gtk_container_add (GTK_CONTAINER (ui), priv->view);
 	gtk_widget_show (priv->view);
 
@@ -240,7 +240,7 @@ ui_image_zoom_fit (UIImage *ui)
 
 	iw = gdk_pixbuf_get_width (pixbuf);
 	ih = gdk_pixbuf_get_height (pixbuf);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	w = GTK_WIDGET (ui)->allocation.width;
 	h = GTK_WIDGET (ui)->allocation.height;
@@ -280,7 +280,7 @@ ui_image_fit_to_screen (UIImage *ui)
 
 	width = gdk_pixbuf_get_width (pixbuf);
 	height = gdk_pixbuf_get_height (pixbuf);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	sw = gdk_screen_width ();
 	sh = gdk_screen_height ();
@@ -302,9 +302,6 @@ ui_image_fit_to_screen (UIImage *ui)
 					    &width, &height);
 	}
 
-	gtk_widget_set_usize (GTK_WIDGET (ui),
-			      width,
-			      height);
-
+	gtk_widget_set_size_request (GTK_WIDGET (ui), width, height);
 }
 

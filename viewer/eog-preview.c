@@ -5,15 +5,17 @@
 #include <eog-preview.h>
 
 #include <eog-preview-page.h>
+#include <libgnome/gnome-macros.h>
 
-#define PARENT_TYPE GTK_TYPE_HBOX
-static GtkHBoxClass *parent_class = NULL;
+GNOME_CLASS_BOILERPLATE (EogPreview,
+			 eog_preview,
+			 GtkHBox,
+			 GTK_TYPE_HBOX);
 
-struct _EogPreviewPrivate
-{
-	EogImageView	*image_view;
+struct _EogPreviewPrivate {
+	EogImageView *image_view;
 
-	GtkWidget	*root;
+	GtkWidget    *root;
 };
 
 #define SCALE(param) (0.2 * param)
@@ -125,7 +127,7 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 		pixbuf = gdk_pixbuf_scale_simple (pixbuf_orig, 
 						  SCALE (image_width), 
 						  SCALE (image_height), interp);
-	gdk_pixbuf_unref (pixbuf_orig);
+	g_object_unref (pixbuf_orig);
 
 	/* Update the page (0, 0) in order to see how many pages we need */
 	eog_preview_page_update (EOG_PREVIEW_PAGE (priv->root), pixbuf,
@@ -136,17 +138,17 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 				 &cols_needed, &rows_needed);
 
 	/* Do we need to remove VBoxes? */
-	children = gtk_container_children (GTK_CONTAINER (preview));
+	children = gtk_container_get_children (GTK_CONTAINER (preview));
 	for (i = g_list_length (children) - 1; i >= cols_needed; i--) {
 		vbox = g_list_nth_data (children, i);
 		gtk_container_remove (GTK_CONTAINER (preview), vbox);
 	}
 
 	/* Do we need to add or remove pages (rows)? */
-	children = gtk_container_children (GTK_CONTAINER (preview));
+	children = gtk_container_get_children (GTK_CONTAINER (preview));
 	for (i = 0; i < g_list_length (children); i++) {
 		vbox = g_list_nth_data (children, i);
-		vbox_children = gtk_container_children (GTK_CONTAINER (vbox));
+		vbox_children = gtk_container_get_children (GTK_CONTAINER (vbox));
 
 		/* Removing */
 		for (j = g_list_length (vbox_children); j > rows_needed; j--) {
@@ -164,15 +166,15 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 	}
 
 	/* Do we need additional VBoxes? */
-	children = gtk_container_children (GTK_CONTAINER (preview));
+	children = gtk_container_get_children (GTK_CONTAINER (preview));
 	for (i = g_list_length (children); i < cols_needed; i++)
 		create_vbox (preview, i, rows_needed);
 
 	/* Update all pages */
-	children = gtk_container_children (GTK_CONTAINER (preview));
+	children = gtk_container_get_children (GTK_CONTAINER (preview));
 	for (i = 0; i < g_list_length (children); i++) {
 		vbox = g_list_nth_data (children, i);
-		vbox_children = gtk_container_children (GTK_CONTAINER (vbox));
+		vbox_children = gtk_container_get_children (GTK_CONTAINER (vbox));
 		for (j = 0; j < g_list_length (vbox_children); j++) {
 			page = g_list_nth_data (vbox_children, j);
 			eog_preview_page_update (EOG_PREVIEW_PAGE (page),
@@ -191,24 +193,24 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 	}
 
 	if (pixbuf)
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 }
 
 static void
-eog_preview_destroy (GtkObject *object)
+eog_preview_dispose (GObject *object)
 {
 	EogPreview *preview;
 
 	preview = EOG_PREVIEW (object);
 
 	g_free (preview->priv);
+	preview->priv = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 static void
-eog_preview_init (EogPreview *preview)
+eog_preview_instance_init (EogPreview *preview)
 {
 	preview->priv = g_new0 (EogPreviewPrivate, 1);
 }
@@ -216,44 +218,19 @@ eog_preview_init (EogPreview *preview)
 static void
 eog_preview_class_init (EogPreviewClass *klass)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *gobject_class = (GObjectClass *) klass;
 
-	object_class = GTK_OBJECT_CLASS (klass);
-	object_class->destroy = eog_preview_destroy;
-
-	parent_class = gtk_type_class (PARENT_TYPE);
+	gobject_class->dispose = eog_preview_dispose;
 }
 
-GtkType
-eog_preview_get_type (void)
-{
-	static GtkType preview_type = 0;
-
-	if (!preview_type) {
-		static const GtkTypeInfo preview_info = {
-			"EogPreview",
-			sizeof (EogPreview),
-			sizeof (EogPreviewClass),
-			(GtkClassInitFunc) eog_preview_class_init,
-			(GtkObjectInitFunc) eog_preview_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		preview_type = gtk_type_unique (PARENT_TYPE, &preview_info);
-	}
-
-	return (preview_type);
-}
-
-GtkWidget*
+GtkWidget *
 eog_preview_new (EogImageView *image_view)
 {
-	EogPreview	*preview;
-	GtkWidget	*vbox;
+	GtkWidget  *vbox;
+	EogPreview *preview;
 
-	preview = gtk_type_new (EOG_TYPE_PREVIEW);
+	preview = g_object_new (EOG_TYPE_PREVIEW, NULL);
+
 	gtk_container_set_border_width (GTK_CONTAINER (preview), 8);
 	gtk_container_set_resize_mode (GTK_CONTAINER (preview), 
 				       GTK_RESIZE_PARENT);
@@ -273,6 +250,6 @@ eog_preview_new (EogImageView *image_view)
 	gtk_widget_show (preview->priv->root);
 	gtk_box_pack_start (GTK_BOX (vbox), preview->priv->root, TRUE, TRUE, 0);
 
-	return (GTK_WIDGET (preview));
+	return GTK_WIDGET (preview);
 }
 

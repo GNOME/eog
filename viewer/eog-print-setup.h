@@ -1,7 +1,7 @@
 #ifndef _EOG_PRINT_SETUP_H_
 #define _EOG_PRINT_SETUP_H_
 
-#include <gnome.h>
+#include <gtk/gtkdialog.h>
 #include <eog-image-view.h>
 
 G_BEGIN_DECLS
@@ -18,14 +18,14 @@ typedef struct _EogPrintSetupClass	EogPrintSetupClass;
 
 struct _EogPrintSetup 
 {
-	GnomeDialog		 dialog;
+	GtkDialog		 dialog;
 
 	EogPrintSetupPrivate	*priv;
 };
 
 struct _EogPrintSetupClass
 {
-	GnomeDialogClass	 parent_class;
+	GtkDialogClass           parent_class;
 };
 
 GtkType		eog_print_setup_get_type (void);

@@ -1,8 +1,9 @@
-#include "../config.h"
-
-#include <gnome.h>
+#include <config.h>
+#include <string.h>
 #include <bonobo-activation/bonobo-activation.h>
 #include <libgnomevfs/gnome-vfs.h>
+#include <libgnomeui/gnome-client.h>
+#include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
 #include <bonobo.h>

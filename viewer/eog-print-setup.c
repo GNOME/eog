@@ -8,10 +8,13 @@
 #include <eog-preview.h>
 #include <eog-util.h>
 #include <gconf/gconf-client.h>
+#include <libgnome/gnome-macros.h>
 #include <libgnomeprint/gnome-print-paper.h>
 
-#define PARENT_TYPE GNOME_TYPE_DIALOG
-static GnomeDialogClass *parent_class = NULL;
+GNOME_CLASS_BOILERPLATE (EogPrintSetup,
+			 eog_print_setup,
+			 GtkDialog,
+			 GTK_TYPE_DIALOG)
 
 struct _EogPrintSetupPrivate 
 {
@@ -301,17 +304,17 @@ on_overlap_y_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 }
 
 static void
-on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
+on_dialog_response (EogPrintSetup *ps, gint response_id, gpointer user_data)
 {
-	switch (button_number) {
-	case 0:
+	switch (response_id) {
+	case GTK_RESPONSE_OK:
 		save_settings (ps);
 		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
-	case 1:
+	case GTK_RESPONSE_CANCEL:
 		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
-	case 2:
+	case 1:
 		eog_image_view_print (ps->priv->image_view, FALSE, 
 				      ps->priv->paper_size, ps->priv->landscape,
 				      ps->priv->bottom, ps->priv->top, 
@@ -326,7 +329,7 @@ on_dialog_clicked (GnomeDialog *dialog, gint button_number, EogPrintSetup *ps)
 				      ps->priv->overlap);
 		gtk_widget_unref (GTK_WIDGET (ps));
 		break;
-	case 3:
+	case 2:
 		eog_image_view_print (ps->priv->image_view, TRUE,
 				      ps->priv->paper_size, ps->priv->landscape,
 				      ps->priv->bottom, ps->priv->top, 
@@ -365,7 +368,7 @@ on_unit_activate (GtkMenuItem *item, EogPrintSetup *ps)
 
 	old = ps->priv->unit;
 	ps->priv->unit = GPOINTER_TO_INT (
-			gtk_object_get_data (GTK_OBJECT (item), "unit"));
+			g_object_get_data (G_OBJECT (item), "unit"));
 
 	/* Adjust all values */
 	do_conversion (ps->priv->spin_top, old, ps->priv->unit);
@@ -377,23 +380,22 @@ on_unit_activate (GtkMenuItem *item, EogPrintSetup *ps)
 }
 
 static void
-eog_print_setup_destroy (GtkObject *object)
+eog_print_setup_finalize (GObject *object)
 {
 	EogPrintSetup *print_setup;
 
 	print_setup = EOG_PRINT_SETUP (object);
 
-	gtk_object_unref (GTK_OBJECT (print_setup->priv->client));
+	g_object_unref (print_setup->priv->client);
 	g_free (print_setup->priv->paper_size);
 
 	g_free (print_setup->priv);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
 static void
-eog_print_setup_init (EogPrintSetup *print_setup)
+eog_print_setup_instance_init (EogPrintSetup *print_setup)
 {
 	print_setup->priv = g_new0 (EogPrintSetupPrivate, 1);
 }
@@ -401,36 +403,9 @@ eog_print_setup_init (EogPrintSetup *print_setup)
 static void
 eog_print_setup_class_init (EogPrintSetupClass *klass)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *gobject_class = (GObjectClass *) klass;
 
-	object_class = GTK_OBJECT_CLASS (klass);
-	object_class->destroy = eog_print_setup_destroy;
-
-	parent_class = gtk_type_class (PARENT_TYPE);
-}
-
-GtkType
-eog_print_setup_get_type (void)
-{
-	static GtkType print_setup_type = 0;
-
-	if (!print_setup_type) {
-		static const GtkTypeInfo print_setup_info = {
-			"EogPrintSetup",
-			sizeof (EogPrintSetup),
-			sizeof (EogPrintSetupClass),
-			(GtkClassInitFunc) eog_print_setup_class_init,
-			(GtkObjectInitFunc) eog_print_setup_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		print_setup_type = gtk_type_unique (PARENT_TYPE, 
-						    &print_setup_info);
-	}
-
-	return (print_setup_type);
+	gobject_class->finalize = eog_print_setup_finalize;
 }
 
 static void
@@ -474,9 +449,6 @@ eog_print_setup_new (EogImageView *image_view)
 {
 	EogPrintSetup 		*new;
 	EogPrintSetupPrivate 	*priv;
-	GdkPixbuf		*pixbuf;
-	GdkPixmap		*pixmap;
-	GdkBitmap		*bitmap;
 	GtkWidget		*window;
 	GtkWidget		*widget;
 	GtkWidget		*notebook;
@@ -487,22 +459,28 @@ eog_print_setup_new (EogImageView *image_view)
 	GtkObject		*adj;
 	GSList			*group;
 	GList			*list;
-	const gchar		*buttons[] = {GNOME_STOCK_BUTTON_OK,
-					      GNOME_STOCK_BUTTON_CANCEL,
-					      _("Print"),
-					      _("Print preview"), NULL};
 	gint			 i;
 
 	widget = eog_image_view_get_widget (image_view);
 	window = gtk_widget_get_ancestor (widget, GTK_TYPE_WINDOW);
 
 	/* Dialog */
-	new = gtk_type_new (EOG_TYPE_PRINT_SETUP);
-	gnome_dialog_constructv (GNOME_DIALOG (new), _("Print Setup"), buttons);
-	gnome_dialog_set_parent (GNOME_DIALOG (new), GTK_WINDOW (window));
-	gnome_dialog_set_close (GNOME_DIALOG (new), FALSE);
-	gtk_signal_connect (GTK_OBJECT (new), "clicked", 
-			    GTK_SIGNAL_FUNC (on_dialog_clicked), new);
+	new = g_object_new (EOG_TYPE_PRINT_SETUP, NULL);
+	gtk_window_set_title (GTK_WINDOW (new), _("Print Setup"));
+	gtk_window_set_transient_for (GTK_WINDOW (new), GTK_WINDOW (window));
+	gtk_dialog_add_buttons (GTK_DIALOG (new),
+				GTK_STOCK_OK,
+				GTK_RESPONSE_OK,
+				GTK_STOCK_CANCEL,
+				GTK_RESPONSE_CANCEL,
+				_("Print"),
+				1,
+				_("Print preview"),
+				2,
+				NULL);
+
+	g_signal_connect (new, "response", 
+			  G_CALLBACK (on_dialog_response), NULL);
 	
 	priv = new->priv;
 	priv->client = gconf_client_get_default ();
@@ -523,7 +501,7 @@ eog_print_setup_new (EogImageView *image_view)
 
 	hbox = gtk_hbox_new (FALSE, 8);
 	gtk_widget_show (hbox);
-	gtk_container_add (GTK_CONTAINER (GNOME_DIALOG (new)->vbox), hbox);
+	gtk_container_add (GTK_CONTAINER (new), hbox);
 
 	/* Scrolled window for previews */
 	window = gtk_scrolled_window_new (NULL, NULL);
@@ -532,7 +510,7 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (window),
 					GTK_POLICY_AUTOMATIC, 
 					GTK_POLICY_AUTOMATIC);
-	gtk_widget_set_usize (GTK_WIDGET (window), 300, 300);
+	gtk_widget_set_size_request (GTK_WIDGET (window), 300, 300);
 
 	/* Preview */
 	widget = eog_preview_new (new->priv->image_view);
@@ -558,11 +536,11 @@ eog_print_setup_new (EogImageView *image_view)
 	for (i = 0; i < 4; i++) { 
 		item = gtk_menu_item_new_with_label (unit [i].short_name); 
 		gtk_widget_show (item); 
-		gtk_menu_append (GTK_MENU (menu), item); 
-		gtk_signal_connect (GTK_OBJECT (item), "activate", 
-				    GTK_SIGNAL_FUNC (on_unit_activate), new); 
-		gtk_object_set_data (GTK_OBJECT (item), "unit", 
-				     GINT_TO_POINTER (i)); 
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item); 
+		g_signal_connect (item, "activate", 
+				  G_CALLBACK (on_unit_activate), new); 
+		g_object_set_data (G_OBJECT (item), "unit", 
+				   GINT_TO_POINTER (i)); 
 	} 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu); 
 	gtk_option_menu_set_history (GTK_OPTION_MENU (widget), new->priv->unit);
@@ -599,8 +577,8 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_combo_set_value_in_list (GTK_COMBO (combo), TRUE, 0); 
 	gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry), 
 			    priv->paper_size);
-	gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed", 
-			    GTK_SIGNAL_FUNC (on_paper_size_changed), new); 
+	g_signal_connect (GTK_COMBO (combo)->entry, "changed", 
+			  G_CALLBACK (on_paper_size_changed), new); 
 	g_list_foreach (list, (GFunc) g_free, NULL);
 	g_list_free (list);
 
@@ -609,28 +587,22 @@ eog_print_setup_new (EogImageView *image_view)
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_widget_show (hbox);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-vertical.png", NULL);
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	widget = gtk_pixmap_new (pixmap, bitmap);
-	gdk_pixbuf_unref (pixbuf);
+	widget = gtk_image_new_from_file (ICONDIR "/orient-vertical.png");
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	button = gtk_radio_button_new_with_label (NULL, _("Portrait"));
 	gtk_widget_show (button);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/orient-horizontal.png", NULL);
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	widget = gtk_pixmap_new (pixmap, bitmap);
-	gdk_pixbuf_unref (pixbuf);
+	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
+	widget = gtk_image_new_from_file (ICONDIR "/orient-horizontal.png");
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	button = gtk_radio_button_new_with_label (group, _("Landscape"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
 				      new->priv->landscape);
 	gtk_widget_show (button);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled",
-			    GTK_SIGNAL_FUNC (on_landscape_toggled), new);
+	g_signal_connect (button, "toggled",
+			  G_CALLBACK (on_landscape_toggled), new);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	/* Margins */
@@ -656,8 +628,8 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_top = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adj, "value_changed",
-			    GTK_SIGNAL_FUNC (on_top_value_changed), new);
+	g_signal_connect (adj, "value_changed",
+			  G_CALLBACK (on_top_value_changed), new);
 	
 	/* Left margin */
 	label = gtk_label_new (_("Left:"));
@@ -674,8 +646,8 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 3, 4, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_left = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adj, "value_changed",
-			    GTK_SIGNAL_FUNC (on_left_value_changed), new);
+	g_signal_connect (adj, "value_changed",
+			  G_CALLBACK (on_left_value_changed), new);
 
 	/* Right margin */
 	label = gtk_label_new (_("Right:"));
@@ -692,8 +664,8 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_table_attach (GTK_TABLE (table), button, 2, 3, 3, 4, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_right = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adj, "value_changed",
-			    GTK_SIGNAL_FUNC (on_right_value_changed), new);
+	g_signal_connect (adj, "value_changed",
+			  G_CALLBACK (on_right_value_changed), new);
 
 	/* Bottom margin */
 	label = gtk_label_new (_("Bottom:"));
@@ -710,8 +682,8 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 5, 6, 
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	priv->spin_bottom = GTK_SPIN_BUTTON (button);
-	gtk_signal_connect (adj, "value_changed",
-			    GTK_SIGNAL_FUNC (on_bottom_value_changed), new);
+	g_signal_connect (adj, "value_changed",
+			  G_CALLBACK (on_bottom_value_changed), new);
 
 	/* Second page */ 
 	label = gtk_label_new (_("Image")); 
@@ -730,20 +702,20 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 0, 1, 
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
+	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 	button = gtk_radio_button_new_with_label (group, _("Fit to page"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
 				      priv->fit_to_page);
 	gtk_widget_show (button);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
-			    GTK_SIGNAL_FUNC (on_fit_to_page_toggled), new);
+	g_signal_connect (button, "toggled", 
+			  G_CALLBACK (on_fit_to_page_toggled), new);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 1, 2, 
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
 	adj = gtk_adjustment_new (priv->adjust_to, 1, 10000, 1, 10, 10);
 	priv->spin_adj = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
 	gtk_widget_show (priv->spin_adj);
-	gtk_signal_connect (adj, "value_changed", 
-			    GTK_SIGNAL_FUNC (on_adjust_to_value_changed), new);
+	g_signal_connect (adj, "value_changed", 
+			  G_CALLBACK (on_adjust_to_value_changed), new);
 	gtk_spin_button_set_update_policy (GTK_SPIN_BUTTON (priv->spin_adj), 
 					   GTK_UPDATE_IF_VALID);
 	gtk_widget_set_sensitive (priv->spin_adj, !priv->fit_to_page);
@@ -765,15 +737,15 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
 				      priv->horizontally);
 	gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
-			    GTK_SIGNAL_FUNC (on_horizontally_toggled), new);
+	g_signal_connect (button, "toggled", 
+			    G_CALLBACK (on_horizontally_toggled), new);
 	button = gtk_check_button_new_with_label (_("Vertically"));
 	gtk_widget_show (button);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
 				      priv->vertically);
 	gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
-			    GTK_SIGNAL_FUNC (on_vertically_toggled), new);
+	g_signal_connect (button, "toggled", 
+			  G_CALLBACK (on_vertically_toggled), new);
 
 	/* Overlap */
 	make_header (vbox, _("Overlapping")); 
@@ -803,8 +775,8 @@ eog_print_setup_new (EogImageView *image_view)
 					   GTK_UPDATE_IF_VALID);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 0, 1,
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
-	gtk_signal_connect (adj, "value_changed",
-			    GTK_SIGNAL_FUNC (on_overlap_x_value_changed), new);
+	g_signal_connect (adj, "value_changed",
+			    G_CALLBACK (on_overlap_x_value_changed), new);
 	adj = gtk_adjustment_new (
 				priv->overlap_y * unit [priv->unit].multiplier,
 				0, priv->height * unit [priv->unit].multiplier,
@@ -818,8 +790,8 @@ eog_print_setup_new (EogImageView *image_view)
 					   GTK_UPDATE_IF_VALID);
 	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2,
 			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
-	gtk_signal_connect (adj, "value_changed", 
-			    GTK_SIGNAL_FUNC (on_overlap_y_value_changed), new);
+	g_signal_connect (adj, "value_changed", 
+			    G_CALLBACK (on_overlap_y_value_changed), new);
 	
 	/* Third page */
 	label = gtk_label_new (_("Printing")); 
@@ -835,15 +807,15 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_show (button);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), priv->cut);
 	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled", 
-			    GTK_SIGNAL_FUNC (on_cut_toggled), new);
+	g_signal_connect (GTK_OBJECT (button), "toggled", 
+			    G_CALLBACK (on_cut_toggled), new);
 	button = gtk_check_button_new_with_label (_("Print overlap help"));
 	gtk_widget_show (button);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), 
 				      priv->overlap);
 	gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "toggled",
-			    GTK_SIGNAL_FUNC (on_overlap_toggled), new);
+	g_signal_connect (GTK_OBJECT (button), "toggled",
+			    G_CALLBACK (on_overlap_toggled), new);
 
 	/* Page order */
 	make_header (vbox, _("Page order"));
@@ -853,14 +825,11 @@ eog_print_setup_new (EogImageView *image_view)
 
 	/* Down right */
 	button = gtk_radio_button_new_with_label (NULL, _("Down, then right"));
-	group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
+	group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 0, 1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/down-right.png", NULL);
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	new->priv->image_down_right = gtk_pixmap_new (pixmap, bitmap);
-	gdk_pixbuf_unref (pixbuf);
+	new->priv->image_down_right = gtk_image_new_from_file (ICONDIR "/down-right.png");
 	gtk_table_attach (GTK_TABLE (table), new->priv->image_down_right, 
 			  1, 2, 0, 2, GTK_FILL | GTK_EXPAND, 
 			  GTK_FILL | GTK_EXPAND, 0, 0);
@@ -868,18 +837,16 @@ eog_print_setup_new (EogImageView *image_view)
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
 		gtk_widget_show (new->priv->image_down_right);
 	}
-	gtk_signal_connect (GTK_OBJECT (button), "toggled",
-			    GTK_SIGNAL_FUNC (on_down_right_toggled), new);
+	g_signal_connect (button, "toggled",
+			  G_CALLBACK (on_down_right_toggled), new);
 	
 	/* Right down */
 	button = gtk_radio_button_new_with_label (group, _("Right, then down"));
 	gtk_widget_show (button);
 	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 1, 2,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
-	pixbuf = gdk_pixbuf_new_from_file (ICONDIR "/right-down.png", NULL);
-	gdk_pixbuf_render_pixmap_and_mask (pixbuf, &pixmap, &bitmap, 1);
-	new->priv->image_right_down = gtk_pixmap_new (pixmap, bitmap);
-	gdk_pixbuf_unref (pixbuf);
+
+	new->priv->image_right_down = gtk_image_new_from_file (ICONDIR "/right-down.png");
 	gtk_table_attach (GTK_TABLE (table), new->priv->image_right_down, 
 			  1, 2, 0, 2, GTK_FILL | GTK_EXPAND, 
 			  GTK_FILL | GTK_EXPAND, 0, 0);

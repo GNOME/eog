@@ -27,6 +27,12 @@
 
 #include <image-view.h>
 #include <ui-image.h>
+#include <libgnome/gnome-macros.h>
+
+GNOME_CLASS_BOILERPLATE (EogFullScreen,
+			 eog_full_screen,
+			 GtkWindow,
+			 GTK_TYPE_WINDOW);
 
 struct _EogFullScreenPrivate
 {
@@ -37,7 +43,6 @@ struct _EogFullScreenPrivate
 };
 
 #define ZOOM_FACTOR 1.2
-static GtkWindowClass *parent_class;
 
 /* Show handler for the full screen view */
 static void
@@ -76,8 +81,7 @@ eog_full_screen_hide (GtkWidget *widget)
 		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
 	}
 
-	if (GTK_WIDGET_CLASS (parent_class)->show)
-		(* GTK_WIDGET_CLASS (parent_class)->show) (widget);
+	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (widget));
 
 	gtk_widget_destroy (widget);
 }
@@ -157,10 +161,12 @@ eog_full_screen_destroy (GtkObject *object)
 
 	fs = EOG_FULL_SCREEN (object);
 
-	bonobo_object_unref (BONOBO_OBJECT (fs->priv->image_view));
+	if (fs->priv->image_view) {
+		bonobo_object_unref (BONOBO_OBJECT (fs->priv->image_view));
+		fs->priv->image_view = NULL;
+	}
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
 }	
 
 /* Finalize handler for the full screen view */
@@ -176,8 +182,7 @@ eog_full_screen_finalize (GObject *object)
 
 	g_free (fs->priv);
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-	  (* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
 /* Class initialization function for the full screen mode */
@@ -205,48 +210,17 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 
 /* Object initialization function for the full screen view */
 static void
-eog_full_screen_init (EogFullScreen *fs)
+eog_full_screen_instance_init (EogFullScreen *fs)
 {
 	fs->priv = g_new0 (EogFullScreenPrivate, 1);
 
 	GTK_WINDOW (fs)->type = GTK_WINDOW_POPUP;
-	gtk_widget_set_usize (GTK_WIDGET (fs),
-			      gdk_screen_width (), gdk_screen_height ());
-	gtk_widget_set_uposition (GTK_WIDGET (fs), 0, 0);
+	gtk_window_set_default_size (
+		GTK_WINDOW (fs),
+		gdk_screen_width (),
+		gdk_screen_height ());
+	gtk_window_set_position (GTK_WINDOW (fs), GTK_WIN_POS_CENTER);
 	gtk_window_set_decorated (GTK_WINDOW (fs), FALSE);
-}
-
-/**
- * eog_full_screen_get_type:
- * @void:
- *
- * Registers the #FullScreen class if necessary, and returns the type ID
- * associated to it.
- *
- * Return value: The type ID of the #FullScreen class.
- **/
-GtkType
-eog_full_screen_get_type (void)
-{
-	static GtkType eog_full_screen_type = 0;
-
-	if (!eog_full_screen_type) {
-		static GtkTypeInfo eog_full_screen_info = {
-			"EogFullScreen",
-			sizeof (EogFullScreen),
-			sizeof (EogFullScreenClass),
-			(GtkClassInitFunc) eog_full_screen_class_init,
-			(GtkObjectInitFunc) eog_full_screen_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		eog_full_screen_type = gtk_type_unique (GTK_TYPE_WINDOW,
-				                        &eog_full_screen_info);
-	}
-
-	return eog_full_screen_type;
 }
 
 GtkWidget *
@@ -257,13 +231,13 @@ eog_full_screen_new (EogImage *image)
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	fs = gtk_type_new (EOG_TYPE_FULL_SCREEN);
+	fs = g_object_new (EOG_TYPE_FULL_SCREEN, NULL);
 
 	fs->priv->image_view = eog_image_view_new (image, TRUE);
 	widget = eog_image_view_get_widget (fs->priv->image_view);
 	gtk_widget_show (widget);
 	gtk_container_add (GTK_CONTAINER (fs), widget);
 
-	return (GTK_WIDGET (fs));
+	return GTK_WIDGET (fs);
 }
 

@@ -104,8 +104,8 @@ create_prefs_menu (const PrefsEntry *menu_description,
 
 		translated_string = gettext (entry->string);
 		item = gtk_radio_menu_item_new_with_label (group, translated_string);
-		group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (item));
-		gtk_menu_append (GTK_MENU (menu), item);
+		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
 		g_object_set_data (G_OBJECT (item), "value", GINT_TO_POINTER (i));
 		g_object_set_data (G_OBJECT (item), "gconf_key", key);
@@ -117,8 +117,8 @@ create_prefs_menu (const PrefsEntry *menu_description,
 			history = i;
 		}
 
-		gtk_signal_connect (GTK_OBJECT (item), "activate",
-				    (GtkSignalFunc) activate_cb, view);
+		g_signal_connect (item, "activate",
+				  G_CALLBACK (activate_cb), view);
 
 		i++;
 

@@ -20,8 +20,8 @@
  */
 
 #include <config.h>
-
-#include <gnome.h>
+#include <gtk/gtkmessagedialog.h>
+#include <libgnome/gnome-i18n.h>
 #include "util.h"
 
 
@@ -37,21 +37,18 @@ void
 open_failure_dialog (GtkWindow *parent, const char *filename)
 {
 	GtkWidget *msg;
-	char *text;
-
-	if (parent)
-		g_return_if_fail (GTK_IS_WINDOW (parent));
 
 	g_return_if_fail (filename != NULL);
+	g_return_if_fail (!parent || GTK_IS_WINDOW (parent));
 
-	text = g_strdup_printf (_("Could not open `%s'"), filename);
-	msg = gnome_message_box_new (text, GNOME_MESSAGE_BOX_ERROR,
-				     GNOME_STOCK_BUTTON_OK,
-				     NULL);
-	g_free (text);
+	msg = gtk_message_dialog_new (parent,
+				      GTK_DIALOG_DESTROY_WITH_PARENT,
+				      GTK_MESSAGE_ERROR,
+				      GTK_BUTTONS_OK,
+				      _("Could not open `%s'"),
+				      filename);
 
-	if (parent)
-		gnome_dialog_set_parent (GNOME_DIALOG (msg), parent);
+	gtk_dialog_run (GTK_DIALOG (msg));
 
-	gnome_dialog_run (GNOME_DIALOG (msg));
+	gtk_widget_destroy (msg);
 }

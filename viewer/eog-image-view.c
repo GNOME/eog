@@ -12,6 +12,8 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <string.h>
+#include <glib/gstrfuncs.h>
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
@@ -110,7 +112,7 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 	   axis, this needs fixing in src/image-view.c */
 /*	if (image_view->priv->zoom_fit); */
 		image_view_set_pixbuf (image_view->priv->image_view, pixbuf);
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 
 		ui_image_fit_to_screen (UI_IMAGE (image_view->priv->ui_image));
 	}
@@ -245,7 +247,7 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	EogImageView     *image_view;
 	GtkWidget        *fsel;
 	const gchar      *filename;
-	gchar            *message = NULL;
+	char             *message;
 	CORBA_Environment ev;
 	Bonobo_Storage    storage = CORBA_OBJECT_NIL;
 	Bonobo_Stream     stream = CORBA_OBJECT_NIL;
@@ -253,6 +255,7 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	gchar            *path_base = NULL;
         gchar            *mime_type = NULL;
 	gchar            *tmp_dir = NULL;
+	GtkWidget        *dialog;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
@@ -294,14 +297,19 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 	return;
 
  on_error:
-	message = g_strdup_printf (
+	dialog = gtk_message_dialog_new (
+		GTK_WINDOW (fsel), GTK_DIALOG_MODAL,
+		GTK_MESSAGE_ERROR,
+		GTK_BUTTONS_CLOSE,
 		_("Could not save image as '%s': %s."), filename, 
-		bonobo_exception_get_text (&ev));
-	gnome_error_dialog_parented (message, GTK_WINDOW (fsel));
+		(message = bonobo_exception_get_text (&ev)));
+	gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_destroy (dialog);
+
 	g_free (message);
-	if (path_dir) g_free (path_dir);
-	if (path_base) g_free (path_base);
-	if (mime_type) g_free (mime_type);
+	g_free (path_dir);
+	g_free (path_base);
+	g_free (mime_type);
 
 	if (stream != CORBA_OBJECT_NIL)
 		bonobo_object_release_unref (stream, &ev);
@@ -345,10 +353,10 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	image_view = EOG_IMAGE_VIEW (user_data);
 
 	filesel = GTK_FILE_SELECTION (gtk_file_selection_new (_("Save As")));
-	gtk_signal_connect (GTK_OBJECT (filesel->ok_button), "clicked", 
-			    GTK_SIGNAL_FUNC (filesel_ok_cb), image_view);
-	gtk_signal_connect (GTK_OBJECT (filesel->cancel_button), "clicked", 
-			    GTK_SIGNAL_FUNC (filesel_cancel_cb), image_view);
+	g_signal_connect (filesel->ok_button, "clicked", 
+			  G_CALLBACK (filesel_ok_cb), image_view);
+	g_signal_connect (filesel->cancel_button, "clicked", 
+			  G_CALLBACK (filesel_cancel_cb), image_view);
 	gtk_widget_show (GTK_WIDGET (filesel));
 }
 
@@ -552,6 +560,7 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
  * Start of printing related code 
  * ***************************************************************************/
 
+#if 0 
 static gint
 count_pages (gdouble 	paper_width,
 	     gdouble	paper_height,
@@ -590,6 +599,7 @@ count_pages (gdouble 	paper_width,
 
 	return (cols * rows);
 }
+#endif
 
 static void
 print_line (GnomePrintContext *context, 
@@ -810,7 +820,7 @@ print_page (GnomePrintContext 	*context,
 					      gdk_pixbuf_get_height (pixbuf_to_print),
 					      gdk_pixbuf_get_rowstride (pixbuf_to_print));
 
-		gdk_pixbuf_unref (pixbuf_to_print);
+		g_object_unref (pixbuf_to_print);
 		gnome_print_grestore (context);
 		
 		/* Helpers? */
@@ -1174,7 +1184,7 @@ set_ui_group_item (EogImageView *image_view, const gchar *group_cmd)
 
 	value = bonobo_ui_component_get_prop (image_view->priv->uic,
 					      path, "state", NULL);
-	if (value == NULL || !g_strcasecmp (value, "0")) {
+	if (value == NULL || !g_ascii_strcasecmp (value, "0")) {
 		bonobo_ui_component_set_prop (image_view->priv->uic, 
 					      path, "state", "1", NULL);
 	}
@@ -1403,7 +1413,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		pixbuf = image_view_get_pixbuf (priv->image_view);
 		if (pixbuf) {
 			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_width (pixbuf));
-			gdk_pixbuf_unref (pixbuf);
+			g_object_unref (pixbuf);
 		} else
 			BONOBO_ARG_SET_INT (arg, 0);
 		break;
@@ -1416,7 +1426,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		pixbuf = image_view_get_pixbuf (priv->image_view);
 		if (pixbuf) {
 			BONOBO_ARG_SET_INT (arg, gdk_pixbuf_get_height (pixbuf));
-			gdk_pixbuf_unref (pixbuf);
+			g_object_unref (pixbuf);
 		} else
 			BONOBO_ARG_SET_INT (arg, 0);
 		break;
@@ -1449,7 +1459,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 				    gdk_pixbuf_get_width (pixbuf),
 				    gdk_pixbuf_get_height (pixbuf),
 				    zoom);
-			gdk_pixbuf_unref (pixbuf);
+			g_object_unref (pixbuf);
 		} else {
 			g_snprintf (text, 39, "%i%%", zoom); 
 		}

@@ -65,12 +65,12 @@ static struct {
  * Return value: The newly-created cursor.
  **/
 GdkCursor *
-cursor_get (GdkWindow *window, CursorType type)
+cursor_get (GtkWidget *window, CursorType type)
 {
 	GdkBitmap *data;
 	GdkBitmap *mask;
-	GdkColor black, white;
 	GdkCursor *cursor;
+	GtkStyle *style;
 
 	g_return_val_if_fail (window != NULL, NULL);
 	g_return_val_if_fail (type >= 0 && type < CURSOR_NUM_CURSORS, NULL);
@@ -78,26 +78,27 @@ cursor_get (GdkWindow *window, CursorType type)
 	g_assert (cursors[type].data_width == cursors[type].mask_width);
 	g_assert (cursors[type].data_height == cursors[type].mask_height);
 
-	data = gdk_bitmap_create_from_data (window,
+	data = gdk_bitmap_create_from_data (window->window,
 					    cursors[type].data,
 					    cursors[type].data_width,
 					    cursors[type].data_height);
-	mask = gdk_bitmap_create_from_data (window,
+	mask = gdk_bitmap_create_from_data (window->window,
 					    cursors[type].mask,
 					    cursors[type].mask_width,
 					    cursors[type].mask_height);
 
 	g_assert (data != NULL && mask != NULL);
+	
+	style = gtk_widget_get_style (window);
 
-	gdk_color_black (gdk_window_get_colormap (window), &black);
-	gdk_color_white (gdk_window_get_colormap (window), &white);
-
-	cursor = gdk_cursor_new_from_pixmap (data, mask, &white, &black,
-					     cursors[type].hot_x, cursors[type].hot_y);
+	cursor = gdk_cursor_new_from_pixmap (
+		data, mask,
+		&style->white, &style->black,
+		cursors[type].hot_x, cursors[type].hot_y);
 	g_assert (cursor != NULL);
 
-	gdk_bitmap_unref (data);
-	gdk_bitmap_unref (mask);
+	g_object_unref (data);
+	g_object_unref (mask);
 
 	return cursor;
 }

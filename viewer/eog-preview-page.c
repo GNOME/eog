@@ -3,13 +3,15 @@
 #endif
 
 #include <eog-preview-page.h>
+#include <libgnome/gnome-macros.h>
 #include <libgnomecanvas/gnome-canvas-pixbuf.h>
 
-#define PARENT_TYPE GNOME_TYPE_CANVAS
-static GnomeCanvasClass *parent_class = NULL;
+GNOME_CLASS_BOILERPLATE (EogPreviewPage,
+			 eog_preview_page,
+			 GnomeCanvas,
+			 GNOME_TYPE_CANVAS);
 
-struct _EogPreviewPagePrivate
-{
+struct _EogPreviewPagePrivate {
 	EogImageView	 *image_view;
 
 	gint		  col;
@@ -54,8 +56,9 @@ resize_paper (EogPreviewPage *page)
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (page), 0.0, 0.0,
 					OFFSET_X + page->priv->width, 
 					OFFSET_Y + page->priv->height);
-	gtk_widget_set_usize (GTK_WIDGET (page), OFFSET_X + page->priv->width,
-			      OFFSET_Y + page->priv->height);
+	gtk_widget_set_size_request (GTK_WIDGET (page),
+				     OFFSET_X + page->priv->width,
+				     OFFSET_Y + page->priv->height);
 	
 	if (page->priv->bg_black)
 		gtk_object_destroy (GTK_OBJECT (page->priv->bg_black));
@@ -347,20 +350,20 @@ eog_preview_page_update (EogPreviewPage *page, GdkPixbuf *pixbuf,
 }
 
 static void
-eog_preview_page_destroy (GtkObject *object)
+eog_preview_page_dispose (GObject *object)
 {
 	EogPreviewPage *page;
 
 	page = EOG_PREVIEW_PAGE (object);
 
 	g_free (page->priv);
+	page->priv = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 static void
-eog_preview_page_init (EogPreviewPage *page)
+eog_preview_page_instance_init (EogPreviewPage *page)
 {
 	page->priv = g_new0 (EogPreviewPagePrivate, 1);
 }
@@ -368,38 +371,12 @@ eog_preview_page_init (EogPreviewPage *page)
 static void
 eog_preview_page_class_init (EogPreviewPageClass *klass)
 {
-	GtkObjectClass *object_class;
+	GObjectClass *gobject_class = (GObjectClass *) klass;
 
-	object_class = GTK_OBJECT_CLASS (klass);
-	object_class->destroy = eog_preview_page_destroy;
-
-	parent_class = gtk_type_class (PARENT_TYPE);
+	gobject_class->dispose = eog_preview_page_dispose;
 }
 
-GtkType
-eog_preview_page_get_type (void)
-{
-	static GtkType page_type = 0;
-
-	if (!page_type) {
-		static const GtkTypeInfo page_info = {
-			"EogPreviewPage",
-			sizeof (EogPreviewPage),
-			sizeof (EogPreviewPageClass),
-			(GtkClassInitFunc) eog_preview_page_class_init,
-			(GtkObjectInitFunc) eog_preview_page_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		page_type = gtk_type_unique (PARENT_TYPE, &page_info);
-	}
-
-	return (page_type);
-}
-
-static GnomeCanvasItem*
+static GnomeCanvasItem *
 make_line (GnomeCanvasGroup *group, const gchar *color)
 { 
 	GnomeCanvasPoints *points; 
@@ -419,7 +396,7 @@ make_line (GnomeCanvasGroup *group, const gchar *color)
 				      NULL); 
 	gnome_canvas_points_unref (points); 
 	
-	return (item); 
+	return item;
 }
 
 GtkWidget*
@@ -429,7 +406,7 @@ eog_preview_page_new (EogImageView *image_view, gint col, gint row)
 	EogPreviewPagePrivate 	*priv;
 	GnomeCanvasItem 	*group;
 
-	page = gtk_type_new (EOG_TYPE_PREVIEW_PAGE);
+	page = g_object_new (EOG_TYPE_PREVIEW_PAGE, NULL);
 
 	priv = page->priv;
 	priv->image_view = image_view;
@@ -474,5 +451,5 @@ eog_preview_page_new (EogImageView *image_view, gint col, gint row)
 	priv->cut_bottom_right = make_line (page->priv->cut_group, "black");
 	priv->cut_bottom_left = make_line (page->priv->cut_group, "black");
 	
-	return (GTK_WIDGET (page));
+	return GTK_WIDGET (page);
 }

@@ -11,7 +11,7 @@
  */
 
 #include <config.h>
-
+#include <string.h>
 /* This must be included _before_ bonobo-generic-factory.h,
  * otherwise BONOBO_ACTIVATION_FACTORY won't initialize the
  * gtk and other gui stuff! */

@@ -1,3 +1,44 @@
+2002-04-15  Michael Meeks  <michael@ximian.com>
+
+	* Finally fully port to Gnome 2.0 ( remove all deprecated
+	stuff, but still no printing enabled as yet )
+
+	* shell/eog-window.c (eog_window_construct): store
+	the UI component on the private structure.
+	(add_control_to_ui): don't use broken bonobo_ui_engine
+	API stolen past the deliberate encapsulation of this.
+
+2002-04-12  Michael Meeks  <michael@ximian.com>
+
+	* viewer/eog-full-screen.c: port.
+
+	* viewer/eog-image-view.c: port.
+
+	* viewer/eog-print-setup.c
+	(on_dialog_response): upd.
+	(eog_print_setup_new): port.
+
+	* viewer/eog-image.c (load_image_from_stream): port.
+
+	* libeog/ui-image.c (ui_image_fit_to_screen):
+	don't set_usize, set_size_request.
+
+	* libeog/cursors.c (cursor_get): upd.
+
+	* libeog/image-view.c (image_view_init): rename
+	(image_view_instance_init): to this, kill (get_type)
+	and use the boilerplate macros.
+	(image_view_class_init): use properties not GtkArgs.
+	(image_view_set_property, image_view_get_property): impl.
+	(image_view_dispose): upd.
+	(scroll_to, image_view_size_allocate),
+	(image_view_set_scroll_adjustments),
+	(image_view_set_scroll_adjustments),
+	(image_view_new): much porting action.
+
+	* configure.in (EXTRA_WARNING_CFLAGS): add the disable
+	deprecated bits.
+
 2002-04-13  Rosanna Yuen  <zana@webwynk.net>
 
 	* libeog/image-view.c: #include <gtksignal.h>

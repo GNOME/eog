@@ -21,8 +21,9 @@
 #include <config.h>
 #include <gnome.h> /* Include this before png.h, or see lots of shadowed
 		      variable warnings */
-#include <stdio.h> /* Must be included, otherwise there is an error in png.h.
-		      Bit wierd really. */
+#include <stdio.h>
+#include <setjmp.h>
+#include <string.h>
 #ifdef HAVE_XPM
 #include <X11/xpm.h>
 #endif
@@ -574,7 +575,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 	/* no image data? abort */
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
 	if (pixels == NULL) {
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		return FALSE;
 	}
 
@@ -606,7 +607,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
 	cinfo.err = jpeg_std_error (&(jerr.pub));
 	if (sigsetjmp (jerr.setjmp_buffer, 1)) {
 		jpeg_destroy_compress (&cinfo);
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		g_free (dest->buffer_start);
 		g_free (dest);
 		free (buf);
@@ -635,7 +636,7 @@ eog_image_save_jpeg (EogImage *eog_image, Bonobo_Stream stream,
        
 	/* finish off */
 	jpeg_finish_compress (&cinfo);   
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 	free (buf);
 
 	return TRUE;

@@ -32,8 +32,6 @@ static GObjectClass *eog_control_parent_class;
 static void
 eog_control_destroy (BonoboObject *object)
 {
-	EogControl *control;
-
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_CONTROL (object));
 

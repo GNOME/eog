@@ -22,9 +22,7 @@
 #ifndef CURSORS_H
 #define CURSORS_H
 
-#include <gdk/gdk.h>
-
-
+#include <gtk/gtkwidget.h>
 
 typedef enum {
 	CURSOR_HAND_OPEN,
@@ -32,8 +30,6 @@ typedef enum {
 	CURSOR_NUM_CURSORS
 } CursorType;
 
-GdkCursor *cursor_get (GdkWindow *window, CursorType type);
-
-
+GdkCursor *cursor_get (GtkWidget *window, CursorType type);
 
 #endif

@@ -56,7 +56,10 @@ struct _EogWindowPrivate {
 	char *uri;
 
 	/* control frame */
-	BonoboControlFrame *ctrl_frame;
+	BonoboControlFrame  *ctrl_frame;
+
+	/* UI component - arn't these comments banal */
+	BonoboUIComponent   *ui_comp;
 
 	/* vbox */
 	GtkWidget           *box;
@@ -164,9 +167,9 @@ verb_Preferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cna
 
 	if (priv->pref_dlg == NULL) {
 		priv->pref_dlg = eog_preferences_new (window);
-		gtk_signal_connect (GTK_OBJECT (priv->pref_dlg), "destroy", 
-				    GTK_SIGNAL_FUNC (preference_dlg_closed_cb),
-				    window);
+		g_signal_connect (priv->pref_dlg, "destroy", 
+				  G_CALLBACK (preference_dlg_closed_cb),
+				  window);
 	}
 
 	gtk_window_present (GTK_WINDOW (priv->pref_dlg));
@@ -242,9 +245,9 @@ verb_HelpAbout_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname
 			NULL, /* char **documentors */
 			translator_credits,
 			NULL);
-		gtk_signal_connect (GTK_OBJECT (about), "destroy",
-				    GTK_SIGNAL_FUNC (gtk_widget_destroyed),
-				    &about);
+		g_signal_connect (about, "destroy",
+				  G_CALLBACK (gtk_widget_destroyed),
+				  &about);
 	}
 
 	gtk_widget_show_now (about);
@@ -281,7 +284,7 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 
 	window = EOG_WINDOW (eog_window_new ());
 	
-	if (g_strncasecmp ("file:", uri, 5) == 0) 		
+	if (g_ascii_strncasecmp ("file:", uri, 5) == 0) 		
 		path = g_strdup ((uri+5));
 	else
 		path = g_strdup (uri);
@@ -444,7 +447,7 @@ eog_window_init (EogWindow *window)
 
 	window_list = g_list_prepend (window_list, window);
 
-	gtk_window_set_policy (GTK_WINDOW (window), TRUE, TRUE, FALSE);
+	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
 }
 
 /* delete_event handler for windows */
@@ -505,8 +508,6 @@ eog_window_drag_data_received (GtkWidget *widget,
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
-	GList *filenames = NULL;
-	GList *l;
 	gboolean need_new_window = TRUE;
 
 	window = EOG_WINDOW (widget);
@@ -641,8 +642,6 @@ eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	BonoboUIContainer *ui_container;
-	BonoboUIComponent *ui_comp;
-	GdkGeometry geometry;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -660,12 +659,12 @@ eog_window_construct (EogWindow *window)
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
 
 	/* add menu and toolbar */
-	ui_comp = bonobo_ui_component_new ("eog");
-	bonobo_ui_component_set_container (ui_comp, 
+	priv->ui_comp = bonobo_ui_component_new ("eog");
+	bonobo_ui_component_set_container (priv->ui_comp, 
 					   BONOBO_OBJREF (ui_container), NULL);
 
-	bonobo_ui_util_set_ui (ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
-	bonobo_ui_component_add_verb_list_with_data (ui_comp, eog_app_verbs, window);
+	bonobo_ui_util_set_ui (priv->ui_comp, NULL, "eog-shell-ui.xml", "EOG", NULL);
+	bonobo_ui_component_add_verb_list_with_data (priv->ui_comp, eog_app_verbs, window);
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
@@ -776,10 +775,10 @@ property_changed_cb (BonoboListener    *listener,
 
 	window = EOG_WINDOW (user_data);
 
-	if (!g_strcasecmp (event_name, "window/title"))
+	if (!g_ascii_strcasecmp (event_name, "window/title"))
 		gtk_window_set_title (GTK_WINDOW (window),
 				      BONOBO_ARG_GET_STRING (any));
-	else if (!g_strcasecmp (event_name, "window/status"))
+	else if (!g_ascii_strcasecmp (event_name, "window/status"))
 		gnome_appbar_set_status (GNOME_APPBAR (window->priv->statusbar),
 					 BONOBO_ARG_GET_STRING (any));		
 }
@@ -1047,28 +1046,19 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 	/* update sensitivity of the properties menu item */
 	prop_control = Bonobo_Unknown_queryInterface (control, 
 						      "IDL:Bonobo/PropertyControl:1.0", &ev);
-	if (prop_control == CORBA_OBJECT_NIL) {
-		bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
-					       "/commands/Preferences",
-					       "sensitive", "0",
-					       "eog");
-	}
-	else {
-		bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
-					       "/commands/Preferences",
-					       "sensitive", "1",
-					       "eog");
-		bonobo_object_release_unref (prop_control, &ev);
-	}
+	bonobo_ui_component_set_prop (priv->ui_comp,
+				      "/commands/Preferences",
+				      "sensitive",
+				      prop_control == CORBA_OBJECT_NIL ? "0" : "1",
+				      &ev);
+	
+	bonobo_object_release_unref (prop_control, &ev);
 
 	/* enable view menu */
 	/* FIXME: We should check if the component adds anything to 
 	 *        the menu, so that we don't view an empty menu.
 	 */
-	bonobo_ui_engine_xml_set_prop (bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
-				       "/menu/View",
-				       "hidden", "0",
-				       "eog");
+	bonobo_ui_component_set_prop (priv->ui_comp, "/menu/View", "hidden", "0", &ev);
 
 	CORBA_exception_free (&ev);
 
@@ -1144,9 +1134,10 @@ eog_window_open (EogWindow *window, const char *text_uri)
 					      _("Unable to open %s."),
 					      uri_str);
 
-		gtk_signal_connect_object (GTK_OBJECT (dlg), "response",
-					   GTK_SIGNAL_FUNC (gtk_widget_destroy),
-					   GTK_OBJECT (dlg));
+		g_signal_connect (dlg, "response",
+				  G_CALLBACK (gtk_widget_destroy),
+				  NULL);
+
 		gtk_widget_show (dlg);
 
 		g_free (uri_str);

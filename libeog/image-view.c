@@ -24,7 +24,8 @@
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
-#include <gtk/gtksignal.h>
+#include <libgnome/gnome-macros.h>
+#include <libgnome/gnome-i18n.h>
 #include "cursors.h"
 #include "image-view.h"
 #include "uta.h"
@@ -123,84 +124,30 @@ enum {
 };
 
 enum {
-	ARG_0,
-	ARG_INTERP_TYPE,
-	ARG_CHECK_TYPE,
-	ARG_CHECK_SIZE,
-	ARG_DITHER,
-	ARG_SCROLL,
-	ARG_FULL_SCREEN_ZOOM
+	PROP_0,
+	PROP_INTERP_TYPE,
+	PROP_CHECK_TYPE,
+	PROP_CHECK_SIZE,
+	PROP_DITHER,
+	PROP_SCROLL,
+	PROP_FULL_SCREEN_ZOOM
 };
-
-
-static void image_view_class_init (ImageViewClass *class);
-static void image_view_init (ImageView *view);
-static void image_view_destroy (GtkObject *object);
-static void image_view_finalize (GObject *object);
-
-static void image_view_unmap (GtkWidget *widget);
-static void image_view_realize (GtkWidget *widget);
-static void image_view_unrealize (GtkWidget *widget);
-static void image_view_size_request (GtkWidget *widget, GtkRequisition *requisition);
-static void image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-static gint image_view_button_press (GtkWidget *widget, GdkEventButton *event);
-static gint image_view_button_release (GtkWidget *widget, GdkEventButton *event);
-static gint image_view_motion (GtkWidget *widget, GdkEventMotion *event);
-static gint image_view_expose (GtkWidget *widget, GdkEventExpose *event);
-static gint image_view_key_press (GtkWidget *widget, GdkEventKey *event);
-static void image_view_get_arg (GtkObject* obj, GtkArg* arg, guint arg_id);
-static void image_view_set_arg (GtkObject* obj, GtkArg* arg, guint arg_id);
-
-
-static void image_view_set_scroll_adjustments (GtkWidget *widget,
-					       GtkAdjustment *hadj, GtkAdjustment *vadj);
-
-static GtkWidgetClass *parent_class;
 
 static guint image_view_signals[LAST_SIGNAL];
 
-
-
-/**
- * image_view_get_type:
- * @void:
- *
- * Registers the #ImageView class if necessary, and returns the type ID
- * associated to it.
- *
- * Return value: The type ID of the #ImageView class.
- **/
-GtkType
-image_view_get_type (void)
-{
-	static GtkType image_view_type = 0;
-
-	if (!image_view_type) {
-		static const GtkTypeInfo image_view_info = {
-			"ImageView",
-			sizeof (ImageView),
-			sizeof (ImageViewClass),
-			(GtkClassInitFunc) image_view_class_init,
-			(GtkObjectInitFunc) image_view_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
-		};
-
-		image_view_type = gtk_type_unique (GTK_TYPE_WIDGET, &image_view_info);
-	}
-
-	return image_view_type;
-}
+GNOME_CLASS_BOILERPLATE (ImageView,
+			 image_view,
+			 GtkWidget,
+			 GTK_TYPE_WIDGET);
 
 /* VOID:OBJECT,OBJECT (gtkmarshalers.list:69) */
 void
-gtk_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
-				 GValue       *return_value,
-				 guint         n_param_values,
-				 const GValue *param_values,
-				 gpointer      invocation_hint,
-				 gpointer      marshal_data)
+marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
+			     GValue       *return_value,
+			     guint         n_param_values,
+			     const GValue *param_values,
+			     gpointer      invocation_hint,
+			     gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__OBJECT_OBJECT) (gpointer     data1,
                                                     gpointer     arg_1,
@@ -230,146 +177,76 @@ gtk_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
             data2);
 }
 
-/* Class initialization function for the image view */
 static void
-image_view_class_init (ImageViewClass *class)
+image_view_get_property (GObject    *object,
+			 guint       property_id,
+			 GValue     *value,
+			 GParamSpec *pspec)
 {
-	GtkObjectClass *object_class;
-	GtkWidgetClass *widget_class;
-	GObjectClass *gobject_class;
-
-	object_class = (GtkObjectClass *) class;
-	widget_class = (GtkWidgetClass *) class;
-	gobject_class = (GObjectClass *) class;
-
-	parent_class = gtk_type_class (GTK_TYPE_WIDGET);
-
-	gtk_object_add_arg_type ("ImageView::interp_type", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_INTERP_TYPE);
-	gtk_object_add_arg_type ("ImageView::check_type", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_CHECK_TYPE);
-	gtk_object_add_arg_type ("ImageView::check_size", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_CHECK_SIZE);
-	gtk_object_add_arg_type ("ImageView::dither", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_DITHER);
-	gtk_object_add_arg_type ("ImageView::scroll", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_SCROLL);
-	gtk_object_add_arg_type ("ImageView::full_screen_zoom", GTK_TYPE_INT, GTK_ARG_READWRITE, ARG_FULL_SCREEN_ZOOM);
-
-
-
-  	image_view_signals[ZOOM_FIT] =
- 		g_signal_new ("zoom_fit", 
-			      GTK_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (ImageViewClass, zoom_fit),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
-  	image_view_signals[ZOOM_CHANGED] =
- 		g_signal_new ("zoom_changed",
-			      GTK_CLASS_TYPE(object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (ImageViewClass, zoom_changed),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
-  
-  	object_class->destroy = image_view_destroy;
-  	gobject_class->finalize = image_view_finalize;
-  
-  	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
-  	widget_class->set_scroll_adjustments_signal =
- 		g_signal_new ("set_scroll_adjustments",
-			      GTK_CLASS_TYPE(object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ImageViewClass, set_scroll_adjustments),
-			      NULL,
-			      NULL,
-			      gtk_marshal_VOID__OBJECT_OBJECT,
-			      G_TYPE_NONE,
-			      2,
-			      GTK_TYPE_ADJUSTMENT,
-			      GTK_TYPE_ADJUSTMENT);
-
-	widget_class->unmap = image_view_unmap;
-	widget_class->realize = image_view_realize;
-	widget_class->unrealize = image_view_unrealize;
-	widget_class->size_request = image_view_size_request;
-	widget_class->size_allocate = image_view_size_allocate;
-	widget_class->button_press_event = image_view_button_press;
-	widget_class->button_release_event = image_view_button_release;
-	widget_class->motion_notify_event = image_view_motion;
-	widget_class->expose_event = image_view_expose;
-	widget_class->key_press_event = image_view_key_press;
-
-	object_class->get_arg = image_view_get_arg;
-	object_class->set_arg = image_view_set_arg;
-}
-
-static void
-image_view_get_arg (GtkObject* obj, GtkArg* arg, guint arg_id)
-{
-	ImageView *image_view = IMAGE_VIEW (obj);
+	ImageView *image_view = IMAGE_VIEW (object);
 	ImageViewPrivate *priv = image_view->priv;
 
-	switch (arg_id) {
-	case ARG_INTERP_TYPE:
-		GTK_VALUE_INT(*arg) = priv->interp_type;
+	switch (property_id) {
+	case PROP_INTERP_TYPE:
+		g_value_set_int (value, priv->interp_type);
 		break;
-	case ARG_CHECK_TYPE:
-		GTK_VALUE_INT(*arg) = priv->check_type;
+	case PROP_CHECK_TYPE:
+		g_value_set_int (value, priv->check_type);
 		break;
-	case ARG_CHECK_SIZE:
-		GTK_VALUE_INT(*arg) = priv->check_size;
+	case PROP_CHECK_SIZE:
+		g_value_set_int (value, priv->check_size);
 		break;
-	case ARG_DITHER:
-		GTK_VALUE_INT(*arg) = priv->dither;
+	case PROP_DITHER:
+		g_value_set_int (value, priv->dither);
 		break;
-	case ARG_SCROLL:
-		GTK_VALUE_INT(*arg) = priv->scroll;
+	case PROP_SCROLL:
+		g_value_set_int (value, priv->scroll);
 		break;
-	case ARG_FULL_SCREEN_ZOOM:
-		GTK_VALUE_INT(*arg) = priv->full_screen_zoom;
+	case PROP_FULL_SCREEN_ZOOM:
+		g_value_set_int (value, priv->full_screen_zoom);
 		break;
 	default:
-		g_warning ("unknown arg id `%d'", arg_id);
+		g_warning ("unknown property id `%d'", property_id);
 		break;
 	}
 }
 
 static void
-image_view_set_arg (GtkObject* obj, GtkArg* arg, guint arg_id)
+image_view_set_property (GObject      *object,
+			 guint         property_id,
+			 const GValue *value,
+			 GParamSpec   *pspec)
 {
-	ImageView *image_view = IMAGE_VIEW (obj);
+	ImageView *image_view = IMAGE_VIEW (object);
 
-	switch (arg_id) {
-	case ARG_INTERP_TYPE:
-		image_view_set_interp_type (image_view, GTK_VALUE_INT(*arg));
+	switch (property_id) {
+	case PROP_INTERP_TYPE:
+		image_view_set_interp_type (image_view, g_value_get_int (value));
 		break;
-	case ARG_CHECK_TYPE:
-		image_view_set_check_type (image_view, GTK_VALUE_INT(*arg));
+	case PROP_CHECK_TYPE:
+		image_view_set_check_type (image_view, g_value_get_int (value));
 		break;
-	case ARG_CHECK_SIZE:
-		image_view_set_check_size (image_view, GTK_VALUE_INT(*arg));
+	case PROP_CHECK_SIZE:
+		image_view_set_check_size (image_view, g_value_get_int (value));
 		break;
-	case ARG_DITHER:
-		image_view_set_dither (image_view, GTK_VALUE_INT(*arg));
+	case PROP_DITHER:
+		image_view_set_dither (image_view, g_value_get_int (value));
 		break;
-	case ARG_SCROLL:
-		image_view_set_scroll (image_view, GTK_VALUE_INT(*arg));
+	case PROP_SCROLL:
+		image_view_set_scroll (image_view, g_value_get_int (value));
 		break;
-	case ARG_FULL_SCREEN_ZOOM:
-		image_view_set_full_screen_zoom (image_view, GTK_VALUE_INT(*arg));
+	case PROP_FULL_SCREEN_ZOOM:
+		image_view_set_full_screen_zoom (image_view, g_value_get_int (value));
 		break;
 	default:
-		g_warning ("unknown arg id `%d'", arg_id);
+		g_warning ("unknown property id `%d'", property_id);
 		break;
 	}
 }
 
 /* Object initialization function for the image view */
 static void
-image_view_init (ImageView *view)
+image_view_instance_init (ImageView *view)
 {
 	ImageViewPrivate *priv;
 
@@ -411,19 +288,21 @@ remove_dirty_region (ImageView *view)
 
 /* Destroy handler for the image view */
 static void
-image_view_destroy (GtkObject *object)
+image_view_dispose (GObject *object)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (object));
-
 	view = IMAGE_VIEW (object);
 	priv = view->priv;
 
-	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), view);
-	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
+	g_signal_handlers_disconnect_matched (
+		priv->hadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+
+	g_signal_handlers_disconnect_matched (
+		priv->vadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
 
 	/* Clean up */
 	if (view->priv->pixbuf)
@@ -432,8 +311,7 @@ image_view_destroy (GtkObject *object)
 
 	remove_dirty_region (view);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
 }
 
 /* Finalize handler for the image view */
@@ -443,23 +321,15 @@ image_view_finalize (GObject *object)
 	ImageView *view;
 	ImageViewPrivate *priv;
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (object));
-
 	view = IMAGE_VIEW (object);
 	priv = view->priv;
 
-	g_object_unref (G_OBJECT (priv->hadj));
-	priv->hadj = NULL;
-
-	g_object_unref (G_OBJECT (priv->vadj));
-	priv->vadj = NULL;
+	g_object_unref (priv->hadj);
+	g_object_unref (priv->vadj);
 
 	g_free (priv);
-	view->priv = NULL;
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
 
@@ -771,7 +641,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 				      gdk_pixbuf_get_rowstride (tmp),
 				      d.x0 - xofs, d.y0 - yofs);
 
-	gdk_pixbuf_unref (tmp);
+	g_object_unref (tmp);
 
 #if 0
 	gdk_draw_line (GTK_WIDGET (view)->window,
@@ -984,15 +854,12 @@ scroll_to (ImageView *view, int x, int y)
 	gc = gdk_gc_new (window);
 	gdk_gc_set_exposures (gc, TRUE);
 
-	gdk_window_copy_area (window,
-			      gc,
-			      dest_x, dest_y,
-			      window,
-			      src_x, src_y,
-			      width - abs (xofs),
-			      height - abs (yofs));
+	gdk_draw_drawable (window, gc, window, src_x, src_y,
+			   dest_x, dest_y, 
+			   width - abs (xofs),
+			   height - abs (yofs));
 
-	gdk_gc_destroy (gc);
+	g_object_unref (gc);
 
 	/* Add the scrolled-in region */
 
@@ -1067,7 +934,7 @@ image_view_realize (GtkWidget *widget)
 	attr.height = widget->allocation.height;
 	attr.wclass = GDK_INPUT_OUTPUT;
 	attr.visual = gdk_rgb_get_visual ();
-	attr.colormap = gdk_rgb_get_cmap ();
+	attr.colormap = gdk_rgb_get_colormap ();
 	attr.event_mask = (gtk_widget_get_events (widget)
 			   | GDK_EXPOSURE_MASK
 			   | GDK_BUTTON_PRESS_MASK
@@ -1078,9 +945,9 @@ image_view_realize (GtkWidget *widget)
 	widget->window = gdk_window_new (gtk_widget_get_parent_window (widget), &attr, attr_mask);
 	gdk_window_set_user_data (widget->window, widget);
 
-	cursor = cursor_get (widget->window, CURSOR_HAND_OPEN);
+	cursor = cursor_get (widget, CURSOR_HAND_OPEN);
 	gdk_window_set_cursor (widget->window, cursor);
-	gdk_cursor_destroy (cursor);
+	gdk_cursor_unref (cursor);
 
 	widget->style = gtk_style_attach (widget->style, widget->window);
 
@@ -1244,25 +1111,38 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	priv->vadj->upper = scaled_height;
 	yofs = CLAMP (yofs, 0, priv->vadj->upper - priv->vadj->page_size);
 
-	gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "changed");
-	gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "changed");
+	g_signal_emit_by_name (priv->hadj, "changed");
+	g_signal_emit_by_name (priv->vadj, "changed");
 
 	if (priv->hadj->value != xofs) {
 		priv->hadj->value = xofs;
 		priv->xofs = xofs;
 
-		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
-		gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
-		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
+		g_signal_handlers_block_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+
+		g_signal_emit_by_name (priv->hadj, "value_changed");
+
+		g_signal_handlers_unblock_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 	}
 
 	if (priv->vadj->value != yofs) {
 		priv->vadj->value = yofs;
 		priv->yofs = yofs;
 
-		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
-		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
-		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
+		g_signal_handlers_block_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+
+		g_signal_emit_by_name (priv->vadj, "value_changed");
+
+		g_signal_handlers_unblock_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+
 	}
 }
 
@@ -1286,7 +1166,7 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 
 	switch (event->button) {
 	case 1:
-		cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
+		cursor = cursor_get (widget, CURSOR_HAND_CLOSED);
 		retval = gdk_pointer_grab (widget->window,
 					   FALSE,
 					   (GDK_POINTER_MOTION_MASK
@@ -1295,7 +1175,7 @@ image_view_button_press (GtkWidget *widget, GdkEventButton *event)
 					   NULL,
 					   cursor,
 					   event->time);
-		gdk_cursor_destroy (cursor);
+		gdk_cursor_unref (cursor);
 
 		if (retval != 0)
 			return FALSE;
@@ -1342,18 +1222,26 @@ drag_to (ImageView *view, int x, int y)
 	y = CLAMP (priv->drag_ofs_y + dy, 0, priv->vadj->upper - priv->vadj->page_size);
 
 	scroll_to (view, x, y);
-
-	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
-	gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
+	
+	g_signal_handlers_block_matched (
+		priv->hadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+	g_signal_handlers_block_matched (
+		priv->vadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
 
 	priv->hadj->value = x;
 	priv->vadj->value = y;
 
-	gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
-	gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+	g_signal_emit_by_name (priv->hadj, "value_changed");
+	g_signal_emit_by_name (priv->vadj, "value_changed");
 
-	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
-	gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
+	g_signal_handlers_unblock_matched (
+		priv->hadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+	g_signal_handlers_unblock_matched (
+		priv->vadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
 }
 
 /* Button release handler for the image view */
@@ -1486,7 +1374,7 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 
 	case GDK_F:
 	case GDK_f:
-		gtk_signal_emit (GTK_OBJECT (view), image_view_signals[ZOOM_FIT]);
+		g_signal_emit (view, image_view_signals [ZOOM_FIT], 0);
 		break;
 
 	default:
@@ -1515,17 +1403,25 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 
 		scroll_to (view, x, y);
 
-		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->hadj), view);
-		gtk_signal_handler_block_by_data (GTK_OBJECT (priv->vadj), view);
+		g_signal_handlers_block_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+		g_signal_handlers_block_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 
 		priv->hadj->value = x;
 		priv->vadj->value = y;
 
-		gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
-		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+		g_signal_emit_by_name (priv->hadj, "value_changed");
+		g_signal_emit_by_name (priv->vadj, "value_changed");
 
-		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->hadj), view);
-		gtk_signal_handler_unblock_by_data (GTK_OBJECT (priv->vadj), view);
+		g_signal_handlers_unblock_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+		g_signal_handlers_unblock_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
 	}
 
 	return TRUE;
@@ -1571,37 +1467,41 @@ image_view_set_scroll_adjustments (GtkWidget *widget,
 		vadj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
 	if (priv->hadj && priv->hadj != hadj) {
-		gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), view);
-		gtk_object_unref (GTK_OBJECT (priv->hadj));
+		g_signal_handlers_disconnect_matched (
+			priv->hadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+		g_object_unref (priv->hadj);
 	}
 
 	if (priv->vadj && priv->vadj != vadj) {
-		gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
-		gtk_object_unref (GTK_OBJECT (priv->vadj));
+		g_signal_handlers_disconnect_matched (
+			priv->vadj, G_SIGNAL_MATCH_DATA,
+			0, 0, NULL, NULL, view);
+		g_object_unref (priv->vadj);
 	}
 
 	need_adjust = FALSE;
 
 	if (priv->hadj != hadj) {
 		priv->hadj = hadj;
-		gtk_object_ref (GTK_OBJECT (priv->hadj));
+		g_object_ref (priv->hadj);
 		gtk_object_sink (GTK_OBJECT (priv->hadj));
 
-		gtk_signal_connect (GTK_OBJECT (priv->hadj), "value_changed",
-				    GTK_SIGNAL_FUNC (adjustment_changed_cb),
-				    view);
+		g_signal_connect (priv->hadj, "value_changed",
+				  G_CALLBACK (adjustment_changed_cb),
+				  view);
 
 		need_adjust = TRUE;
 	}
 
 	if (priv->vadj != vadj) {
 		priv->vadj = vadj;
-		gtk_object_ref (GTK_OBJECT (priv->vadj));
+		g_object_ref (priv->vadj);
 		gtk_object_sink (GTK_OBJECT (priv->vadj));
 
-		gtk_signal_connect (GTK_OBJECT (priv->vadj), "value_changed",
-				    GTK_SIGNAL_FUNC (adjustment_changed_cb),
-				    view);
+		g_signal_connect (priv->vadj, "value_changed",
+				  G_CALLBACK (adjustment_changed_cb),
+				  view);
 
 		need_adjust = TRUE;
 	}
@@ -1623,7 +1523,7 @@ image_view_set_scroll_adjustments (GtkWidget *widget,
 GtkWidget *
 image_view_new (void)
 {
-	return GTK_WIDGET (gtk_type_new (TYPE_IMAGE_VIEW));
+	return g_object_new (TYPE_IMAGE_VIEW, NULL);
 }
 
 GdkPixbuf *
@@ -1632,9 +1532,9 @@ image_view_get_pixbuf (ImageView *view)
 	g_return_val_if_fail (IS_IMAGE_VIEW (view), NULL);
 
 	if (view->priv->pixbuf)
-		gdk_pixbuf_ref (view->priv->pixbuf);
+		g_object_ref (view->priv->pixbuf);
 
-	return (view->priv->pixbuf);
+	return view->priv->pixbuf;
 }
 
 /**
@@ -1655,9 +1555,9 @@ image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf)
 	priv = view->priv;
 
 	if (pixbuf) {
+		g_object_ref (pixbuf);
 		if (view->priv->pixbuf)
-			gdk_pixbuf_unref (view->priv->pixbuf);
-		gdk_pixbuf_ref (pixbuf);
+			g_object_unref (view->priv->pixbuf);
 	}
 
 	view->priv->pixbuf = pixbuf;
@@ -1708,7 +1608,7 @@ image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 	priv->zoomx = zoomx;
 	priv->zoomy = zoomy;
 
-	gtk_signal_emit (GTK_OBJECT (view), image_view_signals[ZOOM_CHANGED]);
+	g_signal_emit (view, image_view_signals [ZOOM_CHANGED], 0);
 
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
@@ -2012,7 +1912,8 @@ image_view_get_full_screen_zoom (ImageView *view)
  *
  * Return value: Image size according to zoom factor.
  **/
-void image_view_get_scaled_size (ImageView *view, gint *width, gint *height)
+void
+image_view_get_scaled_size (ImageView *view, gint *width, gint *height)
 {
 	ImageViewPrivate *priv;
 
@@ -2024,4 +1925,114 @@ void image_view_get_scaled_size (ImageView *view, gint *width, gint *height)
 	priv = view->priv;
 
 	compute_scaled_size (view, priv->zoomx, priv->zoomy, width, height);
+}
+
+
+/* Class initialization function for the image view */
+static void
+image_view_class_init (ImageViewClass *class)
+{
+	GObjectClass *gobject_class;
+	GtkObjectClass *object_class;
+	GtkWidgetClass *widget_class;
+
+	gobject_class = (GObjectClass *) class;
+	object_class = (GtkObjectClass *) class;
+	widget_class = (GtkWidgetClass *) class;
+
+	gobject_class->set_property = image_view_set_property;
+	gobject_class->get_property = image_view_get_property;
+
+	/* FIXME: we should use the enum types but that's a pain */
+	g_object_class_install_property (
+		gobject_class,
+		PROP_INTERP_TYPE,
+		g_param_spec_int ("interp_type",
+				  _("interpolation type"),
+				  _("the type of interpolation to use"),
+				  0, G_MAXINT, 0, 0));
+	g_object_class_install_property (
+		gobject_class,
+		PROP_CHECK_TYPE,
+		g_param_spec_int ("check_type",
+				  _("check type"),
+				  _("the type of chequering to use"),
+				  0, G_MAXINT, 0, 0));
+	g_object_class_install_property (
+		gobject_class,
+		PROP_CHECK_SIZE,
+		g_param_spec_int ("check_size",
+				  _("check type"),
+				  _("the size of chequers to use"),
+				  0, G_MAXINT, 0, 0));
+	g_object_class_install_property (
+		gobject_class,
+		PROP_DITHER,
+		g_param_spec_int ("dither",
+				  _("dither"),
+				  _("dither type"),
+				  0, G_MAXINT, 0, 0));
+	g_object_class_install_property (
+		gobject_class,
+		PROP_SCROLL,
+		g_param_spec_int ("scroll",
+				  _("scroll"),
+				  _("scroll type"),
+				  0, G_MAXINT, 0, 0));
+	g_object_class_install_property (
+		gobject_class,
+		PROP_FULL_SCREEN_ZOOM,
+		g_param_spec_int ("full_screen_zoom",
+				  _("enable full screen zoom"),
+				  _("whether we should allow full screen zoom"),
+				  0, G_MAXINT, 0, 0));
+
+  	image_view_signals[ZOOM_FIT] =
+ 		g_signal_new ("zoom_fit", 
+			      G_TYPE_FROM_CLASS (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (ImageViewClass, zoom_fit),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+  	image_view_signals[ZOOM_CHANGED] =
+ 		g_signal_new ("zoom_changed",
+			      G_TYPE_FROM_CLASS(object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (ImageViewClass, zoom_changed),
+			      NULL,
+			      NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE,
+			      0);
+  
+	gobject_class->dispose = image_view_dispose;
+  	gobject_class->finalize = image_view_finalize;
+  
+  	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
+  	widget_class->set_scroll_adjustments_signal =
+ 		g_signal_new ("set_scroll_adjustments",
+			      G_TYPE_FROM_CLASS(object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (ImageViewClass, set_scroll_adjustments),
+			      NULL,
+			      NULL,
+			      marshal_VOID__OBJECT_OBJECT,
+			      G_TYPE_NONE,
+			      2,
+			      GTK_TYPE_ADJUSTMENT,
+			      GTK_TYPE_ADJUSTMENT);
+
+	widget_class->unmap = image_view_unmap;
+	widget_class->realize = image_view_realize;
+	widget_class->unrealize = image_view_unrealize;
+	widget_class->size_request = image_view_size_request;
+	widget_class->size_allocate = image_view_size_allocate;
+	widget_class->button_press_event = image_view_button_press;
+	widget_class->button_release_event = image_view_button_release;
+	widget_class->motion_notify_event = image_view_motion;
+	widget_class->expose_event = image_view_expose;
+	widget_class->key_press_event = image_view_key_press;
 }
