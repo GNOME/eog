@@ -35,6 +35,7 @@
 #include "util.h"
 #include "preferences.h"
 #include "Eog.h"
+#include "eog-window.h"
 
 /* Default size for windows */
 
@@ -733,74 +734,6 @@ remove_component (EogWindow *window)
 	priv->control = NULL;
 }
 
-static GNOME_EOG_Files*
-get_dir_images (const char *path)
-{
-	DIR *dir;
-	CORBA_Environment ev;
-	GList *filenames = NULL;
-	GList *tmp;
-	GNOME_EOG_Files *corba_files;
-	gint length = 0;
-	gint i = 0;
-
-	g_return_val_if_fail (path != NULL, CORBA_OBJECT_NIL);
-
-	/* Open directory and retrieve all 
-	 * image filenames.
-	 */
-	errno = 0;
-	dir = opendir(path);
-	if(dir)
-	{
-		struct dirent *dent = NULL;
-		char *filepath;
-
-		while((dent = readdir(dir)) != NULL)
-		{
-			filepath = g_concat_dir_and_file(path, dent->d_name);
-			
-			if(g_strncasecmp(gnome_mime_type_of_file(filepath), "image/", 6) == 0)
-			{
-				filenames = g_list_append (filenames, g_strdup (filepath));
-				length++;
-			}
-
-			free(filepath);
-		}
-	       
-		closedir(dir);
-	}
-	else
-	{
-		g_warning(_("Couldn't open directory. Error: %s.\n"), g_unix_error_string(errno));
-		return CORBA_OBJECT_NIL;
-	}
-
-	corba_files = GNOME_EOG_Files__alloc ();
-	corba_files->_length = length;
-	if (length == 0) return corba_files;
-
- 	CORBA_exception_init (&ev);
-
-	corba_files->_buffer = CORBA_sequence_CORBA_string_allocbuf (length);
-
-	while (filenames) {
-
-		corba_files->_buffer [i++] = CORBA_string_dup (filenames->data);
-
-		/* free memory */
-		g_free (filenames->data);
-		tmp = filenames->next;
-		g_list_free_1 (filenames);
-		filenames = tmp;		
-	}
-
-	CORBA_exception_free (&ev);
-
-	return corba_files;
-}
-
 static Bonobo_Control
 get_file_control (const gchar *filename)
 {
@@ -878,8 +811,9 @@ get_directory_control (const gchar *path)
 	Bonobo_Unknown unknown_obj;
 	Bonobo_Control control;
 	GNOME_EOG_ImageCollection ilv;
-	GNOME_EOG_Files *files;
+	Bonobo_Storage storage;
 	CORBA_Environment ev;
+	gchar *uri;
 
 	g_return_val_if_fail (path != NULL, CORBA_OBJECT_NIL);
 
@@ -901,9 +835,11 @@ get_directory_control (const gchar *path)
 	}
 
 	/* add image file names to the list view */
-	files = get_dir_images (path);
-	GNOME_EOG_ImageCollection_addImages (ilv, files, &ev);
-	CORBA_free (files);
+	uri = g_strconcat ("file:", path, NULL);
+	storage = bonobo_get_object (uri, "Bonobo/Storage", &ev);
+
+	GNOME_EOG_ImageCollection_setStorage (ilv, storage, &ev);
+	g_free (uri);
 	
 	Bonobo_Unknown_unref (ilv, &ev);
 	CORBA_Object_release (ilv, &ev);

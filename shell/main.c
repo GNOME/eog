@@ -49,6 +49,6 @@ main (int argc, char **argv)
 	bonobo_main ();
 
 	CORBA_exception_free (&ev);
-
+	
 	return 0;
 }

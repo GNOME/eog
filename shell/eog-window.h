@@ -28,7 +28,6 @@
 BEGIN_GNOME_DECLS
  
 
-
 #define TYPE_EOG_WINDOW            (eog_window_get_type ())
 #define EOG_WINDOW(obj)            (GTK_CHECK_CAST ((obj), TYPE_EOG_WINDOW, EogWindow))
 #define EOG_WINDOW_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), TYPE_EOG_WINDOW, EogWindowClass))
