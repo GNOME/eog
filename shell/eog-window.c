@@ -169,7 +169,6 @@ verb_FileOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
-	char *filename = NULL;
 	GtkWidget *dlg;
 	gint response;
 	GList *list = NULL;
@@ -180,16 +179,27 @@ verb_FileOpen_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 	priv = window->priv;
 
 	dlg = eog_file_selection_new (EOG_FILE_SELECTION_LOAD);
+	gtk_file_selection_set_select_multiple (GTK_FILE_SELECTION (dlg), TRUE);
+
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
 	if (response == GTK_RESPONSE_OK) {
-		filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg)));
+		char **filenames;
+		int i;
+
+		filenames = gtk_file_selection_get_selections (GTK_FILE_SELECTION (dlg));
+		if (filenames != NULL) {
+			for (i = 0; filenames[i] != NULL; i++) {
+				list = g_list_prepend (list, g_strdup (filenames[i]));
+			}
+			
+			list = g_list_reverse (list);
+		}
 	}
 
 	gtk_widget_destroy (dlg);
 
-	if (filename) {
-		list = g_list_prepend (list, filename);
+	if (list) {
 		g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
 	}
 }
