@@ -50,6 +50,8 @@ libeog_a_SOURCES =			\
 	eog-image.h			\
 	eog-scroll-view.c		\
 	eog-scroll-view.h		\
+	eog-info-view.c			\
+	eog-info-view.h			\
 	eog-hig-dialog.h		\
 	eog-hig-dialog.c		\
 	uta.c				\

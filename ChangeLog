@@ -1,3 +1,35 @@
+2003-03-13  Jens Finke  <jens@triq.net>
+
+	Added optional libexif support to read information stored in the
+	images by digital cameras.
+
+	* acconfig.h, configure.in: Added check for optional libexif
+	library.
+	
+	* libeog/eog-info-view.[ch]: New widget, displays image
+	information.
+
+	* libeog/Makefile.am (SOURCES): Added eog-info-view.[ch]
+	
+	* libeog/eog-image.[ch] (eog_image_dipose): Free exif data.
+	(eog_image_class_init): New signal loading_info_finished.
+	(eog_image_instance_init): Init exif attribute.
+	(check_load_status): Fire loading_info_finished signal, if flag is
+	set.
+	(exif_loader_write): New function, tries to read exif data from a
+	stream of data chunks.
+	(real_image_load): Take care for all the exif stuff and call
+	exif_loader_write for every consumed data chunk.
+	(eog_image_load): Make sure we only return TRUE if the image is
+	really completely loaded.
+	(eog_image_cancel_load): Don't join dead threads.
+	(eog_image_get_exif_information): New public function. Returns
+	exif data or NULL.
+
+	* collection/eog-collection-view.c (handle_selection_changed):
+	Feed info view with selected image.
+	(create_user_interface): Add eog-info-view widget to the ui.
+	
 2003-03-13  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "ml" to ALL_LINGUAS.

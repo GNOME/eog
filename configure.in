@@ -17,6 +17,7 @@ BONOBO_ACTIVATION_REQUIRED=1.0.3
 LIBRSVG_REQUIRED=2.0.1
 LIBGLADE_REQUIRED=2.0.1
 GDKPIXBUF_REQUIRED=2.2.1
+LIBEXIF_REQUIRED=0.5.9
 
 dnl ===============================================================================
 
@@ -47,6 +48,17 @@ AC_SUBST(LDFLAGS)
 dnl ================= gnome libs check ====================================
 
 EOG_MODULES="gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED librsvg-2.0 >= $LIBRSVG_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED"
+
+dnl ============== optional exif support ====================
+
+PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
+if test "x$have_exif" = "xyes"; then
+  AC_DEFINE(HAVE_EXIF,1)
+  EOG_MODULES="$EOG_MODULES libexif"
+fi
+
+dnl ============ CFLAGS & LIBS initialization ===============
+
 PKG_CHECK_MODULES(EOG, $EOG_MODULES)
 AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
@@ -101,4 +113,5 @@ Configuration:
 	Compiler:		  ${CC} 
 
 	Extra Compiler Warnings:  ${WARN_CFLAGS}
+	Use libexif:              ${have_exif}
 "

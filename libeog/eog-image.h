@@ -48,6 +48,7 @@ struct _EogImageClass {
 	void (* loading_finished) (EogImage *img);
 	void (* loading_failed) (EogImage *img, const char* message);
 	void (* loading_cancelled) (EogImage *img);
+	void (* loading_info_finished) (EogImage *img);
 	
 	void (* thumbnail_finished) (EogImage *img);
 	void (* thumbnail_failed) (EogImage *img);
@@ -80,6 +81,7 @@ void                eog_image_get_size                        (EogImage *img, in
 gboolean            eog_image_is_modified                     (EogImage *img);
 gchar*              eog_image_get_caption                     (EogImage *img);
 const gchar*        eog_image_get_collate_key                 (EogImage *img);
+gpointer            eog_image_get_exif_information            (EogImage *img);
 
 /* modification API */
 void                eog_image_rotate_clock_wise               (EogImage *img);

@@ -51,6 +51,7 @@
 #include "eog-collection-model.h"
 #include "eog-collection-marshal.h"
 #include "eog-full-screen.h"
+#include "eog-info-view.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -80,6 +81,7 @@ struct _EogCollectionViewPrivate {
 
 	GtkWidget               *wraplist;
 	GtkWidget               *scroll_view;
+	GtkWidget               *info_view;
 
 	BonoboPropertyBag       *property_bag;
 	BonoboZoomable          *zoomable;
@@ -463,7 +465,8 @@ handle_selection_changed (EogWrapList *list, EogCollectionView *view)
 	}
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
-	
+	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
+
 	priv->displayed_image = image;
 	
 	update_status_text (view);
@@ -597,10 +600,11 @@ static GtkWidget*
 create_user_interface (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv;
-	GtkWidget *paned;
+	GtkWidget *hpaned;
+	GtkWidget *vpaned;
 	GtkWidget *sw;
 	GtkWidget *frame;
-
+	
 	priv = list_view->priv;
 
 	/* the image view for the full size image */
@@ -608,6 +612,23 @@ create_user_interface (EogCollectionView *list_view)
 	g_object_set (G_OBJECT (priv->scroll_view), "height_request", 250, NULL);
 	frame = gtk_widget_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
 	gtk_container_add (GTK_CONTAINER (frame), priv->scroll_view);
+
+	/* info view for additional image information */
+	priv->info_view = gtk_widget_new (EOG_TYPE_INFO_VIEW, NULL);
+	sw = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), 
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+	gtk_container_add (GTK_CONTAINER (sw), priv->info_view);
+
+	hpaned = gtk_hpaned_new ();
+	gtk_paned_pack1 (GTK_PANED (hpaned), frame, TRUE, TRUE);
+	gtk_paned_pack2 (GTK_PANED (hpaned), sw, FALSE, TRUE);
+	gtk_widget_show_all (hpaned);
+
+#if !HAVE_EXIF
+	gtk_paned_set_position (hpaned, 10000);
+#endif
 
 	/* the wrap list for all the thumbnails */
 	priv->wraplist = eog_wrap_list_new ();
@@ -623,21 +644,20 @@ create_user_interface (EogCollectionView *list_view)
 	sw = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
+	gtk_widget_show_all (sw);
 
 	/* put it all together */
-	paned = gtk_vpaned_new ();
+	vpaned = gtk_vpaned_new ();
 	
-	gtk_paned_pack1 (GTK_PANED (paned), frame, TRUE, TRUE);
-	gtk_paned_pack2 (GTK_PANED (paned), sw, TRUE, TRUE);
+	gtk_paned_pack1 (GTK_PANED (vpaned), hpaned, TRUE, TRUE);
+	gtk_paned_pack2 (GTK_PANED (vpaned), sw, TRUE, TRUE);
 
 	/* by default make the wrap list keyboard active */
 	gtk_widget_grab_focus (priv->wraplist);
 
-	gtk_widget_show_all (paned);
-	gtk_widget_show_all (sw);
+	gtk_widget_show (vpaned);
 
-
-	return paned;
+	return vpaned;
 }
 
 

@@ -1,3 +1,5 @@
+#include <config.h>
+#include <string.h>
 #include <glib/gthread.h>
 #include <glib/gqueue.h>
 #include <gtk/gtkmain.h>
@@ -6,6 +8,9 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
+#if HAVE_EXIF
+#include <libexif/exif-data.h>
+#endif
 
 #include "libeog-marshal.h"
 #include "eog-image.h"
@@ -24,7 +29,8 @@ enum {
 	EOG_IMAGE_LOAD_STATUS_UPDATED  = 1 << 1,
 	EOG_IMAGE_LOAD_STATUS_DONE     = 1 << 2,
 	EOG_IMAGE_LOAD_STATUS_FAILED   = 1 << 3,
-	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4
+	EOG_IMAGE_LOAD_STATUS_CANCELLED = 1 << 4,
+	EOG_IMAGE_LOAD_STATUS_INFO_DONE = 1 << 5
 };
 
 struct _EogImagePrivate {
@@ -36,6 +42,9 @@ struct _EogImagePrivate {
 	
 	gint width;
 	gint height;
+#if HAVE_EXIF
+	ExifData *exif;
+#endif
 
 	gint thumbnail_id;
 	
@@ -62,6 +71,7 @@ enum {
 	SIGNAL_LOADING_UPDATE,
 	SIGNAL_LOADING_SIZE_PREPARED,
 	SIGNAL_LOADING_FINISHED,
+	SIGNAL_LOADING_INFO_FINISHED,
 	SIGNAL_LOADING_FAILED,
 	SIGNAL_LOADING_CANCELLED,
 	SIGNAL_IMAGE_CHANGED,
@@ -316,6 +326,13 @@ eog_image_dispose (GObject *object)
 		g_mutex_free (priv->status_mutex);
 		priv->status_mutex = NULL;
 	}
+
+#if HAVE_EXIF
+	if (priv->exif) {
+		exif_data_unref (priv->exif);
+		priv->exif = NULL;
+	}
+#endif
 }
 
 static void
@@ -373,6 +390,14 @@ eog_image_class_init (EogImageClass *klass)
 			      G_TYPE_OBJECT,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, loading_finished),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);			     
+	eog_image_signals [SIGNAL_LOADING_INFO_FINISHED] = 
+		g_signal_new ("loading_info_finished",
+			      G_TYPE_OBJECT,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, loading_info_finished),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);			     
@@ -440,6 +465,9 @@ eog_image_instance_init (EogImage *img)
 	priv->width = priv->height = -1;
 	priv->modified = FALSE;
 	priv->status_mutex = g_mutex_new ();
+#if HAVE_EXIF
+	priv->exif = NULL;
+#endif
 
 	img->priv = priv;
 }
@@ -538,6 +566,10 @@ check_load_status (gpointer data)
 		g_signal_emit (img, eog_image_signals [SIGNAL_LOADING_UPDATE], 0, 
 			       x, y, width, height);
 	}
+
+	if ((load_status & EOG_IMAGE_LOAD_STATUS_INFO_DONE) > 0) {
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_INFO_FINISHED], 0);
+	}
 	
  	if ((load_status & EOG_IMAGE_LOAD_STATUS_DONE) > 0) {
 		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_LOADING_FINISHED], 0);
@@ -610,6 +642,126 @@ load_size_prepared (GdkPixbufLoader *loader, gint width, gint height, gpointer d
 	g_mutex_unlock (img->priv->status_mutex);
 }
 
+#if HAVE_EXIF
+#define JPEG_MARKER_SOI  0xd8
+#define	JPEG_MARKER_APP0 0xe0
+#define JPEG_MARKER_APP1 0xe1
+
+typedef enum {
+	EXIF_LOADER_READ,
+	EXIF_LOADER_READ_SIZE_HIGH_BYTE,
+	EXIF_LOADER_READ_SIZE_LOW_BYTE,
+	EXIF_LOADER_SKIP_BYTES,
+	EXIF_LOADER_EXIF_FOUND,
+	EXIF_LOADER_FAILED
+} ExifLoaderState;
+
+typedef struct {
+	ExifLoaderState state;
+	ExifData *data;
+	int      size;
+	int      last_marker;
+	guchar  *buffer_data;
+	int      bytes_read;
+} ExifLoaderData;
+
+/* This function imitates code from libexif, written by Lutz
+ * Müller. See libexif/exif-data.c:exif_data_new_from_file. Here, it
+ * can cope with a sequence of data chunks.
+ */
+static gboolean
+exif_loader_write (ExifLoaderData *eld, guchar *buffer, int len)
+{
+	int i;
+	int len_remain;
+	
+	if (eld->state == EXIF_LOADER_FAILED) return FALSE;
+	if (eld->state == EXIF_LOADER_EXIF_FOUND && eld->data != NULL) return FALSE;
+
+	for (i = 0; (i < len) && eld->state != EXIF_LOADER_EXIF_FOUND && eld->state != EXIF_LOADER_FAILED; i++) {
+
+		switch (eld->state) {
+		case EXIF_LOADER_SKIP_BYTES:
+			eld->size--;
+			if (eld->size == 0) {
+				eld->state = EXIF_LOADER_READ;
+			}
+			break;
+			
+		case EXIF_LOADER_READ_SIZE_HIGH_BYTE:
+			eld->size = buffer [i] << 8;
+			eld->state = EXIF_LOADER_READ_SIZE_LOW_BYTE;
+			break;
+			
+		case EXIF_LOADER_READ_SIZE_LOW_BYTE:
+			eld->size |= buffer [i];
+			
+			switch (eld->last_marker) {
+			case JPEG_MARKER_APP0:
+				eld->state = EXIF_LOADER_SKIP_BYTES;
+				break;
+
+			case JPEG_MARKER_APP1:
+				eld->state = EXIF_LOADER_EXIF_FOUND;
+				break;
+
+			default:
+				g_assert_not_reached ();
+			}
+
+			eld->last_marker = 0;
+			break;
+
+		default:
+			if (buffer[i] != 0xff) {
+				if (buffer [i] == JPEG_MARKER_APP0 ||
+				    buffer [i] == JPEG_MARKER_APP1) 
+				{
+					eld->state = EXIF_LOADER_READ_SIZE_HIGH_BYTE;
+					eld->last_marker = buffer [i];
+				}
+				else if (buffer [i] != JPEG_MARKER_SOI) {
+					eld->state = EXIF_LOADER_FAILED;
+				}
+			}
+		}
+	}
+	
+	len_remain = len - i;
+
+	if (eld->state == EXIF_LOADER_EXIF_FOUND && len_remain > 0) {
+
+		if (eld->buffer_data == NULL) {
+			eld->buffer_data = g_new0 (guchar, eld->size);
+			eld->bytes_read = 0;
+		}
+
+		if (eld->bytes_read < eld->size) {
+			int cp_len;
+			int rest;
+
+			/* the number of bytes we need to copy */
+			rest = eld->size - eld->bytes_read;
+			cp_len = MIN (rest, len_remain);
+			
+			g_assert ((cp_len + eld->bytes_read) <= eld->size);
+
+			/* copy memory */
+			memcpy (eld->buffer_data + eld->bytes_read, &buffer[i], cp_len);
+
+			eld->bytes_read += cp_len;
+		}
+
+		if (eld->bytes_read == eld->size) {
+			eld->data = exif_data_new_from_data (eld->buffer_data, eld->size);
+		}
+	}
+
+	return (eld->data != NULL);
+}
+
+#endif 
+
 /* this function runs in it's own thread */
 static gpointer
 real_image_load (gpointer data)
@@ -622,6 +774,9 @@ real_image_load (gpointer data)
 	guchar *buffer;
 	GnomeVFSFileSize bytes_read;
 	gboolean failed;
+#if HAVE_EXIF
+	ExifLoaderData *eld;
+#endif
 
 	img = EOG_IMAGE (data);
 	priv = img->priv;
@@ -645,6 +800,10 @@ real_image_load (gpointer data)
 	buffer = g_new0 (guchar, 4096);
 	loader = gdk_pixbuf_loader_new ();
 	failed = FALSE;
+#if HAVE_EXIF
+	eld = g_new0 (ExifLoaderData, 1);
+	eld->state = EXIF_LOADER_READ;
+#endif
 
 	if (priv->mode == EOG_IMAGE_LOAD_PROGRESSIVE) {
 		g_signal_connect_object (G_OBJECT (loader), "area-updated", (GCallback) load_area_updated, img, 0);
@@ -665,12 +824,28 @@ real_image_load (gpointer data)
 			failed = TRUE;
 			break;
 		}
+#if HAVE_EXIF
+		if (exif_loader_write (eld, buffer, 4096)) {
+			g_mutex_lock (img->priv->status_mutex);
+			exif_data_ref (eld->data);
+			priv->exif = eld->data;
+			priv->load_status |= EOG_IMAGE_LOAD_STATUS_INFO_DONE;
+			g_mutex_unlock (img->priv->status_mutex);
+		}
+#endif
 	}
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
 	
 	g_mutex_lock (priv->status_mutex);
+
+#if HAVE_EXIF
+	if (priv->exif != NULL) {
+		exif_data_unref (priv->exif);
+		priv->exif = NULL;
+	}
+#endif
 
 	if (failed) {
 		if (priv->image != NULL) {
@@ -701,7 +876,15 @@ real_image_load (gpointer data)
 
 		priv->load_status |= EOG_IMAGE_LOAD_STATUS_DONE;
 	}
-	
+
+#if HAVE_EXIF
+	if (eld->buffer_data != NULL)
+		g_free (eld->buffer_data);
+	if (eld->data)
+		exif_data_unref (eld->data);
+	g_free (eld);
+#endif
+
 	priv->load_thread = NULL;
 	g_mutex_unlock (priv->status_mutex);
 	
@@ -715,12 +898,19 @@ gboolean
 eog_image_load (EogImage *img)
 {
 	EogImagePrivate *priv;
+	gboolean image_loaded;
+	gboolean thread_running;
 
 	priv = EOG_IMAGE (img)->priv;
 
 	g_return_val_if_fail (priv->uri != NULL, FALSE);
 
-	if (priv->image == NULL && priv->load_thread == NULL)
+	g_mutex_lock (priv->status_mutex);
+	image_loaded = priv->image != NULL;
+	thread_running = priv->load_thread != NULL;
+	g_mutex_unlock (priv->status_mutex);
+
+	if (!image_loaded && !thread_running)
 	{
 		if (priv->mode == EOG_IMAGE_LOAD_DEFAULT) {
 			if (gnome_vfs_uri_is_local (priv->uri)) {
@@ -764,8 +954,8 @@ eog_image_load (EogImage *img)
 		priv->load_id = g_timeout_add (CHECK_LOAD_TIMEOUT, check_load_status, img);
 		priv->load_thread = g_thread_create (real_image_load, img, TRUE, NULL);
 	}
-	
-	return (priv->image != NULL);
+
+	return (image_loaded && !thread_running);
 }
 
 gboolean 
@@ -1051,16 +1241,39 @@ void
 eog_image_cancel_load (EogImage *img)
 {
 	EogImagePrivate *priv;
+	gboolean join_thread = FALSE;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 	
 	priv = img->priv;
 
+	g_mutex_lock (priv->status_mutex);
 	if (priv->load_thread != NULL) {
 		priv->cancel_loading = TRUE;
-		
-		g_thread_join (priv->load_thread);
-
-		g_assert (priv->load_thread == NULL);
+		join_thread = TRUE;
 	}
+	g_mutex_unlock (priv->status_mutex);
+
+	if (join_thread)
+		g_thread_join (priv->load_thread);
+}
+
+gpointer
+eog_image_get_exif_information (EogImage *img)
+{
+	EogImagePrivate *priv;
+	gpointer data = NULL;
+	
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+	
+	priv = img->priv;
+
+#if HAVE_EXIF
+	g_mutex_lock (priv->status_mutex);
+	exif_data_ref (priv->exif);
+	data = priv->exif;
+	g_mutex_unlock (priv->status_mutex);
+#endif
+
+	return data;
 }
