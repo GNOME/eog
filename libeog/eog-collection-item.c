@@ -399,7 +399,7 @@ ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
 				i = split_point;
 			}
 			else {
-				i = i--;
+				--i;
 			}
 			break;
 		}
