@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.2\n"
+"Project-Id-Version: eog 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-30 06:14+0100\n"
-"PO-Revision-Date: 2003-10-30 06:17+0100\n"
+"POT-Creation-Date: 2003-11-03 21:09+0100\n"
+"PO-Revision-Date: 2003-11-03 21:12+0100\n"
 "Last-Translator: Горан Ракић <gox@devbase.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,15 +53,15 @@ msgstr "Претходна"
 msgid "Previous Image"
 msgstr "Претходна слика"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "Ротирај за 180 _степени"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "Ротирај у с_меру казаљке на сату"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "Ротирај супротно од смера _казаљке на сату"
 
@@ -69,8 +69,8 @@ msgstr "Ротирај супротно од смера _казаљке на с�
 msgid "Slide Show"
 msgstr "Аутоматски покретни приказ"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "_Уређивање"
 
@@ -79,12 +79,12 @@ msgid "_Save"
 msgstr "_Сачувај"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Опозови"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "П_реглед"
 
@@ -96,23 +96,23 @@ msgstr "Одустани од снимања"
 msgid "Saving finished"
 msgstr "Снимање завршено"
 
-#: collection/eog-collection-view.c:771
+#: collection/eog-collection-view.c:777
 msgid "Move to Trash"
 msgstr "Пребаци у смеће"
 
-#: collection/eog-collection-view.c:816
+#: collection/eog-collection-view.c:822
 msgid "Collection View"
 msgstr "Преглед колекције"
 
-#: collection/eog-collection-view.c:1274 viewer/eog-image-view.c:1338
+#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1345
 msgid "Window Title"
 msgstr "Наслов прозора"
 
-#: collection/eog-collection-view.c:1277
+#: collection/eog-collection-view.c:1283
 msgid "Status Text"
 msgstr "Опис стања"
 
-#: collection/eog-collection-view.c:1280 viewer/eog-image-view.c:1350
+#: collection/eog-collection-view.c:1286 viewer/eog-image-view.c:1357
 msgid "Progress of Image Loading"
 msgstr "Ток учитавања слике"
 
@@ -201,7 +201,9 @@ msgstr "секунди"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr "Вредност већа од 0 одређује колико секунди слика остаје на екрану пре аутоматског приказа следеће. Нула искључује аутоматски преглед."
+msgstr ""
+"Вредност већа од 0 одређује колико секунди слика остаје на екрану пре "
+"аутоматског приказа следеће. Нула искључује аутоматски преглед."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -234,7 +236,9 @@ msgstr ""
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr "Ако ово није постављено, мале слике се неће развући у почетку да стану на екран"
+msgstr ""
+"Ако ово није постављено, мале слике се неће развући у почетку да стану на "
+"екран"
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -249,15 +253,23 @@ msgid "Open images in a new window"
 msgstr "Отвори слику у новом прозору"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr "Прикажи/сакриј линију прозора са стањем."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr "Прикажи/сакриј главне алатке у прозору."
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Боја провидности"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Обележивач провидности"
 
 # bug: Wether -> Whether
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -266,12 +278,12 @@ msgstr ""
 "слике у текућем прозору."
 
 # bug: Wether -> Whether, squence -> sequence
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
 msgstr "Да ли циклус слика треба да се бесконачно врти."
 
 # bug: Wether -> Whether
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -360,7 +372,7 @@ msgid "Page"
 msgstr "Страница"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:378
+#: viewer/eog-image-view.c:379
 msgid "Preview"
 msgstr "Преглед"
 
@@ -467,112 +479,128 @@ msgid "Cancel"
 msgstr "Одустани"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr "Измени видљивост линије са стањем у текућем прозору"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr "Измени видљивост главних алатки у текућем прозору"
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Затвори прозор"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Помоћ за коришћење програма"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Нови прозор"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Отвори"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Отвори датотеку"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Отвори нови прозор"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in new window"
 msgstr "Отвори у новом прозору"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in this window"
 msgstr "Отвори у овом прозору"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:13
 msgid "Prefere_nces"
 msgstr "_Поставке"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
-msgstr "Поставке ЕОГ компоненти"
+#: shell/eog-shell-ui.xml.h:14
+msgid "Preferences for Eye of Gnome"
+msgstr "Поставке Очију Гнома"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:15
 msgid "Quit the program"
 msgstr "Затвори програм"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:16
 msgid "_About"
 msgstr "_О програму"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:17
 msgid "_Close"
 msgstr "_Затвори"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Contents"
 msgstr "_Садржај"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:20
 msgid "_File"
 msgstr "_Датотека"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Help"
 msgstr "_Помоћ"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:22
 msgid "_New"
 msgstr "_Нова"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:23
 msgid "_Open..."
 msgstr "_Отвори..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:24
 msgid "_Quit"
 msgstr "_Изађи"
+
+#: shell/eog-shell-ui.xml.h:25
+msgid "_Statusbar"
+msgstr "Линија са _стањем"
+
+#: shell/eog-shell-ui.xml.h:26
+msgid "_Toolbar"
+msgstr "Ала_тке"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Горан Ракић <gox@devbase.net>\n"
 "Данило Шеган <dsegan@gmx.net>\n"
 "\n"
-"http://Prevod.org/"
+"Prevod.org — превод на српски језик."
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:512
+#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
+#: shell/eog-window.c:989 shell/main.c:513
 msgid "Eye of Gnome"
 msgstr "Очи гнома"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:279
 msgid "The GNOME image viewing and cataloging program."
-msgstr "Прегледник и каталог слика за гном."
+msgstr "Прегледач и каталог слика за Гнома."
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:316
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"Не може да прикаже помоћ за коришћење програма.\n"
+"Не могу да прикажем помоћ за коришћење програма.\n"
 "%s"
 
-#: shell/main.c:229
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -581,19 +609,19 @@ msgstr ""
 "На корак сте да отворите %i прозора истовремено. Да ли желите да их уместо "
 "тога отворите као колекцију?"
 
-#: shell/main.c:233
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Отвори више појединачних прозора?"
 
-#: shell/main.c:237
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Самостални прозори"
 
-#: shell/main.c:239
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Колекција"
 
-#: shell/main.c:312
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "Не може да нађе датотеке"
 
@@ -635,86 +663,90 @@ msgid "_Zoom In"
 msgstr "У_већај"
 
 #: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "Цео екран"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Прикажи слику која ће бити одштапана"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "Пре_глед пре штампу..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "По_дешавање штампања"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Одштампај слику"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "Ротирај улево"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "Ротирај удесно"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Сачувај _као..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "Подеси подешавање странице за ваш тренутни штампач"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "_Цео екран"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Штампај..."
 
 # bug: plural-forms
 #. [image width] x [image height] pixel  [zoom in percent]
-#: viewer/eog-image-view.c:518
+#: viewer/eog-image-view.c:525
 #, c-format
 msgid "%i x %i pixel    %i%%"
 msgstr "%i x %i тачака    %i%%"
 
-#: viewer/eog-image-view.c:808
+#: viewer/eog-image-view.c:815
 msgid "/Rotate C_lockwise"
 msgstr "/Ротирај у смеру _казаљке на сату"
 
-#: viewer/eog-image-view.c:810
+#: viewer/eog-image-view.c:817
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Ротирај _супротно од смера казаљке на сату"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:820
 msgid "/_Zoom In"
 msgstr "/У_већај"
 
-#: viewer/eog-image-view.c:815
+#: viewer/eog-image-view.c:822
 msgid "/Zoom _Out"
 msgstr "/У_мањи"
 
-#: viewer/eog-image-view.c:817
+#: viewer/eog-image-view.c:824
 msgid "/_Normal Size"
 msgstr "/_Нормална величина"
 
-#: viewer/eog-image-view.c:819
+#: viewer/eog-image-view.c:826
 msgid "/Best _Fit"
 msgstr "/Уклопи на _најбољи начин"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:829
 msgid "/_Close"
 msgstr "/_Затвори"
 
-#: viewer/eog-image-view.c:985
+#: viewer/eog-image-view.c:992
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Није успео да учита слику %s."
 
-#: viewer/eog-image-view.c:992
+#: viewer/eog-image-view.c:999
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -724,35 +756,35 @@ msgstr ""
 "Разлог: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1001
+#: viewer/eog-image-view.c:1008
 msgid "Loading failed"
 msgstr "Неуспешно учитавање"
 
-#: viewer/eog-image-view.c:1084
+#: viewer/eog-image-view.c:1091
 msgid "Image successfully saved"
 msgstr "Слика је успешно сачувана"
 
-#: viewer/eog-image-view.c:1088
+#: viewer/eog-image-view.c:1095
 msgid "Image saving failed"
 msgstr "Неуспешно снимање слике"
 
-#: viewer/eog-image-view.c:1332
+#: viewer/eog-image-view.c:1339
 msgid "Image Width"
 msgstr "Ширина слике"
 
-#: viewer/eog-image-view.c:1335
+#: viewer/eog-image-view.c:1342
 msgid "Image Height"
 msgstr "Висина слике"
 
-#: viewer/eog-image-view.c:1341
+#: viewer/eog-image-view.c:1348
 msgid "Statusbar Text"
 msgstr "Текст у линији са стањем"
 
-#: viewer/eog-image-view.c:1344
+#: viewer/eog-image-view.c:1351
 msgid "Desired Window Width"
 msgstr "Жељена ширина прозора"
 
-#: viewer/eog-image-view.c:1347
+#: viewer/eog-image-view.c:1354
 msgid "Desired Window Height"
 msgstr "Жељена висина прозора"
 
