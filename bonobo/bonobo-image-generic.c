@@ -553,6 +553,9 @@ init_server_factory (int argc, char **argv)
 	CORBA_exception_free (&ev);
 }
 
+#define PROP_RUNNING 1
+#define PROP_FNAME   2
+
 typedef struct {
 	GtkWidget          *drawing_area;
 	GdkPixbufAnimation *animation;
@@ -561,6 +564,7 @@ typedef struct {
 	guint               timeout;
 	
 	gboolean            animate;
+	char               *fname;
 } AnimationState;
 
 static void
@@ -639,6 +643,7 @@ skip_frame (AnimationState *as)
 static void
 animation_init (AnimationState *as, char *fname)
 {
+	as->fname = g_strdup (fname);
 	as->animation = gdk_pixbuf_animation_new_from_file (fname);
 
 	if (as->animation) {
@@ -677,6 +682,10 @@ animation_destroy (BonoboView *view, AnimationState *as)
 
 	gtk_timeout_remove (as->timeout);
 
+	if (as->fname)
+		g_free (as->fname);
+	as->fname = NULL;
+
 	g_free (as);
 }
 
@@ -704,28 +713,58 @@ animation_area_exposed (GtkWidget *widget, GdkEventExpose *event,
 }
 
 static void
-bonobo_animator_control_prop_value_changed_cb (BonoboPropertyBag *pb, char *name, char *type,
-					       gpointer old_value, gpointer new_value,
-					       gpointer user_data)
+set_prop (BonoboPropertyBag *bag,
+	  const BonoboArg   *arg,
+	  guint              arg_id,
+	  gpointer           user_data)
 {
 	AnimationState *as = user_data;
 
-	g_return_if_fail (as != NULL);
+	switch (arg_id) {
 
-	if (!strcmp (name, "running")) {
-		gboolean *b = new_value;
-
-		if (*b) {
+	case PROP_RUNNING:
+		if (BONOBO_ARG_GET_BOOLEAN (arg)) {
 			as->animate = TRUE;
 			skip_frame (as);
 		} else
 			as->animate = FALSE;
+		break;
 
-	} else if (!strcmp (name, "filename")) {
-		CORBA_char *fname = new_value;
-		
+	case PROP_FNAME:
 		animation_state_clean (as);
-		animation_init (as, fname);
+		animation_init (as, BONOBO_ARG_GET_STRING (arg));
+		break;
+
+	default:
+		g_warning ("Unhandled arg %d\n", arg_id);
+		break;
+	}
+}
+
+static void
+get_prop (BonoboPropertyBag *bag,
+	  BonoboArg         *arg,
+	  guint              arg_id,
+	  gpointer           user_data)
+{
+	AnimationState *as = user_data;
+
+	switch (arg_id) {
+
+	case PROP_RUNNING:
+		BONOBO_ARG_SET_BOOLEAN (arg, as->animate);
+		break;
+
+	case PROP_FNAME:
+		if (as->fname)
+			BONOBO_ARG_SET_STRING (arg, as->fname);
+		else
+			BONOBO_ARG_SET_STRING (arg, "");
+		break;
+
+	default:
+		g_warning ("Unhandled arg %d\n", arg_id);
+		break;
 	}
 }
 
@@ -734,11 +773,10 @@ bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
 {
 	BonoboPropertyBag *pb;
 	BonoboControl     *control;
-	CORBA_boolean	  *running;
-	CORBA_char        *fname;
 	AnimationState    *as;
 
 	as = g_new0 (AnimationState, 1);
+	as->fname = NULL;
 
 	/* Create the control. */
 	as->drawing_area = gtk_drawing_area_new ();
@@ -756,22 +794,16 @@ bonobo_animator_factory (BonoboGenericFactory *Factory, void *closure)
 			    GTK_SIGNAL_FUNC (animation_destroy), as);
 
 	/* Create the properties. */
-	pb = bonobo_property_bag_new ();
+	pb = bonobo_property_bag_new (get_prop, set_prop, as);
 	bonobo_control_set_property_bag (control, pb);
 
-	running = g_new (CORBA_boolean, 1);
-	*running    = TRUE;
-	as->animate = TRUE;
-	fname = g_strdup ("");
+	bonobo_property_bag_add (pb, "running", PROP_RUNNING,
+				 BONOBO_ARG_BOOLEAN, NULL,
+				 "Whether or not we are animating", 0);
 
-	gtk_signal_connect (GTK_OBJECT (pb), "value_changed",
-			    bonobo_animator_control_prop_value_changed_cb, as);
-
-	bonobo_property_bag_add (pb, "running", "boolean", (gpointer)running,
-				 NULL, "Whether or not we are animating", 0);
-
-	bonobo_property_bag_add (pb, "filename", "string", (gpointer)fname,
-				 NULL, "The filename of the animation", 0);
+	bonobo_property_bag_add (pb, "filename", PROP_FNAME,
+				 BONOBO_ARG_STRING, NULL,
+				 "The filename of the animation", 0);
 
 	return BONOBO_OBJECT (control);
 }
