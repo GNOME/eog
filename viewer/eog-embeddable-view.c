@@ -179,25 +179,10 @@ eog_embeddable_view_corba_object_create (BonoboObject *object)
 	return (Bonobo_View) bonobo_object_activate_servant (object, servant);
 }
 
-static const gchar *embeddable_view_interfaces[] = {
-	"IDL:Bonobo/Zoomable:1.0",
+static const gchar *image_view_interfaces[] = {
+	"IDL:Bonobo/ItemContainer:1.0",
 	NULL
 };
-
-static void
-eog_embeddable_view_add_interfaces (EogEmbeddableView *embeddable_view, BonoboObject *query_this,
-				    const gchar **interfaces)
-{
-	const gchar **ptr;
-
-	for (ptr = interfaces; *ptr; ptr++) {
-		BonoboObject *object;
-
-		object = bonobo_object_query_local_interface (query_this, *ptr);
-		if (object)
-			bonobo_object_add_interface (BONOBO_OBJECT (embeddable_view), object);
-	}
-}
 
 EogEmbeddableView *
 eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
@@ -218,9 +203,9 @@ eog_embeddable_view_construct (EogEmbeddableView *embeddable_view,
 	embeddable_view->priv->image_view = eog_image_view_new (image);
 	embeddable_view->priv->root = eog_image_view_get_widget (embeddable_view->priv->image_view);
 
-	eog_embeddable_view_add_interfaces (embeddable_view,
-					    BONOBO_OBJECT (embeddable_view->priv->image_view),
-					    embeddable_view_interfaces);
+	eog_util_add_interfaces (BONOBO_OBJECT (embeddable_view),
+				 BONOBO_OBJECT (embeddable_view->priv->image_view),
+				 image_view_interfaces);
 
 	retval = bonobo_view_construct (BONOBO_VIEW (embeddable_view), corba_object,
 					embeddable_view->priv->root);

@@ -15,6 +15,22 @@ INCLUDES =                                              \
 
 bin_PROGRAMS = eog-image-viewer
 
+noinst_PROGRAMS = sample-container
+
+sample_container_SOURCES =	\
+	sample-container.c	\
+	eog-util.h		\
+	eog-util.c
+
+sample_container_LDADD = 	\
+	$(GNOME_LIBS)		\
+	$(GNOME_LIBDIR)		\
+	$(GNOME_LIBS)		\
+	$(OAF_LIBS)		\
+	$(INTLLIBS)		\
+	$(EXTRA_BONOBO_LIBS)	\
+	../src/libeog.la
+
 CORBA_SOURCE =			\
 	Eog.h			\
 	Eog-common.c		\
@@ -35,6 +51,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable.h	\
 	eog-embeddable-view.c	\
 	eog-embeddable-view.h	\
+	eog-util.h		\
+	eog-util.c		\
 	main.c
 
 eog_image_viewer_LDADD = 			\

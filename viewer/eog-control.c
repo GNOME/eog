@@ -417,10 +417,15 @@ static const gchar *zoom_menu =
 "  <menuitem name=\"ZoomToFit\" _label=\"Zoom to _Fit\" verb=\"\"/>\n"
 "</placeholder>";
 
-static const gchar *image_data_interfaces[] = {
+static const gchar *image_interfaces[] = {
 	"IDL:Bonobo/ProgressiveDataSink:1.0",
 	"IDL:Bonobo/PersistStream:1.0",
 	"IDL:Bonobo/PersistFile:1.0",
+	NULL
+};
+
+static const gchar *image_view_interfaces[] = {
+	"IDL:Bonobo/ItemContainer:1.0",
 	NULL
 };
 
@@ -469,21 +474,6 @@ eog_control_unset_ui_container (EogControl *control)
 	bonobo_ui_component_unset_container (control->priv->uic);
 }
 
-static void
-eog_control_add_interfaces (EogControl *control, BonoboObject *query_this,
-			    const gchar **interfaces)
-{
-	const gchar **ptr;
-
-	for (ptr = interfaces; *ptr; ptr++) {
-		BonoboObject *object;
-
-		object = bonobo_object_query_local_interface (query_this, *ptr);
-		if (object)
-			bonobo_object_add_interface (BONOBO_OBJECT (control), object);
-	}
-}
-
 EogControl *
 eog_control_construct (EogControl *control, Bonobo_Control corba_object,
 		       EogImage *image)
@@ -502,9 +492,12 @@ eog_control_construct (EogControl *control, Bonobo_Control corba_object,
 	control->priv->image_view = eog_image_view_new (image);
 	control->priv->root = eog_image_view_get_widget (control->priv->image_view);
 
-	eog_control_add_interfaces (control,
-				    BONOBO_OBJECT (control->priv->image),
-				    image_data_interfaces);
+	eog_util_add_interfaces (BONOBO_OBJECT (control),
+				 BONOBO_OBJECT (control->priv->image),
+				 image_interfaces);
+	eog_util_add_interfaces (BONOBO_OBJECT (control),
+				 BONOBO_OBJECT (control->priv->image_view),
+				 image_view_interfaces);
 
 	/*
 	 * Interface Bonobo::Zoomable 

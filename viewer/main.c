@@ -27,6 +27,10 @@
 #include <eog-control.h>
 #include <eog-embeddable.h>
 
+#define EOG_IMAGE_VIEWER_ID	"OAFIID:eog_image_viewer:a30dc90b-a68f-4ef8-a257-d2f8ab7e6c9f"
+#define EOG_EMBEDDABLE_IMAGE_ID	"OAFIID:eog_embeddedable_image:759a2e09-31e1-4741-9ce7-8354d49a16bb"
+#define EOG_IMAGE_ID		"OAFIID:eog_image:20fecf27-a66e-4e0d-bb87-d519a5693ba1"
+
 /*
  * Number of running objects
  */ 
@@ -74,13 +78,23 @@ eog_image_viewer_factory (BonoboGenericFactory *this, const char *goad_id,
 	bonobo_object_data = g_new0 (bonobo_object_data_t, 1);
 
 	bonobo_object_data->image = eog_image_new ();
-	if (!strcmp (goad_id, "OAFIID:eog_image_viewer:a30dc90b-a68f-4ef8-a257-d2f8ab7e6c9f"))
+	if (bonobo_object_data->image == NULL) {
+		g_free (bonobo_object_data);
+		return NULL;
+	}
+
+	if (!strcmp (goad_id, EOG_IMAGE_VIEWER_ID))
 		bonobo_object_data->bonobo_object = (BonoboObject *)
 			eog_control_new (bonobo_object_data->image);
-	else if (!strcmp (goad_id, "OAFIID:eog_embeddedable_image:759a2e09-31e1-4741-9ce7-8354d49a16bb"))
+	else if (!strcmp (goad_id, EOG_EMBEDDABLE_IMAGE_ID))
 		bonobo_object_data->bonobo_object = (BonoboObject *)
 			eog_embeddable_new (bonobo_object_data->image);
-	else {
+	else if (!strcmp (goad_id, EOG_IMAGE_ID)) {
+		bonobo_object_data->bonobo_object = (BonoboObject *)
+			bonobo_object_data->image;
+
+		bonobo_object_ref (BONOBO_OBJECT (bonobo_object_data->image));
+	} else {
 		g_warning ("Unknown ID `%s' requested", goad_id);
 		return NULL;
 	}
@@ -121,11 +135,13 @@ init_server_factory (int argc, char **argv)
 int
 main (int argc, char *argv [])
 {
+#if 0
 	GLogLevelFlags fatal_mask;
 	      
 	fatal_mask = g_log_set_always_fatal (G_LOG_FATAL_MASK);
 	fatal_mask |= G_LOG_LEVEL_WARNING | G_LOG_LEVEL_CRITICAL;
 	g_log_set_always_fatal (fatal_mask);
+#endif
 
 	init_server_factory (argc, argv);
 

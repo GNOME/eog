@@ -1,5 +1,33 @@
 2000-11-19  Martin Baulig  <baulig@suse.de>
 
+	* eog-util.[ch]: New files.
+	(eog_util_add_interfaces): New function.
+	(eog_util_split_string): New function.
+
+	* eog-embeddable.c (eog_embeddable_add_interfaces): Removed, use
+	eog_util_add_interfaces() instead.
+	* eog-control.c (eog_control_add_interfaces): Likewise.
+	* eog-embeddable-view.c (eog_embeddable_view_add_interfaces): Likewise.
+
+	* eog-image.c (eog_image_construct): Create a BonoboItemContainer
+	and provide two arguments - `control' which calls eog_control_new()
+	on the EogImage to return a new BonoboControl and `embeddable' which
+	does the same with eog_embeddable_new().
+	
+	* eog-image-view.c (eog_image_view_construct): Create a
+	BonoboItemContainer.
+
+	* eog-control.c (eog_control_construct): Pass down the
+	BonoboItemContainer from the EogImageView.
+	* eog-embeddable-view.c (eog_embeddable_view_construct): Likewise.
+
+	* main.c (eog_image_viewer_factory): Added factory for GNOME::EOG::Image.
+	(main): Don't force fatal warnings.
+
+	* sample-container.c: New file.
+
+2000-11-19  Martin Baulig  <baulig@suse.de>
+
 	Moved the zoomable from the EogImageView into the EogControl.
 
 	* eog-image-view.h (eog_image_view_get_zoomable): Removed.

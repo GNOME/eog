@@ -130,7 +130,7 @@ eog_embeddable_corba_object_create (BonoboObject *object)
 	return (Bonobo_Embeddable) bonobo_object_activate_servant (object, servant);
 }
 
-static const gchar *image_data_interfaces[] = {
+static const gchar *image_interfaces[] = {
 	"IDL:Bonobo/ProgressiveDataSink:1.0",
 	"IDL:Bonobo/PersistStream:1.0",
 	"IDL:Bonobo/PersistFile:1.0",
@@ -154,21 +154,6 @@ eog_embeddable_view_factory (BonoboEmbeddable *object, const Bonobo_ViewFrame vi
 	return BONOBO_VIEW (view);
 }
 
-static void
-eog_embeddable_add_interfaces (EogEmbeddable *embeddable, BonoboObject *query_this,
-			       const gchar **interfaces)
-{
-	const gchar **ptr;
-
-	for (ptr = interfaces; *ptr; ptr++) {
-		BonoboObject *object;
-
-		object = bonobo_object_query_local_interface (query_this, *ptr);
-		if (object)
-			bonobo_object_add_interface (BONOBO_OBJECT (embeddable), object);
-	}
-}
-
 EogEmbeddable *
 eog_embeddable_construct (EogEmbeddable *embeddable,
 			  Bonobo_Embeddable corba_object,
@@ -185,12 +170,14 @@ eog_embeddable_construct (EogEmbeddable *embeddable,
 	embeddable->priv->image = image;
 	bonobo_object_ref (BONOBO_OBJECT (image));
 
-	eog_embeddable_add_interfaces (embeddable,
-				       BONOBO_OBJECT (embeddable->priv->image),
-				       image_data_interfaces);
+	eog_util_add_interfaces (BONOBO_OBJECT (embeddable),
+				 BONOBO_OBJECT (embeddable->priv->image),
+				 image_interfaces);
 
-	retval = bonobo_embeddable_construct (BONOBO_EMBEDDABLE (embeddable), corba_object,
-					      eog_embeddable_view_factory, NULL);
+	retval = bonobo_embeddable_construct (BONOBO_EMBEDDABLE (embeddable),
+					      corba_object,
+					      eog_embeddable_view_factory,
+					      NULL);
 
 	if (retval == NULL)
 		return NULL;

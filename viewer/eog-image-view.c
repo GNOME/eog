@@ -20,14 +20,16 @@
 #include <ui-image.h>
 
 struct _EogImageViewPrivate {
-	EogImage           *image;
+	EogImage             *image;
 
-	GtkWidget          *ui_image;
-        GtkWidget          *image_view;
+	GtkWidget            *ui_image;
+        GtkWidget            *image_view;
 
-	BonoboPropertyBag  *property_bag;
+	BonoboPropertyBag    *property_bag;
 
-	BonoboUIComponent  *uic;
+	BonoboUIComponent    *uic;
+
+	BonoboItemContainer  *item_container;
 };
 
 enum {
@@ -91,6 +93,11 @@ eog_image_view_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (object));
 
 	image_view = EOG_IMAGE_VIEW (object);
+
+	if (image_view->priv->item_container) {
+		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->item_container));
+		image_view->priv->item_container = NULL;
+	}
 
 	if (image_view->priv->property_bag) {
 		bonobo_object_unref (BONOBO_OBJECT (image_view->priv->property_bag));
@@ -487,6 +494,20 @@ eog_image_view_set_prop (BonoboPropertyBag *bag, const BonoboArg *arg, guint arg
 	}
 }
 
+static Bonobo_Unknown
+eog_image_view_get_object (BonoboItemContainer *item_container,
+			   CORBA_char *item_name, CORBA_boolean only_if_exists,
+			   CORBA_Environment *ev, EogImageView *image_view)
+{
+	g_return_val_if_fail (image_view != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), CORBA_OBJECT_NIL);
+
+	g_message ("eog_image_view_get_object: %d - %s",
+		   only_if_exists, item_name);
+
+	return CORBA_OBJECT_NIL;
+}
+
 EogImageView *
 eog_image_view_construct (EogImageView *image_view,
 			  GNOME_EOG_ImageView corba_object,
@@ -538,6 +559,19 @@ eog_image_view_construct (EogImageView *image_view,
 				 BONOBO_PROPERTY_READABLE | BONOBO_PROPERTY_WRITEABLE);
 
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
+
+	/*
+	 * BonoboItemContainer
+	 */
+	image_view->priv->item_container = bonobo_item_container_new ();
+
+	gtk_signal_connect (GTK_OBJECT (image_view->priv->item_container),
+			    "get_object",
+			    GTK_SIGNAL_FUNC (eog_image_view_get_object),
+			    image_view);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (image_view),
+				     BONOBO_OBJECT (image_view->priv->item_container));
 
 	return image_view;
 }

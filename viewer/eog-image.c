@@ -18,8 +18,11 @@
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 #include <eog-image.h>
+#include <eog-control.h>
+#include <eog-embeddable.h>
 
 struct _EogImagePrivate {
+	BonoboItemContainer  *item_container;
 };
 
 POA_GNOME_EOG_Image__vepv eog_image_vepv;
@@ -63,6 +66,11 @@ eog_image_destroy (GtkObject *object)
 	g_return_if_fail (EOG_IS_IMAGE (object));
 
 	image = EOG_IMAGE (object);
+
+	if (image->priv->item_container) {
+		bonobo_object_unref (BONOBO_OBJECT (image->priv->item_container));
+		image->priv->item_container = NULL;
+	}
 
 	GTK_OBJECT_CLASS (eog_image_parent_class)->destroy (object);
 }
@@ -147,6 +155,52 @@ eog_image_corba_object_create (BonoboObject *object)
 	return (GNOME_EOG_Image) bonobo_object_activate_servant (object, servant);
 }
 
+static Bonobo_Unknown
+eog_image_get_object (BonoboItemContainer *item_container,
+		      CORBA_char *item_name, CORBA_boolean only_if_exists,
+		      CORBA_Environment *ev, EogImage *image)
+{
+	Bonobo_Unknown corba_object;
+	BonoboObject *object = NULL;
+	GSList *params, *c;
+
+	g_return_val_if_fail (image != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (EOG_IS_IMAGE (image), CORBA_OBJECT_NIL);
+
+	g_message ("eog_image_get_object: %d - %s",
+		   only_if_exists, item_name);
+
+	params = eog_util_split_string (item_name, ";");
+	for (c = params; c; c = c->next) {
+		gchar *name = c->data;
+
+		if ((!strcmp (name, "control") || !strcmp (name, "embeddable"))
+		    && (object != NULL)) {
+			g_message ("eog_image_get_object: "
+				   "can only return one kind of an Object");
+			continue;
+		}
+
+		if (!strcmp (name, "control"))
+			object = (BonoboObject *) eog_control_new (image);
+		else if (!strcmp (item_name, "embeddable"))
+			object = (BonoboObject *) eog_embeddable_new (image);
+		else
+			g_message ("eog_image_get_object: "
+				   "unknown parameter `%s'",
+				   name);
+	}
+
+	g_slist_foreach (params, (GFunc) g_free, NULL);
+	g_slist_free (params);
+
+	if (object == NULL)
+		return NULL;
+
+	corba_object = bonobo_object_corba_objref (object);
+	return bonobo_object_dup_ref (corba_object, ev);
+}
+
 EogImage *
 eog_image_construct (EogImage *image, GNOME_EOG_Image corba_object)
 {
@@ -155,7 +209,20 @@ eog_image_construct (EogImage *image, GNOME_EOG_Image corba_object)
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (corba_object != CORBA_OBJECT_NIL, NULL);
-	
+
+	/*
+	 * BonoboItemContainer
+	 */
+	image->priv->item_container = bonobo_item_container_new ();
+
+	gtk_signal_connect (GTK_OBJECT (image->priv->item_container),
+			    "get_object",
+			    GTK_SIGNAL_FUNC (eog_image_get_object),
+			    image);
+
+	bonobo_object_add_interface (BONOBO_OBJECT (image),
+				     BONOBO_OBJECT (image->priv->item_container));
+
 	/*
 	 * Construct the BonoboObject
 	 */
