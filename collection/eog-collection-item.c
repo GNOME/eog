@@ -20,9 +20,6 @@ struct _EogCollectionItemPrivate {
 	GnomeCanvasItem *selected_item;
 };
 
-#define EOG_COLLECTION_ITEM_THUMB_WIDTH     96
-#define EOG_COLLECTION_ITEM_THUMB_HEIGHT    96
-#define EOG_COLLECTION_ITEM_CAPTION_PADDING  6
 
 enum {
 	SIGNAL_SIZE_CHANGED,
@@ -163,8 +160,8 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 			       NULL);
 	
 	gnome_canvas_item_set (priv->frame,
-			       "x1", (double) (image_x - 1),
-			       "y1", (double) (image_y - 1),
+			       "x1", (double) (image_x - EOG_COLLECTION_ITEM_FRAME_WIDTH),
+			       "y1", (double) (image_y - EOG_COLLECTION_ITEM_FRAME_WIDTH),
 			       "x2", (double) (image_x + image_width - 1),
 			       "y2", (double) (image_y + image_height - 1),
 			       NULL);
@@ -381,7 +378,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	caption = transform_caption (basic_caption, layout);
 
 	caption_x = EOG_COLLECTION_ITEM_THUMB_WIDTH / 2;
-	caption_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT + 2 + EOG_COLLECTION_ITEM_CAPTION_PADDING;
+	caption_y = EOG_COLLECTION_ITEM_THUMB_HEIGHT + 2 * EOG_COLLECTION_ITEM_FRAME_WIDTH + EOG_COLLECTION_ITEM_SPACING;
 
 	priv->caption_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						    GNOME_TYPE_CANVAS_TEXT,
@@ -399,13 +396,13 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	gnome_canvas_item_get_bounds (priv->caption_item, &x1, &y1, &x2, &y2); 
 	priv->selected_item = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 						     GNOME_TYPE_CANVAS_RECT,
-						     "x1", (double) (x1 - 2.0),
-						     "y1", (double) (y1 - 2.0),
-						     "x2", (double) (x2 + 2.0),
-						     "y2", (double) (y2 + 2.0),
+						     "x1", (double) (x1 - EOG_COLLECTION_ITEM_CAPTION_PADDING),
+						     "y1", (double) (y1 - EOG_COLLECTION_ITEM_CAPTION_PADDING),
+						     "x2", (double) (x2 + EOG_COLLECTION_ITEM_CAPTION_PADDING),
+						     "y2", (double) (y2 + EOG_COLLECTION_ITEM_CAPTION_PADDING),
 						     "fill_color", "LightSteelBlue2",
 						     "outline_color", "Blue",
-						     "width_pixels", 2,
+						     "width_pixels",  EOG_COLLECTION_ITEM_CAPTION_FRAME_WIDTH,
 						     "outline_stipple", get_stipple_bitmap (),
 						     NULL);
 	gnome_canvas_item_lower (priv->selected_item, 1);
@@ -419,7 +416,7 @@ eog_collection_item_construct (EogCollectionItem *item, EogImage *image)
 	/* Image Frame */
 	priv->frame = gnome_canvas_item_new (GNOME_CANVAS_GROUP (item),
 					     GNOME_TYPE_CANVAS_RECT,
-					     "width_pixels", 1,
+					     "width_pixels", EOG_COLLECTION_ITEM_FRAME_WIDTH,
 					     "outline_color", "Black",
 					     NULL);
 	gnome_canvas_item_hide (priv->frame);
@@ -510,43 +507,31 @@ eog_collection_item_get_image (EogCollectionItem *item)
 	return priv->image;
 }
 
-void 
-eog_collection_item_get_size (EogCollectionItem *item, int *width, int *height)
-{
-	int caption_height;
-	double x1, x2, y1, y2;
-
-	gnome_canvas_item_get_bounds (item->priv->selected_item, &x1, &y1, &x2, &y2); 
-
-	caption_height = y2 - y1;
-
-	*height = 
-		EOG_COLLECTION_ITEM_THUMB_HEIGHT + 
-		EOG_COLLECTION_ITEM_CAPTION_PADDING + 
-		caption_height;
-
-	*width = EOG_COLLECTION_ITEM_THUMB_WIDTH + 4;
-}
-
-/* eog_collection_item_get_heights:
+/* eog_collection_item_get_size:
  *
- * Returns the height of the image and the caption seperately. This is
+ * Returns the width and the height of the image and the caption seperately. This is
  * used by EogWrapList to align the items at the image bottom
  * line. caption_height includes the padding between image and caption
  * so that image_height + caption_height gives the total height of the item.
  */
 void 
-eog_collection_item_get_heights (EogCollectionItem *item, int *image_height, int *caption_height)
+eog_collection_item_get_size (EogCollectionItem *item, int *width, int *image_height, int *caption_height)
 {
 	double x1, x2, y1, y2;
+	int img_width;
+	int cap_width;
 
 	/* FIXME: maybe we should cache the values here, because they get
 	 * calculated at least 2 times for every item during item-rearrangement of 
 	 * the wrap list.
 	 */
-	gnome_canvas_item_get_bounds (item->priv->caption_item, &x1, &y1, &x2, &y2); 
+	gnome_canvas_item_get_bounds (item->priv->selected_item, &x1, &y1, &x2, &y2); 
 	*caption_height = (int) EOG_COLLECTION_ITEM_CAPTION_PADDING + y2 - y1;
+	cap_width = (int) x2 - x1;
 	
-	gnome_canvas_item_get_bounds (item->priv->pixbuf_item, &x1, &y1, &x2, &y2); 
+	gnome_canvas_item_get_bounds (item->priv->frame, &x1, &y1, &x2, &y2); 
 	*image_height = (int) y2 - y1;
+	img_width = (int) x2 - x1;
+
+	*width = MAX (cap_width, img_width);
 }

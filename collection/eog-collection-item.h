@@ -16,6 +16,15 @@ typedef struct _EogCollectionItem EogCollectionItem;
 typedef struct _EogCollectionItemClass EogCollectionItemClass;
 typedef struct _EogCollectionItemPrivate EogCollectionItemPrivate;
 
+#define EOG_COLLECTION_ITEM_THUMB_WIDTH     96    /* maximal thumbnail width */
+#define EOG_COLLECTION_ITEM_THUMB_HEIGHT    96    /* maximal thumbnail height */
+#define EOG_COLLECTION_ITEM_FRAME_WIDTH      1    /* thickness of the frame around the image */
+#define EOG_COLLECTION_ITEM_SPACING          6    /* space between image and caption */
+#define EOG_COLLECTION_ITEM_CAPTION_PADDING  2    /* padding between caption text and selection */
+#define EOG_COLLECTION_ITEM_CAPTION_FRAME_WIDTH 2 /* thickness of the frame around the caption */
+
+#define EOG_COLLECTION_ITEM_MAX_WIDTH   (EOG_COLLECTION_ITEM_THUMB_WIDTH+2*EOG_COLLECTION_ITEM_CAPTION_PADDING+2*EOG_COLLECTION_ITEM_CAPTION_FRAME_WIDTH)
+
 struct _EogCollectionItem {
 	GnomeCanvasGroup parent;
 
@@ -44,9 +53,7 @@ void eog_collection_item_toggle_selected (EogCollectionItem *item);
 
 EogImage* eog_collection_item_get_image (EogCollectionItem *item);
 
-void eog_collection_item_get_size (EogCollectionItem *item, int *width, int *height);
-
-void eog_collection_item_get_heights (EogCollectionItem *item, int *image_height, int *caption_height);
+void eog_collection_item_get_size (EogCollectionItem *item, int *width, int *image_height, int *caption_height);
 
 
 G_END_DECLS

@@ -1,5 +1,29 @@
 2003-10-12  Jens Finke  <jens@triq.net>
 
+	* collection/eog-collection-item.c (set_pixbuf),
+	(eog_collection_item_construct): Use named constants instead of
+	constant values for padding, spacing etc.
+	(eog_collection_item_get_size): Removed.
+	(eog_collection_item_get_heights): Renamed into
+	eog_collection_item_get_size, return also the width of the item.
+
+	* collection/eog-collection-item.h: New named constants for
+	spacing, padding and maximal item width.
+
+	* collection/eog-wrap-list.c Dropped support for different layout
+	modes.
+	(get_item_view_position): Removed unused variables.
+	(do_layout_check): Use MAX_ITEM_WIDTH constant. Removed support
+	for different layout modes (horizontal, rectangle).
+	(calculate_row_height): Adapt to new eog_collection_item_size
+	signature.
+	(do_item_rearrangement): Use MAX_ITEM_WIDTH constant for
+	calculation. Adapted to eog_collection_item_size changes.
+
+	* collection/eog-collection-view.c (layout_changed_cb): Removed.
+	
+2003-10-12  Jens Finke  <jens@triq.net>
+
 	* collection/eog-collection-item.c (set_pixbuf): Added flag wether
 	or not a frame should be shown around the thumbnail.
 	(thumbnail_finished_cb),

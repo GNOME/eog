@@ -958,23 +958,6 @@ model_base_uri_changed (EogCollectionModel *model, gpointer data)
 }
 
 static void
-layout_changed_cb (GConfClient *client, guint cnxn_id, 
-		   GConfEntry *entry, gpointer user_data)
-{
-	EogCollectionView *view;
-	gint layout;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_VIEW (user_data));
-
-	view = EOG_COLLECTION_VIEW (user_data);
-
-	layout = gconf_value_get_int (entry->value);
-	eog_wrap_list_set_layout_mode (EOG_WRAP_LIST (view->priv->wraplist), 
-				      layout);
-}
-
-static void
 zoomable_set_frame_cb (BonoboZoomable *zoomable, EogCollectionView *view)
 {
 	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));

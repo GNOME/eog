@@ -35,8 +35,11 @@
 #define COLLECTION_DEBUG 0
 
 #define EOG_WRAP_LIST_BORDER  12
+static const int MAX_ITEM_WIDTH = EOG_COLLECTION_ITEM_MAX_WIDTH;
 
 #define EOG_DND_URI_LIST_TYPE 	         "text/uri-list"
+
+
 
 enum {
 	EOG_DND_URI_LIST
@@ -67,7 +70,6 @@ static guint eog_wrap_list_signals [LAST_SIGNAL];
 enum {
 	GLOBAL_WIDGET_SIZE_CHANGED,
 	GLOBAL_SPACING_CHANGED,
-	GLOBAL_LAYOUT_MODE_CHANGED,
 	ITEM_SIZE_CHANGED,
 	UPDATE_HINT_LAST
 };
@@ -110,9 +112,6 @@ struct _EogWrapListPrivate {
 
 	/* Number of items */
 	guint n_items; 
-
-	/* Layout mode to use for row/col calculating. */
-	EogLayoutMode lm;
 
 	/* Number of rows. */
 	guint n_rows;
@@ -222,7 +221,6 @@ eog_wrap_list_instance_init (EogWrapList *wlist)
 	priv->col_spacing = 0;
 	priv->idle_handler_id = -1;
 	priv->n_items = 0;
-	priv->lm = EOG_LAYOUT_MODE_VERTICAL;
 	priv->n_rows = 0;
 	priv->n_cols = 0;
 	priv->last_item_clicked = NULL;
@@ -311,7 +309,6 @@ static gint
 get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
 {
 	EogWrapListPrivate *priv;
-	double x1, y1, x2, y2;
 	guint row, col, n;
 	
 	priv = wlist->priv;
@@ -954,23 +951,6 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model)
 	request_update (wlist);
 }
 
-void 
-eog_wrap_list_set_layout_mode (EogWrapList *wlist, EogLayoutMode lm)
-{
-	EogWrapListPrivate *priv;
-
-	g_return_if_fail (wlist != NULL);
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	if (lm == priv->lm) return;
-
-	priv->lm = lm;
-	priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED] = TRUE;
-
-	request_update (wlist);
-}
 
 /**
  * eog_wrap_list_set_row_spacing:
@@ -1050,57 +1030,22 @@ do_layout_check (EogWrapList *wlist)
 	g_message ("do_layout_check called");
 #endif
 
-	/* FIXME: Use constant for item_width here, since what we are
-	 * really interested in is the maximum width of an item.
-	 */
-	if (priv->item_width == -1 || priv->item_height == -1) {
-		if (priv->view_order != NULL) {
-			eog_collection_item_get_size (EOG_COLLECTION_ITEM (priv->view_order->data), 
-						      &priv->item_width, &priv->item_height);
-		}
-		else {
-			return FALSE;
-		}
-	}
-
+	if (priv->view_order == NULL)
+		return FALSE;
 
 	/* get canvas width */
 	cw = GTK_WIDGET (wlist)->allocation.width;
 	ch = GTK_WIDGET (wlist)->allocation.height;
 
 	/* calculate new number of  columns/rows */
-	switch (priv->lm) {
-	case EOG_LAYOUT_MODE_VERTICAL:
-		n_cols_new = cw / (priv->item_width + priv->col_spacing);
-		
-		if (cw > (n_cols_new * (priv->item_width + priv->col_spacing) + priv->item_width))
-			n_cols_new++;
-
-		if (n_cols_new == 0)
-			n_cols_new = 1;
-		n_rows_new = (priv->n_items + n_cols_new - 1) / n_cols_new;
-		break;
-
-	case EOG_LAYOUT_MODE_HORIZONTAL:
-		n_rows_new = ch / (priv->item_height + priv->row_spacing);
-		if (n_rows_new == 0)
-			n_rows_new = 1;
-		n_cols_new = (priv->n_items + n_rows_new - 1) / n_rows_new;
-		break;
-
-	case EOG_LAYOUT_MODE_RECTANGLE:
-		n_rows_new = n_cols_new = sqrt (priv->n_items);
-		if (n_rows_new * n_cols_new < priv->n_items) {
-			if ((n_rows_new + 1) * n_cols_new < priv->n_items)
-				n_rows_new = n_cols_new = n_rows_new + 1;
-			else
-				n_rows_new = n_rows_new + 1;
-		}
-		break;
-
-	default:
-		g_assert_not_reached ();
-	}
+	n_cols_new = cw / (EOG_COLLECTION_ITEM_MAX_WIDTH + priv->col_spacing);
+	
+	if (cw > (n_cols_new * (EOG_COLLECTION_ITEM_MAX_WIDTH + priv->col_spacing) + EOG_COLLECTION_ITEM_MAX_WIDTH))
+		n_cols_new++;
+	
+	if (n_cols_new == 0)
+		n_cols_new = 1;
+	n_rows_new = (priv->n_items + n_cols_new - 1) / n_cols_new;
 
 #if COLLECTION_DEBUG	
 	g_print ("  ** canvas width: %i\n",cw);
@@ -1138,7 +1083,7 @@ calculate_row_height (GList *it, int n_cols,
 {
 	int i;
 	EogCollectionItem *item;
-	int ih, ch;
+	int ih, ch, w;
 
 	*image_height = 0;
 	*caption_height = 0;
@@ -1147,7 +1092,7 @@ calculate_row_height (GList *it, int n_cols,
 	{
 		item = EOG_COLLECTION_ITEM (it->data);
 
-		eog_collection_item_get_heights (item, &ih, &ch);
+		eog_collection_item_get_size (item, &w, &ih, &ch);
 
 		*image_height = MAX (*image_height, ih);
 		*caption_height = MAX (*caption_height, ch);
@@ -1160,6 +1105,7 @@ do_item_rearrangement (EogWrapList *wlist)
 	EogWrapListPrivate *priv;
 	int max_image_height;
 	int max_caption_height;
+	int item_width;
 	int image_height;
 	int caption_height;
 	int row_offset;
@@ -1200,9 +1146,12 @@ do_item_rearrangement (EogWrapList *wlist)
 		}
 		
 		item = EOG_COLLECTION_ITEM (it->data);
-		eog_collection_item_get_heights (item, &image_height, &caption_height);
+		eog_collection_item_get_size (item, &item_width, &image_height, &caption_height);
+		item_width = MIN (item_width, MAX_ITEM_WIDTH); /* this is only to ensure 
+								  item_width <= MAX_ITEM_WIDTH */
 		
-		world_x = col * (100 /* FIXME: use item width constant here */ + priv->col_spacing);
+		world_x = col * (MAX_ITEM_WIDTH + priv->col_spacing) + 
+			(MAX_ITEM_WIDTH - item_width) / 2;
 		world_y = row_offset + max_image_height - image_height;
 		
 		set_item_position (item, world_x, world_y);
@@ -1213,7 +1162,7 @@ do_item_rearrangement (EogWrapList *wlist)
 	
 	
 	/* set new canvas scroll region */
-	sr_width =  priv->n_cols * (100 /* FIXME: use item width constant here */ + priv->col_spacing) - priv->col_spacing;
+	sr_width =  priv->n_cols * (MAX_ITEM_WIDTH + priv->col_spacing) - priv->col_spacing;
 	sr_height = row_offset + max_image_height + max_caption_height + EOG_WRAP_LIST_BORDER;
 	
 	gnome_canvas_set_scroll_region (GNOME_CANVAS (wlist), 
@@ -1247,12 +1196,6 @@ do_update (EogWrapList *wlist)
 		priv->global_update_hints[GLOBAL_SPACING_CHANGED] = FALSE;
 		priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = FALSE;
 	} 
-	else if (priv->global_update_hints [GLOBAL_LAYOUT_MODE_CHANGED]) 
-	{
-		layout_check_needed = TRUE;
-
-		priv->global_update_hints[GLOBAL_LAYOUT_MODE_CHANGED] = FALSE;
-	}
 	else if (priv->global_update_hints [ITEM_SIZE_CHANGED]) {
 		item_rearrangement_needed = TRUE;
 		priv->global_update_hints [ITEM_SIZE_CHANGED] = FALSE;
