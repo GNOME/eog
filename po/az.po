@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2003-05-04 16:02+0200\n"
-"PO-Revision-Date: 2003-07-11 12:38+0200\n"
+"POT-Creation-Date: 2003-08-06 11:28+0200\n"
+"PO-Revision-Date: 2003-08-06 22:06+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani Turkic <gnome@azitt.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,47 +26,104 @@ msgid "Image Collection"
 msgstr "Rəsm Kolleksiyası"
 
 #: collection/eog-collection-view-ui.xml.h:1
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "_Üfüqi İstiqamətdə Çevir"
+
+#: collection/eog-collection-view-ui.xml.h:2
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "_Şaquli İstiqamətdə Çevir"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "Sonrakı"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "Sonrakı Rəsm"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Öncəki"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "Öncəki Rəsm"
 
-#: collection/eog-collection-view-ui.xml.h:5
+#: collection/eog-collection-view-ui.xml.h:7
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "180 _Dərəcə Çevir"
+
+#: collection/eog-collection-view-ui.xml.h:8
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Saat Əqrəbi _İstiqamətində Çevir"
+
+#: collection/eog-collection-view-ui.xml.h:9
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Saat Əqrəbinin _Tərs İstiqamətində Çevir"
+
+#: collection/eog-collection-view-ui.xml.h:10
 #: eog.glade.h:18
 msgid "Slide Show"
 msgstr "Ardıcıl Nümayiş"
 
-#: collection/eog-collection-view-ui.xml.h:6
-#: viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "_Düzəlt"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Qeyd Et"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr "_Geri al"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
 msgstr "_Görünüş"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Qeydi ləğv et"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Qeyd etmə bitdi"
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
 msgstr "Zibil Qutusuna At"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
 msgstr "Yığcam Nümayiş"
 
-#: collection/eog-collection-view.c:899
-#: viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267
+#: viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Pəncərə Başlığı"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
 msgstr "Vəziyyət Mətni"
+
+#: collection/eog-collection-view.c:1273
+#: viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr "RƏsm Yüklənmə İrəliləyişi"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Rəsm üeyd edilir"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -134,9 +191,11 @@ msgid "Loop sequence"
 msgstr "Təkrarlama ardıcıllığı"
 
 #: eog.glade.h:16
-msgid "Show next image automatically:\n"
+msgid ""
+"Show next image automatically:\n"
 "(0 to disable)"
-msgstr "Sonrakı rəsmi avtomatik göstər:\n"
+msgstr ""
+"Sonrakı rəsmi avtomatik göstər:\n"
 "(bağlamaq üçün 0)"
 
 #: eog.glade.h:19
@@ -148,76 +207,36 @@ msgid "sec"
 msgstr "san"
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Pəncərə böyüklüyünü avtomatik olaraq seç"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Tam ekran nümayişi üçün əsas yaxınlaşdırma faktoru"
-
-#: eog.schemas.in.h:3
-msgid "Default zoom factor for the full screen view. Possible values are: 0 (use 1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit the image to the screen)."
-msgstr "Tam ekran nümayişi üçün əsas yaxınlaşdırma faktoru. Mümkün qiymətlər: 0 (1:1 yaxınlaşdirma faktoru), 1 (rəsm pəncərəsinin yaxınlaşdırma faktorunun eynisi), 2 (rəsmi ekrana sığdır)."
-
-#: eog.schemas.in.h:4
-msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key determines the used color value."
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
 msgstr "Şəffaflığın necə göstəriləcəyini müəyyən edir. Hökmlü qiymətlər CHECK_PATTERN, COLOR və NONE-dur. Əgər COLOR seçilərsə, trans_color açarı işlədilən rəngin qitmətini müəyyən edir."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Standart böyüklükdə rəsmləri ekrana sığdır"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
 msgstr "Əgər şəffaflıq açarının qiyməti COLOR isə, bu zaman bu açar şəffaflığı göstərən rəngi müəyyən edər."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Rəsmi İnterpolyasiya et"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Rəsmi yeni pəncərədə aç"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Ekran ətrafına qabartma yerləşdir"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Tam ekran nümayişində sürüşdürmə çubuğunun hərəkət tərzi"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Şəffaflıq rəngi"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Şəffaflıq işarəsi"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid "Wether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
 msgstr "Yaxınlaşdırma ərzində rəsmin interpolyasiya ediləcəyi. Bu daha əla keyfiyyətə ancaq interpolyasiya edilməmiş rəsmlərə nəzarən biraz daha yavaş sür'ətə yol açar."
 
-#: eog.schemas.in.h:14
-msgid "Whether image windows should pick their size and zooming factor automatically based on the size of the image. If this option is not set, image windows will get whatever size the window manager assigns to them."
-msgstr "Rəsmin böyüklüyünə bağlı olaraq rəsm pəncərələrinin öz böyüklüyünü və yaxınlaşdırma faktorunu  avtomatik olaraq seçməsi. Bu seçili olmazsa rəsm pəncərələri, pəncərə idarəçisinin onlar üçün ayrılan böyüklüyü alacaqlar."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
 msgstr "Açılan rəsmin başqa rəsmin olduğu pəncərədə rəsmin yerini alması yaxud yeni pəncərədə açılması."
-
-#: eog.schemas.in.h:16
-msgid "Whether the full screen view should display a bevel along the edges of the screen."
-msgstr "Tam ekran nümayişi zamanı ekranın kənarlarında qabartma göstərməsi."
-
-#: eog.schemas.in.h:17
-msgid "Whether to display scrollbars on the full screen view. Possible values are: 1 (automatic; only display scrollbars if the image is larger than the window), 2 (never display scrollbars)."
-msgstr "Tam ekran nümayişi zamanı sürüşmə şubuğlarının göstərilməsi. Mümkün qiymətlər: 1 (avtomatik;  rəsm pəncərədən böyükdürsə sürüşmə şubuğları göstəriləcək), 2 (Sürüşmə şubuğlarını heç göstərmə)."
-
-#: eog.schemas.in.h:18
-msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x800, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
-msgstr "320x240, 640x480, 800x800 və s. standart böyüklükdə olan rəsmlərin tam ekran nümayiş vaxtı ekrana sığdırılması. Bu seçilərsə rəsmlər, tam ekran nümayişinin əsas yaxınlaşdırma faktoruna bağlı olmayaraq ekrana sığdırılmaq üçün böyüdüləcəkdirlər."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -235,9 +254,7 @@ msgstr "EOG Rəsm nümayişçisi e'malatxanası"
 msgid "Embeddable EOG Image"
 msgstr "Hopdurula bilmən EOG Rəsmi"
 
-#. Second page
 #: libeog/GNOME_EOG.server.in.in.h:5
-#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Rəsm"
 
@@ -261,11 +278,19 @@ msgstr "Rəsmi yüklə"
 msgid "Save Image"
 msgstr "Rəsmi qeyd et"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "JPEG faylını yükləmək üçün yaddaş ayrıla bilmədi"
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
 msgstr "Yüklü rəsm yoxdur."
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr "Rəsmlər ancaq yerli fayl olaraq qeyd edilə bilər."
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
 msgstr "Qeyd üçün dəstəklənməyən rəsm növü."
 
@@ -292,6 +317,114 @@ msgstr "Hündürlük"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "Fayl adı"
+
+#: libgpi/gpi-dialog-pixbuf.c:303
+#: libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Səhifə"
+
+#: libgpi/gpi-dialog.c:127
+#: libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+msgid "Preview"
+msgstr "Nümayiş"
+
+#: libgpi/gpi-dialog.c:143
+#: libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "Millimetr"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227
+#: libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Kağız"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% Original böyüklük "
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Buna uyğunlaşdır:"
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Orta"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Yardım kəsilir"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Aşağı, sonra sağa"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Səhifəyə yaraşdır"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Üfüqi olaraq"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Üfüqi olaraq"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Kənarlar"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Yardım sifariş vermə"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "/Üst Üstə Gətir"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Yardımı üst üstə gətir"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Səhifə sırası"
+
+#  Right down
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Sağa, sonra aşağı"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Miqyasla"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Göstər"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Şaquli olaraq"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Şaquli olaraq"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr "dialoq1"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Ad"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Çap ediləcək data ya da fayl adı"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -357,11 +490,6 @@ msgstr "_Bağla"
 msgid "_Contents"
 msgstr "_Məzmun"
 
-#: shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Düzəlt"
-
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
 msgstr "_Fayl"
@@ -386,32 +514,31 @@ msgstr "Çı_x"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Vasif İsmailoğlu <linuxaz@azerimail.net>\n"
+msgstr ""
+"Vasif İsmailoğlu <linuxaz@azerimail.net>\n"
 "Mətin Əmirov <metin@karegen.com>"
 
-#: shell/eog-window.c:269
-#: shell/eog-window.c:719
-#: shell/eog-window.c:807
-#: shell/eog-window.c:844
-#: shell/main.c:503
+#: shell/eog-window.c:271
+#: shell/eog-window.c:746
+#: shell/eog-window.c:830
+#: shell/eog-window.c:869
+#: shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Gnome'un gözü"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Təlif haqqı (C) 2000-2001 Free Software Foundation"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME rəsm nümayiş və dəyişdirmə proqramı"
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
-msgid "Could not display help for Eye of Gnome.\n"
+msgid ""
+"Could not display help for Eye of Gnome.\n"
 "%s"
-msgstr "Eye of Gnome üçün yardımı göstərə bilmədim.\n"
+msgstr ""
+"Eye of Gnome üçün yardımı göstərə bilmədim.\n"
 "%s"
 
 #: shell/main.c:225
@@ -449,7 +576,6 @@ msgid "Fit"
 msgstr "Yaraşdır"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:3
-#: viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "İçəri"
 
@@ -473,14 +599,6 @@ msgstr "_Normal Böyüklük"
 msgid "_Zoom In"
 msgstr "_Yaxınlaşdır"
 
-#: viewer/eog-image-view-ui.xml.h:1
-msgid "Flip _Horizontal"
-msgstr "_Üfüqi İstiqamətdə Çevir"
-
-#: viewer/eog-image-view-ui.xml.h:2
-msgid "Flip _Vertical"
-msgstr "_Şaquli İstiqamətdə Çevir"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr "Çap ediləcək rəsm nümayişi"
@@ -497,253 +615,102 @@ msgstr "Ç_ap Qurğuları"
 msgid "Print image to the printer"
 msgstr "Rəsmi çap ediciyə çap et"
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "180 _Dərəcə Çevir"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "Saat Əqrəbi _İstiqamətində Çevir"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "Saat Əqrəbinin _Tərs İstiqamətində Çevir"
-
 #: viewer/eog-image-view-ui.xml.h:10
+msgid "Rotate Left"
+msgstr "Sola Çevir"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Sağa Çevir"
+
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Save _As..."
 msgstr "_Fərqli Qeyd Et"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Hazırkı çap edici üçün qurğuları quraşdır"
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
 msgstr "_Tam Ekran"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
 msgstr "_Çap Et"
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "/Saat Əqrəbi _İstiqamətində Çevir"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "/Saat Əqrəbinin _Tərs İstiqamətində Çevir"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
 msgstr "/_Yaxınlaşdır"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
 msgstr "/_Uzaqlaşdır"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
 msgstr "/_Normal Böyüklük"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
 msgstr "/Ə_n Uyğun"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
 msgstr "/_Bağla"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "%s rəsmi yüklənə bilmədi."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"%s rəsmi yüklənə bilmədi.\n"
+"Səbəb: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Yükləmə bacarılmadı"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
 msgstr "Rəsm müvəffəqiyyətlə qeyd edildi"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
 msgstr "Rəsm qeyd edilə bilmədi"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Rəsm Nümayişcisi"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Rəsm Hündürlüyü"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
 msgstr "Vəziyyət Çubuğu Mətni"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
 msgstr "Pəncərənin Əsas Eni"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
 msgstr "Pəncərənin Əsas Hündürlüyü"
-
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "GnomeVFSni başlada bilmədim!\n"
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "nöqtələr"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "millimetr"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "santimetr"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inç"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Çap Qurğuları"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Çap Et"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Çap Nümayişi"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Vahidlər: "
-
-#. First page
-#: viewer/eog-print-setup.c:557
-#: viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Kağız"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Kağız böyüklüyö:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "İstiqamət"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Portret"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Mənzərə"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Kənarlar"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Üst:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Sol:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Sağ:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Alt:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Miqyasla"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Uyğunlaşdır:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Səhifəyə yaraşdır"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% Original böyüklük "
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Orta"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Üfüqi olaraq"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Şaquli olaraq"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Üst Üstə Gətirmə"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Üfüqi olaraq üst üstə gətirılır"
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Şaquli olaraq üst üstə gətirılır"
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Çap"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Yardımcılar"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Kəsili yardımı çap et"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Bütün yardımı çap et"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Səhifə sırası"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Aşağı, sonra sağa"
-
-#  Right down
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Sağa, sonra aşağı"
 
