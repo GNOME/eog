@@ -1,3 +1,10 @@
+2001-07-31  jacob berkman  <jacob@ximian.com>
+
+	* eog-window.c (eog_window_destroy): remove our listener, and
+	release our event source
+	(create_bonobo_file_sel): retain pointers to our listener id and
+	event source
+
 2001-07-19  jacob berkman  <jacob@ximian.com>
 
 	* eog-window.c (create_bonobo_file_sel): set multi-select to the

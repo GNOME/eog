@@ -54,6 +54,8 @@ struct _EogWindowPrivate {
 	GtkWidget *file_sel;
 #ifdef ENABLE_BONOBO_FILESEL
 	BonoboListener *listener;
+	Bonobo_EventSource_ListenerId id;
+	Bonobo_EventSource es;
 #endif
 
 	/* Our GConf client */
@@ -273,6 +275,20 @@ eog_window_destroy (GtkObject *object)
 		gtk_widget_destroy (priv->file_sel);
 
 #ifdef ENABLE_BONOBO_FILESEL
+	if (priv->es != CORBA_OBJECT_NIL) {
+		CORBA_Environment ev;
+		CORBA_exception_init (&ev);
+			
+		if (priv->id) {
+			Bonobo_EventSource_removeListener (priv->es,
+							   priv->id,
+							   &ev);
+		}
+
+		bonobo_object_release_unref (priv->es, &ev);
+		CORBA_exception_free (&ev);
+	}
+		
 	if (priv->listener)
 		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
 #endif
@@ -809,7 +825,6 @@ create_bonobo_file_sel (EogWindow *window)
 	CORBA_Environment ev;
 	EogWindowPrivate *priv;	
 
-	Bonobo_EventSource es;
 	Bonobo_Listener listener;
 	char *moniker_string;
 
@@ -857,10 +872,12 @@ create_bonobo_file_sel (EogWindow *window)
 	listener = bonobo_object_corba_objref (BONOBO_OBJECT (priv->listener));
 
 	CORBA_exception_init (&ev);
-	es = Bonobo_Unknown_queryInterface (
+	priv->es = Bonobo_Unknown_queryInterface (
 		bonobo_widget_get_objref (BONOBO_WIDGET (control)),
 		"IDL:Bonobo/EventSource:1.0", &ev);
-	Bonobo_EventSource_addListener (es, listener, &ev);
+	priv->id = Bonobo_EventSource_addListenerWithMask (priv->es, listener, 
+							   "GNOME/FileSelector:ButtonClicked",
+							   &ev);
 
 	CORBA_exception_free (&ev);
 }
