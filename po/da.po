@@ -7,16 +7,152 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2001-01-06 12:10+01:00\n"
+"PO-Revision-Date: 2001-02-27 12:10+01:00\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Dansk/Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
+#: src/preferences.c:220
 msgid "Preferences"
 msgstr "Præferencer"
+
+#: src/preferences-dialog.glade.h:1
+msgid "Bilinear (normal)"
+msgstr "Bilineær (normal)"
+
+#: src/preferences-dialog.glade.h:2
+msgid "Black only"
+msgstr "Kun sort"
+
+#: src/preferences-dialog.glade.h:3
+msgid "Check size"
+msgstr "Tjek størrelse"
+
+#: src/preferences-dialog.glade.h:4
+msgid "Dark checks"
+msgstr "Tjek af mørke farver"
+
+#: src/preferences-dialog.glade.h:5 viewer/eog-image-view.c:928
+msgid "Display"
+msgstr "Vis"
+
+#: src/preferences-dialog.glade.h:6
+msgid "Dither type"
+msgstr "Dither type"
+
+#: src/preferences-dialog.glade.h:7
+msgid "Fit all images to screen"
+msgstr "Tilpas alle billeder til skærm"
+
+#: src/preferences-dialog.glade.h:8
+msgid "Fit standard-sized images to screen"
+msgstr "Tilpas standard-størrelse billeder til skærm"
+
+#: src/preferences-dialog.glade.h:9
+msgid "Full Screen"
+msgstr "Fuld skærm"
+
+#: src/preferences-dialog.glade.h:10
+msgid "Gray only"
+msgstr "Kun grå"
+
+#: src/preferences-dialog.glade.h:11
+msgid "Hyperbolic (slowest, best quality)"
+msgstr "Hyperbolsk (langsomst, beste kvalitet)"
+
+#: src/preferences-dialog.glade.h:12
+msgid "Image Windows"
+msgstr "Billed-vinduer"
+
+#: src/preferences-dialog.glade.h:13
+msgid "Interpolation type"
+msgstr "Interpolationstype"
+
+#: src/preferences-dialog.glade.h:14
+msgid "Large"
+msgstr "Stor"
+
+#: src/preferences-dialog.glade.h:15
+msgid "Light checks"
+msgstr "Tjek af lyse farver"
+
+#: src/preferences-dialog.glade.h:16
+msgid "Maximum (high color)"
+msgstr "Maksimum (meget farve)"
+
+#: src/preferences-dialog.glade.h:17
+msgid "Medium"
+msgstr "Mellem"
+
+#: src/preferences-dialog.glade.h:18
+msgid "Midtone checks"
+msgstr "Tjek af mellemtone"
+
+#: src/preferences-dialog.glade.h:19
+msgid "Nearest neighbor (fastest, low quality)"
+msgstr "Nærmeste nabo (hurtigste, lav kvalitet)"
+
+#: src/preferences-dialog.glade.h:20
+msgid "Never"
+msgstr "Aldrig"
+
+#: src/preferences-dialog.glade.h:21
+msgid "None"
+msgstr "Ingen"
+
+#: src/preferences-dialog.glade.h:22
+msgid "Normal (pseudocolor)"
+msgstr "Normal (pseudofarve)"
+
+#: src/preferences-dialog.glade.h:23
+msgid "Only if image does not fit"
+msgstr "Kun hvis billedet ikke passer"
+
+#: src/preferences-dialog.glade.h:24
+msgid "Open images in a new window"
+msgstr "Åbn billeder i et nyt vindue"
+
+#: src/preferences-dialog.glade.h:25
+msgid "Pick window size and zoom factor automatically"
+msgstr "Vælg vinduesstørrelse og zoomfaktor automatisk"
+
+#: src/preferences-dialog.glade.h:26
+msgid "Put a bevel around the edge of the screen"
+msgstr "Put en skråkant omkring kanten af skærmen"
+
+#: src/preferences-dialog.glade.h:27
+msgid "Small"
+msgstr "Lille"
+
+#: src/preferences-dialog.glade.h:28
+msgid "Transparency type"
+msgstr "Gennemsigtighedstype"
+
+#: src/preferences-dialog.glade.h:29
+msgid "Two-pass scrolling"
+msgstr "Rulning i to trin"
+
+#: src/preferences-dialog.glade.h:30
+msgid "Use 1:1 zoom factor"
+msgstr "Brug 1:1 zoomfaktor"
+
+#: src/preferences-dialog.glade.h:31
+msgid "Use same zoom factor as image window"
+msgstr "Brug samme zoomfaktor som billedvindue"
+
+#: src/preferences-dialog.glade.h:32
+msgid "Use scrollbars"
+msgstr "Brug rullebjælker"
+
+#: src/preferences-dialog.glade.h:33
+msgid "Viewers"
+msgstr "Fremvisere"
+
+#: src/preferences-dialog.glade.h:34
+msgid "White only"
+msgstr "Kun hvid"
 
 #: src/tb-image.c:33
 msgid "Open"
@@ -55,14 +191,13 @@ msgstr "Fyldud"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
 
-#: src/window.c:162 src/window.c:573 src/window.c:812
+#: eog.desktop.in.h:1 src/window.c:162 src/window.c:573 src/window.c:812
 msgid "Eye of Gnome"
 msgstr "Gnomes øje"
 
 #: src/window.c:164
-#, fuzzy
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Ophavsret (C) 2000 Free Software Foundation"
+msgid "Ophavsret (C) 2000-2001 The Free Software Foundation"
 
 #: src/window.c:166
 msgid "The GNOME image viewing and cataloging program"
@@ -196,23 +331,119 @@ msgstr "Brug hele skærmen til visning"
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: viewer/eog-image-view.c:915
-#, fuzzy
+#: viewer/GNOME_EOG.oaf.in.h:1
+msgid "EOG Image"
+msgstr "EOG billede"
+
+#: viewer/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "EOG billedfremviser"
+
+#: viewer/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "EOG billedfremviserfabrik"
+
+#: viewer/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr "Indlejret EOG-billede"
+
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Tjek _størrelse"
+
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Tjek _type"
+
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Tjek stor størrelse"
+
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Tjek mellem størrelse"
+
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Tjek lille størrelse"
+
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Tjek _sort type"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Tjek _mørk type"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "Tjek _grå type"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Tjek _lys type"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "Tjek _mellemtone type"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Tjek _hvid type"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Nærmeste naboi interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Normal (pseudofarve) dithering"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear Interpolation"
+msgstr "_Bilineær Interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "_Dither"
+msgstr "_Dither"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "_Hyperbolic Interpolation"
+msgstr "_Hyperbolsk interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Interpolation"
+msgstr "_Interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "_Maximum (high color) dithering"
+msgstr "_Maksimum (meget farve) dithering"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_No dithering"
+msgstr "_Ingen dithering"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Tiles Interpolation"
+msgstr "_Flise-interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_View"
+msgstr "_Fremvisere"
+
+#: viewer/eog-image-view.c:1006
 msgid "Interpolation"
-msgstr "Interpolationstype"
+msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:918
-#, fuzzy
+#: viewer/eog-image-view.c:1009
 msgid "Dither"
-msgstr "Dither type"
+msgstr "Dither"
 
-#: viewer/eog-image-view.c:921
-#, fuzzy
+#: viewer/eog-image-view.c:1012
 msgid "Check Type"
-msgstr "Tjek størrelse"
+msgstr "Tjek type"
 
-#: viewer/eog-image-view.c:924
-#, fuzzy
+#: viewer/eog-image-view.c:1015
 msgid "Check Size"
 msgstr "Tjek størrelse"
 
@@ -220,137 +451,6 @@ msgstr "Tjek størrelse"
 msgid "I could not initialize Bonobo"
 msgstr "Jeg kunne ikke initialisere Bonobo"
 
-#~ msgid "Transparency type"
-#~ msgstr "Gennemsigtighedstype"
-
-#~ msgid "Dark checks"
-#~ msgstr "Tjek af mørke farver"
-
-#~ msgid "Midtone checks"
-#~ msgstr "Tjek af mellemtone"
-
-#~ msgid "Light checks"
-#~ msgstr "Tjek af lyse farver"
-
-#~ msgid "Black only"
-#~ msgstr "Kun sort"
-
-#~ msgid "Gray only"
-#~ msgstr "Kun grå"
-
-#~ msgid "White only"
-#~ msgstr "Kun hvid"
-
-#~ msgid "Small"
-#~ msgstr "Lille"
-
-#~ msgid "Medium"
-#~ msgstr "Mellem"
-
-#~ msgid "Large"
-#~ msgstr "Stor"
-
-#~ msgid "Nearest neighbor (fastest, low quality)"
-#~ msgstr "Nærmeste nabo (hurtigste, lav kvalitet)"
-
-#~ msgid "Bilinear (normal)"
-#~ msgstr "Bilineær (normal)"
-
-#~ msgid "Hyperbolic (slowest, best quality)"
-#~ msgstr "Hyperbolsk (langsomst, beste kvalitet)"
-
-#~ msgid "Two-pass scrolling"
-#~ msgstr "Rulning i to trin"
-
-#~ msgid "None"
-#~ msgstr "Ingen"
-
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "Normal (pseudofarve)"
-
-#~ msgid "Maximum (high color)"
-#~ msgstr "Maksimum (meget farve)"
-
-#~ msgid "Display"
-#~ msgstr "Vis"
-
-#~ msgid "Image Windows"
-#~ msgstr "Billed-vinduer"
-
-#~ msgid "Use scrollbars"
-#~ msgstr "Brug rullebjælker"
-
-#~ msgid "Never"
-#~ msgstr "Aldrig"
-
-#~ msgid "Only if image does not fit"
-#~ msgstr "Kun hvis billedet ikke passer"
-
-#~ msgid "Pick window size and zoom factor automatically"
-#~ msgstr "Vælg vinduesstørrelse og zoomfaktor automatisk"
-
-#~ msgid "Open images in a new window"
-#~ msgstr "Åbn billeder i et nyt vindue"
-
-#~ msgid "Full Screen"
-#~ msgstr "Fuld skærm"
-
-#~ msgid "Use 1:1 zoom factor"
-#~ msgstr "Brug 1:1 zoomfaktor"
-
-#~ msgid "Use same zoom factor as image window"
-#~ msgstr "Brug samme zoomfaktor som billedvindue"
-
-#~ msgid "Fit all images to screen"
-#~ msgstr "Tilpas alle billeder til skærm"
-
-#~ msgid "Fit standard-sized images to screen"
-#~ msgstr "Tilpas standard-størrelse billeder til skærm"
-
-#~ msgid "Put a bevel around the edge of the screen"
-#~ msgstr "Put en skråkant omkring kanten af skærmen"
-
-#~ msgid "Viewers"
-#~ msgstr "Fremvisere"
-
-#~ msgid "Nearest neighbor"
-#~ msgstr "Nærmeste nabo"
-
-#~ msgid "Hyperbolic"
-#~ msgstr "Hyperbolsk"
-
-#~ msgid ""
-#~ "Dark checks\n"
-#~ "Midtone checks\n"
-#~ "Light checks\n"
-#~ "Black only\n"
-#~ "Gray only\n"
-#~ "White only\n"
-#~ msgstr ""
-#~ "mørk tjek\n"
-#~ "Midtone tjek\n"
-#~ "Lys tjek\n"
-#~ "Kun sort\n"
-#~ "Kun grå\n"
-#~ "Kun hvid\n"
-
-#~ msgid ""
-#~ "Small\n"
-#~ "Medium\n"
-#~ "Large\n"
-#~ msgstr ""
-#~ "Lille\n"
-#~ "Mellem\n"
-#~ "Stor\n"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Normal (pseudocolor)\n"
-#~ "Maximum (high color)\n"
-#~ msgstr ""
-#~ "Ingen\n"
-#~ "Normal (pseudofarve)\n"
-#~ "Maksimum (meget farve)\n"
-
-#~ msgid "Image Viewer"
-#~ msgstr "Billedfremviser"
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Billedfremviser"
