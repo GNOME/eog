@@ -44,7 +44,6 @@ struct _EogPreviewPagePrivate
 	gint		  right;
 };
 
-#define SCALE(param) (0.15 * param)
 #define OFFSET_X 2
 #define OFFSET_Y 2
 

@@ -19,6 +19,29 @@ struct _EogPrintSetupPrivate
 	GtkWidget	*adjust_to;
 	GtkWidget	*right_down;
 	GtkWidget	*down_right;
+
+	GtkSpinButton	*spin_top;
+	GtkSpinButton	*spin_bottom;
+	GtkSpinButton	*spin_left;
+	GtkSpinButton	*spin_right;
+
+	guint		 unit;
+};
+
+static struct 
+{
+	const gchar 	*short_name;
+	const gchar 	*full_name;
+	const gdouble 	 multiplier;
+	const guint	 digits;
+	const gfloat	 step_increment;
+	const gfloat 	 page_increment;
+} unit [] = 
+{
+	{N_("pts"), N_("points"), 1.0, 0, 1.0, 10.0},
+	{N_("mm"), N_("millimeter"), 25.4 / 72.0, 1, 1.0, 10.0},
+	{N_("cm"), N_("centimeter"), 2.54 / 72.0, 2, 0.1, 1.0},
+	{N_("In"), N_("inch"), 1 / 72.0, 2, 0.1, 1.0}
 };
 
 static void
@@ -118,32 +141,43 @@ on_fit_to_page_toggled (GtkToggleButton *button, EogPrintSetup *print_setup)
 }
 
 static void
-on_top_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
+store_value (GtkAdjustment *adj, EogPrintSetup *print_setup,
+	     const gchar *name)
 {
-	gconf_client_set_int (print_setup->priv->client,
-			"/apps/eog/viewer/top", adjustment->value, NULL);
+	GConfClient *client;
+	gint         old_value, new_value;
+
+	client = print_setup->priv->client;
+	new_value = adj->value / unit [print_setup->priv->unit].multiplier;
+	old_value = gconf_client_get_int (client, name, NULL);
+
+	if (new_value != old_value)
+		gconf_client_set_int (client, name, new_value, NULL);
 }
 
 static void
-on_right_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
+on_top_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 {
-	gconf_client_set_int (print_setup->priv->client,
-			"/apps/eog/viewer/right", adjustment->value, NULL);
+	store_value (adj, ps, "/apps/eog/viewer/top");
+}
+
+static void
+on_right_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
+{
+	store_value (adj, ps, "/apps/eog/viewer/right");
 }
 
 
 static void
-on_left_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
+on_left_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 {
-	gconf_client_set_int (print_setup->priv->client,
-			"/apps/eog/viewer/left", adjustment->value, NULL);
+	store_value (adj, ps, "/apps/eog/viewer/left");
 }
 
 static void
-on_bottom_value_changed (GtkAdjustment *adjustment, EogPrintSetup *print_setup)
+on_bottom_value_changed (GtkAdjustment *adj, EogPrintSetup *ps)
 {
-	gconf_client_set_int (print_setup->priv->client,
-			"/apps/eog/viewer/bottom", adjustment->value, NULL);
+	store_value (adj, ps, "/apps/eog/viewer/bottom");
 }
 
 static void
@@ -175,27 +209,37 @@ on_dialog_clicked (GnomeDialog *dialog, gint button_number,
 }
 
 static void
-on_pts_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+do_conversion (GtkSpinButton *spin, guint old, guint new)
 {
-	g_warning ("Not implemented!");
+	GtkAdjustment   *adj;
+	gfloat 		 new_value;
+
+	adj = gtk_spin_button_get_adjustment (spin);
+	new_value = adj->value / unit [old].multiplier * unit [new].multiplier;
+	gtk_adjustment_set_value (adj, new_value);
+	adj->step_increment = unit [new].step_increment;
+	adj->page_increment = unit [new].page_increment;
+	gtk_spin_button_configure (spin, adj, 1, unit [new].digits);
 }
 
 static void
-on_cm_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
+on_unit_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
 {
-	g_warning ("Not implemented!");
-}
+	GConfClient	*client;
+	guint		 old_unit, new_unit;
 
-static void
-on_mm_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
-{
-	g_warning ("Not implemented!");
-}
+	client = print_setup->priv->client;
+	old_unit = print_setup->priv->unit;
+	new_unit = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (item), 
+							 "unit"));
+	print_setup->priv->unit = new_unit;
+	gconf_client_set_int (client, "/apps/eog/viewer/unit", new_unit, NULL);
 
-static void
-on_In_activate (GtkMenuItem *item, EogPrintSetup *print_setup)
-{
-	g_warning ("Not implemented!");
+	/* Adjust the margin values */
+	do_conversion (print_setup->priv->spin_top, old_unit, new_unit);
+	do_conversion (print_setup->priv->spin_bottom, old_unit, new_unit);
+	do_conversion (print_setup->priv->spin_left, old_unit, new_unit);
+	do_conversion (print_setup->priv->spin_right, old_unit, new_unit);
 }
 
 static void
@@ -289,7 +333,9 @@ eog_print_setup_new (EogImageView *image_view)
 	const gchar	*buttons[] = {GNOME_STOCK_BUTTON_OK,
 				      _("Print"),
 				      _("Print preview"), NULL};
-	gint		 adjust_to, left, bottom, right, top;
+	gint		 i;
+	gdouble		 left, bottom, right, top;
+	gint		 adjust_to;
 	gboolean	 landscape, fit_to_page, horizontally, vertically, cut;
 	gboolean	 down_right;
 	gchar		*paper_size;
@@ -320,6 +366,8 @@ eog_print_setup_new (EogImageView *image_view)
 					"/apps/eog/viewer/cut", NULL);
 	adjust_to = gconf_client_get_int (new->priv->client, 
 					"/apps/eog/viewer/adjust_to", NULL);
+	new->priv->unit = gconf_client_get_int (new->priv->client, 
+					"/apps/eog/viewer/unit", NULL);
 	left = gconf_client_get_int (new->priv->client,
 					"/apps/eog/viewer/left", NULL);
 	right = gconf_client_get_int (new->priv->client,
@@ -424,79 +472,97 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
 	
 	/* Units */
-	label = gtk_label_new (_("Units"));
-//	gtk_widget_show (label);
+	label = gtk_label_new (_("Units:"));
+	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, 0, 0, 0, 0);
 	widget = gtk_option_menu_new ();
-//	gtk_widget_show (widget);
-	gtk_table_attach (GTK_TABLE (table), widget, 0, 1, 1, 2, 0, 0, 0, 0);
+	gtk_widget_show (widget);
+	gtk_table_attach (GTK_TABLE (table), widget, 0, 1, 1, 2, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
 	menu = gtk_menu_new ();
 	gtk_widget_show (menu);
+	for (i = 0; i < 4; i++) {
+		item = gtk_menu_item_new_with_label (unit [i].short_name);
+		gtk_widget_show (item);
+		gtk_menu_append (GTK_MENU (menu), item);
+		gtk_signal_connect (GTK_OBJECT (item), "activate", 
+				    GTK_SIGNAL_FUNC (on_unit_activate), new);
+		gtk_object_set_data (GTK_OBJECT (item), "unit", 
+				     GINT_TO_POINTER (i));
+	}
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
-	item = gtk_menu_item_new_with_label (_("pts"));
-	gtk_widget_show (item);
-	gtk_menu_append (GTK_MENU (menu), item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate", 
-			    GTK_SIGNAL_FUNC (on_pts_activate), new);
-	item = gtk_menu_item_new_with_label (_("mm"));
-	gtk_widget_show (item);
-	gtk_menu_append (GTK_MENU (menu), item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate",
-			    GTK_SIGNAL_FUNC (on_mm_activate), new);
-	item = gtk_menu_item_new_with_label (_("cm"));
-	gtk_widget_show (item);
-	gtk_menu_append (GTK_MENU (menu), item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate",
-			    GTK_SIGNAL_FUNC (on_cm_activate), new);
-	item = gtk_menu_item_new_with_label (_("In"));
-	gtk_widget_show (item);
-	gtk_menu_append (GTK_MENU (menu), item);
-	gtk_signal_connect (GTK_OBJECT (item), "activate",
-			    GTK_SIGNAL_FUNC (on_In_activate), new);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (widget), new->priv->unit);
 
 	/* Top margin */
-	label = gtk_label_new (_("Top"));
+	label = gtk_label_new (_("Top:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 2, 0, 1, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (top, 0, 1000, 1, 10, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 1);
-
+	adjustment = gtk_adjustment_new (
+				top * unit [new->priv->unit].multiplier,
+				0, 10000,
+				unit [new->priv->unit].step_increment,
+				unit [new->priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+				      unit [new->priv->unit].digits);
 	gtk_widget_show (button);
-	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2, 0, 0, 0, 0);
-	gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 1, 2, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	new->priv->spin_top = GTK_SPIN_BUTTON (button);
+	gtk_signal_connect (adjustment, "value_changed",
 			    GTK_SIGNAL_FUNC (on_top_value_changed), new);
 	
 	/* Left margin */
-	label = gtk_label_new (_("Left"));
+	label = gtk_label_new (_("Left:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 0, 1, 2, 3, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (left, 0, 1000, 1, 10, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 1);
+	adjustment = gtk_adjustment_new (
+				left * unit [new->priv->unit].multiplier, 
+				0, 10000, 
+				unit [new->priv->unit].step_increment, 
+				unit [new->priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+				      unit [new->priv->unit].digits);
 	gtk_widget_show (button);
-	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 3, 4, 0, 0, 0, 0);
-	gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+	gtk_table_attach (GTK_TABLE (table), button, 0, 1, 3, 4, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	new->priv->spin_left = GTK_SPIN_BUTTON (button);
+	gtk_signal_connect (adjustment, "value_changed",
 			    GTK_SIGNAL_FUNC (on_left_value_changed), new);
 
 	/* Right margin */
-	label = gtk_label_new (_("Right"));
+	label = gtk_label_new (_("Right:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 2, 3, 2, 3, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (right, 0, 1000, 1, 10, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 1);
+	adjustment = gtk_adjustment_new (
+				right * unit [new->priv->unit].multiplier,
+				0, 10000, 
+				unit [new->priv->unit].step_increment,
+				unit [new->priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+				      unit [new->priv->unit].digits);
 	gtk_widget_show (button);
-	gtk_table_attach (GTK_TABLE (table), button, 2, 3, 3, 4, 0, 0, 0, 0);
-	gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+	gtk_table_attach (GTK_TABLE (table), button, 2, 3, 3, 4, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	new->priv->spin_right = GTK_SPIN_BUTTON (button);
+	gtk_signal_connect (adjustment, "value_changed",
 			    GTK_SIGNAL_FUNC (on_right_value_changed), new);
 
 	/* Bottom margin */
-	label = gtk_label_new (_("Bottom"));
+	label = gtk_label_new (_("Bottom:"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 1, 2, 4, 5, 0, 0, 0, 0);
-	adjustment = gtk_adjustment_new (bottom, 0, 1000, 1, 10, 10);
-	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 1);
+	adjustment = gtk_adjustment_new (
+				bottom * unit [new->priv->unit].multiplier,
+				0, 10000,
+				unit [new->priv->unit].step_increment,
+				unit [new->priv->unit].page_increment, 10);
+	button = gtk_spin_button_new (GTK_ADJUSTMENT (adjustment), 1, 
+				      unit [new->priv->unit].digits);
 	gtk_widget_show (button);
-	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 5, 6, 0, 0, 0, 0);
-	gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+	gtk_table_attach (GTK_TABLE (table), button, 1, 2, 5, 6, 
+			  GTK_FILL | GTK_EXPAND, 0, 0, 0);
+	new->priv->spin_bottom = GTK_SPIN_BUTTON (button);
+	gtk_signal_connect (adjustment, "value_changed",
 			    GTK_SIGNAL_FUNC (on_bottom_value_changed), new);
 
 	/* Second page */ 

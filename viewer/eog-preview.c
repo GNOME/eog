@@ -46,8 +46,8 @@ struct _EogPreviewPrivate
 };
 
 #define SCALE(param) (0.15 * param)
-#define CHECK_INT(c,x,y)    {gint z; z = y; if (x != z) c = TRUE; x = z;}
-#define CHECK_BOOL(c, x, y) {gboolean z; z = y; if (x != z) c = TRUE; x = z;}
+#define CHECK_INT(c,x,y)   {gint z; z = y; if (x != z) c = TRUE; x = z;}
+#define CHECK_BOOL(c,x,y)  {gboolean z; z = y; if (x != z) c = TRUE; x = z;}
 
 static gboolean
 settings_changed (EogPreview *preview)
@@ -96,7 +96,7 @@ settings_changed (EogPreview *preview)
 		   SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/right", NULL)));
 	CHECK_INT (changed, preview->priv->left,
-		   SCALE (gconf_client_get_int (client,
+		     SCALE (gconf_client_get_int (client,
 					"/apps/eog/viewer/left", NULL)));
 	CHECK_BOOL (changed, preview->priv->fit_to_page, 
 		    gconf_client_get_bool (client,

@@ -592,7 +592,8 @@ eog_image_view_print (EogImageView *image_view, gboolean preview)
 	gboolean 	   landscape, horizontally, vertically, fit_to_page;
 	gboolean	   down_right, cut;
 	gchar		  *paper_size;
-	gint		   adj, left, bottom, right, top;
+	gint		   left, bottom, right, top;
+	gint		   adj;
 	gint		   pixbuf_width, pixbuf_height;
 	gint		   width, height;
 	double		   paper_width, paper_height;
