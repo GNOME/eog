@@ -27,12 +27,21 @@
 
 
 
+/* Used to hold signal handler IDs for models */
+typedef struct {
+	guint interval_changed_id;
+	guint interval_added_id;
+	guint interval_removed_id;
+} ModelSignalIDs;
+
 /* Layout information for row/col major modes.  Invariants:
  *
  *   - The items_per_block field specifies the number of items that fit in the
  *     minor dimension.  If it is 0, then it means the block size has not been
  *     computed yet and as such n_display and items will be 0 and NULL,
  *     respectively.
+ *
+ *   - If first_index is -1, it means no items have been configured.
  *
  *   - The items array contains as many slots as needed to fill up the wrap list
  *     at its current size.
@@ -48,15 +57,6 @@ typedef struct {
 	/* Array of displayable items, of length n_display */
 	GnomeCanvasItem **items;
 } BlockModeInfo;
-
-
-
-/* Used to hold signal handler IDs for models */
-typedef struct {
-	guint interval_changed_id;
-	guint interval_added_id;
-	guint interval_removed_id;
-} ModelSignalIDs;
 
 /* Private part of the GnomeWrapList structure */
 typedef struct {
@@ -228,7 +228,11 @@ gnome_wrap_list_init (GnomeWrapList *wlist)
 	priv->item_width = 1;
 	priv->item_height = 1;
 
+	/* Other defaults */
+
 	priv->shadow_type = GTK_SHADOW_NONE;
+
+	priv->u.bm.first_index = -1;
 
 	/* Create our canvas */
 
@@ -387,15 +391,70 @@ bm_adjust_scroll_region (GnomeWrapList *wlist, BMLayout *l, int n_items)
 	}
 }
 
+/* Ensures that the item array has the correct size and layout information */
+static void
+bm_ensure_array_size (GnomeWrapList *wlist, BMLayout *l)
+{
+	WrapListPrivate *priv;
+	BlockModeInfo *bm;
+	int n_display;
+
+	priv = wlist->priv;
+	bm = &priv->u.bm;
+
+	n_display = (l->last_index - l->first_index + 1) * l->n_items_minor;
+
+	/* If the item factory changed or the array layout changed, we must
+	 * discard everything.
+	 */
+
+	if (bm->items_per_block != 0 && (priv->need_factory_update
+					 || bm->items_per_block != l.n_items_minor
+					 || bm->n_display != n_display)) {
+		int i;
+
+		g_assert (bm->n_display > 0);
+		g_assert (bm->items != NULL);
+
+		for (i = 0; i < priv->u.bm.n_display; i++)
+			if (bm->items[i])
+				gtk_object_destroy (GTK_OBJECT (bm->items[i]));
+
+		g_free (bm->items);
+		bm->items = NULL;
+		bm->items_per_block = 0;
+		bm->first_index = -1;
+		bm->n_display = 0;
+	}
+
+	priv->need_factory_update = FALSE;
+
+	/* Allocate the item array if necessary */
+
+	if (bm->items_per_block == 0) {
+		g_assert (bm->n_display == 0);
+		g_assert (bm->items == NULL);
+
+		bm->items_per_block = l->n_items_minor;
+		bm->n_display = n_display;
+		bm->items = g_new0 (GnomeCanvasItem *, bm->n_display);
+	}
+
+	g_assert (bm->items_per_block == l->n_items_minor);
+	g_assert (bm->n_display == n_display);
+	g_assert (bm->items != NULL);
+}
+
 /* Updates the wrap list when a data model has changed */
 static void
 bm_update_data (GnomeWrapList *wlist)
 {
 	WrapListPrivate *priv;
 	BMLayout l;
-	int n_display;
+	BlockModeInfo *bm;
 	int i;
-	int update_first, update_index;
+	int req_update_first, req_update_n;
+	int update_first, update_first_index;
 	int update_n;
 	GnomeListModel *model;
 	int data_len;
@@ -404,62 +463,13 @@ bm_update_data (GnomeWrapList *wlist)
 	GnomeCanvasGroup *group;
 
 	priv = wlist->priv;
+	bm = &priv->u.bm;
 
 	if (!(priv->need_factory_update || priv->need_data_update))
 		return;
 
 	bm_compute_layout (wlist, &l);
-
-	/* If the item factory or the number of items per block changed, we need
-         * to discard all items.
-	 */
-
-	if (priv->u.bm.items_per_block != 0
-	    && (priv->need_factory_update || priv->u.bm.items_per_block != l.n_items_minor)) {
-		g_assert (priv->u.bm.n_display > 0);
-		g_assert (priv->u.bm.items != NULL);
-
-		for (i = 0; i < priv->u.bm.n_display; i++)
-			if (priv->u.bm.items[i]) {
-				gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[i]));
-				priv->u.bm.items[i] = NULL;
-			}
-
-		priv->u.bm.first_index = -1;
-	}
-
-	priv->need_factory_update = FALSE;
-
-	/* Resize the item array if needed */
-
-	n_display = (l.last_block - l.first_block + 1) * l.n_items_minor;
-
-	if (priv->u.bm.items_per_block == 0) {
-		g_assert (priv->u.bm.n_display == 0);
-		g_assert (priv->u.bm.items == NULL);
-
-		priv->u.bm.items = g_new0 (GnomeCanvasItem *, n_display);
-		priv->u.bm.first_index = -1;
-	} else {
-		g_assert (priv->u.bm.n_display > 0);
-		g_assert (priv->u.bm.items != NULL);
-
-		if (priv->u.bm.n_display > n_display) {
-			for (i = n_display; i < priv->u.bm.n_display; i++)
-				if (priv->u.bm.items[i])
-					gtk_object_destroy (GTK_OBJECT (priv->u.bm.items[i]));
-
-			priv->u.bm.items = g_renew (GnomeCanvasItem *, priv->u.bm.items, n_display);
-		} else if (priv->u.bm.n_display < n_display) {
-			priv->u.bm.items = g_renew (GnomeCanvasItem *, priv->u.bm.items, n_display);
-
-			for (i = priv->u.bm.n_display; i < n_display; i++)
-				priv->u.bm.items[i] = NULL;
-		}
-	}
-
-	priv->u.bm.items_per_block = l.n_items_minor;
-	priv->u.bm.n_display = n_display;
+	bm_ensure_array_size (wlist, &l);
 
 	/* Compute the range of items that needs to be updated */
 
@@ -470,23 +480,23 @@ bm_update_data (GnomeWrapList *wlist)
 	else
 		data_len = 0;
 
-	if (priv->update_n == -1)
-		update_n = data_len - priv->update_start;
-	else
-		update_n = priv->update_n;
+	if (bm->first_index == -1) {
+		req_update_first = 0;
+		req_update_n = data_len;
 
-	if (priv->u.bm.first_index == -1) {
-		update_first = l.first_block * l.n_items_minor;
-		update_index = 0;
-		update_n = MIN (update_n, n_display);
-		priv->u.bm.first_index = update_first;
+		bm->first_index = l.first_block * l.n_items_minor;
 	} else {
-		update_first = priv->update_start;
-		update_index = priv->update_start - priv->u.bm.first_index;
-		update_n = MIN (update_n, n_display) - update_index;
+		req_update_first = priv->update_start;
+
+		if (priv->update_n == -1)
+			req_update_n = data_len - priv->update_start;
+		else
+			req_update_n = priv->update_n;
 	}
 
-	g_assert (update_n >= 0 && update_n <= n_display);
+	/* Clip update range to visible range */
+
+	
 
 	/* Update the items that need it */
 
