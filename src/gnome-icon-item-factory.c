@@ -340,9 +340,7 @@ ii_factory_configure_item (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 
 	gnome_canvas_item_set (icon->image,
 			       "pixbuf", pixbuf,
-			       "x_set", TRUE,
 			       "x", (double) image_x,
-			       "y_set", TRUE,
 			       "y", (double) image_y,
 			       NULL);
 

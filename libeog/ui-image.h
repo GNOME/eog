@@ -53,8 +53,9 @@ struct _UIImageClass {
 
 
 GtkType ui_image_get_type (void);
+
 GtkWidget *ui_image_new (void);
-void ui_image_construct (UIImage *ui);
+GtkWidget *ui_image_construct (UIImage *ui);
 
 void ui_image_set_image (UIImage *ui, Image *image);
 

@@ -15,17 +15,17 @@ eog_SOURCES =				\
 	gtkscrollframe.h		\
 	image.h				\
 	image.c				\
-	image-item.c			\
-	image-item.h			\
+	image-view.c			\
+	image-view.h			\
 	main.c				\
-	render.c			\
-	render.h			\
 	stock.c				\
 	stock.h				\
 	tb-image.c			\
 	tb-image.h			\
 	ui-image.c			\
 	ui-image.h			\
+	uta.c				\
+	uta.h				\
 	util.c				\
 	util.h				\
 	window.c			\

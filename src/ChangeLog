@@ -1,3 +1,33 @@
+2000-04-01  Federico Mena Quintero  <federico@helixcode.com>
+
+	* uta.[ch]: New files with utilities for manipulating microtile
+	arrays.
+
+	* image-view.[ch]: New files with the new image view widget.  We
+	don't use the canvas anymore due to GtkLayout's lack of diagonal
+	scrolling.  This widget uses a fancy method to pull out dirty
+	rectangles from a microtile array, one by one, in the idle loop.
+	This lets the user preempt the drawing process, say, when
+	scrolling or zooming quickly.
+
+	* ui-image.c (UIImagePrivate): Removed the canvas-related fields.
+	Now we use an ImageView widget instead.  Modified all the
+	functions to use this, and removed some old canvas-specific
+	functions.
+
+	* Makefile.am (eog_SOURCES): Added image-view.[ch] to the list of
+	sources.  Removed image-item.[ch] and render.[ch]; we now use the
+	GdkPixbuf scaling functions instead of our own.
+
+	* Makefile.am (eog_SOURCES): Added uta.[ch] to the list of
+	sources.
+
+	* gnome-icon-item-factory.c (ii_factory_configure_item): Removed
+	obsolete x_set and y_set arguments from the pixbuf canvas item.
+
+	* *.[ch]: Use the gdk_pixbuf_get_*() accessor functions instead of
+	accessing the GdkPixbuf's fields directly.
+
 1999-12-10  Federico Mena Quintero  <federico@redhat.com>
 
 	* gnome-wrap-list.c (bm_compute_item_size): New helper function to

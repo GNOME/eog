@@ -266,7 +266,6 @@ recompute_bounding_box (ImageItem *ii)
 {
 	GnomeCanvasItem *item;
 	ImageItemPrivate *priv;
-	ArtPixBuf *apb;
 	double i2c[6];
 	ArtPoint i, c;
 
@@ -274,9 +273,6 @@ recompute_bounding_box (ImageItem *ii)
 	priv = ii->priv;
 
 	if (priv->image && priv->image->pixbuf) {
-		g_assert (priv->image->pixbuf->art_pixbuf != NULL);
-		apb = priv->image->pixbuf->art_pixbuf;
-
 		priv->cwidth = floor (priv->uwidth * item->canvas->pixels_per_unit + 0.5);
 		priv->cheight = floor (priv->uheight * item->canvas->pixels_per_unit + 0.5);
 	} else
@@ -338,6 +334,7 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 	ArtIRect i, d, dest;
 	int w, h;
 	guchar *buf;
+	GdkPixbuf *tmp;
 
 	ii = IMAGE_ITEM (item);
 	priv = ii->priv;
@@ -363,6 +360,26 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 	w = dest.x1 - dest.x0;
 	h = dest.y1 - dest.y0;
 
+	tmp = gdk_pixbuf_new (ART_PIX_RGB, FALSE, 8, w, h);
+	gdk_pixbuf_composite_color (priv->image->pixbuf, tmp,
+				    0, 0, w, h,
+				    -(dest.x0 - item->x1), -(dest.y0 - item->y1),
+				    item->canvas->pixels_per_unit, item->canvas->pixels_per_unit,
+				    ART_FILTER_BILINEAR,
+				    255,
+				    dest.x0 - item->x1, dest.y0 - item->y1,
+				    16,
+				    0x00555555, 0x00aaaaaa);
+	gdk_draw_rgb_image_dithalign (drawable, GTK_WIDGET (item->canvas)->style->black_gc,
+				      dest.x0 - x, dest.y0 - y,
+				      w, h,
+				      GDK_RGB_DITHER_NORMAL,
+				      gdk_pixbuf_get_pixels (tmp),
+				      gdk_pixbuf_get_rowstride (tmp),
+				      x, y);
+	gdk_pixbuf_unref (tmp);
+
+#if 0
 	buf = g_new (guchar, w * h * 3);
 	render_image (priv->image->pixbuf, buf,
 		      w, h, w * 3,
@@ -379,6 +396,7 @@ image_item_draw (GnomeCanvasItem *item, GdkDrawable *drawable, int x, int y, int
 				      buf, w * 3,
 				      x, y);
 	g_free (buf);
+#endif
 }
 
 /* Point handler for the image item */
