@@ -410,9 +410,7 @@ eog_collection_item_new (GnomeCanvasGroup *group, EogImage *image)
 	g_return_val_if_fail (GNOME_IS_CANVAS_GROUP (group), NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 	
-	item = g_object_new (EOG_TYPE_COLLECTION_ITEM, NULL);
-
-	gnome_canvas_item_construct (GNOME_CANVAS_ITEM (item), group, NULL, NULL);
+	item = g_object_new (EOG_TYPE_COLLECTION_ITEM, "parent", group, NULL);
 
 	eog_collection_item_construct (item, image);
 
