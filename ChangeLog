@@ -1,3 +1,10 @@
+2002-04-10  Iain <iain@ximian.com>
+
+	* shell/eog-preferences.c (eog_preferences_construct): Turn off the
+	border and tabs if there's only one tab.
+	(eog_preferences_new): Destroy the preferences window when the main
+	app window is destroyed.
+
 2002-04-15  Michael Meeks  <michael@ximian.com>
 
 	* Finally fully port to Gnome 2.0 ( remove all deprecated

@@ -171,6 +171,11 @@ eog_preferences_construct (EogPreferences *preferences,
 
 	page_count = Bonobo_PropertyControl__get_pageCount (prop_control, &ev);
 
+	if (page_count == 1) {
+		gtk_notebook_set_show_border (GTK_NOTEBOOK (preferences->priv->notebook), FALSE);
+		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (preferences->priv->notebook), FALSE);
+	}
+	
 	for (i = 0; i < page_count; i++)
 	    add_property_control_page (preferences, prop_control,
 				       uic, i, &ev);
@@ -179,6 +184,13 @@ eog_preferences_construct (EogPreferences *preferences,
 	CORBA_exception_free (&ev);
 
 	return preferences;
+}
+
+static void
+destroy_prefs_window (EogWindow *window,
+		      EogPreferences *preferences)
+{
+	gtk_widget_destroy (GTK_WIDGET (preferences));
 }
 
 GtkWidget *
@@ -190,5 +202,10 @@ eog_preferences_new (EogWindow *window)
 
 	preferences = g_object_new (eog_preferences_get_type (), NULL);
 
+	/* Kind of hack, but can't seem to find a way to change
+	   a GtkDialog's flags after its been created */
+	g_signal_connect (G_OBJECT (window), "destroy",
+			  G_CALLBACK (destroy_prefs_window), preferences);
+	
 	return GTK_WIDGET (eog_preferences_construct (preferences, window));
 }
