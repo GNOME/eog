@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-08-18 10:17+0300\n"
+"POT-Creation-Date: 2005-02-18 17:14+0200\n"
+"PO-Revision-Date: 2005-02-18 10:17+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
 msgstr "Перегляд зображень"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
-msgstr "Відображення багатьох різних типів зображень"
+msgstr "Програма перегляду зображень різних типів"
 
 #: eog.glade.h:1
 msgid "    "
@@ -39,7 +39,7 @@ msgstr "."
 
 #: eog.glade.h:4
 msgid "<b>File Name Preview</b>"
-msgstr "<b>Попередній перегляд назви файлу</b>"
+msgstr "<b>Перегляд назви файлу</b>"
 
 #: eog.glade.h:5
 msgid "<b>File Path Specifications</b>"
@@ -51,7 +51,7 @@ msgstr "<b>Інтерполяція зображень</b>"
 
 #: eog.glade.h:7
 msgid "<b>Image Zoom</b>"
-msgstr "<b>Збільшення зображення</b>"
+msgstr "<b>Масштабування зображення</b>"
 
 #: eog.glade.h:8
 msgid "<b>Options</b>"
@@ -63,7 +63,7 @@ msgstr "<b>Послідовність</b>"
 
 #: eog.glade.h:10
 msgid "<b>Transparent Parts</b>"
-msgstr "<b>Прозорі частини</b>"
+msgstr "<b>Прозорі елементи</b>"
 
 #: eog.glade.h:12
 #, no-c-format
@@ -91,8 +91,8 @@ msgid "Destination Folder:"
 msgstr "Тека призначення:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Параметри"
+msgid "Eye of GNOME Preferences"
+msgstr "Параметри програми \"Око GNOME\""
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -140,7 +140,7 @@ msgstr "О_гляд"
 
 #: eog.glade.h:30
 msgid "_Interpolate image on zoom"
-msgstr "_Інтерполювати зображення"
+msgstr "_Інтерполювати зображення при збільшенні"
 
 #: eog.glade.h:31
 msgid "_Loop sequence"
@@ -148,7 +148,7 @@ msgstr "_Циклічна послідовність"
 
 #: eog.glade.h:32
 msgid "seconds"
-msgstr "с"
+msgstr "секунд"
 
 #: eog.schemas.in.h:1
 msgid ""
@@ -208,22 +208,30 @@ msgid "Open images in a new window"
 msgstr "Відкрити зображення у новому вікні"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Показувати/приховувати відомості про зображеня для колекції."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "показувати/приховувати відомості про зображення для одного зображення."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Показати чи приховати рядок стану вікна."
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Показати чи прибрати пенал вікна."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Колір прозорості"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Індикатор прозорості"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -231,14 +239,14 @@ msgstr ""
 "Визначає, чи при відкриванні зображення створюватиметься нове вікно, замість "
 "того, щоб замінювати зображення в поточному."
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 "Визначає, що потрібно показувати послідовність зображень у нескінченному "
 "циклі."
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -247,35 +255,39 @@ msgstr ""
 "Інтерполяція дає кращу якість але це призводить до деякого сповільнення "
 "роботи."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Всі файли"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Всі зображення"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "точок: %s x %s"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Відкрити у новому вікні"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Завантажити зображення"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "Відкрити теку"
 
@@ -298,7 +310,7 @@ msgstr "Файл існує"
 
 #: libeog/eog-image.c:1400 libeog/eog-image.c:1526
 msgid "No image loaded."
-msgstr "Не завантажено зображень."
+msgstr "Зображення не завантажено."
 
 #: libeog/eog-image.c:1409 libeog/eog-image.c:1535
 msgid "Temporary file creation failed."
@@ -314,11 +326,11 @@ msgstr "Дані зображення"
 
 #: libeog/eog-info-view-exif.c:28
 msgid "Image Taking Conditions"
-msgstr "Умови зйомки"
+msgstr "Умови зйомки зображення"
 
 #: libeog/eog-info-view-exif.c:29
 msgid "Maker Note"
-msgstr "Примітка"
+msgstr "Примітка автора"
 
 #: libeog/eog-info-view-exif.c:30
 msgid "Other"
@@ -365,19 +377,19 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: libeog/eog-save-as-dialog-helper.c:137
+#: libeog/eog-save-as-dialog-helper.c:138
 msgid "Option not available."
 msgstr "Параметр недоступний."
 
-#: libeog/eog-save-as-dialog-helper.c:138
+#: libeog/eog-save-as-dialog-helper.c:139
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
 msgstr ""
 "Для використання цієї функції потрібна бібліотека libexif. Встановіть "
 "libexif (http://libexif.sf.net) та перекомпілюйте програму \"Око GNOME\"."
 
-#: libeog/eog-save-as-dialog-helper.c:214
+#: libeog/eog-save-as-dialog-helper.c:215
 msgid "as is"
 msgstr "як є"
 
@@ -444,9 +456,9 @@ msgstr ""
 "Юрій Сирота\n"
 "Максим Дзюманенко <mvd@mylinux.com.ua>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
+#: shell/main.c:520
+msgid "Eye of GNOME"
 msgstr "Око GNOME"
 
 #: shell/eog-window.c:322
@@ -456,52 +468,52 @@ msgstr "Програма перегляду та каталогізації зо
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"Не вдається відобразити довідку до Ока GNOME.\n"
+"Не вдається відобразити довідку програми \"Око GNOME\".\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Перезаписати файл %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Файл існує. Бажаєте перезаписати його?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Пропустити"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Перезаписати"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Помилка при збереженні %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Повторити"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Не вдається визначити формат файлу %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Використовуйте відповідний суфікс файлу або виберіть формат файлу."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Помилка збереження зображень."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
@@ -509,158 +521,182 @@ msgstr[0] "Ви справді бажаєте перемістити %i зобр
 msgstr[1] "Ви справді бажаєте перемістити %i зображення у смітник?"
 msgstr[2] "Ви справді бажаєте перемістити %i зображень у смітник?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Не вдається отримати доступ до смітника."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Помилка при видаленні зображення %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i т  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_Файл"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "_Правка"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "_Вигляд"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_Довідка"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_Створити"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Відкрити нове вікно"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Відкрити..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Відкрити файл"
 
-#: shell/eog-window.c:2239
-msgid "Open _Directory..."
-msgstr "Відкрити _каталог..."
+#: shell/eog-window.c:2280
+msgid "Open _Folder..."
+msgstr "Відкрити _теку..."
 
-#: shell/eog-window.c:2239
-msgid "Open a directory"
-msgstr "Відкрити каталог"
+#: shell/eog-window.c:2280
+msgid "Open a folder"
+msgstr "Відкрити теку"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "_Закрити"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Закрити вікно"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "П_араметри"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "Параметри \"Ока GNOME\""
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "Параметри програми \"Око GNOME\""
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Зміст"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Довідка про програму"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "_Про програму"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "Про цю програму"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "_Панель інструментів"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Змінює видимість панелі інструментів у поточному вікні"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "Рядок _стану"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Змінює видимість рядка стану у поточному вікні"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "З_берегти"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "Зберегти _як..."
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "В_ернути"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Перевернути _горизонтально"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Перевернути _вертикально"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "Повернути _за годинниковою стрілкою"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Повернути _проти годинникової стрілки"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Повернути _на 180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Видалити"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "На _весь екран"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "З_більшити"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "З_меншити"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "Піді_гнати"
 
-#: shell/main.c:236
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "Інформація про _зображення"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Змінює видимість панелі інформації у поточному вікні"
+
+#: shell/eog-window.c:2374
+msgid "User interface description not found."
+msgstr "Опис інтерфейсу користувача не знайдено."
+
+#: shell/main.c:67
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "Не вдається створити інтерфейс користувача програми \"Око GNOME\""
+
+#: shell/main.c:258
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -669,19 +705,19 @@ msgstr ""
 "Ви збираєтесь відкрити %i вікон одночасно. Чи не хочете ви відкрити їх в "
 "колекції?"
 
-#: shell/main.c:240
+#: shell/main.c:262
 msgid "Open multiple single windows?"
-msgstr "Відкрити багато вікон?"
+msgstr "Відкрити багато окремих вікон?"
 
-#: shell/main.c:244
+#: shell/main.c:266
 msgid "Single Windows"
 msgstr "Окремі вікна"
 
-#: shell/main.c:246
+#: shell/main.c:268
 msgid "Collection"
 msgstr "Колекція"
 
-#: shell/main.c:298
+#: shell/main.c:320
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Файл не знайдено."
@@ -693,192 +729,10 @@ msgstr[2] "Файлів не знайдено."
 msgid "Could not open `%s'"
 msgstr "Не вдається відкрити \"%s\""
 
-#~ msgid "Images: %i/%i"
-#~ msgstr "Зображення: %i/%i"
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (неправильний Юнікод)"
 
-#~ msgid "_Quit"
-#~ msgstr "Ви_йти"
-
-#~ msgid "Close all windows and quit"
-#~ msgstr "Закрити всі вікна та вийти"
-
-#~ msgid "EOG Image Collection Viewer"
-#~ msgstr "Переглядач колекції зображень"
-
-#~ msgid "EOG Image collection view factory"
-#~ msgstr "Фабрика відображення колекції зображень"
-
-#~ msgid "Image Collection"
-#~ msgstr "Колекція зображень"
-
-#~ msgid "Image Collection Viewer"
-#~ msgstr "Переглядач колекції зображень"
-
-#~ msgid "View as I_mage Collection"
-#~ msgstr "Показати, як _колекцію зображень"
-
-#~ msgid "View as Image Collection"
-#~ msgstr "Показати як колекцію зображень"
-
-#~ msgid "Next"
-#~ msgstr "Наступне"
-
-#~ msgid "Next Image"
-#~ msgstr "Наступне зображення"
-
-#~ msgid "Previous"
-#~ msgstr "Попереднє"
-
-#~ msgid "Previous Image"
-#~ msgstr "Попереднє зображення"
-
-#~ msgid "Rotate 180 _Degrees"
-#~ msgstr "Повернути на 1_80°"
-
-#~ msgid "Rotate C_lockwise"
-#~ msgstr "Повернути за _годинниковою стрілкою"
-
-#~ msgid "Rotate Counte_r Clockwise"
-#~ msgstr "Повернути _проти годинникової стрілки"
-
-#~ msgid "Slide Show"
-#~ msgstr "Слайд-шоу"
-
-#~ msgid "Cancel saving"
-#~ msgstr "Скасувати збереження"
-
-#~ msgid "Saving finished"
-#~ msgstr "Збереження завершено"
-
-#~ msgid "Move to Trash"
-#~ msgstr "Перенести у смітник"
-
-#~ msgid "Collection View"
-#~ msgstr "Перегляд колекції"
-
-#~ msgid "Window Title"
-#~ msgstr "Заголовок вікна"
-
-#~ msgid "Status Text"
-#~ msgstr "Текст стану"
-
-#~ msgid "Progress of Image Loading"
-#~ msgstr "Перебіг завантаження зображення"
-
-#~ msgid "Saving image"
-#~ msgstr "Збереження зображення"
-
-#~ msgid "EOG Image"
-#~ msgstr "Зображення EOG"
-
-#~ msgid "EOG Image Viewer"
-#~ msgstr "Переглядач зображень"
-
-#~ msgid "EOG Image viewer factory"
-#~ msgstr "Фабрика переглядачів зображень"
-
-#~ msgid "Embeddable EOG Image"
-#~ msgstr "Зображення, що вбудовується (програма EOG)"
-
-#~ msgid "Image"
-#~ msgstr "Зображення"
-
-#~ msgid "Fit"
-#~ msgstr "Підігнати"
-
-#~ msgid "In"
-#~ msgstr "Більше"
-
-#~ msgid "Normal"
-#~ msgstr "Нормальний"
-
-#~ msgid "Out"
-#~ msgstr "Менше"
-
-#~ msgid "Full Screen"
-#~ msgstr "На весь екран"
-
-#~ msgid "Previews the image to be printed"
-#~ msgstr "Перегляд зображення до друку"
-
-#~ msgid "Print Previe_w..."
-#~ msgstr "_Попередній перегляд..."
-
-#~ msgid "Print Set_up"
-#~ msgstr "Пара_метри принтера"
-
-#~ msgid "Print image to the printer"
-#~ msgstr "Надрукувати зображення на принтері"
-
-#~ msgid "Rotate Left"
-#~ msgstr "Повернути ліворуч"
-
-#~ msgid "Rotate Right"
-#~ msgstr "Повернути праворуч"
-
-#~ msgid "Save _As..."
-#~ msgstr "Зберегти _як..."
-
-#~ msgid "Setup the page settings for your current printer"
-#~ msgstr "Налаштувати параметри сторінки для вашого поточного принтера"
-
-#~ msgid "_Print..."
-#~ msgstr "Д_рук..."
-
-#~ msgid "Preview"
-#~ msgstr "Перегляд"
-
-#~ msgid "/Rotate C_lockwise"
-#~ msgstr "/Повернути _за годинниковою стрілкою"
-
-#~ msgid "/Rotate Counte_r Clockwise"
-#~ msgstr "/Повернути _проти годинникової стрілки"
-
-#~ msgid "/_Zoom In"
-#~ msgstr "/З_більшити"
-
-#~ msgid "/Zoom _Out"
-#~ msgstr "/З_меншити"
-
-#~ msgid "/_Normal Size"
-#~ msgstr "/_Нормальний розмір"
-
-#~ msgid "/Best _Fit"
-#~ msgstr "/Піді_гнати"
-
-#~ msgid "/_Close"
-#~ msgstr "/_Закрити"
-
-#~ msgid "Loading of image %s failed."
-#~ msgstr "Не вдається завантажити зображення %s."
-
-#~ msgid ""
-#~ "Loading of image %s failed.\n"
-#~ "Reason: %s."
-#~ msgstr ""
-#~ "Не вдається завантажити зображення %s.\n"
-#~ "Причина: %s."
-
-#~ msgid "Loading failed"
-#~ msgstr "Збій завантаження"
-
-#~ msgid "Image successfully saved"
-#~ msgstr "Зображення успішно збережено"
-
-#~ msgid "Image saving failed"
-#~ msgstr "Не вдається зберегти зображення"
-
-#~ msgid "Image Width"
-#~ msgstr "Ширина зображення"
-
-#~ msgid "Image Height"
-#~ msgstr "Висота зображення"
-
-#~ msgid "Statusbar Text"
-#~ msgstr "Текст рядка стану"
-
-#~ msgid "Desired Window Width"
-#~ msgstr "Бажана ширина вікна"
-
-#~ msgid "Desired Window Height"
-#~ msgstr "Бажана висота вікна"
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "Не вдається відобразити довідку програми \"Око GNOME\"."
