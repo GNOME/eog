@@ -1,3 +1,5 @@
+SUBDIRS = stock
+
 INCLUDES =						\
 	-I$(includedir)					\
 	$(EXTRA_GNOME_CFLAGS)				\
@@ -16,6 +18,8 @@ eog_SOURCES =			\
 	main.c			\
 	render.c		\
 	render.h		\
+	stock.c			\
+	stock.h			\
 	tb-image.c		\
 	tb-image.h		\
 	ui-image.c		\

@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gnome.h>
+#include "stock.h"
 #include "util.h"
 #include "window.h"
 
@@ -38,6 +39,8 @@ main (int argc, char **argv)
 
 	gnome_init_with_popt_table (PACKAGE, VERSION, argc, argv, NULL, 0, &ctx);
 	gdk_rgb_init ();
+
+	stock_init ();
 
 	args = poptGetArgs (ctx);
 

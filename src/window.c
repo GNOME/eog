@@ -58,6 +58,9 @@ typedef struct {
 
 	/* View menu */
 	GtkWidget *view_menu;
+
+	/* Zoom toolbar items */
+	GtkWidget **zoom_tb_items;
 } WindowPrivate;
 
 
@@ -158,9 +161,18 @@ confirm_save (Window *window, gboolean ask_exit)
 
 /* Setting the mode of a window */
 
+static void
+sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
+{
+	g_assert (widgets != NULL);
+
+	for (; *widgets != NULL; widgets++)
+		gtk_widget_set_sensitive (*widgets, sensitive);
+}
+
 /* Sets the sensitivity of menu items according to the mode */
 static void
-set_menu_sensitivity (Window *window)
+set_menu_tb_sensitivity (Window *window)
 {
 	WindowPrivate *priv;
 
@@ -169,14 +181,17 @@ set_menu_sensitivity (Window *window)
 	switch (priv->mode) {
 	case WINDOW_MODE_NONE:
 		gtk_widget_set_sensitive (priv->view_menu, FALSE);
+		sensitize_zoom_items (priv->zoom_tb_items, FALSE);
 		break;
 
 	case WINDOW_MODE_IMAGE:
 		gtk_widget_set_sensitive (priv->view_menu, TRUE);
+		sensitize_zoom_items (priv->zoom_tb_items, TRUE);
 		break;
 
 	case WINDOW_MODE_COLLECTION:
 		gtk_widget_set_sensitive (priv->view_menu, FALSE);
+		sensitize_zoom_items (priv->zoom_tb_items, FALSE);
 		/* FIXME: finish this */
 		break;
 
@@ -225,7 +240,7 @@ set_mode (Window *window, WindowMode mode)
 		g_assert_not_reached ();
 	}
 
-	set_menu_sensitivity (window);
+	set_menu_tb_sensitivity (window);
 }
 
 
@@ -488,6 +503,8 @@ window_destroy (GtkObject *object)
 	if (priv->file_sel)
 		gtk_widget_destroy (priv->file_sel);
 
+	g_free (priv->zoom_tb_items);
+
 	g_free (priv);
 
 	window_list = g_list_remove (window_list, window);
@@ -548,7 +565,7 @@ window_construct (Window *window)
 
 	priv->view_menu = main_menu[1].widget;
 
-	tb = tb_image_new (window);
+	tb = tb_image_new (window, &priv->zoom_tb_items);
 	gnome_app_set_toolbar (GNOME_APP (window), GTK_TOOLBAR (tb));
 
 	gtk_window_set_default_size (GTK_WINDOW (window),

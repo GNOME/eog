@@ -1,3 +1,22 @@
+1999-09-23  Federico Mena Quintero  <federico@redhat.com>
+
+	* window.c (set_menu_tb_sensitivity): Renamed from
+	set_menu_sensitivity.  Also sensitize the toolbar widgets.
+	(WindowPrivate): Added a field to keep the zoom toolbar items.
+	(window_destroy): Free said array.
+
+	* tb-image.c (tb_image_new): Also return an array with the widgets
+	for the zoom buttons.
+
+	* stock.c (stock_init): New function to initialize the stock
+	pixmaps.
+
+	* tb-image.c (toolbar): Use the stock pixmaps.
+
+	* main.c (main): Initialize the stock pixmaps.
+
+	* Makefile.am (SUBDIRS): Process the stock directory.
+
 1999-09-22  Federico Mena Quintero  <federico@redhat.com>
 
 	* main.c (main): Use gtk_widget_show_now().  This will be better

@@ -22,6 +22,7 @@
 #include <config.h>
 #include <gnome.h>
 #include "commands.h"
+#include "stock.h"
 #include "tb-image.h"
 
 
@@ -34,10 +35,15 @@ static GnomeUIInfo toolbar[] = {
 	GNOMEUIINFO_ITEM_STOCK (N_("Close"), N_("Close the current window"),
 				cmd_cb_window_close, GNOME_STOCK_PIXMAP_CLOSE),
 	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_ITEM_NONE (N_("In"), NULL, cmd_cb_zoom_in),
-	GNOMEUIINFO_ITEM_NONE (N_("Out"), NULL, cmd_cb_zoom_out),
-	GNOMEUIINFO_ITEM_NONE (N_("1:1"), NULL, cmd_cb_zoom_1),
-	GNOMEUIINFO_ITEM_NONE (N_("Fit"), NULL, cmd_cb_zoom_fit),
+
+/* Index of the first zoom item and number of zoom items */
+#define ZOOM_INDEX 3
+#define ZOOM_ITEMS 4
+
+	GNOMEUIINFO_ITEM_STOCK (N_("In"), NULL, cmd_cb_zoom_in, STOCK_ZOOM_IN),
+	GNOMEUIINFO_ITEM_STOCK (N_("Out"), NULL, cmd_cb_zoom_out, STOCK_ZOOM_OUT),
+	GNOMEUIINFO_ITEM_STOCK (N_("1:1"), NULL, cmd_cb_zoom_1, STOCK_ZOOM_1),
+	GNOMEUIINFO_ITEM_STOCK (N_("Fit"), NULL, cmd_cb_zoom_fit, STOCK_ZOOM_FIT),
 	GNOMEUIINFO_END
 };
 
@@ -46,21 +52,37 @@ static GnomeUIInfo toolbar[] = {
 /**
  * tb_image_new:
  * @window: An image window.
+ * @zoom_items: A NULL-terminated array of widgets for the zoom buttons is
+ * returned here.
  *
  * Creates a toolbar suitable for image windows.
  *
  * Return value: A newly-created toolbar.
  **/
 GtkWidget *
-tb_image_new (Window *window)
+tb_image_new (Window *window, GtkWidget ***zoom_items)
 {
 	GtkWidget *tb;
+	GtkWidget **items;
+	int i;
+
+	g_return_val_if_fail (window != NULL, NULL);
+	g_return_val_if_fail (IS_WINDOW (window), NULL);
+	g_return_val_if_fail (zoom_items != NULL, NULL);
 
 	tb = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH);
 	gnome_app_fill_toolbar_with_data (GTK_TOOLBAR (tb),
 					  toolbar,
 					  GNOME_APP (window)->accel_group,
 					  window);
+
+	items = g_new (GtkWidget *, ZOOM_ITEMS + 1);
+	*zoom_items = items;
+
+	for (i = 0; i < ZOOM_ITEMS; i++)
+		items[i] = toolbar[ZOOM_INDEX + i].widget;
+
+	items[i] = NULL;
 
 	return tb;
 }

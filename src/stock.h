@@ -1,4 +1,4 @@
-/* Eye of Gnome image viewer - toolbar for image windows
+/* Eye of Gnome image viewer - stock icons
  *
  * Copyright (C) 1999 The Free Software Foundation
  *
@@ -19,15 +19,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef TB_IMAGE_H
-#define TB_IMAGE_H
-
-#include <gtk/gtktoolbar.h>
-#include "window.h"
+#ifndef STOCK_H
+#define STOCK_H
 
 
 
-GtkWidget *tb_image_new (Window *window, GtkWidget ***zoom_items);
+/* Stock names */
+
+#define STOCK_ZOOM_1	"EOG_stock_zoom_1"
+#define STOCK_ZOOM_FIT	"EOG_stock_zoom_fit"
+#define STOCK_ZOOM_IN	"EOG_stock_zoom_in"
+#define STOCK_ZOOM_OUT	"EOG_stock_zoom_out"
+
+
+void stock_init (void);
 
 
 
