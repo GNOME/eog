@@ -1,3 +1,16 @@
+2001-01-21  Michael Meeks  <michael@helixcode.com>
+
+	* eog-image.c (eog_image_get_pixbuf): only ref if we have
+	a pixbuf.
+
+	* eog-embeddable-view.c (configure_size): unref pixbuf.
+
+	* eog-embeddable.c (render_fn): ditto.
+
+	* main.c (bonobo_object_destroy_cb): remove expliti running
+	object counting.
+	(init_eog_image_viewer_factory): use a modern unref method.
+
 2001-01-17  Michael Meeks  <michael@helixcode.com>
 
 	* eog-embeddable-view.c (eog_embeddable_view_construct): 

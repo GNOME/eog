@@ -26,25 +26,6 @@
 #include <eog-control.h>
 #include <eog-embeddable.h>
 
-/* Number of running objects */ 
-static int running_objects = 0;
-static BonoboGenericFactory *image_factory = NULL;
-
-static void
-bonobo_object_destroy_cb (BonoboObject *object,
-			  gpointer      user_data)
-{
-	g_return_if_fail (object != NULL);
-
-	running_objects--;
-	if (running_objects > 0)
-		return;
-
-	/* When last object has gone unref the factory & quit. */
-	bonobo_object_unref (BONOBO_OBJECT (image_factory));
-	gtk_main_quit ();
-}
-
 static BonoboObject *
 eog_image_viewer_factory (BonoboGenericFactory *this,
 			  const char           *oaf_iid,
@@ -76,20 +57,20 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 
 	bonobo_object_unref (BONOBO_OBJECT (image));
 
-	running_objects++;
-
-	gtk_signal_connect (GTK_OBJECT (retval), "destroy",
-			    GTK_SIGNAL_FUNC (bonobo_object_destroy_cb), NULL);
-
 	return retval;
 }
 
 static void
 init_eog_image_viewer_factory (void)
 {
-	image_factory = bonobo_generic_factory_new_multi (
+	BonoboGenericFactory *factory;
+
+	factory = bonobo_generic_factory_new_multi (
 		"OAFIID:GNOME_EOG_Factory",
 		eog_image_viewer_factory, NULL);
+
+	bonobo_running_context_auto_exit_unref (
+		BONOBO_OBJECT (factory));
 }
 
 static void

@@ -473,6 +473,8 @@ eog_image_get_pixbuf (EogImage *image)
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	gdk_pixbuf_ref (image->priv->pixbuf);
+	if (image->priv->pixbuf)
+		gdk_pixbuf_ref (image->priv->pixbuf);
+
 	return image->priv->pixbuf;
 }

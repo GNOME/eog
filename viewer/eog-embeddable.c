@@ -185,6 +185,8 @@ render_fn (GnomePrintContext         *ctx,
 				       gdk_pixbuf_get_height    (pixbuf),
 				       gdk_pixbuf_get_rowstride (pixbuf));
 	gnome_print_grestore  (ctx);
+
+	gdk_pixbuf_unref (pixbuf);
 }
 
 EogEmbeddable *

@@ -150,7 +150,7 @@ eog_image_save_xpm (EogImage *eog_image, Bonobo_Stream stream,
 	g_return_val_if_fail (ev != NULL, FALSE);
 
 	pixbuf = eog_image_get_pixbuf (eog_image);
-	if (pixbuf == NULL)
+	if (!pixbuf)
 		return FALSE;
 
 	has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
@@ -305,25 +305,25 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	g_return_val_if_fail (ev != NULL, FALSE);
 
 	pixbuf = eog_image_get_pixbuf (eog_image);
-	if (pixbuf == NULL)
+	if (!pixbuf)
 		return FALSE;
 
 	/* no image data? abort */
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
-	if (pixels == NULL) {
+	if (!pixels) {
 		gdk_pixbuf_unref (pixbuf);
 		return FALSE;
 	}
 
 	png_ptr = png_create_write_struct (PNG_LIBPNG_VER_STRING,
 					   NULL, NULL, NULL);
-	if (png_ptr == NULL) {
+	if (!png_ptr) {
 		gdk_pixbuf_unref (pixbuf);
 		return FALSE;
 	}
 
 	info_ptr = png_create_info_struct (png_ptr);
-	if (info_ptr == NULL) {
+	if (!info_ptr) {
 		gdk_pixbuf_unref (pixbuf);
 		return FALSE;
 	}
