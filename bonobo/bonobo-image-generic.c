@@ -380,9 +380,11 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 }
 
 static void
-render_fn (GnomePrintContext  *ctx,
-	   BonoboPrintContext *c,
-	   gpointer            user_data)
+render_fn (GnomePrintContext         *ctx,
+	   double                     width,
+	   double                     height,
+	   const Bonobo_PrintScissor *opt_scissor,
+	   gpointer                   user_data)
 {
 	bonobo_object_data_t *bod = user_data;
 	GdkPixbuf            *buf;
@@ -394,13 +396,12 @@ render_fn (GnomePrintContext  *ctx,
 	buf = bod->pixbuf;
 
 #ifdef EOG_DEBUG
-	g_warning ("Printing %g %g %g %g", c->x, c->y,
-		   c->width, c->height);
+	g_warning ("Printing %g %g", width, height);
 #endif
 
-	art_affine_scale (matrix, c->width, c->height);
-	matrix[4] = c->x;
-	matrix[5] = c->y;
+	art_affine_scale (matrix, width, height);
+	matrix[4] = 0;
+	matrix[5] = 0;
 
 	gnome_print_gsave     (ctx);
 	gnome_print_concat    (ctx, matrix);
