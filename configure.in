@@ -10,6 +10,16 @@ AM_MAINTAINER_MODE
 
 GNOME_PLATFORM_GNOME_2(yes)
 
+dnl ================= Requirements ================================================
+
+GNOME_VFS_REQUIRED=1.9.7
+LIBGNOMEPRINT_REQUIRED=1.111.0
+LIBGNOMEUI_REQUIRED=1.111.1
+LIBBONOBOUI_REQUIRED=1.112.0
+BONOBO_ACTIVATION_REQUIRED=0.9.4
+
+dnl ===============================================================================
+
 AC_PROG_CC
 AC_ISC_POSIX
 AC_HEADER_STDC
@@ -17,7 +27,7 @@ AC_ARG_PROGRAM
 
 GNOME_COMPILE_WARNINGS
 
-dnl ===============================================================================
+dnl ================= Translation Stuf ==============================================
 
 GETTEXT_PACKAGE=eog
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
@@ -105,11 +115,8 @@ dnl  AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
 gnocam=no
 AM_CONDITIONAL(ENABLE_GNOCAM, false)
 
-
-EOG_MODULES="gnome-vfs-2.0 libgnomeprint-2.0 libgnomeui-2.0 libbonoboui-2.0 bonobo-activation-2.0"
-EOG_CFLAGS=`$PKG_CONFIG --cflags $EOG_MODULES`
-EOG_LIBS=`$PKG_CONFIG --libs $EOG_MODULES`
-
+EOG_MODULES="gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeprint-2.0 >= $LIBGNOMEPRINT_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED"
+PKG_CHECK_MODULES(EOG, $EOG_MODULES)
 AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
 
