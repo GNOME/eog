@@ -88,7 +88,9 @@ impl_GNOME_EOG_ImageCollection_openURIList (PortableServer_Servant servant,
 	priv = cview->priv;
 	
         list = NULL;
+#ifdef COLLECTION_DEBUG
 	g_print ("uri_list->_length: %i\n", uri_list->_length);
+#endif
         for (i = 0; i < uri_list->_length; i++) {
                 list = g_list_append
                         (list, g_strdup (uri_list->_buffer[i]));
