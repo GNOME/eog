@@ -29,8 +29,6 @@ libeog_la_SOURCES =			\
 	gtkscrollframe.h		\
 	image-view.c			\
 	image-view.h			\
-	image.h				\
-	image.c				\
 	uta.c				\
 	uta.h				\
 	cursors.c			\

@@ -215,7 +215,7 @@ void
 ui_image_zoom_fit (UIImage *ui)
 {
 	UIImagePrivate *priv;
-	Image *image;
+	GdkPixbuf *pixbuf;
 	int w, h, xthick, ythick;
 	int iw, ih;
 	double zoom;
@@ -225,11 +225,15 @@ ui_image_zoom_fit (UIImage *ui)
 
 	priv = ui->priv;
 
-	image = image_view_get_image (IMAGE_VIEW (priv->view));
-	if (!image) {
+	pixbuf = image_view_get_pixbuf (IMAGE_VIEW (priv->view));
+	if (!pixbuf) {
 		image_view_set_zoom (IMAGE_VIEW (priv->view), 1.0, 1.0);
 		return;
 	}
+
+	iw = gdk_pixbuf_get_width (pixbuf);
+	ih = gdk_pixbuf_get_height (pixbuf);
+	gdk_pixbuf_unref (pixbuf);
 
 	w = GTK_WIDGET (ui)->allocation.width;
 	h = GTK_WIDGET (ui)->allocation.height;
@@ -240,12 +244,6 @@ ui_image_zoom_fit (UIImage *ui)
 		xthick = GTK_WIDGET (ui)->style->klass->xthickness;
 		ythick = GTK_WIDGET (ui)->style->klass->ythickness;
 	}
-
-	if (image->pixbuf) {
-		iw = gdk_pixbuf_get_width (image->pixbuf);
-		ih = gdk_pixbuf_get_height (image->pixbuf);
-	} else
-		iw = ih = 0;
 
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
 	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom);
@@ -264,17 +262,18 @@ ui_image_fit_to_screen (UIImage *ui)
 {
 	gint width, height;
 	gint sw, sh;
-	Image *img;
+	GdkPixbuf *pixbuf;
 
 	g_return_if_fail (ui != NULL);
 	g_return_if_fail (IS_UI_IMAGE (ui));
 
-	img = image_view_get_image (IMAGE_VIEW (ui->priv->view));
-	if (img == NULL) return;
-	if (img->pixbuf == NULL) return;
+	pixbuf = image_view_get_pixbuf (IMAGE_VIEW (ui->priv->view));
+	if (!pixbuf)
+		return;
 
-	width = gdk_pixbuf_get_width (img->pixbuf);
-	height = gdk_pixbuf_get_height (img->pixbuf);
+	width = gdk_pixbuf_get_width (pixbuf);
+	height = gdk_pixbuf_get_height (pixbuf);
+	gdk_pixbuf_unref (pixbuf);
 
 	sw = gdk_screen_width ();
 	sh = gdk_screen_height ();

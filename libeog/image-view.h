@@ -25,7 +25,7 @@
 #include <libgnome/gnome-defs.h>
 #include <gconf/gconf-client.h>
 #include <gtk/gtkwidget.h>
-#include "image.h"
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 BEGIN_GNOME_DECLS
 
@@ -96,8 +96,8 @@ GtkType image_view_get_type (void);
 
 GtkWidget *image_view_new (void);
 
-void image_view_set_image (ImageView *view, Image *image);
-Image *image_view_get_image (ImageView *view);
+void image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf);
+GdkPixbuf *image_view_get_pixbuf (ImageView *view);
 
 void image_view_set_zoom (ImageView *view, double zoomx, double zoomy);
 double image_view_get_zoom (ImageView *view);

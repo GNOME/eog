@@ -24,7 +24,6 @@
 
 #include <libgnome/gnome-defs.h>
 #include "gtkscrollframe.h"
-#include "image.h"
 
 BEGIN_GNOME_DECLS
 

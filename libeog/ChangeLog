@@ -1,3 +1,12 @@
+2001-05-07  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	Reduce complexity, make Image obsolete.
+
+	* Makefile.am: Do not compile image.[c,h].
+	* image-view.[c,h]: Don't use the Image to keep the pixbuf. We can do
+	that ourselves.
+	* ui-image.[c,h]: Get the pixbuf using the ImageView, not Image.
+
 2001-06-27  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
 	* Makefile.am: $(BUILT_SOURCES) got added to CLEANFILES two times? I 

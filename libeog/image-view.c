@@ -58,8 +58,8 @@
 
 /* Private part of the ImageView structure */
 struct _ImageViewPrivate {
-	/* Image being displayed */
-	Image *image;
+	/* Pixbuf being displayed */
+	GdkPixbuf *pixbuf;
 
 	/* Current zoom factors */
 	double zoomx;
@@ -379,13 +379,10 @@ image_view_destroy (GtkObject *object)
 	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
 
 	/* Clean up */
+	if (view->priv->pixbuf)
+		gdk_pixbuf_unref (view->priv->pixbuf);
 
 	remove_dirty_region (view);
-
-	if (priv->image) {
-		image_unref (priv->image);
-		priv->image = NULL;
-	}
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -429,9 +426,9 @@ compute_scaled_size (ImageView *view, double zoomx, double zoomy, int *width, in
 
 	priv = view->priv;
 
-	if (priv->image && priv->image->pixbuf) {
-		*width = floor (gdk_pixbuf_get_width (priv->image->pixbuf) * zoomx + 0.5);
-		*height = floor (gdk_pixbuf_get_height (priv->image->pixbuf) * zoomy + 0.5);
+	if (priv->pixbuf) {
+		*width = floor (gdk_pixbuf_get_width (priv->pixbuf) * zoomx + 0.5);
+		*height = floor (gdk_pixbuf_get_height (priv->pixbuf) * zoomy + 0.5);
 	} else
 		*width = *height = 0;
 }
@@ -593,7 +590,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 	 * FIXME: this is not using the color correction tables!
 	 */
 
-	if (!(priv->image && priv->image->pixbuf))
+	if (!priv->pixbuf)
 		return;
 
 	r.x0 = xofs;
@@ -609,15 +606,15 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 
 	if (unity_zoom (priv)
-	    && gdk_pixbuf_get_colorspace (priv->image->pixbuf) == GDK_COLORSPACE_RGB
-	    && !gdk_pixbuf_get_has_alpha (priv->image->pixbuf)
-	    && gdk_pixbuf_get_bits_per_sample (priv->image->pixbuf) == 8) {
+	    && gdk_pixbuf_get_colorspace (priv->pixbuf) == GDK_COLORSPACE_RGB
+	    && !gdk_pixbuf_get_has_alpha (priv->pixbuf)
+	    && gdk_pixbuf_get_bits_per_sample (priv->pixbuf) == 8) {
 		guchar *pixels;
 		int rowstride;
 
-		rowstride = gdk_pixbuf_get_rowstride (priv->image->pixbuf);
+		rowstride = gdk_pixbuf_get_rowstride (priv->pixbuf);
 
-		pixels = (gdk_pixbuf_get_pixels (priv->image->pixbuf)
+		pixels = (gdk_pixbuf_get_pixels (priv->pixbuf)
 			  + (d.y0 - yofs) * rowstride
 			  + 3 * (d.x0 - xofs));
 
@@ -701,7 +698,7 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	/* Draw! */
 
-	gdk_pixbuf_composite_color (priv->image->pixbuf,
+	gdk_pixbuf_composite_color (priv->pixbuf,
 				    tmp,
 				    0, 0,
 				    d.x1 - d.x0, d.y1 - d.y0,
@@ -1610,15 +1607,26 @@ redraw_all (ImageView *view)
 	request_paint_area (view, &r, TRUE);
 }
 
+GdkPixbuf *
+image_view_get_pixbuf (ImageView *view)
+{
+	g_return_val_if_fail (IS_IMAGE_VIEW (view), NULL);
+
+	if (view->priv->pixbuf)
+		gdk_pixbuf_ref (view->priv->pixbuf);
+
+	return (view->priv->pixbuf);
+}
+
 /**
- * image_view_set_image:
+ * image_view_set_pixbuf:
  * @view: An image view.
- * @image: An image.
+ * @pixbuf: A pixbuf.
  *
- * Sets the image that an image view will display.
+ * Sets the pixbuf that an image view will display.
  **/
 void
-image_view_set_image (ImageView *view, Image *image)
+image_view_set_pixbuf (ImageView *view, GdkPixbuf *pixbuf)
 {
 	ImageViewPrivate *priv;
 
@@ -1627,40 +1635,17 @@ image_view_set_image (ImageView *view, Image *image)
 
 	priv = view->priv;
 
-	if (priv->image == image)
-		return;
+	if (pixbuf) {
+		if (view->priv->pixbuf)
+			gdk_pixbuf_unref (view->priv->pixbuf);
+		gdk_pixbuf_ref (pixbuf);
+	}
 
-	if (image)
-		image_ref (image);
-
-	if (priv->image)
-		image_unref (priv->image);
-
-	priv->image = image;
+	view->priv->pixbuf = pixbuf;
 
 	/* FIXME: adjust zoom / image offsets; maybe just offsets here */
 
 	redraw_all (view);
-}
-
-/**
- * image_view_get_image:
- * @view:
- *
- * Queries the image that an image view is displaying.
- *
- * Return value: The current image, or NULL if no image is being displayed.
- **/
-Image *
-image_view_get_image (ImageView *view)
-{
-	ImageViewPrivate *priv;
-
-	g_return_val_if_fail (view != NULL, NULL);
-	g_return_val_if_fail (IS_IMAGE_VIEW (view), NULL);
-
-	priv = view->priv;
-	return priv->image;
 }
 
 /**
