@@ -1274,7 +1274,7 @@ get_save_file_type_by_suffix (const char *local_path)
 }
 
 gboolean
-eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
+eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 {
 	EogImagePrivate *priv;
 	char *file;
@@ -1367,6 +1367,7 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		 * information preserve these by saving through
 		 * libjpeg.
 		 */
+		g_print ("Save through jpeg library.\n");
 		result = eog_image_jpeg_save (img, file, error);
 	}
 #endif
@@ -1375,6 +1376,7 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 		/* In all other cases: Use default save method
 		 * provided by gdk-pixbuf library.
 		 */
+		g_print ("default save method.\n");
 		result = gdk_pixbuf_save (priv->image, file, target_type, error, NULL);
 	}
 	
@@ -1386,10 +1388,32 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 			g_object_unref (G_OBJECT (it->data));
 		
 		g_list_free (priv->undo_stack);
-		g_object_unref (priv->trans);
-		priv->trans = NULL;
 		priv->undo_stack = NULL;
+		if (priv->trans != NULL) {
+			g_object_unref (priv->trans);
+			priv->trans = NULL;
+		}
 		priv->modified = FALSE;
+
+		/* update file properties */
+		if (priv->uri != NULL) {
+			gnome_vfs_uri_unref (priv->uri);
+		}
+		priv->uri = gnome_vfs_uri_ref (uri);
+		if (priv->caption != NULL) {
+			g_free (priv->caption);
+			priv->caption = NULL;
+		}
+		if (priv->caption_key != NULL) {
+			g_free (priv->caption_key);
+			priv->caption_key = NULL;
+		}
+		if (priv->file_type != NULL) {
+			g_free (priv->file_type);
+		}
+		priv->file_type = g_strdup (target_type);
+
+		g_signal_emit (G_OBJECT (img), eog_image_signals [SIGNAL_IMAGE_CHANGED], 0);
 	}
 
 	g_free (target_type);

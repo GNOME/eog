@@ -503,11 +503,24 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		break;
 	}
 	case PROP_WINDOW_TITLE: {
+		char *caption;
+
 		g_assert (arg->_type == BONOBO_ARG_STRING);
 
-		if (priv->image != NULL) {
-			BONOBO_ARG_SET_STRING (arg, eog_image_get_caption (priv->image));
+		caption = g_strdup (eog_image_get_caption (priv->image)); 
+
+		if (eog_image_is_modified (priv->image)) {
+			char *tmp;
+
+			tmp = g_strconcat (caption, "*", NULL);
+			g_free (caption);
+			caption = tmp;
 		}
+
+		if (priv->image != NULL) {
+			BONOBO_ARG_SET_STRING (arg, caption);
+		}
+		g_free (caption);
 
 		break;
 	}
@@ -975,6 +988,14 @@ image_changed_cb (EogImage *img, gpointer data)
 
 	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
 					      "window/status",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+
+	arg = bonobo_arg_new (BONOBO_ARG_STRING);
+	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_TITLE, NULL, view);
+
+	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
+					      "window/title",
 					      arg, NULL);
 	bonobo_arg_release (arg);
 }

@@ -1,3 +1,14 @@
+2003-12-19  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.c (eog_image_save): Update URI and clear
+	caption strings after save.
+
+	* libeog/eog-image.h (eog_image_save): non-const target URI.
+
+	* viewer/eog-image-view.c (eog_image_view_get_prop): View caption
+	of modified images with appended asterisk.
+	(image_changed_cb): Notify listerns about title change, too.
+
 2003-12-14  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-full-screen.c (prepare_data): Disable automatic image
