@@ -726,6 +726,7 @@ eog_print_setup_new (EogImageView *image_view)
 	gtk_widget_set_sensitive (priv->spin_adj, !priv->fit_to_page);
 	gtk_table_attach (GTK_TABLE (table), priv->spin_adj, 1, 2, 0, 1,
 			  GTK_FILL | GTK_EXPAND, GTK_FILL | GTK_EXPAND, 0, 0);
+	/* xgettext:no-c-format */
 	label = gtk_label_new (_("% of original size"));
 	gtk_widget_show (label);
 	gtk_table_attach (GTK_TABLE (table), label, 2, 3, 0, 1, 
