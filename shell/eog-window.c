@@ -95,7 +95,7 @@ static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
 
-static GnomeAppClass *parent_class;
+static BonoboWindowClass *parent_class;
 
 /* The list of all open windows */
 static GList *window_list;
@@ -160,17 +160,15 @@ static void
 verb_FileExit_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
 {
 	GList *l;
+	EogWindow *w;
 
 	/* Destroy windows and exit */
-
-	l = window_list;
-	while (l) {
-		EogWindow *w;
-
-		w = (EogWindow*) l->data;
-		l = l->next;
+	for (l = window_list; l != NULL; l = l->next) {
+		w = EOG_WINDOW (l->data);
 		gtk_widget_destroy (GTK_WIDGET (w));
 	}
+	g_list_free (window_list);
+	window_list = NULL;
 
 	bonobo_main_quit ();
 }
@@ -226,34 +224,28 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 	g_free (path);
 }
 
-
-/**
- * window_get_type:
- * @void:
- *
- * Registers the #Window class if necessary, and returns the type ID associated
- * to it.
- *
- * Return value: the type ID of the #Window class.
- **/
-GtkType
-eog_window_get_type (void)
+GType
+eog_window_get_type (void) 
 {
-	static GtkType eog_window_type = 0;
-
+	static GType eog_window_type = 0;
+	
 	if (!eog_window_type) {
-		static const GtkTypeInfo eog_window_info = {
-			"EogWindow",
-			sizeof (EogWindow),
+		static const GTypeInfo eog_window_info =
+		{
 			sizeof (EogWindowClass),
-			(GtkClassInitFunc)  eog_window_class_init,
-			(GtkObjectInitFunc) eog_window_init,
-			NULL, /* reserved_1 */
-			NULL, /* reserved_2 */
-			(GtkClassInitFunc) NULL
+			NULL,		/* base_init */
+			NULL,		/* base_finalize */
+			(GClassInitFunc) eog_window_class_init,
+			NULL,		/* class_finalize */
+			NULL,		/* class_data */
+			sizeof (EogWindow),
+			0,		/* n_preallocs */
+			(GInstanceInitFunc) eog_window_init,
 		};
-
-		eog_window_type = gtk_type_unique (bonobo_window_get_type (), &eog_window_info);
+		
+		eog_window_type = g_type_register_static (BONOBO_TYPE_WINDOW, 
+							  "EogWindow", 
+							  &eog_window_info, 0);
 	}
 
 	return eog_window_type;
@@ -272,11 +264,13 @@ eog_window_destroy (GtkObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
-	if (window->priv->property_control)
+	if (priv->property_control != CORBA_OBJECT_NIL)
 		bonobo_object_release_unref (priv->property_control, NULL);
+	priv->property_control = CORBA_OBJECT_NIL;
 	
 	if (priv->file_sel)
 		gtk_widget_destroy (priv->file_sel);
+	priv->file_sel = NULL;
 
 #ifdef ENABLE_BONOBO_FILESEL
 	if (priv->es != CORBA_OBJECT_NIL) {
@@ -292,37 +286,56 @@ eog_window_destroy (GtkObject *object)
 		bonobo_object_release_unref (priv->es, &ev);
 		CORBA_exception_free (&ev);
 	}
+	priv->es = CORBA_OBJECT_NIL;
 		
 	if (priv->listener)
 		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
+	priv->listener = NULL;
 #endif
 
-	window_list = g_list_remove (window_list, window);
-
 	/* Clean up GConf-related stuff */
-	gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
-	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
-	g_object_unref (G_OBJECT (priv->client));
-
-	g_free (priv);
+	if (priv->client) {
+		gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
+		gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
+		g_object_unref (G_OBJECT (priv->client));
+		priv->client = NULL;
+	}
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
+static void
+eog_window_finalize (GObject *object)
+{
+	EogWindow *window;
+	
+	g_return_if_fail (EOG_IS_WINDOW (object));
+
+	window = EOG_WINDOW (object);
+	g_free (window->priv);
+	window->priv = NULL;
+
+	if (G_OBJECT_CLASS (parent_class)->finalize)
+		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 /* Class initialization function for windows */
 static void
 eog_window_class_init (EogWindowClass *class)
 {
+	GObjectClass   *gobject_class;
 	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 
+	gobject_class = (GObjectClass *) class;
 	object_class = (GtkObjectClass *) class;
 	widget_class = (GtkWidgetClass *) class;
 
-	parent_class = gtk_type_class (bonobo_window_get_type ());
+	parent_class = g_type_class_peek_parent (class);
 
 	object_class->destroy = eog_window_destroy;
+	gobject_class->finalize = eog_window_finalize;
 
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
@@ -353,6 +366,7 @@ eog_window_init (EogWindow *window)
 	priv = g_new0 (EogWindowPrivate, 1);
 	window->priv = priv;
 
+	priv->property_control = CORBA_OBJECT_NIL;
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client, "/apps/eog",
@@ -376,10 +390,7 @@ eog_window_init (EogWindow *window)
 static gint
 eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 {
-	EogWindow *window;
-
-	window = EOG_WINDOW (widget);
-	eog_window_close (window);
+	eog_window_close (EOG_WINDOW (widget));
 	return TRUE;
 }
 
@@ -522,7 +533,7 @@ eog_window_new (void)
 	EogWindow *window;
 	BonoboUIContainer *uic;
 
-	window = EOG_WINDOW (gtk_type_new (TYPE_EOG_WINDOW));
+	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, NULL));
 
 	uic = bonobo_ui_container_new ();
 	bonobo_window_construct (BONOBO_WINDOW (window), uic, "eog", _("Eye Of Gnome"));
@@ -614,9 +625,6 @@ eog_window_construct (EogWindow *window)
 		g_error (N_("Can't find eog-shell-ui.xml.\n"));
 	}
 	g_free (fname); /* we reuse this variable later! */
-	
-	gtk_signal_connect (GTK_OBJECT(window), "delete_event", 
-			    (GtkSignalFunc) eog_window_close, NULL);
 
 	/* add statusbar */
 	priv->statusbar = gnome_appbar_new (FALSE, TRUE, GNOME_PREFERENCES_NEVER);
@@ -664,6 +672,8 @@ eog_window_close (EogWindow *window)
 {
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	window_list = g_list_remove (window_list, window);
 
 	gtk_widget_destroy (GTK_WIDGET (window));
 

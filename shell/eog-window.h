@@ -27,11 +27,12 @@
 
 G_BEGIN_DECLS 
 
-#define TYPE_EOG_WINDOW            (eog_window_get_type ())
-#define EOG_WINDOW(obj)            (GTK_CHECK_CAST ((obj), TYPE_EOG_WINDOW, EogWindow))
-#define EOG_WINDOW_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), TYPE_EOG_WINDOW, EogWindowClass))
-#define EOG_IS_WINDOW(obj)         (GTK_CHECK_TYPE ((obj), TYPE_EOG_WINDOW))
-#define EOG_IS_WINDOW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), TYPE_EOG_WINDOW))
+#define EOG_TYPE_WINDOW            (eog_window_get_type ())
+#define EOG_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_WINDOW, EogWindow))
+#define EOG_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_WINDOW, EogWindowClass))
+#define EOG_IS_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_WINDOW))
+#define EOG_IS_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_WINDOW))
+#define EOG_WINDOW_GET_CLASS(o)    (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_WINDOW, EogWindowClass))
 
 
 typedef struct _EogWindow         EogWindow;
@@ -52,7 +53,7 @@ struct _EogWindowClass {
 };
 
 
-GtkType        eog_window_get_type                    (void);
+GType        eog_window_get_type                    (void);
 GtkWidget *eog_window_new (void);
 void eog_window_construct (EogWindow *eog_window);
 

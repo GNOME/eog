@@ -1,5 +1,27 @@
 2001-12-27  Jens Finke <jens@triq.net>
 
+	Ported EogWindow to the GObject based type system. Fixed warning
+	and error messages when quitting the program directly after
+	starting it.
+	
+	* eog-window.[ch] (verb_FileExit_cb): Free window list after
+	traversing.
+	(eog_window_get_type): Use GType type system.
+	(eog_window_destroy): This function is now callable multiple times
+	on the same object without crashing. Don't remove window from the
+	window list here.
+	(eog_window_finalize): New function for freeing the
+	EogWindowPrivate data structure.
+	(eog_window_class_init): Added callback for GObject finalize
+	method. Set property_control = CORBA_OBJECT_NIL.
+	(eog_window_delete): Simplified function.
+	(eog_window_new): Use g_object_new to create new instance.
+	(eog_window_construct): Don't connect to delete event. This is
+	already done in eog_window_class_init.
+	(eog_window_close): Remove window from window list.
+	
+2001-12-27  Jens Finke <jens@triq.net>
+
 	* eog-window.c (eog_window_close): Use bonobo_main_quit instead of
 	gtk_main_quit.
 	(get_viewer_control): Rewrote this function. We don't make a
