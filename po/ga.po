@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog CVS\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-17 03:13+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-02-17 15:00+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 #, fuzzy
@@ -26,6 +26,16 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Bailiúchán  íomhanna"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Bailiúchán  íomhanna"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Bailiúchán  íomhanna"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -87,35 +97,35 @@ msgstr "_Leasú"
 msgid "_View"
 msgstr "_Féach ar"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr ""
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr ""
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Chuir sa Bosca Bruscair"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Radharc Bailiúchán"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1357
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Teideal an Fhuinneog"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Téacs an Stádas"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1369
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr ""
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Ag Sábháil an  Íomha"
 
@@ -297,75 +307,95 @@ msgstr ""
 msgid "Image"
 msgstr " Íomha"
 
-#: libeog/eog-file-selection.c:44
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:49
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:117
+#: libeog/eog-file-selection.c:170
+#, fuzzy
+msgid "All Files"
+msgstr "Gach Íomhanna"
+
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "Gach Íomhanna"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:135
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:180
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Oscail Íomha"
 
-#: libeog/eog-file-selection.c:188
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Sábháil an  Íomha"
 
-#: libeog/eog-file-selection.c:230
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
 msgstr "Oscail Fillteán"
 
-#: libeog/eog-image-jpeg.c:100
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr ""
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr ""
 
-#: libeog/eog-image.c:1296
+#: libeog/eog-image.c:859
+msgid "empty file"
+msgstr ""
+
+#: libeog/eog-image.c:1299
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1306
+#: libeog/eog-image.c:1309
 msgid "Images can only be saved as local files."
 msgstr ""
 
-#: libeog/eog-image.c:1317
+#: libeog/eog-image.c:1334
 msgid "Unsupported image type for saving."
 msgstr ""
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr ""
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Luach"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Leithead"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Airde"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "Méid an chomhad"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Ainm an Comhad"
 
@@ -374,7 +404,7 @@ msgid "Page"
 msgstr "Leathanach"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:384
+#: viewer/eog-image-view.c:385
 msgid "Preview"
 msgstr "Reámhtaispeántas"
 
@@ -593,7 +623,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Aistritheoir: Pól Ó Dubhthaigh <dubhthach@zion.nuigalway.ie>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Súil do Gnome"
 
@@ -610,28 +640,28 @@ msgstr ""
 "Ní raibh sé in an Cabhair le haighaidh Súil do Gnome a thaispeáint\n"
 ". %s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Oscail go lan fhuinneoga aonarach?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Fuinneoga Aonarach"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Bailiúchán"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Theip ar an cuardach le haighaidh na comhad sin"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -718,47 +748,47 @@ msgid "_Print..."
 msgstr "Oscail Íomha"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: viewer/eog-image-view.c:535
+#: viewer/eog-image-view.c:549
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr ""
 
-#: viewer/eog-image-view.c:827
+#: viewer/eog-image-view.c:841
 #, fuzzy
 msgid "/Rotate C_lockwise"
 msgstr "Cuir thart deisea_l"
 
-#: viewer/eog-image-view.c:829
+#: viewer/eog-image-view.c:843
 #, fuzzy
 msgid "/Rotate Counte_r Clockwise"
 msgstr "Cuir thart a_th-deiseal"
 
-#: viewer/eog-image-view.c:832
+#: viewer/eog-image-view.c:846
 msgid "/_Zoom In"
 msgstr "/_Formhéadaigh Isteach"
 
-#: viewer/eog-image-view.c:834
+#: viewer/eog-image-view.c:848
 msgid "/Zoom _Out"
 msgstr "/Formhéadaigh _Amach"
 
-#: viewer/eog-image-view.c:836
+#: viewer/eog-image-view.c:850
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:838
+#: viewer/eog-image-view.c:852
 msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:841
+#: viewer/eog-image-view.c:855
 msgid "/_Close"
 msgstr "/_Dún"
 
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1026
 #, c-format
 msgid "Loading of image %s failed."
 msgstr ""
 
-#: viewer/eog-image-view.c:1011
+#: viewer/eog-image-view.c:1033
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -766,37 +796,40 @@ msgid ""
 msgstr ""
 
 #. show error dialog
-#: viewer/eog-image-view.c:1020
+#: viewer/eog-image-view.c:1042
 msgid "Loading failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1103
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:1107
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1351
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Leithead an íomha"
 
-#: viewer/eog-image-view.c:1354
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Airde an íomha"
 
-#: viewer/eog-image-view.c:1360
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-image-view.c:1363
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1366
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr ""
+
+#~ msgid "Could not find files"
+#~ msgstr "Theip ar an cuardach le haighaidh na comhad sin"
 
 #~ msgid "*"
 #~ msgstr "*"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0\n"
-"POT-Creation-Date: 2004-02-01 16:50+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2004-02-01 16:50+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -23,6 +23,16 @@ msgstr "Tvorniaca EOG preglednika kolekcija slika"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Kolekcija slika"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Kolekcija slika"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Kolekcija slika"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -96,23 +106,23 @@ msgstr "Spremanje završeno"
 msgid "Move to Trash"
 msgstr "Pošalji u smeće"
 
-#: collection/eog-collection-view.c:855
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Pogled kolekcije"
 
-#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Naslov prozora"
 
-#: collection/eog-collection-view.c:1348
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Tekst statusa"
 
-#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Napredak učitavanja slike"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Spremanje slike"
 
@@ -197,7 +207,10 @@ msgstr "proizvod loše kvalitete"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr "Vrijednost veća od 0 određuje koliko sekundi se slika prikazuje na zaslonu prije nego se automatski pojavi sljedeća. Nula isključuje automatsko pregledavanje."
+msgstr ""
+"Vrijednost veća od 0 određuje koliko sekundi se slika prikazuje na zaslonu "
+"prije nego se automatski pojavi sljedeća. Nula isključuje automatsko "
+"pregledavanje."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -214,23 +227,25 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"Određuje kako se pokazuje prozirnost. Ispravne vrijednosti su"
-"CHECK_PATTERN, COLOR i NONE. Ako je odabrana COLOR, tada trans_color ključ"
-"određuje vrijednost korištene boje."
+"Određuje kako se pokazuje prozirnost. Ispravne vrijednosti suCHECK_PATTERN, "
+"COLOR i NONE. Ako je odabrana COLOR, tada trans_color ključodređuje "
+"vrijednost korištene boje."
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-"Ako je vrijednost ključa prozirnosti COLOR, tada ovaj ključ određuje boju koja "
-"se koristi za naznačivanje prozirnosti."
+"Ako je vrijednost ključa prozirnosti COLOR, tada ovaj ključ određuje boju "
+"koja se koristi za naznačivanje prozirnosti."
 
 #: eog.schemas.in.h:7
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr "Ako je isključno, male slike neće biti rastegnute na največu moguću veličinu zaslona."
+msgstr ""
+"Ako je isključno, male slike neće biti rastegnute na največu moguću veličinu "
+"zaslona."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -264,7 +279,9 @@ msgstr "Naznačivanje prozirnosti"
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr "Da li kod otvaranja nove slike treba stvoriti novi prozor umjesto zamjene slike u trenutnom prozoru?"
+msgstr ""
+"Da li kod otvaranja nove slike treba stvoriti novi prozor umjesto zamjene "
+"slike u trenutnom prozoru?"
 
 #: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
@@ -275,8 +292,8 @@ msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Treba li slika biti interpolirana prilikom uvećanja/umanjenja ili ne. To donosi do "
-"bolju kvalitetu ali je u ponešto sporije od neinterpoliranih slika."
+"Treba li slika biti interpolirana prilikom uvećanja/umanjenja ili ne. To "
+"donosi do bolju kvalitetu ali je u ponešto sporije od neinterpoliranih slika."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -335,7 +352,7 @@ msgstr "Učitavanje slike"
 msgid "Save Image"
 msgstr "Spremi sliku"
 
-#: libeog/eog-file-selection.c:489
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
 msgstr "Otvori mapu"
 
@@ -364,27 +381,27 @@ msgstr "Slike se mogu spremati samo kao lokalne datoteke"
 msgid "Unsupported image type for saving."
 msgstr "Vrsta slike je nepodržana za spremanje."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Atribut"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Vrijednost"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Širina"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Visina"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "Veličina datoteke"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Ime datoteke"
 
@@ -600,8 +617,9 @@ msgid "_Toolbar"
 msgstr "_Alatna traka"
 
 #. Translators should localize the following string
-#.  * which will give them credit in the About box.
-#.  * E.g. "Fulano de Tal <fulano@detal.com>"
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
+#.
 #: shell/eog-window.c:292
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "translator_credits-Denis Lacković"
@@ -810,4 +828,3 @@ msgstr "željena širina prozora"
 #: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "željena visina prozora"
-

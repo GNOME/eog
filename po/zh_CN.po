@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-08-04 04:02+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -31,6 +31,18 @@ msgstr "EOG 图像集查看车间"
 # SUN CHANGED MESSAGE
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "图像集"
+
+# SUN CHANGED MESSAGE
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "图像集"
+
+# SUN CHANGED MESSAGE
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "图像集"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -92,35 +104,35 @@ msgstr "撤消(_U)"
 msgid "_View"
 msgstr "查看(_V)"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "取消保存"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "包村已完成"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "移动到回收站"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "组合查看"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "窗口标题"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "状态文本"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "图像装入进度"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "保存图像"
 
@@ -318,44 +330,55 @@ msgstr "可嵌入 EOG 图像"
 msgid "Image"
 msgstr "图像"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "图像"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "装入图像"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "保存图像"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "打开一个文件"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "无法分配内存装入 JPEG 文件"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "无法分配内存装入 JPEG 文件"
 
@@ -375,29 +398,29 @@ msgstr "图像仅可保存为本地文件。"
 msgid "Unsupported image type for saving."
 msgstr "不支持的保存时图像类型。"
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "属性"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "值"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "宽度"
 
 # SUN CHANGED MESSAGE
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "高度"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 #, fuzzy
 msgid "Filesize"
 msgstr "文件名"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "文件名"
 
@@ -633,7 +656,7 @@ msgstr ""
 "Funda Wang <fundawang@linux.net.cn>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Gnome之眼"
 
@@ -653,28 +676,28 @@ msgstr ""
 "%s"
 
 # SUN CHANGED MESSAGE
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr "您将要同时打开 %i 个窗口。您是否希望在一个组合中打开？"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "打开多个单个窗口吗？"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "单个窗口"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "组合"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "无法查找文件"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -812,33 +835,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "装入失败"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "图像保存成功"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "图像保存失败"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "图像宽度"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "图像高度"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "状态栏文本"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "目标窗口宽度"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "目标窗口高度"
+
+#~ msgid "Could not find files"
+#~ msgstr "无法查找文件"
 
 #~ msgid "*"
 #~ msgstr "*"

@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-02 04:40-0500\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-06-08 18:42+0530\n"
 "Last-Translator: Sayamindu Dasgupta <unmadindu@Softhome.net>\n"
 "Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "X-Generator: KBabel 1.1\n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
@@ -30,6 +30,20 @@ msgstr "ইওজি চিত্র সংগ্রহ দৃশ্য কা�
 # হুম - কিন্তু কনভেশনালি Factory -> কারখানা
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "চিত্রের সংগ্রহ"
+
+# Factory মনে হয় translate না করাই ভাল। মনে হচ্ছে এটা প্রোগ্রামিং সংক্রান্ত কোন ফ্যাক্টরি। C++ -এ এই জাতীয় কিছু ব্যাপার আছে
+# হুম - কিন্তু কনভেশনালি Factory -> কারখানা
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "চিত্রের সংগ্রহ"
+
+# Factory মনে হয় translate না করাই ভাল। মনে হচ্ছে এটা প্রোগ্রামিং সংক্রান্ত কোন ফ্যাক্টরি। C++ -এ এই জাতীয় কিছু ব্যাপার আছে
+# হুম - কিন্তু কনভেশনালি Factory -> কারখানা
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "চিত্রের সংগ্রহ"
 
 # শুধু "ছবি" লিখলে জিনিষটা সহজে বোঝা যায়। "চিত্র সংগ্রহ" ঠিক আছে - কিন্তু কেমন জানি শোনায়। "চিত্রের সংগ্রহ" লিখতে পারো।
@@ -109,44 +123,44 @@ msgstr "দৃশ্য (_শ)"
 
 # msgstr "এই অ্যাপলিকেশনের সম্বন্ধে"
 # এইটা নিয়ে আমার Confusion নাই। তবে প্রথম দিকে অনেক ফাইলে আমি "About=সমন্ধে" লিখছি। এইগুলা সব Change করতে হবে।
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "সংরক্ষণ বাতিল"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "সংরক্ষণ করা শেষ"
 
 # msgstr "_দেখা হোক"
 #
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "আবর্জনার বাক্সে ফেলুন"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "সম্মিলিত দৃশ্য"
 
 # এটার কনটেক্সট সম্বন্ধে জানি না
 # msgstr "সব ছবি একত্রে প্রদর্শন" -- Sure না
 # #যা আছে তাই রাখছি - কনটেক্সট দেখলে কমেন্ট করব
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "উইন্ডোর শিরোনাম"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "অবস্থাসূচক টেক্সট"
 
 # msgstr "অবস্থা জানান দেওয়ার জন্য টেক্সট"
 #
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "ফাইল পড়ার অগ্রগতি"
 
 # msgstr "চিত্র লোড করা হোক"
 #
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "ছবি সংরক্ষণ করা হচ্ছে"
 
@@ -430,11 +444,16 @@ msgstr "চিত্র প্রদর্শন করা হোক"
 msgid "Save Image"
 msgstr "চিত্র সংরক্ষণ করা হোক"
 
-#: libeog/eog-file-selection.c:489
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
 msgstr "ফোল্ডার খোল"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr ""
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr ""
 
@@ -456,7 +475,7 @@ msgid "Unsupported image type for saving."
 msgstr "সংরক্ষণ করার জন্য অসমর্থিত চিত্রের ধরন"
 
 # msgstr "সংরক্ষন করার জন্য অসমর্থিত চিত্রের ধরন"
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "বৈশিষ্ট্য"
 
@@ -464,23 +483,23 @@ msgstr "বৈশিষ্ট্য"
 #
 # বানানটা হইলো গিয়ে - ধর্ম
 # #সরি - পুরোনো অভিধান দেখছিলাম
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "মান"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "প্রস্থ"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "উচ্চতা"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "ফাইলের সাইজ"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "ফাইলের নাম"
 
@@ -733,7 +752,7 @@ msgstr ""
 "(অঙ্কুর প্রকল্পের তরফ থেকে)"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "গুহ্‌নোমের চোখ"
 
@@ -756,7 +775,7 @@ msgstr ""
 
 # "'গুহ্‌নোমের চোখ' নামক সফটওয়ারটির সহায়িকা প্রদর্শন করা গেল না।\n"
 # "%s"
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -768,26 +787,25 @@ msgstr ""
 # msgstr ""
 # "আপনি একসঙ্গে %i-টা উইন্ডো খুলতে চলেছেন। তার বদলে, আপনি কি সেগুলো একটি সংগ্রহ হিসাবে "
 # "খুলতে চান?"
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "একাধিক পৃথক উইন্ডো খোলা হবে কি?"
 
 # msgstr "একটার বেশি একক উইন্ডো খোলা হবে কি?"
 #
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "একক উইন্ডোসমূহ"
 
 # msgstr "পৃথক উইন্ডো"
 #
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "সংগ্রহ"
 
-# msgstr "সমাহার"  - এইটা লিখলে কেমন হয় ? তোমার যেইটা খুশি লিখো ;-)
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "ফাইল খুঁজে পাওয়া গেল না"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -945,42 +963,46 @@ msgstr ""
 msgid "Loading failed"
 msgstr "ছবি সংরক্ষণ প্রচেষ্টা ব্যর্থ"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "ছবি সংরক্ষণ সফল"
 
 # msgstr "চিত্র সফলভাবে সংরক্ষিত হয়েছে"
 #
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "চিত্র সংরক্ষণ প্রচেষ্টা ব্যর্থ"
 
 # msgstr "চিত্র সংরক্ষণ ব্যর্থ হয়েছে"
 # msgstr "চিত্র সংরক্ষন ব্যর্থ হয়েছে"
 #
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "ছবির প্রস্থ"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "ছবির উচ্চতা"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "স্ট্যাটাসবারে প্রদর্শিত টেক্সট"
 
 # msgstr "স্ট্যাটাসবারের টেক্সট"
 #
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "উইন্ডোর আকাঙ্ক্ষিত প্রস্থ"
 
 # msgstr "কাম্য উইন্ডো প্রস্থ"
 #
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "উইন্ডোর আকাঙ্ক্ষিত উচ্চতা"
+
+# msgstr "সমাহার"  - এইটা লিখলে কেমন হয় ? তোমার যেইটা খুশি লিখো ;-)
+#~ msgid "Could not find files"
+#~ msgstr "ফাইল খুঁজে পাওয়া গেল না"
 
 #~ msgid "*"
 #~ msgstr "*"

@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.2.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-05 04:34+0330\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2004-01-05 04:35+0330\n"
 "Last-Translator: Roozbeh Pournader <roozbeh@sharif.edu>\n"
 "Language-Team: Persian <farsi@lists.sharif.edu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -25,6 +25,16 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "مجموعه‌ی تصویر"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "مجموعه‌ی تصویر"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "مجموعه‌ی تصویر"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -98,25 +108,25 @@ msgstr "ذخیره پایان یافت"
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:855
+#: collection/eog-collection-view.c:927
 #, fuzzy
 msgid "Collection View"
 msgstr "مجموعه‌ی تصویر"
 
-#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "عنوان پنجره"
 
-#: collection/eog-collection-view.c:1348
+#: collection/eog-collection-view.c:1426
 #, fuzzy
 msgid "Status Text"
 msgstr "متن نوار وضعیت"
 
-#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "پیشرفت بارکردن تصویر"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 #, fuzzy
 msgid "Saving image"
 msgstr "ذخیره‌ی تصویر"
@@ -333,12 +343,17 @@ msgstr "بار کردن تصویر"
 msgid "Save Image"
 msgstr "ذخیره‌ی تصویر"
 
-#: libeog/eog-file-selection.c:489
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "باز کردن یک پرونده"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr ""
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr ""
 
@@ -359,27 +374,27 @@ msgstr "تصاویر را تنها می‌توان به‌شکل پرونده‌
 msgid "Unsupported image type for saving."
 msgstr "قالب پرونده‌ی پشتیبانی‌نشده."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr ""
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "مقدار"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "عرض"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "ارتفاع"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "اندازه‌ی پرونده"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "نام پرونده"
 
@@ -606,7 +621,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "روزبه پورنادر <roozbeh@sharif.edu>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "چشم گنوم"
 
@@ -623,7 +638,7 @@ msgstr ""
 "نمی‌توان راهنمای چشم گنوم را نمایش داد.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, fuzzy, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -632,23 +647,22 @@ msgstr ""
 "شما دارید %i پنجره را هم‌زمان باز می‌کنید.\n"
 "آیا می‌خواهید ادامه دهید؟"
 
-#: shell/main.c:234
+#: shell/main.c:241
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "باز کردن در یک پنجره‌ی جدید"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "پنجره‌های تنها"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr ""
 
-#: shell/main.c:313
-#, fuzzy
-msgid "Could not find files"
-msgstr "نمی‌توان %s را باز کرد"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -786,30 +800,34 @@ msgstr "چاپ تصویر شکست خورد"
 msgid "Loading failed"
 msgstr "بار کردن شکست خورد"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "تصویر با موفقیت ذخیره شد"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "ذخیره‌ی تصویر شکست خورد"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "عرض تصویر"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "ارتفاع تصویر"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "متن نوار وضعیت"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "عرض مطلوب پنجره"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "ارتفاع مطلوب پنجره"
+
+#, fuzzy
+#~ msgid "Could not find files"
+#~ msgstr "نمی‌توان %s را باز کرد"

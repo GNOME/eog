@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-08-27 18:27+0200\n"
 "Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
 "Language-Team: Slovak <sk-i18n@linux.sk>\n"
@@ -29,6 +29,16 @@ msgstr "Vytváracie rozhranie prehliadača kolekcie obrázkov EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Kolekcia obrázkov"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Kolekcia obrázkov"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Kolekcia obrázkov"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -90,35 +100,35 @@ msgstr "V_rátiť späť"
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Zrušiť ukladanie"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Uloženie dokončené"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Presunúť do Odpadkov"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Kolekcia"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Titulok okna"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Text stavového riadku"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Priebeh načítavania obrázku"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Ukladám obrázok"
 
@@ -316,44 +326,55 @@ msgstr "Vložiteľný obrázok EOG"
 msgid "Image"
 msgstr "Obrázok"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "Obrázok"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Načítať obrázok"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Uložiť obrázok"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "Otvorí súbor"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Nepodarilo sa získať pamäť pre načítanie obrázku JPEG"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nepodarilo sa získať pamäť pre načítanie obrázku JPEG"
 
@@ -373,28 +394,28 @@ msgstr "Obrázky je možné uložiť iba na lokálne disky."
 msgid "Unsupported image type for saving."
 msgstr "Nepodporovaný typ obrázku pre uloženie."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Atribút"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Hodnota"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Šírka"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Výška"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 #, fuzzy
 msgid "Filesize"
 msgstr "Meno súboru"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Meno súboru"
 
@@ -622,7 +643,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -639,28 +660,28 @@ msgstr ""
 "Nepodarilo sa zobraziť pomocníka pre Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr "Chystáte sa otvoriť %i okien. Nechcete ich radšej otvoriť v kolekcii?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Otvoriť viacnásobné okno?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Jednoduché okná"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Kolekcia"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Nepodarilo sa nájsť súbory"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -797,33 +818,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Načítanie zlyhalo"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Obrázok úspešne uložený"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Uloženie obrázku zlyhalo"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Šírka obrázku"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Text stavového riadku"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Požadovaná šírka okna"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Požadovaná výška okna"
+
+#~ msgid "Could not find files"
+#~ msgstr "Nepodarilo sa nájsť súbory"
 
 #~ msgid "*"
 #~ msgstr "*"

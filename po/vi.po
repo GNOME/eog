@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-10-01 20:45+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -24,6 +24,16 @@ msgstr "Factory của trình xem tập ảnh EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Bộ ảnh"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Bộ ảnh"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Bộ ảnh"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -85,35 +95,35 @@ msgstr "_Hoàn lại"
 msgid "_View"
 msgstr "_Xem"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Hủy lưu"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Lưu xong"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Cho vào thùng rác"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Cửa sổ Tập hợp"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Tựa đề cửa sổ"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Tình trạng"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Tiến trình nạp ảnh"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Đang lưu ảnh"
 
@@ -311,44 +321,55 @@ msgstr "Ảnh EOG nhúng"
 msgid "Image"
 msgstr "Ảnh"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "Ảnh"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Nạp ảnh"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Lưu ảnh"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "Mở tập tin"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Không thể cấp phát bộ nhớ để nạp ảnh JPEG"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Không thể cấp phát bộ nhớ để nạp ảnh JPEG"
 
@@ -368,28 +389,28 @@ msgstr "Chỉ có thể lưu ảnh thành tập tin cục bộ."
 msgid "Unsupported image type for saving."
 msgstr "Dạng thức ảnh chưa được hỗ trợ lưu ảnh."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Thuộc tính"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Giá trị"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Rộng"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Cao"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 #, fuzzy
 msgid "Filesize"
 msgstr "Tên tập tin"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Tên tập tin"
 
@@ -619,7 +640,7 @@ msgstr ""
 "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Mắt Gnome"
 
@@ -636,7 +657,7 @@ msgstr ""
 "Không thể hiển thị trợ giúp cho Mắt Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -645,21 +666,21 @@ msgstr ""
 "Bạn định mở %i cửa sổ đồng thời. Bạn có muốn mở chúng trong một tập hợp "
 "không thay vì mở nhiều cửa sổ?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Mở nhiều cửa sổ đơn chứ?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Cửa sổ đơn"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Tập hợp"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Không thể tìm tập tin"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -796,33 +817,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Nạp ảnh thất bại"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Ảnh đã lưu xong"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Lưu ảnh thất bại"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Chiều rộng ảnh"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Chiều cao ảnh"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Text thanh trạng thái"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Chiều rộng cửa sổ cần thiết"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Chiều cao cửa sổ cần thiết"
+
+#~ msgid "Could not find files"
+#~ msgstr "Không thể tìm tập tin"
 
 #~ msgid "*"
 #~ msgstr "*"

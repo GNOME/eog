@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.6\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-09-03 23:40+0300\n"
 "Last-Translator: Mugurel Tudor <mugurelu@go.ro>\n"
 "Language-Team:  <gnomero-list@lists.sourceforge.net>\n"
@@ -26,6 +26,16 @@ msgstr "Fabrica de vizualizare de colecţii de imagini EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "o colecţie"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "o colecţie"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "o colecţie"
 
 # Aici nu e o greşeală, mesajul apare în Nautilus 
@@ -89,35 +99,35 @@ msgstr "_Refă"
 msgid "_View"
 msgstr "_Vizualizare"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Anulează salvarea"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Salvare încheiată"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Mută la Gunoi"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Vizualizare colecţie"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Titlu fereastră"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Text în bara de stare"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progres încărcare imagine"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Salvez imaginea"
 
@@ -316,44 +326,55 @@ msgstr "Imagine EOG încorporată"
 msgid "Image"
 msgstr "Imagine"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "Imagine"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Încarcă imaginea"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Salvează imaginea"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "Deschide un fişier"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Nu am putut aloca memorie pentru încărcarea imaginii JPEG"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nu am putut aloca memorie pentru încărcarea imaginii JPEG"
 
@@ -373,28 +394,28 @@ msgstr "Imaginile pot fi salvate doar ca fişiere locale."
 msgid "Unsupported image type for saving."
 msgstr "Tip de fişier nesuportat la salvare."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Atribut"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Valoare"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Lăţime"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Înălţime"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 #, fuzzy
 msgid "Filesize"
 msgstr "Nume fişier"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Nume fişier"
 
@@ -624,7 +645,7 @@ msgstr ""
 "Mişu Moldovan <dumol@go.ro>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -641,7 +662,7 @@ msgstr ""
 "Nu am putut afişa ajutorul pentru Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -650,21 +671,21 @@ msgstr ""
 "Sunteţi pe punctul de a deschide %i ferestre simultan. Doriţi în schimb să "
 "le deschideţi într-o colecţie?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Deschideţi mai multe ferestre separate?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Ferestre separate"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Colecţie"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Nu am putut găsi fişierele"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -801,33 +822,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Încărcare eşuată"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Imagine salvată cu succes"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Salvarea imaginii a eşuat"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Lăţimea imaginii"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Înălţimea imaginii"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Text în bara de status"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Lăţimea dorită a ferestrei"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Înălţimea dorită a ferestrei"
+
+#~ msgid "Could not find files"
+#~ msgstr "Nu am putut găsi fişierele"
 
 #~ msgid "*"
 #~ msgstr "*"

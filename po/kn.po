@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eog.Gnome.Core-2.1\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2002-12-20 13:46+0530\n"
 "Last-Translator: Pramod <rpramod@postmaster.co.uk>\n"
 "Language-Team: Kannada <LL@li.org>\n"
@@ -24,6 +24,14 @@ msgstr ""
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+msgid "View as I_mage Collection"
+msgstr ""
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+msgid "View as Image Collection"
 msgstr ""
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -87,37 +95,37 @@ msgstr ""
 msgid "_View"
 msgstr "ನೊಟ"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 #, fuzzy
 msgid "Cancel saving"
 msgstr "ರದ್ದುಗೊಲಿಸು"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr ""
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr ""
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr ""
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "ಕಿಟಕಿಯ ಶೀರ್ಷಿಕೆ"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 #, fuzzy
 msgid "Status Text"
 msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr ""
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 #, fuzzy
 msgid "Saving image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
@@ -299,44 +307,55 @@ msgstr ""
 msgid "Image"
 msgstr "ಚಿತ್ರ"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr ""
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr ""
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr ""
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 #, fuzzy
 msgid "All Images"
 msgstr "ಚಿತ್ರ"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr ""
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "ಚಿತ್ರವನ್ನು ತೆಗೆ"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 #, fuzzy
 msgid "Open Folder"
 msgstr "ಕಡತವನ್ನು ತೆಗೆ"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr ""
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr ""
 
@@ -356,30 +375,30 @@ msgstr ""
 msgid "Unsupported image type for saving."
 msgstr ""
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr ""
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr ""
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 #, fuzzy
 msgid "Width"
 msgstr "ಚಿತ್ರದ ಅಗಳ"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 #, fuzzy
 msgid "Height"
 msgstr "ಬಲ:"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 #, fuzzy
 msgid "Filesize"
 msgstr "ಕಡತ"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 #, fuzzy
 msgid "Filename"
 msgstr "ಕಡತ"
@@ -609,7 +628,7 @@ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "ಅನುವಾದಕರು-ಪ್ರಮೋದ್.ಆರ್"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr ""
 
@@ -624,28 +643,28 @@ msgid ""
 "%s"
 msgstr ""
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
 
-#: shell/main.c:234
+#: shell/main.c:241
 #, fuzzy
 msgid "Open multiple single windows?"
 msgstr "ಹೊಸ ಕಿಟಕಿಯಲ್ಲಿ ತೆಗೆ"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr ""
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr ""
 
-#: shell/main.c:313
-msgid "Could not find files"
+#: shell/main.c:320
+msgid "File(s) not found."
 msgstr ""
 
 #: shell/util.c:52
@@ -780,31 +799,31 @@ msgstr ""
 msgid "Loading failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "ಚಿತ್ರದ ಅಗಳ"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "ಚಿತ್ರದ ಉದ್ದ"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr ""
 

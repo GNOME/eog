@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.4.0\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2003-12-23 01:49-0200\n"
 "Last-Translator: Gustavo Noronha Silva <kov@debian.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -28,6 +28,16 @@ msgstr "Fábrica de visualização da coleção de imagens EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Coleção de Imagens"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Coleção de Imagens"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Coleção de Imagens"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -89,35 +99,35 @@ msgstr "Desfa_zer"
 msgid "_View"
 msgstr "_Ver"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Cancelar salvar"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "Arquivo salvado"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Mover para a Lixeira"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Visualizar como Coleção"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Título da Janela"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Texto de Status"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progresso do Carregamento de Imagem"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "Salvando imagem"
 
@@ -202,7 +212,10 @@ msgstr "segundos"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr "Um valor maior que 0 determina o número de segundos que uma imagem fica na tela até que a próxima seja mostrada automaticamente. Zero desliga a navegação automática."
+msgstr ""
+"Um valor maior que 0 determina o número de segundos que uma imagem fica na "
+"tela até que a próxima seja mostrada automaticamente. Zero desliga a "
+"navegação automática."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -235,7 +248,9 @@ msgstr ""
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr "Se isso por configurado como falso imagens pequenas não serão ampliadas para o tamanho da tela inicialmente."
+msgstr ""
+"Se isso por configurado como falso imagens pequenas não serão ampliadas para "
+"o tamanho da tela inicialmente."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -269,7 +284,9 @@ msgstr "Indicador da transparência"
 msgid ""
 "Wether opening an image should create a new window instead of replacing the "
 "image in the current window."
-msgstr "Se abrir uma imagem deve criar uma nova janela ao invés de substituir a imagem na janela atual."
+msgstr ""
+"Se abrir uma imagem deve criar uma nova janela ao invés de substituir a "
+"imagem na janela atual."
 
 #: eog.schemas.in.h:16
 msgid "Wether or not the squence of images should be shown in an endless loop."
@@ -303,42 +320,53 @@ msgstr "Imagem EOG embutível"
 msgid "Image"
 msgstr "Imagem"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
 msgstr "Você quer sobrescrever %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
 msgstr "O arquivo existe"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
 msgstr "Todos os Arquivos"
 
-#: libeog/eog-file-selection.c:125
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
 msgstr "Todas as Imagem"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr ""
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Carregar Imagem"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Salvar Imagem"
 
-#: libeog/eog-file-selection.c:246
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
 msgstr "Abrir Pasta"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Não foi possível alocar memória para carregar arquivo JPEG"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Não foi possível alocar memória para carregar arquivo JPEG"
 
@@ -358,27 +386,27 @@ msgstr "Imagens só podem ser salvas como arquivos locais."
 msgid "Unsupported image type for saving."
 msgstr "Tipo de imagem não suportado para salvar."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Atributo"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Valor"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Largura"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Altura"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "Tamanho do Arquivo"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Nome do Arquivo"
 
@@ -606,7 +634,7 @@ msgstr ""
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -623,7 +651,7 @@ msgstr ""
 "Não foi possível exibir a ajuda da aplicação Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -632,21 +660,21 @@ msgstr ""
 "Você está prestes a abrir %i janelas simultaneamente. Deseja abrí-las como "
 "uma coleção?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Abrir janelas simples múltiplas?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Janelas Únicas"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Coleção"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "Não foi possível encontrar arquivos"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -782,33 +810,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Erro ao Carregar"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Imagem salva com sucesso"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Falha ao salvar imagem"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Largura da Imagem"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Altura da Imagem"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Texto da Barra de Status"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Largura de janela desejada"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Altura de janela desejada"
+
+#~ msgid "Could not find files"
+#~ msgstr "Não foi possível encontrar arquivos"
 
 #~ msgid "*"
 #~ msgstr "*"

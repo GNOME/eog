@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-04 18:57+0100\n"
+"POT-Creation-Date: 2004-02-16 19:43+0100\n"
 "PO-Revision-Date: 2004-01-04 19:00+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -25,6 +25,16 @@ msgstr "Creació de vistes de la col·lecció d'imatges d'EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
+msgstr "Col·lecció d'imatges"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:4
+#, fuzzy
+msgid "View as I_mage Collection"
+msgstr "Col·lecció d'imatges"
+
+#: collection/GNOME_EOG_Collection.server.in.in.h:5
+#, fuzzy
+msgid "View as Image Collection"
 msgstr "Col·lecció d'imatges"
 
 #: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
@@ -98,23 +108,23 @@ msgstr "El desat ha finalitzat"
 msgid "Move to Trash"
 msgstr "Mou a la paperera"
 
-#: collection/eog-collection-view.c:855
+#: collection/eog-collection-view.c:927
 msgid "Collection View"
 msgstr "Mostra la col·lecció"
 
-#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: collection/eog-collection-view.c:1348
+#: collection/eog-collection-view.c:1426
 msgid "Status Text"
 msgstr "Text d'estat"
 
-#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progrés de la càrrega de la imatge"
 
-#: collection/eog-save-dialog.c:99
+#: collection/eog-save-dialog.c:100
 msgid "Saving image"
 msgstr "S'està desant la imatge"
 
@@ -345,11 +355,16 @@ msgstr "Carrega la imatge"
 msgid "Save Image"
 msgstr "Desa la imatge"
 
-#: libeog/eog-file-selection.c:489
+#: libeog/eog-file-selection.c:488
 msgid "Open Folder"
 msgstr "Obre una carpeta"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "No s'ha pogut assignar memòria per a carregar el fitxer JPEG"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "No s'ha pogut assignar memòria per a carregar el fitxer JPEG"
 
@@ -369,27 +384,27 @@ msgstr "Només es pot desar les imatges com fitxers locals."
 msgid "Unsupported image type for saving."
 msgstr "El tipus d'imatge no és suportat per a desar."
 
-#: libeog/eog-info-view.c:85
+#: libeog/eog-info-view.c:105
 msgid "Attribute"
 msgstr "Atribut"
 
-#: libeog/eog-info-view.c:93
+#: libeog/eog-info-view.c:113
 msgid "Value"
 msgstr "Valor"
 
-#: libeog/eog-info-view.c:159
+#: libeog/eog-info-view.c:209
 msgid "Width"
 msgstr "Amplada"
 
-#: libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:219
 msgid "Height"
 msgstr "Alçada"
 
-#: libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:222
 msgid "Filesize"
 msgstr "Mida del fitxer"
 
-#: libeog/eog-info-view.c:199
+#: libeog/eog-info-view.c:237
 msgid "Filename"
 msgstr "Nom del fitxer"
 
@@ -616,7 +631,7 @@ msgstr ""
 "Jordi Mallach <jordi@sindominio.net>"
 
 #: shell/eog-window.c:297 shell/eog-window.c:877 shell/eog-window.c:972
-#: shell/eog-window.c:1011 shell/main.c:513
+#: shell/eog-window.c:1011 shell/main.c:520
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -633,7 +648,7 @@ msgstr ""
 "No s'ha pogut mostrar l'ajuda per a l'Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:230
+#: shell/main.c:237
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -642,21 +657,21 @@ msgstr ""
 "Esteu a punt d'obrir %i finestres simultàniament. Voleu obrir-les en una "
 "col·lecció?"
 
-#: shell/main.c:234
+#: shell/main.c:241
 msgid "Open multiple single windows?"
 msgstr "Voleu obrir múltiples finestres individuals?"
 
-#: shell/main.c:238
+#: shell/main.c:245
 msgid "Single Windows"
 msgstr "Finestres individuals"
 
-#: shell/main.c:240
+#: shell/main.c:247
 msgid "Collection"
 msgstr "Col·lecció"
 
-#: shell/main.c:313
-msgid "Could not find files"
-msgstr "No s'han trobat fitxers"
+#: shell/main.c:320
+msgid "File(s) not found."
+msgstr ""
 
 #: shell/util.c:52
 #, c-format
@@ -797,33 +812,36 @@ msgstr ""
 msgid "Loading failed"
 msgstr "La càrrega de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "S'ha desat la imatge correctament"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "El desat de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Amplada de finestra desitjada"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Alçada de finestra desitjada"
+
+#~ msgid "Could not find files"
+#~ msgstr "No s'han trobat fitxers"
 
 #~ msgid "By Extension"
 #~ msgstr "Per l'extensió"
