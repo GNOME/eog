@@ -1,3 +1,28 @@
+2003-12-21  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view.c (save_image_loading_finished):
+	Adapted to new eog_image_save signature.
+
+	* libeog/eog-file-selection.[ch] (eog_file_selection_add_filter):
+	Attach GdkPixbufFormat to filter for further reference.
+	(eog_file_selection_get_format): New function.
+
+	* libeog/eog-image-jpeg.[ch] (get_tmp_filepath),
+	(move_file_to_uri): New functions.
+	(eog_image_jpeg_save),
+	(eog_image_jpeg_save_lossless): Dump data to temporary file first
+	and move it to final destination afterwards.
+
+	* libeog/eog-image.[ch] (real_image_load): Set image status to failed
+	if we read 0 bytes.
+	(eog_image_save): Added GdkPixbufFormat parameter, better
+	retrieving of target filetype.
+
+	* viewer/eog-image-view.c (verb_SaveAs_cb): Get image format from
+	file chooser.
+	(save_uri): New function, which takes an additional
+	GdkPixbufFormat parameter.
+
 2003-12-19  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.c (eog_image_save): Update URI and clear

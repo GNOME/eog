@@ -117,6 +117,7 @@ enum {
 static void popup_menu_cb (gpointer data, guint action, GtkWidget *widget);
 static gint save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 			 CORBA_Environment *ev, void *closure);
+static gboolean save_uri (EogImageView *view, const char *text_uri, GdkPixbufFormat *format);
 
 
 static guint signals[LAST_SIGNAL] = { 0 };
@@ -316,6 +317,7 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 	GtkWidget        *dlg;
 	int              response;
 	gchar            *filename = NULL;
+	GdkPixbufFormat  *format = NULL;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 
@@ -330,14 +332,13 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data,
 
 	if (response == GTK_RESPONSE_OK) {
 		filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dlg));
+		format = eog_file_selection_get_format (EOG_FILE_SELECTION (dlg));
 	}
 
 	gtk_widget_destroy (dlg);
 
-	
-
 	if (response == GTK_RESPONSE_OK) {
-		save_uri_cb (NULL, filename, NULL, image_view);
+		save_uri (image_view, filename, format);
 	}
 
 	if (filename != NULL) {
@@ -1102,22 +1103,26 @@ static gint
 save_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	     CORBA_Environment *ev, void *closure)
 {
-	EogImageView *view;
+	return save_uri (EOG_IMAGE_VIEW (closure), text_uri, NULL);
+}
+
+static gboolean
+save_uri (EogImageView *view, const char *text_uri, GdkPixbufFormat *format)
+{
 	GnomeVFSURI *uri;
 	GError *error = NULL;
 	GtkWidget *dialog;
 	gboolean result;
 
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (closure), 1);
-	g_return_val_if_fail (text_uri != NULL, 1);
+	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (view), FALSE);
+	g_return_val_if_fail (text_uri != NULL, FALSE);
 
-	view = EOG_IMAGE_VIEW (closure);
 	if (view->priv->image == NULL) return FALSE;
 
 	/* FIXME: what kind of escaping do we need here? */
 	uri = gnome_vfs_uri_new (text_uri);
 
-	result = eog_image_save (view->priv->image, uri, &error);
+	result = eog_image_save (view->priv->image, uri, format, &error);
 
 	if (result) {
 		dialog = eog_hig_dialog_new (GTK_STOCK_DIALOG_INFO,

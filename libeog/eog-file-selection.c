@@ -10,11 +10,12 @@
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkstock.h>
 #include <gtk/gtkmessagedialog.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-hig-dialog.h"
 #include "eog-pixbuf-util.h"
 
 static char* last_dir[] = { NULL, NULL };
+
+#define FILE_FORMAT_KEY "file-format"
 
 GNOME_CLASS_BOILERPLATE (EogFileSelection,
 			 eog_file_selection,
@@ -137,7 +138,7 @@ eog_file_selection_add_filter (GtkWidget *widget)
 					       gdk_pixbuf_format_get_name (format));
 		gtk_file_filter_set_name (filter, filter_name);
 		g_free (filter_name);
-
+		
 		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
 		for (i = 0; mime_types[i] != NULL; i++) {
 			gtk_file_filter_add_mime_type (filter, mime_types[i]);
@@ -153,6 +154,12 @@ eog_file_selection_add_filter (GtkWidget *widget)
 			g_free (tmp);
 		}
 		g_strfreev (pattern);
+
+		/* attach GdkPixbufFormat to filter, see also
+		 * eog_file_selection_get_format. */
+		g_object_set_data (G_OBJECT (filter), 
+				   FILE_FORMAT_KEY,
+				   format);
 
 		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), filter);
 		
@@ -232,4 +239,20 @@ eog_folder_selection_new (void)
 	gtk_window_set_default_size (GTK_WINDOW (filesel), 600, 400);
 
 	return filesel;
+}
+
+GdkPixbufFormat* 
+eog_file_selection_get_format (EogFileSelection *sel)
+{
+	GtkFileFilter *filter;
+	GdkPixbufFormat* format;
+
+	g_return_val_if_fail (EOG_IS_FILE_SELECTION (sel), NULL);
+
+	filter = gtk_file_chooser_get_filter (GTK_FILE_CHOOSER (sel));
+	if (filter == NULL) return NULL;
+     
+	format = g_object_get_data (G_OBJECT (filter), FILE_FORMAT_KEY);
+	
+	return format;
 }

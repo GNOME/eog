@@ -312,7 +312,7 @@ save_image_loading_finished (EogImage *image, gpointer data)
 		
 		uri = eog_image_get_uri (image);
 		
-		if (!eog_image_save (image, uri, &error)) {
+		if (!eog_image_save (image, uri, NULL, &error)) {
 			/* FIXME: indicate failed state to the user */
 		}
 		gnome_vfs_uri_unref (uri);

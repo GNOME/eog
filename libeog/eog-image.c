@@ -843,7 +843,7 @@ real_image_load (gpointer data)
 	gnome_vfs_close (handle);
 	gnome_vfs_file_info_unref (info);
 	
-	if (failed) {
+	if (failed || (bytes_read_total == 0)) {
 		g_mutex_lock (priv->status_mutex);
 		if (priv->image != NULL) {
 			g_object_unref (priv->image);
@@ -854,6 +854,9 @@ real_image_load (gpointer data)
 		
 		if (error != NULL) {
 			priv->error_message = g_strdup (error->message);
+		}
+		else if (bytes_read_total == 0) {
+			priv->error_message = g_strdup (_("empty file"));
 		}
 		else {
 			priv->error_message = NULL;
@@ -1274,7 +1277,7 @@ get_save_file_type_by_suffix (const char *local_path)
 }
 
 gboolean
-eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
+eog_image_save (EogImage *img, GnomeVFSURI *uri, GdkPixbufFormat *format, GError **error)
 {
 	EogImagePrivate *priv;
 	char *file;
@@ -1306,11 +1309,25 @@ eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 			     _("Images can only be saved as local files."));
 		return FALSE;
 	}
-	
-	/* find file type for saving, according to filename suffix */
+
 	file = (char*) gnome_vfs_uri_get_path (uri); /* don't free file, it's a static string */
-	
-	target_type = get_save_file_type_by_suffix (file);
+
+	/* determine type of file to write (eg. 'png') */
+	if (format == NULL) {
+		if (gnome_vfs_uri_equal (priv->uri, uri)) {
+			/* we overwrite the same file, therefore we
+			 * can reuse the file type saved in the EogImage object. */
+			target_type = g_strdup (priv->file_type);
+		}
+		else {
+			/* find file type for saving, according to filename suffix */
+			target_type = get_save_file_type_by_suffix (file);
+		}
+	}
+	else {
+		target_type = gdk_pixbuf_format_get_name (format);
+	}
+
 	if (target_type == NULL) {
 		g_set_error (error, GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_UNKNOWN_TYPE,
@@ -1321,8 +1338,8 @@ eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 	source_is_local = (priv->uri != NULL && is_local_uri (priv->uri));
 	source_type = priv->file_type;
 	
-	/* Check for some special cases, so that we use always the least intrusive method 
-	 * for saving the image.
+	/* Check for some special cases, so that we use always the
+	 * least intrusive method for saving the image.
 	 */
 	if ((g_ascii_strcasecmp (target_type, source_type) == 0) &&
 	    !eog_image_is_modified (img))
@@ -1334,11 +1351,11 @@ eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 		
 		vfs_result = gnome_vfs_xfer_uri (priv->uri,
 						 uri, 
-						 GNOME_VFS_XFER_DEFAULT /* copy the data */,
-						 GNOME_VFS_XFER_ERROR_MODE_ABORT, /* abort on all errors */
+						 GNOME_VFS_XFER_DEFAULT                 /* copy the data */,
+						 GNOME_VFS_XFER_ERROR_MODE_ABORT,       /* abort on all errors */
 						 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE, /* we checked for existing 
 											   file already */
-						 NULL,  /* no progress callback */
+						 NULL,                                  /* no progress callback */
 						 NULL);
 		result = (vfs_result == GNOME_VFS_OK);
 		if (!result) {
@@ -1356,7 +1373,7 @@ eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 		/* If source is a local file and both are jpeg files,
 		 * then use lossless transformation through libjpeg.
 		 */
-		result = eog_image_jpeg_save_lossless (img, file, error);
+		result = eog_image_jpeg_save_lossless (img, uri, error);
 
 		g_print ("loseless saving of %s to %s\n", 
 			 gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE), file);
@@ -1368,7 +1385,7 @@ eog_image_save (EogImage *img, GnomeVFSURI *uri, GError **error)
 		 * libjpeg.
 		 */
 		g_print ("Save through jpeg library.\n");
-		result = eog_image_jpeg_save (img, file, error);
+		result = eog_image_jpeg_save (img, uri, error);
 	}
 #endif
 #endif

@@ -75,6 +75,7 @@ gboolean            eog_image_is_loaded                      (EogImage *img);
 /* saving API */
 gboolean            eog_image_save                            (EogImage *img, 
 							       GnomeVFSURI *uri,
+							       GdkPixbufFormat *format,
 							       GError **error);
 
 /* query API */
