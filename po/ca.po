@@ -1,19 +1,19 @@
 # eog translation to Catalan.
-# Copyright © 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright © 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
 # Softcatalà <tradgnome@softcatala.org>, 2000, 2001, 2002.
-# Jordi Mallach <jordi@sindominio.net>, 2002, 2003.
+# Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.0\n"
-"POT-Creation-Date: 2003-12-22 18:16+0100\n"
-"PO-Revision-Date: 2003-11-17 14:24+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-04 18:57+0100\n"
+"PO-Revision-Date: 2004-01-04 19:00+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -86,31 +86,31 @@ msgstr "_Desfés"
 msgid "_View"
 msgstr "_Visualitza"
 
-#: collection/eog-collection-view.c:337
+#: collection/eog-collection-view.c:338
 msgid "Cancel saving"
 msgstr "Cancel·la el desat"
 
-#: collection/eog-collection-view.c:340
+#: collection/eog-collection-view.c:341
 msgid "Saving finished"
 msgstr "El desat ha finalitzat"
 
-#: collection/eog-collection-view.c:809
+#: collection/eog-collection-view.c:810
 msgid "Move to Trash"
 msgstr "Mou a la paperera"
 
-#: collection/eog-collection-view.c:854
+#: collection/eog-collection-view.c:855
 msgid "Collection View"
 msgstr "Mostra la col·lecció"
 
-#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1383
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: collection/eog-collection-view.c:1315
+#: collection/eog-collection-view.c:1348
 msgid "Status Text"
 msgstr "Text d'estat"
 
-#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1395
 msgid "Progress of Image Loading"
 msgstr "Progrés de la càrrega de la imatge"
 
@@ -308,42 +308,46 @@ msgstr "Imatge EOG incrustable"
 msgid "Image"
 msgstr "Imatge"
 
-#: libeog/eog-file-selection.c:45
+#: libeog/eog-file-selection.c:96
 #, c-format
 msgid "Do you want to overwrite %s?"
-msgstr ""
+msgstr "Voleu sobreescriure %s?"
 
-#: libeog/eog-file-selection.c:50
+#: libeog/eog-file-selection.c:101
 msgid "File exists"
-msgstr ""
+msgstr "El fitxer existeix"
 
-#: libeog/eog-file-selection.c:119
+#: libeog/eog-file-selection.c:170
 msgid "All Files"
-msgstr ""
+msgstr "Tots els fitxers"
 
-#: libeog/eog-file-selection.c:125
-#, fuzzy
+#: libeog/eog-file-selection.c:176
 msgid "All Images"
-msgstr "Imatge"
+msgstr "Totes les imatges"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:143
+#: libeog/eog-file-selection.c:194
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
-#: libeog/eog-file-selection.c:196
+#. Pixel size of image: width x height in pixel
+#: libeog/eog-file-selection.c:280
+#, c-format
+msgid "%s x %s pixel"
+msgstr "%s x %s píxels"
+
+#: libeog/eog-file-selection.c:437
 msgid "Load Image"
 msgstr "Carrega la imatge"
 
-#: libeog/eog-file-selection.c:204
+#: libeog/eog-file-selection.c:445
 msgid "Save Image"
 msgstr "Desa la imatge"
 
-#: libeog/eog-file-selection.c:246
-#, fuzzy
+#: libeog/eog-file-selection.c:489
 msgid "Open Folder"
-msgstr "Obre un fitxer"
+msgstr "Obre una carpeta"
 
 #: libeog/eog-image-jpeg.c:143
 msgid "Couldn't allocate memory for loading JPEG file"
@@ -351,7 +355,7 @@ msgstr "No s'ha pogut assignar memòria per a carregar el fitxer JPEG"
 
 #: libeog/eog-image.c:859
 msgid "empty file"
-msgstr ""
+msgstr "fitxer buit"
 
 #: libeog/eog-image.c:1299
 msgid "No image loaded."
@@ -382,9 +386,8 @@ msgid "Height"
 msgstr "Alçada"
 
 #: libeog/eog-info-view.c:181
-#, fuzzy
 msgid "Filesize"
-msgstr "Nom del fitxer"
+msgstr "Mida del fitxer"
 
 #: libeog/eog-info-view.c:199
 msgid "Filename"
@@ -526,9 +529,8 @@ msgid "Open"
 msgstr "Obre"
 
 #: shell/eog-shell-ui.xml.h:9
-#, fuzzy
 msgid "Open a directory"
-msgstr "Obre un fitxer"
+msgstr "Obre un directori"
 
 #: shell/eog-shell-ui.xml.h:10
 msgid "Open a file"
@@ -584,9 +586,8 @@ msgid "_New"
 msgstr "_Nou"
 
 #: shell/eog-shell-ui.xml.h:24
-#, fuzzy
 msgid "_Open Directory..."
-msgstr "_Obre la imatge..."
+msgstr "_Obre un directori..."
 
 #: shell/eog-shell-ui.xml.h:25
 msgid "_Open..."
@@ -743,9 +744,9 @@ msgstr "Im_primeix..."
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #: viewer/eog-image-view.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i píxel    %i%%"
+msgstr "%i x %i píxels  %s    %i%%"
 
 #: viewer/eog-image-view.c:841
 msgid "/Rotate C_lockwise"
