@@ -47,7 +47,6 @@
 #include "eog-vertical-splitter.h"
 #include "eog-horizontal-splitter.h"
 #include "eog-info-view.h"
-#include "eog-image-list.h"
 #include "eog-full-screen.h"
 #include "eog-save-dialog-helper.h"
 #include "eog-image-save-info.h"
@@ -3043,7 +3042,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 /**
  * eog_window_open:
  * @window: A window.
- * @text_uri: An escaped text URI for the object to load.
+ * @model: A list of EogImage objects.
  * @error: An pointer to an error object or NULL.
  *
  * Loads the uri into the window.
@@ -3051,105 +3050,40 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open (EogWindow *window, GnomeVFSURI *uri, GError **error)
+eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
 
+	g_return_val_if_fail (EOG_IS_IMAGE_LIST (model), FALSE);
+	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
+	
 	priv = window->priv;
 
 #ifdef DEBUG
-	g_print ("EogWindow.c: eog_window_open single uri\n");
+	g_print ("EogWindow.c: eog_window_open\n");
 #endif
-
-	/* create new image list */
+	
+	/* attach image list */
 	if (priv->image_list != NULL) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
 		g_object_unref (priv->image_list);
 	}
-	priv->image_list = eog_image_list_new ();
-	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), 
-						       "list_prepared", 
-						       G_CALLBACK (image_list_prepared_cb),
-						       window);
+	g_object_ref (model);
+	priv->image_list = model;
 
-	/* fill list with uris */
-	info = gnome_vfs_file_info_new ();
-	result = gnome_vfs_get_file_info_uri (uri, info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	if (result == GNOME_VFS_OK) {
-		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-			eog_image_list_add_directory (priv->image_list, uri);
-		}
-		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
-			GList *list = NULL;
-
-			list = g_list_prepend (list, uri);
-			eog_image_list_add_files (priv->image_list, list);
-
-			g_list_free (list);
-		}
-	}
-	gnome_vfs_file_info_unref (info);
-
+	/* update ui */
+	update_ui_visibility (window);
+	
 	/* attach model to view */
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 
 	/* update recent files */
+#if 0
 	add_uri_to_recent_files (window, uri);
-
-	/* update ui */
-	update_ui_visibility (window);
-
-	return TRUE;
-}
-
-/**
- * eog_window_open_list:
- * @window: A window.
- * @text_uri_list: List of escaped text URIs for the object to load.
- * @error: An pointer to an error object or NULL.
- *
- * Loads all uri's contained in the list into the window.
- *
- * Return value: TRUE on success, FALSE otherwise.
- **/
-gboolean
-eog_window_open_list (EogWindow *window, GList *uri_list, GError **error)
-{
-	EogWindowPrivate *priv;
-	GList *it;
-
-	priv = window->priv;
-
-#ifdef DEBUG
-	g_print ("EogWindow.c: eog_window_open  uri list\n");
 #endif
 
-	if (priv->image_list != NULL) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
-		g_object_unref (priv->image_list);
-	}
-
-	priv->image_list = eog_image_list_new ();
-	priv->sig_id_list_prepared = g_signal_connect (G_OBJECT (priv->image_list), 
-						       "list_prepared", G_CALLBACK (image_list_prepared_cb),
-						       window);
-	eog_image_list_add_files (priv->image_list, uri_list);
-	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
-
-	/* update recent files list */
-	for (it = uri_list; it != NULL; it = it->next) {
-		add_uri_to_recent_files (window, (GnomeVFSURI*) it->data);
-	}
-
-	update_ui_visibility (window);
-
 	return TRUE;
 }
-
 
 /**
  * eog_get_window_list:

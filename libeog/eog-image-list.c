@@ -32,9 +32,6 @@ struct _EogImageListPrivate {
 	/* Number of images. Same as g_list_length (store) */
 	int             n_images;
 
-	/* number of images to load before emitting a 'prepared' signal */
-	int             load_n_files;
-
 	/* the largest common part of all image uris */
 	GnomeVFSURI     *base_uri;
 	gboolean         no_common_base;
@@ -44,7 +41,6 @@ typedef struct {
 	EogImageList *list;
 	GnomeVFSURI *uri;
 	GnomeVFSFileInfo *info;
-	GnomeVFSHandle *handle;
 } DirLoadingContext;
 
 /* Signal IDs */
@@ -212,27 +208,6 @@ compare_filename_cb (gconstpointer a, gconstpointer b)
 	return strcmp (eog_image_get_collate_key (img_a), eog_image_get_collate_key (img_b));
 }
 
-static void
-free_loading_context (DirLoadingContext *ctx)
-{
-	if (ctx == NULL)
-		return;
-	
-	if (ctx->uri)
-		gnome_vfs_uri_unref (ctx->uri);
-	ctx->uri = NULL;
-
-	if (ctx->info)
-		gnome_vfs_file_info_unref (ctx->info);
-	ctx->info = NULL;
-	
-	if (ctx->handle)
-		gnome_vfs_close (ctx->handle);
-	ctx->handle = NULL;
-	
-	g_free (ctx);
-}
-
 /* Inserts an image into a sorted list, returning the position where the 
  * element has been inserted (starting at 0).
  */
@@ -398,11 +373,11 @@ directory_visit_cb (const gchar *rel_uri,
 		    gboolean *recurse)
 {
 	EogImage *image;
-	DirLoadingContext *ctx;
 	GnomeVFSURI *uri;
 	EogImageList *list;
 	EogImageListPrivate *priv;
 	gboolean load_uri = FALSE;
+	DirLoadingContext *ctx;
 	
 	ctx = (DirLoadingContext*) data;
 	list = ctx->list;
@@ -415,7 +390,6 @@ directory_visit_cb (const gchar *rel_uri,
 	}
 
 	if (load_uri) {
-		/* FIXME: escape uri */
 		uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);	
 		
 		image = eog_image_new_uri (uri);
@@ -430,174 +404,72 @@ directory_visit_cb (const gchar *rel_uri,
 	return TRUE;
 }
 
-/* Delayed dir loading function, called when idle. Initiates the
- * examination of each file of an directory pointed by ctx->uri.  If
- * successful (images found in the directory) the 'list-prepared'
- * signal is emitted, otherwise 'list-empty'.
- */
-static gint
-real_dir_loading (DirLoadingContext *ctx)
+static void
+add_directory (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
-	EogImageList *list;
-	EogImageListPrivate *priv;
+	DirLoadingContext ctx;
 
-	g_return_val_if_fail (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY, FALSE);
+	g_return_if_fail (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY);
 
-	list = ctx->list;
-	priv = list->priv;
-
-	g_assert (ctx->uri != NULL);
-
-	priv->base_uri = gnome_vfs_uri_dup (ctx->uri);
-
-	gnome_vfs_directory_visit_uri (ctx->uri,
+	ctx.uri = uri;
+	ctx.list = list;
+	ctx.info = info;
+	
+	gnome_vfs_directory_visit_uri (uri,
 				       GNOME_VFS_FILE_INFO_DEFAULT |
 				       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
 				       GNOME_VFS_FILE_INFO_GET_MIME_TYPE,
 				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
 				       directory_visit_cb,
-				       ctx);
-
-	free_loading_context (ctx);
-
-	priv->store = g_list_sort (priv->store, compare_filename_cb);
-	
-	/* notify interested objects, that the list is ready for usage */
-	g_signal_emit (G_OBJECT (list), eog_image_list_signals[LIST_PREPARED], 0);
-	
-	return FALSE;
+				       &ctx);	
 }
 
-/* Delayed file loading function, called when idle. Loads an file
- * pointed by ctx->uri.  
- */
-static gint
-real_file_loading (DirLoadingContext *ctx)
+static void
+add_regular (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
-	EogImageList *list;
-	EogImageListPrivate *priv;
-	EogImage *image = NULL;
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
-
-	info = ctx->info;
-
-	g_return_val_if_fail (info->type == GNOME_VFS_FILE_TYPE_REGULAR, FALSE);
-
-
-	result = gnome_vfs_get_file_info_uri (ctx->uri, info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-	if (result != GNOME_VFS_OK) {
-		return FALSE;
-	}
-
-	list = ctx->list;
-	priv = list->priv;
-
-	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0 &&
-	    is_supported_mime_type (info->mime_type)) 
-	{
-		image = eog_image_new_uri (ctx->uri);
-	}
-
-	if (image != NULL) {
-		add_image_private (list, image, TRUE);
-		g_object_unref (image);
-
-		/* Retrieve base uri. This may not possible if there
-		 * are a lot of single images from different
-		 * directories. In this case base_uri is set to NULL
-		 * and no_common_base is TRUE.
-		 */
-		if ((priv->base_uri == NULL) && !priv->no_common_base) {
-			priv->base_uri = gnome_vfs_uri_get_parent (ctx->uri);
-		}
-		else if ((priv->base_uri != NULL) && !gnome_vfs_uri_is_parent (priv->base_uri, ctx->uri, FALSE)) {
-			gnome_vfs_uri_unref (priv->base_uri);
-			priv->base_uri = NULL;
-			priv->no_common_base = TRUE;
+	EogImage *image;
+	gboolean load_uri = FALSE;
+	
+	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0) {
+		if (is_supported_mime_type (info->mime_type)) {			
+			load_uri = TRUE;
 		}
 	}
+
+	if (load_uri) {		
+		image = eog_image_new_uri (uri);
 		
-	priv->load_n_files--;
-
-	if (priv->load_n_files == 0) {
-		g_signal_emit (G_OBJECT (list), eog_image_list_signals[LIST_PREPARED], 0);
-	}
-			
-       	free_loading_context (ctx);
-
-	return FALSE;
-}
-	
-/* Helper function to initialize the DirLoadingContext structure */
-static DirLoadingContext*
-prepare_loading_context (EogImageList *list, GnomeVFSURI *uri)
-{
-	DirLoadingContext *ctx;
-	GnomeVFSResult result;
-
-	if (uri == NULL) return NULL;
-
-	ctx = g_new0 (DirLoadingContext, 1);
-	ctx->uri = gnome_vfs_uri_ref (uri);
-
-#ifdef IMAGE_LIST_DEBUG
-	g_message ("Prepare context for URI: %s", 
-		   gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
-
-	ctx->info = gnome_vfs_file_info_new ();
-	result = gnome_vfs_get_file_info_uri (ctx->uri, ctx->info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	if (result != GNOME_VFS_OK) {
-		free_loading_context (ctx);
-		return NULL;
-	}
-
-	ctx->handle = 0;
-	ctx->list = list;
-
-	return ctx;
-}
-
-/* Public api function, which starts an idle function for looking for
- * image files in the directory pointed by the text_uri
- */
-void
-eog_image_list_add_directory (EogImageList *list, GnomeVFSURI *uri)
-{
-	EogImageListPrivate *priv;
-	DirLoadingContext *ctx;
-
-	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
-	g_return_if_fail (uri != NULL);
-	
-	priv = list->priv;
-
-	ctx = prepare_loading_context (list, uri);
-	
-	if ((ctx != NULL) && (ctx->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)) {
-		g_idle_add ((GSourceFunc)real_dir_loading, ctx);
-	}
-	else {
-		if (ctx != NULL) {
-			free_loading_context (ctx);
+		if (image != NULL) {
+			add_image_private (list, image, FALSE);
+			g_object_unref (image);
 		}
-		g_warning ("Can't handle URI: %s", 
-			   gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 	}	
 }
+	
+
+static gboolean
+get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+{
+	GnomeVFSResult result;
+	
+	g_return_val_if_fail (uri != NULL, FALSE);
+	g_return_val_if_fail (info != NULL, FALSE);
+	
+	gnome_vfs_file_info_clear (info);
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+						  GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+
+	return (result == GNOME_VFS_OK);
+}
 
 void
-eog_image_list_add_files (EogImageList *list, GList *uri_list) 
+eog_image_list_add_uris (EogImageList *list, GList *uri_list) 
 {
 	GList *it;
 	EogImageListPrivate *priv;
-	DirLoadingContext *ctx;
+	GnomeVFSFileInfo *info;
 
 	priv = list->priv;
 
@@ -605,21 +477,25 @@ eog_image_list_add_files (EogImageList *list, GList *uri_list)
 		return;
 	}
 
-	priv->load_n_files = g_list_length (uri_list);
-
+	info = gnome_vfs_file_info_new ();
+	
 	for (it = uri_list; it != NULL; it = it->next) {
-		ctx = prepare_loading_context (list, (GnomeVFSURI*) it->data);
-
-		if ((ctx != NULL) && (ctx->info->type == GNOME_VFS_FILE_TYPE_REGULAR)) {
-			g_idle_add ((GSourceFunc) real_file_loading, ctx);
+		GnomeVFSURI *uri = (GnomeVFSURI*) it->data;
+		
+		if (!get_uri_info (uri, info))
+			continue;
+			
+		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+			add_directory (list, uri, info);
 		}
-		else {
-			if (ctx != NULL) {
-				free_loading_context (ctx);
-			}
-			priv->load_n_files--;
+		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
+			add_regular (list, uri, info);
 		}
 	}
+
+	gnome_vfs_file_info_unref (info);
+	
+	priv->store = g_list_sort (priv->store, compare_filename_cb);
 }
 
 /* ====================================================== */
@@ -688,6 +564,29 @@ eog_image_list_get_base_uri (EogImageList *list)
 	return list->priv->base_uri;
 }
 
+void
+eog_image_list_print_debug (EogImageList *list)
+{
+	GList *it;
+	EogImageListPrivate *priv;
+	int i = 1;
+	
+	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
+	
+	priv = list->priv;
+	
+	g_print ("n_images: %i/%i\n", priv->n_images, g_list_length (priv->store));
+	for (it = priv->store; it != NULL; it = it->next) {
+		gint width, height;
+		EogImage *img = EOG_IMAGE (it->data);
+		char *uri_str = eog_image_get_uri_for_display (img);
+		eog_image_get_size (img, &width, &height);
+		
+		g_print ("%3i %s (%i/%i)\n", i++, uri_str, width, height);
+		
+		g_free (uri_str);
+	}
+}
 
 void
 eog_image_list_add_image (EogImageList *list, EogImage *image)
@@ -985,4 +884,3 @@ eog_image_list_iter_equal (EogImageList *list, EogIter *a, EogIter *b)
 	
 	return (a->list == b->list) && (a->age == b->age) && (a->position == b->position);
 }
-

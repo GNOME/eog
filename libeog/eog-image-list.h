@@ -32,7 +32,7 @@ struct _EogImageListClass {
 	GObjectClass parent_klass;
 
 	/* Notification signals */
-        void (* list_prepared) (EogImageList *list);
+	void (* list_prepared) (EogImageList *list);
 	void (* reordered)     (EogImageList *list);
 	void (* image_added)   (EogImageList *list, int pos);
 	void (* image_removed) (EogImageList *list, int pos);
@@ -43,8 +43,7 @@ GType               eog_image_list_get_type                       (void) G_GNUC_
 EogImageList*       eog_image_list_new                            (void);
 EogImageList*       eog_image_list_new_from_glist                 (GList *list);
 
-void                eog_image_list_add_directory                  (EogImageList *list, GnomeVFSURI *uri);
-void                eog_image_list_add_files                      (EogImageList *list, GList *uri_list);
+void                eog_image_list_add_uris                       (EogImageList *list, GList *uri_list);
 
 GnomeVFSURI*        eog_image_list_get_base_uri                   (EogImageList *list);
 int                 eog_image_list_length                         (EogImageList *list);
@@ -67,6 +66,9 @@ gboolean            eog_image_list_iter_valid                     (EogImageList 
 gboolean            eog_image_list_iter_prev                      (EogImageList *list, EogIter *iter, gboolean loop);
 gboolean            eog_image_list_iter_next                      (EogImageList *list, EogIter *iter, gboolean loop);
 gboolean            eog_image_list_iter_equal                     (EogImageList *list, EogIter *a, EogIter *b);
+
+/* debug functions */
+void                eog_image_list_print_debug                    (EogImageList *list);
 
 #if 0 
 /* FIXME: allow discrimination function, which decides if an image

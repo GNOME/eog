@@ -13,6 +13,8 @@
 #include "eog-thumbnail.h"
 #include "session.h"
 #include "eog-config-keys.h"
+#include "eog-image-list.h"
+#include "eog-job-manager.h"
 
 static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
 static GtkWidget* create_new_window (void);
@@ -21,7 +23,7 @@ static GtkWidget* create_new_window (void);
 typedef struct {
 	EogWindow *window;
 	GList     *uri_list;
-	gboolean  single_windows;
+	EogImageList  *img_list;
 } LoadContext;
 
 static void 
@@ -56,7 +58,10 @@ load_context_free (LoadContext *ctx)
 	if (ctx == NULL) return;
 
 	free_uri_list (ctx->uri_list);
-
+	if (ctx->img_list != NULL)
+			g_object_unref (ctx->img_list);
+	ctx->img_list = NULL;
+	
 	g_free (ctx);
 }
 
@@ -68,7 +73,7 @@ load_context_new (EogWindow *window, GList *uri_list)
 	ctx = g_new0 (LoadContext, 1);
 	ctx->window = window;
 	ctx->uri_list = uri_list;
-	ctx->single_windows = FALSE;
+	ctx->img_list = NULL;
 
 	return ctx;
 }
@@ -105,71 +110,30 @@ create_new_window (void)
 
 		g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
 		g_signal_connect (G_OBJECT (window), "new_window", G_CALLBACK (new_window_cb), NULL);
-		
-		gtk_widget_show (window);
 	}
 
 	return window;
 }
 
-static gboolean
-open_window (LoadContext *ctx)
+static void
+assign_model_to_window (EogWindow *window, EogImageList *list)
 {
-	GtkWidget *window;
 	GError *error = NULL;
-	gboolean new_window;
-	GList *it;
-	GConfClient *client;
 
-	client = gconf_client_get_default ();
-
-	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
-	new_window = new_window && ((ctx->window == NULL) || eog_window_has_contents (ctx->window));
-
-	g_object_unref (client);
-
-	if (ctx->single_windows) 
-	{
-		for (it = ctx->uri_list; it != NULL; it = it->next) {
-			if (new_window || (ctx->window == NULL)) {
-				window = create_new_window ();
-			}
-			else {
-				window = GTK_WIDGET (ctx->window);
-			}
-
-			if (window != NULL) {
-				if (!eog_window_open (EOG_WINDOW (window), (GnomeVFSURI*) it->data, &error)) {
-					g_print ("error open %s\n", (char*)it->data);
-					/* FIXME: handle errors */
-				}
-			
-				new_window = TRUE;
-			}
-		} 
+	if (window == NULL)
+		window = EOG_WINDOW (create_new_window ());
+	
+	if (window == NULL) return;
+	
+	eog_image_list_print_debug (list);
+	
+	if (!eog_window_open (window, list, &error)) {
+		/* FIXME: show error, free image list */
+		g_print ("error open %s\n", (char*) error->message);
 	}
-	else 
-	{
-		if (new_window || (ctx->window == NULL)) {
-			window = create_new_window ();
-		}
-		else {
-			window = GTK_WIDGET (ctx->window);
-		}
-		
-		if (window != NULL) {
-			if (!eog_window_open_list (EOG_WINDOW (window), ctx->uri_list, &error)) {
-				g_print ("error");
-				/* report error */
-			}
-		}
-	}
-		
-	load_context_free (ctx);
-
-	return FALSE;
+	
+	gtk_widget_show (GTK_WIDGET (window));
 }
-
 
 static gboolean
 create_empty_window (gpointer data)
@@ -259,6 +223,7 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 			*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
 			break;
 		default:
+			/* FIXME: Use canonical uri instead of argument */
 			*error_list = g_list_prepend (*error_list, argument);
 			break;
 		}
@@ -266,8 +231,8 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 		if (uri != NULL) {
 			gnome_vfs_uri_unref (uri);
 		}
-		gnome_vfs_file_info_clear (info);
 	}
+
 	/* reverse lists for correct order */
 	*file_list  = g_list_reverse (*file_list);
 	*dir_list   = g_list_reverse (*dir_list);
@@ -310,7 +275,7 @@ user_wants_collection (gint n_windows)
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Single Windows"), COLLECTION_NO);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, COLLECTION_CANCEL);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Collection"), COLLECTION_YES);
-       	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
 
 	gtk_widget_show_all (dlg);
 
@@ -387,15 +352,99 @@ string_array_to_list (const gchar **files)
 	return g_slist_reverse (list);
 }
 
+static void
+job_prepare_model_do (EogJob *job, gpointer data, GError **error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+	ctx->img_list = eog_image_list_new ();
+	
+	/* prepare the image list */
+	eog_image_list_add_uris (ctx->img_list, ctx->uri_list);
+	
+	/* it there is only one image, load it also from disk */
+	if (eog_image_list_length (ctx->img_list) == 1) {
+		EogImage *img;
+		
+		img = eog_image_list_get_img_by_pos (ctx->img_list, 0);
+		if (EOG_IS_IMAGE (img)) {
+			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
+			g_object_unref (img);
+		}
+	}
+}
+
+static void
+job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+	
+	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED &&
+		eog_job_get_success (job))
+	{
+		g_object_ref (ctx->img_list);
+		
+		assign_model_to_window (ctx->window, ctx->img_list);
+	}
+}
+
+static void 
+job_prepare_model_free (gpointer data)
+{
+	load_context_free ((LoadContext*) data);
+	data = NULL;
+}
+	
+static void
+load_uris_in_single_model (EogWindow *window, GList *uri_list)
+{
+	GList *it;
+	LoadContext *ctx;
+	
+	for (it = uri_list; it != NULL; it = it->next) {
+		GList *singleton = NULL;
+		EogJob *job;
+		
+		singleton = g_list_prepend (singleton, it->data);		
+		ctx = load_context_new (window, singleton);
+	
+		job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished,
+						NULL,
+				        NULL, job_prepare_model_free);
+		eog_job_manager_add (job);
+		g_object_unref (job);
+		
+		window = NULL;
+	}
+}
+
+static EogWindow*
+check_window_reuse (EogWindow *window)
+{
+	gboolean new_window = FALSE;
+	GConfClient *client;
+	EogWindow *use_window = NULL;
+
+	client = gconf_client_get_default ();
+
+	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
+	new_window = new_window && (window == NULL || eog_window_has_contents (window));
+	
+	if (!new_window)
+		use_window = window;
+	
+	g_object_unref (client);
+	
+	return use_window;
+}
+
 static void 
 open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 {
 	GList *file_list = NULL;
 	GList *dir_list = NULL;
 	GList *error_list = NULL;
-	LoadContext *ctx;
 	gboolean quit_program = FALSE;
-
+	
 	if (uri_list == NULL) {
 		if (window == NULL) {
 			g_idle_add (create_empty_window, NULL);
@@ -406,6 +455,9 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 
 	sort_files (uri_list, &file_list, &dir_list, &error_list);
 
+	/* check if we can/should reuse the window */
+	window = check_window_reuse (window);
+	
 	/* open regular files */
 	if (file_list) {
 		int result = COLLECTION_NO;
@@ -421,14 +473,23 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	
 		switch (result) {
 		case COLLECTION_CANCEL:
-			quit_program = (window == NULL);
-			break;
-		case COLLECTION_YES:
-		case COLLECTION_NO:
+			quit_program = (window == NULL);			
+			break;			
+		case COLLECTION_YES: {
+			LoadContext *ctx;				
+			EogJob *job;
 			ctx = load_context_new (window, file_list);
-			ctx->single_windows = (result == COLLECTION_NO);
-
-			g_idle_add ((GSourceFunc)open_window, ctx);
+			window = NULL;
+	
+			job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished, 
+									NULL, NULL, job_prepare_model_free);
+			eog_job_manager_add (job);
+			g_object_unref (job);
+			}
+			break;
+		case COLLECTION_NO:
+			load_uris_in_single_model (window, file_list);
+			window = NULL;
 			break;
 		default:
 			g_assert_not_reached ();
@@ -438,11 +499,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	/* open every directory in an own window */
 	if (dir_list) {
 		quit_program = FALSE;
-
-		ctx = load_context_new (window, dir_list);
-		ctx->single_windows = TRUE;
-
-		g_idle_add ((GSourceFunc)open_window, ctx);
+		load_uris_in_single_model (window, dir_list);		
 	}
 
 	/* show error for inaccessable files */

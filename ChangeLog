@@ -1,3 +1,17 @@
+2005-03-14  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image-list.c (eog_image_list_add_uris):
+	Joined _add_directory and _add_files functions. 
+	
+	* libeog/eog-wrap-list.c: Don't wait for model prepare
+	signal, create collection items directly when model is set.
+
+	* shell/eog-window.c (eog_window_open): Requires an
+	eog_image_list model object.
+	
+	* shell/main.c: Create and prepare EogImageList aka model before
+	opening a new EogWindow. 
+	
 2005-01-10  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image-list.[ch] (eog_image_list_add_directory),

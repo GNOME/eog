@@ -24,7 +24,7 @@
 #define EOG_WINDOW_H
 
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs-uri.h>
+#include "eog-image-list.h"
 
 G_BEGIN_DECLS 
 
@@ -75,8 +75,7 @@ GtkWidget*   eog_window_new       (GError **error);
 
 void         eog_window_close     (EogWindow *eog_window);
 
-gboolean     eog_window_open      (EogWindow *win, GnomeVFSURI *uri, GError **error);
-gboolean     eog_window_open_list (EogWindow *win, GList *uri_list, GError **error);
+gboolean     eog_window_open      (EogWindow *win, EogImageList *model, GError **error);
 
 const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);
