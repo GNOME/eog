@@ -424,6 +424,13 @@ EogImage *
 eog_image_new (void)
 {
 	EogImage *image;
+
+	/* Make sure GnomeVFS is initialized */
+	if (!gnome_vfs_initialized ())
+		if (!gnome_vfs_init ()) {
+			g_warning (_("Couldn't initialize GnomeVFS!\n"));
+			return (NULL);
+		}
 	
 	image = gtk_type_new (eog_image_get_type ());
 

@@ -11,18 +11,8 @@
  */
 
 #include <config.h>
-#include <stdio.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
 
-#include <gnome.h>
-#include <liboaf/liboaf.h>
-#include <libgnomevfs/gnome-vfs-init.h>
-
-#include <bonobo.h>
+#include <bonobo/bonobo-generic-factory.h>
 
 #include <eog-control.h>
 #include <eog-embeddable.h>
@@ -61,61 +51,4 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	return retval;
 }
 
-static void
-init_eog_image_viewer_factory (void)
-{
-	BonoboGenericFactory *factory;
-
-	factory = bonobo_generic_factory_new_multi (
-		"OAFIID:GNOME_EOG_Factory",
-		eog_image_viewer_factory, NULL);
-
-	bonobo_running_context_auto_exit_unref (
-		BONOBO_OBJECT (factory));
-}
-
-static void
-init_server_factory (int argc, char **argv)
-{
-	CORBA_Environment ev;
-	CORBA_exception_init (&ev);
-
-        gnome_init_with_popt_table ("eog-image-viewer", VERSION,
-				    argc, argv,
-				    oaf_popt_options, 0, NULL); 
-	oaf_init (argc, argv);
-
-	if (gnome_vfs_init () == FALSE)
-		g_error (_("Couldn't initialize GnomeVFS!\n"));
-
-	if (bonobo_init (CORBA_OBJECT_NIL, CORBA_OBJECT_NIL, CORBA_OBJECT_NIL) == FALSE)
-		g_error (_("I could not initialize Bonobo!\n"));
-
-	CORBA_exception_free (&ev);
-}
-
-int
-main (int argc, char *argv [])
-{
-#if 0
-	GLogLevelFlags fatal_mask;
-	      
-	fatal_mask = g_log_set_always_fatal (G_LOG_FATAL_MASK);
-	fatal_mask |= G_LOG_LEVEL_WARNING | G_LOG_LEVEL_CRITICAL;
-	g_log_set_always_fatal (fatal_mask);
-#endif
-
-	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
-	textdomain (PACKAGE);
-
-	init_server_factory (argc, argv);
-
-	init_eog_image_viewer_factory ();
-
-	gtk_widget_set_default_colormap (gdk_rgb_get_cmap ());
-	gtk_widget_set_default_visual   (gdk_rgb_get_visual ());
-
-	bonobo_main ();
-	
-	return 0;
-}
+BONOBO_OAF_FACTORY_MULTI ("OAFIID:GNOME_EOG_Factory", "eog-image-viewer", VERSION, eog_image_viewer_factory, NULL)
