@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.118.0\n"
-"POT-Creation-Date: 2002-06-13 22:42+0200\n"
-"PO-Revision-Date: 2002-06-01 00:03+02:00\n"
+"POT-Creation-Date: 2002-07-10 22:12+0200\n"
+"PO-Revision-Date: 2002-07-10 00:03+02:00\n"
 "Last-Translator: Jens Finke <jens@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Eye of Gnome Bildbetrachter"
 msgid "View many different types of images"
 msgstr "Zeigt viele unterschiedliche Bildtypen an"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:691
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "EOG-Bild"
 
@@ -51,46 +51,106 @@ msgstr "Factory für EOG-Bildbetrachter"
 msgid "Embeddable EOG Image"
 msgstr "Einbettbares EOG-Bild"
 
-#: libeog/image-view.c:1853
+#. Second page
+#: libeog/GNOME_EOG.server.in.h:5 viewer/eog-print-setup.c:689
+msgid "Image"
+msgstr "Bild"
+
+#: libeog/image-view.c:1860
 msgid "interpolation type"
 msgstr "Interpolationstyp"
 
-#: libeog/image-view.c:1854
+#: libeog/image-view.c:1861
 msgid "the type of interpolation to use"
 msgstr "Typ der zu verwendenden Interpolation"
 
-#: libeog/image-view.c:1860 libeog/image-view.c:1867
+#: libeog/image-view.c:1867 libeog/image-view.c:1874
 msgid "check type"
 msgstr "Karo_typ"
 
-#: libeog/image-view.c:1861
+#: libeog/image-view.c:1868
 msgid "the type of chequering to use"
 msgstr "Typ der zu verwendenden Karos"
 
-#: libeog/image-view.c:1868
+#: libeog/image-view.c:1875
 msgid "the size of chequers to use"
 msgstr "Größe der zu verwendenden Karos"
 
-#: libeog/image-view.c:1874
+#: libeog/image-view.c:1881
 msgid "dither"
 msgstr "Raster"
 
-#: libeog/image-view.c:1875
+#: libeog/image-view.c:1882
 msgid "dither type"
 msgstr "Rastertyp"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
-msgstr ""
-"Hilfe für den Vorliebendialog konnte nicht angezeigt werden.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
+msgstr "Nach Endung"
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Eye of Gnome Vorlieben"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr "BMP"
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr "GIF"
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr "ICO"
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr "JPEG"
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr "PNM"
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr "RAS"
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr "SVG"
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr "TGA"
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr "TIFF"
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr "XBM"
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr "XPM"
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr "Nicht unterstütztes Dateiformat."
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr "Dateityp bestimmen:"
+
+#: libeog/eog-file-selection.c:260
+msgid "Load Image"
+msgstr "Bild öffnen"
+
+#: libeog/eog-file-selection.c:265
+msgid "Save Image"
+msgstr "Bild speichern"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -101,86 +161,74 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Einstellungen ändern"
-
-#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Schließen"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "Fenster schließen"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "_Hilfe"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Hilfe für diese Anwendung"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "Öffnen"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Eine Datei öffnen"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Ein neues Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "In neuem Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "In diesem Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Das Programm beenden"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_Info..."
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "S_chließen"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Bearbeiten"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_Datei"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Neues Fenster"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "Ö_ffnen..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "_Vorlieben..."
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "_Beenden"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Ansicht"
 
@@ -188,26 +236,26 @@ msgstr "_Ansicht"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:248
+#: shell/eog-window.c:203
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Jens Finke <jens@gnome.org>\n"
 "Christian Meyer <chrisime@gnome.org>\n"
 "Matthias Warkus <mawa@iname.com>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
+#: shell/eog-window.c:208 shell/eog-window.c:595 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:255
+#: shell/eog-window.c:210
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:256
+#: shell/eog-window.c:211
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
 
-#: shell/eog-window.c:293
+#: shell/eog-window.c:248
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -216,11 +264,7 @@ msgstr ""
 "Hilfe für Eye of Gnome konnte nicht angezeigt werden.\n"
 "%s"
 
-#: shell/eog-window.c:811
-msgid "Open Image"
-msgstr "Bild öffnen"
-
-#: shell/eog-window.c:1288
+#: shell/eog-window.c:1215
 #, c-format
 msgid "Unable to open %s."
 msgstr "Unfähig %s zu öffnen."
@@ -273,11 +317,11 @@ msgstr ""
 "diese nicht zugreifen kann:\n"
 "%s"
 
-#: shell/main.c:471
+#: shell/main.c:461
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: shell/main.c:474
+#: shell/main.c:464
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo konnte nicht initialisiert werden!\n"
 
@@ -330,11 +374,11 @@ msgstr "Karo_typ"
 msgid "Full Screen"
 msgstr "Vollbild"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Groß"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "Mittel"
 
@@ -366,7 +410,7 @@ msgstr "Bild auf dem Drucker ausgeben"
 msgid "Setup the page settings for your current printer"
 msgstr "Die Seiteneinstellungen für Ihren aktuellen Drucker einrichten"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "Klein"
 
@@ -423,75 +467,83 @@ msgid "_Save As..."
 msgstr "_Speichern unter"
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "_Kacheln"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_Weiß"
 
-#: viewer/eog-image-view.c:300
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Bild konnte nicht unter '%s' gespeichert werden: %s"
 
-#: viewer/eog-image-view.c:351
-msgid "Save As"
-msgstr "Speichern unter"
-
-#: viewer/eog-image-view.c:926
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Bild drucken"
 
-#: viewer/eog-image-view.c:934
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Seiten"
 
-#: viewer/eog-image-view.c:1021
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Druckvorschau"
 
-#: viewer/eog-image-view.c:1027
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Drucken des Bildes fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1856
-msgid "Display"
-msgstr "Anzeige"
+#: viewer/eog-image-view.c:2048
+msgid "/Zoom _In"
+msgstr "/_Heranzoomen"
 
-#: viewer/eog-image-view.c:2077
+#: viewer/eog-image-view.c:2050
+msgid "/Zoom _Out"
+msgstr "/_Wegzoomen"
+
+#: viewer/eog-image-view.c:2052
+msgid "/Zoom _1:1"
+msgstr "/1:1 zoomen"
+
+#: viewer/eog-image-view.c:2054
+msgid "/Zoom to _Fit"
+msgstr "/_Passend zoomen"
+
+#: viewer/eog-image-view.c:2057
+msgid "/_Close"
+msgstr "/S_chließen"
+
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:2080
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "Raster"
 
-#: viewer/eog-image-view.c:2083
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Karotyp"
 
-#: viewer/eog-image-view.c:2086
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Karogröße"
 
-#: viewer/eog-image-view.c:2089
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:2092
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:2095
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: viewer/eog-image-view.c:2098
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
-#: viewer/eog-image.c:467
+#: viewer/eog-image.c:470
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
@@ -586,11 +638,6 @@ msgstr "Rechts:"
 msgid "Bottom:"
 msgstr "Unten:"
 
-#. Second page
-#: viewer/eog-print-setup.c:689
-msgid "Image"
-msgstr "Bild"
-
 #. Scale
 #: viewer/eog-print-setup.c:697
 msgid "Scale"
@@ -668,73 +715,84 @@ msgstr "Runter, dann nach rechts"
 msgid "Right, then down"
 msgstr "Nach rechts, dann runter"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Nächster-Nachbar-Interpolation"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Hilfe für den Vorliebendialog konnte nicht angezeigt werden.\n"
+#~ "%s"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "Kachel-Interpolation"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Eye of Gnome Vorlieben"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Bilineare Interpolation"
+#~ msgid "Change preferences"
+#~ msgstr "Einstellungen ändern"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Hyperbolische Interpolation"
+#~ msgid "_Edit"
+#~ msgstr "_Bearbeiten"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Keine Rasterung"
+#~ msgid "_Preferences..."
+#~ msgstr "_Vorlieben..."
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "Normale (PseudoColor-)Rasterung"
+#~ msgid "_Tiles"
+#~ msgstr "_Kacheln"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Maximum- (HighColor-)Rasterung"
+#~ msgid "Save As"
+#~ msgstr "Speichern unter"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "Dunkel"
+#~ msgid "Display"
+#~ msgstr "Anzeige"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Mittel"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Nächster-Nachbar-Interpolation"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "Hell"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "Kachel-Interpolation"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "Schwarz"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Bilineare Interpolation"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Grau"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Hyperbolische Interpolation"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "Weiß"
+#~ msgid "No dithering"
+#~ msgstr "Keine Rasterung"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Interpolation:"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Normale (PseudoColor-)Rasterung"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "_Rasterung:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Maximum- (HighColor-)Rasterung"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "Karo_typ:"
+#~ msgid "Dark"
+#~ msgstr "Dunkel"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "Karo_größe:"
+#~ msgid "Midtone"
+#~ msgstr "Mittel"
+
+#~ msgid "Light"
+#~ msgstr "Hell"
+
+#~ msgid "Black"
+#~ msgstr "Schwarz"
+
+#~ msgid "Gray"
+#~ msgstr "Grau"
+
+#~ msgid "White"
+#~ msgstr "Weiß"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Interpolation:"
+
+#~ msgid "_Dither:"
+#~ msgstr "_Rasterung:"
+
+#~ msgid "Check _type:"
+#~ msgstr "Karo_typ:"
+
+#~ msgid "Check _size:"
+#~ msgstr "Karo_größe:"
 
 #~ msgid "Translator Credits"
 #~ msgstr ""
