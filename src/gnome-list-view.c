@@ -178,3 +178,49 @@ set_item_view_factory (GnomeListView *view, GnomeItemViewFactory *factory)
 	priv->factory = factory;
 	/* FIXME: update view */
 }
+
+
+
+/* Exported functions */
+
+/**
+ * gnome_list_view_get_model:
+ * @view: A list view.
+ *
+ * Queries the list model that a list view is displaying.
+ *
+ * Return value: the list model.
+ **/
+GnomeListModel *
+gnome_list_view_get_model (GnomeListView *view)
+{
+	ListViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, NULL);
+	g_return_val_if_fail (GNOME_IS_LIST_VIEW (view), NULL);
+
+	priv = view->priv;
+
+	return priv->model;
+}
+
+/**
+ * gnome_list_view_get_item_view_factory:
+ * @view: A list view.
+ *
+ * Queries the item view factory that a list view is using.
+ *
+ * Return value: the item view factory.
+ **/
+GnomeItemViewFactory *
+gnome_list_view_get_item_view_factory (GnomeListView *view)
+{
+	ListViewPrivate *priv;
+
+	g_return_val_if_fail (view != NULL, NULL);
+	g_return_val_if_fail (GNOME_IS_LIST_VIEW (view), NULL);
+
+	priv = view->priv;
+
+	return priv->factory;
+}

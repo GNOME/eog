@@ -121,22 +121,9 @@ gnome_list_model_class_init (GnomeListModelClass *class)
 	gtk_object_class_add_signals (object_class, list_model_signals, LAST_SIGNAL);
 }
 
-guint
-gnome_list_model_get_length (GnomeListModel *model)
-{
-	guint retval;
-
-	g_return_val_if_fail (model != NULL, 0);
-	g_return_val_if_fail (GNOME_IS_LIST_MODEL (model), 0);
-
-	retval = 0;
-	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[GET_LENGTH], &retval);
-	return retval;
-}
-
 
 
-/* Marshallers */
+/* Marshalers */
 
 typedef guint (* GetLengthFunc) (GtkObject *object, gpointer data);
 
@@ -146,7 +133,7 @@ marshal_get_length (GtkObject *object, GtkSignalFunc func, gpointer data, GtkArg
 	GetLengthFunc rfunc;
 	guint *retval;
 
-	retval = GTK_RETLOC_UINT (args[0])
+	retval = GTK_RETLOC_UINT (args[0]);
 	rfunc = (GetLengthFunc) func;
 	*retval = (* rfunc) (object, data);
 }
@@ -161,4 +148,29 @@ marshal_interval_notification (GtkObject *object, GtkSignalFunc func, gpointer d
 
 	rfunc = (IntervalNotificationFunc) func;
 	(* func) (object, GTK_VALUE_UINT (args[0]), GTK_VALUE_UINT (args[1]), data);
+}
+
+
+
+/* Exported functions */
+
+/**
+ * gnome_list_model_get_length:
+ * @model: A list model.
+ *
+ * Queries the length of the list in a list model.
+ *
+ * Return value: the length of the list.
+ **/
+guint
+gnome_list_model_get_length (GnomeListModel *model)
+{
+	guint retval;
+
+	g_return_val_if_fail (model != NULL, 0);
+	g_return_val_if_fail (GNOME_IS_LIST_MODEL (model), 0);
+
+	retval = 0;
+	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[GET_LENGTH], &retval);
+	return retval;
 }
