@@ -1,9 +1,7 @@
 INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
-	-I. 						\
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
-        -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
 	$(EOG_CFLAGS)					\

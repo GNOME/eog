@@ -3,13 +3,11 @@ INCLUDES =                                              \
 	-DG_LOG_DOMAIN=\"Eog\"				\
 	-DDATADIR=\""$(datadir)"\"			\
 	-DICONDIR=\""$(datadir)/pixmaps/eog"\"		\
-	-I. 						\
 	-I$(srcdir) 					\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir)				\
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
-        -I$(includedir)                                 \
 	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 

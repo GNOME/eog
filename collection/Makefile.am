@@ -2,12 +2,10 @@ INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Eog\"				\
 	-DDATADIR=\""$(datadir)"\"			\
-	-I. 						\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir)				\
 	-I$(top_srcdir)/libeog				\
 	-I$(top_builddir)/libeog			\
-        -I$(includedir)                                 \
 	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 

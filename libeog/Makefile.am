@@ -4,11 +4,9 @@ INCLUDES =                                              \
         -DGNOMELOCALEDIR=\""$(datadir)/locale"\"        \
 	-DG_LOG_DOMAIN=\"Eog\"				\
 	-DDATADIR=\""$(datadir)"\"			\
-	-I. 						\
 	-I$(srcdir) -I$(top_srcdir) 			\
 	-I$(top_srcdir)/src				\
 	-I$(top_builddir)				\
-        -I$(includedir)                                 \
 	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 
