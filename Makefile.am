@@ -19,8 +19,7 @@ EXTRA_DIST = 			\
 	gnome-eog.png		\
 	intltool-extract.in	\
 	intltool-update.in	\
-	intltool-merge.in	\
-	intltool-modules/XML/Parser/Style/OrigTree.pm
+	intltool-merge.in	
 
 desktopdir = $(datadir)/applications
 desktop_in_files = eog.desktop.in
