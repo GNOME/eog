@@ -424,7 +424,8 @@ eog_window_init (EogWindow *window)
 
 	role = gen_role ();
 	gtk_window_set_role (GTK_WINDOW (window), role);
-
+	g_free(role);
+	
 	priv->uri = NULL;
 
 	priv->client = gconf_client_get_default ();
