@@ -1,14 +1,14 @@
 # eog translation to Catalan.
-# Copyright © 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+# Copyright © 2000, 2001, 2002, 2003, 2004, 2005 Free Software Foundation, Inc.
 # Softcatalà <tradgnome@softcatala.org>, 2000, 2001, 2002.
-# Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004.
+# Jordi Mallach <jordi@sindominio.net>, 2002, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.9.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-07 13:09+0100\n"
-"PO-Revision-Date: 2004-12-30 00:30+0100\n"
+"POT-Creation-Date: 2005-02-28 13:27+0100\n"
+"PO-Revision-Date: 2005-02-28 12:57+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "."
 
 #: ../eog.glade.h:4
 msgid "<b>File Name Preview</b>"
-msgstr "<b>Previsualització del nom del fitxer</b>"
+msgstr "<b>Visualització prèvia del nom del fitxer</b>"
 
 #: ../eog.glade.h:5
 msgid "<b>File Path Specifications</b>"
@@ -101,11 +101,11 @@ msgstr "Format del nom del fitxer:"
 
 #: ../eog.glade.h:20
 msgid "Image _View"
-msgstr "_Visualització d'imatge"
+msgstr "_Visualització de la imatge"
 
 #: ../eog.glade.h:21
 msgid "Rename From:"
-msgstr "Reanomena des de:"
+msgstr "Reanomena de:"
 
 #: ../eog.glade.h:22
 msgid "Replace spaces by underscore"
@@ -129,7 +129,7 @@ msgstr "Diapositives"
 
 #: ../eog.glade.h:27
 msgid "Start counter at:"
-msgstr "Inicia el comptador en:"
+msgstr "Inicia el comptador a:"
 
 #: ../eog.glade.h:28
 msgid "To:"
@@ -201,7 +201,7 @@ msgstr "Interpola la imatge"
 
 #: ../eog.schemas.in.h:9
 msgid "Loop through the image sequence"
-msgstr "Fes un bucle a la seqüència d'imatges"
+msgstr "Vés repetint la seqüència d'imatges"
 
 #: ../eog.schemas.in.h:10
 msgid "Open images in a new window"
@@ -237,7 +237,7 @@ msgid ""
 "image in the current window."
 msgstr ""
 "Si en obrir una imatge s'hauria de crear una nova finestra en comptes de "
-"reemplaçar la imatge en la finestra actual."
+"reemplaçar la imatge de la finestra actual."
 
 #: ../eog.schemas.in.h:18
 msgid ""
@@ -276,10 +276,12 @@ msgstr "%s x %s píxels"
 msgid "Open in new window"
 msgstr "Obre en una finestra nova"
 
+# Ha de ser indeterminat (josep)
 #: ../libeog/eog-file-selection.c:431
 msgid "Load Image"
-msgstr "Carrega la imatge"
+msgstr "Carrega una imatge"
 
+# Aquí és determinat perquè sabem quina imatge volem desar
 #: ../libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Desa la imatge"
@@ -305,6 +307,7 @@ msgstr "fitxer buit"
 msgid "File exists"
 msgstr "El fitxer existeix"
 
+# FIXME: O... "no s'ha carregat cap imatge"? (josep)
 #: ../libeog/eog-image.c:1400 ../libeog/eog-image.c:1526
 msgid "No image loaded."
 msgstr "No hi ha cap imatge carregada."
@@ -323,11 +326,11 @@ msgstr "Dades de la imatge"
 
 #: ../libeog/eog-info-view-exif.c:28
 msgid "Image Taking Conditions"
-msgstr "Condicions de captura de la foto"
+msgstr "Condicions de captura de la imatge"
 
 #: ../libeog/eog-info-view-exif.c:29
 msgid "Maker Note"
-msgstr "Nota del fotògraf"
+msgstr "Nota de l'autor"
 
 #: ../libeog/eog-info-view-exif.c:30
 msgid "Other"
@@ -352,7 +355,7 @@ msgstr "Amplada"
 
 #: ../libeog/eog-info-view-file.c:27
 msgid "Height"
-msgstr "Alçada"
+msgstr "Alçària"
 
 #: ../libeog/eog-info-view-file.c:28
 msgid "Filesize"
@@ -374,11 +377,11 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-save-as-dialog-helper.c:137
+#: ../libeog/eog-save-as-dialog-helper.c:138
 msgid "Option not available."
 msgstr "L'opció no és disponible."
 
-#: ../libeog/eog-save-as-dialog-helper.c:138
+#: ../libeog/eog-save-as-dialog-helper.c:139
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
@@ -386,7 +389,7 @@ msgstr ""
 "Per a utilitzar aquesta funció necessiteu la biblioteca libexif. Instal·leu "
 "libexif (http://libexif.sf.net/) i recompileu l'Eye of GNOME."
 
-#: ../libeog/eog-save-as-dialog-helper.c:214
+#: ../libeog/eog-save-as-dialog-helper.c:215
 msgid "as is"
 msgstr "com està"
 
@@ -401,7 +404,7 @@ msgstr "Cancel·la el desat ..."
 
 #: ../libeog/eog-uri-converter.c:1023
 msgid "Filenames are not disjunct."
-msgstr "Els noms dels fitxers no estan disjunts."
+msgstr "Els noms dels fitxers no són disjunts."
 
 #: ../libeog/eog-uri-converter.h:46
 msgid "Counter"
@@ -469,7 +472,7 @@ msgid ""
 "Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"No s'ha pogut mostrar l'ajuda per a l'Eye of GNOME.\n"
+"No s'ha pogut mostrar l'ajuda de l'Eye of GNOME.\n"
 "%s"
 
 #: ../shell/eog-window.c:647
@@ -506,7 +509,7 @@ msgstr "No s'ha pogut determinar el format del fitxer de %s"
 #: ../shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
-"Utilitzeu un sufixe de nom de fitxer apropiat o seleccioneu un format de "
+"Utilitzeu un sufix apropiat per el nom de fitxer o seleccioneu un format de "
 "fitxer."
 
 #: ../shell/eog-window.c:1187
@@ -590,7 +593,7 @@ msgstr "Preferè_ncies"
 
 #: ../shell/eog-window.c:2282
 msgid "Preferences for Eye of GNOME"
-msgstr "Preferències d'Eye of GNOME"
+msgstr "Preferències de l'Eye of GNOME"
 
 #: ../shell/eog-window.c:2283
 msgid "_Contents"
@@ -598,7 +601,7 @@ msgstr "_Continguts"
 
 #: ../shell/eog-window.c:2283
 msgid "Help On this application"
-msgstr "Ajuda sobre aquesta aplicació"
+msgstr "Ajuda per a aquesta aplicació"
 
 #: ../shell/eog-window.c:2284
 msgid "_About"
@@ -614,7 +617,7 @@ msgstr "Barra d'_eines"
 
 #: ../shell/eog-window.c:2289
 msgid "Changes the visibility of the toolbar in the current window"
-msgstr "Canvia la visibilitat de la barra d'eines a la finestra actual"
+msgstr "Canvia la visibilitat de la barra d'eines de la finestra actual"
 
 #: ../shell/eog-window.c:2290
 msgid "_Statusbar"
@@ -622,7 +625,7 @@ msgstr "Barra d'e_stat"
 
 #: ../shell/eog-window.c:2290
 msgid "Changes the visibility of the statusbar in the current window"
-msgstr "Canvia la visibilitat de la barra d'estat a la finestra actual"
+msgstr "Canvia la visibilitat de la barra d'estat de la finestra actual"
 
 #: ../shell/eog-window.c:2295
 msgid "_Save"
@@ -650,7 +653,7 @@ msgstr "_Gira cap a la dreta"
 
 #: ../shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
-msgstr "Gira cap a _l'esquerra"
+msgstr "Gira cap a _l'esquerre"
 
 #: ../shell/eog-window.c:2305
 msgid "Rotat_e 180°"
@@ -658,7 +661,7 @@ msgstr "Gi_ra 180 graus"
 
 #: ../shell/eog-window.c:2307
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Suprimeix"
 
 #: ../shell/eog-window.c:2309
 msgid "_Full Screen"
@@ -686,7 +689,7 @@ msgstr "_Informació de la imatge"
 
 #: ../shell/eog-window.c:2318
 msgid "Change the visibility of the information pane in the current window"
-msgstr "Canvia la visibilitat del quadre d'informació a la finestra actual"
+msgstr "Canvia la visibilitat del quadre d'informació de la finestra actual"
 
 #: ../shell/eog-window.c:2374
 msgid "User interface description not found."
@@ -734,7 +737,7 @@ msgstr " (Unicode invàlid)"
 
 #: ../shell/eog-preferences.c:98
 msgid "Could not display help for Eye of GNOME"
-msgstr "No s'ha pogut mostrar l'ajuda per a l'Eye of GNOME"
+msgstr "No s'ha pogut mostrar l'ajuda de l'Eye of GNOME"
 
 #~ msgid "Open _Directory..."
 #~ msgstr "Obre un _directori..."
