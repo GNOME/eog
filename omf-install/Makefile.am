@@ -14,7 +14,7 @@
 # $(localstatedir) in this or when people build RPMs it will update
 # the real database on their system instead of the one under RPM_BUILD_ROOT.
 
-omf_dest_dir=$(datadir)/omf/gdp-example1
+omf_dest_dir=$(datadir)/omf/eog
 scrollkeeper_localstate_dir = $(localstatedir)/scrollkeeper
 
 install-data-local:
