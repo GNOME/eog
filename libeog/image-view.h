@@ -29,6 +29,14 @@
 
 G_BEGIN_DECLS
 
+
+
+/* Default increment for zooming.  The current zoom factor is multiplied or
+ * divided by this amount on every zooming step.  For consistency, you should
+ * use the same value elsewhere in the program.
+ */
+#define IMAGE_VIEW_ZOOM_MULTIPLIER 1.05
+
 /* Type of checks for views */
 typedef enum {
 	CHECK_TYPE_DARK,
@@ -45,12 +53,6 @@ typedef enum {
 	CHECK_SIZE_MEDIUM,
 	CHECK_SIZE_LARGE
 } CheckSize;
-
-/* Scrolling type for views */
-typedef enum {
-	SCROLL_NORMAL,
-	SCROLL_TWO_PASS
-} ScrollType;
 
 
 
@@ -106,9 +108,6 @@ CheckSize image_view_get_check_size (ImageView *view);
 
 void image_view_set_dither (ImageView *view, GdkRgbDither dither);
 GdkRgbDither image_view_get_dither (ImageView *view);
-
-void image_view_set_scroll (ImageView *view, ScrollType scroll);
-ScrollType image_view_get_scroll (ImageView *view);
 
 void image_view_get_scaled_size (ImageView *view, gint *width, gint *height);
 

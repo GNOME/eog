@@ -1,5 +1,37 @@
 2002-05-29  Federico Mena Quintero  <federico@ximian.com>
 
+	* libeog/image-view.h (ScrollType): Removed.
+	(IMAGE_VIEW_ZOOM_MULTIPLIER): New constant.  We use this as the
+	zoom factor multiplier when zooming.  We should be using this
+	elsewhere in the program as well.
+
+	* libeog/image-view.c (ImageViewPrivate): Removed scroll field.
+	We now mandate two-pass scrolling as it Rules(tm).
+	(image_view_set_scroll): Removed.
+	(image_view_get_scroll): Removed.
+	(image_view_get_property): Removed handling of the scroll
+	property.
+	(image_view_set_property): Likewise.
+	(image_view_class_init): Likewise.
+	(image_view_instance_init): Initialize all fields.  Set up the
+	rendering defaults here.
+	(image_view_instance_init): Set ourselves as not double buffered.
+	(image_view_scroll_event): New handler for scroll events.  Fixes
+	#79351.  N.B. The GIMP is on crack in the way it uses the scroll
+	wheel.  Rationale:  images are not primarily vertical, and you can
+	scroll the image around by dragging with some mouse button
+	anyways.  So it is better to leave the scroll wheel for zooming.
+	(scroll_by): New function to generalize scrolling by some offsets.
+	(image_view_key_press_event): Use scroll_by().
+	(scroll_to): Change the adjustments here, if needed, instead of
+	all over the code.  Also, clamp the x/y values initially.
+	(drag_to): Don't clamp now that scroll_to() does it.
+
+	* viewer/eog-image-view.c (eog_image_view_construct): Do not set
+	the scrolling method.
+
+2002-05-29  Federico Mena Quintero  <federico@ximian.com>
+
 	* libeog/image-view.h (FullScreenZoom): Removed.
 
 	* libeog/image-view.c (ImageViewPrivate): Removed full_screen_zoom field.

@@ -19,6 +19,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* TODO:
+ *
+ * - Handle GdkEventScroll events; these come from the scrollwheel.
+ *
+ * - Rewrite scrolling mechanism.
+ *
+ * - Check if + and - work with caps lock / num lock / etc.
+ */
+
+
+
 #include <config.h>
 #include <math.h>
 #include <stdlib.h>
@@ -103,9 +114,6 @@ struct _ImageViewPrivate {
 	/* Dither type */
 	GdkRgbDither dither;
 
-	/* Scroll type */
-	ScrollType scroll;
-
 	/* Whether the image is being dragged */
 	guint dragging : 1;
 
@@ -125,8 +133,7 @@ enum {
 	PROP_INTERP_TYPE,
 	PROP_CHECK_TYPE,
 	PROP_CHECK_SIZE,
-	PROP_DITHER,
-	PROP_SCROLL
+	PROP_DITHER
 };
 
 static guint image_view_signals[LAST_SIGNAL];
@@ -195,9 +202,6 @@ image_view_get_property (GObject    *object,
 	case PROP_DITHER:
 		g_value_set_int (value, priv->dither);
 		break;
-	case PROP_SCROLL:
-		g_value_set_int (value, priv->scroll);
-		break;
 	default:
 		g_warning ("unknown property id `%d'", property_id);
 		break;
@@ -225,9 +229,6 @@ image_view_set_property (GObject      *object,
 	case PROP_DITHER:
 		image_view_set_dither (image_view, g_value_get_int (value));
 		break;
-	case PROP_SCROLL:
-		image_view_set_scroll (image_view, g_value_get_int (value));
-		break;
 	default:
 		g_warning ("unknown property id `%d'", property_id);
 		break;
@@ -246,7 +247,21 @@ image_view_instance_init (ImageView *view)
 	GTK_WIDGET_UNSET_FLAGS (view, GTK_NO_WINDOW);
 	GTK_WIDGET_SET_FLAGS (view, GTK_CAN_FOCUS);
 
+	priv->pixbuf = NULL;
 	priv->zoomx = priv->zoomy = 1.0;
+	priv->hadj = NULL;
+	priv->vadj = NULL;
+	priv->uta1 = NULL;
+	priv->uta2 = NULL;
+
+	/* Defaults for rendering */
+	priv->interp_type = GDK_INTERP_BILINEAR;
+	priv->check_type = CHECK_TYPE_MIDTONE;
+	priv->check_size = CHECK_SIZE_LARGE;
+	priv->dither = GDK_RGB_DITHER_MAX;
+
+	/* We don't want to be double-buffered as we are SuperSmart(tm) */
+	gtk_widget_set_double_buffered (GTK_WIDGET (view), FALSE);
 }
 
 /* Frees the dirty region uta and removes the idle handler */
@@ -666,7 +681,10 @@ paint_iteration_idle (gpointer data)
 	if (priv->uta1) {
 		/* Paint the no-interpolation cases as fast as possible */
 
+#if 0
 		if (priv->scroll == SCROLL_TWO_PASS || priv->interp_type == GDK_INTERP_NEAREST)
+#endif
+		if (TRUE || priv->interp_type == GDK_INTERP_NEAREST)
 			while (1) {
 				pull_rectangle (priv->uta1, &rect,
 						PAINT_FAST_RECT_WIDTH, PAINT_FAST_RECT_HEIGHT);
@@ -679,7 +697,10 @@ paint_iteration_idle (gpointer data)
 
 				paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
 
+#if 0
 				if (priv->scroll == SCROLL_TWO_PASS)
+#endif
+				if (TRUE)
 					priv->uta2 = uta_add_rect (priv->uta2,
 								   rect.x0, rect.y0,
 								   rect.x1, rect.y1);
@@ -751,7 +772,10 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 		priv->idle_id = g_idle_add (paint_iteration_idle, view);
 	}
 
+#if 0
 	if (asynch || priv->scroll != SCROLL_TWO_PASS)
+#endif
+	if (asynch || FALSE)
 		priv->uta1 = uta_add_rect (priv->uta1, r.x0, r.y0, r.x1, r.y1);
 	else {
 		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
@@ -759,9 +783,9 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 	}
 }
 
-/* Scrolls the view to the specified offsets.  Does not perform range checking!  */
+/* Scrolls the view to the specified offsets.  */
 static void
-scroll_to (ImageView *view, int x, int y)
+scroll_to (ImageView *view, int x, int y, gboolean change_adjustments)
 {
 	ImageViewPrivate *priv;
 	int xofs, yofs;
@@ -775,7 +799,12 @@ scroll_to (ImageView *view, int x, int y)
 
 	priv = view->priv;
 
-	/* Compute offsets and check bounds */
+	/* Check bounds */
+
+	x = CLAMP (x, 0, priv->hadj->upper - priv->hadj->page_size);
+	y = CLAMP (y, 0, priv->vadj->upper - priv->vadj->page_size);
+
+	/* Compute offsets */
 
 	xofs = x - priv->xofs;
 	yofs = y - priv->yofs;
@@ -787,7 +816,7 @@ scroll_to (ImageView *view, int x, int y)
 	priv->yofs = y;
 
 	if (!GTK_WIDGET_DRAWABLE (view))
-		return;
+		goto out;
 
 	width = GTK_WIDGET (view)->allocation.width;
 	height = GTK_WIDGET (view)->allocation.height;
@@ -801,7 +830,7 @@ scroll_to (ImageView *view, int x, int y)
 		area.height = height;
 
 		request_paint_area (view, &area, FALSE);
-		return;
+		goto out;
 	}
 
 	window = GTK_WIDGET (view)->window;
@@ -830,7 +859,10 @@ scroll_to (ImageView *view, int x, int y)
 		       dest_x, dest_y,
 		       width - abs (xofs), height - abs (yofs));
 
+#if 0
 	if (priv->scroll == SCROLL_TWO_PASS && priv->uta2) {
+#endif
+	if (TRUE && priv->uta2) {
 		priv->uta2 = uta_ensure_size (priv->uta2, 0, 0, twidth, theight);
 
 		uta_copy_area (priv->uta2,
@@ -845,7 +877,7 @@ scroll_to (ImageView *view, int x, int y)
 	gdk_gc_set_exposures (gc, TRUE);
 
 	gdk_draw_drawable (window, gc, window, src_x, src_y,
-			   dest_x, dest_y, 
+			   dest_x, dest_y,
 			   width - abs (xofs),
 			   height - abs (yofs));
 
@@ -885,6 +917,43 @@ scroll_to (ImageView *view, int x, int y)
 		}
 		gdk_event_free (event);
 	}
+
+ out:
+	if (!change_adjustments)
+		return;
+
+	g_signal_handlers_block_matched (
+		priv->hadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+	g_signal_handlers_block_matched (
+		priv->vadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+
+	priv->hadj->value = x;
+	priv->vadj->value = y;
+
+	g_signal_emit_by_name (priv->hadj, "value_changed");
+	g_signal_emit_by_name (priv->vadj, "value_changed");
+
+	g_signal_handlers_unblock_matched (
+		priv->hadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+	g_signal_handlers_unblock_matched (
+		priv->vadj, G_SIGNAL_MATCH_DATA,
+		0, 0, NULL, NULL, view);
+}
+
+/* Scrolls the image view by the specified offsets.  Notifies the adjustments
+ * about their new values.
+ */
+static void
+scroll_by (ImageView *view, int xofs, int yofs)
+{
+	ImageViewPrivate *priv;
+
+	priv = view->priv;
+
+	scroll_to (view, priv->xofs + xofs, priv->yofs + yofs, TRUE);
 }
 
 
@@ -1136,9 +1205,9 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	}
 }
 
-/* Button press handler for the image view */
-static gint
-image_view_button_press (GtkWidget *widget, GdkEventButton *event)
+/* Button press event handler for the image view */
+static gboolean
+image_view_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
@@ -1208,35 +1277,15 @@ drag_to (ImageView *view, int x, int y)
 	dx = priv->drag_anchor_x - x;
 	dy = priv->drag_anchor_y - y;
 
-	x = CLAMP (priv->drag_ofs_x + dx, 0, priv->hadj->upper - priv->hadj->page_size);
-	y = CLAMP (priv->drag_ofs_y + dy, 0, priv->vadj->upper - priv->vadj->page_size);
+	x = priv->drag_ofs_x + dx;
+	y = priv->drag_ofs_y + dy;
 
-	scroll_to (view, x, y);
-	
-	g_signal_handlers_block_matched (
-		priv->hadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
-	g_signal_handlers_block_matched (
-		priv->vadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
-
-	priv->hadj->value = x;
-	priv->vadj->value = y;
-
-	g_signal_emit_by_name (priv->hadj, "value_changed");
-	g_signal_emit_by_name (priv->vadj, "value_changed");
-
-	g_signal_handlers_unblock_matched (
-		priv->hadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
-	g_signal_handlers_unblock_matched (
-		priv->vadj, G_SIGNAL_MATCH_DATA,
-		0, 0, NULL, NULL, view);
+	scroll_to (view, x, y, TRUE);
 }
 
-/* Button release handler for the image view */
-static gint
-image_view_button_release (GtkWidget *widget, GdkEventButton *event)
+/* Button release event handler for the image view */
+static gboolean
+image_view_button_release_event (GtkWidget *widget, GdkEventButton *event)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
@@ -1254,9 +1303,69 @@ image_view_button_release (GtkWidget *widget, GdkEventButton *event)
 	return TRUE;
 }
 
-/* Motion handler for the image view */
-static gint
-image_view_motion (GtkWidget *widget, GdkEventMotion *event)
+/* Scroll event handler for the image view.  We zoom with an event without
+ * modifiers rather than scroll; we use the Shift modifier to scroll.
+ * Rationale: images are not primarily vertical, and in EOG you scan scroll by
+ * dragging the image with button 1 anyways.
+ */
+static gboolean
+image_view_scroll_event (GtkWidget *widget, GdkEventScroll *event)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+	double zoom_factor;
+	int xofs, yofs;
+
+	view = IMAGE_VIEW (widget);
+	priv = view->priv;
+
+	/* Compute zoom factor and scrolling offsets; we'll only use either of them */
+
+	xofs = priv->hadj->page_increment / 2; /* same as in gtkscrolledwindow.c */
+	yofs = priv->vadj->page_increment / 2;
+
+	switch (event->direction) {
+	case GDK_SCROLL_UP:
+		zoom_factor = IMAGE_VIEW_ZOOM_MULTIPLIER;
+		xofs = 0;
+		yofs = -yofs;
+		break;
+
+	case GDK_SCROLL_LEFT:
+		zoom_factor = 1.0 / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		xofs = -xofs;
+		yofs = 0;
+		break;
+
+	case GDK_SCROLL_DOWN:
+		zoom_factor = 1.0 / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		xofs = 0;
+		yofs = yofs;
+		break;
+
+	case GDK_SCROLL_RIGHT:
+		zoom_factor = IMAGE_VIEW_ZOOM_MULTIPLIER;
+		xofs = xofs;
+		yofs = 0;
+		break;
+
+	default:
+		g_assert_not_reached ();
+		return FALSE;
+	}
+
+	if ((event->state & GDK_SHIFT_MASK) == 0) {
+		set_zoom_anchor (view, event->x, event->y);
+		image_view_set_zoom (view, priv->zoomx * zoom_factor, priv->zoomy * zoom_factor);
+	} else
+		scroll_by (view, xofs, yofs);
+
+	return TRUE;
+}
+
+/* Motion event handler for the image view */
+static gboolean
+image_view_motion_event (GtkWidget *widget, GdkEventMotion *event)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
@@ -1280,9 +1389,9 @@ image_view_motion (GtkWidget *widget, GdkEventMotion *event)
 	return TRUE;
 }
 
-/* Expose handler for the image view */
-static gint
-image_view_expose (GtkWidget *widget, GdkEventExpose *event)
+/* Expose event handler for the image view */
+static gboolean
+image_view_expose_event (GtkWidget *widget, GdkEventExpose *event)
 {
 	ImageView *view;
 
@@ -1296,9 +1405,9 @@ image_view_expose (GtkWidget *widget, GdkEventExpose *event)
 	return TRUE;
 }
 
-/* Key press handler for the image view */
-static gint
-image_view_key_press (GtkWidget *widget, GdkEventKey *event)
+/* Key press event handler for the image view */
+static gboolean
+image_view_key_press_event (GtkWidget *widget, GdkEventKey *event)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
@@ -1385,34 +1494,8 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 		image_view_set_zoom (view, zoomx, zoomy);
 	}
 
-	if (do_scroll) {
-		int x, y;
-
-		x = CLAMP (priv->xofs + xofs, 0, priv->hadj->upper - priv->hadj->page_size);
-		y = CLAMP (priv->yofs + yofs, 0, priv->vadj->upper - priv->vadj->page_size);
-
-		scroll_to (view, x, y);
-
-		g_signal_handlers_block_matched (
-			priv->hadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
-		g_signal_handlers_block_matched (
-			priv->vadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
-
-		priv->hadj->value = x;
-		priv->vadj->value = y;
-
-		g_signal_emit_by_name (priv->hadj, "value_changed");
-		g_signal_emit_by_name (priv->vadj, "value_changed");
-
-		g_signal_handlers_unblock_matched (
-			priv->hadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
-		g_signal_handlers_unblock_matched (
-			priv->vadj, G_SIGNAL_MATCH_DATA,
-			0, 0, NULL, NULL, view);
-	}
+	if (do_scroll)
+		scroll_by (view, xofs, yofs);
 
 	return TRUE;
 }
@@ -1427,7 +1510,7 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 	view = IMAGE_VIEW (data);
 	priv = view->priv;
 
-	scroll_to (view, priv->hadj->value, priv->vadj->value);
+	scroll_to (view, priv->hadj->value, priv->vadj->value, FALSE);
 }
 
 /* Set_scroll_adjustments handler for the image view */
@@ -1817,51 +1900,6 @@ image_view_get_dither (ImageView *view)
 }
 
 /**
- * image_view_set_scroll:
- * @view: An image view.
- * @scroll: Scrolling type.
- *
- * Sets the scrolling type on an image view.
- **/
-void
-image_view_set_scroll (ImageView *view, ScrollType scroll)
-{
-	ImageViewPrivate *priv;
-
-	g_return_if_fail (view != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (view));
-
-	priv = view->priv;
-
-	if (priv->scroll == scroll)
-		return;
-
-	priv->scroll = scroll;
-
-	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-/**
- * image_view_get_scroll:
- * @view: An image view.
- *
- * Queries the scrolling type of an image view.
- *
- * Return value: Scrolling type.
- **/
-ScrollType
-image_view_get_scroll (ImageView *view)
-{
-	ImageViewPrivate *priv;
-
-	g_return_val_if_fail (view != NULL, SCROLL_NORMAL);
-	g_return_val_if_fail (IS_IMAGE_VIEW (view), SCROLL_NORMAL);
-
-	priv = view->priv;
-	return priv->scroll;
-}
-
-/**
  * image_view_get_scaled_size
  * @view: An image view.
  * @width: Image width result.
@@ -1931,16 +1969,8 @@ image_view_class_init (ImageViewClass *class)
 				  _("dither"),
 				  _("dither type"),
 				  0, G_MAXINT, 0, 0));
-	g_object_class_install_property (
-		gobject_class,
-		PROP_SCROLL,
-		g_param_spec_int ("scroll",
-				  _("scroll"),
-				  _("scroll type"),
-				  0, G_MAXINT, 0, 0));
-
   	image_view_signals[ZOOM_FIT] =
- 		g_signal_new ("zoom_fit", 
+ 		g_signal_new ("zoom_fit",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (ImageViewClass, zoom_fit),
@@ -1959,10 +1989,10 @@ image_view_class_init (ImageViewClass *class)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
 			      0);
-  
+
 	gobject_class->dispose = image_view_dispose;
   	gobject_class->finalize = image_view_finalize;
-  
+
   	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
   	widget_class->set_scroll_adjustments_signal =
  		g_signal_new ("set_scroll_adjustments",
@@ -1982,11 +2012,12 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->unrealize = image_view_unrealize;
 	widget_class->size_request = image_view_size_request;
 	widget_class->size_allocate = image_view_size_allocate;
-	widget_class->button_press_event = image_view_button_press;
-	widget_class->button_release_event = image_view_button_release;
-	widget_class->motion_notify_event = image_view_motion;
-	widget_class->expose_event = image_view_expose;
-	widget_class->key_press_event = image_view_key_press;
+	widget_class->button_press_event = image_view_button_press_event;
+	widget_class->button_release_event = image_view_button_release_event;
+	widget_class->scroll_event = image_view_scroll_event;
+	widget_class->motion_notify_event = image_view_motion_event;
+	widget_class->expose_event = image_view_expose_event;
+	widget_class->key_press_event = image_view_key_press_event;
 	widget_class->focus_in_event  = image_view_focus_in_event;
 	widget_class->focus_out_event = image_view_focus_out_event;
 }

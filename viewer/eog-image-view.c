@@ -2019,7 +2019,6 @@ eog_image_view_construct (EogImageView       *image_view,
 			  image_view);
 
 	/* get preference values from gconf and add listeners */
-	image_view_set_scroll  (image_view->priv->image_view, SCROLL_TWO_PASS);
 
 	image_view_set_interp_type (image_view->priv->image_view,
 			            (GdkInterpType) gconf_client_get_int (image_view->priv->client,
