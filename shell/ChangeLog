@@ -1,3 +1,13 @@
+2001-07-13  jacob berkman  <jacob@ximian.com>
+
+	* eog-window.c (eog_window_construct): don't set the default
+	window icon, as bonobo does this now
+	(create_bonobo_file_sel): delimit mime-types with : rather than ;
+	(create_bonobo_file_sel): use the new moniker way of setting
+	properties
+
+	* main.c (main): set the default window icon
+
 2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
         * Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS], those are in

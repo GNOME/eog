@@ -282,6 +282,8 @@ main (int argc, char **argv)
 	} else
 		gtk_idle_add (create_app, NULL);
 
+	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
+
 	bonobo_main ();
 
 	CORBA_exception_free (&ev);

@@ -7,7 +7,8 @@ INCLUDES =                                              \
         -I$(includedir)                                 \
 	$(GCONF_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)				\
-	$(EXTRA_GNOME_CFLAGS)
+	$(EXTRA_GNOME_CFLAGS)				\
+	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog
 

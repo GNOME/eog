@@ -616,15 +616,6 @@ eog_window_construct (EogWindow *window)
 				      &geometry, 
 				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
 	 
-
-	/* add gnome window icon */
-	fname = gnome_pixmap_file ("gnome-eog.png");
-	if (fname) {
-		gnome_window_icon_set_from_file (GTK_WINDOW (window), 
-						 fname);
-		g_free (fname);
-	}
-
 	/* We want the window automatically shrink to the image
 	 * size. 
 	 */
@@ -802,10 +793,22 @@ create_bonobo_file_sel (EogWindow *window)
 
 	Bonobo_EventSource es;
 	Bonobo_Listener listener;
+	char *moniker_string;
 
 	priv = window->priv;
 
-	control = bonobo_widget_new_control ("OAFIID:GNOME_FileSelector", CORBA_OBJECT_NIL);
+	moniker_string = "OAFIID:GNOME_FileSelector!MimeTypes="
+		"All Images:"
+		"image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm:"
+		":image/png:"
+		":image/gif:"
+		":image/jpeg:"
+		":image/x-bmp:"
+		":image/x-ico:"
+		":image/tiff:"
+		":image/x-xpm";
+
+	control = bonobo_widget_new_control (moniker_string, CORBA_OBJECT_NIL);
 
 	if (!control) {
 		create_gtk_file_sel (window);
@@ -833,24 +836,6 @@ create_bonobo_file_sel (EogWindow *window)
 		bonobo_widget_get_objref (BONOBO_WIDGET (control)),
 		"IDL:Bonobo/EventSource:1.0", &ev);
 	Bonobo_EventSource_addListener (es, listener, &ev);
-
-	{
-		char *mime_types = 
-			"All Images;"
-			"image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm;"
-			";image/png;"
-			";image/gif;"
-			";image/jpeg;"
-			";image/x-bmp;"
-			";image/x-ico;"
-			";image/tiff;"
-			";image/x-xpm";
-
-		g_print ("trying to set the mime types: %s\n", mime_types);
-		bonobo_widget_set_property (BONOBO_WIDGET  (control),
-					    "MimeTypes", mime_types,
-					    NULL);
-	}
 
 	CORBA_exception_free (&ev);
 }
