@@ -664,12 +664,12 @@ paint_iteration_idle (gpointer data)
 
 	if (priv->uta2) {
 		pull_rectangle (priv->uta2, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
-		paint_rectangle (view, &rect, priv->interp_type);
 
 		if (art_irect_empty (&rect)) {
 			art_uta_free (priv->uta2);
 			priv->uta2 = NULL;
-		}
+		} else
+			paint_rectangle (view, &rect, priv->interp_type);
 	}
 
  out:

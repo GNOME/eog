@@ -46,23 +46,23 @@ gboolean       prefs_full_screen_bevel;
 
 /**
  * prefs_init:
- * @void: 
- * 
+ * @void:
+ *
  * Reads the default set of preferences.  Must be called prior to any of the
  * rest of the program running.
  **/
 void
 prefs_init (void)
 {
-  	GConfClient *client = NULL;
-	
+  	GConfClient *client;
+
 	client = gconf_client_new ();
-	
+
 	prefs_interp_type = gconf_client_get_int (
 		client, "/apps/eog/view/interp_type",
 		NULL); /* bilinear default=2 */
 	prefs_check_type = gconf_client_get_int (
-		client, "/apps/eog/view/check_type",		
+		client, "/apps/eog/view/check_type",
 		NULL); /* midtone default=1 */
 	prefs_check_size = gconf_client_get_int (
 		client, "/apps/eog/view/check_size",
@@ -73,7 +73,9 @@ prefs_init (void)
 	prefs_scroll = gconf_client_get_int (
 		client, "/apps/eog/view/scroll",
 		NULL); /* two-pass default=1 */
-	
+	prefs_scroll = SCROLL_TWO_PASS;
+	prefs_interp_type = GDK_INTERP_BILINEAR;
+
 	prefs_window_sb_policy = gconf_client_get_int (
 		client, "/apps/eog/window/sb_policy",
 		NULL); /* automatic default=1 */
@@ -90,12 +92,14 @@ prefs_init (void)
 	prefs_full_screen_zoom = gconf_client_get_int (
 		client, "/apps/eog/full_screen/zoom",
 		NULL); /* fit default=0 */
-	/*  	prefs_full_screen_fit_standard = gconf_client_get_bool (
+	prefs_full_screen_fit_standard = gconf_client_get_bool (
   		client, "/apps/eog/full_screen/fit_standard",
   		NULL); /* true default=1 */
-	/* 	prefs_full_screen_bevel = gconf_client_get_bool (
+	prefs_full_screen_bevel = gconf_client_get_bool (
   		client, "/apps/eog/full_screen/bevel",
   		NULL); /* false default=0 */
+
+	gtk_object_unref (GTK_OBJECT (client));
 }
 
 /* Glade definition and contents of the preferences dialog */
@@ -406,8 +410,8 @@ hook_prefs_widgets (void)
 
 /**
  * prefs_dialog:
- * @void: 
- * 
+ * @void:
+ *
  * Runs the preferences dialog.
  **/
 void

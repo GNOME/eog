@@ -1,82 +1,107 @@
 <gconfschemafile>
-    <schemalist>
-      <schema>
+  <schemalist>
+    <schema>
       <key>/schemas/apps/eog/view/interp_type</key>
       <applyto>/apps/eog/view/interp_type</applyto>
       <owner>eog</owner>
       <type>int</type>
       <default>2</default>
       <locale name="C">
-	<short>bilinear</short>
-	<long>i have no idea, i will as federico to write this</long>
+	<short>Interpolation type</short>
+	<long>Type of interpolation to use for views.  Possible values
+	are:  0 (nearest neighbor), 2 (bilienar), 3 (hyperbolic).
+	Value 1 (tiles) is in effect the same as nearest neighbor and
+	thus is not used.</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/check_type</key>
       <applyto>/apps/eog/view/check_type</applyto>
       <owner>eog</owner>
       <type>int</type>
       <default>1</default>
       <locale name="C">
-	<short>midtone</short>
-	<long>no idea</long>
+	<short>Type of checks</short>
+	<long>Type of the checkered background that will be drawn
+	behind images with transparency.  Possible values are: 0 (dark
+	checks), 1 (midtone checks), 2 (light checks), 3 (black
+	background), 4 (gray background), 5 (white background).</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/check_size</key>
       <applyto>/apps/eog/view/check_size</applyto>
       <owner>eog</owner>
       <type>int</type>
       <default>2</default>
       <locale name="C">
-	<short>large</short>
-	<long>i have no idea</long>
+	<short>Size of checks</short>
+	<long>Size of the checks in the background that will be drawn
+	behind images with transparency.  Possible values are:  0
+	(small checks), 1 (medium checks), 2 (large checks).</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/dither</key>
       <applyto>/apps/eog/view/dither</applyto>
       <owner>eog</owner>
       <type>int</type>
       <default>1</default>
       <locale name="C">
-        <short>normal</short>
-	<long>i have no idea</long>
+        <short>Dither type</short>
+	<long>Dither type to use.  Possible values are:  0 (none), 1
+	(normal, for pseudo-color displays), 2 (maximum, for extra
+	quality on high color displays).</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/scroll</key>
       <applyto>/apps/eog/view/scroll</applyto>
       <owner>eog</owner>
       <type>int</type>
+      <default>1</default>
       <locale name="C">
-        <short>two-pass</short>
-	<long>i have no idea</long>
+        <short>Scrolling method</short>
+	<long>Scrolling method to use.  Possible values are:  0
+	(normal), 1 (two-pass scrolling).</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/window/sb_policy</key>
       <applyto>/apps/eog/window/sb_policy</applyto>
       <owner>eog</owner>
       <type>int</type>
       <default>1</default>
       <locale name="C">
-        <short>automatic</short>
-	<long>i have no idea</long>
+        <short>Scrollbar policy for image windows</short>
+	<long>Whether to display scrollbars on image windows.
+	Possible values are:  1 (automatic; only display scrollbars if
+	the image is larger than the window), 2 (never display
+	scrollbars).</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/window/auto_size</key>
       <applyto>/apps/eog/window/auto_size</applyto>
       <owner>eog</owner>
       <type>bool</type>
       <default>1</default>
       <locale name="C">
-        <short>true</short>
-	<long>i have no idea</long>
+        <short>Automatically pick window size</short>
+	<long>Whether image windows should pick their size and zooming
+	factor automatically based on the size of the image.  If this
+	option is not set, image windows will get whatever size the
+	window manager assigns to them.</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/window/open_new_window</key>
       <applyto>/apps/eog/window/open_new_window</applyto>
       <type>bool</type>
@@ -85,8 +110,9 @@
         <short>false</short>
 	<long>i have no idea</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/full_screen/sb_policy</key>
       <applyto>/apps/eog/full_screen/sb_policy</applyto>
       <type>int</type>
@@ -95,8 +121,9 @@
         <short>never</short>
 	<long>i have no idea</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/full_screen/zoom</key>
       <applyto>/apps/eog/full_screen/zoom</applyto>
       <type>int</type>
@@ -105,8 +132,9 @@
         <short>fit</short>
 	<long>i have no idea</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/full_screen/fit_standard</key>
       <applyto>/apps/eog/full_screen/fit_standard</applyto>
       <type>bool</type>
@@ -115,8 +143,9 @@
         <short>true</short>
 	<long>i have no idea</long>
       </locale>
-      </schema>
-      <schema>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/full_screen/bevel</key>
       <applyto>/apps/eog/full_screen/bevel</applyto>
       <type>bool</type>
@@ -125,10 +154,6 @@
         <short>false</short>
 	<long>i have no idea</long>
       </locale>
-      </schema>
-    </schemalist>
+    </schema>
+  </schemalist>
 </gconfschemafile>
-
-
-
-
