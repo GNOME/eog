@@ -42,6 +42,9 @@ typedef struct _GnomeWrapListClass GnomeWrapListClass;
 
 struct _GnomeWrapList {
 	GnomeListView view;
+
+	/* Private data */
+	gpointer priv;
 };
 
 struct _GnomeWrapListClass {
@@ -49,8 +52,18 @@ struct _GnomeWrapListClass {
 };
 
 
+/* Layout modes */
+typedef enum {
+	GNOME_WRAP_LIST_ROW_MAJOR,
+	GNOME_WRAP_LIST_COL_MAJOR,
+	GNOME_WRAP_LIST_MANUAL
+} GnomeWrapListMode;
+
+
 GtkType gnome_wrap_list_get_type (void);
 
+void gnome_wrap_list_set_mode (GnomeWrapList *wlist, GnomeWrapListMode mode);
+GnomeWrapListMode gnome_wrap_list_get_mode (GnomeWrapList *wlist);
 
 
 
