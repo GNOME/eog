@@ -84,6 +84,7 @@ struct _ImageViewClass {
 
 	/* Notification signals */
 	void (* zoom_fit) (ImageView *view);
+	void (* zoom_changed) (ImageView *view);
 
 	/* GTK+ scrolling interface */
 	void (* set_scroll_adjustments) (GtkWidget *widget,

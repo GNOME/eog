@@ -1,6 +1,13 @@
+2001-05-29  Jens Finke <jens@gnome.org>
+
+	* image-view.[ch]: Added new 'zoom_changed' signal.
+	(image_view_key_pres): Use GDK_plus key as shortcut for zooming
+	into an image (enables this also for non-american keyboards).
+	(image_view_set_zoom): Emit 'zoom_changed' signal.
+
 2001-05-18  Jens Finke <jens@gnome.org>
 
-	* image_view.[ch] (image_view_get_scaled_size): New function,
+	* image-view.[ch] (image_view_get_scaled_size): New function,
 	which returns the image width and height, but takes also the zoom
 	factor into account.
 

@@ -117,6 +117,7 @@ struct _ImageViewPrivate {
 /* Signal IDs */
 enum {
 	ZOOM_FIT,
+	ZOOM_CHANGED,
 	LAST_SIGNAL
 };
 
@@ -216,6 +217,13 @@ image_view_class_init (ImageViewClass *class)
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
+				gtk_marshal_NONE__NONE,
+				GTK_TYPE_NONE, 0);
+	image_view_signals[ZOOM_CHANGED] =
+		gtk_signal_new ("zoom_changed",
+				GTK_RUN_FIRST,
+				object_class->type,
+				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
 				gtk_marshal_NONE__NONE,
 				GTK_TYPE_NONE, 0);
 
@@ -1427,7 +1435,7 @@ image_view_key_press (GtkWidget *widget, GdkEventKey *event)
 		yofs = 0;
 		break;
 
-	case GDK_equal:
+	case GDK_plus:
 	case GDK_KP_Add:
 		do_zoom = TRUE;
 		zoomx = priv->zoomx * 1.05;
@@ -1691,6 +1699,8 @@ image_view_set_zoom (ImageView *view, double zoomx, double zoomy)
 
 	priv->zoomx = zoomx;
 	priv->zoomy = zoomy;
+
+	gtk_signal_emit (GTK_OBJECT (view), image_view_signals[ZOOM_CHANGED]);
 
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
