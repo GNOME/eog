@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-06-13 12:31+0200\n"
-"PO-Revision-Date: 2003-06-13 12:32+0200\n"
+"POT-Creation-Date: 2003-06-21 15:56+0200\n"
+"PO-Revision-Date: 2003-06-21 16:00+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -73,31 +73,43 @@ msgid "_Edit"
 msgstr "E_dita"
 
 #: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Desa"
+
+#: collection/eog-collection-view-ui.xml.h:13
 msgid "_Undo"
 msgstr "_Desfés"
 
-#: collection/eog-collection-view-ui.xml.h:13
+#: collection/eog-collection-view-ui.xml.h:14
 #: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Visualitza"
 
-#: collection/eog-collection-view.c:535
+#: collection/eog-collection-view.c:289
+msgid "Cancel saving"
+msgstr "Cancel·la el desat"
+
+#: collection/eog-collection-view.c:292
+msgid "Saving finished"
+msgstr "El desat ha finalitzat"
+
+#: collection/eog-collection-view.c:754
 msgid "Move to Trash"
 msgstr "Mou a la paperera"
 
-#: collection/eog-collection-view.c:579
+#: collection/eog-collection-view.c:798
 msgid "Collection View"
 msgstr "Mostra la col·lecció"
 
-#: collection/eog-collection-view.c:1039 viewer/eog-image-view.c:1215
+#: collection/eog-collection-view.c:1259 viewer/eog-image-view.c:1235
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: collection/eog-collection-view.c:1042
+#: collection/eog-collection-view.c:1262
 msgid "Status Text"
 msgstr "Text d'estat"
 
-#: collection/eog-collection-view.c:1045 viewer/eog-image-view.c:1227
+#: collection/eog-collection-view.c:1265 viewer/eog-image-view.c:1247
 msgid "Progress of Image Loading"
 msgstr "Progrés de la càrrega de la imatge"
 
@@ -348,6 +360,10 @@ msgstr "Carrega la imatge"
 #: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Desa la imatge"
+
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "No s'ha pogut assignar memòria per a carregar el fitxer JPEG"
 
 #: libeog/eog-image.c:1316
 msgid "No image loaded."
@@ -735,31 +751,31 @@ msgstr "/Millor a_just"
 msgid "/_Close"
 msgstr "/_Tanca"
 
-#: viewer/eog-image-view.c:962
+#: viewer/eog-image-view.c:982
 msgid "Image successfully saved"
 msgstr "S'ha desat la imatge correctament"
 
-#: viewer/eog-image-view.c:966
+#: viewer/eog-image-view.c:986
 msgid "Image saving failed"
 msgstr "El desat de la imatge ha fallat"
 
-#: viewer/eog-image-view.c:1209
+#: viewer/eog-image-view.c:1229
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:1212
+#: viewer/eog-image-view.c:1232
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:1218
+#: viewer/eog-image-view.c:1238
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
-#: viewer/eog-image-view.c:1221
+#: viewer/eog-image-view.c:1241
 msgid "Desired Window Width"
 msgstr "Amplada de finestra desitjada"
 
-#: viewer/eog-image-view.c:1224
+#: viewer/eog-image-view.c:1244
 msgid "Desired Window Height"
 msgstr "Alçada de finestra desitjada"
 
@@ -1042,9 +1058,6 @@ msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 #
 #~ msgid "_White"
 #~ msgstr "_Blanc"
-
-#~ msgid "Save As"
-#~ msgstr "Anomena i desa"
 
 #~ msgid "Display"
 #~ msgstr "Visualitza"
