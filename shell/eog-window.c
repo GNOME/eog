@@ -53,6 +53,9 @@ struct _EogWindowPrivate {
 	 * that it will preserve its cwd.
 	 */
 	GtkWidget *file_sel;
+#ifdef ENABLE_BONOBO_FILESEL
+	BonoboListener *listener;
+#endif
 
 	/* Our GConf client */
 	GConfClient *client;
@@ -332,6 +335,13 @@ eog_window_destroy (GtkObject *object)
 		gtk_widget_destroy (priv->file_sel);
 		priv->file_sel = NULL;
 	}
+
+#ifdef ENABLE_BONOBO_FILESEL
+	if (priv->listener) {
+		bonobo_object_unref (priv->listener);
+		priv->listener = NULL;
+	}
+#endif
 
 	window_list = g_list_remove (window_list, window);
 
@@ -699,6 +709,134 @@ open_delete_event (GtkWidget *widget, gpointer data)
 	return TRUE;
 }
 
+static void
+create_gtk_file_sel (EogWindow *window)
+{
+	GtkAccelGroup *accel_group;
+	EogWindowPrivate *priv = window->priv;
+
+	priv->file_sel = gtk_file_selection_new (_("Open Image"));
+	gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
+	gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
+	gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
+	
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
+			    "clicked",
+			    GTK_SIGNAL_FUNC (open_ok_clicked),
+			    priv->file_sel);
+	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
+			    "clicked",
+			    GTK_SIGNAL_FUNC (open_cancel_clicked),
+			    priv->file_sel);
+	gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
+			    GTK_SIGNAL_FUNC (open_delete_event),
+			    window);
+	
+	accel_group = gtk_accel_group_new ();
+	gtk_window_add_accel_group (GTK_WINDOW (priv->file_sel), accel_group);
+	gtk_widget_add_accelerator (GTK_FILE_SELECTION (priv->file_sel)->cancel_button,
+				    "clicked",
+				    accel_group,
+				    GDK_Escape,
+				    0, 0);
+}
+
+#ifdef ENABLE_BONOBO_FILESEL
+
+static void
+listener_cb (BonoboListener *listener,
+	     char *event_name,
+	     CORBA_any *any,
+	     CORBA_Environment *ev,
+	     EogWindow *window)
+{	
+	EogWindowPrivate *priv;
+
+	g_print ("listener_cb(): %s\n", event_name);
+
+	priv = window->priv;
+	if (!strcmp (event_name, "GNOME/FileSelector:Activate:File")) {
+		char *uri = BONOBO_ARG_GET_STRING (any);
+		gtk_widget_hide (priv->file_sel);
+
+		if (g_strncasecmp ("file:", uri, 5) == 0)
+			uri = g_strdup (uri+5);
+		else
+			uri = g_strdup (uri);
+
+		if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
+			open_new_window (window, uri);
+		else if (!eog_window_open (window, uri))
+			open_failure_dialog (GTK_WINDOW (window), uri);
+		
+		g_free (uri);
+	}
+}
+
+static void
+create_bonobo_file_sel (EogWindow *window)
+{
+	GtkWidget *control;
+	CORBA_Environment ev;
+	EogWindowPrivate *priv;	
+
+	Bonobo_EventSource es;
+	Bonobo_Listener listener;
+
+	priv = window->priv;
+
+	control = bonobo_widget_new_control ("OAFIID:GNOME_FileSelector", CORBA_OBJECT_NIL);
+
+	if (!control) {
+		create_gtk_file_sel (window);
+		return;
+	}
+
+	gtk_widget_show (control);
+
+	priv->file_sel = gtk_window_new (GTK_WINDOW_DIALOG);
+	gtk_window_set_title (GTK_WINDOW (priv->file_sel), _("Open Image"));
+	gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
+			    GTK_SIGNAL_FUNC (open_delete_event),
+			    window);
+
+	gtk_container_add (GTK_CONTAINER (priv->file_sel), control);
+
+	gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
+	gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
+
+	priv->listener = bonobo_listener_new (listener_cb, window);
+	listener = bonobo_object_corba_objref (BONOBO_OBJECT (priv->listener));
+
+	CORBA_exception_init (&ev);
+	es = Bonobo_Unknown_queryInterface (
+		bonobo_widget_get_objref (BONOBO_WIDGET (control)),
+		"IDL:Bonobo/EventSource:1.0", &ev);
+	Bonobo_EventSource_addListener (es, listener, &ev);
+
+	{
+		char *mime_types = 
+			"All Images;"
+			"image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm;"
+			";image/png;"
+			";image/gif;"
+			";image/jpeg;"
+			";image/x-bmp;"
+			";image/x-ico;"
+			";image/tiff;"
+			";image/x-xpm";
+
+		g_print ("trying to set the mime types: %s\n", mime_types);
+		bonobo_widget_set_property (BONOBO_WIDGET  (control),
+					    "MimeTypes", mime_types,
+					    NULL);
+	}
+
+	CORBA_exception_free (&ev);
+}
+
+#endif /* USE_BONOBO_FILE_SEL */
+
 /**
  * window_open_dialog:
  * @window: A window.
@@ -716,32 +854,11 @@ eog_window_open_dialog (EogWindow *window)
 	priv = window->priv;
 
 	if (!priv->file_sel) {
-		GtkAccelGroup *accel_group;
-
-		priv->file_sel = gtk_file_selection_new (_("Open Image"));
-		gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
-		gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
-		gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
-
-		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
-				    "clicked",
-				    GTK_SIGNAL_FUNC (open_ok_clicked),
-				    priv->file_sel);
-		gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
-				    "clicked",
-				    GTK_SIGNAL_FUNC (open_cancel_clicked),
-				    priv->file_sel);
-		gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
-				    GTK_SIGNAL_FUNC (open_delete_event),
-				    window);
-
-		accel_group = gtk_accel_group_new ();
-		gtk_window_add_accel_group (GTK_WINDOW (priv->file_sel), accel_group);
-		gtk_widget_add_accelerator (GTK_FILE_SELECTION (priv->file_sel)->cancel_button,
-					    "clicked",
-					    accel_group,
-					    GDK_Escape,
-					    0, 0);
+#ifdef ENABLE_BONOBO_FILESEL
+		create_bonobo_file_sel (window);
+#else
+		create_gtk_file_sel (window);
+#endif
 	}
 
 	gtk_widget_show_now (priv->file_sel);

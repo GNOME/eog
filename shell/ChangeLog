@@ -1,3 +1,15 @@
+2001-06-07  jacob berkman  <jacob@ximian.com>
+
+	* eog-window.c (listener_cb): callback for events emitted by the
+	file selector
+	(create_bonobo_file_sel): creates a bonobo file selector.  if the
+	control creation fails (due to the file selector seg faulting or
+	not being present) a normal gtk one is created
+	(eog_window_open_dialog): if bonobo filesel is enabled, try to
+	create one instead of the gtk one
+
+	please note that this stuff leaks bonobo references probably
+
 2001-06-05  Jens Finke <jens@gnome.org>
 
 	To see the effect of these changes go into a directory with a lot
