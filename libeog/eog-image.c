@@ -9,7 +9,6 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
-#include <eel/eel-vfs-extensions.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
@@ -23,6 +22,7 @@
 #include "eog-image-cache.h"
 #include "eog-metadata-reader.h"
 #include "eog-image-save-info.h"
+#include "eog-util.h"
 #if HAVE_JPEG
 #include "eog-image-jpeg.h"
 #endif
@@ -1675,7 +1675,7 @@ eog_image_get_caption (EogImage *img)
 			name = g_strdup ("[Invalid Unicode]");
 		}
 		else {
-			utf8_name = eel_make_valid_utf8 (name);
+			utf8_name = eog_util_make_valid_utf8 (name);
 			g_free (name);
 			name = utf8_name;
 		}

@@ -84,6 +84,8 @@ libeog_a_SOURCES =			\
 	eog-collection-item.c		\
 	eog-canvas-pixbuf.h		\
 	eog-canvas-pixbuf.c		\
+	eog-util.h			\
+	eog-util.c			\
 	uta.c				\
 	uta.h				\
 	cursors.c			\
