@@ -4,15 +4,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: oeg.HEAD\n"
-"POT-Creation-Date: 2004-03-22 19:33+0100\n"
-"PO-Revision-Date: 2004-02-23 17:03+0100\n"
+"Project-Id-Version: eog\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-08 20:15+0200\n"
+"PO-Revision-Date: 2004-05-08 20:18+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
@@ -114,15 +114,15 @@ msgstr "Shikuesi i Albumit"
 msgid "Images: %i/%i"
 msgstr "Figurat: %i/%i"
 
-#: collection/eog-collection-view.c:1423 viewer/eog-image-view.c:1393
+#: collection/eog-collection-view.c:1405 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Titulli i dritares"
 
-#: collection/eog-collection-view.c:1426
+#: collection/eog-collection-view.c:1408
 msgid "Status Text"
 msgstr "Teksti i Gjëndjes"
 
-#: collection/eog-collection-view.c:1429 viewer/eog-image-view.c:1405
+#: collection/eog-collection-view.c:1411 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Progresi i Ngarkimit të Figurës"
 
@@ -209,12 +209,12 @@ msgstr "sekonda"
 
 #: eog.schemas.in.h:1
 msgid ""
-"A value greater 0 determines the seconds an image stays on screen until the "
-"next one is shown automatically. Zero disables the automatic browsing."
+"A value greater than 0 determines the seconds an image stays on screen until "
+"the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 "Një vlerë më e madhe se 0 përcakton kohën në sekonda gjatë së cilës një "
 "figurë qëndron në ekran para se figura në vazhdim të shfaqet automatikisht. "
-"Zero ç'aktivizon shfletimin automatik."
+"Zero ç'aktivon shfletimin automatik."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -245,7 +245,7 @@ msgstr ""
 
 #: eog.schemas.in.h:7
 msgid ""
-"If this is set to FALSE small images will not be streched to fit into the "
+"If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
 "Nëse kjo është vendosur në FALSE figurat e vogla nuk do të zmadhohen që t'i "
@@ -288,10 +288,8 @@ msgstr ""
 "zevëndësohet figura në dritaren aktuale."
 
 #: eog.schemas.in.h:16
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
-msgstr ""
-"Kur dhe kur jo sekuenca e figurave duhet shfaqur në një cikël të pafund."
+msgid "Whether or not the sequence of images should be shown in an endless loop."
+msgstr "Kur dhe kur jo sekuenca e figurave duhet shfaqur në një cikël të pafund."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -372,45 +370,81 @@ msgstr "I pamundur krijimi i file të përkohshëm për të ruajtur: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "E pamundur përgatitja e kujtesës për të ngarkuar file JPEG"
 
-#: libeog/eog-image.c:859
+#: libeog/eog-image.c:806
 msgid "empty file"
 msgstr "file bosh"
 
-#: libeog/eog-image.c:1299
+#: libeog/eog-image.c:1268
 msgid "No image loaded."
 msgstr "Asnjë figurë e ngarkuar."
 
-#: libeog/eog-image.c:1309
+#: libeog/eog-image.c:1278
 msgid "Images can only be saved as local files."
 msgstr "Figurat mund të ruhen vetëm si file lokalë."
 
-#: libeog/eog-image.c:1334
+#: libeog/eog-image.c:1303
 msgid "Unsupported image type for saving."
 msgstr "Lloj figure e pasuportuar për tu ruajtur."
 
-#: libeog/eog-info-view.c:105
-msgid "Attribute"
-msgstr "Karakteristikat"
+#: libeog/eog-info-view.c:92
+msgid "File"
+msgstr "File"
 
-#: libeog/eog-info-view.c:113
-msgid "Value"
-msgstr "Vlera"
+#: libeog/eog-info-view.c:101
+msgid "EXIF"
+msgstr "EXIF"
 
-#: libeog/eog-info-view.c:209
+#: libeog/eog-info-view.c:108
+msgid "IPTC"
+msgstr "IPTC"
+
+#: libeog/eog-info-view-file.c:25
+msgid "Filename"
+msgstr "Emri i file"
+
+#: libeog/eog-info-view-file.c:26
 msgid "Width"
 msgstr "Gjerësia"
 
-#: libeog/eog-info-view.c:219
+#: libeog/eog-info-view-file.c:27
 msgid "Height"
 msgstr "Lartësia"
 
-#: libeog/eog-info-view.c:222
+#: libeog/eog-info-view-file.c:28
 msgid "Filesize"
 msgstr "Madhësia e file"
 
-#: libeog/eog-info-view.c:237
-msgid "Filename"
-msgstr "Emri i file"
+#: libeog/eog-info-view-file.c:88
+msgid "Attribute"
+msgstr "Karakteristikat"
+
+#: libeog/eog-info-view-file.c:96 libeog/eog-info-view-exif.c:219
+msgid "Value"
+msgstr "Vlera"
+
+#: libeog/eog-info-view-exif.c:25
+msgid "Camera"
+msgstr "Kamera"
+
+#: libeog/eog-info-view-exif.c:26
+msgid "Image Data"
+msgstr "Të dhënat e figurës"
+
+#: libeog/eog-info-view-exif.c:27
+msgid "Image Taking Conditions"
+msgstr "Kushtet e marrjes së figurës"
+
+#: libeog/eog-info-view-exif.c:28
+msgid "Maker Note"
+msgstr "Shënime mbi marrjen"
+
+#: libeog/eog-info-view-exif.c:29
+msgid "Other"
+msgstr "Tjetër"
+
+#: libeog/eog-info-view-exif.c:211
+msgid "Tag"
+msgstr "Tag"
 
 #: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
 msgid "Page"
@@ -832,5 +866,3 @@ msgstr "Gjerësia e dëshiruar e dritares"
 msgid "Desired Window Height"
 msgstr "Lartësia e dëshiruar e dritares"
 
-#~ msgid "dialog1"
-#~ msgstr "dialogu1"
