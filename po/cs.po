@@ -2,26 +2,27 @@
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # George Lebl <jirka@5z.com>, 2000.
 # Michal Bukovjan <michal.bukovjan@openone.cz>, 2002.
+# Miloslav Trmac <mitr@volny.cz>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-08-25 21:15+0200\n"
-"PO-Revision-Date: 2003-07-15 20:57+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-28 14:18+0100\n"
+"PO-Revision-Date: 2003-11-28 18:30+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:1
 msgid "EOG Image Collection Viewer"
-msgstr "Prohlížeč kolekce obrázků OPG"
+msgstr "Prohlížeč kolekce obrázků EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
 msgid "EOG Image collection view factory"
-msgstr "Generátor prohlížeče kolekce obrázků OPG"
+msgstr "Generátor prohlížeče kolekce obrázků EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
@@ -51,24 +52,24 @@ msgstr "Předchozí"
 msgid "Previous Image"
 msgstr "Předchozí obrázek"
 
-#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 _Degrees"
 msgstr "Rotovat o 180 _stupňů"
 
-#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate C_lockwise"
 msgstr "Rotovat _po směru hodinových ručiček"
 
-#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counte_r Clockwise"
 msgstr "Rotovat p_roti směru hodinových ručiček"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "Promítání snímků"
 
-#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:14
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:19
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Edit"
 msgstr "Ú_pravy"
 
@@ -77,40 +78,40 @@ msgid "_Save"
 msgstr "_Uložit"
 
 #: collection/eog-collection-view-ui.xml.h:13
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: collection/eog-collection-view-ui.xml.h:14
-#: viewer/eog-image-view-ui.xml.h:18
+#: collection/eog-collection-view-ui.xml.h:14 shell/eog-shell-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_View"
 msgstr "_Zobrazení"
 
-#: collection/eog-collection-view.c:291
+#: collection/eog-collection-view.c:337
 msgid "Cancel saving"
 msgstr "Zrušit ukládání"
 
-#: collection/eog-collection-view.c:294
+#: collection/eog-collection-view.c:340
 msgid "Saving finished"
 msgstr "Ukládání dokončeno"
 
-#: collection/eog-collection-view.c:758
+#: collection/eog-collection-view.c:809
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: collection/eog-collection-view.c:802
+#: collection/eog-collection-view.c:854
 msgid "Collection View"
 msgstr "Pohled kolekce"
 
-#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
+#: collection/eog-collection-view.c:1312 viewer/eog-image-view.c:1355
 msgid "Window Title"
 msgstr "Titulek okna"
 
-#: collection/eog-collection-view.c:1270
+#: collection/eog-collection-view.c:1315
 msgid "Status Text"
 msgstr "Stavový text"
 
-#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+#: collection/eog-collection-view.c:1318 viewer/eog-image-view.c:1367
 msgid "Progress of Image Loading"
 msgstr "Průběh načítání obrázku"
 
@@ -131,75 +132,86 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>Interpolace obrázku</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Zvětšení obrázku</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>Posloupnost</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
-msgstr "<b>Průhlednost</b>"
+#: eog.glade.h:5
+msgid "<b>Transparent Parts</b>"
+msgstr "<b>Průhledné části</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "Jako pozadí"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr "Povolit počáteční _zvětšení větší než 100%"
 
 #: eog.glade.h:8
+msgid "As _background"
+msgstr "Jako _pozadí"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "Jako _vzor čtverců"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "Jako vlastní _barva"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "Barva pro průhledné oblasti"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "Nepoužívat zvětšení větší než 100%"
+msgid "Eye of Gnome Preferences"
+msgstr "Nastavení Eye of Gnome"
 
 #: eog.glade.h:13
-msgid "Eye of Gnome Preferences"
-msgstr "Nastavení Očí pro GNOME"
+msgid "Image _View"
+msgstr "Pohled na _obrázek"
 
 #: eog.glade.h:14
-msgid "Image View"
-msgstr "Pohled na obrázek"
+msgid "Show _next image automatically after:"
+msgstr "Zobrazit _následující obrázek automaticky po:"
 
 #: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "Opakovat sekvence"
+msgid "Sli_de Show"
+msgstr "_Promítání snímků"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
-msgstr ""
-"Zobrazit následující obrázek automaticky:\n"
-"(0 pro zákaz)"
+msgid "_Interpolate image on zoom"
+msgstr "_Interpolovat obrázek při zvětšení"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "_Interpolovat obrázky při zvětšení (lepší kvalita, ale pomalejší)"
+#: eog.glade.h:17
+msgid "_Loop sequence"
+msgstr "_Opakovat sekvenci"
 
-#: eog.glade.h:20
-msgid "sec"
-msgstr "s"
+#: eog.glade.h:18
+msgid "seconds"
+msgstr "sekund"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr "Hodnota větší než 0 určuje počet sekund, které zůstane obrázek na obrazovce, než je automaticky zobrazen další. Nula zakazuje automatické procházení."
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "Povolit počáteční zvětšení větší než 100%"
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr "Zpoždění v sekundách do zobrazení dalšího obrázku"
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -209,7 +221,7 @@ msgstr ""
 "COLOR a NONE. Pokud je zvolena hodnota COLOR, pak hodnotu použité barvy "
 "určuje klíč trans_color."
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -217,23 +229,51 @@ msgstr ""
 "Pokud má klíč průhlednosti hodnotu COLOR, pak tento klíč určuje barvu, která "
 "se použije pro indikaci průhlednosti."
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr "Pokud je toto nastaveno na FALSE, malé obrázky nebudou roztáhnuty, aby se přizpůsobily obrazovce."
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "Interpolace obrázku"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr "Opakovat sekvenci obrázků"
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "Otevírat obrázky v novém okně"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
+msgid "Show/hide the window statusbar."
+msgstr "Zobrazovat/skrýt stavovou lištu okna"
+
+#: eog.schemas.in.h:12
+msgid "Show/hide the window toolbar."
+msgstr "Zobrazovat/skrýt lištu nástrojů okna."
+
+#: eog.schemas.in.h:13
 msgid "Transparency color"
 msgstr "Barva průhlednosti"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:14
 msgid "Transparency indicator"
 msgstr "Indikátor průhlednosti"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:15
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr "Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v aktuálním okně."
+
+#: eog.schemas.in.h:16
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr "Jestli má být sekvence obrázků zobrazována v nekonečné smyčce."
+
+#: eog.schemas.in.h:17
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -241,29 +281,21 @@ msgstr ""
 "Jestli se má obrázek při zvětšení interpolovat nebo ne. Interpolace vede k "
 "lepší kvalitě, ale je pomalejší než u neinterpolovaných obrázků."
 
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v okně "
-"stávajícím."
-
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
-msgstr "Obrázek pro OPG"
+msgstr "Obrázek EOG"
 
 #: libeog/GNOME_EOG.server.in.in.h:2
 msgid "EOG Image Viewer"
-msgstr "Prohlížeč obrázků OPG"
+msgstr "Prohlížeč obrázků EOG"
 
 #: libeog/GNOME_EOG.server.in.in.h:3
 msgid "EOG Image viewer factory"
-msgstr "Generátor prohlížeče obrázků OPG"
+msgstr "Generátor prohlížeče obrázků EOG"
 
 #: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
-msgstr "Zapouzdřený obrázek OPG"
+msgstr "Zapouzdřený obrázek EOG"
 
 #: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
@@ -293,37 +325,39 @@ msgstr "Uložit obrázek"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nemohu alokovat paměť pro načtení JPEG souboru"
 
-#: libeog/eog-image.c:1340
+#: libeog/eog-image.c:1216
 msgid "No image loaded."
 msgstr "Nenačten žádný obrázek."
 
-#: libeog/eog-image.c:1349
+#: libeog/eog-image.c:1225
 msgid "Images can only be saved as local files."
 msgstr "Obrázky mohou být uloženy jen jako místní soubory."
 
-#: libeog/eog-image.c:1384
+#: libeog/eog-image.c:1260
 msgid "Unsupported image type for saving."
 msgstr "Nepodporovaný typ obrázku pro ukládání."
 
-#: libeog/eog-info-view.c:76
+#: libeog/eog-info-view.c:85
 msgid "Attribute"
 msgstr "Atribut"
 
-#: libeog/eog-info-view.c:84
+#: libeog/eog-info-view.c:93
 msgid "Value"
 msgstr "Hodnota"
 
-#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
-#: libeog/eog-info-view.c:208
+#: libeog/eog-info-view.c:159
 msgid "Width"
 msgstr "Šířka"
 
-#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
-#: libeog/eog-info-view.c:216
+#: libeog/eog-info-view.c:173
 msgid "Height"
 msgstr "Výška"
 
-#: libeog/eog-info-view.c:269
+#: libeog/eog-info-view.c:181
+msgid "Filesize"
+msgstr "Velikost souboru"
+
+#: libeog/eog-info-view.c:199
 msgid "Filename"
 msgstr "Název souboru"
 
@@ -332,7 +366,7 @@ msgid "Page"
 msgstr "Stana"
 
 #: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
-#: viewer/eog-image-view.c:376
+#: viewer/eog-image-view.c:382
 msgid "Preview"
 msgstr "Náhled"
 
@@ -439,108 +473,126 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: shell/eog-shell-ui.xml.h:3
+msgid "Change the visibility of the statusbar in the current window"
+msgstr "Změnit viditelnost stavové lišty v aktuálním okně"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Change the visibility of the toolbar in the current window"
+msgstr "Změnit viditelnost lišty nástrojů v aktuálním okně"
+
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Zavřít okno"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Nápověda pro tuto aplikaci"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:7
 msgid "New"
 msgstr "Nový"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Otevřít"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Otevřít nové okno"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in new window"
 msgstr "Otevřít v novém okně"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:12
 msgid "Open in this window"
 msgstr "Otevřít v tomto okně"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:13
 msgid "Prefere_nces"
 msgstr "Nasta_vení"
 
-#: shell/eog-shell-ui.xml.h:12
-msgid "Preferences for EoG components"
-msgstr "Nastavení komponent OPG"
+#: shell/eog-shell-ui.xml.h:14
+msgid "Preferences for Eye of Gnome"
+msgstr "Nastavení Eye of Gnome"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:15
 msgid "Quit the program"
 msgstr "Ukončit program"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:16
 msgid "_About"
 msgstr "_O aplikaci"
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:17
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: shell/eog-shell-ui.xml.h:16
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Contents"
 msgstr "O_bsah"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:20
 msgid "_File"
 msgstr "_Soubor"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:21
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:22
 msgid "_New"
 msgstr "_Nový"
 
-#: shell/eog-shell-ui.xml.h:21
+#: shell/eog-shell-ui.xml.h:23
 msgid "_Open..."
 msgstr "_Otevřít..."
 
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:24
 msgid "_Quit"
 msgstr "U_končit"
+
+#: shell/eog-shell-ui.xml.h:25
+msgid "_Statusbar"
+msgstr "_Stavová lišta"
+
+#: shell/eog-shell-ui.xml.h:26
+msgid "_Toolbar"
+msgstr "Lišta _nástrojů"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:266
+#: shell/eog-window.c:271
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Michal Bukovjan <bukm@centrum.cz>"
+msgstr ""
+"Michal Bukovjan <bukm@centrum.cz>\n"
+"Miloslav Trmač <mitr@volny.cz>"
 
-#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
-#: shell/eog-window.c:869 shell/main.c:504
+#: shell/eog-window.c:276 shell/eog-window.c:855 shell/eog-window.c:950
+#: shell/eog-window.c:989 shell/main.c:513
 msgid "Eye of Gnome"
-msgstr "Oči pro GNOME"
+msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:274
+#: shell/eog-window.c:279
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program pro prohlížení a katalogizaci obrázků pro GNOME"
 
-#: shell/eog-window.c:311
+#: shell/eog-window.c:316
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"Nelze zobrazit nápovědu pro Oči pro GNOME.\n"
+"Nemohu zobrazit nápovědu pro Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:225
+#: shell/main.c:230
 #, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
@@ -548,19 +600,19 @@ msgid ""
 msgstr ""
 "Chystáte se otevřít %i oken najednou. Chcete je raději otevřít v kolekci?"
 
-#: shell/main.c:229
+#: shell/main.c:234
 msgid "Open multiple single windows?"
 msgstr "Otevřít více jednotlivých oken?"
 
-#: shell/main.c:233
+#: shell/main.c:238
 msgid "Single Windows"
 msgstr "Samostatná okna"
 
-#: shell/main.c:235
+#: shell/main.c:240
 msgid "Collection"
 msgstr "Kolekce"
 
-#: shell/main.c:305
+#: shell/main.c:313
 msgid "Could not find files"
 msgstr "Nemohu najít soubory"
 
@@ -602,79 +654,89 @@ msgid "_Zoom In"
 msgstr "_Zvětšit"
 
 #: viewer/eog-image-view-ui.xml.h:3
+msgid "Full Screen"
+msgstr "Celá obrazovka"
+
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Previews the image to be printed"
 msgstr "Náhled na obrázek, který má být vytištěn"
 
-#: viewer/eog-image-view-ui.xml.h:4
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Previe_w..."
 msgstr "Náhled t_isku..."
 
-#: viewer/eog-image-view-ui.xml.h:5
+#: viewer/eog-image-view-ui.xml.h:6
 msgid "Print Set_up"
 msgstr "N_astavení tisku"
 
-#: viewer/eog-image-view-ui.xml.h:6
+#: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
 msgstr "Vytištění obrázku na tiskárnu"
 
-#: viewer/eog-image-view-ui.xml.h:10
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Rotate Left"
 msgstr "Rotovat doleva"
 
-#: viewer/eog-image-view-ui.xml.h:11
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Rotate Right"
 msgstr "Rotovat doprava"
 
-#: viewer/eog-image-view-ui.xml.h:12
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Save _As..."
 msgstr "Uložit _jako..."
 
-#: viewer/eog-image-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:14
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavení stránky pro vaši aktuální tiskárnu"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Full Screen"
 msgstr "_Celá obrazovka"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Print..."
 msgstr "_Tisk..."
 
-#: viewer/eog-image-view.c:811
+#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
+#: viewer/eog-image-view.c:533
+#, c-format
+msgid "%i x %i pixel  %s    %i%%"
+msgstr "%i × %i pixelů  %s    %i%%"
+
+#: viewer/eog-image-view.c:825
 msgid "/Rotate C_lockwise"
 msgstr "/Rotovat _po směru hodinových ručiček"
 
-#: viewer/eog-image-view.c:813
+#: viewer/eog-image-view.c:827
 msgid "/Rotate Counte_r Clockwise"
 msgstr "/Rotovat p_roti směru hodinových ručiček"
 
-#: viewer/eog-image-view.c:816
+#: viewer/eog-image-view.c:830
 msgid "/_Zoom In"
 msgstr "/_Zvětšit"
 
-#: viewer/eog-image-view.c:818
+#: viewer/eog-image-view.c:832
 msgid "/Zoom _Out"
 msgstr "/Z_menšit"
 
-#: viewer/eog-image-view.c:820
+#: viewer/eog-image-view.c:834
 msgid "/_Normal Size"
 msgstr "/_Normální velikost"
 
-#: viewer/eog-image-view.c:822
+#: viewer/eog-image-view.c:836
 msgid "/Best _Fit"
 msgstr "/Nejlepší _velikost"
 
-#: viewer/eog-image-view.c:825
+#: viewer/eog-image-view.c:839
 msgid "/_Close"
 msgstr "/_Zavřít"
 
-#: viewer/eog-image-view.c:988
+#: viewer/eog-image-view.c:1002
 #, c-format
 msgid "Loading of image %s failed."
 msgstr "Načítání obrázku %s selhalo."
 
-#: viewer/eog-image-view.c:995
+#: viewer/eog-image-view.c:1009
 #, c-format
 msgid ""
 "Loading of image %s failed.\n"
@@ -684,49 +746,43 @@ msgstr ""
 "Důvod: %s."
 
 #. show error dialog
-#: viewer/eog-image-view.c:1004
+#: viewer/eog-image-view.c:1018
 msgid "Loading failed"
 msgstr "Načítání selhalo"
 
-#: viewer/eog-image-view.c:1083
+#: viewer/eog-image-view.c:1101
 msgid "Image successfully saved"
 msgstr "Obrázek úspěšně uložen"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1105
 msgid "Image saving failed"
 msgstr "Ukládání obrázku selhalo"
 
-#: viewer/eog-image-view.c:1331
+#: viewer/eog-image-view.c:1349
 msgid "Image Width"
 msgstr "Šířka obrázku"
 
-#: viewer/eog-image-view.c:1334
+#: viewer/eog-image-view.c:1352
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:1340
+#: viewer/eog-image-view.c:1358
 msgid "Statusbar Text"
 msgstr "Text stavové lišty"
 
-#: viewer/eog-image-view.c:1343
+#: viewer/eog-image-view.c:1361
 msgid "Desired Window Width"
 msgstr "Požadovaná šířka okna"
 
-#: viewer/eog-image-view.c:1346
+#: viewer/eog-image-view.c:1364
 msgid "Desired Window Height"
 msgstr "Požadovaná výška okna"
-
-#~ msgid "Copyright © 2000-2003 The Free Software Foundation"
-#~ msgstr "Copyright © 2000-2003 The Free Software Foundation"
 
 #~ msgid "Automatically pick window size"
 #~ msgstr "Automaticky zvolit velikost okna"
 
 #~ msgid "Put a bevel around the screen"
 #~ msgstr "Kreslit okolo obrazovky rám"
-
-#~ msgid "Scrollbar policy for the full screen view"
-#~ msgstr "Politika posuvníku při celoobrazovkovém pohledu"
 
 #~ msgid ""
 #~ "Whether image windows should pick their size and zooming factor "
