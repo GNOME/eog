@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-01-05 07:37-0500\n"
+"POT-Creation-Date: 2002-05-24 17:00-0500\n"
 "PO-Revision-Date: 2002-05-21 09:53+0300\n"
 "Last-Translator: Sayed Jaffer Al-Mosawi <mosawi@arabeyes.org>\n"
 "Language-Team: Arabic <contact@arabeyes.org>\n"
@@ -14,94 +14,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0beta1\n"
 
-#: collection/eog-collection-control.c:155
-msgid "Couldn't get local BonoboControl interface.\n"
-msgstr ""
-
-#: collection/eog-collection-model.c:539 collection/eog-collection-model.c:543
-#: collection/eog-collection-model.c:581 collection/eog-collection-model.c:585
-#, c-format
-msgid "Can't handle URI: %s"
-msgstr ""
-
-#: collection/eog-collection-preferences.c:38
-msgid "Vertical"
-msgstr "عمودي"
-
-#: collection/eog-collection-preferences.c:39
-msgid "Horizontal"
-msgstr "افقي"
-
-#: collection/eog-collection-preferences.c:40
-msgid "Rectangle"
-msgstr "مستطيل"
-
-#: collection/eog-collection-preferences.c:115
-msgid "Layout Mode:"
-msgstr "طريقة"
-
-#: collection/eog-collection-preferences.c:127
-msgid "Image Collection Background Color"
-msgstr "صورة لون"
-
-#: collection/eog-collection-preferences.c:150
-msgid "Background Color:"
-msgstr "لون الخلفية"
-
-#: collection/eog-collection-view.c:465
-msgid "Send"
-msgstr "بعث"
-
-#: collection/eog-collection-view.c:477
-msgid "Move to Trash"
-msgstr "انقل الى سلة المهملات"
-
-#: collection/eog-collection-view.c:518
-msgid "Collection View"
-msgstr "مجموعة"
-
-#: collection/eog-collection-view.c:596 viewer/eog-image-view-ui.xml.h:21
-msgid "View"
-msgstr "عرض"
-
-#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1985
-msgid "Window Title"
-msgstr "عنوان الشباك"
-
-#: collection/eog-collection-view.c:883
-msgid "Status Text"
-msgstr "نص وضع"
-
-#: collection/GNOME_EOG_Collection.oaf.in.h:1
+#: collection/GNOME_EOG_Collection.server.in.h:1
 msgid "EOG Image Collection"
 msgstr "EOG صور"
 
-#: collection/GNOME_EOG_Collection.oaf.in.h:2
+#: collection/GNOME_EOG_Collection.server.in.h:2
 msgid "EOG Image Collection Viewer"
 msgstr "عارض مجموعة صور EOG "
 
-#: collection/GNOME_EOG_Collection.oaf.in.h:3
+#: collection/GNOME_EOG_Collection.server.in.h:3
 msgid "EOG Image collection view factory"
 msgstr "معاين مجموعة صور "
 
-#: collection/main.c:94
-msgid "I could not initialize GnomeVFS!\n"
-msgstr "لم استطع تهيئة جينومVFS!\n"
-
-#: collection/main.c:97
-msgid "I could not initialize Bonobo"
-msgstr "لم استطع تهيئة بونوبو"
-
-#: eog.desktop.in.h:1 shell/eog-window.c:189 src/window.c:162 src/window.c:573
-#: src/window.c:812
-msgid "Eye of Gnome"
-msgstr "عيون جينوم"
+#: eog.desktop.in.h:1
+#, fuzzy
+msgid "Eye of Gnome Image Viewer"
+msgstr "عارض صور "
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "عارض صور"
+msgid "View many different types of images"
+msgstr ""
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
 msgid "EOG Image"
 msgstr "صورة EOG"
 
@@ -117,127 +51,222 @@ msgstr "معاين عارض صور EOG"
 msgid "Embeddable EOG Image"
 msgstr "EOG صورة مضمنة"
 
+#: libeog/image-view.c:1965
+#, fuzzy
+msgid "interpolation type"
+msgstr "استيفاء"
+
+#: libeog/image-view.c:1966
+msgid "the type of interpolation to use"
+msgstr ""
+
+#: libeog/image-view.c:1972 libeog/image-view.c:1979
+#, fuzzy
+msgid "check type"
+msgstr "راجع النوع"
+
+#: libeog/image-view.c:1973
+msgid "the type of chequering to use"
+msgstr ""
+
+#: libeog/image-view.c:1980
+msgid "the size of chequers to use"
+msgstr ""
+
+#: libeog/image-view.c:1986
+#, fuzzy
+msgid "dither"
+msgstr "تداخل"
+
+#: libeog/image-view.c:1987
+#, fuzzy
+msgid "dither type"
+msgstr "راجع النوع"
+
+#: libeog/image-view.c:1993
+msgid "scroll"
+msgstr ""
+
+#: libeog/image-view.c:1994
+msgid "scroll type"
+msgstr ""
+
+#: libeog/image-view.c:2000
+msgid "enable full screen zoom"
+msgstr ""
+
+#: libeog/image-view.c:2001
+msgid "whether we should allow full screen zoom"
+msgstr ""
+
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+
+#: shell/eog-preferences.c:214
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "عيون جينوم"
+
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
 msgstr "عن هذا البرنامج"
 
 #: shell/eog-shell-ui.xml.h:2
-msgid "Change preferences"
-msgstr "تغيير اﻻفضليات"
-
-#: shell/eog-shell-ui.xml.h:3 src/tb-image.c:35
-msgid "Close"
-msgstr "غلق"
-
-#: shell/eog-shell-ui.xml.h:4
-msgid "Close window"
-msgstr "اغلق الشباّك"
-
-#: shell/eog-shell-ui.xml.h:5
-msgid "E_xit"
-msgstr "خروج"
-
-#: shell/eog-shell-ui.xml.h:6
-msgid "Exit the program"
-msgstr "اخرج من البرنامج"
-
-#: shell/eog-shell-ui.xml.h:7 src/tb-image.c:33
-msgid "Open"
-msgstr "افتح"
-
-#: shell/eog-shell-ui.xml.h:8
-msgid "Open a file"
-msgstr "افتح ملف"
-
-#: shell/eog-shell-ui.xml.h:9
-msgid "Open a new window"
-msgstr "افتح شبلاك جديد"
-
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_عن..."
-
-#: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "_اغلق"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_ملف"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "_مساعدة"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_شباك جديد"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "ــافتح"
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_افضليات"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "اعدادات"
-
-#: shell/eog-window.c:191 src/window.c:164
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr ""
-
-#: shell/eog-window.c:192 src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "GNOME برنامج لعرض الصور وفهرستها"
-
-#: shell/eog-window.c:436
-msgid "Open in new window"
-msgstr "افتح في شباك جديد"
-
-#: shell/eog-window.c:437
-msgid "Open in this window"
-msgstr "افتح في هذا الشبّاك"
-
-#: shell/eog-window.c:439
 msgid "Cancel"
 msgstr "الغاء"
 
-#: shell/eog-window.c:539
-msgid "Eye Of Gnome"
-msgstr "عيون جينوم"
+#: shell/eog-shell-ui.xml.h:3
+msgid "Change preferences"
+msgstr "تغيير اﻻفضليات"
 
-#: shell/eog-window.c:625
-msgid "Can't find eog-shell-ui.xml.\n"
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close"
+msgstr "غلق"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "Close window"
+msgstr "اغلق الشباّك"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Contents"
 msgstr ""
 
-#: shell/eog-window.c:759 shell/eog-window.c:888 src/window.c:704
+#: shell/eog-shell-ui.xml.h:7
+#, fuzzy
+msgid "Help On this application"
+msgstr "عن هذا البرنامج"
+
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+msgid "Open"
+msgstr "افتح"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a file"
+msgstr "افتح ملف"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "Open a new window"
+msgstr "افتح شبلاك جديد"
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "Open in new window"
+msgstr "افتح في شباك جديد"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "Open in this window"
+msgstr "افتح في هذا الشبّاك"
+
+#: shell/eog-shell-ui.xml.h:13
+#, fuzzy
+msgid "Quit the program"
+msgstr "اخرج من البرنامج"
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_About"
+msgstr "_عن..."
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_Close"
+msgstr "_اغلق"
+
+#: shell/eog-shell-ui.xml.h:16
+#, fuzzy
+msgid "_Edit"
+msgstr "خروج"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_File"
+msgstr "_ملف"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Help"
+msgstr "_مساعدة"
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_New Window"
+msgstr "_شباك جديد"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Open..."
+msgstr "ــافتح"
+
+#: shell/eog-shell-ui.xml.h:21
+#, fuzzy
+msgid "_Preferences..."
+msgstr "_افضليات"
+
+#: shell/eog-shell-ui.xml.h:22
+#, fuzzy
+msgid "_Quit"
+msgstr "خروج"
+
+#: shell/eog-shell-ui.xml.h:23
+#, fuzzy
+msgid "_View"
+msgstr "عرض"
+
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:237
+msgid "Translator Credits"
+msgstr ""
+
+#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
+msgid "Eye of Gnome"
+msgstr "عيون جينوم"
+
+#: shell/eog-window.c:242
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr ""
+
+#: shell/eog-window.c:243
+msgid "The GNOME image viewing and cataloging program"
+msgstr "GNOME برنامج لعرض الصور وفهرستها"
+
+#: shell/eog-window.c:275
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+
+#: shell/eog-window.c:785
 msgid "Open Image"
 msgstr "افتح صورة"
 
-#: shell/eog-window.c:1030
+#: shell/eog-window.c:839
 msgid "Control doesn't support window_title property."
 msgstr ""
 
-#: shell/eog-window.c:1046
+#: shell/eog-window.c:855
 msgid "Control doesn't support status_text property."
 msgstr ""
 
-#: shell/eog-window.c:1063
+#: shell/eog-window.c:874
 msgid "Control doesn't have properties"
 msgstr ""
 
-#: shell/eog-window.c:1080
+#: shell/eog-window.c:891
 msgid "Couldn't retrieve mime type for file."
 msgstr ""
 
-#: shell/eog-window.c:1315
+#: shell/eog-window.c:1134
 msgid "Error while obtaining file informations."
 msgstr "خطا اثر التحصل على معلومات عن الملف"
 
-#: shell/main.c:158
+#: shell/eog-window.c:1163
+#, c-format
+msgid "Unable to open %s."
+msgstr ""
+
+#: shell/main.c:163
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -245,243 +274,70 @@ msgid ""
 "them in a collection instead?"
 msgstr ""
 "انت بصدد %i فتح نوافذ\n"
-"في ان واحد.هل تريد \nفتحها بجﻻ عن ذلك"
-"في مجموعة"
+"في ان واحد.هل تريد \n"
+"فتحها بجﻻ عن ذلكفي مجموعة"
 
-#: shell/main.c:166
+#: shell/main.c:168
 msgid "Single Windows"
 msgstr ""
 
-#: shell/main.c:166
+#: shell/main.c:169
 msgid "Collection"
 msgstr "مجموعة"
 
-#: shell/main.c:276
+#: shell/main.c:193
+#, fuzzy, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"انت بصدد %i فتح نوافذ\n"
+"في ان واحد.هل تريد \n"
+"فتحها بجﻻ عن ذلكفي مجموعة"
+
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr ""
 
-#: shell/main.c:279
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr ""
 
-#: shell/util.c:47 src/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "لم استطع فتح"
 
-#: src/preferences.c:220
-msgid "Preferences"
-msgstr "تفضيلات"
-
-#: src/tb-image.c:33 src/window.c:181
-msgid "Open an image file"
-msgstr "افتحملف الصورة"
-
-#: src/tb-image.c:35 src/window.c:186
-msgid "Close the current window"
-msgstr "اغلق الشباك الحالي"
-
-#: src/tb-image.c:43 viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "داخل"
-
-#: src/tb-image.c:44
-msgid "Out"
-msgstr "خارج"
-
-#: src/tb-image.c:45
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
 msgstr "١:١"
 
-#: src/tb-image.c:46
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
 msgstr ""
 
-#: src/window.c:181
-msgid "_Open Image..."
-msgstr "افتح صورة"
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+msgid "In"
+msgstr "داخل"
 
-#: src/window.c:186
-msgid "_Close This Window"
-msgstr "اغلق هذه النافذة"
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "خارج"
 
-#: src/window.c:197
-msgid "2:1"
-msgstr "٢:١"
-
-#: src/window.c:198
-msgid "3:1"
-msgstr "٣:١"
-
-#: src/window.c:199
-msgid "4:1"
-msgstr "٤:١"
-
-#: src/window.c:200
-msgid "5:1"
-msgstr "٥:١"
-
-#: src/window.c:201
-msgid "6:1"
-msgstr "٦:١"
-
-#: src/window.c:202
-msgid "7:1"
-msgstr "٧:١"
-
-#: src/window.c:203
-msgid "8:1"
-msgstr "٨:١"
-
-#: src/window.c:204
-msgid "9:1"
-msgstr "٩:١"
-
-#: src/window.c:205
-msgid "10:1"
-msgstr "١٠:١"
-
-#: src/window.c:207
-msgid "1:2"
-msgstr "١:٢"
-
-#: src/window.c:208
-msgid "1:3"
-msgstr "١:٣"
-
-#: src/window.c:209
-msgid "1:4"
-msgstr "١:٤"
-
-#: src/window.c:210
-msgid "1:5"
-msgstr "١:٥"
-
-#: src/window.c:211
-msgid "1:6"
-msgstr "١:٦"
-
-#: src/window.c:212
-msgid "1:7"
-msgstr "١:٧"
-
-#: src/window.c:213
-msgid "1:8"
-msgstr "١:٨"
-
-#: src/window.c:214
-msgid "1:9"
-msgstr "١:٩"
-
-#: src/window.c:215
-msgid "1:10"
-msgstr "١:١٠"
-
-#: src/window.c:221
-msgid "Zoom In"
-msgstr ""
-
-#: src/window.c:221
-#, c-format
-msgid "Increase zoom factor by 5%%"
-msgstr ""
-
-#: src/window.c:225
-msgid "Zoom Out"
-msgstr ""
-
-#: src/window.c:225
-#, c-format
-msgid "Decrease zoom factor by 5%%"
-msgstr ""
-
-#: src/window.c:229
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Zoom _1:1"
 msgstr ""
 
-#: src/window.c:229
-msgid "Display the image at 1:1 scale"
-msgstr "عرض الصورة بمقياس ١١"
-
-#: src/window.c:233
-msgid "_Zoom factor"
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
+msgid "Zoom _In"
 msgstr ""
 
-#: src/window.c:235
-msgid "_Fit to Window"
-msgstr "الشباك"
-
-#: src/window.c:235
-msgid "Zoom the image to fit in the window"
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
+msgid "Zoom _Out"
 msgstr ""
 
-#: src/window.c:239
-msgid "Full _Screen"
-msgstr "كامل الشاشة"
-
-#: src/window.c:239
-msgid "Use the whole screen for display"
-msgstr "استعمل كامل "
-
-#: viewer/eog-image.c:433
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr ""
-
-#: viewer/eog-image-view.c:290
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "لم استعمل "
-
-#: viewer/eog-image-view.c:335
-msgid "Save As"
-msgstr "احفظ ك"
-
-#: viewer/eog-image-view.c:908
-msgid "Print Image"
-msgstr "الصورة"
-
-#: viewer/eog-image-view.c:916
-msgid "Pages"
-msgstr "صفحات"
-
-#: viewer/eog-image-view.c:1003
-msgid "Print Preview"
-msgstr "عرض اولي "
-
-#: viewer/eog-image-view.c:1009
-msgid "Printing of image failed"
-msgstr "طباعة الصورة فشل"
-
-#: viewer/eog-image-view.c:1876
-msgid "Display"
-msgstr "عرض"
-
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
-msgid "Interpolation"
-msgstr "استيفاء"
-
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
-msgid "Dither"
-msgstr "تداخل"
-
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
-msgid "Check Type"
-msgstr "راجع النوع"
-
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
-msgid "Check Size"
-msgstr "راجع الحجم"
-
-#: viewer/eog-image-view.c:1979
-msgid "Image Width"
-msgstr "طول الصورة"
-
-#: viewer/eog-image-view.c:1982
-msgid "Image Height"
-msgstr "عرض الصورة"
-
-#: viewer/eog-image-view.c:1988
-msgid "Statusbar Text"
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
+msgid "Zoom to _Fit"
 msgstr ""
 
 #: viewer/eog-image-view-ui.xml.h:1
@@ -493,343 +349,569 @@ msgid "Check _type"
 msgstr "راجع النوع"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "متوسط"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "صغير"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "اسود"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "رمادي"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "ابيض"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
-msgstr ""
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+msgid "Large"
+msgstr "كبير"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+msgid "Medium"
+msgstr "متوسط"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Nea_rest Neighbour"
+msgstr "اقرب استيفاء جار"
+
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Normal (_pseudocolor)"
 msgstr "عادي"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr ""
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:22
-msgid "_Bilinear Interpolation"
-msgstr "استيفاء خطي ثنائي"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+msgid "Small"
+msgstr "صغير"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:15
+#, fuzzy
+msgid "_Black"
+msgstr "اسود"
+
+#: viewer/eog-image-view-ui.xml.h:16
+#, fuzzy
+msgid "_Dark"
+msgstr "غامق"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:24
-msgid "_Hyperbolic Interpolation"
+#: viewer/eog-image-view-ui.xml.h:18
+#, fuzzy
+msgid "_Gray"
+msgstr "رمادي"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "_Hyperbolic"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_Maximum (high color) dithering"
+#: viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "_Light"
+msgstr "مضئ"
+
+#: viewer/eog-image-view-ui.xml.h:22
+#, fuzzy
+msgid "_Maximum (high color)"
+msgstr "اقصى ترديد"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Midtone"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:27
-msgid "_No dithering"
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Print"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:29
-msgid "_Tiles Interpolation"
+#: viewer/eog-image-view-ui.xml.h:26
+#, fuzzy
+msgid "_Save As..."
+msgstr "احفظ ك"
+
+#: viewer/eog-image-view-ui.xml.h:27
+#, fuzzy
+msgid "_Tiles"
+msgstr "_ملف"
+
+#: viewer/eog-image-view-ui.xml.h:28
+#, fuzzy
+msgid "_White"
+msgstr "ابيض"
+
+#: viewer/eog-image-view.c:304
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "لم استعمل "
+
+#: viewer/eog-image-view.c:355
+msgid "Save As"
+msgstr "احفظ ك"
+
+#: viewer/eog-image-view.c:930
+msgid "Print Image"
+msgstr "الصورة"
+
+#: viewer/eog-image-view.c:938
+msgid "Pages"
+msgstr "صفحات"
+
+#: viewer/eog-image-view.c:1025
+msgid "Print Preview"
+msgstr "عرض اولي "
+
+#: viewer/eog-image-view.c:1031
+msgid "Printing of image failed"
+msgstr "طباعة الصورة فشل"
+
+#: viewer/eog-image-view.c:1845
+msgid "Display"
+msgstr "عرض"
+
+#: viewer/eog-image-view.c:2067
+msgid "Interpolation"
+msgstr "استيفاء"
+
+#: viewer/eog-image-view.c:2070
+msgid "Dither"
+msgstr "تداخل"
+
+#: viewer/eog-image-view.c:2073
+msgid "Check Type"
+msgstr "راجع النوع"
+
+#: viewer/eog-image-view.c:2076
+msgid "Check Size"
+msgstr "راجع الحجم"
+
+#: viewer/eog-image-view.c:2079
+msgid "Image Width"
+msgstr "طول الصورة"
+
+#: viewer/eog-image-view.c:2082
+msgid "Image Height"
+msgstr "عرض الصورة"
+
+#: viewer/eog-image-view.c:2085
+msgid "Window Title"
+msgstr "عنوان الشباك"
+
+#: viewer/eog-image-view.c:2088
+msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-image.c:467
+msgid "Couldn't initialize GnomeVFS!\n"
+msgstr ""
+
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr ""
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "نقاط"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "مم"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "مليمتر"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "صم"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "سنتمتر"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "انش"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "طبع"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr ""
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr ""
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "طبع"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr ""
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "وحدات: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "ورق"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "حجم الورق"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr ""
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr ""
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr ""
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr ""
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "فوق"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "يسار"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "يمين"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "تحت"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "صورة"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr ""
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
 msgstr ""
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr ""
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr ""
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr ""
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "افقي"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "عمودي"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
 msgstr "تداخل"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
 msgstr "يتداخل افقيا من قبل"
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
 msgstr "يتداخل عموديا من قبل"
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "جاري الطبع"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "مساعدون"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
 msgstr "طبع مساعدة"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr "طبع متداخل مساعدة"
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "الصفحات"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "اسفل ثم الى اليمين"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "يمين ثم الى اﻻسفل"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:33
 msgid "Nearest Neighbour Interpolation"
 msgstr "اقرب استيفاء جار"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:35
 msgid "Tiles Interpolation"
 msgstr "استيفاء مربع"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:37
 msgid "Bilinear Interpolation"
 msgstr ""
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:39
 msgid "Hyperbolic Interpolation"
 msgstr ""
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:44
 msgid "No dithering"
 msgstr "ﻻ ترديد"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:45
 msgid "Normal (pseudocolor) dithering"
 msgstr "ترديد عادي"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:46
 msgid "Maximum (high color) dithering"
 msgstr "اقصى ترديد"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:51
 msgid "Dark"
 msgstr "غامق"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:52
 msgid "Midtone"
 msgstr ""
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:53
 msgid "Light"
 msgstr "مضئ"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:54
 msgid "Black"
 msgstr "اسود"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:55
 msgid "Gray"
 msgstr "رمادي"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:56
 msgid "White"
 msgstr "ابيض"
 
-#: viewer/preferences.c:66
-msgid "Small"
-msgstr "صغير"
+#: viewer/preferences.c:175
+#, fuzzy
+msgid "_Interpolation:"
+msgstr "استيفاء"
 
-#: viewer/preferences.c:67
-msgid "Medium"
-msgstr "متوسط"
+#: viewer/preferences.c:187
+#, fuzzy
+msgid "_Dither:"
+msgstr "تداخل"
 
-#: viewer/preferences.c:68
-msgid "Large"
-msgstr "كبير"
+#: viewer/preferences.c:199
+#, fuzzy
+msgid "Check _type:"
+msgstr "راجع النوع"
 
+#: viewer/preferences.c:211
+#, fuzzy
+msgid "Check _size:"
+msgstr "راجع الحجم"
+
+#~ msgid "Vertical"
+#~ msgstr "عمودي"
+
+#~ msgid "Horizontal"
+#~ msgstr "افقي"
+
+#~ msgid "Rectangle"
+#~ msgstr "مستطيل"
+
+#~ msgid "Layout Mode:"
+#~ msgstr "طريقة"
+
+#~ msgid "Image Collection Background Color"
+#~ msgstr "صورة لون"
+
+#~ msgid "Background Color:"
+#~ msgstr "لون الخلفية"
+
+#~ msgid "Send"
+#~ msgstr "بعث"
+
+#~ msgid "Move to Trash"
+#~ msgstr "انقل الى سلة المهملات"
+
+#~ msgid "Collection View"
+#~ msgstr "مجموعة"
+
+#~ msgid "Status Text"
+#~ msgstr "نص وضع"
+
+#~ msgid "I could not initialize GnomeVFS!\n"
+#~ msgstr "لم استطع تهيئة جينومVFS!\n"
+
+#~ msgid "I could not initialize Bonobo"
+#~ msgstr "لم استطع تهيئة بونوبو"
+
+#~ msgid "Image Viewer"
+#~ msgstr "عارض صور"
+
+#~ msgid "_Settings"
+#~ msgstr "اعدادات"
+
+#~ msgid "Eye Of Gnome"
+#~ msgstr "عيون جينوم"
+
+#~ msgid "Preferences"
+#~ msgstr "تفضيلات"
+
+#~ msgid "Open an image file"
+#~ msgstr "افتحملف الصورة"
+
+#~ msgid "Close the current window"
+#~ msgstr "اغلق الشباك الحالي"
+
+#~ msgid "_Open Image..."
+#~ msgstr "افتح صورة"
+
+#~ msgid "_Close This Window"
+#~ msgstr "اغلق هذه النافذة"
+
+#~ msgid "2:1"
+#~ msgstr "٢:١"
+
+#~ msgid "3:1"
+#~ msgstr "٣:١"
+
+#~ msgid "4:1"
+#~ msgstr "٤:١"
+
+#~ msgid "5:1"
+#~ msgstr "٥:١"
+
+#~ msgid "6:1"
+#~ msgstr "٦:١"
+
+#~ msgid "7:1"
+#~ msgstr "٧:١"
+
+#~ msgid "8:1"
+#~ msgstr "٨:١"
+
+#~ msgid "9:1"
+#~ msgstr "٩:١"
+
+#~ msgid "10:1"
+#~ msgstr "١٠:١"
+
+#~ msgid "1:2"
+#~ msgstr "١:٢"
+
+#~ msgid "1:3"
+#~ msgstr "١:٣"
+
+#~ msgid "1:4"
+#~ msgstr "١:٤"
+
+#~ msgid "1:5"
+#~ msgstr "١:٥"
+
+#~ msgid "1:6"
+#~ msgstr "١:٦"
+
+#~ msgid "1:7"
+#~ msgstr "١:٧"
+
+#~ msgid "1:8"
+#~ msgstr "١:٨"
+
+#~ msgid "1:9"
+#~ msgstr "١:٩"
+
+#~ msgid "1:10"
+#~ msgstr "١:١٠"
+
+#~ msgid "Display the image at 1:1 scale"
+#~ msgstr "عرض الصورة بمقياس ١١"
+
+#~ msgid "_Fit to Window"
+#~ msgstr "الشباك"
+
+#~ msgid "Full _Screen"
+#~ msgstr "كامل الشاشة"
+
+#~ msgid "Use the whole screen for display"
+#~ msgstr "استعمل كامل "
+
+#~ msgid "Check size medium"
+#~ msgstr "متوسط"
+
+#~ msgid "Check size small"
+#~ msgstr "صغير"
+
+#~ msgid "Check type _black"
+#~ msgstr "اسود"
+
+#~ msgid "Check type _gray"
+#~ msgstr "رمادي"
+
+#~ msgid "Check type _white"
+#~ msgstr "ابيض"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "استيفاء خطي ثنائي"
