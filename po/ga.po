@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog CVS\n"
-"POT-Creation-Date: 2003-05-05 13:05+0100\n"
+"POT-Creation-Date: 2003-05-23 16:35+0100\n"
 "PO-Revision-Date: 2003-02-17 15:00+0000\n"
 "Last-Translator: Alastair McKinstry <mckinstry@computer.org>\n"
 "Language-Team: Irish <ga@li.org>\n"
@@ -28,43 +28,73 @@ msgstr "Taispeán íomhanna"
 msgid "Image Collection"
 msgstr "Bailiúchán  íomhanna"
 
-#: collection/eog-collection-view-ui.xml.h:1
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Cas ar _Cothromanach"
+
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Cas ar C_eartingearach"
+
+#: collection/eog-collection-view-ui.xml.h:3
 msgid "Next"
 msgstr "an Chéad ceann eile"
 
-#: collection/eog-collection-view-ui.xml.h:2
+#: collection/eog-collection-view-ui.xml.h:4
 msgid "Next Image"
 msgstr "an Chéad íomha eile"
 
-#: collection/eog-collection-view-ui.xml.h:3
+#: collection/eog-collection-view-ui.xml.h:5
 msgid "Previous"
 msgstr "Roimh Ré"
 
-#: collection/eog-collection-view-ui.xml.h:4
+#: collection/eog-collection-view-ui.xml.h:6
 msgid "Previous Image"
 msgstr "An Íomha roimha"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Cuir thart 180 _Céim"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Cuir thart deisea_l"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Cuir thart a_th-deiseal"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11
+msgid "Undo"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:12 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "_Edit"
+msgstr "_Eagar"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_View"
 msgstr "_Féach ar"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:480
 msgid "Move to Trash"
 msgstr "Chuir sa Bosca Bruscair"
 
-#: collection/eog-collection-view.c:444
+#: collection/eog-collection-view.c:524
 msgid "Collection View"
 msgstr "Radharc Bailiúchán"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:981 viewer/eog-image-view.c:1192
 msgid "Window Title"
 msgstr "Teideal an Fhuinneog"
 
-#: collection/eog-collection-view.c:902
+#: collection/eog-collection-view.c:984
 msgid "Status Text"
 msgstr "Téacs an Stádas"
 
@@ -263,8 +293,7 @@ msgstr "Taispeán íomhanna"
 msgid "Embeddable EOG Image"
 msgstr ""
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr " Íomha"
 
@@ -285,15 +314,14 @@ msgid "Load Image"
 msgstr "Oscail Íomha"
 
 #: libeog/eog-file-selection.c:338
-#, fuzzy
 msgid "Save Image"
-msgstr "Oscail an  Íomha"
+msgstr "Sábháil an  Íomha"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image.c:1216
 msgid "No image loaded."
 msgstr ""
 
-#: libeog/eog-image.c:1196
+#: libeog/eog-image.c:1250
 msgid "Unsupported image type for saving."
 msgstr ""
 
@@ -318,6 +346,126 @@ msgstr "Airde"
 #: libeog/eog-info-view.c:269
 msgid "Filename"
 msgstr "Ainm an Comhad"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+#, fuzzy
+msgid "Page"
+msgstr "Páipéar"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:358
+#, fuzzy
+msgid "Preview"
+msgstr "Roimh Ré"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+#, fuzzy
+msgid "Millimeter"
+msgstr "milliméadar"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Páipéar"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Ar Lár"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Cothromanach"
+
+#: libgpi/gpi-dialog.glade.h:9
+#, fuzzy
+msgid "Horizontally by "
+msgstr "Cothromanach"
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Ciumhais"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Scála"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Ceartingearach"
+
+#: libgpi/gpi-dialog.glade.h:22
+#, fuzzy
+msgid "Vertically by "
+msgstr "Ceartingearach"
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "action_area"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:24
+msgid "dialog"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:25
+msgid "dialog1"
+msgstr ""
+
+#: libgpi/gpi-dialog.glade.h:26
+msgid "vbox"
+msgstr "vbosca"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Ainm"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr ""
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -382,10 +530,6 @@ msgstr "_Dún"
 #: shell/eog-shell-ui.xml.h:16
 msgid "_Contents"
 msgstr ""
-
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "_Eagar"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
@@ -473,7 +617,7 @@ msgstr ""
 msgid "Fit"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Isteach"
 
@@ -497,16 +641,6 @@ msgstr "Meid _Normálta"
 msgid "_Zoom In"
 msgstr "Formhéadaigh _Isteach"
 
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Cothromanach"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Ceartingearach"
-
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
 msgstr ""
@@ -525,18 +659,6 @@ msgstr "Oscail Íomha"
 msgid "Print image to the printer"
 msgstr ""
 
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Rotate 180 _Degrees"
-msgstr "Cuir thart 180 _Céim"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Rotate C_lockwise"
-msgstr "Cuir thart deisea_l"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Rotate Counte_r Clockwise"
-msgstr "Cuir thart a_th-deiseal"
-
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Save _As..."
 msgstr "Sábháil _mar..."
@@ -554,51 +676,51 @@ msgstr ""
 msgid "_Print..."
 msgstr "Oscail Íomha"
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:778
 msgid "/_Zoom In"
 msgstr "/_Formhéadaigh Isteach"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:780
 msgid "/Zoom _Out"
 msgstr "/Formhéadaigh _Amach"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:782
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:784
 msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:787
 msgid "/_Close"
 msgstr "/_Dún"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:939
 msgid "Image successfully saved"
 msgstr ""
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:943
 msgid "Image saving failed"
 msgstr ""
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1186
 msgid "Image Width"
 msgstr "Leithead an íomha"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1189
 msgid "Image Height"
 msgstr "Airde an íomha"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1195
 msgid "Statusbar Text"
 msgstr ""
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1198
 msgid "Desired Window Width"
 msgstr ""
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1201
 msgid "Desired Window Height"
 msgstr ""
 
@@ -606,173 +728,3 @@ msgstr ""
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr ""
 
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "pointe"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "milliméadar"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "ceintiméadar"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "orlach"
-
-#: viewer/eog-print-setup.c:469
-#, fuzzy
-msgid "Print Setup"
-msgstr "Oscail Íomha"
-
-#: viewer/eog-print-setup.c:476
-#, fuzzy
-msgid "Print"
-msgstr "Oscail Íomha"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr ""
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr ""
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Páipéar"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Meid an Páipéar:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Treoshuíomh"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Portráid"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Radharc-Tír"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Ciumhais"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Barr:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Thaobh Clé:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Thaobh Deis:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "íochtar"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Scála"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr ""
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr ""
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr ""
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Ar Lár"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Cothromanach"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Ceartingearach"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr ""
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr ""
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr ""
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-#, fuzzy
-msgid "Printing"
-msgstr "Oscail Íomha"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr ""
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr ""
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr ""
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr ""
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr ""
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr ""
