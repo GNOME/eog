@@ -1,0 +1,546 @@
+<?xml version="1.0"?><!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "1.0.2">
+  <!ENTITY manrevision "2.3">
+  <!ENTITY date "October 2002">
+  <!ENTITY app "Eye of GNOME">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="fr">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo>
+    <title>Manuel &app;  V&manrevision;</title>
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>The Free Software Foundation</holder> 
+    </copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername> Projet de documentation GNOME </publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+
+   <authorgroup>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>&Eacute;quipe de documentation GNOME</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address> <email>gdocteam@sun.com</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>Projet de documentation GNOME</orgname> 
+	  <address> <email>eliot@landrum.cx</email> </address>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>Projet de documentation GNOME</orgname> 
+	  <address> <email>federico@gnu.org</email> </address>
+	</affiliation>
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>Manuel &app;  V&manrevision;</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">&Eacute;quipe de documentation GNOME de Sun
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Projet de documentation GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuel Eye of GNOME V2.2</revnumber> 
+		<date>Ao&ucirc;t 2002</date> 
+		<revdescription> 
+	  		<para role="author">&Eacute;quipe de documentation GNOME de Sun
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Projet de documentation GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuel Eye of GNOME V2.1</revnumber> 
+		<date>Juillet 2002</date> 
+		<revdescription> 
+	  		<para role="author">&Eacute;quipe de documentation GNOME de Sun
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Projet de documentation GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuel Eye of GNOME V2.0</revnumber> 
+		<date>Mai 2002</date> 
+		<revdescription> 
+	  		<para role="author">&Eacute;quipe de documentation GNOME de Sun
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">Projet de documentation GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manuel de l'utilisateur Eye of GNOME</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum 
+	    		  <email>eliot@landrum.cx</email>
+	  		</para>
+	  		<para role="author">Federico Mena Quintero 
+	    		  <email>federico@gnu.org</email>
+	  		</para>	  
+	  		<para role="publisher">Projet de documentation GNOME</para>
+		</revdescription>
+      </revision>
+    </revhistory>
+
+    <releaseinfo>Le pr&eacute;sent manuel d&eacute;crit la version &appversion; de &app;.
+    </releaseinfo>
+    <legalnotice> 
+      <title>Feedback</title>
+      <para>Pour signaler un probl&egrave;me ou faire une suggestion concernant l'application &app; ou le pr&eacute;sent manuel, proc&eacute;dez comme indiqu&eacute; &agrave; la <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm>
+    <primary>Eye of GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+
+<sect1 id="eog-introduction">
+	<title>Introduction</title>
+	<para>L'application <application>&app;</application> vous permet de visualiser vos images. 
+	<application>&app;</application> propose les fonctions suivantes :</para>
+	<itemizedlist>
+		<listitem><para>Prise en charge des formats image suivants :</para>
+			<itemizedlist>
+				<listitem><para>BMP - Bitmap de Windows</para>
+				</listitem>
+				<listitem><para>GIF - Graphics Interchange Format</para>
+				</listitem>
+				<listitem><para>ICO - Ic&ocirc;ne de Windows</para>
+				</listitem>
+				<listitem><para>JPEG - Joint Photographic Experts Group</para>
+				</listitem>
+				<listitem><para>PNG - Portable Network Graphics </para>
+				</listitem>
+				<listitem><para>PNM - Portable Anymap de PPM Toolkit</para>
+				</listitem>
+				<listitem><para>RAS - Sun Raster </para>
+				</listitem>
+				<listitem><para>SVG - Scaleable Vector Graphics </para>
+				</listitem>
+				<listitem><para>TGA - Targa</para>
+				</listitem>
+				<listitem><para>TIFF - Tagged Image File Format</para>
+				</listitem>
+				<listitem><para>XBM - X Bitmap</para>
+				</listitem>
+				<listitem><para>XPM - X Pixmap</para>
+				</listitem>
+			</itemizedlist>
+		</listitem>
+		<listitem><para>Diff&eacute;rents degr&eacute;s de zoom et un affichage plein &eacute;cran, n&eacute;cessitant peu de m&eacute;moire ind&eacute;pendamment du degr&eacute; de zoom. </para>
+		</listitem>
+		<listitem><para>La technologie d'imbrication Bonobo permettant d'incorporer des images dans d'autres applications GNOME. </para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<!-- =========== Getting Started ============================== -->
+
+<sect1 id="eog-getting-started"><title>D&eacute;marrage</title>
+	<sect2 id="eog-tostartapp">
+<title>D&eacute;marrage de &app;</title>
+	<para>Vous pouvez d&eacute;marrer <application>&app;</application> en recourant &agrave; l'une des m&eacute;thodes suivantes :</para>
+		<variablelist>
+			<varlistentry>
+			<term>Menu <guimenu>Applications</guimenu></term>
+			<listitem>
+			<para>S&eacute;lectionnez
+			<menuchoice>
+			<guisubmenu>Graphiques</guisubmenu>
+			<guimenuitem>&app; Visionneuse d'images</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			</varlistentry>
+			<varlistentry>
+			<term>Ligne de commande</term>
+			<listitem>
+			<para>Pour ex&eacute;cuter <application>&app;</application> et ouvrir un fichier &agrave; partir d'une ligne de commande, entrez la commande suivante, puis appuyez sur <keycap> Entr&eacute;e</keycap>:</para>
+			<para><command>eog</command> <replaceable>filename.jpg</replaceable></para>
+			<para>o&ugrave; <replaceable>filename.jpg</replaceable> est le nom du fichier que vous voulez ouvrir.</para>
+			<para><application>&app;</application> ouvre chaque fichier sp&eacute;cifi&eacute; dans une nouvelle fen&ecirc;tre.</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</sect2>
+	<sect2 id="eog-whenyoustart">
+	
+		<title>Lancement de &app;</title>
+	<para>Lorsque vous lancez <application>&app;</application>, la fen&ecirc;tre suivante appara&icirc;t.</para>
+		<!-- ==== Figure ==== -->
+		<figure id="mainwindow-fig">
+		<title>Fen&ecirc;tre de d&eacute;marrage &app; avant l'ouverture d'un fichier</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Montre la fen&ecirc;tre principale Eye of GNOME</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
+
+	</sect2>
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+<sect1 id="eog-usage">
+	<title>Utilisation</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>Ouverture d'une image</title>
+		<para>Pour ouvrir une image, s&eacute;lectionnez
+		<menuchoice>
+		<guimenu>Fichier</guimenu>
+		<guimenuitem>Ouvrir</guimenuitem>
+		</menuchoice>. 
+		La bo&icirc;te de dialogue <guilabel>Ouvrir une image</guilabel> s'affiche. S&eacute;lectionnez le fichier &agrave; ouvrir, puis cliquez sur <guibutton>OK</guibutton>. </para>
+		<para>Pour ouvrir une autre image dans une nouvelle fen&ecirc;tre, s&eacute;lectionnez
+		<menuchoice>
+		<guimenu>Fichier</guimenu>
+		<guimenuitem>Nouvelle fen&ecirc;tre</guimenuitem>
+		</menuchoice>. 
+		Cliquez sur
+		<menuchoice>
+		<guimenu>Fichier</guimenu>
+		<guimenuitem>Ouvrir</guimenuitem>
+		</menuchoice> 
+		pour s&eacute;lectionner le fichier &agrave; ouvrir. Vous pouvez &eacute;galement faire glisser une image d'une autre application telle qu'un gestionnaire de fichiers dans la fen&ecirc;tre <application>&app;</application>. 
+		Si la fen&ecirc;tre <application>&app;</application> est vide, l'application affiche l'image dans la fen&ecirc;tre. Dans le cas contraire, l'application en ouvre une nouvelle pour afficher le fichier. </para>
+		<para>Si vous essayez d'ouvrir un format d'image que <application>&app;</application> ne reconna&icirc;t pas, l'application &eacute;met un message d'erreur.</para>
+	</sect2>
+	
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>D&eacute;filement d'une image</title>
+		<para>Pour faire d&eacute;filer une image dont la taille d&eacute;passe celle de la fen&ecirc;tre, utilisez l'une des m&eacute;thodes suivantes :</para>
+		<itemizedlist>
+			<listitem><para>Utilisez les touches fl&egrave;ches du clavier.</para>
+			</listitem>
+			<listitem><para>Faites glisser l'image dans la direction oppos&eacute;e &agrave; celle de la partie &agrave; afficher. Par exemple, si vous voulez voir le bas de l'image, faites-la glisser vers le haut de la fen&ecirc;tre.</para>
+			</listitem>
+			<listitem><para>Utilisez les barres de d&eacute;filement de la fen&ecirc;tre.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="eog-change-zoom">
+		<title>Modification du facteur de zoom</title>
+	<para>Les m&eacute;thodes suivantes permettent de redimensionner l'affichage de l'image dans la fen&ecirc;tre <application>&app;</application> :</para>
+		<itemizedlist>
+			<listitem><para>Pour agrandir l'affichage d'une image, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Zoom avant</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Pour le r&eacute;duire, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Zoom arri&egrave;re</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Pour visualiser l'image en taille r&eacute;elle, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Zoom 1:1</guimenuitem>
+			</menuchoice>. </para>
+			</listitem>
+			<listitem><para>Pour agrandir ou r&eacute;duire une image pour qu'elle ait la taille de la fen&ecirc;tre <application>&app;</application>, s&eacute;lectionnez 
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Zoom pour ajuster</guimenuitem>
+			</menuchoice>.</para>
+			</listitem>
+			<listitem><para>Pour afficher l'image en mode plein &eacute;cran, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Plein &eacute;cran</guimenuitem>
+			</menuchoice>. 
+			Le mode Plein &eacute;cran affiche l'image dans une fen&ecirc;tre qui couvre enti&egrave;rement l'&eacute;cran. 
+			Cette fen&ecirc;tre ne contient ni cadre, ni barre de titre, ni barre de menus, ni barre d'outils. 
+			Pour quitter ce mode, appuyez sur la touche <keycap>Esc</keycap> ou <keycombo><keycap>Ctrl</keycap>
+			<keycap>W</keycap></keycombo>.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>	
+			
+	<sect2 id="eog-change-interpolation">
+		<title>Modification de la m&eacute;thode d'interpolation</title>
+		<para>Pour modifier la m&eacute;thode d'interpolation d'une image, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guimenuitem>Interpolation</guimenuitem>
+			</menuchoice>, puis s&eacute;lectionnez la m&eacute;thode d'interpolation requise. 
+		S&eacute;lectionnez l'une des options suivantes :</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Plus proche voisin</guimenuitem> </para>
+			<para>Cette m&eacute;thode d'interpolation se base sur un emplacement de l'image originale et r&eacute;plique le pixel le plus proche de celui-ci. Lorsque vous effectuez un zoom avant sur l'image, les pixels sont r&eacute;pliqu&eacute;s. 
+			Par contre, dans le cas d'un zoom arri&egrave;re, l'image perd de sa nettet&eacute;. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Tuiles</guimenuitem> </para>
+			<para>Aucune information disponible au moment de la publication.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilin&eacute;aire</guimenuitem> </para>
+			<para>Il s'agit d'une m&eacute;thode simple et rapide d'interpolation. Lorsque vous effectuez un zoom avant sur une image, <application>&app;</application> utilise jusqu'&agrave; quatre pixels adjacents pour calculer les couleurs des nouveaux pixels. Dans le cas d'un zoom arri&egrave;re, <application>&app;</application> effectue une moyenne des r&eacute;gions de couleur dans l'image existante pour calculer les couleurs des pixels. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolique</guimenuitem> </para>
+			<para>Cette m&eacute;thode d'interpolation garantit une bonne qualit&eacute; d'image, mais elle est lente. Cette application effectue l'interpolation de l'image de la mani&egrave;re d&eacute;crite dans Digital Image Warping de George Wolberg.</para>
+			</listitem>
+			</itemizedlist>
+		<!-- <para>La m&eacute;thode d'interpolation par d&eacute;faut est 
+		<guimenuitem>Plus proche voisin</guimenuitem>.</para> -->
+	</sect2>	
+	
+	<sect2 id="eog-change-dither">
+		<title>Modification de la m&eacute;thode de tramage</title>
+		<para>Pour modifier la m&eacute;thode de tramage de l'image, s&eacute;lectionnez
+			<menuchoice>
+			<guimenu>Afficher</guimenu>
+			<guisubmenu>Tramage</guisubmenu>
+			</menuchoice>, puis choisissez la m&eacute;thode de tramage requise.
+		S&eacute;lectionnez l'une des options suivantes :</para>
+			<itemizedlist>
+			<listitem><para><guimenuitem>Pas de tramage</guimenuitem> </para>
+			<para>Cette option ne recourt &agrave; aucun tramage. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudo couleur))</guimenuitem> </para>
+			<para>Cette option r&eacute;alise le tramage dans un affichage pseudo couleur n'offrant qu'une palette de couleurs limit&eacute;e. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (couleurs r&eacute;elles)</guimenuitem> </para>
+			<para>Cette option r&eacute;alise le tramage sur des affichages pseudo couleur et couleurs r&eacute;elles. </para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>La m&eacute;thode de tramage par d&eacute;faut est <guimenuitem>Pas de tramage</guimenuitem>.</para>	-->
+	</sect2>
+	
+	<sect2 id="eog-change-check-type">
+		<title>Modification du type de damier</title>
+		<para>Pour modifier le type de damier que <application>&app;</application> utilise pour afficher des arri&egrave;re-plans transparents ou semi-opaques dans l'image, s&eacute;lectionnez <menuchoice> <guimenu>Afficher</guimenu> <guisubmenu>Type de damier</guisubmenu></menuchoice>, puis s&eacute;lectionnez le type de damier requis.
+		S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Sombre</guimenuitem> </para>
+			<para>Cette option affiche un damier noir et gris fonc&eacute;.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Demi-ton</guimenuitem> </para>
+			<para>Cette option affiche un damier gris fonc&eacute; et gris clair.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Clair</guimenuitem> </para>
+			<para>Cette option affiche un damier gris clair et blanc.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Noir</guimenuitem> </para>
+			<para>Cette option affiche du noir uni.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gris</guimenuitem> </para>
+			<para>Cette option affiche du gris uni.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Blanc</guimenuitem> </para>
+			<para>Cette option affiche du blanc uni.</para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>Le type de damier par d&eacute;faut est <guimenuitem>Sombre</guimenuitem>.</para> -->
+	</sect2>
+	
+	<sect2 id="eog-change-check-size">
+		<title>Modification de la taille du damier</title>
+		<para>Pour modifier la taille du damier que <application>&app;</application> utilise pour afficher des arri&egrave;re-plans transparents ou semi-opaques dans l'image, s&eacute;lectionnez <menuchoice> <guimenu>Afficher</guimenu> <guisubmenu>Taille du damier</guisubmenu></menuchoice>, puis s&eacute;lectionnez la taille de damier requise.
+		Cette option n'est pertinente que si vous s&eacute;lectionnez <guimenuitem>Damiers sombres</guimenuitem>, 		<guimenuitem>Damiers demi-ton</guimenuitem> ou <guimenuitem>Damiers clairs</guimenuitem> dans le menu <guisubmenu>Type de damier</guisubmenu>. S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Petit</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Moyen</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grand</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		<!-- <para>La taille de damier par defaut est <guimenuitem>Petit</guimenuitem>.</para> -->
+	</sect2>
+
+	
+	
+	<!--============ To Close an Image ============================ -->
+	<sect2 id="eog-close-image">
+		<title>Fermeture d'une image</title>
+		<para>Pour fermer une image, s&eacute;lectionnez
+		<menuchoice>
+		<guimenu>Fichier</guimenu>
+		<guimenuitem>Fermer</guimenuitem>
+		</menuchoice>. 
+		Si la fen&ecirc;tre courante est la derni&egrave;re ouverte dans <application>&app;</application>, l'application se ferme. </para>
+		<para>Pour quitter <application>&app;</application> et fermer toutes les fen&ecirc;tres ouvertes dans la session courante, s&eacute;lectionnez <menuchoice> <guimenu>Fichier</guimenu> <guimenuitem>Quitter</guimenuitem></menuchoice>.
+		</para>
+	</sect2>
+
+</sect1>
+
+<sect1 id="eog-prefs">
+<title>Pr&eacute;f&eacute;rences</title>
+	<para>Pour configurer <application>&app;</application>, s&eacute;lectionnez
+		<menuchoice> 
+		<guimenu>Édition</guimenu>
+		<guimenuitem>Pr&eacute;f&eacute;rences</guimenuitem> 
+		</menuchoice>. 
+	</para>
+	
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interpolation</guilabel></term>
+		<listitem>
+		<para>S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Plus proche voisin</guimenuitem> </para>
+			<para>Cette m&eacute;thode d'interpolation se base sur un emplacement de l'image originale et r&eacute;plique le pixel le plus proche de celui-ci. Lorsque vous effectuez un zoom avant sur l'image, les pixels sont r&eacute;pliqu&eacute;s. 
+			Par contre, dans le cas d'un zoom arri&egrave;re, l'image perd de sa nettet&eacute;. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Tuiles</guimenuitem> </para>
+			<para>Aucune information disponible au moment de la publication.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Bilin&eacute;aire</guimenuitem> </para>
+			<para>Il s'agit d'une m&eacute;thode simple et rapide d'interpolation. Lorsque vous effectuez un zoom avant sur une image, <application>&app;</application> utilise jusqu'&agrave; quatre pixels adjacents pour calculer les couleurs des nouveaux pixels. Dans le cas d'un zoom arri&egrave;re, <application>&app;</application> effectue une moyenne des r&eacute;gions de couleur dans l'image existante pour calculer les couleurs des pixels. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Hyperbolique</guimenuitem> </para>
+			<para>Cette m&eacute;thode d'interpolation garantit une bonne qualit&eacute; d'image, mais elle est lente. Cette application effectue l'interpolation de l'image de la mani&egrave;re d&eacute;crite dans Digital Image Warping de George Wolberg.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Tramage</guilabel></term>
+		<listitem>
+		<para>S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Pas de tramage</guimenuitem> </para>
+			<para>Cette option ne recourt &agrave; aucun tramage. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Normal (pseudo couleur)</guimenuitem> </para>
+			<para>Cette option r&eacute;alise le tramage dans un affichage pseudo couleur n'offrant qu'une palette de couleurs limit&eacute;e. </para>
+			</listitem>
+			<listitem><para><guimenuitem>Maximum (couleurs r&eacute;elles)</guimenuitem> </para>
+			<para>Cette option r&eacute;alise le tramage sur des affichages pseudo couleur et couleurs r&eacute;elles. </para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Type de damier</guilabel></term>
+		<listitem>
+		<para>S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Sombre</guimenuitem> </para>
+			<para>Cette option affiche un damier noir et gris fonc&eacute;.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Demi-ton</guimenuitem> </para>
+			<para>Cette option affiche un damier gris fonc&eacute; et gris clair.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Clair</guimenuitem> </para>
+			<para>Cette option affiche un damier gris clair et blanc.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Noir</guimenuitem> </para>
+			<para>Cette option affiche du noir uni.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Gris</guimenuitem> </para>
+			<para>Cette option affiche du gris uni.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Blanc</guimenuitem> </para>
+			<para>Cette option affiche du blanc uni.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	<varlistentry>
+		<term><guilabel>Taille de damier</guilabel></term>
+		<listitem>
+		<para>Cette option n'est pertinente que si vous s&eacute;lectionnez <guimenuitem>Damiers sombres</guimenuitem>, 		<guimenuitem>Damiers demi-ton</guimenuitem> ou <guimenuitem>Damiers clairs</guimenuitem> dans la liste d&eacute;roulante <guisubmenu>Type de damier</guisubmenu>. S&eacute;lectionnez l'une des options suivantes :</para>
+		<itemizedlist>
+			<listitem><para><guimenuitem>Petit</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Moyen</guimenuitem></para>
+			</listitem>
+			<listitem><para><guimenuitem>Grand</guimenuitem></para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>	
+	</variablelist>
+		
+
+</sect1>
+
+
+</article>
