@@ -8,6 +8,7 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
+#include <eel/eel-vfs-extensions.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
@@ -1416,16 +1417,94 @@ eog_image_save (EogImage *img, const GnomeVFSURI *uri, GError **error)
 	return result;
 }
 
+/*
+ * This function is extracted from 
+ * File: nautilus/libnautilus-private/nautilus-file.c
+ * Revision: 1.309
+ * Author: Darin Adler <darin@bentspoon.com>
+ */
+static gboolean
+have_broken_filenames (void)
+{
+	static gboolean initialized = FALSE;
+	static gboolean broken;
+	
+	if (initialized) {
+		return broken;
+	}
+	
+	broken = g_getenv ("G_BROKEN_FILENAMES") != NULL;
+  
+	initialized = TRUE;
+  
+	return broken;
+}
+
+/* 
+ * This function is inspired by
+ * nautilus/libnautilus-private/nautilus-file.c:nautilus_file_get_display_name_nocopy
+ * Revision: 1.309
+ * Author: Darin Adler <darin@bentspoon.com>
+ */
 gchar*               
 eog_image_get_caption (EogImage *img)
 {
 	EogImagePrivate *priv;
+	char *name;
+	char *utf8_name;
+	gboolean validated = FALSE;
+	gboolean broken_filenames;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 
 	priv = img->priv;
 
 	if (priv->uri == NULL) return NULL;
+
+	if (priv->caption != NULL) 
+		/* Use cached caption string */
+		return priv->caption;
+
+	name = gnome_vfs_uri_extract_short_name (priv->uri);
+	
+	if (name != NULL && gnome_vfs_uri_is_local (priv->uri)) {
+		/* Support the G_BROKEN_FILENAMES feature of
+		 * glib by using g_filename_to_utf8 to convert
+		 * local filenames to UTF-8. Also do the same
+		 * thing with any local filename that does not
+		 * validate as good UTF-8.
+		 */
+		broken_filenames = have_broken_filenames ();
+		if (broken_filenames || !g_utf8_validate (name, -1, NULL)) {
+			utf8_name = g_locale_to_utf8 (name, -1, NULL, NULL, NULL);
+			if (utf8_name != NULL) {
+				g_free (name);
+				name = utf8_name;
+				/* Guaranteed to be correct utf8 here */
+				validated = TRUE;
+			}
+		} 
+		else if (!broken_filenames) {
+			/* name was valid, no need to re-validate */
+			validated = TRUE;
+		}
+	}
+	
+	if (!validated && !g_utf8_validate (name, -1, NULL)) {
+		if (name == NULL) {
+			name = "[Invalid Unicode]";
+		}
+		else {
+			utf8_name = eel_make_valid_utf8 (name);
+			g_free (name);
+			name = utf8_name;
+		}
+	}
+
+	priv->caption = name;
+
+
+
 
 	if (priv->caption == NULL) {
 		char *short_str;

@@ -33,6 +33,7 @@
 #include <bonobo/bonobo-macros.h>
 #include <libgnome/gnome-i18n.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <eel/eel-vfs-extensions.h>
 
 #include "eog-image-view.h"
 #include "eog-scroll-view.h"
@@ -1029,6 +1030,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	EogImageView *view;
 	EogImageViewPrivate *priv;
 	EogImage *image;
+	char *valid_uri;
 
 	view = EOG_IMAGE_VIEW (closure);
 	priv = view->priv;
@@ -1044,7 +1046,9 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 		priv->image = NULL;
 	}
 
-	image = eog_image_new (text_uri);
+	valid_uri = eel_make_uri_from_input (text_uri);
+
+	image = eog_image_new (valid_uri);
 	priv->image_signal_id[0] = g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
 	priv->image_signal_id[1] = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
 	priv->image_signal_id[2] = g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), view);
@@ -1053,6 +1057,7 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	priv->image = image;
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->widget), image);
+	g_free (valid_uri);
 
 	return 0;
 }

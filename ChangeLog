@@ -1,3 +1,12 @@
+2003-09-15  Jens Finke  <jens@triq.net>
+
+	* libeog/eog-image.c (have_broken_filenames): New function.
+	(eog_image_get_caption): Be smart when translate caption to utf8
+	encoding. Use eel_make_valid_utf8 as last fallback.
+
+	* viewer/eog-image-view.c (load_uri_cb): Ensure that we have a
+	valid uri with eel_make_uri_from_input. Fixes #117838.
+
 ===== 2.4.0 =====
 
 2003-09-09  Jens Finke  <jens@triq.net>
