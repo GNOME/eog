@@ -508,6 +508,8 @@ main (int argc, char **argv)
 	if(gnome_vfs_init () == FALSE)
 		g_error ("Could not initialize GnomeVFS!");
 
+	gnome_authentication_manager_init ();
+
 	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
 
 	client = gnome_master_client ();
