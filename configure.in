@@ -1,0 +1,41 @@
+dnl Configure script for the Eye of Gnome image viewer
+
+AC_INIT(src/render.c)
+
+AM_CONFIG_HEADER(config.h)
+
+AM_INIT_AUTOMAKE(eog, 0.1)
+
+AM_MAINTAINER_MODE
+
+AM_ACLOCAL_INCLUDE(macros)
+
+GNOME_INIT
+
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
+AC_ARG_PROGRAM
+AM_PROG_LIBTOOL
+
+GNOME_COMPILE_WARNINGS
+
+ALL_LINGUAS=""
+AM_GNU_GETTEXT
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf`
+EXTRA_GNOME_LIBS=`gnome-config --libs gnomeui gdk_pixbuf`
+AC_SUBST(EXTRA_GNOME_CFLAGS)
+AC_SUBST(EXTRA_GNOME_LIBS)
+
+AC_OUTPUT([
+Makefile
+intl/Makefile
+macros/Makefile
+po/Makefile.in
+src/Makefile
+])
