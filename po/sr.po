@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.2\n"
-"POT-Creation-Date: 2003-05-09 23:13+0200\n"
-"PO-Revision-Date: 2003-05-09 11:49+0100\n"
+"POT-Creation-Date: 2003-08-08 02:42+0200\n"
+"PO-Revision-Date: 2003-08-08 02:41+0200\n"
 "Last-Translator: Горан Ракић <gox@devbase.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,57 +21,103 @@ msgid "EOG Image Collection Viewer"
 msgstr "ЕОГ прегледник колекција слика"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:2
-#, fuzzy
 msgid "EOG Image collection view factory"
-msgstr "Изворник ЕОГ прегледника колекција слика"
+msgstr "Производња ЕОГ прегледа колекција слика"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
 msgid "Image Collection"
-msgstr "Колкеција слика"
+msgstr "Колекција слика"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Next"
-msgstr ""
+#: collection/eog-collection-view-ui.xml.h:1 viewer/eog-image-view-ui.xml.h:1
+msgid "Flip _Horizontal"
+msgstr "Обрни _хоризонтално"
 
-#: collection/eog-collection-view-ui.xml.h:2
-#, fuzzy
-msgid "Next Image"
-msgstr "Сними слику"
+#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:2
+msgid "Flip _Vertical"
+msgstr "Обрни _вертикално"
 
 #: collection/eog-collection-view-ui.xml.h:3
-msgid "Previous"
-msgstr ""
+msgid "Next"
+msgstr "Следећа"
 
 #: collection/eog-collection-view-ui.xml.h:4
-#, fuzzy
-msgid "Previous Image"
-msgstr "Одштампај слику"
+msgid "Next Image"
+msgstr "Следећа слика"
 
-#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:5
+msgid "Previous"
+msgstr "Претходна"
+
+#: collection/eog-collection-view-ui.xml.h:6
+msgid "Previous Image"
+msgstr "Претходна слика"
+
+#: collection/eog-collection-view-ui.xml.h:7 viewer/eog-image-view-ui.xml.h:7
+msgid "Rotate 180 _Degrees"
+msgstr "Ротирај за 180 _степени"
+
+#: collection/eog-collection-view-ui.xml.h:8 viewer/eog-image-view-ui.xml.h:8
+msgid "Rotate C_lockwise"
+msgstr "Ротирај у с_меру казаљке на сату"
+
+#: collection/eog-collection-view-ui.xml.h:9 viewer/eog-image-view-ui.xml.h:9
+msgid "Rotate Counte_r Clockwise"
+msgstr "Ротирај супротно од смера _казаљке на сату"
+
+#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
 msgid "Slide Show"
 msgstr "Аутоматски покретни приказ"
 
-#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+#: collection/eog-collection-view-ui.xml.h:11 shell/eog-shell-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Edit"
+msgstr "У_реди"
+
+#: collection/eog-collection-view-ui.xml.h:12
+msgid "_Save"
+msgstr "_Сачувај"
+
+#: collection/eog-collection-view-ui.xml.h:13
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "_Undo"
+msgstr "_Опозови"
+
+#: collection/eog-collection-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_View"
-msgstr "Приказ"
+msgstr "П_реглед"
 
-#: collection/eog-collection-view.c:400
+#: collection/eog-collection-view.c:291
+msgid "Cancel saving"
+msgstr "Одустани од снимања"
+
+#: collection/eog-collection-view.c:294
+msgid "Saving finished"
+msgstr "Снимање завршено"
+
+#: collection/eog-collection-view.c:758
 msgid "Move to Trash"
-msgstr ""
+msgstr "Пребаци у смеће"
 
-#: collection/eog-collection-view.c:444
-#, fuzzy
+#: collection/eog-collection-view.c:802
 msgid "Collection View"
-msgstr "Колекција"
+msgstr "Преглед колекције"
 
-#: collection/eog-collection-view.c:899 viewer/eog-image-view.c:1155
+#: collection/eog-collection-view.c:1267 viewer/eog-image-view.c:1337
 msgid "Window Title"
 msgstr "Наслов прозора"
 
-#: collection/eog-collection-view.c:902
-#, fuzzy
+#: collection/eog-collection-view.c:1270
 msgid "Status Text"
-msgstr "Текст у линији статуса"
+msgstr "Опис стања"
+
+#: collection/eog-collection-view.c:1273 viewer/eog-image-view.c:1349
+msgid "Progress of Image Loading"
+msgstr "Ток учитавања слике"
+
+#: collection/eog-save-dialog.c:99
+msgid "Saving image"
+msgstr "Снимање слике"
 
 #: eog.desktop.in.h:1
 msgid "Image Viewer"
@@ -83,112 +129,88 @@ msgstr "Прикажи много различитих типова слика"
 
 #: eog.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: eog.glade.h:2
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
-msgstr ""
+msgstr "<b>Интерполација слике</b>"
 
 #: eog.glade.h:4
 msgid "<b>Image Zoom</b>"
-msgstr ""
+msgstr "<b>Увећање слике</b>"
 
 #: eog.glade.h:5
 msgid "<b>Sequence</b>"
-msgstr ""
+msgstr "<b>Низ</b>"
 
 #: eog.glade.h:6
-#, fuzzy
 msgid "<b>Transparency</b>"
-msgstr "Боја провидности"
+msgstr "<b>Провидност</b>"
 
 #: eog.glade.h:7
 msgid "As background"
-msgstr ""
+msgstr "Као позадина"
 
 #: eog.glade.h:8
-#, fuzzy
 msgid "As check _pattern"
-msgstr "По структури"
+msgstr "Као _квадратићи"
 
 #: eog.glade.h:9
 msgid "As custom c_olor"
-msgstr ""
+msgstr "Као боја по и_збору"
 
 #: eog.glade.h:10
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "Боја за провидне површине"
 
 #: eog.glade.h:12
 #, no-c-format
 msgid "Don't use zoom larger than 100%"
-msgstr ""
+msgstr "Не користи увећање веће од 100%"
 
 #: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Поставке ЕОГ програма"
 
 #: eog.glade.h:14
-#, fuzzy
 msgid "Image View"
-msgstr "Прегледник слика"
+msgstr "Преглед слика"
 
 #: eog.glade.h:15
 msgid "Loop sequence"
-msgstr ""
+msgstr "Врти низ"
 
 #: eog.glade.h:16
 msgid ""
 "Show next image automatically:\n"
 "(0 to disable)"
 msgstr ""
+"Прикажи следећу слику аутоматски:\n"
+"(0 да искључите)"
 
 #: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "Интерполирај слику приликом увећања (бољег квалитета, али спорије)"
+msgstr "_Интерполирај слику приликом увећања (бољег квалитета, али спорије)"
 
 #: eog.glade.h:20
 msgid "sec"
-msgstr ""
+msgstr "сек."
 
 #: eog.schemas.in.h:1
-msgid "Automatically pick window size"
-msgstr "Аутоматски одабери величину прозора"
-
-#: eog.schemas.in.h:2
-msgid "Default zoom factor for the full screen view"
-msgstr "Предефинисана вредност увећања за приказ преко целог екрана"
-
-#: eog.schemas.in.h:3
-msgid ""
-"Default zoom factor for the full screen view. Possible values are: 0 (use "
-"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
-"the image to the screen)."
-msgstr ""
-"Предефинисана вредност увећања за приказ преко целог екрана. Могуће "
-"вредности су: 0 (користи 1:1), 1 (користи исту вредност увећања као и за "
-"ивицу прозора), 2 (уклопи слику у екран)."
-
-#: eog.schemas.in.h:4
-#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, than the trans_color key "
+"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"Утврђује начин обележавања провидности. Исправне вредности су CHECK_PATTERN "
-"и COLOR. Ако је изабран начин COLOR, онда подешавање trans_color утврђује "
+"Утврђује начин обележавања провидности. Исправне вредности су CHECK_PATTERN, "
+"COLOR и NONE. Ако је изабран начин COLOR, онда кључ trans_color одређује "
 "која ће боја бити коришћена."
 
-#: eog.schemas.in.h:5
-msgid "Fit standard-sized images to the screen"
-msgstr "Уклопи слике стандардне величине у екран"
-
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:2
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -196,31 +218,23 @@ msgstr ""
 "Ако подешавање провидности има вредност COLOR, онда овај кључ утврђује боју "
 "која ће бити коришћена за обележавање провидности."
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:3
 msgid "Interpolate Image"
 msgstr "Интерполирај слику"
 
-#: eog.schemas.in.h:8
+#: eog.schemas.in.h:4
 msgid "Open images in a new window"
 msgstr "Отвори слику у новом прозору"
 
-#: eog.schemas.in.h:9
-msgid "Put a bevel around the screen"
-msgstr "Постави рам око екрана"
-
-#: eog.schemas.in.h:10
-msgid "Scrollbar policy for the full screen view"
-msgstr "Начин рада линија са клизачима у приказу преко целог екрана"
-
-#: eog.schemas.in.h:11
+#: eog.schemas.in.h:5
 msgid "Transparency color"
 msgstr "Боја провидности"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:6
 msgid "Transparency indicator"
 msgstr "Обележивач провидности"
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:7
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
@@ -228,51 +242,13 @@ msgstr ""
 "Да ли слика треба бити интерполирана приликом увећања. Интерполирана, слика "
 "има бољи квалитет али је понекад спорија него неинтерполирана слика."
 
-#: eog.schemas.in.h:14
-msgid ""
-"Whether image windows should pick their size and zooming factor "
-"automatically based on the size of the image. If this option is not set, "
-"image windows will get whatever size the window manager assigns to them."
-msgstr ""
-"Да ли прозори са сликама требају да одаберу величину и вредност увећања "
-"аутоматски по величини слике. Ако ова опција није подешена, прозори са "
-"сликама ће добити величину коју им управник прозора наложи."
-
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:8
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
 "Да ли приликом отварања слике треба направити нови прозор уместо отварања "
 "слике у текућем прозору."
-
-#: eog.schemas.in.h:16
-msgid ""
-"Whether the full screen view should display a bevel along the edges of the "
-"screen."
-msgstr "Да ли приказ преко целог екрана треба да прикаже рам око рубова екрана"
-
-#: eog.schemas.in.h:17
-msgid ""
-"Whether to display scrollbars on the full screen view. Possible values are: "
-"1 (automatic; only display scrollbars if the image is larger than the "
-"window), 2 (never display scrollbars)."
-msgstr ""
-"Да ли треба приказати линије са клизачима у приказу преко целог екрана. "
-"Могуће вредности су: 1 (аутоматски; само прикажи линије са клизачима ако је "
-"слика већа од прозора), 2 (немој приказивати линије са клизачима)."
-
-#: eog.schemas.in.h:18
-msgid ""
-"Whether to fit standard-sized images to the screen when in full screen mode. "
-"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
-"selects whether such images should be scaled to fit the screen regardless of "
-"the setting for the default zoom factor of the full screen view."
-msgstr ""
-"Да ли слике стандардне величине треба уклопити у екран у приказу преко целог "
-"екрана. Стандардне величине слика су 320x240, 640x480, 800x800, итд. Ово "
-"подешава да ли овакве слике требају бити увећане да се уклопе у прозор, "
-"невезано за величину увећања приказа преко целог екрана."
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -283,16 +259,14 @@ msgid "EOG Image Viewer"
 msgstr "ЕОГ прегледник слика"
 
 #: libeog/GNOME_EOG.server.in.in.h:3
-#, fuzzy
 msgid "EOG Image viewer factory"
-msgstr "Израђивач ЕОГ прегледника слика"
+msgstr "Производња ЕОГ прегледника слика"
 
 #: libeog/GNOME_EOG.server.in.in.h:4
 msgid "Embeddable EOG Image"
 msgstr "Уметна ЕОГ слика"
 
-#. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5
 msgid "Image"
 msgstr "Слика"
 
@@ -301,13 +275,12 @@ msgid "By Extension"
 msgstr "По екстензији"
 
 #: libeog/eog-file-selection.c:267
-#, fuzzy
 msgid "Unsupported image file format for saving."
-msgstr "Неподржани формат датотеке."
+msgstr "Не подржава снимање ове врсте слика."
 
 #: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
-msgstr "Утврди формат датотеке:"
+msgstr "Одреди врсту датотеке:"
 
 #: libeog/eog-file-selection.c:333
 msgid "Load Image"
@@ -315,42 +288,148 @@ msgstr "Учитај слику"
 
 #: libeog/eog-file-selection.c:338
 msgid "Save Image"
-msgstr "Сними слику"
+msgstr "Сачувај слику"
 
-#: libeog/eog-image.c:1162
+#: libeog/eog-image-jpeg.c:100
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "Не може да обезбеди меморију за учитавање JPEG слике"
+
+#: libeog/eog-image.c:1340
 msgid "No image loaded."
-msgstr ""
+msgstr "Слика није учитана."
 
-#: libeog/eog-image.c:1196
-#, fuzzy
+#: libeog/eog-image.c:1349
+msgid "Images can only be saved as local files."
+msgstr "Слике се могу снимити само као локалне датотеке."
+
+#: libeog/eog-image.c:1384
 msgid "Unsupported image type for saving."
-msgstr "Неподржани формат датотеке."
+msgstr "Не подржава снимање ове врсте слика."
 
 #: libeog/eog-info-view.c:76
 msgid "Attribute"
-msgstr ""
+msgstr "Особина"
 
 #: libeog/eog-info-view.c:84
-#, fuzzy
 msgid "Value"
-msgstr "Размера"
+msgstr "Величина"
 
 #: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
 #: libeog/eog-info-view.c:208
-#, fuzzy
 msgid "Width"
-msgstr "Ширина слике"
+msgstr "Ширина"
 
 #: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
 #: libeog/eog-info-view.c:216
-#, fuzzy
 msgid "Height"
-msgstr "Десно:"
+msgstr "Висина"
 
 #: libeog/eog-info-view.c:269
-#, fuzzy
 msgid "Filename"
-msgstr "Датотека"
+msgstr "Име датотеке"
+
+#: libgpi/gpi-dialog-pixbuf.c:303 libgpi/gpi-dialog.glade.h:14
+msgid "Page"
+msgstr "Страница"
+
+#: libgpi/gpi-dialog.c:127 libgpi/gpi-dialog.glade.h:17
+#: viewer/eog-image-view.c:376
+msgid "Preview"
+msgstr "Преглед"
+
+#: libgpi/gpi-dialog.c:143 libgpi/gpi-dialog.c:229
+msgid "Millimeter"
+msgstr "Милиметар"
+
+#. First page of notebook: Paper selection and margins.
+#: libgpi/gpi-dialog.c:227 libgpi/gpi-dialog.glade.h:16
+msgid "Paper"
+msgstr "Папир"
+
+#: libgpi/gpi-dialog.glade.h:2
+#, no-c-format
+msgid "% of original size"
+msgstr "% оригиналне величине"
+
+#: libgpi/gpi-dialog.glade.h:3
+msgid "Adjust to "
+msgstr "Подеси на "
+
+#: libgpi/gpi-dialog.glade.h:4
+msgid "Center"
+msgstr "Центрирај"
+
+#: libgpi/gpi-dialog.glade.h:5
+msgid "Cutting help"
+msgstr "Помоћ при резању"
+
+#: libgpi/gpi-dialog.glade.h:6
+msgid "Down, then right"
+msgstr "Доле, па десно"
+
+#: libgpi/gpi-dialog.glade.h:7
+msgid "Fit to page"
+msgstr "Стане на страницу"
+
+#: libgpi/gpi-dialog.glade.h:8
+msgid "Horizontally"
+msgstr "Водоравно"
+
+#: libgpi/gpi-dialog.glade.h:9
+msgid "Horizontally by "
+msgstr "Водоравно за "
+
+#: libgpi/gpi-dialog.glade.h:10
+msgid "Margins"
+msgstr "Маргине"
+
+#: libgpi/gpi-dialog.glade.h:11
+msgid "Ordering help"
+msgstr "Помоћ при разврставању"
+
+#: libgpi/gpi-dialog.glade.h:12
+msgid "Overlap"
+msgstr "Преклопи"
+
+#: libgpi/gpi-dialog.glade.h:13
+msgid "Overlap help"
+msgstr "Помоћ при преклопу"
+
+#: libgpi/gpi-dialog.glade.h:15
+msgid "Page order"
+msgstr "Редослед страница"
+
+#: libgpi/gpi-dialog.glade.h:18
+msgid "Right, then down"
+msgstr "Десно, па доле"
+
+#: libgpi/gpi-dialog.glade.h:19
+msgid "Scale"
+msgstr "Размера"
+
+#: libgpi/gpi-dialog.glade.h:20
+msgid "Show"
+msgstr "Прикажи"
+
+#: libgpi/gpi-dialog.glade.h:21
+msgid "Vertically"
+msgstr "Усправно"
+
+#: libgpi/gpi-dialog.glade.h:22
+msgid "Vertically by "
+msgstr "Усправно за "
+
+#: libgpi/gpi-dialog.glade.h:23
+msgid "dialog1"
+msgstr "прозорче1"
+
+#: libgpi/gpi-mgr.c:78
+msgid "Name"
+msgstr "Име"
+
+#: libgpi/gpi-mgr.c:79
+msgid "The name of the file or data to print"
+msgstr "Име датотеке или података за штампу"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -394,11 +473,11 @@ msgstr "Отвори у овом прозору"
 
 #: shell/eog-shell-ui.xml.h:11
 msgid "Prefere_nces"
-msgstr "Подешавања"
+msgstr "_Поставке"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr "Подешавања ЕОГ компоненти"
+msgstr "Поставке ЕОГ компоненти"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
@@ -406,84 +485,78 @@ msgstr "Затвори програм"
 
 #: shell/eog-shell-ui.xml.h:14
 msgid "_About"
-msgstr "О програму"
+msgstr "_О програму"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_Close"
-msgstr "Затвори"
+msgstr "_Затвори"
 
 #: shell/eog-shell-ui.xml.h:16
 msgid "_Contents"
-msgstr "Садржај"
-
-#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:12
-msgid "_Edit"
-msgstr "Измени"
+msgstr "_Садржај"
 
 #: shell/eog-shell-ui.xml.h:18
 msgid "_File"
-msgstr "Датотека"
+msgstr "_Датотека"
 
 #: shell/eog-shell-ui.xml.h:19
 msgid "_Help"
-msgstr "Помоћ"
+msgstr "_Помоћ"
 
 #: shell/eog-shell-ui.xml.h:20
 msgid "_New"
-msgstr "Нови прозор"
+msgstr "_Нова"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
-msgstr "Отвори слику..."
+msgstr "_Отвори..."
 
 #: shell/eog-shell-ui.xml.h:22
 msgid "_Quit"
-msgstr "Затвори програм"
+msgstr "_Изађи"
 
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:264
+#: shell/eog-window.c:266
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Горан Ракић <gox@devbase.net>"
+msgstr ""
+"Горан Ракић <gox@devbase.net>\n"
+"Данило Шеган <dsegan@gmx.net>\n"
+"\n"
+"http://Prevod.org/"
 
-#: shell/eog-window.c:269 shell/eog-window.c:719 shell/eog-window.c:807
-#: shell/eog-window.c:844 shell/main.c:503
+#: shell/eog-window.c:271 shell/eog-window.c:746 shell/eog-window.c:830
+#: shell/eog-window.c:869 shell/main.c:504
 msgid "Eye of Gnome"
 msgstr "Очи гнома"
 
-#: shell/eog-window.c:271
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Ауторска права (C) 2000-2002 Фондација за слободан софтвер"
-
-#: shell/eog-window.c:272
+#: shell/eog-window.c:274
 msgid "The GNOME image viewing and cataloging program."
-msgstr "Прегледник и каталог слика за гном"
+msgstr "Прегледник и каталог слика за гном."
 
-#: shell/eog-window.c:309
+#: shell/eog-window.c:311
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
-"Нисам могао да прикажем помоћ за коришћење програма.\n"
+"Не може да прикаже помоћ за коришћење програма.\n"
 "%s"
 
 #: shell/main.c:225
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to open %i windows simultanously. Do you want to open them in "
 "a collection instead?"
 msgstr ""
-"На корак сте да отворите %i прозора\n"
-"истовремено. Да ли желите да их отворите\n"
-"као колекцију, уместо као самосталне прозоре?"
+"На корак сте да отворите %i прозора истовремено. Да ли желите да их уместо "
+"тога отворите као колекцију?"
 
 #: shell/main.c:229
-#, fuzzy
 msgid "Open multiple single windows?"
-msgstr "Отвори у новом прозору"
+msgstr "Отвори више појединачних прозора?"
 
 #: shell/main.c:233
 msgid "Single Windows"
@@ -494,24 +567,23 @@ msgid "Collection"
 msgstr "Колекција"
 
 #: shell/main.c:305
-#, fuzzy
 msgid "Could not find files"
-msgstr "Нисам могао да отворим „%s“"
+msgstr "Не може да нађе датотеке"
 
 #: shell/util.c:52
 #, c-format
 msgid "Could not open `%s'"
-msgstr "Нисам могао да отворим „%s“"
+msgstr "Не може да отвори „%s“"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr "Уклопи на најбољи начин"
+msgstr "Уклопи на _најбољи начин"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
 msgstr "Уклопи величину"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
 msgid "In"
 msgstr "Увећај"
 
@@ -521,29 +593,19 @@ msgstr "Нормално"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
-msgstr "Удаљи"
+msgstr "Умањи"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
-msgstr "Умањи"
+msgstr "У_мањи"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr "Нормална величина"
+msgstr "_Нормална величина"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "_Zoom In"
-msgstr "Увећај"
-
-#: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
-msgid "Flip _Horizontal"
-msgstr "Обрни хоризонтално"
-
-#: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
-msgid "Flip _Vertical"
-msgstr "Обрни вертикално"
+msgstr "У_већај"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Previews the image to be printed"
@@ -551,366 +613,111 @@ msgstr "Прикажи слику која ће бити одштапана"
 
 #: viewer/eog-image-view-ui.xml.h:4
 msgid "Print Previe_w..."
-msgstr "Приказ пре штампања..."
+msgstr "Пре_глед пре штампу..."
 
 #: viewer/eog-image-view-ui.xml.h:5
 msgid "Print Set_up"
-msgstr "Подешавање штампања"
+msgstr "По_дешавање штампања"
 
 #: viewer/eog-image-view-ui.xml.h:6
 msgid "Print image to the printer"
 msgstr "Одштампај слику"
 
-#: viewer/eog-image-view-ui.xml.h:7
-#, fuzzy
-msgid "Rotate 180 _Degrees"
-msgstr "Ротирај за 180 степени"
-
-#: viewer/eog-image-view-ui.xml.h:8
-#, fuzzy
-msgid "Rotate C_lockwise"
-msgstr "Ротирај у смеру казаљке на сату"
-
-#: viewer/eog-image-view-ui.xml.h:9
-#, fuzzy
-msgid "Rotate Counte_r Clockwise"
-msgstr "Ротирај супротно од смера казаљке на сату"
-
 #: viewer/eog-image-view-ui.xml.h:10
-msgid "Save _As..."
-msgstr "Сними као..."
+msgid "Rotate Left"
+msgstr "Ротирај улево"
 
 #: viewer/eog-image-view-ui.xml.h:11
+msgid "Rotate Right"
+msgstr "Ротирај удесно"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Save _As..."
+msgstr "Сачувај _као..."
+
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Setup the page settings for your current printer"
 msgstr "Подеси подешавање странице за ваш тренутни штампач"
 
-#: viewer/eog-image-view-ui.xml.h:13
-#, fuzzy
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Full Screen"
-msgstr "Приказ преко целог прозора"
+msgstr "_Цео екран"
 
-#: viewer/eog-image-view-ui.xml.h:14
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Print..."
-msgstr "Штампај"
+msgstr "_Штампај..."
 
-#: viewer/eog-image-view.c:741
+#: viewer/eog-image-view.c:811
+msgid "/Rotate C_lockwise"
+msgstr "Ротирај у смеру _казаљке на сату"
+
+#: viewer/eog-image-view.c:813
+msgid "/Rotate Counte_r Clockwise"
+msgstr "Ротирај _супротно од смера казаљке на сату"
+
+#: viewer/eog-image-view.c:816
 msgid "/_Zoom In"
-msgstr "/Увећај"
+msgstr "/У_већај"
 
-#: viewer/eog-image-view.c:743
+#: viewer/eog-image-view.c:818
 msgid "/Zoom _Out"
-msgstr "/Умањи"
+msgstr "/У_мањи"
 
-#: viewer/eog-image-view.c:745
+#: viewer/eog-image-view.c:820
 msgid "/_Normal Size"
-msgstr "/Нормална величина"
+msgstr "/_Нормална величина"
 
-#: viewer/eog-image-view.c:747
+#: viewer/eog-image-view.c:822
 msgid "/Best _Fit"
-msgstr "/Уклопи на најбољи начин"
+msgstr "/Уклопи на _најбољи начин"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:825
 msgid "/_Close"
-msgstr "/Затвори"
+msgstr "/_Затвори"
 
-#: viewer/eog-image-view.c:902
+#: viewer/eog-image-view.c:988
+#, c-format
+msgid "Loading of image %s failed."
+msgstr "Није успео да учита слику %s."
+
+#: viewer/eog-image-view.c:995
+#, c-format
+msgid ""
+"Loading of image %s failed.\n"
+"Reason: %s."
+msgstr ""
+"Није успео да учита слику %s.\n"
+"Разлог: %s."
+
+#. show error dialog
+#: viewer/eog-image-view.c:1004
+msgid "Loading failed"
+msgstr "Неуспешно учитавање"
+
+#: viewer/eog-image-view.c:1083
 msgid "Image successfully saved"
-msgstr ""
+msgstr "Слика је успешно сачувана"
 
-#: viewer/eog-image-view.c:906
+#: viewer/eog-image-view.c:1087
 msgid "Image saving failed"
-msgstr ""
+msgstr "Неуспешно снимање слике"
 
-#: viewer/eog-image-view.c:1149
+#: viewer/eog-image-view.c:1331
 msgid "Image Width"
 msgstr "Ширина слике"
 
-#: viewer/eog-image-view.c:1152
+#: viewer/eog-image-view.c:1334
 msgid "Image Height"
 msgstr "Висина слике"
 
-#: viewer/eog-image-view.c:1158
+#: viewer/eog-image-view.c:1340
 msgid "Statusbar Text"
-msgstr "Текст у линији статуса"
+msgstr "Текст у линији са стањем"
 
-#: viewer/eog-image-view.c:1161
+#: viewer/eog-image-view.c:1343
 msgid "Desired Window Width"
-msgstr ""
+msgstr "Жељена ширина прозора"
 
-#: viewer/eog-image-view.c:1164
+#: viewer/eog-image-view.c:1346
 msgid "Desired Window Height"
-msgstr ""
-
-#: viewer/eog-image.c:480
-msgid "Couldn't initialize GnomeVFS!\n"
-msgstr "Нисам могао да покренем GnomeVFS!\n"
-
-#: viewer/eog-print-setup.c:76
-msgid "pts"
-msgstr "pts"
-
-#: viewer/eog-print-setup.c:76
-msgid "points"
-msgstr "тачака"
-
-#: viewer/eog-print-setup.c:77
-msgid "mm"
-msgstr "mm"
-
-#: viewer/eog-print-setup.c:77
-msgid "millimeter"
-msgstr "милиметар"
-
-#: viewer/eog-print-setup.c:78
-msgid "cm"
-msgstr "cm"
-
-#: viewer/eog-print-setup.c:78
-msgid "centimeter"
-msgstr "центиметар"
-
-#: viewer/eog-print-setup.c:79
-msgid "inch"
-msgstr "inch"
-
-#: viewer/eog-print-setup.c:469
-msgid "Print Setup"
-msgstr "Подешавање штампања"
-
-#: viewer/eog-print-setup.c:476
-msgid "Print"
-msgstr "Одштампај"
-
-#: viewer/eog-print-setup.c:478
-msgid "Print preview"
-msgstr "Приказ пре штампања"
-
-#: viewer/eog-print-setup.c:547
-msgid "Units: "
-msgstr "Јединице: "
-
-#. First page
-#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
-msgid "Paper"
-msgstr "Папир"
-
-#: viewer/eog-print-setup.c:569
-msgid "Paper size:"
-msgstr "Величина папира:"
-
-#. Orientation
-#: viewer/eog-print-setup.c:586
-msgid "Orientation"
-msgstr "Оријентација"
-
-#: viewer/eog-print-setup.c:593
-msgid "Portrait"
-msgstr "Уздуж"
-
-#: viewer/eog-print-setup.c:600
-msgid "Landscape"
-msgstr "Попреко"
-
-#. Margins
-#: viewer/eog-print-setup.c:609
-msgid "Margins"
-msgstr "Маргине"
-
-#. Top margin
-#: viewer/eog-print-setup.c:617
-msgid "Top:"
-msgstr "Горе:"
-
-#. Left margin
-#: viewer/eog-print-setup.c:635
-msgid "Left:"
-msgstr "Лево:"
-
-#. Right margin
-#: viewer/eog-print-setup.c:653
-msgid "Right:"
-msgstr "Десно:"
-
-#. Bottom margin
-#: viewer/eog-print-setup.c:671
-msgid "Bottom:"
-msgstr "Дно:"
-
-#. Scale
-#: viewer/eog-print-setup.c:697
-msgid "Scale"
-msgstr "Размера"
-
-#: viewer/eog-print-setup.c:701
-msgid "Adjust to:"
-msgstr "Подеси да:"
-
-#: viewer/eog-print-setup.c:706
-msgid "Fit to page"
-msgstr "Стане на страницу"
-
-#: viewer/eog-print-setup.c:725
-#, no-c-format
-msgid "% of original size"
-msgstr "% оригиналне величине"
-
-#. Center on page
-#: viewer/eog-print-setup.c:731
-msgid "Center"
-msgstr "Центрирај"
-
-#: viewer/eog-print-setup.c:735
-msgid "Horizontally"
-msgstr "Водоравно"
-
-#: viewer/eog-print-setup.c:742
-msgid "Vertically"
-msgstr "Усправно"
-
-#. Overlap
-#: viewer/eog-print-setup.c:751
-msgid "Overlapping"
-msgstr "Развуци на неколико страна"
-
-#: viewer/eog-print-setup.c:755
-msgid "Overlap horizontally by "
-msgstr "Развуци водоравно на "
-
-#: viewer/eog-print-setup.c:760
-msgid "Overlap vertically by "
-msgstr "Развуци усправно на "
-
-#. Third page
-#: viewer/eog-print-setup.c:797
-msgid "Printing"
-msgstr "Штампање"
-
-#. Helpers
-#: viewer/eog-print-setup.c:805
-msgid "Helpers"
-msgstr "Помоћници"
-
-#: viewer/eog-print-setup.c:806
-msgid "Print cutting help"
-msgstr "Помоћници за резање слике"
-
-#: viewer/eog-print-setup.c:812
-msgid "Print overlap help"
-msgstr "Одштампај помоћ за прелазе преко странице"
-
-#. Page order
-#: viewer/eog-print-setup.c:821
-msgid "Page order"
-msgstr "Редослед страница"
-
-#. Down right
-#: viewer/eog-print-setup.c:827
-msgid "Down, then right"
-msgstr "Доле, па десно"
-
-#. Right down
-#: viewer/eog-print-setup.c:844
-msgid "Right, then down"
-msgstr "Десно, па доле"
-
-#~ msgid "Eye of Gnome Image Viewer"
-#~ msgstr "Прегледник слика - „Очи гнома“ (EOG)"
-
-#~ msgid "By c_olor"
-#~ msgstr "По боји"
-
-#~ msgid "Indicate Transparency"
-#~ msgstr "Обележава провидност"
-
-#~ msgid "Pick a color"
-#~ msgstr "Изаберизте бојуд"
-
-#~ msgid "interpolation type"
-#~ msgstr "тип интерполације"
-
-#~ msgid "the type of interpolation to use"
-#~ msgstr "тип интерполације"
-
-#~ msgid "dither"
-#~ msgstr "замућење"
-
-#~ msgid "dither type"
-#~ msgstr "тип замућења"
-
-#~ msgid "BMP"
-#~ msgstr "BMP"
-
-#~ msgid "GIF"
-#~ msgstr "GIF"
-
-#~ msgid "ICO"
-#~ msgstr "ICO"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "PNM"
-#~ msgstr "PNM"
-
-#~ msgid "RAS"
-#~ msgstr "RAS"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "TGA"
-#~ msgstr "TGA"
-
-#~ msgid "TIFF"
-#~ msgstr "TIFF"
-
-#~ msgid "XBM"
-#~ msgstr "XBM"
-
-#~ msgid "XPM"
-#~ msgstr "XPM"
-
-#~ msgid ""
-#~ "You are about to open %i windows\n"
-#~ "simultanously. Do you want to continue?"
-#~ msgstr ""
-#~ "На корак сте да отворите %i прозора\n"
-#~ "истовремено. Да ли желите да наставите?"
-
-#~ msgid ""
-#~ "Could not access %s\n"
-#~ "Eye of Gnome will not be able to display this file."
-#~ msgstr ""
-#~ "Нисам могао да приступим %s\n"
-#~ "Очи гнома неће бити у могућности да прикаже ову датотеку."
-
-#~ msgid ""
-#~ "The following files cannot be displayed because Eye of Gnome was not able "
-#~ "to access them:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Следећа датотека не може бити приказана јер програм није био у могућности "
-#~ "да имприступи:\n"
-#~ "%s"
-
-#~ msgid "Could not initialize GnomeVFS!\n"
-#~ msgstr ""
-#~ "Нисам могао да покренем GnomeVFS! (Гномов виртуелни систем датотека)\n"
-
-#~ msgid "Could not initialize Bonobo!\n"
-#~ msgstr "Нисам могао да покренем Bonobo!\n"
-
-#~ msgid "Could not save image as '%s': %s."
-#~ msgstr "Нисам могао да снимим датотеку као „%s“: %s."
-
-#~ msgid "Pages"
-#~ msgstr "Страница"
-
-#~ msgid "Print Preview"
-#~ msgstr "Приказ пре штампања"
-
-#~ msgid "Printing of image failed"
-#~ msgstr "Штампање слике није успело"
+msgstr "Жељена висина прозора"
