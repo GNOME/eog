@@ -32,6 +32,8 @@ struct _WindowClass {
 
 
 GtkType window_get_type (void);
+GtkWidget *window_new (void);
+void window_construct (Window *window);
 
 
 

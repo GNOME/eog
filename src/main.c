@@ -4,6 +4,7 @@
 #include "image.h"
 #include "image-item.h"
 #include "gtkscrollframe.h"
+#include "window.h"
 
 
 static GnomeCanvas *canvas;
@@ -101,6 +102,11 @@ main (int argc, char **argv)
 				    NULL, 0, &ctx);
 	gdk_rgb_init ();
 
+	window = window_new ();
+	gtk_widget_show_all (window);
+
+#if 0
+
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
 	vbox = gtk_vbox_new (FALSE, 0);
@@ -165,6 +171,7 @@ main (int argc, char **argv)
 	gtk_box_pack_start (GTK_BOX (vbox), w, FALSE, FALSE, 0);
 
 	gtk_widget_show_all (window);
+#endif
 
 	gtk_main ();
 	return 0;

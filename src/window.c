@@ -46,20 +46,25 @@ open_cmd (GtkWidget *widget, gpointer data)
 static void
 close_cmd (GtkWidget *widget, gpointer data)
 {
+	Window *window;
+
+	window = WINDOW (data);
+
 	/* FIXME */
+	gtk_widget_destroy (GTK_WIDGET (window));
 }
 
 /* File/Exit callback */
 static void
 exit_cmd (GtkWidget *widget, gpointer data)
 {
-	/* FIXME */
-}
+	Window *window;
 
-static void
-meept (GtkWidget *widget, gpointer data)
-{
-	fprintf (stderr, "meept!\n");
+	window = WINDOW (data);
+
+	/* FIXME */
+
+	gtk_main_quit ();
 }
 
 /* Help/About callback */
@@ -73,21 +78,22 @@ about_cmd (GtkWidget *widget, gpointer data)
 	};
 
 	if (!about) {
-		about = gnome_about_new (_("Retina"),
-					 VERSION,
-					 _("Copyright (C) 1999 The Free Software Foundation"),
-					 authors,
-					 _("The GNOME image viewer and cataloging program"),
-					 NULL);
+		about = gnome_about_new (
+			_("Eye of Gnome"),
+			VERSION,
+			_("Copyright (C) 1999 The Free Software Foundation"),
+			authors,
+			_("The GNOME image viewer and image cataloging program"),
+			NULL);
 		gtk_signal_connect (GTK_OBJECT (about), "destroy",
 				    GTK_SIGNAL_FUNC (gtk_widget_destroyed),
 				    &about);
-		gtk_signal_connect (GTK_OBJECT (about), "destroy",
-				    GTK_SIGNAL_FUNC (meept),
-				    &about);
 	}
 
-	gtk_widget_show (about);
+	gtk_widget_show_now (about);
+	g_assert (GTK_WIDGET_REALIZED (about));
+	gdk_window_show (about->window);
+	gtk_widget_grab_focus (about);
 }
 
 
@@ -95,11 +101,15 @@ about_cmd (GtkWidget *widget, gpointer data)
 /* Main menu */
 
 static GnomeUIInfo file_menu[] = {
-	GNOMEUIINFO_ITEM_STOCK (N_("_Open Image..."),
-				N_("Open an image file"),
-				open_cmd, GNOME_STOCK_MENU_OPEN),
+	{ GNOME_APP_UI_ITEM, N_("_Open Image..."), N_("Open an image file"),
+	  open_cmd, NULL, NULL,
+	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_OPEN,
+	  'o', GDK_CONTROL_MASK, NULL },
 	GNOMEUIINFO_SEPARATOR,
-	GNOMEUIINFO_MENU_CLOSE_ITEM (close_cmd, NULL),
+	{ GNOME_APP_UI_ITEM, N_("_Close This Window"), N_("Close the current window"),
+	  close_cmd, NULL, NULL,
+	  GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+	  'w', GDK_CONTROL_MASK, NULL },
 	GNOMEUIINFO_MENU_EXIT_ITEM (exit_cmd, NULL),
 	GNOMEUIINFO_END
 };
@@ -174,9 +184,6 @@ window_init (Window *window)
 
 	priv = g_new0 (WindowPrivate, 1);
 	window->priv = priv;
-#if 0
-	gnome_app_create_menus_with_data (
-#endif
 }
 
 /* Destroy handler for windows */
@@ -208,4 +215,39 @@ window_delete (GtkWidget *widget, GdkEventAny *event)
 {
 	/* FIXME */
 	return FALSE;
+}
+
+/**
+ * window_new:
+ * @void:
+ *
+ * Creates a new main window in the WINDOW_MODE_NONE mode.
+ *
+ * Return value: A newly-created main window.
+ **/
+GtkWidget *
+window_new (void)
+{
+	GtkWidget *window;
+
+	window = gtk_type_new (TYPE_WINDOW);
+	window_construct (WINDOW (window));
+
+	return window;
+}
+
+/**
+ * window_construct:
+ * @window: A window widget.
+ *
+ * Constructs the window widget.
+ **/
+void
+window_construct (Window *window)
+{
+	g_return_if_fail (window != NULL);
+	g_return_if_fail (IS_WINDOW (window));
+
+	gnome_app_construct (GNOME_APP (window), "eog", _("Eye of Gnome"));
+	gnome_app_create_menus_with_data (GNOME_APP (window), main_menu, window);
 }
