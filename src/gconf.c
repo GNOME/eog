@@ -79,12 +79,11 @@ scroll_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpoi
 static void
 image_view_destroy_gconf_data (gpointer object)
 {
-	ImageViewGConfData *priv;
+	ImageViewGConfData *priv = object;
 
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (object));
-
-	priv = gtk_object_get_data (GTK_OBJECT (object), "image_view:gconf_data");
+	g_return_if_fail (priv != NULL);
+	g_return_if_fail (priv->client != NULL);
+	g_return_if_fail (GCONF_IS_CLIENT (priv->client));
 
 	/* Remove notification handlers */
 
