@@ -316,8 +316,8 @@ count_pages (gdouble 	paper_width,
 	     gdouble	overlap_y,
 	     GdkPixbuf *pixbuf)
 {
-	gdouble	adj_width, adj_height;
-	gdouble	image_width, image_height;
+	gint	adj_width, adj_height;
+	gint	image_width, image_height;
 	gdouble	avail_width, avail_height;
 	gint	rows, cols;
 

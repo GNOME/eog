@@ -118,7 +118,7 @@ on_down_right_toggled (GtkToggleButton *button, EogPrintSetup *ps)
 {
 	ps->priv->down_right = button->active;
 
-	if (ps->priv->down_right) {
+	if (!ps->priv->down_right) {
 		gtk_widget_show (ps->priv->image_right_down);
 		gtk_widget_hide (ps->priv->image_down_right);
 	} else {
