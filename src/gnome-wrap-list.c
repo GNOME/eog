@@ -27,7 +27,7 @@
 
 /* Layout information for row/col major modes */
 typedef struct {
-	/* Number of icons per row/col */
+	/* Number of icons per row/col, 0 if not computed yet */
 	int icons_per_block;
 
 	/* Index of first displayed icon and number of displayed icons */
@@ -265,8 +265,8 @@ bm_compute_display_range (GnomeWrapList *wlist, int *first, int *n)
 	int space_minor, space_major;
 	int size_minor, size_major;
 	int scroll_minor, scroll_major;
-	int n_minor;
-	int n_major;
+	int n_minor, n_major;
+	int first_block, last_block;
 
 	priv = wlist->priv;
 
@@ -281,14 +281,16 @@ bm_compute_display_range (GnomeWrapList *wlist, int *first, int *n)
 	if (n_minor <= 0)
 		n_minor = 1;
 
-	n_major = (size_major - space_major) / (icon_major + space_major);
-	if (n_major <= 0)
-		n_major = 1;
+	first_block = scroll_major / (icon_major + space_major);
+	last_block = (scroll_major + size_major - 1) / (icon_major + space_major);
 
-	*first = scroll_major / (icon_major + space_major);
+	*first = first_block * n_minor;
+
+	n_major = last_block - first_block + 1;
 	*n = n_major * n_minor;
 }
 
+/* Updates a range of icons */
 static void
 bm_update_range (GnomeWrapList *wlist, int first, int n_items)
 {
@@ -350,7 +352,7 @@ gnome_wrap_list_get_mode (GnomeWrapList *wlist)
  * gnome_wrap_list_set_position_model:
  * @wlist: A wrapped list view.
  * @pos_model: A position list model.
- * 
+ *
  * sets the position list model for a wrapped list view.
  **/
 void
@@ -383,9 +385,9 @@ gnome_wrap_list_set_position_model (GnomeWrapList *wlist, GnomePositionListModel
 /**
  * gnome_wrap_list_get_position_model:
  * @wlist: A wrapped list view.
- * 
+ *
  * Queries the position list model that a wrapped list view is using.
- * 
+ *
  * Return value: The position list model.
  **/
 GnomePositionListModel *
@@ -405,7 +407,7 @@ gnome_wrap_list_get_position_model (GnomeWrapList *wlist)
  * @wlist: A wrapped list view.
  * @width: Width of items in pixels.
  * @height: Height of items in pixels.
- * 
+ *
  * Sets the size of items in a wrapped list view.  All items will have the same
  * base size.
  **/
@@ -431,7 +433,7 @@ gnome_wrap_list_set_item_size (GnomeWrapList *wlist, int width, int height)
  * @wlist: A wrapped list view.
  * @width: Return value for the width of items.
  * @height: Return value for the height of items.
- * 
+ *
  * Queries the size of items in a wrapped list view.
  **/
 void
@@ -457,7 +459,7 @@ gnome_wrap_list_get_item_size (GnomeWrapList *wlist, int *width, int *height)
  * gnome_wrap_list_set_row_spacing:
  * @wlist: A wrapped list view.
  * @spacing: Spacing between rows in pixels.
- * 
+ *
  * Sets the spacing between the rows of a wrapped list view.
  **/
 void
@@ -478,9 +480,9 @@ gnome_wrap_list_set_row_spacing (GnomeWrapList *wlist, int spacing)
 /**
  * gnome_wrap_list_get_row_spacing:
  * @wlist: A wrapped list view.
- * 
+ *
  * Queries the spacing between rows of a wrapped list view.
- * 
+ *
  * Return value: Spacing between rows in pixels.
  **/
 int
@@ -499,7 +501,7 @@ gnome_wrap_list_get_row_spacing (GnomeWrapList *wlist)
  * gnome_wrap_list_set_col_spacing:
  * @wlist: A wrapped list view.
  * @spacing: Spacing between columns in pixels.
- * 
+ *
  * Sets the spacing between the columns of a wrapped list view.
  **/
 void
@@ -520,9 +522,9 @@ gnome_wrap_list_set_col_spacing (GnomeWrapList *wlist, int spacing)
 /**
  * gnome_wrap_list_get_col_spacing:
  * @wlist: A wrapped list view.
- * 
+ *
  * Queries the spacing between columns of a wrapped list view.
- * 
+ *
  * Return value: Spacing between columns in pixels.
  **/
 int
@@ -541,7 +543,7 @@ gnome_wrap_list_get_col_spacing (GnomeWrapList *wlist)
  * gnome_wrap_list_set_use_unit_scrolling:
  * @wlist: A wrapped list view.
  * @use_unit_scrolling: TRUE for scrolling by whole rows or columns, FALSE, otherwise.
- * 
+ *
  * Sets whether a wrapped list view should scroll in whole row or column
  * increments, or whether arbitrary scroll offsets should be allowed.
  **/
@@ -562,9 +564,9 @@ gnome_wrap_list_set_use_unit_scrolling (GnomeWrapList *wlist, gboolean use_unit_
 /**
  * gnome_wrap_list_get_use_unit_scrolling:
  * @wlist: A wrapped list view.
- * 
+ *
  * Queries whether a wrapped list view scrolls by whole rows or columns.
- * 
+ *
  * Return value: TRUE if it scrolls by whole rows or columns, or FALSE if
  * arbitrary scroll offsets are allowed.
  **/
