@@ -57,7 +57,8 @@ struct _EogWrapList {
 struct _EogWrapListClass {
 	GnomeCanvasClass parent_class;
 
-	void (* item_dbl_click) (gint unique_id);
+	gboolean (* right_click)  (EogWrapList *, gint unique_id, GdkEvent *);
+	void     (* double_click) (EogWrapList *, gint unique_id);
 };
 
 

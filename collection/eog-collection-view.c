@@ -15,12 +15,19 @@
 #include <gtk/gtkmarshal.h>
 #include <gtk/gtktypeutils.h>
 #include <gtk/gtklabel.h>
+#include <gtk/gtkwindow.h>
 #include <libgnomevfs/gnome-vfs-types.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
-
-#include <gnome.h>
-
+#include <libgnomevfs/gnome-vfs-ops.h>
+#include <libgnomevfs/gnome-vfs-result.h>
+#include <libgnomevfs/gnome-vfs-find-directory.h>
+#include <libgnome/gnome-defs.h>
+#include <libgnomeui/gnome-dialog-util.h>
 #include <gconf/gconf-client.h>
+
+#ifdef ENABLE_EVOLUTION
+#  include "Evolution-Composer.h"
+#endif
 
 #include "eog-item-factory-simple.h"
 #include "eog-wrap-list.h"
@@ -259,18 +266,13 @@ BONOBO_X_TYPE_FUNC_FULL (EogCollectionView,
 			 PARENT_TYPE,
 			 eog_collection_view);
 
-
 static void
-handle_item_dbl_click (GtkObject *obj, gint n, gpointer data)
+handle_double_click (EogWrapList *wlist, gint n, EogCollectionView *view)
 {
-	EogCollectionView *view;
 	gchar *uri;
 
-	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_VIEW (data));
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
 	
-	view = EOG_COLLECTION_VIEW (data);
-
 	uri = eog_collection_model_get_uri (view->priv->model, n);
 	if (uri == NULL) return;
 
@@ -279,6 +281,215 @@ handle_item_dbl_click (GtkObject *obj, gint n, gpointer data)
 	g_free (uri);
 }
 
+static gboolean
+delete_item (EogCollectionModel *model, guint n, gpointer user_data)
+{
+	CImage *image;
+	GnomeVFSURI *uri, *trash = NULL, *path;
+	GnomeVFSResult result = GNOME_VFS_OK;
+	GtkWidget *window;
+	const gchar *msg;
+	EogCollectionView *view;
+
+	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (user_data), FALSE);
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	image = eog_collection_model_get_image (model, n);
+
+	/* If the image isn't selected, do nothing */
+	if (!cimage_is_selected (image))
+		return (TRUE);
+
+	uri = cimage_get_uri (image);
+	result = gnome_vfs_find_directory (uri,
+					GNOME_VFS_DIRECTORY_KIND_TRASH,
+					&trash, FALSE, FALSE, 0777);
+	if (result == GNOME_VFS_OK) {
+		path = gnome_vfs_uri_append_file_name (trash, 
+				gnome_vfs_uri_get_basename (uri));
+		gnome_vfs_uri_unref (trash);
+		result = gnome_vfs_move_uri (uri, path, TRUE);
+		gnome_vfs_uri_unref (path);
+		if (result == GNOME_VFS_OK)
+			eog_collection_model_remove_item (model, n);
+	}
+	gnome_vfs_uri_unref (uri);
+
+	if (result != GNOME_VFS_OK) {
+		msg = gnome_vfs_result_to_string (result);
+		window = gtk_widget_get_ancestor (
+			GTK_WIDGET (view->priv->root), GTK_TYPE_WINDOW);
+		if (window)
+			gnome_error_dialog_parented (msg, GTK_WINDOW (window));
+		else
+			gnome_error_dialog (msg);
+		return (FALSE);
+	}
+
+	return (TRUE);
+}
+
+static void
+handle_delete_activate (GtkMenuItem *item, EogCollectionView *view)
+{
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	eog_collection_model_foreach (view->priv->model, delete_item, view);
+}
+
+#ifdef ENABLE_EVOLUTION
+static gboolean
+send_item (EogCollectionModel *model, guint n, gpointer user_data)
+{
+	Bonobo_StorageInfo *info;
+	Bonobo_Stream stream;
+	Bonobo_Stream_iobuf *buffer;
+	CORBA_Object composer;
+	GNOME_Evolution_Composer_AttachmentData *attachment_data;
+	CORBA_Environment ev;
+	gchar *uri;
+	CImage *image;
+
+	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), FALSE);
+	composer = user_data;
+
+	image = eog_collection_model_get_image (model, n);
+	
+	/* If the image isn't selected, do nothing */
+	if (!cimage_is_selected (image))
+		return (TRUE);
+
+	CORBA_exception_init (&ev);
+
+	uri = eog_collection_model_get_uri (model, n);
+	stream = bonobo_get_object (uri, "IDL:Bonobo/Stream:1.0", &ev);
+	g_free (uri);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Could not load file: %s",
+			   bonobo_exception_get_text (&ev));
+		return (FALSE);
+	}
+
+	info = Bonobo_Stream_getInfo (stream, Bonobo_FIELD_CONTENT_TYPE |
+					      Bonobo_FIELD_SIZE, &ev);
+	if (BONOBO_EX (&ev)) {
+		bonobo_object_release_unref (stream, NULL);
+		g_warning ("Could not get info about stream: %s",
+			   bonobo_exception_get_text (&ev));
+		return (FALSE);
+	}
+
+	Bonobo_Stream_read (stream, info->size, &buffer, &ev);
+	bonobo_object_release_unref (stream, NULL);
+	if (BONOBO_EX (&ev)) {
+		CORBA_free (info);
+		g_warning ("Could not read stream: %s",
+			   bonobo_exception_get_text (&ev));
+		return (FALSE);
+	}
+
+	attachment_data = GNOME_Evolution_Composer_AttachmentData__alloc ();
+	attachment_data->_buffer = buffer->_buffer;
+	attachment_data->_length = buffer->_length;
+	GNOME_Evolution_Composer_attachData (composer, info->content_type,
+					     info->name, info->name, FALSE,
+					     attachment_data, &ev);
+	CORBA_free (info);
+	CORBA_free (attachment_data);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to attach image: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return (FALSE);
+	}
+	
+	CORBA_exception_free (&ev);
+
+	return (TRUE);
+}
+
+static void
+handle_send_activate (GtkMenuItem *item, EogCollectionView *view)
+{
+	CORBA_Object composer;
+	CORBA_Environment ev;
+
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	CORBA_exception_init (&ev);
+	composer = oaf_activate_from_id ("OAFIID:GNOME_Evolution_Mail_Composer",
+					 0, NULL, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to start composer: %s",
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		return;
+	}
+
+	eog_collection_model_foreach (view->priv->model, send_item, composer);
+
+	GNOME_Evolution_Composer_show (composer, &ev);
+	if (BONOBO_EX (&ev)) {
+		g_warning ("Unable to show composer: %s", 
+			   bonobo_exception_get_text (&ev));
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (composer, NULL);
+		return;
+	}
+
+	CORBA_exception_free (&ev);
+}
+#endif
+
+static void
+kill_popup_menu (GtkWidget *widget, GtkMenu *menu)
+{
+	g_return_if_fail (GTK_IS_MENU (menu));
+
+	gtk_object_unref (GTK_OBJECT (menu));
+}
+
+static gboolean
+handle_right_click (EogWrapList *wlist, gint n, GdkEvent *event, 
+		    EogCollectionView *view)
+{
+	GtkWidget *menu, *item, *label;
+
+	g_return_val_if_fail (EOG_IS_COLLECTION_VIEW (view), FALSE);
+
+	menu = gtk_menu_new ();
+	gtk_signal_connect (GTK_OBJECT (menu), "hide",
+			    GTK_SIGNAL_FUNC (kill_popup_menu), menu);
+
+#ifdef ENABLE_EVOLUTION
+	label = gtk_label_new (_("Send"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+	gtk_widget_show (label);
+
+	item = gtk_menu_item_new ();
+	gtk_widget_show (item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate",
+			    GTK_SIGNAL_FUNC (handle_send_activate), view);
+	gtk_container_add (GTK_CONTAINER (item), label);
+	gtk_menu_append (GTK_MENU (menu), item);
+#endif
+
+	label = gtk_label_new (_("Move to Trash"));
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+	gtk_widget_show (label);
+
+	item = gtk_menu_item_new ();
+	gtk_widget_show (item);
+	gtk_signal_connect (GTK_OBJECT (item), "activate",
+			    GTK_SIGNAL_FUNC (handle_delete_activate), view);
+	gtk_container_add (GTK_CONTAINER (item), label);
+	gtk_menu_append (GTK_MENU (menu), item);
+
+	gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+			event->button.button, event->button.time);
+
+	return (TRUE);
+}
 
 static void
 eog_collection_view_get_prop (BonoboPropertyBag *bag,
@@ -606,9 +817,8 @@ set_configuration_values (EogCollectionView *view)
 					 NULL, NULL);
 }
 
-
 EogCollectionView *
-eog_collection_view_construct (EogCollectionView       *list_view)
+eog_collection_view_construct (EogCollectionView *list_view)
 {
 	EogCollectionViewPrivate *priv = NULL;
 
@@ -654,8 +864,10 @@ eog_collection_view_construct (EogCollectionView       *list_view)
 				   EOG_ITEM_FACTORY (priv->factory));
 	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
 	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
-	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "item_dbl_click", 
-			    handle_item_dbl_click, list_view);
+	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "double_click", 
+			    GTK_SIGNAL_FUNC (handle_double_click), list_view);
+	gtk_signal_connect (GTK_OBJECT (priv->wraplist), "right_click",
+			    GTK_SIGNAL_FUNC (handle_right_click), list_view);
 
 	gtk_widget_show (priv->wraplist);
 	gtk_widget_show (priv->root);

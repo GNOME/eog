@@ -29,16 +29,19 @@
 
 BEGIN_GNOME_DECLS
 
-#define EOG_COLLECTION_MODEL_TYPE            (eog_collection_model_get_type ())
-#define EOG_COLLECTION_MODEL(obj)            (GTK_CHECK_CAST ((obj), EOG_COLLECTION_MODEL_TYPE, EogCollectionModel))
-#define EOG_COLLECTION_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), EOG_COLLECTION_MODEL_TYPE, EogCollectionModelClass))
-#define EOG_IS_COLLECTION_MODEL(obj)         (GTK_CHECK_TYPE ((obj), EOG_COLLECTION_MODEL_TYPE))
-#define EOG_IS_COLLECTION_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), EOG_COLLECTION_MODEL_TYPE))
+#define EOG_TYPE_COLLECTION_MODEL            (eog_collection_model_get_type ())
+#define EOG_COLLECTION_MODEL(obj)            (GTK_CHECK_CAST ((obj), EOG_TYPE_COLLECTION_MODEL, EogCollectionModel))
+#define EOG_COLLECTION_MODEL_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), EOG_TYPE_COLLECTION_MODEL, EogCollectionModelClass))
+#define EOG_IS_COLLECTION_MODEL(obj)         (GTK_CHECK_TYPE ((obj), EOG_TYPE_COLLECTION_MODEL))
+#define EOG_IS_COLLECTION_MODEL_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), EOG_TYPE_COLLECTION_MODEL))
 
 
 typedef struct _EogCollectionModel EogCollectionModel;
 typedef struct _EogCollectionModelClass EogCollectionModelClass;
 typedef struct _EogCollectionModelPrivate EogCollectionModelPrivate;
+
+typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model,
+						    guint id, gpointer data);
 
 #define EOG_MODEL_ID_RANGE -1 /* Random number to indicate that the
                                  following two ids are building a range. */
@@ -75,6 +78,14 @@ void
 eog_collection_model_construct (EogCollectionModel *model);
 
 void
+eog_collection_model_foreach (EogCollectionModel *model,
+			      EogCollectionModelForeachFunc func,
+			      gpointer data);
+
+void
+eog_collection_model_remove_item (EogCollectionModel *model, guint id); 
+
+void
 eog_collection_model_set_uri            (EogCollectionModel *model, 
                                          const gchar *uri);
 
@@ -107,6 +118,9 @@ void
 eog_collection_model_toggle_select_status   (EogCollectionModel *model,
                                              guint id);
 
+void
+eog_collection_model_set_select_status      (EogCollectionModel*, guint id,
+					     gboolean status);
 void 
 eog_collection_model_set_select_status_all  (EogCollectionModel *model, 
                                              gboolean status);

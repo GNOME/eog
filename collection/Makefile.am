@@ -16,7 +16,16 @@ INCLUDES =                                              \
 
 bin_PROGRAMS = eog-collection
 
-eog_collection_SOURCES = \
+if ENABLE_EVOLUTION
+EVOLUTION_GENERATED =			\
+	Evolution-Composer.h		\
+	Evolution-Composer-common.c	\
+	Evolution-Composer-skels.c	\
+	Evolution-Composer-stubs.c
+endif
+
+eog_collection_SOURCES =		\
+	$(EVOLUTION_GENERATED)		\
 	eog-wrap-list.c			\
 	eog-wrap-list.h			\
 	eog-collection-control.c        \
@@ -53,4 +62,10 @@ oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
 
 @XML_I18N_MERGE_OAF_RULE@
 
+if ENABLE_EVOLUTION
+$(EVOLUTION_GENERATED):
+	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
+endif
+
+CLEANFILES += $(EVOLUTION_GENERATED)
 EXTRA_DIST = $(oaf_in_files) $(oaf_DATA)

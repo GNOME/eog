@@ -21,54 +21,54 @@
 #include "eog-collection-control.h"
 #include "eog-collection-view.h"
 
-struct _EogControlPrivate {
+struct _EogCollectionControlPrivate{
 	BonoboUIComponent *uic;
 };
 
-#define PARENT_TYPE EOG_COLLECTION_VIEW_TYPE
+#define PARENT_TYPE EOG_TYPE_COLLECTION_VIEW
 
-static EogCollectionViewClass *eog_control_parent_class;
+static EogCollectionViewClass *eog_collection_control_parent_class;
 
 static void
-eog_control_destroy (GtkObject *object)
+eog_collection_control_destroy (GtkObject *object)
 {
-	EogControl *control;
+	EogCollectionControl *control;
 
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (object));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (object));
 
-	control = EOG_CONTROL (object);
+	control = EOG_COLLECTION_CONTROL (object);
 
-	GTK_OBJECT_CLASS (eog_control_parent_class)->destroy (object);
+	GTK_OBJECT_CLASS (eog_collection_control_parent_class)->destroy (object);
 }
 
 static void
-eog_control_finalize (GtkObject *object)
+eog_collection_control_finalize (GtkObject *object)
 {
-	EogControl *control;
+	EogCollectionControl *control;
 
 	g_return_if_fail (object != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (object));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (object));
 
-	control = EOG_CONTROL (object);
+	control = EOG_COLLECTION_CONTROL (object);
 
 	g_free (control->priv);
 
-	GTK_OBJECT_CLASS (eog_control_parent_class)->finalize (object);
+	GTK_OBJECT_CLASS (eog_collection_control_parent_class)->finalize (object);
 }
 
 static void
-eog_control_create_ui (EogControl *control)
+eog_collection_control_create_ui (EogCollectionControl *control)
 {
 	/* Currently we have no additional user interface. */
 }
 
 static void
-eog_control_set_ui_container (EogControl *eog_ctrl,
+eog_collection_control_set_ui_container (EogCollectionControl *eog_ctrl,
 			      Bonobo_UIContainer ui_container)
 {
 	g_return_if_fail (eog_ctrl != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (eog_ctrl));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl));
 	g_return_if_fail (ui_container != CORBA_OBJECT_NIL);
 	
 	eog_collection_view_set_ui_container (EOG_COLLECTION_VIEW (eog_ctrl),
@@ -76,14 +76,14 @@ eog_control_set_ui_container (EogControl *eog_ctrl,
 
 	bonobo_ui_component_set_container (eog_ctrl->priv->uic, ui_container);
 
-	eog_control_create_ui (eog_ctrl);
+	eog_collection_control_create_ui (eog_ctrl);
 }
 
 static void
-eog_control_unset_ui_container (EogControl *eog_ctrl)
+eog_collection_control_unset_ui_container (EogCollectionControl *eog_ctrl)
 {
 	g_return_if_fail (eog_ctrl != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (eog_ctrl));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl));
 
 	eog_collection_view_unset_ui_container (EOG_COLLECTION_VIEW (eog_ctrl));
 
@@ -91,62 +91,62 @@ eog_control_unset_ui_container (EogControl *eog_ctrl)
 }
 
 static void
-eog_control_activate (BonoboControl *bctrl, gboolean state, gpointer data)
+eog_collection_control_activate (BonoboControl *bctrl, gboolean state, gpointer data)
 {
-	EogControl *eog_ctrl;
+	EogCollectionControl *eog_ctrl;
 
 	g_return_if_fail (data != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (data));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (data));
 	g_return_if_fail (bctrl != NULL);
 	g_return_if_fail (BONOBO_IS_CONTROL (bctrl));
 
-	eog_ctrl = EOG_CONTROL (data);
+	eog_ctrl = EOG_COLLECTION_CONTROL (data);
 
 	if (state) {
 		Bonobo_UIContainer ui_container;
 
 		ui_container = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (bctrl));
 		if (ui_container != CORBA_OBJECT_NIL) {
-			eog_control_set_ui_container (eog_ctrl, ui_container);
+			eog_collection_control_set_ui_container (eog_ctrl, ui_container);
 			bonobo_object_release_unref (ui_container, NULL);
 		}
 	} else
-		eog_control_unset_ui_container (eog_ctrl);
+		eog_collection_control_unset_ui_container (eog_ctrl);
 }
 
 static void
-eog_control_class_init (EogControl *klass)
+eog_collection_control_class_init (EogCollectionControl *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *)klass;
 
-	eog_control_parent_class = gtk_type_class (PARENT_TYPE);
+	eog_collection_control_parent_class = gtk_type_class (PARENT_TYPE);
 
-	object_class->destroy = eog_control_destroy;
-	object_class->finalize = eog_control_finalize;
+	object_class->destroy = eog_collection_control_destroy;
+	object_class->finalize = eog_collection_control_finalize;
 }
 
 static void
-eog_control_init (EogControl *control)
+eog_collection_control_init (EogCollectionControl *control)
 {
-	control->priv = g_new0 (EogControlPrivate, 1);
+	control->priv = g_new0 (EogCollectionControlPrivate, 1);
 }
 
-BONOBO_X_TYPE_FUNC (EogControl,
+BONOBO_X_TYPE_FUNC (EogCollectionControl,
 		    PARENT_TYPE,
-		    eog_control);
+		    eog_collection_control);
 
 static void
 handle_open_uri (GtkObject *obj, gchar *uri, gpointer data)
 {
-	EogControl *eog_ctrl;
+	EogCollectionControl *eog_ctrl;
 	BonoboObject *bctrl;
 	CORBA_Environment ev;
 	Bonobo_ControlFrame ctrl_frame;
 
 	g_return_if_fail (obj != NULL);
-	g_return_if_fail (EOG_IS_CONTROL (obj));
+	g_return_if_fail (EOG_IS_COLLECTION_CONTROL (obj));
 
-	eog_ctrl = EOG_CONTROL (obj);
+	eog_ctrl = EOG_COLLECTION_CONTROL (obj);
 	CORBA_exception_init (&ev);
 	
 	bctrl = bonobo_object_query_local_interface (BONOBO_OBJECT (eog_ctrl),
@@ -162,15 +162,15 @@ handle_open_uri (GtkObject *obj, gchar *uri, gpointer data)
 	CORBA_exception_free (&ev);
 }
 
-EogControl *
-eog_control_construct (EogControl    *eog_ctrl)
+EogCollectionControl *
+eog_collection_control_construct (EogCollectionControl    *eog_ctrl)
 {
 	BonoboControl     *bctrl;	
 	BonoboPropertyBag *property_bag;
 	GtkWidget *root;
 
 	g_return_val_if_fail (eog_ctrl != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_CONTROL (eog_ctrl), NULL);
+	g_return_val_if_fail (EOG_IS_COLLECTION_CONTROL (eog_ctrl), NULL);
 
 
 	/* construct parent object */
@@ -188,7 +188,7 @@ eog_control_construct (EogControl    *eog_ctrl)
 	eog_ctrl->priv->uic = bonobo_control_get_ui_component (bctrl);
 
 	gtk_signal_connect (GTK_OBJECT (bctrl), "activate", 
-			    eog_control_activate, eog_ctrl);
+			    eog_collection_control_activate, eog_ctrl);
 
 	/* add properties */
 	property_bag = eog_collection_view_get_property_bag (EOG_COLLECTION_VIEW (eog_ctrl));
@@ -203,12 +203,12 @@ eog_control_construct (EogControl    *eog_ctrl)
 	return eog_ctrl;
 }
 
-EogControl *
-eog_control_new (void)
+EogCollectionControl *
+eog_collection_control_new (void)
 {
-	EogControl *control;
+	EogCollectionControl *control;
 	
-	control = gtk_type_new (eog_control_get_type ());
+	control = gtk_type_new (eog_collection_control_get_type ());
 
-	return eog_control_construct (control);
+	return eog_collection_control_construct (control);
 }

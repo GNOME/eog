@@ -104,7 +104,7 @@ eog_item_factory_class_init (EogItemFactoryClass *class)
 				GTK_SIGNAL_OFFSET (EogItemFactoryClass, update_item),
 				marshal_update_item,
 				GTK_TYPE_NONE, 2,
-				EOG_COLLECTION_MODEL_TYPE,
+				EOG_TYPE_COLLECTION_MODEL,
 				GNOME_TYPE_CANVAS_ITEM);
 	ei_factory_signals[GET_ITEM_SIZE] =
 		gtk_signal_new ("get_item_size",

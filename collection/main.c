@@ -57,7 +57,7 @@ eog_list_viewer_factory (BonoboGenericFactory *this,
 	g_return_val_if_fail (oaf_iid != NULL, NULL);
 
 	if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_CollectionControl")) {
-		retval = BONOBO_OBJECT (eog_control_new ());
+		retval = BONOBO_OBJECT (eog_collection_control_new ());
 	} else {
 		g_warning ("Unknown IID `%s' requested", oaf_iid);
 		return NULL;

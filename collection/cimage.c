@@ -206,7 +206,7 @@ cimage_toggle_select_status (CImage *img)
 void       
 cimage_set_select_status (CImage *img, gboolean status)
 {
-	g_return_if_fail (img != NULL);
+	g_return_if_fail (IS_CIMAGE (img));
 	
 	img->priv->is_selected = status;
 }
@@ -214,7 +214,7 @@ cimage_set_select_status (CImage *img, gboolean status)
 void
 cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail)
 {
-	g_return_if_fail (img != NULL);
+	g_return_if_fail (IS_CIMAGE (img));
 	g_return_if_fail (thumbnail != NULL);
 	
 	if(img->priv->thumbnail)
@@ -227,7 +227,7 @@ cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail)
 void
 cimage_set_caption (CImage *img, gchar *caption)
 {
-	g_return_if_fail (img != NULL);
+	g_return_if_fail (IS_CIMAGE (img));
 	g_return_if_fail (caption != NULL);
 
 	if (img->priv->caption)
@@ -239,8 +239,8 @@ cimage_set_caption (CImage *img, gchar *caption)
 void       
 cimage_set_image_dimensions (CImage *img, guint width, guint height)
 {
-	g_return_if_fail (img != NULL);
-	
+	g_return_if_fail (IS_CIMAGE (img));
+
 	img->priv->width = width;
 	img->priv->height = height;
 }
@@ -248,7 +248,7 @@ cimage_set_image_dimensions (CImage *img, guint width, guint height)
 gchar*
 cimage_get_caption (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
 
 	if (img->priv->caption)
 		return g_strdup (img->priv->caption);
@@ -262,7 +262,7 @@ cimage_is_directory (CImage *img)
 	GnomeVFSFileInfo *info;
 	gboolean result;
 
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
 
 	info = gnome_vfs_file_info_new ();
 	gnome_vfs_get_file_info_uri (img->priv->uri,
@@ -277,41 +277,47 @@ cimage_is_directory (CImage *img)
 gboolean 
 cimage_is_selected (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
+
 	return img->priv->is_selected;
 }
 
 gboolean 
 cimage_has_thumbnail (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
+
 	return (img->priv->thumbnail != NULL);
 }
 
 gboolean
 cimage_has_caption (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
+
 	return (img->priv->caption != NULL);
 }
 
 gboolean 
 cimage_has_loading_failed (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), FALSE);
+
 	return img->priv->loading_failed;
 }
 
 guint
 cimage_get_width (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), 0);
+
 	return img->priv->width;
 }
 
 guint
 cimage_get_height (CImage *img)
 {
-	g_return_val_if_fail (img != NULL, FALSE);
+	g_return_val_if_fail (IS_CIMAGE (img), 0);
+
 	return img->priv->height;
 }

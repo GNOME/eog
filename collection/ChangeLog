@@ -1,3 +1,25 @@
+2001-08-21  Lutz Müller <urc8@rz.uni-karlsruhe.de>
+
+	* .cvsignore: Ignore Evolution-Composer*
+	* Makefile.am: if ENABLE_EVOLUTION, generate Evolution files
+	* cimage.c: (img != NULL) -> IS_CIMAGE (img)
+	* eog-collection-control.[c,h]:
+	EogControl -> EogCollectionControl,
+	eog_control -> eog_collection_control,
+	EOG_CONTROL -> EOG_COLLECTION_CONTROL
+	* eog-collection-model.[c,h]:
+	EOG_COLLECTION_MODEL_TYPE -> EOG_TYPE_COLLECTION_MODEL
+	(eog_collection_model_foreach): New
+	(eog_collection_model_remove_item): New
+	(eog_collection_model_set_select_status): New
+	* eog-collection-view.[c,h]: Implement pop up menu with "Send" (only
+	#ifdef ENABLE_EVOLUTION) and "Move to Trash" items.
+	EOG_COLLECTION_VIEW_TYPE -> EOG_TYPE_COLLECTION_VIEW
+	* eog-item-factory.c: EOG_COLLECTION_MODEL_TYPE -> EOG_TYPE_...
+	* eog-wrap-list.[c,h]: We have now signals here: RIGHT_CLICK and 
+	DOUBLE_CLICK. Ifdef'd out unused code.
+	* main.c: eog_control_new -> eog_collection_control_new
+	
 2001-07-11  Lutz Müller <urc8@rz.uni-karlsruhe.de>
 
 	* Makefile.am: Remove EXTRA_[BONOBO,VFS]_[LIBS,CFLAGS], those are in 

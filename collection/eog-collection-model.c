@@ -240,13 +240,105 @@ eog_collection_model_new (void)
 {
 	EogCollectionModel *model;
 	
-	model = gtk_type_new (EOG_COLLECTION_MODEL_TYPE);
+	model = gtk_type_new (EOG_TYPE_COLLECTION_MODEL);
 
 	eog_collection_model_construct (model);
 
 	return model;
 }
 
+typedef struct {
+	EogCollectionModel *model;
+	EogCollectionModelForeachFunc func;
+	gpointer data;
+	gboolean cont;
+} ForeachData;
+
+static void
+do_foreach (gpointer key, gpointer value, gpointer user_data)
+{
+	ForeachData *data = user_data;
+
+	if (data->cont)
+		data->cont = data->func (data->model, GPOINTER_TO_INT (key),
+					 data->data);
+}
+
+void
+eog_collection_model_foreach (EogCollectionModel *model,
+			      EogCollectionModelForeachFunc func,
+			      gpointer data)
+{
+	ForeachData *foreach_data;
+
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+
+	foreach_data = g_new0 (ForeachData, 1);
+	foreach_data->model = model;
+	foreach_data->func = func;
+	foreach_data->data = data;
+	foreach_data->cont = TRUE;
+	g_hash_table_foreach (model->priv->id_image_mapping, do_foreach, 
+			      foreach_data);
+	g_free (foreach_data);
+}
+
+typedef struct {
+	EogCollectionModel *model;
+	guint id;
+} RemoveItemData;
+
+static gboolean
+remove_item_idle (gpointer user_data)
+{
+	EogCollectionModelPrivate *priv;
+	RemoveItemData *data = user_data;
+	CImage *image;
+	GList *id_list;
+
+	priv = data->model->priv;
+
+	image = g_hash_table_lookup (priv->id_image_mapping,
+				     GINT_TO_POINTER (data->id));
+	if (!image) {
+		g_warning ("Could not find image %i!", data->id);
+		return (FALSE);
+	}
+
+	g_hash_table_remove (priv->id_image_mapping, GINT_TO_POINTER(data->id));
+
+	if (g_slist_find (priv->selected_images, image)) {
+		priv->selected_images = g_slist_remove (priv->selected_images,
+							image);
+		gtk_signal_emit (GTK_OBJECT (data->model),
+				 eog_model_signals [SELECTION_CHANGED]);
+	}
+
+	id_list = g_list_append (NULL, GINT_TO_POINTER (data->id));
+	gtk_signal_emit (GTK_OBJECT (data->model),
+			 eog_model_signals [INTERVAL_REMOVED], id_list);
+
+	g_free (data);
+
+	return (FALSE);
+}
+
+void
+eog_collection_model_remove_item (EogCollectionModel *model, guint id)
+{
+	RemoveItemData *data;
+
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+
+	/*
+	 * We need to do that in the idle loop as there could still be
+	 * some loading or a g_hash_table_foreach running.
+	 */
+	data = g_new0 (RemoveItemData, 1);
+	data->model = model;
+	data->id = id;
+	gtk_idle_add (remove_item_idle, data);
+}
 
 static gboolean
 directory_visit_cb (const gchar *rel_path,
@@ -559,26 +651,23 @@ select_all_images (EogCollectionModel *model)
 static void
 unselect_all_images (EogCollectionModel *model)
 {
-	EogCollectionModelPrivate *priv;
 	GSList *node;
 	GList *id_list = NULL;
+	CImage *img;
+	guint id;
 
-	priv = model->priv;
-
-	node = priv->selected_images;
-	while (node) {
-		CImage *img = (CImage*) node->data;
+	for (node = model->priv->selected_images; node; node = node->next) {
+		g_return_if_fail (IS_CIMAGE (node->data));
+		img = CIMAGE (node->data);
+		id = cimage_get_unique_id (img);
 
 		cimage_set_select_status (img, FALSE);
-		id_list = g_list_append (id_list,
-					 GINT_TO_POINTER (cimage_get_unique_id (img)));
-
-		node = node->next;
+		id_list = g_list_append (id_list, GINT_TO_POINTER (id));
 	}
 
-	if (priv->selected_images)
-		g_slist_free (priv->selected_images);
-	priv->selected_images = NULL;
+	if (model->priv->selected_images)
+		g_slist_free (model->priv->selected_images);
+	model->priv->selected_images = NULL;
 
 	if (id_list)
 		gtk_signal_emit (GTK_OBJECT (model), 
@@ -589,9 +678,39 @@ unselect_all_images (EogCollectionModel *model)
 			 eog_model_signals [SELECTION_CHANGED]);
 }
 
+void
+eog_collection_model_set_select_status (EogCollectionModel *model,
+					guint id, gboolean status)
+{
+	CImage *image;
+	GList *id_list;
 
-void eog_collection_model_set_select_status_all (EogCollectionModel *model, 
-						 gboolean status)
+	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
+
+	image = eog_collection_model_get_image (model, id);
+	if (status == cimage_is_selected (image))
+		return;
+
+	cimage_set_select_status (image, status);
+	if (status)
+		model->priv->selected_images = g_slist_append (
+					model->priv->selected_images, image);
+	else
+		model->priv->selected_images = g_slist_remove (
+					model->priv->selected_images, image);
+	id_list = g_list_append (NULL,
+			GINT_TO_POINTER (cimage_get_unique_id (image)));
+
+	gtk_signal_emit (GTK_OBJECT (model),
+			 eog_model_signals [INTERVAL_CHANGED], id_list);
+	
+	gtk_signal_emit (GTK_OBJECT (model),
+			 eog_model_signals [SELECTION_CHANGED]);
+}
+
+void
+eog_collection_model_set_select_status_all (EogCollectionModel *model, 
+					    gboolean status)
 {
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));

@@ -10,38 +10,38 @@
  * Copyright 2001, The Free Software Foundation
  */
 
-#ifndef _EOG_CONTROL_H_
-#define _EOG_CONTROL_H_
+#ifndef _EOG_COLLECTION_CONTROL_H_
+#define _EOG_COLLECTION_CONTROL_H_
 
 #include "eog-collection-view.h"
 
 BEGIN_GNOME_DECLS
  
-#define EOG_CONTROL_TYPE           (eog_control_get_type ())
-#define EOG_CONTROL(o)             (GTK_CHECK_CAST ((o), EOG_CONTROL_TYPE, EogControl))
-#define EOG_CONTROL_CLASS(k)       (GTK_CHECK_CLASS_CAST((k), EOG_CONTROL_TYPE, EogControlClass))
+#define EOG_TYPE_COLLECTION_CONTROL        (eog_collection_control_get_type ())
+#define EOG_COLLECTION_CONTROL(o)          (GTK_CHECK_CAST ((o), EOG_TYPE_COLLECTION_CONTROL, EogCollectionControl))
+#define EOG_CONTROL_CLASS(k)               (GTK_CHECK_CLASS_CAST((k), EOG_TYPE_COLLECTION_CONTROL, EogCollectionControlClass))
 
-#define EOG_IS_CONTROL(o)          (GTK_CHECK_TYPE ((o), EOG_CONTROL_TYPE))
-#define EOG_IS_CONTROL_CLASS(k)    (GTK_CHECK_CLASS_TYPE ((k), EOG_CONTROL_TYPE))
+#define EOG_IS_COLLECTION_CONTROL(o)       (GTK_CHECK_TYPE ((o), EOG_TYPE_COLLECTION_CONTROL))
+#define EOG_IS_COLLECTION_CONTROL_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), EOG_TYPE_COLLECTION_CONTROL))
 
-typedef struct _EogControl         EogControl;
-typedef struct _EogControlClass    EogControlClass;
-typedef struct _EogControlPrivate  EogControlPrivate;
+typedef struct _EogCollectionControl         EogCollectionControl;
+typedef struct _EogCollectionControlClass    EogCollectionControlClass;
+typedef struct _EogCollectionControlPrivate  EogCollectionControlPrivate;
 
-struct _EogControl {
+struct _EogCollectionControl {
 	EogCollectionView view;
 
-	EogControlPrivate *priv;
+	EogCollectionControlPrivate *priv;
 };
 
-struct _EogControlClass {
+struct _EogCollectionControlClass {
 	EogCollectionViewClass parent_class;
 };
 
-GtkType        eog_control_get_type                    (void);
-EogControl    *eog_control_new                         (void);
-EogControl    *eog_control_construct                   (EogControl    *control);
+GtkType               eog_collection_control_get_type  (void);
+EogCollectionControl *eog_collection_control_new       (void);
+EogCollectionControl *eog_collection_control_construct (EogCollectionControl*);
 
 END_GNOME_DECLS
 
-#endif /* _EOG_CONTROL_H_ */
+#endif /* _EOG_COLLECTION_CONTROL_H_ */

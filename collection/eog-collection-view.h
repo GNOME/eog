@@ -18,12 +18,12 @@
 
 BEGIN_GNOME_DECLS
  
-#define EOG_COLLECTION_VIEW_TYPE          (eog_collection_view_get_type ())
-#define EOG_COLLECTION_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_COLLECTION_VIEW_TYPE, EogCollectionView))
-#define EOG_COLLECTION_VIEW_CLASS(k)      (GTK_CHECK_CLASS_CAST((k), EOG_COLLECTION_VIEW_TYPE, EogCollectionViewClass))
+#define EOG_TYPE_COLLECTION_VIEW          (eog_collection_view_get_type ())
+#define EOG_COLLECTION_VIEW(o)            (GTK_CHECK_CAST ((o), EOG_TYPE_COLLECTION_VIEW, EogCollectionView))
+#define EOG_COLLECTION_VIEW_CLASS(k)      (GTK_CHECK_CLASS_CAST((k), EOG_TYPE_COLLECTION_VIEW, EogCollectionViewClass))
 
-#define EOG_IS_COLLECTION_VIEW(o)         (GTK_CHECK_TYPE ((o), EOG_COLLECTION_VIEW_TYPE))
-#define EOG_IS_COLLECTION_VIEW_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), EOG_COLLECTION_VIEW_TYPE))
+#define EOG_IS_COLLECTION_VIEW(o)         (GTK_CHECK_TYPE ((o), EOG_TYPE_COLLECTION_VIEW))
+#define EOG_IS_COLLECTION_VIEW_CLASS(k)   (GTK_CHECK_CLASS_TYPE ((k), EOG_TYPE_COLLECTION_VIEW))
 
 typedef struct _EogCollectionView         EogCollectionView;
 typedef struct _EogCollectionViewClass    EogCollectionViewClass;
