@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-30 00:56+0900\n"
-"PO-Revision-Date: 2003-10-29 00:22+0900\n"
+"POT-Creation-Date: 2003-11-01 16:32+0900\n"
+"PO-Revision-Date: 2003-10-31 01:15+0900\n"
 "Last-Translator: KAMAGASAKO Masatoshi <emerald@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "時計回りに回転(_L)"
 msgid "Rotate Counte_r Clockwise"
 msgstr "反時計回りに回転(_R)"
 
-#: collection/eog-collection-view-ui.xml.h:10 eog.glade.h:18
+#: collection/eog-collection-view-ui.xml.h:10
 msgid "Slide Show"
 msgstr "スライドショー"
 
@@ -132,75 +132,88 @@ msgid "    "
 msgstr "    "
 
 #: eog.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: eog.glade.h:3
 msgid "<b>Image Interpolation</b>"
 msgstr "<b>画像の補正</b>"
 
-#: eog.glade.h:4
+#: eog.glade.h:3
 msgid "<b>Image Zoom</b>"
 msgstr "<b>画像のズーム</b>"
 
-#: eog.glade.h:5
+#: eog.glade.h:4
 msgid "<b>Sequence</b>"
 msgstr "<b>順番</b>"
 
-#: eog.glade.h:6
-msgid "<b>Transparency</b>"
+#: eog.glade.h:5
+msgid "<b>Transparent Parts</b>"
 msgstr "<b>透過する部分</b>"
 
 #: eog.glade.h:7
-msgid "As background"
-msgstr "背景を利用する"
+#, no-c-format
+msgid "Allow _zoom greater than 100% initially"
+msgstr "初期時に 100% より大きい表示を許可する(_Z)"
 
 #: eog.glade.h:8
+msgid "As _background"
+msgstr "背景として利用(_B)"
+
+#: eog.glade.h:9
 msgid "As check _pattern"
 msgstr "格子を使用する(_P)"
 
-#: eog.glade.h:9
+#: eog.glade.h:10
 msgid "As custom c_olor"
 msgstr "カスタマイズする(_C)"
 
-#: eog.glade.h:10
+#: eog.glade.h:11
 msgid "Color for Transparent Areas"
 msgstr "透過する部分の色"
 
 #: eog.glade.h:12
-#, no-c-format
-msgid "Don't use zoom larger than 100%"
-msgstr "100% よりも大きくズームしない"
-
-#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Eye of GNOME の設定"
 
+#: eog.glade.h:13
+msgid "Image _View"
+msgstr "画像の表示(_V)"
+
 #: eog.glade.h:14
-msgid "Image View"
-msgstr "画像の表示"
+msgid "Show _next image automatically after:"
+msgstr "次の画像を自動的に表示する間隔(_N):"
 
 #: eog.glade.h:15
-msgid "Loop sequence"
-msgstr "ループする"
+msgid "Sli_de Show"
+msgstr "スライドショー(_D)"
 
 #: eog.glade.h:16
-msgid ""
-"Show next image automatically:\n"
-"(0 to disable)"
-msgstr ""
-"次の画像を自動的に表示する間隔:\n"
-"(0: 無効)"
+msgid "_Interpolate image on zoom"
+msgstr "拡大して画像を補正(_I)"
 
-#: eog.glade.h:19
-msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr "ズーム時に画像を補正する (高品質ですが描画は低速)"
+#: eog.glade.h:17
+msgid "_Loop sequence"
+msgstr "ループの順番(_L)"
 
-#: eog.glade.h:20
-msgid "sec"
+#: eog.glade.h:18
+msgid "seconds"
 msgstr "秒"
 
 #: eog.schemas.in.h:1
+msgid ""
+"A value greater 0 determines the seconds an image stays on screen until the "
+"next one is shown automatically. Zero disables the automatic browsing."
+msgstr ""
+"0 より大きい値は、次の画像が自動的に表示されるまで画像が画面上に表示される時"
+"間を指定することになります。0 を指定すると、自動的な表示を無効にします。"
+
+#: eog.schemas.in.h:3
+#, no-c-format
+msgid "Allow zoom greater than 100% initially"
+msgstr "初期時に 100% より大きい表示を許可します"
+
+#: eog.schemas.in.h:4
+msgid "Delay in seconds until showing the next image"
+msgstr "次の画像が表示されるまでの遅延 (秒)"
+
+#: eog.schemas.in.h:5
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -210,7 +223,7 @@ msgstr ""
 "CHECK_PATTERN、COLOR と NONE です。COLOR を選択した場合、キー trans_color に"
 "は使用する色の値を指定します。"
 
-#: eog.schemas.in.h:2
+#: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -218,37 +231,53 @@ msgstr ""
 "キー transparency が COLOR の場合、このキーは透過する部分に使用する色を表しま"
 "す。"
 
-#: eog.schemas.in.h:3
+#: eog.schemas.in.h:7
+msgid ""
+"If this is set to FALSE small images will not be streched to fit into the "
+"screen initially."
+msgstr ""
+"FALSE に設定されると、初期時に小さい画像が画面に合うよう拡大されなくなりま"
+"す。"
+
+#: eog.schemas.in.h:8
 msgid "Interpolate Image"
 msgstr "画像の補正"
 
-#: eog.schemas.in.h:4
+#: eog.schemas.in.h:9
+msgid "Loop through the image sequence"
+msgstr "一連の画像をループ"
+
+#: eog.schemas.in.h:10
 msgid "Open images in a new window"
 msgstr "新しいウインドウで画像を開く"
 
-#: eog.schemas.in.h:5
+#: eog.schemas.in.h:11
 msgid "Transparency color"
 msgstr "透過する部分の色"
 
-#: eog.schemas.in.h:6
+#: eog.schemas.in.h:12
 msgid "Transparency indicator"
 msgstr "透過する部分の表示方法"
 
-#: eog.schemas.in.h:7
+#: eog.schemas.in.h:13
+msgid ""
+"Wether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"画像を開く際に、現在開いているウィンドウの中の画像を入れ替えるのではなく、新"
+"しいウィンドウを生成するかどうかを指定します。"
+
+#: eog.schemas.in.h:14
+msgid "Wether or not the squence of images should be shown in an endless loop."
+msgstr "一連の画像を無限ループで表示するかどうか指定します。"
+
+#: eog.schemas.in.h:15
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
 "ズームの際に画像を補正するかどうかを指定します。これは画像の品質を向上します"
 "が、補正しない場合と比較して多少、描画が低速になります。"
-
-#: eog.schemas.in.h:8
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"画像を開く際に、現在開いているウィンドウの中に画像を表示するのではなく、新し"
-"いウィンドウを生成するかどうかを指定します。"
 
 #: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
@@ -724,3 +753,12 @@ msgstr "ウィンドウの幅にする"
 #: viewer/eog-image-view.c:1347
 msgid "Desired Window Height"
 msgstr "ウィンドウの高さにする"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Don't use zoom larger than 100%"
+#~ msgstr "100% よりも大きくズームしない"
+
+#~ msgid "_Interpolate image on zoom (better quality but slower)"
+#~ msgstr "ズーム時に画像を補正する (高品質ですが描画は低速)"
