@@ -102,7 +102,7 @@ ui_image_init (UIImage *ui)
 
 	GTK_WIDGET_SET_FLAGS (ui, GTK_CAN_FOCUS);
 
-	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui), GTK_SHADOW_IN);
+ 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (ui), GTK_SHADOW_IN);
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (ui),
 				     GTK_POLICY_AUTOMATIC,
 				     GTK_POLICY_AUTOMATIC);
@@ -250,3 +250,54 @@ ui_image_zoom_fit (UIImage *ui)
 	zoom = zoom_fit_scale (w - 2 * xthick, h - 2 * ythick, iw, ih, TRUE);
 	image_view_set_zoom (IMAGE_VIEW (priv->view), zoom, zoom);
 }
+
+/**
+ * ui_image_fit_to_screen:
+ * @ui: An UIImage object.
+ *
+ * Resizes the UIImage in that way that it shows the whole image at zoom factor
+ * 1.0. If the image is larger than the screen, it will be zoomed to fit into
+ * 75% of the screen width/height. The proportion will be preserved.
+ **/
+void 
+ui_image_fit_to_screen (UIImage *ui)
+{
+	gint width, height;
+	gint sw, sh;
+	Image *img;
+
+	g_return_if_fail (ui != NULL);
+	g_return_if_fail (IS_UI_IMAGE (ui));
+
+	img = image_view_get_image (IMAGE_VIEW (ui->priv->view));
+	if (img == NULL) return;
+	if (img->pixbuf == NULL) return;
+
+	width = gdk_pixbuf_get_width (img->pixbuf);
+	height = gdk_pixbuf_get_height (img->pixbuf);
+
+	sw = gdk_screen_width ();
+	sh = gdk_screen_height ();
+
+	if (width < 200 && height < 200)
+		width = height = 200;
+
+	if (width >= sw || height >= sh) {
+		double zoom;
+
+		if (width > height)
+			zoom = sw*0.75/width;
+		else
+			zoom = sh*0.75/height;
+
+		image_view_set_zoom (IMAGE_VIEW (ui->priv->view), 
+				     zoom, zoom);
+		image_view_get_scaled_size (IMAGE_VIEW (ui->priv->view),
+					    &width, &height);
+	}
+
+	gtk_widget_set_usize (GTK_WIDGET (ui),
+			      width,
+			      height);
+}
+

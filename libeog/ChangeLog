@@ -1,3 +1,13 @@
+2001-05-18  Jens Finke <jens@gnome.org>
+
+	* image_view.[ch] (image_view_get_scaled_size): New function,
+	which returns the image width and height, but takes also the zoom
+	factor into account.
+
+	* ui-image.[ch] (ui_image_fit_to_screen): New function, tries to
+	show the whole image with zoom factor 1.0, if this doesn't fit
+	onto the screen, then it scales the image down.
+	
 2001-04-14  Michael Meeks  <michael@ximian.com>
 
 	* Makefile.am (dist-hook): add.

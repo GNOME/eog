@@ -1978,3 +1978,27 @@ image_view_get_full_screen_zoom (ImageView *view)
 	priv = view->priv;
 	return priv->full_screen_zoom;
 }
+
+/**
+ * image_view_get_scaled_size
+ * @view: An image view.
+ * @width: Image width result.
+ * @height: Image height result.
+ *
+ * Returns the size of the image after applying the zoom factor.
+ *
+ * Return value: Image size according to zoom factor.
+ **/
+void image_view_get_scaled_size (ImageView *view, gint *width, gint *height)
+{
+	ImageViewPrivate *priv;
+
+	*width = *height = 0;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (view));
+
+	priv = view->priv;
+
+	compute_scaled_size (view, priv->zoomx, priv->zoomy, width, height);
+}

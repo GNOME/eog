@@ -64,6 +64,8 @@ GtkWidget *ui_image_get_image_view (UIImage *ui);
 
 void ui_image_zoom_fit (UIImage *ui);
 
+void ui_image_fit_to_screen (UIImage *ui);
+
 
 
 END_GNOME_DECLS
