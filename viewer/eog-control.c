@@ -267,11 +267,12 @@ static BonoboUIVerb eog_control_verbs[] = {
 };
 
 static const gchar *zoom_toolbar =
-"<dockitem name=\"EogZoomToolbar\" homogeneous=\"1\" hidden=\"1\">\n"
+"<dockitem name=\"Toolbar\">\n"
+"  <separator/>\n"
 "  <toolitem name=\"ZoomIn\" _label=\"In\" pixtype=\"filename\"\n"
-"            pixname=\"eog/stock-zoom-out.xpm\" verb=\"\"/>\n"
-"  <toolitem name=\"ZoomOut\" _label=\"Out\" pixtype=\"filename\"\n"
 "            pixname=\"eog/stock-zoom-in.xpm\" verb=\"\"/>\n"
+"  <toolitem name=\"ZoomOut\" _label=\"Out\" pixtype=\"filename\"\n"
+"            pixname=\"eog/stock-zoom-out.xpm\" verb=\"\"/>\n"
 "  <toolitem name=\"ZoomToDefault\" _label=\"1:1\" pixtype=\"filename\"\n"
 "            pixname=\"eog/stock-zoom-1.xpm\" verb=\"\"/>\n"
 "  <toolitem name=\"ZoomToFit\" _label=\"Fit\" pixtype=\"filename\"\n"
@@ -293,7 +294,7 @@ eog_control_create_ui (EogControl *control)
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
 	bonobo_ui_component_set_translate (control->priv->uic,
-					   "/menu/EOG", zoom_menu,
+					   "/menu/Component/View", zoom_menu,
 					   NULL);
 
 	bonobo_ui_component_set_translate (control->priv->uic,
