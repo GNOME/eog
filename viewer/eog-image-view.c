@@ -458,26 +458,7 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		g_free (text);
 		break;
 	}
-	case PROP_WINDOW_WIDTH: {
-		int width = -1;
-		int height = -1;
-
-		g_assert (arg->_type == BONOBO_ARG_INT);
-
-		if (priv->image != NULL) {
-			int sw;
-			eog_image_get_size (priv->image, &width, &height);
-
-			sw = gdk_screen_width ();
-
-			if (width >= sw) {
-				width = 0.75 * sw;
-			}
-		}
-
-		BONOBO_ARG_SET_INT (arg, width);
-		break;
-	}
+	case PROP_WINDOW_WIDTH: 
 	case PROP_WINDOW_HEIGHT: {
 		int width = -1;
 		int height = -1;
@@ -485,17 +466,34 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		g_assert (arg->_type == BONOBO_ARG_INT);
 
 		if (priv->image != NULL) {
-			int sh;
-			eog_image_get_size (priv->image, &width, &height);
+			int sw, sh;
+			int img_width, img_height;
+			eog_image_get_size (priv->image, &img_width, &img_height);
 
+			sw = gdk_screen_width ();
 			sh = gdk_screen_height ();
 
-			if (height >= sh) {
-				height = 0.75 * sh;
+			if ((img_width >= sw) || (img_height >= sh)) {
+				double factor;
+				if (img_width > img_height) {
+					factor = (sw * 0.75) / (double) img_width;
+				}
+				else {
+					factor = (sh * 0.75) / (double) img_height;
+				}
+				width = img_width * factor;
+				height = img_height * factor;
+			}
+			else {
+				width = img_width;
+				height = img_height;
 			}
 		}
 
-		BONOBO_ARG_SET_INT (arg, height);
+		if (arg_id == PROP_WINDOW_WIDTH)
+			BONOBO_ARG_SET_INT (arg, width);
+		else 
+			BONOBO_ARG_SET_INT (arg, height);
 		break;
 	}
 	default:
