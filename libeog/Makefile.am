@@ -21,16 +21,31 @@ CORBA_SOURCES =			\
 
 noinst_LTLIBRARIES = libeog.la
 
-libeog_la_SOURCES =		\
-	$(CORBA_SOURCES)
+libeog_la_SOURCES =			\
+	$(CORBA_SOURCES)		\
+	gtkscrollframe.c		\
+	gtkscrollframe.h		\
+	image-view.c			\
+	image-view.h			\
+	image.h				\
+	image.c				\
+	uta.c				\
+	uta.h				\
+	cursors.c			\
+	cursors.h			\
+	ui-image.c			\
+	ui-image.h			\
+	zoom.c				\
+	zoom.h
+
 
 libeog_la_LIBADD = 			\
-	$(GNOME_LIBS)				\
-	$(GNOME_LIBDIR)				\
-	$(GNOME_LIBS)				\
-	$(OAF_LIBS)				\
-	$(INTLLIBS)				\
-	$(EXTRA_BONOBO_LIBS)			\
+	$(GNOME_LIBS)			\
+	$(GNOME_LIBDIR)			\
+	$(GNOME_LIBS)			\
+	$(OAF_LIBS)			\
+	$(INTLLIBS)			\
+	$(EXTRA_BONOBO_LIBS)		\
 	$(LIBPNG) $(LIBJPEG)
 
 idls =							\
