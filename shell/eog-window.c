@@ -907,9 +907,9 @@ eog_window_open_dialog (EogWindow *window)
 #else
 		create_gtk_file_sel (window);
 #endif
+		gnome_window_icon_set_from_default (GTK_WINDOW (priv->file_sel));
 	}
 
-	gnome_window_icon_set_from_default (GTK_WINDOW (priv->file_sel));
 	gtk_widget_show_now (priv->file_sel);
 	raise_and_focus (priv->file_sel);
 }
