@@ -1,8 +1,10 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <libgnomeui/libgnomeui.h>
+#include <libgnome/gnome-i18n.h>
 #include "eog-preferences.h"
 #include "eog-config-keys.h"
+#include "eog-hig-dialog.h"
 
 #define GCONF_OBJECT_KEY             "GCONF_KEY"
 #define GCONF_OBJECT_VALUE           "GCONF_VALUE"
@@ -82,6 +84,31 @@ radio_toggle_cb (GtkWidget *widget, gpointer data)
 				 NULL);
 }
 
+static void
+help_cb (GtkWidget *widget, gpointer data)
+{
+	GError *error = NULL;
+
+	gnome_help_display ("eog.xml", "eog-prefs", &error);
+
+	if (error) {
+		GtkWidget *dialog;
+
+		dialog = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
+					     _("Could not display help for Eye of Gnome"),
+					     error->message, TRUE);
+
+		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
+
+		g_signal_connect_swapped (dialog, "response",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dialog);
+
+		gtk_widget_show (dialog);
+		g_error_free (error);
+	}
+}
+
 void
 eog_preferences_show (GConfClient *client)
 {
@@ -100,8 +127,11 @@ eog_preferences_show (GConfClient *client)
 	g_signal_connect_swapped (G_OBJECT (widget), "clicked", 
 				  G_CALLBACK (gtk_widget_destroy), dlg);
 
-	/* remove the 'slide show' page, since it is not implemented yet */
-	widget = glade_xml_get_widget (xml, "notebook2");
+	widget = glade_xml_get_widget (xml, "help_button");
+
+	if (widget)
+		g_signal_connect (G_OBJECT (widget), "clicked", 
+				  G_CALLBACK (help_cb), dlg);
 
 	/* interpolate flag */
 	widget = glade_xml_get_widget (xml, "interpolate_check");

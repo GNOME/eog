@@ -1,3 +1,11 @@
+2004-10-20  Vinay M R  <vinay.mandyakoppal@wipro.com>
+
+	* shell/eog-preferences.c (eog_preferences_show): Added help_cb()
+	to provide help support for Edit->Preferences.
+	* eog.glade: Created the Help button.
+	Edited the patch given by Shakti Sen  <shakti.sen@wipro.com>.
+	Fixes the bug #131897
+
 2004-10-20  Jens Finke  <jens@triq.net>
 
 	* shell/eog-gtk-ui.xml,
@@ -11,7 +19,7 @@
 	* shell/main.c: (main): Initialize gnome-authentication-manager.
 	Fixes #141851.
 
-2004-10-20  Jens Finke  <jens@triq.net>
+2004-10-20  Jens Finke  <jens@triq.net>	
 
 	* shell/main.c: s/eel_uri_from_shell_arg/gnome_vfs_uri_from_shell_arg
 	Patch by Paolo Borelli <pborelli@katamail.com>  - #155841
