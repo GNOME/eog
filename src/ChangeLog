@@ -1,3 +1,16 @@
+2000-07-27  Federico Mena Quintero  <federico@helixcode.com>
+
+	* zoom.c (zoom_fit_size): Use rounding to get better results.
+
+	* ui-image.c (ui_image_zoom_fit): Do not subtract the frame
+	thickness if the shadow type is GTK_SHADOW_NONE.
+
+	* gtkscrollframe.c (gtk_scroll_frame_get_policy): New function.
+	(gtk_scroll_frame_get_shadow_type): New function.
+
+	* image-view.c (image_view_set_zoom): Do not change the zoom
+	factor if it is the same as the current one.
+
 2000-07-24  Federico Mena Quintero  <federico@helixcode.com>
 
 	* zoom.c (zoom_image_has_standard_size): New function to see

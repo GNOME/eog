@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
+#include <math.h>
 #include "zoom.h"
 
 
@@ -62,11 +64,11 @@ zoom_fit_size (guint dest_width, guint dest_height,
 	}
 
 	w = dest_width;
-	h = (src_height * w) / src_width;
+	h = floor ((double) (src_height * w) / src_width + 0.5);
 
 	if (h > dest_height) {
 		h = dest_height;
-		w = (src_width * h) / src_height;
+		w = floor ((double) (src_width * h) / src_height + 0.5);
 	}
 
 	g_assert (w <= dest_width);

@@ -77,9 +77,15 @@ GtkAdjustment *gtk_scroll_frame_get_vadjustment (GtkScrollFrame *sf);
 void gtk_scroll_frame_set_policy (GtkScrollFrame *sf,
 				  GtkPolicyType hsb_policy,
 				  GtkPolicyType vsb_policy);
+void gtk_scroll_frame_get_policy (GtkScrollFrame *sf,
+				  GtkPolicyType *hsb_policy,
+				  GtkPolicyType *vsb_policy);
 
 void gtk_scroll_frame_set_placement (GtkScrollFrame *sf, GtkCornerType frame_placement);
+
 void gtk_scroll_frame_set_shadow_type (GtkScrollFrame *sf, GtkShadowType shadow_type);
+GtkShadowType gtk_scroll_frame_get_shadow_type (GtkScrollFrame *sf);
+
 void gtk_scroll_frame_set_scrollbar_spacing (GtkScrollFrame *sf, guint spacing);
 
 void gtk_scroll_frame_add_with_viewport (GtkScrollFrame *sf, GtkWidget *child);

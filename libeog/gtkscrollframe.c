@@ -1127,6 +1127,33 @@ gtk_scroll_frame_set_policy (GtkScrollFrame *sf,
 }
 
 /**
+ * gtk_scroll_frame_get_policy:
+ * @sf: A scroll frame widget.
+ * @hsb_policy: Return value for the horizontal scrollbar's policy.
+ * @vsb_policy: Return value for the vertical scrollbar's policy.
+ * 
+ * Queries the scrollbar policies of a scroll frame widget.
+ **/
+void
+gtk_scroll_frame_get_policy (GtkScrollFrame *sf,
+			     GtkPolicyType *hsb_policy,
+			     GtkPolicyType *vsb_policy)
+{
+	ScrollFramePrivate *priv;
+
+	g_return_if_fail (sf != NULL);
+	g_return_if_fail (GTK_IS_SCROLL_FRAME (sf));
+
+	priv = sf->priv;
+
+	if (hsb_policy)
+		*hsb_policy = priv->hsb_policy;
+
+	if (vsb_policy)
+		*vsb_policy = priv->vsb_policy;
+}
+
+/**
  * gtk_scroll_frame_set_placement:
  * @sf: A scroll frame widget.
  * @frame_placement: Placement for the frame.
@@ -1175,6 +1202,27 @@ gtk_scroll_frame_set_shadow_type (GtkScrollFrame *sf, GtkShadowType shadow_type)
 
 	priv->shadow_type = shadow_type;
 	gtk_widget_queue_resize (GTK_WIDGET (sf));
+}
+
+/**
+ * gtk_scroll_frame_get_shadow_type:
+ * @sf: A scroll frame widget.
+ * 
+ * Queries the shadow type of a scroll frame widget.
+ * 
+ * Return value: Shadow type.
+ **/
+GtkShadowType
+gtk_scroll_frame_get_shadow_type (GtkScrollFrame *sf)
+{
+	ScrollFramePrivate *priv;
+
+	g_return_val_if_fail (sf != NULL, GTK_SHADOW_NONE);
+	g_return_val_if_fail (GTK_IS_SCROLL_FRAME (sf), GTK_SHADOW_NONE);
+
+	priv = sf->priv;
+
+	return priv->shadow_type;
 }
 
 /**

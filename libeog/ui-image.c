@@ -233,8 +233,13 @@ ui_image_zoom_fit (UIImage *ui)
 
 	w = GTK_WIDGET (ui)->allocation.width;
 	h = GTK_WIDGET (ui)->allocation.height;
-	xthick = GTK_WIDGET (ui)->style->klass->xthickness;
-	ythick = GTK_WIDGET (ui)->style->klass->ythickness;
+
+	if (gtk_scroll_frame_get_shadow_type (GTK_SCROLL_FRAME (ui)) == GTK_SHADOW_NONE)
+		xthick = ythick = 0;
+	else {
+		xthick = GTK_WIDGET (ui)->style->klass->xthickness;
+		ythick = GTK_WIDGET (ui)->style->klass->ythickness;
+	}
 
 	if (image->pixbuf) {
 		iw = gdk_pixbuf_get_width (image->pixbuf);

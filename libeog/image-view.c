@@ -1622,6 +1622,9 @@ image_view_set_zoom (ImageView *view, double zoom)
 
 	priv = view->priv;
 
+	if (priv->zoom == zoom)
+		return;
+
 	if (!priv->need_zoom_change) {
 		priv->old_zoom = priv->zoom;
 		priv->need_zoom_change = TRUE;
