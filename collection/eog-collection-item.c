@@ -190,11 +190,17 @@ get_busy_pixbuf (void)
 
 	if (busy == NULL) {
 		char *path;
+		char *file;
+
+		/* FIXME: we must use a proper initialized GnomeProgramm struct here. */
+		file = g_build_filename ("eog", "loading.png", NULL);
 		path = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_PIXMAP, 
-						  "apple-green.png", TRUE, NULL);
+						  file, TRUE, NULL);
 		
 		busy = gdk_pixbuf_new_from_file (path, NULL);
+
 		g_free (path);
+		g_free (file);
 	}
 
 	gdk_pixbuf_ref (busy);
