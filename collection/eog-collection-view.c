@@ -41,6 +41,7 @@
 #include "eog-collection-model.h"
 #include "eog-collection-preferences.h"
 #include "eog-collection-marshal.h"
+#include "eog-slide-show.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -143,9 +144,37 @@ impl_GNOME_EOG_ImageCollection_openURIList (PortableServer_Servant servant,
 }
 
 static void
+verb_SlideShow_cb (BonoboUIComponent *uic, 
+		   gpointer user_data,
+		   const char *cname)
+{
+	EogCollectionView *view;
+	GtkWidget *show;
+
+	view = EOG_COLLECTION_VIEW (user_data);
+
+	show = eog_slide_show_new (view->priv->model);
+	gtk_widget_show (show);
+}
+
+
+static BonoboUIVerb collection_verbs[] = {
+	BONOBO_UI_VERB ("SlideShow", verb_SlideShow_cb),
+	BONOBO_UI_VERB_END
+};
+
+static void
 eog_collection_view_create_ui (EogCollectionView *view)
 {
-	/* Currently we have no additional user interface. */
+	g_return_if_fail (EOG_IS_COLLECTION_VIEW (view));
+
+	/* Set up the UI from an XML file. */
+        bonobo_ui_util_set_ui (view->priv->uic, DATADIR,
+			       "eog-collection-view-ui.xml", "EogCollectionView", NULL);
+
+	bonobo_ui_component_add_verb_list_with_data (view->priv->uic,
+						     collection_verbs,
+						     view);
 }
 
 void

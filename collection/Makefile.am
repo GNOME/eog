@@ -59,6 +59,8 @@ eog_collection_view_SOURCES =		\
 	eog-image-loader-preview.h	\
 	eog-collection-model.h		\
 	eog-collection-model.c		\
+	eog-slide-show.h		\
+	eog-slide-show.c		\
 	eog-item-factory.h		\
 	eog-item-factory.c		\
 	eog-item-factory-simple.c	\
@@ -93,5 +95,8 @@ $(EVOLUTION_GENERATED):
 	$(ORBIT_IDL) `$(GNOME_CONFIG) --datadir`/idl/Evolution-Composer.idl
 endif
 
+uidir = $(datadir)/gnome-2.0/ui
+ui_DATA = eog-collection-view-ui.xml
+
 CLEANFILES += $(EVOLUTION_GENERATED) $(BUILT_SOURCES)
-EXTRA_DIST = $(server_in_files) eog-collection-marshal.list
+EXTRA_DIST = $(ui_DATA) $(server_in_files) eog-collection-marshal.list
