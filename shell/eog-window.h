@@ -27,6 +27,9 @@
 
 G_BEGIN_DECLS 
 
+#define EOG_VIEWER_CONTROL_IID     "OAFIID:GNOME_EOG_Control"
+#define EOG_COLLECTION_CONTROL_IID "OAFIID:GNOME_EOG_CollectionControl"
+
 #define EOG_TYPE_WINDOW            (eog_window_get_type ())
 #define EOG_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_WINDOW, EogWindow))
 #define EOG_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_WINDOW, EogWindowClass))
@@ -34,6 +37,13 @@ G_BEGIN_DECLS
 #define EOG_IS_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_WINDOW))
 #define EOG_WINDOW_GET_CLASS(o)    (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_WINDOW, EogWindowClass))
 
+typedef enum {
+	EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
+	EOG_WINDOW_ERROR_NO_PERSIST_FILE_INTERFACE,
+	EOG_WINDOW_ERROR_IO,
+	EOG_WINDOW_ERROR_UNKNOWN,
+} EogWindowError;
+#define EOG_WINDOW_ERROR eog_window_error_quark ()
 
 typedef struct _EogWindow         EogWindow;
 typedef struct _EogWindowClass    EogWindowClass;
@@ -50,30 +60,26 @@ struct _EogWindow {
 
 struct _EogWindowClass {
 	BonoboWindowClass parent_class;
+
+	void (* open_uri_list) (EogWindow *window, GList *text_uri_list);
+	void (* new_window) (EogWindow *window);
 };
 
 
 GType        eog_window_get_type                    (void);
-GtkWidget *eog_window_new (void);
-void eog_window_construct (EogWindow *eog_window);
+GtkWidget*   eog_window_new (void);
 
-void eog_window_close (EogWindow *eog_window);
+void         eog_window_close (EogWindow *eog_window);
 
-void eog_window_open_dialog (EogWindow *eog_window);
-gboolean eog_window_open (EogWindow *eog_window, const char *text_uri);
-gboolean eog_window_open_list (EogWindow *eog_window, GList *text_uri_list);
+gboolean     eog_window_open (EogWindow *win, const char *iid, const char *text_uri, GError **error);
+gboolean     eog_window_open_list (EogWindow *win, const char *iid, GList *text_uri_list, GError **error);
 
-void eog_window_set_auto_size (EogWindow *eog_window, gboolean bool);
-gboolean eog_window_get_auto_size (EogWindow *eog_window);
+const char*  eog_window_get_uri (EogWindow *eog_window);
+gboolean     eog_window_has_contents (EogWindow *eog_window);
 
-const char *eog_window_get_uri (EogWindow *eog_window);
+GList*       eog_get_window_list (void);
 
-Bonobo_PropertyControl eog_window_get_property_control (EogWindow *eog_window,
-							CORBA_Environment *ev);
-
-GList *eog_get_window_list (void);
-
-void eog_window_close_all (void);
+void         eog_window_close_all (void);
 
 G_END_DECLS
 

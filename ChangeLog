@@ -1,3 +1,19 @@
+2003-02-28  Jens Finke  <jens@triq.net>
+	
+	* shell/main.c: Reworked the way file paths are converted to
+	URIs. This should fix bugs #95561, #104961 and #105192. We have a
+	single function now which is in charge of this, wether you use the
+	commandline, the open dialog or dnd. HIGified the error
+	dialogs. Removed fallbacks if no collection-view is build.
+	
+	* shell/eog-window.[ch]: Reworked the file loading. There is now
+	exactly one function in charge of file loading. This simplifies
+	the code a lot. Added signals for creating a new window and
+	opening a file, since these actions are handled now by main.c.
+
+	* shell/session.c (load_uri_with_role): Adapted to new
+	eog_window_open function.
+
 2003-02-26  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-hig-dialog.[ch]: New files. A HIG compatible message
