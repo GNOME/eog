@@ -385,6 +385,41 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	view_update (view_data);
 }
 
+static void
+render_fn (GnomePrintContext  *ctx,
+	   BonoboPrintContext *c,
+	   gpointer            user_data)
+{
+	bonobo_object_data_t *bod = user_data;
+	GdkPixbuf            *buf;
+	double                matrix[6];
+
+	g_return_if_fail (bod != NULL);
+	g_return_if_fail (bod->pixbuf != NULL);
+
+	buf = bod->pixbuf;
+
+#ifdef EOG_DEBUG
+	g_warning ("Printing %g %g %g %g", c->x, c->y,
+		   c->width, c->height);
+#endif
+
+	art_affine_scale (matrix, c->width, c->height);
+	matrix[4] = c->x;
+	matrix[5] = c->y;
+
+	gnome_print_gsave     (ctx);
+	gnome_print_concat    (ctx, matrix);
+	if (gdk_pixbuf_get_has_alpha (buf))
+		g_warning ("We need to loose our alpha channel somehow");
+	gnome_print_rgbimage  (ctx,
+			       gdk_pixbuf_get_pixels    (buf),
+			       gdk_pixbuf_get_width     (buf),
+			       gdk_pixbuf_get_height    (buf),
+			       gdk_pixbuf_get_rowstride (buf));
+	gnome_print_grestore  (ctx);
+}
+
 static BonoboView *
 view_factory_common (BonoboEmbeddable *bonobo_object,
 		     GtkWidget        *scrolled_window,
@@ -471,10 +506,10 @@ scrollable_view_factory (BonoboEmbeddable *bonobo_object,
 static BonoboObject *
 bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *data)
 {
-	BonoboEmbeddable *bonobo_object;
-	BonoboPersistStream *stream;
+	BonoboEmbeddable     *bonobo_object;
+	BonoboPersistStream  *stream;
 	bonobo_object_data_t *bod;
-
+	BonoboPrint          *print;
 
 	g_return_val_if_fail (this != NULL, NULL);
 	g_return_val_if_fail (this->goad_id != NULL, NULL);
@@ -525,6 +560,13 @@ bonobo_object_factory (BonoboGenericFactory *this, const char *goad_id, void *da
 	 */
 	bonobo_object_add_interface (BONOBO_OBJECT (bonobo_object),
 				     BONOBO_OBJECT (stream));
+
+	/*
+	 * Interface Bonobo::PersistStream 
+	 */
+	print = bonobo_print_new (render_fn, bod);
+	bonobo_object_add_interface (BONOBO_OBJECT (bonobo_object),
+				     BONOBO_OBJECT (print));
 
 	return BONOBO_OBJECT (bonobo_object);
 }

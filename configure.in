@@ -69,8 +69,32 @@ if $try_bonobo; then
 fi
 AM_CONDITIONAL(BONOBO, $have_bonobo)
 
-EXTRA_BONOBO_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo`
-EXTRA_BONOBO_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo`
+dnl ******************************
+dnl GnomePrint checking
+dnl ******************************
+gprint=
+gprint_msg=no
+have_gprint=false
+AC_MSG_CHECKING(for GnomePrint libraries >= 0.16)
+if gnome-config --libs print > /dev/null 2>&1; then 
+    vers=`gnome-config --modversion print | sed -e "s/gnome-print-//" | \
+        awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`
+    if test "$vers" -ge 16; then
+        AC_MSG_RESULT(found)
+	AC_DEFINE(ENABLE_GPRINT)
+	have_gprint=true
+	gprint=print
+	gprint_msg=yes
+    else
+        AC_MSG_RESULT(not found)
+    fi
+else
+    AC_MSG_RESULT(not installed)
+fi
+AM_CONDITIONAL(GPRINT, $have_gprint)
+
+EXTRA_BONOBO_CFLAGS=`gnome-config --cflags gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo $gprint`
+EXTRA_BONOBO_LIBS=`gnome-config --libs gnomeui gdk_pixbuf gnomecanvaspixbuf $bonobo $gprint`
 AC_SUBST(EXTRA_BONOBO_CFLAGS)
 AC_SUBST(EXTRA_BONOBO_LIBS)
 
@@ -97,4 +121,5 @@ Configuration:
 	Compiler:		${CC} 
 	
 	Bonobo Support:		${bonobo_msg}
+	Printing Support:	${gprint_msg}
 "

@@ -1,4 +1,11 @@
 if BONOBO
+
+if GPRINT
+PRINT_LIBS = -lbonobo-print
+else
+PRINT_LIBS =
+endif
+
 bin_PROGRAMS = bonobo-image-generic
 
 bonobo_image_generic_SOURCES =	\
@@ -18,6 +25,7 @@ bonobo_image_generic_LDADD = 			\
 	$(GNOME_LIBDIR)				\
 	$(GNOMEGNORBA_LIBS)			\
 	$(INTLLIBS)				\
+	$(PRINT_LIBS)				\
 	$(EXTRA_BONOBO_LIBS)
 
 gnorbadir = $(sysconfdir)/CORBA/servers
@@ -25,3 +33,4 @@ gnorba_DATA = image-generic.gnorba
 endif
 
 EXTRA_DIST = image-generic.gnorba
+

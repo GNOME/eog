@@ -7,4 +7,5 @@
 #undef HAVE_STPCPY
 #undef ENABLE_NLS
 #undef ENABLE_BONOBO
+#undef ENABLE_GPRINT
 
