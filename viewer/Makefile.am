@@ -51,7 +51,7 @@ eog_image_viewer_LDADD = 			\
 	$(EOG_LIBS)				\
 	$(LIBPNG) $(LIBJPEG)
 
-uidir = $(datadir)/gnome/ui
+uidir = $(datadir)/gnome-2.0/ui
 ui_DATA = eog-image-view-ui.xml
 
 EXTRA_DIST = $(ui_DATA)

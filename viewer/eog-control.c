@@ -292,7 +292,7 @@ eog_control_create_ui (EogControl *control)
 	g_return_if_fail (EOG_IS_CONTROL (control));
 
 	bonobo_ui_component_set_translate (control->priv->uic,
-					   "/menu/View", zoom_menu,
+					   "/menu/ViewPlaceholder/View", zoom_menu,
 					   NULL);
 
 	bonobo_ui_component_set_translate (control->priv->uic,

@@ -64,43 +64,45 @@
 
     </submenu>
   
-    <submenu name="View" _label="_View">
-
-      <submenu name="Interpolation" _label="_Interpolation">
-	<menuitem name="InterpolationNearest" verb=""/>
-	<menuitem name="InterpolationTiles" verb=""/>
-	<menuitem name="InterpolationBilinear" verb=""/>
-	<menuitem name="InterpolationHyperbolic" verb=""/>
+    <placeholder name="ViewPlaceholder">
+       <submenu name="View" _label="View">
+  
+  	<submenu name="Interpolation" _label="_Interpolation">
+  	  <menuitem name="InterpolationNearest" verb=""/>
+  	  <menuitem name="InterpolationTiles" verb=""/>
+  	  <menuitem name="InterpolationBilinear" verb=""/>
+  	  <menuitem name="InterpolationHyperbolic" verb=""/>
+  	</submenu>
+  
+  	<submenu name="Dither" _label="_Dither">
+  	  <menuitem name="DitherNone" verb=""/>
+  	  <menuitem name="DitherNormal" verb=""/>
+  	  <menuitem name="DitherMaximum" verb=""/>
+  	</submenu>
+  
+  	<submenu name="CheckType" _label="Check _type">
+  	  <menuitem name="CheckTypeDark" verb=""/>
+  	  <menuitem name="CheckTypeMidtone" verb=""/>
+  	  <menuitem name="CheckTypeLight" verb=""/>
+  	  <menuitem name="CheckTypeBlack" verb=""/>
+  	  <menuitem name="CheckTypeGray" verb=""/>
+  	  <menuitem name="CheckTypeWhite" verb=""/>
+  	</submenu>
+  
+  	<submenu name="CheckSize" _label="Check _size">
+  	  <menuitem name="CheckSizeSmall" verb=""/>
+  	  <menuitem name="CheckSizeSmall" verb=""/>
+  	  <menuitem name="CheckSizeSmall" verb=""/>
+  	</submenu>
+  
+  	<placeholder name="ZoomMenu" delimit="top"/>
+  
+  	<separator/>
+  
+  	<menuitem name="FullScreen" _label="Full Screen" verb=""/>
       </submenu>
 
-      <submenu name="Dither" _label="_Dither">
-	<menuitem name="DitherNone" verb=""/>
-	<menuitem name="DitherNormal" verb=""/>
-	<menuitem name="DitherMaximum" verb=""/>
-      </submenu>
-
-      <submenu name="CheckType" _label="Check _type">
-	<menuitem name="CheckTypeDark" verb=""/>
-	<menuitem name="CheckTypeMidtone" verb=""/>
-	<menuitem name="CheckTypeLight" verb=""/>
-	<menuitem name="CheckTypeBlack" verb=""/>
-	<menuitem name="CheckTypeGray" verb=""/>
-	<menuitem name="CheckTypeWhite" verb=""/>
-      </submenu>
-
-      <submenu name="CheckSize" _label="Check _size">
-	<menuitem name="CheckSizeSmall" verb=""/>
-	<menuitem name="CheckSizeSmall" verb=""/>
-	<menuitem name="CheckSizeSmall" verb=""/>
-      </submenu>
-
-      <placeholder name="ZoomMenu" delimit="top"/>
-
-      <separator/>
-
-      <menuitem name="FullScreen" _label="Full Screen" verb=""/>
-
-    </submenu>
+   </placeholder>
 
   </menu>
 </Root>

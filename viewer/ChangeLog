@@ -1,3 +1,14 @@
+2001-12-28  Jens Finke <jens@triq.net>
+
+	* Makefile.am (uidir): Install ui xml files in
+	$(datadir)/gnome-2.0/ui
+
+	* eog-control.c (eog_control_create_ui): Put zoom_menu into the
+	path /menu/ViewPlaceholder/View.
+
+	* eog-image-view-ui.xml: Define our own 'View' submenu within the
+	'ViewPlaceholder' placeholder.
+
 2001-12-27  Jens Finke <jens@triq.net>
 
 	* Makefile.am (eog_iamge_viewer_LDADD): Removed $(INTLLIBS). Link
