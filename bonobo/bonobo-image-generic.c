@@ -465,6 +465,8 @@ view_factory_common (BonoboEmbeddable *bonobo_object,
 	gtk_signal_connect (GTK_OBJECT (view), "destroy",
 			    GTK_SIGNAL_FUNC (destroy_view), view_data);
 
+	running_objects++;
+
         return view;
 }
 
