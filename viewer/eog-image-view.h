@@ -72,8 +72,6 @@ void  eog_image_view_set_zoom        (EogImageView *image_view,
 				      double        zoomx,
 				      double        zoomy);
 			 
-				 
-
 /* Properties */
 void                    eog_image_view_set_interpolation (EogImageView            *image_view,
 							  GNOME_EOG_Interpolation  interpolation);

@@ -94,6 +94,8 @@ image_set_image_cb (EogImage *eog_image, EogImageView *image_view)
 		image_view_set_image (IMAGE_VIEW (image_view->priv->image_view),
 				      image);
 		image_unref (image);
+
+		ui_image_fit_to_screen (UI_IMAGE (image_view->priv->ui_image));
 	}
 }
 
@@ -1311,6 +1313,7 @@ eog_image_view_zoom_to_fit (EogImageView *image_view,
 
 	ui_image_zoom_fit (UI_IMAGE (image_view->priv->ui_image));
 }
+
 
 void
 eog_image_view_set_interpolation (EogImageView           *image_view,
