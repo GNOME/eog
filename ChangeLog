@@ -1,6 +1,13 @@
 2001-03-28  Jens Finke <jens@gnome.org>
 
-	* Makefile.am (SUBDIRS): Finally removed src directory. 
+	* autogen.sh: Use 'shell' and 'viewer/main.c' to check for eog
+	toplevel directory.  
+
+	* configure.in (AC_OUTPUT): Removed 'src/*', added
+	'libeog/cursors/Makefile' and 'libeog/stock/Makefile'.
+
+	* Makefile.am (SUBDIRS): Finally removed src
+	directory.
 
 2001-03-27  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
