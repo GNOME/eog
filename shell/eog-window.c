@@ -528,13 +528,9 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 static gboolean
 eog_window_has_contents (EogWindow *window)
 {
-	EogWindowPrivate *priv;
-
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
-	priv = window->priv;
-
-	return (bonobo_control_frame_get_widget (priv->ctrl_frame) != NULL);
+	return (bonobo_control_frame_get_control (window->priv->ctrl_frame) != CORBA_OBJECT_NIL);
 }
 
 /* Drag_data_received handler for windows */
