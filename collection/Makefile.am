@@ -57,7 +57,6 @@ serverdir = $(libdir)/bonobo/servers
 server_DATA = $(server_in_files:.server.in.in=.server)
 $(server_in_files:.server.in.in=.server.in): $(server_in_files)
 	sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
-
 @INTLTOOL_SERVER_RULE@
 
 uidir = $(datadir)/gnome-2.0/ui
@@ -65,3 +64,6 @@ ui_DATA = eog-collection-view-ui.xml
 
 CLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST = $(ui_DATA) $(server_in_files) eog-collection-marshal.list
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)
