@@ -110,6 +110,13 @@ if test "x$bonobo_filesel" = "xyes"; then
 	AC_DEFINE(ENABLE_BONOBO_FILESEL)
 fi
 
+AC_ARG_ENABLE(evolution,
+[  --enable-evolution=[no/yes]         Use evolution to send images.],evolution="$enableval",evolution=no)
+if test "x$evolution" = "xyes"; then
+	AC_DEFINE(ENABLE_EVOLUTION)
+fi
+AM_CONDITIONAL(ENABLE_EVOLUTION, test "x$enable_evolution" = "xyes")
+
 EXTRA_BONOBO_CFLAGS=`gnome-config --cflags bonobo bonobox bonobox_print print`
 EXTRA_BONOBO_LIBS=`gnome-config --libs bonobo bonobox bonobox_print print`
 AC_SUBST(EXTRA_BONOBO_CFLAGS)
@@ -296,6 +303,7 @@ Configuration:
 	Compiler:		  ${CC} 
 
 	Use Bonobo File Selector: $bonobo_filesel
+	Use Evolution:            $evolution
 	Extra Compiler Warnings:  ${EXTRA_WARNING_CFLAGS}
 	
 "
