@@ -37,5 +37,9 @@ schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
+if GCONF_SCHEMAS_INSTALL
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas
+else
+install-data-local:
+endif
