@@ -11,9 +11,9 @@ EXTRA_DIST =			\
 	eog.spec.in		\
 	gnome-eog.png		\
 	eog.schemas		\
-	xml-i18n-extract.in	\
-	xml-i18n-update.in	\
-	xml-i18n-merge.in
+	intltool-extract.in	\
+	intltool-update.in	\
+	intltool-merge.in
 
 Graphicsdir = $(datadir)/gnome/apps/Graphics
 Graphics_in_files = eog.desktop.in
