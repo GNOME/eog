@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 0.118.0\n"
-"POT-Creation-Date: 2002-06-03 04:14+0800\n"
-"PO-Revision-Date: 2002-06-03 04:23+0800\n"
+"Project-Id-Version: eog 1.0.0\n"
+"POT-Creation-Date: 2002-06-15 20:52+0800\n"
+"PO-Revision-Date: 2002-06-15 20:54+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgid "Help On this application"
 msgstr "關於此應用程式的說明"
 
 # src/tb-image.c:33
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
 msgid "Open"
 msgstr "開啟"
 
@@ -219,7 +219,7 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -252,7 +252,7 @@ msgstr "開啟圖像"
 msgid "Unable to open %s."
 msgstr "無法開啟 %s。"
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -263,15 +263,15 @@ msgstr ""
 "是否以圖像集方式開啟？"
 
 # src/preferences-dialog.glade.h:32
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "個別視窗"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "圖像集"
 
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -280,11 +280,30 @@ msgstr ""
 "將會同時開啟 %i 個\n"
 "視窗。是否繼續？"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid ""
+"Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr ""
+"無法存取 %s\n"
+"Eye of Gnome 將不能顯示此檔案。"
+
+#: shell/main.c:289
+#, c-format
+msgid ""
+"The following files cannot be displayed because Eye of Gnome was not able to "
+"access them:\n"
+"%s"
+msgstr ""
+"因無法存取，Eye of Gnome 將不能顯示以下的檔案：\n"
+"%s"
+
+#: shell/main.c:471
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "無法初始化 GnomeVFS！\n"
 
-#: shell/main.c:354
+#: shell/main.c:474
 msgid "Could not initialize Bonobo!\n"
 msgstr "無法初始化 Bonobo！\n"
 
