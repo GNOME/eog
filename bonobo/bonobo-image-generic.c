@@ -16,9 +16,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+
 #include <gnome.h>
 #include <libgnorba/gnorba.h>
-#include <bonobo/gnome-bonobo.h>
+#include <bonobo.h>
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 #include <libart_lgpl/art_misc.h>
@@ -31,13 +33,13 @@
  * Number of running objects
  */ 
 static int running_objects = 0;
-static GnomeEmbeddableFactory *factory = NULL;
+static BonoboEmbeddableFactory *factory = NULL;
 
 /*
  * BonoboObject data
  */
 typedef struct {
-	GnomeEmbeddable *bonobo_object;
+	BonoboEmbeddable *bonobo_object;
 	GdkPixbuf       *pixbuf;
 } bonobo_object_data_t;
 
@@ -51,7 +53,7 @@ typedef struct {
 } view_data_t;
 
 static void
-release_pixbuf_cb (GnomeView *view, void *data)
+release_pixbuf_cb (BonoboView *view, void *data)
 {
 	view_data_t *view_data = gtk_object_get_data (GTK_OBJECT (view),
 						      "view_data");
@@ -74,13 +76,13 @@ release_pixbuf (bonobo_object_data_t *bod)
 		gdk_pixbuf_unref (bod->pixbuf);
 	bod->pixbuf = NULL;
 	
-	gnome_embeddable_foreach_view (bod->bonobo_object,
+	bonobo_embeddable_foreach_view (bod->bonobo_object,
 				       release_pixbuf_cb,
 				       NULL);
 }
 
 static void
-bod_destroy_cb (GnomeEmbeddable *embeddable, bonobo_object_data_t *bod)
+bod_destroy_cb (BonoboEmbeddable *embeddable, bonobo_object_data_t *bod)
 {
         if (!bod)
 		return;
@@ -95,7 +97,7 @@ bod_destroy_cb (GnomeEmbeddable *embeddable, bonobo_object_data_t *bod)
 	/*
 	 * When last object has gone unref the factory & quit.
 	 */
-	gnome_object_unref (GNOME_OBJECT (factory));
+	bonobo_object_unref (BONOBO_OBJECT (factory));
 	gtk_main_quit ();
 }
 
@@ -195,7 +197,7 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 }
 
 static void
-redraw_all_cb (GnomeView *view, void *data)
+redraw_all_cb (BonoboView *view, void *data)
 {
 	GdkRectangle rect;
 	view_data_t *view_data;
@@ -222,22 +224,22 @@ view_update (view_data_t *view_data)
 }
 
 /*
- * Loads an Image from a GNOME_Stream
+ * Loads an Image from a Bonobo_Stream
  */
 static int
-load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
+load_image_from_stream (BonoboPersistStream *ps, Bonobo_Stream stream, void *data)
 {
 	int                   retval = 0;
 	bonobo_object_data_t *bod = data;
 	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
-	GNOME_Stream_iobuf   *buffer;
+	Bonobo_Stream_iobuf   *buffer;
 	CORBA_Environment     ev;
 
 	CORBA_exception_init (&ev);
 
 	do {
-		buffer = GNOME_Stream_iobuf__alloc ();
-		GNOME_Stream_read (stream, 4096, &buffer, &ev);
+		buffer = Bonobo_Stream_iobuf__alloc ();
+		Bonobo_Stream_read (stream, 4096, &buffer, &ev);
 		if (buffer->_buffer &&
 		    (ev._major != CORBA_NO_EXCEPTION ||
 		     !gdk_pixbuf_loader_write (loader,
@@ -265,7 +267,7 @@ load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
 	if (!bod->pixbuf)
 		retval = -1;
 	else
-		gnome_embeddable_foreach_view (bod->bonobo_object,
+		bonobo_embeddable_foreach_view (bod->bonobo_object,
 					       redraw_all_cb, bod);
 	
 	CORBA_exception_free (&ev);
@@ -274,7 +276,7 @@ load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
 }
 
 static void
-destroy_view (GnomeView *view, view_data_t *view_data)
+destroy_view (BonoboView *view, view_data_t *view_data)
 {
 	g_return_if_fail (view_data != NULL);
 
@@ -294,42 +296,6 @@ drawing_area_exposed (GtkWidget *widget, GdkEventExpose *event, view_data_t *vie
 	redraw_view (view_data, &event->area);
 
 	return TRUE;
-}
-
-static GdkPixbuf *
-gdk_pixbuf_scale (const GdkPixbuf *pixbuf, gint w, gint h)
-{
-	art_u8 *pixels;
-	gint rowstride;
-	double affine[6];
-	ArtPixBuf *art_pixbuf = NULL;
-	GdkPixbuf *copy = NULL;
-
-	affine[1] = affine[2] = affine[4] = affine[5] = 0;
-
-	affine[0] = w / (double)(pixbuf->art_pixbuf->width);
-	affine[3] = h / (double)(pixbuf->art_pixbuf->height);
-
-	/* rowstride = w * pixbuf->art_pixbuf->n_channels; */
-	rowstride = w * 3;
-
-	pixels = art_alloc (h * rowstride);
-	art_rgb_pixbuf_affine (pixels, 0, 0, w, h, rowstride,
-			       pixbuf->art_pixbuf,
-			       affine, ART_FILTER_NEAREST, NULL);
-
-	if (pixbuf->art_pixbuf->has_alpha)
-		/* should be rgba */
-		art_pixbuf = art_pixbuf_new_rgb(pixels, w, h, rowstride);
-	else
-		art_pixbuf = art_pixbuf_new_rgb(pixels, w, h, rowstride);
-
-	copy = gdk_pixbuf_new_from_art_pixbuf (art_pixbuf);
-
-	if (!copy)
-		art_free (pixels);
-
-	return copy;
 }
 
 /*
@@ -372,19 +338,20 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 			view_buf = NULL;
 		}
 	}
-
-	view_data->scaled = gdk_pixbuf_scale (buf,
-					      allocation->width,
-					      allocation->height);
+       
+	/* FIXME: should we be FILTER_TILES / FILTER_NEAREST ? */
+	view_data->scaled = gdk_pixbuf_scale_simple (buf, allocation->width,
+						     allocation->height,
+						     ART_FILTER_TILES);
 	view_update (view_data);
 }
 
-static GnomeView *
-view_factory (GnomeEmbeddable *bonobo_object,
-	      const GNOME_ViewFrame view_frame,
+static BonoboView *
+view_factory (BonoboEmbeddable *bonobo_object,
+	      const Bonobo_ViewFrame view_frame,
 	      void *data)
 {
-        GnomeView *view;
+        BonoboView *view;
 	bonobo_object_data_t *bod = data;
 	view_data_t *view_data = g_new (view_data_t, 1);
 
@@ -398,7 +365,7 @@ view_factory (GnomeEmbeddable *bonobo_object,
 		GTK_SIGNAL_FUNC (drawing_area_exposed), view_data);
 
         gtk_widget_show (view_data->drawing_area);
-        view = gnome_view_new (view_data->drawing_area);
+        view = bonobo_view_new (view_data->drawing_area);
 	gtk_signal_connect (GTK_OBJECT (view_data->drawing_area), "size_allocate",
 			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
 
@@ -411,11 +378,11 @@ view_factory (GnomeEmbeddable *bonobo_object,
         return view;
 }
 
-static GnomeObject *
-bonobo_object_factory (GnomeEmbeddableFactory *this, void *data)
+static BonoboObject *
+bonobo_object_factory (BonoboEmbeddableFactory *this, void *data)
 {
-	GnomeEmbeddable *bonobo_object;
-	GnomePersistStream *stream;
+	BonoboEmbeddable *bonobo_object;
+	BonoboPersistStream *stream;
 	bonobo_object_data_t *bod;
 
 	g_return_val_if_fail (this != NULL, NULL);
@@ -428,7 +395,7 @@ bonobo_object_factory (GnomeEmbeddableFactory *this, void *data)
 	/*
 	 * Creates the BonoboObject server
 	 */
-	bonobo_object = gnome_embeddable_new (view_factory, bod);
+	bonobo_object = bonobo_embeddable_new (view_factory, bod);
 	if (bonobo_object == NULL) {
 		g_free (bod);
 		return NULL;
@@ -437,9 +404,9 @@ bonobo_object_factory (GnomeEmbeddableFactory *this, void *data)
 	bod->pixbuf = NULL;
 
 	/*
-	 * Interface GNOME::PersistStream 
+	 * Interface Bonobo::PersistStream 
 	 */
-	stream = gnome_persist_stream_new (load_image_from_stream,
+	stream = bonobo_persist_stream_new (load_image_from_stream,
 					   NULL, bod);
 	if (stream == NULL) {
 		gtk_object_unref (GTK_OBJECT (bonobo_object));
@@ -454,16 +421,16 @@ bonobo_object_factory (GnomeEmbeddableFactory *this, void *data)
 	/*
 	 * Bind the interfaces
 	 */
-	gnome_object_add_interface (GNOME_OBJECT (bonobo_object),
-				    GNOME_OBJECT (stream));
+	bonobo_object_add_interface (BONOBO_OBJECT (bonobo_object),
+				    BONOBO_OBJECT (stream));
 
-	return GNOME_OBJECT (bonobo_object);
+	return BONOBO_OBJECT (bonobo_object);
 }
 
 static void
 init_bonobo_image_generic_factory (void)
 {
-	factory = gnome_embeddable_factory_new (
+	factory = bonobo_embeddable_factory_new (
 		"embeddable-factory:image-generic",
 		bonobo_object_factory, NULL);
 }
