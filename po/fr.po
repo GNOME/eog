@@ -6,214 +6,389 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2001-02-15 03:05+0100\n"
-"PO-Revision-Date: 2001-02-09 12:49+0100\n"
+"POT-Creation-Date: 2001-04-20 10:24+0200\n"
+"PO-Revision-Date: 2001-04-20 10:37+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: GNOME French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/preferences.c:219
-msgid "Preferences"
-msgstr "Préférences"
+#: libeog/GNOME_EOG.oaf.in.h:1 viewer/eog-image-view.c:436
+msgid "EOG Image"
+msgstr "Image EOG"
 
-#: src/tb-image.c:33
-msgid "Open"
-msgstr "Ouvrir"
+#: libeog/GNOME_EOG.oaf.in.h:2
+msgid "EOG Image Viewer"
+msgstr "Visionneur d'images EOG"
 
-#: src/tb-image.c:33 src/window.c:181
-msgid "Open an image file"
-msgstr "Ouvrir un fichier image"
+#: libeog/GNOME_EOG.oaf.in.h:3
+msgid "EOG Image viewer factory"
+msgstr "Usine du visionneur d'images EOG"
 
-#: src/tb-image.c:35
-msgid "Close"
-msgstr "Fermer"
+#: libeog/GNOME_EOG.oaf.in.h:4
+msgid "Embeddable EOG Image"
+msgstr "Image EOG encapsulable"
 
-#: src/tb-image.c:35 src/window.c:186
-msgid "Close the current window"
-msgstr "Fermer la fenêtre courante"
+#: viewer/eog-image-view-ui.xml.h:1
+msgid "Check _size"
+msgstr "Vérifier la _taille"
 
-#: src/tb-image.c:43
-msgid "In"
-msgstr "Avant"
+#: viewer/eog-image-view-ui.xml.h:2
+msgid "Check _type"
+msgstr "Vérifier le t_ype"
 
-#: src/tb-image.c:44
-msgid "Out"
-msgstr "Arrière"
+#: viewer/eog-image-view-ui.xml.h:3
+msgid "Check size large"
+msgstr "Vérifier la taille large"
 
-#: src/tb-image.c:45
-msgid "1:1"
-msgstr "1:1"
+#: viewer/eog-image-view-ui.xml.h:4
+msgid "Check size medium"
+msgstr "Vérifier la taille moyenne"
 
-#: src/tb-image.c:46
-msgid "Fit"
-msgstr "Ajuster"
+#: viewer/eog-image-view-ui.xml.h:5
+msgid "Check size small"
+msgstr "Vérifier la petite taille"
 
-#: src/util.c:47
+#: viewer/eog-image-view-ui.xml.h:6
+msgid "Check type _black"
+msgstr "Vérifier le type _noir"
+
+#: viewer/eog-image-view-ui.xml.h:7
+msgid "Check type _dark"
+msgstr "Vérifier le type _foncé"
+
+#: viewer/eog-image-view-ui.xml.h:8
+msgid "Check type _gray"
+msgstr "Vérifier le type _gris"
+
+#: viewer/eog-image-view-ui.xml.h:9
+msgid "Check type _light"
+msgstr "Vérifier le type c_lair"
+
+#: viewer/eog-image-view-ui.xml.h:10
+msgid "Check type _midtone"
+msgstr "Vérifierle type _moyen"
+
+#: viewer/eog-image-view-ui.xml.h:11
+msgid "Check type _white"
+msgstr "Vérifier le type _blanc"
+
+#: viewer/eog-image-view-ui.xml.h:12
+msgid "Nea_rest Neighbour Interpolation"
+msgstr "Interpolation plus proche _voisin"
+
+#: viewer/eog-image-view-ui.xml.h:13
+msgid "Normal (_pseudocolor) dithering"
+msgstr "Diffusion normal (_pseudo couleur)"
+
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "Previews the image to be printed"
+msgstr "Prévisualise l'image à imprimer"
+
+#: viewer/eog-image-view-ui.xml.h:15
+msgid "Print Pre_view"
+msgstr "Imprimer l'_aperçu"
+
+#: viewer/eog-image-view-ui.xml.h:16
+msgid "Print S_etup"
+msgstr "_Paramètres d'impression"
+
+#: viewer/eog-image-view-ui.xml.h:17
+msgid "Print image to the printer"
+msgstr "Imprime l'image sur l'imprimante"
+
+#: viewer/eog-image-view-ui.xml.h:18
+msgid "Save _As"
+msgstr "Enregistrer _sous"
+
+#: viewer/eog-image-view-ui.xml.h:19
+msgid "Setup the page settings for your current printer"
+msgstr "Défini les réglages de la page pour votre imprimante"
+
+#: viewer/eog-image-view-ui.xml.h:20
+msgid "_Bilinear Interpolation"
+msgstr "Interpolation _bilinéaire"
+
+#: viewer/eog-image-view-ui.xml.h:21
+msgid "_Dither"
+msgstr "_Tramage"
+
+#: viewer/eog-image-view-ui.xml.h:22
+msgid "_Hyperbolic Interpolation"
+msgstr "Interpolation _hyperbolique"
+
+#: viewer/eog-image-view-ui.xml.h:23
+msgid "_Interpolation"
+msgstr "_Interpolation"
+
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_Maximum (high color) dithering"
+msgstr "Tramage _maximum (vrai couleur)"
+
+#: viewer/eog-image-view-ui.xml.h:25
+msgid "_No dithering"
+msgstr "_Pas de tramage"
+
+#: viewer/eog-image-view-ui.xml.h:26
+msgid "_Print"
+msgstr "_Imprimer"
+
+#: viewer/eog-image-view-ui.xml.h:27
+msgid "_Tiles Interpolation"
+msgstr "Interpolation des _tuiles"
+
+#: viewer/eog-image-view-ui.xml.h:28
+msgid "_View"
+msgstr "_Vue"
+
+#: viewer/eog-image-view.c:267
 #, c-format
-msgid "Could not open `%s'"
-msgstr "Ne peut ouvrir « %s »"
+msgid "Could not save image as '%s': %s."
+msgstr "Ne peut enregistrer l'image sous « %s » : %s."
 
-#: src/window.c:162 src/window.c:573 src/window.c:812
-msgid "Eye of Gnome"
-msgstr "Eye of GNOME"
+#: viewer/eog-image-view.c:298
+msgid "Save As"
+msgstr "Enregistrer sous"
 
-#: src/window.c:164
-msgid "Copyright (C) 2000-2001 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 La Free Software Foundation"
+#: viewer/eog-image-view.c:656
+msgid "Print Image"
+msgstr "Imprimer l'image"
 
-#: src/window.c:166
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Le programme GNOME pour voir et cataloguer les images"
+#: viewer/eog-image-view.c:664
+msgid "Pages"
+msgstr "Pages"
 
-#: src/window.c:181
-msgid "_Open Image..."
-msgstr "_Ouvrir une image..."
+#: viewer/eog-image-view.c:752
+msgid "Print Preview"
+msgstr "Aperçu de l'impression"
 
-#: src/window.c:186
-msgid "_Close This Window"
-msgstr "_Fermer cette fenêtre"
+#: viewer/eog-image-view.c:758
+msgid "Printing of image failed"
+msgstr "L'impression de l'image a échoué"
 
-#: src/window.c:197
-msgid "2:1"
-msgstr "2:1"
+#: viewer/eog-image-view.c:1544
+msgid "Display"
+msgstr "Affichage"
 
-#: src/window.c:198
-msgid "3:1"
-msgstr "3:1"
-
-#: src/window.c:199
-msgid "4:1"
-msgstr "4:1"
-
-#: src/window.c:200
-msgid "5:1"
-msgstr "5:1"
-
-#: src/window.c:201
-msgid "6:1"
-msgstr "6:1"
-
-#: src/window.c:202
-msgid "7:1"
-msgstr "7:1"
-
-#: src/window.c:203
-msgid "8:1"
-msgstr "8:1"
-
-#: src/window.c:204
-msgid "9:1"
-msgstr "9:1"
-
-#: src/window.c:205
-msgid "10:1"
-msgstr "10:1"
-
-#: src/window.c:207
-msgid "1:2"
-msgstr "1:2"
-
-#: src/window.c:208
-msgid "1:3"
-msgstr "1:3"
-
-#: src/window.c:209
-msgid "1:4"
-msgstr "1:4"
-
-#: src/window.c:210
-msgid "1:5"
-msgstr "1:5"
-
-#: src/window.c:211
-msgid "1:6"
-msgstr "1:6"
-
-#: src/window.c:212
-msgid "1:7"
-msgstr "1:7"
-
-#: src/window.c:213
-msgid "1:8"
-msgstr "1:8"
-
-#: src/window.c:214
-msgid "1:9"
-msgstr "1:9"
-
-#: src/window.c:215
-msgid "1:10"
-msgstr "1:10"
-
-#: src/window.c:221
-msgid "Zoom In"
-msgstr "Zoom avant"
-
-#: src/window.c:221
-msgid "Increase zoom factor by 5%%"
-msgstr "Augmenter le facteur du zoom de 5%%"
-
-#: src/window.c:225
-msgid "Zoom Out"
-msgstr "Zoom arrière"
-
-#: src/window.c:225
-msgid "Decrease zoom factor by 5%%"
-msgstr "Diminuer le facteur du zoom de 5%%"
-
-#: src/window.c:229
-msgid "Zoom _1:1"
-msgstr "Zoom _1:1"
-
-#: src/window.c:229
-msgid "Display the image at 1:1 scale"
-msgstr "Afficher l'image à l'échelle 1:1"
-
-#: src/window.c:233
-msgid "_Zoom factor"
-msgstr "Facteur de _zoom"
-
-#: src/window.c:235
-msgid "_Fit to Window"
-msgstr "Ajuster à la _fenêtre"
-
-#: src/window.c:235
-msgid "Zoom the image to fit in the window"
-msgstr "Zoomer l'image pour s'ajuster à la fenêtre"
-
-#: src/window.c:239
-msgid "Full _Screen"
-msgstr "_Plein écran"
-
-#: src/window.c:239
-msgid "Use the whole screen for display"
-msgstr "Utiliser tout l'écran pour l'affichage"
-
-#: src/window.c:704
-msgid "Open Image"
-msgstr "Ouvrir une image"
-
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:1628
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1631
 msgid "Dither"
 msgstr "Tramage"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1634
 msgid "Check Type"
 msgstr "Vérifier le type"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1637
 msgid "Check Size"
 msgstr "Vérifier la taille"
 
 #: viewer/main.c:88
 msgid "I could not initialize Bonobo"
 msgstr "Ne peut initialiser Bonobo"
+
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome"
+msgstr "Eye of GNOME"
+
+#: eog.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "Visionneur d'images"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:1
+msgid "EOG Image Collection"
+msgstr "Collection d'images EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:2
+msgid "EOG Image Collection Viewer"
+msgstr "Visionneur de collection d'images EOG"
+
+#: collection/GNOME_EOG_Collection.oaf.in.h:3
+msgid "EOG Image collection view factory"
+msgstr "Usine de la vue de collection d'images EOG"
+
+#: shell/eog-shell-ui.xml.h:1
+msgid "About this application"
+msgstr "À propos de cette application"
+
+#: shell/eog-shell-ui.xml.h:2
+msgid "Change preferences"
+msgstr "Modifier les préférences"
+
+#: shell/eog-shell-ui.xml.h:3
+msgid "Close"
+msgstr "Fermer"
+
+#: shell/eog-shell-ui.xml.h:4
+msgid "Close window"
+msgstr "Fermer la fenêtre"
+
+#: shell/eog-shell-ui.xml.h:5
+msgid "E_xit"
+msgstr "_Quitter"
+
+#: shell/eog-shell-ui.xml.h:6
+msgid "Exit the program"
+msgstr "Quitte le programme"
+
+#: shell/eog-shell-ui.xml.h:7
+msgid "Open"
+msgstr "Ouvrir"
+
+#: shell/eog-shell-ui.xml.h:8
+msgid "Open a file"
+msgstr "Ouvrir un fichier"
+
+#: shell/eog-shell-ui.xml.h:9
+msgid "Open a new window"
+msgstr "Ouvrir une nouvelle fenêtre"
+
+#: shell/eog-shell-ui.xml.h:10
+msgid "_About..."
+msgstr "À _propos..."
+
+#: shell/eog-shell-ui.xml.h:11
+msgid "_Close"
+msgstr "_Fermer"
+
+#: shell/eog-shell-ui.xml.h:12
+msgid "_File"
+msgstr "_Fichier"
+
+#: shell/eog-shell-ui.xml.h:13
+msgid "_Help"
+msgstr "_Aide"
+
+#: shell/eog-shell-ui.xml.h:14
+msgid "_New Window"
+msgstr "_Nouvelle fenêtre"
+
+#: shell/eog-shell-ui.xml.h:15
+msgid "_Open..."
+msgstr "_Ouvrir..."
+
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Preferences"
+msgstr "_Préférences"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_Settings"
+msgstr "_Réglages"
+
+#~ msgid "Close the current window"
+#~ msgstr "Fermer la fenêtre courante"
+
+#~ msgid "In"
+#~ msgstr "Avant"
+
+#~ msgid "Out"
+#~ msgstr "Arrière"
+
+#~ msgid "1:1"
+#~ msgstr "1:1"
+
+#~ msgid "Fit"
+#~ msgstr "Ajuster"
+
+#~ msgid "Could not open `%s'"
+#~ msgstr "Ne peut ouvrir « %s »"
+
+#~ msgid "Copyright (C) 2000-2001 The Free Software Foundation"
+#~ msgstr "Copyright (C) 2000-2001 La Free Software Foundation"
+
+#~ msgid "The GNOME image viewing and cataloging program"
+#~ msgstr "Le programme GNOME pour voir et cataloguer les images"
+
+#~ msgid "2:1"
+#~ msgstr "2:1"
+
+#~ msgid "3:1"
+#~ msgstr "3:1"
+
+#~ msgid "4:1"
+#~ msgstr "4:1"
+
+#~ msgid "5:1"
+#~ msgstr "5:1"
+
+#~ msgid "6:1"
+#~ msgstr "6:1"
+
+#~ msgid "7:1"
+#~ msgstr "7:1"
+
+#~ msgid "8:1"
+#~ msgstr "8:1"
+
+#~ msgid "9:1"
+#~ msgstr "9:1"
+
+#~ msgid "10:1"
+#~ msgstr "10:1"
+
+#~ msgid "1:2"
+#~ msgstr "1:2"
+
+#~ msgid "1:3"
+#~ msgstr "1:3"
+
+#~ msgid "1:4"
+#~ msgstr "1:4"
+
+#~ msgid "1:5"
+#~ msgstr "1:5"
+
+#~ msgid "1:6"
+#~ msgstr "1:6"
+
+#~ msgid "1:7"
+#~ msgstr "1:7"
+
+#~ msgid "1:8"
+#~ msgstr "1:8"
+
+#~ msgid "1:9"
+#~ msgstr "1:9"
+
+#~ msgid "1:10"
+#~ msgstr "1:10"
+
+#~ msgid "Zoom In"
+#~ msgstr "Zoom avant"
+
+#~ msgid "Increase zoom factor by 5%%"
+#~ msgstr "Augmenter le facteur du zoom de 5%%"
+
+#~ msgid "Zoom Out"
+#~ msgstr "Zoom arrière"
+
+#~ msgid "Decrease zoom factor by 5%%"
+#~ msgstr "Diminuer le facteur du zoom de 5%%"
+
+#~ msgid "Zoom _1:1"
+#~ msgstr "Zoom _1:1"
+
+#~ msgid "Display the image at 1:1 scale"
+#~ msgstr "Afficher l'image à l'échelle 1:1"
+
+#~ msgid "_Zoom factor"
+#~ msgstr "Facteur de _zoom"
+
+#~ msgid "_Fit to Window"
+#~ msgstr "Ajuster à la _fenêtre"
+
+#~ msgid "Zoom the image to fit in the window"
+#~ msgstr "Zoomer l'image pour s'ajuster à la fenêtre"
+
+#~ msgid "Full _Screen"
+#~ msgstr "_Plein écran"
+
+#~ msgid "Use the whole screen for display"
+#~ msgstr "Utiliser tout l'écran pour l'affichage"
 
 #~ msgid "Bilinear (normal)"
 #~ msgstr "Bilinéaire (normal)"
@@ -226,9 +401,6 @@ msgstr "Ne peut initialiser Bonobo"
 
 #~ msgid "Dark checks"
 #~ msgstr "Damier sombre"
-
-#~ msgid "Display"
-#~ msgstr "Affichage"
 
 #~ msgid "Dither type"
 #~ msgstr "Type de tramage"
@@ -247,9 +419,6 @@ msgstr "Ne peut initialiser Bonobo"
 
 #~ msgid "Hyperbolic (slowest, best quality)"
 #~ msgstr "Hyperbolique (Lent, meilleur qualité)"
-
-#~ msgid "Image Windows"
-#~ msgstr "Fenêtre d'image"
 
 #~ msgid "Interpolation type"
 #~ msgstr "Type d'interpolation"
@@ -284,9 +453,6 @@ msgstr "Ne peut initialiser Bonobo"
 #~ msgid "Only if image does not fit"
 #~ msgstr "Seulement si l'image ne rentre pas"
 
-#~ msgid "Open images in a new window"
-#~ msgstr "Ouvrir les images dans une nouvelle fenêtre"
-
 #~ msgid "Pick window size and zoom factor automatically"
 #~ msgstr ""
 #~ "Choisir la taille de la fenêtre et le facteur de zoom automatiquement"
@@ -312,74 +478,11 @@ msgstr "Ne peut initialiser Bonobo"
 #~ msgid "Use scrollbars"
 #~ msgstr "Utiliser des barres de défilement"
 
-#~ msgid "Viewers"
-#~ msgstr "Visualiseurs"
-
 #~ msgid "White only"
 #~ msgstr "Blanc uni"
 
-#~ msgid "Check _size"
-#~ msgstr "Vérifier la _taille"
-
-#~ msgid "Check _type"
-#~ msgstr "Vérifier le t_ype"
-
-#~ msgid "Check size large"
-#~ msgstr "Vérifier la taille large"
-
-#~ msgid "Check size medium"
-#~ msgstr "Vérifier la taille moyenne"
-
-#~ msgid "Check size small"
-#~ msgstr "Vérifier la petite taille"
-
-#~ msgid "Check type _black"
-#~ msgstr "Vérifier le type _noir"
-
-#~ msgid "Check type _dark"
-#~ msgstr "Vérifier le type _foncé"
-
-#~ msgid "Check type _gray"
-#~ msgstr "Vérifier le type _gris"
-
-#~ msgid "Check type _light"
-#~ msgstr "Vérifier le type c_lair"
-
-#~ msgid "Check type _midtone"
-#~ msgstr "Vérifierle type _moyen"
-
-#~ msgid "Check type _white"
-#~ msgstr "Vérifier le type _blanc"
-
 #~ msgid "E_OG"
 #~ msgstr "E_OG"
-
-#~ msgid "Nea_rest Neighbour Interpolation"
-#~ msgstr "Interpolation plus proche _voisin"
-
-#~ msgid "Normal (_pseudocolor) dithering"
-#~ msgstr "Diffusion normal (_pseudo couleur)"
-
-#~ msgid "_Bilinear Interpolation"
-#~ msgstr "Interpolation _bilinéaire"
-
-#~ msgid "_Dither"
-#~ msgstr "_Tramage"
-
-#~ msgid "_Hyperbolic Interpolation"
-#~ msgstr "Interpolation _hyperbolique"
-
-#~ msgid "_Interpolation"
-#~ msgstr "_Interpolation"
-
-#~ msgid "_Maximum (high color) dithering"
-#~ msgstr "Tramage _maximum (vrai couleur)"
-
-#~ msgid "_No dithering"
-#~ msgstr "_Pas de tramage"
-
-#~ msgid "_Tiles Interpolation"
-#~ msgstr "Interpolation des _tuiles"
 
 #~ msgid ""
 #~ "Dark checks\n"
@@ -414,17 +517,8 @@ msgstr "Ne peut initialiser Bonobo"
 #~ "Normal (pseudocouleur)\n"
 #~ "Maximum (vrai couleur)\n"
 
-#~ msgid "Save image collection `%s'?"
-#~ msgstr "Enregistrer la collection d'images `%s' ?"
-
-#~ msgid "Save"
-#~ msgstr "Enregistrer"
-
 #~ msgid "Don't save"
 #~ msgstr "Ne pas enregistrer"
 
 #~ msgid "Don't exit"
 #~ msgstr "Ne pas quitter"
-
-#~ msgid "Image Viewer"
-#~ msgstr "Visualiseur d'images"
