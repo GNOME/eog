@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eyes of Gnome HEAD\n"
-"POT-Creation-Date: 2002-05-20 06:03+0800\n"
+"POT-Creation-Date: 2002-06-05 03:57+0800\n"
 "PO-Revision-Date: 2002-01-25 05:15+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
@@ -33,7 +33,7 @@ msgstr "Pelihat Imej Ainul Gnome"
 msgid "View many different types of images"
 msgstr "Lihat banyak jenis imej berlainan"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:693
 msgid "EOG Image"
 msgstr "Imej EOG"
 
@@ -49,54 +49,47 @@ msgstr "Kilang pelihat Imej EOG"
 msgid "Embeddable EOG Image"
 msgstr "Imej EOG boleh diembed"
 
-#: libeog/image-view.c:1965
+#: libeog/image-view.c:1853
 msgid "interpolation type"
 msgstr "Jenis interpolasi"
 
-#: libeog/image-view.c:1966
+#: libeog/image-view.c:1854
 msgid "the type of interpolation to use"
 msgstr "Jenis interpolasi untuk digunakan"
 
-#: libeog/image-view.c:1972 libeog/image-view.c:1979
+#: libeog/image-view.c:1860 libeog/image-view.c:1867
 msgid "check type"
 msgstr "Semak jenis"
 
 # lom
-#: libeog/image-view.c:1973
+#: libeog/image-view.c:1861
 msgid "the type of chequering to use"
 msgstr "jenis chequering untuk digunakan"
 
 # lom
-#: libeog/image-view.c:1980
+#: libeog/image-view.c:1868
 msgid "the size of chequers to use"
 msgstr "saiz chequer untuk digunakan"
 
-#: libeog/image-view.c:1986
+#: libeog/image-view.c:1874
 msgid "dither"
 msgstr "dither"
 
 # lom
-#: libeog/image-view.c:1987
+#: libeog/image-view.c:1875
 msgid "dither type"
 msgstr "jenis dither"
 
-#: libeog/image-view.c:1993
-msgid "scroll"
-msgstr "skrol"
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Tak dapat memapar bantuan bagi dialog keutamaan.\n"
+"%s"
 
-#: libeog/image-view.c:1994
-msgid "scroll type"
-msgstr "jenis skrol"
-
-#: libeog/image-view.c:2000
-msgid "enable full screen zoom"
-msgstr "hidupkan zoom skrin penuh"
-
-#: libeog/image-view.c:2001
-msgid "whether we should allow full screen zoom"
-msgstr "samada zoom skrin penuh dibolehkan"
-
-#: shell/eog-preferences.c:141
+#: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
 msgstr "Keutamaan Ainul Gnome"
 
@@ -128,7 +121,7 @@ msgstr "Kandungan"
 msgid "Help On this application"
 msgstr "Bantuan perihal aplikasi ini"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Buka"
 
@@ -193,55 +186,44 @@ msgid "_View"
 msgstr "_Lihat"
 
 #. Translators should localize the following string
-#. * which will be displayed at the bottom of the about
-#. * box to give credit to the translator(s).
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:237
-msgid "Translator Credits"
-msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>"
+#: shell/eog-window.c:248
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>, Merlimau. 2002"
 
-#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Ainul Gnome"
 
-#: shell/eog-window.c:242
+#: shell/eog-window.c:255
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Hakcipta (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:243
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Program untuk mengkatalog dan melihat imej GNOME"
+#: shell/eog-window.c:256
+msgid "The GNOME image viewing and cataloging program."
+msgstr "Program untuk melihat dan mengkatalog imej GNOME."
 
-#: shell/eog-window.c:761
+#: shell/eog-window.c:293
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Tak dapat memapar bantuan bagi Ainul Gnome.\n"
+"%s"
+
+#: shell/eog-window.c:811
 msgid "Open Image"
 msgstr "Buka imej"
 
-#: shell/eog-window.c:815
-msgid "Control doesn't support window_title property."
-msgstr "Kawalan tidak mempunyai ciri-ciri window_title"
-
-#: shell/eog-window.c:831
-msgid "Control doesn't support status_text property."
-msgstr "Kawalan tidak mempunyai ciri-ciri status_text"
-
-#: shell/eog-window.c:850
-msgid "Control doesn't have properties"
-msgstr "Kawalan tidak mempunyai Ciri-ciri"
-
-#: shell/eog-window.c:867
-msgid "Couldn't retrieve mime type for file."
-msgstr "Tak dapat menerima jenis mime bagi fail."
-
-#: shell/eog-window.c:1110
-msgid "Error while obtaining file informations."
-msgstr "Ralat bila memperolehi maklumat fail."
-
-#: shell/eog-window.c:1139
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Unable to open %s."
 msgstr "Tak dapat buka %s."
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -252,15 +234,15 @@ msgstr ""
 "Adakah anda ingin membukanya\n"
 "pada koleksi sebaliknya?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Tetingkap Tunggal"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Koleksi"
 
-#: shell/main.c:193
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -426,28 +408,28 @@ msgstr "_Tile"
 msgid "_White"
 msgstr "_Putih"
 
-#: viewer/eog-image-view.c:304
+#: viewer/eog-image-view.c:302
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Tak dapat menyimpan imej sebagai '%s': %s."
 
-#: viewer/eog-image-view.c:355
+#: viewer/eog-image-view.c:353
 msgid "Save As"
 msgstr "Simpan Sebagai"
 
-#: viewer/eog-image-view.c:930
+#: viewer/eog-image-view.c:928
 msgid "Print Image"
 msgstr "Cetak imej"
 
-#: viewer/eog-image-view.c:938
+#: viewer/eog-image-view.c:936
 msgid "Pages"
 msgstr "Halaman"
 
-#: viewer/eog-image-view.c:1025
+#: viewer/eog-image-view.c:1023
 msgid "Print Preview"
 msgstr "Prebiu Cetakan"
 
-#: viewer/eog-image-view.c:1031
+#: viewer/eog-image-view.c:1029
 msgid "Printing of image failed"
 msgstr "Cetakan imej gagal"
 
@@ -455,39 +437,39 @@ msgstr "Cetakan imej gagal"
 msgid "Display"
 msgstr "Paparan"
 
-#: viewer/eog-image-view.c:2067
+#: viewer/eog-image-view.c:2066
 msgid "Interpolation"
 msgstr "Interpolasi"
 
-#: viewer/eog-image-view.c:2070
+#: viewer/eog-image-view.c:2069
 msgid "Dither"
 msgstr "Dither"
 
-#: viewer/eog-image-view.c:2073
+#: viewer/eog-image-view.c:2072
 msgid "Check Type"
 msgstr "Semak Jenis"
 
-#: viewer/eog-image-view.c:2076
+#: viewer/eog-image-view.c:2075
 msgid "Check Size"
 msgstr "Semak Saiz"
 
-#: viewer/eog-image-view.c:2079
+#: viewer/eog-image-view.c:2078
 msgid "Image Width"
 msgstr "Lebar Imej"
 
-#: viewer/eog-image-view.c:2082
+#: viewer/eog-image-view.c:2081
 msgid "Image Height"
 msgstr "Tinggi Imej"
 
-#: viewer/eog-image-view.c:2085
+#: viewer/eog-image-view.c:2084
 msgid "Window Title"
 msgstr "Tajuk Tetingkap"
 
-#: viewer/eog-image-view.c:2088
+#: viewer/eog-image-view.c:2087
 msgid "Statusbar Text"
 msgstr "Teks Bar Status"
 
-#: viewer/eog-image.c:468
+#: viewer/eog-image.c:467
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Tak dapat menginitialisasikan GnomeVFS!\n"
 
@@ -731,6 +713,36 @@ msgstr "Semak _jenis:"
 #: viewer/preferences.c:211
 msgid "Check _size:"
 msgstr "Semak _saiz:"
+
+#~ msgid "scroll"
+#~ msgstr "skrol"
+
+#~ msgid "scroll type"
+#~ msgstr "jenis skrol"
+
+#~ msgid "enable full screen zoom"
+#~ msgstr "hidupkan zoom skrin penuh"
+
+#~ msgid "whether we should allow full screen zoom"
+#~ msgstr "samada zoom skrin penuh dibolehkan"
+
+#~ msgid "Translator Credits"
+#~ msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>"
+
+#~ msgid "Control doesn't support window_title property."
+#~ msgstr "Kawalan tidak mempunyai ciri-ciri window_title"
+
+#~ msgid "Control doesn't support status_text property."
+#~ msgstr "Kawalan tidak mempunyai ciri-ciri status_text"
+
+#~ msgid "Control doesn't have properties"
+#~ msgstr "Kawalan tidak mempunyai Ciri-ciri"
+
+#~ msgid "Couldn't retrieve mime type for file."
+#~ msgstr "Tak dapat menerima jenis mime bagi fail."
+
+#~ msgid "Error while obtaining file informations."
+#~ msgstr "Ralat bila memperolehi maklumat fail."
 
 #~ msgid "_Settings"
 #~ msgstr "_Tetapan"
