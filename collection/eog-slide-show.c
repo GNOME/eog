@@ -26,8 +26,7 @@
 
 #include "eog-slide-show.h"
 
-#include <image-view.h>
-#include <ui-image.h>
+#include "eog-scroll-view.h"
 #include <libgnome/gnome-macros.h>
 
 GNOME_CLASS_BOILERPLATE (EogSlideShow,
@@ -38,7 +37,7 @@ GNOME_CLASS_BOILERPLATE (EogSlideShow,
 struct _EogSlideShowPrivate
 {
 	EogCollectionModel *model;	
-	GtkWidget *ui_image;
+	GtkWidget *view;
 
 	/* whole list of CImage objects */
 	GList *list;  

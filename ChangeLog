@@ -1,5 +1,47 @@
 2003-02-21  Jens Finke <jens@triq.net>
 
+	Collection makes use of the new EogImage class.
+	
+	* collection/eog-collection-item.[ch]: New files. A class for
+	clickable canvas items.
+
+	* collection/eog-wrap-list.[ch]: Make use of EogCollectionItem and
+	EogImage objects. 
+
+	* collection/eog-collection-view.[ch]: Merged the BonoboControl
+	interface into it. Splitted the view, so that selected images in
+	the collection are also displayed in a separate ScrollView.
+
+	* collection/eog-slide-show.h: Include eog-scroll-view.h instead
+	of deprecated headers.
+
+	* collection/main.c (eog_collection_factory): Create an
+	EogCollectionView object.
+
+	* collection/Makefile.am: Removed libpreview stuff, evolution stuff (not
+	supported until evo2) and deprecated files from SOURCES.
+	
+	* collection/cimage.c,
+	* collection/cimage.h,
+	* collection/eog-collection-control.c,
+	* collection/eog-collection-control.h,
+	* collection/eog-image-loader.c,
+	* collection/eog-image-loader.h,
+	* collection/eog-image-loader-preview.c,
+	* collection/eog-image-loader-preview.h,
+	* collection/eog-image-loader-simple.c,
+	* collection/eog-image-loader-simple.h,
+	* collection/eog-item-factory.c,
+	* collection/eog-item-factory-clean.c,
+	* collection/eog-item-factory-clean.h,
+	* collection/eog-item-factory.h,
+	* collection/eog-item-factory-simple.c,
+	* collection/eog-item-factory-simple.h: Removed these files. The
+	functionality of all these classes is now mainly in EogImage and
+	EogCollectionItem.
+
+2003-02-21  Jens Finke <jens@triq.net>
+
 	* libeog/eog-image.[ch]: Added thumbnail generation stuff.
 	(eog_image_load_thumbnail),
 	(eog_image_get_pixbuf_thumbnail),

@@ -1,5 +1,7 @@
 #include "eog-collection-model.h"
 #include "bonobo/bonobo-moniker-util.h"
+#include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-directory.h>
 #include <libgnome/gnome-macros.h>
 
@@ -7,12 +9,9 @@
 
 /* Signal IDs */
 enum {
-	IMAGE_CHANGED,
+	PREPARED,
 	IMAGE_ADDED,
 	IMAGE_REMOVED,
-	SELECTION_CHANGED,
-	SELECTED_ALL,
-	SELECTED_NONE,
 	BASE_URI_CHANGED,
 	LAST_SIGNAL
 };
@@ -29,10 +28,7 @@ typedef struct {
 } LoadingContext;
 
 struct _EogCollectionModelPrivate {
-	/* holds for every id the corresponding cimage */
-	GHashTable *id_image_mapping;
-
-	GSList *selected_images;
+	GList *image_list;
 
 	/* base uri e.g. from a directory */
 	gchar *base_uri;
@@ -45,12 +41,6 @@ static void eog_collection_model_finalize (GObject *object);
 
 GNOME_CLASS_BOILERPLATE (EogCollectionModel, eog_collection_model,
 			 GObject, G_TYPE_OBJECT);
-
-static void
-free_hash_image (gpointer key, gpointer value, gpointer data)
-{
-	g_object_unref (G_OBJECT (value));
-}
 
 static void
 loading_context_free (LoadingContext *ctx)
@@ -80,14 +70,12 @@ eog_collection_model_dispose (GObject *obj)
 
 	model = EOG_COLLECTION_MODEL (obj);
 
-	if (model->priv->selected_images)
-		g_slist_free (model->priv->selected_images);
-	model->priv->selected_images = NULL;
-
-	g_hash_table_foreach (model->priv->id_image_mapping, 
-			      (GHFunc) free_hash_image, NULL);
-	g_hash_table_destroy (model->priv->id_image_mapping);
-	model->priv->id_image_mapping = NULL;
+	if (model->priv->image_list != NULL) {
+		g_list_foreach (model->priv->image_list, 
+				(GFunc) g_object_unref, NULL);
+		g_list_free (model->priv->image_list);
+		model->priv->image_list = NULL;
+	}
 
 	if (model->priv->base_uri)
 		g_free (model->priv->base_uri);
@@ -117,8 +105,7 @@ eog_collection_model_instance_init (EogCollectionModel *obj)
 	EogCollectionModelPrivate *priv;
 
 	priv = g_new0(EogCollectionModelPrivate, 1);
-	priv->id_image_mapping = NULL;
-	priv->selected_images = NULL;
+	priv->image_list = NULL;
 	priv->base_uri = NULL;
 	obj->priv = priv;
 }
@@ -131,17 +118,17 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 	object_class->dispose = eog_collection_model_dispose;
 	object_class->finalize = eog_collection_model_finalize;
 
-	eog_model_signals[IMAGE_CHANGED] =
-		g_signal_new ("image-changed",
+
+	eog_model_signals[PREPARED] = 
+		g_signal_new ("prepared",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EogCollectionModelClass, image_changed),
+			      G_STRUCT_OFFSET (EogCollectionModelClass, prepared),
 			      NULL,
 			      NULL,
-			      eog_collection_marshal_VOID__INT,
+			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE,
-			      1,
-			      G_TYPE_INT);
+			      0);
 	eog_model_signals[IMAGE_ADDED] =
 		g_signal_new ("image-added",
 			      G_TYPE_FROM_CLASS (object_class),
@@ -149,7 +136,7 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 			      G_STRUCT_OFFSET (EogCollectionModelClass, image_added),
 			      NULL,
 			      NULL,
-			      eog_collection_marshal_VOID__INT,
+			      eog_collection_marshal_VOID__OBJECT_INT,
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_INT);
@@ -164,37 +151,6 @@ eog_collection_model_class_init (EogCollectionModelClass *klass)
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_INT);
-	eog_model_signals[SELECTION_CHANGED] = 
-		g_signal_new ("selection-changed",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EogCollectionModelClass, selection_changed),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__INT,
-			      G_TYPE_NONE,
-			      1,
-			      G_TYPE_INT);
-	eog_model_signals[SELECTED_ALL] = 
-		g_signal_new ("selected-all",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EogCollectionModelClass, selected_all),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
-	eog_model_signals[SELECTED_NONE] = 
-		g_signal_new ("selected-none",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EogCollectionModelClass, selected_none),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
 	eog_model_signals[BASE_URI_CHANGED] = 
 		g_signal_new ("base-uri-changed",
 			      G_TYPE_FROM_CLASS (object_class),
@@ -213,9 +169,6 @@ eog_collection_model_construct (EogCollectionModel *model)
 	g_return_if_fail (model != NULL);
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
-	/* init hash table */
-	model->priv->id_image_mapping = g_hash_table_new ((GHashFunc) g_direct_hash, 
-							  (GCompareFunc) g_direct_equal);
 }
 
 EogCollectionModel*
@@ -238,12 +191,12 @@ typedef struct {
 } ForeachData;
 
 static void
-do_foreach (gpointer key, gpointer value, gpointer user_data)
+do_foreach (gpointer value, gpointer user_data)
 {
 	ForeachData *data = user_data;
 
 	if (data->cont)
-		data->cont = data->func (data->model, value,
+		data->cont = data->func (data->model, EOG_IMAGE (value),
 					 data->data);
 }
 
@@ -261,77 +214,36 @@ eog_collection_model_foreach (EogCollectionModel *model,
 	foreach_data->func = func;
 	foreach_data->data = data;
 	foreach_data->cont = TRUE;
-	g_hash_table_foreach (model->priv->id_image_mapping, do_foreach, 
+	g_list_foreach (model->priv->image_list, do_foreach, 
 			      foreach_data);
 	g_free (foreach_data);
 }
 
-typedef struct {
-	EogCollectionModel *model;
-	GQuark id;
-} RemoveItemData;
-
-static gboolean
-remove_item_idle (gpointer user_data)
+void
+eog_collection_model_remove_item (EogCollectionModel *model, EogImage *image)
 {
 	EogCollectionModelPrivate *priv;
-	RemoveItemData *data = user_data;
-	CImage *image;
-
-	priv = data->model->priv;
-
-	image = g_hash_table_lookup (priv->id_image_mapping,
-				     GINT_TO_POINTER (data->id));
-	if (!image) {
-		g_warning ("Could not find image %i!", data->id);
-		return FALSE;
-	}
-
-	g_hash_table_remove (priv->id_image_mapping, GINT_TO_POINTER(data->id));
-
-	if (g_slist_find (priv->selected_images, image)) {
-		priv->selected_images = g_slist_remove (priv->selected_images,
-							image);
-	}
-
-	g_signal_emit_by_name (G_OBJECT (data->model),
-			       "image-removed", data->id);
-
-	g_free (data);
-
-	return FALSE;
-}
-
-void
-eog_collection_model_remove_item (EogCollectionModel *model, GQuark id)
-{
-	RemoveItemData *data;
 
 	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
 
-	/*
-	 * We need to do that in the idle loop as there could still be
-	 * some loading or a g_hash_table_foreach running.
-	 */
-	data = g_new0 (RemoveItemData, 1);
-	data->model = model;
-	data->id = id;
-	gtk_idle_add (remove_item_idle, data);
+	priv = model->priv;
+
+	priv->image_list = g_list_remove (priv->image_list, image);
+	g_object_unref (image);
 }
 
 static gboolean
-directory_visit_cb (const gchar *rel_path,
+directory_visit_cb (const gchar *rel_uri,
 		    GnomeVFSFileInfo *info,
 		    gboolean recursing_will_loop,
 		    gpointer data,
 		    gboolean *recurse)
 {
-	CImage *img;
+	EogImage *image;
 	LoadingContext *ctx;
 	GnomeVFSURI *uri;
 	EogCollectionModel *model;
 	EogCollectionModelPrivate *priv;
-	GQuark id;
 	static gint count = 0;
 	
 	ctx = (LoadingContext*) data;
@@ -341,24 +253,14 @@ directory_visit_cb (const gchar *rel_path,
 	if (g_strncasecmp (info->mime_type, "image/", 6) != 0) {
 		return TRUE;
 	}
-		
-	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_path);	
 
-	img = cimage_new_uri (uri);			
+	/* FIXME: escape uri */
+	uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);	
+
+	image = eog_image_new_uri (uri, EOG_IMAGE_LOAD_DEFAULT);			
 	gnome_vfs_uri_unref (uri);
-	id = cimage_get_unique_id (img);
 
-	/* add image infos to internal lists */
-	g_hash_table_insert (priv->id_image_mapping,
-			     GINT_TO_POINTER (id),
-			     img);
-
-	g_signal_emit_by_name (G_OBJECT (model), 
-			       "image-added", id);
-
-	if (count++ % 50 == 0)
-		while (gtk_events_pending ())
-			gtk_main_iteration ();
+	priv->image_list = g_list_prepend (priv->image_list, image);
 
 	return TRUE;
 }
@@ -383,6 +285,9 @@ real_dir_loading (LoadingContext *ctx)
 				       ctx);
 
 	loading_context_free (ctx);
+
+	g_signal_emit (G_OBJECT (model), eog_model_signals[PREPARED], 0);
+
 	return FALSE;
 }
 	
@@ -409,18 +314,14 @@ real_file_loading (LoadingContext *ctx)
 	}
 	
 	if(g_strncasecmp(ctx->info->mime_type, "image/", 6) == 0) {
-		CImage *img;
-		GQuark id;
+		EogImage *image;
 
-		img = cimage_new_uri (ctx->uri);			
-		id = cimage_get_unique_id (img);
+		image = eog_image_new_uri (ctx->uri, EOG_IMAGE_LOAD_DEFAULT);			
 		
-		/* add image infos to internal lists */
-		g_hash_table_insert (priv->id_image_mapping,
-				     GINT_TO_POINTER (id),
-				     img);
-		g_signal_emit_by_name (G_OBJECT (model), 
-				       "image-added", id);
+		priv->image_list = g_list_append (priv->image_list, image);
+
+		g_signal_emit (G_OBJECT (model), 
+			       eog_model_signals[IMAGE_ADDED], 0, image, (int) g_list_index (priv->image_list, image));
 	}
 
 	loading_context_free (ctx);
@@ -490,7 +391,7 @@ eog_collection_model_set_uri (EogCollectionModel *model,
 	}	
 	
 	if (priv->base_uri == NULL) {
-		priv->base_uri = g_strdup (gnome_vfs_uri_get_path (ctx->uri));
+		priv->base_uri = gnome_vfs_uri_to_string (ctx->uri, GNOME_VFS_URI_HIDE_NONE);
 	} 
 	else {
 		g_free (priv->base_uri);
@@ -546,171 +447,19 @@ eog_collection_model_get_length (EogCollectionModel *model)
 	g_return_val_if_fail (model != NULL, 0);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
 
-	return g_hash_table_size (model->priv->id_image_mapping);
+	return g_list_length (model->priv->image_list);
 }
 
 
-CImage*
+EogImage*
 eog_collection_model_get_image (EogCollectionModel *model,
-				GQuark id)
+				int position)
 {
 	g_return_val_if_fail (model != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
 
-	return CIMAGE (g_hash_table_lookup (model->priv->id_image_mapping,
-					    GINT_TO_POINTER (id)));
+	return g_list_nth_data (model->priv->image_list, position);
 }
-
-gchar*
-eog_collection_model_get_uri (EogCollectionModel *model,
-			      GQuark id)
-{
-	CImage *img;
-	GnomeVFSURI *uri;
-	char *txt_uri;
-
-	g_return_val_if_fail (model != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), NULL);
-
-	img = eog_collection_model_get_image (model, id);
-	if (img == NULL) return NULL;
-	
-	uri = cimage_get_uri (img);
-	txt_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (uri);
-	
-	return txt_uri;
-}
-
-static gboolean
-add_image_to_selection_list (EogCollectionModel *model, CImage *img, gpointer data)
-{
-	EogCollectionModelPrivate *priv;
-
-	priv = model->priv;
-
-	priv->selected_images = g_slist_append (priv->selected_images, img);
-
-	return TRUE;
-} 
-
-static void
-select_all_images (EogCollectionModel *model)
-{
-	EogCollectionModelPrivate *priv;
-
-	priv = model->priv;
-
-	if (priv->selected_images != NULL) {
-		g_slist_free (priv->selected_images);
-		priv->selected_images = NULL;
-	}
-
-	eog_collection_model_foreach (model, add_image_to_selection_list, NULL);
-
-	g_signal_emit_by_name (G_OBJECT (model), "selected-all");
-}
-
-static void
-unselect_all_images (EogCollectionModel *model)
-{
-	EogCollectionModelPrivate *priv;
-	GSList *node;
-	CImage *img;
-	gboolean single_change_signal;
-
-	priv = model->priv;
-
-	single_change_signal = (eog_collection_model_get_selected_length (model) < 
-				(eog_collection_model_get_length (model) / 2));
-
-	for (node = priv->selected_images; node; node = node->next) {
-		g_return_if_fail (IS_CIMAGE (node->data));
-
-		img = CIMAGE (node->data);
-
-		cimage_set_select_status (img, FALSE);
-
-		if (single_change_signal) {
-			g_signal_emit_by_name (G_OBJECT (model), "selection-changed",
-					       cimage_get_unique_id (img));
-		}
-	}
-
-	if (priv->selected_images)
-		g_slist_free (priv->selected_images);
-	priv->selected_images = NULL;
-
-	if (!single_change_signal) {
-		g_signal_emit_by_name (G_OBJECT (model), "selected-none");
-	}
-}
-
-void
-eog_collection_model_set_select_status (EogCollectionModel *model,
-					GQuark id, gboolean status)
-{
-	CImage *image;
-
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-
-	image = eog_collection_model_get_image (model, id);
-	if (status == cimage_is_selected (image))
-		return;
-
-	cimage_set_select_status (image, status);
-	if (status)
-		model->priv->selected_images = g_slist_append (
-					model->priv->selected_images, image);
-	else
-		model->priv->selected_images = g_slist_remove (
-					model->priv->selected_images, image);
-
-	g_signal_emit_by_name (G_OBJECT (model), "selection-changed",
-			       cimage_get_unique_id (image));
-}
-
-void
-eog_collection_model_set_select_status_all (EogCollectionModel *model, 
-					    gboolean status)
-{
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-
-	if (status) 
-		select_all_images (model);
-	else
-		unselect_all_images (model);
-}
-
-
-void eog_collection_model_toggle_select_status (EogCollectionModel *model,
-						GQuark id)
-{
-	EogCollectionModelPrivate *priv;
-	CImage *image;
-
-	g_return_if_fail (model != NULL);
-	g_return_if_fail (EOG_IS_COLLECTION_MODEL (model));
-
-	priv = model->priv;
-
-	image = eog_collection_model_get_image (model, id);
-	cimage_toggle_select_status (image);
-	if (cimage_is_selected (image)) {
-		priv->selected_images = 
-			g_slist_append (priv->selected_images,
-					image);
-	} else {
-		priv->selected_images = 
-			g_slist_remove (priv->selected_images,
-					image);
-	}
-
-	g_signal_emit_by_name (G_OBJECT (model), "selection-changed",
-			       cimage_get_unique_id (image));
-}
-
 
 gchar*
 eog_collection_model_get_base_uri (EogCollectionModel *model)
@@ -722,26 +471,4 @@ eog_collection_model_get_base_uri (EogCollectionModel *model)
 		return NULL;
 	else
 		return model->priv->base_uri;
-}
-
-
-gint
-eog_collection_model_get_selected_length (EogCollectionModel *model)
-{
-	g_return_val_if_fail (model != NULL, 0);
-	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
-	
-	return g_slist_length (model->priv->selected_images);
-}
-
-CImage*
-eog_collection_model_get_selected_image (EogCollectionModel *model)
-{
-	g_return_val_if_fail (model != NULL, 0);
-	g_return_val_if_fail (EOG_IS_COLLECTION_MODEL (model), 0);
-	
-	if (eog_collection_model_get_selected_length (model) == 1) {
-		return CIMAGE (model->priv->selected_images->data);
-	} else
-		return NULL;
 }

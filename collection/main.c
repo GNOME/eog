@@ -18,7 +18,7 @@
 #include <bonobo/bonobo-ui-main.h> 
 #include <bonobo/bonobo-generic-factory.h>
 
-#include "eog-collection-control.h"
+#include "eog-collection-view.h"
 
 static BonoboObject *
 eog_collection_factory (BonoboGenericFactory *this,
@@ -34,7 +34,7 @@ eog_collection_factory (BonoboGenericFactory *this,
 		g_message ("Trying to produce a '%s'...", oaf_iid);
 
 	if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_CollectionControl")) {
-		retval = BONOBO_OBJECT (eog_collection_control_new ());
+		retval = BONOBO_OBJECT (eog_collection_view_new ());
 	} else {
 		g_warning ("Unknown IID `%s' requested", oaf_iid);
 		return NULL;

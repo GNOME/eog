@@ -24,7 +24,6 @@
 
 #include <libgnomecanvas/gnome-canvas.h>
 #include "eog-collection-model.h"
-#include "eog-item-factory.h"
 
 G_BEGIN_DECLS
 
@@ -56,8 +55,9 @@ struct _EogWrapList {
 struct _EogWrapListClass {
 	GnomeCanvasClass parent_class;
 
-	gboolean (* right_click)  (EogWrapList *, gint unique_id, GdkEvent *);
-	void     (* double_click) (EogWrapList *, gint unique_id);
+	gboolean (* right_click)  (EogWrapList *wlist, gint unique_id, GdkEvent *);
+	void     (* double_click) (EogWrapList *wlist, gint unique_id);
+	void     (* selection_changed) (EogWrapList *list);
 };
 
 
@@ -66,14 +66,17 @@ GType eog_wrap_list_get_type (void);
 GtkWidget* eog_wrap_list_new (void);
 
 void eog_wrap_list_set_model (EogWrapList *wlist, EogCollectionModel *model);
-void eog_wrap_list_set_factory (EogWrapList *wlist, EogItemFactory *factory);
 
 void eog_wrap_list_set_col_spacing (EogWrapList *wlist, guint spacing);
 void eog_wrap_list_set_row_spacing (EogWrapList *wlist, guint spacing);
 
 void eog_wrap_list_set_layout_mode (EogWrapList *wlist, EogLayoutMode lm);
 
-void eog_wrap_list_set_background_color (EogWrapList *wlist, GdkColor *color);
+int eog_wrap_list_get_n_selected (EogWrapList *wlist);
+
+EogImage* eog_wrap_list_get_first_selected_image (EogWrapList *wlist);
+
+GList* eog_wrap_list_get_selected_images (EogWrapList *wlist);
 
 
 

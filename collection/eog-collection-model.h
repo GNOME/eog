@@ -25,7 +25,7 @@
 
 #include <bonobo/bonobo-storage.h>
 #include <gtk/gtkobject.h>
-#include "cimage.h"
+#include "eog-image.h"
 
 G_BEGIN_DECLS
 
@@ -40,7 +40,7 @@ typedef struct _EogCollectionModel EogCollectionModel;
 typedef struct _EogCollectionModelClass EogCollectionModelClass;
 typedef struct _EogCollectionModelPrivate EogCollectionModelPrivate;
 
-typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model, CImage *image,
+typedef gboolean (* EogCollectionModelForeachFunc) (EogCollectionModel *model, EogImage *image,
 						    gpointer data);
 
 struct _EogCollectionModel {
@@ -53,13 +53,10 @@ struct _EogCollectionModelClass {
 	GObjectClass parent_class;
 
 	/* Notification signals */
-	void (* image_changed) (EogCollectionModel *model, GQuark id);
-	void (* image_added)   (EogCollectionModel *model, GQuark id);
-	void (* image_removed) (EogCollectionModel *model, GQuark id);
+        void (* prepared)      (EogCollectionModel *model);
+	void (* image_added)   (EogCollectionModel *model, EogImage *image, int position);
+	void (* image_removed) (EogCollectionModel *model, EogImage *image);
 
-	void (* selection_changed) (EogCollectionModel *model, GQuark id);
-        void (* selected_all)      (EogCollectionModel *model);
-        void (* selected_none)     (EogCollectionModel *model);
         void (* base_uri_changed)  (EogCollectionModel *model);
 };
 
@@ -79,7 +76,7 @@ eog_collection_model_foreach (EogCollectionModel *model,
 			      gpointer data);
 
 void
-eog_collection_model_remove_item (EogCollectionModel *model, GQuark id); 
+eog_collection_model_remove_item (EogCollectionModel *model, EogImage *image); 
 
 void
 eog_collection_model_set_uri            (EogCollectionModel *model, 
@@ -92,30 +89,9 @@ eog_collection_model_set_uri_list       (EogCollectionModel *model,
 gint
 eog_collection_model_get_length (EogCollectionModel *model);
 
-gint
-eog_collection_model_get_selected_length (EogCollectionModel *model);
-
-CImage*
+EogImage*
 eog_collection_model_get_image              (EogCollectionModel *model,
-                                             GQuark id);
-
-CImage*
-eog_collection_model_get_selected_image     (EogCollectionModel *model);
-
-gchar*
-eog_collection_model_get_uri                (EogCollectionModel *model,
-                                             GQuark id);
-
-void
-eog_collection_model_toggle_select_status   (EogCollectionModel *model,
-                                             GQuark id);
-
-void
-eog_collection_model_set_select_status      (EogCollectionModel*, GQuark id,
-					     gboolean status);
-void 
-eog_collection_model_set_select_status_all  (EogCollectionModel *model, 
-                                             gboolean status);
+                                             int position);
 
 gchar*
 eog_collection_model_get_base_uri           (EogCollectionModel *model);

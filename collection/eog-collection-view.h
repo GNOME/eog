@@ -13,9 +13,7 @@
 #ifndef _EOG_COLLECTION_VIEW_H_
 #define _EOG_COLLECTION_VIEW_H_
 
-#include <bonobo.h>
-#include <Eog.h>
-#include "eog-wrap-list.h"
+#include <bonobo/bonobo-persist-file.h>
 
 G_BEGIN_DECLS
  
@@ -32,31 +30,18 @@ typedef struct _EogCollectionViewClass    EogCollectionViewClass;
 typedef struct _EogCollectionViewPrivate  EogCollectionViewPrivate;
 
 struct _EogCollectionView {
-	BonoboObject base;
+	BonoboPersistFile base;
 
 	EogCollectionViewPrivate *priv;
 };
 
 struct _EogCollectionViewClass {
-	BonoboObjectClass parent_class;
-	POA_GNOME_EOG_ImageCollection__epv epv;
-
-	void (*open_uri) (EogCollectionView *view, gchar *uri);
-
+	BonoboPersistFileClass parent_class;
 };
 
 GType                   eog_collection_view_get_type  (void);
 
 EogCollectionView       *eog_collection_view_new                 (void);
-GNOME_EOG_ImageCollection eog_collection_view_corba_object_create (BonoboObject       *object);
-EogCollectionView       *eog_collection_view_construct      (EogCollectionView       *list_view);
-
-void                eog_collection_view_unset_ui_container  (EogCollectionView       *list_view);
-void                eog_collection_view_set_ui_container  (EogCollectionView       *list_view,
-							   Bonobo_UIContainer       ui_container);
-GtkWidget          *eog_collection_view_get_widget          (EogCollectionView       *list_view);
-
-BonoboPropertyBag  *eog_collection_view_get_property_bag (EogCollectionView *view);
 
 G_END_DECLS
 
