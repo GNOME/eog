@@ -109,7 +109,6 @@ cmd_cb_full_screen (GtkWidget *widget, gpointer data)
 	ui = UI_IMAGE (full_screen_get_ui_image (FULL_SCREEN (fs)));
 	view = IMAGE_VIEW (ui_image_get_image_view (ui));
 
-	image_view_set_preferences (view);
 	full_screen_set_image (FULL_SCREEN (fs), image);
 
 	gtk_widget_show_now (fs);

@@ -64,8 +64,6 @@ GtkType image_view_get_type (void);
 
 GtkWidget *image_view_new (void);
 
-void image_view_set_preferences (ImageView *view);
-
 void image_view_set_image (ImageView *view, Image *image);
 Image *image_view_get_image (ImageView *view);
 
@@ -86,30 +84,6 @@ GdkRgbDither image_view_get_dither (ImageView *view);
 
 void image_view_set_scroll (ImageView *view, ScrollType scroll);
 ScrollType image_view_get_scroll (ImageView *view);
-
-void change_interp_type (GConfClient *client, guint cnxn_id,
-			 const gchar *key, GConfValue *value,
-			 gboolean is_default, gpointer user_data);
-
-void change_check_type (GConfClient *client, guint cnxn_id,
-			const gchar *key, GConfValue *value,
-			gboolean is_default, gpointer user_data);
-
-void change_check_size (GConfClient *client, guint cnxn_id,
-			const gchar *key, GConfValue *value,
-			gboolean is_default, gpointer user_data);
-
-void change_dither (GConfClient *client, guint cnxn_id,
-		    const gchar *key, GConfValue *value,
-		    gboolean is_default, gpointer user_data);
-
-void change_scroll (GConfClient *client, guint cnxn_id,
-		    const gchar *key, GConfValue *value,
-		    gboolean is_default, gpointer user_data);
-
-void change_zoom (GConfClient *client, guint cnxn_id,
-		  const gchar *key, GConfValue *value,
-		  gboolean is_default, gpointer user_data);
 
 END_GNOME_DECLS
 

@@ -1,6 +1,20 @@
 2000-07-10  Arik Devens  <cael@quetzalcoatl.helixcode.com>
 
+	* image-view.c: Removed zoom_changed_cb.
+	(interp_type_changed_cb): Renamed function and updated.
+	(check_type_changed_cb): Renamed function and updated.
+	(check_size_changed_cb): Renamed function and updated.
+	(dither_changed_cb): Renamed function and updated.
+	(scroll_changed_cb): Renamed function and updated.
+	(image_view_init): Updated for new functions and fixed a few
+	things.
+
+2000-07-10  Arik Devens  <cael@quetzalcoatl.helixcode.com>
+
+	* window.c (window_construct): Do not use image_view_set_preferences().
+
 	* commands.c (cmd_cb_full_screen): Removed global prefs variable.
+	(cmd_cb_full_screen): Do not use image_view_set_preferences().
 
 	* preferences.c: Removed prefs_init and the global prefs
 	variables.
@@ -32,6 +46,7 @@
 	(change_check_size): Same as above.
 	(change_check_type): Same as above.
 	(change_interp_type): Same as above.
+	(image_view_set_preferences): Removed function.
 
 2000-07-10  Federico Mena Quintero  <federico@helixcode.com>
 

@@ -452,7 +452,6 @@ window_construct (Window *window)
 	gtk_widget_show (priv->ui);
 
 	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
-	image_view_set_preferences (view);
 
 	gtk_widget_grab_focus (GTK_WIDGET (view));
 

@@ -214,111 +214,39 @@ image_view_class_init (ImageViewClass *class)
 	widget_class->key_press_event = image_view_key_press;
 }
 
-void
-change_interp_type (GConfClient *client,
-		    guint cnxn_id,
-		    const gchar *key,
-		    GConfValue *value,
-		    gboolean is_default,
-		    gpointer user_data)
+/* Handler for changes on the interp_type value */
+static void
+interp_type_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-	
-	priv->interp_type = gconf_value_int (value);
+	image_view_set_interp_type (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
-void
-change_check_type (GConfClient *client,
-		   guint cnxn_id,
-		   const gchar *key,
-		   GConfValue *value,
-		   gboolean is_default,
-		   gpointer user_data)
+/* Handler for changes on the check_type value */
+static void
+check_type_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-
-	priv->check_type = gconf_value_int (value);
+	image_view_set_check_type (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
-void
-change_check_size (GConfClient *client,
-		   guint cnxn_id,
-		   const gchar *key,
-		   GConfValue *value,
-		   gboolean is_default,
-		   gpointer user_data)
+/* Handler for changes on the check_size value */
+static void
+check_size_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-
-	priv->check_size = gconf_value_int (value);
+	image_view_set_check_size (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
-void
-change_dither (GConfClient *client,
-	       guint cnxn_id,
-	       const gchar *key,
-	       GConfValue *value,
-	       gboolean is_default,
-	       gpointer user_data)
+/* Handler for changes on the dither value */
+static void
+dither_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-
-	priv->dither = gconf_value_int (value);
+	image_view_set_dither (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
-void
-change_scroll (GConfClient *client,
-	       guint cnxn_id,
-	       const gchar *key,
-	       GConfValue *value,
-	       gboolean is_default,
-	       gpointer user_data)
+/* Handler for changes on the scroll value */
+static void
+scroll_changed_cb (GConfClient *client, guint cnxn_id, const gchar *key, GConfValue *value, gboolean is_default, gpointer data)
 {
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-
-	priv->scroll = gconf_value_int (value);
-}
-
-void change_zoom (GConfClient *client,
-		  guint cnxn_id,
-		  const gchar *key,
-		  GConfValue *value,
-		  gboolean is_default,
-		  gpointer user_data)
-{
-	ImageViewPrivate *priv;
-
-	priv = user_data;
-
-	if (is_default != FALSE)
-		return;
-
-	priv->scroll = gconf_value_int (value);
+	image_view_set_scroll (IMAGE_VIEW (data), gconf_value_int (value));
 }
 
 /* Object initialization function for the image view */
@@ -341,27 +269,23 @@ image_view_init (ImageView *view)
 
 	gconf_client_notify_add (
 		priv->client, "/apps/eog/view/interp_type",
-		change_interp_type, priv,
+		(GConfClientNotifyFunc)interp_type_changed_cb, view,
 		NULL, NULL);
 	gconf_client_notify_add (
 		priv->client, "/apps/eog/view/check_type",
-		change_check_type, priv,
+		(GConfClientNotifyFunc)check_type_changed_cb, view,
 		NULL, NULL);
 	gconf_client_notify_add (
 		priv->client, "/apps/eog/view/check_size",
-		change_check_size, priv,
+		(GConfClientNotifyFunc)check_size_changed_cb, view,
 		NULL, NULL);
 	gconf_client_notify_add (
 		priv->client, "/apps/eog/view/dither",
-		change_dither, priv,
+		(GConfClientNotifyFunc)dither_changed_cb, view,
 		NULL, NULL);
 	gconf_client_notify_add (
 		priv->client, "/apps/eog/view/scroll",
-		change_scroll, priv,
-		NULL, NULL);
-	gconf_client_notify_add (
-		priv->client, "/apps/eog/full_screen/zoom",
-		change_zoom, priv,
+		(GConfClientNotifyFunc)scroll_changed_cb, view,
 		NULL, NULL);
 	
 	priv->interp_type = gconf_client_get_int (
@@ -1566,29 +1490,6 @@ GtkWidget *
 image_view_new (void)
 {
 	return GTK_WIDGET (gtk_type_new (TYPE_IMAGE_VIEW));
-}
-
-/**
- * image_view_set_preferences:
- * @view: An image view.
- * 
- * Sets an image view's parameters from the preferences mechanism.
- **/
-void
-image_view_set_preferences (ImageView *view)
-{
-	ImageViewPrivate *priv;
-	
-	g_return_if_fail (view != NULL);
-	g_return_if_fail (IS_IMAGE_VIEW (view));
-
-	priv = view->priv;
-
-	image_view_set_interp_type (view, priv->interp_type);
-	image_view_set_check_type (view, priv->check_type);
-	image_view_set_check_size (view, priv->check_size);
-	image_view_set_dither (view, priv->dither);
-	image_view_set_scroll (view, priv->scroll);
 }
 
 /**
