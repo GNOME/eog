@@ -1,3 +1,13 @@
+2002-08-20  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes the EOG part of #90133.  Thanks to JeyaSudha Duraipandy for
+	figuring it out.
+
+	* shell/session.c (session_save): Do save information for windows
+	that do not have a URI set.
+	(load_uri_with_role): Only call eog_window_open() if the URI is
+	not empty.
+
 2002-08-20  Jens Finke  <jens@triq.net>
 
 	* collection/eog-slide-show.[ch]: New files. Implement simple

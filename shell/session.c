@@ -23,6 +23,7 @@
 #include <config.h>
 #endif
 
+#include <string.h>
 #include <libgnome/gnome-config.h>
 #include "eog-window.h"
 #include "session.h"
@@ -37,7 +38,10 @@ load_uri_with_role (const char *uri, const char *role)
 	GtkWidget *window;
 
 	window = eog_window_new ();
-	eog_window_open (EOG_WINDOW (window), uri);
+
+	if (strlen (uri) != 0)
+		eog_window_open (EOG_WINDOW (window), uri);
+
 	gtk_window_set_role (GTK_WINDOW (window), role);
 	gtk_widget_show (window);
 }
@@ -66,7 +70,7 @@ session_save (const char *config_prefix)
 
 		uri = eog_window_get_uri (window);
 		if (!uri)
-			continue;
+			uri = ""; /* empty window */
 
 		role = gtk_window_get_role (GTK_WINDOW (window));
 		g_assert (role != NULL);
