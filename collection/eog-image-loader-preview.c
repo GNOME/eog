@@ -7,8 +7,6 @@
 #include "eog-collection-marshal.h"
 
 struct _EogImageLoaderPreviewPrivate {
-	PreviewCacheAsync *cache;
-	
 	gint thumb_width;
 	gint thumb_height;
 };
@@ -62,10 +60,6 @@ eog_image_loader_preview_dispose (GObject *obj)
 	
 	loader = EOG_IMAGE_LOADER_PREVIEW (obj);	
 
-	if (loader->priv->cache)
-		g_object_unref (G_OBJECT (loader->priv->cache));
-	loader->priv->cache = NULL;
-
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -87,7 +81,6 @@ eog_image_loader_preview_new (gint thumb_width, gint thumb_height)
 	EogImageLoaderPreview *loader;
 	
 	loader = EOG_IMAGE_LOADER_PREVIEW (g_object_new (EOG_TYPE_IMAGE_LOADER_PREVIEW, NULL));
-	loader->priv->cache = preview_cache_async_new ();
 	loader->priv->thumb_width = thumb_width;
 	loader->priv->thumb_height = thumb_height;
 
@@ -167,8 +160,7 @@ eog_image_loader_preview_start (EogImageLoader *loader, CImage *image)
 	uri = cimage_get_uri (image);
 	thumb = preview_thumbnail_new_uri (uri, priv->thumb_width, priv->thumb_height);
 
-	preview_cache_async_thumbnail_request (priv->cache, 
-					       thumb,
+	preview_cache_async_thumbnail_request (thumb,
 					       loading_finished,
 					       loading_canceled,
 					       NULL,
@@ -180,13 +172,9 @@ eog_image_loader_preview_start (EogImageLoader *loader, CImage *image)
 static void 
 eog_image_loader_preview_stop (EogImageLoader *loader)
 {
-	PreviewCacheAsync *cache;
-
 	g_return_if_fail (EOG_IS_IMAGE_LOADER_PREVIEW (loader));
 
-	cache = EOG_IMAGE_LOADER_PREVIEW (loader)->priv->cache;
-
-	preview_cache_async_cancel_jobs (cache);
+	preview_cache_async_cancel_jobs ();
 }
 
 
