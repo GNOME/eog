@@ -331,17 +331,70 @@ verb_SaveAs_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 }
 
 #ifdef ENABLE_GNOCAM
+
+typedef struct
+{
+	EogImageView *image_view;
+	GNOME_Camera  camera;
+} ListenerData;
+
+static void
+listener_cb (BonoboListener *listener, gchar *event_name, CORBA_any *any, 
+	     CORBA_Environment *ev, gpointer data)
+{
+	ListenerData *listener_data;
+	Bonobo_Storage storage;
+	Bonobo_Stream stream;
+	EogImageView *image_view;
+
+	if (getenv ("DEBUG_EOG"))
+		g_message ("Got event: %s", event_name);
+
+	listener_data = data;
+	image_view = listener_data->image_view;
+
+	if (!strcmp (event_name, "GNOME/Camera:CaptureImage:Action")) {
+		storage = Bonobo_Unknown_queryInterface (listener_data->camera,
+					"IDL:Bonobo/Storage:1.0", ev);
+		bonobo_object_release_unref (listener_data->camera, NULL);
+		g_free (listener_data);
+		if (BONOBO_EX (ev)) {
+			g_warning ("Could not get storage: %s",
+				   bonobo_exception_get_text (ev));
+			return;
+		}
+
+		stream = Bonobo_Storage_openStream (storage,
+					BONOBO_ARG_GET_STRING (any),
+					Bonobo_Storage_READ, ev);
+		bonobo_object_release_unref (storage, NULL);
+		if (BONOBO_EX (ev)) {
+			g_warning ("Could not get stream: %s",
+				   bonobo_exception_get_text (ev));
+			return;
+		} 
+
+		eog_image_load_from_stream (image_view->priv->image,
+					    stream, ev);
+		bonobo_object_release_unref (stream, NULL);
+		if (BONOBO_EX (ev)) {
+			g_warning ("Could not load image: %s",
+				   bonobo_exception_get_text (ev));
+			return;
+		}
+	}
+}
+
 static void
 verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 			   const char *name)
 {
 	EogImageView *image_view;
-	CORBA_Object gnocam;
 	CORBA_Environment ev;
+	CORBA_Object gnocam;
 	GNOME_Camera camera;
-	CORBA_char* path;
-	Bonobo_Stream stream;
-	Bonobo_Storage storage;
+	ListenerData *listener_data;
+	Bonobo_EventSource_ListenerId id;
 
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
 	
@@ -366,43 +419,28 @@ verb_AcquireFromCamera_cb (BonoboUIComponent *uic, gpointer user_data,
 		return;
 	}
 
-	storage = Bonobo_Unknown_queryInterface (camera,
-						 "IDL:Bonobo/Storage:1.0", &ev);
+	listener_data = g_new0 (ListenerData, 1);
+	listener_data->image_view = image_view;
+	listener_data->camera = camera;
+	id = bonobo_event_source_client_add_listener (camera, listener_cb,
+				"GNOME/Camera:CaptureImage",
+				&ev, listener_data);
 	if (BONOBO_EX (&ev)) {
-		g_warning ("Could not get storage: %s", 
+		g_warning ("Unable to add listener: %s", 
 			   bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
+		g_free (listener_data);
 		bonobo_object_release_unref (camera, NULL);
+		CORBA_exception_free (&ev);
 		return;
 	}
 
-	path = GNOME_Camera_captureImage (camera, &ev);
-	bonobo_object_release_unref (camera, NULL);
+	GNOME_Camera_captureImage (camera, &ev);
 	if (BONOBO_EX (&ev)) {
 		g_warning ("Could not capture image: %s",
 			   bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		bonobo_object_release_unref (storage, NULL);
-		return;
-	}
-
-	stream = Bonobo_Storage_openStream (storage, path, Bonobo_Storage_READ,
-					    &ev);
-	CORBA_free (path);
-	bonobo_object_release_unref (storage, NULL);
-	if (BONOBO_EX (&ev)) {
-		g_warning ("Could not get stream: %s", 
-			   bonobo_exception_get_text (&ev));
-		CORBA_exception_free (&ev);
-		bonobo_object_release_unref (storage, NULL);
-		return;
-	}
-	
-	eog_image_load_from_stream (image_view->priv->image, stream, &ev);
-	bonobo_object_release_unref (stream, NULL);
-	if (BONOBO_EX (&ev)) {
-		g_warning ("Could not load image: %s",
-			   bonobo_exception_get_text (&ev));
+		bonobo_event_source_client_remove_listener (camera, id, NULL);
+		g_free (listener_data);
+		bonobo_object_release_unref (camera, NULL);
 		CORBA_exception_free (&ev);
 		return;
 	}
@@ -1737,7 +1775,7 @@ eog_image_view_destroy (GtkObject *object)
 	bonobo_object_unref (BONOBO_OBJECT (priv->uic));
 
 	gtk_widget_unref (image_view->priv->ui_image);
-
+	
 	if (getenv ("DEBUG_EOG"))
 		g_message ("EogImageView destroyed.");
 
