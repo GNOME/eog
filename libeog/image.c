@@ -94,6 +94,9 @@ image_unref (Image *image)
 		g_free (image->g_lut);
 		g_free (image->b_lut);
 
+		if (image->filename)
+			g_free (image->filename);
+		
 		g_free (image);
 	}
 }
@@ -118,5 +121,9 @@ image_load (Image *image, const char *filename)
 
 	image->pixbuf = gdk_pixbuf_new_from_file (filename);
 
+	if (image->pixbuf)
+		image->filename = g_strdup (filename);
+
 	return (image->pixbuf != NULL);
 }
+

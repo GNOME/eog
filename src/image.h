@@ -36,6 +36,9 @@ typedef struct {
 
 	/* Color substitution tables */
 	guchar *r_lut, *g_lut, *b_lut;
+
+	/* The file name this Image represents */
+	char *filename;
 } Image;
 
 Image *image_new (void);

@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gtk/gtksignal.h>
+#include <gtk/gtkwindow.h>
 #include "cursors.h"
 #include "image-item.h"
 #include "ui-image.h"
@@ -359,6 +360,7 @@ void
 ui_image_set_image (UIImage *ui, Image *image)
 {
 	UIImagePrivate *priv;
+	GtkWidget *toplevel;
 	int w, h;
 
 	g_return_if_fail (ui != NULL);
@@ -372,6 +374,10 @@ ui_image_set_image (UIImage *ui, Image *image)
 	if (image)
 		image_ref (image);
 
+	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (ui));
+	if (toplevel && image->filename)
+		gtk_window_set_title (GTK_WINDOW (toplevel), g_basename (image->filename));
+	
 	if (priv->image)
 		image_unref (priv->image);
 
