@@ -658,10 +658,18 @@ eog_window_construct (EogWindow *window)
 
 	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
 
+#if 0
+	/* FIXME: it would be nice to allow toolbar
+	   configuration/visibility changes from within eog. But this
+	   has some issues at the moment, see bug #114231. Needs
+	   fixing for 2.4.x.
+	*/
+
 	bonobo_ui_engine_config_set_path (
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
-		"/eog-shell/UIConf/kvps");
-
+		"/apps/eog/shell/ui"); 
+#endif
+						   
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
 	gtk_widget_show (priv->box);
 	bonobo_window_set_contents (BONOBO_WINDOW (window), priv->box);
