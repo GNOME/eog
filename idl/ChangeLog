@@ -1,3 +1,12 @@
+2000-11-19  Martin Baulig  <baulig@suse.de>
+
+	* Eog.idl (GNOME::EOG::Image): New interface which is derived
+	from GNOME::EOG::Image (FIXME: do we really need to distinguish
+	between GNOME::EOG::ImageData and GNOME::EOG::Image or can't we
+	just use GNOME::EOG::Image for everything?).
+	(GNOME::EOG::ImageView): Renamed getImageData() to getImage()
+	and made it return a GNOME::EOG::Image.
+
 2000-11-17  Martin Baulig  <baulig@suse.de>
 
 	* Eog.idl (GNOME::EOG::ImageView): Removed getZoomable(),

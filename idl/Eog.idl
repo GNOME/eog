@@ -41,10 +41,13 @@ module GNOME {
 			 */
 		};
 
+		interface Image : ImageData {
+		};
+
 		interface ImageView : Bonobo::Unknown {
 			/* This is an actual EOG image view */
 
-			ImageData getImageData ();
+			Image getImage ();
 		};
 	};
 };
