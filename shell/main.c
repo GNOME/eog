@@ -8,7 +8,6 @@
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
-#include <eel/eel-vfs-extensions.h>
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
 #include "session.h"
@@ -140,7 +139,7 @@ make_canonical_uri (const char *path)
 	char *uri_str;
 	GnomeVFSURI *uri;
 
-	uri_str = eel_make_uri_from_shell_arg (path);
+	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
 
 	uri = NULL;
 
