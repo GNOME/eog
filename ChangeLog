@@ -1,3 +1,14 @@
+2003-10-27  Jens Finke  <jens@triq.net>
+
+	* collection/eog-collection-view.c (free_image_list): New
+	function, which releases a list of images returned by
+	eog_wrap_list_get_selected_images.
+	(save_image_init_loading): Don't add another ref to an image.
+	(verb_SlideShow_cb), 
+	(save_dlg_response_cb),
+	(apply_transformation),
+	(verb_Undo_cb): Free image list.
+	
 2003-10-26  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-model.[ch]: Removed.

@@ -119,6 +119,17 @@ static guint eog_collection_view_signals [LAST_SIGNAL];
 BONOBO_CLASS_BOILERPLATE (EogCollectionView, eog_collection_view,
 			  BonoboPersistFile, BONOBO_TYPE_PERSIST_FILE);
 
+static void
+free_image_list (GList *list)
+{
+	GList *it;
+
+	for (it = list; it != NULL; it = it->next) {
+		g_object_unref (G_OBJECT (it->data));
+	}
+	g_list_free (list);
+}
+
 
 static void
 verb_SlideShow_cb (BonoboUIComponent *uic, 
@@ -134,16 +145,11 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 
 	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (view->priv->wraplist)) > 1) {
 		GList *image_list;
-		GList *it;
 
 		image_list = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (view->priv->wraplist));
 		list = eog_image_list_new_from_glist (image_list);
 
-		/* free temporary list */
-		for (it = image_list; it != NULL; it = it->next) {
-			g_object_unref (G_OBJECT (it->data));
-		}
-		g_list_free (image_list);
+		free_image_list (image_list);
 	}
 	else {
 		list = g_object_ref (view->priv->model);
@@ -196,6 +202,7 @@ verb_Undo_cb (BonoboUIComponent *uic, gpointer data, const char *name)
 		EogImage *image = EOG_IMAGE (it->data);
 		eog_image_undo (image);
 	}
+	free_image_list (images);
 }
 
 /*
@@ -268,15 +275,15 @@ save_image_loading_finished (EogImage *image, gpointer data)
 	g_signal_handler_disconnect (G_OBJECT (image), ctx->failed_id);
 
 	if (eog_image_is_modified (image) && !ctx->cancel) {
-			GError *error = NULL;
-			GnomeVFSURI *uri;
-			
-			uri = eog_image_get_uri (image);
-			
-			if (!eog_image_save (image, uri, &error)) {
-				/* FIXME: indicate failed state to the user */
-			}
-			gnome_vfs_uri_unref (uri);
+		GError *error = NULL;
+		GnomeVFSURI *uri;
+		
+		uri = eog_image_get_uri (image);
+		
+		if (!eog_image_save (image, uri, &error)) {
+			/* FIXME: indicate failed state to the user */
+		}
+		gnome_vfs_uri_unref (uri);
 	}
 
 	if (image != ctx->view->priv->displayed_image) {
@@ -311,8 +318,6 @@ save_image_init_loading (SaveContext *ctx)
 		ctx->finished_id = g_signal_connect (image, "loading_finished", G_CALLBACK (save_image_loading_finished), ctx);
 		ctx->failed_id = g_signal_connect (image, "loading_failed", G_CALLBACK (save_image_loading_failed), ctx);
 		ctx->image_list = g_list_delete_link (ctx->image_list, ctx->image_list);
-
-		g_object_ref (image);
 
 		eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE);
 	}
@@ -356,7 +361,7 @@ save_dlg_response_cb (GtkDialog *dialog,
 	case GTK_RESPONSE_OK:
 		view = ctx->view;
 		if (ctx->image_list != NULL) {
-			g_list_free (ctx->image_list);
+			free_image_list (ctx->image_list);
 		}
 		g_free (ctx);
 		g_timeout_add (1250, save_dlg_close, dialog);
@@ -477,7 +482,8 @@ apply_transformation (EogCollectionView *view, EogTransform *trans)
 		g_signal_handler_disconnect (image, id);
 		data->counter++;
 	}
-
+	
+	free_image_list (images);
 	g_free (data);
 	g_object_unref (trans);
 }
