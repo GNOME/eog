@@ -77,7 +77,7 @@ cimage_destroy (GtkObject *obj)
 	}
 
 	if (priv->thumbnail) {
-		gdk_pixbuf_unref (priv->thumbnail);
+		g_object_unref (priv->thumbnail);
 		priv->thumbnail = NULL;
 	}
 	
@@ -182,7 +182,7 @@ cimage_get_thumbnail (CImage *img)
 	
 	thumb = img->priv->thumbnail;
 	if (thumb)
-		gdk_pixbuf_ref (thumb);
+		g_object_ref (thumb);
 
 	return thumb;
 }
@@ -217,10 +217,10 @@ cimage_set_thumbnail (CImage *img, GdkPixbuf *thumbnail)
 	g_return_if_fail (IS_CIMAGE (img));
 	g_return_if_fail (thumbnail != NULL);
 	
-	if(img->priv->thumbnail)
-		gdk_pixbuf_unref (img->priv->thumbnail);
+	if (img->priv->thumbnail)
+		g_object_unref (img->priv->thumbnail);
 
-	gdk_pixbuf_ref (thumbnail);
+	g_object_ref (thumbnail);
 	img->priv->thumbnail = thumbnail;
 }
 

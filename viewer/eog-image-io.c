@@ -22,7 +22,6 @@
 #include <gnome.h> /* Include this before png.h, or see lots of shadowed
 		      variable warnings */
 #include <stdio.h>
-#include <setjmp.h>
 #include <string.h>
 #ifdef HAVE_XPM
 #include <X11/xpm.h>
@@ -216,7 +215,7 @@ eog_image_save_xpm (EogImage *eog_image, Bonobo_Stream stream,
 	g_hash_table_foreach (hash, free_hash_table, NULL);
 	g_hash_table_destroy (hash);
 
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	return retval == 0;
 }
@@ -312,26 +311,26 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	/* no image data? abort */
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
 	if (!pixels) {
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		return FALSE;
 	}
 
 	png_ptr = png_create_write_struct (PNG_LIBPNG_VER_STRING,
 					   NULL, NULL, NULL);
 	if (!png_ptr) {
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		return FALSE;
 	}
 
 	info_ptr = png_create_info_struct (png_ptr);
 	if (!info_ptr) {
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		return FALSE;
 	}
   
 	if (setjmp (png_ptr->jmpbuf)) {
 		png_destroy_write_struct (&png_ptr, &info_ptr);
-		gdk_pixbuf_unref (pixbuf);
+		g_object_unref (pixbuf);
 		return FALSE;
 	}
 
@@ -396,7 +395,7 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 	png_write_end (png_ptr, info_ptr);
 	png_destroy_write_struct (&png_ptr, (png_infopp) NULL);
 
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	return TRUE;
 }

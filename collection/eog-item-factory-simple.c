@@ -182,7 +182,7 @@ eog_item_factory_simple_destroy (GtkObject *object)
 	priv = factory->priv;
 	
 	if (priv->dummy)
-		gdk_pixbuf_unref (priv->dummy);
+		g_object_unref (priv->dummy);
 	priv->dummy = NULL;
 	
 	if (priv->metrics)
@@ -190,7 +190,7 @@ eog_item_factory_simple_destroy (GtkObject *object)
 	priv->metrics = NULL;
 
 	if (priv->shaded_bgr)
-		gdk_pixbuf_unref (priv->shaded_bgr);
+		g_object_unref (priv->shaded_bgr);
 	priv->shaded_bgr = NULL;
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -415,7 +415,7 @@ ii_factory_update_item (EogItemFactory *factory,
 		image_h = gdk_pixbuf_get_height (thumb);
 	} else {
 		thumb = priv->dummy;
-		gdk_pixbuf_ref (thumb);
+		g_object_ref (thumb);
 		image_w = gdk_pixbuf_get_width (thumb);
 		image_h = gdk_pixbuf_get_height (thumb);
 	}
@@ -464,7 +464,7 @@ ii_factory_update_item (EogItemFactory *factory,
 			       "height_set", FALSE,
 			       NULL);
 
-	gdk_pixbuf_unref (thumb);
+	g_object_unref (thumb);
 
 
 	/* Configure caption */
@@ -580,7 +580,7 @@ eog_item_factory_simple_construct (EogItemFactorySimple *factory)
 						     3 * priv->metrics->twidth,
 						     (GdkPixbufDestroyNotify) shade_bgr_destroy_notify_cb,
 						     NULL);
-	gdk_pixbuf_ref (priv->shaded_bgr);
+	g_object_ref (priv->shaded_bgr);
 	create_shaded_background (priv->shaded_bgr);
 
 	return factory;

@@ -1001,7 +1001,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 
 	/* Scale the pixbuf */
 	pixbuf = gdk_pixbuf_scale_simple (pixbuf_orig, width, height, interp);
-	gdk_pixbuf_unref (pixbuf_orig);
+	g_object_unref (pixbuf_orig);
 
 	/* Print it! */
 	print_page (print_context, 
@@ -1013,7 +1013,7 @@ eog_image_view_print (EogImageView *image_view, gboolean preview,
 		    fit_to_page, adjust_to,
 		    down_right, cut, overlap_x, overlap_y, overlap,
 		    pixbuf, 0, 0);
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 	gnome_print_context_close (print_context);
 	gnome_print_master_close (print_master);

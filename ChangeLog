@@ -1,3 +1,12 @@
+2002-04-16  Michael Meeks  <michael@ximian.com>
+
+	* viewer/eog-image-io.c: don't include setjmp before
+	png.h or the png headers have a fit - for no good reason.
+
+	* viewer/*.c: s/gdk_pixbuf_[un]ref/g_object_[un]ref/
+
+	* collection/*.c: s/gdk_pixbuf_[un]ref/g_object_[un]ref/
+
 2002-04-15  Jens Finke <jens@triq.net>
 
 	* configure.in: version 0.116.0, updated version requirements of

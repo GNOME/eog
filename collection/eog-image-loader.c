@@ -190,7 +190,7 @@ scale_image (EogImageLoader *loader, GdkPixbuf *image)
 		thumb_w = pixbuf_w;
 		thumb_h = pixbuf_h;
 		thumb = image;
-		gdk_pixbuf_ref (thumb);
+		g_object_ref (thumb);
 	}			      
 
 	return thumb;
@@ -251,12 +251,12 @@ loading_finished (EILContext *ctx)
 						     gdk_pixbuf_get_width (pbf),
 						     gdk_pixbuf_get_height (pbf));
 			
-			gdk_pixbuf_unref (thumb);
-			gdk_pixbuf_unref (pbf);
+			g_object_unref (thumb);
+			g_object_unref (pbf);
 			
-			gtk_signal_emit (GTK_OBJECT (ctx->loader),
-					 eog_image_loader_signals [LOADING_FINISHED],
-					 ctx->cimg);
+			g_signal_emit (ctx->loader,
+				       eog_image_loader_signals [LOADING_FINISHED],
+				       ctx->cimg);
 		} else {
 			loading_failed = TRUE;
 		}
@@ -267,9 +267,9 @@ loading_finished (EILContext *ctx)
  		g_message ("Loading failed for: %s\n", cimage_get_uri (ctx->cimg)->text);
 #endif
 		cimage_set_loading_failed (ctx->cimg);
-		gtk_signal_emit (GTK_OBJECT (ctx->loader),
-				 eog_image_loader_signals [LOADING_FAILED],
-				 ctx->cimg);
+		g_signal_emit (ctx->loader,
+			       eog_image_loader_signals [LOADING_FAILED],
+			       ctx->cimg);
 	}
 	g_free (ctx);
 

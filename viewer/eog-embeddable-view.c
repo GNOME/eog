@@ -178,7 +178,7 @@ configure_size (EogEmbeddableView *view,
 	zoomy = (1.0 * allocation->height) /
 		gdk_pixbuf_get_height (pixbuf);
 
-	gdk_pixbuf_unref (pixbuf);
+	g_object_unref (pixbuf);
 
 /*	g_warning ("Set to zoom %f %f, pixbuf %d %d",
 		   zoomx, zoomy,
