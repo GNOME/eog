@@ -591,10 +591,10 @@ eog_window_new (void)
 	EogWindow *window;
 	BonoboUIContainer *uic;
 
-	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, NULL));
-
-	uic = bonobo_ui_container_new ();
-	bonobo_window_construct (BONOBO_WINDOW (window), uic, "eog", _("Eye of Gnome"));
+	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, 
+					   "win_name", "eog", 
+					   "title", _("Eye of Gnome"), 
+					   NULL));
 
 	eog_window_construct (window);
 

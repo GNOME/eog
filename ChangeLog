@@ -1,7 +1,33 @@
+2002-04-23  Jens Finke <jens@triq.net>
+
+	* configure.in: Updated required library versions.
+
 2002-04-22  Federico Mena Quintero  <federico@ximian.com>
 
 	* viewer/eog-image-io.c: Add workaround around broken libjpeg
 	headers.  See bug #79010.
+
+2002-04-22  Murray Cumming  <murrayc@usa.net>
+
+	* shell/eog-window.c eog_window_new():
+	Use construct-time properties with g_object_new() instead of
+	bonobo_window_construct(), which should no longer be used.
+
+2002-04-19  Jens Finke  <jens@triq.net>
+
+	* GNOME_EOG_Collection.oaf.in: Renamed to
+	GNOME_EOG_Collection.server.in
+	
+	* .cvsignore: Ignore GNOME_EOG_Collection.server and
+	eog-collection-marshal.[ch].
+
+	* eog-collection-marshal.list: New file.
+
+2002-04-19  Jens Finke  <jens@triq.net>
+
+	* collection/Makefile.am,
+	* collection/*.c, 
+	* collection/*.h: Ported to Gnome2 so that it at least compiles.
 
 2002-04-17  Federico Mena Quintero  <federico@ximian.com>
 
