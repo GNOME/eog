@@ -7,23 +7,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-03-10 16:59+0200\n"
-"PO-Revision-Date: 2002-03-10 17:05+0200\n"
+"POT-Creation-Date: 2002-03-25 11:40+0200\n"
+"PO-Revision-Date: 2002-03-25 11:40+0200\n"
 "Last-Translator: Jarkko Ranta <jjranta@cc.joensuu.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Eye of Gnome -kuvankatselin"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Kuvankatseluohjelma"
+msgid "View many different types of images"
+msgstr "Katsele monia erilaisia kuvatyyppejä"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
 msgid "EOG Image"
 msgstr "EOG-kuva"
 
@@ -67,7 +67,7 @@ msgstr "_Poistu"
 msgid "Exit the program"
 msgstr "Poistu ohjelmasta"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
 msgid "Open"
 msgstr "Avaa"
 
@@ -123,39 +123,56 @@ msgstr "_Asetukset"
 msgid "_View"
 msgstr "_Katsele"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr "Kääntäjät"
+
+#: shell/eog-window.c:201 shell/eog-window.c:549
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Gnomen kuvankatselu- ja luettelointiohjelma"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Avaa kuva"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollissa ei ole tukea window_title-ominaisuudelle."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollissa ei ole tukea status_text-ominaisuudelle."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Kontrolli ei sisällä ominaisuuksia"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "Tiedoston mime-tyyppiä ei saatu selville."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Virhe haettaessa tiedostotietoja."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1097
+#, c-format
+msgid "Unable to open %s."
+msgstr "Tiedoston %s avaaminen epäonnistui"
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -170,15 +187,24 @@ msgstr ""
 msgid "Single Windows"
 msgstr "Yksittäiset ikkunat"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Kokoelma"
 
-#: shell/main.c:280
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Olet aikeissa avata %i ikkunaa\n"
+"samanaikaisesti. Haluatko jatkaa?"
+
+#: shell/main.c:307
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS:n alustus epäonnistui!\n"
 
-#: shell/main.c:283
+#: shell/main.c:310
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobon alustus epäonnistui!\n"
 
@@ -187,68 +213,72 @@ msgstr "Bonobon alustus epäonnistui!\n"
 msgid "Could not open `%s'"
 msgstr "Ei voinut avata: '%s'"
 
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnomen asetukset"
+
 #: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS:n alustus epäonnistui!\n"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:298
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Tiedoston tallennus nimellä '%s' epäonnistui: %s."
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:347
 msgid "Save As"
 msgstr "Tallenna nimellä"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:920
 msgid "Print Image"
 msgstr "Tulosta kuva"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:928
 msgid "Pages"
 msgstr "Sivut"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1015
 msgid "Print Preview"
 msgstr "Tulostuksen esikatselu"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1021
 msgid "Printing of image failed"
 msgstr "Kuvan tulostaminen epäonnistui"
 
-#: viewer/eog-image-view.c:1895
+#: viewer/eog-image-view.c:1835
 msgid "Display"
 msgstr "Näyttö"
 
-#: viewer/eog-image-view.c:1986 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Interpolointi"
 
-#: viewer/eog-image-view.c:1989 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Pehmennys"
 
-#: viewer/eog-image-view.c:1992 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Ruututyyppi"
 
-#: viewer/eog-image-view.c:1995 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Ruutukoko"
 
-#: viewer/eog-image-view.c:1998
+#: viewer/eog-image-view.c:2071
 msgid "Image Width"
 msgstr "Kuvan leveys"
 
-#: viewer/eog-image-view.c:2001
+#: viewer/eog-image-view.c:2074
 msgid "Image Height"
 msgstr "Kuvan korkeus"
 
-#: viewer/eog-image-view.c:2004
+#: viewer/eog-image-view.c:2077
 msgid "Window Title"
 msgstr "Ikkunan otsikko"
 
-#: viewer/eog-image-view.c:2007
+#: viewer/eog-image-view.c:2080
 msgid "Statusbar Text"
 msgstr "Tilarivin teksti"
 
@@ -569,67 +599,82 @@ msgstr "Alas, sitten oikealle"
 msgid "Right, then down"
 msgstr "Oikealle, sitten alas"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "Lähimpään naapuriin interpolointi"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 msgid "Tiles Interpolation"
 msgstr "Tiili-interpolointi"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "Kaksisuuntainen interpolointi"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Liioitteleva interpolointi"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Ei pehmennystä"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normaali (pseudovärinen) pehmennys"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "Maksimi (täysvärinen) pehmennys"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Tummat"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "Keskitummat"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Vaaleat"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Mustat"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Harmaat"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Valkeat"
 
-#: viewer/preferences.c:66
+#: viewer/preferences.c:59
 msgid "Small"
 msgstr "Pieni"
 
-#: viewer/preferences.c:67
+#: viewer/preferences.c:60
 msgid "Medium"
 msgstr "Keskikokoinen"
 
-#: viewer/preferences.c:68
+#: viewer/preferences.c:61
 msgid "Large"
 msgstr "Suuri"
 
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Interpolointi:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Pehmennys:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Ruututyyppi:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Ruutukoko:"
