@@ -1,3 +1,29 @@
+2000-04-13  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (image_view_size_allocate): Set the correct size
+	for the window and recompute the adjustments.
+	(paint_rectangle): The offset of the image with respect to the
+	window is the negative of the adjustment offset.
+	(image_view_destroy): Disconnect from the adjustments.
+	(image_view_finalize): Unref the adjustments.  Free the private
+	part of the ImageView structure here.
+	(image_view_set_image): Queue a resize.  We still need to adjust
+	or reset the scroll offsets.
+	(image_view_set_zoom): Queue a resize.  We still need to re-center
+	the zoom offsets.
+	(adjustment_changed_cb): As a temporary solution, repaint the
+	whole thing.  I need to finish uta_copy_area() for uta.c to be
+	able to use gdk_window_copy_area() on the image window.
+
+	* uta.c (uta_add_rect): Fixed computation of microtile
+	coordinates.  Fixed a bunch of stupid off-by-one errors.
+	(uta_remove_rect): Fixed computation of microtile coordinates and
+	clipping coordinates.
+	(uta_find_first_glom_rect): As a quick hack, use a bastardized
+	version of art_rect_list_from_uta() to find the first glommed
+	rectangle.  This will be replaced with a more efficient function
+	in the future.
+
 2000-04-03  Federico Mena Quintero  <federico@helixcode.com>
 
 	* uta.c (uta_remove_rect): Finished implementing.

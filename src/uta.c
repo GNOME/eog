@@ -143,8 +143,8 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 
 	rect_x1 = x1 >> ART_UTILE_SHIFT;
 	rect_y1 = y1 >> ART_UTILE_SHIFT;
-	rect_x2 = (x2 >> ART_UTILE_SHIFT) + 1;
-	rect_y2 = (y2 >> ART_UTILE_SHIFT) + 1;
+	rect_x2 = (x2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_y2 = (y2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
 
 	uta = uta_ensure_size (uta, rect_x1, rect_y1, rect_x2, rect_y2);
 
@@ -175,7 +175,7 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 							   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Tiles in between */
-			for (x = rect_x1 + 1; x < rect_x2; x++) {
+			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
 								   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
@@ -201,7 +201,7 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			ofs += uta->width;
 
 			/* Tiles in between */
-			for (y = rect_y1 + 1; y < rect_y2; y++) {
+			for (y = rect_y1 + 1; y < rect_y2 - 1; y++) {
 				bb = utiles[ofs];
 				utiles[ofs] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
 								 0,
@@ -225,7 +225,7 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 							   ART_UTILE_SIZE);
 
 			/* Top row, in between */
-			for (x = rect_x1 + 1; x < rect_x2; x++) {
+			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
 								   MIN (ART_UTA_BBOX_Y0 (bb), yf1),
@@ -240,10 +240,10 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 							 MAX (ART_UTA_BBOX_X1 (bb), xf2),
 							 ART_UTILE_SIZE);
 
-			ofs += uta->width - (rect_x2 - rect_x1);
+			ofs += uta->width - (rect_x2 - rect_x1 - 1);
 
 			/* Rows in between */
-			for (y = rect_y1 + 1; y < rect_x2; y++) {
+			for (y = rect_y1 + 1; y < rect_y2 - 1; y++) {
 				/* Leftmost tile */
 				bb = utiles[ofs];
 				utiles[ofs++] = ART_UTA_BBOX_CONS (MIN (ART_UTA_BBOX_X0 (bb), xf1),
@@ -253,17 +253,17 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 
 				/* Tiles in between */
 				bb = ART_UTA_BBOX_CONS (0, 0, ART_UTILE_SIZE, ART_UTILE_SIZE);
-				for (x = rect_x1 + 1; x < rect_x2; x++)
+				for (x = rect_x1 + 1; x < rect_x2 - 1; x++)
 					utiles[ofs++] = bb;
 
 				/* Rightmost tile */
 				bb = utiles[ofs];
-				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
-								   0,
-								   MAX (ART_UTA_BBOX_X1 (bb), xf2),
-								   ART_UTILE_SIZE);
+				utiles[ofs] = ART_UTA_BBOX_CONS (0,
+								 0,
+								 MAX (ART_UTA_BBOX_X1 (bb), xf2),
+								 ART_UTILE_SIZE);
 
-				ofs += uta->width - (rect_x2 - rect_x1);
+				ofs += uta->width - (rect_x2 - rect_x1 - 1);
 			}
 
 			/* Bottom row, leftmost tile */
@@ -274,7 +274,7 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 							   MAX (ART_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Bottom row, tiles in between */
-			for (x = rect_x1 + 1; x < rect_x2; x++) {
+			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				utiles[ofs++] = ART_UTA_BBOX_CONS (0,
 								   0,
@@ -310,7 +310,6 @@ void
 uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 {
 	ArtUtaBbox *utiles;
-	ArtUtaBbox bb;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	int clip_x1, clip_y1, clip_x2, clip_y2;
 	int xf1, yf1, xf2, yf2;
@@ -318,18 +317,21 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	int x, y;
 
 	g_return_if_fail (uta != NULL);
-	g_return_if_fail (x1 < x2);
-	g_return_if_fail (y1 < y2);
+	g_return_if_fail (x1 <= x2);
+	g_return_if_fail (y1 <= y2);
+
+	if (x1 == x2 || y1 == y2)
+		return;
 
 	rect_x1 = x1 >> ART_UTILE_SHIFT;
 	rect_y1 = y1 >> ART_UTILE_SHIFT;
-	rect_x2 = (x2 >> ART_UTILE_SHIFT) + 1;
-	rect_y2 = (y2 >> ART_UTILE_SHIFT) + 1;
+	rect_x2 = (x2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_y2 = (y2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
 
 	clip_x1 = MAX (rect_x1, uta->x0);
 	clip_y1 = MAX (rect_y1, uta->y0);
-	clip_x2 = MAX (rect_x2, uta->x0 + uta->width);
-	clip_y2 = MAX (rect_y2, uta->y0 + uta->height);
+	clip_x2 = MIN (rect_x2, uta->x0 + uta->width);
+	clip_y2 = MIN (rect_y2, uta->y0 + uta->height);
 
 	if (clip_x1 >= clip_x2 || clip_y1 >= clip_y2)
 		return;
@@ -358,7 +360,8 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 
 		for (x = clip_x1; x < clip_x2; x++) {
 			int cx1, cx2;
-			int bb, bb_x1, bb_y1, bb_x2, bb_y2;
+			ArtUtaBbox bb;
+			int bb_x1, bb_y1, bb_x2, bb_y2;
 			int bb_cx1, bb_cy1, bb_cx2, bb_cy2;
 			
 			bb = utiles[ofs];
@@ -427,6 +430,105 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 void
 uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
 {
+  ArtIRect *rects;
+  int n_rects, n_rects_max;
+  int x, y;
+  int width, height;
+  int ix;
+  int left_ix;
+  ArtUtaBbox *utiles;
+  ArtUtaBbox bb;
+  int x0, y0, x1, y1;
+  int *glom;
+  int glom_rect;
+
+  n_rects = 0;
+  n_rects_max = 1;
+  rects = art_new (ArtIRect, n_rects_max);
+
+  width = uta->width;
+  height = uta->height;
+  utiles = uta->utiles;
+
+  glom = art_new (int, width * height);
+  for (ix = 0; ix < width * height; ix++)
+    glom[ix] = -1;
+
+  ix = 0;
+  for (y = 0; y < height; y++)
+    for (x = 0; x < width; x++)
+      {
+	bb = utiles[ix];
+	if (bb)
+	  {
+	    x0 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X0(bb);
+	    y0 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y0(bb);
+	    y1 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y1(bb);
+
+	    left_ix = ix;
+	    /* now try to extend to the right */
+	    while (x != width - 1 &&
+		   ART_UTA_BBOX_X1(bb) == ART_UTILE_SIZE &&
+		   (((bb & 0xffffff) ^ utiles[ix + 1]) & 0xffff00ff) == 0 &&
+		   (((uta->x0 + x + 1) << ART_UTILE_SHIFT) +
+		    ART_UTA_BBOX_X1(utiles[ix + 1]) -
+		    x0) <= max_width)
+	      {
+		bb = utiles[ix + 1];
+		ix++;
+		x++;
+	      }
+	    x1 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X1(bb);
+
+
+	    /* if rectangle nonempty */
+	    if ((x1 ^ x0) | (y1 ^ y0))
+	      {
+		/* try to glom onto an existing rectangle */
+		glom_rect = glom[left_ix];
+		if (glom_rect != -1 &&
+		    x0 == rects[glom_rect].x0 &&
+		    x1 == rects[glom_rect].x1 &&
+		    y0 == rects[glom_rect].y1 &&
+		    y1 - rects[glom_rect].y0 <= max_height)
+		  {
+		    rects[glom_rect].y1 = y1;
+		  }
+		else
+		  {
+		    if (n_rects == n_rects_max)
+		      art_expand (rects, ArtIRect, n_rects_max);
+		    rects[n_rects].x0 = x0;
+		    rects[n_rects].y0 = y0;
+		    rects[n_rects].x1 = x1;
+		    rects[n_rects].y1 = y1;
+		    glom_rect = n_rects;
+		    n_rects++;
+		  }
+		if (y != height - 1)
+		  glom[left_ix + width] = glom_rect;
+	      }
+	  }
+	ix++;
+      }
+
+  if (n_rects > 0) {
+	  rect->x0 = rects[0].x0;
+	  rect->y0 = rects[0].y0;
+	  rect->x1 = rects[0].x1;
+	  rect->y1 = rects[0].y1;
+  } else
+	  rect->x0 = rect->y0 = rect->x1 = rect->y1 = 0;
+
+  art_free (glom);
+  art_free (rects);
+}
+
+#if 0
+
+void
+uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
+{
 	ArtUtaBbox *utiles;
 	ArtUtaBbox bb;
 	int width, height;
@@ -483,5 +585,6 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 
  grow_down:
 
-	
 }
+
+#endif

@@ -1,0 +1,86 @@
+If you intend to work on any of these issues, please contact
+Federico Mena-Quintero (federico@gimp.org).
+
+* Finish the ImageView widget:
+
+	- Re-center the offsets when changing the zoom factor.
+
+	- Mouse drag-scrolling.
+
+	- Scrolling using gdk_window_copy_area().  This also requires
+          writing uta_copy_area() for uta.c.
+
+	- Finish uta.c:uta_find_first_glom_rect().
+
+	- Figure out what to do with the color correction tables; we
+          are not using them right now.
+
+* Turn the UIImage widget into a Bonobo control ("I want an image
+  viewer in my application"):
+
+	- Write a CORBA interface for the control's methods (set zoom,
+          set image, etc.).
+
+	- See what user interface elements such as toolbar/menu items
+          it needs, and put them in the control's machinery for
+          toolbar/menu merging.
+
+	- See if it should support some of the PersistStream hydration
+          methods.
+
+* Make the main program be a simple shell (like the Evolution shell)
+  where the main image viewer Bonobo control is inserted:
+
+	- Remove all the "window modes" crap from window.c.
+
+	- Maybe we should have several different types of window
+          classes: one for holding just a viewer control (windowed
+          image viewing); one for holding all the directory browsing
+          controls; one for holding the image collection browsing
+          controls.
+
+* Finish the GnomeIconView!!!
+
+* Write a directory browser.  Maybe this should be done using Nautilus
+  controls, or maybe we should have a simple and dumb thing of our
+  own.
+
+* Write the image category mechanism.
+
+* Write the image collection mechanism and its GUI.
+
+* Write a Bonobo embeddable ("I want to embed an image in my
+  document"):
+
+	- Add separate zoom factors for the vertical and horizontal
+          dimensions to the ImageView widget.  This is required so
+          that the parent can resize the image in any way.
+
+	- Write a CORBA interface for the embeddable's methods.  What
+          does it need?
+
+* Progressive loading.  Write something like
+
+	typedef struct {
+		GdkPixbufLoader *loader;
+		GdkPixbuf *result;
+		ArtUta *loaded_area;
+	} ImageLoadContext;
+
+  to allow images to be loaded progressively in the idle loop.  This
+  should be interruptible, etc.
+
+* Animation support:
+
+	- Enhance the above structure to support animations.
+
+	- Make the ImageView widget understand animations.  What to do
+          about tearing when compositing the frames?  Should we
+          special-case animations and blast them to the screen whole
+          without tearing?
+
+	  Maybe we can blast each frame at the proper time without
+	  tearing, and only use the normal tearing method when the
+	  user changes the zoom/scroll.
+
+* Write the user's, programmer's, and API reference manuals.

@@ -39,6 +39,10 @@
 #define PAINT_RECT_WIDTH 256
 #define PAINT_RECT_HEIGHT 64
 
+/* Scroll step increment */
+
+#define SCROLL_STEP_SIZE 32
+
 
 
 /* Private part of the ImageView structure */
@@ -65,6 +69,7 @@ typedef struct {
 static void image_view_class_init (ImageViewClass *class);
 static void image_view_init (ImageView *view);
 static void image_view_destroy (GtkObject *object);
+static void image_view_finalize (GtkObject *object);
 
 static void image_view_unmap (GtkWidget *widget);
 static void image_view_realize (GtkWidget *widget);
@@ -126,6 +131,7 @@ image_view_class_init (ImageViewClass *class)
 	parent_class = gtk_type_class (GTK_TYPE_WIDGET);
 
 	object_class->destroy = image_view_destroy;
+	object_class->finalize = image_view_finalize;
 
 	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
 	widget_class->set_scroll_adjustments_signal =
@@ -194,6 +200,9 @@ image_view_destroy (GtkObject *object)
 	view = IMAGE_VIEW (object);
 	priv = view->priv;
 
+	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->hadj), view);
+	gtk_signal_disconnect_by_data (GTK_OBJECT (priv->vadj), view);
+
 	remove_dirty_region (view);
 
 	if (priv->image) {
@@ -201,10 +210,34 @@ image_view_destroy (GtkObject *object)
 		priv->image = NULL;
 	}
 
-	g_free (priv);
-
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+}
+
+/* Finalize handler for the image view */
+static void
+image_view_finalize (GtkObject *object)
+{
+	ImageView *view;
+	ImageViewPrivate *priv;
+
+	g_return_if_fail (object != NULL);
+	g_return_if_fail (IS_IMAGE_VIEW (object));
+
+	view = IMAGE_VIEW (object);
+	priv = view->priv;
+
+	gtk_object_unref (GTK_OBJECT (priv->hadj));
+	priv->hadj = NULL;
+
+	gtk_object_unref (GTK_OBJECT (priv->vadj));
+	priv->vadj = NULL;
+
+	g_free (priv);
+	view->priv = NULL;
+
+	if (GTK_OBJECT_CLASS (parent_class)->finalize)
+		(* GTK_OBJECT_CLASS (parent_class)->finalize) (object);
 }
 
 
@@ -278,12 +311,12 @@ paint_rectangle (ImageView *view, ArtIRect *rect)
 	if (scaled_width < width)
 		xofs = (width - scaled_width) / 2;
 	else
-		xofs = priv->hadj->value;
+		xofs = -priv->hadj->value;
 
 	if (scaled_height < height)
 		yofs = (height - scaled_height) / 2;
 	else
-		yofs = priv->vadj->value;
+		yofs = -priv->vadj->value;
 
 	/* Draw background if necessary, in four steps */
 
@@ -531,6 +564,8 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
+	int hval, vval;
+	int scaled_width, scaled_height;
 
 	g_return_if_fail (widget != NULL);
 	g_return_if_fail (IS_IMAGE_VIEW (widget));
@@ -545,8 +580,46 @@ image_view_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 		gdk_window_move_resize (widget->window,
 					allocation->x,
 					allocation->y,
-					allocation->x + allocation->width,
-					allocation->y + allocation->height);
+					allocation->width,
+					allocation->height);
+
+	/* Set scroll increments */
+
+	priv->hadj->page_size = allocation->width;
+	priv->hadj->page_increment = allocation->width / 2;
+	priv->hadj->step_increment = SCROLL_STEP_SIZE;
+
+	priv->vadj->page_size = allocation->height;
+	priv->vadj->page_increment = allocation->height / 2;
+	priv->vadj->step_increment = SCROLL_STEP_SIZE;
+
+	/* Set scroll bounds and new offset */
+
+	hval = priv->hadj->value;
+	vval = priv->vadj->value;
+
+	compute_scaled_size (view, &scaled_width, &scaled_height);
+
+	priv->hadj->lower = 0;
+	priv->hadj->upper = MAX (scaled_width, allocation->width);
+	hval = CLAMP (hval, 0, priv->hadj->upper - priv->hadj->page_size);
+
+	priv->vadj->lower = 0;
+	priv->vadj->upper = MAX (scaled_height, allocation->height);
+	vval = CLAMP (vval, 0, priv->vadj->upper - priv->vadj->page_size);
+
+	gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "changed");
+	gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "changed");
+
+	if (priv->hadj->value != hval) {
+		priv->hadj->value = hval;
+		gtk_signal_emit_by_name (GTK_OBJECT (priv->hadj), "value_changed");
+	}
+
+	if (priv->vadj->value != vval) {
+		priv->vadj->value = vval;
+		gtk_signal_emit_by_name (GTK_OBJECT (priv->vadj), "value_changed");
+	}
 }
 
 /* Draw handler for the image view */
@@ -586,11 +659,19 @@ adjustment_changed_cb (GtkAdjustment *adj, gpointer data)
 {
 	ImageView *view;
 	ImageViewPrivate *priv;
+	GdkRectangle area;
 
 	view = IMAGE_VIEW (data);
 	priv = view->priv;
 
-	/* FIXME */
+	/* FIXME: use copy_area() for the window and the uta */
+
+	area.x = 0;
+	area.y = 0;
+	area.width = GTK_WIDGET (view)->allocation.width;
+	area.height = GTK_WIDGET (view)->allocation.height;
+
+	request_paint_area (view, &area);
 }
 
 /* Set_scroll_adjustments handler for the image view */
@@ -702,7 +783,9 @@ image_view_set_image (ImageView *view, Image *image)
 
 	priv->image = image;
 
-	/* FIXME: resize adjustments, redraw */
+	/* FIXME: adjust zoom / image offsets; maybe just offsets here */
+
+	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
 
 /**
@@ -745,7 +828,9 @@ image_view_set_zoom (ImageView *view, double zoom)
 
 	priv->zoom = zoom;
 
-	/* FIXME: resize adjustments, redraw */
+	/* FIXME: re-center zoom */
+
+	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
 
 /**

@@ -4,6 +4,7 @@ EXTRA_DIST =		\
 	DEPENDS		\
 	HACKING		\
 	MAINTAINERS	\
+	TODO		\
 	eog.desktop	\
 	gnome-eog.png
 
