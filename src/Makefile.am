@@ -1,4 +1,4 @@
-SUBDIRS = stock
+SUBDIRS = cursors stock
 
 INCLUDES =						\
 	-I$(includedir)					\
@@ -9,6 +9,8 @@ INCLUDES =						\
 eog_SOURCES =			\
 	commands.c		\
 	commands.h		\
+	cursors.c		\
+	cursors.h		\
 	gtkscrollframe.c	\
 	gtkscrollframe.h	\
 	image.h			\

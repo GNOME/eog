@@ -132,12 +132,49 @@ set_model (GnomeListView *view, GnomeListModel *model)
 	ListViewPrivate *priv;
 
 	g_return_if_fail (view != NULL);
-	g_return_if_fail (IS_GNOME_LIST_VIEW (view));
+	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
 
 	if (model)
 		g_return_if_fail (GNOME_IS_LIST_MODEL (model));
 
 	priv = view->priv;
 
-	
+	if (model == priv->model)
+		return;
+
+	if (model)
+		gtk_object_ref (GTK_OBJECT (model));
+
+	if (priv->model)
+		gtk_object_unref (GTK_OBJECT (priv->model));
+
+	priv->model = model;
+	/* FIXME: update view */
+}
+
+/* Set_item_view_factory for the abstract list view */
+static void
+set_item_view_factory (GnomeListView *view, GnomeItemViewFactory *factory)
+{
+	ListViewPrivate *priv;
+
+	g_return_if_fail (view != NULL);
+	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
+
+	if (factory)
+		g_return_if_fail (GNOME_IS_ITEM_VIEW_FACTORY (factory));
+
+	priv = view->priv;
+
+	if (factory == priv->factory)
+		return;
+
+	if (factory)
+		gtk_object_ref (GTK_OBJECT (factory));
+
+	if (priv->factory)
+		gtk_object_unref (GTK_OBJECT (priv->factory));
+
+	priv->factory = factory;
+	/* FIXME: update view */
 }

@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <gtk/gtksignal.h>
+#include "cursors.h"
 #include "image-item.h"
 #include "ui-image.h"
 #include "zoom.h"
@@ -41,6 +42,13 @@ typedef struct {
 
 	/* Zoom factor */
 	double zoom;
+
+	/* Anchor point for dragging */
+	int drag_anchor_x, drag_anchor_y;
+	int drag_ofs_x, drag_ofs_y;
+
+	/* Whether we are dragging or not */
+	guint dragging : 1;
 } UIImagePrivate;
 
 
@@ -158,14 +166,134 @@ ui_image_new (void)
 	return GTK_WIDGET (ui);
 }
 
+
+
+/* Signal handlers for the canvas */
+
 /* Called when the canvas in an image view is realized.  We set its background
  * pixmap to NULL so that X won't clear exposed areas and thus be faster.
  */
 static void
 canvas_realized (GtkWidget *widget, gpointer data)
 {
+	GdkCursor *cursor;
+
 	gdk_window_set_back_pixmap (GTK_LAYOUT (widget)->bin_window, NULL, FALSE);
+
+	cursor = cursor_get (GTK_LAYOUT (widget)->bin_window, CURSOR_HAND_OPEN);
+	gdk_window_set_cursor (GTK_LAYOUT (widget)->bin_window, cursor);
+	gdk_cursor_destroy (cursor);
 }
+
+/* Button press handler for the canvas.  We simply start dragging. */
+static guint
+canvas_button_press (GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+	UIImage *ui;
+	UIImagePrivate *priv;
+	GdkCursor *cursor;
+
+	ui = UI_IMAGE (data);
+	priv = ui->priv;
+
+	if (priv->dragging || event->button != 1)
+		return FALSE;
+
+	priv->dragging = TRUE;
+	priv->drag_anchor_x = event->x;
+	priv->drag_anchor_y = event->y;
+	gnome_canvas_get_scroll_offsets (GNOME_CANVAS (priv->canvas),
+					 &priv->drag_ofs_x,
+					 &priv->drag_ofs_y);
+
+	cursor = cursor_get (GTK_LAYOUT (priv->canvas)->bin_window, CURSOR_HAND_CLOSED);
+	gdk_pointer_grab (GTK_LAYOUT (priv->canvas)->bin_window,
+			  FALSE,
+			  (GDK_POINTER_MOTION_MASK
+			   | GDK_POINTER_MOTION_HINT_MASK
+			   | GDK_BUTTON_RELEASE_MASK),
+			  NULL,
+			  cursor,
+			  event->time);
+	gdk_cursor_destroy (cursor);
+
+	return TRUE;
+}
+
+/* Drags the canvas to the specified position */
+static void
+drag_to (UIImage *ui, int x, int y)
+{
+	UIImagePrivate *priv;
+	int dx, dy;
+	GtkAdjustment *adj;
+
+	priv = ui->priv;
+
+	dx = priv->drag_anchor_x - x;
+	dy = priv->drag_anchor_y - y;
+
+	/* Right now this will suck for diagonal movement.  GtkLayout does not
+	 * have a way to scroll itself diagonally, i.e. you have to change the
+	 * vertical and horizontal adjustments independently, leading to ugly
+	 * visual results.  The canvas freezes and thaws the layout in case of
+	 * diagonal movement, forcing it to repaint everything.
+	 *
+	 * I will put in an ugly hack to circumvent this later.
+	 */
+
+	gnome_canvas_scroll_to (GNOME_CANVAS (priv->canvas),
+				priv->drag_ofs_x + dx,
+				priv->drag_ofs_y + dy);
+}
+
+/* Button release handler for the canvas.  We terminate dragging. */
+static guint
+canvas_button_release (GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+	UIImage *ui;
+	UIImagePrivate *priv;
+
+	ui = UI_IMAGE (data);
+	priv = ui->priv;
+
+	if (!priv->dragging || event->button != 1)
+		return FALSE;
+
+	drag_to (ui, event->x, event->y);
+	priv->dragging = FALSE;
+	gdk_pointer_ungrab (event->time);
+
+	return TRUE;
+}
+
+/* Motion handler for the canvas.  We update the drag offset. */
+static guint
+canvas_motion (GtkWidget *widget, GdkEventMotion *event, gpointer data)
+{
+	UIImage *ui;
+	UIImagePrivate *priv;
+	gint x, y;
+	GdkModifierType mods;
+
+	ui = UI_IMAGE (data);
+	priv = ui->priv;
+
+	if (!priv->dragging)
+		return FALSE;
+
+	if (event->is_hint)
+		gdk_window_get_pointer (GTK_LAYOUT (priv->canvas)->bin_window, &x, &y, &mods);
+	else {
+		x = event->x;
+		y = event->y;
+	}
+
+	drag_to (ui, event->x, event->y);
+	return TRUE;
+}
+
+
 
 /**
  * ui_image_construct:
@@ -191,7 +319,16 @@ ui_image_construct (UIImage *ui)
 	priv->canvas = gnome_canvas_new ();
 	gtk_signal_connect (GTK_OBJECT (priv->canvas), "realize",
 			    GTK_SIGNAL_FUNC (canvas_realized),
-			    NULL);
+			    ui);
+	gtk_signal_connect (GTK_OBJECT (priv->canvas), "button_press_event",
+			    GTK_SIGNAL_FUNC (canvas_button_press),
+			    ui);
+	gtk_signal_connect (GTK_OBJECT (priv->canvas), "button_release_event",
+			    GTK_SIGNAL_FUNC (canvas_button_release),
+			    ui);
+	gtk_signal_connect (GTK_OBJECT (priv->canvas), "motion_notify_event",
+			    GTK_SIGNAL_FUNC (canvas_motion),
+			    ui);
 
 	gtk_widget_pop_colormap ();
 	gtk_widget_pop_visual ();
@@ -265,7 +402,7 @@ ui_image_set_image (UIImage *ui, Image *image)
  * ui_image_set_zoom:
  * @ui: An image view.
  * @zoom: Desired zoom factor.
- * 
+ *
  * Sets the zoom factor of an image view.
  **/
 void
@@ -285,9 +422,9 @@ ui_image_set_zoom (UIImage *ui, double zoom)
 /**
  * ui_image_get_zoom:
  * @ui: An image view.
- * 
+ *
  * Gets the current zoom factor of an image view.
- * 
+ *
  * Return value: Current zoom factor.
  **/
 double
@@ -305,7 +442,7 @@ ui_image_get_zoom (UIImage *ui)
 /**
  * ui_image_zoom_fit:
  * @ui: An image view.
- * 
+ *
  * Sets the zoom factor to fit the size of an image view.
  **/
 void

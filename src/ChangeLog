@@ -1,3 +1,19 @@
+1999-09-28  Federico Mena Quintero  <federico@redhat.com>
+
+	* ui-image.c (canvas_realized): Set the cursor to a hand.
+	(UIImagePrivate): Added fields for the anchor point for dragging.
+	(drag_to): New function to allow dragging of the canvas.  It will
+	perform badly for diagonal movement; see the comment in this
+	source file to see why.
+
+	* cursors.c (cursor_get): New file and new function to create
+	mouse cursors.
+
+	* Makefile.am: Added the cursors directory.  Added cursors.[ch] to
+	the list of sources.
+
+	* cursors/Makefile.am: Added the cursor data files.
+
 1999-09-24  Federico Mena Quintero  <federico@redhat.com>
 
 	This is the start of the new icon list / column list / tree
