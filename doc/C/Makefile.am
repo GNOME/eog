@@ -13,12 +13,14 @@ eog: $(SGML_FILES)
 
 dist-hook:
 	mkdir $(distdir)/eog
-	-cp eog/*.html eog/*.css \
-		$(distdir)/eog
+	-cp eog/*.html eog/*.css $(distdir)/eog
 	mkdir $(distdir)/fig
 	-cp fig/*.png $(distdir)/fig
+	mkdir $(distdir)/eog/stylesheet-images
+	-cp eog/stylesheet-images/* $(distdir)/eog/stylesheet-images
 
 install-data-local: eog
+	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(eog_helpdir)
 	-for file in $(srcdir)/eog/*.html $(srcdir)/eog/*.css; do \
 		basefile=`basename $$file`; \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(eog_helpdir)/$$basefile; \

@@ -1,7 +1,7 @@
 #
 # Note that this is NOT a relocatable package
-# $Id$
 #
+
 %define ver      @VERSION@
 %define rel      1
 %define prefix   @prefix@
@@ -11,12 +11,12 @@ Summary: Eye Of Gnome
 Name: %name
 Version: %ver
 Release: %rel
-Copyright: LGPL
-Group: System Environment/Base
+Copyright: GPL
+Group: Applications/Multimedia
 Source: ftp://ftp.gnome.org/pub/GNOME/unstable/sources/eog/eog-%{ver}.tar.gz
 BuildRoot: /var/tmp/eog
 Obsoletes: eog
-Packager: Eskil Heyn Olsen <deity@eazel.com>
+Packager: Federico Mena-Quintero <federico@gnu.org>
 URL: http://www.gnome.org
 Prereq: /sbin/install-info
 Prefix: %{prefix}
@@ -24,17 +24,22 @@ Docdir: %{prefix}/doc
 Requires: ORBit >= 0.5.0
 Requires: oaf >= 0.3.0
 Requires: gnome-print >= 0.20
-Requires: gdk-pixbuf >= 0.8.0
+Requires: gdk-pixbuf >= 0.9.0
 Requires: bonobo >= 0.15
+Requires: gconf >= 0.8
 
 %description
-Eye of Gnome: an image viewing and catalogin program.
-
-GNOME is the GNU Network Object Model Environment.  That's a fancy
-name but really GNOME is a nice GUI desktop environment.  It makes
-using your computer easy, powerful, and easy to configure.
+This is the Eye of Gnome, an image viewer program.  It is meant to be
+a fast and functional image viewer as well as an image cataloging
+program.
 
 %changelog
+
+* Mon Sep 04 2000  Federico Mena Quintero  <federico@helixcode.com>
+
+- Updated the spec file; it is still not guaranteed to work out of the
+  box.
+
 
 * Sun Jun 11 2000  Eskil Heyn Olsen <deity@eazel.com>
 
@@ -46,9 +51,13 @@ using your computer easy, powerful, and easy to configure.
 %build
 # Needed for snapshot releases.
 if [ ! -f configure ]; then
-  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=%prefix --sysconfdir=$RPM_BUILD_ROOT/etc
+  CFLAGS="-pipe $RPM_OPT_FLAGS" ./autogen.sh       \
+        --prefix=%{prefix} --sysconfdir=%{sysconfdir} \
+        --localstatedir=%{localstatedir}
 else
-  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix --sysconfdir=$RPM_BUILD_ROOT/etc
+  CFLAGS="-pipe $RPM_OPT_FLAGS" ./configure       \
+        --prefix=%{prefix} --sysconfdir=%{sysconfdir} \
+        --localstatedir=%{localstatedir}
 fi
 
 if [ "$SMP" != "" ]; then
@@ -60,7 +69,9 @@ fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT%{prefix} install
+make install prefix=$RPM_BUILD_ROOT%{prefix} \
+        sysconfdir=$RPM_BUILD_ROOT%{sysconfdir} \
+        localstatedir=$RPM_BUILD_ROOT%{localstatedir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -71,9 +82,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-%doc AUTHORS COPYING ChangeLog NEWS README
+%doc AUTHORS COPYING ChangeLog HACKING NEWS README THANKS TODO
 %{prefix}/bin/*
-%{prefix}/share/gnome/apps/Graphics//*
+%{prefix}/share/gnome/apps/*
 %{prefix}/share/pixmaps/*
+%{prefix}/share/locale/*
 %{prefix}/share/oaf/*
+%{prefix}/share/gnome/help/*
 %config /etc/CORBA/*

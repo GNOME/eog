@@ -4,7 +4,7 @@ AC_INIT(src/image-view.c)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(eog, 0.4)
+AM_INIT_AUTOMAKE(eog, 0.5)
 
 AM_MAINTAINER_MODE
 
@@ -27,7 +27,7 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-AM_PATH_GDK_PIXBUF(0.7.0, ,AC_MSG_ERROR([Need gdk-pixbuf-0.7.0 or later!]))
+AM_PATH_GDK_PIXBUF(0.9.0, ,AC_MSG_ERROR([Need gdk-pixbuf-0.9.0 or later!]))
 
 AM_PATH_GCONF(0.8,,,gconf-gtk)
 
