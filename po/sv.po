@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2001-07-07 14:25+0200\n"
-"PO-Revision-Date: 2001-07-07 14:36+0200\n"
+"POT-Creation-Date: 2001-09-07 20:57+0200\n"
+"PO-Revision-Date: 2001-09-07 21:13+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Couldn't get local BonoboControl interface.\n"
 msgstr "Kunde inte få tag i lokalt BonoboControl-gränssnitt.\n"
 
-#: collection/eog-collection-model.c:435 collection/eog-collection-model.c:439
-#: collection/eog-collection-model.c:477 collection/eog-collection-model.c:481
+#: collection/eog-collection-model.c:527 collection/eog-collection-model.c:531
+#: collection/eog-collection-model.c:569 collection/eog-collection-model.c:573
 #, c-format
 msgid "Can't handle URI: %s"
 msgstr "Kan inte hantera URI: %s"
@@ -53,19 +53,27 @@ msgstr "Bakgrundsfärg för bildsamling"
 msgid "Background Color:"
 msgstr "Bakgrundsfärg:"
 
-#: collection/eog-collection-view.c:307
+#: collection/eog-collection-view.c:465
+msgid "Send"
+msgstr "Skicka"
+
+#: collection/eog-collection-view.c:477
+msgid "Move to Trash"
+msgstr "Flytta till papperskorgen"
+
+#: collection/eog-collection-view.c:518
 msgid "Collection View"
 msgstr "Bildsamlingsvy"
 
-#: collection/eog-collection-view.c:385
+#: collection/eog-collection-view.c:596
 msgid "View"
 msgstr "Vy"
 
-#: collection/eog-collection-view.c:668 viewer/eog-image-view.c:1793
+#: collection/eog-collection-view.c:880 viewer/eog-image-view.c:1955
 msgid "Window Title"
 msgstr "Fönstertitel"
 
-#: collection/eog-collection-view.c:671
+#: collection/eog-collection-view.c:883
 msgid "Status Text"
 msgstr "Statustext"
 
@@ -89,7 +97,7 @@ msgstr "Jag kunde inte initiera GnomeVFS!\n"
 msgid "I could not initialize Bonobo"
 msgstr "Jag kunde inte initiera Bonobo"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:187
+#: eog.desktop.in.h:1 shell/eog-window.c:189
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -98,7 +106,7 @@ msgid "Image Viewer"
 msgstr "Bildvisare"
 
 #: libeog/GNOME_EOG.oaf.in.h:1 viewer/GNOME_EOG.oaf.in.h:1
-#: viewer/eog-image-view.c:530
+#: viewer/eog-image-view.c:663
 msgid "EOG Image"
 msgstr "EOG-bild"
 
@@ -182,55 +190,55 @@ msgstr "_Alternativ"
 msgid "_Settings"
 msgstr "_Inställningar"
 
-#: shell/eog-window.c:189
+#: shell/eog-window.c:191
 msgid "Copyright (C) 2000-2001 The Free Software Foundation"
 msgstr "Copyright © 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:191
+#: shell/eog-window.c:193
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
 
-#: shell/eog-window.c:405
+#: shell/eog-window.c:421
 msgid "Open in new window"
 msgstr "Öppna i nytt fönster"
 
-#: shell/eog-window.c:406
+#: shell/eog-window.c:422
 msgid "Open in this window"
 msgstr "Öppna i detta fönster"
 
-#: shell/eog-window.c:408
+#: shell/eog-window.c:424
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: shell/eog-window.c:503
+#: shell/eog-window.c:519
 msgid "Eye Of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:589
+#: shell/eog-window.c:605
 msgid "Can't find eog-shell-ui.xml.\n"
 msgstr "Kan inte hitta eog-shell-ui.xml.\n"
 
-#: shell/eog-window.c:731 shell/eog-window.c:818
+#: shell/eog-window.c:738 shell/eog-window.c:867
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:975
+#: shell/eog-window.c:1009
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:991
+#: shell/eog-window.c:1025
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:1008
+#: shell/eog-window.c:1042
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:1027
+#: shell/eog-window.c:1061
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1267
+#: shell/eog-window.c:1305
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
@@ -253,11 +261,11 @@ msgstr "Enkla fönster"
 msgid "Collection"
 msgstr "Bildsamling"
 
-#: shell/main.c:275
+#: shell/main.c:273
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
-#: shell/main.c:278
+#: shell/main.c:276
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kunde inte initiera Bonobo!\n"
 
@@ -266,60 +274,60 @@ msgstr "Kunde inte initiera Bonobo!\n"
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
 
-#: viewer/eog-image-view.c:278
+#: viewer/eog-image-view.c:282
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunde inte spara bild som \"%s\": %s."
 
-#: viewer/eog-image-view.c:321
+#: viewer/eog-image-view.c:325
 msgid "Save As"
 msgstr "Spara som"
 
-#: viewer/eog-image-view.c:750
+#: viewer/eog-image-view.c:883
 msgid "Print Image"
 msgstr "Skriv ut bild"
 
-#: viewer/eog-image-view.c:758
+#: viewer/eog-image-view.c:891
 msgid "Pages"
 msgstr "Sidor"
 
-#: viewer/eog-image-view.c:845
+#: viewer/eog-image-view.c:978
 msgid "Print Preview"
 msgstr "Förhandsgranska"
 
-#: viewer/eog-image-view.c:851
+#: viewer/eog-image-view.c:984
 msgid "Printing of image failed"
 msgstr "Utskrift av bilden misslyckades"
 
-#: viewer/eog-image-view.c:1686
+#: viewer/eog-image-view.c:1848
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:1775 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1937 viewer/preferences.c:147
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:1778 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1940 viewer/preferences.c:159
 msgid "Dither"
 msgstr "Färgutjämning"
 
-#: viewer/eog-image-view.c:1781 viewer/preferences.c:170
+#: viewer/eog-image-view.c:1943 viewer/preferences.c:170
 msgid "Check Type"
 msgstr "Typ av rutor"
 
-#: viewer/eog-image-view.c:1784 viewer/preferences.c:181
+#: viewer/eog-image-view.c:1946 viewer/preferences.c:181
 msgid "Check Size"
 msgstr "Rutstorlek"
 
-#: viewer/eog-image-view.c:1787
+#: viewer/eog-image-view.c:1949
 msgid "Image Width"
 msgstr "Bildbredd"
 
-#: viewer/eog-image-view.c:1790
+#: viewer/eog-image-view.c:1952
 msgid "Image Height"
 msgstr "Bildhöjd"
 
-#: viewer/eog-image-view.c:1796
+#: viewer/eog-image-view.c:1958
 msgid "Statusbar Text"
 msgstr "Statusradstext"
 
@@ -400,46 +408,42 @@ msgid "Save _As"
 msgstr "Spara so_m"
 
 #: viewer/eog-image-view-ui.xml.h:20
-msgid "Send"
-msgstr "Skicka"
-
-#: viewer/eog-image-view-ui.xml.h:21
 msgid "Setup the page settings for your current printer"
 msgstr "Ändra sidinställningar för den nuvarande skrivaren"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:21
 msgid "_Bilinear Interpolation"
 msgstr "_Bilinjär interpolation"
 
-#: viewer/eog-image-view-ui.xml.h:23
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_Dither"
 msgstr "_Färgutjämning"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:23
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hyperbolisk interpolation"
 
-#: viewer/eog-image-view-ui.xml.h:25
+#: viewer/eog-image-view-ui.xml.h:24
 msgid "_Interpolation"
 msgstr "_Interpolation"
 
-#: viewer/eog-image-view-ui.xml.h:26
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Maximum (high color) dithering"
 msgstr "_Maximal färgutjämning (high color)"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:26
 msgid "_No dithering"
 msgstr "_Ingen färgutjämning"
 
-#: viewer/eog-image-view-ui.xml.h:28
+#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "Skriv _ut"
 
-#: viewer/eog-image-view-ui.xml.h:29
+#: viewer/eog-image-view-ui.xml.h:28
 msgid "_Tiles Interpolation"
 msgstr "Interpolation mellan _brickor"
 
-#: viewer/eog-image-view-ui.xml.h:30
+#: viewer/eog-image-view-ui.xml.h:29
 msgid "_View"
 msgstr "_Visa"
 
@@ -625,7 +629,7 @@ msgid "Nearest Neighbour Interpolation"
 msgstr "Närmsta granne-interpolation"
 
 #: viewer/preferences.c:40
-msgid "Tiltes Interpolation"
+msgid "Tiles Interpolation"
 msgstr "Interpolation mellan brickor"
 
 #: viewer/preferences.c:42
@@ -683,6 +687,9 @@ msgstr "Mellan"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Stor"
+
+#~ msgid "Tiltes Interpolation"
+#~ msgstr "Interpolation mellan brickor"
 
 #~ msgid "Layout"
 #~ msgstr "Utseende"
