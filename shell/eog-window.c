@@ -61,7 +61,7 @@ struct _EogWindowPrivate {
 	GConfClient *client;
 
 	/* ui container */
-	BonoboUIContainer  *ui_container;
+	Bonobo_UIContainer  ui_container;
 
 	/* control frame */
 	BonoboControlFrame *ctrl_frame;
@@ -338,7 +338,7 @@ eog_window_destroy (GtkObject *object)
 
 #ifdef ENABLE_BONOBO_FILESEL
 	if (priv->listener) {
-		bonobo_object_unref (priv->listener);
+		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
 		priv->listener = NULL;
 	}
 #endif
@@ -539,7 +539,6 @@ void
 eog_window_construct (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	Bonobo_UIContainer corba_container;
 	BonoboUIComponent *ui_comp;
 	BonoboUIContainer *ui_cont;
 	gchar *fname;
@@ -551,7 +550,9 @@ eog_window_construct (EogWindow *window)
 
 	priv = window->priv;
 
-	priv->ui_container = ui_cont = bonobo_ui_container_new ();
+	ui_cont = bonobo_ui_container_new ();
+	priv->ui_container = bonobo_object_corba_objref
+						(BONOBO_OBJECT (ui_cont));
 	bonobo_ui_container_set_win (ui_cont, BONOBO_WINDOW (window));
 	bonobo_ui_engine_config_set_path (
 		bonobo_window_get_ui_engine (BONOBO_WINDOW (window)),
@@ -564,8 +565,7 @@ eog_window_construct (EogWindow *window)
 
 	/* add menu and toolbar */
 	ui_comp = bonobo_ui_component_new ("eog");
-	corba_container = bonobo_object_corba_objref (BONOBO_OBJECT (ui_cont));
-	bonobo_ui_component_set_container (ui_comp, corba_container);
+	bonobo_ui_component_set_container (ui_comp, priv->ui_container);
 
 	fname = bonobo_ui_util_get_ui_fname (NULL, "eog-shell-ui.xml");
 	if (fname && g_file_exists (fname)) {
@@ -587,7 +587,7 @@ eog_window_construct (EogWindow *window)
 	gtk_widget_show (GTK_WIDGET (priv->box));
 
 	/* add control frame interface */
-	priv->ctrl_frame = bonobo_control_frame_new (corba_container);
+	priv->ctrl_frame = bonobo_control_frame_new (priv->ui_container);
 	gtk_signal_connect (GTK_OBJECT (priv->ctrl_frame), "activate_uri",
 			    activate_uri_cb, NULL);
 
@@ -748,13 +748,18 @@ listener_cb (BonoboListener *listener,
 	     char *event_name,
 	     CORBA_any *any,
 	     CORBA_Environment *ev,
-	     EogWindow *window)
-{	
+	     gpointer data)
+{
+	EogWindow *window;
 	EogWindowPrivate *priv;
 
 	g_print ("listener_cb(): %s\n", event_name);
 
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	window = EOG_WINDOW (data);
 	priv = window->priv;
+
 	if (!strcmp (event_name, "GNOME/FileSelector:ButtonClicked:Action")) {
 		char *uri = BONOBO_ARG_GET_STRING (any);
 		gtk_widget_hide (priv->file_sel);
@@ -1040,39 +1045,33 @@ get_viewer_control (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	
 	/* get PersistFile interface */
 	pfile = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/PersistFile:1.0", &ev);
-	if (pfile == CORBA_OBJECT_NIL) {
-		Bonobo_Unknown_unref (unknown_obj, &ev);
-		CORBA_Object_release (unknown_obj, &ev);
+	if (BONOBO_EX (&ev) || (pfile == CORBA_OBJECT_NIL)) {
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (unknown_obj, NULL);
 		return CORBA_OBJECT_NIL;
 	}
 	
 	/* load the file */
 	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 	Bonobo_PersistFile_load (pfile, text_uri, &ev);
+	bonobo_object_release_unref (pfile, NULL);
 	g_free (text_uri);
 
-	if (ev._major != CORBA_NO_EXCEPTION) {
-		Bonobo_Unknown_unref (pfile, &ev);
-		CORBA_Object_release (pfile, &ev);
-		Bonobo_Unknown_unref (unknown_obj, &ev);
-		CORBA_Object_release (unknown_obj, &ev);
+	if (BONOBO_EX (&ev)) {
+		CORBA_exception_free (&ev);
+		bonobo_object_release_unref (unknown_obj, NULL);
 		return CORBA_OBJECT_NIL;
 	}	
 
-	Bonobo_Unknown_unref (pfile, &ev);
-	CORBA_Object_release (pfile, &ev);
-
 	/* get Control interface */
 	control = Bonobo_Unknown_queryInterface (unknown_obj, "IDL:Bonobo/Control:1.0", &ev);
-	if (control == CORBA_OBJECT_NIL) {
-		Bonobo_Unknown_unref (unknown_obj, &ev);
-		CORBA_Object_release (unknown_obj, &ev);
+	bonobo_object_release_unref (unknown_obj, NULL);
+	if (BONOBO_EX (&ev) || (control == CORBA_OBJECT_NIL)) {
+		CORBA_exception_free (&ev);
 		return CORBA_OBJECT_NIL;
 	}
 
 	/* clean up */
-	Bonobo_Unknown_unref (unknown_obj, &ev);
-        CORBA_Object_release (unknown_obj, &ev);
 	CORBA_exception_free (&ev);
 
 	return control;
@@ -1207,7 +1206,7 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 
 	/* obtain gtk widget */
 	priv->control = bonobo_widget_new_control_from_objref  
-		(control, bonobo_object_corba_objref (BONOBO_OBJECT (priv->ui_container)));
+						(control, priv->ui_container);
 	gtk_object_ref (GTK_OBJECT (priv->control));
 
 	/* set control frame */
@@ -1349,13 +1348,9 @@ eog_window_get_property_control (EogWindow *window, CORBA_Environment *ev)
 Bonobo_UIContainer
 eog_window_get_ui_container (EogWindow *window, CORBA_Environment *ev)
 {
-	Bonobo_UIContainer corba_container;
-
 	g_return_val_if_fail (window != NULL, CORBA_OBJECT_NIL);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), CORBA_OBJECT_NIL);
-	g_return_val_if_fail (window->priv->ui_container != NULL, CORBA_OBJECT_NIL);
+	g_return_val_if_fail (window->priv->ui_container != CORBA_OBJECT_NIL, CORBA_OBJECT_NIL);
 
-	corba_container = bonobo_object_corba_objref (BONOBO_OBJECT (window->priv->ui_container));
-
-	return CORBA_Object_duplicate (corba_container, ev);
+	return CORBA_Object_duplicate (window->priv->ui_container, ev);
 }

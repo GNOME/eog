@@ -1,5 +1,14 @@
 2001-06-26  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
+	While searching why eog-image-viewer is still alive even after exiting
+	eog...
+
+	* eog-window.c: Fix two compile warnings (ENABLE_BONOBO_FILESEL), 
+	use BONOBO_EX and bonobo_object_release_unref (makes code more
+	readable)
+
+2001-06-26  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+
 	* .cvsignore: Ignore eog (formerly eog-shell)
 
 2001-06-12  jacob berkman  <jacob@ximian.com>
