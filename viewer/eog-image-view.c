@@ -335,6 +335,7 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	CORBA_Environment ev;
 	BonoboStream *stream;
 	GNOME_Evolution_Composer_AttachmentData *attachment_data;
+	const char *filename;
 
 	g_return_if_fail (user_data != NULL);
 	g_return_if_fail (EOG_IS_IMAGE_VIEW (user_data));
@@ -366,8 +367,9 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	attachment_data->_length = BONOBO_STREAM_MEM (stream)->size;
 	BONOBO_STREAM_MEM (stream)->buffer = NULL;
 	bonobo_object_unref (BONOBO_OBJECT (stream));
-	GNOME_Evolution_Composer_attachData (composer, "image/png", "[Unknown]",
-					     "[No Description]", FALSE,
+	filename = eog_image_get_filename (image_view->priv->image);
+	GNOME_Evolution_Composer_attachData (composer, "image/png", filename,
+					     filename, FALSE,
 					     attachment_data, &ev);
 	CORBA_free (attachment_data);
 	if (BONOBO_EX (&ev)) {
