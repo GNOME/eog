@@ -1,5 +1,19 @@
 2003-07-06  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-hig-dialog.[ch] (eog_hig_dialog_new): Set string
+	parameter to const.
+
+	* viewer/eog-image-view.c (eog_image_view_get_prop): Don't show
+	anything in the statusbar if no image is loaded. If the image size
+	isn't known show only the zoom factor.
+	(image_loading_failed_cb): New function. Presents error dialog to
+	the user.
+	(load_uri_cb): Connect to loading_failed signal for an image and
+	disconnect signals properly from previously loaded image.
+	(eog_image_view_construct): Save BonoboControl reference.
+
+2003-07-06  Jens Finke  <jens@triq.net>
+
 	This patch should fix bug #114189.
 	
 	* libeog/eog-image.c (real_image_load): Connect to size prepared

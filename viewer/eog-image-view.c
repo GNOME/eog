@@ -70,6 +70,7 @@ struct _EogImageViewPrivate {
 
 	BonoboPropertyBag     *property_bag;
 	BonoboZoomable        *zoomable;
+	BonoboControl         *control;
 
 	BonoboUIComponent     *uic;
 
@@ -82,6 +83,8 @@ struct _EogImageViewPrivate {
 	int popup_x, popup_y;
 
 	gboolean has_zoomable_frame;
+
+	guint image_signal_id[4];
 };
 
 enum {
@@ -502,15 +505,24 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 
 		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->widget)));
 
-		text = g_new0 (gchar, 40);
-		if (priv->image != NULL) {
-			eog_image_get_size (priv->image, &width, &height);
-			g_snprintf (text, 39, "%i x %i pixel    %i%%",
-				    width, height,
-				    zoom);
-		} else {
-			g_snprintf (text, 39, "%i%%", zoom);
+		if (priv->image == NULL) {
+			text = g_strdup (" ");
 		}
+		else {
+			text = g_new0 (char, 40);
+			
+			eog_image_get_size (priv->image, &width, &height);
+
+			if ((width > 0) && (height > 0)) {
+				g_snprintf (text, 39, "%i x %i pixel    %i%%",
+					    width, height,
+					    zoom);
+			}
+			else {
+				g_snprintf (text, 39, "%i%%", zoom);
+			}
+		}
+
 		BONOBO_ARG_SET_STRING (arg, text);
 		g_free (text);
 		break;
@@ -951,6 +963,65 @@ image_changed_cb (EogImage *img, gpointer data)
 	bonobo_arg_release (arg);
 }
 
+static void
+image_loading_failed_cb (EogImage *img, const char* message, gpointer data)
+{
+	EogImageView *view; 
+	EogImageViewPrivate *priv;
+	GtkWidget *dlg;
+	BonoboArg *arg;
+	char *body;
+	char *caption;
+	char *exp;
+	int caption_len;
+	int exp_len;
+	int msg_len;
+
+	view = EOG_IMAGE_VIEW (data);
+	priv = view->priv;
+
+	/* assemble error message */
+	caption = eog_image_get_caption (img);
+	caption_len = strlen (caption);
+
+	if (message == NULL) {
+		exp = _("Loading of image %s failed.");
+		exp_len = strlen (exp);
+		
+		body = g_new0 (char, caption_len + exp_len);
+		g_snprintf (body, caption_len + exp_len, exp, caption);
+	}
+	else {
+		exp = _("Loading of image %s failed.\nReason: %s.");
+		exp_len = strlen (exp);
+		msg_len = strlen (message);
+
+		body = g_new0 (char, caption_len + exp_len + msg_len);
+		g_snprintf (body, caption_len + exp_len + msg_len, exp, caption, message);
+	}
+
+	/* show error dialog */
+	dlg = eog_hig_dialog_new (GTK_STOCK_DIALOG_ERROR, _("Loading failed"), body, FALSE);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
+	g_signal_connect_swapped (G_OBJECT (dlg), "response", G_CALLBACK (gtk_widget_destroy), dlg);
+	bonobo_control_set_transient_for (BONOBO_CONTROL (priv->control), GTK_WINDOW (dlg), NULL);
+	gtk_widget_show (dlg);
+
+	g_free (body);
+	g_object_unref (priv->image);
+	priv->image = NULL;
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->widget), NULL);
+
+	/* update interested window status listeners */
+	arg = bonobo_arg_new (BONOBO_ARG_STRING);
+	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_STATUS, NULL, view);
+
+	bonobo_event_source_notify_listeners (priv->property_bag->es,
+					      "window/status",
+					      arg, NULL);
+	bonobo_arg_release (arg);
+}
+
 static gint
 load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	     CORBA_Environment *ev, void *closure)
@@ -964,16 +1035,23 @@ load_uri_cb (BonoboPersistFile *pf, const CORBA_char *text_uri,
 	view = EOG_IMAGE_VIEW (closure);
 	priv = view->priv;
 
-	image = eog_image_new (text_uri);
-	g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
-	g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
-	g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), view);
-
-	/* FIXME: remove potential signal handlers from old image object */
 	if (priv->image != NULL) {
+		int i;
+
+		for (i = 0; i < 4; i++) {
+			g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_signal_id[i]);
+			priv->image_signal_id[i] = 0;
+		}
 		g_object_unref (priv->image);
 		priv->image = NULL;
 	}
+
+	image = eog_image_new (text_uri);
+	priv->image_signal_id[0] = g_signal_connect (image, "loading_size_prepared", G_CALLBACK (image_size_prepared_cb), view);
+	priv->image_signal_id[1] = g_signal_connect (image, "progress", G_CALLBACK (image_progress_cb), view);
+	priv->image_signal_id[2] = g_signal_connect (image, "image_changed", G_CALLBACK (image_changed_cb), view);
+	priv->image_signal_id[3] = g_signal_connect (image, "loading_failed", G_CALLBACK (image_loading_failed_cb), view);
+
 	priv->image = image;
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->widget), image);
@@ -1201,6 +1279,7 @@ eog_image_view_construct (EogImageView *image_view, gboolean need_close_item)
 
 	/* interface Bonobo::Control */
 	control = bonobo_control_new (priv->widget);
+	priv->control = control;
 	g_signal_connect (control, "activate", G_CALLBACK (control_activate_cb), image_view);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (image_view),

@@ -21,7 +21,7 @@ eog_hig_dialog_instance_init (EogHigDialog *dlg)
 
 
 GtkWidget*  
-eog_hig_dialog_new (const char *stock_id, char *header, char *body, gboolean modal)
+eog_hig_dialog_new (const char *stock_id, const char *header, const char *body, gboolean modal)
 {
 	GtkWidget *dlg;
 	GtkWidget *hbox;
