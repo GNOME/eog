@@ -249,10 +249,7 @@ verb_DirOpen_cb (GtkAction *action, gpointer user_data)
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
 	if (response == GTK_RESPONSE_OK) {
-		char *folder;
-
-		folder = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
-		list = g_slist_append (list, folder);
+		list = gtk_file_chooser_get_uris (GTK_FILE_CHOOSER (dlg));
 	}
 
 	gtk_widget_destroy (dlg);
