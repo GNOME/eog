@@ -20,6 +20,7 @@
  */
 
 #include <config.h>
+#include <math.h>
 #include <gnome.h>
 #include "commands.h"
 #include "full-screen.h"
@@ -29,6 +30,7 @@
 #include "ui-image.h"
 #include "util.h"
 #include "window.h"
+#include "zoom.h"
 
 
 
@@ -39,20 +41,10 @@
 
 
 
-/* What a window is displaying */
-typedef enum {
-	WINDOW_MODE_NONE,
-	WINDOW_MODE_IMAGE,
-	WINDOW_MODE_COLLECTION
-} WindowMode;
-
 /* Private part of the Window structure */
 typedef struct {
-	/* What we are displaying */
-	WindowMode mode;
-
-	/* Our contents, which may change depending on the mode */
-	GtkWidget *content;
+	/* UIImage widget for our contents */
+	GtkWidget *ui;
 
 	/* The file selection widget used by this window.  We keep it around so
 	 * that it will preserve its cwd.
@@ -79,29 +71,8 @@ static GnomeAppClass *parent_class;
 
 
 
-/* What the user may respond to a close window confirmation */
-typedef enum {
-	CLOSE_SAVE,
-	CLOSE_DISCARD,
-	CLOSE_DONT_EXIT
-} CloseStatus;
-
 /* The list of all open windows */
 static GList *window_list;
-
-/* Returns whether a window contains unsaved data */
-static gboolean
-is_unsaved (Window *window)
-{
-	WindowPrivate *priv;
-
-	priv = window->priv;
-
-	if (priv->mode == WINDOW_MODE_COLLECTION)
-		return TRUE; /* FIXME: is it dirty? */
-	else
-		return FALSE;
-}
 
 /* Brings attention to a window by raising it and giving it focus */
 static void
@@ -110,146 +81,6 @@ raise_and_focus (GtkWidget *widget)
 	g_assert (GTK_WIDGET_REALIZED (widget));
 	gdk_window_show (widget->window);
 	gtk_widget_grab_focus (widget);
-}
-
-/* Asks for confirmation for closing an unsaved window */
-static CloseStatus
-confirm_save (Window *window, gboolean ask_exit)
-{
-	WindowPrivate *priv;
-	GtkWidget *msg;
-	char *buf;
-	int result;
-
-	priv = window->priv;
-
-	if (!is_unsaved (window))
-		return CLOSE_DISCARD;
-
-	g_assert (priv->mode == WINDOW_MODE_COLLECTION);
-
-	raise_and_focus (GTK_WIDGET (window));
-
-	buf = g_strdup_printf (_("Save image collection `%s'?"),
-			       "fubari"); /* FIXME: put in title */
-
-	msg = gnome_message_box_new (buf, GNOME_MESSAGE_BOX_QUESTION,
-				     _("Save"),
-				     _("Don't save"),
-				     ask_exit ? _("Don't exit") : NULL,
-				     NULL);
-	g_free (buf);
-
-	gnome_dialog_set_parent (GNOME_DIALOG (msg), GTK_WINDOW (window));
-	gnome_dialog_set_default (GNOME_DIALOG (msg), 0);
-
-	result = gnome_dialog_run (GNOME_DIALOG (msg));
-
-	switch (result) {
-	case 0:
-		return CLOSE_SAVE;
-
-	case 1:
-		return CLOSE_DISCARD;
-
-	case 2:
-		return CLOSE_DONT_EXIT;
-
-	default:
-		return CLOSE_DONT_EXIT;
-	}
-}
-
-
-
-/* Setting the mode of a window */
-
-static void
-sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
-{
-	g_assert (widgets != NULL);
-
-	for (; *widgets != NULL; widgets++)
-		gtk_widget_set_sensitive (*widgets, sensitive);
-}
-
-/* Sets the sensitivity of menu items according to the mode */
-static void
-set_menu_tb_sensitivity (Window *window)
-{
-	WindowPrivate *priv;
-
-	priv = window->priv;
-
-	switch (priv->mode) {
-	case WINDOW_MODE_NONE:
-		gtk_widget_set_sensitive (priv->view_menu, FALSE);
-		sensitize_zoom_items (priv->zoom_tb_items, FALSE);
-		break;
-
-	case WINDOW_MODE_IMAGE:
-		gtk_widget_set_sensitive (priv->view_menu, TRUE);
-		sensitize_zoom_items (priv->zoom_tb_items, TRUE);
-		break;
-
-	case WINDOW_MODE_COLLECTION:
-		gtk_widget_set_sensitive (priv->view_menu, FALSE);
-		sensitize_zoom_items (priv->zoom_tb_items, FALSE);
-		/* FIXME: finish this */
-		break;
-
-	default:
-		g_assert_not_reached ();
-	}
-}
-
-/* Sets the mode of a window */
-static void
-set_mode (Window *window, WindowMode mode)
-{
-	WindowPrivate *priv;
-	ImageView *view;
-
-	priv = window->priv;
-
-	/* FIXME: this test may be better outside this function */
-	switch (confirm_save (window, FALSE)) {
-	case CLOSE_SAVE:
-		; /* FIXME: save it */
-		break;
-
-	default:
-		break;
-	}
-
-	if (priv->content)
-		gtk_widget_destroy (priv->content);
-
-	priv->mode = mode;
-
-	switch (mode) {
-	case WINDOW_MODE_NONE:
-		break;
-
-	case WINDOW_MODE_IMAGE:
-		priv->content = ui_image_new ();
-		gnome_app_set_contents (GNOME_APP (window), priv->content);
-		gtk_widget_show (priv->content);
-
-		view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->content)));
-		image_view_set_preferences (view);
-
-		gtk_widget_grab_focus (GTK_WIDGET (view));
-		break;
-
-	case WINDOW_MODE_COLLECTION:
-		/* FIXME - create UI, fallthrough */
-
-	default:
-		g_assert_not_reached ();
-	}
-
-	set_menu_tb_sensitivity (window);
 }
 
 
@@ -285,38 +116,14 @@ new_window_cmd (GtkWidget *widget, gpointer data)
 static void
 exit_cmd (GtkWidget *widget, gpointer data)
 {
-	gboolean do_exit;
 	GList *l;
-	Window *w;
-
-	/* Ask for confirmation on unsaved windows */
-
-	do_exit = TRUE;
-
-	for (l = window_list; l && do_exit; l = l->next) {
-		w = l->data;
-
-		switch (confirm_save (w, TRUE)) {
-		case CLOSE_SAVE:
-			; /* FIXME: save it */
-			break;
-
-		case CLOSE_DONT_EXIT:
-			do_exit = FALSE;
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	if (!do_exit)
-		return;
 
 	/* Destroy windows and exit */
 
 	l = window_list;
 	while (l) {
+		Window *w;
+
 		w = l->data;
 		l = l->next;
 		gtk_widget_destroy (GTK_WIDGET (w));
@@ -601,6 +408,16 @@ window_new (void)
 	return GTK_WIDGET (window);
 }
 
+/* Sets the sensitivity of all the items */
+static void
+sensitize_zoom_items (GtkWidget **widgets, gboolean sensitive)
+{
+	g_assert (widgets != NULL);
+
+	for (; *widgets != NULL; widgets++)
+		gtk_widget_set_sensitive (*widgets, sensitive);
+}
+
 /**
  * window_construct:
  * @window: A window widget.
@@ -612,6 +429,7 @@ window_construct (Window *window)
 {
 	WindowPrivate *priv;
 	GtkWidget *tb;
+	ImageView *view;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (IS_WINDOW (window));
@@ -629,7 +447,17 @@ window_construct (Window *window)
 	gtk_window_set_default_size (GTK_WINDOW (window),
 				     DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
-	set_mode (window, WINDOW_MODE_NONE);
+	priv->ui = ui_image_new ();
+	gnome_app_set_contents (GNOME_APP (window), priv->ui);
+	gtk_widget_show (priv->ui);
+
+	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
+	image_view_set_preferences (view);
+
+	gtk_widget_grab_focus (GTK_WIDGET (view));
+
+	gtk_widget_set_sensitive (priv->view_menu, TRUE);
+	sensitize_zoom_items (priv->zoom_tb_items, TRUE);
 }
 
 
@@ -646,18 +474,6 @@ window_close (Window *window)
 {
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (IS_WINDOW (window));
-
-	switch (confirm_save (window, FALSE)) {
-	case CLOSE_SAVE:
-		; /* FIXME: save it */
-		break;
-
-	case CLOSE_DISCARD:
-		break;
-
-	default:
-		return;
-	}
 
 	gtk_widget_destroy (GTK_WIDGET (window));
 
@@ -746,6 +562,62 @@ window_open_image_dialog (Window *window)
 
 
 
+/* Picks a reasonable size for the window and zoom factor based on the image size */
+static void
+auto_size (Window *window)
+{
+	WindowPrivate *priv;
+	GtkWidget *view;
+	Image *image;
+	int iwidth, iheight;
+	int swidth, sheight;
+	int zwidth, zheight;
+	double zoom;
+	int window_width, window_height;
+	int view_width, view_height;
+	GtkAllocation allocation;
+
+	priv = window->priv;
+
+	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
+	image = image_view_get_image (IMAGE_VIEW (view));
+
+	if (!(image && image->pixbuf))
+		return;
+
+	iwidth = gdk_pixbuf_get_width (image->pixbuf);
+	iheight = gdk_pixbuf_get_height (image->pixbuf);
+
+	swidth = gdk_screen_width () * 0.75;
+	sheight = gdk_screen_height () * 0.75;
+
+	zoom = zoom_fit_scale (swidth, sheight, iwidth, iheight, FALSE);
+	image_view_set_zoom (IMAGE_VIEW (view), zoom);
+
+	zwidth = floor (iwidth * zoom + 0.5);
+	zheight = floor (iheight * zoom + 0.5);
+
+	window_width = GTK_WIDGET (window)->allocation.width;
+	window_height = GTK_WIDGET (window)->allocation.height;
+
+	view_width = view->allocation.width;
+	view_height = view->allocation.height;
+
+	window_width = zwidth + (window_width - view_width);
+	window_height = zheight + (window_height - view_height);
+
+	allocation.x = GTK_WIDGET (window)->allocation.x;
+	allocation.y = GTK_WIDGET (window)->allocation.y;
+	allocation.width = window_width;
+	allocation.height = window_height;
+
+	if (!GTK_WIDGET_REALIZED (window))
+		gtk_widget_realize (GTK_WIDGET (window));
+
+	gtk_widget_size_allocate (GTK_WIDGET (window), &allocation);
+	gdk_window_resize (GTK_WIDGET (window)->window, allocation.width, allocation.height);
+}
+
 /**
  * window_open_image:
  * @window: A window.
@@ -772,12 +644,9 @@ window_open_image (Window *window, const char *filename)
 
 	priv = window->priv;
 
-	set_mode (window, WINDOW_MODE_IMAGE);
-	g_assert (priv->content != NULL && IS_UI_IMAGE (priv->content));
-
 	image = image_new ();
 	retval = image_load (image, filename);
-	view = ui_image_get_image_view (UI_IMAGE (priv->content));
+	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
 	image_view_set_image (IMAGE_VIEW (view), image);
 
 	free_fname = FALSE;
@@ -798,6 +667,11 @@ window_open_image (Window *window, const char *filename)
 
 	if (free_fname)
 		g_free (fname);
+
+#if 0
+	if (prefs_window_auto_size)
+#endif
+		auto_size (window);
 
 	image_unref (image);
 	return retval;
@@ -820,5 +694,5 @@ window_get_ui_image (Window *window)
 	g_return_val_if_fail (IS_WINDOW (window), NULL);
 
 	priv = window->priv;
-	return priv->content;
+	return priv->ui;
 }

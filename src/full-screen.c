@@ -265,3 +265,23 @@ full_screen_set_image (FullScreen *fs, Image *image)
 	view = ui_image_get_image_view (UI_IMAGE (priv->ui));
 	image_view_set_image (IMAGE_VIEW (view), image);
 }
+
+/**
+ * full_screen_get_ui_image:
+ * @fs: A full screen view.
+ * 
+ * Queries the image view scroller inside a full screen image view.
+ * 
+ * Return value: An image view scroller.
+ **/
+GtkWidget *
+full_screen_get_ui_image (FullScreen *fs)
+{
+	FullScreenPrivate *priv;
+
+	g_return_val_if_fail (fs != NULL, NULL);
+	g_return_val_if_fail (IS_FULL_SCREEN (fs), NULL);
+
+	priv = fs->priv;
+	return priv->ui;
+}

@@ -1,3 +1,18 @@
+2000-07-07  Federico Mena Quintero  <federico@helixcode.com>
+
+	* window.c (WindowPrivate): Removed all the window mode crap.
+	Windows are now always in image-viewing mode.  When we
+	componentify EOG the window code will go away, anyways, but this
+	makes life simpler for now.
+	(auto_size): New function to automatically pick the window size
+	and zoom factor based on the image size.
+	(window_open_image): Use auto_size().
+
+	* full-screen.c (full_screen_get_ui_image): New function.
+
+	* commands.c (cmd_cb_full_screen): Set the proper zoom factor on
+	the full screen view.
+
 2000-07-01  Federico Mena Quintero  <federico@helixcode.com>
 
 	* image-view.c (paint_rectangle): Check if we actually were able

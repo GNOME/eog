@@ -57,6 +57,8 @@ GtkWidget *full_screen_new (void);
 
 void full_screen_set_image (FullScreen *fs, Image *image);
 
+GtkWidget *full_screen_get_ui_image (FullScreen *fs);
+
 
 
 END_GNOME_DECLS
