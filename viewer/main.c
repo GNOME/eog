@@ -38,8 +38,10 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_Control"))
 		retval = BONOBO_OBJECT (eog_control_new (image));
 
+#if NEED_GNOME2_PORTING
 	else if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_Embeddable"))
 		retval = BONOBO_OBJECT (eog_embeddable_new (image));
+#endif
 
 	else if (!strcmp (oaf_iid, "OAFIID:GNOME_EOG_Image")) {
 		retval = BONOBO_OBJECT (image);

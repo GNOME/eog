@@ -8,6 +8,7 @@
 #include <eog-preview.h>
 #include <eog-util.h>
 #include <gconf/gconf-client.h>
+#include <libgnomeprint/gnome-print-paper.h>
 
 #define PARENT_TYPE GNOME_TYPE_DIALOG
 static GnomeDialogClass *parent_class = NULL;
@@ -448,6 +449,26 @@ make_header (GtkWidget *vbox, const gchar* header)
 	gtk_widget_show_all (hbox);
 }
 
+static GList*
+get_paper_name_list (void)
+{
+	GList *paper_list = NULL;
+	GList *name_list = NULL;
+	GList *it;
+	GnomePrintPaper *paper;
+
+	paper_list = gnome_print_paper_get_list ();
+	
+	for (it = paper_list; it != NULL; it = it->next)  {
+		paper = (GnomePrintPaper*) it->data;
+		name_list = g_list_append (name_list, g_strdup (paper->name));
+	}
+
+	gnome_print_paper_free_list (paper_list);
+
+	return name_list;
+}
+
 GtkWidget*
 eog_print_setup_new (EogImageView *image_view)
 {
@@ -573,13 +594,15 @@ eog_print_setup_new (EogImageView *image_view)
 	combo = gtk_combo_new (); 
 	gtk_widget_show (combo); 
 	gtk_box_pack_start (GTK_BOX (hbox), combo, TRUE, TRUE, 0); 
-	list = gnome_paper_name_list ();
+	list = get_paper_name_list ();
 	gtk_combo_set_popdown_strings (GTK_COMBO (combo), list);
 	gtk_combo_set_value_in_list (GTK_COMBO (combo), TRUE, 0); 
 	gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry), 
 			    priv->paper_size);
 	gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed", 
 			    GTK_SIGNAL_FUNC (on_paper_size_changed), new); 
+	g_list_foreach (list, (GFunc) g_free, NULL);
+	g_list_free (list);
 
 	/* Orientation */
 	make_header (vbox, _("Orientation"));

@@ -105,10 +105,9 @@ eog_util_load_print_settings (GConfClient *client,
 	/* First time users */
 	if (*adjust_to == 0)
 		*adjust_to = 100;
-	/* FIXME GNOME2
-	   if (*paper_size == NULL)
-	   *paper_size = g_strdup (gnome_print_paper_get_default ());
-	 */
+
+	if (*paper_size == NULL)
+	   *paper_size = g_strdup (gnome_print_paper_get_default ()->name);
 }
 
 void
@@ -119,10 +118,10 @@ eog_util_paper_size (const gchar *paper_size, gboolean landscape,
 
 	paper = gnome_print_paper_get_by_name (paper_size);
 	if (landscape) {
-		*width = gnome_print_paper_psheight (paper); 
-		*height = gnome_print_paper_pswidth (paper); 
+		*width = paper->height;
+		*height = paper->width;
 	} else { 
-		*width = gnome_print_paper_pswidth (paper); 
-		*height = gnome_print_paper_psheight (paper);
+		*width = paper->width;
+		*height = paper->height;
 	}
 } 

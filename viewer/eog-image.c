@@ -89,8 +89,6 @@ eog_image_class_init (EogImageClass *klass)
 
 	eog_image_parent_class = gtk_type_class (PARENT_TYPE);
 
-	gtk_object_class_add_signals (object_class, eog_image_signals, LAST_SIGNAL);
-
 	eog_image_signals [SET_IMAGE_SIGNAL] =
                 gtk_signal_new ("set_image",
                                 GTK_RUN_LAST,
@@ -98,9 +96,6 @@ eog_image_class_init (EogImageClass *klass)
                                 GTK_SIGNAL_OFFSET (EogImageClass, set_image),
                                 gtk_marshal_NONE__NONE,
                                 GTK_TYPE_NONE, 0);
-
-	gtk_object_class_add_signals (object_class, eog_image_signals,
-				      LAST_SIGNAL);
 
 	object_class->destroy = eog_image_destroy;
 	gobject_class->finalize = eog_image_finalize;
@@ -340,8 +335,10 @@ eog_image_get_object (BonoboItemContainer *item_container,
 
 		if (!strcmp (name, "control"))
 			object = (BonoboObject *) eog_control_new (image);
+#if NEED_GNOME2_PORTING
 		else if (!strcmp (item_name, "embeddable"))
 			object = (BonoboObject *) eog_embeddable_new (image);
+#endif
 		else
 			g_message ("eog_image_get_object: "
 				   "unknown parameter `%s'",

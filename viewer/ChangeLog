@@ -1,3 +1,34 @@
+2001-12-20  Jens Finke <jens@triq.net>
+
+	* Makefile.am: Removed the sample-container stuff.
+	(SOURCES): Removed the embeddable stuff for
+	now. This needs more porting effort due to completely new bonobo
+	interfaces.
+	
+	* eog-image-view.c:
+	s/bonobo_property_bag_set_value/bonobo_pbclient_set_value,
+	s/bonobo_property_bag_get_value/bonobo_pbclient_get_value,
+	(filesel_ok_cb): #if NEED_GNOME_2_PORTING
+	(print_page): Use gnome_print_rgbimage functions.
+
+	* eog-image.c (eog_image_class_init): Removed
+	gtk_object_class_add_signals call. Does there exist a replacement
+	for this in Gtk 2.0?
+	(eog_image_get_object): Ignore embeddable requests.
+
+	* eog-preview.c (eog_preview_update): Use
+	bonobo_pbclient_get_value.
+
+	* eog-print-setup.c (get_paper_name_list): New function.
+	(eog_print_setup_new): Use get_paper_name_list, the
+	gnome_paper_name_list function doesn't exist anymore in
+	libgnomeprint.
+
+	* eog-util.c (eog_util_load_print_settings),
+	(eog_util_paper_size): libgnomeprint2 porting.
+
+	* main.c (eog_image_viewer_factory): Ignore embeddable requests.
+
 2001-12-05  Jens Finke <jens@triq.net>
 
 	* Makefile.am (INCLUDES): Use EOG_CFLAGS.

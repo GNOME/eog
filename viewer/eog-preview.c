@@ -75,7 +75,7 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 
 	/* Get the interpolation type */
 	bag = eog_image_view_get_property_bag (preview->priv->image_view);
-	arg = bonobo_property_bag_get_value (bag, "interpolation", NULL);
+	arg = bonobo_pbclient_get_value (BONOBO_OBJREF (bag), "interpolation", TC_GNOME_EOG_Interpolation, NULL);
 	bonobo_object_unref (BONOBO_OBJECT (bag)); 
 	g_return_if_fail (arg); 
 	switch (*(GNOME_EOG_Interpolation*)arg->_value) { 

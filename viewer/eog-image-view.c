@@ -155,8 +155,8 @@ listener_Interpolation_cb (BonoboUIComponent           *uic,
 	BONOBO_ARG_SET_GENERAL (arg, interpolation, TC_GNOME_EOG_Interpolation,
 				GNOME_EOG_Interpolation, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
-				       "interpolation", arg, NULL);
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
+				   "interpolation", arg, NULL);
 
 	bonobo_arg_release (arg);
 }
@@ -198,7 +198,7 @@ listener_Dither_cb (BonoboUIComponent           *uic,
 	BONOBO_ARG_SET_GENERAL (arg, dither, TC_GNOME_EOG_Dither,
 				GNOME_EOG_Dither, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "dither", arg, NULL);
 
 	bonobo_arg_release (arg);
@@ -247,7 +247,7 @@ listener_CheckType_cb (BonoboUIComponent           *uic,
 	BONOBO_ARG_SET_GENERAL (arg, check_type, TC_GNOME_EOG_CheckType,
 				GNOME_EOG_CheckType, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "check_type", arg, NULL);
 
 	bonobo_arg_release (arg);
@@ -272,14 +272,19 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 
 	CORBA_exception_init (&ev);
 	
+#if NEED_GNOME_2_PORTING
 	stream = bonobo_stream_open_full ("fs", filename, 
-		Bonobo_Storage_WRITE | Bonobo_Storage_CREATE, 0664, &ev);
+					  Bonobo_Storage_WRITE | Bonobo_Storage_CREATE, 0664, &ev);
 
 	if (!BONOBO_EX (&ev)) {
+		gchar *mime_type;
+
+		mime_type = gnome_vfs_get_mime_type (filename);
 		eog_image_save_to_stream (image_view->priv->image,
-			BONOBO_OBJREF (stream), 
-			(char*) gnome_mime_type_of_file (filename), &ev);
+					  BONOBO_OBJREF (stream), 
+					  mime_type, &ev);
 		bonobo_object_unref (BONOBO_OBJECT (stream));
+		g_free (mime_type);
 	}
 
 	if (BONOBO_EX (&ev)) {
@@ -289,6 +294,8 @@ filesel_ok_cb (GtkWidget* ok_button, gpointer user_data)
 		gnome_error_dialog_parented (message, GTK_WINDOW (fsel));
 		g_free (message);
 	}
+
+#endif
 	
 	CORBA_exception_free (&ev);
 	
@@ -779,7 +786,20 @@ print_page (GnomePrintContext 	*context,
 		/* Print the image */
 		gnome_print_gsave (context);
 		gnome_print_concat (context, matrix);
-		gnome_print_pixbuf (context, pixbuf_to_print);
+
+		if (gdk_pixbuf_get_has_alpha (pixbuf_to_print))
+			gnome_print_rgbaimage (context, 
+					       gdk_pixbuf_get_pixels (pixbuf_to_print),
+					       gdk_pixbuf_get_width (pixbuf_to_print),
+					       gdk_pixbuf_get_height (pixbuf_to_print),
+					       gdk_pixbuf_get_rowstride (pixbuf_to_print));
+		else
+			gnome_print_rgbimage (context, 
+					      gdk_pixbuf_get_pixels (pixbuf_to_print),
+					      gdk_pixbuf_get_width (pixbuf_to_print),
+					      gdk_pixbuf_get_height (pixbuf_to_print),
+					      gdk_pixbuf_get_rowstride (pixbuf_to_print));
+
 		gdk_pixbuf_unref (pixbuf_to_print);
 		gnome_print_grestore (context);
 		
@@ -1105,7 +1125,7 @@ listener_CheckSize_cb (BonoboUIComponent           *uic,
 	BONOBO_ARG_SET_GENERAL (arg, check_size, TC_GNOME_EOG_CheckSize,
 				GNOME_EOG_CheckSize, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "check_size", arg, NULL);
 
 	bonobo_arg_release (arg);
@@ -1625,7 +1645,7 @@ image_view_zoom_changed_cb (ImageView *image_view, gpointer data)
 	arg = bonobo_arg_new (BONOBO_ARG_STRING);
 	eog_image_view_get_prop (NULL, arg, PROP_WINDOW_STATUS, NULL, view);
 		
-	bonobo_property_bag_notify_listeners (view->priv->property_bag,
+	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
 					      "window/status",
 					      arg, NULL);
 	bonobo_arg_release (arg);
@@ -1644,7 +1664,7 @@ eog_image_view_set_interpolation (EogImageView           *image_view,
 	BONOBO_ARG_SET_GENERAL (arg, interpolation, TC_GNOME_EOG_Interpolation,
 				GNOME_EOG_Interpolation, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "interpolation", arg, NULL);
 }
 
@@ -1656,8 +1676,8 @@ eog_image_view_get_interpolation (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, 0);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0);
 
-	arg = bonobo_property_bag_get_value (image_view->priv->property_bag,
-					     "interpolation", NULL);
+	arg = bonobo_pbclient_get_value (BONOBO_OBJREF (image_view->priv->property_bag),
+					 "interpolation", NULL, NULL);
 	g_return_val_if_fail (arg, 0);
 	g_return_val_if_fail (arg->_type == TC_GNOME_EOG_Interpolation, 0);
 
@@ -1677,7 +1697,7 @@ eog_image_view_set_dither (EogImageView    *image_view,
 	BONOBO_ARG_SET_GENERAL (arg, dither, TC_GNOME_EOG_Dither,
 				GNOME_EOG_Dither, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "dither", arg, NULL);
 }
 
@@ -1689,8 +1709,8 @@ eog_image_view_get_dither (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, 0);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0);
 
-	arg = bonobo_property_bag_get_value (image_view->priv->property_bag,
-					     "dither", NULL);
+	arg = bonobo_pbclient_get_value (BONOBO_OBJREF (image_view->priv->property_bag),
+					    "dither", NULL, NULL);
 	g_return_val_if_fail (arg, 0);
 	g_return_val_if_fail (arg->_type == TC_GNOME_EOG_Dither, 0);
 
@@ -1710,7 +1730,7 @@ eog_image_view_set_check_type (EogImageView       *image_view,
 	BONOBO_ARG_SET_GENERAL (arg, check_type, TC_GNOME_EOG_CheckType,
 				GNOME_EOG_CheckType, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "check_type", arg, NULL);
 }
 
@@ -1722,8 +1742,8 @@ eog_image_view_get_check_type (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, 0);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0);
 
-	arg = bonobo_property_bag_get_value (image_view->priv->property_bag,
-					     "check_type", NULL);
+	arg = bonobo_pbclient_get_value (BONOBO_OBJREF (image_view->priv->property_bag),
+					 "check_type", NULL, NULL);
 	g_return_val_if_fail (arg, 0);
 	g_return_val_if_fail (arg->_type == TC_GNOME_EOG_CheckType, 0);
 
@@ -1743,7 +1763,7 @@ eog_image_view_set_check_size (EogImageView       *image_view,
 	BONOBO_ARG_SET_GENERAL (arg, check_size, TC_GNOME_EOG_CheckSize,
 				GNOME_EOG_CheckSize, NULL);
 
-	bonobo_property_bag_set_value (image_view->priv->property_bag,
+	bonobo_pbclient_set_value (BONOBO_OBJREF (image_view->priv->property_bag),
 				       "check_size", arg, NULL);
 }
 
@@ -1755,8 +1775,8 @@ eog_image_view_get_check_size (EogImageView *image_view)
 	g_return_val_if_fail (image_view != NULL, 0);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), 0);
 
-	arg = bonobo_property_bag_get_value (image_view->priv->property_bag,
-					     "check_size", NULL);
+	arg = bonobo_pbclient_get_value (BONOBO_OBJREF (image_view->priv->property_bag),
+					 "check_size", NULL, NULL);
 	g_return_val_if_fail (arg, 0);
 	g_return_val_if_fail (arg->_type == TC_GNOME_EOG_CheckSize, 0);
 
@@ -1823,8 +1843,6 @@ eog_image_view_class_init (EogImageViewClass *klass)
 	POA_GNOME_EOG_ImageView__epv *epv;
 
 	eog_image_view_parent_class = gtk_type_class (PARENT_TYPE);
-
-	gtk_object_class_add_signals (object_class, eog_image_view_signals, LAST_SIGNAL);
 
 	object_class->destroy = eog_image_view_destroy;
 	gobject_class->finalize = eog_image_view_finalize;
@@ -1926,7 +1944,9 @@ eog_image_view_construct (EogImageView       *image_view,
 
 	image_view->priv->image_view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (image_view->priv->ui_image)));
 	gtk_signal_connect (GTK_OBJECT (image_view->priv->image_view), 
-			    "zoom_changed", image_view_zoom_changed_cb, image_view);
+			    "zoom_changed", 
+			    (GtkSignalFunc) image_view_zoom_changed_cb, 
+			    image_view);
 
 	/* Some sensible defaults */
 	image_view_set_scroll      (image_view->priv->image_view,

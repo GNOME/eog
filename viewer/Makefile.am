@@ -13,10 +13,6 @@ INCLUDES =                                              \
 	$(EOG_CFLAGS)					\
 	$(EXTRA_WARNING_CFLAGS)
 
-noinst_PROGRAMS = sample-container
-sample_container_SOURCE = sample-container.c
-sample_container_LDADD = $(EOG_LIBS)
-
 bin_PROGRAMS = eog-image-viewer
 
 eog_image_viewer_SOURCES =	\
@@ -28,10 +24,6 @@ eog_image_viewer_SOURCES =	\
 	eog-image-view.h	\
 	eog-control.c		\
 	eog-control.h		\
-	eog-embeddable.c	\
-	eog-embeddable.h	\
-	eog-embeddable-view.c	\
-	eog-embeddable-view.h	\
 	eog-full-screen.c	\
 	eog-full-screen.h	\
 	eog-preview.c		\
@@ -45,6 +37,11 @@ eog_image_viewer_SOURCES =	\
 	preferences.h		\
 	preferences.c		\
 	main.c
+
+#	 eog-embeddable.c	\
+#	 eog-embeddable.h	\
+#	 eog-embeddable-view.c	\
+#	 eog-embeddable-view.h	\
 
 eog_image_viewer_LDADD = 			\
 	$(EOG_LIBS)				\
