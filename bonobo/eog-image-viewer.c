@@ -24,18 +24,21 @@
 
 struct _EogImageViewerPrivate
 {
-        BonoboControl   *control;
-        BonoboZoomable  *zoomable;
+	BonoboUIComponent  *uic;
+        BonoboZoomable     *zoomable;
 
-	float            zoom_level;
+	float               zoom_level;
 
-        GtkWidget       *ui_image;
-        GtkWidget       *image_view;
-        GdkPixbuf       *pixbuf;
+        GtkWidget          *ui_image;
+        GtkWidget          *image_view;
+        GdkPixbuf          *pixbuf;
 };
 
 /* Parent object class in GTK hierarchy */
 static BonoboControlClass *eog_image_viewer_parent_class;
+
+static void eog_image_viewer_set_frame (BonoboControl *control);
+static void eog_image_viewer_activate (BonoboControl *control, gboolean state);
 
 static void
 eog_image_viewer_destroy (GtkObject *object)
@@ -69,8 +72,12 @@ static void
 eog_image_viewer_class_init (EogImageViewerClass *klass)
 {
 	GtkObjectClass *object_class = (GtkObjectClass *) klass;
+	BonoboControlClass *control_class = (BonoboControlClass *) klass;
 
 	eog_image_viewer_parent_class = gtk_type_class (bonobo_control_get_type ());
+
+	control_class->set_frame = eog_image_viewer_set_frame;
+	control_class->activate = eog_image_viewer_activate;
 
 	object_class->destroy = eog_image_viewer_destroy;
 }
@@ -100,25 +107,51 @@ zoomable_set_zoom_level_cb (BonoboZoomable *zoomable, float new_zoom_level,
 	bonobo_zoomable_report_zoom_level_changed (zoomable,
 						   image_viewer->priv->zoom_level);
 
-
 	g_message ("Done zooming to %5.2f", image_viewer->priv->zoom_level);
 }
 
-static float preferred_zoom_levels[] = {
-	1.0 / 10.0, 1.0 /  9.0, 1.0 /  8.0, 1.0 /  7.0, 1.0 /  6.0,
-	1.0 /  5.0, 1.0 /  4.0, 1.0 /  3.0, 1.0 /  2.0,
-	1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+static BonoboZoomLevel preferred_zoom_levels[] = {
+	{ 1.0 / 10.0, "1:10" },
+	{ 1.0 /  9.0,  "1:9" },
+	{ 1.0 /  8.0,  "1:8" },
+	{ 1.0 /  7.0,  "1:7" },
+	{ 1.0 /  6.0,  "1:6" },
+	{ 1.0 /  5.0,  "1:5" },
+	{ 1.0 /  4.0,  "1:4" },
+	{ 1.0 /  3.0,  "1:3" },
+	{ 1.0 /  2.0,  "1:2" },
+	{	 1.0,  "1:1" },
+	{	 2.0,  "2:1" },
+	{	 3.0,  "3:1" },
+	{	 4.0,  "4:1" },
+	{	 5.0,  "5:1" },
+	{	 6.0,  "6:1" },
+	{	 7.0,  "7:1" },
+	{	 8.0,  "8:1" },
+	{	 9.0,  "9:1" },
+	{	10.0, "10:1" }
 };
-static const int max_preferred_zoom_levels = (sizeof (preferred_zoom_levels) / sizeof (float)) - 1;
+static const gint max_preferred_zoom_levels = (sizeof (preferred_zoom_levels) /
+					       sizeof (BonoboZoomLevel)) - 1;
 
 static int
 zoom_index_from_float (float zoom_level)
 {
 	int i;
 
-	for (i = 0; i < max_preferred_zoom_levels; i++)
-		if (zoom_level < preferred_zoom_levels [i])
+	for (i = 0; i < max_preferred_zoom_levels; i++) {
+		float this, epsilon;
+
+		/* if we're close to a zoom level */
+		this = preferred_zoom_levels [i].zoom_level;
+		epsilon = this * 0.01;
+
+		g_message ("check (%8.5f): %8.5f += %8.5f (check %5d - %8.5f <= %8.5f <= %8.5f)",
+			   zoom_level, this, epsilon, i, this-epsilon, zoom_level, this+epsilon);
+
+		if (zoom_level < this+epsilon)
 			return i;
+	}
 
 	return max_preferred_zoom_levels;
 }
@@ -129,7 +162,7 @@ zoom_level_from_index (int index)
 	if (index > max_preferred_zoom_levels)
 		index = max_preferred_zoom_levels;
 
-	return preferred_zoom_levels [index];
+	return preferred_zoom_levels [index].zoom_level;
 }
 
 static void
@@ -186,6 +219,149 @@ zoomable_zoom_to_default_cb (BonoboZoomable *zoomable, EogImageViewer *image_vie
 	gtk_signal_emit_by_name (GTK_OBJECT (zoomable), "set_zoom_level", 1.0);
 }
 
+static void
+listener_Interpolation_cb (BonoboUIComponent *uic, const char *path,
+			   Bonobo_UIComponent_EventType type, const char *state,
+			   gpointer user_data)
+{
+	EogImageViewer *image_viewer;
+	GdkInterpType interp_type;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (user_data));
+
+	if (type != Bonobo_UIComponent_STATE_CHANGED)
+		return;
+
+	if (!state || !atoi (state))
+		return;
+
+	image_viewer = EOG_IMAGE_VIEWER (user_data);
+
+	if (!strcmp (path, "InterpolationNearest"))
+		interp_type = GDK_INTERP_NEAREST;
+	else if (!strcmp (path, "InterpolationTiles"))
+		interp_type = GDK_INTERP_TILES;
+	else if (!strcmp (path, "InterpolationBilinear"))
+		interp_type = GDK_INTERP_BILINEAR;
+	else if (!strcmp (path, "InterpolationHyperbolic"))
+		interp_type = GDK_INTERP_HYPER;
+	else {
+		g_warning ("Unknown interpolation type `%s'", path);
+		return;
+	}
+
+	image_view_set_interp_type (IMAGE_VIEW (image_viewer->priv->image_view), interp_type);
+}
+
+static void
+listener_Dither_cb (BonoboUIComponent *uic, const char *path,
+		    Bonobo_UIComponent_EventType type, const char *state,
+		    gpointer user_data)
+{
+	EogImageViewer *image_viewer;
+	GdkRgbDither dither;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (user_data));
+
+	if (type != Bonobo_UIComponent_STATE_CHANGED)
+		return;
+
+	if (!state || !atoi (state))
+		return;
+
+	image_viewer = EOG_IMAGE_VIEWER (user_data);
+
+	if (!strcmp (path, "DitherNone"))
+		dither = GDK_RGB_DITHER_NONE;
+	else if (!strcmp (path, "DitherNormal"))
+		dither = GDK_RGB_DITHER_NORMAL;
+	else if (!strcmp (path, "DitherMaximum"))
+		dither = GDK_RGB_DITHER_MAX;
+	else {
+		g_warning ("Unknown dither type `%s'", path);
+		return;
+	}
+
+	image_view_set_dither (IMAGE_VIEW (image_viewer->priv->image_view), dither);
+}
+
+static void
+listener_CheckType_cb (BonoboUIComponent *uic, const char *path,
+		       Bonobo_UIComponent_EventType type, const char *state,
+		       gpointer user_data)
+{
+	EogImageViewer *image_viewer;
+	CheckType check_type;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (user_data));
+
+	if (type != Bonobo_UIComponent_STATE_CHANGED)
+		return;
+
+	if (!state || !atoi (state))
+		return;
+
+	image_viewer = EOG_IMAGE_VIEWER (user_data);
+
+	if (!strcmp (path, "CheckTypeDark"))
+		check_type = CHECK_TYPE_DARK;
+	else if (!strcmp (path, "CheckTypeMidtone"))
+		check_type = CHECK_TYPE_MIDTONE;
+	else if (!strcmp (path, "CheckTypeLight"))
+		check_type = CHECK_TYPE_LIGHT;
+	else if (!strcmp (path, "CheckTypeBlack"))
+		check_type = CHECK_TYPE_BLACK;
+	else if (!strcmp (path, "CheckTypeGray"))
+		check_type = CHECK_TYPE_GRAY;
+	else if (!strcmp (path, "CheckTypeWhite"))
+		check_type = CHECK_TYPE_WHITE;
+	else {
+		g_warning ("Unknown check type `%s'", path);
+		return;
+	}
+
+	image_view_set_check_type (IMAGE_VIEW (image_viewer->priv->image_view), check_type);
+}
+
+static void
+listener_CheckSize_cb (BonoboUIComponent *uic, const char *path,
+		       Bonobo_UIComponent_EventType type, const char *state,
+		       gpointer user_data)
+{
+	EogImageViewer *image_viewer;
+	CheckSize check_size;
+
+	g_return_if_fail (user_data != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (user_data));
+
+	if (type != Bonobo_UIComponent_STATE_CHANGED)
+		return;
+
+	if (!state || !atoi (state))
+		return;
+
+	image_viewer = EOG_IMAGE_VIEWER (user_data);
+
+	if (!strcmp (path, "CheckSizeSmall"))
+		check_size = CHECK_SIZE_SMALL;
+	else if (!strcmp (path, "CheckSizeMedium"))
+		check_size = CHECK_SIZE_MEDIUM;
+	else if (!strcmp (path, "CheckSizeLarge"))
+		check_size = CHECK_SIZE_LARGE;
+	else {
+		g_warning ("Unknown check size `%s'", path);
+		return;
+	}
+
+	image_view_set_check_size (IMAGE_VIEW (image_viewer->priv->image_view), check_size);
+}
+
+static BonoboUIVerb eog_image_viewer_verbs[] = {
+	BONOBO_UI_VERB_END
+};
 
 /**
  * eog_image_viewer_get_type:
@@ -318,14 +494,122 @@ load_image_from_file (BonoboPersistFile *pf, const CORBA_char *filename, void *d
 	return 0;
 }
 
+/*
+ * When one of our controls is activated, we merge our menus
+ * in with our container's menus.
+ */
+static void
+eog_image_viewer_create_menus (EogImageViewer *image_viewer)
+{
+	Bonobo_UIContainer remote_uic;
+
+	g_return_if_fail (image_viewer != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (image_viewer));
+
+	/*
+	 * Get our UIComponent from the Control.
+	 */
+	image_viewer->priv->uic = bonobo_control_get_ui_component (BONOBO_CONTROL (image_viewer));
+
+	/*
+	 * Get our container's UIContainer server.
+	 */
+	remote_uic = bonobo_control_get_remote_ui_container (BONOBO_CONTROL (image_viewer));
+
+	/*
+	 * We have to deal gracefully with containers
+	 * which don't have a UIContainer running.
+	 */
+	if (remote_uic == CORBA_OBJECT_NIL) {
+		g_warning ("No UI container!");
+		return;
+	}
+
+	/*
+	 * Give our BonoboUIComponent object a reference to the
+	 * container's UIContainer server.
+	 */
+	bonobo_ui_component_set_container (image_viewer->priv->uic, remote_uic);
+
+	/*
+	 * Unref the UI container we have been passed.
+	 */
+	bonobo_object_release_unref (remote_uic, NULL);
+
+	/* Set up the UI from an XML file. */
+        bonobo_ui_util_set_ui (image_viewer->priv->uic, DATADIR,
+			       "eog-image-viewer-ui.xml", "EogImageViewer");
+
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "InterpolationNearest",
+					  listener_Interpolation_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "InterpolationTiles",
+					  listener_Interpolation_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "InterpolationBilinear",
+					  listener_Interpolation_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "InterpolationHyperbolic",
+					  listener_Interpolation_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "DitherNone",
+					  listener_Dither_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "DitherNormal",
+					  listener_Dither_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "DitherMaximum",
+					  listener_Dither_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeDark",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeMidtone",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeLight",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeBlack",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeGray",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckTypeWhite",
+					  listener_CheckType_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckSizeSmall",
+					  listener_CheckSize_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckSizeMedium",
+					  listener_CheckSize_cb, image_viewer);
+	bonobo_ui_component_add_listener (image_viewer->priv->uic, "CheckSizeLarge",
+					  listener_CheckSize_cb, image_viewer);
+
+	bonobo_ui_component_add_verb_list_with_data (image_viewer->priv->uic,
+						     eog_image_viewer_verbs,
+						     image_viewer);
+}
+
+static void
+eog_image_viewer_set_frame (BonoboControl *control)
+{
+	g_return_if_fail (control != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (control));
+
+	if (BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->set_frame)
+		BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->set_frame (control);
+
+	eog_image_viewer_create_menus (EOG_IMAGE_VIEWER (control));
+}
+
+static void
+eog_image_viewer_activate (BonoboControl *control, gboolean state)
+{
+	g_return_if_fail (control != NULL);
+	g_return_if_fail (EOG_IS_IMAGE_VIEWER (control));
+
+	if (BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->activate)
+		BONOBO_CONTROL_CLASS (eog_image_viewer_parent_class)->activate (control, state);
+
+	if (state)
+		eog_image_viewer_create_menus (EOG_IMAGE_VIEWER (control));
+}
+
+
 EogImageViewer *
 eog_image_viewer_construct (EogImageViewer *image_viewer, Bonobo_Control corba_control)
 {
-	CORBA_Environment     ev;
 	BonoboControl        *retval;
 	BonoboPersistStream  *stream;
 	BonoboPersistFile    *file;
-	gchar                *ior;
 
 	g_return_val_if_fail (image_viewer != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEWER (image_viewer), NULL);
@@ -335,11 +619,6 @@ eog_image_viewer_construct (EogImageViewer *image_viewer, Bonobo_Control corba_c
 	gtk_widget_ref (image_viewer->priv->image_view);
 
 	gtk_widget_show (image_viewer->priv->ui_image);
-
-	CORBA_exception_init (&ev);
-	ior = CORBA_ORB_object_to_string (oaf_orb_get (), corba_control, &ev);
-	g_message ("Control IOR is `%s'", ior);
-	CORBA_exception_free (&ev);
 
 	/*
 	 * Interface Bonobo::Zoomable 
@@ -361,24 +640,16 @@ eog_image_viewer_construct (EogImageViewer *image_viewer, Bonobo_Control corba_c
 	gtk_signal_connect (GTK_OBJECT (image_viewer->priv->zoomable), "zoom_to_default",
 			    GTK_SIGNAL_FUNC (zoomable_zoom_to_default_cb), image_viewer);
 
-	CORBA_exception_init (&ev);
-	ior = CORBA_ORB_object_to_string (oaf_orb_get (),
-		bonobo_object_corba_objref (BONOBO_OBJECT (image_viewer->priv->zoomable)), &ev);
-	g_message ("Zoomable IOR is `%s'", ior);
-	CORBA_exception_free (&ev);
-
 	image_viewer->priv->zoom_level = 1.0;
 	bonobo_zoomable_set_parameters (image_viewer->priv->zoomable,
 					image_viewer->priv->zoom_level,
-					preferred_zoom_levels [0],
-					preferred_zoom_levels [max_preferred_zoom_levels],
+					preferred_zoom_levels [0].zoom_level,
+					preferred_zoom_levels [max_preferred_zoom_levels].zoom_level,
 					FALSE, FALSE, TRUE,
 					preferred_zoom_levels, max_preferred_zoom_levels + 1);
 
 	bonobo_object_add_interface (BONOBO_OBJECT (image_viewer),
 				     BONOBO_OBJECT (image_viewer->priv->zoomable));
-
-	g_message ("Added zoomable interface");
 
 	/*
 	 * Interface Bonobo::PersistStream 
@@ -411,8 +682,6 @@ eog_image_viewer_construct (EogImageViewer *image_viewer, Bonobo_Control corba_c
 	retval = bonobo_control_construct (BONOBO_CONTROL (image_viewer),
 					   corba_control,
 					   image_viewer->priv->ui_image);
-
-	g_message ("Successfully constructed the EogImageViewer %p", retval);
 
 	return EOG_IMAGE_VIEWER (retval);
 }
