@@ -37,7 +37,7 @@ libeog_a_SOURCES =			\
 idls =							\
 	$(top_srcdir)/idl/Eog.idl
 
-idl_flags =  -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl -D__EOG_COMPILATION -D__BONOBO_COMPILATION
+idl_flags =  -I$(BONOBO_IDLDIR) -I$(BONOBO_ACT_IDLDIR) -I$(top_srcdir)/idl -D__EOG_COMPILATION
 
 $(CORBA_SOURCES): $(idls)
 	$(ORBIT_IDL)   $(top_srcdir)/idl/Eog.idl $(idl_flags)
