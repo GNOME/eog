@@ -42,8 +42,6 @@ struct _EogImageViewPrivate {
 
 	BonoboUIComponent     *uic;
 
-	BonoboItemContainer   *item_container;
-
 	gboolean               zoom_fit;
 };
 
@@ -380,6 +378,10 @@ verb_Send_cb (BonoboUIComponent *uic, gpointer user_data, const char *name)
 	g_warning ("EOG has been compiled witout support for evolution!");
 #endif
 }
+
+/* ***************************************************************************
+ * Start of printing related code 
+ * ***************************************************************************/
 
 static gint
 count_pages (gdouble 	paper_width,
@@ -1010,6 +1012,10 @@ eog_image_view_create_ui (EogImageView *image_view)
 				      verb_Print_cb, image_view);
 }
 
+/* ***************************************************************************
+ * Start of property-bag related code
+ * ***************************************************************************/
+
 static void
 eog_image_view_get_prop (BonoboPropertyBag *bag,
 			 BonoboArg         *arg,
@@ -1318,22 +1324,6 @@ eog_image_view_set_prop (BonoboPropertyBag *bag,
 	}
 }
 
-static Bonobo_Unknown
-eog_image_view_get_object (BonoboItemContainer *item_container,
-			   CORBA_char          *item_name,
-			   CORBA_boolean        only_if_exists,
-			   CORBA_Environment   *ev,
-			   EogImageView        *image_view)
-{
-	g_return_val_if_fail (image_view != NULL, CORBA_OBJECT_NIL);
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), CORBA_OBJECT_NIL);
-
-	g_message ("eog_image_view_get_object: %d - %s",
-		   only_if_exists, item_name);
-
-	return CORBA_OBJECT_NIL;
-}
-
 EogImage *
 eog_image_view_get_image (EogImageView *image_view)
 {
@@ -1608,6 +1598,10 @@ eog_image_view_get_check_size (EogImageView *image_view)
 	return * (GNOME_EOG_CheckSize *) arg->_value;
 }
 
+/* ***************************************************************************
+ * Constructor, destructor, etc.
+ * ***************************************************************************/
+
 static void
 eog_image_view_destroy (GtkObject *object)
 {
@@ -1819,15 +1813,6 @@ eog_image_view_construct (EogImageView       *image_view,
 	/* UI Component */
 
 	image_view->priv->uic = bonobo_ui_component_new ("EogImageView");
-
-	/* BonoboItemContainer */
-	image_view->priv->item_container = bonobo_item_container_new ();
-	gtk_signal_connect (GTK_OBJECT (image_view->priv->item_container),
-			    "get_object",
-			    GTK_SIGNAL_FUNC (eog_image_view_get_object),
-			    image_view);
-	bonobo_object_add_interface (BONOBO_OBJECT (image_view),
-				     BONOBO_OBJECT (image_view->priv->item_container));
 
 	return image_view;
 }
