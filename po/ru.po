@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-06-29 17:58+0400\n"
-"PO-Revision-Date: 2002-06-29 17:59+0400\n"
+"POT-Creation-Date: 2002-07-16 08:49+0400\n"
+"PO-Revision-Date: 2002-07-16 08:52+0400\n"
 "Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "Программа просмотра изображений Eye of Gnom
 msgid "View many different types of images"
 msgstr "Позволяет просмотреть изображения различных типов"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:751
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:738
 msgid "EOG Image"
 msgstr "Изображение программы EOG"
 
@@ -83,18 +83,73 @@ msgstr "смешивание"
 msgid "dither type"
 msgstr "тип смешивания"
 
-#: shell/eog-preferences.c:162
-#, c-format
-msgid ""
-"Could not display help for the preferences dialog.\n"
-"%s"
-msgstr ""
-"Не удалось отобразить справку для диалога настроек.\n"
-"%s"
+#: libeog/eog-file-selection.c:28 libeog/eog-file-selection.c:45
+msgid "By Extension"
+msgstr "По расширению"
 
-#: shell/eog-preferences.c:214
-msgid "Eye of Gnome Preferences"
-msgstr "Настройки программы Eye of Gnome"
+#: libeog/eog-file-selection.c:29
+msgid "BMP"
+msgstr "BMP"
+
+#: libeog/eog-file-selection.c:30
+msgid "GIF"
+msgstr "GIF"
+
+#: libeog/eog-file-selection.c:31
+msgid "ICO"
+msgstr "ICO"
+
+#: libeog/eog-file-selection.c:32 libeog/eog-file-selection.c:47
+msgid "JPEG"
+msgstr "JPEG"
+
+#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: libeog/eog-file-selection.c:34
+msgid "PNM"
+msgstr "PNM"
+
+#: libeog/eog-file-selection.c:35
+msgid "RAS"
+msgstr "RAS"
+
+#: libeog/eog-file-selection.c:36
+msgid "SVG"
+msgstr "SVG"
+
+#: libeog/eog-file-selection.c:37
+msgid "TGA"
+msgstr "TGA"
+
+#: libeog/eog-file-selection.c:38
+msgid "TIFF"
+msgstr "TIFF"
+
+#: libeog/eog-file-selection.c:39
+msgid "XBM"
+msgstr "XBM"
+
+#: libeog/eog-file-selection.c:40 libeog/eog-file-selection.c:53
+msgid "XPM"
+msgstr "XPM"
+
+#: libeog/eog-file-selection.c:202
+msgid "Unsupported file format."
+msgstr "Неподдерживаемый формат файла."
+
+#: libeog/eog-file-selection.c:222
+msgid "Determine File Type:"
+msgstr "Определить тип файла:"
+
+#: libeog/eog-file-selection.c:260
+msgid "Load Image"
+msgstr "Загрузить изображение"
+
+#: libeog/eog-file-selection.c:265
+msgid "Save Image"
+msgstr "Сохранить изображение"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -105,86 +160,74 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #: shell/eog-shell-ui.xml.h:3
-msgid "Change preferences"
-msgstr "Изменить настройки"
-
-#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Закрыть"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close window"
 msgstr "Закрыть окно"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:5
 msgid "Contents"
 msgstr "Содержание"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:6
 msgid "Help On this application"
 msgstr "Справка по этой программе"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
+#: shell/eog-shell-ui.xml.h:7 shell/main.c:205
 msgid "Open"
 msgstr "Открыть"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a file"
 msgstr "Открыть файл"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a new window"
 msgstr "Открыть новое окно"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in new window"
 msgstr "Открыть в новом окне"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:11
 msgid "Open in this window"
 msgstr "Открыть в этом окне"
 
-#: shell/eog-shell-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:12
 msgid "Quit the program"
 msgstr "Выйти из программы"
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_About"
 msgstr "_О программе..."
 
-#: shell/eog-shell-ui.xml.h:15
+#: shell/eog-shell-ui.xml.h:14
 msgid "_Close"
 msgstr "_Закрыть"
 
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Edit"
-msgstr "_Правка"
-
-#: shell/eog-shell-ui.xml.h:17
+#: shell/eog-shell-ui.xml.h:15
 msgid "_File"
 msgstr "_Файл"
 
-#: shell/eog-shell-ui.xml.h:18
+#: shell/eog-shell-ui.xml.h:16
 msgid "_Help"
 msgstr "_Справка"
 
-#: shell/eog-shell-ui.xml.h:19
+#: shell/eog-shell-ui.xml.h:17
 msgid "_New Window"
 msgstr "_Создать окно"
 
-#: shell/eog-shell-ui.xml.h:20
+#: shell/eog-shell-ui.xml.h:18
 msgid "_Open..."
 msgstr "_Открыть..."
 
-#: shell/eog-shell-ui.xml.h:21
-msgid "_Preferences..."
-msgstr "_Настроить"
-
-#: shell/eog-shell-ui.xml.h:22
+#: shell/eog-shell-ui.xml.h:19
 msgid "_Quit"
 msgstr "В_ыйти"
 
-#: shell/eog-shell-ui.xml.h:23
+#: shell/eog-shell-ui.xml.h:20
 msgid "_View"
 msgstr "_Вид"
 
@@ -192,26 +235,26 @@ msgstr "_Вид"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:238
+#: shell/eog-window.c:203
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Евгений Булгаков <bgav@netvision.net.il>\n"
 "Валёк Филлипов <frob@df.ru>\n"
 "Дмитрий Мастрюков <dmitry@taurussoft.org>"
 
-#: shell/eog-window.c:243 shell/eog-window.c:632 shell/main.c:449
+#: shell/eog-window.c:208 shell/eog-window.c:595 shell/main.c:449
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:245
+#: shell/eog-window.c:210
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторское право (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:246
+#: shell/eog-window.c:211
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Программа просмотра и каталогизации изображений для среды GNOME"
 
-#: shell/eog-window.c:283
+#: shell/eog-window.c:248
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -220,11 +263,7 @@ msgstr ""
 "Не удалось отобразить справку для программы Eye of Gnome.\n"
 "%s"
 
-#: shell/eog-window.c:798
-msgid "Open Image"
-msgstr "Открыть изображение"
-
-#: shell/eog-window.c:1257
+#: shell/eog-window.c:1215
 #, c-format
 msgid "Unable to open %s."
 msgstr "Невозможно открыть %s."
@@ -334,11 +373,11 @@ msgstr "_Тип отметок"
 msgid "Full Screen"
 msgstr "Развернуть на полный экран"
 
-#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:63
+#: viewer/eog-image-view-ui.xml.h:4
 msgid "Large"
 msgstr "Большие"
 
-#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:62
+#: viewer/eog-image-view-ui.xml.h:5
 msgid "Medium"
 msgstr "Средние"
 
@@ -370,7 +409,7 @@ msgstr "Напечатать изображение на принтере"
 msgid "Setup the page settings for your current printer"
 msgstr "Выполнить настройку страницы для текущего принтера"
 
-#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:61
+#: viewer/eog-image-view-ui.xml.h:13
 msgid "Small"
 msgstr "Маленькие"
 
@@ -427,91 +466,79 @@ msgid "_Save As..."
 msgstr "Сохранить _как..."
 
 #: viewer/eog-image-view-ui.xml.h:27
-msgid "_Tiles"
-msgstr "Интерполяция _элементов"
-
-#: viewer/eog-image-view-ui.xml.h:28
 msgid "_White"
 msgstr "_Белое"
 
-#: viewer/eog-image-view.c:360
+#: viewer/eog-image-view.c:347
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не удалось сохранить изображение как \"%s\": %s."
 
-#: viewer/eog-image-view.c:411
-msgid "Save As"
-msgstr "Сохранить как"
-
-#: viewer/eog-image-view.c:986
+#: viewer/eog-image-view.c:973
 msgid "Print Image"
 msgstr "Напечатать изображение"
 
-#: viewer/eog-image-view.c:994
+#: viewer/eog-image-view.c:981
 msgid "Pages"
 msgstr "Страницы"
 
-#: viewer/eog-image-view.c:1081
+#: viewer/eog-image-view.c:1068
 msgid "Print Preview"
 msgstr "Просмотр образца печати"
 
-#: viewer/eog-image-view.c:1087
+#: viewer/eog-image-view.c:1074
 msgid "Printing of image failed"
 msgstr "Сбой печати изображения"
 
-#: viewer/eog-image-view.c:1921
-msgid "Display"
-msgstr "Отображение"
-
-#: viewer/eog-image-view.c:2106
+#: viewer/eog-image-view.c:2048
 msgid "/Zoom _In"
 msgstr "/У_величить масштаб"
 
-#: viewer/eog-image-view.c:2108
+#: viewer/eog-image-view.c:2050
 msgid "/Zoom _Out"
 msgstr "/У_меньшить масштаб"
 
-#: viewer/eog-image-view.c:2110
+#: viewer/eog-image-view.c:2052
 msgid "/Zoom _1:1"
 msgstr "/Масштабировать _1:1"
 
-#: viewer/eog-image-view.c:2112
+#: viewer/eog-image-view.c:2054
 msgid "/Zoom to _Fit"
 msgstr "/Масштабировать до _заполнения"
 
-#: viewer/eog-image-view.c:2115
+#: viewer/eog-image-view.c:2057
 msgid "/_Close"
 msgstr "/_Закрыть"
 
-#: viewer/eog-image-view.c:2230
+#: viewer/eog-image-view.c:2172
 msgid "Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view.c:2233
+#: viewer/eog-image-view.c:2175
 msgid "Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view.c:2236
+#: viewer/eog-image-view.c:2178
 msgid "Check Type"
 msgstr "Тип отметок"
 
-#: viewer/eog-image-view.c:2239
+#: viewer/eog-image-view.c:2181
 msgid "Check Size"
 msgstr "Размер отметок"
 
-#: viewer/eog-image-view.c:2242
+#: viewer/eog-image-view.c:2184
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:2245
+#: viewer/eog-image-view.c:2187
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:2248
+#: viewer/eog-image-view.c:2190
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: viewer/eog-image-view.c:2251
+#: viewer/eog-image-view.c:2193
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
@@ -687,73 +714,84 @@ msgstr "Вниз, затем вправо"
 msgid "Right, then down"
 msgstr "Вправо, затем вниз"
 
-#: viewer/preferences.c:33
-msgid "Nearest Neighbour Interpolation"
-msgstr "Интерполяция по ближайшему соседу"
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Не удалось отобразить справку для диалога настроек.\n"
+#~ "%s"
 
-#: viewer/preferences.c:35
-msgid "Tiles Interpolation"
-msgstr "Интерполяция элементов"
+#~ msgid "Eye of Gnome Preferences"
+#~ msgstr "Настройки программы Eye of Gnome"
 
-#: viewer/preferences.c:37
-msgid "Bilinear Interpolation"
-msgstr "Билинейная интерполяция"
+#~ msgid "Change preferences"
+#~ msgstr "Изменить настройки"
 
-#: viewer/preferences.c:39
-msgid "Hyperbolic Interpolation"
-msgstr "Гиперболическая интерполяция"
+#~ msgid "_Edit"
+#~ msgstr "_Правка"
 
-#: viewer/preferences.c:44
-msgid "No dithering"
-msgstr "Без смешивания"
+#~ msgid "_Preferences..."
+#~ msgstr "_Настроить"
 
-#: viewer/preferences.c:45
-msgid "Normal (pseudocolor) dithering"
-msgstr "Нормальное (псевдоцветное) смешение"
+#~ msgid "_Tiles"
+#~ msgstr "Интерполяция _элементов"
 
-#: viewer/preferences.c:46
-msgid "Maximum (high color) dithering"
-msgstr "Максимальное (многоцветное) смешение"
+#~ msgid "Save As"
+#~ msgstr "Сохранить как"
 
-#: viewer/preferences.c:51
-msgid "Dark"
-msgstr "Тени"
+#~ msgid "Display"
+#~ msgstr "Отображение"
 
-#: viewer/preferences.c:52
-msgid "Midtone"
-msgstr "Полутона"
+#~ msgid "Nearest Neighbour Interpolation"
+#~ msgstr "Интерполяция по ближайшему соседу"
 
-#: viewer/preferences.c:53
-msgid "Light"
-msgstr "Блики"
+#~ msgid "Tiles Interpolation"
+#~ msgstr "Интерполяция элементов"
 
-#: viewer/preferences.c:54
-msgid "Black"
-msgstr "Чёрное"
+#~ msgid "Bilinear Interpolation"
+#~ msgstr "Билинейная интерполяция"
 
-#: viewer/preferences.c:55
-msgid "Gray"
-msgstr "Серое"
+#~ msgid "Hyperbolic Interpolation"
+#~ msgstr "Гиперболическая интерполяция"
 
-#: viewer/preferences.c:56
-msgid "White"
-msgstr "Белое"
+#~ msgid "No dithering"
+#~ msgstr "Без смешивания"
 
-#: viewer/preferences.c:175
-msgid "_Interpolation:"
-msgstr "_Интерполяция:"
+#~ msgid "Normal (pseudocolor) dithering"
+#~ msgstr "Нормальное (псевдоцветное) смешение"
 
-#: viewer/preferences.c:187
-msgid "_Dither:"
-msgstr "Сме_шивание:"
+#~ msgid "Maximum (high color) dithering"
+#~ msgstr "Максимальное (многоцветное) смешение"
 
-#: viewer/preferences.c:199
-msgid "Check _type:"
-msgstr "_Тип отметок:"
+#~ msgid "Dark"
+#~ msgstr "Тени"
 
-#: viewer/preferences.c:211
-msgid "Check _size:"
-msgstr "_Размер отметок:"
+#~ msgid "Midtone"
+#~ msgstr "Полутона"
+
+#~ msgid "Light"
+#~ msgstr "Блики"
+
+#~ msgid "Black"
+#~ msgstr "Чёрное"
+
+#~ msgid "Gray"
+#~ msgstr "Серое"
+
+#~ msgid "White"
+#~ msgstr "Белое"
+
+#~ msgid "_Interpolation:"
+#~ msgstr "_Интерполяция:"
+
+#~ msgid "_Dither:"
+#~ msgstr "Сме_шивание:"
+
+#~ msgid "Check _type:"
+#~ msgstr "_Тип отметок:"
+
+#~ msgid "Check _size:"
+#~ msgstr "_Размер отметок:"
 
 #~ msgid "Control doesn't support window_title property."
 #~ msgstr "Окно не поддерживает свойство window_title (заголовок окна)"
