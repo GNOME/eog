@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-02-12 20:20+0100\n"
-"PO-Revision-Date: 2002-02-12 20:22+0100\n"
+"POT-Creation-Date: 2002-02-20 14:32+0100\n"
+"PO-Revision-Date: 2002-02-20 14:33+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Gnomes øje"
 msgid "Image Viewer"
 msgstr "Billedfremviser"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
 msgid "EOG Image"
 msgstr "EOG-billede"
 
@@ -138,23 +138,23 @@ msgstr "Billedfremviser og -katalogiseringsprogram til Gnome"
 msgid "Open Image"
 msgstr "Åbn billede"
 
-#: shell/eog-window.c:739
+#: shell/eog-window.c:738
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen understøtter ikke 'window_title'-egenskaben."
 
-#: shell/eog-window.c:755
+#: shell/eog-window.c:754
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen understøtter ikke 'status_text'-egenskaben."
 
-#: shell/eog-window.c:772
+#: shell/eog-window.c:773
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har ikke nogen egenskaber"
 
-#: shell/eog-window.c:789
+#: shell/eog-window.c:790
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunne ikke finde ud af MIME-typen for filen."
 
-#: shell/eog-window.c:1013
+#: shell/eog-window.c:1033
 msgid "Error while obtaining file informations."
 msgstr "Fejl under indsamling af filoplysninger."
 
@@ -194,67 +194,67 @@ msgstr "Kunne ikke åbne '%s'"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Kunne ikke klargøre GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:315
+#: viewer/eog-image-view.c:309
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Kunne ikke gemme billede som '%s': %s."
 
-#: viewer/eog-image-view.c:364
+#: viewer/eog-image-view.c:358
 msgid "Save As"
 msgstr "Gem som"
 
-#: viewer/eog-image-view.c:937
+#: viewer/eog-image-view.c:931
 msgid "Print Image"
 msgstr "Udskriv billede"
 
-#: viewer/eog-image-view.c:945
+#: viewer/eog-image-view.c:939
 msgid "Pages"
 msgstr "Sider"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1026
 msgid "Print Preview"
 msgstr "Vis udskrift"
 
-#: viewer/eog-image-view.c:1038
+#: viewer/eog-image-view.c:1032
 msgid "Printing of image failed"
 msgstr "Udskrivning af billede mislykkedes"
 
-#: viewer/eog-image-view.c:1903
+#: viewer/eog-image-view.c:1897
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
+#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolering"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
+#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Avanceret farvereducering"
 
 # det drejer sig om det skakternede mønster der bliver tegnet under et
 # halvgennemsigtigt billede
-#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Type af tern"
 
 # ditto
-#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Ternstørrelse"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2000
 msgid "Image Width"
 msgstr "Billedbredde"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2003
 msgid "Image Height"
 msgstr "Billedhøjde"
 
-#: viewer/eog-image-view.c:2012
+#: viewer/eog-image-view.c:2006
 msgid "Window Title"
 msgstr "Vinduestitel"
 
-#: viewer/eog-image-view.c:2015
+#: viewer/eog-image-view.c:2009
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
@@ -376,18 +376,34 @@ msgid "_Tiles Interpolation"
 msgstr "_Flise-interpolering"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "1:1"
+msgstr "1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Fit"
+msgstr "Fyldud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+msgid "In"
+msgstr "tm"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Out"
+msgstr "Ud"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Zoom _In"
 msgstr "Zoom _ind"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:2
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 msgid "Zoom _Out"
 msgstr "Zoom _ud"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "Zoom to _Default"
 msgstr "Zoom til st_andard"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:4
+#: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "Zoom til _side"
 
@@ -414,10 +430,6 @@ msgstr "cm"
 #: viewer/eog-print-setup.c:75
 msgid "centimeter"
 msgstr "centimeter"
-
-#: viewer/eog-print-setup.c:76
-msgid "In"
-msgstr "tm"
 
 #: viewer/eog-print-setup.c:76
 msgid "inch"
@@ -667,9 +679,6 @@ msgstr "Stor"
 
 #~ msgid "Close the current window"
 #~ msgstr "Luk det nuværende vindue"
-
-#~ msgid "Fit"
-#~ msgstr "Fyldud"
 
 #~ msgid "_Open Image..."
 #~ msgstr "_Åbn billede..."
