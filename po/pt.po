@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2002-05-16 01:26+0100\n"
-"PO-Revision-Date: 2002-05-16 01:30+0000\n"
+"POT-Creation-Date: 2002-05-29 02:28+0100\n"
+"PO-Revision-Date: 2002-05-29 02:30+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,16 @@ msgstr "activar zoom de pleno ecrã"
 msgid "whether we should allow full screen zoom"
 msgstr "se deverá ser ou não permitido zoom de pleno ecrã"
 
-#: shell/eog-preferences.c:141
+#: shell/eog-preferences.c:162
+#, c-format
+msgid ""
+"Could not display help for the preferences dialog.\n"
+"%s"
+msgstr ""
+"Incapaz de mostrar a ajuda para o diálogo de preferências.\n"
+"%s"
+
+#: shell/eog-preferences.c:214
 msgid "Eye of Gnome Preferences"
 msgstr "Preferências Eye of Gnome"
 
@@ -125,7 +134,7 @@ msgstr "Conteudo"
 msgid "Help On this application"
 msgstr "Ajuda sobre esta aplicação"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:196
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
 msgid "Open"
 msgstr "Abrir"
 
@@ -197,7 +206,7 @@ msgstr "_Ver"
 msgid "Translator Credits"
 msgstr "Traduzido por Duarte Loreto <happyguy_pt@hotmail.com>"
 
-#: shell/eog-window.c:240 shell/eog-window.c:601 shell/main.c:339
+#: shell/eog-window.c:240 shell/eog-window.c:625 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -209,36 +218,45 @@ msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 msgid "The GNOME image viewing and cataloging program"
 msgstr "A aplicação de de visualização e catalogação de imagens GNOME"
 
-#: shell/eog-window.c:761
+#: shell/eog-window.c:275
+#, c-format
+msgid ""
+"Could not display help for Eye of Gnome.\n"
+"%s"
+msgstr ""
+"Incapaz de mostrar ajuda para o Eye of Gnome.\n"
+"%s"
+
+#: shell/eog-window.c:785
 msgid "Open Image"
 msgstr "Abrir Imagem"
 
-#: shell/eog-window.c:815
+#: shell/eog-window.c:839
 msgid "Control doesn't support window_title property."
 msgstr "Controlo não suporta propriedade window_title."
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:855
 msgid "Control doesn't support status_text property."
 msgstr "Controlo não suporta propriedade status_text."
 
-#: shell/eog-window.c:850
+#: shell/eog-window.c:874
 msgid "Control doesn't have properties"
 msgstr "Controlo não tem propriedades"
 
-#: shell/eog-window.c:867
+#: shell/eog-window.c:891
 msgid "Couldn't retrieve mime type for file."
 msgstr "Incapaz de obter tipos mime do ficheiro."
 
-#: shell/eog-window.c:1110
+#: shell/eog-window.c:1134
 msgid "Error while obtaining file informations."
 msgstr "Erro ao obter informações de ficheiro."
 
-#: shell/eog-window.c:1139
+#: shell/eog-window.c:1163
 #, c-format
 msgid "Unable to open %s."
 msgstr "Incapaz de abrir %s."
 
-#: shell/main.c:163
+#: shell/main.c:164
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -249,15 +267,15 @@ msgstr ""
 "simultaneamente. Deseja antes\n"
 "abri-las num catálogo?"
 
-#: shell/main.c:168
+#: shell/main.c:169
 msgid "Single Windows"
 msgstr "Janelas Únicas"
 
-#: shell/main.c:169
+#: shell/main.c:170
 msgid "Collection"
 msgstr "Catálogo"
 
-#: shell/main.c:193
+#: shell/main.c:194
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -484,7 +502,7 @@ msgstr "Título Janela"
 msgid "Statusbar Text"
 msgstr "Texto de Barra Estados"
 
-#: viewer/eog-image.c:468
+#: viewer/eog-image.c:467
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Incapaz de inicializar GnomeVFS!\n"
 
