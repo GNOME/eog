@@ -1,3 +1,35 @@
+1999-11-30  Federico Mena Quintero  <federico@redhat.com>
+
+	* gnome-wrap-list.c (bm_compute_layout): Take the border width and
+	style border thickness into account.  Also, fix the computation
+	for the number of items that fit across the minor dimension.
+	Also, adjust the scroll region.
+	(bm_adjust_scroll_region): New function to set the scroll region
+	in block mode.
+	(WrapListPrivate): Added fields for the signal IDs of the
+	connections to the models.
+	(model_set): Disconnect from the old model's signals and connect
+	to the new model's ones.
+	(selection_model_set): Likewise.
+	(gnome_wrap_list_set_position_model): Likewise.
+	(model_interval_changed): Implemented handler.
+	(model_interval_added): Implemented handler.
+	(model_interval_removed): Implemented handler.
+
+	* gnome-list-view.c (gnome_list_view_class_init): The model_set,
+	selection_model_set, and list_item_factory_set signals now pass in
+	the old model as well so that derived classes can disconnect from
+	them properly.
+	(gnome_list_view_set_model): Pass in the old model to the signal
+	and unref it afterwards.
+	(gnome_list_view_set_selection_model): Likewise.
+	(gnome_list_view_set_list_item_factory): Likewise.
+
+	* gnome-list-model.c (gnome_list_model_interval_changed): New
+	function to emit the signal.
+	(gnome_list_model_interval_added): Likewise.
+	(gnome_list_model_interval_changed): Likewise.
+
 1999-11-29  Federico Mena Quintero  <federico@redhat.com>
 
 	* window.c (window_open_image): Do not prepend "Eye of Gnome" to

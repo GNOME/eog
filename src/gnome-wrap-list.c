@@ -22,6 +22,7 @@
 
 #include <config.h>
 #include <gtk/gtkmain.h>
+#include <gtk/gtksignal.h>
 #include "gnome-wrap-list.h"
 
 
@@ -50,6 +51,13 @@ typedef struct {
 
 
 
+/* Used to hold signal handler IDs for models */
+typedef struct {
+	guint interval_changed_id;
+	guint interval_added_id;
+	guint interval_removed_id;
+} ModelSignalIDs;
+
 /* Private part of the GnomeWrapList structure */
 typedef struct {
 	/* Our canvas */
@@ -60,6 +68,11 @@ typedef struct {
 
 	/* Position list model */
 	GnomePositionListModel *pos_model;
+
+	/* Signal connection IDs for the models */
+	ModelSignalIDs model_ids;
+	ModelSignalIDs sel_model_ids;
+	ModelSignalIDs pos_model_ids;
 
 	/* Width and height of items */
 	int item_width;
@@ -72,6 +85,10 @@ typedef struct {
 	/* Scroll offsets */
 	int h_offset;
 	int v_offset;
+
+	/* Size of scrolling region */
+	int scroll_region_w;
+	int scroll_region_h;
 
 	/* Layout information */
 	union {
@@ -121,9 +138,9 @@ static gint gnome_wrap_list_expose (GtkWidget *widget, GdkEventExpose *event);
 static void gnome_wrap_list_forall (GtkContainer *container, gboolean include_internals,
 				    GtkCallback callback, gpointer callback_data);
 
-static void model_set (GnomeListView *view);
-static void selection_model_set (GnomeListView *view);
-static void list_item_factory_set (GnomeListView *view);
+static void model_set (GnomeListView *view, GnomeListModel *old_model);
+static void selection_model_set (GnomeListView *view, GnomeListSelectionModel *old_sel_model);
+static void list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory);
 
 static GnomeListViewClass *parent_class;
 
@@ -222,8 +239,6 @@ gnome_wrap_list_init (GnomeWrapList *wlist)
 	priv->canvas = gnome_canvas_new ();
 	gtk_widget_pop_composite_child ();
 
-	gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0, 0, 10000, 10000);
-
 	gtk_widget_pop_colormap ();
 	gtk_widget_pop_visual ();
 
@@ -288,16 +303,31 @@ static void
 bm_compute_layout (GnomeWrapList *wlist, BMLayout *l)
 {
 	WrapListPrivate *priv;
+	int border_width;
+	int xthickness, ythickness;
+	int width, height;
 
 	priv = wlist->priv;
+
+	border_width = GTK_CONTAINER (wlist)->border_width;
+
+	if (priv->shadow_type == GTK_SHADOW_NONE)
+		xthickness = ythickness = 0;
+	else {
+		xthickness = GTK_WIDGET (wlist)->style->klass->xthickness;
+		ythickness = GTK_WIDGET (wlist)->style->klass->ythickness;
+	}
+
+	width = GTK_WIDGET (wlist)->allocation.width - 2 * (border_width + xthickness);
+	height = GTK_WIDGET (wlist)->allocation.height - 2 * (border_width + ythickness);
 
 	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
 		l->item_minor = priv->item_width;
 		l->item_major = priv->item_height;
 		l->space_minor = priv->col_spacing;
 		l->space_major = priv->row_spacing;
-		l->size_minor = GTK_WIDGET (wlist)->allocation.width;
-		l->size_major = GTK_WIDGET (wlist)->allocation.height;
+		l->size_minor = width;
+		l->size_major = height;
 		l->scroll_minor = priv->h_offset;
 		l->scroll_major = priv->v_offset;
 	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
@@ -305,19 +335,56 @@ bm_compute_layout (GnomeWrapList *wlist, BMLayout *l)
 		l->item_major = priv->item_width;
 		l->space_minor = priv->row_spacing;
 		l->space_major = priv->col_spacing;
-		l->size_minor = GTK_WIDGET (wlist)->allocation.height;
-		l->size_major = GTK_WIDGET (wlist)->allocation.width;
+		l->size_minor = height;
+		l->size_major = width;
 		l->scroll_minor = priv->v_offset;
 		l->scroll_major = priv->h_offset;
 	} else
 		g_assert_not_reached ();
 
-	l->n_items_minor = (l->size_minor - l->space_minor) / (l->item_minor + l->space_minor);
+	l->n_items_minor = (l->size_minor + l->space_minor) / (l->item_minor + l->space_minor);
 	if (l->n_items_minor < 1)
 		l->n_items_minor = 1;
 
 	l->first_block = l->scroll_major / (l->item_major + l->space_major);
 	l->last_block = (l->scroll_major + l->size_major - 1) / (l->item_major + l->space_major);
+}
+
+/* Adjusts the scrolling region of the wrap list if needed */
+static void
+bm_adjust_scroll_region (GnomeWrapList *wlist, BMLayout *l, int n_items)
+{
+	WrapListPrivate *priv;
+	int minor, major;
+	int w, h;
+
+	priv = wlist->priv;
+
+	minor = l->size_minor;
+	major = ((l->item_major + l->space_major)
+		 * (n_items + l->n_items_minor - 1) / l->n_items_minor
+		 - l->space_major);
+
+	if (major < l->size_major)
+		major = l->size_major;
+
+	if (priv->mode == GNOME_WRAP_LIST_ROW_MAJOR) {
+		w = minor;
+		h = major;
+	} else if (priv->mode == GNOME_WRAP_LIST_COL_MAJOR) {
+		w = major;
+		h = minor;
+	} else {
+		w = h = 0;
+		g_assert_not_reached ();
+	}
+
+	if (w != priv->scroll_region_w || h != priv->scroll_region_h) {
+		priv->scroll_region_w = w;
+		priv->scroll_region_h = h;
+
+		gnome_canvas_set_scroll_region (GNOME_CANVAS (priv->canvas), 0.0, 0.0, w - 1, h - 1);
+	}
 }
 
 /* Updates the wrap list when a data model has changed */
@@ -340,8 +407,6 @@ bm_update_data (GnomeWrapList *wlist)
 
 	if (!(priv->need_factory_update || priv->need_data_update))
 		return;
-
-	g_print ("really updating!\n");
 
 	bm_compute_layout (wlist, &l);
 
@@ -472,10 +537,6 @@ bm_update_data (GnomeWrapList *wlist)
 			else
 				g_assert_not_reached ();
 
-			g_print ("putting item %d at coords (%d, %d)\n",
-				 update_first + i,
-				 pos_minor, pos_major);
-
 			gnome_canvas_item_affine_absolute (priv->u.bm.items[update_index + i],
 							   affine);
 		} else if (priv->u.bm.items[update_index + i]) {
@@ -495,6 +556,7 @@ bm_update_data (GnomeWrapList *wlist)
 
 	/* Done */
 
+	bm_adjust_scroll_region (wlist, &l, data_len);
 	priv->need_data_update = FALSE;
 }
 
@@ -510,8 +572,6 @@ update (gpointer data)
 	WrapListPrivate *priv;
 
 	GDK_THREADS_ENTER ();
-
-	g_print ("updating!\n");
 
 	wlist = GNOME_WRAP_LIST (data);
 	priv = wlist->priv;
@@ -728,14 +788,94 @@ gnome_wrap_list_forall (GtkContainer *container, gboolean include_internals,
 
 
 
+/* Notifications from models */
+
+/* Handler for the interval_changed signal from models */
+static void
+model_interval_changed (GnomeListModel *model, guint start, guint length, gpointer data)
+{
+	GnomeWrapList *wlist;
+	WrapListPrivate *priv;
+	int a, b;
+
+	wlist = GNOME_WRAP_LIST (data);
+	priv = wlist->priv;
+
+	if (!priv->need_data_update) {
+		priv->need_data_update = TRUE;
+		priv->update_start = start;
+		priv->update_n = length;
+	} else {
+		if (priv->update_n == -1 || length == -1) {
+			if (start < priv->update_start)
+				priv->update_start = start;
+
+			priv->update_n = -1;
+		} else {
+			a = priv->update_start + priv->update_n;
+			b = start + length;
+
+			if (start < priv->update_start)
+				priv->update_start = start;
+
+			priv->update_n = MAX (a, b) - priv->update_start;
+		}
+	}
+
+	request_update (wlist);
+}
+
+/* Handler for the interval_added signal from models */
+static void
+model_interval_added (GnomeListModel *model, guint start, guint length, gpointer data)
+{
+	GnomeWrapList *wlist;
+	WrapListPrivate *priv;
+
+	wlist = GNOME_WRAP_LIST (data);
+	priv = wlist->priv;
+
+	if (!priv->need_data_update) {
+		priv->need_data_update = TRUE;
+		priv->update_start = start;
+	} else if (start < priv->update_start)
+		priv->update_start = start;
+
+	priv->update_n = -1;
+	request_update (wlist);
+}
+
+/* Handler for the interval_changed signal from models */
+static void
+model_interval_removed (GnomeListModel *model, guint start, guint length, gpointer data)
+{
+	GnomeWrapList *wlist;
+	WrapListPrivate *priv;
+
+	wlist = GNOME_WRAP_LIST (data);
+	priv = wlist->priv;
+
+	if (!priv->need_data_update) {
+		priv->need_data_update = TRUE;
+		priv->update_start = start;
+	} else if (start < priv->update_start)
+		priv->update_start = start;
+
+	priv->update_n = -1;
+	request_update (wlist);
+}
+
+
+
 /* List view methods */
 
 /* Model_set handler for the abstract wrapped list view */
 static void
-model_set (GnomeListView *view)
+model_set (GnomeListView *view, GnomeListModel *old_model)
 {
 	GnomeWrapList *wlist;
 	WrapListPrivate *priv;
+	GnomeListModel *model;
 
 	wlist = GNOME_WRAP_LIST (view);
 	priv = wlist->priv;
@@ -744,14 +884,43 @@ model_set (GnomeListView *view)
 	priv->update_start = 0;
 	priv->update_n = -1;
 	request_update (wlist);
+
+	if (old_model) {
+		gtk_signal_disconnect (GTK_OBJECT (old_model), priv->model_ids.interval_changed_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_model), priv->model_ids.interval_added_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_model), priv->model_ids.interval_removed_id);
+
+		priv->model_ids.interval_changed_id = 0;
+		priv->model_ids.interval_added_id = 0;
+		priv->model_ids.interval_removed_id = 0;
+	}
+
+	model = gnome_list_view_get_model (view);
+	if (model) {
+		priv->model_ids.interval_changed_id = gtk_signal_connect (
+			GTK_OBJECT (model), "interval_changed",
+			GTK_SIGNAL_FUNC (model_interval_changed),
+			view);
+
+		priv->model_ids.interval_added_id = gtk_signal_connect (
+			GTK_OBJECT (model), "interval_added",
+			GTK_SIGNAL_FUNC (model_interval_added),
+			view);
+
+		priv->model_ids.interval_removed_id = gtk_signal_connect (
+			GTK_OBJECT (model), "interval_removed",
+			GTK_SIGNAL_FUNC (model_interval_removed),
+			view);
+	}
 }
 
 /* Selection_model_set handler for the abstract wrapped list view */
 static void
-selection_model_set (GnomeListView *view)
+selection_model_set (GnomeListView *view, GnomeListSelectionModel *old_sel_model)
 {
 	GnomeWrapList *wlist;
 	WrapListPrivate *priv;
+	GnomeListSelectionModel *sel_model;
 
 	wlist = GNOME_WRAP_LIST (view);
 	priv = wlist->priv;
@@ -760,11 +929,42 @@ selection_model_set (GnomeListView *view)
 	priv->update_start = 0;
 	priv->update_n = -1;
 	request_update (wlist);
+
+	if (old_sel_model) {
+		gtk_signal_disconnect (GTK_OBJECT (old_sel_model),
+				       priv->sel_model_ids.interval_changed_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_sel_model),
+				       priv->sel_model_ids.interval_added_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_sel_model),
+				       priv->sel_model_ids.interval_removed_id);
+
+		priv->sel_model_ids.interval_changed_id = 0;
+		priv->sel_model_ids.interval_added_id = 0;
+		priv->sel_model_ids.interval_removed_id = 0;
+	}
+
+	sel_model = gnome_list_view_get_selection_model (view);
+	if (sel_model) {
+		priv->sel_model_ids.interval_changed_id = gtk_signal_connect (
+			GTK_OBJECT (sel_model), "interval_changed",
+			GTK_SIGNAL_FUNC (model_interval_changed),
+			view);
+
+		priv->sel_model_ids.interval_added_id = gtk_signal_connect (
+			GTK_OBJECT (sel_model), "interval_added",
+			GTK_SIGNAL_FUNC (model_interval_added),
+			view);
+
+		priv->sel_model_ids.interval_removed_id = gtk_signal_connect (
+			GTK_OBJECT (sel_model), "interval_removed",
+			GTK_SIGNAL_FUNC (model_interval_removed),
+			view);
+	}
 }
 
 /* List_item_factory_set handler for the abstract wrapped list view */
 static void
-list_item_factory_set (GnomeListView *view)
+list_item_factory_set (GnomeListView *view, GnomeListItemFactory *old_factory)
 {
 	GnomeWrapList *wlist;
 	WrapListPrivate *priv;
@@ -836,6 +1036,7 @@ void
 gnome_wrap_list_set_position_model (GnomeWrapList *wlist, GnomePositionListModel *pos_model)
 {
 	WrapListPrivate *priv;
+	GnomePositionListModel *old_pos_model;
 
 	g_return_if_fail (wlist != NULL);
 	g_return_if_fail (GNOME_IS_WRAP_LIST (wlist));
@@ -851,12 +1052,42 @@ gnome_wrap_list_set_position_model (GnomeWrapList *wlist, GnomePositionListModel
 	if (pos_model)
 		gtk_object_ref (GTK_OBJECT (pos_model));
 
-	if (priv->pos_model)
-		gtk_object_unref (GTK_OBJECT (priv->pos_model));
-
+	old_pos_model = priv->pos_model;
 	priv->pos_model = pos_model;
 
 	/* FIXME: update if necessary */
+
+	if (old_pos_model) {
+		gtk_signal_disconnect (GTK_OBJECT (old_pos_model),
+				       priv->pos_model_ids.interval_changed_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_pos_model),
+				       priv->pos_model_ids.interval_added_id);
+		gtk_signal_disconnect (GTK_OBJECT (old_pos_model),
+				       priv->pos_model_ids.interval_removed_id);
+
+		priv->pos_model_ids.interval_changed_id = 0;
+		priv->pos_model_ids.interval_added_id = 0;
+		priv->pos_model_ids.interval_removed_id = 0;
+
+		gtk_object_unref (GTK_OBJECT (old_pos_model));
+	}
+
+	if (priv->pos_model) {
+		priv->pos_model_ids.interval_changed_id = gtk_signal_connect (
+			GTK_OBJECT (priv->pos_model), "interval_changed",
+			GTK_SIGNAL_FUNC (model_interval_changed),
+			wlist);
+
+		priv->pos_model_ids.interval_added_id = gtk_signal_connect (
+			GTK_OBJECT (priv->pos_model), "interval_added",
+			GTK_SIGNAL_FUNC (model_interval_added),
+			wlist);
+
+		priv->pos_model_ids.interval_removed_id = gtk_signal_connect (
+			GTK_OBJECT (priv->pos_model), "interval_removed",
+			GTK_SIGNAL_FUNC (model_interval_removed),
+			wlist);
+	}
 }
 
 /**

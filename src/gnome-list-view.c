@@ -106,22 +106,25 @@ gnome_list_view_class_init (GnomeListViewClass *class)
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GnomeListViewClass, model_set),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GNOME_TYPE_LIST_MODEL);
 	list_view_signals[SELECTION_MODEL_SET] =
 		gtk_signal_new ("selection_model_set",
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GnomeListViewClass, selection_model_set),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GNOME_TYPE_LIST_SELECTION_MODEL);
 	list_view_signals[LIST_ITEM_FACTORY_SET] =
 		gtk_signal_new ("list_item_factory_set",
 				GTK_RUN_FIRST,
 				object_class->type,
 				GTK_SIGNAL_OFFSET (GnomeListViewClass, list_item_factory_set),
-				gtk_marshal_NONE__NONE,
-				GTK_TYPE_NONE, 0);
+				gtk_marshal_NONE__POINTER,
+				GTK_TYPE_NONE, 1,
+				GNOME_TYPE_LIST_ITEM_FACTORY);
 
 	gtk_object_class_add_signals (object_class, list_view_signals, LAST_SIGNAL);
 
@@ -174,7 +177,7 @@ gnome_list_view_destroy (GtkObject *object)
  * gnome_list_view_set_model:
  * @view: A list view.
  * @model: List model to display.
- * 
+ *
  * Sets the list model that a list view will display.  This function is for use
  * by derived classes of #GnomeListView only; they can get notification about
  * the change of data model with the "model_set" signal.
@@ -183,6 +186,7 @@ void
 gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model)
 {
 	ListViewPrivate *priv;
+	GnomeListModel *old_model;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
@@ -197,12 +201,13 @@ gnome_list_view_set_model (GnomeListView *view, GnomeListModel *model)
 	if (model)
 		gtk_object_ref (GTK_OBJECT (model));
 
-	if (priv->model)
-		gtk_object_unref (GTK_OBJECT (priv->model));
-
+	old_model = priv->model;
 	priv->model = model;
 
-	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[MODEL_SET]);
+	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[MODEL_SET], old_model);
+
+	if (old_model)
+		gtk_object_unref (GTK_OBJECT (old_model));
 }
 
 /**
@@ -230,13 +235,14 @@ gnome_list_view_get_model (GnomeListView *view)
  * gnome_list_view_set_selection_model:
  * @view: A list view.
  * @sel_model: List selection model to use.
- * 
+ *
  * Sets the list selection model for a list view.
  **/
 void
 gnome_list_view_set_selection_model (GnomeListView *view, GnomeListSelectionModel *sel_model)
 {
 	ListViewPrivate *priv;
+	GnomeListSelectionModel *old_sel_model;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
@@ -251,20 +257,21 @@ gnome_list_view_set_selection_model (GnomeListView *view, GnomeListSelectionMode
 	if (sel_model)
 		gtk_object_ref (GTK_OBJECT (sel_model));
 
-	if (priv->sel_model)
-		gtk_object_unref (GTK_OBJECT (priv->sel_model));
-
+	old_sel_model = priv->sel_model;
 	priv->sel_model = sel_model;
 
-	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[SELECTION_MODEL_SET]);
+	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[SELECTION_MODEL_SET], old_sel_model);
+
+	if (old_sel_model)
+		gtk_object_unref (GTK_OBJECT (old_sel_model));
 }
 
 /**
  * gnome_list_view_get_selection_model:
  * @view: A list view.
- * 
+ *
  * Queries the list selection model that a list view is using.
- * 
+ *
  * Return value: The list selection model.
  **/
 GnomeListSelectionModel *
@@ -283,7 +290,7 @@ gnome_list_view_get_selection_model (GnomeListView *view)
  * gnome_list_view_set_list_item_factory:
  * @view: A list view.
  * @factory: List item factory to use.
- * 
+ *
  * Sets the list item factory that a list view will use to render the list
  * items.  This function is for use by derived classes of #GnomeListView only;
  * they can get notification about the change of item factory with the
@@ -293,6 +300,7 @@ void
 gnome_list_view_set_list_item_factory (GnomeListView *view, GnomeListItemFactory *factory)
 {
 	ListViewPrivate *priv;
+	GnomeListItemFactory *old_factory;
 
 	g_return_if_fail (view != NULL);
 	g_return_if_fail (GNOME_IS_LIST_VIEW (view));
@@ -307,12 +315,13 @@ gnome_list_view_set_list_item_factory (GnomeListView *view, GnomeListItemFactory
 	if (factory)
 		gtk_object_ref (GTK_OBJECT (factory));
 
-	if (priv->factory)
-		gtk_object_unref (GTK_OBJECT (priv->factory));
-
+	old_factory = priv->factory;
 	priv->factory = factory;
 
-	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[LIST_ITEM_FACTORY_SET]);
+	gtk_signal_emit (GTK_OBJECT (view), list_view_signals[LIST_ITEM_FACTORY_SET], old_factory);
+
+	if (old_factory)
+		gtk_object_unref (GTK_OBJECT (old_factory));
 }
 
 /**

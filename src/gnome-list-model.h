@@ -67,6 +67,10 @@ GtkType gnome_list_model_get_type (void);
 
 guint gnome_list_model_get_length (GnomeListModel *model);
 
+void gnome_list_model_interval_changed (GnomeListModel *model, guint start, guint length);
+void gnome_list_model_interval_added (GnomeListModel *model, guint start, guint length);
+void gnome_list_model_interval_removed (GnomeListModel *model, guint start, guint length);
+
 
 
 END_GNOME_DECLS

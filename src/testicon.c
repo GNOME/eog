@@ -145,11 +145,34 @@ create_model (void)
 	return model;
 }
 
+static void
+change (GtkWidget *widget, gpointer data)
+{
+	GnomeListModel *model;
+	int n, i;
+	Icon tmp;
+
+	model = GNOME_LIST_MODEL (data);
+
+	n = sizeof (icons) / sizeof (icons[0]);
+
+	i = rand () % (n - 1);
+
+	tmp = icons[i];
+	icons[i] = icons[i + 1];
+	icons[i + 1] = tmp;
+
+	gnome_list_model_interval_changed (model, i, 2);
+}
+
 int
 main (int argc, char **argv)
 {
 	GtkWidget *window;
+	GtkWidget *vbox;
+	GtkWidget *hbox;
 	GtkWidget *view;
+	GtkWidget *w;
 	GnomeIconListModel *model;
 	GnomeIconItemFactory *factory;
 
@@ -164,19 +187,31 @@ main (int argc, char **argv)
 	create_data ();
 	model = create_model ();
 
+	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (window), vbox);
+
 	view = gnome_icon_view_new ();
-	gtk_container_add (GTK_CONTAINER (window), view);
+	gtk_box_pack_start (GTK_BOX (vbox), view, TRUE, TRUE, 0);
 	gnome_icon_view_set_model (GNOME_ICON_VIEW (view), model);
 	gnome_wrap_list_set_item_size (GNOME_WRAP_LIST (view), 48, 48);
-	gnome_wrap_list_set_row_spacing (GNOME_WRAP_LIST (view), 4);
-	gnome_wrap_list_set_col_spacing (GNOME_WRAP_LIST (view), 4);
-	gnome_wrap_list_set_item_size (GNOME_WRAP_LIST (view), 80, 80);
+	gnome_wrap_list_set_row_spacing (GNOME_WRAP_LIST (view), 10);
+	gnome_wrap_list_set_col_spacing (GNOME_WRAP_LIST (view), 10);
+	gnome_wrap_list_set_item_size (GNOME_WRAP_LIST (view), 48, 48);
 	gnome_wrap_list_set_shadow_type (GNOME_WRAP_LIST (view), GTK_SHADOW_IN);
 
 	factory = gtk_type_new (GNOME_TYPE_ICON_ITEM_FACTORY);
-	gnome_icon_item_factory_set_item_metrics (factory, 80, 80, 48, 48);
+	gnome_icon_item_factory_set_item_metrics (factory, 48, 48, 48, 48);
 	gnome_list_view_set_list_item_factory (GNOME_LIST_VIEW (view),
 					       GNOME_LIST_ITEM_FACTORY (factory));
+
+	hbox = gtk_hbox_new (FALSE, GNOME_PAD_SMALL);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+
+	w = gtk_button_new_with_label ("Change");
+	gtk_box_pack_start (GTK_BOX (hbox), w, FALSE, FALSE, 0);
+	gtk_signal_connect (GTK_OBJECT (w), "clicked",
+			    GTK_SIGNAL_FUNC (change),
+			    model);
 
 	gtk_widget_show_all (window);
 	gtk_main ();

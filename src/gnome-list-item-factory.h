@@ -53,10 +53,15 @@ struct _GnomeListItemFactory {
 struct _GnomeListItemFactoryClass {
 	GtkObjectClass parent_class;
 
+	/* Item mutation signals */
+
 	GnomeCanvasItem *(* create_item) (GnomeListItemFactory *factory, GnomeCanvasGroup *parent);
 	void (* configure_item) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				 GnomeListModel *model, guint n,
 				 gboolean is_selected, gboolean is_focused);
+
+	/* Item query signals */
+
 	void (* get_item_size) (GnomeListItemFactory *factory, GnomeCanvasItem *item,
 				GnomeListModel *model, guint n,
 				gint *width, gint *height);

@@ -176,3 +176,60 @@ gnome_list_model_get_length (GnomeListModel *model)
 	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[GET_LENGTH], &retval);
 	return retval;
 }
+
+/**
+ * gnome_list_model_interval_changed:
+ * @model: A list model.
+ * @start: Index of first item that changed.
+ * @length: Number of items that changed.
+ *
+ * Causes a list model to emit the "interval_changed" signal.  This function can
+ * be used by list model implementations to notify interested parties of changes
+ * to existing items in the model.
+ **/
+void
+gnome_list_model_interval_changed (GnomeListModel *model, guint start, guint length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
+
+	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[INTERVAL_CHANGED], start, length);
+}
+
+/**
+ * gnome_list_model_interval_added:
+ * @model: A list model.
+ * @start: Index of first item that was added.
+ * @length: Number of items that were added.
+ *
+ * Causes a list model to emit the "interval_added" signal.  This function can
+ * be used by list model implementations to notify interested parties when a
+ * range of items is inserted in the model.
+ **/
+void
+gnome_list_model_interval_added (GnomeListModel *model, guint start, guint length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
+
+	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[INTERVAL_ADDED], start, length);
+}
+
+/**
+ * gnome_list_model_interval_removed:
+ * @model: A list model.
+ * @start: Index of first item that was removed.
+ * @length: Number of items that were removed.
+ *
+ * Causes a list model to emit the "interval_removed" signal.  This function can
+ * be used by list model implementations to notify interested parties when a
+ * range of items is removed from the model.
+ **/
+void
+gnome_list_model_interval_removed (GnomeListModel *model, guint start, guint length)
+{
+	g_return_if_fail (model != NULL);
+	g_return_if_fail (GNOME_IS_LIST_MODEL (model));
+
+	gtk_signal_emit (GTK_OBJECT (model), list_model_signals[INTERVAL_REMOVED], start, length);
+}

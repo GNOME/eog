@@ -58,9 +58,9 @@ struct _GnomeListViewClass {
 
 	/* Notification signals */
 
-	void (* model_set) (GnomeListView *view);
-	void (* selection_model_set) (GnomeListView *view);
-	void (* list_item_factory_set) (GnomeListView *view);
+	void (* model_set) (GnomeListView *view, GnomeListModel *old_model);
+	void (* selection_model_set) (GnomeListView *view, GnomeListSelectionModel *old_sel_model);
+	void (* list_item_factory_set) (GnomeListView *view, GnomeListItemFactory *old_factory);
 };
 
 
