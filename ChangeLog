@@ -1,3 +1,13 @@
+2002-08-05  Jens Finke  <jens@triq.net>
+
+	Backported fullscreen fixes from HEAD branch.
+	
+	* viewer/eog-full-screen.c (eog_full_screen_show): Call zoom
+	to fit.
+	(eog_full_screen_instance_init): Removed unneccessary window
+	calls, move window at position 0,0.
+	(eog_full_screen_new): Set window type at object creation time.
+
 2002-08-04  Jens Finke  <jens@triq.net>
 
 	* Released version 1.0.2.

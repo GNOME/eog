@@ -63,9 +63,13 @@ eog_full_screen_show (GtkWidget *widget)
 
 	ui_image = eog_image_view_get_widget (fs->priv->image_view);
 	image_view = ui_image_get_image_view (UI_IMAGE (ui_image));
-	gtk_widget_unref (ui_image);
 
 	gtk_widget_grab_focus (image_view);
+	ui_image_zoom_fit (UI_IMAGE (ui_image));
+
+	gtk_widget_unref (ui_image);
+
+	
 }
 
 /* Hide handler for the full screen view */
@@ -187,13 +191,11 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 {
 	fs->priv = g_new0 (EogFullScreenPrivate, 1);
 
-	GTK_WINDOW (fs)->type = GTK_WINDOW_POPUP;
 	gtk_window_set_default_size (
 		GTK_WINDOW (fs),
 		gdk_screen_width (),
 		gdk_screen_height ());
-	gtk_window_set_position (GTK_WINDOW (fs), GTK_WIN_POS_CENTER);
-	gtk_window_set_decorated (GTK_WINDOW (fs), FALSE);
+	gtk_window_move (GTK_WINDOW (fs), 0, 0);
 }
 
 GtkWidget *
@@ -204,7 +206,8 @@ eog_full_screen_new (EogImage *image)
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
 
-	fs = g_object_new (EOG_TYPE_FULL_SCREEN, NULL);
+	fs = g_object_new (EOG_TYPE_FULL_SCREEN, 
+			   "type", GTK_WINDOW_POPUP, NULL);
 
 	fs->priv->image_view = eog_image_view_new (image, TRUE);
 	widget = eog_image_view_get_widget (fs->priv->image_view);
