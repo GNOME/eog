@@ -1,3 +1,10 @@
+2001-12-22  Jens Finke <jens@triq.net>
+
+	* main.c: Use BONOB_ACTIVATION_FACTORY macro instead of deprecated
+	BONOBO_OAF_FACTORY_MULTI. Added #include
+	<bonobo/bonobo-ui-main.h>, to let the macro initialize the gui
+	stuff too.
+
 2001-12-20  Jens Finke <jens@triq.net>
 
 	* Makefile.am: Removed the sample-container stuff.

@@ -12,8 +12,12 @@
 
 #include <config.h>
 
-#include <bonobo/bonobo-generic-factory.h>
+/* This must be included _before_ bonobo-generic-factory.h,
+ * otherwise BONOBO_ACTIVATION_FACTORY won't initialize the
+ * gtk and other gui stuff! */
+#include <bonobo/bonobo-ui-main.h> 
 
+#include <bonobo/bonobo-generic-factory.h>
 #include <eog-control.h>
 #include <eog-embeddable.h>
 
@@ -56,4 +60,5 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 	return retval;
 }
 
-BONOBO_OAF_FACTORY_MULTI ("OAFIID:GNOME_EOG_Factory", "eog-image-viewer", VERSION, eog_image_viewer_factory, NULL)
+BONOBO_ACTIVATION_FACTORY("OAFIID:GNOME_EOG_Factory", "eog-image-viewer", 
+			  VERSION, eog_image_viewer_factory, NULL);
