@@ -88,20 +88,16 @@ fi
 dnl ******************************
 dnl Check for Bonobo
 dnl ******************************
-have_bonobo=false
 AC_MSG_CHECKING(for Bonobo >= 1.0.0)
 if gnome-config --libs bonobo bonobox bonobox_print > /dev/null 2>&1; then
     vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
         sed s/bonobo-// | awk 'BEGIN { FS = "."; } { print $1 * 10000 + $2 * 100 + $3;}'`
     if test "$vers" -ge 0010000; then
         AC_MSG_RESULT(found)
-        have_bonobo=true
     else
         AC_MSG_RESULT(not found)
+	AC_MSG_ERROR(bonobo >= 1.0.0  is required)
     fi
-fi
-if test x$have_bonobo != xtrue ; then
-    AC_MSG_ERROR(bonobo >= 1.0.0  is required)
 fi
 
 AC_ARG_ENABLE(bonobo-filesel,
@@ -132,48 +128,23 @@ if $try_evolution; then
 	fi
 fi
 
-EXTRA_BONOBO_CFLAGS=`gnome-config --cflags bonobo bonobox bonobox_print print`
-EXTRA_BONOBO_LIBS=`gnome-config --libs bonobo bonobox bonobox_print print`
-AC_SUBST(EXTRA_BONOBO_CFLAGS)
-AC_SUBST(EXTRA_BONOBO_LIBS)
-
 dnl ******************************
 dnl Check for GnomeVFS
 dnl ******************************
-have_vfs=false
 AC_MSG_CHECKING(for GnomeVFS >= 1.0.0)
 if gnome-config --libs vfs > /dev/null 2>&1; then
     vers=`gnome-config --modversion vfs | sed -e "s/gnome-vfs-//" | \
         awk 'BEGIN { FS = "."; } { print $1 * 10000 + $2 * 100 + $3;}'`
     if test "$vers" -ge 0010000; then
         AC_MSG_RESULT(found)
-        have_vfs=true
     else
         AC_MSG_RESULT(not found)
+	AC_MSG_ERROR(GnomeVFS >= 1.0.0  is required)
     fi
 fi
-if test x$have_vfs != xtrue ; then
-    AC_MSG_ERROR(GnomeVFS >= 1.0.0  is required)
-fi
 
-EXTRA_VFS_CFLAGS=`gnome-config --cflags vfs`
-EXTRA_VFS_LIBS=`gnome-config --libs vfs`
-AC_SUBST(EXTRA_VFS_CFLAGS)
-AC_SUBST(EXTRA_VFS_LIBS)
-
-dnl ******************************
-dnl LibGlade checking
-dnl ******************************
-AC_MSG_CHECKING(For Glade libraries)
-if gnome-config --libs libglade > /dev/null 2>&1; then 
-    AC_MSG_RESULT(found)
-else
-    AC_MSG_ERROR(Did not find libGlade installed)
-fi
-
-
-EXTRA_GNOME_CFLAGS=`gnome-config --cflags libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
-EXTRA_GNOME_LIBS=`gnome-config --libs libglade gnomecanvaspixbuf gdk_pixbuf gnomeui`
+EXTRA_GNOME_CFLAGS=`gnome-config --cflags vfs gnomecanvaspixbuf gdk_pixbuf gnomeui bonobo bonobox bonobox_print print`
+EXTRA_GNOME_LIBS=`gnome-config --libs vfs gnomecanvaspixbuf gdk_pixbuf gnomeui bonobo bonobox bonobox_print print`
 AC_SUBST(EXTRA_GNOME_CFLAGS)
 AC_SUBST(EXTRA_GNOME_LIBS)
 
