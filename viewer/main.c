@@ -45,8 +45,10 @@ eog_image_viewer_factory (BonoboGenericFactory *this,
 }
 
 int main (int argc, char *argv [])					
-{									
+{
 	CORBA_Object factory;
+	gboolean nowait = FALSE;
+	int i;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);                       
 	bind_textdomain_codeset (PACKAGE, "UTF-8");                     
@@ -54,11 +56,25 @@ int main (int argc, char *argv [])
 									
 	BONOBO_FACTORY_INIT ("eog-image-viewer", VERSION, &argc, argv);	
 
+	for (i = 1; i < argc; i++) {
+		if (!g_ascii_strcasecmp (argv[i], "--nowait")) {
+			nowait = TRUE;
+		}
+	}
+
 	factory = bonobo_activation_activate_from_id ("OAFIID:GNOME_EOG_Factory", Bonobo_ACTIVATION_FLAG_EXISTING_ONLY, NULL, NULL);
 
 	if (!factory) {
-		return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_Factory",
-						    eog_image_viewer_factory, NULL);	
+		if (nowait) {
+			/* this is mostly for debugging purpose */
+			return bonobo_generic_factory_main ("OAFIID:GNOME_EOG_Factory",
+							    eog_image_viewer_factory, NULL);
+		}
+		else {
+			return bonobo_generic_factory_main_timeout ("OAFIID:GNOME_EOG_Factory",
+								    eog_image_viewer_factory, NULL,
+								    60000);	
+		}
 	}
 	return 0;
 }                                                                       

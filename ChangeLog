@@ -1,3 +1,15 @@
+2003-07-25  Jens Finke  <jens@triq.net>
+
+        Based on a patch by Gustavo J. A. M. Carneiro
+	<gustavo@users.sourceforge.net> - #118204.
+	
+	* configure.in: Require libbonoboui >= 2.3.3.
+
+	* collection/main.c (main),
+	* viewer/main.c (main): Make the factory wait for one minute after
+	becoming unused before deciding to quit. This default behavior can
+	be disabled by adding the --nowait commandline parameter.
+
 2003-07-21  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-view.c (load_uri_cb):
