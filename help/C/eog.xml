@@ -3,8 +3,8 @@
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.0.2">
-  <!ENTITY manrevision "2.3">
-  <!ENTITY date "October 2002">
+  <!ENTITY manrevision "2.4">
+  <!ENTITY date "January 2003">
   <!ENTITY app "Eye of GNOME">
 ]>
 <!-- 
@@ -23,7 +23,7 @@
     <title>&app; Manual V&manrevision;</title>       
 
     <copyright> 
-      <year>2002</year> 
+      <year>2003</year> 
       <holder>Sun Microsystems</holder> 
     </copyright> 
     <copyright> 
@@ -105,6 +105,16 @@
 		</revdescription> 
     </revision> 
     <revision> 
+		<revnumber>Eye of GNOME Manual V2.3</revnumber> 
+		<date>October 2002</date> 
+		<revdescription> 
+	  		<para role="author">Sun GNOME Documentation Team
+	    		<email>gdocteam@sun.com</email>
+	  		</para>
+	  		<para role="publisher">GNOME Documentation Project</para>
+		</revdescription> 
+    </revision>
+    <revision> 
 		<revnumber>Eye of GNOME Manual V2.2</revnumber> 
 		<date>August 2002</date> 
 		<revdescription> 
@@ -148,7 +158,6 @@
 		</revdescription> 
       </revision> 
     </revhistory> 
-
     <releaseinfo>This manual describes version &appversion; of &app;.
     </releaseinfo> 
     <legalnotice> 
@@ -202,6 +211,8 @@
 				<listitem><para>XPM - X Pixmap</para>
 				</listitem>
 			</itemizedlist>
+			<note><para>You can view images in the formats that are listed above but you 
+			can only use the image saving feature for PNG and JPEG formats.</para></note>
 		</listitem>
 		<listitem><para>A variety of zoom levels and full screen viewing, with low usage of 
 		memory regardless of the zoom level. </para>
@@ -469,10 +480,20 @@
 		</itemizedlist>
 		<!-- <para>The default check size is <guimenuitem>Small</guimenuitem>.</para> -->
 	</sect2>
+	
+	<sect2 id="eog-save-image">
+		<title>To Save an Image</title>
+		<para>To save an image to a new filename, choose 
+			<menuchoice>
+			<guimenu>File</guimenu>
+			<guisubmenu>Save As</guisubmenu>
+			</menuchoice>.
+		Specify the location and filename in <guilabel>Selection</guilabel> field, then click 
+		<guibutton>OK</guibutton>. You can only save a PNG or JPEG image to another filename
+		of the same image type. </para>
+		
+	</sect2>
 
-	
-	
-	<!--============ To Close an Image ============================ -->
 	<sect2 id="eog-close-image">
 		<title>To Close an Image</title>
 		<para>To close an image, choose 
