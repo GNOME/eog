@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-01-14 11:02+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
@@ -27,40 +27,129 @@ msgstr "የEOG ምስል ስብስብ መመልከቻ ፋብሪካ"
 msgid "Image Collection"
 msgstr "የምስል ምስል ስብስብ"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "ምስሉን አስቀምት"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "ምስሉ ይታተም"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_ተመልከት"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "ስብስብ"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "የመስኮት አርእስት"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "የስታተስ ባር ጽሑፍ"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "የኖም ዐይን የምስል ተመልካች"
+msgid "Image Viewer"
+msgstr "የምስል ተመልካች"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "የተለያዩ ዓይነት ምስሎችን ተመልከቱ"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "በ_ቀለሙ"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
+msgid "*"
 msgstr ""
 
 #: eog.glade.h:3
-msgid "Eye of Gnome Preferences"
-msgstr "የኖም ዐይን ምርጫዎች"
+#, fuzzy
+msgid "<b>Image Interpolation</b>"
+msgstr "ድርድር Interpolation"
 
 #: eog.glade.h:4
-msgid "Image Viewer"
-msgstr "የምስል ተመልካች"
+msgid "<b>Image Zoom</b>"
+msgstr ""
 
 #: eog.glade.h:5
-msgid "Indicate Transparency"
+msgid "<b>Sequence</b>"
 msgstr ""
 
 #: eog.glade.h:6
-msgid "Pick a color"
-msgstr "ቀለም ምረጡ"
+msgid "<b>Transparency</b>"
+msgstr ""
 
 #: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+msgid "As check _pattern"
+msgstr ""
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
+msgid "Eye of Gnome Preferences"
+msgstr "የኖም ዐይን ምርጫዎች"
+
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
+msgstr "የምስል ተመልካች"
+
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
+
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
+
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog.glade.h:20
+msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
@@ -159,7 +248,7 @@ msgid ""
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "የEOG ምስል"
 
@@ -180,101 +269,59 @@ msgstr ""
 msgid "Image"
 msgstr "ምስል"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr ""
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr ""
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "ዓይነቱን አጣራ"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr ""
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr ""
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "መወሰን አቃተው / ማመንታት"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "የመወሰን አቃተው ዓይነት"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr ""
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+msgid "Unsupported image file format for saving."
 msgstr ""
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr ""
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "ምስልን ጫን"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "ምስሉን አስቀምት"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+msgid "Unsupported image type for saving."
+msgstr ""
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "መለኪያ"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "የምስል ስፋት"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "ብርሃን"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_ፋይል"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -296,7 +343,7 @@ msgstr "መረጃ በዚህ መጠቀሚያ ፕሮግራም ላይ"
 msgid "New"
 msgstr "አዲስ"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "ክፈት"
 
@@ -368,23 +415,24 @@ msgstr "_ውጣ"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "ዘግዕዝ Frontier Foundation"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "የኖም ዐይን"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "የቅጂው መብት 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "የኖም ምስል መመልከቻ እና ፕሮግራም መዘርዘሪያ"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -393,59 +441,32 @@ msgstr ""
 "ለኖም ዐይን መረጃ ማሳየት አልተቻለም።\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "%i መስኮቶችን እኩል ለመክፈት እየተዘጋጁ ነው።\n"
 "በዚህ ፋንታ አሰባስቦ እንዲከፍተው ይፈልጋሉ?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "በአዲስ መስኮት ውስጥ ክፈት"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "ነጠላ መስኮቶች"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "ስብስብ"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"%i መስኮቶችን እኩል ለመክፈት እየተዘጋጁ ነው።\n"
-"መቀጠል ይፈልጋሉ?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"%sን ማስጀመር አልተቻለም።\n"
-"የኖም ዐይን ይህንን ፋይል ለማሳየት አይችልም። "
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"የኖም ዐይን ማስጀመር ስላልቻለ የሚከተሉት ፋይሎች ሊታዩ አይችሉም፦\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "ኖምVFS ማስጀመር አልቻልኩም!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "bonobo ማስጀመር አልቻልኩም!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "`%s'ን መክፈት አልተቻለም"
 
 #: shell/util.c:52
 #, c-format
@@ -536,66 +557,53 @@ msgstr "የገጹን አቀማመጥ አሁን ላለው ማተሚያ አስተ�
 msgid "_Print..."
 msgstr "_አትም..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_ተመልከት"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "ምስሉን በ'%s': %s ስም ማስቀመጥ አልቻለም።"
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "ምስሉ ይታተም"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "ገጾች"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "የቅድመ ህትመት ዕይታ"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "የምስሉ ሕትመት አልተሳካም"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/ከ_ቅርበት ዕይታ"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/ከ_ርቀት ዕይታ"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/የ_ተለመደ መጠን"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/_ዝጋ"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "የምስል ስፋት"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "የምስል እርዝማኔ"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "የመስኮት አርእስት"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "የስታተስ ባር ጽሑፍ"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -769,9 +777,99 @@ msgstr "ወደ ታች ካዛ በስተቀኝ"
 msgid "Right, then down"
 msgstr "በስተቀኝ ካዛ ወደ ታች"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr ""
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "የኖም ዐይን የምስል ተመልካች"
+
+#~ msgid "By c_olor"
+#~ msgstr "በ_ቀለሙ"
+
+#~ msgid "Pick a color"
+#~ msgstr "ቀለም ምረጡ"
+
+#~ msgid "check type"
+#~ msgstr "ዓይነቱን አጣራ"
+
+#~ msgid "dither"
+#~ msgstr "መወሰን አቃተው / ማመንታት"
+
+#~ msgid "dither type"
+#~ msgstr "የመወሰን አቃተው ዓይነት"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "%i መስኮቶችን እኩል ለመክፈት እየተዘጋጁ ነው።\n"
+#~ "መቀጠል ይፈልጋሉ?"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "%sን ማስጀመር አልተቻለም።\n"
+#~ "የኖም ዐይን ይህንን ፋይል ለማሳየት አይችልም። "
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "የኖም ዐይን ማስጀመር ስላልቻለ የሚከተሉት ፋይሎች ሊታዩ አይችሉም፦\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "ኖምVFS ማስጀመር አልቻልኩም!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "bonobo ማስጀመር አልቻልኩም!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "ምስሉን በ'%s': %s ስም ማስቀመጥ አልቻለም።"
+
+#~ msgid "Pages"
+#~ msgstr "ገጾች"
+
+#~ msgid "Print Preview"
+#~ msgstr "የቅድመ ህትመት ዕይታ"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "የምስሉ ሕትመት አልተሳካም"
 
 #~ msgid ""
 #~ "Could not display help for the preferences dialog.\n"
@@ -870,9 +968,6 @@ msgstr ""
 #~ msgid "Check Size"
 #~ msgstr "መጠኑን አጣራ"
 
-#~ msgid "Tiles Interpolation"
-#~ msgstr "ድርድር Interpolation"
-
 #~ msgid "Bilinear Interpolation"
 #~ msgstr "Bilinear Interpolation"
 
@@ -887,9 +982,6 @@ msgstr ""
 
 #~ msgid "Midtone"
 #~ msgstr "Midtone"
-
-#~ msgid "Light"
-#~ msgstr "ብርሃን"
 
 #~ msgid "Black"
 #~ msgstr "ጥቁር"

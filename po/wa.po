@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: control-center 1.0\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2002-05-21 14:18MET\n"
 "Last-Translator: Pablo Saratxaga <pablo@mandrakesoft.com>\n"
 "Language-Team: Walon <linux-wa@chanae.alphanet.ch>\n"
@@ -26,41 +26,130 @@ msgstr "Oujhene di håyneu di ramexhneyes d' imådjes EOG"
 msgid "Image Collection"
 msgstr "Ramexhneye d' imådjes EOG"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "Drovi imådje"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "Eprimî imådje"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Vey"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "Ramexhneye"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "Tite do purnea"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "Tecse del bår ås messaedjes"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "Håyneu d' imådjes Eye of Gnome"
+#, fuzzy
+msgid "Image Viewer"
+msgstr "Håyneu d' imådjes EOG"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "Vey sacwantès diferinnès sôres d' imådjes"
 
 #: eog.glade.h:1
-msgid "By c_olor"
+msgid "    "
 msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
+msgid "*"
 msgstr ""
 
 #: eog.glade.h:3
-msgid "Eye of Gnome Preferences"
-msgstr "Preferinces di Eye of Gnome"
+#, fuzzy
+msgid "<b>Image Interpolation</b>"
+msgstr "_Eterpolåcion:"
 
 #: eog.glade.h:4
-#, fuzzy
-msgid "Image Viewer"
-msgstr "Håyneu d' imådjes EOG"
+msgid "<b>Image Zoom</b>"
+msgstr ""
 
 #: eog.glade.h:5
-msgid "Indicate Transparency"
+msgid "<b>Sequence</b>"
 msgstr ""
 
 #: eog.glade.h:6
-msgid "Pick a color"
+msgid "<b>Transparency</b>"
 msgstr ""
 
 #: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+msgid "As check _pattern"
+msgstr ""
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
+msgid "Eye of Gnome Preferences"
+msgstr "Preferinces di Eye of Gnome"
+
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
+msgstr "Håyneu d' imådjes EOG"
+
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
+
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
+
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog.glade.h:20
+msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
@@ -161,7 +250,7 @@ msgid ""
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Imådje EOG"
 
@@ -182,103 +271,61 @@ msgstr ""
 msgid "Image"
 msgstr "Imådje"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "sôre po l' eterpolåcion"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "li sôre a-z eployî po l' eterpolåcion"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "sôre di l' echikî"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "li sôre d' echikî a-z eployî"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "li grandeu des echikîs a-z eployî"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr ""
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr ""
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr ""
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
+#: libeog/eog-file-selection.c:267
+msgid "Unsupported image file format for saving."
 msgstr ""
 
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr ""
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr ""
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr ""
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
-msgstr ""
-
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr ""
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 #, fuzzy
 msgid "Load Image"
 msgstr "Imådje"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 #, fuzzy
 msgid "Save Image"
 msgstr "Drovi imådje"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+msgid "Unsupported image type for saving."
+msgstr ""
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "Schåle"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "Lårdjeu di l' imådje"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "Clair"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_Fitchî"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -300,7 +347,7 @@ msgstr "Aidance so ci programe chal"
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "Drovi"
 
@@ -375,24 +422,25 @@ msgstr "Moussî _foû"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 li Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Li programe di håynaedje et di catalogaedje d' imådjes di Gnome"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -401,55 +449,32 @@ msgstr ""
 "Dji n' a savou håyner l' aidance di Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "Vos aloz drovi %i purneas e minme tins.\n"
 "Les vorîz vs purade drovi come ene ramexhneye?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "Drovi en on novea purnea"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "Simpe purnea"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "Ramexhneye"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Vos aloz drovi %i purneas e minme tins.\n"
-"Voloz vs continuwer?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr ""
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "Dji n' a savou inicyî Bonobo!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "Dji n' a savou drovi «%s»"
 
 #: shell/util.c:52
 #, c-format
@@ -547,70 +572,57 @@ msgstr "Apontyî li pådje po vosse sicrirece do moumint"
 msgid "_Print..."
 msgstr "_Eprimî"
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_Vey"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Dji n' a savou schaper l' imådje come «%s»: %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Eprimî imådje"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Pådjes"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Vey divant"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "L' eprimaedje di l' imådje a fwait berwete"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "_Zoumer"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "_Diszoumer"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "Zoumer po _rimpli"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 #, fuzzy
 msgid "/_Close"
 msgstr "_Clôre"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "Lårdjeu di l' imådje"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "Hôteu di l' imådje"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Tite do purnea"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "Tecse del bår ås messaedjes"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -784,9 +796,45 @@ msgstr ""
 msgid "Right, then down"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr ""
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Håyneu d' imådjes Eye of Gnome"
+
+#~ msgid "interpolation type"
+#~ msgstr "sôre po l' eterpolåcion"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "li sôre a-z eployî po l' eterpolåcion"
+
+#~ msgid "check type"
+#~ msgstr "sôre di l' echikî"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "li sôre d' echikî a-z eployî"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "li grandeu des echikîs a-z eployî"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Vos aloz drovi %i purneas e minme tins.\n"
+#~ "Voloz vs continuwer?"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Dji n' a savou inicyî Bonobo!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Dji n' a savou schaper l' imådje come «%s»: %s."
+
+#~ msgid "Pages"
+#~ msgstr "Pådjes"
+
+#~ msgid "Print Preview"
+#~ msgstr "Vey divant"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "L' eprimaedje di l' imådje a fwait berwete"
 
 #~ msgid "_New Window"
 #~ msgstr "_Novea purnea"
@@ -892,9 +940,6 @@ msgstr ""
 #~ msgid "Midtone"
 #~ msgstr "Dimey-tintes"
 
-#~ msgid "Light"
-#~ msgstr "Clair"
-
 #~ msgid "Black"
 #~ msgstr "Noer"
 
@@ -903,9 +948,6 @@ msgstr ""
 
 #~ msgid "White"
 #~ msgstr "Blanc"
-
-#~ msgid "_Interpolation:"
-#~ msgstr "_Eterpolåcion:"
 
 #~ msgid "Check _type:"
 #~ msgstr "_Sôre di l' echikî:"

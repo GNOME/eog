@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-01-30 15:16+0300\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-02-03 15:05+0300\n"
 "Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -26,41 +26,131 @@ msgstr "Фабрика компонента просмотра коллекци�
 msgid "Image Collection"
 msgstr "Коллекция изображений"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "Сохранить изображение"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "Напечатать изображение"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "Слайды"
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Вид"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "Коллекция"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "Заголовок окна"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "Текст строки состояния"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "\"Глаз Гнома\""
+msgid "Image Viewer"
+msgstr "Программа просмотра изображений"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "Программа просмотра изображений различных типов"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "_цветом"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
-msgstr "_шаблоном"
+msgid "*"
+msgstr ""
 
 #: eog.glade.h:3
+msgid "<b>Image Interpolation</b>"
+msgstr ""
+
+#: eog.glade.h:4
+msgid "<b>Image Zoom</b>"
+msgstr ""
+
+#: eog.glade.h:5
+msgid "<b>Sequence</b>"
+msgstr ""
+
+#: eog.glade.h:6
+#, fuzzy
+msgid "<b>Transparency</b>"
+msgstr "Цвет прозрачности"
+
+#: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+#, fuzzy
+msgid "As check _pattern"
+msgstr "_шаблоном"
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Настройки программы \"Глаз Гнома\""
 
-#: eog.glade.h:4
-msgid "Image Viewer"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
 msgstr "Программа просмотра изображений"
 
-#: eog.glade.h:5
-msgid "Indicate Transparency"
-msgstr "Обозначать прозрачность"
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
 
-#: eog.glade.h:6
-msgid "Pick a color"
-msgstr "Выбрать цвет"
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
 
-#: eog.glade.h:7
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
 msgstr "_Интерполировать изображение при масштабировании (медленнее, но лучше)"
+
+#: eog.glade.h:20
+msgid "sec"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -76,8 +166,8 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
-"Исходный масштаб для полноэкранного просмотра. Возможные значения: 0 (масштаб "
-"1:1), 1 (тот же масштаб, что и у просмотра в окне), 2 (подогнать "
+"Исходный масштаб для полноэкранного просмотра. Возможные значения: 0 "
+"(масштаб 1:1), 1 (тот же масштаб, что и у просмотра в окне), 2 (подогнать "
 "изображение по экрану)."
 
 #: eog.schemas.in.h:4
@@ -86,9 +176,9 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
-"Определяет, как прозрачность о,jpyfxftncz. Допустимые значения "
-"CHECK_PATTERN и COLOR. Если выбрано значение COLOR, тогда ключ \"trans_color\" "
-"определяет используемое значение цвета."
+"Определяет, как прозрачность о,jpyfxftncz. Допустимые значения CHECK_PATTERN "
+"и COLOR. Если выбрано значение COLOR, тогда ключ \"trans_color\" определяет "
+"используемое значение цвета."
 
 #: eog.schemas.in.h:5
 msgid "Fit standard-sized images to the screen"
@@ -141,8 +231,8 @@ msgid ""
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
 "Должно ли окно изображения устанавливать свой размер и масштаб, основываясь "
-"на размере изображения. Если параметр не установлен, то окно получит тот размер, "
-"который установил для него оконный менеджер."
+"на размере изображения. Если параметр не установлен, то окно получит тот "
+"размер, который установил для него оконный менеджер."
 
 #: eog.schemas.in.h:15
 msgid ""
@@ -165,9 +255,9 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
-"Следует ли отображать полосы прокрутки при полноэкранном просмотре. Возможные значения: "
-"1 (автоматически, только если размеры изображения превышают размеры окна), "
-"2 (никогда)."
+"Следует ли отображать полосы прокрутки при полноэкранном просмотре. "
+"Возможные значения: 1 (автоматически, только если размеры изображения "
+"превышают размеры окна), 2 (никогда)."
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -176,12 +266,12 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
-"Следует ли подгонять изображения стандартных размеров под размер полного экрана. "
-"Изображения с размерами 320x240, 640x480, 800x800, и т.д. при полноэкранном "
-"просмотре будут масштабированы до размеров экрана независимо от значения "
-"исходного масштаба для полноэкранного просмотра."
+"Следует ли подгонять изображения стандартных размеров под размер полного "
+"экрана. Изображения с размерами 320x240, 640x480, 800x800, и т.д. при "
+"полноэкранном просмотре будут масштабированы до размеров экрана независимо "
+"от значения исходного масштаба для полноэкранного просмотра."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Изображение (программа EOG)"
 
@@ -202,101 +292,61 @@ msgstr "Встраиваемое изображение (программа EOG)
 msgid "Image"
 msgstr "Изображение"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "тип интерполяции"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "тип применяемой интерполяции"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "тип отметок"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "тип используемых отметок"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "размер используемых отметок"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "смешивание"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "тип смешивания"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr "по расширению"
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+#, fuzzy
+msgid "Unsupported image file format for saving."
 msgstr "Формат файла не поддерживается."
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr "Определять тип файла:"
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "Загрузить изображение"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Сохранить изображение"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+#, fuzzy
+msgid "Unsupported image type for saving."
+msgstr "Формат файла не поддерживается."
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "Масштаб"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "Ширина изображения"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "Справа:"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_Файл"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -318,7 +368,7 @@ msgstr "Справка по этой программе"
 msgid "New"
 msgstr "Создать"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "Открыть"
 
@@ -390,26 +440,27 @@ msgstr "В_ыйти"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Евгений Булгаков <bgav@netvision.net.il>\n"
 "Валёк Филлипов <frob@df.ru>\n"
 "Дмитрий Мастрюков <dmitry@taurussoft.org>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Глаз Гнома"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторское право (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Программа просмотра и каталогизации изображений для среды Гном"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -418,61 +469,33 @@ msgstr ""
 "Не удалось отобразить справку для программы \"Глаз Гнома\".\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "Вы собираетесь открыть одновременно\n"
 "%i окон. Не хотите ли вместо этого\n"
 "открыть их как коллекцию?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "Открыть в новом окне"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "Отдельные окна"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "Коллекция"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Вы собираетесь открыть одновременно\n"
-"%i окон. Продолжить?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Не удалось получить доступ к местоположению \"%s\"\n"
-"Программа \"Глаз Гнома\" не сможет отобразить этот файл."
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"Следующие файлы не могут быть отображены, так как программа \"Глаз Гнома\" не "
-"смогла получить доступ к ним:\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Не удалось инициализировать подсистему GnomeVFS!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "Не удалось инициализировать систему Bonobo!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "Не удалось открыть \"%s\""
 
 #: shell/util.c:52
 #, c-format
@@ -563,66 +586,53 @@ msgstr "Выполнить настройку страницы для текущ
 msgid "_Print..."
 msgstr "На_печатать"
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_Вид"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Не удалось сохранить изображение как \"%s\": %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Напечатать изображение"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Страницы"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Просмотр образца печати"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "Сбой печати изображения"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/У_величить масштаб"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/У_меньшить масштаб"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/Показать в обы_чном размере"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr "/Подо_гнать по размеру окна"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/_Закрыть"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Заголовок окна"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -796,7 +806,112 @@ msgstr "Вниз, затем вправо"
 msgid "Right, then down"
 msgstr "Вправо, затем вниз"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "Слайды"
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "\"Глаз Гнома\""
 
+#~ msgid "By c_olor"
+#~ msgstr "_цветом"
+
+#~ msgid "Indicate Transparency"
+#~ msgstr "Обозначать прозрачность"
+
+#~ msgid "Pick a color"
+#~ msgstr "Выбрать цвет"
+
+#~ msgid "interpolation type"
+#~ msgstr "тип интерполяции"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "тип применяемой интерполяции"
+
+#~ msgid "check type"
+#~ msgstr "тип отметок"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "тип используемых отметок"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "размер используемых отметок"
+
+#~ msgid "dither"
+#~ msgstr "смешивание"
+
+#~ msgid "dither type"
+#~ msgstr "тип смешивания"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Вы собираетесь открыть одновременно\n"
+#~ "%i окон. Продолжить?"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "Не удалось получить доступ к местоположению \"%s\"\n"
+#~ "Программа \"Глаз Гнома\" не сможет отобразить этот файл."
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Следующие файлы не могут быть отображены, так как программа \"Глаз Гнома"
+#~ "\" не смогла получить доступ к ним:\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "Не удалось инициализировать подсистему GnomeVFS!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Не удалось инициализировать систему Bonobo!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Не удалось сохранить изображение как \"%s\": %s."
+
+#~ msgid "Pages"
+#~ msgstr "Страницы"
+
+#~ msgid "Print Preview"
+#~ msgstr "Просмотр образца печати"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "Сбой печати изображения"

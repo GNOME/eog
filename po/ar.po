@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2002-05-31 17:50-0300\n"
 "Last-Translator: Isam Bayazidi <bayazidi@arabeyes.org>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
@@ -27,40 +27,128 @@ msgstr "مصنع عرض مجموعة صور EOG"
 msgid "Image Collection"
 msgstr "مجموعة صور EOG"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "افتح صورة"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "اطبع الصورة"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "عرض"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr "انقل الى سلة المهملات"
+
+#: collection/eog-collection-view.c:373
+msgid "Collection View"
+msgstr "مجموعة"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "عنوان الشباك"
+
+#: collection/eog-collection-view.c:724
+msgid "Status Text"
+msgstr "نص وضع"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "عارض صور عين جينوم"
+msgid "Image Viewer"
+msgstr "عارض صور"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "اعرض أنوع عديدة مختلفة للصور"
 
 #: eog.glade.h:1
-msgid "By c_olor"
+msgid "    "
 msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
+msgid "*"
 msgstr ""
 
 #: eog.glade.h:3
-msgid "Eye of Gnome Preferences"
-msgstr "تفضيلات عين جينوم"
+#, fuzzy
+msgid "<b>Image Interpolation</b>"
+msgstr "توقيع مربع"
 
 #: eog.glade.h:4
-msgid "Image Viewer"
-msgstr "عارض صور"
+msgid "<b>Image Zoom</b>"
+msgstr ""
 
 #: eog.glade.h:5
-msgid "Indicate Transparency"
+msgid "<b>Sequence</b>"
 msgstr ""
 
 #: eog.glade.h:6
-msgid "Pick a color"
+msgid "<b>Transparency</b>"
 msgstr ""
 
 #: eog.glade.h:7
+#, fuzzy
+msgid "As background"
+msgstr "لون الخلفية"
+
+#: eog.glade.h:8
+msgid "As check _pattern"
+msgstr ""
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
+msgid "Eye of Gnome Preferences"
+msgstr "تفضيلات عين جينوم"
+
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
+msgstr "عارض صور"
+
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
+
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
+
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog.glade.h:20
+msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
@@ -161,7 +249,7 @@ msgid ""
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "صورة EOG"
 
@@ -182,103 +270,61 @@ msgstr "صورة مضمنة لـ EOG"
 msgid "Image"
 msgstr "صورة"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "نوق استيفاء"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "نوع الاستيفاء المستخدم"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "تأكد من النوع"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "نوع المربعات المستخدم"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "حجم المربعات المستخدم"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "تداخل"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "راجع النوع"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr ""
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
+#: libeog/eog-file-selection.c:267
+msgid "Unsupported image file format for saving."
 msgstr ""
 
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr ""
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr ""
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr ""
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
-msgstr ""
-
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr ""
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 #, fuzzy
 msgid "Load Image"
 msgstr "صورة"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 #, fuzzy
 msgid "Save Image"
 msgstr "افتح صورة"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+msgid "Unsupported image type for saving."
+msgstr ""
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "القياس"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "عرض الصورة"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "مضيء"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "ملف"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -300,7 +346,7 @@ msgstr "مساعدة حول هذا البرنامج"
 msgid "New"
 msgstr ""
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "افتح"
 
@@ -375,24 +421,25 @@ msgstr "خروج"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "عيون جينوم"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "حقوق النشر (C) 2000-2002 مؤسسة البرامج الحرة"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 #, fuzzy
 msgid "The GNOME image viewing and cataloging program."
 msgstr "برنامج جينوم لعرض الصور وفهرستها"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -401,56 +448,33 @@ msgstr ""
 "لا يمكن عرض المساعدة لعين جينوم.\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "انت بصدد %i فتح نوافذ\n"
 "في ان واحد.هل تريد \n"
 "فتحها بجﻻ عن ذلكفي مجموعة"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "افتح في شباك جديد"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "نوافذ مفردة"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "مجموعة"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"انت بصدد فتح %i نوافذ في ان واحد.\n"
-"هل تريد فتحها بدﻻ عن ذلك في مجموعة؟"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "لم استطع تهيئة GnomeVFS!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "تعذرت تهيئة بونوبو!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "لم استطع فتح `%s'"
 
 #: shell/util.c:52
 #, c-format
@@ -548,70 +572,57 @@ msgstr "عيّن إعدادات الصفحة لطابعتك الحالية"
 msgid "_Print..."
 msgstr "اطبع"
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "عرض"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "تعذر حفظ الصورة باسم '%s': %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "اطبع الصورة"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "صفحات"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "معاينة طباعة"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "فشلت طباعة الصورة"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 #, fuzzy
 msgid "/_Zoom In"
 msgstr "تكبير"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 #, fuzzy
 msgid "/Zoom _Out"
 msgstr "تصغير"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr ""
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 #, fuzzy
 msgid "/Best _Fit"
 msgstr "تكبير للملائمة"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 #, fuzzy
 msgid "/_Close"
 msgstr "أغلق"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "عرض الصورة"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "طول الصورة"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "عنوان الشباك"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "نص شريط الحالة"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -785,9 +796,54 @@ msgstr "أسفل ثم الى اليمين"
 msgid "Right, then down"
 msgstr "يمين ثم الى اﻷسفل"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr ""
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "عارض صور عين جينوم"
+
+#~ msgid "interpolation type"
+#~ msgstr "نوق استيفاء"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "نوع الاستيفاء المستخدم"
+
+#~ msgid "check type"
+#~ msgstr "تأكد من النوع"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "نوع المربعات المستخدم"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "حجم المربعات المستخدم"
+
+#~ msgid "dither"
+#~ msgstr "تداخل"
+
+#~ msgid "dither type"
+#~ msgstr "راجع النوع"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "انت بصدد فتح %i نوافذ في ان واحد.\n"
+#~ "هل تريد فتحها بدﻻ عن ذلك في مجموعة؟"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "لم استطع تهيئة GnomeVFS!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "تعذرت تهيئة بونوبو!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "تعذر حفظ الصورة باسم '%s': %s."
+
+#~ msgid "Pages"
+#~ msgstr "صفحات"
+
+#~ msgid "Print Preview"
+#~ msgstr "معاينة طباعة"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "فشلت طباعة الصورة"
 
 #~ msgid "_New Window"
 #~ msgstr "نافذة جديدة"
@@ -935,9 +991,6 @@ msgstr ""
 #~ msgid "Nearest Neighbour Interpolation"
 #~ msgstr "أقرب توقيع جار"
 
-#~ msgid "Tiles Interpolation"
-#~ msgstr "توقيع مربع"
-
 #~ msgid "Bilinear Interpolation"
 #~ msgstr "توقيع خطي ثنائي"
 
@@ -958,9 +1011,6 @@ msgstr ""
 
 #~ msgid "Midtone"
 #~ msgstr "نغمة متوسطة"
-
-#~ msgid "Light"
-#~ msgstr "مضيء"
 
 #~ msgid "Black"
 #~ msgstr "أسود"
@@ -992,20 +1042,8 @@ msgstr ""
 #~ msgid "Image Collection Background Color"
 #~ msgstr "صورة لون"
 
-#~ msgid "Background Color:"
-#~ msgstr "لون الخلفية"
-
 #~ msgid "Send"
 #~ msgstr "بعث"
-
-#~ msgid "Move to Trash"
-#~ msgstr "انقل الى سلة المهملات"
-
-#~ msgid "Collection View"
-#~ msgstr "مجموعة"
-
-#~ msgid "Status Text"
-#~ msgstr "نص وضع"
 
 #~ msgid "I could not initialize GnomeVFS!\n"
 #~ msgstr "لم استطع تهيئة جينومVFS!\n"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eog.Gnome.Core-2.1\n"
-"POT-Creation-Date: 2002-12-12 05:57+0100\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2002-12-20 13:46+0530\n"
 "Last-Translator: Pramod <rpramod@postmaster.co.uk>\n"
 "Language-Team: Kannada <LL@li.org>\n"
@@ -26,40 +26,127 @@ msgstr ""
 msgid "Image Collection"
 msgstr ""
 
-#: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
 msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "ಚಿತ್ರವನ್ನು ಮುದ್ರಿಸು"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ"
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "ನೊಟ"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+msgid "Collection View"
+msgstr ""
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "ಕಿಟಕಿಯ ಶೀರ್ಷಿಕೆ"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
+
+#: eog.desktop.in.h:1
+msgid "Image Viewer"
+msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr ""
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "ಬಣ್ಣದ ಮೇಲೆ"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
+msgid "*"
 msgstr ""
 
 #: eog.glade.h:3
-msgid "Eye of Gnome Preferences"
+msgid "<b>Image Interpolation</b>"
 msgstr ""
 
 #: eog.glade.h:4
-msgid "Image Viewer"
-msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ"
+msgid "<b>Image Zoom</b>"
+msgstr ""
 
 #: eog.glade.h:5
-msgid "Indicate Transparency"
+msgid "<b>Sequence</b>"
 msgstr ""
 
 #: eog.glade.h:6
-msgid "Pick a color"
-msgstr "ಬಣ್ಣದ ಆಯ್ಕೆಮಾಡು"
+msgid "<b>Transparency</b>"
+msgstr ""
 
 #: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+msgid "As check _pattern"
+msgstr ""
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
+msgid "Eye of Gnome Preferences"
+msgstr ""
+
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
+msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ"
+
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
+
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
+
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
+msgstr ""
+
+#: eog.glade.h:20
+msgid "sec"
 msgstr ""
 
 #: eog.schemas.in.h:1
@@ -71,11 +158,17 @@ msgid "Default zoom factor for the full screen view"
 msgstr ""
 
 #: eog.schemas.in.h:3
-msgid "Default zoom factor for the full screen view. Possible values are: 0 (use 1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit the image to the screen)."
+msgid ""
+"Default zoom factor for the full screen view. Possible values are: 0 (use "
+"1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
+"the image to the screen)."
 msgstr ""
 
 #: eog.schemas.in.h:4
-msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key determines the used color value."
+msgid ""
+"Determines how transparency should be indicated. Valid values are "
+"CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
+"determines the used color value."
 msgstr ""
 
 #: eog.schemas.in.h:5
@@ -83,7 +176,9 @@ msgid "Fit standard-sized images to the screen"
 msgstr ""
 
 #: eog.schemas.in.h:6
-msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
+msgid ""
+"If the transparency key has the value COLOR, then this key determines the "
+"color which is used for indicating transparency."
 msgstr ""
 
 #: eog.schemas.in.h:7
@@ -111,31 +206,46 @@ msgid "Transparency indicator"
 msgstr ""
 
 #: eog.schemas.in.h:13
-msgid "Wether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
+msgid ""
+"Wether the image should be interpolated on zoom or not. This leads to better "
+"quality but is somewhat slower than non interpolated images."
 msgstr ""
 
 #: eog.schemas.in.h:14
-msgid "Whether image windows should pick their size and zooming factor automatically based on the size of the image. If this option is not set, image windows will get whatever size the window manager assigns to them."
+msgid ""
+"Whether image windows should pick their size and zooming factor "
+"automatically based on the size of the image. If this option is not set, "
+"image windows will get whatever size the window manager assigns to them."
 msgstr ""
 
 #: eog.schemas.in.h:15
-msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
 msgstr ""
 
 #: eog.schemas.in.h:16
-msgid "Whether the full screen view should display a bevel along the edges of the screen."
+msgid ""
+"Whether the full screen view should display a bevel along the edges of the "
+"screen."
 msgstr ""
 
 #: eog.schemas.in.h:17
-msgid "Whether to display scrollbars on the full screen view. Possible values are: 1 (automatic; only display scrollbars if the image is larger than the window), 2 (never display scrollbars)."
+msgid ""
+"Whether to display scrollbars on the full screen view. Possible values are: "
+"1 (automatic; only display scrollbars if the image is larger than the "
+"window), 2 (never display scrollbars)."
 msgstr ""
 
 #: eog.schemas.in.h:18
-msgid "Whether to fit standard-sized images to the screen when in full screen mode. These are images with sizes like 320x240, 640x480, 800x800, etc. This selects whether such images should be scaled to fit the screen regardless of the setting for the default zoom factor of the full screen view."
+msgid ""
+"Whether to fit standard-sized images to the screen when in full screen mode. "
+"These are images with sizes like 320x240, 640x480, 800x800, etc. This "
+"selects whether such images should be scaled to fit the screen regardless of "
+"the setting for the default zoom factor of the full screen view."
 msgstr ""
 
 #: libeog/GNOME_EOG.server.in.in.h:1
-#: viewer/eog-image-view.c:721
 msgid "EOG Image"
 msgstr ""
 
@@ -152,111 +262,62 @@ msgid "Embeddable EOG Image"
 msgstr ""
 
 #. Second page
-#: libeog/GNOME_EOG.server.in.in.h:5
-#: viewer/eog-print-setup.c:689
+#: libeog/GNOME_EOG.server.in.in.h:5 viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "ಚಿತ್ರ"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr ""
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr ""
-
-#: libeog/image-view.c:1903
-#: libeog/image-view.c:1910
-msgid "check type"
-msgstr ""
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr ""
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr ""
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr ""
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr ""
-
-#: libeog/eog-file-selection.c:29
-#: libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr ""
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
+#: libeog/eog-file-selection.c:267
+msgid "Unsupported image file format for saving."
 msgstr ""
 
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr ""
-
-#: libeog/eog-file-selection.c:33
-#: libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:34
-#: libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr ""
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr ""
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr ""
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr ""
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:41
-#: libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr ""
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
-msgstr ""
-
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr ""
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "ಚಿತ್ರವನ್ನು ತೆಗೆ"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+msgid "Unsupported image type for saving."
+msgstr ""
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+msgid "Value"
+msgstr ""
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "ಚಿತ್ರದ ಅಗಳ"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "ಬಲ:"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "ಕಡತ"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -279,7 +340,6 @@ msgid "New"
 msgstr "ಹೊಸ"
 
 #: shell/eog-shell-ui.xml.h:6
-#: shell/main.c:210
 msgid "Open"
 msgstr "ತೆಗೆ"
 
@@ -323,8 +383,7 @@ msgstr "ಮುಚ್ಚು"
 msgid "_Contents"
 msgstr "ವಿಷಯಗಳು"
 
-#: shell/eog-shell-ui.xml.h:17
-#: viewer/eog-image-view-ui.xml.h:13
+#: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
 msgstr "ಸಂಸ್ಕರಿಸು"
 
@@ -352,70 +411,52 @@ msgstr "ಆಚೆ ಬಾ"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "ಅನುವಾದಕರು-ಪ್ರಮೋದ್.ಆರ್"
 
-#: shell/eog-window.c:220
-#: shell/eog-window.c:598
-#: shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr ""
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr ""
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr ""
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
-msgid "Could not display help for Eye of Gnome.\n"
+msgid ""
+"Could not display help for Eye of Gnome.\n"
 "%s"
 msgstr ""
 
-#: shell/main.c:177
+#: shell/main.c:226
 #, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "ಹೊಸ ಕಿಟಕಿಯಲ್ಲಿ ತೆಗೆ"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr ""
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr ""
 
-#: shell/main.c:207
-#, c-format
-msgid "You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-
-#: shell/main.c:290
-#, c-format
-msgid "Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-
-#: shell/main.c:293
-#, c-format
-msgid "The following files cannot be displayed because Eye of Gnome was not able to access them:\n"
-"%s"
-msgstr ""
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr ""
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
+#: shell/main.c:306
+msgid "Could not find files"
 msgstr ""
 
 #: shell/util.c:52
@@ -431,8 +472,7 @@ msgstr ""
 msgid "Fit"
 msgstr ""
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3
-#: viewer/eog-print-setup.c:79
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "ಒಳಗೆ"
 
@@ -508,67 +548,53 @@ msgstr ""
 msgid "_Print..."
 msgstr "ಮುದ್ರಿಸು..."
 
-#: viewer/eog-image-view-ui.xml.h:15
-#: collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "ನೊಟ"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr ""
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "ಚಿತ್ರವನ್ನು ಮುದ್ರಿಸು"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "ಪುಟಗಳ"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr ""
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr ""
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/ಹಿಗ್ಗಿಸು"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/ಕುಗ್ಗಿಸು"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/ಸಾಮಾನ್ಯ ಗಾತ್ರ"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr ""
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/ಮುಚ್ಚು"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "ಚಿತ್ರದ ಅಗಳ"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "ಚಿತ್ರದ ಉದ್ದ"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "ಕಿಟಕಿಯ ಶೀರ್ಷಿಕೆ"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -619,8 +645,7 @@ msgid "Units: "
 msgstr ""
 
 #. First page
-#: viewer/eog-print-setup.c:557
-#: viewer/eog-print-setup.c:565
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "ಪುಟ"
 
@@ -743,7 +768,11 @@ msgstr ""
 msgid "Right, then down"
 msgstr ""
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ"
+#~ msgid "By c_olor"
+#~ msgstr "ಬಣ್ಣದ ಮೇಲೆ"
 
+#~ msgid "Pick a color"
+#~ msgstr "ಬಣ್ಣದ ಆಯ್ಕೆಮಾಡು"
+
+#~ msgid "Pages"
+#~ msgstr "ಪುಟಗಳ"

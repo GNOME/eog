@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.0\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-01-17 21:16-0300\n"
 "Last-Translator: Evandro Fernandes Giovanini <evandrofg@ig.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-br@listas.cipsga.org.br>\n"
@@ -27,41 +27,131 @@ msgstr "Gerador de visualização da coleção de imagens EOG"
 msgid "Image Collection"
 msgstr "Coleção de Imagens"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "Salvar Imagem"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "Imprimir Imagem"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "Apresentação de Slides"
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Ver"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "Coleção"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "Título da Janela"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "Texto da Barra de Status"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "Visualizador de Imagens Eye of Gnome"
+msgid "Image Viewer"
+msgstr "Visualizador de Imagens"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "Ver diferentes tipos de imagens"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "Pela c_or"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
-msgstr "Pela _paleta"
+msgid "*"
+msgstr ""
 
 #: eog.glade.h:3
+msgid "<b>Image Interpolation</b>"
+msgstr ""
+
+#: eog.glade.h:4
+msgid "<b>Image Zoom</b>"
+msgstr ""
+
+#: eog.glade.h:5
+msgid "<b>Sequence</b>"
+msgstr ""
+
+#: eog.glade.h:6
+#, fuzzy
+msgid "<b>Transparency</b>"
+msgstr "Cor da transparência"
+
+#: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+#, fuzzy
+msgid "As check _pattern"
+msgstr "Pela _paleta"
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Preferências do Eye of Gnome"
 
-#: eog.glade.h:4
-msgid "Image Viewer"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
 msgstr "Visualizador de Imagens"
 
-#: eog.glade.h:5
-msgid "Indicate Transparency"
-msgstr "Indique a transparência"
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
 
-#: eog.glade.h:6
-msgid "Pick a color"
-msgstr "Escolha uma cor"
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
 
-#: eog.glade.h:7
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
 msgstr "_Interpolar a imagem ao ampliar (melhor qualidade, porém mais lento)"
+
+#: eog.glade.h:20
+msgid "sec"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -182,7 +272,7 @@ msgstr ""
 "seleciona se as imagens devem ser ajustadas para ocupar a tela "
 "independentemente da definição do fator de ampliação para o modo tela cheia."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Imagem do EOG"
 
@@ -203,101 +293,61 @@ msgstr "Imagem EOG embutível"
 msgid "Image"
 msgstr "Imagem"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "tipo de interpolação"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "o tipo de interpolação a ser usado"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "tipo de quadriculado"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "o tipo de quadriculado a ser usado"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "o tamanho de quadriculado a ser usado"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "difusão"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "tipo de difusão"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr "Por Extensão"
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+#, fuzzy
+msgid "Unsupported image file format for saving."
 msgstr "Formato de arquivo não suportado."
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr "Determinar Tipo de Arquivo:"
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "Carregar Imagem"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Salvar Imagem"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+#, fuzzy
+msgid "Unsupported image type for saving."
+msgstr "Formato de arquivo não suportado."
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "Escala"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "Largura da Imagem"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "Direita:"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_Arquivo"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -319,7 +369,7 @@ msgstr "Ajuda sobre esta aplicação"
 msgid "New"
 msgstr "Novo"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "Abrir"
 
@@ -391,7 +441,7 @@ msgstr "_Sair"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Eduardo Belloti <ebelloti@terra.com.br>\n"
@@ -399,19 +449,20 @@ msgstr ""
 "Francisco Petrúcio Cavalcante Júnior <fpcj@impa.br>\n"
 "Sun G11n <gnome_int_l10n@ireland.sun.com>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "O programa de catalogação e visualização de imagens do GNOME."
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -420,61 +471,33 @@ msgstr ""
 "Não foi possível exibir a ajuda da aplicação Eye of Gnome.\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "Você está prestes a abrir %i janelas\n"
 "simultaneamente. Deseja abri-las\n"
 "em uma coleção?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "Abrir em uma nova janela"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "Janelas Únicas"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "Coleção"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Você está prestes a abrir %i janelas\n"
-"simultaneamente. Deseja continuar?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Incapaz de acessar %s\n"
-"O Eye of Gnome não será capaz de mostrar este arquivo."
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"Os seguintes arquivos não poderão ser mostrados porque o Eye of Gnome não "
-"foi capaz de acessá-los:\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Não foi possível inicializar o GnomeVFS!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "Não foi possível inicializar o Bonobo!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "Não foi possível abrir `%s'"
 
 #: shell/util.c:52
 #, c-format
@@ -565,66 +588,53 @@ msgstr "Define as configurações de página para a impressora atual"
 msgid "_Print..."
 msgstr "Im_primir..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_Ver"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Não foi possível salvar a imagem como '%s': %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Imprimir Imagem"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Páginas"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Visualizar Impressão"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "Falha ao imprimir a imagem"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/A_mpliar"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/Reduz_ir"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/Tamanho _Normal"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr "Ajustar para _caber"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/Fe_char"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "Largura da Imagem"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "Altura da Imagem"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Título da Janela"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "Texto da Barra de Status"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -798,6 +808,112 @@ msgstr "Para baixo, depois à direita"
 msgid "Right, then down"
 msgstr "À direita, depois para baixo"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "Apresentação de Slides"
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Visualizador de Imagens Eye of Gnome"
+
+#~ msgid "By c_olor"
+#~ msgstr "Pela c_or"
+
+#~ msgid "Indicate Transparency"
+#~ msgstr "Indique a transparência"
+
+#~ msgid "Pick a color"
+#~ msgstr "Escolha uma cor"
+
+#~ msgid "interpolation type"
+#~ msgstr "tipo de interpolação"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "o tipo de interpolação a ser usado"
+
+#~ msgid "check type"
+#~ msgstr "tipo de quadriculado"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "o tipo de quadriculado a ser usado"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "o tamanho de quadriculado a ser usado"
+
+#~ msgid "dither"
+#~ msgstr "difusão"
+
+#~ msgid "dither type"
+#~ msgstr "tipo de difusão"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Você está prestes a abrir %i janelas\n"
+#~ "simultaneamente. Deseja continuar?"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "Incapaz de acessar %s\n"
+#~ "O Eye of Gnome não será capaz de mostrar este arquivo."
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Os seguintes arquivos não poderão ser mostrados porque o Eye of Gnome não "
+#~ "foi capaz de acessá-los:\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "Não foi possível inicializar o GnomeVFS!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Não foi possível inicializar o Bonobo!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Não foi possível salvar a imagem como '%s': %s."
+
+#~ msgid "Pages"
+#~ msgstr "Páginas"
+
+#~ msgid "Print Preview"
+#~ msgstr "Visualizar Impressão"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "Falha ao imprimir a imagem"

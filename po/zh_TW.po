@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 1.1.3\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-01-02 05:16+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional Chinese <zh-l10n@linux.org.tw>\n"
@@ -26,45 +26,140 @@ msgstr "EOG 圖像集瀏覽模式工廠"
 msgid "Image Collection"
 msgstr "圖像集"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+# src/window.c:704
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "儲存圖像"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+# src/window.c:704
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "列印圖像"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "投影片"
+
+# src/preferences-dialog.glade.h:49
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "瀏覽(_V)"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+msgid "Collection View"
+msgstr "圖像集檢視模式"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "視窗標題"
+
+#: collection/eog-collection-view.c:724
+msgid "Status Text"
+msgstr "狀態文字"
+
+# src/preferences-dialog.glade.h:32
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "Eye of Gnome 圖像瀏覽程式"
+msgid "Image Viewer"
+msgstr "圖像瀏覽程式"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "瀏覽不同種類的圖像"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "以顏色表示(_O)"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
+msgid "*"
+msgstr ""
+
+# src/preferences-dialog.glade.h:7
+#: eog.glade.h:3
+#, fuzzy
+msgid "<b>Image Interpolation</b>"
+msgstr "區塊插值法"
+
+#: eog.glade.h:4
+msgid "<b>Image Zoom</b>"
+msgstr ""
+
+#: eog.glade.h:5
+msgid "<b>Sequence</b>"
+msgstr ""
+
+#: eog.glade.h:6
+#, fuzzy
+msgid "<b>Transparency</b>"
+msgstr "表示透明的顏色"
+
+#: eog.glade.h:7
+#, fuzzy
+msgid "As background"
+msgstr "背景顏色："
+
+#: eog.glade.h:8
+#, fuzzy
+msgid "As check _pattern"
 msgstr "以方格表示(_P)"
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
 
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: eog.glade.h:3
+#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Eye of Gnome 偏好設定"
 
 # src/preferences-dialog.glade.h:32
-#: eog.glade.h:4
-msgid "Image Viewer"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
 msgstr "圖像瀏覽程式"
 
-#: eog.glade.h:5
-msgid "Indicate Transparency"
-msgstr "表示透明的方法"
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
 
-#: eog.glade.h:6
-msgid "Pick a color"
-msgstr "請選取顏色"
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
 
-#: eog.glade.h:7
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
 msgstr "縮放圖像時以插值法將圖像平滑化 [品質較佳但較慢] (_I)"
+
+#: eog.glade.h:20
+msgid "sec"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -181,7 +276,7 @@ msgstr ""
 "不理會全螢幕模式時預設的縮放倍率。"
 
 # src/window.c:704
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "EOG 圖像"
 
@@ -203,108 +298,64 @@ msgstr "可嵌入式 EOG 圖像"
 msgid "Image"
 msgstr "圖像"
 
-# src/preferences-dialog.glade.h:7
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "插值法方式"
-
-# src/preferences-dialog.glade.h:7
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "使用的插值法"
-
-# src/preferences-dialog.glade.h:9
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "方格類型"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "繪畫方格的方式"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "方格的大小"
-
-# src/preferences-dialog.glade.h:26
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "擬色(dither)"
-
-# src/preferences-dialog.glade.h:9
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "擬色方式"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr "根據延伸檔名"
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+#, fuzzy
+msgid "Unsupported image file format for saving."
 msgstr "不支援的檔案格式。"
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr "決定檔案類型："
 
 # src/window.c:704
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "載入圖像"
 
 # src/window.c:704
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "儲存圖像"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+#, fuzzy
+msgid "Unsupported image type for saving."
+msgstr "不支援的檔案格式。"
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "縮放"
+
+# src/preferences-dialog.glade.h:32
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "圖像寬度"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "淺色"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "檔案(_F)"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -328,7 +379,7 @@ msgid "New"
 msgstr "新增"
 
 # src/tb-image.c:33
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "開啟"
 
@@ -408,7 +459,7 @@ msgstr "離開(_Q)"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "i18n 程式中文化計劃\n"
@@ -420,21 +471,22 @@ msgstr ""
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
 # src/window.c:164
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "版權所有 (C) 2000-2002 The Free Software Foundation"
 
 # src/window.c:166
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖像瀏覽及分類程式。"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -443,60 +495,35 @@ msgstr ""
 "無法顯示 Eye of Gnome 的說明文件。\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "將會同時開啟 %i 個視窗。\n"
 "其實是否想以圖像集方式開啟？"
 
+# src/preferences-dialog.glade.h:38
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "在新視窗中開啟"
+
 # src/preferences-dialog.glade.h:32
-#: shell/main.c:182
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "個別視窗"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "圖像集"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"將會同時開啟 %i 個\n"
-"視窗。是否繼續？"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"無法存取 %s\n"
-"Eye of Gnome 將不能顯示該檔案。"
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"因無法存取，Eye of Gnome 將不能顯示以下的檔案：\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "無法初始化 GnomeVFS！\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "無法初始化 Bonobo！\n"
+# src/util.c:47
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "無法開啟‘%s’"
 
 # src/util.c:47
 #: shell/util.c:52
@@ -594,75 +621,58 @@ msgstr "更改目前印表機的頁面設定"
 msgid "_Print..."
 msgstr "列印(_P)..."
 
-# src/preferences-dialog.glade.h:49
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "瀏覽(_V)"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "無法將圖像儲存為‘%s’：%s。"
-
-# src/window.c:704
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "列印圖像"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "頁"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "列印預覽"
-
-# src/tb-image.c:33
-# src/window.c:181
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "列印圖像失敗"
-
 # src/window.c:221
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/拉近(_Z)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/拉遠(_O)"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/原來尺寸(_N)"
 
 # src/window.c:225
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr "/符合視窗(_F)"
 
 # src/tb-image.c:35
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/關閉(_C)"
 
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
 # src/preferences-dialog.glade.h:32
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "圖像寬度"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "圖像高度"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "視窗標題"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "狀態列文字"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -836,9 +846,121 @@ msgstr "向下，然後向右"
 msgid "Right, then down"
 msgstr "向右，然後向下"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "投影片"
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Eye of Gnome 圖像瀏覽程式"
+
+#~ msgid "By c_olor"
+#~ msgstr "以顏色表示(_O)"
+
+#~ msgid "Indicate Transparency"
+#~ msgstr "表示透明的方法"
+
+#~ msgid "Pick a color"
+#~ msgstr "請選取顏色"
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "interpolation type"
+#~ msgstr "插值法方式"
+
+# src/preferences-dialog.glade.h:7
+#~ msgid "the type of interpolation to use"
+#~ msgstr "使用的插值法"
+
+# src/preferences-dialog.glade.h:9
+#~ msgid "check type"
+#~ msgstr "方格類型"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "繪畫方格的方式"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "方格的大小"
+
+# src/preferences-dialog.glade.h:26
+#~ msgid "dither"
+#~ msgstr "擬色(dither)"
+
+# src/preferences-dialog.glade.h:9
+#~ msgid "dither type"
+#~ msgstr "擬色方式"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "將會同時開啟 %i 個\n"
+#~ "視窗。是否繼續？"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "無法存取 %s\n"
+#~ "Eye of Gnome 將不能顯示該檔案。"
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "因無法存取，Eye of Gnome 將不能顯示以下的檔案：\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "無法初始化 GnomeVFS！\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "無法初始化 Bonobo！\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "無法將圖像儲存為‘%s’：%s。"
+
+#~ msgid "Pages"
+#~ msgstr "頁"
+
+#~ msgid "Print Preview"
+#~ msgstr "列印預覽"
+
+# src/tb-image.c:33
+# src/window.c:181
+#~ msgid "Printing of image failed"
+#~ msgstr "列印圖像失敗"
 
 # src/preferences-dialog.glade.h:32
 #~ msgid "_New Window"
@@ -947,10 +1069,6 @@ msgstr "投影片"
 #~ msgstr "最近點插值法"
 
 # src/preferences-dialog.glade.h:7
-#~ msgid "Tiles Interpolation"
-#~ msgstr "區塊插值法"
-
-# src/preferences-dialog.glade.h:7
 #~ msgid "Bilinear Interpolation"
 #~ msgstr "雙線性插值法"
 
@@ -966,9 +1084,6 @@ msgstr "投影片"
 
 #~ msgid "Midtone"
 #~ msgstr "半調色"
-
-#~ msgid "Light"
-#~ msgstr "淺色"
 
 #~ msgid "Black"
 #~ msgstr "黑色"
@@ -1091,17 +1206,8 @@ msgstr "投影片"
 #~ msgid "Image Collection Background Color"
 #~ msgstr "圖像集背景顏色"
 
-#~ msgid "Background Color:"
-#~ msgstr "背景顏色："
-
 #~ msgid "Send"
 #~ msgstr "送出"
-
-#~ msgid "Collection View"
-#~ msgstr "圖像集檢視模式"
-
-#~ msgid "Status Text"
-#~ msgstr "狀態文字"
 
 # src/tb-image.c:33
 # src/window.c:181

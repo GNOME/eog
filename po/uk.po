@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.3\n"
-"POT-Creation-Date: 2003-01-28 08:24+0000\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-01-23 02:58--500\n"
 "Last-Translator: Yuriy Syrota <yuri@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -25,41 +25,131 @@ msgstr "Фабрика відображення колекції зображе�
 msgid "Image Collection"
 msgstr "Колекція зображень"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "Зберегти зображення"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "Надрукувати зображення"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "Слайд-шоу"
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Відображення"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "Колекція"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "Заголовок вікна"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "Текст панелі стану"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "Переглядач зображень Око GNOME"
+msgid "Image Viewer"
+msgstr "Перегляд зображень"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "Відображення багатьох різних типіх зображень"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "к_ольром"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
-msgstr "_клітинками"
+msgid "*"
+msgstr ""
 
 #: eog.glade.h:3
+msgid "<b>Image Interpolation</b>"
+msgstr ""
+
+#: eog.glade.h:4
+msgid "<b>Image Zoom</b>"
+msgstr ""
+
+#: eog.glade.h:5
+msgid "<b>Sequence</b>"
+msgstr ""
+
+#: eog.glade.h:6
+#, fuzzy
+msgid "<b>Transparency</b>"
+msgstr "Колір прозорості"
+
+#: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+#, fuzzy
+msgid "As check _pattern"
+msgstr "_клітинками"
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Вподобання"
 
-#: eog.glade.h:4
-msgid "Image Viewer"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
 msgstr "Перегляд зображень"
 
-#: eog.glade.h:5
-msgid "Indicate Transparency"
-msgstr "Позначення прозорості"
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
 
-#: eog.glade.h:6
-msgid "Pick a color"
-msgstr "Виберіть колір"
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
 
-#: eog.glade.h:7
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
 msgstr "_Інтерполювати зображення (краща якість, але повільніше)"
+
+#: eog.glade.h:20
+msgid "sec"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -181,7 +271,7 @@ msgstr ""
 "повноекранному режимі. Стандартними розмірами вважаються 320x240, 640x480, "
 "800x800 тощо."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Зображення EOG"
 
@@ -202,101 +292,61 @@ msgstr "Влаштовувальне зображення"
 msgid "Image"
 msgstr "Зображення"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "тип інтерполяції"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "тип інтерполяції, що використовуватиметься"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "тип клітинок"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "тип клітинок, що використовуватиметься"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "розмір клітинок, що використовуватиметься"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "змішування"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "тип змішування"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr "За розширенням"
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+#, fuzzy
+msgid "Unsupported image file format for saving."
 msgstr "Непідтримуваний формат файла."
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr "Тип файла:"
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "Завантажити зображення"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Зберегти зображення"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+#, fuzzy
+msgid "Unsupported image type for saving."
+msgstr "Непідтримуваний формат файла."
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "Масштаб"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "Ширина зображення"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "Пріворуч:"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_Файл"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -318,7 +368,7 @@ msgstr "Довідка про програму"
 msgid "New"
 msgstr "Новий"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "Відкрити"
 
@@ -390,23 +440,24 @@ msgstr "Ви_йти"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Юрій Сирота <yuriy@beer.com>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Ого гнома"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторське право © 2000-2002 Фундація Вільного Програмного Забезпечення"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Програма перегляду та каталогізації зображень для GNOME"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -415,60 +466,33 @@ msgstr ""
 "Не вдалося відобразити довідку до Ока GNOME.\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "Ви збираєтесь відкрити %i вікон\n"
 "одночасно. Чи не чочете ви відкрити\n"
 "їх в колекції?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "Відкрити у новому вікні"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "Одинокі вікна"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "Колекція"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Ви збираєтесь відкрити %i вікон\n"
-"одночасно. Продовжити?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Не вдалося отримати доступ до %s\n"
-"Немає змоги відобразити цей файл."
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"Такі файли не можуть бути відображені через відсутність доступу до них:\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "Не вдалось ініціалізувати Bonobo!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "Не вдалось відкрити \"%s\""
 
 #: shell/util.c:52
 #, c-format
@@ -559,66 +583,53 @@ msgstr "Налаштувати параметри сторінки для ваш
 msgid "_Print..."
 msgstr "На_друкувати..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_Відображення"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Не вдалось зберегти зображення як \"%s\": %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Надрукувати зображення"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Сторінки"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Перегляд друку"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "Збій друку зображення"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/З_більшити"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/З_меншити"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/_Нормальний розмір"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr "/Піді_гнати"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/_Закрити"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "Ширина зображення"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "Висота зображення"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Заголовок вікна"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "Текст панелі стану"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -792,6 +803,111 @@ msgstr "Вниз і праворуч"
 msgid "Right, then down"
 msgstr "Праворуч і вниз"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "Слайд-шоу"
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Переглядач зображень Око GNOME"
+
+#~ msgid "By c_olor"
+#~ msgstr "к_ольром"
+
+#~ msgid "Indicate Transparency"
+#~ msgstr "Позначення прозорості"
+
+#~ msgid "Pick a color"
+#~ msgstr "Виберіть колір"
+
+#~ msgid "interpolation type"
+#~ msgstr "тип інтерполяції"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "тип інтерполяції, що використовуватиметься"
+
+#~ msgid "check type"
+#~ msgstr "тип клітинок"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "тип клітинок, що використовуватиметься"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "розмір клітинок, що використовуватиметься"
+
+#~ msgid "dither"
+#~ msgstr "змішування"
+
+#~ msgid "dither type"
+#~ msgstr "тип змішування"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Ви збираєтесь відкрити %i вікон\n"
+#~ "одночасно. Продовжити?"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "Не вдалося отримати доступ до %s\n"
+#~ "Немає змоги відобразити цей файл."
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Такі файли не можуть бути відображені через відсутність доступу до них:\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "Не вдалось ініціалізувати GnomeVFS!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Не вдалось ініціалізувати Bonobo!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Не вдалось зберегти зображення як \"%s\": %s."
+
+#~ msgid "Pages"
+#~ msgstr "Сторінки"
+
+#~ msgid "Print Preview"
+#~ msgstr "Перегляд друку"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "Збій друку зображення"

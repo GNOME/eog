@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
-"POT-Creation-Date: 2003-02-10 14:56+0700\n"
+"POT-Creation-Date: 2003-03-24 04:39+0100\n"
 "PO-Revision-Date: 2003-02-06 23:34+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
 "Language-Team: Indonesia <id@li.org>\n"
@@ -26,41 +26,131 @@ msgstr "Factory penampil koleksi gambar EOG"
 msgid "Image Collection"
 msgstr "Koleksi gambar"
 
+#: collection/eog-collection-view-ui.xml.h:1
+msgid "Next"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:2
+#, fuzzy
+msgid "Next Image"
+msgstr "Simpan Gambar"
+
+#: collection/eog-collection-view-ui.xml.h:3
+msgid "Previous"
+msgstr ""
+
+#: collection/eog-collection-view-ui.xml.h:4
+#, fuzzy
+msgid "Previous Image"
+msgstr "Cetak Gambar"
+
+#: collection/eog-collection-view-ui.xml.h:5 eog.glade.h:18
+msgid "Slide Show"
+msgstr "Slide Show"
+
+#: collection/eog-collection-view-ui.xml.h:6 viewer/eog-image-view-ui.xml.h:15
+msgid "_View"
+msgstr "_Lihat"
+
+#: collection/eog-collection-view.c:329
+msgid "Move to Trash"
+msgstr ""
+
+#: collection/eog-collection-view.c:373
+#, fuzzy
+msgid "Collection View"
+msgstr "Koleksi"
+
+#: collection/eog-collection-view.c:721 viewer/eog-image-view.c:1155
+msgid "Window Title"
+msgstr "Judul Window"
+
+#: collection/eog-collection-view.c:724
+#, fuzzy
+msgid "Status Text"
+msgstr "Teks status bar"
+
 #: eog.desktop.in.h:1
-msgid "Eye of Gnome Image Viewer"
-msgstr "Eye of Gnome, Penampil Gambar"
+msgid "Image Viewer"
+msgstr "Penampil Gambar"
 
 #: eog.desktop.in.h:2
 msgid "View many different types of images"
 msgstr "Tampilkan berbagai jenis gambar"
 
 #: eog.glade.h:1
-msgid "By c_olor"
-msgstr "Berdasarkan _warna"
+msgid "    "
+msgstr ""
 
 #: eog.glade.h:2
-msgid "By check_pattern"
-msgstr "Berdasarkan _pola kotak-kotak"
+msgid "*"
+msgstr ""
 
 #: eog.glade.h:3
+msgid "<b>Image Interpolation</b>"
+msgstr ""
+
+#: eog.glade.h:4
+msgid "<b>Image Zoom</b>"
+msgstr ""
+
+#: eog.glade.h:5
+msgid "<b>Sequence</b>"
+msgstr ""
+
+#: eog.glade.h:6
+#, fuzzy
+msgid "<b>Transparency</b>"
+msgstr "Warna transparansi"
+
+#: eog.glade.h:7
+msgid "As background"
+msgstr ""
+
+#: eog.glade.h:8
+#, fuzzy
+msgid "As check _pattern"
+msgstr "Berdasarkan _pola kotak-kotak"
+
+#: eog.glade.h:9
+msgid "As custom c_olor"
+msgstr ""
+
+#: eog.glade.h:10
+msgid "Color for Transparent Areas"
+msgstr ""
+
+#: eog.glade.h:12
+#, no-c-format
+msgid "Don't use zoom larger than 100%"
+msgstr ""
+
+#: eog.glade.h:13
 msgid "Eye of Gnome Preferences"
 msgstr "Setting Eye of Gnome"
 
-#: eog.glade.h:4
-msgid "Image Viewer"
+#: eog.glade.h:14
+#, fuzzy
+msgid "Image View"
 msgstr "Penampil Gambar"
 
-#: eog.glade.h:5
-msgid "Indicate Transparency"
-msgstr "Tanda Transparan"
+#: eog.glade.h:15
+msgid "Loop sequence"
+msgstr ""
 
-#: eog.glade.h:6
-msgid "Pick a color"
-msgstr "Pilih warna"
+#: eog.glade.h:16
+msgid ""
+"Show next image automatically:\n"
+"(0 to disable)"
+msgstr ""
 
-#: eog.glade.h:7
+#: eog.glade.h:19
 msgid "_Interpolate image on zoom (better quality but slower)"
 msgstr "_Interpolasikan gambar saat zoom (kualitas bagus namun lambat)"
+
+#: eog.glade.h:20
+msgid "sec"
+msgstr ""
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
@@ -185,7 +275,7 @@ msgstr ""
 "640x480, 800x600, dsb. Pilihan ini menentukan apakah gambar sedemikian bisa "
 "dipaskan tanpa harus memperhatikan faktor zoom pada mode layar penuh."
 
-#: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
+#: libeog/GNOME_EOG.server.in.in.h:1
 msgid "EOG Image"
 msgstr "Gambar EOG"
 
@@ -206,101 +296,61 @@ msgstr "Gambar EOG yang bisa diembed"
 msgid "Image"
 msgstr "Gambar"
 
-#: libeog/image-view.c:1896
-msgid "interpolation type"
-msgstr "tipe interpolasi"
-
-#: libeog/image-view.c:1897
-msgid "the type of interpolation to use"
-msgstr "tipe interpolasi yang hendak digunakan"
-
-#: libeog/image-view.c:1903 libeog/image-view.c:1910
-msgid "check type"
-msgstr "tipe kotak"
-
-#: libeog/image-view.c:1904
-msgid "the type of chequering to use"
-msgstr "tipe kotak-kotak yang hendak digunakan"
-
-#: libeog/image-view.c:1911
-msgid "the size of chequers to use"
-msgstr "ukuran kotak-kotak"
-
-#: libeog/image-view.c:1917
-msgid "dither"
-msgstr "dither"
-
-#: libeog/image-view.c:1918
-msgid "dither type"
-msgstr "tipe dither"
-
-#: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
+#: libeog/eog-file-selection.c:74
 msgid "By Extension"
 msgstr "Berdasarkan Ekstensi"
 
-#: libeog/eog-file-selection.c:30
-msgid "BMP"
-msgstr "BMP"
-
-#: libeog/eog-file-selection.c:31
-msgid "GIF"
-msgstr "GIF"
-
-#: libeog/eog-file-selection.c:32
-msgid "ICO"
-msgstr "ICO"
-
-#: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
-msgid "JPEG"
-msgstr "JPEG"
-
-#: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
-msgid "PNG"
-msgstr "PNG"
-
-#: libeog/eog-file-selection.c:35
-msgid "PNM"
-msgstr "PNM"
-
-#: libeog/eog-file-selection.c:36
-msgid "RAS"
-msgstr "RAS"
-
-#: libeog/eog-file-selection.c:37
-msgid "SVG"
-msgstr "SVG"
-
-#: libeog/eog-file-selection.c:38
-msgid "TGA"
-msgstr "TGA"
-
-#: libeog/eog-file-selection.c:39
-msgid "TIFF"
-msgstr "TIFF"
-
-#: libeog/eog-file-selection.c:40
-msgid "XBM"
-msgstr "XBM"
-
-#: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
-msgid "XPM"
-msgstr "XPM"
-
-#: libeog/eog-file-selection.c:207
-msgid "Unsupported file format."
+#: libeog/eog-file-selection.c:267
+#, fuzzy
+msgid "Unsupported image file format for saving."
 msgstr "Format file tidak dapat dibaca."
 
-#: libeog/eog-file-selection.c:227
+#: libeog/eog-file-selection.c:292
 msgid "Determine File Type:"
 msgstr "Tentukan tipe file:"
 
-#: libeog/eog-file-selection.c:270
+#: libeog/eog-file-selection.c:333
 msgid "Load Image"
 msgstr "Buka Gambar"
 
-#: libeog/eog-file-selection.c:276
+#: libeog/eog-file-selection.c:338
 msgid "Save Image"
 msgstr "Simpan Gambar"
+
+#: libeog/eog-image.c:1129
+msgid "No image loaded."
+msgstr ""
+
+#: libeog/eog-image.c:1163
+#, fuzzy
+msgid "Unsupported image type for saving."
+msgstr "Format file tidak dapat dibaca."
+
+#: libeog/eog-info-view.c:76
+msgid "Attribute"
+msgstr ""
+
+#: libeog/eog-info-view.c:84
+#, fuzzy
+msgid "Value"
+msgstr "Skala"
+
+#: libeog/eog-info-view.c:170 libeog/eog-info-view.c:173
+#: libeog/eog-info-view.c:208
+#, fuzzy
+msgid "Width"
+msgstr "Lebar Gambar"
+
+#: libeog/eog-info-view.c:178 libeog/eog-info-view.c:181
+#: libeog/eog-info-view.c:216
+#, fuzzy
+msgid "Height"
+msgstr "Kanan:"
+
+#: libeog/eog-info-view.c:269
+#, fuzzy
+msgid "Filename"
+msgstr "_File"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -322,7 +372,7 @@ msgstr "Bantuan untuk aplikasi ini"
 msgid "New"
 msgstr "Buat baru"
 
-#: shell/eog-shell-ui.xml.h:6 shell/main.c:210
+#: shell/eog-shell-ui.xml.h:6
 msgid "Open"
 msgstr "Buka"
 
@@ -394,23 +444,24 @@ msgstr "_Keluar"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:215
+#: shell/eog-window.c:259
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Mohammad DAMT <mdamt@bisnisweb.com>"
 
-#: shell/eog-window.c:220 shell/eog-window.c:598 shell/main.c:452
+#: shell/eog-window.c:264 shell/eog-window.c:681 shell/eog-window.c:771
+#: shell/eog-window.c:808 shell/main.c:508
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:222
+#: shell/eog-window.c:266
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:223
+#: shell/eog-window.c:267
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program GNOME untuk menampilkan dan katalog gambar"
 
-#: shell/eog-window.c:260
+#: shell/eog-window.c:304
 #, c-format
 msgid ""
 "Could not display help for Eye of Gnome.\n"
@@ -419,61 +470,33 @@ msgstr ""
 "Tidak dapat menampilkan layar bantuan untuk Eye of Gnome\n"
 "%s"
 
-#: shell/main.c:177
-#, c-format
+#: shell/main.c:226
+#, fuzzy, c-format
 msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to open\n"
-"them in a collection instead?"
+"You are about to open %i windows simultanously. Do you want to open them in "
+"a collection instead?"
 msgstr ""
 "Anda akan membuka %i window secara\n"
 "bersamaan. Apakah Anda ingin membukanya\n"
 "dalam koleksi saja?"
 
-#: shell/main.c:182
+#: shell/main.c:230
+#, fuzzy
+msgid "Open multiple single windows?"
+msgstr "Buka dalam window baru"
+
+#: shell/main.c:234
 msgid "Single Windows"
 msgstr "Window Mandiri"
 
-#: shell/main.c:183
+#: shell/main.c:236
 msgid "Collection"
 msgstr "Koleksi"
 
-#: shell/main.c:207
-#, c-format
-msgid ""
-"You are about to open %i windows\n"
-"simultanously. Do you want to continue?"
-msgstr ""
-"Anda akan membuka sebanyak %i window\n"
-"secara bersamaan. Apakah ingin terus?"
-
-#: shell/main.c:290
-#, c-format
-msgid ""
-"Could not access %s\n"
-"Eye of Gnome will not be able to display this file."
-msgstr ""
-"Tidak dapat membuka file %s\n"
-"Eye of Gnome tidak dapat menampilkan file ini."
-
-#: shell/main.c:293
-#, c-format
-msgid ""
-"The following files cannot be displayed because Eye of Gnome was not able to "
-"access them:\n"
-"%s"
-msgstr ""
-"File-file berikut tidak dapat dibuka karena Eye of Gnome tidak dapat "
-"mengaksesnya:\n"
-"%s"
-
-#: shell/main.c:464
-msgid "Could not initialize GnomeVFS!\n"
-msgstr "Tidak dapat menginisialisasi GnomeVFS!\n"
-
-#: shell/main.c:467
-msgid "Could not initialize Bonobo!\n"
-msgstr "Tidak dapat membuka Bonobo!\n"
+#: shell/main.c:306
+#, fuzzy
+msgid "Could not find files"
+msgstr "Tidak dapat membuka '%s'"
 
 #: shell/util.c:52
 #, c-format
@@ -564,66 +587,53 @@ msgstr "Setup setting halaman untuk printer yang aktif"
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
-msgid "_View"
-msgstr "_Lihat"
-
-#: viewer/eog-image-view.c:270
-#, c-format
-msgid "Could not save image as '%s': %s."
-msgstr "Tidak dapat menyimpan gambar sebagai '%s': %s."
-
-#: viewer/eog-image-view.c:954
-msgid "Print Image"
-msgstr "Cetak Gambar"
-
-#: viewer/eog-image-view.c:962
-msgid "Pages"
-msgstr "Halaman"
-
-#: viewer/eog-image-view.c:1049
-msgid "Print Preview"
-msgstr "Lihat Contoh Cetakan"
-
-#: viewer/eog-image-view.c:1055
-msgid "Printing of image failed"
-msgstr "Pencetakan gambar gagal"
-
-#: viewer/eog-image-view.c:1873
+#: viewer/eog-image-view.c:741
 msgid "/_Zoom In"
 msgstr "/_Zoom Besar"
 
-#: viewer/eog-image-view.c:1875
+#: viewer/eog-image-view.c:743
 msgid "/Zoom _Out"
 msgstr "/Z_oom Kecil"
 
-#: viewer/eog-image-view.c:1877
+#: viewer/eog-image-view.c:745
 msgid "/_Normal Size"
 msgstr "/Ukuran _Normal"
 
-#: viewer/eog-image-view.c:1879
+#: viewer/eog-image-view.c:747
 msgid "/Best _Fit"
 msgstr "/_Pas Sempurna"
 
-#: viewer/eog-image-view.c:1882
+#: viewer/eog-image-view.c:750
 msgid "/_Close"
 msgstr "/_Tutup"
 
-#: viewer/eog-image-view.c:2008
+#: viewer/eog-image-view.c:902
+msgid "Image successfully saved"
+msgstr ""
+
+#: viewer/eog-image-view.c:906
+msgid "Image saving failed"
+msgstr ""
+
+#: viewer/eog-image-view.c:1149
 msgid "Image Width"
 msgstr "Lebar Gambar"
 
-#: viewer/eog-image-view.c:2011
+#: viewer/eog-image-view.c:1152
 msgid "Image Height"
 msgstr "Tinggi Gambar"
 
-#: viewer/eog-image-view.c:2014
-msgid "Window Title"
-msgstr "Judul Window"
-
-#: viewer/eog-image-view.c:2017
+#: viewer/eog-image-view.c:1158
 msgid "Statusbar Text"
 msgstr "Teks status bar"
+
+#: viewer/eog-image-view.c:1161
+msgid "Desired Window Width"
+msgstr ""
+
+#: viewer/eog-image-view.c:1164
+msgid "Desired Window Height"
+msgstr ""
 
 #: viewer/eog-image.c:480
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -797,6 +807,112 @@ msgstr "Turun, lalu ke kanan"
 msgid "Right, then down"
 msgstr "Kanan, lalu ke bawah"
 
-#: collection/eog-collection-view-ui.xml.h:1
-msgid "Slide Show"
-msgstr "Slide Show"
+#~ msgid "Eye of Gnome Image Viewer"
+#~ msgstr "Eye of Gnome, Penampil Gambar"
+
+#~ msgid "By c_olor"
+#~ msgstr "Berdasarkan _warna"
+
+#~ msgid "Indicate Transparency"
+#~ msgstr "Tanda Transparan"
+
+#~ msgid "Pick a color"
+#~ msgstr "Pilih warna"
+
+#~ msgid "interpolation type"
+#~ msgstr "tipe interpolasi"
+
+#~ msgid "the type of interpolation to use"
+#~ msgstr "tipe interpolasi yang hendak digunakan"
+
+#~ msgid "check type"
+#~ msgstr "tipe kotak"
+
+#~ msgid "the type of chequering to use"
+#~ msgstr "tipe kotak-kotak yang hendak digunakan"
+
+#~ msgid "the size of chequers to use"
+#~ msgstr "ukuran kotak-kotak"
+
+#~ msgid "dither"
+#~ msgstr "dither"
+
+#~ msgid "dither type"
+#~ msgstr "tipe dither"
+
+#~ msgid "BMP"
+#~ msgstr "BMP"
+
+#~ msgid "GIF"
+#~ msgstr "GIF"
+
+#~ msgid "ICO"
+#~ msgstr "ICO"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgid "PNG"
+#~ msgstr "PNG"
+
+#~ msgid "PNM"
+#~ msgstr "PNM"
+
+#~ msgid "RAS"
+#~ msgstr "RAS"
+
+#~ msgid "SVG"
+#~ msgstr "SVG"
+
+#~ msgid "TGA"
+#~ msgstr "TGA"
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid "XBM"
+#~ msgstr "XBM"
+
+#~ msgid "XPM"
+#~ msgstr "XPM"
+
+#~ msgid ""
+#~ "You are about to open %i windows\n"
+#~ "simultanously. Do you want to continue?"
+#~ msgstr ""
+#~ "Anda akan membuka sebanyak %i window\n"
+#~ "secara bersamaan. Apakah ingin terus?"
+
+#~ msgid ""
+#~ "Could not access %s\n"
+#~ "Eye of Gnome will not be able to display this file."
+#~ msgstr ""
+#~ "Tidak dapat membuka file %s\n"
+#~ "Eye of Gnome tidak dapat menampilkan file ini."
+
+#~ msgid ""
+#~ "The following files cannot be displayed because Eye of Gnome was not able "
+#~ "to access them:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "File-file berikut tidak dapat dibuka karena Eye of Gnome tidak dapat "
+#~ "mengaksesnya:\n"
+#~ "%s"
+
+#~ msgid "Could not initialize GnomeVFS!\n"
+#~ msgstr "Tidak dapat menginisialisasi GnomeVFS!\n"
+
+#~ msgid "Could not initialize Bonobo!\n"
+#~ msgstr "Tidak dapat membuka Bonobo!\n"
+
+#~ msgid "Could not save image as '%s': %s."
+#~ msgstr "Tidak dapat menyimpan gambar sebagai '%s': %s."
+
+#~ msgid "Pages"
+#~ msgstr "Halaman"
+
+#~ msgid "Print Preview"
+#~ msgstr "Lihat Contoh Cetakan"
+
+#~ msgid "Printing of image failed"
+#~ msgstr "Pencetakan gambar gagal"
