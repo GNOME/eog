@@ -1,5 +1,24 @@
 2003-03-06  Jens Finke  <jens@triq.net>
 
+	* libeog/eog-full-screen.[ch]: Extended, so that it can cope with
+	a list of images (slideshow).
+
+	* collection/eog-collection-view.c (verb_SlideShow_cb): Adapted to
+	reworked EogFullScreen.
+	(create_user_interface): Give wraplist focus by default.
+
+	* collection/eog-wrap-list.c (eog_wrap_list_key_press_cb): New
+	function.
+	(eog_wrap_list_class_init): Overwrite default key press handler.
+	(eog_wrap_list_new): Register widget events.
+	(handle_canvas_click),
+	(handle_item_event): Grab focus, if widget hasn't.
+
+	* viewer/eog-image-view.c (verb_FullScreen_cb): Adapted to
+	EogFullScreen.
+
+2003-03-06  Jens Finke  <jens@triq.net>
+
 	* collection/eog-collection-item.c (thumnail_finished_cb),
 	(ensure_max_string_width): Removed unused variables.
 

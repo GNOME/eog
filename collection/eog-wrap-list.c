@@ -22,6 +22,7 @@
 #include <math.h>
 #include <glib/gmain.h>
 #include <libgnome/gnome-macros.h>
+#include <gdk/gdkkeysyms.h>
 
 #include "eog-wrap-list.h"
 #include "eog-collection-marshal.h"
@@ -119,6 +120,7 @@ static void eog_wrap_list_dispose (GObject *object);
 static void eog_wrap_list_finalize (GObject *object);
 
 static void eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
+static gboolean eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event);
 
 static void request_update (EogWrapList *wlist);
 static gboolean do_update (EogWrapList *wlist);
@@ -143,6 +145,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 	object_class->finalize = eog_wrap_list_finalize;
 
 	widget_class->size_allocate = eog_wrap_list_size_allocate;
+	widget_class->key_press_event = eog_wrap_list_key_press_cb;
 
 	eog_wrap_list_signals [SELECTION_CHANGED] = 
 		g_signal_new ("selection_changed",
@@ -250,7 +253,6 @@ eog_wrap_list_construct (EogWrapList *wlist)
 	wlist->priv->item_table = g_hash_table_new ((GHashFunc) g_direct_hash, 
 						    (GCompareFunc) g_direct_equal);
 
-	gtk_widget_set_events (GTK_WIDGET (wlist), GDK_ALL_EVENTS_MASK);
 	g_signal_connect_after (G_OBJECT (wlist), 
 				"button-press-event",
 				G_CALLBACK (handle_canvas_click),
@@ -263,7 +265,14 @@ eog_wrap_list_new (void)
 {
 	GtkWidget *wlist;
 
-	wlist = gtk_widget_new (eog_wrap_list_get_type (), NULL);
+	wlist = gtk_widget_new (eog_wrap_list_get_type (), 
+				"can-focus", TRUE,
+				"events", 
+				GDK_EXPOSURE_MASK | 
+				GDK_BUTTON_PRESS_MASK |
+				GDK_BUTTON_RELEASE_MASK |
+				GDK_KEY_PRESS_MASK,
+				NULL);
 
 	eog_wrap_list_construct (EOG_WRAP_LIST (wlist));
 	
@@ -357,6 +366,9 @@ handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data)
 	wlist = EOG_WRAP_LIST (data);
 	priv = wlist->priv;
 
+	if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (wlist)))
+		gtk_widget_grab_focus (GTK_WIDGET (wlist));
+
 	if (priv->n_selected_items > 1) {
 		EogCollectionItem *item;
 
@@ -383,6 +395,9 @@ handle_item_event (GnomeCanvasItem *item, GdkEvent *event,  EogWrapList *wlist)
 	gboolean selection_changed = FALSE;
 
 	g_return_val_if_fail (EOG_IS_WRAP_LIST (wlist), FALSE);
+
+	if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (wlist)))
+		gtk_widget_grab_focus (GTK_WIDGET (wlist));
 	
 	priv = wlist->priv;
 	model = priv->model;
@@ -497,13 +512,27 @@ eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	wlist = EOG_WRAP_LIST (widget);
 	priv = wlist->priv;
 
-	if (GTK_WIDGET_CLASS (parent_class)->size_allocate)
-		GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
+	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, size_allocate, (widget, allocation));
 
 	priv->global_update_hints[GLOBAL_SIZE_CHANGED] = TRUE;
 
 	request_update (wlist);
 }       
+
+static gboolean 
+eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event)
+{
+	switch (event->keyval) {
+	case GDK_Up:
+	case GDK_Down:
+	case GDK_Left:
+	case GDK_Right:
+		return TRUE;
+		break;
+	};
+
+	return GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, key_press_event, (widget, event), FALSE);
+}
 
 static gboolean
 add_image (EogCollectionModel *model, EogImage *image, gpointer data)

@@ -50,7 +50,7 @@ struct _EogFullScreenClass {
 };
 
 GType      eog_full_screen_get_type (void);
-GtkWidget *eog_full_screen_new (EogImage *image);
+GtkWidget *eog_full_screen_new (GList *image_list, EogImage *start_image);
 
 G_END_DECLS
 

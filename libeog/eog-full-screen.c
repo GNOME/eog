@@ -38,6 +38,11 @@ struct _EogFullScreenPrivate
 
 	/* Whether we have a keyboard grab */
 	guint have_grab : 1;
+
+	GList *image_list;
+	GList *current_node;
+
+	gboolean single_image; 
 };
 
 #define ZOOM_FACTOR 1.2
@@ -80,21 +85,96 @@ eog_full_screen_hide (GtkWidget *widget)
 	gtk_widget_destroy (widget);
 }
 
+static void
+view_image (EogFullScreen *fs, GList *node)
+{
+	EogFullScreenPrivate *priv;
+	EogImage *image = NULL;
+
+	priv = fs->priv;
+
+	if (node == NULL) {
+		priv->current_node = priv->image_list;
+	}
+	else {
+		priv->current_node = node;
+	}
+
+	image = EOG_IMAGE (priv->current_node->data);
+
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+}
+
+static void
+view_image_next (EogFullScreen *fs)
+{
+	EogFullScreenPrivate *priv;
+	GList *node = NULL;
+	EogImage *image;
+
+	priv = fs->priv;
+
+	if (priv->current_node == NULL) {
+		node = priv->image_list;
+	}
+	else {
+		if (priv->current_node->next == NULL) {
+			gtk_widget_hide (GTK_WIDGET (fs));
+		}
+		else {
+			node = priv->current_node->next;
+		}
+	}
+	
+	if (node != NULL) {
+		priv->current_node = node;
+		image = EOG_IMAGE (node->data);
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+	}
+}
+
+static void
+view_image_previous (EogFullScreen *fs)
+{
+	EogFullScreenPrivate *priv;
+	GList *node = NULL;
+	EogImage *image;
+
+	priv = fs->priv;
+
+	if (priv->current_node == NULL) {
+		node = priv->image_list;
+	}
+	else {
+		if (priv->current_node->prev == NULL) {
+			gtk_widget_hide (GTK_WIDGET (fs));
+		}
+		else {
+			node = priv->current_node->prev;
+		}
+	}
+	
+	if (node != NULL) {
+		priv->current_node = node;
+		image = EOG_IMAGE (node->data);
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
+	}
+}
+
+
 /* Key press handler for the full screen view */
 static gint
 eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 {
-	gint result;
+	EogFullScreenPrivate *priv;
+	EogFullScreen *fs;
+	gint handled;
 	gboolean do_hide;
 
-	result = FALSE;
+	fs = EOG_FULL_SCREEN (widget);
+	priv = fs->priv;
 
-	if (GTK_WIDGET_CLASS (parent_class)->key_press_event)
-		result = (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
-
-	if (result)
-		return result;
-
+	handled = FALSE;
 	do_hide = FALSE;
 
 	switch (event->keyval) {
@@ -102,23 +182,43 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_q:
 	case GDK_Escape:
 	case GDK_F11:
-		do_hide = TRUE;
+		do_hide = handled = TRUE;
 		break;
 
 	case GDK_W:
 	case GDK_w:
-		if (event->state & GDK_CONTROL_MASK)
-			do_hide = TRUE;
+		if (event->state & GDK_CONTROL_MASK) {
+			do_hide = handled = TRUE;
+		}
 		break;
 
-	default:
-		return FALSE;
-	}
+	case GDK_space:
+	case GDK_Right:
+	case GDK_Down:
+		if (!priv->single_image) {
+			view_image_next (fs);
+			handled = TRUE;
+		}
+		break;
 
+	case GDK_BackSpace:
+	case GDK_Left:
+	case GDK_Up:
+		if (!priv->single_image) {
+			view_image_previous (fs);
+			handled = TRUE;
+		}
+		break;
+	};
+	
 	if (do_hide)
 		gtk_widget_hide (widget);
+	
+	if (!handled) {
+		handled = GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, key_press_event, (widget, event), FALSE);
+	}
 
-	return TRUE;
+	return handled;
 }
 
 static void
@@ -198,23 +298,25 @@ close_item_activated_cb (EogImageView *image_view, gpointer data)
 #endif
 
 GtkWidget *
-eog_full_screen_new (EogImage *image)
+eog_full_screen_new (GList *image_list, EogImage *start_image)
 {
 	EogFullScreen *fs;
+	EogFullScreenPrivate *priv;
 	GtkWidget     *widget;
 	GdkColor      black;
 
-	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
+	g_return_val_if_fail (image_list != NULL, NULL);
 
 	fs = g_object_new (EOG_TYPE_FULL_SCREEN, 
 			   "type", GTK_WINDOW_POPUP, NULL);
+	priv = fs->priv;
 
 	widget = eog_scroll_view_new ();
-	fs->priv->view = widget;
+	priv->view = widget;
 
 #if 0
 	/* FIXME: the context menu should have a close item */
-	g_signal_connect (fs->priv->image_view, "close_item_activated",
+	g_signal_connect (priv->image_view, "close_item_activated",
 			  G_CALLBACK (close_item_activated_cb), fs);
 #endif
 	if (gdk_color_black (gdk_colormap_get_system (), &black)) {
@@ -222,10 +324,19 @@ eog_full_screen_new (EogImage *image)
 	}
 
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), TRUE);
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (widget), image);
+
+	priv->image_list = image_list;
+	priv->single_image = (g_list_length (priv->image_list) == 1);
+	if (start_image != NULL) 
+		priv->current_node = g_list_find (image_list, start_image);
+	else
+		priv->current_node = NULL;
 
 	gtk_widget_show (widget);
 	gtk_container_add (GTK_CONTAINER (fs), widget);
+
+	view_image (fs, priv->current_node);
+
 
 	return GTK_WIDGET (fs);
 }

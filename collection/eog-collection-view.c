@@ -37,7 +37,7 @@
 #include "eog-collection-view.h"
 #include "eog-collection-model.h"
 #include "eog-collection-marshal.h"
-/* #include "eog-slide-show.h" */
+#include "eog-full-screen.h"
 
 enum {
 	PROP_WINDOW_TITLE,
@@ -97,15 +97,13 @@ verb_SlideShow_cb (BonoboUIComponent *uic,
 		   gpointer user_data,
 		   const char *cname)
 {
-#if 0
 	EogCollectionView *view;
 	GtkWidget *show;
 
 	view = EOG_COLLECTION_VIEW (user_data);
 
-	show = eog_slide_show_new (view->priv->model);
+	show = eog_full_screen_new (eog_collection_model_get_image_list (view->priv->model), NULL);
 	gtk_widget_show (show);
-#endif
 }
 
 
@@ -582,6 +580,9 @@ create_user_interface (EogCollectionView *list_view)
 	
 	gtk_paned_pack1 (GTK_PANED (paned), priv->scroll_view, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (paned), sw, TRUE, TRUE);
+
+	/* by default make the wrap list keyboard active */
+	gtk_widget_grab_focus (priv->wraplist);
 
 	gtk_widget_show_all (paned);
 	gtk_widget_show_all (sw);
