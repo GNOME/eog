@@ -58,7 +58,10 @@ eog_collection_LDADD = 			\
 	../libeog/libeog.la
 
 oafdir = $(datadir)/oaf
-OAF_FILES = GNOME_EOG_Collection.oafinfo
-oaf_DATA = $(OAF_FILES)
 
-EXTRA_DIST = $(OAF_FILES)
+oaf_in_files = GNOME_EOG_Collection.oaf.in
+oaf_DATA = $(oaf_in_files:.oaf.in=.oaf)
+
+@XML_I18N_MERGE_OAF_RULE@
+
+EXTRA_DIST = $(oaf_in_files) $(oaf_DATA)

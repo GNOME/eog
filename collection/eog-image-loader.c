@@ -305,14 +305,11 @@ eog_image_loader_start (EogImageLoader *loader)
 
 	if (loader->priv->model == NULL) return;
 
-	g_print ("eog-image-loader: start image loading\n");
-
 	if (loader->priv->active == FALSE) {
 		/* start the loading process */
 		loader->priv->idle_handler_id = 
 			gtk_idle_add ((GtkFunction)real_image_loading, loader);
 
-		// real_image_loading (loader);
 		loader->priv->active = TRUE;
 	}
 }
