@@ -438,6 +438,11 @@ eog_image_save_png (EogImage *eog_image, Bonobo_Stream stream,
 
 #ifdef HAVE_JPEG
 
+/* Workaround broken libjpeg defining these that may
+ * collide w/ the ones in config.h
+ */
+#undef HAVE_STDDEF_H
+#undef HAVE_STDLIB_H
 #include <jpeglib.h>
 
 /* we are a "destination manager" as far as libjpeg is concerned */
