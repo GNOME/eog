@@ -49,6 +49,8 @@
 
 /* Commands from the popup menu */
 enum {
+	POPUP_ROTATE_CLOCKWISE,
+	POPUP_ROTATE_COUNTER_CLOCKWISE,
 	POPUP_ZOOM_IN,
 	POPUP_ZOOM_OUT,
 	POPUP_ZOOM_1,
@@ -769,13 +771,23 @@ popup_menu_cb (gpointer data, guint action, GtkWidget *widget)
 	case POPUP_CLOSE:
 		g_signal_emit (image_view, signals[CLOSE_ITEM_ACTIVATED], 0);
 		break;
-
+	case POPUP_ROTATE_COUNTER_CLOCKWISE:
+		apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_rotate_new (270));
+		break;
+	case POPUP_ROTATE_CLOCKWISE:
+		apply_transformation (EOG_IMAGE_VIEW (data), eog_transform_rotate_new (90));
+		break;
 	default:
 		g_assert_not_reached ();
 	}
 }
 
 static GtkItemFactoryEntry popup_entries[] = {
+	{ N_("/Rotate C_lockwise"), NULL, popup_menu_cb, POPUP_ROTATE_CLOCKWISE,
+	  "<Item>", NULL },
+	{ N_("/Rotate Counte_r Clockwise"), NULL, popup_menu_cb, POPUP_ROTATE_COUNTER_CLOCKWISE,
+	  "<Item>", NULL },
+	{ "/sep", NULL, NULL, 0, "<Separator>", NULL },
 	{ N_("/_Zoom In"), NULL, popup_menu_cb, POPUP_ZOOM_IN,
 	  "<StockItem>", GTK_STOCK_ZOOM_IN },
 	{ N_("/Zoom _Out"), NULL, popup_menu_cb, POPUP_ZOOM_OUT,
@@ -803,7 +815,7 @@ static void
 setup_item_factory (EogImageView *image_view, gboolean need_close_item)
 {
 	EogImageViewPrivate *priv;
-
+	
 	priv = image_view->priv;
 
 	priv->item_factory = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);

@@ -1,5 +1,19 @@
 2003-06-29  Jens Finke  <jens@triq.net>
 
+	* art/stock-rotate-90-16.png,
+	* art/stock-rotate-270-16.png,
+	* art/stock-rotate-180-16.png: New icons.
+	* art/Makefile.am (icons_DATA): Added new icons.
+
+	* viewer/eog-image-view-ui.xml: Added menu icons for rotate
+	operations.  
+
+	* viewer/eog-image-view.c (popup_menu_cb): Handle
+	rotate operations from context menu.
+	(popup_entries): Added rotate functions.
+	
+2003-06-29  Jens Finke  <jens@triq.net>
+
 	* libgpi/gpi-dialog.glade: Removed atk property strings, 
 	they don't seem to be necessary here - #116015.
 

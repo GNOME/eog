@@ -17,9 +17,12 @@
 	<cmd name="FullScreen"  _label="_Full Screen" accel="F11"/>
 	<cmd name="FlipHorizontal" _label="Flip _Horizontal"/>
 	<cmd name="FlipVertical" _label="Flip _Vertical"/>
-        <cmd name="Rotate90cw" _label="Rotate C_lockwise"/>
-	<cmd name="Rotate90ccw" _label="Rotate Counte_r Clockwise"/>
-	<cmd name="Rotate180" _label="Rotate 180 _Degrees"/>
+        <cmd name="Rotate90cw" _label="Rotate C_lockwise"
+             pixtype="filename" pixname="eog/stock-rotate-90-16.png"/>
+	<cmd name="Rotate90ccw" _label="Rotate Counte_r Clockwise"
+             pixtype="filename" pixname="eog/stock-rotate-270-16.png"/>
+	<cmd name="Rotate180" _label="Rotate 180 _Degrees"
+             pixtype="filename" pixname="eog/stock-rotate-180-16.png"/>
 </commands>
 
 <menu>
@@ -57,5 +60,12 @@
     </submenu>
 
 </menu>
+
+<!-- dockitem name="Toolbar">
+    <placeholder name="Extra Buttons Placeholder">
+            <toolitem name="Rotate90ccw" _label="Rotate Left" verb=""/>
+            <toolitem name="Rotate90cw" _label="Rotate Right" verb=""/>
+    </placeholder>
+</dockitem -->
 
 </Root>
