@@ -94,7 +94,7 @@ static void open_dnd_files (EogWindow *window, gboolean need_new_window);
 static BonoboWindowClass *parent_class;
 
 /* The list of all open windows */
-static GList *window_list;
+static GList *window_list = NULL;
 
 /* Drag target types */
 enum {
@@ -382,11 +382,10 @@ eog_window_destroy (GtkObject *object)
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (object));
 
-	if (getenv ("DEBUG_EOG"))
-		g_message ("Destroying EogWindow...");
-
 	window = EOG_WINDOW (object);
 	priv = window->priv;
+
+	window_list = g_list_remove (window_list, window);
 
 	if (priv->uri) {
 		g_free (priv->uri);
@@ -754,8 +753,6 @@ eog_window_close (EogWindow *window)
 {
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
-
-	window_list = g_list_remove (window_list, window);
 
 	gtk_widget_destroy (GTK_WIDGET (window));
 

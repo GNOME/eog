@@ -428,17 +428,17 @@ client_save_yourself_cb (GnomeClient *client,
 static void
 client_die_cb (GnomeClient *client, gpointer data)
 {
-	GList *l;
+	while (1) {
+		GList *l;
+		EogWindow *window;
 
-	do {
 		l = eog_get_window_list ();
-		if (l) {
-			EogWindow *window;
+		if (!l)
+			break;
 
-			window = EOG_WINDOW (l->data);
-			gtk_widget_destroy (GTK_WIDGET (window));
-		}
-	} while (l);
+		window = EOG_WINDOW (l->data);
+		eog_window_close (window);
+	}
 }
 
 int

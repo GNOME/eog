@@ -1,3 +1,14 @@
+2002-06-13  Federico Mena Quintero  <federico@ximian.com>
+
+	Fixes #85216.
+
+	* shell/eog-window.c (eog_window_destroy): Remove the window from
+	the window list here, not in eog_window_close().
+
+	* shell/main.c (client_die_cb): Use eog_window_close() rather than
+	gtk_widget_destroy() to close the windows.  This will terminate
+	the main loop when appropriate.
+
 2002-06-12  Federico Mena Quintero  <federico@ximian.com>
 
 	* shell/main.c (sort_startup_files): Create a list of filenames
