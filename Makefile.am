@@ -1,7 +1,5 @@
 SUBDIRS = art idl libgpi libeog viewer collection shell po help
 
-ACLOCAL_AMFLAGS = -I /usr/share/aclocal/gnome2-macros
-
 EXTRA_DIST = 			\
 	DEPENDS			\
 	HACKING			\
