@@ -1,5 +1,5 @@
 # Serbian translation of eog
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004, 2005.
 #
 # This file is distributed under the same license as the eog package.
 #
@@ -9,21 +9,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2004-09-17 10:32+0200\n"
-"Last-Translator: Goran Rakić <gox@devbase.net>\n"
+"POT-Creation-Date: 2005-03-02 13:07+0100\n"
+"PO-Revision-Date: 2005-03-02 13:11+0100\n"
+"Last-Translator: Danilo Šegan <danilo@gnome.org>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: eog.desktop.in.h:1
+#: eog.desktop.in.in.h:1
 msgid "Image Viewer"
 msgstr "Preglednik slika"
 
-#: eog.desktop.in.h:2
+#: eog.desktop.in.in.h:2
 msgid "View many different types of images"
 msgstr "Prikaži mnogo različitih tipova slika"
 
@@ -93,8 +92,8 @@ msgid "Destination Folder:"
 msgstr "Odredišni direktorijum:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Postavke EOG programa"
+msgid "Eye of GNOME Preferences"
+msgstr "Postavke Oka Gnoma"
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -175,17 +174,17 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"Utvrđuje način obeležavanja providnosti. Ispravne vrednosti su "
-"CHECK_PATTERN, COLOR i NONE. Ako je izabran način COLOR, onda ključ "
-"trans_color određuje koja će boja biti korišćena."
+"Utvrđuje način obeležavanja providnosti. Ispravne vrednosti su CHECK_PATTERN, "
+"COLOR i NONE. Ako je izabran način COLOR, onda ključ trans_color određuje "
+"koja će boja biti korišćena."
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-"Ako podešavanje providnosti ima vrednost COLOR, onda ovaj ključ utvrđuje "
-"boju koja će biti korišćena za obeležavanje providnosti."
+"Ako podešavanje providnosti ima vrednost COLOR, onda ovaj ključ utvrđuje boju "
+"koja će biti korišćena za obeležavanje providnosti."
 
 #: eog.schemas.in.h:7
 msgid ""
@@ -208,22 +207,30 @@ msgid "Open images in a new window"
 msgstr "Otvori sliku u novom prozoru"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Prikaži/sakrij podatke o slici za kolekciju."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "Prikaži/sakrij podatke o slici za pojedinačnu sliku."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Prikaži/sakrij liniju prozora sa stanjem."
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Prikaži/sakrij glavne alatke u prozoru."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Boja providnosti"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Obeleživač providnosti"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -231,12 +238,12 @@ msgstr ""
 "Da li prilikom otvaranja slike treba napraviti novi prozor umesto otvaranja "
 "slike u tekućem prozoru."
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Da li treba da se beskonačno vrti ciklus slika."
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -244,36 +251,40 @@ msgstr ""
 "Da li slika treba interpolirati prilikom uvećanja. Interpolirana, slika ima "
 "bolji kvalitet ali je to ponekad sporije nego prikaz slike bez interpolacije."
 
-#: libeog/eog-file-selection.c:124
+#: libeog/eog-file-selection.c:127
 msgid "All Files"
 msgstr "Sve datoteke"
 
-#: libeog/eog-file-selection.c:129
+#: libeog/eog-file-selection.c:132
 msgid "All Images"
 msgstr "Sve slike"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: libeog/eog-file-selection.c:150
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 # bug: plural-forms
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
+#: libeog/eog-file-selection.c:243
 #, c-format
 msgid "%s x %s pixel"
 msgstr "%s x %s tačaka"
 
-#: libeog/eog-file-selection.c:396
+#: libeog/eog-file-selection.c:405
+msgid "Open in new window"
+msgstr "Otvori u novom prozoru"
+
+#: libeog/eog-file-selection.c:431
 msgid "Load Image"
 msgstr "Učitaj sliku"
 
-#: libeog/eog-file-selection.c:404
+#: libeog/eog-file-selection.c:439
 msgid "Save Image"
 msgstr "Sačuvaj sliku"
 
-#: libeog/eog-file-selection.c:412
+#: libeog/eog-file-selection.c:447
 msgid "Open Folder"
 msgstr "Otvori direktorijum"
 
@@ -363,19 +374,17 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: libeog/eog-save-as-dialog-helper.c:137
+#: libeog/eog-save-as-dialog-helper.c:138
 msgid "Option not available."
 msgstr "Mogućnost nije dostupna."
 
-#: libeog/eog-save-as-dialog-helper.c:138
+#: libeog/eog-save-as-dialog-helper.c:139
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
-msgstr ""
-"Da koristite ovu mogućnost neophodna je biblioteka libexif. Instalirajte "
-"libexif (http://libexif.sf.net) i ponovo izgradite Oči Gnoma."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr "Da koristite ovu mogućnost neophodna je biblioteka libexif. Instalirajte libexif (http://libexif.sf.net) i ponovo izgradite Oko Gnoma."
 
-#: libeog/eog-save-as-dialog-helper.c:214
+#: libeog/eog-save-as-dialog-helper.c:215
 msgid "as is"
 msgstr "u trenutnom stanju"
 
@@ -444,10 +453,10 @@ msgstr ""
 "\n"
 "Prevod.org — prevod na srpski jezik."
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
-msgstr "Oči Gnoma"
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
+#: shell/main.c:520
+msgid "Eye of GNOME"
+msgstr "Oko Gnoma"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -456,53 +465,53 @@ msgstr "Pregledač i katalog slika za Gnoma."
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"Ne mogu da prikažem pomoć za korišćenje programa.\n"
+"Ne mogu da prikažem pomoć za Oko Gnoma.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Presnimiti datoteku %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Datoteka postoji. Želite li da je presnimite?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Preskoči"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Presnimi"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Greška pri čuvanju %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Ponovi"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Ne mogu da odredim oblik datoteke %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Koristite odgovarajući dodatak na ime datoteke ili izaberite oblik datoteke."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Greška pri čuvanju slika."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
@@ -510,161 +519,185 @@ msgstr[0] "Da li zaista želite li da prebacite %i sliku u smeće?"
 msgstr[1] "Da li zaista želite li da prebacite %i slike u smeće?"
 msgstr[2] "Da li zaista želite li da prebacite %i slika u smeće?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Ne mogu da pristupim smeću."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Greška pri brisanju slike %s"
 
 # bug: plural-forms
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i x %i tačaka  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_Datoteka"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "_Uređivanje"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "P_regled"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "_Pomoć"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_Nova"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Otvori novi prozor"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Otvori..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Otvori datoteku"
 
-#: shell/eog-window.c:2239
-msgid "Open _Directory..."
-msgstr "_Otvori direktorijum..."
+#: shell/eog-window.c:2280
+msgid "Open _Folder..."
+msgstr "Otvori _direktorijum..."
 
-#: shell/eog-window.c:2239
-msgid "Open a directory"
+#: shell/eog-window.c:2280
+msgid "Open a folder"
 msgstr "Otvori direktorijum"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "_Zatvori"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Zatvori prozor"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "_Postavke"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "Postavke Očiju Gnoma"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "Postavke Oka Gnoma"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Sadržaj"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Pomoć za korišćenje programa"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "_O programu"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "O ovom programu"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "Ala_tke"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Izmeni vidljivost glavnih alatki u tekućem prozoru"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "Linija sa _stanjem"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Izmeni vidljivost linije sa stanjem u tekućem prozoru"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_Sačuvaj"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "Sačuvaj _kao"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "_Opozovi"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Obrni _horizontalno"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Obrni _vertikalno"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "Rotiraj u s_meru kazaljke na satu"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotiraj suprotno od smera _kazaljke na satu"
 
 # bug: are we depending on UTF-8 capable gettext?
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Rotiraj za 180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Obriši"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "_Ceo ekran"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "U_većaj"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "U_manji"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "_Normalna veličina"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "Uklopi na _najbolji način"
 
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "_Podaci o slici"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Izmeni vidljivost površi sa podacima u tekućem prozoru"
+
+#: shell/eog-window.c:2374
+msgid "User interface description not found."
+msgstr "Nije nađen opis korisničkog sučelja."
+
+#: shell/main.c:67
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "Ne mogu da izgradim korisničko sučelja Oka Gnoma"
+
 # bug: plural-forms
-#: shell/main.c:236
+#: shell/main.c:258
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -673,20 +706,20 @@ msgstr ""
 "Istovremeno otvarate %i prozora. Želite da ih umesto toga otvorite kao "
 "kolekciju?"
 
-#: shell/main.c:240
+#: shell/main.c:262
 msgid "Open multiple single windows?"
 msgstr "Otvori više pojedinačnih prozora?"
 
-#: shell/main.c:244
+#: shell/main.c:266
 msgid "Single Windows"
 msgstr "Samostalni prozori"
 
-#: shell/main.c:246
+#: shell/main.c:268
 msgid "Collection"
 msgstr "Kolekcija"
 
 # bug: no need for plural-forms
-#: shell/main.c:298
+#: shell/main.c:320
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Datoteka nije nađena."
@@ -697,6 +730,20 @@ msgstr[2] "Datoteke nisu nađene."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Ne može da otvori „%s“"
+
+#: libeog/eog-util.c:40
+msgid " (invalid Unicode)"
+msgstr " (neispravan Unikod)"
+
+#: shell/eog-preferences.c:98
+msgid "Could not display help for Eye of GNOME"
+msgstr "Ne mogu da prikažem pomoć za Oko Gnoma"
+
+#~ msgid "Open _Directory..."
+#~ msgstr "_Otvori direktorijum..."
+
+#~ msgid "Open a directory"
+#~ msgstr "Otvori direktorijum"
 
 #~ msgid "Images: %i/%i"
 #~ msgstr "Slike: %i/%i"
@@ -712,9 +759,6 @@ msgstr "Ne može da otvori „%s“"
 
 #~ msgid "EOG Image collection view factory"
 #~ msgstr "Proizvodnja EOG pregleda kolekcija slika"
-
-#~ msgid "Image Collection"
-#~ msgstr "Kolekcija slika"
 
 #~ msgid "Image Collection Viewer"
 #~ msgstr "Preglednik kolekcija slika"
@@ -960,20 +1004,11 @@ msgstr "Ne može da otvori „%s“"
 #~ msgid "Cancel"
 #~ msgstr "Odustani"
 
-#~ msgid "Change the visibility of the statusbar in the current window"
-#~ msgstr "Izmeni vidljivost linije sa stanjem u tekućem prozoru"
-
-#~ msgid "Change the visibility of the toolbar in the current window"
-#~ msgstr "Izmeni vidljivost glavnih alatki u tekućem prozoru"
-
 #~ msgid "New"
 #~ msgstr "Novi prozor"
 
 #~ msgid "Open"
 #~ msgstr "Otvori"
-
-#~ msgid "Open in new window"
-#~ msgstr "Otvori u novom prozoru"
 
 #~ msgid "Open in this window"
 #~ msgstr "Otvori u ovom prozoru"
@@ -997,9 +1032,6 @@ msgstr "Ne može da otvori „%s“"
 #~ msgid "By Extension"
 #~ msgstr "Po ekstenziji"
 
-#~ msgid "Unsupported image file format for saving."
-#~ msgstr "Ne podržava snimanje ove vrste slika."
-
 #~ msgid "Determine File Type:"
 #~ msgstr "Odredi vrstu datoteke:"
 
@@ -1007,5 +1039,4 @@ msgstr "Ne može da otvori „%s“"
 #~ msgstr "Ne koristi uvećanje veće od 100%"
 
 #~ msgid "_Interpolate image on zoom (better quality but slower)"
-#~ msgstr ""
-#~ "_Interpoliraj sliku prilikom uvećanja (boljeg kvaliteta, ali sporije)"
+#~ msgstr "_Interpoliraj sliku prilikom uvećanja (boljeg kvaliteta, ali sporije)"
