@@ -459,7 +459,6 @@ eog_file_selection_new (GtkFileChooserAction action)
 	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
  	gtk_window_set_title (GTK_WINDOW (filesel), title);
 	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
-	gtk_window_set_default_size (GTK_WINDOW (filesel), 600, 400);
 
 	return filesel;
 }
@@ -488,7 +487,6 @@ eog_folder_selection_new (void)
 
 	gtk_window_set_title (GTK_WINDOW (filesel), _("Open Folder"));
 	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
-	gtk_window_set_default_size (GTK_WINDOW (filesel), 600, 400);
 
 	return filesel;
 }
