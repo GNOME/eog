@@ -193,6 +193,43 @@ image_view_get_type (void)
 	return image_view_type;
 }
 
+/* VOID:OBJECT,OBJECT (gtkmarshalers.list:69) */
+void
+gtk_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
+				 GValue       *return_value,
+				 guint         n_param_values,
+				 const GValue *param_values,
+				 gpointer      invocation_hint,
+				 gpointer      marshal_data)
+{
+  typedef void (*GMarshalFunc_VOID__OBJECT_OBJECT) (gpointer     data1,
+                                                    gpointer     arg_1,
+                                                    gpointer     arg_2,
+                                                    gpointer     data2);
+  register GMarshalFunc_VOID__OBJECT_OBJECT callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+
+  g_return_if_fail (n_param_values == 3);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_VOID__OBJECT_OBJECT) (marshal_data ? marshal_data : cc->callback);
+
+  callback (data1,
+            g_value_get_object (param_values + 1),
+            g_value_get_object (param_values + 2),
+            data2);
+}
+
 /* Class initialization function for the image view */
 static void
 image_view_class_init (ImageViewClass *class)
@@ -218,24 +255,24 @@ image_view_class_init (ImageViewClass *class)
 
   	image_view_signals[ZOOM_FIT] =
  		g_signal_new ("zoom_fit", 
-  				GTK_CLASS_TYPE (object_class),
- 				G_SIGNAL_RUN_FIRST,
-  				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
- 				NULL,
- 			       	NULL,
-  				gtk_marshal_NONE__NONE,
- 				G_TYPE_NONE,
- 			       	0);
+			      GTK_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      GTK_SIGNAL_OFFSET (ImageViewClass, zoom_fit),
+			      NULL,
+			      NULL,
+			      gtk_marshal_NONE__NONE,
+			      G_TYPE_NONE,
+			      0);
   	image_view_signals[ZOOM_CHANGED] =
  		g_signal_new ("zoom_changed",
-  				GTK_CLASS_TYPE(object_class),
- 				G_SIGNAL_RUN_FIRST,
-  				GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
- 				NULL,
- 				NULL,
- 				gtk_marshal_NONE__NONE,
- 				G_TYPE_NONE,
- 			       	0);
+			      GTK_CLASS_TYPE(object_class),
+			      G_SIGNAL_RUN_FIRST,
+			      GTK_SIGNAL_OFFSET (ImageViewClass, zoom_changed),
+			      NULL,
+			      NULL,
+			      gtk_marshal_NONE__NONE,
+			      G_TYPE_NONE,
+			      0);
   
   	object_class->destroy = image_view_destroy;
   	gobject_class->finalize = image_view_finalize;
@@ -243,16 +280,16 @@ image_view_class_init (ImageViewClass *class)
   	class->set_scroll_adjustments = image_view_set_scroll_adjustments;
   	widget_class->set_scroll_adjustments_signal =
  		g_signal_new ("set_scroll_adjustments",
- 				GTK_CLASS_TYPE(object_class),
- 				G_SIGNAL_RUN_LAST,
-  				GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
- 				NULL,
- 				NULL,
- 				gtk_marshal_NONE__POINTER_POINTER,
- 				G_TYPE_NONE,
- 			       	2,
-  				GTK_TYPE_ADJUSTMENT,
-  				GTK_TYPE_ADJUSTMENT);
+			      GTK_CLASS_TYPE(object_class),
+			      G_SIGNAL_RUN_LAST,
+			      GTK_SIGNAL_OFFSET (ImageViewClass, set_scroll_adjustments),
+			      NULL,
+			      NULL,
+			      gtk_marshal_VOID__OBJECT_OBJECT,
+			      G_TYPE_NONE,
+			      2,
+			      GTK_TYPE_ADJUSTMENT,
+			      GTK_TYPE_ADJUSTMENT);
 
 	widget_class->unmap = image_view_unmap;
 	widget_class->realize = image_view_realize;

@@ -1,3 +1,17 @@
+2002-01-15  Michael Meeks  <michael@ximian.com>
+
+	* eog-window.c (eog_window_construct): get rid of annoying
+	auto-activation & concomitant flickering.
+	(create_gtk_file_sel): use the (simpler) bonobo file
+	selection API - checkout gnome-file-selector to make this
+	really rock.
+	(open_delete_event): kill.
+	(open_cancel_clicked): kill.
+	(open_ok_clicked): fold into
+	(create_gtk_file_sel): here and fold into
+	(eog_window_open_dialog):
+	Remove all old crufty gnome file selector code.
+
 2001-12-28  Jens Finke <jens@triq.net>
 
 	* eog-shell-ui.xml: Renamed placeholder 'View' to

@@ -50,16 +50,6 @@ struct _EogWindowPrivate {
 	/* UIImage widget for our contents */
 	GtkWidget *ui;
 
-	/* The file selection widget used by this window.  We keep it around so
-	 * that it will preserve its cwd.
-	 */
-	GtkWidget *file_sel;
-#ifdef ENABLE_BONOBO_FILESEL
-	BonoboListener *listener;
-	Bonobo_EventSource_ListenerId id;
-	Bonobo_EventSource es;
-#endif
-
 	/* Our GConf client */
 	GConfClient *client;
 
@@ -268,31 +258,6 @@ eog_window_destroy (GtkObject *object)
 		bonobo_object_release_unref (priv->property_control, NULL);
 	priv->property_control = CORBA_OBJECT_NIL;
 	
-	if (priv->file_sel)
-		gtk_widget_destroy (priv->file_sel);
-	priv->file_sel = NULL;
-
-#ifdef ENABLE_BONOBO_FILESEL
-	if (priv->es != CORBA_OBJECT_NIL) {
-		CORBA_Environment ev;
-		CORBA_exception_init (&ev);
-			
-		if (priv->id) {
-			Bonobo_EventSource_removeListener (priv->es,
-							   priv->id,
-							   &ev);
-		}
-
-		bonobo_object_release_unref (priv->es, &ev);
-		CORBA_exception_free (&ev);
-	}
-	priv->es = CORBA_OBJECT_NIL;
-		
-	if (priv->listener)
-		bonobo_object_unref (BONOBO_OBJECT (priv->listener));
-	priv->listener = NULL;
-#endif
-
 	/* Clean up GConf-related stuff */
 	if (priv->client) {
 		gconf_client_notify_remove (priv->client, priv->sb_policy_notify_id);
@@ -594,7 +559,6 @@ eog_window_construct (EogWindow *window)
 	EogWindowPrivate *priv;
 	BonoboUIComponent *ui_comp;
 	gchar *fname;
-	GtkArg args[1];
 	GdkGeometry geometry;
 
 	g_return_if_fail (window != NULL);
@@ -634,6 +598,7 @@ eog_window_construct (EogWindow *window)
 
 	/* add control frame interface */
 	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (priv->ui_container));
+	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
 	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
 			  (GtkSignalFunc) activate_uri_cb, NULL);
 
@@ -650,6 +615,8 @@ eog_window_construct (EogWindow *window)
 				      GDK_HINT_BASE_SIZE | GDK_HINT_MIN_SIZE);
 	 
 #if 0
+	{
+	GtkArg args[1];
 	/* We want the window automatically shrink to the image
 	 * size. 
 	 */
@@ -657,6 +624,7 @@ eog_window_construct (EogWindow *window)
 	args[0].type = GTK_TYPE_BOOL;
 	GTK_VALUE_BOOL(args[0]) = TRUE;
 	gtk_object_setv(GTK_OBJECT(window), 1, args);
+	}
 #endif
 }
 
@@ -708,209 +676,6 @@ open_new_window (EogWindow *window, const char *filename)
 	}
 }
 
-/* OK button callback for the open file selection dialog */
-static void
-open_ok_clicked (GtkWidget *widget, gpointer data)
-{
-	GtkWidget *fs;
-	EogWindow *window;
-	EogWindowPrivate *priv;
-	char *filename;
-
-	fs = GTK_WIDGET (data);
-
-	window = EOG_WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
-	g_assert (window != NULL);
-
-	priv = window->priv;
-
-	filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs)));
-	gtk_widget_hide (fs);
-	
-	if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
-		open_new_window (window, filename);
-	else if (!eog_window_open (window, filename))
-		open_failure_dialog (GTK_WINDOW (window), filename);
-
-	g_free (filename);
-}
-
-/* Cancel button callback for the open file selection dialog */
-static void
-open_cancel_clicked (GtkWidget *widget, gpointer data)
-{
-	gtk_widget_hide (GTK_WIDGET (data));
-}
-
-/* Delete_event handler for the open file selection dialog */
-static gint
-open_delete_event (GtkWidget *widget, gpointer data)
-{
-	gtk_widget_hide (widget);
-	return TRUE;
-}
-
-static void
-create_gtk_file_sel (EogWindow *window)
-{
-	GtkAccelGroup *accel_group;
-	EogWindowPrivate *priv = window->priv;
-
-	priv->file_sel = gtk_file_selection_new (_("Open Image"));
-	gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
-	gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
-	gtk_object_set_data (GTK_OBJECT (priv->file_sel), "window", window);
-	
-	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->ok_button),
-			    "clicked",
-			    GTK_SIGNAL_FUNC (open_ok_clicked),
-			    priv->file_sel);
-	gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (priv->file_sel)->cancel_button),
-			    "clicked",
-			    GTK_SIGNAL_FUNC (open_cancel_clicked),
-			    priv->file_sel);
-	gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
-			    GTK_SIGNAL_FUNC (open_delete_event),
-			    window);
-	
-	accel_group = gtk_accel_group_new ();
-	gtk_window_add_accel_group (GTK_WINDOW (priv->file_sel), accel_group);
-	gtk_widget_add_accelerator (GTK_FILE_SELECTION (priv->file_sel)->cancel_button,
-				    "clicked",
-				    accel_group,
-				    GDK_Escape,
-				    0, 0);
-}
-
-#ifdef ENABLE_BONOBO_FILESEL
-
-static void
-listener_cb (BonoboListener *listener,
-	     char *event_name,
-	     CORBA_any *any,
-	     CORBA_Environment *ev,
-	     gpointer data)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
-
-	g_print ("listener_cb(): %s\n", event_name);
-
-	g_return_if_fail (EOG_IS_WINDOW (data));
-
-	window = EOG_WINDOW (data);
-	priv = window->priv;
-
-	if (!strcmp (event_name, "GNOME/FileSelector/Control:ButtonClicked:Action")) {		
-		CORBA_sequence_CORBA_string *seq;
-		char *uri;
-		int i, max;
-		gboolean open_new;
-
-		gtk_widget_hide (priv->file_sel);
-		open_new = gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL);
-		seq = any->_value;
-
-		/* FIXME: if we are opening in one window, we only
-		 * want one url this is temporary as file sel will
-		 * take care of this soon
-		 */
-
-		max = MIN (open_new ? seq->_length : 1, seq->_length);
-
-		g_return_if_fail (max > 0);
-
-		for (i = 0; i < max; i++) {
-			uri = seq->_buffer[i];
-
-#if 0
-			if (g_strncasecmp ("file:", uri, 5) == 0)
-				uri = g_strdup (uri+5);
-			else
-				uri = g_strdup (uri);
-#endif
-			g_print ("opening: %s\n", uri);
-
-			if (open_new)
-				open_new_window (window, uri);
-			else if (!eog_window_open (window, uri))
-				open_failure_dialog (GTK_WINDOW (window), uri);
-			
-			g_free (uri);
-		}
-	} else if (!strcmp (event_name, "GNOME/FileSelector/Control:ButtonClicked:Cancel")) {
-		gtk_widget_hide (priv->file_sel);
-	}
-}
-
-static void
-create_bonobo_file_sel (EogWindow *window)
-{
-	GtkWidget *control;
-	CORBA_Environment ev;
-	EogWindowPrivate *priv;	
-
-	Bonobo_Listener listener;
-	char *moniker_string;
-
-	priv = window->priv;
-
-	moniker_string = g_strdup_printf (
-		"OAFIID:GNOME_FileSelector_Control!"
-		"Application=Eog;"
-		"AcceptDirectories=True;"
-		"MimeTypes="
-		"All Images:image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm"
-		"|:image/png"
-		"|:image/gif"
-		"|:image/jpeg"
-		"|:image/x-bmp"
-		"|:image/x-ico"
-		"|:image/tiff"
-		"|:image/x-xpm;"
-		"MultipleSelection=%d", 
-		gconf_client_get_bool (priv->client,
-				       "/apps/eog/window/open_new_window", NULL));
-
-	control = bonobo_widget_new_control (moniker_string, CORBA_OBJECT_NIL);
-	g_free (moniker_string);
-
-	if (!control) {
-		create_gtk_file_sel (window);
-		return;
-	}
-
-	gtk_widget_show (control);
-
-	priv->file_sel = gtk_window_new (GTK_WINDOW_DIALOG);
-	gtk_widget_set_usize (priv->file_sel, 560, 450);
-	gtk_window_set_title (GTK_WINDOW (priv->file_sel), _("Open Image"));
-	gtk_signal_connect (GTK_OBJECT (priv->file_sel), "delete_event",
-			    GTK_SIGNAL_FUNC (open_delete_event),
-			    window);
-
-	gtk_container_add (GTK_CONTAINER (priv->file_sel), control);
-
-	gtk_window_set_transient_for (GTK_WINDOW (priv->file_sel), GTK_WINDOW (window));
-	gtk_window_set_modal (GTK_WINDOW (priv->file_sel), TRUE);
-
-	priv->listener = bonobo_listener_new (listener_cb, window);
-	listener = bonobo_object_corba_objref (BONOBO_OBJECT (priv->listener));
-
-	CORBA_exception_init (&ev);
-	priv->es = Bonobo_Unknown_queryInterface (
-		bonobo_widget_get_objref (BONOBO_WIDGET (control)),
-		"IDL:Bonobo/EventSource:1.0", &ev);
-	priv->id = Bonobo_EventSource_addListenerWithMask (priv->es, listener, 
-							   "GNOME/FileSelector/Control:ButtonClicked",
-							   &ev);
-
-	CORBA_exception_free (&ev);
-}
-
-#endif /* USE_BONOBO_FILE_SEL */
-
 /**
  * window_open_dialog:
  * @window: A window.
@@ -920,24 +685,24 @@ create_bonobo_file_sel (EogWindow *window)
 void
 eog_window_open_dialog (EogWindow *window)
 {
+	char *filename;
 	EogWindowPrivate *priv;
 
-	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
 	priv = window->priv;
 
-	if (!priv->file_sel) {
-#ifdef ENABLE_BONOBO_FILESEL
-		create_bonobo_file_sel (window);
-#else
-		create_gtk_file_sel (window);
-#endif
-		gnome_window_icon_set_from_default (GTK_WINDOW (priv->file_sel));
-	}
+	/* FIXME: we should specify only image mime types */
+	filename = bonobo_file_selector_open (
+		GTK_WINDOW (window), FALSE, _("Open Image"), NULL, NULL);
 
-	gtk_widget_show_now (priv->file_sel);
-	raise_and_focus (priv->file_sel);
+	if (filename) {
+		if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
+			open_new_window (window, filename);
+		else if (!eog_window_open (window, filename))
+			open_failure_dialog (GTK_WINDOW (window), filename);
+		g_free (filename);
+	}
 }
 
 #if 0
@@ -1009,8 +774,8 @@ check_for_control_properties (EogWindow *window)
 
 	priv = window->priv;
 	
-	ctrl_frame = bonobo_widget_get_control_frame
-						(BONOBO_WIDGET (priv->widget));
+	ctrl_frame = bonobo_widget_get_control_frame (
+		BONOBO_WIDGET (priv->widget));
 	if (ctrl_frame == NULL)
 		goto on_error;
 

@@ -419,7 +419,7 @@ eog_control_construct (EogControl    *control,
 			  "set_frame",
 			  G_CALLBACK (zoomable_set_frame_cb),
 			  control);
-	g_signal_connect (GTK_OBJECT (priv->zoomable),
+	g_signal_connect (G_OBJECT (priv->zoomable),
 			  "set_zoom_level",
 			  G_CALLBACK (zoomable_set_zoom_level_cb),
 			  control);
