@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.4\n"
-"POT-Creation-Date: 2001-02-16 15:04+0100\n"
+"POT-Creation-Date: 2001-03-01 21:16+0100\n"
 "PO-Revision-Date: 2000-06-13 02:25+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -33,7 +33,7 @@ msgstr "Preveri velikost"
 msgid "Dark checks"
 msgstr "Preverjanje temnih tonov"
 
-#: src/preferences-dialog.glade.h:5
+#: src/preferences-dialog.glade.h:5 viewer/eog-image-view.c:1000
 msgid "Display"
 msgstr "Prikaz"
 
@@ -399,50 +399,63 @@ msgid "Normal (_pseudocolor) dithering"
 msgstr "Obièajno zmanj¹evanje ¹tevila barv (_psevdo barve)"
 
 #: viewer/eog-image-view-ui.xml.h:14
+msgid "Save _As"
+msgstr "Shrani _kot"
+
+#: viewer/eog-image-view-ui.xml.h:15
 msgid "_Bilinear Interpolation"
 msgstr "_Bilinearna interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:16
 msgid "_Dither"
 msgstr "Zmanj¹evanje ¹tevila barv"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Hyperbolic Interpolation"
 msgstr "_Hiperpolièna interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:18
 msgid "_Interpolation"
 msgstr "_Interpolacija"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:19
 msgid "_Maximum (high color) dithering"
 msgstr "_Najveèje mo¾no ¹tevilo barv (polne barve)"
 
-#: viewer/eog-image-view-ui.xml.h:19
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_No dithering"
 msgstr "_Brez zmanj¹evanja ¹tevila barv"
 
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:21
 msgid "_Tiles Interpolation"
 msgstr "Interpolacije p_lo¹èic"
 
-#: viewer/eog-image-view-ui.xml.h:21
+#: viewer/eog-image-view-ui.xml.h:22
 msgid "_View"
 msgstr "_Pogled"
 
-#: viewer/eog-image-view.c:915
+#: viewer/eog-image-view.c:262
+#, c-format
+msgid "Could not save image as '%s': %s."
+msgstr "Nisem mogel shraniti slike kot '%s': %s."
+
+#: viewer/eog-image-view.c:293
+msgid "Save As"
+msgstr "Shrani kot"
+
+#: viewer/eog-image-view.c:1078
 msgid "Interpolation"
 msgstr "Interpolacija"
 
-#: viewer/eog-image-view.c:918
+#: viewer/eog-image-view.c:1081
 msgid "Dither"
 msgstr "Naèin zmanj¹evanja ¹tevila barv"
 
-#: viewer/eog-image-view.c:921
+#: viewer/eog-image-view.c:1084
 msgid "Check Type"
 msgstr "Preverjanje naèina"
 
-#: viewer/eog-image-view.c:924
+#: viewer/eog-image-view.c:1087
 msgid "Check Size"
 msgstr "Preverjanje velikosti"
 
@@ -492,9 +505,6 @@ msgstr "Pregledovalnik slik"
 
 #~ msgid "Save image collection `%s'?"
 #~ msgstr "Sharni zbirko slik `%s'?"
-
-#~ msgid "Save"
-#~ msgstr "Shrani"
 
 #~ msgid "Don't save"
 #~ msgstr "Ne shrani"
