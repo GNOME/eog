@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-24 04:30+0200\n"
-"PO-Revision-Date: 2004-10-24 05:22+0200\n"
+"POT-Creation-Date: 2004-10-25 03:38+0200\n"
+"PO-Revision-Date: 2004-10-25 10:06+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,8 +93,8 @@ msgid "Destination Folder:"
 msgstr "Cílový adresář:"
 
 #: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr "Nastavení Eye of Gnome"
+msgid "Eye of GNOME Preferences"
+msgstr "Nastavení Eye of GNOME"
 
 #: eog.glade.h:19
 msgid "Filename Format:"
@@ -208,22 +208,30 @@ msgid "Open images in a new window"
 msgstr "Otevírat obrázky v novém okně"
 
 #: eog.schemas.in.h:11
+msgid "Show/hide image information for collection."
+msgstr "Zobrazit/skrýt informace o obrázku pro kolekci."
+
+#: eog.schemas.in.h:12
+msgid "Show/hide image information for single image."
+msgstr "Zobrazit/skrýt informace o obrázku pro jednotlivý obrázek."
+
+#: eog.schemas.in.h:13
 msgid "Show/hide the window statusbar."
 msgstr "Zobrazovat/skrýt stavovou lištu okna"
 
-#: eog.schemas.in.h:12
+#: eog.schemas.in.h:14
 msgid "Show/hide the window toolbar."
 msgstr "Zobrazovat/skrýt lištu nástrojů okna."
 
-#: eog.schemas.in.h:13
+#: eog.schemas.in.h:15
 msgid "Transparency color"
 msgstr "Barva průhlednosti"
 
-#: eog.schemas.in.h:14
+#: eog.schemas.in.h:16
 msgid "Transparency indicator"
 msgstr "Indikátor průhlednosti"
 
-#: eog.schemas.in.h:15
+#: eog.schemas.in.h:17
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -231,12 +239,12 @@ msgstr ""
 "Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v "
 "aktuálním okně."
 
-#: eog.schemas.in.h:16
+#: eog.schemas.in.h:18
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Jestli má být sekvence obrázků zobrazována v nekonečné smyčce."
 
-#: eog.schemas.in.h:17
+#: eog.schemas.in.h:19
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -369,10 +377,8 @@ msgstr "Možnost není k dispozici."
 #: libeog/eog-save-as-dialog-helper.c:138
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
-msgstr ""
-"Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím "
-"libexif (http://libexif.sf.net) a znovu přeložte Eye of Gnome."
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr "Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím libexif (http://libexif.sf.net) a znovu přeložte Eye of GNOME."
 
 #: libeog/eog-save-as-dialog-helper.c:214
 msgid "as is"
@@ -441,10 +447,10 @@ msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>"
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2497
+#: shell/eog-window.c:319 shell/eog-window.c:2208 shell/eog-window.c:2543
 #: shell/main.c:520
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+msgid "Eye of GNOME"
+msgstr "Eye of GNOME"
 
 #: shell/eog-window.c:322
 msgid "The GNOME image viewing and cataloging program."
@@ -453,54 +459,54 @@ msgstr "Program pro prohlížení a katalogizaci obrázků pro GNOME"
 #: shell/eog-window.c:359
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
+"Could not display help for Eye of GNOME.\n"
 "%s"
 msgstr ""
-"Nemohu zobrazit nápovědu pro Eye of Gnome.\n"
+"Nemohu zobrazit nápovědu pro Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:626
+#: shell/eog-window.c:647
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Přepsat soubor %s?"
 
-#: shell/eog-window.c:627
+#: shell/eog-window.c:648
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Soubor existuje. Chcete jej přepsat?"
 
-#: shell/eog-window.c:636 shell/eog-window.c:649
+#: shell/eog-window.c:657 shell/eog-window.c:670
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:658
 msgid "Overwrite"
 msgstr "Přepsat"
 
-#: shell/eog-window.c:642
+#: shell/eog-window.c:663
 #, c-format
 msgid "Error on saving %s."
 msgstr "Chyba při ukládání %s."
 
-#: shell/eog-window.c:650 shell/eog-window.c:1034
+#: shell/eog-window.c:671 shell/eog-window.c:1055
 msgid "Retry"
 msgstr "Zkusit znovu"
 
-#: shell/eog-window.c:1023
+#: shell/eog-window.c:1044
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Nemohu určit formát souboru %s"
 
-#: shell/eog-window.c:1024
+#: shell/eog-window.c:1045
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Použijte prosím odpovídající příponu názvu souboru nebo zvolte formát "
 "souboru."
 
-#: shell/eog-window.c:1166
+#: shell/eog-window.c:1187
 msgid "Error on saving images."
 msgstr "Chyba při ukládání obrázků."
 
-#: shell/eog-window.c:1399
+#: shell/eog-window.c:1420
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
@@ -508,164 +514,180 @@ msgstr[0] "Opravdu chcete přesunout %i obrázek do koše?"
 msgstr[1] "Opravdu chcete přesunout %i obrázky do koše?"
 msgstr[2] "Opravdu chcete přesunout %i obrázků do koše?"
 
-#: shell/eog-window.c:1437
+#: shell/eog-window.c:1458
 msgid "Couldn't access trash."
 msgstr "Nemohu přistupovat ke koši."
 
-#: shell/eog-window.c:1511
+#: shell/eog-window.c:1532
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba při odstraňování obrázku %s"
 
 #. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
+#: shell/eog-window.c:2137
 #, c-format
 msgid "%i x %i pixel  %s    %i%%"
 msgstr "%i × %i pixelů  %s    %i%%"
 
-#: shell/eog-window.c:2233
+#: shell/eog-window.c:2274
 msgid "_File"
 msgstr "_Soubor"
 
-#: shell/eog-window.c:2234
+#: shell/eog-window.c:2275
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: shell/eog-window.c:2235
+#: shell/eog-window.c:2276
 msgid "_View"
 msgstr "_Zobrazení"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2277
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "_New"
 msgstr "_Nový"
 
-#: shell/eog-window.c:2237
+#: shell/eog-window.c:2278
 msgid "Open a new window"
 msgstr "Otevřít nové okno"
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "_Open..."
 msgstr "_Otevřít..."
 
-#: shell/eog-window.c:2238
+#: shell/eog-window.c:2279
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open _Folder..."
 msgstr "Otevřít _adresář..."
 
-#: shell/eog-window.c:2239
+#: shell/eog-window.c:2280
 msgid "Open a folder"
 msgstr "Otevřít adresář"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: shell/eog-window.c:2240
+#: shell/eog-window.c:2281
 msgid "Close window"
 msgstr "Zavřít okno"
 
-#: shell/eog-window.c:2241
+#: shell/eog-window.c:2282
 msgid "Prefere_nces"
 msgstr "_Nastavení"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr "Nastavení Eye of Gnome"
+#: shell/eog-window.c:2282
+msgid "Preferences for Eye of GNOME"
+msgstr "Nastavení Eye of GNOME"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: shell/eog-window.c:2242
+#: shell/eog-window.c:2283
 msgid "Help On this application"
 msgstr "Nápověda pro tuto aplikaci"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: shell/eog-window.c:2243
+#: shell/eog-window.c:2284
 msgid "About this application"
 msgstr "O této aplikaci"
 
-#: shell/eog-window.c:2248
+#: shell/eog-window.c:2289
 msgid "_Toolbar"
 msgstr "Lišta _nástrojů"
 
-#: shell/eog-window.c:2249
+#: shell/eog-window.c:2289
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "Změní viditelnost lišty nástrojů v aktuálním okně"
+
+#: shell/eog-window.c:2290
 msgid "_Statusbar"
 msgstr "_Stavová lišta"
 
-#: shell/eog-window.c:2254
+#: shell/eog-window.c:2290
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "Změní viditelnost stavové lišty v aktuálním okně"
+
+#: shell/eog-window.c:2295
 msgid "_Save"
 msgstr "_Uložit"
 
-#: shell/eog-window.c:2255
+#: shell/eog-window.c:2296
 msgid "Save _As"
 msgstr "Uložit _jako"
 
-#: shell/eog-window.c:2257
+#: shell/eog-window.c:2298
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: shell/eog-window.c:2259
+#: shell/eog-window.c:2300
 msgid "Flip _Horizontal"
 msgstr "Převrátit _vodorovně"
 
-#: shell/eog-window.c:2260
+#: shell/eog-window.c:2301
 msgid "Flip _Vertical"
 msgstr "Převrátit _svisle"
 
-#: shell/eog-window.c:2262
+#: shell/eog-window.c:2303
 msgid "_Rotate Clockwise"
 msgstr "Rotovat _po směru hodinových ručiček"
 
-#: shell/eog-window.c:2263
+#: shell/eog-window.c:2304
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotovat p_roti směru hodinových ručiček"
 
-#: shell/eog-window.c:2264
+#: shell/eog-window.c:2305
 msgid "Rotat_e 180°"
 msgstr "Rotovat o _180°"
 
-#: shell/eog-window.c:2266
+#: shell/eog-window.c:2307
 msgid "Delete"
 msgstr "Odstranit"
 
-#: shell/eog-window.c:2268
+#: shell/eog-window.c:2309
 msgid "_Full Screen"
 msgstr "_Celá obrazovka"
 
-#: shell/eog-window.c:2269
+#: shell/eog-window.c:2310
 msgid "_Zoom In"
 msgstr "Z_většit"
 
-#: shell/eog-window.c:2270
+#: shell/eog-window.c:2311
 msgid "Zoom _Out"
 msgstr "Z_menšit"
 
-#: shell/eog-window.c:2271
+#: shell/eog-window.c:2312
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: shell/eog-window.c:2272
+#: shell/eog-window.c:2313
 msgid "Best _Fit"
 msgstr "Nejlepší _velikost"
 
-#: shell/eog-window.c:2328
+#: shell/eog-window.c:2318
+msgid "Image _Information"
+msgstr "_Interpolace obrázku"
+
+#: shell/eog-window.c:2318
+msgid "Change the visibility of the information pane in the current window"
+msgstr "Změnit viditelnost panelu s informacemi v aktuálním okně"
+
+#: shell/eog-window.c:2374
 msgid "User interface description not found."
 msgstr "Popis uživatelského rozhraní nenalezen."
 
 #: shell/main.c:67
-msgid "Unable to create Eye of Gnome user interface"
-msgstr "Nemohu vytvořit uživatelské rozhrany Eye of Gnome"
+msgid "Unable to create Eye of GNOME user interface"
+msgstr "Nemohu vytvořit uživatelské rozhraní Eye of GNOME"
 
 #: shell/main.c:258
 #, c-format
