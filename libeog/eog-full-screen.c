@@ -583,6 +583,7 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), 
 					   single_image);
 		g_object_unref (single_image);
+		priv->switch_timeout = 0; /* disable automatic switching always */
 	}
 	else {
 		priv->direction = EOG_DIRECTION_FORWARD;
