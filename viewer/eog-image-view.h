@@ -52,6 +52,7 @@ void                eog_image_view_set_ui_container    (EogImageView       *imag
 							Bonobo_UIContainer  ui_container);
 void                eog_image_view_unset_ui_container  (EogImageView       *image_view);
 GtkWidget          *eog_image_view_get_widget          (EogImageView       *image_view);
+void		    eog_image_view_print               (EogImageView       *image_view, gboolean preview);
 
 
 /* Zooming */

@@ -44,6 +44,8 @@ eog_image_viewer_SOURCES =	\
 	eog-embeddable.h	\
 	eog-embeddable-view.c	\
 	eog-embeddable-view.h	\
+	eog-print-setup.c	\
+	eog-print-setup.h	\
 	eog-util.h		\
 	eog-util.c		\
 	preferences.h		\
@@ -54,6 +56,7 @@ eog_image_viewer_LDADD = 			\
 	$(GNOME_LIBS)				\
 	$(GNOME_LIBDIR)				\
 	$(GNOME_LIBS)				\
+	$(GCONF_LIBS)				\
 	$(OAF_LIBS)				\
 	$(INTLLIBS)				\
 	$(EXTRA_BONOBO_LIBS)			\

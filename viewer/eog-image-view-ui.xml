@@ -1,4 +1,15 @@
 <Root>
+  <commands>
+    <cmd name="PrintSetup" _label="Print S_etup" 
+         _tip="Setup the page settings for your current printer" 
+	 pixtype="stock" pixname="Print"/>
+    <cmd name="PrintPreview" _label="Print Pre_view"
+         _tip="Previews the image to be printed"
+	 pixtype="pixbuf"/>
+    <cmd name="Print" _label="_Print"
+         _tip="Print image to the printer"
+	 pixtype="stock" pixname="Print" accel="*Control*P"/>
+  </commands>
   <menu>
 
     <submenu name="File">
@@ -8,12 +19,9 @@
       </placeholder>
 
       <placeholder name="Print">
-	<menuitem name="PrintPreview" verb="" _label="Print Preview"
-                  _tip="Previews the image to be printed"
-                  pixtype="pixbuf"/>
-        <menuitem name="Print" verb="" _label="Print..."
-                  _tip="Print image to the printer"
-                  pixtype="stock" pixname="Print" accel="*Control*P"/>
+        <menuitem name="PrintSetup" verb=""/>
+	<menuitem name="PrintPreview" verb=""/>
+        <menuitem name="Print" verb=""/>
       </placeholder>
 
     </submenu>

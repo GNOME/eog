@@ -1,3 +1,14 @@
+2001-03-20  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
+	
+	* eog-print-setup.[ch]: New files
+	* Makefile.am: Add above files and GCONF_LIBS, as we use gconf now
+	* eog-image-view-ui.xml: Add menuitem "Print Setup"
+	* eog-image-view.h: 
+	(eog_image_view_print): New function, was do_print, now used by
+	eog-print-setup, too
+	* eog-image-view.c: When printing, consider what the user specified 
+	via the new print-setup-dialog.
+
 2001-03-18  Lutz Müller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-image-view-ui.xml: Added menuitems for printing operations.
