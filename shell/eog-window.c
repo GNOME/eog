@@ -543,7 +543,7 @@ eog_window_has_contents (EogWindow *window)
 {
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
-	return (bonobo_control_frame_get_control (window->priv->ctrl_frame) != CORBA_OBJECT_NIL);
+	return (window->priv->ctrl_frame != NULL);
 }
 
 /* Drag_data_received handler for windows */
@@ -654,10 +654,7 @@ eog_window_construct (EogWindow *window)
 	gtk_widget_show (GTK_WIDGET (priv->statusbar));
 
 	/* add control frame interface */
-	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (ui_container));
-	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
-	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
-			  (GtkSignalFunc) activate_uri_cb, NULL);
+	priv->ctrl_frame = NULL;
 
 	set_drag_dest (window);
 
@@ -907,6 +904,7 @@ eog_window_open (EogWindow *win, const char *iid, const char *text_uri, GError *
 gboolean
 eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, GError **error)
 {
+	BonoboUIContainer *ui_container;
 	Bonobo_Control control;
 	Bonobo_PersistFile pfile;
 	CORBA_Environment ev;
@@ -923,12 +921,23 @@ eog_window_open_list (EogWindow *window, const char *iid, GList *text_uri_list, 
 	CORBA_exception_init (&ev);
 
 	/* remove previously loaded control */
-	if (priv->ctrl_widget != NULL) {
+	if (priv->ctrl_frame != NULL) {
 		gtk_container_remove (GTK_CONTAINER (priv->box), 
 				      GTK_WIDGET (priv->ctrl_widget));
+		bonobo_object_unref (priv->ctrl_frame);
+		gtk_widget_destroy (priv->ctrl_widget);
 		priv->ctrl_widget = NULL;
-		bonobo_control_frame_bind_to_control (priv->ctrl_frame, CORBA_OBJECT_NIL, &ev);
+		priv->ctrl_frame = NULL;
 	}
+	g_assert (priv->ctrl_frame == NULL);
+
+	/* create control frame */
+	ui_container = bonobo_window_get_ui_container (BONOBO_WINDOW (window));
+	priv->ctrl_frame = bonobo_control_frame_new (BONOBO_OBJREF (ui_container));
+	bonobo_control_frame_set_autoactivate (priv->ctrl_frame, FALSE);
+	g_signal_connect (G_OBJECT (priv->ctrl_frame), "activate_uri",
+			  (GtkSignalFunc) activate_uri_cb, NULL);
+
 	priv->desired_width = -1;
 	priv->desired_height = -1;
 

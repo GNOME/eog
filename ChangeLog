@@ -1,5 +1,13 @@
 2003-03-03  Jens Finke  <jens@triq.net>
 
+	* shell/eog-window.c (eog_window_has_contents): Check for
+	ctrl_frame != NULL.
+	(eog_window_construct): Don't create BonoboControlFrame here ...
+	(eog_window_open_list): ... but here. So we get a fresh control
+ 	frame for each new BonoboControl.
+
+2003-03-03  Jens Finke  <jens@triq.net>
+
 	* eog.desktop.in: Changed name to 'Image Viewer' (#12705).
 
 2003-03-03  Jens Finke  <jens@triq.net>
