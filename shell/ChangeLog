@@ -1,5 +1,11 @@
 2002-02-03  Jens Finke <jens@triq.net>
 
+	* eog-window.c (eog_window_drag_data_received): Use new gnome vfs
+	API to extract filenames. This fixes drag'n'drop handling for
+	Gnome2.
+
+2002-02-03  Jens Finke <jens@triq.net>
+
 	* eog-window.c (eog_window_construct): Set sane default window
 	size, fixed automatic window resizing.
 	(auto_size),

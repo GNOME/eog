@@ -440,25 +440,20 @@ eog_window_drag_data_received (GtkWidget *widget,
 			break;
 		}
 	} else {
-		/* The first image is opened in the same window only if the
+ 		/* The first image is opened in the same window only if the
 		* current window has no image in it.
 		*/
 		need_new_window = eog_window_has_contents (window);		
 	}
 
-#if 0
-	/* FIXME: This should use GnomeVFS later and it should not strip the
-	 * method prefix.
-	 */
-	filenames = gnome_uri_list_extract_filenames (selection_data->data);
-#endif
+	filenames = gnome_vfs_uri_list_parse (selection_data->data);
 
 	for (l = filenames; l; l = l->next) {
 		GtkWidget *new_window;
 		char *filename;
 
 		g_assert (l->data != NULL);
-		filename = l->data;
+		filename = gnome_vfs_uri_to_string (l->data, GNOME_VFS_URI_HIDE_NONE);
 
 		if (need_new_window)
 			new_window = eog_window_new ();
@@ -476,9 +471,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 		}
 	}
 
-#if 0
-	gnome_uri_list_free_strings (filenames);
-#endif 
+	gnome_vfs_uri_list_free (filenames);
 }
 
 /**
