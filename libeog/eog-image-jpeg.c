@@ -253,14 +253,10 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_write_coefficients (&dstinfo, dst_coef_arrays);
 
 	/* handle EXIF/IPTC data explicitly */
-	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
-	g_assert ((priv->exif_chunk != NULL && priv->exif == NULL) || priv->exif_chunk == NULL);
-	if (priv->exif_chunk != NULL) {
-		g_print ("save exif raw data\n");
-		jpeg_write_marker (&dstinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
-	}
 #if HAVE_EXIF
-	else if (priv->exif != NULL)
+	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
+	g_assert (priv->exif_chunk == NULL);
+	if (priv->exif != NULL)
 	{
 		unsigned char *exif_buf;
 		unsigned int   exif_buf_len;
@@ -269,6 +265,11 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&dstinfo, JPEG_APP0+1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
+	}
+#else
+	if (priv->exif_chunk != NULL) {
+		g_print ("save exif raw data\n");
+		jpeg_write_marker (&dstinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
 	}
 #endif
 	/* FIXME: Consider IPTC data too */
@@ -382,13 +383,9 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_start_compress (&cinfo, TRUE);
 	
 	/* write EXIF/IPTC data explicitly */
-	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
-	g_assert ((priv->exif_chunk != NULL && priv->exif == NULL) || priv->exif_chunk == NULL);
-	if (priv->exif_chunk != NULL) {
-		g_print ("save exif raw data\n");
-		jpeg_write_marker (&cinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
-	}
 #if HAVE_EXIF
+	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
+	g_assert (priv->exif_chunk == NULL);
 	if (priv->exif != NULL)
 	{
 		unsigned char *exif_buf;
@@ -398,6 +395,11 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
+	}
+#else
+	if (priv->exif_chunk != NULL) {
+		g_print ("save exif raw data\n");
+		jpeg_write_marker (&cinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
 	}
 #endif
 	/* FIXME: Consider IPTC data too */
