@@ -14,7 +14,7 @@ EXTRA_DIST =			\
 	intltool-update.in	\
 	intltool-merge.in
 
-Graphicsdir = $(datadir)/gnome/apps/Graphics
+Graphicsdir = $(datadir)/applications
 Graphics_in_files = eog.desktop.in
 Graphics_DATA = $(Graphics_in_files:.desktop.in=.desktop)
 

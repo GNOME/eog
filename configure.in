@@ -56,50 +56,54 @@ fi
 AC_SUBST(GCONF_CONFIG_SOURCE)
 AC_SUBST(INSTALL_GCONF_CONFIG_SOURCE)
 
-dnl ******************************
+dnl *******************************************************
 dnl Check for evolution
-dnl ******************************
-try_evolution=false
-evolution=no
-AC_ARG_WITH(evolution,
-	[  --{with,without}-evolution          Use evolution to send images.],
-	if test x$withval = xno; then
-		try_evolution=false
-	fi
-)
-try_evolution=false
-if $try_evolution; then
-	path_to_composer_idl=`gnome-config --datadir`/idl/Evolution-Composer.idl
-	AC_CHECK_FILE($path_to_composer_idl, evolution=yes, evolution=no)
-	if test x"$evolution" = "xyes"; then
-		AC_DEFINE(ENABLE_EVOLUTION)
-	fi
-fi
-dnl
-dnl  We need to port Evolution to Gnome 2.0 first.
-dnl
+dnl *******************************************************
+dnl --> Reenable this if evolution is ported to gnome 2 <--
+dnl *******************************************************
+dnl  try_evolution=false
+dnl  evolution=no
+dnl  AC_ARG_WITH(evolution,
+dnl  	     [  --{with,without}-evolution          Use evolution to send images.],
+dnl  	     if test x$withval = xno; then
+dnl  		     try_evolution=false
+dnl  	     fi
+dnl  )
+dnl  try_evolution=false
+dnl  if $try_evolution; then
+dnl  	     path_to_composer_idl=`gnome-config --datadir`/idl/Evolution-Composer.idl
+dnl  	     AC_CHECK_FILE($path_to_composer_idl, evolution=yes, evolution=no)
+dnl  	     if test x"$evolution" = "xyes"; then
+dnl  		     AC_DEFINE(ENABLE_EVOLUTION)
+dnl  	     fi
+dnl  fi
 evolution=no
 AM_CONDITIONAL(ENABLE_EVOLUTION, false)
 
-dnl ******************************
+dnl *******************************************************
 dnl Check for GnoCam
-dnl ******************************
-try_gnocam=true
+dnl *******************************************************
+dnl --> Reenable this if GnoCam is ported to gnome 2 and 
+dnl     someone has tested this <--
+dnl *******************************************************
+dnl  try_gnocam=true
+dnl  gnocam=no
+dnl  AC_ARG_WITH(gnocam,
+dnl  	     [  --{with,without}-gnocam             Use gnocam to acquire images.],
+dnl  	     if test x$withval = xno; then
+dnl  		     try_gnocam=false
+dnl  	     fi
+dnl  )
+dnl  if $try_gnocam; then
+dnl  	     path_to_gnocam_idl=`gnome-config --datadir`/idl/GnoCam.idl
+dnl  	     AC_CHECK_FILE($path_to_gnocam_idl, gnocam=yes, gnocam=no)
+dnl  	     if test x"$gnocam" = "xyes"; then
+dnl  		     AC_DEFINE(ENABLE_GNOCAM)
+dnl  	     fi
+dnl  fi
+dnl  AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
 gnocam=no
-AC_ARG_WITH(gnocam,
-	[  --{with,without}-gnocam             Use gnocam to acquire images.],
-	if test x$withval = xno; then
-		try_gnocam=false
-	fi
-)
-if $try_gnocam; then
-	path_to_gnocam_idl=`gnome-config --datadir`/idl/GnoCam.idl
-	AC_CHECK_FILE($path_to_gnocam_idl, gnocam=yes, gnocam=no)
-	if test x"$gnocam" = "xyes"; then
-		AC_DEFINE(ENABLE_GNOCAM)
-	fi
-fi
-AM_CONDITIONAL(ENABLE_GNOCAM, test x"$gnocam" = "xyes")
+AM_CONDITIONAL(ENABLE_GNOCAM, false)
 
 
 EOG_MODULES="gnome-vfs-2.0 libgnomeprint-2.0 libgnomeui-2.0 libbonoboui-2.0 bonobo-activation-2.0"
@@ -239,8 +243,6 @@ Configuration:
 	Source code location:	  ${srcdir}
 	Compiler:		  ${CC} 
 
-	Use Evolution:            $evolution
-	Use GnoCam:               $gnocam
 	Extra Compiler Warnings:  ${EXTRA_WARNING_CFLAGS}
 	
 "
