@@ -313,7 +313,8 @@ eog_control_set_ui_container (EogControl *control,
 	uic = bonobo_control_get_ui_component (BONOBO_CONTROL (control));
 	bonobo_ui_component_set_container (uic, ui_container, NULL);
 
-	eog_control_create_ui (control);
+	if (!control->priv->has_zoomable_frame)
+		eog_control_create_ui (control);
 }
 
 static void
