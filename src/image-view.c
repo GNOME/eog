@@ -53,6 +53,10 @@
 
 #define SCROLL_STEP_SIZE 32
 
+/* Maximum zoom factor */
+
+#define MAX_ZOOM_FACTOR 128
+
 /* Private part of the ImageView structure */
 typedef struct {
 	/* Image being displayed */
@@ -1661,6 +1665,9 @@ image_view_set_zoom (ImageView *view, double zoom)
 	g_return_if_fail (zoom > 0.0);
 
 	priv = view->priv;
+
+	if (zoom > MAX_ZOOM_FACTOR)
+		zoom = MAX_ZOOM_FACTOR;
 
 	if (priv->zoom == zoom)
 		return;
