@@ -5,7 +5,6 @@
  *   Michael Meeks (mmeeks@gnu.org)
  *
  * TODO:
- *    Get rid of temp file!
  *    Progressive loading.
  *    Do not display more than required
  *    Queue request-resize on image size change/load
@@ -21,6 +20,7 @@
 #include <libgnorba/gnorba.h>
 #include <bonobo/gnome-bonobo.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gdk-pixbuf/gdk-pixbuf-loader.h>
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
 #include <libart_lgpl/art_pixbuf.h>
@@ -28,12 +28,17 @@
 #include <libart_lgpl/art_alphagamma.h>
 
 /*
+ * Number of running objects
+ */ 
+static int running_objects = 0;
+static GnomeEmbeddableFactory *factory = NULL;
+
+/*
  * BonoboObject data
  */
 typedef struct {
 	GnomeEmbeddable *bonobo_object;
 	GdkPixbuf       *pixbuf;
-	char            *repoid;
 } bonobo_object_data_t;
 
 /*
@@ -75,18 +80,23 @@ release_pixbuf (bonobo_object_data_t *bod)
 }
 
 static void
-bod_destroy (bonobo_object_data_t *bod)
+bod_destroy_cb (GnomeEmbeddable *embeddable, bonobo_object_data_t *bod)
 {
         if (!bod)
 		return;
 
 	release_pixbuf (bod);
 
-	if (bod->repoid)
-		g_free (bod->repoid);
-	bod->repoid = NULL;
-
 	g_free (bod);
+
+	running_objects--;
+	if (running_objects > 0)
+		return;
+	/*
+	 * When last object has gone unref the factory & quit.
+	 */
+	gnome_object_unref (GNOME_OBJECT (factory));
+	gtk_main_quit ();
 }
 
 static GdkPixbuf *
@@ -114,6 +124,12 @@ redraw_view (view_data_t *view_data, GdkRectangle *rect)
 	g_return_if_fail (buf != NULL);
 
 	pixbuf = buf->art_pixbuf;
+
+	g_return_if_fail (pixbuf != NULL);
+
+	/* No drawing area yet ! */
+	if (!view_data->drawing_area->window)
+		return;
 
 	/*
 	 * Do not draw outside the region that we know how to display
@@ -163,6 +179,7 @@ configure_size (view_data_t *view_data, GdkRectangle *rect)
 	ArtPixBuf *pixbuf;
 
 	g_return_if_fail (buf != NULL);
+	g_return_if_fail (view_data != NULL);
 
 	pixbuf = buf->art_pixbuf;
 
@@ -182,6 +199,8 @@ redraw_all_cb (GnomeView *view, void *data)
 {
 	GdkRectangle rect;
 	view_data_t *view_data;
+
+	g_return_if_fail (view != NULL);
 
 	view_data = gtk_object_get_data (GTK_OBJECT (view),
 					 "view_data");
@@ -203,74 +222,65 @@ view_update (view_data_t *view_data)
 }
 
 /*
- * Callback for reading from a stream.
+ * Loads an Image from a GNOME_Stream
  */
-static char *
-copy_to_file (GNOME_Stream stream)
+static int
+load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
 {
-	char *tmpn;
-	int   fd;
-	CORBA_Environment ev;
-	GNOME_Stream_iobuf *buffer;
-
-	tmpn = tempnam ("/tmp", "gimage");
-	g_return_val_if_fail (tmpn != NULL, NULL);
-
-	g_warning ("Opening tmp file '%s'", tmpn);
-	fd = open (tmpn, O_WRONLY | O_CREAT | O_EXCL,
-		   S_IWUSR | S_IRUSR);
-	perror ("tmp file error ");
-	g_return_val_if_fail (fd != -1, NULL);
+	int                   retval = 0;
+	bonobo_object_data_t *bod = data;
+	GdkPixbufLoader      *loader = gdk_pixbuf_loader_new ();
+	GNOME_Stream_iobuf   *buffer;
+	CORBA_Environment     ev;
 
 	CORBA_exception_init (&ev);
 
 	do {
 		buffer = GNOME_Stream_iobuf__alloc ();
 		GNOME_Stream_read (stream, 4096, &buffer, &ev);
-		write (fd, buffer->_buffer, buffer->_length);
+		if (buffer->_buffer &&
+		    (ev._major != CORBA_NO_EXCEPTION ||
+		     !gdk_pixbuf_loader_write (loader,
+					       buffer->_buffer,
+					       buffer->_length))) {
+			if (ev._major != CORBA_NO_EXCEPTION)
+				g_warning ("Fatal error loading from stream");
+			else
+				g_warning ("Fatal image format error");
+
+			gdk_pixbuf_loader_close (loader);
+			gtk_object_destroy (GTK_OBJECT (loader));
+			CORBA_free (buffer);
+			CORBA_exception_free (&ev);
+			return -1;
+		}
 		CORBA_free (buffer);
 	} while (buffer->_length > 0);
 
+	bod->pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+	gdk_pixbuf_ref (bod->pixbuf);
+	gdk_pixbuf_loader_close (loader);
+	gtk_object_destroy (GTK_OBJECT (loader));
+
+	if (!bod->pixbuf)
+		retval = -1;
+	else
+		gnome_embeddable_foreach_view (bod->bonobo_object,
+					       redraw_all_cb, bod);
+	
 	CORBA_exception_free (&ev);
 
-	close (fd);
-
-	return tmpn;
-}
-
-/*
- * Loads an Image from a GNOME_Stream
- */
-static int
-load_image_from_stream (GnomePersistStream *ps, GNOME_Stream stream, void *data)
-{
-	bonobo_object_data_t *bod = data;
-	char *name;
-
-	release_pixbuf (bod);
-
-	name = copy_to_file (stream);
-	if (!name)
-		return -1;
-
-	bod->pixbuf = gdk_pixbuf_new_from_file (name);
-	if (!bod->pixbuf)
-		return -1;
-
-	unlink (name);
-	free (name);
-
-	gnome_embeddable_foreach_view (bod->bonobo_object,
-				       redraw_all_cb, bod);
-	return 0;
+	return retval;
 }
 
 static void
 destroy_view (GnomeView *view, view_data_t *view_data)
 {
-	g_warning ("Fixme: destroy view");
-/*	view_data->bod->views = g_list_remove (view_data->bod->views, view_data);
-	gtk_object_unref (GTK_OBJECT (view_data->drawing_area));*/
+	g_return_if_fail (view_data != NULL);
+
+	if (view_data->scaled)
+		gdk_pixbuf_unref (view_data->scaled);
+	view_data->scaled = NULL;
 
 	g_free (view_data);
 }
@@ -284,22 +294,6 @@ drawing_area_exposed (GtkWidget *widget, GdkEventExpose *event, view_data_t *vie
 	redraw_view (view_data, &event->area);
 
 	return TRUE;
-}
-
-static void
-view_size_query_cb (GnomeView *view, int *desired_width, int *desired_height,
-		    view_data_t *view_data)
-{
-	ArtPixBuf *pixbuf;
-	
-	g_return_if_fail (view_data != NULL);
-	g_return_if_fail (view_data->bod != NULL);
-	g_return_if_fail (view_data->bod->pixbuf != NULL);
-
-	pixbuf = view_data->bod->pixbuf->art_pixbuf;
-
-	*desired_width  = pixbuf->width;
-	*desired_height = pixbuf->height;
 }
 
 static GdkPixbuf *
@@ -351,9 +345,12 @@ view_size_allocate_cb (GtkWidget *drawing_area, GtkAllocation *allocation,
 	g_return_if_fail (view_data != NULL);
 	g_return_if_fail (allocation != NULL);
 	g_return_if_fail (view_data->bod != NULL);
-	g_return_if_fail (view_data->bod->pixbuf != NULL);
 
 	buf = view_data->bod->pixbuf;
+
+	if (!view_data->bod->pixbuf ||
+	    !view_data->bod->pixbuf->art_pixbuf)
+		return;
 
 	if (allocation->width  == buf->art_pixbuf->width &&
 	    allocation->height == buf->art_pixbuf->height) {
@@ -405,14 +402,11 @@ view_factory (GnomeEmbeddable *bonobo_object,
 	gtk_signal_connect (GTK_OBJECT (view_data->drawing_area), "size_allocate",
 			    GTK_SIGNAL_FUNC (view_size_allocate_cb), view_data);
 
-	gtk_signal_connect (GTK_OBJECT (view), "size_query",
-			    GTK_SIGNAL_FUNC (view_size_query_cb), view_data);
 	gtk_object_set_data (GTK_OBJECT (view), "view_data",
 			     view_data);
 
-	gtk_signal_connect (
-		GTK_OBJECT (view), "destroy",
-		GTK_SIGNAL_FUNC (destroy_view), view_data);
+	gtk_signal_connect (GTK_OBJECT (view), "destroy",
+			    GTK_SIGNAL_FUNC (destroy_view), view_data);
 
         return view;
 }
@@ -440,47 +434,35 @@ bonobo_object_factory (GnomeEmbeddableFactory *this, void *data)
 		return NULL;
 	}
 
-	{ /* Generate the objects goad id */
-		char *p = this->goad_id;
-		
-		while (*p && *p != ':') {
-			p++;
-		}
-		bod->repoid = g_strconcat ("embeddable", p, NULL);
-		g_warning ("Creating object '%s'\n", bod->repoid);
-	}
-
 	bod->pixbuf = NULL;
 
 	/*
 	 * Interface GNOME::PersistStream 
 	 */
-	stream = gnome_persist_stream_new (bod->repoid,
-					   load_image_from_stream,
-					   NULL,
-					   bod);
+	stream = gnome_persist_stream_new (load_image_from_stream,
+					   NULL, bod);
 	if (stream == NULL) {
 		gtk_object_unref (GTK_OBJECT (bonobo_object));
-		g_free (bod->repoid);
 		g_free (bod);
 		return NULL;
 	}
 
 	bod->bonobo_object = bonobo_object;
 
+	gtk_signal_connect (GTK_OBJECT (bonobo_object), "destroy",
+			    GTK_SIGNAL_FUNC (bod_destroy_cb), bod);
 	/*
 	 * Bind the interfaces
 	 */
 	gnome_object_add_interface (GNOME_OBJECT (bonobo_object),
 				    GNOME_OBJECT (stream));
-	return (GnomeObject *) bonobo_object;
+
+	return GNOME_OBJECT (bonobo_object);
 }
 
 static void
 init_bonobo_image_generic_factory (void)
 {
-	GnomeEmbeddableFactory *factory;
-	
 	factory = gnome_embeddable_factory_new (
 		"embeddable-factory:image-generic",
 		bonobo_object_factory, NULL);

@@ -1,3 +1,18 @@
+1999-12-17  Michael Meeks  <mmeeks@gnu.org>
+
+	* bonobo/bonobo-image-generic.c (bonobo_object_factory): update
+	to new bonobo. (init_bonobo_image_generic_factory): global factory.
+	(bod_destroy_cb): implement. (bod_destroy): kill.
+	(view_size_query_cb): kill. (view_factory): ditto.
+	(destroy_view): implement. (copy_to_file): kill nasty kludge.
+	(view_size_allocate_cb): failure cases.
+	Killed polymorhpic cached reproid throught.
+	Scads more preconditions.
+
+	* bonobo/image-generic.gnorba: prune guff.
+
+	* bonobo/Makefile.am (gnorba_DATA): kill annoying warning.
+
 1999-12-03  Federico Mena Quintero  <federico@redhat.com>
 
 	* eog.desktop: Added .desktop file from n0mada@wanadoo.es.

@@ -21,8 +21,8 @@ bonobo_image_generic_LDADD = 			\
 	$(EXTRA_BONOBO_LIBS)
 
 gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = image-generic.gnorba
 endif
 
+gnorba_DATA = image-generic.gnorba
 EXTRA_DIST = $(gnorba_DATA)
 
