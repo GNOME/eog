@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-11-25 19:06+0100\n"
+"POT-Creation-Date: 2002-11-26 01:00+0100\n"
 "PO-Revision-Date: 2002-06-07 21:50+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -22,9 +22,8 @@ msgid "EOG Image collection view factory"
 msgstr "Tovarna pregledovalnikov zbirk slik EOG"
 
 #: collection/GNOME_EOG_Collection.server.in.in.h:3
-#, fuzzy
 msgid "Image Collection"
-msgstr "Zbirka slik EOG"
+msgstr "Zbirka slik"
 
 #: eog.desktop.in.h:1
 msgid "Eye of Gnome Image Viewer"
@@ -36,11 +35,11 @@ msgstr "Prikaz različnih vrst slik"
 
 #: eog.glade.h:1
 msgid "By c_olor"
-msgstr ""
+msgstr "po barvi"
 
 #: eog.glade.h:2
 msgid "By check_pattern"
-msgstr ""
+msgstr "po označenem vzorcu"
 
 #: eog.glade.h:3
 msgid "Eye of Gnome Preferences"
@@ -51,25 +50,24 @@ msgid "Image Viewer"
 msgstr "Pregledovalnik slik"
 
 #: eog.glade.h:5
-#, fuzzy
 msgid "Indicate Transparency"
-msgstr "Tip prosojnosti"
+msgstr "Zaznamuj transparentnost"
 
 #: eog.glade.h:6
 msgid "Pick a color"
-msgstr ""
+msgstr "Izberi barvo"
 
 #: eog.glade.h:7
 msgid "_Interpolate image on zoom (better quality but slower)"
-msgstr ""
+msgstr "_Interpoliraj sliko pri povečavi (boljša kvaliteta, a počasnejše)"
 
 #: eog.schemas.in.h:1
 msgid "Automatically pick window size"
-msgstr ""
+msgstr "Samodejno izberi velikost okna"
 
 #: eog.schemas.in.h:2
 msgid "Default zoom factor for the full screen view"
-msgstr ""
+msgstr "Privzet fatkor povečave za celozaslonski pogled"
 
 #: eog.schemas.in.h:3
 msgid ""
@@ -77,6 +75,7 @@ msgid ""
 "1:1 zoom factor), 1 (use the same zoom factor as the image window), 2 (fit "
 "the image to the screen)."
 msgstr ""
+"Privzet faktor povečave za celozaslonski pogled. Možne vrednosti so: 0 (uporabi faktor 1:1), 1 (uporabi enak faktor povečave kot okno slike), 2 (prilagodi velikost slike zaslonu)."
 
 #: eog.schemas.in.h:4
 msgid ""
@@ -84,52 +83,49 @@ msgid ""
 "CHECK_PATTERN and COLOR. If COLOR is choosen, than the trans_color key "
 "determines the used color value."
 msgstr ""
+"Določa kako naj bo zaznamovana prosojnost. Veljavne vrednosti so CHECK_PATTEREN in COLOR. Če je izbran COLOR, potem uporabljeno barvo določa ključ trans_color."
 
 #: eog.schemas.in.h:5
-#, fuzzy
 msgid "Fit standard-sized images to the screen"
-msgstr "Prilagodi tudi velikost standardno velikih slik"
+msgstr "Prilagodi standardno velike slik na zaslon"
 
 #: eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
+"Če je ključ prosojnosti COLOR, potem ta ključ določa katera barva naj se uporabi za zaznambo transparentnosti."
 
 #: eog.schemas.in.h:7
-#, fuzzy
 msgid "Interpolate Image"
-msgstr "Interpolacija"
+msgstr "Interpoliraj sliko"
 
 #: eog.schemas.in.h:8
-#, fuzzy
 msgid "Open images in a new window"
-msgstr "Odpri v novem oknu"
+msgstr "Odpri slike v novem oknu"
 
 #: eog.schemas.in.h:9
-#, fuzzy
 msgid "Put a bevel around the screen"
-msgstr "Dodaj obrobo okoli zaslona"
+msgstr "Nariši obrobo okoli zaslona"
 
 #: eog.schemas.in.h:10
 msgid "Scrollbar policy for the full screen view"
-msgstr ""
+msgstr "Obnašanje drsnikov v celozaslonskem pogledu"
 
 #: eog.schemas.in.h:11
-#, fuzzy
 msgid "Transparency color"
-msgstr "Tip prosojnosti"
+msgstr "Barva prosojnosti"
 
 #: eog.schemas.in.h:12
-#, fuzzy
 msgid "Transparency indicator"
-msgstr "Tip prosojnosti"
+msgstr "Zaznamovalec transparentnosti"
 
 #: eog.schemas.in.h:13
 msgid ""
 "Wether the image should be interpolated on zoom or not. This leads to better "
 "quality but is somewhat slower than non interpolated images."
 msgstr ""
+"Ali naj bo slika interpolirana ob povečavi ali ne. To prinaša boljšo kvaliteto, a je nekoliko počasnejše."
 
 #: eog.schemas.in.h:14
 msgid ""
@@ -137,18 +133,21 @@ msgid ""
 "automatically based on the size of the image. If this option is not set, "
 "image windows will get whatever size the window manager assigns to them."
 msgstr ""
+"Ali naj okna s slikami samodejno izberejo velikost in faktor povečave glede na velikost slike. Če ta možnost ni nastavljena, bodo velikosti slikovnih oken takšne kot jih nastavi upravljalnik oken."
 
 #: eog.schemas.in.h:15
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
+"Ali naj odpiranje slike ustvari novo okno namesto, da bi zamenjalo sliko v trenutnem oknu."
 
 #: eog.schemas.in.h:16
 msgid ""
 "Whether the full screen view should display a bevel along the edges of the "
 "screen."
 msgstr ""
+"Ali naj bo v celozaslonskem načinu prikazana obroba okoli zaslona."
 
 #: eog.schemas.in.h:17
 msgid ""
@@ -156,6 +155,8 @@ msgid ""
 "1 (automatic; only display scrollbars if the image is larger than the "
 "window), 2 (never display scrollbars)."
 msgstr ""
+"Ali naj se v celozaslonskem načinu kažejo drsniki. Možne vrednosti so: "
+"1 (samodejno; prikaže drsnike kadar je slika večja od okna), 2 (nikoli ne kaži drsnikov)."
 
 #: eog.schemas.in.h:18
 msgid ""
@@ -164,6 +165,8 @@ msgid ""
 "selects whether such images should be scaled to fit the screen regardless of "
 "the setting for the default zoom factor of the full screen view."
 msgstr ""
+"Ali naj se slike standardnih velikosti prilagodi zaslonu v celozaslonskem načinu."
+" Te velikosti so 320x240, 640x480, 800x600, itd. To izbere ali se takšne slike povečajo čez cel zaslon ne glede na privzet faktor povečave v celozaslonskem načinu."
 
 #: libeog/GNOME_EOG.server.in.in.h:1 viewer/eog-image-view.c:721
 msgid "EOG Image"
@@ -216,73 +219,71 @@ msgstr "Način zmanjševanja števila barv"
 
 #: libeog/eog-file-selection.c:29 libeog/eog-file-selection.c:46
 msgid "By Extension"
-msgstr ""
+msgstr "po končnici"
 
 #: libeog/eog-file-selection.c:30
 msgid "BMP"
-msgstr ""
+msgstr "BMP"
 
 #: libeog/eog-file-selection.c:31
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: libeog/eog-file-selection.c:32
 msgid "ICO"
-msgstr ""
+msgstr "ICO"
 
 #: libeog/eog-file-selection.c:33 libeog/eog-file-selection.c:48
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: libeog/eog-file-selection.c:34 libeog/eog-file-selection.c:51
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: libeog/eog-file-selection.c:35
 msgid "PNM"
-msgstr ""
+msgstr "PNM"
 
 #: libeog/eog-file-selection.c:36
 msgid "RAS"
-msgstr ""
+msgstr "RAS"
 
 #: libeog/eog-file-selection.c:37
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: libeog/eog-file-selection.c:38
 msgid "TGA"
-msgstr ""
+msgstr "TGA"
 
 #: libeog/eog-file-selection.c:39
 msgid "TIFF"
-msgstr ""
+msgstr "TIFF"
 
 #: libeog/eog-file-selection.c:40
 msgid "XBM"
-msgstr ""
+msgstr "XBM"
 
 #: libeog/eog-file-selection.c:41 libeog/eog-file-selection.c:54
 msgid "XPM"
-msgstr ""
+msgstr "XPM"
 
 #: libeog/eog-file-selection.c:207
 msgid "Unsupported file format."
-msgstr ""
+msgstr "Nepodprta oblika zapisa."
 
 #: libeog/eog-file-selection.c:227
 msgid "Determine File Type:"
-msgstr ""
+msgstr "Določi vrsto datoteke:"
 
 #: libeog/eog-file-selection.c:270
-#, fuzzy
 msgid "Load Image"
-msgstr "Slika"
+msgstr "Naloži sliko"
 
 #: libeog/eog-file-selection.c:276
-#, fuzzy
 msgid "Save Image"
-msgstr "Odpri sliko"
+msgstr "Shrani sliko"
 
 #: shell/eog-shell-ui.xml.h:1
 msgid "About this application"
@@ -302,7 +303,7 @@ msgstr "Pomoč o tem programu"
 
 #: shell/eog-shell-ui.xml.h:5
 msgid "New"
-msgstr ""
+msgstr "Nova"
 
 #: shell/eog-shell-ui.xml.h:6 shell/main.c:210
 msgid "Open"
@@ -325,13 +326,12 @@ msgid "Open in this window"
 msgstr "Odpri v tem oknu"
 
 #: shell/eog-shell-ui.xml.h:11
-#, fuzzy
 msgid "Prefere_nces"
-msgstr "Nastavitve"
+msgstr "Nas_tavitve"
 
 #: shell/eog-shell-ui.xml.h:12
 msgid "Preferences for EoG components"
-msgstr ""
+msgstr "Nastavitve za komponente EoG"
 
 #: shell/eog-shell-ui.xml.h:13
 msgid "Quit the program"
@@ -346,9 +346,8 @@ msgid "_Close"
 msgstr "_Zapri"
 
 #: shell/eog-shell-ui.xml.h:16
-#, fuzzy
 msgid "_Contents"
-msgstr "Vsebina"
+msgstr "_Vsebina"
 
 #: shell/eog-shell-ui.xml.h:17 viewer/eog-image-view-ui.xml.h:13
 msgid "_Edit"
@@ -363,9 +362,8 @@ msgid "_Help"
 msgstr "_Pomoč"
 
 #: shell/eog-shell-ui.xml.h:20
-#, fuzzy
 msgid "_New"
-msgstr "_Brez"
+msgstr "_Novo"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_Open..."
@@ -466,7 +464,7 @@ msgstr "Ne morem odpreti `%s'"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "Best _Fit"
-msgstr ""
+msgstr "Najboljše _ujemanje"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:2
 msgid "Fit"
@@ -478,7 +476,7 @@ msgstr "Povečaj"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:4
 msgid "Normal"
-msgstr ""
+msgstr "Običajno"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
 msgid "Out"
@@ -490,22 +488,19 @@ msgstr "Po_manjšaj"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
 msgid "_Normal Size"
-msgstr ""
+msgstr "_Običajna velikost"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
-#, fuzzy
 msgid "_Zoom In"
 msgstr "Po_večaj"
 
 #: viewer/eog-image-view-ui.xml.h:1
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "Vodoravno"
+msgstr "Preslikaj vodoravno"
 
 #: viewer/eog-image-view-ui.xml.h:2
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "Navpično"
+msgstr "Preslikaj navpično"
 
 #: viewer/eog-image-view-ui.xml.h:3
 msgid "Full Screen"
@@ -516,14 +511,12 @@ msgid "Previews the image to be printed"
 msgstr "Predogled slike, ki bo natisnjena"
 
 #: viewer/eog-image-view-ui.xml.h:5
-#, fuzzy
 msgid "Print Previe_w..."
-msgstr "Predogled tiskanja"
+msgstr "_Predogled tiskanja..."
 
 #: viewer/eog-image-view-ui.xml.h:6
-#, fuzzy
 msgid "Print Set_up"
-msgstr "Nastavitev tiskanja"
+msgstr "Na_stavitev tiskanja"
 
 #: viewer/eog-image-view-ui.xml.h:7
 msgid "Print image to the printer"
@@ -531,31 +524,29 @@ msgstr "Natisni sliko s tiskalnikom"
 
 #: viewer/eog-image-view-ui.xml.h:8
 msgid "Rotate 180 Degrees"
-msgstr ""
+msgstr "Obrni za 180 stopinj"
 
 #: viewer/eog-image-view-ui.xml.h:9
 msgid "Rotate Clockwise"
-msgstr ""
+msgstr "Obrni v smeri urinega kazalca"
 
 #: viewer/eog-image-view-ui.xml.h:10
 msgid "Rotate Counter Clockwise"
-msgstr ""
+msgstr "Obrni nasporti urinega kazalca"
 
 #: viewer/eog-image-view-ui.xml.h:11
-#, fuzzy
 msgid "Save _As..."
-msgstr "_Shrani kot..."
+msgstr "Shrani _kot..."
 
 #: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavi lastnosti strani za vaš trenutni tiskalnik"
 
 #: viewer/eog-image-view-ui.xml.h:14
-#, fuzzy
 msgid "_Print..."
-msgstr "_Natisni"
+msgstr "Na_tisni..."
 
-#: collection/eog-collection-view-ui.xml.h:2 viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:15 collection/eog-collection-view-ui.xml.h:2
 msgid "_View"
 msgstr "_Pogled"
 
@@ -581,28 +572,24 @@ msgid "Printing of image failed"
 msgstr "Tiskanje slike ni uspelo"
 
 #: viewer/eog-image-view.c:1873
-#, fuzzy
 msgid "/_Zoom In"
-msgstr "Po_večaj"
+msgstr "/Po_večaj"
 
 #: viewer/eog-image-view.c:1875
-#, fuzzy
 msgid "/Zoom _Out"
-msgstr "Po_manjšaj"
+msgstr "/Po_manjšaj"
 
 #: viewer/eog-image-view.c:1877
 msgid "/_Normal Size"
-msgstr ""
+msgstr "/_Običajna velikost"
 
 #: viewer/eog-image-view.c:1879
-#, fuzzy
 msgid "/Best _Fit"
-msgstr "Pri_lagodi"
+msgstr "/Najboljše _ujemanje"
 
 #: viewer/eog-image-view.c:1882
-#, fuzzy
 msgid "/_Close"
-msgstr "_Zapri"
+msgstr "/_Zapri"
 
 #: viewer/eog-image-view.c:2008
 msgid "Image Width"
@@ -794,10 +781,26 @@ msgstr "Desno, potem dol"
 
 #: collection/eog-collection-view-ui.xml.h:1
 msgid "Slide Show"
-msgstr ""
+msgstr "Samodejni sprehod"
+
+#~ msgid ""
+#~ "Could not display help for the preferences dialog.\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Nisem mogel prikazati pomoči za dialog nastavitev.\n"
+#~ "%s"
+
+#~ msgid "Change preferences"
+#~ msgstr "Spremeni nastavitve"
+
+#~ msgid "Close"
+#~ msgstr "Zapri"
 
 #~ msgid "_New Window"
 #~ msgstr "_Novo okno"
+
+#~ msgid "_Preferences..."
+#~ msgstr "_Nastavitve..."
 
 #~ msgid "Unable to open %s."
 #~ msgstr "Ne morem odpreti %s."
@@ -868,12 +871,17 @@ msgstr ""
 #~ msgid "_Midtone"
 #~ msgstr "_Srednji toni"
 
+#~ msgid "_Tiles"
+#~ msgstr "_Ploščice"
+
 #~ msgid "_White"
 #~ msgstr "_Bela"
 
-#, fuzzy
-#~ msgid "/Zoom _1:1"
-#~ msgstr "Povečaj _1:1"
+#~ msgid "Save As"
+#~ msgstr "Shrani kot"
+
+#~ msgid "Display"
+#~ msgstr "Prikaz"
 
 #~ msgid "Dither"
 #~ msgstr "Način zmanjševanja števila barv"
@@ -883,31 +891,6 @@ msgstr ""
 
 #~ msgid "Check Size"
 #~ msgstr "Preverjanje velikosti"
-
-#~ msgid "Close"
-#~ msgstr "Zapri"
-
-#~ msgid ""
-#~ "Could not display help for the preferences dialog.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Nisem mogel prikazati pomoči za dialog nastavitev.\n"
-#~ "%s"
-
-#~ msgid "Change preferences"
-#~ msgstr "Spremeni nastavitve"
-
-#~ msgid "_Preferences..."
-#~ msgstr "_Nastavitve..."
-
-#~ msgid "_Tiles"
-#~ msgstr "_Ploščice"
-
-#~ msgid "Save As"
-#~ msgstr "Shrani kot"
-
-#~ msgid "Display"
-#~ msgstr "Prikaz"
 
 #~ msgid "Nearest Neighbour Interpolation"
 #~ msgstr "Interpolacija najbližjega soseda"
