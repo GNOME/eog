@@ -1,3 +1,13 @@
+2002-03-11 Jens Finke <jens@triq.net>
+
+	* shell/main.c (handle_cmdline_args): Bug #74012. I've commented
+	out the check for multiple files and the dialog for asking the
+	user about collection or single window mode. I am not quite
+	comfortable with this, because eog opens now a window for every
+	image file specified on the command line. But again the string/ui
+	freeze prohibits an adapted dialog to these changes.
+	(main): Removed commented out oaf_init call.
+	
 2002-03-10 John Fleck <jfleck@inkstain.net>
 
 	* omf-install/Makefile.am
@@ -10,7 +20,7 @@
 	* help/C/Makefile.am
 	* help/C/eog-C.omf
 	* help/C/eog.xml
-	* elp/C/legal.xml
+	* help/C/legal.xml
 	* help/C/figures/eog_start_window.png
 	* omf-install/Makefile.am
 	* xmldocs.make
