@@ -32,8 +32,6 @@ eog_image_viewer_SOURCES =	\
 	eog-print-setup.h	\
 	eog-util.h		\
 	eog-util.c		\
-	preferences.h		\
-	preferences.c		\
 	main.c
 #	 eog-embeddable.c	\
 #	 eog-embeddable.h	\

@@ -368,7 +368,6 @@ eog_control_construct (EogControl    *control,
 {
 	GtkWidget             *widget;
 	BonoboPropertyBag     *pb;
-	BonoboPropertyControl *pc;
 	EogControlPrivate     *priv;
 	
 	g_return_val_if_fail (image != NULL, NULL);
@@ -437,10 +436,6 @@ eog_control_construct (EogControl    *control,
 	bonobo_control_set_properties (BONOBO_CONTROL (control), 
 				       BONOBO_OBJREF (pb), 
 				       NULL);
-
-	pc = eog_image_view_get_property_control (priv->image_view);
-	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (pc));
 
 	return control;
 }

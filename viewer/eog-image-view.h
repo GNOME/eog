@@ -61,7 +61,6 @@ EogImageView       *eog_image_view_construct           (EogImageView       *imag
 							gboolean            need_close_item);
 EogImage           *eog_image_view_get_image           (EogImageView       *image_view);
 BonoboPropertyBag  *eog_image_view_get_property_bag    (EogImageView       *image_view);
-BonoboPropertyControl *eog_image_view_get_property_control (EogImageView   *image_view);
 void                eog_image_view_set_ui_container    (EogImageView       *image_view,
 							Bonobo_UIContainer  ui_container);
 void                eog_image_view_unset_ui_container  (EogImageView       *image_view);

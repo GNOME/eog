@@ -84,9 +84,6 @@ eog_preview_update (EogPreview *preview, gdouble width, gdouble height,
 	case GNOME_EOG_INTERPOLATION_NEAREST: 
 		interp = GDK_INTERP_NEAREST; 
 		break; 
-	case GNOME_EOG_INTERPOLATION_TILES: 
-		interp = GDK_INTERP_TILES; 
-		break; 
 	case GNOME_EOG_INTERPOLATION_BILINEAR: 
 		interp = GDK_INTERP_BILINEAR; 
 		break; 

@@ -35,7 +35,6 @@
 #include <bonobo/bonobo-window.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <libgnomevfs/gnome-vfs.h>
-#include "eog-preferences.h"
 #include "eog-window.h"
 #include "util.h"
 #include "zoom.h"
@@ -65,9 +64,6 @@ struct _EogWindowPrivate {
 
 	/* vbox */
 	GtkWidget           *box;
-
-	/* preference dialog, if available */
-	GtkWidget           *pref_dlg;
 
 	/* statusbar */
 	GtkWidget *statusbar;
@@ -143,38 +139,6 @@ raise_and_focus (GtkWidget *widget)
 	g_assert (GTK_WIDGET_REALIZED (widget));
 	gdk_window_show (widget->window);
 	gtk_widget_grab_focus (widget);
-}
-
-static void
-preference_dlg_closed_cb (GtkWidget *dlg, gpointer data)
-{
-	EogWindow *window;
-
-	window = EOG_WINDOW (data);
-	window->priv->pref_dlg = NULL;
-}
-
-/* Settings/Preferences callback */
-static void
-verb_Preferences_cb (BonoboUIComponent *uic, gpointer user_data, const char *cname)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-
-	g_return_if_fail (user_data != NULL);
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	if (priv->pref_dlg == NULL) {
-		priv->pref_dlg = eog_preferences_new (window);
-		g_signal_connect (priv->pref_dlg, "destroy", 
-				  G_CALLBACK (preference_dlg_closed_cb),
-				  window);
-	}
-
-	gtk_window_present (GTK_WINDOW (priv->pref_dlg));
 }
 
 static void
@@ -468,8 +432,6 @@ eog_window_init (EogWindow *window)
 
 	priv->uri = NULL;
 
-	priv->pref_dlg = NULL;
-	
 	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (priv->client, "/apps/eog",
@@ -657,7 +619,6 @@ static BonoboUIVerb eog_app_verbs[] = {
 	BONOBO_UI_VERB ("FileOpen",      verb_FileOpen_cb),
 	BONOBO_UI_VERB ("FileCloseWindow", verb_FileCloseWindow_cb),
 	BONOBO_UI_VERB ("FileExit",      verb_FileExit_cb),
-	BONOBO_UI_VERB ("Preferences",   verb_Preferences_cb),
 	BONOBO_UI_VERB ("HelpAbout",     verb_HelpAbout_cb),
 	BONOBO_UI_VERB ("Help",          verb_HelpContent_cb),
 	BONOBO_UI_VERB ("DnDNewWindow",  verb_DnDNewWindow_cb),
@@ -1152,7 +1113,6 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 {
 	EogWindowPrivate *priv;
 	CORBA_Environment ev;
-	Bonobo_PropertyControl prop_control;
 
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -1162,17 +1122,6 @@ add_control_to_ui (EogWindow *window, Bonobo_Control control)
 
 	bonobo_control_frame_bind_to_control (priv->ctrl_frame, control, &ev);
 	bonobo_control_frame_control_activate (priv->ctrl_frame);
-
-	/* update sensitivity of the properties menu item */
-	prop_control = Bonobo_Unknown_queryInterface (control, 
-						      "IDL:Bonobo/PropertyControl:1.0", &ev);
-	bonobo_ui_component_set_prop (priv->ui_comp,
-				      "/commands/Preferences",
-				      "sensitive",
-				      prop_control == CORBA_OBJECT_NIL ? "0" : "1",
-				      &ev);
-	
-	bonobo_object_release_unref (prop_control, &ev);
 
 	/* enable view menu */
 	/* FIXME: We should check if the component adds anything to 

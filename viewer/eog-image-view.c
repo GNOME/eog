@@ -33,8 +33,6 @@
 #include <image-view.h>
 #include <ui-image.h>
 
-#include <preferences.h>
-
 #include <bonobo/bonobo-stream.h>
 #include <bonobo/bonobo-ui-util.h>
 
@@ -105,9 +103,6 @@ enum {
 	CLOSE_ITEM_ACTIVATED,
 	LAST_SIGNAL
 };
-
-static BonoboControl* property_control_get_cb (BonoboPropertyControl *property_control,
-					       int page_number, void *closure);
 
 static void popup_menu_cb (gpointer data, guint action, GtkWidget *widget);
 
@@ -197,9 +192,6 @@ listener_Interpolation_cb (BonoboUIComponent           *uic,
 
 	if (!strcmp (path, "InterpolationNearest")) {
 		interpolation = GDK_INTERP_NEAREST;
-	}
-	else if (!strcmp (path, "InterpolationTiles")) {
-		interpolation = GDK_INTERP_TILES;
 	}
 	else if (!strcmp (path, "InterpolationBilinear")) {
 		interpolation = GDK_INTERP_BILINEAR;
@@ -1202,12 +1194,34 @@ listener_CheckSize_cb (BonoboUIComponent           *uic,
 }
 
 
+/* Keep this in sync with interp_menu_index_from_value() below */
 static const gchar* ui_id_strings_interp_type [] = {
 	"InterpolationNearest",
-	"InterpolationTiles",
 	"InterpolationBilinear",
 	"InterpolationHyperbolic"
 };
+
+static const int n_ui_id_strings_interp_type = (sizeof (ui_id_strings_interp_type) /
+						sizeof (ui_id_strings_interp_type[0]));
+
+/* Converts an enum value to the corresponding menu index for interpolation */
+static int
+interp_menu_index_from_value (int value)
+{
+	switch (value) {
+	case GDK_INTERP_NEAREST:
+		return 0;
+
+	case GDK_INTERP_BILINEAR:
+		return 1;
+
+	case GDK_INTERP_HYPER:
+		return 2;
+
+	default:
+		return 0;
+	}
+}
 
 static const gchar* ui_id_strings_dither [] = {
 	"DitherNone",
@@ -1280,8 +1294,9 @@ eog_image_view_create_ui (EogImageView *image_view)
 	value = gconf_client_get_int (image_view->priv->client, 
 				      GCONF_EOG_VIEW_INTERP_TYPE, 
 				      NULL);
+	value = interp_menu_index_from_value (value);
 	set_ui_group_item (image_view, ui_id_strings_interp_type [value]);
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < n_ui_id_strings_interp_type; i++) {
 		bonobo_ui_component_add_listener (image_view->priv->uic, ui_id_strings_interp_type [i],
 						  listener_Interpolation_cb, image_view);
 	}
@@ -1373,8 +1388,6 @@ eog_image_view_get_prop (BonoboPropertyBag *bag,
 		switch (interp_type) {
 		case GDK_INTERP_NEAREST:
 			eog_interp = GNOME_EOG_INTERPOLATION_NEAREST;
-		case GDK_INTERP_TILES:
-			eog_interp = GNOME_EOG_INTERPOLATION_TILES;
 		case GDK_INTERP_BILINEAR:
 			eog_interp = GNOME_EOG_INTERPOLATION_BILINEAR;
 		case GDK_INTERP_HYPER:
@@ -1555,9 +1568,6 @@ eog_image_view_set_prop (BonoboPropertyBag *bag,
 		case GNOME_EOG_INTERPOLATION_NEAREST:
 			interp_type = GDK_INTERP_NEAREST;
 			break;
-		case GNOME_EOG_INTERPOLATION_TILES:
-			interp_type = GDK_INTERP_TILES;
-			break;
 		case GNOME_EOG_INTERPOLATION_BILINEAR:
 			interp_type = GDK_INTERP_BILINEAR;
 			break;
@@ -1680,20 +1690,6 @@ eog_image_view_get_property_bag (EogImageView *image_view)
 	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
 
 	return image_view->priv->property_bag;
-}
-
-BonoboPropertyControl *
-eog_image_view_get_property_control (EogImageView *image_view)
-{
-	BonoboEventSource *es;
-
-	g_return_val_if_fail (image_view != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (image_view), NULL);
-
-	es = bonobo_event_source_new ();
-
-	return bonobo_property_control_new_full (property_control_get_cb, 
-						 1, es, image_view);
 }
 
 void
@@ -1909,58 +1905,6 @@ BONOBO_TYPE_FUNC_FULL (EogImageView,
 		       eog_image_view);
 
 static void
-property_control_get_prop (BonoboPropertyBag *bag,
-			   BonoboArg         *arg,
-			   guint              arg_id,
-			   CORBA_Environment *ev,
-			   gpointer           user_data)
-{
-	switch (arg_id) {
-	case PROP_CONTROL_TITLE:
-		g_assert (arg->_type == BONOBO_ARG_STRING);
-		BONOBO_ARG_SET_STRING (arg, _("Display"));
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-}
-
-static BonoboControl *
-property_control_get_cb (BonoboPropertyControl *property_control,
-			 int page_number, void *closure)
-{
-	EogImageView *image_view;
-	GtkWidget *container;
-	BonoboControl *control;
-	BonoboPropertyBag *property_bag;
-
-	g_return_val_if_fail (closure != NULL, NULL);
-	g_return_val_if_fail (EOG_IS_IMAGE_VIEW (closure), NULL);
-	g_return_val_if_fail (page_number == 0, NULL);
-
-	image_view = EOG_IMAGE_VIEW (closure);
-
-	container = eog_create_preferences_page (image_view, page_number);
-
-	gtk_widget_show_all (container);
-
-	control = bonobo_control_new (container);
-
-	/* Property Bag */
-	property_bag = bonobo_property_bag_new (property_control_get_prop,
-						NULL, control);
-
-	bonobo_property_bag_add (property_bag, "bonobo:title",
-				 PROP_CONTROL_TITLE, BONOBO_ARG_STRING,
-				 NULL, NULL, BONOBO_PROPERTY_READABLE);
-
-	bonobo_object_add_interface (BONOBO_OBJECT (control),
-				     BONOBO_OBJECT (property_bag));
-
-	return control;
-}
-
-static void
 interp_type_changed_cb (GConfClient *client,
 			guint        cnxn_id,
 			GConfEntry  *entry,
@@ -1968,6 +1912,7 @@ interp_type_changed_cb (GConfClient *client,
 {
 	EogImageView *view;
 	GdkInterpType interpolation;
+	int i;
 
 	view = EOG_IMAGE_VIEW (user_data);
 	
@@ -1981,7 +1926,9 @@ interp_type_changed_cb (GConfClient *client,
 	image_view_set_interp_type (view->priv->image_view, interpolation);
 	bonobo_event_source_notify_listeners (view->priv->property_bag->es,
 					      "interpolation", NULL, NULL);
-	set_ui_group_item (view, ui_id_strings_interp_type [interpolation]);
+
+	i = interp_menu_index_from_value (interpolation);
+	set_ui_group_item (view, ui_id_strings_interp_type [i]);
 }
 
 static void

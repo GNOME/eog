@@ -1,3 +1,44 @@
+2002-07-09  Federico Mena Quintero  <federico@ximian.com>
+
+	* idl/Eog.idl (GNOME::EOG::Interpolation): Removed tiles
+	interpolation, as it does not make sense for EOG.
+
+	* viewer/eog-image-view.c (listener_Interpolation_cb): Likewise.
+	(ui_id_strings_interp_type): Likewise.
+	(eog_image_view_get_prop): Likewise.
+	(eog_image_view_set_prop): Likewise.
+
+	* viewer/eog-preview.c (eog_preview_update): Likewise.
+
+	* viewer/preferences.c (prefs_interpolation): Likewise.
+
+	* viewer/eog-image-view-ui.xml: Likewise.
+
+	* viewer/eog-image-view.c (eog_image_view_create_ui): Use the
+	computed number of elements for the interpolation types array, not
+	a hardcoded constant.
+	(eog_image_view_create_ui): Convert the interpolation value to a
+	menu index before using it.
+	(interp_type_changed_cb): Likewise.
+
+	* viewer/eog-control.c (eog_control_construct): Do not add a
+	property control interface.  The preferences code is highly
+	convoluted and broken, so I'm removing it.
+
+	* viewer/eog-imagew-view.c (eog_image_view_get_property_control):
+	Removed.
+
+	* viewer/Makefile.am (eog_image_viewer_SOURCES): Removed
+	preferences.[ch].
+
+	* viewer/preferences.[ch]: Removed.
+
+	* shell/eog-shell-ui.xml: Removed the Edit/Preferernces item.
+
+	* shell/eog-window.c: Removed the preferences machinery.
+
+	* shell/Makefile.am (eog_SOURCES): Removed eog-preferences.[ch].
+
 2002-06-26  Federico Mena Quintero  <federico@ximian.com>
 
 	Fixes #86469.
