@@ -43,11 +43,11 @@
 
 /* Maximum size of repaint rectangles */
 
-#define PAINT_UTA1_RECT_WIDTH 128
-#define PAINT_UTA1_RECT_HEIGHT 128
+#define PAINT_FAST_RECT_WIDTH 256
+#define PAINT_FAST_RECT_HEIGHT 256
 
-#define PAINT_UTA2_RECT_WIDTH 128
-#define PAINT_UTA2_RECT_HEIGHT 128
+#define PAINT_INTERP_RECT_WIDTH 128
+#define PAINT_INTERP_RECT_HEIGHT 128
 
 /* Scroll step increment */
 
@@ -755,6 +755,8 @@ paint_rectangle (ImageView *view, ArtIRect *rect, GdkInterpType interp_type)
 #endif
 }
 
+#include <stdio.h>
+
 /* Idle handler for the drawing process.  We pull a rectangle from the dirty
  * region microtile array, paint it, and leave the rest to the next idle
  * iteration.
@@ -772,28 +774,39 @@ paint_iteration_idle (gpointer data)
 	g_assert (priv->uta1 != NULL || priv->uta2 != NULL);
 
 	if (priv->uta1) {
-		pull_rectangle (priv->uta1, &rect, PAINT_UTA1_RECT_WIDTH, PAINT_UTA1_RECT_HEIGHT);
+		/* Paint the no-interpolation cases as fast as possible */
 
-		if (art_irect_empty (&rect)) {
-			art_uta_free (priv->uta1);
-			priv->uta1 = NULL;
-			goto uta2;
+		if (priv->scroll == SCROLL_TWO_PASS || priv->interp_type == GDK_INTERP_NEAREST)
+			while (1) {
+				pull_rectangle (priv->uta1, &rect,
+						PAINT_FAST_RECT_WIDTH, PAINT_FAST_RECT_HEIGHT);
+
+				if (art_irect_empty (&rect)) {
+					art_uta_free (priv->uta1);
+					priv->uta1 = NULL;
+					break;
+				}
+
+				paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
+
+				if (priv->scroll == SCROLL_TWO_PASS)
+					priv->uta2 = uta_add_rect (priv->uta2,
+								   rect.x0, rect.y0,
+								   rect.x1, rect.y1);
+			}
+		else {
+			pull_rectangle (priv->uta1, &rect,
+					PAINT_INTERP_RECT_WIDTH, PAINT_INTERP_RECT_HEIGHT);
+
+			if (art_irect_empty (&rect)) {
+				art_uta_free (priv->uta1);
+				priv->uta1 = NULL;
+			} else
+				paint_rectangle (view, &rect, priv->interp_type);
 		}
-
-		if (priv->scroll == SCROLL_TWO_PASS) {
-			paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
-
-			priv->uta2 = uta_add_rect (priv->uta2, rect.x0, rect.y0, rect.x1, rect.y1);
-		} else
-			paint_rectangle (view, &rect, priv->interp_type);
-
-		goto out;
-	}
-
- uta2:
-
-	if (priv->uta2) {
-		pull_rectangle (priv->uta2, &rect, PAINT_UTA2_RECT_WIDTH, PAINT_UTA2_RECT_HEIGHT);
+	} else if (priv->uta2) {
+		pull_rectangle (priv->uta2, &rect,
+				PAINT_INTERP_RECT_WIDTH, PAINT_INTERP_RECT_HEIGHT);
 
 		if (art_irect_empty (&rect)) {
 			art_uta_free (priv->uta2);
@@ -801,8 +814,6 @@ paint_iteration_idle (gpointer data)
 		} else
 			paint_rectangle (view, &rect, priv->interp_type);
 	}
-
- out:
 
 	if (!priv->uta1 && !priv->uta2) {
 		priv->idle_id = 0;
@@ -832,9 +843,11 @@ request_paint_area (ImageView *view, GdkRectangle *area, gboolean asynch)
 	if (r.x0 >= r.x1 || r.y0 >= r.y1)
 		return;
 
-	/* Do nearest neighbor or 1:1 zoom synchronously for speed */
+	/* Unless told not to, do nearest neighbor or 1:1 zoom synchronously for
+         * speed.
+	 */
 
-	if (priv->interp_type == GDK_INTERP_NEAREST || priv->zoom == 1.0) {
+	if (!asynch && (priv->interp_type == GDK_INTERP_NEAREST || priv->zoom == 1.0)) {
 		paint_rectangle (view, &r, priv->interp_type);
 		return;
 	}
@@ -1595,6 +1608,20 @@ image_view_new (void)
 	return GTK_WIDGET (gtk_type_new (TYPE_IMAGE_VIEW));
 }
 
+/* Requests a full redraw of the image view */
+static void
+redraw_all (ImageView *view)
+{
+	GdkRectangle r;
+
+	r.x = 0;
+	r.y = 0;
+	r.width = GTK_WIDGET (view)->allocation.width;
+	r.height = GTK_WIDGET (view)->allocation.height;
+
+	request_paint_area (view, &r, TRUE);
+}
+
 /**
  * image_view_set_image:
  * @view: An image view.
@@ -1625,7 +1652,7 @@ image_view_set_image (ImageView *view, Image *image)
 
 	/* FIXME: adjust zoom / image offsets; maybe just offsets here */
 
-	gtk_widget_queue_resize (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**
@@ -1723,7 +1750,7 @@ image_view_set_interp_type (ImageView *view, GdkInterpType interp_type)
 		return;
 
 	priv->interp_type = interp_type;
-	gtk_widget_queue_draw (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**
@@ -1767,7 +1794,7 @@ image_view_set_check_type (ImageView *view, CheckType check_type)
 		return;
 
 	priv->check_type = check_type;
-	gtk_widget_queue_draw (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**
@@ -1811,7 +1838,7 @@ image_view_set_check_size (ImageView *view, CheckSize check_size)
 		return;
 
 	priv->check_size = check_size;
-	gtk_widget_queue_draw (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**
@@ -1855,7 +1882,7 @@ image_view_set_dither (ImageView *view, GdkRgbDither dither)
 		return;
 
 	priv->dither = dither;
-	gtk_widget_queue_draw (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**
@@ -1899,7 +1926,7 @@ image_view_set_scroll (ImageView *view, ScrollType scroll)
 		return;
 
 	priv->scroll = scroll;
-	gtk_widget_queue_draw (GTK_WIDGET (view));
+	redraw_all (view);
 }
 
 /**

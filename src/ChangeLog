@@ -1,3 +1,24 @@
+2000-09-06  Federico Mena Quintero  <federico@helixcode.com>
+
+	* image-view.c (redraw_all): New convenience function; uses
+	request_redraw_area() directly.
+	(image_view_set_dither): Use redraw_all() instead of queueing a
+	draw.
+	(image_view_set_scroll): Likewise.
+	(image_view_set_check_size): Likewise.
+	(image_view_set_check_type): Likewise.
+	(image_view_set_interp_type): Likewise.
+	(image_view_set_image): Use redraw_all(); there is no need to
+	queue a resize.
+	(paint_iteration_idle): If we are doing two-pass scrolling or if
+	the interpolation type is NEAREST, then process the whole uta1 as
+	fast as possible.  In two-pass scrolling, this makes the first
+	pass not interruptible, which is visually nice and fast.  It also
+	makes NEAREST interpolation look very fast regardless of scrolling
+	mode.
+	(request_paint_area): Check the asynch flag even in the
+	short-circuit case to avoid creating huge rectangles when zooming.
+
 2000-09-03  Federico Mena Quintero  <federico@helixcode.com>
 
 	* window.c (window_drag_data_received): Do not leave an empty
