@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.5.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-06 19:34+0100\n"
-"PO-Revision-Date: 2004-01-06 19:38+0100\n"
+"POT-Creation-Date: 2004-01-13 00:23+0100\n"
+"PO-Revision-Date: 2004-01-13 00:23+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr "Flytt til søppel"
 msgid "Collection View"
 msgstr "Samlingsvisning"
 
-#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1383
+#: collection/eog-collection-view.c:1345 viewer/eog-image-view.c:1393
 msgid "Window Title"
 msgstr "Vindustittel"
 
@@ -109,7 +109,7 @@ msgstr "Vindustittel"
 msgid "Status Text"
 msgstr "Statustekst"
 
-#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1395
+#: collection/eog-collection-view.c:1351 viewer/eog-image-view.c:1405
 msgid "Progress of Image Loading"
 msgstr "Fremgang for lasting av bilde"
 
@@ -198,7 +198,9 @@ msgstr "sekunder"
 msgid ""
 "A value greater 0 determines the seconds an image stays on screen until the "
 "next one is shown automatically. Zero disables the automatic browsing."
-msgstr "En verdi større enn 0 bestemmer antall sekunder før neste bilde vises automatisk. Null deaktiverer automatisk fremvisning."
+msgstr ""
+"En verdi større enn 0 bestemmer antall sekunder før neste bilde vises "
+"automatisk. Null deaktiverer automatisk fremvisning."
 
 #: eog.schemas.in.h:3
 #, no-c-format
@@ -231,7 +233,9 @@ msgstr ""
 msgid ""
 "If this is set to FALSE small images will not be streched to fit into the "
 "screen initially."
-msgstr "Hvis dette settes til USANN vil ikke små bilder strekkes for å passe til skjermen."
+msgstr ""
+"Hvis dette settes til USANN vil ikke små bilder strekkes for å passe til "
+"skjermen."
 
 #: eog.schemas.in.h:8
 msgid "Interpolate Image"
@@ -342,7 +346,12 @@ msgstr "Lagre bilde"
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
-#: libeog/eog-image-jpeg.c:143
+#: libeog/eog-image-jpeg.c:128
+#, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "Kunne ikke opprette midlertidig fil for lagring: %s"
+
+#: libeog/eog-image-jpeg.c:149
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunne ikke allokere minne for lasting av JPEG-fil"
 
@@ -783,30 +792,30 @@ msgstr ""
 msgid "Loading failed"
 msgstr "Lasting feilet"
 
-#: viewer/eog-image-view.c:1129
+#: viewer/eog-image-view.c:1133
 msgid "Image successfully saved"
 msgstr "Lagring av bilde fullført"
 
-#: viewer/eog-image-view.c:1133
+#: viewer/eog-image-view.c:1143
 msgid "Image saving failed"
 msgstr "Lagring av bilde feilet"
 
-#: viewer/eog-image-view.c:1377
+#: viewer/eog-image-view.c:1387
 msgid "Image Width"
 msgstr "Bildebredde"
 
-#: viewer/eog-image-view.c:1380
+#: viewer/eog-image-view.c:1390
 msgid "Image Height"
 msgstr "Bildehøyde"
 
-#: viewer/eog-image-view.c:1386
+#: viewer/eog-image-view.c:1396
 msgid "Statusbar Text"
 msgstr "Statuslinjetekst"
 
-#: viewer/eog-image-view.c:1389
+#: viewer/eog-image-view.c:1399
 msgid "Desired Window Width"
 msgstr "Ønsket bredde på vindu"
 
-#: viewer/eog-image-view.c:1392
+#: viewer/eog-image-view.c:1402
 msgid "Desired Window Height"
 msgstr "Ønsket høyde på vindu"
