@@ -622,7 +622,8 @@ prepare_load_image (EogFullScreen *fs, EogIter *iter)
 	image = eog_image_list_get_img_by_iter (priv->list, iter);
 	connect_image_callbacks (fs, image);
 
-	eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE);
+	/* FIXME: Use EogJob to load images */
+	/* eog_image_load (image, EOG_IMAGE_LOAD_COMPLETE); */
 
 	g_object_unref (image);
 }

@@ -1756,8 +1756,10 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 							  (GCallback) image_loading_cancelled_cb, view);
 		priv->image_cb_ids[4] = g_signal_connect (priv->image, "image_changed",
 							  (GCallback) image_changed_cb, view);
-
-		eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
+		/* FIXME: Don't load images here. The caller of this function (EogWindow) should
+		   be responsible for this.
+		 */
+		/* eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT); */
 	}
 }
 

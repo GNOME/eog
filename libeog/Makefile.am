@@ -1,5 +1,10 @@
 SUBDIRS = cursors
 
+if ENABLE_JPEG
+jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
+jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
+endif
+
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
@@ -25,6 +30,8 @@ MARSHAL_SOURCES = 		\
 	libeog-marshal.c
 
 noinst_LIBRARIES = libeog.a
+
+noinst_PROGRAMS = test-eog-job test-image-load
 
 libeog_a_SOURCES =			\
 	$(MARSHAL_SOURCES)		\
@@ -57,6 +64,10 @@ libeog_a_SOURCES =			\
 	eog-image-cache.c		\
 	eog-image-list.c		\
 	eog-image-list.h		\
+	eog-job-manager.c		\
+	eog-job-manager.h		\
+	eog-job.c			\
+	eog-job.h			\
 	eog-uri-converter.h		\
 	eog-uri-converter.c		\
 	eog-scroll-view.c		\
@@ -95,6 +106,29 @@ libeog_a_SOURCES =			\
 
 BUILT_SOURCES = 			\
 	$(MARSHAL_SOURCES)
+
+test_eog_job_DEPENDENCIES = libeog.a
+
+test_eog_job_SOURCES = test-eog-job.c
+
+test_eog_job_LDADD = \
+	-L$(top_builddir)/libeog 	\
+	-leog				\
+	$(jpeg_LIB)			\
+	$(X_LIBS)			\
+	$(EOG_LIBS)
+
+
+test_image_load_DEPENDENCIES = libeog.a
+
+test_image_load_SOURCES = test-image-load.c
+
+test_image_load_LDADD = \
+	-L$(top_builddir)/libeog 	\
+	-leog				\
+	$(jpeg_LIB)			\
+	$(X_LIBS)			\
+	$(EOG_LIBS)
 
 CLEANFILES = $(BUILT_SOURCES)
 

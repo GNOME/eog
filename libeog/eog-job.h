@@ -56,7 +56,7 @@ EogJob*             eog_job_new_full (gpointer data,
 				      EogJobCancelFunc cf,
 				      EogJobProgressFunc pf,
 				      EogJobFreeDataFunc df);
-
+void                eog_job_part_finished (EogJob *job);
 EogJobStatus        eog_job_get_status   (EogJob *job);
 guint               eog_job_get_id       (EogJob *job);
 gboolean            eog_job_get_success  (EogJob *job);

@@ -1,3 +1,32 @@
+2004-12-13  Jens Finke  <jens@triq.net>
+
+	This patch breaks eog. Only the new test
+	programs will be build. They outline how the new 
+	EogJob framework should be used.
+
+	* libeog/test-eog-job.c,
+	* libeog/test-image-load.c,
+	* libeog/Makefile.am: New test programs.
+
+	* libeog/eog-image-private.h,
+	* libeog/eog-image.h,
+	* libeog/eog-image.c: New image load API,
+	which is compatible with EogJob framework.
+
+	* libeog/eog-job.[ch]: 
+	Improved job progress framework.
+
+	* libeog/eog-metadata-reader.c 
+	(eog_metadata_reader_finished): New function.
+
+	* libeog/eog-transform.[ch] (eog_transform_apply):
+	Adapted to job progress framework.
+
+	* libeog/eog-info-view.c
+	* libeog/eog-full-screen.c
+	* libeog/eog-scroll-view.c: Commented out image loading functions.
+	Just to let libeog.a build and allow building of the test programs.
+
 2004-12-07  Jens Finke  <jens@triq.net>
 	
 	* libeog/eog-job.[ch]

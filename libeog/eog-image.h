@@ -7,6 +7,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
+#include "eog-job.h"
 
 G_BEGIN_DECLS
 
@@ -22,10 +23,12 @@ typedef struct _EogImageClass EogImageClass;
 typedef struct _EogImagePrivate EogImagePrivate;
 
 typedef enum {
-	EOG_IMAGE_LOAD_DEFAULT,
-	EOG_IMAGE_LOAD_PROGRESSIVE,
-	EOG_IMAGE_LOAD_COMPLETE
-} EogImageLoadMode;
+	EOG_IMAGE_DATA_IMAGE       =  1 << 0,
+	EOG_IMAGE_DATA_DIMENSION   =  1 << 1,
+	EOG_IMAGE_DATA_EXIF        =  1 << 2
+} EogImageData;
+
+#define EOG_IMAGE_DATA_ALL  (EOG_IMAGE_DATA_IMAGE | EOG_IMAGE_DATA_DIMENSION | EOG_IMAGE_DATA_EXIF)
 
 typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
@@ -33,6 +36,7 @@ typedef enum {
 	EOG_IMAGE_ERROR_VFS,
 	EOG_IMAGE_ERROR_FILE_EXISTS,
 	EOG_IMAGE_ERROR_TMP_FILE_FAILED,
+	EOG_IMAGE_ERROR_GENERIC,
 	EOG_IMAGE_ERROR_UNKNOWN
 } EogImageError;
 
@@ -68,8 +72,13 @@ GQuark              eog_image_error_quark                    (void);
 /* loading API */
 EogImage*           eog_image_new                            (const char *txt_uri);
 EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
-void                eog_image_load                           (EogImage *img, EogImageLoadMode mode);
-gboolean            eog_image_load_sync                      (EogImage *img, EogImageLoadMode mode);
+gboolean            eog_image_load                           (EogImage *img, 
+							      guint data2read, 
+							      EogJob *job,
+							      GError **error);
+gboolean            eog_image_has_data                       (EogImage *img, guint req_data);
+
+
 gboolean            eog_image_load_thumbnail                 (EogImage *img);
 void                eog_image_cancel_load                    (EogImage *img);
 void                eog_image_free_mem                       (EogImage *img);
@@ -104,7 +113,7 @@ gchar*              eog_image_get_uri_for_display             (EogImage *img);
 gboolean            eog_image_has_metadata                    (EogImage *img);
 
 /* modification API */
-void                eog_image_transform                       (EogImage *img, EogTransform *trans);
+void                eog_image_transform                       (EogImage *img, EogTransform *trans, EogJob *job);
 void                eog_image_undo                            (EogImage *img);
 
 G_END_DECLS

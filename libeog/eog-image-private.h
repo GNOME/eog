@@ -17,7 +17,6 @@ typedef enum {
  
 struct _EogImagePrivate {
 	GnomeVFSURI *uri;
-	EogImageLoadMode mode;
 	EogImageStatus status;
 
 	GdkPixbuf *image;

@@ -231,7 +231,9 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 		g_signal_connect (G_OBJECT (priv->image), "image_changed", 
 				  G_CALLBACK (image_changed_cb), view);
 
-	/* start loading */
-	eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT);
+	/* FIXME: Don't load images here. The caller of this function (EogWindow) should
+	   be responsible for this.
+	*/
+	/* eog_image_load (priv->image, EOG_IMAGE_LOAD_DEFAULT); */
 	}
 }

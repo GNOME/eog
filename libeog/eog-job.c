@@ -5,6 +5,12 @@
 static guint last_job_id = 0;
 #define DEBUG_EOG_JOB 1
 
+enum {
+	PROP_0,
+	PROP_PROGRESS_THRESHOLD,
+	PROP_PROGRESS_N_PARTS
+};
+
 struct _EogJobPrivate {
 	GMutex        *mutex;
 	guint         id;
@@ -12,7 +18,11 @@ struct _EogJobPrivate {
 	EogJobStatus  status;
 	GError        *error;
 	float         progress;
+	float         progress_last_called;
 	guint         progress_idle_id;
+	guint         progress_nth_part;
+	guint         progress_n_parts;
+	float         progress_threshold;
 	
 	EogJobActionFunc af;
 	EogJobCancelFunc cf;
@@ -20,6 +30,58 @@ struct _EogJobPrivate {
 	EogJobProgressFunc pf;
 	EogJobFreeDataFunc df;
 };
+
+static void
+eog_job_set_property (GObject      *object,
+		      guint         property_id,
+		      const GValue *value,
+		      GParamSpec   *pspec)
+{
+	EogJob *job;
+
+	g_return_if_fail (EOG_IS_JOB (object));
+
+	job = EOG_JOB (object);
+
+	switch (property_id) {
+	case PROP_PROGRESS_THRESHOLD:
+		job->priv->progress_threshold = 
+			g_value_get_float (value);
+		break;
+	case PROP_PROGRESS_N_PARTS:
+		job->priv->progress_n_parts = 
+			g_value_get_uint (value);
+		break;
+        default:
+                g_assert_not_reached ();
+	}
+}
+
+static void
+eog_job_get_property (GObject    *object,
+		      guint       property_id,
+		      GValue     *value,
+		      GParamSpec *pspec)
+{
+	EogJob *job;
+
+	g_return_if_fail (EOG_IS_JOB (object));
+
+	job = EOG_JOB (object);
+
+	switch (property_id) {
+	case PROP_PROGRESS_THRESHOLD:
+		g_value_set_float (value,
+				   job->priv->progress_threshold);
+		break;
+	case PROP_PROGRESS_N_PARTS:
+		g_value_set_uint (value,				  
+				  job->priv->progress_n_parts);
+		break;
+        default:
+                g_assert_not_reached ();
+	}
+}
 
 static void
 eog_job_finalize (GObject *object)
@@ -85,6 +147,8 @@ eog_job_instance_init (EogJob *obj)
 	priv->df = NULL;
 	priv->progress = 0.0;
 	priv->progress_idle_id = 0;
+	priv->progress_threshold = 0.1;
+	priv->progress_n_parts = 1;
 
 	obj->priv = priv;
 }
@@ -96,6 +160,28 @@ eog_job_class_init (EogJobClass *klass)
 
 	object_class->finalize = eog_job_finalize;
 	object_class->dispose = eog_job_dispose;
+        object_class->set_property = eog_job_set_property;
+        object_class->get_property = eog_job_get_property;
+
+        /* Properties */
+        g_object_class_install_property (
+                object_class,
+                PROP_PROGRESS_THRESHOLD,
+                g_param_spec_float ("progress-threshold", NULL, 
+				    "Difference threshold between two progress values"
+				    "before calling progress callback function again", 
+				    0.0, 1.0, 0.1,
+				    G_PARAM_READWRITE));
+
+        g_object_class_install_property (
+                object_class,
+                PROP_PROGRESS_N_PARTS,
+                g_param_spec_uint ("progress-n-parts", NULL,
+				   "Number of parts for this progress so that "
+				   "the total progress is the sum of progress "
+				   "for each part devided through number of parts.",
+				   0, G_MAXINT, 1,
+				   G_PARAM_READWRITE));
 }
 
 
@@ -115,8 +201,6 @@ eog_job_new (GObject *data_obj,
 
 	return eog_job_new_full ((gpointer) data_obj, af, ff, cf, pf, NULL);
 }
-
-
 
 /* called from main thread */
 EogJob*             
@@ -185,6 +269,16 @@ eog_job_get_success (EogJob *job)
 	return success;
 }
 
+void
+eog_job_part_finished (EogJob *job)
+{
+	g_return_if_fail (EOG_IS_JOB (job));
+
+	job->priv->progress_nth_part = 
+		MIN ((job->priv->progress_nth_part + 1),
+		     job->priv->progress_n_parts);
+}
+
 /* private func, called within main thread from idle loop */
 static gboolean
 eog_job_call_progress (gpointer data)
@@ -193,30 +287,41 @@ eog_job_call_progress (gpointer data)
 
 	g_assert (job->priv->pf != NULL);
 
+	g_mutex_lock (job->priv->mutex);
+	job->priv->progress_idle_id = 0;
+	g_mutex_unlock (job->priv->mutex);
+
 	/* call progress callback */
 	(*job->priv->pf) (job, job->priv->data, job->priv->progress);
 
-	job->priv->progress_idle_id = 0;
 	return FALSE;
 }
-
 
 /* called from concurrent thread */
 void
 eog_job_set_progress (EogJob *job, float progress)
 {
-	gboolean call_progress = FALSE;
+	EogJobPrivate *priv;
 
 	g_return_if_fail (EOG_IS_JOB (job));
 
-	g_mutex_lock (job->priv->mutex);
-	call_progress = (job->priv->pf != NULL && job->priv->progress_idle_id == 0);
-	g_mutex_unlock (job->priv->mutex);
+	priv = job->priv;
 
-	job->priv->progress = progress;
-	if (call_progress) {
-		job->priv->progress_idle_id = g_idle_add (eog_job_call_progress, job);
+	g_mutex_lock (job->priv->mutex);
+	/* calculate new progress */
+	priv->progress = ((float) priv->progress_nth_part + progress) /
+		priv->progress_n_parts;
+	
+	/* check if all preconditions are met for calling progress callback */
+	if ((priv->pf != NULL) && 
+	    (priv->progress_idle_id == 0) && 
+	    (priv->progress == 1.0 ||
+	     (priv->progress - priv->progress_last_called) >= priv->progress_threshold))
+	{
+		priv->progress_last_called = priv->progress;
+		priv->progress_idle_id = g_idle_add (eog_job_call_progress, job);
 	}
+	g_mutex_unlock (job->priv->mutex);
 }
 
 /* this runs in its own thread 
@@ -241,6 +346,8 @@ eog_job_call_action (EogJob *job)
 	if (do_action) {
 		job->priv->status = EOG_JOB_STATUS_RUNNING;
 		job->priv->progress = 0.0;
+		job->priv->progress_last_called = 0.0;
+		job->priv->progress_nth_part = 0;
 	}
 	g_mutex_unlock (job->priv->mutex);
 
