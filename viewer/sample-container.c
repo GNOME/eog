@@ -34,7 +34,8 @@ main (int argc, char *argv [])
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error ("Cannot init bonobo");
 
-	url = argv [1];
+	url = g_strdup_printf ("file:%s", argv [1]);
+	g_message ("Querying %s", url);
 
 	x = bonobo_get_object (url, "IDL:GNOME/EOG/Image:1.0", &ev);
 	if (ev._major != CORBA_NO_EXCEPTION)
@@ -45,6 +46,11 @@ main (int argc, char *argv [])
 	if (x)
 		g_message ("x is a %s", x->object_id);
 
+	g_free (url);
+
+	url = g_strdup_printf ("file:%s!control", argv [1]);
+	g_message ("Querying %s", url);
+
 	y = bonobo_get_object (url, "IDL:Bonobo/Control:1.0", &ev);
 	if (ev._major != CORBA_NO_EXCEPTION)
 		g_warning ("Failed to get object: %s",
@@ -54,6 +60,11 @@ main (int argc, char *argv [])
 	if (y)
 		g_message ("y is a %s", y->object_id);
 
+	g_free (url);
+
+	url = g_strdup_printf ("file:%s!embeddable", argv [1]);
+	g_message ("Querying %s", url);
+
 	z = bonobo_get_object (url, "IDL:Bonobo/Embeddable:1.0", &ev);
 	if (ev._major != CORBA_NO_EXCEPTION)
 		g_warning ("Failed to get object: %s",
@@ -62,6 +73,8 @@ main (int argc, char *argv [])
 	g_message ("z = %p", z);
 	if (z)
 		g_message ("z is a %s", z->object_id);
+
+	g_free (url);
 
 	return 0;
 }
