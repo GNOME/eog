@@ -797,16 +797,19 @@ create_bonobo_file_sel (EogWindow *window)
 
 	priv = window->priv;
 
-	moniker_string = "OAFIID:GNOME_FileSelector!MimeTypes="
-		"All Images:"
-		"image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm:"
-		":image/png:"
-		":image/gif:"
-		":image/jpeg:"
-		":image/x-bmp:"
-		":image/x-ico:"
-		":image/tiff:"
-		":image/x-xpm";
+	moniker_string = "OAFIID:GNOME_FileSelector!"
+		"Application=Eog;"
+		"AcceptDirectories=True;"
+		"ActionButtonLabel=_Open;"
+		"MimeTypes="
+		"All Images:image/png,image/gif,image/jpeg,image/x-bmp,image/x-ico,image/tiff,image/x-xpm"
+		"::image/png"
+		"::image/gif"
+		"::image/jpeg"
+		"::image/x-bmp"
+		"::image/x-ico"
+		"::image/tiff"
+		"::image/x-xpm";
 
 	control = bonobo_widget_new_control (moniker_string, CORBA_OBJECT_NIL);
 
