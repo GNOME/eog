@@ -11,21 +11,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-03-12 21:27+0100\n"
-"PO-Revision-Date: 2002-02-10 23:54+0100\n"
+"POT-Creation-Date: 2002-03-24 22:41+0100\n"
+"PO-Revision-Date: 2002-03-24 22:42+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+msgid "Eye of Gnome Image Viewer"
+msgstr "Bildvisaren Eye of Gnome"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Bildvisare"
+msgid "View many different types of images"
+msgstr "Visa många olika typer av bilder"
 
 #: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
 msgid "EOG Image"
@@ -71,7 +71,7 @@ msgstr "_Avsluta"
 msgid "Exit the program"
 msgstr "Avsluta programmet"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
 msgid "Open"
 msgstr "Öppna"
 
@@ -127,39 +127,62 @@ msgstr "_Inställningar"
 msgid "_View"
 msgstr "_Visa"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:198
+msgid "Translator Credits"
+msgstr ""
+"Översättare:\n"
+"Christian Rose\n"
+"Martin Norbäck\n"
+"Tomas Ögren\n"
+"Andreas Hydén\n"
+"Rapportera fel i översättningen till sv@li.org"
+
+#: shell/eog-window.c:201 shell/eog-window.c:549
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:203
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright © 2000-2002 Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:204
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:710
 msgid "Open Image"
 msgstr "Öppna bild"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:764
 msgid "Control doesn't support window_title property."
 msgstr "Kontrollen stöder inte egenskapen \"window_title\"."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:780
 msgid "Control doesn't support status_text property."
 msgstr "Kontrollen stöder inte egenskapen \"status_text\"."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:799
 msgid "Control doesn't have properties"
 msgstr "Kontrollen har inga egenskaper"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:816
 msgid "Couldn't retrieve mime type for file."
 msgstr "Kunde inte få tag i filens mimetyp."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1068
 msgid "Error while obtaining file informations."
 msgstr "Fel vid hämtning av filinformation."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1097
+#, c-format
+msgid "Unable to open %s."
+msgstr "Kan inte öppna %s."
+
+#: shell/main.c:161
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -174,15 +197,24 @@ msgstr ""
 msgid "Single Windows"
 msgstr "Enkla fönster"
 
-#: shell/main.c:166
+#: shell/main.c:167
 msgid "Collection"
 msgstr "Bildsamling"
 
-#: shell/main.c:284
+#: shell/main.c:191
+#, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Du kommer att öppna %i fönster\n"
+"samtidigt. Vill du fortsätta?"
+
+#: shell/main.c:307
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Kunde inte initiera GnomeVFS!\n"
 
-#: shell/main.c:287
+#: shell/main.c:310
 msgid "Could not initialize Bonobo!\n"
 msgstr "Kunde inte initiera Bonobo!\n"
 
@@ -190,6 +222,10 @@ msgstr "Kunde inte initiera Bonobo!\n"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunde inte öppna \"%s\""
+
+#: shell/eog-preferences.c:165
+msgid "Eye of Gnome Preferences"
+msgstr "Inställningar för Eye of Gnome"
 
 #: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
@@ -224,19 +260,19 @@ msgstr "Utskrift av bilden misslyckades"
 msgid "Display"
 msgstr "Visning"
 
-#: viewer/eog-image-view.c:2059 viewer/preferences.c:155
+#: viewer/eog-image-view.c:2059
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:2062 viewer/preferences.c:166
+#: viewer/eog-image-view.c:2062
 msgid "Dither"
 msgstr "Färgutjämning"
 
-#: viewer/eog-image-view.c:2065 viewer/preferences.c:177
+#: viewer/eog-image-view.c:2065
 msgid "Check Type"
 msgstr "Typ av rutor"
 
-#: viewer/eog-image-view.c:2068 viewer/preferences.c:188
+#: viewer/eog-image-view.c:2068
 msgid "Check Size"
 msgstr "Rutstorlek"
 
@@ -636,6 +672,25 @@ msgstr "Mellan"
 #: viewer/preferences.c:61
 msgid "Large"
 msgstr "Stor"
+
+#: viewer/preferences.c:169
+msgid "Interpolation:"
+msgstr "Interpolation:"
+
+#: viewer/preferences.c:180
+msgid "Dither:"
+msgstr "Färgutjämning:"
+
+#: viewer/preferences.c:191
+msgid "Check Type:"
+msgstr "Typ av rutor:"
+
+#: viewer/preferences.c:202
+msgid "Check Size:"
+msgstr "Rutstorlek:"
+
+#~ msgid "Image Viewer"
+#~ msgstr "Bildvisare"
 
 #~ msgid "View"
 #~ msgstr "Vy"
