@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-02-24 19:27+0100\n"
+"POT-Creation-Date: 2002-04-15 19:35+0200\n"
 "PO-Revision-Date: 2001-11-08 23:23+0200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
@@ -15,15 +15,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "GNOME Gözü"
+#: eog.desktop.in.h:1
+#, fuzzy
+msgid "Eye of Gnome Image Viewer"
+msgstr "EOG Resim Gösterici"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Resim Gösterici"
+msgid "View many different types of images"
+msgstr ""
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
 msgid "EOG Image"
 msgstr "EOG Resmi"
 
@@ -59,41 +60,44 @@ msgstr "Kapat"
 msgid "Close window"
 msgstr "Pencereyi Kapat"
 
-#: shell/eog-shell-ui.xml.h:6
-msgid "E_xit"
-msgstr "Çı_k"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Exit the program"
-msgstr "Programdan çıkılır"
-
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:196
 msgid "Open"
 msgstr "Aç"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Bir dosya açar"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Yeni bir pencere açar"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "Yeni pencerede aç"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "Bu pencerede aç"
 
-#: shell/eog-shell-ui.xml.h:13
-msgid "_About..."
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Quit the program"
+msgstr "Programdan çıkılır"
+
+#: shell/eog-shell-ui.xml.h:12
+#, fuzzy
+msgid "_About"
 msgstr "_Hakkında..."
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_Close"
 msgstr "_Kapat"
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_Edit"
+msgstr "Çı_k"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_File"
@@ -112,51 +116,70 @@ msgid "_Open..."
 msgstr "_Aç..."
 
 #: shell/eog-shell-ui.xml.h:19
-msgid "_Preferences"
+#, fuzzy
+msgid "_Preferences..."
 msgstr "_Tercihler"
 
 #: shell/eog-shell-ui.xml.h:20
-msgid "_Settings"
-msgstr "_Ayarlar"
+#, fuzzy
+msgid "_Quit"
+msgstr "Çı_k"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_View"
 msgstr "_Görünüm"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:237
+msgid "Translator Credits"
+msgstr ""
+
+#: shell/eog-window.c:240 shell/eog-window.c:597 shell/main.c:339
+msgid "Eye of Gnome"
+msgstr "GNOME Gözü"
+
+#: shell/eog-window.c:242
 #, fuzzy
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Telif hakkı (C) 2000-2001 Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:243
 msgid "The GNOME image viewing and cataloging program"
 msgstr "GNOME resim gösterme ve kataloglama uygulaması"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:756
 msgid "Open Image"
 msgstr "Resmi Aç"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:810
 msgid "Control doesn't support window_title property."
 msgstr "Kontrol window_title alanını desteklemiyor."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:826
 msgid "Control doesn't support status_text property."
 msgstr "Kontrol status_text alanını desteklemiyor."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:845
 msgid "Control doesn't have properties"
 msgstr "Kontrol tercihli alanlar içermiyor"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:862
 msgid "Couldn't retrieve mime type for file."
 msgstr "Dosya için mime türü yok."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1105
 msgid "Error while obtaining file informations."
 msgstr "Dosya bilgileri alınırken hata oluştu."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1134
+#, c-format
+msgid "Unable to open %s."
+msgstr ""
+
+#: shell/main.c:163
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -167,89 +190,104 @@ msgstr ""
 "Onların yerine bir kolleksiyon açmak\n"
 "ister misiniz?"
 
-#: shell/main.c:166
+#: shell/main.c:168
 msgid "Single Windows"
 msgstr "Tek Pencereler"
 
-#: shell/main.c:166
+#: shell/main.c:169
 msgid "Collection"
 msgstr "Kolleksiyon"
 
-#: shell/main.c:280
+#: shell/main.c:193
+#, fuzzy, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Aynı anda %i pencere açmak üzeresiniz.\n"
+"Onların yerine bir kolleksiyon açmak\n"
+"ister misiniz?"
+
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS başlatılamad!\n"
 
-#: shell/main.c:283
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo başlatılamadı!\n"
 
-#: shell/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "%s açılamadı"
 
-#: viewer/eog-image.c:432
+#: shell/eog-preferences.c:141
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "GNOME Gözü"
+
+#: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS başlatılamadı!\n"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:304
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Resim %s olarak kaydedilemedi: %s."
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:355
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:930
 msgid "Print Image"
 msgstr "Resmi Bas"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:938
 msgid "Pages"
 msgstr "Sayfalar"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1025
 msgid "Print Preview"
 msgstr "Önizlemeyi Yazdır"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1031
 msgid "Printing of image failed"
 msgstr "Resim yazdırılamadı"
 
-#: viewer/eog-image-view.c:1897
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Görünüm"
 
-#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2069
 msgid "Interpolation"
 msgstr "Bozma"
 
-#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2072
 msgid "Dither"
 msgstr "Titreşim"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2075
 msgid "Check Type"
 msgstr "Tür Denetimi"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2078
 msgid "Check Size"
 msgstr "Boyut Denetimi"
 
-#: viewer/eog-image-view.c:2000
+#: viewer/eog-image-view.c:2081
 msgid "Image Width"
 msgstr "Resim Genişliği"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2084
 msgid "Image Height"
 msgstr "Resim Yüksekliği"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2087
 msgid "Window Title"
 msgstr "Pencere Başlığı"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2090
 msgid "Statusbar Text"
 msgstr "Durum çubuğu Metni"
 
@@ -262,108 +300,120 @@ msgid "Check _type"
 msgstr "_Türü kontrol et"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr "Büyük kontrolu"
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "Ortaboy kontrolu"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "Küçük kontrolu"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "_Siyahlık denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr "_Koyuluk denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "Grilik denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr "_Aydınlık denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr "Ara _renk denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "Beyazlık denetimi"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr "Tam Ekran"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+msgid "Large"
+msgstr "Büyük"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+msgid "Medium"
+msgstr "Orta"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Nea_rest Neighbour"
 msgstr "_En yakın Komşu Bozması"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Normal (_pseudocolor)"
 msgstr "Normal (_rengimsi) titreşim"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Yazdırılacak resim önizlemeleri"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr "Yazıcı Ö_nizleme"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr "Ya_zıcı Ayarları"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr "Resmi yazıcıya gönder"
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr "_Farklı Kaydet"
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Geçerli yazıcının sayfa ayarları diyaloğunu açar"
 
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Bilinear Interpolation"
-msgstr "İki çi_zgili Bozma"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+msgid "Small"
+msgstr "Küçük"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:15
+#, fuzzy
+msgid "_Black"
+msgstr "Siyah"
+
+#: viewer/eog-image-view-ui.xml.h:16
+#, fuzzy
+msgid "_Dark"
+msgstr "Koyu"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr "_Titreşim"
 
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Hyperbolic Interpolation"
+#: viewer/eog-image-view-ui.xml.h:18
+#, fuzzy
+msgid "_Gray"
+msgstr "Gri"
+
+#: viewer/eog-image-view-ui.xml.h:19
+#, fuzzy
+msgid "_Hyperbolic"
 msgstr "_Hiperbolik Bozma"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr "_Bozma"
 
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Maximum (high color) dithering"
+#: viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "_Light"
+msgstr "Aydınlık"
+
+#: viewer/eog-image-view-ui.xml.h:22
+#, fuzzy
+msgid "_Maximum (high color)"
 msgstr "E_n çok (yüksek renk) titreşim"
 
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_No dithering"
-msgstr "Titreşim_siz"
+#: viewer/eog-image-view-ui.xml.h:23
+#, fuzzy
+msgid "_Midtone"
+msgstr "Ara renk denetimi"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Print"
 msgstr "_Yazdır"
 
+#: viewer/eog-image-view-ui.xml.h:26
+#, fuzzy
+msgid "_Save As..."
+msgstr "Farklı Kaydet"
+
+#: viewer/eog-image-view-ui.xml.h:27
+#, fuzzy
+msgid "_Tiles"
+msgstr "_Dosya"
+
 #: viewer/eog-image-view-ui.xml.h:28
-msgid "_Tiles Interpolation"
-msgstr "Ka_relerle Bozma"
+#, fuzzy
+msgid "_White"
+msgstr "Beyaz"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -373,7 +423,7 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Oranla"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "İçeri"
 
@@ -382,260 +432,313 @@ msgid "Out"
 msgstr "Dışarı"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "_1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 #, fuzzy
 msgid "Zoom _In"
 msgstr "Büyüt"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 #, fuzzy
 msgid "Zoom _Out"
 msgstr "Küçült"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom to _Default"
-msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 #, fuzzy
 msgid "Zoom to _Fit"
 msgstr "Küçült"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr "punto"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "punto"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "milimetre"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "santimetre"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "inç"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "Yazdır"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr "Yazdırma önizleme penceresini açar"
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr "Yazıcı Ayarları"
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "Yazdır"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr "Yazdırma önizleme penceresini açar"
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "Birimler: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Kağıt"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "Sayfa boyutu:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr "Yazdırma yönü"
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr "Düşey"
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr "Yatay"
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr "Kenar boşlukları"
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "Üst:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "Sol:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "Sağ:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Alt:"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Resim"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr "Ölçek"
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
 msgstr "Ayarla:"
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr "Sayfaya sığdır"
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr "/100 özgün boyut"
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr "Merkez"
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "Yatay olarak"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "Düşey olarak"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
 msgstr "Bindirmeli"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
 msgstr "Yatayda üstüste binme: "
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
 msgstr "Düşeyde üstüste binme: "
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "Yazdırma"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "Yardımcılar"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
 msgstr "Baskı kesme yardımı"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr "Baskı bindirme yardımı"
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "Sayfa sırası"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "Aşağı ve sağa"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Sağa ve aşağı"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "En yakın Komşu Bozması"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 msgid "Tiles Interpolation"
 msgstr "Karelerle Bozma"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "İki çizgili Bozma"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Hiperbolik Bozma"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Titreşimsiz"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Normal (rengimsi) titreşim"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "En çok (yüksek renk) titreşim"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Koyu"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "Ara renk denetimi"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Aydınlık"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Siyah"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Gri"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Beyaz"
 
-#: viewer/preferences.c:66
-msgid "Small"
-msgstr "Küçük"
+#: viewer/preferences.c:171
+#, fuzzy
+msgid "_Interpolation:"
+msgstr "_Bozma"
 
-#: viewer/preferences.c:67
-msgid "Medium"
-msgstr "Orta"
+#: viewer/preferences.c:183
+#, fuzzy
+msgid "_Dither:"
+msgstr "_Titreşim"
 
-#: viewer/preferences.c:68
-msgid "Large"
-msgstr "Büyük"
+#: viewer/preferences.c:195
+#, fuzzy
+msgid "Check _type:"
+msgstr "_Türü kontrol et"
+
+#: viewer/preferences.c:207
+#, fuzzy
+msgid "Check _size:"
+msgstr "_Boyutu kontrol et"
+
+#~ msgid "Image Viewer"
+#~ msgstr "Resim Gösterici"
+
+#~ msgid "_Settings"
+#~ msgstr "_Ayarlar"
+
+#~ msgid "Check size large"
+#~ msgstr "Büyük kontrolu"
+
+#~ msgid "Check size medium"
+#~ msgstr "Ortaboy kontrolu"
+
+#~ msgid "Check size small"
+#~ msgstr "Küçük kontrolu"
+
+#~ msgid "Check type _black"
+#~ msgstr "_Siyahlık denetimi"
+
+#~ msgid "Check type _dark"
+#~ msgstr "_Koyuluk denetimi"
+
+#~ msgid "Check type _gray"
+#~ msgstr "Grilik denetimi"
+
+#~ msgid "Check type _light"
+#~ msgstr "_Aydınlık denetimi"
+
+#~ msgid "Check type _midtone"
+#~ msgstr "Ara _renk denetimi"
+
+#~ msgid "Check type _white"
+#~ msgstr "Beyazlık denetimi"
+
+#~ msgid "Save _As"
+#~ msgstr "_Farklı Kaydet"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "İki çi_zgili Bozma"
+
+#~ msgid "_No dithering"
+#~ msgstr "Titreşim_siz"
+
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "Ka_relerle Bozma"
 
 #~ msgid "View"
 #~ msgstr "Görünüm"
@@ -774,9 +877,6 @@ msgstr "Büyük"
 
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "%%5 küçült"
-
-#~ msgid "Zoom _1:1"
-#~ msgstr "_1:1"
 
 #~ msgid "Display the image at 1:1 scale"
 #~ msgstr "Resmi 1:1 göster"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"POT-Creation-Date: 2002-03-14 07:29-0500\n"
+"POT-Creation-Date: 2002-04-15 19:35+0200\n"
 "PO-Revision-Date: 2002-03-15 13:25+0300\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
@@ -13,15 +13,16 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+#, fuzzy
+msgid "Eye of Gnome Image Viewer"
+msgstr "EOG Программа просмотра изображений"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Программа просмотра изображений"
+msgid "View many different types of images"
+msgstr ""
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
 msgid "EOG Image"
 msgstr "EOG изображение"
 
@@ -57,41 +58,44 @@ msgstr "Закрыть"
 msgid "Close window"
 msgstr "Закрыть окно"
 
-#: shell/eog-shell-ui.xml.h:6
-msgid "E_xit"
-msgstr "Выход"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Exit the program"
-msgstr "Выйти из программы"
-
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:196
 msgid "Open"
 msgstr "Открыть"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Открыть файл"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Открыть в новом окне"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "Открыть в новом окне"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "Открыть в этом окне"
 
-#: shell/eog-shell-ui.xml.h:13
-msgid "_About..."
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Quit the program"
+msgstr "Выйти из программы"
+
+#: shell/eog-shell-ui.xml.h:12
+#, fuzzy
+msgid "_About"
 msgstr "О программе..."
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_Close"
 msgstr "Закрыть"
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_Edit"
+msgstr "Выход"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_File"
@@ -110,50 +114,69 @@ msgid "_Open..."
 msgstr "Открыть..."
 
 #: shell/eog-shell-ui.xml.h:19
-msgid "_Preferences"
+#, fuzzy
+msgid "_Preferences..."
 msgstr "Настройки"
 
 #: shell/eog-shell-ui.xml.h:20
-msgid "_Settings"
-msgstr "Установки"
+#, fuzzy
+msgid "_Quit"
+msgstr "Выход"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_View"
 msgstr "Окна"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:237
+msgid "Translator Credits"
+msgstr ""
+
+#: shell/eog-window.c:240 shell/eog-window.c:597 shell/main.c:339
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:242
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Авторское право (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:243
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Программа просмотра и каталогизации изображений для GNOME"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:756
 msgid "Open Image"
 msgstr "Открыть изображение"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:810
 msgid "Control doesn't support window_title property."
 msgstr "Окно не поддерживает свойство window_title (заголовок окна)"
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:826
 msgid "Control doesn't support status_text property."
 msgstr "Окно не поддерживает свойство status_text."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:845
 msgid "Control doesn't have properties"
 msgstr "Окно не имеет свойств"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:862
 msgid "Couldn't retrieve mime type for file."
 msgstr "Не удалось получить mime-тип для файла."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1105
 msgid "Error while obtaining file informations."
 msgstr "Ошибка при получении информации о файле."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1134
+#, c-format
+msgid "Unable to open %s."
+msgstr ""
+
+#: shell/main.c:163
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -164,89 +187,104 @@ msgstr ""
 "%i окон. Не хотите ли вместо этого\n"
 "открыть их как коллекцию?"
 
-#: shell/main.c:166
+#: shell/main.c:168
 msgid "Single Windows"
 msgstr "Отдельные окна"
 
-#: shell/main.c:166
+#: shell/main.c:169
 msgid "Collection"
 msgstr "Коллекция"
 
-#: shell/main.c:284
+#: shell/main.c:193
+#, fuzzy, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Вы собираетесь открыть одновременно\n"
+"%i окон. Не хотите ли вместо этого\n"
+"открыть их как коллекцию?"
+
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Не удалось инициализировать GnomeVFS!\n"
 
-#: shell/main.c:287
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "Не удалось инициализировать Bonobo!\n"
 
-#: shell/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Не удалось открыть `%s'"
+
+#: shell/eog-preferences.c:141
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome"
 
 #: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Не удалось инициализировать GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:298
+#: viewer/eog-image-view.c:304
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Не удалось сохранить изображение как \"%s\": %s."
 
-#: viewer/eog-image-view.c:347
+#: viewer/eog-image-view.c:355
 msgid "Save As"
 msgstr "Сохранить как"
 
-#: viewer/eog-image-view.c:920
+#: viewer/eog-image-view.c:930
 msgid "Print Image"
 msgstr "Напечатать изображение"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:938
 msgid "Pages"
 msgstr "Страницы"
 
-#: viewer/eog-image-view.c:1015
+#: viewer/eog-image-view.c:1025
 msgid "Print Preview"
 msgstr "Просмотр печати"
 
-#: viewer/eog-image-view.c:1021
+#: viewer/eog-image-view.c:1031
 msgid "Printing of image failed"
 msgstr "Сбой печати изображения"
 
-#: viewer/eog-image-view.c:1835
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Отображение"
 
-#: viewer/eog-image-view.c:2059 viewer/preferences.c:155
+#: viewer/eog-image-view.c:2069
 msgid "Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view.c:2062 viewer/preferences.c:166
+#: viewer/eog-image-view.c:2072
 msgid "Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view.c:2065 viewer/preferences.c:177
+#: viewer/eog-image-view.c:2075
 msgid "Check Type"
 msgstr "Тип отметок"
 
-#: viewer/eog-image-view.c:2068 viewer/preferences.c:188
+#: viewer/eog-image-view.c:2078
 msgid "Check Size"
 msgstr "Размер отметок"
 
-#: viewer/eog-image-view.c:2071
+#: viewer/eog-image-view.c:2081
 msgid "Image Width"
 msgstr "Ширина изображения"
 
-#: viewer/eog-image-view.c:2074
+#: viewer/eog-image-view.c:2084
 msgid "Image Height"
 msgstr "Высота изображения"
 
-#: viewer/eog-image-view.c:2077
+#: viewer/eog-image-view.c:2087
 msgid "Window Title"
 msgstr "Заголовок окна"
 
-#: viewer/eog-image-view.c:2080
+#: viewer/eog-image-view.c:2090
 msgid "Statusbar Text"
 msgstr "Текст строки состояния"
 
@@ -259,108 +297,120 @@ msgid "Check _type"
 msgstr "Тип отметок"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr "Размер отметок больших"
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "Размер отметок средних"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "Размер отметок маленьких"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "Тип отметок черных"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr "Тип отметок темных"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "Тип отметок серых"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr "Тип отметок светлых"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr "Тип отметок полутоновых"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "Тип отметок белых"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr "Полный экран"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+msgid "Large"
+msgstr "Большие"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+msgid "Medium"
+msgstr "Средние"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Nea_rest Neighbour"
 msgstr "Интерполяция по ближайшему соседу"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Normal (_pseudocolor)"
 msgstr "Нормальное (псевдоцветное) смешение"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Просмотр изображения перед печатью"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr "Просмотр печати"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr "Настройка печати"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr "Распечатать изображение на принтере"
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr "Сохранить как"
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Выполнить настройку страницы для текущего принтера"
 
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Bilinear Interpolation"
-msgstr "Билинейная интерполяция"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+msgid "Small"
+msgstr "Маленькие"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:15
+#, fuzzy
+msgid "_Black"
+msgstr "Чёрное"
+
+#: viewer/eog-image-view-ui.xml.h:16
+#, fuzzy
+msgid "_Dark"
+msgstr "Тени"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr "Смешивание"
 
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Hyperbolic Interpolation"
+#: viewer/eog-image-view-ui.xml.h:18
+#, fuzzy
+msgid "_Gray"
+msgstr "Серое"
+
+#: viewer/eog-image-view-ui.xml.h:19
+#, fuzzy
+msgid "_Hyperbolic"
 msgstr "Гиперболическая интерполяция"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr "Интерполяция"
 
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Maximum (high color) dithering"
+#: viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "_Light"
+msgstr "Блики"
+
+#: viewer/eog-image-view-ui.xml.h:22
+#, fuzzy
+msgid "_Maximum (high color)"
 msgstr "Максимальное (многоцветное) смешение"
 
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_No dithering"
-msgstr "Без смешивания"
+#: viewer/eog-image-view-ui.xml.h:23
+#, fuzzy
+msgid "_Midtone"
+msgstr "Полутона"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Print"
 msgstr "Печать"
 
+#: viewer/eog-image-view-ui.xml.h:26
+#, fuzzy
+msgid "_Save As..."
+msgstr "Сохранить как"
+
+#: viewer/eog-image-view-ui.xml.h:27
+#, fuzzy
+msgid "_Tiles"
+msgstr "Файл"
+
 #: viewer/eog-image-view-ui.xml.h:28
-msgid "_Tiles Interpolation"
-msgstr "Интерполяция элементов"
+#, fuzzy
+msgid "_White"
+msgstr "Белое"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -370,7 +420,7 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Заполнить"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "В"
 
@@ -379,191 +429,192 @@ msgid "Out"
 msgstr "Из"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _In"
+#, fuzzy
+msgid "Zoom _1:1"
 msgstr "Масштаб +"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "Масштаб -"
+msgid "Zoom _In"
+msgstr "Масштаб +"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom to _Default"
-msgstr "Исходный масштаб"
+msgid "Zoom _Out"
+msgstr "Масштаб -"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "Масштабировать до заполнения"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr "тчк"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "точки"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "мм"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "миллиметры"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "см"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "сантиметры"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "Дюймы"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "Печать"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr "Просмотр печати"
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr "Настройка печати"
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "Печать"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr "Просмотр печати"
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "Единицы: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Страница"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "Размер страницы:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr "Ориентация"
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr "Портрет"
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr "Альбом"
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr "Отступы"
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "Сверху:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "Слева:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "Справа:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Снизу:"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Изображение"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr "Масштаб"
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
 msgstr "Выровнять по:"
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr "Заполнить страницу"
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr "% исходного размера"
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr "Центр"
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "Горизонтально"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "Вертикально"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
 msgstr "Перекрывание"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
 msgstr "Перекрывать горизонтально по "
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
 msgstr "Перекрывать вертикально по "
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "Печать"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "Справка"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
 msgstr "Справка по печати с отсеканием"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr "Справка по печати с перекрыванием"
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "Порядок страниц"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "Вниз, затем вправо"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Вправо, затем вниз"
 
@@ -619,14 +670,70 @@ msgstr "Серое"
 msgid "White"
 msgstr "Белое"
 
-#: viewer/preferences.c:59
-msgid "Small"
-msgstr "Маленькие"
+#: viewer/preferences.c:171
+#, fuzzy
+msgid "_Interpolation:"
+msgstr "Интерполяция"
 
-#: viewer/preferences.c:60
-msgid "Medium"
-msgstr "Средние"
+#: viewer/preferences.c:183
+#, fuzzy
+msgid "_Dither:"
+msgstr "Смешивание"
 
-#: viewer/preferences.c:61
-msgid "Large"
-msgstr "Большие"
+#: viewer/preferences.c:195
+#, fuzzy
+msgid "Check _type:"
+msgstr "Тип отметок"
+
+#: viewer/preferences.c:207
+#, fuzzy
+msgid "Check _size:"
+msgstr "Размер отметок"
+
+#~ msgid "Image Viewer"
+#~ msgstr "Программа просмотра изображений"
+
+#~ msgid "_Settings"
+#~ msgstr "Установки"
+
+#~ msgid "Check size large"
+#~ msgstr "Размер отметок больших"
+
+#~ msgid "Check size medium"
+#~ msgstr "Размер отметок средних"
+
+#~ msgid "Check size small"
+#~ msgstr "Размер отметок маленьких"
+
+#~ msgid "Check type _black"
+#~ msgstr "Тип отметок черных"
+
+#~ msgid "Check type _dark"
+#~ msgstr "Тип отметок темных"
+
+#~ msgid "Check type _gray"
+#~ msgstr "Тип отметок серых"
+
+#~ msgid "Check type _light"
+#~ msgstr "Тип отметок светлых"
+
+#~ msgid "Check type _midtone"
+#~ msgstr "Тип отметок полутоновых"
+
+#~ msgid "Check type _white"
+#~ msgstr "Тип отметок белых"
+
+#~ msgid "Save _As"
+#~ msgstr "Сохранить как"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "Билинейная интерполяция"
+
+#~ msgid "_No dithering"
+#~ msgstr "Без смешивания"
+
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "Интерполяция элементов"
+
+#~ msgid "Zoom to _Default"
+#~ msgstr "Исходный масштаб"

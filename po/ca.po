@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.2\n"
-"POT-Creation-Date: 2002-02-24 19:27+0100\n"
+"POT-Creation-Date: 2002-04-15 19:35+0200\n"
 "PO-Revision-Date: 2001-06-23 18:25+0200\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: \n"
@@ -14,15 +14,16 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
-msgid "Eye of Gnome"
-msgstr "Eye of Gnome"
+#: eog.desktop.in.h:1
+#, fuzzy
+msgid "Eye of Gnome Image Viewer"
+msgstr "Visualitzador d'imatges EOG"
 
 #: eog.desktop.in.h:2
-msgid "Image Viewer"
-msgstr "Visualitzador d'imatges"
+msgid "View many different types of images"
+msgstr ""
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:696
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
 msgid "EOG Image"
 msgstr "Imatge EOG"
 
@@ -58,43 +59,46 @@ msgstr "Tanca"
 msgid "Close window"
 msgstr "Tanca la finestra"
 
-#: shell/eog-shell-ui.xml.h:6
-msgid "E_xit"
-msgstr "S_urt"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Exit the program"
-msgstr "Surt del programa"
-
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:196
 msgid "Open"
 msgstr "Obre"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Obre un fitxer"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:9
 #, fuzzy
 msgid "Open in new window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:10
 #, fuzzy
 msgid "Open in this window"
 msgstr "Obre una finestra nova"
 
-#: shell/eog-shell-ui.xml.h:13
-msgid "_About..."
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Quit the program"
+msgstr "Surt del programa"
+
+#: shell/eog-shell-ui.xml.h:12
+#, fuzzy
+msgid "_About"
 msgstr "_Pel que fa..."
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_Close"
 msgstr "_Tanca"
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_Edit"
+msgstr "S_urt"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_File"
@@ -113,51 +117,70 @@ msgid "_Open..."
 msgstr "_Obre..."
 
 #: shell/eog-shell-ui.xml.h:19
-msgid "_Preferences"
+#, fuzzy
+msgid "_Preferences..."
 msgstr "_Preferències"
 
 #: shell/eog-shell-ui.xml.h:20
-msgid "_Settings"
-msgstr "_Paràmetres"
+#, fuzzy
+msgid "_Quit"
+msgstr "S_urt"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_View"
 msgstr "_Visualitza"
 
-#: shell/eog-window.c:179
+#. Translators should localize the following string
+#. * which will be displayed at the bottom of the about
+#. * box to give credit to the translator(s).
+#.
+#: shell/eog-window.c:237
+msgid "Translator Credits"
+msgstr ""
+
+#: shell/eog-window.c:240 shell/eog-window.c:597 shell/main.c:339
+msgid "Eye of Gnome"
+msgstr "Eye of Gnome"
+
+#: shell/eog-window.c:242
 #, fuzzy
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
 
-#: shell/eog-window.c:180
+#: shell/eog-window.c:243
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Programa GNOME per visualitzar i catalogar imatges"
 
-#: shell/eog-window.c:684
+#: shell/eog-window.c:756
 msgid "Open Image"
 msgstr "Obre la imatge"
 
-#: shell/eog-window.c:738
+#: shell/eog-window.c:810
 msgid "Control doesn't support window_title property."
 msgstr "El control no suporta la propietat window_title."
 
-#: shell/eog-window.c:754
+#: shell/eog-window.c:826
 msgid "Control doesn't support status_text property."
 msgstr "El control no suporta la propietat status_text."
 
-#: shell/eog-window.c:773
+#: shell/eog-window.c:845
 msgid "Control doesn't have properties"
 msgstr "El control no té propietats"
 
-#: shell/eog-window.c:790
+#: shell/eog-window.c:862
 msgid "Couldn't retrieve mime type for file."
 msgstr "No s'ha pogut recuperar el tipus mime pel fitxer."
 
-#: shell/eog-window.c:1040
+#: shell/eog-window.c:1105
 msgid "Error while obtaining file informations."
 msgstr "Ha succeït un error mentre s'obtenia informació del fitxer."
 
-#: shell/main.c:158
+#: shell/eog-window.c:1134
+#, c-format
+msgid "Unable to open %s."
+msgstr ""
+
+#: shell/main.c:163
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -167,89 +190,103 @@ msgstr ""
 "Heu d'obrir %i finestres simultàniament.\n"
 "Les voleu obrir en una col·lecció?"
 
-#: shell/main.c:166
+#: shell/main.c:168
 msgid "Single Windows"
 msgstr "Finestres individuals"
 
-#: shell/main.c:166
+#: shell/main.c:169
 msgid "Collection"
 msgstr "Col·lecció"
 
-#: shell/main.c:280
+#: shell/main.c:193
+#, fuzzy, c-format
+msgid ""
+"You are about to open %i windows\n"
+"simultanously. Do you want to continue?"
+msgstr ""
+"Heu d'obrir %i finestres simultàniament.\n"
+"Les voleu obrir en una col·lecció?"
+
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 
-#: shell/main.c:283
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "No s'ha pogut inicialitzar el Bonobo!\n"
 
-#: shell/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "No s'ha pogut obrir `%s'"
 
-#: viewer/eog-image.c:432
+#: shell/eog-preferences.c:141
+#, fuzzy
+msgid "Eye of Gnome Preferences"
+msgstr "Eye of Gnome"
+
+#: viewer/eog-image.c:433
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:309
+#: viewer/eog-image-view.c:304
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "No s'ha pogut desar la imatge com a '%s': %s."
 
-#: viewer/eog-image-view.c:358
+#: viewer/eog-image-view.c:355
 msgid "Save As"
 msgstr "Anomena i desa"
 
-#: viewer/eog-image-view.c:931
+#: viewer/eog-image-view.c:930
 msgid "Print Image"
 msgstr "Imprimeix la imatge"
 
-#: viewer/eog-image-view.c:939
+#: viewer/eog-image-view.c:938
 msgid "Pages"
 msgstr "Pàgines"
 
-#: viewer/eog-image-view.c:1026
+#: viewer/eog-image-view.c:1025
 msgid "Print Preview"
 msgstr "Imprimeix la previsualització"
 
-#: viewer/eog-image-view.c:1032
+#: viewer/eog-image-view.c:1031
 msgid "Printing of image failed"
 msgstr "No s'ha pogut imprimir la imatge"
 
-#: viewer/eog-image-view.c:1897
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Visualitza"
 
-#: viewer/eog-image-view.c:1988 viewer/preferences.c:149
+#: viewer/eog-image-view.c:2069
 msgid "Interpolation"
 msgstr "Interpolació"
 
-#: viewer/eog-image-view.c:1991 viewer/preferences.c:161
+#: viewer/eog-image-view.c:2072
 msgid "Dither"
 msgstr "Trama"
 
-#: viewer/eog-image-view.c:1994 viewer/preferences.c:172
+#: viewer/eog-image-view.c:2075
 msgid "Check Type"
 msgstr "Tipus de comprovació"
 
-#: viewer/eog-image-view.c:1997 viewer/preferences.c:183
+#: viewer/eog-image-view.c:2078
 msgid "Check Size"
 msgstr "Comprova la mida"
 
-#: viewer/eog-image-view.c:2000
+#: viewer/eog-image-view.c:2081
 msgid "Image Width"
 msgstr "Amplada de la imatge"
 
-#: viewer/eog-image-view.c:2003
+#: viewer/eog-image-view.c:2084
 msgid "Image Height"
 msgstr "Alçada de la imatge"
 
-#: viewer/eog-image-view.c:2006
+#: viewer/eog-image-view.c:2087
 msgid "Window Title"
 msgstr "Títol de la finestra"
 
-#: viewer/eog-image-view.c:2009
+#: viewer/eog-image-view.c:2090
 msgid "Statusbar Text"
 msgstr "Text de la barra d'estat"
 
@@ -262,108 +299,122 @@ msgid "Check _type"
 msgstr "Comprova el _tipus"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr "Comprova la mida (gran)"
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "Comprova la mida (mitjana)"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "Comprova la mida (petita)"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "Comprova el tipus (_negre)"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr "Comprova el tipus (_fosc)"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "Comprova el tipus (_gris)"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr "Comprova el tipus (c_lar)"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr "Comprova el tipus (to _mitjà)"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "Comprova el tipus (_blanc)"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr "Pantalla sencera"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+msgid "Large"
+msgstr "Gran"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+msgid "Medium"
+msgstr "Mitjà"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Nea_rest Neighbour"
 msgstr "Interpolació del contorn més p_roper"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
-msgstr "Tramat normal (_pseudocolor)"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Normal (_pseudocolor)"
+msgstr "Normal (pseudocolor)"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Previsualitza la imatge ha imprimir"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr "Imprimeix la pre_visualització"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr "Imprim_eix la Configuració"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr "Imprimeix la imatge a la impressora"
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr "_Anomena i desa"
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Configura els paràmetres de la pàgina per l'impressora actual"
 
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Bilinear Interpolation"
-msgstr "Interpolació _bilineal"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+msgid "Small"
+msgstr "Petit"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:14
+#, fuzzy
+msgid "_Bilinear"
+msgstr "Bilinear (normal)"
+
+#: viewer/eog-image-view-ui.xml.h:15
+#, fuzzy
+msgid "_Black"
+msgstr "Negre"
+
+#: viewer/eog-image-view-ui.xml.h:16
+#, fuzzy
+msgid "_Dark"
+msgstr "Fosc"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr "_Trama"
 
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Hyperbolic Interpolation"
+#: viewer/eog-image-view-ui.xml.h:18
+#, fuzzy
+msgid "_Gray"
+msgstr "Gris"
+
+#: viewer/eog-image-view-ui.xml.h:19
+#, fuzzy
+msgid "_Hyperbolic"
 msgstr "Interpolació _hiperbòlica"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr "_Interpolació"
 
+#: viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "_Light"
+msgstr "Clar"
+
+#: viewer/eog-image-view-ui.xml.h:22
+#, fuzzy
+msgid "_Maximum (high color)"
+msgstr "Màxim (color alt)"
+
+#: viewer/eog-image-view-ui.xml.h:23
+#, fuzzy
+msgid "_Midtone"
+msgstr "To mitjà"
+
+#: viewer/eog-image-view-ui.xml.h:24
+#, fuzzy
+msgid "_None"
+msgstr "Cap"
+
 #: viewer/eog-image-view-ui.xml.h:25
-msgid "_Maximum (high color) dithering"
-msgstr "Tramat _màxim (color alt)"
-
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_No dithering"
-msgstr " Se_nse trama"
-
-#: viewer/eog-image-view-ui.xml.h:27
 msgid "_Print"
 msgstr "Im_primeix"
 
+#: viewer/eog-image-view-ui.xml.h:26
+#, fuzzy
+msgid "_Save As..."
+msgstr "Anomena i desa"
+
+#: viewer/eog-image-view-ui.xml.h:27
+#, fuzzy
+msgid "_Tiles"
+msgstr "_Fitxer"
+
 #: viewer/eog-image-view-ui.xml.h:28
-msgid "_Tiles Interpolation"
-msgstr "Interpolació de m_osaics"
+#, fuzzy
+msgid "_White"
+msgstr "Blanc"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -373,7 +424,7 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Ajusta"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "Amplia el zoom"
 
@@ -382,261 +433,320 @@ msgid "Out"
 msgstr "Redueix el zoom"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
+msgid "Zoom _1:1"
+msgstr "Zoom _1:1"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:6
 #, fuzzy
 msgid "Zoom _In"
 msgstr "Amplia el zoom"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:6
+#: viewer/eog-image-view-ctrl-ui.xml.h:7
 #, fuzzy
 msgid "Zoom _Out"
 msgstr "Redueix el zoom"
-
-#: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom to _Default"
-msgstr ""
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 #, fuzzy
 msgid "Zoom to _Fit"
 msgstr "Redueix el zoom"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr "pts"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "punts"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "milímetre"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "centímetre"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "polzada"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "Imprimeix"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr "Imprimeix la previsualització"
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr "Imprimeix la configuració"
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "Imprimeix"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr "Imprimeix la previsualització"
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "Unitats: "
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Paper"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "Mida del paper:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr "Orientació"
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr "Retrat"
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr "Apaisat"
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr "Marges"
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "Superior:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "Esquerra:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "Dreta:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Inferior:"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Imatge"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr "Escala"
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
 msgstr "Ajusta a:"
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr "Ajusta a la pàgina"
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr "% de la mida original"
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr "Centrar"
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "Horitzontalment"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "Verticalment"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
 msgstr "Sobreposar"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
 msgstr "Sobreposar horitzontalment per "
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
 msgstr "Sobreposar verticalment per "
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "S'està imprimint"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "Ajudants"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
 msgstr "Imprimeix l'ajuda de tallar"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr "Imprimeix l'ajuda de sobreposar"
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "Ordre de la pàgina"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "Abaix, i llavors a la dreta"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Dreta, i llavors abaix"
 
-#: viewer/preferences.c:38
+#: viewer/preferences.c:31
 msgid "Nearest Neighbour Interpolation"
 msgstr "Interpolació del veí més proper"
 
-#: viewer/preferences.c:40
+#: viewer/preferences.c:33
 #, fuzzy
 msgid "Tiles Interpolation"
 msgstr "Interpolació de mosaics"
 
-#: viewer/preferences.c:42
+#: viewer/preferences.c:35
 msgid "Bilinear Interpolation"
 msgstr "Interpolació bilineal"
 
-#: viewer/preferences.c:44
+#: viewer/preferences.c:37
 msgid "Hyperbolic Interpolation"
 msgstr "Interpolació hiperbòlica"
 
-#: viewer/preferences.c:49
+#: viewer/preferences.c:42
 msgid "No dithering"
 msgstr "Sense trama"
 
-#: viewer/preferences.c:50
+#: viewer/preferences.c:43
 msgid "Normal (pseudocolor) dithering"
 msgstr "Tramat normal (pseudocolor)"
 
-#: viewer/preferences.c:51
+#: viewer/preferences.c:44
 msgid "Maximum (high color) dithering"
 msgstr "Tramat màxim (color alt)"
 
-#: viewer/preferences.c:56
+#: viewer/preferences.c:49
 msgid "Dark"
 msgstr "Fosc"
 
-#: viewer/preferences.c:57
+#: viewer/preferences.c:50
 msgid "Midtone"
 msgstr "To mitjà"
 
-#: viewer/preferences.c:58
+#: viewer/preferences.c:51
 msgid "Light"
 msgstr "Clar"
 
-#: viewer/preferences.c:59
+#: viewer/preferences.c:52
 msgid "Black"
 msgstr "Negre"
 
-#: viewer/preferences.c:60
+#: viewer/preferences.c:53
 msgid "Gray"
 msgstr "Gris"
 
-#: viewer/preferences.c:61
+#: viewer/preferences.c:54
 msgid "White"
 msgstr "Blanc"
 
-#: viewer/preferences.c:66
-msgid "Small"
-msgstr "Petit"
+#: viewer/preferences.c:171
+#, fuzzy
+msgid "_Interpolation:"
+msgstr "_Interpolació"
 
-#: viewer/preferences.c:67
-msgid "Medium"
-msgstr "Mitjà"
+#: viewer/preferences.c:183
+#, fuzzy
+msgid "_Dither:"
+msgstr "_Trama"
 
-#: viewer/preferences.c:68
-msgid "Large"
-msgstr "Gran"
+#: viewer/preferences.c:195
+#, fuzzy
+msgid "Check _type:"
+msgstr "Comprova el _tipus"
+
+#: viewer/preferences.c:207
+#, fuzzy
+msgid "Check _size:"
+msgstr "Comprova la _mida"
+
+#~ msgid "Image Viewer"
+#~ msgstr "Visualitzador d'imatges"
+
+#~ msgid "_Settings"
+#~ msgstr "_Paràmetres"
+
+#~ msgid "Check size large"
+#~ msgstr "Comprova la mida (gran)"
+
+#~ msgid "Check size medium"
+#~ msgstr "Comprova la mida (mitjana)"
+
+#~ msgid "Check size small"
+#~ msgstr "Comprova la mida (petita)"
+
+#~ msgid "Check type _black"
+#~ msgstr "Comprova el tipus (_negre)"
+
+#~ msgid "Check type _dark"
+#~ msgstr "Comprova el tipus (_fosc)"
+
+#~ msgid "Check type _gray"
+#~ msgstr "Comprova el tipus (_gris)"
+
+#~ msgid "Check type _light"
+#~ msgstr "Comprova el tipus (c_lar)"
+
+#~ msgid "Check type _midtone"
+#~ msgstr "Comprova el tipus (to _mitjà)"
+
+#~ msgid "Check type _white"
+#~ msgstr "Comprova el tipus (_blanc)"
+
+#~ msgid "Normal (_pseudocolor) dithering"
+#~ msgstr "Tramat normal (_pseudocolor)"
+
+#~ msgid "Save _As"
+#~ msgstr "_Anomena i desa"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "Interpolació _bilineal"
+
+#~ msgid "_Maximum (high color) dithering"
+#~ msgstr "Tramat _màxim (color alt)"
+
+#~ msgid "_No dithering"
+#~ msgstr " Se_nse trama"
+
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "Interpolació de m_osaics"
 
 #~ msgid "View"
 #~ msgstr "Visualitza"
@@ -771,9 +881,6 @@ msgstr "Gran"
 #~ msgid "Decrease zoom factor by 5%%"
 #~ msgstr "Redueix el zoom en un 5%%"
 
-#~ msgid "Zoom _1:1"
-#~ msgstr "Zoom _1:1"
-
 #~ msgid "Display the image at 1:1 scale"
 #~ msgstr "Mostra la imatge a escala original"
 
@@ -791,9 +898,6 @@ msgstr "Gran"
 
 #~ msgid "Use the whole screen for display"
 #~ msgstr "Utilitza tota la pantalla per a la visualització"
-
-#~ msgid "Bilinear (normal)"
-#~ msgstr "Bilinear (normal)"
 
 #~ msgid "Black only"
 #~ msgstr "Només negre"
@@ -828,9 +932,6 @@ msgstr "Gran"
 #~ msgid "Light checks"
 #~ msgstr "Comprovacions de la claror"
 
-#~ msgid "Maximum (high color)"
-#~ msgstr "Màxim (color alt)"
-
 #~ msgid "Midtone checks"
 #~ msgstr "Comprovacions del to mitjà"
 
@@ -839,12 +940,6 @@ msgstr "Gran"
 
 #~ msgid "Never"
 #~ msgstr "Mai"
-
-#~ msgid "None"
-#~ msgstr "Cap"
-
-#~ msgid "Normal (pseudocolor)"
-#~ msgstr "Normal (pseudocolor)"
 
 #~ msgid "Only if image does not fit"
 #~ msgstr "Només si la imatge no s'ajusta"

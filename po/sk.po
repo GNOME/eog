@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.7\n"
-"POT-Creation-Date: 2002-03-26 12:59+0100\n"
+"POT-Creation-Date: 2002-04-15 19:35+0200\n"
 "PO-Revision-Date: 2002-03-26 13:22+0100\n"
 "Last-Translator: Stanislav Višňovský <visnovsky@nenya.ms.mff.cuni.cz>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -22,7 +22,7 @@ msgstr "Prehliadač obrázkov Eye of Gnome"
 msgid "View many different types of images"
 msgstr "Prehliadač pre veľa rôznych typov obrázkov"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:685
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:695
 msgid "EOG Image"
 msgstr "Obrázok EOG"
 
@@ -58,41 +58,44 @@ msgstr "Zavrieť"
 msgid "Close window"
 msgstr "Zavrie okno"
 
-#: shell/eog-shell-ui.xml.h:6
-msgid "E_xit"
-msgstr "_Koniec"
-
-#: shell/eog-shell-ui.xml.h:7
-msgid "Exit the program"
-msgstr "Ukončí program"
-
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:194
+#: shell/eog-shell-ui.xml.h:6 shell/main.c:196
 msgid "Open"
 msgstr "Otvoriť"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:7
 msgid "Open a file"
 msgstr "Otvorí súbor"
 
-#: shell/eog-shell-ui.xml.h:10
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open a new window"
 msgstr "Otvoriť nové okno"
 
-#: shell/eog-shell-ui.xml.h:11
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open in new window"
 msgstr "Otvoriť v novom okne"
 
-#: shell/eog-shell-ui.xml.h:12
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open in this window"
 msgstr "Otvoriť v tomto okne"
 
-#: shell/eog-shell-ui.xml.h:13
-msgid "_About..."
+#: shell/eog-shell-ui.xml.h:11
+#, fuzzy
+msgid "Quit the program"
+msgstr "Ukončí program"
+
+#: shell/eog-shell-ui.xml.h:12
+#, fuzzy
+msgid "_About"
 msgstr "_O programe..."
 
-#: shell/eog-shell-ui.xml.h:14
+#: shell/eog-shell-ui.xml.h:13
 msgid "_Close"
 msgstr "_Zavrieť"
+
+#: shell/eog-shell-ui.xml.h:14
+#, fuzzy
+msgid "_Edit"
+msgstr "_Koniec"
 
 #: shell/eog-shell-ui.xml.h:15
 msgid "_File"
@@ -111,12 +114,14 @@ msgid "_Open..."
 msgstr "_Otvoriť..."
 
 #: shell/eog-shell-ui.xml.h:19
-msgid "_Preferences"
+#, fuzzy
+msgid "_Preferences..."
 msgstr "Nas_tavenia"
 
 #: shell/eog-shell-ui.xml.h:20
-msgid "_Settings"
-msgstr "Nas_tavenia"
+#, fuzzy
+msgid "_Quit"
+msgstr "_Koniec"
 
 #: shell/eog-shell-ui.xml.h:21
 msgid "_View"
@@ -126,52 +131,52 @@ msgstr "_Zobraziť"
 #. * which will be displayed at the bottom of the about
 #. * box to give credit to the translator(s).
 #.
-#: shell/eog-window.c:198
+#: shell/eog-window.c:237
 msgid "Translator Credits"
 msgstr "Stanislav Višňovský"
 
-#: shell/eog-window.c:201 shell/eog-window.c:549
+#: shell/eog-window.c:240 shell/eog-window.c:597 shell/main.c:339
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
-#: shell/eog-window.c:203
+#: shell/eog-window.c:242
 msgid "Copyright (C) 2000-2002 The Free Software Foundation"
 msgstr "Copyright (C) 2000-2002 The Free Software Foundation"
 
-#: shell/eog-window.c:204
+#: shell/eog-window.c:243
 msgid "The GNOME image viewing and cataloging program"
 msgstr "Program pre prehliadanie obrázkov a ich katalogizáciu pre GNOME"
 
-#: shell/eog-window.c:710
+#: shell/eog-window.c:756
 msgid "Open Image"
 msgstr "Otvoriť obrázok"
 
-#: shell/eog-window.c:764
+#: shell/eog-window.c:810
 msgid "Control doesn't support window_title property."
 msgstr "Ovládací prvok nepodporuje vlastnosť window_title."
 
-#: shell/eog-window.c:780
+#: shell/eog-window.c:826
 msgid "Control doesn't support status_text property."
 msgstr "Ovládací prvok nepodporuje vlastnosť status_text."
 
-#: shell/eog-window.c:799
+#: shell/eog-window.c:845
 msgid "Control doesn't have properties"
 msgstr "Ovládací prvok mená vlastnosti"
 
-#: shell/eog-window.c:816
+#: shell/eog-window.c:862
 msgid "Couldn't retrieve mime type for file."
 msgstr "Nepodarilo sa získať typ MIME pre súbor."
 
-#: shell/eog-window.c:1068
+#: shell/eog-window.c:1105
 msgid "Error while obtaining file informations."
 msgstr "Chyba pri načítavaní informácií o súboroch."
 
-#: shell/eog-window.c:1097
+#: shell/eog-window.c:1134
 #, c-format
 msgid "Unable to open %s."
 msgstr "Nepodarilo sa otvoriť %s."
 
-#: shell/main.c:161
+#: shell/main.c:163
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -181,15 +186,15 @@ msgstr ""
 "Chystáte sa otvoriť %i okien.\n"
 "Nechcete ich radšej otvoriť v kolekcii?"
 
-#: shell/main.c:166
+#: shell/main.c:168
 msgid "Single Windows"
 msgstr "Jednoduché okná"
 
-#: shell/main.c:167
+#: shell/main.c:169
 msgid "Collection"
 msgstr "Kolekcia"
 
-#: shell/main.c:191
+#: shell/main.c:193
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -198,20 +203,20 @@ msgstr ""
 "Chystáte sa naraz otvoriť %i okien.\n"
 "Chcete pokračovať?"
 
-#: shell/main.c:307
+#: shell/main.c:351
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "Nepodarilo sa inicializovať GnomeVFS\n"
 
-#: shell/main.c:310
+#: shell/main.c:354
 msgid "Could not initialize Bonobo!\n"
 msgstr "Nepodarilo sa inicializovať Bonobo\n"
 
-#: shell/util.c:47
+#: shell/util.c:48
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nepodarilo sa otvoriť '%s'"
 
-#: shell/eog-preferences.c:165
+#: shell/eog-preferences.c:141
 msgid "Eye of Gnome Preferences"
 msgstr "Nastavenie Eye of Gnome"
 
@@ -219,64 +224,64 @@ msgstr "Nastavenie Eye of Gnome"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "Nepodarilo sa inicializovať GnomeVFS!\n"
 
-#: viewer/eog-image-view.c:298
+#: viewer/eog-image-view.c:304
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Nepodarilo sa uložiť obrázok ako '%s'. %s"
 
-#: viewer/eog-image-view.c:347
+#: viewer/eog-image-view.c:355
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: viewer/eog-image-view.c:920
+#: viewer/eog-image-view.c:930
 msgid "Print Image"
 msgstr "Tlačiť obrázok"
 
-#: viewer/eog-image-view.c:928
+#: viewer/eog-image-view.c:938
 msgid "Pages"
 msgstr "Stránky"
 
-#: viewer/eog-image-view.c:1015
+#: viewer/eog-image-view.c:1025
 msgid "Print Preview"
 msgstr "Náhľad tlače"
 
-#: viewer/eog-image-view.c:1021
+#: viewer/eog-image-view.c:1031
 msgid "Printing of image failed"
 msgstr "Tlač obrázku zlyhala"
 
-#: viewer/eog-image-view.c:1835
+#: viewer/eog-image-view.c:1845
 msgid "Display"
 msgstr "Zobraziť"
 
-#: viewer/eog-image-view.c:2059
+#: viewer/eog-image-view.c:2069
 msgid "Interpolation"
 msgstr "Interpolácia"
 
-#: viewer/eog-image-view.c:2062
+#: viewer/eog-image-view.c:2072
 msgid "Dither"
 msgstr "Dithering"
 
-#: viewer/eog-image-view.c:2065
+#: viewer/eog-image-view.c:2075
 msgid "Check Type"
 msgstr "Skontrolovať typ"
 
-#: viewer/eog-image-view.c:2068
+#: viewer/eog-image-view.c:2078
 msgid "Check Size"
 msgstr "Skontrolovať veľkosť"
 
-#: viewer/eog-image-view.c:2071
+#: viewer/eog-image-view.c:2081
 msgid "Image Width"
 msgstr "Šírka obrázku"
 
-#: viewer/eog-image-view.c:2074
+#: viewer/eog-image-view.c:2084
 msgid "Image Height"
 msgstr "Výška obrázku"
 
-#: viewer/eog-image-view.c:2077
+#: viewer/eog-image-view.c:2087
 msgid "Window Title"
 msgstr "Titulok okna"
 
-#: viewer/eog-image-view.c:2080
+#: viewer/eog-image-view.c:2090
 msgid "Statusbar Text"
 msgstr "Text stavového riadku"
 
@@ -289,108 +294,120 @@ msgid "Check _type"
 msgstr "Skontrolovať _typ"
 
 #: viewer/eog-image-view-ui.xml.h:3
-msgid "Check size large"
-msgstr "Skontrolovať veľkú veľkosť"
-
-#: viewer/eog-image-view-ui.xml.h:4
-msgid "Check size medium"
-msgstr "Skontrolovať strednú veľkosť"
-
-#: viewer/eog-image-view-ui.xml.h:5
-msgid "Check size small"
-msgstr "Skontrolovať malú veľkosť"
-
-#: viewer/eog-image-view-ui.xml.h:6
-msgid "Check type _black"
-msgstr "Skontrolovať č_ierny typ"
-
-#: viewer/eog-image-view-ui.xml.h:7
-msgid "Check type _dark"
-msgstr "Skontrolovať _tmavý typ"
-
-#: viewer/eog-image-view-ui.xml.h:8
-msgid "Check type _gray"
-msgstr "Skontrolovať š_edý typ"
-
-#: viewer/eog-image-view-ui.xml.h:9
-msgid "Check type _light"
-msgstr "Skontrolovať _svetlý typ"
-
-#: viewer/eog-image-view-ui.xml.h:10
-msgid "Check type _midtone"
-msgstr "Skontrolovať _poltónový typ"
-
-#: viewer/eog-image-view-ui.xml.h:11
-msgid "Check type _white"
-msgstr "Skontrolovať _biely typ"
-
-#: viewer/eog-image-view-ui.xml.h:12
 msgid "Full Screen"
 msgstr "Celá obrazovka"
 
-#: viewer/eog-image-view-ui.xml.h:13
-msgid "Nea_rest Neighbour Interpolation"
+#: viewer/eog-image-view-ui.xml.h:4 viewer/preferences.c:61
+msgid "Large"
+msgstr "Veľký"
+
+#: viewer/eog-image-view-ui.xml.h:5 viewer/preferences.c:60
+msgid "Medium"
+msgstr "Stredný"
+
+#: viewer/eog-image-view-ui.xml.h:6
+#, fuzzy
+msgid "Nea_rest Neighbour"
 msgstr "Interpolácia najbližším _susedom"
 
-#: viewer/eog-image-view-ui.xml.h:14
-msgid "Normal (_pseudocolor) dithering"
+#: viewer/eog-image-view-ui.xml.h:7
+#, fuzzy
+msgid "Normal (_pseudocolor)"
 msgstr "Normálny dithering (_pseudofarby)"
 
-#: viewer/eog-image-view-ui.xml.h:15
+#: viewer/eog-image-view-ui.xml.h:8
 msgid "Previews the image to be printed"
 msgstr "Ukáže náhľad obrázku"
 
-#: viewer/eog-image-view-ui.xml.h:16
+#: viewer/eog-image-view-ui.xml.h:9
 msgid "Print Pre_view"
 msgstr "Ná_hľad tlače"
 
-#: viewer/eog-image-view-ui.xml.h:17
+#: viewer/eog-image-view-ui.xml.h:10
 msgid "Print S_etup"
 msgstr "Nastavenie t_lače"
 
-#: viewer/eog-image-view-ui.xml.h:18
+#: viewer/eog-image-view-ui.xml.h:11
 msgid "Print image to the printer"
 msgstr "Vytlačiť obrázok na tlačiarni"
 
-#: viewer/eog-image-view-ui.xml.h:19
-msgid "Save _As"
-msgstr "Uložiť _ako"
-
-#: viewer/eog-image-view-ui.xml.h:20
+#: viewer/eog-image-view-ui.xml.h:12
 msgid "Setup the page settings for your current printer"
 msgstr "Nastavenie stránky pre vašu aktuálnu tlačiareň"
 
-#: viewer/eog-image-view-ui.xml.h:21
-msgid "_Bilinear Interpolation"
-msgstr "_Bilineárna interpolácia"
+#: viewer/eog-image-view-ui.xml.h:13 viewer/preferences.c:59
+msgid "Small"
+msgstr "Malý"
 
-#: viewer/eog-image-view-ui.xml.h:22
+#: viewer/eog-image-view-ui.xml.h:14
+msgid "_Bilinear"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:15
+#, fuzzy
+msgid "_Black"
+msgstr "Čierna"
+
+#: viewer/eog-image-view-ui.xml.h:16
+#, fuzzy
+msgid "_Dark"
+msgstr "Tmavé"
+
+#: viewer/eog-image-view-ui.xml.h:17
 msgid "_Dither"
 msgstr "_Dithering"
 
-#: viewer/eog-image-view-ui.xml.h:23
-msgid "_Hyperbolic Interpolation"
+#: viewer/eog-image-view-ui.xml.h:18
+#, fuzzy
+msgid "_Gray"
+msgstr "Šedá"
+
+#: viewer/eog-image-view-ui.xml.h:19
+#, fuzzy
+msgid "_Hyperbolic"
 msgstr "_Hyperbolická interpolácia"
 
-#: viewer/eog-image-view-ui.xml.h:24
+#: viewer/eog-image-view-ui.xml.h:20
 msgid "_Interpolation"
 msgstr "_Interpolácia"
 
-#: viewer/eog-image-view-ui.xml.h:25
-msgid "_Maximum (high color) dithering"
+#: viewer/eog-image-view-ui.xml.h:21
+#, fuzzy
+msgid "_Light"
+msgstr "Svetlé"
+
+#: viewer/eog-image-view-ui.xml.h:22
+#, fuzzy
+msgid "_Maximum (high color)"
 msgstr "Ma_ximálny dithering (veľa farieb)"
 
-#: viewer/eog-image-view-ui.xml.h:26
-msgid "_No dithering"
-msgstr "_Bez ditheringu"
+#: viewer/eog-image-view-ui.xml.h:23
+#, fuzzy
+msgid "_Midtone"
+msgstr "Poltón"
 
-#: viewer/eog-image-view-ui.xml.h:27
+#: viewer/eog-image-view-ui.xml.h:24
+msgid "_None"
+msgstr ""
+
+#: viewer/eog-image-view-ui.xml.h:25
 msgid "_Print"
 msgstr "_Tlačiť"
 
+#: viewer/eog-image-view-ui.xml.h:26
+#, fuzzy
+msgid "_Save As..."
+msgstr "Uložiť ako"
+
+#: viewer/eog-image-view-ui.xml.h:27
+#, fuzzy
+msgid "_Tiles"
+msgstr "_Súbor"
+
 #: viewer/eog-image-view-ui.xml.h:28
-msgid "_Tiles Interpolation"
-msgstr "_Dlaždicová interpolácia"
+#, fuzzy
+msgid "_White"
+msgstr "Biela"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:1
 msgid "1:1"
@@ -400,7 +417,7 @@ msgstr "1:1"
 msgid "Fit"
 msgstr "Prispôsobiť"
 
-#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:76
+#: viewer/eog-image-view-ctrl-ui.xml.h:3 viewer/eog-print-setup.c:79
 msgid "In"
 msgstr "Zväčšiť"
 
@@ -409,191 +426,192 @@ msgid "Out"
 msgstr "Zmenšiť"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:5
-msgid "Zoom _In"
+#, fuzzy
+msgid "Zoom _1:1"
 msgstr "Z_väčšiť"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:6
-msgid "Zoom _Out"
-msgstr "Z_menšiť"
+msgid "Zoom _In"
+msgstr "Z_väčšiť"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:7
-msgid "Zoom to _Default"
-msgstr "Š_tandardné"
+msgid "Zoom _Out"
+msgstr "Z_menšiť"
 
 #: viewer/eog-image-view-ctrl-ui.xml.h:8
 msgid "Zoom to _Fit"
 msgstr "Pri_spôsobiť veľkosť"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "pts"
 msgstr "body"
 
-#: viewer/eog-print-setup.c:73
+#: viewer/eog-print-setup.c:76
 msgid "points"
 msgstr "body"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "mm"
 msgstr "mm"
 
-#: viewer/eog-print-setup.c:74
+#: viewer/eog-print-setup.c:77
 msgid "millimeter"
 msgstr "milimetre"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "cm"
 msgstr "cm"
 
-#: viewer/eog-print-setup.c:75
+#: viewer/eog-print-setup.c:78
 msgid "centimeter"
 msgstr "centimetre"
 
-#: viewer/eog-print-setup.c:76
+#: viewer/eog-print-setup.c:79
 msgid "inch"
 msgstr "palec"
 
-#: viewer/eog-print-setup.c:492
-msgid "Print"
-msgstr "Tlačiť"
-
-#: viewer/eog-print-setup.c:493
-msgid "Print preview"
-msgstr "Náhľad tlače"
-
-#: viewer/eog-print-setup.c:501
+#: viewer/eog-print-setup.c:469
 msgid "Print Setup"
 msgstr "Nastavenie tlače"
 
-#: viewer/eog-print-setup.c:569
+#: viewer/eog-print-setup.c:476
+msgid "Print"
+msgstr "Tlačiť"
+
+#: viewer/eog-print-setup.c:478
+msgid "Print preview"
+msgstr "Náhľad tlače"
+
+#: viewer/eog-print-setup.c:547
 msgid "Units: "
 msgstr "Jednotky:"
 
 #. First page
-#: viewer/eog-print-setup.c:579 viewer/eog-print-setup.c:587
+#: viewer/eog-print-setup.c:557 viewer/eog-print-setup.c:565
 msgid "Paper"
 msgstr "Papier"
 
-#: viewer/eog-print-setup.c:591
+#: viewer/eog-print-setup.c:569
 msgid "Paper size:"
 msgstr "Veľkosť papiera:"
 
 #. Orientation
-#: viewer/eog-print-setup.c:608
+#: viewer/eog-print-setup.c:586
 msgid "Orientation"
 msgstr "Orientácia"
 
-#: viewer/eog-print-setup.c:618
+#: viewer/eog-print-setup.c:593
 msgid "Portrait"
 msgstr "Na výšku"
 
-#: viewer/eog-print-setup.c:628
+#: viewer/eog-print-setup.c:600
 msgid "Landscape"
 msgstr "Na šírku"
 
 #. Margins
-#: viewer/eog-print-setup.c:637
+#: viewer/eog-print-setup.c:609
 msgid "Margins"
 msgstr "Okraje"
 
 #. Top margin
-#: viewer/eog-print-setup.c:645
+#: viewer/eog-print-setup.c:617
 msgid "Top:"
 msgstr "Horný:"
 
 #. Left margin
-#: viewer/eog-print-setup.c:663
+#: viewer/eog-print-setup.c:635
 msgid "Left:"
 msgstr "Ľavý:"
 
 #. Right margin
-#: viewer/eog-print-setup.c:681
+#: viewer/eog-print-setup.c:653
 msgid "Right:"
 msgstr "Pravý:"
 
 #. Bottom margin
-#: viewer/eog-print-setup.c:699
+#: viewer/eog-print-setup.c:671
 msgid "Bottom:"
 msgstr "Spodný:"
 
 #. Second page
-#: viewer/eog-print-setup.c:717
+#: viewer/eog-print-setup.c:689
 msgid "Image"
 msgstr "Obrázok"
 
 #. Scale
-#: viewer/eog-print-setup.c:725
+#: viewer/eog-print-setup.c:697
 msgid "Scale"
 msgstr "Mierka"
 
-#: viewer/eog-print-setup.c:729
+#: viewer/eog-print-setup.c:701
 msgid "Adjust to:"
 msgstr "Upraviť na:"
 
-#: viewer/eog-print-setup.c:734
+#: viewer/eog-print-setup.c:706
 msgid "Fit to page"
 msgstr "Prispôsobiť stránke"
 
-#: viewer/eog-print-setup.c:753
+#: viewer/eog-print-setup.c:725
 #, no-c-format
 msgid "% of original size"
 msgstr "% pôvodnej veľkosti"
 
 #. Center on page
-#: viewer/eog-print-setup.c:759
+#: viewer/eog-print-setup.c:731
 msgid "Center"
 msgstr "V strede"
 
-#: viewer/eog-print-setup.c:763
+#: viewer/eog-print-setup.c:735
 msgid "Horizontally"
 msgstr "Horizontálne"
 
-#: viewer/eog-print-setup.c:770
+#: viewer/eog-print-setup.c:742
 msgid "Vertically"
 msgstr "Vertikálne"
 
 #. Overlap
-#: viewer/eog-print-setup.c:779
+#: viewer/eog-print-setup.c:751
 msgid "Overlapping"
 msgstr "Prekrývanie"
 
-#: viewer/eog-print-setup.c:783
+#: viewer/eog-print-setup.c:755
 msgid "Overlap horizontally by "
 msgstr "Prekrývať horizontálne o"
 
-#: viewer/eog-print-setup.c:788
+#: viewer/eog-print-setup.c:760
 msgid "Overlap vertically by "
 msgstr "Prekrývať vertikálne o"
 
 #. Third page
-#: viewer/eog-print-setup.c:825
+#: viewer/eog-print-setup.c:797
 msgid "Printing"
 msgstr "Tlačím"
 
 #. Helpers
-#: viewer/eog-print-setup.c:833
+#: viewer/eog-print-setup.c:805
 msgid "Helpers"
 msgstr "Pomocné programy"
 
-#: viewer/eog-print-setup.c:834
+#: viewer/eog-print-setup.c:806
 msgid "Print cutting help"
 msgstr "Pomocník pre rozdelenie tlače"
 
-#: viewer/eog-print-setup.c:840
+#: viewer/eog-print-setup.c:812
 msgid "Print overlap help"
 msgstr "Pomocník pre prekryvy"
 
 #. Page order
-#: viewer/eog-print-setup.c:849
+#: viewer/eog-print-setup.c:821
 msgid "Page order"
 msgstr "Poradie stránok"
 
 #. Down right
-#: viewer/eog-print-setup.c:855
+#: viewer/eog-print-setup.c:827
 msgid "Down, then right"
 msgstr "Dolu, potom vpravo"
 
 #. Right down
-#: viewer/eog-print-setup.c:875
+#: viewer/eog-print-setup.c:844
 msgid "Right, then down"
 msgstr "Vpravo, potom dolu"
 
@@ -649,33 +667,82 @@ msgstr "Šedá"
 msgid "White"
 msgstr "Biela"
 
-#: viewer/preferences.c:59
-msgid "Small"
-msgstr "Malý"
+#: viewer/preferences.c:171
+#, fuzzy
+msgid "_Interpolation:"
+msgstr "_Interpolácia"
 
-#: viewer/preferences.c:60
-msgid "Medium"
-msgstr "Stredný"
+#: viewer/preferences.c:183
+#, fuzzy
+msgid "_Dither:"
+msgstr "_Dithering"
 
-#: viewer/preferences.c:61
-msgid "Large"
-msgstr "Veľký"
+#: viewer/preferences.c:195
+#, fuzzy
+msgid "Check _type:"
+msgstr "Skontrolovať _typ"
 
-#: viewer/preferences.c:169
-msgid "Interpolation:"
-msgstr "Interpolácia:"
+#: viewer/preferences.c:207
+#, fuzzy
+msgid "Check _size:"
+msgstr "Skontrolovať _veľkosť"
 
-#: viewer/preferences.c:180
-msgid "Dither:"
-msgstr "Dithering:"
+#~ msgid "_Settings"
+#~ msgstr "Nas_tavenia"
 
-#: viewer/preferences.c:191
-msgid "Check Type:"
-msgstr "Skontrolovať typ:"
+#~ msgid "Check size large"
+#~ msgstr "Skontrolovať veľkú veľkosť"
 
-#: viewer/preferences.c:202
-msgid "Check Size:"
-msgstr "Skontrolovať veľkosť:"
+#~ msgid "Check size medium"
+#~ msgstr "Skontrolovať strednú veľkosť"
+
+#~ msgid "Check size small"
+#~ msgstr "Skontrolovať malú veľkosť"
+
+#~ msgid "Check type _black"
+#~ msgstr "Skontrolovať č_ierny typ"
+
+#~ msgid "Check type _dark"
+#~ msgstr "Skontrolovať _tmavý typ"
+
+#~ msgid "Check type _gray"
+#~ msgstr "Skontrolovať š_edý typ"
+
+#~ msgid "Check type _light"
+#~ msgstr "Skontrolovať _svetlý typ"
+
+#~ msgid "Check type _midtone"
+#~ msgstr "Skontrolovať _poltónový typ"
+
+#~ msgid "Check type _white"
+#~ msgstr "Skontrolovať _biely typ"
+
+#~ msgid "Save _As"
+#~ msgstr "Uložiť _ako"
+
+#~ msgid "_Bilinear Interpolation"
+#~ msgstr "_Bilineárna interpolácia"
+
+#~ msgid "_No dithering"
+#~ msgstr "_Bez ditheringu"
+
+#~ msgid "_Tiles Interpolation"
+#~ msgstr "_Dlaždicová interpolácia"
+
+#~ msgid "Zoom to _Default"
+#~ msgstr "Š_tandardné"
+
+#~ msgid "Interpolation:"
+#~ msgstr "Interpolácia:"
+
+#~ msgid "Dither:"
+#~ msgstr "Dithering:"
+
+#~ msgid "Check Type:"
+#~ msgstr "Skontrolovať typ:"
+
+#~ msgid "Check Size:"
+#~ msgstr "Skontrolovať veľkosť:"
 
 #~ msgid "Image Viewer"
 #~ msgstr "Prehliadač obrázkov"
@@ -685,4 +752,3 @@ msgstr "Skontrolovať veľkosť:"
 
 #~ msgid "Eye Of Gnome"
 #~ msgstr "Eye Of Gnome"
-
