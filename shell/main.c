@@ -1,10 +1,11 @@
+#include "../config.h"
+
 #include <gnome.h>
 #include <glade/glade.h>
 #include <liboaf/liboaf.h>
 #include <gconf/gconf-client.h>
 #include <bonobo.h>
 #include "eog-window.h"
-#include "../config.h"
 
 static const gchar **startup_files;
 
@@ -52,6 +53,9 @@ main (int argc, char **argv)
 
 	if (bonobo_init (orb, NULL, NULL) == FALSE)
 		g_error (_("Could not initialize Bonobo!\n"));
+
+	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
+	textdomain (PACKAGE);
 
 	if (ctx) {
 		startup_files = poptGetArgs (ctx);
