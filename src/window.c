@@ -313,8 +313,7 @@ window_class_init (WindowClass *class)
 
 /* Handler for changes on the window sb policy */
 static void
-sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		      GConfValue *value, gboolean is_default, gpointer data)
+sb_policy_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
 	Window *window;
 	WindowPrivate *priv;
@@ -322,7 +321,7 @@ sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
 	window = WINDOW (data);
 	priv = window->priv;
 
-	priv->sb_policy = gconf_value_int (value);
+	priv->sb_policy = gconf_value_get_int (entry->value);
 
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);
 }

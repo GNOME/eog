@@ -238,42 +238,37 @@ image_view_class_init (ImageViewClass *class)
 
 /* Handler for changes on the interp_type value */
 static void
-interp_type_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-			GConfValue *value, gboolean is_default, gpointer data)
+interp_type_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-	image_view_set_interp_type (IMAGE_VIEW (data), gconf_value_int (value));
+	image_view_set_interp_type (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
 }
 
 /* Handler for changes on the check_type value */
 static void
-check_type_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		       GConfValue *value, gboolean is_default, gpointer data)
+check_type_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-	image_view_set_check_type (IMAGE_VIEW (data), gconf_value_int (value));
+	image_view_set_check_type (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
 }
 
 /* Handler for changes on the check_size value */
 static void
-check_size_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		       GConfValue *value, gboolean is_default, gpointer data)
+check_size_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-	image_view_set_check_size (IMAGE_VIEW (data), gconf_value_int (value));
+	image_view_set_check_size (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
 }
 
 /* Handler for changes on the dither value */
 static void
-dither_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		   GConfValue *value, gboolean is_default, gpointer data)
+dither_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-	image_view_set_dither (IMAGE_VIEW (data), gconf_value_int (value));
+	image_view_set_dither (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
 }
 
 /* Handler for changes on the scroll value */
 static void
-scroll_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		   GConfValue *value, gboolean is_default, gpointer data)
+scroll_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
-	image_view_set_scroll (IMAGE_VIEW (data), gconf_value_int (value));
+	image_view_set_scroll (IMAGE_VIEW (data), gconf_value_get_int (entry->value));
 }
 
 /* Object initialization function for the image view */

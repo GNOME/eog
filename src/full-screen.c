@@ -114,8 +114,7 @@ full_screen_class_init (FullScreenClass *class)
 
 /* Handler for changes on the sb policy */
 static void
-sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		      GConfValue *value, gboolean is_default, gpointer data)
+sb_policy_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
 	FullScreen *fs;
 	FullScreenPrivate *priv;
@@ -123,15 +122,14 @@ sb_policy_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
 	fs = FULL_SCREEN (data);
 	priv = fs->priv;
 
-	priv->sb_policy = gconf_value_int (value);
+	priv->sb_policy = gconf_value_get_int (entry->value);
 
 	gtk_scroll_frame_set_policy (GTK_SCROLL_FRAME (priv->ui), priv->sb_policy, priv->sb_policy);
 }
 
 /* Handler for changes on the bevel policy */
 static void
-bevel_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
-		  GConfValue *value, gboolean is_default, gpointer data)
+bevel_changed_cb (GConfClient *client, guint notify_id, GConfEntry *entry, gpointer data)
 {
 	FullScreen *fs;
 	FullScreenPrivate *priv;
@@ -139,7 +137,7 @@ bevel_changed_cb (GConfClient *client, guint notify_id, const gchar *key,
 	fs = FULL_SCREEN (data);
 	priv = fs->priv;
 
-	priv->bevel = gconf_value_bool (value);
+	priv->bevel = gconf_value_get_bool (entry->value);
 
 	gtk_scroll_frame_set_shadow_type (GTK_SCROLL_FRAME (priv->ui),
 					  priv->bevel ? GTK_SHADOW_IN : GTK_SHADOW_NONE);
