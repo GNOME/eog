@@ -1889,7 +1889,7 @@ add_eog_icon_factory (void)
 	GnomeProgram *program;
 
 	factory = gtk_icon_factory_new ();
-	program = gnome_program_get ();
+	program = gnome_program_get (); /* don't free this it's static */
 	g_assert (program != NULL);
 
 	while (eog_stock_items[i].stock_id != NULL) {
@@ -1919,7 +1919,6 @@ add_eog_icon_factory (void)
 
 	gtk_icon_factory_add_default (factory);
 	g_object_unref (factory);
-	g_object_unref (program);
 }
 
 /* UI<->function mapping */
