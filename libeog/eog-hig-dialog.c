@@ -40,6 +40,7 @@ eog_hig_dialog_new (const char *stock_id, const char *header, const char *body, 
 			      "resizable", FALSE,
 			      "has-separator", FALSE,
 			      "modal", modal,
+			      "title", "",
 			      NULL);
 			      
 	hbox = gtk_widget_new (GTK_TYPE_HBOX, 
