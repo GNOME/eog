@@ -1,8 +1,13 @@
+if ENABLE_COLLECTION
+ COLLECTION_FLAGS=-DHAVE_COLLECTION
+endif
+
 SUBDIRS = cursors
 
 INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
+	$(COLLECTION_FLAGS)					\
 	-DDATADIR=\""$(datadir)"\"				\
 	-I$(srcdir) -I$(top_srcdir)				\
 	-I$(top_srcdir)/src					\

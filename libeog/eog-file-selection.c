@@ -22,6 +22,7 @@ struct _EogFileSelectionPrivate {
 
 	FileTypeInfo         *supported_types;
 	gboolean             ensure_suffix;
+	gboolean             allow_directories;
 };
 
 static FileTypeInfo file_types_load[] =  {
@@ -119,6 +120,10 @@ is_filename_valid (GtkDialog *dlg)
 	info = g_object_get_data (G_OBJECT (item), FILE_TYPE_INFO_KEY);
 	
 	filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (dlg));
+
+	if (priv->allow_directories && g_file_test (filename, G_FILE_TEST_IS_DIR)) {
+		return TRUE;
+	}
 
 	if (g_strcasecmp (info->suffix, "") == 0) { /* check by extension */
 		
@@ -257,11 +262,17 @@ eog_file_selection_new (EogFileSelectionType type)
 	case EOG_FILE_SELECTION_LOAD:
 		priv->supported_types = file_types_load;
 		priv->ensure_suffix = FALSE;
+#if HAVE_COLLECTION
+		priv->allow_directories = TRUE;
+#else
+		priv->allow_directories = FALSE;
+#endif
 		title = _("Load Image");
 		break;
 	case EOG_FILE_SELECTION_SAVE:
 		priv->supported_types = file_types_save;
 		priv->ensure_suffix = TRUE;
+		priv->allow_directories = FALSE;
 		title = _("Save Image");
 		break;
 	default:

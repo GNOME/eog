@@ -1,5 +1,18 @@
 2002-08-13  Jens Finke  <jens@triq.net>
 
+	* libeog/Makefile.am: Set HAVE_COLLECTION flag, if collection is
+	enabled.
+	
+	* libeog/eog-file-selector.c (is_filename_valid): Check if
+	filename is a directory.
+	(eog_file_selection_new): Allow directories on load if we have the
+	collection component.
+
+2002-08-13  Jens Finke  <jens@triq.net>
+
+	Misc code cleanups. Selection changes don't force the whole item
+	to be updated. 
+	
 	* collection/cimage.[ch] (get_unique_id): Removed.
 	(cimage_instance_init): Set id = 0.
 	(cimage_new_uri): Use quark from text uri as id. Set caption.
