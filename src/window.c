@@ -519,15 +519,45 @@ window_close (Window *window)
 
 /* Open image dialog */
 
+/* Opens an image in a new window */
+static void
+open_new_window (Window *window, const char *filename)
+{
+	WindowPrivate *priv;
+	ImageView *view;
+	Image *image;
+	GtkWidget *new_window;
+
+	priv = window->priv;
+
+	view = IMAGE_VIEW (ui_image_get_image_view (UI_IMAGE (priv->ui)));
+	image = image_view_get_image (view);
+
+	if (!(image && image->pixbuf))
+		new_window = GTK_WIDGET (window);
+	else
+		new_window = window_new ();
+
+	if (window_open_image (WINDOW (new_window), filename)) {
+		gtk_widget_show_now (new_window);
+		raise_and_focus (new_window);
+	} else {
+		open_failure_dialog (GTK_WINDOW (new_window), filename);
+
+		if (new_window != GTK_WIDGET (window))
+			gtk_widget_destroy (new_window);
+	}
+}
+
 /* OK button callback for the open file selection dialog */
 static void
 open_ok_clicked (GtkWidget *widget, gpointer data)
 {
 	GtkWidget *fs;
 	Window *window;
-	char *filename;
 	WindowPrivate *priv;
-	
+	char *filename;
+
 	fs = GTK_WIDGET (data);
 
 	window = WINDOW (gtk_object_get_data (GTK_OBJECT (fs), "window"));
@@ -537,17 +567,9 @@ open_ok_clicked (GtkWidget *widget, gpointer data)
 
 	filename = g_strdup (gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs)));
 	gtk_widget_hide (fs);
-	
+
 	if (gconf_client_get_bool (priv->client, "/apps/eog/window/open_new_window", NULL))
-	{
-		window = window_new ();
-		if (window_open_image (WINDOW (window), filename)) {
-			gtk_widget_show_now (window);
-		} else {
-			open_failure_dialog (GTK_WINDOW (window), filename);
-			gtk_widget_destroy (window);
-		}
-	}		
+		open_new_window (window, filename);
 	else if (!window_open_image (window, filename))
 		open_failure_dialog (GTK_WINDOW (window), filename);
 
@@ -682,11 +704,11 @@ window_open_image (Window *window, const char *filename)
 	char *fname;
 	gboolean free_fname;
 	GtkWidget *view;
-	
+
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (IS_WINDOW (window), FALSE);
 	g_return_val_if_fail (filename != NULL, FALSE);
-	
+
 	priv = window->priv;
 
 	image = image_new ();

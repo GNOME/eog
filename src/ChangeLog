@@ -1,3 +1,10 @@
+2000-07-28  Federico Mena Quintero  <federico@helixcode.com>
+
+	* window.c (open_new_window): Moved the opening in a new window
+	functionality to here.  If the original window does not have an
+	image loaded, load it in that window instead of creating a new
+	one.
+
 2000-07-28  Arik Devens  <arik@helixcode.com>
 
 	* window.c (open_ok_clicked): Added gconf checking for the new
