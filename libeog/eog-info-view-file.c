@@ -86,17 +86,17 @@ eog_info_view_file_instance_init (EogInfoViewFile *obj)
 	/* tag column */
 	cell = gtk_cell_renderer_text_new ();
         column = gtk_tree_view_column_new_with_attributes (_("Attribute"),
-		                                           cell, 
+		                                                   cell, 
                                                            "text", MODEL_COLUMN_ATTRIBUTE,
-							   NULL);
+														   NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
 	/* value column */
 	cell = gtk_cell_renderer_text_new ();
-        column = gtk_tree_view_column_new_with_attributes (_("Value"),
-		                                           cell, 
-                                                           "text", MODEL_COLUMN_VALUE,
-							   NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Value"),
+		                                               cell, 
+                                                       "text", MODEL_COLUMN_VALUE,
+							                           NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
@@ -104,9 +104,11 @@ eog_info_view_file_instance_init (EogInfoViewFile *obj)
 	for (i = 0; i < ATTR_FILE_LAST; i++) {
 		GtkTreeIter iter;
 		GtkTreePath *path;
+		char *translated_string;
 
+		translated_string = gettext (attribute_list[i].label);
 		gtk_list_store_append (priv->model, &iter);
-		gtk_list_store_set (priv->model, &iter, MODEL_COLUMN_ATTRIBUTE,  attribute_list[i].label, -1);
+		gtk_list_store_set (priv->model, &iter, MODEL_COLUMN_ATTRIBUTE,  translated_string, -1);
 
 		path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->model), &iter);
 		attribute_list[i].path = gtk_tree_path_to_string (path);
