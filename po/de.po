@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.6\n"
-"POT-Creation-Date: 2002-01-20 11:54+0100\n"
+"POT-Creation-Date: 2002-02-10 20:09+0100\n"
 "PO-Revision-Date: 2001-06-16 00:03+02:00\n"
 "Last-Translator: Matthias Warkus <mawarkus@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: eog.desktop.in.h:1 shell/eog-window.c:182
+#: eog.desktop.in.h:1 shell/eog-window.c:177 shell/eog-window.c:523
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -22,7 +22,7 @@ msgstr "Eye of Gnome"
 msgid "Image Viewer"
 msgstr "Bildbetrachter"
 
-#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:673
+#: libeog/GNOME_EOG.server.in.h:1 viewer/eog-image-view.c:702
 msgid "EOG Image"
 msgstr "EOG-Bild"
 
@@ -43,121 +43,113 @@ msgid "About this application"
 msgstr "Über diese Anwendung"
 
 #: shell/eog-shell-ui.xml.h:2
+msgid "Cancel"
+msgstr ""
+
+#: shell/eog-shell-ui.xml.h:3
 msgid "Change preferences"
 msgstr "Einstellungen ändern"
 
-#: shell/eog-shell-ui.xml.h:3
+#: shell/eog-shell-ui.xml.h:4
 msgid "Close"
 msgstr "Schließen"
 
-#: shell/eog-shell-ui.xml.h:4
+#: shell/eog-shell-ui.xml.h:5
 msgid "Close window"
 msgstr "Fenster schließen"
 
-#: shell/eog-shell-ui.xml.h:5
+#: shell/eog-shell-ui.xml.h:6
 msgid "E_xit"
 msgstr "_Beenden"
 
-#: shell/eog-shell-ui.xml.h:6
+#: shell/eog-shell-ui.xml.h:7
 msgid "Exit the program"
 msgstr "Das Programm beenden"
 
-#: shell/eog-shell-ui.xml.h:7
+#: shell/eog-shell-ui.xml.h:8
 msgid "Open"
 msgstr "Öffnen"
 
-#: shell/eog-shell-ui.xml.h:8
+#: shell/eog-shell-ui.xml.h:9
 msgid "Open a file"
 msgstr "Eine Datei öffnen"
 
-#: shell/eog-shell-ui.xml.h:9
+#: shell/eog-shell-ui.xml.h:10
 msgid "Open a new window"
 msgstr "Ein neues Fenster öffnen"
 
-#: shell/eog-shell-ui.xml.h:10
-msgid "_About..."
-msgstr "_Info..."
-
 #: shell/eog-shell-ui.xml.h:11
-msgid "_Close"
-msgstr "S_chließen"
-
-#: shell/eog-shell-ui.xml.h:12
-msgid "_File"
-msgstr "_Datei"
-
-#: shell/eog-shell-ui.xml.h:13
-msgid "_Help"
-msgstr "_Hilfe"
-
-#: shell/eog-shell-ui.xml.h:14
-msgid "_New Window"
-msgstr "_Neues Fenster"
-
-#: shell/eog-shell-ui.xml.h:15
-msgid "_Open..."
-msgstr "Ö_ffnen..."
-
-#: shell/eog-shell-ui.xml.h:16
-msgid "_Preferences"
-msgstr "_Vorlieben"
-
-#: shell/eog-shell-ui.xml.h:17
-msgid "_Settings"
-msgstr "_Einstellungen"
-
-#: shell/eog-window.c:184
-#, fuzzy
-msgid "Copyright (C) 2000-2002 The Free Software Foundation"
-msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
-
-#: shell/eog-window.c:185
-msgid "The GNOME image viewing and cataloging program"
-msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
-
-#: shell/eog-window.c:404
 #, fuzzy
 msgid "Open in new window"
 msgstr "Ein neues Fenster öffnen"
 
-#: shell/eog-window.c:405
+#: shell/eog-shell-ui.xml.h:12
 #, fuzzy
 msgid "Open in this window"
 msgstr "Ein neues Fenster öffnen"
 
-#: shell/eog-window.c:407
-msgid "Cancel"
-msgstr ""
+#: shell/eog-shell-ui.xml.h:13
+msgid "_About..."
+msgstr "_Info..."
 
-#: shell/eog-window.c:507
-msgid "Eye Of Gnome"
-msgstr "Eye Of Gnome"
+#: shell/eog-shell-ui.xml.h:14
+msgid "_Close"
+msgstr "S_chließen"
 
-#: shell/eog-window.c:592
-msgid "Can't find eog-shell-ui.xml.\n"
-msgstr "eog-shell-ui.xml kann nicht gefunden werden.\n"
+#: shell/eog-shell-ui.xml.h:15
+msgid "_File"
+msgstr "_Datei"
 
-#: shell/eog-window.c:700
+#: shell/eog-shell-ui.xml.h:16
+msgid "_Help"
+msgstr "_Hilfe"
+
+#: shell/eog-shell-ui.xml.h:17
+msgid "_New Window"
+msgstr "_Neues Fenster"
+
+#: shell/eog-shell-ui.xml.h:18
+msgid "_Open..."
+msgstr "Ö_ffnen..."
+
+#: shell/eog-shell-ui.xml.h:19
+msgid "_Preferences"
+msgstr "_Vorlieben"
+
+#: shell/eog-shell-ui.xml.h:20
+msgid "_Settings"
+msgstr "_Einstellungen"
+
+#: shell/eog-window.c:179
+#, fuzzy
+msgid "Copyright (C) 2000-2002 The Free Software Foundation"
+msgstr "Copyright (C) 2000-2001 The Free Software Foundation"
+
+#: shell/eog-window.c:180
+msgid "The GNOME image viewing and cataloging program"
+msgstr "Das GNOME-Bildbetrachtungs- und Katalogisierungsprogramm"
+
+#: shell/eog-window.c:684
 msgid "Open Image"
 msgstr "Bild öffnen"
 
-#: shell/eog-window.c:798
+#: shell/eog-window.c:739
 msgid "Control doesn't support window_title property."
 msgstr "Control unterstützt die Eigenschaft window_title nicht."
 
-#: shell/eog-window.c:814
+#: shell/eog-window.c:755
 msgid "Control doesn't support status_text property."
 msgstr "Control unterstützt die Eigenschaft status_text nicht."
 
-#: shell/eog-window.c:831
+#: shell/eog-window.c:772
 msgid "Control doesn't have properties"
 msgstr "Control hat keine Eigenschaften"
 
-#: shell/eog-window.c:848
+#: shell/eog-window.c:789
 msgid "Couldn't retrieve mime type for file."
 msgstr "MIME-Typ für Datei konnte nicht erhalten werden."
 
-#: shell/eog-window.c:1083
+#: shell/eog-window.c:1013
 msgid "Error while obtaining file informations."
 msgstr "Fehler beim Entnehmen von Dateiinformationen."
 
@@ -180,11 +172,11 @@ msgstr "Einzelne Fenster"
 msgid "Collection"
 msgstr "Sammlung"
 
-#: shell/main.c:276
+#: shell/main.c:280
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: shell/main.c:279
+#: shell/main.c:283
 msgid "Could not initialize Bonobo!\n"
 msgstr "Bonobo konnte nicht initialisiert werden!\n"
 
@@ -197,64 +189,64 @@ msgstr "`%s' konnte nicht geöffnet werden"
 msgid "Couldn't initialize GnomeVFS!\n"
 msgstr "GnomeVFS konnte nicht initialisiert werden!\n"
 
-#: viewer/eog-image-view.c:290
+#: viewer/eog-image-view.c:315
 #, c-format
 msgid "Could not save image as '%s': %s."
 msgstr "Bild konnte nicht unter '%s' gespeichert werden: %s"
 
-#: viewer/eog-image-view.c:335
+#: viewer/eog-image-view.c:364
 msgid "Save As"
 msgstr "Speichern unter"
 
-#: viewer/eog-image-view.c:908
+#: viewer/eog-image-view.c:937
 msgid "Print Image"
 msgstr "Bild drucken"
 
-#: viewer/eog-image-view.c:916
+#: viewer/eog-image-view.c:945
 msgid "Pages"
 msgstr "Seiten"
 
-#: viewer/eog-image-view.c:1003
+#: viewer/eog-image-view.c:1032
 msgid "Print Preview"
 msgstr "Druckvorschau"
 
-#: viewer/eog-image-view.c:1009
+#: viewer/eog-image-view.c:1038
 msgid "Printing of image failed"
 msgstr "Drucken des Bildes fehlgeschlagen"
 
-#: viewer/eog-image-view.c:1876
+#: viewer/eog-image-view.c:1903
 msgid "Display"
 msgstr "Anzeige"
 
-#: viewer/eog-image-view.c:1967 viewer/preferences.c:147
+#: viewer/eog-image-view.c:1994 viewer/preferences.c:149
 msgid "Interpolation"
 msgstr "Interpolation"
 
-#: viewer/eog-image-view.c:1970 viewer/preferences.c:159
+#: viewer/eog-image-view.c:1997 viewer/preferences.c:161
 msgid "Dither"
 msgstr "Raster"
 
-#: viewer/eog-image-view.c:1973 viewer/preferences.c:170
+#: viewer/eog-image-view.c:2000 viewer/preferences.c:172
 msgid "Check Type"
 msgstr "Typ prüfen"
 
-#: viewer/eog-image-view.c:1976 viewer/preferences.c:181
+#: viewer/eog-image-view.c:2003 viewer/preferences.c:183
 msgid "Check Size"
 msgstr "Größe prüfen"
 
-#: viewer/eog-image-view.c:1979
+#: viewer/eog-image-view.c:2006
 msgid "Image Width"
 msgstr "Bildbreite"
 
-#: viewer/eog-image-view.c:1982
+#: viewer/eog-image-view.c:2009
 msgid "Image Height"
 msgstr "Bildhöhe"
 
-#: viewer/eog-image-view.c:1985
+#: viewer/eog-image-view.c:2012
 msgid "Window Title"
 msgstr "Fenstertitel"
 
-#: viewer/eog-image-view.c:1988
+#: viewer/eog-image-view.c:2015
 msgid "Statusbar Text"
 msgstr "Text in Statusleiste"
 
@@ -373,6 +365,22 @@ msgstr "_Drucken"
 #: viewer/eog-image-view-ui.xml.h:29
 msgid "_Tiles Interpolation"
 msgstr "_Kachel-Interpolation"
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:1
+msgid "Zoom _In"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:2
+msgid "Zoom _Out"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:3
+msgid "Zoom to _Default"
+msgstr ""
+
+#: viewer/eog-image-view-ctrl-ui.xml.h:4
+msgid "Zoom to _Fit"
+msgstr ""
 
 #: viewer/eog-print-setup.c:73
 msgid "pts"
@@ -615,6 +623,12 @@ msgstr "Mittel"
 #: viewer/preferences.c:68
 msgid "Large"
 msgstr "Groß"
+
+#~ msgid "Eye Of Gnome"
+#~ msgstr "Eye Of Gnome"
+
+#~ msgid "Can't find eog-shell-ui.xml.\n"
+#~ msgstr "eog-shell-ui.xml kann nicht gefunden werden.\n"
 
 #~ msgid "Couldn't get local BonoboControl interface.\n"
 #~ msgstr "Lokales BonoboControl-Interface konnte nicht erhalten werden.\n"
