@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 0.119.0\n"
-"POT-Creation-Date: 2002-06-08 04:12+0200\n"
-"PO-Revision-Date: 2002-06-08 04:26+0200\n"
+"POT-Creation-Date: 2002-06-14 12:54+0200\n"
+"PO-Revision-Date: 2002-06-14 12:56+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <gnome@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "Continguts"
 msgid "Help On this application"
 msgstr "Ajuda sobre aquesta aplicació"
 
-#: shell/eog-shell-ui.xml.h:8 shell/main.c:197
+#: shell/eog-shell-ui.xml.h:8 shell/main.c:205
 msgid "Open"
 msgstr "Obre"
 
@@ -194,7 +194,7 @@ msgstr ""
 "Softcatalà <info@softcatala.org>\n"
 "Jordi Mallach <jordi@sindominio.net>"
 
-#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:339
+#: shell/eog-window.c:253 shell/eog-window.c:643 shell/main.c:459
 msgid "Eye of Gnome"
 msgstr "Eye of Gnome"
 
@@ -225,7 +225,7 @@ msgstr "Obre la imatge"
 msgid "Unable to open %s."
 msgstr "No es pot obrir %s."
 
-#: shell/main.c:164
+#: shell/main.c:172
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -236,16 +236,16 @@ msgstr ""
 "simultàniament. Les voleu obrir en\n"
 "una col·lecció?"
 
-#: shell/main.c:169
+#: shell/main.c:177
 msgid "Single Windows"
 msgstr "Finestres individuals"
 
-#: shell/main.c:170
+#: shell/main.c:178
 msgid "Collection"
 msgstr "Col·lecció"
 
 # c-format
-#: shell/main.c:194
+#: shell/main.c:202
 #, c-format
 msgid ""
 "You are about to open %i windows\n"
@@ -254,11 +254,30 @@ msgstr ""
 "Esteu a punt d'obrir %i finestres\n"
 "simultàniament. Voleu continuar?"
 
-#: shell/main.c:351
+#: shell/main.c:285
+#, c-format
+msgid ""
+"Could not access %s\n"
+"Eye of Gnome will not be able to display this file."
+msgstr ""
+"No s'ha pogut accedir a %s\n"
+"Eye of Gnome no podrà mostrar aquest fitxer."
+
+#: shell/main.c:289
+#, c-format
+msgid ""
+"The following files cannot be displayed because Eye of Gnome was not able to "
+"access them:\n"
+"%s"
+msgstr ""
+"No es es poden mostrar els següents fitxers perque Eye of Gnome no ha pogut accedir a ells:\n"
+"%s"
+
+#: shell/main.c:471
 msgid "Could not initialize GnomeVFS!\n"
 msgstr "No s'ha pogut inicialitzar el GnomeVFS!\n"
 
-#: shell/main.c:354
+#: shell/main.c:474
 msgid "Could not initialize Bonobo!\n"
 msgstr "No s'ha pogut inicialitzar el Bonobo!\n"
 
