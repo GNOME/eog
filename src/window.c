@@ -1,8 +1,8 @@
 /* Eye of Gnome image viewer - main window widget
  *
- * Copyright (C) 1999 The Free Software Foundation
+ * Copyright (C) 2000 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gimp.org>
+ * Author: Federico Mena-Quintero <federico@gnu.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -142,7 +142,8 @@ about_cmd (GtkWidget *widget, gpointer data)
 {
 	static GtkWidget *about;
 	static const char *authors[] = {
-		"Federico Mena-Quintero (federico@gimp.org)",
+		"Federico Mena-Quintero (federico@gnu.org)",
+		"Arik Devens (arik@helixcode.com)",
 		NULL
 	};
 
@@ -150,7 +151,7 @@ about_cmd (GtkWidget *widget, gpointer data)
 		about = gnome_about_new (
 			_("Eye of Gnome"),
 			VERSION,
-			_("Copyright (C) 1999 The Free Software Foundation"),
+			_("Copyright (C) 2000 The Free Software Foundation"),
 			authors,
 			_("The GNOME image viewing and cataloging program"),
 			NULL);
@@ -327,10 +328,8 @@ window_init (Window *window)
 
 	priv->client = gconf_client_get_default ();
 
-#if 0
 	gconf_client_add_dir (priv->client, "/apps/eog",
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
-#endif
 
 	priv->sb_policy_notify_id = gconf_client_notify_add (
 		priv->client, "/apps/eog/window/sb_policy",
@@ -373,9 +372,7 @@ window_destroy (GtkObject *object)
 
 	priv->sb_policy_notify_id = 0;
 
-#if 0
-	gconf_client_remove_dir (priv->client, "/apps/eog");
-#endif
+	gconf_client_remove_dir (priv->client, "/apps/eog", NULL);
 
 	gtk_object_unref (GTK_OBJECT (priv->client));
 	priv->client = NULL;

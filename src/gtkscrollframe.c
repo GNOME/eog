@@ -548,9 +548,12 @@ gtk_scroll_frame_size_request (GtkWidget *widget, GtkRequisition *requisition)
 
 		gtk_widget_size_request (bin->child, &child_requisition);
 
+#if 0
 		if (priv->hsb_policy == GTK_POLICY_NEVER)
 			requisition->width += child_requisition.width;
-		else {
+		else
+#endif
+		{
 			GtkWidgetAuxInfo *aux_info;
 
 			aux_info = gtk_object_get_data_by_id (GTK_OBJECT (bin->child),
@@ -562,9 +565,12 @@ gtk_scroll_frame_size_request (GtkWidget *widget, GtkRequisition *requisition)
 				requisition->width += vsb_requisition.width;
 		}
 
+#if 0
 		if (priv->vsb_policy == GTK_POLICY_NEVER)
 			requisition->height += child_requisition.height;
-		else {
+		else
+#endif
+		{
 			GtkWidgetAuxInfo *aux_info;
 
 			aux_info = gtk_object_get_data_by_id (GTK_OBJECT (bin->child),

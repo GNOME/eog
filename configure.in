@@ -4,7 +4,7 @@ AC_INIT(src/image-view.c)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(eog, 0.3)
+AM_INIT_AUTOMAKE(eog, 0.4)
 
 AM_MAINTAINER_MODE
 
@@ -77,8 +77,6 @@ AC_ARG_WITH(bonobo,
 	fi
 )
 
-gnumeric_executable=gnumeric
-AC_SUBST(gnumeric_executable)
 if $try_bonobo; then
 	AC_MSG_CHECKING(for Bonobo > 0.9)
 	if gnome-config --libs bonobox_print > /dev/null 2>&1; then
@@ -98,7 +96,6 @@ if $try_bonobo; then
 		have_bonobo=true
 		bonobo=bonobox_print
 		bonobo_msg=yes
-	        gnumeric_executable=gnumeric-bonobo
 	else
 		AC_MSG_RESULT(not found)
 	fi

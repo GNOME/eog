@@ -1,8 +1,8 @@
 /* Eye of Gnome image viewer - image canvas item
  *
- * Copyright (C) 1999 The Free Software Foundation
+ * Copyright (C) 2000 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gimp.org>
+ * Author: Federico Mena-Quintero <federico@gnu.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -1,8 +1,8 @@
 /* GNOME libraries - canvas item for icon captions
  *
- * Copyright (C) 1999 The Free Software Foundation
+ * Copyright (C) 2000 The Free Software Foundation
  *
- * Authors: Federico Mena-Quintero <federico@gimp.org>
+ * Authors: Federico Mena-Quintero <federico@gnu.org>
  *          Miguel de Icaza <miguel@gnu.org>
  *
  * This library is free software; you can redistribute it and/or

@@ -1,3 +1,19 @@
+2000-08-16  Federico Mena Quintero  <federico@helixcode.com>
+
+	* gtkscrollframe.c (gtk_scroll_frame_size_request): Using the
+	child's requisition as our own requisition when the scrollbar
+	policy is NEVER is *highly* broken.  The scrolling interface needs
+	to be rethought.  In the meantime, disable that code so that we
+	always follow the code path for the other policies.
+
+	* image-view.c: Restore the gconf_client_add_dir() stuff.
+
+	* full-screen.c: Likewise.
+
+	* window.c: Likewise.
+
+	* *.[ch]: Date/email updates.
+	
 2000-07-28  Federico Mena Quintero  <federico@helixcode.com>
 
 	* window.c (open_new_window): Moved the opening in a new window

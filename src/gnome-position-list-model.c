@@ -1,8 +1,8 @@
 /* GNOME libraries - abstract position list model
  *
- * Copyright (C) 1999 The Free Software Foundation
+ * Copyright (C) 2000 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gimp.org>
+ * Author: Federico Mena-Quintero <federico@gnu.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

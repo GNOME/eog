@@ -2,7 +2,8 @@
  *
  * Copyright (C) 2000 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gimp.org>
+ * Authors: Federico Mena-Quintero <federico@gnu.org>
+ *          Arik Devens <arik@helixcode.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
