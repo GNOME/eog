@@ -15,8 +15,6 @@ dnl ================= Requirements =============================================
 
 GNOME_VFS_REQUIRED=2.5.91
 LIBGNOMEUI_REQUIRED=2.5.92
-LIBBONOBOUI_REQUIRED=2.5.4
-BONOBO_ACTIVATION_REQUIRED=2.6.0
 LIBGLADE_REQUIRED=2.3.6
 GDKPIXBUF_REQUIRED=2.4.0
 LIBEXIF_REQUIRED=0.5.12
@@ -56,7 +54,7 @@ AC_SUBST(LDFLAGS)
 dnl ================= gnome libs check ====================================
 
 GPI_MODULES="libgnomeprintui-2.2 >= $LIBGNOMEPRINTUI_REQUIRED gconf-2.0 >= $GCONF_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED libgnomecanvas-2.0 >= $LIBGNOMECANVAS_REQUIRED"
-EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libbonoboui-2.0 >= $LIBBONOBOUI_REQUIRED bonobo-activation-2.0 >= $BONOBO_ACTIVATION_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED $GPI_MODULES libart-2.0 >= $LIBART_REQUIRED"
+EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED eel-2.0 >= $EEL_REQUIRED $GPI_MODULES libart-2.0 >= $LIBART_REQUIRED"
 
 dnl ============== optional exif support ====================
 
@@ -121,19 +119,8 @@ PKG_CHECK_MODULES(EOG, $EOG_MODULES)
 AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
 
-dnl ================= corba/bonobo ===========================
-
 # glib-genmarshal
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
-
-ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
-AC_SUBST(ORBIT_IDL)
-
-BONOBO_IDLDIR="`$PKG_CONFIG --variable=idldir libbonobo-2.0`"
-AC_SUBST(BONOBO_IDLDIR)
-
-BONOBO_ACT_IDLDIR="`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
-AC_SUBST(BONOBO_ACT_IDLDIR)
 
 dnl ================= GConf  =================================================
 

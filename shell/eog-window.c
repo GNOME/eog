@@ -31,9 +31,6 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
-#include <bonobo-activation/bonobo-activation.h>
-#include <bonobo/Bonobo.h>
-#include <bonobo/bonobo-window.h>
 #include <libgnome/gnome-program.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <libgnomevfs/gnome-vfs.h>
@@ -118,11 +115,6 @@ struct _EogWindowPrivate {
 	guint sig_id_progress;
 	guint sig_id_loading_finished;
 	guint sig_id_loading_failed;
-
-	/* deprecated */
-	BonoboControlFrame  *ctrl_frame;
-	BonoboUIComponent   *ui_comp;
-	GtkWidget           *ctrl_widget;
 };
 
 enum {
@@ -1440,6 +1432,7 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 
 /* ========================================================================= */
 
+#if 0
 static void
 activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean relative, gpointer data)
 {
@@ -1455,6 +1448,7 @@ activate_uri_cb (BonoboControlFrame *control_frame, const char *uri, gboolean re
 
 	g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
 }
+#endif
 
 static void
 open_recent_cb (GtkWidget *widget, const EggRecentItem *item, gpointer data)
@@ -1529,11 +1523,6 @@ eog_window_destroy (GtkObject *object)
 	priv = window->priv;
 
 	window_list = g_list_remove (window_list, window);
-
-	if (priv->ctrl_frame != NULL) {
-		bonobo_object_unref (BONOBO_OBJECT (priv->ctrl_frame));
-		priv->ctrl_frame = NULL;
-	}
 
 	if (priv->recent_view != NULL) {
 		g_object_unref (priv->recent_view);
@@ -1644,7 +1633,6 @@ eog_window_init (EogWindow *window)
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
 	window_list = g_list_prepend (window_list, window);
-	priv->ctrl_widget = NULL;
 
 	priv->desired_width = -1;
 	priv->desired_height = -1;
@@ -1697,7 +1685,7 @@ eog_window_has_contents (EogWindow *window)
 {
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
-	return (window->priv->ctrl_frame != NULL);
+	return (eog_image_list_length (window->priv->image_list) > 0);
 }
 
 /* Drag_data_received handler for windows */
@@ -1750,11 +1738,13 @@ set_drag_dest (EogWindow *window)
 			   GDK_ACTION_COPY | GDK_ACTION_ASK);
 }
 
+#if 0
 static void
 widget_realized_cb (GtkWidget *widget, gpointer data)
 {
 	adapt_window_size (EOG_WINDOW (data), 250, 250);
 }
+#endif
 
 static void
 update_ui_visibility (EogWindow *window)
@@ -2099,22 +2089,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->vpane, TRUE, TRUE, 0);
 
-#if 0
-	/* We connect to the realize signal here, because we must know
-	 * when all the child widgets of an eog window have determined
-	 * their size in order to get a working adapt_window_size
-	 * function. It should be sufficient to connect to the
-	 * statusbar here, because it is one of the deepest widgets in
-	 * the widget hierarchy tree.  FIXME: if we allow hideable
-	 * status-/toolbars then this must be reworked.
-	 */
-	g_signal_connect_after (G_OBJECT (priv->statusbar),
-				"realize", G_CALLBACK (widget_realized_cb), window);
-	gtk_widget_show (GTK_WIDGET (priv->statusbar));
-
-	/* add control frame interface */
-	priv->ctrl_frame = NULL;
-#endif
 	set_drag_dest (window);
 
 	/* set default geometry */
@@ -2178,7 +2152,7 @@ eog_window_close (EogWindow *window)
 	gtk_widget_destroy (GTK_WIDGET (window));
 
 	if (!window_list)
-		bonobo_main_quit ();
+		gtk_main_quit ();
 }
 
 static void

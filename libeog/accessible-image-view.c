@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkwidget.h>
 #include <sys/types.h>
-#include <bonobo.h>
 
 #include "accessible-image-view.h"
 #include "eog-scroll-view.h"

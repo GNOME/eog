@@ -1,14 +1,13 @@
 #include <config.h>
 #include <string.h>
-#include <bonobo-activation/bonobo-activation.h>
+#include <stdlib.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-config.h>
+#include <libgnome/gnome-i18n.h>
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
-#include <bonobo.h>
-#include <bonobo/bonobo-ui-main.h>
 #include <eel/eel-vfs-extensions.h>
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
@@ -433,7 +432,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	}
 
 	if (quit_program) {
-		bonobo_main_quit ();
+		gtk_main_quit ();
 	}
 }
 
@@ -531,9 +530,6 @@ main (int argc, char **argv)
 	if(gnome_vfs_init () == FALSE)
 		g_error ("Could not initialize GnomeVFS!");
 
-	if (bonobo_ui_init ("Eye of Gnome", VERSION, &argc, argv) == FALSE)
-		g_error ("Could not initialize Bonobo!");
-
 	gnome_window_icon_set_default_from_file (EOG_ICONDIR"/gnome-eog.png");
 
 	client = gnome_master_client ();
@@ -553,7 +549,7 @@ main (int argc, char **argv)
 		g_idle_add (handle_cmdline_args, ctx);
 	}
 
-	bonobo_main ();
+	gtk_main ();
 
 	return 0;
 }
