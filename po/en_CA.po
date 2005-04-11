@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-05 22:07-0400\n"
-"PO-Revision-Date: 2005-04-05 16:59-0400\n"
+"POT-Creation-Date: 2005-04-11 14:02-0400\n"
+"PO-Revision-Date: 2005-04-11 16:59-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr "Rename From:"
 msgid "Replace spaces by underscore"
 msgstr "Replace spaces with underscore"
 
-#: ../eog.glade.h:23 ../shell/eog-window.c:2933
+#: ../eog.glade.h:23 ../shell/eog-window.c:2951
 msgid "Save As"
 msgstr "Save As"
 
@@ -119,8 +119,8 @@ msgid "Saving Image"
 msgstr "Saving Image"
 
 #: ../eog.glade.h:25
-msgid "Show _next image automatically after:"
-msgstr "Show _next image automatically after:"
+msgid "Show next image _automatically"
+msgstr "Show next image _automatically"
 
 #: ../eog.glade.h:26
 msgid "Sli_de Show"
@@ -131,24 +131,28 @@ msgid "Start counter at:"
 msgstr "Start counter at:"
 
 #: ../eog.glade.h:28
+msgid "Switch image after"
+msgstr "Switch image after"
+
+#: ../eog.glade.h:29
 msgid "To:"
 msgstr "To:"
 
-#: ../eog.glade.h:29
+#: ../eog.glade.h:30
 msgid "_Browse"
 msgstr "_Browse"
 
-#: ../eog.glade.h:30
+#: ../eog.glade.h:31
 msgid "_Interpolate image on zoom"
 msgstr "_Interpolate image on zoom"
 
-#: ../eog.glade.h:31
+#: ../eog.glade.h:32
 msgid "_Loop sequence"
 msgstr "_Loop sequence"
 
-#: ../eog.glade.h:32
-msgid "seconds"
-msgstr "seconds"
+#: ../eog.glade.h:33
+msgid "_seconds"
+msgstr "_seconds"
 
 #: ../eog.schemas.in.h:1
 msgid ""
@@ -194,64 +198,76 @@ msgstr ""
 "screen initially."
 
 #: ../eog.schemas.in.h:8
+msgid ""
+"If this is set to TRUE images will be switched after number of seconds "
+"determined by the 'full_screen/seconds' key."
+msgstr ""
+"If this is set to TRUE images will be switched after number of seconds "
+"determined by the 'full_screen/seconds' key."
+
+#: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
 msgstr "Interpolate Image"
 
-#: ../eog.schemas.in.h:9
+#: ../eog.schemas.in.h:10
 msgid "Last collection window geometry"
 msgstr "Last collection window geometry"
 
-#: ../eog.schemas.in.h:10
+#: ../eog.schemas.in.h:11
 msgid "Last singleton window geometry"
 msgstr "Last singleton window geometry"
 
-#: ../eog.schemas.in.h:11
+#: ../eog.schemas.in.h:12
 msgid "Loop through the image sequence"
 msgstr "Loop through the image sequence"
 
-#: ../eog.schemas.in.h:12
+#: ../eog.schemas.in.h:13
 msgid "Open images in a new window"
 msgstr "Open images in a new window"
 
-#: ../eog.schemas.in.h:13
+#: ../eog.schemas.in.h:14
+msgid "Show next image automatically in fullscreen mode."
+msgstr "Show next image automatically in fullscreen mode."
+
+#: ../eog.schemas.in.h:15
 msgid "Show/hide image information for collection."
 msgstr "Show/hide image information for collection."
 
-#: ../eog.schemas.in.h:14
+#: ../eog.schemas.in.h:16
 msgid "Show/hide image information for single image."
 msgstr "Show/hide image information for single image."
 
-#: ../eog.schemas.in.h:15
+#: ../eog.schemas.in.h:17
 msgid "Show/hide the window statusbar."
 msgstr "Show/hide the window statusbar."
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:18
 msgid "Show/hide the window toolbar."
 msgstr "Show/hide the window toolbar."
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:19
 msgid "Transparency color"
 msgstr "Transparency colour"
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:20
 msgid "Transparency indicator"
 msgstr "Transparency indicator"
 
-#: ../eog.schemas.in.h:19
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-
-#: ../eog.schemas.in.h:20
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
-msgstr ""
-"Whether or not the sequence of images should be shown in an endless loop."
-
 #: ../eog.schemas.in.h:21
+msgid ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+msgstr ""
+"Whether opening an image should create a new window instead of replacing the "
+"image in the current window."
+
+#: ../eog.schemas.in.h:22
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
+msgstr ""
+"Whether or not the sequence of images should be shown in an endless loop."
+
+#: ../eog.schemas.in.h:23
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -464,8 +480,8 @@ msgstr "Second"
 msgid "translator-credits"
 msgstr "Maintainer: Adam Weinberger <adamw@gnome.org>"
 
-#: ../shell/eog-window.c:496 ../shell/eog-window.c:2695
-#: ../shell/eog-window.c:3183 ../shell/main.c:604
+#: ../shell/eog-window.c:496 ../shell/eog-window.c:2712
+#: ../shell/eog-window.c:3220 ../shell/main.c:604
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
@@ -542,220 +558,224 @@ msgid "Error on deleting image %s"
 msgstr "Error on deleting image %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2618
+#: ../shell/eog-window.c:2635
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i pixels  %s    %i%%"
 msgstr[1] "%i x %i pixels  %s    %i%%"
 
-#: ../shell/eog-window.c:2654
+#: ../shell/eog-window.c:2671
 #, c-format
 msgid "Reason: %s"
 msgstr "Reason: %s"
 
-#: ../shell/eog-window.c:2736
+#: ../shell/eog-window.c:2753
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Image loading failed for %s"
 
-#: ../shell/eog-window.c:2874
+#: ../shell/eog-window.c:2891
 msgid "_File"
 msgstr "_File"
 
-#: ../shell/eog-window.c:2875
+#: ../shell/eog-window.c:2892
 msgid "_Edit"
 msgstr "_Edit"
 
-#: ../shell/eog-window.c:2876
+#: ../shell/eog-window.c:2893
 msgid "_View"
 msgstr "_View"
 
-#: ../shell/eog-window.c:2877
+#: ../shell/eog-window.c:2894
 msgid "_Help"
 msgstr "_Help"
 
-#: ../shell/eog-window.c:2878
+#: ../shell/eog-window.c:2895
 msgid "_New"
 msgstr "_New"
 
-#: ../shell/eog-window.c:2878
+#: ../shell/eog-window.c:2895
 msgid "Open a new window"
 msgstr "Open a new window"
 
-#: ../shell/eog-window.c:2879
+#: ../shell/eog-window.c:2896
 msgid "_Open..."
 msgstr "_Open..."
 
-#: ../shell/eog-window.c:2879
+#: ../shell/eog-window.c:2896
 msgid "Open a file"
 msgstr "Open a file"
 
-#: ../shell/eog-window.c:2880
+#: ../shell/eog-window.c:2897
 msgid "Open _Folder..."
 msgstr "Open _Folder..."
 
-#: ../shell/eog-window.c:2880
+#: ../shell/eog-window.c:2897
 msgid "Open a folder"
 msgstr "Open a folder"
 
-#: ../shell/eog-window.c:2881
+#: ../shell/eog-window.c:2898
 msgid "_Close"
 msgstr "_Close"
 
-#: ../shell/eog-window.c:2881
+#: ../shell/eog-window.c:2898
 msgid "Close window"
 msgstr "Close window"
 
-#: ../shell/eog-window.c:2882
+#: ../shell/eog-window.c:2899
 msgid "Prefere_nces"
 msgstr "Prefere_nces"
 
-#: ../shell/eog-window.c:2882
+#: ../shell/eog-window.c:2899
 msgid "Preferences for Eye of GNOME"
 msgstr "Preferences for Eye of GNOME"
 
-#: ../shell/eog-window.c:2883
+#: ../shell/eog-window.c:2900
 msgid "_Contents"
 msgstr "_Contents"
 
-#: ../shell/eog-window.c:2883
+#: ../shell/eog-window.c:2900
 msgid "Help On this application"
 msgstr "Help On this application"
 
-#: ../shell/eog-window.c:2884
+#: ../shell/eog-window.c:2901
 msgid "_About"
 msgstr "_About"
 
-#: ../shell/eog-window.c:2884
+#: ../shell/eog-window.c:2901
 msgid "About this application"
 msgstr "About this application"
 
-#: ../shell/eog-window.c:2889
+#: ../shell/eog-window.c:2906
 msgid "_Toolbar"
 msgstr "_Toolbar"
 
-#: ../shell/eog-window.c:2889
+#: ../shell/eog-window.c:2906
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Changes the visibility of the toolbar in the current window"
 
-#: ../shell/eog-window.c:2890
+#: ../shell/eog-window.c:2907
 msgid "_Statusbar"
 msgstr "_Statusbar"
 
-#: ../shell/eog-window.c:2890
+#: ../shell/eog-window.c:2907
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Changes the visibility of the statusbar in the current window"
 
-#: ../shell/eog-window.c:2895
+#: ../shell/eog-window.c:2912
 msgid "_Save"
 msgstr "_Save"
 
-#: ../shell/eog-window.c:2896
+#: ../shell/eog-window.c:2913
 msgid "Save _As"
 msgstr "Save _As"
 
-#: ../shell/eog-window.c:2898
+#: ../shell/eog-window.c:2915
 msgid "_Undo"
 msgstr "_Undo"
 
-#: ../shell/eog-window.c:2900
+#: ../shell/eog-window.c:2917
 msgid "Flip _Horizontal"
 msgstr "Flip _Horizontal"
 
-#: ../shell/eog-window.c:2901
+#: ../shell/eog-window.c:2918
 msgid "Flip _Vertical"
 msgstr "Flip _Vertical"
 
-#: ../shell/eog-window.c:2903
+#: ../shell/eog-window.c:2920
 msgid "_Rotate Clockwise"
 msgstr "_Rotate Clockwise"
 
-#: ../shell/eog-window.c:2904
+#: ../shell/eog-window.c:2921
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotate Counter C_lockwise"
 
-#: ../shell/eog-window.c:2905
+#: ../shell/eog-window.c:2922
 msgid "Rotat_e 180°"
 msgstr "Rotat_e 180°"
 
-#: ../shell/eog-window.c:2907
+#: ../shell/eog-window.c:2924
 msgid "Delete"
 msgstr "Delete"
 
-#: ../shell/eog-window.c:2909
+#: ../shell/eog-window.c:2926
 msgid "_Full Screen"
 msgstr "_Full Screen"
 
-#: ../shell/eog-window.c:2910
+#: ../shell/eog-window.c:2927
+msgid "_Slideshow"
+msgstr "_Slideshow"
+
+#: ../shell/eog-window.c:2928
 msgid "_Zoom In"
 msgstr "_Zoom In"
 
-#: ../shell/eog-window.c:2911
+#: ../shell/eog-window.c:2929
 msgid "Zoom _Out"
 msgstr "Zoom _Out"
 
-#: ../shell/eog-window.c:2912
+#: ../shell/eog-window.c:2930
 msgid "_Normal Size"
 msgstr "_Normal Size"
 
-#: ../shell/eog-window.c:2913
+#: ../shell/eog-window.c:2931
 msgid "Best _Fit"
 msgstr "Best _Fit"
 
-#: ../shell/eog-window.c:2918
+#: ../shell/eog-window.c:2936
 msgid "Image _Information"
 msgstr "Image _Information"
 
-#: ../shell/eog-window.c:2918
+#: ../shell/eog-window.c:2936
 msgid "Change the visibility of the information pane in the current window"
 msgstr "Change the visibility of the information pane in the current window"
 
-#: ../shell/eog-window.c:2928
+#: ../shell/eog-window.c:2946
 msgid "New"
 msgstr "New"
 
-#: ../shell/eog-window.c:2929 ../shell/eog-window.c:2930
+#: ../shell/eog-window.c:2947 ../shell/eog-window.c:2948
 msgid "Open"
 msgstr "Open"
 
-#: ../shell/eog-window.c:2931
+#: ../shell/eog-window.c:2949
 msgid "Close"
 msgstr "Close"
 
-#: ../shell/eog-window.c:2932
+#: ../shell/eog-window.c:2950
 msgid "Save"
 msgstr "Save"
 
-#: ../shell/eog-window.c:2934
+#: ../shell/eog-window.c:2952
 msgid "Undo"
 msgstr "Undo"
 
-#: ../shell/eog-window.c:2937
+#: ../shell/eog-window.c:2955
 msgid "Right"
 msgstr "Right"
 
-#: ../shell/eog-window.c:2938
+#: ../shell/eog-window.c:2956
 msgid "Left"
 msgstr "Left"
 
-#: ../shell/eog-window.c:2940
+#: ../shell/eog-window.c:2959
 msgid "In"
 msgstr "In"
 
-#: ../shell/eog-window.c:2941
+#: ../shell/eog-window.c:2960
 msgid "Out"
 msgstr "Out"
 
-#: ../shell/eog-window.c:2942
+#: ../shell/eog-window.c:2961
 msgid "Normal"
 msgstr "Normal"
 
-#: ../shell/eog-window.c:2943
+#: ../shell/eog-window.c:2962
 msgid "Fit"
 msgstr "Fit"
 
-#: ../shell/eog-window.c:3021
+#: ../shell/eog-window.c:3058
 msgid "User interface description not found."
 msgstr "User interface description not found."
 
@@ -805,6 +825,6 @@ msgstr "Could not open `%s'"
 msgid " (invalid Unicode)"
 msgstr " (invalid Unicode)"
 
-#: ../shell/eog-preferences.c:98
+#: ../shell/eog-preferences.c:121
 msgid "Could not display help for Eye of GNOME"
 msgstr "Could not display help for Eye of GNOME"
