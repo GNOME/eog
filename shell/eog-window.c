@@ -2377,6 +2377,8 @@ update_ui_visibility (EogWindow *window)
 	EogWindowPrivate *priv;
 	int n_images = 0;
 	gboolean show_info_pane = TRUE;
+	GtkAction *action_fscreen;
+	GtkAction *action_sshow;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -2386,12 +2388,19 @@ update_ui_visibility (EogWindow *window)
 		n_images = eog_image_list_length (priv->image_list);
 	}
 
+	action_fscreen = gtk_action_group_get_action (priv->actions_image, "ViewFullscreen");
+	action_sshow = gtk_action_group_get_action (priv->actions_image, "ViewSlideshow");
+	g_assert (action_fscreen != NULL);
+	g_assert (action_sshow != NULL);
+	
 	if (n_images == 0) {
 		/* update window content */
 		gtk_widget_hide_all (priv->vpane);
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
+		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_sshow, FALSE);
 	}
 	else if (n_images == 1) {
 		/* update window content for single image mode */
@@ -2404,6 +2413,10 @@ update_ui_visibility (EogWindow *window)
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+		
+		/* Show Fullscreen option for single images only, and disable Slideshow */
+		gtk_action_set_sensitive (action_fscreen, TRUE);
+		gtk_action_set_sensitive (action_sshow, FALSE);
 	}
 	else {
 		/* update window content for collection mode */
@@ -2414,6 +2427,10 @@ update_ui_visibility (EogWindow *window)
 
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+		
+		/* Show Slideshow option for collections only, and disable Fullscreen */
+		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_sshow, TRUE);
 	}
 
 	/* update the toggle menu item for image information pane too */
@@ -2907,6 +2924,7 @@ static GtkActionEntry action_entries_image[] = {
   { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
   { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
+  { "ViewSlideshow", NULL, N_("_Slideshow"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
   { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>equal", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
@@ -2937,6 +2955,7 @@ static ShortLabelMap short_label_map[] = {
 	{ "EditRotate90", N_("Right") },
 	{ "EditRotate270", N_("Left") },
 	{ "ViewFullscreen", NULL },
+	{ "ViewSlideshow", NULL },
 	{ "ViewZoomIn", N_("In") },
 	{ "ViewZoomOut", N_("Out") },
 	{ "ViewZoomNormal", N_("Normal") },
@@ -2961,6 +2980,28 @@ add_short_labels (GtkActionGroup *group)
 				          translated_string, NULL);
 		}
 	}
+}
+
+static char*
+get_ui_description_file () {
+	/* For development purpose only: Use ui file in current 
+	 * directory if its exists.
+	 */
+	char *cd = g_get_current_dir ();
+	char *filename = g_build_filename (cd, "eog-gtk-ui.xml", NULL);
+	g_free (cd);
+
+	if (!g_file_test (filename, G_FILE_TEST_EXISTS)) {
+		g_free (filename);
+	
+		/* find and setup UI description */
+		filename = gnome_program_locate_file (NULL,
+											  GNOME_FILE_DOMAIN_APP_DATADIR,
+											  "eog/eog-gtk-ui.xml",
+											  FALSE, NULL);
+	}
+	
+	return filename;
 }
 
 /**
@@ -3009,11 +3050,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	add_short_labels (priv->actions_image);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
-	/* find and setup UI description */
-	filename = gnome_program_locate_file (NULL,
-										  GNOME_FILE_DOMAIN_APP_DATADIR,
-                                          "eog/eog-gtk-ui.xml",
-                                          FALSE, NULL);
+	filename = get_ui_description_file ();
 
 	if (filename == NULL) {
 		g_set_error (error, EOG_WINDOW_ERROR, 

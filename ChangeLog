@@ -1,3 +1,11 @@
+2005-04-11  Jens Finke  <jens@triq.net>
+
+	* shell/eog-gtk-ui.xml: Added Slideshow item to View menu.
+	* shell/eog-window.c (update_ui_visibility): Enable/disable Fullscreen and 
+	Slideshow actions properly.
+	(get_ui_description_file): New function to ease ui development.
+	Fixes #161866.
+
 2005-04-05  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-collection-item.c (get_item_image_caption): Escape caption before 
@@ -27,7 +35,7 @@
 
 2005-03-31  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-21  Kristof Vansant  <de_lupus@pandora.be>
 	
