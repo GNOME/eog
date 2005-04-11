@@ -8,6 +8,7 @@
 
 #define GCONF_OBJECT_KEY             "GCONF_KEY"
 #define GCONF_OBJECT_VALUE           "GCONF_VALUE"
+#define OBJECT_WIDGET           	 "OBJECT_WIDGET"
 
 static void
 check_toggle_cb (GtkWidget *widget, gpointer data)
@@ -21,6 +22,28 @@ check_toggle_cb (GtkWidget *widget, gpointer data)
 			       key,
 			       gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)),
 			       NULL);
+}
+
+static void
+check_auto_advance_toggle_cb (GtkWidget *widget, gpointer data)
+{
+	char *key = NULL;
+	GtkWidget *child = NULL;
+	gboolean state = FALSE;
+
+	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
+	if (key == NULL) return;
+
+	state = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+	
+	gconf_client_set_bool (GCONF_CLIENT (data),
+			       key, state,			       
+			       NULL);
+	
+	child = g_object_get_data (G_OBJECT (widget), OBJECT_WIDGET);
+	if (child != NULL) {
+		g_object_set (child, "sensitive", state, NULL);
+	}
 }
 
 static void
@@ -118,7 +141,7 @@ eog_preferences_show (GConfClient *client)
 	char *value;
 	GdkColor color;
 
-	xml = glade_xml_new (DATADIR "/eog/glade/eog.glade", "Hig Preferences Dialog", "eog");
+	xml = glade_xml_new ("../eog.glade" /* DATADIR "/eog/glade/eog.glade" */, "Hig Preferences Dialog", "eog");
 	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
@@ -215,6 +238,15 @@ eog_preferences_show (GConfClient *client)
 			  G_CALLBACK (check_toggle_cb), 
 			  client);
 
+	widget = glade_xml_get_widget (xml, "auto_advance_check");	
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
+				      gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_AUTO_ADVANCE, NULL));
+	g_object_set_data (G_OBJECT (widget), OBJECT_WIDGET, glade_xml_get_widget (xml, "seconds_hbox"));
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_CONF_FULLSCREEN_AUTO_ADVANCE);
+	g_signal_connect (G_OBJECT (widget), 
+			  "toggled", 
+			  G_CALLBACK (check_auto_advance_toggle_cb), 
+			  client);
 
 	widget = glade_xml_get_widget (xml, "seconds_spin");
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), 
@@ -224,5 +256,9 @@ eog_preferences_show (GConfClient *client)
 			  "changed", 
 			  G_CALLBACK (spin_button_changed_cb), 
 			  client);
+			  
+	if (!gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_AUTO_ADVANCE, NULL)) {
+		widget = glade_xml_get_widget (xml, "seconds_hbox");
+		g_object_set (widget, "sensitive", FALSE, NULL);
+	}
 }
-

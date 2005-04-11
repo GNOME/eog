@@ -1,5 +1,17 @@
 2005-04-11  Jens Finke  <jens@triq.net>
 
+	* eog.glade: Added checkbox to disable auto switching of images in slideshow.	
+
+	* eog.schemas.in: New key full_screen/auto_advance
+
+	* shell/eog-preferences.c (check_auto_advance_toggle_cb): Disable spin button 
+	when unchecked, otherwise enable it.
+	
+	* libeog/eog-fullscreen.c (eog_full_screen_new): Auto advance of images depend 
+	on auto_advance gconf key, not whether seconds are greater zero.
+
+2005-04-11  Jens Finke  <jens@triq.net>
+
 	* shell/eog-gtk-ui.xml: Added Slideshow item to View menu.
 	* shell/eog-window.c (update_ui_visibility): Enable/disable Fullscreen and 
 	Slideshow actions properly.

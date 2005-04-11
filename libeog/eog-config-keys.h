@@ -14,6 +14,7 @@
 
 #define EOG_CONF_FULLSCREEN_LOOP            "/apps/eog/full_screen/loop"
 #define EOG_CONF_FULLSCREEN_UPSCALE         "/apps/eog/full_screen/upscale"
+#define EOG_CONF_FULLSCREEN_AUTO_ADVANCE    "/apps/eog/full_screen/auto_advance"
 #define EOG_CONF_FULLSCREEN_SECONDS         "/apps/eog/full_screen/seconds"
 
 #define EOG_CONF_UI_TOOLBAR                  "/apps/eog/ui/toolbar"

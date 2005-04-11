@@ -105,11 +105,24 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/eog/full_screen/auto_advance</key>
+      <applyto>/apps/eog/full_screen/auto_advance</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Show next image automatically in fullscreen mode.</short>
+        <long>If this is set to TRUE images will be switched after
+        number of seconds determined by the 'full_screen/seconds' key.</long>
+      </locale>
+    </schema>
+	
+    <schema>
       <key>/schemas/apps/eog/full_screen/seconds</key>
       <applyto>/apps/eog/full_screen/seconds</applyto>
       <owner>eog</owner>
       <type>int</type>
-      <default>0</default>
+      <default>5</default>
       <locale name="C">
         <short>Delay in seconds until showing the next image</short>
         <long>A value greater than 0 determines the seconds an image stays

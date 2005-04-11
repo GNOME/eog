@@ -807,7 +807,12 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	/* read configuration */
 	client = gconf_client_get_default ();
 	priv->loop = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_LOOP, NULL);
-	priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
+	if (gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_AUTO_ADVANCE, NULL)) {
+		priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
+	}
+	else {
+		priv->switch_timeout = 0;
+	}
 	upscale = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL);
 	antialiasing = gconf_client_get_bool (client, EOG_CONF_VIEW_INTERPOLATE, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
