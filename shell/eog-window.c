@@ -364,16 +364,6 @@ eog_window_save_geometry (EogWindow *window)
 	}
 }
 
-
-/* Brings attention to a window by raising it and giving it focus */
-static void
-raise_and_focus (GtkWidget *widget)
-{
-	g_assert (GTK_WIDGET_REALIZED (widget));
-	gdk_window_show (widget->window);
-	gtk_widget_grab_focus (widget);
-}
-
 static void
 verb_FileNewWindow_cb (GtkAction *action, gpointer user_data)
 {
@@ -460,7 +450,9 @@ verb_EditPreferences_cb (GtkAction *action, gpointer data)
 static void
 verb_HelpAbout_cb (GtkAction *action, gpointer data)
 {
-	static GtkWidget *about;
+	EogWindow *window;
+	GdkPixbuf *pixbuf;
+	
 	static const char *authors[] = {
 		"Jens Finke <jens@triq.net>",
 		"",
@@ -479,40 +471,29 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	};
 	const char *translators;
 
+	/* Translators should localize the following string
+	 * which will give them credit in the About box.
+	 * E.g. "Fulano de Tal <fulano@detal.com>"
+	 */
+	translators = _("translator-credits");
 
+	pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
 
-	if (!about) {
-		GdkPixbuf *pixbuf;
+	window = EOG_WINDOW (data);
 
-		/* Translators should localize the following string
-		 * which will give them credit in the About box.
-		 * E.g. "Fulano de Tal <fulano@detal.com>"
-		 */
-		translators = _("translator-credits");
-
-		pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
-
-		about = gnome_about_new (
-			_("Eye of GNOME"),
-			VERSION,
-			"Copyright \xc2\xa9 2000-2004 Free Software Foundation, Inc.",
-			_("The GNOME image viewing and cataloging program."),
-			authors,
-			documenters,
-			(strcmp (translators, "translator-credits")
-			 ? translators : NULL),
-			pixbuf);
-
-		if (pixbuf)
-			g_object_unref (pixbuf);
-
-		g_signal_connect (about, "destroy",
-				  G_CALLBACK (gtk_widget_destroyed),
-				  &about);
-	}
-
-	gtk_widget_show_now (about);
-	raise_and_focus (about);
+	gtk_show_about_dialog (GTK_WINDOW(window),
+			"name", _("Eye of GNOME"),
+			"version", VERSION,
+			"copyright", "Copyright \xc2\xa9 2000-2005 Free Software Foundation, Inc.",
+			"comments",_("The GNOME image viewing and cataloging program."),
+			"authors", authors,
+			"documenters", documenters,
+			"translator-credits", translators,
+			"logo", pixbuf,
+			NULL);
+	
+	if (pixbuf != NULL) 
+		g_object_unref (pixbuf);
 }
 
 static void
@@ -2898,7 +2879,7 @@ static GtkActionEntry action_entries_window[] = {
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of GNOME"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
-  { "HelpAbout",       GNOME_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
+  { "HelpAbout",       GTK_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
 };
 
 /* Toggle items */
