@@ -2873,7 +2873,7 @@ static GtkActionEntry action_entries_window[] = {
   { "EditMenu", NULL, N_("_Edit") },
   { "ViewMenu", NULL, N_("_View") },
   { "HelpMenu", NULL, N_("_Help") },
-  { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
+  { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New Window"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileFolderOpen",     GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
