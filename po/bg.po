@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog gnome 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-04 11:55+0300\n"
-"PO-Revision-Date: 2005-04-04 11:57+0300\n"
+"POT-Creation-Date: 2005-04-17 11:32+0300\n"
+"PO-Revision-Date: 2005-04-17 11:31+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "Image Viewer"
 msgstr "Преглед на изображения (eog)"
 
 #: ../eog.desktop.in.in.h:2
-msgid "View many different types of images"
+msgid "View different types of images"
 msgstr "Преглед на различни типове изображения"
 
 #: ../eog.glade.h:1
@@ -112,7 +112,7 @@ msgstr "Преименуване от:"
 msgid "Replace spaces by underscore"
 msgstr "Замяна на интервалите с долни черти"
 
-#: ../eog.glade.h:23 ../shell/eog-window.c:2931
+#: ../eog.glade.h:23 ../shell/eog-window.c:2932
 msgid "Save As"
 msgstr "Запазване като"
 
@@ -121,8 +121,8 @@ msgid "Saving Image"
 msgstr "Запазване на изображението"
 
 #: ../eog.glade.h:25
-msgid "Show _next image automatically after:"
-msgstr "Показва автоматично _следващото изображение след:"
+msgid "Show next image _automatically"
+msgstr "Показва автоматично _следващото изображение"
 
 #: ../eog.glade.h:26
 msgid "Sli_de Show"
@@ -133,24 +133,28 @@ msgid "Start counter at:"
 msgstr "Стартиране на брояча на:"
 
 #: ../eog.glade.h:28
+msgid "Switch image after"
+msgstr "Смяна на изображението след"
+
+#: ../eog.glade.h:29
 msgid "To:"
 msgstr "До:"
 
-#: ../eog.glade.h:29
+#: ../eog.glade.h:30
 msgid "_Browse"
 msgstr "_Разглеждане"
 
-#: ../eog.glade.h:30
+#: ../eog.glade.h:31
 msgid "_Interpolate image on zoom"
 msgstr "_Заглаждане на пикселите при увеличаване на мащаба"
 
-#: ../eog.glade.h:31
+#: ../eog.glade.h:32
 msgid "_Loop sequence"
 msgstr "_Последователност на завъртанията"
 
-#: ../eog.glade.h:32
-msgid "seconds"
-msgstr "секунди"
+#: ../eog.glade.h:33
+msgid "_seconds"
+msgstr "_секунди"
 
 #: ../eog.schemas.in.h:1
 msgid ""
@@ -197,50 +201,62 @@ msgstr ""
 "паснат на големината на екрана."
 
 #: ../eog.schemas.in.h:8
+msgid ""
+"If this is set to TRUE images will be switched after number of seconds "
+"determined by the 'full_screen/seconds' key."
+msgstr ""
+"Ако тук е поставено TRUE, изображенията ще се сменят едно след друго на "
+"период в секунди определен от ключа \"full_screen/seconds\"."
+
+#: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
 msgstr "Заглаждане изображението"
 
-#: ../eog.schemas.in.h:9
+#: ../eog.schemas.in.h:10
 msgid "Last collection window geometry"
 msgstr "Геометрия на прозореца на последната колекция"
 
-#: ../eog.schemas.in.h:10
+#: ../eog.schemas.in.h:11
 msgid "Last singleton window geometry"
 msgstr "Геометрия на прозореца на последния самостоятелен обект"
 
-#: ../eog.schemas.in.h:11
+#: ../eog.schemas.in.h:12
 msgid "Loop through the image sequence"
 msgstr "Завъртане през последователността на изображенията"
 
-#: ../eog.schemas.in.h:12
+#: ../eog.schemas.in.h:13
 msgid "Open images in a new window"
 msgstr "Отваряне на изображенията в нов прозорец"
 
-#: ../eog.schemas.in.h:13
+#: ../eog.schemas.in.h:14
+msgid "Show next image automatically in fullscreen mode."
+msgstr "Показва автоматично следващото изображение на цял екран"
+
+#: ../eog.schemas.in.h:15
 msgid "Show/hide image information for collection."
 msgstr "Показване/скриване на информацията за изображенията за колекцията."
 
-#: ../eog.schemas.in.h:14
+#: ../eog.schemas.in.h:16
 msgid "Show/hide image information for single image."
-msgstr "Показване.скриване на информацията за отделно изображение."
+msgstr "Показване/скриване на информацията за отделно изображение."
 
-#: ../eog.schemas.in.h:15
+#: ../eog.schemas.in.h:17
 msgid "Show/hide the window statusbar."
 msgstr "Показване/скриване на лентата за състоянието."
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:18
 msgid "Show/hide the window toolbar."
 msgstr "Показване/скриване на лентата с инструментите."
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:19
 msgid "Transparency color"
 msgstr "Цвят на прозрачността"
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:20
 msgid "Transparency indicator"
 msgstr "Индикатор на прозрачността"
 
-#: ../eog.schemas.in.h:19
+#: ../eog.schemas.in.h:21
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -248,14 +264,14 @@ msgstr ""
 "Дали отварянето на изображение ще създаде нов прозорец, вместо да замести "
 "изображението в текущия прозорец."
 
-#: ../eog.schemas.in.h:20
+#: ../eog.schemas.in.h:22
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr ""
 "Дали последователността от изображения да бъде показвана чрез безкраен "
 "процес на завъртане."
 
-#: ../eog.schemas.in.h:21
+#: ../eog.schemas.in.h:23
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -279,24 +295,26 @@ msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../libeog/eog-file-selection.c:243
+#: ../libeog/eog-file-selection.c:245
 #, c-format
-msgid "%s x %s pixel"
-msgstr "%s x %s пиксел"
+msgid "%s x %s pixels"
+msgid_plural "%s x %s pixels"
+msgstr[0] "%s x %s пиксела"
+msgstr[1] "%s x %s пиксела"
 
-#: ../libeog/eog-file-selection.c:405
+#: ../libeog/eog-file-selection.c:407
 msgid "Open in new window"
 msgstr "Отваряне в нов прозорец"
 
-#: ../libeog/eog-file-selection.c:431
+#: ../libeog/eog-file-selection.c:433
 msgid "Load Image"
 msgstr "Зареждане на изображение"
 
-#: ../libeog/eog-file-selection.c:439
+#: ../libeog/eog-file-selection.c:441
 msgid "Save Image"
 msgstr "Запазване на изображение"
 
-#: ../libeog/eog-file-selection.c:447
+#: ../libeog/eog-file-selection.c:449
 msgid "Open Folder"
 msgstr "Отваряне на папка"
 
@@ -416,8 +434,8 @@ msgid "Cancel saving ..."
 msgstr "Прекъсване на запазването..."
 
 #: ../libeog/eog-uri-converter.c:1023
-msgid "Filenames are not disjunct."
-msgstr "Имената на файловете не са разделени с интервали."
+msgid "At least two file names are equal."
+msgstr "Поне два файла имат еднакви имена."
 
 #: ../libeog/eog-uri-converter.h:46
 msgid "Counter"
@@ -463,22 +481,25 @@ msgstr "Секунда"
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:491
+#: ../shell/eog-window.c:478
 msgid "translator-credits"
 msgstr ""
+"Борислав Александров\n"
 "Владимир \"Kaladan\" Петков <vpetkov@i-space.org>\n"
-"Борислав Александров"
+"\n"
+"GNOME на български!\n"
+"http://gnome.cult.bg"
 
-#: ../shell/eog-window.c:496 ../shell/eog-window.c:2693
-#: ../shell/eog-window.c:3181 ../shell/main.c:602
+#: ../shell/eog-window.c:485 ../shell/eog-window.c:2693
+#: ../shell/eog-window.c:3201 ../shell/main.c:604
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:499
+#: ../shell/eog-window.c:488
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Програма за преглед и подреждане в каталози на изображения."
 
-#: ../shell/eog-window.c:536
+#: ../shell/eog-window.c:517
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -487,70 +508,72 @@ msgstr ""
 "Помощта за Eye of GNOME не може да бъде показана.\n"
 "%s"
 
-#: ../shell/eog-window.c:831
+#: ../shell/eog-window.c:812
 #, c-format
 msgid "Overwrite file %s?"
-msgstr "Да бъде ли презаписан файла %s?"
+msgstr "Презаписване на файла %s?"
 
-#: ../shell/eog-window.c:832
+#: ../shell/eog-window.c:813
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Файлът съществува. Искате ли да го презапишете?"
 
-#: ../shell/eog-window.c:841 ../shell/eog-window.c:854
+#: ../shell/eog-window.c:822 ../shell/eog-window.c:835
 msgid "Skip"
-msgstr "Прескачане"
+msgstr "Пропускане"
 
-#: ../shell/eog-window.c:842
+#: ../shell/eog-window.c:823
 msgid "Overwrite"
 msgstr "Презаписване"
 
-#: ../shell/eog-window.c:847
+#: ../shell/eog-window.c:828
 #, c-format
 msgid "Error on saving %s."
 msgstr "Грешка при запазването на %s."
 
-#: ../shell/eog-window.c:855 ../shell/eog-window.c:1405
+#: ../shell/eog-window.c:836 ../shell/eog-window.c:1386
 msgid "Retry"
 msgstr "Повторно"
 
-#: ../shell/eog-window.c:1272
+#: ../shell/eog-window.c:1253
 msgid "Couldn't determine destination uri."
 msgstr "Неуспех при определянето на целевия адрес."
 
-#: ../shell/eog-window.c:1394
+#: ../shell/eog-window.c:1375
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Файловият формат на %s не може да бъде определен"
 
-#: ../shell/eog-window.c:1395
+#: ../shell/eog-window.c:1376
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Използвайте подходящо разширение на файла или изберете файлов формат."
 
-#: ../shell/eog-window.c:1528
+#: ../shell/eog-window.c:1509
 msgid "Error on saving images."
 msgstr "Грешка при запазване на изображенията."
 
-#: ../shell/eog-window.c:1781
+#: ../shell/eog-window.c:1762
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Наистина ли искате ли да преместите %i изображение в кошчето?"
 msgstr[1] "Наистина ли искате ли да преместите %i изображения в кошчето?"
 
-#: ../shell/eog-window.c:1819
+#: ../shell/eog-window.c:1800
 msgid "Couldn't access trash."
 msgstr "Нямате достъп до кошчето."
 
-#: ../shell/eog-window.c:1893
+#: ../shell/eog-window.c:1874
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Грешка при изтриването на изображението %s"
 
-#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2618
+#. [image width] x [image height] pixels  [bytes]    [zoom in percent]
+#: ../shell/eog-window.c:2616
 #, c-format
-msgid "%i x %i pixel  %s    %i%%"
-msgstr "%i x %i пиксел  %s    %i%%"
+msgid "%i x %i pixels  %s    %i%%"
+msgid_plural "%i x %i pixels  %s    %i%%"
+msgstr[0] "%i x %i пиксела  %s байта   %i%%"
+msgstr[1] "%i x %i пиксела  %s байта   %i%%"
 
 #: ../shell/eog-window.c:2652
 #, c-format
@@ -579,8 +602,8 @@ msgid "_Help"
 msgstr "_Помощ"
 
 #: ../shell/eog-window.c:2876
-msgid "_New"
-msgstr "_Нов"
+msgid "_New Window"
+msgstr "_Нов прозорец"
 
 #: ../shell/eog-window.c:2876
 msgid "Open a new window"
@@ -691,74 +714,78 @@ msgid "_Full Screen"
 msgstr "_На цял екран"
 
 #: ../shell/eog-window.c:2908
+msgid "_Slideshow"
+msgstr "Про_жекция"
+
+#: ../shell/eog-window.c:2909
 msgid "_Zoom In"
 msgstr "Мащаб _увеличаване"
 
-#: ../shell/eog-window.c:2909
+#: ../shell/eog-window.c:2910
 msgid "Zoom _Out"
 msgstr "Мащаб _намаляване"
 
-#: ../shell/eog-window.c:2910
+#: ../shell/eog-window.c:2911
 msgid "_Normal Size"
 msgstr "_Нормален размер"
 
-#: ../shell/eog-window.c:2911
+#: ../shell/eog-window.c:2912
 msgid "Best _Fit"
 msgstr "Най-добро изпълване"
 
-#: ../shell/eog-window.c:2916
+#: ../shell/eog-window.c:2917
 msgid "Image _Information"
 msgstr "_Информация за изображението"
 
-#: ../shell/eog-window.c:2916
+#: ../shell/eog-window.c:2917
 msgid "Change the visibility of the information pane in the current window"
 msgstr "Промяна на видимостта на лентата с инструментите на текущия прозорец"
 
-#: ../shell/eog-window.c:2926
+#: ../shell/eog-window.c:2927
 msgid "New"
 msgstr "Нов"
 
-#: ../shell/eog-window.c:2927 ../shell/eog-window.c:2928
+#: ../shell/eog-window.c:2928 ../shell/eog-window.c:2929
 msgid "Open"
 msgstr "Отваряне"
 
-#: ../shell/eog-window.c:2929
+#: ../shell/eog-window.c:2930
 msgid "Close"
 msgstr "Затваряне"
 
-#: ../shell/eog-window.c:2930
+#: ../shell/eog-window.c:2931
 msgid "Save"
 msgstr "Запазване"
 
-#: ../shell/eog-window.c:2932
+#: ../shell/eog-window.c:2933
 msgid "Undo"
 msgstr "Възстановяване"
 
-#: ../shell/eog-window.c:2935
+#: ../shell/eog-window.c:2936
 msgid "Right"
 msgstr "Дясно"
 
-#: ../shell/eog-window.c:2936
+#: ../shell/eog-window.c:2937
 msgid "Left"
 msgstr "Ляво"
 
-#: ../shell/eog-window.c:2938
+#: ../shell/eog-window.c:2940
 msgid "In"
 msgstr "Ув"
 
-#: ../shell/eog-window.c:2939
+#: ../shell/eog-window.c:2941
 msgid "Out"
 msgstr "Навън"
 
-#: ../shell/eog-window.c:2940
+#: ../shell/eog-window.c:2942
 msgid "Normal"
 msgstr "Нормално"
 
-#: ../shell/eog-window.c:2941
+#: ../shell/eog-window.c:2943
 msgid "Fit"
 msgstr "Наместване"
 
-#: ../shell/eog-window.c:3019
+#: ../shell/eog-window.c:3039
 msgid "User interface description not found."
 msgstr "Описанието на потребителския интерфейс не е намерено."
 
@@ -771,23 +798,29 @@ msgstr "Неуспех при създаването на потребителс
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
 "a collection instead?"
-msgstr ""
-"Вие ще отворите %i прозореца едновременно. Искате ли да ги отворите вместо "
-"това в колекция?"
+msgid_plural ""
+"You are about to open %i windows simultaneously. Do you want to open them in "
+"a collection instead?"
+msgstr[0] ""
+"Ще отворите %i прозорец едновременно. Искате ли да го отворите вместо това в "
+"колекция?"
+msgstr[1] ""
+"Ще отворите %i прозореца едновременно. Искате ли да ги отворите вместо това "
+"в колекция?"
 
-#: ../shell/main.c:276
+#: ../shell/main.c:278
 msgid "Open multiple single windows?"
 msgstr "Отваряне на многобройни единични прозорци?"
 
-#: ../shell/main.c:280
+#: ../shell/main.c:282
 msgid "Single Windows"
 msgstr "Единичен прозорец"
 
-#: ../shell/main.c:282
+#: ../shell/main.c:284
 msgid "Collection"
 msgstr "Колекция"
 
-#: ../shell/main.c:334
+#: ../shell/main.c:336
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Файлът не е открит."
@@ -800,9 +833,17 @@ msgstr "Не мога да отворя \"%s\""
 
 #: ../libeog/eog-util.c:40
 msgid " (invalid Unicode)"
-msgstr " (невалиден уникод)"
+msgstr " (невалиден Уникод)"
 
-#: ../shell/eog-preferences.c:98
+#: ../shell/eog-preferences.c:121
 msgid "Could not display help for Eye of GNOME"
 msgstr "Помощта за Eye of GNOME не може да бъде показана"
 
+#~ msgid "empty file"
+#~ msgstr "празен файл"
+
+#~ msgid "Filenames are not disjunct."
+#~ msgstr "Имената на файловете не са разделени с интервали."
+
+#~ msgid "_New"
+#~ msgstr "_Нов"
