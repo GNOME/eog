@@ -635,7 +635,9 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		}
 	}
 
-	gdk_pixbuf_loader_close (loader, NULL);	
+	if (!gdk_pixbuf_loader_close (loader, error)) {
+		failed = TRUE;
+	}
 	
 	g_free (buffer);
 	gnome_vfs_close (handle);
