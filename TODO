@@ -1,30 +1,24 @@
 
 Please see also bugzilla for a more accurate list of open bugs, things todo:
 
-http://bugzilla.gnome.org/buglist.cgi?product=EOG&bug_status=NEW&bug_status=REOPENED
+http://bugzilla.gnome.org/buglist.cgi?product=EOG&bug_status=NEW&bug_status=REOPENED&bug_status=UNCONFIRMED
 
 ================================================================
 
-* Finish the ImageView widget:
+This is more or less an up-to-date (2005-05-29) list of things need to
+be done on the code in the HEAD branch:
 
-	- Write a "fast" version of uta.c:uta_find_first_glom_rect().
-	  Right now we just have a hacked version of libart's
-	  function.
+* libeog/eog-image-list.c, libeog/eog-wrap-list.c: Allow deletion of
+images through the user interface.
 
-	- Figure out what to do with the color correction tables; we
-          are not using them right now.
+* libeog/eog-image-list.c: React on changes in the file system,
+eg. image changed or deleted (available through gnome-vfs wrapper)
 
-* Write the image category mechanism.
+* Check for outdated thumbnails in .thumbnails directory (according to
+freedesktop.org thumbnail specification). 
 
-* Animation support:
+* Remember the inner window layout in collection mode (window size and
+position is already implemented)
 
-	- Make the ImageView widget understand animations.  What to do
-          about tearing when compositing the frames?  Should we
-          special-case animations and blast them to the screen whole
-          without tearing?
+* libeog/eog-job-manager.c: More tests required.
 
-	  Maybe we can blast each frame at the proper time without
-	  tearing, and only use the normal tearing method when the
-	  user changes the zoom/scroll.
-
-* Write the programmer's and API reference manuals.
