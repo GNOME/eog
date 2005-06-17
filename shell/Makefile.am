@@ -13,7 +13,7 @@ INCLUDES =							\
 	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
 	-DHAVE_COLLECTION					\
-	-DDATADIR=\""$(datadir)"\"				\
+	-DEOG_DATADIR=\""$(datadir)"\"				\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
 bin_PROGRAMS = eog
@@ -42,7 +42,8 @@ eog_LDADD = 				\
 	$(jpeg_LIB)			\
 	$(POPT_LIBS)			\
 	$(X_LIBS)			\
-	$(EOG_LIBS)
+	$(EOG_LIBS)			\
+	$(LIBJPEG)
 
 uidir = $(datadir)/eog
 UI_FILES = eog-gtk-ui.xml 

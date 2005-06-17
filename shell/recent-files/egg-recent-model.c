@@ -193,7 +193,9 @@ egg_recent_model_write_raw (EggRecentModel *model, FILE *file,
 	if (fputs (content, file) == EOF)
 		return FALSE;
 
+#ifdef HAVE_FSYNC
 	fsync (fd);
+#endif
 	rewind (file);
 
 	return TRUE;
@@ -882,6 +884,7 @@ egg_recent_model_open_file (EggRecentModel *model)
 static gboolean
 egg_recent_model_lock_file (FILE *file)
 {
+#ifndef G_OS_WIN32
 	int fd;
 	gint	try = 5;
 
@@ -911,17 +914,24 @@ egg_recent_model_lock_file (FILE *file)
 	}
 
 	return FALSE;
+#else
+	return TRUE;
+#endif
 }
 
 static gboolean
 egg_recent_model_unlock_file (FILE *file)
 {
+#ifndef G_OS_WIN32
 	int fd;
 
 	rewind (file);
 	fd = fileno (file);
 
 	return (lockf (fd, F_ULOCK, 0) == 0) ? TRUE : FALSE;
+#else
+	return TRUE;
+#endif
 }
 
 static void

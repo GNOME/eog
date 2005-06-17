@@ -602,7 +602,7 @@ main (int argc, char **argv)
 	program = gnome_program_init ("eog", VERSION,
 				      LIBGNOMEUI_MODULE, argc, argv,
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
-				      GNOME_PARAM_APP_DATADIR,DATADIR,NULL);
+				      GNOME_PARAM_APP_DATADIR,EOG_DATADIR,NULL);
 
 	error = NULL;
 	if (gconf_init (argc, argv, &error) == FALSE) {
@@ -616,8 +616,9 @@ main (int argc, char **argv)
 		g_error ("Could not initialize GnomeVFS!");
 		exit (EXIT_FAILURE);
 	}
-
+#ifndef G_OS_WIN32
 	gnome_authentication_manager_init ();
+#endif
 	eog_thumbnail_init ();
 
 	gtk_window_set_default_icon_from_file (EOG_ICONDIR"/gnome-eog.png", NULL);

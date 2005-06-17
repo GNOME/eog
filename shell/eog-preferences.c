@@ -141,7 +141,7 @@ eog_preferences_show (GConfClient *client)
 	char *value;
 	GdkColor color;
 
-	xml = glade_xml_new ("../eog.glade" /* DATADIR "/eog/glade/eog.glade" */, "Hig Preferences Dialog", "eog");
+	xml = glade_xml_new ("../eog.glade" /* EOG_DATADIR "/eog/glade/eog.glade" */, "Hig Preferences Dialog", "eog");
 	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");

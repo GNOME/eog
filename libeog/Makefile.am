@@ -9,7 +9,7 @@ INCLUDES =							\
         -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DHAVE_COLLECTION					\
-	-DDATADIR=\""$(datadir)"\"				\
+	-DEOG_DATADIR=\""$(datadir)"\"				\
 	-I$(srcdir) -I$(top_srcdir)				\
 	-I$(top_srcdir)/src					\
 	-I$(top_srcdir)/jpegutils				\
@@ -118,7 +118,9 @@ test_eog_job_LDADD = \
 	-leog				\
 	$(jpeg_LIB)			\
 	$(X_LIBS)			\
-	$(EOG_LIBS)
+	$(EOG_LIBS)			\
+	$(LIBJPEG)
+
 
 
 test_image_load_DEPENDENCIES = libeog.a
@@ -130,7 +132,8 @@ test_image_load_LDADD = \
 	-leog				\
 	$(jpeg_LIB)			\
 	$(X_LIBS)			\
-	$(EOG_LIBS)
+	$(EOG_LIBS)			\
+	$(LIBJPEG)
 
 CLEANFILES = $(BUILT_SOURCES)
 

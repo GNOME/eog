@@ -30,7 +30,9 @@
 #include <gnome.h>
 #include <string.h>
 #include <gtk/gtk.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-program.h>
 #include <libgnomeui/gnome-window-icon.h>
@@ -56,6 +58,12 @@
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
 #include "eog-job-manager.h"
+
+#ifdef G_OS_WIN32
+#define getgid() 0
+#define getppid() 0
+#define gethostname(buf,size) strncpy(buf,"localhost",size)
+#endif
 
 /* Default size for windows */
 
@@ -2492,7 +2500,9 @@ obtain_desired_size (EogWindow *window, int screen_width,
 			/* determine size of whole window */
 			*width = img_width + deco_width;
 			*height = img_height + deco_height;
+#ifdef GDK_WINDOWING_X11
 			*x11_flags = *x11_flags | WidthValue | HeightValue;
+#endif
 			finished = TRUE;			
 		}
 
@@ -2513,12 +2523,16 @@ obtain_desired_size (EogWindow *window, int screen_width,
 		if (geometry_string == NULL) {
 			*width = DEFAULT_WINDOW_WIDTH;
 			*height = DEFAULT_WINDOW_HEIGHT;
+#ifdef GDK_WINDOWING_X11
 			*x11_flags = *x11_flags | WidthValue | HeightValue;
+#endif
 		}
 		else {
+#ifdef GDK_WINDOWING_X11
 			*x11_flags = XParseGeometry (geometry_string,
 									   x, y,
 									   width, height);
+#endif
 		}
 	}
 }
@@ -2542,6 +2556,7 @@ setup_initial_geometry (EogWindow *window)
 	obtain_desired_size (window, screen_width, screen_height, &x11_flags,
 						 &x, &y, &width, &height);
 	
+#ifdef GDK_WINDOWING_X11
 	/* set position first */
 	if ((x11_flags & XValue) && (x11_flags & YValue)) {
 		int real_x = x;
@@ -2576,6 +2591,7 @@ setup_initial_geometry (EogWindow *window)
 		
 		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
 	}
+#endif
 }
 
 static void

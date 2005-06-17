@@ -20,7 +20,7 @@ action_cb (EogJob *job, gpointer data, GError **error)
 	n_runs = g_random_int_range (2, 5);
 
 	for (i = 0; i < n_runs; i++) {
-		sleep (1);
+		g_usleep (1000000);
 		eog_job_set_progress (job, (float) i / (float) (n_runs-1));
 		if (td->cancel) {
 			break;

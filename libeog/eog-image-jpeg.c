@@ -50,6 +50,12 @@
 #endif
 #include "eog-image-private.h"
 
+#ifndef HAVE_SIGSETJMP
+#define sigjmp_buf jmp_buf
+#define sigsetjmp(env, savesigs) setjmp (env)
+#define siglongjmp longjmp
+#endif
+
 typedef enum {
 	EOG_SAVE_NONE,
 	EOG_SAVE_JPEG_AS_JPEG,
@@ -87,7 +93,7 @@ fatal_error_handler (j_common_ptr cinfo)
 			     g_path_get_basename (errmgr->filename),
                              buffer);
         }
-        
+
 	siglongjmp (errmgr->setjmp_buffer, 1);
 
         g_assert_not_reached ();

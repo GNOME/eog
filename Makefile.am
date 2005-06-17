@@ -40,8 +40,16 @@ icondir = $(datadir)/pixmaps
 icon_DATA = gnome-eog.png
 
 if GCONF_SCHEMAS_INSTALL
+# Work around MSYS feature
 install-data-local:
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas
+	if test "$$MSYSBIN" ; then \
+		(echo set GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE); \
+		 echo $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas) > _temp.bat; \
+		cmd /c _temp.bat; \
+		rm _temp.bat; \
+	else \
+		GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(top_builddir)/eog.schemas; \
+	fi
 else
 install-data-local:
 endif

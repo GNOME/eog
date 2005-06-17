@@ -1,3 +1,43 @@
+2005-06-17  Tor Lillqvist  <tml@novell.com>
+
+	Port to Windows, not because there wouldn't be enough good image
+	viewers on Windows already, but mostly to have a relatively simple
+	testbed for the libraries that eog uses.
+
+	* configure.in: Don't do the X11 checks unless GTK target is
+	X11. Check for fsync() and sigsetjmp().
+
+	* Makefile.am (install-data-local): Workaround MSYS feature.
+
+	* shell/Makefile.am
+	* libeog/Makefile.am
+	* shell/main.c: Rename DATADIR to EOG_DATADIR as the
+	mindbogglingly wildly namespace-stomping Windows headers that
+	gnome-vfs-address.h drags in clash with DATADIR.
+
+	* */Makefile.am: Link with LIBJPEG.
+
+	* libeog/eog-full-screen.c
+	* shell/eog-window.c: Conditionalize use of X11 and Unix API. No
+	attempt to do the corresponding things on Win32 yet, so the
+	behaviour might not be similar.
+
+	* libeog/eog-image-jpeg.c: Unless HAVE_SIGSETJMP, use plain setjmp
+	and longjmp.
+
+	* libeog/test-eog-job.c: Use g_usleep() instead of sleep().
+
+	* shell/main.c: Don't call gnome_authentication_manager_init() on
+	Windows, hasn't been ported yet, if ever.
+
+	* shell/recent-files/egg-recent-model.c: Bypass use of lockf() on
+	Windows.
+
+	* shell/recent-files/egg-recent-util.c: Use GetComputerName()
+	instead of gethostname() on Windows. (There is a gethostname() in
+	WinSock, but it seems unnecessary to drag in WinSock just for
+	that.)
+
 2005-06-06  Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>
 
         * configure.in: Added "ug" to ALL_LINGUAS.

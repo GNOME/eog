@@ -22,8 +22,12 @@
  */
 
 #include <config.h>
+
+#include <gdkconfig.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #include <X11/Xlib.h>
+#endif
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkmain.h>
 #include <libgnome/gnome-macros.h>
@@ -829,7 +833,11 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 gboolean
 eog_full_screen_enable_SunF36 (void)
 {
+#ifdef GDK_WINDOWING_X11
 	return (XKeysymToKeycode (GDK_DISPLAY (), SunXK_F36) != 0);
+#else
+	return FALSE;
+#endif
 }
 
 EogImage*  
