@@ -5,7 +5,7 @@
 	testbed for the libraries that eog uses.
 
 	* configure.in: Don't do the X11 checks unless GTK target is
-	X11. Check for fsync() and sigsetjmp().
+	X11. Check for fsync().
 
 	* Makefile.am (install-data-local): Workaround MSYS feature.
 
@@ -22,8 +22,7 @@
 	attempt to do the corresponding things on Win32 yet, so the
 	behaviour might not be similar.
 
-	* libeog/eog-image-jpeg.c: Unless HAVE_SIGSETJMP, use plain setjmp
-	and longjmp.
+	* libeog/eog-image-jpeg.c: On Win32 use plain setjmp and longjmp.
 
 	* libeog/test-eog-job.c: Use g_usleep() instead of sleep().
 

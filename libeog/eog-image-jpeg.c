@@ -50,7 +50,7 @@
 #endif
 #include "eog-image-private.h"
 
-#ifndef HAVE_SIGSETJMP
+#ifdef G_OS_WIN32
 #define sigjmp_buf jmp_buf
 #define sigsetjmp(env, savesigs) setjmp (env)
 #define siglongjmp longjmp
