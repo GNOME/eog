@@ -60,9 +60,14 @@
 #include "eog-job-manager.h"
 
 #ifdef G_OS_WIN32
+
 #define getgid() 0
 #define getppid() 0
 #define gethostname(buf,size) strncpy(buf,"localhost",size)
+
+#undef EOG_ICONDIR
+#define EOG_ICONDIR eog_get_icondir ()
+
 #endif
 
 /* Default size for windows */
@@ -478,6 +483,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 		NULL
 	};
 	const char *translators;
+	char *gnome_eog_png_path;
 
 	/* Translators should localize the following string
 	 * which will give them credit in the About box.
@@ -485,7 +491,9 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	 */
 	translators = _("translator-credits");
 
-	pixbuf = gdk_pixbuf_new_from_file (EOG_ICONDIR "/gnome-eog.png", NULL);
+	gnome_eog_png_path = g_build_filename (EOG_ICONDIR, "gnome-eog.png", NULL);
+	pixbuf = gdk_pixbuf_new_from_file (gnome_eog_png_path, NULL);
+	g_free (gnome_eog_png_path);
 
 	window = EOG_WINDOW (data);
 
@@ -2993,9 +3001,9 @@ get_ui_description_file () {
 	
 		/* find and setup UI description */
 		filename = gnome_program_locate_file (NULL,
-											  GNOME_FILE_DOMAIN_APP_DATADIR,
-											  "eog/eog-gtk-ui.xml",
-											  FALSE, NULL);
+						      GNOME_FILE_DOMAIN_APP_DATADIR,
+						      "eog/eog-gtk-ui.xml",
+						      FALSE, NULL);
 	}
 	
 	return filename;

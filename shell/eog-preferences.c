@@ -2,9 +2,17 @@
 #include <glade/glade.h>
 #include <libgnomeui/libgnomeui.h>
 #include <glib/gi18n.h>
+#include "util.h"
 #include "eog-preferences.h"
 #include "eog-config-keys.h"
 #include "eog-hig-dialog.h"
+
+#ifdef G_OS_WIN32
+
+#undef EOG_DATADIR
+#define EOG_DATADIR eog_get_datadir ()
+
+#endif
 
 #define GCONF_OBJECT_KEY             "GCONF_KEY"
 #define GCONF_OBJECT_VALUE           "GCONF_VALUE"
@@ -141,7 +149,7 @@ eog_preferences_show (GConfClient *client)
 	char *value;
 	GdkColor color;
 
-	xml = glade_xml_new ("../eog.glade" /* EOG_DATADIR "/eog/glade/eog.glade" */, "Hig Preferences Dialog", "eog");
+	xml = glade_xml_new (g_build_filename (EOG_DATADIR, "eog/glade/eog.glade", NULL), "Hig Preferences Dialog", "eog");
 	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");

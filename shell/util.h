@@ -29,5 +29,11 @@
 void open_failure_dialog (GtkWindow *parent, const char *text_uri);
 
 
+#ifdef G_OS_WIN32
+
+const char *eog_get_icondir (void);
+const char *eog_get_datadir (void);
+
+#endif	/* G_OS_WIN32 */
 
 #endif

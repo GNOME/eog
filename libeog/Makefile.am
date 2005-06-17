@@ -6,10 +6,8 @@ jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
 INCLUDES =							\
-        -DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DHAVE_COLLECTION					\
-	-DEOG_DATADIR=\""$(datadir)"\"				\
 	-I$(srcdir) -I$(top_srcdir)				\
 	-I$(top_srcdir)/src					\
 	-I$(top_srcdir)/jpegutils				\

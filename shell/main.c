@@ -8,6 +8,7 @@
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
+#include "util.h"
 #include "eog-hig-dialog.h"
 #include "eog-window.h"
 #include "eog-thumbnail.h"
@@ -25,6 +26,78 @@ typedef struct {
 	GList     *uri_list;
 	EogImageList  *img_list;
 } LoadContext;
+
+#ifdef G_OS_WIN32
+
+#include <windows.h>
+
+static const char *
+get_installation_subdir (const char *configure_time_path)
+{
+  char *full_prefix, *cp_prefix;
+  const char *retval;
+
+  gnome_win32_get_prefixes (GetModuleHandle (NULL), &full_prefix, &cp_prefix);
+
+  retval = g_build_filename (full_prefix, configure_time_path + strlen (EOG_PREFIX), NULL);
+
+  g_free (full_prefix);
+  g_free (cp_prefix);
+
+  return retval;
+}
+
+const char *
+eog_get_datadir (void)
+{
+  static const char *datadir = NULL;
+
+  if (datadir == NULL)
+    datadir = get_installation_subdir (EOG_DATADIR);
+
+  return datadir;
+}
+
+#undef EOG_DATADIR
+#define EOG_DATADIR eog_get_datadir ()
+
+const char *
+eog_get_icondir (void)
+{
+  static const char *icondir = NULL;
+
+  if (icondir == NULL)
+    icondir = get_installation_subdir (EOG_ICONDIR);
+
+  return icondir;
+}
+
+#undef EOG_ICONDIR
+#define EOG_ICONDIR eog_get_icondir ()
+
+static const char *
+eog_get_localedir (void)
+{
+  char *full_prefix, *cp_prefix;
+  const char *localedir;
+
+  gnome_win32_get_prefixes (GetModuleHandle (NULL), &full_prefix, &cp_prefix);
+
+  localedir = g_build_filename (cp_prefix, GNOMELOCALEDIR + strlen (EOG_PREFIX), NULL);
+
+  g_free (full_prefix);
+  g_free (cp_prefix);
+
+  return localedir;
+}
+
+#undef GNOMELOCALEDIR
+#define GNOMELOCALEDIR eog_get_localedir ()
+
+
+
+#endif	/* G_OS_WIN32 */
+
 
 static void 
 free_uri_list (GList *list)
@@ -594,6 +667,7 @@ main (int argc, char **argv)
 	GError *error;
 	poptContext ctx;
 	GnomeClient *client;
+	char *gnome_eog_png_path;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
@@ -621,7 +695,9 @@ main (int argc, char **argv)
 #endif
 	eog_thumbnail_init ();
 
-	gtk_window_set_default_icon_from_file (EOG_ICONDIR"/gnome-eog.png", NULL);
+	gnome_eog_png_path = g_build_filename (EOG_ICONDIR, "gnome-eog.png", NULL);
+	gtk_window_set_default_icon_from_file (gnome_eog_png_path, NULL);
+	g_free (gnome_eog_png_path);
 
 	client = gnome_master_client ();
 

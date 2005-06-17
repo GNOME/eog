@@ -1,3 +1,23 @@
+2005-06-18  Tor Lillqvist  <tml@novell.com>
+
+	* shell/main.c (get_installation_subdir, eog_get_datadir,
+	eog_get_icondir, eog_get_localedir): [Win32] New functions, used
+	to implement run-time lookup of DATADIR, ICONDIR and LOCALEDIR,
+	instead of using configure-time paths. Use them by redefining the
+	macros.
+
+	* shell/util.h: [Win32] Declare eog_get_datadir() and
+	eog_get_icondir().
+
+	* shell/eog-preferences.c
+	* shell/eog-window.c: Use them here, too.
+
+	* shell/Makefile.am (INCLUDES): Pass also $prefix to the
+	compilation.
+
+	* libeog/Makefile.am (INCLUDES): Remove unused GNOMELOCALEDIR and
+	EOG_DATADIR definitions.
+
 2005-06-17  Tor Lillqvist  <tml@novell.com>
 
 	Port to Windows, not because there wouldn't be enough good image

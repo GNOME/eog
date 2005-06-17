@@ -13,6 +13,7 @@ INCLUDES =							\
 	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
 	-DHAVE_COLLECTION					\
+	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATADIR=\""$(datadir)"\"				\
 	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
 
