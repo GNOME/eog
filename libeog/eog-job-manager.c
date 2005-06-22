@@ -127,8 +127,9 @@ eog_job_manager_add (EogJob *job)
 		g_queue_push_head (job_list, g_object_ref (job));
 
 	if (n_threads < MAX_THREADS) {
-		n_threads++;
 		guint thread_id;
+
+		n_threads++;
 
 		for (thread_id = 0; thread_id < MAX_THREADS; thread_id++) {
 			if (threads[thread_id].thread == NULL) break;
