@@ -1,7 +1,6 @@
 #ifndef _EOG_METADATA_READER_H_
 #define _EOG_METADATA_READER_H_
 
-#include <config.h>
 #include <glib-object.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>

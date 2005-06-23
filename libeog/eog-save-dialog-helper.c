@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <glade/glade.h>
 #include <libgnome/gnome-program.h>
 #include <glib/gi18n.h>

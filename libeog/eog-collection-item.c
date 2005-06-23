@@ -1,3 +1,6 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #include <string.h>
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-macros.h>
@@ -462,12 +465,15 @@ ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width)
 	else {
 		char *tail;
 		char *rest;
+		char *tmp;
 
 		/* split remaining rest of string */
 		tail = g_utf8_offset_to_pointer (str, i+1);
 		rest = ensure_max_string_width (tail, layout, max_width);
+		tmp = g_strndup (str, (tail - str));
 
-		result = g_strconcat (g_strndup (str, (tail - str)), "\n", rest, NULL);
+		result = g_strconcat ((tmp), "\n", rest, NULL);
+		g_free (tmp);
 		g_free (rest);
 	}
 

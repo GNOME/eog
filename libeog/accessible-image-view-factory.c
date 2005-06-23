@@ -17,6 +17,9 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #include <gtk/gtkaccessible.h>
 #include "accessible-image-view-factory.h"
 #include "accessible-image-view.h"

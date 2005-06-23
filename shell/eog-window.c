@@ -20,10 +20,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
 #include <sys/types.h>
 #include <dirent.h>
 #include <errno.h>
-#include <config.h>
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
@@ -2619,8 +2619,9 @@ update_status_bar (EogWindow *window)
 		nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 		/* Images: (n_selected_images) / (n_total_images) */
 		n_img_str = g_strdup_printf ("%i / %i", nsel, nimg);
-	}
-	gtk_label_set_text (GTK_LABEL (priv->n_img_label), n_img_str);
+		gtk_label_set_text (GTK_LABEL (priv->n_img_label), n_img_str);
+		g_free (n_img_str);
+	} 
 	
 	if (priv->displayed_image != NULL) {
 		int zoom, width, height;

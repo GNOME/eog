@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <libgnome/gnome-macros.h>
 
 #include "eog-info-view-detail.h"

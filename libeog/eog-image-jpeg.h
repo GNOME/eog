@@ -1,8 +1,6 @@
 #ifndef _EOG_IMAGE_JPEG_H_
 #define _EOG_IMAGE_JPEG_H_
 
-#include <config.h>
-
 #if HAVE_JPEG
 
 #include <glib.h>

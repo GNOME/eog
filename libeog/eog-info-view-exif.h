@@ -1,8 +1,6 @@
 #ifndef _EOG_INFO_VIEW_EXIF_H_
 #define _EOG_INFO_VIEW_EXIF_H_
 
-#include <config.h>
-
 #if HAVE_EXIF
 
 #include <glib-object.h>
