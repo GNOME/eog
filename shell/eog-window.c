@@ -155,7 +155,9 @@ static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
 				    GtkSelectionData *selection_data, guint info, guint time);
+#if 0
 static void adapt_window_size (EogWindow *window, int width, int height);
+#endif
 static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
 
@@ -792,6 +794,7 @@ save_dialog_cancel_cb (GtkWidget *button, SaveData *data)
 	eog_job_manager_cancel_job (data->job_id);
 }
 
+#if 0
 static gboolean
 save_update_image (EogImage *image)
 {
@@ -802,6 +805,7 @@ save_update_image (EogImage *image)
 	
 	return FALSE;
 }
+#endif
 
 static gboolean
 save_error (SaveErrorData *edata)
@@ -1997,8 +2001,11 @@ trans_color_changed_cb (GConfClient *client,
 
 	value = gconf_client_get_string (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
 
-	if (g_strcasecmp (value, "COLOR") != 0) return;
-
+	if (g_strcasecmp (value, "COLOR") != 0) {
+		g_free (value);
+		return;
+	}
+	
 	if (entry->value != NULL && entry->value->type == GCONF_VALUE_STRING) {
 		color_str = gconf_value_get_string (entry->value);
 
@@ -2330,7 +2337,7 @@ eog_window_drag_data_received (GtkWidget *widget,
 
 		window = EOG_WINDOW (widget);
 		
-		uri_list = gnome_vfs_uri_list_parse (selection_data->data);
+		uri_list = gnome_vfs_uri_list_parse ((char *)selection_data->data);
 		
 		for (it = uri_list; it != NULL; it = it->next) {
 			char *filename = gnome_vfs_uri_to_string (it->data, GNOME_VFS_URI_HIDE_NONE);
@@ -2469,7 +2476,7 @@ get_window_decoration_size (EogWindow *window, int *width, int *height)
 static void
 obtain_desired_size (EogWindow *window, int screen_width, 
 					 int screen_height, int *x11_flags, 
-					 int *x, int *y, int *width, int *height)
+					 int *x, int *y, guint *width, guint *height)
 {
 	char *key;
 	char *geometry_string;
@@ -2482,7 +2489,7 @@ obtain_desired_size (EogWindow *window, int screen_width,
 	
 	if (list != NULL && eog_image_list_length (list) == 1) {
 		int img_width, img_height;
-		int deco_width, deco_height;
+		int deco_width = 0, deco_height = 0;
 		
 		img = eog_image_list_get_img_by_pos (list, 0);
 		g_assert (EOG_IS_IMAGE (img));
@@ -2526,7 +2533,7 @@ obtain_desired_size (EogWindow *window, int screen_width,
 			key = EOG_CONF_WINDOW_GEOMETRY_SINGLETON;
 		
 		geometry_string = gconf_client_get_string (window->priv->client,
-												   key, NULL);
+							   key, NULL);
 		/* parse resulting string */
 		if (geometry_string == NULL) {
 			*width = DEFAULT_WINDOW_WIDTH;
@@ -2538,10 +2545,11 @@ obtain_desired_size (EogWindow *window, int screen_width,
 		else {
 #ifdef GDK_WINDOWING_X11
 			*x11_flags = XParseGeometry (geometry_string,
-									   x, y,
-									   width, height);
+						     x, y,
+						     width, height);
 #endif
 		}
+		g_free (geometry_string);
 	}
 }
 
@@ -3252,6 +3260,7 @@ eog_window_close (EogWindow *window)
 		gtk_main_quit ();
 }
 
+#if 0
 static void
 adapt_window_size (EogWindow *window, int width, int height)
 {
@@ -3351,6 +3360,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 
 	g_free (text_uri);
 }
+#endif
 
 /**
  * eog_window_open:

@@ -95,6 +95,7 @@ eog_save_dialog_new  (GtkWindow *main, int n_images)
 	g_assert (filepath != NULL);
 
 	xml = glade_xml_new (filepath, "Save Image Dialog", "eog");
+	g_free (filepath);
 	g_assert (xml != NULL);
 	
 	dlg = glade_xml_get_widget (xml, "Save Image Dialog");

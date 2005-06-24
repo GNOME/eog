@@ -141,15 +141,19 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 	/* Image filters */
 	for (it = formats; it != NULL; it = it->next) {
 		char *filter_name;
+		char *description, *extension;
 		GdkPixbufFormat *format;
 		filter = gtk_file_filter_new ();
 
 		format = (GdkPixbufFormat*) it->data;
+		description = gdk_pixbuf_format_get_description (format);
+		extension = gdk_pixbuf_format_get_name (format);
 
 		/* Filter name: First description then file extension, eg. "The PNG-Format (*.png)".*/
-		filter_name = g_strdup_printf (_("%s (*.%s)"), 
-					       gdk_pixbuf_format_get_description (format),
-					       gdk_pixbuf_format_get_name (format));
+		filter_name = g_strdup_printf (_("%s (*.%s)"), description, extension);
+		g_free (description);
+		g_free (extension);
+
 		gtk_file_filter_set_name (filter, filter_name);
 		g_free (filter_name);
 

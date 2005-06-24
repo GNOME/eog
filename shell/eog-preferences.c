@@ -147,10 +147,12 @@ eog_preferences_show (GConfClient *client)
 	GtkWidget *dlg;
 	GladeXML  *xml;
 	GtkWidget *widget;
-	char *value;
+	char *value, *filename;
 	GdkColor color;
 
-	xml = glade_xml_new (g_build_filename (EOG_DATADIR, "eog/glade/eog.glade", NULL), "Hig Preferences Dialog", "eog");
+	filename = g_build_filename (EOG_DATADIR, "eog/glade/eog.glade", NULL);
+	xml = glade_xml_new (filename, "Hig Preferences Dialog", "eog");
+	g_free (filename);
 	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
@@ -213,6 +215,7 @@ eog_preferences_show (GConfClient *client)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
 
 	/* color picker */
+	g_free (value);
 	value = gconf_client_get_string (client, EOG_CONF_VIEW_TRANS_COLOR, NULL);
 	widget = glade_xml_get_widget (xml, "colorpicker");
 	if (gdk_color_parse (value, &color)) {

@@ -67,6 +67,7 @@ free_data_cb (gpointer data)
 	g_free (data);
 }
 
+#if 0
 static gboolean
 cancel_job_one (gpointer data)
 {
@@ -77,6 +78,7 @@ cancel_job_one (gpointer data)
 	g_print ("Job %.3i: cancel %s\n", 1, result ? "successfull" : "failed");
 	return FALSE;
 }
+#endif
 
 static gboolean
 cancel_all_jobs (gpointer data)
@@ -97,8 +99,9 @@ test_jobs (gpointer d)
 {
 	int i;
 	EogJob *job;
+#if 0
 	GRand *rand;
-
+#endif
 	for (i = 0; i < 20; i++) {
 		TestData *data = g_new0 (TestData, 1);
 		data->cancel = FALSE;
