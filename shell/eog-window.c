@@ -2939,7 +2939,7 @@ static GtkActionEntry action_entries_image[] = {
 
 
 static GtkToggleActionEntry toggle_entries_image[] = {
-  { "ViewInfo",      NULL, N_("Image _Information"), NULL, N_("Change the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
+  { "ViewInfo",      NULL, N_("Image _Information"), NULL, N_("Changes the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 
 typedef struct {
