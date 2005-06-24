@@ -1,3 +1,30 @@
+2005-06-24  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* shell/recent-files/egg-recent-item.c: (egg_recent_item_new),
+	(egg_recent_item_new_from_uri), (egg_recent_item_update_mime_type),
+	(make_valid_utf8), (egg_recent_item_get_short_name),
+	(egg_recent_item_set_mime_type), (egg_recent_item_get_mime_type):
+	* shell/recent-files/egg-recent-item.h:
+	* shell/recent-files/egg-recent-model.c:
+	(egg_recent_model_write_raw), (egg_recent_model_changed_timeout),
+	(egg_recent_model_lock_file), (egg_recent_model_unlock_file),
+	(egg_recent_model_finalize), (egg_recent_model_add_full):
+	* shell/recent-files/egg-recent-util.c: (load_icon_file),
+	(egg_recent_util_get_icon):
+	* shell/recent-files/egg-recent-view-bonobo.c:
+	* shell/recent-files/egg-recent-view-gtk.c:
+	(egg_recent_view_gtk_clear), (egg_recent_view_gtk_new_separator),
+	(egg_recent_view_gtk_new_menu_item),
+	(egg_recent_view_gtk_set_list), (egg_recent_view_gtk_set_property),
+	(egg_recent_view_gtk_get_property), (egg_recent_view_gtk_finalize),
+	(egg_recent_view_gtk_class_init), (egg_recent_view_gtk_init),
+	(egg_recent_view_gtk_set_label_width),
+	(egg_recent_view_gtk_get_label_width),
+	(egg_recent_view_gtk_set_menu):
+	* shell/recent-files/egg-recent-view-gtk.h:
+	* shell/recent-files/egg-recent-view.c:
+	* shell/recent-files/egg-recent.h: Sync from latest libegg
+
 2005-06-23  Tim Gerla  <tim@gerla.net>
 
         * shell/eog-window.c: Applied patch from Murali k <murali2k5@gmail.com>

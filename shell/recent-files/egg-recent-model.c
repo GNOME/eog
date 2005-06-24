@@ -1,5 +1,5 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/**
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of the
@@ -193,7 +193,7 @@ egg_recent_model_write_raw (EggRecentModel *model, FILE *file,
 	if (fputs (content, file) == EOF)
 		return FALSE;
 
-#ifdef HAVE_FSYNC
+#ifndef G_OS_WIN32
 	fsync (fd);
 #endif
 	rewind (file);
@@ -645,6 +645,8 @@ egg_recent_model_monitor_list (EggRecentModel *model, GList *list)
 static gboolean
 egg_recent_model_changed_timeout (EggRecentModel *model)
 {
+	model->priv->changed_timeout = 0;
+
 	egg_recent_model_changed (model);
 
 	return FALSE;
@@ -884,7 +886,7 @@ egg_recent_model_open_file (EggRecentModel *model)
 static gboolean
 egg_recent_model_lock_file (FILE *file)
 {
-#ifndef G_OS_WIN32
+#ifdef F_TLOCK
 	int fd;
 	gint	try = 5;
 
@@ -922,7 +924,7 @@ egg_recent_model_lock_file (FILE *file)
 static gboolean
 egg_recent_model_unlock_file (FILE *file)
 {
-#ifndef G_OS_WIN32
+#ifdef F_TLOCK
 	int fd;
 
 	rewind (file);
@@ -938,6 +940,10 @@ static void
 egg_recent_model_finalize (GObject *object)
 {
 	EggRecentModel *model = EGG_RECENT_MODEL (object);
+
+	if (model->priv->changed_timeout > 0) {
+		g_source_remove (model->priv->changed_timeout);
+	}
 
 	egg_recent_model_monitor (model, FALSE);
 
@@ -1301,6 +1307,7 @@ egg_recent_model_add_full (EggRecentModel * model, EggRecentItem *item)
 		ret = TRUE;
 	} else {
 		g_warning ("Failed to lock:  %s", strerror (errno));
+		fclose (file);
 		return FALSE;
 	}
 
