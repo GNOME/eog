@@ -40,6 +40,7 @@ eog_LDADD = 				\
 	-L$(top_builddir)/shell/recent-files \
 	-leog				\
 	-lrecent			\
+	$(LIBJPEG)			\
 	$(jpeg_LIB)			\
 	$(POPT_LIBS)			\
 	$(X_LIBS)			\

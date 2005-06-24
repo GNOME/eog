@@ -5,6 +5,9 @@
         * shell/eog-gtk-ui.xml, shell/eog-window.c: Add patch from
         murali2k5@gmail.com to move some image operations from the Edit
         menu to a new Image menu. Closes bug #152367.
+        * shell/Makefile.am: add $LIBJPEG to eog_LDADD to fix AIX 5
+        compilation problem reported and patched by
+        christophe.belle@bull.net (christophe belle). Closes bug #160937.
 
 2005-06-24  Kjartan Maraas  <kmaraas@gnome.org>
 
