@@ -1166,13 +1166,15 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, EogJob *job, GE
 			     _("Temporary file creation failed."));
 		return FALSE;
 	}
-	
+
+#if HAVE_JPEG
 	/* determine kind of saving */
 	if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0) && 
 	    source->exists && source->modified) 
 	{
 		success = eog_image_jpeg_save_file (img, tmpfile, source, NULL, error);
 	}
+#endif
 
 	if (!success && (*error == NULL)) {
 		success = gdk_pixbuf_save (priv->image, tmpfile, source->format, error, NULL);
@@ -1298,11 +1300,14 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		success = eog_image_copy_file (source, target, error);
 		direct_copy = success;
 	}
+
+#if HAVE_JPEG
 	else if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0 && source->exists) ||
 		 (g_ascii_strcasecmp (target->format, EOG_FILE_FORMAT_JPEG) == 0))
 	{
 		success = eog_image_jpeg_save_file (img, tmpfile, source, target, error);
 	}
+#endif
 
 	if (!success && (*error == NULL)) {
 		success = gdk_pixbuf_save (priv->image, tmpfile, target->format, error, NULL);
