@@ -1,7 +1,6 @@
 #include <config.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
-#include <libgnomeui/libgnomeui.h>
 #include <glib/gi18n.h>
 #include "util.h"
 #include "eog-preferences.h"
@@ -17,7 +16,7 @@
 
 #define GCONF_OBJECT_KEY             "GCONF_KEY"
 #define GCONF_OBJECT_VALUE           "GCONF_VALUE"
-#define OBJECT_WIDGET           	 "OBJECT_WIDGET"
+#define OBJECT_WIDGET                "OBJECT_WIDGET"
 
 static void
 check_toggle_cb (GtkWidget *widget, gpointer data)
@@ -70,22 +69,20 @@ spin_button_changed_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-color_change_cb (GtkWidget *widget, guint red, guint green, guint blue, guint a, gpointer data)
+color_change_cb (GtkColorButton *button, gpointer data)
 {
+	GdkColor color;
 	char *key = NULL;
 	char *value = NULL;
-	char *ptr;
-	
-	value = g_strdup_printf ("#%2X%2X%2X",
-			     red / 256,
-			     green / 256,
-			     blue / 256);
-  
-	for (ptr = value; *ptr; ptr++)
-		if (*ptr == ' ')
-			*ptr = '0';
 
-	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
+	gtk_color_button_get_color (button, &color);
+
+	value = g_strdup_printf ("#%2X%2X%2X",
+				 color.red / 256,
+				 color.green / 256,
+				 color.blue / 256);
+
+	key = g_object_get_data (G_OBJECT (button), GCONF_OBJECT_KEY);
 	if (key == NULL || value == NULL) 
 		return;
 
@@ -217,13 +214,9 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 	/* color picker */
 	g_free (value);
 	value = gconf_client_get_string (client, EOG_CONF_VIEW_TRANS_COLOR, NULL);
-	widget = glade_xml_get_widget (xml, "colorpicker");
+	widget = glade_xml_get_widget (xml, "colorbutton");
 	if (gdk_color_parse (value, &color)) {
-		gnome_color_picker_set_i16 (GNOME_COLOR_PICKER (widget),
-					    color.red,
-					    color.green,
-					    color.blue,
-					    255);
+		gtk_color_button_set_color (GTK_COLOR_BUTTON (widget), &color);
 	}
 	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_CONF_VIEW_TRANS_COLOR);
 	g_signal_connect (G_OBJECT (widget),
