@@ -1,3 +1,3 @@
 #include <gconf/gconf-client.h>
 
-void eog_preferences_show (GConfClient *client);
+void eog_preferences_show (GtkWindow *parent, GConfClient *client);

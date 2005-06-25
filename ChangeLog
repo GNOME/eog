@@ -1,3 +1,15 @@
+2005-06-24  Tim Gerla  <tim@gerla.net>
+
+        * eog.glade, shell/eog-preferences.c, shell/eog-preferences.h:
+        Apply patch from Paolo Borelli <pborelli@katamail.com> to
+        make preferences and help dialog launch in the center of the
+        parent window. Closes bug #144631.
+        * shell/eog-window.c: Patch from Paolo Borelli to fix miscalculated
+        zoom amount. Closes bug #308910.
+        * libeog/eog-scroll-view.c, libeog/eog-scroll-view.h,
+        shell/eog-window.c: Another patch from Paolo Borelli to
+        desensitize zoom in/out buttons at max/min zoom levels.
+
 2005-06-24  Kjartan Maraas  <kmaraas@gnome.org>
 
         * libeog/test-eog-job.c: (test_jobs):

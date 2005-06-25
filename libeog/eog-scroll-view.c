@@ -1708,6 +1708,22 @@ eog_scroll_view_get_zoom (EogScrollView *view)
 	return view->priv->zoom;
 }
 
+gboolean
+eog_scroll_view_get_zoom_is_min (EogScrollView *view)
+{
+	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
+
+	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR);
+}
+
+gboolean
+eog_scroll_view_get_zoom_is_max (EogScrollView *view)
+{
+	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
+
+	return DOUBLE_EQUAL (view->priv->zoom, MAX_ZOOM_FACTOR);
+}
+
 void
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {

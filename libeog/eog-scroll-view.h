@@ -53,6 +53,8 @@ void     eog_scroll_view_zoom_out         (EogScrollView *view, gboolean smooth)
 void     eog_scroll_view_zoom_fit         (EogScrollView *view);
 void     eog_scroll_view_set_zoom         (EogScrollView *view, double zoom);
 double   eog_scroll_view_get_zoom         (EogScrollView *view);
+gboolean eog_scroll_view_get_zoom_is_min  (EogScrollView *view);
+gboolean eog_scroll_view_get_zoom_is_max  (EogScrollView *view);
 
 G_END_DECLS
 

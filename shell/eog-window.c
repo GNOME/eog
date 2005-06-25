@@ -453,13 +453,13 @@ static void
 verb_EditPreferences_cb (GtkAction *action, gpointer data)
 {
 	GConfClient *client;
-	EogWindowPrivate *priv;
+	EogWindow *window;
 
-	priv = EOG_WINDOW (data)->priv;
+	window = EOG_WINDOW (data);
 
-	client = priv->client;
+	client = window->priv->client;
 
-	eog_preferences_show (client);
+	eog_preferences_show (GTK_WINDOW (window), client);
 }
 
 static void
@@ -2635,8 +2635,8 @@ update_status_bar (EogWindow *window)
 		int zoom, width, height;
 		GnomeVFSFileSize bytes = 0;
 
-		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->scroll_view)));
-		
+		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->scroll_view)) + 0.5);
+
 		eog_image_get_size (priv->displayed_image, &width, &height);
 		bytes = eog_image_get_bytes (priv->displayed_image);
 		
@@ -2667,7 +2667,21 @@ update_status_bar (EogWindow *window)
 static void
 view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer data)
 {
-	update_status_bar (EOG_WINDOW (data));
+	EogWindow *window;
+	GtkAction *action_zoom_in;
+	GtkAction *action_zoom_out;
+
+	window = EOG_WINDOW (data);
+
+	update_status_bar (window);
+
+	action_zoom_in = gtk_action_group_get_action (window->priv->actions_image, "ViewZoomIn");
+	action_zoom_out = gtk_action_group_get_action (window->priv->actions_image, "ViewZoomOut");
+
+	gtk_action_set_sensitive (action_zoom_in,
+			!eog_scroll_view_get_zoom_is_max (EOG_SCROLL_VIEW (window->priv->scroll_view)));
+	gtk_action_set_sensitive (action_zoom_out,
+			!eog_scroll_view_get_zoom_is_min (EOG_SCROLL_VIEW (window->priv->scroll_view)));
 }
 
 static void
@@ -2901,7 +2915,7 @@ add_eog_icon_factory (void)
 /* FIXME: The action and ui creation stuff should be moved to a separate file */
 /* UI<->function mapping */
 /* Normal items */
-static GtkActionEntry action_entries_window[] = {
+static const GtkActionEntry action_entries_window[] = {
   { "FileMenu", NULL, N_("_File") },
   { "EditMenu", NULL, N_("_Edit") },
   { "ViewMenu", NULL, N_("_View") },
@@ -2917,13 +2931,12 @@ static GtkActionEntry action_entries_window[] = {
 };
 
 /* Toggle items */
-static GtkToggleActionEntry toggle_entries_window[] = {
+static const GtkToggleActionEntry toggle_entries_window[] = {
   { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, N_("Changes the visibility of the toolbar in the current window"),   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
   { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, N_("Changes the visibility of the statusbar in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
 };
 
-
-static GtkActionEntry action_entries_image[] = {
+static const GtkActionEntry action_entries_image[] = {
   { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", NULL, G_CALLBACK (verb_Save_cb) },
   { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As"), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
 
@@ -2946,8 +2959,7 @@ static GtkActionEntry action_entries_image[] = {
   { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) }
 };
 
-
-static GtkToggleActionEntry toggle_entries_image[] = {
+static const GtkToggleActionEntry toggle_entries_image[] = {
   { "ViewInfo",      NULL, N_("Image _Information"), NULL, N_("Changes the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 

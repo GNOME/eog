@@ -117,32 +117,39 @@ radio_toggle_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-help_cb (GtkWidget *widget, gpointer data)
+dialog_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
 	GError *error = NULL;
 
-	gnome_help_display ("eog.xml", "eog-prefs", &error);
+	switch (res_id) {
+	case GTK_RESPONSE_HELP:
+		gnome_help_display ("eog.xml", "eog-prefs", &error);
 
-	if (error) {
-		GtkWidget *dialog;
+		if (error) {
+			GtkWidget *dialog;
 
-		dialog = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
-					     _("Could not display help for Eye of GNOME"),
-					     error->message, TRUE);
+			dialog = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
+						     _("Could not display help for Eye of GNOME"),
+						     error->message, TRUE);
 
-		gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
+			gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 
-		g_signal_connect_swapped (dialog, "response",
-					  G_CALLBACK (gtk_widget_destroy),
-					  dialog);
+			g_signal_connect_swapped (dialog, "response",
+						  G_CALLBACK (gtk_widget_destroy),
+						  dialog);
 
-		gtk_widget_show (dialog);
-		g_error_free (error);
+			gtk_widget_show (dialog);
+			g_error_free (error);
+		}
+		break;
+
+	default:
+		gtk_widget_destroy (GTK_WIDGET (dlg));
 	}
 }
 
 void
-eog_preferences_show (GConfClient *client)
+eog_preferences_show (GtkWindow *parent, GConfClient *client)
 {
 	GtkWidget *dlg;
 	GladeXML  *xml;
@@ -157,15 +164,8 @@ eog_preferences_show (GConfClient *client)
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
 
-	widget = glade_xml_get_widget (xml, "close_button");
-	g_signal_connect_swapped (G_OBJECT (widget), "clicked", 
-				  G_CALLBACK (gtk_widget_destroy), dlg);
-
-	widget = glade_xml_get_widget (xml, "help_button");
-
-	if (widget)
-		g_signal_connect (G_OBJECT (widget), "clicked", 
-				  G_CALLBACK (help_cb), dlg);
+	g_signal_connect (G_OBJECT (dlg), "response",
+			  G_CALLBACK (dialog_response_cb), dlg);
 
 	/* interpolate flag */
 	widget = glade_xml_get_widget (xml, "interpolate_check");
@@ -273,4 +273,7 @@ eog_preferences_show (GConfClient *client)
 		widget = glade_xml_get_widget (xml, "seconds_hbox");
 		g_object_set (widget, "sensitive", FALSE, NULL);
 	}
+
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);
+	gtk_widget_show_all (dlg);
 }
