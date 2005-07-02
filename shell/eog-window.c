@@ -27,21 +27,23 @@
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
-#include <gnome.h>
 #include <string.h>
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
+#include <gdk/gdkkeysyms.h>
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-program.h>
-#include <libgnomeui/gnome-window-icon.h>
+#include <libgnome/gnome-help.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
 #include "util.h"
 #include "zoom.h"
 #include "eog-file-selection.h"
 #include "eog-preferences.h"
+#include "eog-statusbar.h"
 #include "libeog-marshal.h"
 #include "egg-recent.h"
 #include "eog-config-keys.h"
@@ -106,6 +108,10 @@ struct _EogWindowPrivate {
 	GtkWidget           *info_view;
 	GtkWidget           *statusbar;
 	GtkWidget           *n_img_label;
+
+	/* context ids for the statusbar */
+	guint image_info_message_cid;
+	guint tip_message_cid;
 
 	/* available action groups */
 	GtkActionGroup      *actions_window;
@@ -332,6 +338,29 @@ eog_window_configure_event (GtkWidget *widget,
 			g_timeout_add (1000, save_window_geometry_timeout, window);
 	}
 	
+	return FALSE;
+}
+
+static gboolean
+eog_window_window_state_event (GtkWidget *widget,
+			       GdkEventWindowState *event)
+{
+	EogWindow *window;
+
+	window = EOG_WINDOW (widget);
+
+	if (event->changed_mask &
+	    (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN))
+	{
+		gboolean show;
+
+		show = !(event->new_window_state &
+		         (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
+
+		eog_statusbar_set_has_resize_grip (EOG_STATUSBAR (window->priv->statusbar),
+						   show);
+	}
+
 	return FALSE;
 }
 
@@ -2212,6 +2241,7 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->key_press_event = eog_window_key_press;
 	widget_class->drag_data_received = eog_window_drag_data_received;
         widget_class->configure_event = eog_window_configure_event;
+        widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
 
 	class->open_uri_list = open_uri_list_cleanup;
@@ -2616,7 +2646,6 @@ update_status_bar (EogWindow *window)
 	EogWindowPrivate *priv;
 	int nimg;
 	int nsel;
-	char *n_img_str = NULL;
 	char *str = NULL;
 
 	priv = window->priv;
@@ -2626,11 +2655,9 @@ update_status_bar (EogWindow *window)
 	if (nimg > 0) {
 		nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 		/* Images: (n_selected_images) / (n_total_images) */
-		n_img_str = g_strdup_printf ("%i / %i", nsel, nimg);
-		gtk_label_set_text (GTK_LABEL (priv->n_img_label), n_img_str);
-		g_free (n_img_str);
+		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), nsel, nimg);
 	} 
-	
+
 	if (priv->displayed_image != NULL) {
 		int zoom, width, height;
 		GnomeVFSFileSize bytes = 0;
@@ -2655,13 +2682,10 @@ update_status_bar (EogWindow *window)
 		}
 	}
 
-	if (str != NULL) {
-		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), str);
-		g_free (str);
-	}
-	else {
-		gnome_appbar_set_status (GNOME_APPBAR (priv->statusbar), "");
-	}
+	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), priv->image_info_message_cid);
+	gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar), priv->image_info_message_cid, str ? str : "");
+
+	g_free (str);
 }
 
 static void
@@ -2812,8 +2836,8 @@ job_default_progress (EogJob *job, gpointer data, float progress)
 	
 	job_data = EOG_JOB_DATA (data);
 	window = job_data->window;
-	
-	gnome_appbar_set_progress_percentage (GNOME_APPBAR (EOG_WINDOW (window)->priv->statusbar), progress);
+
+	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), progress);
 }
 
 static void
@@ -3031,6 +3055,61 @@ get_ui_description_file () {
 	return filename;
 }
 
+static void
+menu_item_select_cb (GtkMenuItem *proxy, EogWindow *window)
+{
+	GtkAction *action;
+	char *message;
+
+	action = g_object_get_data (G_OBJECT (proxy),  "gtk-action");
+	g_return_if_fail (action != NULL);
+
+	g_object_get (G_OBJECT (action), "tooltip", &message, NULL);
+	if (message)
+	{
+		gtk_statusbar_push (GTK_STATUSBAR (window->priv->statusbar),
+				    window->priv->tip_message_cid, message);
+		g_free (message);
+	}
+}
+
+static void
+menu_item_deselect_cb (GtkMenuItem *proxy, EogWindow *window)
+{
+	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
+			   window->priv->tip_message_cid);
+}
+
+static void
+connect_proxy_cb (GtkUIManager *manager,
+                  GtkAction *action,
+                  GtkWidget *proxy,
+                  EogWindow *window)
+{
+	if (GTK_IS_MENU_ITEM (proxy))
+	{
+		g_signal_connect (proxy, "select",
+				  G_CALLBACK (menu_item_select_cb), window);
+		g_signal_connect (proxy, "deselect",
+				  G_CALLBACK (menu_item_deselect_cb), window);
+	}
+}
+
+static void
+disconnect_proxy_cb (GtkUIManager *manager,
+                     GtkAction *action,
+                     GtkWidget *proxy,
+                     EogWindow *window)
+{
+	if (GTK_IS_MENU_ITEM (proxy))
+	{
+		g_signal_handlers_disconnect_by_func
+			(proxy, G_CALLBACK (menu_item_select_cb), window);
+		g_signal_handlers_disconnect_by_func
+			(proxy, G_CALLBACK (menu_item_deselect_cb), window);
+	}
+}
+
 /**
  * window_construct:
  * @window: A window widget.
@@ -3059,6 +3138,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	priv->ui_mgr = gtk_ui_manager_new ();
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
+	gtk_widget_show (GTK_WIDGET (priv->box));
 
 	add_eog_icon_factory ();
 	
@@ -3091,13 +3171,21 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	if (merge_id == 0)
 		return FALSE;
 
+	/* show menu tooltips in the statusbar */
+	g_signal_connect (priv->ui_mgr, "connect_proxy",
+			  G_CALLBACK (connect_proxy_cb), window);
+	g_signal_connect (priv->ui_mgr, "disconnect_proxy",
+			  G_CALLBACK (disconnect_proxy_cb), window);
+
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
 	g_assert (GTK_IS_WIDGET (menubar));
 	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
+	gtk_widget_show (menubar);
 
 	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/ToolBar");
 	g_assert (toolbar != NULL);
 	gtk_box_pack_start (GTK_BOX (priv->box), toolbar, FALSE, FALSE, 0);
+	gtk_widget_show (toolbar);
 
 	gtk_window_add_accel_group (GTK_WINDOW (window), gtk_ui_manager_get_accel_group (priv->ui_mgr));
 
@@ -3116,17 +3204,13 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 			  G_CALLBACK (open_recent_cb), window);
 
 	/* add statusbar */
-	priv->statusbar = gnome_appbar_new (TRUE, TRUE, GNOME_PREFERENCES_NEVER);
-	{
-		GtkWidget *frame;
-		frame = g_object_new (GTK_TYPE_FRAME, "shadow-type", GTK_SHADOW_IN, NULL);
-		priv->n_img_label = gtk_label_new ("       ");
-		gtk_container_add (GTK_CONTAINER (frame), priv->n_img_label);
-		gtk_box_pack_start (GTK_BOX (priv->statusbar), frame, FALSE, TRUE, 0);
-	}
-
+	priv->statusbar = eog_statusbar_new ();
 	gtk_box_pack_end (GTK_BOX (priv->box), GTK_WIDGET (priv->statusbar),
 			  FALSE, FALSE, 0);
+	gtk_widget_show (priv->statusbar);
+
+	priv->image_info_message_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "image_info_message");
+	priv->tip_message_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "tip_message");
 
 	/* content display */
 	priv->vpane = gtk_vpaned_new (); /* eog_vertical_splitter_new (); */
@@ -3177,10 +3261,9 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	/* gtk_widget_grab_focus (priv->wraplist); */
 
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->vpane, TRUE, TRUE, 0);
+	gtk_widget_show_all (GTK_WIDGET (priv->vpane));
 
 	set_drag_dest (window);
-
-	gtk_widget_show_all (GTK_WIDGET (priv->box));
 
 	/* show/hide toolbar? */
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);

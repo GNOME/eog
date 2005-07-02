@@ -24,6 +24,8 @@ eog_SOURCES =			\
 	eog-window.c		\
 	eog-preferences.h	\
 	eog-preferences.c	\
+	eog-statusbar.h		\
+	eog-statusbar.c		\
 	main.c			\
 	session.c		\
 	session.h		\

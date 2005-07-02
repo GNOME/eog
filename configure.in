@@ -4,7 +4,7 @@ AC_INIT(shell/main.c)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(eog, 2.11.1)
+AM_INIT_AUTOMAKE(eog, 2.11.0)
 
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
@@ -17,7 +17,7 @@ GNOME_VFS_REQUIRED=2.5.91
 LIBGNOMEUI_REQUIRED=2.5.92
 LIBGLADE_REQUIRED=2.3.6
 GDKPIXBUF_REQUIRED=2.4.0
-LIBEXIF_REQUIRED=0.5.12
+LIBEXIF_REQUIRED=0.6.12
 LIBGNOMECANVAS_REQUIRED=2.5.92
 GCONF_REQUIRED=2.5.90
 LIBART_REQUIRED=2.3.16
@@ -57,20 +57,12 @@ dnl ============== optional exif support ====================
 
 AC_ARG_WITH(libexif, [  --without-libexif	  disable special EXIF support])
 have_exif=no
-have_old_libexif=no
 if test x$with_libexif != xno; then
     PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
-    PKG_CHECK_MODULES(EXIF, libexif = $LIBEXIF_REQUIRED, have_old_libexif=yes, have_old_libexif=no)
 fi 
-
 if test "x$have_exif" = "xyes"; then
   AC_DEFINE(HAVE_EXIF,1)
   EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
-fi
-
-if test "x$have_old_libexif" = "xyes"; then
-  AC_DEFINE(HAVE_OLD_LIBEXIF,1)
-	EOG_MODULES="$EOG_MODULES libexif = $LIBEXIF_REQUIRED"
 fi
 
 dnl ============== semi optional libjpeg support ====================
@@ -204,8 +196,6 @@ shell/recent-files/Makefile
 po/Makefile.in
 ])
 
-
-
 echo "
 Configuration:
 
@@ -214,6 +204,5 @@ Configuration:
 
 	Extra Compiler Warnings:  ${WARN_CFLAGS}
 	Special EXIF support:     ${have_exif}
-	Use libexif = 0.5.12:     ${have_old_libexif}
 	Special JPEG support:     ${have_jpeg}
 "
