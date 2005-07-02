@@ -16,6 +16,8 @@ EGG_RECENT_FILES =		\
 	egg-recent-view.h	\
 	egg-recent-view-gtk.c	\
 	egg-recent-view-gtk.h	\
+        egg-recent-view-bonobo.c\
+        egg-recent-view-bonobo.h\
 	$(NULL)
 
 librecent_a_SOURCES =		\
