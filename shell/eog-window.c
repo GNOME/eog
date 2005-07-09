@@ -2993,8 +2993,11 @@ static const GtkActionEntry action_entries_image[] = {
   { "ViewSlideshow", NULL, N_("_Slideshow"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
-  { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>equal", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
-  { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) }
+  { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>0", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
+  { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) },
+
+  /* accelerators */
+  { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) }
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {

@@ -18,7 +18,6 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gconf/gconf-client.h>
 #include "eog-config-keys.h"
-#include "eog-hig-dialog.h"
 #include "eog-pixbuf-util.h"
 
 static char* last_dir[] = { NULL, NULL, NULL, NULL };
