@@ -55,7 +55,6 @@
 #include "eog-full-screen.h"
 #include "eog-save-dialog-helper.h"
 #include "eog-image-save-info.h"
-#include "eog-hig-dialog.h"
 #include "eog-uri-converter.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
@@ -857,16 +856,17 @@ save_error (SaveErrorData *edata)
 		char *str;
 
 		str = eog_image_get_uri_for_display (edata->image); 
-
 		header = g_strdup_printf (_("Overwrite file %s?"), str);
 		detail = _("File exists. Do you want to overwrite it?");
-
-		dlg = eog_hig_dialog_new (GTK_WINDOW (edata->window), 
-					  GTK_STOCK_DIALOG_ERROR,
-					  header, detail,
-					  TRUE);
-
 		g_free (str);
+
+		dlg = gtk_message_dialog_new (GTK_WINDOW (edata->window),
+					      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_NONE,
+					      header);
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+							  detail);
 
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Skip"), EOG_SAVE_RESPONSE_SKIP);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Overwrite"), EOG_SAVE_RESPONSE_OVERWRITE);
@@ -875,11 +875,14 @@ save_error (SaveErrorData *edata)
 	}
 	else {
 		header = g_strdup_printf (_("Error on saving %s."), eog_image_get_caption (edata->image));
-		
-		dlg = eog_hig_dialog_new (GTK_WINDOW (edata->window), 
-					  GTK_STOCK_DIALOG_ERROR,
-					  header, detail,
-					  TRUE);
+
+		dlg = gtk_message_dialog_new (GTK_WINDOW (edata->window),
+					      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_NONE,
+					      header);
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+							  detail);
 	
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Skip"), EOG_SAVE_RESPONSE_SKIP);
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Retry"), EOG_SAVE_RESPONSE_RETRY);
@@ -1427,11 +1430,14 @@ save_as_uri_selection_dialog (EogWindow *window, EogImage *image, char **uri, Gd
 			g_free (uesc_uri);
 			g_free (short_name);
 
-			err_dlg = eog_hig_dialog_new (GTK_WINDOW (window),
-						      GTK_STOCK_DIALOG_ERROR,
-						      header, detail,
-						      TRUE);
-			
+			err_dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+							  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							  GTK_MESSAGE_ERROR,
+							  GTK_BUTTONS_NONE,
+							  header);
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (err_dlg),
+							  	  detail);
+
 			gtk_dialog_add_button (GTK_DIALOG (err_dlg), _("Retry"), GTK_RESPONSE_OK);
 			gtk_dialog_add_button (GTK_DIALOG (err_dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
@@ -1551,16 +1557,18 @@ save_as_uri_converter_dialog (EogWindow *window, GList *images)
 		success = eog_uri_converter_check (conv, images, &error);
 
 		if (!success) {
-			GtkWidget *error_dlg;
+			GtkWidget *err_dlg;
 
-			error_dlg = eog_hig_dialog_new (GTK_WINDOW (window),
-							GTK_STOCK_DIALOG_ERROR,
-							_("Error on saving images."),
-							error->message,
-							TRUE);
-			gtk_dialog_add_button (GTK_DIALOG (error_dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-			gtk_dialog_run (GTK_DIALOG (error_dlg));
-			gtk_widget_destroy (error_dlg);
+			err_dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+							  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							  GTK_MESSAGE_ERROR,
+							  GTK_BUTTONS_OK,
+							  _("Error on saving images."));
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (err_dlg),
+							  	  error->message);
+
+			gtk_dialog_run (GTK_DIALOG (err_dlg));
+			gtk_widget_destroy (err_dlg);
 
 			g_object_unref (conv);
 			conv = NULL;
@@ -1811,12 +1819,15 @@ show_delete_confirm_dialog (EogWindow *window, int n_images)
 	header = g_strdup_printf (ngettext ("Do you really want to move %i image to trash?", 
 					    "Do you really want to move %i images to trash?", n_images), n_images);
 
-	dlg = eog_hig_dialog_new (GTK_WINDOW (window), GTK_STOCK_DIALOG_WARNING,
-				  header, NULL, TRUE);
+	dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+				      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+				      GTK_MESSAGE_QUESTION,
+				      GTK_BUTTONS_NONE,
+				      header);
 	g_free (header);
 
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 	gtk_widget_show_all (dlg);
 
@@ -1921,17 +1932,19 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 			GtkWidget *dlg;
 			
 			header = g_strdup_printf (_("Error on deleting image %s"), eog_image_get_caption (image));
-			
-			dlg = eog_hig_dialog_new (GTK_WINDOW (window), 
-						  GTK_STOCK_DIALOG_WARNING, header, 
-						  error->message, TRUE);
-			
-			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-			gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
-			gtk_widget_show_all (dlg);
-			
+
+			dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+						      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						      GTK_MESSAGE_ERROR,
+						      GTK_BUTTONS_OK,
+						      header);
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+								  error->message);
+
 			gtk_dialog_run (GTK_DIALOG (dlg));
 			gtk_widget_destroy (dlg);
+
+			g_free (header);
 		}
 	}
 
@@ -2723,13 +2736,14 @@ show_error_dialog (EogWindow *window, char *header, GError *error)
 		detail = g_strdup_printf (_("Reason: %s"), error->message);
 	}
 
-	dlg = eog_hig_dialog_new (GTK_WINDOW (window), 
-				  GTK_STOCK_DIALOG_ERROR,
-				  header, detail,
-				  TRUE);
+	dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+				      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+				      GTK_MESSAGE_ERROR,
+				      GTK_BUTTONS_OK,
+				      header);
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+						  detail);
 
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 	g_signal_connect_swapped (G_OBJECT (dlg), "response",
 				  G_CALLBACK (gtk_widget_destroy),
 				  dlg);

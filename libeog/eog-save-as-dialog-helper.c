@@ -9,7 +9,6 @@
 #include <glade/glade.h>
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
-#include "eog-hig-dialog.h"
 #include "eog-file-selection.h"
 
 typedef struct {
@@ -137,13 +136,15 @@ on_add_button_clicked (GtkWidget *widget, gpointer user_data)
 
 	if (uc_info[index].req_exif && !has_libexif) {
 		GtkWidget *dlg;
-		
-		dlg = eog_hig_dialog_new (GTK_WINDOW (user_data),
-					  GTK_STOCK_DIALOG_WARNING, _("Option not available."), 
-					  _("To use this function you need the libexif library. Please install"
-					    " libexif (http://libexif.sf.net) and recompile Eye of GNOME."), TRUE);
-		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-		gtk_widget_show_all (dlg);
+
+		dlg = gtk_message_dialog_new (GTK_WINDOW (user_data),
+					      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+					      GTK_MESSAGE_WARNING,
+					      GTK_BUTTONS_OK,
+					      _("Option not available."));
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+					      _("To use this function you need the libexif library. Please install"
+						" libexif (http://libexif.sf.net) and recompile Eye of GNOME."));
 		gtk_dialog_run (GTK_DIALOG (dlg));
 		gtk_widget_destroy (dlg);
 	}

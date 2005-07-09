@@ -5,7 +5,6 @@
 #include "util.h"
 #include "eog-preferences.h"
 #include "eog-config-keys.h"
-#include "eog-hig-dialog.h"
 
 #ifdef G_OS_WIN32
 
@@ -125,17 +124,16 @@ dialog_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 		if (error) {
 			GtkWidget *dialog;
 
-			dialog = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
-						     _("Could not display help for Eye of GNOME"),
-						     error->message, TRUE);
+			dialog = gtk_message_dialog_new (NULL,
+							 GTK_DIALOG_MODAL,
+							 GTK_MESSAGE_ERROR,
+							 GTK_BUTTONS_OK,
+							 _("Could not display help for Eye of GNOME"));
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+								  error->message);
 
-			gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
-
-			g_signal_connect_swapped (dialog, "response",
-						  G_CALLBACK (gtk_widget_destroy),
-						  dialog);
-
-			gtk_widget_show (dialog);
+			gtk_dialog_run (GTK_DIALOG (dialog));
+			gtk_widget_destroy (dialog);
 			g_error_free (error);
 		}
 		break;

@@ -9,7 +9,6 @@
 #include <libgnomeui/gnome-window-icon.h>
 #include <gconf/gconf-client.h>
 #include "util.h"
-#include "eog-hig-dialog.h"
 #include "eog-window.h"
 #include "eog-thumbnail.h"
 #include "session.h"
@@ -161,14 +160,19 @@ create_new_window (void)
 
 	if (error != NULL) {
 		GtkWidget *dlg;
-		dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR,
-					  _("Unable to create Eye of GNOME user interface"), error->message, TRUE);
-		gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
 
-		g_error_free (error);
+		dlg = gtk_message_dialog_new (NULL,
+					      GTK_DIALOG_MODAL,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_OK,
+					      _("Unable to create Eye of GNOME user interface"));
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+							  error->message);
 
 		gtk_dialog_run (GTK_DIALOG (dlg));
 		gtk_widget_destroy (GTK_WIDGET (dlg));
+
+		g_error_free (error);
 
 		gtk_main_quit ();
 	}
@@ -338,19 +342,20 @@ static gint
 user_wants_collection (gint n_windows)
 {
 	GtkWidget *dlg;
-	gchar body[128];
 	int ret;
 
-	g_snprintf (body, 128,
-		    ngettext ("You are about to open %i windows simultaneously. Do you want to open them in a collection instead?",
-	                  "You are about to open %i windows simultaneously. Do you want to open them in a collection instead?",
-	                  n_windows),
-		              n_windows);
-
-	dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_WARNING,
-				  _("Open multiple single windows?"),
-				  body,
-				  TRUE);
+	dlg = gtk_message_dialog_new (NULL,
+				      GTK_DIALOG_MODAL,
+				      GTK_MESSAGE_WARNING,
+				      GTK_BUTTONS_NONE,
+				      _("Open multiple single windows?"));
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+				      ngettext ("You are about to open %i windows simultaneously."
+						" Do you want to open them in a collection instead?",
+						"You are about to open %i windows simultaneously."
+						" Do you want to open them in a collection instead?",
+						n_windows),
+				      n_windows);
 
 	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Single Windows"), COLLECTION_NO);
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, COLLECTION_CANCEL);
@@ -404,13 +409,14 @@ show_nonexistent_files (GList *error_list)
 		g_free (str);
 		n++;
 	}
-	
-	dlg = eog_hig_dialog_new (NULL, GTK_STOCK_DIALOG_ERROR, 
-				  ngettext ("File not found.", "Files not found.", len),
-				  detail->str, TRUE);
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_OK, GTK_RESPONSE_OK);
-	
-	gtk_widget_show (dlg);
+
+	dlg = gtk_message_dialog_new (NULL,
+				      GTK_DIALOG_MODAL,
+				      GTK_MESSAGE_ERROR,
+				      GTK_BUTTONS_OK,
+				      ngettext ("File not found.", "Files not found.", len));
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), detail->str);
+
 	gtk_dialog_run (GTK_DIALOG (dlg));
 	gtk_widget_destroy (dlg);
 

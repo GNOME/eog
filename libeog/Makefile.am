@@ -82,8 +82,6 @@ libeog_a_SOURCES =			\
 	eog-info-view-exif.c		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
-	eog-hig-dialog.h		\
-	eog-hig-dialog.c		\
 	eog-horizontal-splitter.c	\
 	eog-horizontal-splitter.h	\
 	eog-vertical-splitter.c		\
