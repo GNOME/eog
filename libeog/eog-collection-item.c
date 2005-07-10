@@ -276,7 +276,10 @@ job_thumb_finished (EogJob *job, gpointer data, GError *error)
 	gboolean show_frame = FALSE;
 	
 	priv = EOG_COLLECTION_ITEM (data)->priv;
-	
+
+	if (!priv)
+		return;
+		
 	if (eog_job_get_success (job)) {
 		/* success */
 		pixbuf = eog_image_get_pixbuf_thumbnail (priv->image);

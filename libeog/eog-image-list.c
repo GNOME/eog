@@ -25,6 +25,11 @@ struct  _EogIter {
 	GList         *node;
 };
 
+typedef struct {
+	GnomeVFSMonitorHandle *handle;
+	const gchar *text_uri;
+} MonitorHandleContext;
+
 struct _EogImageListPrivate {
 	/* The age is incremented everytime the list is altered. 
 	   Iterators are only valid if they have the same age */
@@ -39,6 +44,9 @@ struct _EogImageListPrivate {
 	/* the largest common part of all image uris */
 	GnomeVFSURI     *base_uri;
 	gboolean         no_common_base;
+	
+	GList *monitors;
+
 };
 
 typedef struct {
@@ -105,6 +113,16 @@ eog_image_list_finalize (GObject *object)
 }
 
 static void
+foreach_monitors_free (gpointer data, gpointer user_data)
+{
+	MonitorHandleContext *hctx = data;
+	
+	gnome_vfs_monitor_cancel (hctx->handle);
+	
+	g_free (data);
+}
+
+static void
 eog_image_list_dispose (GObject *object)
 {
 	EogImageList *list;
@@ -130,6 +148,10 @@ eog_image_list_dispose (GObject *object)
 		gnome_vfs_uri_unref (priv->base_uri);
 		priv->base_uri = NULL;
 	}
+	
+	g_list_foreach (priv->monitors, 
+		foreach_monitors_free, NULL);
+	g_list_free (priv->monitors);	
 }
 
 static void
@@ -146,6 +168,8 @@ eog_image_list_instance_init (EogImageList *obj)
 	priv->n_images = 0;
 	priv->base_uri = NULL;
 	priv->no_common_base = FALSE;
+	
+	priv->monitors = NULL;
 }
 
 static void 
@@ -365,6 +389,96 @@ is_supported_mime_type (const char *mime_type)
 
 /* ================== Directory Loading stuff ===================*/
 
+
+static void 
+cleanup_dead_files (EogImageList *list)
+{
+	gint position = 0;
+	GList *node = NULL, *remove = NULL;
+	gboolean found = FALSE;
+	
+	if (list && list->priv)
+		node = list->priv->store;
+
+	while (node != NULL && !found) {
+		GnomeVFSURI *uri = eog_image_get_uri(node->data);
+		if (!gnome_vfs_uri_exists (uri)) {
+			remove = g_list_append (remove, (gpointer)position);
+		}	
+		node = node->next;		
+		position++;
+	}
+
+	while (remove) {
+		gint pos = (gint)remove->data;
+		EogIter *iter = eog_image_list_get_iter_by_pos (list, pos);
+
+		if (iter) {
+			remove_image_private (list, iter);
+			g_signal_emit (list, eog_image_list_signals[IMAGE_REMOVED], 0, pos);
+		}
+		
+		remove = g_list_next (remove);
+	}
+	
+	g_list_free (remove);
+}
+
+static void
+vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
+          const gchar *monitor_uri,
+          const gchar *info_uri,
+          GnomeVFSMonitorEventType event_type,
+          gpointer user_data)
+{
+	EogImageList *list = user_data;
+	GnomeVFSURI *uri = NULL;
+	EogImage *image = NULL;
+	GList *node=NULL;
+	gboolean found = FALSE;
+	
+	cleanup_dead_files (list);
+	
+	switch (event_type) {
+		case GNOME_VFS_MONITOR_EVENT_CHANGED:
+		case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
+		case GNOME_VFS_MONITOR_EVENT_DELETED:
+		case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
+		case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:
+			break;
+			
+		case GNOME_VFS_MONITOR_EVENT_CREATED:
+		
+			if (list && list->priv) {
+				node = list->priv->store;
+				
+				while (node != NULL && !found) {
+			
+					uri = eog_image_get_uri(node->data);
+					gchar *str = gnome_vfs_uri_to_string 
+						(uri, GNOME_VFS_URI_HIDE_NONE);
+					found = (strcmp (str, info_uri)==0)?TRUE:FALSE;
+					g_free (str);
+					node = node->next;
+				}
+			}
+			
+			if (!found) {
+				uri = gnome_vfs_uri_new (info_uri);
+				image = eog_image_new_uri (uri);
+				
+				if (image) {
+					eog_image_list_add_image (list, image);
+					/* Q: g_object_unref (image) ? */
+				}
+			}
+			gnome_vfs_uri_unref (uri);
+			break;
+	}
+	
+	return;	
+}
+
 /* Called for each file in a directory. Checks if the file is some
  * sort of image. If so, it creates an image object and adds it to the
  * list.
@@ -394,12 +508,10 @@ directory_visit_cb (const gchar *rel_uri,
 	}
 
 	if (load_uri) {
-		uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);	
-		
+		uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);
 		image = eog_image_new_uri (uri);
 		gnome_vfs_uri_unref (uri);
-		
-		if (image != NULL) {
+		if (image != NULL) {	
 			add_image_private (list, image, FALSE);
 			g_object_unref (image);
 		}
@@ -412,12 +524,22 @@ static void
 add_directory (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	DirLoadingContext ctx;
-
+	MonitorHandleContext *hctx = g_new0(MonitorHandleContext, 1);
+	
+	hctx->text_uri = gnome_vfs_uri_get_path (uri);
+	
 	g_return_if_fail (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY);
 
 	ctx.uri = uri;
 	ctx.list = list;
 	ctx.info = info;
+	
+	gnome_vfs_monitor_add  (&hctx->handle, hctx->text_uri,
+		GNOME_VFS_MONITOR_DIRECTORY,
+		vfs_monitor_dir_cb,
+		list);
+
+	list->priv->monitors = g_list_append (list->priv->monitors, hctx);
 	
 	gnome_vfs_directory_visit_uri (uri,
 				       GNOME_VFS_FILE_INFO_DEFAULT |
@@ -425,7 +547,7 @@ add_directory (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 				       GNOME_VFS_FILE_INFO_GET_MIME_TYPE,
 				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
 				       directory_visit_cb,
-				       &ctx);	
+				       &ctx);
 }
 
 static void
@@ -595,10 +717,17 @@ eog_image_list_print_debug (EogImageList *list)
 void
 eog_image_list_add_image (EogImageList *list, EogImage *image)
 {
+	int pos;
+	
 	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	add_image_private (list, image, TRUE);
+
+	pos = add_image_private (list, image, TRUE);		
+		
+	if (pos >= 0) {
+		g_signal_emit (list, eog_image_list_signals[IMAGE_ADDED], 0, image, pos);
+	}
 }
 
 void
@@ -606,15 +735,16 @@ eog_image_list_remove_image (EogImageList *list, EogImage *image)
 {
 	EogIter* iter;
 	int pos;
-	
+		
 	g_return_if_fail (EOG_IS_IMAGE_LIST (list));
 	g_return_if_fail (EOG_IS_IMAGE (image));
-
+	
 	iter = eog_image_list_get_iter_by_img (list, image);
 	if (iter == NULL) return;
 
 	pos = remove_image_private (list, iter);
 
+	
 	g_free (iter);
 
 	if (pos >= 0) {
