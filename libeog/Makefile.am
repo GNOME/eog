@@ -115,7 +115,7 @@ test_eog_job_LDADD = \
 	$(jpeg_LIB)			\
 	$(X_LIBS)			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(LIBJPEG) -llcms
 
 
 
@@ -129,7 +129,7 @@ test_image_load_LDADD = \
 	$(jpeg_LIB)			\
 	$(X_LIBS)			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(LIBJPEG) -llcms
 
 CLEANFILES = $(BUILT_SOURCES)
 

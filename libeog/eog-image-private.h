@@ -6,7 +6,7 @@
 #include <libexif/exif-data.h>
 #endif
 #include "eog-image.h"
-
+#include <lcms.h>
 
 typedef enum {
 	EOG_IMAGE_STATUS_UNKNOWN,
@@ -36,7 +36,8 @@ struct _EogImagePrivate {
 			      * either of these are not NULL:
 			      */
 #endif
-	
+	cmsHPROFILE profile;
+
 	gint thumbnail_id;
 	
 	gboolean modified;

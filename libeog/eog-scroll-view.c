@@ -7,6 +7,11 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdkkeysyms.h>
 
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <lcms.h>
+#include <gdk/gdkx.h>
+
 #include "libeog-marshal.h"
 #include "eog-scroll-view.h"
 #include "cursors.h"
@@ -1724,6 +1729,38 @@ eog_scroll_view_get_zoom_is_max (EogScrollView *view)
 	return DOUBLE_EQUAL (view->priv->zoom, MAX_ZOOM_FACTOR);
 }
 
+static cmsHPROFILE *
+get_screen_profile (GdkScreen *screen)
+{
+	Display *dpy;
+	Atom icc_atom, type;
+	int format;
+	gulong nitems;
+	gulong bytes_after;
+	guchar *str;
+	int result;
+	cmsHPROFILE *profile;
+
+	g_return_val_if_fail (screen != NULL, NULL);
+
+	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
+	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), "_ICC_PROFILE");
+	
+	result = XGetWindowProperty (dpy, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
+				     icc_atom, 0, G_MAXLONG,
+				     False, XA_CARDINAL, &type, &format, &nitems,
+				     &bytes_after, (guchar **)&str);
+
+	if (nitems) {
+		profile = cmsOpenProfileFromMem(str, nitems * sizeof(long));
+		XFree (str);
+		return profile;
+	} else {
+		g_printerr("No profile, not correcting\n");
+		return NULL;
+	}
+}
+
 void
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {
@@ -1751,6 +1788,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		eog_image_data_ref (image);
 
 		if (priv->pixbuf == NULL) {
+			/* TODO: do this in a thread, progressively */
+			eog_image_apply_display_profile (image, get_screen_profile (gtk_widget_get_screen (GTK_WIDGET (view))));
 			priv->pixbuf = eog_image_get_pixbuf (image);
 			priv->progressive_state = PROGRESSIVE_NONE;
 			set_zoom_fit (view);

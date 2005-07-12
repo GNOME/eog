@@ -26,6 +26,8 @@
 #include "eog-image-jpeg.h"
 #endif
 
+#include <lcms.h>
+
 enum {
 	SIGNAL_LOADING_UPDATE,
 	SIGNAL_LOADING_SIZE_PREPARED,
@@ -252,6 +254,7 @@ eog_image_instance_init (EogImage *img)
 #if HAVE_EXIF
 	priv->exif = NULL;
 #endif
+	priv->profile = NULL;
 	priv->data_ref_count = 0;
 
 	img->priv = priv;
@@ -549,6 +552,100 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 	return !failed;
 }
 
+void
+eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
+{
+	EogImagePrivate *priv;
+	cmsHTRANSFORM transform;
+	int row, width, rows, stride;
+	guchar *p;
+	
+	g_return_if_fail (img != NULL);
+
+	if (screen == NULL)
+		return;
+
+	priv = img->priv;
+	if (priv->profile == NULL)
+		return;
+	
+	transform = cmsCreateTransform(priv->profile, TYPE_RGB_8, screen, TYPE_RGB_8, INTENT_PERCEPTUAL, 0);
+	
+	rows = gdk_pixbuf_get_height(priv->image);
+	width = gdk_pixbuf_get_width (priv->image);
+	stride = gdk_pixbuf_get_rowstride (priv->image);
+	p = gdk_pixbuf_get_pixels (priv->image);
+	for (row = 0; row < rows; ++row) {
+		cmsDoTransform(transform, p, p, width);
+		p += stride;
+	}
+	cmsDeleteTransform(transform);
+	//cmsCloseProfile(screen);
+}
+
+static void
+extract_profile (EogImage *img)
+{
+	EogImagePrivate *priv = img->priv;
+	ExifEntry *entry;
+	const ExifByteOrder o = exif_data_get_byte_order (priv->exif);
+
+	/* TODO: switch on format to specialised functions */
+
+	/* No EXIF data, so can't do anything for now.  Should check for embedded ICC profile. */
+	if (priv->exif == NULL)
+		return;
+	
+	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_COLOR_SPACE);
+	if (entry && exif_get_short (entry->data, o) != 1) {
+		cmsCIExyY whitepoint;
+		cmsCIExyYTRIPLE primaries;
+		LPGAMMATABLE gamma[3];
+		
+		const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
+		ExifRational r;
+		
+		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_0], EXIF_TAG_WHITE_POINT);
+		if (entry && entry->components == 2) {
+			r = exif_get_rational (entry->data, o);
+			whitepoint.x = (double)r.numerator/r.denominator;
+			r = exif_get_rational (entry->data + offset, o);
+			whitepoint.y = (double)r.numerator/r.denominator;
+			whitepoint.Y = 1.0;
+		} else {
+			g_printerr("No whitepoint found\n");
+		}
+		    
+		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_0], EXIF_TAG_PRIMARY_CHROMATICITIES);
+		if (entry && entry->components == 6) {
+			r = exif_get_rational (entry->data + 0 * offset, o);
+			primaries.Red.x = (double)r.numerator/r.denominator;
+			r = exif_get_rational (entry->data + 1 * offset, o);
+			primaries.Red.y = (double)r.numerator/r.denominator;
+		      
+			r = exif_get_rational (entry->data + 2 * offset, o);
+			primaries.Green.x = (double)r.numerator/r.denominator;
+			r = exif_get_rational (entry->data + 3 * offset, o);
+			primaries.Green.y = (double)r.numerator/r.denominator;
+		      
+			r = exif_get_rational (entry->data + 4 * offset, o);
+			primaries.Blue.x = (double)r.numerator/r.denominator;
+			r = exif_get_rational (entry->data + 5 * offset, o);
+			primaries.Blue.y = (double)r.numerator/r.denominator;		    
+		      
+			primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
+		} else {
+			g_printerr("No primary chromaticities found\n");
+		}
+		    
+		/* TODO: assume gamma 2.2? */
+		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, 2.2);
+		    
+		priv->profile = cmsCreateRGBProfile(&whitepoint, &primaries, gamma);
+		cmsFreeGamma(gamma[0]);
+	}
+}
+
 /* this function runs in it's own thread */
 static gboolean
 eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error)
@@ -679,8 +776,9 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		if (format != NULL) {
 			priv->file_type = gdk_pixbuf_format_get_name (format);
 		}
+
+		extract_profile (img);
 	}
-	
 	/* clean up */
 	g_object_unref (loader);
 	if (md_reader != NULL) {
@@ -843,6 +941,15 @@ eog_image_get_pixbuf (EogImage *img)
 	
 	return image;
 }
+
+cmsHPROFILE
+eog_image_get_profile (EogImage *img)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+
+	return img->priv->profile;
+}
+
 
 GdkPixbuf* 
 eog_image_get_pixbuf_thumbnail (EogImage *img)
@@ -1465,6 +1572,10 @@ eog_image_free_mem_private (EogImage *image)
 		}
 		priv->exif_chunk_len = 0;
 
+		if (priv->profile != NULL) {
+		  cmsCloseProfile (priv->profile);
+		}
+		
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	}
 }

@@ -47,7 +47,7 @@ eog_LDADD = 				\
 	$(POPT_LIBS)			\
 	$(X_LIBS)			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(LIBJPEG) -llcms
 
 uidir = $(datadir)/eog
 UI_FILES = eog-gtk-ui.xml 
