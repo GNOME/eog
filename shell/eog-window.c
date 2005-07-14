@@ -3538,18 +3538,11 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	int i;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
-	
+
 	priv = window->priv;
 
 #ifdef DEBUG
 	g_print ("EogWindow.c: eog_window_open\n");
-#endif
-	
-#if HAVE_LCMS
-	/* Colour-correct the images */
-	for (i = 0; i < eog_image_list_length (model); i++) {
-		eog_image_apply_display_profile (eog_image_list_get_img_by_pos (model, i), get_screen_profile (window));
-	}
 #endif
 
 	/* attach image list */
@@ -3562,6 +3555,15 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	if (model != NULL) {
 		g_object_ref (model);
 		priv->image_list = model;
+
+#if HAVE_LCMS
+		/* Colour-correct the images */
+		for (i = 0; i < eog_image_list_length (model); i++) {
+			eog_image_apply_display_profile (eog_image_list_get_img_by_pos (model, i),
+							 get_screen_profile (window));
+		}
+#endif
+
 	}
 
 	/* update ui */
