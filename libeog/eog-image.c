@@ -595,9 +595,10 @@ static void
 extract_profile (EogImage *img, EogMetadataReader *md_reader)
 {
 	EogImagePrivate *priv = img->priv;
+#if HAVE_EXIF
 	ExifEntry *entry;
 	const ExifByteOrder o = exif_data_get_byte_order (priv->exif);
-
+#endif
 	/* TODO: switch on format to specialised functions */
 
 	/* Embedded ICC profiles rule over anything else */
@@ -610,7 +611,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 			return;
 		}
 	}
-
+#if HAVE_EXIF
 	/* No EXIF data, so can't do anything */
 	if (priv->exif == NULL)
 		return;
@@ -686,6 +687,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 		g_printerr ("JPEG is calibrated\n");
 		cmsFreeGamma(gamma[0]);
 	}
+#endif
 }
 #endif
 
@@ -1807,3 +1809,54 @@ eog_image_data_unref (EogImage *img)
 	
 	return img;
 }
+
+/* Print API */
+
+void
+eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width, gdouble paper_height)
+{	
+	EogImagePrivate *priv = NULL;
+	GdkPixbuf *printed_image = NULL;
+	gint pix_width;
+	gint pix_height;
+	gdouble width, height;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+	
+	priv = img->priv;
+
+	g_return_if_fail (GDK_IS_PIXBUF (priv->image));
+	
+	if (gdk_pixbuf_get_width (priv->image) > gdk_pixbuf_get_height (priv->image)) {
+		printed_image = gdk_pixbuf_rotate_simple (priv->image, 
+			GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
+	} else {
+		gdk_pixbuf_ref (priv->image);
+		printed_image = priv->image;
+	}
+
+	pix_width = gdk_pixbuf_get_width (printed_image);
+	pix_height = gdk_pixbuf_get_height (printed_image);
+
+	width = (gint)paper_width - 40; /* - 2 * gnome_paper_tmargin (paper); */
+	height = (gint)paper_height - 40; /* - 2 * gnome_paper_rmargin (paper); */
+
+	if (((gdouble) pix_height/pix_width) >
+	    ((gdouble)width/height)) {
+		/* We scale to the top */
+		width = height * (gdouble)pix_width/pix_height;
+	} else {
+		/* We scale to the sides of the page */
+		height = width * (gdouble)pix_height/pix_width;
+	}
+
+	gnome_print_translate (context, (paper_width - width)/2.0, (paper_height - height)/2.0);
+	gnome_print_scale (context, width, height);
+	
+	gnome_print_rgbimage (context, gdk_pixbuf_get_pixels (printed_image), 
+		pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
+		
+  
+	g_object_unref (G_OBJECT (printed_image));	
+}
+

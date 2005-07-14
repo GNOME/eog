@@ -66,6 +66,12 @@
 #include <lcms.h>
 #endif
 
+#include <libgnomeprint/gnome-print.h>
+#include <libgnomeprint/gnome-print-job.h>
+#include <libgnomeprintui/gnome-print-dialog.h>
+#include <libgnomeprintui/gnome-print-job-preview.h>
+
+
 #ifdef G_OS_WIN32
 
 #define getgid() 0
@@ -1638,6 +1644,66 @@ save_as_multiple_images (EogWindow *window, GList *images)
 }
 
 static void
+verb_Print_cb (GtkAction *action, gpointer data)
+{
+	EogWindow *window = EOG_WINDOW (data);
+	EogWindowPrivate *priv = window->priv;	
+	EogImage *image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+
+	GnomePrintConfig* config = gnome_print_config_default();
+	GnomePrintContext *pc;
+	GnomePrintJob *gpj = gnome_print_job_new(config);
+	gint do_preview/*, copies = 1, collate = 0*/;
+	gdouble width, height;
+	GnomePrintDialog *gpd = GNOME_PRINT_DIALOG (gnome_print_dialog_new(gpj, 
+		(const guchar*)_("Print"), GNOME_PRINT_DIALOG_COPIES));
+		
+	switch (gtk_dialog_run(GTK_DIALOG(gpd)))
+	{
+	case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
+		do_preview = 0;
+		break;
+	case GNOME_PRINT_DIALOG_RESPONSE_PREVIEW:
+		do_preview = 1;
+		break;
+	case GNOME_PRINT_DIALOG_RESPONSE_CANCEL:
+		gnome_print_config_unref(config);
+		gnome_print_job_close (gpj);
+		gtk_widget_destroy (GTK_WIDGET(gpd));
+		return;
+	}
+	
+	gtk_widget_destroy(GTK_WIDGET(gpd));
+	
+	pc = gnome_print_job_get_context (gpj);
+	
+	gnome_print_beginpage(pc, (const guchar*)"1");
+	gnome_print_config_get_page_size(config, &width, &height);
+
+	gnome_print_gsave (pc);	
+	eog_image_print (image, pc, width, height);
+	gnome_print_grestore (pc);
+	
+	gnome_print_showpage(pc);
+	gnome_print_job_close (gpj);
+	
+	if (do_preview)
+	{
+		gtk_widget_show (gnome_print_job_preview_new 
+			(gpj, (const guchar*)_("Preview")));
+	}
+	else
+	{
+		gnome_print_job_print(gpj);
+	}
+	
+	gnome_print_context_close (pc);
+	gnome_print_config_unref(config);
+	
+
+}
+
+static void
 verb_SaveAs_cb (GtkAction *action, gpointer data)
 {
 	EogWindowPrivate *priv;
@@ -3024,6 +3090,7 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 static const GtkActionEntry action_entries_image[] = {
   { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", NULL, G_CALLBACK (verb_Save_cb) },
   { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As"), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
+  { "FilePrint", GTK_STOCK_PRINT, N_("Print"), "<control>p", NULL, G_CALLBACK (verb_Print_cb) },
 
   { "EditUndo", NULL, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
 

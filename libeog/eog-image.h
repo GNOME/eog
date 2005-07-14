@@ -4,6 +4,7 @@
 #include <glib-object.h>
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <libgnomevfs/gnome-vfs-file-size.h>
+#include <libgnomeprint/gnome-print.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
@@ -127,6 +128,10 @@ void eog_image_apply_display_profile (EogImage *img, cmsHPROFILE profile);
 /* modification API */
 void                eog_image_transform                       (EogImage *img, EogTransform *trans, EogJob *job);
 void                eog_image_undo                            (EogImage *img);
+
+
+/* print API */
+void               eog_image_print                            (EogImage *img, GnomePrintContext *pc, gdouble width, gdouble height);
 
 G_END_DECLS
 
