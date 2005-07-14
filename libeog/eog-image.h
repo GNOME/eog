@@ -5,10 +5,13 @@
 #include <libgnomevfs/gnome-vfs-uri.h>
 #include <libgnomevfs/gnome-vfs-file-size.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <lcms.h>
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
 #include "eog-job.h"
+
+#if HAVE_LCMS
+#include <lcms.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -116,8 +119,10 @@ GnomeVFSURI*        eog_image_get_uri                         (EogImage *img);
 gchar*              eog_image_get_uri_for_display             (EogImage *img);
 gboolean            eog_image_has_metadata                    (EogImage *img);
 
+#if HAVE_LCMS
 cmsHPROFILE eog_image_get_profile (EogImage *img);
 void eog_image_apply_display_profile (EogImage *img, cmsHPROFILE profile);
+#endif
 
 /* modification API */
 void                eog_image_transform                       (EogImage *img, EogTransform *trans, EogJob *job);
