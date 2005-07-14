@@ -6,7 +6,7 @@
 #include <glib/gi18n.h>
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-ui-init.h>
-#include <libgnomeui/gnome-window-icon.h>
+#include <libgnomeui/gnome-authentication-manager.h>
 #include <gconf/gconf-client.h>
 #include "util.h"
 #include "eog-window.h"
@@ -670,7 +670,6 @@ int
 main (int argc, char **argv)
 {
 	GnomeProgram *program;
-	GError *error;
 	poptContext ctx;
 	GnomeClient *client;
 	char *gnome_eog_png_path;
@@ -684,18 +683,11 @@ main (int argc, char **argv)
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
 				      GNOME_PARAM_APP_DATADIR,EOG_DATADIR,NULL);
 
-	error = NULL;
-	if (gconf_init (argc, argv, &error) == FALSE) {
-		g_assert (error != NULL);
-		g_message ("GConf init failed: %s", error->message);
-		g_error_free (error);
-		exit (EXIT_FAILURE);
-	}
-
-	if(gnome_vfs_init () == FALSE) {
+	if (gnome_vfs_init () == FALSE) {
 		g_error ("Could not initialize GnomeVFS!");
 		exit (EXIT_FAILURE);
 	}
+
 #ifndef G_OS_WIN32
 	gnome_authentication_manager_init ();
 #endif
