@@ -60,9 +60,11 @@
 #include "eog-pixbuf-util.h"
 #include "eog-job-manager.h"
 
+#if HAVE_LCMS
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <lcms.h>
+#endif
 
 #ifdef G_OS_WIN32
 
