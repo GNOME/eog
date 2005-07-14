@@ -49,6 +49,9 @@ gpointer             eog_metadata_reader_get_iptc_chunk (EogMetadataReader *emr)
 IptcData*            eog_metadata_reader_get_iptc_data (EogMetadataReader *emr);
 #endif
 
+gpointer             eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr);
+guint             eog_metadata_reader_get_icc_chunk_size (EogMetadataReader *emr);
+
 G_END_DECLS
 
 #endif /* _EOG_METADATA_READER_H_ */

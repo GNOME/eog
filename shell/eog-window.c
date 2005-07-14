@@ -60,6 +60,10 @@
 #include "eog-pixbuf-util.h"
 #include "eog-job-manager.h"
 
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <lcms.h>
+
 #ifdef G_OS_WIN32
 
 #define getgid() 0
@@ -2750,6 +2754,44 @@ show_error_dialog (EogWindow *window, char *header, GError *error)
 	gtk_widget_show_all (dlg);
 }
 
+#if HAVE_LCMS
+/* TODO: move into library */
+static cmsHPROFILE *
+get_screen_profile (EogWindow *window)
+{
+	GdkScreen *screen;
+	Display *dpy;
+	Atom icc_atom, type;
+	int format;
+	gulong nitems;
+	gulong bytes_after;
+	guchar *str;
+	int result;
+	cmsHPROFILE *profile;
+	
+	g_return_val_if_fail (window != NULL, NULL);
+	
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
+	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
+	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), "_ICC_PROFILE");
+	
+	result = XGetWindowProperty (dpy, GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
+				     icc_atom, 0, G_MAXLONG,
+				     False, XA_CARDINAL, &type, &format, &nitems,
+				     &bytes_after, (guchar **)&str);
+	/* TODO: handle bytes_after != 0 */
+	
+	if (nitems) {
+		profile = cmsOpenProfileFromMem(str, nitems);
+		XFree (str);
+		return profile;
+	} else {
+		g_printerr("No profile, not correcting\n");
+		return NULL;
+	}
+}
+#endif
+
 static void 
 display_image_data (EogWindow *window, EogImage *image)
 {
@@ -2809,6 +2851,9 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
 		if (eog_job_get_success (job)) { 
 			/* successfull */
+#if HAVE_LCMS
+			eog_image_apply_display_profile (image, get_screen_profile (window));
+#endif
 			display_image_data (window, image);
 		}
 		else {  /* failed */
@@ -3488,6 +3533,7 @@ gboolean
 eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
+	int i;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 	
@@ -3497,6 +3543,13 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	g_print ("EogWindow.c: eog_window_open\n");
 #endif
 	
+#if HAVE_LCMS
+	/* Colour-correct the images */
+	for (i = 0; i < eog_image_list_length (model); i++) {
+		eog_image_apply_display_profile (eog_image_list_get_img_by_pos (model, i), get_screen_profile (window));
+	}
+#endif
+
 	/* attach image list */
 	if (priv->image_list != NULL) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);

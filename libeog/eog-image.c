@@ -26,7 +26,12 @@
 #include "eog-image-jpeg.h"
 #endif
 
-#include <lcms.h>
+#if HAVE_LCMS
+ #include <lcms.h>
+ #ifndef EXIF_TAG_GAMMA
+  #define EXIF_TAG_GAMMA 0xa500
+ #endif
+#endif
 
 enum {
 	SIGNAL_LOADING_UPDATE,
@@ -254,7 +259,9 @@ eog_image_instance_init (EogImage *img)
 #if HAVE_EXIF
 	priv->exif = NULL;
 #endif
+#if HAVE_LCMS
 	priv->profile = NULL;
+#endif
 	priv->data_ref_count = 0;
 
 	img->priv = priv;
@@ -552,6 +559,7 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 	return !failed;
 }
 
+#if HAVE_LCMS
 void
 eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 {
@@ -584,7 +592,7 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 }
 
 static void
-extract_profile (EogImage *img)
+extract_profile (EogImage *img, EogMetadataReader *md_reader)
 {
 	EogImagePrivate *priv = img->priv;
 	ExifEntry *entry;
@@ -592,12 +600,34 @@ extract_profile (EogImage *img)
 
 	/* TODO: switch on format to specialised functions */
 
-	/* No EXIF data, so can't do anything for now.  Should check for embedded ICC profile. */
+	/* Embedded ICC profiles rule over anything else */
+	{
+		gpointer data = eog_metadata_reader_get_icc_chunk (md_reader);
+		if (data != NULL) {
+			priv->profile = cmsOpenProfileFromMem(data, eog_metadata_reader_get_icc_chunk_size (md_reader));
+			g_assert (priv->profile != NULL);
+			g_printerr("JPEG has ICC profile\n");
+			return;
+		}
+	}
+
+	/* No EXIF data, so can't do anything */
 	if (priv->exif == NULL)
 		return;
 	
 	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_COLOR_SPACE);
-	if (entry && exif_get_short (entry->data, o) != 1) {
+	if (entry == NULL)
+		return;
+
+	if (exif_get_short (entry->data, o) == 1) {
+		priv->profile = cmsCreate_sRGBProfile ();
+		g_printerr ("JPEG is sRGB\n");
+	} else if (exif_get_short (entry->data, o) == 2) {
+		/* TODO: create Adobe RGB profile */
+		//priv->profile = cmsCreate_Adobe1998Profile ();
+		g_printerr ("JPEG is Adobe RGB (NOT correcting for now!)\n");
+	} else if (exif_get_short (entry->data, o) == 0xFFFF) {
+		double gammaValue;
 		cmsCIExyY whitepoint;
 		cmsCIExyYTRIPLE primaries;
 		LPGAMMATABLE gamma[3];
@@ -614,6 +644,7 @@ extract_profile (EogImage *img)
 			whitepoint.Y = 1.0;
 		} else {
 			g_printerr("No whitepoint found\n");
+			return;
 		}
 		    
 		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_0], EXIF_TAG_PRIMARY_CHROMATICITIES);
@@ -636,15 +667,27 @@ extract_profile (EogImage *img)
 			primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
 		} else {
 			g_printerr("No primary chromaticities found\n");
+			return;
+		}
+
+		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_GAMMA);
+		if (entry) {
+			r = exif_get_rational (entry->data, o);
+			gammaValue = (double)r.numerator/r.denominator;
+		} else {
+			/* Assume 2.2 */
+			g_printerr("No gamma found\n");
+			gammaValue = 2.2;
 		}
 		    
-		/* TODO: assume gamma 2.2? */
-		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, 2.2);
+		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, gammaValue);
 		    
 		priv->profile = cmsCreateRGBProfile(&whitepoint, &primaries, gamma);
+		g_printerr ("JPEG is calibrated\n");
 		cmsFreeGamma(gamma[0]);
 	}
 }
+#endif
 
 /* this function runs in it's own thread */
 static gboolean
@@ -776,8 +819,9 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		if (format != NULL) {
 			priv->file_type = gdk_pixbuf_format_get_name (format);
 		}
-
-		extract_profile (img);
+#if HAVE_LCMS
+		extract_profile (img, md_reader);
+#endif
 	}
 	/* clean up */
 	g_object_unref (loader);
@@ -942,6 +986,7 @@ eog_image_get_pixbuf (EogImage *img)
 	return image;
 }
 
+#if HAVE_LCMS
 cmsHPROFILE
 eog_image_get_profile (EogImage *img)
 {
@@ -949,7 +994,7 @@ eog_image_get_profile (EogImage *img)
 
 	return img->priv->profile;
 }
-
+#endif
 
 GdkPixbuf* 
 eog_image_get_pixbuf_thumbnail (EogImage *img)
@@ -1572,9 +1617,11 @@ eog_image_free_mem_private (EogImage *image)
 		}
 		priv->exif_chunk_len = 0;
 
+#if HAVE_LCMS
 		if (priv->profile != NULL) {
 		  cmsCloseProfile (priv->profile);
 		}
+#endif
 		
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	}
