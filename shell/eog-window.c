@@ -1690,7 +1690,7 @@ verb_Print_cb (GtkAction *action, gpointer data)
 	if (do_preview)
 	{
 		gtk_widget_show (gnome_print_job_preview_new 
-			(gpj, (const guchar*)_("Preview")));
+			(gpj, (const guchar*)_("Print Preview")));
 	}
 	else
 	{

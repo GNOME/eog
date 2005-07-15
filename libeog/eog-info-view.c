@@ -105,6 +105,7 @@ update_data_pages_for_image (EogInfoView *view, EogImage *image)
 	g_return_if_fail (EOG_IS_IMAGE (image));
 	
 	eog_info_view_file_show_data (EOG_INFO_VIEW_FILE (view->priv->file_view), image);
+	eog_image_register_infoview (image, EOG_INFO_VIEW_FILE (view->priv->file_view));
 #if HAVE_EXIF
 	{
 		ExifData *ed;
