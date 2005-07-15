@@ -41,7 +41,7 @@
 #include "eog-window.h"
 #include "util.h"
 #include "zoom.h"
-#include "eog-file-selection.h"
+#include "eog-file-chooser.h"
 #include "eog-preferences.h"
 #include "eog-statusbar.h"
 #include "libeog-marshal.h"
@@ -53,9 +53,9 @@
 #include "eog-horizontal-splitter.h"
 #include "eog-info-view.h"
 #include "eog-full-screen.h"
-#include "eog-save-dialog-helper.h"
 #include "eog-image-save-info.h"
 #include "eog-uri-converter.h"
+#include "eog-save-dialog-helper.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
 #include "eog-job-manager.h"
@@ -439,7 +439,7 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
-	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_OPEN);
+	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -468,7 +468,7 @@ verb_FolderOpen_cb (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
-	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
@@ -1400,7 +1400,7 @@ save_as_uri_selection_dialog (EogWindow *window, EogImage *image, char **uri, Gd
 		return;
 	}
 
-	dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SAVE);
+	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
 						 folder_uri);
 	while (!success) {
@@ -1416,7 +1416,7 @@ save_as_uri_selection_dialog (EogWindow *window, EogImage *image, char **uri, Gd
 
 		if (response == GTK_RESPONSE_OK) {
 			/* try to determine uri and image format */
-			*format = eog_file_selection_get_format (EOG_FILE_SELECTION (dlg));
+			*format = eog_file_chooser_get_format (EOG_FILE_CHOOSER (dlg));
 			*uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
 
 			if (*format == NULL && *uri != NULL) {
@@ -1653,7 +1653,7 @@ verb_Print_cb (GtkAction *action, gpointer data)
 	GnomePrintConfig* config = gnome_print_config_default();
 	GnomePrintContext *pc;
 	GnomePrintJob *gpj = gnome_print_job_new(config);
-	gint do_preview/*, copies = 1, collate = 0*/;
+	gint do_preview = 0 /*, copies = 1, collate = 0*/;
 	gdouble width, height;
 	GnomePrintDialog *gpd = GNOME_PRINT_DIALOG (gnome_print_dialog_new(gpj, 
 		(const guchar*)_("Print"), GNOME_PRINT_DIALOG_COPIES));

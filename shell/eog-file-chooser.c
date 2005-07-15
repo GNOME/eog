@@ -1,6 +1,23 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, 
+ * Boston, MA 02111-1307, USA.
+ */
+
 #include <config.h>
+
 #include <stdlib.h>
-#include "eog-file-selection.h"
 #include <libgnome/gnome-macros.h>
 #include <glib/gi18n.h>
 #include <glib/gslist.h>
@@ -20,12 +37,18 @@
 #include "eog-config-keys.h"
 #include "eog-pixbuf-util.h"
 
-static char* last_dir[] = { NULL, NULL, NULL, NULL };
+#include "eog-file-chooser.h"
+
+static char *last_dir[] = { NULL, NULL, NULL, NULL };
 
 #define FILE_FORMAT_KEY "file-format"
 
+#define EOG_FILE_CHOOSER_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), \
+					     EOG_TYPE_FILE_CHOOSER,		    \
+					     EogFileChooserPrivate))
 
-struct _EogFileSelectionPrivate {
+struct _EogFileChooserPrivate
+{
 	GnomeThumbnailFactory *thumb_factory;
 
 	GtkWidget *image;
@@ -34,55 +57,35 @@ struct _EogFileSelectionPrivate {
 	GtkWidget *creator_label;
 };
 
-GNOME_CLASS_BOILERPLATE (EogFileSelection,
-			 eog_file_selection,
-			 GtkFileChooserDialog,
-			 GTK_TYPE_FILE_CHOOSER_DIALOG);
+G_DEFINE_TYPE(EogFileChooser, eog_file_chooser, GTK_TYPE_FILE_CHOOSER_DIALOG)
 
 static void
-eog_file_selection_dispose (GObject *object)
+eog_file_chooser_finalize (GObject *object)
 {
-	EogFileSelectionPrivate *priv;
+	EogFileChooserPrivate *priv;
 
-	priv = EOG_FILE_SELECTION (object)->priv;
+	priv = EOG_FILE_CHOOSER (object)->priv;
 
-	if (priv->thumb_factory != NULL) {
+	if (priv->thumb_factory != NULL)
 		g_object_unref (priv->thumb_factory);
-		priv->thumb_factory = NULL;
-	}
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
-}
-
-
-static void
-eog_file_selection_finalize (GObject *object)
-{
-	EogFileSelectionPrivate *priv;
-
-	priv = EOG_FILE_SELECTION (object)->priv;
-
-	g_free (priv);
-
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+	(* G_OBJECT_CLASS (eog_file_chooser_parent_class)->finalize) (object);
 }
 
 static void
-eog_file_selection_class_init (EogFileSelectionClass *klass)
+eog_file_chooser_class_init (EogFileChooserClass *klass)
 {
-	GObjectClass *object_class = (GObjectClass*) klass;
+	GObjectClass *object_class = (GObjectClass *) klass;
 
-	object_class->dispose = eog_file_selection_dispose;
-	object_class->finalize = eog_file_selection_finalize;
+	object_class->finalize = eog_file_chooser_finalize;
+
+	g_type_class_add_private (object_class, sizeof (EogFileChooserPrivate));
 }
 
 static void
-eog_file_selection_instance_init (EogFileSelection *filesel)
+eog_file_chooser_init (EogFileChooser *chooser)
 {
-	EogFileSelectionPrivate *priv;
-
-	priv = g_new0 (EogFileSelectionPrivate, 1);
-	filesel->priv = priv;
+	chooser->priv = EOG_FILE_CHOOSER_GET_PRIVATE (chooser);
 }
 
 static void
@@ -94,16 +97,16 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 	if (id == GTK_RESPONSE_OK) {
 		dir = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dlg));
 		action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (dlg));
-		
+
 		if (last_dir [action] != NULL)
 			g_free (last_dir [action]);
-		
+
 		last_dir [action] = dir;
 	}
 }
 
 static void
-eog_file_selection_add_filter (EogFileSelection *filesel)
+eog_file_chooser_add_filter (EogFileChooser *chooser)
 {
 	GSList *it;
 	GSList *formats;
@@ -115,7 +118,7 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 	int i;
 	GtkFileChooserAction action;
 
-	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (filesel));
+	action = gtk_file_chooser_get_action (GTK_FILE_CHOOSER (chooser));
 
 	if (action != GTK_FILE_CHOOSER_ACTION_SAVE && action != GTK_FILE_CHOOSER_ACTION_OPEN) {
 		return;
@@ -173,7 +176,7 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 		g_strfreev (pattern);
 
 		/* attach GdkPixbufFormat to filter, see also
-		 * eog_file_selection_get_format. */
+		 * eog_file_chooser_get_format. */
 		g_object_set_data (G_OBJECT (filter), 
 				   FILE_FORMAT_KEY,
 				   format);
@@ -183,12 +186,12 @@ eog_file_selection_add_filter (EogFileSelection *filesel)
 	g_slist_free (formats);
 
 	/* Add filter to filechooser */
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_file_filter);
-	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
-	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (filesel), all_img_filter);
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), all_file_filter);
+	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), all_img_filter);
+	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (chooser), all_img_filter);
 
 	for (it = filters; it != NULL; it = it->next) {
-		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (filesel), GTK_FILE_FILTER (it->data));
+		gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (chooser), GTK_FILE_FILTER (it->data));
 	}
 	g_slist_free (filters);
 }
@@ -209,9 +212,9 @@ set_preview_label (GtkWidget *label, const char *str)
  * further information according to the thumbnail spec.
  */
 static void
-set_preview_pixbuf (EogFileSelection *filesel, GdkPixbuf *pixbuf, GnomeVFSFileInfo *info)
+set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, GnomeVFSFileInfo *info)
 {
-	EogFileSelectionPrivate *priv;
+	EogFileChooserPrivate *priv;
 	int bytes;
 	int pixels;
 	const char *bytes_str;
@@ -221,9 +224,9 @@ set_preview_pixbuf (EogFileSelection *filesel, GdkPixbuf *pixbuf, GnomeVFSFileIn
 	char *size_str    = NULL;
 	char *dim_str     = NULL;
 		
-	g_return_if_fail (EOG_IS_FILE_SELECTION (filesel));
+	g_return_if_fail (EOG_IS_FILE_CHOOSER (chooser));
 
-	priv = filesel->priv;
+	priv = chooser->priv;
 			   
 	gtk_image_set_from_pixbuf (GTK_IMAGE (priv->image), pixbuf);
 	
@@ -279,7 +282,7 @@ set_preview_pixbuf (EogFileSelection *filesel, GdkPixbuf *pixbuf, GnomeVFSFileIn
 static void
 update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 {
-	EogFileSelectionPrivate *priv;
+	EogFileChooserPrivate *priv;
 	char *uri;
 	char *thumb_path = NULL;
 	GdkPixbuf *pixbuf = NULL;
@@ -287,7 +290,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 	GnomeVFSFileInfo *info;
 	GnomeVFSResult result;
 
-	priv = EOG_FILE_SELECTION (file_chooser)->priv;
+	priv = EOG_FILE_CHOOSER (file_chooser)->priv;
 
 	uri = gtk_file_chooser_get_preview_uri (file_chooser);
 	if (uri == NULL) {
@@ -316,7 +319,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 			
 			have_preview = (pixbuf != NULL);
 		
-			set_preview_pixbuf (EOG_FILE_SELECTION (file_chooser), pixbuf, info);
+			set_preview_pixbuf (EOG_FILE_CHOOSER (file_chooser), pixbuf, info);
 			
 			if (pixbuf != NULL) {
 				gdk_pixbuf_unref (pixbuf);
@@ -335,12 +338,12 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 }
 
 static void
-eog_file_selection_add_preview (GtkWidget *widget)
+eog_file_chooser_add_preview (GtkWidget *widget)
 {
-	EogFileSelectionPrivate *priv;
+	EogFileChooserPrivate *priv;
 	GtkWidget *vbox;
 
-	priv = EOG_FILE_SELECTION (widget)->priv;
+	priv = EOG_FILE_CHOOSER (widget)->priv;
 	
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
@@ -353,26 +356,10 @@ eog_file_selection_add_preview (GtkWidget *widget)
 	priv->size_label = gtk_label_new (NULL);
 	priv->creator_label = gtk_label_new (NULL);
 	
-	gtk_box_pack_start (GTK_BOX (vbox), priv->image, 
-			    FALSE, /* expand */
-			    TRUE,  /* fill */
-			    0      /* padding */
-		);
-	gtk_box_pack_start (GTK_BOX (vbox), priv->dim_label, 
-			    FALSE, /* expand */
-			    TRUE,  /* fill */
-			    0      /* padding */
-		);
-	gtk_box_pack_start (GTK_BOX (vbox), priv->size_label, 
-			    FALSE, /* expand */
-			    TRUE,  /* fill */
-			    0      /* padding */
-		);
-	gtk_box_pack_start (GTK_BOX (vbox), priv->creator_label, 
-			    FALSE, /* expand */
-			    TRUE,  /* fill */
-			    0      /* padding */
-		);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->image, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->dim_label, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->size_label, FALSE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), priv->creator_label, FALSE, TRUE, 0);
 
 	gtk_widget_show_all (vbox);
 
@@ -386,9 +373,9 @@ eog_file_selection_add_preview (GtkWidget *widget)
 }
 
 static void
-eog_file_selection_toggle_button_cb (GtkToggleButton *button, gpointer user_data)
+eog_file_chooser_toggle_button_cb (GtkToggleButton *button, gpointer user_data)
 {
-	GConfClient *client;	
+	GConfClient *client;
 
 	client = gconf_client_get_default ();
 	gconf_client_set_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW,
@@ -397,7 +384,7 @@ eog_file_selection_toggle_button_cb (GtkToggleButton *button, gpointer user_data
 }
 
 static void
-eog_file_selection_add_open_new_window (GtkWidget *widget)
+eog_file_chooser_add_open_new_window (GtkWidget *widget)
 {
 	GConfClient *client;
 	gboolean new_window;
@@ -410,26 +397,28 @@ eog_file_selection_add_open_new_window (GtkWidget *widget)
 	check_button = gtk_check_button_new_with_label (_("Open in new window"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), new_window);
 
-	g_signal_connect (G_OBJECT (check_button), "toggled", 
-			  (GCallback) eog_file_selection_toggle_button_cb, NULL);
+	g_signal_connect (check_button, "toggled", 
+			  G_CALLBACK (eog_file_chooser_toggle_button_cb), NULL);
 
 	gtk_box_pack_end (GTK_BOX (GTK_DIALOG (widget)->vbox), check_button, FALSE, FALSE, 0);
 	gtk_widget_show (check_button);
 }
 
-GtkWidget* 
-eog_file_selection_new (GtkFileChooserAction action)
+GtkWidget *
+eog_file_chooser_new (GtkFileChooserAction action)
 {
-	GtkWidget *filesel;
+	GtkWidget *chooser;
 	gchar *title = NULL;
 
-	filesel = g_object_new (EOG_TYPE_FILE_SELECTION,
+	chooser = g_object_new (EOG_TYPE_FILE_CHOOSER,
 				"action", action,
 				"select-multiple", (action == GTK_FILE_CHOOSER_ACTION_OPEN),
+				"local-only", FALSE,
 				NULL);
+
 	switch (action) {
 	case GTK_FILE_CHOOSER_ACTION_OPEN:
-		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
 					NULL);
@@ -437,7 +426,7 @@ eog_file_selection_new (GtkFileChooserAction action)
 		break;
 
 	case GTK_FILE_CHOOSER_ACTION_SAVE:
-		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_SAVE, GTK_RESPONSE_OK,
 					NULL);
@@ -445,7 +434,7 @@ eog_file_selection_new (GtkFileChooserAction action)
 		break;
 
 	case GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER:
-		gtk_dialog_add_buttons (GTK_DIALOG (filesel),
+		gtk_dialog_add_buttons (GTK_DIALOG (chooser),
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_OPEN, GTK_RESPONSE_OK,
 					NULL);
@@ -457,37 +446,36 @@ eog_file_selection_new (GtkFileChooserAction action)
 	}
 
 	if (action != GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
-		eog_file_selection_add_filter (EOG_FILE_SELECTION (filesel));
-		eog_file_selection_add_preview (filesel);
+		eog_file_chooser_add_filter (EOG_FILE_CHOOSER (chooser));
+		eog_file_chooser_add_preview (chooser);
 	}
-	eog_file_selection_add_open_new_window (filesel);
-
-	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (filesel), FALSE);
+	eog_file_chooser_add_open_new_window (chooser);
 
 	if (last_dir[action] != NULL) {
-		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (filesel), last_dir [action]);
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), last_dir [action]);
 	}
 
-	g_signal_connect (G_OBJECT (filesel), "response", G_CALLBACK (response_cb), NULL);
- 	gtk_window_set_title (GTK_WINDOW (filesel), title);
-	gtk_dialog_set_default_response (GTK_DIALOG (filesel), GTK_RESPONSE_OK);
+	g_signal_connect (chooser, "response", G_CALLBACK (response_cb), NULL);
 
-	return filesel;
+ 	gtk_window_set_title (GTK_WINDOW (chooser), title);
+	gtk_dialog_set_default_response (GTK_DIALOG (chooser), GTK_RESPONSE_OK);
+
+	return chooser;
 }
 
-
-GdkPixbufFormat* 
-eog_file_selection_get_format (EogFileSelection *sel)
+GdkPixbufFormat * 
+eog_file_chooser_get_format (EogFileChooser *chooser)
 {
 	GtkFileFilter *filter;
 	GdkPixbufFormat* format;
 
-	g_return_val_if_fail (EOG_IS_FILE_SELECTION (sel), NULL);
+	g_return_val_if_fail (EOG_IS_FILE_CHOOSER (chooser), NULL);
 
-	filter = gtk_file_chooser_get_filter (GTK_FILE_CHOOSER (sel));
-	if (filter == NULL) return NULL;
-     
+	filter = gtk_file_chooser_get_filter (GTK_FILE_CHOOSER (chooser));
+	if (filter == NULL)
+		return NULL;
+
 	format = g_object_get_data (G_OBJECT (filter), FILE_FORMAT_KEY);
-	
+
 	return format;
 }

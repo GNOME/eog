@@ -9,7 +9,7 @@
 #include <glade/glade.h>
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
-#include "eog-file-selection.h"
+#include "eog-file-chooser.h"
 
 typedef struct {
 	GtkWidget *dir_entry;
@@ -52,7 +52,7 @@ update_preview (gpointer user_data)
 		(GTK_MENU (gtk_option_menu_get_menu (GTK_OPTION_MENU (data->format_option))));
 	g_assert (item != NULL);
 	format = g_object_get_data (G_OBJECT (item), "format");
-	
+
 	if (token_str != NULL) {
 		/* generate preview filename */
 		preview_str = eog_uri_converter_preview (token_str, data->image, format,
@@ -85,7 +85,6 @@ request_preview_update (GtkWidget *dlg)
 	data->idle_id = g_idle_add (update_preview, dlg);
 }
 
-
 static void
 on_browse_button_clicked (GtkWidget *widget, gpointer data)
 {
@@ -96,7 +95,7 @@ on_browse_button_clicked (GtkWidget *widget, gpointer data)
 	sd = g_object_get_data (G_OBJECT (data), "data");
 	g_assert (sd != NULL);
 	
-	browse_dlg = eog_file_selection_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	browse_dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
 
 	gtk_widget_show_all (browse_dlg);
 	response = gtk_dialog_run (GTK_DIALOG (browse_dlg));

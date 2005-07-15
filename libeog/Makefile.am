@@ -39,8 +39,6 @@ libeog_a_SOURCES =			\
         accessible-image-view-factory.c	\
         accessible-image-view.h		\
         accessible-image-view.c		\
-	eog-file-selection.h		\
-	eog-file-selection.c		\
 	eog-full-screen.h		\
 	eog-full-screen.c		\
 	eog-pixbuf-util.h		\
@@ -56,10 +54,6 @@ libeog_a_SOURCES =			\
 	eog-image-save-info.h		\
 	eog-thumbnail.h			\
 	eog-thumbnail.c			\
-	eog-save-dialog-helper.h	\
-	eog-save-dialog-helper.c	\
-	eog-save-as-dialog-helper.h	\
-	eog-save-as-dialog-helper.c	\
 	eog-image-cache.h		\
 	eog-image-cache.c		\
 	eog-image-list.c		\
