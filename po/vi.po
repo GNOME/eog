@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-07 05:24+0000\n"
-"PO-Revision-Date: 2005-07-07 19:25+0930\n"
+"POT-Creation-Date: 2005-07-16 05:24+0000\n"
+"PO-Revision-Date: 2005-07-16 16:37+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgstr "Đổi tên từ:"
 msgid "Replace spaces by underscore"
 msgstr "Thay thế khoảng trắng bằng gạch chân"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3002
+#: ../eog.glade.h:22 ../shell/eog-window.c:3133
 msgid "Save As"
 msgstr "Lư_u mới"
 
@@ -268,44 +268,6 @@ msgstr ""
 "Ảnh nên được nội suy khi phóng to/thu nhỏ ảnh hay không. Nếu nội suy thì ảnh "
 "phóng to có chất lượng tốt hơn, nhưng chậm hơn."
 
-#: ../libeog/eog-file-selection.c:127
-msgid "All Files"
-msgstr "Mọi tập tin"
-
-#: ../libeog/eog-file-selection.c:132
-msgid "All Images"
-msgstr "Mọi ảnh"
-
-# Variable: do not translate/ biến: đừng dịch
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../libeog/eog-file-selection.c:153
-#, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
-
-#. Pixel size of image: width x height in pixel
-#: ../libeog/eog-file-selection.c:249
-#, c-format
-msgid "%s x %s pixels"
-msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s điểm ảnh"
-
-#: ../libeog/eog-file-selection.c:411
-msgid "Open in new window"
-msgstr "Mở trong cửa sổ mới"
-
-#: ../libeog/eog-file-selection.c:437
-msgid "Load Image"
-msgstr "Tải ảnh"
-
-#: ../libeog/eog-file-selection.c:445
-msgid "Save Image"
-msgstr "Lưu ảnh"
-
-#: ../libeog/eog-file-selection.c:453
-msgid "Open Folder"
-msgstr "Mở danh mục"
-
 #: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
@@ -315,23 +277,23 @@ msgstr "Không thể tạo tập tin tạm để lưu: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Không thể cấp phát bộ nhớ để tải ảnh JPEG"
 
-#: ../libeog/eog-image.c:404
+#: ../libeog/eog-image.c:421
 msgid "Transformation on unloaded image."
 msgstr "Biến đổi ảnh chưa tải."
 
-#: ../libeog/eog-image.c:515
+#: ../libeog/eog-image.c:532
 msgid "EXIF not supported for this file format."
 msgstr "Không hỗ trợ EXIF cho khuôn dạng tập tin này."
 
-#: ../libeog/eog-image.c:1004 ../libeog/eog-image.c:1217
+#: ../libeog/eog-image.c:1165 ../libeog/eog-image.c:1378
 msgid "File exists"
 msgstr "Tập tin đã có"
 
-#: ../libeog/eog-image.c:1157 ../libeog/eog-image.c:1285
+#: ../libeog/eog-image.c:1318 ../libeog/eog-image.c:1446
 msgid "No image loaded."
 msgstr "Chưa tải ảnh."
 
-#: ../libeog/eog-image.c:1166 ../libeog/eog-image.c:1294
+#: ../libeog/eog-image.c:1327 ../libeog/eog-image.c:1455
 msgid "Temporary file creation failed."
 msgstr "Lỗi tạo tập tin tạm."
 
@@ -396,31 +358,6 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-save-as-dialog-helper.c:142
-msgid "Option not available."
-msgstr "Không có tùy chọn."
-
-#: ../libeog/eog-save-as-dialog-helper.c:143
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"Để dùng tính năng này, bạn cần thư viện libexif. Vui lòng cài đặt libexif "
-"(http://libexif.sf.net) và biên dịch lại Mắt GNOME."
-
-#: ../libeog/eog-save-as-dialog-helper.c:219
-msgid "as is"
-msgstr "như có"
-
-#: ../libeog/eog-save-dialog-helper.c:197
-#, c-format
-msgid "Saving image %s."
-msgstr "Đang lưu ảnh %s."
-
-#: ../libeog/eog-save-dialog-helper.c:243
-msgid "Cancel saving ..."
-msgstr "Đang hủy lưu ..."
-
 #: ../libeog/eog-uri-converter.c:1027
 msgid "At least two file names are equal."
 msgstr "Ít nhất hai tập tin có cùng một tên."
@@ -465,24 +402,95 @@ msgstr "Phút"
 msgid "Second"
 msgstr "Giây"
 
+#: ../libeog/eog-util.c:44
+msgid " (invalid Unicode)"
+msgstr " (Unicode không hợp lệ)"
+
+#: ../shell/eog-file-chooser.c:129
+msgid "All Files"
+msgstr "Mọi tập tin"
+
+#: ../shell/eog-file-chooser.c:134
+msgid "All Images"
+msgstr "Mọi ảnh"
+
+# Variable: do not translate/ biến: đừng dịch
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../shell/eog-file-chooser.c:155
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#. Pixel size of image: width x height in pixel
+#: ../shell/eog-file-chooser.c:251
+#, c-format
+msgid "%s x %s pixels"
+msgid_plural "%s x %s pixels"
+msgstr[0] "%s x %s điểm ảnh"
+
+#: ../shell/eog-file-chooser.c:397
+msgid "Open in new window"
+msgstr "Mở trong cửa sổ mới"
+
+#: ../shell/eog-file-chooser.c:425
+msgid "Load Image"
+msgstr "Tải ảnh"
+
+#: ../shell/eog-file-chooser.c:433
+msgid "Save Image"
+msgstr "Lưu ảnh"
+
+#: ../shell/eog-file-chooser.c:441
+msgid "Open Folder"
+msgstr "Mở danh mục"
+
+#: ../shell/eog-preferences.c:131
+msgid "Could not display help for Eye of GNOME"
+msgstr "Không thể hiển thị trợ giúp cho Mắt Gnome."
+
+#: ../shell/eog-save-as-dialog-helper.c:143
+msgid "Option not available."
+msgstr "Không có tùy chọn."
+
+#: ../shell/eog-save-as-dialog-helper.c:145
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr ""
+"Để dùng tính năng này, bạn cần thư viện libexif. Vui lòng cài đặt libexif "
+"(http://libexif.sf.net) và biên dịch lại Mắt GNOME."
+
+#: ../shell/eog-save-as-dialog-helper.c:219
+msgid "as is"
+msgstr "như có"
+
+#: ../shell/eog-save-dialog-helper.c:197
+#, c-format
+msgid "Saving image %s."
+msgstr "Đang lưu ảnh %s."
+
+#: ../shell/eog-save-dialog-helper.c:243
+msgid "Cancel saving ..."
+msgstr "Đang hủy lưu ..."
+
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:523
+#: ../shell/eog-window.c:534
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 
-#: ../shell/eog-window.c:532 ../shell/eog-window.c:2764
-#: ../shell/eog-window.c:3330 ../shell/main.c:678
+#: ../shell/eog-window.c:543 ../shell/eog-window.c:2888
+#: ../shell/eog-window.c:3461 ../shell/main.c:683
 msgid "Eye of GNOME"
 msgstr "Mắt GNOME"
 
-#: ../shell/eog-window.c:535
+#: ../shell/eog-window.c:546
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Chương trình GNOME xem và phân loại ảnh."
 
-#: ../shell/eog-window.c:564
+#: ../shell/eog-window.c:575
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -491,296 +499,309 @@ msgstr ""
 "Không thể hiển thị trợ giúp cho Mắt Gnome.\n"
 "%s"
 
-#: ../shell/eog-window.c:861
+#: ../shell/eog-window.c:871
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Ghi đè tập tin %s chứ?"
 
-#: ../shell/eog-window.c:862
+#: ../shell/eog-window.c:872
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Tập tin đã có. Bạn có muốn ghi đè %s không?"
 
-#: ../shell/eog-window.c:871 ../shell/eog-window.c:884
+#: ../shell/eog-window.c:883 ../shell/eog-window.c:899
 msgid "Skip"
 msgstr "Bỏ qua"
 
-#: ../shell/eog-window.c:872
+#: ../shell/eog-window.c:884
 msgid "Overwrite"
 msgstr "Ghi đè"
 
-#: ../shell/eog-window.c:877
+#: ../shell/eog-window.c:889
 #, c-format
 msgid "Error on saving %s."
 msgstr "Gặp lỗi khi lưu %s."
 
-#: ../shell/eog-window.c:885 ../shell/eog-window.c:1435
+#: ../shell/eog-window.c:900 ../shell/eog-window.c:1453
 msgid "Retry"
 msgstr "Thử lại"
 
-#: ../shell/eog-window.c:1302
+#: ../shell/eog-window.c:1317
 msgid "Couldn't determine destination uri."
 msgstr "Không thể xác định địa chỉ Mạng đích."
 
-#: ../shell/eog-window.c:1424
+#: ../shell/eog-window.c:1439
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Không thể xác định dạng thức tập tin của %s"
 
-#: ../shell/eog-window.c:1425
+#: ../shell/eog-window.c:1440
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Vui lòng dùng hậu tố tên tập tin thích hợp hoặc chọn dạng thức tập tin."
 
-#: ../shell/eog-window.c:1558
+#: ../shell/eog-window.c:1578
 msgid "Error on saving images."
 msgstr "Gặp lỗi khi lưu ảnh."
 
-#: ../shell/eog-window.c:1811
+#: ../shell/eog-window.c:1659 ../shell/eog-window.c:3093
+msgid "Print"
+msgstr "In"
+
+#: ../shell/eog-window.c:1693
+msgid "Print Preview"
+msgstr "Xem thử bản in"
+
+#: ../shell/eog-window.c:1891
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Bạn có muốn chuyển %i ảnh vào sọt rác không?"
 
-#: ../shell/eog-window.c:1849
+#: ../shell/eog-window.c:1932
 msgid "Couldn't access trash."
 msgstr "Không thể truy cập sọt rác."
 
-#: ../shell/eog-window.c:1923
+#: ../shell/eog-window.c:2006
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Gặp lỗi khi xóa bỏ ảnh %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2676
+#: ../shell/eog-window.c:2761
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i điểm ảnh  %s    %i%%"
 
-#: ../shell/eog-window.c:2723
+#: ../shell/eog-window.c:2808
 #, c-format
 msgid "Reason: %s"
 msgstr "Lý do: %s"
 
-#: ../shell/eog-window.c:2805
+#: ../shell/eog-window.c:2932
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Lỗi tải ảnh cho %s"
 
-#: ../shell/eog-window.c:2943
+#: ../shell/eog-window.c:3070
 msgid "_File"
 msgstr "_Tập tin"
 
-#: ../shell/eog-window.c:2944
+#: ../shell/eog-window.c:3071
 msgid "_Edit"
 msgstr "_Hiệu chỉnh"
 
-#: ../shell/eog-window.c:2945
+#: ../shell/eog-window.c:3072
 msgid "_View"
 msgstr "_Xem"
 
-#: ../shell/eog-window.c:2946
+#: ../shell/eog-window.c:3073
 msgid "_Image"
 msgstr "Ả_nh"
 
-#: ../shell/eog-window.c:2947
+#: ../shell/eog-window.c:3074
 msgid "_Help"
 msgstr "Trợ _giúp"
 
-#: ../shell/eog-window.c:2948
+#: ../shell/eog-window.c:3075
 msgid "_New Window"
 msgstr "Cửa _sổ mới"
 
-#: ../shell/eog-window.c:2948
+#: ../shell/eog-window.c:3075
 msgid "Open a new window"
 msgstr "Mở cửa sổ mới"
 
-#: ../shell/eog-window.c:2949
+#: ../shell/eog-window.c:3076
 msgid "_Open..."
 msgstr "_Mở..."
 
-#: ../shell/eog-window.c:2949
+#: ../shell/eog-window.c:3076
 msgid "Open a file"
 msgstr "Mở tập tin"
 
-#: ../shell/eog-window.c:2950
+#: ../shell/eog-window.c:3077
 msgid "Open _Folder..."
 msgstr "Mở _danh mục..."
 
-#: ../shell/eog-window.c:2950
+#: ../shell/eog-window.c:3077
 msgid "Open a folder"
 msgstr "Mở một danh mục"
 
-#: ../shell/eog-window.c:2951
+#: ../shell/eog-window.c:3078
 msgid "_Close"
 msgstr "Đón_g"
 
-#: ../shell/eog-window.c:2951
+#: ../shell/eog-window.c:3078
 msgid "Close window"
 msgstr "Đóng cửa sổ"
 
-#: ../shell/eog-window.c:2952
+#: ../shell/eog-window.c:3079
 msgid "Prefere_nces"
 msgstr "_Sở thích"
 
-#: ../shell/eog-window.c:2952
+#: ../shell/eog-window.c:3079
 msgid "Preferences for Eye of GNOME"
 msgstr "Sở thích cho Mắt GNOME"
 
-#: ../shell/eog-window.c:2953
+#: ../shell/eog-window.c:3080
 msgid "_Contents"
 msgstr "_Nội dung"
 
-#: ../shell/eog-window.c:2953
+#: ../shell/eog-window.c:3080
 msgid "Help On this application"
 msgstr "Trợ giúp về ứng dụng này"
 
-#: ../shell/eog-window.c:2954
+#: ../shell/eog-window.c:3081
 msgid "_About"
 msgstr "_Giới thiệu"
 
-#: ../shell/eog-window.c:2954
+#: ../shell/eog-window.c:3081
 msgid "About this application"
 msgstr "Giới thiệu về ứng dụng này"
 
-#: ../shell/eog-window.c:2959
+#: ../shell/eog-window.c:3086
 msgid "_Toolbar"
 msgstr "Thanh _công cụ"
 
-#: ../shell/eog-window.c:2959
+#: ../shell/eog-window.c:3086
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Thay đổi trạng thái hiển thị của thanh công cụ trên cửa sổ hiện thời."
 
-#: ../shell/eog-window.c:2960
+#: ../shell/eog-window.c:3087
 msgid "_Statusbar"
 msgstr "Thanh t_rạng thái"
 
-#: ../shell/eog-window.c:2960
+#: ../shell/eog-window.c:3087
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr ""
 "Thay đổi trạng thái hiển thị của thanh trạng thái trên cửa sổ hiện thời."
 
-#: ../shell/eog-window.c:2964
+#: ../shell/eog-window.c:3091
 msgid "_Save"
 msgstr "_Lưu"
 
-#: ../shell/eog-window.c:2965
+#: ../shell/eog-window.c:3092
 msgid "Save _As"
 msgstr "Lư_u mới"
 
-#: ../shell/eog-window.c:2967
+#: ../shell/eog-window.c:3095
 msgid "_Undo"
 msgstr "_Hồi lại"
 
-#: ../shell/eog-window.c:2969
+#: ../shell/eog-window.c:3097
 msgid "Flip _Horizontal"
 msgstr "Lật _ngang"
 
-#: ../shell/eog-window.c:2970
+#: ../shell/eog-window.c:3098
 msgid "Flip _Vertical"
 msgstr "Lật _dọc"
 
-#: ../shell/eog-window.c:2972
+#: ../shell/eog-window.c:3100
 msgid "_Rotate Clockwise"
 msgstr "Quay chiều _kim đồng hồ"
 
-#: ../shell/eog-window.c:2973
+#: ../shell/eog-window.c:3101
 msgid "Rotate Counter C_lockwise"
 msgstr "Quay n_gược chiều kim đồng hồ"
 
-#: ../shell/eog-window.c:2974
+#: ../shell/eog-window.c:3102
 msgid "Rotat_e 180°"
 msgstr "Quay _180º"
 
-#: ../shell/eog-window.c:2976
+#: ../shell/eog-window.c:3104
 msgid "Delete"
 msgstr "Xóa bỏ"
 
-#: ../shell/eog-window.c:2978
+#: ../shell/eog-window.c:3106
 msgid "_Full Screen"
 msgstr "_Toàn màn hình"
 
-#: ../shell/eog-window.c:2979
+#: ../shell/eog-window.c:3107
 msgid "_Slideshow"
 msgstr "Trình _diễn"
 
-#: ../shell/eog-window.c:2980
+#. accelerators
+#: ../shell/eog-window.c:3108 ../shell/eog-window.c:3114
 msgid "_Zoom In"
 msgstr "Phóng _to"
 
-#: ../shell/eog-window.c:2981
+#: ../shell/eog-window.c:3109
 msgid "Zoom _Out"
 msgstr "Thu _nhỏ"
 
-#: ../shell/eog-window.c:2982
+#: ../shell/eog-window.c:3110
 msgid "_Normal Size"
 msgstr "_Cỡ thường"
 
-#: ../shell/eog-window.c:2983
+#: ../shell/eog-window.c:3111
 msgid "Best _Fit"
 msgstr "Vừa khít _nhất"
 
-#: ../shell/eog-window.c:2987
+#: ../shell/eog-window.c:3118
 msgid "Image _Information"
 msgstr "Thông t_in ảnh"
 
-#: ../shell/eog-window.c:2987
+#: ../shell/eog-window.c:3118
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Thay đổi trạng thái hiển thị của ô thông tin trên cửa sổ hiện thời."
 
-#: ../shell/eog-window.c:2997
+#: ../shell/eog-window.c:3128
 msgid "New"
 msgstr "Mới"
 
-#: ../shell/eog-window.c:2998 ../shell/eog-window.c:2999
+#: ../shell/eog-window.c:3129 ../shell/eog-window.c:3130
 msgid "Open"
 msgstr "Mở"
 
-#: ../shell/eog-window.c:3000
+#: ../shell/eog-window.c:3131
 msgid "Close"
 msgstr "Đóng"
 
-#: ../shell/eog-window.c:3001
+#: ../shell/eog-window.c:3132
 msgid "Save"
 msgstr "Lưu"
 
-#: ../shell/eog-window.c:3003
+#: ../shell/eog-window.c:3134
 msgid "Undo"
 msgstr "Hồi lại"
 
-#: ../shell/eog-window.c:3006
+#: ../shell/eog-window.c:3137
 msgid "Right"
 msgstr "Phải"
 
-#: ../shell/eog-window.c:3007
+#: ../shell/eog-window.c:3138
 msgid "Left"
 msgstr "Trái"
 
-#: ../shell/eog-window.c:3010
+#: ../shell/eog-window.c:3141
 msgid "In"
 msgstr "Phóng to"
 
-#: ../shell/eog-window.c:3011
+#: ../shell/eog-window.c:3142
 msgid "Out"
 msgstr "Thu nhỏ"
 
-#: ../shell/eog-window.c:3012
+#: ../shell/eog-window.c:3143
 msgid "Normal"
 msgstr "Thường"
 
-#: ../shell/eog-window.c:3013
+#: ../shell/eog-window.c:3144
 msgid "Fit"
 msgstr "Vừa khít"
 
-#: ../shell/eog-window.c:3165
+#: ../shell/eog-window.c:3296
 msgid "User interface description not found."
 msgstr "Không tìm thấy mô tả giao diện người dùng."
 
-#: ../shell/main.c:165
+#: ../shell/main.c:168
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Không tạo được giao diện người dùng Mắt GNOME."
 
-#: ../shell/main.c:345
+#: ../shell/main.c:351
+msgid "Open multiple single windows?"
+msgstr "Mở nhiều cửa sổ đơn chứ?"
+
+#: ../shell/main.c:353
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -792,19 +813,15 @@ msgstr[0] ""
 "Bạn định mở %i cửa sổ đồng thời. Bạn có muốn mở chúng trong một tập hợp thay "
 "vì mở nhiều cửa sổ không?"
 
-#: ../shell/main.c:351
-msgid "Open multiple single windows?"
-msgstr "Mở nhiều cửa sổ đơn chứ?"
-
-#: ../shell/main.c:355
+#: ../shell/main.c:360
 msgid "Single Windows"
 msgstr "Cửa sổ đơn"
 
-#: ../shell/main.c:357
+#: ../shell/main.c:362
 msgid "Collection"
 msgstr "Tập hợp"
 
-#: ../shell/main.c:409
+#: ../shell/main.c:417
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Không tìm thấy tập tin."
@@ -813,14 +830,6 @@ msgstr[0] "Không tìm thấy tập tin."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Không mở được `%s'"
-
-#: ../libeog/eog-util.c:44
-msgid " (invalid Unicode)"
-msgstr " (Unicode không hợp lệ)"
-
-#: ../shell/eog-preferences.c:129
-msgid "Could not display help for Eye of GNOME"
-msgstr "Không thể hiển thị trợ giúp cho Mắt Gnome."
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -1161,9 +1170,6 @@ msgstr "Không thể hiển thị trợ giúp cho Mắt Gnome."
 #~ msgid "Print Setup"
 #~ msgstr "Thiết lập in"
 
-#~ msgid "Print"
-#~ msgstr "In"
-
 #~ msgid "Print preview"
 #~ msgstr "Xem thử bản in"
 
@@ -1318,9 +1324,6 @@ msgstr "Không thể hiển thị trợ giúp cho Mắt Gnome."
 
 #~ msgid "Normal (_pseudocolor)"
 #~ msgstr "Thường (màu _giả)"
-
-#~ msgid "Print Pre_view"
-#~ msgstr "_Xem trước bản in"
 
 #~ msgid "Print S_etup"
 #~ msgstr "Thiết lập in"
