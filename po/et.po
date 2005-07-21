@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-17 13:44+0000\n"
-"PO-Revision-Date: 2005-07-17 18:34+0300\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"POT-Creation-Date: 2005-07-21 05:23+0000\n"
+"PO-Revision-Date: 2005-07-21 08:36+0300\n"
+"Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,13 +104,14 @@ msgstr "Pildivaatlus"
 
 #: ../eog.glade.h:20
 msgid "Rename From:"
-msgstr ""
+msgstr "Vana nimi:"
 
 #: ../eog.glade.h:21
 msgid "Replace spaces by underscore"
 msgstr "Asenda tühikud alakriipsudega"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3133
+#: ../eog.glade.h:22
+#: ../shell/eog-window.c:3133
 msgid "Save As"
 msgstr "Salvestamine teise nimega"
 
@@ -155,13 +156,8 @@ msgid "seconds"
 msgstr "sekundit"
 
 #: ../eog.schemas.in.h:1
-msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"Nullist suurem väärtus tähendab, et pilti kuvatakse ainult selle arvu "
-"sekundeid ja peale seda kuvatakse automaatselt järgmist pilti. Väärtus 0 "
-"keelab automaatse pildivahetuse."
+msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
+msgstr "Nullist suurem väärtus tähendab, et pilti kuvatakse ainult selle arvu sekundeid ja peale seda kuvatakse automaatselt järgmist pilti. Väärtus 0 keelab automaatse pildivahetuse."
 
 #: ../eog.schemas.in.h:3
 #, no-c-format
@@ -173,33 +169,20 @@ msgid "Delay in seconds until showing the next image"
 msgstr "Viivituse kestus sekundites enne järgmise pildi näitamist"
 
 #: ../eog.schemas.in.h:5
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
-msgstr ""
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
+msgstr "Määrab selle kuidas läbipaistvust näidatakse. Lubatud väärtused on CHECK_PATTERN, COLOR ja NONE. Kui valitud on COLOR, siis trans_color nimeline võti määrab kasutatava värvi väärtuse."
 
 #: ../eog.schemas.in.h:6
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
+msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
+msgstr "Kui läbipaistvuse võti sisaldab värvi COLOR, siis see võti määrab määrab läbipaistvust kujutamiseks kasutatava värvi väärtuse."
 
 #: ../eog.schemas.in.h:7
-msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
-msgstr ""
-"Kui see on märkimata, siis ei väikeseid pilte algseisul ei venitata akna "
-"suurusega sobivaks."
+msgid "If this is set to FALSE small images will not be stretched to fit into the screen initially."
+msgstr "Kui see on märkimata, siis ei väikeseid pilte algseisul ei venitata akna suurusega sobivaks."
 
 #: ../eog.schemas.in.h:8
-msgid ""
-"If this is set to TRUE images will be switched after number of seconds "
-"determined by the 'full_screen/seconds' key."
-msgstr ""
-"Kui see on märgitud, siis vahetatakse pilte peale 'täisekraan/sekundid' "
-"valikus määratud arvu sekundeid."
+msgid "If this is set to TRUE images will be switched after number of seconds determined by the 'full_screen/seconds' key."
+msgstr "Kui see on märgitud, siis vahetatakse pilte peale 'täisekraan/sekundid' valikus määratud arvu sekundeid."
 
 #: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
@@ -215,8 +198,7 @@ msgstr "Viimase üksikpildi akna geomeetria"
 
 #: ../eog.schemas.in.h:12
 msgid "Loop through the image sequence"
-msgstr ""
-"Peale viimase pildi näitamist pildiseeria uuesti algusest peale näitamine"
+msgstr "Peale viimase pildi näitamist pildiseeria uuesti algusest peale näitamine"
 
 #: ../eog.schemas.in.h:13
 msgid "Open images in a new window"
@@ -251,49 +233,48 @@ msgid "Transparency indicator"
 msgstr "Läbipaistvuse indikaator"
 
 #: ../eog.schemas.in.h:21
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Kas pildi avamisel tuleb luua uus aken või kasutada olemasolevat akent."
+msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
+msgstr "Kas pildi avamisel tuleb luua uus aken või kasutada olemasolevat akent."
 
 #: ../eog.schemas.in.h:22
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
+msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Kas järjestikuseid pilte tuleb näidata lõpmatu tsüklina."
 
 #: ../eog.schemas.in.h:23
-msgid ""
-"Whether the image should be interpolated on zoom or not. This leads to "
-"better quality but is somewhat slower than non interpolated images."
+msgid "Whether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
 msgstr ""
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:340
+#: ../libeog/eog-image-jpeg.c:579
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Salvestamise ajutist faili pole võimalik luua: %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:359
+#: ../libeog/eog-image-jpeg.c:600
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG faili laadimiseks pole võimalik mälu eraldada"
 
 #: ../libeog/eog-image.c:421
 msgid "Transformation on unloaded image."
-msgstr ""
+msgstr "Laadimata pildi transformeerimine."
 
 #: ../libeog/eog-image.c:532
 msgid "EXIF not supported for this file format."
 msgstr "Selle failivormingu puhul pole EXIF toetatud."
 
-#: ../libeog/eog-image.c:1165 ../libeog/eog-image.c:1378
+#: ../libeog/eog-image.c:1165
+#: ../libeog/eog-image.c:1378
 msgid "File exists"
 msgstr "Fail on olemas"
 
-#: ../libeog/eog-image.c:1318 ../libeog/eog-image.c:1446
+#: ../libeog/eog-image.c:1318
+#: ../libeog/eog-image.c:1446
 msgid "No image loaded."
 msgstr "Pilti ei ole laetud."
 
-#: ../libeog/eog-image.c:1327 ../libeog/eog-image.c:1455
+#: ../libeog/eog-image.c:1327
+#: ../libeog/eog-image.c:1455
 msgid "Temporary file creation failed."
 msgstr "Tõrge ajutise faili loomisel."
 
@@ -321,12 +302,14 @@ msgstr "Muu"
 msgid "Tag"
 msgstr "Silt"
 
-#: ../libeog/eog-info-view-exif.c:224 ../libeog/eog-info-view-file.c:100
+#: ../libeog/eog-info-view-exif.c:224
+#: ../libeog/eog-info-view-file.c:100
 msgid "Value"
 msgstr "Väärtus"
 
 #. only used for internal purpose
-#: ../libeog/eog-info-view-file.c:29 ../libeog/eog-uri-converter.h:45
+#: ../libeog/eog-info-view-file.c:29
+#: ../libeog/eog-uri-converter.h:45
 msgid "Filename"
 msgstr "Failinimi"
 
@@ -453,12 +436,8 @@ msgid "Option not available."
 msgstr "Valik pole saadaval."
 
 #: ../shell/eog-save-as-dialog-helper.c:145
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"Selle funktsiooni kasutamiseks vajad sa libexif teeki. Palun paigalda "
-"libexif (http://libexif.sf.net) ja kompileeri Eye of GNOME uuesti."
+msgid "To use this function you need the libexif library. Please install libexif (http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr "Selle funktsiooni kasutamiseks vajad sa libexif teeki. Palun paigalda libexif (http://libexif.sf.net) ja kompileeri Eye of GNOME uuesti."
 
 #: ../shell/eog-save-as-dialog-helper.c:219
 msgid "as is"
@@ -484,8 +463,10 @@ msgstr ""
 "Ivar Smolin <okul@linux.ee>, 2005.\n"
 "Priit Laes <amd@store20.com>, 2005."
 
-#: ../shell/eog-window.c:543 ../shell/eog-window.c:2888
-#: ../shell/eog-window.c:3461 ../shell/main.c:683
+#: ../shell/eog-window.c:543
+#: ../shell/eog-window.c:2888
+#: ../shell/eog-window.c:3461
+#: ../shell/main.c:683
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME (gnoomi silm)"
 
@@ -511,7 +492,8 @@ msgstr "Kas kirjutada fail %s üle?"
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Fail on olemas. Kas sa soovid seda üle kirjutada?"
 
-#: ../shell/eog-window.c:883 ../shell/eog-window.c:899
+#: ../shell/eog-window.c:883
+#: ../shell/eog-window.c:899
 msgid "Skip"
 msgstr "Jäta vahele"
 
@@ -524,7 +506,8 @@ msgstr "Kirjuta üle"
 msgid "Error on saving %s."
 msgstr "Viga %s salvestamisel."
 
-#: ../shell/eog-window.c:900 ../shell/eog-window.c:1453
+#: ../shell/eog-window.c:900
+#: ../shell/eog-window.c:1453
 msgid "Retry"
 msgstr "Proovi uuesti"
 
@@ -539,14 +522,14 @@ msgstr "Pildi %s vormingut pole võimalik tuvastada"
 
 #: ../shell/eog-window.c:1440
 msgid "Please use an appropriate filename suffix or select a file format."
-msgstr ""
-"Palun vali faili vorming või kasuta failivormingu jaoks sobivat laiendit."
+msgstr "Palun vali faili vorming või kasuta failivormingu jaoks sobivat laiendit."
 
 #: ../shell/eog-window.c:1578
 msgid "Error on saving images."
 msgstr "Viga pildi salvestamisel."
 
-#: ../shell/eog-window.c:1659 ../shell/eog-window.c:3093
+#: ../shell/eog-window.c:1659
+#: ../shell/eog-window.c:3093
 msgid "Print"
 msgstr "Prindi"
 
@@ -725,7 +708,8 @@ msgid "_Slideshow"
 msgstr "_Slaidiesitlus"
 
 #. accelerators
-#: ../shell/eog-window.c:3108 ../shell/eog-window.c:3114
+#: ../shell/eog-window.c:3108
+#: ../shell/eog-window.c:3114
 msgid "_Zoom In"
 msgstr "_Suurenda"
 
@@ -753,7 +737,8 @@ msgstr "Käesoleva akna teabepaani nähtavaloleku muutmine"
 msgid "New"
 msgstr "Uus"
 
-#: ../shell/eog-window.c:3129 ../shell/eog-window.c:3130
+#: ../shell/eog-window.c:3129
+#: ../shell/eog-window.c:3130
 msgid "Open"
 msgstr "Ava"
 
@@ -807,18 +792,10 @@ msgstr "Kas avada mitu üksikut akent?"
 
 #: ../shell/main.c:353
 #, c-format
-msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgid_plural ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgstr[0] ""
-"Sa oled avamas korraga %d akna. Äkki soovid sa selle asemel nad "
-"kollektsioonina avada?"
-msgstr[1] ""
-"Sa oled avamas korraga %d akent. Äkki soovid sa selle asemel nad "
-"kollektsioonina avada?"
+msgid "You are about to open %i windows simultaneously. Do you want to open them in a collection instead?"
+msgid_plural "You are about to open %i windows simultaneously. Do you want to open them in a collection instead?"
+msgstr[0] "Sa oled avamas korraga %d akna. Äkki soovid sa selle asemel nad kollektsioonina avada?"
+msgstr[1] "Sa oled avamas korraga %d akent. Äkki soovid sa selle asemel nad kollektsioonina avada?"
 
 #: ../shell/main.c:360
 msgid "Single Windows"
@@ -839,11 +816,10 @@ msgstr[1] "Faile ei leitud"
 msgid "Could not open `%s'"
 msgstr "`%s' pole võimalik avada"
 
-msgid "*"
-msgstr "*"
+#~ msgid "*"
+#~ msgstr "*"
+#~ msgid "empty file"
+#~ msgstr "tühi fail"
+#~ msgid "Filenames are not disjunct."
+#~ msgstr "Failinimed pole liigendatud."
 
-msgid "empty file"
-msgstr "tühi fail"
-
-msgid "Filenames are not disjunct."
-msgstr "Failinimed pole liigendatud."
