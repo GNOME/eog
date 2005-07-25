@@ -1,6 +1,11 @@
 2005-07-25  Ross Burton  <ross@burtonini.com>
 
 	* libeog/eog-image.c:
+	Register an error handler as otherwise LCMS will abort on error.
+
+2005-07-25  Ross Burton  <ross@burtonini.com>
+
+	* libeog/eog-image.c:
 	Only try and extract a profile from an image if there is a
 	metadata reader.
 

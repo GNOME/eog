@@ -567,6 +567,23 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 }
 
 #if HAVE_LCMS
+static int
+lcms_error(int ErrorCode, const char *ErrorText)
+{
+	g_warning("Little CMS error: %s", ErrorText);
+	return LCMS_ERROR_IGNORE;
+}
+
+static void
+init_lcms(void)
+{
+	static gboolean done = FALSE;
+	if G_UNLIKELY (!done) {
+		cmsSetErrorHandler (lcms_error);
+		done = TRUE;
+	}
+}
+
 void
 eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 {
@@ -584,6 +601,8 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 	if (priv->profile == NULL)
 		return;
 	
+	init_lcms();
+
 	transform = cmsCreateTransform(priv->profile, TYPE_RGB_8, screen, TYPE_RGB_8, INTENT_PERCEPTUAL, 0);
 	
 	rows = gdk_pixbuf_get_height(priv->image);
@@ -612,8 +631,8 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 	{
 		gpointer data = eog_metadata_reader_get_icc_chunk (md_reader);
 		if (data != NULL) {
+			init_lcms ();
 			priv->profile = cmsOpenProfileFromMem(data, eog_metadata_reader_get_icc_chunk_size (md_reader));
-			g_assert (priv->profile != NULL);
 			g_printerr("JPEG has ICC profile\n");
 			return;
 		}
