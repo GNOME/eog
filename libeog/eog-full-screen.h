@@ -59,7 +59,7 @@ struct _EogFullScreenClass {
 };
 
 GType      eog_full_screen_get_type (void);
-GtkWidget *eog_full_screen_new (EogImageList *list, EogImage *start_image);
+GtkWidget *eog_full_screen_new (GtkWindow *parent, EogImageList *list, EogImage *start_image);
 
 gboolean   eog_full_screen_enable_SunF36 (void);
 

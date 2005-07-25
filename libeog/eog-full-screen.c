@@ -611,21 +611,8 @@ static void
 eog_full_screen_instance_init (EogFullScreen *fs)
 {
 	EogFullScreenPrivate *priv;
-	GdkScreen *screen;
-	GdkRectangle geometry;
-	int monitor;
-
 	priv = g_new0 (EogFullScreenPrivate, 1);
 	fs->priv = priv;
-
-	screen = gtk_window_get_screen (GTK_WINDOW (fs));
-	monitor = gdk_screen_get_monitor_at_window (screen, GTK_WIDGET (fs)->window);
-	gdk_screen_get_monitor_geometry (screen, monitor, &geometry);
-
-	gtk_window_set_default_size (GTK_WINDOW (fs),
-				     geometry.width,
-				     geometry.height);
-	gtk_window_move (GTK_WINDOW (fs), geometry.x, geometry.y);
 
 	priv->loop = TRUE;
 	priv->first_iter = NULL;
@@ -640,6 +627,27 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 
 	priv->last_key_press_time = 0;
 	priv->display_id = 0;
+}
+
+static void
+eog_full_screen_set_geometry (EogFullScreen *fs, GtkWindow *parent)
+{
+	EogFullScreenPrivate *priv;
+	GdkScreen *screen;
+	GdkRectangle geometry;
+	int monitor;
+	
+	priv = fs->priv;
+
+	screen = gtk_window_get_screen (GTK_WINDOW (fs));
+	monitor = gdk_screen_get_monitor_at_window (screen,
+			GTK_WIDGET (parent)->window);
+	gdk_screen_get_monitor_geometry (screen, monitor, &geometry);
+
+	gtk_window_set_default_size (GTK_WINDOW (fs),
+				     geometry.width,
+				     geometry.height);
+	gtk_window_move (GTK_WINDOW (fs), geometry.x, geometry.y);
 }
 
 typedef struct {
@@ -770,7 +778,8 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 }
 
 GtkWidget *
-eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
+eog_full_screen_new (GtkWindow *parent,
+		EogImageList *image_list, EogImage *start_image)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
@@ -783,8 +792,11 @@ eog_full_screen_new (EogImageList *image_list, EogImage *start_image)
 	g_return_val_if_fail (image_list != NULL, NULL);
 
 	fs = g_object_new (EOG_TYPE_FULL_SCREEN, 
-			   "type", GTK_WINDOW_POPUP, NULL);
+			   "type", GTK_WINDOW_POPUP,
+			   NULL);
 	priv = fs->priv;
+	/* bind to a particular monitor */
+	eog_full_screen_set_geometry (fs, parent);
 
 	widget = eog_scroll_view_new ();
 	priv->view = widget;

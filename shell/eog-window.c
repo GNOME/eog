@@ -692,7 +692,7 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 	}
 
 	if (list != NULL) {
-		fs = eog_full_screen_new (list, start_image);
+		fs = eog_full_screen_new (GTK_WINDOW (data), list, start_image);
 		g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (slideshow_hide_cb), EOG_WINDOW (data));
 
 		gtk_widget_show_all (fs);
@@ -2676,13 +2676,20 @@ setup_initial_geometry (EogWindow *window)
 	int x, y;
 	GdkScreen *screen;
 	int screen_width, screen_height;
+	GdkRectangle monitor;
 	
 	g_assert (EOG_IS_WINDOW (window));
 
 	screen = gtk_window_get_screen (GTK_WINDOW (window));
 	g_assert (screen != NULL);
-	screen_width  = gdk_screen_get_width  (screen);
-	screen_height = gdk_screen_get_height (screen);
+
+	gtk_widget_realize (GTK_WIDGET (window));
+	gdk_screen_get_monitor_geometry (screen,
+			gdk_screen_get_monitor_at_window (screen,
+				GTK_WIDGET (window)->window),
+			&monitor);
+	screen_width  = monitor.width;
+	screen_height = monitor.height;
 
 	obtain_desired_size (window, screen_width, screen_height, &x11_flags,
 						 &x, &y, &width, &height);
