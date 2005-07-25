@@ -829,7 +829,9 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 			priv->file_type = gdk_pixbuf_format_get_name (format);
 		}
 #if HAVE_LCMS
-		extract_profile (img, md_reader);
+		if (md_reader != NULL) {
+			extract_profile (img, md_reader);
+		}
 #endif
 	}
 	/* clean up */
