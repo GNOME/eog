@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-04 00:35+0900\n"
-"PO-Revision-Date: 2005-07-04 00:32+0900\n"
+"POT-Creation-Date: 2005-07-28 15:32+0900\n"
+"PO-Revision-Date: 2005-07-28 15:30+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +106,7 @@ msgstr "変更前:"
 msgid "Replace spaces by underscore"
 msgstr "空白をアンダースコアで置き換える"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3002
+#: ../eog.glade.h:22 ../shell/eog-window.c:3140
 msgid "Save As"
 msgstr "別名で保存(_A)"
 
@@ -268,44 +268,6 @@ msgstr ""
 "ズームの際に画像を補正するかどうかを指定します。これは画像の品質を向上します"
 "が、補正しない場合と比較して描画が少し低速になります。"
 
-#: ../libeog/eog-file-selection.c:127
-msgid "All Files"
-msgstr "全てのファイル"
-
-#: ../libeog/eog-file-selection.c:132
-msgid "All Images"
-msgstr "全ての画像"
-
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../libeog/eog-file-selection.c:153
-#, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
-
-#. Pixel size of image: width x height in pixel
-#: ../libeog/eog-file-selection.c:249
-#, c-format
-msgid "%s x %s pixels"
-msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s ピクセル"
-msgstr[1] "%s x %s ピクセル"
-
-#: ../libeog/eog-file-selection.c:411
-msgid "Open in new window"
-msgstr "新しいウインドウで開く"
-
-#: ../libeog/eog-file-selection.c:437
-msgid "Load Image"
-msgstr "画像の読み込み"
-
-#: ../libeog/eog-file-selection.c:445
-msgid "Save Image"
-msgstr "画像の保存"
-
-#: ../libeog/eog-file-selection.c:453
-msgid "Open Folder"
-msgstr "フォルダの選択"
-
 #: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
@@ -315,23 +277,23 @@ msgstr "保存するための作業ファイルを生成できませんでした
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ファイルを読み込むためのメモリを確保できませんでした"
 
-#: ../libeog/eog-image.c:404
+#: ../libeog/eog-image.c:421
 msgid "Transformation on unloaded image."
 msgstr "読み込んでいない画像で変換します。"
 
-#: ../libeog/eog-image.c:515
+#: ../libeog/eog-image.c:532
 msgid "EXIF not supported for this file format."
 msgstr "このファイル形式では EXIF をサポートしていません。"
 
-#: ../libeog/eog-image.c:1004 ../libeog/eog-image.c:1217
+#: ../libeog/eog-image.c:1171 ../libeog/eog-image.c:1384
 msgid "File exists"
 msgstr "ファイルが存在します"
 
-#: ../libeog/eog-image.c:1157 ../libeog/eog-image.c:1285
+#: ../libeog/eog-image.c:1324 ../libeog/eog-image.c:1452
 msgid "No image loaded."
 msgstr "画像が読み込まれていません。"
 
-#: ../libeog/eog-image.c:1166 ../libeog/eog-image.c:1294
+#: ../libeog/eog-image.c:1333 ../libeog/eog-image.c:1461
 msgid "Temporary file creation failed."
 msgstr "作業用ファイルの生成に失敗しました。"
 
@@ -396,31 +358,6 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-save-as-dialog-helper.c:142
-msgid "Option not available."
-msgstr "オプションは利用できません。"
-
-#: ../libeog/eog-save-as-dialog-helper.c:143
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"この機能を利用するにはライブラリ libexif が必要です。libexif (http://libexif."
-"sf.net) をインストールして 'Eye of GNOME' を再コンパイルして下さい。"
-
-#: ../libeog/eog-save-as-dialog-helper.c:219
-msgid "as is"
-msgstr "変更しない"
-
-#: ../libeog/eog-save-dialog-helper.c:197
-#, c-format
-msgid "Saving image %s."
-msgstr "画像 %s を保存しています。"
-
-#: ../libeog/eog-save-dialog-helper.c:243
-msgid "Cancel saving ..."
-msgstr "保存のキャンセル ..."
-
 #: ../libeog/eog-uri-converter.c:1027
 msgid "At least two file names are equal."
 msgstr "同じ名前のファイルです。"
@@ -465,11 +402,82 @@ msgstr "分"
 msgid "Second"
 msgstr "秒"
 
+#: ../libeog/eog-util.c:44
+msgid " (invalid Unicode)"
+msgstr " (不正な Unicode)"
+
+#: ../shell/eog-file-chooser.c:129
+msgid "All Files"
+msgstr "全てのファイル"
+
+#: ../shell/eog-file-chooser.c:134
+msgid "All Images"
+msgstr "全ての画像"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../shell/eog-file-chooser.c:155
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#. Pixel size of image: width x height in pixel
+#: ../shell/eog-file-chooser.c:251
+#, c-format
+msgid "%s x %s pixels"
+msgid_plural "%s x %s pixels"
+msgstr[0] "%s x %s ピクセル"
+msgstr[1] "%s x %s ピクセル"
+
+#: ../shell/eog-file-chooser.c:397
+msgid "Open in new window"
+msgstr "新しいウインドウで開く"
+
+#: ../shell/eog-file-chooser.c:425
+msgid "Load Image"
+msgstr "画像の読み込み"
+
+#: ../shell/eog-file-chooser.c:433
+msgid "Save Image"
+msgstr "画像の保存"
+
+#: ../shell/eog-file-chooser.c:441
+msgid "Open Folder"
+msgstr "フォルダの選択"
+
+#: ../shell/eog-preferences.c:131
+msgid "Could not display help for Eye of GNOME"
+msgstr "Eye of GNOME のヘルプを表示できませんでした"
+
+#: ../shell/eog-save-as-dialog-helper.c:143
+msgid "Option not available."
+msgstr "オプションは利用できません。"
+
+#: ../shell/eog-save-as-dialog-helper.c:145
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr ""
+"この機能を利用するにはライブラリ libexif が必要です。libexif (http://libexif."
+"sf.net) をインストールして 'Eye of GNOME' を再コンパイルして下さい。"
+
+#: ../shell/eog-save-as-dialog-helper.c:219
+msgid "as is"
+msgstr "変更しない"
+
+#: ../shell/eog-save-dialog-helper.c:197
+#, c-format
+msgid "Saving image %s."
+msgstr "画像 %s を保存しています。"
+
+#: ../shell/eog-save-dialog-helper.c:243
+msgid "Cancel saving ..."
+msgstr "保存のキャンセル ..."
+
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:523
+#: ../shell/eog-window.c:534
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <aihana@gnome.gr.jp>\n"
@@ -477,16 +485,16 @@ msgstr ""
 "Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
 "日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
 
-#: ../shell/eog-window.c:532 ../shell/eog-window.c:2764
-#: ../shell/eog-window.c:3330 ../shell/main.c:678
+#: ../shell/eog-window.c:543 ../shell/eog-window.c:2895
+#: ../shell/eog-window.c:3468 ../shell/main.c:683
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:535
+#: ../shell/eog-window.c:546
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 画像表示およびカタログ作成プログラムです"
 
-#: ../shell/eog-window.c:564
+#: ../shell/eog-window.c:575
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -495,296 +503,309 @@ msgstr ""
 "Eye of GNOME のヘルプを表示できませんでした。\n"
 "%s"
 
-#: ../shell/eog-window.c:861
+#: ../shell/eog-window.c:871
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "ファイル %s を上書きしますか？"
 
-#: ../shell/eog-window.c:862
+#: ../shell/eog-window.c:872
 msgid "File exists. Do you want to overwrite it?"
 msgstr "ファイルが存在します。上書きしますか？"
 
-#: ../shell/eog-window.c:871 ../shell/eog-window.c:884
+#: ../shell/eog-window.c:883 ../shell/eog-window.c:899
 msgid "Skip"
 msgstr "スキップする"
 
-#: ../shell/eog-window.c:872
+#: ../shell/eog-window.c:884
 msgid "Overwrite"
 msgstr "上書きする"
 
-#: ../shell/eog-window.c:877
+#: ../shell/eog-window.c:889
 #, c-format
 msgid "Error on saving %s."
 msgstr "%s を保存する際にエラーが発生しました。"
 
-#: ../shell/eog-window.c:885 ../shell/eog-window.c:1435
+#: ../shell/eog-window.c:900 ../shell/eog-window.c:1453
 msgid "Retry"
 msgstr "リトライ"
 
-#: ../shell/eog-window.c:1302
+#: ../shell/eog-window.c:1317
 msgid "Couldn't determine destination uri."
 msgstr "URI を検出できませんでした"
 
-#: ../shell/eog-window.c:1424
+#: ../shell/eog-window.c:1439
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "%s のファイル形式を検出できませんでした"
 
-#: ../shell/eog-window.c:1425
+#: ../shell/eog-window.c:1440
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "適切な拡張子を使用するか、ファイル形式を選択して下さい。"
 
-#: ../shell/eog-window.c:1558
+#: ../shell/eog-window.c:1578
 msgid "Error on saving images."
 msgstr "画像を保存する際にエラーが発生しました。"
 
-#: ../shell/eog-window.c:1811
+#: ../shell/eog-window.c:1659 ../shell/eog-window.c:3100
+msgid "Print"
+msgstr "印刷"
+
+#: ../shell/eog-window.c:1693
+msgid "Print Preview"
+msgstr "印刷プレビュー"
+
+#: ../shell/eog-window.c:1891
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "本当に %i 個の画像をゴミ箱へ移動してもよろしいですか？"
 msgstr[1] "本当に %i 個の画像をゴミ箱へ移動してもよろしいですか？"
 
-#: ../shell/eog-window.c:1849
+#: ../shell/eog-window.c:1932
 msgid "Couldn't access trash."
 msgstr "ゴミ箱にアクセスできませんでした。"
 
-#: ../shell/eog-window.c:1923
+#: ../shell/eog-window.c:2006
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "画像 %s を削除する際にエラー"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2676
+#: ../shell/eog-window.c:2768
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i ピクセル  %s  (ズーム: %i%%)"
 msgstr[1] "%i x %i ピクセル  %s  (ズーム: %i%%)"
 
-#: ../shell/eog-window.c:2723
+#: ../shell/eog-window.c:2815
 #, c-format
 msgid "Reason: %s"
 msgstr "原因: %s"
 
-#: ../shell/eog-window.c:2805
+#: ../shell/eog-window.c:2939
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "%s の画像読み込みに失敗しました"
 
-#: ../shell/eog-window.c:2943
+#: ../shell/eog-window.c:3077
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../shell/eog-window.c:2944
+#: ../shell/eog-window.c:3078
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../shell/eog-window.c:2945
+#: ../shell/eog-window.c:3079
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../shell/eog-window.c:2946
+#: ../shell/eog-window.c:3080
 msgid "_Image"
 msgstr "画像(_I)"
 
-#: ../shell/eog-window.c:2947
+#: ../shell/eog-window.c:3081
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../shell/eog-window.c:2948
+#: ../shell/eog-window.c:3082
 msgid "_New Window"
 msgstr "新しいウインドウ(_N)"
 
-#: ../shell/eog-window.c:2948
+#: ../shell/eog-window.c:3082
 msgid "Open a new window"
 msgstr "新しいウインドウを開きます"
 
-#: ../shell/eog-window.c:2949
+#: ../shell/eog-window.c:3083
 msgid "_Open..."
 msgstr "開く(_O)..."
 
-#: ../shell/eog-window.c:2949
+#: ../shell/eog-window.c:3083
 msgid "Open a file"
 msgstr "ファイルを開きます"
 
-#: ../shell/eog-window.c:2950
+#: ../shell/eog-window.c:3084
 msgid "Open _Folder..."
 msgstr "フォルダを開く(_F)..."
 
-#: ../shell/eog-window.c:2950
+#: ../shell/eog-window.c:3084
 msgid "Open a folder"
 msgstr "指定したフォルダを開きます"
 
-#: ../shell/eog-window.c:2951
+#: ../shell/eog-window.c:3085
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../shell/eog-window.c:2951
+#: ../shell/eog-window.c:3085
 msgid "Close window"
 msgstr "このウインドウを閉じます"
 
-#: ../shell/eog-window.c:2952
+#: ../shell/eog-window.c:3086
 msgid "Prefere_nces"
 msgstr "設定(_N)"
 
-#: ../shell/eog-window.c:2952
+#: ../shell/eog-window.c:3086
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of GNOME の設定を変更します"
 
-#: ../shell/eog-window.c:2953
+#: ../shell/eog-window.c:3087
 msgid "_Contents"
 msgstr "目次(_C)"
 
-#: ../shell/eog-window.c:2953
+#: ../shell/eog-window.c:3087
 msgid "Help On this application"
 msgstr "このアプリケーションのヘルプ"
 
-#: ../shell/eog-window.c:2954
+#: ../shell/eog-window.c:3088
 msgid "_About"
 msgstr "情報(_A)"
 
-#: ../shell/eog-window.c:2954
+#: ../shell/eog-window.c:3088
 msgid "About this application"
 msgstr "このアプリケーションについて"
 
-#: ../shell/eog-window.c:2959
+#: ../shell/eog-window.c:3093
 msgid "_Toolbar"
 msgstr "ツールバー(_T)"
 
-#: ../shell/eog-window.c:2959
+#: ../shell/eog-window.c:3093
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "ツールバーの表示を切り替えます"
 
-#: ../shell/eog-window.c:2960
+#: ../shell/eog-window.c:3094
 msgid "_Statusbar"
 msgstr "ステータスバー(_S)"
 
-#: ../shell/eog-window.c:2960
+#: ../shell/eog-window.c:3094
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "ステータスバーの表示を切り替えます"
 
-#: ../shell/eog-window.c:2964
+#: ../shell/eog-window.c:3098
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: ../shell/eog-window.c:2965
+#: ../shell/eog-window.c:3099
 msgid "Save _As"
 msgstr "別名で保存(_A)"
 
-#: ../shell/eog-window.c:2967
+#: ../shell/eog-window.c:3102
 msgid "_Undo"
 msgstr "やり直す(_U)"
 
-#: ../shell/eog-window.c:2969
+#: ../shell/eog-window.c:3104
 msgid "Flip _Horizontal"
 msgstr "水平方向にひっくり返す(_H)"
 
-#: ../shell/eog-window.c:2970
+#: ../shell/eog-window.c:3105
 msgid "Flip _Vertical"
 msgstr "垂直方向にひっくり返す(_V)"
 
-#: ../shell/eog-window.c:2972
+#: ../shell/eog-window.c:3107
 msgid "_Rotate Clockwise"
 msgstr "時計回りに回転(_R)"
 
-#: ../shell/eog-window.c:2973
+#: ../shell/eog-window.c:3108
 msgid "Rotate Counter C_lockwise"
 msgstr "反時計回りに回転(_L)"
 
-#: ../shell/eog-window.c:2974
+#: ../shell/eog-window.c:3109
 msgid "Rotat_e 180°"
 msgstr "180°回転(_E)"
 
-#: ../shell/eog-window.c:2976
+#: ../shell/eog-window.c:3111
 msgid "Delete"
 msgstr "削除"
 
-#: ../shell/eog-window.c:2978
+#: ../shell/eog-window.c:3113
 msgid "_Full Screen"
 msgstr "フル・スクリーン(_F)"
 
-#: ../shell/eog-window.c:2979
+#: ../shell/eog-window.c:3114
 msgid "_Slideshow"
 msgstr "スライドショー(_S)"
 
-#: ../shell/eog-window.c:2980
+#. accelerators
+#: ../shell/eog-window.c:3115 ../shell/eog-window.c:3121
 msgid "_Zoom In"
 msgstr "拡大(_I)"
 
-#: ../shell/eog-window.c:2981
+#: ../shell/eog-window.c:3116
 msgid "Zoom _Out"
 msgstr "縮小(_O)"
 
-#: ../shell/eog-window.c:2982
+#: ../shell/eog-window.c:3117
 msgid "_Normal Size"
 msgstr "オリジナル(_N)"
 
-#: ../shell/eog-window.c:2983
+#: ../shell/eog-window.c:3118
 msgid "Best _Fit"
 msgstr "ウィンドウに合わせる(_F)"
 
-#: ../shell/eog-window.c:2987
+#: ../shell/eog-window.c:3125
 msgid "Image _Information"
 msgstr "画像の情報(_I)"
 
-#: ../shell/eog-window.c:2987
+#: ../shell/eog-window.c:3125
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "情報ペインの表示を切り替えます"
 
-#: ../shell/eog-window.c:2997
+#: ../shell/eog-window.c:3135
 msgid "New"
 msgstr "新規"
 
-#: ../shell/eog-window.c:2998 ../shell/eog-window.c:2999
+#: ../shell/eog-window.c:3136 ../shell/eog-window.c:3137
 msgid "Open"
 msgstr "開く"
 
-#: ../shell/eog-window.c:3000
+#: ../shell/eog-window.c:3138
 msgid "Close"
 msgstr "閉じる"
 
-#: ../shell/eog-window.c:3001
+#: ../shell/eog-window.c:3139
 msgid "Save"
 msgstr "保存"
 
-#: ../shell/eog-window.c:3003
+#: ../shell/eog-window.c:3141
 msgid "Undo"
 msgstr "やり直す"
 
-#: ../shell/eog-window.c:3006
+#: ../shell/eog-window.c:3144
 msgid "Right"
 msgstr "右回り"
 
-#: ../shell/eog-window.c:3007
+#: ../shell/eog-window.c:3145
 msgid "Left"
 msgstr "左回り"
 
-#: ../shell/eog-window.c:3010
+#: ../shell/eog-window.c:3148
 msgid "In"
 msgstr "拡大"
 
-#: ../shell/eog-window.c:3011
+#: ../shell/eog-window.c:3149
 msgid "Out"
 msgstr "縮小"
 
-#: ../shell/eog-window.c:3012
+#: ../shell/eog-window.c:3150
 msgid "Normal"
 msgstr "標準"
 
-#: ../shell/eog-window.c:3013
+#: ../shell/eog-window.c:3151
 msgid "Fit"
 msgstr "フィット"
 
-#: ../shell/eog-window.c:3165
+#: ../shell/eog-window.c:3303
 msgid "User interface description not found."
 msgstr "ユーザ・インタフェースの情報が見つかりませんでした。"
 
-#: ../shell/main.c:165
+#: ../shell/main.c:168
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "\"Eye of GNOME\" 用のユーザ・インタフェースを生成できません"
 
-#: ../shell/main.c:345
+#: ../shell/main.c:351
+msgid "Open multiple single windows?"
+msgstr "それぞれ複数のウインドウで開きますか？"
+
+#: ../shell/main.c:353
 #, c-format
 msgid ""
 "You are about to open %i windows simultaneously. Do you want to open them in "
@@ -799,19 +820,15 @@ msgstr[1] ""
 "同時に %i 個のウインドウを開こうとしています。代わりにコレクション形式で表示"
 "しますか？"
 
-#: ../shell/main.c:351
-msgid "Open multiple single windows?"
-msgstr "それぞれ複数のウインドウで開きますか？"
-
-#: ../shell/main.c:355
+#: ../shell/main.c:360
 msgid "Single Windows"
 msgstr "ウインドウ表示"
 
-#: ../shell/main.c:357
+#: ../shell/main.c:362
 msgid "Collection"
 msgstr "コレクション表示"
 
-#: ../shell/main.c:409
+#: ../shell/main.c:417
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "ファイルが見つかりません。"
@@ -821,11 +838,3 @@ msgstr[1] "いくつかのファイルが見つかりません。"
 #, c-format
 msgid "Could not open `%s'"
 msgstr "'%s'を開けませんでした"
-
-#: ../libeog/eog-util.c:44
-msgid " (invalid Unicode)"
-msgstr " (不正な Unicode)"
-
-#: ../shell/eog-preferences.c:129
-msgid "Could not display help for Eye of GNOME"
-msgstr "Eye of GNOME のヘルプを表示できませんでした"
