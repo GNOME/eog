@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-14 05:24+0000\n"
-"PO-Revision-Date: 2005-07-14 16:09+0530\n"
+"POT-Creation-Date: 2005-08-01 05:29+0000\n"
+"PO-Revision-Date: 2005-08-01 17:06+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 
 #: ../eog.desktop.in.in.h:1
 msgid "Image Viewer"
@@ -112,7 +113,7 @@ msgstr "से नाम बदलेंः"
 msgid "Replace spaces by underscore"
 msgstr "रिक्त स्थानों को अंडरस्कोर से बदलें"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3064
+#: ../eog.glade.h:22 ../shell/eog-window.c:3140
 msgid "Save As"
 msgstr "इस रूप में सहेजें"
 
@@ -201,7 +202,9 @@ msgstr "यदि इसे गलत नियत किया जाता ह
 msgid ""
 "If this is set to TRUE images will be switched after number of seconds "
 "determined by the 'full_screen/seconds' key."
-msgstr "अगर यह TRUE में सेट किया जाता है विंब कई सेकेंड के बाद स्विच होगा 'full_screen/seconds' कुंजी के द्वारा निश्चित."
+msgstr ""
+"अगर यह TRUE में सेट किया जाता है विंब कई सेकेंड के बाद स्विच होगा 'full_screen/"
+"seconds' कुंजी के द्वारा निश्चित."
 
 #: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
@@ -271,46 +274,6 @@ msgstr ""
 "क्या छवियाँ ज़ूम करने पर इंटरपोलेट की जाएँ या नहीं. इससे अच्छी विशेषता प्राप्त होगी परंतु यह "
 "नॉन इंटरपोलेटेड छवियों से कुछ धीमा होगा."
 
-#: ../libeog/eog-file-selection.c:126
-msgid "All Files"
-msgstr "सभी फ़ाइलें"
-
-#: ../libeog/eog-file-selection.c:131
-msgid "All Images"
-msgstr "सभी छवियाँ"
-
-#  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../libeog/eog-file-selection.c:152
-#, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
-
-#  Pixel size of image: width x height in pixel
-#. Pixel size of image: width x height in pixel
-#: ../libeog/eog-file-selection.c:248
-#, c-format
-msgid "%s x %s pixels"
-msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s पिक्सल"
-msgstr[1] "%s x %s पिक्सल"
-
-#: ../libeog/eog-file-selection.c:410
-msgid "Open in new window"
-msgstr "नए विंडो में खोलें"
-
-#: ../libeog/eog-file-selection.c:436
-msgid "Load Image"
-msgstr "छवि लोड करें"
-
-#: ../libeog/eog-file-selection.c:444
-msgid "Save Image"
-msgstr "छवि सहेजें"
-
-#: ../libeog/eog-file-selection.c:452
-msgid "Open Folder"
-msgstr "फ़ोल्डर खोलें"
-
 #: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
@@ -320,23 +283,23 @@ msgstr "%s को सहेजने हेतु अस्थाई फ़ा�
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "जेपीईजी फ़ाइल को लोड करने हेतु मेमोरी बांटी नहीं जा सकती"
 
-#: ../libeog/eog-image.c:414
+#: ../libeog/eog-image.c:421
 msgid "Transformation on unloaded image."
 msgstr "अनलोडेड विंब में बदलें"
 
-#: ../libeog/eog-image.c:525
+#: ../libeog/eog-image.c:532
 msgid "EXIF not supported for this file format."
 msgstr "EXIF इस फाइल प्रारूप के लिये समर्थित नहीं है."
 
-#: ../libeog/eog-image.c:1156 ../libeog/eog-image.c:1369
+#: ../libeog/eog-image.c:1171 ../libeog/eog-image.c:1384
 msgid "File exists"
 msgstr "फ़ाइल मौज़ूद है"
 
-#: ../libeog/eog-image.c:1309 ../libeog/eog-image.c:1437
+#: ../libeog/eog-image.c:1324 ../libeog/eog-image.c:1452
 msgid "No image loaded."
 msgstr "कोई छवि लोडेड नहीं."
 
-#: ../libeog/eog-image.c:1318 ../libeog/eog-image.c:1446
+#: ../libeog/eog-image.c:1333 ../libeog/eog-image.c:1461
 msgid "Temporary file creation failed."
 msgstr "अस्थाई फ़ाइल सृजन असफ़ल."
 
@@ -404,31 +367,6 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-save-as-dialog-helper.c:144
-msgid "Option not available."
-msgstr "विकल्प उपलब्ध नहीं"
-
-#: ../libeog/eog-save-as-dialog-helper.c:146
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"इस फ़ंक्शन का उपयोग करने हेतु आपको libexif लाइब्रेरी की आवश्यकता होगी. कृपया libexif "
-"संस्थापित करें (http://libexif.sf.net) तथा गनोम की आँख पुनर्संयोजित करें."
-
-#: ../libeog/eog-save-as-dialog-helper.c:220
-msgid "as is"
-msgstr "जैसा है वैसा ही"
-
-#: ../libeog/eog-save-dialog-helper.c:197
-#, c-format
-msgid "Saving image %s."
-msgstr "छवि सहेज रहे हैं %s"
-
-#: ../libeog/eog-save-dialog-helper.c:243
-msgid "Cancel saving ..."
-msgstr "सहेजना रद्द करें ..."
-
 #: ../libeog/eog-uri-converter.c:1027
 msgid "At least two file names are equal."
 msgstr "कम से कम दो फाइल नाम समान हैं."
@@ -473,26 +411,99 @@ msgstr "मिनट"
 msgid "Second"
 msgstr "सेकण्ड"
 
+#: ../libeog/eog-util.c:44
+msgid " (invalid Unicode)"
+msgstr "(अवैध यूनिकोड)"
+
+#: ../shell/eog-file-chooser.c:129
+msgid "All Files"
+msgstr "सभी फ़ाइलें"
+
+#: ../shell/eog-file-chooser.c:134
+msgid "All Images"
+msgstr "सभी छवियाँ"
+
+#  Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../shell/eog-file-chooser.c:155
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#  Pixel size of image: width x height in pixel
+#. Pixel size of image: width x height in pixel
+#: ../shell/eog-file-chooser.c:251
+#, c-format
+msgid "%s x %s pixels"
+msgid_plural "%s x %s pixels"
+msgstr[0] "%s x %s पिक्सल"
+msgstr[1] "%s x %s पिक्सल"
+
+#: ../shell/eog-file-chooser.c:397
+msgid "Open in new window"
+msgstr "नए विंडो में खोलें"
+
+#: ../shell/eog-file-chooser.c:425
+msgid "Load Image"
+msgstr "छवि लोड करें"
+
+#: ../shell/eog-file-chooser.c:433
+msgid "Save Image"
+msgstr "छवि सहेजें"
+
+#: ../shell/eog-file-chooser.c:441
+msgid "Open Folder"
+msgstr "फ़ोल्डर खोलें"
+
+#: ../shell/eog-preferences.c:131
+msgid "Could not display help for Eye of GNOME"
+msgstr "गनोम की आँख हेतु मदद नहीं दिखा सकता"
+
+#: ../shell/eog-save-as-dialog-helper.c:143
+msgid "Option not available."
+msgstr "विकल्प उपलब्ध नहीं"
+
+#: ../shell/eog-save-as-dialog-helper.c:145
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr ""
+"इस फ़ंक्शन का उपयोग करने हेतु आपको libexif लाइब्रेरी की आवश्यकता होगी. कृपया libexif "
+"संस्थापित करें (http://libexif.sf.net) तथा गनोम की आँख पुनर्संयोजित करें."
+
+#: ../shell/eog-save-as-dialog-helper.c:219
+msgid "as is"
+msgstr "जैसा है वैसा ही"
+
+#: ../shell/eog-save-dialog-helper.c:197
+#, c-format
+msgid "Saving image %s."
+msgstr "छवि सहेज रहे हैं %s"
+
+#: ../shell/eog-save-dialog-helper.c:243
+msgid "Cancel saving ..."
+msgstr "सहेजना रद्द करें ..."
+
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:526
+#: ../shell/eog-window.c:534
 msgid "translator-credits"
 msgstr ""
 "रविशंकर श्रीवास्तव <raviratlami@yahoo.com>\n"
 "राजेश रंजन <rajeshkajha@yahoo.com>"
 
-#: ../shell/eog-window.c:535 ../shell/eog-window.c:2820
-#: ../shell/eog-window.c:3392 ../shell/main.c:684
+#: ../shell/eog-window.c:543 ../shell/eog-window.c:2895
+#: ../shell/eog-window.c:3468 ../shell/main.c:683
 msgid "Eye of GNOME"
 msgstr "गनोम की आँख"
 
-#: ../shell/eog-window.c:538
+#: ../shell/eog-window.c:546
 msgid "The GNOME image viewing and cataloging program."
 msgstr "गनोम का छवि प्रदर्शक तथा केटलॉग बनाने का प्रोग्राम"
 
-#: ../shell/eog-window.c:567
+#: ../shell/eog-window.c:575
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -501,293 +512,301 @@ msgstr ""
 "गनोम की आँख हेतु मदद नहीं दिखा सकता.\n"
 "%s"
 
-#: ../shell/eog-window.c:863
+#: ../shell/eog-window.c:871
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "फ़ाइलों को मिटाकर लिखें %s?"
 
-#: ../shell/eog-window.c:864
+#: ../shell/eog-window.c:872
 msgid "File exists. Do you want to overwrite it?"
 msgstr "फ़ाइल मौजूद है क्या आप इसे मिटाकर लिखना चाहते हैं?"
 
-#: ../shell/eog-window.c:875 ../shell/eog-window.c:891
+#: ../shell/eog-window.c:883 ../shell/eog-window.c:899
 msgid "Skip"
 msgstr "छोडें"
 
-#: ../shell/eog-window.c:876
+#: ../shell/eog-window.c:884
 msgid "Overwrite"
 msgstr "मिटाकर लिखें"
 
-#: ../shell/eog-window.c:881
+#: ../shell/eog-window.c:889
 #, c-format
 msgid "Error on saving %s."
 msgstr "सहेजने में त्रुटि %s"
 
-#: ../shell/eog-window.c:892 ../shell/eog-window.c:1445
+#: ../shell/eog-window.c:900 ../shell/eog-window.c:1453
 msgid "Retry"
 msgstr "पुनः कोशिश करें"
 
-#: ../shell/eog-window.c:1309
+#: ../shell/eog-window.c:1317
 msgid "Couldn't determine destination uri."
 msgstr "गंतव्य uri निश्चित नहीं कर सका."
 
-#: ../shell/eog-window.c:1431
+#: ../shell/eog-window.c:1439
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "%s का फ़ाइल प्रारूप निर्धारित नहीं कर सका"
 
-#: ../shell/eog-window.c:1432
+#: ../shell/eog-window.c:1440
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "कृपया एक अनुरूप फ़ाइलनाम उपसर्ग उपयोग करें या एक फ़ाइल फ़ॉर्मेट चुनें."
 
-#: ../shell/eog-window.c:1570
+#: ../shell/eog-window.c:1578
 msgid "Error on saving images."
 msgstr "छवि सहेजने में त्रुटि."
 
-#: ../shell/eog-window.c:1823
+#: ../shell/eog-window.c:1659 ../shell/eog-window.c:3100
+msgid "Print"
+msgstr "छापें"
+
+#: ../shell/eog-window.c:1693
+msgid "Print Preview"
+msgstr "छपाई पूर्वावलोकन"
+
+#: ../shell/eog-window.c:1891
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "क्या आप %i छवि को रद्दी में भेजना चाहते हैं ?"
 msgstr[1] "क्या आप %i छवियों को रद्दी में भेजना चाहते हैं ?"
 
-#: ../shell/eog-window.c:1864
+#: ../shell/eog-window.c:1932
 msgid "Couldn't access trash."
 msgstr "रद्दी पर पंहुच नहीं सका."
 
-#: ../shell/eog-window.c:1938
+#: ../shell/eog-window.c:2006
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "छवि %s मिटाने में त्रुटि"
 
 #  [image width] x [image height] pixel  [bytes]    [zoom in percent]
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2693
+#: ../shell/eog-window.c:2768
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i पिक्सेल  %s    %i%%"
 msgstr[1] "%i x %i पिक्सेल  %s    %i%%"
 
-#: ../shell/eog-window.c:2740
+#: ../shell/eog-window.c:2815
 #, c-format
 msgid "Reason: %s"
 msgstr "कारण: %s"
 
-#: ../shell/eog-window.c:2864
+#: ../shell/eog-window.c:2939
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "%s के लिये विंब लोडिंग विफल"
 
-#: ../shell/eog-window.c:3002
+#: ../shell/eog-window.c:3077
 msgid "_File"
 msgstr "फ़ाइल (_F)"
 
-#: ../shell/eog-window.c:3003
+#: ../shell/eog-window.c:3078
 msgid "_Edit"
 msgstr "संपादन (_E)"
 
-#: ../shell/eog-window.c:3004
+#: ../shell/eog-window.c:3079
 msgid "_View"
 msgstr "देखें (_V)"
 
-#: ../shell/eog-window.c:3005
+#: ../shell/eog-window.c:3080
 msgid "_Image"
 msgstr "छवि (_I)"
 
-#: ../shell/eog-window.c:3006
+#: ../shell/eog-window.c:3081
 msgid "_Help"
 msgstr "मदद (_H)"
 
-#: ../shell/eog-window.c:3007
+#: ../shell/eog-window.c:3082
 msgid "_New Window"
 msgstr "नया विंडो (_N)"
 
-#: ../shell/eog-window.c:3007
+#: ../shell/eog-window.c:3082
 msgid "Open a new window"
 msgstr "एक नया विंडो खोलें"
 
-#: ../shell/eog-window.c:3008
+#: ../shell/eog-window.c:3083
 msgid "_Open..."
 msgstr "खोलें (_O) ..."
 
-#: ../shell/eog-window.c:3008
+#: ../shell/eog-window.c:3083
 msgid "Open a file"
 msgstr "एक फ़ाइल खोलें"
 
-#: ../shell/eog-window.c:3009
+#: ../shell/eog-window.c:3084
 msgid "Open _Folder..."
 msgstr "फ़ोल्डर खोलें (_F)..."
 
-#: ../shell/eog-window.c:3009
+#: ../shell/eog-window.c:3084
 msgid "Open a folder"
 msgstr "एक फ़ोल्डर खोलें"
 
-#: ../shell/eog-window.c:3010
+#: ../shell/eog-window.c:3085
 msgid "_Close"
 msgstr "बंद करें (_C)"
 
-#: ../shell/eog-window.c:3010
+#: ../shell/eog-window.c:3085
 msgid "Close window"
 msgstr "विंडो बंद करें"
 
 # libgnomeui/gnome-app-helper.c:211
-#: ../shell/eog-window.c:3011
+#: ../shell/eog-window.c:3086
 msgid "Prefere_nces"
 msgstr "वरीयताएँ (_n)"
 
-#: ../shell/eog-window.c:3011
+#: ../shell/eog-window.c:3086
 msgid "Preferences for Eye of GNOME"
 msgstr "ग्नोम की आँख हेतु वरीयताएँ"
 
-#: ../shell/eog-window.c:3012
+#: ../shell/eog-window.c:3087
 msgid "_Contents"
 msgstr "विषय सूची (_C)"
 
-#: ../shell/eog-window.c:3012
+#: ../shell/eog-window.c:3087
 msgid "Help On this application"
 msgstr "इस अनुप्रयोग पर मदद"
 
-#: ../shell/eog-window.c:3013
+#: ../shell/eog-window.c:3088
 msgid "_About"
 msgstr "के बारे में (_A)"
 
-#: ../shell/eog-window.c:3013
+#: ../shell/eog-window.c:3088
 msgid "About this application"
 msgstr "इस अनुप्रयोग के बारे में"
 
-#: ../shell/eog-window.c:3018
+#: ../shell/eog-window.c:3093
 msgid "_Toolbar"
 msgstr "उपकरण-पट्टी (_T)"
 
-#: ../shell/eog-window.c:3018
+#: ../shell/eog-window.c:3093
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "मौजूदा विंडो में उपकरण पट्टी की दृश्यता बदलें"
 
-#: ../shell/eog-window.c:3019
+#: ../shell/eog-window.c:3094
 msgid "_Statusbar"
 msgstr "स्थिति-पट्टी (_S)"
 
-#: ../shell/eog-window.c:3019
+#: ../shell/eog-window.c:3094
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "मौजूदा विंडो में प्रस्थिति पट्टी की दृश्यता बदलें"
 
 # libgnomeui/gnome-app-helper.c:114
-#: ../shell/eog-window.c:3023
+#: ../shell/eog-window.c:3098
 msgid "_Save"
 msgstr "सहेजें (_S)"
 
-#: ../shell/eog-window.c:3024
+#: ../shell/eog-window.c:3099
 msgid "Save _As"
 msgstr "इस रूप में सहेजें..(_A)"
 
-#: ../shell/eog-window.c:3026
+#: ../shell/eog-window.c:3102
 msgid "_Undo"
 msgstr "पूर्ववत् करें (_U)"
 
-#: ../shell/eog-window.c:3028
+#: ../shell/eog-window.c:3104
 msgid "Flip _Horizontal"
 msgstr "आड़ा पलटें (_H)"
 
-#: ../shell/eog-window.c:3029
+#: ../shell/eog-window.c:3105
 msgid "Flip _Vertical"
 msgstr "खड़ा पलटें (_V)"
 
-#: ../shell/eog-window.c:3031
+#: ../shell/eog-window.c:3107
 msgid "_Rotate Clockwise"
 msgstr "घड़ी की दिशा में घुमाएँ (_R)"
 
-#: ../shell/eog-window.c:3032
+#: ../shell/eog-window.c:3108
 msgid "Rotate Counter C_lockwise"
 msgstr "घड़ी की विपरीत दिशा में घुमाएँ (_l)"
 
-#: ../shell/eog-window.c:3033
+#: ../shell/eog-window.c:3109
 msgid "Rotat_e 180°"
 msgstr "180 अंश घुमाएँ (_e)"
 
-#: ../shell/eog-window.c:3035
+#: ../shell/eog-window.c:3111
 msgid "Delete"
 msgstr "मिटाएँ"
 
-#: ../shell/eog-window.c:3037
+#: ../shell/eog-window.c:3113
 msgid "_Full Screen"
 msgstr "पूर्ण स्क्रीन (_F)"
 
-#: ../shell/eog-window.c:3038
+#: ../shell/eog-window.c:3114
 msgid "_Slideshow"
 msgstr "स्लाइड शो (_S)"
 
 #. accelerators
-#: ../shell/eog-window.c:3039 ../shell/eog-window.c:3045
+#: ../shell/eog-window.c:3115 ../shell/eog-window.c:3121
 msgid "_Zoom In"
 msgstr "बड़ा आकार (_Z)"
 
-#: ../shell/eog-window.c:3040
+#: ../shell/eog-window.c:3116
 msgid "Zoom _Out"
 msgstr "छोटा आकार (_O)"
 
-#: ../shell/eog-window.c:3041
+#: ../shell/eog-window.c:3117
 msgid "_Normal Size"
 msgstr "सामान्य आकार (_N)"
 
-#: ../shell/eog-window.c:3042
+#: ../shell/eog-window.c:3118
 msgid "Best _Fit"
 msgstr "सर्वोत्तम अनुरूप (_F)"
 
-#: ../shell/eog-window.c:3049
+#: ../shell/eog-window.c:3125
 msgid "Image _Information"
 msgstr "विंब सूचना (_I)"
 
-#: ../shell/eog-window.c:3049
+#: ../shell/eog-window.c:3125
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "मौजूदा विंडो में सूचना पैन की दृश्यता बदलें"
 
-#: ../shell/eog-window.c:3059
+#: ../shell/eog-window.c:3135
 msgid "New"
 msgstr "नया"
 
-#: ../shell/eog-window.c:3060 ../shell/eog-window.c:3061
+#: ../shell/eog-window.c:3136 ../shell/eog-window.c:3137
 msgid "Open"
 msgstr "खोलें"
 
-#: ../shell/eog-window.c:3062
+#: ../shell/eog-window.c:3138
 msgid "Close"
 msgstr "बन्द करो"
 
 # libgnomeui/gnome-app-helper.c:114
-#: ../shell/eog-window.c:3063
+#: ../shell/eog-window.c:3139
 msgid "Save"
 msgstr "सहेजें"
 
-#: ../shell/eog-window.c:3065
+#: ../shell/eog-window.c:3141
 msgid "Undo"
 msgstr "अनावृत्ति"
 
-#: ../shell/eog-window.c:3068
+#: ../shell/eog-window.c:3144
 msgid "Right"
 msgstr "दाहिना"
 
-#: ../shell/eog-window.c:3069
+#: ../shell/eog-window.c:3145
 msgid "Left"
 msgstr "बायाँ"
 
-#: ../shell/eog-window.c:3072
+#: ../shell/eog-window.c:3148
 msgid "In"
 msgstr "अन्दर"
 
-#: ../shell/eog-window.c:3073
+#: ../shell/eog-window.c:3149
 msgid "Out"
 msgstr "बाहर"
 
-#: ../shell/eog-window.c:3074
+#: ../shell/eog-window.c:3150
 msgid "Normal"
 msgstr "सामान्य"
 
-#: ../shell/eog-window.c:3075
+#: ../shell/eog-window.c:3151
 msgid "Fit"
 msgstr "अनुरूप"
 
-#: ../shell/eog-window.c:3227
+#: ../shell/eog-window.c:3303
 msgid "User interface description not found."
 msgstr "उपयोक्ता अंतरफलक विवरण नहीं मिला"
 
@@ -828,12 +847,4 @@ msgstr[1] "फ़ाइलें नहीं मिलीं."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "'%s' को खोल नही पाया"
-
-#: ../libeog/eog-util.c:44
-msgid " (invalid Unicode)"
-msgstr "(अवैध यूनिकोड)"
-
-#: ../shell/eog-preferences.c:131
-msgid "Could not display help for Eye of GNOME"
-msgstr "गनोम की आँख हेतु मदद नहीं दिखा सकता"
 
