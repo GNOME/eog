@@ -1960,8 +1960,8 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
 	pix_width = gdk_pixbuf_get_width (printed_image);
 	pix_height = gdk_pixbuf_get_height (printed_image);
 
-	width = (gint)paper_width - 40; /* - 2 * gnome_paper_tmargin (paper); */
-	height = (gint)paper_height - 40; /* - 2 * gnome_paper_rmargin (paper); */
+	width = (gint)paper_width;
+	height = (gint)paper_height;
 
 	if (((gdouble) pix_height/pix_width) >
 	    ((gdouble)width/height)) {
@@ -1972,6 +1972,9 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
 		height = width * (gdouble)pix_height/pix_width;
 	}
 
+	width -= 40;
+	height -= 40;
+	
 	gnome_print_translate (context, (paper_width - width)/2.0, (paper_height - height)/2.0);
 	gnome_print_scale (context, width, height);
 	
