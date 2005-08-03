@@ -509,8 +509,11 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	GdkPixbuf *pixbuf;
 	
 	static const char *authors[] = {
-		"Jens Finke <jens@triq.net>",
+		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
 		"",
+		"Philip Van Hoof <pvanhoof@gnome.org>",
+                "Paolo Borelli <pborelli@katamail.com>",
+		"Jens Finke <jens@triq.net>",
 		"Martin Baulig <martin@home-of-linux.org>",
 		"Arik Devens <arik@gnome.org>",
 		"Michael Meeks <mmeeks@gnu.org>",
