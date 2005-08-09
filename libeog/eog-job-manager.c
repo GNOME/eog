@@ -141,7 +141,7 @@ eog_job_manager_add (EogJob *job)
 
 		if (thread_id < MAX_THREADS) {
 			threads[thread_id].thread =
-				g_thread_create (thread_start_func, GUINT_TO_POINTER (thread_id), TRUE, NULL);
+				g_thread_create (thread_start_func, GUINT_TO_POINTER (thread_id), FALSE, NULL);
 			threads[thread_id].job = NULL;
 		}
 	}

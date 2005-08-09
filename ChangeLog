@@ -1,3 +1,10 @@
+2005-08-09  Tim Gerla  <tim+gnomebugs@gerla.net>
+        * libeog/eog-job-manager.c: Apply patch from Ross Burton 
+        <ross@burtonini.com> which stops creating joinable threads
+        when the threads are never joined. This saves 8M from the
+        virtual address space for every thread created, and never
+        returned.
+
 2005-08-03  Tim Gerla  <tim+gnomebugs@gerla.net>
         * AUTHORS, shell/eog-window.c: Update authors list.
 
