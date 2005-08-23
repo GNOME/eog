@@ -111,6 +111,11 @@ eog_image_dispose (GObject *object)
 		priv->file_type = NULL;
 	}
 	
+	if (priv->error_message) {
+		g_free (priv->error_message);
+		priv->error_message = NULL;
+	}
+	
 	if (priv->status_mutex) {
 		g_mutex_free (priv->status_mutex);
 		priv->status_mutex = NULL;
@@ -263,6 +268,7 @@ eog_image_instance_init (EogImage *img)
 	priv->modified = FALSE;
 	priv->status_mutex = g_mutex_new ();
 	priv->load_finished = NULL;
+	priv->error_message = NULL;
 #if HAVE_EXIF
 	priv->exif = NULL;
 #endif
@@ -908,6 +914,8 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	}
 
 	if (priv->status == EOG_IMAGE_STATUS_FAILED) {
+		g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_NOT_LOADED, 
+			     priv->error_message);
 		return FALSE;
 	}
 	
@@ -946,6 +954,12 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	}
 	else {
 		priv->status = EOG_IMAGE_STATUS_FAILED;
+
+		/* set the image error message */
+		if (priv->error_message != NULL) {
+			g_free (priv->error_message);
+		}
+		priv->error_message = g_strdup((*error)->message);
 	}
 
 	return success;
