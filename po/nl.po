@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-10 13:19+0000\n"
-"PO-Revision-Date: 2005-07-10 22:13+0100\n"
+"POT-Creation-Date: 2005-08-19 06:06+0000\n"
+"PO-Revision-Date: 2005-08-19 16:16+0100\n"
 "Last-Translator: Michiel Sikkes <michiels@gnome.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "Hernoemen van:"
 msgid "Replace spaces by underscore"
 msgstr "Vervang spaties door underscores"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3019
+#: ../eog.glade.h:22 ../shell/eog-window.c:3143
 msgid "Save As"
 msgstr "Opslaan als..."
 
@@ -274,44 +274,6 @@ msgstr ""
 "Of de afbeelding geïnterpoleerd moet worden of niet. Dit zorgt voor een "
 "betere beeldkwaliteit maar is wat langzamer."
 
-#: ../libeog/eog-file-selection.c:126
-msgid "All Files"
-msgstr "Alle bestanden"
-
-#: ../libeog/eog-file-selection.c:131
-msgid "All Images"
-msgstr "Alle afbeeldingen"
-
-#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../libeog/eog-file-selection.c:152
-#, c-format
-msgid "%s (*.%s)"
-msgstr "%s (*.%s)"
-
-#. Pixel size of image: width x height in pixel
-#: ../libeog/eog-file-selection.c:248
-#, c-format
-msgid "%s x %s pixels"
-msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s pixels"
-msgstr[1] "%s x %s pixels"
-
-#: ../libeog/eog-file-selection.c:410
-msgid "Open in new window"
-msgstr "In nieuw venster openen"
-
-#: ../libeog/eog-file-selection.c:436
-msgid "Load Image"
-msgstr "Afbeelding laden"
-
-#: ../libeog/eog-file-selection.c:444
-msgid "Save Image"
-msgstr "Afbeelding opslaan"
-
-#: ../libeog/eog-file-selection.c:452
-msgid "Open Folder"
-msgstr "Map openen"
-
 #: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
@@ -321,23 +283,23 @@ msgstr "Kon tijdelijk bestand voor opslaan van %s niet aanmaken."
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Allocatie van geheugen voor JPEG-bestand is mislukt"
 
-#: ../libeog/eog-image.c:404
+#: ../libeog/eog-image.c:421
 msgid "Transformation on unloaded image."
 msgstr "Transformatie bij ongeladen afbeelding."
 
-#: ../libeog/eog-image.c:515
+#: ../libeog/eog-image.c:532
 msgid "EXIF not supported for this file format."
 msgstr "EXIF wordt niet ondersteund voor dit bestandsformaat."
 
-#: ../libeog/eog-image.c:1004 ../libeog/eog-image.c:1217
+#: ../libeog/eog-image.c:1171 ../libeog/eog-image.c:1384
 msgid "File exists"
 msgstr "Bestand bestaat"
 
-#: ../libeog/eog-image.c:1157 ../libeog/eog-image.c:1285
+#: ../libeog/eog-image.c:1324 ../libeog/eog-image.c:1452
 msgid "No image loaded."
 msgstr "Geen afbeelding geladen."
 
-#: ../libeog/eog-image.c:1166 ../libeog/eog-image.c:1294
+#: ../libeog/eog-image.c:1333 ../libeog/eog-image.c:1461
 msgid "Temporary file creation failed."
 msgstr "Het aanmaken van een tijdelijk bestand mislukte."
 
@@ -403,31 +365,6 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-save-as-dialog-helper.c:144
-msgid "Option not available."
-msgstr "Optie niet beschikbaar."
-
-#: ../libeog/eog-save-as-dialog-helper.c:146
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"Om deze functie te gebruiken heeft u de libexif-bibliotheek nodig. "
-"Installeer libexif (http://libexif.sf.net) en compileer Eye of Gnome opnieuw."
-
-#: ../libeog/eog-save-as-dialog-helper.c:220
-msgid "as is"
-msgstr "zoals het is"
-
-#: ../libeog/eog-save-dialog-helper.c:197
-#, c-format
-msgid "Saving image %s."
-msgstr "Bezig met opslaan van afbeelding %s."
-
-#: ../libeog/eog-save-dialog-helper.c:243
-msgid "Cancel saving ..."
-msgstr "Opslaan annuleren"
-
 #: ../libeog/eog-uri-converter.c:1027
 msgid "At least two file names are equal."
 msgstr "Tenminste twee bestandsnamen zijn identiek."
@@ -472,11 +409,82 @@ msgstr "Minuut"
 msgid "Second"
 msgstr "Seconde"
 
+#: ../libeog/eog-util.c:44
+msgid " (invalid Unicode)"
+msgstr " (ongeldige Unicode)"
+
+#: ../shell/eog-file-chooser.c:129
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: ../shell/eog-file-chooser.c:134
+msgid "All Images"
+msgstr "Alle afbeeldingen"
+
+#. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
+#: ../shell/eog-file-chooser.c:155
+#, c-format
+msgid "%s (*.%s)"
+msgstr "%s (*.%s)"
+
+#. Pixel size of image: width x height in pixel
+#: ../shell/eog-file-chooser.c:251
+#, c-format
+msgid "%s x %s pixels"
+msgid_plural "%s x %s pixels"
+msgstr[0] "%s x %s pixels"
+msgstr[1] "%s x %s pixels"
+
+#: ../shell/eog-file-chooser.c:397
+msgid "Open in new window"
+msgstr "In nieuw venster openen"
+
+#: ../shell/eog-file-chooser.c:425
+msgid "Load Image"
+msgstr "Afbeelding laden"
+
+#: ../shell/eog-file-chooser.c:433
+msgid "Save Image"
+msgstr "Afbeelding opslaan"
+
+#: ../shell/eog-file-chooser.c:441
+msgid "Open Folder"
+msgstr "Map openen"
+
+#: ../shell/eog-preferences.c:131
+msgid "Could not display help for Eye of GNOME"
+msgstr "Kon de hulp voor Eye of GNOME niet weergeven"
+
+#: ../shell/eog-save-as-dialog-helper.c:143
+msgid "Option not available."
+msgstr "Optie niet beschikbaar."
+
+#: ../shell/eog-save-as-dialog-helper.c:145
+msgid ""
+"To use this function you need the libexif library. Please install libexif "
+"(http://libexif.sf.net) and recompile Eye of GNOME."
+msgstr ""
+"Om deze functie te gebruiken heeft u de libexif-bibliotheek nodig. "
+"Installeer libexif (http://libexif.sf.net) en compileer Eye of Gnome opnieuw."
+
+#: ../shell/eog-save-as-dialog-helper.c:219
+msgid "as is"
+msgstr "zoals het is"
+
+#: ../shell/eog-save-dialog-helper.c:197
+#, c-format
+msgid "Saving image %s."
+msgstr "Bezig met opslaan van afbeelding %s."
+
+#: ../shell/eog-save-dialog-helper.c:243
+msgid "Cancel saving ..."
+msgstr "Opslaan annuleren"
+
 #. Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:522
+#: ../shell/eog-window.c:537
 msgid "translator-credits"
 msgstr ""
 "Vincent van Adrighem\n"
@@ -485,16 +493,16 @@ msgstr ""
 "Tino Meinen\n"
 "Zie ook http://nl.gnome.org"
 
-#: ../shell/eog-window.c:531 ../shell/eog-window.c:2778
-#: ../shell/eog-window.c:3347 ../shell/main.c:684
+#: ../shell/eog-window.c:546 ../shell/eog-window.c:2898
+#: ../shell/eog-window.c:3471 ../shell/main.c:683
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:534
+#: ../shell/eog-window.c:549
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Afbeeldingen bekijken en catalogusbeheer voor GNOME"
 
-#: ../shell/eog-window.c:563
+#: ../shell/eog-window.c:578
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -503,289 +511,297 @@ msgstr ""
 "Kon de hulp voor Eye of GNOME niet weergeven.\n"
 "%s"
 
-#: ../shell/eog-window.c:859
+#: ../shell/eog-window.c:874
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Bestand %s overschrijven?"
 
-#: ../shell/eog-window.c:860
+#: ../shell/eog-window.c:875
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Bestand bestaat. Wilt u het overschrijven?"
 
-#: ../shell/eog-window.c:871 ../shell/eog-window.c:887
+#: ../shell/eog-window.c:886 ../shell/eog-window.c:902
 msgid "Skip"
 msgstr "Overslaan"
 
-#: ../shell/eog-window.c:872
+#: ../shell/eog-window.c:887
 msgid "Overwrite"
 msgstr "Overschrijven"
 
-#: ../shell/eog-window.c:877
+#: ../shell/eog-window.c:892
 #, c-format
 msgid "Error on saving %s."
 msgstr "Fout bij het opslaan van %s."
 
-#: ../shell/eog-window.c:888 ../shell/eog-window.c:1441
+#: ../shell/eog-window.c:903 ../shell/eog-window.c:1456
 msgid "Retry"
 msgstr "Probeer het opnieuw"
 
-#: ../shell/eog-window.c:1305
+#: ../shell/eog-window.c:1320
 msgid "Couldn't determine destination uri."
 msgstr "Kan doelbestemming niet bepalen."
 
-#: ../shell/eog-window.c:1427
+#: ../shell/eog-window.c:1442
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Kan het bestandstype van %s niet herkennen."
 
-#: ../shell/eog-window.c:1428
+#: ../shell/eog-window.c:1443
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Gebruik een goede extensie of selecteer een bestandsformaat."
 
-#: ../shell/eog-window.c:1566
+#: ../shell/eog-window.c:1581
 msgid "Error on saving images."
 msgstr "Fout bij het opslaan van de afbeeldingen."
 
-#: ../shell/eog-window.c:1819
+#: ../shell/eog-window.c:1662 ../shell/eog-window.c:3103
+msgid "Print"
+msgstr "Afdrukken..."
+
+#: ../shell/eog-window.c:1696
+msgid "Print Preview"
+msgstr "Afdrukvoorbeeld..."
+
+#: ../shell/eog-window.c:1894
 #, c-format
 msgid "Do you really want to move %i image to trash?"
 msgid_plural "Do you really want to move %i images to trash?"
 msgstr[0] "Wilt u echt %i afbeelding naar de prullenbak verplaatsen?"
 msgstr[1] "Wilt u echt %i afbeeldingen naar de prullenbak verplaatsen?"
 
-#: ../shell/eog-window.c:1860
+#: ../shell/eog-window.c:1935
 msgid "Couldn't access trash."
 msgstr "Kan de prullenbak niet bereiken."
 
-#: ../shell/eog-window.c:1934
+#: ../shell/eog-window.c:2009
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fout bij het verwijderen van afbeelding %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2689
+#: ../shell/eog-window.c:2771
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i pixels  %s    %i%%"
 msgstr[1] "%i x %i pixels  %s    %i%%"
 
-#: ../shell/eog-window.c:2736
+#: ../shell/eog-window.c:2818
 #, c-format
 msgid "Reason: %s"
 msgstr "Reden: %s"
 
-#: ../shell/eog-window.c:2819
+#: ../shell/eog-window.c:2942
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Laden van afbeelding mislukt voor %s"
 
-#: ../shell/eog-window.c:2957
+#: ../shell/eog-window.c:3080
 msgid "_File"
 msgstr "_Bestand"
 
-#: ../shell/eog-window.c:2958
+#: ../shell/eog-window.c:3081
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: ../shell/eog-window.c:2959
+#: ../shell/eog-window.c:3082
 msgid "_View"
 msgstr "Beel_d"
 
-#: ../shell/eog-window.c:2960
+#: ../shell/eog-window.c:3083
 msgid "_Image"
 msgstr "_Afbeelding"
 
-#: ../shell/eog-window.c:2961
+#: ../shell/eog-window.c:3084
 msgid "_Help"
 msgstr "_Hulp"
 
-#: ../shell/eog-window.c:2962
+#: ../shell/eog-window.c:3085
 msgid "_New Window"
 msgstr "_Nieuw venster"
 
-#: ../shell/eog-window.c:2962
+#: ../shell/eog-window.c:3085
 msgid "Open a new window"
 msgstr "Nieuw venster openen"
 
-#: ../shell/eog-window.c:2963
+#: ../shell/eog-window.c:3086
 msgid "_Open..."
 msgstr "_Openen..."
 
-#: ../shell/eog-window.c:2963
+#: ../shell/eog-window.c:3086
 msgid "Open a file"
 msgstr "Bestand openen"
 
-#: ../shell/eog-window.c:2964
+#: ../shell/eog-window.c:3087
 msgid "Open _Folder..."
 msgstr "_Map openen..."
 
-#: ../shell/eog-window.c:2964
+#: ../shell/eog-window.c:3087
 msgid "Open a folder"
 msgstr "Een map openen"
 
-#: ../shell/eog-window.c:2965
+#: ../shell/eog-window.c:3088
 msgid "_Close"
 msgstr "Sl_uiten"
 
-#: ../shell/eog-window.c:2965
+#: ../shell/eog-window.c:3088
 msgid "Close window"
 msgstr "Venster sluiten"
 
-#: ../shell/eog-window.c:2966
+#: ../shell/eog-window.c:3089
 msgid "Prefere_nces"
 msgstr "_Voorkeuren"
 
-#: ../shell/eog-window.c:2966
+#: ../shell/eog-window.c:3089
 msgid "Preferences for Eye of GNOME"
 msgstr "Voorkeuren voor Eye of GNOME"
 
-#: ../shell/eog-window.c:2967
+#: ../shell/eog-window.c:3090
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: ../shell/eog-window.c:2967
+#: ../shell/eog-window.c:3090
 msgid "Help On this application"
 msgstr "Hulp voor dit programma"
 
-#: ../shell/eog-window.c:2968
+#: ../shell/eog-window.c:3091
 msgid "_About"
 msgstr "In_fo"
 
-#: ../shell/eog-window.c:2968
+#: ../shell/eog-window.c:3091
 msgid "About this application"
 msgstr "Info over deze toepassing"
 
-#: ../shell/eog-window.c:2973
+#: ../shell/eog-window.c:3096
 msgid "_Toolbar"
 msgstr "_Werkbalk"
 
-#: ../shell/eog-window.c:2973
+#: ../shell/eog-window.c:3096
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Toont of verbergt de werkbalk van het huidige venster"
 
-#: ../shell/eog-window.c:2974
+#: ../shell/eog-window.c:3097
 msgid "_Statusbar"
 msgstr "_Statusbalk"
 
-#: ../shell/eog-window.c:2974
+#: ../shell/eog-window.c:3097
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Toont of verbergt de statusbalk van het huidige venster"
 
-#: ../shell/eog-window.c:2978
+#: ../shell/eog-window.c:3101
 msgid "_Save"
 msgstr "Op_slaan"
 
-#: ../shell/eog-window.c:2979
+#: ../shell/eog-window.c:3102
 msgid "Save _As"
 msgstr "Opslaan _als..."
 
-#: ../shell/eog-window.c:2981
+#: ../shell/eog-window.c:3105
 msgid "_Undo"
 msgstr "_Ongedaan maken"
 
-#: ../shell/eog-window.c:2983
+#: ../shell/eog-window.c:3107
 msgid "Flip _Horizontal"
 msgstr "_Horizontaal spiegelen"
 
-#: ../shell/eog-window.c:2984
+#: ../shell/eog-window.c:3108
 msgid "Flip _Vertical"
 msgstr "_Verticaal spiegelen"
 
-#: ../shell/eog-window.c:2986
+#: ../shell/eog-window.c:3110
 msgid "_Rotate Clockwise"
 msgstr "_Met de klok mee draaien"
 
-#: ../shell/eog-window.c:2987
+#: ../shell/eog-window.c:3111
 msgid "Rotate Counter C_lockwise"
 msgstr "_Tegen de klok in draaien"
 
-#: ../shell/eog-window.c:2988
+#: ../shell/eog-window.c:3112
 msgid "Rotat_e 180°"
 msgstr "180° Rot_eren"
 
-#: ../shell/eog-window.c:2990
+#: ../shell/eog-window.c:3114
 msgid "Delete"
 msgstr "Verwijder"
 
-#: ../shell/eog-window.c:2992
+#: ../shell/eog-window.c:3116
 msgid "_Full Screen"
 msgstr "_Schermvullend"
 
-#: ../shell/eog-window.c:2993
+#: ../shell/eog-window.c:3117
 msgid "_Slideshow"
 msgstr "_Diavoorstelling"
 
 #. accelerators
-#: ../shell/eog-window.c:2994 ../shell/eog-window.c:3000
+#: ../shell/eog-window.c:3118 ../shell/eog-window.c:3124
 msgid "_Zoom In"
 msgstr "_Inzoomen"
 
-#: ../shell/eog-window.c:2995
+#: ../shell/eog-window.c:3119
 msgid "Zoom _Out"
 msgstr "_Uitzoomen"
 
-#: ../shell/eog-window.c:2996
+#: ../shell/eog-window.c:3120
 msgid "_Normal Size"
 msgstr "_Normale afmetingen"
 
-#: ../shell/eog-window.c:2997
+#: ../shell/eog-window.c:3121
 msgid "Best _Fit"
 msgstr "_Passend"
 
-#: ../shell/eog-window.c:3004
+#: ../shell/eog-window.c:3128
 msgid "Image _Information"
 msgstr "Afbeeldings_informatie"
 
-#: ../shell/eog-window.c:3004
+#: ../shell/eog-window.c:3128
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Toont of verbergt de informatiebalk van het huidige venster"
 
-#: ../shell/eog-window.c:3014
+#: ../shell/eog-window.c:3138
 msgid "New"
 msgstr "Nieuw"
 
-#: ../shell/eog-window.c:3015 ../shell/eog-window.c:3016
+#: ../shell/eog-window.c:3139 ../shell/eog-window.c:3140
 msgid "Open"
 msgstr "Openen..."
 
-#: ../shell/eog-window.c:3017
+#: ../shell/eog-window.c:3141
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../shell/eog-window.c:3018
+#: ../shell/eog-window.c:3142
 msgid "Save"
 msgstr "Op_slaan"
 
-#: ../shell/eog-window.c:3020
+#: ../shell/eog-window.c:3144
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: ../shell/eog-window.c:3023
+#: ../shell/eog-window.c:3147
 msgid "Right"
 msgstr "Rechts"
 
-#: ../shell/eog-window.c:3024
+#: ../shell/eog-window.c:3148
 msgid "Left"
 msgstr "Links"
 
-#: ../shell/eog-window.c:3027
+#: ../shell/eog-window.c:3151
 msgid "In"
 msgstr "In"
 
-#: ../shell/eog-window.c:3028
+#: ../shell/eog-window.c:3152
 msgid "Out"
 msgstr "Uit"
 
-#: ../shell/eog-window.c:3029
+#: ../shell/eog-window.c:3153
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../shell/eog-window.c:3030
+#: ../shell/eog-window.c:3154
 msgid "Fit"
 msgstr "Passend maken"
 
-#: ../shell/eog-window.c:3182
+#: ../shell/eog-window.c:3306
 msgid "User interface description not found."
 msgstr "Beschrijving van de gebruikersinterface niet gevonden."
 
@@ -830,14 +846,6 @@ msgstr[1] "Bestanden niet gevonden."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kan `%s' niet openen"
-
-#: ../libeog/eog-util.c:44
-msgid " (invalid Unicode)"
-msgstr " (ongeldige Unicode)"
-
-#: ../shell/eog-preferences.c:131
-msgid "Could not display help for Eye of GNOME"
-msgstr "Kon de hulp voor Eye of GNOME niet weergeven"
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -932,9 +940,6 @@ msgstr "Kon de hulp voor Eye of GNOME niet weergeven"
 #~ msgid "Previews the image to be printed"
 #~ msgstr "Geeft een voorbeeld van een afdruk van de afbeelding"
 
-#~ msgid "Print Previe_w..."
-#~ msgstr "Afdruk_voorbeeld..."
-
 #~ msgid "Print Set_up"
 #~ msgstr "Afdrukin_stellingen"
 
@@ -952,9 +957,6 @@ msgstr "Kon de hulp voor Eye of GNOME niet weergeven"
 
 #~ msgid "Setup the page settings for your current printer"
 #~ msgstr "De paginainstellingen aanpassen voor uw huidige printer"
-
-#~ msgid "_Print..."
-#~ msgstr "Af_drukken..."
 
 #~ msgid "Preview"
 #~ msgstr "Voorbeeld"
