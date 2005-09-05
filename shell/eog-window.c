@@ -3374,7 +3374,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	/* left side holds the image view, right side the info view */
 	priv->hpane = gtk_hpaned_new (); /* eog_horizontal_splitter_new ();  */
 	gtk_paned_pack1 (GTK_PANED (priv->hpane), frame, TRUE, TRUE);
-	gtk_paned_pack2 (GTK_PANED (priv->hpane), priv->info_view, TRUE, TRUE);
+	gtk_paned_pack2 (GTK_PANED (priv->hpane), priv->info_view, FALSE, TRUE);
 
 	gtk_paned_pack1 (GTK_PANED (priv->vpane), priv->hpane, TRUE, TRUE);
 
