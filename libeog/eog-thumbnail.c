@@ -145,6 +145,7 @@ eog_thumb_data_new (GnomeVFSURI *uri, GError **error)
 	info    = gnome_vfs_file_info_new ();
 	result  = gnome_vfs_get_file_info_uri (uri, info, 
 					       GNOME_VFS_FILE_INFO_DEFAULT |
+					       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
 					       GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 	
 	if (result != GNOME_VFS_OK) {

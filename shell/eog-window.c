@@ -2885,7 +2885,6 @@ display_image_data (EogWindow *window, EogImage *image)
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->scroll_view), image);
 	eog_info_view_set_image (EOG_INFO_VIEW (priv->info_view), image);
-	update_status_bar (window);
 
 	if (priv->displayed_image != NULL)
 		g_object_unref (priv->displayed_image);
@@ -2898,7 +2897,9 @@ display_image_data (EogWindow *window, EogImage *image)
 		title = _("Eye of GNOME");		
 	}
 
-	gtk_window_set_title (GTK_WINDOW (window), title);		
+	gtk_window_set_title (GTK_WINDOW (window), title);
+
+	update_status_bar (window);
 }
 
 /* this runs in its own thread */

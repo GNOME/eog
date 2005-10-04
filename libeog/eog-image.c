@@ -455,7 +455,8 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 	info = gnome_vfs_file_info_new ();
 	result = gnome_vfs_get_file_info_uri (img->priv->uri,
 					      info,
-					      GNOME_VFS_FILE_INFO_DEFAULT);
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
 	if ((result != GNOME_VFS_OK) || (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) == 0) {
 		bytes = 0;
@@ -802,6 +803,11 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	gnome_vfs_close (handle);
 	
 	failed = (failed || bytes_read_total == 0 || priv->cancel_loading);
+
+	if (*error != NULL) {
+		failed = TRUE;
+		priv->status = EOG_IMAGE_STATUS_FAILED;
+	}
 
 	if (priv->cancel_loading) {
 		priv->cancel_loading = FALSE;
