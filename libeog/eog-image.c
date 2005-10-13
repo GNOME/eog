@@ -88,7 +88,9 @@ eog_image_dispose (GObject *object)
 	
 	if (priv->toclean) {
 		g_free (priv->toclean);
-		gnome_vfs_monitor_cancel (priv->monitor_handle);
+		if (priv->monitor_handle != NULL) {
+			gnome_vfs_monitor_cancel (priv->monitor_handle);
+		}
 	}
 	
 	if (priv->uri) {

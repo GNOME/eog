@@ -936,14 +936,7 @@ model_image_removed (EogImageList *model, int pos, gpointer data)
 	/* update item arrangement */
 	priv->global_update_hints[N_ITEMS_CHANGED] = TRUE;
 	request_update (wlist);
-
-	/* inform others */
-	if (selection_changed) {
-		g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-	}
 }
-
-
 
 /* Set model handler for the wrapped list view */
 void
