@@ -449,7 +449,10 @@ eog_file_chooser_new (GtkFileChooserAction action)
 		eog_file_chooser_add_filter (EOG_FILE_CHOOSER (chooser));
 		eog_file_chooser_add_preview (chooser);
 	}
-	eog_file_chooser_add_open_new_window (chooser);
+
+	if (action != GTK_FILE_CHOOSER_ACTION_SAVE) {
+		eog_file_chooser_add_open_new_window (chooser);
+	}
 
 	if (last_dir[action] != NULL) {
 		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), last_dir [action]);

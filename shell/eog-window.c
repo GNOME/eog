@@ -791,6 +791,7 @@ typedef struct {
 typedef struct {
 	EogWindow   *window;
 	EogImage    *image;
+	EogImageSaveInfo *dest;
 	
 	GError      *error;
 	EogSaveResponse response;
@@ -870,7 +871,9 @@ save_error (SaveErrorData *edata)
 	if (err_code == EOG_IMAGE_ERROR_FILE_EXISTS) {
 		char *str;
 
-		str = eog_image_get_uri_for_display (edata->image); 
+	       	str = gnome_vfs_uri_to_string (edata->dest->uri, 
+					       GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+		
 		header = g_strdup_printf (_("Overwrite file %s?"), str);
 		detail = _("File exists. Do you want to overwrite it?");
 		g_free (str);
@@ -923,12 +926,20 @@ static void
 job_save_image_finished (EogJob *job, gpointer user_data, GError *error)
 {
 	SaveData *data = (SaveData*) user_data;
-
+	
 	eog_save_dialog_close (data->dlg, !data->cancel_save);
 
 	/* enable image modification functions */
 	gtk_action_group_set_sensitive (data->window->priv->actions_image,  TRUE);
 
+	/* Only set window title on "Save As" with a single image */
+	g_mutex_lock (data->lock);
+	if (data->dest != NULL && data->n_images == 1) {
+		g_print ("SET DONE\n");
+		gtk_window_set_title (GTK_WINDOW (data->window), 
+				      eog_image_get_caption (EOG_IMAGE (data->images->data)));
+	}
+	g_mutex_unlock (data->lock);
 }
 
 static SaveData*
@@ -1010,7 +1021,7 @@ job_save_image_progress (EogJob *job, gpointer user_data, float progress)
 }
 
 static SaveErrorData*
-save_error_data_new (GError *error, EogWindow *window, EogImage *image)
+save_error_data_new (GError *error, EogWindow *window, EogImage *image, EogImageSaveInfo *dest)
 {
 	SaveErrorData *edata;
 
@@ -1024,6 +1035,7 @@ save_error_data_new (GError *error, EogWindow *window, EogImage *image)
 	edata->lock     = g_mutex_new ();
 	edata->window   = window;
 	edata->image    = g_object_ref (image);
+	edata->dest     = dest;
 
 	if (error != NULL) {
 		edata->error    = g_error_copy (error); 
@@ -1053,7 +1065,7 @@ job_save_handle_error (SaveData *data, EogImage *image, GError *error)
 	SaveErrorData *edata;
 	gboolean success = FALSE;
 
-	edata = save_error_data_new (error, data->window, image);
+	edata = save_error_data_new (error, data->window, image, data->dest);
 	
 	g_mutex_lock (edata->lock);
 	g_idle_add ((GSourceFunc) save_error, edata);
@@ -1986,7 +1998,7 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
 	g_assert (images != NULL);
 	pos = eog_image_list_get_pos_by_img (list, EOG_IMAGE (images->data));
-
+	
 	/* FIXME: make a nice progress dialog */
 	/* Do the work actually. First try to delete the image from the disk. If this
 	 * is successfull, remove it from the screen. Otherwise show error dialog.
@@ -2028,12 +2040,15 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	g_list_free (images);
 
 	/* select image at previously saved position */
-	pos = MIN (pos, eog_image_list_length (list));
-	img = eog_image_list_get_img_by_pos (list, pos);
+	pos = MIN (pos, eog_image_list_length (list) - 1);
 
-	eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), img, TRUE);
-	if (img != NULL) {
-		g_object_unref (img);
+	if (pos >= 0) {
+		img = eog_image_list_get_img_by_pos (list, pos);
+
+		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), img, TRUE);
+		if (img != NULL) {
+			g_object_unref (img);
+		}
 	}
 }
 
@@ -2987,6 +3002,9 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	EogJobImageLoadData *data;
 
 	priv = window->priv;
+
+	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist)) == 0)
+		return;
 
 	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 	g_assert (EOG_IS_IMAGE (image));
