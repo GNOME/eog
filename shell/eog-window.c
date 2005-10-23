@@ -177,6 +177,7 @@ static void adapt_window_size (EogWindow *window, int width, int height);
 #endif
 static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
+static void add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri);
 
 
 static GtkWindowClass *parent_class;
@@ -2915,6 +2916,9 @@ display_image_data (EogWindow *window, EogImage *image)
 	gtk_window_set_title (GTK_WINDOW (window), title);
 
 	update_status_bar (window);
+
+	/* update recent files */
+	add_uri_to_recent_files (window, eog_image_get_uri (image));
 }
 
 /* this runs in its own thread */
@@ -3594,6 +3598,7 @@ adapt_window_size (EogWindow *window, int width, int height)
 	}
 #endif
 }
+#endif
 
 static void
 add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
@@ -3615,7 +3620,6 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 
 	g_free (text_uri);
 }
-#endif
 
 /**
  * eog_window_open:
@@ -3672,11 +3676,6 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	/* attach model to view */
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 	
-	/* update recent files */
-#if 0
-	add_uri_to_recent_files (window, uri);
-#endif
-
 	return TRUE;
 }
 
