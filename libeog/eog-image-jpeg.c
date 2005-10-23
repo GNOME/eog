@@ -421,7 +421,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	while (cinfo.next_scanline < cinfo.image_height) {
 		/* convert scanline from ARGB to RGB packed */
 		for (j = 0; j < w; j++)
-			memcpy (&(buf[j*3]), &(ptr[i*rowstride + j*3]), 3);
+			memcpy (&(buf[j*3]), &(ptr[i*rowstride + j*(rowstride/w)]), 3);
 		
 		/* write scanline */
 		jbuf = (JSAMPROW *)(&buf);
