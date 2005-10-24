@@ -2181,7 +2181,7 @@ open_recent_cb (GtkWidget *widget, const EggRecentItem *item, gpointer data)
 	uri = egg_recent_item_get_uri (item);
 	
 	list = g_list_prepend (list, uri);
-	
+
 	g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
 }
 

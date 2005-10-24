@@ -305,8 +305,8 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 			*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
 			break;
 		default:
-			/* FIXME: Use canonical uri instead of argument */
-			*error_list = g_list_prepend (*error_list, argument);
+			*error_list = g_list_prepend (*error_list, 
+						      gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
 			break;
 		}
 
