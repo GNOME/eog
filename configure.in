@@ -137,7 +137,7 @@ dnl ******************************************************
 dnl X development libraries check
 dnl ******************************************************
 
-if [ `$PKG_CONFIG --variable=target gtk+-2.0` = x11 ] ; then
+if test `$PKG_CONFIG --variable=target gtk+-2.0` = x11 ; then
   #
   # If Pango included the shared library dependencies from X11 in
   # the pkg-config output, then we use that (to avoid duplicates).
