@@ -93,8 +93,7 @@ create_thumbnail (EogThumbData *data, GError **error)
 #endif
 	g_assert (factory != NULL);
 	
-	if (!gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, data->uri_str, data->mtime) &&
-	    gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
+	if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
 	{
 		thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
 		
@@ -104,6 +103,9 @@ create_thumbnail (EogThumbData *data, GError **error)
 		else {
 			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		}
+	}
+	else {
+		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 	}
 	
 	return thumb;
