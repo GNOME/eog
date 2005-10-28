@@ -693,9 +693,7 @@ main (int argc, char **argv)
 #endif
 	eog_thumbnail_init ();
 
-	gnome_eog_png_path = g_build_filename (EOG_ICONDIR, "gnome-eog.png", NULL);
-	gtk_window_set_default_icon_from_file (gnome_eog_png_path, NULL);
-	g_free (gnome_eog_png_path);
+	gtk_window_set_default_icon_name ("image-viewer");
 
 	client = gnome_master_client ();
 

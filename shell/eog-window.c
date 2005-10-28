@@ -507,7 +507,6 @@ static void
 verb_HelpAbout_cb (GtkAction *action, gpointer data)
 {
 	EogWindow *window;
-	GdkPixbuf *pixbuf;
 	
 	static const char *authors[] = {
 		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
@@ -529,17 +528,12 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 		NULL
 	};
 	const char *translators;
-	char *gnome_eog_png_path;
 
 	/* Translators should localize the following string
 	 * which will give them credit in the About box.
 	 * E.g. "Fulano de Tal <fulano@detal.com>"
 	 */
 	translators = _("translator-credits");
-
-	gnome_eog_png_path = g_build_filename (EOG_ICONDIR, "gnome-eog.png", NULL);
-	pixbuf = gdk_pixbuf_new_from_file (gnome_eog_png_path, NULL);
-	g_free (gnome_eog_png_path);
 
 	window = EOG_WINDOW (data);
 
@@ -551,11 +545,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 			"authors", authors,
 			"documenters", documenters,
 			"translator-credits", translators,
-			"logo", pixbuf,
 			NULL);
-	
-	if (pixbuf != NULL) 
-		g_object_unref (pixbuf);
 }
 
 static void
