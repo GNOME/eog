@@ -926,10 +926,13 @@ job_save_image_finished (EogJob *job, gpointer user_data, GError *error)
 	/* Only set window title on "Save As" with a single image */
 	g_mutex_lock (data->lock);
 	if (data->dest != NULL && data->n_images == 1) {
-		g_print ("SET DONE\n");
 		gtk_window_set_title (GTK_WINDOW (data->window), 
 				      eog_image_get_caption (EOG_IMAGE (data->images->data)));
 	}
+
+	gtk_window_set_icon (GTK_WINDOW (data->window), 
+			     eog_image_get_pixbuf (EOG_IMAGE (data->images->data)));
+
 	g_mutex_unlock (data->lock);
 }
 
@@ -2898,6 +2901,8 @@ display_image_data (EogWindow *window, EogImage *image)
 	if (image != NULL) {
 		priv->displayed_image = g_object_ref (image);
 		title = eog_image_get_caption (image);
+		gtk_window_set_icon (GTK_WINDOW (window), 
+				     eog_image_get_pixbuf (image));
 	}
 	else {
 		title = _("Eye of GNOME");		
