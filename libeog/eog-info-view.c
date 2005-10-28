@@ -67,7 +67,8 @@ eog_info_view_instance_init (EogInfoView *view)
 {
 	EogInfoViewPrivate *priv;
 	GtkWidget *scrwnd;
-
+	GtkRequisition requisition;
+	
 	priv = g_new0 (EogInfoViewPrivate, 1);
 
 	view->priv = priv;
@@ -79,7 +80,10 @@ eog_info_view_instance_init (EogInfoView *view)
 			       "vscrollbar-policy", GTK_POLICY_AUTOMATIC, NULL);
 	gtk_container_add (GTK_CONTAINER (scrwnd), priv->file_view);
 	gtk_notebook_append_page (GTK_NOTEBOOK (view), scrwnd, gtk_label_new (_("File")));
-
+	gtk_widget_size_request (priv->file_view, &requisition);
+	gtk_widget_set_size_request (GTK_WIDGET (view),
+				     requisition.width * 3 / 2, -1);
+	
 #if HAVE_EXIF
 	priv->exif_view = g_object_new (EOG_TYPE_INFO_VIEW_EXIF, NULL);
 	scrwnd = g_object_new (GTK_TYPE_SCROLLED_WINDOW, 
