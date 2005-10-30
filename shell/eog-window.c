@@ -665,6 +665,7 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 	EogImageList *list = NULL;
 	EogImage *start_image = NULL;
 	int n_selected;
+	gboolean slide_show = FALSE;
 
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
@@ -685,8 +686,13 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 		g_list_free (l);
 	}
 
+	/* Slide show request? */
+	if (strcmp (gtk_action_get_name (action), "ViewSlideshow") == 0) {
+		slide_show = TRUE; 
+	}
+
 	if (list != NULL) {
-		fs = eog_full_screen_new (GTK_WINDOW (data), list, start_image);
+		fs = eog_full_screen_new (GTK_WINDOW (data), list, start_image, slide_show);
 		g_signal_connect (G_OBJECT (fs), "hide", G_CALLBACK (slideshow_hide_cb), EOG_WINDOW (data));
 
 		gtk_widget_show_all (fs);
@@ -2560,7 +2566,7 @@ update_ui_visibility (EogWindow *window)
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 		
 		/* Show Slideshow option for collections only, and disable Fullscreen */
-		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_fscreen, TRUE);
 		gtk_action_set_sensitive (action_sshow, TRUE);
 	}
 
@@ -3132,7 +3138,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
   { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
-  { "ViewSlideshow", NULL, N_("_Slideshow"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
+  { "ViewSlideshow", NULL, N_("_Slideshow"), "F9", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
   { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>0", NULL, G_CALLBACK (verb_ZoomNormal_cb) },

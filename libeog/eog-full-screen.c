@@ -88,6 +88,7 @@ struct _EogFullScreenPrivate
 	gint   switch_timeout;      /* in seconds */
 	guint  switch_timeout_id;
 	gboolean switch_pause;      
+	gboolean slide_show;      
 
 	/* timeout for screensaver blocking */
 	gint   activity_timeout_id;
@@ -378,15 +379,15 @@ eog_full_screen_show (GtkWidget *widget)
 
 	priv->switch_timeout_id = 0;
 	priv->activity_timeout_id = 0;
-	if (priv->switch_timeout > 0) {
+	if (priv->slide_show) {
 		priv->switch_timeout_id = g_timeout_add (1000 /* every second */,
 							 check_automatic_switch,
 							 fs);
 
 		/* disable screen saver */
 		priv->activity_timeout_id = g_timeout_add (6000 /* every minute */,
-											 disable_screen_saver,
-											 fs);
+							   disable_screen_saver,
+							   fs);
 	}
 }
 
@@ -403,7 +404,7 @@ eog_full_screen_hide (GtkWidget *widget)
 		gdk_keyboard_ungrab (GDK_CURRENT_TIME);
 	}
 
-	if (fs->priv->switch_timeout_id > 0) {
+	if (fs->priv->slide_show) {
 		g_source_remove (fs->priv->switch_timeout_id);
 		fs->priv->switch_timeout_id = 0;
 	}
@@ -438,6 +439,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_q:
 	case GDK_Escape:
 	case GDK_F11:
+	case GDK_F9:
 	case SunXK_F36:
 		do_hide = handled = TRUE;
 		break;
@@ -453,10 +455,11 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Right:
 	case GDK_Down:
 	case GDK_Page_Down:
-		if (eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
 			priv->direction = EOG_DIRECTION_FORWARD;
 			
-			next = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
+			next = get_next_iter_in_direction (priv->list, priv->current, 
+							   priv->direction);
 			handled = TRUE;
 		}
 		break;
@@ -470,7 +473,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 	case GDK_Up:
 	case GDK_Page_Up:
-		if (eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
 			priv->direction = EOG_DIRECTION_BACKWARD;
 
 			next = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
@@ -479,14 +482,14 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 
 	case GDK_Home:
-		if (eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
 			next = eog_image_list_get_iter_by_pos (priv->list, 0);
 			handled = TRUE;
 		}
 		break;
 
 	case GDK_End:
-		if (eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
 			next = eog_image_list_get_iter_by_pos (priv->list, eog_image_list_length (priv->list) - 1);
 			handled = TRUE;
 		}
@@ -768,7 +771,7 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 
 	/* special case if we only have one image */
 	if (eog_image_list_length (image_list) == 1) {
-		priv->switch_timeout = 0; /* disable automatic switching always */
+		priv->slide_show = FALSE; /* disable automatic switching always */
 	}
 
 	priv->direction = EOG_DIRECTION_FORWARD;
@@ -779,7 +782,7 @@ prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image
 
 GtkWidget *
 eog_full_screen_new (GtkWindow *parent,
-		EogImageList *image_list, EogImage *start_image)
+		EogImageList *image_list, EogImage *start_image, gboolean slide_show)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
@@ -819,16 +822,13 @@ eog_full_screen_new (GtkWindow *parent,
 
 	if (JOB_ID_QUARK == 0)
 		JOB_ID_QUARK = g_quark_from_static_string ("EogFullScreen Load Job ID");
+
+	priv->slide_show = slide_show;
 	
 	/* read configuration */
 	client = gconf_client_get_default ();
 	priv->loop = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_LOOP, NULL);
-	if (gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_AUTO_ADVANCE, NULL)) {
-		priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
-	}
-	else {
-		priv->switch_timeout = 0;
-	}
+	priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
 	upscale = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL);
 	antialiasing = gconf_client_get_bool (client, EOG_CONF_VIEW_INTERPOLATE, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);

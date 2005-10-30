@@ -1,3 +1,17 @@
+2005-10-29  Lucas Rocha  <lucasr@cvs.gnome.org>
+
+	* eog.glade, eog.schemas.in, libeog/eog-config-keys.h,
+	libeog/eog-full-screen.c, libeog/eog-full-screen.h,
+	shell/eog-preferences.c, shell/eog-window.c: implement
+	a more consistent fullscreen/slide show behavior. Checkbox 
+	that activate/deactivate the automatic image switching removed 
+	from preferences (and from gconf schema) because slide show 
+	always do that. After starting a slide show (F9), the only keys 
+	the user can use are those that stop the show. Fullscreen (F11) 
+	can be activated in a single image or collections. On fullscreen 
+	mode, the user can use keys to switch to next, previous, first
+	and last images and exiting fullscreen (Fixes bug #317392).
+
 2005-10-28  Lucas Rocha  <lucasr@cvs.gnome.org>
 
 	* shell/eog-window.c: window icon is a thumbnail 
