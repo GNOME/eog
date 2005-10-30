@@ -3293,6 +3293,8 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	GtkWidget *frame;
 	char *filename;
 	guint merge_id;
+	GtkAdjustment *vadj;
+	GtkAdjustment *hadj;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
@@ -3412,8 +3414,13 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	g_signal_connect (G_OBJECT (priv->wraplist), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed), window);
 
-	sw = gtk_scrolled_window_new (NULL, NULL);
+	vadj = gtk_adjustment_new (0, 100, 0, 10, 10, 100);
+	hadj = gtk_adjustment_new (0, 100, 0, 10, 10, 100);
+
+	sw = gtk_scrolled_window_new (hadj, vadj);
+	
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
+	
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
