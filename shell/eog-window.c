@@ -3145,7 +3145,9 @@ static const GtkActionEntry action_entries_image[] = {
   { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) },
 
   /* accelerators */
-  { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) }
+  { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) },
+  { "ControlKpAdd", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>KP_Add",NULL, G_CALLBACK (verb_ZoomIn_cb) },
+  { "ControlKpSub", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>KP_Subtract", NULL, G_CALLBACK (verb_ZoomOut_cb) }
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
