@@ -435,11 +435,21 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	do_hide = FALSE;
 
 	switch (event->keyval) {
+	case GDK_F11:
+		if (!priv->slide_show) {
+			do_hide = handled = TRUE;
+		}
+		break;
+
+	case GDK_F9:
+		if (priv->slide_show) {
+			do_hide = handled = TRUE;
+		}
+		break;
+		
 	case GDK_Q:
 	case GDK_q:
 	case GDK_Escape:
-	case GDK_F11:
-	case GDK_F9:
 	case SunXK_F36:
 		do_hide = handled = TRUE;
 		break;

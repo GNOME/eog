@@ -1,5 +1,12 @@
 2005-11-01  Lucas Rocha  <lucasr@cvs.gnome.org>
 
+	* libeog/eog-full-screen.c: make F9 key only cancel slide
+	show and F11 only cancel fullscreen mode.
+	* shell/eog-window.c (verb_FullScreen_cb): string comparison
+	with g_ascii_strcasecmp().
+
+2005-11-01  Lucas Rocha  <lucasr@cvs.gnome.org>
+
 	* libeog/eog-scroll-view.c, shell/eog-window.c: on single
 	image view, default focus on scroll-view. On collection view,
 	default focus on wrap-list (Fixes bug #169836).

@@ -687,7 +687,7 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 	}
 
 	/* Slide show request? */
-	if (strcmp (gtk_action_get_name (action), "ViewSlideshow") == 0) {
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewSlideshow") == 0) {
 		slide_show = TRUE; 
 	}
 
