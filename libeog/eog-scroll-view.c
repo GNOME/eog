@@ -1046,9 +1046,6 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	xofs = yofs = 0;
 	zoom = 1.0;
 
-	if ((event->state & (GDK_MODIFIER_MASK & ~GDK_LOCK_MASK)) != 0)
-		return FALSE;
-
 	switch (event->keyval) {
 	case GDK_Up:
 		do_scroll = TRUE;
@@ -1073,7 +1070,9 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 		xofs = SCROLL_STEP_SIZE;
 		yofs = 0;
 		break;
+
 	case GDK_plus:
+	case GDK_equal:
 	case GDK_KP_Add:
 		do_zoom = TRUE;
 		zoom = priv->zoom * IMAGE_VIEW_ZOOM_MULTIPLIER;
