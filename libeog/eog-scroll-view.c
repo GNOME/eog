@@ -1894,6 +1894,7 @@ eog_scroll_view_new (void)
 	EogScrollViewPrivate *priv;
 
 	widget = g_object_new (EOG_TYPE_SCROLL_VIEW,
+			       "can-focus", TRUE,
 			       "n_rows", 2,
 			       "n_columns", 2,
 			       "homogeneous", FALSE,
@@ -1955,6 +1956,6 @@ eog_scroll_view_new (void)
 			  0, 0);
 
 	gtk_widget_show_all (widget);
-
+	
 	return widget;
 }

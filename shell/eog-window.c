@@ -2554,6 +2554,8 @@ update_ui_visibility (EogWindow *window)
 		/* Show Fullscreen option for single images only, and disable Slideshow */
 		gtk_action_set_sensitive (action_fscreen, TRUE);
 		gtk_action_set_sensitive (action_sshow, FALSE);
+
+		gtk_widget_grab_focus (priv->scroll_view);
 	}
 	else {
 		/* update window content for collection mode */
@@ -2568,6 +2570,8 @@ update_ui_visibility (EogWindow *window)
 		/* Show Slideshow option for collections only, and disable Fullscreen */
 		gtk_action_set_sensitive (action_fscreen, TRUE);
 		gtk_action_set_sensitive (action_sshow, TRUE);
+
+		gtk_widget_grab_focus (priv->wraplist);
 	}
 
 	/* update the toggle menu item for image information pane too */
