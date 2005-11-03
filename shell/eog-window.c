@@ -3642,6 +3642,7 @@ gboolean
 eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
+        int i;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
