@@ -56,7 +56,6 @@ set_thumb_error (GError **error, int error_id, const char *string)
 static GdkPixbuf*
 get_valid_thumbnail (EogThumbData *data, GError **error)
 {
-	char *uri_str = NULL;
 	GdkPixbuf *thumb = NULL;
 
 	g_return_val_if_fail (data != NULL, NULL);

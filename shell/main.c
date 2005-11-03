@@ -672,7 +672,6 @@ main (int argc, char **argv)
 	GnomeProgram *program;
 	poptContext ctx;
 	GnomeClient *client;
-	char *gnome_eog_png_path;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");

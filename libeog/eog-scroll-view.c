@@ -388,6 +388,7 @@ is_image_movable (EogScrollView *view)
 
 
 /* Computes the image offsets with respect to the window */
+/*
 static void
 get_image_offsets (EogScrollView *view, int *xofs, int *yofs)
 {
@@ -402,7 +403,7 @@ get_image_offsets (EogScrollView *view, int *xofs, int *yofs)
 	width = GTK_WIDGET (priv->display)->allocation.width;
 	height = GTK_WIDGET (priv->display)->allocation.height;
 
-	/* Compute image offsets with respect to the window */
+	// Compute image offsets with respect to the window
 	if (scaled_width <= width)
 		*xofs = (width - scaled_width) / 2;
 	else
@@ -413,8 +414,8 @@ get_image_offsets (EogScrollView *view, int *xofs, int *yofs)
 	else
 		*yofs = -priv->yofs;
 }
+*/
 
-
 /*===================================
           drawing core
   ---------------------------------*/
@@ -1402,7 +1403,7 @@ display_expose_event (GtkWidget *widget, GdkEventExpose *event, gpointer data)
    image loading callbacks
 
    -----------------------------------*/
-
+/*
 static void
 image_loading_update_cb (EogImage *img, int x, int y, int width, int height, gpointer data)
 {
@@ -1463,7 +1464,7 @@ image_loading_finished_cb (EogImage *img, gpointer data)
 	else if (priv->interp_type != GDK_INTERP_NEAREST &&
 		 !is_unity_zoom (view))
 	{
-		/* paint antialiased image version */
+		// paint antialiased image version 
 		priv->progressive_state = PROGRESSIVE_POLISHING;
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	}
@@ -1504,7 +1505,7 @@ image_loading_cancelled_cb (EogImage *img, gpointer data)
 		gdk_window_clear (GTK_WIDGET (priv->display)->window);
 	}
 }
-
+*/
 static void
 image_changed_cb (EogImage *img, gpointer data)
 {

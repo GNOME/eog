@@ -3300,8 +3300,8 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	GtkWidget *frame;
 	char *filename;
 	guint merge_id;
-	GtkAdjustment *vadj;
-	GtkAdjustment *hadj;
+	GtkObject *vadj;
+	GtkObject *hadj;
 
 	g_return_val_if_fail (window != NULL, FALSE);
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
@@ -3424,7 +3424,8 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	vadj = gtk_adjustment_new (0, 100, 0, 10, 10, 100);
 	hadj = gtk_adjustment_new (0, 100, 0, 10, 10, 100);
 
-	sw = gtk_scrolled_window_new (hadj, vadj);
+	sw = gtk_scrolled_window_new (GTK_ADJUSTMENT (hadj), 
+				      GTK_ADJUSTMENT (vadj));
 	
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
 	
@@ -3649,7 +3650,6 @@ gboolean
 eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
-	int i;
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 

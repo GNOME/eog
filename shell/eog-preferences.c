@@ -2,6 +2,7 @@
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <glib/gi18n.h>
+#include <libgnome/gnome-help.h>
 #include "util.h"
 #include "eog-preferences.h"
 #include "eog-config-keys.h"

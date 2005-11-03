@@ -1780,8 +1780,8 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
           gpointer user_data)
 {
 	VfsFileCbContext *ctx = user_data;
-	gchar *monitor_ptr = monitor_uri;
-	gchar *info_ptr = info_uri;
+	gchar *monitor_ptr = (gchar *) monitor_uri;
+	gchar *info_ptr = (gchar *) info_uri;
 	
 	monitor_ptr += 7;
 	info_ptr += 7;
