@@ -421,12 +421,6 @@ eog_window_save_geometry (EogWindow *window)
 }
 
 static void
-verb_FileNewWindow_cb (GtkAction *action, gpointer user_data)
-{
-	g_signal_emit (G_OBJECT (user_data), eog_window_signals [SIGNAL_NEW_WINDOW], 0);
-}
-
-static void
 verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
@@ -2326,16 +2320,16 @@ eog_window_class_init (EogWindowClass *class)
 			      1,
 			      G_TYPE_POINTER);
 
-	eog_window_signals [SIGNAL_NEW_WINDOW] = 
-		g_signal_new ("new_window",
-			      G_TYPE_FROM_CLASS(gobject_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogWindowClass, new_window),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
+       eog_window_signals [SIGNAL_NEW_WINDOW] =
+               g_signal_new ("new_window",
+                             G_TYPE_FROM_CLASS(gobject_class),
+                             G_SIGNAL_RUN_LAST,
+                             G_STRUCT_OFFSET (EogWindowClass, new_window),
+                             NULL,
+                             NULL,
+                             g_cclosure_marshal_VOID__VOID,
+                             G_TYPE_NONE,
+                             0);
 
 	object_class->destroy = eog_window_destroy;
 	gobject_class->finalize = eog_window_finalize;
@@ -3110,7 +3104,6 @@ static const GtkActionEntry action_entries_window[] = {
   { "ViewMenu", NULL, N_("_View") },
   { "ImageMenu", NULL, N_("_Image") },
   { "HelpMenu", NULL, N_("_Help") },
-  { "FileNewWindow",   GTK_STOCK_NEW,   N_("_New Window"),      "<control>N",  N_("Open a new window"),            G_CALLBACK (verb_FileNewWindow_cb) },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileFolderOpen",     GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
@@ -3165,7 +3158,6 @@ typedef struct {
 
 /* mapping for short-labels, used for toolbar buttons */
 static ShortLabelMap short_label_map[] = {
-	{ "FileNewWindow", N_("New") },
 	{ "FileOpen",  N_("Open") },
 	{ "FileFolderOpen",  N_("Open") },
 	{ "FileCloseWindow", N_("Close") },

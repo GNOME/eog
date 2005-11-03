@@ -17,8 +17,6 @@
 #include "eog-job-manager.h"
 
 static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
-static void new_window_cb (EogWindow *window, gpointer data);
-
 
 typedef struct {
 	EogWindow *window;
@@ -180,7 +178,6 @@ create_new_window (void)
 		g_assert (EOG_IS_WINDOW (window));
 
 		g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
-		g_signal_connect (G_OBJECT (window), "new_window", G_CALLBACK (new_window_cb), NULL);
 	}
 
 	return window;
@@ -211,19 +208,13 @@ assign_model_to_window (EogWindow *window, EogImageList *list)
 static void
 create_empty_window (void)
 {
-	GtkWidget *window; 
-	
-	window = create_new_window ();
-	if (window != NULL) {
-		eog_window_open (EOG_WINDOW (window), NULL, NULL);
-		gtk_widget_show (window);
-	}
-}
+       GtkWidget *window;
 
-static void
-new_window_cb (EogWindow *window, gpointer data)
-{
-	create_empty_window ();
+       window = create_new_window ();
+       if (window != NULL) {
+               eog_window_open (EOG_WINDOW (window), NULL, NULL);
+               gtk_widget_show (window);
+       }
 }
 
 static GnomeVFSURI*
