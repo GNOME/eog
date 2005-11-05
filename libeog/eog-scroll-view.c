@@ -1054,10 +1054,22 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 		yofs = -SCROLL_STEP_SIZE;
 		break;
 
+	case GDK_Page_Up:
+		do_scroll = TRUE;
+		xofs = 0;
+		yofs = -SCROLL_STEP_SIZE * 4;
+		break;
+
 	case GDK_Down:
 		do_scroll = TRUE;
 		xofs = 0;
 		yofs = SCROLL_STEP_SIZE;
+		break;
+
+	case GDK_Page_Down:
+		do_scroll = TRUE;
+		xofs = 0;
+		yofs = SCROLL_STEP_SIZE * 4;
 		break;
 
 	case GDK_Left:
