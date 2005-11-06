@@ -37,6 +37,7 @@
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-help.h>
+#include <libgnome/gnome-desktop-item.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
 #include "util.h"
@@ -178,7 +179,6 @@ static void adapt_window_size (EogWindow *window, int width, int height);
 static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
 static void add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri);
-
 
 static GtkWindowClass *parent_class;
 
@@ -571,6 +571,93 @@ verb_HelpContent_cb (GtkAction *action, gpointer data)
 
 		g_error_free (error);
 	}
+}
+
+static int
+launch_desktop_item (const char *desktop_file,
+                     guint32 user_time,
+                     GError **error)
+{
+	GnomeDesktopItem *item = NULL;
+	GList *uris = NULL;
+	int ret = -1;
+	
+	item = gnome_desktop_item_new_from_file (desktop_file, 0, NULL);
+	if (item == NULL) return FALSE;
+	
+	gnome_desktop_item_set_launch_time (item, user_time);
+	ret = gnome_desktop_item_launch (item, uris, 0, error);
+	
+	g_list_foreach (uris, (GFunc) g_free, NULL);
+	g_list_free (uris);
+	gnome_desktop_item_unref (item);
+	
+	return ret;
+}
+
+static gboolean
+eog_file_launch_desktop_file (const char *filename,
+                              guint32 user_time)
+{
+	GError *error = NULL;
+	const char * const *dirs;
+	char *path = NULL;
+	int i, ret = -1;
+	
+	dirs = g_get_system_data_dirs ();
+	if (dirs == NULL) return FALSE;
+	
+	for (i = 0; dirs[i] != NULL; i++) {
+	        path = g_build_filename (dirs[i], "applications", filename, NULL);
+
+	        if (g_file_test (path, G_FILE_TEST_IS_REGULAR)) break;
+	
+	        g_free (path);
+		path = NULL;
+	}
+	
+	if (path != NULL) {
+	        ret = launch_desktop_item (path, user_time, &error);
+	
+	        if (ret == -1 || error != NULL) {
+	                g_warning ("Cannot launch desktop item '%s': %s\n",
+	                        path, error ? error->message : "(unknown error)");
+	                g_clear_error (&error);
+	        }
+	
+	        g_free (path);
+	}
+	
+	return ret >= 0;
+}
+
+static void
+verb_SetAsWallpaper_cb (GtkAction *action, gpointer data)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	EogImage *image;
+	guint32 user_time;
+	char *filename = NULL;
+	GConfClient *client;
+	
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	window = EOG_WINDOW (data);
+	
+	priv = window->priv;
+
+	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	user_time = gtk_get_current_event_time();
+
+	filename = eog_image_get_uri_for_display (image);
+
+	client = gconf_client_get_default();
+	gconf_client_set_string (client, "/desktop/gnome/background/picture_filename", filename, NULL);
+
+	eog_file_launch_desktop_file ("background.desktop", user_time);
 }
 
 static void
@@ -2561,7 +2648,6 @@ update_ui_visibility (EogWindow *window)
 		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 		
-		/* Show Slideshow option for collections only, and disable Fullscreen */
 		gtk_action_set_sensitive (action_fscreen, TRUE);
 		gtk_action_set_sensitive (action_sshow, TRUE);
 
@@ -2997,18 +3083,42 @@ job_default_progress (EogJob *job, gpointer data, float progress)
 }
 
 static void
+update_selection_ui_visibility (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GtkAction *wallpaper_action;
+	gint n_selected;
+
+	priv = window->priv;
+
+	n_selected = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+
+	wallpaper_action = gtk_action_group_get_action (priv->actions_image, "SetAsWallpaper");
+
+	/* Set As Wallpaper only when 1 image is selected */
+	if (n_selected == 1) {
+		gtk_action_set_sensitive (wallpaper_action, TRUE);
+	} 
+	else {
+		gtk_action_set_sensitive (wallpaper_action, FALSE);
+	} 
+}
+
+static void
 handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
 {
 	EogWindowPrivate *priv;
 	EogImage *image;
 	EogJob *job;
 	EogJobImageLoadData *data;
-
+	
 	priv = window->priv;
 
 	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist)) == 0)
 		return;
 
+	update_selection_ui_visibility (window);
+	
 	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 	g_assert (EOG_IS_IMAGE (image));
 
@@ -3105,7 +3215,7 @@ static const GtkActionEntry action_entries_window[] = {
   { "ImageMenu", NULL, N_("_Image") },
   { "HelpMenu", NULL, N_("_Help") },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
-  { "FileFolderOpen",     GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
+  { "FileFolderOpen",  GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of GNOME"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
@@ -3131,6 +3241,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "EditRotate90",  EOG_STOCK_ROTATE_90,  N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
   { "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counter C_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
   { "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
+  { "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, NULL, G_CALLBACK (verb_SetAsWallpaper_cb) },
 
   { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
@@ -3140,7 +3251,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
   { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>0", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
   { "ViewZoomFit", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), NULL, NULL, G_CALLBACK (verb_ZoomFit_cb) },
-
+  
   /* accelerators */
   { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ControlKpAdd", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>KP_Add",NULL, G_CALLBACK (verb_ZoomIn_cb) },

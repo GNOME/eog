@@ -1,3 +1,15 @@
+2005-11-06  Lucas Rocha  <lucasr@cvs.gnome.org>
+
+	* shell/eog-window.c (verb_SetAsWallpaper_cb, 
+	eog_file_launch_desktop_file, launch_desktop_item, 
+	update_selection_ui_visibility,	handle_image_selection_changed): 
+	add option to use an image as the desktop wallpaper (Fixes 
+	bug #140768). Patch from Nirmal Kumar <reach2nirmal@gmail.com> 
+	with several changes.
+	* configure.in: added gnome-desktop dependency.
+	* shell/eog-gtk-ui.xml: new "Set As Wallpaper" Image menu
+	item.
+
 2005-11-05  Lucas Rocha  <lucasr@cvs.gnome.org>
 
 	* libeog/eog-scroll-view.c (display_key_press_event): 

@@ -22,6 +22,7 @@ LIBGNOMECANVAS_REQUIRED=2.5.92
 GCONF_REQUIRED=2.5.90
 LIBART_REQUIRED=2.3.16
 GTK_REQUIRED=2.6.0
+GNOME_DESKTOP_REQUIRED=2.10.0
 
 dnl ===============================================================================
 
@@ -51,7 +52,7 @@ AC_SUBST(LDFLAGS)
 
 dnl ================= gnome libs check ====================================
 
-EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED libart-2.0 >= $LIBART_REQUIRED libgnomeprintui-2.2 libgnomeprint-2.2"
+EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED libglade-2.0 >= $LIBGLADE_REQUIRED libart-2.0 >= $LIBART_REQUIRED libgnomeprintui-2.2 libgnomeprint-2.2 gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED"
 
 dnl ============== optional exif support ====================
 
