@@ -1,3 +1,10 @@
+2005-11-07  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* shell/eog-window.c: (job_save_image_finished), (set_window_icon),
+	(display_image_data): Resize image before using it as window icon if
+	it is too big (Workaround that fixes bug #320245. See related gtk+ 
+	bug #320909).
+
 2005-11-06  Lucas Rocha  <lucasr@cvs.gnome.org>
 
 	* shell/eog-window.c (verb_SetAsWallpaper_cb, 

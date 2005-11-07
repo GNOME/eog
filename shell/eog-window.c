@@ -180,6 +180,8 @@ static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
 static void add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri);
 
+static void set_window_icon (EogWindow *window, EogImage *image);
+
 static GtkWindowClass *parent_class;
 
 /* The list of all open windows */
@@ -1017,9 +1019,9 @@ job_save_image_finished (EogJob *job, gpointer user_data, GError *error)
 				      eog_image_get_caption (EOG_IMAGE (data->images->data)));
 	}
 
-	gtk_window_set_icon (GTK_WINDOW (data->window), 
-			     eog_image_get_pixbuf (EOG_IMAGE (data->images->data)));
-
+	set_window_icon (EOG_WINDOW (data->window), 
+			 EOG_IMAGE (data->images->data));
+	
 	g_mutex_unlock (data->lock);
 }
 
@@ -2969,6 +2971,36 @@ get_screen_profile (EogWindow *window)
 }
 #endif
 
+/* Currently, for big images it is not possible to directly use 
+   gtk_window_set_icon (), so we need to scale the image when it's too big.
+   I've tested this code and using ICON_MAX_SIZE = 1024 it won't fail in my
+   machine.
+*/
+
+#define ICON_MAX_SIZE 1024
+static void
+set_window_icon (EogWindow *window, EogImage *image)
+{
+	GdkPixbuf *window_icon;
+	int width, height;
+
+	eog_image_get_size (image, &width, &height);
+
+	if (width > ICON_MAX_SIZE || height > ICON_MAX_SIZE) {
+		gfloat resize_factor;
+		resize_factor = (gfloat)ICON_MAX_SIZE / (gfloat)MAX (width, height);
+		window_icon = gdk_pixbuf_scale_simple (eog_image_get_pixbuf (image),
+						       width * resize_factor, 
+						       height * resize_factor,
+						       GDK_INTERP_TILES);
+	} else {
+		window_icon = eog_image_get_pixbuf (image);
+	}
+
+	gtk_window_set_icon (GTK_WINDOW (window), 
+			     window_icon);
+}
+
 static void 
 display_image_data (EogWindow *window, EogImage *image)
 {
@@ -2991,8 +3023,7 @@ display_image_data (EogWindow *window, EogImage *image)
 	if (image != NULL) {
 		priv->displayed_image = g_object_ref (image);
 		title = eog_image_get_caption (image);
-		gtk_window_set_icon (GTK_WINDOW (window), 
-				     eog_image_get_pixbuf (image));
+		set_window_icon (window, image);
 	}
 	else {
 		title = _("Eye of GNOME");		
