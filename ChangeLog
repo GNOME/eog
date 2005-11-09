@@ -1,3 +1,8 @@
+2005-11-09  Paolo Borelli  <pborelli@katamail.com>
+
+	* libeog/eog-image.c (eog_image_real_load): don't stomp on an
+	already	set GError. Fixes bug #320342.
+
 2005-11-09  Lucas Rocha  <lucasr@cvs.gnome.org>
 
 	* shell/eog-window.c (delete_image_real, show_delete_confirm_dialog):
