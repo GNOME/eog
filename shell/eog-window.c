@@ -1979,34 +1979,6 @@ verb_Rotate180_cb (GtkAction *action, gpointer data)
 
 /* ========================================================================= */
 
-static int
-show_delete_confirm_dialog (EogWindow *window, int n_images)
-{
-	GtkWidget *dlg;
-	char *header;
-	int response;
-
-	header = g_strdup_printf (ngettext ("Do you really want to move %i image to trash?", 
-					    "Do you really want to move %i images to trash?", n_images), n_images);
-
-	dlg = gtk_message_dialog_new (GTK_WINDOW (window),
-				      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-				      GTK_MESSAGE_QUESTION,
-				      GTK_BUTTONS_NONE,
-				      header);
-	g_free (header);
-
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
-	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
-	gtk_widget_show_all (dlg);
-
-	response = gtk_dialog_run (GTK_DIALOG (dlg));
-	gtk_widget_destroy (dlg);
-
-	return response;
-}
-
 static gboolean
 delete_image_real (EogImage *image, GError **error)
 {
@@ -2061,7 +2033,6 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	EogImage *img;
 	EogWindow *window;
 	int n_images;
-	int response; 
 	gboolean success;
 
 	g_return_if_fail (EOG_IS_WINDOW (data));
@@ -2073,9 +2044,6 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	/* let user confirm this action */
 	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 	if (n_images < 1) return;
-
-	response = show_delete_confirm_dialog (window, n_images);
-	if (response != GTK_RESPONSE_OK) return;
 
 	/* save position of selected image after the deletion */
 	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
