@@ -3244,7 +3244,7 @@ static const GtkActionEntry action_entries_image[] = {
 
   { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
-  { "ViewFullscreen", NULL, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
+  { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewSlideshow", NULL, N_("_Slideshow"), "F9", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
