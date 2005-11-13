@@ -18,6 +18,7 @@
 
 #define EOG_CONF_UI_TOOLBAR                  "/apps/eog/ui/toolbar"
 #define EOG_CONF_UI_STATUSBAR                "/apps/eog/ui/statusbar"
+#define EOG_CONF_UI_IMAGE_COLLECTION         "/apps/eog/ui/image_collection"
 #define EOG_CONF_UI_INFO_IMAGE               "/apps/eog/ui/info_image"
 #define EOG_CONF_UI_INFO_COLLECTION          "/apps/eog/ui/info_collection"
 

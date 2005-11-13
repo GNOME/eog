@@ -441,7 +441,7 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 
-	case GDK_F9:
+	case GDK_F5:
 		if (priv->slide_show) {
 			do_hide = handled = TRUE;
 		}

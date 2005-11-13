@@ -2,7 +2,6 @@
   <menubar name="MainMenu">
     <menu name="FileMenu" action="FileMenu">
       <menuitem action="FileOpen"/>
-      <menuitem action="FileFolderOpen"/>
       <separator/>
       <menuitem action="FileSave"/>
       <menuitem action="FileSaveAs"/>
@@ -23,6 +22,7 @@
     <menu action="ViewMenu">
       <menuitem name="ToolbarToggle" action="ViewToolbar"/>
       <menuitem name="StatusbarToggle" action="ViewStatusbar"/>
+      <menuitem name="ImageCollectionToggle" action="ViewImageCollection"/>
       <menuitem name="InfoToggle" action="ViewInfo"/>
       <separator/>
       <menuitem name="Fullscreen" action="ViewFullscreen"/>
@@ -43,23 +43,32 @@
       <separator/>
       <menuitem action="SetAsWallpaper"/>
     </menu>
+    <menu name="GoMenu" action="GoMenu">
+      <menuitem name="GoPrevious" action="GoPrevious"/>
+      <menuitem name="GoNext" action="GoNext"/>
+      <separator/>
+      <menuitem name="GoFirst" action="GoFirst"/>
+      <menuitem name="GoLast" action="GoLast"/>
+    </menu>
     <menu action="HelpMenu">
       <menuitem action="HelpManual"/>
       <menuitem action="HelpAbout"/>
     </menu>
   </menubar>
   <toolbar name="ToolBar">
-    <toolitem action="FileOpen"/>
-    <separator/>
-    <toolitem action="EditRotate270"/>
-    <toolitem action="EditRotate90"/>
+    <toolitem action="GoPrevious"/>
+    <toolitem action="GoNext"/>
     <separator/>
     <toolitem action="ViewZoomIn"/>
     <toolitem action="ViewZoomOut"/>
     <toolitem action="ViewZoomNormal"/>
     <toolitem action="ViewZoomFit"/>
+    <separator/>
+    <toolitem action="EditRotate270"/>
+    <toolitem action="EditRotate90"/>
   </toolbar>
   <accelerator name="ControlEqualAccel" action="ControlEqual"/>
   <accelerator name="ControlKPAddAccel" action="ControlKpAdd"/>
   <accelerator name="ControlKPSubAccel" action="ControlKpSub"/>
+  <accelerator name="SpaceBarAccel" action="SpaceBar"/>
 </ui>

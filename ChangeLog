@@ -1,3 +1,39 @@
+2005-11-13  Lucas Rocha  <lucasr@cvs.gnome.org>
+
+	* eog.schemas.in (/apps/eog/ui/image_collection), 
+	libeog/eog-config-keys.h (EOG_CONF_UI_IMAGE_COLLECTION): 
+	added option for show/hide image collection pane.
+	* libeog/eog-full-screen.c (eog_full_screen_key_press): 
+	keybinding for slideshow is now F5.
+	* libeog/eog-image-list.c, libeog/eog-image-list.h (
+	eog_image_list_get_initial_pos, compare_uri_cb,
+	eog_image_list_add_uris): new initial_pos attribute which
+	holds the inicial position for wrap list. Also, a new uri
+	list loading policy. When opening a single uri, load all
+	images from the same dir; when opening more than one uri,
+	load them as a collection; and when opening a dir, load
+	all images inside it as a collection (Fixes bug #320542).
+	* libeog/eog-wrap-list.c, libeog/eog-wrap-list.h (
+	eog_wrap_list_select_first, eog_wrap_list_select_last,
+	create_items_from_model: new methods to select first and
+	last images. Use EogImageList initial_pos attribute to
+	define the first item to select.
+	* shell/eog-gtk-ui.xml, shell/eog-window.c (set_window_icon, 
+	verb_FolderOpen_cb, verb_Go_cb, update_ui_visibility,
+	eog_window_construct_ui, display_image_data, job_save_image_finished,
+	update_status_bar), shell/main.c (user_wants_collection,
+	job_prepare_model_finished, open_uri_list_cb): use image thumbnail
+	as the window icon (Fixes bug #320245). Patch from Claudio Saavedra
+	<csaavedra@alumnos.utalca.cl>. EOG UI rework: remove 'Open Folder'
+	from 'File' menu; added 'Go' menu with prev/next/first/last image 
+	operations and next/prev image in toolbar; moved rotation toolbar 
+	items to the right edge; added an toggle item in 'View' menu to 
+	show/hide image collection pane; removed 'Open' item from toolbar;
+	no confirmation when opening more than one image at once (always
+	open as a collection) (Fixes bug #148643); statusbar show the position
+	of current image within a collection, not the number of selected 
+	images.
+
 2005-11-10  Lucas Rocha  <lucasr@cvs.gnome.org>
 
 	* shell/eog-window.c: use fullscreen stock icon on Fullscreen

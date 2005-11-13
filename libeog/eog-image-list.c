@@ -41,6 +41,9 @@ struct _EogImageListPrivate {
 	/* Number of images. Same as g_list_length (store) */
 	int             n_images;
 
+	/* The initial image pos */
+	int            initial_pos;
+
 	/* the largest common part of all image uris */
 	GnomeVFSURI     *base_uri;
 	gboolean         no_common_base;
@@ -168,6 +171,7 @@ eog_image_list_instance_init (EogImageList *obj)
 	priv->n_images = 0;
 	priv->base_uri = NULL;
 	priv->no_common_base = FALSE;
+	priv->initial_pos = -1;
 	
 	priv->monitors = NULL;
 }
@@ -223,6 +227,23 @@ GNOME_CLASS_BOILERPLATE (EogImageList,
 
 
 /* ================== Private EogImageList functions  ===================*/
+
+static int
+compare_uri_cb (gconstpointer element_data, gconstpointer data)
+{
+	EogImage *image;
+	GnomeVFSURI *uri;
+
+	image = EOG_IMAGE (element_data);
+	uri = (GnomeVFSURI*) data;
+
+	if (gnome_vfs_uri_equal (eog_image_get_uri (image), uri)) {
+		return 0;
+	} 
+	else {
+		return 1;
+	}
+}
 
 static int
 compare_filename_cb (gconstpointer a, gconstpointer b)
@@ -569,7 +590,7 @@ add_regular (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 			add_image_private (list, image, FALSE);
 			g_object_unref (image);
 		}
-	}	
+	}
 }
 	
 
@@ -596,7 +617,9 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 	GList *it;
 	EogImageListPrivate *priv;
 	GnomeVFSFileInfo *info;
-
+	GList *initial_image_item;
+	GnomeVFSURI *initial_uri = NULL;
+	
 	priv = list->priv;
 
 	if (uri_list == NULL) {
@@ -607,21 +630,48 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 	
 	for (it = uri_list; it != NULL; it = it->next) {
 		GnomeVFSURI *uri = (GnomeVFSURI*) it->data;
-		
+
 		if (!get_uri_info (uri, info))
 			continue;
 			
 		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 			add_directory (list, uri, info);
 		}
-		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
+		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
+			 g_list_length (uri_list) == 1) {
+
+			/* Store the URI for initial image assignment */
+			initial_uri = gnome_vfs_uri_dup (uri); 
+			
+			uri = gnome_vfs_uri_get_parent (uri);
+			
+			if (!get_uri_info (uri, info))
+				continue;
+			
+			add_directory (list, uri, info);
+		}	
+		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
+			 g_list_length (uri_list) > 1) {
+
 			add_regular (list, uri, info);
-		}
+		}		
 	}
 
 	gnome_vfs_file_info_unref (info);
 	
 	priv->store = g_list_sort (priv->store, compare_filename_cb);
+
+	if (initial_uri) {
+		initial_image_item = g_list_find_custom (priv->store, initial_uri, 
+						    compare_uri_cb);
+		gnome_vfs_uri_unref (initial_uri);
+	}
+	else {
+		initial_image_item = g_list_first (priv->store);
+	}
+
+	if (initial_image_item != NULL)
+		priv->initial_pos = g_list_position (priv->store, initial_image_item);
 }
 
 /* ====================================================== */
@@ -677,6 +727,14 @@ eog_image_list_length (EogImageList *list)
 	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), 0);
 
 	return list->priv->n_images;
+}
+
+int
+eog_image_list_get_initial_pos (EogImageList *list)
+{
+	g_return_val_if_fail (EOG_IS_IMAGE_LIST (list), -1);
+	
+	return list->priv->initial_pos;
 }
 
 GnomeVFSURI*

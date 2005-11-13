@@ -180,8 +180,6 @@ static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
 static void add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri);
 
-static void set_window_icon (EogWindow *window, EogImage *image);
-
 static GtkWindowClass *parent_class;
 
 /* The list of all open windows */
@@ -452,35 +450,6 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 }
 
 static void
-verb_FolderOpen_cb (GtkAction *action, gpointer user_data)
-{
-	EogWindow *window;
-	EogWindowPrivate *priv;
-	GtkWidget *dlg;
-	gint response;
-	GSList *list = NULL;
-
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	window = EOG_WINDOW (user_data);
-	priv = window->priv;
-
-	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
-
-	gtk_widget_show_all (dlg);
-	response = gtk_dialog_run (GTK_DIALOG (dlg));
-	if (response == GTK_RESPONSE_OK) {
-		list = gtk_file_chooser_get_uris (GTK_FILE_CHOOSER (dlg));
-	}
-
-	gtk_widget_destroy (dlg);
-
-	if (list) {
-		g_signal_emit (G_OBJECT (window), eog_window_signals[SIGNAL_OPEN_URI_LIST], 0, list);
-	}
-}
-
-static void
 verb_FileCloseWindow_cb (GtkAction *action, gpointer user_data)
 {
 	eog_window_close (EOG_WINDOW (user_data));
@@ -719,6 +688,28 @@ verb_ZoomFit_cb (GtkAction *action, gpointer data)
 }
 
 static void
+verb_Go_cb (GtkAction *action, gpointer data)
+{
+	EogWindowPrivate *priv;
+	gchar *action_name = (gchar *) gtk_action_get_name (action);
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	priv = EOG_WINDOW (data)->priv;
+
+	if (g_ascii_strcasecmp (action_name, "GoNext") == 0 ||
+	    g_ascii_strcasecmp (action_name, "SpaceBar") == 0) {
+		eog_wrap_list_select_right (EOG_WRAP_LIST (priv->wraplist));
+	} else if (g_ascii_strcasecmp (action_name, "GoPrevious") == 0) {
+		eog_wrap_list_select_left (EOG_WRAP_LIST (priv->wraplist));
+	} else if (g_ascii_strcasecmp (action_name, "GoFirst") == 0) {
+		eog_wrap_list_select_first (EOG_WRAP_LIST (priv->wraplist));
+	} else if (g_ascii_strcasecmp (action_name, "GoLast") == 0) {
+		eog_wrap_list_select_last (EOG_WRAP_LIST (priv->wraplist));
+	}
+}
+	
+static void
 slideshow_hide_cb (GtkWidget *widget, gpointer data)
 {
 	EogImage *last_image;
@@ -809,6 +800,13 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_STATUSBAR, visible, NULL);
+	}
+	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
+		if (visible)
+			gtk_widget_show_all (gtk_widget_get_parent (priv->wraplist));
+		else
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 	}
 	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewInfo") == 0) {
 		const char *key = NULL;
@@ -1019,9 +1017,9 @@ job_save_image_finished (EogJob *job, gpointer user_data, GError *error)
 				      eog_image_get_caption (EOG_IMAGE (data->images->data)));
 	}
 
-	set_window_icon (EOG_WINDOW (data->window), 
-			 EOG_IMAGE (data->images->data));
-	
+	gtk_window_set_icon (GTK_WINDOW (data->window), 
+			     eog_image_get_pixbuf_thumbnail (EOG_IMAGE (data->images->data)));
+
 	g_mutex_unlock (data->lock);
 }
 
@@ -2565,6 +2563,7 @@ update_ui_visibility (EogWindow *window)
 	EogWindowPrivate *priv;
 	int n_images = 0;
 	gboolean show_info_pane = TRUE;
+	gboolean show_image_collection = FALSE;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 
@@ -2585,22 +2584,28 @@ update_ui_visibility (EogWindow *window)
 		/* update window content */
 		gtk_widget_hide_all (priv->vpane);
 
-		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
 		gtk_action_set_sensitive (action_fscreen, FALSE);
 		gtk_action_set_sensitive (action_sshow, FALSE);
 	}
 	else if (n_images == 1) {
 		/* update window content for single image mode */
 		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_IMAGE, NULL);
+		show_image_collection = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
 
 		gtk_widget_show_all (priv->vpane);
-		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+
+		if (!show_image_collection) 
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+
 		if (!show_info_pane) 
 			gtk_widget_hide (priv->info_view);
 
-		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
 		
 		/* Show Fullscreen option for single images only, and disable Slideshow */
 		gtk_action_set_sensitive (action_fscreen, TRUE);
@@ -2611,17 +2616,24 @@ update_ui_visibility (EogWindow *window)
 	else {
 		/* update window content for collection mode */
 		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_COLLECTION, NULL);
+		show_image_collection = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
+
 		gtk_widget_show_all (priv->vpane);
+
+		if (!show_image_collection) 
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+
 		if (!show_info_pane)
 			gtk_widget_hide (priv->info_view);
 
-		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
 		
 		gtk_action_set_sensitive (action_fscreen, TRUE);
 		gtk_action_set_sensitive (action_sshow, TRUE);
 
-		gtk_widget_grab_focus (priv->wraplist);
+		gtk_widget_grab_focus (priv->scroll_view);
 	}
 
 	/* update the toggle menu item for image information pane too */
@@ -2809,18 +2821,10 @@ update_status_bar (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	int nimg;
-	int nsel;
+	int pos;
 	char *str = NULL;
 
 	priv = window->priv;
-
-	/* update number of selected images */	
-	nimg = eog_image_list_length (priv->image_list);
-	if (nimg > 0) {
-		nsel = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
-		/* Images: (n_selected_images) / (n_total_images) */
-		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), nsel, nimg);
-	} 
 
 	if (priv->displayed_image != NULL) {
 		int zoom, width, height;
@@ -2844,6 +2848,15 @@ update_status_bar (EogWindow *window)
 			
 			g_free (size_string);
 		}
+
+		/* update image pos */	
+		nimg = eog_image_list_length (priv->image_list);
+		if (nimg > 0) {
+			pos = eog_image_list_get_pos_by_img (EOG_IMAGE_LIST (priv->image_list), 
+						   	     priv->displayed_image);
+			/* Images: (image pos) / (n_total_images) */
+			eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), pos + 1, nimg);
+		} 
 	}
 
 	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), priv->image_info_message_cid);
@@ -2939,36 +2952,6 @@ get_screen_profile (EogWindow *window)
 }
 #endif
 
-/* Currently, for big images it is not possible to directly use 
-   gtk_window_set_icon (), so we need to scale the image when it's too big.
-   I've tested this code and using ICON_MAX_SIZE = 1024 it won't fail in my
-   machine.
-*/
-
-#define ICON_MAX_SIZE 1024
-static void
-set_window_icon (EogWindow *window, EogImage *image)
-{
-	GdkPixbuf *window_icon;
-	int width, height;
-
-	eog_image_get_size (image, &width, &height);
-
-	if (width > ICON_MAX_SIZE || height > ICON_MAX_SIZE) {
-		gfloat resize_factor;
-		resize_factor = (gfloat)ICON_MAX_SIZE / (gfloat)MAX (width, height);
-		window_icon = gdk_pixbuf_scale_simple (eog_image_get_pixbuf (image),
-						       width * resize_factor, 
-						       height * resize_factor,
-						       GDK_INTERP_TILES);
-	} else {
-		window_icon = eog_image_get_pixbuf (image);
-	}
-
-	gtk_window_set_icon (GTK_WINDOW (window), 
-			     window_icon);
-}
-
 static void 
 display_image_data (EogWindow *window, EogImage *image)
 {
@@ -2991,7 +2974,8 @@ display_image_data (EogWindow *window, EogImage *image)
 	if (image != NULL) {
 		priv->displayed_image = g_object_ref (image);
 		title = eog_image_get_caption (image);
-		set_window_icon (window, image);
+		gtk_window_set_icon (GTK_WINDOW (window), 
+				     eog_image_get_pixbuf_thumbnail (image));
 	}
 	else {
 		title = _("Eye of GNOME");		
@@ -3110,7 +3094,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	EogImage *image;
 	EogJob *job;
 	EogJobImageLoadData *data;
-	
+
 	priv = window->priv;
 
 	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist)) == 0)
@@ -3212,9 +3196,9 @@ static const GtkActionEntry action_entries_window[] = {
   { "EditMenu", NULL, N_("_Edit") },
   { "ViewMenu", NULL, N_("_View") },
   { "ImageMenu", NULL, N_("_Image") },
+  { "GoMenu", NULL, N_("_Go") },
   { "HelpMenu", NULL, N_("_Help") },
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
-  { "FileFolderOpen",  GTK_STOCK_OPEN,  N_("Open _Folder..."), "<control><shift>O", N_("Open a folder"), G_CALLBACK (verb_FolderOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of GNOME"), G_CALLBACK (verb_EditPreferences_cb) },
   { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
@@ -3225,6 +3209,7 @@ static const GtkActionEntry action_entries_window[] = {
 static const GtkToggleActionEntry toggle_entries_window[] = {
   { "ViewToolbar",   NULL, N_("_Toolbar"),   NULL, N_("Changes the visibility of the toolbar in the current window"),   G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
   { "ViewStatusbar", NULL, N_("_Statusbar"), NULL, N_("Changes the visibility of the statusbar in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
+  { "ViewImageCollection", NULL, N_("_Image Collection"), "F9", N_("Changes the visibility of the image collection pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE },
 };
 
 static const GtkActionEntry action_entries_image[] = {
@@ -3245,7 +3230,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
  
   { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
-  { "ViewSlideshow", NULL, N_("_Slideshow"), "F9", NULL, G_CALLBACK (verb_FullScreen_cb) },
+  { "ViewSlideshow", NULL, N_("_Slideshow"), "F5", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ViewZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>minus", NULL, G_CALLBACK (verb_ZoomOut_cb) },
   { "ViewZoomNormal", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<control>0", NULL, G_CALLBACK (verb_ZoomNormal_cb) },
@@ -3254,36 +3239,46 @@ static const GtkActionEntry action_entries_image[] = {
   /* accelerators */
   { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ControlKpAdd", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>KP_Add",NULL, G_CALLBACK (verb_ZoomIn_cb) },
-  { "ControlKpSub", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>KP_Subtract", NULL, G_CALLBACK (verb_ZoomOut_cb) }
+  { "ControlKpSub", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>KP_Subtract", NULL, G_CALLBACK (verb_ZoomOut_cb) },
+  { "SpaceBar",     GTK_STOCK_ZOOM_OUT, N_("_Next Image"), "space", NULL, G_CALLBACK (verb_Go_cb) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
   { "ViewInfo",      NULL, N_("Image _Information"), "<control>I", N_("Changes the visibility of the information pane in the current window"), G_CALLBACK (verb_ShowHideAnyBar_cb), TRUE }
 };
 
+static const GtkActionEntry action_entries_collection[] = {
+  { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<control>Page_Up", NULL, G_CALLBACK (verb_Go_cb) },
+  { "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<control>Page_Down", NULL, G_CALLBACK (verb_Go_cb) },
+  { "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<control>Home", NULL, G_CALLBACK (verb_Go_cb) },
+  { "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<control>End", NULL, G_CALLBACK (verb_Go_cb) },
+};
+
 typedef struct {
 	char *action_name;
 	char *short_label;
+	gboolean is_important;
 } ShortLabelMap;
 
 /* mapping for short-labels, used for toolbar buttons */
 static ShortLabelMap short_label_map[] = {
-	{ "FileOpen",  N_("Open") },
-	{ "FileFolderOpen",  N_("Open") },
-	{ "FileCloseWindow", N_("Close") },
-	{ "FileSave", N_("Save") },
-	{ "FileSaveAs", N_("Save As") },
-	{ "EditUndo",  N_("Undo") },
-	{ "EditFlipHorizontal", NULL },
-	{ "EditFlipVertical", NULL },
-	{ "EditRotate90", N_("Right") },
-	{ "EditRotate270", N_("Left") },
-	{ "ViewFullscreen", NULL },
-	{ "ViewSlideshow", NULL },
-	{ "ViewZoomIn", N_("In") },
-	{ "ViewZoomOut", N_("Out") },
-	{ "ViewZoomNormal", N_("Normal") },
-	{ "ViewZoomFit", N_("Fit") },
+	{ "FileOpen",  N_("Open"), FALSE },
+	{ "FileCloseWindow", N_("Close"), FALSE },
+	{ "FileSave", N_("Save"), FALSE },
+	{ "FileSaveAs", N_("Save As"), FALSE },
+	{ "EditUndo",  N_("Undo"), FALSE },
+	{ "EditFlipHorizontal", NULL, FALSE },
+	{ "EditFlipVertical", NULL, FALSE },
+	{ "EditRotate90", N_("Right"), FALSE },
+	{ "EditRotate270", N_("Left"), FALSE },
+	{ "ViewFullscreen", NULL, FALSE },
+	{ "ViewSlideshow", NULL, FALSE },
+	{ "ViewZoomIn", N_("In"), FALSE },
+	{ "ViewZoomOut", N_("Out"), FALSE },
+	{ "ViewZoomNormal", N_("Normal"), FALSE },
+	{ "ViewZoomFit", N_("Fit"), FALSE },
+	{ "GoNext", N_("Next"), TRUE},
+	{ "GoPrevious", N_("Previous"), TRUE },
 	{ NULL, NULL }
 };
 
@@ -3302,6 +3297,11 @@ add_short_labels (GtkActionGroup *group)
 			
 			g_object_set (G_OBJECT (action), "short-label",
 				          translated_string, NULL);
+
+			if (short_label_map[i].is_important) {
+				g_object_set (G_OBJECT (action), "is-important",
+					          TRUE, NULL);
+			}
 		}
 	}
 }
@@ -3432,6 +3432,12 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	add_short_labels (priv->actions_image);
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
+	priv->actions_collection = gtk_action_group_new ("MenuActionsCollection");
+	gtk_action_group_set_translation_domain (priv->actions_collection, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions (priv->actions_collection, action_entries_collection, G_N_ELEMENTS (action_entries_collection), window);
+	add_short_labels (priv->actions_collection);
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_collection, 0);
+
 	filename = get_ui_description_file ();
 
 	if (filename == NULL) {
@@ -3559,6 +3565,16 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+
+	/* show/hide image collection? */
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/ViewMenu/ImageCollectionToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	if (visible)
+		gtk_widget_show_all (gtk_widget_get_parent (priv->wraplist));
+	else
+		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
 
 	return TRUE;
 }

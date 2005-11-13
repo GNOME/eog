@@ -728,6 +728,56 @@ eog_wrap_list_select_right (EogWrapList *wlist)
 	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 }
 
+void
+eog_wrap_list_select_first (EogWrapList *wlist)
+{
+	EogWrapListPrivate *priv;
+	GList *node;
+	GnomeCanvasItem *item;
+
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
+	priv = wlist->priv;
+
+	node = g_list_first (priv->view_order);
+	if (node == NULL) return;
+
+	item = GNOME_CANVAS_ITEM (node->data);
+
+	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
+	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
+	priv->last_item_clicked = item;
+
+	ensure_item_is_visible (wlist, item);
+
+	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+}
+
+void
+eog_wrap_list_select_last (EogWrapList *wlist)
+{
+	EogWrapListPrivate *priv;
+	GList *node;
+	GnomeCanvasItem *item;
+
+	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
+
+	priv = wlist->priv;
+
+	node = g_list_last (priv->view_order);
+	if (node == NULL) return;
+
+	item = GNOME_CANVAS_ITEM (node->data);
+
+	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
+	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
+	priv->last_item_clicked = item;
+
+	ensure_item_is_visible (wlist, item);
+
+	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
+}
+
 static gboolean 
 eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event)
 {
@@ -838,7 +888,9 @@ create_items_from_model (EogWrapList *wlist, EogImageList *model)
 	EogIter *iter;
 	gboolean success;
 	EogImage *image;
+	EogCollectionItem *initial_item;
 	GList *it;
+	int pos;
 	
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 	g_return_if_fail (EOG_IS_IMAGE_LIST (model));
@@ -867,8 +919,15 @@ create_items_from_model (EogWrapList *wlist, EogImageList *model)
 
 	if (priv->view_order != NULL) {
 		deselect_all (wlist);
-		if (set_select_status (wlist, EOG_COLLECTION_ITEM (priv->view_order->data), TRUE)) {
-			priv->last_item_clicked = GNOME_CANVAS_ITEM (priv->view_order->data);
+
+		pos = eog_image_list_get_initial_pos (priv->model);
+		if (pos == -1) return;
+
+		initial_item = g_list_nth_data (priv->view_order, pos);
+
+		if (set_select_status (wlist, EOG_COLLECTION_ITEM (initial_item), TRUE)) {
+			priv->last_item_clicked = GNOME_CANVAS_ITEM (initial_item);
+			ensure_item_is_visible (wlist, GNOME_CANVAS_ITEM (initial_item));
 			g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 		}
 	}

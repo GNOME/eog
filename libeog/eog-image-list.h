@@ -45,6 +45,7 @@ EogImageList*       eog_image_list_new_from_glist                 (GList *list);
 
 void                eog_image_list_add_uris                       (EogImageList *list, GList *uri_list);
 
+int                 eog_image_list_get_initial_pos                (EogImageList *list);
 GnomeVFSURI*        eog_image_list_get_base_uri                   (EogImageList *list);
 int                 eog_image_list_length                         (EogImageList *list);
 

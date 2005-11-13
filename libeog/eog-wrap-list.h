@@ -72,6 +72,8 @@ GList* eog_wrap_list_get_selected_images (EogWrapList *wlist);
 
 void eog_wrap_list_select_left (EogWrapList *wlist);
 void eog_wrap_list_select_right (EogWrapList *wlist);
+void eog_wrap_list_select_first (EogWrapList *wlist);
+void eog_wrap_list_select_last (EogWrapList *wlist);
 void eog_wrap_list_set_current_image (EogWrapList *wlist, EogImage *image, gboolean deselect_other);
 
 

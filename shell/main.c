@@ -314,57 +314,6 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 	gnome_vfs_file_info_unref (info);
 }
 
-enum {
-	COLLECTION_CANCEL,
-	COLLECTION_NO,
-	COLLECTION_YES
-};
-
-/**
- * user_wants_collection:
- * @n_windows: The number of windows eog will open.
- * 
- * Pop ups a dialog which asks the user if he wants to open n_windows or if he
- * prefers a single window with a collection in it.
- *
- * @Return value: TRUE, if a collection should be used, else FALSE.
- * */
-static gint
-user_wants_collection (gint n_windows)
-{
-	GtkWidget *dlg;
-	int ret;
-
-	dlg = gtk_message_dialog_new (NULL,
-				      GTK_DIALOG_MODAL,
-				      GTK_MESSAGE_WARNING,
-				      GTK_BUTTONS_NONE,
-				      _("Open multiple single windows?"));
-	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
-				      ngettext ("You are about to open %i windows simultaneously."
-						" Do you want to open them in a collection instead?",
-						"You are about to open %i windows simultaneously."
-						" Do you want to open them in a collection instead?",
-						n_windows),
-				      n_windows);
-
-	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Single Windows"), COLLECTION_NO);
-	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, COLLECTION_CANCEL);
-	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Collection"), COLLECTION_YES);
-	gtk_dialog_set_default_response (GTK_DIALOG (dlg), COLLECTION_YES);
-
-	gtk_widget_show_all (dlg);
-
-	ret = gtk_dialog_run (GTK_DIALOG (dlg));
-
-	if (ret != COLLECTION_NO && ret != COLLECTION_YES) 
-		ret = COLLECTION_CANCEL;
-
-	gtk_widget_destroy (dlg);
-
-	return ret;
-}
-
 /* Shows an error dialog for files that do not exist */
 static void
 show_nonexistent_files (GList *error_list)
@@ -437,17 +386,6 @@ job_prepare_model_do (EogJob *job, gpointer data, GError **error)
 	
 	/* prepare the image list */
 	eog_image_list_add_uris (ctx->img_list, ctx->uri_list);
-	
-	/* it there is only one image, load it also from disk */
-	if (eog_image_list_length (ctx->img_list) == 1) {
-		EogImage *img;
-		
-		img = eog_image_list_get_img_by_pos (ctx->img_list, 0);
-		if (EOG_IS_IMAGE (img)) {
-			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
-			g_object_unref (img);
-		}
-	}
 }
 
 static void
@@ -537,40 +475,16 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	
 	/* open regular files */
 	if (file_list) {
-		int result = COLLECTION_NO;
-		int n_files = 0;
+		LoadContext *ctx;				
+		EogJob *job;
+		ctx = load_context_new (window, file_list);
+		window = NULL;
+	
+		job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished, 
+					NULL, NULL, job_prepare_model_free);
 
-		n_files = g_list_length (file_list);
-		if (n_files >= 10) {
-			result = COLLECTION_YES;
-		}
-		else if (n_files > 3) { /* 3 < n_files < 10  => ask user */
-			result = user_wants_collection (n_files);
-		}
-	
-		switch (result) {
-		case COLLECTION_CANCEL:
-			quit_program = (window == NULL);			
-			break;			
-		case COLLECTION_YES: {
-			LoadContext *ctx;				
-			EogJob *job;
-			ctx = load_context_new (window, file_list);
-			window = NULL;
-	
-			job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished, 
-									NULL, NULL, job_prepare_model_free);
-			eog_job_manager_add (job);
-			g_object_unref (job);
-			}
-			break;
-		case COLLECTION_NO:
-			load_uris_in_single_model (window, file_list);
-			window = NULL;
-			break;
-		default:
-			g_assert_not_reached ();
-		}
+		eog_job_manager_add (job);
+		g_object_unref (job);
 	}
 		
 	/* open every directory in an own window */
