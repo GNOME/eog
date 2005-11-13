@@ -475,6 +475,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	
 	static const char *authors[] = {
 		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
+		"Lucas Rocha <lucasr@cvs.gnome.org> (maintainer)",
 		"",
 		"Philip Van Hoof <pvanhoof@gnome.org>",
                 "Paolo Borelli <pborelli@katamail.com>",

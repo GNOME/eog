@@ -1,3 +1,49 @@
+Version 2.13.2
+--------------
+
+- UI redesign. Fixes bugs #148643 and #320542. (Lucas Rocha)
+  * Removed 'New Window' and 'Open Folder' from 'File' menu;
+  * Removed 'New Window' and 'Open' items from toolbar;
+  * Moved rotation toolbar items to the right edge;
+  * Added Next/Previous button to toolbar for easy navigation
+    through image collection;
+  * Added 'Go' menu with Next/Previous/First/Last Image items;
+  * Status shows the position of image within a collection,
+    not the number the selected images;
+  * Added 'Image Collection' item to 'View' menu to Show/Hide
+    image collection pane;
+  * Accelerators: Ctrl+PageDown and spacebar switches to the next
+    image, Ctrl+PageUp switches to the previous image, Ctrl+Home
+    switches to the first image, Ctrl+End switches to the last image,
+    F9 shows/hides image collection pane, F5 starts slideshow.
+- Fix crash when setting window icon. Fixes bug #320245. 
+  (Claudio Saavedra)
+- Removed confirmation dialog when removing an image. Fixes
+  bug #309046. (Lucas Rocha)
+- Option to use an image as the desktop wallpaper. Fixes bug
+  #140768. (Nirmal Kumar, Lucas Rocha)
+- Page Up and Page Down scroll images up and down. Fixes bug
+  #152364. (Lucas rocha)
+- Several code cleanups. (Lucas Rocha, Paolo Borelli) 
+- Correct keys that cancel Fullscreen and Slideshow. (Lucas
+  Rocha) 
+- On single and collection view, default focus on 
+  image. Fixes bug #169836. (Lucas Rocha)
+- Make it possible to use '=' or '+' for zooming in. Fixes
+  bug #320367. (Lucas Rocha)
+- Added accelerators from numerical keypad for zooming in
+  and out. Fixes bug #315183. (Felix Riemann)
+- Make scrollbar buttons work in thumbnails pane. Fixes
+  bug #124653. (Juan Carlos Inostroza)
+- More coherent fullscreen/slide show behavior. Fixes
+  bug #317392. (Lucas Rocha) 
+- Window icon is a thumbnail of the image. Fixed bug
+  #311720. (Lucas Rocha)
+- Use intuitive gnome-icon-theme icon for image viewer
+  instead of EOG icon. Fixes bug #167087. (Lucas Rocha)
+- Fix width of the information pane that was too small.
+  Fixes bug #313674. (Ed Catmur)
+
 Version 2.13.1
 --------------
 
