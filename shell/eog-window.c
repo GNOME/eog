@@ -700,13 +700,13 @@ verb_Go_cb (GtkAction *action, gpointer data)
 
 	if (g_ascii_strcasecmp (action_name, "GoNext") == 0 ||
 	    g_ascii_strcasecmp (action_name, "SpaceBar") == 0) {
-		eog_wrap_list_select_right (EOG_WRAP_LIST (priv->wraplist));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_RIGHT);
 	} else if (g_ascii_strcasecmp (action_name, "GoPrevious") == 0) {
-		eog_wrap_list_select_left (EOG_WRAP_LIST (priv->wraplist));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_LEFT);
 	} else if (g_ascii_strcasecmp (action_name, "GoFirst") == 0) {
-		eog_wrap_list_select_first (EOG_WRAP_LIST (priv->wraplist));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_FIRST);
 	} else if (g_ascii_strcasecmp (action_name, "GoLast") == 0) {
-		eog_wrap_list_select_last (EOG_WRAP_LIST (priv->wraplist));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_LAST);
 	}
 }
 	

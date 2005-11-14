@@ -70,11 +70,17 @@ EogImage* eog_wrap_list_get_first_selected_image (EogWrapList *wlist);
 
 GList* eog_wrap_list_get_selected_images (EogWrapList *wlist);
 
-void eog_wrap_list_select_left (EogWrapList *wlist);
-void eog_wrap_list_select_right (EogWrapList *wlist);
-void eog_wrap_list_select_first (EogWrapList *wlist);
-void eog_wrap_list_select_last (EogWrapList *wlist);
+typedef enum {
+	EOG_WRAP_LIST_SELECT_UP,
+	EOG_WRAP_LIST_SELECT_DOWN,
+	EOG_WRAP_LIST_SELECT_LEFT,
+	EOG_WRAP_LIST_SELECT_RIGHT,
+	EOG_WRAP_LIST_SELECT_FIRST,
+	EOG_WRAP_LIST_SELECT_LAST
+} EogWrapListSelectChange;
+
 void eog_wrap_list_set_current_image (EogWrapList *wlist, EogImage *image, gboolean deselect_other);
+void eog_wrap_list_select_single (EogWrapList *wlist, EogWrapListSelectChange change);
 
 
 

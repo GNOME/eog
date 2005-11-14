@@ -600,76 +600,13 @@ eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	request_update (wlist);
 }       
 
-static void 
-eog_wrap_list_select_up (EogWrapList *wlist)
-{
-	EogWrapListPrivate *priv;
-	GList *node;
-	GnomeCanvasItem *item;
-	int i;
-
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	if (priv->n_selected_items != 1) return;
-
-	node = g_list_find (priv->view_order, priv->last_item_clicked);
-
-	for (i = 0; i < priv->n_cols && node != NULL; i++) {
-		node = node->prev;
-	}
-	if (node == NULL) return;
-
-	item = GNOME_CANVAS_ITEM (node->data);
-
-	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
-	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
-	priv->last_item_clicked = item;
-
-	ensure_item_is_visible (wlist, item);
-
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-}
-
-static void 
-eog_wrap_list_select_down (EogWrapList *wlist)
-{
-	EogWrapListPrivate *priv;
-	GList *node;
-	GnomeCanvasItem *item;
-	int i;
-
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	if (priv->n_selected_items != 1) return;
-
-	node = g_list_find (priv->view_order, priv->last_item_clicked);
-
-	for (i = 0; i < priv->n_cols && node != NULL; i++) {
-		node = node->next;
-	}
-	if (node == NULL) return;
-
-	item = GNOME_CANVAS_ITEM (node->data);
-
-	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
-	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
-	priv->last_item_clicked = item;
-
-	ensure_item_is_visible (wlist, item);
-
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-}
-
 void 
-eog_wrap_list_select_left (EogWrapList *wlist)
+eog_wrap_list_select_single (EogWrapList *wlist, EogWrapListSelectChange change)
 {
 	EogWrapListPrivate *priv;
 	GList *node;
 	GnomeCanvasItem *item;
+	int i;
 
 	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
 
@@ -678,93 +615,42 @@ eog_wrap_list_select_left (EogWrapList *wlist)
 	if (priv->n_selected_items != 1) return;
 
 	node = g_list_find (priv->view_order, priv->last_item_clicked);
+
 	if (node == NULL) return;
 
-	node = node->prev;
-	if (node == NULL) {
-		node = g_list_last (priv->view_order);
-	}
-
-	item = GNOME_CANVAS_ITEM (node->data);
-
-	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
-	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
-	priv->last_item_clicked = item;
-
-	ensure_item_is_visible (wlist, item);
-
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-}
-
-void
-eog_wrap_list_select_right (EogWrapList *wlist)
-{
-	EogWrapListPrivate *priv;
-	GList *node;
-	GnomeCanvasItem *item;
-
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	if (priv->n_selected_items != 1) return;
-
-	node = g_list_find (priv->view_order, priv->last_item_clicked);
-	if (node == NULL) return;
-
-	node = node->next;
-	if (node == NULL) {
+	switch (change) {
+	case EOG_WRAP_LIST_SELECT_UP:
+		for (i = 0; i < priv->n_cols && node != NULL; i++) {
+			node = node->prev;
+		}
+		break;
+	case EOG_WRAP_LIST_SELECT_DOWN:
+		for (i = 0; i < priv->n_cols && node != NULL; i++) {
+			node = node->next;
+		}
+		break;
+	case EOG_WRAP_LIST_SELECT_LEFT:
+		node = node->prev;
+		if (node == NULL) {
+			node = g_list_last (priv->view_order);
+		}
+		break;
+	case EOG_WRAP_LIST_SELECT_RIGHT:
+		node = node->next;
+		if (node == NULL) {
+			node = g_list_first (priv->view_order);
+		}
+		break;
+	case EOG_WRAP_LIST_SELECT_FIRST:
 		node = g_list_first (priv->view_order);
+		break;
+	case EOG_WRAP_LIST_SELECT_LAST:
+		node = g_list_last (priv->view_order);
+		break;
+	default:
+		g_assert_not_reached ();
 	}
 
-	item = GNOME_CANVAS_ITEM (node->data);
-
-	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
-	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
-	priv->last_item_clicked = item;
-
-	ensure_item_is_visible (wlist, item);
-
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-}
-
-void
-eog_wrap_list_select_first (EogWrapList *wlist)
-{
-	EogWrapListPrivate *priv;
-	GList *node;
-	GnomeCanvasItem *item;
-
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	node = g_list_first (priv->view_order);
-	if (node == NULL) return;
-
-	item = GNOME_CANVAS_ITEM (node->data);
-
-	set_select_status (wlist, EOG_COLLECTION_ITEM (priv->last_item_clicked), FALSE);
-	set_select_status (wlist, EOG_COLLECTION_ITEM (item), TRUE);
-	priv->last_item_clicked = item;
-
-	ensure_item_is_visible (wlist, item);
-
-	g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
-}
-
-void
-eog_wrap_list_select_last (EogWrapList *wlist)
-{
-	EogWrapListPrivate *priv;
-	GList *node;
-	GnomeCanvasItem *item;
-
-	g_return_if_fail (EOG_IS_WRAP_LIST (wlist));
-
-	priv = wlist->priv;
-
-	node = g_list_last (priv->view_order);
 	if (node == NULL) return;
 
 	item = GNOME_CANVAS_ITEM (node->data);
@@ -785,22 +671,22 @@ eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event)
 
 	switch (event->keyval) {
 	case GDK_Up:
-		eog_wrap_list_select_up (EOG_WRAP_LIST (widget));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (widget), EOG_WRAP_LIST_SELECT_UP);
 		handled = TRUE;
 		break;
 
 	case GDK_Down:
-		eog_wrap_list_select_down (EOG_WRAP_LIST (widget));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (widget), EOG_WRAP_LIST_SELECT_DOWN);
 		handled = TRUE;
 		break;
 
 	case GDK_Left:
-		eog_wrap_list_select_left (EOG_WRAP_LIST (widget));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (widget), EOG_WRAP_LIST_SELECT_LEFT);
 		handled = TRUE;
 		break;
 
 	case GDK_Right:
-		eog_wrap_list_select_right (EOG_WRAP_LIST (widget));
+		eog_wrap_list_select_single (EOG_WRAP_LIST (widget), EOG_WRAP_LIST_SELECT_RIGHT);
 		handled = TRUE;
 		break;
 	};

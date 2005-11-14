@@ -1,5 +1,16 @@
 2005-11-13  Lucas Rocha  <lucasr@cvs.gnome.org>
 
+	* libeog/eog-wrap-list.c: (eog_wrap_list_select_single),
+	(eog_wrap_list_key_press_cb): Use one single function when changing
+	single selection instead of six too similar ones (Closes #321395). 
+	Patch from Claudio Saavedra <csaavedra@alumnos.utalca.cl>.
+	* libeog/eog-wrap-list.h: Added EogWrapListSelectChange enum and
+	updated headers as needed.
+	* shell/eog-window.c: (verb_Go_cb): Call new function 
+	eog_wrap_list_select_single () instead old ones.
+
+2005-11-13  Lucas Rocha  <lucasr@cvs.gnome.org>
+
 	* configure.in: post release version bump.
 
 2005-11-13  Lucas Rocha  <lucasr@cvs.gnome.org>
