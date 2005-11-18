@@ -511,6 +511,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 			"authors", authors,
 			"documenters", documenters,
 			"translator-credits", translators,
+			"logo_icon_name", "image-viewer",
 			NULL);
 }
 
