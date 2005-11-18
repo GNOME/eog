@@ -2,11 +2,11 @@
 #define _EOG_IMAGE_PRIVATE_H_
 
 #include <libgnomevfs/gnome-vfs-file-size.h>
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
 #include "eog-image.h"
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 #include <lcms.h>
 #endif
 
@@ -35,12 +35,12 @@ struct _EogImagePrivate {
 	guint    exif_chunk_len;
 	guchar  *iptc_chunk; /* holds IPTC raw data */
 	guint    iptc_chunk_len;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	ExifData *exif;      /* this is mutual exclusive to exif_chunk. Only 
 			      * either of these are not NULL:
 			      */
 #endif
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 	cmsHPROFILE profile;
 #endif
 

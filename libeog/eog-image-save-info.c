@@ -44,7 +44,7 @@ eog_image_save_info_class_init (EogImageSaveInfoClass *klass)
 GNOME_CLASS_BOILERPLATE (EogImageSaveInfo,
 			 eog_image_save_info,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 /* is_local_uri: 
  * 
@@ -83,7 +83,7 @@ get_save_file_type_by_uri (const GnomeVFSURI *uri)
 	if (suffix_start == NULL) 
 		return NULL;
 	
-	len = MAX (0, strlen (suffix_start) - 1);
+	len = strlen (suffix_start) - 1;
 	suffix = g_strndup (suffix_start+1, len);
 
 	format = eog_pixbuf_get_format_by_suffix (suffix);

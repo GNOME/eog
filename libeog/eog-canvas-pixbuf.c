@@ -294,5 +294,5 @@ eog_canvas_pixbuf_class_init (EogCanvasPixbufClass *klass)
 GNOME_CLASS_BOILERPLATE (EogCanvasPixbuf,
 			 eog_canvas_pixbuf,
 			 GnomeCanvasPixbuf,
-			 GNOME_TYPE_CANVAS_PIXBUF);
+			 GNOME_TYPE_CANVAS_PIXBUF)
 

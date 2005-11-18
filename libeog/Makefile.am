@@ -76,10 +76,6 @@ libeog_a_SOURCES =			\
 	eog-info-view-exif.c		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
-	eog-horizontal-splitter.c	\
-	eog-horizontal-splitter.h	\
-	eog-vertical-splitter.c		\
-	eog-vertical-splitter.h		\
 	eog-config-keys.h		\
 	eog-wrap-list.h			\
 	eog-wrap-list.c			\

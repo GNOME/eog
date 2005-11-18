@@ -113,7 +113,7 @@ eog_job_dispose (GObject *object)
 
 	priv = EOG_JOB (object)->priv;
 
-	g_print ("Job %.3i: disposing ...\n", priv->id);
+	g_print ("Job %.3u: disposing ...\n", priv->id);
 
 	if (priv->mutex != NULL) {
 		g_mutex_lock (priv->mutex);
@@ -133,7 +133,7 @@ eog_job_dispose (GObject *object)
 		priv->mutex = NULL;
 	}
 
-	g_print ("Job %.3i: disposing end\n", priv->id);
+	g_print ("Job %.3u: disposing end\n", priv->id);
 }
 
 static void
@@ -149,7 +149,7 @@ eog_job_instance_init (EogJob *obj)
 	}
 
 #if DEBUG_EOG_JOB
-	g_print ("Instantiate job with id %i.\n", id);
+	g_print ("Instantiate job with id %u.\n", id);
 #endif
 
 	priv = g_new0 (EogJobPrivate, 1);
@@ -214,7 +214,7 @@ eog_job_class_init (EogJobClass *klass)
 GNOME_CLASS_BOILERPLATE (EogJob,
 			 eog_job,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 EogJob*             
 eog_job_new (GObject *data_obj, 

@@ -119,7 +119,7 @@ static void request_paint_area (EogScrollView *view, GdkRectangle *area);
 GNOME_CLASS_BOILERPLATE (EogScrollView,
 			 eog_scroll_view,
 			 GtkTable,
-			 GTK_TYPE_TABLE);
+			 GTK_TYPE_TABLE)
 
 
 /*===================================
@@ -1031,7 +1031,6 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
-	gboolean handled;
 	gboolean do_zoom;
 	double zoom;
 	gboolean do_scroll;
@@ -1039,8 +1038,6 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
-
-	handled = FALSE;
 
 	do_zoom = FALSE;
 	do_scroll = FALSE;

@@ -40,7 +40,7 @@ struct _EogInfoViewFilePrivate
 GNOME_CLASS_BOILERPLATE (EogInfoViewFile,
 			 eog_info_view_file,
 			 EogInfoViewDetail,
-			 EOG_TYPE_INFO_VIEW_DETAIL);
+			 EOG_TYPE_INFO_VIEW_DETAIL)
 
 
 static void

@@ -150,7 +150,7 @@ static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpo
 GNOME_CLASS_BOILERPLATE (EogWrapList,
 			 eog_wrap_list,
 			 GnomeCanvas,
-			 GNOME_TYPE_CANVAS);
+			 GNOME_TYPE_CANVAS)
 
 /* Class initialization function for the abstract wrapped list view */
 static void
@@ -325,13 +325,10 @@ get_item_view_position (EogWrapList *wlist, GnomeCanvasItem *item)
 static void
 ensure_item_is_visible (EogWrapList *wlist, GnomeCanvasItem *item)
 {
-	EogWrapListPrivate *priv;
 	double x1, y1, x2, y2;
 	int width, height;
 	int ofsx, ofsy;
 	int scroll_x, scroll_y;
-
-	priv = wlist->priv;
 
 	width = GTK_WIDGET (wlist)->allocation.width;
 	height = GTK_WIDGET (wlist)->allocation.height;
@@ -853,7 +850,6 @@ model_image_removed (EogImageList *model, int pos, gpointer data)
 	EogWrapListPrivate *priv;
 	GnomeCanvasItem *item;
 	GList *node;
-	gboolean selection_changed;
 
 	g_return_if_fail (EOG_IS_WRAP_LIST (data));
 
@@ -870,7 +866,7 @@ model_image_removed (EogImageList *model, int pos, gpointer data)
 		priv->last_item_clicked = NULL;
 	}
 	
-	selection_changed = set_select_status (wlist, EOG_COLLECTION_ITEM (item), FALSE);
+	set_select_status (wlist, EOG_COLLECTION_ITEM (item), FALSE);
 	priv->view_order = g_list_delete_link (priv->view_order, node);
 
 	/* delete object */
@@ -1005,7 +1001,6 @@ do_layout_check (EogWrapList *wlist)
 	unsigned int n_rows_new = 0;
 	unsigned int n_cols_new = 0;
 	gint cw;
-	gint ch;
 	
 	EogWrapListPrivate *priv;
 
@@ -1020,7 +1015,6 @@ do_layout_check (EogWrapList *wlist)
 
 	/* get canvas width */
 	cw = GTK_WIDGET (wlist)->allocation.width;
-	ch = GTK_WIDGET (wlist)->allocation.height;
 
 	/* calculate new number of  columns/rows */
 	n_cols_new = cw / (EOG_COLLECTION_ITEM_MAX_WIDTH + priv->col_spacing);

@@ -162,7 +162,7 @@ struct _EogInfoViewExifPrivate
 GNOME_CLASS_BOILERPLATE (EogInfoViewExif,
 			 eog_info_view_exif,
 			 EogInfoViewDetail,
-			 EOG_TYPE_INFO_VIEW_DETAIL);
+			 EOG_TYPE_INFO_VIEW_DETAIL)
 
 static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value);
 

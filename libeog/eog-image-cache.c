@@ -66,7 +66,7 @@ eog_image_cache_class_init (EogImageCacheClass *klass)
 GNOME_CLASS_BOILERPLATE (EogImageCache,
 			 eog_image_cache,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 EogImageCache*      
 eog_image_cache_new (int n)

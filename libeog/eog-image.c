@@ -9,7 +9,7 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
 #include <libexif/exif-loader.h>
@@ -23,11 +23,11 @@
 #include "eog-image-save-info.h"
 #include "eog-info-view-file.h"
 #include "eog-util.h"
-#if HAVE_JPEG
+#ifdef HAVE_JPEG
 #include "eog-image-jpeg.h"
 #endif
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
  #include <lcms.h>
  #ifndef EXIF_TAG_GAMMA
   #define EXIF_TAG_GAMMA 0xa500
@@ -73,7 +73,7 @@ static int n_active_images = 0;
 GNOME_CLASS_BOILERPLATE (EogImage,
 			 eog_image,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 static void
 eog_image_dispose (GObject *object)
@@ -271,10 +271,10 @@ eog_image_instance_init (EogImage *img)
 	priv->status_mutex = g_mutex_new ();
 	priv->load_finished = NULL;
 	priv->error_message = NULL;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	priv->exif = NULL;
 #endif
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 	priv->profile = NULL;
 #endif
 	priv->data_ref_count = 0;
@@ -330,7 +330,7 @@ eog_image_error_quark (void)
 	return q;
 }
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 static void
 update_exif_data (EogImage *image)
 {
@@ -384,7 +384,7 @@ load_size_prepared (GdkPixbufLoader *loader, gint width, gint height, gpointer d
 }
 
 static EogMetadataReader*
-check_for_metadata_img_format (EogImage *img, guchar *buffer, int bytes_read)
+check_for_metadata_img_format (EogImage *img, guchar *buffer, guint bytes_read)
 {
 	EogMetadataReader *md_reader = NULL;
 
@@ -558,7 +558,7 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 	}
 	else if (!failed && (md_reader != NULL)) {
 		/* update meta data */
-#if HAVE_EXIF  
+#ifdef HAVE_EXIF  
 		priv->exif = eog_metadata_reader_get_exif_data (md_reader);
 		priv->exif_chunk = NULL;
 		priv->exif_chunk_len = 0;
@@ -575,7 +575,7 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 	return !failed;
 }
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 void
 eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 {
@@ -611,7 +611,7 @@ static void
 extract_profile (EogImage *img, EogMetadataReader *md_reader)
 {
 	EogImagePrivate *priv = img->priv;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	ExifEntry *entry;
 	const ExifByteOrder o = exif_data_get_byte_order (priv->exif);
 #endif
@@ -631,7 +631,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 			return;
 		}
 	}
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	/* No EXIF data, so can't do anything */
 	if (priv->exif == NULL)
 		return;
@@ -835,7 +835,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 
 		/* update meta data */
 		if (md_reader != NULL) {
-#if HAVE_EXIF  
+#ifdef HAVE_EXIF  
 			priv->exif = eog_metadata_reader_get_exif_data (md_reader);
 			priv->exif_chunk = NULL;
 			priv->exif_chunk_len = 0;
@@ -850,7 +850,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		if (format != NULL) {
 			priv->file_type = gdk_pixbuf_format_get_name (format);
 		}
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 		if (md_reader != NULL) {
 			extract_profile (img, md_reader);
 		}
@@ -888,7 +888,7 @@ eog_image_has_data (EogImage *img, guint req_data)
 
 	if ((req_data & EOG_IMAGE_DATA_EXIF) > 0) {
 		req_data = (req_data & !EOG_IMAGE_DATA_EXIF); // remove from req_data
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 		has_data = has_data && (priv->exif != NULL);
 #else
 		has_data = has_data && (priv->exif_chunk != NULL);
@@ -1027,7 +1027,7 @@ eog_image_get_pixbuf (EogImage *img)
 	return image;
 }
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 cmsHPROFILE
 eog_image_get_profile (EogImage *img)
 {
@@ -1097,7 +1097,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *j
 
 	if (modified) {
 		priv->modified = TRUE;
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 		update_exif_data (img);
 #endif 
 	}
@@ -1360,7 +1360,7 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, EogJob *job, GE
 		return FALSE;
 	}
 
-#if HAVE_JPEG
+#ifdef HAVE_JPEG
 	/* determine kind of saving */
 	if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0) && 
 	    source->exists && source->modified) 
@@ -1494,7 +1494,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		direct_copy = success;
 	}
 
-#if HAVE_JPEG
+#ifdef HAVE_JPEG
 	else if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0 && source->exists) ||
 		 (g_ascii_strcasecmp (target->format, EOG_FILE_FORMAT_JPEG) == 0))
 	{
@@ -1645,7 +1645,7 @@ eog_image_free_mem_private (EogImage *image)
 			priv->image = NULL;
 		}
 		
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 		if (priv->exif != NULL) {
 			exif_data_unref (priv->exif);
 			priv->exif = NULL;
@@ -1658,7 +1658,7 @@ eog_image_free_mem_private (EogImage *image)
 		}
 		priv->exif_chunk_len = 0;
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 		if (priv->profile != NULL) {
 		  cmsCloseProfile (priv->profile);
 		}
@@ -1715,7 +1715,7 @@ eog_image_has_metadata (EogImage *img)
 
 	has_metadata = ((priv->exif_chunk != NULL) || (priv->iptc_chunk != NULL));
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	has_metadata |= (priv->exif != NULL);
 #endif	
 
@@ -1732,7 +1732,7 @@ eog_image_get_exif_information (EogImage *img)
 	
 	priv = img->priv;
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 	g_mutex_lock (priv->status_mutex);
 	exif_data_ref (priv->exif);
 	data = priv->exif;

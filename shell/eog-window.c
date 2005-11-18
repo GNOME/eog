@@ -50,8 +50,6 @@
 #include "eog-config-keys.h"
 #include "eog-scroll-view.h"
 #include "eog-wrap-list.h"
-#include "eog-vertical-splitter.h"
-#include "eog-horizontal-splitter.h"
 #include "eog-info-view.h"
 #include "eog-full-screen.h"
 #include "eog-image-save-info.h"
@@ -424,7 +422,6 @@ static void
 verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
-	EogWindowPrivate *priv;
 	GtkWidget *dlg;
 	gint response;
 	GSList *list = NULL;
@@ -432,7 +429,6 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	window = EOG_WINDOW (user_data);
-	priv = window->priv;
 
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 
@@ -2916,7 +2912,7 @@ show_error_dialog (EogWindow *window, char *header, GError *error)
 	gtk_widget_show_all (dlg);
 }
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 /* TODO: move into library */
 static cmsHPROFILE *
 get_screen_profile (EogWindow *window)
@@ -3019,7 +3015,7 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
 		if (eog_job_get_success (job)) { 
 			/* successfull */
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 			eog_image_apply_display_profile (image, get_screen_profile (window));
 #endif
 			display_image_data (window, image);
@@ -3770,7 +3766,9 @@ gboolean
 eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 {
 	EogWindowPrivate *priv;
+#ifdef HAVE_LCMS
         int i;
+#endif
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 
@@ -3791,7 +3789,7 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 		g_object_ref (model);
 		priv->image_list = model;
 
-#if HAVE_LCMS
+#ifdef HAVE_LCMS
 		/* Colour-correct the images */
 		for (i = 0; i < eog_image_list_length (model); i++) {
 			eog_image_apply_display_profile (eog_image_list_get_img_by_pos (model, i),

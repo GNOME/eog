@@ -190,7 +190,7 @@ eog_uc_error_quark (void)
 GNOME_CLASS_BOILERPLATE (EogURIConverter,
 			 eog_uri_converter,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 static void 
 update_counter_format_str (EogURIConverter *conv)
@@ -204,7 +204,7 @@ update_counter_format_str (EogURIConverter *conv)
 	if (priv->counter_str != NULL) 
 		g_free (priv->counter_str);
 
-	priv->counter_str = g_strdup_printf ("%%.%ili", priv->counter_n_digits);
+	priv->counter_str = g_strdup_printf ("%%.%ulu", priv->counter_n_digits);
 }
 
 
@@ -498,7 +498,7 @@ eog_uri_converter_print_list (EogURIConverter *conv)
 			str = "filename";
 			break;
 		case EOG_UC_COUNTER:
-			str = g_strdup_printf ("counter [%li]", token->data.counter);
+			str = g_strdup_printf ("counter [%lu]", token->data.counter);
 			break;
 		case EOG_UC_COMMENT:
 			str = "comment";
@@ -615,7 +615,7 @@ split_filename (GnomeVFSURI *uri, char **name, char **suffix)
 		len = (suffix_start - short_name);
 		*name = g_strndup (short_name, len);
 
-		len = MAX (0, strlen (short_name) - len - 1);
+		len = strlen (short_name) - len - 1;
 		*suffix = g_strndup (suffix_start+1, len);
 	}
 
@@ -895,7 +895,7 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 			else if (c == 'n') {
 				char *counter_format;
 
-				counter_format = g_strdup_printf ("%%.%ili", n_digits);
+				counter_format = g_strdup_printf ("%%.%uli", n_digits);
 				g_string_append_printf (str, counter_format, counter);
 
 				g_free (counter_format);

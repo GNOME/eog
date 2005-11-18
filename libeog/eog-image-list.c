@@ -223,7 +223,7 @@ eog_image_list_class_init (EogImageListClass *klass)
 GNOME_CLASS_BOILERPLATE (EogImageList,
 			 eog_image_list,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 
 /* ================== Private EogImageList functions  ===================*/
@@ -514,13 +514,11 @@ directory_visit_cb (const gchar *rel_uri,
 	EogImage *image;
 	GnomeVFSURI *uri;
 	EogImageList *list;
-	EogImageListPrivate *priv;
 	gboolean load_uri = FALSE;
 	DirLoadingContext *ctx;
 	
 	ctx = (DirLoadingContext*) data;
 	list = ctx->list;
-	priv = list->priv;
 
 	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0) {
 		if (is_supported_mime_type (info->mime_type)) {
@@ -759,7 +757,7 @@ eog_image_list_print_debug (EogImageList *list)
 	
 	priv = list->priv;
 	
-	g_print ("n_images: %i/%i\n", priv->n_images, g_list_length (priv->store));
+	g_print ("n_images: %i/%u\n", priv->n_images, g_list_length (priv->store));
 	for (it = priv->store; it != NULL; it = it->next) {
 		gint width, height;
 		EogImage *img = EOG_IMAGE (it->data);

@@ -881,7 +881,6 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 void
 uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int width, int height)
 {
-	ArtUtaBbox *utiles;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	gboolean top_to_bottom, left_to_right;
 	int xofs, yofs;
@@ -915,8 +914,6 @@ uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int wi
 	 * 3. Copy back the temporary buffer to the original array while
 	 *    offsetting it in the same way as copy_tile() does.
 	 */
-
-	utiles = uta->utiles;
 
 	rect_x1 = src_x >> ART_UTILE_SHIFT;
 	rect_y1 = src_y >> ART_UTILE_SHIFT;

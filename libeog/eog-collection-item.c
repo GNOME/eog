@@ -40,16 +40,14 @@ static char* ensure_max_string_width (gchar *str, PangoLayout *layout, int max_w
 
 
 GNOME_CLASS_BOILERPLATE (EogCollectionItem, eog_collection_item,
-			 GnomeCanvasGroup, GNOME_TYPE_CANVAS_GROUP);
+			 GnomeCanvasGroup, GNOME_TYPE_CANVAS_GROUP)
 
 static void
 eog_collection_item_class_init (EogCollectionItemClass *klass)
 {
-        GObjectClass *gobject_class;
 	GtkObjectClass *object_class;
 	GnomeCanvasItemClass *item_class;
 
-        gobject_class = (GObjectClass *) klass;
 	object_class = (GtkObjectClass *) klass;
 	item_class = (GnomeCanvasItemClass *) klass;
 

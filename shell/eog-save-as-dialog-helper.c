@@ -26,6 +26,22 @@ typedef struct {
 	gint       nth_image;
 } SaveAsData;
 
+static const EogUCInfo uc_info[] = {
+        { "String",      "",   FALSE }, /* only used for internal purpose */
+        { N_("Filename"),"%f", FALSE },
+        { N_("Counter"), "%n", FALSE },
+        { N_("Comment"), "%c", TRUE },
+        { N_("Date"),    "%d", TRUE },
+        { N_("Time"),    "%t", TRUE },
+        { N_("Day"),     "%a", TRUE },
+        { N_("Month"),   "%m", TRUE },
+        { N_("Year"),    "%y", TRUE },
+        { N_("Hour"),    "%h", TRUE },
+        { N_("Minute"),  "%i", TRUE },
+        { N_("Second"),  "%s", TRUE },
+        { NULL, NULL, FALSE }
+};
+
 static gboolean
 update_preview (gpointer user_data)
 {

@@ -21,7 +21,7 @@ struct _EogInfoViewPrivate
 };
 
 GNOME_CLASS_BOILERPLATE (EogInfoView, eog_info_view,
-			 GtkNotebook, GTK_TYPE_NOTEBOOK);
+			 GtkNotebook, GTK_TYPE_NOTEBOOK)
 
 
 static void

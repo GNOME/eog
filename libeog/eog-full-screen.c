@@ -43,7 +43,7 @@
 GNOME_CLASS_BOILERPLATE (EogFullScreen,
 			 eog_full_screen,
 			 GtkWindow,
-			 GTK_TYPE_WINDOW);
+			 GTK_TYPE_WINDOW)
 
 #define POINTER_HIDE_DELAY  2   /* hide the pointer after 2 seconds */
 static GQuark JOB_ID_QUARK = 0; 
@@ -645,13 +645,10 @@ eog_full_screen_instance_init (EogFullScreen *fs)
 static void
 eog_full_screen_set_geometry (EogFullScreen *fs, GtkWindow *parent)
 {
-	EogFullScreenPrivate *priv;
 	GdkScreen *screen;
 	GdkRectangle geometry;
 	int monitor;
 	
-	priv = fs->priv;
-
 	screen = gtk_window_get_screen (GTK_WINDOW (fs));
 	monitor = gdk_screen_get_monitor_at_window (screen,
 			GTK_WIDGET (parent)->window);

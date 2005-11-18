@@ -105,7 +105,7 @@ eog_metadata_reader_class_init (EogMetadataReaderClass *klass)
 GNOME_CLASS_BOILERPLATE (EogMetadataReader,
 			 eog_metadata_reader,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)

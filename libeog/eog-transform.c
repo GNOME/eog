@@ -47,7 +47,7 @@ eog_transform_class_init (EogTransformClass *klass)
 GNOME_CLASS_BOILERPLATE (EogTransform,
 			 eog_transform,
 			 GObject,
-			 G_TYPE_OBJECT);
+			 G_TYPE_OBJECT)
 
 
 GdkPixbuf*    

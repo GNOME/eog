@@ -10,7 +10,7 @@
 GNOME_CLASS_BOILERPLATE (EogInfoViewDetail,
 			 eog_info_view_detail,
 			 GtkTreeView,
-			 GTK_TYPE_TREE_VIEW);
+			 GTK_TYPE_TREE_VIEW)
 
 
 static void

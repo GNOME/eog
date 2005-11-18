@@ -115,7 +115,7 @@ eog_pixbuf_get_format_by_vfs_uri (GnomeVFSURI *uri)
 	if (suffix_start == NULL) 
 		return NULL;
 	
-	len = MAX (0, strlen (suffix_start) - 1);
+	len = strlen (suffix_start) - 1;
 	suffix = g_strndup (suffix_start+1, len);
 	
 	format = eog_pixbuf_get_format_by_suffix (suffix);
