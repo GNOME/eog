@@ -686,27 +686,41 @@ verb_ZoomFit_cb (GtkAction *action, gpointer data)
 }
 
 static void
-verb_Go_cb (GtkAction *action, gpointer data)
+verb_GoNext_cb (GtkAction *action, gpointer data)
 {
-	EogWindowPrivate *priv;
-	gchar *action_name = (gchar *) gtk_action_get_name (action);
-
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	priv = EOG_WINDOW (data)->priv;
-
-	if (g_ascii_strcasecmp (action_name, "GoNext") == 0 ||
-	    g_ascii_strcasecmp (action_name, "SpaceBar") == 0) {
-		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_RIGHT);
-	} else if (g_ascii_strcasecmp (action_name, "GoPrevious") == 0) {
-		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_LEFT);
-	} else if (g_ascii_strcasecmp (action_name, "GoFirst") == 0) {
-		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_FIRST);
-	} else if (g_ascii_strcasecmp (action_name, "GoLast") == 0) {
-		eog_wrap_list_select_single (EOG_WRAP_LIST (priv->wraplist), EOG_WRAP_LIST_SELECT_LAST);
-	}
+	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
+				     EOG_WRAP_LIST_SELECT_RIGHT);
 }
-	
+
+static void
+verb_GoPrev_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
+				     EOG_WRAP_LIST_SELECT_LEFT);
+}
+
+static void
+verb_GoFirst_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
+				     EOG_WRAP_LIST_SELECT_FIRST);
+}
+
+static void
+verb_GoLast_cb (GtkAction *action, gpointer data)
+{
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
+				     EOG_WRAP_LIST_SELECT_LAST);
+}
+
 static void
 slideshow_hide_cb (GtkWidget *widget, gpointer data)
 {
@@ -3238,7 +3252,10 @@ static const GtkActionEntry action_entries_image[] = {
   { "ControlEqual", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>equal", NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ControlKpAdd", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>KP_Add",NULL, G_CALLBACK (verb_ZoomIn_cb) },
   { "ControlKpSub", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), "<control>KP_Subtract", NULL, G_CALLBACK (verb_ZoomOut_cb) },
-  { "SpaceBar",     GTK_STOCK_ZOOM_OUT, N_("_Next Image"), "space", NULL, G_CALLBACK (verb_Go_cb) },
+  { "SpaceBar", NULL, N_("_Next Image"), "space", NULL, G_CALLBACK (verb_GoNext_cb) },
+  { "ShiftSpaceBar", NULL, N_("_Previous Image"), "<shift>space", NULL, G_CALLBACK (verb_GoPrev_cb) },
+  { "Return", NULL, N_("_Next Image"), "Return", NULL, G_CALLBACK (verb_GoNext_cb) },
+  { "ShiftReturn", NULL, N_("_Previous Image"), "<shift>Return", NULL, G_CALLBACK (verb_GoPrev_cb) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
@@ -3246,10 +3263,10 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 };
 
 static const GtkActionEntry action_entries_collection[] = {
-  { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<control>Page_Up", NULL, G_CALLBACK (verb_Go_cb) },
-  { "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<control>Page_Down", NULL, G_CALLBACK (verb_Go_cb) },
-  { "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<control>Home", NULL, G_CALLBACK (verb_Go_cb) },
-  { "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<control>End", NULL, G_CALLBACK (verb_Go_cb) },
+  { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<control>Page_Up", NULL, G_CALLBACK (verb_GoPrev_cb) },
+  { "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<control>Page_Down", NULL, G_CALLBACK (verb_GoNext_cb) },
+  { "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<control>Home", NULL, G_CALLBACK (verb_GoFirst_cb) },
+  { "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<control>End", NULL, G_CALLBACK (verb_GoLast_cb) },
 };
 
 typedef struct {
