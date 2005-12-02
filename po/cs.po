@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 13:40+0100\n"
-"PO-Revision-Date: 2005-11-12 17:13+0100\n"
+"POT-Creation-Date: 2005-12-02 13:55+0100\n"
+"PO-Revision-Date: 2005-12-02 20:00+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgstr "Přejmenovat z:"
 msgid "Replace spaces by underscore"
 msgstr "Nahradit mezery podtržítky"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3275
+#: ../eog.glade.h:22 ../shell/eog-window.c:3283
 msgid "Save As"
 msgstr "Uložit jako"
 
@@ -220,22 +220,26 @@ msgid "Show/hide image information for single image."
 msgstr "Zobrazit/skrýt informace o obrázku pro jednotlivý obrázek."
 
 #: ../eog.schemas.in.h:15
+msgid "Show/hide the image collection pane."
+msgstr "Zobrazit/skrýt panel s kolekcí obrázků."
+
+#: ../eog.schemas.in.h:16
 msgid "Show/hide the window statusbar."
 msgstr "Zobrazovat/skrýt stavovou lištu okna"
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:17
 msgid "Show/hide the window toolbar."
 msgstr "Zobrazovat/skrýt lištu nástrojů okna."
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:18
 msgid "Transparency color"
 msgstr "Barva průhlednosti"
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:19
 msgid "Transparency indicator"
 msgstr "Indikátor průhlednosti"
 
-#: ../eog.schemas.in.h:19
+#: ../eog.schemas.in.h:20
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -243,12 +247,12 @@ msgstr ""
 "Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v "
 "aktuálním okně."
 
-#: ../eog.schemas.in.h:20
+#: ../eog.schemas.in.h:21
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Jestli má být sekvence obrázků zobrazována v nekonečné smyčce."
 
-#: ../eog.schemas.in.h:21
+#: ../eog.schemas.in.h:22
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -314,7 +318,7 @@ msgid "Value"
 msgstr "Hodnota"
 
 #. only used for internal purpose
-#: ../libeog/eog-info-view-file.c:29 ../libeog/eog-uri-converter.h:45
+#: ../libeog/eog-info-view-file.c:29 ../shell/eog-save-as-dialog-helper.c:31
 msgid "Filename"
 msgstr "Název souboru"
 
@@ -349,46 +353,6 @@ msgstr "IPTC"
 #: ../libeog/eog-uri-converter.c:1027
 msgid "At least two file names are equal."
 msgstr "Názvy alespoň dvou souborů jsou stejné."
-
-#: ../libeog/eog-uri-converter.h:46
-msgid "Counter"
-msgstr "Čítač"
-
-#: ../libeog/eog-uri-converter.h:47
-msgid "Comment"
-msgstr "Poznámka"
-
-#: ../libeog/eog-uri-converter.h:48
-msgid "Date"
-msgstr "Datum"
-
-#: ../libeog/eog-uri-converter.h:49
-msgid "Time"
-msgstr "Čas"
-
-#: ../libeog/eog-uri-converter.h:50
-msgid "Day"
-msgstr "Den"
-
-#: ../libeog/eog-uri-converter.h:51
-msgid "Month"
-msgstr "Měsíc"
-
-#: ../libeog/eog-uri-converter.h:52
-msgid "Year"
-msgstr "Rok"
-
-#: ../libeog/eog-uri-converter.h:53
-msgid "Hour"
-msgstr "Hodina"
-
-#: ../libeog/eog-uri-converter.h:54
-msgid "Minute"
-msgstr "Minuta"
-
-#: ../libeog/eog-uri-converter.h:55
-msgid "Second"
-msgstr "Sekunda"
 
 #: ../libeog/eog-util.c:44
 msgid " (invalid Unicode)"
@@ -437,11 +401,51 @@ msgstr "Otevřít adresář"
 msgid "Could not display help for Eye of GNOME"
 msgstr "Nemohu zobrazit nápovědu pro Eye of GNOME"
 
-#: ../shell/eog-save-as-dialog-helper.c:143
+#: ../shell/eog-save-as-dialog-helper.c:32
+msgid "Counter"
+msgstr "Čítač"
+
+#: ../shell/eog-save-as-dialog-helper.c:33
+msgid "Comment"
+msgstr "Poznámka"
+
+#: ../shell/eog-save-as-dialog-helper.c:34
+msgid "Date"
+msgstr "Datum"
+
+#: ../shell/eog-save-as-dialog-helper.c:35
+msgid "Time"
+msgstr "Čas"
+
+#: ../shell/eog-save-as-dialog-helper.c:36
+msgid "Day"
+msgstr "Den"
+
+#: ../shell/eog-save-as-dialog-helper.c:37
+msgid "Month"
+msgstr "Měsíc"
+
+#: ../shell/eog-save-as-dialog-helper.c:38
+msgid "Year"
+msgstr "Rok"
+
+#: ../shell/eog-save-as-dialog-helper.c:39
+msgid "Hour"
+msgstr "Hodina"
+
+#: ../shell/eog-save-as-dialog-helper.c:40
+msgid "Minute"
+msgstr "Minuta"
+
+#: ../shell/eog-save-as-dialog-helper.c:41
+msgid "Second"
+msgstr "Sekunda"
+
+#: ../shell/eog-save-as-dialog-helper.c:159
 msgid "Option not available."
 msgstr "Možnost není k dispozici."
 
-#: ../shell/eog-save-as-dialog-helper.c:145
+#: ../shell/eog-save-as-dialog-helper.c:161
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
@@ -449,7 +453,7 @@ msgstr ""
 "Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím "
 "libexif (http://libexif.sf.net) a znovu přeložte Eye of GNOME."
 
-#: ../shell/eog-save-as-dialog-helper.c:219
+#: ../shell/eog-save-as-dialog-helper.c:235
 msgid "as is"
 msgstr "beze změny"
 
@@ -466,22 +470,22 @@ msgstr "Zrušit ukládání ..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:532
+#: ../shell/eog-window.c:498
 msgid "translator-credits"
 msgstr ""
 "Michal Bukovjan <bukm@centrum.cz>\n"
 "Miloslav Trmač <mitr@volny.cz>"
 
-#: ../shell/eog-window.c:537 ../shell/eog-window.c:2997
-#: ../shell/eog-window.c:3611 ../shell/main.c:673
+#: ../shell/eog-window.c:503 ../shell/eog-window.c:2993
+#: ../shell/eog-window.c:3642 ../shell/main.c:587
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:540
+#: ../shell/eog-window.c:506
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program pro prohlížení a katalogizaci obrázků pro GNOME"
 
-#: ../shell/eog-window.c:565
+#: ../shell/eog-window.c:532
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -490,70 +494,70 @@ msgstr ""
 "Nemohu zobrazit nápovědu pro Eye of GNOME.\n"
 "%s"
 
-#: ../shell/eog-window.c:957
+#: ../shell/eog-window.c:967
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Přepsat soubor %s?"
 
-#: ../shell/eog-window.c:958
+#: ../shell/eog-window.c:968
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Soubor existuje. Chcete jej přepsat?"
 
-#: ../shell/eog-window.c:969 ../shell/eog-window.c:985
+#: ../shell/eog-window.c:979 ../shell/eog-window.c:995
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: ../shell/eog-window.c:970
+#: ../shell/eog-window.c:980
 msgid "Overwrite"
 msgstr "Přepsat"
 
-#: ../shell/eog-window.c:975
+#: ../shell/eog-window.c:985
 #, c-format
 msgid "Error on saving %s."
 msgstr "Chyba při ukládání %s."
 
-#: ../shell/eog-window.c:986 ../shell/eog-window.c:1551
+#: ../shell/eog-window.c:996 ../shell/eog-window.c:1561
 msgid "Retry"
 msgstr "Zkusit znovu"
 
-#: ../shell/eog-window.c:1415
+#: ../shell/eog-window.c:1425
 msgid "Couldn't determine destination uri."
 msgstr "Nemohu určit uri cíle."
 
-#: ../shell/eog-window.c:1537
+#: ../shell/eog-window.c:1547
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Nemohu určit formát souboru %s"
 
-#: ../shell/eog-window.c:1538
+#: ../shell/eog-window.c:1548
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Použijte prosím odpovídající příponu názvu souboru nebo zvolte formát "
 "souboru."
 
-#: ../shell/eog-window.c:1676
+#: ../shell/eog-window.c:1686
 msgid "Error on saving images."
 msgstr "Chyba při ukládání obrázků."
 
-#: ../shell/eog-window.c:1757 ../shell/eog-window.c:3233
+#: ../shell/eog-window.c:1767 ../shell/eog-window.c:3230
 msgid "Print"
 msgstr "Vytisknout"
 
-#: ../shell/eog-window.c:1791
+#: ../shell/eog-window.c:1801
 msgid "Print Preview"
 msgstr "Náhled tisku"
 
-#: ../shell/eog-window.c:2002
+#: ../shell/eog-window.c:2012
 msgid "Couldn't access trash."
 msgstr "Nemohu přistupovat ke koši."
 
-#: ../shell/eog-window.c:2072
+#: ../shell/eog-window.c:2082
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba při odstraňování obrázku %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2840
+#: ../shell/eog-window.c:2856
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
@@ -561,215 +565,246 @@ msgstr[0] "%i × %i pixel   %s    %i%%"
 msgstr[1] "%i × %i pixely  %s    %i%%"
 msgstr[2] "%i × %i pixelů  %s    %i%%"
 
-#: ../shell/eog-window.c:2887
+#: ../shell/eog-window.c:2912
 #, c-format
 msgid "Reason: %s"
 msgstr "Důvod: %s"
 
-#: ../shell/eog-window.c:3046
+#: ../shell/eog-window.c:3042
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Načítání obrázu pro %s selhalo"
 
-#: ../shell/eog-window.c:3211
+#: ../shell/eog-window.c:3207
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../shell/eog-window.c:3212
+#: ../shell/eog-window.c:3208
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../shell/eog-window.c:3213
+#: ../shell/eog-window.c:3209
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ../shell/eog-window.c:3214
+#: ../shell/eog-window.c:3210
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../shell/eog-window.c:3215
+#: ../shell/eog-window.c:3211
+msgid "_Go"
+msgstr "_Jít"
+
+#: ../shell/eog-window.c:3212
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: ../shell/eog-window.c:3216
+#: ../shell/eog-window.c:3213
 msgid "_Open..."
 msgstr "_Otevřít..."
 
-#: ../shell/eog-window.c:3216
+#: ../shell/eog-window.c:3213
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: ../shell/eog-window.c:3217
-msgid "Open _Folder..."
-msgstr "Otevřít _adresář..."
-
-#: ../shell/eog-window.c:3217
-msgid "Open a folder"
-msgstr "Otevřít adresář"
-
-#: ../shell/eog-window.c:3218
+#: ../shell/eog-window.c:3214
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../shell/eog-window.c:3218
+#: ../shell/eog-window.c:3214
 msgid "Close window"
 msgstr "Zavřít okno"
 
-#: ../shell/eog-window.c:3219
+#: ../shell/eog-window.c:3215
 msgid "Prefere_nces"
 msgstr "_Nastavení"
 
-#: ../shell/eog-window.c:3219
+#: ../shell/eog-window.c:3215
 msgid "Preferences for Eye of GNOME"
 msgstr "Nastavení Eye of GNOME"
 
-#: ../shell/eog-window.c:3220
+#: ../shell/eog-window.c:3216
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: ../shell/eog-window.c:3220
+#: ../shell/eog-window.c:3216
 msgid "Help On this application"
 msgstr "Nápověda pro tuto aplikaci"
 
-#: ../shell/eog-window.c:3221
+#: ../shell/eog-window.c:3217
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../shell/eog-window.c:3221
+#: ../shell/eog-window.c:3217
 msgid "About this application"
 msgstr "O této aplikaci"
 
-#: ../shell/eog-window.c:3226
+#: ../shell/eog-window.c:3222
 msgid "_Toolbar"
 msgstr "Lištu _nástrojů"
 
-#: ../shell/eog-window.c:3226
+#: ../shell/eog-window.c:3222
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Změní viditelnost lišty nástrojů v aktuálním okně"
 
-#: ../shell/eog-window.c:3227
+#: ../shell/eog-window.c:3223
 msgid "_Statusbar"
 msgstr "_Stavovou lištu"
 
-#: ../shell/eog-window.c:3227
+#: ../shell/eog-window.c:3223
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Změní viditelnost stavové lišty v aktuálním okně"
 
-#: ../shell/eog-window.c:3231
+#: ../shell/eog-window.c:3224
+msgid "_Image Collection"
+msgstr "_Kolekce obrázků"
+
+#: ../shell/eog-window.c:3224
+msgid ""
+"Changes the visibility of the image collection pane in the current window"
+msgstr "Změní viditelnost panelu s kolekcí obrázků v aktuálním okně"
+
+#: ../shell/eog-window.c:3228
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../shell/eog-window.c:3232
+#: ../shell/eog-window.c:3229
 msgid "Save _As"
 msgstr "Uložit _jako"
 
-#: ../shell/eog-window.c:3235
+#: ../shell/eog-window.c:3232
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: ../shell/eog-window.c:3237
+#: ../shell/eog-window.c:3234
 msgid "Flip _Horizontal"
 msgstr "Převrátit _vodorovně"
 
-#: ../shell/eog-window.c:3238
+#: ../shell/eog-window.c:3235
 msgid "Flip _Vertical"
 msgstr "Převrátit _svisle"
 
-#: ../shell/eog-window.c:3240
+#: ../shell/eog-window.c:3237
 msgid "_Rotate Clockwise"
 msgstr "Rotovat _po směru"
 
-#: ../shell/eog-window.c:3241
+#: ../shell/eog-window.c:3238
 msgid "Rotate Counter C_lockwise"
 msgstr "Rotovat p_roti směru"
 
-#: ../shell/eog-window.c:3242
+#: ../shell/eog-window.c:3239
 msgid "Rotat_e 180°"
 msgstr "Rotovat o _180°"
 
-#: ../shell/eog-window.c:3243
+#: ../shell/eog-window.c:3240
 msgid "Set As _Wallpaper"
 msgstr "Nastavit jako _tapetu"
 
-#: ../shell/eog-window.c:3245
+#: ../shell/eog-window.c:3242
 msgid "Delete"
 msgstr "Odstranit"
 
-#: ../shell/eog-window.c:3247
+#: ../shell/eog-window.c:3244
 msgid "_Full Screen"
 msgstr "_Celá obrazovka"
 
-#: ../shell/eog-window.c:3248
+#: ../shell/eog-window.c:3245
 msgid "_Slideshow"
 msgstr "_Promítání snímků"
 
 #. accelerators
-#: ../shell/eog-window.c:3249 ../shell/eog-window.c:3255
-#: ../shell/eog-window.c:3256
+#: ../shell/eog-window.c:3246 ../shell/eog-window.c:3252
+#: ../shell/eog-window.c:3253
 msgid "_Zoom In"
 msgstr "Z_většit"
 
-#: ../shell/eog-window.c:3250 ../shell/eog-window.c:3257
+#: ../shell/eog-window.c:3247 ../shell/eog-window.c:3254
 msgid "Zoom _Out"
 msgstr "Z_menšit"
 
-#: ../shell/eog-window.c:3251
+#: ../shell/eog-window.c:3248
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: ../shell/eog-window.c:3252
+#: ../shell/eog-window.c:3249
 msgid "Best _Fit"
 msgstr "Nejlepší _velikost"
 
-#: ../shell/eog-window.c:3261
+#: ../shell/eog-window.c:3255 ../shell/eog-window.c:3257
+#: ../shell/eog-window.c:3267
+msgid "_Next Image"
+msgstr "_Následující obrázek"
+
+#: ../shell/eog-window.c:3256 ../shell/eog-window.c:3258
+#: ../shell/eog-window.c:3266
+msgid "_Previous Image"
+msgstr "_Předchozí obrázek"
+
+#: ../shell/eog-window.c:3262
 msgid "Image _Information"
 msgstr "_Informace o obrázku"
 
-#: ../shell/eog-window.c:3261
+#: ../shell/eog-window.c:3262
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Změní viditelnost panelu s informacemi v aktuálním okně"
 
-#: ../shell/eog-window.c:3271 ../shell/eog-window.c:3272
+#: ../shell/eog-window.c:3268
+msgid "_First Image"
+msgstr "P_rvní obrázek"
+
+#: ../shell/eog-window.c:3269
+msgid "_Last Image"
+msgstr "Po_slední obrázek"
+
+#: ../shell/eog-window.c:3280
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../shell/eog-window.c:3273
+#: ../shell/eog-window.c:3281
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../shell/eog-window.c:3274
+#: ../shell/eog-window.c:3282
 msgid "Save"
 msgstr "Uložit"
 
-#: ../shell/eog-window.c:3276
+#: ../shell/eog-window.c:3284
 msgid "Undo"
 msgstr "Zpět"
 
-#: ../shell/eog-window.c:3279
+#: ../shell/eog-window.c:3287
 msgid "Right"
 msgstr "Doprava"
 
-#: ../shell/eog-window.c:3280
+#: ../shell/eog-window.c:3288
 msgid "Left"
 msgstr "Doleva"
 
-#: ../shell/eog-window.c:3283
+#: ../shell/eog-window.c:3291
 msgid "In"
 msgstr "Zvětšit"
 
-#: ../shell/eog-window.c:3284
+#: ../shell/eog-window.c:3292
 msgid "Out"
 msgstr "Zmenšit"
 
-#: ../shell/eog-window.c:3285
+#: ../shell/eog-window.c:3293
 msgid "Normal"
 msgstr "Normální"
 
-#: ../shell/eog-window.c:3286
+#: ../shell/eog-window.c:3294
 msgid "Fit"
 msgstr "Přizpůsobit"
 
-#: ../shell/eog-window.c:3440
+#: ../shell/eog-window.c:3295
+msgid "Next"
+msgstr "Následující"
+
+#: ../shell/eog-window.c:3296
+msgid "Previous"
+msgstr "Předchozí"
+
+#: ../shell/eog-window.c:3461
 msgid "User interface description not found."
 msgstr "Popis uživatelského rozhraní nenalezen."
 
@@ -777,35 +812,8 @@ msgstr "Popis uživatelského rozhraní nenalezen."
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Nemohu vytvořit uživatelské rozhraní Eye of GNOME"
 
-#: ../shell/main.c:342
-msgid "Open multiple single windows?"
-msgstr "Otevřít více jednotlivých oken?"
-
-#: ../shell/main.c:344
-#, c-format
-msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgid_plural ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgstr[0] ""
-"Chystáte se otevřít %i okno najednou. Chcete je raději otevřít v kolekci?"
-msgstr[1] ""
-"Chystáte se otevřít %i okna najednou. Chcete je raději otevřít v kolekci?"
-msgstr[2] ""
-"Chystáte se otevřít %i oken najednou. Chcete je raději otevřít v kolekci?"
-
-#: ../shell/main.c:351
-msgid "Single Windows"
-msgstr "Samostatná okna"
-
-#: ../shell/main.c:353
-msgid "Collection"
-msgstr "Kolekce"
-
 # Why is this using a plural form?
-#: ../shell/main.c:408
+#: ../shell/main.c:357
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Soubor nenalezen."
@@ -817,49 +825,3 @@ msgstr[2] "Soubory nenalezeny."
 msgid "Could not open `%s'"
 msgstr "Nelze otevřít `%s'"
 
-#~ msgid "Show next image _automatically"
-#~ msgstr "Zobrazit následující obrázek _automaticky"
-
-#~ msgid ""
-#~ "If this is set to TRUE images will be switched after number of seconds "
-#~ "determined by the 'full_screen/seconds' key."
-#~ msgstr ""
-#~ "Je-li toto nastaveno TRUE, obrázky budou přepínány po počtu sekund "
-#~ "určeném klíčem 'full_screen/seconds'."
-
-#~ msgid "Show next image automatically in fullscreen mode."
-#~ msgstr ""
-#~ "Zobrazit následující obrázek v režimu přes celou obrazovku automaticky."
-
-#~ msgid "Do you really want to move %i image to trash?"
-#~ msgid_plural "Do you really want to move %i images to trash?"
-#~ msgstr[0] "Opravdu chcete přesunout %i obrázek do koše?"
-#~ msgstr[1] "Opravdu chcete přesunout %i obrázky do koše?"
-#~ msgstr[2] "Opravdu chcete přesunout %i obrázků do koše?"
-
-#~ msgid "_New Window"
-#~ msgstr "_Nové okno"
-
-#~ msgid "Open a new window"
-#~ msgstr "Otevřít nové okno"
-
-#~ msgid "New"
-#~ msgstr "Nový"
-
-#~ msgid "_New"
-#~ msgstr "_Nový"
-
-#~ msgid "Filenames are not disjunct."
-#~ msgstr "Názvy souborů nejsou disjunktní."
-
-#~ msgid "empty file"
-#~ msgstr "prázdný soubor"
-
-#~ msgid "Images: %i/%i"
-#~ msgstr "Obrázky: %i/%i"
-
-#~ msgid "_Quit"
-#~ msgstr "U_končit"
-
-#~ msgid "Close all windows and quit"
-#~ msgstr "Zavřít všechna okna a skončit"
