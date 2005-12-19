@@ -3256,6 +3256,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "ShiftSpaceBar", NULL, N_("_Previous Image"), "<shift>space", NULL, G_CALLBACK (verb_GoPrev_cb) },
   { "Return", NULL, N_("_Next Image"), "Return", NULL, G_CALLBACK (verb_GoNext_cb) },
   { "ShiftReturn", NULL, N_("_Previous Image"), "<shift>Return", NULL, G_CALLBACK (verb_GoPrev_cb) },
+  { "BackSpace", NULL, N_("_Previous Image"), "BackSpace", NULL, G_CALLBACK (verb_GoPrev_cb) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
