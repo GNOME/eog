@@ -472,11 +472,18 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
-	if (scaled_width <= 1 || scaled_height <= 1)
-		return;
-
 	width = GTK_WIDGET (priv->display)->allocation.width;
 	height = GTK_WIDGET (priv->display)->allocation.height;
+
+	if (scaled_width < 1 || scaled_height < 1)
+	{
+		r.x0 = 0;
+		r.y0 = 0;
+		r.x1 = width;
+		r.y1 = height;
+		paint_background (view, &r, rect);
+		return;
+	}
 
 	/* Compute image offsets with respect to the window */
 
