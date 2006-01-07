@@ -106,7 +106,7 @@ eog_uri_converter_dispose (GObject *object)
 }
 
 static void
-eog_uri_converter_instance_init (EogURIConverter *obj)
+eog_uri_converter_init (EogURIConverter *obj)
 {
 	EogURIConverterPrivate *priv;
 
@@ -187,10 +187,7 @@ eog_uc_error_quark (void)
 	return q;
 }
 
-GNOME_CLASS_BOILERPLATE (EogURIConverter,
-			 eog_uri_converter,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
 
 static void 
 update_counter_format_str (EogURIConverter *conv)

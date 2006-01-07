@@ -77,7 +77,7 @@ eog_metadata_reader_dispose (GObject *object)
 }
 
 static void
-eog_metadata_reader_instance_init (EogMetadataReader *obj)
+eog_metadata_reader_init (EogMetadataReader *obj)
 {
 	EogMetadataReaderPrivate *priv;
 
@@ -102,10 +102,7 @@ eog_metadata_reader_class_init (EogMetadataReaderClass *klass)
 }
 
 
-GNOME_CLASS_BOILERPLATE (EogMetadataReader,
-			 eog_metadata_reader,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogMetadataReader, eog_metadata_reader, G_TYPE_OBJECT)
 
 EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)

@@ -116,10 +116,7 @@ static void scroll_by (EogScrollView *view, int xofs, int yofs);
 static void set_zoom_fit (EogScrollView *view);
 static void request_paint_area (EogScrollView *view, GdkRectangle *area);
 
-GNOME_CLASS_BOILERPLATE (EogScrollView,
-			 eog_scroll_view,
-			 GtkTable,
-			 GTK_TYPE_TABLE)
+G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
 
 
 /*===================================
@@ -1317,7 +1314,8 @@ eog_scroll_view_size_allocate (GtkWidget *widget, GtkAllocation *alloc)
 	view = EOG_SCROLL_VIEW (widget);
 	check_scrollbar_visibility (view, alloc);
 
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, size_allocate, (widget, alloc));
+	GTK_WIDGET_CLASS (eog_scroll_view_parent_class)->size_allocate (widget
+									,alloc);
 }
 
 static void
@@ -1807,7 +1805,7 @@ eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, 
 
 
 static void
-eog_scroll_view_instance_init (EogScrollView *view)
+eog_scroll_view_init (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
 
@@ -1850,7 +1848,7 @@ eog_scroll_view_dispose (GObject *object)
 
 	free_image_resources (view);
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
+	G_OBJECT_CLASS (eog_scroll_view_parent_class)->dispose (object);
 }
 
 static void
@@ -1864,7 +1862,7 @@ eog_scroll_view_finalize (GObject *object)
 		view->priv = 0;
 	}
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+	G_OBJECT_CLASS (eog_scroll_view_parent_class)->finalize (object);
 }
 
 static void

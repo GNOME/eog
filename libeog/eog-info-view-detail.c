@@ -7,10 +7,7 @@
 #include "eog-info-view-detail.h"
 
 
-GNOME_CLASS_BOILERPLATE (EogInfoViewDetail,
-			 eog_info_view_detail,
-			 GtkTreeView,
-			 GTK_TYPE_TREE_VIEW)
+G_DEFINE_TYPE (EogInfoViewDetail, eog_info_view_detail, GTK_TYPE_TREE_VIEW)
 
 
 static void
@@ -23,17 +20,17 @@ eog_info_view_detail_finalize (GObject *object)
 	instance->priv = NULL;
 #endif
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+	G_OBJECT_CLASS (eog_info_view_detail_parent_class)->finalize (object);
 }
 
 static void
 eog_info_view_detail_dispose (GObject *object)
 {
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
+	G_OBJECT_CLASS (eog_info_view_detail_parent_class)->dispose (object);
 }
 
 static void
-eog_info_view_detail_instance_init (EogInfoViewDetail *obj)
+eog_info_view_detail_init (EogInfoViewDetail *obj)
 {
 #if 0
 	EogInfoViewDetailPrivate *priv;

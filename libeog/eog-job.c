@@ -137,7 +137,7 @@ eog_job_dispose (GObject *object)
 }
 
 static void
-eog_job_instance_init (EogJob *obj)
+eog_job_init (EogJob *obj)
 {
 	EogJobPrivate *priv;
 	guint id;
@@ -211,10 +211,7 @@ eog_job_class_init (EogJobClass *klass)
 }
 
 
-GNOME_CLASS_BOILERPLATE (EogJob,
-			 eog_job,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogJob, eog_job,	G_TYPE_OBJECT)
 
 EogJob*             
 eog_job_new (GObject *data_obj, 

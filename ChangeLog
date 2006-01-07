@@ -1,5 +1,20 @@
 2005-01-07  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/eog-canvas-pixbuf.c, libeog/eog-collection-item.c,
+	libeog/eog-full-screen.c, libeog/eog-image-cache.c,
+	libeog/eog-image-list.c, libeog/eog-image-save-info.c,
+	libeog/eog-image.c, libeog/eog-info-view-detail.c,
+	libeog/eog-info-view-exif.c, libeog/eog-info-view-file.c,
+	libeog/eog-info-view.c, libeog/eog-job.c,
+	libeog/eog-metadata-reader.c, libeog/eog-scroll-view.c,
+	libeog/eog-transform.c, libeog/eog-uri-converter.c,
+	libeog/eog-wrap-list.c, shell/eog-file-chooser.c,
+	shell/eog-window.c: replace GNOME_CLASS_BOILERPLATE macros in
+	libeog with the	G_DEFINE_TYPE macros. Patch by Felix Riemann
+	<felix@hsgheli.de>.
+
+2005-01-07  Lucas Rocha  <lucasr@gnome.org>
+
 	* shell/recent-files/egg-recent-item.c,
 	shell/recent-files/egg-recent-model.c,
 	shell/recent-files/egg-recent-util.c,

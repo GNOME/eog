@@ -26,7 +26,7 @@ eog_transform_finalize (GObject *object)
 }
 
 static void
-eog_transform_instance_init (EogTransform *trans)
+eog_transform_init (EogTransform *trans)
 {
 	EogTransformPrivate *priv;
 
@@ -44,10 +44,7 @@ eog_transform_class_init (EogTransformClass *klass)
 }
 
 
-GNOME_CLASS_BOILERPLATE (EogTransform,
-			 eog_transform,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
 
 
 GdkPixbuf*    

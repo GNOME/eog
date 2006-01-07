@@ -158,11 +158,7 @@ struct _EogInfoViewExifPrivate
 				       for a given EXIF entry id */
 };
 
-
-GNOME_CLASS_BOILERPLATE (EogInfoViewExif,
-			 eog_info_view_exif,
-			 EogInfoViewDetail,
-			 EOG_TYPE_INFO_VIEW_DETAIL)
+G_DEFINE_TYPE (EogInfoViewExif, eog_info_view_exif, EOG_TYPE_INFO_VIEW_DETAIL)
 
 static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value);
 
@@ -197,7 +193,7 @@ eog_info_view_exif_dispose (GObject *object)
 }
 
 static void
-eog_info_view_exif_instance_init (EogInfoViewExif *view)
+eog_info_view_exif_init (EogInfoViewExif *view)
 {
 	EogInfoViewExifPrivate *priv;
 	GtkTreeViewColumn *column;

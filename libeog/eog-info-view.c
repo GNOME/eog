@@ -20,8 +20,7 @@ struct _EogInfoViewPrivate
 	
 };
 
-GNOME_CLASS_BOILERPLATE (EogInfoView, eog_info_view,
-			 GtkNotebook, GTK_TYPE_NOTEBOOK)
+G_DEFINE_TYPE (EogInfoView, eog_info_view, GTK_TYPE_NOTEBOOK)
 
 
 static void
@@ -63,7 +62,7 @@ eog_info_view_class_init (EogInfoViewClass *klass)
 }
 
 static void
-eog_info_view_instance_init (EogInfoView *view)
+eog_info_view_init (EogInfoView *view)
 {
 	EogInfoViewPrivate *priv;
 	GtkWidget *scrwnd;

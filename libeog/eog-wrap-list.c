@@ -131,7 +131,7 @@ struct _EogWrapListPrivate {
 };
 
 static void eog_wrap_list_class_init (EogWrapListClass *class);
-static void eog_wrap_list_instance_init (EogWrapList *wlist);
+static void eog_wrap_list_init (EogWrapList *wlist);
 static void eog_wrap_list_dispose (GObject *object);
 static void eog_wrap_list_finalize (GObject *object);
 
@@ -147,10 +147,7 @@ static void request_update (EogWrapList *wlist);
 static gboolean do_update (EogWrapList *wlist);
 static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data);
 
-GNOME_CLASS_BOILERPLATE (EogWrapList,
-			 eog_wrap_list,
-			 GnomeCanvas,
-			 GNOME_TYPE_CANVAS)
+G_DEFINE_TYPE (EogWrapList, eog_wrap_list, GNOME_TYPE_CANVAS)
 
 /* Class initialization function for the abstract wrapped list view */
 static void
@@ -206,7 +203,7 @@ eog_wrap_list_class_init (EogWrapListClass *class)
 
 /* object initialization function for the abstract wrapped list view */
 static void
-eog_wrap_list_instance_init (EogWrapList *wlist)
+eog_wrap_list_init (EogWrapList *wlist)
 {
 	EogWrapListPrivate *priv;
 
@@ -254,7 +251,7 @@ eog_wrap_list_dispose (GObject *object)
 
 	/* FIXME: free the items and item array */
 	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
+	G_OBJECT_CLASS (eog_wrap_list_parent_class)->dispose (object);
 }
 
 static void
@@ -270,8 +267,8 @@ eog_wrap_list_finalize (GObject *object)
 		g_free (wlist->priv);
 	wlist->priv = NULL;
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	if (G_OBJECT_CLASS (eog_wrap_list_parent_class)->finalize)
+		(* G_OBJECT_CLASS (eog_wrap_list_parent_class)->finalize) (object);
 }
 
 static void
@@ -590,7 +587,8 @@ eog_wrap_list_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	wlist = EOG_WRAP_LIST (widget);
 	priv = wlist->priv;
 
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, size_allocate, (widget, allocation));
+	GTK_WIDGET_CLASS (eog_wrap_list_parent_class)->size_allocate (widget,
+								    allocation);
 
 	priv->global_update_hints[GLOBAL_WIDGET_SIZE_CHANGED] = TRUE;
 
@@ -689,7 +687,12 @@ eog_wrap_list_key_press_cb (GtkWidget *widget, GdkEventKey *event)
 	};
 
 	if (!handled) 
-		handled = GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, key_press_event, (widget, event), FALSE);
+	{
+		if (GTK_WIDGET_CLASS (eog_wrap_list_parent_class)->key_press_event)
+			handled = GTK_WIDGET_CLASS (eog_wrap_list_parent_class)->key_press_event (widget, event);
+		else
+			handled = FALSE;
+	}
 
 	return handled;
 }

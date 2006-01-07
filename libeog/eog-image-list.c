@@ -158,7 +158,7 @@ eog_image_list_dispose (GObject *object)
 }
 
 static void
-eog_image_list_instance_init (EogImageList *obj)
+eog_image_list_init (EogImageList *obj)
 {
 	EogImageListPrivate *priv;
 
@@ -220,10 +220,7 @@ eog_image_list_class_init (EogImageListClass *klass)
 }
 
 
-GNOME_CLASS_BOILERPLATE (EogImageList,
-			 eog_image_list,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogImageList, eog_image_list, G_TYPE_OBJECT)
 
 
 /* ================== Private EogImageList functions  ===================*/

@@ -3193,7 +3193,7 @@ add_eog_icon_factory (void)
 				gtk_icon_factory_add (factory, item.stock_id, set);
 				
 				gtk_icon_set_unref (set);
-				gdk_pixbuf_unref (pixbuf);
+				g_object_unref (pixbuf);
 			}
 			
 			g_free (filepath);

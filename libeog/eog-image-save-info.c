@@ -27,7 +27,7 @@ eog_image_save_info_dispose (GObject *object)
 }
 
 static void
-eog_image_save_info_instance_init (EogImageSaveInfo *obj)
+eog_image_save_info_init (EogImageSaveInfo *obj)
 {
 
 }
@@ -41,10 +41,7 @@ eog_image_save_info_class_init (EogImageSaveInfoClass *klass)
 }
 
 
-GNOME_CLASS_BOILERPLATE (EogImageSaveInfo,
-			 eog_image_save_info,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogImageSaveInfo, eog_image_save_info, G_TYPE_OBJECT)
 
 /* is_local_uri: 
  * 

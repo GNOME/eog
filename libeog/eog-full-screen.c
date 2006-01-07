@@ -40,10 +40,7 @@
 #include "eog-job-manager.h"
 #include "eog-image-cache.h"
 
-GNOME_CLASS_BOILERPLATE (EogFullScreen,
-			 eog_full_screen,
-			 GtkWindow,
-			 GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (EogFullScreen, eog_full_screen, GTK_TYPE_WINDOW)
 
 #define POINTER_HIDE_DELAY  2   /* hide the pointer after 2 seconds */
 static GQuark JOB_ID_QUARK = 0; 
@@ -153,7 +150,10 @@ eog_full_screen_motion (GtkWidget *widget, GdkEventMotion *event)
 	/* we call so to get also the next motion event */
 	gdk_window_get_pointer (GTK_WIDGET (widget)->window, &x, &y, &mods);
 
-	result = GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, motion_notify_event, (widget, event), FALSE);
+	if (GTK_WIDGET_CLASS (eog_full_screen_parent_class)->motion_notify_event)
+		result = GTK_WIDGET_CLASS (eog_full_screen_parent_class)->motion_notify_event (widget, event);
+	else
+		result = FALSE;
 
 	return result;
 }
@@ -363,7 +363,7 @@ eog_full_screen_show (GtkWidget *widget)
 	fs = EOG_FULL_SCREEN (widget);
 	priv = fs->priv;
 
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (widget));
+	GTK_WIDGET_CLASS (eog_full_screen_parent_class)->show (widget);
 
 	fs->priv->have_grab = !gdk_keyboard_grab (widget->window,
 			                          TRUE, GDK_CURRENT_TIME);
@@ -414,7 +414,7 @@ eog_full_screen_hide (GtkWidget *widget)
 		fs->priv->activity_timeout_id = 0;
 	}
 
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (widget));
+	GTK_WIDGET_CLASS (eog_full_screen_parent_class)->hide (widget);
 }
 
 
@@ -534,7 +534,10 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	}
 
 	if (!handled) {
-		handled = GNOME_CALL_PARENT_WITH_DEFAULT (GTK_WIDGET_CLASS, key_press_event, (widget, event), FALSE);
+		if (GTK_WIDGET_CLASS (eog_full_screen_parent_class)->key_press_event)
+			handled = GTK_WIDGET_CLASS (eog_full_screen_parent_class)->key_press_event (widget, event);
+		else
+			handled = FALSE;
 	}
 
 	return handled;
@@ -577,7 +580,7 @@ eog_full_screen_destroy (GtkObject *object)
 		priv->cache = NULL;
 	}
 
-	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
+	GTK_OBJECT_CLASS (eog_full_screen_parent_class)->destroy (object);
 }	
 
 /* Finalize handler for the full screen view */
@@ -593,7 +596,7 @@ eog_full_screen_finalize (GObject *object)
 
 	g_free (fs->priv);
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+	G_OBJECT_CLASS (eog_full_screen_parent_class)->finalize (object);
 }
 
 /* Class initialization function for the full screen mode */
@@ -608,7 +611,6 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 	gobject_class = (GObjectClass *) class;
 	widget_class = (GtkWidgetClass *) class;
 
-	parent_class = gtk_type_class (GTK_TYPE_WINDOW);
 
 	object_class->destroy = eog_full_screen_destroy;
 	gobject_class->finalize = eog_full_screen_finalize;
@@ -621,7 +623,7 @@ eog_full_screen_class_init (EogFullScreenClass *class)
 
 /* Object initialization function for the full screen view */
 static void
-eog_full_screen_instance_init (EogFullScreen *fs)
+eog_full_screen_init (EogFullScreen *fs)
 {
 	EogFullScreenPrivate *priv;
 	priv = g_new0 (EogFullScreenPrivate, 1);

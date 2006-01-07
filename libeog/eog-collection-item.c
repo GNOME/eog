@@ -39,8 +39,7 @@ static char* get_item_image_caption (GnomeCanvasItem *item, EogImage *image);
 static char* ensure_max_string_width (gchar *str, PangoLayout *layout, int max_width);
 
 
-GNOME_CLASS_BOILERPLATE (EogCollectionItem, eog_collection_item,
-			 GnomeCanvasGroup, GNOME_TYPE_CANVAS_GROUP)
+G_DEFINE_TYPE (EogCollectionItem, eog_collection_item, GNOME_TYPE_CANVAS_GROUP)
 
 static void
 eog_collection_item_class_init (EogCollectionItemClass *klass)
@@ -65,7 +64,7 @@ eog_collection_item_class_init (EogCollectionItemClass *klass)
 }
 
 static void
-eog_collection_item_instance_init (EogCollectionItem *item)
+eog_collection_item_init (EogCollectionItem *item)
 {
 	EogCollectionItemPrivate *priv;
 
@@ -105,7 +104,7 @@ eog_collection_item_destroy (GtkObject *object)
 	    EOG_COLLECTION_ITEM (object)->priv = NULL;
 	}
 
-	GNOME_CALL_PARENT (GTK_OBJECT_CLASS, destroy, (object));
+	GTK_OBJECT_CLASS (eog_collection_item_parent_class)->destroy (object);
 }
 
 static void
@@ -115,7 +114,11 @@ eog_collection_item_update (GnomeCanvasItem *item, double *affine, ArtSVP *clip_
 
 	priv = EOG_COLLECTION_ITEM (item)->priv;
 
-	GNOME_CALL_PARENT (GNOME_CANVAS_ITEM_CLASS, update, (item, affine, clip_path, flags));
+	GNOME_CANVAS_ITEM_CLASS (eog_collection_item_parent_class)->update (
+									item,
+									affine,
+									clip_path,
+									flags);
 
 	if (priv->emit_changed_signal) {
 		priv->emit_changed_signal = FALSE;

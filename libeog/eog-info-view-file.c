@@ -37,10 +37,7 @@ struct _EogInfoViewFilePrivate
 	GtkListStore *model;
 };
 
-GNOME_CLASS_BOILERPLATE (EogInfoViewFile,
-			 eog_info_view_file,
-			 EogInfoViewDetail,
-			 EOG_TYPE_INFO_VIEW_DETAIL)
+G_DEFINE_TYPE (EogInfoViewFile, eog_info_view_file, EOG_TYPE_INFO_VIEW_DETAIL)
 
 
 static void
@@ -51,7 +48,7 @@ eog_info_view_file_finalize (GObject *object)
 	g_free (instance->priv);
 	instance->priv = NULL;
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+	G_OBJECT_CLASS (eog_info_view_file_parent_class)->finalize (object);
 }
 
 static void
@@ -68,11 +65,11 @@ eog_info_view_file_dispose (GObject *object)
 		priv->model = NULL;
 	}
 
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (object));
+	G_OBJECT_CLASS (eog_info_view_file_parent_class)->dispose (object);
 }
 
 static void
-eog_info_view_file_instance_init (EogInfoViewFile *obj)
+eog_info_view_file_init (EogInfoViewFile *obj)
 {
 	EogInfoViewFilePrivate *priv;
 	GtkTreeView *view;

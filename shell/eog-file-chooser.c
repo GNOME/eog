@@ -322,7 +322,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 			set_preview_pixbuf (EOG_FILE_CHOOSER (file_chooser), pixbuf, info);
 			
 			if (pixbuf != NULL) {
-				gdk_pixbuf_unref (pixbuf);
+				g_object_unref (pixbuf);
 			}
 		}
 	}

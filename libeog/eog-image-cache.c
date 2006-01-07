@@ -42,7 +42,7 @@ eog_image_cache_dispose (GObject *object)
 }
 
 static void
-eog_image_cache_instance_init (EogImageCache *obj)
+eog_image_cache_init (EogImageCache *obj)
 {
 	EogImageCachePrivate *priv;
 
@@ -62,11 +62,7 @@ eog_image_cache_class_init (EogImageCacheClass *klass)
 	object_class->dispose = eog_image_cache_dispose;
 }
 
-
-GNOME_CLASS_BOILERPLATE (EogImageCache,
-			 eog_image_cache,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogImageCache, eog_image_cache, G_TYPE_OBJECT)
 
 EogImageCache*      
 eog_image_cache_new (int n)

@@ -272,7 +272,7 @@ eog_canvas_pixbuf_dispose (GObject *object)
 }
 
 static void
-eog_canvas_pixbuf_instance_init (EogCanvasPixbuf *obj)
+eog_canvas_pixbuf_init (EogCanvasPixbuf *obj)
 {
 }
 
@@ -290,9 +290,5 @@ eog_canvas_pixbuf_class_init (EogCanvasPixbufClass *klass)
 	item_klass->point = eog_canvas_pixbuf_point;
 }
 
-
-GNOME_CLASS_BOILERPLATE (EogCanvasPixbuf,
-			 eog_canvas_pixbuf,
-			 GnomeCanvasPixbuf,
-			 GNOME_TYPE_CANVAS_PIXBUF)
+G_DEFINE_TYPE (EogCanvasPixbuf, eog_canvas_pixbuf, GNOME_TYPE_CANVAS_PIXBUF)
 

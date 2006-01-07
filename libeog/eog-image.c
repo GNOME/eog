@@ -70,10 +70,7 @@ static int n_active_images = 0;
 
    ------------------------------------*/
 
-GNOME_CLASS_BOILERPLATE (EogImage,
-			 eog_image,
-			 GObject,
-			 G_TYPE_OBJECT)
+G_DEFINE_TYPE (EogImage, eog_image, G_TYPE_OBJECT)
 
 static void
 eog_image_dispose (GObject *object)
@@ -257,7 +254,7 @@ eog_image_class_init (EogImageClass *klass)
 }
 
 static void
-eog_image_instance_init (EogImage *img)
+eog_image_init (EogImage *img)
 {
 	EogImagePrivate *priv;
 
@@ -1641,7 +1638,7 @@ eog_image_free_mem_private (EogImage *image)
 	}
 	else {
 		if (priv->image != NULL) {
-			gdk_pixbuf_unref (priv->image);
+			g_object_unref (priv->image);
 			priv->image = NULL;
 		}
 		
@@ -1979,7 +1976,7 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
 		printed_image = gdk_pixbuf_rotate_simple (priv->image, 
 			GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
 	} else {
-		gdk_pixbuf_ref (priv->image);
+		g_object_ref (priv->image);
 		printed_image = priv->image;
 	}
 
