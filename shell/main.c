@@ -382,10 +382,24 @@ static void
 job_prepare_model_do (EogJob *job, gpointer data, GError **error)
 {
 	LoadContext *ctx = (LoadContext*) data;
+	int initial_pos;
+	
 	ctx->img_list = eog_image_list_new ();
 	
 	/* prepare the image list */
 	eog_image_list_add_uris (ctx->img_list, ctx->uri_list);
+
+	initial_pos = eog_image_list_get_initial_pos (ctx->img_list);
+
+	if (initial_pos != -1) {
+		EogImage *img;
+
+		img = eog_image_list_get_img_by_pos (ctx->img_list, initial_pos);
+		if (EOG_IS_IMAGE (img)) {
+			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
+			g_object_unref (img);
+		}
+	}
 }
 
 static void

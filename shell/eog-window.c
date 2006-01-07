@@ -84,8 +84,8 @@
 
 /* Default size for windows */
 
-#define DEFAULT_WINDOW_WIDTH  310
-#define DEFAULT_WINDOW_HEIGHT 280
+#define DEFAULT_WINDOW_WIDTH  615
+#define DEFAULT_WINDOW_HEIGHT 450
 
 #define RECENT_FILES_GROUP         "Eye of Gnome"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
@@ -96,7 +96,7 @@
 #define EOG_STOCK_FLIP_HORIZONTAL "eog-stock-flip-horizontal"
 #define EOG_STOCK_FLIP_VERTICAL   "eog-stock-flip-vertical"
 
-#define NO_DEBUG
+#define DEBUG
 #define SAVE_DEBUG
 
 /* Private part of the Window structure */
@@ -2698,21 +2698,25 @@ obtain_desired_size (EogWindow *window, int screen_width,
 	
 	list = window->priv->image_list;
 	
-	if (list != NULL && eog_image_list_length (list) == 1) {
+	if (list != NULL && eog_image_list_length (list) >= 1) {
 		int img_width, img_height;
 		int deco_width = 0, deco_height = 0;
-		
-		img = eog_image_list_get_img_by_pos (list, 0);
+
+		img = eog_image_list_get_img_by_pos (list, 
+						     eog_image_list_get_initial_pos (list));
+
 		g_assert (EOG_IS_IMAGE (img));
+
 		eog_image_get_size (img, &img_width, &img_height);
 		
 		get_window_decoration_size (window, &deco_width, &deco_height);
-		
-		if (img_width > 0 && (img_height > 0)) {
+
+		if (img_width > 0 && img_height > 0) {
 			if ((img_width + deco_width > screen_width) ||
-				(img_height + deco_height > screen_height))
+			    (img_height + deco_height > screen_height))
 			{
 				double factor;
+
 				if (img_width > img_height) {
 					factor = (screen_width * 0.75 - deco_width) / (double) img_width;
 				}
@@ -2724,12 +2728,12 @@ obtain_desired_size (EogWindow *window, int screen_width,
 			}
 			
 			/* determine size of whole window */
-			*width = img_width + deco_width;
-			*height = img_height + deco_height;
+			*width = MAX (DEFAULT_WINDOW_WIDTH, img_width + deco_width);
+			*height = MAX (DEFAULT_WINDOW_HEIGHT, img_height + deco_height);
 #ifdef GDK_WINDOWING_X11
 			*x11_flags = *x11_flags | WidthValue | HeightValue;
 #endif
-			finished = TRUE;			
+			finished = TRUE;
 		}
 
 		g_object_unref (img);
