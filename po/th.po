@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-09 11:13+0700\n"
-"PO-Revision-Date: 2006-01-09 11:18+0700\n"
+"POT-Creation-Date: 2006-01-09 23:00+0700\n"
+"PO-Revision-Date: 2006-01-09 23:04+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: th <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,7 @@ msgstr "เปลี่ยนชื่อจาก:"
 msgid "Replace spaces by underscore"
 msgstr "แทนอักษรช่องว่างด้วยตัวขีดเส้นใต้"
 
-#: eog.glade.h:22 shell/eog-window.c:3288
+#: eog.glade.h:22 shell/eog-window.c:3335
 msgid "Save As"
 msgstr "บันทึกเป็_น"
 
@@ -469,8 +469,8 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล :-)\n"
 "http://gnome-th.sf.net"
 
-#: shell/eog-window.c:503 shell/eog-window.c:2997
-#: shell/eog-window.c:3647 shell/main.c:601
+#: shell/eog-window.c:503 shell/eog-window.c:3043
+#: shell/eog-window.c:3694 shell/main.c:601
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
@@ -530,7 +530,7 @@ msgstr "โปรดใช้ชื่อสกุลแฟ้มสำหรั
 msgid "Error on saving images."
 msgstr "ผิดพลากขณะบันทึกรูป"
 
-#: shell/eog-window.c:1767 shell/eog-window.c:3234
+#: shell/eog-window.c:1767 shell/eog-window.c:3280
 msgid "Print"
 msgstr "พิมพ์"
 
@@ -538,263 +538,284 @@ msgstr "พิมพ์"
 msgid "Print Preview"
 msgstr "ตัวอย่างงานพิมพ์"
 
-#: shell/eog-window.c:2012
+#: shell/eog-window.c:2005
+msgid ""
+"Are you sure you want to move\n"
+"\"%s\" to the trash?"
+msgstr ""
+"แน่ใจหรือไม่ว่าจะย้าย\n"
+"\"%s\" ไปลงถังขยะ?"
+
+#: shell/eog-window.c:2008
+#, c-format
+msgid ""
+"Are you sure you want to move\n"
+"the %d selected images to the trash?"
+msgstr ""
+"แน่ใจหรือไม่ว่าจะย้าย\n"
+"รูป %d รูปที่เลือกไปลงถังขยะ?"
+
+#: shell/eog-window.c:2021 shell/eog-window.c:3292
+msgid "Move to Trash"
+msgstr "ย้ายไปถังขยะ"
+
+#: shell/eog-window.c:2052
 msgid "Couldn't access trash."
 msgstr "เปิดใช้ถังขยะไม่สำเร็จ"
 
-#: shell/eog-window.c:2082
+#: shell/eog-window.c:2128
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "ผิดพลาดขณะลบรูป %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2860
+#: shell/eog-window.c:2906
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i พิกเซล  %s    %i%%"
 msgstr[1] "%i x %i พิกเซล  %s    %i%%"
 
-#: shell/eog-window.c:2916
+#: shell/eog-window.c:2962
 #, c-format
 msgid "Reason: %s"
 msgstr "สาเหตุ: %s"
 
-#: shell/eog-window.c:3046
+#: shell/eog-window.c:3092
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "โหลดรูป %s ไม่สำเร็จ"
 
-#: shell/eog-window.c:3211
+#: shell/eog-window.c:3257
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
-#: shell/eog-window.c:3212
+#: shell/eog-window.c:3258
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: shell/eog-window.c:3213
+#: shell/eog-window.c:3259
 msgid "_View"
 msgstr "มุ_มมอง"
 
-#: shell/eog-window.c:3214
+#: shell/eog-window.c:3260
 msgid "_Image"
 msgstr "_รูป"
 
-#: shell/eog-window.c:3215
+#: shell/eog-window.c:3261
 msgid "_Go"
 msgstr "ไ_ป"
 
-#: shell/eog-window.c:3216
+#: shell/eog-window.c:3262
 msgid "_Help"
 msgstr "_วีธีใช้"
 
-#: shell/eog-window.c:3217
+#: shell/eog-window.c:3263
 msgid "_Open..."
 msgstr "_เปิด..."
 
-#: shell/eog-window.c:3217
+#: shell/eog-window.c:3263
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: shell/eog-window.c:3218
+#: shell/eog-window.c:3264
 msgid "_Close"
 msgstr "ปิ_ด"
 
-#: shell/eog-window.c:3218
+#: shell/eog-window.c:3264
 msgid "Close window"
 msgstr "ปิดหน้าต่าง"
 
-#: shell/eog-window.c:3219
+#: shell/eog-window.c:3265
 msgid "Prefere_nces"
 msgstr "_ปรับแต่ง"
 
-#: shell/eog-window.c:3219
+#: shell/eog-window.c:3265
 msgid "Preferences for Eye of GNOME"
 msgstr "ปรับแต่ง Eye of GNOME"
 
-#: shell/eog-window.c:3220
+#: shell/eog-window.c:3266
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: shell/eog-window.c:3220
+#: shell/eog-window.c:3266
 msgid "Help On this application"
 msgstr "วิธีใช้โปรแกรมนี้"
 
-#: shell/eog-window.c:3221
+#: shell/eog-window.c:3267
 msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
-#: shell/eog-window.c:3221
+#: shell/eog-window.c:3267
 msgid "About this application"
 msgstr "เกี่ยวกับโปรแกรมนี้"
 
-#: shell/eog-window.c:3226
+#: shell/eog-window.c:3272
 msgid "_Toolbar"
 msgstr "แถบเ_ครื่องมือ"
 
-#: shell/eog-window.c:3226
+#: shell/eog-window.c:3272
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "แสดง/ซ่อน แถบเครื่องมือในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3227
+#: shell/eog-window.c:3273
 msgid "_Statusbar"
 msgstr "แถบ_สถานะ"
 
-#: shell/eog-window.c:3227
+#: shell/eog-window.c:3273
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "แสดง/ซ่อน แถบสถานะในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3228
+#: shell/eog-window.c:3274
 msgid "_Image Collection"
 msgstr "_สมุดรูป"
 
-#: shell/eog-window.c:3228
+#: shell/eog-window.c:3274
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "แสดง/ซ่อน ช่องสมุดรูปในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3232
+#: shell/eog-window.c:3278
 msgid "_Save"
 msgstr "_บันทึก"
 
-#: shell/eog-window.c:3233
+#: shell/eog-window.c:3279
 msgid "Save _As"
 msgstr "บันทึกเป็_น"
 
-#: shell/eog-window.c:3236
+#: shell/eog-window.c:3282
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
-#: shell/eog-window.c:3238
+#: shell/eog-window.c:3284
 msgid "Flip _Horizontal"
 msgstr "พลิกแนว_นอน"
 
-#: shell/eog-window.c:3239
+#: shell/eog-window.c:3285
 msgid "Flip _Vertical"
 msgstr "พลิกแนว_ตั้ง"
 
-#: shell/eog-window.c:3241
+#: shell/eog-window.c:3287
 msgid "_Rotate Clockwise"
 msgstr "หมุนต_ามเข็มนาฬิกา"
 
-#: shell/eog-window.c:3242
+#: shell/eog-window.c:3288
 msgid "Rotate Counter C_lockwise"
 msgstr "หมุน_ทวนเข็มนาฬิกา"
 
-#: shell/eog-window.c:3243
+#: shell/eog-window.c:3289
 msgid "Rotat_e 180°"
 msgstr "หมุน 180 _องศา"
 
-#: shell/eog-window.c:3244
+#: shell/eog-window.c:3290
 msgid "Set As _Wallpaper"
 msgstr "ใช้เป็นภาพ_พื้นหลัง"
 
-#: shell/eog-window.c:3246
-msgid "Delete"
-msgstr "ลบ"
-
-#: shell/eog-window.c:3248
+#: shell/eog-window.c:3294
 msgid "_Full Screen"
 msgstr "เ_ต็มจอ"
 
-#: shell/eog-window.c:3249
+#: shell/eog-window.c:3295
 msgid "_Slideshow"
 msgstr "แสดงสไ_ลด์"
 
 #. accelerators
-#: shell/eog-window.c:3250 shell/eog-window.c:3256
-#: shell/eog-window.c:3257
+#: shell/eog-window.c:3296 shell/eog-window.c:3302
+#: shell/eog-window.c:3303
 msgid "_Zoom In"
 msgstr "ขย_าย"
 
-#: shell/eog-window.c:3251 shell/eog-window.c:3258
+#: shell/eog-window.c:3297 shell/eog-window.c:3304
 msgid "Zoom _Out"
 msgstr "_ย่อ"
 
-#: shell/eog-window.c:3252
+#: shell/eog-window.c:3298
 msgid "_Normal Size"
 msgstr "ขนาด_ปกติ"
 
-#: shell/eog-window.c:3253
+#: shell/eog-window.c:3299
 msgid "Best _Fit"
 msgstr "ขนาด_พอดี"
 
-#: shell/eog-window.c:3259 shell/eog-window.c:3261
-#: shell/eog-window.c:3272
+#: shell/eog-window.c:3305 shell/eog-window.c:3307
+#: shell/eog-window.c:3319
 msgid "_Next Image"
 msgstr "รูป_ถัดไป"
 
-#: shell/eog-window.c:3260 shell/eog-window.c:3262
-#: shell/eog-window.c:3263 shell/eog-window.c:3271
+#: shell/eog-window.c:3306 shell/eog-window.c:3308
+#: shell/eog-window.c:3309 shell/eog-window.c:3318
 msgid "_Previous Image"
 msgstr "รูป_ก่อนหน้า"
 
-#: shell/eog-window.c:3267
+#: shell/eog-window.c:3310
+msgid "Move to _Trash"
+msgstr "ย้ายไป_ถังขยะ"
+
+#: shell/eog-window.c:3314
 msgid "Image _Information"
 msgstr "_ข้อมูลเกี่ยวกับรูปภาพ"
 
-#: shell/eog-window.c:3267
+#: shell/eog-window.c:3314
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "แสดง/ซ่อน ช่องแสดงข้อมูลในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3273
+#: shell/eog-window.c:3320
 msgid "_First Image"
 msgstr "รูปแ_รก"
 
-#: shell/eog-window.c:3274
+#: shell/eog-window.c:3321
 msgid "_Last Image"
 msgstr "รูปสุด_ท้าย"
 
-#: shell/eog-window.c:3285
+#: shell/eog-window.c:3332
 msgid "Open"
 msgstr "เปิด"
 
-#: shell/eog-window.c:3286
+#: shell/eog-window.c:3333
 msgid "Close"
 msgstr "ปิด"
 
-#: shell/eog-window.c:3287
+#: shell/eog-window.c:3334
 msgid "Save"
 msgstr "บันทึก"
 
-#: shell/eog-window.c:3289
+#: shell/eog-window.c:3336
 msgid "Undo"
 msgstr "เรียกคืน"
 
-#: shell/eog-window.c:3292
+#: shell/eog-window.c:3339
 msgid "Right"
 msgstr "ขวา"
 
-#: shell/eog-window.c:3293
+#: shell/eog-window.c:3340
 msgid "Left"
 msgstr "ซ้าย"
 
-#: shell/eog-window.c:3296
+#: shell/eog-window.c:3343
 msgid "In"
 msgstr "ขยาย"
 
-#: shell/eog-window.c:3297
+#: shell/eog-window.c:3344
 msgid "Out"
 msgstr "ย่อ"
 
-#: shell/eog-window.c:3298
+#: shell/eog-window.c:3345
 msgid "Normal"
 msgstr "ปกติ"
 
-#: shell/eog-window.c:3299
+#: shell/eog-window.c:3346
 msgid "Fit"
 msgstr "พอดี"
 
-#: shell/eog-window.c:3300
+#: shell/eog-window.c:3347
 msgid "Next"
 msgstr "ถัดไป"
 
-#: shell/eog-window.c:3301
+#: shell/eog-window.c:3348
 msgid "Previous"
 msgstr "ก่อนหน้า"
 
-#: shell/eog-window.c:3466
+#: shell/eog-window.c:3513
 msgid "User interface description not found."
 msgstr "หาแฟ้มข้อมูลสำหรับสร้างหน้าต่างติดต่อผู้ใช้ไม่พบ"
 
@@ -821,6 +842,9 @@ msgstr "เปิด '%s'"
 #: shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "ว่างเปล่า"
+
+#~ msgid "Delete"
+#~ msgstr "ลบ"
 
 #~ msgid "Open _Folder..."
 #~ msgstr "เปิดโ_ฟลเดอร์..."
@@ -860,11 +884,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Show next image automatically in fullscreen mode."
 #~ msgstr "แสดงรูปถัดไปโดยอัตโนมัติแบบเต็มจอ"
-
-#~ msgid "Do you really want to move %i image to trash?"
-#~ msgid_plural "Do you really want to move %i images to trash?"
-#~ msgstr[0] "แน่ใจหรือไม่ว่าจะย้ายรูป %i รูปไปลงถังขยะ"
-#~ msgstr[1] "แน่ใจหรือไม่ว่าจะย้ายรูป %i รูปไปลงถังขยะ"
 
 #~ msgid "_New Window"
 #~ msgstr "หน้าต่างใ_หม่"
@@ -914,9 +933,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Saving finished"
 #~ msgstr "บันทึกเสร็จเรียบร้อย"
-
-#~ msgid "Move to Trash"
-#~ msgstr "ย้ายไปถังขยะ"
 
 #~ msgid "Collection View"
 #~ msgstr "มุมมองสมุดรูป"
