@@ -1989,8 +1989,48 @@ verb_Rotate180_cb (GtkAction *action, gpointer data)
 
 /* ========================================================================= */
 
+static int
+show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
+{
+	GtkWidget *dlg;
+	char *prompt;
+	int response;
+	int n_images;
+	EogImage *image;
+
+	n_images = g_list_length (images);
+	
+	if (n_images == 1) {
+		image = EOG_IMAGE (images->data);
+		prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"), 
+                                          eog_image_get_caption (image));		
+	} else {
+		prompt = g_strdup_printf (_("Are you sure you want to move\n" 
+					    "the %d selected images to the trash?"), n_images);
+	}
+
+	dlg = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
+						  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						  GTK_MESSAGE_QUESTION,
+						  GTK_BUTTONS_NONE,
+						  "<span weight=\"bold\" size=\"larger\">%s</span>", 
+						  prompt);
+	g_free (prompt);
+
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to Trash"), GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+	gtk_window_set_title (GTK_WINDOW (dlg), "");
+	gtk_widget_show_all (dlg);
+
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
+
+	return response;
+}
+
 static gboolean
-delete_image_real (EogImage *image, GError **error)
+move_to_trash_real (EogImage *image, GError **error)
 {
 	GnomeVFSURI *uri;
 	GnomeVFSURI *trash_dir;
@@ -2033,7 +2073,7 @@ delete_image_real (EogImage *image, GError **error)
 }
 
 static void
-verb_Delete_cb (GtkAction *action, gpointer data)
+verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 {
 	GList *images;
 	GList *it;
@@ -2042,6 +2082,7 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	int pos;
 	EogImage *img;
 	EogWindow *window;
+	int response;
 	int n_images;
 	gboolean success;
 
@@ -2051,15 +2092,20 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 	priv = window->priv;
 	list = priv->image_list;
 	
-	/* let user confirm this action */
 	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
 	if (n_images < 1) return;
 
 	/* save position of selected image after the deletion */
 	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
 	g_assert (images != NULL);
-	pos = eog_image_list_get_pos_by_img (list, EOG_IMAGE (images->data));
+
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0) {
+		response = show_move_to_trash_confirm_dialog (window, images);
+		if (response != GTK_RESPONSE_OK) return;
+	}
 	
+	pos = eog_image_list_get_pos_by_img (list, EOG_IMAGE (images->data));
+
 	/* FIXME: make a nice progress dialog */
 	/* Do the work actually. First try to delete the image from the disk. If this
 	 * is successfull, remove it from the screen. Otherwise show error dialog.
@@ -2070,7 +2116,7 @@ verb_Delete_cb (GtkAction *action, gpointer data)
 
 		image = EOG_IMAGE (it->data);
 
-		success = delete_image_real (image, &error);
+		success = move_to_trash_real (image, &error);
 		if (success) {
 			/* EogWrapList gets notified by the EogImageList */
 			eog_image_list_remove_image (list, image);
@@ -3243,7 +3289,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
   { "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, NULL, G_CALLBACK (verb_SetAsWallpaper_cb) },
 
-  { "EditDelete", GTK_STOCK_DELETE, N_("Delete"), "Delete", NULL, G_CALLBACK (verb_Delete_cb) },
+  { "EditMoveToTrash", GTK_STOCK_DELETE, N_("Move to Trash"), NULL, NULL, G_CALLBACK (verb_MoveToTrash_cb) },
  
   { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11", NULL, G_CALLBACK (verb_FullScreen_cb) },
   { "ViewSlideshow", NULL, N_("_Slideshow"), "F5", NULL, G_CALLBACK (verb_FullScreen_cb) },
@@ -3261,6 +3307,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "Return", NULL, N_("_Next Image"), "Return", NULL, G_CALLBACK (verb_GoNext_cb) },
   { "ShiftReturn", NULL, N_("_Previous Image"), "<shift>Return", NULL, G_CALLBACK (verb_GoPrev_cb) },
   { "BackSpace", NULL, N_("_Previous Image"), "BackSpace", NULL, G_CALLBACK (verb_GoPrev_cb) },
+  { "Delete", NULL, N_("Move to _Trash"), "Delete", NULL, G_CALLBACK (verb_MoveToTrash_cb) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
