@@ -383,12 +383,12 @@ eog_full_screen_show (GtkWidget *widget)
 		priv->switch_timeout_id = g_timeout_add (1000 /* every second */,
 							 check_automatic_switch,
 							 fs);
-
-		/* disable screen saver */
-		priv->activity_timeout_id = g_timeout_add (6000 /* every minute */,
-							   disable_screen_saver,
-							   fs);
 	}
+
+	/* disable screen saver */
+	priv->activity_timeout_id = g_timeout_add (6000 /* every minute */,
+						   disable_screen_saver,
+						   fs);
 }
 
 /* Hide handler for the full screen view */
