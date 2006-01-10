@@ -1,4 +1,14 @@
-2005-01-09  Lucas Rocha  <lucasr@gnome.org>
+2006-01-10  Lucas Rocha  <lucasr@gnome.org>
+
+	* libeog/eog-scroll-view.c (paint_rectangle, 
+	set_minimum_zoom_factor, set_zoom, set_zoom_fit,
+	eog_scroll_view_get_zoom_is_min, eog_scroll_view_instance_init): 
+	refresh	image section for very small images (Fixes bug #317641). 
+	Also, the zoom out is locked when the image gets 1px wide. Patch 
+	from Felix Riemann <felix@hsgheli.de> with contribution from 
+	Claudio Saavedra <csaavedra@alumnos.utalca.cl>.
+
+2006-01-09  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-gtk-ui.xml, shell/eog-window.c: new delete
 	confirmation dialog that only appears when using Del accel
@@ -6,7 +16,7 @@
 	Jaap A. Haitsma <jaap@haitsma.org> with some fixes and 
 	refactoring.
 
-2005-01-07  Lucas Rocha  <lucasr@gnome.org>
+2006-01-07  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-canvas-pixbuf.c, libeog/eog-collection-item.c,
 	libeog/eog-full-screen.c, libeog/eog-image-cache.c,
@@ -21,7 +31,7 @@
 	libeog with the	G_DEFINE_TYPE macros. Patch by Felix Riemann
 	<felix@hsgheli.de>.
 
-2005-01-07  Lucas Rocha  <lucasr@gnome.org>
+2006-01-07  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/recent-files/egg-recent-item.c,
 	shell/recent-files/egg-recent-model.c,
@@ -33,7 +43,7 @@
 	shell/recent-files/egg-recent.h: Sync from 
 	latest libegg.
 
-2005-01-07  Lucas Rocha  <lucasr@gnome.org>
+2006-01-07  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-window.c: resize window according to the
 	image dimensions (Fixes bug #323204). Also, now there's a 

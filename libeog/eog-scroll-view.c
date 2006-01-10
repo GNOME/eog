@@ -82,6 +82,9 @@ struct _EogScrollViewPrivate {
 	/* the actual zoom factor */
 	double zoom;
 
+	/* the minimum possible (reasonable) zoom factor */
+	double min_zoom;
+
 	/* Current scrolling offsets */
 	int xofs, yofs;
 
@@ -115,6 +118,7 @@ struct _EogScrollViewPrivate {
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
 static void set_zoom_fit (EogScrollView *view);
 static void request_paint_area (EogScrollView *view, GdkRectangle *area);
+static void set_minimum_zoom_factor (EogScrollView *view);
 
 G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
 
@@ -470,12 +474,19 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	compute_scaled_size (view, priv->zoom, &scaled_width, &scaled_height);
 
-	if (scaled_width <= 1 || scaled_height <= 1)
-		return;
-
 	width = GTK_WIDGET (priv->display)->allocation.width;
 	height = GTK_WIDGET (priv->display)->allocation.height;
 
+	if (scaled_width < 1 || scaled_height < 1)
+	{
+		r.x0 = 0;
+		r.y0 = 0;
+		r.x1 = width;
+		r.y1 = height;
+		paint_background (view, &r, rect);
+		return;
+	}
+	
 	/* Compute image offsets with respect to the window */
 
 	if (scaled_width <= width)
@@ -896,12 +907,21 @@ drag_to (EogScrollView *view, int x, int y)
 	scroll_to (view, x, y, TRUE);
 }
 
+static void
+set_minimum_zoom_factor (EogScrollView *view)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+	
+	view->priv->min_zoom = MAX (1.0 / gdk_pixbuf_get_width (view->priv->pixbuf),
+				    MAX(1.0 / gdk_pixbuf_get_height (view->priv->pixbuf),
+					MIN_ZOOM_FACTOR) );
+	return;
+}
 
 /**
  * set_zoom:
  * @view: A scroll view.
- * @zoomx: Horizontal zoom factor.
- * @zoomy: Vertical zoom factor.
+ * @zoom: Zoom factor.
  * @have_anchor: Whether the anchor point specified by (@anchorx, @anchory)
  * should be used.
  * @anchorx: Horizontal anchor point in pixels.
@@ -936,6 +956,8 @@ set_zoom (EogScrollView *view, double zoom,
 
 	if (DOUBLE_EQUAL (priv->zoom, zoom))
 		return;
+	if (DOUBLE_EQUAL (priv->zoom, priv->min_zoom) && zoom < priv->zoom)
+		return;
 
 	priv->zoom_mode = ZOOM_MODE_FREE;
 
@@ -962,7 +984,10 @@ set_zoom (EogScrollView *view, double zoom,
 #if 0
 	g_print ("xofs: %i  yofs: %i\n", priv->xofs, priv->yofs);
 #endif
-	priv->zoom = zoom;
+	if (zoom <= priv->min_zoom)
+		priv->zoom = priv->min_zoom;
+	else
+		priv->zoom = zoom;
 
 	/* we make use of the new values here */
 	check_scrollbar_visibility (view, NULL);
@@ -1004,9 +1029,6 @@ set_zoom_fit (EogScrollView *view)
 		new_zoom = MAX_ZOOM_FACTOR;
 	else if (new_zoom < MIN_ZOOM_FACTOR)
 		new_zoom = MIN_ZOOM_FACTOR;
-
-	if (DOUBLE_EQUAL (new_zoom, priv->zoom))
-		return;
 
 	priv->zoom = new_zoom;
 	priv->xofs = 0;
@@ -1720,7 +1742,10 @@ eog_scroll_view_get_zoom_is_min (EogScrollView *view)
 {
 	g_return_val_if_fail (EOG_IS_SCROLL_VIEW (view), FALSE);
 
-	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR);
+	set_minimum_zoom_factor (view);
+
+	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR) || 
+	       DOUBLE_EQUAL (view->priv->zoom, view->priv->min_zoom);
 }
 
 gboolean
@@ -1813,6 +1838,7 @@ eog_scroll_view_init (EogScrollView *view)
 	view->priv = priv;
 
 	priv->zoom = 1.0;
+	priv->min_zoom = MIN_ZOOM_FACTOR;
 	priv->zoom_mode = ZOOM_MODE_FIT;
 	priv->upscale = FALSE;
 	priv->uta = NULL;
