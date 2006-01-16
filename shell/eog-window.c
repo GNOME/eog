@@ -2005,8 +2005,10 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
 		prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"), 
                                           eog_image_get_caption (image));		
 	} else {
-		prompt = g_strdup_printf (_("Are you sure you want to move\n" 
-					    "the %d selected images to the trash?"), n_images);
+		prompt = g_strdup_printf (ngettext("Are you sure you want to move\n" 
+					           "the %d selected image to the trash?",
+						   "Are you sure you want to move\n"
+						   "the %d selected images to the trash?", n_images), n_images);
 	}
 
 	dlg = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
