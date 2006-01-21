@@ -61,7 +61,7 @@ static int n_active_images = 0;
 #define CHECK_LOAD_TIMEOUT 5
 
 /* Chunk size for reading image data */
-#define READ_BUFFER_SIZE 65536
+#define READ_BUFFER_SIZE 65535
 
 
 /*======================================
