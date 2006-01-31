@@ -1168,7 +1168,7 @@ job_save_image_list (EogJob *job, gpointer user_data, GError **error)
 		data->current = image;
 		g_mutex_unlock (data->lock);
 
-		g_idle_add ((GSourceFunc) save_dialog_update_start_image, data);
+		save_dialog_update_start_image (data);
 
 		success = job_save_image_single (job, data, image, error);
 
@@ -1176,7 +1176,7 @@ job_save_image_list (EogJob *job, gpointer user_data, GError **error)
 		data->current = NULL;
 		g_mutex_unlock (data->lock);
 
-		g_idle_add ((GSourceFunc) save_dialog_update_finished, data);
+		save_dialog_update_finished (data);
 		eog_job_part_finished (job);
 	}
 }
@@ -1313,7 +1313,7 @@ job_save_as_image_list (EogJob *job, gpointer user_data, GError **error)
 		data->current = image;
 		g_mutex_unlock (data->lock);
 
-		g_idle_add ((GSourceFunc) save_dialog_update_start_image, data);
+		save_dialog_update_start_image (data);
 	
 		/* obtain destination information */
 		if (data->conv != NULL) {
@@ -1359,7 +1359,7 @@ job_save_as_image_list (EogJob *job, gpointer user_data, GError **error)
 		}
 
 		/* update job status */
-		g_idle_add ((GSourceFunc) save_dialog_update_finished, data);
+		save_dialog_update_finished (data);
 		eog_job_part_finished (job);
 
 		g_mutex_lock (data->lock);

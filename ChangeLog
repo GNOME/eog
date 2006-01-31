@@ -1,3 +1,10 @@
+2006-01-31  Lucas Rocha  <lucasr@gnome.org>
+
+	* shell/eog-window.c (job_save_image_list, 
+	job_save_as_image_list): remove g_idle_add calls to avoid
+	critical warnings when updating save dialog (Fixes
+	bug #327170).
+
 2005-12-28  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "zh_HK" to ALL_LINGUAS.
