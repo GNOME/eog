@@ -1574,7 +1574,7 @@ eog_image_get_caption (EogImage *img)
 
 	name = gnome_vfs_uri_extract_short_name (priv->uri);
 	
-	if (name != NULL && gnome_vfs_uri_is_local (priv->uri)) {
+	if (name != NULL && g_ascii_strcasecmp (priv->uri->method_string, "file") == 0) {
 		/* Support the G_BROKEN_FILENAMES feature of
 		 * glib by using g_filename_to_utf8 to convert
 		 * local filenames to UTF-8. Also do the same
