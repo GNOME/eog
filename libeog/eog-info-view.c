@@ -114,7 +114,6 @@ update_data_pages_for_image (EogInfoView *view, EogImage *image)
 		ExifData *ed;
 
 		ed = eog_image_get_exif_information (image);
-		g_print ("Show exif data\n");
 		eog_info_view_exif_show_data (EOG_INFO_VIEW_EXIF (view->priv->exif_view), ed);
 		if (ed != NULL) {
 			gtk_widget_show_all (gtk_widget_get_parent (GTK_WIDGET (view->priv->exif_view)));

@@ -910,7 +910,9 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 
 	priv = EOG_IMAGE (img)->priv;
 
+#ifdef DEBUG
 	g_print ("eog-image_load.c\n");
+#endif
 
 	if (data2read == 0) {
 		/* nothing to read */
@@ -945,7 +947,9 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 		success = eog_image_real_load (img, data2read, job, error);
 	}
 
+#ifdef DEBUG
 	g_print ("load success: %i\n", success);
+#endif
 
 	/* perform required transformation */
 	if (eog_image_needs_transformation (img)) {

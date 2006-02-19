@@ -96,8 +96,8 @@
 #define EOG_STOCK_FLIP_HORIZONTAL "eog-stock-flip-horizontal"
 #define EOG_STOCK_FLIP_VERTICAL   "eog-stock-flip-vertical"
 
-#define DEBUG
-#define SAVE_DEBUG
+#define NO_DEBUG
+#define NO_SAVE_DEBUG
 
 /* Private part of the Window structure */
 struct _EogWindowPrivate {
@@ -2874,7 +2874,9 @@ setup_initial_geometry (EogWindow *window)
 		width  = CLAMP (width, 100, screen_width);
 		height = CLAMP (height, 100, screen_height);
 	
+#ifdef DEBUG
 		g_print ("setting window size: %i/%i\n", width, height);
+#endif
 		
 		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
 	}

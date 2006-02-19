@@ -11,6 +11,8 @@
 #include "eog-image-list.h"
 #include "libeog-marshal.h"
 
+#define DEBUG_IMAGE_LIST 0 
+
 struct  _EogIter {
 	/* age of the image list when the iterator was created */
 	unsigned int   age;
@@ -746,6 +748,7 @@ eog_image_list_get_base_uri (EogImageList *list)
 void
 eog_image_list_print_debug (EogImageList *list)
 {
+#if DEBUG_IMAGE_LIST
 	GList *it;
 	EogImageListPrivate *priv;
 	int i = 1;
@@ -765,6 +768,7 @@ eog_image_list_print_debug (EogImageList *list)
 		
 		g_free (uri_str);
 	}
+#endif
 }
 
 void

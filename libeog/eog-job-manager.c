@@ -10,7 +10,7 @@ typedef struct {
 } ThreadData;
 
 #define MAX_THREADS  2
-#define DEBUG_JOB_MANAGER 1
+#define DEBUG_JOB_MANAGER 0
 GMutex        *mutex       = NULL;
 static GCond  *cond        = NULL;
 static GQueue *job_list    = NULL;
@@ -66,7 +66,7 @@ thread_start_func (gpointer data)
 	EogJob *job;
 	guint thread_id = GPOINTER_TO_UINT (data);
 
-#ifdef DEBUG_JOB_MANAGER
+#if DEBUG_JOB_MANAGER
 	g_print ("Starting thread with id %u.\n", thread_id);
 #endif
 
@@ -102,7 +102,7 @@ thread_start_func (gpointer data)
 		}
 	}
 
-#ifdef DEBUG_JOB_MANAGER
+#if DEBUG_JOB_MANAGER
 	g_print ("Stopping thread with id %u.\n", thread_id);
 #endif
 	/* This block will never be reached */

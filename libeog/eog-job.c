@@ -7,7 +7,7 @@
 #include "eog-job.h"
 
 static guint last_job_id = 0;
-#define DEBUG_EOG_JOB 1
+#define DEBUG_EOG_JOB 0
 
 enum {
 	PROP_0,
@@ -113,7 +113,9 @@ eog_job_dispose (GObject *object)
 
 	priv = EOG_JOB (object)->priv;
 
+#if DEBUG_EOG_JOB
 	g_print ("Job %.3u: disposing ...\n", priv->id);
+#endif
 
 	if (priv->mutex != NULL) {
 		g_mutex_lock (priv->mutex);
@@ -133,7 +135,9 @@ eog_job_dispose (GObject *object)
 		priv->mutex = NULL;
 	}
 
+#if DEBUG_EOG_JOB
 	g_print ("Job %.3u: disposing end\n", priv->id);
+#endif
 }
 
 static void
