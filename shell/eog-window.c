@@ -84,8 +84,8 @@
 
 /* Default size for windows */
 
-#define DEFAULT_WINDOW_WIDTH  615
-#define DEFAULT_WINDOW_HEIGHT 450
+#define DEFAULT_WINDOW_WIDTH  440
+#define DEFAULT_WINDOW_HEIGHT 350
 
 #define RECENT_FILES_GROUP         "Eye of Gnome"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
@@ -2465,7 +2465,11 @@ static void
 eog_window_init (EogWindow *window)
 {
 	EogWindowPrivate *priv;
+	GdkGeometry hints;
 	char *role;
+
+        hints.min_width = DEFAULT_WINDOW_WIDTH;
+        hints.min_height = DEFAULT_WINDOW_HEIGHT;
 
 	priv = g_new0 (EogWindowPrivate, 1);
 	window->priv = priv;
@@ -2505,6 +2509,11 @@ eog_window_init (EogWindow *window)
 	priv->sig_id_list_prepared = 0;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
+
+	gtk_window_set_geometry_hints (GTK_WINDOW (window),
+	  			       GTK_WIDGET (window),
+				       &hints,
+				       GDK_HINT_MIN_SIZE);
 }
 
 /* delete_event handler for windows */
