@@ -4,15 +4,16 @@
 # www.kyfieithu.co.uk <kyfieithu@kyfieithu.co.uk>, 2003.
 # Dafydd Harries <daf@parnassus.ath.cx>, 2003, 2004.
 # Dafydd Tomos <l10n@da.fydd.org>, 2004.
-# Rhys Jones <rhys@sucs.org>, 2004, 2005.
+# Rhys Jones <rhys@sucs.org>, 2004, 2005, 2006.
 #
 # rhysj - Wedi diweddaru ffeil a'i gyrru drwy Cysill ar gyfer GNOME 2.12.
+# rhysj - a hefyd ar gyfer 2.14.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.cy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-24 08:20+0100\n"
-"PO-Revision-Date: 2005-08-24 08:04-0000\n"
+"POT-Creation-Date: 2006-02-27 09:05+0000\n"
+"PO-Revision-Date: 2006-02-26 15:08-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Cymraeg <gnome-cy@lists.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +112,7 @@ msgstr "Ailenwi O:"
 msgid "Replace spaces by underscore"
 msgstr "Amnewid bylchau gyda thanlinellau"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3143
+#: ../eog.glade.h:22 ../shell/eog-window.c:3340
 msgid "Save As"
 msgstr "Cadw Fel"
 
@@ -120,38 +121,34 @@ msgid "Saving Image"
 msgstr "Cadw delwedd"
 
 #: ../eog.glade.h:24
-msgid "Show next image _automatically"
-msgstr "Dangos y ddelwedd _nesaf yn awtomatig"
-
-#: ../eog.glade.h:25
 msgid "Slide Show"
 msgstr "Sioe Sleidiau"
 
-#: ../eog.glade.h:26
+#: ../eog.glade.h:25
 msgid "Start counter at:"
 msgstr "Dechrau cyfri yn:"
 
-#: ../eog.glade.h:27
+#: ../eog.glade.h:26
 msgid "To:"
 msgstr "I:"
 
-#: ../eog.glade.h:28
+#: ../eog.glade.h:27
 msgid "_Browse"
 msgstr "_Pori"
 
-#: ../eog.glade.h:29
+#: ../eog.glade.h:28
 msgid "_Interpolate image on zoom"
 msgstr "_Rhyngosod delwedd wrth chwyddo"
 
-#: ../eog.glade.h:30
+#: ../eog.glade.h:29
 msgid "_Loop sequence"
 msgstr "_Ailgychwyn wedi cyrraedd yr un olaf"
 
-#: ../eog.glade.h:31
+#: ../eog.glade.h:30
 msgid "_Switch image after:"
 msgstr "_Newid delwedd ar ôl:"
 
-#: ../eog.glade.h:32
+#: ../eog.glade.h:31
 msgid "seconds"
 msgstr "eiliadau"
 
@@ -167,7 +164,7 @@ msgstr ""
 #: ../eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr "Caniatau chwyddo i fwy na 100% wrth gychwyn"
+msgstr "Caniatáu chwyddo i fwy na 100% wrth gychwyn"
 
 #: ../eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
@@ -200,62 +197,54 @@ msgstr ""
 "lenwi'r sgrin wrth gychwyn."
 
 #: ../eog.schemas.in.h:8
-msgid ""
-"If this is set to TRUE images will be switched after number of seconds "
-"determined by the 'full_screen/seconds' key."
-msgstr ""
-"Os yw hyn wedi'i osod yn WIR, bydd delweddau'n cael eu newid ar ôl y nifer o "
-"eiliadau a benodir gan yr allwedd 'full_screen/seconds'."
-
-#: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
 msgstr "Rhyngosod Delwedd"
 
-#: ../eog.schemas.in.h:10
+#: ../eog.schemas.in.h:9
 msgid "Last collection window geometry"
 msgstr "Geometreg y ffenestr gasglu ddiweddaraf"
 
-#: ../eog.schemas.in.h:11
+#: ../eog.schemas.in.h:10
 msgid "Last singleton window geometry"
 msgstr "Geometreg y ffenestr unigol ddiweddaraf"
 
-#: ../eog.schemas.in.h:12
+#: ../eog.schemas.in.h:11
 msgid "Loop through the image sequence"
 msgstr "Ailgychwyn y dilyniant delweddau wedi cyrraedd ei ddiwedd"
 
-#: ../eog.schemas.in.h:13
+#: ../eog.schemas.in.h:12
 msgid "Open images in a new window"
 msgstr "Agor delweddau mewn ffenestr newydd"
 
-#: ../eog.schemas.in.h:14
-msgid "Show next image automatically in fullscreen mode."
-msgstr "Dangos y ddelwedd _nesaf yn awtomatig yn y modd sgrin lawn"
-
-#: ../eog.schemas.in.h:15
+#: ../eog.schemas.in.h:13
 msgid "Show/hide image information for collection."
 msgstr "Dangos/cuddio gwybodaeth delwedd ar gyfer y casgliad."
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:14
 msgid "Show/hide image information for single image."
 msgstr "Dangos/cuddio gwybodaeth delwedd ar gyfer delwedd unigol."
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:15
+msgid "Show/hide the image collection pane."
+msgstr "Dangos/cuddio'r cwarel casgliad delweddau."
+
+#: ../eog.schemas.in.h:16
 msgid "Show/hide the window statusbar."
 msgstr "Dangos/cuddio bar statws y ffenestr."
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:17
 msgid "Show/hide the window toolbar."
 msgstr "Dangos/cuddio bar offer y ffenestr."
 
-#: ../eog.schemas.in.h:19
+#: ../eog.schemas.in.h:18
 msgid "Transparency color"
 msgstr "Lliw tryloywder"
 
-#: ../eog.schemas.in.h:20
+#: ../eog.schemas.in.h:19
 msgid "Transparency indicator"
 msgstr "Dangosydd tryloywder"
 
-#: ../eog.schemas.in.h:21
+#: ../eog.schemas.in.h:20
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -263,12 +252,12 @@ msgstr ""
 "A ddylai agor delwedd greu ffenestr newydd yn hytrach nag amnewid y ddelwedd "
 "yn y ffenestr gyfredol."
 
-#: ../eog.schemas.in.h:22
+#: ../eog.schemas.in.h:21
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "A ddylid dangos y dilyniant o ddelweddau mewn cylch diddiwedd."
 
-#: ../eog.schemas.in.h:23
+#: ../eog.schemas.in.h:22
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -285,7 +274,7 @@ msgstr "Methwyd creu ffeil dros dro er mwyn arbed: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Methwyd neilltuo cof er mwyn llwytho ffeil JPEG"
 
-#: ../libeog/eog-image.c:427
+#: ../libeog/eog-image.c:426
 msgid "Transformation on unloaded image."
 msgstr "Trawsffurfio delwedd heb ei llwytho."
 
@@ -293,15 +282,15 @@ msgstr "Trawsffurfio delwedd heb ei llwytho."
 msgid "EXIF not supported for this file format."
 msgstr "Ni chynhelir EXIF ar gyfer ffeil o'r math yma."
 
-#: ../libeog/eog-image.c:1185 ../libeog/eog-image.c:1398
+#: ../libeog/eog-image.c:1198 ../libeog/eog-image.c:1411
 msgid "File exists"
 msgstr "Ffeil yn bodoli"
 
-#: ../libeog/eog-image.c:1338 ../libeog/eog-image.c:1466
+#: ../libeog/eog-image.c:1351 ../libeog/eog-image.c:1479
 msgid "No image loaded."
 msgstr "Dim delwedd wedi ei lwytho."
 
-#: ../libeog/eog-image.c:1347 ../libeog/eog-image.c:1475
+#: ../libeog/eog-image.c:1360 ../libeog/eog-image.c:1488
 msgid "Temporary file creation failed."
 msgstr "Methwyd creu ffeil dros dro"
 
@@ -325,16 +314,16 @@ msgstr "Nodyn Gwneuthurwr"
 msgid "Other"
 msgstr "Arall"
 
-#: ../libeog/eog-info-view-exif.c:216
+#: ../libeog/eog-info-view-exif.c:212
 msgid "Tag"
 msgstr "Tag"
 
-#: ../libeog/eog-info-view-exif.c:224 ../libeog/eog-info-view-file.c:100
+#: ../libeog/eog-info-view-exif.c:220 ../libeog/eog-info-view-file.c:97
 msgid "Value"
 msgstr "Gwerth"
 
 #. only used for internal purpose
-#: ../libeog/eog-info-view-file.c:29 ../libeog/eog-uri-converter.h:45
+#: ../libeog/eog-info-view-file.c:29 ../shell/eog-save-as-dialog-helper.c:31
 msgid "Filename"
 msgstr "Enw Ffeil"
 
@@ -350,7 +339,7 @@ msgstr "Uchder"
 msgid "Filesize"
 msgstr "Maint ffeil"
 
-#: ../libeog/eog-info-view-file.c:92
+#: ../libeog/eog-info-view-file.c:89
 msgid "Attribute"
 msgstr "Priodoledd"
 
@@ -358,57 +347,17 @@ msgstr "Priodoledd"
 msgid "File"
 msgstr "Ffeil"
 
-#: ../libeog/eog-info-view.c:90
+#: ../libeog/eog-info-view.c:93
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ../libeog/eog-info-view.c:97
+#: ../libeog/eog-info-view.c:100
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-uri-converter.c:1027
+#: ../libeog/eog-uri-converter.c:1024
 msgid "At least two file names are equal."
 msgstr "Mae o leiaf ddau enw ffeil yr un peth."
-
-#: ../libeog/eog-uri-converter.h:46
-msgid "Counter"
-msgstr "Rhifydd"
-
-#: ../libeog/eog-uri-converter.h:47
-msgid "Comment"
-msgstr "Sylw"
-
-#: ../libeog/eog-uri-converter.h:48
-msgid "Date"
-msgstr "Dyddiad"
-
-#: ../libeog/eog-uri-converter.h:49
-msgid "Time"
-msgstr "Amser"
-
-#: ../libeog/eog-uri-converter.h:50
-msgid "Day"
-msgstr "Dyddiad"
-
-#: ../libeog/eog-uri-converter.h:51
-msgid "Month"
-msgstr "Mis"
-
-#: ../libeog/eog-uri-converter.h:52
-msgid "Year"
-msgstr "Blwyddyn"
-
-#: ../libeog/eog-uri-converter.h:53
-msgid "Hour"
-msgstr "Awr"
-
-#: ../libeog/eog-uri-converter.h:54
-msgid "Minute"
-msgstr "Munud"
-
-#: ../libeog/eog-uri-converter.h:55
-msgid "Second"
-msgstr "Eiliad"
 
 #: ../libeog/eog-util.c:44
 msgid " (invalid Unicode)"
@@ -453,15 +402,55 @@ msgstr "Cadw Delwedd"
 msgid "Open Folder"
 msgstr "Agor Plygell"
 
-#: ../shell/eog-preferences.c:131
+#: ../shell/eog-preferences.c:110
 msgid "Could not display help for Eye of GNOME"
 msgstr "Methwyd dangos cymorth ar gyfer EOG ('Eye of GNOME')"
 
-#: ../shell/eog-save-as-dialog-helper.c:143
+#: ../shell/eog-save-as-dialog-helper.c:32
+msgid "Counter"
+msgstr "Rhifydd"
+
+#: ../shell/eog-save-as-dialog-helper.c:33
+msgid "Comment"
+msgstr "Sylw"
+
+#: ../shell/eog-save-as-dialog-helper.c:34
+msgid "Date"
+msgstr "Dyddiad"
+
+#: ../shell/eog-save-as-dialog-helper.c:35
+msgid "Time"
+msgstr "Amser"
+
+#: ../shell/eog-save-as-dialog-helper.c:36
+msgid "Day"
+msgstr "Dyddiad"
+
+#: ../shell/eog-save-as-dialog-helper.c:37
+msgid "Month"
+msgstr "Mis"
+
+#: ../shell/eog-save-as-dialog-helper.c:38
+msgid "Year"
+msgstr "Blwyddyn"
+
+#: ../shell/eog-save-as-dialog-helper.c:39
+msgid "Hour"
+msgstr "Awr"
+
+#: ../shell/eog-save-as-dialog-helper.c:40
+msgid "Minute"
+msgstr "Munud"
+
+#: ../shell/eog-save-as-dialog-helper.c:41
+msgid "Second"
+msgstr "Eiliad"
+
+#: ../shell/eog-save-as-dialog-helper.c:159
 msgid "Option not available."
 msgstr "Dewis ddim ar gael."
 
-#: ../shell/eog-save-as-dialog-helper.c:145
+#: ../shell/eog-save-as-dialog-helper.c:161
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
@@ -469,7 +458,7 @@ msgstr ""
 "I ddefnyddio'r nodwedd hon, rhaid i chi gael llyfrgell libexif. Gosodwch "
 "libexif (http://libexif.sf.net) ac ailgrynhoi Eye of GNOME."
 
-#: ../shell/eog-save-as-dialog-helper.c:219
+#: ../shell/eog-save-as-dialog-helper.c:235
 msgid "as is"
 msgstr "fel y mae"
 
@@ -486,7 +475,7 @@ msgstr "Diddymu cadw ..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:537
+#: ../shell/eog-window.c:498
 msgid "translator-credits"
 msgstr ""
 "Owain Green\n"
@@ -494,16 +483,16 @@ msgstr ""
 "Rhys Jones <rhys@sucs.org>\n"
 "Dafydd Tomos <l10n@da.fydd.org>"
 
-#: ../shell/eog-window.c:546 ../shell/eog-window.c:2898
-#: ../shell/eog-window.c:3471 ../shell/main.c:683
+#: ../shell/eog-window.c:503 ../shell/eog-window.c:3048
+#: ../shell/eog-window.c:3699 ../shell/main.c:601
 msgid "Eye of GNOME"
 msgstr "EOG ('Eye of GNOME)"
 
-#: ../shell/eog-window.c:549
+#: ../shell/eog-window.c:506
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Rhaglen olygu a chatalogio delweddau GNOME."
 
-#: ../shell/eog-window.c:578
+#: ../shell/eog-window.c:532
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -512,76 +501,99 @@ msgstr ""
 "Methwyd dangos cymorth ar gyfer EOG ('Eye of GNOME').\n"
 "%s"
 
-#: ../shell/eog-window.c:874
+#: ../shell/eog-window.c:967
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Trosysgrifo ffeil %s?"
 
-#: ../shell/eog-window.c:875
+#: ../shell/eog-window.c:968
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Mae'r ffeil yn bodoli'n barod. A ydych am ei drosysgrifo?"
 
-#: ../shell/eog-window.c:886 ../shell/eog-window.c:902
+#: ../shell/eog-window.c:979 ../shell/eog-window.c:995
 msgid "Skip"
 msgstr "Neidio"
 
-#: ../shell/eog-window.c:887
+#: ../shell/eog-window.c:980
 msgid "Overwrite"
 msgstr "Trosysgrifo"
 
-#: ../shell/eog-window.c:892
+#: ../shell/eog-window.c:985
 #, c-format
 msgid "Error on saving %s."
 msgstr "Gwall wrth gadw %s."
 
-#: ../shell/eog-window.c:903 ../shell/eog-window.c:1456
+#: ../shell/eog-window.c:996 ../shell/eog-window.c:1562
 msgid "Retry"
 msgstr "Ail-geisio"
 
-#: ../shell/eog-window.c:1320
+#: ../shell/eog-window.c:1426
 msgid "Couldn't determine destination uri."
 msgstr "Methwyd pennu LAU'r cyrchfan."
 
-#: ../shell/eog-window.c:1442
+#: ../shell/eog-window.c:1548
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Methwyd penderfynu ar fformat ffeil %s"
 
-#: ../shell/eog-window.c:1443
+#: ../shell/eog-window.c:1549
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Defnyddiwch ôl-ddodiad addas i'r ffeil neu dewiswch fformat ffeil."
 
-#: ../shell/eog-window.c:1581
+#: ../shell/eog-window.c:1687
 msgid "Error on saving images."
 msgstr "Gwall wrth gadw'r delweddau."
 
-#: ../shell/eog-window.c:1662 ../shell/eog-window.c:3103
+#: ../shell/eog-window.c:1768 ../shell/eog-window.c:3285
 msgid "Print"
 msgstr "Argraffu"
 
-#: ../shell/eog-window.c:1696
+#: ../shell/eog-window.c:1802
 msgid "Print Preview"
 msgstr "Rhagolwg Argraffu"
 
-#: ../shell/eog-window.c:1894
+#: ../shell/eog-window.c:2006
 #, c-format
-msgid "Do you really want to move %i image to trash?"
-msgid_plural "Do you really want to move %i images to trash?"
-msgstr[0] "A ydych yn siŵr eich bod am symud %i delwedd i'r sbwriel?"
-msgstr[1] "A ydych yn siŵr eich bod am symud %i delwedd i'r sbwriel?"
-msgstr[2] "A ydych yn siŵr eich bod am symud %i ddelwedd i'r sbwriel?"
+msgid ""
+"Are you sure you want to move\n"
+"\"%s\" to the trash?"
+msgstr ""
+"Ydych chi'n siŵr eich bod am symud\n"
+"\"%s\" i'r sbwriel?"
 
-#: ../shell/eog-window.c:1935
+#: ../shell/eog-window.c:2009
+#, c-format
+msgid ""
+"Are you sure you want to move\n"
+"the %d selected image to the trash?"
+msgid_plural ""
+"Are you sure you want to move\n"
+"the %d selected images to the trash?"
+msgstr[0] ""
+"A ydych yn siŵr eich bod am symud\n"
+"yr %d ddelwedd a ddewiswyd i'r sbwriel?"
+msgstr[1] ""
+"A ydych yn siŵr eich bod am symud\n"
+"y %d ddelwedd a ddewiswyd i'r sbwriel?"
+msgstr[2] ""
+"A ydych yn siŵr eich bod am symud\n"
+"y %d delwedd a ddewiswyd i'r sbwriel?"
+
+#: ../shell/eog-window.c:2024 ../shell/eog-window.c:3297
+msgid "Move to Trash"
+msgstr "Symud i'r Sbwriel"
+
+#: ../shell/eog-window.c:2055
 msgid "Couldn't access trash."
 msgstr "Methwyd a chyrchu'r sbwriel."
 
-#: ../shell/eog-window.c:2009
+#: ../shell/eog-window.c:2131
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Gwall wrth ddileu delwedd %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2771
+#: ../shell/eog-window.c:2911
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
@@ -589,260 +601,255 @@ msgstr[0] "%i x %i picsel  %s    %i%%"
 msgstr[1] "%i x %i picsel  %s    %i%%"
 msgstr[2] "%i x %i picsel  %s    %i%%"
 
-#: ../shell/eog-window.c:2818
+#: ../shell/eog-window.c:2967
 #, c-format
 msgid "Reason: %s"
 msgstr "Rheswm: %s"
 
-#: ../shell/eog-window.c:2942
+#: ../shell/eog-window.c:3097
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Methwyd llwytho'r ddelwedd %s"
 
-#: ../shell/eog-window.c:3080
+#: ../shell/eog-window.c:3262
 msgid "_File"
 msgstr "_Ffeil"
 
-#: ../shell/eog-window.c:3081
+#: ../shell/eog-window.c:3263
 msgid "_Edit"
 msgstr "_Golygu"
 
-#: ../shell/eog-window.c:3082
+#: ../shell/eog-window.c:3264
 msgid "_View"
 msgstr "_Golwg"
 
-#: ../shell/eog-window.c:3083
+#: ../shell/eog-window.c:3265
 msgid "_Image"
 msgstr "_Delwedd"
 
-#: ../shell/eog-window.c:3084
+#: ../shell/eog-window.c:3266
+msgid "_Go"
+msgstr "_Mynd"
+
+#: ../shell/eog-window.c:3267
 msgid "_Help"
 msgstr "_Cymorth"
 
-#: ../shell/eog-window.c:3085
-msgid "_New Window"
-msgstr "_Ffenestr Newydd"
-
-#: ../shell/eog-window.c:3085
-msgid "Open a new window"
-msgstr "Agor Ffenestr Newydd"
-
-#: ../shell/eog-window.c:3086
+#: ../shell/eog-window.c:3268
 msgid "_Open..."
 msgstr "_Agor..."
 
-#: ../shell/eog-window.c:3086
+#: ../shell/eog-window.c:3268
 msgid "Open a file"
 msgstr "Agor ffeil"
 
-#: ../shell/eog-window.c:3087
-msgid "Open _Folder..."
-msgstr "Agor _Plygell..."
-
-#: ../shell/eog-window.c:3087
-msgid "Open a folder"
-msgstr "Agor plygell"
-
-#: ../shell/eog-window.c:3088
+#: ../shell/eog-window.c:3269
 msgid "_Close"
 msgstr "_Cau"
 
-#: ../shell/eog-window.c:3088
+#: ../shell/eog-window.c:3269
 msgid "Close window"
 msgstr "Cau ffenestr"
 
-#: ../shell/eog-window.c:3089
+#: ../shell/eog-window.c:3270
 msgid "Prefere_nces"
 msgstr "_Hoffterau"
 
-#: ../shell/eog-window.c:3089
+#: ../shell/eog-window.c:3270
 msgid "Preferences for Eye of GNOME"
 msgstr "Hoffterau ar gyfer EOG ('Eye of GNOME')"
 
-#: ../shell/eog-window.c:3090
+#: ../shell/eog-window.c:3271
 msgid "_Contents"
 msgstr "_Cynnwys"
 
-#: ../shell/eog-window.c:3090
+#: ../shell/eog-window.c:3271
 msgid "Help On this application"
 msgstr "Cymorth ar y cymhwysiad yma"
 
-#: ../shell/eog-window.c:3091
+#: ../shell/eog-window.c:3272
 msgid "_About"
 msgstr "_Ynghylch"
 
-#: ../shell/eog-window.c:3091
+#: ../shell/eog-window.c:3272
 msgid "About this application"
 msgstr "Ynghylch y rhaglen hon"
 
-#: ../shell/eog-window.c:3096
+#: ../shell/eog-window.c:3277
 msgid "_Toolbar"
 msgstr "Bar _Offer"
 
-#: ../shell/eog-window.c:3096
+#: ../shell/eog-window.c:3277
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Newid gwelededd y bar offer yn y ffenestr gyfredol"
 
-#: ../shell/eog-window.c:3097
+#: ../shell/eog-window.c:3278
 msgid "_Statusbar"
 msgstr "Bar _Statws"
 
-#: ../shell/eog-window.c:3097
+#: ../shell/eog-window.c:3278
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Newid gwelededd y bar statws yn y ffenestr gyfredol"
 
-#: ../shell/eog-window.c:3101
+# mae 'eog' yn air Cymraeg, felly pam lai?
+#: ../shell/eog-window.c:3279
+msgid "_Image Collection"
+msgstr "_Casgliad Delweddau"
+
+#: ../shell/eog-window.c:3279
+msgid ""
+"Changes the visibility of the image collection pane in the current window"
+msgstr "Newid gwelededd y cwarel casgliad delweddau yn y ffenestr gyfredol"
+
+#: ../shell/eog-window.c:3283
 msgid "_Save"
 msgstr "_Cadw"
 
-#: ../shell/eog-window.c:3102
+#: ../shell/eog-window.c:3284
 msgid "Save _As"
 msgstr "Cadw _Fel"
 
-#: ../shell/eog-window.c:3105
+#: ../shell/eog-window.c:3287
 msgid "_Undo"
 msgstr "_Dadwneud"
 
-#: ../shell/eog-window.c:3107
+#: ../shell/eog-window.c:3289
 msgid "Flip _Horizontal"
 msgstr "Troi drosodd yn _Llorweddol"
 
-#: ../shell/eog-window.c:3108
+#: ../shell/eog-window.c:3290
 msgid "Flip _Vertical"
 msgstr "Troi drosodd yn _Fertigol"
 
-#: ../shell/eog-window.c:3110
+#: ../shell/eog-window.c:3292
 msgid "_Rotate Clockwise"
 msgstr "Cylchdroi _Gyda'r Cloc"
 
-#: ../shell/eog-window.c:3111
+#: ../shell/eog-window.c:3293
 msgid "Rotate Counter C_lockwise"
 msgstr "Cylchdroi yn _Erbyn y Cloc"
 
-#: ../shell/eog-window.c:3112
+#: ../shell/eog-window.c:3294
 msgid "Rotat_e 180°"
 msgstr "Cylch_droi 180°"
 
-#: ../shell/eog-window.c:3114
-msgid "Delete"
-msgstr "Dileu"
+#: ../shell/eog-window.c:3295
+msgid "Set As _Wallpaper"
+msgstr "Gosod fel _Papur Wal"
 
-#: ../shell/eog-window.c:3116
+#: ../shell/eog-window.c:3299
 msgid "_Full Screen"
 msgstr "_Llenwi'r Sgrin"
 
-#: ../shell/eog-window.c:3117
+#: ../shell/eog-window.c:3300
 msgid "_Slideshow"
 msgstr "_Sioe Sleidiau"
 
 #. accelerators
-#: ../shell/eog-window.c:3118 ../shell/eog-window.c:3124
+#: ../shell/eog-window.c:3301 ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3308
 msgid "_Zoom In"
 msgstr "_Chwyddo"
 
-#: ../shell/eog-window.c:3119
+#: ../shell/eog-window.c:3302 ../shell/eog-window.c:3309
 msgid "Zoom _Out"
 msgstr "Cre_bachu"
 
-#: ../shell/eog-window.c:3120
+#: ../shell/eog-window.c:3303
 msgid "_Normal Size"
 msgstr "Maint _Arferol"
 
-#: ../shell/eog-window.c:3121
+#: ../shell/eog-window.c:3304
 msgid "Best _Fit"
 msgstr "_Ffit Orau"
 
-#: ../shell/eog-window.c:3128
+#: ../shell/eog-window.c:3310 ../shell/eog-window.c:3312
+#: ../shell/eog-window.c:3324
+msgid "_Next Image"
+msgstr "Delwedd _Nesaf"
+
+#: ../shell/eog-window.c:3311 ../shell/eog-window.c:3313
+#: ../shell/eog-window.c:3314 ../shell/eog-window.c:3323
+msgid "_Previous Image"
+msgstr "Delwedd _Flaenorol"
+
+#: ../shell/eog-window.c:3315
+msgid "Move to _Trash"
+msgstr "Symud i'r _Sbwriel"
+
+#: ../shell/eog-window.c:3319
 msgid "Image _Information"
 msgstr "_Gwybodaeth am y Ddelwedd"
 
-#: ../shell/eog-window.c:3128
+#: ../shell/eog-window.c:3319
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Newid gwelededd y cwarel wybodaeth yn y ffenestr gyfredol"
 
-#: ../shell/eog-window.c:3138
-msgid "New"
-msgstr "Newydd"
+#: ../shell/eog-window.c:3325
+msgid "_First Image"
+msgstr "Delwedd _Cyntaf"
 
-#: ../shell/eog-window.c:3139 ../shell/eog-window.c:3140
+#: ../shell/eog-window.c:3326
+msgid "_Last Image"
+msgstr "Delwedd _Olaf"
+
+#: ../shell/eog-window.c:3337
 msgid "Open"
 msgstr "Agor"
 
-#: ../shell/eog-window.c:3141
+#: ../shell/eog-window.c:3338
 msgid "Close"
 msgstr "Cau"
 
-#: ../shell/eog-window.c:3142
+#: ../shell/eog-window.c:3339
 msgid "Save"
 msgstr "Cadw"
 
-#: ../shell/eog-window.c:3144
+#: ../shell/eog-window.c:3341
 msgid "Undo"
 msgstr "Dadwneud"
 
-#: ../shell/eog-window.c:3147
+#: ../shell/eog-window.c:3344
 msgid "Right"
 msgstr "De"
 
-#: ../shell/eog-window.c:3148
+#: ../shell/eog-window.c:3345
 msgid "Left"
 msgstr "Chwith"
 
-#: ../shell/eog-window.c:3151
+#: ../shell/eog-window.c:3348
 msgid "In"
 msgstr "I Mewn"
 
-#: ../shell/eog-window.c:3152
+#: ../shell/eog-window.c:3349
 msgid "Out"
 msgstr "Allan"
 
-#: ../shell/eog-window.c:3153
+#: ../shell/eog-window.c:3350
 msgid "Normal"
 msgstr "Arferol"
 
-#: ../shell/eog-window.c:3154
+#: ../shell/eog-window.c:3351
 msgid "Fit"
 msgstr "Ffitio"
 
-#: ../shell/eog-window.c:3306
+#: ../shell/eog-window.c:3352
+msgid "Next"
+msgstr "Nesaf"
+
+#: ../shell/eog-window.c:3353
+msgid "Previous"
+msgstr "Blaenorol"
+
+#: ../shell/eog-window.c:3518
 msgid "User interface description not found."
 msgstr "Methu canfod disgrifiad rhyngwyneb defnyddiwr."
 
-#: ../shell/main.c:168
+#: ../shell/main.c:166
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Methu creu rhyngwyneb defnyddiwr Eye of GNOME"
 
-#: ../shell/main.c:351
-msgid "Open multiple single windows?"
-msgstr "Agor sawl ffenestr unigol?"
-
-#: ../shell/main.c:353
-#, c-format
-msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgid_plural ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgstr[0] ""
-"Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych eu "
-"hagor mewn casgliad yn lle hynny?"
-msgstr[1] ""
-"Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych ei "
-"agor mewn casgliad yn lle hynny?"
-msgstr[2] ""
-"Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych eu "
-"hagor mewn casgliad yn lle hynny?"
-
-#: ../shell/main.c:360
-msgid "Single Windows"
-msgstr "Ffenestri Sengl"
-
-#: ../shell/main.c:362
-msgid "Collection"
-msgstr "Casgliad"
-
-#: ../shell/main.c:417
+#: ../shell/main.c:357
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Ffeil heb ei ganfod."
@@ -853,6 +860,71 @@ msgstr[2] "Ffeiliau heb eu canfod."
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Methu agor '%s'"
+
+#: ../shell/recent-files/egg-recent-view-gtk.c:346
+#, c-format
+msgid "Open '%s'"
+msgstr "Agor '%s'"
+
+#: ../shell/recent-files/egg-recent-view-gtk.c:444
+msgid "Empty"
+msgstr "Gwag"
+
+#~ msgid "Show next image _automatically"
+#~ msgstr "Dangos y ddelwedd _nesaf yn awtomatig"
+
+#~ msgid ""
+#~ "If this is set to TRUE images will be switched after number of seconds "
+#~ "determined by the 'full_screen/seconds' key."
+#~ msgstr ""
+#~ "Os yw hyn wedi'i osod yn WIR, bydd delweddau'n cael eu newid ar ôl y "
+#~ "nifer o eiliadau a benodir gan yr allwedd 'full_screen/seconds'."
+
+#~ msgid "Show next image automatically in fullscreen mode."
+#~ msgstr "Dangos y ddelwedd _nesaf yn awtomatig yn y modd sgrin lawn"
+
+#~ msgid "_New Window"
+#~ msgstr "_Ffenestr Newydd"
+
+#~ msgid "Open a new window"
+#~ msgstr "Agor Ffenestr Newydd"
+
+#~ msgid "Open _Folder..."
+#~ msgstr "Agor _Plygell..."
+
+#~ msgid "Open a folder"
+#~ msgstr "Agor plygell"
+
+#~ msgid "Delete"
+#~ msgstr "Dileu"
+
+#~ msgid "New"
+#~ msgstr "Newydd"
+
+#~ msgid "Open multiple single windows?"
+#~ msgstr "Agor sawl ffenestr unigol?"
+
+#~ msgid ""
+#~ "You are about to open %i windows simultaneously. Do you want to open them "
+#~ "in a collection instead?"
+#~ msgid_plural ""
+#~ "You are about to open %i windows simultaneously. Do you want to open them "
+#~ "in a collection instead?"
+#~ msgstr[0] ""
+#~ "Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych eu "
+#~ "hagor mewn casgliad yn lle hynny?"
+#~ msgstr[1] ""
+#~ "Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych ei "
+#~ "agor mewn casgliad yn lle hynny?"
+#~ msgstr[2] ""
+#~ "Rydych ar fin agor %i ffenestr ar yr un pryd. A fyddai'n well gennych eu "
+#~ "hagor mewn casgliad yn lle hynny?"
+
+#~ msgid "Single Windows"
+#~ msgstr "Ffenestri Sengl"
+
+#~ msgid "Collection"
+#~ msgstr "Casgliad"
 
 #~ msgid "*"
 #~ msgstr "*"
@@ -891,27 +963,11 @@ msgstr "Methu agor '%s'"
 #~ msgid "EOG Image collection view factory"
 #~ msgstr "Ffatri gwylwyr casgliadau delweddau EOG"
 
-# mae 'eog' yn air Cymraeg, felly pam lai?
-#~ msgid "Image Collection Viewer"
-#~ msgstr "Gwelydd Casgliad Delweddau"
-
 #~ msgid "View as I_mage Collection"
 #~ msgstr "Dangos fel C_asgliad Delweddau"
 
 #~ msgid "View as Image Collection"
 #~ msgstr "Dangos fel Casgliad Delweddau"
-
-#~ msgid "Next"
-#~ msgstr "Nesaf"
-
-#~ msgid "Next Image"
-#~ msgstr "Delwedd Nesaf"
-
-#~ msgid "Previous"
-#~ msgstr "Blaenorol"
-
-#~ msgid "Previous Image"
-#~ msgstr "Delwedd Flaenorol"
 
 #~ msgid "Rotate 180 _Degrees"
 #~ msgstr "Cylchdroi 180 _Gradd"
@@ -927,9 +983,6 @@ msgstr "Methu agor '%s'"
 
 #~ msgid "Saving finished"
 #~ msgstr "Gorffennodd cadw"
-
-#~ msgid "Move to Trash"
-#~ msgstr "Symud i'r Sbwriel"
 
 #~ msgid "Collection View"
 #~ msgstr "Golwg Casgliad"
