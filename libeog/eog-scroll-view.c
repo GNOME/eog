@@ -362,7 +362,8 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	}
 }
 
-#define DOUBLE_EQUAL(a,b) (fabs (a - b) < 1e-6)
+#define DOUBLE_EQUAL_MAX_DIFF 1e-6
+#define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
 
 /* Returns whether the zoom factor is 1.0 */
 static gboolean
@@ -1661,7 +1662,8 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 		int index = -1;
 
 		for (i = 0; i < n_zoom_levels; i++) {
-			if (preferred_zoom_levels [i] > priv->zoom) {
+			if (preferred_zoom_levels [i] - priv->zoom
+					> DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
@@ -1696,7 +1698,8 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 		int index = -1;
 
 		for (i = n_zoom_levels - 1; i >= 0; i--) {
-			if (preferred_zoom_levels [i] < priv->zoom) {
+			if (priv->zoom - preferred_zoom_levels [i]
+					> DOUBLE_EQUAL_MAX_DIFF) {
 				index = i;
 				break;
 			}
