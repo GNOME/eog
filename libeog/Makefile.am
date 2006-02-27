@@ -103,9 +103,9 @@ test_eog_job_LDADD = \
 	-L$(top_builddir)/libeog 	\
 	-leog				\
 	$(jpeg_LIB)			\
-	$(X_LIBS)			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(LIBJPEG)			\
+	$(X_LIBS)
 
 
 
@@ -118,9 +118,9 @@ test_image_load_LDADD = \
 	-L$(top_builddir)/libeog 	\
 	-leog				\
 	$(jpeg_LIB)			\
-	$(X_LIBS)			\
 	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(LIBJPEG)			\
+	$(X_LIBS)
 
 CLEANFILES = $(BUILT_SOURCES)
 
