@@ -318,13 +318,19 @@ check_automatic_switch (gpointer data)
 	return TRUE;
 }
 
-/* Works only for xscreensaver */
 static gboolean
 disable_screen_saver (gpointer data)
 {
 	EogFullScreenPrivate *priv;
 	gboolean success = TRUE;
-	char *argv[] = { "xscreensaver-command", "-deactivate", NULL };
+	gchar **argv;
+
+	if (g_find_program_in_path ("gnome-screensaver-command") != NULL) {
+		g_shell_parse_argv ("gnome-screensaver-command --poke", NULL, &argv, NULL);
+	}
+	else {
+		g_shell_parse_argv ("xscreensaver-command -deactivate", NULL, &argv, NULL);
+	}
 
 	priv = EOG_FULL_SCREEN (data)->priv;
 	
@@ -334,21 +340,23 @@ disable_screen_saver (gpointer data)
 		                    G_SPAWN_STDERR_TO_DEV_NULL;
 		
 		success = g_spawn_sync (NULL,  /* working directory */
-								argv,  /* command */
-								NULL,  /* environment */
-								flags, /* flags */
-								NULL,  /* child setup func */
-								NULL,  /* function data */
-								NULL,  /* standard output */
+					argv,  /* command */
+					NULL,  /* environment */
+					flags, /* flags */
+					NULL,  /* child setup func */
+					NULL,  /* function data */
+					NULL,  /* standard output */
 		                        NULL,  /* standard error */
-								NULL,  /* exit status */
-								NULL); /* GError */
+					NULL,  /* exit status */
+					NULL); /* GError */
 	}
 	
 	if (!success) {
 		priv->activity_timeout_id = 0;
-		g_print ("Disable xscreensaver failed.\n");		
+		g_print ("Disable screensaver failed.\n");		
 	}
+
+	g_strfreev (argv);
 	
 	return success;
 }
