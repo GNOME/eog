@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.8">
+<!ENTITY manrevision "2.8">
+<!ENTITY date "September 2004">
+<!ENTITY app "<application>Image Viewer</application>">
+<!ENTITY appname "Image Viewer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="bg">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Ръководство за програмата за преглед на изображения</title>
+
+    <copyright> 
+      <year>2002</year> 
+      <year>2003</year> 
+      <year>2004</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>Фондация Свободен Софтуер</holder> 
+    </copyright><copyright><year>2006.</year><holder>Ростислав "zbrox" Райков (zbrox@i-space.org)</holder></copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher> 
+      <publishername>Проект за документация на GNOME</publishername> 
+    </publisher> 
+
+   &legal;
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+   <authorgroup>
+   <author> 
+	<firstname>Jens</firstname> 
+	<surname>Finke</surname> 
+	<affiliation> 
+	  <orgname>Проект за документация на GNOME</orgname>
+	</affiliation>
+	<email>jens@triq.net</email> 
+   </author>
+   <author> 
+	<firstname>Angela</firstname> 
+	<surname>Boyle</surname> 
+	<affiliation> 
+	  <orgname>Проект за документация на GNOME</orgname>
+	</affiliation>
+	<email>aboyle@aboyle.com</email> 
+   </author>
+   <author> 
+	<firstname>Stuart</firstname> 
+	<surname>Ellis</surname> 
+	<affiliation> 
+	  <orgname>Проект за документация на GNOME</orgname>
+	</affiliation>
+	<email>s.ellis@ftml.net</email> 
+   </author>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>за документация на GNOME</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname>  
+	</affiliation> 
+   </author> 
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>Проект за документация на GNOME</orgname> 
+	</affiliation> 
+	<email>eliot@landrum.cx</email>
+   </author> 
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>Проект за документация на GNOME</orgname> 
+	</affiliation> 
+	<email>federico@gnu.org</email> 
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <email>translator@gnome.org</email> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>Ръководство за програмата за преглед на изображения, версия 2.8</revnumber> 
+		<date>&date;</date> 
+		<revdescription> 
+	  		<para role="author">Проект за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision>
+		<revnumber>Ръководство за програмата за преглед на изображения, версия 2.7</revnumber>
+		<date>Февруари 2004</date>
+		<revdescription>
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.6</revnumber> 
+		<date>Ноември 2003</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.5</revnumber> 
+		<date>Септември 2003</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.4</revnumber> 
+		<date>Януари 2003</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.3</revnumber> 
+		<date>Октомври 2002</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.2</revnumber> 
+		<date>Август 2002</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.1</revnumber> 
+		<date>Юли 2002</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision> 
+		<revnumber>Ръководство за Eog, версия 2.0</revnumber> 
+		<date>Май 2002</date> 
+		<revdescription> 
+	  		<para role="author">Екип на Sun за документация на GNOME</para>
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision> 
+		<revnumber>Ръководство за Eog</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum <email>eliot@landrum.cx</email></para>
+	  		<para role="author">Federico Mena Quintero <email>federico@gnu.org</email></para>	  
+	  		<para role="publisher">Проект за документация на GNOME</para>
+		</revdescription> 
+      </revision> 
+    </revhistory> 
+    <releaseinfo>Това ръководство описва версия 2.8 на програмата за преглед на изображения.</releaseinfo> 
+    <legalnotice> 
+      <title>Обратна връзка</title> 
+      <para>За да докладвате за грешка или да направите предложение относно програмата за преглед на документи Evince или това ръководство, следвайте указанията, описани в <ulink url="ghelp:gnome-feedback" type="help">Страницата за обратна връзка на GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm>
+    <primary>EoG</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+<sect1 id="eog-introduction">
+  <title>Въведение</title>
+  <para>Програмата за преглед на изображения <application>EoG</application> Ви позволява да прегледжате единични изображения, както и големи колекции от изображения.</para>
+
+  <sect2 id="eog-tostartapp">
+    <title>Стартиране на прегледа на изображения</title>
+    <para>Може да стартирате <application>Преглед на изображения</application> по следните начини:</para>
+    <itemizedlist>
+      <listitem>
+	<para>Изберете <menuchoice><guimenu>Графика</guimenu><guimenuitem>Преглед на изображения (EoG)</guimenuitem></menuchoice> от менюто <guimenu>Програми</guimenu>.</para>
+      </listitem>
+      <listitem>
+	<para>Изпълнете командата <command>eog</command> от терминал, като например <application>gnome-terminal</application> или от прозореца <application>Стартиране на програма</application>.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+
+  <sect2 id="eog-closeapp">
+    <title>Затваряне на прегледа на изображения</title>
+    <para>За да затворите прозорец на <application>Преглед на изображения</application>, изберете <menuchoice><guimenu>Файл</guimenu><guimenuitem>Затваряне</guimenuitem></menuchoice> или натиснете <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. Това ще затвори текущия прозорец.</para>
+  </sect2>
+
+  <sect2 id="eog-filetypes">
+    <title>Поддържани файлови видове</title>
+    <para><application>Преглед на изображения</application> поддържа множество файлови формати. Библиотеката </para>
+		<itemizedlist>
+			<listitem><para>ANI - Анимация</para>
+			</listitem>
+			<listitem><para>BMP - Растер на Windows</para>
+			</listitem>
+			<listitem><para>GIF - Формат за графична обмяна</para>
+			</listitem>
+			<listitem><para>ICO - Икона на Windows</para>
+			</listitem>
+			<listitem><para>JPEG - Joint Photographic Experts Group</para>
+			</listitem>
+			<listitem><para>PCX - PC Paintbrush</para>
+			</listitem>
+			<listitem><para>PNG - Portable Network Graphics</para>
+			</listitem>
+			<listitem><para>PNM - Portable Anymap from the PPM Toolkit</para>
+			</listitem>
+			<listitem><para>RAS - Растер на Sun</para>
+			</listitem>
+			<listitem><para>SVG - Scaleable Vector Graphics</para>
+			</listitem>
+			<listitem><para>TGA - Targa</para>
+			</listitem>
+			<listitem><para>TIFF - Tagged Image File Format</para>
+			</listitem>
+			<listitem><para>WBMP - Wireless Bitmap</para>
+			</listitem>
+			<listitem><para>XBM - X Bitmap</para>
+			</listitem>
+			<listitem><para>XPM - X Pixmap</para>
+			</listitem>
+		</itemizedlist>
+
+  <para><application>Преглед на изображения</application> поддържа запазване при следните формати по подразбиране:</para>
+		<itemizedlist>
+			<listitem><para>ICO - Икона на Windows</para>
+			</listitem>
+			<listitem><para>JPEG - Joint Photographic Experts Group</para>
+			</listitem>
+			<listitem><para>PNG - Portable Network Graphics</para>
+			</listitem>
+		</itemizedlist>
+  </sect2>
+
+  <sect2 id="eog-features">
+    <title>Функции на Преглед на изображения</title>
+    <para><application>Преглед на изображения</application> има множество функции, които да Ви помогнат да пеглеждате изображения. Може да увеличавате или намаляте мащаба или да преглеждате на пълен екран. Независимо от нивото на увеличение, <application>Преглед на изображения</application> използва малко памет. Може също да завъртате или преобръщате изображението, което преглеждате.</para>
+
+    <para>Изгледът като колекция Ви позволява да преглеждате и редактирате големи колекции от изображения. В този вид изглед, операциите по изображения могат да бъдат приложени към всички избрани изображения наведнъж.</para>
+
+    <para><application>Преглед на изображения</application> има специална поддръжка за цифрови фотоапарати и показва EXIF метаинформацията записана към изображението. Тази функция изисква на системата да бъде инсталирана библиотеката <systemitem class="library">libexif</systemitem>. Ако <systemitem class="library">libjpeg</systemitem> е също налична, всички промени на JPEG изображения за без загуба на качество. Тоест, запазване на завъртяни или преобърнати JPEG изображения няма да прекомпресира изображението. Освен това, цялата налична метаинформация (като EXIF) ще бъде представена и обновена според промените.</para>
+  </sect2>
+</sect1>
+
+<!--============== When You Start ===========-->
+<sect1 id="eog-whenyoustart">
+  <title>Първи стъпки</title>
+  <para>Когато стартирате <application>Преглед на изображения</application> се показва следният прозорец:</para>
+  <figure id="mainwindow-fig">
+		<title>Начелен прозорец на прегледа на изображения</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Показва главния прозорец на EoG. Съдържа заглавна лента, лента с менюта, лента с инструменти и района на преглед. Лентата с менюта съдържа менютата Файл, Редактиране, Изглед и Помощ.</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+  </figure>
+  <para>Прозорецът на <application>Преглед на изображения</application> съдържа следните елементи:</para>
+  <variablelist>
+	<varlistentry>
+  	  <term>Лента с менюта</term>
+ 	  <listitem>
+	    <para>Менютата на лентата с менюта съдържат всички нужни команди, за да работите с файлове в <application>Преглед на изображения</application>.</para>
+	  </listitem>
+ 	</varlistentry>
+	<varlistentry>
+	  <term>Лента с инструменти</term>
+	  <listitem>
+	    <para>Лентата с инструменти съдържа набор от команди, които са достъпни и през лентата с менюта. За да покажете или скриете лентата с инструменти, изберете <menuchoice><guimenu>Изглед</guimenu><guimenuitem>Лента с инструменти</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Район на преглед</term>
+	  <listitem>
+ 	    <para>Района на преглед показва изображението.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Лента за състоянието</term>
+	  <listitem>
+	    <para>Лентата за състоянието предоставя информация за изображението. За да покажете или скриете лентата за състоянието, изберете <menuchoice><guimenu>Изглед</guimenu><guimenuitem>Лента за състоянието</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	</varlistentry>
+  </variablelist>
+  <para>Повечето действия в <application>Преглед на изображения</application> могат да се извършват по няколко начина. Например, може да отворите файл по следните начини:</para>
+  <itemizedlist>
+    <listitem><para>Изтеглете изображение в прозореца на <application>Преглед на изображения</application> от прозорец на друга програма.</para></listitem>
+    <listitem><para>Натиснете два пъти върху изображение във файловия мениджър или друга програма.</para></listitem>
+    <listitem><para>Изберете <menuchoice><guimenu>Файл</guimenu><guimenuitem>Отваряне</guimenuitem></menuchoice> и изберете изображение от прозореца <application>Зареждане на изображение</application>.</para></listitem>
+    <listitem><para>Натиснете бутона <guibutton>Отваряне</guibutton> от лентата с инструментите и изберете изображение от прозореца <application>Зареждане на изображение</application>.</para></listitem>
+    <listitem><para>Натиснете <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo> и изберете изображение от прозореца <application>Зареждане на изображение</application>.</para></listitem>
+  </itemizedlist>
+</sect1>
+
+
+<!-- ============= Viewing Images ============================== -->
+<sect1 id="eog-view">
+	<title>Преглеждане на изображения</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>Отваряне на изображение</title>
+                <para>За да отворите изображение, следвайте следните стъпки:</para>
+                <orderedlist>
+                  <listitem>
+                    <para>Изберете <menuchoice><guimenu>Файл</guimenu><guimenuitem>Отваряне</guimenuitem></menuchoice> или натиснете <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.</para>
+                  </listitem>
+                  <listitem>
+                    <para>В прозореца <guilabel>Зареждане на изображение</guilabel>, изберете файла, който искате да отворите.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Натиснете <guibutton>Отваряне</guibutton>. <application>Преглед на изображения</application> показва името на файла в заглавната лента на прозореца.</para>
+                  </listitem>
+                </orderedlist>
+                <para>За да отворите друго изображение, изберете отново <menuchoice><guimenu>Файл</guimenu><guimenuitem>Отваряне</guimenuitem></menuchoice>. <application>Преглед на изображения</application> отваря всяко изображение в нов прозорец. Просто за да отворите нов прозорец, изберете <menuchoice><guimenu>Файл</guimenu><guimenuitem>Нов прозорец</guimenuitem></menuchoice>, или натиснете бутона <guibutton>Нов</guibutton>, или натиснете <keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo>.</para>
+                <para>Ако опитате да отворите изображение, чийто формат <application>Преглед на изображения</application> не разпознава, програмата ще покаже съобщение за грешка.</para>
+	</sect2>
+
+	<!--=========== To View the Images in a Directory ==================== -->
+	<sect2 id="eog-open-folder">
+		<title>Преглед на изображения в папка</title>
+		<para>За да видите всички изображения в дадена папка, следвайте следните стъпки:</para>
+                <orderedlist>
+                  <listitem>
+                    <para>Изберете <menuchoice><guimenu>Файл</guimenu><guimenuitem>Отваряне на папка</guimenuitem></menuchoice> или натиснете <keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.</para>
+                  </listitem>
+                  <listitem>
+                    <para>В прозореца <guilabel>Отваряне на папка</guilabel>, изберете папката, която искате да отворите.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Натиснете <guibutton>Отваряне</guibutton>. <application>Преглед на изображения</application> в един прозорец показва всички изображения в папката. Това е изгледа като колекция.</para>
+                  </listitem>
+		</orderedlist>
+             <para>За да видите всички изображения в папката като прожекция, изберете <menuchoice><guimenu>Изглед</guimenu><guimenuitem>На цял екран</guimenuitem></menuchoice>. За да се върнете към изгледа като колекция, натиснете <keycap>Esc</keycap>, или <keycap>F11</keycap>, или <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. За повече информация относно как да персонализирате прожекцията, вижте <xref linkend="eog-prefs-slideshow"/>.</para>
+	</sect2>
+
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>Прелистване на изображение</title>
+		<para>За да прелиствате района на преглед, когато изображението е по-голямо от прозореца, може да използвате следните методи:</para>
+		<itemizedlist>
+			<listitem><para>Използвайте стрелките на клавиатурата.</para>
+			</listitem>
+			<listitem><para>Изтеглете изображението в противоположната посока на тази, която искате да видите. Примерно, ако искате да прелистите изображението надолу, изтеглете го нагоре в прозореца.</para>
+			</listitem>
+			<listitem><para>Използвайте лентите за прелистване на прозореца.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<!--=========== To Zoom In and Out ==================== -->
+	<sect2 id="eog-zoom">
+		<title>Увеличаване и намаляне</title>
+		<para>Може да увеличавате или намаляте изгледа на изображението по множество методи.</para>
+			<itemizedlist>
+				<listitem><para>Може да използвате средния бутон на мишката. Въртене надолу намалява мащаба, въртене нагоре го увеличава.</para></listitem>
+ 				<listitem><para>Може да използвате бутоните за мащаба на лентата с инструменти. Те също така се намират и в менюто <guimenu>Изглед</guimenu>. Може да увеличавате и намаляте. <guilabel>Нормален размер</guilabel> ще възвърне изображението към оригиналния му немащабиран размер. <guilabel>Най-добро изпълване</guilabel> ще покаже изображението така, че да пасне в прозореца и да се адаптира към размера му, ако той се преоразмерява.</para></listitem>
+				<listitem><para>Опциите на мащаба също имат бързи клавиши. За увеличаване: <keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo> или <keycap>+</keycap>. За намаляне: <keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo>·или·<keycap>-</keycap>. За връщане към оригинален раазмер: <keycombo><keycap>Ctrl</keycap><keycap>=</keycap></keycombo> или <keycap>1</keycap>. За най-добро пасване на изображението: <keycap>F</keycap>.</para></listitem>
+			</itemizedlist>
+	</sect2>
+
+	<!--=========== To View Image Fullscreen ==================== -->
+	<sect2 id="eog-fullscreen">
+		<title>За преглед на цял екран/прожекция</title>
+		<para>За да прегледате изображението на цял екран, изберете <menuchoice><guimenu>Изглед</guimenu><guimenuitem>На цял екран</guimenuitem></menuchoice>. Този режим показва изображението в прозорец, който запълва целия екран. Този прозорец няма рамка, заглавна лента, лента с менюта или лента с инструменти. За да излезете от този режим, натиснете <keycap>Esc</keycap>, или <keycap>F11</keycap>, или <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. За мащаба и прелистването важат същите неща както и за нормалния режим.</para>
+	<para>Ако се показват множество изображения (изглед като колекция), <application>Преглед на изображения</application> започва прожекция, когато е на цял екран. За да преминете към следващото изображение натиснете <keycap>Шпация</keycap> или използвайте курсорните клавиши за надясно/надолу. За предишното изображение, натиснете <keycap>Backspace</keycap> или наляво/надолу. Ако е настроена програмата, може също да преминава автоматично към следващото изображение след определено време (вижте <xref linkend="eog-prefs-slideshow"/>). В този режим ръчната навигация също работи и функцията за автоматично придвижване може да бъде паузирана/продължена чрез натискане на <keycap>P</keycap>.</para>
+	</sect2>
+</sect1>
+
+
+<!-- ============= Manipulating Images ============================== -->
+<sect1 id="eog-manipulate">
+	<title>Манипулиране на изображения</title>
+
+	<para>Всички манипулации на изображения важат за всички избрани изображения наведнъж. Промените се правят в паметта и променят оригиналните файлове на твърдия диск, само когато изображенията бъдат запазени с функцията за запазване (вижте </para>
+
+	<!--============ To Flip an Image ======================= -->
+	<sect2 id="eog-flip">
+		<title>Обръщане на изображение</title>
+		<para>За да обърнете изображение по хоризонталната му ос, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Хоризонтално обръщане</guimenuitem></menuchoice>.</para>
+		<para>За да обърнете изображение по вертикалната му ос, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Вертикално обръщане</guimenuitem></menuchoice>.</para>
+	</sect2>
+
+	<!--============ To Rotate an Image ======================= -->
+	<sect2 id="eog-rotate">
+		<title>Завъртане на изображение</title>
+		<para>За завъртите изображение на 90 градуса, по часовниковата стрелка, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Завъртане надясно</guimenuitem></menuchoice>.</para>
+		<para>За завъртите изображение на 90 градуса, обратно на часовниковата стрелка, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Завъртане наляво</guimenuitem></menuchoice>.</para>
+		<para>За завъртите изображение на 180 градуса, по часовниковата стрелка, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Завъртане на 180 градуса</guimenuitem></menuchoice>.</para>
+	</sect2>
+
+	<!--============ To Undo an Action ======================= -->
+	<sect2 id="eog-undo">
+		<title>Възстановяване от действие</title>
+		<para>За да върнете обръщане или завъртане, изберете <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Възстановяване</guimenuitem></menuchoice>.</para>
+	</sect2>
+
+	<!--============ To Delete An Image ======================== -->
+	<sect2 id="eog-delete-image">
+		<title>Изтриване на изображение</title>
+		<para>За да изтриете изображение, изберете <menuchoice><guimenu>Редактиране</guimenu><guisubmenu>Изтриване</guisubmenu></menuchoice>. Тази операция се прилага към всички текущо избрани изображения. Може също да използвате <keycap>DEL</keycap>. <application>Преглед на изображения</application> ще Ви попита за подтвърждение на операцията, преди да бъдат изтрити изображенията от твърдия диск. След изтриване изображенията могат да бъдат възвърнати от Кошчето. Чак след изчистване на Кошчето, файловете се губят наистина.</para>
+	</sect2>
+</sect1> 
+
+<!-- ============= Saving ============================== -->
+<sect1 id="eog-save-rename">
+	<title>Запазване</title>
+
+	<para><application>Преглед на изображения</application> винаги се опитва да изберете метода на запазване, който има най-малко въздействие върху данните на изображението. Например, ако непроменяно изображение се запази под друго име в същия формат, файлът просто се копира. Ако библиотеката </para>
+
+<!--============ To Save an Image ======================= -->
+	<sect2 id="eog-save-image">
+		<title>Запазване на изображение</title>
+		<para>За да запазите изображение, изберете <menuchoice><guimenu>Файл</guimenu><guisubmenu>Запазване</guisubmenu></menuchoice>. Изображението ще бъде запазено под същото име и файлов вид. Следователно непроменените изображения няма нужда да се запазват.</para>
+	</sect2>
+
+	<!--============ To Save As an Image ======================= -->
+	<sect2 id="eog-save-as-image">
+		<title>Запазване на изображение под друго име</title>
+		<para>За да запазите изображение под друго име или да го преобразувате в друг файлов вид, изберете <menuchoice><guimenu>Файл</guimenu><guisubmenu>Запазване като</guisubmenu></menuchoice>. Определете файловото име в полето за име в прозореца <guilabel>Запазване на изображение</guilabel>. После натиснете <guibutton>Запазване</guibutton>. Файлът се запазва по подразбиране в текущата папка. <application>Преглед на изображения</application> се опитва да определи файловия вид от предоставеното от Вас разширение. Ако изображението трябва да се запази в друга папка или ако пропадне засичането на файловия вид, разширете прозореца като изберете <guilabel>Отваряне на други папки</guilabel>. Това позволява навигация из всички папки и определянето на файловия вид от падащото меню.</para>
+
+		<para><application>Преглед на изображения</application> може също да запазвате множество изображения наведнъж. По този начин няколко изображения могат да бъдат преобразувани към различен формат или да се приложи еднаква схема на именуване. Следният прозорец ще бъде показан, ако <guilabel>Запазване като</guilabel> е активирано за повече от едно изображение:</para>
+  		<figure id="saveas-dialog-fig">
+			<title>Прозорецът за Запазване като</title>
+			<screenshot>
+			  <mediaobject>
+			    <imageobject>
+			      <imagedata fileref="figures/eog_save_as_window.png" format="PNG"/>
+			    </imageobject>
+			    <textobject>
+			      <phrase>Показва прозорецът на EoG <guilabel>Запазване като</guilabel>, когато се запазват множество изображения.</phrase>
+			    </textobject>
+			  </mediaobject>
+			</screenshot>
+  		</figure>
+		<para>Папката, в която изображенията ще бъдат запазени се определя от <guilabel>Целева папка</guilabel>. Първоначално папката е настроена да бъде текущата. Бутона <guilabel>Разглеждане</guilabel> отваря стандартен прозорец за избор на папка. Крайното име за всеки файл се определя от <guilabel>Формат на името</guilabel>. Схемата за именуване се създава от прости символи и специални етикети. Следните специални етикети са налични:</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Файлово име (%f)</guilabel> - Оригиналното файлово име без файловото разширение.</para>
+			</listitem>
+			<listitem><para><guilabel>Брояч (%n)</guilabel> - Автоматично увеличаващо се число (започва от избрано начало).</para>
+			</listitem>			
+		</itemizedlist>	
+		<para>Всички без тези специални етикети се възприемат като обикновен текст.</para>
+		<para>Форматът на изображенията се определя от падащия списък след определянето на схема. Изберете определен формат или използвайте опцията <guilabel>както е</guilabel>, за да се запази файловия формат на оригиналните файлове.</para>
+	
+		<para>Секцията <guilabel>Опции</guilabel> позволява да заменяте всички интервали с долни черти в изходните файлове, ако е включена опцията <guilabel>Замяна на интервалите с долни черти</guilabel>. Полето <guilabel>Стартиране на брояча на</guilabel> определя от кое число да започва брояча, ако използвате етикета %n за формата на файловото име.</para>
+		<para>Секцията <guilabel>Преглед на файловото име</guilabel> показва как ще изглежда примерно файлово име според горните настройки с произволен файл от избраните изображения.</para>
+	</sect2>
+
+
+
+</sect1>
+
+<sect1 id="eog-prefs">
+	<title>Настройки</title>
+	<para>Настройките могат да се променят от <menuchoice><guimenu>Редактиране</guimenu><guimenuitem>Настройки</guimenuitem></menuchoice>. Ще можете да променяте опциите за преглед на изображения и прожекциите. Промените се прилагат към всички отворени прозорци незабавно.</para>
+
+	<!--============ Image View ======================= -->
+  <sect2 id="eog-prefs-image">
+         <title>Преглед на изображения</title>
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Заглаждане на пикселите</guilabel></term>
+		<listitem>
+		<para>Изберете опцията <guilabel>Заглаждане на пикселите при увеличаване на мащаба</guilabel>, за да включите интерполацията при промяна на мащаба. Ако изберете тази опция, <application>Преглед на изображенията</application> използва билинеарна интерполация. Тя е прост и бърз метод за заглаждане. Когато увеличавате изображение, <application>Преглед на изображения</application> използва до 4 близки пиксела, за да пресметне цветовете ан новите пиксели. Когато намаляте изображение, <application>Преглед на изображения</application> усреднява цветните региони в изображението, за да пресметне цветовете на пикселите.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Прозрачни части</guilabel></term>
+		<listitem>
+		<para>Изберете една от следните опции, за да се определя как <application>Преглед на изображения</application> показва прозрачните части от изображение:</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Като шахматна дъска</guilabel> </para>
+			<para>Показва прозрачните части на изображение като шаблон на шахматна дъска.</para>
+			</listitem>
+			<listitem><para><guilabel>Като цвят</guilabel> </para>
+			<para>Показва прозрачните части от изображение като плътен цвят, който определите. Натиснете бутона за избор на цвят, за да изберете цвят.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Като фон</guimenuitem> </para>
+			<para>Показва прозрачните части от изображение като фоновия цвят на <application>Преглед на изображения</application>.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	</variablelist>
+  </sect2>
+		
+	<!--============ Slide Show ==================-->                                                                                               
+  <sect2 id="eog-prefs-slideshow">
+         <title>Прожекция</title>
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Мащаб</guilabel></term>
+		<listitem>
+		<para>Изберете опцията <guilabel>Позволяване на мащаб по-голям от 100%</guilabel>, за да преоразмерявате всички изображения да пасват екрана по време на прожекция. Ако не изберете тази опция, изображенията, които са по-малки от размера на екрана, не се оразмеряват, за да паснат на екрана.</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Последователност</guilabel></term>
+		<listitem>
+		<para>Изберете опцията <guilabel>Последователност на завъртанията</guilabel>, ако искате прожекцията да е циклична и да не спира да показва списъка от изображения. Ако не изберете тази опция, прожекцията се връща при изгледа като колекция, след като е показано последното изображение.</para>
+		<para>Използвайте полето <guilabel>Смяна на изображението след ... секунди</guilabel>, за да определите колко дълго да се показва изображение по време на прожекцията. Ако настроите тази стойност на нула, функцията за автоматично придвижване е изключена и само ръчното разглеждане е налично (вижте </para>
+		</listitem>
+	</varlistentry>		
+	</variablelist>
+  </sect2>
+</sect1>
+</article>
