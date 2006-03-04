@@ -82,14 +82,6 @@ eog_image_dispose (GObject *object)
 
 	eog_image_free_mem_private (EOG_IMAGE (object));
 
-	
-	if (priv->toclean) {
-		g_free (priv->toclean);
-		if (priv->monitor_handle != NULL) {
-			gnome_vfs_monitor_cancel (priv->monitor_handle);
-		}
-	}
-	
 	if (priv->uri) {
 		gnome_vfs_uri_unref (priv->uri);
 		priv->uri = NULL;
@@ -1772,110 +1764,6 @@ typedef struct {
 	EogInfoViewFile *view;
 	EogImage *img;
 } VfsFileCbContext;
-
-
-static gchar* temp = NULL;
-static gboolean had_create = FALSE, had_delete = FALSE;
-
-static void
-vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
-          const gchar *monitor_uri,
-          const gchar *info_uri,
-          GnomeVFSMonitorEventType event_type,
-          gpointer user_data)
-{
-	VfsFileCbContext *ctx = user_data;
-	gchar *monitor_ptr = (gchar *) monitor_uri;
-	gchar *info_ptr = (gchar *) info_uri;
-	
-	monitor_ptr += 7;
-	info_ptr += 7;
-		
-	g_return_if_fail (EOG_IS_IMAGE (ctx->img));
-	g_return_if_fail (EOG_IS_INFO_VIEW_FILE (ctx->view));
-	
-	if (strcmp (gnome_vfs_uri_extract_dirname (ctx->img->priv->uri), monitor_ptr) == 0 &&
-		strcmp (gnome_vfs_uri_get_path (ctx->img->priv->uri), info_ptr) == 0 &&
-		event_type == GNOME_VFS_MONITOR_EVENT_DELETED) {
-		
-		had_delete = TRUE;
-	}
-	
-	if (strcmp (gnome_vfs_uri_extract_dirname (ctx->img->priv->uri), monitor_ptr) == 0 &&
-		event_type == GNOME_VFS_MONITOR_EVENT_CREATED) {
-		
-		if (temp)
-			g_free (temp);
-		had_create = TRUE;
-		
-		temp = g_strdup (info_uri);
-	}
-}
-
-static void
-vfs_monitor_file_cb (GnomeVFSMonitorHandle *handle,
-          const gchar *monitor_uri,
-          const gchar *info_uri,
-          GnomeVFSMonitorEventType event_type,
-          gpointer user_data)
-{
-	VfsFileCbContext *ctx = user_data;
-
-	g_return_if_fail (EOG_IS_IMAGE (ctx->img));
-	g_return_if_fail (EOG_IS_INFO_VIEW_FILE (ctx->view));
-	
-	if (had_delete && had_create)
-	{
-		if (ctx->img->priv->caption)
-			g_free (ctx->img->priv->caption);
-		ctx->img->priv->caption = NULL;
-		gnome_vfs_uri_unref (ctx->img->priv->uri);
-		ctx->img->priv->uri = gnome_vfs_uri_new (temp);
-		eog_info_view_file_show_data (ctx->view, ctx->img);
-
-		/* g_print ("Rename detected to %s -- %s\n", 
-			temp, eog_image_get_caption (ctx->img)); */
-		
-		gnome_vfs_monitor_add  (&ctx->img->priv->monitor_handle, 
-			gnome_vfs_uri_get_path (ctx->img->priv->uri),
-			GNOME_VFS_MONITOR_FILE,
-			vfs_monitor_file_cb,
-			ctx);
-	}
-	
-	had_create = FALSE;
-	had_delete = FALSE;
-	
-	return;
-}
-
-void 
-eog_image_register_infoview (EogImage *img, gpointer view)
-{
-	VfsFileCbContext *ctx = g_new0 (VfsFileCbContext, 1);
-	
-	ctx->img = img;
-	ctx->view = view;
-
-	g_return_if_fail (EOG_IS_INFO_VIEW_FILE (ctx->view));
-	g_return_if_fail (EOG_IS_IMAGE (ctx->img));
-		
-	gnome_vfs_monitor_add  (&ctx->img->priv->monitor_handle, 
-		gnome_vfs_uri_extract_dirname (ctx->img->priv->uri),
-		GNOME_VFS_MONITOR_DIRECTORY,
-		vfs_monitor_dir_cb,
-		ctx);
-	
-	gnome_vfs_monitor_add  (&ctx->img->priv->monitor_handle, 
-		gnome_vfs_uri_get_path (ctx->img->priv->uri),
-		GNOME_VFS_MONITOR_FILE,
-		vfs_monitor_file_cb,
-		ctx);
-		
-	img->priv->toclean = ctx;	
-}
-
-
 
 gboolean
 eog_image_is_modified (EogImage *img)

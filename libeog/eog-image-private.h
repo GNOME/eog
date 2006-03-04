@@ -27,8 +27,6 @@ struct _EogImagePrivate {
 	gint width;
 	gint height;
 	GnomeVFSFileSize bytes;
-	GnomeVFSMonitorHandle *monitor_handle;
-	gpointer toclean;
 	char *file_type;
 
 	guchar  *exif_chunk; /* holds EXIF raw data */

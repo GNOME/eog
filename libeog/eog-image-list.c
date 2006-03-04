@@ -456,7 +456,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	EogImage *image = NULL;
 	GList *node=NULL;
 	gboolean found = FALSE;
-	
+
 	cleanup_dead_files (list);
 	
 	switch (event_type) {

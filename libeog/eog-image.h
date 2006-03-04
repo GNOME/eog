@@ -133,9 +133,6 @@ void                eog_image_undo                            (EogImage *img);
 /* print API */
 void               eog_image_print                            (EogImage *img, GnomePrintContext *pc, gdouble width, gdouble height);
 
-/* Register API */
-void               eog_image_register_infoview                (EogImage *img, gpointer view);
-
 G_END_DECLS
 
 #endif /* _IMAGE_H_ */

@@ -1,3 +1,13 @@
+2006-03-03  Lucas Rocha  <lucasr@gnome.org>
+
+	* libeog/eog-image-list.c, libeog/eog-image-private.h,
+	libeog/eog-image.c (eog_image_dispose, vfs_monitor_dir_cb,
+	vfs_monitor_file_cb, eog_image_register_infoview), 
+	libeog/eog-image.h (eog_image_register_infoview),
+	libeog/eog-info-view.c (update_data_pages_for_image): fix 
+	crash when removing images from a directory with images 
+	that EOG is watching.
+
 2006-03-02  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-full-screen.c (disable_screen_saver): make
