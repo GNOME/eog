@@ -1,3 +1,9 @@
+2006-03-05  Ryan Lortie  <desrt@desrt.ca>
+
+	* libeog/eog-image-list.c: Ensure that requested image is added
+	  when scanning parent directory of said image.  Fixes a crasher
+	  when opening images with strange extensions (#333551).
+
 2006-03-04  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: post release version bump.

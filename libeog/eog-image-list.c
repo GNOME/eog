@@ -572,21 +572,12 @@ static void
 add_regular (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
 	EogImage *image;
-	gboolean load_uri = FALSE;
 	
-	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0) {
-		if (is_supported_mime_type (info->mime_type)) {			
-			load_uri = TRUE;
-		}
-	}
-
-	if (load_uri) {		
-		image = eog_image_new_uri (uri);
+	image = eog_image_new_uri (uri);
 		
-		if (image != NULL) {
-			add_image_private (list, image, FALSE);
-			g_object_unref (image);
-		}
+	if (image != NULL) {
+		add_image_private (list, image, FALSE);
+		g_object_unref (image);
 	}
 }
 	
@@ -646,6 +637,19 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 				continue;
 			
 			add_directory (list, uri, info);
+
+			/* If the file we explicitly requested wasn't 'found' when
+			 * scanning the directory then explicitly add it.
+			 */
+			if (NULL == g_list_find_custom (priv->store, initial_uri,
+							compare_uri_cb))
+			{
+                          printf("null\n");
+				if (!get_uri_info (initial_uri, info))
+					continue;
+
+				add_regular (list, initial_uri, info);
+			}
 		}	
 		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			 g_list_length (uri_list) > 1) {
