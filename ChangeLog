@@ -1,5 +1,13 @@
 2006-03-06  Lucas Rocha  <lucasr@gnome.org>
 
+	* shell/eog-window.c
+	(eog_window_get_mode): always set to collection mode as there's
+	no single/collection dichotomy anymore and to correctly save 
+	window's geometry.
+	(eog_window_init): center the window by default. 
+
+2006-03-06  Lucas Rocha  <lucasr@gnome.org>
+
 	* shell/main.c (job_prepare_model_finished): quit EOG when not
 	able to load images.
 	* libeog/eog-image-list.c (add_regular): remove unwanted output.

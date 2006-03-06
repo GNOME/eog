@@ -275,20 +275,12 @@ eog_gtk_window_get_geometry_string (GtkWindow *window)
 static EogWindowMode
 eog_window_get_mode (EogWindow *window)
 {
-	EogWindowMode mode = EOG_WINDOW_MODE_UNKNOWN;
-
 	g_return_val_if_fail (EOG_IS_WINDOW (window), EOG_WINDOW_MODE_UNKNOWN);
 
-	if (window->priv->image_list != NULL) {
-		int n_images = eog_image_list_length (window->priv->image_list);
-		
-		if (n_images == 1) 
-			mode = EOG_WINDOW_MODE_SINGLETON;
-		else if (n_images > 1) 
-			mode = EOG_WINDOW_MODE_COLLECTION;
-	}
-
-	return mode;
+	/* This is totally sub-optimal. Added this to force always recording 
+	   window's geometry and because there's singleton/collection dichotomy 
+           anymore. */
+	return EOG_WINDOW_MODE_COLLECTION;
 }
 
 static gboolean
@@ -2514,6 +2506,8 @@ eog_window_init (EogWindow *window)
 	  			       GTK_WIDGET (window),
 				       &hints,
 				       GDK_HINT_MIN_SIZE);
+
+	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 }
 
 /* delete_event handler for windows */
