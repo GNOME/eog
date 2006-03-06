@@ -644,7 +644,6 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 			if (NULL == g_list_find_custom (priv->store, initial_uri,
 							compare_uri_cb))
 			{
-                          printf("null\n");
 				if (!get_uri_info (initial_uri, info))
 					continue;
 

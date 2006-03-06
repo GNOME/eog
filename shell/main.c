@@ -413,6 +413,10 @@ job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
 		g_object_ref (ctx->img_list);
 		
 		assign_model_to_window (ctx->window, ctx->img_list);
+	} 
+	else {
+		g_error_free (error);
+		gtk_main_quit ();
 	}
 }
 

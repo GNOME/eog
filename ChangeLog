@@ -1,8 +1,14 @@
+2006-03-06  Lucas Rocha  <lucasr@gnome.org>
+
+	* shell/main.c (job_prepare_model_finished): quit EOG when not
+	able to load images.
+	* libeog/eog-image-list.c (add_regular): remove unwanted output.
+
 2006-03-05  Ryan Lortie  <desrt@desrt.ca>
 
 	* libeog/eog-image-list.c: Ensure that requested image is added
-	  when scanning parent directory of said image.  Fixes a crasher
-	  when opening images with strange extensions (#333551).
+	when scanning parent directory of said image.  Fixes a crasher
+	when opening images with strange extensions (#333551).
 
 2006-03-04  Lucas Rocha  <lucasr@gnome.org>
 
