@@ -9,6 +9,8 @@ AM_INIT_AUTOMAKE(eog, 2.15.1)
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
 
+GNOME_DOC_INIT
+
 AM_MAINTAINER_MODE
 
 dnl ================= Requirements ================================================
@@ -194,18 +196,6 @@ libeog/Makefile
 libeog/cursors/Makefile
 jpegutils/Makefile
 help/Makefile
-help/C/Makefile
-help/de/Makefile
-help/es/Makefile
-help/eu/Makefile
-help/fr/Makefile
-help/it/Makefile
-help/sv/Makefile
-help/ja/Makefile
-help/ko/Makefile
-help/uk/Makefile
-help/zh_CN/Makefile
-help/zh_TW/Makefile
 shell/Makefile
 shell/recent-files/Makefile
 po/Makefile.in

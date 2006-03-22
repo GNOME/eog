@@ -1,3 +1,21 @@
+2006-03-22  Lucas Rocha  <lucasr@gnome.org>
+
+	* .cvsignore: added gnome-doc-utils.make. 
+	* configure.in: added GNOME_DOC_INIT and
+	removed help/*/Makefile from AC_OUTPUT.
+	* Makefile.am: added gnome-doc-utils.make to
+	EXTRA_DIST and DISTCLEANFILES. Added
+	DISTCHECK_CONFIGURE_FLAGS.
+	* help/Makefile.am: migration to gnome-doc-utils.
+	* help/zenity.omf.in: new OMF file to be used by
+	gnome-doc-utils.
+	* help/C/Makefile.am, help/C/eog-C.omf: No
+	longer needed. Removed.
+	* help/C/eog.xml: updates to be gnome-doc-utils
+	compliant.
+	* help/ChangeLog: new ChangeLog to keep track
+	of doc updates.
+
 2006-03-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: Post release bump, for unstable

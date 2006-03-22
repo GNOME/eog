@@ -38,7 +38,8 @@ EXTRA_DIST = 			\
 	gnome-eog.png		\
 	intltool-extract.in	\
 	intltool-update.in	\
-	intltool-merge.in	
+	intltool-merge.in	\
+	gnome-doc-utils.make
 
 desktopdir = $(datadir)/applications
 desktop_in_files = eog.desktop.in
@@ -78,4 +79,7 @@ DISTCLEANFILES =                \
         intltool-merge          \
         intltool-update         \
         eog.desktop             \
-        eog.schemas
+        eog.schemas		\
+	gnome-doc-utils.make
+
+DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
