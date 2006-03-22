@@ -9,18 +9,19 @@
 # Sébastien Bacher <seb128@debian.org>, 2004.
 # Benoît Dejean <TazForEver@dlfp.org>, 2005.
 # Stéphane Raimbault <stephane.raimbault@free.fr>, 2005.
-# Damien Durand <splinux@fedoraproject.org>, 2006
+# Damien Durand <splinux@fedoraproject.org>, 2006.
+# Laurent Richard <laurent.richard@ael.be>,2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-13 00:00+0100\n"
-"PO-Revision-Date: 2006-03-03 14:42+0100\n"
-"Last-Translator: Damien Durand <splinux@fedoraproject.org>\n"
+"POT-Creation-Date: 2006-03-22 22:40+0100\n"
+"PO-Revision-Date: 2006-03-22 22:39+0100\n"
+"Last-Translator: Benoît Dejean <benoit@placenet.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charsetq=UTF-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
@@ -226,9 +227,8 @@ msgid "Show/hide image information for single image."
 msgstr "Afficher/Cacher les informations pour une image seule."
 
 #: ../eog.schemas.in.h:15
-#, fuzzy
 msgid "Show/hide the image collection pane."
-msgstr "Afficher/cacher les informations sur les images d'une collection."
+msgstr "Afficher/cacher le volet de la collections d'images."
 
 #: ../eog.schemas.in.h:16
 msgid "Show/hide the window statusbar."
@@ -385,7 +385,7 @@ msgstr "%s (*.%s)"
 #, c-format
 msgid "%s x %s pixels"
 msgid_plural "%s x %s pixels"
-msgstr[0] "%s x %s pixels"
+msgstr[0] "%s x %s pixel"
 msgstr[1] "%s x %s pixels"
 
 #: ../shell/eog-file-chooser.c:397
@@ -488,7 +488,9 @@ msgstr ""
 "Sun G11n <gnome_int_l10n@ireland.sun.com>\n"
 "Sébastien Bacher <seb128@debian.org>\n"
 "Benoît Dejean <TazForEver@dlfp.org>\n"
-"Stéphane Raimbault <stephane.raimbault@free.fr>"
+"Stéphane Raimbault <stephane.raimbault@free.fr>\n"
+"Damien Durand <splinux@fedoraproject.org>\n"
+"Laurent Richard <laurent.richard@ael.be>"
 
 #: ../shell/eog-window.c:495 ../shell/eog-window.c:3051
 #: ../shell/eog-window.c:3702 ../shell/main.c:605
@@ -562,11 +564,11 @@ msgid "Print Preview"
 msgstr "Aperçu avant impression"
 
 #: ../shell/eog-window.c:1998
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
-msgstr "Voulez-vous vraiment déplacer %i image à la corbeille ?"
+msgstr "Voulez-vous vraiment déplacer « %s » à la corbeille ?"
 
 #: ../shell/eog-window.c:2001
 #, fuzzy, c-format
@@ -576,8 +578,10 @@ msgid ""
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
-msgstr[0] "Voulez-vous vraiment déplacer %i image à la corbeille ?"
-msgstr[1] "Voulez-vous vraiment déplacer %i image à la corbeille ?"
+msgstr[0] ""
+"Voulez-vous vraiment déplacer %d image sélectionnée à la corbeille ?"
+msgstr[1] ""
+"Voulez-vous vraiment déplacer les %d images sélectionnées à la corbeille ?"
 
 #: ../shell/eog-window.c:2016 ../shell/eog-window.c:3300
 msgid "Move to Trash"
@@ -616,7 +620,7 @@ msgstr "_Fichier"
 
 #: ../shell/eog-window.c:3266
 msgid "_Edit"
-msgstr "_Édition"
+msgstr "É_dition"
 
 #: ../shell/eog-window.c:3267
 msgid "_View"
@@ -691,15 +695,15 @@ msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Change la visibilité de la barre d'état dans la fenêtre actuelle"
 
 #: ../shell/eog-window.c:3282
-#, fuzzy
 msgid "_Image Collection"
-msgstr "Collection"
+msgstr "Collection d'_images"
 
 #: ../shell/eog-window.c:3282
-#, fuzzy
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
-msgstr "Change la visibilité du volet d'information dans la fenêtre actuelle"
+msgstr ""
+"Change la visibilité du volet de la collection d'images dans la fenêtre "
+"actuelle"
 
 #: ../shell/eog-window.c:3286
 msgid "_Save"
@@ -731,11 +735,11 @@ msgstr "Rotation _antihoraire"
 
 #: ../shell/eog-window.c:3297
 msgid "Rotat_e 180°"
-msgstr "Tourner à 180 _degrés"
+msgstr "Tourn_er à 180°"
 
 #: ../shell/eog-window.c:3298
 msgid "Set As _Wallpaper"
-msgstr "Placer comme _Wallpaper"
+msgstr "Utilise comme _papier peint"
 
 #: ../shell/eog-window.c:3302
 msgid "_Full Screen"
@@ -765,14 +769,13 @@ msgstr "Au _mieux"
 
 #: ../shell/eog-window.c:3313 ../shell/eog-window.c:3315
 #: ../shell/eog-window.c:3327
-#, fuzzy
 msgid "_Next Image"
-msgstr "_Image"
+msgstr "Image _suivante"
 
 #: ../shell/eog-window.c:3314 ../shell/eog-window.c:3316
 #: ../shell/eog-window.c:3317 ../shell/eog-window.c:3326
 msgid "_Previous Image"
-msgstr "Image _Précédente"
+msgstr "Image _précédente"
 
 #: ../shell/eog-window.c:3318
 msgid "Move to _Trash"
@@ -787,14 +790,12 @@ msgid "Changes the visibility of the information pane in the current window"
 msgstr "Change la visibilité du volet d'information dans la fenêtre actuelle"
 
 #: ../shell/eog-window.c:3328
-#, fuzzy
 msgid "_First Image"
-msgstr "_Image"
+msgstr "_Première image"
 
 #: ../shell/eog-window.c:3329
-#, fuzzy
 msgid "_Last Image"
-msgstr "Chargez une image"
+msgstr "_Dernière image"
 
 #: ../shell/eog-window.c:3340
 msgid "Open"
@@ -864,20 +865,22 @@ msgid "Could not open `%s'"
 msgstr "Impossible d'ouvrir « %s »"
 
 #: ../shell/recent-files/egg-recent-view-gtk.c:346
-#, fuzzy, c-format
+#, c-format
 msgid "Open '%s'"
-msgstr "Ouvrir"
+msgstr "Ouvrir « %s »"
 
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "Vide"
 
-#, fuzzy
 #~ msgid ""
 #~ "Are you sure you want to move\n"
 #~ "the %d selected image to the trash?Are you sure you want to move\n"
 #~ "the %d selected images to the trash?"
-#~ msgstr "Voulez-vous vraiment déplacer %i image à la corbeille ?"
+#~ msgstr ""
+#~ "Voulez-vous vraiment déplacer \n"
+#~ "%d image sélectionnée à la corbeille ? Voulez-vous vraiment déplacer \n"
+#~ "%d images sélectionnées à la corbeille ?"
 
 #~ msgid "Show next image _automatically"
 #~ msgstr "Afficher _automatiquement l'image suivante"
