@@ -414,6 +414,8 @@ static void
 verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
+	EogWindowPrivate *priv;
+        EogImage *current;
 	GtkWidget *dlg;
 	gint response;
 	GSList *list = NULL;
@@ -422,7 +424,15 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 
 	window = EOG_WINDOW (user_data);
 
+        priv = window->priv;
+
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
+
+	current = eog_wrap_list_get_first_selected_image (priv->wraplist);
+
+	if (current != NULL)
+	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
+						     g_path_get_dirname (eog_image_get_uri_for_display (current)));
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
