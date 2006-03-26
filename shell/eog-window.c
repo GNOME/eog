@@ -2536,23 +2536,37 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 
 	result = FALSE;
 
-	if (GTK_WIDGET_CLASS (parent_class)->key_press_event)
-		result = (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
-
-	if (result)
-		return result;
-
 	switch (event->keyval) {
 	case GDK_Q:
 	case GDK_q:
 		eog_window_close (EOG_WINDOW (widget));
+		result = TRUE;
 		break;
-
-	default:
-		return FALSE;
+	case GDK_Up:
+	case GDK_Left:
+	case GDK_Page_Up:
+		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->scroll_view))) {
+			eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(widget)->priv->wraplist), 
+						     EOG_WRAP_LIST_SELECT_LEFT);
+			result = TRUE;		
+		}
+		break;
+	case GDK_Down:
+	case GDK_Right:
+	case GDK_Page_Down:
+		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->scroll_view))) {
+			eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(widget)->priv->wraplist), 
+						     EOG_WRAP_LIST_SELECT_RIGHT);
+			result = TRUE;
+		}
+		break;
 	}
 
-	return TRUE;
+	if (result == FALSE && GTK_WIDGET_CLASS (parent_class)->key_press_event) {
+		result = (* GTK_WIDGET_CLASS (parent_class)->key_press_event) (widget, event);
+	}
+
+	return result;
 }
 
 /* Returns whether a window has an image loaded in it */
@@ -3326,6 +3340,8 @@ static const GtkActionEntry action_entries_image[] = {
   { "ShiftReturn", NULL, N_("_Previous Image"), "<shift>Return", NULL, G_CALLBACK (verb_GoPrev_cb) },
   { "BackSpace", NULL, N_("_Previous Image"), "BackSpace", NULL, G_CALLBACK (verb_GoPrev_cb) },
   { "Delete", NULL, N_("Move to _Trash"), "Delete", NULL, G_CALLBACK (verb_MoveToTrash_cb) },
+  { "Home", NULL, N_("_First Image"), "Home", NULL, G_CALLBACK (verb_GoFirst_cb) },
+  { "End", NULL, N_("_Last Image"), "End", NULL, G_CALLBACK (verb_GoLast_cb) },
 };
 
 static const GtkToggleActionEntry toggle_entries_image[] = {
@@ -3333,10 +3349,10 @@ static const GtkToggleActionEntry toggle_entries_image[] = {
 };
 
 static const GtkActionEntry action_entries_collection[] = {
-  { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<control>Page_Up", NULL, G_CALLBACK (verb_GoPrev_cb) },
-  { "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<control>Page_Down", NULL, G_CALLBACK (verb_GoNext_cb) },
-  { "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<control>Home", NULL, G_CALLBACK (verb_GoFirst_cb) },
-  { "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<control>End", NULL, G_CALLBACK (verb_GoLast_cb) },
+  { "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left", NULL, G_CALLBACK (verb_GoPrev_cb) },
+  { "GoNext", GTK_STOCK_GO_FORWARD, N_("_Next Image"), "<Alt>Right", NULL, G_CALLBACK (verb_GoNext_cb) },
+  { "GoFirst", GTK_STOCK_GOTO_FIRST, N_("_First Image"), "<Alt>Home", NULL, G_CALLBACK (verb_GoFirst_cb) },
+  { "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<Alt>End", NULL, G_CALLBACK (verb_GoLast_cb) },
 };
 
 typedef struct {

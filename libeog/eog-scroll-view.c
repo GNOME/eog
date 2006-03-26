@@ -1038,7 +1038,6 @@ set_zoom_fit (EogScrollView *view)
 	g_signal_emit (view, view_signals [SIGNAL_ZOOM_CHANGED], 0, priv->zoom);
 }
 
-
 /*===================================
 
    internal signal callbacks
@@ -1055,6 +1054,7 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	double zoom;
 	gboolean do_scroll;
 	int xofs, yofs;
+	int width, height;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -1063,6 +1063,9 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	do_scroll = FALSE;
 	xofs = yofs = 0;
 	zoom = 1.0;
+
+	width = GTK_WIDGET (priv->display)->allocation.width;
+	height = GTK_WIDGET (priv->display)->allocation.height;
 
 	switch (event->keyval) {
 	case GDK_Up:
@@ -1073,8 +1076,13 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 	case GDK_Page_Up:
 		do_scroll = TRUE;
-		xofs = 0;
-		yofs = -SCROLL_STEP_SIZE * 4;
+		if (event->state & GDK_CONTROL_MASK) {
+			xofs = -(width * 3) / 4;
+			yofs = 0;
+		} else {
+			xofs = 0;
+			yofs = -(height * 3) / 4;
+		}
 		break;
 
 	case GDK_Down:
@@ -1085,8 +1093,13 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
 	case GDK_Page_Down:
 		do_scroll = TRUE;
-		xofs = 0;
-		yofs = SCROLL_STEP_SIZE * 4;
+		if (event->state & GDK_CONTROL_MASK) {
+			xofs = (width * 3) / 4;
+			yofs = 0;
+		} else {
+			xofs = 0;
+			yofs = (height * 3) / 4;
+		}
 		break;
 
 	case GDK_Left:
@@ -1826,6 +1839,15 @@ eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, 
 	*height = gdk_pixbuf_get_height (priv->pixbuf);
 }
 
+gboolean 
+eog_scroll_view_scrollbars_visible (EogScrollView *view)
+{
+	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->hbar)) && 
+	    !GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->vbar)))
+		return FALSE;
+
+	return TRUE;
+}
 
 /*===================================
     object creation/freeing

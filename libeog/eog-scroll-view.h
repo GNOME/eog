@@ -46,6 +46,7 @@ void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale
 void     eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color);
 void     eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, gboolean scaled);
+gboolean eog_scroll_view_scrollbars_visible (EogScrollView *view);
 
 /* zoom api */
 void     eog_scroll_view_zoom_in          (EogScrollView *view, gboolean smooth);
