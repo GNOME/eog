@@ -1763,6 +1763,9 @@ verb_Print_cb (GtkAction *action, gpointer data)
 
 	GnomePrintConfig* config = gnome_print_config_default();
 	GnomePrintContext *pc;
+
+	gnome_print_config_set_boolean (config, GNOME_PRINT_KEY_DUPLEX, FALSE);
+
 	GnomePrintJob *gpj = gnome_print_job_new(config);
 	gint do_preview = 0 /*, copies = 1, collate = 0*/;
 	gdouble width, height;
