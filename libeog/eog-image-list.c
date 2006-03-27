@@ -519,7 +519,8 @@ directory_visit_cb (const gchar *rel_uri,
 	ctx = (DirLoadingContext*) data;
 	list = ctx->list;
 
-	if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0) {
+        if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0 &&
+            !g_str_has_prefix (info->name, ".")) {
 		if (is_supported_mime_type (info->mime_type)) {
 			load_uri = TRUE;
 		}
