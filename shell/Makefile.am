@@ -50,7 +50,6 @@ eog_LDADD = 				\
 	-lrecent			\
 	$(LIBJPEG)			\
 	$(jpeg_LIB)			\
-	$(POPT_LIBS)			\
 	$(X_LIBS)			\
 	$(EOG_LIBS)			\
 	$(LIBJPEG)

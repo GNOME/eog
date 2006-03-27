@@ -1,4 +1,12 @@
 2006-03-26  Lucas Rocha  <lucasr@gnome.org>
+
+	GOption migration (Fixes bug #335877). Patch from Michael 
+	Plump <plumpy@skylab.org>
+
+	* configure.in: remove popt dependencie.
+	* src/main (main, handle_cmdline_args): use GOption instead of popt.
+
+2006-03-26  Lucas Rocha  <lucasr@gnome.org>
 	
  	Keyboard shortcuts revamp (Fixes bug #310455 partly). Patch from
 	Jaap Haitsma <jaap@haitsma.org>.

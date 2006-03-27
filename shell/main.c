@@ -16,6 +16,14 @@
 #include "eog-image-list.h"
 #include "eog-job-manager.h"
 
+static char **startup_files = NULL;
+
+static const GOptionEntry goption_options[] =
+{
+	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
+	{ NULL }
+};
+
 static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
 
 typedef struct {
@@ -527,7 +535,7 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 
 /**
  * handle_cmdline_args:
- * @data: Pointer to the popt context provided by gnome_init_with_popt_table.
+ * @data: NULL
  *
  * Handles command line arguments. Counts the regular files the user wants to
  * open and if there are more than three, asks him to open them in a single
@@ -541,19 +549,11 @@ static gboolean
 handle_cmdline_args (gpointer data)
 {
 	GSList *startup_file_list = NULL;
-	const gchar **startup_files;
-	poptContext ctx;
-
-	ctx = data;
-	startup_files = poptGetArgs (ctx);
 
 	startup_file_list = string_array_to_list (startup_files);
 	
 	open_uri_list_cb (NULL, startup_file_list, NULL);
 	
-	/* clean up */
-	poptFreeContext (ctx);
-
 	return FALSE;
 }
 
@@ -593,15 +593,19 @@ int
 main (int argc, char **argv)
 {
 	GnomeProgram *program;
-	poptContext ctx;
+	GOptionContext *ctx;
 	GnomeClient *client;
 
 	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 
+	ctx = g_option_context_new (NULL);
+	g_option_context_add_main_entries (ctx, goption_options, PACKAGE);
+
 	program = gnome_program_init ("eog", VERSION,
 				      LIBGNOMEUI_MODULE, argc, argv,
+				      GNOME_PARAM_GOPTION_CONTEXT, ctx,
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
 				      GNOME_PARAM_APP_DATADIR,EOG_DATADIR,NULL);
 
@@ -626,14 +630,12 @@ main (int argc, char **argv)
 		session_load (gnome_client_get_config_prefix (client));
 	}
 	else  {
-		g_object_get (G_OBJECT (program), 
-			      GNOME_PARAM_POPT_CONTEXT, &ctx,
-			      NULL);
-
-		g_idle_add (handle_cmdline_args, ctx);
+		g_idle_add (handle_cmdline_args, NULL);
 	}
 
 	gtk_main ();
+
+	g_object_unref (program);
 
 	return 0;
 }
