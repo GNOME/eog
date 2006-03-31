@@ -151,12 +151,10 @@ eog_thumb_data_new (GnomeVFSURI *uri, GError **error)
 	
 	if (result != GNOME_VFS_OK) {
 		set_vfs_error (error, result);
-	}
-			
-	/* check required info fields */
-	if (((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) == 0) ||
-	    ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0))
-	{
+	}		
+	else if (((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) == 0) ||
+		 ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0)) {
+		/* check required info fields */
 		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "MTime or mime type not available");
 	}
 	
