@@ -444,6 +444,23 @@ cleanup_dead_files (EogImageList *list)
 	g_list_free (remove);
 }
 
+static gboolean
+get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+{
+	GnomeVFSResult result;
+	
+	g_return_val_if_fail (uri != NULL, FALSE);
+	g_return_val_if_fail (info != NULL, FALSE);
+	
+	gnome_vfs_file_info_clear (info);
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+
+	return (result == GNOME_VFS_OK);
+}
+
 static void
 vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
           const gchar *monitor_uri,
@@ -453,6 +470,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 {
 	EogImageList *list = user_data;
 	GnomeVFSURI *uri = NULL;
+	GnomeVFSFileInfo *info = NULL;
 	EogImage *image = NULL;
 	GList *node=NULL;
 	gboolean found = FALSE;
@@ -484,13 +502,23 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 			}
 			
 			if (!found) {
+				info = gnome_vfs_file_info_new ();
 				uri = gnome_vfs_uri_new (info_uri);
-				image = eog_image_new_uri (uri);
-				
-				if (image) {
-					eog_image_list_add_image (list, image);
-					/* Q: g_object_unref (image) ? */
+
+				if (!get_uri_info (uri, info)) return;
+
+				if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0 &&
+				    !g_str_has_prefix (info->name, ".")) {
+					if (is_supported_mime_type (info->mime_type)) {
+						image = eog_image_new_uri (uri);
+						
+						if (image) {
+							eog_image_list_add_image (list, image);
+							/* Q: g_object_unref (image) ? */
+						}
+					}
 				}
+
 			}
 			gnome_vfs_uri_unref (uri);
 			break;
@@ -582,24 +610,6 @@ add_regular (EogImageList *list, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	}
 }
 	
-
-static gboolean
-get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
-{
-	GnomeVFSResult result;
-	
-	g_return_val_if_fail (uri != NULL, FALSE);
-	g_return_val_if_fail (info != NULL, FALSE);
-	
-	gnome_vfs_file_info_clear (info);
-	result = gnome_vfs_get_file_info_uri (uri, info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-						  GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-
-	return (result == GNOME_VFS_OK);
-}
-
 void
 eog_image_list_add_uris (EogImageList *list, GList *uri_list) 
 {
