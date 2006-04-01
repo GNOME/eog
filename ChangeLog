@@ -1,5 +1,11 @@
 2006-03-31  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/eog-image-list.c (vfs_monitor_dir_cb): checks mimetype
+	before trying to include new detected files on image list (Fixes
+	bug #336050).
+
+2006-03-31  Lucas Rocha  <lucasr@gnome.org>
+
 	* libeog/eog-thumbnail.c (eog_thumb_data_new): avoid setting 
 	the error twice (Fixes bug #336652).
 
