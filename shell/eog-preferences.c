@@ -131,7 +131,7 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 	char *value, *filename;
 	GdkColor color;
 
-	filename = g_build_filename (EOG_DATADIR, "eog/glade/eog.glade", NULL);
+	filename = g_build_filename (EOG_DATADIR, "eog/eog.glade", NULL);
 	xml = glade_xml_new (filename, "Hig Preferences Dialog", "eog");
 	g_free (filename);
 	g_assert (xml != NULL);

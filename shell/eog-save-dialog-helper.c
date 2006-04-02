@@ -90,7 +90,7 @@ eog_save_dialog_new  (GtkWindow *main, int n_images)
 	
 	filepath = gnome_program_locate_file (NULL,
 					      GNOME_FILE_DOMAIN_APP_DATADIR,
-					      "eog/glade/eog.glade",
+					      "eog/eog.glade",
 					      FALSE, NULL);
 	g_assert (filepath != NULL);
 

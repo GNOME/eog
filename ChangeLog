@@ -1,5 +1,20 @@
 2006-04-02  Lucas Rocha  <lucasr@gnome.org>
 
+	* INSTALL, po/POTFILES.in: Update.
+	* acconfig.h, eog.gladep: removed useless files.
+	* configure.in, configure.ac: "renamed" configure.in to
+	configure.ac.
+	* eog.desktop.in.in, eog.glade, eog.schemas.in,
+	data/.cvsignore, data/Makefile.am, data/eog.desktop.in.in,
+	data/eog.glade, data/eog.schemas.in: moved eog.schemas.in,
+	eog.desktop.in.in, and eog.glade to data directory.
+	* Makefile.am, autogen.sh: lots of cleanups.
+	* shell/eog-preferences.c, shell/eog-save-as-dialog-helper.c,
+	shell/eog-save-dialog-helper.c: look for glade files on 
+	$datadir.
+
+2006-04-02  Lucas Rocha  <lucasr@gnome.org>
+
 	* omf-install/*: old scrollkeeper dir removed.
 
 2006-04-02  Lucas Rocha  <lucasr@gnome.org>
