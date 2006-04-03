@@ -26,8 +26,8 @@ endif
 EXTRA_DIST =			\
         $(glade_DATA)		\
         $(DESKTOP_IN_FILES)	\
-        $(schema_in_files)	
+        $(schemas_in_files)	
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
-        $(schema_DATA)	
+        $(schemas_DATA)	
