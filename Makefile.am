@@ -10,8 +10,6 @@ EXTRA_DIST = 			\
 	intltool-extract.in	\
 	intltool-merge.in 	\
 	intltool-update.in	\
-	eog.spec		\
-	eog.spec.in		\
 	gnome-doc-utils.make
 
 DISTCLEANFILES =                \
