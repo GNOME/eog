@@ -224,7 +224,6 @@ AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard S
 
 AC_CONFIG_FILES([
 Makefile
-eog.spec
 data/Makefile
 data/eog.desktop.in
 art/Makefile
