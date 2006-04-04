@@ -23,6 +23,7 @@
 #define EOG_THUMB_VIEW_H
 
 #include "eog-image.h"
+#include "eog-list-store.h"
 
 #define EOG_TYPE_THUMB_VIEW            (eog_thumb_view_get_type ())
 #define EOG_THUMB_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_THUMB_VIEW, EogThumbView))
@@ -48,6 +49,8 @@ GType eog_thumb_view_get_type (void);
 
 GtkWidget * eog_thumb_view_new (void);
 
+void
+eog_thumb_view_set_model (EogThumbView *view, EogListStore *store);
 
 typedef enum {
 	EOG_THUMB_VIEW_SELECT_LEFT = 0,

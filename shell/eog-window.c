@@ -3914,8 +3914,8 @@ eog_window_open (EogWindow *window, EogListStore *store, GError **error)
 	}
 		
 	/* attach store to view */
-	gtk_icon_view_set_model (GTK_ICON_VIEW (priv->thumbview), GTK_TREE_MODEL (priv->store));
-	
+	eog_thumb_view_set_model (priv->thumbview, priv->store);
+
 	return TRUE;
 }
 

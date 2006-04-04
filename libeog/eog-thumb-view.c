@@ -134,6 +134,21 @@ eog_thumb_view_new (void)
 	return GTK_WIDGET (thumb_view);
 }
 
+void
+eog_thumb_view_set_model (EogThumbView *view, EogListStore *store)
+{
+	g_return_if_fail (EOG_IS_THUMB_VIEW (view));
+	g_return_if_fail (EOG_IS_LIST_STORE (store));
+
+	gtk_icon_view_set_model (GTK_ICON_VIEW (view), GTK_TREE_MODEL (store));
+	GtkTreePath *path = gtk_tree_path_new_from_indices (eog_list_store_get_initial_pos (store), 
+							    -1);
+	gtk_icon_view_select_path (GTK_ICON_VIEW (view), path);
+	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (view), path, FALSE, 0, 0);
+	gtk_tree_path_free (path);
+
+}
+
 static void
 eog_thumb_view_get_n_selected_helper (GtkIconView *icon_view,
 				      GtkTreePath *path,
@@ -249,7 +264,7 @@ eog_thumb_view_select_single (EogThumbView *view,
 			      EogThumbViewSelectionChange change)
 {
 	g_return_if_fail (EOG_IS_THUMB_VIEW (view));
-	GtkTreePath *path;
+	GtkTreePath *path = NULL;
 	GtkTreeModel *model;
 	GList *list;
 	gint n_items;

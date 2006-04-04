@@ -1,5 +1,14 @@
 2006-04-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model), Set
+	model to the view and then select the initial image.
+	(eog_thumb_view_select_single): Initialize path to NULL.
+	* libeog/eog-thumb-view.h: New header for eog_thumb_view_set_model ().
+	* shell/eog-window.c: (eog_window_open): Use eog_thumb_view_set_model ()
+	instead of gtk_icon_view_set_model ().
+
+2006-04-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* libeog/Makefile.am: Adding eog-thumb-view.[ch], eog-list-store.[ch],
 	and eog-test-tb.c.
 	* libeog/eog-full-screen.c: (cancel_load_by_iter),
