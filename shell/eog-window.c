@@ -49,7 +49,7 @@
 #include "egg-recent.h"
 #include "eog-config-keys.h"
 #include "eog-scroll-view.h"
-#include "eog-wrap-list.h"
+#include "eog-thumb-view.h"
 #include "eog-info-view.h"
 #include "eog-full-screen.h"
 #include "eog-image-save-info.h"
@@ -105,7 +105,7 @@ struct _EogWindowPrivate {
 	GConfClient *client;
 
 	/* Images we are displaying */
-	EogImageList        *image_list;
+	EogListStore        *store;
 	EogImage            *displayed_image;
 
 	/* ui/widget stuff */
@@ -114,7 +114,7 @@ struct _EogWindowPrivate {
 	GtkWidget           *hpane;
 	GtkWidget           *vpane;
 	GtkWidget           *scroll_view;
-	GtkWidget           *wraplist;
+	GtkWidget           *thumbview;
 	GtkWidget           *info_view;
 	GtkWidget           *statusbar;
 	GtkWidget           *n_img_label;
@@ -428,7 +428,7 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 
-	current = eog_wrap_list_get_first_selected_image (priv->wraplist);
+	current = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
 	if (current != NULL)
 	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
@@ -618,7 +618,7 @@ verb_SetAsWallpaper_cb (GtkAction *action, gpointer data)
 	
 	priv = window->priv;
 
-	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	user_time = gtk_get_current_event_time();
@@ -692,8 +692,8 @@ verb_GoNext_cb (GtkAction *action, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
-				     EOG_WRAP_LIST_SELECT_RIGHT);
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(data)->priv->thumbview), 
+				      EOG_THUMB_VIEW_SELECT_RIGHT);
 }
 
 static void
@@ -701,8 +701,8 @@ verb_GoPrev_cb (GtkAction *action, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
-				     EOG_WRAP_LIST_SELECT_LEFT);
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(data)->priv->thumbview), 
+				      EOG_THUMB_VIEW_SELECT_LEFT);
 }
 
 static void
@@ -710,8 +710,8 @@ verb_GoFirst_cb (GtkAction *action, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
-				     EOG_WRAP_LIST_SELECT_FIRST);
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(data)->priv->thumbview),
+				      EOG_THUMB_VIEW_SELECT_FIRST);
 }
 
 static void
@@ -719,8 +719,8 @@ verb_GoLast_cb (GtkAction *action, gpointer data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
-	eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(data)->priv->wraplist), 
-				     EOG_WRAP_LIST_SELECT_LAST);
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(data)->priv->thumbview), 
+				      EOG_THUMB_VIEW_SELECT_LAST);
 }
 
 static void
@@ -738,7 +738,7 @@ slideshow_hide_cb (GtkWidget *widget, gpointer data)
 	last_image = eog_full_screen_get_last_image (fs);
 	
 	if (last_image != NULL) {
-		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), last_image, TRUE);
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview), last_image, TRUE);
 		g_object_unref (last_image);
 	}
 
@@ -750,7 +750,7 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 {
 	EogWindowPrivate *priv;
 	GtkWidget *fs;
-	EogImageList *list = NULL;
+	EogListStore *list = NULL;
 	EogImage *start_image = NULL;
 	int n_selected;
 	gboolean slide_show = FALSE;
@@ -759,16 +759,16 @@ verb_FullScreen_cb (GtkAction *action, gpointer data)
 
 	priv = EOG_WINDOW (data)->priv;
 
-	n_selected = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
-	if (n_selected == 1) {
-		list = g_object_ref (priv->image_list);
-		start_image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	n_selected = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
+	if (n_selected <= 1) {
+		list = g_object_ref (priv->store);
+		start_image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 	}
 	else if (n_selected > 1) {
 		GList *l;
-		l = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
-
-		list = eog_image_list_new_from_glist (l);
+		l = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
+		
+		list = EOG_LIST_STORE (eog_list_store_new_from_glist (l));
 
 		g_list_foreach (l, (GFunc) g_object_unref, NULL);
 		g_list_free (l);
@@ -817,9 +817,9 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 	}
 	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible)
-			gtk_widget_show_all (gtk_widget_get_parent (priv->wraplist));
+			gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
 		else
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 	}
 	else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewInfo") == 0) {
@@ -828,8 +828,8 @@ verb_ShowHideAnyBar_cb (GtkAction *action, gpointer data)
 
 		g_object_set (G_OBJECT (priv->info_view), "visible", visible, NULL);
 
-		if (priv->image_list != NULL) {
-			n_images = eog_image_list_length (priv->image_list);
+		if (priv->store != NULL) {
+			n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
 		}
 
 		if (n_images == 1) {
@@ -1288,12 +1288,12 @@ verb_Save_cb (GtkAction *action, gpointer user_data)
 
 	priv = EOG_WINDOW (user_data)->priv;
 
-	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	n_images = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
 	if (n_images == 0) return;
 
 	/* init save data */
 	data = save_data_new (EOG_WINDOW (user_data), 
-			      eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist)));
+			      eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview)));
 	g_assert (data != NULL);
 	g_assert (GTK_IS_WINDOW (data->dlg));
 
@@ -1759,7 +1759,7 @@ verb_Print_cb (GtkAction *action, gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 	EogWindowPrivate *priv = window->priv;	
-	EogImage *image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	EogImage *image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
 	GnomePrintConfig* config = gnome_print_config_default();
 	GnomePrintContext *pc;
@@ -1827,19 +1827,19 @@ verb_SaveAs_cb (GtkAction *action, gpointer data)
 	window = EOG_WINDOW (data);
 	priv = window->priv;
 
-	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	n_images = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
 	if (n_images <= 0) return;
 
 	if (n_images == 1) {
 		EogImage *image;
 
-		image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+		image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 		save_as_single_image (window, image);
 	}
 	else {
 		GList *images;
 
-		images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));
+		images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
 		save_as_multiple_images (window, images);
 	}
 }
@@ -1919,7 +1919,7 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
-	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (window->priv->wraplist));	
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (window->priv->thumbview));
 	if (images == NULL)
 		return;
 
@@ -2086,7 +2086,7 @@ verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 	GList *images;
 	GList *it;
 	EogWindowPrivate *priv;
-	EogImageList *list;
+	EogListStore *store;
 	int pos;
 	EogImage *img;
 	EogWindow *window;
@@ -2098,13 +2098,13 @@ verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 
 	window = EOG_WINDOW (data);
 	priv = window->priv;
-	list = priv->image_list;
+	store = priv->store;
 	
-	n_images = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	n_images = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
 	if (n_images < 1) return;
 
 	/* save position of selected image after the deletion */
-	images = eog_wrap_list_get_selected_images (EOG_WRAP_LIST (priv->wraplist));	
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));	
 	g_assert (images != NULL);
 
 	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0) {
@@ -2112,7 +2112,7 @@ verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 		if (response != GTK_RESPONSE_OK) return;
 	}
 	
-	pos = eog_image_list_get_pos_by_img (list, EOG_IMAGE (images->data));
+	pos = eog_list_store_get_pos_by_image (store, EOG_IMAGE (images->data));
 
 	/* FIXME: make a nice progress dialog */
 	/* Do the work actually. First try to delete the image from the disk. If this
@@ -2126,8 +2126,8 @@ verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 
 		success = move_to_trash_real (image, &error);
 		if (success) {
-			/* EogWrapList gets notified by the EogImageList */
-			eog_image_list_remove_image (list, image);
+			/* EogThumbView gets notified by the EogListStore */
+			eog_list_store_remove_image (store, image);
 		}
 		else {
 			char *header;
@@ -2155,12 +2155,12 @@ verb_MoveToTrash_cb (GtkAction *action, gpointer data)
 	g_list_free (images);
 
 	/* select image at previously saved position */
-	pos = MIN (pos, eog_image_list_length (list) - 1);
+	pos = MIN (pos, gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) - 1);
 
 	if (pos >= 0) {
-		img = eog_image_list_get_img_by_pos (list, pos);
+		img = eog_list_store_get_image_by_pos (store, pos);
 
-		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), img, TRUE);
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview), img, TRUE);
 		if (img != NULL) {
 			g_object_unref (img);
 		}
@@ -2362,9 +2362,9 @@ eog_window_destroy (GtkObject *object)
 		priv->displayed_image = NULL;
 	}
 
-	if (priv->image_list != NULL) {
-		g_object_unref (priv->image_list);
-		priv->image_list = NULL;
+	if (priv->store != NULL) {
+		g_object_unref (priv->store);
+		priv->store = NULL;
 	}
 
 	if (priv->recent_view != NULL) {
@@ -2509,7 +2509,7 @@ eog_window_init (EogWindow *window)
 	priv->desired_width = -1;
 	priv->desired_height = -1;
 
-	priv->image_list = NULL;
+	priv->store = NULL;
 	priv->displayed_image = NULL;
 	priv->sig_id_list_prepared = 0;
 
@@ -2549,8 +2549,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 	case GDK_Page_Up:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->scroll_view))) {
-			eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(widget)->priv->wraplist), 
-						     EOG_WRAP_LIST_SELECT_LEFT);
+			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(widget)->priv->thumbview), 
+						      EOG_THUMB_VIEW_SELECT_LEFT);
 			result = TRUE;		
 		}
 		break;
@@ -2558,8 +2558,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Right:
 	case GDK_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->scroll_view))) {
-			eog_wrap_list_select_single (EOG_WRAP_LIST (EOG_WINDOW(widget)->priv->wraplist), 
-						     EOG_WRAP_LIST_SELECT_RIGHT);
+			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW(widget)->priv->thumbview), 
+						      EOG_THUMB_VIEW_SELECT_RIGHT);
 			result = TRUE;
 		}
 		break;
@@ -2583,8 +2583,8 @@ eog_window_has_contents (EogWindow *window)
 	
 	priv = window->priv;
 
-	if (priv->image_list != NULL) {
-		has_contents = (eog_image_list_length (priv->image_list) > 0);
+	if (priv->store != NULL) {
+		has_contents = (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 0);
 	}
 	
 	return has_contents;
@@ -2662,8 +2662,8 @@ update_ui_visibility (EogWindow *window)
 
 	priv = window->priv;
 
-	if (priv->image_list != NULL) {
-		n_images = eog_image_list_length (priv->image_list);
+	if (priv->store != NULL) {
+		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
 	}
 
 	action_fscreen = gtk_action_group_get_action (priv->actions_image, "ViewFullscreen");
@@ -2689,7 +2689,7 @@ update_ui_visibility (EogWindow *window)
 		gtk_widget_show_all (priv->vpane);
 
 		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
 
 		if (!show_info_pane) 
 			gtk_widget_hide (priv->info_view);
@@ -2712,7 +2712,7 @@ update_ui_visibility (EogWindow *window)
 		gtk_widget_show_all (priv->vpane);
 
 		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
 
 		if (!show_info_pane)
 			gtk_widget_hide (priv->info_view);
@@ -2770,19 +2770,19 @@ obtain_desired_size (EogWindow *window, int screen_width,
 {
 	char *key;
 	char *geometry_string;
-	EogImageList *list;
+	EogListStore *store;
 	EogWindowMode mode;
 	gboolean finished = FALSE;
 	EogImage *img;
 	
-	list = window->priv->image_list;
+	store = window->priv->store;
 	
-	if (list != NULL && eog_image_list_length (list) >= 1) {
+	if (store != NULL && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) >= 1) {
 		int img_width, img_height;
 		int deco_width = 0, deco_height = 0;
 
-		img = eog_image_list_get_img_by_pos (list, 
-						     eog_image_list_get_initial_pos (list));
+		img = eog_list_store_get_image_by_pos (store, 
+						       eog_list_store_get_initial_pos (store));
 
 		g_assert (EOG_IS_IMAGE (img));
 
@@ -2947,10 +2947,10 @@ update_status_bar (EogWindow *window)
 		}
 
 		/* update image pos */	
-		nimg = eog_image_list_length (priv->image_list);
+		nimg = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
 		if (nimg > 0) {
-			pos = eog_image_list_get_pos_by_img (EOG_IMAGE_LIST (priv->image_list), 
-						   	     priv->displayed_image);
+			pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store), 
+							       priv->displayed_image);
 			/* Images: (image pos) / (n_total_images) */
 			eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), pos + 1, nimg);
 		} 
@@ -3171,7 +3171,7 @@ update_selection_ui_visibility (EogWindow *window)
 
 	priv = window->priv;
 
-	n_selected = eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist));
+	n_selected = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
 
 	wallpaper_action = gtk_action_group_get_action (priv->actions_image, "SetAsWallpaper");
 
@@ -3185,7 +3185,7 @@ update_selection_ui_visibility (EogWindow *window)
 }
 
 static void
-handle_image_selection_changed (EogWrapList *list, EogWindow *window) 
+handle_image_selection_changed (EogThumbView *thumbview, EogWindow *window) 
 {
 	EogWindowPrivate *priv;
 	EogImage *image;
@@ -3194,12 +3194,12 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 
 	priv = window->priv;
 
-	if (eog_wrap_list_get_n_selected (EOG_WRAP_LIST (priv->wraplist)) == 0)
+	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview)) == 0)
 		return;
 
 	update_selection_ui_visibility (window);
 	
-	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
+	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 	g_assert (EOG_IS_IMAGE (image));
 
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
@@ -3211,7 +3211,7 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	EOG_JOB_DATA (data)->window = window;
 	data->image = image; /* no additional ref required, since 
 			      * its already increased by 
-			      * eog_wrap_lsit_get_first_selected_image
+			      * eog_thumb_view_get_first_selected_image
 			      */
 	
 	job = eog_job_new_full (data,
@@ -3622,15 +3622,15 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 
 	gtk_paned_pack1 (GTK_PANED (priv->vpane), priv->hpane, TRUE, TRUE);
 
-	/* the wrap list for all the thumbnails */
-	priv->wraplist = eog_wrap_list_new ();
+	/* the thumb view for all the thumbnails */
+	priv->thumbview = eog_thumb_view_new ();
 	/* g_object_set (G_OBJECT (priv->wraplist), 
 		      "height_request", 200, 
 		      "width_request", 500,
 		      NULL);*/
-	eog_wrap_list_set_col_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
-	eog_wrap_list_set_row_spacing (EOG_WRAP_LIST (priv->wraplist), 20);
-	g_signal_connect (G_OBJECT (priv->wraplist), "selection_changed",
+	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (priv->thumbview), 20);
+	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 20);
+	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed), window);
 
 	vadj = gtk_adjustment_new (0, 100, 0, 10, 10, 100);
@@ -3644,11 +3644,11 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-	gtk_container_add (GTK_CONTAINER (sw), priv->wraplist);
+	gtk_container_add (GTK_CONTAINER (sw), priv->thumbview);
 	
 	gtk_paned_pack2 (GTK_PANED (priv->vpane), sw, TRUE, TRUE);
 
-	/* by default make the wrap list keyboard active */
+	/* by default make the thumb view keyboard active */
 	/* gtk_widget_grab_focus (priv->wraplist); */
 
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->vpane, TRUE, TRUE, 0);
@@ -3676,9 +3676,9 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	if (visible)
-		gtk_widget_show_all (gtk_widget_get_parent (priv->wraplist));
+		gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
 	else
-		gtk_widget_hide_all (gtk_widget_get_parent (priv->wraplist));
+		gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
 
 	return TRUE;
 }
@@ -3861,7 +3861,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 /**
  * eog_window_open:
  * @window: A window.
- * @model: A list of EogImage objects.
+ * @store: A list of EogImage objects.
  * @error: An pointer to an error object or NULL.
  *
  * Loads the uri into the window.
@@ -3869,7 +3869,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
  * Return value: TRUE on success, FALSE otherwise.
  **/
 gboolean
-eog_window_open (EogWindow *window, EogImageList *model, GError **error)
+eog_window_open (EogWindow *window, EogListStore *store, GError **error)
 {
 	EogWindowPrivate *priv;
 #ifdef HAVE_LCMS
@@ -3885,20 +3885,21 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 #endif
 
 	/* attach image list */
-	if (priv->image_list != NULL) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
-		g_object_unref (priv->image_list);
-		priv->image_list = NULL;
+	if (priv->store != NULL) {
+		g_signal_handler_disconnect (G_OBJECT (priv->store), priv->sig_id_list_prepared);
+		g_object_unref (priv->store);
+		priv->store = NULL;
 	}
 	
-	if (model != NULL) {
-		g_object_ref (model);
-		priv->image_list = model;
+	if (store != NULL) {
+		g_object_ref (store);
+		priv->store = store;
 
 #ifdef HAVE_LCMS
+		gint n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL);
 		/* Colour-correct the images */
-		for (i = 0; i < eog_image_list_length (model); i++) {
-			eog_image_apply_display_profile (eog_image_list_get_img_by_pos (model, i),
+		for (i = 0; i < n_images; i++) {
+			eog_image_apply_display_profile (eog_list_store_get_image_by_pos (store, i),
 							 get_screen_profile (window));
 		}
 #endif
@@ -3912,8 +3913,8 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 		setup_initial_geometry (window);
 	}
 		
-	/* attach model to view */
-	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
+	/* attach store to view */
+	gtk_icon_view_set_model (GTK_ICON_VIEW (priv->thumbview), GTK_TREE_MODEL (priv->store));
 	
 	return TRUE;
 }

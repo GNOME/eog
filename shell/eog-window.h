@@ -24,7 +24,7 @@
 #define EOG_WINDOW_H
 
 #include <gtk/gtk.h>
-#include "eog-image-list.h"
+#include "eog-list-store.h"
 
 G_BEGIN_DECLS 
 
@@ -75,7 +75,7 @@ GtkWidget*   eog_window_new       (GError **error);
 
 void         eog_window_close     (EogWindow *eog_window);
 
-gboolean     eog_window_open      (EogWindow *win, EogImageList *model, GError **error);
+gboolean     eog_window_open      (EogWindow *win, EogListStore *store, GError **error);
 
 const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);

@@ -26,7 +26,7 @@
 #include <glib/gmacros.h>
 #include <gtk/gtkwindow.h>
 #include "eog-image.h"
-#include "eog-image-list.h"
+#include "eog-list-store.h"
 
 #ifdef HAVE_SUNKEYSYM_H
 #include <X11/Sunkeysym.h>
@@ -59,7 +59,7 @@ struct _EogFullScreenClass {
 };
 
 GType      eog_full_screen_get_type (void);
-GtkWidget *eog_full_screen_new (GtkWindow *parent, EogImageList *list, EogImage *start_image, gboolean slide_show);
+GtkWidget *eog_full_screen_new (GtkWindow *parent, EogListStore *store, EogImage *start_image, gboolean slide_show);
 
 gboolean   eog_full_screen_enable_SunF36 (void);
 

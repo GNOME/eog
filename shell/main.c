@@ -13,7 +13,7 @@
 #include "eog-thumbnail.h"
 #include "session.h"
 #include "eog-config-keys.h"
-#include "eog-image-list.h"
+#include "eog-list-store.h"
 #include "eog-job-manager.h"
 
 static char **startup_files = NULL;
@@ -29,7 +29,7 @@ static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data
 typedef struct {
 	EogWindow *window;
 	GList     *uri_list;
-	EogImageList  *img_list;
+	EogListStore  *img_list;
 } LoadContext;
 
 #ifdef G_OS_WIN32
@@ -192,7 +192,7 @@ create_new_window (void)
 }
 
 static void
-assign_model_to_window (EogWindow *window, EogImageList *list)
+assign_model_to_window (EogWindow *window, EogListStore *store)
 {
 	GError *error = NULL;
 
@@ -201,11 +201,11 @@ assign_model_to_window (EogWindow *window, EogImageList *list)
 	
 	if (window == NULL) return;
 	
-	if (list != NULL) {
-		eog_image_list_print_debug (list);
+	if (store != NULL) {
+/*		eog_image_list_print_debug (list); */
 	}
 	
-	if (!eog_window_open (window, list, &error)) {
+	if (!eog_window_open (window, store, &error)) {
 		/* FIXME: show error, free image list */
 		g_print ("error open %s\n", (char*) error->message);
 	}
@@ -390,19 +390,19 @@ static void
 job_prepare_model_do (EogJob *job, gpointer data, GError **error)
 {
 	LoadContext *ctx = (LoadContext*) data;
-	int initial_pos;
+	gint initial_pos;
 	
-	ctx->img_list = eog_image_list_new ();
+	ctx->img_list = EOG_LIST_STORE (eog_list_store_new ());
 	
 	/* prepare the image list */
-	eog_image_list_add_uris (ctx->img_list, ctx->uri_list);
+	eog_list_store_add_uris (ctx->img_list, ctx->uri_list);
 
-	initial_pos = eog_image_list_get_initial_pos (ctx->img_list);
+	initial_pos = eog_list_store_get_initial_pos (ctx->img_list);
 
 	if (initial_pos != -1) {
 		EogImage *img;
 
-		img = eog_image_list_get_img_by_pos (ctx->img_list, initial_pos);
+		img = eog_list_store_get_image_by_pos (ctx->img_list, initial_pos);
 		if (EOG_IS_IMAGE (img)) {
 			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
 			g_object_unref (img);

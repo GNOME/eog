@@ -1,3 +1,66 @@
+2006-04-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/Makefile.am: Adding eog-thumb-view.[ch], eog-list-store.[ch],
+	and eog-test-tb.c.
+	* libeog/eog-full-screen.c: (cancel_load_by_iter),
+	(get_next_iter_in_direction), (display_image_on_screen),
+	(delayed_display_image_on_screen), (is_loop_end),
+	(check_automatic_switch), (eog_full_screen_key_press),
+	(eog_full_screen_destroy), (eog_full_screen_init),
+	(job_image_load_finished), (prepare_load_image), (prepare_data),
+	(eog_full_screen_new), (eog_full_screen_get_last_image): Porting 
+	to EogThumbView and EogListStore.
+	* libeog/eog-full-screen.h: Changing EogImageList and EogIter
+	struct members to EogListStore and GtkTreeIter, respectively.
+	* libeog/eog-list-store.c: (eog_list_store_finalize),
+	(foreach_monitors_free), (eog_list_store_dispose),
+	(eog_list_store_class_init), (eog_list_store_compare_func),
+	(eog_list_store_init), (eog_list_store_new),
+	(eog_list_store_append_image),
+	(eog_list_store_append_image_from_uri), (compare_quarks),
+	(get_supported_mime_types), (is_supported_mime_type),
+	(is_file_in_list_store), (vfs_monitor_dir_cb),
+	(directory_visit_cb), (eog_list_store_append_directory),
+	(get_uri_info), (eog_list_store_add_uris),
+	(eog_list_store_remove_image), (eog_list_store_new_from_glist),
+	(eog_list_store_get_pos_by_image),
+	(eog_list_store_get_image_by_pos),
+	(eog_list_store_get_pos_by_iter), (eog_list_store_get_initial_pos):
+	* libeog/eog-list-store.h:
+	* libeog/eog-thumb-view.c: (eog_thumb_view_get_type),
+	(eog_thumb_view_class_init), (eog_thumb_view_init),
+	(eog_thumb_view_finalize), (eog_thumb_view_destroy),
+	(eog_thumb_view_new), (eog_thumb_view_get_n_selected_helper),
+	(eog_thumb_view_get_n_selected),
+	(eog_thumb_view_get_first_selected_image),
+	(eog_thumb_view_get_image_from_path),
+	(eog_thumb_view_get_selected_images),
+	(eog_thumb_view_set_current_image), (eog_thumb_view_select_single):
+	* libeog/eog-thumb-view.h: New implementation for the collection
+	pane.
+	* libeog/test-eog-tb.c: (tb_on_selection_changed),
+	(on_button_sfi_clicked), (on_button_next_clicked),
+	(on_button_back_clicked), (on_button_first_clicked),
+	(on_button_last_clicked), (make_canonical_uri),
+	(string_array_to_list), (main): Test for the collection
+	pane widget.
+	* shell/eog-window.c: (verb_FileOpen_cb), (verb_SetAsWallpaper_cb),
+	(verb_GoNext_cb), (verb_GoPrev_cb), (verb_GoFirst_cb),
+	(verb_GoLast_cb), (slideshow_hide_cb), (verb_FullScreen_cb),
+	(verb_ShowHideAnyBar_cb), (verb_Save_cb), (verb_Print_cb),
+	(verb_SaveAs_cb), (apply_transformation), (verb_MoveToTrash_cb),
+	(eog_window_destroy), (eog_window_init), (eog_window_key_press),
+	(eog_window_has_contents), (update_ui_visibility),
+	(obtain_desired_size), (update_status_bar),
+	(update_selection_ui_visibility), (handle_image_selection_changed),
+	(eog_window_construct_ui), (eog_window_open):
+	* shell/eog-window.h: Porting to EogThumbView and EogListStore.
+	* shell/main.c: (assign_model_to_window), (job_prepare_model_do): Porting
+	to EogThumbView and EogListStore.
+
+	Porting to the new EogThumbView and EogListStore widgets. Removing
+	dependence on EogWrapList and EogImageList (#336973).
+
 2006-04-02  Lucas Rocha  <lucasr@gnome.org>
 
 	* Makefile.am: fix typo.

@@ -29,7 +29,7 @@ MARSHAL_OUTPUT = 		\
 
 noinst_LIBRARIES = libeog.a
 
-noinst_PROGRAMS = test-eog-job test-image-load
+noinst_PROGRAMS = test-eog-job test-image-load test-thumb-view
 
 libeog_a_SOURCES =			\
 	$(MARSHAL_OUTPUT)		\
@@ -54,10 +54,12 @@ libeog_a_SOURCES =			\
 	eog-image-save-info.h		\
 	eog-thumbnail.h			\
 	eog-thumbnail.c			\
+	eog-thumb-view.c		\
+	eog-thumb-view.h		\
+	eog-list-store.c		\
+	eog-list-store.h		\
 	eog-image-cache.h		\
 	eog-image-cache.c		\
-	eog-image-list.c		\
-	eog-image-list.h		\
 	eog-job-manager.c		\
 	eog-job-manager.h		\
 	eog-job.c			\
@@ -77,8 +79,6 @@ libeog_a_SOURCES =			\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
 	eog-config-keys.h		\
-	eog-wrap-list.h			\
-	eog-wrap-list.c			\
 	eog-collection-item.h		\
 	eog-collection-item.c		\
 	eog-canvas-pixbuf.h		\
@@ -115,6 +115,18 @@ test_image_load_DEPENDENCIES = libeog.a
 test_image_load_SOURCES = test-image-load.c
 
 test_image_load_LDADD = \
+	-L$(top_builddir)/libeog 	\
+	-leog				\
+	$(jpeg_LIB)			\
+	$(EOG_LIBS)			\
+	$(LIBJPEG)			\
+	$(X_LIBS)
+
+test_thumb_view_DEPENDENCIES = libeog.a
+
+test_thumb_view_SOURCES = test-eog-tb.c eog-thumb-view.c eog-list-store.c
+
+test_thumb_view_LDADD = \
 	-L$(top_builddir)/libeog 	\
 	-leog				\
 	$(jpeg_LIB)			\

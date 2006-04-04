@@ -58,15 +58,15 @@ struct _EogFullScreenPrivate
 	guint have_grab : 1;
 
 	/* list of images to show */
-	EogImageList *list;
+	EogListStore *store;
 
 	EogDirection direction;
 	gboolean first_image;
 	
 	/* current visible image iterator */
-	EogIter *current;
+	GtkTreeIter current;
 	/* iter of currently preloaded image */
-	EogIter *preload;
+	GtkTreeIter preload;
 	EogImageCache *cache;
 
 	/* if the mouse pointer is hidden */
@@ -77,7 +77,7 @@ struct _EogFullScreenPrivate
 	guint hide_timeout_id;
 
 	/* wether we should loop the sequence */
-	EogIter *first_iter;
+	GtkTreeIter first_iter;
 	gboolean loop;
 
 	/* timeout for switching to the next image */
@@ -95,7 +95,7 @@ struct _EogFullScreenPrivate
 	guint    display_id;
 };
 
-static guint prepare_load_image (EogFullScreen *fs, EogIter *iter);
+static guint prepare_load_image (EogFullScreen *fs, GtkTreeIter *iter);
 
 static gboolean
 check_cursor_hide (gpointer data)
@@ -159,12 +159,14 @@ eog_full_screen_motion (GtkWidget *widget, GdkEventMotion *event)
 }
 
 static void
-cancel_load_by_iter (EogImageList *list, EogIter *iter)
+cancel_load_by_iter (EogListStore *store, GtkTreeIter *iter)
 {
 	EogImage *image;
 	guint job_id = 0;
 	
-	image = eog_image_list_get_img_by_iter (list, iter);
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
 	if (image != NULL) {
 		job_id = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (image), JOB_ID_QUARK));
 		g_object_unref (image);
@@ -175,48 +177,54 @@ cancel_load_by_iter (EogImageList *list, EogIter *iter)
 	}
 }
 
-static EogIter*
-get_next_iter_in_direction (EogImageList *list, EogIter *iter, EogDirection direction)
+static gboolean
+get_next_iter_in_direction (EogListStore *store, GtkTreeIter *iter, GtkTreeIter *next, EogDirection direction)
 {
-	EogIter *next = NULL;
 	gboolean success = FALSE;
 
-	next = eog_image_list_iter_copy (list, iter);
+	*next = *iter;
 
 	if (direction == EOG_DIRECTION_FORWARD) {
-		success = eog_image_list_iter_next (list, next, TRUE);
+		success = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), next);
 	}
 	else {
-		success = eog_image_list_iter_prev (list, next, TRUE);
+		GtkTreePath *path;
+		gtk_tree_model_get_path (GTK_TREE_MODEL (store), next);
+		gtk_tree_path_prev (path);
+		success = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), next, path);
+		gtk_tree_path_free (path);
 	}
-
-	if (!success) {
-		g_free (next);
-		next = NULL;
-	}
-
-	return next;
+	return success;
 }
 
+/* yes, I know this is ugly, and moreover, it doesn't belong here */
+#define GTK_TREE_ITER_EQUAL(a,b) ((a).stamp == (b).stamp &&		\
+				  (a).user_data  == (b).user_data &&	\
+				  (a).user_data2 == (b).user_data2 &&	\
+				  (a).user_data3 == (b).user_data3)
+
 static void
-display_image_on_screen (EogFullScreen *fs, EogIter *iter) 
+display_image_on_screen (EogFullScreen *fs, GtkTreeIter *iter) 
 {
 	EogFullScreenPrivate *priv;
 	EogImage *image;
-	EogIter *next_preload;
+	GtkTreeIter next_preload;
 
 	priv = fs->priv;
 
-	if (priv->current != iter) {
-		if (priv->current != NULL) {
+	if (!GTK_TREE_ITER_EQUAL (priv->current, *iter)) {
+/*		if (priv->current != NULL) {
 			g_free (priv->current);
 		}
-		priv->current = eog_image_list_iter_copy (priv->list, iter);
+*/
+		priv->current = *iter;
 	}
 
 	/* get image */
-	image = eog_image_list_get_img_by_iter (priv->list, priv->current);
-
+	gtk_tree_model_get (GTK_TREE_MODEL (priv->store), iter,
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
+	
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_IMAGE)) {
 		eog_image_cache_add (priv->cache, image);
 
@@ -224,26 +232,25 @@ display_image_on_screen (EogFullScreen *fs, EogIter *iter)
 		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
 		
 		/* preload next image in current direction */
-		next_preload = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
-
-		if (next_preload != NULL && 
-		    !eog_image_list_iter_equal (priv->list, priv->preload, next_preload))
+		
+		if (get_next_iter_in_direction (priv->store, &(priv->current), &next_preload, priv->direction) && 
+		    (!GTK_TREE_ITER_EQUAL (priv->preload, next_preload)))
 		{
-			cancel_load_by_iter (priv->list, priv->preload);
+			cancel_load_by_iter (priv->store, &(priv->preload));
 			
-			if (priv->preload != NULL)
-				g_free (priv->preload);
+/* 			if (priv->preload != NULL) */
+/* 				g_free (priv->preload); */
 			
 			priv->preload = next_preload;
-			prepare_load_image (fs, priv->preload);
+			prepare_load_image (fs, &(priv->preload));
 		}
-		else if (next_preload != NULL) {
-			g_free (next_preload);	
-		}
+/* 		else if (next_preload != NULL) { */
+/* 			g_free (next_preload);	 */
+/* 		} */
 	}
 	else if (g_object_get_qdata (G_OBJECT (image), JOB_ID_QUARK) == NULL) { 
 		/* if the image is not loading already */
-		prepare_load_image (fs, priv->current);
+		prepare_load_image (fs, &(priv->current));
 	}
 
 	/* FIXME: pause auto advance */
@@ -261,21 +268,21 @@ delayed_display_image_on_screen (gpointer data)
 	fs = EOG_FULL_SCREEN (data);
 	priv = fs->priv;
 
-	display_image_on_screen (fs, priv->current);
+	display_image_on_screen (fs, &(priv->current));
 
 	priv->display_id = 0;
 	return FALSE;
 }
 
 static gboolean
-is_loop_end (EogImageList *list, EogIter *current, EogDirection direction)
+is_loop_end (EogListStore *store, GtkTreeIter *current, EogDirection direction)
 {
 	gboolean is_end = FALSE;
 
-	int pos = eog_image_list_get_pos_by_iter (list, current);
+	int pos = eog_list_store_get_pos_by_iter (store, current);
 
 	if (direction == EOG_DIRECTION_FORWARD) {
-		is_end = (pos == (eog_image_list_length (list) - 1));
+		is_end = (pos == (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) - 1));
 	}
 	else {
 		is_end = (pos == 0);
@@ -289,7 +296,7 @@ check_automatic_switch (gpointer data)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
-	EogIter *next = NULL;
+	GtkTreeIter next;
 
 	fs = EOG_FULL_SCREEN (data);
 	priv = fs->priv;
@@ -302,16 +309,13 @@ check_automatic_switch (gpointer data)
 	if (priv->switch_time_counter == priv->switch_timeout) {
 		priv->direction = EOG_DIRECTION_FORWARD;
 
-		if (priv->loop || !is_loop_end (priv->list, priv->current, priv->direction)) {
-			next = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
-		}
-
-		if (next != NULL){
-			display_image_on_screen (fs, next);
-			g_free (next);
-		}
-		else {
-			gtk_widget_hide (GTK_WIDGET (fs));
+		if (priv->loop || !is_loop_end (priv->store, &(priv->current), priv->direction)) {
+			if (get_next_iter_in_direction (priv->store, &(priv->current), &next, priv->direction)) {
+				display_image_on_screen (fs, &next);
+			}
+			else {
+				gtk_widget_hide (GTK_WIDGET (fs));
+			}
 		}
 	}
 
@@ -433,14 +437,15 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	EogFullScreenPrivate *priv;
 	EogFullScreen *fs;
 	gint handled;
-	gboolean do_hide;
-	EogIter *next = NULL;
+	gboolean do_hide, got_iter;
+	GtkTreeIter next;
 
 	fs = EOG_FULL_SCREEN (widget);
 	priv = fs->priv;
 
 	handled = FALSE;
 	do_hide = FALSE;
+	got_iter = FALSE;
 
 	switch (event->keyval) {
 	case GDK_F11:
@@ -473,11 +478,11 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Right:
 	case GDK_Down:
 	case GDK_Page_Down:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 1) {
 			priv->direction = EOG_DIRECTION_FORWARD;
 			
-			next = get_next_iter_in_direction (priv->list, priv->current, 
-							   priv->direction);
+			got_iter = get_next_iter_in_direction (priv->store, &(priv->current), 
+						    &next, priv->direction);
 			handled = TRUE;
 		}
 		break;
@@ -491,38 +496,37 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 	case GDK_Up:
 	case GDK_Page_Up:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 1) {
 			priv->direction = EOG_DIRECTION_BACKWARD;
 
-			next = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
+			got_iter = get_next_iter_in_direction (priv->store, &(priv->current), &next, priv->direction);
 			handled = TRUE;
 		}
 		break;
 
 	case GDK_Home:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
-			next = eog_image_list_get_iter_by_pos (priv->list, 0);
+		if (!priv->slide_show && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 1) {
+			got_iter = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &next);
 			handled = TRUE;
 		}
 		break;
 
 	case GDK_End:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
-			next = eog_image_list_get_iter_by_pos (priv->list, eog_image_list_length (priv->list) - 1);
+		if (!priv->slide_show && gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 1) {
+			got_iter = gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (priv->store),
+								  &next, NULL, 
+								  gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) - 1);
 			handled = TRUE;
 		}
 	};
 	
-	if (next != NULL) {  
-		if (!priv->loop && is_loop_end (priv->list, priv->current, priv->direction)) {
+	if (got_iter) {  
+		if (!priv->loop && is_loop_end (priv->store, &(priv->current), priv->direction)) {
 			do_hide = TRUE;
 		}
 		else if ((event->time - priv->last_key_press_time) < 1000) {
 			/* just update iterator and delay loading of current iter */
-			if (priv->current != NULL) {
-				g_free (priv->current);
-			}
-			priv->current = eog_image_list_iter_copy (priv->list, next);
+			priv->current = next;
 
 			if (priv->display_id != 0) {
 				g_source_remove (priv->display_id);
@@ -530,11 +534,10 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 			priv->display_id = g_timeout_add (500, delayed_display_image_on_screen, fs);
 		}
 		else {
-			display_image_on_screen (fs, next);
+			display_image_on_screen (fs, &next);
 		}
 
 		priv->last_key_press_time = event->time;
-		g_free (next);
 	}
 
 	if (do_hide) {
@@ -567,21 +570,21 @@ eog_full_screen_destroy (GtkObject *object)
 		priv->hide_timeout_id = 0;
 	}
 
-	if (priv->current != NULL) {
-		g_free (priv->current);
-		priv->current = NULL;
-	}
+/* 	if (priv->current != NULL) { */
+/* 		g_free (priv->current); */
+/* 		priv->current = NULL; */
+/* 	} */
 
-	if (priv->list != NULL) {
+	if (priv->store != NULL) {
 		/* free list */
-		g_object_unref (priv->list);
-		priv->list = NULL;
+		g_object_unref (priv->store);
+		priv->store = NULL;
 	}
 
-	if (priv->first_iter != NULL) {
-		g_free (priv->first_iter);
-		priv->first_iter = NULL;
-	}
+/* 	if (priv->first_iter != NULL) { */
+/* 		g_free (priv->first_iter); */
+/* 		priv->first_iter = NULL; */
+/* 	} */
 
 	if (priv->cache != NULL) {
 		g_object_unref (priv->cache);
@@ -638,14 +641,14 @@ eog_full_screen_init (EogFullScreen *fs)
 	fs->priv = priv;
 
 	priv->loop = TRUE;
-	priv->first_iter = NULL;
+/* 	priv->first_iter = NULL; */
 
 	priv->switch_timeout = 0;
 	priv->switch_timeout_id = 0;
 	priv->switch_time_counter = 0;
 	priv->switch_pause = FALSE;
 
-	priv->preload = NULL;
+/* 	priv->preload = NULL; */
 	priv->cache = eog_image_cache_new (3); /* maximum number of cached images */
 
 	priv->last_key_press_time = 0;
@@ -696,7 +699,9 @@ job_image_load_finished  (EogJob *job, gpointer data, GError *error)
 		eog_image_cache_add (priv->cache, image);
 
 	/* check if the finished image is the one we want to display now */
-	current_img = eog_image_list_get_img_by_iter (priv->list, priv->current);
+	gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &(priv->current),
+			    EOG_LIST_STORE_EOG_IMAGE, &current_img,
+			    -1);
 	if (current_img == image) {
 		if (eog_job_get_success (job))
 			eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
@@ -707,10 +712,12 @@ job_image_load_finished  (EogJob *job, gpointer data, GError *error)
 		g_object_unref (current_img);
 	
 	/* check if the finished image is the one we want to preload */
-	preload_img = eog_image_list_get_img_by_iter (priv->list, priv->preload);
+	gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &(priv->preload),
+			    EOG_LIST_STORE_EOG_IMAGE, &preload_img,
+			    -1);
 	if (preload_img == image) {
-		g_free (priv->preload);
-		priv->preload = NULL;
+/* 		g_free (priv->preload); */
+/* 		priv->preload = NULL; */
 	}
 	if (preload_img != NULL)
 		g_object_unref (preload_img);
@@ -729,7 +736,7 @@ job_image_load_cancel (EogJob *job, gpointer data)
 }
 
 static guint
-prepare_load_image (EogFullScreen *fs, EogIter *iter)
+prepare_load_image (EogFullScreen *fs, GtkTreeIter *iter)
 {
 	EogFullScreenPrivate *priv;
 	EogImage *image;
@@ -739,7 +746,9 @@ prepare_load_image (EogFullScreen *fs, EogIter *iter)
 
 	priv = fs->priv;
 	
-	image = eog_image_list_get_img_by_iter (priv->list, iter);
+	gtk_tree_model_get (GTK_TREE_MODEL (priv->store), iter, 
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
 	eog_image_data_ref (image);
 	g_object_unref (image); /* eog_image_list_get_img_by_iter ref'ed the image too */
 
@@ -768,38 +777,41 @@ prepare_load_image (EogFullScreen *fs, EogIter *iter)
 }
 
 static void
-prepare_data (EogFullScreen *fs, EogImageList *image_list, EogImage *start_image)
+prepare_data (EogFullScreen *fs, EogListStore *store, EogImage *start_image)
 {
 	EogFullScreenPrivate *priv;
 
 	priv = fs->priv;
        
-	g_assert (eog_image_list_length (image_list) > 0);
+	g_assert (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) > 0);
 
-	priv->list = g_object_ref (image_list);
-	priv->current = NULL;
+	priv->store = g_object_ref (store);
 
 	/* determine first image to show */
-	if (start_image != NULL) 
-		priv->current = eog_image_list_get_iter_by_img (image_list, start_image);
+	if (start_image != NULL) { 
+		gint pos = eog_list_store_get_pos_by_image (store, start_image);
+		if (!gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (store), &(priv->current), NULL, pos)) {
+			gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &(priv->current));
+		}
+	}		
+	else {
+		gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &(priv->current));
+	}
 	
-	if (priv->current == NULL) 
-		priv->current = eog_image_list_get_first_iter (image_list);
-
 	/* special case if we only have one image */
-	if (eog_image_list_length (image_list) == 1) {
+	if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL) == 1) {
 		priv->slide_show = FALSE; /* disable automatic switching always */
 	}
 
 	priv->direction = EOG_DIRECTION_FORWARD;
-	priv->first_iter = eog_image_list_get_first_iter (image_list);
+	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &(priv->first_iter));
 
-	display_image_on_screen (fs, priv->current);
+	display_image_on_screen (fs, &(priv->current));
 }
 
 GtkWidget *
 eog_full_screen_new (GtkWindow *parent,
-		EogImageList *image_list, EogImage *start_image, gboolean slide_show)
+		     EogListStore *store, EogImage *start_image, gboolean slide_show)
 {
 	EogFullScreen *fs;
 	EogFullScreenPrivate *priv;
@@ -809,7 +821,7 @@ eog_full_screen_new (GtkWindow *parent,
 	gboolean       upscale = TRUE;
 	gboolean       antialiasing = TRUE;
 
-	g_return_val_if_fail (image_list != NULL, NULL);
+	g_return_val_if_fail (store != NULL, NULL);
 
 	fs = g_object_new (EOG_TYPE_FULL_SCREEN, 
 			   "type", GTK_WINDOW_POPUP,
@@ -854,7 +866,7 @@ eog_full_screen_new (GtkWindow *parent,
 	g_object_unref (G_OBJECT (client));
 
 	/* load first image in the background */
-	prepare_data (fs, image_list, start_image);
+	prepare_data (fs, store, start_image);
 
 	return GTK_WIDGET (fs);
 }
@@ -879,7 +891,8 @@ eog_full_screen_get_last_image (EogFullScreen *fs)
 	
 	priv = fs->priv;
 
-	image = eog_image_list_get_img_by_iter (priv->list, priv->current);
-
+	gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &(priv->current),
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
 	return image;
 }
