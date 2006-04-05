@@ -1,3 +1,17 @@
+2006-04-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-list-store.c: (eog_list_store_append_image_from_uri),
+	(eog_list_store_add_uris), (eog_list_store_new_from_glist):
+	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model): Check 
+	if model is empty before trying to select the initial image.
+	(eog_thumb_view_get_first_selected_image),
+	(eog_thumb_view_get_selected_images),
+	(eog_thumb_view_select_single):
+	Several coding style changes.
+	* libeog/test-eog-tb.c: (tb_on_selection_changed),
+	(string_array_to_list), (main): Set the model for the view after 
+	filling it. Using eog_thumb_view_set_model (). Coding style changes.
+
 2006-04-04  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/Makefile.am, shell/eog-gtk-ui.xml, data/eog-gtk-ui.xml,

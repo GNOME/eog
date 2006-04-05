@@ -18,11 +18,9 @@ tb_on_selection_changed (GtkIconView *thumb_view,
 		 eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (thumb_view)));
 	
 	list = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (thumb_view));
-	if (list)
-	{
+	if (list) {
 		g_print ("selected images at: ");
-		for (item = list; item != NULL; item = item->next) 
-		{
+		for (item = list; item != NULL; item = item->next) {
 			image = EOG_IMAGE (item->data);
 			g_print ("%s ", eog_image_get_caption (image));
 /*			g_free (item->data); */
@@ -31,8 +29,7 @@ tb_on_selection_changed (GtkIconView *thumb_view,
 
 		g_list_free (list);
 	}
-	else
-	{
+	else {
 		g_print ("no images selected\n");
 	}
 }
@@ -115,7 +112,9 @@ string_array_to_list (gchar **files, gint n_files)
 	gint i;
 	GList *list = NULL;
 
-	if (files == NULL || n_files == 0) return list;
+	if (files == NULL || n_files == 0) {
+		return list;
+	}
 
 	for (i = 0; i < n_files; i++) {
 		list = g_list_prepend (list, make_canonical_uri (files [i]));
@@ -153,7 +152,6 @@ main (gint argc, gchar **argv)
 	thumb_view = eog_thumb_view_new ();
 	model = eog_list_store_new ();
 
-	gtk_icon_view_set_model (GTK_ICON_VIEW (thumb_view), GTK_TREE_MODEL (model));
 	g_signal_connect (G_OBJECT (thumb_view), 
 			  "selection-changed", 
 			  G_CALLBACK (tb_on_selection_changed),
@@ -202,6 +200,7 @@ main (gint argc, gchar **argv)
 	list_uris = string_array_to_list (argv + 1, argc - 1);
 	
 	eog_list_store_add_uris (EOG_LIST_STORE (model), list_uris);
+	eog_thumb_view_set_model (EOG_THUMB_VIEW (thumb_view), EOG_LIST_STORE (model));
 	
 	gtk_main ();
 	return 0;

@@ -30,7 +30,7 @@
 static GSList *supported_mime_types = NULL;
 
 struct _EogListStorePriv {
-	GList *monitors;               /* monitors for the directories */
+	GList *monitors;      /* monitors for the directories */
 	gint initial_image;   /* the image that should be selected firstly by the view. */
 };
 
@@ -192,8 +192,7 @@ eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entr
 		eog_image_set_thumbnail (image, pixbuf);
 		g_object_unref (pixbuf);
 		eog_list_store_append_image (store, image);
-	}
-	else {
+	} else {
 		g_warning ("%s\n", error->message);
 		g_error_free (error);
 	}
@@ -472,22 +471,21 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 			
 		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 			eog_list_store_append_directory (store, uri, info);
-		}
-		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
-			 g_list_length (uri_list) == 1) {
+		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
+			   g_list_length (uri_list) == 1) {
 			/* Store the URI for initial image assignment */
 			initial_uri = gnome_vfs_uri_dup (uri); 
 			uri = gnome_vfs_uri_get_parent (uri);
 			
-			if (!get_uri_info (uri, info))
+			if (!get_uri_info (uri, info)) {
 				continue;
+			}
 			
 			eog_list_store_append_directory (store, uri, info);
-		}
-		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
+		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			 g_list_length (uri_list) > 1) {
 			eog_list_store_append_image_from_uri (store, uri);
-		}		
+		}
 	}
 
 	gnome_vfs_file_info_unref (info);
@@ -502,8 +500,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 				   &iter)) {
 		store->priv->initial_image = eog_list_store_get_pos_by_iter (store, &iter);
 		gnome_vfs_uri_unref (initial_uri);
-	}
-	else {
+	} else {
 		store->priv->initial_image = 0;
 	}
 }
@@ -529,8 +526,7 @@ eog_list_store_new_from_glist (GList *list)
 
 	GtkListStore *store = eog_list_store_new ();
 	
-	for (it = list; it != NULL; it = it->next)
-	{
+	for (it = list; it != NULL; it = it->next) {
 		eog_list_store_append_image (EOG_LIST_STORE (store), 
 					     EOG_IMAGE (it->data));
 	}
