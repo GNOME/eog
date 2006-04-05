@@ -14,6 +14,10 @@ schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 gladedir = $(pkgdatadir)
 glade_DATA = eog.glade
 
+uidir = $(datadir)/eog
+UI_FILES = eog-gtk-ui.xml 
+ui_DATA = $(UI_FILES)
+
 install-data-local:
 if GCONF_SCHEMAS_INSTALL
 	if test -z "$(DESTDIR)" ; then \
@@ -26,7 +30,8 @@ endif
 EXTRA_DIST =			\
         $(glade_DATA)		\
         $(DESKTOP_IN_FILES)	\
-        $(schemas_in_files)	
+        $(schemas_in_files)	\
+	$(UI_FILES)
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \

@@ -54,8 +54,4 @@ eog_LDADD = 				\
 	$(EOG_LIBS)			\
 	$(LIBJPEG)
 
-uidir = $(datadir)/eog
-UI_FILES = eog-gtk-ui.xml 
-ui_DATA = $(UI_FILES)
-
 EXTRA_DIST = $(UI_FILES)
