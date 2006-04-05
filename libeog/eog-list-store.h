@@ -41,10 +41,10 @@ typedef enum {
 #define EOG_TYPE_LIST_STORE eog_list_store_get_type()
 
 #define EOG_LIST_STORE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_LIST_STORE, EogListStore))
-#define EOG_LIST_STORE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_LIST_STORE, EogListStorewClass))
+#define EOG_LIST_STORE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_LIST_STORE, EogListStoreClass))
 #define EOG_IS_LIST_STORE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_LIST_STORE))
 #define EOG_IS_LIST_STORE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_LIST_STORE))
-#define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStorewClass))
+#define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStoreClass))
 
 typedef struct _EogListStorePriv EogListStorePriv;
 

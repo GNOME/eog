@@ -20,6 +20,10 @@ INCLUDES =							\
 bin_PROGRAMS = eog
 
 eog_SOURCES =				\
+	eog-application.h		\
+	eog-application.c		\
+	eog-session.h			\
+	eog-session.c			\
 	eog-window.h			\
 	eog-window.c			\
 	eog-preferences.h		\
@@ -32,11 +36,7 @@ eog_SOURCES =				\
 	eog-save-as-dialog-helper.c	\
 	eog-statusbar.h			\
 	eog-statusbar.c			\
-	main.c				\
-	session.c			\
-	session.h			\
-	util.h				\
-	util.c
+	main.c	
 
 eog_DEPENDENCIES = 				\
 	$(top_builddir)/libeog/libeog.a 	\

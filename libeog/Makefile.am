@@ -79,10 +79,6 @@ libeog_a_SOURCES =			\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
 	eog-config-keys.h		\
-	eog-collection-item.h		\
-	eog-collection-item.c		\
-	eog-canvas-pixbuf.h		\
-	eog-canvas-pixbuf.c		\
 	eog-util.h			\
 	eog-util.c			\
 	uta.c				\

@@ -1,8 +1,12 @@
-/* Eye of Gnome image viewer - image view widget
+/* Eye Of Gnome - Session Handler 
  *
- * Copyright (C) 2002 The Free Software Foundation
+ * Copyright (C) 2006 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gnu.org>
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on gedit code (gedit/gedit-session.h) by: 
+ * 	- Gedit Team
+ * 	- Federico Mena-Quintero <federico@ximian.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +20,24 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef SESSION_H
-#define SESSION_H
+#ifndef __EOG_SESSION_H__
+#define __EOG_SESSION_H__
 
-void session_save (const char *config_prefix);
+#include "eog-application.h"
 
-void session_load (const char *config_prefix);
+#include <glib.h>
 
-#endif
+G_BEGIN_DECLS
+
+void 		eog_session_init 		(EogApplication *application);
+
+gboolean 	eog_session_is_restored 	(void);
+
+gboolean 	eog_session_load 		(void);
+
+G_END_DECLS
+
+#endif /* __EOG_SESSION_H__ */

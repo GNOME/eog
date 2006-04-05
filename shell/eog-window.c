@@ -40,7 +40,6 @@
 #include <libgnome/gnome-desktop-item.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
-#include "util.h"
 #include "zoom.h"
 #include "eog-file-chooser.h"
 #include "eog-preferences.h"
@@ -167,6 +166,7 @@ static int eog_window_signals [SIGNAL_LAST];
 static void eog_window_class_init (EogWindowClass *class);
 static void eog_window_init (EogWindow *window);
 
+static gboolean eog_window_open_helper (EogWindow *window, EogListStore *store, GError **error);
 static gint eog_window_delete (GtkWidget *widget, GdkEventAny *event);
 static gint eog_window_key_press (GtkWidget *widget, GdkEventKey *event);
 static void eog_window_drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, 
@@ -177,6 +177,13 @@ static void adapt_window_size (EogWindow *window, int width, int height);
 static void update_status_bar (EogWindow *window);
 static void job_default_progress (EogJob *job, gpointer data, float progress);
 static void add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri);
+static void open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data); 
+
+typedef struct {
+	EogWindow *window;
+	GList     *uri_list;
+	EogListStore  *img_list;
+} LoadContext;
 
 static GtkWindowClass *parent_class;
 
@@ -199,6 +206,421 @@ typedef struct {
 } EogJobImageLoadData;
 
 #define EOG_JOB_DATA(o) ((EogJobData*) o)
+
+static void 
+free_uri_list (GList *list)
+{
+	GList *it;
+	
+	for (it = list; it != NULL; it = it->next) {
+		gnome_vfs_uri_unref ((GnomeVFSURI*)it->data);
+	}
+
+	if (list != NULL) 
+		g_list_free (list);
+}
+
+static void 
+free_string_list (GList *list)
+{
+	GList *it;
+	
+	for (it = list; it != NULL; it = it->next) {
+		g_free (it->data);
+	}
+
+	if (list != NULL) 
+		g_list_free (list);
+}
+
+static void
+load_context_free (LoadContext *ctx)
+{
+	if (ctx == NULL) return;
+
+	free_uri_list (ctx->uri_list);
+	if (ctx->img_list != NULL)
+			g_object_unref (ctx->img_list);
+	ctx->img_list = NULL;
+	
+	g_free (ctx);
+}
+
+static LoadContext*
+load_context_new (EogWindow *window, GList *uri_list)
+{
+	LoadContext *ctx;
+	
+	ctx = g_new0 (LoadContext, 1);
+	ctx->window = window;
+	ctx->uri_list = uri_list;
+	ctx->img_list = NULL;
+
+	return ctx;
+}
+
+static GtkWidget*
+create_new_window (void)
+{
+	GtkWidget *window;
+	GError *error = NULL;
+
+	window = eog_window_new (&error);
+
+	if (error != NULL) {
+		GtkWidget *dlg;
+
+		dlg = gtk_message_dialog_new (NULL,
+					      GTK_DIALOG_MODAL,
+					      GTK_MESSAGE_ERROR,
+					      GTK_BUTTONS_OK,
+					      _("Unable to create Eye of GNOME user interface"));
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+							  error->message);
+
+		gtk_dialog_run (GTK_DIALOG (dlg));
+		gtk_widget_destroy (GTK_WIDGET (dlg));
+
+		g_error_free (error);
+
+		gtk_main_quit ();
+	}
+	else {
+		g_assert (EOG_IS_WINDOW (window));
+
+		g_signal_connect (G_OBJECT (window), "open_uri_list", G_CALLBACK (open_uri_list_cb), NULL);
+	}
+
+	return window;
+}
+
+static void
+assign_model_to_window (EogWindow *window, EogListStore *store)
+{
+	GError *error = NULL;
+
+	if (window == NULL)
+		window = EOG_WINDOW (create_new_window ());
+	
+	if (window == NULL) return;
+	
+	if (store != NULL) {
+/*		eog_image_list_print_debug (list); */
+	}
+	
+	if (!eog_window_open_helper (window, store, &error)) {
+		/* FIXME: show error, free image list */
+		g_print ("error open %s\n", (char*) error->message);
+	}
+	
+	gtk_widget_show (GTK_WIDGET (window));
+}
+
+static void
+create_empty_window (void)
+{
+       GtkWidget *window;
+
+       window = create_new_window ();
+       if (window != NULL) {
+               eog_window_open_helper (EOG_WINDOW (window), NULL, NULL);
+               gtk_widget_show (window);
+       }
+}
+
+static GnomeVFSURI*
+make_canonical_uri (const char *path)
+{
+	char *uri_str;
+	GnomeVFSURI *uri = NULL;
+
+	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
+
+	if (uri_str) {
+		uri = gnome_vfs_uri_new (uri_str);
+		g_free (uri_str);
+	}
+
+	return uri;
+}
+
+static GnomeVFSFileType
+check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+{
+	GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+	GnomeVFSResult result;
+
+	g_return_val_if_fail (uri != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
+	g_return_val_if_fail (info != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
+
+	gnome_vfs_file_info_clear (info);
+	
+	result = gnome_vfs_get_file_info_uri (uri, info,
+					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	
+	if (result == GNOME_VFS_OK &&
+	    ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_TYPE) != 0))
+	{
+		type = info->type;
+	}
+
+	return type;
+}
+
+/**
+ * sort_files:
+ * @files: Input list of additional command line arguments.
+ * @file_list: Return value, contains all the files.
+ * @dir_list: Return value, contains all the directories given 
+ *            on the command line.
+ *
+ * Sorts all the command line arguments into two lists, according to 
+ * their GNOME_VFS_FILE_TYPE. This results in one list with all 
+ * regular files and one list with all directories.
+ **/
+static void
+sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_list)
+{
+	GSList *it;
+	GnomeVFSFileInfo *info;
+	
+	info = gnome_vfs_file_info_new ();
+
+	for (it = files; it != NULL; it = it->next) {
+		GnomeVFSURI *uri;
+		GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+		char *argument;
+
+		argument = (char*) it->data;
+		uri = make_canonical_uri (argument);
+
+		if (uri != NULL) {
+			type = check_uri_file_type (uri, info);
+		}
+
+		switch (type) {
+		case GNOME_VFS_FILE_TYPE_REGULAR:
+			*file_list = g_list_prepend (*file_list, gnome_vfs_uri_ref (uri));
+			break;
+		case GNOME_VFS_FILE_TYPE_DIRECTORY:
+			*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
+			break;
+		default:
+			*error_list = g_list_prepend (*error_list, 
+						      gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+			break;
+		}
+
+		if (uri != NULL) {
+			gnome_vfs_uri_unref (uri);
+		}
+	}
+
+	/* reverse lists for correct order */
+	*file_list  = g_list_reverse (*file_list);
+	*dir_list   = g_list_reverse (*dir_list);
+	*error_list = g_list_reverse (*error_list);
+
+	gnome_vfs_file_info_unref (info);
+}
+
+/* Shows an error dialog for files that do not exist */
+static void
+show_nonexistent_files (GList *error_list)
+{
+	GtkWidget *dlg;
+	GList *it;
+	int n = 0;
+	int len;
+	GString *detail;
+
+	g_assert (error_list != NULL);
+
+	len = g_list_length (error_list);
+	detail = g_string_new ("");
+
+	/* build string of newline separated filepaths */
+	for (it = error_list; it != NULL; it = it->next) {
+		char *str;
+
+		if (n > 9) {
+			/* don't display more than 10 files */
+			detail = g_string_append (detail, "\n...");
+			break;
+		}
+
+		str = gnome_vfs_format_uri_for_display ((char*) it->data);
+
+		if (it != error_list) {
+			detail = g_string_append (detail, "\n");
+		}
+		detail = g_string_append (detail, str);
+
+		g_free (str);
+		n++;
+	}
+
+	dlg = gtk_message_dialog_new (NULL,
+				      GTK_DIALOG_MODAL,
+				      GTK_MESSAGE_ERROR,
+				      GTK_BUTTONS_OK,
+				      ngettext ("File not found.", "Files not found.", len));
+	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), detail->str);
+
+	gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
+
+	g_string_free (detail, TRUE);
+}
+
+static void
+job_prepare_model_do (EogJob *job, gpointer data, GError **error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+	gint initial_pos;
+	
+	ctx->img_list = EOG_LIST_STORE (eog_list_store_new ());
+	
+	/* prepare the image list */
+	eog_list_store_add_uris (ctx->img_list, ctx->uri_list);
+
+	initial_pos = eog_list_store_get_initial_pos (ctx->img_list);
+
+	if (initial_pos != -1) {
+		EogImage *img;
+
+		img = eog_list_store_get_image_by_pos (ctx->img_list, initial_pos);
+		if (EOG_IS_IMAGE (img)) {
+			eog_image_load (img, EOG_IMAGE_DATA_ALL, job, error);
+			g_object_unref (img);
+		}
+	}
+}
+
+static void
+job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
+{
+	LoadContext *ctx = (LoadContext*) data;
+
+	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED &&
+		eog_job_get_success (job))
+	{
+		g_object_ref (ctx->img_list);
+		
+		assign_model_to_window (ctx->window, ctx->img_list);
+	} 
+	else {
+		g_error_free (error);
+		gtk_main_quit ();
+	}
+}
+
+static void 
+job_prepare_model_free (gpointer data)
+{
+	load_context_free ((LoadContext*) data);
+	data = NULL;
+}
+	
+static void
+load_uris_in_single_model (EogWindow *window, GList *uri_list)
+{
+	GList *it;
+	LoadContext *ctx;
+	
+	for (it = uri_list; it != NULL; it = it->next) {
+		GList *singleton = NULL;
+		EogJob *job;
+		
+		singleton = g_list_prepend (singleton, it->data);		
+		ctx = load_context_new (window, singleton);
+	
+		job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished,
+						NULL,
+				        NULL, job_prepare_model_free);
+		eog_job_manager_add (job);
+		g_object_unref (job);
+		
+		window = NULL;
+	}
+}
+
+static EogWindow*
+check_window_reuse (EogWindow *window)
+{
+	gboolean new_window = FALSE;
+	GConfClient *client;
+	EogWindow *use_window = NULL;
+
+	client = gconf_client_get_default ();
+
+	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
+	new_window = new_window && (window == NULL || eog_window_has_contents (window));
+	
+	if (!new_window)
+		use_window = window;
+	
+	g_object_unref (client);
+	
+	return use_window;
+}
+
+static void 
+open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
+{
+	GList *file_list = NULL;
+	GList *dir_list = NULL;
+	GList *error_list = NULL;
+	gboolean quit_program = FALSE;
+	
+	if (uri_list == NULL) {
+		if (window == NULL) {
+			create_empty_window ();
+		}
+
+		return;
+	}
+
+	sort_files (uri_list, &file_list, &dir_list, &error_list);
+
+	/* check if we can/should reuse the window */
+	window = check_window_reuse (window);
+	
+	/* open regular files */
+	if (file_list) {
+		LoadContext *ctx;				
+		EogJob *job;
+		ctx = load_context_new (window, file_list);
+		window = NULL;
+	
+		g_print ("Files loading...\n");
+		job = eog_job_new_full (ctx, job_prepare_model_do, job_prepare_model_finished, 
+					NULL, NULL, job_prepare_model_free);
+
+		eog_job_manager_add (job);
+		g_object_unref (job);
+	}
+		
+	/* open every directory in an own window */
+	if (dir_list) {
+		g_print ("Dirs loading...\n");
+		quit_program = FALSE;
+		load_uris_in_single_model (window, dir_list);		
+	}
+
+	/* show error for inaccessable files */
+	if (error_list) {
+		show_nonexistent_files (error_list);
+		free_string_list (error_list);
+
+		quit_program = (eog_get_window_list () == NULL);
+	}
+
+	if (quit_program) {
+		gtk_main_quit ();
+	}
+}
 
 
 static GQuark
@@ -3868,8 +4290,14 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
  *
  * Return value: TRUE on success, FALSE otherwise.
  **/
-gboolean
-eog_window_open (EogWindow *window, EogListStore *store, GError **error)
+void
+eog_window_open_uri_list (EogWindow *window, GSList *uri_list, GError **error)
+{
+	open_uri_list_cb (NULL, uri_list, NULL);
+}
+	
+static gboolean
+eog_window_open_helper (EogWindow *window, EogListStore *store, GError **error)
 {
 	EogWindowPrivate *priv;
 #ifdef HAVE_LCMS
@@ -3892,8 +4320,7 @@ eog_window_open (EogWindow *window, EogListStore *store, GError **error)
 	}
 	
 	if (store != NULL) {
-		g_object_ref (store);
-		priv->store = store;
+		priv->store = g_object_ref (store);
 
 #ifdef HAVE_LCMS
 		gint n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL);
@@ -3904,6 +4331,8 @@ eog_window_open (EogWindow *window, EogListStore *store, GError **error)
 		}
 #endif
 
+		/* attach store to view */
+		eog_thumb_view_set_model (EOG_THUMB_VIEW (priv->thumbview), priv->store);
 	}
 
 	/* update ui */
@@ -3912,9 +4341,6 @@ eog_window_open (EogWindow *window, EogListStore *store, GError **error)
 	if (!GTK_WIDGET_MAPPED (GTK_WIDGET (window))) {
 		setup_initial_geometry (window);
 	}
-		
-	/* attach store to view */
-	eog_thumb_view_set_model (priv->thumbview, priv->store);
 
 	return TRUE;
 }

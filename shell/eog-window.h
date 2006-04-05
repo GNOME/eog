@@ -75,7 +75,7 @@ GtkWidget*   eog_window_new       (GError **error);
 
 void         eog_window_close     (EogWindow *eog_window);
 
-gboolean     eog_window_open      (EogWindow *win, EogListStore *store, GError **error);
+void         eog_window_open_uri_list (EogWindow *win, GSList *uri_list, GError **error);
 
 const char*  eog_window_get_uri      (EogWindow *eog_window);
 gboolean     eog_window_has_contents (EogWindow *eog_window);

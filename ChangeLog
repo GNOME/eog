@@ -1,3 +1,25 @@
+2006-04-04  Lucas Rocha  <lucasr@gnome.org>
+
+	* configure.ac: no need for X/pango checks.
+	* help/bg/.cvsignore, help/eu/.cvsignore, 
+	libeog/.cvsignore: .cvsignore love.
+	* libeog/eog-list-store.h: fixe typo.
+	* shell/Makefile.am: update.
+	* shell/eog-application.c, shell/eog-application.h: new EOG
+	application facade.
+	* shell/eog-preferences.c: util.h include removed.
+	* shell/session.c, shell/session.h, shell/util.c,
+	shell/util.h: removed.
+	* shell/eog-session.c, shell/eog-session.h: initial EOG session
+	handling implementation.
+	* shell/eog-window.c, shell/eog-window.h: provisory "trash" 
+	implementation to use the eog-application facade.
+	* shell/main.c: complete cleanup by using EogApplication.
+	* libeog/Makefile.am, eog-collection-item.c, eog-collection-item.h,
+	eog-wrap-list.h, eog-wrap-list.c, eog-image-list.h,
+	eog-image-list.c, eog-canvas-pixbuf.c, eog-canvas-pixbuf.h:
+	obsolete files removed.
+
 2006-04-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model), Set
