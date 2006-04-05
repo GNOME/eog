@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-18 05:45+0100\n"
-"PO-Revision-Date: 2006-01-18 12:25+0200\n"
+"PO-Revision-Date: 2006-04-02 20:06+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../eog.desktop.in.in.h:1
 msgid "Image Viewer"
-msgstr "Pildivaatlusprogramm"
+msgstr "Pildivaatur"
 
 #: ../eog.desktop.in.in.h:2
 msgid "View different types of images"
-msgstr "Paljude pilditüüpide vaatamiseks"
+msgstr "Programm paljude pilditüüpide vaatamiseks"
 
 #: ../eog.glade.h:1
 msgid "    "
@@ -68,7 +68,7 @@ msgstr "<b>Läbipaistvad osad</b>"
 #: ../eog.glade.h:11
 #, no-c-format
 msgid "Allow _zoom greater than 100% initially"
-msgstr "Üle 100% _algsuurendus lubatud"
+msgstr "Üle 100% al_gsuurendus lubatud"
 
 #: ../eog.glade.h:12
 msgid "As _background"
@@ -136,7 +136,7 @@ msgstr "_Vaata"
 
 #: ../eog.glade.h:28
 msgid "_Interpolate image on zoom"
-msgstr "_Pildi interpoleerimine suumimisel"
+msgstr "Pildi _interpoleerimine suumimisel"
 
 #: ../eog.glade.h:29
 msgid "_Loop sequence"
@@ -156,8 +156,8 @@ msgid ""
 "the next one is shown automatically. Zero disables the automatic browsing."
 msgstr ""
 "Nullist suurem väärtus tähendab, et pilti kuvatakse ainult selle arvu "
-"sekundeid ja peale seda kuvatakse automaatselt järgmist pilti. Väärtus 0 "
-"keelab automaatse pildivahetuse."
+"sekundeid ja peale seda kuvatakse automaatselt järgmist pilti. Väärtuse 0 "
+"puhul on automaatne pildivahetus keelatud."
 
 #: ../eog.schemas.in.h:3
 #, no-c-format
@@ -174,24 +174,24 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"Määrab selle kuidas läbipaistvust näidatakse. Lubatud väärtused on "
-"CHECK_PATTERN, COLOR ja NONE. Kui valitud on COLOR, siis trans_color "
-"nimeline võti määrab kasutatava värvi väärtuse."
+"See võti määrab kuidas läbipaistvust näidatakse. Lubatud väärtused on "
+"CHECK_PATTERN, COLOR ja NONE. Kui väärtuseks on COLOR, siis trans_color "
+"nimeline võti määrab kasutatava värvuse väärtuse."
 
 #: ../eog.schemas.in.h:6
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
 msgstr ""
-"Kui läbipaistvuse võti sisaldab värvi COLOR, siis see võti määrab määrab "
-"läbipaistvust kujutamiseks kasutatava värvi väärtuse."
+"Kui transparency võti sisaldab värvi COLOR, siis see võti määrab määrab "
+"läbipaistvust kujutamiseks kasutatava värvuse."
 
 #: ../eog.schemas.in.h:7
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
 msgstr ""
-"Kui see on märkimata, siis ei väikeseid pilte algseisul ei venitata akna "
+"Kui see on märkimata, siis väikeseid pilte algseisul ei venitata akna "
 "suurusega sobivaks."
 
 #: ../eog.schemas.in.h:8
@@ -208,24 +208,23 @@ msgstr "Viimase üksikpildi akna geomeetria"
 
 #: ../eog.schemas.in.h:11
 msgid "Loop through the image sequence"
-msgstr ""
-"Peale viimase pildi näitamist pildiseeria uuesti algusest peale näitamine"
+msgstr "Pildiseeria lõppemisel uuesti alustamine"
 
 #: ../eog.schemas.in.h:12
 msgid "Open images in a new window"
-msgstr "Ava pildid uues aknas"
+msgstr "Piltide avamine uues aknas"
 
 #: ../eog.schemas.in.h:13
 msgid "Show/hide image information for collection."
-msgstr "Kollektsiooni kohta käiva teabe näitamine või peitmine."
+msgstr "Kollektsiooni kohta käiva andmete näitamine või peitmine."
 
 #: ../eog.schemas.in.h:14
 msgid "Show/hide image information for single image."
-msgstr "Üksiku pildi kohta käiva teabe näitamine või peitmine."
+msgstr "Üksiku pildi kohta käiva andmete näitamine või peitmine."
 
 #: ../eog.schemas.in.h:15
 msgid "Show/hide the image collection pane."
-msgstr "Näita/peida pildikollektsiooni paani."
+msgstr "Pildikollektsiooni paani näitamine või peitmine."
 
 #: ../eog.schemas.in.h:16
 msgid "Show/hide the window statusbar."
@@ -253,16 +252,16 @@ msgstr ""
 #: ../eog.schemas.in.h:21
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr "Kas järjestikuseid pilte tuleb näidata lõpmatu tsüklina."
+msgstr "Kas pildiseerias olevaid pilte tuleb näidata lõpmatu tsüklina."
 
 #: ../eog.schemas.in.h:22
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Kas pilti tuleks suumimisel interpoleerida või mitte. Interpoleerimise "
-"tulemuseks on parem pildikvaliteet, kuid on mõnevõrra aeglasem kui "
-"mitteinterpoleerimine."
+"Kas pilti tuleks suumimisel interpoleerida või mitte. Interpoleeritud "
+"piltidel on parem pildikvaliteet, kuid kuvamine on mõnevõrra aeglasem kui "
+"interpoleerimata piltide puhul."
 
 #: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
 #, c-format
@@ -605,11 +604,11 @@ msgstr "_Fail"
 
 #: ../shell/eog-window.c:3260
 msgid "_Edit"
-msgstr "_Redigeerimine"
+msgstr "_Redaktor"
 
 #: ../shell/eog-window.c:3261
 msgid "_View"
-msgstr "_Vaatamine"
+msgstr "_Vaade"
 
 #: ../shell/eog-window.c:3262
 msgid "_Image"
@@ -617,7 +616,7 @@ msgstr "_Pilt"
 
 #: ../shell/eog-window.c:3263
 msgid "_Go"
-msgstr "_Liigu"
+msgstr "_Liikumine"
 
 #: ../shell/eog-window.c:3264
 msgid "_Help"
@@ -665,7 +664,7 @@ msgstr "Info selle programmi kohta"
 
 #: ../shell/eog-window.c:3274
 msgid "_Toolbar"
-msgstr "_Tööriistariba"
+msgstr "Töö_riistariba"
 
 #: ../shell/eog-window.c:3274
 msgid "Changes the visibility of the toolbar in the current window"
@@ -690,7 +689,7 @@ msgstr "Muudab pildikollektsioonipaani nähtavust aktiivses aknas"
 
 #: ../shell/eog-window.c:3280
 msgid "_Save"
-msgstr "_Salvesta"
+msgstr "Sa_lvesta"
 
 #: ../shell/eog-window.c:3281
 msgid "Save _As"
@@ -736,7 +735,7 @@ msgstr "_Slaidiesitlus"
 #: ../shell/eog-window.c:3298 ../shell/eog-window.c:3304
 #: ../shell/eog-window.c:3305
 msgid "_Zoom In"
-msgstr "_Suurenda"
+msgstr "S_uurenda"
 
 #: ../shell/eog-window.c:3299 ../shell/eog-window.c:3306
 msgid "Zoom _Out"
@@ -766,7 +765,7 @@ msgstr "_Tõsta prügikasti"
 
 #: ../shell/eog-window.c:3316
 msgid "Image _Information"
-msgstr "Pildi _teave"
+msgstr "Pildi _andmed"
 
 #: ../shell/eog-window.c:3316
 msgid "Changes the visibility of the information pane in the current window"
@@ -774,7 +773,7 @@ msgstr "Käesoleva akna teabepaani nähtavaloleku muutmine"
 
 #: ../shell/eog-window.c:3322
 msgid "_First Image"
-msgstr "_Esimene pilt"
+msgstr "E_simene pilt"
 
 #: ../shell/eog-window.c:3323
 msgid "_Last Image"
