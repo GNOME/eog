@@ -22,10 +22,12 @@
  */
 
 #include <string.h>
-
+#include <libgnomeui/gnome-thumbnail.h>
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
 #include "eog-image.h"
+
+#define EOG_LIST_STORE_THUMB_SIZE 96
 
 static GSList *supported_mime_types = NULL;
 
@@ -166,8 +168,31 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
 	GdkPixbuf *thumbnail;
+	gint width, height;
 
 	thumbnail = eog_image_get_pixbuf_thumbnail (image);
+
+	width = gdk_pixbuf_get_width (thumbnail);
+	height = gdk_pixbuf_get_height (thumbnail);
+
+	if (width > EOG_LIST_STORE_THUMB_SIZE ||
+	    height > EOG_LIST_STORE_THUMB_SIZE) {
+		GdkPixbuf *scaled;
+		gfloat factor;
+
+		if (width > height) {
+			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) width;
+		} else {
+			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) height;			
+		}
+		
+		width  = width  * factor;
+		height = height * factor;
+		
+		scaled = gnome_thumbnail_scale_down_pixbuf (thumbnail, width, height);
+		g_object_unref (G_OBJECT (thumbnail));
+		thumbnail = scaled;
+	}
 
 	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
