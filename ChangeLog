@@ -1,5 +1,12 @@
 2006-04-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* shell/eog-window.c: (update_ui_visibility),
+	(eog_window_construct_ui): Changed GtkVPaned to a GtkVBox to give
+	a fixed size to the thumbview. Set the thumbview to a one-row layout 
+	with only a horizontal scrollbar.
+	
+2006-04-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* libeog/eog-list-store.c: (eog_list_store_append_image_from_uri),
 	(eog_list_store_add_uris), (eog_list_store_new_from_glist):
 	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model): Check 

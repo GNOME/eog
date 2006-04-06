@@ -111,7 +111,7 @@ struct _EogWindowPrivate {
 	GtkUIManager        *ui_mgr;
 	GtkWidget           *box;
 	GtkWidget           *hpane;
-	GtkWidget           *vpane;
+	GtkWidget           *vbox;
 	GtkWidget           *scroll_view;
 	GtkWidget           *thumbview;
 	GtkWidget           *info_view;
@@ -3095,7 +3095,7 @@ update_ui_visibility (EogWindow *window)
 	
 	if (n_images == 0) {
 		/* update window content */
-		gtk_widget_hide_all (priv->vpane);
+		gtk_widget_hide_all (priv->vbox);
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
@@ -3108,7 +3108,7 @@ update_ui_visibility (EogWindow *window)
 		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_IMAGE, NULL);
 		show_image_collection = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
 
-		gtk_widget_show_all (priv->vpane);
+		gtk_widget_show_all (priv->vbox);
 
 		if (!show_image_collection) 
 			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
@@ -3131,7 +3131,7 @@ update_ui_visibility (EogWindow *window)
 		show_info_pane = gconf_client_get_bool (priv->client, EOG_CONF_UI_INFO_COLLECTION, NULL);
 		show_image_collection = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
 
-		gtk_widget_show_all (priv->vpane);
+		gtk_widget_show_all (priv->vbox);
 
 		if (!show_image_collection) 
 			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
@@ -4020,7 +4020,7 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	priv->tip_message_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), "tip_message");
 
 	/* content display */
-	priv->vpane = gtk_vpaned_new (); /* eog_vertical_splitter_new (); */
+	priv->vbox = gtk_vbox_new (FALSE, 5); /* eog_vertical_splitter_new (); */
 
 	/* the image view for the full size image */
  	priv->scroll_view = eog_scroll_view_new ();
@@ -4042,16 +4042,17 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	gtk_paned_pack1 (GTK_PANED (priv->hpane), frame, TRUE, TRUE);
 	gtk_paned_pack2 (GTK_PANED (priv->hpane), priv->info_view, FALSE, TRUE);
 
-	gtk_paned_pack1 (GTK_PANED (priv->vpane), priv->hpane, TRUE, TRUE);
+	gtk_box_pack_start_defaults (GTK_BOX (priv->vbox), priv->hpane);
 
 	/* the thumb view for all the thumbnails */
 	priv->thumbview = eog_thumb_view_new ();
-	/* g_object_set (G_OBJECT (priv->wraplist), 
-		      "height_request", 200, 
-		      "width_request", 500,
-		      NULL);*/
-	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (priv->thumbview), 20);
-	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 20);
+
+/* 	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (priv->thumbview), 20); */
+/* 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 20); */
+
+	/* this will arrange the view in one single row */
+	gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), G_MAXINT);
+
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed), window);
 
@@ -4065,16 +4066,16 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
 					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_AUTOMATIC);
+					GTK_POLICY_NEVER);
 	gtk_container_add (GTK_CONTAINER (sw), priv->thumbview);
 	
-	gtk_paned_pack2 (GTK_PANED (priv->vpane), sw, TRUE, TRUE);
+	gtk_box_pack_start (GTK_BOX (priv->vbox), sw, FALSE, 0, 0);
 
 	/* by default make the thumb view keyboard active */
-	/* gtk_widget_grab_focus (priv->wraplist); */
+	/* gtk_widget_grab_focus (priv->thumbview); */
 
-	gtk_box_pack_start (GTK_BOX (priv->box), priv->vpane, TRUE, TRUE, 0);
-	gtk_widget_show_all (GTK_WIDGET (priv->vpane));
+	gtk_box_pack_start (GTK_BOX (priv->box), priv->vbox, TRUE, TRUE, 0);
+	gtk_widget_show_all (GTK_WIDGET (priv->vbox));
 
 	set_drag_dest (window);
 
