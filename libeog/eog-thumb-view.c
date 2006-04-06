@@ -295,10 +295,18 @@ eog_thumb_view_select_single (EogThumbView *view,
 		
 		switch (change) {
 		case EOG_THUMB_VIEW_SELECT_LEFT:
-			gtk_tree_path_prev (path);
+			if (!gtk_tree_path_prev (path)) {
+				gtk_tree_path_free (path);
+				path = gtk_tree_path_new_from_indices (n_items - 1, -1);
+			}
 			break;
 		case EOG_THUMB_VIEW_SELECT_RIGHT:
-			gtk_tree_path_next (path);
+			if (gtk_tree_path_get_indices (path) [0] == n_items - 1) {
+				gtk_tree_path_free (path);
+				path = gtk_tree_path_new_first ();
+			} else {
+				gtk_tree_path_next (path);
+			}
 			break;
 		case EOG_THUMB_VIEW_SELECT_FIRST:
 			gtk_tree_path_free (path);
