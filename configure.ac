@@ -30,7 +30,8 @@ PKG_PROG_PKG_CONFIG
 # Translation 
 # ***********
 
-ALL_LINGUAS="af am ar az be bg bn bs ca cs cy da de dz el en_CA en_GB es et eu fa fi fr ga gl gu he hi hr hu id is it ja kn ko ku lt lv mk ml mn ms nb ne nl nn no nso or pa pl pt pt_BR ro ru rw sk sl sq sr sr@Latn sv ta th tk tr ug uk vi wa xh zh_CN zh_HK zh_TW zu"
+ALL_LINGUAS="`grep -v '^#' "$srcdir/po/LINGUAS"`"
+AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/po/LINGUAS'])
 
 AM_GLIB_GNU_GETTEXT
 AC_PROG_INTLTOOL
