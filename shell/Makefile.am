@@ -6,6 +6,7 @@ jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
 INCLUDES =							\
+	-DDATADIR=\"$(pkgdatadir)\"				\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
@@ -24,6 +25,10 @@ eog_SOURCES =				\
 	eog-application.c		\
 	eog-session.h			\
 	eog-session.c			\
+	eog-util.h			\
+	eog-util.c			\
+	eog-stock-icons.h		\
+	eog-stock-icons.c		\
 	eog-window.h			\
 	eog-window.c			\
 	eog-preferences.h		\
@@ -36,6 +41,7 @@ eog_SOURCES =				\
 	eog-save-as-dialog-helper.c	\
 	eog-statusbar.h			\
 	eog-statusbar.c			\
+	eog-config-keys.h		\
 	main.c	
 
 eog_DEPENDENCIES = 				\
@@ -53,5 +59,3 @@ eog_LDADD = 				\
 	$(X_LIBS)			\
 	$(EOG_LIBS)			\
 	$(LIBJPEG)
-
-EXTRA_DIST = $(UI_FILES)

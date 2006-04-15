@@ -1,9 +1,10 @@
 #ifndef _EOG_THUMBNAIL_H_
 #define _EOG_THUMBNAIL_H_
 
+#include "eog-jobs.h"
+
 #include <libgnomevfs/gnome-vfs.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include "eog-job.h"
 
 G_BEGIN_DECLS
 

@@ -25,11 +25,11 @@
 #ifndef __EOG_APPLICATION_H__
 #define __EOG_APPLICATION_H__
 
-#include <glib/gerror.h>
-#include <glib-object.h>
-
 #include "eog-window.h"
 #include "egg-recent-model.h"
+
+#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
@@ -53,7 +53,7 @@ struct _EogApplication {
 };
 
 struct _EogApplicationClass {
-	GObjectClass base_class;
+	GObjectClass parent_class;
 };
 
 GType	          eog_application_get_type	     (void);

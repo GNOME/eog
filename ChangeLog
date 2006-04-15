@@ -1,3 +1,50 @@
+2006-04-14  Lucas Rocha  <lucasr@gnome.org>
+
+	* configure.ac: update intltool dependency version for correct
+	po/LINGUAS implementation.
+	* art/Makefile.am, art/down-right.png, 
+	art/orient-horizontal.png, art/orient-vertical.png,
+	art/right-down.png: removed obsolete images.
+	* data/Makefile.am, data/eog-gtk-ui.xml, 
+	data/eog-ui.xml: renamed UI file (eog-gtk-ui.xml) to
+	eog-ui.xml.
+	* libeog/Makefile.am: update to work with new files.
+	Removed references to removed files.
+	* libeog/eog-job-manager.c, libeog/eog-job-manager.h,
+	libeog/eog-job.c, libeog/eog-job.h: old job management 
+	removed to be replaced by a new one.
+	* libeog/test-eog-job.c, libeog/test-image-load.c:
+	obsolete test programs removed.
+	* libeog/eog-job-queue.c, libeog/eog-job-queue.h,
+	libeog/eog-jobs.c, libeog/eog-jobs.h: new job handling
+	implementation.
+	* libeog/eog-full-screen.c (job_image_load_do), 
+	libeog/eog-image.[ch] (eog_image_apply_transformations,
+	eog_image_load_exif_data_only, eog_image_real_load,
+	eog_image_load, image_transform, eog_image_save_by_info,
+	eog_image_save_as_by_info), libeog/eog-transform.[ch] 
+	(eog_transform_apply), libeog/eog-thumbnail.h: removed all 
+	old job implementation references.
+	* po/POTFILES.in: update.
+	* shell/eog-stock-icons.c, shell/eog-stock-icons.h: new
+	stock icons handling functions.
+	* shell/eog-preferences.c, shell/eog-preferences.h: general
+	code cleanup.
+	* shell/eog-util.c, shell/eog-util.h: new place for util
+	functions.
+	* shell/eog-config-keys.h: obsolete gconf keys removed.
+	* libeog/eog-list-store.c: removed debug outputs.
+	* shell/Makefile.am: update to work with new files.
+	Removed references to removed files.
+	* shell/eog-application.c, shell/eog-application.h: port it
+	to new eog-window API. Some basic cleanups.
+	* shell/main.c: full code review and cleanup to use new APIs.
+	* shell/eog-file-chooser.c (eog_file_chooser_add_open_new_window,
+	eog_file_chooser_new): no option to open in same window
+	anymore.
+	* shell/eog-window.c, shell/eog-window.h: new implementation of
+	eog-window. Full code review. Still incomplete.
+
 2006-04-10  Michiel Sikkes  <michiel.sikkes@gmail.com>
 
 	* configure.ac:

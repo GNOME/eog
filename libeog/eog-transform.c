@@ -48,7 +48,7 @@ G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
 
 
 GdkPixbuf*    
-eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
+eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf)
 {
 	ArtPoint dest_top_left;
 	ArtPoint dest_bottom_right;
@@ -152,11 +152,6 @@ eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 					dest_pos[i] = src_pos[i];
 				}
 			}
-		}
-
-		if (job != NULL) {
-			progress = (float) (y + 1.0) / (float) dest_height;
-			eog_job_set_progress (job, progress);
 		}
 	}
 

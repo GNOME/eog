@@ -1,7 +1,36 @@
+/* Eye Of Gnome - Main 
+ *
+ * Copyright (C) 2000-2006 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on code by:
+ * 	- Federico Mena-Quintero <federico@gnu.org>
+ *	- Jens Finke <jens@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 
 #include "eog-session.h"
 #include "eog-thumbnail.h"
+#include "eog-stock-icons.h"
+#include "eog-job-queue.h"
 #include "eog-application.h"
 
 #include <string.h>
@@ -31,13 +60,14 @@ string_array_to_list (const gchar **files)
 	if (files == NULL) return list;
 
 	for (i = 0; files[i]; i++) {
-		char *uri;
+		char *uri_str;
 
-		uri = gnome_vfs_make_uri_from_shell_arg (files[i]);
+		uri_str = gnome_vfs_make_uri_from_shell_arg (files[i]);
 	
-		list = g_slist_prepend (list, g_strdup (uri));
-
-		g_free (uri);
+		if (uri_str) {
+			list = g_slist_prepend (list, g_strdup (uri_str));
+			g_free (uri_str);
+		}
 	}
 
 	return g_slist_reverse (list);
@@ -46,14 +76,17 @@ string_array_to_list (const gchar **files)
 static void 
 load_files ()
 {
-	GSList *startup_list = NULL;
+	GSList *files = NULL;
 
-	startup_list = string_array_to_list ((const gchar **) startup_files);
+	files = string_array_to_list ((const gchar **) startup_files);
 
 	eog_application_open_uri_list (EOG_APP, 
-				       startup_list,
+				       files,
 				       GDK_CURRENT_TIME,
 				       NULL);
+
+	g_slist_foreach (files, (GFunc) g_free, NULL);	
+	g_slist_free (files);
 }
 
 int
@@ -78,7 +111,9 @@ main (int argc, char **argv)
 
 	gnome_authentication_manager_init ();
 
+	eog_job_queue_init ();
 	eog_thumbnail_init ();
+	eog_stock_icons_init ();
 
 	gtk_window_set_default_icon_name ("image-viewer");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
@@ -86,6 +121,9 @@ main (int argc, char **argv)
 	load_files ();
 
 	gtk_main ();
+
+  	if (startup_files)
+		g_strfreev (startup_files);
 
 	g_object_unref (program);
 

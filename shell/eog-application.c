@@ -39,12 +39,12 @@
 #include <gtk/gtkmain.h>
 #include <string.h>
 
-#define EOG_RECENT_FILES_GROUP		"Eye of GNOME"
-
-G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
+#define EOG_RECENT_FILES_GROUP		"Eye of Gnome"
 
 #define EOG_APPLICATION_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
+
+G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
 
 static void
 eog_application_class_init (EogApplicationClass *eog_application_class)
@@ -79,17 +79,17 @@ eog_application_open_window (EogApplication  *application,
 			     guint32         timestamp,
 			     GError         **error)
 {
-	//GtkWidget *new_window = eog_window_new (NULL);
+	GtkWidget *new_window = eog_window_new ();
 
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
 
-	//gtk_widget_show (new_window);
+	gtk_widget_show (new_window);
 	
 #ifdef HAVE_GTK_WINDOW_PRESENT_WITH_TIME
-	//gtk_window_present_with_time (GTK_WINDOW (new_window),
-	//			      timestamp);
+	gtk_window_present_with_time (GTK_WINDOW (new_window),
+				      timestamp);
 #else
-	//gtk_window_present (GTK_WINDOW (new_window));
+	gtk_window_present (GTK_WINDOW (new_window));
 #endif
 
 	return TRUE;
@@ -109,7 +109,7 @@ eog_application_get_empty_window (EogApplication *application)
 	for (l = windows; l != NULL; l = l->next) {
 		EogWindow *window = EOG_WINDOW (l->data);
 
-		if (!eog_window_has_contents (window)) {
+		if (eog_window_is_empty (window)) {
 			empty_window = window;
 			break;
 		}
@@ -137,7 +137,8 @@ eog_application_get_uri_window (EogApplication *application, const char *uri)
 			EogWindow *window = EOG_WINDOW (l->data);
 			const char *window_uri = eog_window_get_uri (window);
 
-			if (window_uri && strcmp (window_uri, uri) == 0 && eog_window_has_contents (window)) {
+			if (window_uri && strcmp (window_uri, uri) == 0 && 
+			    !eog_window_is_empty (window)) {
 				uri_window = window;
 				break;
 			}
@@ -149,42 +150,64 @@ eog_application_get_uri_window (EogApplication *application, const char *uri)
 	return uri_window;
 }
 
+static GSList*
+string_list_to_uri_list (GSList *string_list)
+{
+	GSList *it = NULL;
+	GSList *uri_list = NULL;
+
+	for (it = string_list; it != NULL; it = it->next) {
+		char *uri_str;
+
+		uri_str = (gchar *) it->data;
+		
+		uri_list = g_slist_prepend (uri_list, 
+					    gnome_vfs_uri_new (uri_str));
+	}
+
+	return g_slist_reverse (uri_list);
+}
+
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
-			       GSList          *uri_list,
+			       GSList          *files,
 			       guint           timestamp,
 			       GError         **error)
 {
 	EogWindow *new_window = NULL;
+	GSList *uri_list = NULL;
 
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
 
+	uri_list = string_list_to_uri_list (files);
+	
 	//new_window = eog_application_get_uri_window (application, (const char *) uri_list->data);
+
 	if (new_window != NULL) {
 #ifdef HAVE_GTK_WINDOW_PRESENT_WITH_TIME
-		//gtk_window_present_with_time (GTK_WINDOW (new_window),
-		//			      timestamp);
+		gtk_window_present_with_time (GTK_WINDOW (new_window),
+					      timestamp);
 #else
-		//gtk_window_present (GTK_WINDOW (new_window));
+		gtk_window_present (GTK_WINDOW (new_window));
 #endif	
 		return TRUE;
 	}
 
-	//new_window = eog_application_get_empty_window (application);
+	new_window = eog_application_get_empty_window (application);
 
-	//if (new_window == NULL) {
-	//	new_window = EOG_WINDOW (eog_window_new (NULL));
-	//}
+	if (new_window == NULL) {
+		new_window = EOG_WINDOW (eog_window_new ());
+	}
 
-	eog_window_open_uri_list (new_window, uri_list, error);
+	eog_window_open_uri_list (new_window, uri_list);
 
-	//gtk_widget_show (GTK_WIDGET (new_window));
+	gtk_widget_show (GTK_WIDGET (new_window));
 
 #ifdef HAVE_GTK_WINDOW_PRESENT_WITH_TIME
-	//gtk_window_present_with_time (GTK_WINDOW (new_window),
-	//			      timestamp);
+	gtk_window_present_with_time (GTK_WINDOW (new_window),
+				      timestamp);
 #else
-	//gtk_window_present (GTK_WINDOW (new_window));
+	gtk_window_present (GTK_WINDOW (new_window));
 #endif
 
 	return TRUE;

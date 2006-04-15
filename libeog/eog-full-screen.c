@@ -683,7 +683,7 @@ job_image_load_do (EogJob *job, gpointer data, GError **error)
 {
 	EogImage *image = ((JobImageLoadData*) data)->image;
 
-	eog_image_load (image, EOG_IMAGE_DATA_IMAGE, job, error);
+	eog_image_load (image, EOG_IMAGE_DATA_IMAGE, error);
 }
 
 static void

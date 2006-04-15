@@ -1,6 +1,6 @@
 <ui>
   <menubar name="MainMenu">
-    <menu name="FileMenu" action="FileMenu">
+    <menu action="File">
       <menuitem action="FileOpen"/>
       <separator/>
       <menuitem action="FileSave"/>
@@ -10,30 +10,29 @@
       <separator/>
       <placeholder name="EggRecentDocuments"/>
       <separator/>
-      <menuitem action="FileCloseWindow"/>
+      <menuitem action="FileClose"/>
     </menu>
-    <menu action="EditMenu">
+    <menu action="Edit">
       <menuitem action="EditUndo"/>
       <separator/>
       <menuitem action="EditMoveToTrash"/>
       <separator/>
       <menuitem action="EditPreferences"/>
     </menu>
-    <menu action="ViewMenu">
+    <menu action="View">
       <menuitem name="ToolbarToggle" action="ViewToolbar"/>
       <menuitem name="StatusbarToggle" action="ViewStatusbar"/>
       <menuitem name="ImageCollectionToggle" action="ViewImageCollection"/>
-      <menuitem name="InfoToggle" action="ViewInfo"/>
       <separator/>
       <menuitem name="Fullscreen" action="ViewFullscreen"/>
-	  <menuitem name="Slideshow" action="ViewSlideshow"/>
+      <menuitem name="Slideshow" action="ViewSlideshow"/>
       <separator/>
       <menuitem action="ViewZoomIn"/>
       <menuitem action="ViewZoomOut"/>
       <menuitem action="ViewZoomNormal"/>
       <menuitem action="ViewZoomFit"/>
     </menu>
-    <menu action="ImageMenu">
+    <menu action="Image">
       <menuitem action="EditFlipHorizontal"/>
       <menuitem action="EditFlipVertical"/>
       <separator/>
@@ -43,19 +42,19 @@
       <separator/>
       <menuitem action="SetAsWallpaper"/>
     </menu>
-    <menu name="GoMenu" action="GoMenu">
+    <menu action="Go">
       <menuitem name="GoPrevious" action="GoPrevious"/>
       <menuitem name="GoNext" action="GoNext"/>
       <separator/>
       <menuitem name="GoFirst" action="GoFirst"/>
       <menuitem name="GoLast" action="GoLast"/>
     </menu>
-    <menu action="HelpMenu">
+    <menu action="Help">
       <menuitem action="HelpManual"/>
       <menuitem action="HelpAbout"/>
     </menu>
   </menubar>
-  <toolbar name="ToolBar">
+  <toolbar name="Toolbar">
     <toolitem action="GoPrevious"/>
     <toolitem action="GoNext"/>
     <separator/>
@@ -67,6 +66,7 @@
     <toolitem action="EditRotate270"/>
     <toolitem action="EditRotate90"/>
   </toolbar>
+
   <accelerator name="ControlEqualAccel" action="ControlEqual"/>
   <accelerator name="ControlKPAddAccel" action="ControlKpAdd"/>
   <accelerator name="ControlKPSubAccel" action="ControlKpSub"/>

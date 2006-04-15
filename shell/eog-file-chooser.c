@@ -372,38 +372,6 @@ eog_file_chooser_add_preview (GtkWidget *widget)
 			  G_CALLBACK (update_preview_cb), NULL);
 }
 
-static void
-eog_file_chooser_toggle_button_cb (GtkToggleButton *button, gpointer user_data)
-{
-	GConfClient *client;
-
-	client = gconf_client_get_default ();
-	gconf_client_set_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW,
-			       gtk_toggle_button_get_active (button), NULL);
-	g_object_unref (client);
-}
-
-static void
-eog_file_chooser_add_open_new_window (GtkWidget *widget)
-{
-	GConfClient *client;
-	gboolean new_window;
-	GtkWidget *check_button;
-
-	client = gconf_client_get_default ();
-	new_window = gconf_client_get_bool (client, EOG_CONF_WINDOW_OPEN_NEW_WINDOW, NULL);
-	g_object_unref (client);
-
-	check_button = gtk_check_button_new_with_label (_("Open in new window"));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), new_window);
-
-	g_signal_connect (check_button, "toggled", 
-			  G_CALLBACK (eog_file_chooser_toggle_button_cb), NULL);
-
-	gtk_box_pack_end (GTK_BOX (GTK_DIALOG (widget)->vbox), check_button, FALSE, FALSE, 0);
-	gtk_widget_show (check_button);
-}
-
 GtkWidget *
 eog_file_chooser_new (GtkFileChooserAction action)
 {
@@ -448,10 +416,6 @@ eog_file_chooser_new (GtkFileChooserAction action)
 	if (action != GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
 		eog_file_chooser_add_filter (EOG_FILE_CHOOSER (chooser));
 		eog_file_chooser_add_preview (chooser);
-	}
-
-	if (action != GTK_FILE_CHOOSER_ACTION_SAVE) {
-		eog_file_chooser_add_open_new_window (chooser);
 	}
 
 	if (last_dir[action] != NULL) {

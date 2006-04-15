@@ -8,7 +8,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
-#include "eog-job.h"
 
 #ifdef HAVE_LCMS
 #include <lcms.h>
@@ -79,7 +78,6 @@ EogImage*           eog_image_new                            (const char *txt_ur
 EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
 gboolean            eog_image_load                           (EogImage *img, 
 							      guint data2read, 
-							      EogJob *job,
 							      GError **error);
 gboolean            eog_image_has_data                       (EogImage *img, guint req_data);
 
@@ -98,11 +96,9 @@ gboolean            eog_image_save                            (EogImage *img,
 gboolean            eog_image_save_as_by_info                 (EogImage *img, 
 							       EogImageSaveInfo *source, 
 							       EogImageSaveInfo *target, 
-							       EogJob *job,
 							       GError **error);
 gboolean            eog_image_save_by_info                    (EogImage *img, 
 							       EogImageSaveInfo *source, 
-							       EogJob *job,
 							       GError **error);
 
 /* query API */
@@ -126,7 +122,7 @@ void eog_image_apply_display_profile (EogImage *img, cmsHPROFILE profile);
 #endif
 
 /* modification API */
-void                eog_image_transform                       (EogImage *img, EogTransform *trans, EogJob *job);
+void                eog_image_transform                       (EogImage *img, EogTransform *trans);
 void                eog_image_undo                            (EogImage *img);
 
 

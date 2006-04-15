@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Preferences Dialog 
+/* Eye Of Gnome - General Utilities 
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -22,16 +22,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_PREFERENCES_H__
-#define __EOG_PREFERENCES_H__
+#ifndef __EOG_UTIL_H__
+#define __EOG_UTIL_H__
 
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
 
 G_BEGIN_DECLS
 
-void eog_preferences_show (GtkWindow *parent, GConfClient *client);
+void eog_util_show_help (const gchar *section, GtkWindow *parent);
 
 G_END_DECLS
 
-#endif /* __EOG_PREFERENCES_H__ */
+#endif /* __EOG_UTIL_H__ */

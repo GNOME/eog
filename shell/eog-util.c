@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Preferences Dialog 
+/* Eye Of Gnome - General Utilities 
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -22,16 +22,41 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_PREFERENCES_H__
-#define __EOG_PREFERENCES_H__
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
+#include "eog-util.h"
+
+#include <glib.h>
 #include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
+#include <glib/gi18n.h>
+#include <libgnome/gnome-help.h>
 
-G_BEGIN_DECLS
+void 
+eog_util_show_help (const gchar *section, GtkWindow *parent)
+{
+	GError *error = NULL;
 
-void eog_preferences_show (GtkWindow *parent, GConfClient *client);
+	gnome_help_display ("eog.xml", section, &error);
 
-G_END_DECLS
+	if (error) {
+		GtkWidget *dialog;
 
-#endif /* __EOG_PREFERENCES_H__ */
+		dialog = gtk_message_dialog_new (parent,
+						 0,
+						 GTK_MESSAGE_ERROR,
+						 GTK_BUTTONS_OK,
+						 _("Could not display help for Eye of GNOME"));
+
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+							  error->message);
+
+		g_signal_connect_swapped (dialog, "response",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dialog);
+		gtk_widget_show (dialog);
+
+		g_error_free (error);
+	}
+}

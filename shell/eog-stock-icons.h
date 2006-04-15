@@ -1,11 +1,11 @@
-/* Eye Of Gnome - Preferences Dialog 
+/* Eye Of Gnome - Stock Icons Handling 
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on code by:
- *	- Jens Finke <jens@gnome.org>
+ * Based on evince code (shell/ev-stock-icons.h) by: 
+ * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,16 +22,21 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_PREFERENCES_H__
-#define __EOG_PREFERENCES_H__
+#ifndef __EOG_STOCK_ICONS_H__
+#define __EOG_STOCK_ICONS_H__
 
-#include <gtk/gtk.h>
-#include <gconf/gconf-client.h>
+#include <glib/gmacros.h>
 
 G_BEGIN_DECLS
 
-void eog_preferences_show (GtkWindow *parent, GConfClient *client);
+#define EOG_STOCK_ROTATE_90       "stock-rotate-90"
+#define EOG_STOCK_ROTATE_270      "stock-rotate-270"
+#define EOG_STOCK_ROTATE_180      "stock-rotate-180"
+#define EOG_STOCK_FLIP_HORIZONTAL "stock-flip-horizontal"
+#define EOG_STOCK_FLIP_VERTICAL   "stock-flip-vertical"
+
+void eog_stock_icons_init (void);
 
 G_END_DECLS
 
-#endif /* __EOG_PREFERENCES_H__ */
+#endif /* __EOG_STOCK_ICONS_H__ */

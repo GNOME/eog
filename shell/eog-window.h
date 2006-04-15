@@ -1,9 +1,14 @@
-/* Eye of Gnome image viewer - main eog_window widget
+/* Eye of Gnome - Main Window
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2000-2006 The Free Software Foundation
  *
- * Author: Federico Mena-Quintero <federico@gnu.org>
- *         Jens Finke <jens@gnome.org>
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on code by:
+ * 	- Federico Mena-Quintero <federico@gnu.org>
+ *	- Jens Finke <jens@gnome.org>
+ * Based on evince code (shell/ev-window.c) by: 
+ * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +22,34 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef EOG_WINDOW_H
-#define EOG_WINDOW_H
+#ifndef __EOG_WINDOW_H__
+#define __EOG_WINDOW_H__
 
-#include <gtk/gtk.h>
 #include "eog-list-store.h"
+
+#include <glib.h>
+#include <glib-object.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS 
 
-#define EOG_VIEWER_CONTROL_IID     "OAFIID:GNOME_EOG_Control"
-#define EOG_COLLECTION_CONTROL_IID "OAFIID:GNOME_EOG_CollectionControl"
+typedef struct _EogWindow EogWindow;
+typedef struct _EogWindowClass EogWindowClass;
+typedef struct _EogWindowPrivate EogWindowPrivate;
 
 #define EOG_TYPE_WINDOW            (eog_window_get_type ())
 #define EOG_WINDOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_WINDOW, EogWindow))
-#define EOG_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_WINDOW, EogWindowClass))
+#define EOG_WINDOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_WINDOW, EogWindowClass))
 #define EOG_IS_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_WINDOW))
-#define EOG_IS_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_WINDOW))
-#define EOG_WINDOW_GET_CLASS(o)    (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_WINDOW, EogWindowClass))
+#define EOG_IS_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_WINDOW))
+#define EOG_WINDOW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_WINDOW, EogWindowClass))
 
+#define EOG_WINDOW_ERROR           (eog_window_error_quark ())
+
+//TODO
 typedef enum {
 	EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
 	EOG_WINDOW_ERROR_UI_NOT_FOUND,
@@ -47,43 +59,27 @@ typedef enum {
 	EOG_WINDOW_ERROR_GENERIC,
 	EOG_WINDOW_ERROR_UNKNOWN
 } EogWindowError;
-#define EOG_WINDOW_ERROR eog_window_error_quark ()
-
-typedef struct _EogWindow         EogWindow;
-typedef struct _EogWindowClass    EogWindowClass;
-
-typedef struct _EogWindowPrivate  EogWindowPrivate;
-
 
 struct _EogWindow {
 	GtkWindow win;
 
-	/* Private data */
 	EogWindowPrivate *priv;
 };
 
 struct _EogWindowClass {
 	GtkWindowClass parent_class;
-
-	void (* open_uri_list) (EogWindow *window, GSList *text_uri_list);
-	void (* new_window) (EogWindow *window);
 };
 
+GType        eog_window_get_type  	(void);
 
-GType        eog_window_get_type  (void);
-GtkWidget*   eog_window_new       (GError **error);
+GtkWidget*   eog_window_new		(void);
 
-void         eog_window_close     (EogWindow *eog_window);
+const char*  eog_window_get_uri		(EogWindow *window);
 
-void         eog_window_open_uri_list (EogWindow *win, GSList *uri_list, GError **error);
+void         eog_window_open_uri_list	(EogWindow *window, 
+					 GSList    *uri_list);
 
-const char*  eog_window_get_uri      (EogWindow *eog_window);
-gboolean     eog_window_has_contents (EogWindow *eog_window);
-void         eog_window_save_geometry (EogWindow *eog_window);
-
-GList*       eog_get_window_list  (void);
-
-void         eog_window_close_all (void);
+gboolean     eog_window_is_empty 	(EogWindow *window);
 
 G_END_DECLS
 

@@ -400,7 +400,7 @@ eog_image_needs_transformation (EogImage *img)
 }
 
 static gboolean
-eog_image_apply_transformations (EogImage *img, EogJob *job, GError **error)
+eog_image_apply_transformations (EogImage *img, GError **error)
 {
 	GdkPixbuf *transformed = NULL;
 	EogImagePrivate *priv;
@@ -422,7 +422,7 @@ eog_image_apply_transformations (EogImage *img, EogJob *job, GError **error)
 	g_assert (priv->image != NULL);
 		
 	if (priv->trans != NULL) {
-		transformed = eog_transform_apply (priv->trans, priv->image, job);
+		transformed = eog_transform_apply (priv->trans, priv->image);
 	}
 
 	if (transformed != NULL) {
@@ -465,7 +465,7 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 
 /* this function runs in it's own thread */
 static gboolean
-eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
+eog_image_load_exif_data_only (EogImage *img, GError **error)
 {
 	EogImagePrivate *priv;
 	GnomeVFSHandle *handle;
@@ -518,11 +518,6 @@ eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 		
 		bytes_read_total += bytes_read;
 
-		if (job != NULL) {
-			float progress = (float) bytes_read_total / (float) priv->bytes;
-			eog_job_set_progress (job, progress);
-		}
-		
 		/* check if we support reading metadata for that image format (only JPG atm) */
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
@@ -702,7 +697,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 
 /* this function runs in it's own thread */
 static gboolean
-eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error)
+eog_image_real_load (EogImage *img, guint data2read, GError **error)
 {
 	EogImagePrivate *priv;
 	GdkPixbufLoader *loader;
@@ -770,11 +765,6 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 
 		bytes_read_total += bytes_read;
 
-		if (job != NULL) {
-			float progress = (float) bytes_read_total / (float) priv->bytes;
-			eog_job_set_progress (job, progress);
-		}
-		
 		/* check if we support reading metadata for that image format (only JPG atm) */
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
@@ -893,7 +883,7 @@ eog_image_has_data (EogImage *img, guint req_data)
 }
 
 gboolean
-eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
+eog_image_load (EogImage *img, guint data2read, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
@@ -924,19 +914,12 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	
 	priv->status = EOG_IMAGE_STATUS_LOADING;
 
-	/* if transformations will be need, the number of job parts should be increased */
-	if (eog_image_needs_transformation (img) && job != NULL) {
-		guint n_parts;
-		g_object_get (G_OBJECT (job), "progress-n-parts", &n_parts, NULL);
-		g_object_set (G_OBJECT (job), "progress-n-parts", ++n_parts, NULL);
-	}
-
 	/* Read the requested data from the image */
 	if (data2read == EOG_IMAGE_DATA_EXIF) {
-		success = eog_image_load_exif_data_only (img, job, error);
+		success = eog_image_load_exif_data_only (img, error);
 	}
 	else {
-		success = eog_image_real_load (img, data2read, job, error);
+		success = eog_image_real_load (img, data2read, error);
 	}
 
 #ifdef DEBUG
@@ -945,11 +928,8 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 
 	/* perform required transformation */
 	if (eog_image_needs_transformation (img)) {
-		if (job != NULL) {
-			eog_job_part_finished (job);
-		}
 		if (success) {
-			success = eog_image_apply_transformations (img, job, error);
+			success = eog_image_apply_transformations (img, error);
 		}
 	}
 
@@ -988,7 +968,7 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 	}
 	
 	if (priv->trans != NULL) {
-		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail, NULL);
+		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail);
 	}
 	else {
 		priv->thumbnail = thumbnail;
@@ -1057,7 +1037,7 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 }
 
 static void
-image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *job)
+image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 {
 	EogImagePrivate *priv;
 	GdkPixbuf *transformed;
@@ -1069,7 +1049,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *j
 	priv = img->priv;
 
 	if (priv->image != NULL) {
-		transformed = eog_transform_apply (trans, priv->image, job);
+		transformed = eog_transform_apply (trans, priv->image);
 		
 		g_object_unref (priv->image);
 		priv->image = transformed;
@@ -1080,7 +1060,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *j
 	}
 
 	if (priv->thumbnail != NULL) {
-		transformed = eog_transform_apply (trans, priv->thumbnail, job);
+		transformed = eog_transform_apply (trans, priv->thumbnail);
 
 		g_object_unref (priv->thumbnail);
 		priv->thumbnail = transformed;
@@ -1116,9 +1096,9 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo, EogJob *j
 
 /* Public API for doing image transformations */
 void                
-eog_image_transform (EogImage *img, EogTransform *trans, EogJob *job)
+eog_image_transform (EogImage *img, EogTransform *trans)
 {
-	image_transform (img, trans, FALSE, job);
+	image_transform (img, trans, FALSE);
 }
 
 void 
@@ -1137,7 +1117,7 @@ eog_image_undo (EogImage *img)
 
 		inverse = eog_transform_reverse (trans);
 
-		image_transform (img, inverse, TRUE, NULL);
+		image_transform (img, inverse, TRUE);
 
 		priv->undo_stack = g_list_delete_link (priv->undo_stack, priv->undo_stack);
 		g_object_unref (trans);
@@ -1320,7 +1300,7 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 }
 
 gboolean
-eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, EogJob *job, GError **error) 
+eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error) 
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
@@ -1451,7 +1431,7 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 }
 
 gboolean
-eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSaveInfo *target, EogJob *job, GError **error)
+eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;

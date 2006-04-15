@@ -1,21 +1,42 @@
-#include <config.h>
+/* Eye Of Gnome - Preferences Dialog 
+ *
+ * Copyright (C) 2006 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on code by:
+ *	- Jens Finke <jens@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#include "eog-preferences.h"
+#include "eog-util.h"
+#include "eog-config-keys.h"
+
 #include <gtk/gtk.h>
 #include <glade/glade.h>
 #include <glib/gi18n.h>
 #include <libgnome/gnome-help.h>
-#include "eog-preferences.h"
-#include "eog-config-keys.h"
 
-#ifdef G_OS_WIN32
-
-#undef EOG_DATADIR
-#define EOG_DATADIR eog_get_datadir ()
-
-#endif
-
-#define GCONF_OBJECT_KEY             "GCONF_KEY"
-#define GCONF_OBJECT_VALUE           "GCONF_VALUE"
-#define OBJECT_WIDGET                "OBJECT_WIDGET"
+#define GCONF_OBJECT_KEY	"GCONF_KEY"
+#define GCONF_OBJECT_VALUE	"GCONF_VALUE"
 
 static void
 check_toggle_cb (GtkWidget *widget, gpointer data)
@@ -91,31 +112,12 @@ radio_toggle_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-dialog_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
+eog_preferences_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
-	GError *error = NULL;
-
 	switch (res_id) {
 	case GTK_RESPONSE_HELP:
-		gnome_help_display ("eog.xml", "eog-prefs", &error);
-
-		if (error) {
-			GtkWidget *dialog;
-
-			dialog = gtk_message_dialog_new (NULL,
-							 GTK_DIALOG_MODAL,
-							 GTK_MESSAGE_ERROR,
-							 GTK_BUTTONS_OK,
-							 _("Could not display help for Eye of GNOME"));
-			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-								  error->message);
-
-			gtk_dialog_run (GTK_DIALOG (dialog));
-			gtk_widget_destroy (dialog);
-			g_error_free (error);
-		}
+		eog_util_show_help ("eog-prefs", NULL);
 		break;
-
 	default:
 		gtk_widget_destroy (GTK_WIDGET (dlg));
 	}
@@ -130,17 +132,18 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 	char *value, *filename;
 	GdkColor color;
 
-	filename = g_build_filename (EOG_DATADIR, "eog/eog.glade", NULL);
+	filename = g_build_filename (DATADIR, "eog.glade", NULL);
 	xml = glade_xml_new (filename, "Hig Preferences Dialog", "eog");
 	g_free (filename);
+
 	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
 
 	g_signal_connect (G_OBJECT (dlg), "response",
-			  G_CALLBACK (dialog_response_cb), dlg);
+			  G_CALLBACK (eog_preferences_response_cb), dlg);
 
-	/* interpolate flag */
+	/* Interpolate Flag */
 	widget = glade_xml_get_widget (xml, "interpolate_check");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
 				      gconf_client_get_bool (client, EOG_CONF_VIEW_INTERPOLATE, NULL));
@@ -150,7 +153,7 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 			  G_CALLBACK (check_toggle_cb), 
 			  client);
 
-	/* Transparency radio group */
+	/* Transparency Radio Group */
 	widget = glade_xml_get_widget (xml, "color_radio");
 	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_CONF_VIEW_TRANSPARENCY);
 	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_VALUE, "COLOR");
@@ -187,7 +190,7 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 	}
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), TRUE);
 
-	/* color picker */
+	/* Color Picker */
 	g_free (value);
 	value = gconf_client_get_string (client, EOG_CONF_VIEW_TRANS_COLOR, NULL);
 	widget = glade_xml_get_widget (xml, "colorbutton");
@@ -200,7 +203,7 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 			  G_CALLBACK (color_change_cb),
 			  client);
 
-	/* slideshow page */
+	/* Slideshow Page */
 	widget = glade_xml_get_widget (xml, "upscale_check");
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
 				      gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL));

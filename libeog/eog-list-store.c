@@ -484,7 +484,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 	}
 	
 	info = gnome_vfs_file_info_new ();
-	g_print ("adding....\n");
+
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					      -1, GTK_SORT_ASCENDING);
 	
@@ -514,7 +514,6 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 	}
 
 	gnome_vfs_file_info_unref (info);
-	g_print ("adding finished\n");
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
