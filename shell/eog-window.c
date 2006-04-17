@@ -59,7 +59,8 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_DEFAULT_WIDTH  440
 #define EOG_WINDOW_DEFAULT_HEIGHT 350
 
-struct _EogWindowPrivate {
+struct _EogWindowPrivate 
+{
         GConfClient *client;
 
         EogListStore        *store;
@@ -1235,37 +1236,35 @@ eog_window_construct_ui (EogWindow *window)
 static void
 eog_window_init (EogWindow *window)
 {
-	EogWindowPrivate *priv;
 	GdkGeometry hints;
 
 	hints.min_width  = EOG_WINDOW_DEFAULT_WIDTH;
 	hints.min_height = EOG_WINDOW_DEFAULT_HEIGHT;
 
-	priv = EOG_WINDOW_GET_PRIVATE (window);
-	window->priv = priv;
+	window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
-	priv->client = gconf_client_get_default ();
+	window->priv->client = gconf_client_get_default ();
 
-	gconf_client_add_dir (priv->client, EOG_CONF_DIR,
+	gconf_client_add_dir (window->priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
-	gconf_client_notify_add (priv->client,
+	gconf_client_notify_add (window->priv->client,
 				 EOG_CONF_VIEW_INTERPOLATE,
 				 eog_window_interp_type_changed_cb,
 				 window, NULL, NULL);
 	
-	gconf_client_notify_add (priv->client,
+	gconf_client_notify_add (window->priv->client,
 				 EOG_CONF_VIEW_TRANSPARENCY,
 				 eog_window_transparency_changed_cb,
 				 window, NULL, NULL);
 
-	gconf_client_notify_add (priv->client,
+	gconf_client_notify_add (window->priv->client,
 				 EOG_CONF_VIEW_TRANS_COLOR,
 				 eog_window_trans_color_changed_cb,
 				 window, NULL, NULL);
 
-	priv->store = NULL;
-	priv->image = NULL;
+	window->priv->store = NULL;
+	window->priv->image = NULL;
 
 	gtk_window_set_geometry_hints (GTK_WINDOW (window),
 				       GTK_WIDGET (window),

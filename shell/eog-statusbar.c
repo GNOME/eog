@@ -1,4 +1,10 @@
-/*
+/* Eye of Gnome - Statusbar 
+ *
+ * Copyright (C) 2000-2006 The Free Software Foundation
+ *
+ * Author: Federico Mena-Quintero <federico@gnu.org>
+ *	   Jens Finke <jens@gnome.org>
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -11,30 +17,30 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, 
- * Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-
-#include <config.h>
-
-#include <string.h>
-#include <glib/gi18n.h>
-#include <gtk/gtkprogressbar.h>
-#include <gtk/gtkwidget.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include "eog-statusbar.h"
 
-#define EOG_STATUSBAR_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_STATUSBAR, EogStatusbarPrivate))
+#include <string.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
 
-struct _EogStatusbarPrivate
+#define EOG_STATUSBAR_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_STATUSBAR, EogStatusbarPrivate))
+
+G_DEFINE_TYPE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
+
+struct _EogStatusbarPrivate 
 {
 	GtkWidget *progressbar;
 	GtkWidget *img_info_statusbar;
 	GtkWidget *img_num_statusbar;
 };
-
-G_DEFINE_TYPE(EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
 
 static void
 eog_statusbar_notify (GObject    *object,
@@ -56,11 +62,11 @@ eog_statusbar_notify (GObject    *object,
 static void
 eog_statusbar_class_init (EogStatusbarClass *klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
 
-	object_class->notify = eog_statusbar_notify;
+	g_object_class->notify = eog_statusbar_notify;
 
-	g_type_class_add_private (object_class, sizeof (EogStatusbarPrivate));
+	g_type_class_add_private (g_object_class, sizeof (EogStatusbarPrivate));
 }
 
 static void
@@ -73,10 +79,10 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	statusbar->priv->img_num_statusbar = gtk_statusbar_new ();
 	gtk_widget_show (statusbar->priv->img_num_statusbar);
 
-	/* reasonable fixed width for "i / n" */
 	gtk_widget_set_size_request (statusbar->priv->img_num_statusbar, 80, 10);
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar->priv->img_num_statusbar),
 					   TRUE);
+
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  statusbar->priv->img_num_statusbar,
 			  FALSE, TRUE, 0);
