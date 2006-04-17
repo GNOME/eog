@@ -40,10 +40,8 @@ GETTEXT_PACKAGE=eog
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
 AC_SUBST(GETTEXT_PACKAGE)
 
-ALL_LINGUAS="`grep -v '^#' "$srcdir/po/LINGUAS"`"
-AC_SUBST([CONFIG_STATUS_DEPENDENCIES],['$(top_srcdir)/po/LINGUAS'])
 AM_GLIB_GNU_GETTEXT
-AC_PROG_INTLTOOL
+IT_PROG_INTLTOOL([0.34.90])
 
 dnl ===============================================================================
 
