@@ -370,6 +370,18 @@
 	    <para>The statusbar provides information about the image. To show or hide the statusbar, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Statusbar</guimenuitem></menuchoice>.</para>
 	  </listitem>
 	</varlistentry>
+	<varlistentry>
+	  <term>Image Collection</term>
+	  <listitem>
+	    <para>The image collection shows you all supported images in the current working directory. It shows up once an image has been loaded. To show or hide the collection, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Image Collection</guimenuitem></menuchoice> or press <keycap>F9</keycap>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Image Information Pane</term>
+	  <listitem>
+	    <para>The image information pane provides further information about the current image, for example EXIF metadata (if available). It shows up after an image has been loaded. To show or hide the image information pane, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Image Information</guimenuitem></menuchoice> or press <keycombo><keycap>Ctrl</keycap><keycap>I</keycap></keycombo>.</para>
+	  </listitem>
+	</varlistentry>
   </variablelist>
   <para>Most actions in &app; can be performed several ways.  For example,
   you can open a file in the following ways:</para>
@@ -381,9 +393,6 @@
     <listitem><para>Choose <menuchoice><guimenu>File</guimenu>
     <guimenuitem>Open</guimenuitem></menuchoice> and select an image file
     in the <application>Load Image</application> dialog.</para></listitem>
-    <listitem><para>Click on the <guibutton>Open</guibutton> toolbar button
-    and select an image file in the <application>Load Image</application>
-    dialog.</para></listitem>
     <listitem><para>Press <keycombo><keycap>Ctrl</keycap><keycap>O</keycap>
     </keycombo> and select an image file in the <application>Load
     Image</application> dialog.</para></listitem>
@@ -416,7 +425,7 @@
                   </listitem>
                 </orderedlist>
                 <para> 
-	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window. To explicitly open a new window, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>New</guimenuitem> </menuchoice>, or click the <guibutton>New</guibutton> button, or press <keycombo> <keycap>Ctrl</keycap><keycap>N</keycap> </keycombo>.
+	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window.
                 </para>
                 <para>
 	          If you try to open an image file format that &app; does not recognize, the application displays an error message.
@@ -430,20 +439,16 @@
                 <orderedlist>
                   <listitem>
                     <para>
-                      Choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open Directory</guimenuitem> </menuchoice>, or press <keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.  </para>
+                      Open one of the images in the folder, see <xref linkend="eog-open-image"/>.  </para>
                   </listitem>
                   <listitem>
                     <para>
-                      In the <guilabel>Open Folder</guilabel> dialog, select the directory you want to open.
-                    </para>
-                  </listitem>
-                  <listitem>
-                    <para>
-                      Click <guibutton>Open</guibutton>.  &app; displays all of the images in the directory in one &app; window. This is known as the collection view.
+                      Open the image collection by choosing <menuchoice><guimenu>View</guimenu><guimenuitem>Image Collection</guimenuitem></menuchoice> or pressing <keycap>F9</keycap>.
                     </para>
                   </listitem>
 		</orderedlist>
-             <para>To view all of the images in the directory as a slide show, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem> </menuchoice>. To return to the collection view, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
+	     <para>The collection then shows all supported images in the folder. You can switch the images by clicking on them in the collection, by choosing the appropriate option in the <guimenu>Go</guimenu> menu or by pressing <keycombo><keycap>Ctrl</keycap><keycap>Page Up</keycap></keycombo> or <keycombo><keycap>Ctrl</keycap><keycap>Page Down</keycap></keycombo>.</para>
+             <para>To view all of the images in the directory fullscreen, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem> </menuchoice> or press <keycap>F11</keycap>. To view them as a slide show, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or press <keycap>F5</keycap>. To return to the collection view, press the <keycap>Esc</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
                     </para>
 	</sect2>
 
@@ -476,7 +481,8 @@
 	<sect2 id="eog-fullscreen">
 		<title>To View Image Full Screen/Slideshow</title>
 		<para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. To zoom into or pane around the image the same things apply as for the window mode.</para>
-	<para>If multiple images are displayed (collection view) the &app; enters the slideshow mode when in fullscreen. To advance to the next image press <keycap>Space</keycap> or use the right/down cursor keys. The previous image can be reached by pressing <keycap>Backspace</keycap> or using the left/up cursor keys. If configured &app; can also auto advance to the next picture after a specified timeout (see <xref linkend="eog-prefs-slideshow"/>). In this mode the manual navigation still works and the auto advance function can be paused/continued by pressing <keycap>P</keycap>.</para>
+		<para>If you have multiple images in your collection you can press <keycap>Space</keycap> or use the right/down cursor keys to advance to the next image. The previous image can be reached by pressing <keycap>Backspace</keycap> or using the left/up cursor keys.</para>
+	<para>In this case you can also use the slideshow mode, where &app; automatically switches to the next image in your collection. You can start a slideshow by choosing <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or by pressing <keycap>F5</keycap>. The slideshow can be paused/continued by pressing <keycap>P</keycap>. To stop the slideshow, press the <keycap>Esc</keycap> or <keycap>F5</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>. </para>
 	</sect2>
 </sect1>
 
@@ -494,12 +500,12 @@
 		<title>To Flip an Image</title>
 		<para>To flip an image along the horizontal axis of the image, choose 
 		<menuchoice>
-		<guimenu>Edit</guimenu>
+		<guimenu>Image</guimenu>
 		<guimenuitem>Flip Horizontal</guimenuitem>
 		</menuchoice>.</para>
 		<para>To flip an image along the vertical axis of the image, choose 
 		<menuchoice>
-		<guimenu>Edit</guimenu>
+		<guimenu>Image</guimenu>
 		<guimenuitem>Flip Vertical</guimenuitem>
 		</menuchoice>.</para>
 	</sect2>
@@ -509,18 +515,18 @@
 		<title>To Rotate an Image</title>
 		<para>To rotate an image 90 degrees in a clockwise direction, choose 
 		<menuchoice>
-		<guimenu>Edit</guimenu>
+		<guimenu>Image</guimenu>
 		<guimenuitem>Rotate Clockwise</guimenuitem>
 		</menuchoice>.</para>
 		<para>To rotate an image 90 degrees in an anticlockwise direction, choose 
 		<menuchoice>
-		<guimenu>Edit</guimenu>
+		<guimenu>Image</guimenu>
 		<guimenuitem>Rotate Counter Clockwise</guimenuitem>
 		</menuchoice>.</para>
 		<para>To rotate an image 180 degrees in a clockwise direction, choose 
 		<menuchoice>
-		<guimenu>Edit</guimenu>
-		<guimenuitem>Rotate 180 Degrees</guimenuitem>
+		<guimenu>Image</guimenu>
+		<guimenuitem>Rotate 180&deg;</guimenuitem>
 		</menuchoice>.</para>
 	</sect2>
 
@@ -540,7 +546,7 @@
 		<para>To delete an image 
 			<menuchoice>
 			<guimenu>Edit</guimenu>
-			<guisubmenu>Delete</guisubmenu>
+			<guisubmenu>Move to Trash</guisubmenu>
 			</menuchoice>.
 			This operation applies to all currently selected images. You may also use <keycap>DEL</keycap>.
 			&app; will ask you to confirm this operation before deleting the images from disk. After deletion the images can be restored from trash. Only when the trash is emptied the files are really lost.
