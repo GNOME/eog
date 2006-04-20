@@ -25,6 +25,7 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
+#include "eog-thumb-shadow.h"
 #include "eog-image.h"
 
 #define EOG_LIST_STORE_THUMB_SIZE 96
@@ -193,6 +194,9 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 		g_object_unref (G_OBJECT (thumbnail));
 		thumbnail = scaled;
 	}
+
+	eog_thumb_shadow_add_rectangle (&thumbnail);
+	eog_thumb_shadow_add_shadow (&thumbnail);
 
 	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 

@@ -54,6 +54,8 @@ libeog_a_SOURCES =			\
 	eog-thumbnail.c			\
 	eog-thumb-view.c		\
 	eog-thumb-view.h		\
+	eog-thumb-shadow.c		\
+	eog-thumb-shadow.h		\
 	eog-list-store.c		\
 	eog-list-store.h		\
 	eog-image-cache.h		\

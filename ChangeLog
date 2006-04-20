@@ -1,3 +1,16 @@
+2006-04-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/Makefile.am: Added eog-thumb-shadow.[ch]
+	* libeog/eog-list-store.c: (eog_list_store_append_image): Add a
+	border and a drop shadow to the thumbnails.
+	* libeog/eog-thumb-shadow.c: (gaussian), (create_blur_filter),
+	(create_outline_filter), (create_effect),
+	(eog_thumb_shadow_add_shadow), (eog_thumb_shadow_add_border),
+	(eog_thumb_shadow_add_rectangle), (create_round_border),
+	(eog_thumb_shadow_add_round_border):
+	* libeog/eog-thumb-shadow.h: New files to add eyecandy to the 
+	thumbnails.
+
 2006-04-16  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-statusbar.c, shell/eog-statusbar.h: code cleanup.
