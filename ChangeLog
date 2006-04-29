@@ -1,3 +1,7 @@
+2006-04-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* configure.in, NEWS: Update for 2.15.1
+
 2006-04-23  Lucas Rocha  <lucasr@gnome.org>
 
 	* eog.glade: small mnemonic fix (Fixed bug #339315).
@@ -50,31 +54,31 @@
 
 2006-03-26  Lucas Rocha  <lucasr@gnome.org>
 	
- 	Keyboard shortcuts revamp (Fixes bug #310455 partly). Patch from
+	Keyboard shortcuts revamp (Fixes bug #310455 partly). Patch from
 	Jaap Haitsma <jaap@haitsma.org>.
 
- 	* shell/eog-gtk-ui.xml: Add Home and End as shortcut keys for the first
- 	and last images respectively
- 
- 	* shell/eog-window.c: 
- 	(action_entries_image) Add Home and End as keyboard shortcuts for the 
- 	first and last images respectively.
- 
- 	(action_entries_collection) Change the keyboard shortcuts of first,
- 	last, next and previous image so they conform to the HIG
- 	First was Ctrl+Home now Alt+Home
- 	Last was Ctrl+End now Alt+End
- 	Next was Ctrl+Right now Alt+Right
- 	Previous was Ctrl+Left now Alt+Left 
- 
- 	(eog_window_key_press) If no scrollbars visible PageDown, Right and Down
- 	show the next image and PageUp, Left and Up show the previous image
- 
- 	* libeog/eog-scroll-view.{c|h}: 
- 	Add eog_scroll_view_scrollbars_visible function
- 
- 	(display_key_press_event) Page up/down now scroll 3/4 of the image
- 	(page) height (Fixes bug #324871). Ctrl PageUp/PageDown scroll 
+	* shell/eog-gtk-ui.xml: Add Home and End as shortcut keys for the first
+	and last images respectively
+
+	* shell/eog-window.c: 
+	(action_entries_image) Add Home and End as keyboard shortcuts for the 
+	first and last images respectively.
+
+	(action_entries_collection) Change the keyboard shortcuts of first,
+	last, next and previous image so they conform to the HIG
+	First was Ctrl+Home now Alt+Home
+	Last was Ctrl+End now Alt+End
+	Next was Ctrl+Right now Alt+Right
+	Previous was Ctrl+Left now Alt+Left 
+
+	(eog_window_key_press) If no scrollbars visible PageDown, Right and Down
+	show the next image and PageUp, Left and Up show the previous image
+
+	* libeog/eog-scroll-view.{c|h}: 
+	Add eog_scroll_view_scrollbars_visible function
+
+	(display_key_press_event) Page up/down now scroll 3/4 of the image
+	(page) height (Fixes bug #324871). Ctrl PageUp/PageDown scroll 
 	left/right
 
 2006-03-23  Lucas Rocha  <lucasr@gnome.org>
@@ -112,7 +116,7 @@
 2006-03-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: Post release bump, for unstable
-        2.15.x development.
+	2.15.x development.
 
 2006-03-13  Lucas Rocha  <lucasr@gnome.org>
 
