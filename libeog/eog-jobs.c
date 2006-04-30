@@ -3,6 +3,7 @@
 #include "eog-image.h"
 #include "eog-transform.h"
 #include "eog-list-store.h"
+#include "eog-thumbnail.h"
 
 static void eog_job_init	         (EogJob		*job);
 static void eog_job_class_init		 (EogJobClass		*class);
@@ -74,9 +75,14 @@ eog_job_thumbnail_dispose (GObject *object)
 
 	job = EOG_JOB_THUMBNAIL (object);
 
-	if (job->image) {
-		g_object_unref (job->image);
-		job->image = NULL;
+	if (job->uri_entry) {
+		gnome_vfs_uri_unref (job->uri_entry);
+		job->uri_entry = NULL;
+	}
+	
+	if (job->thumbnail) {
+		g_object_unref (job->thumbnail);
+		job->thumbnail = NULL;
 	}
 
 	(* G_OBJECT_CLASS (eog_job_thumbnail_parent_class)->dispose) (object);
@@ -180,16 +186,17 @@ eog_job_finished (EogJob *job)
 }
 
 EogJob *
-eog_job_thumbnail_new (EogImage *image)
+eog_job_thumbnail_new (GnomeVFSURI *uri_entry)
 {
 	EogJobThumbnail *job;
 
 	job = g_object_new (EOG_TYPE_JOB_THUMBNAIL, NULL);
 
-	if (image) {
-		job->image = g_object_ref (image);
+	if (uri_entry) {
+		gnome_vfs_uri_ref (uri_entry);
+		job->uri_entry = uri_entry;
 	}
-		
+
 	return EOG_JOB (job);
 }
 
@@ -197,10 +204,19 @@ void
 eog_job_thumbnail_run (EogJobThumbnail *job)
 {
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
-
-	//Thumbnail...
-	g_print ("THUMBNAIL...\n");
 	
+	if (EOG_JOB (job)->error) {
+	        g_error_free (EOG_JOB (job)->error);
+		EOG_JOB (job)->error = NULL;
+	}
+
+	job->thumbnail = eog_thumbnail_load (job->uri_entry,
+					     &EOG_JOB (job)->error);
+
+	if (EOG_JOB (job)->error) {
+		g_warning ("%s\n", EOG_JOB (job)->error->message);
+	}
+
 	EOG_JOB (job)->finished = TRUE;
 }
 

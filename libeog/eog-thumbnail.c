@@ -175,7 +175,7 @@ eog_thumb_data_new (GnomeVFSURI *uri, GError **error)
 
 
 GdkPixbuf*
-eog_thumbnail_load (GnomeVFSURI *uri, EogJob *job, GError **error)
+eog_thumbnail_load (GnomeVFSURI *uri, GError **error)
 {
 	GdkPixbuf *thumb = NULL;
 	EogThumbData *data;

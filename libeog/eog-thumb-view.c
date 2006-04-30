@@ -19,55 +19,37 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <gtk/gtk.h>
-
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
 #include "eog-image.h"
 
-struct _EogThumbViewPrivate {
-	/* put something here */ 
-	guint nothing;
-};
-
-static void eog_thumb_view_class_init (EogThumbViewClass *class);
-static void eog_thumb_view_init (EogThumbView *admin);
-static void eog_thumb_view_finalize (GObject *object);
-static void eog_thumb_view_destroy (GtkObject *object);
-
-EogImage *
-eog_thumb_view_get_image_from_path (EogThumbView *view, GtkTreePath *path);
-
-
-static GtkIconViewClass *parent_class = NULL;
+#include <gtk/gtk.h>
 
 #define EOG_THUMB_VIEW_SPACING 16
 
-GType
-eog_thumb_view_get_type (void)
+#define EOG_THUMB_VIEW_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_THUMB_VIEW, EogThumbViewPrivate))
+
+G_DEFINE_TYPE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW);
+
+static void
+eog_thumb_view_finalize (GObject *object)
 {
-	static GType type = 0;
-  
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (EogThumbViewClass),
-			NULL,           /* base_init */
-			NULL,           /* base_finalize */
-			(GClassInitFunc) eog_thumb_view_class_init,
-			NULL,           /* class_finalize */
-			NULL,           /* class_data */
-			sizeof (EogThumbView),
-			0,              /* n_preallocs */
-			(GInstanceInitFunc) eog_thumb_view_init,
-			0
-		};
-		
-		type = g_type_register_static (GTK_TYPE_ICON_VIEW,
-					       "EogThumbView",
-					       &info, 0);
-	}
+	EogThumbView *thumb_view;
+	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
+	thumb_view = EOG_THUMB_VIEW (object);
 	
-	return type;
+	G_OBJECT_CLASS (eog_thumb_view_parent_class)->finalize (object);
+}
+
+static void
+eog_thumb_view_destroy (GtkObject *object)
+{
+	EogThumbView *thumb_view;
+	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
+	thumb_view = EOG_THUMB_VIEW (object);
+
+	GTK_OBJECT_CLASS (eog_thumb_view_parent_class)->destroy (object);
 }
 
 static void
@@ -76,8 +58,6 @@ eog_thumb_view_class_init (EogThumbViewClass *class)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (class);
 	GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
 	
-	parent_class = g_type_class_peek_parent (class);
-
 	gobject_class->finalize = eog_thumb_view_finalize;
 	object_class->destroy = eog_thumb_view_destroy;
 }
@@ -85,8 +65,6 @@ eog_thumb_view_class_init (EogThumbViewClass *class)
 static void
 eog_thumb_view_init (EogThumbView *thumb_view)
 {
-	thumb_view->priv = g_new0 (EogThumbViewPrivate, 1);
-	
  	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumb_view),
  					  GTK_SELECTION_MULTIPLE);
 
@@ -102,35 +80,13 @@ eog_thumb_view_init (EogThumbView *thumb_view)
 					  EOG_THUMB_VIEW_SPACING);
 }
 
-static void
-eog_thumb_view_finalize (GObject *object)
-{
-	EogThumbView *thumb_view;
-	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumb_view = EOG_THUMB_VIEW (object);
-	
-	/* free whatever is needed here */
-	
-	g_free (thumb_view->priv);
-
-	G_OBJECT_CLASS (parent_class)->finalize (object);
-}
-
-static void
-eog_thumb_view_destroy (GtkObject *object)
-{
-	EogThumbView *thumb_view;
-	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumb_view = EOG_THUMB_VIEW (object);
-
-	GTK_OBJECT_CLASS (parent_class)->destroy (object);
-}
-
 GtkWidget *
 eog_thumb_view_new (void)
 {
 	EogThumbView *thumb_view;
+	
 	thumb_view = g_object_new (EOG_TYPE_THUMB_VIEW, NULL);
+
 	return GTK_WIDGET (thumb_view);
 }
 
@@ -171,6 +127,23 @@ eog_thumb_view_get_n_selected (EogThumbView *view)
 	return count;
 }
 
+static EogImage *
+eog_thumb_view_get_image_from_path (EogThumbView *view, GtkTreePath *path)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	EogImage *image;
+
+	model = gtk_icon_view_get_model (GTK_ICON_VIEW (view));
+	gtk_tree_model_get_iter (model, &iter, path);
+
+	gtk_tree_model_get (model, &iter,
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
+			    
+	return image;
+}
+
 EogImage *
 eog_thumb_view_get_first_selected_image (EogThumbView *view)
 {
@@ -198,23 +171,6 @@ eog_thumb_view_get_first_selected_image (EogThumbView *view)
 	return image;
 }
 
-EogImage *
-eog_thumb_view_get_image_from_path (EogThumbView *view, GtkTreePath *path)
-{
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	EogImage *image;
-
-	model = gtk_icon_view_get_model (GTK_ICON_VIEW (view));
-	gtk_tree_model_get_iter (model, &iter, path);
-
-	gtk_tree_model_get (model, &iter,
-			    EOG_LIST_STORE_EOG_IMAGE, &image,
-			    -1);
-			    
-	return image;
-}
-
 GList *
 eog_thumb_view_get_selected_images (EogThumbView *view)
 {
@@ -233,6 +189,7 @@ eog_thumb_view_get_selected_images (EogThumbView *view)
 
 	g_list_free (l);
 	list = g_list_reverse (list);
+
 	return list;
 }
 
@@ -252,7 +209,7 @@ eog_thumb_view_set_current_image (EogThumbView *view, EogImage *image,
 		return;
 	}
 
-       if (deselect_other) {
+	if (deselect_other) {
 		gtk_icon_view_unselect_all (GTK_ICON_VIEW (view));
 	}
 	

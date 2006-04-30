@@ -1,3 +1,20 @@
+2006-04-29  Lucas Rocha  <lucasr@gnome.org>
+
+	* libeog/eog-thumb-view.[ch]: coding style fixes and several 
+	GObject related code cleanups.
+	* libeog/eog-config-keys.h: moved to shell.
+	* libeog/eog-jobs.[ch] (eog_job_thumbnail_dispose,
+	eog_job_thumbnail_new, eog_job_thumbnail_run): initial 
+	thumbnail loading job implementation. Based on patch 
+	from Claudio Saavedra <csaavedra@alumnos.utalca.cl>.
+	* libeog/eog-list-store.[ch] (eog_list_store_append_image_from_uri,
+	eog_list_store_append_image, eog_job_thumbnail_cb): several code 
+	cleanups and coding style fixes. Use thumbnailing job to load
+	image thumbnail. Based on patch from Claudio Saavedra
+	<csaavedra@alumnos.utalca.cl>.
+	* libeog/eog-thumbnail.[ch]: removed job references.
+	* shell/eog-window.c: small coding style fixes.
+
 2006-04-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/Makefile.am: Added eog-thumb-shadow.[ch]

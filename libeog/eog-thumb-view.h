@@ -25,6 +25,8 @@
 #include "eog-image.h"
 #include "eog-list-store.h"
 
+G_BEGIN_DECLS
+
 #define EOG_TYPE_THUMB_VIEW            (eog_thumb_view_get_type ())
 #define EOG_THUMB_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_THUMB_VIEW, EogThumbView))
 #define EOG_THUMB_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_THUMB_VIEW, EogThumbViewClass))
@@ -32,9 +34,16 @@
 #define EOG_IS_THUMB_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_THUMB_VIEW))
 #define EOG_THUMB_VIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_THUMB_VIEW, EogThumbViewClass))
 
+typedef struct _EogThumbView EogThumbView;
+typedef struct _EogThumbViewClass EogThumbViewClass;
 typedef struct _EogThumbViewPrivate EogThumbViewPrivate;
-typedef struct _EogThumbView        EogThumbView;
-typedef struct _EogThumbViewClass   EogThumbViewClass;
+
+typedef enum {
+	EOG_THUMB_VIEW_SELECT_LEFT = 0,
+	EOG_THUMB_VIEW_SELECT_RIGHT,
+	EOG_THUMB_VIEW_SELECT_FIRST,
+	EOG_THUMB_VIEW_SELECT_LAST
+} EogThumbViewSelectionChange;
 
 struct _EogThumbView {
 	GtkIconView icon_view;
@@ -45,35 +54,26 @@ struct _EogThumbViewClass {
 	 GtkIconViewClass icon_view_class;
 };
 
-GType eog_thumb_view_get_type (void);
+GType       eog_thumb_view_get_type 		    (void);
 
-GtkWidget * eog_thumb_view_new (void);
+GtkWidget  *eog_thumb_view_new 			    (void);
 
-void
-eog_thumb_view_set_model (EogThumbView *view, EogListStore *store);
+void	    eog_thumb_view_set_model 		    (EogThumbView *view, 
+						     EogListStore *store);
 
-typedef enum {
-	EOG_THUMB_VIEW_SELECT_LEFT = 0,
-	EOG_THUMB_VIEW_SELECT_RIGHT,
-	EOG_THUMB_VIEW_SELECT_FIRST,
-	EOG_THUMB_VIEW_SELECT_LAST
-} EogThumbViewSelectionChange;
+guint	    eog_thumb_view_get_n_selected 	    (EogThumbView *view);
 
-guint
-eog_thumb_view_get_n_selected (EogThumbView *view);
+EogImage   *eog_thumb_view_get_first_selected_image (EogThumbView *view);
 
-EogImage *
-eog_thumb_view_get_first_selected_image (EogThumbView *view);
+GList      *eog_thumb_view_get_selected_images 	    (EogThumbView *view);
 
-GList *
-eog_thumb_view_get_selected_images (EogThumbView *view);
+void        eog_thumb_view_select_single 	    (EogThumbView *view, 
+						     EogThumbViewSelectionChange change);
 
-void
-eog_thumb_view_select_single (EogThumbView *view, 
-			      EogThumbViewSelectionChange change);
+void        eog_thumb_view_set_current_image	    (EogThumbView *view, 
+						     EogImage     *image,
+						     gboolean     deselect_other);
 
-void
-eog_thumb_view_set_current_image (EogThumbView *view, EogImage *image,
-				  gboolean deselect_other);
+G_END_DECLS
 
 #endif /* EOG_THUMB_VIEW_H */

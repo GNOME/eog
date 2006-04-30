@@ -21,12 +21,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <string.h>
-#include <libgnomeui/gnome-thumbnail.h>
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
 #include "eog-thumb-shadow.h"
 #include "eog-image.h"
+#include "eog-job-queue.h"
+#include "eog-jobs.h"
+
+#include <string.h>
+#include <libgnomeui/gnome-thumbnail.h>
 
 #define EOG_LIST_STORE_THUMB_SIZE 96
 
@@ -48,8 +51,6 @@ typedef struct {
 	const gchar *text_uri;
 } MonitorHandleContext;
 
-static GtkListStore *parent_class = NULL;
-
 G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
 static void
@@ -62,7 +63,7 @@ eog_list_store_finalize (GObject *object)
 		store->priv = NULL;
 	}
 	
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (eog_list_store_parent_class)->finalize (object);
 }
 
 static void
@@ -79,13 +80,15 @@ static void
 eog_list_store_dispose (GObject *object)
 {
 	EogListStore *store = EOG_LIST_STORE (object);
+
 	g_list_foreach (store->priv->monitors, 
 			foreach_monitors_free, NULL);
+
 	g_list_free (store->priv->monitors);
 
 	store->priv->monitors = NULL;
 
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (eog_list_store_parent_class)->dispose (object);
 }
 
 static void
@@ -131,6 +134,7 @@ eog_list_store_compare_func (GtkTreeModel *model,
 
 	g_object_unref (G_OBJECT (image_a));
 	g_object_unref (G_OBJECT (image_b));
+
 	return r_value;
 }
 
@@ -145,7 +149,7 @@ eog_list_store_init (EogListStore *self)
 
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
-	
+
 	self->priv = g_new0 (EogListStorePriv, 1);
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
@@ -153,6 +157,7 @@ eog_list_store_init (EogListStore *self)
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
 						 eog_list_store_compare_func,
 						 NULL, NULL);
+	
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (self), 
 					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, 
 					      GTK_SORT_ASCENDING);
@@ -164,17 +169,66 @@ eog_list_store_new (void)
         return g_object_new (EOG_TYPE_LIST_STORE, NULL);
 }
 
-void
-eog_list_store_append_image (EogListStore *store, EogImage *image)
+/**
+   Searchs for a file in the store. If found and @iter_found is not NULL,
+   then sets @iter_found to a #GtkTreeIter pointing to the file.
+ */
+static gboolean
+is_file_in_list_store (EogListStore *store,
+		       const gchar *info_uri,
+		       GtkTreeIter *iter_found)
 {
+	gboolean found = FALSE;
+	EogImage *image;
+	GnomeVFSURI *uri;
+	gchar *str;
 	GtkTreeIter iter;
-	GdkPixbuf *thumbnail;
+
+	if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter)) {
+		return FALSE;
+	}
+
+	do {
+		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+				    EOG_LIST_STORE_EOG_IMAGE, &image,
+				    -1);
+		
+		uri = eog_image_get_uri (image);
+		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		
+		found = (strcmp (str, info_uri) == 0)? TRUE : FALSE;
+		
+		g_free (str);
+		g_object_unref (G_OBJECT (image));
+
+	} while (!found && 
+		 gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
+	
+	if (found && iter_found != NULL) {
+		*iter_found = iter;
+	}
+
+	return found;
+}
+
+static void
+eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
+{
+	EogListStore *store;
+	GtkTreeIter iter;
+	gchar *filename;
 	gint width, height;
+	GdkPixbuf *thumbnail;
+	EogImage *image;
+	
+	g_return_if_fail (EOG_IS_LIST_STORE (data));
+	
+	store = EOG_LIST_STORE (data);
 
-	thumbnail = eog_image_get_pixbuf_thumbnail (image);
-
-	width = gdk_pixbuf_get_width (thumbnail);
-	height = gdk_pixbuf_get_height (thumbnail);
+	thumbnail = g_object_ref (job->thumbnail);
+	
+	width = gdk_pixbuf_get_width (job->thumbnail);
+	height = gdk_pixbuf_get_height (job->thumbnail);
 
 	if (width > EOG_LIST_STORE_THUMB_SIZE ||
 	    height > EOG_LIST_STORE_THUMB_SIZE) {
@@ -190,46 +244,71 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 		width  = width  * factor;
 		height = height * factor;
 		
-		scaled = gnome_thumbnail_scale_down_pixbuf (thumbnail, width, height);
-		g_object_unref (G_OBJECT (thumbnail));
+		scaled = gnome_thumbnail_scale_down_pixbuf (thumbnail, 
+							    width, height);
+		
+		g_object_unref (thumbnail);
+
 		thumbnail = scaled;
 	}
 
 	eog_thumb_shadow_add_rectangle (&thumbnail);
 	eog_thumb_shadow_add_shadow (&thumbnail);
 
+	filename = gnome_vfs_uri_to_string (job->uri_entry, GNOME_VFS_URI_HIDE_NONE);
+
+	if (is_file_in_list_store (store, filename, &iter)) {
+		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 
+				    EOG_LIST_STORE_EOG_IMAGE, &image,
+				    -1);
+
+		eog_image_set_thumbnail (image, thumbnail);
+	
+		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
+				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
+				    -1);
+	}
+
+	g_free (filename);
+}
+
+void
+eog_list_store_append_image (EogListStore *store, EogImage *image)
+{
+	EogJob *job;
+	GtkTreeIter iter;
+
 	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
+
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, image, 
 			    EOG_LIST_STORE_CAPTION, eog_image_get_caption (image),
-			    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 			    -1);
-	g_object_unref (G_OBJECT (thumbnail));
+
+	job = eog_job_thumbnail_new (eog_image_get_uri (image));
+
+	g_signal_connect (job,
+			  "finished",
+			  G_CALLBACK (eog_job_thumbnail_cb),
+			  store);
+
+	eog_job_queue_add_job (job);
+	g_object_unref (job);
 }
 
 void 
 eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entry)
 {
-	g_return_if_fail (EOG_IS_LIST_STORE (store));
+	EogImage *image;
 	
-	GError *error = NULL;
-	/* not sure if this is the right way to set the thumbnail */
-	GdkPixbuf *pixbuf = eog_thumbnail_load (uri_entry, NULL, &error);
-	EogImage *image = eog_image_new_uri (uri_entry);
+	g_return_if_fail (EOG_IS_LIST_STORE (store));
 
-	if (error == NULL) {
-		eog_image_set_thumbnail (image, pixbuf);
-		g_object_unref (pixbuf);
-		eog_list_store_append_image (store, image);
-	} else {
-		g_warning ("%s\n", error->message);
-		g_error_free (error);
-	}
-	g_object_unref (G_OBJECT (image));
+	image = eog_image_new_uri (uri_entry);
+
+	eog_list_store_append_image (store, image);
 }
 
 /* ================== Directory Loading stuff ===================*/
-
 
 static gint
 compare_quarks (gconstpointer a, gconstpointer b)
@@ -288,43 +367,6 @@ is_supported_mime_type (const char *mime_type)
 	result = g_slist_find (supported_mime_types, GINT_TO_POINTER (quark));
 
 	return (result != NULL);
-}
-
-/**
-   Searchs for a file in the store. If found and @iter_found is not NULL,
-   then sets @iter_found to a #GtkTreeIter pointing to the file.
- */
-static gboolean
-is_file_in_list_store (EogListStore *store,
-		       const gchar *info_uri,
-		       GtkTreeIter *iter_found)
-{
-	gboolean found = FALSE;
-	EogImage *image;
-	GnomeVFSURI *uri;
-	gchar *str;
-	GtkTreeIter iter;
-
-	if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter)) {
-		return FALSE;
-	}
-	do {
-		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
-				    EOG_LIST_STORE_EOG_IMAGE, &image,
-				    -1);
-		
-		uri = eog_image_get_uri (image);
-		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-		found = (strcmp (str, info_uri) == 0)? TRUE : FALSE;
-		g_free (str);
-		g_object_unref (G_OBJECT (image));
-	} while (!found && gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
-	
-	if (found && iter_found != NULL) {
-		*iter_found = iter;
-	}
-
-	return found;
 }
 
 static void
@@ -512,7 +554,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 			
 			eog_list_store_append_directory (store, uri, info);
 		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
-			 g_list_length (uri_list) > 1) {
+			   g_list_length (uri_list) > 1) {
 			eog_list_store_append_image_from_uri (store, uri);
 		}
 	}
@@ -536,11 +578,14 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 void
 eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
+	GtkTreeIter iter;
+	const gchar *path;
+
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	GtkTreeIter iter;
-	const gchar *path = gnome_vfs_uri_to_string (eog_image_get_uri (image), GNOME_VFS_URI_HIDE_NONE);
+	path = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
+					GNOME_VFS_URI_HIDE_NONE);
 	
 	if (is_file_in_list_store (store, path, &iter)) {
 		gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
@@ -558,36 +603,44 @@ eog_list_store_new_from_glist (GList *list)
 		eog_list_store_append_image (EOG_LIST_STORE (store), 
 					     EOG_IMAGE (it->data));
 	}
+
 	return store;
 }
 
 gint
 eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 {
+	const gchar *file;
+	GtkTreeIter iter;
+	gint pos = -1;
+
 	g_return_val_if_fail (EOG_IS_LIST_STORE (store), -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), -1);
 
-	const gchar *file = gnome_vfs_uri_to_string (eog_image_get_uri (image), GNOME_VFS_URI_HIDE_NONE);
-	GtkTreeIter iter;
-	gint pos = -1;
+	file = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
+					GNOME_VFS_URI_HIDE_NONE);
+
 	if (is_file_in_list_store (store, file, &iter)) {
 		pos = eog_list_store_get_pos_by_iter (store, &iter);
 	}
+
 	return pos;
 }
 
 EogImage *
 eog_list_store_get_image_by_pos (EogListStore *store, const gint pos)
 {
-	g_return_val_if_fail (EOG_IS_LIST_STORE (store), NULL);
 	EogImage *image = NULL;
 	GtkTreeIter iter;
+
+	g_return_val_if_fail (EOG_IS_LIST_STORE (store), NULL);
 
 	if (gtk_tree_model_iter_nth_child (GTK_TREE_MODEL (store), &iter, NULL, pos)) {
 		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
 	}
+
 	return image;
 }
 

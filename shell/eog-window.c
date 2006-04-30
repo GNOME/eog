@@ -59,8 +59,7 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_DEFAULT_WIDTH  440
 #define EOG_WINDOW_DEFAULT_HEIGHT 350
 
-struct _EogWindowPrivate 
-{
+struct _EogWindowPrivate {
         GConfClient *client;
 
         EogListStore        *store;

@@ -24,10 +24,11 @@
 #ifndef EOG_LIST_STORE_H
 #define EOG_LIST_STORE_H
 
+#include "eog-image.h"
+
 #include <gtk/gtk.h>
 #include <glib-object.h>
 #include <libgnomevfs/gnome-vfs.h>
-#include "eog-image.h"
 
 G_BEGIN_DECLS
 
@@ -63,37 +64,34 @@ typedef struct {
 	void (* _eog_reserved4) (void);
 } EogListStoreClass;
 
-GType eog_list_store_get_type (void);
+GType           eog_list_store_get_type 	     (void);
 
-GtkListStore* eog_list_store_new (void);
+GtkListStore   *eog_list_store_new 		     (void);
 
-GtkListStore *
-eog_list_store_new_from_glist (GList *list);
+GtkListStore   *eog_list_store_new_from_glist 	     (GList *list);
 
-void
-eog_list_store_append_image (EogListStore *store, EogImage *image);
+void            eog_list_store_append_image 	     (EogListStore *store, 
+						      EogImage     *image);
 
-void 
-eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entry);
+void            eog_list_store_append_image_from_uri (EogListStore *store, 
+						      GnomeVFSURI  *uri_entry);
 
-void
-eog_list_store_add_uris (EogListStore *store, GList *uri_list);
+void            eog_list_store_add_uris 	     (EogListStore *store, 
+						      GList        *uri_list);
 
-void
-eog_list_store_remove_image (EogListStore *store, EogImage *image);
+void            eog_list_store_remove_image 	     (EogListStore *store, 
+						      EogImage     *image);
 
-gint
-eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image);
+gint            eog_list_store_get_pos_by_image      (EogListStore *store, 
+						      EogImage     *image);
 
-EogImage *
-eog_list_store_get_image_by_pos (EogListStore *store, const gint pos);
+EogImage       *eog_list_store_get_image_by_pos      (EogListStore *store, 
+						      const gint   pos);
 
-gint
-eog_list_store_get_pos_by_iter (EogListStore *store, 
-				GtkTreeIter *iter);
+gint            eog_list_store_get_pos_by_iter 	     (EogListStore *store, 
+						      GtkTreeIter  *iter);
 
-gint
-eog_list_store_get_initial_pos (EogListStore *store);
+gint            eog_list_store_get_initial_pos 	     (EogListStore *store);
 
 G_END_DECLS
 
