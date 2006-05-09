@@ -59,11 +59,21 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_DEFAULT_WIDTH  440
 #define EOG_WINDOW_DEFAULT_HEIGHT 350
 
+#define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
+
+typedef enum {
+	EOG_WINDOW_MODE_UNKNOWN,
+	EOG_WINDOW_MODE_NORMAL,
+	EOG_WINDOW_MODE_FULLSCREEN,
+	EOG_WINDOW_MODE_SLIDESHOW
+} EogWindowMode;
+
 struct _EogWindowPrivate {
         GConfClient *client;
 
         EogListStore        *store;
         EogImage            *image;
+	EogWindowMode        mode;
 
         GtkUIManager        *ui_mgr;
         GtkWidget           *box;
@@ -77,6 +87,9 @@ struct _EogWindowPrivate {
         GtkActionGroup      *actions_image;
         GtkActionGroup      *actions_collection;
 
+	GtkWidget           *fullscreen_popup;
+	GSource             *fullscreen_timeout_source;
+
         EggRecentViewGtk    *recent_view;
 
         EogJob              *load_job;
@@ -85,6 +98,8 @@ struct _EogWindowPrivate {
         guint image_info_message_cid;
         guint tip_message_cid;
 };
+
+static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 
 static void
 eog_window_interp_type_changed_cb (GConfClient *client,
@@ -323,6 +338,83 @@ eog_window_clear_transform_job (EogWindow *window)
 }
 
 static void
+update_action_groups_state (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	int n_images = 0;
+	gboolean show_image_collection = FALSE;
+	GtkAction *action_fscreen;
+	GtkAction *action_sshow;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	action_fscreen = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "ViewFullscreen");
+	action_sshow = 
+		gtk_action_group_get_action (priv->actions_collection, 
+					     "ViewSlideshow");
+
+	g_assert (action_fscreen != NULL);
+	g_assert (action_sshow != NULL);
+	
+	if (priv->store != NULL) {
+		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
+	}
+
+	if (n_images == 0) {
+		gtk_widget_hide_all (priv->vbox);
+
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+
+		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_sshow,   FALSE);
+	} else if (n_images == 1) {
+		show_image_collection = 
+			gconf_client_get_bool (priv->client, 
+					       EOG_CONF_UI_IMAGE_COLLECTION, 
+					       NULL);
+
+		gtk_widget_show_all (priv->vbox);
+
+		if (!show_image_collection) 
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+		
+		gtk_action_set_sensitive (action_fscreen, TRUE);
+		gtk_action_set_sensitive (action_sshow,   FALSE);
+
+		gtk_widget_grab_focus (priv->view);
+	} else {
+		show_image_collection = 
+			gconf_client_get_bool (priv->client, 
+					       EOG_CONF_UI_IMAGE_COLLECTION, 
+					       NULL);
+
+		gtk_widget_show_all (priv->vbox);
+
+		if (!show_image_collection) 
+			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
+		
+		gtk_action_set_sensitive (action_fscreen, TRUE);
+		gtk_action_set_sensitive (action_sshow,   TRUE);
+
+		gtk_widget_grab_focus (priv->view);
+	}
+}
+
+static void
 update_selection_ui_visibility (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -458,6 +550,347 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 }
 
 static void
+eog_window_update_fullscreen_action (EogWindow *window)
+{
+	GtkAction *action;
+
+	action = gtk_action_group_get_action (window->priv->actions_image, "ViewFullscreen");
+
+	g_signal_handlers_block_by_func
+		(action, G_CALLBACK (eog_window_cmd_fullscreen), window);
+	
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+				      window->priv->mode == EOG_WINDOW_MODE_FULLSCREEN);
+
+	g_signal_handlers_unblock_by_func
+		(action, G_CALLBACK (eog_window_cmd_fullscreen), window);
+}
+
+static void
+eog_window_update_fullscreen_popup (EogWindow *window)
+{
+	GtkWidget *popup = window->priv->fullscreen_popup;
+	GdkRectangle screen_rect;
+	GdkScreen *screen;
+
+	g_return_if_fail (popup != NULL);
+
+	if (GTK_WIDGET (window)->window == NULL) return;
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
+
+	gdk_screen_get_monitor_geometry (screen,
+			gdk_screen_get_monitor_at_window
+                        (screen,
+                         GTK_WIDGET (window)->window),
+                         &screen_rect);
+
+	gtk_widget_set_size_request (popup,
+				     screen_rect.width,
+				     -1);
+
+	gtk_window_move (GTK_WINDOW (popup), screen_rect.x, screen_rect.y);
+}
+
+static void
+screen_size_changed_cb (GdkScreen *screen, EogWindow *window)
+{
+	eog_window_update_fullscreen_popup (window);
+}
+
+static void
+fullscreen_popup_size_request_cb (GtkWidget      *popup, 
+				  GtkRequisition *req, 
+				  EogWindow      *window)
+{
+	eog_window_update_fullscreen_popup (window);
+}
+
+static gboolean
+fullscreen_timeout_cb (gpointer data)
+{
+	EogWindow *window = EOG_WINDOW (data);
+
+	gtk_widget_hide_all (window->priv->fullscreen_popup);
+	
+	g_source_unref (window->priv->fullscreen_timeout_source);
+	window->priv->fullscreen_timeout_source = NULL;
+
+	return FALSE;
+}
+
+static void
+fullscreen_clear_timeout (EogWindow *window)
+{
+	if (window->priv->fullscreen_timeout_source != NULL) {
+		g_source_unref (window->priv->fullscreen_timeout_source);
+		g_source_destroy (window->priv->fullscreen_timeout_source);
+	}
+
+	window->priv->fullscreen_timeout_source = NULL;
+}
+
+static void
+fullscreen_set_timeout (EogWindow *window)
+{
+	GSource *source;
+
+	if (window->priv->fullscreen_timeout_source != NULL) {
+		g_source_unref (window->priv->fullscreen_timeout_source);
+		g_source_destroy (window->priv->fullscreen_timeout_source);
+	}
+
+	source = g_timeout_source_new (EOG_WINDOW_FULLSCREEN_TIMEOUT);
+	g_source_set_callback (source, fullscreen_timeout_cb, window, NULL);
+	
+	g_source_attach (source, NULL);
+
+	window->priv->fullscreen_timeout_source = source;
+}
+
+static void
+show_fullscreen_popup (EogWindow *window)
+{
+	if (!GTK_WIDGET_VISIBLE (window->priv->fullscreen_popup)) {
+		gtk_widget_show_all (GTK_WIDGET (window->priv->fullscreen_popup));
+	}
+
+	fullscreen_set_timeout (window);
+}
+
+static gboolean
+fullscreen_motion_notify_cb (GtkWidget      *widget,
+			     GdkEventMotion *event,
+			     gpointer       user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	show_fullscreen_popup (window);
+
+	return FALSE;
+}
+
+static gboolean
+fullscreen_leave_notify_cb (GtkWidget *widget,
+			    GdkEventCrossing *event,
+			    gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	fullscreen_clear_timeout (window);
+
+	return FALSE;
+}
+
+static void
+exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
+{
+	GtkAction *action;
+
+	action = gtk_action_group_get_action (window->priv->actions_image, "ViewFullscreen");
+	g_return_if_fail (action != NULL);
+
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), FALSE);
+}
+
+static GtkWidget *
+eog_window_get_exit_fullscreen_button (EogWindow *window)
+{
+	GtkWidget *button;
+
+	button = gtk_button_new_from_stock (GTK_STOCK_LEAVE_FULLSCREEN);
+
+	g_signal_connect (button, "clicked",
+			  G_CALLBACK (exit_fullscreen_button_clicked_cb),
+			  window);
+
+	return button;
+}
+
+static GtkWidget *
+eog_window_create_fullscreen_popup (EogWindow *window)
+{
+	GtkWidget *popup;
+	GtkWidget *hbox;
+	GtkWidget *button;
+	GtkWidget *toolbar;
+	GdkScreen *screen;
+
+	popup = gtk_window_new (GTK_WINDOW_POPUP);
+
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_add (GTK_CONTAINER (popup), hbox);
+	
+	toolbar = gtk_ui_manager_get_widget (window->priv->ui_mgr, "/FullscreenToolbar");
+	g_assert (GTK_IS_WIDGET (toolbar));
+	gtk_box_pack_start (GTK_BOX (hbox), toolbar, TRUE, TRUE, 0);
+
+	button = eog_window_get_exit_fullscreen_button (window);
+	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
+
+	gtk_window_set_resizable (GTK_WINDOW (popup), FALSE);
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
+
+	g_signal_connect_object (screen, "size-changed",
+			         G_CALLBACK (screen_size_changed_cb),
+				 window, 0);
+
+	g_signal_connect_object (popup, "size_request",
+			         G_CALLBACK (fullscreen_popup_size_request_cb),
+				 window, 0);
+
+	gtk_window_set_screen (GTK_WINDOW (popup), screen);
+
+	return popup;
+}
+
+static void
+update_ui_visibility (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	
+	GtkAction *action;
+	GtkWidget *menubar;
+	GtkWidget *toolbar;
+	
+	gboolean fullscreen_mode, visible;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	fullscreen_mode = priv->mode != EOG_WINDOW_MODE_NORMAL;
+	
+	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
+	g_assert (GTK_IS_WIDGET (menubar));
+
+	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/Toolbar");
+	g_assert (GTK_IS_WIDGET (toolbar));
+
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
+	visible = visible && !fullscreen_mode;
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ToolbarToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	g_object_set (G_OBJECT (toolbar), "visible", visible, NULL);
+
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_STATUSBAR, NULL);
+	visible = visible && !fullscreen_mode;
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/StatusbarToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
+
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
+	visible = visible && !fullscreen_mode;
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	if (visible) {
+		gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
+	} else {
+		gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+	}
+
+	if (priv->fullscreen_popup != NULL) {
+		if (fullscreen_mode) {
+			show_fullscreen_popup (window);
+		} else {
+			gtk_widget_hide_all (GTK_WIDGET (priv->fullscreen_popup));
+		}
+	}
+}
+
+static void
+eog_window_run_fullscreen (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GtkWidget *menubar;
+	gboolean upscale;
+	
+	priv = window->priv;
+
+	priv->mode = EOG_WINDOW_MODE_FULLSCREEN;
+
+	if (window->priv->fullscreen_popup == NULL)
+		window->priv->fullscreen_popup
+			= eog_window_create_fullscreen_popup (window);
+
+	update_ui_visibility (window);
+
+	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
+	g_assert (GTK_IS_WIDGET (menubar));
+	gtk_widget_hide (menubar);
+
+	g_object_set (G_OBJECT (gtk_widget_get_parent (priv->view)),
+		      "shadow-type", GTK_SHADOW_NONE,
+		      NULL);
+
+	g_signal_connect (window->priv->view,
+			  "motion-notify-event",
+			  G_CALLBACK (fullscreen_motion_notify_cb),
+			  window);
+
+	g_signal_connect (window->priv->view,
+			  "leave-notify-event",
+			  G_CALLBACK (fullscreen_leave_notify_cb),
+			  window);
+	
+	fullscreen_set_timeout (window);
+
+	upscale = gconf_client_get_bool (window->priv->client, 
+					 EOG_CONF_FULLSCREEN_UPSCALE, 
+					 NULL);
+
+	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), 
+					  upscale);
+	
+	gtk_widget_grab_focus (window->priv->view);
+	eog_window_update_fullscreen_action (window);
+	gtk_window_fullscreen (GTK_WINDOW (window));
+	eog_window_update_fullscreen_popup (window);
+}
+
+static void
+eog_window_stop_fullscreen (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GtkWidget *menubar;
+	
+	priv = window->priv;
+
+	if (priv->mode != EOG_WINDOW_MODE_FULLSCREEN) return;
+	
+	priv->mode = EOG_WINDOW_MODE_NORMAL;
+
+	fullscreen_clear_timeout (window);
+
+	g_object_set (G_OBJECT (gtk_widget_get_parent (priv->view)),
+		      "shadow-type", GTK_SHADOW_IN,
+		      NULL);
+
+	g_signal_handlers_disconnect_by_func (priv->view,
+					      (gpointer) fullscreen_motion_notify_cb,
+					      window);
+
+	g_signal_handlers_disconnect_by_func (priv->view,
+					      (gpointer) fullscreen_leave_notify_cb,
+					      window);
+	
+	update_ui_visibility (window);
+
+	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
+	g_assert (GTK_IS_WIDGET (menubar));
+	gtk_widget_show (menubar);
+	
+	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), FALSE);
+
+	eog_window_update_fullscreen_action (window);
+	gtk_window_unfullscreen (GTK_WINDOW (window));
+}
+
+static void
 eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
@@ -576,6 +1009,8 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
+	if (priv->mode != EOG_WINDOW_MODE_NORMAL) return;
+	
 	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
 	if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewToolbar") == 0) {
@@ -680,6 +1115,25 @@ eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 
 static void
 eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data)
+{
+	EogWindow *window;
+	gboolean fullscreen;
+	
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+
+	fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
+	if (fullscreen) {
+		eog_window_run_fullscreen (window);
+	} else {
+		eog_window_stop_fullscreen (window);
+	}
+}
+
+static void
+eog_window_cmd_slideshow (GtkAction *action, gpointer user_data)
 {
 	g_print ("Not implemented yet!\n");
 }
@@ -863,9 +1317,6 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditMoveToTrash", GTK_STOCK_DELETE, N_("Move to Trash"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_move_to_trash) },
-	{ "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_fullscreen) },
 	{ "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_zoom_in) },
@@ -892,6 +1343,12 @@ static const GtkActionEntry action_entries_image[] = {
 	  G_CALLBACK (eog_window_cmd_move_to_trash) },
 };
 
+static const GtkToggleActionEntry toggle_entries_image[] = {
+	{ "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Full Screen"), "F11", 
+	  NULL, 
+	  G_CALLBACK (eog_window_cmd_fullscreen), FALSE },
+};
+	
 static const GtkActionEntry action_entries_collection[] = {
 	{ "GoPrevious", GTK_STOCK_GO_BACK, N_("_Previous Image"), "<Alt>Left", 
 	  NULL, 
@@ -907,7 +1364,7 @@ static const GtkActionEntry action_entries_collection[] = {
 	  G_CALLBACK (eog_window_cmd_go_last) },
 	{ "ViewSlideshow", NULL, N_("_Slideshow"), "F5", 
 	  NULL, 
-	  G_CALLBACK (eog_window_cmd_fullscreen) },
+	  G_CALLBACK (eog_window_cmd_slideshow) },
 	{ "SpaceBar", NULL, N_("_Next Image"), "space", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_go_next) },
@@ -1023,12 +1480,11 @@ eog_window_construct_ui (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 
-	GError *error;
+	GError *error = NULL;
 	
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
 	GtkWidget *recent_widget;
-	GtkAction *action;
 	GtkWidget *sw;
 	GtkWidget *frame;
 
@@ -1036,7 +1492,6 @@ eog_window_construct_ui (EogWindow *window)
 	
 	GtkObject *hadj;
 
-	gboolean visible;
 	GConfEntry *entry;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -1075,6 +1530,11 @@ eog_window_construct_ui (EogWindow *window)
 				      G_N_ELEMENTS (action_entries_image), 
 				      window);
 	
+	gtk_action_group_add_toggle_actions (priv->actions_image, 
+					     toggle_entries_image, 
+					     G_N_ELEMENTS (toggle_entries_image), 
+					     window);
+
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_image, 0);
 
 	priv->actions_collection = gtk_action_group_new ("MenuActionsCollection");
@@ -1108,7 +1568,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_widget_show (menubar);
 
 	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/Toolbar");
-	g_assert (GTK_IS_WIDGET (menubar));
+	g_assert (GTK_IS_WIDGET (toolbar));
 	gtk_box_pack_start (GTK_BOX (priv->box), toolbar, FALSE, FALSE, 0);
 	gtk_widget_show (toolbar);
 
@@ -1182,28 +1642,8 @@ eog_window_construct_ui (EogWindow *window)
 
 	//set_drag_dest (window);
 
-	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
-	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ToolbarToggle");
-	g_assert (action != NULL);
-	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
-	g_object_set (G_OBJECT (toolbar), "visible", visible, NULL);
-
-	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_STATUSBAR, NULL);
-	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/StatusbarToggle");
-	g_assert (action != NULL);
-	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
-	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
-
-	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
-	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
-	g_assert (action != NULL);
-	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
-	if (visible) {
-		gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
-	} else {
-		gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
-	}
-
+	update_ui_visibility (window);
+	
 	entry = gconf_client_get_entry (priv->client, 
 					EOG_CONF_VIEW_INTERPOLATE, 
 					NULL, TRUE, NULL);
@@ -1272,6 +1712,8 @@ eog_window_init (EogWindow *window)
 
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
+	window->priv->mode = EOG_WINDOW_MODE_NORMAL;
+	
 	eog_window_construct_ui (window);
 }
 
@@ -1295,6 +1737,17 @@ eog_window_dispose (GObject *object)
 	if (priv->image != NULL) {
 		g_object_unref (priv->image);
 		priv->image = NULL;
+	}
+
+	if (window->priv->fullscreen_popup != NULL) {
+		gtk_widget_destroy (priv->fullscreen_popup);
+		priv->fullscreen_popup = NULL;
+	}
+
+	if (window->priv->fullscreen_timeout_source) {
+		g_source_unref (window->priv->fullscreen_timeout_source);
+		g_source_destroy (window->priv->fullscreen_timeout_source);
+		window->priv->fullscreen_timeout_source = NULL;
 	}
 
 	if (priv->recent_view != NULL) {
@@ -1352,6 +1805,19 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	result = FALSE;
 
 	switch (event->keyval) {
+	case GDK_Escape:
+		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
+			eog_window_stop_fullscreen (EOG_WINDOW (widget));
+		}
+		break;
+	case GDK_F:
+	case GDK_f:
+		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
+			eog_window_stop_fullscreen (EOG_WINDOW (widget));
+		} else {
+			eog_window_run_fullscreen (EOG_WINDOW (widget));
+		}
+		break;
 	case GDK_Q:
 	case GDK_q:
 		gtk_widget_destroy (widget);
@@ -1434,6 +1900,40 @@ eog_window_unrealize (GtkWidget *widget)
 	GTK_WIDGET_CLASS (eog_window_parent_class)->unrealize (widget);
 }
 
+static gboolean
+eog_window_focus_in_event (GtkWidget *widget, GdkEventFocus *event)
+{
+	EogWindow *window = EOG_WINDOW (widget);
+	EogWindowPrivate *priv = window->priv;
+	gboolean fullscreen;
+
+	fullscreen = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
+		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+	
+	if (fullscreen) {
+		show_fullscreen_popup (window);
+	}
+		
+	return GTK_WIDGET_CLASS (eog_window_parent_class)->focus_in_event (widget, event);
+}
+
+static gboolean
+eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
+{
+	EogWindow *window = EOG_WINDOW (widget);
+	EogWindowPrivate *priv = window->priv;
+	gboolean fullscreen;
+
+	fullscreen = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
+		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+
+	if (fullscreen) {
+		gtk_widget_hide_all (priv->fullscreen_popup);
+	}
+
+	return GTK_WIDGET_CLASS (eog_window_parent_class)->focus_out_event (widget, event);
+}
+
 static void
 eog_window_class_init (EogWindowClass *class)
 {
@@ -1448,6 +1948,8 @@ eog_window_class_init (EogWindowClass *class)
         widget_class->configure_event = eog_window_configure_event;
         widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
+	widget_class->focus_in_event = eog_window_focus_in_event;
+	widget_class->focus_out_event = eog_window_focus_out_event;
 	//widget_class->drag_data_received = eog_window_drag_data_received;
 
 	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
@@ -1472,87 +1974,11 @@ eog_window_get_uri (EogWindow *window)
 }
 
 static void
-update_ui_visibility (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	int n_images = 0;
-	gboolean show_image_collection = FALSE;
-	GtkAction *action_fscreen;
-	GtkAction *action_sshow;
-
-	g_return_if_fail (EOG_IS_WINDOW (window));
-
-	priv = window->priv;
-
-	action_fscreen = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "ViewFullscreen");
-	action_sshow = 
-		gtk_action_group_get_action (priv->actions_collection, 
-					     "ViewSlideshow");
-
-	g_assert (action_fscreen != NULL);
-	g_assert (action_sshow != NULL);
-	
-	if (priv->store != NULL) {
-		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
-	}
-
-	if (n_images == 0) {
-		gtk_widget_hide_all (priv->vbox);
-
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-
-		gtk_action_set_sensitive (action_fscreen, FALSE);
-		gtk_action_set_sensitive (action_sshow,   FALSE);
-	} else if (n_images == 1) {
-		show_image_collection = 
-			gconf_client_get_bool (priv->client, 
-					       EOG_CONF_UI_IMAGE_COLLECTION, 
-					       NULL);
-
-		gtk_widget_show_all (priv->vbox);
-
-		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
-
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-		
-		gtk_action_set_sensitive (action_fscreen, TRUE);
-		gtk_action_set_sensitive (action_sshow,   FALSE);
-
-		gtk_widget_grab_focus (priv->view);
-	} else {
-		show_image_collection = 
-			gconf_client_get_bool (priv->client, 
-					       EOG_CONF_UI_IMAGE_COLLECTION, 
-					       NULL);
-
-		gtk_widget_show_all (priv->vbox);
-
-		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
-
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
-		
-		gtk_action_set_sensitive (action_fscreen, TRUE);
-		gtk_action_set_sensitive (action_sshow,   TRUE);
-
-		gtk_widget_grab_focus (priv->view);
-	}
-}
-
-static void
 eog_job_model_cb (EogJobModel *job, gpointer data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
+
 #ifdef HAVE_LCMS
         int i;
 #endif
@@ -1581,7 +2007,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	eog_thumb_view_set_model (EOG_THUMB_VIEW (priv->thumbview), priv->store);
 
-	update_ui_visibility (window);
+	update_action_groups_state (window);
 }
 
 void
@@ -1601,7 +2027,7 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 }
 
 gboolean
-eog_window_is_empty(EogWindow *window)
+eog_window_is_empty (EogWindow *window)
 {
         EogWindowPrivate *priv;
         gboolean empty = TRUE;

@@ -1,3 +1,28 @@
+2006-05-08  Lucas Rocha  <lucasr@gnome.org>
+
+	* shell/eog-window.c
+
+	(EogWindowMode): eog-window modes (UNKNOWN, NORMAL, FULLSCREEN,
+	SLIDESHOW). 
+
+	(update_action_groups_state, update_ui_visibility): helper functions
+	for UI updates depending on window mode.
+
+	(eog_window_cmd_fullscreen, eog_window_update_fullscreen_action,
+	eog_window_update_fullscreen_popup, screen_size_changed_cb,
+	fullscreen_popup_size_request_cb, fullscreen_timeout_cb,
+	fullscreen_clear_timeout, fullscreen_set_timeout,
+	show_fullscreen_popup, fullscreen_motion_notify_cb,
+	fullscreen_leave_notify_cb, exit_fullscreen_button_clicked_cb,
+	eog_window_get_exit_fullscreen_button,
+	eog_window_create_fullscreen_popup, eog_window_run_fullscreen,
+	eog_window_stop_fullscreen, eog_window_construct_ui,
+	eog_window_key_press, eog_window_focus_in_event,
+	eog_window_focus_out_event, eog_window_class_init):
+	Initial implementation of fullscreen mode of EOG window.
+
+	* data/eog-ui.xml: new fullscreen toolbar definition.
+
 2006-04-29  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-thumb-view.[ch]: coding style fixes and several 
@@ -304,31 +329,31 @@
 
 2006-03-26  Lucas Rocha  <lucasr@gnome.org>
 	
- 	Keyboard shortcuts revamp (Fixes bug #310455 partly). Patch from
+	Keyboard shortcuts revamp (Fixes bug #310455 partly). Patch from
 	Jaap Haitsma <jaap@haitsma.org>.
 
- 	* shell/eog-gtk-ui.xml: Add Home and End as shortcut keys for the first
- 	and last images respectively
- 
- 	* shell/eog-window.c: 
- 	(action_entries_image) Add Home and End as keyboard shortcuts for the 
- 	first and last images respectively.
- 
- 	(action_entries_collection) Change the keyboard shortcuts of first,
- 	last, next and previous image so they conform to the HIG
- 	First was Ctrl+Home now Alt+Home
- 	Last was Ctrl+End now Alt+End
- 	Next was Ctrl+Right now Alt+Right
- 	Previous was Ctrl+Left now Alt+Left 
- 
- 	(eog_window_key_press) If no scrollbars visible PageDown, Right and Down
- 	show the next image and PageUp, Left and Up show the previous image
- 
- 	* libeog/eog-scroll-view.{c|h}: 
- 	Add eog_scroll_view_scrollbars_visible function
- 
- 	(display_key_press_event) Page up/down now scroll 3/4 of the image
- 	(page) height (Fixes bug #324871). Ctrl PageUp/PageDown scroll 
+	* shell/eog-gtk-ui.xml: Add Home and End as shortcut keys for the first
+	and last images respectively
+
+	* shell/eog-window.c: 
+	(action_entries_image) Add Home and End as keyboard shortcuts for the 
+	first and last images respectively.
+
+	(action_entries_collection) Change the keyboard shortcuts of first,
+	last, next and previous image so they conform to the HIG
+	First was Ctrl+Home now Alt+Home
+	Last was Ctrl+End now Alt+End
+	Next was Ctrl+Right now Alt+Right
+	Previous was Ctrl+Left now Alt+Left 
+
+	(eog_window_key_press) If no scrollbars visible PageDown, Right and Down
+	show the next image and PageUp, Left and Up show the previous image
+
+	* libeog/eog-scroll-view.{c|h}: 
+	Add eog_scroll_view_scrollbars_visible function
+
+	(display_key_press_event) Page up/down now scroll 3/4 of the image
+	(page) height (Fixes bug #324871). Ctrl PageUp/PageDown scroll 
 	left/right
 
 2006-03-23  Lucas Rocha  <lucasr@gnome.org>
@@ -366,7 +391,7 @@
 2006-03-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: Post release bump, for unstable
-        2.15.x development.
+	2.15.x development.
 
 2006-03-13  Lucas Rocha  <lucasr@gnome.org>
 
@@ -439,7 +464,7 @@
 
 	* eog-scroll-view.c (eog_scroll_view_zoom_in, 
 	eog_scroll_view_zoom_out): correct handling of zoom
-        double precision with mouse wheel (Fixes bug #310833). 
+	double precision with mouse wheel (Fixes bug #310833). 
 	Patch from Felix Riemann <felix@hsgheli.de>.
 
 2006-02-22  Lucas Rocha  <lucasr@gnome.org>
