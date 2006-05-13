@@ -73,10 +73,10 @@ eog_thumb_view_init (EogThumbView *thumb_view)
 	gtk_icon_view_set_text_column (GTK_ICON_VIEW (thumb_view), 
 				       EOG_LIST_STORE_CAPTION);
 	
-	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (thumb_view), 
+	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (thumb_view),
 					  EOG_THUMB_VIEW_SPACING);
 
-	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumb_view), 
+	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumb_view),
 					  EOG_THUMB_VIEW_SPACING);
 }
 

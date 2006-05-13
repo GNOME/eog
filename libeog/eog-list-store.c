@@ -31,7 +31,7 @@
 #include <string.h>
 #include <libgnomeui/gnome-thumbnail.h>
 
-#define EOG_LIST_STORE_THUMB_SIZE 96
+#define EOG_LIST_STORE_THUMB_SIZE 90
 
 static GSList *supported_mime_types = NULL;
 
