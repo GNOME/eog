@@ -6,6 +6,7 @@
 #include "eog-image.h"
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
+#include "eog-job-queue.h"
 
 static void 
 tb_on_selection_changed (GtkIconView *thumb_view,
@@ -140,6 +141,7 @@ main (gint argc, gchar **argv)
 	gtk_init (&argc, &argv);
 	gnome_vfs_init ();
 	eog_thumbnail_init ();
+	eog_job_queue_init ();
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	g_signal_connect (G_OBJECT (window), 

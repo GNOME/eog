@@ -267,6 +267,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    -1);
+		g_object_unref (thumbnail);
 	}
 
 	g_free (filename);
@@ -579,17 +580,18 @@ void
 eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
-	const gchar *path;
+	gchar *file;
 
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	path = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
+	file = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
 					GNOME_VFS_URI_HIDE_NONE);
 	
-	if (is_file_in_list_store (store, path, &iter)) {
+	if (is_file_in_list_store (store, file, &iter)) {
 		gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 	}
+	g_free (file);
 }
 
 GtkListStore *
@@ -610,7 +612,7 @@ eog_list_store_new_from_glist (GList *list)
 gint
 eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 {
-	const gchar *file;
+	gchar *file;
 	GtkTreeIter iter;
 	gint pos = -1;
 
@@ -624,6 +626,7 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 		pos = eog_list_store_get_pos_by_iter (store, &iter);
 	}
 
+	g_free (file);
 	return pos;
 }
 

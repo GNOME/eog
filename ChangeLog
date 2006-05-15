@@ -1,3 +1,11 @@
+2006-05-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-list-store.c: (eog_job_thumbnail_cb),
+	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image):
+	Fixed some memory leaks.
+	* libeog/test-eog-tb.c: (main): Initialize threading system so the 
+	test code actually works.
+
 2006-05-13  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-list-store.c: Make thumbnails a bit smaller.
