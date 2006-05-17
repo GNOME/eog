@@ -263,7 +263,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    -1);
 
 		eog_image_set_thumbnail (image, thumbnail);
-	
+
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    -1);
@@ -276,7 +276,6 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 void
 eog_list_store_append_image (EogListStore *store, EogImage *image)
 {
-	EogJob *job;
 	GtkTreeIter iter;
 
 	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
@@ -284,17 +283,8 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, image, 
 			    EOG_LIST_STORE_CAPTION, eog_image_get_caption (image),
+			    EOG_LIST_STORE_THUMBNAIL, NULL,
 			    -1);
-
-	job = eog_job_thumbnail_new (eog_image_get_uri (image));
-
-	g_signal_connect (job,
-			  "finished",
-			  G_CALLBACK (eog_job_thumbnail_cb),
-			  store);
-
-	eog_job_queue_add_job (job);
-	g_object_unref (job);
 }
 
 void 
@@ -667,4 +657,62 @@ gint
 eog_list_store_get_initial_pos (EogListStore *store)
 {
 	return store->priv->initial_image;
+}
+
+void
+eog_list_store_thumbnail_set (EogListStore *store, 
+			      GtkTreeIter *iter)
+{
+	EogJob *job;
+	EogImage *image;
+	GdkPixbuf *thumbnail;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
+			    EOG_LIST_STORE_THUMBNAIL, &thumbnail, 
+			    -1);
+	
+	if (GDK_IS_PIXBUF (thumbnail)) {
+		g_object_unref (thumbnail);
+		return;
+	}
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
+			    EOG_LIST_STORE_EOG_IMAGE, &image, 
+			    -1);
+	
+	job = eog_job_thumbnail_new (eog_image_get_uri (image));
+	
+	g_signal_connect (job,
+			  "finished",
+			  G_CALLBACK (eog_job_thumbnail_cb),
+			  store);
+	
+	eog_job_queue_add_job (job);
+	g_object_unref (job);
+	g_object_unref (image);
+}
+
+void
+eog_list_store_thumbnail_unset (EogListStore *store, 
+				GtkTreeIter *iter)
+{
+	EogImage *image;
+	GdkPixbuf *thumbnail;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
+			    EOG_LIST_STORE_THUMBNAIL, &thumbnail, 
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
+	if (!GDK_IS_PIXBUF (thumbnail)) {
+		g_object_unref (image);
+		return;
+	}
+	
+	g_object_unref (thumbnail);
+
+	gtk_list_store_set (GTK_LIST_STORE (store), iter,
+			    EOG_LIST_STORE_THUMBNAIL, NULL,
+			    -1);
+	
+	eog_image_set_thumbnail (image, NULL);
+	g_object_unref (image);
 }

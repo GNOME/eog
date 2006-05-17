@@ -93,6 +93,10 @@ gint            eog_list_store_get_pos_by_iter 	     (EogListStore *store,
 
 gint            eog_list_store_get_initial_pos 	     (EogListStore *store);
 
+void            eog_list_store_thumbnail_set (EogListStore *store, GtkTreeIter *iter);
+
+void            eog_list_store_thumbnail_unset (EogListStore *store, GtkTreeIter *iter);
+
 G_END_DECLS
 
 #endif

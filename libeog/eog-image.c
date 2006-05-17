@@ -957,7 +957,7 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 	EogImagePrivate *priv;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
-	g_return_if_fail (thumbnail != NULL);
+	g_return_if_fail (GDK_IS_PIXBUF (thumbnail) || thumbnail == NULL);
 
 	priv = img->priv;
 
@@ -967,12 +967,14 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 		priv->thumbnail = NULL;
 	}
 	
-	if (priv->trans != NULL) {
+	if (thumbnail != NULL && priv->trans != NULL) {
 		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail);
 	}
 	else {
 		priv->thumbnail = thumbnail;
-		g_object_ref (priv->thumbnail);
+		if (thumbnail != NULL) {
+			g_object_ref (priv->thumbnail);
+		}
 	}
 }
 
@@ -1879,4 +1881,3 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
   
 	g_object_unref (G_OBJECT (printed_image));	
 }
-

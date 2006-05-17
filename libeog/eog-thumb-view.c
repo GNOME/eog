@@ -32,6 +32,11 @@
 
 G_DEFINE_TYPE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW);
 
+struct _EogThumbViewPrivate {
+	gint start_thumb; /* the first visible thumbnail */
+	gint end_thumb;   /* the last visible thumbnail  */
+};
+
 static void
 eog_thumb_view_finalize (GObject *object)
 {
@@ -60,12 +65,146 @@ eog_thumb_view_class_init (EogThumbViewClass *class)
 	
 	gobject_class->finalize = eog_thumb_view_finalize;
 	object_class->destroy = eog_thumb_view_destroy;
+
+	g_type_class_add_private (class, sizeof (EogThumbViewPrivate));
+}
+
+static void
+eog_thumb_view_clear_range (EogThumbView *tb, 
+			    const gint start_thumb, 
+			    const gint end_thumb)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (tb)));
+	gint thumb = start_thumb;
+	gboolean result;
+	
+	g_assert (start_thumb <= end_thumb);
+	
+	path = gtk_tree_path_new_from_indices (start_thumb, -1);
+	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
+	     result && thumb <= end_thumb;
+	     result = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter), thumb++) {
+		eog_list_store_thumbnail_unset (store, &iter);
+	}
+	gtk_tree_path_free (path);
+}
+
+static void
+eog_thumb_view_add_range (EogThumbView *tb, 
+			  const gint start_thumb, 
+			  const gint end_thumb)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	EogListStore *store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (tb)));
+	gint thumb = start_thumb;
+	gboolean result;
+	
+	g_assert (start_thumb <= end_thumb);
+	
+	path = gtk_tree_path_new_from_indices (start_thumb, -1);
+	for (result = gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
+	     result && thumb <= end_thumb;
+	     result = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter), thumb++) {
+		eog_list_store_thumbnail_set (store, &iter);
+	}
+	gtk_tree_path_free (path);
+}
+
+static void
+eog_thumb_view_update_visible_range (EogThumbView *tb, 
+				     const gint start_thumb, 
+				     const gint end_thumb)
+{
+	EogThumbViewPrivate *priv = tb->priv;
+	int old_start_thumb, old_end_thumb;
+
+	old_start_thumb= priv->start_thumb;
+	old_end_thumb = priv->end_thumb;
+	
+	if (start_thumb == old_start_thumb &&
+	    end_thumb == old_end_thumb) {
+		return;
+	}
+	
+	if (old_start_thumb < start_thumb)
+		eog_thumb_view_clear_range (tb, old_start_thumb, MIN (start_thumb - 1, old_end_thumb));
+
+	if (old_end_thumb > end_thumb)
+		eog_thumb_view_clear_range (tb, MAX (end_thumb + 1, old_start_thumb), old_end_thumb);
+
+	eog_thumb_view_add_range (tb, start_thumb, end_thumb);
+	
+	priv->start_thumb = start_thumb;
+	priv->end_thumb = end_thumb;
+}
+
+static void
+tb_on_visible_range_changed_cb (EogThumbView *tb,
+                                gpointer user_data)
+{
+	GtkTreePath *path1, *path2;
+	
+	if (!gtk_icon_view_get_visible_range (GTK_ICON_VIEW (tb), &path1, &path2)) {
+		return;
+	}
+	
+	if (path1 == NULL) {
+		path1 = gtk_tree_path_new_first ();
+	}
+	if (path2 == NULL) {
+		gint n_items = gtk_tree_model_iter_n_children (gtk_icon_view_get_model (GTK_ICON_VIEW (tb)), NULL);
+		path2 = gtk_tree_path_new_from_indices (n_items - 1 , -1);
+	}
+	
+	eog_thumb_view_update_visible_range (tb, gtk_tree_path_get_indices (path1) [0],
+					     gtk_tree_path_get_indices (path2) [0]);
+	
+	gtk_tree_path_free (path1);
+	gtk_tree_path_free (path2);
+}
+
+static void
+tb_on_parent_set_cb (GtkWidget *widget,
+		     GtkObject *old_parent,
+		     gpointer   user_data)
+{
+	EogThumbView *tb = EOG_THUMB_VIEW (widget);
+	GtkScrolledWindow *sw;
+	GtkAdjustment *hadjustment;
+	GtkAdjustment *vadjustment;
+
+	GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (tb));
+	if (!GTK_IS_SCROLLED_WINDOW (parent)) {
+		return;
+	}
+	
+	/* if we have been set to a ScrolledWindow, we connect to the callback
+	to set and unset thumbnails. */
+	sw = GTK_SCROLLED_WINDOW (parent);
+	hadjustment = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (sw));	
+	vadjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sw));
+	
+	/* when scrolling */
+	g_signal_connect_data (G_OBJECT (hadjustment), "value-changed", 
+			       G_CALLBACK (tb_on_visible_range_changed_cb), 
+			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
+	g_signal_connect_data (G_OBJECT (vadjustment), "value-changed", 
+			       G_CALLBACK (tb_on_visible_range_changed_cb), 
+			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
+	
+	/* when resizing the scrolled window */
+	g_signal_connect_swapped (G_OBJECT (sw), "size-allocate", 
+				  G_CALLBACK (tb_on_visible_range_changed_cb), 
+				  tb);
 }
 
 static void
 eog_thumb_view_init (EogThumbView *thumb_view)
 {
- 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumb_view),
+	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumb_view),
  					  GTK_SELECTION_MULTIPLE);
 
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (thumb_view), 
@@ -78,6 +217,14 @@ eog_thumb_view_init (EogThumbView *thumb_view)
 
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumb_view),
 					  EOG_THUMB_VIEW_SPACING);
+	
+	thumb_view->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumb_view);
+	
+	thumb_view->priv->start_thumb = 0;
+	thumb_view->priv->end_thumb = 0;
+	
+	g_signal_connect (G_OBJECT (thumb_view), "parent-set", 
+			  G_CALLBACK (tb_on_parent_set_cb), NULL);
 }
 
 GtkWidget *

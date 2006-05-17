@@ -1,3 +1,38 @@
+2006-05-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-image.c: 
+
+	(eog_image_set_thumbnail): Allow to unset the thumbnail by passing NULL.
+	
+	* libeog/eog-list-store.c: 
+
+	(eog_list_store_append_image): Do not set here the thumbnail, and just 
+	pass NULL to the model to indicate that the thumbnail is not set.
+	(eog_list_store_thumbnail_set): Function to set a thumbnail to an image
+	in the model.
+	(eog_list_store_thumbnail_unset): Function to unset a thumbnail to an 
+	image in the model.
+	
+	* libeog/eog-thumb-view.c: Implemented a lazy thumbnail loading engine.
+	Based on evince source code.
+
+	Defined the private data for the class, which contains the visible range 
+	of thumbnails.
+
+	(eog_thumb_view_class_init): Added the private structure to the class.
+	(eog_thumb_view_clear_range), (eog_thumb_view_add_range): New functions
+	to set and unset the thumbnails on a given range.
+	(eog_thumb_view_update_visible_range): Function to update the thumbnails
+	in the visible range, by unsetting the thumbnails in the old range, and 
+	setting the newly visible ones.
+	(tb_on_visible_range_changed_cb): Callback to be called when 
+	the widget resizes, or when the widget is scrolled, so we can 
+	load/unload thumbnails.
+	(tb_on_parent_set_cb): Callback for the "parent-set" signal of the 
+	widget.
+	(eog_thumb_view_init): Set the default values for the private data, and 
+	connect the "parent-set" signal.
+
 2006-05-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-list-store.c: (eog_job_thumbnail_cb),
