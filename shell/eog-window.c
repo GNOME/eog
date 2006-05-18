@@ -342,9 +342,12 @@ update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	int n_images = 0;
+	gboolean save_disabled = FALSE;
 	gboolean show_image_collection = FALSE;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
+	GtkAction *action_save;
+	GtkAction *action_save_as;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -357,8 +360,18 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_group_get_action (priv->actions_collection, 
 					     "ViewSlideshow");
 
+	action_save = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FileSave");
+
+	action_save_as = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FileSaveAs");
+
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
+	g_assert (action_save != NULL);
+	g_assert (action_save_as != NULL);
 	
 	if (priv->store != NULL) {
 		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
@@ -411,6 +424,13 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_set_sensitive (action_sshow,   TRUE);
 
 		gtk_widget_grab_focus (priv->view);
+	}
+
+	save_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_SAVE, NULL);
+
+	if (save_disabled) {
+		gtk_action_set_sensitive (action_save, FALSE);
+		gtk_action_set_sensitive (action_save_as, FALSE);
 	}
 }
 
