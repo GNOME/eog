@@ -33,8 +33,6 @@ noinst_PROGRAMS = test-eog-job test-image-load
 
 libeog_a_SOURCES =			\
 	$(MARSHAL_OUTPUT)		\
-	access.c			\
-	access.h			\
         accessible-image-view-factory.h	\
         accessible-image-view-factory.c	\
         accessible-image-view.h		\
