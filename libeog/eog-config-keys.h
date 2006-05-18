@@ -3,6 +3,8 @@
 
 #define EOG_CONF_DIR                         "/apps/eog"
 
+#define EOG_CONF_DESKTOP_CAN_SAVE            "/desktop/gnome/lockdown/disable_save_to_disk"
+
 #define EOG_CONF_VIEW_DIR                    "/apps/eog/view"
 #define EOG_CONF_VIEW_INTERPOLATE            "/apps/eog/view/interpolate"
 #define EOG_CONF_VIEW_TRANSPARENCY           "/apps/eog/view/transparency"

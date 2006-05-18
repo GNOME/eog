@@ -2655,8 +2655,11 @@ update_ui_visibility (EogWindow *window)
 	int n_images = 0;
 	gboolean show_info_pane = TRUE;
 	gboolean show_image_collection = FALSE;
+	gboolean save_disabled = FALSE;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
+	GtkAction *action_save;
+	GtkAction *action_save_as;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -2668,8 +2671,12 @@ update_ui_visibility (EogWindow *window)
 
 	action_fscreen = gtk_action_group_get_action (priv->actions_image, "ViewFullscreen");
 	action_sshow = gtk_action_group_get_action (priv->actions_image, "ViewSlideshow");
+	action_save = gtk_action_group_get_action (priv->actions_image, "FileSave");
+	action_save_as = gtk_action_group_get_action (priv->actions_image, "FileSaveAs");
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
+	g_assert (action_save != NULL);
+	g_assert (action_save_as != NULL);
 	
 	if (n_images == 0) {
 		/* update window content */
@@ -2735,6 +2742,13 @@ update_ui_visibility (EogWindow *window)
 		g_assert (action != NULL);
 
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show_info_pane);
+	}
+
+	save_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_SAVE, NULL);
+
+	if (save_disabled) {
+		gtk_action_set_sensitive (action_save, FALSE);
+		gtk_action_set_sensitive (action_save_as, FALSE);
 	}
 }
 
