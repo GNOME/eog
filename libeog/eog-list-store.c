@@ -715,26 +715,16 @@ eog_list_store_thumbnail_unset (EogListStore *store,
 				GtkTreeIter *iter)
 {
 	EogImage *image;
-	GdkPixbuf *thumbnail;
-	gboolean thumb_set;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
-			    EOG_LIST_STORE_THUMBNAIL, &thumbnail, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
-			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
 			    -1);
-	if (thumb_set) {
-		g_object_unref (image);
-		return;
-	}
-	
-	g_object_unref (thumbnail);
+
+	eog_image_set_thumbnail (image, NULL);
+	g_object_unref (image);
 
 	gtk_list_store_set (GTK_LIST_STORE (store), iter,
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
 			    EOG_LIST_STORE_THUMB_SET, FALSE,
-			    -1);
-	
-	eog_image_set_thumbnail (image, NULL);
-	g_object_unref (image);
+			    -1);	
 }
