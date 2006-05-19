@@ -499,6 +499,25 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	 */
 	translators = _("translator-credits");
 
+	const char *license[] = {
+		N_("This program is free software; you can redistribute it and/or modify "
+		   "it under the terms of the GNU General Public License as published by "
+		   "the Free Software Foundation; either version 2 of the License, or "
+		   "(at your option) any later version.\n"),
+		N_("This program is distributed in the hope that it will be useful, "
+		   "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+		   "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+		   "GNU General Public License for more details.\n"),
+		N_("You should have received a copy of the GNU General Public License "
+		   "along with this program; if not, write to the Free Software "
+		   "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.")
+	};
+
+	char *license_trans;
+
+	license_trans = g_strconcat (_(license[0]), "\n", _(license[1]), "\n",
+				     _(license[2]), "\n", NULL);
+
 	window = EOG_WINDOW (data);
 
 	gtk_show_about_dialog (GTK_WINDOW(window),
@@ -509,8 +528,13 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 			"authors", authors,
 			"documenters", documenters,
 			"translator-credits", translators,
-			"logo_icon_name", "image-viewer",
+			"website", "http://live.gnome.org/EyeOfGnome",
+			"logo-icon-name", "image-viewer",
+			"wrap-license", TRUE,
+			"license", license_trans,
 			NULL);
+
+	g_free (license_trans);
 }
 
 static void
