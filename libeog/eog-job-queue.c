@@ -1,6 +1,7 @@
 #include "eog-jobs.h"
 #include "eog-job-queue.h"
 
+GCond  *render_cond = NULL;
 GMutex *eog_queue_mutex = NULL;
 
 static GQueue *thumbnail_queue = NULL;
@@ -26,10 +27,11 @@ remove_job_from_queue (GQueue *queue, EogJob *job)
 }
 
 static void
-add_job_to_queue (GQueue *queue, EogJob  *job)
+add_job_to_queue_locked (GQueue *queue, EogJob  *job)
 {
 	g_object_ref (job);
 	g_queue_push_tail (queue, job);
+	g_cond_broadcast (render_cond);
 }
 
 static gboolean
@@ -58,6 +60,15 @@ handle_job (EogJob *job)
 			 (GSourceFunc) notify_finished,
 			 job,
 			 g_object_unref);
+}
+
+static gboolean
+no_jobs_available_unlocked (void)
+{
+	return  g_queue_is_empty (load_queue)      &&
+		g_queue_is_empty (transform_queue) &&
+		g_queue_is_empty (thumbnail_queue) &&
+		g_queue_is_empty (model_queue);
 }
 
 static EogJob *
@@ -92,6 +103,10 @@ eog_render_thread (gpointer data)
 
 		g_mutex_lock (eog_queue_mutex);
 
+		if (no_jobs_available_unlocked ()) {
+			g_cond_wait (render_cond, eog_queue_mutex);
+		}
+
 		job = search_for_jobs_unlocked ();
 
 		g_mutex_unlock (eog_queue_mutex);
@@ -111,6 +126,7 @@ eog_job_queue_init (void)
 {
 	if (!g_thread_supported ()) g_thread_init (NULL);
 
+	render_cond = g_cond_new ();
 	eog_queue_mutex = g_mutex_new ();
 
 	thumbnail_queue = g_queue_new ();
@@ -150,7 +166,7 @@ eog_job_queue_add_job (EogJob *job)
 
 	g_mutex_lock (eog_queue_mutex);
 	
-	add_job_to_queue (queue, job);
+	add_job_to_queue_locked (queue, job);
 
 	g_mutex_unlock (eog_queue_mutex);
 }

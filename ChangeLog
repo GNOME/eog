@@ -1,5 +1,13 @@
 2006-05-19  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/eog-job-queue.c (eog_render_thread,
+	no_jobs_available_unlocked, -add_job_to_queue,
+	+add_job_to_queue_locked): make the job manager thread sleep when
+	there are no jobs on the queues (Fixed bug #341600). Patch from
+	Paolo Borelli <pborelli@katamail.com>.
+
+2006-05-19  Lucas Rocha  <lucasr@gnome.org>
+
 	* shell/eog-window.c (eog_window_cmd_about): about dialog 
 	update (Fixes bug #342103). Patch from Claudio Saavedra
 	<csaavedra@alumnos.utalca.cl>. 
