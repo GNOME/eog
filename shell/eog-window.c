@@ -3057,7 +3057,9 @@ get_screen_profile (EogWindow *window)
 		XFree (str);
 		return profile;
 	} else {
+#ifdef DEBUG
 		g_printerr("No profile, not correcting\n");
+#endif
 		return NULL;
 	}
 }
