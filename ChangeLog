@@ -1,3 +1,14 @@
+2006-05-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* art/Makefile.am: Added loading.png to the file.
+	* libeog/eog-list-store.c: (eog_list_store_dispose),
+	(eog_list_store_init), (eog_job_thumbnail_cb),
+	(eog_list_store_append_image), (eog_list_store_thumbnail_set),
+	(eog_list_store_thumbnail_unset): Set a "busy" thumbnail
+	to the model in the images that are not visible. 
+	* libeog/eog-list-store.h: Adding a EOG_LIST_STORE_THUMB_SET column
+	to the model. Patch by Felix Riemann <felix@hsgheli.de>.
+
 2006-05-19  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-job-queue.c (eog_render_thread,

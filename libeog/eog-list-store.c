@@ -30,6 +30,7 @@
 
 #include <string.h>
 #include <libgnomeui/gnome-thumbnail.h>
+#include <libgnome/libgnome.h>
 
 #define EOG_LIST_STORE_THUMB_SIZE 90
 
@@ -38,6 +39,7 @@ static GSList *supported_mime_types = NULL;
 struct _EogListStorePriv {
 	GList *monitors;      /* monitors for the directories */
 	gint initial_image;   /* the image that should be selected firstly by the view. */
+	GdkPixbuf *busy_image; /* hourglass image */
 };
 
 typedef struct {
@@ -87,6 +89,11 @@ eog_list_store_dispose (GObject *object)
 	g_list_free (store->priv->monitors);
 
 	store->priv->monitors = NULL;
+
+	if(store->priv->busy_image != NULL) {
+		g_object_unref (store->priv->busy_image);
+		store->priv->busy_image = NULL;
+	}
 
 	G_OBJECT_CLASS (eog_list_store_parent_class)->dispose (object);
 }
@@ -141,11 +148,15 @@ eog_list_store_compare_func (GtkTreeModel *model,
 static void
 eog_list_store_init (EogListStore *self)
 {
+	char *path;
+	char *file;
+
 	GType types[EOG_LIST_STORE_NUM_COLUMNS];
 
 	types[EOG_LIST_STORE_CAPTION]   = G_TYPE_STRING;
 	types[EOG_LIST_STORE_THUMBNAIL] = GDK_TYPE_PIXBUF;
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
+	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
 
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
@@ -153,6 +164,13 @@ eog_list_store_init (EogListStore *self)
 	self->priv = g_new0 (EogListStorePriv, 1);
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
+
+	file = g_build_filename ("eog", "loading.png", NULL);
+	path = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_PIXMAP, 
+					  file, TRUE, NULL);
+	self->priv->busy_image = gdk_pixbuf_new_from_file (path, NULL);
+	g_free (path);
+	g_free (file);
 
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
 						 eog_list_store_compare_func,
@@ -222,7 +240,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	EogImage *image;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (data));
-	
+
 	store = EOG_LIST_STORE (data);
 
 	thumbnail = g_object_ref (job->thumbnail);
@@ -266,6 +284,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
+				    EOG_LIST_STORE_THUMB_SET, TRUE,
 				    -1);
 		g_object_unref (thumbnail);
 	}
@@ -283,7 +302,8 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, image, 
 			    EOG_LIST_STORE_CAPTION, eog_image_get_caption (image),
-			    EOG_LIST_STORE_THUMBNAIL, NULL,
+			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
+			    EOG_LIST_STORE_THUMB_SET, FALSE,
 			    -1);
 }
 
@@ -665,20 +685,19 @@ eog_list_store_thumbnail_set (EogListStore *store,
 {
 	EogJob *job;
 	EogImage *image;
-	GdkPixbuf *thumbnail;
+	gboolean *thumb_set;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
-			    EOG_LIST_STORE_THUMBNAIL, &thumbnail, 
+			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
 			    -1);
-	
-	if (GDK_IS_PIXBUF (thumbnail)) {
-		g_object_unref (thumbnail);
+
+	if (thumb_set) {
 		return;
 	}
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image, 
 			    -1);
-	
+
 	job = eog_job_thumbnail_new (eog_image_get_uri (image));
 	
 	g_signal_connect (job,
@@ -697,12 +716,14 @@ eog_list_store_thumbnail_unset (EogListStore *store,
 {
 	EogImage *image;
 	GdkPixbuf *thumbnail;
+	gboolean thumb_set;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_THUMBNAIL, &thumbnail, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
 			    -1);
-	if (!GDK_IS_PIXBUF (thumbnail)) {
+	if (thumb_set) {
 		g_object_unref (image);
 		return;
 	}
@@ -710,7 +731,8 @@ eog_list_store_thumbnail_unset (EogListStore *store,
 	g_object_unref (thumbnail);
 
 	gtk_list_store_set (GTK_LIST_STORE (store), iter,
-			    EOG_LIST_STORE_THUMBNAIL, NULL,
+			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
+			    EOG_LIST_STORE_THUMB_SET, FALSE,
 			    -1);
 	
 	eog_image_set_thumbnail (image, NULL);
