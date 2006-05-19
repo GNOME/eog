@@ -92,6 +92,9 @@ eog_statusbar_init (EogStatusbar *statusbar)
 			  statusbar->priv->progressbar,
 			  FALSE, TRUE, 0);
 	gtk_widget_hide (statusbar->priv->progressbar);
+
+	gtk_widget_set_size_request (statusbar->priv->progressbar, 
+				     -1, 10);
 }
 
 GtkWidget *
