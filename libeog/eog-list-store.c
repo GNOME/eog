@@ -30,7 +30,6 @@
 
 #include <string.h>
 #include <libgnomeui/gnome-thumbnail.h>
-#include <libgnome/libgnome.h>
 
 #define EOG_LIST_STORE_THUMB_SIZE 90
 
@@ -148,8 +147,8 @@ eog_list_store_compare_func (GtkTreeModel *model,
 static void
 eog_list_store_init (EogListStore *self)
 {
-	char *path;
-	char *file;
+	gchar *file;
+	GError *error = NULL;
 
 	GType types[EOG_LIST_STORE_NUM_COLUMNS];
 
@@ -165,11 +164,13 @@ eog_list_store_init (EogListStore *self)
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
-	file = g_build_filename ("eog", "loading.png", NULL);
-	path = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_PIXMAP, 
-					  file, TRUE, NULL);
-	self->priv->busy_image = gdk_pixbuf_new_from_file (path, NULL);
-	g_free (path);
+	file = g_build_filename (DATADIR, "icons", "loading.png", NULL);
+	self->priv->busy_image = gdk_pixbuf_new_from_file (file, &error);
+	if (error)
+	{
+		g_warning ("Could not load busy pixbuf: %s\n", error->message);
+		g_error_free (error);
+	}
 	g_free (file);
 
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
