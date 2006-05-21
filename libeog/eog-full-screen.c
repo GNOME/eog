@@ -538,6 +538,11 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	}
 
 	if (do_hide) {
+		cancel_load_by_iter (priv->list, priv->preload);
+		if (priv->preload != NULL) {
+			g_free (priv->preload);
+			priv->preload = NULL;
+		}
 		gtk_widget_hide (widget);
 	}
 
@@ -691,6 +696,12 @@ job_image_load_finished  (EogJob *job, gpointer data, GError *error)
 	EogImage *image = ((JobImageLoadData*) data)->image;
 	EogImage *current_img;
 	EogImage *preload_img;
+
+	if (eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED) {
+		g_object_set_qdata (G_OBJECT (image), JOB_ID_QUARK, NULL);
+		eog_image_data_unref (image);
+		return;
+	}
 
 	if (eog_job_get_success (job))
 		eog_image_cache_add (priv->cache, image);
