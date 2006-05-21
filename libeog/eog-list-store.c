@@ -144,12 +144,31 @@ eog_list_store_compare_func (GtkTreeModel *model,
 	return r_value;
 }
 
+static GdkPixbuf *
+eog_list_store_get_loading_icon (void)
+{
+	GError *error = NULL;
+	GtkIconTheme *icon_theme;
+	GdkPixbuf *pixbuf;
+	
+	icon_theme = gtk_icon_theme_get_default();
+	pixbuf = gtk_icon_theme_load_icon (icon_theme,
+					   "image-loading", /* icon name */
+					   EOG_LIST_STORE_THUMB_SIZE, /* size */
+					   0,  /* flags */
+					   &error);
+
+	if (!pixbuf) {
+		g_warning ("Couldn't load icon: %s", error->message);
+		g_error_free (error);
+	}
+
+	return pixbuf;
+}
+
 static void
 eog_list_store_init (EogListStore *self)
 {
-	gchar *file;
-	GError *error = NULL;
-
 	GType types[EOG_LIST_STORE_NUM_COLUMNS];
 
 	types[EOG_LIST_STORE_CAPTION]   = G_TYPE_STRING;
@@ -164,14 +183,7 @@ eog_list_store_init (EogListStore *self)
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
-	file = g_build_filename (DATADIR, "icons", "loading.png", NULL);
-	self->priv->busy_image = gdk_pixbuf_new_from_file (file, &error);
-	if (error)
-	{
-		g_warning ("Could not load busy pixbuf: %s\n", error->message);
-		g_error_free (error);
-	}
-	g_free (file);
+	self->priv->busy_image = eog_list_store_get_loading_icon ();
 
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
 						 eog_list_store_compare_func,

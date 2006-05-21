@@ -1,7 +1,6 @@
 iconsdir = $(pkgdatadir)/icons
 
 icons_DATA = 				\
-	loading.png			\
 	stock-flip-horizontal-16.png	\
 	stock-flip-vertical-16.png	\
 	stock-rotate-90-16.png		\

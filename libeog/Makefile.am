@@ -6,7 +6,6 @@ jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
 INCLUDES =							\
-	-DDATADIR=\"$(pkgdatadir)\"				\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DHAVE_COLLECTION					\
 	-I$(srcdir) -I$(top_srcdir)				\

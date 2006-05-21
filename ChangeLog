@@ -1,3 +1,13 @@
+2006-05-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* art/Makefile.am: Removing loading.png.
+	* art/loading.png: Removed.
+	* libeog/Makefile.am: Remove DDATADIR define. No longer needed.
+	* libeog/eog-list-store.c: (eog_list_store_get_loading_icon),
+	(eog_list_store_init): Use a themeable icon for the "busy" icon.
+	This way we don't need to ship our custom icon, and we use the 
+	gnome-icon-theme love.
+
 2006-05-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/Makefile.am: Include DDATADIR define.
