@@ -1,3 +1,15 @@
+2006-05-27  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-list-store.c: (vfs_monitor_dir_cb): Remove some
+	debug output.
+	
+	* libeog/eog-thumb-view.c: (tb_on_adjustment_changed_cb), 
+	(tb_on_parent_set_cb): 
+
+	Update visible thumbnails when an image is added to
+	the view. Useful for the case when images are added
+	to a directory being monitored.
+
 2006-05-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* art/Makefile.am: Removing loading.png.

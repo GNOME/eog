@@ -146,7 +146,7 @@ tb_on_visible_range_changed_cb (EogThumbView *tb,
                                 gpointer user_data)
 {
 	GtkTreePath *path1, *path2;
-	
+
 	if (!gtk_icon_view_get_visible_range (GTK_ICON_VIEW (tb), &path1, &path2)) {
 		return;
 	}
@@ -162,6 +162,40 @@ tb_on_visible_range_changed_cb (EogThumbView *tb,
 	eog_thumb_view_update_visible_range (tb, gtk_tree_path_get_indices (path1) [0],
 					     gtk_tree_path_get_indices (path2) [0]);
 	
+	gtk_tree_path_free (path1);
+	gtk_tree_path_free (path2);
+}
+
+static void
+tb_on_adjustment_changed_cb (EogThumbView *tb,
+			     gpointer user_data)
+{
+	GtkTreePath *path1, *path2;
+	gint start_thumb, end_thumb;
+	
+	if (!gtk_icon_view_get_visible_range (GTK_ICON_VIEW (tb), &path1, &path2)) {
+		return;
+	}
+	
+	if (path1 == NULL) {
+		path1 = gtk_tree_path_new_first ();
+	}
+	if (path2 == NULL) {
+		gint n_items = gtk_tree_model_iter_n_children (gtk_icon_view_get_model (GTK_ICON_VIEW (tb)), NULL);
+		path2 = gtk_tree_path_new_from_indices (n_items - 1 , -1);
+	}
+
+	start_thumb = gtk_tree_path_get_indices (path1) [0];
+	end_thumb = gtk_tree_path_get_indices (path2) [0];
+
+	eog_thumb_view_add_range (tb, start_thumb, end_thumb);	
+
+	/* case we added an image, we need to make sure that the shifted thumbnail is cleared */
+	eog_thumb_view_clear_range (tb, end_thumb + 1, end_thumb + 1);
+
+	tb->priv->start_thumb = start_thumb;
+	tb->priv->end_thumb = end_thumb;
+
 	gtk_tree_path_free (path1);
 	gtk_tree_path_free (path2);
 }
@@ -195,6 +229,14 @@ tb_on_parent_set_cb (GtkWidget *widget,
 			       G_CALLBACK (tb_on_visible_range_changed_cb), 
 			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
 	
+	/* when the adjustment is changed, ie. probably we have new images added. */
+	g_signal_connect_data (G_OBJECT (hadjustment), "changed", 
+			       G_CALLBACK (tb_on_adjustment_changed_cb), 
+			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
+	g_signal_connect_data (G_OBJECT (vadjustment), "changed", 
+			       G_CALLBACK (tb_on_adjustment_changed_cb), 
+			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
+
 	/* when resizing the scrolled window */
 	g_signal_connect_swapped (G_OBJECT (sw), "size-allocate", 
 				  G_CALLBACK (tb_on_visible_range_changed_cb), 

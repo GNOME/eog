@@ -407,7 +407,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 
 	switch (event_type) {
 	case GNOME_VFS_MONITOR_EVENT_CHANGED:
-		g_print ("a file was modified\n");
+
 		mimetype = gnome_vfs_get_mime_type (info_uri);
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			if (is_supported_mime_type (mimetype)) {
@@ -429,13 +429,13 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		g_free (mimetype);
 		break;
 	case GNOME_VFS_MONITOR_EVENT_DELETED:
-		g_print ("a file was deleted\n");		
+
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 		}
 		break;
 	case GNOME_VFS_MONITOR_EVENT_CREATED:
-		g_print ("a file was created\n");
+
 		if (is_file_in_list_store (store, info_uri, NULL)) {
 			uri = gnome_vfs_uri_new (info_uri);
 			eog_list_store_append_image_from_uri (store, uri);
