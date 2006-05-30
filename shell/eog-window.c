@@ -100,6 +100,8 @@ struct _EogWindowPrivate {
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
+static void eog_job_load_cb (EogJobLoad *job, gpointer data);
+static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 
 static void
 eog_window_interp_type_changed_cb (GConfClient *client,
@@ -287,6 +289,24 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 }
 
 static void
+eog_window_clear_load_job (EogWindow *window)
+{
+	if (window->priv->load_job != NULL) {
+		if (!window->priv->load_job->finished)
+			eog_job_queue_remove_job (window->priv->load_job);
+	
+		g_signal_handlers_disconnect_by_func (window->priv->load_job, 
+						      eog_job_load_cb, 
+						      window);
+
+		eog_image_cancel_load (EOG_JOB_LOAD (window->priv->load_job)->image);
+		
+		g_object_unref (window->priv->load_job);
+		window->priv->load_job = NULL;
+	}
+}
+
+static void
 eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
 	EogWindow *window;
@@ -299,29 +319,11 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 		eog_window_display_image (window, job->image);
 	}
 
+	eog_window_clear_load_job (window);
+
 	g_object_unref (job->image);
 }
 
-static void
-eog_window_clear_load_job (EogWindow *window)
-{
-	if (window->priv->load_job != NULL) {
-		if (!window->priv->load_job->finished)
-			eog_job_queue_remove_job (window->priv->load_job);
-	
-		g_signal_handlers_disconnect_by_func (window->priv->load_job, 
-						      eog_job_load_cb, 
-						      window);
-		g_object_unref (window->priv->load_job);
-		window->priv->load_job = NULL;
-	}
-}
-
-static void
-eog_job_transform_cb (EogJobTransform *job, gpointer data)
-{
-}
-	
 static void
 eog_window_clear_transform_job (EogWindow *window)
 {
@@ -337,6 +339,18 @@ eog_window_clear_transform_job (EogWindow *window)
 	}
 }
 
+static void
+eog_job_transform_cb (EogJobTransform *job, gpointer data)
+{
+	EogWindow *window;
+	
+        g_return_if_fail (EOG_IS_WINDOW (data));
+	
+	window = EOG_WINDOW (data);
+
+	eog_window_clear_transform_job (window);
+}
+	
 static void
 update_action_groups_state (EogWindow *window)
 {
