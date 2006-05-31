@@ -1674,7 +1674,7 @@ eog_image_get_collate_key (EogImage *img)
 		char *caption;
 
 		caption = eog_image_get_caption (img);
-		priv->caption_key = g_utf8_collate_key (caption, -1);
+		priv->caption_key = g_utf8_collate_key_for_filename (caption, -1);
 	}
 
 	return priv->caption_key;
