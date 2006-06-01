@@ -169,6 +169,9 @@ set_pixbuf (EogCollectionItem *item, GdkPixbuf *pixbuf, gboolean view_frame)
 		new_width = image_width * factor;
 		new_height = image_height * factor;
 
+		new_height = MAX (new_height, 1);
+		new_width = MAX (new_width, 1);
+
 		scaled = gnome_thumbnail_scale_down_pixbuf (pixbuf, new_width, new_height);
 
 		image_width = gdk_pixbuf_get_width (scaled);
