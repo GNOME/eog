@@ -1875,9 +1875,13 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
 	gnome_print_translate (context, (paper_width - width)/2.0, (paper_height - height)/2.0);
 	gnome_print_scale (context, width, height);
 	
-	gnome_print_rgbimage (context, gdk_pixbuf_get_pixels (printed_image), 
-		pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
-		
+	if (gdk_pixbuf_get_has_alpha (printed_image)) {
+		gnome_print_rgbaimage (context, gdk_pixbuf_get_pixels (printed_image), 
+			pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
+	} else {
+		gnome_print_rgbimage (context, gdk_pixbuf_get_pixels (printed_image), 
+			pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
+	}
   
 	g_object_unref (G_OBJECT (printed_image));	
 }
