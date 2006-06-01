@@ -265,8 +265,8 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) height;			
 		}
 		
-		width  = width  * factor;
-		height = height * factor;
+		width  = MAX (width  * factor, 1);
+		height = MAX (height * factor, 1);
 		
 		scaled = gnome_thumbnail_scale_down_pixbuf (thumbnail, 
 							    width, height);
