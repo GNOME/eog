@@ -32,17 +32,21 @@
 
 G_DEFINE_TYPE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW);
 
+static void eog_thumb_view_popup_menu     (EogThumbView      *widget, 
+					   GdkEventButton    *event);
+
 struct _EogThumbViewPrivate {
 	gint start_thumb; /* the first visible thumbnail */
 	gint end_thumb;   /* the last visible thumbnail  */
+	GtkWidget *menu;  /* a contextual menu for thumbnails */
 };
 
 static void
 eog_thumb_view_finalize (GObject *object)
 {
-	EogThumbView *thumb_view;
+	EogThumbView *tb;
 	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumb_view = EOG_THUMB_VIEW (object);
+	tb = EOG_THUMB_VIEW (object);
 	
 	G_OBJECT_CLASS (eog_thumb_view_parent_class)->finalize (object);
 }
@@ -50,9 +54,9 @@ eog_thumb_view_finalize (GObject *object)
 static void
 eog_thumb_view_destroy (GtkObject *object)
 {
-	EogThumbView *thumb_view;
+	EogThumbView *tb;
 	g_return_if_fail (EOG_IS_THUMB_VIEW (object));
-	thumb_view = EOG_THUMB_VIEW (object);
+	tb = EOG_THUMB_VIEW (object);
 
 	GTK_OBJECT_CLASS (eog_thumb_view_parent_class)->destroy (object);
 }
@@ -218,7 +222,7 @@ tb_on_parent_set_cb (GtkWidget *widget,
 	/* if we have been set to a ScrolledWindow, we connect to the callback
 	to set and unset thumbnails. */
 	sw = GTK_SCROLLED_WINDOW (parent);
-	hadjustment = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (sw));	
+	hadjustment = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (sw));
 	vadjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sw));
 	
 	/* when scrolling */
@@ -243,62 +247,89 @@ tb_on_parent_set_cb (GtkWidget *widget,
 				  tb);
 }
 
-static void
-eog_thumb_view_init (EogThumbView *thumb_view)
+static gboolean
+tb_on_button_press_event_cb (GtkWidget *tb, GdkEventButton *event, 
+                             gpointer user_data)
 {
-	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (thumb_view),
+    GtkTreePath *path;
+    
+    /* Ignore double-clicks and triple-clicks */
+    if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+    {
+	    path = gtk_icon_view_get_path_at_pos (GTK_ICON_VIEW (tb), 
+						  (gint) event->x, (gint) event->y);
+	    if (path == NULL) {
+		    return FALSE;
+	    }
+
+	    gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
+	    gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+
+	    eog_thumb_view_popup_menu (EOG_THUMB_VIEW (tb), event);
+	    
+	    return TRUE;
+    }
+    
+    return FALSE;
+}
+
+static void
+eog_thumb_view_init (EogThumbView *tb)
+{
+	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (tb),
  					  GTK_SELECTION_MULTIPLE);
 
-	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (thumb_view), 
+	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (tb), 
 					 EOG_LIST_STORE_THUMBNAIL);
-	gtk_icon_view_set_text_column (GTK_ICON_VIEW (thumb_view), 
+	gtk_icon_view_set_text_column (GTK_ICON_VIEW (tb), 
 				       EOG_LIST_STORE_CAPTION);
 	
-	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (thumb_view),
+	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (tb),
 					  EOG_THUMB_VIEW_SPACING);
 
-	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (thumb_view),
+	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (tb),
 					  EOG_THUMB_VIEW_SPACING);
 	
-	thumb_view->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumb_view);
+	tb->priv = EOG_THUMB_VIEW_GET_PRIVATE (tb);
 	
-	thumb_view->priv->start_thumb = 0;
-	thumb_view->priv->end_thumb = 0;
+	tb->priv->start_thumb = 0;
+	tb->priv->end_thumb = 0;
+	tb->priv->menu = NULL;
 	
-	g_signal_connect (G_OBJECT (thumb_view), "parent-set", 
+	g_signal_connect (G_OBJECT (tb), "parent-set", 
 			  G_CALLBACK (tb_on_parent_set_cb), NULL);
 }
 
 GtkWidget *
 eog_thumb_view_new (void)
 {
-	EogThumbView *thumb_view;
+	EogThumbView *tb;
 	
-	thumb_view = g_object_new (EOG_TYPE_THUMB_VIEW, NULL);
+	tb = g_object_new (EOG_TYPE_THUMB_VIEW, NULL);
 
-	return GTK_WIDGET (thumb_view);
+	return GTK_WIDGET (tb);
 }
 
 void
-eog_thumb_view_set_model (EogThumbView *view, EogListStore *store)
+eog_thumb_view_set_model (EogThumbView *tb, EogListStore *store)
 {
-	g_return_if_fail (EOG_IS_THUMB_VIEW (view));
+	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	
 	gint index = eog_list_store_get_initial_pos (store);
 
-	gtk_icon_view_set_model (GTK_ICON_VIEW (view), GTK_TREE_MODEL (store));
+	gtk_icon_view_set_model (GTK_ICON_VIEW (tb), GTK_TREE_MODEL (store));
 
 	if (index >= 0) {
 		GtkTreePath *path = gtk_tree_path_new_from_indices (index, -1);
-		gtk_icon_view_select_path (GTK_ICON_VIEW (view), path);
-		gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (view), path, FALSE, 0, 0);
+		gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+		gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 		gtk_tree_path_free (path);
 	}
 }
 
 static void
-eog_thumb_view_get_n_selected_helper (GtkIconView *icon_view,
+eog_thumb_view_get_n_selected_helper (GtkIconView *tb,
 				      GtkTreePath *path,
 				      gpointer data)
 {
@@ -307,23 +338,23 @@ eog_thumb_view_get_n_selected_helper (GtkIconView *icon_view,
 }
 
 guint
-eog_thumb_view_get_n_selected (EogThumbView *view)
+eog_thumb_view_get_n_selected (EogThumbView *tb)
 {
 	guint count = 0;
-	gtk_icon_view_selected_foreach (GTK_ICON_VIEW (view),
+	gtk_icon_view_selected_foreach (GTK_ICON_VIEW (tb),
 					eog_thumb_view_get_n_selected_helper,
 					(&count));
 	return count;
 }
 
 static EogImage *
-eog_thumb_view_get_image_from_path (EogThumbView *view, GtkTreePath *path)
+eog_thumb_view_get_image_from_path (EogThumbView *tb, GtkTreePath *path)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	EogImage *image;
 
-	model = gtk_icon_view_get_model (GTK_ICON_VIEW (view));
+	model = gtk_icon_view_get_model (GTK_ICON_VIEW (tb));
 	gtk_tree_model_get_iter (model, &iter, path);
 
 	gtk_tree_model_get (model, &iter,
@@ -334,13 +365,13 @@ eog_thumb_view_get_image_from_path (EogThumbView *view, GtkTreePath *path)
 }
 
 EogImage *
-eog_thumb_view_get_first_selected_image (EogThumbView *view)
+eog_thumb_view_get_first_selected_image (EogThumbView *tb)
 {
 	/* The returned list is not sorted! We need to find the 
 	   smaller tree path value => tricky and expensive. Do we really need this?
 	*/
 	EogImage *image;
-	GList *list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (view));
+	GList *list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (tb));
 
 	if (list == NULL) {
 		return NULL;
@@ -350,7 +381,7 @@ eog_thumb_view_get_first_selected_image (EogThumbView *view)
 
 	/* debugging purposes */
 	gchar *text_path;
-	image = eog_thumb_view_get_image_from_path (view, path);
+	image = eog_thumb_view_get_image_from_path (tb, path);
 	text_path = gtk_tree_path_to_string (path);
 	g_free (text_path);
 
@@ -361,18 +392,18 @@ eog_thumb_view_get_first_selected_image (EogThumbView *view)
 }
 
 GList *
-eog_thumb_view_get_selected_images (EogThumbView *view)
+eog_thumb_view_get_selected_images (EogThumbView *tb)
 {
 	GList *l, *item;
 	GList *list = NULL;
 
 	GtkTreePath *path;
 
-	l = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (view));
+	l = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (tb));
 
 	for (item = l; item != NULL; item = item->next) {
 		path = (GtkTreePath *) item->data;
-		list = g_list_prepend (list, eog_thumb_view_get_image_from_path (view, path));
+		list = g_list_prepend (list, eog_thumb_view_get_image_from_path (tb, path));
 		gtk_tree_path_free (path);
 	}
 
@@ -383,14 +414,14 @@ eog_thumb_view_get_selected_images (EogThumbView *view)
 }
 
 void
-eog_thumb_view_set_current_image (EogThumbView *view, EogImage *image,
+eog_thumb_view_set_current_image (EogThumbView *tb, EogImage *image,
 				  gboolean deselect_other)
 {
 	GtkTreePath *path;
 	EogListStore *store;
 	gint pos;
 
-	store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (view)));
+	store = EOG_LIST_STORE (gtk_icon_view_get_model (GTK_ICON_VIEW (tb)));
 	pos = eog_list_store_get_pos_by_image (store, image);
 	path = gtk_tree_path_new_from_indices (pos, -1);
 
@@ -399,29 +430,29 @@ eog_thumb_view_set_current_image (EogThumbView *view, EogImage *image,
 	}
 
 	if (deselect_other) {
-		gtk_icon_view_unselect_all (GTK_ICON_VIEW (view));
+		gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
 	}
 	
-	gtk_icon_view_select_path (GTK_ICON_VIEW (view), path);
-	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (view), path, FALSE, 0, 0);
+	gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 
 	gtk_tree_path_free (path);
 }
 
 void
-eog_thumb_view_select_single (EogThumbView *view, 
+eog_thumb_view_select_single (EogThumbView *tb, 
 			      EogThumbViewSelectionChange change)
 {
-	g_return_if_fail (EOG_IS_THUMB_VIEW (view));
+	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
 	GtkTreePath *path = NULL;
 	GtkTreeModel *model;
 	GList *list;
 	gint n_items;
 
-	model = gtk_icon_view_get_model (GTK_ICON_VIEW (view));
+	model = gtk_icon_view_get_model (GTK_ICON_VIEW (tb));
 	n_items = gtk_tree_model_iter_n_children (model, NULL);
 	
-	if (eog_thumb_view_get_n_selected (view) == 0) {
+	if (eog_thumb_view_get_n_selected (tb) == 0) {
 		switch (change) {
 		case EOG_THUMB_VIEW_SELECT_RIGHT:
 		case EOG_THUMB_VIEW_SELECT_FIRST:
@@ -432,12 +463,12 @@ eog_thumb_view_select_single (EogThumbView *view,
 			path = gtk_tree_path_new_from_indices (n_items - 1, -1);
 		}
 	} else {
-		list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (view));
+		list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (tb));
 		path = gtk_tree_path_copy ((GtkTreePath *) list->data);
 		g_list_foreach (list, (GFunc) gtk_tree_path_free , NULL);
 		g_list_free (list);
 		
-		gtk_icon_view_unselect_all (GTK_ICON_VIEW (view));
+		gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
 		
 		switch (change) {
 		case EOG_THUMB_VIEW_SELECT_LEFT:
@@ -464,7 +495,78 @@ eog_thumb_view_select_single (EogThumbView *view,
 		}
 	}
 
-	gtk_icon_view_select_path (GTK_ICON_VIEW (view), path);
-	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (view), path, FALSE, 0, 0);
+	gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 	gtk_tree_path_free (path);
+}
+
+/** 
+ * eog_thumb_view_set_thumbnail_context_menu:
+ * 
+ * @tb: A #GtkThumbView.
+ * @ui: A XML UI definition, including the popup definition.
+ * @action_group: A #GtkActionGroup for the popup.
+ * 
+ * This functions adds a popup to be displayed everytime the right mouse button
+ * is pressed over a thumbnail. 
+ *
+ * The @ui string must have popup definition called 'ThumbnailPopup', and the actions
+ * for its items must be defined in @action_group. See test-eog-tb.c for an example.
+ * 
+ * Currently, you can call this function only once to set the menu. The current 
+ * selection will be dismissed at right button clicking time and only the thumbnail
+ * under the pointer will be selected.
+ * 
+ **/
+void
+eog_thumb_view_set_thumbnail_context_menu (EogThumbView   *tb, 
+					   const gchar    *ui, 
+					   GtkActionGroup *action_group)
+{
+	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
+	g_return_if_fail (tb->priv->menu == NULL);
+
+	GtkUIManager *ui_manager;
+	GError *error = NULL;
+
+	ui_manager = gtk_ui_manager_new ();
+	gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+	if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui, -1, &error)) {
+		g_warning ("Couldn't load menu definition: %s\n", error->message);
+		g_error_free (error);
+		return;
+	}
+
+	tb->priv->menu = g_object_ref (gtk_ui_manager_get_widget (ui_manager, "/ThumbnailPopup"));
+	
+ 	g_object_unref (ui_manager);
+
+	gtk_menu_attach_to_widget (GTK_MENU (tb->priv->menu), GTK_WIDGET (tb), NULL);
+	g_signal_connect (G_OBJECT (tb), "button_press_event",
+			  G_CALLBACK (tb_on_button_press_event_cb), NULL);
+	
+}
+
+static void 
+eog_thumb_view_popup_menu (EogThumbView *tb, GdkEventButton *event)
+{
+	GtkWidget *popup;
+	int button, event_time;
+
+	popup = tb->priv->menu;
+	
+	if (event)
+	{
+		button = event->button;
+		event_time = event->time;
+	}
+	else
+	{
+		button = 0;
+		event_time = gtk_get_current_event_time ();
+	}
+	
+	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, 
+			button, event_time);
 }

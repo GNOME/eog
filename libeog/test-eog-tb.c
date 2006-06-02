@@ -124,6 +124,23 @@ string_array_to_list (gchar **files, gint n_files)
 	return g_list_reverse (list);
 }
 
+static void
+do_something_with_test_1 (void)
+{
+	g_print ("do something with test 1\n");
+}
+
+static const gchar *ui = "<ui>\n"
+	"  <popup name=\"ThumbnailPopup\" action=\"PopupAction\">\n"
+	"      <menuitem name=\"ItemName\" action=\"ItemAction\" />\n"
+	"  </popup>\n"
+	"</ui>\n\0";
+
+static const GtkActionEntry entries[] = {
+	{ "PopupAction", NULL, ""},
+	{ "ItemAction", GTK_STOCK_OPEN, "Test 1", NULL, NULL, G_CALLBACK (do_something_with_test_1) },
+};
+
 int 
 main (gint argc, gchar **argv)
 {
@@ -131,7 +148,7 @@ main (gint argc, gchar **argv)
 	GtkWidget *vbox;
 	GtkWidget *hbox;
 	GtkWidget *button;
-
+	GtkActionGroup *action_group;
 	GList *list_uris;
 
 	GtkWidget *scrolled_window;
@@ -153,6 +170,10 @@ main (gint argc, gchar **argv)
 
 	thumb_view = eog_thumb_view_new ();
 	model = eog_list_store_new ();
+
+	action_group = gtk_action_group_new ("MenuActions");
+	gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), thumb_view);
+	eog_thumb_view_set_thumbnail_context_menu (EOG_THUMB_VIEW (thumb_view), ui, action_group);
 
 	g_signal_connect (G_OBJECT (thumb_view), 
 			  "selection-changed", 

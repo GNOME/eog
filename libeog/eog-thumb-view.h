@@ -74,6 +74,10 @@ void        eog_thumb_view_set_current_image	    (EogThumbView *view,
 						     EogImage     *image,
 						     gboolean     deselect_other);
 
+void        eog_thumb_view_set_thumbnail_context_menu (EogThumbView *tb, 
+						       const gchar  *ui,
+						       GtkActionGroup *action_group);
+
 G_END_DECLS
 
 #endif /* EOG_THUMB_VIEW_H */

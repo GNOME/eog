@@ -1,3 +1,35 @@
+2006-06-02  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-thumb-view.c: (eog_thumb_view_finalize),
+	(eog_thumb_view_destroy), (tb_on_parent_set_cb),
+	(tb_on_button_press_event_cb), (eog_thumb_view_init),
+	(eog_thumb_view_new), (eog_thumb_view_set_model),
+	(eog_thumb_view_get_n_selected_helper),
+	(eog_thumb_view_get_n_selected),
+	(eog_thumb_view_get_image_from_path),
+	(eog_thumb_view_get_first_selected_image),
+	(eog_thumb_view_get_selected_images),
+	(eog_thumb_view_set_current_image), (eog_thumb_view_select_single),
+	(eog_thumb_view_set_thumbnail_context_menu),
+	(eog_thumb_view_popup_menu):
+
+	Renamed all 'thumb_view' and 'view' instances to tb, for consistence.
+
+	Added a popup menu implementation for thumbnails. At libeog level 
+	I added only the facility to add the popup menu, but this must be 
+	defined at the application level. See libeog/test-eog-tb.c for
+	an example of its usage.
+	
+	Add a GtkWidget pointer to the private data of EogThumbView, to
+	maintain a reference to the popup menu.
+	
+	* libeog/eog-thumb-view.h: Added function to set a context menu for
+	the thumbnails. See the implementation for an explanation on how to use
+	it.
+	
+	* libeog/test-eog-tb.c: (do_something_with_test_1), (main): Added test 
+	code for the popup.
+
 2006-06-01  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-image.c (eog_image_print): fix printing for images with
