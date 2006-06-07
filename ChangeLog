@@ -1,3 +1,16 @@
+2006-06-07  Lucas Rocha  <lucasr@gnome.org>
+
+	* libeog/eog-image.[ch] (eog_image_real_load,
+	eog_image_load_exif_data_only, eog_image_load), eog-jobs.[ch]
+	(eog_job_init, eog_job_dispose, eog_job_class_init, +notify_progress,
+	eog_job_set_progress, eog_job_load_run), shell/eog-statusbar.c
+	(eog_statusbar_set_progress), shell/eog-window.c
+	(eog_window_clear_load_job, +eog_job_load_progress_cb,
+	eog_job_load_cb, handle_image_selection_changed):
+
+	Image loading progress status implementation with the new job
+	infrastructure.
+
 2006-06-02  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-thumb-view.c: (eog_thumb_view_finalize),

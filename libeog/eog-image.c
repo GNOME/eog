@@ -23,6 +23,7 @@
 #include "eog-image-save-info.h"
 #include "eog-info-view-file.h"
 #include "eog-util.h"
+#include "eog-jobs.h"
 #ifdef HAVE_JPEG
 #include "eog-image-jpeg.h"
 #endif
@@ -465,7 +466,7 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 
 /* this function runs in it's own thread */
 static gboolean
-eog_image_load_exif_data_only (EogImage *img, GError **error)
+eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	GnomeVFSHandle *handle;
@@ -518,6 +519,11 @@ eog_image_load_exif_data_only (EogImage *img, GError **error)
 		
 		bytes_read_total += bytes_read;
 
+		if (job != NULL) {
+			float progress = (float) bytes_read_total / (float) priv->bytes;
+			eog_job_set_progress (job, progress);
+		}
+		
 		/* check if we support reading metadata for that image format (only JPG atm) */
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
@@ -697,7 +703,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 
 /* this function runs in it's own thread */
 static gboolean
-eog_image_real_load (EogImage *img, guint data2read, GError **error)
+eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	GdkPixbufLoader *loader;
@@ -765,6 +771,11 @@ eog_image_real_load (EogImage *img, guint data2read, GError **error)
 
 		bytes_read_total += bytes_read;
 
+		if (job != NULL) {
+			float progress = (float) bytes_read_total / (float) priv->bytes;
+			eog_job_set_progress (job, progress);
+		}
+		
 		/* check if we support reading metadata for that image format (only JPG atm) */
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
@@ -883,7 +894,7 @@ eog_image_has_data (EogImage *img, guint req_data)
 }
 
 gboolean
-eog_image_load (EogImage *img, guint data2read, GError **error)
+eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
@@ -906,20 +917,14 @@ eog_image_load (EogImage *img, guint data2read, GError **error)
 			   eog_image_get_caption (img));
 	}
 
-	if (priv->status == EOG_IMAGE_STATUS_FAILED) {
-		g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_NOT_LOADED, 
-			     priv->error_message);
-		return FALSE;
-	}
-	
 	priv->status = EOG_IMAGE_STATUS_LOADING;
 
 	/* Read the requested data from the image */
 	if (data2read == EOG_IMAGE_DATA_EXIF) {
-		success = eog_image_load_exif_data_only (img, error);
+		success = eog_image_load_exif_data_only (img, job, error);
 	}
 	else {
-		success = eog_image_real_load (img, data2read, error);
+		success = eog_image_real_load (img, data2read, job, error);
 	}
 
 #ifdef DEBUG
@@ -939,12 +944,6 @@ eog_image_load (EogImage *img, guint data2read, GError **error)
 	}
 	else {
 		priv->status = EOG_IMAGE_STATUS_FAILED;
-
-		/* set the image error message */
-		if (priv->error_message != NULL) {
-			g_free (priv->error_message);
-		}
-		priv->error_message = g_strdup((*error)->message);
 	}
 
 	return success;

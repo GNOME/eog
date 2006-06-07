@@ -1,3 +1,27 @@
+/* Eye Of Gnome - Jobs  
+ *
+ * Copyright (C) 2006 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on evince code (shell/ev-jobs.c) by: 
+ * 	- Martin Kretzschmar <martink@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include "eog-jobs.h"
 #include "eog-job-queue.h"
 #include "eog-image.h"
@@ -5,32 +29,29 @@
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
 
-static void eog_job_init	         (EogJob		*job);
-static void eog_job_class_init		 (EogJobClass		*class);
-static void eog_job_thumbnail_init	 (EogJobThumbnail	*job);
-static void eog_job_thumbnail_class_init (EogJobThumbnailClass	*class);
-static void eog_job_load_init		 (EogJobLoad		*job);
-static void eog_job_load_class_init	 (EogJobLoadClass	*class);
-static void eog_job_model_init		 (EogJobModel		*job);
-static void eog_job_model_class_init	 (EogJobModelClass	*class);
-static void eog_job_transform_init	 (EogJobTransform	*job);
-static void eog_job_transform_class_init (EogJobTransformClass	*class);
+#define EOG_JOB_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_JOB, EogJobPrivate))
+
+G_DEFINE_TYPE (EogJob, eog_job, G_TYPE_OBJECT);
+G_DEFINE_TYPE (EogJobThumbnail, eog_job_thumbnail, EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobLoad, eog_job_load, EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobModel, eog_job_model, EOG_TYPE_JOB);
+G_DEFINE_TYPE (EogJobTransform, eog_job_transform, EOG_TYPE_JOB);
 
 enum
 {
-	FINISHED,
-	LAST_SIGNAL
+	SIGNAL_FINISHED,
+	SIGNAL_PROGRESS,
+	SIGNAL_LAST_SIGNAL
 };
 
-static guint job_signals[LAST_SIGNAL] = { 0 };
+static guint job_signals[SIGNAL_LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (EogJob, eog_job, G_TYPE_OBJECT)
-G_DEFINE_TYPE (EogJobThumbnail, eog_job_thumbnail, EOG_TYPE_JOB)
-G_DEFINE_TYPE (EogJobLoad, eog_job_load, EOG_TYPE_JOB)
-G_DEFINE_TYPE (EogJobModel, eog_job_model, EOG_TYPE_JOB)
-G_DEFINE_TYPE (EogJobTransform, eog_job_transform, EOG_TYPE_JOB)
-
-static void eog_job_init (EogJob *job) { /* Do Nothing */ }
+static void eog_job_init (EogJob *job) 
+{
+	job->mutex = g_mutex_new();
+	job->progress = 0.0;
+}
 
 static void
 eog_job_dispose (GObject *object)
@@ -42,6 +63,11 @@ eog_job_dispose (GObject *object)
 	if (job->error) {
 		g_error_free (job->error);
 		job->error = NULL;
+	}
+
+	if (job->mutex) {
+		g_mutex_free (job->mutex);
+		job->mutex = NULL;
 	}
 
 	(* G_OBJECT_CLASS (eog_job_parent_class)->dispose) (object);
@@ -56,7 +82,7 @@ eog_job_class_init (EogJobClass *class)
 
 	oclass->dispose = eog_job_dispose;
 
-	job_signals [FINISHED] =
+	job_signals [SIGNAL_FINISHED] =
 		g_signal_new ("finished",
 			      EOG_TYPE_JOB,
 			      G_SIGNAL_RUN_LAST,
@@ -64,6 +90,47 @@ eog_job_class_init (EogJobClass *class)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
+
+	job_signals [SIGNAL_PROGRESS] =
+		g_signal_new ("progress",
+			      EOG_TYPE_JOB,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogJobClass, progress),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__FLOAT,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_FLOAT);
+}
+
+void
+eog_job_finished (EogJob *job)
+{
+	g_return_if_fail (EOG_IS_JOB (job));
+
+	g_signal_emit (job, job_signals[SIGNAL_FINISHED], 0);
+}
+
+static gboolean
+notify_progress (gpointer data)
+{
+	EogJob *job = EOG_JOB (data);
+
+	g_signal_emit (job, job_signals[SIGNAL_PROGRESS], 0, job->progress);
+
+	return FALSE;
+}
+
+void
+eog_job_set_progress (EogJob *job, float progress)
+{
+	g_return_if_fail (EOG_IS_JOB (job));
+	g_return_if_fail (progress >= 0.0 && progress <= 1.0);
+
+	g_mutex_lock (job->mutex);
+	job->progress = progress;
+	g_mutex_unlock (job->mutex);
+
+	g_idle_add (notify_progress, job);
 }
 
 static void eog_job_thumbnail_init (EogJobThumbnail *job) { /* Do Nothing */ }
@@ -177,14 +244,6 @@ eog_job_transform_class_init (EogJobTransformClass *class)
 	oclass->dispose = eog_job_transform_dispose;
 }
 
-void
-eog_job_finished (EogJob *job)
-{
-	g_return_if_fail (EOG_IS_JOB (job));
-
-	g_signal_emit (job, job_signals[FINISHED], 0);
-}
-
 EogJob *
 eog_job_thumbnail_new (GnomeVFSURI *uri_entry)
 {
@@ -246,6 +305,7 @@ eog_job_load_run (EogJobLoad *job)
 
 	eog_image_load (EOG_IMAGE (job->image),
 			EOG_IMAGE_DATA_ALL,
+			EOG_JOB (job),
 			&EOG_JOB (job)->error);
 	
 	EOG_JOB (job)->finished = TRUE;

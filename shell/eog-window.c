@@ -101,6 +101,7 @@ struct _EogWindowPrivate {
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
 static void eog_job_load_cb (EogJobLoad *job, gpointer data);
+static void eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer data);
 static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 
 static void
@@ -291,21 +292,38 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 static void
 eog_window_clear_load_job (EogWindow *window)
 {
-	if (window->priv->load_job != NULL) {
-		if (!window->priv->load_job->finished)
-			eog_job_queue_remove_job (window->priv->load_job);
+	EogWindowPrivate *priv = window->priv;
 	
-		g_signal_handlers_disconnect_by_func (window->priv->load_job, 
+	if (priv->load_job != NULL) {
+		if (!priv->load_job->finished)
+			eog_job_queue_remove_job (priv->load_job);
+	
+		g_signal_handlers_disconnect_by_func (priv->load_job, 
+						      eog_job_load_progress_cb, 
+						      window);
+
+		g_signal_handlers_disconnect_by_func (priv->load_job, 
 						      eog_job_load_cb, 
 						      window);
 
-		eog_image_cancel_load (EOG_JOB_LOAD (window->priv->load_job)->image);
-		
-		g_object_unref (window->priv->load_job);
-		window->priv->load_job = NULL;
+		eog_image_cancel_load (EOG_JOB_LOAD (priv->load_job)->image);
+
+		g_object_unref (priv->load_job);
+		priv->load_job = NULL;
 	}
 }
 
+static void
+eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer user_data) 
+{
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
+				    progress);
+}
+	
 static void
 eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
@@ -314,6 +332,12 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
         g_return_if_fail (EOG_IS_WINDOW (data));
 	
 	window = EOG_WINDOW (data);
+
+	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
+				    0.0);
+	
+	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar), 
+			   window->priv->image_info_message_cid);
 
 	if (!EOG_JOB (job)->error) {
 		eog_window_display_image (window, job->image);
@@ -327,15 +351,17 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 static void
 eog_window_clear_transform_job (EogWindow *window)
 {
-	if (window->priv->transform_job != NULL) {
-		if (!window->priv->transform_job->finished)
-			eog_job_queue_remove_job (window->priv->transform_job);
+	EogWindowPrivate *priv = window->priv;
 	
-		g_signal_handlers_disconnect_by_func (window->priv->transform_job, 
+	if (priv->transform_job != NULL) {
+		if (!priv->transform_job->finished)
+			eog_job_queue_remove_job (priv->transform_job);
+	
+		g_signal_handlers_disconnect_by_func (priv->transform_job, 
 						      eog_job_transform_cb, 
 						      window);
-		g_object_unref (window->priv->transform_job);
-		window->priv->transform_job = NULL;
+		g_object_unref (priv->transform_job);
+		priv->transform_job = NULL;
 	}
 }
 
@@ -499,6 +525,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	EogImage *image;
+	gchar *status_message;
 
 	priv = window->priv;
 
@@ -525,7 +552,20 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 			  G_CALLBACK (eog_job_load_cb),
 			  window);
 
+	g_signal_connect (priv->load_job,
+			  "progress",
+			  G_CALLBACK (eog_job_load_progress_cb),
+			  window);
+
 	eog_job_queue_add_job (priv->load_job);
+
+	status_message = g_strdup_printf (_("Loading image \"%s\""), 
+				          eog_image_get_uri_for_display (image));
+	
+	gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
+			    priv->tip_message_cid, status_message);
+
+	g_free (status_message);
 }
 	
 static void

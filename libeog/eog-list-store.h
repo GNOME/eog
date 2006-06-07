@@ -24,13 +24,16 @@
 #ifndef EOG_LIST_STORE_H
 #define EOG_LIST_STORE_H
 
-#include "eog-image.h"
-
 #include <gtk/gtk.h>
 #include <glib-object.h>
 #include <libgnomevfs/gnome-vfs.h>
 
 G_BEGIN_DECLS
+
+#ifndef __EOG_IMAGE_DECLR__
+#define __EOG_IMAGE_DECLR__
+  typedef struct _EogImage EogImage;
+#endif
 
 typedef enum {
 	EOG_LIST_STORE_CAPTION = 0,

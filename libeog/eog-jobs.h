@@ -1,33 +1,43 @@
-/* this file is part of evince, a gnome document viewer
+/* Eye Of Gnome - Jobs  
  *
- *  Copyright (C) 2005 Red Hat, Inc
+ * Copyright (C) 2006 The Free Software Foundation
  *
- * Eogince is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * Based on evince code (shell/ev-jobs.h) by: 
+ * 	- Martin Kretzschmar <martink@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * Eogince is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
 #ifndef __EOG_JOBS_H__
 #define __EOG_JOBS_H__
 
-#include "eog-image.h"
 #include "eog-list-store.h"
+#include "eog-transform.h"
 
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
+
+#ifndef __EOG_IMAGE_DECLR__
+#define __EOG_IMAGE_DECLR__
+  typedef struct _EogImage EogImage;
+#endif
 
 typedef struct _EogJob EogJob;
 typedef struct _EogJobClass EogJobClass;
@@ -74,6 +84,8 @@ struct _EogJob
 	GObject  parent;
 
 	GError   *error;
+	GMutex   *mutex;
+	float    progress;
 	gboolean finished;
 };
 
@@ -82,6 +94,7 @@ struct _EogJobClass
 	GObjectClass parent_class;
 
 	void    (* finished) (EogJob *job);
+	void    (* progress) (EogJob *job, float progress);
 };
 
 struct _EogJobThumbnail
@@ -134,10 +147,12 @@ struct _EogJobTransformClass
 /* Base job class */
 GType           eog_job_get_type           (void);
 void            eog_job_finished           (EogJob          *job);
+void            eog_job_set_progress       (EogJob          *job,
+					    float           progress);
 
 /* EogJobThumbnail */
 GType           eog_job_thumbnail_get_type (void);
-EogJob         *eog_job_thumbnail_new      (GnomeVFSURI *uri_entry);
+EogJob         *eog_job_thumbnail_new      (GnomeVFSURI     *uri_entry);
 void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 
 /* EogJobLoad */

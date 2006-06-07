@@ -8,6 +8,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
+#include "eog-jobs.h"
 
 #ifdef HAVE_LCMS
 #include <lcms.h>
@@ -22,7 +23,10 @@ G_BEGIN_DECLS
 #define EOG_IS_IMAGE_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_TYPE_IMAGE))
 #define EOG_IMAGE_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_IMAGE, EogImageClass))
 
-typedef struct _EogImage EogImage;
+#ifndef __EOG_IMAGE_DECLR__
+#define __EOG_IMAGE_DECLR__
+  typedef struct _EogImage EogImage;
+#endif
 typedef struct _EogImageClass EogImageClass;
 typedef struct _EogImagePrivate EogImagePrivate;
 
@@ -77,7 +81,8 @@ GQuark              eog_image_error_quark                    (void);
 EogImage*           eog_image_new                            (const char *txt_uri);
 EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
 gboolean            eog_image_load                           (EogImage *img, 
-							      guint data2read, 
+							      guint data2read,
+							      EogJob *job, 
 							      GError **error);
 gboolean            eog_image_has_data                       (EogImage *img, guint req_data);
 

@@ -147,7 +147,7 @@ eog_statusbar_set_progress (EogStatusbar *statusbar,
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (statusbar->priv->progressbar),
 				       progress);
 
-	if (progress < 1)
+	if (progress > 0 && progress < 1)
 		gtk_widget_show (statusbar->priv->progressbar);
 	else
 		gtk_widget_hide (statusbar->priv->progressbar);
