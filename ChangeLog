@@ -1,3 +1,14 @@
+2006-06-08  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* data/eog-ui.xml: Add definition for thumbnail popup.
+	* libeog/eog-thumb-view.c: (eog_thumb_view_set_thumbnail_popup):
+	Simplified in order to use the same GtkUIManager than the EogWindow.
+	Only request for the menu to be used as popup.
+	* libeog/eog-thumb-view.h: ditto.
+	* libeog/test-eog-tb.c: (main): Updated popup creation code.
+	* shell/eog-window.c: (eog_window_construct_ui): Create popup 
+	for thumbnails and set it.
+
 2006-06-07  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-image.[ch] (eog_image_real_load,

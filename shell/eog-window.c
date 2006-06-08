@@ -1582,6 +1582,7 @@ eog_window_construct_ui (EogWindow *window)
 	
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
+	GtkWidget *popup;
 	GtkWidget *recent_widget;
 	GtkWidget *sw;
 	GtkWidget *frame;
@@ -1732,6 +1733,9 @@ eog_window_construct_ui (EogWindow *window)
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_NEVER);
 	gtk_container_add (GTK_CONTAINER (sw), priv->thumbview);
+
+	popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
+	eog_thumb_view_set_thumbnail_popup (priv->thumbview, GTK_MENU (popup));
 
 	gtk_box_pack_start (GTK_BOX (priv->vbox), sw, FALSE, 0, 0);
 

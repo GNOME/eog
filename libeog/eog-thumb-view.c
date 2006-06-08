@@ -500,53 +500,22 @@ eog_thumb_view_select_single (EogThumbView *tb,
 	gtk_tree_path_free (path);
 }
 
-/** 
- * eog_thumb_view_set_thumbnail_context_menu:
- * 
- * @tb: A #GtkThumbView.
- * @ui: A XML UI definition, including the popup definition.
- * @action_group: A #GtkActionGroup for the popup.
- * 
- * This functions adds a popup to be displayed everytime the right mouse button
- * is pressed over a thumbnail. 
- *
- * The @ui string must have popup definition called 'ThumbnailPopup', and the actions
- * for its items must be defined in @action_group. See test-eog-tb.c for an example.
- * 
- * Currently, you can call this function only once to set the menu. The current 
- * selection will be dismissed at right button clicking time and only the thumbnail
- * under the pointer will be selected.
- * 
- **/
+
 void
-eog_thumb_view_set_thumbnail_context_menu (EogThumbView   *tb, 
-					   const gchar    *ui, 
-					   GtkActionGroup *action_group)
+eog_thumb_view_set_thumbnail_popup (EogThumbView *tb,
+				    GtkMenu      *menu)
 {
 	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
 	g_return_if_fail (tb->priv->menu == NULL);
 
-	GtkUIManager *ui_manager;
-	GError *error = NULL;
-
-	ui_manager = gtk_ui_manager_new ();
-	gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
-
-	if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui, -1, &error)) {
-		g_warning ("Couldn't load menu definition: %s\n", error->message);
-		g_error_free (error);
-		return;
-	}
-
-	tb->priv->menu = g_object_ref (gtk_ui_manager_get_widget (ui_manager, "/ThumbnailPopup"));
-	
- 	g_object_unref (ui_manager);
+	tb->priv->menu = g_object_ref (menu);
 
 	gtk_menu_attach_to_widget (GTK_MENU (tb->priv->menu), GTK_WIDGET (tb), NULL);
 	g_signal_connect (G_OBJECT (tb), "button_press_event",
 			  G_CALLBACK (tb_on_button_press_event_cb), NULL);
 	
 }
+
 
 static void 
 eog_thumb_view_popup_menu (EogThumbView *tb, GdkEventButton *event)

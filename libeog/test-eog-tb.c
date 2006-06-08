@@ -150,6 +150,9 @@ main (gint argc, gchar **argv)
 	GtkWidget *button;
 	GtkActionGroup *action_group;
 	GList *list_uris;
+	GtkUIManager *ui_manager;
+	GtkWidget *popup;
+	GError *error = NULL;
 
 	GtkWidget *scrolled_window;
 	GtkWidget *thumb_view;
@@ -173,7 +176,20 @@ main (gint argc, gchar **argv)
 
 	action_group = gtk_action_group_new ("MenuActions");
 	gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), thumb_view);
-	eog_thumb_view_set_thumbnail_context_menu (EOG_THUMB_VIEW (thumb_view), ui, action_group);
+
+	ui_manager = gtk_ui_manager_new ();
+	gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+	if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui, -1, &error)) {
+		g_warning ("Couldn't load menu definition: %s\n", error->message);
+		g_error_free (error);
+		return;
+	}
+	
+	popup = g_object_ref (gtk_ui_manager_get_widget (ui_manager, "/ThumbnailPopup"));
+	
+ 	g_object_unref (ui_manager);
+ 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (thumb_view), popup);
 
 	g_signal_connect (G_OBJECT (thumb_view), 
 			  "selection-changed", 
