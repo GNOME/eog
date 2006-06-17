@@ -222,6 +222,7 @@ is_file_in_list_store (EogListStore *store,
 		
 		found = (strcmp (str, info_uri) == 0)? TRUE : FALSE;
 		
+		gnome_vfs_uri_unref (uri);
 		g_free (str);
 		g_object_unref (G_OBJECT (image));
 
@@ -597,12 +598,15 @@ eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
 	gchar *file;
+	GnomeVFSURI *uri;
 
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	file = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
+	uri = eog_image_get_uri (image);
+	file = gnome_vfs_uri_to_string (uri, 
 					GNOME_VFS_URI_HIDE_NONE);
+	gnome_vfs_uri_unref (uri);
 	
 	if (is_file_in_list_store (store, file, &iter)) {
 		gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
@@ -631,12 +635,15 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 	gchar *file;
 	GtkTreeIter iter;
 	gint pos = -1;
+	GnomeVFSURI *uri;
 
 	g_return_val_if_fail (EOG_IS_LIST_STORE (store), -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), -1);
-
-	file = gnome_vfs_uri_to_string (eog_image_get_uri (image), 
+	
+	uri = eog_image_get_uri (image);
+	file = gnome_vfs_uri_to_string (uri, 
 					GNOME_VFS_URI_HIDE_NONE);
+	gnome_vfs_uri_unref (uri);
 
 	if (is_file_in_list_store (store, file, &iter)) {
 		pos = eog_list_store_get_pos_by_iter (store, &iter);
@@ -692,6 +699,7 @@ eog_list_store_thumbnail_set (EogListStore *store,
 	EogJob *job;
 	EogImage *image;
 	gboolean *thumb_set;
+	GnomeVFSURI *uri;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
@@ -703,9 +711,11 @@ eog_list_store_thumbnail_set (EogListStore *store,
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image, 
 			    -1);
-
-	job = eog_job_thumbnail_new (eog_image_get_uri (image));
 	
+	uri = eog_image_get_uri (image);
+	job = eog_job_thumbnail_new (uri);
+	gnome_vfs_uri_unref (uri);
+
 	g_signal_connect (job,
 			  "finished",
 			  G_CALLBACK (eog_job_thumbnail_cb),

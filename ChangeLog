@@ -1,5 +1,13 @@
 2006-06-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* libeog/eog-list-store.c: (is_file_in_list_store),
+	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image),
+	(eog_list_store_thumbnail_set): eog_image_get_uri() increases reference
+	counter on the returned URI, so we have to decrease it when no longer 
+	needed.
+
+2006-06-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	Implement Drag and Drop for thumbnails. Currently 
 	only implemented the GDK_ACTION_COPY action.
 	
