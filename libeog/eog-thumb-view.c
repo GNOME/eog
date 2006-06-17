@@ -24,6 +24,7 @@
 #include "eog-image.h"
 
 #include <gtk/gtk.h>
+#include <string.h>
 
 #define EOG_THUMB_VIEW_SPACING 16
 
@@ -40,6 +41,18 @@ struct _EogThumbViewPrivate {
 	gint end_thumb;   /* the last visible thumbnail  */
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
 };
+
+/* Drag 'n Drop */
+enum {
+	TARGET_PLAIN,
+	TARGET_PLAIN_UTF8,
+	TARGET_URILIST,
+};
+
+static GtkTargetEntry target_table[] = {
+	{ "text/uri-list", 0, TARGET_URILIST },
+};
+
 
 static void
 eog_thumb_view_finalize (GObject *object)
@@ -274,6 +287,49 @@ tb_on_button_press_event_cb (GtkWidget *tb, GdkEventButton *event,
 }
 
 static void
+tb_on_drag_data_get_cb (GtkWidget        *widget,
+			GdkDragContext   *drag_context,
+			GtkSelectionData *data,
+			guint             info,
+			guint             time,
+			gpointer          user_data) 
+{
+	GList *list;
+	GList *node;
+	EogImage *image;
+	GnomeVFSURI *uri;
+	gchar *str;
+	gchar *uris = NULL;
+	gchar *tmp_str;
+
+	list = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (widget));
+
+	for (node = list; node != NULL; node = node->next) {
+		image = EOG_IMAGE (node->data);
+		uri = eog_image_get_uri (image);
+		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);	
+		g_object_unref (image);
+		gnome_vfs_uri_unref (uri);
+		
+		/* build the "text/uri-list" string */
+		if (uris) {
+			tmp_str = g_strconcat (uris, str, "\r\n", NULL);
+			g_free (uris);
+		} else {
+			tmp_str = g_strconcat (str, "\r\n", NULL);
+		}
+		uris = tmp_str;
+
+		g_free (str);
+	}
+	gtk_selection_data_set (data, data->target, 8, 
+				(guchar*) uris, strlen (uris));
+	g_free (uris);
+	g_list_free (list);
+	
+}
+
+static void
 eog_thumb_view_init (EogThumbView *tb)
 {
 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (tb),
@@ -298,6 +354,13 @@ eog_thumb_view_init (EogThumbView *tb)
 	
 	g_signal_connect (G_OBJECT (tb), "parent-set", 
 			  G_CALLBACK (tb_on_parent_set_cb), NULL);
+
+	gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (tb), 0,
+						target_table, G_N_ELEMENTS (target_table), 
+						GDK_ACTION_COPY);
+
+	g_signal_connect (G_OBJECT (tb), "drag-data-get", 
+			  G_CALLBACK (tb_on_drag_data_get_cb), NULL);
 }
 
 GtkWidget *

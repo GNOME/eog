@@ -1,3 +1,15 @@
+2006-06-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	Implement Drag and Drop for thumbnails. Currently 
+	only implemented the GDK_ACTION_COPY action.
+	
+	* libeog/eog-thumb-view.c: 
+
+	(tb_on_drag_data_get_cb): Send the uris of the selected images to 
+	the drop site.
+	(eog_thumb_view_init): Enable drag source and connect 
+	"drag-data-get" signal.
+
 2006-06-16  Lucas Rocha  <lucasr@gnome.org>
 
 	* data/eog-ui.xml: add separators between menu entries.
