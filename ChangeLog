@@ -1,3 +1,10 @@
+2006-06-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* shell/eog-window.c: (fullscreen_timeout_cb),
+	(fullscreen_set_timeout), (eog_window_dispose):	
+	Remove some duplicated code and use fullscreen_clear_timeout () instead
+	of it (Fixes bug #344140). Patch from Felix Riemann <felix@hsgheli.de>.
+
 2006-06-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-list-store.c: (is_file_in_list_store),

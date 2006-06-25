@@ -680,6 +680,8 @@ fullscreen_popup_size_request_cb (GtkWidget      *popup,
 	eog_window_update_fullscreen_popup (window);
 }
 
+static void fullscreen_clear_timeout (EogWindow *window);
+
 static gboolean
 fullscreen_timeout_cb (gpointer data)
 {
@@ -687,8 +689,7 @@ fullscreen_timeout_cb (gpointer data)
 
 	gtk_widget_hide_all (window->priv->fullscreen_popup);
 	
-	g_source_unref (window->priv->fullscreen_timeout_source);
-	window->priv->fullscreen_timeout_source = NULL;
+	fullscreen_clear_timeout (window);
 
 	return FALSE;
 }
@@ -709,10 +710,7 @@ fullscreen_set_timeout (EogWindow *window)
 {
 	GSource *source;
 
-	if (window->priv->fullscreen_timeout_source != NULL) {
-		g_source_unref (window->priv->fullscreen_timeout_source);
-		g_source_destroy (window->priv->fullscreen_timeout_source);
-	}
+	fullscreen_clear_timeout (window);
 
 	source = g_timeout_source_new (EOG_WINDOW_FULLSCREEN_TIMEOUT);
 	g_source_set_callback (source, fullscreen_timeout_cb, window, NULL);
@@ -1846,11 +1844,7 @@ eog_window_dispose (GObject *object)
 		priv->fullscreen_popup = NULL;
 	}
 
-	if (window->priv->fullscreen_timeout_source) {
-		g_source_unref (window->priv->fullscreen_timeout_source);
-		g_source_destroy (window->priv->fullscreen_timeout_source);
-		window->priv->fullscreen_timeout_source = NULL;
-	}
+	fullscreen_clear_timeout (window);
 
 	if (priv->recent_view != NULL) {
 		g_object_unref (priv->recent_view);
