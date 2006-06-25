@@ -1,3 +1,11 @@
+2006-06-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-full-screen.c: (eog_full_screen_new): Remove call to 
+	deprecated gdk_pixmap_unref ().
+	* libeog/eog-image-jpeg.c: (eog_image_jpeg_save): Clean function and 
+	replace duplicated code with a call to _save_any_as_jpeg () (#321267). 
+	Patch from Felix Riemann <felix@hsgheli.de>.
+
 2006-06-01  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-image.c (eog_image_print): fix printing for images with

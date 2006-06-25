@@ -839,7 +839,7 @@ eog_full_screen_new (GtkWindow *parent,
 	style->bg    [GTK_STATE_NORMAL] = style->black;
 	style->bg_gc [GTK_STATE_NORMAL] = style->black_gc;
 	if (style->bg_pixmap [GTK_STATE_NORMAL])
-		gdk_pixmap_unref (style->bg_pixmap [GTK_STATE_NORMAL]);
+		g_object_unref (style->bg_pixmap [GTK_STATE_NORMAL]);
 	style->bg_pixmap [GTK_STATE_NORMAL] = NULL;
 
 	gtk_widget_set_style (widget, style);

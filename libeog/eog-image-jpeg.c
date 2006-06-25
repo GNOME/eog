@@ -540,116 +540,17 @@ move_file_to_uri (char *file_path, GnomeVFSURI *uri)
 gboolean
 eog_image_jpeg_save (EogImage *image, GnomeVFSURI *uri, GError **error)
 {
-	EogImagePrivate *priv;
-	GdkPixbuf *pixbuf;
 	GnomeVFSResult vfs_result;
 	char *tmp_path;
-	struct jpeg_compress_struct cinfo;
-	guchar *buf = NULL;
-	guchar *ptr;
-	guchar *pixels = NULL;
-	JSAMPROW *jbuf;
-	int y = 0;
-	volatile int quality = 75; /* default; must be between 0 and 100 */
-	int i, j;
-	int w, h = 0;
-	int rowstride = 0;
-	FILE *outfile;
-	struct jpeg_error_mgr jerr;
-#if HAVE_EXIF
-	unsigned char *exif_buf;
-	unsigned int   exif_buf_len;
-#endif
 	
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
 	
-	priv = image->priv;
-
-	pixbuf = priv->image;
-	if (pixbuf == NULL) {
-		return FALSE;
-	}
-	
 	tmp_path = get_tmp_filepath ();
-	outfile = fopen (tmp_path, "wb");
-	if (outfile == NULL) {
-		g_set_error (error,
-			     GDK_PIXBUF_ERROR,
-			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
-			     _("Couldn't create temporary file for saving: %s"),
-			     tmp_path);
+	if (!_save_any_as_jpeg (image, tmp_path, NULL, NULL, error))
+	{
 		g_free (tmp_path);
 		return FALSE;
 	}
-
-	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-	
-	w = gdk_pixbuf_get_width (pixbuf);
-	h = gdk_pixbuf_get_height (pixbuf);
-	
-	/* no image data? abort */
-	pixels = gdk_pixbuf_get_pixels (pixbuf);
-	g_return_val_if_fail (pixels != NULL, FALSE);
-	
-	/* allocate a small buffer to convert image data */
-	buf = g_try_malloc (w * 3 * sizeof (guchar));
-	if (!buf) {
-		g_set_error (error,
-			     GDK_PIXBUF_ERROR,
-			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
-			     _("Couldn't allocate memory for loading JPEG file"));
-		return FALSE;
-	}
-	
-	/* set up error handling */
-	
-	cinfo.err = jpeg_std_error (&jerr);
-	
-	/* setup compress params */
-	jpeg_create_compress (&cinfo);
-	jpeg_stdio_dest (&cinfo, outfile);
-	cinfo.image_width      = w;
-	cinfo.image_height     = h;
-	cinfo.input_components = 3; 
-	cinfo.in_color_space   = JCS_RGB;
-	
-	/* set up jepg compression parameters */
-	jpeg_set_defaults (&cinfo);
-	jpeg_set_quality (&cinfo, quality, TRUE);
-	jpeg_start_compress (&cinfo, TRUE);
-	
-#if HAVE_EXIF
-	if (priv->exif != NULL)
-	{
-		g_print ("save exif data\n");
-		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
-		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
-		g_free (exif_buf);
-	}
-#endif
-	/* get the start pointer */
-	ptr = pixels;
-	/* go one scanline at a time... and save */
-	i = 0;
-	while (cinfo.next_scanline < cinfo.image_height) {
-		/* convert scanline from ARGB to RGB packed */
-		for (j = 0; j < w; j++)
-			memcpy (&(buf[j*3]), &(ptr[i*rowstride + j*3]), 3);
-		
-		/* write scanline */
-		jbuf = (JSAMPROW *)(&buf);
-		jpeg_write_scanlines (&cinfo, jbuf, 1);
-		i++;
-		y++;
-		
-	}
-	
-	/* finish off */
-	jpeg_finish_compress (&cinfo);
-	jpeg_destroy_compress(&cinfo);
-	g_free (buf);
-
-	fclose (outfile);
 
 	/* move temporary file to final destination */
 	vfs_result = move_file_to_uri (tmp_path, uri);
