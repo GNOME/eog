@@ -66,7 +66,6 @@ eog_statusbar_class_init (EogStatusbarClass *klass)
 static void
 eog_statusbar_init (EogStatusbar *statusbar)
 {
-	GtkRequisition requisition;
 
 	statusbar->priv = EOG_STATUSBAR_GET_PRIVATE (statusbar);
 
