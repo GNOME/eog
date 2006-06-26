@@ -428,7 +428,7 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_OPEN);
 
-	current = eog_wrap_list_get_first_selected_image (priv->wraplist);
+	current = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 
 	if (current != NULL)
 	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
