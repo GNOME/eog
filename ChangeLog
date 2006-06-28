@@ -1,3 +1,13 @@
+2006-06-28  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	Add a frame around thumbnails to make the view behave uniformly.
+	
+	* libeog/eog-list-store.c: (eog_job_thumbnail_cb): Use 
+	eog_thumb_shadow_add_frame to add a frame around thumbnails.
+	* libeog/eog-thumb-shadow.c: (eog_thumb_shadow_add_frame): Add frame
+	around a thumbnail.
+	* libeog/eog-thumb-shadow.h: Add definition.
+
 2006-06-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-window.c: (fullscreen_timeout_cb),

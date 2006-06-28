@@ -279,6 +279,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 
 	eog_thumb_shadow_add_rectangle (&thumbnail);
 	eog_thumb_shadow_add_shadow (&thumbnail);
+	eog_thumb_shadow_add_frame (&thumbnail);
 
 	filename = gnome_vfs_uri_to_string (job->uri_entry, GNOME_VFS_URI_HIDE_NONE);
 

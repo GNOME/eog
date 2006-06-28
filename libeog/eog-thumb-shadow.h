@@ -28,5 +28,6 @@ void eog_thumb_shadow_add_shadow (GdkPixbuf **src);
 void eog_thumb_shadow_add_border (GdkPixbuf **src);
 void eog_thumb_shadow_add_rectangle (GdkPixbuf **src);
 void eog_thumb_shadow_add_round_border (GdkPixbuf **src);
+void eog_thumb_shadow_add_frame (GdkPixbuf **src);
 
 #endif /* EOG_THUMB_SHADOW_H */

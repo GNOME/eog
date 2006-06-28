@@ -331,3 +331,28 @@ eog_thumb_shadow_add_round_border (GdkPixbuf **src)
 	g_object_unref (border);
 	*src = dest;
 }
+
+void
+eog_thumb_shadow_add_frame (GdkPixbuf **src)
+{
+	gint width, height, f_width;
+	width = gdk_pixbuf_get_width (*src);
+	height = gdk_pixbuf_get_height (*src);
+
+	f_width = MAX (width, height);
+
+	GdkPixbuf *dest = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
+					  TRUE, 8,
+					  f_width, f_width);
+
+	gdk_pixbuf_fill (dest, 0x0);
+	
+	gdk_pixbuf_copy_area (*src,
+			      0, 0, width, height,
+			      dest, 
+			      (width > height)? 0 : (f_width - width)/2, 
+			      (width > height)? (f_width - height)/2 : 0);
+
+	g_object_unref (*src);
+	*src = dest;
+}
