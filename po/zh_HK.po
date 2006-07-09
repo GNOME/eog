@@ -9,10 +9,10 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.14\n"
+"Project-Id-Version: eog 2.15.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-24 05:50+0100\n"
-"PO-Revision-Date: 2006-01-24 14:50+0800\n"
+"POT-Creation-Date: 2006-07-07 06:24+0200\n"
+"PO-Revision-Date: 2006-07-04 20:41+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinese(Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -111,44 +111,44 @@ msgstr "檔案名稱格式："
 msgid "Image View"
 msgstr "圖片顯示"
 
+# src/preferences-dialog.glade.h:7
 #: ../eog.glade.h:20
+msgid "Interpolate image on _zoom"
+msgstr "縮放圖片時使用插值法(_Z)"
+
+#: ../eog.glade.h:21
 msgid "Rename From:"
 msgstr "重新命名："
 
-#: ../eog.glade.h:21
+#: ../eog.glade.h:22
 msgid "Replace spaces by underscore"
 msgstr "以底線替代空格"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3337
+#: ../eog.glade.h:23 ../shell/eog-window.c:3412
 msgid "Save As"
 msgstr "另存新檔"
 
 # src/window.c:704
-#: ../eog.glade.h:23
+#: ../eog.glade.h:24
 msgid "Saving Image"
 msgstr "儲存圖片"
 
-#: ../eog.glade.h:24
+#: ../eog.glade.h:25
 msgid "Slide Show"
 msgstr "投影片"
 
-#: ../eog.glade.h:25
+#: ../eog.glade.h:26
 msgid "Start counter at:"
 msgstr "開始計數於："
 
-#: ../eog.glade.h:26
+#: ../eog.glade.h:27
 msgid "To:"
 msgstr "到："
 
 # src/tb-image.c:35
-#: ../eog.glade.h:27
+#: ../eog.glade.h:28
 msgid "_Browse"
 msgstr "瀏覽(_B)"
-
-# src/preferences-dialog.glade.h:7
-#: ../eog.glade.h:28
-msgid "_Interpolate image on zoom"
-msgstr "縮放圖片時使用插值法(_I)"
 
 #: ../eog.glade.h:29
 msgid "_Loop sequence"
@@ -270,32 +270,32 @@ msgstr ""
 "當縮放圖片時是否使用插值法處理。這樣品質會較佳，但顯示時會比不使用插值法的來"
 "得慢。"
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:340
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "無法建立暫存檔來儲存： %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:359
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "無法分配記憶體來載入 JPEG 檔案"
 
-#: ../libeog/eog-image.c:426
+#: ../libeog/eog-image.c:418
 msgid "Transformation on unloaded image."
 msgstr "改變未載入的圖片。"
 
-#: ../libeog/eog-image.c:538
+#: ../libeog/eog-image.c:530
 msgid "EXIF not supported for this file format."
 msgstr "本檔案格式不支 EXIF。"
 
-#: ../libeog/eog-image.c:1194 ../libeog/eog-image.c:1407
+#: ../libeog/eog-image.c:1190 ../libeog/eog-image.c:1403
 msgid "File exists"
 msgstr "檔案已經存在"
 
-#: ../libeog/eog-image.c:1347 ../libeog/eog-image.c:1475
+#: ../libeog/eog-image.c:1343 ../libeog/eog-image.c:1471
 msgid "No image loaded."
 msgstr "沒有載入圖片。"
 
-#: ../libeog/eog-image.c:1356 ../libeog/eog-image.c:1484
+#: ../libeog/eog-image.c:1352 ../libeog/eog-image.c:1480
 msgid "Temporary file creation failed."
 msgstr "建立暫存檔失敗。"
 
@@ -489,7 +489,7 @@ msgstr "取消儲存..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:498
+#: ../shell/eog-window.c:500
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電郵給\n"
@@ -502,20 +502,50 @@ msgstr ""
 "Abel Cheung <abel@oaka.org>, 2001-2003\n"
 "Jing-Jong Shyue <shyue@sonoma.com.tw>, 2000"
 
+#: ../shell/eog-window.c:503
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr ""
+"本程式為自由軟件；你可依據Free Software Foundation所發表的 GNU 通用公共授權條款規定，就"
+"本程式再為散布與／或修改；無論你依據的是本授權的第二版或（你自行選擇的）任一"
+"日後發行的版本。\n"
+
+#: ../shell/eog-window.c:507
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr ""
+"本程式係基於使用目的而加以散布，然而不負任何擔保責任；亦無對適售性或特定目的"
+"適用性所為的默示性擔保。詳情請參照 GNU 通用公共授權。\n"
+
+#: ../shell/eog-window.c:511
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+msgstr ""
+"你應已收到附隨於本程式的 GNU 通用公共授權的副本；如無，請寫信至自由軟件基金"
+"會：51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+
 # src/window.c:162
 # src/window.c:573
 # src/window.c:812
-#: ../shell/eog-window.c:503 ../shell/eog-window.c:3045
-#: ../shell/eog-window.c:3696 ../shell/main.c:601
+#: ../shell/eog-window.c:524 ../shell/eog-window.c:3118
+#: ../shell/eog-window.c:3771 ../shell/main.c:609
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
 # src/window.c:166
-#: ../shell/eog-window.c:506
+#: ../shell/eog-window.c:527
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME 圖片瀏覽及分類程式。"
 
-#: ../shell/eog-window.c:532
+#: ../shell/eog-window.c:558
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -524,59 +554,59 @@ msgstr ""
 "無法顯示 Eye of GNOME 的說明文件。\n"
 "%s"
 
-#: ../shell/eog-window.c:967
+#: ../shell/eog-window.c:993
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "覆寫檔案 %s？"
 
-#: ../shell/eog-window.c:968
+#: ../shell/eog-window.c:994
 msgid "File exists. Do you want to overwrite it?"
 msgstr "檔案已經存在。你確定要覆蓋它？"
 
-#: ../shell/eog-window.c:979 ../shell/eog-window.c:995
+#: ../shell/eog-window.c:1005 ../shell/eog-window.c:1021
 msgid "Skip"
 msgstr "略過"
 
-#: ../shell/eog-window.c:980
+#: ../shell/eog-window.c:1006
 msgid "Overwrite"
 msgstr "覆寫"
 
-#: ../shell/eog-window.c:985
+#: ../shell/eog-window.c:1011
 #, c-format
 msgid "Error on saving %s."
 msgstr "儲存 %s 時發生錯誤。"
 
-#: ../shell/eog-window.c:996 ../shell/eog-window.c:1561
+#: ../shell/eog-window.c:1022 ../shell/eog-window.c:1588
 msgid "Retry"
 msgstr "重試"
 
-#: ../shell/eog-window.c:1425
+#: ../shell/eog-window.c:1452
 msgid "Couldn't determine destination uri."
 msgstr "無法決定目的地 uri。"
 
-#: ../shell/eog-window.c:1547
+#: ../shell/eog-window.c:1574
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "無法決定 %s 的檔案格式"
 
-#: ../shell/eog-window.c:1548
+#: ../shell/eog-window.c:1575
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "請使用一個合適的檔案伸延名稱，或選擇一個檔案格式。"
 
 # src/window.c:704
-#: ../shell/eog-window.c:1686
+#: ../shell/eog-window.c:1713
 msgid "Error on saving images."
 msgstr "儲存圖片時發生錯誤。"
 
-#: ../shell/eog-window.c:1767 ../shell/eog-window.c:3282
+#: ../shell/eog-window.c:1797
 msgid "Print"
 msgstr "列印"
 
-#: ../shell/eog-window.c:1801
+#: ../shell/eog-window.c:1831
 msgid "Print Preview"
 msgstr "預覽列印"
 
-#: ../shell/eog-window.c:2005
+#: ../shell/eog-window.c:2035
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -585,7 +615,7 @@ msgstr ""
 "你確定要將\n"
 "“%s”移至回收筒嗎？"
 
-#: ../shell/eog-window.c:2008
+#: ../shell/eog-window.c:2038
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -597,294 +627,302 @@ msgstr[0] ""
 "你確定要將 %d 張已選的圖片\n"
 "移至回收筒嗎？"
 
-#: ../shell/eog-window.c:2023 ../shell/eog-window.c:3294
+#: ../shell/eog-window.c:2053 ../shell/eog-window.c:3367
 msgid "Move to Trash"
 msgstr "移至回收筒"
 
-#: ../shell/eog-window.c:2054
+#: ../shell/eog-window.c:2084
 msgid "Couldn't access trash."
 msgstr "無法存取回收筒。"
 
-#: ../shell/eog-window.c:2130
+#: ../shell/eog-window.c:2160
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "當刪除圖片 %s 時發生錯誤"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2908
+#: ../shell/eog-window.c:2979
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i 像素  %s    %i%%"
 
-#: ../shell/eog-window.c:2964
+#: ../shell/eog-window.c:3035
 #, c-format
 msgid "Reason: %s"
 msgstr "原因：%s"
 
-#: ../shell/eog-window.c:3094
+#: ../shell/eog-window.c:3167
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "載入 %s 的圖片失敗"
 
-#: ../shell/eog-window.c:3259
+#: ../shell/eog-window.c:3332
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: ../shell/eog-window.c:3260
+#: ../shell/eog-window.c:3333
 msgid "_Edit"
 msgstr "編輯(_E)"
 
 # src/preferences-dialog.glade.h:49
-#: ../shell/eog-window.c:3261
+#: ../shell/eog-window.c:3334
 msgid "_View"
 msgstr "顯示(_V)"
 
 # src/window.c:704
-#: ../shell/eog-window.c:3262
+#: ../shell/eog-window.c:3335
 msgid "_Image"
 msgstr "圖片(_I)"
 
-#: ../shell/eog-window.c:3263
+#: ../shell/eog-window.c:3336
 msgid "_Go"
 msgstr "前往(_G)"
 
-#: ../shell/eog-window.c:3264
+#: ../shell/eog-window.c:3337
 msgid "_Help"
 msgstr "求助(_H)"
 
 # src/window.c:181
-#: ../shell/eog-window.c:3265
+#: ../shell/eog-window.c:3338
 msgid "_Open..."
 msgstr "開啟(_O)..."
 
 # src/tb-image.c:33
 # src/window.c:181
-#: ../shell/eog-window.c:3265
+#: ../shell/eog-window.c:3338
 msgid "Open a file"
 msgstr "開啟檔案"
 
 # src/tb-image.c:35
-#: ../shell/eog-window.c:3266
+#: ../shell/eog-window.c:3339
 msgid "_Close"
 msgstr "關閉(_C)"
 
 # src/window.c:186
-#: ../shell/eog-window.c:3266
+#: ../shell/eog-window.c:3339
 msgid "Close window"
 msgstr "關閉視窗"
 
 # src/preferences.c:219
-#: ../shell/eog-window.c:3267
+#: ../shell/eog-window.c:3340
 msgid "Prefere_nces"
 msgstr "偏好設定(_N)"
 
-#: ../shell/eog-window.c:3267
+#: ../shell/eog-window.c:3340
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of GNOME 偏好設定"
 
-#: ../shell/eog-window.c:3268
+#: ../shell/eog-window.c:3341
 msgid "_Contents"
 msgstr "內容(_C)"
 
-#: ../shell/eog-window.c:3268
+#: ../shell/eog-window.c:3341
 msgid "Help On this application"
 msgstr "本應用程式的說明文件"
 
-#: ../shell/eog-window.c:3269
+#: ../shell/eog-window.c:3342
 msgid "_About"
 msgstr "關於(_A)"
 
-#: ../shell/eog-window.c:3269
+#: ../shell/eog-window.c:3342
 msgid "About this application"
 msgstr "關於本程式"
 
-#: ../shell/eog-window.c:3274
+#: ../shell/eog-window.c:3347
 msgid "_Toolbar"
 msgstr "工具列(_T)"
 
-#: ../shell/eog-window.c:3274
+#: ../shell/eog-window.c:3347
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "在目前的視窗中切換是否顯示工具列"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3348
 msgid "_Statusbar"
 msgstr "狀態列(_S)"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3348
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "在目前的視窗中切換是否顯示狀態列"
 
-#: ../shell/eog-window.c:3276
+#: ../shell/eog-window.c:3349
 msgid "_Image Collection"
 msgstr "圖片集(_I)"
 
-#: ../shell/eog-window.c:3276
+#: ../shell/eog-window.c:3349
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "在目前的視窗中切換是否顯示資訊窗格"
 
-#: ../shell/eog-window.c:3280
+#: ../shell/eog-window.c:3353
 msgid "_Save"
 msgstr "儲存(_S)"
 
-#: ../shell/eog-window.c:3281
-msgid "Save _As"
-msgstr "另存新檔(_A)"
+#: ../shell/eog-window.c:3354
+msgid "Save _As..."
+msgstr "另存新檔(_A)..."
 
-#: ../shell/eog-window.c:3284
+#: ../shell/eog-window.c:3355
+msgid "Print..."
+msgstr "列印..."
+
+#: ../shell/eog-window.c:3357
 msgid "_Undo"
 msgstr "復原(_U)"
 
-#: ../shell/eog-window.c:3286
+#: ../shell/eog-window.c:3359
 msgid "Flip _Horizontal"
 msgstr "左右相反(_H)"
 
-#: ../shell/eog-window.c:3287
+#: ../shell/eog-window.c:3360
 msgid "Flip _Vertical"
 msgstr "上下顛倒(_V)"
 
-#: ../shell/eog-window.c:3289
+#: ../shell/eog-window.c:3362
 msgid "_Rotate Clockwise"
 msgstr "順時針方向旋轉(_R)"
 
-#: ../shell/eog-window.c:3290
+#: ../shell/eog-window.c:3363
 msgid "Rotate Counter C_lockwise"
 msgstr "逆時針方向旋轉(_L)"
 
-#: ../shell/eog-window.c:3291
+#: ../shell/eog-window.c:3364
 msgid "Rotat_e 180°"
 msgstr "180° 旋轉(_E)"
 
-#: ../shell/eog-window.c:3292
+#: ../shell/eog-window.c:3365
 msgid "Set As _Wallpaper"
 msgstr "設定為桌布(_W)"
 
 # src/preferences-dialog.glade.h:39
-#: ../shell/eog-window.c:3296
+#: ../shell/eog-window.c:3369
 msgid "_Full Screen"
 msgstr "全螢幕(_F)"
 
-#: ../shell/eog-window.c:3297
+#: ../shell/eog-window.c:3370
 msgid "_Slideshow"
 msgstr "投影片(_S)"
 
 # src/window.c:221
 #. accelerators
-#: ../shell/eog-window.c:3298 ../shell/eog-window.c:3304
-#: ../shell/eog-window.c:3305
+#: ../shell/eog-window.c:3371 ../shell/eog-window.c:3377
+#: ../shell/eog-window.c:3378
 msgid "_Zoom In"
 msgstr "拉近(_Z)"
 
 # src/window.c:225
-#: ../shell/eog-window.c:3299 ../shell/eog-window.c:3306
+#: ../shell/eog-window.c:3372 ../shell/eog-window.c:3379
 msgid "Zoom _Out"
 msgstr "拉遠(_O)"
 
-#: ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:3373
 msgid "_Normal Size"
 msgstr "原來大小(_N)"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3374
 msgid "Best _Fit"
 msgstr "最適大小(_F)"
 
 # src/window.c:704
-#: ../shell/eog-window.c:3307 ../shell/eog-window.c:3309
-#: ../shell/eog-window.c:3321
+#: ../shell/eog-window.c:3380 ../shell/eog-window.c:3382
+#: ../shell/eog-window.c:3396
 msgid "_Next Image"
 msgstr "下一幅圖片(_N)"
 
-#: ../shell/eog-window.c:3308 ../shell/eog-window.c:3310
-#: ../shell/eog-window.c:3311 ../shell/eog-window.c:3320
+#: ../shell/eog-window.c:3381 ../shell/eog-window.c:3383
+#: ../shell/eog-window.c:3384 ../shell/eog-window.c:3395
 msgid "_Previous Image"
 msgstr "上一幅圖片(_P)"
 
-#: ../shell/eog-window.c:3312
+#: ../shell/eog-window.c:3385
 msgid "Move to _Trash"
 msgstr "移至回收筒(_T)"
 
-# src/preferences-dialog.glade.h:7
-#: ../shell/eog-window.c:3316
-msgid "Image _Information"
-msgstr "圖片資訊(_I)"
-
-#: ../shell/eog-window.c:3316
-msgid "Changes the visibility of the information pane in the current window"
-msgstr "在目前的視窗中切換是否顯示資訊窗格"
-
 # src/window.c:704
-#: ../shell/eog-window.c:3322
+#: ../shell/eog-window.c:3386 ../shell/eog-window.c:3397
 msgid "_First Image"
 msgstr "第一幅圖片(_F)"
 
 # src/window.c:704
-#: ../shell/eog-window.c:3323
+#: ../shell/eog-window.c:3387 ../shell/eog-window.c:3398
 msgid "_Last Image"
 msgstr "最後一幅圖片(_L)"
 
+# src/preferences-dialog.glade.h:7
+#: ../shell/eog-window.c:3391
+msgid "Image _Information"
+msgstr "圖片資訊(_I)"
+
+#: ../shell/eog-window.c:3391
+msgid "Changes the visibility of the information pane in the current window"
+msgstr "在目前的視窗中切換是否顯示資訊窗格"
+
 # src/tb-image.c:33
-#: ../shell/eog-window.c:3334
+#: ../shell/eog-window.c:3409
 msgid "Open"
 msgstr "開啟"
 
 # src/tb-image.c:35
-#: ../shell/eog-window.c:3335
+#: ../shell/eog-window.c:3410
 msgid "Close"
 msgstr "關閉"
 
-#: ../shell/eog-window.c:3336
+#: ../shell/eog-window.c:3411
 msgid "Save"
 msgstr "儲存"
 
-#: ../shell/eog-window.c:3338
+#: ../shell/eog-window.c:3413
 msgid "Undo"
 msgstr "復原"
 
-#: ../shell/eog-window.c:3341
+#: ../shell/eog-window.c:3416
 msgid "Right"
 msgstr "右"
 
-#: ../shell/eog-window.c:3342
+#: ../shell/eog-window.c:3417
 msgid "Left"
 msgstr "左"
 
 # src/tb-image.c:43
-#: ../shell/eog-window.c:3345
+#: ../shell/eog-window.c:3420
 msgid "In"
 msgstr "拉近"
 
 # src/tb-image.c:44
-#: ../shell/eog-window.c:3346
+#: ../shell/eog-window.c:3421
 msgid "Out"
 msgstr "拉遠"
 
-#: ../shell/eog-window.c:3347
+#: ../shell/eog-window.c:3422
 msgid "Normal"
 msgstr "原來大小"
 
 # src/tb-image.c:46
-#: ../shell/eog-window.c:3348
+#: ../shell/eog-window.c:3423
 msgid "Fit"
 msgstr "符合"
 
-#: ../shell/eog-window.c:3349
+#: ../shell/eog-window.c:3424
 msgid "Next"
 msgstr "下一幅"
 
-#: ../shell/eog-window.c:3350
+#: ../shell/eog-window.c:3425
 msgid "Previous"
 msgstr "上一幅"
 
-#: ../shell/eog-window.c:3515
+#: ../shell/eog-window.c:3590
 msgid "User interface description not found."
 msgstr "找不到使用者介面的描述。"
 
-#: ../shell/main.c:166
+#: ../shell/main.c:23
+msgid "[FILE...]"
+msgstr "[檔案...]"
+
+#: ../shell/main.c:174
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "無法建立 Eye of GNOME 使用者介面"
 
-#: ../shell/main.c:357
+#: ../shell/main.c:365
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "找不到檔案。"
@@ -904,14 +942,3 @@ msgstr "開啟‘%s’"
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "空白"
-
-#~ msgid ""
-#~ "Are you sure you want to move\n"
-#~ "the %d selected image to the trash?Are you sure you want to move\n"
-#~ "the %d selected images to the trash?"
-#~ msgstr ""
-#~ "您確定要將\n"
-#~ "“%d”幅已選的圖片移至回收筒嗎？"
-
-#~ msgid "Delete"
-#~ msgstr "刪除"
