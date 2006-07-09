@@ -1,14 +1,14 @@
 # eog ko.po
 # Sung-Hyun Nam <namsh@kldp.org>, 1999
-# Updated Young-Ho Cha <ganadist@chollian.net>, 2000,2001
-# Changwoo Ryu  <cwryu@debian.org>, 2002-2005
+# Young-Ho Cha <ganadist@chollian.net>, 2000,2001,2006
+# Changwoo Ryu  <cwryu@debian.org>, 2002-2006
 msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.13.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-04 18:43+0900\n"
-"PO-Revision-Date: 2006-02-04 18:46+0900\n"
-"Last-Translator: Young-Ho Cha <ganadist@gmail.com>\n"
+"POT-Creation-Date: 2006-07-09 21:57+0900\n"
+"PO-Revision-Date: 2006-07-09 21:57+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,40 +97,40 @@ msgid "Image View"
 msgstr "그림 보기"
 
 #: ../eog.glade.h:20
+msgid "Interpolate image on _zoom"
+msgstr "확대/축소할 때 인터폴레이션(_Z)"
+
+#: ../eog.glade.h:21
 msgid "Rename From:"
 msgstr "원래 이름:"
 
-#: ../eog.glade.h:21
+#: ../eog.glade.h:22
 msgid "Replace spaces by underscore"
 msgstr "공백을 밑줄로 바꾸기"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3338
+#: ../eog.glade.h:23 ../shell/eog-window.c:3412
 msgid "Save As"
 msgstr "다른 이름으로 저장"
 
-#: ../eog.glade.h:23
+#: ../eog.glade.h:24
 msgid "Saving Image"
 msgstr "그림 저장하는 중입니다"
 
-#: ../eog.glade.h:24
+#: ../eog.glade.h:25
 msgid "Slide Show"
 msgstr "슬라이드 쇼"
 
-#: ../eog.glade.h:25
+#: ../eog.glade.h:26
 msgid "Start counter at:"
 msgstr "일련번호 시작:"
 
-#: ../eog.glade.h:26
+#: ../eog.glade.h:27
 msgid "To:"
 msgstr "바꿀 이름:"
 
-#: ../eog.glade.h:27
+#: ../eog.glade.h:28
 msgid "_Browse"
 msgstr "찾아보기(_B)"
-
-#: ../eog.glade.h:28
-msgid "_Interpolate image on zoom"
-msgstr "확대/축소할 때 인터폴레이션(_I)"
 
 #: ../eog.glade.h:29
 msgid "_Loop sequence"
@@ -253,32 +253,32 @@ msgstr ""
 "확대/축소에서 그림을 인터폴레이션할 지 여부. 인터폴레이션을 하면 화질이 좋아"
 "지지만 하지 않는 경우보다 느립니다."
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:340
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "저장할 때 쓸 임시 파일을 만들지 못했습니다: %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:359
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG 파일을 읽어들일 때 필요한 메모리를 할당하지 못했습니다"
 
-#: ../libeog/eog-image.c:426
+#: ../libeog/eog-image.c:418
 msgid "Transformation on unloaded image."
 msgstr "읽지 않은 그림 변한."
 
-#: ../libeog/eog-image.c:538
+#: ../libeog/eog-image.c:530
 msgid "EXIF not supported for this file format."
 msgstr "이 파일형식은 EXIF를 지원하지 않습니다."
 
-#: ../libeog/eog-image.c:1194 ../libeog/eog-image.c:1407
+#: ../libeog/eog-image.c:1190 ../libeog/eog-image.c:1403
 msgid "File exists"
 msgstr "파일이 이미 있습니다"
 
-#: ../libeog/eog-image.c:1347 ../libeog/eog-image.c:1475
+#: ../libeog/eog-image.c:1343 ../libeog/eog-image.c:1471
 msgid "No image loaded."
 msgstr "읽어 온 그림이 없습니다."
 
-#: ../libeog/eog-image.c:1356 ../libeog/eog-image.c:1484
+#: ../libeog/eog-image.c:1352 ../libeog/eog-image.c:1480
 msgid "Temporary file creation failed."
 msgstr "임시 파일 만들기가 실패했습니다."
 
@@ -461,23 +461,46 @@ msgstr "저장을 취소합니다 ..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:498
+#: ../shell/eog-window.c:500
 msgid "translator-credits"
 msgstr ""
 "남성현 <namsh@kldp.org>, 1999\n"
 "차영호 <ganadist@chollian.net>, 2000,2001\n"
 "류창우 <cwryu@debian.org>, 2002-2004"
 
-#: ../shell/eog-window.c:503 ../shell/eog-window.c:3046
-#: ../shell/eog-window.c:3697 ../shell/main.c:601
+#: ../shell/eog-window.c:503
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
+
+#: ../shell/eog-window.c:507
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+
+#: ../shell/eog-window.c:511
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+msgstr "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+
+#: ../shell/eog-window.c:524 ../shell/eog-window.c:3118
+#: ../shell/eog-window.c:3771 ../shell/main.c:609
 msgid "Eye of GNOME"
 msgstr "그놈의 눈"
 
-#: ../shell/eog-window.c:506
+#: ../shell/eog-window.c:527
 msgid "The GNOME image viewing and cataloging program."
 msgstr "그놈 그림 보기 및 카타로그 프로그램."
 
-#: ../shell/eog-window.c:532
+#: ../shell/eog-window.c:558
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -486,58 +509,58 @@ msgstr ""
 "그놈의 눈에 대한 도움말을 표시할 수 없습니다.\n"
 "%s"
 
-#: ../shell/eog-window.c:967
+#: ../shell/eog-window.c:993
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "%s 파일을 덮어쓰시겠습니까?"
 
-#: ../shell/eog-window.c:968
+#: ../shell/eog-window.c:994
 msgid "File exists. Do you want to overwrite it?"
 msgstr "파일이 있습니다. 덮어쓰시겠습니까?"
 
-#: ../shell/eog-window.c:979 ../shell/eog-window.c:995
+#: ../shell/eog-window.c:1005 ../shell/eog-window.c:1021
 msgid "Skip"
 msgstr "건너뛰기"
 
-#: ../shell/eog-window.c:980
+#: ../shell/eog-window.c:1006
 msgid "Overwrite"
 msgstr "덮어쓰기"
 
-#: ../shell/eog-window.c:985
+#: ../shell/eog-window.c:1011
 #, c-format
 msgid "Error on saving %s."
 msgstr "%s 저장에 오류가 발생했습니다."
 
-#: ../shell/eog-window.c:996 ../shell/eog-window.c:1562
+#: ../shell/eog-window.c:1022 ../shell/eog-window.c:1588
 msgid "Retry"
 msgstr "다시 시도"
 
-#: ../shell/eog-window.c:1426
+#: ../shell/eog-window.c:1452
 msgid "Couldn't determine destination uri."
 msgstr "목표 URI를 알아낼 수 없습니다."
 
-#: ../shell/eog-window.c:1548
+#: ../shell/eog-window.c:1574
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "%s의 파일 형식을 알아낼 수 없습니다"
 
-#: ../shell/eog-window.c:1549
+#: ../shell/eog-window.c:1575
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "적절한 파일 확장자를 쓰시거나 파일 형식을 지정하십시오."
 
-#: ../shell/eog-window.c:1687
+#: ../shell/eog-window.c:1713
 msgid "Error on saving images."
 msgstr "그림 저장에 오류가 발생했습니다."
 
-#: ../shell/eog-window.c:1768 ../shell/eog-window.c:3283
+#: ../shell/eog-window.c:1797
 msgid "Print"
 msgstr "인쇄"
 
-#: ../shell/eog-window.c:1802
+#: ../shell/eog-window.c:1831
 msgid "Print Preview"
 msgstr "인쇄 미리 보기"
 
-#: ../shell/eog-window.c:2006
+#: ../shell/eog-window.c:2035
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -546,7 +569,7 @@ msgstr ""
 "정말로 \"%s\"(을)를 \n"
 "휴지통에 옮기시겠습니까?"
 
-#: ../shell/eog-window.c:2009
+#: ../shell/eog-window.c:2038
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -558,275 +581,282 @@ msgstr[0] ""
 "정말로 선택한 그림 %d개를 \n"
 "휴지통에 옮기시겠습니까?"
 
-#: ../shell/eog-window.c:2024 ../shell/eog-window.c:3295
+#: ../shell/eog-window.c:2053 ../shell/eog-window.c:3367
 msgid "Move to Trash"
 msgstr "휴지통으로 옮기기"
 
-#: ../shell/eog-window.c:2055
+#: ../shell/eog-window.c:2084
 msgid "Couldn't access trash."
 msgstr "휴지통에 접근할 수 없습니다."
 
-#: ../shell/eog-window.c:2131
+#: ../shell/eog-window.c:2160
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "%s 그림을 지우는 데 오류가 발생했습니다"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2909
+#: ../shell/eog-window.c:2979
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i 픽셀  %s    %i%%"
 
-#: ../shell/eog-window.c:2965
+#: ../shell/eog-window.c:3035
 #, c-format
 msgid "Reason: %s"
 msgstr "이유: %s"
 
-#: ../shell/eog-window.c:3095
+#: ../shell/eog-window.c:3167
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "%s(을)를 읽는 데 실패했습니다"
 
-#: ../shell/eog-window.c:3260
+#: ../shell/eog-window.c:3332
 msgid "_File"
 msgstr "파일(_F)"
 
-#: ../shell/eog-window.c:3261
+#: ../shell/eog-window.c:3333
 msgid "_Edit"
 msgstr "편집(_E)"
 
-#: ../shell/eog-window.c:3262
+#: ../shell/eog-window.c:3334
 msgid "_View"
 msgstr "보기(_V)"
 
-#: ../shell/eog-window.c:3263
+#: ../shell/eog-window.c:3335
 msgid "_Image"
 msgstr "그림(_I)"
 
-#: ../shell/eog-window.c:3264
+#: ../shell/eog-window.c:3336
 msgid "_Go"
 msgstr "가기(_G)"
 
-#: ../shell/eog-window.c:3265
+#: ../shell/eog-window.c:3337
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: ../shell/eog-window.c:3266
+#: ../shell/eog-window.c:3338
 msgid "_Open..."
 msgstr "열기(_O)..."
 
-#: ../shell/eog-window.c:3266
+#: ../shell/eog-window.c:3338
 msgid "Open a file"
 msgstr "파일을 엽니다"
 
-#: ../shell/eog-window.c:3267
+#: ../shell/eog-window.c:3339
 msgid "_Close"
 msgstr "닫기(_C)"
 
-#: ../shell/eog-window.c:3267
+#: ../shell/eog-window.c:3339
 msgid "Close window"
 msgstr "창 닫기"
 
-#: ../shell/eog-window.c:3268
+#: ../shell/eog-window.c:3340
 msgid "Prefere_nces"
 msgstr "기본 설정(_N)"
 
-#: ../shell/eog-window.c:3268
+#: ../shell/eog-window.c:3340
 msgid "Preferences for Eye of GNOME"
 msgstr "그놈의 눈 기본 설정"
 
-#: ../shell/eog-window.c:3269
+#: ../shell/eog-window.c:3341
 msgid "_Contents"
 msgstr "차례(_C)"
 
-#: ../shell/eog-window.c:3269
+#: ../shell/eog-window.c:3341
 msgid "Help On this application"
 msgstr "이 프로그램에 대한 도움말"
 
-#: ../shell/eog-window.c:3270
+#: ../shell/eog-window.c:3342
 msgid "_About"
 msgstr "정보(_A)"
 
-#: ../shell/eog-window.c:3270
+#: ../shell/eog-window.c:3342
 msgid "About this application"
 msgstr "이 프로그램 정보"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3347
 msgid "_Toolbar"
 msgstr "도구 모음(_T)"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3347
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "현재 창의 도구 모음 표시 여부를 바꿉니다"
 
-#: ../shell/eog-window.c:3276
+#: ../shell/eog-window.c:3348
 msgid "_Statusbar"
 msgstr "상태 표시줄(_S)"
 
-#: ../shell/eog-window.c:3276
+#: ../shell/eog-window.c:3348
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "현재 창의 상태 표시줄 표시 여부를 바꿉니다"
 
-#: ../shell/eog-window.c:3277
+#: ../shell/eog-window.c:3349
 msgid "_Image Collection"
 msgstr "그림 모음(_I)"
 
-#: ../shell/eog-window.c:3277
+#: ../shell/eog-window.c:3349
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
-msgstr ""
-"현재 창의 그림 모음 창 표시 여부를 바꿉니다"
+msgstr "현재 창의 그림 모음 창 표시 여부를 바꿉니다"
 
-#: ../shell/eog-window.c:3281
+#: ../shell/eog-window.c:3353
 msgid "_Save"
 msgstr "저장(_S)"
 
-#: ../shell/eog-window.c:3282
-msgid "Save _As"
-msgstr "다른 이름으로 저장(_A)"
+#: ../shell/eog-window.c:3354
+msgid "Save _As..."
+msgstr "다른 이름으로 저장(_A)..."
 
-#: ../shell/eog-window.c:3285
+#: ../shell/eog-window.c:3355
+msgid "Print..."
+msgstr "인쇄..."
+
+#: ../shell/eog-window.c:3357
 msgid "_Undo"
 msgstr "실행 취소(_U)"
 
-#: ../shell/eog-window.c:3287
+#: ../shell/eog-window.c:3359
 msgid "Flip _Horizontal"
 msgstr "가로 방향으로 뒤집기(_H)"
 
-#: ../shell/eog-window.c:3288
+#: ../shell/eog-window.c:3360
 msgid "Flip _Vertical"
 msgstr "세로 방향으로 뒤집기(_V)"
 
-#: ../shell/eog-window.c:3290
+#: ../shell/eog-window.c:3362
 msgid "_Rotate Clockwise"
 msgstr "시계 방향 회전(_R)"
 
-#: ../shell/eog-window.c:3291
+#: ../shell/eog-window.c:3363
 msgid "Rotate Counter C_lockwise"
 msgstr "시계 반대 방향 회전(_L)"
 
-#: ../shell/eog-window.c:3292
+#: ../shell/eog-window.c:3364
 msgid "Rotat_e 180°"
 msgstr "180도 회전(_E)"
 
-#: ../shell/eog-window.c:3293
+#: ../shell/eog-window.c:3365
 msgid "Set As _Wallpaper"
 msgstr "바탕 화면에 설정(_W)"
 
-#: ../shell/eog-window.c:3297
+#: ../shell/eog-window.c:3369
 msgid "_Full Screen"
 msgstr "전체 화면(_F)"
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3370
 msgid "_Slideshow"
 msgstr "슬라이드 쇼(_S)"
 
 #. accelerators
-#: ../shell/eog-window.c:3299 ../shell/eog-window.c:3305
-#: ../shell/eog-window.c:3306
+#: ../shell/eog-window.c:3371 ../shell/eog-window.c:3377
+#: ../shell/eog-window.c:3378
 msgid "_Zoom In"
 msgstr "확대(_Z)"
 
-#: ../shell/eog-window.c:3300 ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3372 ../shell/eog-window.c:3379
 msgid "Zoom _Out"
 msgstr "축소(_O)"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3373
 msgid "_Normal Size"
 msgstr "보통 크기(_N)"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3374
 msgid "Best _Fit"
 msgstr "창에 맞게(_F)"
 
-#: ../shell/eog-window.c:3308 ../shell/eog-window.c:3310
-#: ../shell/eog-window.c:3322
+#: ../shell/eog-window.c:3380 ../shell/eog-window.c:3382
+#: ../shell/eog-window.c:3396
 msgid "_Next Image"
 msgstr "다음 그림(_N)"
 
-#: ../shell/eog-window.c:3309 ../shell/eog-window.c:3311
-#: ../shell/eog-window.c:3312 ../shell/eog-window.c:3321
+#: ../shell/eog-window.c:3381 ../shell/eog-window.c:3383
+#: ../shell/eog-window.c:3384 ../shell/eog-window.c:3395
 msgid "_Previous Image"
 msgstr "이전 그림(_P)"
 
-#: ../shell/eog-window.c:3313
+#: ../shell/eog-window.c:3385
 msgid "Move to _Trash"
 msgstr "휴지통으로 옮기기(_T)"
 
-#: ../shell/eog-window.c:3317
-msgid "Image _Information"
-msgstr "그림 정보(_I)"
-
-#: ../shell/eog-window.c:3317
-msgid "Changes the visibility of the information pane in the current window"
-msgstr "현재 창의 정보 창 표시 여부를 바꿉니다"
-
-#: ../shell/eog-window.c:3323
+#: ../shell/eog-window.c:3386 ../shell/eog-window.c:3397
 msgid "_First Image"
 msgstr "처음 그림(_F)"
 
-#: ../shell/eog-window.c:3324
+#: ../shell/eog-window.c:3387 ../shell/eog-window.c:3398
 msgid "_Last Image"
 msgstr "마지막 그림(_L)"
 
-#: ../shell/eog-window.c:3335
+#: ../shell/eog-window.c:3391
+msgid "Image _Information"
+msgstr "그림 정보(_I)"
+
+#: ../shell/eog-window.c:3391
+msgid "Changes the visibility of the information pane in the current window"
+msgstr "현재 창의 정보 창 표시 여부를 바꿉니다"
+
+#: ../shell/eog-window.c:3409
 msgid "Open"
 msgstr "열기"
 
-#: ../shell/eog-window.c:3336
+#: ../shell/eog-window.c:3410
 msgid "Close"
 msgstr "닫기"
 
-#: ../shell/eog-window.c:3337
+#: ../shell/eog-window.c:3411
 msgid "Save"
 msgstr "저장"
 
-#: ../shell/eog-window.c:3339
+#: ../shell/eog-window.c:3413
 msgid "Undo"
 msgstr "실행 취소"
 
-#: ../shell/eog-window.c:3342
+#: ../shell/eog-window.c:3416
 msgid "Right"
 msgstr "오른쪽"
 
-#: ../shell/eog-window.c:3343
+#: ../shell/eog-window.c:3417
 msgid "Left"
 msgstr "왼쪽"
 
-#: ../shell/eog-window.c:3346
+#: ../shell/eog-window.c:3420
 msgid "In"
 msgstr "확대"
 
-#: ../shell/eog-window.c:3347
+#: ../shell/eog-window.c:3421
 msgid "Out"
 msgstr "축소"
 
-#: ../shell/eog-window.c:3348
+#: ../shell/eog-window.c:3422
 msgid "Normal"
 msgstr "보통"
 
-#: ../shell/eog-window.c:3349
+#: ../shell/eog-window.c:3423
 msgid "Fit"
 msgstr "맞추기"
 
-#: ../shell/eog-window.c:3350
+#: ../shell/eog-window.c:3424
 msgid "Next"
 msgstr "다음"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3425
 msgid "Previous"
 msgstr "이전"
 
-#: ../shell/eog-window.c:3516
+#: ../shell/eog-window.c:3590
 msgid "User interface description not found."
 msgstr "사용자 인터페이스 기술 파일이 없습니다."
 
-#: ../shell/main.c:166
+#: ../shell/main.c:23
+msgid "[FILE...]"
+msgstr "[파일...]"
+
+#: ../shell/main.c:174
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "그놈의 눈 사용자 인터페이스를 만들 수 없습니다"
 
-#: ../shell/main.c:357
+#: ../shell/main.c:365
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "파일을 찾을 수 없습니다."
