@@ -819,6 +819,7 @@ eog_full_screen_new (GtkWindow *parent,
 	GConfClient   *client;
 	gboolean       upscale = TRUE;
 	gboolean       antialiasing = TRUE;
+	gchar         *transparency;
 
 	g_return_val_if_fail (image_list != NULL, NULL);
 
@@ -859,9 +860,29 @@ eog_full_screen_new (GtkWindow *parent,
 	priv->switch_timeout = gconf_client_get_int (client, EOG_CONF_FULLSCREEN_SECONDS, NULL);
 	upscale = gconf_client_get_bool (client, EOG_CONF_FULLSCREEN_UPSCALE, NULL);
 	antialiasing = gconf_client_get_bool (client, EOG_CONF_VIEW_INTERPOLATE, NULL);
+	transparency = gconf_client_get_string (client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
 	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (widget), antialiasing);
-	
+	if (g_strcasecmp (transparency, "COLOR") == 0) {
+		gchar *trans_color;
+		GdkColor color;
+		
+		trans_color = gconf_client_get_string (client, EOG_CONF_VIEW_TRANS_COLOR, NULL);
+		if (gdk_color_parse (trans_color, &color))
+			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (widget),
+							  TRANSP_COLOR, &color);
+
+		if (trans_color)
+			g_free (trans_color);
+	}
+	else if (g_strcasecmp (transparency, "CHECK_PATTERN") == 0) 
+		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (widget),
+						  TRANSP_CHECKED, 0);
+	else 
+		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (widget),
+						  TRANSP_BACKGROUND, 0);
+	if(transparency)	
+		g_free(transparency);
 	g_object_unref (G_OBJECT (client));
 
 	/* load first image in the background */
