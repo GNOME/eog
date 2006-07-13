@@ -162,6 +162,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	FILE                          *output_file;
 	FILE                          *input_file;
 	EogImagePrivate               *priv;
+	gchar                          *infile_uri;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
 	g_return_val_if_fail (EOG_IMAGE (image)->priv->uri != NULL, FALSE);
@@ -199,11 +200,14 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* Open the output file. */
 	/* FIXME: Make this a GnomeVFSURI aware input manager */
-	input_file = fopen (gnome_vfs_uri_get_path (priv->uri), "rb");
+	infile_uri = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (priv->uri), NULL);
+	input_file = fopen (infile_uri, "rb");
 	if (input_file == NULL) {
-		g_warning ("Input file not openable: %s\n", gnome_vfs_uri_get_path (priv->uri));
+		g_warning ("Input file not openable: %s\n", infile_uri);
+		g_free (infile_uri);
 		return FALSE;
 	}
+	g_free (infile_uri);
 
 	output_file = fopen (file, "wb");
 	if (output_file == NULL) {
