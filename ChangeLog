@@ -1,5 +1,12 @@
 2006-07-13  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/eog-scroll-view.c (eog_scroll_view_button_press_event,
+	eog_scroll_view_button_release_event, check_scrollbar_visibility): 
+	use middle mouse drag to scroll image (Fixes bug #335689). Based
+	on patch from Wouter Bolsterlee <uws+gnome@xs4all.nl>.
+
+2006-07-13  Lucas Rocha  <lucasr@gnome.org>
+
 	* libeog/eog-image-jpeg.c (_save_jpeg_as_jpeg): avoid losing
 	EXIF data when saving changed jpeg images (Fixes bug #309219).
 	Patch from Felix Riemann <felix@hsgheli.de>.

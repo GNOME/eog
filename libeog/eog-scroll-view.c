@@ -351,12 +351,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	if (vbar_visible != GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar)))
 		g_object_set (G_OBJECT (priv->vbar), "visible", vbar_visible, NULL);
 
-
-	if ((hbar_visible || vbar_visible) && priv->cursor_type != CURSOR_HAND_OPEN) {
-		priv->cursor_type = CURSOR_HAND_OPEN;
-		cursor_set (priv->display, CURSOR_HAND_OPEN);
-	}
-	else if (!hbar_visible  && !vbar_visible && priv->cursor_type != CURSOR_DEFAULT) {
+	if (!hbar_visible  && !vbar_visible && priv->cursor_type != CURSOR_DEFAULT) {
 		priv->cursor_type = CURSOR_DEFAULT;
 		cursor_set (priv->display, CURSOR_DEFAULT);
 	}
@@ -1174,22 +1169,22 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 		return FALSE;
 
 	switch (event->button) {
-	case 1:
-		if (is_image_movable (view)) {
-			priv->cursor_type = CURSOR_HAND_CLOSED;
-			cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_CLOSED);
+		case 2:
+			if (is_image_movable (view)) {
+				priv->cursor_type = CURSOR_HAND_CLOSED;
+				cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_OPEN);
 
-			priv->dragging = TRUE;
-			priv->drag_anchor_x = event->x;
-			priv->drag_anchor_y = event->y;
-			
-			priv->drag_ofs_x = priv->xofs;
-			priv->drag_ofs_y = priv->yofs;
+				priv->dragging = TRUE;
+				priv->drag_anchor_x = event->x;
+				priv->drag_anchor_y = event->y;
 
-			return TRUE;
-		}
-	default:
-		break;
+				priv->drag_ofs_x = priv->xofs;
+				priv->drag_ofs_y = priv->yofs;
+
+				return TRUE;
+			}
+		default:
+			break;
 	}
 
 	return FALSE;
@@ -1218,19 +1213,19 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-	if (!priv->dragging || event->button != 1)
+	if (!priv->dragging)
 		return FALSE;
 
-	drag_to (view, event->x, event->y);
-	priv->dragging = FALSE;
+	switch (event->button) {
+		case 2:
+			drag_to (view, event->x, event->y);
+			priv->dragging = FALSE;
 
-	if (is_image_movable (view)) {
-		priv->cursor_type = CURSOR_HAND_OPEN;
-		cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_OPEN);
-	}
-	else {
-		priv->cursor_type = CURSOR_DEFAULT;
-		cursor_set (GTK_WIDGET (priv->display), CURSOR_DEFAULT);
+			priv->cursor_type = CURSOR_DEFAULT;
+			cursor_set (GTK_WIDGET (priv->display), CURSOR_DEFAULT);
+
+		default:
+			break;
 	}
 
 	return TRUE;
