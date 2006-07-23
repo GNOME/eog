@@ -55,7 +55,7 @@ color_change_cb (GtkColorButton *button, gpointer data)
 
 	gtk_color_button_get_color (button, &color);
 
-	value = g_strdup_printf ("#%2X%2X%2X",
+	value = g_strdup_printf ("#%02X%02X%02X",
 				 color.red / 256,
 				 color.green / 256,
 				 color.blue / 256);
