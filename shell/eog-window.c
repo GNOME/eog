@@ -108,6 +108,9 @@ struct _EogWindowPrivate {
 	EogImageList        *image_list;
 	EogImage            *displayed_image;
 
+        /* The next image to display. */
+        EogImage            *next_image;
+
 	/* ui/widget stuff */
 	GtkUIManager        *ui_mgr;
 	GtkWidget           *box;
@@ -2535,6 +2538,7 @@ eog_window_init (EogWindow *window)
 
 	priv->image_list = NULL;
 	priv->displayed_image = NULL;
+	priv->next_image = NULL;
 	priv->sig_id_list_prepared = 0;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
@@ -3131,13 +3135,35 @@ static void
 job_image_load_action (EogJob *job, gpointer data, GError **error)
 {
 	EogJobImageLoadData *job_data;
+	EogWindow *window;
+	EogImage *image;
 
 	job_data = (EogJobImageLoadData*) data;
+	window = EOG_JOB_DATA (job_data)->window;
+	image = job_data->image;
 
-	eog_image_load (EOG_IMAGE (job_data->image),
-			EOG_IMAGE_DATA_ALL,
-			job,
-			error);
+	/* The companion unlock is in job_image_load_finished. This doesn't
+	 * dead-lock because both functions are called sequentially by the 
+	 * same thread. This seems too much like a miracle for my tastes. */
+	eog_image_lock (image);
+
+	/* Check to see if the job is still relevant. */
+	if (window->priv->next_image != image) {
+        	  eog_image_unlock (image);
+	          return;
+	}
+
+	if (!eog_image_is_loaded (image)) {	  
+	        eog_image_load (EOG_IMAGE (job_data->image),
+				EOG_IMAGE_DATA_ALL,
+				job,
+				error);
+	} else {
+	        /* We still want to display the image with the finished
+		 * handler so we keep an extra ref to it to make sure it 
+		 * isn't released early. */
+	        g_object_ref (image);
+	}
 }
 
 static void
@@ -3150,6 +3176,22 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	job_data = (EogJobImageLoadData*) data;
 	window = EOG_JOB_DATA (job_data)->window;
 	image = job_data->image;
+
+	/* Check to see if the job is still relevant. */
+	if (window->priv->next_image != image) {
+        	  eog_image_unlock (image);
+	          return;
+	}
+
+	/* This is a hack to get around a very rare race condition
+	 * where the first half of the job has decided that the
+	 * image has data and doesn't need to be reloaded, but the
+	 * image data has gone AWOL by this point. This does not
+	 * fix the cause, but I'm damned if I can find it. */
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+	        eog_image_unlock (image);
+		return;
+	}
 
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
 		if (eog_job_get_success (job)) { 
@@ -3178,6 +3220,9 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	}
 
 	g_object_unref (image);
+
+	/* The companion lock is in job_image_load_action. */
+	eog_image_unlock (image);
 }
 
 static void
@@ -3251,9 +3296,10 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	EOG_JOB_DATA (data)->window = window;
 	data->image = image; /* no additional ref required, since 
 			      * its already increased by 
-			      * eog_wrap_lsit_get_first_selected_image
-			      */
-	
+			      * eog_wrap_list_get_first_selected_image
+			      */	
+	window->priv->next_image = image;
+
 	job = eog_job_new_full (data,
 				job_image_load_action,
 				job_image_load_finished,

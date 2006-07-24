@@ -1,3 +1,18 @@
+2006-07-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-image-private.h:
+	* libeog/eog-image.c: (eog_image_dispose), (eog_image_init),
+	(eog_image_lock), (eog_image_unlock), (eog_image_cancel_load):
+	* libeog/eog-image.h:
+	* libeog/eog-job-manager.c: (thread_start_func):
+	* libeog/eog-job.c: (eog_job_call_action):
+	* shell/eog-window.c: (eog_window_init), (job_image_load_action),
+	(job_image_load_finished), (handle_image_selection_changed):
+
+	Add image_lock/unlock methods to ensure that there are no 
+	race conditions when loading and unloading images (Fixes bug
+	#340827). Patch from Callum McKenzie <callum@spooky-possum.org>.
+	
 2006-07-24  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-preferences.c: (color_change_cb): Use correct syntax

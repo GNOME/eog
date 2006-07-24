@@ -106,6 +106,11 @@ eog_image_dispose (GObject *object)
 		g_free (priv->error_message);
 		priv->error_message = NULL;
 	}
+
+	if (priv->mutex) {
+		g_mutex_free (priv->mutex);
+		priv->mutex = NULL;
+	}
 	
 	if (priv->status_mutex) {
 		g_mutex_free (priv->status_mutex);
@@ -257,6 +262,7 @@ eog_image_init (EogImage *img)
 	priv->thumbnail = NULL;
 	priv->width = priv->height = -1;
 	priv->modified = FALSE;
+	priv->mutex = g_mutex_new ();
 	priv->status_mutex = g_mutex_new ();
 	priv->load_finished = NULL;
 	priv->error_message = NULL;
@@ -269,6 +275,24 @@ eog_image_init (EogImage *img)
 	priv->data_ref_count = 0;
 
 	img->priv = priv;
+}
+
+void eog_image_lock (EogImage *image)
+{
+        g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (image->priv != NULL);
+	g_return_if_fail (image->priv->mutex != NULL);
+
+	g_mutex_lock (image->priv->mutex);
+}
+
+void eog_image_unlock (EogImage *image)
+{
+        g_return_if_fail (EOG_IS_IMAGE (image));
+	g_return_if_fail (image->priv != NULL);
+	g_return_if_fail (image->priv->mutex != NULL);
+
+	g_mutex_unlock (image->priv->mutex);
 }
 
 EogImage* 
@@ -1692,6 +1716,7 @@ eog_image_cancel_load (EogImage *img)
 	g_mutex_lock (priv->status_mutex);
 	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
 		priv->cancel_loading = TRUE;
+		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	}
 	g_mutex_unlock (priv->status_mutex);
 }
