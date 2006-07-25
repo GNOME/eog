@@ -1,3 +1,19 @@
+2006-07-25  Lucas Rocha  <lucasr@gnome.org>
+
+	Initial support for opening images by tags with the --tags command-line 
+	option based on leaftag. No UI defined for this yet.
+
+	* shell/main.c (main, string_array_to_list, +load_files_from_tags):
+	changes for tag support.
+	* shell/eog-application.[ch] (+eog_application_open_tag_list): new
+	methods for opening images from tags.
+	* configure.ac: optional dependency on leaftag library.
+	* libeog/eog-image.[ch] (+eog_image_get_supported_mime_types,
+	+eog_image_is_supported_mime_type, +compare_quarks): application wide
+	methods for gettting supported image mime types.
+	* libeog/eog-list-store.c (vfs_monitor_dir_cb): removed local mime type 
+	support functions.
+
 2006-07-24  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-window.c (eog_window_class_init, eog_window_button_press):

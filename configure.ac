@@ -114,6 +114,22 @@ if test "x$have_gnome_print" = "xyes"; then
   EOG_MODULES="$EOG_MODULES libgnomeprintui-2.2"
 fi
 
+# ******************
+# Leaftag (optional)
+# ******************
+
+LIBLEAFTAG_REQUIRED=0.3.1
+
+AC_ARG_WITH(libleaftag, [  --without-libleaftag	  disable tagging support])
+have_leaftag=no
+if test x$with_libleaftag != xno; then
+    PKG_CHECK_MODULES(LEAFTAG, libleaftag >= $LIBLEAFTAG_REQUIRED, have_leaftag=yes, have_leaftag=no)
+fi 
+if test "x$have_leaftag" = "xyes"; then
+  AC_DEFINE(HAVE_LEAFTAG, 1, [Tagging Support.])
+  EOG_MODULES="$EOG_MODULES libleaftag >= $LIBLEAFTAG_REQUIRED"
+fi
+
 # ********************
 # Jpeg (semi-optional)
 # ********************
@@ -209,6 +225,7 @@ Configure summary:
 
 	Printing support ...........:  ${have_gnome_print}
 	EXIF support ...............:  ${have_exif}
+	Tagging support ............:  ${have_leaftag}
 	JPEG support ...............:  ${have_jpeg}
 	Colour management support ..:  ${have_lcms}
 "

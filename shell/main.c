@@ -42,17 +42,24 @@
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomevfs/gnome-vfs.h>
+#ifdef HAVE_LEAFTAG
+#include <libleaftag/leaftag.h>
+#endif
 
+static gboolean tags = FALSE;
 static gchar **startup_files = NULL;
 
 static const GOptionEntry goption_options[] =
 {
+#ifdef HAVE_LEAFTAG
+	{ "tags", 0, 0, G_OPTION_ARG_NONE, &tags, N_("Open images by tag names"), NULL },
+#endif
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
 	{ NULL }
 };
 
 static GSList*
-string_array_to_list (const gchar **files)
+string_array_to_list (const gchar **files, gboolean create_uri)
 {
 	gint i;
 	GSList *list = NULL;
@@ -60,13 +67,17 @@ string_array_to_list (const gchar **files)
 	if (files == NULL) return list;
 
 	for (i = 0; files[i]; i++) {
-		char *uri_str;
+		char *str;
 
-		uri_str = gnome_vfs_make_uri_from_shell_arg (files[i]);
-	
-		if (uri_str) {
-			list = g_slist_prepend (list, g_strdup (uri_str));
-			g_free (uri_str);
+		if (create_uri) {
+			str = gnome_vfs_make_uri_from_shell_arg (files[i]);
+		} else {
+			str = g_strdup (files[i]);
+		}
+
+		if (str) {
+			list = g_slist_prepend (list, g_strdup (str));
+			g_free (str);
 		}
 	}
 
@@ -78,7 +89,7 @@ load_files ()
 {
 	GSList *files = NULL;
 
-	files = string_array_to_list ((const gchar **) startup_files);
+	files = string_array_to_list ((const gchar **) startup_files, TRUE);
 
 	eog_application_open_uri_list (EOG_APP, 
 				       files,
@@ -88,6 +99,24 @@ load_files ()
 	g_slist_foreach (files, (GFunc) g_free, NULL);	
 	g_slist_free (files);
 }
+
+#ifdef HAVE_LEAFTAG
+static void 
+load_files_from_tags ()
+{
+	GSList *tags = NULL;
+
+	tags = string_array_to_list ((const gchar **) startup_files, FALSE);
+
+	eog_application_open_tag_list (EOG_APP, 
+				       tags,
+				       GDK_CURRENT_TIME,
+				       NULL);
+
+	g_slist_foreach (tags, (GFunc) g_free, NULL);	
+	g_slist_free (tags);
+}
+#endif
 
 int
 main (int argc, char **argv)
@@ -118,7 +147,15 @@ main (int argc, char **argv)
 	gtk_window_set_default_icon_name ("image-viewer");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
 
-	load_files ();
+#ifdef HAVE_LEAFTAG
+	if (!tags) {
+#endif
+		load_files ();
+#ifdef HAVE_LEAFTAG
+	} else {
+		load_files_from_tags();
+	}
+#endif
 
 	gtk_main ();
 

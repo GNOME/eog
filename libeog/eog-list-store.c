@@ -33,8 +33,6 @@
 
 #define EOG_LIST_STORE_THUMB_SIZE 90
 
-static GSList *supported_mime_types = NULL;
-
 struct _EogListStorePriv {
 	GList *monitors;      /* monitors for the directories */
 	gint initial_image;   /* the image that should be selected firstly by the view. */
@@ -329,65 +327,6 @@ eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entr
 
 /* ================== Directory Loading stuff ===================*/
 
-static gint
-compare_quarks (gconstpointer a, gconstpointer b)
-{
-	return GPOINTER_TO_INT (a) - GPOINTER_TO_INT (b);
-}
-
-static GSList*
-get_supported_mime_types (void)
-{
-	GSList *format_list;
-	GSList *it;
-	GSList *list = NULL;
-	gchar **mime_types;
-	int i;
-	
-	format_list = gdk_pixbuf_get_formats ();
-
-	for (it = format_list; it != NULL; it = it->next) {
-		mime_types = gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
-
-		for (i = 0; mime_types[i] != NULL; i++) {
-			GQuark quark;
-
-			quark = g_quark_from_string (mime_types[i]);
-			list = g_slist_prepend (list,
-						GINT_TO_POINTER (quark));
-		}
-
-		g_strfreev (mime_types);
-	}
-
-	list = g_slist_sort (list, (GCompareFunc) compare_quarks);
-	
-	g_slist_free (format_list);
-
-	return list;
-}
-
-
-/* checks if the mime type is in our static list of 
- * supported mime types.
- */
-static gboolean 
-is_supported_mime_type (const char *mime_type) 
-{
-	GQuark quark;
-	GSList *result;
-
-	if (supported_mime_types == NULL) {
-		supported_mime_types = get_supported_mime_types ();
-	}
-
-	quark = g_quark_from_string (mime_type);
-	
-	result = g_slist_find (supported_mime_types, GINT_TO_POINTER (quark));
-
-	return (result != NULL);
-}
-
 static void
 vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		    const gchar *monitor_uri,
@@ -405,7 +344,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 
 		mimetype = gnome_vfs_get_mime_type (info_uri);
 		if (is_file_in_list_store (store, info_uri, &iter)) {
-			if (is_supported_mime_type (mimetype)) {
+			if (eog_image_is_supported_mime_type (mimetype)) {
 				/* update EogImage (easy and ugly way) */
 				gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 				uri = gnome_vfs_uri_new (info_uri);
@@ -415,7 +354,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 				gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 			}
 		} else {
-			if (is_supported_mime_type (mimetype)) {
+			if (eog_image_is_supported_mime_type (mimetype)) {
 				uri = gnome_vfs_uri_new (info_uri);
 				eog_list_store_append_image_from_uri (store, uri);
 				gnome_vfs_uri_unref (uri);
@@ -465,7 +404,7 @@ directory_visit_cb (const gchar *rel_uri,
 	
         if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0 &&
             !g_str_has_prefix (info->name, ".")) {
-		if (is_supported_mime_type (info->mime_type)) {
+		if (eog_image_is_supported_mime_type (info->mime_type)) {
 			load_uri = TRUE;
 		}
 	}

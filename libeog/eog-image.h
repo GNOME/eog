@@ -134,6 +134,10 @@ void                eog_image_undo                            (EogImage *img);
 /* print API */
 void               eog_image_print                            (EogImage *img, GnomePrintContext *pc, gdouble width, gdouble height);
 
+GList		  *eog_image_get_supported_mime_types         (void);
+
+gboolean           eog_image_is_supported_mime_type           (const char *mime_type);
+
 G_END_DECLS
 
 #endif /* _IMAGE_H_ */

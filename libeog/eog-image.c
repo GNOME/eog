@@ -51,6 +51,8 @@ enum {
 
 static gint eog_image_signals [SIGNAL_LAST];
 
+static GList *supported_mime_types = NULL;
+
 #define NO_DEBUG
 #define DEBUG_ASYNC 0
 #define OBJECT_WATCH 0
@@ -1883,4 +1885,64 @@ eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width,
 	}
   
 	g_object_unref (G_OBJECT (printed_image));	
+}
+
+static gint
+compare_quarks (gconstpointer a, gconstpointer b)
+{
+	GQuark quark; 
+	
+	quark = g_quark_from_string ((const gchar *) a);
+	
+	return quark - GPOINTER_TO_INT (b);
+}
+
+GList *
+eog_image_get_supported_mime_types ()
+{
+	GSList *format_list, *it;
+	gchar **mime_types;
+	int i;
+
+	if (!supported_mime_types) {
+
+		format_list = gdk_pixbuf_get_formats ();
+
+		for (it = format_list; it != NULL; it = it->next) {
+			mime_types =
+				gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
+
+			for (i = 0; mime_types[i] != NULL; i++) {
+				supported_mime_types = 
+					g_list_prepend (supported_mime_types,
+							g_strdup (mime_types[i]));
+			}
+
+			g_strfreev (mime_types);
+		}
+
+		supported_mime_types = g_list_sort (supported_mime_types, 
+						    (GCompareFunc) compare_quarks);
+
+		g_slist_free (format_list);
+	}
+
+	return supported_mime_types;
+}
+
+gboolean 
+eog_image_is_supported_mime_type (const char *mime_type) 
+{
+	GList *supported_mime_types, *result;
+	GQuark quark;
+
+	supported_mime_types = eog_image_get_supported_mime_types ();
+
+	quark = g_quark_from_string (mime_type);
+
+	result = g_list_find_custom (supported_mime_types, 
+				     GINT_TO_POINTER (quark),
+				     (GCompareFunc) compare_quarks);
+
+	return (result != NULL);
 }

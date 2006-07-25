@@ -71,6 +71,13 @@ gboolean          eog_application_open_uri_list      (EogApplication   *applicat
     						      guint            timestamp,
 						      GError          **error);
 
+#ifdef HAVE_LEAFTAG
+gboolean          eog_application_open_tag_list      (EogApplication   *application,
+		  			              GSList           *tags,
+    						      guint            timestamp,
+						      GError          **error);
+#endif
+
 GList		 *eog_application_get_windows	     (EogApplication   *application);
 
 EggRecentModel   *eog_application_get_recent_model   (EogApplication   *application);
