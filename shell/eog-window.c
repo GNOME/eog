@@ -2049,9 +2049,7 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 static gint
 eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
-	gint result;
-
-	result = FALSE;
+	gint result = FALSE;
 
 	switch (event->keyval) {
 	case GDK_Escape:
@@ -2103,6 +2101,34 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	return result;
 }
 
+static gint
+eog_window_button_press (GtkWidget *widget, GdkEventButton *event)
+{
+	EogWindow *window = EOG_WINDOW (widget);
+	gint result = FALSE;
+
+	if (event->type == GDK_BUTTON_PRESS) {
+		switch (event->button) {
+		case 6:
+			eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
+						      EOG_THUMB_VIEW_SELECT_LEFT);
+			result = TRUE;
+		       	break;
+		case 7:
+			eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
+						      EOG_THUMB_VIEW_SELECT_RIGHT);
+			result = TRUE;
+		       	break;
+		}
+	}
+
+	if (result == FALSE && GTK_WIDGET_CLASS (eog_window_parent_class)->button_press_event) {
+		result = (* GTK_WIDGET_CLASS (eog_window_parent_class)->button_press_event) (widget, event);
+	}
+
+	return result;
+}
+	
 static gboolean
 eog_window_configure_event (GtkWidget *widget, GdkEventConfigure *event)
 {
@@ -2198,6 +2224,7 @@ eog_window_class_init (EogWindowClass *class)
 
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
+	widget_class->button_press_event = eog_window_button_press;
         widget_class->configure_event = eog_window_configure_event;
         widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
