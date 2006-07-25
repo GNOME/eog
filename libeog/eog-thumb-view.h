@@ -74,8 +74,8 @@ void        eog_thumb_view_set_current_image	    (EogThumbView *view,
 						     EogImage     *image,
 						     gboolean     deselect_other);
 
-void        eog_thumb_view_set_thumbnail_popup (EogThumbView *tb, 
-						GtkMenu *menu);
+void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *view, 
+						     GtkMenu      *menu);
 
 G_END_DECLS
 

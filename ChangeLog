@@ -1,3 +1,17 @@
+2006-07-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* libeog/eog-image.c (extract_profile): removed debug messages.
+	* libeog/eog-list-store.[ch] (+eog_list_store_length): new wrapper
+	method to get model length. Coding style fixes.
+	* libeog/eog-thumb-view.[ch]: Coding style fixes.
+	* shell/eog-window.c (eog_window_update_slideshow_action,
+	slideshow_is_loop_end, slideshow_switch_cb, slideshow_clear_timeout,
+	slideshow_set_timeout, exit_fullscreen_button_clicked_cb,
+	eog_window_create_fullscreen_popup, eog_window_run_fullscreen,
+	eog_window_stop_fullscreen, eog_window_update_fullscreen_action,
+	eog_window_cmd_slideshow, eog_window_init, eog_window_key_press):
+	initial implementation of slideshow.
+
 2006-07-24  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-preferences.c: (color_change_cb): Use correct syntax

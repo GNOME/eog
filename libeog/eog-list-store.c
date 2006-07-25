@@ -688,8 +688,18 @@ eog_list_store_get_pos_by_iter (EogListStore *store,
 }
 
 gint
+eog_list_store_length (EogListStore *store)
+{
+	g_return_val_if_fail (EOG_IS_LIST_STORE (store), -1);
+
+	return gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL);
+}
+
+gint
 eog_list_store_get_initial_pos (EogListStore *store)
 {
+	g_return_val_if_fail (EOG_IS_LIST_STORE (store), -1);
+
 	return store->priv->initial_image;
 }
 

@@ -632,11 +632,11 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 
 	if (exif_get_short (entry->data, o) == 1) {
 		priv->profile = cmsCreate_sRGBProfile ();
-		g_printerr ("JPEG is sRGB\n");
+		//g_printerr ("JPEG is sRGB\n");
 	} else if (exif_get_short (entry->data, o) == 2) {
 		/* TODO: create Adobe RGB profile */
 		//priv->profile = cmsCreate_Adobe1998Profile ();
-		g_printerr ("JPEG is Adobe RGB (NOT correcting for now!)\n");
+		//g_printerr ("JPEG is Adobe RGB (NOT correcting for now!)\n");
 	} else if (exif_get_short (entry->data, o) == 0xFFFF) {
 		double gammaValue;
 		cmsCIExyY whitepoint;
@@ -694,7 +694,7 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, gammaValue);
 		    
 		priv->profile = cmsCreateRGBProfile(&whitepoint, &primaries, gamma);
-		g_printerr ("JPEG is calibrated\n");
+		//g_printerr ("JPEG is calibrated\n");
 		cmsFreeGamma(gamma[0]);
 	}
 #endif
