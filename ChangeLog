@@ -1,5 +1,16 @@
 2006-07-25  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/cursor.[ch], libeog/cursors/*, eog-image-cache.[ch],
+	eog-full-screen.[ch]: removed obsolete files.
+	* libeog/eog-scroll-view.[ch]
+	(+eog_scroll_view_create_invisible_cursor,
+	+eog_scroll_view_set_cursor, +eog_scroll_view_show_cursor,
+	+eog_scroll_view_hide_cursor, eog_scroll_view_button_press_event),
+	shell/eog-window.c (fullscreen_set_timeout, fullscreen_clear_timeout):
+	new cursor handling code.
+
+2006-07-25  Lucas Rocha  <lucasr@gnome.org>
+
 	Initial support for opening images by tags with the --tags command-line 
 	option based on leaftag. No UI defined for this yet.
 

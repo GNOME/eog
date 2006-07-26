@@ -56,6 +56,8 @@ void     eog_scroll_view_set_zoom         (EogScrollView *view, double zoom);
 double   eog_scroll_view_get_zoom         (EogScrollView *view);
 gboolean eog_scroll_view_get_zoom_is_min  (EogScrollView *view);
 gboolean eog_scroll_view_get_zoom_is_max  (EogScrollView *view);
+void     eog_scroll_view_show_cursor      (EogScrollView *view);
+void     eog_scroll_view_hide_cursor      (EogScrollView *view);
 
 G_END_DECLS
 

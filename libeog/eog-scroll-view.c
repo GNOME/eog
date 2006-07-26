@@ -9,7 +9,6 @@
 
 #include "libeog-marshal.h"
 #include "eog-scroll-view.h"
-#include "cursors.h"
 #include "uta.h"
 #include "zoom.h"
 
@@ -58,6 +57,12 @@ enum {
 	SIGNAL_LAST
 };
 static gint view_signals [SIGNAL_LAST];
+
+typedef enum {
+	EOG_SCROLL_VIEW_CURSOR_NORMAL,
+	EOG_SCROLL_VIEW_CURSOR_HIDDEN,
+	EOG_SCROLL_VIEW_CURSOR_DRAG
+} EogScrollViewCursor;
 
 /* Private part of the EogScrollView structure */
 struct _EogScrollViewPrivate {
@@ -112,7 +117,7 @@ struct _EogScrollViewPrivate {
 	guint32 transp_color;
 
 	/* the type of the cursor we are currently showing */
-	CursorType cursor_type;
+	EogScrollViewCursor cursor;
 };
 
 static void scroll_by (EogScrollView *view, int xofs, int yofs);
@@ -286,6 +291,52 @@ update_scrollbar_values (EogScrollView *view)
 	}
 }
 
+static GdkCursor *
+eog_scroll_view_create_invisible_cursor (void)
+{
+       GdkBitmap *empty;
+       GdkColor black = { 0, 0, 0, 0 };
+       static char bits[] = { 0x00 };
+
+       empty = gdk_bitmap_create_from_data (NULL, bits, 1, 1);
+
+       return gdk_cursor_new_from_pixmap (empty, empty, &black, &black, 0, 0);
+}
+
+static void
+eog_scroll_view_set_cursor (EogScrollView *view, EogScrollViewCursor new_cursor)
+{
+	GdkCursor *cursor = NULL;
+	GdkDisplay *display;
+	GtkWidget *widget;
+
+	if (view->priv->cursor == new_cursor) {
+		return;
+	}
+
+	widget = gtk_widget_get_toplevel (GTK_WIDGET (view));
+	display = gtk_widget_get_display (widget);
+	view->priv->cursor = new_cursor;
+
+	switch (new_cursor) {
+		case EOG_SCROLL_VIEW_CURSOR_NORMAL:
+			gdk_window_set_cursor (widget->window, NULL);
+			break;
+                case EOG_SCROLL_VIEW_CURSOR_HIDDEN:
+                        cursor = eog_scroll_view_create_invisible_cursor ();
+                        break;
+		case EOG_SCROLL_VIEW_CURSOR_DRAG:
+			cursor = gdk_cursor_new_for_display (display, GDK_FLEUR);
+			break;
+	}
+
+	if (cursor) {
+		gdk_window_set_cursor (widget->window, cursor);
+		gdk_cursor_unref (cursor);
+		gdk_flush();
+	}
+}
+
 /* Changes visibility of the scrollbars based on the zoom factor and the
  * specified allocation, or the current allocation if NULL is specified.
  */
@@ -350,11 +401,6 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 
 	if (vbar_visible != GTK_WIDGET_VISIBLE (GTK_WIDGET (priv->vbar)))
 		g_object_set (G_OBJECT (priv->vbar), "visible", vbar_visible, NULL);
-
-	if (!hbar_visible  && !vbar_visible && priv->cursor_type != CURSOR_DEFAULT) {
-		priv->cursor_type = CURSOR_DEFAULT;
-		cursor_set (priv->display, CURSOR_DEFAULT);
-	}
 }
 
 #define DOUBLE_EQUAL_MAX_DIFF 1e-6
@@ -1171,8 +1217,7 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 	switch (event->button) {
 		case 2:
 			if (is_image_movable (view)) {
-				priv->cursor_type = CURSOR_HAND_CLOSED;
-				cursor_set (GTK_WIDGET (priv->display), CURSOR_HAND_OPEN);
+				eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
 
 				priv->dragging = TRUE;
 				priv->drag_anchor_x = event->x;
@@ -1221,8 +1266,8 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 			drag_to (view, event->x, event->y);
 			priv->dragging = FALSE;
 
-			priv->cursor_type = CURSOR_DEFAULT;
-			cursor_set (GTK_WIDGET (priv->display), CURSOR_DEFAULT);
+			eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
+			break;
 
 		default:
 			break;
@@ -1565,10 +1610,21 @@ image_changed_cb (EogImage *img, gpointer data)
 	gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 }
 
-
 /*===================================
          public API
   ---------------------------------*/
+
+void
+eog_scroll_view_hide_cursor (EogScrollView *view)
+{
+       eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_HIDDEN);
+}
+
+void
+eog_scroll_view_show_cursor (EogScrollView *view)
+{
+       eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_NORMAL);
+}
 
 /* general properties */
 void
@@ -1868,7 +1924,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->progressive_state = PROGRESSIVE_NONE;
 	priv->transp_style = TRANSP_BACKGROUND;
 	priv->transp_color = 0;
-	priv->cursor_type = CURSOR_DEFAULT;
+	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 }
 
 static void

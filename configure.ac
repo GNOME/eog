@@ -206,7 +206,6 @@ data/Makefile
 data/eog.desktop.in
 art/Makefile
 libeog/Makefile
-libeog/cursors/Makefile
 jpegutils/Makefile
 help/Makefile
 shell/Makefile

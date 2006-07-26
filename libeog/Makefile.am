@@ -1,4 +1,4 @@
-SUBDIRS = cursors
+SUBDIRS = 
 
 if ENABLE_JPEG
 jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
@@ -56,8 +56,6 @@ libeog_a_SOURCES =			\
 	eog-thumb-shadow.h		\
 	eog-list-store.c		\
 	eog-list-store.h		\
-	eog-image-cache.h		\
-	eog-image-cache.c		\
 	eog-job-queue.c			\
 	eog-job-queue.h			\
 	eog-jobs.c			\
@@ -80,8 +78,6 @@ libeog_a_SOURCES =			\
 	eog-util.c			\
 	uta.c				\
 	uta.h				\
-	cursors.c			\
-	cursors.h			\
 	zoom.c				\
 	zoom.h
 

@@ -711,7 +711,9 @@ fullscreen_timeout_cb (gpointer data)
 	EogWindow *window = EOG_WINDOW (data);
 
 	gtk_widget_hide_all (window->priv->fullscreen_popup);
-	
+
+	eog_scroll_view_hide_cursor (EOG_SCROLL_VIEW (window->priv->view));
+
 	fullscreen_clear_timeout (window);
 
 	return FALSE;
@@ -772,6 +774,8 @@ fullscreen_set_timeout (EogWindow *window)
 	g_source_attach (source, NULL);
 
 	window->priv->fullscreen_timeout_source = source;
+
+	eog_scroll_view_show_cursor (EOG_SCROLL_VIEW (window->priv->view));
 }
 
 static void
