@@ -3183,18 +3183,18 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	          return;
 	}
 
-	/* This is a hack to get around a very rare race condition
-	 * where the first half of the job has decided that the
-	 * image has data and doesn't need to be reloaded, but the
-	 * image data has gone AWOL by this point. This does not
-	 * fix the cause, but I'm damned if I can find it. */
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-	        eog_image_unlock (image);
-		return;
-	}
-
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED) {
 		if (eog_job_get_success (job)) { 
+			/* This is a hack to get around a very rare race condition
+			 * where the first half of the job has decided that the
+			 * image has data and doesn't need to be reloaded, but the
+			 * image data has gone AWOL by this point. This does not
+			 * fix the cause, but I'm damned if I can find it. */
+			if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
+			        eog_image_unlock (image);
+				return;
+			}
+
 			/* successfull */
 #ifdef HAVE_LCMS
 			eog_image_apply_display_profile (image, get_screen_profile (window));
