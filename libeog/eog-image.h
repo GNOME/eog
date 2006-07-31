@@ -76,6 +76,8 @@ GQuark              eog_image_error_quark                    (void);
 
 /* loading API */
 EogImage*           eog_image_new                            (const char *txt_uri);
+void                eog_image_lock (EogImage *image);
+void                eog_image_unlock (EogImage *image);
 EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
 gboolean            eog_image_load                           (EogImage *img, 
 							      guint data2read, 

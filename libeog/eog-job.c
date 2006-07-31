@@ -376,6 +376,7 @@ eog_job_call_action (EogJob *job)
 		job->priv->progress_last_called = 0.0;
 		job->priv->progress_nth_part = 0;
 	}
+
 	g_mutex_unlock (job->priv->mutex);
 
 	if (!do_action) {

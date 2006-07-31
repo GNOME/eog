@@ -50,6 +50,7 @@ struct _EogImagePrivate {
 	gchar *caption_key;
 
 	GThread *load_thread;
+	GMutex *mutex;
 	GMutex *status_mutex;
 	GCond  *load_finished;
 	gboolean cancel_loading;

@@ -86,11 +86,6 @@ thread_start_func (gpointer data)
 				
 				g_assert (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
 					  eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED);
-			}
-			
-			if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED ||
-			    eog_job_get_status (job) == EOG_JOB_STATUS_CANCELED)
-			{
 				g_idle_add (job_finished_cb, job);
 			}
 		}
