@@ -1602,7 +1602,6 @@ image_changed_cb (EogImage *img, gpointer data)
 	}
 
 	priv->pixbuf = eog_image_get_pixbuf (img);
-	g_object_ref (priv->pixbuf);
 
 	set_zoom_fit (EOG_SCROLL_VIEW (data));
 	check_scrollbar_visibility (EOG_SCROLL_VIEW (data), NULL);
