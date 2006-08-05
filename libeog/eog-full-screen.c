@@ -473,7 +473,8 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Right:
 	case GDK_Down:
 	case GDK_Page_Down:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1 &&
+		    !eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (priv->view))) {
 			priv->direction = EOG_DIRECTION_FORWARD;
 			
 			next = get_next_iter_in_direction (priv->list, priv->current, 
@@ -491,7 +492,8 @@ eog_full_screen_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 	case GDK_Up:
 	case GDK_Page_Up:
-		if (!priv->slide_show && eog_image_list_length (priv->list) > 1) {
+		if (!priv->slide_show && eog_image_list_length (priv->list) > 1 &&
+		    !eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (priv->view))) {
 			priv->direction = EOG_DIRECTION_BACKWARD;
 
 			next = get_next_iter_in_direction (priv->list, priv->current, priv->direction);
