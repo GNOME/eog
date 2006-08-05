@@ -3406,7 +3406,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "EditFlipVertical", EOG_STOCK_FLIP_VERTICAL, N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
 
   { "EditRotate90",  EOG_STOCK_ROTATE_90,  N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
-  { "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counter C_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
+  { "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counterc_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
   { "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
   { "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, NULL, G_CALLBACK (verb_SetAsWallpaper_cb) },
 
