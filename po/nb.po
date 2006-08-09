@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-30 14:32+0200\n"
-"PO-Revision-Date: 2006-04-30 14:32+0200\n"
+"POT-Creation-Date: 2006-08-09 14:47+0200\n"
+"PO-Revision-Date: 2006-08-09 14:48+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "Endre navn fra:"
 msgid "Replace spaces by underscore"
 msgstr "Erstatt mellomrom med understreking"
 
-#: ../eog.glade.h:23 ../shell/eog-window.c:3372
+#: ../eog.glade.h:23 ../shell/eog-window.c:3458
 msgid "Save As"
 msgstr "Lagre som"
 
@@ -257,32 +257,32 @@ msgstr ""
 "Om bildet skal interpoloeres ved zoom eller ikke. Dette gir bedre kvalitet, "
 "men er noe tregere enn ikke-interpolerte bilder."
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:344
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Kunne ikke opprette midlertidig fil for lagring: %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:363
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Kunne ikke allokere minne for lasting av JPEG-fil"
 
-#: ../libeog/eog-image.c:418
+#: ../libeog/eog-image.c:442
 msgid "Transformation on unloaded image."
 msgstr "Transformasjon på bilde som ikke er lastet."
 
-#: ../libeog/eog-image.c:530
+#: ../libeog/eog-image.c:554
 msgid "EXIF not supported for this file format."
 msgstr "EXIF er ikke støttet for dette filformatet."
 
-#: ../libeog/eog-image.c:1190 ../libeog/eog-image.c:1403
+#: ../libeog/eog-image.c:1214 ../libeog/eog-image.c:1427
 msgid "File exists"
 msgstr "Filen eksisterer"
 
-#: ../libeog/eog-image.c:1343 ../libeog/eog-image.c:1471
+#: ../libeog/eog-image.c:1367 ../libeog/eog-image.c:1495
 msgid "No image loaded."
 msgstr "Ingen bilder lastet."
 
-#: ../libeog/eog-image.c:1352 ../libeog/eog-image.c:1480
+#: ../libeog/eog-image.c:1376 ../libeog/eog-image.c:1504
 msgid "Temporary file creation failed."
 msgstr "Oppretting av midlertidig fil feilet."
 
@@ -466,20 +466,43 @@ msgstr "Avbryt lagring..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:500
+#: ../shell/eog-window.c:503
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: ../shell/eog-window.c:505 ../shell/eog-window.c:3078
-#: ../shell/eog-window.c:3731 ../shell/main.c:609
+#: ../shell/eog-window.c:506
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr ""
+
+#: ../shell/eog-window.c:510
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr ""
+
+#: ../shell/eog-window.c:514
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+msgstr ""
+
+#: ../shell/eog-window.c:527 ../shell/eog-window.c:3122
+#: ../shell/eog-window.c:3817 ../shell/main.c:609
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:508
+#: ../shell/eog-window.c:530
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Program for bildevisning og katalogisering for GNOME."
 
-#: ../shell/eog-window.c:534
+#: ../shell/eog-window.c:561
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -488,58 +511,58 @@ msgstr ""
 "Kunne ikke vise hjelp for Eye of GNOME.\n"
 "%s"
 
-#: ../shell/eog-window.c:969
+#: ../shell/eog-window.c:996
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Overskriv fil %s?"
 
-#: ../shell/eog-window.c:970
+#: ../shell/eog-window.c:997
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Filen eksisterer. Vil du overskrive den?"
 
-#: ../shell/eog-window.c:981 ../shell/eog-window.c:997
+#: ../shell/eog-window.c:1008 ../shell/eog-window.c:1024
 msgid "Skip"
 msgstr "Hopp over"
 
-#: ../shell/eog-window.c:982
+#: ../shell/eog-window.c:1009
 msgid "Overwrite"
 msgstr "Overskriv"
 
-#: ../shell/eog-window.c:987
+#: ../shell/eog-window.c:1014
 #, c-format
 msgid "Error on saving %s."
 msgstr "Feil under lagring av %s."
 
-#: ../shell/eog-window.c:998 ../shell/eog-window.c:1564
+#: ../shell/eog-window.c:1025 ../shell/eog-window.c:1591
 msgid "Retry"
 msgstr "Prøv igjen"
 
-#: ../shell/eog-window.c:1428
+#: ../shell/eog-window.c:1455
 msgid "Couldn't determine destination uri."
 msgstr "Kunne ikke bestemme URI for mål."
 
-#: ../shell/eog-window.c:1550
+#: ../shell/eog-window.c:1577
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Kunne ikke bestemme filformat for %s"
 
-#: ../shell/eog-window.c:1551
+#: ../shell/eog-window.c:1578
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Vennligst bruk en passende filtype eller velg et filformat."
 
-#: ../shell/eog-window.c:1689
+#: ../shell/eog-window.c:1716
 msgid "Error on saving images."
 msgstr "Feil under lagring av bilder."
 
-#: ../shell/eog-window.c:1773
+#: ../shell/eog-window.c:1800
 msgid "Print"
 msgstr "Skriv ut"
 
-#: ../shell/eog-window.c:1807
+#: ../shell/eog-window.c:1834
 msgid "Print Preview"
 msgstr "Forhåndsvisning av utskrift"
 
-#: ../shell/eog-window.c:2011
+#: ../shell/eog-window.c:2038
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -548,286 +571,286 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "flytte «%s» til papirkurven?"
 
-#: ../shell/eog-window.c:2014
+#: ../shell/eog-window.c:2041
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
-"the %d selected image to the trash?"
+"the selected image to the trash?"
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
 msgstr[0] ""
 "Er du sikker på at du vil\n"
-"flytte %d valgt bilde til papirkurven?"
+"flytte valgt bilde til papirkurven?"
 msgstr[1] ""
 "Er du sikker på at du vil\n"
 "flytte %d valgte bilder til papirkurven?"
 
-#: ../shell/eog-window.c:2029 ../shell/eog-window.c:3327
+#: ../shell/eog-window.c:2056 ../shell/eog-window.c:3413
 msgid "Move to Trash"
 msgstr "Flytt til papirkurv"
 
-#: ../shell/eog-window.c:2060
+#: ../shell/eog-window.c:2087
 msgid "Couldn't access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: ../shell/eog-window.c:2136
+#: ../shell/eog-window.c:2163
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2941
+#: ../shell/eog-window.c:2983
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i piksel  %s    %i%%"
 msgstr[1] "%i x %i piksel  %s    %i%%"
 
-#: ../shell/eog-window.c:2997
+#: ../shell/eog-window.c:3039
 #, c-format
 msgid "Reason: %s"
 msgstr "Årsak: %s"
 
-#: ../shell/eog-window.c:3127
+#: ../shell/eog-window.c:3209
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Lasting av bilde feilet for %s"
 
-#: ../shell/eog-window.c:3292
+#: ../shell/eog-window.c:3378
 msgid "_File"
 msgstr "_Fil"
 
-#: ../shell/eog-window.c:3293
+#: ../shell/eog-window.c:3379
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../shell/eog-window.c:3294
+#: ../shell/eog-window.c:3380
 msgid "_View"
 msgstr "_Vis"
 
-#: ../shell/eog-window.c:3295
+#: ../shell/eog-window.c:3381
 msgid "_Image"
 msgstr "_Bilde"
 
-#: ../shell/eog-window.c:3296
+#: ../shell/eog-window.c:3382
 msgid "_Go"
 msgstr "_Gå til"
 
-#: ../shell/eog-window.c:3297
+#: ../shell/eog-window.c:3383
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3384
 msgid "_Open..."
 msgstr "_Åpne..."
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3384
 msgid "Open a file"
 msgstr "Åpne en fil"
 
-#: ../shell/eog-window.c:3299
+#: ../shell/eog-window.c:3385
 msgid "_Close"
 msgstr "L_ukk"
 
-#: ../shell/eog-window.c:3299
+#: ../shell/eog-window.c:3385
 msgid "Close window"
 msgstr "Lukk vindu"
 
-#: ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:3386
 msgid "Prefere_nces"
 msgstr "_Brukervalg"
 
-#: ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:3386
 msgid "Preferences for Eye of GNOME"
 msgstr "Brukervalg for Eye of GNOME"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3387
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3387
 msgid "Help On this application"
 msgstr "Hjelp om denne applikasjonen"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3388
 msgid "_About"
 msgstr "_Om"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3388
 msgid "About this application"
 msgstr "Om denne applikasjonen"
 
-#: ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3393
 msgid "_Toolbar"
 msgstr "Verk_tøylinje"
 
-#: ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3393
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Endrer synlighet for verktøylinjen i aktivt vindu"
 
-#: ../shell/eog-window.c:3308
+#: ../shell/eog-window.c:3394
 msgid "_Statusbar"
 msgstr "_Statuslinje"
 
-#: ../shell/eog-window.c:3308
+#: ../shell/eog-window.c:3394
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Endrer synlighet for statuslinjen i aktivt vindu"
 
-#: ../shell/eog-window.c:3309
+#: ../shell/eog-window.c:3395
 msgid "_Image Collection"
 msgstr "B_ildesamling"
 
-#: ../shell/eog-window.c:3309
+#: ../shell/eog-window.c:3395
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "Endre synlighet for området for bildesamling i aktivt vindu"
 
-#: ../shell/eog-window.c:3313
+#: ../shell/eog-window.c:3399
 msgid "_Save"
 msgstr "_Lagre"
 
-#: ../shell/eog-window.c:3314
+#: ../shell/eog-window.c:3400
 msgid "Save _As..."
 msgstr "L_agre som..."
 
-#: ../shell/eog-window.c:3315
+#: ../shell/eog-window.c:3401
 msgid "Print..."
 msgstr "Skriv ut..."
 
-#: ../shell/eog-window.c:3317
+#: ../shell/eog-window.c:3403
 msgid "_Undo"
 msgstr "_Angre"
 
-#: ../shell/eog-window.c:3319
+#: ../shell/eog-window.c:3405
 msgid "Flip _Horizontal"
 msgstr "Vend _horisontalt"
 
-#: ../shell/eog-window.c:3320
+#: ../shell/eog-window.c:3406
 msgid "Flip _Vertical"
 msgstr "Vend _vertikalt"
 
-#: ../shell/eog-window.c:3322
+#: ../shell/eog-window.c:3408
 msgid "_Rotate Clockwise"
 msgstr "_Roter med klokken"
 
-#: ../shell/eog-window.c:3323
-msgid "Rotate Counter C_lockwise"
+#: ../shell/eog-window.c:3409
+msgid "Rotate Counterc_lockwise"
 msgstr "Roter mot k_lokken"
 
-#: ../shell/eog-window.c:3324
+#: ../shell/eog-window.c:3410
 msgid "Rotat_e 180°"
 msgstr "Rot_er 180°"
 
-#: ../shell/eog-window.c:3325
+#: ../shell/eog-window.c:3411
 msgid "Set As _Wallpaper"
 msgstr "Sett som _bakgrunn"
 
-#: ../shell/eog-window.c:3329
+#: ../shell/eog-window.c:3415
 msgid "_Full Screen"
 msgstr "_Full skjerm"
 
-#: ../shell/eog-window.c:3330
+#: ../shell/eog-window.c:3416
 msgid "_Slideshow"
 msgstr "Ly_sbildevisning"
 
 #. accelerators
-#: ../shell/eog-window.c:3331 ../shell/eog-window.c:3337
-#: ../shell/eog-window.c:3338
+#: ../shell/eog-window.c:3417 ../shell/eog-window.c:3423
+#: ../shell/eog-window.c:3424
 msgid "_Zoom In"
 msgstr "_Zoom inn"
 
-#: ../shell/eog-window.c:3332 ../shell/eog-window.c:3339
+#: ../shell/eog-window.c:3418 ../shell/eog-window.c:3425
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: ../shell/eog-window.c:3333
+#: ../shell/eog-window.c:3419
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: ../shell/eog-window.c:3334
+#: ../shell/eog-window.c:3420
 msgid "Best _Fit"
 msgstr "_Tilpasset"
 
-#: ../shell/eog-window.c:3340 ../shell/eog-window.c:3342
-#: ../shell/eog-window.c:3356
+#: ../shell/eog-window.c:3426 ../shell/eog-window.c:3428
+#: ../shell/eog-window.c:3442
 msgid "_Next Image"
 msgstr "_Neste bilde"
 
-#: ../shell/eog-window.c:3341 ../shell/eog-window.c:3343
-#: ../shell/eog-window.c:3344 ../shell/eog-window.c:3355
+#: ../shell/eog-window.c:3427 ../shell/eog-window.c:3429
+#: ../shell/eog-window.c:3430 ../shell/eog-window.c:3441
 msgid "_Previous Image"
 msgstr "F_orrige bilde"
 
-#: ../shell/eog-window.c:3345
+#: ../shell/eog-window.c:3431
 msgid "Move to _Trash"
 msgstr "Flytt til _papirkurv"
 
-#: ../shell/eog-window.c:3346 ../shell/eog-window.c:3357
+#: ../shell/eog-window.c:3432 ../shell/eog-window.c:3443
 msgid "_First Image"
 msgstr "_Første bilde"
 
-#: ../shell/eog-window.c:3347 ../shell/eog-window.c:3358
+#: ../shell/eog-window.c:3433 ../shell/eog-window.c:3444
 msgid "_Last Image"
 msgstr "_Siste bilde"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3437
 msgid "Image _Information"
 msgstr "Bilde_informasjon"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3437
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Endre synlighet for informasjonsfeltet i aktivt vindu"
 
-#: ../shell/eog-window.c:3369
+#: ../shell/eog-window.c:3455
 msgid "Open"
 msgstr "Åpne"
 
-#: ../shell/eog-window.c:3370
+#: ../shell/eog-window.c:3456
 msgid "Close"
 msgstr "Lukk"
 
-#: ../shell/eog-window.c:3371
+#: ../shell/eog-window.c:3457
 msgid "Save"
 msgstr "Lagre"
 
-#: ../shell/eog-window.c:3373
+#: ../shell/eog-window.c:3459
 msgid "Undo"
 msgstr "Angre"
 
-#: ../shell/eog-window.c:3376
+#: ../shell/eog-window.c:3462
 msgid "Right"
 msgstr "Høyre"
 
-#: ../shell/eog-window.c:3377
+#: ../shell/eog-window.c:3463
 msgid "Left"
 msgstr "Venstre"
 
-#: ../shell/eog-window.c:3380
+#: ../shell/eog-window.c:3466
 msgid "In"
 msgstr "Inn"
 
-#: ../shell/eog-window.c:3381
+#: ../shell/eog-window.c:3467
 msgid "Out"
 msgstr "Ut"
 
-#: ../shell/eog-window.c:3382
+#: ../shell/eog-window.c:3468
 msgid "Normal"
 msgstr "Normal"
 
-#: ../shell/eog-window.c:3383
+#: ../shell/eog-window.c:3469
 msgid "Fit"
 msgstr "Tilpass"
 
-#: ../shell/eog-window.c:3384
+#: ../shell/eog-window.c:3470
 msgid "Next"
 msgstr "Neste"
 
-#: ../shell/eog-window.c:3385
+#: ../shell/eog-window.c:3471
 msgid "Previous"
 msgstr "Forrige"
 
-#: ../shell/eog-window.c:3550
+#: ../shell/eog-window.c:3636
 msgid "User interface description not found."
 msgstr "Beskrivelse av brukergrensesnitt ikke funnet."
 
