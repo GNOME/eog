@@ -2039,7 +2039,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
                                           eog_image_get_caption (image));		
 	} else {
 		prompt = g_strdup_printf (ngettext("Are you sure you want to move\n" 
-					           "the %d selected image to the trash?",
+					           "the selected image to the trash?",
 						   "Are you sure you want to move\n"
 						   "the %d selected images to the trash?", n_images), n_images);
 	}
