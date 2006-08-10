@@ -70,7 +70,8 @@ string_array_to_list (const gchar **files, gboolean create_uri)
 		char *str;
 
 		if (create_uri) {
-			str = gnome_vfs_make_uri_from_shell_arg (files[i]);
+			str = gnome_vfs_make_uri_from_input_with_dirs (files[i], 
+								       GNOME_VFS_MAKE_URI_DIR_CURRENT);
 		} else {
 			str = g_strdup (files[i]);
 		}
