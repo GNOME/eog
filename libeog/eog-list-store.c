@@ -502,15 +502,23 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 			eog_list_store_append_directory (store, uri, info);
 		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			   g_list_length (uri_list) == 1) {
-			/* Store the URI for initial image assignment */
-			initial_uri = gnome_vfs_uri_dup (uri); 
-			uri = gnome_vfs_uri_get_parent (uri);
-			
-			if (!get_uri_info (uri, info)) {
-				continue;
+
+			if (GNOME_VFS_FILE_INFO_LOCAL(info)) {	
+				/* Store the URI for initial 
+				   image assignment */
+				initial_uri = gnome_vfs_uri_dup (uri); 
+
+				uri = gnome_vfs_uri_get_parent (uri);
+				
+				if (!get_uri_info (uri, info)) {
+					continue;
+				}
+
+				eog_list_store_append_directory (store, uri, info);
+			} else {
+				eog_list_store_append_image_from_uri (store, uri);
 			}
-			
-			eog_list_store_append_directory (store, uri, info);
+
 		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			   g_list_length (uri_list) > 1) {
 			eog_list_store_append_image_from_uri (store, uri);
