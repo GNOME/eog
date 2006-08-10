@@ -223,7 +223,7 @@ make_canonical_uri (const char *path)
 	char *uri_str;
 	GnomeVFSURI *uri = NULL;
 
-	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
+	uri_str = gnome_vfs_make_uri_from_input_with_dirs (path, GNOME_VFS_MAKE_URI_DIR_CURRENT);
 
 	if (uri_str) {
 		uri = gnome_vfs_uri_new (uri_str);
