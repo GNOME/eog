@@ -639,27 +639,30 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			 g_list_length (uri_list) == 1) {
 
-			/* Store the URI for initial image assignment */
-			initial_uri = gnome_vfs_uri_dup (uri); 
-			
-			uri = gnome_vfs_uri_get_parent (uri);
-			
-			if (!get_uri_info (uri, info))
-				continue;
+			if (GNOME_VFS_FILE_INFO_LOCAL(info)) {	
+				/* Store the URI for initial image assignment */
+				initial_uri = gnome_vfs_uri_dup (uri); 
+				
+				uri = gnome_vfs_uri_get_parent (uri);
+				
+				if (!get_uri_info (uri, info))
+					continue;
 		
-			if (GNOME_VFS_FILE_INFO_LOCAL(info))	
 				add_directory (list, uri, info);
 
-			/* If the file we explicitly requested wasn't 'found' when
-			 * scanning the directory then explicitly add it.
-			 */
-			if (NULL == g_list_find_custom (priv->store, initial_uri,
-							compare_uri_cb))
-			{
-				if (!get_uri_info (initial_uri, info))
-					continue;
+				/* If the file we explicitly requested wasn't 'found' when
+				 * scanning the directory then explicitly add it.
+				 */
+				if (NULL == g_list_find_custom (priv->store, initial_uri,
+								compare_uri_cb))
+				{
+					if (!get_uri_info (initial_uri, info))
+						continue;
 
-				add_regular (list, initial_uri, info);
+					add_regular (list, initial_uri, info);
+				}
+			} else {
+				add_regular (list, uri, info);
 			}
 		}	
 		else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
