@@ -1,5 +1,11 @@
 2006-08-10  Lucas Rocha  <lucasr@gnome.org>
 
+	* shell/main.c (make_canonical_uri): fix error when loading images
+	with ':' in their filenames from command line (Fixes bug #305129).
+	Patch from Felix Riemann <felix@hsgheli.de>.
+
+2006-08-10  Lucas Rocha  <lucasr@gnome.org>
+
 	* eog.desktop.in.in: removed image/x-psd from supported 
 	mime-types (Fixes bug #343052).
 
