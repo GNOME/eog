@@ -647,7 +647,8 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 			if (!get_uri_info (uri, info))
 				continue;
 			
-			add_directory (list, uri, info);
+			if (GNOME_VFS_FILE_INFO_LOCAL(info))	
+				add_directory (list, uri, info);
 
 			/* If the file we explicitly requested wasn't 'found' when
 			 * scanning the directory then explicitly add it.
