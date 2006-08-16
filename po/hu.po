@@ -10,14 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-07 06:03+0100\n"
+"POT-Creation-Date: 2006-08-15 09:17+0200\n"
 "PO-Revision-Date: 2006-01-11 19:29+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
 #: ../eog.desktop.in.in.h:1
@@ -104,40 +104,41 @@ msgid "Image View"
 msgstr "Képnézet"
 
 #: ../eog.glade.h:20
+#, fuzzy
+msgid "Interpolate image on _zoom"
+msgstr "Kép _interpolálása nagyításkor"
+
+#: ../eog.glade.h:21
 msgid "Rename From:"
 msgstr "Átnevezés erről:"
 
-#: ../eog.glade.h:21
+#: ../eog.glade.h:22
 msgid "Replace spaces by underscore"
 msgstr "Szóközök cserélése aláhúzás karakterekre"
 
-#: ../eog.glade.h:22 ../shell/eog-window.c:3343
+#: ../eog.glade.h:23 ../shell/eog-window.c:3458
 msgid "Save As"
 msgstr "Mentés másként"
 
-#: ../eog.glade.h:23
+#: ../eog.glade.h:24
 msgid "Saving Image"
 msgstr "Kép mentése"
 
-#: ../eog.glade.h:24
+#: ../eog.glade.h:25
 msgid "Slide Show"
 msgstr "Diavetítés"
 
-#: ../eog.glade.h:25
+#: ../eog.glade.h:26
 msgid "Start counter at:"
 msgstr "Számláló indítása ennél:"
 
-#: ../eog.glade.h:26
+#: ../eog.glade.h:27
 msgid "To:"
 msgstr "Ide:"
 
-#: ../eog.glade.h:27
+#: ../eog.glade.h:28
 msgid "_Browse"
 msgstr "_Tallózás"
-
-#: ../eog.glade.h:28
-msgid "_Interpolate image on zoom"
-msgstr "Kép _interpolálása nagyításkor"
 
 #: ../eog.glade.h:29
 msgid "_Loop sequence"
@@ -252,7 +253,8 @@ msgstr ""
 "ablakban lecseréli a képet."
 
 #: ../eog.schemas.in.h:21
-msgid "Whether or not the sequence of images should be shown in an endless loop."
+msgid ""
+"Whether or not the sequence of images should be shown in an endless loop."
 msgstr "A képek sorozata végtelen ismétlésben legyen-e megjelenítve."
 
 #: ../eog.schemas.in.h:22
@@ -263,32 +265,32 @@ msgstr ""
 "Legyen-e a kép interpolálva a nagyításkor, vagy ne. Az interpolálás jobb "
 "képminőséget eredményez, de kicsit lassabb."
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:344
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Nem sikerült ideiglenes könyvtárat létrehozni a mentéshez: %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:363
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nem sikerült a memóriafoglalás a JPEG-fájl betöltéséhez"
 
-#: ../libeog/eog-image.c:418
+#: ../libeog/eog-image.c:442
 msgid "Transformation on unloaded image."
 msgstr "Átalakítás a be nem töltött képen."
 
-#: ../libeog/eog-image.c:530
+#: ../libeog/eog-image.c:554
 msgid "EXIF not supported for this file format."
 msgstr "Az EXIF nem támogatott ehhez a fájlformátumhoz."
 
-#: ../libeog/eog-image.c:1190 ../libeog/eog-image.c:1403
+#: ../libeog/eog-image.c:1214 ../libeog/eog-image.c:1427
 msgid "File exists"
 msgstr "A fájl létezik"
 
-#: ../libeog/eog-image.c:1343 ../libeog/eog-image.c:1471
+#: ../libeog/eog-image.c:1367 ../libeog/eog-image.c:1495
 msgid "No image loaded."
 msgstr "Nincs kép betöltve."
 
-#: ../libeog/eog-image.c:1352 ../libeog/eog-image.c:1480
+#: ../libeog/eog-image.c:1376 ../libeog/eog-image.c:1504
 msgid "Temporary file creation failed."
 msgstr "Átmeneti fájl létrehozása sikertelen."
 
@@ -473,7 +475,7 @@ msgstr "Mentés megszakítása..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:490
+#: ../shell/eog-window.c:503
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
@@ -481,16 +483,39 @@ msgstr ""
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
 "Tímár András <timar@gnome.hu>"
 
-#: ../shell/eog-window.c:495 ../shell/eog-window.c:3051
-#: ../shell/eog-window.c:3702 ../shell/main.c:605
+#: ../shell/eog-window.c:506
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr ""
+
+#: ../shell/eog-window.c:510
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr ""
+
+#: ../shell/eog-window.c:514
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+msgstr ""
+
+#: ../shell/eog-window.c:527 ../shell/eog-window.c:3122
+#: ../shell/eog-window.c:3817 ../shell/main.c:609
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../shell/eog-window.c:498
+#: ../shell/eog-window.c:530
 msgid "The GNOME image viewing and cataloging program."
 msgstr "A GNOME képnézegető és katalogizáló programja."
 
-#: ../shell/eog-window.c:524
+#: ../shell/eog-window.c:561
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -499,60 +524,60 @@ msgstr ""
 "Az Eye of GNOME súgója nem jeleníthető meg.\n"
 "%s"
 
-#: ../shell/eog-window.c:959
+#: ../shell/eog-window.c:996
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Felülírja a(z) %s fájlt?"
 
-#: ../shell/eog-window.c:960
+#: ../shell/eog-window.c:997
 msgid "File exists. Do you want to overwrite it?"
 msgstr "A fájl már létezik. Felül szeretné írni?"
 
-#: ../shell/eog-window.c:971 ../shell/eog-window.c:987
+#: ../shell/eog-window.c:1008 ../shell/eog-window.c:1024
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: ../shell/eog-window.c:972
+#: ../shell/eog-window.c:1009
 msgid "Overwrite"
 msgstr "Felülírás"
 
-#: ../shell/eog-window.c:977
+#: ../shell/eog-window.c:1014
 #, c-format
 msgid "Error on saving %s."
 msgstr "Hiba a(z) %s mentése közben."
 
-#: ../shell/eog-window.c:988 ../shell/eog-window.c:1554
+#: ../shell/eog-window.c:1025 ../shell/eog-window.c:1591
 msgid "Retry"
 msgstr "Újra"
 
-#: ../shell/eog-window.c:1418
+#: ../shell/eog-window.c:1455
 msgid "Couldn't determine destination uri."
 msgstr "Nem sikerült megállapítani a cél uri-t."
 
-#: ../shell/eog-window.c:1540
+#: ../shell/eog-window.c:1577
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "A(z) %s fájlformátuma nem határozható meg"
 
-#: ../shell/eog-window.c:1541
+#: ../shell/eog-window.c:1578
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr ""
 "Kérem helyes fájlnév-utótagot használjon vagy válasszon ki egy "
 "fájlformátumot."
 
-#: ../shell/eog-window.c:1679
+#: ../shell/eog-window.c:1716
 msgid "Error on saving images."
 msgstr "Hiba a képek mentésekor."
 
-#: ../shell/eog-window.c:1760 ../shell/eog-window.c:3288
+#: ../shell/eog-window.c:1800
 msgid "Print"
 msgstr "Nyomtatás"
 
-#: ../shell/eog-window.c:1794
+#: ../shell/eog-window.c:1834
 msgid "Print Preview"
 msgstr "Nyomtatási kép"
 
-#: ../shell/eog-window.c:1998
+#: ../shell/eog-window.c:2038
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -561,11 +586,11 @@ msgstr ""
 "Biztos át akarja helyezni a(z)\n"
 "\"%s\"-t a Kukába?"
 
-#: ../shell/eog-window.c:2001
-#, c-format
+#: ../shell/eog-window.c:2041
+#, fuzzy, c-format
 msgid ""
 "Are you sure you want to move\n"
-"the %d selected image to the trash?"
+"the selected image to the trash?"
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
@@ -576,274 +601,286 @@ msgstr[1] ""
 "Biztos át akarja helyezni a\n"
 "kijelölt %d képet a Kukába?"
 
-#: ../shell/eog-window.c:2016 ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:2056 ../shell/eog-window.c:3413
 msgid "Move to Trash"
 msgstr "Áthelyezés a Kukába"
 
-#: ../shell/eog-window.c:2047
+#: ../shell/eog-window.c:2087
 msgid "Couldn't access trash."
 msgstr "A Kuka nem érhető el."
 
-#: ../shell/eog-window.c:2123
+#: ../shell/eog-window.c:2163
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Hiba a(z) %s kép törlése közben"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2914
+#: ../shell/eog-window.c:2983
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i képpont %s    %i%%"
 msgstr[1] "%i x %i képpont %s    %i%%"
 
-#: ../shell/eog-window.c:2970
+#: ../shell/eog-window.c:3039
 #, c-format
 msgid "Reason: %s"
 msgstr "Ok: %s"
 
-#: ../shell/eog-window.c:3100
+#: ../shell/eog-window.c:3209
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "A kép betöltése sikertelen ehhez: %s"
 
-#: ../shell/eog-window.c:3265
+#: ../shell/eog-window.c:3378
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../shell/eog-window.c:3266
+#: ../shell/eog-window.c:3379
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: ../shell/eog-window.c:3267
+#: ../shell/eog-window.c:3380
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../shell/eog-window.c:3268
+#: ../shell/eog-window.c:3381
 msgid "_Image"
 msgstr "_Kép"
 
-#: ../shell/eog-window.c:3269
+#: ../shell/eog-window.c:3382
 msgid "_Go"
 msgstr "_Ugrás"
 
-#: ../shell/eog-window.c:3270
+#: ../shell/eog-window.c:3383
 msgid "_Help"
 msgstr "_Súgó"
 
-#: ../shell/eog-window.c:3271
+#: ../shell/eog-window.c:3384
 msgid "_Open..."
 msgstr "_Megnyitás..."
 
-#: ../shell/eog-window.c:3271
+#: ../shell/eog-window.c:3384
 msgid "Open a file"
 msgstr "Fájl megnyitása"
 
-#: ../shell/eog-window.c:3272
+#: ../shell/eog-window.c:3385
 msgid "_Close"
 msgstr "_Bezárás"
 
-#: ../shell/eog-window.c:3272
+#: ../shell/eog-window.c:3385
 msgid "Close window"
 msgstr "Ablak bezárása"
 
-#: ../shell/eog-window.c:3273
+#: ../shell/eog-window.c:3386
 msgid "Prefere_nces"
 msgstr "_Beállítások"
 
-#: ../shell/eog-window.c:3273
+#: ../shell/eog-window.c:3386
 msgid "Preferences for Eye of GNOME"
 msgstr "Az Eye of GNOME beállításai"
 
-#: ../shell/eog-window.c:3274
+#: ../shell/eog-window.c:3387
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../shell/eog-window.c:3274
+#: ../shell/eog-window.c:3387
 msgid "Help On this application"
 msgstr "Az alkalmazás súgója"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3388
 msgid "_About"
 msgstr "_Névjegy"
 
-#: ../shell/eog-window.c:3275
+#: ../shell/eog-window.c:3388
 msgid "About this application"
 msgstr "Az alkalmazás névjegye"
 
-#: ../shell/eog-window.c:3280
+#: ../shell/eog-window.c:3393
 msgid "_Toolbar"
 msgstr "_Eszköztár"
 
-#: ../shell/eog-window.c:3280
+#: ../shell/eog-window.c:3393
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "A jelenlegi ablakban megváltoztatja az eszköztár láthatóságát"
 
-#: ../shell/eog-window.c:3281
+#: ../shell/eog-window.c:3394
 msgid "_Statusbar"
 msgstr "Á_llapotsor"
 
-#: ../shell/eog-window.c:3281
+#: ../shell/eog-window.c:3394
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "A jelenlegi ablakban megváltoztatja az állapotsor láthatóságát"
 
-#: ../shell/eog-window.c:3282
+#: ../shell/eog-window.c:3395
 msgid "_Image Collection"
 msgstr "_Képgyűjtemény"
 
-#: ../shell/eog-window.c:3282
-msgid "Changes the visibility of the image collection pane in the current window"
+#: ../shell/eog-window.c:3395
+msgid ""
+"Changes the visibility of the image collection pane in the current window"
 msgstr "A jelenlegi ablakban megváltoztatja a képgyűjteménysáv láthatóságát"
 
-#: ../shell/eog-window.c:3286
+#: ../shell/eog-window.c:3399
 msgid "_Save"
 msgstr "M_entés"
 
-#: ../shell/eog-window.c:3287
-msgid "Save _As"
+#: ../shell/eog-window.c:3400
+#, fuzzy
+msgid "Save _As..."
 msgstr "Men_tés másként"
 
-#: ../shell/eog-window.c:3290
+#: ../shell/eog-window.c:3401
+#, fuzzy
+msgid "Print..."
+msgstr "Nyomtatás"
+
+#: ../shell/eog-window.c:3403
 msgid "_Undo"
 msgstr "_Visszavonás"
 
-#: ../shell/eog-window.c:3292
+#: ../shell/eog-window.c:3405
 msgid "Flip _Horizontal"
 msgstr "_Vízszintes tükrözés"
 
-#: ../shell/eog-window.c:3293
+#: ../shell/eog-window.c:3406
 msgid "Flip _Vertical"
 msgstr "_Függőleges tükrözés"
 
-#: ../shell/eog-window.c:3295
+#: ../shell/eog-window.c:3408
 msgid "_Rotate Clockwise"
 msgstr "Forgatás az ó_ramutató irányába"
 
-#: ../shell/eog-window.c:3296
-msgid "Rotate Counter C_lockwise"
+#: ../shell/eog-window.c:3409
+#, fuzzy
+msgid "Rotate Counterc_lockwise"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
-#: ../shell/eog-window.c:3297
+#: ../shell/eog-window.c:3410
 msgid "Rotat_e 180°"
 msgstr "_Forgatás 180°-kal"
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3411
 msgid "Set As _Wallpaper"
 msgstr "Beállítás _háttérképként"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3415
 msgid "_Full Screen"
 msgstr "_Teljes képernyő"
 
-#: ../shell/eog-window.c:3303
+#: ../shell/eog-window.c:3416
 msgid "_Slideshow"
 msgstr "_Diavetítés"
 
 #. accelerators
-#: ../shell/eog-window.c:3304 ../shell/eog-window.c:3310
-#: ../shell/eog-window.c:3311
+#: ../shell/eog-window.c:3417 ../shell/eog-window.c:3423
+#: ../shell/eog-window.c:3424
 msgid "_Zoom In"
 msgstr "_Nagyítás"
 
-#: ../shell/eog-window.c:3305 ../shell/eog-window.c:3312
+#: ../shell/eog-window.c:3418 ../shell/eog-window.c:3425
 msgid "Zoom _Out"
 msgstr "_Kicsinyítés"
 
-#: ../shell/eog-window.c:3306
+#: ../shell/eog-window.c:3419
 msgid "_Normal Size"
 msgstr "_Normál méret"
 
-#: ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3420
 msgid "Best _Fit"
 msgstr "Legjobb _illeszkedés"
 
-#: ../shell/eog-window.c:3313 ../shell/eog-window.c:3315
-#: ../shell/eog-window.c:3327
+#: ../shell/eog-window.c:3426 ../shell/eog-window.c:3428
+#: ../shell/eog-window.c:3442
 msgid "_Next Image"
 msgstr "_Következő kép"
 
-#: ../shell/eog-window.c:3314 ../shell/eog-window.c:3316
-#: ../shell/eog-window.c:3317 ../shell/eog-window.c:3326
+#: ../shell/eog-window.c:3427 ../shell/eog-window.c:3429
+#: ../shell/eog-window.c:3430 ../shell/eog-window.c:3441
 msgid "_Previous Image"
 msgstr "_Előző kép"
 
-#: ../shell/eog-window.c:3318
+#: ../shell/eog-window.c:3431
 msgid "Move to _Trash"
 msgstr "Áthelyezés a _Kukába"
 
-#: ../shell/eog-window.c:3322
-msgid "Image _Information"
-msgstr "Ké_pinformációk"
-
-#: ../shell/eog-window.c:3322
-msgid "Changes the visibility of the information pane in the current window"
-msgstr "A jelenlegi ablakban megváltoztatja az információs sáv láthatóságát"
-
-#: ../shell/eog-window.c:3328
+#: ../shell/eog-window.c:3432 ../shell/eog-window.c:3443
 msgid "_First Image"
 msgstr "_Első kép"
 
-#: ../shell/eog-window.c:3329
+#: ../shell/eog-window.c:3433 ../shell/eog-window.c:3444
 msgid "_Last Image"
 msgstr "_Utolsó kép"
 
-#: ../shell/eog-window.c:3340
+#: ../shell/eog-window.c:3437
+msgid "Image _Information"
+msgstr "Ké_pinformációk"
+
+#: ../shell/eog-window.c:3437
+msgid "Changes the visibility of the information pane in the current window"
+msgstr "A jelenlegi ablakban megváltoztatja az információs sáv láthatóságát"
+
+#: ../shell/eog-window.c:3455
 msgid "Open"
 msgstr "Megnyitás"
 
-#: ../shell/eog-window.c:3341
+#: ../shell/eog-window.c:3456
 msgid "Close"
 msgstr "Bezárás"
 
-#: ../shell/eog-window.c:3342
+#: ../shell/eog-window.c:3457
 msgid "Save"
 msgstr "Mentés"
 
-#: ../shell/eog-window.c:3344
+#: ../shell/eog-window.c:3459
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: ../shell/eog-window.c:3347
+#: ../shell/eog-window.c:3462
 msgid "Right"
 msgstr "Jobbra"
 
-#: ../shell/eog-window.c:3348
+#: ../shell/eog-window.c:3463
 msgid "Left"
 msgstr "Balra"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3466
 msgid "In"
 msgstr "Be"
 
-#: ../shell/eog-window.c:3352
+#: ../shell/eog-window.c:3467
 msgid "Out"
 msgstr "Ki"
 
-#: ../shell/eog-window.c:3353
+#: ../shell/eog-window.c:3468
 msgid "Normal"
 msgstr "Normál"
 
-#: ../shell/eog-window.c:3354
+#: ../shell/eog-window.c:3469
 msgid "Fit"
 msgstr "Igazítás"
 
-#: ../shell/eog-window.c:3355
+#: ../shell/eog-window.c:3470
 msgid "Next"
 msgstr "Következő"
 
-#: ../shell/eog-window.c:3356
+#: ../shell/eog-window.c:3471
 msgid "Previous"
 msgstr "Előző"
 
-#: ../shell/eog-window.c:3521
+#: ../shell/eog-window.c:3636
 msgid "User interface description not found."
 msgstr "Nem található a felhasználói felület leírása."
 
-#: ../shell/main.c:166
+#: ../shell/main.c:23
+msgid "[FILE...]"
+msgstr ""
+
+#: ../shell/main.c:174
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Az Eye of GNOME felhasználói felülete nem hozható létre"
 
-#: ../shell/main.c:357
+#: ../shell/main.c:365
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "A fájl nem található."
@@ -862,4 +899,3 @@ msgstr "\"%s\" megnyitása"
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "Üres"
-
