@@ -637,9 +637,13 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 			cmsErrorAction (LCMS_ERROR_SHOW);
 			priv->profile = cmsOpenProfileFromMem(data, eog_metadata_reader_get_icc_chunk_size (md_reader));
 			if (priv->profile) {
+#ifdef DEBUG	
 				g_printerr("JPEG has ICC profile\n");
+#endif
 			} else {
+#ifdef DEBUG	
 				g_printerr("JPEG has invalid ICC profile\n");
+#endif
 			}
 			return;
 		}
@@ -655,11 +659,15 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 
 	if (exif_get_short (entry->data, o) == 1) {
 		priv->profile = cmsCreate_sRGBProfile ();
+#ifdef DEBUG	
 		g_printerr ("JPEG is sRGB\n");
+#endif
 	} else if (exif_get_short (entry->data, o) == 2) {
 		/* TODO: create Adobe RGB profile */
 		//priv->profile = cmsCreate_Adobe1998Profile ();
+#ifdef DEBUG	
 		g_printerr ("JPEG is Adobe RGB (NOT correcting for now!)\n");
+#endif
 	} else if (exif_get_short (entry->data, o) == 0xFFFF) {
 		double gammaValue;
 		cmsCIExyY whitepoint;
@@ -717,7 +725,9 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, gammaValue);
 		    
 		priv->profile = cmsCreateRGBProfile(&whitepoint, &primaries, gamma);
+#ifdef DEBUG	
 		g_printerr ("JPEG is calibrated\n");
+#endif
 		cmsFreeGamma(gamma[0]);
 	}
 #endif
