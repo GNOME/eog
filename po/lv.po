@@ -1,21 +1,20 @@
-# translation of eog.HEAD.lv.po to Latvian
+# translation of lv.po to Latvian
 # Copyright (C) 2006 Free Software Foundation, Inc.
+#
 # Raivis Dejus <orvils@gmail.com>, 2006.
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: eog.HEAD.lv\n"
+"Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-27 01:43+0530\n"
-"PO-Revision-Date: 2006-04-22 13:10+0300\n"
+"POT-Creation-Date: 2006-08-25 12:58+0300\n"
+"PO-Revision-Date: 2006-08-25 13:01+0300\n"
 "Last-Translator: Raivis Dejus <orvils@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
 #: ../eog.desktop.in.in.h:1
 msgid "Image Viewer"
@@ -99,7 +98,6 @@ msgid "Image View"
 msgstr "Attēlu skats"
 
 #: ../eog.glade.h:20
-#, fuzzy
 msgid "Interpolate image on _zoom"
 msgstr "_Interpolēt attēlu mainot palielinājumu"
 
@@ -111,7 +109,7 @@ msgstr "Pārsaukt no:"
 msgid "Replace spaces by underscore"
 msgstr "Aizstāt atstarpes ar pasvītrojuma zīmi"
 
-#: ../eog.glade.h:23 ../shell/eog-window.c:3372
+#: ../eog.glade.h:23 ../shell/eog-window.c:3458
 msgid "Save As"
 msgstr "Saglabāt kā"
 
@@ -247,8 +245,7 @@ msgstr ""
 "pašreizējā logā."
 
 #: ../eog.schemas.in.h:21
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
+msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Nosaka vai tad, ja nav attēlu kārtība rādīt attēlus bezgalīgā ciklā"
 
 #: ../eog.schemas.in.h:22
@@ -259,32 +256,32 @@ msgstr ""
 "Vai attēlu interpolēt pie palielinājuma maiņas. Tas nodrošina labāku "
 "kvalitāti, bet ir arī lēnāk, kā neiestarpināt attēli."
 
-#: ../libeog/eog-image-jpeg.c:340 ../libeog/eog-image-jpeg.c:579
+#: ../libeog/eog-image-jpeg.c:344
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Nevar izveidot pagaidu datni lai saglabātu: %s"
 
-#: ../libeog/eog-image-jpeg.c:359 ../libeog/eog-image-jpeg.c:600
+#: ../libeog/eog-image-jpeg.c:363
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nevar piešķirt atmiņu lai ielādētu JPEG datni"
 
-#: ../libeog/eog-image.c:418
+#: ../libeog/eog-image.c:442
 msgid "Transformation on unloaded image."
 msgstr "Pārveidošana uz neielādētu attēlu."
 
-#: ../libeog/eog-image.c:530
+#: ../libeog/eog-image.c:554
 msgid "EXIF not supported for this file format."
 msgstr "EXIF neatbalsta šo datnes formātu."
 
-#: ../libeog/eog-image.c:1190 ../libeog/eog-image.c:1403
+#: ../libeog/eog-image.c:1224 ../libeog/eog-image.c:1437
 msgid "File exists"
 msgstr "Fails jau eksistē"
 
-#: ../libeog/eog-image.c:1343 ../libeog/eog-image.c:1471
+#: ../libeog/eog-image.c:1377 ../libeog/eog-image.c:1505
 msgid "No image loaded."
 msgstr "Nav ielādēts attēls."
 
-#: ../libeog/eog-image.c:1352 ../libeog/eog-image.c:1480
+#: ../libeog/eog-image.c:1386 ../libeog/eog-image.c:1514
 msgid "Temporary file creation failed."
 msgstr "Pgaidu datnes izveidošana neizdevās."
 
@@ -469,20 +466,45 @@ msgstr "Atcelt saglabāšanu..."
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:500
+#: ../shell/eog-window.c:503
 msgid "translator-credits"
 msgstr "Oskars Zīle <oskars.zile@gmail.com>"
 
-#: ../shell/eog-window.c:505 ../shell/eog-window.c:3078
-#: ../shell/eog-window.c:3731 ../shell/main.c:609
+#: ../shell/eog-window.c:506
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr "Šī ir brīva programmatūra; jūs varat to brīvi modificēt unvai izplatīt saskaņā ar Free Software Foundation GNU Vispārējās publiskās licences 2 vai kādas brīvi izvēlētas vēlākas versijas noteikumiem\n"
+
+#: ../shell/eog-window.c:510
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr "Šī programma tiek izplatīta ar cerību, ka tā būs noderīga, tā tiek izplatīta BEZ JEBKĀDAS GARANTIJAS vai DERĪBAS KĀDAM MĒRĶIM. Sīkāku informāciju meklējiet GNU Vispārējās publiskās licences tekstā.\n"
+
+#: ../shell/eog-window.c:514
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
+msgstr ""
+"Jums būtu bijis jāsaņem GNU Vispārējās publiskās licences kopiju kopā ar šo programmatūru; ja tā nav noticis rakstiet Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+
+#: ../shell/eog-window.c:527 ../shell/eog-window.c:3122
+#: ../shell/eog-window.c:3817 ../shell/main.c:609
 msgid "Eye of GNOME"
 msgstr "Eye of Gnome"
 
-#: ../shell/eog-window.c:508
+#: ../shell/eog-window.c:530
 msgid "The GNOME image viewing and cataloging program."
 msgstr "The GNOME attēlu skatīšanas un kataloģizēšanas programma"
 
-#: ../shell/eog-window.c:534
+#: ../shell/eog-window.c:561
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -491,58 +513,58 @@ msgstr ""
 "Nevaru parādīt Eye of Gnome palīdzību \n"
 "%s"
 
-#: ../shell/eog-window.c:969
+#: ../shell/eog-window.c:996
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Pārrakstīt datni %s?"
 
-#: ../shell/eog-window.c:970
+#: ../shell/eog-window.c:997
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Datne eksistē. Vai vēlaties parrakstīt to?"
 
-#: ../shell/eog-window.c:981 ../shell/eog-window.c:997
+#: ../shell/eog-window.c:1008 ../shell/eog-window.c:1024
 msgid "Skip"
 msgstr "Izlaist"
 
-#: ../shell/eog-window.c:982
+#: ../shell/eog-window.c:1009
 msgid "Overwrite"
 msgstr "Pārrakstīt"
 
-#: ../shell/eog-window.c:987
+#: ../shell/eog-window.c:1014
 #, c-format
 msgid "Error on saving %s."
 msgstr "Kļūda saglabājot %s."
 
-#: ../shell/eog-window.c:998 ../shell/eog-window.c:1564
+#: ../shell/eog-window.c:1025 ../shell/eog-window.c:1591
 msgid "Retry"
 msgstr "Mēģināt velreiz"
 
-#: ../shell/eog-window.c:1428
+#: ../shell/eog-window.c:1455
 msgid "Couldn't determine destination uri."
 msgstr "Nevar noskaidrot mērķa uri."
 
-#: ../shell/eog-window.c:1550
+#: ../shell/eog-window.c:1577
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Nevar noskaidrot datnes formātu %s"
 
-#: ../shell/eog-window.c:1551
+#: ../shell/eog-window.c:1578
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Lūduz lietojat atbilstošos datnes sufiksus vai izvēlēto formātu."
 
-#: ../shell/eog-window.c:1689
+#: ../shell/eog-window.c:1716
 msgid "Error on saving images."
 msgstr "Kļūda saglabājot attēlu."
 
-#: ../shell/eog-window.c:1773
+#: ../shell/eog-window.c:1800
 msgid "Print"
 msgstr "Drukāt"
 
-#: ../shell/eog-window.c:1807
+#: ../shell/eog-window.c:1834
 msgid "Print Preview"
 msgstr "Drukāšanas Pirmsapskate"
 
-#: ../shell/eog-window.c:2011
+#: ../shell/eog-window.c:2038
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -551,17 +573,17 @@ msgstr ""
 "Vai tiešām vēlaties pārvietot\n"
 "\"%s\" uz miskasti?"
 
-#: ../shell/eog-window.c:2014
+#: ../shell/eog-window.c:2041
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
-"the %d selected image to the trash?"
+"the selected image to the trash?"
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
 msgstr[0] ""
 "Vai Jūs tiešām vēlaties pārvietot\n"
-"%d izvēlēto attēlu uz miskasti?"
+"izvēlēto attēlu uz miskasti?"
 msgstr[1] ""
 "Vai Jūs tiešām vēlaties pārvietot\n"
 "%d izvēlētos attēlus uz miskasti?"
@@ -569,21 +591,21 @@ msgstr[2] ""
 "Vai Jūs tiešām vēlaties pārvietot\n"
 "%d izvēlēto attēlu uz miskasti?"
 
-#: ../shell/eog-window.c:2029 ../shell/eog-window.c:3327
+#: ../shell/eog-window.c:2056 ../shell/eog-window.c:3413
 msgid "Move to Trash"
 msgstr "Pārvietot uz miskasti"
 
-#: ../shell/eog-window.c:2060
+#: ../shell/eog-window.c:2087
 msgid "Couldn't access trash."
 msgstr "Nevar piekļūt miskastei."
 
-#: ../shell/eog-window.c:2136
+#: ../shell/eog-window.c:2163
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Kļūda dzēšot attēlu %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:2941
+#: ../shell/eog-window.c:2983
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
@@ -591,250 +613,249 @@ msgstr[0] "%i x %i pikseļi  %s    %i%%"
 msgstr[1] "%i x %i pikseļi  %s    %i%%"
 msgstr[2] "%i x %i pikseļi  %s    %i%%"
 
-#: ../shell/eog-window.c:2997
+#: ../shell/eog-window.c:3039
 #, c-format
 msgid "Reason: %s"
 msgstr "Iemesls: %s"
 
-#: ../shell/eog-window.c:3127
+#: ../shell/eog-window.c:3209
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Attēla ielādēšana kļūdaina %s"
 
-#: ../shell/eog-window.c:3292
+#: ../shell/eog-window.c:3378
 msgid "_File"
 msgstr "_Fails"
 
-#: ../shell/eog-window.c:3293
+#: ../shell/eog-window.c:3379
 msgid "_Edit"
 msgstr "_Rediģēt"
 
-#: ../shell/eog-window.c:3294
+#: ../shell/eog-window.c:3380
 msgid "_View"
 msgstr "_Skats"
 
-#: ../shell/eog-window.c:3295
+#: ../shell/eog-window.c:3381
 msgid "_Image"
 msgstr "_Attēls"
 
-#: ../shell/eog-window.c:3296
+#: ../shell/eog-window.c:3382
 msgid "_Go"
 msgstr "_Iet"
 
-#: ../shell/eog-window.c:3297
+#: ../shell/eog-window.c:3383
 msgid "_Help"
 msgstr "_Palīdzība"
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3384
 msgid "_Open..."
 msgstr "_Atvērt..."
 
-#: ../shell/eog-window.c:3298
+#: ../shell/eog-window.c:3384
 msgid "Open a file"
 msgstr "Atvērt failu"
 
-#: ../shell/eog-window.c:3299
+#: ../shell/eog-window.c:3385
 msgid "_Close"
 msgstr "Aiz_vērt"
 
-#: ../shell/eog-window.c:3299
+#: ../shell/eog-window.c:3385
 msgid "Close window"
 msgstr "Aizvērt logu"
 
-#: ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:3386
 msgid "Prefere_nces"
 msgstr "Prefere_nces"
 
-#: ../shell/eog-window.c:3300
+#: ../shell/eog-window.c:3386
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of GNOME Preferences"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3387
 msgid "_Contents"
 msgstr "_Saturs"
 
-#: ../shell/eog-window.c:3301
+#: ../shell/eog-window.c:3387
 msgid "Help On this application"
 msgstr "Šīs aplikācijas palīgs"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3388
 msgid "_About"
 msgstr "_Par"
 
-#: ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3388
 msgid "About this application"
 msgstr "Par šo aplikāciju"
 
-#: ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3393
 msgid "_Toolbar"
 msgstr "_Rīkjosla"
 
-#: ../shell/eog-window.c:3307
+#: ../shell/eog-window.c:3393
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Mainīt redzamību rīkjoslai konkrētajam logam"
 
-#: ../shell/eog-window.c:3308
+#: ../shell/eog-window.c:3394
 msgid "_Statusbar"
 msgstr "_Statusjosla"
 
-#: ../shell/eog-window.c:3308
+#: ../shell/eog-window.c:3394
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Mainīt redzamību statusa josla konkrētajam logam"
 
-#: ../shell/eog-window.c:3309
+#: ../shell/eog-window.c:3395
 msgid "_Image Collection"
 msgstr "Attēlu Kolekc_ija"
 
-#: ../shell/eog-window.c:3309
-msgid ""
-"Changes the visibility of the image collection pane in the current window"
+#: ../shell/eog-window.c:3395
+msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "Mainīt redzamību attēlu kolekcijas panelim konkrētajā logā"
 
-#: ../shell/eog-window.c:3313
+#: ../shell/eog-window.c:3399
 msgid "_Save"
 msgstr "_Saglabāt"
 
-#: ../shell/eog-window.c:3314
+#: ../shell/eog-window.c:3400
 msgid "Save _As..."
 msgstr "S_aglabāt kā..."
 
-#: ../shell/eog-window.c:3315
+#: ../shell/eog-window.c:3401
 msgid "Print..."
 msgstr "Drukāt..."
 
-#: ../shell/eog-window.c:3317
+#: ../shell/eog-window.c:3403
 msgid "_Undo"
 msgstr "_Atsaukt"
 
-#: ../shell/eog-window.c:3319
+#: ../shell/eog-window.c:3405
 msgid "Flip _Horizontal"
 msgstr "Apgriezt _horizontāli"
 
-#: ../shell/eog-window.c:3320
+#: ../shell/eog-window.c:3406
 msgid "Flip _Vertical"
 msgstr "Apgriezt _vertikāli"
 
-#: ../shell/eog-window.c:3322
+#: ../shell/eog-window.c:3408
 msgid "_Rotate Clockwise"
 msgstr "_Rotēt pulkstņrādītāja virzienā"
 
-#: ../shell/eog-window.c:3323
-msgid "Rotate Counter C_lockwise"
+#: ../shell/eog-window.c:3409
+msgid "Rotate Counterc_lockwise"
 msgstr "Rotēt pretēji pu_lkstņrādītāja virzienam"
 
-#: ../shell/eog-window.c:3324
+#: ../shell/eog-window.c:3410
 msgid "Rotat_e 180°"
 msgstr "Rotēt _pa 180 grādiem"
 
-#: ../shell/eog-window.c:3325
+#: ../shell/eog-window.c:3411
 msgid "Set As _Wallpaper"
 msgstr "Iestatīt kā _ekrāntapeti"
 
-#: ../shell/eog-window.c:3329
+#: ../shell/eog-window.c:3415
 msgid "_Full Screen"
 msgstr "Pa visu _ekrānu"
 
-#: ../shell/eog-window.c:3330
+#: ../shell/eog-window.c:3416
 msgid "_Slideshow"
 msgstr "_Slīdrāde"
 
 #. accelerators
-#: ../shell/eog-window.c:3331 ../shell/eog-window.c:3337
-#: ../shell/eog-window.c:3338
+#: ../shell/eog-window.c:3417 ../shell/eog-window.c:3423
+#: ../shell/eog-window.c:3424
 msgid "_Zoom In"
 msgstr "_Tuvināt"
 
-#: ../shell/eog-window.c:3332 ../shell/eog-window.c:3339
+#: ../shell/eog-window.c:3418 ../shell/eog-window.c:3425
 msgid "Zoom _Out"
 msgstr "_Attālināt"
 
-#: ../shell/eog-window.c:3333
+#: ../shell/eog-window.c:3419
 msgid "_Normal Size"
 msgstr "_Normāls Izmērs"
 
-#: ../shell/eog-window.c:3334
+#: ../shell/eog-window.c:3420
 msgid "Best _Fit"
 msgstr "Labākais _Izmērs"
 
-#: ../shell/eog-window.c:3340 ../shell/eog-window.c:3342
-#: ../shell/eog-window.c:3356
+#: ../shell/eog-window.c:3426 ../shell/eog-window.c:3428
+#: ../shell/eog-window.c:3442
 msgid "_Next Image"
 msgstr "_Nākamais attēls"
 
-#: ../shell/eog-window.c:3341 ../shell/eog-window.c:3343
-#: ../shell/eog-window.c:3344 ../shell/eog-window.c:3355
+#: ../shell/eog-window.c:3427 ../shell/eog-window.c:3429
+#: ../shell/eog-window.c:3430 ../shell/eog-window.c:3441
 msgid "_Previous Image"
 msgstr "Ie_priekšējais attēls"
 
-#: ../shell/eog-window.c:3345
+#: ../shell/eog-window.c:3431
 msgid "Move to _Trash"
 msgstr "Pārvie_tot uz miskasti"
 
-#: ../shell/eog-window.c:3346 ../shell/eog-window.c:3357
+#: ../shell/eog-window.c:3432 ../shell/eog-window.c:3443
 msgid "_First Image"
 msgstr "_Pirmais attēls"
 
-#: ../shell/eog-window.c:3347 ../shell/eog-window.c:3358
+#: ../shell/eog-window.c:3433 ../shell/eog-window.c:3444
 msgid "_Last Image"
 msgstr "Pēdējais attē_ls"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3437
 msgid "Image _Information"
 msgstr "_Informācija par attēlu"
 
-#: ../shell/eog-window.c:3351
+#: ../shell/eog-window.c:3437
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Mainīt redzamību informācijas panelim konkrētajā logā"
 
-#: ../shell/eog-window.c:3369
+#: ../shell/eog-window.c:3455
 msgid "Open"
 msgstr "Atvērt"
 
-#: ../shell/eog-window.c:3370
+#: ../shell/eog-window.c:3456
 msgid "Close"
 msgstr "Aizvērt"
 
-#: ../shell/eog-window.c:3371
+#: ../shell/eog-window.c:3457
 msgid "Save"
 msgstr "Saglabāt"
 
-#: ../shell/eog-window.c:3373
+#: ../shell/eog-window.c:3459
 msgid "Undo"
 msgstr "Atsaukt"
 
-#: ../shell/eog-window.c:3376
+#: ../shell/eog-window.c:3462
 msgid "Right"
-msgstr "Labā puse"
+msgstr "Pa labi"
 
-#: ../shell/eog-window.c:3377
+#: ../shell/eog-window.c:3463
 msgid "Left"
-msgstr "Kresā puse"
+msgstr "Pa kreisi"
 
-#: ../shell/eog-window.c:3380
+#: ../shell/eog-window.c:3466
 msgid "In"
 msgstr "Iekšā"
 
-#: ../shell/eog-window.c:3381
+#: ../shell/eog-window.c:3467
 msgid "Out"
 msgstr "Ārā"
 
-#: ../shell/eog-window.c:3382
+#: ../shell/eog-window.c:3468
 msgid "Normal"
 msgstr "Normāls"
 
-#: ../shell/eog-window.c:3383
+#: ../shell/eog-window.c:3469
 msgid "Fit"
 msgstr "Atbilst"
 
-#: ../shell/eog-window.c:3384
+#: ../shell/eog-window.c:3470
 msgid "Next"
 msgstr "Nākamais"
 
-#: ../shell/eog-window.c:3385
+#: ../shell/eog-window.c:3471
 msgid "Previous"
 msgstr "Iepriekšējais"
 
-#: ../shell/eog-window.c:3550
+#: ../shell/eog-window.c:3636
 msgid "User interface description not found."
 msgstr "Lietotāja saskares apraksts nav atrasts."
 
@@ -866,3 +887,4 @@ msgstr "Atvērt '%s'"
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "Tukšs"
+
