@@ -11,14 +11,15 @@
 # Stéphane Raimbault <stephane.raimbault@free.fr>, 2005.
 # Damien Durand <splinux@fedoraproject.org>, 2006.
 # Laurent Richard <laurent.richard@ael.be>, 2006.
+# Robert-André Mauchin <zebob.m@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eog 2.15.91\n"
+"Project-Id-Version: eog 2.16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-30 00:47+0200\n"
-"PO-Revision-Date: 2006-07-30 00:47+0200\n"
-"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
+"POT-Creation-Date: 2006-08-26 14:28+0200\n"
+"PO-Revision-Date: 2006-08-26 14:28+0200\n"
+"Last-Translator: Robert-André Mauchin <zebob.m@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +44,7 @@ msgstr "."
 
 #: ../eog.glade.h:3
 msgid "<b>File Name Preview</b>"
-msgstr "<b>Aperçu nom de fichier</b>"
+msgstr "<b>Aperçu du nom de fichier</b>"
 
 #: ../eog.glade.h:4
 msgid "<b>File Path Specifications</b>"
@@ -108,11 +109,11 @@ msgstr "Vue Image"
 
 #: ../eog.glade.h:20
 msgid "Interpolate image on _zoom"
-msgstr "Interpoler l'image au _zoom"
+msgstr "Interpoler l'image lors du _zoom"
 
 #: ../eog.glade.h:21
 msgid "Rename From:"
-msgstr "Renommer de :"
+msgstr "Renommer à partir de :"
 
 #: ../eog.glade.h:22
 msgid "Replace spaces by underscore"
@@ -132,7 +133,7 @@ msgstr "Diaporama"
 
 #: ../eog.glade.h:26
 msgid "Start counter at:"
-msgstr "Début du compte à :"
+msgstr "Début du compteur à :"
 
 #: ../eog.glade.h:27
 msgid "To:"
@@ -166,7 +167,7 @@ msgstr ""
 #: ../eog.schemas.in.h:3
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr "Autoriser un zoom initial supérieur à 100%"
+msgstr "Permettre un zoom initial supérieur à 100%"
 
 #: ../eog.schemas.in.h:4
 msgid "Delay in seconds until showing the next image"
@@ -224,7 +225,7 @@ msgstr "Afficher/cacher les informations sur les images d'une collection."
 
 #: ../eog.schemas.in.h:14
 msgid "Show/hide image information for single image."
-msgstr "Afficher/Cacher les informations pour une image seule."
+msgstr "Afficher/cacher les informations pour une image seule."
 
 #: ../eog.schemas.in.h:15
 msgid "Show/hide the image collection pane."
@@ -252,7 +253,7 @@ msgid ""
 "image in the current window."
 msgstr ""
 "Indique si ouvrir une image doit créer une nouvelle fenêtre au lieu de "
-"remplacer l'image de la fenêtre courante."
+"remplacer l'image de la fenêtre actuelle."
 
 #: ../eog.schemas.in.h:21
 msgid ""
@@ -264,7 +265,7 @@ msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Indique si l'image doit être interpolée au zoom ou non. Cela donne une "
+"Indique si l'image doit être interpolée lors du zoom ou non. Cela donne une "
 "meilleure qualité de rendu mais est plus lent que les images non interpolées."
 
 #: ../libeog/eog-image-jpeg.c:344
@@ -283,17 +284,17 @@ msgstr "Transformation impossible sur une image non chargée."
 
 #: ../libeog/eog-image.c:554
 msgid "EXIF not supported for this file format."
-msgstr "EXIF n'est pas supporté dans ce format de fichier."
+msgstr "EXIF n'est pas pris en charge dans ce format de fichier."
 
-#: ../libeog/eog-image.c:1214 ../libeog/eog-image.c:1427
+#: ../libeog/eog-image.c:1224 ../libeog/eog-image.c:1437
 msgid "File exists"
 msgstr "Le fichier existe"
 
-#: ../libeog/eog-image.c:1367 ../libeog/eog-image.c:1495
+#: ../libeog/eog-image.c:1377 ../libeog/eog-image.c:1505
 msgid "No image loaded."
 msgstr "Aucune image chargée."
 
-#: ../libeog/eog-image.c:1376 ../libeog/eog-image.c:1504
+#: ../libeog/eog-image.c:1386 ../libeog/eog-image.c:1514
 msgid "Temporary file creation failed."
 msgstr "Échec de la création de fichier temporaire."
 
@@ -490,7 +491,8 @@ msgstr ""
 "Benoît Dejean <TazForEver@dlfp.org>\n"
 "Stéphane Raimbault <stephane.raimbault@free.fr>\n"
 "Damien Durand <splinux@fedoraproject.org>\n"
-"Laurent Richard <laurent.richard@ael.be>"
+"Laurent Richard <laurent.richard@ael.be>\n"
+"Robert-André Mauchin <zebob.m@gmail.com>"
 
 #: ../shell/eog-window.c:506
 msgid ""
@@ -568,7 +570,7 @@ msgstr "Erreur lors de la sauvegarde de %s."
 
 #: ../shell/eog-window.c:1025 ../shell/eog-window.c:1591
 msgid "Retry"
-msgstr "Ré-essayer"
+msgstr "Réessayer"
 
 #: ../shell/eog-window.c:1455
 msgid "Couldn't determine destination uri."
@@ -602,20 +604,24 @@ msgstr "Aperçu avant impression"
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
-msgstr "Voulez-vous vraiment déplacer « %s » à la corbeille ?"
+msgstr ""
+"Voulez-vous vraiment déplacer\n"
+"« %s » à la corbeille ?"
 
 #: ../shell/eog-window.c:2041
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
-"the %d selected image to the trash?"
+"the selected image to the trash?"
 msgid_plural ""
 "Are you sure you want to move\n"
 "the %d selected images to the trash?"
 msgstr[0] ""
-"Voulez-vous vraiment déplacer %d image sélectionnée à la corbeille ?"
+"Voulez-vous vraiment déplacer l'image\n"
+"sélectionnée à la corbeille ?"
 msgstr[1] ""
-"Voulez-vous vraiment déplacer les %d images sélectionnées à la corbeille ?"
+"Voulez-vous vraiment déplacer les %d\n"
+"images sélectionnées à la corbeille ?"
 
 #: ../shell/eog-window.c:2056 ../shell/eog-window.c:3413
 msgid "Move to Trash"
@@ -718,7 +724,7 @@ msgstr "Barre d'_outils"
 
 #: ../shell/eog-window.c:3393
 msgid "Changes the visibility of the toolbar in the current window"
-msgstr "Change la visibilité de la barre d'outils dans la fenêtre actuelle"
+msgstr "Modifie la visibilité de la barre d'outils dans la fenêtre actuelle"
 
 #: ../shell/eog-window.c:3394
 msgid "_Statusbar"
@@ -726,7 +732,7 @@ msgstr "Barre d'é_tat"
 
 #: ../shell/eog-window.c:3394
 msgid "Changes the visibility of the statusbar in the current window"
-msgstr "Change la visibilité de la barre d'état dans la fenêtre actuelle"
+msgstr "Modifie la visibilité de la barre d'état dans la fenêtre actuelle"
 
 #: ../shell/eog-window.c:3395
 msgid "_Image Collection"
@@ -736,7 +742,7 @@ msgstr "Collection d'_images"
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr ""
-"Change la visibilité du volet de la collection d'images dans la fenêtre "
+"Modifie la visibilité du volet de la collection d'images dans la fenêtre "
 "actuelle"
 
 #: ../shell/eog-window.c:3399
@@ -768,7 +774,7 @@ msgid "_Rotate Clockwise"
 msgstr "Rotation _horaire"
 
 #: ../shell/eog-window.c:3409
-msgid "Rotate Counter C_lockwise"
+msgid "Rotate Counterc_lockwise"
 msgstr "Rotation _antihoraire"
 
 #: ../shell/eog-window.c:3410
@@ -833,7 +839,7 @@ msgstr "_Information sur l'image"
 
 #: ../shell/eog-window.c:3437
 msgid "Changes the visibility of the information pane in the current window"
-msgstr "Change la visibilité du volet d'information dans la fenêtre actuelle"
+msgstr "Modifie la visibilité du volet d'information dans la fenêtre actuelle"
 
 #: ../shell/eog-window.c:3455
 msgid "Open"
