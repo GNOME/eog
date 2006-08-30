@@ -1,24 +1,24 @@
 # Hungarian translation of eog.
-# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the eog package.
+#
 # Gergo Erdi <cactus@cactus.rulez.org>, 2000, 2001.
 # Andras Timar <timar@gnome.hu>, 2002, 2003, 2004.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004.
 # Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2005, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-15 09:17+0200\n"
-"PO-Revision-Date: 2006-01-11 19:29+0100\n"
+"POT-Creation-Date: 2006-08-27 09:57+0200\n"
+"PO-Revision-Date: 2006-08-30 09:53+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../eog.desktop.in.in.h:1
 msgid "Image Viewer"
@@ -104,7 +104,6 @@ msgid "Image View"
 msgstr "Képnézet"
 
 #: ../eog.glade.h:20
-#, fuzzy
 msgid "Interpolate image on _zoom"
 msgstr "Kép _interpolálása nagyításkor"
 
@@ -253,8 +252,7 @@ msgstr ""
 "ablakban lecseréli a képet."
 
 #: ../eog.schemas.in.h:21
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
+msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "A képek sorozata végtelen ismétlésben legyen-e megjelenítve."
 
 #: ../eog.schemas.in.h:22
@@ -282,15 +280,15 @@ msgstr "Átalakítás a be nem töltött képen."
 msgid "EXIF not supported for this file format."
 msgstr "Az EXIF nem támogatott ehhez a fájlformátumhoz."
 
-#: ../libeog/eog-image.c:1214 ../libeog/eog-image.c:1427
+#: ../libeog/eog-image.c:1224 ../libeog/eog-image.c:1437
 msgid "File exists"
 msgstr "A fájl létezik"
 
-#: ../libeog/eog-image.c:1367 ../libeog/eog-image.c:1495
+#: ../libeog/eog-image.c:1377 ../libeog/eog-image.c:1505
 msgid "No image loaded."
 msgstr "Nincs kép betöltve."
 
-#: ../libeog/eog-image.c:1376 ../libeog/eog-image.c:1504
+#: ../libeog/eog-image.c:1386 ../libeog/eog-image.c:1514
 msgid "Temporary file creation failed."
 msgstr "Átmeneti fájl létrehozása sikertelen."
 
@@ -490,6 +488,8 @@ msgid ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
 msgstr ""
+"Ez a program szabad szoftver, terjesztheti és/vagy módosíthatja a Free Software Foundation által kiadott GNU General Public License második (vagy "
+"bármely későbbi) változatában foglaltak alapján.\n"
 
 #: ../shell/eog-window.c:510
 msgid ""
@@ -497,14 +497,14 @@ msgid ""
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
-msgstr ""
+msgstr "A programot abban a reményben terjesztjük, hogy hasznos lesz, de nem vállalunk SEMMIFÉLE GARANCIÁT, még olyan értelemben sem, hogy a program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. További részletekért tanulmányozza a GNU GPL licencet.\n"
 
 #: ../shell/eog-window.c:514
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
-msgstr ""
+msgstr "A programhoz a GNU General Public License egy példánya is jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
 
 #: ../shell/eog-window.c:527 ../shell/eog-window.c:3122
 #: ../shell/eog-window.c:3817 ../shell/main.c:609
@@ -587,7 +587,7 @@ msgstr ""
 "\"%s\"-t a Kukába?"
 
 #: ../shell/eog-window.c:2041
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to move\n"
 "the selected image to the trash?"
@@ -596,7 +596,7 @@ msgid_plural ""
 "the %d selected images to the trash?"
 msgstr[0] ""
 "Biztos át akarja helyezni a\n"
-"kijelölt %d képet a Kukába?"
+"kijelölt képet a Kukába?"
 msgstr[1] ""
 "Biztos át akarja helyezni a\n"
 "kijelölt %d képet a Kukába?"
@@ -717,8 +717,7 @@ msgid "_Image Collection"
 msgstr "_Képgyűjtemény"
 
 #: ../shell/eog-window.c:3395
-msgid ""
-"Changes the visibility of the image collection pane in the current window"
+msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "A jelenlegi ablakban megváltoztatja a képgyűjteménysáv láthatóságát"
 
 #: ../shell/eog-window.c:3399
@@ -726,14 +725,12 @@ msgid "_Save"
 msgstr "M_entés"
 
 #: ../shell/eog-window.c:3400
-#, fuzzy
 msgid "Save _As..."
-msgstr "Men_tés másként"
+msgstr "Men_tés másként..."
 
 #: ../shell/eog-window.c:3401
-#, fuzzy
 msgid "Print..."
-msgstr "Nyomtatás"
+msgstr "Nyomtatás..."
 
 #: ../shell/eog-window.c:3403
 msgid "_Undo"
@@ -752,7 +749,6 @@ msgid "_Rotate Clockwise"
 msgstr "Forgatás az ó_ramutató irányába"
 
 #: ../shell/eog-window.c:3409
-#, fuzzy
 msgid "Rotate Counterc_lockwise"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
@@ -874,7 +870,7 @@ msgstr "Nem található a felhasználói felület leírása."
 
 #: ../shell/main.c:23
 msgid "[FILE...]"
-msgstr ""
+msgstr "[FÁJL...]"
 
 #: ../shell/main.c:174
 msgid "Unable to create Eye of GNOME user interface"
@@ -899,3 +895,4 @@ msgstr "\"%s\" megnyitása"
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "Üres"
+
