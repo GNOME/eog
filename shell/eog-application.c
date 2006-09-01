@@ -43,8 +43,6 @@
 #include <libleaftag/leaftag.h>
 #endif
 
-#define EOG_RECENT_FILES_GROUP		"Eye of Gnome"
-
 #define EOG_APPLICATION_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
 
@@ -59,11 +57,6 @@ static void
 eog_application_init (EogApplication *eog_application)
 {
 	eog_session_init (eog_application);
-
-	eog_application->recent_model = egg_recent_model_new (EGG_RECENT_MODEL_SORT_MRU);
-        egg_recent_model_set_limit (eog_application->recent_model, 5);
-        egg_recent_model_set_filter_groups (eog_application->recent_model, 
-					    EOG_RECENT_FILES_GROUP, NULL);
 }
 
 EogApplication *
@@ -245,11 +238,6 @@ eog_application_shutdown (EogApplication *application)
 {
 	g_return_if_fail (EOG_IS_APPLICATION (application));
 
-	if (application->recent_model) {
-		g_object_unref (application->recent_model);
-		application->recent_model = NULL;
-	}
-
 	g_object_unref (application);
 	
 	gtk_main_quit ();
@@ -276,10 +264,3 @@ eog_application_get_windows (EogApplication *application)
 	return windows;
 }
 
-EggRecentModel *
-eog_application_get_recent_model (EogApplication *application)
-{
-	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
-
-	return application->recent_model;
-}

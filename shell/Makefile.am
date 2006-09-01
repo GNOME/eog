@@ -1,5 +1,3 @@
-SUBDIRS = recent-files
-
 if ENABLE_JPEG
 jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
 jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
@@ -10,7 +8,6 @@ INCLUDES =							\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
 	-I$(top_srcdir)/libeog					\
 	-I$(top_builddir)/libeog				\
-	-I$(top_srcdir)/shell/recent-files			\
 	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
 	-DHAVE_COLLECTION					\
@@ -46,14 +43,11 @@ eog_SOURCES =				\
 
 eog_DEPENDENCIES = 				\
 	$(top_builddir)/libeog/libeog.a 	\
-	$(top_builddir)/shell/recent-files/librecent.a \
 	$(jpeg_DEPS)
 
 eog_LDADD = 				\
 	-L$(top_builddir)/libeog 	\
-	-L$(top_builddir)/shell/recent-files \
 	-leog				\
-	-lrecent			\
 	$(LIBJPEG)			\
 	$(jpeg_LIB)			\
 	$(X_LIBS)			\

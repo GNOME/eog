@@ -26,7 +26,6 @@
 #define __EOG_APPLICATION_H__
 
 #include "eog-window.h"
-#include "egg-recent-model.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -48,8 +47,6 @@ typedef struct _EogApplicationPrivate EogApplicationPrivate;
 
 struct _EogApplication {
 	GObject base_instance;
-	
-	EggRecentModel  *recent_model;
 };
 
 struct _EogApplicationClass {
@@ -79,8 +76,6 @@ gboolean          eog_application_open_tag_list      (EogApplication   *applicat
 #endif
 
 GList		 *eog_application_get_windows	     (EogApplication   *application);
-
-EggRecentModel   *eog_application_get_recent_model   (EogApplication   *application);
 
 G_END_DECLS
 

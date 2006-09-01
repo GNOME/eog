@@ -43,13 +43,13 @@
 #include "eog-jobs.h"
 #include "eog-util.h"
 
-#include "egg-recent.h"
-
 #include <gconf/gconf-client.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#include <libgnomevfs/gnome-vfs-mime.h>
 
 #define EOG_WINDOW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_WINDOW, EogWindowPrivate))
@@ -60,6 +60,9 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_DEFAULT_HEIGHT 350
 
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
+
+#define EOG_RECENT_FILES_GROUP		"Eye of Gnome"
+#define EOG_RECENT_FILES_LIMIT		5
 
 typedef enum {
 	EOG_WINDOW_MODE_UNKNOWN,
@@ -86,6 +89,7 @@ struct _EogWindowPrivate {
         GtkActionGroup      *actions_window;
         GtkActionGroup      *actions_image;
         GtkActionGroup      *actions_collection;
+        GtkActionGroup      *actions_recent;
 
 	GtkWidget           *fullscreen_popup;
 	GSource             *fullscreen_timeout_source;
@@ -94,7 +98,8 @@ struct _EogWindowPrivate {
 	gint                 slideshow_switch_timeout;
 	GSource             *slideshow_switch_source;
 
-        EggRecentViewGtk    *recent_view;
+        GtkRecentManager    *recent_manager;
+        guint		     recent_menu_id;
 
         EogJob              *load_job;
         EogJob              *transform_job;
@@ -266,6 +271,40 @@ update_status_bar (EogWindow *window)
 	g_free (str);
 }
 
+static void
+add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
+{
+	gchar *text_uri;
+	GtkRecentData *recent_data;
+	static gchar *groups[2] = { EOG_RECENT_FILES_GROUP , NULL }; 
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+	if (uri == NULL) return;
+
+	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+
+	if (text_uri == NULL)
+		return;
+
+	recent_data = g_slice_new (GtkRecentData);
+	recent_data->display_name = NULL;
+	recent_data->description = NULL;
+	recent_data->mime_type = (gchar *) gnome_vfs_get_mime_type_from_uri (uri);
+	recent_data->app_name = (gchar *) g_get_application_name ();
+	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
+	recent_data->groups = groups;
+	recent_data->is_private = FALSE;
+
+	gtk_recent_manager_add_full (GTK_RECENT_MANAGER (window->priv->recent_manager), 
+				     text_uri, 
+				     recent_data);
+
+	g_free (recent_data->app_exec);
+	g_free (text_uri);
+
+	g_slice_free (GtkRecentData, recent_data);
+}
+
 static void 
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
@@ -293,8 +332,7 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	update_status_bar (window);
 
-	/* update recent files */
-	//add_uri_to_recent_files (window, eog_image_get_uri (image));
+	add_uri_to_recent_files (window, eog_image_get_uri (image));
 }
 
 static void
@@ -604,9 +642,22 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 }
 
 static void
-eog_window_open_recent_cb (GtkWidget *widget, EggRecentItem *item, gpointer data)
+eog_window_open_recent_cb (GtkAction *action, EogWindow *window)
 {
-	g_print ("Not implemented yet!\n");
+	GtkRecentInfo *info;
+	const gchar *uri;
+	GSList *list = NULL;
+	
+	info = g_object_get_data (G_OBJECT (action), "gtk-recent-info");
+	g_return_if_fail (info != NULL);
+
+	uri = gtk_recent_info_get_uri (info);
+	list = g_slist_prepend (list, g_strdup (uri));
+
+	eog_application_open_uri_list (EOG_APP, list, GDK_CURRENT_TIME, NULL);
+
+	g_slist_foreach (list, (GFunc) g_free, NULL);
+	g_slist_free (list);
 }
 
 static void
@@ -1716,6 +1767,100 @@ set_action_properties (GtkActionGroup *image_group,
         g_object_set (action, "short_label", _("Fit"), NULL);
 }
 
+static gint
+sort_recents_mru (GtkRecentInfo *a, GtkRecentInfo *b)
+{
+	return (gtk_recent_info_get_modified (a) < gtk_recent_info_get_modified (b));
+}
+
+static void
+eog_window_update_recent_files_menu (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GList *actions = NULL, *li = NULL, *items = NULL;
+	guint count_recent = 0;
+
+	priv = window->priv;
+
+	if (priv->recent_menu_id != 0)
+		gtk_ui_manager_remove_ui (priv->ui_mgr, priv->recent_menu_id);
+	
+	actions = gtk_action_group_list_actions (priv->actions_recent);
+
+	for (li = actions; li != NULL; li = li->next) {
+		g_signal_handlers_disconnect_by_func (GTK_ACTION (li->data),
+						      G_CALLBACK(eog_window_open_recent_cb),
+						      window);
+		
+		gtk_action_group_remove_action (priv->actions_recent,
+						GTK_ACTION (li->data));
+	}
+
+	g_list_free (actions);
+
+	priv->recent_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
+	items = gtk_recent_manager_get_items (priv->recent_manager);
+	items = g_list_sort (items, (GCompareFunc) sort_recents_mru);
+
+	for (li = items; li != NULL && count_recent < EOG_RECENT_FILES_LIMIT; li = li->next) {
+		gchar *action_name;
+		gchar *label;
+		gchar *tip;
+		gchar **display_name;
+		gchar *label_filename;
+		GtkAction *action;
+		GtkRecentInfo *info = li->data;
+
+		if (!gtk_recent_info_has_group (info, EOG_RECENT_FILES_GROUP))
+			continue;
+
+		count_recent++;
+
+		action_name = g_strdup_printf ("recent-info-%d", count_recent);
+		display_name = g_strsplit (gtk_recent_info_get_display_name (info), "_", -1);
+		label_filename = g_strjoinv ("__", display_name);
+		label = g_strdup_printf ("_%d. %s", count_recent, label_filename);
+		g_free (label_filename);
+		g_strfreev (display_name);
+
+		tip = gtk_recent_info_get_uri_display (info);
+		
+		action = gtk_action_new (action_name, label, tip, NULL);
+		
+		g_object_set_data_full (G_OBJECT (action), "gtk-recent-info", 
+					gtk_recent_info_ref (info),
+					(GDestroyNotify) gtk_recent_info_unref);
+		
+		g_object_set (G_OBJECT (action), "icon-name", "gnome-mime-image", NULL);
+		
+		g_signal_connect (action, "activate",
+				  G_CALLBACK (eog_window_open_recent_cb),
+				  window);
+		
+		gtk_action_group_add_action (priv->actions_recent, action);
+		
+		g_object_unref (action);
+
+		gtk_ui_manager_add_ui (priv->ui_mgr, priv->recent_menu_id,
+				       "/MainMenu/File/RecentDocuments",
+				       action_name, action_name,
+				       GTK_UI_MANAGER_AUTO, FALSE);
+
+		g_free (action_name);
+		g_free (label);
+		g_free (tip);
+	}
+
+	g_list_foreach (items, (GFunc) gtk_recent_info_unref, NULL);
+	g_list_free (items);
+}
+
+static void
+eog_window_recent_manager_changed_cb (GtkRecentManager *manager, EogWindow *window)
+{
+	eog_window_update_recent_files_menu (window);
+}
+
 static void 
 eog_window_construct_ui (EogWindow *window)
 {
@@ -1726,12 +1871,9 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
 	GtkWidget *popup;
-	GtkWidget *recent_widget;
 	GtkWidget *sw;
 	GtkWidget *frame;
 
-	EggRecentModel *recent_model;
-	
 	GConfEntry *entry;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
@@ -1820,17 +1962,17 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_window_add_accel_group (GTK_WINDOW (window), 
 				    gtk_ui_manager_get_accel_group (priv->ui_mgr));
 
-	recent_model = eog_application_get_recent_model (EOG_APP);
-	
-	recent_widget = gtk_ui_manager_get_widget (priv->ui_mgr, 
-						   "/MainMenu/File/EggRecentDocuments");
-	priv->recent_view = egg_recent_view_gtk_new (gtk_widget_get_parent (recent_widget),
-						     recent_widget);
-	egg_recent_view_gtk_set_trailing_sep (priv->recent_view, TRUE);
-	egg_recent_view_set_model (EGG_RECENT_VIEW (priv->recent_view), recent_model);
+	priv->actions_recent = gtk_action_group_new ("RecentFilesActions");
+	gtk_action_group_set_translation_domain (priv->actions_recent, 
+						 GETTEXT_PACKAGE);
 
-	g_signal_connect (G_OBJECT (priv->recent_view), "activate",
-			  G_CALLBACK (eog_window_open_recent_cb), window);
+	g_signal_connect (priv->recent_manager, "changed",
+			  G_CALLBACK (eog_window_recent_manager_changed_cb),
+			  window);
+
+	eog_window_update_recent_files_menu (window);
+
+	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_recent, 0);
 
 	priv->statusbar = eog_statusbar_new ();
 	gtk_box_pack_end (GTK_BOX (priv->box), 
@@ -1970,6 +2112,11 @@ eog_window_init (EogWindow *window)
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
 	window->priv->mode = EOG_WINDOW_MODE_NORMAL;
+
+	window->priv->recent_manager = 
+		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
+
+	window->priv->recent_menu_id = 0;
 	
 	eog_window_construct_ui (window);
 }
@@ -1996,25 +2143,47 @@ eog_window_dispose (GObject *object)
 		priv->image = NULL;
 	}
 
+	if (priv->actions_window != NULL) {
+		g_object_unref (priv->actions_window);
+		priv->actions_window = NULL;
+	}
+
+	if (priv->actions_image != NULL) {
+		g_object_unref (priv->actions_image);
+		priv->actions_image = NULL;
+	}
+
+	if (priv->actions_collection != NULL) {
+		g_object_unref (priv->actions_collection);
+		priv->actions_collection = NULL;
+	}
+
+	if (priv->actions_recent != NULL) {
+		g_object_unref (priv->actions_recent);
+		priv->actions_recent = NULL;
+	}
+
+	fullscreen_clear_timeout (window);
+
 	if (window->priv->fullscreen_popup != NULL) {
 		gtk_widget_destroy (priv->fullscreen_popup);
 		priv->fullscreen_popup = NULL;
 	}
 
-	fullscreen_clear_timeout (window);
+	slideshow_clear_timeout (window);
 
-	if (priv->recent_view != NULL) {
-		g_object_unref (priv->recent_view);
-		priv->recent_view = NULL;
+	if (priv->recent_manager) {
+		g_signal_handlers_disconnect_by_func (priv->recent_manager, 
+						      G_CALLBACK (eog_window_recent_manager_changed_cb), 
+						      window);
+		priv->recent_manager = NULL;
 	}
+	
+	priv->recent_menu_id = 0;
+		
+	eog_window_clear_load_job (window);
 
-	if (priv->load_job != NULL) {
-		eog_window_clear_load_job (window);
-	}
-
-	if (priv->transform_job != NULL) {
-		eog_window_clear_transform_job (window);
-	}
+	eog_window_clear_transform_job (window);
 
 	if (priv->client) {
 		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
@@ -2031,12 +2200,13 @@ eog_window_finalize (GObject *object)
         GList *windows = eog_application_get_windows (EOG_APP);
 
 	g_return_if_fail (EOG_IS_WINDOW (object));
-
+	
         if (windows == NULL) {
                 eog_application_shutdown (EOG_APP);
         } else {
                 g_list_free (windows);
 	}
+
         G_OBJECT_CLASS (eog_window_parent_class)->finalize (object);
 }
 
@@ -2218,6 +2388,33 @@ eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 }
 
 static void
+eog_window_screen_changed (GtkWidget *widget, GdkScreen *prev_screen)
+{
+	EogWindowPrivate *priv;
+	GdkScreen *new_screen;
+
+	g_return_if_fail (EOG_IS_WINDOW (widget));
+
+	priv = EOG_WINDOW (widget)->priv;
+
+	new_screen = gtk_widget_get_screen (widget);
+
+	if (prev_screen != NULL)
+		g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_for_screen (prev_screen), 
+						      G_CALLBACK (eog_window_recent_manager_changed_cb), 
+						      widget);
+	
+	priv->recent_manager = gtk_recent_manager_get_for_screen (new_screen);
+
+	g_signal_connect (priv->recent_manager, "changed", 
+			  G_CALLBACK (eog_window_recent_manager_changed_cb), 
+			  widget);
+
+	if (GTK_WIDGET_CLASS (eog_window_parent_class)->screen_changed)
+		GTK_WIDGET_CLASS (eog_window_parent_class)->screen_changed (widget, prev_screen);
+}
+
+static void
 eog_window_class_init (EogWindowClass *class)
 {
 	GObjectClass *g_object_class = (GObjectClass *) class;
@@ -2235,6 +2432,7 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 	//widget_class->drag_data_received = eog_window_drag_data_received;
+	widget_class->screen_changed = eog_window_screen_changed;
 
 	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
 }
