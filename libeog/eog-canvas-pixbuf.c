@@ -261,14 +261,18 @@ eog_canvas_pixbuf_point (GnomeCanvasItem *item, double x, double y, int cx, int 
 	return result;
 }
 
+G_DEFINE_TYPE (EogCanvasPixbuf, eog_canvas_pixbuf, GNOME_TYPE_CANVAS_PIXBUF)
+
 static void
 eog_canvas_pixbuf_finalize (GObject *object)
 {
+	G_OBJECT_CLASS(eog_canvas_pixbuf_parent_class)->finalize(object);
 }
 
 static void
 eog_canvas_pixbuf_dispose (GObject *object)
 {
+	G_OBJECT_CLASS(eog_canvas_pixbuf_parent_class)->dispose(object);
 }
 
 static void
@@ -289,6 +293,4 @@ eog_canvas_pixbuf_class_init (EogCanvasPixbufClass *klass)
 
 	item_klass->point = eog_canvas_pixbuf_point;
 }
-
-G_DEFINE_TYPE (EogCanvasPixbuf, eog_canvas_pixbuf, GNOME_TYPE_CANVAS_PIXBUF)
 
