@@ -146,7 +146,6 @@ static void eog_wrap_list_drag_data_get_cb (GtkWidget *widget,
 static void request_update (EogWrapList *wlist);
 static gboolean do_update (EogWrapList *wlist);
 static gint handle_canvas_click (GnomeCanvas *canvas, GdkEventButton *event, gpointer data);
-static gboolean handle_canvas_scroll (GnomeCanvas *canvas, GdkEventScroll *event, gpointer data);
 
 G_DEFINE_TYPE (EogWrapList, eog_wrap_list, GNOME_TYPE_CANVAS)
 
@@ -282,11 +281,6 @@ eog_wrap_list_construct (EogWrapList *wlist)
 				"button-press-event",
 				G_CALLBACK (handle_canvas_click),
 				wlist);
-
-	g_signal_connect_after (G_OBJECT (wlist), 
-			  	"scroll_event",
-			  	G_CALLBACK (handle_canvas_scroll),
-			  	wlist);
 }
 
 
@@ -420,47 +414,6 @@ deselect_all (EogWrapList *wlist)
 		g_list_free (priv->selected_items);
 		priv->selected_items = NULL;
 	}
-}
-
-static gboolean
-handle_canvas_scroll (GnomeCanvas *canvas, GdkEventScroll *event, gpointer data)
-{
-	EogWrapList *wlist;
-	EogWrapListPrivate *priv;
-
-	g_return_val_if_fail (data != NULL, FALSE);
-	g_return_val_if_fail (EOG_IS_WRAP_LIST (data), FALSE);
-
-	wlist = EOG_WRAP_LIST (data);
-	priv = wlist->priv;
-
-	switch (event->direction) {
-	case GDK_SCROLL_UP:
-		eog_wrap_list_select_single (EOG_WRAP_LIST (wlist), 
-					     EOG_WRAP_LIST_SELECT_LEFT);
-		break;
-
-	case GDK_SCROLL_LEFT:
-		eog_wrap_list_select_single (EOG_WRAP_LIST (wlist), 
-					     EOG_WRAP_LIST_SELECT_LEFT);
-		break;
-
-	case GDK_SCROLL_DOWN:
-		eog_wrap_list_select_single (EOG_WRAP_LIST (wlist), 
-					     EOG_WRAP_LIST_SELECT_RIGHT);
-		break;
-
-	case GDK_SCROLL_RIGHT:
-		eog_wrap_list_select_single (EOG_WRAP_LIST (wlist), 
-					     EOG_WRAP_LIST_SELECT_RIGHT);
-		break;
-
-	default:
-		g_assert_not_reached ();
-		return FALSE;
-	}
-
-	return TRUE;
 }
 
 static gint
