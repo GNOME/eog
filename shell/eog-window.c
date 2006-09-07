@@ -61,8 +61,8 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
 
-#define EOG_RECENT_FILES_GROUP		"Eye of Gnome"
-#define EOG_RECENT_FILES_LIMIT		5
+#define EOG_RECENT_FILES_GROUP  "Eye of Gnome"
+#define EOG_RECENT_FILES_LIMIT  5
 
 typedef enum {
 	EOG_WINDOW_MODE_UNKNOWN,
@@ -281,6 +281,10 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	if (uri == NULL) return;
 
+	/* The password gets stripped here because ~/.recently-used.xbel is
+	 * readable by everyone (chmod 644). It also makes the workaround
+	 * for the bug with gtk_recent_info_get_uri_display() easier
+	 * (see the comment in eog_window_update_recent_files_menu()). */
 	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
 	if (text_uri == NULL)
@@ -1824,6 +1828,14 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		g_strfreev (display_name);
 
 		tip = gtk_recent_info_get_uri_display (info);
+
+		/* This is a workaround for a bug (#351945) regarding 
+		 * gtk_recent_info_get_uri_display() and remote URIs. 
+		 * gnome_vfs_format_uri_for_display is sufficient here
+		 * since the password gets stripped when adding the 
+		 * file to the recently used list. */
+		if (tip == NULL)
+			tip = gnome_vfs_format_uri_for_display (gtk_recent_info_get_uri (info));
 		
 		action = gtk_action_new (action_name, label, tip, NULL);
 		
