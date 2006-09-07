@@ -40,6 +40,7 @@
 #include <libgnome/gnome-config.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-client.h>
+#include <libgnomeui/gnome-app-helper.h>
 #include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomevfs/gnome-vfs.h>
 #ifdef HAVE_LEAFTAG
@@ -160,6 +161,8 @@ main (int argc, char **argv)
 
 	gtk_main ();
 
+	gnome_accelerators_sync ();
+	
   	if (startup_files)
 		g_strfreev (startup_files);
 
