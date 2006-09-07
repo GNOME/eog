@@ -38,6 +38,7 @@
 #include <libgnome/gnome-program.h>
 #include <libgnome/gnome-help.h>
 #include <libgnome/gnome-desktop-item.h>
+#include <libgnomeui/gnome-app-helper.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
 #include "util.h"
@@ -3868,8 +3869,10 @@ eog_window_close (EogWindow *window)
 
 	gtk_widget_destroy (GTK_WIDGET (window));
 
-	if (!window_list)
+	if (!window_list) {
+		gnome_accelerators_sync();
 		gtk_main_quit ();
+	}
 }
 
 #if 0
