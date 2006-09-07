@@ -7,6 +7,7 @@
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-authentication-manager.h>
+#include <libgnomeui/gnome-app-helper.h>
 #include <gconf/gconf-client.h>
 #include "util.h"
 #include "eog-window.h"
@@ -635,6 +636,8 @@ main (int argc, char **argv)
 
 	gtk_main ();
 
+	gnome_accelerators_sync();
+	
 	g_object_unref (program);
 
 	return 0;
