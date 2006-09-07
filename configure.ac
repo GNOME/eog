@@ -209,7 +209,6 @@ libeog/Makefile
 jpegutils/Makefile
 help/Makefile
 shell/Makefile
-shell/recent-files/Makefile
 po/Makefile.in
 ])
 
