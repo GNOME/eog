@@ -202,6 +202,7 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 			  "color-set",
 			  G_CALLBACK (color_change_cb),
 			  client);
+	g_free (value);
 
 	/* Slideshow Page */
 	widget = glade_xml_get_widget (xml, "upscale_check");

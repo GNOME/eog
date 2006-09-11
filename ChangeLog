@@ -1,3 +1,11 @@
+2006-09-11  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* shell/eog-preferences.c: (eog_preferences_show):
+	* shell/eog-window.c: (eog_window_transparency_changed_cb),
+	(eog_window_trans_color_changed_cb):Fixed memory leaks related
+	to gconf_client_get_string ().
+	(handle_image_selection_changed_cb): Fixed memory leak.
+
 2006-09-06  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/main.c: save customized keybindings on application 

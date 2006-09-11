@@ -169,6 +169,7 @@ eog_window_transparency_changed_cb (GConfClient *client,
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
 							  TRANSP_COLOR, &color);
 		}
+		g_free (color_str);
 	} else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
 						  TRANSP_CHECKED, 0);
@@ -212,6 +213,7 @@ eog_window_trans_color_changed_cb (GConfClient *client,
 							  TRANSP_COLOR, &color);
 		}
 	}
+	g_free (value);
 }
 
 static void
@@ -576,6 +578,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 	EogWindowPrivate *priv;
 	EogImage *image;
 	gchar *status_message;
+	gchar *str_image;
 
 	priv = window->priv;
 
@@ -609,8 +612,10 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	eog_job_queue_add_job (priv->load_job);
 
+	str_image = eog_image_get_uri_for_display (image);
 	status_message = g_strdup_printf (_("Loading image \"%s\""), 
-				          eog_image_get_uri_for_display (image));
+				          str_image);
+	g_free (str_image);
 	
 	gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
 			    priv->tip_message_cid, status_message);
