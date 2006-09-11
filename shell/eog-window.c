@@ -2246,6 +2246,7 @@ transparency_changed_cb (GConfClient *client,
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
 							  TRANSP_COLOR, &color);
 		}
+		g_free (color_str);
 	}
 	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
@@ -2288,6 +2289,7 @@ trans_color_changed_cb (GConfClient *client,
 							  TRANSP_COLOR, &color);
 		}
 	}
+	g_free (value);
 }
 
 /* ========================================================================= */
