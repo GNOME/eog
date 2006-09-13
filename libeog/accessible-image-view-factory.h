@@ -22,9 +22,7 @@
 
 #include <atk/atkobjectfactory.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define ACCESSIBLE_TYPE_IMAGE_VIEW_FACTORY         (accessible_image_view_factory_get_type())
 
@@ -56,8 +54,6 @@ AtkObjectFactory *accessible_image_view_factory_new (void);
 
 GType accessible_image_view_factory_get_type ();
 
-#ifdef __cplusplus
-}
-#endif  /* __cplusplus */
+G_END_DECLS
 
 #endif /* __ACCESSIBLE_IMAGE_VIEW_FACTORY_H__ */
