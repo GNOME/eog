@@ -23,9 +23,7 @@
 #include <gtk/gtkaccessible.h>
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define ACCESSIBLE_TYPE_IMAGE_VIEW                     (accessible_image_view_get_type ())
 
@@ -57,8 +55,6 @@ GType accessible_image_view_get_type (void);
 
 AtkObject* accessible_image_view_new (GtkWidget *widget);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __ACCESSIBLE_IMAGE_VIEW_H__ */
