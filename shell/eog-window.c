@@ -362,6 +362,8 @@ eog_window_clear_load_job (EogWindow *window)
 
 		g_object_unref (priv->load_job);
 		priv->load_job = NULL;
+		/* Hide statusbar */
+		eog_statusbar_set_progress (EOG_STATUSBAR (priv->statusbar), 0);
 	}
 }
 
@@ -591,12 +593,12 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	g_assert (EOG_IS_IMAGE (image));
 
+	eog_window_clear_load_job (window);
+
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
 		eog_window_display_image (window, image);
 		return;
 	}
-
-	eog_window_clear_load_job (window);
 	
 	priv->load_job = eog_job_load_new (image);
 

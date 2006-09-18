@@ -1,3 +1,9 @@
+2006-09-18  Felix Riemann  <friemann@cvs.gnome.org>
+
+	* shell/eog-window.c: (eog_window_clear_load_job),
+	(handle_image_selection_changed_cb): make sure a possible loading job
+	is cancelled when re-selecting the current image (Fixes bug #355858).
+
 2006-09-13  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* libeog/accessible-image-view-factory.h:
