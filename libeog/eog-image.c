@@ -1936,6 +1936,10 @@ eog_image_is_supported_mime_type (const char *mime_type)
 	GList *supported_mime_types, *result;
 	GQuark quark;
 
+	if (mime_type == NULL) {
+		return FALSE;
+	}
+
 	supported_mime_types = eog_image_get_supported_mime_types ();
 
 	quark = g_quark_from_string (mime_type);
