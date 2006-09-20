@@ -396,7 +396,7 @@ is_supported_mime_type (const char *mime_type)
 	GQuark quark;
 	GSList *result;
 
-	if (mime_type != NULL) {
+	if (mime_type == NULL) {
 		return FALSE;
 	}
 
