@@ -1,3 +1,11 @@
+2006-09-27  Felix Riemann  <friemann@cvs.gnome.org>
+
+	* libeog/eog-image-private.h:
+	* libeog/eog-image.c: (eog_image_dispose), (image_transform),
+	(eog_image_undo), (eog_image_reset_modifications): Replace undo stack
+	GList with a sufficient GSList and replace some list iteration loops
+	with g_slist_foreach().
+
 2006-09-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-image-list.c: (is_supported_mime_type): Check if

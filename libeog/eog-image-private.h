@@ -60,7 +60,7 @@ struct _EogImagePrivate {
 	char *error_message;
 	
 	/* stack of transformations recently applied */
-	GList *undo_stack;
+	GSList *undo_stack;
 	/* composition of all applied transformations */
 	EogTransform *trans;
 
