@@ -79,7 +79,6 @@ static void
 eog_image_dispose (GObject *object)
 {
 	EogImagePrivate *priv;
-	GList *it;
 
 	priv = EOG_IMAGE (object)->priv;
 
@@ -121,11 +120,8 @@ eog_image_dispose (GObject *object)
 	}
 
 	if (priv->undo_stack) {
-		for (it = priv->undo_stack; it != NULL; it = it->next){
-			g_object_unref (G_OBJECT (it->data));
-		}
-
-		g_list_free (priv->undo_stack);
+		g_slist_foreach (priv->undo_stack, (GFunc) g_object_unref, NULL);
+		g_slist_free (priv->undo_stack);
 		priv->undo_stack = NULL;
 	}
 }
@@ -1093,7 +1089,7 @@ image_transform (EogImage *img, EogTransform *trans, gboolean is_undo)
 	
 	if (!is_undo) {
 		g_object_ref (trans);
-		priv->undo_stack = g_list_prepend (priv->undo_stack, trans);
+		priv->undo_stack = g_slist_prepend (priv->undo_stack, trans);
 	}
 }
 
@@ -1122,7 +1118,7 @@ eog_image_undo (EogImage *img)
 
 		image_transform (img, inverse, TRUE);
 
-		priv->undo_stack = g_list_delete_link (priv->undo_stack, priv->undo_stack);
+		priv->undo_stack = g_slist_delete_link (priv->undo_stack, priv->undo_stack);
 		g_object_unref (trans);
 		g_object_unref (inverse);
 
@@ -1246,17 +1242,13 @@ static void
 eog_image_reset_modifications (EogImage *image)
 {
 	EogImagePrivate *priv;
-	GList *it = NULL;
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	priv = image->priv;
 
-	/* free the undo stack */
-	for (it = priv->undo_stack; it != NULL; it = it->next) {
-		g_object_unref (G_OBJECT (it->data));
-	}
-	g_list_free (priv->undo_stack);
+	g_slist_foreach (priv->undo_stack, (GFunc) g_object_unref, NULL);
+	g_slist_free (priv->undo_stack);
 	priv->undo_stack = NULL;
 
 	/* free accumulated transform object */
