@@ -3319,6 +3319,8 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 	g_assert (EOG_IS_IMAGE (image));
 
+	window->priv->next_image = image;
+
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
 		display_image_data (window, image);
 		return;
@@ -3330,7 +3332,6 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 			      * its already increased by 
 			      * eog_wrap_list_get_first_selected_image
 			      */	
-	window->priv->next_image = image;
 
 	job = eog_job_new_full (data,
 				job_image_load_action,
