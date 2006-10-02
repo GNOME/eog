@@ -1593,7 +1593,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FilePrint", GTK_STOCK_PRINT, N_("Print..."), "<control>p", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_print) },
-	{ "EditUndo", NULL, N_("_Undo"), "<control>z", 
+	{ "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_undo) },
 	{ "EditFlipHorizontal", EOG_STOCK_FLIP_HORIZONTAL, N_("Flip _Horizontal"), NULL, 
