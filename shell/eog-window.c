@@ -3433,7 +3433,7 @@ static const GtkActionEntry action_entries_image[] = {
   { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
   { "FilePrint", GTK_STOCK_PRINT, N_("Print..."), "<control>p", NULL, G_CALLBACK (verb_Print_cb) },
 
-  { "EditUndo", NULL, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
+  { "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
 
   { "EditFlipHorizontal", EOG_STOCK_FLIP_HORIZONTAL, N_("Flip _Horizontal"), NULL, NULL, G_CALLBACK (verb_FlipHorizontal_cb) },
   { "EditFlipVertical", EOG_STOCK_FLIP_VERTICAL, N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
