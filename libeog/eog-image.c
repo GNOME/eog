@@ -43,9 +43,7 @@ enum {
 	SIGNAL_LOADING_CANCELLED,
 	SIGNAL_PROGRESS,
 	SIGNAL_IMAGE_CHANGED,
-	SIGNAL_THUMBNAIL_FINISHED,
-	SIGNAL_THUMBNAIL_FAILED,
-	SIGNAL_THUMBNAIL_CANCELLED,
+	SIGNAL_THUMBNAIL_CHANGED,
 	SIGNAL_LAST
 };
 
@@ -218,30 +216,14 @@ eog_image_class_init (EogImageClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-	eog_image_signals [SIGNAL_THUMBNAIL_FINISHED] = 
-		g_signal_new ("thumbnail_finished",
+	eog_image_signals [SIGNAL_THUMBNAIL_CHANGED] = 
+		g_signal_new ("thumbnail_changed",
 			      G_TYPE_OBJECT,
 			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, thumbnail_finished),
+			      G_STRUCT_OFFSET (EogImageClass, thumbnail_changed),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);			     
-	eog_image_signals [SIGNAL_THUMBNAIL_FAILED] = 
-		g_signal_new ("thumbnail_failed",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, thumbnail_failed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-	eog_image_signals [SIGNAL_THUMBNAIL_CANCELLED] = 
-		g_signal_new ("thumbnail_cancelled",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, thumbnail_cancelled),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
 }
 
 static void
@@ -883,6 +865,8 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 			g_object_ref (priv->thumbnail);
 		}
 	}
+	if (priv->thumbnail != NULL)
+		g_signal_emit (img, eog_image_signals [SIGNAL_THUMBNAIL_CHANGED], 0);
 }
 
 gboolean 

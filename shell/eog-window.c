@@ -42,6 +42,7 @@
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
 #include "eog-util.h"
+#include "eog-thumbnail.h"
 
 #include <gconf/gconf-client.h>
 #include <glib.h>
@@ -311,6 +312,34 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	g_slice_free (GtkRecentData, recent_data);
 }
 
+static void
+image_thumb_changed_cb (EogImage *image, gpointer data)
+{
+	EogWindow *window;
+	GdkPixbuf *thumb;
+
+	g_return_if_fail (EOG_IS_WINDOW (data));
+
+	window = EOG_WINDOW (data);
+
+	thumb = eog_image_get_pixbuf_thumbnail (image);
+	if (thumb != NULL) {
+		gtk_window_set_icon (GTK_WINDOW (window), thumb);
+		g_object_unref (thumb);
+	} else {
+		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
+		GtkTreePath *path = gtk_tree_path_new_from_indices (img_pos,-1);
+		GtkTreeIter *iter;
+
+		iter = g_slice_new0 (GtkTreeIter);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (window->priv->store), iter, path);
+		eog_list_store_thumbnail_set (window->priv->store, iter);
+		g_slice_free (GtkTreeIter, iter);
+		gtk_tree_path_free (path);
+	}
+
+}
+
 static void 
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
@@ -325,13 +354,16 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
 
-	if (priv->image != NULL)
+	if (priv->image != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->image, image_thumb_changed_cb, window);
 		g_object_unref (priv->image);
+	}
 
 	if (image != NULL) {
 		priv->image = g_object_ref (image);
-		gtk_window_set_icon (GTK_WINDOW (window), 
-				     eog_image_get_pixbuf_thumbnail (image));
+		g_signal_connect (image, "thumbnail_changed", 
+				  G_CALLBACK (image_thumb_changed_cb), window);
+		image_thumb_changed_cb (image, window);
 	}
 
 	gtk_window_set_title (GTK_WINDOW (window), eog_image_get_caption (image));

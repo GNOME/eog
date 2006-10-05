@@ -67,9 +67,7 @@ struct _EogImageClass {
 	void (* loading_cancelled) (EogImage *img);
 	void (* progress) (EogImage *img, float progress);
 	
-	void (* thumbnail_finished) (EogImage *img);
-	void (* thumbnail_failed) (EogImage *img);
-	void (* thumbnail_cancelled) (EogImage *img);
+	void (* thumbnail_changed) (EogImage *img);
 
 	void (* image_changed) (EogImage *img);
 };
