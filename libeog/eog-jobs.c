@@ -28,6 +28,9 @@
 #include "eog-transform.h"
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
+#include "eog-thumb-shadow.h"
+
+#include <libgnomeui/gnome-thumbnail.h>
 
 #define EOG_JOB_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_JOB, EogJobPrivate))
@@ -262,6 +265,8 @@ eog_job_thumbnail_new (GnomeVFSURI *uri_entry)
 void
 eog_job_thumbnail_run (EogJobThumbnail *job)
 {
+	gint width, height;
+
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
 	
 	if (EOG_JOB (job)->error) {
@@ -271,6 +276,35 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 
 	job->thumbnail = eog_thumbnail_load (job->uri_entry,
 					     &EOG_JOB (job)->error);
+
+	width = gdk_pixbuf_get_width (job->thumbnail);
+	height = gdk_pixbuf_get_height (job->thumbnail);
+
+	if (width > EOG_LIST_STORE_THUMB_SIZE ||
+	    height > EOG_LIST_STORE_THUMB_SIZE) {
+		GdkPixbuf *scaled;
+		gfloat factor;
+
+		if (width > height) {
+			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) width;
+		} else {
+			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) height;			
+		}
+		
+		width  = MAX (width  * factor, 1);
+		height = MAX (height * factor, 1);
+		
+		scaled = gnome_thumbnail_scale_down_pixbuf (job->thumbnail, 
+							    width, height);
+		
+		g_object_unref (job->thumbnail);
+
+		job->thumbnail = scaled;
+	}
+
+	eog_thumb_shadow_add_rectangle (&(job->thumbnail));
+	eog_thumb_shadow_add_shadow (&(job->thumbnail));
+	eog_thumb_shadow_add_frame (&(job->thumbnail));
 
 	if (EOG_JOB (job)->error) {
 		g_warning ("%s\n", EOG_JOB (job)->error->message);

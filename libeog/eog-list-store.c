@@ -23,20 +23,17 @@
 
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
-#include "eog-thumb-shadow.h"
 #include "eog-image.h"
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
 
 #include <string.h>
-#include <libgnomeui/gnome-thumbnail.h>
-
-#define EOG_LIST_STORE_THUMB_SIZE 90
 
 struct _EogListStorePriv {
 	GList *monitors;      /* monitors for the directories */
 	gint initial_image;   /* the image that should be selected firstly by the view. */
 	GdkPixbuf *busy_image; /* hourglass image */
+	GMutex *mutex;        /* mutex for saving the jobs in the model */
 };
 
 typedef struct {
@@ -51,6 +48,9 @@ typedef struct {
 } MonitorHandleContext;
 
 G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
+
+gboolean
+eog_list_store_dump_contents (EogListStore *store);
 
 static void
 eog_list_store_finalize (GObject *object)
@@ -91,6 +91,8 @@ eog_list_store_dispose (GObject *object)
 		g_object_unref (store->priv->busy_image);
 		store->priv->busy_image = NULL;
 	}
+
+	g_mutex_free (store->priv->mutex);
 
 	G_OBJECT_CLASS (eog_list_store_parent_class)->dispose (object);
 }
@@ -166,6 +168,7 @@ eog_list_store_init (EogListStore *self)
 	types[EOG_LIST_STORE_THUMBNAIL] = GDK_TYPE_PIXBUF;
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
 	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
+	types[EOG_LIST_STORE_EOG_JOB]   = G_TYPE_POINTER;
 
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
@@ -175,6 +178,8 @@ eog_list_store_init (EogListStore *self)
 	self->priv->initial_image = -1;
 
 	self->priv->busy_image = eog_list_store_get_loading_icon ();
+
+	self->priv->mutex = g_mutex_new ();
 
 	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (self),
 						 eog_list_store_compare_func,
@@ -240,45 +245,14 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	EogListStore *store;
 	GtkTreeIter iter;
 	gchar *filename;
-	gint width, height;
-	GdkPixbuf *thumbnail;
 	EogImage *image;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (data));
 
 	store = EOG_LIST_STORE (data);
 
-	thumbnail = g_object_ref (job->thumbnail);
+/* 	thumbnail = g_object_ref (job->thumbnail); */
 	
-	width = gdk_pixbuf_get_width (job->thumbnail);
-	height = gdk_pixbuf_get_height (job->thumbnail);
-
-	if (width > EOG_LIST_STORE_THUMB_SIZE ||
-	    height > EOG_LIST_STORE_THUMB_SIZE) {
-		GdkPixbuf *scaled;
-		gfloat factor;
-
-		if (width > height) {
-			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) width;
-		} else {
-			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) height;			
-		}
-		
-		width  = MAX (width  * factor, 1);
-		height = MAX (height * factor, 1);
-		
-		scaled = gnome_thumbnail_scale_down_pixbuf (thumbnail, 
-							    width, height);
-		
-		g_object_unref (thumbnail);
-
-		thumbnail = scaled;
-	}
-
-	eog_thumb_shadow_add_rectangle (&thumbnail);
-	eog_thumb_shadow_add_shadow (&thumbnail);
-	eog_thumb_shadow_add_frame (&thumbnail);
-
 	filename = gnome_vfs_uri_to_string (job->uri_entry, GNOME_VFS_URI_HIDE_NONE);
 
 	if (is_file_in_list_store (store, filename, &iter)) {
@@ -286,13 +260,14 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
 
-		eog_image_set_thumbnail (image, thumbnail);
+		eog_image_set_thumbnail (image, job->thumbnail);
 
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
-				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
+				    EOG_LIST_STORE_THUMBNAIL, job->thumbnail,
 				    EOG_LIST_STORE_THUMB_SET, TRUE,
+				    EOG_LIST_STORE_EOG_JOB, NULL,
 				    -1);
-		g_object_unref (thumbnail);
+/* 		g_object_unref (thumbnail); */
 	}
 
 	g_free (filename);
@@ -679,7 +654,12 @@ eog_list_store_thumbnail_set (EogListStore *store,
 			  G_CALLBACK (eog_job_thumbnail_cb),
 			  store);
 	
+	g_mutex_lock (store->priv->mutex);
+	gtk_list_store_set (GTK_LIST_STORE (store), iter,
+			    EOG_LIST_STORE_EOG_JOB, job, 
+			    -1);
 	eog_job_queue_add_job (job);
+	g_mutex_unlock (store->priv->mutex);
 	g_object_unref (job);
 	g_object_unref (image);
 }
@@ -689,10 +669,21 @@ eog_list_store_thumbnail_unset (EogListStore *store,
 				GtkTreeIter *iter)
 {
 	EogImage *image;
+	EogJob *job;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    EOG_LIST_STORE_EOG_JOB, &job,
 			    -1);
+
+	if (job != NULL) {
+		g_mutex_lock (store->priv->mutex);
+		eog_job_queue_remove_job (job);
+		gtk_list_store_set (GTK_LIST_STORE (store), iter,
+				    EOG_LIST_STORE_EOG_JOB, NULL,
+				    -1);
+		g_mutex_unlock (store->priv->mutex);
+	}
 
 	eog_image_set_thumbnail (image, NULL);
 	g_object_unref (image);

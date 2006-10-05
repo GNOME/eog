@@ -239,24 +239,24 @@ tb_on_parent_set_cb (GtkWidget *widget,
 	vadjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (sw));
 	
 	/* when scrolling */
-	g_signal_connect_data (G_OBJECT (hadjustment), "value-changed", 
-			       G_CALLBACK (tb_on_visible_range_changed_cb), 
+	g_signal_connect_data (G_OBJECT (hadjustment), "value-changed",
+			       G_CALLBACK (tb_on_visible_range_changed_cb),
 			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
-	g_signal_connect_data (G_OBJECT (vadjustment), "value-changed", 
-			       G_CALLBACK (tb_on_visible_range_changed_cb), 
+	g_signal_connect_data (G_OBJECT (vadjustment), "value-changed",
+			       G_CALLBACK (tb_on_visible_range_changed_cb),
 			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
 	
 	/* when the adjustment is changed, ie. probably we have new images added. */
-	g_signal_connect_data (G_OBJECT (hadjustment), "changed", 
-			       G_CALLBACK (tb_on_adjustment_changed_cb), 
+	g_signal_connect_data (G_OBJECT (hadjustment), "changed",
+			       G_CALLBACK (tb_on_adjustment_changed_cb),
 			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
-	g_signal_connect_data (G_OBJECT (vadjustment), "changed", 
-			       G_CALLBACK (tb_on_adjustment_changed_cb), 
+	g_signal_connect_data (G_OBJECT (vadjustment), "changed",
+			       G_CALLBACK (tb_on_adjustment_changed_cb),
 			       tb, NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
 
 	/* when resizing the scrolled window */
-	g_signal_connect_swapped (G_OBJECT (sw), "size-allocate", 
-				  G_CALLBACK (tb_on_visible_range_changed_cb), 
+	g_signal_connect_swapped (G_OBJECT (sw), "size-allocate",
+				  G_CALLBACK (tb_on_visible_range_changed_cb),
 				  tb);
 }
 
@@ -335,9 +335,9 @@ eog_thumb_view_init (EogThumbView *tb)
 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (tb),
  					  GTK_SELECTION_MULTIPLE);
 
-	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (tb), 
+	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (tb),
 					 EOG_LIST_STORE_THUMBNAIL);
-	gtk_icon_view_set_text_column (GTK_ICON_VIEW (tb), 
+	gtk_icon_view_set_text_column (GTK_ICON_VIEW (tb),
 				       EOG_LIST_STORE_CAPTION);
 	
 	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (tb),

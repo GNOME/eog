@@ -40,6 +40,7 @@ typedef enum {
 	EOG_LIST_STORE_THUMBNAIL,
 	EOG_LIST_STORE_THUMB_SET,
 	EOG_LIST_STORE_EOG_IMAGE,
+	EOG_LIST_STORE_EOG_JOB,
 	EOG_LIST_STORE_NUM_COLUMNS
 } EogListStoreColumn;
 
@@ -104,6 +105,8 @@ void            eog_list_store_thumbnail_set         (EogListStore *store,
 
 void            eog_list_store_thumbnail_unset       (EogListStore *store, 
 						      GtkTreeIter *iter);
+
+#define EOG_LIST_STORE_THUMB_SIZE 90
 
 G_END_DECLS
 

@@ -1,3 +1,41 @@
+2006-10-05  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	- Store EogJobs to load thumbnails in the EogListStore model, so we 
+	can easily cancel them when they are no longer needed. This improves
+	network performance, though it is not optimal yet.
+
+	- Move the code to add eye candy to thumbnails inside the
+	thumbnailing job. This improves responsiveness.
+	
+	* libeog/eog-jobs.c: (eog_job_thumbnail_run): Move the code to add 
+	eye candy to thumbnails inside the thumbnailing job.
+
+	* libeog/eog-list-store.c: 
+
+	+ New mutex element in structure, to make jobs storing/removing 
+	operations atomic. 
+	
+	(eog_list_store_dispose): Free the mutex.
+	(eog_list_store_init): Initialize the mutex.
+	(eog_job_thumbnail_cb), (eog_list_store_thumbnail_set), 
+	(eog_list_store_thumbnail_unset): Removed eye candy code. Store/remove 
+	thumbnailing jobs in the model.
+
+	* libeog/eog-list-store.h: Add EOG_LIST_STORE_EOG_JOB column.
+	
+	* libeog/eog-list-store.c: 
+
+	(eog_list_store_init): Add a column to store the EogJobs.
+	(eog_job_thumbnail_cb): Once the EogJob is finished, remove it from the 
+	model.
+	(eog_list_store_thumbnail_set): When scheduling the job, save it to the 
+	model.
+	(eog_list_store_thumbnail_unset): If current scheduled job 
+	is still not complete, cancel it.
+	
+	* libeog/eog-list-store.h: Add a column to store the EogJob that 
+	loads the thumbnail.
+
 2006-10-05  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* shell/eog-window.c: (image_thumb_changed_cb): Only start the manual
