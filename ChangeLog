@@ -1,5 +1,10 @@
 2006-10-05  Felix Riemann  <friemann@cvs.gnome.org>
 
+	* shell/eog-window.c: (image_thumb_changed_cb): Only start the manual
+	thumbnail generation introduced by last commit if it is necessary.
+
+2006-10-05  Felix Riemann  <friemann@cvs.gnome.org>
+
 	* libeog/eog-image.c: (eog_image_class_init),
 	(eog_image_set_thumbnail):
 	* libeog/eog-image.h: Replace old unused thumbnail signals by a single

@@ -326,7 +326,7 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 	if (thumb != NULL) {
 		gtk_window_set_icon (GTK_WINDOW (window), thumb);
 		g_object_unref (thumb);
-	} else {
+	} else if (!GTK_WIDGET_VISIBLE (window->priv->thumbview)) {
 		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
 		GtkTreePath *path = gtk_tree_path_new_from_indices (img_pos,-1);
 		GtkTreeIter *iter;
