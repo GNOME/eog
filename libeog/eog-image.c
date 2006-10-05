@@ -462,107 +462,6 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 	return bytes;
 }
 
-/* this function runs in it's own thread */
-static gboolean
-eog_image_load_exif_data_only (EogImage *img, EogJob *job, GError **error)
-{
-	EogImagePrivate *priv;
-	GnomeVFSHandle *handle;
-	guchar *buffer;
-	GnomeVFSFileSize bytes_read;
-	GnomeVFSFileSize bytes_read_total;
-	GnomeVFSResult result;
-	gboolean failed;
-	gboolean first_run = TRUE;
-	EogMetadataReader *md_reader = NULL;
-
-	g_assert (error == NULL || *error == NULL);
-
-	priv = img->priv;
-
-#ifdef DEBUG
-	g_print ("real image exif load %s\n", gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
-
-	g_assert (priv->image == NULL);
-
-	priv->bytes = eog_image_determine_file_bytes (img, error);
-	if (priv->bytes == 0 && (error == NULL || *error != NULL)) {
-		return FALSE;
-	}
-
-	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
-	if (result != GNOME_VFS_OK) {
-		g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_VFS,
-			     gnome_vfs_result_to_string (result));
-		return FALSE;
-	}
-	
-	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
-	failed = FALSE;
-	bytes_read_total = 0;
-
-	while (!priv->cancel_loading && (first_run || !eog_metadata_reader_finished (md_reader))) {
-
-		result = gnome_vfs_read (handle, buffer, READ_BUFFER_SIZE, &bytes_read);
-		if (result == GNOME_VFS_ERROR_EOF || bytes_read == 0) {
-			break;
-		}
-		else if (result != GNOME_VFS_OK) {
-			failed = TRUE;
-			g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_VFS,
-				     gnome_vfs_result_to_string (result));
-			break;
-		}
-		
-		bytes_read_total += bytes_read;
-
-		if (job != NULL) {
-			float progress = (float) bytes_read_total / (float) priv->bytes;
-			eog_job_set_progress (job, progress);
-		}
-		
-		/* check if we support reading metadata for that image format (only JPG atm) */
-		if (first_run) {
-			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
-			g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_GENERIC,
-				     _("EXIF not supported for this file format."));
-			first_run = FALSE;
-		}
-		
-		if (md_reader != NULL) {
-			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
-		}
-	}
-
-	g_free (buffer);
-	gnome_vfs_close (handle);
-	
-	failed = (failed || bytes_read_total == 0 || md_reader == NULL || priv->cancel_loading);
-
-	if (priv->cancel_loading) {
-		priv->cancel_loading = FALSE;
-		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
-	}
-	else if (!failed && (md_reader != NULL)) {
-		/* update meta data */
-#ifdef HAVE_EXIF  
-		priv->exif = eog_metadata_reader_get_exif_data (md_reader);
-		priv->exif_chunk = NULL;
-		priv->exif_chunk_len = 0;
-#else
-		eog_metadata_reader_get_exif_chunk (md_reader, &priv->exif_chunk, &priv->exif_chunk_len);
-#endif
-	}
-	
-	/* clean up */
-	if (md_reader != NULL) {
-		g_object_unref (md_reader);
-	}	
-
-	return !failed;
-}
-
 #ifdef HAVE_LCMS
 void
 eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
@@ -704,7 +603,7 @@ static gboolean
 eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
-	GdkPixbufLoader *loader;
+	GdkPixbufLoader *loader = NULL;
 	GnomeVFSHandle *handle;
 	guchar *buffer;
 	GnomeVFSFileSize bytes_read;
@@ -714,6 +613,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	gboolean first_run = TRUE;
 	EogMetadataReader *md_reader = NULL;
 	GdkPixbufFormat *format;
+	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
 
 	g_assert (error == NULL || *error == NULL);
 
@@ -725,7 +625,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 
 	g_assert (priv->image == NULL);
 
-	if (priv->file_type != NULL) {
+	if (read_image_data && priv->file_type != NULL) {
 		g_free (priv->file_type);
 		priv->file_type = NULL;
 	}
@@ -743,11 +643,13 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	}
 	
 	buffer = g_new0 (guchar, READ_BUFFER_SIZE);
-	loader = gdk_pixbuf_loader_new ();
 	failed = FALSE;
 	bytes_read_total = 0;
 
-	g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
+	if (read_image_data) {
+		loader = gdk_pixbuf_loader_new ();
+		g_signal_connect_object (G_OBJECT (loader), "size-prepared", (GCallback) load_size_prepared, img, 0);
+        }
 
 	while (!priv->cancel_loading) {
 
@@ -762,7 +664,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 			break;
 		}
 		
-		if (!gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
+		if (read_image_data && !gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
 			failed = TRUE;
 			break;
 		}
@@ -777,21 +679,31 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		/* check if we support reading metadata for that image format (only JPG atm) */
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
+			if (data2read == EOG_IMAGE_DATA_EXIF && md_reader == NULL) {
+				g_set_error (error, EOG_IMAGE_ERROR, 
+                                             EOG_IMAGE_ERROR_GENERIC,
+                                             _("EXIF not supported for this file format."));
+				break;
+                        }
 			first_run = FALSE;
 		}
 		
 		if (md_reader != NULL) {
 			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
+			if (data2read == EOG_IMAGE_DATA_EXIF && eog_metadata_reader_finished (md_reader))
+				break;
 		}
 	}
 
-	/* if we already failed ignore errors on close */
-	if (failed) {
-		gdk_pixbuf_loader_close (loader, NULL);
-	}
-	else if (!gdk_pixbuf_loader_close (loader, error)) {
-		failed = TRUE;
-	}
+	if (read_image_data) {
+		/* if we already failed ignore errors on close */
+		if (failed) {
+			gdk_pixbuf_loader_close (loader, NULL);
+		}
+		else if (!gdk_pixbuf_loader_close (loader, error)) {
+			failed = TRUE;
+		}
+        }
 
 	g_free (buffer);
 	gnome_vfs_close (handle);
@@ -810,17 +722,24 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	}
 	else if (!failed) {
 
-		/* update image data */
-		if (priv->image != NULL) {
-			g_object_unref (priv->image);
+		if (read_image_data) {
+			/* update image data */
+			if (priv->image != NULL) {
+				g_object_unref (priv->image);
+			}
+
+			priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
+			g_assert (priv->image != NULL);
+			g_object_ref (priv->image);		
+			priv->width = gdk_pixbuf_get_width (priv->image);
+			priv->height = gdk_pixbuf_get_height (priv->image);
+
+			/* update file format */
+			format = gdk_pixbuf_loader_get_format (loader);
+			if (format != NULL) {
+				priv->file_type = gdk_pixbuf_format_get_name (format);
+			}
 		}
-
-		priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
-		g_assert (priv->image != NULL);
-		g_object_ref (priv->image);		
-		priv->width = gdk_pixbuf_get_width (priv->image);
-		priv->height = gdk_pixbuf_get_height (priv->image);
-
 		/* update meta data */
 		if (md_reader != NULL) {
 #ifdef HAVE_EXIF  
@@ -833,11 +752,6 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 #endif
 		}
 
-		/* update file format */
-		format = gdk_pixbuf_loader_get_format (loader);
-		if (format != NULL) {
-			priv->file_type = gdk_pixbuf_format_get_name (format);
-		}
 #ifdef HAVE_LCMS
 		if (md_reader != NULL) {
 			extract_profile (img, md_reader);
@@ -845,7 +759,8 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 #endif
 	}
 	/* clean up */
-	g_object_unref (loader);
+	if (loader != NULL)
+		g_object_unref (loader);
 	if (md_reader != NULL) {
 		g_object_unref (md_reader);
 		md_reader = NULL;
@@ -918,12 +833,7 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	priv->status = EOG_IMAGE_STATUS_LOADING;
 
 	/* Read the requested data from the image */
-	if (data2read == EOG_IMAGE_DATA_EXIF) {
-		success = eog_image_load_exif_data_only (img, job, error);
-	}
-	else {
-		success = eog_image_real_load (img, data2read, job, error);
-	}
+	success = eog_image_real_load (img, data2read, job, error);
 
 #ifdef DEBUG
 	g_print ("load success: %i\n", success);
