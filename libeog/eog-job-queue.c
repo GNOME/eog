@@ -210,6 +210,8 @@ eog_job_queue_remove_job (EogJob *job)
 		retval = remove_job_from_queue (load_queue, job);
 	} else if (EOG_IS_JOB_MODEL (job)) {
 		retval = remove_job_from_queue (model_queue, job);
+	} else if (EOG_IS_JOB_TRANSFORM (job)) {
+		retval = remove_job_from_queue (transform_queue, job);
 	} else {
 		g_assert_not_reached ();
 	}
