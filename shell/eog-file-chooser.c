@@ -350,7 +350,7 @@ eog_file_chooser_add_preview (GtkWidget *widget)
 
 	priv->image      = gtk_image_new ();
 	/* 128x128 is maximum size of thumbnails */
-	gtk_widget_set_usize (priv->image, 128,128);
+	gtk_widget_set_size_request (priv->image, 128,128);
 	
 	priv->dim_label  = gtk_label_new (NULL);
 	priv->size_label = gtk_label_new (NULL);
