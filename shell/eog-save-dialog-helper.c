@@ -28,7 +28,7 @@ update_counter_label (GtkWidget *label, int n_processed, int n_images)
 	g_return_if_fail (GTK_IS_LABEL (label));
 
 	string = g_strdup_printf ("%i/%i", n_processed, n_images);
-	gtk_label_set (GTK_LABEL (label), string);
+	gtk_label_set_text (GTK_LABEL (label), string);
 
 	g_free (string);
 }
