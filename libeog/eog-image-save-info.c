@@ -58,7 +58,7 @@ is_local_uri (const GnomeVFSURI* uri)
 	g_return_val_if_fail (uri != NULL, FALSE);
 
 	scheme = gnome_vfs_uri_get_scheme (uri);
-	return (g_strcasecmp (scheme, "file") == 0);
+	return (g_ascii_strcasecmp (scheme, "file") == 0);
 }
 
 static char*

@@ -2237,7 +2237,7 @@ transparency_changed_cb (GConfClient *client,
 		value = gconf_value_get_string (entry->value);
 	}
 
-	if (g_strcasecmp (value, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
@@ -2249,7 +2249,7 @@ transparency_changed_cb (GConfClient *client,
 		}
 		g_free (color_str);
 	}
-	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
+	else if (g_ascii_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->scroll_view),
 						  TRANSP_CHECKED, 0);
 	}
@@ -2277,7 +2277,7 @@ trans_color_changed_cb (GConfClient *client,
 
 	value = gconf_client_get_string (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
 
-	if (g_strcasecmp (value, "COLOR") != 0) {
+	if (g_ascii_strcasecmp (value, "COLOR") != 0) {
 		g_free (value);
 		return;
 	}

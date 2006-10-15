@@ -865,7 +865,7 @@ eog_full_screen_new (GtkWindow *parent,
 	transparency = gconf_client_get_string (client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (widget), upscale);
 	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (widget), antialiasing);
-	if (g_strcasecmp (transparency, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (transparency, "COLOR") == 0) {
 		gchar *trans_color;
 		GdkColor color;
 		
@@ -877,7 +877,7 @@ eog_full_screen_new (GtkWindow *parent,
 		if (trans_color)
 			g_free (trans_color);
 	}
-	else if (g_strcasecmp (transparency, "CHECK_PATTERN") == 0) 
+	else if (g_ascii_strcasecmp (transparency, "CHECK_PATTERN") == 0) 
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (widget),
 						  TRANSP_CHECKED, 0);
 	else 
