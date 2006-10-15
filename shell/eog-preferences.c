@@ -179,10 +179,10 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 			  client);
 	
 	value = gconf_client_get_string (client, EOG_CONF_VIEW_TRANSPARENCY, NULL);
-	if (g_strcasecmp (value, "COLOR") == 0) {
+	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		widget = glade_xml_get_widget (xml, "color_radio");
 	}
-	else if (g_strcasecmp (value, "CHECK_PATTERN") == 0) {
+	else if (g_ascii_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		widget = glade_xml_get_widget (xml, "checkpattern_radio");
 	}
 	else {
