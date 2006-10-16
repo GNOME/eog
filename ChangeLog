@@ -1,3 +1,9 @@
+2006-10-16  Felix Riemann  <friemann@cvs.gnome.org>
+
+	* libeog/eog-transform.c: (eog_transform_apply):
+	Optimize calculation of dy variable. It is now only calculated
+	dest_height times not dest_height*dest_width times.
+
 2006-10-15  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* libeog/eog-full-screen.c: (eog_full_screen_new):

@@ -135,11 +135,8 @@ eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 
 	/* for every destination pixel (dx,dy) compute the source pixel (sx, sy) and copy the
 	   color values */
-	for (y = 0; y < dest_height; y++) {
-		for (x = 0; x < dest_width; x++) {
-
-			dx = dest_top_left.x + x;
-			dy = dest_top_left.y + y;
+	for (y = 0, dy = dest_top_left.y; y < dest_height; y++, dy++) {
+		for (x = 0, dx = dest_top_left.x; x < dest_width; x++, dx++) {
 			
 			sx = dx * inverted[0] + dy * inverted[2] + inverted[4];
 			sy = dx * inverted[1] + dy * inverted[3] + inverted[5];
