@@ -1,3 +1,5 @@
+SUBDIRS=de eu it ja ko sv zh_CN zh_TW
+
 include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
 
