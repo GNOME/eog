@@ -34,7 +34,7 @@
 #define OUTLINE_OFFSET  0.0
 #define OUTLINE_OPACITY 1.0
 
-#define RECTANGLE_OUTLINE 1.0
+#define RECTANGLE_OUTLINE 1
 #define RECTANGLE_OPACITY 1.0
 
 #define ROUND_BORDER 8.0
@@ -229,7 +229,11 @@ void
 eog_thumb_shadow_add_rectangle (GdkPixbuf **src)
 {
 	GdkPixbuf *dest;
-	gint width, height;
+	gint width, height, rowstride;
+	gint dest_width, dest_height;
+	gint x, y;
+	guchar *pixels, *p;
+	guint a;
 	
 	width = gdk_pixbuf_get_width (*src);
 	height = gdk_pixbuf_get_height (*src);
@@ -239,7 +243,39 @@ eog_thumb_shadow_add_rectangle (GdkPixbuf **src)
 			       width  + 2*RECTANGLE_OUTLINE,
 			       height + 2*RECTANGLE_OUTLINE);
 
-	gdk_pixbuf_fill (dest, RECTANGLE_OPACITY*0xFF);
+	rowstride = gdk_pixbuf_get_rowstride (dest);
+	pixels = gdk_pixbuf_get_pixels (dest);
+	
+	dest_width = width + 2*RECTANGLE_OUTLINE;
+	dest_height = height + 2*RECTANGLE_OUTLINE;
+
+	a = RECTANGLE_OPACITY*0xFF;
+
+	/* draw horizontal lines */
+	for (x = 0; x < dest_width; x++) {
+		for (y = 0; y < RECTANGLE_OUTLINE; y++) {
+			p = pixels + y*rowstride + 4*x;
+			p[0] = p[1] = p[2] = 0x00;
+			p[3] = a;
+
+			p = pixels + (y + height + RECTANGLE_OUTLINE)*rowstride + 4*x;
+			p[0] = p[1] = p[2] = 0x00;
+			p[3] = a;
+		}
+	}
+
+	/* draw vertical lines */
+	for (y = 0; y < dest_height; y ++) {
+		for (x = 0; x < RECTANGLE_OUTLINE; x++) {
+			p = pixels + y*rowstride + 4*x;
+			p[0] = p[1] = p[2] = 0x00;
+			p[3] = a;
+			
+			p = pixels + y*rowstride + 4*(x + width + RECTANGLE_OUTLINE);
+			p[0] = p[1] = p[2] = 0x00;
+			p[3] = a;
+		}
+	}
 	
 	gdk_pixbuf_copy_area (*src,
 			      0, 0, width, height,
