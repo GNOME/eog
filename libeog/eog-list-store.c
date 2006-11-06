@@ -145,9 +145,13 @@ eog_list_store_get_loading_icon (void)
 	GdkPixbuf *pixbuf;
 	
 	icon_theme = gtk_icon_theme_get_default();
+
+	/* FIXME: The 16 added to EOG_LIST_STORE_THUMB_SIZE should be 
+	   calculated from the BLUR_RADIUS and RECTANGLE_OUTLINE macros 
+	   in eog-thumb-shadow.c */
 	pixbuf = gtk_icon_theme_load_icon (icon_theme,
 					   "image-loading", /* icon name */
-					   EOG_LIST_STORE_THUMB_SIZE, /* size */
+					   EOG_LIST_STORE_THUMB_SIZE + 16, /* size */
 					   0,  /* flags */
 					   &error);
 
