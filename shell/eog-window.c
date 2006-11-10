@@ -90,12 +90,6 @@
 #define RECENT_FILES_GROUP         "Eye of Gnome"
 #define EOG_WINDOW_DND_POPUP_PATH  "/popups/dragndrop"
 
-#define EOG_STOCK_ROTATE_90    "eog-stock-rotate-90"
-#define EOG_STOCK_ROTATE_270   "eog-stock-rotate-270"
-#define EOG_STOCK_ROTATE_180   "eog-stock-rotate-180"
-#define EOG_STOCK_FLIP_HORIZONTAL "eog-stock-flip-horizontal"
-#define EOG_STOCK_FLIP_VERTICAL   "eog-stock-flip-vertical"
-
 #define NO_DEBUG
 #define NO_SAVE_DEBUG
 
@@ -2013,14 +2007,6 @@ verb_Rotate270_cb (GtkAction *action, gpointer data)
 	apply_transformation (EOG_WINDOW (data), eog_transform_rotate_new (270));
 }
 
-static void
-verb_Rotate180_cb (GtkAction *action, gpointer data)
-{
-	g_return_if_fail (EOG_IS_WINDOW (data));
-
-	apply_transformation (EOG_WINDOW (data), eog_transform_rotate_new (180));
-}
-
 /* ========================================================================= */
 
 static int
@@ -3348,62 +3334,6 @@ handle_image_selection_changed (EogWrapList *list, EogWindow *window)
 	g_object_unref (G_OBJECT (job));
 }
 
-typedef struct {
-	char *stock_id;
-	char *path;
-} EogStockItems;
-
-static EogStockItems eog_stock_items [] = {
-	{ EOG_STOCK_ROTATE_90, "eog/stock-rotate-90-16.png" },
-	{ EOG_STOCK_ROTATE_180, "eog/stock-rotate-180-16.png" },
-	{ EOG_STOCK_ROTATE_270, "eog/stock-rotate-270-16.png" },
-	{ EOG_STOCK_FLIP_VERTICAL, "eog/stock-flip-vertical-16.png" },
-	{ EOG_STOCK_FLIP_HORIZONTAL, "eog/stock-flip-horizontal-16.png" },
-	{ NULL, NULL }
-};
-
-static void
-add_eog_icon_factory (void)
-{
-	GdkPixbuf *pixbuf;
-	GtkIconFactory *factory;
-	GtkIconSet *set;
-	int i = 0; 
-	GnomeProgram *program;
-
-	factory = gtk_icon_factory_new ();
-	program = gnome_program_get (); /* don't free this it's static */
-	g_assert (program != NULL);
-
-	while (eog_stock_items[i].stock_id != NULL) {
-		EogStockItems item;
-		char *filepath;
-
-		item = eog_stock_items[i++];
-		
-		filepath = gnome_program_locate_file (program,
-						      GNOME_FILE_DOMAIN_APP_PIXMAP,
-						      item.path,
-						      FALSE, NULL);
-		if (filepath != NULL) {
-			pixbuf = gdk_pixbuf_new_from_file (filepath, NULL);
-			
-			if (pixbuf != NULL) {
-				set = gtk_icon_set_new_from_pixbuf (pixbuf);
-				gtk_icon_factory_add (factory, item.stock_id, set);
-				
-				gtk_icon_set_unref (set);
-				g_object_unref (pixbuf);
-			}
-			
-			g_free (filepath);
-		}
-	}
-
-	gtk_icon_factory_add_default (factory);
-	g_object_unref (factory);
-}
-
 /* FIXME: The action and ui creation stuff should be moved to a separate file */
 /* UI<->function mapping */
 /* Normal items */
@@ -3435,12 +3365,11 @@ static const GtkActionEntry action_entries_image[] = {
 
   { "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
 
-  { "EditFlipHorizontal", EOG_STOCK_FLIP_HORIZONTAL, N_("Flip _Horizontal"), NULL, NULL, G_CALLBACK (verb_FlipHorizontal_cb) },
-  { "EditFlipVertical", EOG_STOCK_FLIP_VERTICAL, N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
+  { "EditFlipHorizontal", "object-flip-horizontal", N_("Flip _Horizontal"), NULL, NULL, G_CALLBACK (verb_FlipHorizontal_cb) },
+  { "EditFlipVertical", "object-flip-vertical", N_("Flip _Vertical"), NULL, NULL, G_CALLBACK (verb_FlipVertical_cb) },
 
-  { "EditRotate90",  EOG_STOCK_ROTATE_90,  N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
-  { "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counterc_lockwise"), NULL, NULL, G_CALLBACK (verb_Rotate270_cb) },
-  { "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", NULL, G_CALLBACK (verb_Rotate180_cb) },
+  { "EditRotate90",  "object-rotate-right",  N_("_Rotate Clockwise"), "<control>r", NULL, G_CALLBACK (verb_Rotate90_cb) },
+  { "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), "<shift><control>r", NULL, G_CALLBACK (verb_Rotate270_cb) },
   { "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, NULL, G_CALLBACK (verb_SetAsWallpaper_cb) },
 
   { "EditMoveToTrash", GTK_STOCK_DELETE, N_("Move to Trash"), NULL, NULL, G_CALLBACK (verb_MoveToTrash_cb) },
@@ -3637,8 +3566,6 @@ eog_window_construct_ui (EogWindow *window, GError **error)
 	priv->box = GTK_WIDGET (gtk_vbox_new (FALSE, 0));
 	gtk_container_add (GTK_CONTAINER (window), priv->box);
 	gtk_widget_show (GTK_WIDGET (priv->box));
-
-	add_eog_icon_factory ();
 	
 	/* build menu and toolbar */
 	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");

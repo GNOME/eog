@@ -1,3 +1,18 @@
+2006-11-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* art/Makefile.am: Remove the icons.
+	* art/stock-rotate-180-16.png:
+	* art/stock-rotate-270-16.png:
+	* art/stock-rotate-90-16.png:
+	* art/stock-flip-horizontal-16.png:
+	* art/stock-flip-vertical-16.png:
+	* shell/eog-gtk-ui.xml: Remove rotate 180 degrees action.
+	* shell/eog-window.c: (eog_window_construct_ui): Remove custom
+	icon factory.
+
+	Use stock icons for rotate and flip actions. (Fixes bug #305823). Patch
+	from Luca Ferreti <elle.uca@libero.it>.
+
 2006-11-10  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* libeog/eog-image-save-info.c:
