@@ -3,7 +3,6 @@
 #endif
 
 #include <math.h>
-#include <libgnome/gnome-macros.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdkkeysyms.h>
 

@@ -3,7 +3,6 @@
 #endif
 
 #include <string.h>
-#include <libgnome/gnome-macros.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-image-save-info.h"
 #include "eog-image-private.h"

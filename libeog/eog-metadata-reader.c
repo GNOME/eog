@@ -3,7 +3,6 @@
 #endif
 
 #include <string.h>
-#include <libgnome/gnome-macros.h>
 
 #include "eog-metadata-reader.h"
 

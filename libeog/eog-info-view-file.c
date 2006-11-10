@@ -2,7 +2,6 @@
 #include <config.h>
 #endif
 
-#include <libgnome/gnome-macros.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>

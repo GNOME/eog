@@ -4,7 +4,6 @@
 
 #include <math.h>
 #include <string.h>
-#include <libgnome/gnome-macros.h>
 #include <glib.h>
 
 #include "eog-uri-converter.h"
