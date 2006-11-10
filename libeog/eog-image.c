@@ -4,7 +4,6 @@
 #include <glib/gthread.h>
 #include <glib/gqueue.h>
 #include <gtk/gtkmain.h>
-#include <libgnome/gnome-macros.h>
 #include <glib/gi18n.h>
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>

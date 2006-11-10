@@ -18,7 +18,6 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include <libgnome/gnome-macros.h>
 #include <glib/gi18n.h>
 #include <glib/gslist.h>
 #include <gtk/gtklabel.h>

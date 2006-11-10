@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <gtk/gtkmain.h>
-#include <libgnome/gnome-macros.h>
 #include <libart_lgpl/art_affine.h>
 #include "eog-transform.h"
 #include "libeog-marshal.h"
