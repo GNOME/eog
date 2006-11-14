@@ -1265,7 +1265,7 @@ eog_window_print_draw_page (GtkPrintOperation *operation,
 		cairo_scale (cr, scale_factor, scale_factor);
 		cairo_translate (cr, 0, (p_height/scale_factor - height)/2);
 	} else {
-		scale_factor = p_height/width;
+		scale_factor = ((gdouble)p_height)/width;
 		cairo_scale (cr, scale_factor, scale_factor);
 		cairo_translate (cr, (p_width/scale_factor - width)/2, 0);
 	}
