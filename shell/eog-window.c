@@ -1316,8 +1316,6 @@ eog_window_print (EogWindow *window)
 			  G_CALLBACK (eog_window_print_end_print),
 			  g_object_ref (window->priv->image));
 
-	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));
-
 	res = gtk_print_operation_run (print,
 				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 				       GTK_WINDOW (window), &error);
@@ -1328,7 +1326,7 @@ eog_window_print (EogWindow *window)
 						 GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR,
 						 GTK_BUTTONS_CLOSE,
-						 "Error printing file:\n%s",
+						 _("Error printing file:\n%s"),
 						 error->message);
 		g_signal_connect (dialog, "response", 
 				  G_CALLBACK (gtk_widget_destroy), NULL);
