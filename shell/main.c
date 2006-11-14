@@ -29,7 +29,6 @@
 
 #include "eog-session.h"
 #include "eog-thumbnail.h"
-#include "eog-stock-icons.h"
 #include "eog-job-queue.h"
 #include "eog-application.h"
 
@@ -144,7 +143,6 @@ main (int argc, char **argv)
 
 	eog_job_queue_init ();
 	eog_thumbnail_init ();
-	eog_stock_icons_init ();
 
 	gtk_window_set_default_icon_name ("image-viewer");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));

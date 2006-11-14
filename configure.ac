@@ -202,7 +202,6 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 data/eog.desktop.in
-art/Makefile
 libeog/Makefile
 jpegutils/Makefile
 help/Makefile

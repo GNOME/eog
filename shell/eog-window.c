@@ -36,7 +36,6 @@
 #include "eog-list-store.h"
 #include "eog-statusbar.h"
 #include "eog-preferences.h"
-#include "eog-stock-icons.h"
 #include "eog-application.h"
 #include "eog-config-keys.h"
 #include "eog-job-queue.h"
@@ -1412,15 +1411,6 @@ eog_window_cmd_rotate_270 (GtkAction *action, gpointer user_data)
 }
 
 static void
-eog_window_cmd_rotate_180 (GtkAction *action, gpointer user_data)
-{
-	g_return_if_fail (EOG_IS_WINDOW (user_data));
-
-	apply_transformation (EOG_WINDOW (user_data), 
-			      eog_transform_rotate_new (180));
-}
-
-static void
 eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 {
 	g_print ("Not implemented yet!\n");
@@ -1628,21 +1618,18 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_undo) },
-	{ "EditFlipHorizontal", EOG_STOCK_FLIP_HORIZONTAL, N_("Flip _Horizontal"), NULL, 
+	{ "EditFlipHorizontal", "object-flip-horizontal", N_("Flip _Horizontal"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_flip_horizontal) },
-	{ "EditFlipVertical", EOG_STOCK_FLIP_VERTICAL, N_("Flip _Vertical"), NULL, 
+	{ "EditFlipVertical", "object-flip-vertical", N_("Flip _Vertical"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_flip_vertical) },
-	{ "EditRotate90",  EOG_STOCK_ROTATE_90,  N_("_Rotate Clockwise"), "<control>r", 
+	{ "EditRotate90",  "object-rotate-right",  N_("_Rotate Clockwise"), "<control>r", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_rotate_90) },
-	{ "EditRotate270", EOG_STOCK_ROTATE_270, N_("Rotate Counterc_lockwise"), NULL, 
+	{ "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_rotate_270) },
-	{ "EditRotate180", EOG_STOCK_ROTATE_180, N_("Rotat_e 180\xC2\xB0"), "<control><shift>r", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_rotate_180) },
 	{ "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_wallpaper) },

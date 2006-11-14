@@ -24,8 +24,6 @@ eog_SOURCES =				\
 	eog-session.c			\
 	eog-util.h			\
 	eog-util.c			\
-	eog-stock-icons.h		\
-	eog-stock-icons.c		\
 	eog-window.h			\
 	eog-window.c			\
 	eog-preferences.h		\
