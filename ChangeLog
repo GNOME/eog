@@ -1,3 +1,18 @@
+2006-11-14  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* configure.in: Remove checks for libgnomeprint{ui} and add checks for 
+	gtk+-unix-print.
+	* libeog/eog-config-keys.h: Add lockdown printing macros.
+	* libeog/eog-image.c: remove unused eog_image_print ().
+	* libeog/eog-image.h: remove unused eog_image_print () definition.
+	* shell/eog-gtk-ui.xml: Add "FilePageSetup" action.
+	* shell/eog-window.c: (eog_window_page_setup),
+	(eog_window_print_draw_page), (eog_window_print_end_print),
+	(eog_window_print), (verb_PageSetup_cb), (verb_Print_cb),
+	(update_ui_visibility):
+
+	Add support for GtkPrint. Remove old libgnomeprint{ui} dependence.
+
 2006-11-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* art/Makefile.am: Remove the icons.

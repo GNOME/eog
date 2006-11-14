@@ -65,10 +65,7 @@
 #include <lcms.h>
 #endif
 
-#include <libgnomeprint/gnome-print.h>
-#include <libgnomeprint/gnome-print-job.h>
-#include <libgnomeprintui/gnome-print-dialog.h>
-#include <libgnomeprintui/gnome-print-job-preview.h>
+#include <gtk/gtkprintunixdialog.h>
 
 
 #ifdef G_OS_WIN32
@@ -115,6 +112,10 @@ struct _EogWindowPrivate {
 	GtkWidget           *info_view;
 	GtkWidget           *statusbar;
 	GtkWidget           *n_img_label;
+
+	/* printing stuff */
+	GtkPrintSettings    *print_settings;
+	GtkPageSetup        *print_page_setup;
 
 	/* context ids for the statusbar */
 	guint image_info_message_cid;
@@ -406,6 +407,140 @@ eog_window_save_geometry (EogWindow *window)
 
 		g_free (geometry_string);
 	}
+}
+
+static void
+eog_window_page_setup (EogWindow *window)
+{
+	GtkPageSetup *new_page_setup;
+
+	if (window->priv->print_settings == NULL) {
+		window->priv->print_settings = gtk_print_settings_new ();
+	}
+	
+	new_page_setup = gtk_print_run_page_setup_dialog (GTK_WINDOW (window),
+							  window->priv->print_page_setup, 
+							  window->priv->print_settings);
+	if (window->priv->print_page_setup) {
+		g_object_unref (window->priv->print_page_setup);
+	}
+	
+	window->priv->print_page_setup = new_page_setup;
+}
+
+static void
+eog_window_print_draw_page (GtkPrintOperation *operation,
+			    GtkPrintContext   *context,
+			    gint               page_nr,
+			    gpointer           user_data) 
+{
+	EogImage *image;
+	cairo_t *cr;
+	gint width, height;
+	gint p_width, p_height;
+	gdouble scale_factor;
+	GdkPixbuf *pixbuf;
+
+	image = EOG_IMAGE (user_data);
+	
+	pixbuf = eog_image_get_pixbuf (image);
+	width = gdk_pixbuf_get_width (pixbuf);
+	height = gdk_pixbuf_get_height (pixbuf);
+
+	cr = gtk_print_context_get_cairo_context (context);
+	p_width = gtk_print_context_get_width (context);
+	p_height = gtk_print_context_get_height (context);
+
+	cairo_push_group (cr);
+	if (p_width > width && p_height > height) {
+		cairo_translate (cr, (p_width - width)/2, 
+				 (p_height - height)/2);
+	} else if (width > height && width > p_width) {
+		scale_factor = ((gdouble)p_width)/width;
+		cairo_scale (cr, scale_factor, scale_factor);
+		cairo_translate (cr, 0, (p_height/scale_factor - height)/2);
+	} else {
+		scale_factor = ((gdouble)p_height)/height;
+		cairo_scale (cr, scale_factor, scale_factor);
+		cairo_translate (cr, (p_width/scale_factor - width)/2, 0);
+	}
+	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+	cairo_paint (cr);
+
+	cairo_pop_group_to_source (cr);
+	cairo_paint (cr);
+
+	g_object_unref (pixbuf);
+}
+
+static void
+eog_window_print_end_print (GtkPrintOperation *operation,
+			    GtkPrintContext   *context,
+			    gpointer           user_data)
+{
+	EogImage *image = EOG_IMAGE (user_data);
+
+	g_object_unref (image);
+}
+
+static void
+eog_window_print (EogWindow *window)
+{
+	GtkWidget *dialog;
+	GError *error = NULL;
+	GtkPrintOperation *print;
+	GtkPrintOperationResult res;
+	EogImage *image;
+
+	if (!window->priv->print_settings)
+		window->priv->print_settings = gtk_print_settings_new ();
+	if (!window->priv->print_page_setup)
+		window->priv->print_page_setup = gtk_page_setup_new ();
+
+	image  = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (window->priv->wraplist));
+	
+	print = gtk_print_operation_new ();
+
+	gtk_print_operation_set_print_settings (print, window->priv->print_settings);
+	gtk_print_operation_set_default_page_setup (print, 
+						    window->priv->print_page_setup);
+	gtk_print_operation_set_n_pages (print, 1);
+	gtk_print_operation_set_job_name (print,
+					  eog_image_get_caption (image));
+
+	g_signal_connect (print, "draw_page", 
+			  G_CALLBACK (eog_window_print_draw_page), 
+			  g_object_ref (image));
+	g_signal_connect (print, "end-print", 
+			  G_CALLBACK (eog_window_print_end_print),
+			  g_object_ref (image));
+
+	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));
+
+	res = gtk_print_operation_run (print,
+				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+				       GTK_WINDOW (window), &error);
+
+	if (res == GTK_PRINT_OPERATION_RESULT_ERROR)
+	{
+		dialog = gtk_message_dialog_new (GTK_WINDOW (window),
+						 GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_ERROR,
+						 GTK_BUTTONS_CLOSE,
+						 "Error printing file:\n%s",
+						 error->message);
+		g_signal_connect (dialog, "response", 
+				  G_CALLBACK (gtk_widget_destroy), NULL);
+		gtk_widget_show (dialog);
+		g_error_free (error);
+	}
+	else if (res == GTK_PRINT_OPERATION_RESULT_APPLY)
+	{
+		if (window->priv->print_settings != NULL)
+			g_object_unref (window->priv->print_settings);
+		window->priv->print_settings = g_object_ref (gtk_print_operation_get_print_settings (print));
+	}
+	
 }
 
 static void
@@ -1777,66 +1912,19 @@ save_as_multiple_images (EogWindow *window, GList *images)
 }
 
 static void
+verb_PageSetup_cb (GtkAction *action, gpointer data)
+{
+	EogWindow *window = EOG_WINDOW (data);
+	
+	eog_window_page_setup (window);
+}
+
+static void
 verb_Print_cb (GtkAction *action, gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
-	EogWindowPrivate *priv = window->priv;	
-	EogImage *image = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 
-	GnomePrintConfig* config = gnome_print_config_default();
-	GnomePrintContext *pc;
-
-	gnome_print_config_set_boolean (config, GNOME_PRINT_KEY_DUPLEX, FALSE);
-
-	GnomePrintJob *gpj = gnome_print_job_new(config);
-	gint do_preview = 0 /*, copies = 1, collate = 0*/;
-	gdouble width, height;
-	GnomePrintDialog *gpd = GNOME_PRINT_DIALOG (gnome_print_dialog_new(gpj, 
-		(const guchar*)_("Print"), GNOME_PRINT_DIALOG_COPIES));
-		
-	switch (gtk_dialog_run(GTK_DIALOG(gpd)))
-	{
-	case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
-		do_preview = 0;
-		break;
-	case GNOME_PRINT_DIALOG_RESPONSE_PREVIEW:
-		do_preview = 1;
-		break;
-	case GNOME_PRINT_DIALOG_RESPONSE_CANCEL:
-		gnome_print_config_unref(config);
-		gnome_print_job_close (gpj);
-		gtk_widget_destroy (GTK_WIDGET(gpd));
-		return;
-	}
-	
-	gtk_widget_destroy(GTK_WIDGET(gpd));
-	
-	pc = gnome_print_job_get_context (gpj);
-	
-	gnome_print_beginpage(pc, (const guchar*)"1");
-	gnome_print_config_get_page_size(config, &width, &height);
-
-	gnome_print_gsave (pc);	
-	eog_image_print (image, pc, width, height);
-	gnome_print_grestore (pc);
-	
-	gnome_print_showpage(pc);
-	gnome_print_job_close (gpj);
-	
-	if (do_preview)
-	{
-		gtk_widget_show (gnome_print_job_preview_new 
-			(gpj, (const guchar*)_("Print Preview")));
-	}
-	else
-	{
-		gnome_print_job_print(gpj);
-	}
-	
-	gnome_print_context_close (pc);
-	gnome_print_config_unref(config);
-	
-
+	eog_window_print (window);
 }
 
 static void
@@ -2702,10 +2790,14 @@ update_ui_visibility (EogWindow *window)
 	gboolean show_info_pane = TRUE;
 	gboolean show_image_collection = FALSE;
 	gboolean save_disabled = FALSE;
+	gboolean print_disabled = FALSE;
+	gboolean page_setup_disabled = FALSE;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 	GtkAction *action_save;
 	GtkAction *action_save_as;
+	GtkAction *action_print;
+	GtkAction *action_page_setup;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -2719,10 +2811,15 @@ update_ui_visibility (EogWindow *window)
 	action_sshow = gtk_action_group_get_action (priv->actions_image, "ViewSlideshow");
 	action_save = gtk_action_group_get_action (priv->actions_image, "FileSave");
 	action_save_as = gtk_action_group_get_action (priv->actions_image, "FileSaveAs");
+	action_print = gtk_action_group_get_action (priv->actions_image, "FilePrint");
+	action_page_setup = gtk_action_group_get_action (priv->actions_image, "FilePageSetup");
+
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
 	g_assert (action_save != NULL);
 	g_assert (action_save_as != NULL);
+	g_assert (action_print != NULL);
+	g_assert (action_page_setup != NULL);
 	
 	if (n_images == 0) {
 		/* update window content */
@@ -2795,6 +2892,18 @@ update_ui_visibility (EogWindow *window)
 	if (save_disabled) {
 		gtk_action_set_sensitive (action_save, FALSE);
 		gtk_action_set_sensitive (action_save_as, FALSE);
+	}
+
+	print_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_PRINT, NULL);
+	
+	if (print_disabled) {
+		gtk_action_set_sensitive (action_print, FALSE);
+	}
+	
+	page_setup_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_SETUP_PAGE, NULL);
+	
+	if (page_setup_disabled) {
+		gtk_action_set_sensitive (action_page_setup, FALSE);
 	}
 }
 
@@ -3361,6 +3470,7 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 static const GtkActionEntry action_entries_image[] = {
   { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", NULL, G_CALLBACK (verb_Save_cb) },
   { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
+  { "FilePageSetup", NULL, N_("Page Set_up"), NULL, NULL, G_CALLBACK (verb_PageSetup_cb) },
   { "FilePrint", GTK_STOCK_PRINT, N_("Print..."), "<control>p", NULL, G_CALLBACK (verb_Print_cb) },
 
   { "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
