@@ -183,7 +183,7 @@ main (gint argc, gchar **argv)
 	if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui, -1, &error)) {
 		g_warning ("Couldn't load menu definition: %s\n", error->message);
 		g_error_free (error);
-		return;
+		return 1;
 	}
 	
 	popup = g_object_ref (gtk_ui_manager_get_widget (ui_manager, "/ThumbnailPopup"));

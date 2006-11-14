@@ -53,6 +53,7 @@ GDKPIXBUF_REQUIRED=2.4.0
 GCONF_REQUIRED=2.5.90
 LIBART_REQUIRED=2.3.16
 GNOME_DESKTOP_REQUIRED=2.10.0
+GTK_PRINT_REQUIRED=2.10.0
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
@@ -62,7 +63,8 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
              gconf-2.0 >= $GCONF_REQUIRED \
              libart-2.0 >= $LIBART_REQUIRED \
-             gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED"
+             gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
+             gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED"
 
 # ***************
 # EXIF (optional)
@@ -92,24 +94,6 @@ fi
 if test "x$have_lcms" = "xyes"; then
   AC_DEFINE(HAVE_LCMS, 1, [Little CMS Support.])
   EOG_MODULES="$EOG_MODULES lcms"
-fi
-
-# *******************
-# Printing (optional)
-# *******************
-
-LIBGNOMEPRINTUI_REQUIRED=2.5.1
-
-AC_ARG_WITH(gnome_print, [  --without-gnome-print	  disable print support])
-have_gnome_print=no
-if test x$with_gnome_print != xno; then
-    PKG_CHECK_MODULES(GNOME_PRINT,
-                      libgnomeprintui-2.2 >= $LIBGNOMEPRINTUI_REQUIRED,
-                      have_gnome_print=yes, have_gnome_print=no)
-fi 
-if test "x$have_gnome_print" = "xyes"; then
-  AC_DEFINE(HAVE_GNOME_PRINT, 1, [Printing Support.])
-  EOG_MODULES="$EOG_MODULES libgnomeprintui-2.2"
 fi
 
 # ******************
@@ -218,7 +202,6 @@ Configure summary:
 	Compiler ...................:  ${CC} 
 	Extra Compiler Warnings ....:  ${WARN_CFLAGS}
 
-	Printing support ...........:  ${have_gnome_print}
 	EXIF support ...............:  ${have_exif}
 	Tagging support ............:  ${have_leaftag}
 	JPEG support ...............:  ${have_jpeg}

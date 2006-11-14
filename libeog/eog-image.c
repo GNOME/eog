@@ -1715,63 +1715,6 @@ eog_image_data_unref (EogImage *img)
 	return img;
 }
 
-/* Print API */
-
-void
-eog_image_print (EogImage *img, GnomePrintContext *context, gdouble paper_width, gdouble paper_height)
-{	
-	EogImagePrivate *priv = NULL;
-	GdkPixbuf *printed_image = NULL;
-	gint pix_width;
-	gint pix_height;
-	gdouble width, height;
-
-	g_return_if_fail (EOG_IS_IMAGE (img));
-	
-	priv = img->priv;
-
-	g_return_if_fail (GDK_IS_PIXBUF (priv->image));
-	
-	if (gdk_pixbuf_get_width (priv->image) > gdk_pixbuf_get_height (priv->image)) {
-		printed_image = gdk_pixbuf_rotate_simple (priv->image, 
-			GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
-	} else {
-		g_object_ref (priv->image);
-		printed_image = priv->image;
-	}
-
-	pix_width = gdk_pixbuf_get_width (printed_image);
-	pix_height = gdk_pixbuf_get_height (printed_image);
-
-	width = (gint)paper_width;
-	height = (gint)paper_height;
-
-	if (((gdouble) pix_height/pix_width) >
-	    ((gdouble)width/height)) {
-		/* We scale to the top */
-		width = height * (gdouble)pix_width/pix_height;
-	} else {
-		/* We scale to the sides of the page */
-		height = width * (gdouble)pix_height/pix_width;
-	}
-
-	width -= 40;
-	height -= 40;
-	
-	gnome_print_translate (context, (paper_width - width)/2.0, (paper_height - height)/2.0);
-	gnome_print_scale (context, width, height);
-	
-	if (gdk_pixbuf_get_has_alpha (printed_image)) {
-		gnome_print_rgbaimage (context, gdk_pixbuf_get_pixels (printed_image), 
-			pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
-	} else {
-		gnome_print_rgbimage (context, gdk_pixbuf_get_pixels (printed_image), 
-			pix_width, pix_height, gdk_pixbuf_get_rowstride (printed_image));
-	}
-  
-	g_object_unref (G_OBJECT (printed_image));	
-}
-
 static gint
 compare_quarks (gconstpointer a, gconstpointer b)
 {
