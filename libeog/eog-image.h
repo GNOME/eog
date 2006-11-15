@@ -61,9 +61,6 @@ struct _EogImageClass {
 	/* signals */
 	void (* loading_size_prepared) (EogImage *img, int width, int height);
 	void (* loading_update) (EogImage *img, int x, int y, int width, int height);
-	void (* loading_finished) (EogImage *img);
-	void (* loading_failed) (EogImage *img, const char* message);
-	void (* loading_cancelled) (EogImage *img);
 	void (* progress) (EogImage *img, float progress);
 	
 	void (* thumbnail_changed) (EogImage *img);

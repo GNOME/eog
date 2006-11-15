@@ -37,9 +37,6 @@
 enum {
 	SIGNAL_LOADING_UPDATE,
 	SIGNAL_LOADING_SIZE_PREPARED,
-	SIGNAL_LOADING_FINISHED,
-	SIGNAL_LOADING_FAILED,
-	SIGNAL_LOADING_CANCELLED,
 	SIGNAL_PROGRESS,
 	SIGNAL_IMAGE_CHANGED,
 	SIGNAL_THUMBNAIL_CHANGED,
@@ -173,31 +170,6 @@ eog_image_class_init (EogImageClass *klass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT,
 			      G_TYPE_INT);
-	eog_image_signals [SIGNAL_LOADING_FINISHED] = 
-		g_signal_new ("loading_finished",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, loading_finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);			     
-	eog_image_signals [SIGNAL_LOADING_FAILED] = 
-		g_signal_new ("loading_failed",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, loading_failed),
-			      NULL, NULL,
-			      libeog_marshal_VOID__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
-	eog_image_signals [SIGNAL_LOADING_CANCELLED] = 
-		g_signal_new ("loading_cancelled",
-			      G_TYPE_OBJECT,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (EogImageClass, loading_cancelled),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
 	eog_image_signals [SIGNAL_PROGRESS] = 
 		g_signal_new ("progress",
 			      G_TYPE_OBJECT,
