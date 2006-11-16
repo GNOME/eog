@@ -22,13 +22,6 @@
 #ifndef EOG_UTIL_H
 #define EOG_UTIL_H
 
-#include <gtk/gtkwindow.h>
-
-
-
-void open_failure_dialog (GtkWindow *parent, const char *text_uri);
-
-
 #ifdef G_OS_WIN32
 
 const char *eog_get_icondir (void);

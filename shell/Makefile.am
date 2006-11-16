@@ -35,8 +35,7 @@ eog_SOURCES =				\
 	main.c				\
 	session.c			\
 	session.h			\
-	util.h				\
-	util.c
+	util.h
 
 eog_DEPENDENCIES = 				\
 	$(top_builddir)/libeog/libeog.a 	\
