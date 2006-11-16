@@ -26,7 +26,7 @@
 #define CHECK_BLACK 0x00000000
 #define CHECK_DARK 0x00555555
 #define CHECK_GRAY 0x00808080
-#define CHECK_LIGHT 0x00aaaaaa
+#define CHECK_LIGHT 0x00cccccc
 #define CHECK_WHITE 0x00ffffff
 
 /* Default increment for zooming.  The current zoom factor is multiplied or
@@ -662,7 +662,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 		break; }
 
 	case TRANSP_CHECKED:
-		check_1 = CHECK_DARK;
+		check_1 = CHECK_GRAY;
 		check_2 = CHECK_LIGHT;
 		break;
 

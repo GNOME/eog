@@ -2,10 +2,8 @@
 #include <config.h>
 #endif
 
-#include <string.h>
 #include <stdlib.h>
 #include <libgnomeui/gnome-client.h>
-#include <libgnomeui/gnome-ui-init.h>
 #include <glade/glade.h>
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
