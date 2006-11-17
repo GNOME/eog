@@ -106,19 +106,6 @@ eog_get_localedir (void)
 
 
 static void 
-free_uri_list (GList *list)
-{
-	GList *it;
-	
-	for (it = list; it != NULL; it = it->next) {
-		gnome_vfs_uri_unref ((GnomeVFSURI*)it->data);
-	}
-
-	if (list != NULL) 
-		g_list_free (list);
-}
-
-static void 
 free_string_list (GList *list)
 {
 	GList *it;
@@ -136,7 +123,7 @@ load_context_free (LoadContext *ctx)
 {
 	if (ctx == NULL) return;
 
-	free_uri_list (ctx->uri_list);
+	gnome_vfs_uri_list_free (ctx->uri_list);
 	if (ctx->img_list != NULL)
 			g_object_unref (ctx->img_list);
 	ctx->img_list = NULL;
