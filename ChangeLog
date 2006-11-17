@@ -1,3 +1,14 @@
+2006-11-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* Makefile.am: Remove art from SUBDIRS.
+	* art/*: Remove directory.
+	* art/loading.png: Remove.
+	* configure.in: Remove art from AC_OUTPUT.
+	* libeog/eog-collection-item.c: (get_busy_pixbuf): Use "image-loading"
+	from icon theme instead of shipped icon.
+	
+	* macros/*: Remove old and unused macros from CVS.
+
 2006-11-17  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* shell/main.c: (load_context_free): free_uri_list() does the same as

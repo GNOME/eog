@@ -7,6 +7,7 @@
 #include <libgnomeui/gnome-thumbnail.h>
 #include <libgnomecanvas/libgnomecanvas.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gtk/gtkicontheme.h>
 
 #include "eog-collection-item.h"
 #include "eog-image.h"
@@ -221,18 +222,19 @@ get_busy_pixbuf (void)
 	static GdkPixbuf *busy = NULL;
 
 	if (busy == NULL) {
-		char *path;
-		char *file;
+		GtkIconTheme *icon_theme;
+		GError *error = NULL;
 
-		/* FIXME: we must use a proper initialized GnomeProgramm struct here. */
-		file = g_build_filename ("eog", "loading.png", NULL);
-		path = gnome_program_locate_file (NULL, GNOME_FILE_DOMAIN_PIXMAP, 
-						  file, TRUE, NULL);
-		
-		busy = gdk_pixbuf_new_from_file (path, NULL);
-
-		g_free (path);
-		g_free (file);
+		icon_theme = gtk_icon_theme_get_default ();
+		busy = gtk_icon_theme_load_icon (icon_theme,
+						 "image-loading", /* icon name */
+						 EOG_COLLECTION_ITEM_THUMB_WIDTH, /* size */
+						   0,  /* flags */
+						   &error);
+		if (!busy) {
+			g_warning ("Couldn't load icon: %s", error->message);
+			g_error_free (error);
+		}
 	}
 
 	g_object_ref (busy);

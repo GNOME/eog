@@ -22,7 +22,7 @@ if ENABLE_JPEG
 jpeg_DIRS = jpegutils
 endif
 
-SUBDIRS = art $(jpeg_DIRS) libeog shell po help
+SUBDIRS = $(jpeg_DIRS) libeog shell po help
 DIST_SUBDIRS = $(SUBDIRS)
 
 EXTRA_DIST = 			\
