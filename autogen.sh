@@ -5,7 +5,9 @@ srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
 PKG_NAME="eog"
+REQUIRED_AUTOCONF_VERSION=2.54
 REQUIRED_AUTOMAKE_VERSION=1.7
+REQUIRED_INTLTOOL_VERSION=0.35.0
 
 (test -f $srcdir/configure.in \
   && test -f $srcdir/README \
