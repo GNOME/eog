@@ -92,10 +92,6 @@ EogImage*           eog_image_data_unref                     (EogImage *img);
 gboolean            eog_image_is_loaded                      (EogImage *img);
 
 /* saving API */
-gboolean            eog_image_save                            (EogImage *img, 
-							       GnomeVFSURI *uri,
-							       GdkPixbufFormat *format,
-							       GError **error);
 gboolean            eog_image_save_as_by_info                 (EogImage *img, 
 							       EogImageSaveInfo *source, 
 							       EogImageSaveInfo *target, 
