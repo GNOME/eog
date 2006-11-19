@@ -324,11 +324,8 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		mimetype = gnome_vfs_get_mime_type (info_uri);
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
-				/* update EogImage (easy and ugly way) */
-				gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
-				uri = gnome_vfs_uri_new (info_uri);
-				eog_list_store_append_image_from_uri (store, uri);
-				gnome_vfs_uri_unref (uri);
+				eog_list_store_thumbnail_unset (store, &iter);
+				eog_list_store_thumbnail_set (store, &iter);
 			} else {
 				gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 			}
