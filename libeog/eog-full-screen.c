@@ -29,8 +29,6 @@
 #include <X11/Xlib.h>
 #endif
 #include <gdk/gdkkeysyms.h>
-#include <gtk/gtkmain.h>
-#include <libgnome/gnome-macros.h>
 #include <gconf/gconf-client.h>
 
 #include "eog-full-screen.h"

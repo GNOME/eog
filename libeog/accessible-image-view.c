@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkwidget.h>
 #include <sys/types.h>
 
 #include "accessible-image-view.h"

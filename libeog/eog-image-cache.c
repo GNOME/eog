@@ -2,7 +2,6 @@
 #include <config.h>
 #endif
 
-#include <libgnome/gnome-macros.h>
 #include "eog-image-cache.h"
 
 struct _EogImageCachePrivate {

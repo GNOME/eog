@@ -1,7 +1,6 @@
 #ifndef _EOG_JOB_MANAGER_H_
 #define _EOG_JOB_MANAGER_H_
 
-#include <glib-object.h>
 #include "eog-job.h"
 
 G_BEGIN_DECLS

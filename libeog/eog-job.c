@@ -2,8 +2,6 @@
 #include <config.h>
 #endif
 
-#include <libgnome/gnome-macros.h>
-
 #include "eog-job.h"
 
 static guint last_job_id = 0;

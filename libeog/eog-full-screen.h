@@ -23,7 +23,6 @@
 #define _EOG_FULL_SCREEN_H_
 
 #include <glib-object.h>
-#include <glib/gmacros.h>
 #include <gtk/gtkwindow.h>
 #include "eog-image.h"
 #include "eog-image-list.h"

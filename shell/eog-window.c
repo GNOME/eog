@@ -41,7 +41,6 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include "eog-window.h"
 #include "util.h"
-#include "zoom.h"
 #include "eog-file-chooser.h"
 #include "eog-preferences.h"
 #include "eog-statusbar.h"

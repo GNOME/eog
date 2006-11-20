@@ -3,7 +3,6 @@
 #endif
 
 #include <string.h>
-#include <libgnome/gnome-macros.h>
 #include <glib/gi18n.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-directory.h>

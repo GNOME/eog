@@ -3,7 +3,6 @@
 #endif
 
 #include <math.h>
-#include <libgnome/gnome-macros.h>
 #include <libgnomecanvas/gnome-canvas.h>
 #include <libart_lgpl/art_rgb_affine.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>

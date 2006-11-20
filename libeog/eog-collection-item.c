@@ -3,7 +3,6 @@
 #endif
 #include <string.h>
 #include <libgnome/gnome-program.h>
-#include <libgnome/gnome-macros.h>
 #include <libgnomeui/gnome-thumbnail.h>
 #include <libgnomecanvas/libgnomecanvas.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>

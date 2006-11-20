@@ -1,7 +1,6 @@
 #include <config.h>
 #include <string.h>
 #include <stdlib.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-config.h>
 #include <glib/gi18n.h>
 #include <libgnomeui/gnome-client.h>
@@ -9,7 +8,6 @@
 #include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomeui/gnome-app-helper.h>
 #include <gconf/gconf-client.h>
-#include "util.h"
 #include "eog-window.h"
 #include "eog-thumbnail.h"
 #include "session.h"
@@ -36,6 +34,7 @@ typedef struct {
 #ifdef G_OS_WIN32
 
 #include <windows.h>
+#include "util.h"
 
 static const char *
 get_installation_subdir (const char *configure_time_path)

@@ -21,12 +21,7 @@
 #include <glib/gi18n.h>
 #include <glib/gslist.h>
 #include <gtk/gtklabel.h>
-#include <gtk/gtkmenuitem.h>
-#include <gtk/gtkmenu.h>
-#include <gtk/gtkoptionmenu.h>
-#include <gtk/gtkhbox.h>
 #include <gtk/gtkstock.h>
-#include <gtk/gtkmessagedialog.h>
 #include <gtk/gtkimage.h>
 #include <gtk/gtkvbox.h>
 #include <gtk/gtkcheckbutton.h>

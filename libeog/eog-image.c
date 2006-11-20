@@ -1,11 +1,7 @@
 #include <config.h>
 #include <string.h>
 #include <unistd.h>
-#include <glib/gthread.h>
-#include <glib/gqueue.h>
-#include <gtk/gtkmain.h>
 #include <glib/gi18n.h>
-#include <libgnomeui/gnome-thumbnail.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <libgnomevfs/gnome-vfs.h>
 #ifdef HAVE_EXIF
@@ -17,7 +13,6 @@
 #include "libeog-marshal.h"
 #include "eog-image.h"
 #include "eog-image-private.h"
-#include "eog-pixbuf-util.h"
 #include "eog-metadata-reader.h"
 #include "eog-image-save-info.h"
 #include "eog-info-view-file.h"

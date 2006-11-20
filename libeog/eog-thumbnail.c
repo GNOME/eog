@@ -3,6 +3,7 @@
 #endif
 
 #include <libgnomeui/libgnomeui.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include "eog-thumbnail.h"
 

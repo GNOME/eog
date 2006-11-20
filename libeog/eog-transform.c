@@ -5,10 +5,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
-#include <gtk/gtkmain.h>
 #include <libart_lgpl/art_affine.h>
 #include "eog-transform.h"
-#include "libeog-marshal.h"
 
 #define PROFILE 1
 

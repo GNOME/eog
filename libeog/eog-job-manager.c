@@ -2,6 +2,7 @@
 #include <config.h>
 #endif
 
+#include <glib-object.h>
 #include "eog-job-manager.h"
 
 typedef struct {

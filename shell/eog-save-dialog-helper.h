@@ -3,7 +3,6 @@
 
 #include <gtk/gtk.h>
 #include "eog-image.h"
-#include "eog-image-save-info.h"
 
 G_BEGIN_DECLS
 

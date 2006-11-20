@@ -20,10 +20,6 @@
  */
 #include <config.h>
 #include <math.h>
-#include <string.h>
-#include <glib/gmain.h>
-#include <glib/gmacros.h>
-#include <libgnome/gnome-macros.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkdnd.h>
 
