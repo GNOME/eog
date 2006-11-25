@@ -26,7 +26,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-#define EOG_THUMB_VIEW_SPACING 16
+#define EOG_THUMB_VIEW_SPACING 0
 
 #define EOG_THUMB_VIEW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_THUMB_VIEW, EogThumbViewPrivate))
@@ -337,8 +337,6 @@ eog_thumb_view_init (EogThumbView *tb)
 
 	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (tb),
 					 EOG_LIST_STORE_THUMBNAIL);
-	gtk_icon_view_set_text_column (GTK_ICON_VIEW (tb),
-				       EOG_LIST_STORE_CAPTION);
 	
 	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (tb),
 					  EOG_THUMB_VIEW_SPACING);

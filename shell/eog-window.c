@@ -29,6 +29,8 @@
 #include "config.h"
 #endif
 
+#include <math.h>
+
 #include "eog-window.h"
 #include "eog-scroll-view.h"
 #include "eog-file-chooser.h"
@@ -37,6 +39,7 @@
 #include "eog-statusbar.h"
 #include "eog-preferences.h"
 #include "eog-application.h"
+#include "eog-thumb-nav.h"
 #include "eog-config-keys.h"
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
@@ -86,6 +89,7 @@ struct _EogWindowPrivate {
         GtkWidget           *view;
         GtkWidget           *thumbview;
         GtkWidget           *statusbar;
+        GtkWidget           *nav;
 
         GtkActionGroup      *actions_window;
         GtkActionGroup      *actions_image;
@@ -329,7 +333,7 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 	if (thumb != NULL) {
 		gtk_window_set_icon (GTK_WINDOW (window), thumb);
 		g_object_unref (thumb);
-	} else if (!GTK_WIDGET_VISIBLE (window->priv->thumbview)) {
+	} else if (!GTK_WIDGET_VISIBLE (window->priv->nav)) {
 		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
 		GtkTreePath *path = gtk_tree_path_new_from_indices (img_pos,-1);
 		GtkTreeIter *iter;
@@ -340,7 +344,6 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 		g_slice_free (GtkTreeIter, iter);
 		gtk_tree_path_free (path);
 	}
-
 }
 
 static void 
@@ -538,7 +541,7 @@ update_action_groups_state (EogWindow *window)
 		gtk_widget_show_all (priv->vbox);
 
 		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+			gtk_widget_hide_all (priv->nav);
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
@@ -557,7 +560,7 @@ update_action_groups_state (EogWindow *window)
 		gtk_widget_show_all (priv->vbox);
 
 		if (!show_image_collection) 
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+			gtk_widget_hide_all (priv->nav);
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
@@ -1078,9 +1081,9 @@ update_ui_visibility (EogWindow *window)
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	if (visible) {
-		gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
+		gtk_widget_show_all (priv->nav);
 	} else {
-		gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+		gtk_widget_hide_all (priv->nav);
 	}
 
 	if (priv->fullscreen_popup != NULL) {
@@ -1424,6 +1427,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 		"Lutz M\xc3\xbcller <urc8@rz.uni-karlsruhe.de>",
 		NULL
 	};
+
 	static const char *documenters[] = {
 		"Eliot Landrum <eliot@landrum.cx>",
 		"Federico Mena-Quintero <federico@gnu.org>",
@@ -1498,9 +1502,9 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_STATUSBAR, visible, NULL);
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible) {
-			gtk_widget_show_all (gtk_widget_get_parent (priv->thumbview));
+			gtk_widget_show_all (priv->nav);
 		} else {
-			gtk_widget_hide_all (gtk_widget_get_parent (priv->thumbview));
+			gtk_widget_hide_all (priv->nav);
 		}
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 	}
@@ -2080,7 +2084,6 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *menubar;
 	GtkWidget *toolbar;
 	GtkWidget *popup;
-	GtkWidget *sw;
 	GtkWidget *frame;
 
 	GConfEntry *entry;
@@ -2218,26 +2221,23 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), G_MAXINT);
 
 	/* giving shape to the view */
-	gtk_widget_set_size_request (GTK_WIDGET (priv->thumbview), 0, 135);
+	gtk_widget_set_size_request (GTK_WIDGET (priv->thumbview), 0, 110);
 	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 0);
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 0);
-	gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 120);
+	gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 110);
 
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed_cb), window);
 
-	sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-					GTK_POLICY_AUTOMATIC,
-					GTK_POLICY_NEVER);
-	gtk_container_add (GTK_CONTAINER (sw), priv->thumbview);
+	priv->nav = eog_thumb_nav_new ();
+	eog_thumb_nav_set_thumb_view (EOG_THUMB_NAV (priv->nav), 
+				      EOG_THUMB_VIEW (priv->thumbview));
 
 	popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview), 
 					    GTK_MENU (popup));
 
-	gtk_box_pack_start (GTK_BOX (priv->vbox), sw, FALSE, 0, 0);
+	gtk_box_pack_start (GTK_BOX (priv->vbox), priv->nav, FALSE, FALSE, 0);
 
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->vbox, TRUE, TRUE, 0);
 	gtk_widget_show_all (GTK_WIDGET (priv->vbox));

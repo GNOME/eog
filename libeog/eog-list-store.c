@@ -168,7 +168,6 @@ eog_list_store_init (EogListStore *self)
 {
 	GType types[EOG_LIST_STORE_NUM_COLUMNS];
 
-	types[EOG_LIST_STORE_CAPTION]   = G_TYPE_STRING;
 	types[EOG_LIST_STORE_THUMBNAIL] = GDK_TYPE_PIXBUF;
 	types[EOG_LIST_STORE_EOG_IMAGE] = G_TYPE_OBJECT;
 	types[EOG_LIST_STORE_THUMB_SET] = G_TYPE_BOOLEAN;
@@ -286,7 +285,6 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, image, 
-			    EOG_LIST_STORE_CAPTION, eog_image_get_caption (image),
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
 			    EOG_LIST_STORE_THUMB_SET, FALSE,
 			    -1);

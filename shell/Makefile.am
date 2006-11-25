@@ -36,6 +36,8 @@ eog_SOURCES =				\
 	eog-save-as-dialog-helper.c	\
 	eog-statusbar.h			\
 	eog-statusbar.c			\
+	eog-thumb-nav.h			\
+	eog-thumb-nav.c			\
 	eog-config-keys.h		\
 	main.c	
 
