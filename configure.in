@@ -9,8 +9,6 @@ AM_INIT_AUTOMAKE(eog, 2.17.2)
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
 
-GNOME_DOC_INIT
-
 AM_MAINTAINER_MODE
 
 dnl ================= Requirements ================================================
@@ -51,6 +49,11 @@ GNOME_COMPILE_WARNINGS(yes)
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
+
+dnl Keep PKG_PROG_PKG_CONFIG before GNOME_DOC_INIT until we
+dnl depend on gnome-doc-utils >= 0.3.3
+PKG_PROG_PKG_CONFIG
+GNOME_DOC_INIT
 
 dnl ================= gnome libs check ====================================
 
