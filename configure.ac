@@ -76,7 +76,7 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
 
 LIBEXIF_REQUIRED=0.6.12
 
-AC_ARG_WITH(libexif, [  --without-libexif	  disable EXIF support])
+AC_ARG_WITH([libexif], AC_HELP_STRING([--without-libexif], [disable EXIF support]))
 have_exif=no
 if test x$with_libexif != xno; then
     PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
@@ -90,7 +90,7 @@ fi
 # Little CMS (optional)
 # *********************
 
-AC_ARG_WITH(cms, [  --without-cms	          disable colour management support])
+AC_ARG_WITH([cms], AC_HELP_STRING([--without-cms], [disable colour management support]))
 have_lcms=no
 if test x$with_cms != xno; then
     PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
@@ -106,7 +106,7 @@ fi
 
 LIBLEAFTAG_REQUIRED=0.3.1
 
-AC_ARG_WITH(libleaftag, [  --without-libleaftag	  disable tagging support])
+AC_ARG_WITH([libleaftag], AC_HELP_STRING([--without-libleaftag], [disable tagging support]))
 have_leaftag=no
 if test x$with_libleaftag != xno; then
     PKG_CHECK_MODULES(LEAFTAG, libleaftag >= $LIBLEAFTAG_REQUIRED, have_leaftag=yes, have_leaftag=no)
@@ -120,7 +120,7 @@ fi
 # Jpeg (semi-optional)
 # ********************
 
-AC_ARG_WITH(libjpeg, [  --without-libjpeg	  disable special JPEG support])
+AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG support]))
   have_jpeg=no
   if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
     AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
