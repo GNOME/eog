@@ -7,9 +7,9 @@
 
 G_BEGIN_DECLS
 
-#define EOG_TYPE_URI_CONVERTER            (eog_uri_converter_get_type ())
-#define EOG_URI_CONVERTER(o)         (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_URI_CONVERTER, EogURIConverter))
-#define EOG_URI_CONVERTER_CLASS(k)   (G_TYPE_CHECK_CLASS_CAST((k), EOG_TYPE_URI_CONVERTER, EogURIConverterClass))
+#define EOG_TYPE_URI_CONVERTER          (eog_uri_converter_get_type ())
+#define EOG_URI_CONVERTER(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_URI_CONVERTER, EogURIConverter))
+#define EOG_URI_CONVERTER_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_TYPE_URI_CONVERTER, EogURIConverterClass))
 #define EOG_IS_URI_CONVERTER(o)         (G_TYPE_CHECK_INSTANCE_TYPE ((o), EOG_TYPE_URI_CONVERTER))
 #define EOG_IS_URI_CONVERTER_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_TYPE_URI_CONVERTER))
 #define EOG_URI_CONVERTER_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_URI_CONVERTER, EogURIConverterClass))
@@ -60,22 +60,32 @@ struct _EogURIConverterClass {
 	GObjectClass parent_klass;
 };
 
-GType               eog_uri_converter_get_type                       (void) G_GNUC_CONST;
-GQuark              eog_uc_error_quark (void);
+GType              eog_uri_converter_get_type      (void) G_GNUC_CONST;
+GQuark             eog_uc_error_quark              (void);
 
-EogURIConverter*    eog_uri_converter_new        (GnomeVFSURI *base_uri, GdkPixbufFormat *img_format, const char *format_string);
+EogURIConverter*   eog_uri_converter_new           (GnomeVFSURI *base_uri,
+                                                    GdkPixbufFormat *img_format,
+						    const char *format_string);
 
-gboolean            eog_uri_converter_check      (EogURIConverter *converter, GList *img_list, GError **error);
+gboolean           eog_uri_converter_check         (EogURIConverter *converter,
+                                                    GList *img_list,
+                                                    GError **error);
 
-gboolean            eog_uri_converter_requires_exif (EogURIConverter *converter);
+gboolean           eog_uri_converter_requires_exif (EogURIConverter *converter);
 
-gboolean            eog_uri_converter_do         (EogURIConverter *converter, EogImage *image,
-						  GnomeVFSURI **uri, GdkPixbufFormat **format, GError **error);
+gboolean           eog_uri_converter_do            (EogURIConverter *converter,
+                                                    EogImage *image,
+                                                    GnomeVFSURI **uri,
+                                                    GdkPixbufFormat **format,
+                                                    GError **error);
 
-char*               eog_uri_converter_preview    (const char *format_str, EogImage *img, GdkPixbufFormat *format, 
-						  gulong counter, guint n_images,
-						  gboolean convert_spaces, gunichar space_char);
-
+char*              eog_uri_converter_preview       (const char *format_str,
+                                                    EogImage *img,
+                                                    GdkPixbufFormat *format,
+						    gulong counter,
+						    guint n_images,
+						    gboolean convert_spaces,
+						    gunichar space_char);
 
 /* for debugging purpose only */
 void                eog_uri_converter_print_list (EogURIConverter *conv);
