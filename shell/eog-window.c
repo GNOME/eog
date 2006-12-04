@@ -1215,6 +1215,8 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	} else {
 		eog_window_update_fullscreen_action (window);
 	}
+
+	eog_scroll_view_show_cursor (EOG_SCROLL_VIEW (priv->view));
 }
 
 static void
