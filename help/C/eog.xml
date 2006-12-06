@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.8">
+  <!ENTITY appversion "2.16">
   <!ENTITY manrevision "2.8">
-  <!ENTITY date "September 2004">
+  <!ENTITY date "December 2006">
   <!ENTITY app "<application>Image Viewer</application>">
   <!ENTITY appname "Image Viewer">
 ]>
@@ -22,7 +22,11 @@
 <!-- appropriate code -->
   <articleinfo> 
     <title>&appname; Manual</title>
-
+    
+    <copyright> 
+      <year>2006</year> 
+      <holder>GNOME Documentation Project</holder> 
+    </copyright>
     <copyright> 
       <year>2002</year> 
       <year>2003</year> 
@@ -204,12 +208,12 @@
     </releaseinfo> 
     <legalnotice> 
       <title>Feedback</title> 
-      <para>To report a bug or make a suggestion regarding the &appname; application or this manual, follow the directions in the <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
+      <para>To report a bug or make a suggestion regarding the &appname; application or this manual, follow the directions in the <ulink url="ghelp:user-guide?feedback-bugs" type="help">GNOME Feedback Page</ulink>. 
       </para>
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice> 
     <abstract role="description">
-      <para>User manual for Eye of GNOME, the GNOME image viewer.</para>
+      <para>User manual for <application>Eye of GNOME Image Viewer</application>.</para>
     </abstract>
 
   </articleinfo> 
@@ -232,6 +236,9 @@
     <para>You can start &app; in the following ways:</para>
     <itemizedlist>
       <listitem>
+        <para>Open an image file in <application>Nautilus</application>.</para>
+      </listitem>
+      <listitem>
 	<para>Choose <menuchoice><guimenu>Graphics</guimenu>
 	<guimenuitem>Image Viewer</guimenuitem></menuchoice>
 	from the <guimenu>Applications</guimenu> menu.</para>
@@ -246,20 +253,14 @@
 
   <sect2 id="eog-closeapp">
     <title>Closing &appname;</title>
-    <para>To close a &app; window choose <menuchoice><guimenu>File</guimenu>
+    <para>To close the current &app; window choose <menuchoice><guimenu>File</guimenu>
     <guimenuitem>Close</guimenuitem></menuchoice>, or press
-    <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.
-    This will shut down the window you are currently in.</para>
+    <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
   </sect2>
 
   <sect2 id="eog-filetypes">
     <title>Supported File Types</title>
-    <para>&app; supports a variety of image file formats. The
-    <systemitem class="library">GdkPixbuf</systemitem> library determines
-    which file formats &app; can load and save.  If the appropriate plugins
-    are installed on your system, &app; will be able to open more image
-    formats than those listed below.  The following list is the default
-    supported file formats for reading:</para>
+    <para>&app; supports a variety of image file formats. The following image formats can be opened:</para>
 		<itemizedlist>
 			<listitem><para>ANI - Animation</para>
 			</listitem>
@@ -293,7 +294,7 @@
 			</listitem>
 		</itemizedlist>
 
-  <para>&app; supports the following formats for saving by default:</para>
+  <para>&app; supports the following formats for saving:</para>
 		<itemizedlist>
 			<listitem><para>BMP - Windows Bitmap</para>
 			</listitem>
@@ -304,6 +305,7 @@
 			<listitem><para>PNG - Portable Network Graphics </para>
 			</listitem>
 		</itemizedlist>
+		<para>&app; may be able to open and save other image formats, depending on your system configuration and other installed software.</para>
   </sect2>
 
   <sect2 id="eog-features">
@@ -341,7 +343,7 @@
 		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
 		    </imageobject>
 		    <textobject>
-		      <phrase>Shows Eye of GNOME main window. Contains titlebar, menubar, toolbar, and display area. Menubar contains File, Edit, View, and Help menus.</phrase>
+		      <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, and display area. Menubar contains File, Edit, View, and Help menus.</phrase>
 		    </textobject>
 		  </mediaobject>
 		</screenshot>
@@ -351,7 +353,7 @@
 	<varlistentry>
   	  <term>Menubar</term>
  	  <listitem>
-	    <para>The menus on the menubar contain all of the commands that you need to work with files in &app;.</para>
+	    <para>The menus on the menubar contain all of the commands that you need to work with images in &app;.</para>
 	  </listitem>
  	</varlistentry>
 	<varlistentry>
@@ -363,7 +365,7 @@
 	<varlistentry>
 	  <term>Display area</term>
 	  <listitem>
- 	    <para>The display area displays the image file.</para>
+ 	    <para>The display area shows the image file.</para>
 	  </listitem>
 	</varlistentry>
 	<varlistentry>
@@ -408,7 +410,7 @@
 
 	<!--=========== To Open an Image ============================= -->
 	<sect2 id="eog-open-image">
-		<title>To Open an Image</title>
+		<title>Opening an Image</title>
                 <para>To open an image, perform the following steps:</para>
                 <orderedlist>
                   <listitem>
@@ -429,19 +431,16 @@
                 <para> 
 	          To open another image, choose <menuchoice> <guimenu>File</guimenu><guimenuitem>Open</guimenuitem> </menuchoice> again. &app; opens each image in a new window.
                 </para>
-                <para>
-	          If you try to open an image file format that &app; does not recognize, the application displays an error message.
-                </para>
 	</sect2>
 
 	<!--=========== To View the Images in a Directory ==================== -->
 	<sect2 id="eog-open-folder">
-		<title>To View the Images in a Folder</title>
+		<title>Viewing the Images in a Folder</title>
 		<para>To view all images in a folder, perform the following steps:</para>
                 <orderedlist>
                   <listitem>
                     <para>
-                      Open one of the images in the folder, see <xref linkend="eog-open-image"/>.  </para>
+                      Open one of the images in the folder (see <xref linkend="eog-open-image"/>).  </para>
                   </listitem>
                   <listitem>
                     <para>
@@ -449,19 +448,19 @@
                     </para>
                   </listitem>
 		</orderedlist>
-	     <para>The collection then shows all supported images in the folder. You can switch the images by clicking on them in the collection, by choosing the appropriate option in the <guimenu>Go</guimenu> menu or by pressing <keycombo><keycap>Alt</keycap><keycap>Left</keycap></keycombo> or <keycombo><keycap>Alt</keycap><keycap>Right</keycap></keycombo>.</para>
+	     <para>The collection shows thumbnails of all supported images in the folder. You can browse the images by clicking on an image in the collection, by choosing the appropriate option in the <guimenu>Go</guimenu> menu or by pressing <keycombo><keycap>Alt</keycap><keycap>Left</keycap></keycombo> or <keycombo><keycap>Alt</keycap><keycap>Right</keycap></keycombo>.</para>
              <para>To view all of the images in the directory fullscreen, choose <menuchoice> <guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem> </menuchoice> or press <keycap>F11</keycap>. To view them as a slide show, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or press <keycap>F5</keycap>. To return to the collection view, press the <keycap>Esc</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>.
                     </para>
 	</sect2>
 
 	<!--============ To Scroll an Image ======================= -->
 	<sect2 id="eog-scroll-image">
-		<title>To Scroll an Image</title>
-		<para>To scroll around an image that is larger than the image window or full screen window, you can use the following methods:</para>
+		<title>Scrolling an Image</title>
+		<para>To scroll around an image that is larger than the image window or full screen view, you can use the following methods:</para>
 		<itemizedlist>
 			<listitem><para>Use the arrow keys on the keyboard.</para>
 			</listitem>
-			<listitem><para>Drag the image opposite to the direction in which you want to scroll. For example, if you want to scroll down the image, drag the image upwards in the window.</para>
+			<listitem><para>Drag the image to move it in the window. (This means you drag the image in the opposite direction you want to scroll in: to scroll down the image, drag it upwards in the window.)</para>
 			</listitem>
 			<listitem><para>Use the scrollbars on the window.</para>
 			</listitem>
@@ -470,19 +469,28 @@
 
 	<!--=========== To Zoom In and Out ==================== -->
 	<sect2 id="eog-zoom">
-		<title>To Zoom In or Out</title>
-		<para>You can zoom in or out of the image through a variety of methods.</para>
+		<title>Zooming</title>
+		<para>You can zoom in or out of the image in the following ways:</para>
 			<itemizedlist>
-				<listitem><para>You can use the middle mouse button to scroll in and out. Scrolling down zooms out; scrolling up zooms in.</para></listitem>
- 				<listitem><para>You can use the zoom buttons in the toolbar. They are also located in the <guimenu>View</guimenu> menu. You can zoom in and zoom out. <guilabel>Normal</guilabel> will restore the picture to its original unscaled size. <guilabel>Best Fit</guilabel> will resize the image so it will fit in the window and adapt the size on window resizing.</para></listitem>
-				<listitem><para>The zoom options also have shortcuts. To zoom in, <keycombo> <keycap>Ctrl</keycap><keycap>+</keycap> </keycombo> or <keycap>+</keycap>. To zoom out, <keycombo> <keycap>Ctrl</keycap><keycap>-</keycap> </keycombo> or <keycap>-</keycap>. To go back to the normal size, <keycombo> <keycap>Ctrl</keycap><keycap>=</keycap> </keycombo> or <keycap>1</keycap>. The best fit mode can be entered by pressing <keycap>F</keycap>.</para></listitem>
+				<listitem><para>Use the scroll wheel on a mouse. Scrolling down zooms out; scrolling up zooms in.</para></listitem>
+ 			  <listitem><para>Choose <menuchoice><guimenu>View</guimenu><guimenuitem>Zoom In</guimenuitem></menuchoice> or <menuchoice><guimenu>View</guimenu><guimenuitem>Zoom Out</guimenuitem></menuchoice>.
+ 			    To restore the image to its original size, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Normal Size</guimenuitem></menuchoice>.
+ 			    To make the image fit in the window, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>.</para></listitem>				
+ 				<listitem><para>Use the zoom buttons in the toolbar.
+ 			 <guilabel>Normal</guilabel> will restore the picture to its original unscaled size.
+ 			 <guilabel>Fit</guilabel> will resize the image so it will fit in the window and adapt the size on window resizing.</para></listitem>
+
+				<listitem><para>Use the keyboard. To zoom in, <keycombo> <keycap>Ctrl</keycap><keycap>+</keycap> </keycombo> or <keycap>+</keycap>. To zoom out, <keycombo> <keycap>Ctrl</keycap><keycap>-</keycap> </keycombo> or <keycap>-</keycap>. To go back to the normal size, <keycombo> <keycap>Ctrl</keycap><keycap>0</keycap> </keycombo> or <keycap>1</keycap>. To scale the image to fit the window, press <keycap>F</keycap>.</para></listitem>
 			</itemizedlist>
+			<para>When an image is zoomed to fit the window, resizing the window will also change the zoom level, so the image still fits the window.</para>
 	</sect2>
 
 	<!--=========== To View Image Fullscreen ==================== -->
 	<sect2 id="eog-fullscreen">
-		<title>To View Image Full Screen/Slideshow</title>
-		<para>To display the image in full-screen mode, choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>. Full-screen mode displays the image in a window that fills the full screen. The window does not contain a window frame, titlebar, menubar, or toolbar. To exit from this mode, press the <keycap>Esc</keycap> or <keycap>F11</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. To zoom into or pane around the image the same things apply as for the window mode.</para>
+		<title>Viewing an Image Full Screen/Slideshow</title>
+		<para>To show the image using the entire screen,  choose <menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</guimenuitem></menuchoice>.</para>
+		<para>No panels, window frames, or menubars are visible when an image is shown like this. To return to the normal view, press <keycap>Esc</keycap>, or <keycap>F11</keycap>, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+		<para>You can zoom or scroll around the image in the same way as when it is shown in a window, using the mouse or the keyboard.</para>
 		<para>If you have multiple images in your collection you can press <keycap>Space</keycap> or use the right/down cursor keys to advance to the next image. The previous image can be reached by pressing <keycap>Backspace</keycap> or using the left/up cursor keys.</para>
 	<para>In this case you can also use the slideshow mode, where &app; automatically switches to the next image in your collection. You can start a slideshow by choosing <menuchoice><guimenu>View</guimenu><guimenuitem>Slideshow</guimenuitem></menuchoice> or by pressing <keycap>F5</keycap>. The slideshow can be paused/continued by pressing <keycap>P</keycap>. To stop the slideshow, press the <keycap>Esc</keycap> or <keycap>F5</keycap> key, or <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. For more information about how to customize the slide show, see <xref linkend="eog-prefs-slideshow"/>. </para>
 	</sect2>
@@ -499,7 +507,7 @@
 
 	<!--============ To Flip an Image ======================= -->
 	<sect2 id="eog-flip">
-		<title>To Flip an Image</title>
+		<title>Flipping an Image</title>
 		<para>To flip an image along the horizontal axis of the image, choose 
 		<menuchoice>
 		<guimenu>Image</guimenu>
@@ -514,7 +522,7 @@
 
 	<!--============ To Rotate an Image ======================= -->
 	<sect2 id="eog-rotate">
-		<title>To Rotate an Image</title>
+		<title>Rotating an Image</title>
 		<para>To rotate an image 90 degrees in a clockwise direction, choose 
 		<menuchoice>
 		<guimenu>Image</guimenu>
@@ -534,7 +542,7 @@
 
 	<!--============ To Undo an Action ======================= -->
 	<sect2 id="eog-undo">
-		<title>To Undo an Action</title>
+		<title>Undoing an Action</title>
 		<para>To undo a flip or rotate action, choose 
 		<menuchoice>
 		<guimenu>Edit</guimenu>
@@ -546,15 +554,17 @@
 
 	<!--============ To Delete An Image ======================== -->
 	<sect2 id="eog-delete-image">
-		<title>To Delete an Image</title>
-		<para>To delete an image 
+		<title>Deleting an Image</title>
+		<para>To move an image to the Trash, choose
 			<menuchoice>
 			<guimenu>Edit</guimenu>
 			<guisubmenu>Move to Trash</guisubmenu>
 			</menuchoice>.
-			This operation applies to all currently selected images. You may also use the <keycap>Del</keycap> key.
-			&app; will ask you to confirm this operation before deleting the images from disk. After deletion the images can be restored from trash. Only when the trash is emptied the files are really lost.
-		</para>
+			This moves the file to the Trash folder. Multiple images can also be moved to the trash in the same way: select them all first.</para>
+	    <para>To restore an image from the Trash, open the Trash folder in <application>Nautilus</application> file manager and move the image file to another folder. To delete the image permanently, empty the Trash. To find out more about using the Trash, see the <ulink type="help" url="ghelp:user-guide?nautilus-trash">User Guide</ulink>.</para>
+				
+			<note><para>You can also use the <keycap>Del</keycap> key to move an image to the Trash, in which case you will be asked for confirmation.</para></note>
+			
 	</sect2>
 </sect1> 
 
@@ -569,7 +579,7 @@
 
 <!--============ To Save an Image ======================= -->
 	<sect2 id="eog-save-image">
-		<title>To Save an Image</title>
+		<title>Saving an Image</title>
 		<para>To save an image, choose 
 			<menuchoice>
 			<guimenu>File</guimenu>
@@ -580,24 +590,35 @@
 
 	<!--============ To Save As an Image ======================= -->
 	<sect2 id="eog-save-as-image">
-		<title>To Save an Image under Different Name</title>
-		<para>To save an image under a different name or convert it to a different file type
+		<title>Saving an Image under a Different Name</title>
+		<para>To save an image under a different name, or convert it to a different file type, choose
 			<menuchoice>
 			<guimenu>File</guimenu>
 			<guisubmenu>Save As</guisubmenu>
-			</menuchoice>.
-		Specify the filename in the <guilabel>Name</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton>. The file is saved in the current folder by default. &app; tries to determine the file type from the given filename suffix. If the image should be saved in another folder or the file type detection failed expand the dialog by clicking on <guilabel>Browse for other folders</guilabel>. This allows further folder navigation and the specification of the file type from the drop down box.</para>
+			</menuchoice>.</para>
+		<para>Specify the filename in the <guilabel>Name</guilabel> field in the <guilabel>Save Image</guilabel> dialog, then click <guibutton>Save</guibutton>. The file is saved in the current folder by default. &app; tries to determine the file type from the given filename suffix. If the image should be saved in another folder or the file type detection failed, expand the dialog by clicking on <guilabel>Browse for other folders</guilabel>. This allows further folder navigation and the specification of the file type from the drop down box.</para>
+		<para>You can save multiple images at once: see the next section.</para>
+	</sect2>    
 
-		<para>&app; can also save multiple images at once. This way a bunch of images can be converted to a different format or apply another name schema. The following window will be displayed if <guilabel>Save As</guilabel> is called for more than one image:</para>
+	<!--============ To Save As an Image ======================= -->
+	<sect2 id="eog-save-as-multiple">
+		<title>Saving Multiple Images</title>
+		<para>Saving multiple images at once allows you to convert several images to a different format, or give them similar filenames.</para>
+		<para>To save multiple images, select the images and choose 
+			<menuchoice>
+			<guimenu>File</guimenu>
+			<guisubmenu>Save As</guisubmenu>
+			</menuchoice>. 		
+		The following window is displayed:</para>
   		<figure id="saveas-dialog-fig">
-			<title>Save As Dialog</title>
+			<title>Save As dialog for multiple images</title>
 			<screenshot>
 			  <mediaobject>
 			    <imageobject>
 			      <imagedata fileref="figures/eog_save_as_window.png" format="PNG"/>
 			    </imageobject>
 			    <textobject>
-			      <phrase>Shows Eye of GNOME <guilabel>Save As</guilabel> dialog when saving a bunch of images.</phrase>
+			      <phrase>Shows Eye of GNOME <guilabel>Save As</guilabel> dialog when saving multiple images.</phrase>
 			    </textobject>
 			  </mediaobject>
 			</screenshot>
@@ -617,7 +638,7 @@
 		<guilabel>as is</guilabel> option to state the the same format as the original file should be used.</para>
 	
 		<para>The <guilabel>Options</guilabel> section allows to remove all space characters by underscores in the resulting filename if <guilabel>Replace spaces by underscore</guilabel> is checked. The <guilabel>Start counter at</guilabel> spin box determines at which number the counter starts if you use the %n tag for the file format specification.</para>
-		<para>The <guilabel>File Name Preview</guilabel> section of the dialog shows the resulting file name according to the above settings for an example filename from the bunch of selected images.
+		<para>The <guilabel>File Name Preview</guilabel> section of the dialog shows the resulting file name according to the above settings for an example filename from the selected images.
 		</para>
 	</sect2>
 
@@ -675,7 +696,7 @@
 		<listitem>
 		<para>Select the <guilabel>Loop sequence</guilabel> option to cycle endlessly through the list of images during the slide show. If you do not select this option, the slide show returns to the collection view after the last image is displayed.
 </para>
-		<para>Use the <guilabel>Show next image automatically after ... seconds</guilabel> spin box to specify how long each image is displayed during the slide show. If you set this value to zero, the auto advance function is disabled and only manual browsing is available (see <xref linkend="eog-fullscreen"/>)
+		<para>Use the <guilabel>Switch image after ... seconds</guilabel> spin box to specify how long each image is displayed during the slide show. If you set this value to zero, the auto advance function is disabled and only manual browsing is available (see <xref linkend="eog-fullscreen"/>).
 </para>
 		</listitem>
 	</varlistentry>		
