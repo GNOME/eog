@@ -450,7 +450,6 @@ eog_window_print_draw_page (GtkPrintOperation *operation,
 	p_width = gtk_print_context_get_width (context);
 	p_height = gtk_print_context_get_height (context);
 
-	cairo_push_group (cr);
 	if (p_width > width && p_height > height) {
 		cairo_translate (cr, (p_width - width)/2, 
 				 (p_height - height)/2);
@@ -464,9 +463,6 @@ eog_window_print_draw_page (GtkPrintOperation *operation,
 		cairo_translate (cr, (p_width/scale_factor - width)/2, 0);
 	}
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
-	cairo_paint (cr);
-
-	cairo_pop_group_to_source (cr);
 	cairo_paint (cr);
 
 	g_object_unref (pixbuf);
