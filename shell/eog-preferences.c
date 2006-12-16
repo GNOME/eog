@@ -133,12 +133,12 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 	GdkColor color;
 
 	filename = g_build_filename (DATADIR, "eog.glade", NULL);
-	xml = glade_xml_new (filename, "Hig Preferences Dialog", "eog");
+	xml = glade_xml_new (filename, "eog_preferences_dialog", "eog");
 	g_free (filename);
 
 	g_assert (xml != NULL);
 
-	dlg = glade_xml_get_widget (xml, "Hig Preferences Dialog");
+	dlg = glade_xml_get_widget (xml, "eog_preferences_dialog");
 
 	g_signal_connect (G_OBJECT (dlg), "response",
 			  G_CALLBACK (eog_preferences_response_cb), dlg);

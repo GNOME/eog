@@ -38,6 +38,7 @@
 #include "eog-list-store.h"
 #include "eog-statusbar.h"
 #include "eog-preferences.h"
+#include "eog-properties-dialog.h"
 #include "eog-application.h"
 #include "eog-thumb-nav.h"
 #include "eog-config-keys.h"
@@ -90,6 +91,7 @@ struct _EogWindowPrivate {
         GtkWidget           *thumbview;
         GtkWidget           *statusbar;
         GtkWidget           *nav;
+	GObject             *properties_dlg;
 
         GtkActionGroup      *actions_window;
         GtkActionGroup      *actions_image;
@@ -323,15 +325,24 @@ static void
 image_thumb_changed_cb (EogImage *image, gpointer data)
 {
 	EogWindow *window;
+	EogWindowPrivate *priv;
 	GdkPixbuf *thumb;
 
 	g_return_if_fail (EOG_IS_WINDOW (data));
 
 	window = EOG_WINDOW (data);
+	priv = window->priv;
 
 	thumb = eog_image_get_pixbuf_thumbnail (image);
+
 	if (thumb != NULL) {
 		gtk_window_set_icon (GTK_WINDOW (window), thumb);
+
+		if (window->priv->properties_dlg != NULL) {
+			eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg), 
+						      image);
+		}
+
 		g_object_unref (thumb);
 	} else if (!GTK_WIDGET_VISIBLE (window->priv->nav)) {
 		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
@@ -367,8 +378,10 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	if (image != NULL) {
 		priv->image = g_object_ref (image);
+
 		g_signal_connect (image, "thumbnail_changed", 
 				  G_CALLBACK (image_thumb_changed_cb), window);
+
 		image_thumb_changed_cb (image, window);
 	}
 
@@ -1537,6 +1550,26 @@ eog_window_cmd_print (GtkAction *action, gpointer user_data)
 }
 
 static void
+eog_window_cmd_properties (GtkAction *action, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (window->priv->properties_dlg == NULL) {
+		window->priv->properties_dlg = 
+			eog_properties_dialog_new (GTK_WINDOW (window),
+						   EOG_THUMB_VIEW (priv->thumbview));
+
+		eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
+					      priv->image);
+	}
+
+	eog_properties_dialog_show (EOG_PROPERTIES_DIALOG (window->priv->properties_dlg));
+}
+
+static void
 eog_window_cmd_undo (GtkAction *action, gpointer user_data)
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
@@ -1788,6 +1821,9 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FilePrint", GTK_STOCK_PRINT, N_("Print..."), "<control>p", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_print) },
+	{ "FileProperties", GTK_STOCK_PROPERTIES, N_("Properties"), "<alt>Return", 
+	  NULL, 
+	  G_CALLBACK (eog_window_cmd_properties) },
 	{ "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_undo) },
