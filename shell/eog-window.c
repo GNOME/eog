@@ -1541,6 +1541,7 @@ save_as_uri_selection_dialog (EogWindow *window, EogImage *image, char **uri, Gd
 	dlg = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
 						 folder_uri);
+	g_free (folder_uri);
 	while (!success) {
 		success = TRUE;
 		if (*uri != NULL) {
