@@ -9,6 +9,7 @@
 
 #define EOG_CONF_VIEW_DIR                    "/apps/eog/view"
 #define EOG_CONF_VIEW_INTERPOLATE            "/apps/eog/view/interpolate"
+#define EOG_CONF_VIEW_AUTOROTATE             "/apps/eog/view/autorotate"
 #define EOG_CONF_VIEW_TRANSPARENCY           "/apps/eog/view/transparency"
 #define EOG_CONF_VIEW_TRANS_COLOR            "/apps/eog/view/trans_color"
 

@@ -13,7 +13,9 @@ typedef enum {
 	EOG_TRANSFORM_ROT_180,
 	EOG_TRANSFORM_ROT_270,
 	EOG_TRANSFORM_FLIP_HORIZONTAL,
-	EOG_TRANSFORM_FLIP_VERTICAL
+	EOG_TRANSFORM_FLIP_VERTICAL,
+	EOG_TRANSFORM_TRANSPOSE,
+	EOG_TRANSFORM_TRANSVERSE
 } EogTransformType;
 
 #define EOG_TYPE_TRANSFORM          (eog_transform_get_type ())
@@ -50,10 +52,13 @@ EogTransform* eog_transform_reverse (EogTransform *trans);
 EogTransform* eog_transform_compose (EogTransform *trans, EogTransform *compose);
 gboolean      eog_transform_is_identity (EogTransform *trans);
 
+EogTransform* eog_transform_identity_new ();
 EogTransform* eog_transform_rotate_new (int degree);
 EogTransform* eog_transform_flip_new   (EogTransformType type /* only EOG_TRANSFORM_FLIP_* are valid */);
 EogTransform* eog_transform_scale_new  (double sx, double sy);
+EogTransform* eog_transform_new (EogTransformType trans);
 
+EogTransformType eog_transform_convert_exif_orientation (int orientation);
 EogTransformType eog_transform_get_transform_type (EogTransform *trans);
 
 G_END_DECLS

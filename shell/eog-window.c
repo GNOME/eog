@@ -4024,6 +4024,8 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	EogWindowPrivate *priv;
 #ifdef HAVE_LCMS
         int i;
+#elif HAVE_EXIF
+        int i;
 #endif
 
 	g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
@@ -4053,6 +4055,15 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 		}
 #endif
 
+#if HAVE_EXIF
+		/* Correct orientation */
+		if (gconf_client_get_bool (priv->client, EOG_CONF_VIEW_AUTOROTATE, NULL))
+		{
+    			for (i = 0; i < eog_image_list_length (model); i++) {
+    				eog_image_autorotate (eog_image_list_get_img_by_pos (model, i));
+			}
+		}
+#endif
 	}
 
 	/* update ui */

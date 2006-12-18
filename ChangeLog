@@ -1,3 +1,16 @@
+2006-12-18  Lucas Rocha  <lucasr@gnome.org>
+
+	Support for image auto-rotation based on EXIF orientation (Fixes bug
+	#148400). Patch from Kalle Vahlman <zuh@iki.fi> and 
+	Jef Driesen <jefdriesen@hotmail.com>
+
+	* eog.glade: new check box for image auto orientation.
+	* libeog/eog-config-keys.h, eog.schemas.in: new /apps/eog/view/autorotate 
+	gconf key.
+	* libeog/eog-image.[ch]: new eog_image_autorotate () method.
+	* libeog/eog-transform.[ch]: auto-rotation support.
+	* shell/eog-window.c: queue autorotation on image list initialization.
+
 2006-12-17  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* shell/eog-window.c: (save_as_uri_selection_dialog):

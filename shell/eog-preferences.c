@@ -150,6 +150,16 @@ eog_preferences_show (GtkWindow *parent, GConfClient *client)
 			  G_CALLBACK (check_toggle_cb), 
 			  client);
 
+	/* autorotate flag */
+	widget = glade_xml_get_widget (xml, "autorotate_check");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), 
+				      gconf_client_get_bool (client, EOG_CONF_VIEW_AUTOROTATE, NULL));
+	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_CONF_VIEW_AUTOROTATE);
+	g_signal_connect (G_OBJECT (widget), 
+			  "toggled", 
+			  G_CALLBACK (check_toggle_cb), 
+			  client);
+
 	/* Transparency radio group */
 	widget = glade_xml_get_widget (xml, "color_radio");
 	g_object_set_data (G_OBJECT (widget), GCONF_OBJECT_KEY, EOG_CONF_VIEW_TRANSPARENCY);

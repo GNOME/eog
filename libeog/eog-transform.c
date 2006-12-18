@@ -200,6 +200,18 @@ eog_transform_is_identity (EogTransform *trans)
 	return art_affine_equal (identity, trans->priv->affine);
 }
 
+EogTransform*
+eog_transform_identity_new ()
+{
+	EogTransform *trans; 
+
+	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+	
+	art_affine_identity (trans->priv->affine);
+
+	return trans;
+}
+
 EogTransform* 
 eog_transform_rotate_new (int degree)
 {
@@ -244,6 +256,70 @@ eog_transform_scale_new  (double sx, double sy)
 	return trans;
 }
 
+EogTransform*
+eog_transform_new (EogTransformType type)
+{
+	EogTransform *trans = NULL;
+	EogTransform *temp1 = NULL, *temp2 = NULL;
+
+	switch (type) {
+	case EOG_TRANSFORM_NONE:
+		trans = eog_transform_identity_new ();
+		break;
+	case EOG_TRANSFORM_FLIP_HORIZONTAL:
+		trans = eog_transform_flip_new (EOG_TRANSFORM_FLIP_HORIZONTAL);
+		break;
+	case EOG_TRANSFORM_ROT_180:
+		trans = eog_transform_rotate_new (180);
+		break;
+	case EOG_TRANSFORM_FLIP_VERTICAL:
+		trans = eog_transform_flip_new (EOG_TRANSFORM_FLIP_VERTICAL);
+		break;
+	case EOG_TRANSFORM_TRANSPOSE:
+		temp1 = eog_transform_rotate_new (90);
+		temp2 = eog_transform_flip_new (EOG_TRANSFORM_FLIP_HORIZONTAL);
+		trans = eog_transform_compose (temp1, temp2);
+		g_object_unref (temp1);
+		g_object_unref (temp2);
+		break;
+	case EOG_TRANSFORM_ROT_90:
+		trans = eog_transform_rotate_new (90);
+		break;
+	case EOG_TRANSFORM_TRANSVERSE:
+		temp1 = eog_transform_rotate_new (90);
+		temp2 = eog_transform_flip_new (EOG_TRANSFORM_FLIP_VERTICAL);
+		trans = eog_transform_compose (temp1, temp2);
+		g_object_unref (temp1);
+		g_object_unref (temp2);
+		break;
+	case EOG_TRANSFORM_ROT_270:
+		trans = eog_transform_rotate_new (270);
+		break;
+	default:
+		trans = eog_transform_identity_new ();
+		break;
+	}
+
+	return trans;
+}
+
+EogTransformType
+eog_transform_convert_exif_orientation (int orientation)
+{
+	static EogTransformType lookup [8] = {EOG_TRANSFORM_NONE, 
+					      EOG_TRANSFORM_FLIP_HORIZONTAL, 
+					      EOG_TRANSFORM_ROT_180, 
+					      EOG_TRANSFORM_FLIP_VERTICAL, 
+					      EOG_TRANSFORM_TRANSPOSE, 
+					      EOG_TRANSFORM_ROT_90, 
+					      EOG_TRANSFORM_TRANSVERSE, 
+					      EOG_TRANSFORM_ROT_270};
+	
+	return (orientation >= 1 && orientation <= 8 ? 
+				lookup[orientation - 1] : 
+				EOG_TRANSFORM_NONE);
+}
+
 EogTransformType
 eog_transform_get_transform_type (EogTransform *trans)
 {
@@ -279,6 +355,18 @@ eog_transform_get_transform_type (EogTransform *trans)
 	art_affine_flip (affine, affine, FALSE, TRUE);
 	if (art_affine_equal (affine, priv->affine)) {
 		return EOG_TRANSFORM_FLIP_VERTICAL;
+	}
+
+	art_affine_rotate (affine, 90);
+	art_affine_flip (affine, affine, TRUE, FALSE);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_TRANSPOSE;
+	}
+
+	art_affine_rotate (affine, 90);
+	art_affine_flip (affine, affine, FALSE, TRUE);
+	if (art_affine_equal (affine, priv->affine)) {
+		return EOG_TRANSFORM_TRANSVERSE;
 	}
 
 	return EOG_TRANSFORM_NONE;
