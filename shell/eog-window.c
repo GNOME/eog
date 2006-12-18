@@ -462,6 +462,11 @@ eog_window_print_draw_page (GtkPrintOperation *operation,
 		cairo_scale (cr, scale_factor, scale_factor);
 		cairo_translate (cr, (p_width/scale_factor - width)/2, 0);
 	}
+
+	/* this is a workaround for a bug in cairo's PDF backend */
+	cairo_rectangle (cr, 0, 0, width, height);
+	cairo_clip (cr);
+
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 	cairo_paint (cr);
 
