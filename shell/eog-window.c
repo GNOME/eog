@@ -77,7 +77,7 @@ typedef enum {
 } EogWindowMode;
 
 struct _EogWindowPrivate {
-        GConfClient *client;
+        GConfClient         *client;
 
         EogListStore        *store;
         EogImage            *image;
@@ -114,8 +114,8 @@ struct _EogWindowPrivate {
         EogJob              *load_job;
         EogJob              *transform_job;
 
-        guint image_info_message_cid;
-        guint tip_message_cid;
+        guint                image_info_message_cid;
+        guint                tip_message_cid;
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
@@ -1402,12 +1402,16 @@ static void
 eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
+	GObject *pref_dlg;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	window = EOG_WINDOW (user_data);
 
-	eog_preferences_show (GTK_WINDOW (window), window->priv->client);
+	pref_dlg = eog_preferences_dialog_get_instance (GTK_WINDOW (window), 
+							window->priv->client);
+
+	eog_dialog_show (EOG_DIALOG (pref_dlg));
 }
 
 static void
@@ -1571,7 +1575,7 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 					      priv->image);
 	}
 
-	eog_properties_dialog_show (EOG_PROPERTIES_DIALOG (window->priv->properties_dlg));
+	eog_dialog_show (EOG_DIALOG (window->priv->properties_dlg));
 }
 
 static void

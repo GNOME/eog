@@ -22,6 +22,7 @@
 #ifndef __EOG_PROPERTIES_DIALOG_H__
 #define __EOG_PROPERTIES_DIALOG_H__
 
+#include "eog-dialog.h"
 #include "eog-image.h"
 #include "eog-thumb-view.h"
 
@@ -43,23 +44,19 @@ typedef struct _EogPropertiesDialogPrivate EogPropertiesDialogPrivate;
 #define EOG_PROPERTIES_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_PROPERTIES_DIALOG, EogPropertiesDialogClass))
 
 struct _EogPropertiesDialog {
-	GObject object;
+	EogDialog dialog;
 
 	EogPropertiesDialogPrivate *priv;
 };
 
 struct _EogPropertiesDialogClass {
-	GObjectClass parent_class;
+	EogDialogClass parent_class;
 };
 
 GType	    eog_properties_dialog_get_type	(void);
 
-GObject    *eog_properties_dialog_new	  	(GtkWindow           *window,
+GObject    *eog_properties_dialog_new	  	(GtkWindow           *parent,
                                                  EogThumbView        *thumbview);
-
-void        eog_properties_dialog_show	  	(EogPropertiesDialog *prop);
-
-void        eog_properties_dialog_hide	  	(EogPropertiesDialog *prop);
 
 void	    eog_properties_dialog_update  	(EogPropertiesDialog *prop,
 						 EogImage            *image);

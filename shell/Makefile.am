@@ -26,6 +26,8 @@ eog_SOURCES =				\
 	eog-util.c			\
 	eog-window.h			\
 	eog-window.c			\
+	eog-dialog.h			\
+	eog-dialog.c			\
 	eog-preferences.h		\
 	eog-preferences.c		\
 	eog-properties-dialog.h		\

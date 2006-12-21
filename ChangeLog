@@ -1,7 +1,18 @@
+2006-12-21  Lucas Rocha  <lucasr@gnome.org>
+
+	EOG dialogs common infrastructure. Preferences and image properties
+	dialogs share the same base code now.
+
+	* eog-dialog.[ch]: new generic dialog implementation for dialogs.
+	* eog-preferences.[ch], eog-properties-dialog.[ch]: both dialogs
+	inherit from EogDialog.
+	* eog-window.c: update for new preferences dialog API.
+	* shell/Makefile.am: added eog-dialog.[ch] to the build.
+
 2006-12-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-        * shell/eog-window.c: (eog_window_print_draw_page): Clip the pattern
-        to workaround a bug in cairo's PDF backend.
+	* shell/eog-window.c: (eog_window_print_draw_page): Clip the pattern
+	to workaround a bug in cairo's PDF backend.
 
 2006-12-16  Lucas Rocha  <lucasr@gnome.org>
 
