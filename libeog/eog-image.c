@@ -1791,9 +1791,11 @@ eog_image_get_exif_orientation (EogImage *img)
 #ifdef HAVE_EXIF
 	if (priv->exif != NULL) {
 		ExifEntry *e = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
-		ExifByteOrder o = exif_data_get_byte_order (e->parent->parent);
-		if (e->data != NULL)
+
+		if (e != NULL && e->data != NULL) {
+			ExifByteOrder o = exif_data_get_byte_order (e->parent->parent);
 			orientation = exif_get_short (e->data, o);
+		}
 	}
 #endif /* HAVE_EXIF */
 

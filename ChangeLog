@@ -1,3 +1,9 @@
+2006-12-22  Felix Riemann  <friemann@cvs.gnome.org>
+
+	* libeog/eog-image.c: (eog_image_get_exif_orientation): Fix NULL
+	pointer	dereference when orientation tag is not present in EXIF data.
+	Fixes #388413. Patch from Sebastien Bacher <seb128@debian.org>.
+
 2006-12-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-window.c: (eog_window_print_draw_page): Clip the pattern
