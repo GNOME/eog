@@ -71,10 +71,16 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 
 typedef enum {
 	EOG_WINDOW_MODE_UNKNOWN,
+	EOG_WINDOW_MODE_INIT,
 	EOG_WINDOW_MODE_NORMAL,
 	EOG_WINDOW_MODE_FULLSCREEN,
 	EOG_WINDOW_MODE_SLIDESHOW
 } EogWindowMode;
+
+enum {
+	PROP_0,
+	PROP_STARTUP_FLAGS
+};
 
 struct _EogWindowPrivate {
         GConfClient         *client;
@@ -116,9 +122,12 @@ struct _EogWindowPrivate {
 
         guint                image_info_message_cid;
         guint                tip_message_cid;
+
+        EogStartupFlags      flags;
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
+static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_window_cmd_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_job_load_cb (EogJobLoad *job, gpointer data);
@@ -491,6 +500,8 @@ update_action_groups_state (EogWindow *window)
 	gboolean print_disabled = FALSE;
 	gboolean page_setup_disabled = FALSE;
 	gboolean show_image_collection = FALSE;
+	gboolean fullscreen_mode = FALSE;
+	GtkAction *action_collection;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 	GtkAction *action_save;
@@ -502,9 +513,17 @@ update_action_groups_state (EogWindow *window)
 
 	priv = window->priv;
 
+	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
+			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+
+	action_collection = 
+		gtk_action_group_get_action (priv->actions_window, 
+					     "ViewImageCollection");
+
 	action_fscreen = 
 		gtk_action_group_get_action (priv->actions_image, 
 					     "ViewFullscreen");
+
 	action_sshow = 
 		gtk_action_group_get_action (priv->actions_collection, 
 					     "ViewSlideshow");
@@ -545,60 +564,68 @@ update_action_groups_state (EogWindow *window)
 
 		gtk_action_set_sensitive (action_fscreen, FALSE);
 		gtk_action_set_sensitive (action_sshow,   FALSE);
-	} else if (n_images == 1) {
-		show_image_collection = 
-			gconf_client_get_bool (priv->client, 
-					       EOG_CONF_UI_IMAGE_COLLECTION, 
-					       NULL);
-
-		gtk_widget_show_all (priv->vbox);
-
-		if (!show_image_collection) 
-			gtk_widget_hide_all (priv->nav);
-
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-		
-		gtk_action_set_sensitive (action_fscreen, TRUE);
-		gtk_action_set_sensitive (action_sshow,   FALSE);
-
-		gtk_widget_grab_focus (priv->view);
 	} else {
-		show_image_collection = 
-			gconf_client_get_bool (priv->client, 
+		if (priv->flags & EOG_STARTUP_DISABLE_COLLECTION) {
+			gconf_client_set_bool (priv->client, 
 					       EOG_CONF_UI_IMAGE_COLLECTION, 
+					       FALSE,
 					       NULL);
 
-		gtk_widget_show_all (priv->vbox);
+			show_image_collection = FALSE;
+		} else {
+			show_image_collection = 
+				gconf_client_get_bool (priv->client, 
+						       EOG_CONF_UI_IMAGE_COLLECTION, 
+						       NULL);
+		}
 
-		if (!show_image_collection) 
-			gtk_widget_hide_all (priv->nav);
+		show_image_collection = show_image_collection && !fullscreen_mode;
 
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       TRUE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
+		gtk_widget_show (priv->vbox);
+		gtk_widget_show_all (priv->view->parent);
+
+		if (show_image_collection) 
+			gtk_widget_show_all (priv->nav);
+
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_collection),
+					      show_image_collection);
+
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
 		
 		gtk_action_set_sensitive (action_fscreen, TRUE);
-		gtk_action_set_sensitive (action_sshow,   TRUE);
+
+		if (n_images == 1) {
+			gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+			gtk_action_set_sensitive (action_sshow, FALSE);
+		} else {
+			gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
+			gtk_action_set_sensitive (action_sshow, TRUE);
+		}
 
 		gtk_widget_grab_focus (priv->view);
 	}
 
-	save_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_SAVE, NULL);
+	save_disabled = gconf_client_get_bool (priv->client, 
+					       EOG_CONF_DESKTOP_CAN_SAVE, 
+					       NULL);
 
 	if (save_disabled) {
 		gtk_action_set_sensitive (action_save, FALSE);
 		gtk_action_set_sensitive (action_save_as, FALSE);
 	}
 
-	print_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_PRINT, NULL);
+	print_disabled = gconf_client_get_bool (priv->client, 
+						EOG_CONF_DESKTOP_CAN_PRINT, 
+						NULL);
 
 	if (print_disabled) {
 		gtk_action_set_sensitive (action_print, FALSE);
 	}
 
-	page_setup_disabled = gconf_client_get_bool (priv->client, EOG_CONF_DESKTOP_CAN_SETUP_PAGE, NULL);
+	page_setup_disabled = gconf_client_get_bool (priv->client, 
+						     EOG_CONF_DESKTOP_CAN_SETUP_PAGE, 
+						     NULL);
 
 	if (page_setup_disabled) {
 		gtk_action_set_sensitive (action_page_setup, FALSE);
@@ -742,7 +769,10 @@ eog_window_open_recent_cb (GtkAction *action, EogWindow *window)
 	uri = gtk_recent_info_get_uri (info);
 	list = g_slist_prepend (list, g_strdup (uri));
 
-	eog_application_open_uri_list (EOG_APP, list, GDK_CURRENT_TIME, NULL);
+	eog_application_open_uri_list (EOG_APP, list, 
+				       GDK_CURRENT_TIME, 
+				       NULL, 
+				       0);
 
 	g_slist_foreach (list, (GFunc) g_free, NULL);
 	g_slist_free (list);
@@ -761,7 +791,8 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 		eog_application_open_uri_list (EOG_APP, 
 					       uris, 
 					       GDK_CURRENT_TIME, 
-					       NULL);
+					       NULL,
+					       0);
 	
 		g_slist_foreach (uris, (GFunc) g_free, NULL);	
 		g_slist_free (uris);
@@ -775,7 +806,8 @@ eog_window_update_fullscreen_action (EogWindow *window)
 {
 	GtkAction *action;
 
-	action = gtk_action_group_get_action (window->priv->actions_image, "ViewFullscreen");
+	action = gtk_action_group_get_action (window->priv->actions_image, 
+					      "ViewFullscreen");
 
 	g_signal_handlers_block_by_func
 		(action, G_CALLBACK (eog_window_cmd_fullscreen), window);
@@ -792,7 +824,8 @@ eog_window_update_slideshow_action (EogWindow *window)
 {
 	GtkAction *action;
 
-	action = gtk_action_group_get_action (window->priv->actions_collection, "ViewSlideshow");
+	action = gtk_action_group_get_action (window->priv->actions_collection, 
+					      "ViewSlideshow");
 
 	g_signal_handlers_block_by_func
 		(action, G_CALLBACK (eog_window_cmd_slideshow), window);
@@ -1066,8 +1099,9 @@ update_ui_visibility (EogWindow *window)
 
 	priv = window->priv;
 
-	fullscreen_mode = priv->mode != EOG_WINDOW_MODE_NORMAL;
-	
+	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
+			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
 	g_assert (GTK_IS_WIDGET (menubar));
 
@@ -1088,15 +1122,17 @@ update_ui_visibility (EogWindow *window)
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
-	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
-	visible = visible && !fullscreen_mode;
-	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
-	g_assert (action != NULL);
-	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
-	if (visible) {
-		gtk_widget_show_all (priv->nav);
-	} else {
-		gtk_widget_hide_all (priv->nav);
+	if (priv->mode != EOG_WINDOW_MODE_INIT) {
+		visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
+		visible = visible && !fullscreen_mode;
+		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
+		g_assert (action != NULL);
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+		if (visible) {
+			gtk_widget_show_all (priv->nav);
+		} else {
+			gtk_widget_hide_all (priv->nav);
+		}
 	}
 
 	if (priv->fullscreen_popup != NULL) {
@@ -2283,12 +2319,9 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->vbox), priv->nav, FALSE, FALSE, 0);
 
 	gtk_box_pack_start (GTK_BOX (priv->box), priv->vbox, TRUE, TRUE, 0);
-	gtk_widget_show_all (GTK_WIDGET (priv->vbox));
 
 	//set_drag_dest (window);
 
-	update_ui_visibility (window);
-	
 	entry = gconf_client_get_entry (priv->client, 
 					EOG_CONF_VIEW_INTERPOLATE, 
 					NULL, TRUE, NULL);
@@ -2314,6 +2347,14 @@ eog_window_construct_ui (EogWindow *window)
 		eog_window_trans_color_changed_cb (priv->client, 0, entry, window);
 		gconf_entry_free (entry);
 		entry = NULL;
+	}
+
+	if ((priv->flags & EOG_STARTUP_FULLSCREEN) || 
+	    (priv->flags & EOG_STARTUP_SLIDE_SHOW)) {
+		eog_window_run_fullscreen (window, (priv->flags & EOG_STARTUP_SLIDE_SHOW));
+	} else {
+		update_ui_visibility (window);
+		priv->mode = EOG_WINDOW_MODE_NORMAL;
 	}
 }
 
@@ -2363,14 +2404,12 @@ eog_window_init (EogWindow *window)
 
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
-	window->priv->mode = EOG_WINDOW_MODE_NORMAL;
+	window->priv->mode = EOG_WINDOW_MODE_INIT;
 
 	window->priv->recent_manager = 
 		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
 
 	window->priv->recent_menu_id = 0;
-	
-	eog_window_construct_ui (window);
 }
 
 static void
@@ -2667,13 +2706,78 @@ eog_window_screen_changed (GtkWidget *widget, GdkScreen *prev_screen)
 }
 
 static void
+eog_window_set_property (GObject      *object,
+			 guint         property_id,
+			 const GValue *value,
+			 GParamSpec   *pspec)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
+        g_return_if_fail (EOG_IS_WINDOW (object));
+
+        window = EOG_WINDOW (object);
+	priv = window->priv;
+
+        switch (property_id) {
+	case PROP_STARTUP_FLAGS:
+		priv->flags = (gint8) g_value_get_uchar (value);
+		break;
+
+        default:
+                g_assert_not_reached ();
+        }
+}
+
+static void
+eog_window_get_property (GObject    *object,
+			 guint       property_id,
+			 GValue     *value,
+			 GParamSpec *pspec)
+{
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
+        g_return_if_fail (EOG_IS_WINDOW (object));
+
+        window = EOG_WINDOW (object);
+	priv = window->priv;
+
+        switch (property_id) {
+	case PROP_STARTUP_FLAGS:
+		g_value_set_uchar (value, priv->flags);
+
+        default:
+                g_assert_not_reached ();
+	}
+}
+
+static GObject *
+eog_window_constructor (GType type,
+			guint n_construct_properties,
+			GObjectConstructParam *construct_params)
+{
+	GObject *object;
+
+	object = G_OBJECT_CLASS (eog_window_parent_class)->constructor
+			(type, n_construct_properties, construct_params);
+
+	eog_window_construct_ui (EOG_WINDOW (object));
+
+	return object;
+}
+
+static void
 eog_window_class_init (EogWindowClass *class)
 {
 	GObjectClass *g_object_class = (GObjectClass *) class;
 	GtkWidgetClass *widget_class = (GtkWidgetClass *) class;
 
+	g_object_class->constructor = eog_window_constructor;
 	g_object_class->dispose = eog_window_dispose;
 	g_object_class->finalize = eog_window_finalize;
+	g_object_class->set_property = eog_window_set_property;
+	g_object_class->get_property = eog_window_get_property;
 
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
@@ -2686,16 +2790,28 @@ eog_window_class_init (EogWindowClass *class)
 	//widget_class->drag_data_received = eog_window_drag_data_received;
 	widget_class->screen_changed = eog_window_screen_changed;
 
+	g_object_class_install_property (g_object_class,
+					 PROP_STARTUP_FLAGS,
+					 g_param_spec_uchar ("startup-flags", 
+							     NULL, 
+							     NULL,
+							     0,
+					 		     G_MAXUINT8,
+					 		     0,
+					 		     G_PARAM_READWRITE |
+							     G_PARAM_CONSTRUCT_ONLY));
+
 	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
 }
 
 GtkWidget*
-eog_window_new ()
+eog_window_new (EogStartupFlags flags)
 {
 	EogWindow *window;
 
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, 
 					   "type", GTK_WINDOW_TOPLEVEL,
+					   "startup-flags", flags,
 					   NULL));
 
 	return GTK_WIDGET (window);
@@ -2750,7 +2866,7 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 	EogJob *job;
 	
 	job = eog_job_model_new (uri_list);
-
+	
 	g_signal_connect (job,
 			  "finished",
 			  G_CALLBACK (eog_job_model_cb),

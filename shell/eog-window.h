@@ -34,6 +34,13 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
+typedef enum
+{
+  EOG_STARTUP_FULLSCREEN         = 1 << 0,
+  EOG_STARTUP_SLIDE_SHOW         = 1 << 1,
+  EOG_STARTUP_DISABLE_COLLECTION = 1 << 2
+} EogStartupFlags;
+
 G_BEGIN_DECLS 
 
 typedef struct _EogWindow EogWindow;
@@ -72,14 +79,14 @@ struct _EogWindowClass {
 
 GType        eog_window_get_type  	(void);
 
-GtkWidget*   eog_window_new		(void);
+GtkWidget*   eog_window_new		(EogStartupFlags  flags);
 
-const char*  eog_window_get_uri		(EogWindow *window);
+const char*  eog_window_get_uri		(EogWindow       *window);
 
-void         eog_window_open_uri_list	(EogWindow *window, 
-					 GSList    *uri_list);
+void         eog_window_open_uri_list	(EogWindow       *window, 
+					 GSList          *uri_list);
 
-gboolean     eog_window_is_empty 	(EogWindow *window);
+gboolean     eog_window_is_empty 	(EogWindow       *window);
 
 G_END_DECLS
 

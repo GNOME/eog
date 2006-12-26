@@ -46,11 +46,21 @@
 #include <libleaftag/leaftag.h>
 #endif
 
+static EogStartupFlags flags;
+
+#ifdef HAVE_LEAFTAG
 static gboolean tags = FALSE;
+#endif
+static gboolean fullscreen = FALSE;
+static gboolean slide_show = FALSE;
+static gboolean disable_collection = FALSE;
 static gchar **startup_files = NULL;
 
 static const GOptionEntry goption_options[] =
 {
+	{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, &fullscreen, N_("Open in fullscreen mode"), NULL  },
+	{ "disable-image-collection", 'c', 0, G_OPTION_ARG_NONE, &disable_collection, N_("Disable image collection"), NULL  },
+	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slide show mode"), NULL  },
 #ifdef HAVE_LEAFTAG
 	{ "tags", 0, 0, G_OPTION_ARG_NONE, &tags, N_("Open images by tag names"), NULL },
 #endif
@@ -86,6 +96,19 @@ string_array_to_list (const gchar **files, gboolean create_uri)
 }
 
 static void 
+set_startup_flags ()
+{
+  if (fullscreen)
+    flags |= EOG_STARTUP_FULLSCREEN;
+
+  if (disable_collection)
+    flags |= EOG_STARTUP_DISABLE_COLLECTION;
+
+  if (slide_show)
+    flags |= EOG_STARTUP_SLIDE_SHOW;
+}
+
+static void 
 load_files ()
 {
 	GSList *files = NULL;
@@ -95,7 +118,8 @@ load_files ()
 	eog_application_open_uri_list (EOG_APP, 
 				       files,
 				       GDK_CURRENT_TIME,
-				       NULL);
+				       NULL,
+				       flags);
 
 	g_slist_foreach (files, (GFunc) g_free, NULL);	
 	g_slist_free (files);
@@ -146,6 +170,8 @@ main (int argc, char **argv)
 
 	gtk_window_set_default_icon_name ("image-viewer");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
+
+  set_startup_flags ();
 
 #ifdef HAVE_LEAFTAG
 	if (!tags) {

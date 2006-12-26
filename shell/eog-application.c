@@ -74,13 +74,12 @@ eog_application_get_instance (void)
 gboolean
 eog_application_open_window (EogApplication  *application,
 			     guint32         timestamp,
-			     GError         **error)
+			     GError         **error,
+			     EogStartupFlags flags)
 {
-	GtkWidget *new_window = eog_window_new ();
-
+	GtkWidget *new_window = eog_window_new (flags);
+  
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
-
-	gtk_widget_show (new_window);
 
 	gtk_window_present_with_time (GTK_WINDOW (new_window),
 				      timestamp);
@@ -165,7 +164,8 @@ gboolean
 eog_application_open_uri_list (EogApplication  *application,
 			       GSList          *files,
 			       guint           timestamp,
-			       GError         **error)
+			       GError         **error,
+			       EogStartupFlags flags)
 {
 	EogWindow *new_window = NULL;
 	GSList *uri_list = NULL;
@@ -185,12 +185,10 @@ eog_application_open_uri_list (EogApplication  *application,
 	new_window = eog_application_get_empty_window (application);
 
 	if (new_window == NULL) {
-		new_window = EOG_WINDOW (eog_window_new ());
+		new_window = EOG_WINDOW (eog_window_new (flags));
 	}
 
 	eog_window_open_uri_list (new_window, uri_list);
-
-	gtk_widget_show (GTK_WIDGET (new_window));
 
 	gtk_window_present_with_time (GTK_WINDOW (new_window),
 				      timestamp);
@@ -203,7 +201,8 @@ gboolean
 eog_application_open_tag_list (EogApplication  *application,
 			       GSList          *tags,
 			       guint           timestamp,
-			       GError         **error)
+			       GError         **error,
+			       EogStartupFlags flags)
 {
 	GSList *files = NULL;
 	GList *sources, *l;
@@ -221,7 +220,8 @@ eog_application_open_tag_list (EogApplication  *application,
 	eog_application_open_uri_list (EOG_APP, 
 				       files,
 				       GDK_CURRENT_TIME,
-				       NULL);
+				       NULL,
+				       flags);
 
 	g_list_foreach(sources, (GFunc) g_object_unref, NULL);
 	g_list_free (sources);

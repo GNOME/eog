@@ -61,18 +61,21 @@ void	          eog_application_shutdown	     (EogApplication   *application);
 
 gboolean          eog_application_open_window        (EogApplication   *application,
 						      guint            timestamp,
-						      GError          **error);
+						      GError          **error,
+						      EogStartupFlags flags);
 
 gboolean          eog_application_open_uri_list      (EogApplication   *application,
 		  			              GSList           *uri_list,
     						      guint            timestamp,
-						      GError          **error);
+						      GError          **error,
+						      EogStartupFlags flags);
 
 #ifdef HAVE_LEAFTAG
 gboolean          eog_application_open_tag_list      (EogApplication   *application,
 		  			              GSList           *tags,
     						      guint            timestamp,
-						      GError          **error);
+						      GError          **error,
+						      EogStartupFlags flags);
 #endif
 
 GList		 *eog_application_get_windows	     (EogApplication   *application);
