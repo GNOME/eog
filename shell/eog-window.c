@@ -2327,7 +2327,7 @@ eog_window_construct_ui (EogWindow *window)
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
 		eog_window_interp_type_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 
@@ -2336,7 +2336,7 @@ eog_window_construct_ui (EogWindow *window)
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
 		eog_window_transparency_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 
@@ -2345,7 +2345,7 @@ eog_window_construct_ui (EogWindow *window)
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
 		eog_window_trans_color_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 
