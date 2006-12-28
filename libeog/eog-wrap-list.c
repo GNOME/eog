@@ -48,7 +48,6 @@ static GtkTargetEntry drag_types [] = {
 
 /* Used to hold signal handler IDs for models */
 typedef enum {
-	MODEL_SIGNAL_PREPARED,
 	MODEL_SIGNAL_IMAGE_ADDED,
 	MODEL_SIGNAL_IMAGE_REMOVED,
 	MODEL_SIGNAL_LAST

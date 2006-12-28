@@ -61,7 +61,6 @@ typedef struct {
 
 /* Signal IDs */
 enum {
-	LIST_PREPARED,
 	IMAGE_ADDED,
 	IMAGE_REMOVED,
 	LAST_SIGNAL
@@ -185,16 +184,6 @@ eog_image_list_class_init (EogImageListClass *klass)
 	object_class->finalize = eog_image_list_finalize;
 	object_class->dispose = eog_image_list_dispose;
 
-	eog_image_list_signals[LIST_PREPARED] = 
-		g_signal_new ("list-prepared",
-			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EogImageListClass, list_prepared),
-			      NULL,
-			      NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE,
-			      0);
 	eog_image_list_signals[IMAGE_ADDED] =
 		g_signal_new ("image-added",
 			      G_TYPE_FROM_CLASS (object_class),

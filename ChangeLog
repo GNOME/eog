@@ -1,3 +1,14 @@
+2006-12-28  Felix Riemann  <friemann@cvs.gnome.org>
+
+	* libeog/eog-image-list.c: (eog_image_list_class_init):
+	* libeog/eog-image-list.h: Remove list-prepared signal as it is
+	neither	emitted nor used anymore. 
+	* libeog/eog-wrap-list.c: Remove some leftover handler_id variables.
+	* shell/eog-window.c: (eog_window_init), (eog_window_open): We don't
+	connect to EogImageList::list-prepared anymore, so there's no need to
+	disconnect from it. This avoids some possibly fatal warnings when EOG
+	is set to reuse its window. Fixes bug #390268.
+
 2006-12-27  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* configure.in: Reformat and add dependence on gnome-icon-theme.

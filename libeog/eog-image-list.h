@@ -32,7 +32,6 @@ struct _EogImageListClass {
 	GObjectClass parent_klass;
 
 	/* Notification signals */
-	void (* list_prepared) (EogImageList *list);
 	void (* reordered)     (EogImageList *list);
 	void (* image_added)   (EogImageList *list, int pos);
 	void (* image_removed) (EogImageList *list, int pos);

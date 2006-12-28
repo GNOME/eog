@@ -141,7 +141,6 @@ struct _EogWindowPrivate {
 	guint trans_color_notify_id;
 
 	/* signal ids */
-	guint sig_id_list_prepared;
 	guint sig_id_progress;
 	guint sig_id_loading_finished;
 	guint sig_id_loading_failed;
@@ -2616,7 +2615,6 @@ eog_window_init (EogWindow *window)
 	priv->image_list = NULL;
 	priv->displayed_image = NULL;
 	priv->next_image = NULL;
-	priv->sig_id_list_prepared = 0;
 
 	g_object_set (G_OBJECT (window), "allow_shrink", TRUE, NULL);
 
@@ -4043,7 +4041,6 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 
 	/* attach image list */
 	if (priv->image_list != NULL) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
 		g_object_unref (priv->image_list);
 		priv->image_list = NULL;
 	}
