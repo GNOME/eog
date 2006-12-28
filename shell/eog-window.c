@@ -3469,7 +3469,7 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 static const GtkActionEntry action_entries_image[] = {
   { "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", NULL, G_CALLBACK (verb_Save_cb) },
   { "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s", NULL, G_CALLBACK (verb_SaveAs_cb) },
-  { "FilePageSetup", NULL, N_("Page Set_up"), NULL, NULL, G_CALLBACK (verb_PageSetup_cb) },
+  { "FilePageSetup", "stock_print-setup", N_("Page Set_up..."), NULL, NULL, G_CALLBACK (verb_PageSetup_cb) },
   { "FilePrint", GTK_STOCK_PRINT, N_("Print..."), "<control>p", NULL, G_CALLBACK (verb_Print_cb) },
 
   { "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), "<control>z", NULL, G_CALLBACK (verb_Undo_cb) },
