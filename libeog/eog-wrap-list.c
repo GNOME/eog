@@ -944,6 +944,8 @@ eog_wrap_list_set_model (EogWrapList *wlist, EogImageList *model)
 
 	if (priv->model) {
 		for (i = 0; i < MODEL_SIGNAL_LAST; i++) {
+			if (priv->model_ids[i] == 0)
+				continue;
 			g_signal_handler_disconnect (G_OBJECT (priv->model), priv->model_ids[i]);
 			priv->model_ids[i] = 0;
 		}

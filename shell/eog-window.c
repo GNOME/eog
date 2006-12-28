@@ -3976,7 +3976,8 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 
 	/* attach image list */
 	if (priv->image_list != NULL) {
-		g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
+		if (priv->sig_id_list_prepared > 0)
+			g_signal_handler_disconnect (G_OBJECT (priv->image_list), priv->sig_id_list_prepared);
 		g_object_unref (priv->image_list);
 		priv->image_list = NULL;
 	}
