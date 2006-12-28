@@ -58,6 +58,7 @@ GCONF_REQUIRED=2.5.90
 LIBART_REQUIRED=2.3.16
 GNOME_DESKTOP_REQUIRED=2.10.0
 GTK_PRINT_REQUIRED=2.10.0
+GNOME_ICON_THEME_REQUIRED=2.17.1
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
@@ -68,7 +69,8 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              gconf-2.0 >= $GCONF_REQUIRED \
              libart-2.0 >= $LIBART_REQUIRED \
              gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
-             gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED"
+             gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED \
+	     gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED"
 
 # ***************
 # EXIF (optional)
