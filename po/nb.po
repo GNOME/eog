@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-11 01:17+0100\n"
-"PO-Revision-Date: 2006-12-11 01:18+0100\n"
+"POT-Creation-Date: 2006-12-28 22:20+0100\n"
+"PO-Revision-Date: 2006-12-28 22:22+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -25,57 +25,60 @@ msgid "View different types of images"
 msgstr "Vis forskjellige typer bilder"
 
 #: ../eog.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../eog.glade.h:2
 msgid "<b>File Name Preview</b>"
 msgstr "<b>Forhåndsvisning av filnavn</b>"
 
-#: ../eog.glade.h:2
+#: ../eog.glade.h:3
 msgid "<b>File Path Specifications</b>"
 msgstr "<b>Spesifisert filsti</b>"
 
-#: ../eog.glade.h:3
-msgid "<b>Image Interpolation</b>"
-msgstr "<b>Interpolasjon for bilde</b>"
-
 #: ../eog.glade.h:4
+msgid "<b>Image Enhancements</b>"
+msgstr "<b>Bildeforbedringer</b>"
+
+#: ../eog.glade.h:5
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Zoom i bilde</b>"
 
-#: ../eog.glade.h:5
+#: ../eog.glade.h:6
 msgid "<b>Options</b>"
 msgstr "<b>Alternativer</b>"
 
-#: ../eog.glade.h:6
+#: ../eog.glade.h:7
 msgid "<b>Sequence</b>"
 msgstr "<b>Sekvens</b>"
 
-#: ../eog.glade.h:7
+#: ../eog.glade.h:8
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>Gjennomsiktige deler</b>"
 
 #: ../eog.glade.h:9
-#, no-c-format
-msgid "Allow _zoom greater than 100% initially"
-msgstr "Tillat initiell _zoom større enn 100%"
-
-#: ../eog.glade.h:10
 msgid "As _background"
 msgstr "Som _bakgrunn"
 
-#: ../eog.glade.h:11
+#: ../eog.glade.h:10
 msgid "As check _pattern"
 msgstr "Som _rutemønster"
 
-#: ../eog.glade.h:12
+#: ../eog.glade.h:11
 msgid "As custom c_olor:"
 msgstr "Som tilpasset f_arge:"
 
-#: ../eog.glade.h:13
+#: ../eog.glade.h:12
 msgid "Color for Transparent Areas"
 msgstr "Farge for gjennomsiktige områder"
 
-#: ../eog.glade.h:14
+#: ../eog.glade.h:13
 msgid "Destination Folder:"
 msgstr "Målmappe:"
+
+#: ../eog.glade.h:14
+msgid "E_xpand images to fit screen"
+msgstr "_Utvid bilder til å passe skjermen"
 
 #: ../eog.glade.h:15
 msgid "Eye of GNOME Preferences"
@@ -90,28 +93,28 @@ msgid "Image View"
 msgstr "Bildevisning"
 
 #: ../eog.glade.h:18
-msgid "Interpolate image on _zoom"
-msgstr "Interpoler bilde ved _zoom"
-
-#: ../eog.glade.h:19
 msgid "Rename From:"
 msgstr "Endre navn fra:"
 
-#: ../eog.glade.h:20
+#: ../eog.glade.h:19
 msgid "Replace spaces by underscore"
 msgstr "Erstatt mellomrom med understreking"
 
-#: ../eog.glade.h:21 ../shell/eog-window.c:3527
+#: ../eog.glade.h:20 ../shell/eog-window.c:3527
 msgid "Save As"
 msgstr "Lagre som"
 
-#: ../eog.glade.h:22
+#: ../eog.glade.h:21
 msgid "Saving Image"
 msgstr "Lagrer bilde"
 
-#: ../eog.glade.h:23
+#: ../eog.glade.h:22
 msgid "Slide Show"
 msgstr "Lysbildevisning"
+
+#: ../eog.glade.h:23
+msgid "Smooth images when _zoomed"
+msgstr "Jevn ut bilde ved _zoom"
 
 #: ../eog.glade.h:24
 msgid "Start counter at:"
@@ -122,18 +125,22 @@ msgid "To:"
 msgstr "Til:"
 
 #: ../eog.glade.h:26
+msgid "_Automatic orientation"
+msgstr "_Automatisk orientering"
+
+#: ../eog.glade.h:27
 msgid "_Browse"
 msgstr "_Bla gjennom"
 
-#: ../eog.glade.h:27
+#: ../eog.glade.h:28
 msgid "_Loop sequence"
 msgstr "_Løkkesekvens"
 
-#: ../eog.glade.h:28
+#: ../eog.glade.h:29
 msgid "_Switch image after:"
 msgstr "_Bytt bilde etter:"
 
-#: ../eog.glade.h:29
+#: ../eog.glade.h:30
 msgid "seconds"
 msgstr "sekunder"
 
@@ -151,10 +158,14 @@ msgid "Allow zoom greater than 100% initially"
 msgstr "Tillat zoom større enn 100% ved start"
 
 #: ../eog.schemas.in.h:4
+msgid "Automatic orientation"
+msgstr "Automatisk orientering"
+
+#: ../eog.schemas.in.h:5
 msgid "Delay in seconds until showing the next image"
 msgstr "Pause i sekunder før visning av neste bilde"
 
-#: ../eog.schemas.in.h:5
+#: ../eog.schemas.in.h:6
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -164,7 +175,7 @@ msgstr ""
 "CHECK_PATTERN COLOR og NONE. Hvis COLOR velges bestemmes valgt fargeverdi av "
 "nøkkelen trans_color_key."
 
-#: ../eog.schemas.in.h:6
+#: ../eog.schemas.in.h:7
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -172,7 +183,7 @@ msgstr ""
 "Hvis nøkkel for gjennomsiktighet har verdien COLOR bestemmer denne nøkkelen "
 "farge som brukes for å indikere gjennomsiktighet."
 
-#: ../eog.schemas.in.h:7
+#: ../eog.schemas.in.h:8
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -180,55 +191,55 @@ msgstr ""
 "Hvis dette settes til FALSE vil ikke små bilder strekkes for å passe til "
 "skjermen."
 
-#: ../eog.schemas.in.h:8
+#: ../eog.schemas.in.h:9
 msgid "Interpolate Image"
 msgstr "Interpoler bilde"
 
-#: ../eog.schemas.in.h:9
+#: ../eog.schemas.in.h:10
 msgid "Last collection window geometry"
 msgstr "Geometri for siste vindu med bildesamling"
 
-#: ../eog.schemas.in.h:10
+#: ../eog.schemas.in.h:11
 msgid "Last singleton window geometry"
 msgstr "Geometri for siste enkeltvindu"
 
-#: ../eog.schemas.in.h:11
+#: ../eog.schemas.in.h:12
 msgid "Loop through the image sequence"
 msgstr "Kontinuerlig visning av bildesekvensen"
 
-#: ../eog.schemas.in.h:12
+#: ../eog.schemas.in.h:13
 msgid "Open images in a new window"
 msgstr "Åpne bilder i et nytt vindu"
 
-#: ../eog.schemas.in.h:13
+#: ../eog.schemas.in.h:14
 msgid "Show/hide image information for collection."
 msgstr "Vis/skjul bildeinformasjon for samlingen."
 
-#: ../eog.schemas.in.h:14
+#: ../eog.schemas.in.h:15
 msgid "Show/hide image information for single image."
 msgstr "Vis/skjul bildeinformasjon for enkeltbilder."
 
-#: ../eog.schemas.in.h:15
+#: ../eog.schemas.in.h:16
 msgid "Show/hide the image collection pane."
 msgstr "Vis/skjul område for bildesamling."
 
-#: ../eog.schemas.in.h:16
+#: ../eog.schemas.in.h:17
 msgid "Show/hide the window statusbar."
 msgstr "Vis/skjul vinduets statuslinje."
 
-#: ../eog.schemas.in.h:17
+#: ../eog.schemas.in.h:18
 msgid "Show/hide the window toolbar."
 msgstr "Vis/skjul vinduets verktøylinje."
 
-#: ../eog.schemas.in.h:18
+#: ../eog.schemas.in.h:19
 msgid "Transparency color"
 msgstr "Farge for gjennomsiktighet"
 
-#: ../eog.schemas.in.h:19
+#: ../eog.schemas.in.h:20
 msgid "Transparency indicator"
 msgstr "Indikator for gjennomsiktighet"
 
-#: ../eog.schemas.in.h:20
+#: ../eog.schemas.in.h:21
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -236,18 +247,23 @@ msgstr ""
 "Om du skal opprette et nytt vindu ved åpning av et bilde i stedet for å "
 "erstatte bildet i aktivt vindu."
 
-#: ../eog.schemas.in.h:21
+#: ../eog.schemas.in.h:22
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Om bildesekvensen skal vises kontinuerlig."
 
-#: ../eog.schemas.in.h:22
+#: ../eog.schemas.in.h:23
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
 "Om bildet skal interpoloeres ved zoom eller ikke. Dette gir bedre kvalitet, "
 "men er noe tregere enn ikke-interpolerte bilder."
+
+#: ../eog.schemas.in.h:24
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "Om bildet skal roteres automatisk basert på EXIF-orientering."
 
 #: ../libeog/eog-image-jpeg.c:344
 #, c-format
@@ -546,7 +562,7 @@ msgstr "Overskriv"
 msgid "Error on saving %s."
 msgstr "Feil under lagring av %s."
 
-#: ../shell/eog-window.c:1152 ../shell/eog-window.c:1718
+#: ../shell/eog-window.c:1152 ../shell/eog-window.c:1719
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -554,20 +570,20 @@ msgstr "Prøv igjen"
 msgid "Couldn't determine destination uri."
 msgstr "Kunne ikke bestemme URI for mål."
 
-#: ../shell/eog-window.c:1704
+#: ../shell/eog-window.c:1705
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Kunne ikke bestemme filformat for %s"
 
-#: ../shell/eog-window.c:1705
+#: ../shell/eog-window.c:1706
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Vennligst bruk en passende filtype eller velg et filformat."
 
-#: ../shell/eog-window.c:1843
+#: ../shell/eog-window.c:1844
 msgid "Error on saving images."
 msgstr "Feil under lagring av bilder."
 
-#: ../shell/eog-window.c:2110
+#: ../shell/eog-window.c:2111
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -576,7 +592,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "flytte «%s» til papirkurven?"
 
-#: ../shell/eog-window.c:2113
+#: ../shell/eog-window.c:2114
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -591,15 +607,15 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "flytte %d valgte bilder til papirkurven?"
 
-#: ../shell/eog-window.c:2128 ../shell/eog-window.c:3482
+#: ../shell/eog-window.c:2129 ../shell/eog-window.c:3482
 msgid "Move to Trash"
 msgstr "Flytt til papirkurv"
 
-#: ../shell/eog-window.c:2159
+#: ../shell/eog-window.c:2160
 msgid "Couldn't access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: ../shell/eog-window.c:2235
+#: ../shell/eog-window.c:2236
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
@@ -720,8 +736,8 @@ msgid "Save _As..."
 msgstr "L_agre som..."
 
 #: ../shell/eog-window.c:3470
-msgid "Page Set_up"
-msgstr "Side_oppsett"
+msgid "Page Set_up..."
+msgstr "Side_oppsett..."
 
 #: ../shell/eog-window.c:3471
 msgid "Print..."
