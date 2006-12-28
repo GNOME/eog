@@ -3849,21 +3849,21 @@ eog_window_update_properties (EogWindow *window)
 	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_INTERPOLATE, NULL, TRUE, NULL);
 	if (entry != NULL) {
 		interp_type_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 
 	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_TRANSPARENCY, NULL, TRUE, NULL);
 	if (entry != NULL) {
 		transparency_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 
 	entry = gconf_client_get_entry (priv->client, EOG_CONF_VIEW_TRANS_COLOR, NULL, TRUE, NULL);
 	if (entry != NULL) {
 		trans_color_changed_cb (priv->client, 0, entry, window);
-		gconf_entry_free (entry);
+		gconf_entry_unref (entry);
 		entry = NULL;
 	}
 }
