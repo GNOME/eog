@@ -28,8 +28,8 @@ eog_SOURCES =				\
 	eog-window.c			\
 	eog-dialog.h			\
 	eog-dialog.c			\
-	eog-preferences.h		\
-	eog-preferences.c		\
+	eog-preferences-dialog.h	\
+	eog-preferences-dialog.c	\
 	eog-properties-dialog.h		\
 	eog-properties-dialog.c		\
 	eog-file-chooser.h		\

@@ -26,7 +26,7 @@
 #include "config.h"
 #endif
 
-#include "eog-preferences.h"
+#include "eog-preferences-dialog.h"
 #include "eog-util.h"
 #include "eog-config-keys.h"
 

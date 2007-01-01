@@ -37,7 +37,7 @@
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
 #include "eog-statusbar.h"
-#include "eog-preferences.h"
+#include "eog-preferences-dialog.h"
 #include "eog-properties-dialog.h"
 #include "eog-application.h"
 #include "eog-thumb-nav.h"
