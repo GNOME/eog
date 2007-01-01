@@ -6,7 +6,7 @@ test -z "$srcdir" && srcdir=.
 
 PKG_NAME="eog"
 
-(test -f $srcdir/shell/eog-window.c) || {
+(test -f $srcdir/src/eog-window.c) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
     echo " top-level $PKG_NAME directory"
     exit 1

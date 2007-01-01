@@ -2,7 +2,7 @@ if ENABLE_JPEG
 jpeg_DIRS = jpegutils
 endif
 
-SUBDIRS = $(jpeg_DIRS) shell po help data
+SUBDIRS = $(jpeg_DIRS) src po help data
 
 EXTRA_DIST = 			\
 	HACKING			\
