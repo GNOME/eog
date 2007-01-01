@@ -3,6 +3,7 @@
 #endif
 
 #include <stdlib.h>
+#include <string.h>
 #include <libgnomeui/gnome-client.h>
 #include <glade/glade.h>
 #include "eog-save-as-dialog-helper.h"

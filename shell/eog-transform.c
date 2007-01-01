@@ -8,7 +8,6 @@
 #include <gtk/gtkmain.h>
 #include <libart_lgpl/art_affine.h>
 #include "eog-transform.h"
-#include "libeog-marshal.h"
 
 #define PROFILE 1
 
@@ -74,7 +73,6 @@ eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf)
 	guchar *dest_pos;
 	int dx, dy, sx, sy;
 	int i, x, y;
-	float progress = 0.0;
 
 	g_return_val_if_fail (pixbuf != NULL, NULL);
 

@@ -60,7 +60,6 @@ eog_thumb_nav_adj_changed (GtkAdjustment *adj, gpointer user_data)
 {
 	EogThumbNav *nav;
 	EogThumbNavPrivate *priv;
-	GtkRequisition req;
 	gdouble upper, page_size;
 
 	nav = EOG_THUMB_NAV (user_data);

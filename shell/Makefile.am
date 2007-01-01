@@ -4,26 +4,41 @@ jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
 INCLUDES =							\
-	-DDATADIR=\"$(pkgdatadir)\"				\
-	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"	\
-	-I$(top_srcdir)/libeog					\
-	-I$(top_builddir)/libeog				\
-	$(WARN_CFLAGS)						\
 	$(EOG_CFLAGS)						\
+	$(WARN_CFLAGS)						\
+	-I$(top_srcdir)/jpegutils				\
 	-DHAVE_COLLECTION					\
+	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATADIR=\""$(datadir)"\"				\
-	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"
+	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"			\
+	-DDATADIR=\"$(pkgdatadir)\"				\
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+
+eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal h" && \
+        $(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
+
+eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
+	echo "genmarshal c" && \
+        $(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
+
+MARSHAL_OUTPUT = 	\
+	eog-marshal.h	\
+	eog-marshal.c
 
 bin_PROGRAMS = eog
 
 eog_SOURCES =				\
+	$(MARSHAL_OUTPUT)		\
 	eog-application.h		\
 	eog-application.c		\
 	eog-session.h			\
 	eog-session.c			\
 	eog-util.h			\
 	eog-util.c			\
+	eog-pixbuf-util.h		\
+	eog-pixbuf-util.c		\
 	eog-window.h			\
 	eog-window.c			\
 	eog-dialog.h			\
@@ -34,26 +49,75 @@ eog_SOURCES =				\
 	eog-properties-dialog.c		\
 	eog-file-chooser.h		\
 	eog-file-chooser.c		\
-	eog-save-dialog-helper.h	\
-	eog-save-dialog-helper.c	\
-	eog-save-as-dialog-helper.h	\
-	eog-save-as-dialog-helper.c	\
 	eog-statusbar.h			\
 	eog-statusbar.c			\
 	eog-thumb-nav.h			\
 	eog-thumb-nav.c			\
 	eog-config-keys.h		\
+	eog-transform.h			\
+	eog-transform.c			\
+	eog-image.c			\
+	eog-image.h			\
+	eog-image-private.h		\
+	eog-image-jpeg.c		\
+	eog-image-jpeg.h		\
+	eog-image-save-info.c		\
+	eog-image-save-info.h		\
+	eog-scroll-view.c		\
+	eog-scroll-view.h		\
+	eog-thumb-view.c		\
+	eog-thumb-view.h		\
+	eog-list-store.c		\
+	eog-list-store.h		\
+	eog-thumbnail.h			\
+	eog-thumbnail.c			\
+	eog-thumb-shadow.c		\
+	eog-thumb-shadow.h		\
+	eog-job-queue.c			\
+	eog-job-queue.h			\
+	eog-jobs.c			\
+	eog-jobs.h			\
+	eog-uri-converter.h		\
+	eog-uri-converter.c		\
+	eog-metadata-reader.h		\
+	eog-metadata-reader.c		\
+	eog-info-view.c			\
+	eog-info-view.h			\
+	eog-info-view-detail.h		\
+	eog-info-view-detail.c		\
+	eog-info-view-file.h		\
+	eog-info-view-file.c		\
+	eog-info-view-exif.h		\
+	eog-info-view-exif.c		\
+        accessible-image-view-factory.h	\
+        accessible-image-view-factory.c	\
+        accessible-image-view.h		\
+        accessible-image-view.c		\
+	eog-save-dialog-helper.h	\
+	eog-save-dialog-helper.c	\
+	eog-save-as-dialog-helper.h	\
+	eog-save-as-dialog-helper.c	\
+	uta.c				\
+	uta.h				\
+	zoom.c				\
+	zoom.h				\
 	main.c	
 
-eog_DEPENDENCIES = 				\
-	$(top_builddir)/libeog/libeog.a 	\
+eog_DEPENDENCIES = 	\
 	$(jpeg_DEPS)
 
 eog_LDADD = 				\
-	-L$(top_builddir)/libeog 	\
-	-leog				\
+	$(EOG_LIBS)			\
 	$(LIBJPEG)			\
 	$(jpeg_LIB)			\
-	$(X_LIBS)			\
-	$(EOG_LIBS)			\
-	$(LIBJPEG)
+	$(X_LIBS)
+
+BUILT_SOURCES = 			\
+	$(MARSHAL_OUTPUT)
+
+CLEANFILES = $(BUILT_SOURCES)
+
+EXTRA_DIST = eog-marshal.list 
+
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)

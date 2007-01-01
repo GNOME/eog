@@ -6,7 +6,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "libeog-marshal.h"
+#include "eog-marshal.h"
 #include "eog-scroll-view.h"
 #include "uta.h"
 #include "zoom.h"
@@ -1984,7 +1984,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
 			      NULL, NULL,
-			      libeog_marshal_VOID__DOUBLE,
+			      eog_marshal_VOID__DOUBLE,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_DOUBLE);
 

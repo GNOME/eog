@@ -14,7 +14,7 @@
 #include <libexif/exif-loader.h>
 #endif
 
-#include "libeog-marshal.h"
+#include "eog-marshal.h"
 #include "eog-image.h"
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
@@ -154,7 +154,7 @@ eog_image_class_init (EogImageClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, loading_update),
 			      NULL, NULL,
-			      libeog_marshal_VOID__INT_INT_INT_INT,
+			      eog_marshal_VOID__INT_INT_INT_INT,
 			      G_TYPE_NONE, 4,
 			      G_TYPE_INT,
 			      G_TYPE_INT,
@@ -166,7 +166,7 @@ eog_image_class_init (EogImageClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, loading_size_prepared),
 			      NULL, NULL,
-			      libeog_marshal_VOID__INT_INT,
+			      eog_marshal_VOID__INT_INT,
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT,
 			      G_TYPE_INT);

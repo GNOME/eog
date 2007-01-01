@@ -29,7 +29,10 @@
 
 G_BEGIN_DECLS
 
-void eog_util_show_help (const gchar *section, GtkWindow *parent);
+void   eog_util_show_help        (const gchar *section, 
+				  GtkWindow   *parent);
+
+char*  eog_util_make_valid_utf8  (const char  *name);
 
 G_END_DECLS
 
