@@ -3328,8 +3328,6 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 		else {  /* failed */
 			char *header; 
 
-			display_image_data (window, NULL);			
-
 			header = g_strdup_printf (_("Image loading failed for %s"),
 						  eog_image_get_caption (image));
 			show_error_dialog (window, header, error);

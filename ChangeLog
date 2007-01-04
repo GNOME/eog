@@ -1,3 +1,10 @@
+2007-01-04  Felix Riemann  <friemann@svn.gnome.org>
+
+	* shell/eog-window.c: (job_image_load_finished): Unsetting the
+	displayed image through display_image_data() does not work currently.
+	Remove such a call when image loading failed to avoid a possible crash
+	when running with fatal-criticals enabled.
+
 2006-12-28  Bruno Boaventura <brunobol@gnome.org>
 
 	* eog.glade: Change "Slide Show" to "Slideshow". Fix #383090
