@@ -659,7 +659,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 			"documenters", documenters,
 			"translator-credits", translators,
 			"website", "http://live.gnome.org/EyeOfGnome",
-			"logo-icon-name", "image-viewer",
+			"logo-icon-name", "eog",
 			"wrap-license", TRUE,
 			"license", license_trans,
 			NULL);

@@ -606,7 +606,7 @@ main (int argc, char **argv)
 #endif
 	eog_thumbnail_init ();
 
-	gtk_window_set_default_icon_name ("image-viewer");
+	gtk_window_set_default_icon_name ("eog");
 
 	client = gnome_master_client ();
 
