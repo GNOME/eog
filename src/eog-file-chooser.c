@@ -15,28 +15,22 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
-#include <stdlib.h>
-#include <glib/gi18n.h>
-#include <glib/gslist.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtkmenuitem.h>
-#include <gtk/gtkmenu.h>
-#include <gtk/gtkoptionmenu.h>
-#include <gtk/gtkhbox.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtkmessagedialog.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtkcheckbutton.h>
-#include <libgnomevfs/gnome-vfs.h>
-#include <libgnomeui/gnome-thumbnail.h>
-#include <gconf/gconf-client.h>
+#include "eog-file-chooser.h"
 #include "eog-config-keys.h"
 #include "eog-pixbuf-util.h"
 
-#include "eog-file-chooser.h"
+#include <stdlib.h>
+
+#include <glib.h>
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
+#include <libgnomevfs/gnome-vfs.h>
+#include <libgnomeui/gnome-thumbnail.h>
+#include <gconf/gconf-client.h>
 
 static char *last_dir[] = { NULL, NULL, NULL, NULL };
 

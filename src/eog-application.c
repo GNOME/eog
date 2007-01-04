@@ -31,14 +31,12 @@
 #include "eog-window.h"
 #include "eog-application.h"
 
+#include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-#include <gtk/gtkfilechooserdialog.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkmain.h>
-#include <string.h>
+#include <gtk/gtk.h>
+
 #ifdef HAVE_LEAFTAG
 #include <libleaftag/leaftag.h>
 #endif
