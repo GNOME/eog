@@ -191,11 +191,22 @@ AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard S
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-data/Makefile
-data/eog.desktop.in
 jpegutils/Makefile
 help/Makefile
 po/Makefile.in
+data/Makefile
+data/eog.desktop.in
+data/icons/Makefile
+data/icons/16x16/Makefile
+data/icons/16x16/apps/Makefile
+data/icons/22x22/Makefile
+data/icons/22x22/apps/Makefile
+data/icons/24x24/Makefile
+data/icons/24x24/apps/Makefile
+data/icons/32x32/Makefile
+data/icons/32x32/apps/Makefile
+data/icons/scalable/Makefile
+data/icons/scalable/apps/Makefile
 ])
 
 AC_OUTPUT

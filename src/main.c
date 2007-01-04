@@ -168,7 +168,7 @@ main (int argc, char **argv)
 	eog_job_queue_init ();
 	eog_thumbnail_init ();
 
-	gtk_window_set_default_icon_name ("image-viewer");
+	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
 
   set_startup_flags ();

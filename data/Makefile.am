@@ -1,11 +1,14 @@
+SUBDIRS = icons
+
 @INTLTOOL_DESKTOP_RULE@
-@INTLTOOL_SCHEMAS_RULE@
 
 DESKTOP_IN_FILES= eog.desktop.in.in
 DESKTOP_FILES= $(DESKTOP_IN_FILES:.desktop.in.in=.desktop)
 
 desktopdir = $(datadir)/applications
 desktop_DATA = $(DESKTOP_FILES)
+
+@INTLTOOL_SCHEMAS_RULE@
 
 schemas_in_files = eog.schemas.in
 schemasdir = $(GCONF_SCHEMA_FILE_DIR)

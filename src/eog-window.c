@@ -1525,7 +1525,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 			       "documenters", documenters,
 			       "translator-credits", translators,
 			       "website", "http://live.gnome.org/EyeOfGnome",
-			       "logo-icon-name", "image-viewer",
+			       "logo-icon-name", "eog",
 			       "wrap-license", TRUE,
 			       "license", license_trans,
 			       NULL);
