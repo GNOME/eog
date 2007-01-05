@@ -1,3 +1,28 @@
+2007-01-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/Makefile.am: Add new files.
+	
+	* src/eog-print-image-setup.c: 
+	* src/eog-print-image-setup.h: 
+
+	New custom widget for the GtkPrint UI to set the image position and 
+	size in a printed page.
+	
+	* src/eog-print-preview.c:
+	* src/eog-print-preview.h:
+
+	Widget to interactively preview the printing of an image.
+	
+	* src/eog-window.c: (eog_window_print_draw_page),
+	(eog_window_print_create_custom_widget),
+	(eog_window_print_custom_widget_apply),
+	(eog_window_print_end_print), (eog_window_print),
+	(eog_window_cmd_about): Use the above widgets to set the image
+	position and size when printing instead of hardcoding its
+	size.
+
+	Fixes bug #356947.
+
 2007-01-04  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window.c, src/main.c, data/icons/*, configure.ac,

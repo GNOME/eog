@@ -97,6 +97,10 @@ eog_SOURCES =				\
 	eog-save-dialog-helper.c	\
 	eog-save-as-dialog-helper.h	\
 	eog-save-as-dialog-helper.c	\
+	eog-print-image-setup.c         \
+	eog-print-image-setup.h         \
+	eog-print-preview.h             \
+	eog-print-preview.c           	\
 	uta.c				\
 	uta.h				\
 	zoom.c				\
