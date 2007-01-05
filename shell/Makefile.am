@@ -32,6 +32,10 @@ eog_SOURCES =				\
 	eog-save-as-dialog-helper.c	\
 	eog-statusbar.h			\
 	eog-statusbar.c			\
+	eog-print-image-setup.c         \
+	eog-print-image-setup.h         \
+	eog-print-preview.h             \
+	eog-print-preview.c           	\
 	main.c				\
 	session.c			\
 	session.h			\
