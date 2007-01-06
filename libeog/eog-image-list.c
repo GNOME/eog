@@ -415,14 +415,14 @@ cleanup_dead_files (EogImageList *list)
 	while (node != NULL && !found) {
 		GnomeVFSURI *uri = eog_image_get_uri(node->data);
 		if (!gnome_vfs_uri_exists (uri)) {
-			remove = g_list_append (remove, (gpointer)position);
+			remove = g_list_append (remove, GINT_TO_POINTER (position));
 		}	
 		node = node->next;		
 		position++;
 	}
 
 	while (remove) {
-		gint pos = (gint)remove->data;
+		gint pos = GPOINTER_TO_INT (remove->data);
 		EogIter *iter = eog_image_list_get_iter_by_pos (list, pos);
 
 		if (iter) {

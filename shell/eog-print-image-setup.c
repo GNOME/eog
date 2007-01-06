@@ -459,6 +459,8 @@ size_changed (EogPrintImageSetup *setup,
 		orig_size_y = (gdouble)pix_width/factor;
 		orig_size_x = (gdouble)pix_height/factor;
 		break;
+	default:
+		g_assert_not_reached ();
 	}
 
 	scale = CLAMP (size_x/orig_size_x, 0, 1);
