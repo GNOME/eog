@@ -1583,7 +1583,8 @@ eog_image_free_mem_private (EogImage *image)
 
 #ifdef HAVE_LCMS
 		if (priv->profile != NULL) {
-		  cmsCloseProfile (priv->profile);
+			cmsCloseProfile (priv->profile);
+			priv->profile = NULL;
 		}
 #endif
 		
