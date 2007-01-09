@@ -1,3 +1,9 @@
+2007-01-09  Felix Riemann  <friemann@svn.gnome.org>
+
+	* shell/eog-window.c: (job_image_load_finished): Release image data
+	when the just loaded image is not needed anymore. Closes a memory hole
+	when clicking through the collection quickly (bug #365136).
+
 2007-01-08  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: post release version bump.
