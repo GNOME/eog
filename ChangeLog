@@ -1,3 +1,10 @@
+2007-01-10  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (eog_image_free_mem_private): Make the double free
+	guard actually work.
+	* src/eog-preferences-dialog.c: (pd_color_change_cb): Free color
+	string after setting it in GConf.
+
 2007-01-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/Makefile.am: Add new files.
