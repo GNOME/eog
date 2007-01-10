@@ -1,3 +1,11 @@
+2007-01-10  Felix Riemann  <friemann@svn.gnome.org>
+
+	* libeog/eog-image.c: (eog_image_free_mem_private):
+	Make the double free guard actually work.
+	This might be a fix for bug #354106 (confirmation needed).
+	* shell/eog-preferences.c: (color_change_cb): Free color string after
+	setting it in GConf.
+
 2006-12-28  Felix Riemann  <friemann@cvs.gnome.org>
 
 	* libeog/eog-wrap-list.c: (eog_wrap_list_set_model):
