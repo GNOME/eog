@@ -67,6 +67,7 @@ color_change_cb (GtkColorButton *button, gpointer data)
 				 key,
 				 value,
 				 NULL);
+	g_free (value);
 }
 
 static void
