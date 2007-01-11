@@ -52,7 +52,7 @@ EogTransform* eog_transform_reverse (EogTransform *trans);
 EogTransform* eog_transform_compose (EogTransform *trans, EogTransform *compose);
 gboolean      eog_transform_is_identity (EogTransform *trans);
 
-EogTransform* eog_transform_identity_new ();
+EogTransform* eog_transform_identity_new (void);
 EogTransform* eog_transform_rotate_new (int degree);
 EogTransform* eog_transform_flip_new   (EogTransformType type /* only EOG_TRANSFORM_FLIP_* are valid */);
 EogTransform* eog_transform_scale_new  (double sx, double sy);
