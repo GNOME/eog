@@ -15,8 +15,6 @@
 #include <windows.h>
 #endif
 
-#define EGG_RECENT_UTIL_HOSTNAME_SIZE 512
-
 /* ripped out of gedit2 */
 gchar* 
 egg_recent_util_escape_underlines (const gchar* text)
@@ -80,23 +78,14 @@ egg_recent_util_get_icon (GtkIconTheme *theme, const gchar *uri,
 gchar *
 egg_recent_util_get_unique_id (void)
 {
-	char hostname[EGG_RECENT_UTIL_HOSTNAME_SIZE];
 	time_t the_time;
 	guint32 rand;
 	int pid;
-	
-#ifndef G_OS_WIN32
-	gethostname (hostname, EGG_RECENT_UTIL_HOSTNAME_SIZE);
-#else
-	{
-		DWORD size = EGG_RECENT_UTIL_HOSTNAME_SIZE;
-		GetComputerName (hostname, &size);
-	}
-#endif
 	
 	time (&the_time);
 	rand = g_random_int ();
 	pid = getpid ();
 
-	return g_strdup_printf ("%s-%d-%d-%d", hostname, (int)time, (int)rand, (int)pid);
+	return g_strdup_printf ("%s-%d-%d-%d", g_get_host_name(),
+				(int)time, (int)rand, (int)pid);
 }

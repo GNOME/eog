@@ -72,7 +72,6 @@
 
 #define getgid() 0
 #define getppid() 0
-#define gethostname(buf,size) strncpy(buf,"localhost",size)
 
 #undef EOG_ICONDIR
 #define EOG_ICONDIR eog_get_icondir ()
@@ -215,21 +214,10 @@ static char *
 gen_role (void)
 {
         char *ret;
-	static char *hostname;
 	time_t t;
 	static int serial;
 
 	t = time (NULL);
-
-	if (!hostname) {
-		static char buffer [512];
-
-		if ((gethostname (buffer, sizeof (buffer) - 1) == 0) &&
-		    (buffer [0] != 0))
-			hostname = buffer;
-		else
-			hostname = "localhost";
-	}
 
 	ret = g_strdup_printf ("eog-window-%d-%d-%d-%ld-%d@%s",
 			       getpid (),
@@ -237,7 +225,7 @@ gen_role (void)
 			       getppid (),
 			       (long) t,
 			       serial++,
-			       hostname);
+			       g_get_host_name ());
 
 	return ret;
 }
