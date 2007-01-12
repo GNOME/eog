@@ -3521,7 +3521,7 @@ static const GtkActionEntry action_entries_window[] = {
   { "FileOpen",        GTK_STOCK_OPEN,  N_("_Open..."),  "<control>O",  N_("Open a file"),                  G_CALLBACK (verb_FileOpen_cb) },
   { "FileCloseWindow", GTK_STOCK_CLOSE, N_("_Close"),    "<control>W",  N_("Close window"),                 G_CALLBACK (verb_FileCloseWindow_cb) },
   { "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, N_("Preferences for Eye of GNOME"), G_CALLBACK (verb_EditPreferences_cb) },
-  { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help On this application"),     G_CALLBACK (verb_HelpContent_cb) },
+  { "HelpManual",      GTK_STOCK_HELP,  N_("_Contents"), "F1",          N_("Help on this application"),     G_CALLBACK (verb_HelpContent_cb) },
   { "HelpAbout",       GTK_STOCK_ABOUT, N_("_About"),	NULL, N_("About this application"),       G_CALLBACK (verb_HelpAbout_cb) }
 };
 
