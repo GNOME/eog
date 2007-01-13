@@ -1,7 +1,7 @@
-# translation of eog.gnome-2-16.ar.po to Arabic
+# translation of eog.HEAD.ar.po to Arabic
 # translation of eog.HEAD.ar.po to
 # translation of eog.po to
-# Copyright (C) 2002,2003, 2004, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2002,2003, 2004, 2006, 2007 Free Software Foundation, Inc.
 #
 # Sayed Jaffer Al-Mosawi <mosawi@arabeyes.org>, 2002.
 # Isam Bayazidi <bayazidi@arabeyes.org>, 2002.
@@ -9,14 +9,14 @@
 #  <lumina@silverpen.de>, 2004.
 # Abdulaziz Al-Arfaj <alarfaj0@yahoo.com>, 2004.
 # Djihed Afifi <djihed@gmail.com>, 2006.
-# Khaled Hosny <khaledhosny@eglug.org>, 2006.
+# Khaled Hosny <khaledhosny@eglug.org>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.gnome-2-16.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-03 21:29+0000\n"
-"PO-Revision-Date: 2006-12-31 20:02+0200\n"
-"Last-Translator: Mohamed Magdy <alnokta@yahoo.com>\n"
+"POT-Creation-Date: 2007-01-13 05:54+0000\n"
+"PO-Revision-Date: 2007-01-04 06:20+0200\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,7 +109,7 @@ msgstr "أعد التسمية من:"
 msgid "Replace spaces by underscore"
 msgstr "استبدل المسافات بالشّارطة التّحتيّة"
 
-#: ../eog.glade.h:20 ../shell/eog-window.c:3527
+#: ../eog.glade.h:20 ../shell/eog-window.c:3583
 msgid "Save As"
 msgstr "احفظ _كـ"
 
@@ -118,9 +118,8 @@ msgid "Saving Image"
 msgstr "جاري حفظ الصورة"
 
 #: ../eog.glade.h:22
-#, fuzzy
 msgid "Slideshow"
-msgstr "عرض _شرائح"
+msgstr "عرض شرائح"
 
 #: ../eog.glade.h:23
 msgid "Smooth images when _zoomed"
@@ -411,9 +410,109 @@ msgstr "احفظ الصّورة"
 msgid "Open Folder"
 msgstr "افتح مجلّد"
 
-#: ../shell/eog-preferences.c:109
+#: ../shell/eog-preferences.c:110
 msgid "Could not display help for Eye of GNOME"
 msgstr "تعذّر عرض مساعدة عين جنوم"
+
+#: ../shell/eog-print-image-setup.c:810
+#, fuzzy
+msgid "Image"
+msgstr "_صورة"
+
+#: ../shell/eog-print-image-setup.c:811
+msgid "The image whose printing properties will be setup"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:817
+#, fuzzy
+msgid "Page Setup"
+msgstr "إ_عداد الصفحة.."
+
+#: ../shell/eog-print-image-setup.c:818
+msgid "The information for the page where the image will be printed"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:842
+msgid "Position"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:847
+#, fuzzy
+msgid "_Left:"
+msgstr "اليسار"
+
+#: ../shell/eog-print-image-setup.c:848
+#, fuzzy
+msgid "_Right:"
+msgstr "اليمين"
+
+#: ../shell/eog-print-image-setup.c:849
+#, fuzzy
+msgid "_Top:"
+msgstr "إلى:"
+
+#: ../shell/eog-print-image-setup.c:850
+msgid "_Bottom:"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:852
+#, fuzzy
+msgid "C_enter:"
+msgstr "العدّاد"
+
+#: ../shell/eog-print-image-setup.c:857
+msgid "None"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:859
+#, fuzzy
+msgid "Horizontal"
+msgstr "اقلب أ_فقيا"
+
+#: ../shell/eog-print-image-setup.c:861
+#, fuzzy
+msgid "Vertical"
+msgstr "اقلب _رأسيا"
+
+#: ../shell/eog-print-image-setup.c:863
+#, fuzzy
+msgid "Both"
+msgstr "الشّهر"
+
+#: ../shell/eog-print-image-setup.c:879
+msgid "Size"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:884
+#, fuzzy
+msgid "_Width:"
+msgstr "العرض"
+
+#: ../shell/eog-print-image-setup.c:886
+#, fuzzy
+msgid "_Height:"
+msgstr "الإرتفاع"
+
+#: ../shell/eog-print-image-setup.c:889
+msgid "_Scaling:"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:902
+msgid "_Unit:"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:907
+msgid "Millimeters"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:909
+msgid "Inches"
+msgstr ""
+
+#: ../shell/eog-print-image-setup.c:929
+#, fuzzy
+msgid "Preview"
+msgstr "السّابقة"
 
 #: ../shell/eog-save-as-dialog-helper.c:30
 msgid "Counter"
@@ -482,7 +581,12 @@ msgstr "جاري حفظ الصورة %s."
 msgid "Cancel saving ..."
 msgstr "إلغاء الحفظ..."
 
-#: ../shell/eog-window.c:527
+#: ../shell/eog-window.c:570
+#, fuzzy
+msgid "Image Settings"
+msgstr "م_جموعات صور"
+
+#: ../shell/eog-window.c:582
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -495,14 +599,14 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:630
+#: ../shell/eog-window.c:686
 msgid "translator-credits"
 msgstr ""
 "فريق عربآيز للترجمة http://www.arabeyes.org :\n"
 "عرفات المديني\t<lumina@silverpen.de>\n"
 "عبدالعزيز العرفج\t<alarfaj0@yahoo.com>"
 
-#: ../shell/eog-window.c:633
+#: ../shell/eog-window.c:689
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -513,7 +617,7 @@ msgstr ""
 "العامة لجنو والتي نشرتها منظمة البرمجيات الحرة؛ سواء الإصدارة 2 من الرخصة أو "
 "أي إصدارة بعدها حسب رغبتك.\n"
 
-#: ../shell/eog-window.c:637
+#: ../shell/eog-window.c:693
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -524,7 +628,7 @@ msgstr ""
 "حتى أي ضمان يضمن صلاحية العرض في السوق أو توافقه مع أي استخدام محدد. يمكنك "
 "مراجعة الرخصة العمومية العامة لجنو لمزيد من التفاصيل.\n"
 
-#: ../shell/eog-window.c:641
+#: ../shell/eog-window.c:697
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
@@ -534,16 +638,16 @@ msgstr ""
 "عدم استلامك لذلك، يمكنك مكاتبة: Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301, USA"
 
-#: ../shell/eog-window.c:654 ../shell/eog-window.c:3246
-#: ../shell/eog-window.c:3884 ../shell/main.c:596
+#: ../shell/eog-window.c:710 ../shell/eog-window.c:3302
+#: ../shell/eog-window.c:3940 ../shell/main.c:596
 msgid "Eye of GNOME"
 msgstr "عين جنوم"
 
-#: ../shell/eog-window.c:657
+#: ../shell/eog-window.c:713
 msgid "The GNOME image viewing and cataloging program."
 msgstr "برنامج جنوم لعرض الصور وفهرستها."
 
-#: ../shell/eog-window.c:688
+#: ../shell/eog-window.c:744
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -552,57 +656,57 @@ msgstr ""
 "تعذّر عرض مساعدة عين جنوم.\n"
 "%s"
 
-#: ../shell/eog-window.c:1123
+#: ../shell/eog-window.c:1179
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "اكتب فوق الملف %s؟"
 
-#: ../shell/eog-window.c:1124
+#: ../shell/eog-window.c:1180
 msgid "File exists. Do you want to overwrite it?"
 msgstr "الملف موجود. هل تريد أن تكتب فوقه؟"
 
-#: ../shell/eog-window.c:1135 ../shell/eog-window.c:1151
+#: ../shell/eog-window.c:1191 ../shell/eog-window.c:1207
 msgid "Skip"
 msgstr "تخطّي"
 
-#: ../shell/eog-window.c:1136
+#: ../shell/eog-window.c:1192
 msgid "Overwrite"
 msgstr "اكتب فوقه"
 
-#: ../shell/eog-window.c:1141
+#: ../shell/eog-window.c:1197
 #, c-format
 msgid "Error on saving %s."
 msgstr "خطأ أثناء حفظ %s."
 
-#: ../shell/eog-window.c:1152 ../shell/eog-window.c:1719
+#: ../shell/eog-window.c:1208 ../shell/eog-window.c:1775
 msgid "Retry"
 msgstr "أعِد المحاولة"
 
-#: ../shell/eog-window.c:1582
+#: ../shell/eog-window.c:1638
 msgid "Couldn't determine destination uri."
 msgstr "تعذّر تحديد عنوان المقصِد."
 
-#: ../shell/eog-window.c:1705
+#: ../shell/eog-window.c:1761
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "تعذّر تحديد تهيئة الملف %s"
 
-#: ../shell/eog-window.c:1706
+#: ../shell/eog-window.c:1762
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "رجاءً اختر لاحقةً مناسبة لاسم الملف أو اختر تهيئة ملف.."
 
-#: ../shell/eog-window.c:1844
+#: ../shell/eog-window.c:1900
 msgid "Error on saving images."
 msgstr "خطأ عند حفظ الصّور."
 
-#: ../shell/eog-window.c:2111
+#: ../shell/eog-window.c:2167
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
 msgstr "هل تريد فعلاً نقل الصورة \"%s\" إلى  المهملات؟"
 
-#: ../shell/eog-window.c:2114
+#: ../shell/eog-window.c:2170
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -615,21 +719,21 @@ msgstr[1] "هل تريد فعلاً نقل الصورتان المحدّدتان
 msgstr[2] "هل تريد فعلاً نقل %i صور محددة إلىة المهملات؟"
 msgstr[3] "هل تريد فعلاً نقل %i صور محددة إلى  المهملات؟"
 
-#: ../shell/eog-window.c:2129 ../shell/eog-window.c:3482
+#: ../shell/eog-window.c:2185 ../shell/eog-window.c:3538
 msgid "Move to Trash"
 msgstr "انقل إلى  المهملات"
 
-#: ../shell/eog-window.c:2160
+#: ../shell/eog-window.c:2216
 msgid "Couldn't access trash."
 msgstr "تعذّر الوصول إلى  المهملات."
 
-#: ../shell/eog-window.c:2236
+#: ../shell/eog-window.c:2292
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "خطأ أثناء حذف الصّورة %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:3107
+#: ../shell/eog-window.c:3163
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
@@ -638,250 +742,251 @@ msgstr[1] "%i x %i بكسل  %s    %i%%"
 msgstr[2] "%i x %i بكسل  %s    %i%%"
 msgstr[3] "%i x %i بكسل  %s    %i%%"
 
-#: ../shell/eog-window.c:3163
+#: ../shell/eog-window.c:3219
 #, c-format
 msgid "Reason: %s"
 msgstr "السبب: %s"
 
-#: ../shell/eog-window.c:3333
+#: ../shell/eog-window.c:3388
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "فشل تحميل الصورة ل %s"
 
-#: ../shell/eog-window.c:3447
+#: ../shell/eog-window.c:3503
 msgid "_File"
 msgstr "_ملف"
 
-#: ../shell/eog-window.c:3448
+#: ../shell/eog-window.c:3504
 msgid "_Edit"
 msgstr "_حرّر"
 
-#: ../shell/eog-window.c:3449
+#: ../shell/eog-window.c:3505
 msgid "_View"
 msgstr "ا_عرض"
 
-#: ../shell/eog-window.c:3450
+#: ../shell/eog-window.c:3506
 msgid "_Image"
 msgstr "_صورة"
 
-#: ../shell/eog-window.c:3451
+#: ../shell/eog-window.c:3507
 msgid "_Go"
 msgstr "إ_ذهب"
 
-#: ../shell/eog-window.c:3452
+#: ../shell/eog-window.c:3508
 msgid "_Help"
 msgstr "_مساعدة"
 
-#: ../shell/eog-window.c:3453
+#: ../shell/eog-window.c:3509
 msgid "_Open..."
 msgstr "ا_فتح..."
 
-#: ../shell/eog-window.c:3453
+#: ../shell/eog-window.c:3509
 msgid "Open a file"
 msgstr "افتح ملف"
 
-#: ../shell/eog-window.c:3454
+#: ../shell/eog-window.c:3510
 msgid "_Close"
 msgstr "ا_غلق"
 
-#: ../shell/eog-window.c:3454
+#: ../shell/eog-window.c:3510
 msgid "Close window"
 msgstr "اغلق النّافذة"
 
-#: ../shell/eog-window.c:3455
+#: ../shell/eog-window.c:3511
 msgid "Prefere_nces"
 msgstr "التّف_ضيلات"
 
-#: ../shell/eog-window.c:3455
+#: ../shell/eog-window.c:3511
 msgid "Preferences for Eye of GNOME"
 msgstr "تفضيلات عين جنوم"
 
-#: ../shell/eog-window.c:3456
+#: ../shell/eog-window.c:3512
 msgid "_Contents"
 msgstr "ال_محتويات"
 
-#: ../shell/eog-window.c:3456
-msgid "Help On this application"
+#: ../shell/eog-window.c:3512
+#, fuzzy
+msgid "Help on this application"
 msgstr "مساعدة حول هذا التّطبيق"
 
-#: ../shell/eog-window.c:3457
+#: ../shell/eog-window.c:3513
 msgid "_About"
 msgstr "_حول"
 
-#: ../shell/eog-window.c:3457
+#: ../shell/eog-window.c:3513
 msgid "About this application"
 msgstr "حول هذا التّطبيق"
 
-#: ../shell/eog-window.c:3462
+#: ../shell/eog-window.c:3518
 msgid "_Toolbar"
 msgstr "شريط الأ_دوات"
 
-#: ../shell/eog-window.c:3462
+#: ../shell/eog-window.c:3518
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "تُغَيّر رؤية شريط الأدوات في النافذة الحالية"
 
-#: ../shell/eog-window.c:3463
+#: ../shell/eog-window.c:3519
 msgid "_Statusbar"
 msgstr "شريط ال_حالة"
 
-#: ../shell/eog-window.c:3463
+#: ../shell/eog-window.c:3519
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "تُغَيّر رؤية شريط الحالة في النافذة الحالية"
 
-#: ../shell/eog-window.c:3464
+#: ../shell/eog-window.c:3520
 msgid "_Image Collection"
 msgstr "م_جموعات صور"
 
-#: ../shell/eog-window.c:3464
+#: ../shell/eog-window.c:3520
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "تغيير رؤية لوح مجموعة الصور في النافذة الحالية."
 
-#: ../shell/eog-window.c:3468
+#: ../shell/eog-window.c:3524
 msgid "_Save"
 msgstr "ا_حفظ"
 
-#: ../shell/eog-window.c:3469
+#: ../shell/eog-window.c:3525
 msgid "Save _As..."
 msgstr "احفظ _كـ..."
 
-#: ../shell/eog-window.c:3470
+#: ../shell/eog-window.c:3526
 msgid "Page Set_up..."
 msgstr "إ_عداد الصفحة.."
 
-#: ../shell/eog-window.c:3471
+#: ../shell/eog-window.c:3527
 msgid "Print..."
 msgstr "اطبع..."
 
-#: ../shell/eog-window.c:3473
+#: ../shell/eog-window.c:3529
 msgid "_Undo"
 msgstr "_تراجع"
 
-#: ../shell/eog-window.c:3475
+#: ../shell/eog-window.c:3531
 msgid "Flip _Horizontal"
 msgstr "اقلب أ_فقيا"
 
-#: ../shell/eog-window.c:3476
+#: ../shell/eog-window.c:3532
 msgid "Flip _Vertical"
 msgstr "اقلب _رأسيا"
 
-#: ../shell/eog-window.c:3478
+#: ../shell/eog-window.c:3534
 msgid "_Rotate Clockwise"
 msgstr "ا_ستدر مع عقارب الساعةعة"
 
-#: ../shell/eog-window.c:3479
+#: ../shell/eog-window.c:3535
 msgid "Rotate Counterc_lockwise"
 msgstr "استدر _ضد عقارب الساعة"
 
-#: ../shell/eog-window.c:3480
+#: ../shell/eog-window.c:3536
 msgid "Set As _Wallpaper"
 msgstr "اضبط ك_خلفية"
 
-#: ../shell/eog-window.c:3484
+#: ../shell/eog-window.c:3540
 msgid "_Full Screen"
 msgstr "_ملأ الشّاشة"
 
-#: ../shell/eog-window.c:3485
+#: ../shell/eog-window.c:3541
 msgid "_Slideshow"
 msgstr "عرض _شرائح"
 
 #. accelerators
-#: ../shell/eog-window.c:3486 ../shell/eog-window.c:3492
-#: ../shell/eog-window.c:3493
+#: ../shell/eog-window.c:3542 ../shell/eog-window.c:3548
+#: ../shell/eog-window.c:3549
 msgid "_Zoom In"
 msgstr "ت_كبير"
 
-#: ../shell/eog-window.c:3487 ../shell/eog-window.c:3494
+#: ../shell/eog-window.c:3543 ../shell/eog-window.c:3550
 msgid "Zoom _Out"
 msgstr "ت_صغير"
 
-#: ../shell/eog-window.c:3488
+#: ../shell/eog-window.c:3544
 msgid "_Normal Size"
 msgstr "حجم _عادي"
 
-#: ../shell/eog-window.c:3489
+#: ../shell/eog-window.c:3545
 msgid "Best _Fit"
 msgstr "أفضل ملا_ئمة"
 
-#: ../shell/eog-window.c:3495 ../shell/eog-window.c:3497
-#: ../shell/eog-window.c:3511
+#: ../shell/eog-window.c:3551 ../shell/eog-window.c:3553
+#: ../shell/eog-window.c:3567
 msgid "_Next Image"
 msgstr "الصّورة ال_تّالية"
 
-#: ../shell/eog-window.c:3496 ../shell/eog-window.c:3498
-#: ../shell/eog-window.c:3499 ../shell/eog-window.c:3510
+#: ../shell/eog-window.c:3552 ../shell/eog-window.c:3554
+#: ../shell/eog-window.c:3555 ../shell/eog-window.c:3566
 msgid "_Previous Image"
 msgstr "الصّ_ورة السّابقة"
 
-#: ../shell/eog-window.c:3500
+#: ../shell/eog-window.c:3556
 msgid "Move to _Trash"
 msgstr "انقل إلى  ال_مهملات"
 
-#: ../shell/eog-window.c:3501 ../shell/eog-window.c:3512
+#: ../shell/eog-window.c:3557 ../shell/eog-window.c:3568
 msgid "_First Image"
 msgstr "الصّورة ال_أولى"
 
-#: ../shell/eog-window.c:3502 ../shell/eog-window.c:3513
+#: ../shell/eog-window.c:3558 ../shell/eog-window.c:3569
 msgid "_Last Image"
 msgstr "الصّورة الأ_خيرة"
 
-#: ../shell/eog-window.c:3506
+#: ../shell/eog-window.c:3562
 msgid "Image _Information"
 msgstr "معلوما_ت الصورة"
 
-#: ../shell/eog-window.c:3506
+#: ../shell/eog-window.c:3562
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "تغيير رؤية لوح المعلومات في النافذة الحالية."
 
-#: ../shell/eog-window.c:3524
+#: ../shell/eog-window.c:3580
 msgid "Open"
 msgstr "افتح"
 
-#: ../shell/eog-window.c:3525
+#: ../shell/eog-window.c:3581
 msgid "Close"
 msgstr "اغلق"
 
-#: ../shell/eog-window.c:3526
+#: ../shell/eog-window.c:3582
 msgid "Save"
 msgstr "احفظ"
 
-#: ../shell/eog-window.c:3528
+#: ../shell/eog-window.c:3584
 msgid "Undo"
 msgstr "تراجع"
 
-#: ../shell/eog-window.c:3531
+#: ../shell/eog-window.c:3587
 msgid "Right"
 msgstr "اليمين"
 
-#: ../shell/eog-window.c:3532
+#: ../shell/eog-window.c:3588
 msgid "Left"
 msgstr "اليسار"
 
-#: ../shell/eog-window.c:3535
+#: ../shell/eog-window.c:3591
 msgid "In"
 msgstr "داخل"
 
-#: ../shell/eog-window.c:3536
+#: ../shell/eog-window.c:3592
 msgid "Out"
 msgstr "خارج"
 
-#: ../shell/eog-window.c:3537
+#: ../shell/eog-window.c:3593
 msgid "Normal"
 msgstr "عادي"
 
-#: ../shell/eog-window.c:3538
+#: ../shell/eog-window.c:3594
 msgid "Fit"
 msgstr "ملائمة"
 
-#: ../shell/eog-window.c:3539
+#: ../shell/eog-window.c:3595
 msgid "Next"
 msgstr "التّالية"
 
-#: ../shell/eog-window.c:3540
+#: ../shell/eog-window.c:3596
 msgid "Previous"
 msgstr "السّابقة"
 
-#: ../shell/eog-window.c:3703
+#: ../shell/eog-window.c:3759
 msgid "User interface description not found."
 msgstr "لا وجود لوصف واجهة المستخدم."
 
@@ -909,27 +1014,3 @@ msgstr "افتح '%s'"
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "فارغ"
-
-#~ msgid "Slide Show"
-#~ msgstr "عرض شرائح"
-
-#~ msgid "."
-#~ msgstr "."
-
-#~ msgid "<b>Image Interpolation</b>"
-#~ msgstr "<b>استيفاء الصّورة</b>"
-
-#~ msgid "Allow _zoom greater than 100% initially"
-#~ msgstr "اسمحح ب_تكبير أكبر من 100% مبدئيّاً"
-
-#~ msgid "Print"
-#~ msgstr "اطبع"
-
-#~ msgid "Print Preview"
-#~ msgstr "معاينة الطّباعة"
-
-#~ msgid "Rotat_e 180°"
-#~ msgstr "اس_تدر 180 درجة"
-
-#~ msgid "Could not open `%s'"
-#~ msgstr "تعذّر فتح `%s'"
