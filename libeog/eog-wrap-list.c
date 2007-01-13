@@ -76,9 +76,6 @@ typedef struct {
 } ItemUpdate;
 
 struct _EogWrapListPrivate {
-	/* List of all items currently in the view. */
-	GHashTable *item_table;
-
 	/* Sorted list of items */
 	GList *view_order;
 
@@ -205,7 +202,6 @@ eog_wrap_list_init (EogWrapList *wlist)
 	priv = g_new0 (EogWrapListPrivate, 1);
 	wlist->priv = priv;
 	
-	priv->item_table = NULL;
 	priv->view_order = NULL;
 	priv->selected_items = NULL;
 	priv->n_selected_items = 0;
@@ -266,18 +262,6 @@ eog_wrap_list_finalize (GObject *object)
 		(* G_OBJECT_CLASS (eog_wrap_list_parent_class)->finalize) (object);
 }
 
-static void
-eog_wrap_list_construct (EogWrapList *wlist)
-{
-	wlist->priv->item_table = g_hash_table_new ((GHashFunc) g_direct_hash, 
-						    (GCompareFunc) g_direct_equal);
-
-	g_signal_connect_after (G_OBJECT (wlist), 
-				"button-press-event",
-				G_CALLBACK (handle_canvas_click),
-				wlist);
-}
-
 
 GtkWidget*
 eog_wrap_list_new (void)
@@ -293,7 +277,11 @@ eog_wrap_list_new (void)
 				GDK_KEY_PRESS_MASK,
 				NULL);
 
-	eog_wrap_list_construct (EOG_WRAP_LIST (wlist));
+	g_signal_connect_after (G_OBJECT (wlist), 
+				"button-press-event",
+				G_CALLBACK (handle_canvas_click),
+				wlist);
+
 	
 	return wlist;
 }
