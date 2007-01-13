@@ -540,6 +540,9 @@ handle_cmdline_args (gpointer data)
 	startup_file_list = string_array_to_list ((const gchar **) startup_files);
 	
 	open_uri_list_cb (NULL, startup_file_list, NULL);
+
+	g_slist_foreach (startup_file_list, (GFunc) g_free, NULL);
+	g_slist_free (startup_file_list);
 	
 	return FALSE;
 }

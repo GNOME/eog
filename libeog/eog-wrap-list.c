@@ -240,6 +240,17 @@ eog_wrap_list_dispose (GObject *object)
 		g_object_unref (G_OBJECT (priv->model));
 	priv->model = NULL;
 
+	if (priv->view_order) {
+		g_list_foreach (priv->view_order, (GFunc) gtk_object_destroy, NULL);
+		g_list_free (priv->view_order);
+		priv->view_order = NULL;
+	}
+
+	if (priv->selected_items) {
+		g_list_free (priv->selected_items);
+		priv->selected_items = NULL;
+	}
+
 	/* FIXME: free the items and item array */
 	
 	G_OBJECT_CLASS (eog_wrap_list_parent_class)->dispose (object);

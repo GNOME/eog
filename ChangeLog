@@ -1,5 +1,11 @@
 2007-01-13  Felix Riemann  <friemann@svn.gnome.org>
 
+	* libeog/eog-wrap-list.c: (eog_wrap_list_dispose):
+	* shell/main.c: (handle_cmdline_args):
+	Fix several leaked lists.
+
+2007-01-13  Felix Riemann  <friemann@svn.gnome.org>
+
 	* libeog/eog-wrap-list.c: (eog_wrap_list_init),
 	(eog_wrap_list_new): Remove unused (leaked) hash table.
 
