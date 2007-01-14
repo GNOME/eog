@@ -432,6 +432,8 @@ eog_job_model_run (EogJobModel *job)
 	
 	eog_list_store_add_uris (job->store, file_list);
 
+	gnome_vfs_uri_list_free (file_list);
+
 	EOG_JOB (job)->finished = TRUE;
 }
 
