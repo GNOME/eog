@@ -73,7 +73,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	uri_str = eog_image_get_uri_for_display (image);
 
 	g_object_set (G_OBJECT (prop_dlg->priv->thumbnail_image),
-		      "pixbuf", eog_image_get_pixbuf_thumbnail (image),
+		      "pixbuf", eog_image_get_thumbnail (image),
 		      NULL);
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->name_label), 

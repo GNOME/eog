@@ -55,7 +55,7 @@ update_thumbnail (GtkWidget *widget, EogImage *image)
 	g_return_if_fail (GTK_IS_IMAGE (widget));
 
 	if (image != NULL) {
-		pixbuf = eog_image_get_pixbuf_thumbnail (image);
+		pixbuf = eog_image_get_thumbnail (image);
 	}
 
 	g_object_set (GTK_IMAGE (widget), "pixbuf", pixbuf, NULL);

@@ -34,13 +34,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-typedef enum
-{
-  EOG_STARTUP_FULLSCREEN         = 1 << 0,
-  EOG_STARTUP_SLIDE_SHOW         = 1 << 1,
-  EOG_STARTUP_DISABLE_COLLECTION = 1 << 2
-} EogStartupFlags;
-
 G_BEGIN_DECLS 
 
 typedef struct _EogWindow EogWindow;
@@ -66,6 +59,12 @@ typedef enum {
 	EOG_WINDOW_ERROR_GENERIC,
 	EOG_WINDOW_ERROR_UNKNOWN
 } EogWindowError;
+
+typedef enum {
+	EOG_STARTUP_FULLSCREEN         = 1 << 0,
+	EOG_STARTUP_SLIDE_SHOW         = 1 << 1,
+	EOG_STARTUP_DISABLE_COLLECTION = 1 << 2
+} EogStartupFlags;
 
 struct _EogWindow {
 	GtkWindow win;

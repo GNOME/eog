@@ -343,7 +343,7 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 	window = EOG_WINDOW (data);
 	priv = window->priv;
 
-	thumb = eog_image_get_pixbuf_thumbnail (image);
+	thumb = eog_image_get_thumbnail (image);
 
 	if (thumb != NULL) {
 		gtk_window_set_icon (GTK_WINDOW (window), thumb);

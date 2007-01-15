@@ -109,7 +109,7 @@ eog_image_save_info_from_image (gpointer data)
 	info->format       = g_strdup (image->priv->file_type);
 	info->exists       = gnome_vfs_uri_exists (info->uri);
 	info->local        = is_local_uri (info->uri);
-        info->has_metadata = eog_image_has_metadata (image);
+        info->has_metadata = eog_image_has_data (image, EOG_IMAGE_DATA_EXIF);
 	info->modified     = eog_image_is_modified (image);
 	info->overwrite    = FALSE;
 	

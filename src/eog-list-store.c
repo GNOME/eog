@@ -302,8 +302,6 @@ eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entr
 	eog_list_store_append_image (store, image);
 }
 
-/* ================== Directory Loading stuff ===================*/
-
 static void
 vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		    const gchar *monitor_uri,
@@ -357,7 +355,8 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	}
 }
 
-/* Called for each file in a directory. Checks if the file is some
+/* 
+ * Called for each file in a directory. Checks if the file is some
  * sort of image. If so, it creates an image object and adds it to the
  * list.
  */
@@ -428,9 +427,6 @@ eog_list_store_append_directory (EogListStore *store,
 				       &ctx);
 	
 }
-
-
-/** Idea taken from EogImageList original implementation */
 
 static gboolean
 get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)

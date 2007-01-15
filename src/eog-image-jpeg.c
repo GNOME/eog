@@ -33,6 +33,7 @@
 #endif
 
 #include "eog-image-jpeg.h"
+#include "eog-image-private.h"
 
 #if HAVE_JPEG
 
@@ -52,7 +53,6 @@
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
-#include "eog-image-private.h"
 
 #ifdef G_OS_WIN32
 #define sigjmp_buf jmp_buf

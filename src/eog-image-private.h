@@ -1,72 +1,78 @@
-#ifndef _EOG_IMAGE_PRIVATE_H_
-#define _EOG_IMAGE_PRIVATE_H_
+/* Eye Of Gnome - Image Private Data 
+ *
+ * Copyright (C) 2007 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 
-#include <libgnomevfs/gnome-vfs-file-size.h>
-#ifdef HAVE_EXIF
-#include <libexif/exif-data.h>
-#endif
+#ifndef __EOG_IMAGE_PRIVATE_H__
+#define __EOG_IMAGE_PRIVATE_H__
+
 #include "eog-image.h"
-#ifdef HAVE_LCMS
-#include <lcms.h>
-#endif
 
-typedef enum {
-	EOG_IMAGE_STATUS_UNKNOWN,
-	EOG_IMAGE_STATUS_LOADING,
-	EOG_IMAGE_STATUS_LOADED,
-	EOG_IMAGE_STATUS_FAILED
-} EogImageStatus;
- 
+G_BEGIN_DECLS
+
 struct _EogImagePrivate {
-	GnomeVFSURI *uri;
-	EogImageStatus status;
+	GnomeVFSURI      *uri;
 
-	GdkPixbuf *image;
-	GdkPixbuf *thumbnail;
+	EogImageStatus    status;
+
+	GdkPixbuf        *image;
+	GdkPixbuf        *thumbnail;
 	
-	gint width;
-	gint height;
-	GnomeVFSFileSize bytes;
-	char *file_type;
+	gint              width;
+	gint              height;
 
-	guchar  *exif_chunk; /* holds EXIF raw data */
-	guint    exif_chunk_len;
-	guchar  *iptc_chunk; /* holds IPTC raw data */
-	guint    iptc_chunk_len;
+	GnomeVFSFileSize  bytes;
+	gchar            *file_type;
+
+	/* Holds EXIF raw data */
+	guchar           *exif_chunk; 
+	guint             exif_chunk_len;
+
+	/* Holds IPTC raw data */
+	guchar           *iptc_chunk; 
+	guint             iptc_chunk_len;
+
 #ifdef HAVE_EXIF
-	ExifData *exif;      /* this is mutual exclusive to exif_chunk. Only 
-			      * either of these are not NULL:
-			      */
+	ExifData         *exif;      
 #endif
+
 #ifdef HAVE_LCMS
-	cmsHPROFILE profile;
+	cmsHPROFILE       profile;
 #endif
 
-	gint thumbnail_id;
-	
-	gboolean modified;
+	gboolean          modified;
 
-	gchar *caption;
-	gchar *caption_key;
+	gchar            *caption;
 
-	GThread *load_thread;
-	GMutex *status_mutex;
-	GCond  *load_finished;
-	gboolean cancel_loading;
-	float progress; /* Range from [0.0...1.0] indicate the progress of 
-			   actions in percent */
+	gchar            *collate_key;
 
-	char *error_message;
-	
-	/* stack of transformations recently applied */
-	GSList *undo_stack;
-	/* composition of all applied transformations */
-	EogTransform *trans;
+	GMutex           *status_mutex;
 
-	guint data_ref_count;
+	gboolean          cancel_loading;
+
+	GSList           *undo_stack;
+
+	EogTransform     *trans;
+
+	guint             data_ref_count;
 };
 
+G_END_DECLS
 
-void eog_image_free_mem_private (EogImage *image);
-
-#endif /* _EOG_IMAGE_PRIVATE_H_ */
+#endif /* __EOG_IMAGE_PRIVATE_H__ */

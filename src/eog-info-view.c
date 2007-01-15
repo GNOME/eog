@@ -111,7 +111,7 @@ update_data_pages_for_image (EogInfoView *view, EogImage *image)
 	{
 		ExifData *ed;
 
-		ed = eog_image_get_exif_information (image);
+		ed = eog_image_get_exif_info (image);
 		eog_info_view_exif_show_data (EOG_INFO_VIEW_EXIF (view->priv->exif_view), ed);
 		if (ed != NULL) {
 			gtk_widget_show_all (gtk_widget_get_parent (GTK_WIDGET (view->priv->exif_view)));
@@ -165,7 +165,7 @@ eog_info_view_set_image (EogInfoView *view, EogImage *image)
 		priv->image = image;
 
 		priv->image_changed_signal_id = 
-			g_signal_connect (G_OBJECT (priv->image), "image_changed", 
+			g_signal_connect (G_OBJECT (priv->image), "changed", 
 					  G_CALLBACK (image_changed_cb), view);
 
 	}

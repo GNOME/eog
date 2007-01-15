@@ -1,13 +1,40 @@
-#ifndef _EOG_IMAGE_H_
-#define _EOG_IMAGE_H_
+/* Eye Of Gnome - Image 
+ *
+ * Copyright (C) 2007 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 
-#include <glib-object.h>
-#include <libgnomevfs/gnome-vfs-uri.h>
-#include <libgnomevfs/gnome-vfs-file-size.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#ifndef __EOG_IMAGE_H__
+#define __EOG_IMAGE_H__
+
+#include "eog-jobs.h"
+#include "eog-window.h"
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
-#include "eog-jobs.h"
+
+#include <glib.h>
+#include <glib-object.h>
+#include <libgnomevfs/gnome-vfs.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
+#ifdef HAVE_EXIF
+#include <libexif/exif-data.h>
+#endif
 
 #ifdef HAVE_LCMS
 #include <lcms.h>
@@ -15,27 +42,29 @@
 
 G_BEGIN_DECLS
 
-#define EOG_TYPE_IMAGE          (eog_image_get_type ())
-#define EOG_IMAGE(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_IMAGE, EogImage))
-#define EOG_IMAGE_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_TYPE_IMAGE, EogImageClass))
-#define EOG_IS_IMAGE(o)         (G_TYPE_CHECK_INSTANCE_TYPE ((o), EOG_TYPE_IMAGE))
-#define EOG_IS_IMAGE_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_TYPE_IMAGE))
-#define EOG_IMAGE_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_IMAGE, EogImageClass))
-
 #ifndef __EOG_IMAGE_DECLR__
 #define __EOG_IMAGE_DECLR__
-  typedef struct _EogImage EogImage;
+typedef struct _EogImage EogImage;
 #endif
 typedef struct _EogImageClass EogImageClass;
 typedef struct _EogImagePrivate EogImagePrivate;
 
+#define EOG_TYPE_IMAGE            (eog_image_get_type ())
+#define EOG_IMAGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_IMAGE, EogImage))
+#define EOG_IMAGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass),  EOG_TYPE_IMAGE, EogImageClass))
+#define EOG_IS_IMAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_IMAGE))
+#define EOG_IS_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  EOG_TYPE_IMAGE))
+#define EOG_IMAGE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_IMAGE, EogImageClass))
+
 typedef enum {
-	EOG_IMAGE_DATA_IMAGE       =  1 << 0,
-	EOG_IMAGE_DATA_DIMENSION   =  1 << 1,
-	EOG_IMAGE_DATA_EXIF        =  1 << 2
+	EOG_IMAGE_DATA_IMAGE     = 1 << 0,
+	EOG_IMAGE_DATA_DIMENSION = 1 << 1,
+	EOG_IMAGE_DATA_EXIF      = 1 << 2
 } EogImageData;
 
-#define EOG_IMAGE_DATA_ALL  (EOG_IMAGE_DATA_IMAGE | EOG_IMAGE_DATA_DIMENSION | EOG_IMAGE_DATA_EXIF)
+#define EOG_IMAGE_DATA_ALL  (EOG_IMAGE_DATA_IMAGE |     \
+			     EOG_IMAGE_DATA_DIMENSION | \
+			     EOG_IMAGE_DATA_EXIF)
 
 typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
@@ -49,6 +78,13 @@ typedef enum {
 
 #define EOG_IMAGE_ERROR eog_image_error_quark ()
 
+typedef enum {
+	EOG_IMAGE_STATUS_UNKNOWN,
+	EOG_IMAGE_STATUS_LOADING,
+	EOG_IMAGE_STATUS_LOADED,
+	EOG_IMAGE_STATUS_FAILED
+} EogImageStatus;
+
 struct _EogImage {
 	GObject parent;
 
@@ -56,74 +92,84 @@ struct _EogImage {
 };
 
 struct _EogImageClass {
-	GObjectClass parent_klass;
+	GObjectClass parent_class;
 
-	/* signals */
-	void (* loading_size_prepared) (EogImage *img, int width, int height);
-	void (* loading_update) (EogImage *img, int x, int y, int width, int height);
-	void (* progress) (EogImage *img, float progress);
-	
+	void (* changed) 	   (EogImage *img);
+
+	void (* size_prepared)     (EogImage *img, 
+				    int       width, 
+				    int       height);
+
 	void (* thumbnail_changed) (EogImage *img);
-
-	void (* image_changed) (EogImage *img);
 };
 
-GType               eog_image_get_type                       (void) G_GNUC_CONST;
-GQuark              eog_image_error_quark                    (void);
+GType	          eog_image_get_type	             (void);
 
-/* loading API */
-EogImage*           eog_image_new                            (const char *txt_uri);
-EogImage*           eog_image_new_uri                        (GnomeVFSURI *uri);
-gboolean            eog_image_load                           (EogImage *img, 
-							      guint data2read,
-							      EogJob *job, 
-							      GError **error);
-gboolean            eog_image_has_data                       (EogImage *img, guint req_data);
+GQuark            eog_image_error_quark              (void);
 
+EogImage         *eog_image_new                      (const char *txt_uri);
 
-void                eog_image_set_thumbnail                  (EogImage *img, GdkPixbuf *pixbuf);
-void                eog_image_cancel_load                    (EogImage *img);
-EogImage*           eog_image_data_ref                       (EogImage *img);
-EogImage*           eog_image_data_unref                     (EogImage *img);
-gboolean            eog_image_is_loaded                      (EogImage *img);
+EogImage         *eog_image_new_uri                  (GnomeVFSURI *uri);
 
-/* saving API */
-gboolean            eog_image_save_as_by_info                 (EogImage *img, 
-							       EogImageSaveInfo *source, 
-							       EogImageSaveInfo *target, 
-							       GError **error);
-gboolean            eog_image_save_by_info                    (EogImage *img, 
-							       EogImageSaveInfo *source, 
-							       GError **error);
+gboolean          eog_image_load                     (EogImage   *img, 
+					              guint       data2read,
+					              EogJob     *job, 
+					              GError    **error);
 
-/* query API */
-gboolean            eog_image_is_animation                    (EogImage *img);
-GdkPixbuf*          eog_image_get_pixbuf                      (EogImage *img);
-GdkPixbuf*          eog_image_get_pixbuf_thumbnail            (EogImage *img);
-void                eog_image_get_size                        (EogImage *img, int *width, int *height);
-GnomeVFSFileSize    eog_image_get_bytes                       (EogImage *img);
-gboolean            eog_image_is_modified                     (EogImage *img);
-void                eog_image_modified                        (EogImage *img);
-gchar*              eog_image_get_caption                     (EogImage *img);
-const gchar*        eog_image_get_collate_key                 (EogImage *img);
-gpointer            eog_image_get_exif_information            (EogImage *img);
-GnomeVFSURI*        eog_image_get_uri                         (EogImage *img);
-gchar*              eog_image_get_uri_for_display             (EogImage *img);
-gboolean            eog_image_has_metadata                    (EogImage *img);
+void              eog_image_cancel_load              (EogImage   *img);
 
-#ifdef HAVE_LCMS
-cmsHPROFILE eog_image_get_profile (EogImage *img);
-void eog_image_apply_display_profile (EogImage *img, cmsHPROFILE profile);
-#endif
+gboolean          eog_image_has_data                 (EogImage   *img, 
+					              guint       data);
 
-/* modification API */
-void                eog_image_transform                       (EogImage *img, EogTransform *trans);
-void                eog_image_undo                            (EogImage *img);
+void              eog_image_data_ref                 (EogImage   *img);
 
-GList		  *eog_image_get_supported_mime_types         (void);
+void              eog_image_data_unref               (EogImage   *img);
 
-gboolean           eog_image_is_supported_mime_type           (const char *mime_type);
+void              eog_image_set_thumbnail            (EogImage   *img, 
+					              GdkPixbuf  *pixbuf);
+
+gboolean          eog_image_save_as_by_info          (EogImage   *img, 
+		      			              EogImageSaveInfo *source, 
+		      			              EogImageSaveInfo *target, 
+		      			              GError    **error);
+
+gboolean          eog_image_save_by_info             (EogImage   *img, 
+					              EogImageSaveInfo *source, 
+					              GError    **error);
+
+GdkPixbuf*        eog_image_get_pixbuf               (EogImage   *img);
+
+GdkPixbuf*        eog_image_get_thumbnail            (EogImage   *img);
+
+void              eog_image_get_size                 (EogImage   *img, 
+					              gint       *width, 
+					              gint       *height);
+
+GnomeVFSFileSize  eog_image_get_bytes                (EogImage   *img);
+
+gboolean          eog_image_is_modified              (EogImage   *img);
+
+void              eog_image_modified                 (EogImage   *img);
+
+gchar*            eog_image_get_caption              (EogImage   *img);
+
+const gchar      *eog_image_get_collate_key          (EogImage   *img);
+
+gpointer          eog_image_get_exif_info            (EogImage   *img);
+
+GnomeVFSURI*      eog_image_get_uri                  (EogImage   *img);
+
+gchar*            eog_image_get_uri_for_display      (EogImage   *img);
+
+void              eog_image_transform                (EogImage   *img, 
+						      EogTransform *trans);
+
+void              eog_image_undo                     (EogImage *img);
+
+GList		 *eog_image_get_supported_mime_types (void);
+
+gboolean          eog_image_is_supported_mime_type   (const char *mime_type);
 
 G_END_DECLS
 
-#endif /* _IMAGE_H_ */
+#endif /* __EOG_IMAGE_H__ */

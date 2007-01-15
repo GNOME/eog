@@ -426,7 +426,7 @@ size_changed (EogPrintImageSetup *setup,
 	EogPrintImageSetupPrivate *priv;
 	gdouble margin_x_1, margin_x_2;
 	gdouble margin_y_1, margin_y_2;
-	gdouble orig_size_x, orig_size_y, scale;
+	gdouble orig_size_x = -1, orig_size_y = -1, scale;
 	gdouble size_x, size_y;
 	gint pix_width, pix_height;
 	gdouble factor;
@@ -452,16 +452,16 @@ size_changed (EogPrintImageSetup *setup,
 	
 	switch (change) {
 	case CHANGE_HORIZ:
-		orig_size_x = (gdouble)pix_width/factor;
-		orig_size_y = (gdouble)pix_height/factor;
+		orig_size_x = (gdouble) pix_width / factor;
+		orig_size_y = (gdouble) pix_height / factor;
 		break;
 	case CHANGE_VERT:
-		orig_size_y = (gdouble)pix_width/factor;
-		orig_size_x = (gdouble)pix_height/factor;
+		orig_size_y = (gdouble) pix_width / factor;
+		orig_size_x = (gdouble) pix_height / factor;
 		break;
 	}
 
-	scale = CLAMP (size_x/orig_size_x, 0, 1);
+	scale = CLAMP (size_x / orig_size_x, 0, 1);
 
 	size_y = scale * orig_size_y;
 	

@@ -1863,7 +1863,7 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 		}
 
-		priv->image_changed_id = g_signal_connect (image, "image_changed",
+		priv->image_changed_id = g_signal_connect (image, "changed",
 							   (GCallback) image_changed_cb, view);
 	}
 	
