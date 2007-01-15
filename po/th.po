@@ -1,15 +1,15 @@
 # Thai translation for oeg.
-# Copyright (C) 2003-2006 Free Software Foundation, Inc.
+# Copyright (C) 2003-2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the eog package.
 # Paisa Seeluangsawat <paisa@users.sf.net>, 2003-2004.
-# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2006.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-29 15:12+0700\n"
-"PO-Revision-Date: 2006-12-29 15:15+0700\n"
+"POT-Creation-Date: 2007-01-16 00:19+0700\n"
+"PO-Revision-Date: 2007-01-16 00:27+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr "เปลี่ยนชื่อจาก:"
 msgid "Replace spaces by underscore"
 msgstr "แทนอักษรช่องว่างด้วยตัวขีดเส้นใต้"
 
-#: eog.glade.h:20 shell/eog-window.c:3527
+#: eog.glade.h:20 shell/eog-window.c:3583
 msgid "Save As"
 msgstr "บันทึกเป็_น"
 
@@ -110,7 +110,7 @@ msgid "Saving Image"
 msgstr "กำลังบันทึกรูป"
 
 #: eog.glade.h:22
-msgid "Slide Show"
+msgid "Slideshow"
 msgstr "การแสดงสไลด์"
 
 #: eog.glade.h:23
@@ -394,11 +394,99 @@ msgstr "บันทึกรูป"
 msgid "Open Folder"
 msgstr "เปิดโฟลเดอร์"
 
-#: shell/eog-preferences.c:109
+#: shell/eog-preferences.c:110
 msgid "Could not display help for Eye of GNOME"
 msgstr ""
 "ไม่สามารถแสดงเอกสารแนะนำวิธีใช้ Eye of GNOME.\n"
 "%s"
+
+#: shell/eog-print-image-setup.c:810
+msgid "Image"
+msgstr "รูป"
+
+#: shell/eog-print-image-setup.c:811
+msgid "The image whose printing properties will be setup"
+msgstr "รูปที่จะตั้งค่าการพิมพ์"
+
+#: shell/eog-print-image-setup.c:817
+msgid "Page Setup"
+msgstr "ตั้งค่าหน้ากระดาษ"
+
+#: shell/eog-print-image-setup.c:818
+msgid "The information for the page where the image will be printed"
+msgstr "ข้อมูลของหน้ากระดาษที่จะใช้พิมพ์รูป"
+
+#: shell/eog-print-image-setup.c:842
+msgid "Position"
+msgstr "ตำแหน่ง"
+
+#: shell/eog-print-image-setup.c:847
+msgid "_Left:"
+msgstr "_ซ้าย:"
+
+#: shell/eog-print-image-setup.c:848
+msgid "_Right:"
+msgstr "_ขวา:"
+
+#: shell/eog-print-image-setup.c:849
+msgid "_Top:"
+msgstr "_บน:"
+
+#: shell/eog-print-image-setup.c:850
+msgid "_Bottom:"
+msgstr "_ล่าง:"
+
+#: shell/eog-print-image-setup.c:852
+msgid "C_enter:"
+msgstr "_กึ่งกลาง:"
+
+#: shell/eog-print-image-setup.c:857
+msgid "None"
+msgstr "ไม่ต้อง"
+
+#: shell/eog-print-image-setup.c:859
+msgid "Horizontal"
+msgstr "แนวนอน"
+
+#: shell/eog-print-image-setup.c:861
+msgid "Vertical"
+msgstr "แนวตั้ง"
+
+#: shell/eog-print-image-setup.c:863
+msgid "Both"
+msgstr "ทั้งสองแนว"
+
+#: shell/eog-print-image-setup.c:879
+msgid "Size"
+msgstr "ขนาด"
+
+#: shell/eog-print-image-setup.c:884
+msgid "_Width:"
+msgstr "ก_ว้าง:"
+
+#: shell/eog-print-image-setup.c:886
+msgid "_Height:"
+msgstr "สู_ง:"
+
+#: shell/eog-print-image-setup.c:889
+msgid "_Scaling:"
+msgstr "_อัตราส่วน:"
+
+#: shell/eog-print-image-setup.c:902
+msgid "_Unit:"
+msgstr "ห_น่วย:"
+
+#: shell/eog-print-image-setup.c:907
+msgid "Millimeters"
+msgstr "มิลลิเมตร"
+
+#: shell/eog-print-image-setup.c:909
+msgid "Inches"
+msgstr "นิ้ว"
+
+#: shell/eog-print-image-setup.c:929
+msgid "Preview"
+msgstr "ตัวอย่างงานพิมพ์"
 
 #: shell/eog-save-as-dialog-helper.c:30
 msgid "Counter"
@@ -467,7 +555,11 @@ msgstr "กำลังบันทึกรูป %s"
 msgid "Cancel saving ..."
 msgstr "ยกเลิกการบันทึก..."
 
-#: shell/eog-window.c:527
+#: shell/eog-window.c:570
+msgid "Image Settings"
+msgstr "ค่าตั้งของรูป"
+
+#: shell/eog-window.c:582
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -480,7 +572,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: shell/eog-window.c:630
+#: shell/eog-window.c:686
 msgid "translator-credits"
 msgstr ""
 "ไพศาข์ สีเหลืองสวัสดิ์\n"
@@ -489,7 +581,7 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล :-)\n"
 "http://gnome-th.sf.net"
 
-#: shell/eog-window.c:633
+#: shell/eog-window.c:689
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -500,7 +592,7 @@ msgstr ""
 "GNU General Public License ที่เผยแพร่โดยมูลนิธิซอฟต์แวร์เสรีไม่ว่าจะเป็นสัญญาอนุญาตรุ่นที่ 2 "
 "หรือรุ่นถัดมา (ตามแต่คุณจะเลือก)\n"
 
-#: shell/eog-window.c:637
+#: shell/eog-window.c:693
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -512,7 +604,7 @@ msgstr ""
 "_ความเหมาะสมสำหรับวัตถุประสงค์เฉพาะกิจใดๆ_ กรุณาอ่านGNU General Public License "
 "เพื่อดูรายละเอียดเพิ่มเติม\n"
 
-#: shell/eog-window.c:641
+#: shell/eog-window.c:697
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
@@ -522,16 +614,16 @@ msgstr ""
 "กรุณาติดต่อไปที่ Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
 "Boston, MA 02110-1301, USA"
 
-#: shell/eog-window.c:654 shell/eog-window.c:3246
-#: shell/eog-window.c:3884 shell/main.c:596
+#: shell/eog-window.c:710 shell/eog-window.c:3302
+#: shell/eog-window.c:3940 shell/main.c:599
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: shell/eog-window.c:657
+#: shell/eog-window.c:713
 msgid "The GNOME image viewing and cataloging program."
 msgstr "โปรแกรมแสดงและจัดเรียงรูปของ GNOME"
 
-#: shell/eog-window.c:688
+#: shell/eog-window.c:744
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -540,50 +632,50 @@ msgstr ""
 "ไม่สามารถแสดงเอกสารแนะนำวิธีใช้ Eye of GNOME.\n"
 "%s"
 
-#: shell/eog-window.c:1123
+#: shell/eog-window.c:1179
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "เขียนทับแฟ้ม %s หรือไม่"
 
-#: shell/eog-window.c:1124
+#: shell/eog-window.c:1180
 msgid "File exists. Do you want to overwrite it?"
 msgstr "มีแฟ้มชื่อ %s อยู่แล้ว จะเขียนทับหรือไม่?"
 
-#: shell/eog-window.c:1135 shell/eog-window.c:1151
+#: shell/eog-window.c:1191 shell/eog-window.c:1207
 msgid "Skip"
 msgstr "ข้าม"
 
-#: shell/eog-window.c:1136
+#: shell/eog-window.c:1192
 msgid "Overwrite"
 msgstr "เขียนทับ"
 
-#: shell/eog-window.c:1141
+#: shell/eog-window.c:1197
 #, c-format
 msgid "Error on saving %s."
 msgstr "ผิดพลาดขณะบันทึก %s"
 
-#: shell/eog-window.c:1152 shell/eog-window.c:1719
+#: shell/eog-window.c:1208 shell/eog-window.c:1775
 msgid "Retry"
 msgstr "ลองใหม่"
 
-#: shell/eog-window.c:1582
+#: shell/eog-window.c:1638
 msgid "Couldn't determine destination uri."
 msgstr "ไม่สามารถติดต่อ uri ปลายทาง"
 
-#: shell/eog-window.c:1705
+#: shell/eog-window.c:1761
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "ไม่ทราบชนิดของแฟ้ม %s"
 
-#: shell/eog-window.c:1706
+#: shell/eog-window.c:1762
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "โปรดใช้ชื่อสกุลแฟ้มสำหรับชนิดแฟ้มที่ต้องการ"
 
-#: shell/eog-window.c:1844
+#: shell/eog-window.c:1900
 msgid "Error on saving images."
 msgstr "ผิดพลากขณะบันทึกรูป"
 
-#: shell/eog-window.c:2111
+#: shell/eog-window.c:2167
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -592,7 +684,7 @@ msgstr ""
 "แน่ใจหรือไม่ว่าจะย้าย\n"
 "\"%s\" ไปลงถังขยะ?"
 
-#: shell/eog-window.c:2114
+#: shell/eog-window.c:2170
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -604,270 +696,270 @@ msgstr[0] ""
 "แน่ใจหรือไม่ว่าจะย้าย\n"
 "รูป %d รูปที่เลือกไปลงถังขยะ?"
 
-#: shell/eog-window.c:2129 shell/eog-window.c:3482
+#: shell/eog-window.c:2185 shell/eog-window.c:3538
 msgid "Move to Trash"
 msgstr "ย้ายไปถังขยะ"
 
-#: shell/eog-window.c:2160
+#: shell/eog-window.c:2216
 msgid "Couldn't access trash."
 msgstr "เปิดใช้ถังขยะไม่สำเร็จ"
 
-#: shell/eog-window.c:2236
+#: shell/eog-window.c:2292
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "ผิดพลาดขณะลบรูป %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: shell/eog-window.c:3107
+#: shell/eog-window.c:3163
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i พิกเซล  %s    %i%%"
 
-#: shell/eog-window.c:3163
+#: shell/eog-window.c:3219
 #, c-format
 msgid "Reason: %s"
 msgstr "สาเหตุ: %s"
 
-#: shell/eog-window.c:3333
+#: shell/eog-window.c:3388
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "โหลดรูป %s ไม่สำเร็จ"
 
-#: shell/eog-window.c:3447
+#: shell/eog-window.c:3503
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
-#: shell/eog-window.c:3448
+#: shell/eog-window.c:3504
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: shell/eog-window.c:3449
+#: shell/eog-window.c:3505
 msgid "_View"
 msgstr "มุ_มมอง"
 
-#: shell/eog-window.c:3450
+#: shell/eog-window.c:3506
 msgid "_Image"
 msgstr "_รูป"
 
-#: shell/eog-window.c:3451
+#: shell/eog-window.c:3507
 msgid "_Go"
 msgstr "ไ_ป"
 
-#: shell/eog-window.c:3452
+#: shell/eog-window.c:3508
 msgid "_Help"
 msgstr "_วีธีใช้"
 
-#: shell/eog-window.c:3453
+#: shell/eog-window.c:3509
 msgid "_Open..."
 msgstr "_เปิด..."
 
-#: shell/eog-window.c:3453
+#: shell/eog-window.c:3509
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: shell/eog-window.c:3454
+#: shell/eog-window.c:3510
 msgid "_Close"
 msgstr "ปิ_ด"
 
-#: shell/eog-window.c:3454
+#: shell/eog-window.c:3510
 msgid "Close window"
 msgstr "ปิดหน้าต่าง"
 
-#: shell/eog-window.c:3455
+#: shell/eog-window.c:3511
 msgid "Prefere_nces"
 msgstr "_ปรับแต่ง"
 
-#: shell/eog-window.c:3455
+#: shell/eog-window.c:3511
 msgid "Preferences for Eye of GNOME"
 msgstr "ปรับแต่ง Eye of GNOME"
 
-#: shell/eog-window.c:3456
+#: shell/eog-window.c:3512
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: shell/eog-window.c:3456
-msgid "Help On this application"
+#: shell/eog-window.c:3512
+msgid "Help on this application"
 msgstr "วิธีใช้โปรแกรมนี้"
 
-#: shell/eog-window.c:3457
+#: shell/eog-window.c:3513
 msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
-#: shell/eog-window.c:3457
+#: shell/eog-window.c:3513
 msgid "About this application"
 msgstr "เกี่ยวกับโปรแกรมนี้"
 
-#: shell/eog-window.c:3462
+#: shell/eog-window.c:3518
 msgid "_Toolbar"
 msgstr "แถบเ_ครื่องมือ"
 
-#: shell/eog-window.c:3462
+#: shell/eog-window.c:3518
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "แสดง/ซ่อน แถบเครื่องมือในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3463
+#: shell/eog-window.c:3519
 msgid "_Statusbar"
 msgstr "แถบ_สถานะ"
 
-#: shell/eog-window.c:3463
+#: shell/eog-window.c:3519
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "แสดง/ซ่อน แถบสถานะในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3464
+#: shell/eog-window.c:3520
 msgid "_Image Collection"
 msgstr "_สมุดรูป"
 
-#: shell/eog-window.c:3464
+#: shell/eog-window.c:3520
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "แสดง/ซ่อน ช่องสมุดรูปในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3468
+#: shell/eog-window.c:3524
 msgid "_Save"
 msgstr "_บันทึก"
 
-#: shell/eog-window.c:3469
+#: shell/eog-window.c:3525
 msgid "Save _As..."
 msgstr "บันทึกเป็_น..."
 
-#: shell/eog-window.c:3470
+#: shell/eog-window.c:3526
 msgid "Page Set_up..."
 msgstr "ตั้งค่าห_น้ากระดาษ..."
 
-#: shell/eog-window.c:3471
+#: shell/eog-window.c:3527
 msgid "Print..."
 msgstr "พิมพ์..."
 
-#: shell/eog-window.c:3473
+#: shell/eog-window.c:3529
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
-#: shell/eog-window.c:3475
+#: shell/eog-window.c:3531
 msgid "Flip _Horizontal"
 msgstr "พลิกแนว_นอน"
 
-#: shell/eog-window.c:3476
+#: shell/eog-window.c:3532
 msgid "Flip _Vertical"
 msgstr "พลิกแนว_ตั้ง"
 
-#: shell/eog-window.c:3478
+#: shell/eog-window.c:3534
 msgid "_Rotate Clockwise"
 msgstr "หมุนต_ามเข็มนาฬิกา"
 
-#: shell/eog-window.c:3479
+#: shell/eog-window.c:3535
 msgid "Rotate Counterc_lockwise"
 msgstr "หมุน_ทวนเข็มนาฬิกา"
 
-#: shell/eog-window.c:3480
+#: shell/eog-window.c:3536
 msgid "Set As _Wallpaper"
 msgstr "ใช้เป็นภาพ_พื้นหลัง"
 
-#: shell/eog-window.c:3484
+#: shell/eog-window.c:3540
 msgid "_Full Screen"
 msgstr "เ_ต็มจอ"
 
-#: shell/eog-window.c:3485
+#: shell/eog-window.c:3541
 msgid "_Slideshow"
 msgstr "แสดงสไ_ลด์"
 
 #. accelerators
-#: shell/eog-window.c:3486 shell/eog-window.c:3492
-#: shell/eog-window.c:3493
+#: shell/eog-window.c:3542 shell/eog-window.c:3548
+#: shell/eog-window.c:3549
 msgid "_Zoom In"
 msgstr "ขย_าย"
 
-#: shell/eog-window.c:3487 shell/eog-window.c:3494
+#: shell/eog-window.c:3543 shell/eog-window.c:3550
 msgid "Zoom _Out"
 msgstr "_ย่อ"
 
-#: shell/eog-window.c:3488
+#: shell/eog-window.c:3544
 msgid "_Normal Size"
 msgstr "ขนาด_ปกติ"
 
-#: shell/eog-window.c:3489
+#: shell/eog-window.c:3545
 msgid "Best _Fit"
 msgstr "ขนาด_พอดี"
 
-#: shell/eog-window.c:3495 shell/eog-window.c:3497
-#: shell/eog-window.c:3511
+#: shell/eog-window.c:3551 shell/eog-window.c:3553
+#: shell/eog-window.c:3567
 msgid "_Next Image"
 msgstr "รูป_ถัดไป"
 
-#: shell/eog-window.c:3496 shell/eog-window.c:3498
-#: shell/eog-window.c:3499 shell/eog-window.c:3510
+#: shell/eog-window.c:3552 shell/eog-window.c:3554
+#: shell/eog-window.c:3555 shell/eog-window.c:3566
 msgid "_Previous Image"
 msgstr "รูป_ก่อนหน้า"
 
-#: shell/eog-window.c:3500
+#: shell/eog-window.c:3556
 msgid "Move to _Trash"
 msgstr "ย้ายไป_ถังขยะ"
 
-#: shell/eog-window.c:3501 shell/eog-window.c:3512
+#: shell/eog-window.c:3557 shell/eog-window.c:3568
 msgid "_First Image"
 msgstr "รูปแ_รก"
 
-#: shell/eog-window.c:3502 shell/eog-window.c:3513
+#: shell/eog-window.c:3558 shell/eog-window.c:3569
 msgid "_Last Image"
 msgstr "รูปสุด_ท้าย"
 
-#: shell/eog-window.c:3506
+#: shell/eog-window.c:3562
 msgid "Image _Information"
 msgstr "_ข้อมูลเกี่ยวกับรูปภาพ"
 
-#: shell/eog-window.c:3506
+#: shell/eog-window.c:3562
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "แสดง/ซ่อน ช่องแสดงข้อมูลในหน้าต่างปัจจุบัน"
 
-#: shell/eog-window.c:3524
+#: shell/eog-window.c:3580
 msgid "Open"
 msgstr "เปิด"
 
-#: shell/eog-window.c:3525
+#: shell/eog-window.c:3581
 msgid "Close"
 msgstr "ปิด"
 
-#: shell/eog-window.c:3526
+#: shell/eog-window.c:3582
 msgid "Save"
 msgstr "บันทึก"
 
-#: shell/eog-window.c:3528
+#: shell/eog-window.c:3584
 msgid "Undo"
 msgstr "เรียกคืน"
 
-#: shell/eog-window.c:3531
+#: shell/eog-window.c:3587
 msgid "Right"
 msgstr "ขวา"
 
-#: shell/eog-window.c:3532
+#: shell/eog-window.c:3588
 msgid "Left"
 msgstr "ซ้าย"
 
-#: shell/eog-window.c:3535
+#: shell/eog-window.c:3591
 msgid "In"
 msgstr "ขยาย"
 
-#: shell/eog-window.c:3536
+#: shell/eog-window.c:3592
 msgid "Out"
 msgstr "ย่อ"
 
-#: shell/eog-window.c:3537
+#: shell/eog-window.c:3593
 msgid "Normal"
 msgstr "ปกติ"
 
-#: shell/eog-window.c:3538
+#: shell/eog-window.c:3594
 msgid "Fit"
 msgstr "พอดี"
 
-#: shell/eog-window.c:3539
+#: shell/eog-window.c:3595
 msgid "Next"
 msgstr "ถัดไป"
 
-#: shell/eog-window.c:3540
+#: shell/eog-window.c:3596
 msgid "Previous"
 msgstr "ก่อนหน้า"
 
-#: shell/eog-window.c:3703
+#: shell/eog-window.c:3759
 msgid "User interface description not found."
 msgstr "หาแฟ้มข้อมูลสำหรับสร้างหน้าต่างติดต่อผู้ใช้ไม่พบ"
 
@@ -892,6 +984,9 @@ msgstr "เปิด '%s'"
 #: shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "ว่างเปล่า"
+
+#~ msgid "Slide Show"
+#~ msgstr "การแสดงสไลด์"
 
 #~ msgid "<b>Image Interpolation</b>"
 #~ msgstr "<b>ประมาณค่าสีจากข้อมูลรอบข้าง</b>"
@@ -1036,12 +1131,6 @@ msgstr "ว่างเปล่า"
 #~ msgid "Page"
 #~ msgstr "กระดาษ"
 
-#~ msgid "Preview"
-#~ msgstr "ตัวอย่างงานพิมพ์"
-
-#~ msgid "Millimeter"
-#~ msgstr "มิลลิเมตร"
-
 #~ msgid "Paper"
 #~ msgstr "กระดาษ"
 
@@ -1059,9 +1148,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Fit to page"
 #~ msgstr "พอดีหน้า"
-
-#~ msgid "Horizontally"
-#~ msgstr "แนวนอน"
 
 #~ msgid "Horizontally by "
 #~ msgstr "ตามแนวนอน"
@@ -1089,9 +1175,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Show"
 #~ msgstr "แสดง"
-
-#~ msgid "Vertically"
-#~ msgstr "แนวตั้ง"
 
 #~ msgid "Vertically by "
 #~ msgstr "ตามแนวตั้ง"
@@ -1170,9 +1253,6 @@ msgstr "ว่างเปล่า"
 #~ msgid "Image successfully saved"
 #~ msgstr "บันทึกรูปเรียบร้อย"
 
-#~ msgid "Image Height"
-#~ msgstr "ความกว้างรูป"
-
 #~ msgid "Statusbar Text"
 #~ msgstr "ข้อความบนแถบสถานะ"
 
@@ -1240,14 +1320,8 @@ msgstr "ว่างเปล่า"
 #~ msgid "centimeter"
 #~ msgstr "เซนติเมตร"
 
-#~ msgid "inch"
-#~ msgstr "นิ้ว"
-
 #~ msgid "Print Setup"
 #~ msgstr "ตั้งค่าการพิมพ์"
-
-#~ msgid "Units: "
-#~ msgstr "หน่วย: "
 
 #~ msgid "Paper size:"
 #~ msgstr "ขนาดกระดาษ:"
@@ -1257,12 +1331,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Landscape"
 #~ msgstr "แนวนอน"
-
-#~ msgid "Bottom:"
-#~ msgstr "ล่าง:"
-
-#~ msgid "Printing"
-#~ msgstr "กำลังพิมพ์"
 
 #~ msgid "Helpers"
 #~ msgstr "ตัวช่วย"
