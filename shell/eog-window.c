@@ -714,7 +714,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 			"authors", authors,
 			"documenters", documenters,
 			"translator-credits", translators,
-			"website", "http://live.gnome.org/EyeOfGnome",
+			"website", "http://www.gnome.org/projects/eog",
 			"logo-icon-name", "eog",
 			"wrap-license", TRUE,
 			"license", license_trans,
