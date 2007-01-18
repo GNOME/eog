@@ -3178,10 +3178,11 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 	
 	job_data = (EogJobImageLoadData*) data;
 	window = EOG_JOB_DATA (job_data)->window;
-	image = job_data->image;
+	image = eog_image_data_ref (job_data->image);
 
 	/* Check to see if the job is still relevant. */
 	if (window->priv->next_image != image) {
+		  eog_image_data_unref (image);
         	  eog_image_unlock (image);
 	          return;
 	}
@@ -3222,6 +3223,7 @@ job_image_load_finished (EogJob *job, gpointer data, GError *error)
 		g_assert_not_reached ();
 	}
 
+	eog_image_data_unref (image);
 	g_object_unref (image);
 
 	/* The companion lock is in job_image_load_action. */
