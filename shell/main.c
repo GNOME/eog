@@ -503,7 +503,8 @@ open_uri_list_cb (EogWindow *window, GSList *uri_list, gpointer data)
 	/* open every directory in an own window */
 	if (dir_list) {
 		quit_program = FALSE;
-		load_uris_in_single_model (window, dir_list);		
+		load_uris_in_single_model (window, dir_list);
+		g_list_free (dir_list);
 	}
 
 	/* show error for inaccessable files */

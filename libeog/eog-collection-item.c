@@ -299,6 +299,10 @@ job_thumb_finished (EogJob *job, gpointer data, GError *error)
 	
 	set_pixbuf (EOG_COLLECTION_ITEM (data), pixbuf, show_frame);
 	g_object_unref (pixbuf);
+
+	/* Even if we currently ignore the error we need to free it */
+	if (error)
+		g_error_free (error);
 }
 
 static void 
