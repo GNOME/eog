@@ -16,12 +16,11 @@ INCLUDES =							\
 	$(WARN_CFLAGS)
 
 libeog-marshal.h: libeog-marshal.list $(GLIB_GENMARSHAL)
-	echo "genmarshal h" && \
-        $(GLIB_GENMARSHAL) $< --header --prefix=libeog_marshal > $@
+	$(GLIB_GENMARSHAL) libeog-marshal.list  --header --prefix=libeog_marshal > $@
 
-libeog-marshal.c: libeog-marshal.list $(GLIB_GENMARSHAL)
-	echo "genmarshal c" && \
-        $(GLIB_GENMARSHAL) $< --body --prefix=libeog_marshal > $@
+libeog-marshal.c: libeog-marshal.list libeog-marshal.h $(GLIB_GENMARSHAL)
+	echo "#include \"libeog-marshal.h\"" > $@ && \
+        $(GLIB_GENMARSHAL) libeog-marshal.list --body --prefix=libeog_marshal >> $@
 
 MARSHAL_OUTPUT = 		\
 	libeog-marshal.h	\
