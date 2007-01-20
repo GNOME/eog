@@ -158,6 +158,17 @@ string_list_to_uri_list (GSList *string_list)
 	return g_slist_reverse (uri_list);
 }
 
+static void
+eog_application_show_window (EogWindow *window, gpointer user_data)
+{
+	gdk_threads_enter ();
+
+	gtk_window_present_with_time (GTK_WINDOW (window),
+				      (guint) user_data);
+
+	gdk_threads_leave ();
+}
+
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
 			       GSList          *files,
@@ -186,10 +197,12 @@ eog_application_open_uri_list (EogApplication  *application,
 		new_window = EOG_WINDOW (eog_window_new (flags));
 	}
 
-	eog_window_open_uri_list (new_window, uri_list);
+	g_signal_connect (new_window, 
+			  "prepared", 
+			  G_CALLBACK (eog_application_show_window), 
+			  GINT_TO_POINTER (timestamp));
 
-	gtk_window_present_with_time (GTK_WINDOW (new_window),
-				      timestamp);
+	eog_window_open_uri_list (new_window, uri_list);
 
 	return TRUE;
 }

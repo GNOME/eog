@@ -74,6 +74,8 @@ struct _EogWindow {
 
 struct _EogWindowClass {
 	GtkWindowClass parent_class;
+
+	void (* prepared) (EogWindow *window);
 };
 
 GType        eog_window_get_type  	(void);

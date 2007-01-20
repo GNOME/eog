@@ -48,14 +48,14 @@
 #include "eog-thumbnail.h"
 #include "eog-print-image-setup.h"
 
-#include <gconf/gconf-client.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs-mime.h>
 #include <gtk/gtkprintunixdialog.h>
+#include <libgnomevfs/gnome-vfs-mime.h>
+#include <gconf/gconf-client.h>
 
 #define EOG_WINDOW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_WINDOW, EogWindowPrivate))
@@ -71,8 +71,12 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_RECENT_FILES_LIMIT  5
 
 typedef enum {
+	EOG_WINDOW_STATUS_INIT,
+	EOG_WINDOW_STATUS_NORMAL
+} EogWindowStatus;
+
+typedef enum {
 	EOG_WINDOW_MODE_UNKNOWN,
-	EOG_WINDOW_MODE_INIT,
 	EOG_WINDOW_MODE_NORMAL,
 	EOG_WINDOW_MODE_FULLSCREEN,
 	EOG_WINDOW_MODE_SLIDESHOW
@@ -83,12 +87,20 @@ enum {
 	PROP_STARTUP_FLAGS
 };
 
+enum {
+	SIGNAL_PREPARED,
+	SIGNAL_LAST
+};
+
+static gint signals [SIGNAL_LAST];
+
 struct _EogWindowPrivate {
         GConfClient         *client;
 
         EogListStore        *store;
         EogImage            *image;
 	EogWindowMode        mode;
+	EogWindowStatus      status;
 
         GtkUIManager        *ui_mgr;
         GtkWidget           *box;
@@ -294,6 +306,175 @@ update_status_bar (EogWindow *window)
 }
 
 static void
+update_action_groups_state (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	int n_images = 0;
+	gboolean save_disabled = FALSE;
+	gboolean print_disabled = FALSE;
+	gboolean page_setup_disabled = FALSE;
+	gboolean show_image_collection = FALSE;
+	gboolean fullscreen_mode = FALSE;
+	GtkAction *action_collection;
+	GtkAction *action_fscreen;
+	GtkAction *action_sshow;
+	GtkAction *action_save;
+	GtkAction *action_save_as;
+	GtkAction *action_print;
+	GtkAction *action_page_setup;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	priv = window->priv;
+
+	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
+			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
+
+	action_collection = 
+		gtk_action_group_get_action (priv->actions_window, 
+					     "ViewImageCollection");
+
+	action_fscreen = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "ViewFullscreen");
+
+	action_sshow = 
+		gtk_action_group_get_action (priv->actions_collection, 
+					     "ViewSlideshow");
+
+	action_save = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FileSave");
+
+	action_save_as = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FileSaveAs");
+
+	action_print = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FilePrint");
+
+	action_page_setup = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "FilePageSetup");
+
+	g_assert (action_fscreen != NULL);
+	g_assert (action_sshow != NULL);
+	g_assert (action_save != NULL);
+	g_assert (action_save_as != NULL);
+	g_assert (action_print != NULL);
+	g_assert (action_page_setup != NULL);
+
+	if (priv->store != NULL) {
+		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
+	}
+
+	if (n_images == 0) {
+		gtk_widget_hide_all (priv->vbox);
+
+		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
+		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+
+		gtk_action_set_sensitive (action_fscreen, FALSE);
+		gtk_action_set_sensitive (action_sshow,   FALSE);
+
+		/* If there are no images on model, initialization
+ 		   stops here. */
+		if (priv->status == EOG_WINDOW_STATUS_INIT) {
+			priv->status = EOG_WINDOW_STATUS_NORMAL;
+		}
+	} else {
+		if (priv->flags & EOG_STARTUP_DISABLE_COLLECTION) {
+			gconf_client_set_bool (priv->client, 
+					       EOG_CONF_UI_IMAGE_COLLECTION, 
+					       FALSE,
+					       NULL);
+
+			show_image_collection = FALSE;
+		} else {
+			show_image_collection = 
+				gconf_client_get_bool (priv->client, 
+						       EOG_CONF_UI_IMAGE_COLLECTION, 
+						       NULL);
+		}
+
+		show_image_collection = show_image_collection && !fullscreen_mode;
+
+		gtk_widget_show (priv->vbox);
+		gtk_widget_show_all (priv->view->parent);
+
+		if (show_image_collection) 
+			gtk_widget_show_all (priv->nav);
+
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_collection),
+					      show_image_collection);
+
+		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
+		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
+		
+		gtk_action_set_sensitive (action_fscreen, TRUE);
+
+		if (n_images == 1) {
+			gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+			gtk_action_set_sensitive (action_sshow, FALSE);
+		} else {
+			gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
+			gtk_action_set_sensitive (action_sshow, TRUE);
+		}
+
+		gtk_widget_grab_focus (priv->view);
+	}
+
+	save_disabled = gconf_client_get_bool (priv->client, 
+					       EOG_CONF_DESKTOP_CAN_SAVE, 
+					       NULL);
+
+	if (save_disabled) {
+		gtk_action_set_sensitive (action_save, FALSE);
+		gtk_action_set_sensitive (action_save_as, FALSE);
+	}
+
+	print_disabled = gconf_client_get_bool (priv->client, 
+						EOG_CONF_DESKTOP_CAN_PRINT, 
+						NULL);
+
+	if (print_disabled) {
+		gtk_action_set_sensitive (action_print, FALSE);
+	}
+
+	page_setup_disabled = gconf_client_get_bool (priv->client, 
+						     EOG_CONF_DESKTOP_CAN_SETUP_PAGE, 
+						     NULL);
+
+	if (page_setup_disabled) {
+		gtk_action_set_sensitive (action_page_setup, FALSE);
+	}
+}
+
+static void
+update_selection_ui_visibility (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GtkAction *wallpaper_action;
+	gint n_selected;
+
+	priv = window->priv;
+
+	n_selected = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
+
+	wallpaper_action = 
+		gtk_action_group_get_action (priv->actions_image, 
+					     "SetAsWallpaper");
+
+	if (n_selected == 1) {
+		gtk_action_set_sensitive (wallpaper_action, TRUE);
+	} else {
+		gtk_action_set_sensitive (wallpaper_action, FALSE);
+	} 
+}
+
+static void
 add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 {
 	gchar *text_uri;
@@ -438,7 +619,83 @@ eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer user_data)
 	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
 				    progress);
 }
-	
+
+static void
+eog_window_obtain_desired_size (EogImage  *image, 
+				gint       width, 
+				gint       height,
+				EogWindow *window)
+{
+	GdkScreen *screen;
+	GdkRectangle monitor;
+	gint final_width, final_height;
+	gint screen_width, screen_height;
+	gint window_width, window_height;
+	gint img_width, img_height;
+	gint view_width, view_height;
+	gint deco_width, deco_height;
+
+	gdk_threads_enter ();
+
+	update_action_groups_state (window);
+
+	img_width = width;
+	img_height = height;
+
+	if (!GTK_WIDGET_REALIZED (window->priv->view)) {
+		gtk_widget_realize (window->priv->view);
+	}
+
+	view_width  = window->priv->view->allocation.width;
+	view_height = window->priv->view->allocation.height;
+
+	if (!GTK_WIDGET_REALIZED (GTK_WIDGET (window))) {
+		gtk_widget_realize (GTK_WIDGET (window));
+	}
+
+	window_width  = GTK_WIDGET (window)->allocation.width;
+	window_height = GTK_WIDGET (window)->allocation.height;
+
+	screen = gtk_window_get_screen (GTK_WINDOW (window));
+
+	gdk_screen_get_monitor_geometry (screen,
+			gdk_screen_get_monitor_at_window (screen,
+				GTK_WIDGET (window)->window),
+			&monitor);
+
+	screen_width  = monitor.width;
+	screen_height = monitor.height;
+
+	deco_width = window_width - view_width; 
+	deco_height = window_height - view_height; 
+
+	if (img_width > 0 && img_height > 0) {
+		if ((img_width + deco_width > screen_width) ||
+		    (img_height + deco_height > screen_height))
+		{
+			double factor;
+
+			if (img_width > img_height) {
+				factor = (screen_width * 0.75 - deco_width) / (double) img_width;
+			} else {
+				factor = (screen_height * 0.75 - deco_height) / (double) img_height;
+			}
+
+			img_width = img_width * factor;
+			img_height = img_height * factor;
+		}
+	}
+
+	final_width = MAX (EOG_WINDOW_DEFAULT_WIDTH, img_width + deco_width);
+	final_height = MAX (EOG_WINDOW_DEFAULT_HEIGHT, img_height + deco_height);
+
+	gtk_window_set_default_size (GTK_WINDOW (window), final_width, final_height);
+
+	gdk_threads_leave ();
+
+	g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
+}
+
 static void
 eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
@@ -459,6 +716,14 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	}
 
 	eog_window_clear_load_job (window);
+
+        if (window->priv->status == EOG_WINDOW_STATUS_INIT) {
+		window->priv->status = EOG_WINDOW_STATUS_NORMAL;
+		g_signal_handlers_disconnect_by_func
+			(job->image, 
+			 G_CALLBACK (eog_window_obtain_desired_size), 
+			 window);
+	}
 
 	g_object_unref (job->image);
 }
@@ -490,169 +755,6 @@ eog_job_transform_cb (EogJobTransform *job, gpointer data)
 	window = EOG_WINDOW (data);
 
 	eog_window_clear_transform_job (window);
-}
-	
-static void
-update_action_groups_state (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	int n_images = 0;
-	gboolean save_disabled = FALSE;
-	gboolean print_disabled = FALSE;
-	gboolean page_setup_disabled = FALSE;
-	gboolean show_image_collection = FALSE;
-	gboolean fullscreen_mode = FALSE;
-	GtkAction *action_collection;
-	GtkAction *action_fscreen;
-	GtkAction *action_sshow;
-	GtkAction *action_save;
-	GtkAction *action_save_as;
-	GtkAction *action_print;
-	GtkAction *action_page_setup;
-
-	g_return_if_fail (EOG_IS_WINDOW (window));
-
-	priv = window->priv;
-
-	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
-			  priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
-
-	action_collection = 
-		gtk_action_group_get_action (priv->actions_window, 
-					     "ViewImageCollection");
-
-	action_fscreen = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "ViewFullscreen");
-
-	action_sshow = 
-		gtk_action_group_get_action (priv->actions_collection, 
-					     "ViewSlideshow");
-
-	action_save = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FileSave");
-
-	action_save_as = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FileSaveAs");
-
-	action_print = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FilePrint");
-
-	action_page_setup = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FilePageSetup");
-
-	g_assert (action_fscreen != NULL);
-	g_assert (action_sshow != NULL);
-	g_assert (action_save != NULL);
-	g_assert (action_save_as != NULL);
-	g_assert (action_print != NULL);
-	g_assert (action_page_setup != NULL);
-
-	if (priv->store != NULL) {
-		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
-	}
-
-	if (n_images == 0) {
-		gtk_widget_hide_all (priv->vbox);
-
-		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
-		gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-
-		gtk_action_set_sensitive (action_fscreen, FALSE);
-		gtk_action_set_sensitive (action_sshow,   FALSE);
-	} else {
-		if (priv->flags & EOG_STARTUP_DISABLE_COLLECTION) {
-			gconf_client_set_bool (priv->client, 
-					       EOG_CONF_UI_IMAGE_COLLECTION, 
-					       FALSE,
-					       NULL);
-
-			show_image_collection = FALSE;
-		} else {
-			show_image_collection = 
-				gconf_client_get_bool (priv->client, 
-						       EOG_CONF_UI_IMAGE_COLLECTION, 
-						       NULL);
-		}
-
-		show_image_collection = show_image_collection && !fullscreen_mode;
-
-		gtk_widget_show (priv->vbox);
-		gtk_widget_show_all (priv->view->parent);
-
-		if (show_image_collection) 
-			gtk_widget_show_all (priv->nav);
-
-		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_collection),
-					      show_image_collection);
-
-		gtk_action_group_set_sensitive (priv->actions_window, TRUE);
-		gtk_action_group_set_sensitive (priv->actions_image,  TRUE);
-		
-		gtk_action_set_sensitive (action_fscreen, TRUE);
-
-		if (n_images == 1) {
-			gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
-			gtk_action_set_sensitive (action_sshow, FALSE);
-		} else {
-			gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);
-			gtk_action_set_sensitive (action_sshow, TRUE);
-		}
-
-		gtk_widget_grab_focus (priv->view);
-	}
-
-	save_disabled = gconf_client_get_bool (priv->client, 
-					       EOG_CONF_DESKTOP_CAN_SAVE, 
-					       NULL);
-
-	if (save_disabled) {
-		gtk_action_set_sensitive (action_save, FALSE);
-		gtk_action_set_sensitive (action_save_as, FALSE);
-	}
-
-	print_disabled = gconf_client_get_bool (priv->client, 
-						EOG_CONF_DESKTOP_CAN_PRINT, 
-						NULL);
-
-	if (print_disabled) {
-		gtk_action_set_sensitive (action_print, FALSE);
-	}
-
-	page_setup_disabled = gconf_client_get_bool (priv->client, 
-						     EOG_CONF_DESKTOP_CAN_SETUP_PAGE, 
-						     NULL);
-
-	if (page_setup_disabled) {
-		gtk_action_set_sensitive (action_page_setup, FALSE);
-	}
-}
-
-static void
-update_selection_ui_visibility (EogWindow *window)
-{
-	EogWindowPrivate *priv;
-	GtkAction *wallpaper_action;
-	gint n_selected;
-
-	priv = window->priv;
-
-	n_selected = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
-
-	wallpaper_action = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "SetAsWallpaper");
-
-	if (n_selected == 1) {
-		gtk_action_set_sensitive (wallpaper_action, TRUE);
-	} else {
-		gtk_action_set_sensitive (wallpaper_action, FALSE);
-	} 
 }
 
 static void 
@@ -704,7 +806,14 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 		eog_window_display_image (window, image);
 		return;
 	}
-	
+
+	if (priv->status == EOG_WINDOW_STATUS_INIT) {
+		g_signal_connect (image,
+				  "size-prepared",
+				  G_CALLBACK (eog_window_obtain_desired_size),
+				  window);
+	}
+
 	priv->load_job = eog_job_load_new (image);
 
 	g_signal_connect (priv->load_job,
@@ -720,7 +829,8 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 	eog_job_queue_add_job (priv->load_job);
 
 	str_image = eog_image_get_uri_for_display (image);
-	status_message = g_strdup_printf (_("Loading image \"%s\""), 
+	status_message = g_strdup_printf ("%s \"%s\"", 
+					  _("Loading image"), 
 				          str_image);
 	g_free (str_image);
 	
@@ -1123,7 +1233,7 @@ update_ui_visibility (EogWindow *window)
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 	g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
 
-	if (priv->mode != EOG_WINDOW_MODE_INIT) {
+	if (priv->status != EOG_WINDOW_STATUS_INIT) {
 		visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, NULL);
 		visible = visible && !fullscreen_mode;
 		action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ImageCollectionToggle");
@@ -2424,8 +2534,8 @@ eog_window_construct_ui (EogWindow *window)
 	    (priv->flags & EOG_STARTUP_SLIDE_SHOW)) {
 		eog_window_run_fullscreen (window, (priv->flags & EOG_STARTUP_SLIDE_SHOW));
 	} else {
-		update_ui_visibility (window);
 		priv->mode = EOG_WINDOW_MODE_NORMAL;
+		update_ui_visibility (window);
 	}
 }
 
@@ -2475,7 +2585,8 @@ eog_window_init (EogWindow *window)
 
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
-	window->priv->mode = EOG_WINDOW_MODE_INIT;
+	window->priv->mode = EOG_WINDOW_MODE_UNKNOWN;
+	window->priv->status = EOG_WINDOW_STATUS_INIT;
 
 	window->priv->recent_manager = 
 		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
@@ -2872,6 +2983,15 @@ eog_window_class_init (EogWindowClass *class)
 					 		     G_PARAM_READWRITE |
 							     G_PARAM_CONSTRUCT_ONLY));
 
+	signals [SIGNAL_PREPARED] = 
+		g_signal_new ("prepared",
+			      G_TYPE_OBJECT,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogWindowClass, prepared),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
+
 	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
 }
 
@@ -2899,6 +3019,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
+	gint n_images;
 
 #ifdef HAVE_LCMS
         int i;
@@ -2916,8 +3037,9 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	priv->store = g_object_ref (job->store);
 
+	n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
+
 #ifdef HAVE_LCMS
-	gint n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
 
 	/* Colour-correct the images */
 	for (i = 0; i < n_images; i++) {
@@ -2928,14 +3050,18 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	eog_thumb_view_set_model (EOG_THUMB_VIEW (priv->thumbview), priv->store);
 
-	update_action_groups_state (window);
+	if (n_images == 0) {
+		priv->status = EOG_WINDOW_STATUS_NORMAL;
+		update_action_groups_state (window);
+		g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
+	}
 }
 
 void
 eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 {
 	EogJob *job;
-	
+
 	job = eog_job_model_new (uri_list);
 	
 	g_signal_connect (job,

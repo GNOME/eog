@@ -166,6 +166,7 @@ main (int argc, char **argv)
 	gnome_authentication_manager_init ();
 
 	eog_job_queue_init ();
+	gdk_threads_init ();
 	eog_thumbnail_init ();
 
 	gtk_window_set_default_icon_name ("eog");
