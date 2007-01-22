@@ -16,11 +16,11 @@ INCLUDES =							\
 	$(WARN_CFLAGS)
 
 libeog-marshal.h: libeog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) libeog-marshal.list  --header --prefix=libeog_marshal > $@
+	$(GLIB_GENMARSHAL) $< --header --prefix=libeog_marshal > $@
 
 libeog-marshal.c: libeog-marshal.list libeog-marshal.h $(GLIB_GENMARSHAL)
 	echo "#include \"libeog-marshal.h\"" > $@ && \
-        $(GLIB_GENMARSHAL) libeog-marshal.list --body --prefix=libeog_marshal >> $@
+        $(GLIB_GENMARSHAL) $< --body --prefix=libeog_marshal >> $@
 
 MARSHAL_OUTPUT = 		\
 	libeog-marshal.h	\
@@ -103,9 +103,6 @@ test_eog_job_LDADD = \
 	$(EOG_LIBS)			\
 	$(LIBJPEG)			\
 	$(X_LIBS)
-
-
-
 
 test_image_load_DEPENDENCIES = libeog.a
 
