@@ -71,6 +71,7 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_RECENT_FILES_LIMIT  5
 
 typedef enum {
+	EOG_WINDOW_STATUS_UNKNOWN,
 	EOG_WINDOW_STATUS_INIT,
 	EOG_WINDOW_STATUS_NORMAL
 } EogWindowStatus;
@@ -2586,7 +2587,7 @@ eog_window_init (EogWindow *window)
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
 	window->priv->mode = EOG_WINDOW_MODE_UNKNOWN;
-	window->priv->status = EOG_WINDOW_STATUS_INIT;
+	window->priv->status = EOG_WINDOW_STATUS_UNKNOWN;
 
 	window->priv->recent_manager = 
 		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
@@ -3061,6 +3062,8 @@ void
 eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 {
 	EogJob *job;
+
+	window->priv->status = EOG_WINDOW_STATUS_INIT;
 
 	job = eog_job_model_new (uri_list);
 	
