@@ -16,12 +16,10 @@ INCLUDES =							\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
-	echo "genmarshal h" && \
-        $(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
+	$(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
 
 eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
-	echo "genmarshal c" && \
-        $(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
+	$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
 
 MARSHAL_OUTPUT = 	\
 	eog-marshal.h	\
@@ -89,10 +87,6 @@ eog_SOURCES =				\
 	eog-info-view-file.c		\
 	eog-info-view-exif.h		\
 	eog-info-view-exif.c		\
-        accessible-image-view-factory.h	\
-        accessible-image-view-factory.c	\
-        accessible-image-view.h		\
-        accessible-image-view.c		\
 	eog-save-dialog-helper.h	\
 	eog-save-dialog-helper.c	\
 	eog-save-as-dialog-helper.h	\

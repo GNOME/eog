@@ -3037,7 +3037,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	priv->store = g_object_ref (job->store);
 
-	n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
+	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 
 #ifdef HAVE_LCMS
 
