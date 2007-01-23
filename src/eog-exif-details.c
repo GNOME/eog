@@ -1,16 +1,40 @@
+/* Eye Of Gnome - EOG Image Exif Details
+ *
+ * Copyright (C) 2006 The Free Software Foundation
+ *
+ * Author: Lucas Rocha <lucasr@gnome.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#include <glib/gi18n.h>
-#include <gtk/gtk.h>
-
-#include "eog-info-view-exif.h"
-
-#if HAVE_EXIF
+#include "eog-exif-details.h"
 
 #include <libexif/exif-entry.h>
 #include <libexif/exif-utils.h>
+
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
+
+#define EOG_EXIF_DETAILS_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_EXIF_DETAILS, EogExifDetailsPrivate))
+
+G_DEFINE_TYPE (EogExifDetails, eog_exif_details, GTK_TYPE_TREE_VIEW)
 
 typedef enum {
 	EXIF_CATEGORY_CAMERA,
@@ -149,36 +173,20 @@ static ExifTagCategory exif_tag_category_map[] = {
 #define MODEL_COLUMN_ATTRIBUTE 0
 #define MODEL_COLUMN_VALUE     1
 
-struct _EogInfoViewExifPrivate
-{
+struct _EogExifDetailsPrivate {
 	GtkTreeModel *model;
 
-	GHashTable   *id_path_hash; /* saves the stringified GtkTreeModel path  
-				       for a given EXIF entry id */
+	GHashTable   *id_path_hash;
 };
-
-G_DEFINE_TYPE (EogInfoViewExif, eog_info_view_exif, EOG_TYPE_INFO_VIEW_DETAIL)
 
 static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value);
 
-
 static void
-eog_info_view_exif_finalize (GObject *object)
+eog_exif_details_dispose (GObject *object)
 {
-	EogInfoViewExif *instance = EOG_INFO_VIEW_EXIF (object);
-	
-	g_free (instance->priv);
-	instance->priv = NULL;
-}
+	EogExifDetailsPrivate *priv;
 
-static void
-eog_info_view_exif_dispose (GObject *object)
-{
-	EogInfoViewExif *view;
-	EogInfoViewExifPrivate *priv;
-
-	view = EOG_INFO_VIEW_EXIF (object);
-	priv = view->priv;
+	priv = EOG_EXIF_DETAILS (object)->priv;
 
 	if (priv->model) {
 		g_object_unref (priv->model);
@@ -192,56 +200,60 @@ eog_info_view_exif_dispose (GObject *object)
 }
 
 static void
-eog_info_view_exif_init (EogInfoViewExif *view)
+eog_exif_details_init (EogExifDetails *exif_details)
 {
-	EogInfoViewExifPrivate *priv;
+	EogExifDetailsPrivate *priv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *cell;
 	int i;
 
-	priv = g_new0 (EogInfoViewExifPrivate, 1);
+	exif_details->priv = EOG_EXIF_DETAILS_GET_PRIVATE (exif_details);
 
-	view->priv = priv;
+	priv = exif_details->priv;
 
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (2, G_TYPE_STRING, G_TYPE_STRING));
 	priv->id_path_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 
-	/* tag column */
+	/* Tag name column */
 	cell = gtk_cell_renderer_text_new ();
-        column = gtk_tree_view_column_new_with_attributes (_("Tag"),
-		                                                   cell, 
+        column = gtk_tree_view_column_new_with_attributes (_("Tag"), cell, 
                                                            "text", MODEL_COLUMN_ATTRIBUTE,
-														   NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
+							   NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (exif_details), column);
 
-	/* value column */
+	/* Value column */
 	cell = gtk_cell_renderer_text_new ();
-        column = gtk_tree_view_column_new_with_attributes (_("Value"),
-		                                                   cell, 
+        column = gtk_tree_view_column_new_with_attributes (_("Value"), cell, 
                                                            "text", MODEL_COLUMN_VALUE,
-							                               NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
+							    NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (exif_details), column);
 
-	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (view), TRUE);
+	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (exif_details), TRUE);
 
 	for (i = 0; exif_categories [i].label != NULL; i++) {
 		char *translated_string;
 		
 		translated_string = gettext (exif_categories[i].label);
-		set_row_data (GTK_TREE_STORE (priv->model), exif_categories[i].path, NULL,
-					  translated_string, NULL);
+
+		set_row_data (GTK_TREE_STORE (priv->model), 
+			      exif_categories[i].path, 
+			      NULL,
+			      translated_string, 
+			      NULL);
 	}
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW (view), GTK_TREE_MODEL (priv->model));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (exif_details), 
+				 GTK_TREE_MODEL (priv->model));
 }
 
 static void 
-eog_info_view_exif_class_init (EogInfoViewExifClass *klass)
+eog_exif_details_class_init (EogExifDetailsClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
 
-	object_class->finalize = eog_info_view_exif_finalize;
-	object_class->dispose = eog_info_view_exif_dispose;
+	object_class->dispose = eog_exif_details_dispose;
+
+	g_type_class_add_private (object_class, sizeof (EogExifDetailsPrivate));
 }
 
 static ExifCategory
@@ -264,8 +276,8 @@ static char*
 set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value)
 {
 	GtkTreeIter iter;
-	char *utf_attribute = NULL;
-	char *utf_value = NULL;
+	gchar *utf_attribute = NULL;
+	gchar *utf_value = NULL;
 	gboolean iter_valid = FALSE;
 
 	if (!attribute) return NULL;
@@ -280,7 +292,9 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 		gboolean parent_valid = FALSE;
 
 		if (parent != NULL) {
-			parent_valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), &parent_iter, parent);
+			parent_valid = gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (store), 
+									    &parent_iter, 
+									    parent);
 		}
 
 		gtk_tree_store_append (store, &iter, parent_valid ? &parent_iter : NULL);
@@ -297,21 +311,20 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 
 	if (g_utf8_validate (attribute, -1, NULL)) {
 		utf_attribute = g_strdup (attribute);
-	}
-	else {
+	} else {
 		utf_attribute = g_locale_to_utf8 (attribute, -1, NULL, NULL, NULL);
 	}
+
 	gtk_tree_store_set (store, &iter, MODEL_COLUMN_ATTRIBUTE, utf_attribute, -1);
 	g_free (utf_attribute);
 
 	if (value != NULL) {
 		if (g_utf8_validate (value, -1, NULL)) {
 			utf_value = g_strdup (value);
-		}
-		else {
+		} else {
 			utf_value = g_locale_to_utf8 (value, -1, NULL, NULL, NULL);
 		}
-		
+
 		gtk_tree_store_set (store, &iter, MODEL_COLUMN_VALUE, utf_value, -1);
 		g_free (utf_value);
 	}
@@ -323,13 +336,13 @@ static void
 exif_entry_cb (ExifEntry *entry, gpointer data)
 {
 	GtkTreeStore *store;
-	EogInfoViewExif *view;
-	EogInfoViewExifPrivate *priv;
+	EogExifDetails *view;
+	EogExifDetailsPrivate *priv;
 	ExifCategory cat;
 	char *path;
 	char b[1024];
 
-	view = EOG_INFO_VIEW_EXIF (data);
+	view = EOG_EXIF_DETAILS (data);
 	priv = view->priv;
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
@@ -337,12 +350,20 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	path = g_hash_table_lookup (priv->id_path_hash, GINT_TO_POINTER (entry->tag));
 
 	if (path != NULL) {
-		set_row_data (store, path, NULL, exif_tag_get_name (entry->tag), exif_entry_get_value (entry, b, sizeof(b)));	
-	}
-	else {
+		set_row_data (store, 
+			      path, 
+			      NULL, 
+			      exif_tag_get_name (entry->tag), 
+			      exif_entry_get_value (entry, b, sizeof(b)));	
+	} else {
 		cat = get_exif_category (entry);
-		path = set_row_data (store, NULL, exif_categories[cat].path,
-				     exif_tag_get_name (entry->tag), exif_entry_get_value (entry, b, sizeof(b)));	
+
+		path = set_row_data (store, 
+				     NULL, 
+				     exif_categories[cat].path,
+				     exif_tag_get_name (entry->tag), 
+				     exif_entry_get_value (entry, b, sizeof(b)));
+
 		g_hash_table_insert (priv->id_path_hash,
 				     GINT_TO_POINTER (entry->tag),
 				     path);
@@ -362,23 +383,28 @@ clear_single_value (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, g
 	return FALSE;
 }
 
-void
-eog_info_view_exif_show_data (EogInfoViewExif *view, ExifData *data)
+GtkWidget *
+eog_exif_details_new ()
 {
-	EogInfoViewExifPrivate *priv;
+	GObject *object;
 
-	g_return_if_fail (EOG_IS_INFO_VIEW_EXIF (view));
+	object = g_object_new (EOG_TYPE_EXIF_DETAILS, NULL);
 
-	priv = view->priv;
+	return GTK_WIDGET (object);
+}
+
+void
+eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
+{
+	EogExifDetailsPrivate *priv;
+
+	g_return_if_fail (EOG_IS_EXIF_DETAILS (exif_details));
+
+	priv = exif_details->priv;
 
 	if (data == NULL) {
 		gtk_tree_model_foreach (GTK_TREE_MODEL (priv->model), clear_single_value, NULL);
-	}
-	else {
-		exif_data_foreach_content (data, exif_content_cb, view);
+	} else {
+		exif_data_foreach_content (data, exif_content_cb, exif_details);
 	}
 }
-
-
-
-#endif /* HAVE_EXIF */

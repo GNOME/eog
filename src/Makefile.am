@@ -79,14 +79,6 @@ eog_SOURCES =				\
 	eog-uri-converter.c		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
-	eog-info-view.c			\
-	eog-info-view.h			\
-	eog-info-view-detail.h		\
-	eog-info-view-detail.c		\
-	eog-info-view-file.h		\
-	eog-info-view-file.c		\
-	eog-info-view-exif.h		\
-	eog-info-view-exif.c		\
 	eog-save-dialog-helper.h	\
 	eog-save-dialog-helper.c	\
 	eog-save-as-dialog-helper.h	\
@@ -100,6 +92,12 @@ eog_SOURCES =				\
 	zoom.c				\
 	zoom.h				\
 	main.c	
+
+if HAVE_EXIF
+eog_SOURCES +=				\
+	eog-exif-details.h		\
+	eog-exif-details.c
+endif
 
 eog_DEPENDENCIES = 	\
 	$(jpeg_DEPS)

@@ -1,3 +1,12 @@
+2007-01-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-info-view*: removed.
+	* src/eog-exif-details.[ch]: dump of EXIF data in a tree view. Used in
+	the "Details" expander in image properties dialog.
+	* src/eog-properties-dialog.c, data/eog.glade, src/Makefile.am: added 
+	EXIF tab. Main tags are shown by default. Expander can be used to see 
+	all EXIF data. Polishing still needs to be done.
+
 2007-01-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-image.c: (eog_image_class_init): Hook signals to

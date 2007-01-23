@@ -88,6 +88,8 @@ if test "x$have_exif" = "xyes"; then
   EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
 fi
 
+AM_CONDITIONAL([HAVE_EXIF], [test "x$have_exif" = "xyes"])
+
 # *********************
 # Little CMS (optional)
 # *********************

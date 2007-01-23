@@ -43,6 +43,11 @@ typedef struct _EogPropertiesDialogPrivate EogPropertiesDialogPrivate;
 #define EOG_IS_PROPERTIES_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  EOG_TYPE_PROPERTIES_DIALOG))
 #define EOG_PROPERTIES_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_PROPERTIES_DIALOG, EogPropertiesDialogClass))
 
+typedef enum {
+	EOG_PROPERTIES_DIALOG_PAGE_GENERAL,
+	EOG_PROPERTIES_DIALOG_PAGE_EXIF
+} EogPropertiesDialogPage;
+
 struct _EogPropertiesDialog {
 	EogDialog dialog;
 
@@ -55,11 +60,14 @@ struct _EogPropertiesDialogClass {
 
 GType	    eog_properties_dialog_get_type	(void);
 
-GObject    *eog_properties_dialog_new	  	(GtkWindow           *parent,
-                                                 EogThumbView        *thumbview);
+GObject    *eog_properties_dialog_new	  	(GtkWindow               *parent,
+                                                 EogThumbView            *thumbview);
 
-void	    eog_properties_dialog_update  	(EogPropertiesDialog *prop,
-						 EogImage            *image);
+void	    eog_properties_dialog_update  	(EogPropertiesDialog     *prop,
+						 EogImage                *image);
+
+void	    eog_properties_dialog_set_page  	(EogPropertiesDialog     *prop,
+						 EogPropertiesDialogPage  page);
 
 G_END_DECLS
 

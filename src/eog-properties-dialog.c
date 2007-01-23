@@ -26,6 +26,7 @@
 #include "eog-properties-dialog.h"
 #include "eog-image.h"
 #include "eog-thumb-view.h"
+#include "eog-exif-details.h"
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -53,13 +54,29 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *next_button;
 	GtkWidget      *previous_button;
 
+	GtkWidget      *general_box;
 	GtkWidget      *thumbnail_image;
 	GtkWidget      *name_label;
-	GtkWidget      *size_label;
+	GtkWidget      *width_label;
+	GtkWidget      *height_label;
 	GtkWidget      *type_label;
 	GtkWidget      *bytes_label;
 	GtkWidget      *location_label;
+	GtkWidget      *created_label;
 	GtkWidget      *modified_label;
+#ifdef HAVE_EXIF
+	GtkWidget      *exif_box;
+	GtkWidget      *exif_aperture_label;
+	GtkWidget      *exif_shutter_label;
+	GtkWidget      *exif_focal_label;
+	GtkWidget      *exif_flash_label;
+	GtkWidget      *exif_iso_label;
+	GtkWidget      *exif_metering_label;
+	GtkWidget      *exif_model_label;
+	GtkWidget      *exif_date_label;
+	GtkWidget      *exif_details_expander;
+	GtkWidget      *exif_details;
+#endif
 };
 
 static void
@@ -81,8 +98,11 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	eog_image_get_size (image, &width, &height);
 
-	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->size_label), 
-			    g_strdup_printf ("%d x %d", width, height));
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->width_label), 
+			    g_strdup_printf ("%d pixels", width));
+
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label), 
+			    g_strdup_printf ("%d pixels", height));
 
 	type_str = gnome_vfs_mime_get_description (gnome_vfs_get_mime_type (uri_str));
 
@@ -99,6 +119,93 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	g_free (uri_str);
 	g_free (bytes_str);
 }
+
+#ifdef HAVE_EXIF
+static gchar * 
+pd_get_exif_value (ExifData *exif_data, gint tag_id)
+{
+	ExifEntry *exif_entry;
+	const gchar *exif_value;
+	gchar *utf_value = NULL;
+	gchar buffer[1024];
+
+        exif_entry = exif_data_get_entry (exif_data, tag_id);
+
+	exif_value = exif_entry_get_value (exif_entry, buffer, sizeof (buffer));
+
+	if (exif_value != NULL) {
+		if (g_utf8_validate (exif_value, -1, NULL)) {
+			utf_value = g_strdup (exif_value);
+		} else {
+			utf_value = g_locale_to_utf8 (exif_value, -1, NULL, NULL, NULL);
+		}
+	}
+
+	return utf_value;
+}
+
+static void
+pd_update_exif_tab (EogPropertiesDialog *prop_dlg, 
+		    EogImage            *image)
+{
+	GtkNotebook *notebook;
+	ExifData *exif_data;
+	gchar *exif_value = NULL;
+
+	notebook = GTK_NOTEBOOK (prop_dlg->priv->notebook);
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
+		if (gtk_notebook_get_current_page (notebook) ==	EOG_PROPERTIES_DIALOG_PAGE_EXIF) {
+			gtk_notebook_prev_page (notebook);
+		}
+
+		if (GTK_WIDGET_VISIBLE (prop_dlg->priv->exif_box)) {
+			gtk_widget_hide_all (prop_dlg->priv->exif_box);
+		}
+
+		return;
+	} else if (!GTK_WIDGET_VISIBLE (prop_dlg->priv->exif_box)) {
+		gtk_widget_show_all (prop_dlg->priv->exif_box);
+	}
+
+	exif_data = (ExifData *) eog_image_get_exif_info (image);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_APERTURE_VALUE);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_aperture_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_SHUTTER_SPEED_VALUE);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_shutter_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_FOCAL_LENGTH);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_focal_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_FLASH);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_flash_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_iso_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_METERING_MODE);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_metering_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_MODEL);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_model_label), exif_value);
+	g_free (exif_value);
+
+	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_DATE_TIME);
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_date_label), exif_value);
+	g_free (exif_value);
+
+	eog_exif_details_update (EOG_EXIF_DETAILS (prop_dlg->priv->exif_details), 
+				 exif_data);
+}
+#endif
 
 static void
 pd_previous_button_clicked_cb (GtkButton *button, 
@@ -226,6 +333,9 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 {
 	EogPropertiesDialogPrivate *priv;
 	GtkWidget *dlg;
+#ifdef HAVE_EXIF
+	GtkWidget *sw;
+#endif
 
 	prop_dlg->priv = EOG_PROPERTIES_DIALOG_GET_PRIVATE (prop_dlg);
 
@@ -242,11 +352,27 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			         "next_button", &priv->next_button,
 			         "close_button", &priv->close_button,
 			         "thumbnail_image", &priv->thumbnail_image,
+			         "general_box", &priv->general_box,
 			         "name_label", &priv->name_label,
-			         "size_label", &priv->size_label,
+			         "width_label", &priv->width_label,
+			         "height_label", &priv->height_label,
 			         "type_label", &priv->type_label,
 			         "bytes_label", &priv->bytes_label,
 			         "location_label", &priv->location_label,
+			         "created_label", &priv->created_label,
+			         "modified_label", &priv->modified_label,
+#ifdef HAVE_EXIF
+			         "exif_box", &priv->exif_box,
+			         "exif_aperture_label", &priv->exif_aperture_label,
+			         "exif_shutter_label", &priv->exif_shutter_label,
+			         "exif_focal_label", &priv->exif_focal_label,
+			         "exif_flash_label", &priv->exif_flash_label,
+			         "exif_iso_label", &priv->exif_iso_label,
+			         "exif_metering_label", &priv->exif_metering_label,
+			         "exif_model_label", &priv->exif_model_label,
+			         "exif_date_label", &priv->exif_date_label,
+			         "exif_details_expander", &priv->exif_details_expander,
+#endif
 			         NULL);
 
 	g_signal_connect (dlg,
@@ -270,6 +396,28 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			  prop_dlg);
 
 	gtk_widget_set_size_request (priv->thumbnail_image, 100, 100);
+
+#ifdef HAVE_EXIF
+	sw = gtk_scrolled_window_new (NULL, NULL);
+
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), 
+					     GTK_SHADOW_IN);
+
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
+					GTK_POLICY_AUTOMATIC,
+					GTK_POLICY_AUTOMATIC);
+
+	priv->exif_details = eog_exif_details_new ();
+	gtk_widget_set_size_request (priv->exif_details, -1, 170);
+
+	gtk_container_add (GTK_CONTAINER (sw), priv->exif_details);
+	gtk_widget_show_all (sw);
+
+	gtk_container_add (GTK_CONTAINER (priv->exif_details_expander), sw);
+#else
+        gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook), 
+				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
+#endif
 }
 
 GObject *
@@ -289,5 +437,21 @@ void
 eog_properties_dialog_update (EogPropertiesDialog *prop_dlg,
 			      EogImage            *image)
 {
+	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (prop_dlg));
+
 	pd_update_general_tab (prop_dlg, image);
+
+#ifdef HAVE_EXIF
+	pd_update_exif_tab (prop_dlg, image);
+#endif
+}
+
+void
+eog_properties_dialog_set_page (EogPropertiesDialog *prop_dlg,
+			        EogPropertiesDialogPage page)
+{
+	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (prop_dlg));
+	
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (prop_dlg->priv->notebook),
+				       page);
 }
