@@ -175,7 +175,7 @@ eog_image_class_init (EogImageClass *klass)
 
 	signals[SIGNAL_SIZE_PREPARED] = 
 		g_signal_new ("size-prepared",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, size_prepared),
 			      NULL, NULL,
@@ -186,7 +186,7 @@ eog_image_class_init (EogImageClass *klass)
 
 	signals[SIGNAL_CHANGED] = 
 		g_signal_new ("changed",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, changed),
 			      NULL, NULL,
@@ -195,7 +195,7 @@ eog_image_class_init (EogImageClass *klass)
 
 	signals[SIGNAL_THUMBNAIL_CHANGED] = 
 		g_signal_new ("thumbnail-changed",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, thumbnail_changed),
 			      NULL, NULL,
