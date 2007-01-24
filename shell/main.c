@@ -400,6 +400,9 @@ job_prepare_model_do (EogJob *job, gpointer data, GError **error)
 static void
 job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
 {
+	GtkWidget *dialog;
+	EogImage *image;
+	int pos;
 	LoadContext *ctx = (LoadContext*) data;
 	
 	if (eog_job_get_status (job) == EOG_JOB_STATUS_FINISHED &&
@@ -410,8 +413,25 @@ job_prepare_model_finished (EogJob *job, gpointer data, GError *error)
 		assign_model_to_window (ctx->window, ctx->img_list);
 	} 
 	else {
+		pos = eog_image_list_get_initial_pos (ctx->img_list);
+		image = eog_image_list_get_img_by_pos (ctx->img_list, pos);
+		dialog = gtk_message_dialog_new (NULL,
+						 GTK_DIALOG_DESTROY_WITH_PARENT,
+						 GTK_MESSAGE_ERROR,
+						 GTK_BUTTONS_CLOSE,
+						 _("Couldn't load image '%s'."),
+						 eog_image_get_caption (image));
+		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+							  error->message);
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		
+		g_object_unref (image);
 		g_error_free (error);
-		gtk_main_quit ();
+
+		if (eog_get_window_list () == NULL) {
+			gtk_main_quit ();
+		}
 	}
 }
 
