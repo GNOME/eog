@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 00:19+0700\n"
-"PO-Revision-Date: 2007-01-16 00:27+0700\n"
+"POT-Creation-Date: 2007-01-24 12:07+0700\n"
+"PO-Revision-Date: 2007-01-24 12:10+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <L10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -270,7 +270,7 @@ msgstr "หน่วยความจำไม่พอที่จะอ่า
 
 #: libeog/eog-image.c:432
 msgid "Transformation on unloaded image."
-msgstr "พยายามแปลงรูปภาพที่ยังไม่ได้โหลด"
+msgstr "พยายามแปลงรูปภาพที่ยังไม่ได้อ่านเข้ามา"
 
 #: libeog/eog-image.c:710
 msgid "EXIF not supported for this file format."
@@ -615,7 +615,7 @@ msgstr ""
 "Boston, MA 02110-1301, USA"
 
 #: shell/eog-window.c:710 shell/eog-window.c:3302
-#: shell/eog-window.c:3940 shell/main.c:599
+#: shell/eog-window.c:3940 shell/main.c:620
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
@@ -724,7 +724,7 @@ msgstr "สาเหตุ: %s"
 #: shell/eog-window.c:3388
 #, c-format
 msgid "Image loading failed for %s"
-msgstr "โหลดรูป %s ไม่สำเร็จ"
+msgstr "อ่านรูป %s ไม่สำเร็จ"
 
 #: shell/eog-window.c:3503
 msgid "_File"
@@ -976,6 +976,11 @@ msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "ไม่พบแฟ้ม"
 
+#: shell/main.c:422
+#, c-format
+msgid "Couldn't load image '%s'."
+msgstr "อ่านรูป '%s' ไม่สำเร็จ"
+
 #: shell/recent-files/egg-recent-view-gtk.c:346
 #, c-format
 msgid "Open '%s'"
@@ -1005,9 +1010,6 @@ msgstr "ว่างเปล่า"
 
 #~ msgid "Rotat_e 180°"
 #~ msgstr "หมุน 180 _องศา"
-
-#~ msgid "Could not open `%s'"
-#~ msgstr "เปิด '%s' ไม่สำเร็จ"
 
 #~ msgid "Delete"
 #~ msgstr "ลบ"
