@@ -28,6 +28,7 @@
 #endif
 
 #include "eog-session.h"
+#include "eog-debug.h"
 #include "eog-thumbnail.h"
 #include "eog-job-queue.h"
 #include "eog-application.h"
@@ -165,6 +166,7 @@ main (int argc, char **argv)
 
 	gnome_authentication_manager_init ();
 
+	eog_debug_init ();
 	eog_job_queue_init ();
 	gdk_threads_init ();
 	eog_thumbnail_init ();

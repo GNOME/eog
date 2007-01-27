@@ -33,6 +33,7 @@
 
 #include "eog-window.h"
 #include "eog-scroll-view.h"
+#include "eog-debug.h"
 #include "eog-file-chooser.h"
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
@@ -159,6 +160,8 @@ eog_window_interp_type_changed_cb (GConfClient *client,
 	EogWindowPrivate *priv;
 	gboolean interpolate = TRUE;
 
+	eog_debug (DEBUG_PREFERENCES);
+
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
 	priv = EOG_WINDOW (user_data)->priv;
@@ -183,6 +186,8 @@ eog_window_transparency_changed_cb (GConfClient *client,
 	const char *value = NULL;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_PREFERENCES);
 
 	priv = EOG_WINDOW (user_data)->priv;
 
@@ -225,6 +230,8 @@ eog_window_trans_color_changed_cb (GConfClient *client,
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_PREFERENCES);
+
 	priv = EOG_WINDOW (user_data)->priv;
 
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
@@ -259,6 +266,8 @@ update_status_bar (EogWindow *window)
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	
+	eog_debug (DEBUG_WINDOW);
+
 	priv = window->priv;
 
 	if (priv->image != NULL) {
@@ -325,6 +334,8 @@ update_action_groups_state (EogWindow *window)
 	GtkAction *action_page_setup;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = window->priv;
 
@@ -557,6 +568,8 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
+	eog_debug (DEBUG_WINDOW);
+
 	g_assert (eog_image_has_data (image, EOG_IMAGE_DATA_ALL));
 
 	priv = window->priv;
@@ -690,6 +703,8 @@ eog_window_obtain_desired_size (EogImage  *image,
 	final_width = MAX (EOG_WINDOW_DEFAULT_WIDTH, img_width + deco_width);
 	final_height = MAX (EOG_WINDOW_DEFAULT_HEIGHT, img_height + deco_height);
 
+	eog_debug_message (DEBUG_WINDOW, "Setting window size: %d x %d", final_width, final_height);
+
 	gtk_window_set_default_size (GTK_WINDOW (window), final_width, final_height);
 
 	gdk_threads_leave ();
@@ -704,6 +719,8 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	
         g_return_if_fail (EOG_IS_WINDOW (data));
 	
+	eog_debug (DEBUG_WINDOW);
+
 	window = EOG_WINDOW (data);
 
 	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
@@ -720,6 +737,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
         if (window->priv->status == EOG_WINDOW_STATUS_INIT) {
 		window->priv->status = EOG_WINDOW_STATUS_NORMAL;
+
 		g_signal_handlers_disconnect_by_func
 			(job->image, 
 			 G_CALLBACK (eog_window_obtain_desired_size), 
@@ -1022,6 +1040,8 @@ slideshow_switch_cb (gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 	EogWindowPrivate *priv = window->priv;
+
+	eog_debug (DEBUG_WINDOW);
 	
 	if (!priv->slideshow_loop && slideshow_is_loop_end (window)) {
 		eog_window_stop_fullscreen (window, TRUE);
@@ -1037,6 +1057,8 @@ slideshow_switch_cb (gpointer data)
 static void
 fullscreen_clear_timeout (EogWindow *window)
 {
+	eog_debug (DEBUG_WINDOW);
+	
 	if (window->priv->fullscreen_timeout_source != NULL) {
 		g_source_unref (window->priv->fullscreen_timeout_source);
 		g_source_destroy (window->priv->fullscreen_timeout_source);
@@ -1050,6 +1072,8 @@ fullscreen_set_timeout (EogWindow *window)
 {
 	GSource *source;
 
+	eog_debug (DEBUG_WINDOW);
+	
 	fullscreen_clear_timeout (window);
 
 	source = g_timeout_source_new (EOG_WINDOW_FULLSCREEN_TIMEOUT);
@@ -1065,6 +1089,8 @@ fullscreen_set_timeout (EogWindow *window)
 static void
 slideshow_clear_timeout (EogWindow *window)
 {
+	eog_debug (DEBUG_WINDOW);
+	
 	if (window->priv->slideshow_switch_source != NULL) {
 		g_source_unref (window->priv->slideshow_switch_source);
 		g_source_destroy (window->priv->slideshow_switch_source);
@@ -1078,6 +1104,8 @@ slideshow_set_timeout (EogWindow *window)
 {
 	GSource *source;
 
+	eog_debug (DEBUG_WINDOW);
+	
 	slideshow_clear_timeout (window);
 
 	source = g_timeout_source_new (window->priv->slideshow_switch_timeout * 1000);
@@ -1091,6 +1119,8 @@ slideshow_set_timeout (EogWindow *window)
 static void
 show_fullscreen_popup (EogWindow *window)
 {
+	eog_debug (DEBUG_WINDOW);
+	
 	if (!GTK_WIDGET_VISIBLE (window->priv->fullscreen_popup)) {
 		gtk_widget_show_all (GTK_WIDGET (window->priv->fullscreen_popup));
 	}
@@ -1105,6 +1135,8 @@ fullscreen_motion_notify_cb (GtkWidget      *widget,
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 
+	eog_debug (DEBUG_WINDOW);
+	
 	show_fullscreen_popup (window);
 
 	return FALSE;
@@ -1117,6 +1149,8 @@ fullscreen_leave_notify_cb (GtkWidget *widget,
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 
+	eog_debug (DEBUG_WINDOW);
+	
 	fullscreen_clear_timeout (window);
 
 	return FALSE;
@@ -1127,6 +1161,8 @@ exit_fullscreen_button_clicked_cb (GtkWidget *button, EogWindow *window)
 {
 	GtkAction *action;
 
+	eog_debug (DEBUG_WINDOW);
+	
 	if (window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 		action = gtk_action_group_get_action (window->priv->actions_collection, 
 						      "ViewSlideshow");
@@ -1162,6 +1198,8 @@ eog_window_create_fullscreen_popup (EogWindow *window)
 	GtkWidget *toolbar;
 	GdkScreen *screen;
 
+	eog_debug (DEBUG_WINDOW);
+	
 	popup = gtk_window_new (GTK_WINDOW_POPUP);
 
 	hbox = gtk_hbox_new (FALSE, 0);
@@ -1209,6 +1247,8 @@ update_ui_visibility (EogWindow *window)
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
+	eog_debug (DEBUG_WINDOW);
+	
 	priv = window->priv;
 
 	fullscreen_mode = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
@@ -1262,6 +1302,8 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	EogWindowPrivate *priv;
 	GtkWidget *menubar;
 	gboolean upscale;
+
+	eog_debug (DEBUG_WINDOW);
 	
 	priv = window->priv;
 
@@ -1336,6 +1378,8 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	EogWindowPrivate *priv;
 	GtkWidget *menubar;
 	
+	eog_debug (DEBUG_WINDOW);
+
 	priv = window->priv;
 
 	if (priv->mode != EOG_WINDOW_MODE_SLIDESHOW &&
@@ -1385,6 +1429,8 @@ eog_window_page_setup (EogWindow *window)
 {
 	GtkPageSetup *new_page_setup;
 
+	eog_debug (DEBUG_PRINTING);
+	
 	if (window->priv->print_settings == NULL) {
 		window->priv->print_settings = gtk_print_settings_new ();
 	}
@@ -1415,7 +1461,9 @@ eog_window_print_draw_page (GtkPrintOperation *operation,
 	EogPrintData *data;
 	GtkPageSetup *page_setup;
 	
-	data = (EogPrintData *)user_data;
+	eog_debug (DEBUG_PRINTING);
+	
+	data = (EogPrintData *) user_data;
 
 	scale_factor = data->scale_factor/100;
 	pixbuf = eog_image_get_pixbuf (data->image);
@@ -1466,6 +1514,8 @@ eog_window_print_create_custom_widget (GtkPrintOperation *operation,
 	GtkPageSetup *page_setup;
 	EogPrintData *data;
 	
+	eog_debug (DEBUG_PRINTING);
+	
 	data = (EogPrintData *)user_data;
 	
 	page_setup = gtk_print_operation_get_default_page_setup (operation);
@@ -1483,6 +1533,8 @@ eog_window_print_custom_widget_apply (GtkPrintOperation *operation,
 	EogPrintData *data;
 	gdouble left_margin, top_margin, scale_factor;
 	GtkUnit unit;
+	
+	eog_debug (DEBUG_PRINTING);
 	
 	data = (EogPrintData *)user_data;
 	
@@ -1503,6 +1555,8 @@ eog_window_print_end_print (GtkPrintOperation *operation,
 {
 	EogPrintData *data = (EogPrintData*) user_data;
 
+	eog_debug (DEBUG_PRINTING);
+	
 	g_object_unref (data->image);
 	g_free (data);
 }
@@ -1514,6 +1568,8 @@ eog_window_print (EogWindow *window)
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
 	EogPrintData *data;
+	
+	eog_debug (DEBUG_PRINTING);
 	
 	if (!window->priv->print_settings)
 		window->priv->print_settings = gtk_print_settings_new ();
@@ -1556,8 +1612,7 @@ eog_window_print (EogWindow *window)
 				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 				       GTK_WINDOW (window), &error);
 
-	if (res == GTK_PRINT_OPERATION_RESULT_ERROR)
-	{
+	if (res == GTK_PRINT_OPERATION_RESULT_ERROR) {
 		dialog = gtk_message_dialog_new (GTK_WINDOW (window),
 						 GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR,
@@ -1568,9 +1623,7 @@ eog_window_print (EogWindow *window)
 				  G_CALLBACK (gtk_widget_destroy), NULL);
 		gtk_widget_show (dialog);
 		g_error_free (error);
-	}
-	else if (res == GTK_PRINT_OPERATION_RESULT_APPLY)
-	{
+	} else if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
 		if (window->priv->print_settings != NULL)
 			g_object_unref (window->priv->print_settings);
 		window->priv->print_settings = g_object_ref (gtk_print_operation_get_print_settings (print));
@@ -1860,6 +1913,8 @@ eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data)
 	
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	window = EOG_WINDOW (user_data);
 
 	fullscreen = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
@@ -1879,6 +1934,8 @@ eog_window_cmd_slideshow (GtkAction *action, gpointer user_data)
 	
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	window = EOG_WINDOW (user_data);
 
 	slideshow = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
@@ -1897,6 +1954,8 @@ eog_window_cmd_zoom_in (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	priv = EOG_WINDOW (user_data)->priv;
 
 	if (priv->view) {
@@ -1910,6 +1969,8 @@ eog_window_cmd_zoom_out (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = EOG_WINDOW (user_data)->priv;
 
@@ -1925,6 +1986,8 @@ eog_window_cmd_zoom_normal (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	priv = EOG_WINDOW (user_data)->priv;
 
 	if (priv->view) {
@@ -1938,6 +2001,8 @@ eog_window_cmd_zoom_fit (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = EOG_WINDOW (user_data)->priv;
 
@@ -1953,6 +2018,8 @@ eog_window_cmd_go_prev (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	priv = EOG_WINDOW (user_data)->priv;
 	
 	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview), 
@@ -1965,6 +2032,8 @@ eog_window_cmd_go_next (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = EOG_WINDOW (user_data)->priv;
 
@@ -1979,6 +2048,8 @@ eog_window_cmd_go_first (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
+	eog_debug (DEBUG_WINDOW);
+
 	priv = EOG_WINDOW (user_data)->priv;
 
 	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview), 
@@ -1991,6 +2062,8 @@ eog_window_cmd_go_last (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = EOG_WINDOW (user_data)->priv;
 
@@ -2545,6 +2618,8 @@ eog_window_init (EogWindow *window)
 {
 	GdkGeometry hints;
 
+	eog_debug (DEBUG_WINDOW);
+
 	hints.min_width  = EOG_WINDOW_DEFAULT_WIDTH;
 	hints.min_height = EOG_WINDOW_DEFAULT_HEIGHT;
 
@@ -2603,6 +2678,8 @@ eog_window_dispose (GObject *object)
 	
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_WINDOW (object));
+
+	eog_debug (DEBUG_WINDOW);
 
 	window = EOG_WINDOW (object);
 	priv = window->priv;
@@ -2675,6 +2752,8 @@ eog_window_finalize (GObject *object)
 
 	g_return_if_fail (EOG_IS_WINDOW (object));
 	
+	eog_debug (DEBUG_WINDOW);
+
         if (windows == NULL) {
                 eog_application_shutdown (EOG_APP);
         } else {
@@ -2834,6 +2913,8 @@ eog_window_focus_in_event (GtkWidget *widget, GdkEventFocus *event)
 	EogWindowPrivate *priv = window->priv;
 	gboolean fullscreen;
 
+	eog_debug (DEBUG_WINDOW);
+
 	fullscreen = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
 		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
 	
@@ -2850,6 +2931,8 @@ eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 	EogWindow *window = EOG_WINDOW (widget);
 	EogWindowPrivate *priv = window->priv;
 	gboolean fullscreen;
+
+	eog_debug (DEBUG_WINDOW);
 
 	fullscreen = priv->mode == EOG_WINDOW_MODE_FULLSCREEN ||
 		     priv->mode == EOG_WINDOW_MODE_SLIDESHOW;
@@ -2868,6 +2951,8 @@ eog_window_screen_changed (GtkWidget *widget, GdkScreen *prev_screen)
 	GdkScreen *new_screen;
 
 	g_return_if_fail (EOG_IS_WINDOW (widget));
+
+	eog_debug (DEBUG_WINDOW);
 
 	priv = EOG_WINDOW (widget)->priv;
 
@@ -3001,6 +3086,8 @@ eog_window_new (EogStartupFlags flags)
 {
 	EogWindow *window;
 
+	eog_debug (DEBUG_WINDOW);
+
 	window = EOG_WINDOW (g_object_new (EOG_TYPE_WINDOW, 
 					   "type", GTK_WINDOW_TOPLEVEL,
 					   "startup-flags", flags,
@@ -3021,6 +3108,8 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	gint n_images;
+
+	eog_debug (DEBUG_WINDOW);
 
 #ifdef HAVE_LCMS
         int i;
@@ -3063,6 +3152,8 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 {
 	EogJob *job;
 
+	eog_debug (DEBUG_WINDOW);
+
 	window->priv->status = EOG_WINDOW_STATUS_INIT;
 
 	job = eog_job_model_new (uri_list);
@@ -3081,6 +3172,8 @@ eog_window_is_empty (EogWindow *window)
 {
         EogWindowPrivate *priv;
         gboolean empty = TRUE;
+
+	eog_debug (DEBUG_WINDOW);
 
         g_return_val_if_fail (EOG_IS_WINDOW (window), FALSE);
 

@@ -33,6 +33,8 @@ eog_SOURCES =				\
 	eog-application.c		\
 	eog-session.h			\
 	eog-session.c			\
+	eog-debug.h			\
+	eog-debug.c			\
 	eog-util.h			\
 	eog-util.c			\
 	eog-pixbuf-util.h		\
@@ -110,7 +112,7 @@ eog_LDADD = 				\
 
 BUILT_SOURCES = 			\
 	$(MARSHAL_OUTPUT)
-
+	
 CLEANFILES = $(BUILT_SOURCES)
 
 EXTRA_DIST = eog-marshal.list 
