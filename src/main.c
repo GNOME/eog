@@ -43,15 +43,9 @@
 #include <libgnomeui/gnome-app-helper.h>
 #include <libgnomeui/gnome-authentication-manager.h>
 #include <libgnomevfs/gnome-vfs.h>
-#ifdef HAVE_LEAFTAG
-#include <libleaftag/leaftag.h>
-#endif
 
 static EogStartupFlags flags;
 
-#ifdef HAVE_LEAFTAG
-static gboolean tags = FALSE;
-#endif
 static gboolean fullscreen = FALSE;
 static gboolean slide_show = FALSE;
 static gboolean disable_collection = FALSE;
@@ -62,9 +56,6 @@ static const GOptionEntry goption_options[] =
 	{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, &fullscreen, N_("Open in fullscreen mode"), NULL  },
 	{ "disable-image-collection", 'c', 0, G_OPTION_ARG_NONE, &disable_collection, N_("Disable image collection"), NULL  },
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slide show mode"), NULL  },
-#ifdef HAVE_LEAFTAG
-	{ "tags", 0, 0, G_OPTION_ARG_NONE, &tags, N_("Open images by tag names"), NULL },
-#endif
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
 	{ NULL }
 };
@@ -126,24 +117,6 @@ load_files ()
 	g_slist_free (files);
 }
 
-#ifdef HAVE_LEAFTAG
-static void 
-load_files_from_tags ()
-{
-	GSList *tags = NULL;
-
-	tags = string_array_to_list ((const gchar **) startup_files, FALSE);
-
-	eog_application_open_tag_list (EOG_APP, 
-				       tags,
-				       GDK_CURRENT_TIME,
-				       NULL);
-
-	g_slist_foreach (tags, (GFunc) g_free, NULL);	
-	g_slist_free (tags);
-}
-#endif
-
 int
 main (int argc, char **argv)
 {
@@ -174,17 +147,9 @@ main (int argc, char **argv)
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
 
-  set_startup_flags ();
+	set_startup_flags ();
 
-#ifdef HAVE_LEAFTAG
-	if (!tags) {
-#endif
-		load_files ();
-#ifdef HAVE_LEAFTAG
-	} else {
-		load_files_from_tags();
-	}
-#endif
+	load_files ();
 
 	gtk_main ();
 

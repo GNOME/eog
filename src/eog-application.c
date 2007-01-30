@@ -37,10 +37,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#ifdef HAVE_LEAFTAG
-#include <libleaftag/leaftag.h>
-#endif
-
 #define EOG_APPLICATION_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
 
@@ -206,43 +202,6 @@ eog_application_open_uri_list (EogApplication  *application,
 
 	return TRUE;
 }
-
-#ifdef HAVE_LEAFTAG
-gboolean
-eog_application_open_tag_list (EogApplication  *application,
-			       GSList          *tags,
-			       guint           timestamp,
-			       GError         **error,
-			       EogStartupFlags flags)
-{
-	GSList *files = NULL;
-	GList *sources, *l;
-	GList *mimes = NULL;
-
-	mimes = eog_image_get_supported_mime_types ();
-
-	sources = lt_get_sources_with_tag_names ((GList *) tags, NULL, mimes);
-
-	for (l = sources; l != NULL; l = l->next) {
-		LtSource *source = LT_SOURCE (l->data);
-		files = g_slist_prepend (files, g_strdup (lt_source_get_filename (source)));
-	}
-
-	eog_application_open_uri_list (EOG_APP, 
-				       files,
-				       GDK_CURRENT_TIME,
-				       NULL,
-				       flags);
-
-	g_list_foreach(sources, (GFunc) g_object_unref, NULL);
-	g_list_free (sources);
-
-	g_slist_foreach (files, (GFunc) g_free, NULL);	
-	g_slist_free (files);
-	
-	return TRUE;
-}
-#endif
 
 void
 eog_application_shutdown (EogApplication *application)
