@@ -3,6 +3,7 @@
 #endif
 
 #include <glib-object.h>
+#include <gtk/gtkmain.h>
 #include "eog-job-manager.h"
 
 typedef struct {
@@ -18,6 +19,14 @@ static GQueue *job_list    = NULL;
 static guint  n_threads   = 0;
 static ThreadData threads[MAX_THREADS];
 static gboolean   init = FALSE;
+
+/* Utility function to make sure all the threads stop before GTK ends */
+static gboolean
+eog_job_manager_quit (gpointer data)
+{
+	eog_job_manager_cancel_all_jobs();
+	return TRUE;
+}
 
 /* Utility function, which initializes static data first */
 static void
@@ -36,6 +45,8 @@ eog_job_manager_init ()
 		job_list = g_queue_new ();
 		
 		init = TRUE;
+
+		gtk_quit_add(0, eog_job_manager_quit, NULL);
 	}
 }
 

@@ -314,6 +314,8 @@ job_thumb_create (EogJob *job, gpointer data, GError **error)
 	GnomeVFSURI *uri;
 
 	priv = EOG_COLLECTION_ITEM (data)->priv;
+	if (priv == NULL)
+		return;
 
 	image = priv->image; 
 	if (!EOG_IS_IMAGE (image))

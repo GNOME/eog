@@ -1,3 +1,11 @@
+2007-01-30  Felix Riemann  <friemann@svn.gnome.org>
+
+	* libeog/eog-collection-item.c: (job_thumb_create): Workaround problem
+	that the passed object is not valid anymore.
+	* libeog/eog-job-manager.c: (eog_job_manager_quit),
+	(eog_job_manager_init): Cancel all jobs when quitting the main loop.
+	This fixes bug #389755. Patch by Kees Cook.
+
 2007-01-24  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/main.c: (job_prepare_model_finished): Show an error message
