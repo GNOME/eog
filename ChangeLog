@@ -1,3 +1,26 @@
+2007-02-01  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* configure.ac: Add checks for GLib D-Bus bindings.
+	* src/Makefile.am: Generate eog-application-service.h
+	* src/eog-application-service.xml: Instrospection XML file for D-Bus
+	methods.
+	* src/eog-application.c: (eog_application_register_service),
+	(eog_application_open_window),
+	(eog_application_real_open_uri_list),
+	(eog_application_open_uri_list), (eog_application_open_uris):
+	* src/eog-application.h:
+	* src/eog-util.c: (eog_util_string_list_to_uri_list),
+	(eog_util_strings_to_uri_list), (eog_util_string_array_to_list),
+	(eog_util_string_array_make_absolute): Moved strings lists utility
+	functions here to keep code better organized.
+	* src/eog-util.h:
+	* src/eog-window.c: (eog_window_open_recent_cb),
+	(file_open_dialog_response_cb):
+	* src/main.c: (load_files), (load_files_remote), (main): Use remote
+	activation if EOG service is already registered.
+
+	Implement D-Bus based activation. Fixes bug #401946.
+
 2007-01-30  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-thumb-view.c: (eog_thumb_view_select_single): Do nothing

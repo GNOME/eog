@@ -901,8 +901,8 @@ eog_window_open_recent_cb (GtkAction *action, EogWindow *window)
 
 	eog_application_open_uri_list (EOG_APP, list, 
 				       GDK_CURRENT_TIME, 
-				       NULL, 
-				       0);
+				       0,
+				       NULL);
 
 	g_slist_foreach (list, (GFunc) g_free, NULL);
 	g_slist_free (list);
@@ -921,8 +921,8 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 		eog_application_open_uri_list (EOG_APP, 
 					       uris, 
 					       GDK_CURRENT_TIME, 
-					       NULL,
-					       0);
+					       0,
+					       NULL);
 	
 		g_slist_foreach (uris, (GFunc) g_free, NULL);	
 		g_slist_free (uris);

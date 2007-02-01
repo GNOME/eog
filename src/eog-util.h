@@ -29,10 +29,21 @@
 
 G_BEGIN_DECLS
 
-void   eog_util_show_help        (const gchar *section, 
-				  GtkWindow   *parent);
+void    eog_util_show_help                  (const gchar *section, 
+					     GtkWindow   *parent);
 
-char*  eog_util_make_valid_utf8  (const char  *name);
+char*   eog_util_make_valid_utf8            (const char  *name);
+
+GSList* eog_util_string_list_to_uri_list    (GSList *string_list);
+
+#ifdef HAVE_DBUS
+GSList* eog_util_strings_to_uri_list        (gchar **strings);
+#endif
+
+GSList* eog_util_string_array_to_list       (const gchar **files,
+					     gboolean create_uri);
+
+gchar** eog_util_string_array_make_absolute (gchar **files);
 
 G_END_DECLS
 

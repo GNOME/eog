@@ -26,12 +26,17 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#ifdef HAVE_DBUS
+#include <dbus/dbus-glib-bindings.h>
+#include <gdk/gdkx.h>
+#endif
 
 #include "eog-session.h"
 #include "eog-debug.h"
 #include "eog-thumbnail.h"
 #include "eog-job-queue.h"
 #include "eog-application.h"
+#include "eog-util.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -42,7 +47,6 @@
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-app-helper.h>
 #include <libgnomeui/gnome-authentication-manager.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 static EogStartupFlags flags;
 
@@ -59,33 +63,6 @@ static const GOptionEntry goption_options[] =
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
 	{ NULL }
 };
-
-static GSList*
-string_array_to_list (const gchar **files, gboolean create_uri)
-{
-	gint i;
-	GSList *list = NULL;
-
-	if (files == NULL) return list;
-
-	for (i = 0; files[i]; i++) {
-		char *str;
-
-		if (create_uri) {
-			str = gnome_vfs_make_uri_from_input_with_dirs (files[i], 
-								       GNOME_VFS_MAKE_URI_DIR_CURRENT);
-		} else {
-			str = g_strdup (files[i]);
-		}
-
-		if (str) {
-			list = g_slist_prepend (list, g_strdup (str));
-			g_free (str);
-		}
-	}
-
-	return g_slist_reverse (list);
-}
 
 static void 
 set_startup_flags ()
@@ -105,17 +82,84 @@ load_files ()
 {
 	GSList *files = NULL;
 
-	files = string_array_to_list ((const gchar **) startup_files, TRUE);
+	files = eog_util_string_array_to_list ((const gchar **) startup_files, TRUE);
 
 	eog_application_open_uri_list (EOG_APP, 
 				       files,
 				       GDK_CURRENT_TIME,
-				       NULL,
-				       flags);
+				       flags,
+				       NULL);
 
 	g_slist_foreach (files, (GFunc) g_free, NULL);	
 	g_slist_free (files);
 }
+
+#ifdef HAVE_DBUS
+static gboolean
+load_files_remote ()
+{
+	GError *error = NULL;
+	DBusGConnection *connection;
+	DBusGProxy *remote_object;
+	gboolean result = TRUE;
+	GdkDisplay *display;
+	guint32 timestamp;
+	gchar **files;
+	
+	display = gdk_display_get_default ();
+
+	timestamp = gdk_x11_display_get_user_time (display);
+	connection = dbus_g_bus_get (DBUS_BUS_STARTER, &error);
+
+	if (connection == NULL) {
+		g_warning (error->message);
+		g_error_free (error);	
+
+ 		return FALSE;
+ 	}
+ 
+ 	files = eog_util_string_array_make_absolute (startup_files);
+ 	
+ 	remote_object = dbus_g_proxy_new_for_name (connection,
+ 						   "org.gnome.eog.ApplicationService",
+						   "/org/gnome/eog/Eog",
+						   "org.gnome.eog.Application");
+ 
+ 	if (!files) {
+ 		if (!dbus_g_proxy_call (remote_object, "OpenWindow", &error,
+ 					G_TYPE_UINT, timestamp,
+ 					G_TYPE_UCHAR, flags,
+ 					G_TYPE_INVALID,
+ 					G_TYPE_INVALID)) {
+ 			g_warning (error->message);
+ 			g_clear_error (&error);
+ 
+ 			result = FALSE;
+ 		}
+ 	} else {
+ 		if (!dbus_g_proxy_call (remote_object, "OpenUris", &error,
+ 					G_TYPE_STRV, files,
+ 					G_TYPE_UINT, timestamp,
+ 					G_TYPE_UCHAR, flags,
+ 					G_TYPE_INVALID,
+ 					G_TYPE_INVALID)) {
+ 			g_warning (error->message);
+ 			g_clear_error (&error);
+ 			
+			result = FALSE;
+ 		}
+		
+ 		g_strfreev (files);
+ 	}
+ 
+ 	g_object_unref (remote_object);
+ 	dbus_g_connection_unref (connection);
+ 
+ 	gdk_notify_startup_complete ();
+ 
+ 	return result;
+}
+#endif /* HAVE_DBUS */
 
 int
 main (int argc, char **argv)
@@ -136,7 +180,18 @@ main (int argc, char **argv)
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
 				      GNOME_PARAM_APP_DATADIR, EOG_DATADIR,
 				      NULL);
-
+	
+	set_startup_flags ();
+	
+#ifdef HAVE_DBUS
+	if (!eog_application_register_service (EOG_APP)) {
+		if (load_files_remote ()) {
+			g_object_unref (program);
+			return 0;
+		}
+	}
+#endif /* HAVE_DBUS */
+	
 	gnome_authentication_manager_init ();
 
 	eog_debug_init ();
@@ -146,8 +201,6 @@ main (int argc, char **argv)
 
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
-
-	set_startup_flags ();
 
 	load_files ();
 

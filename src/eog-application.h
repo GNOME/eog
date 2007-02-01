@@ -57,18 +57,30 @@ GType	          eog_application_get_type	     (void);
 
 EogApplication   *eog_application_get_instance       (void);
 
+#ifdef HAVE_DBUS
+gboolean          eog_application_register_service   (EogApplication *application);
+#endif
+
 void	          eog_application_shutdown	     (EogApplication   *application);
 
 gboolean          eog_application_open_window        (EogApplication   *application,
-						      guint            timestamp,
-						      GError          **error,
-						      EogStartupFlags flags);
+						      guint             timestamp,
+						      EogStartupFlags   flags,
+						      GError          **error);
 
 gboolean          eog_application_open_uri_list      (EogApplication   *application,
 		  			              GSList           *uri_list,
-    						      guint            timestamp,
-						      GError          **error,
-						      EogStartupFlags flags);
+    						      guint             timestamp,
+						      EogStartupFlags   flags,
+						      GError          **error);
+
+#ifdef HAVE_DBUS
+gboolean          eog_application_open_uris          (EogApplication *application,
+						      gchar         **uris,
+						      guint           timestamp,
+						      EogStartupFlags flags,
+						      GError        **error);
+#endif
 
 GList		 *eog_application_get_windows	     (EogApplication   *application);
 

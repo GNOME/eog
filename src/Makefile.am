@@ -112,10 +112,21 @@ eog_LDADD = 				\
 
 BUILT_SOURCES = 			\
 	$(MARSHAL_OUTPUT)
-	
-CLEANFILES = $(BUILT_SOURCES)
 
 EXTRA_DIST = eog-marshal.list 
+
+if HAVE_DBUS 
+
+BUILT_SOURCES += eog-application-service.h
+
+EXTRA_DIST += eog-application-service.xml
+
+eog-application-service.h: eog-application-service.xml
+	dbus-binding-tool --prefix=eog_application --mode=glib-server --output=eog-application-service.h $<
+
+endif
+
+CLEANFILES = $(BUILT_SOURCES)
 
 dist-hook:
 	cd $(distdir); rm -f $(BUILT_SOURCES)
