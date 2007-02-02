@@ -363,12 +363,6 @@ update_exif_data (EogImage *image)
 		exif_set_long (entry->data, bo, priv->height);
 	}
 }
-#else
-static void
-update_exif_data (EogImage *image)
-{
-	/* nothing todo if we don't have exif support */
-}
 #endif
 
 static void
