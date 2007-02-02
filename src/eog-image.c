@@ -1088,13 +1088,11 @@ tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean over
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_FILE_EXISTS,
 			     gnome_vfs_result_to_string (result));
-	}
-	else if (result != GNOME_VFS_OK) {
+	} else if (result != GNOME_VFS_OK) {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS, 
 			     gnome_vfs_result_to_string (result));
-	}
-	else if (info != NULL) {
+	} else if (info != NULL) {
 		/* reset file permissions/owner to the original ones */
 		GnomeVFSSetFileInfoMask mask = 
 			GNOME_VFS_SET_FILE_INFO_PERMISSIONS | GNOME_VFS_SET_FILE_INFO_OWNER;
@@ -1266,8 +1264,7 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 			     EOG_IMAGE_ERROR_FILE_EXISTS,
 			     _("File exists"));
 		return FALSE;
-	}
-	else if (target->overwrite == TRUE) {
+	} else if (target->overwrite == TRUE) {
 		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
 	}
 
@@ -1294,13 +1291,11 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_FILE_EXISTS,
 			     gnome_vfs_result_to_string (result));
-	}
-	else if (result != GNOME_VFS_OK) {
+	} else if (result != GNOME_VFS_OK) {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS, 
 			     gnome_vfs_result_to_string (result));
-	}
-	else if (info != NULL) {
+	} else if (info != NULL) {
 		/* reset file permissions/owner to the original ones */
 		GnomeVFSSetFileInfoMask mask = 
 			GNOME_VFS_SET_FILE_INFO_PERMISSIONS | GNOME_VFS_SET_FILE_INFO_OWNER;
@@ -1442,6 +1437,7 @@ eog_image_get_caption (EogImage *img)
 		 * validate as good UTF-8.
 		 */
 		broken_filenames = have_broken_filenames ();
+
 		if (broken_filenames || !g_utf8_validate (name, -1, NULL)) {
 			utf8_name = g_locale_to_utf8 (name, -1, NULL, NULL, NULL);
 			if (utf8_name != NULL) {
@@ -1450,8 +1446,7 @@ eog_image_get_caption (EogImage *img)
 				/* Guaranteed to be correct utf8 here */
 				validated = TRUE;
 			}
-		} 
-		else if (!broken_filenames) {
+		} else if (!broken_filenames) {
 			/* name was valid, no need to re-validate */
 			validated = TRUE;
 		}
@@ -1460,8 +1455,7 @@ eog_image_get_caption (EogImage *img)
 	if (!validated && !g_utf8_validate (name, -1, NULL)) {
 		if (name == NULL) {
 			name = g_strdup ("[Invalid Unicode]");
-		}
-		else {
+		} else {
 			utf8_name = eog_util_make_valid_utf8 (name);
 			g_free (name);
 			name = utf8_name;
@@ -1476,8 +1470,7 @@ eog_image_get_caption (EogImage *img)
 		short_str = gnome_vfs_uri_extract_short_name (priv->uri);
 		if (g_utf8_validate (short_str, -1, NULL)) {
 			priv->caption = g_strdup (short_str);
-		}
-		else {
+		} else {
 			priv->caption = g_filename_to_utf8 (short_str, -1, NULL, NULL, NULL);
 		}
 		g_free (short_str);

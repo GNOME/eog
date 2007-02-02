@@ -30,6 +30,7 @@
 
 #include <string.h>
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libgnome/gnome-help.h>
@@ -63,42 +64,18 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 	}
 }
 
-char *
-eog_util_make_valid_utf8 (const char *name)
+gchar *
+eog_util_make_valid_utf8 (const gchar *str)
 {
-	GString *string;
-	const char *remainder, *invalid;
-	int remaining_bytes, valid_bytes;
+	gchar *utf_str;
 
-	string = NULL;
-	remainder = name;
-	remaining_bytes = strlen (name);
-
-	while (remaining_bytes != 0) {
-		if (g_utf8_validate (remainder, remaining_bytes, &invalid)) {
-			break;
-		}
-		valid_bytes = invalid - remainder;
-
-		if (string == NULL) {
-			string = g_string_sized_new (remaining_bytes);
-		}
-		g_string_append_len (string, remainder, valid_bytes);
-		g_string_append_c (string, '?');
-
-		remaining_bytes -= valid_bytes + 1;
-		remainder = invalid + 1;
+	if (g_utf8_validate (str, -1, NULL)) {
+		utf_str = g_strdup (str);
+	} else {
+		utf_str = g_locale_to_utf8 (str, -1, NULL, NULL, NULL);
 	}
 
-	if (string == NULL) {
-		return g_strdup (name);
-	}
-
-	g_string_append (string, remainder);
-	g_string_append (string, _(" (invalid Unicode)"));
-	g_assert (g_utf8_validate (string->str, -1, NULL));
-
-	return g_string_free (string, FALSE);
+	return utf_str;
 }
 
 GSList*
@@ -182,3 +159,28 @@ eog_util_string_array_make_absolute (gchar **files)
 	
 	return abs_files;
 }
+
+gchar *  
+eog_util_format_exif_date (const gchar *date)
+{
+	gchar **elements, **date_elements, **time_elements;
+	gchar *new_date = NULL;
+
+	elements = g_strsplit (date, " ", 6);
+	date_elements = g_strsplit (elements[0], ":", 3);
+	time_elements = g_strsplit (elements[1], ":", 3);
+
+	new_date = g_strdup_printf ("%s/%s/%s %s:%s", 
+				    date_elements[2], 
+				    date_elements[1], 
+				    date_elements[0],
+				    time_elements[0],
+				    time_elements[1]);
+
+	g_strfreev (time_elements);
+	g_strfreev (date_elements);
+	g_strfreev (elements);
+
+	return new_date;
+}
+
