@@ -41,6 +41,12 @@ typedef struct _EogThumbNavPrivate EogThumbNavPrivate;
 #define EOG_IS_THUMB_NAV_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  EOG_TYPE_THUMB_NAV))
 #define EOG_THUMB_NAV_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_THUMB_NAV, EogThumbNavClass))
 
+typedef enum {
+	EOG_THUMB_NAV_MODE_ONE_ROW,
+	EOG_THUMB_NAV_MODE_ONE_COLUMN,
+	EOG_THUMB_NAV_MODE_MULTIPLE_ROWS
+} EogThumbNavMode;
+
 struct _EogThumbNav {
 	GtkHBox base_instance;
 
@@ -51,15 +57,21 @@ struct _EogThumbNavClass {
 	GtkHBoxClass parent_class;
 };
 
-GType	    eog_thumb_nav_get_type            (void);
+GType	         eog_thumb_nav_get_type          (void);
 
-GtkWidget  *eog_thumb_nav_new                 (GtkWidget         *thumbview, 
-					       gboolean           show_buttons);
+GtkWidget       *eog_thumb_nav_new               (GtkWidget         *thumbview,
+						  EogThumbNavMode    mode, 
+	             			          gboolean           show_buttons);
 
-gboolean    eog_thumb_nav_get_show_buttons    (EogThumbNav       *nav);
+gboolean         eog_thumb_nav_get_show_buttons  (EogThumbNav       *nav);
 
-void        eog_thumb_nav_set_show_buttons    (EogThumbNav       *nav, 
-                                               gboolean           show_buttons);
+void             eog_thumb_nav_set_show_buttons  (EogThumbNav       *nav, 
+                                                  gboolean           show_buttons);
+
+EogThumbNavMode  eog_thumb_nav_get_mode          (EogThumbNav       *nav);
+
+void             eog_thumb_nav_set_mode          (EogThumbNav       *nav, 
+                                                  EogThumbNavMode    mode);
 
 G_END_DECLS
 

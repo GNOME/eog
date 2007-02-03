@@ -257,6 +257,70 @@ eog_window_trans_color_changed_cb (GConfClient *client,
 }
 
 static void
+eog_window_scroll_buttons_changed_cb (GConfClient *client,
+				      guint       cnxn_id,
+				      GConfEntry  *entry,
+				      gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	gboolean show_buttons = TRUE;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		show_buttons = gconf_value_get_bool (entry->value);
+	}
+
+	eog_thumb_nav_set_show_buttons (EOG_THUMB_NAV (priv->nav), 
+					show_buttons);
+}
+
+static void
+eog_window_collection_mode_changed_cb (GConfClient *client,
+				       guint       cnxn_id,
+				       GConfEntry  *entry,
+				       gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	gint mode = -1;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
+		mode = gconf_value_get_int (entry->value);
+	}
+
+	switch (mode) {
+	case 0:
+		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
+					EOG_THUMB_NAV_MODE_ONE_ROW);
+		break;
+
+	case 1:
+		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
+					EOG_THUMB_NAV_MODE_ONE_COLUMN);
+		break;
+
+	case 2:
+		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
+					EOG_THUMB_NAV_MODE_MULTIPLE_ROWS);
+		break;
+	}
+}
+
+static void
 update_status_bar (EogWindow *window)
 {
 	EogWindowPrivate *priv;
@@ -2545,17 +2609,14 @@ eog_window_construct_ui (EogWindow *window)
 	frame = gtk_widget_new (GTK_TYPE_FRAME, 
 				"shadow-type", GTK_SHADOW_IN, 
 				NULL);
+
 	gtk_container_add (GTK_CONTAINER (frame), priv->view);
 
 	gtk_box_pack_start_defaults (GTK_BOX (priv->vbox), frame);
 
 	priv->thumbview = eog_thumb_view_new ();
 
-	/* this will arrange the view in one single row */
-	gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), G_MAXINT);
-
 	/* giving shape to the view */
-	gtk_widget_set_size_request (GTK_WIDGET (priv->thumbview), 0, 110);
 	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 0);
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 0);
 	gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 110);
@@ -2563,7 +2624,10 @@ eog_window_construct_ui (EogWindow *window)
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed_cb), window);
 
-	priv->nav = eog_thumb_nav_new (priv->thumbview, 
+	priv->nav = eog_thumb_nav_new (priv->thumbview,
+				       gconf_client_get_int (priv->client,
+							     EOG_CONF_UI_IMAGE_COLLECTION_MODE,
+							     NULL),
 				       gconf_client_get_bool (priv->client,
 							      EOG_CONF_UI_SCROLL_BUTTONS,
 							      NULL));
@@ -2644,6 +2708,16 @@ eog_window_init (EogWindow *window)
 	gconf_client_notify_add (window->priv->client,
 				 EOG_CONF_VIEW_TRANS_COLOR,
 				 eog_window_trans_color_changed_cb,
+				 window, NULL, NULL);
+
+	gconf_client_notify_add (window->priv->client,
+				 EOG_CONF_UI_SCROLL_BUTTONS,
+				 eog_window_scroll_buttons_changed_cb,
+				 window, NULL, NULL);
+
+	gconf_client_notify_add (window->priv->client,
+				 EOG_CONF_UI_IMAGE_COLLECTION_MODE,
+				 eog_window_collection_mode_changed_cb,
 				 window, NULL, NULL);
 
 	window->priv->store = NULL;
