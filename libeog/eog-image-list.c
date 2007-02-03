@@ -642,6 +642,8 @@ eog_image_list_add_uris (EogImageList *list, GList *uri_list)
 		
 				add_directory (list, uri, info);
 
+				gnome_vfs_uri_unref (uri);
+
 				/* If the file we explicitly requested wasn't 'found' when
 				 * scanning the directory then explicitly add it.
 				 */
