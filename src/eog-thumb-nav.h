@@ -53,15 +53,13 @@ struct _EogThumbNavClass {
 
 GType	    eog_thumb_nav_get_type            (void);
 
-GtkWidget  *eog_thumb_nav_new                 (void);
+GtkWidget  *eog_thumb_nav_new                 (GtkWidget         *thumbview, 
+					       gboolean           show_buttons);
 
 gboolean    eog_thumb_nav_get_show_buttons    (EogThumbNav       *nav);
 
 void        eog_thumb_nav_set_show_buttons    (EogThumbNav       *nav, 
                                                gboolean           show_buttons);
-
-void        eog_thumb_nav_set_thumb_view      (EogThumbNav       *nav, 
-                                               EogThumbView      *thumbview);
 
 G_END_DECLS
 

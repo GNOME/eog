@@ -1,5 +1,14 @@
 2007-02-03  Lucas Rocha  <lucasr@gnome.org>
 
+	* data/eog.schemas.in: added new key for image collection scroll
+	buttons.
+	* src/eog-thumb-nav.[ch]: some refactorings, GObject love. Move
+	EogThumbView setting to constructor.
+	* src/eog-window.c: use GConf key to decide whether the image collection
+	scroll buttons should be shown or not.
+
+2007-02-03  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-image.c: several coding style fixes.
 	* data/eog.glade, src/eog-properties-dialog.c: replaced shutter speed 
 	with exposure time for user-friendliness.

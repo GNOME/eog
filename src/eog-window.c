@@ -417,7 +417,7 @@ update_action_groups_state (EogWindow *window)
 		gtk_widget_show_all (priv->view->parent);
 
 		if (show_image_collection) 
-			gtk_widget_show_all (priv->nav);
+			gtk_widget_show (priv->nav);
 
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action_collection),
 					      show_image_collection);
@@ -1281,9 +1281,9 @@ update_ui_visibility (EogWindow *window)
 		g_assert (action != NULL);
 		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
 		if (visible) {
-			gtk_widget_show_all (priv->nav);
+			gtk_widget_show (priv->nav);
 		} else {
-			gtk_widget_hide_all (priv->nav);
+			gtk_widget_hide (priv->nav);
 		}
 	}
 
@@ -1793,9 +1793,9 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_STATUSBAR, visible, NULL);
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible) {
-			gtk_widget_show_all (priv->nav);
+			gtk_widget_show (priv->nav);
 		} else {
-			gtk_widget_hide_all (priv->nav);
+			gtk_widget_hide (priv->nav);
 		}
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 	}
@@ -2563,9 +2563,10 @@ eog_window_construct_ui (EogWindow *window)
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed_cb), window);
 
-	priv->nav = eog_thumb_nav_new ();
-	eog_thumb_nav_set_thumb_view (EOG_THUMB_NAV (priv->nav), 
-				      EOG_THUMB_VIEW (priv->thumbview));
+	priv->nav = eog_thumb_nav_new (priv->thumbview, 
+				       gconf_client_get_bool (priv->client,
+							      EOG_CONF_UI_SCROLL_BUTTONS,
+							      NULL));
 
 	popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview), 

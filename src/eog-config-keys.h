@@ -45,5 +45,6 @@
 #define EOG_CONF_UI_TOOLBAR		"/apps/eog/ui/toolbar"
 #define EOG_CONF_UI_STATUSBAR		"/apps/eog/ui/statusbar"
 #define EOG_CONF_UI_IMAGE_COLLECTION	"/apps/eog/ui/image_collection"
+#define EOG_CONF_UI_SCROLL_BUTTONS	"/apps/eog/ui/scroll_buttons"
 
 #endif /* __EOG_CONFIG_KEYS_H__ */
