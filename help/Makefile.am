@@ -1,4 +1,4 @@
-SUBDIRS=eu it ja ko pa zh_CN zh_TW
+SUBDIRS=eu it ja ko zh_CN zh_TW
 
 include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
@@ -8,4 +8,4 @@ DOC_ENTITIES = legal.xml
 DOC_INCLUDES = 
 DOC_FIGURES = figures/eog_save_as_window.png figures/eog_start_window.png 
 
-DOC_LINGUAS = de es fr ru sv uk
+DOC_LINGUAS = de es fr pa ru sv uk
