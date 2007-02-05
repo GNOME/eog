@@ -511,7 +511,8 @@ eog_thumb_view_select_single (EogThumbView *tb,
 	gint n_items;
 
 	model = gtk_icon_view_get_model (GTK_ICON_VIEW (tb));
-	n_items = gtk_tree_model_iter_n_children (model, NULL);
+
+	n_items = eog_list_store_length (EOG_LIST_STORE (model));
 
 	if (n_items == 0) {
 		return;

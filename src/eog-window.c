@@ -40,6 +40,8 @@
 #include "eog-statusbar.h"
 #include "eog-preferences-dialog.h"
 #include "eog-properties-dialog.h"
+#include "eog-message-area.h"
+#include "eog-error-message-area.h"
 #include "eog-application.h"
 #include "eog-thumb-nav.h"
 #include "eog-config-keys.h"
@@ -63,8 +65,11 @@
 
 G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 
-#define EOG_WINDOW_DEFAULT_WIDTH  440
-#define EOG_WINDOW_DEFAULT_HEIGHT 350
+#define EOG_WINDOW_MIN_WIDTH  440
+#define EOG_WINDOW_MIN_HEIGHT 350
+
+#define EOG_WINDOW_DEFAULT_WIDTH  540
+#define EOG_WINDOW_DEFAULT_HEIGHT 450
 
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
 
@@ -94,7 +99,7 @@ enum {
 	SIGNAL_LAST
 };
 
-static gint signals [SIGNAL_LAST];
+static gint signals[SIGNAL_LAST];
 
 struct _EogWindowPrivate {
         GConfClient         *client;
@@ -106,12 +111,13 @@ struct _EogWindowPrivate {
 
         GtkUIManager        *ui_mgr;
         GtkWidget           *box;
-        GtkWidget           *hpane;
         GtkWidget           *vbox;
+        GtkWidget           *cbox;
         GtkWidget           *view;
         GtkWidget           *thumbview;
         GtkWidget           *statusbar;
         GtkWidget           *nav;
+	GtkWidget           *message_area;
 	GObject             *properties_dlg;
 
         GtkActionGroup      *actions_window;
@@ -334,7 +340,8 @@ update_status_bar (EogWindow *window)
 
 	priv = window->priv;
 
-	if (priv->image != NULL) {
+	if (priv->image != NULL &&
+	    eog_image_has_data (priv->image, EOG_IMAGE_DATA_ALL)) {
 		int zoom, width, height;
 		GnomeVFSFileSize bytes = 0;
 
@@ -358,18 +365,20 @@ update_status_bar (EogWindow *window)
 			g_free (size_string);
 		}
 
-		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
-		if (n_images > 0) {
-			pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store), 
-							       priv->image);
-
-			/* Images: (image pos) / (n_total_images) */
-			eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), 
-							pos + 1, 
-							n_images);
-		} 
 	}
 
+	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
+
+	if (n_images > 0) {
+		pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store), 
+						       priv->image);
+
+		/* Images: (image pos) / (n_total_images) */
+		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), 
+						pos + 1, 
+						n_images);
+	}
+ 
 	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), 
 			   priv->image_info_message_cid);
 	
@@ -377,6 +386,30 @@ update_status_bar (EogWindow *window)
 			    priv->image_info_message_cid, str ? str : "");
 
 	g_free (str);
+}
+
+static void
+eog_window_set_message_area (EogWindow *window,
+		             GtkWidget *message_area)
+{
+	if (window->priv->message_area == message_area)
+		return;
+
+	if (window->priv->message_area != NULL)
+		gtk_widget_destroy (window->priv->message_area);
+
+	window->priv->message_area = message_area;
+
+	if (message_area == NULL) return;
+
+	gtk_box_pack_start (GTK_BOX (window->priv->cbox),
+			    window->priv->message_area,
+			    FALSE,
+			    FALSE,
+			    0);
+
+	g_object_add_weak_pointer (G_OBJECT (window->priv->message_area), 
+				   (gpointer *) &window->priv->message_area);
 }
 
 static void
@@ -442,7 +475,7 @@ update_action_groups_state (EogWindow *window)
 	g_assert (action_page_setup != NULL);
 
 	if (priv->store != NULL) {
-		n_images = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL);
+		n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 	}
 
 	if (n_images == 0) {
@@ -638,21 +671,16 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	priv = window->priv;
 
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
-
-	if (priv->image != NULL) {
-		g_signal_handlers_disconnect_by_func (priv->image, image_thumb_changed_cb, window);
-		g_object_unref (priv->image);
-	}
-
 	if (image != NULL) {
-		priv->image = g_object_ref (image);
-
-		g_signal_connect (image, "thumbnail_changed", 
-				  G_CALLBACK (image_thumb_changed_cb), window);
+		g_signal_connect (image, 
+				  "thumbnail_changed", 
+				  G_CALLBACK (image_thumb_changed_cb), 
+				  window);
 
 		image_thumb_changed_cb (image, window);
 	}
+
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), image);
 
 	gtk_window_set_title (GTK_WINDOW (window), eog_image_get_caption (image));
 
@@ -764,8 +792,8 @@ eog_window_obtain_desired_size (EogImage  *image,
 		}
 	}
 
-	final_width = MAX (EOG_WINDOW_DEFAULT_WIDTH, img_width + deco_width);
-	final_height = MAX (EOG_WINDOW_DEFAULT_HEIGHT, img_height + deco_height);
+	final_width = MAX (EOG_WINDOW_MIN_WIDTH, img_width + deco_width);
+	final_height = MAX (EOG_WINDOW_MIN_HEIGHT, img_height + deco_height);
 
 	eog_debug_message (DEBUG_WINDOW, "Setting window size: %d x %d", final_width, final_height);
 
@@ -776,25 +804,75 @@ eog_window_obtain_desired_size (EogImage  *image,
 	g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 }
 
+static void 
+eog_window_error_message_area_response (EogMessageArea   *message_area,
+					gint              response_id,
+					EogWindow        *window)
+{
+	if (response_id != GTK_RESPONSE_OK) {
+		eog_window_set_message_area (window, NULL);
+	}
+}
+
 static void
 eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
 	EogWindow *window;
-	
+	EogWindowPrivate *priv;
+
         g_return_if_fail (EOG_IS_WINDOW (data));
 	
 	eog_debug (DEBUG_WINDOW);
 
 	window = EOG_WINDOW (data);
+	priv = window->priv;
 
-	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
-				    0.0);
-	
+	eog_statusbar_set_progress (EOG_STATUSBAR (priv->statusbar), 0.0);
+
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar), 
-			   window->priv->image_info_message_cid);
+			   priv->image_info_message_cid);
 
-	if (!EOG_JOB (job)->error) {
+	if (priv->image != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->image, 
+						      image_thumb_changed_cb, 
+						      window);
+
+		g_object_unref (priv->image);
+	}
+
+	priv->image = g_object_ref (job->image);
+
+	if (EOG_JOB (job)->error == NULL) {
 		eog_window_display_image (window, job->image);
+	} else {
+		GtkWidget *message_area;
+
+		message_area = eog_image_load_error_message_area_new (
+					eog_image_get_caption (job->image),
+					EOG_JOB (job)->error);
+
+		g_signal_connect (message_area,
+				  "response",
+				  G_CALLBACK (eog_window_error_message_area_response),
+				  window);
+
+		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+
+		eog_window_set_message_area (window, message_area);
+
+		eog_message_area_set_default_response (EOG_MESSAGE_AREA (message_area),
+						       GTK_RESPONSE_CANCEL);
+
+		gtk_widget_show (message_area);
+
+		update_status_bar (window);
+
+		eog_scroll_view_set_image (EOG_SCROLL_VIEW (priv->view), NULL);
+
+        	if (window->priv->status == EOG_WINDOW_STATUS_INIT) {
+			update_action_groups_state (window);
+			g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
+		}
 	}
 
 	eog_window_clear_load_job (window);
@@ -885,6 +963,8 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	eog_window_clear_load_job (window);
 
+	eog_window_set_message_area (window, NULL);
+
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
 		eog_window_display_image (window, image);
 		return;
@@ -912,13 +992,14 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 	eog_job_queue_add_job (priv->load_job);
 
 	str_image = eog_image_get_uri_for_display (image);
-	status_message = g_strdup_printf ("%s \"%s\"", 
-					  _("Loading image"), 
+
+	status_message = g_strdup_printf (_("Loading image \"%s\""), 
 				          str_image);
+
 	g_free (str_image);
 	
 	gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
-			    priv->tip_message_cid, status_message);
+			    priv->image_info_message_cid, status_message);
 
 	g_free (status_message);
 }
@@ -939,7 +1020,7 @@ view_zoom_changed_cb (GtkWidget *widget, double zoom, gpointer user_data)
 	action_zoom_in = 
 		gtk_action_group_get_action (window->priv->actions_image, 
 					     "ViewZoomIn");
-	
+
 	action_zoom_out = 
 		gtk_action_group_get_action (window->priv->actions_image, 
 					     "ViewZoomOut");
@@ -2584,6 +2665,10 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_recent, 0);
 
+	priv->cbox = gtk_vbox_new (FALSE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (priv->box), priv->cbox);
+	gtk_widget_show (priv->cbox);
+
 	priv->statusbar = eog_statusbar_new ();
 	gtk_box_pack_end (GTK_BOX (priv->box), 
 			  GTK_WIDGET (priv->statusbar),
@@ -2638,7 +2723,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_start (GTK_BOX (priv->vbox), priv->nav, FALSE, FALSE, 0);
 
-	gtk_box_pack_start (GTK_BOX (priv->box), priv->vbox, TRUE, TRUE, 0);
+	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->vbox, TRUE, TRUE, 0);
 
 	//set_drag_dest (window);
 
@@ -2685,8 +2770,8 @@ eog_window_init (EogWindow *window)
 
 	eog_debug (DEBUG_WINDOW);
 
-	hints.min_width  = EOG_WINDOW_DEFAULT_WIDTH;
-	hints.min_height = EOG_WINDOW_DEFAULT_HEIGHT;
+	hints.min_width  = EOG_WINDOW_MIN_WIDTH;
+	hints.min_height = EOG_WINDOW_MIN_HEIGHT;
 
 	window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
@@ -2733,6 +2818,10 @@ eog_window_init (EogWindow *window)
 				       GTK_WIDGET (window),
 				       &hints,
 				       GDK_HINT_MIN_SIZE);
+
+	gtk_window_set_default_size (GTK_WINDOW (window), 
+				     EOG_WINDOW_DEFAULT_WIDTH,
+				     EOG_WINDOW_DEFAULT_HEIGHT);
 
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
@@ -3255,7 +3344,7 @@ eog_window_is_empty (EogWindow *window)
         priv = window->priv;
 
         if (priv->store != NULL) {
-                empty = (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) == 0);
+                empty = (eog_list_store_length (EOG_LIST_STORE (priv->store)) == 0);
         }
 
         return empty;

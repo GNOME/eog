@@ -47,6 +47,10 @@ eog_SOURCES =				\
 	eog-preferences-dialog.c	\
 	eog-properties-dialog.h		\
 	eog-properties-dialog.c		\
+	eog-message-area.h		\
+	eog-message-area.c		\
+	eog-error-message-area.h	\
+	eog-error-message-area.c	\
 	eog-file-chooser.h		\
 	eog-file-chooser.c		\
 	eog-statusbar.h			\

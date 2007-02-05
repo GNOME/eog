@@ -1,3 +1,20 @@
+2007-02-05  Lucas Rocha  <lucasr@gnome.org>
+
+	Preliminary implementation of error/warning UI for EOG (Mostly based
+	on Gedit). Code still needs to be written for the different kinds of
+	error other than basic image loading ones.
+
+	* src/eog-debug.[ch]: fixed copyright header.
+	* src/eog-thumb-view.c: use eog_list_store_length () when applicable.
+	* src/eog-window.c (update_status_bar, eog_job_load_cb,
+	eog_window_display_image, eog_window_set_message_area,
+	eog_window_obtain_desired_size,
+	eog_window_error_message_area_response): use new message area widget
+	to show error/warning messages. Changed the window default size.
+	* src/eog-message-area.[ch], src/eog-error-message-area.[ch]: new
+	widgets for showing error/warning messages.
+	* configure.ac: set version to 2.19.1.
+
 2007-02-05  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-properties-dialog.c: (pd_update_general_tab): Fix leaks.

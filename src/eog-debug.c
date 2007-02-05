@@ -4,7 +4,7 @@
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (eog/eog-debug.h) by: 
+ * Based on gedit code (gedit/gedit-debug.h) by: 
  * 	- Alex Roberts <bse@error.fsnet.co.uk>
  *	- Evan Lawrence <evan@worldpath.net> 
  *	- Chema Celorio <chema@celorio.com> 
