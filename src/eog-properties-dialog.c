@@ -85,7 +85,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 		       EogImage            *image)
 {
 	const gchar *type_str; 
-	gchar *bytes_str, *uri_str;
+	gchar *bytes_str, *dir_str, *mime_str, *uri_str;
 	gint width, height, bytes;
 
 	uri_str = eog_image_get_uri_for_display (image);
@@ -105,7 +105,8 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label), 
 			    g_strdup_printf ("%d pixels", height));
 
-	type_str = gnome_vfs_mime_get_description (gnome_vfs_get_mime_type (uri_str));
+	mime_str = gnome_vfs_get_mime_type (uri_str);
+	type_str = gnome_vfs_mime_get_description (mime_str);
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->type_label), type_str);
 
@@ -114,11 +115,14 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->bytes_label), bytes_str);
 
+	dir_str = g_path_get_dirname (uri_str);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->location_label), 
-			    g_path_get_dirname (uri_str));
+			    dir_str);
 
 	g_free (uri_str);
+	g_free (mime_str);
 	g_free (bytes_str);
+	g_free (dir_str);
 }
 
 #ifdef HAVE_EXIF
