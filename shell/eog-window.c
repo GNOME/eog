@@ -615,9 +615,16 @@ verb_FileOpen_cb (GtkAction *action, gpointer user_data)
 
 	current = eog_wrap_list_get_first_selected_image (EOG_WRAP_LIST (priv->wraplist));
 
-	if (current != NULL)
+	if (current != NULL) {
+		gchar *uri_str, *dir_str;
+
+		uri_str = eog_image_get_uri_for_display (current);
+		dir_str = g_path_get_dirname (uri_str);
 	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
-						     g_path_get_dirname (eog_image_get_uri_for_display (current)));
+						     dir_str);
+		g_free (dir_str);
+		g_free (uri_str);
+	}
 
 	gtk_widget_show_all (dlg);
 	response = gtk_dialog_run (GTK_DIALOG (dlg));

@@ -329,6 +329,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	g_assert (filepath != NULL);
 
 	xml = glade_xml_new (filepath, "Save As Dialog", "eog");
+	g_free (filepath);
 	g_assert (xml != NULL);
 	
 	dlg = glade_xml_get_widget (xml, "Save As Dialog");

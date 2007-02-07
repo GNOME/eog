@@ -955,6 +955,8 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 			g_string_append (repl_str, old_suffix);
 
 			gnome_vfs_uri_unref (img_uri);
+			g_free (old_suffix);
+			g_free (name);
 		}
 		else {
 			char *suffix = eog_pixbuf_get_common_suffix (format);

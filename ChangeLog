@@ -1,5 +1,12 @@
 2007-02-07  Felix Riemann  <friemann@svn.gnome.org>
 
+	* libeog/eog-uri-converter.c: (eog_uri_converter_preview):
+	* shell/eog-save-as-dialog-helper.c: (eog_save_as_dialog_new):
+	* shell/eog-window.c: (verb_FileOpen_cb):
+	Fix several leaked strings.
+
+2007-02-07  Felix Riemann  <friemann@svn.gnome.org>
+
 	* libeog/eog-image.c: (update_exif_data): According to the EXIF	specs
 	Pixel{X,Y}Dimension tags can be either of short or long	datatype.
 	Respect that. This fixes warnings in Valgrind and wrong	values in 
