@@ -290,13 +290,23 @@ eog_image_update_exif_data (EogImage *image)
 	/* Update image width */	
 	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_X_DIMENSION);
 	if (entry != NULL && (priv->width >= 0)) {
-		exif_set_long (entry->data, bo, priv->width);
+		if (entry->format == EXIF_FORMAT_LONG)
+			exif_set_long (entry->data, bo, priv->width);
+		else if (entry->format == EXIF_FORMAT_SHORT)
+			exif_set_short (entry->data, bo, priv->width);
+		else
+			g_warning ("Exif entry has unsupported size");
 	}
 	
 	/* Update image height */	
 	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_Y_DIMENSION);
 	if (entry != NULL && (priv->height >= 0)) {
-		exif_set_long (entry->data, bo, priv->height);
+		if (entry->format == EXIF_FORMAT_LONG)
+			exif_set_long (entry->data, bo, priv->height);
+		else if (entry->format == EXIF_FORMAT_SHORT)
+			exif_set_short (entry->data, bo, priv->height);
+		else
+			g_warning ("Exif entry has unsupported size");
 	}
 #endif
 }

@@ -1,3 +1,10 @@
+2007-02-07  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (eog_image_update_exif_data): According to the EXIF
+	specs Pixel{X,Y}Dimension tags can be either of short or long
+	datatype. Respect that. This fixes warnings in Valgrind and wrong
+	values in images using the short type.
+
 2007-02-05  Lucas Rocha  <lucasr@gnome.org>
 
 	Preliminary implementation of error/warning UI for EOG (Mostly based
