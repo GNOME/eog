@@ -2832,6 +2832,9 @@ eog_window_init (EogWindow *window)
 		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
 
 	window->priv->recent_menu_id = 0;
+
+	window->priv->print_page_setup = NULL;
+	window->priv->print_settings = NULL;
 }
 
 static void
@@ -2904,6 +2907,16 @@ eog_window_dispose (GObject *object)
 		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
 		g_object_unref (priv->client);
 		priv->client = NULL;
+	}
+		
+	if (priv->print_settings != NULL) {
+		g_object_unref (priv->print_settings);
+		priv->print_settings = NULL;
+	}
+	
+	if (priv->print_page_setup != NULL) {
+		g_object_unref (priv->print_page_setup);
+		priv->print_page_setup = NULL;
 	}
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
