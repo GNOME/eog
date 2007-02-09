@@ -228,16 +228,17 @@ make_canonical_uri (const char *path)
 	return uri;
 }
 
-static GnomeVFSFileType
-check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+static GnomeVFSResult
+check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info, GnomeVFSFileType *type)
 {
-	GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
 	GnomeVFSResult result;
 
 	g_return_val_if_fail (uri != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
 	g_return_val_if_fail (info != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
 
 	gnome_vfs_file_info_clear (info);
+	
+	*type = GNOME_VFS_FILE_TYPE_UNKNOWN;
 	
 	result = gnome_vfs_get_file_info_uri (uri, info,
 					      GNOME_VFS_FILE_INFO_DEFAULT |
@@ -246,10 +247,10 @@ check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	if (result == GNOME_VFS_OK &&
 	    ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_TYPE) != 0))
 	{
-		type = info->type;
+		*type = info->type;
 	}
 
-	return type;
+	return result;
 }
 
 /**
@@ -274,26 +275,29 @@ sort_files (GSList *files, GList **file_list, GList **dir_list, GList **error_li
 	for (it = files; it != NULL; it = it->next) {
 		GnomeVFSURI *uri;
 		GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+		GnomeVFSResult result;
 		char *argument;
 
 		argument = (char*) it->data;
 		uri = make_canonical_uri (argument);
 
 		if (uri != NULL) {
-			type = check_uri_file_type (uri, info);
+			result = check_uri_file_type (uri, info, &type);
 		}
 
-		switch (type) {
-		case GNOME_VFS_FILE_TYPE_REGULAR:
-			*file_list = g_list_prepend (*file_list, gnome_vfs_uri_ref (uri));
-			break;
-		case GNOME_VFS_FILE_TYPE_DIRECTORY:
-			*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
-			break;
-		default:
-			*error_list = g_list_prepend (*error_list, 
-						      gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
-			break;
+		if (result != GNOME_VFS_ERROR_CANCELLED) {
+			switch (type) {
+			case GNOME_VFS_FILE_TYPE_REGULAR:
+				*file_list = g_list_prepend (*file_list, gnome_vfs_uri_ref (uri));
+				break;
+			case GNOME_VFS_FILE_TYPE_DIRECTORY:
+				*dir_list = g_list_prepend (*dir_list, gnome_vfs_uri_ref (uri));
+				break;
+			default:
+				*error_list = g_list_prepend (*error_list, 
+							      gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+				break;
+			}
 		}
 
 		if (uri != NULL) {
