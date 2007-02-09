@@ -2560,6 +2560,16 @@ eog_window_destroy (GtkObject *object)
 		g_object_unref (G_OBJECT (priv->client));
 		priv->client = NULL;
 	}
+	
+	if (priv->print_settings != NULL) {
+		g_object_unref (priv->print_settings);
+		priv->print_settings = NULL;
+	}
+	
+	if (priv->print_page_setup != NULL) {
+		g_object_unref (priv->print_page_setup);
+		priv->print_page_setup = NULL;
+	}
 
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		GTK_OBJECT_CLASS (parent_class)->destroy (object);
@@ -2687,6 +2697,9 @@ eog_window_init (EogWindow *window)
 				       GDK_HINT_MIN_SIZE);
 
 	gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+
+	priv->print_page_setup = NULL;
+	priv->print_settings = NULL;
 }
 
 /* delete_event handler for windows */
