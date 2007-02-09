@@ -1,3 +1,8 @@
+2007-02-09  Felix Riemann  <friemann@svn.gnome.org>
+
+	* shell/eog-window.c: (eog_window_print): Make sure the window is not
+	finalized while we are printing. Fixes bug #404708.
+
 2007-02-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/main.c: (check_uri_file_type), (sort_files): Handle
