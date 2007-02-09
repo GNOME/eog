@@ -1753,6 +1753,9 @@ eog_window_print (EogWindow *window)
 
 	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));
 
+	/* Make sure the window stays valid while printing */
+	g_object_ref (window);
+
 	res = gtk_print_operation_run (print,
 				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
 				       GTK_WINDOW (window), &error);
@@ -1773,7 +1776,8 @@ eog_window_print (EogWindow *window)
 			g_object_unref (window->priv->print_settings);
 		window->priv->print_settings = g_object_ref (gtk_print_operation_get_print_settings (print));
 	}
-	
+
+	g_object_unref (window);
 }
 
 static void
