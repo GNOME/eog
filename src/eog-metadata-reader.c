@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "eog-metadata-reader.h"
+#include "eog-debug.h"
 
 typedef enum {
 	EMR_READ = 0,
@@ -152,9 +153,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->last_marker = buf [i];
 				priv->size = 0;
 				priv->state = EMR_READ_SIZE_HIGH_BYTE;
-#ifdef DEBUG
-				g_print ("APPx marker found: %x\n", priv->last_marker);
-#endif
+
+				eog_debug_message (DEBUG_IMAGE_DATA, "APPx Marker Found: %x\n", priv->last_marker);
 			}
 			else {
 				/* otherwise simply consume the byte */
@@ -199,9 +199,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;			
 			
 		case EMR_SKIP_BYTES:
-#ifdef DEBUG
-			g_print ("skip bytes: %i\n", priv->size);
-#endif
+			eog_debug_message (DEBUG_IMAGE_DATA, "Skip bytes: %i", priv->size);
+
 			if (i + priv->size < len) { 
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 				priv->size = 0;
@@ -216,9 +215,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;
 			
 		case EMR_READ_EXIF:			
-#ifdef DEBUG
-			g_print ("Read EXIF data, length: %i\n", priv->size);
-#endif
+			eog_debug_message (DEBUG_IMAGE_DATA, "Read EXIF data, Length: %i", priv->size);
+
 			if (priv->exif_chunk == NULL) { 
 				priv->exif_chunk = g_new0 (guchar, priv->size);
 				priv->exif_len = priv->size;
@@ -245,9 +243,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;
 
 		case EMR_READ_ICC:			
-#ifdef DEBUG
-			g_print ("Read ICC data, length: %i\n", priv->size);
-#endif
+			eog_debug_message (DEBUG_IMAGE_DATA, "Read ICC data, Length: %i\n", priv->size);
+
 			if (priv->icc_chunk == NULL) { 
 				priv->icc_chunk = g_new0 (guchar, priv->size);
 				priv->icc_len = priv->size;

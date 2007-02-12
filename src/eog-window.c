@@ -3292,7 +3292,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	eog_debug (DEBUG_WINDOW);
 
-#ifdef HAVE_LCMS
+#if defined(HAVE_LCMS) || defined(HAVE_EXIF)
         int i;
 #endif
 	
@@ -3311,11 +3311,18 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
 
 #ifdef HAVE_LCMS
-
-	/* Colour-correct the images */
 	for (i = 0; i < n_images; i++) {
 		//eog_image_apply_display_profile (eog_list_store_get_image_by_pos (priv->store, i),
 		//				 get_screen_profile (window));
+	}
+#endif
+
+#ifdef HAVE_EXIF 
+	if (gconf_client_get_bool (priv->client, EOG_CONF_VIEW_AUTOROTATE, NULL)) {
+		for (i = 0; i < n_images; i++) {
+			eog_image_autorotate (
+				eog_list_store_get_image_by_pos (priv->store, i));
+		}
 	}
 #endif
 

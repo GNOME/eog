@@ -49,7 +49,9 @@ struct _EogImagePrivate {
 	guint             iptc_chunk_len;
 
 #ifdef HAVE_EXIF
-	ExifData         *exif;      
+	gboolean          autorotate;
+	gint              orientation;
+	ExifData         *exif;
 #endif
 
 #ifdef HAVE_LCMS

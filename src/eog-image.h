@@ -164,7 +164,11 @@ gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 void              eog_image_transform                (EogImage   *img, 
 						      EogTransform *trans);
 
-void              eog_image_undo                     (EogImage *img);
+#ifdef HAVE_EXIF
+void              eog_image_autorotate               (EogImage   *img);
+#endif
+
+void              eog_image_undo                     (EogImage   *img);
 
 GList		 *eog_image_get_supported_mime_types (void);
 

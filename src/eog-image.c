@@ -25,6 +25,7 @@
 
 #include "eog-image.h"
 #include "eog-image-private.h"
+#include "eog-debug.h"
 
 #ifdef HAVE_JPEG
 #include "eog-image-jpeg.h"
@@ -34,6 +35,7 @@
 #include "eog-pixbuf-util.h"
 #include "eog-metadata-reader.h"
 #include "eog-image-save-info.h"
+#include "eog-transform.h"
 #include "eog-util.h"
 #include "eog-jobs.h"
 
@@ -221,8 +223,9 @@ eog_image_init (EogImage *img)
 	img->priv->undo_stack = NULL;
 	img->priv->trans = NULL;
 	img->priv->data_ref_count = 0;
-
 #ifdef HAVE_EXIF
+	img->priv->orientation = 0;
+	img->priv->autorotate = FALSE;
 	img->priv->exif = NULL;
 #endif
 
@@ -275,13 +278,11 @@ eog_image_update_exif_data (EogImage *image)
 	ExifEntry *entry;
 	ExifByteOrder bo;
 
+	eog_debug (DEBUG_IMAGE_DATA);
+
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	priv = image->priv;
-
-#ifdef DEBUG
-	g_message ("update exif data");
-#endif
 
 	if (priv->exif == NULL) return;
 
@@ -312,12 +313,73 @@ eog_image_update_exif_data (EogImage *image)
 }
 
 static void
+eog_image_real_transform (EogImage     *img, 
+			  EogTransform *trans, 
+			  gboolean      is_undo)
+{
+	EogImagePrivate *priv;
+	GdkPixbuf *transformed;
+	gboolean modified = FALSE;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+	g_return_if_fail (EOG_IS_TRANSFORM (trans));
+
+	priv = img->priv;
+
+	if (priv->image != NULL) {
+		transformed = eog_transform_apply (trans, priv->image);
+		
+		g_object_unref (priv->image);
+		priv->image = transformed;
+
+		priv->width = gdk_pixbuf_get_width (transformed);
+		priv->height = gdk_pixbuf_get_height (transformed);
+       
+		modified = TRUE;
+	}
+
+	if (priv->thumbnail != NULL) {
+		transformed = eog_transform_apply (trans, priv->thumbnail);
+
+		g_object_unref (priv->thumbnail);
+		priv->thumbnail = transformed;
+       
+		modified = TRUE;
+	}
+
+	if (modified) {
+		priv->modified = TRUE;
+		eog_image_update_exif_data (img);
+	}
+
+	if (priv->trans == NULL) {
+		g_object_ref (trans);
+		priv->trans = trans;
+	} else {
+		EogTransform *composition;
+
+		composition = eog_transform_compose (priv->trans, trans);
+
+		g_object_unref (priv->trans);
+
+		priv->trans = composition;
+	}
+	
+	if (!is_undo) {
+		g_object_ref (trans);
+		priv->undo_stack = g_slist_prepend (priv->undo_stack, trans);
+	}
+}
+
+static void
 eog_image_size_prepared (GdkPixbufLoader *loader, 
 			 gint             width, 
 			 gint             height, 
 			 gpointer         data)
 {
 	EogImage *img;
+
+	eog_debug (DEBUG_IMAGE_LOAD);
 
 	g_return_if_fail (EOG_IS_IMAGE (data));
 
@@ -330,7 +392,12 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 
 	g_mutex_unlock (img->priv->status_mutex);
 
-	g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
+	/* If we're trying to auto-rotate the image, wait until we 
+           the EXIF data loaded. */
+#ifdef HAVE_EXIF
+	if (!img->priv->autorotate)
+#endif
+		g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
 }
 
 static EogMetadataReader*
@@ -338,9 +405,8 @@ check_for_metadata_img_format (EogImage *img, guchar *buffer, guint bytes_read)
 {
 	EogMetadataReader *md_reader = NULL;
 
-#ifdef DEBUG	
-	g_print ("check img format for jpeg: %x%x - length: %i\n", buffer[0], buffer[1], bytes_read);
-#endif
+	eog_debug_message (DEBUG_IMAGE_DATA, "Check image format for jpeg: %x%x - length: %i", 
+			   buffer[0], buffer[1], bytes_read);
 
 	if (bytes_read >= 2) {
 		/* SOI (start of image) marker for JPEGs is 0xFFD8 */
@@ -567,6 +633,83 @@ extract_profile (EogImage *img, EogMetadataReader *md_reader)
 }
 #endif
 
+#ifdef HAVE_EXIF
+static void 
+eog_image_set_orientation (EogImage *img)
+{
+	EogImagePrivate *priv;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	priv = img->priv;
+
+	if (priv->exif != NULL) {
+		ExifByteOrder o = exif_data_get_byte_order (priv->exif);
+		ExifEntry *entry = exif_data_get_entry (priv->exif, 
+							EXIF_TAG_ORIENTATION);
+
+		if (entry->data != NULL) {
+			priv->orientation = exif_get_short (entry->data, o);
+		}
+	}
+
+	if (priv->orientation > 4 &&
+	    priv->orientation < 9) {
+		gint tmp;
+
+		tmp = priv->width;
+		priv->width = priv->height;
+		priv->height = tmp;
+	}
+}
+
+static void
+eog_image_real_autorotate (EogImage *img)
+{
+	static EogTransformType lookup[8] = {EOG_TRANSFORM_NONE, 
+					     EOG_TRANSFORM_FLIP_HORIZONTAL, 
+					     EOG_TRANSFORM_ROT_180, 
+					     EOG_TRANSFORM_FLIP_VERTICAL, 
+					     EOG_TRANSFORM_TRANSPOSE, 
+					     EOG_TRANSFORM_ROT_90, 
+					     EOG_TRANSFORM_TRANSVERSE, 
+					     EOG_TRANSFORM_ROT_270};
+	EogImagePrivate *priv;
+	EogTransformType type;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	priv = img->priv;
+
+	type = (priv->orientation >= 1 && priv->orientation <= 8 ? 
+		lookup[priv->orientation - 1] : EOG_TRANSFORM_NONE);
+
+	if (type != EOG_TRANSFORM_NONE) {
+		EogTransform *trans = eog_transform_new (type);
+
+		if (priv->trans == NULL) {
+			priv->trans = g_object_ref (trans);
+		} else {
+			eog_transform_compose (priv->trans, trans);
+		}
+
+		g_object_unref (trans);
+	}
+
+	/* Disable auto orientation for next loads */
+	priv->autorotate = FALSE;
+}
+
+void
+eog_image_autorotate (EogImage *img)
+{
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	/* Schedule auto orientation */
+	img->priv->autorotate = TRUE;
+}
+#endif
+
 static gboolean
 eog_image_real_load (EogImage *img, 
 		     guint     data2read, 
@@ -590,9 +733,7 @@ eog_image_real_load (EogImage *img,
 
 	priv = img->priv;
 
-#ifdef DEBUG
-	g_print ("real image load %s\n", gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE));
-#endif
+	eog_debug_message (DEBUG_IMAGE_LOAD, gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE));
 
 	g_assert (priv->image == NULL);
 
@@ -679,9 +820,32 @@ eog_image_real_load (EogImage *img,
 		if (md_reader != NULL) {
 			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
 
-			if (data2read == EOG_IMAGE_DATA_EXIF && 
-			    eog_metadata_reader_finished (md_reader)) {
-				break;
+			if (eog_metadata_reader_finished (md_reader)) {
+#ifdef HAVE_EXIF  
+				priv->exif = eog_metadata_reader_get_exif_data (md_reader);
+
+				priv->exif_chunk = NULL;
+				priv->exif_chunk_len = 0;
+
+				/* EXIF data is already available, set the image
+                                   orientation and emit size prepared signal */
+				if (priv->autorotate) {
+					eog_image_set_orientation (img);
+
+					g_signal_emit (img, 
+						       signals[SIGNAL_SIZE_PREPARED], 
+						       0, 
+						       priv->width, 
+						       priv->height);
+				}
+#else
+				eog_metadata_reader_get_exif_chunk (md_reader, 
+								    &priv->exif_chunk, 
+								    &priv->exif_chunk_len);
+#endif
+
+				if (data2read == EOG_IMAGE_DATA_EXIF) 
+					break;
 			}
 		}
 	}
@@ -733,20 +897,6 @@ eog_image_real_load (EogImage *img,
 			}
 		}
 		
-		if (md_reader != NULL) {
-#ifdef HAVE_EXIF  
-			priv->exif = eog_metadata_reader_get_exif_data (md_reader);
-			eog_image_update_exif_data (img);
-
-			priv->exif_chunk = NULL;
-			priv->exif_chunk_len = 0;
-#else
-			eog_metadata_reader_get_exif_chunk (md_reader, 
-							    &priv->exif_chunk, 
-							    &priv->exif_chunk_len);
-#endif
-		}
-
 #ifdef HAVE_LCMS
 		if (md_reader != NULL) {
 			extract_profile (img, md_reader);
@@ -809,13 +959,11 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
 
+	eog_debug (DEBUG_IMAGE_LOAD);
+
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 
 	priv = EOG_IMAGE (img)->priv;
-
-#ifdef DEBUG
-	g_print ("eog-image_load.c\n");
-#endif
 
 	if (data2read == 0) {
 		return TRUE;
@@ -830,8 +978,10 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 
 	success = eog_image_real_load (img, data2read, job, error);
 
-#ifdef DEBUG
-	g_print ("load success: %i\n", success);
+#ifdef HAVE_EXIF
+	if (priv->autorotate) {
+		eog_image_real_autorotate (img);
+	}
 #endif
 
 	if (success && eog_image_needs_transformation (img)) {
@@ -930,65 +1080,6 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 
 	*width = priv->width; 
 	*height = priv->height;
-}
-
-static void
-eog_image_real_transform (EogImage     *img, 
-			  EogTransform *trans, 
-			  gboolean      is_undo)
-{
-	EogImagePrivate *priv;
-	GdkPixbuf *transformed;
-	gboolean modified = FALSE;
-
-	g_return_if_fail (EOG_IS_IMAGE (img));
-	g_return_if_fail (EOG_IS_TRANSFORM (trans));
-
-	priv = img->priv;
-
-	if (priv->image != NULL) {
-		transformed = eog_transform_apply (trans, priv->image);
-		
-		g_object_unref (priv->image);
-		priv->image = transformed;
-
-		priv->width = gdk_pixbuf_get_width (transformed);
-		priv->height = gdk_pixbuf_get_height (transformed);
-       
-		modified = TRUE;
-	}
-
-	if (priv->thumbnail != NULL) {
-		transformed = eog_transform_apply (trans, priv->thumbnail);
-
-		g_object_unref (priv->thumbnail);
-		priv->thumbnail = transformed;
-       
-		modified = TRUE;
-	}
-
-	if (modified) {
-		priv->modified = TRUE;
-		eog_image_update_exif_data (img);
-	}
-
-	if (priv->trans == NULL) {
-		g_object_ref (trans);
-		priv->trans = trans;
-	} else {
-		EogTransform *composition;
-
-		composition = eog_transform_compose (priv->trans, trans);
-
-		g_object_unref (priv->trans);
-
-		priv->trans = composition;
-	}
-	
-	if (!is_undo) {
-		g_object_ref (trans);
-		priv->undo_stack = g_slist_prepend (priv->undo_stack, trans);
-	}
 }
 
 void                

@@ -8,6 +8,7 @@
 
 #include "eog-marshal.h"
 #include "eog-scroll-view.h"
+#include "eog-debug.h"
 #include "uta.h"
 #include "zoom.h"
 
@@ -369,9 +370,8 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	gtk_widget_size_request (priv->vbar, &req);
 	bar_width = req.width;
 
-#ifdef DEBUG
-	g_print ("Widget Size allocate: %i, %i   bar: %i, %i\n", width, height, bar_width, bar_height);
-#endif
+	eog_debug_message (DEBUG_WINDOW, "Widget Size allocate: %i, %i   Bar: %i, %i\n", 
+			   width, height, bar_width, bar_height);
 
 	hbar_visible = vbar_visible = FALSE;
 	if (priv->zoom_mode == ZOOM_MODE_FIT)
@@ -540,9 +540,9 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	else
 		yofs = -priv->yofs;
 
-#ifdef DEBUG
-	g_print ("paint_rectangle: zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n", priv->zoom, xofs, yofs, scaled_width, scaled_height);
-#endif
+	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n", 
+			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
+
 	/* Draw background if necessary, in four steps */
 
 	/* Top */
@@ -601,19 +601,17 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	if (art_irect_empty (&d))
 		return;
 
-#ifdef R_DEBUG
- {
-	 char *str;
-	 switch (interp_type) {
-	 case GDK_INTERP_NEAREST:
-		 str = "NEAREST";
-		 break;
-	 default:
-		 str = "ALIASED";
-	 }
-	g_print ("%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n", str, d.x0, d.y0, d.x1, d.y1);
- }
-#endif
+	char *str;
+	switch (interp_type) {
+	case GDK_INTERP_NEAREST:
+		str = "NEAREST";
+		break;
+	default:
+		str = "ALIASED";
+	}
+
+	eog_debug_message (DEBUG_WINDOW, "%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n", 
+			   str, d.x0, d.y0, d.x1, d.y1);
 
 	/* Short-circuit the fast case to avoid a memcpy() */
 
@@ -746,9 +744,8 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 
 	priv = view->priv;
 
-#ifdef R_DEBUG
-	g_print ("request_paint area: ...  x: %i, y: %i, width: %i, height: %i\n", area->x, area->y, area->width, area->height);
-#endif
+	eog_debug_message (DEBUG_WINDOW, "x: %i, y: %i, width: %i, height: %i\n", 
+			   area->x, area->y, area->width, area->height);
 
 	if (!GTK_WIDGET_DRAWABLE (priv->display))
 		return;
@@ -758,9 +755,7 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 	r.x1 = MIN (GTK_WIDGET (priv->display)->allocation.width, area->x + area->width);
 	r.y1 = MIN (GTK_WIDGET (priv->display)->allocation.height, area->y + area->height);
 
-#ifdef DEBUG
-	g_print ("request_paint r: %i, %i, %i, %i\n", r.x0, r.y0, r.x1, r.y1);
-#endif
+	eog_debug_message (DEBUG_WINDOW, "r: %i, %i, %i, %i\n", r.x0, r.y0, r.x1, r.y1);
 
 	if (r.x0 >= r.x1 || r.y0 >= r.y1)
 		return;
@@ -1372,9 +1367,7 @@ display_map_event (GtkWidget *widget, GdkEvent *event, gpointer data)
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
 
-#ifdef DEBUG
-	g_print ("display_map_event ...\n");
-#endif
+	eog_debug (DEBUG_WINDOW);
 
 	set_zoom_fit (view);
 	check_scrollbar_visibility (view, NULL);
@@ -1498,9 +1491,8 @@ image_loading_update_cb (EogImage *img, int x, int y, int width, int height, gpo
 	view = (EogScrollView*) data;
 	priv = view->priv;
 
-#ifdef DEBUG
-	g_print ("image_update_cb: x: %i, y: %i, width: %i, height: %i\n", x, y, width, height);
-#endif
+	eog_debug_message (DEBUG_IMAGE_LOAD, "x: %i, y: %i, width: %i, height: %i\n", 
+			   x, y, width, height);
 
 	if (priv->pixbuf == NULL) {
 		priv->pixbuf = eog_image_get_pixbuf (img);

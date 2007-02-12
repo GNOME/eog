@@ -184,6 +184,7 @@ eog_preferences_dialog_constructor (GType type,
 	EogPreferencesDialogPrivate *priv;
 	GtkWidget *dlg;
 	GtkWidget *interpolate_check;
+	GtkWidget *autorotate_check;
 	GtkWidget *color_radio;
 	GtkWidget *checkpattern_radio;
 	GtkWidget *background_radio;
@@ -207,6 +208,7 @@ eog_preferences_dialog_constructor (GType type,
 	eog_dialog_get_controls (EOG_DIALOG (object), 
 			         "eog_preferences_dialog", &dlg,
 			         "interpolate_check", &interpolate_check,
+			         "autorotate_check", &autorotate_check,
 			         "color_radio", &color_radio,
 			         "checkpattern_radio", &checkpattern_radio,
 			         "background_radio", &background_radio,
@@ -231,6 +233,20 @@ eog_preferences_dialog_constructor (GType type,
 			   EOG_CONF_VIEW_INTERPOLATE);
 
 	g_signal_connect (G_OBJECT (interpolate_check), 
+			  "toggled", 
+			  G_CALLBACK (pd_check_toggle_cb), 
+			  priv->client);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (autorotate_check), 
+				      gconf_client_get_bool (priv->client, 
+							     EOG_CONF_VIEW_AUTOROTATE, 
+							     NULL));
+
+	g_object_set_data (G_OBJECT (autorotate_check), 
+			   GCONF_OBJECT_KEY, 
+			   EOG_CONF_VIEW_AUTOROTATE);
+
+	g_signal_connect (G_OBJECT (autorotate_check), 
 			  "toggled", 
 			  G_CALLBACK (pd_check_toggle_cb), 
 			  priv->client);
