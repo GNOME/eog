@@ -42,7 +42,6 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
-#include <libgnome/gnome-config.h>
 #include <libgnomeui/gnome-ui-init.h>
 #include <libgnomeui/gnome-client.h>
 #include <libgnomeui/gnome-app-helper.h>
