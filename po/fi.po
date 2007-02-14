@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-03 15:58+0300\n"
-"PO-Revision-Date: 2007-02-03 16:02+0300\n"
+"POT-Creation-Date: 2007-02-14 06:03+0300\n"
+"PO-Revision-Date: 2007-02-14 06:04+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../eog.desktop.in.in.h:1
-msgid "Image Viewer"
-msgstr "Kuvakatselin"
+msgid "Browse and rotate images"
+msgstr "Selaa ja kierrä kuvia"
 
 #: ../eog.desktop.in.in.h:2
-msgid "View different types of images"
-msgstr "Katsele erityyppisiä kuvia"
+msgid "Image Viewer"
+msgstr "Kuvakatselin"
 
 #: ../eog.glade.h:1
 msgid "    "
@@ -103,7 +103,7 @@ msgstr "Vanha nimi:"
 msgid "Replace spaces by underscore"
 msgstr "Vaihda välilyönnit alaviivoiksi"
 
-#: ../eog.glade.h:20 ../shell/eog-window.c:3583
+#: ../eog.glade.h:20 ../shell/eog-window.c:3607
 msgid "Save As"
 msgstr "Tallenna nimellä"
 
@@ -266,8 +266,7 @@ msgstr ""
 #: ../eog.schemas.in.h:24
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
-msgstr ""
-"Käännetäänkö kuva automaattisesti vastaamaan EXIF-tietojen suuntaa."
+msgstr "Käännetäänkö kuva automaattisesti vastaamaan EXIF-tietojen suuntaa."
 
 #: ../libeog/eog-image-jpeg.c:344
 #, c-format
@@ -278,23 +277,23 @@ msgstr "Väliaikaistiedoston luominen tallentamista varten epäonnistui: %s"
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG:in lataamiseksi ei saatu jaettua riittävästi muistia"
 
-#: ../libeog/eog-image.c:426
+#: ../libeog/eog-image.c:436
 msgid "Transformation on unloaded image."
 msgstr "Muunnos lataamattomalle kuvalle."
 
-#: ../libeog/eog-image.c:704
+#: ../libeog/eog-image.c:714
 msgid "EXIF not supported for this file format."
 msgstr "EXIF ei ole tuettu tässä tiedostomuodossa."
 
-#: ../libeog/eog-image.c:1118 ../libeog/eog-image.c:1327
+#: ../libeog/eog-image.c:1128 ../libeog/eog-image.c:1337
 msgid "File exists"
 msgstr "Tiedosto on jo olemassa"
 
-#: ../libeog/eog-image.c:1267 ../libeog/eog-image.c:1395
+#: ../libeog/eog-image.c:1277 ../libeog/eog-image.c:1405
 msgid "No image loaded."
 msgstr "Ei kuvaa ladattuna."
 
-#: ../libeog/eog-image.c:1276 ../libeog/eog-image.c:1404
+#: ../libeog/eog-image.c:1286 ../libeog/eog-image.c:1414
 msgid "Temporary file creation failed."
 msgstr "Väliaikaistiedoston luonti epäonnistui."
 
@@ -359,7 +358,7 @@ msgstr "EXIF"
 msgid "IPTC"
 msgstr "IPTC"
 
-#: ../libeog/eog-uri-converter.c:1023
+#: ../libeog/eog-uri-converter.c:1025
 msgid "At least two file names are equal."
 msgstr "Vähintään kaksi tiedostonimeä ovat samat."
 
@@ -568,7 +567,7 @@ msgstr "Peru tallennus ..."
 msgid "Image Settings"
 msgstr "Kuvan asetukset"
 
-#: ../shell/eog-window.c:582
+#: ../shell/eog-window.c:585
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -581,7 +580,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: ../shell/eog-window.c:686
+#: ../shell/eog-window.c:697
 msgid "translator-credits"
 msgstr ""
 "Jarkko Ranta <jjranta@cc.joensuu.fi>, 2003\n"
@@ -589,7 +588,7 @@ msgstr ""
 "\n"
 "http://gnome.fi/"
 
-#: ../shell/eog-window.c:689
+#: ../shell/eog-window.c:700
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -601,7 +600,7 @@ msgstr ""
 "määritellyt; voit halutessasi käyttää lisenssin versiota 2 taikka mitä "
 "tahansa tämän jälkeen ilmestynyttä versiota.\n"
 
-#: ../shell/eog-window.c:693
+#: ../shell/eog-window.c:704
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -613,7 +612,7 @@ msgstr ""
 "SOVELTUMISESTA TIETTYYN ERITYISEEN TARKOITUKSEEN. Yksityiskohtien osalta "
 "katso GNU:n GPL-lisenssiä.\n"
 
-#: ../shell/eog-window.c:697
+#: ../shell/eog-window.c:708
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 51 "
@@ -623,16 +622,16 @@ msgstr ""
 "jos et sitä saanut, niin lähetä kirje Free Software Foundation, Inc. :lle, "
 "51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA"
 
-#: ../shell/eog-window.c:710 ../shell/eog-window.c:3302
-#: ../shell/eog-window.c:3940 ../shell/main.c:620
+#: ../shell/eog-window.c:721 ../shell/eog-window.c:3326
+#: ../shell/eog-window.c:3964 ../shell/main.c:624
 msgid "Eye of GNOME"
 msgstr "Gnomen silmä"
 
-#: ../shell/eog-window.c:713
+#: ../shell/eog-window.c:724
 msgid "The GNOME image viewing and cataloging program."
 msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
 
-#: ../shell/eog-window.c:744
+#: ../shell/eog-window.c:755
 #, c-format
 msgid ""
 "Could not display help for Eye of GNOME.\n"
@@ -641,50 +640,50 @@ msgstr ""
 "Gnomen silmän ohjetta ei voitu näyttää.\n"
 "%s"
 
-#: ../shell/eog-window.c:1179
+#: ../shell/eog-window.c:1190
 #, c-format
 msgid "Overwrite file %s?"
 msgstr "Kirjoita tiedoston %s yli?"
 
-#: ../shell/eog-window.c:1180
+#: ../shell/eog-window.c:1191
 msgid "File exists. Do you want to overwrite it?"
 msgstr "Tiedosto on jo olemassa. Haluatko kirjoittaa tiedoston yli?"
 
-#: ../shell/eog-window.c:1191 ../shell/eog-window.c:1207
+#: ../shell/eog-window.c:1202 ../shell/eog-window.c:1218
 msgid "Skip"
 msgstr "Ohita"
 
-#: ../shell/eog-window.c:1192
+#: ../shell/eog-window.c:1203
 msgid "Overwrite"
 msgstr "Kirjoita yli"
 
-#: ../shell/eog-window.c:1197
+#: ../shell/eog-window.c:1208
 #, c-format
 msgid "Error on saving %s."
 msgstr "Virhe tallennettaessa tiedostoa %s."
 
-#: ../shell/eog-window.c:1208 ../shell/eog-window.c:1775
+#: ../shell/eog-window.c:1219 ../shell/eog-window.c:1786
 msgid "Retry"
 msgstr "Yritä uudestaan"
 
-#: ../shell/eog-window.c:1638
+#: ../shell/eog-window.c:1649
 msgid "Couldn't determine destination uri."
 msgstr "Kohteen URI:a ei voitu määrittää."
 
-#: ../shell/eog-window.c:1761
+#: ../shell/eog-window.c:1772
 #, c-format
 msgid "Couldn't determine file format of %s"
 msgstr "Tiedoston %s muotoa ei voitu tunnistaa"
 
-#: ../shell/eog-window.c:1762
+#: ../shell/eog-window.c:1773
 msgid "Please use an appropriate filename suffix or select a file format."
 msgstr "Valitse sopiva tiedostopääte tai valitse haluttu tiedostomuoto."
 
-#: ../shell/eog-window.c:1900
+#: ../shell/eog-window.c:1911
 msgid "Error on saving images."
 msgstr "Virhe tallennettaessa kuvia."
 
-#: ../shell/eog-window.c:2167
+#: ../shell/eog-window.c:2178
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -693,7 +692,7 @@ msgstr ""
 "Haluatko varmasti siirtää kuvan\n"
 "%s roskakoriin?"
 
-#: ../shell/eog-window.c:2170
+#: ../shell/eog-window.c:2181
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -708,271 +707,271 @@ msgstr[1] ""
 "Haluatko varmasti siirtää\n"
 "%d valittua kuvaa roskakoriin?"
 
-#: ../shell/eog-window.c:2185 ../shell/eog-window.c:3538
+#: ../shell/eog-window.c:2196 ../shell/eog-window.c:3562
 msgid "Move to Trash"
 msgstr "Siirrä roskakoriin"
 
-#: ../shell/eog-window.c:2216
+#: ../shell/eog-window.c:2227
 msgid "Couldn't access trash."
 msgstr "Roskakoria ei voitu avata."
 
-#: ../shell/eog-window.c:2292
+#: ../shell/eog-window.c:2303
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Virhe poistettaessa kuvaa %s"
 
 #. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../shell/eog-window.c:3163
+#: ../shell/eog-window.c:3187
 #, c-format
 msgid "%i x %i pixels  %s    %i%%"
 msgid_plural "%i x %i pixels  %s    %i%%"
 msgstr[0] "%i x %i pikseli  %s    %i %%"
 msgstr[1] "%i x %i pikseliä  %s    %i %%"
 
-#: ../shell/eog-window.c:3219
+#: ../shell/eog-window.c:3243
 #, c-format
 msgid "Reason: %s"
 msgstr "Syy: %s"
 
-#: ../shell/eog-window.c:3388
+#: ../shell/eog-window.c:3412
 #, c-format
 msgid "Image loading failed for %s"
 msgstr "Kuvan %s lataus epäonnistui"
 
-#: ../shell/eog-window.c:3503
+#: ../shell/eog-window.c:3527
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../shell/eog-window.c:3504
+#: ../shell/eog-window.c:3528
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../shell/eog-window.c:3505
+#: ../shell/eog-window.c:3529
 msgid "_View"
 msgstr "_Katsele"
 
-#: ../shell/eog-window.c:3506
+#: ../shell/eog-window.c:3530
 msgid "_Image"
 msgstr "_Kuva"
 
-#: ../shell/eog-window.c:3507
+#: ../shell/eog-window.c:3531
 msgid "_Go"
 msgstr "_Siirry"
 
-#: ../shell/eog-window.c:3508
+#: ../shell/eog-window.c:3532
 msgid "_Help"
 msgstr "O_hje"
 
-#: ../shell/eog-window.c:3509
+#: ../shell/eog-window.c:3533
 msgid "_Open..."
 msgstr "_Avaa..."
 
-#: ../shell/eog-window.c:3509
+#: ../shell/eog-window.c:3533
 msgid "Open a file"
 msgstr "Avaa tiedosto"
 
-#: ../shell/eog-window.c:3510
+#: ../shell/eog-window.c:3534
 msgid "_Close"
 msgstr "_Sulje"
 
-#: ../shell/eog-window.c:3510
+#: ../shell/eog-window.c:3534
 msgid "Close window"
 msgstr "Sulje ikkuna"
 
-#: ../shell/eog-window.c:3511
+#: ../shell/eog-window.c:3535
 msgid "Prefere_nces"
 msgstr "_Asetukset"
 
-#: ../shell/eog-window.c:3511
+#: ../shell/eog-window.c:3535
 msgid "Preferences for Eye of GNOME"
 msgstr "Gnomen silmän asetukset"
 
-#: ../shell/eog-window.c:3512
+#: ../shell/eog-window.c:3536
 msgid "_Contents"
 msgstr "S_isältö"
 
-#: ../shell/eog-window.c:3512
+#: ../shell/eog-window.c:3536
 msgid "Help on this application"
 msgstr "Ohjelman käyttöohje"
 
-#: ../shell/eog-window.c:3513
+#: ../shell/eog-window.c:3537
 msgid "_About"
 msgstr "_Tietoja"
 
-#: ../shell/eog-window.c:3513
+#: ../shell/eog-window.c:3537
 msgid "About this application"
 msgstr "Tietoja sovelluksesta"
 
-#: ../shell/eog-window.c:3518
+#: ../shell/eog-window.c:3542
 msgid "_Toolbar"
 msgstr "_Työkalupalkki"
 
-#: ../shell/eog-window.c:3518
+#: ../shell/eog-window.c:3542
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Määrittää näytetäänkö työkalupalkki nykyisessä ikkunassa"
 
-#: ../shell/eog-window.c:3519
+#: ../shell/eog-window.c:3543
 msgid "_Statusbar"
 msgstr "T_ilarivi"
 
-#: ../shell/eog-window.c:3519
+#: ../shell/eog-window.c:3543
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Määrittää näytetäänkö tilarivi nykyisessä ikkunassa"
 
-#: ../shell/eog-window.c:3520
+#: ../shell/eog-window.c:3544
 msgid "_Image Collection"
 msgstr "_Kuvakokoelmana"
 
-#: ../shell/eog-window.c:3520
+#: ../shell/eog-window.c:3544
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "Muuttaa kuvakokoelmapaneelin näkyvyyttä nykyisessä ikkunassa"
 
-#: ../shell/eog-window.c:3524
+#: ../shell/eog-window.c:3548
 msgid "_Save"
 msgstr "_Tallenna"
 
-#: ../shell/eog-window.c:3525
+#: ../shell/eog-window.c:3549
 msgid "Save _As..."
 msgstr "Tallenna _nimellä..."
 
-#: ../shell/eog-window.c:3526
+#: ../shell/eog-window.c:3550
 msgid "Page Set_up..."
 msgstr "Sivun _asetukset..."
 
-#: ../shell/eog-window.c:3527
+#: ../shell/eog-window.c:3551
 msgid "Print..."
 msgstr "Tulosta..."
 
-#: ../shell/eog-window.c:3529
+#: ../shell/eog-window.c:3553
 msgid "_Undo"
 msgstr "K_umoa"
 
-#: ../shell/eog-window.c:3531
+#: ../shell/eog-window.c:3555
 msgid "Flip _Horizontal"
 msgstr "Peilaa _vaakasuunnassa"
 
-#: ../shell/eog-window.c:3532
+#: ../shell/eog-window.c:3556
 msgid "Flip _Vertical"
 msgstr "Peilaa _pystysuunnassa"
 
-#: ../shell/eog-window.c:3534
+#: ../shell/eog-window.c:3558
 msgid "_Rotate Clockwise"
 msgstr "Kierrä _myötäpäivään"
 
-#: ../shell/eog-window.c:3535
+#: ../shell/eog-window.c:3559
 msgid "Rotate Counterc_lockwise"
 msgstr "Kierrä va_stapäivään"
 
-#: ../shell/eog-window.c:3536
+#: ../shell/eog-window.c:3560
 msgid "Set As _Wallpaper"
 msgstr "Aseta _taustakuvaksi"
 
-#: ../shell/eog-window.c:3540
+#: ../shell/eog-window.c:3564
 msgid "_Full Screen"
 msgstr "Koko_ruutu"
 
-#: ../shell/eog-window.c:3541
+#: ../shell/eog-window.c:3565
 msgid "_Slideshow"
 msgstr "_Diaesitys"
 
 #. accelerators
-#: ../shell/eog-window.c:3542 ../shell/eog-window.c:3548
-#: ../shell/eog-window.c:3549
+#: ../shell/eog-window.c:3566 ../shell/eog-window.c:3572
+#: ../shell/eog-window.c:3573
 msgid "_Zoom In"
 msgstr "_Lähennä"
 
-#: ../shell/eog-window.c:3543 ../shell/eog-window.c:3550
+#: ../shell/eog-window.c:3567 ../shell/eog-window.c:3574
 msgid "Zoom _Out"
 msgstr "L_oitonna"
 
-#: ../shell/eog-window.c:3544
+#: ../shell/eog-window.c:3568
 msgid "_Normal Size"
 msgstr "_Normaalikoko"
 
-#: ../shell/eog-window.c:3545
+#: ../shell/eog-window.c:3569
 msgid "Best _Fit"
 msgstr "Paras sov_itus"
 
-#: ../shell/eog-window.c:3551 ../shell/eog-window.c:3553
-#: ../shell/eog-window.c:3567
+#: ../shell/eog-window.c:3575 ../shell/eog-window.c:3577
+#: ../shell/eog-window.c:3591
 msgid "_Next Image"
 msgstr "_Seuraava kuva"
 
-#: ../shell/eog-window.c:3552 ../shell/eog-window.c:3554
-#: ../shell/eog-window.c:3555 ../shell/eog-window.c:3566
+#: ../shell/eog-window.c:3576 ../shell/eog-window.c:3578
+#: ../shell/eog-window.c:3579 ../shell/eog-window.c:3590
 msgid "_Previous Image"
 msgstr "_Edellinen kuva"
 
-#: ../shell/eog-window.c:3556
+#: ../shell/eog-window.c:3580
 msgid "Move to _Trash"
 msgstr "Siirrä _roskakoriin"
 
-#: ../shell/eog-window.c:3557 ../shell/eog-window.c:3568
+#: ../shell/eog-window.c:3581 ../shell/eog-window.c:3592
 msgid "_First Image"
 msgstr "Ensi_mmäinen kuva"
 
-#: ../shell/eog-window.c:3558 ../shell/eog-window.c:3569
+#: ../shell/eog-window.c:3582 ../shell/eog-window.c:3593
 msgid "_Last Image"
 msgstr "_Viimeinen kuva"
 
-#: ../shell/eog-window.c:3562
+#: ../shell/eog-window.c:3586
 msgid "Image _Information"
 msgstr "Kuvan _tiedot"
 
-#: ../shell/eog-window.c:3562
+#: ../shell/eog-window.c:3586
 msgid "Changes the visibility of the information pane in the current window"
 msgstr "Määrittää näytetäänkö tietopaneeli nykyisessä ikkunassa"
 
-#: ../shell/eog-window.c:3580
+#: ../shell/eog-window.c:3604
 msgid "Open"
 msgstr "Avaa"
 
-#: ../shell/eog-window.c:3581
+#: ../shell/eog-window.c:3605
 msgid "Close"
 msgstr "Sulje"
 
-#: ../shell/eog-window.c:3582
+#: ../shell/eog-window.c:3606
 msgid "Save"
 msgstr "Tallenna"
 
-#: ../shell/eog-window.c:3584
+#: ../shell/eog-window.c:3608
 msgid "Undo"
 msgstr "Kumoa"
 
-#: ../shell/eog-window.c:3587
+#: ../shell/eog-window.c:3611
 msgid "Right"
 msgstr "Oikea"
 
-#: ../shell/eog-window.c:3588
+#: ../shell/eog-window.c:3612
 msgid "Left"
 msgstr "Vasen"
 
-#: ../shell/eog-window.c:3591
+#: ../shell/eog-window.c:3615
 msgid "In"
 msgstr "Lähennä"
 
-#: ../shell/eog-window.c:3592
+#: ../shell/eog-window.c:3616
 msgid "Out"
 msgstr "Loitonna"
 
-#: ../shell/eog-window.c:3593
+#: ../shell/eog-window.c:3617
 msgid "Normal"
 msgstr "Normaali"
 
-#: ../shell/eog-window.c:3594
+#: ../shell/eog-window.c:3618
 msgid "Fit"
 msgstr "Sovita"
 
-#: ../shell/eog-window.c:3595
+#: ../shell/eog-window.c:3619
 msgid "Next"
 msgstr "Seuraava"
 
-#: ../shell/eog-window.c:3596
+#: ../shell/eog-window.c:3620
 msgid "Previous"
 msgstr "Edellinen"
 
-#: ../shell/eog-window.c:3759
+#: ../shell/eog-window.c:3783
 msgid "User interface description not found."
 msgstr "Käyttöliittymän kuvausta ei löytynyt"
 
@@ -984,13 +983,13 @@ msgstr "[TIEDOSTO...]"
 msgid "Unable to create Eye of GNOME user interface"
 msgstr "Gnomen silmän käyttöliittymää ei voitu luoda"
 
-#: ../shell/main.c:352
+#: ../shell/main.c:356
 msgid "File not found."
 msgid_plural "Files not found."
 msgstr[0] "Tiedostoa ei löytynyt."
 msgstr[1] "Tiedostoja ei löytynyt."
 
-#: ../shell/main.c:422
+#: ../shell/main.c:426
 #, c-format
 msgid "Couldn't load image '%s'."
 msgstr "Kuvaa \"%s\" ei voitu ladata."
@@ -1003,6 +1002,9 @@ msgstr "Avaa \"%s\""
 #: ../shell/recent-files/egg-recent-view-gtk.c:444
 msgid "Empty"
 msgstr "Tyhjä"
+
+#~ msgid "View different types of images"
+#~ msgstr "Katsele erityyppisiä kuvia"
 
 #~ msgid "<b>Image Interpolation</b>"
 #~ msgstr "<b>Kuvan interpolointi</b>"
