@@ -1,3 +1,12 @@
+2007-02-13  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* configure.ac: Add check for strptime.
+	* src/eog-util.c: (eog_util_format_exif_date_with_strptime),
+	(eog_util_format_exif_date_by_hand), (eog_util_format_exif_date):
+	Parse and localize the EXIF date, using strptime when possible, and 
+	taking care of broken EXIF headers (Fixes bug #404907). Patch
+	from Felix Riemann <friemann@svn.gnome.org> and me.
+
 2007-02-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-transform.[ch], src/eog-image-private.h, src/eog-image.[ch], 

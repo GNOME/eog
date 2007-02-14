@@ -23,6 +23,8 @@ AM_PROG_CC_STDC
 AC_HEADER_STDC
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 
+AC_CHECK_FUNCS(strptime)
+
 # ***********
 # Translation 
 # ***********

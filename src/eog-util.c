@@ -26,6 +26,11 @@
 #include "config.h"
 #endif
 
+#ifdef HAVE_STRPTIME
+#define _XOPEN_SOURCE
+#endif /* HAVE_STRPTIME */
+#include <time.h>
+
 #include "eog-util.h"
 
 #include <string.h>
@@ -160,27 +165,77 @@ eog_util_string_array_make_absolute (gchar **files)
 	return abs_files;
 }
 
+#ifdef HAVE_STRPTIME
+static gchar *  
+eog_util_format_exif_date_with_strptime (const gchar *date)
+{
+	gchar *new_date = NULL;
+	gchar tmp_date[100];
+	gchar *p;
+	gsize dlen;
+	struct tm tm;
+	
+	memset (&tm, '\0', sizeof (tm));
+	p = strptime (date, "%Y:%m:%d %T", &tm);
+
+	if (p == date + strlen (date)) {
+		dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x %X", &tm);
+		new_date = g_strndup (tmp_date, dlen);
+	} else {
+		new_date = g_strdup (_("Unknown"));
+	}
+	return new_date;
+}
+#else
+static gchar *
+eog_util_format_exif_date_by_hand (const gchar *date)
+{
+	int year, month, day, hour, minutes, seconds;
+	int result;
+	gchar *new_date = NULL;
+	
+	result = sscanf (date, "%d:%d:%d %d:%d:%d",
+			 &year, &month, &day, &hour, &minutes, &seconds);
+
+	if (result < 3 || !g_date_valid_dmy (day, month, year)) {
+		return g_strdup (_("Unknown"));
+	} else {
+		gchar tmp_date[100];
+		gsize dlen;
+		time_t secs;
+		struct tm tm;
+		
+		memset (&tm, '\0', sizeof (tm));
+		tm.tm_mday = day;
+		tm.tm_mon = month-1;
+		tm.tm_year = year-1900;
+		
+		if (result < 5) {
+			dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x", &tm);
+		} else {
+			tm.tm_sec = result < 6 ? 0 : seconds;
+			tm.tm_min = minutes;
+			tm.tm_hour = hour;
+			dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x %X", &tm);
+		}
+
+		if (dlen == 0) 
+			return g_strdup (_("Unknown"));
+		else
+			new_date = g_strndup (tmp_date, dlen);
+	}
+	return new_date;
+}
+#endif /* HAVE_STRPTIME */
+
 gchar *  
 eog_util_format_exif_date (const gchar *date)
 {
-	gchar **elements, **date_elements, **time_elements;
-	gchar *new_date = NULL;
-
-	elements = g_strsplit (date, " ", 6);
-	date_elements = g_strsplit (elements[0], ":", 3);
-	time_elements = g_strsplit (elements[1], ":", 3);
-
-	new_date = g_strdup_printf ("%s/%s/%s %s:%s", 
-				    date_elements[2], 
-				    date_elements[1], 
-				    date_elements[0],
-				    time_elements[0],
-				    time_elements[1]);
-
-	g_strfreev (time_elements);
-	g_strfreev (date_elements);
-	g_strfreev (elements);
-
+	gchar *new_date;
+#ifdef HAVE_STRPTIME
+	new_date = eog_util_format_exif_date_with_strptime (date);
+#else
+	new_date = eog_util_format_exif_date_by_hand (date);
+#endif /* HAVE_STRPTIME */
 	return new_date;
 }
-
