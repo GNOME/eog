@@ -1,3 +1,10 @@
+2007-02-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-window.c: (eog_window_display_image),
+	(eog_window_cmd_file_open):
+
+	Unref URI's returned by eog_image_get_uri () and fix some string leaks.
+
 2007-02-13  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* configure.ac: Add check for strptime.

@@ -661,6 +661,7 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
+	GnomeVFSURI *uri;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -686,7 +687,9 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	update_status_bar (window);
 
-	add_uri_to_recent_files (window, eog_image_get_uri (image));
+	uri = eog_image_get_uri (image);
+	add_uri_to_recent_files (window, uri);
+	gnome_vfs_uri_unref (uri);
 }
 
 static void
@@ -1798,9 +1801,18 @@ eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 
 	current = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
-	if (current != NULL)
+	if (current != NULL) {
+		gchar *dirname, *filename;
+
+		filename = eog_image_get_uri_for_display (current);
+		dirname = g_path_get_dirname (filename);
+		
 	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
-						     g_path_get_dirname (eog_image_get_uri_for_display (current)));
+						     dirname);
+		g_free (filename);
+		g_free (dirname);
+		g_object_unref (current);
+	}
 
 	g_signal_connect (dlg, "response",
 			  G_CALLBACK (file_open_dialog_response_cb),
