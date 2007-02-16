@@ -3302,6 +3302,7 @@ display_image_data (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
 	char *title = NULL;
+	GnomeVFSURI *uri;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -3331,7 +3332,9 @@ display_image_data (EogWindow *window, EogImage *image)
 	update_status_bar (window);
 
 	/* update recent files */
-	add_uri_to_recent_files (window, eog_image_get_uri (image));
+	uri = eog_image_get_uri (image);
+	add_uri_to_recent_files (window, uri);
+	gnome_vfs_uri_unref (uri);
 }
 
 /* this runs in its own thread */

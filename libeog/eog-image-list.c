@@ -220,16 +220,18 @@ compare_uri_cb (gconstpointer element_data, gconstpointer data)
 {
 	EogImage *image;
 	GnomeVFSURI *uri;
-
+	GnomeVFSURI *image_uri;
+	gboolean equal;
+	
 	image = EOG_IMAGE (element_data);
 	uri = (GnomeVFSURI*) data;
+	image_uri = eog_image_get_uri (image);
 
-	if (gnome_vfs_uri_equal (eog_image_get_uri (image), uri)) {
-		return 0;
-	} 
-	else {
-		return 1;
-	}
+	equal = gnome_vfs_uri_equal (image_uri, uri);
+
+	gnome_vfs_uri_unref (image_uri);
+
+	return !equal;
 }
 
 static int
@@ -419,6 +421,7 @@ cleanup_dead_files (EogImageList *list)
 		}	
 		node = node->next;		
 		position++;
+		gnome_vfs_uri_unref (uri);
 	}
 
 	while (remove) {
@@ -490,6 +493,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 					found = (strcmp (str, info_uri)==0)?TRUE:FALSE;
 					g_free (str);
 					node = node->next;
+					gnome_vfs_uri_unref (uri);
 				}
 			}
 			
