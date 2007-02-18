@@ -456,6 +456,38 @@ get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	return (result == GNOME_VFS_OK);
 }
 
+/* Returns whether the given file is in the list. If found and image is not
+   NULL, sets it to the EogImage found. */
+static gboolean
+eog_image_list_has_file (EogImageList *list,
+			 const gchar *info_uri,
+			 EogImage **image)
+{
+	GList *node = NULL;
+	GnomeVFSURI *uri = NULL;
+	gboolean found = FALSE;
+	
+	if (list && list->priv) {
+		node = list->priv->store;
+		
+		while (node != NULL && !found) {
+			
+			uri = eog_image_get_uri(node->data);
+			gchar *str = gnome_vfs_uri_to_string 
+				(uri, GNOME_VFS_URI_HIDE_NONE);
+			found = strcmp (str, info_uri) == 0;
+			if (found && image) {
+				*image = EOG_IMAGE (g_object_ref (node->data));
+			}
+			g_free (str);
+			node = node->next;
+			gnome_vfs_uri_unref (uri);
+		}
+	}
+
+	return found;
+}
+
 static void
 vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
           const gchar *monitor_uri,
@@ -467,9 +499,8 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	GnomeVFSURI *uri = NULL;
 	GnomeVFSFileInfo *info = NULL;
 	EogImage *image = NULL;
-	GList *node=NULL;
 	gboolean found = FALSE;
-
+	
 	cleanup_dead_files (list);
 	
 	switch (event_type) {
@@ -481,21 +512,8 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 			break;
 			
 		case GNOME_VFS_MONITOR_EVENT_CREATED:
-		
-			if (list && list->priv) {
-				node = list->priv->store;
-				
-				while (node != NULL && !found) {
-			
-					uri = eog_image_get_uri(node->data);
-					gchar *str = gnome_vfs_uri_to_string 
-						(uri, GNOME_VFS_URI_HIDE_NONE);
-					found = (strcmp (str, info_uri)==0)?TRUE:FALSE;
-					g_free (str);
-					node = node->next;
-					gnome_vfs_uri_unref (uri);
-				}
-			}
+
+			found = eog_image_list_has_file (list, info_uri, NULL);
 			
 			if (!found) {
 				info = gnome_vfs_file_info_new ();

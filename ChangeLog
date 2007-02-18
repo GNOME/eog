@@ -1,3 +1,12 @@
+2007-02-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* libeog/eog-image-list.c: (+eog_image_list_has_file),
+	(vfs_monitor_dir_cb):
+
+	Factorize the code in vfs_monitor_dir_cb () to search for 
+	a file in a EogImageList and create a eog_image_list_has_file() 
+	function to improve readability and reusability.
+
 2007-02-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-image-list.c: (compare_uri_cb), (cleanup_dead_files),
