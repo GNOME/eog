@@ -8,4 +8,4 @@ DOC_ENTITIES = legal.xml
 DOC_INCLUDES = 
 DOC_FIGURES = figures/eog_save_as_window.png figures/eog_start_window.png 
 
-DOC_LINGUAS = de en_GB es fr pa ru sv uk
+DOC_LINGUAS = de en_GB es fr pa pt_BR ru sv uk
