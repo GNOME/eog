@@ -104,6 +104,9 @@ struct _EogScrollViewPrivate {
 	/* Interpolation type */
 	GdkInterpType interp_type;
 
+	/* Scroll wheel zoom */
+	gboolean scroll_wheel_zoom;
+
 	/* dragging stuff */
 	int drag_anchor_x, drag_anchor_y;
 	int drag_ofs_x, drag_ofs_y;
@@ -1321,13 +1324,23 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 		return FALSE;
 	}
 
-	if ((event->state & GDK_SHIFT_MASK) == 0)
-		set_zoom (view, priv->zoom * zoom_factor,
-			  TRUE, event->x, event->y);
-	else if ((event->state & GDK_CONTROL_MASK) == 0)
-		scroll_by (view, xofs, yofs);
-	else
-		scroll_by (view, yofs, xofs);
+        if (priv->scroll_wheel_zoom) {
+		if (event->state & GDK_SHIFT_MASK)
+			scroll_by (view, yofs, xofs);
+		else if (event->state & GDK_CONTROL_MASK)
+			scroll_by (view, xofs, yofs);
+		else
+			set_zoom (view, priv->zoom * zoom_factor,
+				  TRUE, event->x, event->y);
+	} else {
+		if (event->state & GDK_SHIFT_MASK)
+			scroll_by (view, yofs, xofs);
+		else if (event->state & GDK_CONTROL_MASK)
+			set_zoom (view, priv->zoom * zoom_factor,
+				  TRUE, event->x, event->y);
+		else
+			scroll_by (view, xofs, yofs);
+        }
 
 	return TRUE;
 }
@@ -1909,6 +1922,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->upscale = FALSE;
 	priv->uta = NULL;
 	priv->interp_type = GDK_INTERP_BILINEAR;
+	priv->scroll_wheel_zoom = FALSE;
 	priv->image = NULL;
 	priv->pixbuf = NULL;
 	priv->progressive_state = PROGRESSIVE_NONE;
@@ -2058,4 +2072,13 @@ eog_scroll_view_new (void)
 	gtk_widget_show_all (widget);
 	
 	return widget;
+}
+
+void
+eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, 
+				       gboolean scroll_wheel_zoom)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+        view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
 }

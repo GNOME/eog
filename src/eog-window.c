@@ -183,6 +183,31 @@ eog_window_interp_type_changed_cb (GConfClient *client,
 }
 
 static void
+eog_window_scroll_wheel_zoom_changed_cb (GConfClient *client,
+				         guint       cnxn_id,
+				         GConfEntry  *entry,
+				         gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	gboolean scroll_wheel_zoom = FALSE;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		scroll_wheel_zoom = gconf_value_get_bool (entry->value);
+	}
+
+	eog_scroll_view_set_scroll_wheel_zoom (EOG_SCROLL_VIEW (priv->view), 
+					       scroll_wheel_zoom);
+}
+
+static void
 eog_window_transparency_changed_cb (GConfClient *client,
 				    guint       cnxn_id,
 				    GConfEntry  *entry,
@@ -2753,6 +2778,15 @@ eog_window_construct_ui (EogWindow *window)
 	}
 
 	entry = gconf_client_get_entry (priv->client, 
+					EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM, 
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_scroll_wheel_zoom_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client, 
 					EOG_CONF_VIEW_TRANSPARENCY, 
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
@@ -2799,6 +2833,11 @@ eog_window_init (EogWindow *window)
 	gconf_client_notify_add (window->priv->client,
 				 EOG_CONF_VIEW_INTERPOLATE,
 				 eog_window_interp_type_changed_cb,
+				 window, NULL, NULL);
+	
+	gconf_client_notify_add (window->priv->client,
+				 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
+				 eog_window_scroll_wheel_zoom_changed_cb,
 				 window, NULL, NULL);
 	
 	gconf_client_notify_add (window->priv->client,
