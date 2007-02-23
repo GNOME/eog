@@ -392,12 +392,9 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 
 	g_mutex_unlock (img->priv->status_mutex);
 
-	/* If we're trying to auto-rotate the image, wait until we 
-           the EXIF data loaded. */
-#ifdef HAVE_EXIF
-	if (!img->priv->autorotate)
+#ifndef HAVE_EXIF
+	g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
 #endif
-		g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
 }
 
 static EogMetadataReader*
@@ -710,6 +707,39 @@ eog_image_autorotate (EogImage *img)
 }
 #endif
 
+static void
+eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
+{
+	EogImagePrivate *priv;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	priv = img->priv;
+
+#ifdef HAVE_EXIF  
+	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
+
+	priv->exif_chunk = NULL;
+	priv->exif_chunk_len = 0;
+
+	/* EXIF data is already available, set the image
+           orientation and emit size prepared signal */
+	if (priv->autorotate) {
+		eog_image_set_orientation (img);
+
+		g_signal_emit (img, 
+			       signals[SIGNAL_SIZE_PREPARED], 
+			       0, 
+			       priv->width, 
+			       priv->height);
+	}
+#else
+	eog_metadata_reader_get_exif_chunk (md_reader, 
+					    &priv->exif_chunk, 
+					    &priv->exif_chunk_len);
+#endif
+}
+
 static gboolean
 eog_image_real_load (EogImage *img, 
 		     guint     data2read, 
@@ -727,13 +757,12 @@ eog_image_real_load (EogImage *img,
 	guchar *buffer;
 	gboolean failed = FALSE;
 	gboolean first_run = TRUE;
+	gboolean set_exif_data = TRUE;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
 
 	g_assert (error == NULL || *error == NULL);
 
 	priv = img->priv;
-
-	eog_debug_message (DEBUG_IMAGE_LOAD, gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE));
 
 	g_assert (priv->image == NULL);
 
@@ -806,12 +835,20 @@ eog_image_real_load (EogImage *img,
 		if (first_run) {
 			md_reader = check_for_metadata_img_format (img, buffer, bytes_read);
 
-			if (data2read == EOG_IMAGE_DATA_EXIF && md_reader == NULL) {
-				g_set_error (error, 
-					     EOG_IMAGE_ERROR, 
-                                             EOG_IMAGE_ERROR_GENERIC,
-                                             _("EXIF not supported for this file format."));
-				break;
+			if (md_reader == NULL) {
+				if (data2read == EOG_IMAGE_DATA_EXIF) {
+					g_set_error (error, 
+						     EOG_IMAGE_ERROR, 
+                                	             EOG_IMAGE_ERROR_GENERIC,
+                                	             _("EXIF not supported for this file format."));
+					break;
+				}
+
+				g_signal_emit (img, 
+					       signals[SIGNAL_SIZE_PREPARED], 
+					       0, 
+					       priv->width, 
+					       priv->height);
                         }
 
 			first_run = FALSE;
@@ -821,28 +858,10 @@ eog_image_real_load (EogImage *img,
 			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
 
 			if (eog_metadata_reader_finished (md_reader)) {
-#ifdef HAVE_EXIF  
-				priv->exif = eog_metadata_reader_get_exif_data (md_reader);
-
-				priv->exif_chunk = NULL;
-				priv->exif_chunk_len = 0;
-
-				/* EXIF data is already available, set the image
-                                   orientation and emit size prepared signal */
-				if (priv->autorotate) {
-					eog_image_set_orientation (img);
-
-					g_signal_emit (img, 
-						       signals[SIGNAL_SIZE_PREPARED], 
-						       0, 
-						       priv->width, 
-						       priv->height);
+				if (set_exif_data) {
+					eog_image_set_exif_data (img, md_reader);
+					set_exif_data = FALSE;
 				}
-#else
-				eog_metadata_reader_get_exif_chunk (md_reader, 
-								    &priv->exif_chunk, 
-								    &priv->exif_chunk_len);
-#endif
 
 				if (data2read == EOG_IMAGE_DATA_EXIF) 
 					break;
