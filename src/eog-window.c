@@ -466,12 +466,6 @@ static void
 update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	int n_images = 0;
-	gboolean save_disabled = FALSE;
-	gboolean print_disabled = FALSE;
-	gboolean page_setup_disabled = FALSE;
-	gboolean show_image_collection = FALSE;
-	gboolean fullscreen_mode = FALSE;
 	GtkAction *action_collection;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
@@ -479,6 +473,12 @@ update_action_groups_state (EogWindow *window)
 	GtkAction *action_save_as;
 	GtkAction *action_print;
 	GtkAction *action_page_setup;
+	gboolean save_disabled = FALSE;
+	gboolean print_disabled = FALSE;
+	gboolean page_setup_disabled = FALSE;
+	gboolean show_image_collection = FALSE;
+	gboolean fullscreen_mode = FALSE;
+	int n_images = 0;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 
@@ -517,6 +517,7 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_group_get_action (priv->actions_image, 
 					     "FilePageSetup");
 
+	g_assert (action_collection != NULL);
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
 	g_assert (action_save != NULL);
@@ -558,7 +559,9 @@ update_action_groups_state (EogWindow *window)
 						       NULL);
 		}
 
-		show_image_collection = show_image_collection && !fullscreen_mode;
+		show_image_collection = show_image_collection &&
+					n_images > 1 &&
+					!fullscreen_mode;
 
 		gtk_widget_show (priv->vbox);
 		gtk_widget_show_all (priv->view->parent);
@@ -576,6 +579,7 @@ update_action_groups_state (EogWindow *window)
 
 		if (n_images == 1) {
 			gtk_action_group_set_sensitive (priv->actions_collection,  FALSE);
+			gtk_action_set_sensitive (action_collection, FALSE);
 			gtk_action_set_sensitive (action_sshow, FALSE);
 		} else {
 			gtk_action_group_set_sensitive (priv->actions_collection,  TRUE);

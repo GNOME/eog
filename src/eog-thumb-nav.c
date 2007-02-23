@@ -438,7 +438,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_widget_set_size_request (priv->thumbview, -1, 110);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
-						GTK_POLICY_AUTOMATIC,
+						GTK_POLICY_ALWAYS,
 						GTK_POLICY_NEVER);
 
 		break;
@@ -446,11 +446,11 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 	case EOG_THUMB_NAV_MODE_ONE_COLUMN:
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 1);
 
-		gtk_widget_set_size_request (priv->thumbview, -1, 400);
+		gtk_widget_set_size_request (priv->thumbview, 110, -1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_NEVER,
-						GTK_POLICY_AUTOMATIC);
+						GTK_POLICY_ALWAYS);
 
 		gtk_widget_hide_all (priv->button_left);
 		gtk_widget_hide_all (priv->button_right);
