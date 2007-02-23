@@ -107,6 +107,9 @@ struct _EogScrollViewPrivate {
 	/* Scroll wheel zoom */
 	gboolean scroll_wheel_zoom;
 
+	/* Scroll wheel zoom */
+	gdouble zoom_multiplier;
+
 	/* dragging stuff */
 	int drag_anchor_x, drag_anchor_y;
 	int drag_ofs_x, drag_ofs_y;
@@ -1156,13 +1159,13 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	case GDK_equal:
 	case GDK_KP_Add:
 		do_zoom = TRUE;
-		zoom = priv->zoom * IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom = priv->zoom * priv->zoom_multiplier;
 		break;
 
 	case GDK_minus:
 	case GDK_KP_Subtract:
 		do_zoom = TRUE;
-		zoom = priv->zoom / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom = priv->zoom / priv->zoom_multiplier;
 		break;
 
 	case GDK_1:
@@ -1296,25 +1299,25 @@ eog_scroll_view_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer
 
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
-		zoom_factor = IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom_factor = priv->zoom_multiplier;
 		xofs = 0;
 		yofs = -yofs;
 		break;
 
 	case GDK_SCROLL_LEFT:
-		zoom_factor = 1.0 / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom_factor = 1.0 / priv->zoom_multiplier;
 		xofs = -xofs;
 		yofs = 0;
 		break;
 
 	case GDK_SCROLL_DOWN:
-		zoom_factor = 1.0 / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom_factor = 1.0 / priv->zoom_multiplier;
 		xofs = 0;
 		yofs = yofs;
 		break;
 
 	case GDK_SCROLL_RIGHT:
-		zoom_factor = IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom_factor = priv->zoom_multiplier;
 		xofs = xofs;
 		yofs = 0;
 		break;
@@ -1722,7 +1725,7 @@ eog_scroll_view_zoom_in (EogScrollView *view, gboolean smooth)
 	priv = view->priv;
 
 	if (smooth) {
-		zoom = priv->zoom * IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom = priv->zoom * priv->zoom_multiplier;
 	}
 	else {
 		int i;
@@ -1758,7 +1761,7 @@ eog_scroll_view_zoom_out (EogScrollView *view, gboolean smooth)
 	priv = view->priv;
 
 	if (smooth) {
-		zoom = priv->zoom / IMAGE_VIEW_ZOOM_MULTIPLIER;
+		zoom = priv->zoom / priv->zoom_multiplier;
 	}
 	else {
 		int i;
@@ -1923,6 +1926,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->uta = NULL;
 	priv->interp_type = GDK_INTERP_BILINEAR;
 	priv->scroll_wheel_zoom = FALSE;
+	priv->zoom_multiplier = IMAGE_VIEW_ZOOM_MULTIPLIER;
 	priv->image = NULL;
 	priv->pixbuf = NULL;
 	priv->progressive_state = PROGRESSIVE_NONE;
@@ -2076,9 +2080,18 @@ eog_scroll_view_new (void)
 
 void
 eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, 
-				       gboolean scroll_wheel_zoom)
+				       gboolean       scroll_wheel_zoom)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
         view->priv->scroll_wheel_zoom = scroll_wheel_zoom;
+}
+
+void
+eog_scroll_view_set_zoom_multiplier (EogScrollView *view, 
+				     gdouble        zoom_multiplier)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+        view->priv->zoom_multiplier = 1.0 + zoom_multiplier;
 }

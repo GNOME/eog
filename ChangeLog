@@ -1,3 +1,13 @@
+2007-02-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-scroll-view.[ch] (eog_scroll_view_set_zoom_multiplier,
+	display_key_press_event, eog_scroll_view_init), src/eog-window.c
+	(eog_window_zoom_multiplier_changed_cb, eog_window_construct_ui,
+	eog_window_init): use new GConf key to define the zoom multiplier 
+	used when scrolling with the mouse wheel (Fixes bug #89512).
+	* src/eog-config-keys.h, data/eog.schema.in: added new GConf for 
+	zoom multiplier.
+
 2007-02-23  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-image.c (eog_image_set_exif_data, eog_image_size_prepared,

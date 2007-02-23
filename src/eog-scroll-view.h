@@ -44,6 +44,7 @@ void     eog_scroll_view_set_image        (EogScrollView *view, EogImage *image)
 /* general properties */
 void     eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, gboolean scroll_wheel_zoom);
 void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale);
+void     eog_scroll_view_set_zoom_multiplier (EogScrollView *view, gdouble multiplier);
 void     eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color);
 void     eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, gboolean scaled);
