@@ -1,3 +1,22 @@
+2007-02-26  Lucas Rocha  <lucasr@gnome.org>
+
+	Messages for the most of common error: open a set of locations with no
+	images, open a directory with no images, open a non-image file and
+	open a corrupted/invalid image. Fixes bugs #326199, #399988, and #316175.
+
+	* src/eog-list-store.c (eog_list_store_add_uris,
+	eog_list_store_class_init, eog_list_store_init): add initial image
+	even if it doesn't pass the mimetype tests. GObject love and code
+	cleanups.
+	* src/eog-application.c: comment unused function to fix build warning.
+	* src/eog-window.c (eog_job_load_cb, eog_window_open_uri_list,
+	eog_window_dispose, eog_job_model_cb): set window title with image
+	caption even in image loading error cases. Set error message area when
+	no images are found in given locations. 
+	* src/eog-error-message-area.[ch]
+	(eog_no_images_error_message_area_new): new message area for errors
+	when no images are found in given locations.
+
 2007-02-24  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-thumb-nav.c: make hscrollbar always visible on one row mode.

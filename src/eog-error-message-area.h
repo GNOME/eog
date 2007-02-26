@@ -27,8 +27,11 @@
 
 #include <glib.h>
 #include <gtk/gtk.h>
+#include <libgnomevfs/gnome-vfs.h>
 
-GtkWidget   *eog_image_load_error_message_area_new   (const gchar  *caption,
-						      const GError *error);
+GtkWidget   *eog_image_load_error_message_area_new   (const gchar       *caption,
+						      const GError      *error);
+
+GtkWidget   *eog_no_images_error_message_area_new    (const GnomeVFSURI *uri);
 
 #endif /* __EOG_ERROR_MESSAGE_AREA__ */

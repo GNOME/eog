@@ -172,6 +172,7 @@ eog_application_open_window (EogApplication  *application,
 	return TRUE;
 }
 
+#if 0
 static EogWindow *
 eog_application_get_uri_window (EogApplication *application, const char *uri)
 {
@@ -201,6 +202,7 @@ eog_application_get_uri_window (EogApplication *application, const char *uri)
 	
 	return uri_window;
 }
+#endif
 
 static void
 eog_application_show_window (EogWindow *window, gpointer user_data)
@@ -258,9 +260,12 @@ eog_application_open_uri_list (EogApplication  *application,
  	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
  
  	uri_list = eog_util_string_list_to_uri_list (files);
- 	
- 	return eog_application_real_open_uri_list (application, uri_list, timestamp,
-						   flags, error);
+
+ 	return eog_application_real_open_uri_list (application, 
+						   uri_list, 
+						   timestamp,
+						   flags, 
+						   error);
 }
  
 #ifdef HAVE_DBUS

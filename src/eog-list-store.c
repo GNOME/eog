@@ -29,12 +29,10 @@
 
 #include <string.h>
 
-struct _EogListStorePriv {
-	GList *monitors;      /* monitors for the directories */
-	gint initial_image;   /* the image that should be selected firstly by the view. */
-	GdkPixbuf *busy_image; /* hourglass image */
-	GMutex *mutex;        /* mutex for saving the jobs in the model */
-};
+#define EOG_LIST_STORE_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_LIST_STORE, EogListStorePrivate))
+
+G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
 typedef struct {
 	EogListStore *store;
@@ -47,7 +45,12 @@ typedef struct {
 	const gchar *text_uri;
 } MonitorHandleContext;
 
-G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
+struct _EogListStorePrivate {
+	GList *monitors;       /* Monitors for the directories */
+	gint initial_image;    /* The image that should be selected firstly by the view. */
+	GdkPixbuf *busy_image; /* Hourglass image */
+	GMutex *mutex;         /* Mutex for saving the jobs in the model */
+};
 
 gboolean
 eog_list_store_dump_contents (EogListStore *store);
@@ -104,6 +107,8 @@ eog_list_store_class_init (EogListStoreClass *klass)
 
 	object_class->finalize = eog_list_store_finalize;
 	object_class->dispose = eog_list_store_dispose;
+
+	g_type_class_add_private (object_class, sizeof (EogListStorePrivate));
 }
 
 /*
@@ -176,7 +181,8 @@ eog_list_store_init (EogListStore *self)
 	gtk_list_store_set_column_types (GTK_LIST_STORE (self),
 					 EOG_LIST_STORE_NUM_COLUMNS, types);
 
-	self->priv = g_new0 (EogListStorePriv, 1);
+	self->priv = EOG_LIST_STORE_GET_PRIVATE (self);
+
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
@@ -463,7 +469,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 					      -1, GTK_SORT_ASCENDING);
 	
 	for (it = uri_list; it != NULL; it = it->next) {
-		GnomeVFSURI *uri = (GnomeVFSURI*) it->data;
+		GnomeVFSURI *uri = (GnomeVFSURI *) it->data;
 
 		if (!get_uri_info (uri, info))
 			continue;
@@ -482,6 +488,13 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 
 			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 				eog_list_store_append_directory (store, uri, info);
+
+				if (!is_file_in_list_store (store, 
+							    gnome_vfs_uri_to_string (initial_uri, 
+										     GNOME_VFS_URI_HIDE_NONE), 
+							    &iter)) {
+					eog_list_store_append_image_from_uri (store, initial_uri);
+				}
 			} else {
 				eog_list_store_append_image_from_uri (store, initial_uri);
 			}
@@ -494,7 +507,8 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 	gnome_vfs_file_info_unref (info);
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
-					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
+					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, 
+					      GTK_SORT_ASCENDING);
 	
 	if (initial_uri && 
 	    is_file_in_list_store (store, 
@@ -504,7 +518,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 		gnome_vfs_uri_unref (initial_uri);
 	} else {
 		store->priv->initial_image = 0;
-	}
+	} 
 }
 
 void

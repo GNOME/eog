@@ -69,7 +69,7 @@ set_message_area_text_and_icon (EogMessageArea   *message_area,
 
 	gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
 	gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
-	gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
+	gtk_label_set_line_wrap (GTK_LABEL (primary_label), FALSE);
 	gtk_misc_set_alignment (GTK_MISC (primary_label), 0, 0.5);
 
 	GTK_WIDGET_SET_FLAGS (primary_label, GTK_CAN_FOCUS);
@@ -99,14 +99,18 @@ set_message_area_text_and_icon (EogMessageArea   *message_area,
 }
 
 static GtkWidget *
-create_image_load_error_message_area (const gchar *primary_text,
-				      const gchar *secondary_text)
+create_error_message_area (const gchar *primary_text,
+			   const gchar *secondary_text,
+			   gboolean     recoverable)
 {
 	GtkWidget *message_area;
 
-	message_area = eog_message_area_new_with_buttons (
-					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					NULL);
+	if (recoverable)
+		message_area = eog_message_area_new_with_buttons (
+						"Retry", GTK_RESPONSE_OK,
+						NULL);
+	else 
+		message_area = eog_message_area_new ();
 
 	set_message_area_text_and_icon (EOG_MESSAGE_AREA (message_area),
 					GTK_STOCK_DIALOG_ERROR,
@@ -126,18 +130,46 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 
 	g_return_val_if_fail (caption != NULL, NULL);
 	g_return_val_if_fail (error != NULL, NULL);
-	//g_return_val_if_fail (error->domain == EOG_IMAGE_ERROR, NULL);
 
 	error_message = g_strdup_printf (_("Could not load image '%s'."),
 					 caption);
 
 	message_details = g_strdup (error->message); 
 
-	message_area = create_image_load_error_message_area (error_message,
-							     message_details);
+	message_area = create_error_message_area (error_message,
+						  message_details,
+						  TRUE);
 
 	g_free (error_message);
 	g_free (message_details);
+
+	return message_area;
+}
+
+GtkWidget *
+eog_no_images_error_message_area_new (const GnomeVFSURI *uri)
+{
+	GtkWidget *message_area;
+	gchar *error_message = NULL;
+
+	if (uri != NULL) {
+		gchar *uri_str;
+
+		uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+
+		error_message = g_strdup_printf (_("No images found in '%s'."),
+						 gnome_vfs_format_uri_for_display (uri_str));
+
+		g_free (uri_str);
+	} else {
+		error_message = g_strdup (_("The given locations contain no images."));
+	}
+
+	message_area = create_error_message_area (error_message, 
+						  NULL, 
+						  FALSE);
+
+	g_free (error_message);
 
 	return message_area;
 }

@@ -145,6 +145,7 @@ struct _EogWindowPrivate {
         guint                tip_message_cid;
 
         EogStartupFlags      flags;
+	GSList              *uri_list;
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
@@ -914,6 +915,8 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 				  window);
 
 		gtk_window_set_icon (GTK_WINDOW (window), NULL);
+		gtk_window_set_title (GTK_WINDOW (window), 
+				      eog_image_get_caption (job->image));
 
 		eog_window_set_message_area (window, message_area);
 
@@ -1101,7 +1104,8 @@ eog_window_open_recent_cb (GtkAction *action, EogWindow *window)
 	uri = gtk_recent_info_get_uri (info);
 	list = g_slist_prepend (list, g_strdup (uri));
 
-	eog_application_open_uri_list (EOG_APP, list, 
+	eog_application_open_uri_list (EOG_APP, 
+				       list, 
 				       GDK_CURRENT_TIME, 
 				       0,
 				       NULL);
@@ -3017,6 +3021,12 @@ eog_window_dispose (GObject *object)
 		priv->print_page_setup = NULL;
 	}
 
+	if (priv->uri_list != NULL) {
+		g_slist_foreach (priv->uri_list, (GFunc) gnome_vfs_uri_unref, NULL);	
+		g_slist_free (priv->uri_list);
+		priv->uri_list = NULL;
+	}
+
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
 }
 
@@ -3423,8 +3433,28 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	eog_thumb_view_set_model (EOG_THUMB_VIEW (priv->thumbview), priv->store);
 
 	if (n_images == 0) {
+		gint n_uris;
+
 		priv->status = EOG_WINDOW_STATUS_NORMAL;
 		update_action_groups_state (window);
+
+		n_uris = g_slist_length (priv->uri_list);
+
+		if (n_uris > 0) {
+			GtkWidget *message_area;
+			GnomeVFSURI *uri = NULL;
+
+			if (n_uris == 1) {
+				uri = (GnomeVFSURI *) priv->uri_list->data;
+			}
+
+			message_area = eog_no_images_error_message_area_new (uri);
+
+			eog_window_set_message_area (window, message_area);
+
+			gtk_widget_show (message_area);
+		}
+
 		g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 	}
 }
@@ -3437,6 +3467,9 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 	eog_debug (DEBUG_WINDOW);
 
 	window->priv->status = EOG_WINDOW_STATUS_INIT;
+
+	g_slist_foreach (uri_list, (GFunc) gnome_vfs_uri_ref, NULL);
+	window->priv->uri_list = uri_list;
 
 	job = eog_job_model_new (uri_list);
 	

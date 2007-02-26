@@ -35,6 +35,19 @@ G_BEGIN_DECLS
   typedef struct _EogImage EogImage;
 #endif
 
+typedef struct _EogListStore EogListStore;
+typedef struct _EogListStoreClass EogListStoreClass;
+typedef struct _EogListStorePrivate EogListStorePrivate;
+
+#define EOG_TYPE_LIST_STORE            eog_list_store_get_type()
+#define EOG_LIST_STORE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_LIST_STORE, EogListStore))
+#define EOG_LIST_STORE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_LIST_STORE, EogListStoreClass))
+#define EOG_IS_LIST_STORE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_LIST_STORE))
+#define EOG_IS_LIST_STORE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_LIST_STORE))
+#define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStoreClass))
+
+#define EOG_LIST_STORE_THUMB_SIZE 90
+
 typedef enum {
 	EOG_LIST_STORE_THUMBNAIL = 0,
 	EOG_LIST_STORE_THUMB_SET,
@@ -43,22 +56,12 @@ typedef enum {
 	EOG_LIST_STORE_NUM_COLUMNS
 } EogListStoreColumn;
 
-#define EOG_TYPE_LIST_STORE eog_list_store_get_type()
-
-#define EOG_LIST_STORE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_LIST_STORE, EogListStore))
-#define EOG_LIST_STORE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  EOG_TYPE_LIST_STORE, EogListStoreClass))
-#define EOG_IS_LIST_STORE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_LIST_STORE))
-#define EOG_IS_LIST_STORE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_LIST_STORE))
-#define EOG_LIST_STORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_LIST_STORE, EogListStoreClass))
-
-typedef struct _EogListStorePriv EogListStorePriv;
-
-typedef struct {
+struct _EogListStore {
         GtkListStore parent;
-	EogListStorePriv *priv;
-} EogListStore;
+	EogListStorePrivate *priv;
+};
 
-typedef struct {
+struct _EogListStoreClass {
         GtkListStoreClass parent_class;
 
 	/* Padding for future expansion */
@@ -66,7 +69,7 @@ typedef struct {
 	void (* _eog_reserved2) (void);
 	void (* _eog_reserved3) (void);
 	void (* _eog_reserved4) (void);
-} EogListStoreClass;
+};
 
 GType           eog_list_store_get_type 	     (void);
 
@@ -104,8 +107,6 @@ void            eog_list_store_thumbnail_set         (EogListStore *store,
 
 void            eog_list_store_thumbnail_unset       (EogListStore *store, 
 						      GtkTreeIter *iter);
-
-#define EOG_LIST_STORE_THUMB_SIZE 90
 
 G_END_DECLS
 
