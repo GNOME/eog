@@ -44,7 +44,8 @@ typedef struct _EogThumbNavPrivate EogThumbNavPrivate;
 typedef enum {
 	EOG_THUMB_NAV_MODE_ONE_ROW,
 	EOG_THUMB_NAV_MODE_ONE_COLUMN,
-	EOG_THUMB_NAV_MODE_MULTIPLE_ROWS
+	EOG_THUMB_NAV_MODE_MULTIPLE_ROWS,
+	EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS
 } EogThumbNavMode;
 
 struct _EogThumbNav {

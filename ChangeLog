@@ -1,3 +1,19 @@
+2007-02-27  Lucas Rocha  <lucasr@gnome.org>
+
+	Added support for placing the collection on top/bottom/right/left
+	sides of the window. Also, the collection pane can be resizable or
+	not. Fixes bug #334321.
+
+	* src/eog-thumb-nav.[ch] (eog_thumb_nav_set_mode): added mode for 
+	multiple columns.
+	* src/eog-window.c (eog_window_init,
+	eog_window_collection_mode_changed_cb, eog_window_construct_ui): keep
+	track of changes in GConf keys related to collection pane layout and
+	change the UI accordingly.
+	* data/eog.schema.in, src/eog-config-keys.c: added GConf keys to
+	define collection pane position and whether it's resizable.
+	* src/Makefile.am: removed unused constants.
+
 2007-02-26  Lucas Rocha  <lucasr@gnome.org>
 
 	Messages for the most of common error: open a set of locations with no

@@ -7,12 +7,9 @@ INCLUDES =							\
 	$(EOG_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	-I$(top_srcdir)/jpegutils				\
-	-DHAVE_COLLECTION					\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
-	-DEOG_DATADIR=\""$(datadir)"\"				\
-	-DEOG_ICONDIR=\""$(datadir)/pixmaps"\"			\
-	-DDATADIR=\"$(pkgdatadir)\"				\
+	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)

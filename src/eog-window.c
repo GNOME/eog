@@ -111,7 +111,7 @@ struct _EogWindowPrivate {
 
         GtkUIManager        *ui_mgr;
         GtkWidget           *box;
-        GtkWidget           *vbox;
+        GtkWidget           *layout;
         GtkWidget           *cbox;
         GtkWidget           *view;
         GtkWidget           *thumbview;
@@ -146,6 +146,9 @@ struct _EogWindowPrivate {
 
         EogStartupFlags      flags;
 	GSList              *uri_list;
+
+	gint                 collection_position;
+	gboolean             collection_resizable;
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
@@ -157,6 +160,7 @@ static void eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer 
 static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 static void fullscreen_set_timeout (EogWindow *window);
 static void fullscreen_clear_timeout (EogWindow *window);
+static void update_action_groups_state (EogWindow *window);
 
 static void
 eog_window_interp_type_changed_cb (GConfClient *client,
@@ -345,7 +349,11 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 				       gpointer    user_data)
 {
 	EogWindowPrivate *priv;
-	gint mode = -1;
+	GConfEntry *mode_entry;
+	GtkWidget *frame;
+	EogThumbNavMode mode = EOG_THUMB_NAV_MODE_ONE_ROW;
+	gint position = 0;
+	gboolean resizable = FALSE;
 
 	eog_debug (DEBUG_PREFERENCES);
 
@@ -353,27 +361,106 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 
 	priv = EOG_WINDOW (user_data)->priv;
 
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+	mode_entry = gconf_client_get_entry (priv->client, 
+		 			     EOG_CONF_UI_IMAGE_COLLECTION_POSITION, 
+					     NULL, TRUE, NULL);
 
-	if (entry->value != NULL && entry->value->type == GCONF_VALUE_INT) {
-		mode = gconf_value_get_int (entry->value);
+	if (mode_entry->value != NULL && mode_entry->value->type == GCONF_VALUE_INT) {
+		position = gconf_value_get_int (mode_entry->value);
 	}
 
-	switch (mode) {
+	mode_entry = gconf_client_get_entry (priv->client, 
+					     EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE, 
+					     NULL, TRUE, NULL);
+
+	if (mode_entry->value != NULL && mode_entry->value->type == GCONF_VALUE_BOOL) {
+		resizable = gconf_value_get_bool (mode_entry->value);
+	}
+
+	if (priv->collection_position == position && 
+	    priv->collection_resizable == resizable)
+		return;
+
+	priv->collection_position = position;
+	priv->collection_resizable = resizable;
+
+	frame = priv->view->parent;
+
+	g_object_ref (frame);
+	g_object_ref (priv->nav);
+
+	gtk_container_remove (GTK_CONTAINER (priv->layout), frame);
+	gtk_container_remove (GTK_CONTAINER (priv->layout), priv->nav);
+
+	gtk_widget_destroy (priv->layout);
+
+	switch (position) {
 	case 0:
-		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
-					EOG_THUMB_NAV_MODE_ONE_ROW);
+	case 2:
+		if (resizable) {
+			mode = EOG_THUMB_NAV_MODE_MULTIPLE_ROWS;
+
+			priv->layout = gtk_vpaned_new ();
+
+			if (position == 0) {
+				gtk_paned_pack1 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
+			} else {
+				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+			}
+		} else {
+			mode = EOG_THUMB_NAV_MODE_ONE_ROW;
+
+			priv->layout = gtk_vbox_new (FALSE, 2);
+
+			if (position == 0) {
+				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
+			} else {
+				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+			}
+		}
 		break;
 
 	case 1:
-		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
-					EOG_THUMB_NAV_MODE_ONE_COLUMN);
-		break;
+	case 3:
+		if (resizable) {
+			mode = EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS;
 
-	case 2:
-		eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav),
-					EOG_THUMB_NAV_MODE_MULTIPLE_ROWS);
+			priv->layout = gtk_hpaned_new ();
+
+			if (position == 1) {
+				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+			} else {
+				gtk_paned_pack1 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
+			}
+		} else {
+			mode = EOG_THUMB_NAV_MODE_ONE_COLUMN;
+
+			priv->layout = gtk_hbox_new (FALSE, 2);
+
+			if (position == 1) {
+				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+			} else {
+				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
+			}
+		}
+
 		break;
+	}
+
+	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
+
+	eog_thumb_nav_set_mode (EOG_THUMB_NAV (priv->nav), mode);
+
+	if (priv->mode != EOG_WINDOW_STATUS_UNKNOWN) {
+		update_action_groups_state (EOG_WINDOW (user_data));
 	}
 }
 
@@ -531,7 +618,7 @@ update_action_groups_state (EogWindow *window)
 	}
 
 	if (n_images == 0) {
-		gtk_widget_hide_all (priv->vbox);
+		gtk_widget_hide_all (priv->layout);
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
@@ -564,7 +651,7 @@ update_action_groups_state (EogWindow *window)
 					n_images > 1 &&
 					!fullscreen_mode;
 
-		gtk_widget_show (priv->vbox);
+		gtk_widget_show (priv->layout);
 		gtk_widget_show_all (priv->view->parent);
 
 		if (show_image_collection) 
@@ -2703,7 +2790,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_collection, 0);
 
 	if (!gtk_ui_manager_add_ui_from_file (priv->ui_mgr, 
-					      DATADIR"/eog-ui.xml", 
+					      EOG_DATADIR"/eog-ui.xml", 
 					      &error)) {
                 g_warning ("building menus failed: %s", error->message);
                 g_error_free (error);
@@ -2756,7 +2843,7 @@ eog_window_construct_ui (EogWindow *window)
 		gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar), 
 					      "tip_message");
 
-	priv->vbox = gtk_vbox_new (FALSE, 2);
+	priv->layout = gtk_vbox_new (FALSE, 2);
 
  	priv->view = eog_scroll_view_new ();
 	gtk_widget_set_size_request (GTK_WIDGET (priv->view), 100, 100);
@@ -2771,7 +2858,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_container_add (GTK_CONTAINER (frame), priv->view);
 
-	gtk_box_pack_start_defaults (GTK_BOX (priv->vbox), frame);
+	gtk_box_pack_start_defaults (GTK_BOX (priv->layout), frame);
 
 	priv->thumbview = eog_thumb_view_new ();
 
@@ -2784,9 +2871,7 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (handle_image_selection_changed_cb), window);
 
 	priv->nav = eog_thumb_nav_new (priv->thumbview,
-				       gconf_client_get_int (priv->client,
-							     EOG_CONF_UI_IMAGE_COLLECTION_MODE,
-							     NULL),
+				       EOG_THUMB_NAV_MODE_ONE_ROW,
 				       gconf_client_get_bool (priv->client,
 							      EOG_CONF_UI_SCROLL_BUTTONS,
 							      NULL));
@@ -2795,9 +2880,9 @@ eog_window_construct_ui (EogWindow *window)
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview), 
 					    GTK_MENU (popup));
 
-	gtk_box_pack_start (GTK_BOX (priv->vbox), priv->nav, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 
-	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->vbox, TRUE, TRUE, 0);
+	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
 
 	//set_drag_dest (window);
 
@@ -2842,6 +2927,15 @@ eog_window_construct_ui (EogWindow *window)
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
 		eog_window_trans_color_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
+
+	entry = gconf_client_get_entry (priv->client, 
+					EOG_CONF_UI_IMAGE_COLLECTION_POSITION, 
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_collection_mode_changed_cb (priv->client, 0, entry, window);
 		gconf_entry_unref (entry);
 		entry = NULL;
 	}
@@ -2903,7 +2997,12 @@ eog_window_init (EogWindow *window)
 				 window, NULL, NULL);
 
 	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_UI_IMAGE_COLLECTION_MODE,
+				 EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
+				 eog_window_collection_mode_changed_cb,
+				 window, NULL, NULL);
+
+	gconf_client_notify_add (window->priv->client,
+				 EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
 				 eog_window_collection_mode_changed_cb,
 				 window, NULL, NULL);
 
@@ -2937,6 +3036,9 @@ eog_window_init (EogWindow *window)
 
 	window->priv->print_page_setup = NULL;
 	window->priv->print_settings = NULL;
+
+	window->priv->collection_position = 0;
+	window->priv->collection_resizable = FALSE;
 }
 
 static void
