@@ -79,7 +79,7 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	statusbar->priv->img_num_statusbar = gtk_statusbar_new ();
 	gtk_widget_show (statusbar->priv->img_num_statusbar);
 
-	gtk_widget_set_size_request (statusbar->priv->img_num_statusbar, 80, 10);
+	gtk_widget_set_size_request (statusbar->priv->img_num_statusbar, 100, 10);
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar->priv->img_num_statusbar),
 					   TRUE);
 
