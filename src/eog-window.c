@@ -58,6 +58,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
 #include <libgnomevfs/gnome-vfs-mime.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <gconf/gconf-client.h>
 
 #define EOG_WINDOW_GET_PRIVATE(object) \
@@ -149,6 +150,9 @@ struct _EogWindowPrivate {
 
 	gint                 collection_position;
 	gboolean             collection_resizable;
+
+	guint                open_with_menu_id;
+ 	GList*               mime_application_list;
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
@@ -161,6 +165,8 @@ static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 static void fullscreen_set_timeout (EogWindow *window);
 static void fullscreen_clear_timeout (EogWindow *window);
 static void update_action_groups_state (EogWindow *window);
+static void open_with_launch_application_cb (GtkAction *action, gpointer callback_data);
+static void eog_window_update_openwith_menu (EogWindow *window, EogImage *image);
 
 static void
 eog_window_interp_type_changed_cb (GConfClient *client,
@@ -832,6 +838,105 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	uri = eog_image_get_uri (image);
 	add_uri_to_recent_files (window, uri);
 	gnome_vfs_uri_unref (uri);
+
+	eog_window_update_openwith_menu (window, image);
+}
+
+static void
+open_with_launch_application_cb (GtkAction *action, gpointer data){
+	EogImage *image;
+	GnomeVFSMimeApplication *app;
+	GnomeVFSURI *uri;
+	gchar *uri_string;
+	GList *uris = NULL;
+	
+	image = EOG_IMAGE (data);
+	uri = eog_image_get_uri (image);
+	uri_string = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	uris = g_list_prepend (NULL, uri_string);
+	app = g_object_get_data (G_OBJECT (action), "app");
+	gnome_vfs_mime_application_launch (app, uris);
+	gnome_vfs_uri_unref (uri);
+	g_free (uri_string);
+	g_list_free (uris);
+}
+
+static void
+eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
+{
+	GnomeVFSURI *uri;
+	GList *iter;
+	gchar *label, *tip, *string_uri, *mime_type;
+	GtkAction *action;
+	EogWindowPrivate *priv;
+	
+	uri = eog_image_get_uri (image);
+	string_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	mime_type = gnome_vfs_get_mime_type (string_uri);
+	g_free (string_uri);
+	gnome_vfs_uri_unref (uri);
+	
+	priv = window->priv;
+	
+	gtk_ui_manager_remove_ui (priv->ui_mgr, priv->open_with_menu_id);
+	if (priv->mime_application_list != NULL) {
+		gnome_vfs_mime_application_list_free (priv->mime_application_list);
+		priv->mime_application_list = NULL;
+	}
+	
+	if (mime_type != NULL) {
+		GList *apps = gnome_vfs_mime_get_all_applications (mime_type);
+		GList *next;
+		
+		for (iter = apps; iter; iter = next) {
+			next = iter->next;
+			
+			GnomeVFSMimeApplication *app = iter->data;
+
+			/* do not include eog itself */
+			if (strcmp (gnome_vfs_mime_application_get_binary_name (app), g_get_prgname ()) == 0) {
+ 				apps = g_list_remove_link (apps, iter);
+				g_list_free1 (iter);
+ 				gnome_vfs_mime_application_free (app);
+				continue;
+			}
+			
+			label = g_strdup_printf (_("Open with \"%s\""), app->name);
+			/* FIXME: use the tip once all the actions have tips */
+			/* tip = g_strdup_printf (_("Use \"%s\" to open the selected item"), app->name); */
+			tip = NULL;
+			action = gtk_action_new (app->name, label, tip, NULL);
+			g_free (label);
+			/* g_free (tip); */
+			
+			g_object_set_data (G_OBJECT (action), "app", app);
+
+			g_signal_connect (G_OBJECT (action),
+					  "activate",
+					  G_CALLBACK (open_with_launch_application_cb),
+					  image);
+			
+			gtk_action_group_add_action (priv->actions_image, action);
+			
+			gtk_ui_manager_add_ui (priv->ui_mgr,
+			       		priv->open_with_menu_id,
+			       		"/MainMenu/File/FileOpenWith/Applications Placeholder",
+			       		app->name,
+			       		app->name,
+			       		GTK_UI_MANAGER_MENUITEM,
+			       		FALSE);
+
+			gtk_ui_manager_add_ui (priv->ui_mgr,
+			       		priv->open_with_menu_id,
+			       		"/ThumbnailPopup/FileOpenWith/Applications Placeholder",
+			       		app->name,
+			       		app->name,
+			       		GTK_UI_MANAGER_MENUITEM,
+			       		FALSE);
+		}
+		priv->mime_application_list = apps;
+		g_free (mime_type);
+	}
 }
 
 static void
@@ -2418,6 +2523,9 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_save) },
+	{ "FileOpenWith", NULL, N_("Open _with"), NULL,
+	  NULL,
+	  NULL},
 	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_save_as) },
@@ -2738,6 +2846,8 @@ eog_window_construct_ui (EogWindow *window)
 
 	priv->ui_mgr = gtk_ui_manager_new ();
 
+	priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
+
 	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
 	
 	gtk_action_group_set_translation_domain (priv->actions_window, 
@@ -3036,9 +3146,11 @@ eog_window_init (EogWindow *window)
 
 	window->priv->print_page_setup = NULL;
 	window->priv->print_settings = NULL;
-
+	
 	window->priv->collection_position = 0;
 	window->priv->collection_resizable = FALSE;
+
+	window->priv->mime_application_list = NULL;
 }
 
 static void
@@ -3127,6 +3239,11 @@ eog_window_dispose (GObject *object)
 		g_slist_foreach (priv->uri_list, (GFunc) gnome_vfs_uri_unref, NULL);	
 		g_slist_free (priv->uri_list);
 		priv->uri_list = NULL;
+	}
+
+	if (priv->mime_application_list != NULL) {
+		gnome_vfs_mime_application_list_free (priv->mime_application_list);
+		priv->mime_application_list = NULL;
 	}
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);

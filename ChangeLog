@@ -1,3 +1,19 @@
+2007-02-27  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* data/eog-ui.xml: Add a 'OpenImageWith' menu item.
+	* src/eog-window.c: (eog_window_display_image): Update the 'open
+	with' menu when displaying an image.
+	(+open_with_launch_application_cb): Call the chosen application
+	with the selected image as parameter.
+	(+eog_window_update_openwith_menu): Updates the 'open with' menu
+	according with the mimetypes of the selected image.
+	(eog_window_construct_ui): Get a new merge id for the menu.
+	(eog_window_init), (eog_window_dispose): Properly init and 
+	finish the mime application list.
+
+	Add a 'Open file with' functionality (Fixes bug #319859). Patch from
+	Rodrigo Aguilar <raguilar@iee.ufro.cl> and me.
+
 2007-02-27  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-statusbar.c: increase image position info width in

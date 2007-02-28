@@ -2,6 +2,9 @@
   <menubar name="MainMenu">
     <menu action="File">
       <menuitem action="FileOpen"/>
+      <menu action='FileOpenWith'>
+         <placeholder name="Applications Placeholder"/>
+      </menu>
       <separator/>
       <menuitem action="FileSave"/>
       <menuitem action="FileSaveAs"/>
@@ -82,6 +85,10 @@
   </toolbar>
 
   <popup name="ThumbnailPopup">
+    <menu action='FileOpenWith'>
+       <placeholder name="Applications Placeholder"/>
+    </menu>
+    <separator/>
     <menuitem action="FileSave"/>
     <menuitem action="FileSaveAs"/>
     <separator/>
