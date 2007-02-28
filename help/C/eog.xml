@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.16">
+  <!ENTITY appversion "2.18">
   <!ENTITY manrevision "2.8">
-  <!ENTITY date "December 2006">
+  <!ENTITY date "February 2007">
   <!ENTITY app "<application>Image Viewer</application>">
   <!ENTITY appname "Image Viewer">
 ]>
@@ -25,6 +25,7 @@
     
     <copyright> 
       <year>2006</year> 
+      <year>2007</year>
       <holder>GNOME Documentation Project</holder> 
     </copyright>
     <copyright> 
@@ -533,11 +534,6 @@
 		<guimenu>Image</guimenu>
 		<guimenuitem>Rotate Counter Clockwise</guimenuitem>
 		</menuchoice>.</para>
-		<para>To rotate an image 180 degrees in a clockwise direction, choose 
-		<menuchoice>
-		<guimenu>Image</guimenu>
-		<guimenuitem>Rotate 180&#x00b0;</guimenuitem>
-		</menuchoice>.</para>
 	</sect2>
 
 	<!--============ To Undo an Action ======================= -->
@@ -568,9 +564,9 @@
 	</sect2>
 </sect1> 
 
-<!-- ============= Saving ============================== -->
+<!-- ============= Saving Images ============================== -->
 <sect1 id="eog-save-rename">
-	<title>Saving</title>
+	<title>Saving Images</title>
 
 	<para>
 	&app; always tries to choose the save method with least impact to the image data. For example, if an otherwise unmodified image is saved under a different name in the same format, the file is simply copied. If <systemitem
@@ -646,6 +642,54 @@
 
 </sect1>
 
+<sect1 id="eog-print">
+	<title>Printing Images</title>
+	<sect2 id="eog-print-pagesettings">
+		<title>Setting your Page Settings</title>
+		<para>Before printing you need to set the page settings you would like to use. To do that choose <menuchoice><guimenu>File</guimenu><guimenuitem>Page Setup</guimenuitem></menuchoice>.</para>
+		<para>In the <guilabel>Page Setup</guilabel> dialog you can now choose paper size and orientation. If possible also select your printer to have the page borders set correctly.</para>
+	</sect2>
+
+	<sect2 id="eog-print-image">
+		<title>Printing an Image</title>
+		<para>To print an image, perform the following steps:</para>
+		<orderedlist>
+			<listitem>
+				<para>Select <menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice></para>
+			</listitem>
+			<listitem>
+				<para>In the <guilabel>Print</guilabel> dialog, select the printer you want to use from the list.</para>
+			</listitem>
+			<listitem>
+				<para>Click <guilabel>Print</guilabel>. &app; starts printing now.</para>
+			</listitem>
+		</orderedlist>
+		<para>Images that are too large for the page are automatically scaled down to fit the page. Images that are smaller than the page are centered on it.</para>
+		<important>
+			<para>Please note that &app; is currently lacking progress reporting while printing. During that time the user interface might become unresponsive for a short time.</para>
+		</important>
+	</sect2>
+
+	<sect2 id="eog-print-settings">
+		<title>Arranging an Image on the Page</title>
+		<para>Maybe you don't want your image centered or want it scaled down even further. To do that you need to open the <guilabel>Print</guilabel> dialog (see <xref linkend="eog-print-image"/>) and then select the <guilabel>Image Settings</guilabel> tab which offers you the following options:</para>
+		<itemizedlist>
+			<listitem>
+				<para>The options in the <guilabel>Position</guilabel> section allow you to change the images position on the page.</para>
+			</listitem>
+			<listitem>
+				<para>It is also possible to position the image on the page by dragging it around in the <guilabel>Preview</guilabel> field.</para>
+			</listitem>
+			<listitem>
+				<para>The options in the <guilabel>Size</guilabel> section allow you to scale your image to your liking. Scaling is limited by either the image size or by the page size, depending on what condition is met first.</para>
+			</listitem>
+			<listitem>
+				<para>The <guilabel>Unit</guilabel> option allows you to change the metric unit which is used by the options on the <guilabel>Image Settings</guilabel> tab. When you change this option the other fields values are converted accordingly.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+		
+</sect1>
 <sect1 id="eog-prefs">
 	<title>Preferences</title>
 	<para>Preferences can be changed by going to <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>. You will be able to change the options for image viewing and slide shows. The changes apply to all open windows instantly.</para>
@@ -655,9 +699,10 @@
          <title>Image View</title>
 	<variablelist>
 	<varlistentry>
-		<term><guilabel>Image Interpolation</guilabel></term>
+		<term><guilabel>Image Enhancements</guilabel></term>
 		<listitem>
-		<para>Select the <guilabel>Interpolate image on zoom</guilabel> option to enable image interpolation when you change the zoom factor for the image. If you select this option, &app; uses bilinear interpolation. Bilinear interpolation is a simple and fast method of interpolation. When you zoom in on an image, &app; uses up to four adjacent pixels to compute the colors of the new pixels. When you zoom out of an image, &app; averages regions of color in the existing image to compute the colors of the pixels. </para>
+		<para>Select the <guilabel>Smooth images when zoomed</guilabel> option to enable image smoothing when you change the image's zoom factor. If you select this option, your images will be smoothed to improve their display quality while viewing them with &app;.</para>
+                <para>If you select the <guilabel>Automatic rotation</guilabel> option, your images will be rotated on loading according to their metadata. For example portraits are automatically rotated upright. Note that this function requires a correctly set orientation tag in the image's metadata and thus does not work with all images. The rotation is not saved until you save the rotated image (see <xref linkend="eog-save-rename"/>).</para>
 		</listitem>
 	</varlistentry>
 
@@ -683,12 +728,12 @@
 		
 	<!--============ Slide Show ==================-->                                                                                               
   <sect2 id="eog-prefs-slideshow">
-         <title>Slide Show</title>
+         <title>Slideshow</title>
 	<variablelist>
 	<varlistentry>
 		<term><guilabel>Image Zoom</guilabel></term>
 		<listitem>
-		<para>Select the <guilabel>Allow zoom greater than 100% initially</guilabel> option to resize all images to fit the screen during the slide show. If you do not select this option, images that are smaller than the screen size are not resized to fit the screen.</para>
+		<para>Select the <guilabel>Expand images to fit screen</guilabel> option to enlarge images to fit the screen during the slide show. If you do not select this option, images that are smaller than the screen size are not resized to fit the screen.</para>
 		</listitem>
 	</varlistentry>
 	<varlistentry>
