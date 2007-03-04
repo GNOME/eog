@@ -531,7 +531,12 @@ eog_window_print (EogWindow *window)
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
 	EogPrintData *data;
-
+	gint n_images;
+	
+	n_images = eog_wrap_list_get_n_selected
+		(EOG_WRAP_LIST (window->priv->wraplist));
+	if (n_images <= 0) return;
+	
 	if (!window->priv->print_settings)
 		window->priv->print_settings = gtk_print_settings_new ();
 	if (!window->priv->print_page_setup)

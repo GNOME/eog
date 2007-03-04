@@ -1,3 +1,9 @@
+2007-03-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* shell/eog-window.c: (eog_window_print): Abort the action if 
+	no image is currently selected (fixes a crasher when trying to print
+	an already removed image). Fixes bug #414547.
+
 2007-02-27  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-statusbar.c: increase image position info width in
