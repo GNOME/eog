@@ -65,6 +65,8 @@ struct _EogImagePrivate {
 	EogTransform *trans;
 
 	guint data_ref_count;
+
+	gboolean autorotate;
 };
 
 

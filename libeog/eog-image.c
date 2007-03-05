@@ -252,6 +252,7 @@ eog_image_init (EogImage *img)
 	priv->thumbnail = NULL;
 	priv->width = priv->height = -1;
 	priv->modified = FALSE;
+	priv->autorotate = FALSE;
 	priv->mutex = g_mutex_new ();
 	priv->status_mutex = g_mutex_new ();
 	priv->load_finished = NULL;
@@ -798,6 +799,53 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	return !failed;
 }
 
+static gint
+eog_image_get_exif_orientation (EogImage *img)
+{
+	gint orientation = 0;
+	EogImagePrivate *priv = NULL;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (img), 0);
+
+	priv = img->priv;
+	  
+#ifdef HAVE_EXIF
+	if (priv->exif != NULL) {
+		ExifEntry *e = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
+
+		if (e != NULL && e->data != NULL) {
+			ExifByteOrder o = exif_data_get_byte_order (e->parent->parent);
+			orientation = exif_get_short (e->data, o);
+		}
+	}
+#endif /* HAVE_EXIF */
+
+	return orientation;
+}
+
+static void
+eog_image_real_autorotate (EogImage *img)
+{
+	gint orientation = 0;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	orientation = eog_image_get_exif_orientation (img);
+
+	EogTransformType type = eog_transform_convert_exif_orientation (orientation);
+
+	if (type != EOG_TRANSFORM_NONE) {
+		EogTransform *transform = eog_transform_new (type);
+
+		eog_image_transform (img, transform, NULL);
+
+		g_object_unref (transform);
+	}
+
+	/* Disable auto orientation for next loads */
+	img->priv->autorotate = FALSE;
+}
+
 gboolean
 eog_image_has_data (EogImage *img, guint req_data)
 {
@@ -890,6 +938,12 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 			success = eog_image_apply_transformations (img, job, error);
 		}
 	}
+
+#ifdef HAVE_EXIF
+	if (success && priv->autorotate) {
+		eog_image_real_autorotate (img);
+	}
+#endif
 
 	/* update status */
 	if (success) {
@@ -1783,44 +1837,18 @@ eog_image_data_unref (EogImage *img)
 	return img;
 }
 
-static gint
-eog_image_get_exif_orientation (EogImage *img)
-{
-	gint orientation = 0;
-	EogImagePrivate *priv = NULL;
-
-	g_return_val_if_fail (EOG_IS_IMAGE (img), 0);
-
-	priv = img->priv;
-	  
-#ifdef HAVE_EXIF
-	if (priv->exif != NULL) {
-		ExifEntry *e = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
-
-		if (e != NULL && e->data != NULL) {
-			ExifByteOrder o = exif_data_get_byte_order (e->parent->parent);
-			orientation = exif_get_short (e->data, o);
-		}
-	}
-#endif /* HAVE_EXIF */
-
-	return orientation;
-}
-
 void
 eog_image_autorotate (EogImage *img)
 {
-	gint orientation = 0;
+	guint orientation = 0;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	orientation = eog_image_get_exif_orientation (img);
 
-	EogTransformType type = eog_transform_convert_exif_orientation (orientation);
-
-	if (type != EOG_TRANSFORM_NONE) {
-		EogTransform *transform = eog_transform_new (type);
-		eog_image_transform (img, transform, NULL);
-		g_object_unref (transform);
+	if (img->priv->exif != NULL) {
+		eog_image_real_autorotate (img);
+	} else {
+		img->priv->autorotate = TRUE;
 	}
 }
