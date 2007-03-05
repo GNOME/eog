@@ -3165,11 +3165,27 @@ setup_initial_geometry (EogWindow *window)
 }
 
 static void
+update_image_pos (EogWindow *window)
+{
+	gint pos, nimg;
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+	
+	/* update image pos */	
+	nimg = eog_image_list_length (priv->image_list);
+	if (nimg > 0) {
+		pos = eog_image_list_get_pos_by_img (EOG_IMAGE_LIST (priv->image_list), 
+						     priv->displayed_image);
+		/* Images: (image pos) / (n_total_images) */
+		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), pos + 1, nimg);
+	} 
+}
+
+static void
 update_status_bar (EogWindow *window)
 {
 	EogWindowPrivate *priv;
-	int nimg;
-	int pos;
 	char *str = NULL;
 
 	priv = window->priv;
@@ -3196,15 +3212,7 @@ update_status_bar (EogWindow *window)
 			
 			g_free (size_string);
 		}
-
-		/* update image pos */	
-		nimg = eog_image_list_length (priv->image_list);
-		if (nimg > 0) {
-			pos = eog_image_list_get_pos_by_img (EOG_IMAGE_LIST (priv->image_list), 
-						   	     priv->displayed_image);
-			/* Images: (image pos) / (n_total_images) */
-			eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), pos + 1, nimg);
-		} 
+		update_image_pos (window);
 	}
 
 	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), priv->image_info_message_cid);
@@ -4099,6 +4107,47 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	g_free (text_uri);
 }
 
+static void
+image_list_image_removed (EogImageList *model,
+			  int position,
+			  gpointer data)
+{
+	EogWindowPrivate *priv;
+	gint current_pos = -1;
+	gint removed_pos = -1;
+
+	priv = EOG_WINDOW (data)->priv;
+
+	removed_pos = MIN (position, eog_image_list_length (model) - 1);
+
+	if (priv->displayed_image)
+		current_pos = eog_image_list_get_pos_by_img (model, 
+							     priv->displayed_image);
+
+	if (current_pos < 0) {
+		EogImage *img;
+
+		img = eog_image_list_get_img_by_pos (model, removed_pos + 1);
+
+		eog_wrap_list_set_current_image (EOG_WRAP_LIST (priv->wraplist), img, TRUE);
+
+		if (img != NULL) {
+			g_object_unref (img);
+		}
+	}
+
+	update_image_pos (EOG_WINDOW (data));
+}
+
+static void
+image_list_image_added (EogImageList *model,
+			EogImage *image,
+			int position,
+			gpointer data)
+{
+	update_image_pos (EOG_WINDOW (data));
+}
+
 /**
  * eog_window_open:
  * @window: A window.
@@ -4164,6 +4213,12 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 	}
 		
 	/* attach model to view */
+	g_signal_connect (priv->image_list, "image-added",
+			  G_CALLBACK (image_list_image_added),
+			  window);
+	g_signal_connect (priv->image_list, "image-removed",
+			  G_CALLBACK (image_list_image_removed),
+			  window);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 	
 	return TRUE;

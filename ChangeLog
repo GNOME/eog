@@ -1,5 +1,13 @@
 2007-03-05  Lucas Rocha  <lucasr@gnome.org>
 
+	* libeog/eog-window.c (+update_image_pos, +image_list_image_removed,
+	+image_list_image_added, update_status_bar): update image list position 
+	and size and selection when images are externally removed or added.
+	Based on patch from Claudio Saavedra <csaavedra@alumnos.utalca.cl>.
+	Fixes bug #414968.
+
+2007-03-05  Lucas Rocha  <lucasr@gnome.org>
+
 	* libeog/eog-image-private.h, libeog/eog-image.c: schedule automatic
 	orientation for all images in image list for future rotation (Fixes
 	bug #390266).

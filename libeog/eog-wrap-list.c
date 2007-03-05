@@ -1276,6 +1276,7 @@ eog_wrap_list_set_current_image (EogWrapList *wlist, EogImage *image, gboolean d
 	}
 
 	selection_changed = set_select_status (wlist, item, TRUE);
+
 	if (selection_changed) {
 		g_signal_emit (G_OBJECT (wlist), eog_wrap_list_signals [SELECTION_CHANGED], 0);
 	}
