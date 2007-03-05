@@ -403,42 +403,6 @@ is_supported_mime_type (const char *mime_type)
 
 /* ================== Directory Loading stuff ===================*/
 
-
-static void 
-cleanup_dead_files (EogImageList *list)
-{
-	gint position = 0;
-	GList *node = NULL, *remove = NULL;
-	gboolean found = FALSE;
-	
-	if (list && list->priv)
-		node = list->priv->store;
-
-	while (node != NULL && !found) {
-		GnomeVFSURI *uri = eog_image_get_uri(node->data);
-		if (!gnome_vfs_uri_exists (uri)) {
-			remove = g_list_append (remove, GINT_TO_POINTER (position));
-		}	
-		node = node->next;		
-		position++;
-		gnome_vfs_uri_unref (uri);
-	}
-
-	while (remove) {
-		gint pos = GPOINTER_TO_INT (remove->data);
-		EogIter *iter = eog_image_list_get_iter_by_pos (list, pos);
-
-		if (iter) {
-			remove_image_private (list, iter);
-			g_signal_emit (list, eog_image_list_signals[IMAGE_REMOVED], 0, pos);
-		}
-		
-		remove = g_list_next (remove);
-	}
-	
-	g_list_free (remove);
-}
-
 static gboolean
 get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
@@ -501,16 +465,21 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	EogImage *image = NULL;
 	gboolean found = FALSE;
 	
-	cleanup_dead_files (list);
-	
 	switch (event_type) {
 		case GNOME_VFS_MONITOR_EVENT_CHANGED:
 		case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
-		case GNOME_VFS_MONITOR_EVENT_DELETED:
 		case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
 		case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:
 			break;
 			
+		case GNOME_VFS_MONITOR_EVENT_DELETED:
+			found = eog_image_list_has_file (list, info_uri, &image);
+			if (found) {
+				eog_image_list_remove_image (list, image);
+				g_object_unref (image);
+			}
+			break;
+
 		case GNOME_VFS_MONITOR_EVENT_CREATED:
 
 			found = eog_image_list_has_file (list, info_uri, NULL);
