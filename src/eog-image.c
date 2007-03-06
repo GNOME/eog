@@ -1525,7 +1525,7 @@ have_broken_filenames (void)
  * Revision: 1.309
  * Author: Darin Adler <darin@bentspoon.com>
  */
-gchar*               
+const gchar*
 eog_image_get_caption (EogImage *img)
 {
 	EogImagePrivate *priv;
@@ -1609,7 +1609,7 @@ eog_image_get_collate_key (EogImage *img)
 	priv = img->priv;
 
 	if (priv->collate_key == NULL) {
-		char *caption;
+		const char *caption;
 
 		caption = eog_image_get_caption (img);
 

@@ -151,7 +151,7 @@ gboolean          eog_image_is_modified              (EogImage   *img);
 
 void              eog_image_modified                 (EogImage   *img);
 
-gchar*            eog_image_get_caption              (EogImage   *img);
+const gchar*      eog_image_get_caption              (EogImage   *img);
 
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
