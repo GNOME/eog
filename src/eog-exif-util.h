@@ -1,8 +1,10 @@
-/* Eye Of Gnome - General Utilities 
+/* Eye Of Gnome - EXIF Utilities 
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2006-2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
+ * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
+ * Author: Felix Riemann <felix@hsgheli.de>
  *
  * Based on code by:
  *	- Jens Finke <jens@gnome.org>
@@ -22,28 +24,17 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_UTIL_H__
-#define __EOG_UTIL_H__
+#ifndef __EOG_EXIF_UTIL_H__
+#define __EOG_EXIF_UTIL_H__
 
-#include <gtk/gtk.h>
+#include <glib.h>
+#include <libexif/exif-data.h>
 
 G_BEGIN_DECLS
 
-void     eog_util_show_help                  (const gchar *section, 
-					      GtkWindow   *parent);
+gchar*       eog_exif_util_format_date           (const gchar *date);
 
-gchar   *eog_util_make_valid_utf8            (const gchar *name);
-
-GSList  *eog_util_string_list_to_uri_list    (GSList *string_list);
-
-#ifdef HAVE_DBUS
-GSList  *eog_util_strings_to_uri_list        (gchar **strings);
-#endif
-
-GSList  *eog_util_string_array_to_list       (const gchar **files,
-	 				      gboolean create_uri);
-
-gchar  **eog_util_string_array_make_absolute (gchar **files);
+const gchar* eog_exif_util_get_value             (ExifData *exif_data, gint tag_id);
 
 G_END_DECLS
 

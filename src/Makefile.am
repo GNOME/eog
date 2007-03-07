@@ -34,6 +34,8 @@ eog_SOURCES =				\
 	eog-debug.c			\
 	eog-util.h			\
 	eog-util.c			\
+	eog-exif-util.h			\
+	eog-exif-util.c			\
 	eog-pixbuf-util.h		\
 	eog-pixbuf-util.c		\
 	eog-window.h			\

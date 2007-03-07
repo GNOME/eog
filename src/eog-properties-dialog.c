@@ -28,6 +28,7 @@
 #include "eog-util.h"
 #include "eog-thumb-view.h"
 #include "eog-exif-details.h"
+#include "eog-exif-util.h"
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -126,20 +127,6 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 }
 
 #ifdef HAVE_EXIF
-static const gchar * 
-pd_get_exif_value (ExifData *exif_data, gint tag_id)
-{
-	ExifEntry *exif_entry;
-	const gchar *exif_value;
-	gchar buffer[1024];
-
-        exif_entry = exif_data_get_entry (exif_data, tag_id);
-
-	exif_value = exif_entry_get_value (exif_entry, buffer, sizeof (buffer));
-
-	return exif_value;
-}
-
 static void
 pd_update_exif_tab (EogPropertiesDialog *prop_dlg, 
 		    EogImage            *image)
@@ -166,37 +153,37 @@ pd_update_exif_tab (EogPropertiesDialog *prop_dlg,
 
 	exif_data = (ExifData *) eog_image_get_exif_info (image);
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_APERTURE_VALUE);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_APERTURE_VALUE);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_aperture_label), 
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_EXPOSURE_TIME);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_EXPOSURE_TIME);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_exposure_label),
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_FOCAL_LENGTH);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_FOCAL_LENGTH);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_focal_label), 
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_FLASH);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_FLASH);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_flash_label),
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_iso_label), 
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_METERING_MODE);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_METERING_MODE);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_metering_label),
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_MODEL);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_MODEL);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_model_label),
 			    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = pd_get_exif_value (exif_data, EXIF_TAG_DATE_TIME);
+	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->exif_date_label),
-			    eog_util_format_exif_date (exif_value));
+			    eog_exif_util_format_date (exif_value));
 
 	eog_exif_details_update (EOG_EXIF_DETAILS (prop_dlg->priv->exif_details), 
 				 exif_data);

@@ -1,5 +1,18 @@
 2007-03-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/Makefile.am: Add eog-exif-util.[ch]
+	* src/eog-exif-util.c: (eog_exif_util_format_date_with_strptime),
+	(eog_exif_util_format_date_by_hand), (eog_exif_util_format_date),
+	(eog_exif_util_get_value):
+	* src/eog-exif-util.h: Add file for EXIF utilities.
+	* src/eog-properties-dialog.c: (pd_update_exif_tab): update.
+	* src/eog-util.c: Move exif date functions to eog-exif-util.[ch]
+	* src/eog-util.h:
+
+	Moved exif related functions to new files.
+
+2007-03-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* data/eog.desktop.in.in: Remove 'Application' from the Categories
 	field.
 
