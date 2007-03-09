@@ -645,7 +645,7 @@ eog_image_set_orientation (EogImage *img)
 		ExifEntry *entry = exif_data_get_entry (priv->exif, 
 							EXIF_TAG_ORIENTATION);
 
-		if (entry->data != NULL) {
+		if (entry && entry->data != NULL) {
 			priv->orientation = exif_get_short (entry->data, o);
 		}
 	}

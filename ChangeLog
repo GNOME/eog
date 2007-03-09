@@ -1,3 +1,9 @@
+2007-03-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-image.c: (eog_image_set_orientation): Some 
+	images may not have orientation information, and 
+	exif_data_get_entry () may return NULL.
+
 2007-03-08  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-jobs.c: (eog_job_thumbnail_run): Preserve 
