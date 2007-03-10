@@ -5,9 +5,11 @@
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
-#include <gtk/gtkmain.h>
+#include <gtk/gtk.h>
 #include <libart_lgpl/art_affine.h>
+
 #include "eog-transform.h"
+#include "eog-jobs.h"
 
 #define PROFILE 1
 
@@ -46,7 +48,7 @@ G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
 
 
 GdkPixbuf*    
-eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf)
+eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 {
 	ArtPoint dest_top_left;
 	ArtPoint dest_bottom_right;
@@ -146,6 +148,14 @@ eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf)
 					dest_pos[i] = src_pos[i];
 				}
 			}
+		}
+
+		if (job != NULL) {
+			gfloat progress;
+
+			progress = (gfloat) (y + 1.0) / (gfloat) dest_height;
+
+			eog_job_set_progress (job, progress);
 		}
 	}
 

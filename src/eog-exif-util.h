@@ -34,8 +34,8 @@ G_BEGIN_DECLS
 
 gchar*       eog_exif_util_format_date           (const gchar *date);
 
-const gchar* eog_exif_util_get_value             (ExifData *exif_data, gint tag_id);
+const gchar *eog_exif_util_get_value             (ExifData *exif_data, gint tag_id);
 
 G_END_DECLS
 
-#endif /* __EOG_UTIL_H__ */
+#endif /* __EOG_EXIF_UTIL_H__ */

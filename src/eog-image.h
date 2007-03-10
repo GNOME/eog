@@ -101,6 +101,9 @@ struct _EogImageClass {
 				    int       height);
 
 	void (* thumbnail_changed) (EogImage *img);
+
+	void (* save_progress)     (EogImage *img, 
+				    gfloat    progress);
 };
 
 GType	          eog_image_get_type	             (void);
@@ -162,7 +165,8 @@ GnomeVFSURI*      eog_image_get_uri                  (EogImage   *img);
 gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 
 void              eog_image_transform                (EogImage   *img, 
-						      EogTransform *trans);
+						      EogTransform *trans,
+						      EogJob     *job);
 
 #ifdef HAVE_EXIF
 void              eog_image_autorotate               (EogImage   *img);

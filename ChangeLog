@@ -1,3 +1,20 @@
+2007-03-10  Lucas Rocha  <lucasr@gnome.org>
+
+	Restabilished the image saving functionalities. Based on patch from
+	Felix Riemann <friemann@svn.gnome.org>. Fixes bug #377123. A lot 
+	of polishing is still needed.
+
+	* src/eog-image.[ch] (eog_image_class_init, eog_image_real_transform,
+	handle_xfer_status, tmp_file_move_to_uri): added a "save-progress" 
+	signal. Some coding style fixes.
+	* src/eog-job-queue.c (remove_job_from_queue, handle_job,
+	no_jobs_available_unlocked, search_for_jobs_unlocked,
+	eog_job_queue_init), src/eog-job.[ch] (eog_job_save_*,
+	eog_job_save_as_*): implementation of EogJobSave and EogJobSaveAs.
+	* src/eog-exif-util.h: fix small typo and coding style.
+	* src/eog-transform.c: added progress feeback for transformations.
+	* src/eog-save-as-dialog-helper.c: small fix on eog.glade path.
+
 2007-03-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-image.c: (eog_image_set_orientation): Some 

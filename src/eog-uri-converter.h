@@ -14,7 +14,10 @@ G_BEGIN_DECLS
 #define EOG_IS_URI_CONVERTER_CLASS(k)   (G_TYPE_CHECK_CLASS_TYPE ((k), EOG_TYPE_URI_CONVERTER))
 #define EOG_URI_CONVERTER_GET_CLASS(o)  (G_TYPE_INSTANCE_GET_CLASS ((o), EOG_TYPE_URI_CONVERTER, EogURIConverterClass))
 
+#ifndef __EOG_URI_CONVERTER_DECLR__
+#define __EOG_URI_CONVERTER_DECLR__
 typedef struct _EogURIConverter EogURIConverter;
+#endif
 typedef struct _EogURIConverterClass EogURIConverterClass;
 typedef struct _EogURIConverterPrivate EogURIConverterPrivate;
 

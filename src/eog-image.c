@@ -71,6 +71,7 @@ enum {
 	SIGNAL_CHANGED,
 	SIGNAL_SIZE_PREPARED,
 	SIGNAL_THUMBNAIL_CHANGED,
+	SIGNAL_SAVE_PROGRESS,
 	SIGNAL_LAST
 };
 
@@ -204,6 +205,16 @@ eog_image_class_init (EogImageClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
+	signals[SIGNAL_SAVE_PROGRESS] = 
+		g_signal_new ("save-progress",
+			      G_TYPE_OBJECT,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (EogImageClass, save_progress),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__FLOAT,
+			      G_TYPE_NONE, 1,
+			      G_TYPE_FLOAT);
+
 	g_type_class_add_private (object_class, sizeof (EogImagePrivate));
 }
 
@@ -315,7 +326,8 @@ eog_image_update_exif_data (EogImage *image)
 static void
 eog_image_real_transform (EogImage     *img, 
 			  EogTransform *trans, 
-			  gboolean      is_undo)
+			  gboolean      is_undo,
+			  EogJob       *job)
 {
 	EogImagePrivate *priv;
 	GdkPixbuf *transformed;
@@ -327,7 +339,7 @@ eog_image_real_transform (EogImage     *img,
 	priv = img->priv;
 
 	if (priv->image != NULL) {
-		transformed = eog_transform_apply (trans, priv->image);
+		transformed = eog_transform_apply (trans, priv->image, job);
 		
 		g_object_unref (priv->image);
 		priv->image = transformed;
@@ -339,7 +351,7 @@ eog_image_real_transform (EogImage     *img,
 	}
 
 	if (priv->thumbnail != NULL) {
-		transformed = eog_transform_apply (trans, priv->thumbnail);
+		transformed = eog_transform_apply (trans, priv->thumbnail, NULL);
 
 		g_object_unref (priv->thumbnail);
 		priv->thumbnail = transformed;
@@ -449,7 +461,7 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	g_assert (priv->image != NULL);
 
 	if (priv->trans != NULL) {
-		transformed = eog_transform_apply (priv->trans, priv->image);
+		transformed = eog_transform_apply (priv->trans, priv->image, NULL);
 	}
 
 	if (transformed != NULL) {
@@ -1032,7 +1044,7 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 	}
 	
 	if (thumbnail != NULL && priv->trans != NULL) {
-		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail);
+		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail, NULL);
 	} else {
 		priv->thumbnail = thumbnail;
 
@@ -1102,9 +1114,9 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 }
 
 void                
-eog_image_transform (EogImage *img, EogTransform *trans)
+eog_image_transform (EogImage *img, EogTransform *trans, EogJob *job)
 {
-	eog_image_real_transform (img, trans, FALSE);
+	eog_image_real_transform (img, trans, FALSE, job);
 }
 
 void 
@@ -1123,7 +1135,7 @@ eog_image_undo (EogImage *img)
 
 		inverse = eog_transform_reverse (trans);
 
-		eog_image_real_transform (img, inverse, TRUE);
+		eog_image_real_transform (img, inverse, TRUE, NULL);
 
 		priv->undo_stack = g_slist_delete_link (priv->undo_stack, priv->undo_stack);
 
@@ -1159,8 +1171,28 @@ tmp_file_get_path (void)
 	return tmp_file;
 }
 
+static gint
+handle_xfer_status (GnomeVFSXferProgressInfo *info, gpointer user_data)
+{
+	EogImage *image = EOG_IMAGE (user_data);
+
+	g_assert (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK);
+
+	if (info->phase >= GNOME_VFS_XFER_PHASE_COPYING && info->bytes_copied > 0)
+		g_signal_emit (G_OBJECT(image), 
+			       signals[SIGNAL_SAVE_PROGRESS],
+			       0,
+			       (gfloat) (info->bytes_copied) / (gfloat) info->file_size);
+
+	return TRUE;	
+}
+
 static gboolean
-tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean overwrite, GError **error)
+tmp_file_move_to_uri (EogImage *image, 
+		      const char* tmpfile, 
+		      const GnomeVFSURI *uri, 
+		      gboolean overwrite, 
+		      GError **error)
 {
 	GnomeVFSResult result;
 	GnomeVFSURI *source_uri;
@@ -1169,9 +1201,8 @@ tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean over
 
 	if (!overwrite && gnome_vfs_uri_exists ((GnomeVFSURI*) uri)) 
 	{
-		/* explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
-		 *  work as expected 
-		 */
+		/* Explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
+		 * work as expected */
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_FILE_EXISTS,
 			     _("File exists"));
@@ -1181,10 +1212,9 @@ tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean over
 	info = gnome_vfs_file_info_new ();
 	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
 	if (result != GNOME_VFS_OK) {
-		/* we don't propagate the error here, because if we get a 
+		/* We don't propagate the error here, because if we get a 
 		 * fatal error, the xfer_uri will fail too and then
-		 * handled.
-		 */
+		 * handled. */
 		gnome_vfs_file_info_unref (info);
 		info = NULL;
 	}
@@ -1199,8 +1229,8 @@ tmp_file_move_to_uri (const char* tmpfile, const GnomeVFSURI *uri, gboolean over
 				     GNOME_VFS_XFER_DELETE_ITEMS,           /* delete source file */
 				     GNOME_VFS_XFER_ERROR_MODE_ABORT,       /* abort on all errors */
 				     overwrt_mode,
-				     NULL,                                  /* no progress callback */
-				     NULL);
+				     handle_xfer_status,                    /* no progress callback */
+				     image);
 
 	gnome_vfs_uri_unref (source_uri);
 
@@ -1350,7 +1380,7 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 
 	if (success) {
 		/* try to move result file to target uri */
-		success = tmp_file_move_to_uri (tmpfile, priv->uri, TRUE /*overwrite*/, error);
+		success = tmp_file_move_to_uri (img, tmpfile, priv->uri, TRUE /*overwrite*/, error);
 	}
 
 	if (success) {
@@ -1380,15 +1410,18 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 		/* explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
 		 *  work as expected 
 		 */
-		g_set_error (error, EOG_IMAGE_ERROR,
+		g_set_error (error, 
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_FILE_EXISTS,
 			     _("File exists"));
+
 		return FALSE;
 	} else if (target->overwrite == TRUE) {
 		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
 	}
 
 	info = gnome_vfs_file_info_new ();
+
 	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) target->uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
 	if (result != GNOME_VFS_OK) {
 		/* we don't propagate the error here, because if we get a 
@@ -1404,7 +1437,7 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 				     GNOME_VFS_XFER_DEFAULT,            /* copy the data */
 				     GNOME_VFS_XFER_ERROR_MODE_ABORT,   /* abort on all errors */
 				     overwrt_mode,
-				     NULL,                              /* no progress callback */
+				     NULL,                /* no progress callback */
 				     NULL);
 
 	if (result == GNOME_VFS_ERROR_FILE_EXISTS) {
@@ -1445,18 +1478,23 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 	/* fail if there is no image to save */
 	if (priv->image == NULL) {
-		g_set_error (error, EOG_IMAGE_ERROR,
+		g_set_error (error, 
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("No image loaded."));
+
 		return FALSE;
 	}
 
 	/* generate temporary file name */
 	tmpfile = tmp_file_get_path ();
+
 	if (tmpfile == NULL) {
-		g_set_error (error, EOG_IMAGE_ERROR,
+		g_set_error (error, 
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_TMP_FILE_FAILED,
 			     _("Temporary file creation failed."));
+
 		return FALSE;
 	}
 	
@@ -1480,7 +1518,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 	if (success && !direct_copy) { /* not required if we alredy copied the file directly */
 		/* try to move result file to target uri */
-		success = tmp_file_move_to_uri (tmpfile, target->uri, target->overwrite, error);
+		success = tmp_file_move_to_uri (img, tmpfile, target->uri, target->overwrite, error);
 	}
 
 	if (success) {

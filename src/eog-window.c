@@ -50,6 +50,7 @@
 #include "eog-util.h"
 #include "eog-thumbnail.h"
 #include "eog-print-image-setup.h"
+#include "eog-save-as-dialog-helper.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -141,6 +142,7 @@ struct _EogWindowPrivate {
 
         EogJob              *load_job;
         EogJob              *transform_job;
+	EogJob              *save_job;
 
         guint                image_info_message_cid;
         guint                tip_message_cid;
@@ -160,7 +162,8 @@ static void eog_window_run_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_window_cmd_slideshow (GtkAction *action, gpointer user_data);
 static void eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow);
 static void eog_job_load_cb (EogJobLoad *job, gpointer data);
-static void eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer data);
+static void eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer data);
+static void eog_job_progress_cb (EogJobLoad *job, float progress, gpointer data);
 static void eog_job_transform_cb (EogJobTransform *job, gpointer data);
 static void fullscreen_set_timeout (EogWindow *window);
 static void fullscreen_clear_timeout (EogWindow *window);
@@ -949,7 +952,7 @@ eog_window_clear_load_job (EogWindow *window)
 			eog_job_queue_remove_job (priv->load_job);
 	
 		g_signal_handlers_disconnect_by_func (priv->load_job, 
-						      eog_job_load_progress_cb, 
+						      eog_job_progress_cb, 
 						      window);
 
 		g_signal_handlers_disconnect_by_func (priv->load_job, 
@@ -960,13 +963,14 @@ eog_window_clear_load_job (EogWindow *window)
 
 		g_object_unref (priv->load_job);
 		priv->load_job = NULL;
+
 		/* Hide statusbar */
 		eog_statusbar_set_progress (EOG_STATUSBAR (priv->statusbar), 0);
 	}
 }
 
 static void
-eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer user_data) 
+eog_job_progress_cb (EogJobLoad *job, float progress, gpointer user_data) 
 {
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 	
@@ -974,6 +978,57 @@ eog_job_load_progress_cb (EogJobLoad *job, float progress, gpointer user_data)
 
 	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
 				    progress);
+}
+
+static void
+eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data) 
+{
+	EogWindowPrivate *priv;
+	EogWindow *window;
+
+	static EogImage *image = NULL;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+	
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	eog_statusbar_set_progress (EOG_STATUSBAR (priv->statusbar), 
+				    progress);
+
+	if (image != job->current_image) {
+		gchar *str_image, *str_position, *status_message;
+		guint n_images;
+ 
+		image = job->current_image;
+
+		n_images = g_list_length (job->images);
+
+		str_image = eog_image_get_uri_for_display (image);
+
+		str_position = g_strdup_printf ("(%d/%d)", 
+						job->current_pos + 1, 
+						n_images);
+
+		status_message = g_strdup_printf (_("Saving image \"%s\" %s"), 
+					          str_image,
+						  n_images > 1 ? str_position : "");
+
+		g_free (str_image);
+		g_free (str_position);
+	
+		gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), 
+				   priv->image_info_message_cid);
+
+		gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
+				    priv->image_info_message_cid, 
+				    status_message);
+	
+		g_free (status_message);
+	}
+
+	if (progress == 1.0)
+		image = NULL;
 }
 
 static void
@@ -1191,6 +1246,11 @@ apply_transformation (EogWindow *window, EogTransform *trans)
 			  G_CALLBACK (eog_job_transform_cb),
 			  window);
 
+	g_signal_connect (priv->transform_job,
+			  "progress",
+			  G_CALLBACK (eog_job_progress_cb),
+			  window);
+
 	eog_job_queue_add_job (priv->transform_job);
 }
 
@@ -1238,7 +1298,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	g_signal_connect (priv->load_job,
 			  "progress",
-			  G_CALLBACK (eog_job_load_progress_cb),
+			  G_CALLBACK (eog_job_progress_cb),
 			  window);
 
 	eog_job_queue_add_job (priv->load_job);
@@ -2213,15 +2273,165 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 }
 
 static void
+eog_job_save_cb (EogJobSave *job, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	g_signal_handlers_disconnect_by_func (job, 
+					      eog_job_save_cb, 
+					      window);
+
+	g_signal_handlers_disconnect_by_func (job, 
+					      eog_job_save_progress_cb, 
+					      window);
+
+	g_object_unref (window->priv->save_job);
+	window->priv->save_job = NULL;
+
+	update_status_bar (window);
+}
+
+static void
 eog_window_cmd_save (GtkAction *action, gpointer user_data)
 {
-	g_print ("Not implemented yet!\n");
+	EogWindowPrivate *priv;
+	EogWindow *window;
+	GList *images;
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (window->priv->save_job != NULL)
+		return;
+
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
+
+	priv->save_job = eog_job_save_new (images);
+
+	g_signal_connect (priv->save_job, 
+			  "finished",
+			  G_CALLBACK (eog_job_save_cb), 
+			  window);
+
+	g_signal_connect (priv->save_job, 
+			  "progress",
+			  G_CALLBACK (eog_job_save_progress_cb), 
+			  window);
+
+	eog_job_queue_add_job (priv->save_job);
+}
+
+static GnomeVFSURI*
+eog_window_retrieve_save_as_uri (EogWindow *window, EogImage *image)
+{
+	GtkWidget *dialog;
+	GnomeVFSURI *save_uri = NULL;
+	GnomeVFSURI *parent_uri;
+	GnomeVFSURI *image_uri;
+	gchar *folder_uri;
+	gint response;
+
+	g_assert (image != NULL);
+
+	image_uri = eog_image_get_uri (image);
+	parent_uri = gnome_vfs_uri_get_parent (image_uri);
+	folder_uri = gnome_vfs_uri_to_string (parent_uri, GNOME_VFS_URI_HIDE_NONE);
+	gnome_vfs_uri_unref (parent_uri);
+	gnome_vfs_uri_unref (image_uri);
+
+	dialog = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
+	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog),
+						 folder_uri);
+	response = gtk_dialog_run (GTK_DIALOG (dialog));
+	gtk_widget_hide (dialog);
+
+	if (response == GTK_RESPONSE_OK) {
+		gchar *new_uri;
+
+		new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
+
+		g_assert (new_uri != NULL);
+
+		save_uri = gnome_vfs_uri_new (new_uri);
+		g_free (new_uri);
+	}
+	gtk_widget_destroy (dialog);
+	if (folder_uri)
+		g_free (folder_uri);
+	
+	return save_uri;
 }
 
 static void
 eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 {
-	g_print ("Not implemented yet!\n");
+        EogWindowPrivate *priv;
+        EogWindow *window;
+	GList *images;
+
+        window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (window->priv->save_job != NULL)
+		return;
+
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
+
+	if (g_list_length (images) == 1) {
+		GnomeVFSURI *uri;
+		
+		uri = eog_window_retrieve_save_as_uri (window, images->data);
+
+		priv->save_job = eog_job_save_as_new (images, NULL, uri); 
+
+		gnome_vfs_uri_unref (uri);
+	} else {
+		GnomeVFSURI *baseuri;
+		GtkWidget *dialog;
+		gchar *basedir;
+		EogURIConverter *converter;
+		
+		basedir = g_get_current_dir ();
+		baseuri = gnome_vfs_uri_new (basedir);
+		g_free (basedir);
+
+		dialog = eog_save_as_dialog_new (GTK_WINDOW (window),
+						 images, 
+						 baseuri);
+
+		gtk_widget_show_all (dialog);
+
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_OK) {
+			gnome_vfs_uri_unref (baseuri);
+
+			gtk_widget_destroy (dialog);
+
+			return;
+		}
+
+		converter = eog_save_as_dialog_get_converter (dialog);
+
+		g_assert (converter != NULL);
+
+		priv->save_job = eog_job_save_as_new (images, converter, NULL);
+
+		gtk_widget_destroy (dialog);
+
+		g_object_unref (converter);
+		gnome_vfs_uri_unref (baseuri);
+	}
+	
+	g_signal_connect (priv->save_job, 
+			  "finished",
+			  G_CALLBACK (eog_job_save_cb), 
+			  window);
+
+	g_signal_connect (priv->save_job, 
+			  "progress",
+			  G_CALLBACK (eog_job_save_progress_cb), 
+			  window);
+
+	eog_job_queue_add_job (priv->save_job);
 }
 
 static void

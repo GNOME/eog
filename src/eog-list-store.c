@@ -320,9 +320,10 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	GtkTreeIter iter;
 	gchar *mimetype;
 
+	return;
+
 	switch (event_type) {
 	case GNOME_VFS_MONITOR_EVENT_CHANGED:
-
 		mimetype = gnome_vfs_get_mime_type (info_uri);
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
@@ -340,20 +341,22 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		}
 		g_free (mimetype);
 		break;
+
 	case GNOME_VFS_MONITOR_EVENT_DELETED:
 
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 		}
 		break;
-	case GNOME_VFS_MONITOR_EVENT_CREATED:
 
+	case GNOME_VFS_MONITOR_EVENT_CREATED:
 		if (is_file_in_list_store (store, info_uri, NULL)) {
 			uri = gnome_vfs_uri_new (info_uri);
 			eog_list_store_append_image_from_uri (store, uri);
 			gnome_vfs_uri_unref (uri);
 		}
 		break;
+
 	case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
 	case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
 	case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:

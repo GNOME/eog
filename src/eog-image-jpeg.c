@@ -275,14 +275,12 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		unsigned char *exif_buf;
 		unsigned int   exif_buf_len;
 
-		g_print ("save exif data\n");
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&dstinfo, JPEG_APP0+1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
 	}
 #else
 	if (priv->exif_chunk != NULL) {
-		g_print ("save exif raw data\n");
 		jpeg_write_marker (&dstinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
 	}
 #endif
@@ -405,14 +403,12 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		unsigned char *exif_buf;
 		unsigned int   exif_buf_len;
 		
-		g_print ("save exif data\n");
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
 	}
 #else
 	if (priv->exif_chunk != NULL) {
-		g_print ("save exif raw data\n");
 		jpeg_write_marker (&cinfo, JPEG_APP0+1, priv->exif_chunk, priv->exif_chunk_len);
 	}
 #endif
@@ -625,7 +621,6 @@ eog_image_jpeg_save (EogImage *image, GnomeVFSURI *uri, GError **error)
 #if HAVE_EXIF
 	if (priv->exif != NULL)
 	{
-		g_print ("save exif data\n");
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
 		g_free (exif_buf);

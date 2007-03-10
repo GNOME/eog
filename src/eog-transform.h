@@ -6,6 +6,11 @@
 
 G_BEGIN_DECLS
 
+#ifndef __EOG_JOB_DECLR__
+#define __EOG_JOB_DECLR__
+typedef struct _EogJob EogJob;
+#endif
+
 typedef enum {
 	EOG_TRANSFORM_NONE,
 	EOG_TRANSFORM_ROT_90,
@@ -46,7 +51,7 @@ struct _EogTransformClass {
 
 GType         eog_transform_get_type (void);
 
-GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf);
+GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job);
 EogTransform* eog_transform_reverse (EogTransform *trans);
 EogTransform* eog_transform_compose (EogTransform *trans, EogTransform *compose);
 gboolean      eog_transform_is_identity (EogTransform *trans);

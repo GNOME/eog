@@ -39,7 +39,15 @@ G_BEGIN_DECLS
   typedef struct _EogImage EogImage;
 #endif
 
+#ifndef __EOG_URI_CONVERTER_DECLR__
+#define __EOG_URI_CONVERTER_DECLR__
+typedef struct _EogURIConverter EogURIConverter;
+#endif
+
+#ifndef __EOG_JOB_DECLR__
+#define __EOG_JOB_DECLR__
 typedef struct _EogJob EogJob;
+#endif
 typedef struct _EogJobClass EogJobClass;
 
 typedef struct _EogJobThumbnail EogJobThumbnail;
@@ -53,6 +61,12 @@ typedef struct _EogJobModelClass EogJobModelClass;
 
 typedef struct _EogJobTransform EogJobTransform;
 typedef struct _EogJobTransformClass EogJobTransformClass;
+
+typedef struct _EogJobSave EogJobSave;
+typedef struct _EogJobSaveClass EogJobSaveClass;
+
+typedef struct _EogJobSaveAs EogJobSaveAs;
+typedef struct _EogJobSaveAsClass EogJobSaveAsClass;
 
 #define EOG_TYPE_JOB		       (eog_job_get_type())
 #define EOG_JOB(obj)		       (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB, EogJob))
@@ -79,14 +93,25 @@ typedef struct _EogJobTransformClass EogJobTransformClass;
 #define EOG_JOB_TRANSFORM_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass),  EOG_TYPE_JOB_TRANSFORM, EogJobTransformClass))
 #define EOG_IS_JOB_TRANSFORM(obj)      (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB_TRANSFORM))
 
+#define EOG_TYPE_JOB_SAVE              (eog_job_save_get_type())
+#define EOG_JOB_SAVE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB_SAVE, EogJobSave))
+#define EOG_JOB_SAVE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), EOG_TYPE_JOB_SAVE, EogJobSaveClass))
+#define EOG_IS_JOB_SAVE(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB_SAVE))
+#define EOG_JOB_SAVE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), EOG_TYPE_JOB_SAVE, EogJobSaveClass))
+
+#define EOG_TYPE_JOB_SAVE_AS           (eog_job_save_as_get_type())
+#define EOG_JOB_SAVE_AS(obj)           (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB_SAVE_AS, EogJobSaveAs))
+#define EOG_JOB_SAVE_AS_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST((klass), EOG_TYPE_JOB_SAVE_AS, EogJobSaveAsClass))
+#define EOG_IS_JOB_SAVE_AS(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB_SAVE_AS))
+
 struct _EogJob
 {
 	GObject  parent;
 
 	GError   *error;
 	GMutex   *mutex;
-	float    progress;
-	gboolean finished;
+	float     progress;
+	gboolean  finished;
 };
 
 struct _EogJobClass
@@ -99,9 +124,9 @@ struct _EogJobClass
 
 struct _EogJobThumbnail
 {
-	EogJob   parent;
+	EogJob       parent;
 	GnomeVFSURI *uri_entry;
-	GdkPixbuf *thumbnail;
+	GdkPixbuf   *thumbnail;
 };
 
 struct _EogJobThumbnailClass
@@ -111,7 +136,7 @@ struct _EogJobThumbnailClass
 
 struct _EogJobLoad
 {
-	EogJob   parent;
+	EogJob    parent;
 	EogImage *image;
 };
 
@@ -122,7 +147,7 @@ struct _EogJobLoadClass
 
 struct _EogJobModel
 {
-	EogJob       parent;
+	EogJob        parent;
 	EogListStore *store;
 	GSList       *uri_list;
 };
@@ -134,7 +159,7 @@ struct _EogJobModelClass
 
 struct _EogJobTransform
 {
-	EogJob       parent;
+	EogJob        parent;
 	GList        *images;
 	EogTransform *trans;
 };
@@ -144,11 +169,48 @@ struct _EogJobTransformClass
         EogJobClass parent_class;
 };
 
+typedef enum {
+	EOG_SAVE_RESPONSE_NONE,
+	EOG_SAVE_RESPONSE_RETRY,
+	EOG_SAVE_RESPONSE_SKIP,
+	EOG_SAVE_RESPONSE_OVERWRITE,
+	EOG_SAVE_RESPONSE_CANCEL,
+	EOG_SAVE_RESPONSE_LAST
+} EogJobSaveResponse;
+
+struct _EogJobSave
+{
+	EogJob    parent;
+	GList	 *images;
+	gint      current_pos;
+	EogImage *current_image;
+};
+
+struct _EogJobSaveClass
+{
+	EogJobClass parent_class;
+
+        void (*run) (EogJobSave *job);
+	
+};
+
+struct _EogJobSaveAs
+{
+	EogJobSave       parent;
+	EogURIConverter *converter;
+	GnomeVFSURI     *uri;
+};
+
+struct _EogJobSaveAsClass
+{
+	EogJobSaveClass parent;
+};
+
 /* Base job class */
 GType           eog_job_get_type           (void);
 void            eog_job_finished           (EogJob          *job);
 void            eog_job_set_progress       (EogJob          *job,
-					    float           progress);
+					    float            progress);
 
 /* EogJobThumbnail */
 GType           eog_job_thumbnail_get_type (void);
@@ -170,6 +232,17 @@ GType 		eog_job_transform_get_type (void);
 EogJob 	       *eog_job_transform_new      (GList           *images,
 					    EogTransform    *trans);
 void            eog_job_transform_run      (EogJobTransform *model);
+
+/* EogJobSave */
+GType		eog_job_save_get_type      (void);
+EogJob         *eog_job_save_new           (GList           *images);
+void            eog_job_save_run           (EogJobSave      *job);
+
+/* EogJobSaveAs */
+GType		eog_job_save_as_get_type   (void);
+EogJob         *eog_job_save_as_new        (GList           *images,
+					    EogURIConverter *converter,
+					    GnomeVFSURI     *uri);
 
 G_END_DECLS
 
