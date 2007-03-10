@@ -84,8 +84,6 @@ eog_SOURCES =				\
 	eog-uri-converter.c		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
-	eog-save-dialog-helper.h	\
-	eog-save-dialog-helper.c	\
 	eog-save-as-dialog-helper.h	\
 	eog-save-as-dialog-helper.c	\
 	eog-print-image-setup.c         \
