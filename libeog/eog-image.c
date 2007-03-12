@@ -1837,6 +1837,7 @@ eog_image_data_unref (EogImage *img)
 	return img;
 }
 
+#if HAVE_EXIF
 void
 eog_image_autorotate (EogImage *img)
 {
@@ -1852,3 +1853,4 @@ eog_image_autorotate (EogImage *img)
 		img->priv->autorotate = TRUE;
 	}
 }
+#endif

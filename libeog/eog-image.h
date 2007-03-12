@@ -123,7 +123,9 @@ void eog_image_apply_display_profile (EogImage *img, cmsHPROFILE profile);
 #endif
 
 /* modification API */
+#if HAVE_EXIF
 void                eog_image_autorotate                      (EogImage *img);
+#endif
 void                eog_image_transform                       (EogImage *img, EogTransform *trans, EogJob *job);
 void                eog_image_undo                            (EogImage *img);
 
