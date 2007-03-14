@@ -45,6 +45,9 @@ GSList  *eog_util_string_array_to_list       (const gchar **files,
 
 gchar  **eog_util_string_array_make_absolute (gchar **files);
 
+gboolean eog_util_launch_desktop_file        (const gchar *filename,
+					      guint32      user_time);
+
 G_END_DECLS
 
 #endif /* __EOG_UTIL_H__ */

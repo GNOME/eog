@@ -2517,7 +2517,31 @@ eog_window_cmd_rotate_270 (GtkAction *action, gpointer user_data)
 static void
 eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 {
-	g_print ("Not implemented yet!\n");
+	EogWindow *window;
+	EogWindowPrivate *priv;
+	EogImage *image;
+	guint32 user_time;
+	char *filename = NULL;
+	
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
+
+	g_return_if_fail (EOG_IS_IMAGE (image));
+
+	user_time = gtk_get_current_event_time();
+
+	filename = eog_image_get_uri_for_display (image);
+
+	gconf_client_set_string (priv->client, 
+				 EOG_CONF_DESKTOP_WALLPAPER, 
+				 filename, 
+				 NULL);
+
+	eog_util_launch_desktop_file ("background.desktop", user_time);
 }
 
 static void

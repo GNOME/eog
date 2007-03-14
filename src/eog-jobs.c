@@ -242,11 +242,13 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	if (orig_width) {
 		gdk_pixbuf_set_option (job->thumbnail,
 				       "tEXt::Thumb::Image::Width", orig_width);
+
 		g_free (orig_width);
 	}
 	if (orig_height) {
 		gdk_pixbuf_set_option (job->thumbnail,
 				       "tEXt::Thumb::Image::Height", orig_height);
+
 		g_free (orig_height);
 	}
 	

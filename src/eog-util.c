@@ -29,6 +29,7 @@
 #ifdef HAVE_STRPTIME
 #define _XOPEN_SOURCE
 #endif /* HAVE_STRPTIME */
+
 #include <time.h>
 
 #include "eog-util.h"
@@ -39,6 +40,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libgnome/gnome-help.h>
+#include <libgnome/gnome-desktop-item.h>
 #include <libgnomevfs/gnome-vfs.h>
 
 void 
@@ -163,4 +165,70 @@ eog_util_string_array_make_absolute (gchar **files)
 	}
 	
 	return abs_files;
+}
+
+static int
+launch_desktop_item (const char *desktop_file,
+                     guint32 user_time,
+                     GError **error)
+{
+	GnomeDesktopItem *item = NULL;
+	GList *uris = NULL;
+	int ret = -1;
+	
+	item = gnome_desktop_item_new_from_file (desktop_file, 0, NULL);
+
+	if (item == NULL) return FALSE;
+	
+	gnome_desktop_item_set_launch_time (item, user_time);
+
+	ret = gnome_desktop_item_launch (item, uris, 0, error);
+	
+	g_list_foreach (uris, (GFunc) g_free, NULL);
+	g_list_free (uris);
+	gnome_desktop_item_unref (item);
+	
+	return ret;
+}
+
+gboolean
+eog_util_launch_desktop_file (const gchar *filename,
+                              guint32      user_time)
+{
+	GError *error = NULL;
+	const char * const *dirs;
+	char *path = NULL;
+	int i, ret = -1;
+	
+	dirs = g_get_system_data_dirs ();
+
+	if (dirs == NULL) return FALSE;
+	
+	for (i = 0; dirs[i] != NULL; i++) {
+	        path = g_build_filename (dirs[i], 
+					 "applications", 
+					 filename, 
+					 NULL);
+
+	        if (g_file_test (path, G_FILE_TEST_IS_REGULAR)) break;
+	
+	        g_free (path);
+		path = NULL;
+	}
+	
+	if (path != NULL) {
+	        ret = launch_desktop_item (path, user_time, &error);
+	
+	        if (ret == -1 || error != NULL) {
+	                g_warning ("Cannot launch desktop item '%s': %s\n",
+	                           path, 
+				   error ? error->message : "unknown error");
+
+	                g_clear_error (&error);
+	        }
+	
+	        g_free (path);
+	}
+	
+	return ret >= 0;
 }
