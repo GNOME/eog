@@ -4212,13 +4212,16 @@ eog_window_open (EogWindow *window, EogImageList *model, GError **error)
 		setup_initial_geometry (window);
 	}
 		
+	if (priv->image_list) {
+		g_signal_connect (priv->image_list, "image-added",
+				  G_CALLBACK (image_list_image_added),
+				  window);
+		g_signal_connect (priv->image_list, "image-removed",
+				  G_CALLBACK (image_list_image_removed),
+				  window);
+	}
+
 	/* attach model to view */
-	g_signal_connect (priv->image_list, "image-added",
-			  G_CALLBACK (image_list_image_added),
-			  window);
-	g_signal_connect (priv->image_list, "image-removed",
-			  G_CALLBACK (image_list_image_removed),
-			  window);
 	eog_wrap_list_set_model (EOG_WRAP_LIST (priv->wraplist), EOG_IMAGE_LIST (priv->image_list));
 	
 	return TRUE;
