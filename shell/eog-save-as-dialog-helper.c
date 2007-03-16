@@ -239,6 +239,8 @@ prepare_format_options (SaveAsData *data)
 
 	gtk_option_menu_set_menu (GTK_OPTION_MENU (widget), menu);
 	gtk_menu_set_active (GTK_MENU (menu), 0); /* 'as is' as default */
+
+	g_slist_free (formats);
 }
 
 static void
