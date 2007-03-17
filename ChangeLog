@@ -1,3 +1,21 @@
+2007-03-18  Lucas Rocha  <lucasr@gnome.org>
+
+	Restabilished ICC profiling functionality with full code refactoring.
+
+	* src/eog-debug.[ch] (eog_debug_init): added EOG_DEBUG_LCMS for ICC
+	profiles debugging.
+	* src/eog-image.[ch] (eog_image_get_profile,
+	eog_image_apply_display_profile, eog_image_set_icc_data,
+	eog_image_real_load): load embedded ICC profile from the image if
+	present.
+	* src/eog-metadata-reader.[ch] (eog_metadata_reader_get_icc_chunk,
+	eog_metadata_reader_get_icc_chunk_size): unify ICC functions for 
+	consistency. 
+	* src/eog-window.c (eog_job_load_cb, eog_window_init,
+	eog_job_model_cb, eog_window_dispose, 
+	eog_window_get_display_profile): load and cache display profile 
+	to be applied on images just after they are successfully loaded.
+
 2007-03-17  Lucas Rocha  <lucasr@gnome.org>
 
 	Restabilished move to trash functionality. Patch from Javier Sánchez

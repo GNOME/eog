@@ -82,6 +82,9 @@ eog_debug_init ()
 	if (g_getenv ("EOG_DEBUG_PRINTING") != NULL)
 		debug = debug | EOG_DEBUG_PRINTING;
 
+	if (g_getenv ("EOG_DEBUG_LCMS") != NULL)
+		debug = debug | EOG_DEBUG_LCMS;
+
 out:		
 
 #ifdef ENABLE_PROFILING

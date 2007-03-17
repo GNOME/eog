@@ -154,7 +154,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->size = 0;
 				priv->state = EMR_READ_SIZE_HIGH_BYTE;
 
-				eog_debug_message (DEBUG_IMAGE_DATA, "APPx Marker Found: %x\n", priv->last_marker);
+				eog_debug_message (DEBUG_IMAGE_DATA, "APPx Marker Found: %x", priv->last_marker);
 			}
 			else {
 				/* otherwise simply consume the byte */
@@ -342,20 +342,16 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
  * parse the sections and construct a single memory chunk, or maybe even parse
  * the profile.
  */
-
-gpointer
-eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr)
+void
+eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr, guchar **data, guint *len)
 {
-	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
-	if (emr->priv->icc_chunk)
-		return emr->priv->icc_chunk + 14;
-	else
-		return NULL;
-}
+	EogMetadataReaderPrivate *priv;
+	
+	g_return_if_fail (EOG_IS_METADATA_READER (emr));
+	priv = emr->priv;
 
-guint
-eog_metadata_reader_get_icc_chunk_size (EogMetadataReader *emr)
-{
-	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), -1);
-	return emr->priv->icc_len - 14;
+	if (priv->icc_chunk) {	
+		*data = (guchar*) priv->icc_chunk + 14;
+		*len = priv->icc_len - 14;
+	}
 }

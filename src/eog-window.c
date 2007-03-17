@@ -56,11 +56,20 @@
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
 #include <libgnomevfs/gnome-vfs-mime.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <gconf/gconf-client.h>
+
+#if HAVE_LCMS
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#include <lcms.h>
+#endif
 
 #define EOG_WINDOW_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_WINDOW, EogWindowPrivate))
@@ -155,6 +164,10 @@ struct _EogWindowPrivate {
 
 	guint                open_with_menu_id;
  	GList*               mime_application_list;
+
+#ifdef HAVE_LCMS
+        cmsHPROFILE         *display_profile;
+#endif
 };
 
 static void eog_window_cmd_fullscreen (GtkAction *action, gpointer user_data);
@@ -483,6 +496,53 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 		update_action_groups_state (EOG_WINDOW (user_data));
 	}
 }
+
+#ifdef HAVE_LCMS
+static cmsHPROFILE *
+eog_window_get_display_profile (GdkScreen *screen)
+{
+	Display *dpy;
+	Atom icc_atom, type;
+	int format;
+	gulong nitems;
+	gulong bytes_after;
+	guchar *str;
+	int result;
+	cmsHPROFILE *profile;
+
+	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
+
+	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), 
+							  "_ICC_PROFILE");
+	
+	result = XGetWindowProperty (dpy, 
+				     GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
+				     icc_atom, 
+				     0, 
+				     G_MAXLONG,
+				     False, 
+				     XA_CARDINAL, 
+				     &type, 
+				     &format, 
+				     &nitems,
+				     &bytes_after, 
+                                     (guchar **)&str);
+
+	/* TODO: handle bytes_after != 0 */
+	
+	if (nitems) {
+		profile = cmsOpenProfileFromMem(str, nitems);
+
+		XFree (str);
+
+		return profile;
+	} else {
+		eog_debug_message (DEBUG_LCMS, "No profile, not correcting");
+
+		return NULL;
+	}
+}
+#endif
 
 static void
 update_status_bar (EogWindow *window)
@@ -908,7 +968,8 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 			GnomeVFSMimeApplication *app = iter->data;
 
 			/* do not include eog itself */
-			if (strcmp (gnome_vfs_mime_application_get_binary_name (app), g_get_prgname ()) == 0) {
+			if (g_ascii_strcasecmp (gnome_vfs_mime_application_get_binary_name (app), 
+						g_get_prgname ()) == 0) {
  				apps = g_list_remove_link (apps, iter);
 				g_list_free1 (iter);
  				gnome_vfs_mime_application_free (app);
@@ -1159,6 +1220,11 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	priv->image = g_object_ref (job->image);
 
 	if (EOG_JOB (job)->error == NULL) {
+#ifdef HAVE_LCMS
+		eog_image_apply_display_profile (job->image, 
+						 priv->display_profile);
+#endif
+
 		eog_window_display_image (window, job->image);
 	} else {
 		GtkWidget *message_area;
@@ -3493,11 +3559,14 @@ static void
 eog_window_init (EogWindow *window)
 {
 	GdkGeometry hints;
+	GdkScreen *screen;
 
 	eog_debug (DEBUG_WINDOW);
 
 	hints.min_width  = EOG_WINDOW_MIN_WIDTH;
 	hints.min_height = EOG_WINDOW_MIN_HEIGHT;
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
 	window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
@@ -3570,7 +3639,12 @@ eog_window_init (EogWindow *window)
 	window->priv->status = EOG_WINDOW_STATUS_UNKNOWN;
 
 	window->priv->recent_manager = 
-		gtk_recent_manager_get_for_screen (gtk_widget_get_screen (GTK_WIDGET (window)));
+		gtk_recent_manager_get_for_screen (screen);
+
+#ifdef HAVE_LCMS
+	window->priv->display_profile = 
+		eog_window_get_display_profile (screen);
+#endif
 
 	window->priv->recent_menu_id = 0;
 
@@ -3675,6 +3749,13 @@ eog_window_dispose (GObject *object)
 		gnome_vfs_mime_application_list_free (priv->mime_application_list);
 		priv->mime_application_list = NULL;
 	}
+
+#ifdef HAVE_LCMS
+	if (priv->display_profile != NULL) {
+		cmsCloseProfile (priv->display_profile);
+		priv->display_profile = NULL;
+	}
+#endif
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
 }
@@ -4045,7 +4126,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 	eog_debug (DEBUG_WINDOW);
 
-#if defined(HAVE_LCMS) || defined(HAVE_EXIF)
+#ifdef HAVE_EXIF
         int i;
 #endif
 	
@@ -4062,13 +4143,6 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	priv->store = g_object_ref (job->store);
 
 	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
-
-#ifdef HAVE_LCMS
-	for (i = 0; i < n_images; i++) {
-		//eog_image_apply_display_profile (eog_list_store_get_image_by_pos (priv->store, i),
-		//				 get_screen_profile (window));
-	}
-#endif
 
 #ifdef HAVE_EXIF 
 	if (gconf_client_get_bool (priv->client, EOG_CONF_VIEW_AUTOROTATE, NULL)) {

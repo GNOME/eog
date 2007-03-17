@@ -172,6 +172,13 @@ void              eog_image_transform                (EogImage   *img,
 void              eog_image_autorotate               (EogImage   *img);
 #endif
 
+#ifdef HAVE_LCMS
+cmsHPROFILE       eog_image_get_profile              (EogImage    *img);
+
+void              eog_image_apply_display_profile    (EogImage    *img,
+						      cmsHPROFILE  display_profile);
+#endif
+
 void              eog_image_undo                     (EogImage   *img);
 
 GList		 *eog_image_get_supported_mime_types (void);

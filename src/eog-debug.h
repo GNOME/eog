@@ -41,7 +41,8 @@ typedef enum {
 	EOG_DEBUG_IMAGE_SAVE   = 1 << 6,
 	EOG_DEBUG_LIST_STORE   = 1 << 7,
 	EOG_DEBUG_PREFERENCES  = 1 << 8,
-	EOG_DEBUG_PRINTING     = 1 << 9
+	EOG_DEBUG_PRINTING     = 1 << 9,
+	EOG_DEBUG_LCMS         = 1 << 10
 } EogDebugSection;
 
 #define	DEBUG_WINDOW		EOG_DEBUG_WINDOW,      __FILE__, __LINE__, G_STRFUNC
@@ -54,6 +55,7 @@ typedef enum {
 #define	DEBUG_LIST_STORE	EOG_DEBUG_LIST_STORE,  __FILE__, __LINE__, G_STRFUNC
 #define	DEBUG_PREFERENCES	EOG_DEBUG_PREFERENCES, __FILE__, __LINE__, G_STRFUNC
 #define	DEBUG_PRINTING		EOG_DEBUG_PRINTING,    __FILE__, __LINE__, G_STRFUNC
+#define	DEBUG_LCMS 		EOG_DEBUG_LCMS,        __FILE__, __LINE__, G_STRFUNC
 
 void   eog_debug_init        (void);
 

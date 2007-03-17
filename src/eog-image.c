@@ -512,131 +512,165 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 {
 	EogImagePrivate *priv;
 	cmsHTRANSFORM transform;
-	int row, width, rows, stride;
+	gint row, width, rows, stride;
 	guchar *p;
 	
 	g_return_if_fail (img != NULL);
 
-	if (screen == NULL)
-		return;
-
 	priv = img->priv;
-	if (priv->profile == NULL)
-		return;
-	
-	transform = cmsCreateTransform(priv->profile, TYPE_RGB_8, screen, TYPE_RGB_8, INTENT_PERCEPTUAL, 0);
+
+	if (screen == NULL || priv->profile == NULL) return;
+
+	transform = cmsCreateTransform (priv->profile, 
+				        TYPE_RGB_8, 
+				        screen, 
+				        TYPE_RGB_8, 
+				        INTENT_PERCEPTUAL, 
+				        0);
 	
 	rows = gdk_pixbuf_get_height(priv->image);
 	width = gdk_pixbuf_get_width (priv->image);
 	stride = gdk_pixbuf_get_rowstride (priv->image);
 	p = gdk_pixbuf_get_pixels (priv->image);
+
 	for (row = 0; row < rows; ++row) {
 		cmsDoTransform(transform, p, p, width);
 		p += stride;
 	}
-	cmsDeleteTransform(transform);
-	//cmsCloseProfile(screen);
+
+	cmsDeleteTransform (transform);
 }
 
 static void
-extract_profile (EogImage *img, EogMetadataReader *md_reader)
+eog_image_set_icc_data (EogImage *img, EogMetadataReader *md_reader)
 {
 	EogImagePrivate *priv = img->priv;
+	guchar *icc_chunk = NULL;
+	guint icc_chunk_len = 0;
 #ifdef HAVE_EXIF
 	ExifEntry *entry;
-	const ExifByteOrder o = exif_data_get_byte_order (priv->exif);
+	ExifByteOrder o;
+	gint color_space;
 #endif
+
 	/* TODO: switch on format to specialised functions */
 
-	/* Embedded ICC profiles rule over anything else */
-	{
-		gpointer data = eog_metadata_reader_get_icc_chunk (md_reader);
-		if (data != NULL) {
-			cmsErrorAction (LCMS_ERROR_SHOW);
-			priv->profile = cmsOpenProfileFromMem(data, eog_metadata_reader_get_icc_chunk_size (md_reader));
-			if (priv->profile) {
-				g_printerr("JPEG has ICC profile\n");
-			} else {
-				g_printerr("JPEG has invalid ICC profile\n");
-			}
-			return;
-		}
-	}
-#ifdef HAVE_EXIF
-	/* No EXIF data, so can't do anything */
-	if (priv->exif == NULL)
-		return;
-	
-	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_COLOR_SPACE);
-	if (entry == NULL)
-		return;
+	eog_metadata_reader_get_icc_chunk (md_reader, &icc_chunk, &icc_chunk_len);
 
-	if (exif_get_short (entry->data, o) == 1) {
+	if (icc_chunk != NULL) {
+		cmsErrorAction (LCMS_ERROR_SHOW);
+
+		priv->profile = cmsOpenProfileFromMem(icc_chunk, icc_chunk_len);
+
+		if (priv->profile) {
+			eog_debug_message (DEBUG_LCMS, "JPEG has ICC profile");
+		} else {
+			eog_debug_message (DEBUG_LCMS, "JPEG has invalid ICC profile");
+		}
+
+		return;
+	}
+
+	return;
+
+#ifdef HAVE_EXIF
+	if (priv->exif == NULL) return;
+
+	o = exif_data_get_byte_order (priv->exif);
+
+	entry = exif_data_get_entry (priv->exif, EXIF_TAG_COLOR_SPACE);
+
+	if (entry == NULL) return;
+
+	color_space = exif_get_short (entry->data, o);
+
+	switch (color_space) {
+	case 1:
+		eog_debug_message (DEBUG_LCMS, "JPEG is sRGB");
+
 		priv->profile = cmsCreate_sRGBProfile ();
-		//g_printerr ("JPEG is sRGB\n");
-	} else if (exif_get_short (entry->data, o) == 2) {
+
+		break;
+
+	case 2:
+		eog_debug_message (DEBUG_LCMS, "JPEG is Adobe RGB (Disabled)");
+
 		/* TODO: create Adobe RGB profile */
 		//priv->profile = cmsCreate_Adobe1998Profile ();
-		//g_printerr ("JPEG is Adobe RGB (NOT correcting for now!)\n");
-	} else if (exif_get_short (entry->data, o) == 0xFFFF) {
-		double gammaValue;
+
+		break;
+
+	case 0xFFFF: 
+		{
 		cmsCIExyY whitepoint;
 		cmsCIExyYTRIPLE primaries;
 		LPGAMMATABLE gamma[3];
-		
-		const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
+		double gammaValue;
 		ExifRational r;
+
+		const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
 		
-		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_0], EXIF_TAG_WHITE_POINT);
+		entry = exif_data_get_entry (priv->exif, EXIF_TAG_WHITE_POINT);
+
 		if (entry && entry->components == 2) {
 			r = exif_get_rational (entry->data, o);
-			whitepoint.x = (double)r.numerator/r.denominator;
+			whitepoint.x = (double) r.numerator / r.denominator;
+
 			r = exif_get_rational (entry->data + offset, o);
-			whitepoint.y = (double)r.numerator/r.denominator;
+			whitepoint.y = (double) r.numerator / r.denominator;
 			whitepoint.Y = 1.0;
 		} else {
-			g_printerr("No whitepoint found\n");
+			eog_debug_message (DEBUG_LCMS, "No whitepoint found");
 			return;
 		}
 		    
-		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_0], EXIF_TAG_PRIMARY_CHROMATICITIES);
+		entry = exif_data_get_entry (priv->exif, EXIF_TAG_PRIMARY_CHROMATICITIES);
+
 		if (entry && entry->components == 6) {
 			r = exif_get_rational (entry->data + 0 * offset, o);
-			primaries.Red.x = (double)r.numerator/r.denominator;
+			primaries.Red.x = (double) r.numerator / r.denominator;
+
 			r = exif_get_rational (entry->data + 1 * offset, o);
-			primaries.Red.y = (double)r.numerator/r.denominator;
+			primaries.Red.y = (double) r.numerator / r.denominator;
 		      
 			r = exif_get_rational (entry->data + 2 * offset, o);
-			primaries.Green.x = (double)r.numerator/r.denominator;
+			primaries.Green.x = (double) r.numerator / r.denominator;
+
 			r = exif_get_rational (entry->data + 3 * offset, o);
-			primaries.Green.y = (double)r.numerator/r.denominator;
+			primaries.Green.y = (double) r.numerator / r.denominator;
 		      
 			r = exif_get_rational (entry->data + 4 * offset, o);
-			primaries.Blue.x = (double)r.numerator/r.denominator;
+			primaries.Blue.x = (double) r.numerator / r.denominator;
+
 			r = exif_get_rational (entry->data + 5 * offset, o);
-			primaries.Blue.y = (double)r.numerator/r.denominator;		    
+			primaries.Blue.y = (double) r.numerator / r.denominator;		    
 		      
 			primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
 		} else {
-			g_printerr("No primary chromaticities found\n");
+			eog_debug_message (DEBUG_LCMS, "No primary chromaticities found");
 			return;
 		}
 
-		entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_GAMMA);
+		entry = exif_data_get_entry (priv->exif, EXIF_TAG_GAMMA);
+
 		if (entry) {
 			r = exif_get_rational (entry->data, o);
-			gammaValue = (double)r.numerator/r.denominator;
+			gammaValue = (double) r.numerator / r.denominator;
 		} else {
-			/* Assume 2.2 */
-			g_printerr("No gamma found\n");
+			eog_debug_message (DEBUG_LCMS, "No gamma found");
 			gammaValue = 2.2;
 		}
 		    
-		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma(256, gammaValue);
+		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma (256, gammaValue);
 		    
-		priv->profile = cmsCreateRGBProfile(&whitepoint, &primaries, gamma);
-		//g_printerr ("JPEG is calibrated\n");
+		priv->profile = cmsCreateRGBProfile (&whitepoint, &primaries, gamma);
+
 		cmsFreeGamma(gamma[0]);
+
+		eog_debug_message (DEBUG_LCMS, "JPEG is calibrated");
+
+		break;
+		}
 	}
 #endif
 }
@@ -654,6 +688,7 @@ eog_image_set_orientation (EogImage *img)
 
 	if (priv->exif != NULL) {
 		ExifByteOrder o = exif_data_get_byte_order (priv->exif);
+
 		ExifEntry *entry = exif_data_get_entry (priv->exif, 
 							EXIF_TAG_ORIENTATION);
 
@@ -769,7 +804,7 @@ eog_image_real_load (EogImage *img,
 	guchar *buffer;
 	gboolean failed = FALSE;
 	gboolean first_run = TRUE;
-	gboolean set_exif_data = TRUE;
+	gboolean set_metadata = TRUE;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
 
 	g_assert (error == NULL || *error == NULL);
@@ -870,9 +905,13 @@ eog_image_real_load (EogImage *img,
 			eog_metadata_reader_consume (md_reader, buffer, bytes_read);
 
 			if (eog_metadata_reader_finished (md_reader)) {
-				if (set_exif_data) {
+				if (set_metadata) {
 					eog_image_set_exif_data (img, md_reader);
-					set_exif_data = FALSE;
+
+#ifdef HAVE_LCMS
+					eog_image_set_icc_data (img, md_reader);
+#endif
+					set_metadata = FALSE;
 				}
 
 				if (data2read == EOG_IMAGE_DATA_EXIF) 
@@ -927,12 +966,6 @@ eog_image_real_load (EogImage *img,
 				priv->file_type = gdk_pixbuf_format_get_name (format);
 			}
 		}
-		
-#ifdef HAVE_LCMS
-		if (md_reader != NULL) {
-			extract_profile (img, md_reader);
-		}
-#endif
 	}
 
 	if (loader != NULL) {
