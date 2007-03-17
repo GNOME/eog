@@ -171,6 +171,17 @@ static void update_action_groups_state (EogWindow *window);
 static void open_with_launch_application_cb (GtkAction *action, gpointer callback_data);
 static void eog_window_update_openwith_menu (EogWindow *window, EogImage *image);
 
+static GQuark
+eog_window_error_quark (void)
+{
+	static GQuark q = 0;
+
+	if (q == 0)
+		q = g_quark_from_static_string ("eog-window-error-quark");
+	
+	return q;
+}
+
 static void
 eog_window_interp_type_changed_cb (GConfClient *client,
 				   guint       cnxn_id,
@@ -2544,10 +2555,195 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	eog_util_launch_desktop_file ("background.desktop", user_time);
 }
 
+static int
+show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
+{
+	GtkWidget *dlg;
+	char *prompt;
+	int response;
+	int n_images;
+	EogImage *image;
+
+	n_images = g_list_length (images);
+	
+	if (n_images == 1) {
+		image = EOG_IMAGE (images->data);
+		prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"), 
+                                          eog_image_get_caption (image));		
+	} else {
+		prompt = g_strdup_printf (ngettext("Are you sure you want to move\n" 
+					           "the selected image to the trash?",
+						   "Are you sure you want to move\n"
+						   "the %d selected images to the trash?", n_images), n_images);
+	}
+
+	dlg = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
+						  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						  GTK_MESSAGE_QUESTION,
+						  GTK_BUTTONS_NONE,
+						  "<span weight=\"bold\" size=\"larger\">%s</span>", 
+						  prompt);
+	g_free (prompt);
+
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to Trash"), GTK_RESPONSE_OK);
+	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
+	gtk_window_set_title (GTK_WINDOW (dlg), "");
+	gtk_widget_show_all (dlg);
+
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_widget_destroy (dlg);
+
+	return response;
+}
+
+static gboolean
+move_to_trash_real (EogImage *image, GError **error)
+{
+	GnomeVFSURI *uri;
+	GnomeVFSURI *trash_dir;
+	GnomeVFSURI *trash_uri;
+	gint result;
+	char *name;
+
+	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+
+	uri = eog_image_get_uri (image);
+
+        result = gnome_vfs_find_directory (uri,
+					   GNOME_VFS_DIRECTORY_KIND_TRASH,
+					   &trash_dir, 
+					   FALSE, 
+					   FALSE, 
+					   0777);
+
+	if (result != GNOME_VFS_OK) {
+		gnome_vfs_uri_unref (uri);
+
+		g_set_error (error, 
+			     EOG_WINDOW_ERROR, 
+			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+			     _("Couldn't access trash."));
+
+		return FALSE;
+	}
+
+	name = gnome_vfs_uri_extract_short_name (uri);
+	trash_uri = gnome_vfs_uri_append_file_name (trash_dir, name);
+	g_free (name);
+	
+	result = gnome_vfs_move_uri (uri, trash_uri, TRUE);
+
+	gnome_vfs_uri_unref (uri);
+	gnome_vfs_uri_unref (trash_uri);
+	gnome_vfs_uri_unref (trash_dir);
+	
+	if (result != GNOME_VFS_OK) {
+		g_set_error (error, 
+			     EOG_WINDOW_ERROR,
+			     EOG_WINDOW_ERROR_UNKNOWN,
+			     gnome_vfs_result_to_string (result));
+	}
+
+	return (result == GNOME_VFS_OK);
+}
+
 static void
 eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 {
-	g_print ("Not implemented yet!\n");
+	GList *images;
+	GList *it;
+	EogWindowPrivate *priv;
+	EogListStore *list;
+	int pos;
+	EogImage *img;
+	EogWindow *window;
+	int response;
+	int n_images;
+	gboolean success;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+	list = priv->store;
+	
+	n_images = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (priv->thumbview));
+
+	if (n_images < 1) return;
+
+	/* save position of selected image after the deletion */
+	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
+
+	g_assert (images != NULL);
+
+	/* HACK: eog_list_store_get_n_selected return list in reverse order */
+	images = g_list_reverse (images);
+
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0) {
+		response = show_move_to_trash_confirm_dialog (window, images);
+
+		if (response != GTK_RESPONSE_OK) return;
+	}
+	
+	pos = eog_list_store_get_pos_by_image (list, EOG_IMAGE (images->data));
+
+	/* FIXME: make a nice progress dialog */
+	/* Do the work actually. First try to delete the image from the disk. If this
+	 * is successfull, remove it from the screen. Otherwise show error dialog.
+	 */
+	for (it = images; it != NULL; it = it->next) {
+		GError *error = NULL;
+		EogImage *image;
+
+		image = EOG_IMAGE (it->data);
+
+		success = move_to_trash_real (image, &error);
+
+		if (success) {
+			eog_list_store_remove_image (list, image);
+		} else {
+			char *header;
+			GtkWidget *dlg;
+			
+			header = g_strdup_printf (_("Error on deleting image %s"), 
+						  eog_image_get_caption (image));
+
+			dlg = gtk_message_dialog_new (GTK_WINDOW (window),
+						      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+						      GTK_MESSAGE_ERROR,
+						      GTK_BUTTONS_OK,
+						      header);
+
+			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
+								  error->message);
+
+			gtk_dialog_run (GTK_DIALOG (dlg));
+
+			gtk_widget_destroy (dlg);
+
+			g_free (header);
+		}
+	}
+
+	/* free list */
+	g_list_foreach (images, (GFunc) g_object_unref, NULL);
+	g_list_free (images);
+
+	/* select image at previously saved position */
+	pos = MIN (pos, eog_list_store_length (list) - 1);
+
+	if (pos >= 0) {
+		img = eog_list_store_get_image_by_pos (list, pos);
+
+		eog_thumb_view_set_current_image (EOG_THUMB_VIEW (priv->thumbview), 
+						  img, 
+						  TRUE);
+
+		if (img != NULL) {
+			g_object_unref (img);
+		}
+	}
 }
 
 static void
