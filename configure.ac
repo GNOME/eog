@@ -1,76 +1,86 @@
-dnl Configure script for the Eye of Gnome image viewer
+dnl Configure script for the EOG Image Viewer
 
-AC_INIT(shell/main.c)
+AC_PREREQ(2.57)
+AC_INIT(eog, 2.19.1)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(eog, 2.18.1)
-
-dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
-AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
-
 AM_MAINTAINER_MODE
 
-dnl ================= Requirements ================================================
+AM_INIT_AUTOMAKE(eog, 2.19.1)
 
-GNOME_VFS_REQUIRED=2.5.91
-LIBGNOMEUI_REQUIRED=2.5.92
-LIBGLADE_REQUIRED=2.3.6
-GDKPIXBUF_REQUIRED=2.4.0
-LIBEXIF_REQUIRED=0.6.12
-LIBGNOMECANVAS_REQUIRED=2.5.92
-GCONF_REQUIRED=2.5.90
-LIBART_REQUIRED=2.3.16
-GTK_REQUIRED=2.10.0
-GNOME_DESKTOP_REQUIRED=2.10.0
-GTK_PRINT_REQUIRED=2.10.0
-GNOME_ICON_THEME_REQUIRED=2.17.1
+GNOME_COMMON_INIT
+GNOME_MAINTAINER_MODE_DEFINES
+GNOME_COMPILE_WARNINGS
+GNOME_DEBUG_CHECK
 
-dnl ===============================================================================
-
-AC_PROG_CC
-AC_ISC_POSIX
-AC_HEADER_STDC
-AC_ARG_PROGRAM
 AC_PROG_RANLIB
 
-dnl ================= translation =============================================
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 
-GETTEXT_PACKAGE=eog
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
-AC_SUBST(GETTEXT_PACKAGE)
+AC_CHECK_FUNCS(strptime)
+
+# ***********
+# Translation 
+# ***********
 
 AM_GLIB_GNU_GETTEXT
 IT_PROG_INTLTOOL([0.35.0])
 
-dnl ===============================================================================
-
-GNOME_COMPILE_WARNINGS(yes)
+GETTEXT_PACKAGE=AC_PACKAGE_NAME
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
 
 AC_SUBST(CFLAGS)
-AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-dnl Keep PKG_PROG_PKG_CONFIG before GNOME_DOC_INIT until we
-dnl depend on gnome-doc-utils >= 0.3.3
+# ***************
+# gnome-doc-utils
+# ***************
+
 PKG_PROG_PKG_CONFIG
 GNOME_DOC_INIT
 
-dnl ================= gnome libs check ====================================
+# **********
+# GNOME Libs 
+# **********
+
+GTK_REQUIRED=2.10.0
+GLIB_REQUIRED=2.12.0
+GNOME_VFS_REQUIRED=2.10.0
+LIBGNOMEUI_REQUIRED=2.6.0
+LIBGLADE_REQUIRED=2.3.6
+GDKPIXBUF_REQUIRED=2.4.0
+GCONF_REQUIRED=2.5.90
+LIBART_REQUIRED=2.3.16
+GNOME_DESKTOP_REQUIRED=2.10.0
+GTK_PRINT_REQUIRED=2.10.0
+GNOME_ICON_THEME_REQUIRED=2.17.1
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
-             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
+             glib-2.0 >= $GLIB_REQUIRED \
              gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
              libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
              libglade-2.0 >= $LIBGLADE_REQUIRED \
+             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
+             gconf-2.0 >= $GCONF_REQUIRED \
              libart-2.0 >= $LIBART_REQUIRED \
              gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
              gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED \
-             gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED"
+	     gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED"
 
-dnl ============== optional exif support ====================
+# ***************
+# EXIF (optional)
+# ***************
 
-AC_ARG_WITH([libexif], AC_HELP_STRING([--without-libexif], [disable special EXIF support]))
+LIBEXIF_REQUIRED=0.6.12
+
+AC_ARG_WITH([libexif], AC_HELP_STRING([--without-libexif], [disable EXIF support]))
 have_exif=no
 if test x$with_libexif != xno; then
     PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
@@ -80,7 +90,11 @@ if test "x$have_exif" = "xyes"; then
   EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
 fi
 
-dnl ============== optional Little CMS support ====================
+AM_CONDITIONAL([HAVE_EXIF], [test "x$have_exif" = "xyes"])
+
+# *********************
+# Little CMS (optional)
+# *********************
 
 AC_ARG_WITH([cms], AC_HELP_STRING([--without-cms], [disable colour management support]))
 have_lcms=no
@@ -88,13 +102,15 @@ if test x$with_cms != xno; then
     PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
 fi 
 if test "x$have_lcms" = "xyes"; then
-  AC_DEFINE(HAVE_LCMS,1,[Little CMS library is present])
+  AC_DEFINE(HAVE_LCMS, 1, [Little CMS Support.])
   EOG_MODULES="$EOG_MODULES lcms"
 fi
-AM_CONDITIONAL(ENABLE_LCMS, test x$have_lcms = xyes)
 
-dnl ============== semi optional libjpeg support ====================
-AC_ARG_WITH([libjpeg], AC_HELP_STRING([--without-libjpeg], [disable special JPEG support]))
+# ********************
+# Jpeg (semi-optional)
+# ********************
+
+AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG support]))
   have_jpeg=no
   if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
     AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
@@ -115,7 +131,7 @@ AC_ARG_WITH([libjpeg], AC_HELP_STRING([--without-libjpeg], [disable special JPEG
       if test "$have_jpeg" = yes; then
         LIBJPEG='-ljpeg'
 	AC_DEFINE(HAVE_JPEG, 1, [Jpeg Support.])
-        AC_DEFINE(HAVE_LIBJPEG, 1, [libjpeg is present.])
+        AC_DEFINE(HAVE_LIBJPEG, 1, [libjpeg is Present.])
         AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
           AC_DEFINE(HAVE_PROGRESSIVE_JPEG, 1, [Jpeg Progressive Saving Support.]),
           AC_MSG_WARN(JPEG library does not support progressive saving.))
@@ -134,81 +150,63 @@ AC_ARG_WITH([libjpeg], AC_HELP_STRING([--without-libjpeg], [disable special JPEG
 AC_SUBST(LIBJPEG)
 AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
 
-dnl ============ CFLAGS & LIBS initialization ===============
+# ***************
+# D-Bus activation
+# ***************
+
+DBUS_GLIB_REQUIRED=0.71
+
+AC_ARG_WITH([dbus-glib-1], AC_HELP_STRING([--without-dbus], [disable dbus based activation]))
+have_dbus=no
+if test x$with_dbus != xno; then
+    PKG_CHECK_MODULES([DBUS], [dbus-glib-1 >= $DBUS_GLIB_REQUIRED], have_dbus=yes, have_dbus=no)
+fi
+if test x$have_dbus = xyes; then
+   AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool], [no])
+
+   if test x$DBUS_BINDING_TOOL = "xno" ; then
+       AC_MSG_ERROR([dbus-binding-tool executable not found in your path - should be installed with dbus glib bindings])
+   fi                                            
+
+    AC_DEFINE(HAVE_DBUS, 1, [DBUS based activation.])
+    EOG_MODULES="$EOG_MODULES dbus-glib-1 >= $DBUS_GLIB_REQUIRED"
+fi
+
+AM_CONDITIONAL([HAVE_DBUS], [test "x$have_dbus" = "xyes"])
+
+# ****************
+# CFLAGS/LIBS init
+# ****************
 
 PKG_CHECK_MODULES(EOG, $EOG_MODULES)
 AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
 
-# glib-genmarshal
-AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+# *****
+# GConf 
+# *****
 
-dnl ================= GConf  =================================================
-
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
 AM_GCONF_SOURCE_2
 
-dnl ******************************************************
-dnl X development libraries check
-dnl ******************************************************
+AC_PATH_PROG([GCONFTOOL], [gconftool-2], [no])
 
-if test `$PKG_CONFIG --variable=target gtk+-2.0` = x11; then
-  #
-  # If Pango included the shared library dependencies from X11 in
-  # the pkg-config output, then we use that (to avoid duplicates).
-  # but if they were omitted to avoid binary compatibility problems
-  # then we need to repeat the checks.
-  #
-  if $PKG_CONFIG --exists pangoxft ; then
-    PANGO_PACKAGES="pangox pangoxft"
-  else
-    PANGO_PACKAGES="pangox"
-  fi
-
-  x_libs="`$PKG_CONFIG --libs $PANGO_PACKAGES`"
-  case x_libs in
-    *-lX11*) pango_omitted_x_deps=no ;;
-    *)       pango_omitted_x_deps=yes ;;
-  esac
-
-  if test $pango_omitted_x_deps = yes ; then
-    AC_PATH_XTRA
-
-    if test x$no_x = xyes ; then
-      AC_MSG_ERROR([X development libraries not found])
-    else
-      X_LIBS="$X_PRE_LIBS $X_LIBS -lX11 $X_EXTRA_LIBS"
-    fi
-  fi
-
-  AC_SUBST(X_LIBS)
+if test "$GCONFTOOL" = "no"; then
+        AC_MSG_ERROR([gconftool-2 not found])
 fi
 
-dnl ******************************************************
-dnl Check for Sunkeysym.h
-dnl ******************************************************
-AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard SSupport]))
+# ************
+# Sun Keyboard
+# ************
+AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard Support]))
 
-dnl ================= portability  ===============================
-AC_CHECK_FUNCS(fsync)
-
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
-eog.spec
-eog.desktop.in
-libeog/Makefile
-libeog/cursors/Makefile
+src/Makefile
 jpegutils/Makefile
 help/Makefile
-help/eu/Makefile
-help/it/Makefile
-help/ja/Makefile
-help/ko/Makefile
-help/zh_CN/Makefile
-help/zh_TW/Makefile
-shell/Makefile
-shell/recent-files/Makefile
+po/Makefile.in
 data/Makefile
+data/eog.desktop.in
 data/icons/Makefile
 data/icons/16x16/Makefile
 data/icons/16x16/apps/Makefile
@@ -220,17 +218,19 @@ data/icons/32x32/Makefile
 data/icons/32x32/apps/Makefile
 data/icons/scalable/Makefile
 data/icons/scalable/apps/Makefile
-po/Makefile.in
 ])
 
+AC_OUTPUT
+
 echo "
-Configuration:
+Configure summary:
 
-	Source code location:	   ${srcdir}
-	Compiler:		   ${CC} 
+	Source code location .......:  ${srcdir}
+	Compiler ...................:  ${CC} 
+	Extra Compiler Warnings ....:  ${WARN_CFLAGS}
 
-	Extra Compiler Warnings:   ${WARN_CFLAGS}
-	Special EXIF support:      ${have_exif}
-	Special JPEG support:      ${have_jpeg}
-	Colour management support: ${have_lcms}
+	EXIF support ...............:  ${have_exif}
+	JPEG support ...............:  ${have_jpeg}
+	Colour management support ..:  ${have_lcms}
+	D-Bus activation............:  ${have_dbus}
 "
