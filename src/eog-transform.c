@@ -206,7 +206,7 @@ eog_transform_is_identity (EogTransform *trans)
 }
 
 EogTransform*
-eog_transform_identity_new ()
+eog_transform_identity_new (void)
 {
 	EogTransform *trans; 
 
