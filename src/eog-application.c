@@ -210,7 +210,7 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
 	gdk_threads_enter ();
 
 	gtk_window_present_with_time (GTK_WINDOW (window),
-				      (guint) user_data);
+				      GPOINTER_TO_UINT (user_data));
 
 	gdk_threads_leave ();
 }
@@ -241,7 +241,7 @@ eog_application_real_open_uri_list (EogApplication  *application,
 	g_signal_connect (new_window, 
 			  "prepared", 
 			  G_CALLBACK (eog_application_show_window), 
-			  GINT_TO_POINTER (timestamp));
+			  GUINT_TO_POINTER (timestamp));
 
 	eog_window_open_uri_list (new_window, uri_list);
 

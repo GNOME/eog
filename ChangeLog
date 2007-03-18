@@ -1,3 +1,11 @@
+2007-03-18  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-application.c: (eog_application_show_window),
+	(eog_application_real_open_uri_list): Use correct GPOINTER macros to
+	pass guint to callback.
+	* src/eog-image.c: (eog_image_size_prepared): Make JPEG loading work
+	again when autorotating is disabled.
+
 2007-03-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-thumb-nav.c: (eog_thumb_nav_set_mode): Use 

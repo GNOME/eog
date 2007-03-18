@@ -404,9 +404,10 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 
 	g_mutex_unlock (img->priv->status_mutex);
 
-#ifndef HAVE_EXIF
-	g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
+#ifdef HAVE_EXIF
+	if (!img->priv->autorotate)
 #endif
+		g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
 }
 
 static EogMetadataReader*
