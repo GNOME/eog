@@ -107,9 +107,9 @@ eog_DEPENDENCIES = 	\
 
 eog_LDADD = 				\
 	$(EOG_LIBS)			\
+	$(X_LIBS)			\
 	$(LIBJPEG)			\
-	$(jpeg_LIB)			\
-	$(X_LIBS)
+	$(jpeg_LIB)
 
 BUILT_SOURCES = 			\
 	$(MARSHAL_OUTPUT)
