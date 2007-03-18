@@ -436,7 +436,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_widget_set_size_request (priv->thumbview, -1, 108);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
-						GTK_POLICY_ALWAYS,
+						GTK_POLICY_AUTOMATIC,
 						GTK_POLICY_NEVER);
 
 		eog_thumb_nav_set_show_buttons (nav, priv->show_buttons);
@@ -450,7 +450,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_NEVER,
-						GTK_POLICY_ALWAYS);
+						GTK_POLICY_AUTOMATIC);
 
 		gtk_widget_hide_all (priv->button_left);
 		gtk_widget_hide_all (priv->button_right);
