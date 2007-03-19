@@ -249,6 +249,7 @@ eog_transform_flip_new   (EogTransformType type)
 	return trans;
 }
 
+#if 0
 EogTransform* 
 eog_transform_scale_new  (double sx, double sy)
 {
@@ -260,6 +261,7 @@ eog_transform_scale_new  (double sx, double sy)
 
 	return trans;
 }
+#endif
 
 EogTransform*
 eog_transform_new (EogTransformType type)

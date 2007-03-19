@@ -16,16 +16,6 @@
 gboolean eog_image_jpeg_save_file (EogImage *image, const char *file, 
 				   EogImageSaveInfo *source, EogImageSaveInfo *target,
 				   GError **error);
-
-
-/* =======================
-
-         deprecated 
-
-   ---------------------*/
-gboolean eog_image_jpeg_save (EogImage *image, GnomeVFSURI *uri, GError **error);
-gboolean eog_image_jpeg_save_lossless (EogImage *image, GnomeVFSURI *uri, GError **error);
-
 #endif
 
 #endif /* _EOG_IMAGE_JPEG_H_ */
