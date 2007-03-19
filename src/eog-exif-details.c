@@ -24,6 +24,7 @@
 #endif
 
 #include "eog-exif-details.h"
+#include "eog-util.h"
 
 #include <libexif/exif-entry.h>
 #include <libexif/exif-utils.h>
@@ -309,22 +310,13 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 		}
 	}
 
-	if (g_utf8_validate (attribute, -1, NULL)) {
-		utf_attribute = g_strdup (attribute);
-	} else {
-		utf_attribute = g_locale_to_utf8 (attribute, -1, NULL, NULL, NULL);
-	}
+	utf_attribute = eog_util_make_valid_utf8 (attribute);
 
 	gtk_tree_store_set (store, &iter, MODEL_COLUMN_ATTRIBUTE, utf_attribute, -1);
 	g_free (utf_attribute);
 
 	if (value != NULL) {
-		if (g_utf8_validate (value, -1, NULL)) {
-			utf_value = g_strdup (value);
-		} else {
-			utf_value = g_locale_to_utf8 (value, -1, NULL, NULL, NULL);
-		}
-
+		utf_value = eog_util_make_valid_utf8 (value);
 		gtk_tree_store_set (store, &iter, MODEL_COLUMN_VALUE, utf_value, -1);
 		g_free (utf_value);
 	}
