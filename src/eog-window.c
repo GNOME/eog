@@ -869,12 +869,10 @@ image_thumb_changed_cb (EogImage *image, gpointer data)
 	} else if (!GTK_WIDGET_VISIBLE (window->priv->nav)) {
 		gint img_pos = eog_list_store_get_pos_by_image (window->priv->store, image);
 		GtkTreePath *path = gtk_tree_path_new_from_indices (img_pos,-1);
-		GtkTreeIter *iter;
+		GtkTreeIter iter;
 
-		iter = g_slice_new0 (GtkTreeIter);
-		gtk_tree_model_get_iter (GTK_TREE_MODEL (window->priv->store), iter, path);
-		eog_list_store_thumbnail_set (window->priv->store, iter);
-		g_slice_free (GtkTreeIter, iter);
+		gtk_tree_model_get_iter (GTK_TREE_MODEL (window->priv->store), &iter, path);
+		eog_list_store_thumbnail_set (window->priv->store, &iter);
 		gtk_tree_path_free (path);
 	}
 }
