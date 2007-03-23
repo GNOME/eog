@@ -2457,6 +2457,11 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 		
 		uri = eog_window_retrieve_save_as_uri (window, images->data);
 
+		if (!uri) {
+			g_list_free (images);
+			return;
+		}
+
 		priv->save_job = eog_job_save_as_new (images, NULL, uri); 
 
 		gnome_vfs_uri_unref (uri);
