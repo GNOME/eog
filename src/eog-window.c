@@ -3905,7 +3905,7 @@ eog_window_window_state_event (GtkWidget *widget,
 		show = !(event->new_window_state &
 		         (GDK_WINDOW_STATE_MAXIMIZED | GDK_WINDOW_STATE_FULLSCREEN));
 
-		eog_statusbar_set_has_resize_grip (EOG_STATUSBAR (window->priv->statusbar),
+		gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (window->priv->statusbar),
 						   show);
 	}
 

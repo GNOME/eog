@@ -1,3 +1,12 @@
+2007-03-25  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-statusbar.[ch] (eog_statusbar_set_progress, eog_statusbar_init,
+	eog_statusbar_set_has_resize_grip): removed hack for handling resize
+	grip. Image number/position hides when progress bar is active. Adjust
+	the progress bar height to make it look nicer. Coding style cleanups.
+	* src/eog-window.c (eog_window_window_state_event): use GtkStatusBar
+	API for setting resize grip. 
+
 2007-03-23  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_save_as): Fix crash when

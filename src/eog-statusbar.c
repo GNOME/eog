@@ -43,28 +43,9 @@ struct _EogStatusbarPrivate
 };
 
 static void
-eog_statusbar_notify (GObject    *object,
-		      GParamSpec *pspec)
-{
-	/* don't allow gtk_statusbar_set_has_resize_grip to mess with us.
-	 * See eog_statusbar_set_has_resize_grip for an explanation.
-	 */
-	if (strcmp (g_param_spec_get_name (pspec), "has-resize-grip") == 0)
-	{
-		gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (object), FALSE);
-		return;
-	}
-
-	if (G_OBJECT_CLASS (eog_statusbar_parent_class)->notify)
-		G_OBJECT_CLASS (eog_statusbar_parent_class)->notify (object, pspec);
-}
-
-static void
 eog_statusbar_class_init (EogStatusbarClass *klass)
 {
 	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
-
-	g_object_class->notify = eog_statusbar_notify;
 
 	g_type_class_add_private (g_object_class, sizeof (EogStatusbarPrivate));
 }
@@ -72,54 +53,53 @@ eog_statusbar_class_init (EogStatusbarClass *klass)
 static void
 eog_statusbar_init (EogStatusbar *statusbar)
 {
+	EogStatusbarPrivate *priv;
+	GtkWidget *vbox;
+
 	statusbar->priv = EOG_STATUSBAR_GET_PRIVATE (statusbar);
+	priv = statusbar->priv;
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE);
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
 
-	statusbar->priv->img_num_statusbar = gtk_statusbar_new ();
-	gtk_widget_show (statusbar->priv->img_num_statusbar);
-
-	gtk_widget_set_size_request (statusbar->priv->img_num_statusbar, 100, 10);
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar->priv->img_num_statusbar),
-					   TRUE);
+	priv->img_num_statusbar = gtk_statusbar_new ();
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (priv->img_num_statusbar), FALSE);
+	gtk_widget_set_size_request (priv->img_num_statusbar, 100, 10);
+	gtk_widget_show (priv->img_num_statusbar);
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
-			  statusbar->priv->img_num_statusbar,
-			  FALSE, TRUE, 0);
+			  priv->img_num_statusbar,
+			  FALSE, 
+			  TRUE, 
+			  0);
+
+	vbox = gtk_vbox_new (FALSE, 0);
+
+	gtk_box_pack_end (GTK_BOX (statusbar),
+			  vbox,
+			  FALSE, 
+			  FALSE, 
+			  2);
 
 	statusbar->priv->progressbar = gtk_progress_bar_new ();
-	gtk_box_pack_end (GTK_BOX (statusbar),
-			  statusbar->priv->progressbar,
-			  FALSE, TRUE, 0);
+
+	gtk_box_pack_end (GTK_BOX (vbox),
+			  priv->progressbar,
+			  TRUE, 
+			  TRUE, 
+			  2);
+
+	gtk_widget_set_size_request (priv->progressbar, -1, 10);
+
+	gtk_widget_show (vbox);
+
 	gtk_widget_hide (statusbar->priv->progressbar);
 
-	gtk_widget_set_size_request (statusbar->priv->progressbar, 
-				     -1, 10);
 }
 
 GtkWidget *
 eog_statusbar_new (void)
 {
 	return GTK_WIDGET (g_object_new (EOG_TYPE_STATUSBAR, NULL));
-}
-
- /*
-  * I don't like this much, in a perfect world it would have been
-  * possible to override the parent property and use
-  * gtk_statusbar_set_has_resize_grip. Unfortunately this is not
-  * possible and it's not even possible to intercept the notify signal
-  * since the parent property should always be set to false thus when
-  * using set_resize_grip (FALSE) the property doesn't change and the 
-  * notification is not emitted.
-  */
-void
-eog_statusbar_set_has_resize_grip (EogStatusbar *bar,
-				   gboolean      show)
-{
-	g_return_if_fail (EOG_IS_STATUSBAR (bar));
-
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (bar->priv->img_num_statusbar),
-					   show);
 }
 
 void
@@ -131,8 +111,10 @@ eog_statusbar_set_image_number (EogStatusbar *statusbar,
 
 	g_return_if_fail (EOG_IS_STATUSBAR (statusbar));
 
-	gtk_statusbar_pop (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0); 
+	gtk_statusbar_pop (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0);
+
 	msg = g_strdup_printf ("%d / %d", num, tot);
+
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0, msg);
 
       	g_free (msg);
@@ -147,8 +129,11 @@ eog_statusbar_set_progress (EogStatusbar *statusbar,
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (statusbar->priv->progressbar),
 				       progress);
 
-	if (progress > 0 && progress < 1)
+	if (progress > 0 && progress < 1) {
 		gtk_widget_show (statusbar->priv->progressbar);
-	else
+		gtk_widget_hide (statusbar->priv->img_num_statusbar);
+	} else {
 		gtk_widget_hide (statusbar->priv->progressbar);
+		gtk_widget_show (statusbar->priv->img_num_statusbar);
+	}
 }

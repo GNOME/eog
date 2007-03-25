@@ -56,9 +56,6 @@ GType		 eog_statusbar_get_type			(void);
 
 GtkWidget	*eog_statusbar_new			(void);
 
-void		 eog_statusbar_set_has_resize_grip	(EogStatusbar   *statusbar,
-							 gboolean       show);
-
 void		 eog_statusbar_set_image_number		(EogStatusbar   *statusbar,
 							 gint           num,
 							 gint           tot);
