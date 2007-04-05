@@ -230,6 +230,7 @@ prepare_format_options (SaveAsData *data)
 		
 		gtk_menu_prepend (GTK_MENU (menu), item);
 	}
+	g_slist_free (formats);
 
 	item = gtk_menu_item_new_with_label (_("as is"));
 	gtk_menu_prepend (GTK_MENU (menu), item);
@@ -327,7 +328,9 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 
 	xml = glade_xml_new (filepath, "Save As Dialog", "eog");
 	g_assert (xml != NULL);
-	
+
+	g_free (filepath);
+
 	dlg = glade_xml_get_widget (xml, "Save As Dialog");
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (main));
 	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
