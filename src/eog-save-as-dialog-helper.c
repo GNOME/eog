@@ -29,6 +29,9 @@ static const EogUCInfo uc_info[] = {
         { "String",      "",   FALSE }, /* only used for internal purpose */
         { N_("Filename"),"%f", FALSE },
         { N_("Counter"), "%n", FALSE },
+#if 0
+	/* These are currently unsupported and being hidden
+	   to avoid making the UI look broken */
         { N_("Comment"), "%c", TRUE },
         { N_("Date"),    "%d", TRUE },
         { N_("Time"),    "%t", TRUE },
@@ -38,6 +41,7 @@ static const EogUCInfo uc_info[] = {
         { N_("Hour"),    "%h", TRUE },
         { N_("Minute"),  "%i", TRUE },
         { N_("Second"),  "%s", TRUE },
+#endif
         { NULL, NULL, FALSE }
 };
 
@@ -254,7 +258,7 @@ prepare_token_options (SaveAsData *data)
 	for (i = 1; uc_info[i].description != NULL; i++) {
 		char *label;
 
-		label = g_strconcat (uc_info[i].description, " (", uc_info[i].rep, ")", NULL);
+		label = g_strconcat (gettext (uc_info[i].description), " (", uc_info[i].rep, ")", NULL);
 		item = gtk_menu_item_new_with_label (label);
 		g_free (label);
 
