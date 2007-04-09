@@ -1,0 +1,236 @@
+dnl Configure script for the Eye of Gnome image viewer
+
+AC_INIT(shell/main.c)
+
+AM_CONFIG_HEADER(config.h)
+
+AM_INIT_AUTOMAKE(eog, 2.18.2)
+
+dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
+AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS")
+
+AM_MAINTAINER_MODE
+
+dnl ================= Requirements ================================================
+
+GNOME_VFS_REQUIRED=2.5.91
+LIBGNOMEUI_REQUIRED=2.5.92
+LIBGLADE_REQUIRED=2.3.6
+GDKPIXBUF_REQUIRED=2.4.0
+LIBEXIF_REQUIRED=0.6.12
+LIBGNOMECANVAS_REQUIRED=2.5.92
+GCONF_REQUIRED=2.5.90
+LIBART_REQUIRED=2.3.16
+GTK_REQUIRED=2.10.0
+GNOME_DESKTOP_REQUIRED=2.10.0
+GTK_PRINT_REQUIRED=2.10.0
+GNOME_ICON_THEME_REQUIRED=2.17.1
+
+dnl ===============================================================================
+
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
+AC_ARG_PROGRAM
+AC_PROG_RANLIB
+
+dnl ================= translation =============================================
+
+GETTEXT_PACKAGE=eog
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package.])
+AC_SUBST(GETTEXT_PACKAGE)
+
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
+
+dnl ===============================================================================
+
+GNOME_COMPILE_WARNINGS(yes)
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+dnl Keep PKG_PROG_PKG_CONFIG before GNOME_DOC_INIT until we
+dnl depend on gnome-doc-utils >= 0.3.3
+PKG_PROG_PKG_CONFIG
+GNOME_DOC_INIT
+
+dnl ================= gnome libs check ====================================
+
+EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
+             gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
+             gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
+             libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
+             libglade-2.0 >= $LIBGLADE_REQUIRED \
+             libart-2.0 >= $LIBART_REQUIRED \
+             gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
+             gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED \
+             gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED"
+
+dnl ============== optional exif support ====================
+
+AC_ARG_WITH([libexif], AC_HELP_STRING([--without-libexif], [disable special EXIF support]))
+have_exif=no
+if test x$with_libexif != xno; then
+    PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQUIRED, have_exif=yes, have_exif=no)
+fi 
+if test "x$have_exif" = "xyes"; then
+  AC_DEFINE(HAVE_EXIF, 1, [EXIF Support.])
+  EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
+fi
+
+dnl ============== optional Little CMS support ====================
+
+AC_ARG_WITH([cms], AC_HELP_STRING([--without-cms], [disable colour management support]))
+have_lcms=no
+if test x$with_cms != xno; then
+    PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
+fi 
+if test "x$have_lcms" = "xyes"; then
+  AC_DEFINE(HAVE_LCMS,1,[Little CMS library is present])
+  EOG_MODULES="$EOG_MODULES lcms"
+fi
+AM_CONDITIONAL(ENABLE_LCMS, test x$have_lcms = xyes)
+
+dnl ============== semi optional libjpeg support ====================
+AC_ARG_WITH([libjpeg], AC_HELP_STRING([--without-libjpeg], [disable special JPEG support]))
+  have_jpeg=no
+  if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
+    AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
+      have_jpeg=yes,
+      have_jpeg=no
+      AC_MSG_WARN(*** JPEG loader will not be built (JPEG library not found) ***))
+    if test "$have_jpeg" = yes; then
+      AC_MSG_CHECKING([for jpeglib.h])
+      AC_TRY_CPP(
+[#include <stdio.h>
+#undef PACKAGE
+#undef VERSION
+#undef HAVE_STDLIB_H
+#include <jpeglib.h>],
+        have_jpeg=yes,
+        have_jpeg=no)
+      AC_MSG_RESULT($have_jpeg)
+      if test "$have_jpeg" = yes; then
+        LIBJPEG='-ljpeg'
+	AC_DEFINE(HAVE_JPEG, 1, [Jpeg Support.])
+        AC_DEFINE(HAVE_LIBJPEG, 1, [libjpeg is present.])
+        AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
+          AC_DEFINE(HAVE_PROGRESSIVE_JPEG, 1, [Jpeg Progressive Saving Support.]),
+          AC_MSG_WARN(JPEG library does not support progressive saving.))
+      else
+          AC_MSG_WARN(*** JPEG loader will not be built (JPEG header file not found) ***)
+      fi
+    fi
+  fi
+
+  if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
+     AC_MSG_ERROR([
+*** Checks for JPEG loader failed. You can build without it by passing 
+*** --without-libjpeg to configure but some programs using GTK+ may
+*** not work properly])
+  fi
+AC_SUBST(LIBJPEG)
+AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
+
+dnl ============ CFLAGS & LIBS initialization ===============
+
+PKG_CHECK_MODULES(EOG, $EOG_MODULES)
+AC_SUBST(EOG_CFLAGS)
+AC_SUBST(EOG_LIBS)
+
+# glib-genmarshal
+AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+
+dnl ================= GConf  =================================================
+
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
+AM_GCONF_SOURCE_2
+
+dnl ******************************************************
+dnl X development libraries check
+dnl ******************************************************
+
+if test `$PKG_CONFIG --variable=target gtk+-2.0` = x11; then
+  #
+  # If Pango included the shared library dependencies from X11 in
+  # the pkg-config output, then we use that (to avoid duplicates).
+  # but if they were omitted to avoid binary compatibility problems
+  # then we need to repeat the checks.
+  #
+  if $PKG_CONFIG --exists pangoxft ; then
+    PANGO_PACKAGES="pangox pangoxft"
+  else
+    PANGO_PACKAGES="pangox"
+  fi
+
+  x_libs="`$PKG_CONFIG --libs $PANGO_PACKAGES`"
+  case x_libs in
+    *-lX11*) pango_omitted_x_deps=no ;;
+    *)       pango_omitted_x_deps=yes ;;
+  esac
+
+  if test $pango_omitted_x_deps = yes ; then
+    AC_PATH_XTRA
+
+    if test x$no_x = xyes ; then
+      AC_MSG_ERROR([X development libraries not found])
+    else
+      X_LIBS="$X_PRE_LIBS $X_LIBS -lX11 $X_EXTRA_LIBS"
+    fi
+  fi
+
+  AC_SUBST(X_LIBS)
+fi
+
+dnl ******************************************************
+dnl Check for Sunkeysym.h
+dnl ******************************************************
+AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard SSupport]))
+
+dnl ================= portability  ===============================
+AC_CHECK_FUNCS(fsync)
+
+AC_OUTPUT([
+Makefile
+eog.spec
+eog.desktop.in
+libeog/Makefile
+libeog/cursors/Makefile
+jpegutils/Makefile
+help/Makefile
+help/eu/Makefile
+help/it/Makefile
+help/ja/Makefile
+help/ko/Makefile
+help/zh_CN/Makefile
+help/zh_TW/Makefile
+shell/Makefile
+shell/recent-files/Makefile
+data/Makefile
+data/icons/Makefile
+data/icons/16x16/Makefile
+data/icons/16x16/apps/Makefile
+data/icons/22x22/Makefile
+data/icons/22x22/apps/Makefile
+data/icons/24x24/Makefile
+data/icons/24x24/apps/Makefile
+data/icons/32x32/Makefile
+data/icons/32x32/apps/Makefile
+data/icons/scalable/Makefile
+data/icons/scalable/apps/Makefile
+po/Makefile.in
+])
+
+echo "
+Configuration:
+
+	Source code location:	   ${srcdir}
+	Compiler:		   ${CC} 
+
+	Extra Compiler Warnings:   ${WARN_CFLAGS}
+	Special EXIF support:      ${have_exif}
+	Special JPEG support:      ${have_jpeg}
+	Colour management support: ${have_lcms}
+"
