@@ -207,7 +207,6 @@ help/Makefile
 help/eu/Makefile
 help/it/Makefile
 help/ja/Makefile
-help/ko/Makefile
 help/zh_CN/Makefile
 help/zh_TW/Makefile
 po/Makefile.in
