@@ -420,6 +420,8 @@ eog_file_chooser_new (GtkFileChooserAction action)
  	gtk_window_set_title (GTK_WINDOW (chooser), title);
 	gtk_dialog_set_default_response (GTK_DIALOG (chooser), GTK_RESPONSE_OK);
 
+	gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (chooser), TRUE);
+
 	return chooser;
 }
 

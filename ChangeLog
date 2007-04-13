@@ -1,3 +1,10 @@
+2007-04-13  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-file-chooser.c: (eog_file_chooser_new): Ask user if the wants
+	to overwrite an existing file. Partially fixes bug 421637 as we still
+	need to realize the same for saving multiple files.
+	Patch by Jaap A. Haitsma <jaap@haitsma.org>
+
 2007-04-13  Changwoo Ryu  <cwryu@debian.org>
 
 	* configure.ac: Removed help/ko/Makefile due to gnome-doc-utils
