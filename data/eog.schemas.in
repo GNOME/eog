@@ -1,6 +1,19 @@
 <gconfschemafile>
   <schemalist>
     <schema>
+      <key>/schemas/apps/eog/view/autorotate</key>
+      <applyto>/apps/eog/view/autorotate</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>1</default>
+      <locale name="C">
+	<short>Automatic orientation</short>
+	<long>Whether the image should be rotated automatically based on
+	EXIF orientation.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/view/interpolate</key>
       <applyto>/apps/eog/view/interpolate</applyto>
       <owner>eog</owner>
