@@ -150,10 +150,8 @@ get_max_percentage (EogPrintImageSetup *setup)
 	
 	if (p_width > width && p_height > height) {
 		perc = 1.;
-	} else if (width > height && width > p_width) {
-		perc = p_width/width;
 	} else {
-		perc = p_height/height;
+		perc = MIN (p_width/width, p_height/height);
 	} 
 	
 	return perc;

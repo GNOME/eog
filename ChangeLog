@@ -1,3 +1,9 @@
+2007-04-16  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-print-image-setup.c: (get_max_percentage): Calculate
+	correctly the maximum printed image size. Fixes a bug when printing
+	an image in a landscape page (it wouldn't fit the page).
+
 2007-04-14  Felix Riemann  <friemann@svn.gnome.org>
 
 	* data/eog.schemas.in: Add missing autorotation key.
