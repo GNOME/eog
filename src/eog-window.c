@@ -2683,18 +2683,24 @@ move_to_trash_real (EogImage *image, GError **error)
 					   GNOME_VFS_DIRECTORY_KIND_TRASH,
 					   &trash_dir, 
 					   FALSE, 
-					   FALSE, 
-					   0777);
+					   TRUE, 
+					   0700);
 
 	if (result != GNOME_VFS_OK) {
-		gnome_vfs_uri_unref (uri);
 
-		g_set_error (error, 
-			     EOG_WINDOW_ERROR, 
-			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
-			     _("Couldn't access trash."));
+		result = gnome_vfs_find_directory (uri,
+						GNOME_VFS_DIRECTORY_KIND_TRASH,
+						&trash_dir, TRUE, FALSE, 0700);
+		if (result != GNOME_VFS_OK) {
+			gnome_vfs_uri_unref (uri);
 
-		return FALSE;
+			g_set_error (error, 
+				     EOG_WINDOW_ERROR, 
+				     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+				     _("Couldn't access trash."));
+
+			return FALSE;
+		}
 	}
 
 	name = gnome_vfs_uri_extract_short_name (uri);
