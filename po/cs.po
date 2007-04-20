@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-06 14:46+0200\n"
-"PO-Revision-Date: 2007-04-06 14:46+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2007-04-20 13:13+0200\n"
+"PO-Revision-Date: 2007-04-20 13:10+0200\n"
+"Last-Translator: Jakub Friedl <jfriedl@suse.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +35,7 @@ msgstr "Prohlížeč obrázků"
 
 #: ../data/eog.glade.h:1
 msgid "<b>Aperture Value:</b>"
-msgstr ""
+msgstr "<b>Hodnota clony:</b>"
 
 #: ../data/eog.glade.h:2
 msgid "<b>Bytes:</b>"
@@ -78,9 +78,8 @@ msgid "<b>Height:</b>"
 msgstr "<b>Výška:</b>"
 
 #: ../data/eog.glade.h:12
-#, fuzzy
 msgid "<b>ISO Speed Rating:</b>"
-msgstr "<b>Možnosti</b>"
+msgstr "<b>Citlivost ISO:</b>"
 
 #: ../data/eog.glade.h:13
 msgid "<b>Image Enhancements</b>"
@@ -240,10 +239,14 @@ msgid "Allow zoom greater than 100% initially"
 msgstr "Povolit počáteční přiblížení větší než 100%"
 
 #: ../data/eog.schemas.in.h:4
+msgid "Automatic orientation"
+msgstr "Automatická orientace"
+
+#: ../data/eog.schemas.in.h:5
 msgid "Delay in seconds until showing the next image"
 msgstr "Zpoždění v sekundách do zobrazení dalšího obrázku"
 
-#: ../data/eog.schemas.in.h:5
+#: ../data/eog.schemas.in.h:6
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -253,7 +256,7 @@ msgstr ""
 "COLOR a NONE. Pokud je zvolena hodnota COLOR, pak hodnotu použité barvy "
 "určuje klíč trans_color."
 
-#: ../data/eog.schemas.in.h:6
+#: ../data/eog.schemas.in.h:7
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -261,7 +264,7 @@ msgstr ""
 "Pokud má klíč průhlednosti hodnotu COLOR, pak tento klíč určuje barvu, která "
 "se použije pro indikaci průhlednosti."
 
-#: ../data/eog.schemas.in.h:7
+#: ../data/eog.schemas.in.h:8
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -269,62 +272,62 @@ msgstr ""
 "Pokud je toto nastaveno na FALSE, malé obrázky nebudou automaticky "
 "roztaženy, aby se přizpůsobily obrazovce."
 
-#: ../data/eog.schemas.in.h:8
+#: ../data/eog.schemas.in.h:9
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
 msgstr ""
+"Umístění panelu se sbírkou obrázků. 0 dole, 1 vlevo, 2 nahoře, 3 vpravo."
 
-#: ../data/eog.schemas.in.h:9
+#: ../data/eog.schemas.in.h:10
 msgid "Interpolate Image"
 msgstr "Interpolace obrázku"
 
-#: ../data/eog.schemas.in.h:10
-msgid "Last collection window geometry"
-msgstr "Poslední geometrie okna kolekce"
-
 #: ../data/eog.schemas.in.h:11
+msgid "Last collection window geometry"
+msgstr "Poslední geometrie okna sbírky"
+
+#: ../data/eog.schemas.in.h:12
 msgid "Last singleton window geometry"
 msgstr "Poslední geometrie jednoduchého okna"
 
-#: ../data/eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:13
 msgid "Loop through the image sequence"
 msgstr "Opakovat sekvenci obrázků"
 
-#: ../data/eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:14
 msgid "Open images in a new window"
 msgstr "Otevírat obrázky v novém okně"
 
-#: ../data/eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:15
 msgid "Scroll wheel zoom"
 msgstr "Přibližování rolovacím kolečkem"
 
-#: ../data/eog.schemas.in.h:15
-msgid "Show/hide image information for collection."
-msgstr "Zobrazit/skrýt informace o obrázku pro kolekci."
-
 #: ../data/eog.schemas.in.h:16
+msgid "Show/hide image information for collection."
+msgstr "Zobrazit/skrýt informace o obrázku pro sbírku"
+
+#: ../data/eog.schemas.in.h:17
 msgid "Show/hide image information for single image."
 msgstr "Zobrazit/skrýt informace o obrázku pro jednotlivý obrázek."
 
-#: ../data/eog.schemas.in.h:17
-#, fuzzy
-msgid "Show/hide the image collection pane scroll buttons."
-msgstr "Zobrazit/skrýt panel s kolekcí obrázků."
-
 #: ../data/eog.schemas.in.h:18
-msgid "Show/hide the image collection pane."
-msgstr "Zobrazit/skrýt panel s kolekcí obrázků."
+msgid "Show/hide the image collection pane scroll buttons."
+msgstr "Zobrazit/skrýt tlačítka posuvu panelu sbírky obrázků."
 
 #: ../data/eog.schemas.in.h:19
+msgid "Show/hide the image collection pane."
+msgstr "Zobrazit/skrýt panel se sbírkou obrázků."
+
+#: ../data/eog.schemas.in.h:20
 msgid "Show/hide the window statusbar."
 msgstr "Zobrazovat/skrýt stavovou lištu okna"
 
-#: ../data/eog.schemas.in.h:20
+#: ../data/eog.schemas.in.h:21
 msgid "Show/hide the window toolbar."
 msgstr "Zobrazovat/skrýt lištu nástrojů okna."
 
-#: ../data/eog.schemas.in.h:22
+#: ../data/eog.schemas.in.h:23
 #, no-c-format
 msgid ""
 "The multiplier to the applied when using the mouse scroll wheel for zooming. "
@@ -332,16 +335,20 @@ msgid ""
 "0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
 "a 100% zoom increment."
 msgstr ""
+"Hodnota použitá jako násobič pro přibližování kolečkem myši. Definuje "
+"velikostkroku přiblížení při každé události vyvolané pohybem kolečka myši. "
+"Například hodnota 0,05 znamená 5% nárůst přiblížení při každé události a "
+"hodnota 1.00 znamená 100% nárůst přiblížení."
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:24
 msgid "Transparency color"
 msgstr "Barva průhlednosti"
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:25
 msgid "Transparency indicator"
 msgstr "Indikátor průhlednosti"
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:26
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -349,17 +356,16 @@ msgstr ""
 "Jestli má otevření obrázku vytvořit nové okno místo nahrazení obrázku v "
 "aktuálním okně."
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:27
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Jestli má být sekvence obrázků zobrazována v nekonečné smyčce."
 
-#: ../data/eog.schemas.in.h:27
-#, fuzzy
-msgid "Whether the image collection pane should be resizable or not."
-msgstr "Zobrazit/skrýt panel s kolekcí obrázků."
-
 #: ../data/eog.schemas.in.h:28
+msgid "Whether the image collection pane should be resizable or not."
+msgstr "Zda lze měnit velikost panelu se sbírkou obrázků."
+
+#: ../data/eog.schemas.in.h:29
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -367,11 +373,16 @@ msgstr ""
 "Zda se má přiblížený obrázek interpolovat nebo ne. Interpolace zvyšuje "
 "kvalitu, ale je pomalejší než přibližování bez interpolace."
 
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:30
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "Zda má být obrázek automaticky otočen prodle údajů EXIF."
+
+#: ../data/eog.schemas.in.h:31
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Zda má být rolovací kolečko používáno pro změnu přiblížení."
 
-#: ../data/eog.schemas.in.h:30
+#: ../data/eog.schemas.in.h:32
 msgid "Zoom multiplier"
 msgstr "Násobič přiblížení"
 
@@ -486,91 +497,91 @@ msgstr "V '%s' nebyly nalezeny žádné obrázky."
 msgid "The given locations contain no images."
 msgstr "Zadaná umístění neobsahují žádné obrázky."
 
-#: ../src/eog-print-image-setup.c:808
+#: ../src/eog-print-image-setup.c:806
 msgid "Image"
 msgstr "Obrázek"
 
-#: ../src/eog-print-image-setup.c:809
+#: ../src/eog-print-image-setup.c:807
 msgid "The image whose printing properties will be setup"
 msgstr "Obrázek, jehož tiskové vlastnosti budou nastaveny"
 
-#: ../src/eog-print-image-setup.c:815
+#: ../src/eog-print-image-setup.c:813
 msgid "Page Setup"
 msgstr "Vzhled stránky"
 
-#: ../src/eog-print-image-setup.c:816
+#: ../src/eog-print-image-setup.c:814
 msgid "The information for the page where the image will be printed"
 msgstr "Informace o stránce, na které bude obrázek vytištěn"
 
-#: ../src/eog-print-image-setup.c:840
+#: ../src/eog-print-image-setup.c:838
 msgid "Position"
 msgstr "Poloha"
 
-#: ../src/eog-print-image-setup.c:845
+#: ../src/eog-print-image-setup.c:843
 msgid "_Left:"
 msgstr "V_levo:"
 
-#: ../src/eog-print-image-setup.c:846
+#: ../src/eog-print-image-setup.c:844
 msgid "_Right:"
 msgstr "Vp_ravo:"
 
-#: ../src/eog-print-image-setup.c:847
+#: ../src/eog-print-image-setup.c:845
 msgid "_Top:"
 msgstr "_Nahoře:"
 
-#: ../src/eog-print-image-setup.c:848
+#: ../src/eog-print-image-setup.c:846
 msgid "_Bottom:"
 msgstr "_Dole:"
 
-#: ../src/eog-print-image-setup.c:850
+#: ../src/eog-print-image-setup.c:848
 msgid "C_enter:"
 msgstr "Uprostř_ed:"
 
-#: ../src/eog-print-image-setup.c:855
+#: ../src/eog-print-image-setup.c:853
 msgid "None"
 msgstr "Nic"
 
-#: ../src/eog-print-image-setup.c:857
+#: ../src/eog-print-image-setup.c:855
 msgid "Horizontal"
 msgstr "Vodorovně"
 
-#: ../src/eog-print-image-setup.c:859
+#: ../src/eog-print-image-setup.c:857
 msgid "Vertical"
 msgstr "Svisle"
 
-#: ../src/eog-print-image-setup.c:861
+#: ../src/eog-print-image-setup.c:859
 msgid "Both"
 msgstr "Obojí"
 
-#: ../src/eog-print-image-setup.c:877
+#: ../src/eog-print-image-setup.c:875
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/eog-print-image-setup.c:882
+#: ../src/eog-print-image-setup.c:880
 msgid "_Width:"
 msgstr "_Šířka:"
 
-#: ../src/eog-print-image-setup.c:884
+#: ../src/eog-print-image-setup.c:882
 msgid "_Height:"
 msgstr "_Výška:"
 
-#: ../src/eog-print-image-setup.c:887
+#: ../src/eog-print-image-setup.c:885
 msgid "_Scaling:"
 msgstr "Š_kálování:"
 
-#: ../src/eog-print-image-setup.c:900
+#: ../src/eog-print-image-setup.c:898
 msgid "_Unit:"
 msgstr "_Jednotka:"
 
-#: ../src/eog-print-image-setup.c:905
+#: ../src/eog-print-image-setup.c:903
 msgid "Millimeters"
 msgstr "Milimetry"
 
-#: ../src/eog-print-image-setup.c:907
+#: ../src/eog-print-image-setup.c:905
 msgid "Inches"
 msgstr "Palce"
 
-#: ../src/eog-print-image-setup.c:927
+#: ../src/eog-print-image-setup.c:925
 msgid "Preview"
 msgstr "Náhled"
 
@@ -583,47 +594,49 @@ msgstr "Název souboru"
 msgid "Counter"
 msgstr "Čítač"
 
-#: ../src/eog-save-as-dialog-helper.c:32
+#. These are currently unsupported and being hidden
+#. to avoid making the UI look broken
+#: ../src/eog-save-as-dialog-helper.c:35
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../src/eog-save-as-dialog-helper.c:33
+#: ../src/eog-save-as-dialog-helper.c:36
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/eog-save-as-dialog-helper.c:34
+#: ../src/eog-save-as-dialog-helper.c:37
 msgid "Time"
 msgstr "Čas"
 
-#: ../src/eog-save-as-dialog-helper.c:35
+#: ../src/eog-save-as-dialog-helper.c:38
 msgid "Day"
 msgstr "Den"
 
-#: ../src/eog-save-as-dialog-helper.c:36
+#: ../src/eog-save-as-dialog-helper.c:39
 msgid "Month"
 msgstr "Měsíc"
 
-#: ../src/eog-save-as-dialog-helper.c:37
+#: ../src/eog-save-as-dialog-helper.c:40
 msgid "Year"
 msgstr "Rok"
 
-#: ../src/eog-save-as-dialog-helper.c:38
+#: ../src/eog-save-as-dialog-helper.c:41
 msgid "Hour"
 msgstr "Hodina"
 
-#: ../src/eog-save-as-dialog-helper.c:39
+#: ../src/eog-save-as-dialog-helper.c:42
 msgid "Minute"
 msgstr "Minuta"
 
-#: ../src/eog-save-as-dialog-helper.c:40
+#: ../src/eog-save-as-dialog-helper.c:43
 msgid "Second"
 msgstr "Sekunda"
 
-#: ../src/eog-save-as-dialog-helper.c:158
+#: ../src/eog-save-as-dialog-helper.c:162
 msgid "Option not available."
 msgstr "Možnost není k dispozici."
 
-#: ../src/eog-save-as-dialog-helper.c:160
+#: ../src/eog-save-as-dialog-helper.c:164
 msgid ""
 "To use this function you need the libexif library. Please install libexif "
 "(http://libexif.sf.net) and recompile Eye of GNOME."
@@ -631,7 +644,7 @@ msgstr ""
 "Pro používání této funkce potřebujete knihovnu libexif. Nainstalujte prosím "
 "libexif (http://libexif.sf.net) a znovu přeložte Eye of GNOME."
 
-#: ../src/eog-save-as-dialog-helper.c:235
+#: ../src/eog-save-as-dialog-helper.c:239
 msgid "as is"
 msgstr "beze změny"
 
@@ -756,230 +769,230 @@ msgstr[2] ""
 "Opravdu·chcete·přesunout\n"
 "%d vybraných·obrázků do·koše?"
 
-#: ../src/eog-window.c:2658 ../src/eog-window.c:3058
+#: ../src/eog-window.c:2658 ../src/eog-window.c:3064
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: ../src/eog-window.c:2695
+#: ../src/eog-window.c:2700
 msgid "Couldn't access trash."
 msgstr "Nemohu přistupovat ke koši."
 
-#: ../src/eog-window.c:2778
+#: ../src/eog-window.c:2784
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba při odstraňování obrázku %s"
 
-#: ../src/eog-window.c:2985
+#: ../src/eog-window.c:2991
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../src/eog-window.c:2986
+#: ../src/eog-window.c:2992
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../src/eog-window.c:2987
+#: ../src/eog-window.c:2993
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ../src/eog-window.c:2988
+#: ../src/eog-window.c:2994
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../src/eog-window.c:2989
+#: ../src/eog-window.c:2995
 msgid "_Go"
 msgstr "_Jít"
 
-#: ../src/eog-window.c:2990
+#: ../src/eog-window.c:2996
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: ../src/eog-window.c:2992
+#: ../src/eog-window.c:2998
 msgid "_Open..."
 msgstr "_Otevřít..."
 
-#: ../src/eog-window.c:2993
+#: ../src/eog-window.c:2999
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: ../src/eog-window.c:2995
+#: ../src/eog-window.c:3001
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../src/eog-window.c:2996
+#: ../src/eog-window.c:3002
 msgid "Close window"
 msgstr "Zavřít okno"
 
-#: ../src/eog-window.c:2998
+#: ../src/eog-window.c:3004
 msgid "Prefere_nces"
 msgstr "_Nastavení"
 
-#: ../src/eog-window.c:2999
+#: ../src/eog-window.c:3005
 msgid "Preferences for Eye of GNOME"
 msgstr "Nastavení Eye of GNOME"
 
-#: ../src/eog-window.c:3001
+#: ../src/eog-window.c:3007
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: ../src/eog-window.c:3002
+#: ../src/eog-window.c:3008
 msgid "Help On this application"
 msgstr "Nápověda pro tuto aplikaci"
 
-#: ../src/eog-window.c:3004
+#: ../src/eog-window.c:3010
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../src/eog-window.c:3005
+#: ../src/eog-window.c:3011
 msgid "About this application"
 msgstr "O této aplikaci"
 
-#: ../src/eog-window.c:3010
+#: ../src/eog-window.c:3016
 msgid "_Toolbar"
 msgstr "Lištu _nástrojů"
 
-#: ../src/eog-window.c:3011
+#: ../src/eog-window.c:3017
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Změní viditelnost lišty nástrojů v aktuálním okně"
 
-#: ../src/eog-window.c:3013
+#: ../src/eog-window.c:3019
 msgid "_Statusbar"
 msgstr "_Stavovou lištu"
 
-#: ../src/eog-window.c:3014
+#: ../src/eog-window.c:3020
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Změní viditelnost stavové lišty v aktuálním okně"
 
-#: ../src/eog-window.c:3016
+#: ../src/eog-window.c:3022
 msgid "_Image Collection"
-msgstr "_Kolekce obrázků"
+msgstr "_Sbírka obrázků"
 
-#: ../src/eog-window.c:3017
+#: ../src/eog-window.c:3023
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
-msgstr "Změní viditelnost panelu s kolekcí obrázků v aktuálním okně"
+msgstr "Změní viditelnost panelu se sbírkou obrázků v aktuálním okně"
 
-#: ../src/eog-window.c:3022
+#: ../src/eog-window.c:3028
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../src/eog-window.c:3025
+#: ../src/eog-window.c:3031
 msgid "Open _with"
 msgstr "Otevřít _pomocí"
 
-#: ../src/eog-window.c:3028
+#: ../src/eog-window.c:3034
 msgid "Save _As..."
 msgstr "Uložit _jako..."
 
-#: ../src/eog-window.c:3031
+#: ../src/eog-window.c:3037
 msgid "Page Set_up..."
 msgstr "_Vzhled stránky..."
 
-#: ../src/eog-window.c:3034
+#: ../src/eog-window.c:3040
 msgid "Print..."
 msgstr "Tisknout..."
 
-#: ../src/eog-window.c:3037
+#: ../src/eog-window.c:3043
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: ../src/eog-window.c:3040
+#: ../src/eog-window.c:3046
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: ../src/eog-window.c:3043
+#: ../src/eog-window.c:3049
 msgid "Flip _Horizontal"
 msgstr "Převrátit _vodorovně"
 
-#: ../src/eog-window.c:3046
+#: ../src/eog-window.c:3052
 msgid "Flip _Vertical"
 msgstr "Převrátit _svisle"
 
-#: ../src/eog-window.c:3049
+#: ../src/eog-window.c:3055
 msgid "_Rotate Clockwise"
 msgstr "Rotovat _po směru"
 
-#: ../src/eog-window.c:3052
+#: ../src/eog-window.c:3058
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotovat p_roti směru"
 
-#: ../src/eog-window.c:3055
+#: ../src/eog-window.c:3061
 msgid "Set As _Wallpaper"
 msgstr "Nastavit jako _tapetu"
 
-#: ../src/eog-window.c:3061 ../src/eog-window.c:3073 ../src/eog-window.c:3076
+#: ../src/eog-window.c:3067 ../src/eog-window.c:3079 ../src/eog-window.c:3082
 msgid "_Zoom In"
 msgstr "_Přiblížit"
 
-#: ../src/eog-window.c:3064 ../src/eog-window.c:3079
+#: ../src/eog-window.c:3070 ../src/eog-window.c:3085
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
-#: ../src/eog-window.c:3067
+#: ../src/eog-window.c:3073
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: ../src/eog-window.c:3070
+#: ../src/eog-window.c:3076
 msgid "Best _Fit"
 msgstr "Nejlepší _velikost"
 
-#: ../src/eog-window.c:3082
+#: ../src/eog-window.c:3088
 msgid "Move to _Trash"
 msgstr "Přesunou_t do koše"
 
-#: ../src/eog-window.c:3088
+#: ../src/eog-window.c:3094
 msgid "_Full Screen"
 msgstr "_Celá obrazovka"
 
-#: ../src/eog-window.c:3094 ../src/eog-window.c:3109 ../src/eog-window.c:3115
-#: ../src/eog-window.c:3118
+#: ../src/eog-window.c:3100 ../src/eog-window.c:3115 ../src/eog-window.c:3121
+#: ../src/eog-window.c:3124
 msgid "_Previous Image"
 msgstr "_Předchozí obrázek"
 
-#: ../src/eog-window.c:3097 ../src/eog-window.c:3106 ../src/eog-window.c:3112
+#: ../src/eog-window.c:3103 ../src/eog-window.c:3112 ../src/eog-window.c:3118
 msgid "_Next Image"
 msgstr "_Následující obrázek"
 
-#: ../src/eog-window.c:3100 ../src/eog-window.c:3121
+#: ../src/eog-window.c:3106 ../src/eog-window.c:3127
 msgid "_First Image"
 msgstr "P_rvní obrázek"
 
-#: ../src/eog-window.c:3103 ../src/eog-window.c:3124
+#: ../src/eog-window.c:3109 ../src/eog-window.c:3130
 msgid "_Last Image"
 msgstr "Po_slední obrázek"
 
-#: ../src/eog-window.c:3130
+#: ../src/eog-window.c:3136
 msgid "_Slideshow"
 msgstr "_Promítání snímků"
 
-#: ../src/eog-window.c:3196
+#: ../src/eog-window.c:3202
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../src/eog-window.c:3200
+#: ../src/eog-window.c:3206
 msgid "Next"
 msgstr "Následující"
 
-#: ../src/eog-window.c:3204
+#: ../src/eog-window.c:3210
 msgid "Right"
 msgstr "Doprava"
 
-#: ../src/eog-window.c:3207
+#: ../src/eog-window.c:3213
 msgid "Left"
 msgstr "Doleva"
 
-#: ../src/eog-window.c:3210
+#: ../src/eog-window.c:3216
 msgid "In"
 msgstr "Zvětšit"
 
-#: ../src/eog-window.c:3213
+#: ../src/eog-window.c:3219
 msgid "Out"
 msgstr "Zmenšit"
 
-#: ../src/eog-window.c:3216
+#: ../src/eog-window.c:3222
 msgid "Normal"
 msgstr "Normální"
 
-#: ../src/eog-window.c:3219
+#: ../src/eog-window.c:3225
 msgid "Fit"
 msgstr "Přizpůsobit"
 
@@ -988,9 +1001,8 @@ msgid "Open in fullscreen mode"
 msgstr "Otevřít v režimu celé obrazovky"
 
 #: ../src/main.c:60
-#, fuzzy
 msgid "Disable image collection"
-msgstr "_Kolekce obrázků"
+msgstr "Zakázat sbírku obrázků"
 
 #: ../src/main.c:61
 msgid "Open in slide show mode"
