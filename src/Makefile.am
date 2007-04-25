@@ -34,8 +34,6 @@ eog_SOURCES =				\
 	eog-debug.c			\
 	eog-util.h			\
 	eog-util.c			\
-	eog-exif-util.h			\
-	eog-exif-util.c			\
 	eog-pixbuf-util.h		\
 	eog-pixbuf-util.c		\
 	eog-window.h			\
@@ -98,6 +96,8 @@ eog_SOURCES =				\
 
 if HAVE_EXIF
 eog_SOURCES +=				\
+	eog-exif-util.h			\
+	eog-exif-util.c			\
 	eog-exif-details.h		\
 	eog-exif-details.c
 endif

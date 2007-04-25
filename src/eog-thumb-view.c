@@ -19,12 +19,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
 #include "eog-image.h"
 
+#ifdef HAVE_EXIF
+#include "eog-exif-util.h"
+#include <libexif/exif-data.h>
+#endif
+
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <string.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 #define EOG_THUMB_VIEW_SPACING 0
 
@@ -33,8 +45,11 @@
 
 G_DEFINE_TYPE (EogThumbView, eog_thumb_view, GTK_TYPE_ICON_VIEW);
 
-static void eog_thumb_view_popup_menu     (EogThumbView      *widget, 
-					   GdkEventButton    *event);
+static EogImage* eog_thumb_view_get_image_from_path (EogThumbView      *tb,
+						     GtkTreePath       *path);
+
+static void      eog_thumb_view_popup_menu          (EogThumbView      *widget, 
+						     GdkEventButton    *event);
 
 struct _EogThumbViewPrivate {
 	gint start_thumb; /* the first visible thumbnail */
@@ -329,6 +344,116 @@ tb_on_drag_data_get_cb (GtkWidget        *widget,
 	
 }
 
+#ifdef HAVE_GTK_TOOLTIP
+static gboolean 
+tb_on_query_tooltip_cb (GtkWidget  *widget,
+			gint        x,
+			gint        y,
+			gboolean    keyboard_mode,
+			GtkTooltip *tooltip,
+			gpointer    user_data)
+{
+	GtkTreePath *path;
+	EogImage *image;
+	gchar *tooltip_string;
+	gchar *bytes;
+	gint width, height;
+	gchar *uri_str, *mime_str;
+	const gchar *type_str;
+	GError *error = NULL;
+#ifdef HAVE_EXIF
+	ExifData *exif_data;
+#endif	
+
+	if (keyboard_mode) {
+		image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (widget));
+	} else {
+		if (!gtk_icon_view_get_item_at_pos (GTK_ICON_VIEW (widget),
+						    x, y, &path, NULL)) {
+			return FALSE;
+		}
+
+		image = eog_thumb_view_get_image_from_path (EOG_THUMB_VIEW (widget), path);
+
+		gtk_tree_path_free (path);
+	}
+
+	if (image == NULL) {
+		return FALSE;
+	}
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
+		eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, &error);
+
+		if (error) {
+			/* Here, error typically means no exif data found */
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+
+#ifdef HAVE_EXIF
+	exif_data = (ExifData *) eog_image_get_exif_info (image);		
+#endif
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_DIMENSION)) {
+		eog_image_load (image,
+				EOG_IMAGE_DATA_DIMENSION,
+				NULL, 
+				&error);
+	}
+
+	bytes = gnome_vfs_format_file_size_for_display (eog_image_get_bytes (image));
+
+	eog_image_get_size (image, &width, &height);
+	
+	uri_str = eog_image_get_uri_for_display (image);
+
+	mime_str = gnome_vfs_get_mime_type (uri_str);
+	type_str = gnome_vfs_mime_get_description (mime_str);
+
+	tooltip_string = g_strdup_printf ("<b><big>%s</big></b>\n"
+					  "%i x %i %s\n"
+					  "%s\n"
+					  "%s",
+					  eog_image_get_caption (image),
+					  width, 
+					  height, 
+					  ngettext ("pixels", "pixels", height), 
+					  bytes,
+					  type_str);
+
+#ifdef HAVE_EXIF
+	if (exif_data) {
+		gchar *extra_info, *tmp, *date;
+		
+		date = eog_exif_util_format_date (
+				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME));
+
+		extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
+
+		tmp = g_strconcat (tooltip_string, extra_info, NULL);
+
+		g_free (date);
+		g_free (extra_info);
+		g_free (tooltip_string);
+
+		tooltip_string = tmp;
+	}
+#endif
+
+	gtk_tooltip_set_markup (tooltip, tooltip_string);
+	
+	g_free (uri_str);
+	g_free (mime_str);
+	g_free (bytes);
+ 	g_free (tooltip_string);
+	g_object_unref (image);
+	
+	return TRUE;
+}
+#endif /* HAVE_GTK_TOOLTIP */
+
 static void
 eog_thumb_view_init (EogThumbView *tb)
 {
@@ -343,6 +468,15 @@ eog_thumb_view_init (EogThumbView *tb)
 
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (tb),
 					  EOG_THUMB_VIEW_SPACING);
+
+#ifdef HAVE_GTK_TOOLTIP
+	g_object_set (tb, "has-tooltip", TRUE, NULL);
+
+	g_signal_connect (tb, 
+			  "query-tooltip",
+			  G_CALLBACK (tb_on_query_tooltip_cb), 
+			  NULL);
+#endif /* HAVE_GTK_TOOLTIP */	
 	
 	tb->priv = EOG_THUMB_VIEW_GET_PRIVATE (tb);
 	
@@ -576,7 +710,10 @@ eog_thumb_view_set_thumbnail_popup (EogThumbView *tb,
 
 	tb->priv->menu = g_object_ref (menu);
 
-	gtk_menu_attach_to_widget (GTK_MENU (tb->priv->menu), GTK_WIDGET (tb), NULL);
+	gtk_menu_attach_to_widget (GTK_MENU (tb->priv->menu), 
+				   GTK_WIDGET (tb), 
+				   NULL);
+
 	g_signal_connect (G_OBJECT (tb), "button_press_event",
 			  G_CALLBACK (tb_on_button_press_event_cb), NULL);
 	
@@ -591,13 +728,10 @@ eog_thumb_view_popup_menu (EogThumbView *tb, GdkEventButton *event)
 
 	popup = tb->priv->menu;
 	
-	if (event)
-	{
+	if (event) {
 		button = event->button;
 		event_time = event->time;
-	}
-	else
-	{
+	} else {
 		button = 0;
 		event_time = gtk_get_current_event_time ();
 	}

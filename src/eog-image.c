@@ -788,6 +788,36 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 #endif
 }
 
+/**
+ * Attempts to get the image dimensions from the thumbnail.
+ * Returns FALSE if this information is not found.
+ **/
+
+static gboolean
+eog_image_get_dimension_from_thumbnail (EogImage *image,
+			                gint     *width,
+			                gint     *height)
+{
+	const char *w, *h;
+
+	if (image->priv->thumbnail == NULL)
+		return FALSE;
+	
+	w = gdk_pixbuf_get_option (image->priv->thumbnail,
+				   "tEXt::Thumb::Image::Width");
+
+	h = gdk_pixbuf_get_option (image->priv->thumbnail,
+				   "tEXt::Thumb::Image::Height");
+	
+	if (w)
+		sscanf (w, "%i", width);
+
+	if (h)
+		sscanf (h, "%i", height);
+	
+	return (w && h);
+}
+
 static gboolean
 eog_image_real_load (EogImage *img, 
 		     guint     data2read, 
@@ -807,12 +837,14 @@ eog_image_real_load (EogImage *img,
 	gboolean first_run = TRUE;
 	gboolean set_metadata = TRUE;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
+	gboolean read_only_dimension = (data2read & EOG_IMAGE_DATA_DIMENSION) && 
+					!read_image_data;
 
 	g_assert (error == NULL || *error == NULL);
 
 	priv = img->priv;
 
-	g_assert (priv->image == NULL);
+ 	g_assert (!read_image_data || priv->image == NULL);
 
 	if (read_image_data && priv->file_type != NULL) {
 		g_free (priv->file_type);
@@ -825,6 +857,22 @@ eog_image_real_load (EogImage *img,
 		return FALSE;
 	}
 
+	if (read_only_dimension) {
+		gint width, height;
+		gboolean done;
+		
+		done = eog_image_get_dimension_from_thumbnail (img, 
+							       &width, 
+							       &height);
+
+		if (done) {
+			priv->width = width;
+			priv->height = height;
+
+			return TRUE;
+		}
+	}
+	
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 
 	if (result != GNOME_VFS_OK) {
@@ -838,7 +886,7 @@ eog_image_real_load (EogImage *img,
 	
 	buffer = g_new0 (guchar, EOG_IMAGE_READ_BUFFER_SIZE);
 
-	if (read_image_data) {
+	if (read_image_data || read_only_dimension) {
 		loader = gdk_pixbuf_loader_new ();
 
 		g_signal_connect_object (G_OBJECT (loader), 
@@ -867,7 +915,7 @@ eog_image_real_load (EogImage *img,
 			break;
 		}
 		
-		if (read_image_data && 
+		if ((read_image_data || read_only_dimension) && 
 		    !gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
 			failed = TRUE;
 			break;
@@ -908,7 +956,6 @@ eog_image_real_load (EogImage *img,
 			if (eog_metadata_reader_finished (md_reader)) {
 				if (set_metadata) {
 					eog_image_set_exif_data (img, md_reader);
-
 #ifdef HAVE_LCMS
 					eog_image_set_icc_data (img, md_reader);
 #endif
@@ -919,9 +966,14 @@ eog_image_real_load (EogImage *img,
 					break;
 			}
 		}
+
+		if (read_only_dimension &&
+		    eog_image_has_data (img, EOG_IMAGE_DATA_DIMENSION)) {
+			break;
+		}
 	}
 
-	if (read_image_data) {
+	if (read_image_data || read_only_dimension) {
 		if (failed) {
 			gdk_pixbuf_loader_close (loader, NULL);
 		} else if (!gdk_pixbuf_loader_close (loader, error)) {

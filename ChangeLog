@@ -1,3 +1,19 @@
+2007-04-26  Lucas Rocha  <lucasr@gnome.org>
+
+	Show tooltips with image's general information on thumbnails 
+	pane. Patch from Claudio Saavedra. Fixes bug #416321.
+
+	* src/eog-thumb-view.c (tb_on_query_tooltip_cb,
+	eog_thumb_view_get_image_from_path, eog_thumb_view_popup_menu,
+	eog_thumb_view_init): added tooltip handling in thumbnails view.
+	* src/eog-window.c (update_status_bar): improve i18n details for
+	status bar content.
+	* src/Makefile.am: made all EXIF-related code optional.
+	* src/eog-image.c (eog_image_get_dimension_from_thumbnail, 
+	eog_image_real_load): added support for loading only image 
+	dimensions.
+	* configure.ac: added checks for new tooltip API in GTK+.
+
 2007-04-25  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-exif-details.c: (eog_exif_details_dispose):

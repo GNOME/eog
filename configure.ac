@@ -174,6 +174,16 @@ fi
 
 AM_CONDITIONAL([HAVE_DBUS], [test "x$have_dbus" = "xyes"])
 
+# ******************
+# GTK+ 2.12 Tooltips
+# ******************
+
+PKG_CHECK_MODULES(GTK_TOOLTIP, gtk+-2.0 >= 2.11.0, 
+		  [HAVE_GTK_TOOLTIP=yes], [HAVE_GTK_TOOLTIP=no])
+if test x$HAVE_GTK_TOOLTIP = xyes; then
+   AC_DEFINE(HAVE_GTK_TOOLTIP, 1, [defined if GtkTooltip is available])
+fi
+
 # ****************
 # CFLAGS/LIBS init
 # ****************

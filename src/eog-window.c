@@ -575,10 +575,12 @@ update_status_bar (EogWindow *window)
 			size_string = gnome_vfs_format_file_size_for_display (bytes);
 
 			/* [image width] x [image height] pixels  [bytes]    [zoom in percent] */
-			str = g_strdup_printf (ngettext("%i x %i pixels  %s    %i%%", 
-			                                "%i x %i pixels  %s    %i%%", 
-							height), 
-					       width, height, size_string, zoom);
+			str = g_strdup_printf ("%i x %i %s  %s    %i%%", 
+					       width, 
+					       height, 
+					       ngettext ("pixels", "pixels", height), 
+					       size_string, 
+					       zoom);
 			
 			g_free (size_string);
 		}
