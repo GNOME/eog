@@ -198,6 +198,8 @@ eog_exif_details_dispose (GObject *object)
 		g_hash_table_destroy (priv->id_path_hash);
 		priv->id_path_hash = NULL;
 	}
+
+	G_OBJECT_CLASS (eog_exif_details_parent_class)->dispose (object);
 }
 
 static void

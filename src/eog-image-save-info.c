@@ -9,6 +9,8 @@
 #include "eog-pixbuf-util.h"
 #include "eog-image.h"
 
+G_DEFINE_TYPE (EogImageSaveInfo, eog_image_save_info, G_TYPE_OBJECT)
+
 static void
 eog_image_save_info_dispose (GObject *object)
 {
@@ -23,6 +25,8 @@ eog_image_save_info_dispose (GObject *object)
 		g_free (info->format);
 		info->format = NULL;
 	}
+
+	G_OBJECT_CLASS (eog_image_save_info_parent_class)->dispose (object);
 }
 
 static void
@@ -38,9 +42,6 @@ eog_image_save_info_class_init (EogImageSaveInfoClass *klass)
 
 	object_class->dispose = eog_image_save_info_dispose;
 }
-
-
-G_DEFINE_TYPE (EogImageSaveInfo, eog_image_save_info, G_TYPE_OBJECT)
 
 /* is_local_uri: 
  * 

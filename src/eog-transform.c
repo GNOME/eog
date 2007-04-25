@@ -17,12 +17,16 @@ struct _EogTransformPrivate {
 	double affine[6];
 };
 
+G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
+
 static void
 eog_transform_finalize (GObject *object)
 {
 	EogTransform *trans = EOG_TRANSFORM (object);
 	
 	g_free (trans->priv);
+
+	G_OBJECT_CLASS (eog_transform_parent_class)->finalize (object);
 }
 
 static void
@@ -42,10 +46,6 @@ eog_transform_class_init (EogTransformClass *klass)
 
 	object_class->finalize = eog_transform_finalize;
 }
-
-
-G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
-
 
 GdkPixbuf*    
 eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)

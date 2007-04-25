@@ -46,6 +46,8 @@ struct _EogMetadataReaderPrivate {
 	int      bytes_read;	
 };
 
+G_DEFINE_TYPE (EogMetadataReader, eog_metadata_reader, G_TYPE_OBJECT)
+
 static void
 eog_metadata_reader_finalize (GObject *object)
 {
@@ -53,6 +55,8 @@ eog_metadata_reader_finalize (GObject *object)
 	
 	g_free (instance->priv);
 	instance->priv = NULL;
+
+	G_OBJECT_CLASS (eog_metadata_reader_parent_class)->finalize (object);
 }
 
 static void
@@ -74,6 +78,8 @@ eog_metadata_reader_dispose (GObject *object)
 		g_free (emr->priv->icc_chunk);
 		emr->priv->icc_chunk = NULL;
 	}
+
+	G_OBJECT_CLASS (eog_metadata_reader_parent_class)->dispose (object);
 }
 
 static void
@@ -100,9 +106,6 @@ eog_metadata_reader_class_init (EogMetadataReaderClass *klass)
 	object_class->finalize = eog_metadata_reader_finalize;
 	object_class->dispose = eog_metadata_reader_dispose;
 }
-
-
-G_DEFINE_TYPE (EogMetadataReader, eog_metadata_reader, G_TYPE_OBJECT)
 
 EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)

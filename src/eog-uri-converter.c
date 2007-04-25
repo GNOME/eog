@@ -52,6 +52,7 @@ static void eog_uri_converter_get_property (GObject    *object,
 					    GValue     *value,
 					    GParamSpec *pspec);
 
+G_DEFINE_TYPE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
 
 static void
 eog_uri_converter_finalize (GObject *object)
@@ -60,6 +61,8 @@ eog_uri_converter_finalize (GObject *object)
 	
 	g_free (instance->priv);
 	instance->priv = NULL;
+
+	G_OBJECT_CLASS (eog_uri_converter_parent_class)->finalize (object);
 }
 
 static void
@@ -102,6 +105,8 @@ eog_uri_converter_dispose (GObject *object)
 		g_free (priv->counter_str);
 		priv->counter_str = NULL;
 	}
+
+	G_OBJECT_CLASS (eog_uri_converter_parent_class)->dispose (object);
 }
 
 static void
@@ -185,8 +190,6 @@ eog_uc_error_quark (void)
 	
 	return q;
 }
-
-G_DEFINE_TYPE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
 
 static void 
 update_counter_format_str (EogURIConverter *conv)
