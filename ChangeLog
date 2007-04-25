@@ -1,3 +1,24 @@
+2007-04-25  Felix Riemann  <friemann@svn.gnome.org>
+
+	* libeog/eog-image-cache.c: (eog_image_cache_finalize),
+	(eog_image_cache_dispose):
+	* libeog/eog-image-list.c: (eog_image_list_finalize),
+	(eog_image_list_dispose):
+	* libeog/eog-image-save-info.c: (eog_image_save_info_dispose):
+	* libeog/eog-image.c: (eog_image_dispose), (eog_image_finalize):
+	* libeog/eog-info-view-exif.c: (eog_info_view_exif_finalize),
+	(eog_info_view_exif_dispose):
+	* libeog/eog-info-view.c: (eog_info_view_dispose),
+	(eog_info_view_finalize):
+	* libeog/eog-job.c: (eog_job_finalize), (eog_job_dispose):
+	* libeog/eog-metadata-reader.c: (eog_metadata_reader_finalize),
+	(eog_metadata_reader_dispose):
+	* libeog/eog-transform.c: (eog_transform_finalize):
+	* libeog/eog-uri-converter.c: (eog_uri_converter_finalize),
+	(eog_uri_converter_dispose):
+
+	Chain up dispose/finalize handlers. Fixes bug 433127.
+
 2007-04-24  Brian Pepple  <bpepple@fedoraproject.org>
 
 	* data/icons/Makefile.am (update-icon-cache): fix gtk-update-icon-cache

@@ -120,6 +120,8 @@ eog_image_dispose (GObject *object)
 		g_slist_free (priv->undo_stack);
 		priv->undo_stack = NULL;
 	}
+
+	G_OBJECT_CLASS (eog_image_parent_class)->dispose (object);
 }
 
 static void
@@ -140,6 +142,8 @@ eog_image_finalize (GObject *object)
 		g_message ("active image objects: %i", n_active_images);
 	}
 #endif
+
+	G_OBJECT_CLASS (eog_image_parent_class)->finalize (object);
 }
 
 static void
