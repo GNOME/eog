@@ -634,7 +634,7 @@ eog_window_set_message_area (EogWindow *window,
 			    0);
 
 	g_object_add_weak_pointer (G_OBJECT (window->priv->message_area), 
-				   (gpointer *) &window->priv->message_area);
+				   (void *) &window->priv->message_area);
 }
 
 static void
