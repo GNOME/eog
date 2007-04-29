@@ -61,7 +61,9 @@ struct _EogPropertiesDialogClass {
 GType	    eog_properties_dialog_get_type	(void);
 
 GObject    *eog_properties_dialog_new	  	(GtkWindow               *parent,
-                                                 EogThumbView            *thumbview);
+                                                 EogThumbView            *thumbview,
+						 GtkAction               *next_image_action,
+						 GtkAction               *previous_image_action);
 
 void	    eog_properties_dialog_update  	(EogPropertiesDialog     *prop,
 						 EogImage                *image);

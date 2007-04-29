@@ -2606,13 +2606,24 @@ eog_window_cmd_properties (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
 	EogWindowPrivate *priv;
+	GtkAction *next_image_action, *previous_image_action;
 
 	priv = window->priv;
+
+	next_image_action = 
+		gtk_action_group_get_action (priv->actions_collection, 
+					     "GoNext");
+
+	previous_image_action = 
+		gtk_action_group_get_action (priv->actions_collection, 
+					     "GoPrevious");
 
 	if (window->priv->properties_dlg == NULL) {
 		window->priv->properties_dlg = 
 			eog_properties_dialog_new (GTK_WINDOW (window),
-						   EOG_THUMB_VIEW (priv->thumbview));
+						   EOG_THUMB_VIEW (priv->thumbview),
+						   next_image_action,
+						   previous_image_action);
 
 		eog_properties_dialog_update (EOG_PROPERTIES_DIALOG (priv->properties_dlg),
 					      priv->image);

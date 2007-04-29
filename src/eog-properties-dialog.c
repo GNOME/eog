@@ -191,34 +191,6 @@ pd_update_exif_tab (EogPropertiesDialog *prop_dlg,
 #endif
 
 static void
-pd_previous_button_clicked_cb (GtkButton *button, 
-			       gpointer   user_data)
-{
-	EogPropertiesDialogPrivate *priv;
-
-	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (user_data));
-
-	priv = EOG_PROPERTIES_DIALOG (user_data)->priv;
-
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview), 
-				      EOG_THUMB_VIEW_SELECT_LEFT);
-}
-
-static void
-pd_next_button_clicked_cb (GtkButton *button, 
-			   gpointer   user_data)
-{
-	EogPropertiesDialogPrivate *priv;
-
-	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (user_data));
-
-	priv = EOG_PROPERTIES_DIALOG (user_data)->priv;
-
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (priv->thumbview), 
-				      EOG_THUMB_VIEW_SELECT_RIGHT);
-}
-
-static void
 pd_close_button_clicked_cb (GtkButton *button, 
 			    gpointer   user_data)
 {
@@ -363,16 +335,6 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			  G_CALLBACK (eog_properties_dialog_delete),
 			  prop_dlg);
 
-	g_signal_connect (priv->previous_button,
-			  "clicked",
-			  G_CALLBACK (pd_previous_button_clicked_cb),
-			  prop_dlg);
-
-	g_signal_connect (priv->next_button,
-			  "clicked",
-			  G_CALLBACK (pd_next_button_clicked_cb),
-			  prop_dlg);
-
 	g_signal_connect (priv->close_button,
 			  "clicked",
 			  G_CALLBACK (pd_close_button_clicked_cb),
@@ -404,14 +366,28 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 }
 
 GObject *
-eog_properties_dialog_new (GtkWindow *parent, EogThumbView *thumbview)
+eog_properties_dialog_new (GtkWindow    *parent, 
+			   EogThumbView *thumbview,
+			   GtkAction    *next_image_action,
+			   GtkAction    *previous_image_action)
 {
 	GObject *prop_dlg;
+
+	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
+	g_return_val_if_fail (EOG_IS_THUMB_VIEW (thumbview), NULL);
+	g_return_val_if_fail (GTK_IS_ACTION (next_image_action), NULL);
+	g_return_val_if_fail (GTK_IS_ACTION (previous_image_action), NULL);
 
 	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG, 
 				 "parent-window", parent,
 			     	 "thumbview", thumbview,
 			     	 NULL);
+
+	gtk_action_connect_proxy (next_image_action, 
+				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->next_button);
+
+	gtk_action_connect_proxy (previous_image_action, 
+				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->previous_button);
 
 	return prop_dlg;
 }
