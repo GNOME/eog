@@ -1230,6 +1230,8 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 						 priv->display_profile);
 #endif
 
+		gtk_action_group_set_sensitive (priv->actions_image, TRUE);
+
 		eog_window_display_image (window, job->image);
 	} else {
 		GtkWidget *message_area;
@@ -1260,8 +1262,11 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 
         	if (window->priv->status == EOG_WINDOW_STATUS_INIT) {
 			update_action_groups_state (window);
+
 			g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 		}
+
+		gtk_action_group_set_sensitive (priv->actions_image, FALSE);
 	}
 
 	eog_window_clear_load_job (window);
