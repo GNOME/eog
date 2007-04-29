@@ -3,10 +3,13 @@ jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
 jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
+toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
+
 INCLUDES =							\
 	$(EOG_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	-I$(top_srcdir)/jpegutils				\
+ 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
@@ -109,6 +112,7 @@ eog_LDADD = 				\
 	$(EOG_LIBS)			\
 	$(X_LIBS)			\
 	$(LIBJPEG)			\
+ 	$(toolbar_LIB)			\
 	$(jpeg_LIB)
 
 BUILT_SOURCES = 			\

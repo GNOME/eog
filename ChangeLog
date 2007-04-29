@@ -1,3 +1,24 @@
+2007-04-29  Lucas Rocha  <lucasr@gnome.org>
+
+	Editable toolbar support. Patch from Claudio Saavedra. Fixes
+	bug #393586.
+
+	* src/eog-application.[ch] (eog_application_init,
+	eog_application_dispose, eog_application_get_toolbars_model,
+	eog_application_save_toolbars_model): add centralized toolbar 
+	model handling for all application windows.
+	* src/eog-window.c (eog_window_construct_ui): use toolbar model
+	and editable toolbar.
+	eog_window_cmd_edit_toolbar, eog_window_cmd_edit_toolbar_cb)
+	* src/eog-util.[ch] (eog_util_dot_dir): added function to get 
+	the user EOG's directory.
+	* cut-n-paste/toolbar-editor/*: local copy of editable toolbar
+	from libegg.
+	* data/eog-ui.xml: added toolbar to Edit menu.
+	* data/eog-toolbar.xml: new editable toolbar definition file.
+	* configure.ac, Makefile.am, src/Makefile.am: added editable 
+	toolbar bits to the build.
+
 2007-04-26  Lucas Rocha  <lucasr@gnome.org>
 
 	Show tooltips with image's general information on thumbnails 

@@ -66,6 +66,7 @@ eog_application_register_service (EogApplication *application)
 	}
 	
 	connection = dbus_g_bus_get (DBUS_BUS_STARTER, &err);
+
 	if (connection == NULL) {
 		g_warning ("Service registration failed.");
 		g_error_free (err);
@@ -94,6 +95,7 @@ eog_application_register_service (EogApplication *application)
 
 	dbus_g_object_type_install_info (EOG_TYPE_APPLICATION,
 					 &dbus_glib_eog_application_object_info);
+
 	dbus_g_connection_register_g_object (connection,
 					     "/org/gnome/eog/Eog",
                                              G_OBJECT (application));
@@ -111,6 +113,23 @@ static void
 eog_application_init (EogApplication *eog_application)
 {
 	eog_session_init (eog_application);
+
+	eog_application->toolbars_model = egg_toolbars_model_new ();
+
+	eog_application->toolbars_file = g_build_filename
+		(eog_util_dot_dir (), "eog_toolbar.xml", NULL);
+	
+	egg_toolbars_model_load_names (eog_application->toolbars_model,
+				       EOG_DATADIR "/eog-toolbar.xml");
+	
+	if (!egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
+					       eog_application->toolbars_file)) {
+		egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
+						  EOG_DATADIR "/eog-toolbar.xml");
+	}
+
+	egg_toolbars_model_set_flags (eog_application->toolbars_model, 0,
+				      EGG_TB_MODEL_NOT_REMOVABLE);
 }
 
 EogApplication *
@@ -290,6 +309,14 @@ eog_application_shutdown (EogApplication *application)
 {
 	g_return_if_fail (EOG_IS_APPLICATION (application));
 
+	if (application->toolbars_model) {
+		g_object_unref (application->toolbars_model);
+		application->toolbars_model = NULL;
+
+		g_free (application->toolbars_file);
+		application->toolbars_file = NULL;
+	}
+
 	g_object_unref (application);
 	
 	gtk_main_quit ();
@@ -316,3 +343,18 @@ eog_application_get_windows (EogApplication *application)
 	return windows;
 }
 
+EggToolbarsModel *
+eog_application_get_toolbars_model (EogApplication *application)
+{
+	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
+	
+	return application->toolbars_model;
+}
+
+void
+eog_application_save_toolbars_model (EogApplication *application)
+{
+        egg_toolbars_model_save_toolbars (application->toolbars_model,
+			 	          application->toolbars_file, 
+					  "1.0");
+}

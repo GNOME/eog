@@ -26,6 +26,7 @@
 #define __EOG_APPLICATION_H__
 
 #include "eog-window.h"
+#include "egg-toolbars-model.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -47,6 +48,9 @@ typedef struct _EogApplicationPrivate EogApplicationPrivate;
 
 struct _EogApplication {
 	GObject base_instance;
+
+	EggToolbarsModel *toolbars_model;
+	gchar            *toolbars_file;
 };
 
 struct _EogApplicationClass {
@@ -83,6 +87,10 @@ gboolean          eog_application_open_uris          (EogApplication *applicatio
 #endif
 
 GList		 *eog_application_get_windows	     (EogApplication   *application);
+
+EggToolbarsModel *eog_application_get_toolbars_model (EogApplication *application);
+
+void              eog_application_save_toolbars_model (EogApplication *application);
 
 G_END_DECLS
 

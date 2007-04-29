@@ -37,9 +37,11 @@
 #include <string.h>
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <libgnome/gnome-help.h>
+#include <libgnome/gnome-init.h>
 #include <libgnome/gnome-desktop-item.h>
 #include <libgnomevfs/gnome-vfs.h>
 
@@ -231,4 +233,42 @@ eog_util_launch_desktop_file (const gchar *filename,
 	}
 	
 	return ret >= 0;
+}
+
+/* Above code courtesy of Evince hackers */
+
+static gchar *dot_dir = NULL;
+
+static gboolean
+ensure_dir_exists (const char *dir)
+{
+	if (g_file_test (dir, G_FILE_TEST_IS_DIR))
+		return TRUE;
+	
+	if (g_mkdir (dir, 488) == 0)
+		return TRUE;
+
+	if (errno == EEXIST)
+		return g_file_test (dir, G_FILE_TEST_IS_DIR);
+	
+	g_warning ("Failed to create directory %s: %s", dir, strerror (errno));
+	return FALSE;
+}
+
+const gchar *
+eog_util_dot_dir (void)
+{
+	if (dot_dir == NULL) {
+		gboolean exists;
+		
+		dot_dir = g_build_filename (gnome_user_dir_get (),
+					    "eog",
+					    NULL);
+		
+		exists = ensure_dir_exists (dot_dir);
+
+		g_assert (exists);
+	}
+
+	return dot_dir;
 }

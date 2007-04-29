@@ -15,13 +15,14 @@ GNOME_MAINTAINER_MODE_DEFINES
 GNOME_COMPILE_WARNINGS
 GNOME_DEBUG_CHECK
 
-AC_PROG_RANLIB
+AC_PROG_LIBTOOL
 
 AC_ISC_POSIX
 AC_PROG_CC
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
+AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
 AC_CHECK_FUNCS(strptime)
 
@@ -213,6 +214,8 @@ AC_CONFIG_FILES([
 Makefile
 src/Makefile
 jpegutils/Makefile
+cut-n-paste/Makefile
+cut-n-paste/toolbar-editor/Makefile
 help/Makefile
 help/eu/Makefile
 help/it/Makefile

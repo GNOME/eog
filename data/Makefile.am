@@ -18,7 +18,10 @@ gladedir = $(pkgdatadir)
 glade_DATA = eog.glade
 
 uidir = $(datadir)/eog
-UI_FILES = eog-ui.xml 
+UI_FILES = \
+	eog-ui.xml \
+	eog-toolbar.xml
+
 ui_DATA = $(UI_FILES)
 
 install-data-local:

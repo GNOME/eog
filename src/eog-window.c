@@ -52,6 +52,10 @@
 #include "eog-print-image-setup.h"
 #include "eog-save-as-dialog-helper.h"
 
+#include "egg-toolbar-editor.h"
+#include "egg-editable-toolbar.h"
+#include "egg-toolbars-model.h"
+
 #include <glib.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
@@ -129,6 +133,7 @@ struct _EogWindowPrivate {
         GtkWidget           *statusbar;
         GtkWidget           *nav;
 	GtkWidget           *message_area;
+	GtkWidget           *toolbar;
 	GObject             *properties_dlg;
 
         GtkActionGroup      *actions_window;
@@ -2236,6 +2241,68 @@ eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 }
 
 static void
+eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
+{
+	EogWindow *window = EOG_WINDOW (data);
+
+        egg_editable_toolbar_set_edit_mode
+		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+
+	eog_application_save_toolbars_model (EOG_APP);
+
+        gtk_widget_destroy (GTK_WIDGET (dialog));
+}
+
+static void
+eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
+{
+	EogWindow *window;
+	GtkWidget *dialog;
+	GtkWidget *editor;
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+
+	dialog = gtk_dialog_new_with_buttons (_("Toolbar Editor"),
+					      GTK_WINDOW (window), 
+				              GTK_DIALOG_DESTROY_WITH_PARENT, 
+					      GTK_STOCK_CLOSE,
+					      GTK_RESPONSE_CLOSE, 
+					      NULL);
+
+	gtk_dialog_set_default_response (GTK_DIALOG (dialog), 
+					 GTK_RESPONSE_CLOSE);
+
+	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+
+	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+
+	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 500, 400);
+
+	editor = egg_toolbar_editor_new (window->priv->ui_mgr,
+					 eog_application_get_toolbars_model (EOG_APP));
+
+	gtk_container_set_border_width (GTK_CONTAINER (editor), 5);
+
+	gtk_box_set_spacing (GTK_BOX (EGG_TOOLBAR_EDITOR (editor)), 5);
+             
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), editor);
+
+	egg_editable_toolbar_set_edit_mode
+		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+
+	g_signal_connect (dialog, 
+                          "response",
+			  G_CALLBACK (eog_window_cmd_edit_toolbar_cb),
+			  window);
+
+	gtk_widget_show_all (dialog);
+}
+
+static void
 eog_window_cmd_help (GtkAction *action, gpointer user_data)
 {
 	EogWindow *window;
@@ -2336,8 +2403,7 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 	visible = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 
 	if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewToolbar") == 0) {
-		GtkWidget *widget = gtk_ui_manager_get_widget (priv->ui_mgr, "/Toolbar");
-		g_object_set (G_OBJECT (widget), "visible", visible, NULL);
+		g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_TOOLBAR, visible, NULL);
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewStatusbar") == 0) {
 		g_object_set (G_OBJECT (priv->statusbar), "visible", visible, NULL);
@@ -3006,6 +3072,9 @@ static const GtkActionEntry action_entries_window[] = {
 	{ "FileClose", GTK_STOCK_CLOSE, N_("_Close"), "<control>W",  
 	  N_("Close window"),
 	  G_CALLBACK (eog_window_cmd_close_window) },
+	{ "EditToolbar", NULL, N_("T_oolbar"), NULL,
+	  N_("Edit the application toolbar"),
+	  G_CALLBACK (eog_window_cmd_edit_toolbar) },
 	{ "EditPreferences", GTK_STOCK_PREFERENCES, N_("Prefere_nces"), NULL, 
 	  N_("Preferences for Eye of GNOME"), 
 	  G_CALLBACK (eog_window_cmd_preferences) },
@@ -3340,7 +3409,6 @@ eog_window_construct_ui (EogWindow *window)
 	GError *error = NULL;
 	
 	GtkWidget *menubar;
-	GtkWidget *toolbar;
 	GtkWidget *popup;
 	GtkWidget *frame;
 
@@ -3426,10 +3494,22 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
 	gtk_widget_show (menubar);
 
-	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/Toolbar");
-	g_assert (GTK_IS_WIDGET (toolbar));
-	gtk_box_pack_start (GTK_BOX (priv->box), toolbar, FALSE, FALSE, 0);
-	gtk_widget_show (toolbar);
+	priv->toolbar = GTK_WIDGET 
+		(g_object_new (EGG_TYPE_EDITABLE_TOOLBAR,
+			       "ui-manager", priv->ui_mgr,
+			       "model", eog_application_get_toolbars_model (EOG_APP),
+			       NULL));
+
+	egg_editable_toolbar_show (EGG_EDITABLE_TOOLBAR (priv->toolbar),
+				   "Toolbar");
+
+	gtk_box_pack_start (GTK_BOX (priv->box), 
+			    priv->toolbar, 
+			    FALSE, 
+			    FALSE, 
+			    0);
+
+	gtk_widget_show (priv->toolbar);
 
 	gtk_window_add_accel_group (GTK_WINDOW (window), 
 				    gtk_ui_manager_get_accel_group (priv->ui_mgr));
