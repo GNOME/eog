@@ -1,7 +1,7 @@
 dnl Configure script for the EOG Image Viewer
 
 AC_PREREQ(2.57)
-AC_INIT(eog, 2.19.1)
+AC_INIT([eog], [2.19.1], [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 AM_CONFIG_HEADER(config.h)

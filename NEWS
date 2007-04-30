@@ -1,3 +1,106 @@
+Version 2.19.1
+--------------
+
+New features:
+
+   * Complete rewrite of application core which means more stable, 
+     maintanable, faster image viewer for GNOME (Claudio Saavedra, 
+     Felix Riemann, Lucas Rocha, and others)
+   * Editable application toolbar (Claudio Saavedra, Lucas Rocha)
+   * New image collection pane with on-demand thumbnail loading 
+     (Claudio Saavedra, Felix Riemann, Lucas Rocha)
+   * Support for setting image collection position (left, right, top, 
+     bottom) and wether it's resizable or not. No preference UI 
+     yet (Lucas Rocha)
+   * New image properties dialog which replaces the image info
+     sidepane (Lucas Rocha)
+   * Single instance D-Bus-based activation support (Claudio Saavedra)
+   * Revamped error/warning UI (Lucas Rocha)
+   * "Open with" support to quickly open images on other applications
+     (Rodrigo Aguilar)
+   * Mouse scrollwheel improvements: HIG compliancy and zoom factor 
+     setting (Lucas Rocha)
+   * Migration to GtkRecent (Felix Riemann)
+   * UI polishing on multiple images save as dialog (Claudio Saavedra)
+   * Command line options for fullscreen, slideshow and image collection
+     disabling (Bruno Boaventura, Lucas Rocha)
+
+Bug fixes:
+
+   #377123, [eog-ng] implement EogJobSave (Felix Riemann, Lucas Rocha)
+   #319859, "open image with" function (Rodrigo Aguilar)
+   #334321, Should be possible move the collection in EOG (Lucas Rocha)
+   #316175, EOG gives no error upon opening non image files (Lucas Rocha)
+   #432439, Run gtk-update-icon-cache in uninstall-hook (Brian Pepple)
+   #429156, [patch] "Save As" dialog for multiple files is way too 
+            ugly (Claudio Saavedra)
+   #427154, Some strings are not translated in save-as-multiple dialog. 
+            (Felix Riemann)
+   #419756, Slideshow background should be black. (Diego Escalante)
+   #404708, eog crashed with SIGSEGV in g_closure_invoke() (Lucas Rocha)
+   #404126, Convert debug messages to eog_debug_message (Claudio André)
+   #401939, [eog-ng] Remove leaftag support. (Claudio Saavedra)
+   #399333, EOG-NG crash while opening Print dialog (Claudio Saavedra)
+   #398250, build bug: missing symbols from libpangoft2 (Elijah Newren)
+   #389314, eog should use stock_print-setup from g-i-t for the 
+            "Page setup..." action (Thomas Andersen)
+   #376513, TRACKER: command-line options (Bruno Boaventura, Lucas Rocha)
+   #355858, switching image forward and back quickly can display wrong 
+            image (Felix Riemann)
+   #351040, [eog-ng] use GtkRecent (Felix Riemann)
+   #344140, [eog-ng] remove duplicate code in fullscreen-code (Claudio 
+            Saavedra)
+   #342817, crash trying to view profile image (Felix Riemann)
+   #342103, [patch] [eog-ng] update about dialog (Claudio Saavedra)
+   #341935, Should not zoom with mouse wheel (Lucas Rocha)
+   #341831, [eog-ng] memory usage increases when switching fastly between 
+            images (Lucas Rocha)
+   #341600, [eog-ng] EOG eats a lot o CPU when inactive (Paolo Borelli)
+   #340957, Filenames containing numbers are not properly sorted (as how 
+            nautilus does) (Felix Riemann)
+   #335689, Middle mouse drag should also scroll (Wouter Bolsterlee, 
+            Lucas Rocha)
+   #327424, progress bar changes view size which forces re-zooming of 
+            image (Lucas Rocha)
+   #322057, eog print output is corrupt (Jan Kümmel) 
+   #305823, The rotate buttons on the toolbar are blurred (Luca Ferretti)
+   #404907, [eog-ng] Crash when opening properties dialog (broken EXIF). 
+            (Felix Riemann)
+   #372820, First call to PKG_CHECK_MODULES is conditional without a prior 
+            call to PKG_PROG_PKG_CONFIG (Felix Riemann)
+   #381867, mouse cursor disappear after exit fullscreen mode 
+            (Bruno Boaventura)
+   #383090, Slideshow / Slide Show (Bruno Boaventura)
+   #336973, [eog-ng] Migration of the collection pane to GtkIconView and 
+            GtkListStore (Claudio Saavedra, Felix Riemann, Lucas Rocha)
+   #356947, [eog-ng] GtkPrint support (Claudio Saavedra)
+   #393586, [eog-ng] Editable toolbar for EOG (Claudio Saavedra, Lucas Rocha)
+   #401946, [eog-ng] [patch] D-Bus based activation (Claudio Saavedra)
+   #416321, [eog-ng] Use tooltips to show image information in the 
+            thumbview (Lucas Rocha)
+   #89512,  Setting for how much the mouse wheel should affect 
+            zoom (Lucas Rocha)
+   #321400, mouse side-buttons for navigation (Lucas Rocha)
+
+New and updated translations:
+
+   * Laurent Dhima [sq]
+   * Yannig Marchegay [oc]
+   * Daniel Nylander [sv]
+   * Jovan Naumovski [mk]
+   * again, Luca Ferretti [it]
+   * Djihed Afifi [ar]
+   * David Lodge [en_GB]
+   * Jakub Friedl [cs]
+   * Ignacio Casal Quinteiro [gl]
+   * Jorge González, Claudio Saavedra [es]
+
+New and updated manual translations:
+
+   * Changwoo Ryu [ko]
+   * Daniel Nylander [sv]
+   * Jorge González, Claudio Saavedra [es]
+
 Version 2.18.0.1
 ----------------
 
