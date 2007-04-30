@@ -1,14 +1,14 @@
 dnl Configure script for the EOG Image Viewer
 
 AC_PREREQ(2.57)
-AC_INIT([eog], [2.19.1], [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
+AC_INIT([eog], [2.19.2], [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 AM_CONFIG_HEADER(config.h)
 
 AM_MAINTAINER_MODE
 
-AM_INIT_AUTOMAKE(eog, 2.19.1)
+AM_INIT_AUTOMAKE(eog, 2.19.2)
 
 GNOME_COMMON_INIT
 GNOME_MAINTAINER_MODE_DEFINES
