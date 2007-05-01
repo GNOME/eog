@@ -1786,7 +1786,6 @@ update_ui_visibility (EogWindow *window)
 	
 	GtkAction *action;
 	GtkWidget *menubar;
-	GtkWidget *toolbar;
 	
 	gboolean fullscreen_mode, visible;
 
@@ -1802,15 +1801,12 @@ update_ui_visibility (EogWindow *window)
 	menubar = gtk_ui_manager_get_widget (priv->ui_mgr, "/MainMenu");
 	g_assert (GTK_IS_WIDGET (menubar));
 
-	toolbar = gtk_ui_manager_get_widget (priv->ui_mgr, "/Toolbar");
-	g_assert (GTK_IS_WIDGET (toolbar));
-
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_TOOLBAR, NULL);
 	visible = visible && !fullscreen_mode;
 	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/ToolbarToggle");
 	g_assert (action != NULL);
 	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
-	g_object_set (G_OBJECT (toolbar), "visible", visible, NULL);
+	g_object_set (G_OBJECT (priv->toolbar), "visible", visible, NULL);
 
 	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_STATUSBAR, NULL);
 	visible = visible && !fullscreen_mode;
