@@ -364,7 +364,7 @@ eog_preferences_dialog_constructor (GType type,
 			   EOG_CONF_FULLSCREEN_SECONDS);
 
 	g_signal_connect (G_OBJECT (seconds_spin), 
-			  "changed", 
+			  "value-changed", 
 			  G_CALLBACK (pd_spin_button_changed_cb), 
 			  priv->client);
 
