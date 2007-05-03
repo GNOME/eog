@@ -1,4 +1,6 @@
-# translation of es.po to Spanish
+# Spanish translation of the Eye of Gnome
+# Copyright © 2000-2002, 2006, 2007 the Free Software Foundation, Inc.
+#
 # Federico Mena-Quintero <federico@gimp.org>, 1999.
 # Carlos Perelló Marín <carlos@gnome-db.org>, 2001.
 # Hector Garcia Alvarez <hector@scouts-es.org>, 2001.
@@ -6,14 +8,12 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006, 2007.
 # Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007.
-# Spanish translation of the Eye of Gnome
-# Copyright © 2000-2002, 2006, 2007 the Free Software Foundation, Inc.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-14 19:50+0100\n"
-"PO-Revision-Date: 2007-04-23 17:44+0200\n"
+"POT-Creation-Date: 2007-05-03 03:32+0100\n"
+"PO-Revision-Date: 2007-05-03 20:19+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#. Translaters: This string is for a toggle to display a toolbar.
+#. * The name of the toolbar is automatically computed from the widgets
+#. * on the toolbar, and is placed at the %s. Note the _ before the %s
+#. * which is used to add mnemonics. We know that this is likely to
+#. * produce duplicates, but don't worry about it. If your language
+#. * normally has a mnemonic at the start, please use the _. If not,
+#. * please remove.
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:902
+#, c-format
+msgid "Show “_%s”"
+msgstr "Mostrar «_%s»"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1362
+msgid "_Move on Toolbar"
+msgstr "_Mover en la barra de herramientas"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1363
+msgid "Move the selected item on the toolbar"
+msgstr "Mover el elemento seleccionado en la barra de herramientas"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1364
+msgid "_Remove from Toolbar"
+msgstr "_Quitar de la barra de herramientas"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1365
+msgid "Remove the selected item from the toolbar"
+msgstr "Quitar el elemento seleccionado de la barra de herramientas"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1366
+msgid "_Delete Toolbar"
+msgstr "_Borrar barra de herramientas"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1367
+msgid "Remove the selected toolbar"
+msgstr "Borrar la barra de herramientas seleccionadad"
+
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
+msgid "Separator"
+msgstr "Separador"
 
 #: ../data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -31,195 +71,214 @@ msgid "Image Viewer"
 msgstr "Visor de imágenes"
 
 #: ../data/eog.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../data/eog.glade.h:4
+#, no-c-format
+msgid "%f"
+msgstr "%f"
+
+#: ../data/eog.glade.h:5
 msgid "<b>Aperture Value:</b>"
 msgstr "<b>Valor de apertura:</b>"
 
-#: ../data/eog.glade.h:2
+#: ../data/eog.glade.h:6
 msgid "<b>Bytes:</b>"
 msgstr "<b>Bytes:</b>"
 
-#: ../data/eog.glade.h:3
+#: ../data/eog.glade.h:7
 msgid "<b>Camera Model:</b>"
 msgstr "<b>Modelo de la cámara:</b>"
 
-#: ../data/eog.glade.h:4
+#: ../data/eog.glade.h:8
 msgid "<b>Date/Time:</b>"
 msgstr "<b>Fecha/Hora:</b>"
 
-#: ../data/eog.glade.h:5
+#: ../data/eog.glade.h:9
 msgid "<b>Details</b>"
 msgstr "<b>Detalles</b>"
 
-#: ../data/eog.glade.h:6
+#: ../data/eog.glade.h:10
 msgid "<b>Exposure Time:</b>"
 msgstr "<b>Tiempo de exposición:</b>"
 
-#: ../data/eog.glade.h:7
+#: ../data/eog.glade.h:11
 msgid "<b>File Name Preview</b>"
 msgstr "<b>Vista preliminar del nombre de archivo</b>"
 
-#: ../data/eog.glade.h:8
+#: ../data/eog.glade.h:12
 msgid "<b>File Path Specifications</b>"
 msgstr "<b>Especificaciones de la ruta de archivo</b>"
 
-#: ../data/eog.glade.h:9
+#: ../data/eog.glade.h:13
 msgid "<b>Flash:</b>"
 msgstr "<b>Flash:</b>"
 
-#: ../data/eog.glade.h:10
+#: ../data/eog.glade.h:14
 msgid "<b>Focal Length:</b>"
 msgstr "<b>Distancia focal:</b>"
 
-#: ../data/eog.glade.h:11
+#: ../data/eog.glade.h:15
 msgid "<b>Height:</b>"
 msgstr "<b>Altura:</b>"
 
-#: ../data/eog.glade.h:12
+#: ../data/eog.glade.h:16
 msgid "<b>ISO Speed Rating:</b>"
 msgstr "<b>Tasa de velocidad ISO:</b>"
 
-#: ../data/eog.glade.h:13
+#: ../data/eog.glade.h:17
 msgid "<b>Image Enhancements</b>"
 msgstr "<b>Mejoras de imagen</b>"
 
-#: ../data/eog.glade.h:14
+#: ../data/eog.glade.h:18
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Ampliación de imagen</b>"
 
-#: ../data/eog.glade.h:15
+#: ../data/eog.glade.h:19
 msgid "<b>Location:</b>"
 msgstr "<b>Ubicación:</b>"
 
-#: ../data/eog.glade.h:16
+#: ../data/eog.glade.h:20
 msgid "<b>Metering Mode:</b>"
 msgstr "<b>Modo de medida:</b>"
 
-#: ../data/eog.glade.h:17
+#: ../data/eog.glade.h:21
 msgid "<b>Name:</b>"
 msgstr "<b>Nombre:</b>"
 
-#: ../data/eog.glade.h:18
+#: ../data/eog.glade.h:22
 msgid "<b>Options</b>"
 msgstr "<b>Opciones</b>"
 
-#: ../data/eog.glade.h:19
+#: ../data/eog.glade.h:23
 msgid "<b>Sequence</b>"
 msgstr "<b>Secuencia</b>"
 
-#: ../data/eog.glade.h:20
+#: ../data/eog.glade.h:24
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>Partes transparentes</b>"
 
-#: ../data/eog.glade.h:21
+#: ../data/eog.glade.h:25
 msgid "<b>Type:</b>"
 msgstr "<b>Tipo:</b>"
 
-#: ../data/eog.glade.h:22
+#: ../data/eog.glade.h:26
 msgid "<b>Width:</b>"
 msgstr "<b>Anchura:</b>"
 
-#: ../data/eog.glade.h:23
+#: ../data/eog.glade.h:28
+#, no-c-format
+msgid "<small><i><b>%f:</b> original filename</i></small>"
+msgstr "<small><i><b>%f:</b> nombre de archivo original</i></small>"
+
+#: ../data/eog.glade.h:30
+#, no-c-format
+msgid "<small><i><b>%n:</b> counter</i></small>"
+msgstr "<small><i><b>%n:</b> contador</i></small>"
+
+#: ../data/eog.glade.h:31
 msgid "As _background"
 msgstr "Como _fondo"
 
-#: ../data/eog.glade.h:24
+#: ../data/eog.glade.h:32
 msgid "As check _pattern"
 msgstr "Como _patrón de cuadrícula"
 
-#: ../data/eog.glade.h:25
+#: ../data/eog.glade.h:33
 msgid "As custom c_olor:"
 msgstr "Como c_olor personalizado:"
 
-#: ../data/eog.glade.h:26
+#: ../data/eog.glade.h:34
+msgid "Choose a folder"
+msgstr "Elija una carpeta"
+
+#: ../data/eog.glade.h:35
 msgid "Color for Transparent Areas"
 msgstr "Color para áreas transparentes"
 
-#: ../data/eog.glade.h:27
-msgid "Destination Folder:"
+#: ../data/eog.glade.h:36
+msgid "Destination folder:"
 msgstr "Carpeta de destino:"
 
-#: ../data/eog.glade.h:28
+#: ../data/eog.glade.h:37
 msgid "E_xpand images to fit screen"
 msgstr "E_xpandir imágenes hasta ajustar a la pantalla"
 
-#: ../data/eog.glade.h:29
+#: ../data/eog.glade.h:38
 msgid "Eye of GNOME Preferences"
 msgstr "Preferencias de Eye of GNOME"
 
-#: ../data/eog.glade.h:30
-msgid "Filename Format:"
+#: ../data/eog.glade.h:39
+msgid "Filename format:"
 msgstr "Formato del nombre de archivo:"
 
-#: ../data/eog.glade.h:31
+#: ../data/eog.glade.h:40
 msgid "General"
 msgstr "General"
 
-#: ../data/eog.glade.h:32
+#: ../data/eog.glade.h:41
 msgid "Image Properties"
 msgstr "Propiedades de la imagen"
 
-#: ../data/eog.glade.h:33
+#: ../data/eog.glade.h:42
 msgid "Image View"
 msgstr "Vista de imágenes"
 
-#: ../data/eog.glade.h:34
-msgid "Rename From:"
+#: ../data/eog.glade.h:43
+msgid "Rename from:"
 msgstr "Renombrar desde:"
 
-#: ../data/eog.glade.h:35
-msgid "Replace spaces by underscore"
+#: ../data/eog.glade.h:44
+msgid "Replace spaces with underscores"
 msgstr "Reemplazar espacios por guión bajo"
 
-#: ../data/eog.glade.h:36
+#: ../data/eog.glade.h:45
 msgid "Save As"
 msgstr "Guardar como"
 
-#: ../data/eog.glade.h:37
-msgid "Saving Image"
-msgstr "Guardando imagen"
-
 # Slide es diapositiva en este contexto
-#: ../data/eog.glade.h:38
+#: ../data/eog.glade.h:46
 msgid "Slideshow"
 msgstr "Diapositivas"
 
-#: ../data/eog.glade.h:39
+#: ../data/eog.glade.h:47
 msgid "Smooth images when _zoomed"
 msgstr "Suavizar imágenes al _ampliar"
 
-#: ../data/eog.glade.h:40
+#: ../data/eog.glade.h:48
 msgid "Start counter at:"
 msgstr "Iniciar contador en:"
 
-#: ../data/eog.glade.h:41
+#: ../data/eog.glade.h:49
 msgid "To:"
 msgstr "Hasta:"
 
-#: ../data/eog.glade.h:42
+#: ../data/eog.glade.h:50
 msgid "_Automatic orientation"
 msgstr "_Autorientación"
 
-#: ../data/eog.glade.h:43
-msgid "_Browse"
-msgstr "_Examinar"
-
-#: ../data/eog.glade.h:44
+#: ../data/eog.glade.h:51
 msgid "_Loop sequence"
 msgstr "Secuencia en _bucle"
 
-#: ../data/eog.glade.h:45
+#: ../data/eog.glade.h:52
 msgid "_Next"
 msgstr "_Siguiente"
 
-#: ../data/eog.glade.h:46
+#: ../data/eog.glade.h:53
 msgid "_Previous"
 msgstr "_Anterior"
 
-#: ../data/eog.glade.h:47
+#: ../data/eog.glade.h:54
 msgid "_Switch image after:"
 msgstr "_Cambiar imagen tras:"
 
-#: ../data/eog.glade.h:48
+#: ../data/eog.glade.h:55
+msgid "label"
+msgstr "etiqueta"
+
+#: ../data/eog.glade.h:56
 msgid "seconds"
 msgstr "segundos"
 
@@ -275,7 +334,9 @@ msgstr ""
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
-msgstr "Posición del panel de colección de imágenes. Establezca 0 para abajo; 1 para izquierda; 2 para arriba; 3 para derecha."
+msgstr ""
+"Posición del panel de colección de imágenes. Establezca 0 para abajo; 1 para "
+"izquierda; 2 para arriba; 3 para derecha."
 
 #: ../data/eog.schemas.in.h:10
 msgid "Interpolate Image"
@@ -302,47 +363,45 @@ msgid "Scroll wheel zoom"
 msgstr "Ampliación de la rueda del ratón"
 
 #: ../data/eog.schemas.in.h:16
-msgid "Show/hide image information for collection."
-msgstr "Muestra/oculta la información de la imagen para la colección."
+msgid "Show/hide the image collection pane scroll buttons."
+msgstr ""
+"Muestra/oculta los botones de desplazamiento del panel de colección de "
+"imágenes."
 
 #: ../data/eog.schemas.in.h:17
-msgid "Show/hide image information for single image."
-msgstr "Muestra/oculta la información de la imagen para una sola imagen."
-
-#: ../data/eog.schemas.in.h:18
-msgid "Show/hide the image collection pane scroll buttons."
-msgstr "Muestra/oculta los botones de desplazamiento del panel de colección de imágenes."
-
-#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the image collection pane."
 msgstr "Muestra/oculta el panel de colección de imágenes."
 
-#: ../data/eog.schemas.in.h:20
+#: ../data/eog.schemas.in.h:18
 msgid "Show/hide the window statusbar."
 msgstr "Muestra/oculta la barra de estado de la ventana."
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the window toolbar."
 msgstr "Muestra/oculta la barra de herramientas de la ventana."
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:21
 #, no-c-format
 msgid ""
 "The multiplier to the applied when using the mouse scroll wheel for zooming. "
 "This value defines the zooming step used for each scroll event. For example, "
 "0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
 "a 100% zoom increment."
-msgstr "El multiplicador a usar cuando se use el ratón para ampliar. Este valor define el paso de la ampliación usada para cada evento de desplazamiento. Por ejemplo, 0.05 resulta en un incremento del 5% para cada evento de desplazamiento y 1.00 resulta en un incremento de ampliación del 100%."
+msgstr ""
+"El multiplicador a usar cuando se use el ratón para ampliar. Este valor "
+"define el paso de la ampliación usada para cada evento de desplazamiento. "
+"Por ejemplo, 0.05 resulta en un incremento del 5% para cada evento de "
+"desplazamiento y 1.00 resulta en un incremento de ampliación del 100%."
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:22
 msgid "Transparency color"
 msgstr "Color de transparencia"
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:23
 msgid "Transparency indicator"
 msgstr "Indicador de transparencia"
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:24
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -350,33 +409,33 @@ msgstr ""
 "Indica si al abrir una imagen se debe crear una ventana nueva en vez de "
 "reemplazar la imagen en la ventana actual."
 
-#: ../data/eog.schemas.in.h:27
+#: ../data/eog.schemas.in.h:25
 msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Indica si la secuencia de imágenes debe mostrarse en un bucle infinito."
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:26
 msgid "Whether the image collection pane should be resizable or not."
 msgstr "Indica si el panel de colección de imágenes debería ser redimensionable o no."
 
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:27
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Indica si la imagen se debe interpolar al ampliarla o no. Esto produce "
-"mejor calidad pero es algo más lento que las imágenes no interpoladas."
+"Indica si la imagen se debe interpolar al ampliarla o no. Esto produce mejor "
+"calidad pero es algo más lento que las imágenes no interpoladas."
 
-#: ../data/eog.schemas.in.h:30
+#: ../data/eog.schemas.in.h:28
 msgid "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr ""
 "Indica si la imagen se debe rotar automáticamente basándose en la "
 "orientación EXIF."
 
-#: ../data/eog.schemas.in.h:31
+#: ../data/eog.schemas.in.h:29
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Indica si la rueda del ratón se debe usar para ampliar o no."
 
-#: ../data/eog.schemas.in.h:32
+#: ../data/eog.schemas.in.h:30
 msgid "Zoom multiplier"
 msgstr "Multiplicador de ampliación"
 
@@ -418,19 +477,19 @@ msgstr "Abrir carpeta"
 msgid "Transformation on unloaded image."
 msgstr "Transformación en una imagen no cargada."
 
-#: ../src/eog-image.c:891
+#: ../src/eog-image.c:939
 msgid "EXIF not supported for this file format."
 msgstr "EXIF no soportado para este formato de archivo."
 
-#: ../src/eog-image.c:1242 ../src/eog-image.c:1450
+#: ../src/eog-image.c:1294 ../src/eog-image.c:1502
 msgid "File exists"
 msgstr "El archivo ya existe"
 
-#: ../src/eog-image.c:1389 ../src/eog-image.c:1518
+#: ../src/eog-image.c:1441 ../src/eog-image.c:1570
 msgid "No image loaded."
 msgstr "No se ha cargado ninguna imagen."
 
-#: ../src/eog-image.c:1398 ../src/eog-image.c:1530
+#: ../src/eog-image.c:1450 ../src/eog-image.c:1582
 msgid "Temporary file creation failed."
 msgstr "La creación del archivo temporal ha fallado."
 
@@ -463,11 +522,11 @@ msgstr "Nota de marcador"
 msgid "Other"
 msgstr "Otro"
 
-#: ../src/eog-exif-details.c:220
+#: ../src/eog-exif-details.c:222
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: ../src/eog-exif-details.c:227
+#: ../src/eog-exif-details.c:229
 msgid "Value"
 msgstr "Valor"
 
@@ -490,193 +549,136 @@ msgstr "No se encontraron imágenes en «%s»."
 msgid "The given locations contain no images."
 msgstr "Las ubicaciones proporcionadas no contienen imágenes."
 
-#: ../src/eog-print-image-setup.c:808
+#: ../src/eog-print-image-setup.c:806
 msgid "Image"
 msgstr "Imagen"
 
-#: ../src/eog-print-image-setup.c:809
+#: ../src/eog-print-image-setup.c:807
 msgid "The image whose printing properties will be setup"
 msgstr "La imágen cuyas propiedades serán definidas"
 
-#: ../src/eog-print-image-setup.c:815
+#: ../src/eog-print-image-setup.c:813
 msgid "Page Setup"
 msgstr "Configuración de página"
 
-#: ../src/eog-print-image-setup.c:816
+#: ../src/eog-print-image-setup.c:814
 msgid "The information for the page where the image will be printed"
 msgstr "Información de la página donde la imágen será impresa"
 
-#: ../src/eog-print-image-setup.c:840
+#: ../src/eog-print-image-setup.c:838
 msgid "Position"
 msgstr "Posición"
 
-#: ../src/eog-print-image-setup.c:845
+#: ../src/eog-print-image-setup.c:843
 msgid "_Left:"
 msgstr "_Izquierda:"
 
-#: ../src/eog-print-image-setup.c:846
+#: ../src/eog-print-image-setup.c:844
 msgid "_Right:"
 msgstr "_Derecha:"
 
-#: ../src/eog-print-image-setup.c:847
+#: ../src/eog-print-image-setup.c:845
 msgid "_Top:"
 msgstr "_Arriba:"
 
-#: ../src/eog-print-image-setup.c:848
+#: ../src/eog-print-image-setup.c:846
 msgid "_Bottom:"
 msgstr "A_bajo:"
 
-#: ../src/eog-print-image-setup.c:850
+#: ../src/eog-print-image-setup.c:848
 msgid "C_enter:"
 msgstr "C_entrado:"
 
-#: ../src/eog-print-image-setup.c:855
+#: ../src/eog-print-image-setup.c:853
 msgid "None"
 msgstr "Ninguno"
 
-#: ../src/eog-print-image-setup.c:857
+#: ../src/eog-print-image-setup.c:855
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: ../src/eog-print-image-setup.c:859
+#: ../src/eog-print-image-setup.c:857
 msgid "Vertical"
 msgstr "Vertical"
 
-#: ../src/eog-print-image-setup.c:861
+#: ../src/eog-print-image-setup.c:859
 msgid "Both"
 msgstr "Ambos"
 
-#: ../src/eog-print-image-setup.c:877
+#: ../src/eog-print-image-setup.c:875
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/eog-print-image-setup.c:882
+#: ../src/eog-print-image-setup.c:880
 msgid "_Width:"
 msgstr "A_nchura:"
 
-#: ../src/eog-print-image-setup.c:884
+#: ../src/eog-print-image-setup.c:882
 msgid "_Height:"
 msgstr "A_ltura:"
 
-#: ../src/eog-print-image-setup.c:887
+#: ../src/eog-print-image-setup.c:885
 msgid "_Scaling:"
 msgstr "E_scalado:"
 
-#: ../src/eog-print-image-setup.c:900
+#: ../src/eog-print-image-setup.c:898
 msgid "_Unit:"
 msgstr "_Unidad:"
 
-#: ../src/eog-print-image-setup.c:905
+#: ../src/eog-print-image-setup.c:903
 msgid "Millimeters"
 msgstr "Milímetros"
 
-#: ../src/eog-print-image-setup.c:907
+#: ../src/eog-print-image-setup.c:905
 msgid "Inches"
 msgstr "Pulgadas"
 
-#: ../src/eog-print-image-setup.c:927
+#: ../src/eog-print-image-setup.c:925
 msgid "Preview"
 msgstr "Vista Preliminar"
 
-#. only used for internal purpose
-#: ../src/eog-save-as-dialog-helper.c:30
-msgid "Filename"
-msgstr "Nombre de archivo"
-
-#: ../src/eog-save-as-dialog-helper.c:31
-msgid "Counter"
-msgstr "Contador"
-
-#. These are currently unsupported and being hidden
-#. to avoid making the UI look broken
-#: ../src/eog-save-as-dialog-helper.c:35
-msgid "Comment"
-msgstr "Comentario"
-
-#: ../src/eog-save-as-dialog-helper.c:36
-msgid "Date"
-msgstr "Fecha"
-
-#: ../src/eog-save-as-dialog-helper.c:37
-msgid "Time"
-msgstr "Hora"
-
-#: ../src/eog-save-as-dialog-helper.c:38
-msgid "Day"
-msgstr "Día"
-
-#: ../src/eog-save-as-dialog-helper.c:39
-msgid "Month"
-msgstr "Mes"
-
-#: ../src/eog-save-as-dialog-helper.c:40
-msgid "Year"
-msgstr "Año"
-
-#: ../src/eog-save-as-dialog-helper.c:41
-msgid "Hour"
-msgstr "Hora"
-
-#: ../src/eog-save-as-dialog-helper.c:42
-msgid "Minute"
-msgstr "Minuto"
-
-#: ../src/eog-save-as-dialog-helper.c:43
-msgid "Second"
-msgstr "Segundo"
-
-#: ../src/eog-save-as-dialog-helper.c:162
-msgid "Option not available."
-msgstr "Opción no disponible."
-
-#: ../src/eog-save-as-dialog-helper.c:164
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"Para usar esta función necesita la biblioteca libexif. Instale libexif "
-"(http://libexif.sf.net) y recompile Eye of GNOME."
-
-#: ../src/eog-save-as-dialog-helper.c:239
+#: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
 msgstr "como es"
 
-#: ../src/eog-uri-converter.c:1025
+#: ../src/eog-thumb-view.c:422 ../src/eog-window.c:586
+msgid "pixels"
+msgid_plural "pixels"
+msgstr[0] "píxel"
+msgstr[1] "píxeles"
+
+#: ../src/eog-thumb-view.c:433
+msgid "Taken on"
+msgstr "Tomada en"
+
+#: ../src/eog-uri-converter.c:1028
 msgid "At least two file names are equal."
 msgstr "Al menos dos nombres de archivo son iguales."
 
-#: ../src/eog-util.c:60
+#: ../src/eog-util.c:62
 msgid "Could not display help for Eye of GNOME"
 msgstr "No se pudo mostrar la ayuda para Eye of GNOME"
 
-#. [image width] x [image height] pixels  [bytes]    [zoom in percent]
-#: ../src/eog-window.c:578
-#, c-format
-msgid "%i x %i pixels  %s    %i%%"
-msgid_plural "%i x %i pixels  %s    %i%%"
-msgstr[0] "%i x %i píxeles %s   %i%%"
-msgstr[1] "%i x %i píxeles %s   %i%%"
-
-#: ../src/eog-window.c:977
+#: ../src/eog-window.c:984
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Abrir con «%s»"
 
-#: ../src/eog-window.c:1083
+#: ../src/eog-window.c:1090
 #, c-format
 msgid "Saving image \"%s\" %s"
 msgstr "Guardando imagen «%s» %s"
 
-#: ../src/eog-window.c:1383
+#: ../src/eog-window.c:1395
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Cargando imagen «%s»"
 
-#: ../src/eog-window.c:2142
+#: ../src/eog-window.c:2153
 msgid "Image Settings"
 msgstr "Ajustes de Imagen"
 
-#: ../src/eog-window.c:2156
+#: ../src/eog-window.c:2167
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -685,7 +687,11 @@ msgstr ""
 "Error al imprimir el archivo:\n"
 "%s"
 
-#: ../src/eog-window.c:2277
+#: ../src/eog-window.c:2268
+msgid "Toolbar Editor"
+msgstr "Editor de la barra de herramientas"
+
+#: ../src/eog-window.c:2350
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
@@ -697,7 +703,7 @@ msgstr ""
 "Germán Poo Caamaño <gpoo@ubiobio.cl>\n"
 "Pablo Saratxaga <pablo@mandrakesoft.com>"
 
-#: ../src/eog-window.c:2280
+#: ../src/eog-window.c:2353
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -709,7 +715,7 @@ msgstr ""
 "la Free Software Foundation; ya sea la versión 2 de la Licencia, o (a su "
 "elección) cualquier versión posterior.\n"
 
-#: ../src/eog-window.c:2284
+#: ../src/eog-window.c:2357
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -721,7 +727,7 @@ msgstr ""
 "IDONEIDAD PARA UN PROPÓSITO PARTICULAR. Vea la Licencia Pública General GNU "
 "para más detalles.\n"
 
-#: ../src/eog-window.c:2288
+#: ../src/eog-window.c:2361
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -731,15 +737,15 @@ msgstr ""
 "con este programa, si no es así, escriba a la Free Software Foundation, Inc, "
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU."
 
-#: ../src/eog-window.c:2301 ../src/main.c:179
+#: ../src/eog-window.c:2374 ../src/main.c:179
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2304
+#: ../src/eog-window.c:2377
 msgid "The GNOME image viewing and cataloging program."
 msgstr "El programa de GNOME para ver y catalogar imágenes."
 
-#: ../src/eog-window.c:2640
+#: ../src/eog-window.c:2723
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -748,7 +754,7 @@ msgstr ""
 "¿Seguro que quiere mover\n"
 "«%s» a la papelera?"
 
-#: ../src/eog-window.c:2643
+#: ../src/eog-window.c:2726
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -763,232 +769,240 @@ msgstr[1] ""
 "¿Seguro que quiere mover las %d\n"
 "imágenes seleccionadas a la papelera?"
 
-#: ../src/eog-window.c:2658 ../src/eog-window.c:3058
+#: ../src/eog-window.c:2741 ../src/eog-window.c:3150
 msgid "Move to Trash"
 msgstr "Mover a la papelera"
 
-#: ../src/eog-window.c:2695
+#: ../src/eog-window.c:2783
 msgid "Couldn't access trash."
 msgstr "No se pudo acceder a la papelera."
 
-#: ../src/eog-window.c:2778
+#: ../src/eog-window.c:2867
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Error al borrar la imagen %s"
 
-#: ../src/eog-window.c:2985
+#: ../src/eog-window.c:3074
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../src/eog-window.c:2986
+#: ../src/eog-window.c:3075
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../src/eog-window.c:2987
+#: ../src/eog-window.c:3076
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/eog-window.c:2988
+#: ../src/eog-window.c:3077
 msgid "_Image"
 msgstr "_Imagen"
 
-#: ../src/eog-window.c:2989
+#: ../src/eog-window.c:3078
 msgid "_Go"
 msgstr "_Ir"
 
-#: ../src/eog-window.c:2990
+#: ../src/eog-window.c:3079
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: ../src/eog-window.c:2992
+#: ../src/eog-window.c:3081
 msgid "_Open..."
 msgstr "_Abrir…"
 
-#: ../src/eog-window.c:2993
+#: ../src/eog-window.c:3082
 msgid "Open a file"
 msgstr "Abrir un archivo"
 
-#: ../src/eog-window.c:2995
+#: ../src/eog-window.c:3084
 msgid "_Close"
 msgstr "_Cerrar"
 
-#: ../src/eog-window.c:2996
+#: ../src/eog-window.c:3085
 msgid "Close window"
 msgstr "Cerrar ventana"
 
-#: ../src/eog-window.c:2998
+#: ../src/eog-window.c:3087
+msgid "T_oolbar"
+msgstr "Barra de _herramientas"
+
+#: ../src/eog-window.c:3088
+msgid "Edit the application toolbar"
+msgstr "Editar la barra de herramientas de la aplicación"
+
+#: ../src/eog-window.c:3090
 msgid "Prefere_nces"
 msgstr "Prefere_ncias"
 
-#: ../src/eog-window.c:2999
+#: ../src/eog-window.c:3091
 msgid "Preferences for Eye of GNOME"
 msgstr "Preferencias para Eye of GNOME"
 
-#: ../src/eog-window.c:3001
+#: ../src/eog-window.c:3093
 msgid "_Contents"
 msgstr "_Contenido"
 
-#: ../src/eog-window.c:3002
+#: ../src/eog-window.c:3094
 msgid "Help On this application"
 msgstr "Ayuda acerca de esta aplicación"
 
-#: ../src/eog-window.c:3004
+#: ../src/eog-window.c:3096
 msgid "_About"
 msgstr "_Acerca de"
 
-#: ../src/eog-window.c:3005
+#: ../src/eog-window.c:3097
 msgid "About this application"
 msgstr "Acerca de esta aplicación"
 
-#: ../src/eog-window.c:3010
+#: ../src/eog-window.c:3102
 msgid "_Toolbar"
 msgstr "Barra de _herramientas"
 
-#: ../src/eog-window.c:3011
+#: ../src/eog-window.c:3103
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Cambia la visibilidad de la barra de herramientas en la ventana actual"
 
-#: ../src/eog-window.c:3013
+#: ../src/eog-window.c:3105
 msgid "_Statusbar"
 msgstr "_Barra de estado"
 
-#: ../src/eog-window.c:3014
+#: ../src/eog-window.c:3106
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Cambia la visibilidad de la barra de estado en la ventana actual"
 
-#: ../src/eog-window.c:3016
+#: ../src/eog-window.c:3108
 msgid "_Image Collection"
 msgstr "Colección de _imágenes"
 
-#: ../src/eog-window.c:3017
+#: ../src/eog-window.c:3109
 msgid "Changes the visibility of the image collection pane in the current window"
 msgstr ""
 "Cambia la visibilidad de  la colección de imágenes del panel en la ventana "
 "actual"
 
-#: ../src/eog-window.c:3022
+#: ../src/eog-window.c:3114
 msgid "_Save"
 msgstr "_Guardar"
 
-#: ../src/eog-window.c:3025
+#: ../src/eog-window.c:3117
 msgid "Open _with"
 msgstr "Abrir _con"
 
-#: ../src/eog-window.c:3028
+#: ../src/eog-window.c:3120
 msgid "Save _As..."
 msgstr "Guardar _como…"
 
-#: ../src/eog-window.c:3031
+#: ../src/eog-window.c:3123
 msgid "Page Set_up..."
 msgstr "_Configuración de página..."
 
-#: ../src/eog-window.c:3034
+#: ../src/eog-window.c:3126
 msgid "Print..."
 msgstr "Imprimir…"
 
-#: ../src/eog-window.c:3037
+#: ../src/eog-window.c:3129
 msgid "Properties"
 msgstr "Propiedades"
 
-#: ../src/eog-window.c:3040
+#: ../src/eog-window.c:3132
 msgid "_Undo"
 msgstr "_Deshacer"
 
-#: ../src/eog-window.c:3043
+#: ../src/eog-window.c:3135
 msgid "Flip _Horizontal"
 msgstr "Voltear _horizontalmente"
 
-#: ../src/eog-window.c:3046
+#: ../src/eog-window.c:3138
 msgid "Flip _Vertical"
 msgstr "Voltear _verticalmente"
 
-#: ../src/eog-window.c:3049
+#: ../src/eog-window.c:3141
 msgid "_Rotate Clockwise"
 msgstr "_Rotar en sentido horario"
 
-#: ../src/eog-window.c:3052
+#: ../src/eog-window.c:3144
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotar en sentido _antihorario"
 
-#: ../src/eog-window.c:3055
+#: ../src/eog-window.c:3147
 msgid "Set As _Wallpaper"
 msgstr "Poner como _tapiz"
 
-#: ../src/eog-window.c:3061 ../src/eog-window.c:3073 ../src/eog-window.c:3076
+#: ../src/eog-window.c:3153 ../src/eog-window.c:3165 ../src/eog-window.c:3168
 msgid "_Zoom In"
 msgstr "_Ampliar"
 
-#: ../src/eog-window.c:3064 ../src/eog-window.c:3079
+#: ../src/eog-window.c:3156 ../src/eog-window.c:3171
 msgid "Zoom _Out"
 msgstr "Re_ducir"
 
-#: ../src/eog-window.c:3067
+#: ../src/eog-window.c:3159
 msgid "_Normal Size"
 msgstr "Tamaño _normal"
 
-#: ../src/eog-window.c:3070
+#: ../src/eog-window.c:3162
 msgid "Best _Fit"
 msgstr "Ajuste _óptimo"
 
-#: ../src/eog-window.c:3082
+#: ../src/eog-window.c:3174
 msgid "Move to _Trash"
 msgstr "Mover a la _papelera"
 
-#: ../src/eog-window.c:3088
+#: ../src/eog-window.c:3180
 msgid "_Full Screen"
 msgstr "Pantalla _completa"
 
-#: ../src/eog-window.c:3094 ../src/eog-window.c:3109 ../src/eog-window.c:3115
-#: ../src/eog-window.c:3118
+#: ../src/eog-window.c:3186 ../src/eog-window.c:3201 ../src/eog-window.c:3207
+#: ../src/eog-window.c:3210
 msgid "_Previous Image"
 msgstr "Imagen _anterior"
 
-#: ../src/eog-window.c:3097 ../src/eog-window.c:3106 ../src/eog-window.c:3112
+#: ../src/eog-window.c:3189 ../src/eog-window.c:3198 ../src/eog-window.c:3204
 msgid "_Next Image"
 msgstr "Siguiente _imagen"
 
-#: ../src/eog-window.c:3100 ../src/eog-window.c:3121
+#: ../src/eog-window.c:3192 ../src/eog-window.c:3213
 msgid "_First Image"
 msgstr "_Primera imagen"
 
-#: ../src/eog-window.c:3103 ../src/eog-window.c:3124
+#: ../src/eog-window.c:3195 ../src/eog-window.c:3216
 msgid "_Last Image"
 msgstr "_Última imagen"
 
 # Slide es diapositiva en este contexto
-#: ../src/eog-window.c:3130
+#: ../src/eog-window.c:3222
 msgid "_Slideshow"
 msgstr " _Diapositivas"
 
-#: ../src/eog-window.c:3196
+#: ../src/eog-window.c:3288
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../src/eog-window.c:3200
+#: ../src/eog-window.c:3292
 msgid "Next"
 msgstr "Siguiente"
 
-#: ../src/eog-window.c:3204
+#: ../src/eog-window.c:3296
 msgid "Right"
 msgstr "Derecha"
 
-#: ../src/eog-window.c:3207
+#: ../src/eog-window.c:3299
 msgid "Left"
 msgstr "Izquierda"
 
-#: ../src/eog-window.c:3210
+#: ../src/eog-window.c:3302
 msgid "In"
 msgstr "Ampliar"
 
-#: ../src/eog-window.c:3213
+#: ../src/eog-window.c:3305
 msgid "Out"
 msgstr "Reducir"
 
-#: ../src/eog-window.c:3216
+#: ../src/eog-window.c:3308
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/eog-window.c:3219
+#: ../src/eog-window.c:3311
 msgid "Fit"
 msgstr "Ajustar"
 
