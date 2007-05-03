@@ -13,14 +13,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-26 14:49+0200\n"
-"PO-Revision-Date: 2007-04-26 14:43+0100\n"
+"POT-Creation-Date: 2007-05-03 03:32+0100\n"
+"PO-Revision-Date: 2007-05-03 22:31+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Translaters: This string is for a toggle to display a toolbar.
+#. * The name of the toolbar is automatically computed from the widgets
+#. * on the toolbar, and is placed at the %s. Note the _ before the %s
+#. * which is used to add mnemonics. We know that this is likely to
+#. * produce duplicates, but don't worry about it. If your language
+#. * normally has a mnemonic at the start, please use the _. If not,
+#. * please remove.
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:902
+#, c-format
+msgid "Show “_%s”"
+msgstr "Visa \"_%s\""
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1362
+msgid "_Move on Toolbar"
+msgstr "_Flytta inom verktygsraden"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1363
+msgid "Move the selected item on the toolbar"
+msgstr "Flytta markerat objekt på verktygsraden"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1364
+msgid "_Remove from Toolbar"
+msgstr "_Ta bort från verktygsrad"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1365
+msgid "Remove the selected item from the toolbar"
+msgstr "Ta bort markerat objekt från verktygsraden"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1366
+msgid "_Delete Toolbar"
+msgstr "_Ta bort verktygsrad"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1367
+msgid "Remove the selected toolbar"
+msgstr "Ta bort markerad verktygsrad"
+
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
+msgid "Separator"
+msgstr "Avgränsare"
 
 #: ../data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -31,206 +71,221 @@ msgid "Image Viewer"
 msgstr "Bildvisare"
 
 #: ../data/eog.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../data/eog.glade.h:4
+#, no-c-format
+msgid "%f"
+msgstr "%f"
+
+#: ../data/eog.glade.h:5
 msgid "<b>Aperture Value:</b>"
 msgstr "<b>Bländarvärde:</b>"
 
-#: ../data/eog.glade.h:2
+#: ../data/eog.glade.h:6
 msgid "<b>Bytes:</b>"
 msgstr "<b>Byte:</b>"
 
-#: ../data/eog.glade.h:3
+#: ../data/eog.glade.h:7
 msgid "<b>Camera Model:</b>"
 msgstr "<b>Kameramodell:</b>"
 
-#: ../data/eog.glade.h:4
+#: ../data/eog.glade.h:8
 msgid "<b>Date/Time:</b>"
 msgstr "<b>Datum/tid:</b>"
 
-#: ../data/eog.glade.h:5
+#: ../data/eog.glade.h:9
 msgid "<b>Details</b>"
 msgstr "<b>Detaljer</b>"
 
-#: ../data/eog.glade.h:6
+#: ../data/eog.glade.h:10
 msgid "<b>Exposure Time:</b>"
 msgstr "<b>Exponeringstid:</b>"
 
-#: ../data/eog.glade.h:7
+#: ../data/eog.glade.h:11
 msgid "<b>File Name Preview</b>"
 msgstr "<b>Förhandsvisning av filnamn</b>"
 
-#: ../data/eog.glade.h:8
+#: ../data/eog.glade.h:12
 msgid "<b>File Path Specifications</b>"
 msgstr "<b>Specifikationer för filsökväg</b>"
 
-#: ../data/eog.glade.h:9
+#: ../data/eog.glade.h:13
 msgid "<b>Flash:</b>"
 msgstr "<b>Blixt:</b>"
 
-#: ../data/eog.glade.h:10
+#: ../data/eog.glade.h:14
 msgid "<b>Focal Length:</b>"
 msgstr "<b>Brännvidd:</b>"
 
-#: ../data/eog.glade.h:11
+#: ../data/eog.glade.h:15
 msgid "<b>Height:</b>"
 msgstr "<b>Höjd:</b>"
 
-#: ../data/eog.glade.h:12
+#: ../data/eog.glade.h:16
 msgid "<b>ISO Speed Rating:</b>"
 msgstr "<b>ISO-hastighet:</b>"
 
-#: ../data/eog.glade.h:13
+#: ../data/eog.glade.h:17
 msgid "<b>Image Enhancements</b>"
 msgstr "<b>Bildförbättringar</b>"
 
-#: ../data/eog.glade.h:14
+#: ../data/eog.glade.h:18
 msgid "<b>Image Zoom</b>"
 msgstr "<b>Bildzoomning</b>"
 
-#: ../data/eog.glade.h:15
+#: ../data/eog.glade.h:19
 msgid "<b>Location:</b>"
 msgstr "<b>Plats:</b>"
 
-#: ../data/eog.glade.h:16
+#: ../data/eog.glade.h:20
 msgid "<b>Metering Mode:</b>"
 msgstr "<b>Mätarläge:</b>"
 
-#: ../data/eog.glade.h:17
+#: ../data/eog.glade.h:21
 msgid "<b>Name:</b>"
 msgstr "<b>Namn:</b>"
 
-#: ../data/eog.glade.h:18
+#: ../data/eog.glade.h:22
 msgid "<b>Options</b>"
 msgstr "<b>Alternativ</b>"
 
-#: ../data/eog.glade.h:19
+#: ../data/eog.glade.h:23
 msgid "<b>Sequence</b>"
 msgstr "<b>Sekvens</b>"
 
-#: ../data/eog.glade.h:20
+#: ../data/eog.glade.h:24
 msgid "<b>Transparent Parts</b>"
 msgstr "<b>Genomskinliga delar</b>"
 
-#: ../data/eog.glade.h:21
+#: ../data/eog.glade.h:25
 msgid "<b>Type:</b>"
 msgstr "<b>Typ:</b>"
 
-#: ../data/eog.glade.h:22
+#: ../data/eog.glade.h:26
 msgid "<b>Width:</b>"
 msgstr "<b>Bredd:</b>"
 
-#: ../data/eog.glade.h:23
+#: ../data/eog.glade.h:28
+#, no-c-format
+msgid "<small><i><b>%f:</b> original filename</i></small>"
+msgstr "<small><i><b>%f:</b> ursprungligt filnamn</i></small>"
+
+#: ../data/eog.glade.h:30
+#, no-c-format
+msgid "<small><i><b>%n:</b> counter</i></small>"
+msgstr "<small><i><b>%n:</b> räknare</i></small>"
+
+#: ../data/eog.glade.h:31
 msgid "As _background"
 msgstr "Som _bakgrund"
 
-#: ../data/eog.glade.h:24
+#: ../data/eog.glade.h:32
 msgid "As check _pattern"
 msgstr "Som rut_mönster"
 
-#: ../data/eog.glade.h:25
+#: ../data/eog.glade.h:33
 msgid "As custom c_olor:"
 msgstr "Som anpassad f_ärg:"
 
-#: ../data/eog.glade.h:26
+#: ../data/eog.glade.h:34
+msgid "Choose a folder"
+msgstr "Välj en mapp"
+
+#: ../data/eog.glade.h:35
 msgid "Color for Transparent Areas"
 msgstr "Färg för genomskinliga områden"
 
-#: ../data/eog.glade.h:27
-msgid "Destination Folder:"
+#: ../data/eog.glade.h:36
+msgid "Destination folder:"
 msgstr "Målmapp:"
 
-#: ../data/eog.glade.h:28
+#: ../data/eog.glade.h:37
 msgid "E_xpand images to fit screen"
 msgstr "E_xpandera bilder till att passa skärmen"
 
-#: ../data/eog.glade.h:29
+#: ../data/eog.glade.h:38
 msgid "Eye of GNOME Preferences"
 msgstr "Inställningar för Eye of GNOME"
 
-#: ../data/eog.glade.h:30
-msgid "Filename Format:"
+#: ../data/eog.glade.h:39
+msgid "Filename format:"
 msgstr "Filnamnsformat:"
 
-#: ../data/eog.glade.h:31
+#: ../data/eog.glade.h:40
 msgid "General"
 msgstr "Allmänt"
 
-#: ../data/eog.glade.h:32
+#: ../data/eog.glade.h:41
 msgid "Image Properties"
 msgstr "Bildegenskaper"
 
-#: ../data/eog.glade.h:33
+#: ../data/eog.glade.h:42
 msgid "Image View"
 msgstr "Bildvy"
 
-#: ../data/eog.glade.h:34
-msgid "Rename From:"
+#: ../data/eog.glade.h:43
+msgid "Rename from:"
 msgstr "Byt namn från:"
 
-#: ../data/eog.glade.h:35
-msgid "Replace spaces by underscore"
+#: ../data/eog.glade.h:44
+msgid "Replace spaces with underscores"
 msgstr "Ersätt blanksteg med understreck"
 
-#: ../data/eog.glade.h:36
+#: ../data/eog.glade.h:45
 msgid "Save As"
 msgstr "Spara som"
 
-#: ../data/eog.glade.h:37
-msgid "Saving Image"
-msgstr "Sparar bild"
-
-#: ../data/eog.glade.h:38
+#: ../data/eog.glade.h:46
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: ../data/eog.glade.h:39
+#: ../data/eog.glade.h:47
 msgid "Smooth images when _zoomed"
 msgstr "Mjuka upp bilder vid _zoomning"
 
-#: ../data/eog.glade.h:40
+#: ../data/eog.glade.h:48
 msgid "Start counter at:"
 msgstr "Starta räknare vid:"
 
-#: ../data/eog.glade.h:41
+#: ../data/eog.glade.h:49
 msgid "To:"
 msgstr "Till:"
 
-#: ../data/eog.glade.h:42
+#: ../data/eog.glade.h:50
 msgid "_Automatic orientation"
 msgstr "_Automatisk orientering"
 
-#: ../data/eog.glade.h:43
-msgid "_Browse"
-msgstr "_Bläddra"
-
 # Osäker
-#: ../data/eog.glade.h:44
+#: ../data/eog.glade.h:51
 msgid "_Loop sequence"
 msgstr "_Slingsekvens"
 
-#: ../data/eog.glade.h:45
+#: ../data/eog.glade.h:52
 msgid "_Next"
 msgstr "_Nästa"
 
-#: ../data/eog.glade.h:46
+#: ../data/eog.glade.h:53
 msgid "_Previous"
 msgstr "_Föregående"
 
-#: ../data/eog.glade.h:47
+#: ../data/eog.glade.h:54
 msgid "_Switch image after:"
 msgstr "_Byt bild efter:"
 
+#: ../data/eog.glade.h:55
+msgid "label"
+msgstr "etikett"
+
 # Antar att detta är i sammanhanget "...every [] seconds"
-#: ../data/eog.glade.h:48
+#: ../data/eog.glade.h:56
 msgid "seconds"
 msgstr "sekund"
 
 #: ../data/eog.schemas.in.h:1
-msgid ""
-"A value greater than 0 determines the seconds an image stays on screen until "
-"the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
-"Ett värde större än 0 avgör antalet sekunder en bild blir kvar på skärmen "
-"till nästa bild automatiskt visas. Noll inaktiverar automatisk bläddring."
+msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
+msgstr "Ett värde större än 0 avgör antalet sekunder en bild blir kvar på skärmen till nästa bild automatiskt visas. Noll inaktiverar automatisk bläddring."
 
 #: ../data/eog.schemas.in.h:3
 #, no-c-format
@@ -246,38 +301,20 @@ msgid "Delay in seconds until showing the next image"
 msgstr "Fördröjning i sekunder till nästa bild visas"
 
 #: ../data/eog.schemas.in.h:6
-msgid ""
-"Determines how transparency should be indicated. Valid values are "
-"CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
-"determines the used color value."
-msgstr ""
-"Avgör hur genomskinlighet ska indikeras. Giltiga värden är CHECK_PATTERN, "
-"COLOR och NONE. Om COLOR väljs avgör nyckeln trans_color det färgvärde som "
-"används."
+msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
+msgstr "Avgör hur genomskinlighet ska indikeras. Giltiga värden är CHECK_PATTERN, COLOR och NONE. Om COLOR väljs avgör nyckeln trans_color det färgvärde som används."
 
 #: ../data/eog.schemas.in.h:7
-msgid ""
-"If the transparency key has the value COLOR, then this key determines the "
-"color which is used for indicating transparency."
-msgstr ""
-"Om genomskinlighetsnyckeln har värdet COLOR avgör denna nyckel den färg som "
-"används för att indikera genomskinlighet."
+msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
+msgstr "Om genomskinlighetsnyckeln har värdet COLOR avgör denna nyckel den färg som används för att indikera genomskinlighet."
 
 #: ../data/eog.schemas.in.h:8
-msgid ""
-"If this is set to FALSE small images will not be stretched to fit into the "
-"screen initially."
-msgstr ""
-"Om detta är satt till FALSKT kommer små bilder inte att sträckas för att "
-"passa skärmen i början."
+msgid "If this is set to FALSE small images will not be stretched to fit into the screen initially."
+msgstr "Om detta är satt till FALSKT kommer små bilder inte att sträckas för att passa skärmen i början."
 
 #: ../data/eog.schemas.in.h:9
-msgid ""
-"Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
-"3 for right."
-msgstr ""
-"Positionen för bildsamlingspanelen. Ställ in till 0 för nederkant; 1 för "
-"vänster; 2 för överkant; 3 för höger."
+msgid "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 for right."
+msgstr "Positionen för bildsamlingspanelen. Ställ in till 0 för nederkant; 1 för vänster; 2 för överkant; 3 för höger."
 
 #: ../data/eog.schemas.in.h:10
 msgid "Interpolate Image"
@@ -304,85 +341,59 @@ msgid "Scroll wheel zoom"
 msgstr "Rullhjulszoom"
 
 #: ../data/eog.schemas.in.h:16
-msgid "Show/hide image information for collection."
-msgstr "Visa/dölj bildinformation för bildsamling."
-
-#: ../data/eog.schemas.in.h:17
-msgid "Show/hide image information for single image."
-msgstr "Visa/dölj bildinformation för enstaka bild."
-
-#: ../data/eog.schemas.in.h:18
 msgid "Show/hide the image collection pane scroll buttons."
 msgstr "Visa/dölj rullknapparna på bildsamlingspanelen."
 
-#: ../data/eog.schemas.in.h:19
+#: ../data/eog.schemas.in.h:17
 msgid "Show/hide the image collection pane."
 msgstr "Visa/dölj bildsamlingspanelen."
 
-#: ../data/eog.schemas.in.h:20
+#: ../data/eog.schemas.in.h:18
 msgid "Show/hide the window statusbar."
 msgstr "Visa/dölj fönsterstatusraden."
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the window toolbar."
 msgstr "Visa/dölj fönsterverktygsraden."
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:21
 #, no-c-format
-msgid ""
-"The multiplier to the applied when using the mouse scroll wheel for zooming. "
-"This value defines the zooming step used for each scroll event. For example, "
-"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
-"a 100% zoom increment."
-msgstr ""
-"Faktorn som används för zoom med musens rullhjul. Det här värder definierar "
-"zoomsteget som används för varje rullhändelse. Till exempel betyder 0.05 en "
-"zoomökning på 5% för varje rullhändelse och 1.00 betyder 100% zoomökning."
+msgid "The multiplier to the applied when using the mouse scroll wheel for zooming. This value defines the zooming step used for each scroll event. For example, 0.05 results in a 5% zoom increment for each scroll event and 1.00 result in a 100% zoom increment."
+msgstr "Faktorn som används för zoom med musens rullhjul. Det här värder definierar zoomsteget som används för varje rullhändelse. Till exempel betyder 0.05 en zoomökning på 5% för varje rullhändelse och 1.00 betyder 100% zoomökning."
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:22
 msgid "Transparency color"
 msgstr "Genomskinlighetsfärg"
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:23
 msgid "Transparency indicator"
 msgstr "Genomskinlighetsindikator"
 
-#: ../data/eog.schemas.in.h:26
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-"Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att "
-"ersätta bilden i det aktuella fönstret."
+#: ../data/eog.schemas.in.h:24
+msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
+msgstr "Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att ersätta bilden i det aktuella fönstret."
 
-#: ../data/eog.schemas.in.h:27
-msgid ""
-"Whether or not the sequence of images should be shown in an endless loop."
+#: ../data/eog.schemas.in.h:25
+msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Huruvida sekvensen med bilder ska visas i en ändlös slinga eller inte."
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:26
 msgid "Whether the image collection pane should be resizable or not."
-msgstr ""
-"Huruvida bildsamlingspanelen ska vara möjlig att ändra storlek på eller inte."
+msgstr "Huruvida bildsamlingspanelen ska vara möjlig att ändra storlek på eller inte."
 
-#: ../data/eog.schemas.in.h:29
-msgid ""
-"Whether the image should be interpolated on zoom or not. This leads to "
-"better quality but is somewhat slower than non interpolated images."
-msgstr ""
-"Huruvida bilden ska interpoleras vid inzoomning eller inte. Detta leder till "
-"bättre kvalitet men är något långsammare än icke interpolerade bilder."
+#: ../data/eog.schemas.in.h:27
+msgid "Whether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
+msgstr "Huruvida bilden ska interpoleras vid inzoomning eller inte. Detta leder till bättre kvalitet men är något långsammare än icke interpolerade bilder."
 
-#: ../data/eog.schemas.in.h:30
-msgid ""
-"Whether the image should be rotated automatically based on EXIF orientation."
+#: ../data/eog.schemas.in.h:28
+msgid "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "Huruvida bilden ska automatiskt roteras baserat på EXIF-orientering."
 
-#: ../data/eog.schemas.in.h:31
+#: ../data/eog.schemas.in.h:29
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Huruvida rullhjulet ska användas för att zooma eller inte."
 
-#: ../data/eog.schemas.in.h:32
+#: ../data/eog.schemas.in.h:30
 msgid "Zoom multiplier"
 msgstr "Zoomfaktor"
 
@@ -428,15 +439,18 @@ msgstr "Transformation på oinläst bild."
 msgid "EXIF not supported for this file format."
 msgstr "EXIF stöds inte för detta filformat."
 
-#: ../src/eog-image.c:1294 ../src/eog-image.c:1502
+#: ../src/eog-image.c:1294
+#: ../src/eog-image.c:1502
 msgid "File exists"
 msgstr "Filen finns"
 
-#: ../src/eog-image.c:1441 ../src/eog-image.c:1570
+#: ../src/eog-image.c:1441
+#: ../src/eog-image.c:1570
 msgid "No image loaded."
 msgstr "Ingen bild inläst."
 
-#: ../src/eog-image.c:1450 ../src/eog-image.c:1582
+#: ../src/eog-image.c:1450
+#: ../src/eog-image.c:1582
 msgid "Temporary file creation failed."
 msgstr "Skapande av temporär fil misslyckades."
 
@@ -478,7 +492,8 @@ msgstr "Tagg"
 msgid "Value"
 msgstr "Värde"
 
-#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:74
+#: ../src/eog-exif-util.c:58
+#: ../src/eog-exif-util.c:74
 #: ../src/eog-exif-util.c:96
 msgid "Unknown"
 msgstr "Okänt"
@@ -585,70 +600,12 @@ msgstr "Tum"
 msgid "Preview"
 msgstr "Förhandsgranska"
 
-#. only used for internal purpose
-#: ../src/eog-save-as-dialog-helper.c:30
-msgid "Filename"
-msgstr "Filnamn"
-
-#: ../src/eog-save-as-dialog-helper.c:31
-msgid "Counter"
-msgstr "Räknare"
-
-#. These are currently unsupported and being hidden
-#. to avoid making the UI look broken
-#: ../src/eog-save-as-dialog-helper.c:35
-msgid "Comment"
-msgstr "Kommentar"
-
-#: ../src/eog-save-as-dialog-helper.c:36
-msgid "Date"
-msgstr "Datum"
-
-#: ../src/eog-save-as-dialog-helper.c:37
-msgid "Time"
-msgstr "Tid"
-
-#: ../src/eog-save-as-dialog-helper.c:38
-msgid "Day"
-msgstr "Dag"
-
-#: ../src/eog-save-as-dialog-helper.c:39
-msgid "Month"
-msgstr "Månad"
-
-#: ../src/eog-save-as-dialog-helper.c:40
-msgid "Year"
-msgstr "År"
-
-#: ../src/eog-save-as-dialog-helper.c:41
-msgid "Hour"
-msgstr "Timme"
-
-#: ../src/eog-save-as-dialog-helper.c:42
-msgid "Minute"
-msgstr "Minut"
-
-#: ../src/eog-save-as-dialog-helper.c:43
-msgid "Second"
-msgstr "Sekund"
-
-#: ../src/eog-save-as-dialog-helper.c:162
-msgid "Option not available."
-msgstr "Alternativet inte tillgängligt."
-
-#: ../src/eog-save-as-dialog-helper.c:164
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of GNOME."
-msgstr ""
-"För att använda denna funktion behöver du biblioteket libexif. Installera "
-"libexif (http://libexif.sf.net) och kompilera om Eye of GNOME."
-
-#: ../src/eog-save-as-dialog-helper.c:239
+#: ../src/eog-save-as-dialog-helper.c:161
 msgid "as is"
 msgstr "som det är"
 
-#: ../src/eog-thumb-view.c:422 ../src/eog-window.c:581
+#: ../src/eog-thumb-view.c:422
+#: ../src/eog-window.c:586
 msgid "pixels"
 msgid_plural "pixels"
 msgstr[0] "bildpunkt"
@@ -662,30 +619,30 @@ msgstr "Taget den"
 msgid "At least two file names are equal."
 msgstr "Minst två filnamn är identiska."
 
-#: ../src/eog-util.c:60
+#: ../src/eog-util.c:62
 msgid "Could not display help for Eye of GNOME"
 msgstr "Kunde inte visa hjälp för Eye of GNOME"
 
-#: ../src/eog-window.c:979
+#: ../src/eog-window.c:984
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Öppna med \"%s\""
 
-#: ../src/eog-window.c:1085
+#: ../src/eog-window.c:1090
 #, c-format
 msgid "Saving image \"%s\" %s"
 msgstr "Sparar bilden \"%s\" %s"
 
-#: ../src/eog-window.c:1385
+#: ../src/eog-window.c:1395
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Läser in bilden \"%s\""
 
-#: ../src/eog-window.c:2147
+#: ../src/eog-window.c:2153
 msgid "Image Settings"
 msgstr "Bildinställningar"
 
-#: ../src/eog-window.c:2161
+#: ../src/eog-window.c:2167
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -694,7 +651,11 @@ msgstr ""
 "Fel vid utskrift av fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2282
+#: ../src/eog-window.c:2268
+msgid "Toolbar Editor"
+msgstr "Redigerare för verktygsrad"
+
+#: ../src/eog-window.c:2350
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -706,49 +667,28 @@ msgstr ""
 "Skicka synpunkter om översättningen till\n"
 "tp-sv@listor.tp-sv.se"
 
-#: ../src/eog-window.c:2285
-msgid ""
-"This program is free software; you can redistribute it and/or modify it "
-"under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version.\n"
-msgstr ""
-"Detta program är fri programvara. Du kan distribuera det och/eller modifiera "
-"det under villkoren i GNU General Public License, publicerad av Free "
-"Software Foundation, antingen version 2 eller (om du så vill) någon senare "
-"version.\n"
+#: ../src/eog-window.c:2353
+msgid "This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
+msgstr "Detta program är fri programvara. Du kan distribuera det och/eller modifiera det under villkoren i GNU General Public License, publicerad av Free Software Foundation, antingen version 2 eller (om du så vill) någon senare version.\n"
 
-#: ../src/eog-window.c:2289
-msgid ""
-"This program is distributed in the hope that it will be useful, but WITHOUT "
-"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
-"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-"more details.\n"
-msgstr ""
-"Detta program distribueras i hopp om att det ska vara användbart, men UTAN "
-"NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller "
-"LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för "
-"ytterligare information.\n"
+#: ../src/eog-window.c:2357
+msgid "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+msgstr "Detta program distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se GNU General Public License för ytterligare information.\n"
 
-#: ../src/eog-window.c:2293
-msgid ""
-"You should have received a copy of the GNU General Public License along with "
-"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
-"Place - Suite 330, Boston, MA 02111-1307, USA."
-msgstr ""
-"Du bör ha fått en kopia av GNU General Public License tillsammans med detta "
-"program. Om inte, skriv till Free Software Foundation, Inc., 59 Temple Place "
-"- Suite 330, Boston, MA 02111-1307, USA."
+#: ../src/eog-window.c:2361
+msgid "You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
+msgstr "Du bör ha fått en kopia av GNU General Public License tillsammans med detta program. Om inte, skriv till Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2306 ../src/main.c:179
+#: ../src/eog-window.c:2374
+#: ../src/main.c:179
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2309
+#: ../src/eog-window.c:2377
 msgid "The GNOME image viewing and cataloging program."
 msgstr "GNOME-programmet för bildvisning och bildkatalogisering."
 
-#: ../src/eog-window.c:2645
+#: ../src/eog-window.c:2723
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -757,7 +697,7 @@ msgstr ""
 "Är du säker att du vill flytta\n"
 "\"%s\" till papperskorgen?"
 
-#: ../src/eog-window.c:2648
+#: ../src/eog-window.c:2726
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -772,230 +712,247 @@ msgstr[1] ""
 "Är du säker att du vill flytta de\n"
 "%d markerade bilderna till papperskorgen?"
 
-#: ../src/eog-window.c:2663 ../src/eog-window.c:3069
+#: ../src/eog-window.c:2741
+#: ../src/eog-window.c:3150
 msgid "Move to Trash"
 msgstr "Flytta till papperskorgen"
 
-#: ../src/eog-window.c:2705
+#: ../src/eog-window.c:2783
 msgid "Couldn't access trash."
 msgstr "Kunde inte komma åt papperskorgen."
 
-#: ../src/eog-window.c:2789
+#: ../src/eog-window.c:2867
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Fel vid borttagning av bilden %s"
 
-#: ../src/eog-window.c:2996
+#: ../src/eog-window.c:3074
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/eog-window.c:2997
+#: ../src/eog-window.c:3075
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../src/eog-window.c:2998
+#: ../src/eog-window.c:3076
 msgid "_View"
 msgstr "_Visa"
 
-#: ../src/eog-window.c:2999
+#: ../src/eog-window.c:3077
 msgid "_Image"
 msgstr "_Bild"
 
-#: ../src/eog-window.c:3000
+#: ../src/eog-window.c:3078
 msgid "_Go"
 msgstr "_Gå"
 
-#: ../src/eog-window.c:3001
+#: ../src/eog-window.c:3079
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/eog-window.c:3003
+#: ../src/eog-window.c:3081
 msgid "_Open..."
 msgstr "_Öppna..."
 
-#: ../src/eog-window.c:3004
+#: ../src/eog-window.c:3082
 msgid "Open a file"
 msgstr "Öppna en fil"
 
-#: ../src/eog-window.c:3006
+#: ../src/eog-window.c:3084
 msgid "_Close"
 msgstr "S_täng"
 
-#: ../src/eog-window.c:3007
+#: ../src/eog-window.c:3085
 msgid "Close window"
 msgstr "Stäng fönster"
 
-#: ../src/eog-window.c:3009
+#: ../src/eog-window.c:3087
+msgid "T_oolbar"
+msgstr "Ve_rktygsrad"
+
+#: ../src/eog-window.c:3088
+msgid "Edit the application toolbar"
+msgstr "Redigera programmets verktygsrad"
+
+#: ../src/eog-window.c:3090
 msgid "Prefere_nces"
 msgstr "_Inställningar"
 
-#: ../src/eog-window.c:3010
+#: ../src/eog-window.c:3091
 msgid "Preferences for Eye of GNOME"
 msgstr "Inställningar för Eye of GNOME"
 
-#: ../src/eog-window.c:3012
+#: ../src/eog-window.c:3093
 msgid "_Contents"
 msgstr "_Innehåll"
 
-#: ../src/eog-window.c:3013
+#: ../src/eog-window.c:3094
 msgid "Help On this application"
 msgstr "Hjälp för det här programmet"
 
-#: ../src/eog-window.c:3015
+#: ../src/eog-window.c:3096
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/eog-window.c:3016
+#: ../src/eog-window.c:3097
 msgid "About this application"
 msgstr "Om det här programmet"
 
-#: ../src/eog-window.c:3021
+#: ../src/eog-window.c:3102
 msgid "_Toolbar"
 msgstr "_Verktygsrad"
 
-#: ../src/eog-window.c:3022
+#: ../src/eog-window.c:3103
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Ändrar synligheten för verktygsraden i det aktuella fönstret"
 
-#: ../src/eog-window.c:3024
+#: ../src/eog-window.c:3105
 msgid "_Statusbar"
 msgstr "_Statusrad"
 
-#: ../src/eog-window.c:3025
+#: ../src/eog-window.c:3106
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Ändrar synligheten för statusraden i det aktuella fönstret"
 
-#: ../src/eog-window.c:3027
+#: ../src/eog-window.c:3108
 msgid "_Image Collection"
 msgstr "_Bildsamling"
 
-#: ../src/eog-window.c:3028
-msgid ""
-"Changes the visibility of the image collection pane in the current window"
+#: ../src/eog-window.c:3109
+msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "Ändrar synligheten för bildsamlingspanelen i det aktuella fönstret"
 
-#: ../src/eog-window.c:3033
+#: ../src/eog-window.c:3114
 msgid "_Save"
 msgstr "_Spara"
 
-#: ../src/eog-window.c:3036
+#: ../src/eog-window.c:3117
 msgid "Open _with"
 msgstr "Öppna _med"
 
-#: ../src/eog-window.c:3039
+#: ../src/eog-window.c:3120
 msgid "Save _As..."
 msgstr "Spara so_m..."
 
-#: ../src/eog-window.c:3042
+#: ../src/eog-window.c:3123
 msgid "Page Set_up..."
 msgstr "Sid_inställningar..."
 
-#: ../src/eog-window.c:3045
+#: ../src/eog-window.c:3126
 msgid "Print..."
 msgstr "Skriv ut..."
 
-#: ../src/eog-window.c:3048
+#: ../src/eog-window.c:3129
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/eog-window.c:3051
+#: ../src/eog-window.c:3132
 msgid "_Undo"
 msgstr "_Ångra"
 
-#: ../src/eog-window.c:3054
+#: ../src/eog-window.c:3135
 msgid "Flip _Horizontal"
 msgstr "Vänd _vågrätt"
 
-#: ../src/eog-window.c:3057
+#: ../src/eog-window.c:3138
 msgid "Flip _Vertical"
 msgstr "Vänd _lodrätt"
 
-#: ../src/eog-window.c:3060
+#: ../src/eog-window.c:3141
 msgid "_Rotate Clockwise"
 msgstr "_Rotera medurs"
 
-#: ../src/eog-window.c:3063
+#: ../src/eog-window.c:3144
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotera _moturs"
 
-#: ../src/eog-window.c:3066
+#: ../src/eog-window.c:3147
 msgid "Set As _Wallpaper"
 msgstr "Ställ in som _bakgrundsbild"
 
-#: ../src/eog-window.c:3072 ../src/eog-window.c:3084 ../src/eog-window.c:3087
+#: ../src/eog-window.c:3153
+#: ../src/eog-window.c:3165
+#: ../src/eog-window.c:3168
 msgid "_Zoom In"
 msgstr "_Zooma in"
 
-#: ../src/eog-window.c:3075 ../src/eog-window.c:3090
+#: ../src/eog-window.c:3156
+#: ../src/eog-window.c:3171
 msgid "Zoom _Out"
 msgstr "Zooma _ut"
 
-#: ../src/eog-window.c:3078
+#: ../src/eog-window.c:3159
 msgid "_Normal Size"
 msgstr "_Normal storlek"
 
-#: ../src/eog-window.c:3081
+#: ../src/eog-window.c:3162
 msgid "Best _Fit"
 msgstr "Bästa _anpassning"
 
-#: ../src/eog-window.c:3093
+#: ../src/eog-window.c:3174
 msgid "Move to _Trash"
 msgstr "Flytta till _papperskorgen"
 
-#: ../src/eog-window.c:3099
+#: ../src/eog-window.c:3180
 msgid "_Full Screen"
 msgstr "_Helskärm"
 
-#: ../src/eog-window.c:3105 ../src/eog-window.c:3120 ../src/eog-window.c:3126
-#: ../src/eog-window.c:3129
+#: ../src/eog-window.c:3186
+#: ../src/eog-window.c:3201
+#: ../src/eog-window.c:3207
+#: ../src/eog-window.c:3210
 msgid "_Previous Image"
 msgstr "_Föregående bild"
 
-#: ../src/eog-window.c:3108 ../src/eog-window.c:3117 ../src/eog-window.c:3123
+#: ../src/eog-window.c:3189
+#: ../src/eog-window.c:3198
+#: ../src/eog-window.c:3204
 msgid "_Next Image"
 msgstr "_Nästa bild"
 
-#: ../src/eog-window.c:3111 ../src/eog-window.c:3132
+#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3213
 msgid "_First Image"
 msgstr "_Första bilden"
 
-#: ../src/eog-window.c:3114 ../src/eog-window.c:3135
+#: ../src/eog-window.c:3195
+#: ../src/eog-window.c:3216
 msgid "_Last Image"
 msgstr "_Sista bilden"
 
-#: ../src/eog-window.c:3141
+#: ../src/eog-window.c:3222
 msgid "_Slideshow"
 msgstr "_Bildspel"
 
-#: ../src/eog-window.c:3207
+#: ../src/eog-window.c:3288
 msgid "Previous"
 msgstr "Föregående"
 
-#: ../src/eog-window.c:3211
+#: ../src/eog-window.c:3292
 msgid "Next"
 msgstr "Nästa"
 
-#: ../src/eog-window.c:3215
+#: ../src/eog-window.c:3296
 msgid "Right"
 msgstr "Höger"
 
-#: ../src/eog-window.c:3218
+#: ../src/eog-window.c:3299
 msgid "Left"
 msgstr "Vänster"
 
-#: ../src/eog-window.c:3221
+#: ../src/eog-window.c:3302
 msgid "In"
 msgstr "In"
 
-#: ../src/eog-window.c:3224
+#: ../src/eog-window.c:3305
 msgid "Out"
 msgstr "Ut"
 
-#: ../src/eog-window.c:3227
+#: ../src/eog-window.c:3308
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/eog-window.c:3230
+#: ../src/eog-window.c:3311
 msgid "Fit"
 msgstr "Anpassa"
 
@@ -1019,183 +976,164 @@ msgstr "[FIL...]"
 msgid "Eye of GNOME Image Viewer"
 msgstr "Bildvisaren Eye of GNOME"
 
+#~ msgid "Saving Image"
+#~ msgstr "Sparar bild"
+#~ msgid "_Browse"
+#~ msgstr "_Bläddra"
+#~ msgid "Show/hide image information for collection."
+#~ msgstr "Visa/dölj bildinformation för bildsamling."
+#~ msgid "Show/hide image information for single image."
+#~ msgstr "Visa/dölj bildinformation för enstaka bild."
+#~ msgid "Filename"
+#~ msgstr "Filnamn"
+#~ msgid "Counter"
+#~ msgstr "Räknare"
+#~ msgid "Comment"
+#~ msgstr "Kommentar"
+#~ msgid "Date"
+#~ msgstr "Datum"
+#~ msgid "Time"
+#~ msgstr "Tid"
+#~ msgid "Day"
+#~ msgstr "Dag"
+#~ msgid "Month"
+#~ msgstr "Månad"
+#~ msgid "Year"
+#~ msgstr "År"
+#~ msgid "Hour"
+#~ msgstr "Timme"
+#~ msgid "Minute"
+#~ msgstr "Minut"
+#~ msgid "Second"
+#~ msgstr "Sekund"
+#~ msgid "Option not available."
+#~ msgstr "Alternativet inte tillgängligt."
+#~ msgid ""
+#~ "To use this function you need the libexif library. Please install libexif "
+#~ "(http://libexif.sf.net) and recompile Eye of GNOME."
+#~ msgstr ""
+#~ "För att använda denna funktion behöver du biblioteket libexif. Installera "
+#~ "libexif (http://libexif.sf.net) och kompilera om Eye of GNOME."
 #~ msgid "%i x %i pixels  %s    %i%%"
 #~ msgid_plural "%i x %i pixels  %s    %i%%"
 #~ msgstr[0] "%i × %i bildpunkt  %s    %i%%"
 #~ msgstr[1] "%i × %i bildpunkter  %s    %i%%"
-
 #~ msgid "    "
 #~ msgstr "    "
-
 #~ msgid "..."
 #~ msgstr "..."
-
 #~ msgid "EXIF"
 #~ msgstr "EXIF"
-
 #~ msgid "Width"
 #~ msgstr "Bredd"
-
 #~ msgid "Height"
 #~ msgstr "Höjd"
-
 #~ msgid "Filesize"
 #~ msgstr "Filstorlek"
-
 #~ msgid "Attribute"
 #~ msgstr "Attribut"
-
 #~ msgid "File"
 #~ msgstr "Fil"
-
 #~ msgid "IPTC"
 #~ msgstr "IPTC"
-
 #~ msgid " (invalid Unicode)"
 #~ msgstr " (ogiltig Unicode)"
-
 #~ msgid "Open in new window"
 #~ msgstr "Öppna i nytt fönster"
-
 #~ msgid "Cancel saving ..."
 #~ msgstr "Avbryt sparande..."
-
 #~ msgid ""
 #~ "Could not display help for Eye of GNOME.\n"
 #~ "%s"
 #~ msgstr ""
 #~ "Kunde inte visa hjälp för Eye of GNOME.\n"
 #~ "%s"
-
 #~ msgid "Overwrite file %s?"
 #~ msgstr "Skriv över filen %s?"
-
 #~ msgid "File exists. Do you want to overwrite it?"
 #~ msgstr "Filen finns. Vill du skriva över den?"
-
 #~ msgid "Skip"
 #~ msgstr "Hoppa över"
-
 #~ msgid "Overwrite"
 #~ msgstr "Skriv över"
-
 #~ msgid "Error on saving %s."
 #~ msgstr "Fel vid sparande av %s."
-
 #~ msgid "Retry"
 #~ msgstr "Försök igen"
-
 #~ msgid "Couldn't determine destination uri."
 #~ msgstr "Kunde inte avgöra destinations-uri."
-
 #~ msgid "Couldn't determine file format of %s"
 #~ msgstr "Kunde inte avgöra filformatet på %s"
-
 #~ msgid "Please use an appropriate filename suffix or select a file format."
 #~ msgstr "Använd en lämplig filnamnsändelse eller välj ett filformat."
-
 #~ msgid "Error on saving images."
 #~ msgstr "Fel vid sparande av bilder."
-
 #~ msgid "Reason: %s"
 #~ msgstr "Orsak: %s"
-
 #~ msgid "Image loading failed for %s"
 #~ msgstr "Inläsning av bilden misslyckades för %s"
-
 #~ msgid "Image _Information"
 #~ msgstr "Bild_information"
-
 #~ msgid "Changes the visibility of the information pane in the current window"
 #~ msgstr "Ändrar synligheten för informationspanelen i det aktuella fönstret"
-
 #~ msgid "Open"
 #~ msgstr "Öppna"
-
 #~ msgid "Close"
 #~ msgstr "Stäng"
-
 #~ msgid "Save"
 #~ msgstr "Spara"
-
 #~ msgid "Undo"
 #~ msgstr "Ångra"
-
 #~ msgid "User interface description not found."
 #~ msgstr "Beskrivningen av användargränssnittet hittades inte."
-
 #~ msgid "Unable to create Eye of GNOME user interface"
 #~ msgstr "Kan inte skapa användargränssnitt för Eye of GNOME"
-
 #~ msgid "File not found."
 #~ msgid_plural "Files not found."
 #~ msgstr[0] "Filen hittades inte."
 #~ msgstr[1] "Filerna hittades inte."
-
 #~ msgid "Empty"
 #~ msgstr "Tom"
-
 #~ msgid "View different types of images"
 #~ msgstr "Visa olika typer av bilder"
-
 #~ msgid "Slide Show"
 #~ msgstr "Bildspel"
-
 #~ msgid "<b>Image Interpolation</b>"
 #~ msgstr "<b>Bildinterpolation</b>"
-
 #~ msgid "Allow _zoom greater than 100% initially"
 #~ msgstr "Tillåt _zoomning större än 100% i början"
-
 #~ msgid "."
 #~ msgstr "."
-
 #~ msgid "Print"
 #~ msgstr "Skriv ut"
-
 #~ msgid "Print Preview"
 #~ msgstr "Förhandsgranskning"
-
 #~ msgid "Rotat_e 180°"
 #~ msgstr "Rot_era 180°"
-
 #~ msgid "Save _As"
 #~ msgstr "Spara so_m"
-
 #~ msgid "Show next image _automatically"
 #~ msgstr "Visa nästa bild _automatiskt"
-
 #~ msgid ""
 #~ "If this is set to TRUE images will be switched after number of seconds "
 #~ "determined by the 'full_screen/seconds' key."
 #~ msgstr ""
 #~ "Om detta är satt till SANT kommer bilder att bytas efter det antal "
 #~ "sekunder som anges av nyckeln \"full_screen/seconds\"."
-
 #~ msgid "Show next image automatically in fullscreen mode."
 #~ msgstr "Visa nästa bild automatiskt i helskärmsläge."
-
 #~ msgid "_New Window"
 #~ msgstr "_Nytt fönster"
-
 #~ msgid "Open a new window"
 #~ msgstr "Öppna ett nytt fönster"
-
 #~ msgid "Open _Folder..."
 #~ msgstr "Öppna _mapp..."
-
-#~ msgid "Open a folder"
-#~ msgstr "Öppna en mapp"
-
 #~ msgid "Delete"
 #~ msgstr "Ta bort"
-
 #~ msgid "New"
 #~ msgstr "Ny"
-
 #~ msgid "Open multiple single windows?"
 #~ msgstr "Öppna flera enkla fönster?"
-
 #~ msgid ""
 #~ "You are about to open %i windows simultaneously. Do you want to open them "
 #~ "in a collection instead?"
@@ -1208,32 +1146,24 @@ msgstr "Bildvisaren Eye of GNOME"
 #~ msgstr[1] ""
 #~ "Du kommer att öppna %i fönster samtidigt. Vill du öppna dem i en "
 #~ "bildsamling istället?"
-
 #~ msgid "Single Windows"
 #~ msgstr "Enkla fönster"
-
 #~ msgid "Collection"
 #~ msgstr "Bildsamling"
-
 #~ msgid "View many different types of images"
 #~ msgstr "Visa många olika typer av bilder"
-
 #~ msgid "As custom c_olor"
 #~ msgstr "Som anpassad f_ärg"
-
 #~ msgid "Show next image automatically"
 #~ msgstr "Visa nästa bild automatiskt"
-
 #~ msgid "%s x %s pixel"
 #~ msgid_plural "%s x %s pixels"
 #~ msgstr[0] "%s × %s bildpunkt"
 #~ msgstr[1] "%s × %s bildpunkter"
-
 #~ msgid "%i x %i pixel  %s    %i%%"
 #~ msgid_plural "%i x %i pixels  %s    %i%%"
 #~ msgstr[0] "%i × %i bildpunkt  %s    %i%%"
 #~ msgstr[1] "%i × %i bildpunkter  %s    %i%%"
-
 #~ msgid ""
 #~ "You are about to open %i window simultaneously. Do you want to open it in "
 #~ "a collection instead?"
@@ -1246,100 +1176,68 @@ msgstr "Bildvisaren Eye of GNOME"
 #~ msgstr[1] ""
 #~ "Du kommer att öppna %i fönster samtidigt. Vill du öppna dem i en "
 #~ "bildsamling istället?"
-
 #~ msgid "*"
 #~ msgstr "*"
-
 #~ msgid "Image _View"
 #~ msgstr "Bild_vy"
-
 #~ msgid "Show _next image automatically after:"
 #~ msgstr "Visa _nästa bild automatiskt efter:"
-
 #~ msgid "Sli_de Show"
 #~ msgstr "Bil_dspel"
-
 #~ msgid "empty file"
 #~ msgstr "tom fil"
-
 #~ msgid "Filenames are not disjunct."
 #~ msgstr "Filnamnen skiljer sig inte."
-
 #~ msgid "_New"
 #~ msgstr "_Ny"
-
 #~ msgid "Change the visibility of the information pane in the current window"
 #~ msgstr "Ändra synligheten för informationspanelen i det aktuella fönstret"
-
 #~ msgid "Open folder"
 #~ msgstr "Öppna mapp"
-
 #~ msgid "Change the visibility of the toolbar in the current window"
 #~ msgstr "Ändra synligheten för verktygsraden i det aktuella fönstret"
-
 #~ msgid "Change the visibility of the statusbar in the current window"
 #~ msgstr "Ändra synligheten för statusraden i det aktuella fönstret"
-
 #~ msgid "Image Information"
 #~ msgstr "Bildinformation"
-
 #~ msgid "(invalid Unicode)"
 #~ msgstr "(ogiltig Unicode)"
-
 #~ msgid "invalid Unicode"
 #~ msgstr "ogiltig Unicode"
-
 #~ msgid "Invalid Unicode"
 #~ msgstr "Ogiltig Unicode"
-
 #~ msgid "Open _Directory..."
 #~ msgstr "Öppna _katalog..."
-
 #~ msgid "Open a directory"
 #~ msgstr "Öppna en katalog"
-
 #~ msgid "Images: %i/%i"
 #~ msgstr "Bilder: %i/%i"
-
 #~ msgid "_Quit"
 #~ msgstr "_Avsluta"
-
 #~ msgid "Close all windows and quit"
 #~ msgstr "Stäng alla fönster och avsluta"
-
 #~ msgid "File Name Preview"
 #~ msgstr "Förhandsvisning av filnamn"
-
 #~ msgid "File Path Specifications"
 #~ msgstr "Specifikationer för filsökväg"
-
 #~ msgid "Options"
 #~ msgstr "Alternativ"
-
 #~ msgid "Destination Folder"
 #~ msgstr "Målmapp"
-
 #~ msgid "Filename Format"
 #~ msgstr "Filnamnsformat"
-
 #~ msgid "Save A_s"
 #~ msgstr "Spara so_m"
-
 #~ msgid "Save _as"
 #~ msgstr "Spara so_m"
-
 #~ msgid "Saving image"
 #~ msgstr "Sparar bild"
-
 #~ msgid "_Browse..."
 #~ msgstr "_Bläddra..."
-
 #~ msgid "Cancel saving..."
 #~ msgstr "Avbryt sparande..."
-
 #~ msgid "Cancel saving"
 #~ msgstr "Avbryt sparande"
-
 #~ msgid "translator_credits"
 #~ msgstr ""
 #~ "Översättare:\n"
@@ -1348,133 +1246,90 @@ msgstr "Bildvisaren Eye of GNOME"
 #~ "Tomas Ögren\n"
 #~ "Andreas Hydén\n"
 #~ "Rapportera fel i översättningen till sv@li.org"
-
 #~ msgid "Overwrite file %s"
 #~ msgstr "Skriv över filen %s"
-
 #~ msgid "_Open Directory..."
 #~ msgstr "_Öppna katalog..."
-
 #~ msgid "Open Directory..."
 #~ msgstr "Öppna katalog..."
-
 #~ msgid "Rotate Clockwise"
 #~ msgstr "Rotera medurs"
-
 #~ msgid "Rotate Counter Clockwise"
 #~ msgstr "Rotera moturs"
-
 #~ msgid "Rotate 180°"
 #~ msgstr "Rotera 180°"
-
 #~ msgid "_Delete"
 #~ msgstr "_Ta bort"
-
 #~ msgid "EOG Image Collection Viewer"
 #~ msgstr "EOG-bildsamlingsvisare"
-
 #~ msgid "EOG Image collection view factory"
 #~ msgstr "EOG-bildsamlingsvisarfabrik"
-
 #~ msgid "Rotate 180 _Degrees"
 #~ msgstr "Rotera 180 _grader"
-
 #~ msgid "Rotate C_lockwise"
 #~ msgstr "Rotera me_durs"
-
 #~ msgid "Rotate Counte_r Clockwise"
 #~ msgstr "Rotera mo_turs"
-
 #~ msgid "Saving finished"
 #~ msgstr "Sparande slutfört"
-
 #~ msgid "Collection View"
 #~ msgstr "Bildsamlingsvy"
-
 #~ msgid "Window Title"
 #~ msgstr "Fönstertitel"
-
 #~ msgid "Status Text"
 #~ msgstr "Statustext"
-
 #~ msgid "Progress of Image Loading"
 #~ msgstr "Förlopp för bildinläsning"
-
 #~ msgid "EOG Image"
 #~ msgstr "EOG-bild"
-
 #~ msgid "EOG Image viewer factory"
 #~ msgstr "EOG-bildvisarfabrik"
-
 #~ msgid "Embeddable EOG Image"
 #~ msgstr "Inbäddbar EOG-bild"
-
 #~ msgid "Images can only be saved as local files."
 #~ msgstr "Bilder kan bara sparas som lokala filer."
-
 #~ msgid "Unsupported image type for saving."
 #~ msgstr "Bildtypen stöds inte för sparande."
-
 #~ msgid "Page"
 #~ msgstr "Sida"
-
 #~ msgid "Paper"
 #~ msgstr "Papper"
-
 #~ msgid "% of original size"
 #~ msgstr "% av originalstorleken"
-
 #~ msgid "Adjust to "
 #~ msgstr "Justera till "
-
 #~ msgid "Cutting help"
 #~ msgstr "Klippningshjälp"
-
 #~ msgid "Down, then right"
 #~ msgstr "Ner, sedan höger"
-
 #~ msgid "Fit to page"
 #~ msgstr "Anpassa till sida"
-
 #~ msgid "Horizontally by "
 #~ msgstr "Vågrätt efter "
-
 #~ msgid "Margins"
 #~ msgstr "Marginaler"
-
 #~ msgid "Ordering help"
 #~ msgstr "Sorteringshjälp"
-
 #~ msgid "Overlap"
 #~ msgstr "Överlappning"
-
 #~ msgid "Overlap help"
 #~ msgstr "Överlappningshjälp"
-
 #~ msgid "Page order"
 #~ msgstr "Sidordning"
-
 #~ msgid "Right, then down"
 #~ msgstr "Höger, sedan ner"
-
 #~ msgid "Scale"
 #~ msgstr "Skala"
-
 #~ msgid "Show"
 #~ msgstr "Visa"
-
 #~ msgid "Vertically by "
 #~ msgstr "Lodrätt efter "
-
 #~ msgid "The name of the file or data to print"
 #~ msgstr "Namnet på filen eller data att skriva ut"
-
 #~ msgid "Cancel"
 #~ msgstr "Avbryt"
-
 #~ msgid "Quit the program"
 #~ msgstr "Avsluta programmet"
-
 #~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 #~ msgstr ""
 #~ "Christian Rose\n"
@@ -1483,80 +1338,58 @@ msgstr "Bildvisaren Eye of GNOME"
 #~ "Richard Hult\n"
 #~ "Andreas Hydén\n"
 #~ "Skicka synpunkter på översättningen till sv@li.org"
-
 #~ msgid "Full Screen"
 #~ msgstr "Helskärm"
-
 #~ msgid "Previews the image to be printed"
 #~ msgstr "Visar en förhandsgranskning av bilden som ska skrivas ut"
-
 #~ msgid "Print Previe_w..."
 #~ msgstr "_Förhandsgranska..."
-
 #~ msgid "Print image to the printer"
 #~ msgstr "Skriv ut bilden på skrivaren"
-
 #~ msgid "Rotate Left"
 #~ msgstr "Rotera vänster"
-
 #~ msgid "Rotate Right"
 #~ msgstr "Rotera höger"
-
 #~ msgid "Setup the page settings for your current printer"
 #~ msgstr "Ändra sidinställningar för den nuvarande skrivaren"
-
 #~ msgid "/Rotate C_lockwise"
 #~ msgstr "/Rotera me_durs"
-
 #~ msgid "/Rotate Counte_r Clockwise"
 #~ msgstr "/Rotera mo_turs"
-
 #~ msgid "/_Zoom In"
 #~ msgstr "/_Zooma in"
-
 #~ msgid "/Zoom _Out"
 #~ msgstr "/Zooma _ut"
-
 #~ msgid "/_Normal Size"
 #~ msgstr "/_Normal storlek"
-
 #~ msgid "/Best _Fit"
 #~ msgstr "/Bästa _anpassning"
-
 #~ msgid "/_Close"
 #~ msgstr "/S_täng"
-
 #~ msgid "Loading of image %s failed."
 #~ msgstr "Inläsning av bilden %s misslyckades."
-
 #~ msgid ""
 #~ "Loading of image %s failed.\n"
 #~ "Reason: %s."
 #~ msgstr ""
 #~ "Inläsning av bilden %s misslyckades.\n"
 #~ "Orsak: %s."
-
 #~ msgid "Loading failed"
 #~ msgstr "Inläsning misslyckades"
-
 #~ msgid "Image successfully saved"
 #~ msgstr "Sparande av bilden lyckades"
-
 #~ msgid "Statusbar Text"
 #~ msgstr "Statusradstext"
-
 #~ msgid "Desired Window Width"
 #~ msgstr "Önskad fönsterbredd"
-
 #~ msgid "Desired Window Height"
 #~ msgstr "Önskad fönsterhöjd"
-
 #~ msgid "dialog1"
 #~ msgstr "dialog1"
-
 #~ msgid ""
 #~ "Wether opening an image should create a new window instead of replacing "
 #~ "the image in the current window."
 #~ msgstr ""
 #~ "Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att "
 #~ "ersätta bilden i det aktuella fönstret."
+
