@@ -106,7 +106,7 @@ struct _EogImageClass {
 				    gfloat    progress);
 };
 
-GType	          eog_image_get_type	             (void);
+GType	          eog_image_get_type	             (void) G_GNUC_CONST;
 
 GQuark            eog_image_error_quark              (void);
 

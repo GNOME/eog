@@ -49,7 +49,7 @@ struct _EogTransformClass {
 	GObjectClass parent_klass;
 };
 
-GType         eog_transform_get_type (void);
+GType         eog_transform_get_type (void) G_GNUC_CONST;
 
 GdkPixbuf*    eog_transform_apply   (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job);
 EogTransform* eog_transform_reverse (EogTransform *trans);

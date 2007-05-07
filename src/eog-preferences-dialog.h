@@ -54,7 +54,7 @@ struct _EogPreferencesDialogClass {
 	EogDialogClass parent_class;
 };
 
-GType	    eog_preferences_dialog_get_type	  (void);
+GType	    eog_preferences_dialog_get_type	  (void) G_GNUC_CONST;
 
 GObject    *eog_preferences_dialog_get_instance	  (GtkWindow   *parent,
 					 	   GConfClient *client);

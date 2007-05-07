@@ -45,7 +45,7 @@ struct _EogPrintPreviewClass {
 
 };
 
-GType        eog_print_preview_get_type            (void);
+GType        eog_print_preview_get_type            (void) G_GNUC_CONST;
 
 GtkWidget   *eog_print_preview_new                 (void);
 

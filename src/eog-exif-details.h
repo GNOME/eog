@@ -49,7 +49,7 @@ struct _EogExifDetailsClass {
 	GtkTreeViewClass parent_class;
 };
 
-GType               eog_exif_details_get_type    (void);
+GType               eog_exif_details_get_type    (void) G_GNUC_CONST;
 
 GtkWidget          *eog_exif_details_new         (void);
 

@@ -54,7 +54,7 @@ struct _EogThumbViewClass {
 	 GtkIconViewClass icon_view_class;
 };
 
-GType       eog_thumb_view_get_type 		    (void);
+GType       eog_thumb_view_get_type 		    (void) G_GNUC_CONST;
 
 GtkWidget  *eog_thumb_view_new 			    (void);
 

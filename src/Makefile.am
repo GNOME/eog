@@ -3,7 +3,8 @@ jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
 jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
-toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
+toolbar_LIB = -L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor
+toolbar_DEPS = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
 INCLUDES =							\
 	$(EOG_CFLAGS)						\
@@ -13,6 +14,7 @@ INCLUDES =							\
 	-DG_LOG_DOMAIN=\"Eog\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
+	-DEOG_PLUGINDIR=\""$(libdir)/eog/plugins"\"		\
 	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
 
 eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
@@ -26,6 +28,26 @@ MARSHAL_OUTPUT = 	\
 	eog-marshal.c
 
 bin_PROGRAMS = eog
+
+INST_H_FILES =				\
+	eog-application.h		\
+	eog-window.h			\
+	eog-properties-dialog.h		\
+	eog-message-area.h		\
+	eog-statusbar.h			\
+	eog-file-chooser.h		\
+	eog-transform.h			\
+	eog-image.h			\
+	eog-scroll-view.h		\
+	eog-thumb-view.h		\
+	eog-list-store.h		\
+	eog-thumbnail.h			\
+	eog-job-queue.h			\
+	eog-jobs.h			\
+	eog-plugin.h 
+
+headerdir = $(prefix)/include/eog/eog
+header_DATA = $(INST_H_FILES)	
 
 eog_SOURCES =				\
 	$(MARSHAL_OUTPUT)		\
@@ -91,6 +113,14 @@ eog_SOURCES =				\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
 	eog-print-preview.c           	\
+	eog-module.h             	\
+	eog-module.c            	\
+	eog-plugin.h             	\
+	eog-plugin.c            	\
+	eog-plugin-manager.h            \
+	eog-plugin-manager.c            \
+	eog-plugin-engine.h             \
+	eog-plugin-engine.c            	\
 	uta.c				\
 	uta.h				\
 	zoom.c				\
@@ -106,7 +136,8 @@ eog_SOURCES +=				\
 endif
 
 eog_DEPENDENCIES = 	\
-	$(jpeg_DEPS)
+	$(jpeg_DEPS)	\
+	$(toolbar_DEPS)
 
 eog_LDADD = 				\
 	$(EOG_LIBS)			\

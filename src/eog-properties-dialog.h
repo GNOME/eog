@@ -58,7 +58,7 @@ struct _EogPropertiesDialogClass {
 	EogDialogClass parent_class;
 };
 
-GType	    eog_properties_dialog_get_type	(void);
+GType	    eog_properties_dialog_get_type	(void) G_GNUC_CONST;
 
 GObject    *eog_properties_dialog_new	  	(GtkWindow               *parent,
                                                  EogThumbView            *thumbview,

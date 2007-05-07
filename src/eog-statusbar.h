@@ -52,7 +52,7 @@ struct _EogStatusbarClass
         GtkStatusbarClass parent_class;
 };
 
-GType		 eog_statusbar_get_type			(void);
+GType		 eog_statusbar_get_type			(void) G_GNUC_CONST;
 
 GtkWidget	*eog_statusbar_new			(void);
 

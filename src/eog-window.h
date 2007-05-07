@@ -78,7 +78,7 @@ struct _EogWindowClass {
 	void (* prepared) (EogWindow *window);
 };
 
-GType        eog_window_get_type  	(void);
+GType        eog_window_get_type  	(void) G_GNUC_CONST;
 
 GtkWidget*   eog_window_new		(EogStartupFlags  flags);
 

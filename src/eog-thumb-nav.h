@@ -58,7 +58,7 @@ struct _EogThumbNavClass {
 	GtkHBoxClass parent_class;
 };
 
-GType	         eog_thumb_nav_get_type          (void);
+GType	         eog_thumb_nav_get_type          (void) G_GNUC_CONST;
 
 GtkWidget       *eog_thumb_nav_new               (GtkWidget         *thumbview,
 						  EogThumbNavMode    mode, 

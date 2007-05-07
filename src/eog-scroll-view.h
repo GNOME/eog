@@ -35,7 +35,7 @@ typedef enum {
 	TRANSP_COLOR
 } TransparencyStyle;
 
-GType    eog_scroll_view_get_type         (void);
+GType    eog_scroll_view_get_type         (void) G_GNUC_CONST;
 GtkWidget* eog_scroll_view_new            (void);
 
 /* loading stuff */

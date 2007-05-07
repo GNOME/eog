@@ -57,7 +57,7 @@ struct _EogDialogClass {
 	void    (* hide)        (EogDialog   *dialog);
 };
 
-GType   eog_dialog_get_type      (void);
+GType   eog_dialog_get_type      (void) G_GNUC_CONST;
   
 void    eog_dialog_construct     (EogDialog   *dialog,
 				  const gchar *glade_file,

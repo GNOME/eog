@@ -1,3 +1,34 @@
+2007-05-07  Lucas Rocha  <lucasr@gnome.org>
+
+	Initial code for the plugin system. Still deactivated while some
+	subversion surgery is not done.
+
+	* eog-debug.[ch]: added DEBUG_PLUGINS to debuf plugin system related
+	stuff.
+	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor): added 
+	the "Plugins" tab to preferences dialog.
+	* src/eog-config-keys.h, data/eog.schemas.in: added GConf key that stores 
+	the list of active plugins (/apps/eog/plugins/active_plugins).
+	* src/eog-module.[ch]: GTypeModule implementation.
+	* src/eog-plugin.[ch]: abstract class which EOG plugins should inherit
+	from. 
+	* src/eog-plugin-engine.[ch]: plugin engine responsible for loading,
+	unloading, disabling, enabling plugins.
+	* src/eog-plugin-manager.[ch]: plugin manager that is shown in the
+	application preferences dialog.
+	* data/Makefile.am, src/Makefile.am, configure.ac: added new files
+	from the plugin system to the build.
+	* data/eog.pc.in: pc file for EOG plugin dependency checks.
+	* po/POTFILES.in: added src/eog-plugin-manage.c
+
+	* src/eog-image.h, src/eog-preferences-dialog.h, src/eog-list-store.h,
+	src/eog-transform.h, src/eog-print-preview.h,
+	src/eog-properties-dialog.h, src/eog-jobs.h, src/eog-thumb-nav.h,
+	src/eog-thumb-view.h, src/eog-scroll-view.h, src/eog-window.h,
+	src/eog-statusbar.h, src/eog-exif-details.h, src/eog-dialog.h,
+	src/eog-image-save-info.h: added G_GNUC_CONST to all *_get_type
+	functions.  
+
 2007-05-05  Felix Riemann  <friemann@svn.gnome.org>
 
 	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:

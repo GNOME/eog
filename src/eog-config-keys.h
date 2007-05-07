@@ -53,4 +53,6 @@
 #define EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE	"/apps/eog/ui/image_collection_resizable"
 #define EOG_CONF_UI_SCROLL_BUTTONS		"/apps/eog/ui/scroll_buttons"
 
+#define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "/apps/eog/plugins/active_plugins"
+
 #endif /* __EOG_CONFIG_KEYS_H__ */

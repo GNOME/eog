@@ -226,5 +226,19 @@
       </locale>
     </schema>
 
+    <schema>
+      <key>/schemas/apps/eog/plugins/active-plugins</key>
+      <applyto>/apps/eog/plugins/active-plugins</applyto>
+      <owner>eog</owner>
+      <type>list</type>
+      <list_type>string</list_type>
+      <default>[]</default>
+      <locale name="C">
+        <short>Active plugins</short>
+        <long>List of active plugins. It doesn't contain the "Location" of the active plugins. 
+        See the .eog-plugin file for obtaining the "Location" of a given plugin.</long>
+      </locale>
+    </schema>
+
   </schemalist>
 </gconfschemafile>

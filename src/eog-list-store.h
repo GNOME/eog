@@ -71,7 +71,7 @@ struct _EogListStoreClass {
 	void (* _eog_reserved4) (void);
 };
 
-GType           eog_list_store_get_type 	     (void);
+GType           eog_list_store_get_type 	     (void) G_GNUC_CONST;
 
 GtkListStore   *eog_list_store_new 		     (void);
 

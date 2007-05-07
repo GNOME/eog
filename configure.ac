@@ -224,6 +224,7 @@ help/zh_CN/Makefile
 help/zh_TW/Makefile
 po/Makefile.in
 data/Makefile
+data/eog.pc
 data/eog.desktop.in
 data/icons/Makefile
 data/icons/16x16/Makefile

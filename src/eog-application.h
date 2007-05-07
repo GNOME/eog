@@ -57,7 +57,7 @@ struct _EogApplicationClass {
 	GObjectClass parent_class;
 };
 
-GType	          eog_application_get_type	     (void);
+GType	          eog_application_get_type	     (void) G_GNUC_CONST;
 
 EogApplication   *eog_application_get_instance       (void);
 

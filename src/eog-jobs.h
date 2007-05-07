@@ -207,39 +207,39 @@ struct _EogJobSaveAsClass
 };
 
 /* Base job class */
-GType           eog_job_get_type           (void);
+GType           eog_job_get_type           (void) G_GNUC_CONST;
 void            eog_job_finished           (EogJob          *job);
 void            eog_job_set_progress       (EogJob          *job,
 					    float            progress);
 
 /* EogJobThumbnail */
-GType           eog_job_thumbnail_get_type (void);
+GType           eog_job_thumbnail_get_type (void) G_GNUC_CONST;
 EogJob         *eog_job_thumbnail_new      (GnomeVFSURI     *uri_entry);
 void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 
 /* EogJobLoad */
-GType           eog_job_load_get_type      (void);
+GType           eog_job_load_get_type      (void) G_GNUC_CONST;
 EogJob 	       *eog_job_load_new 	   (EogImage        *image);
 void		eog_job_load_run 	   (EogJobLoad 	    *load);					   
 
 /* EogJobModel */
-GType 		eog_job_model_get_type     (void);
+GType 		eog_job_model_get_type     (void) G_GNUC_CONST;
 EogJob 	       *eog_job_model_new          (GSList          *uri_list);
 void            eog_job_model_run          (EogJobModel     *model);
 
 /* EogJobTransform */
-GType 		eog_job_transform_get_type (void);
+GType 		eog_job_transform_get_type (void) G_GNUC_CONST;
 EogJob 	       *eog_job_transform_new      (GList           *images,
 					    EogTransform    *trans);
 void            eog_job_transform_run      (EogJobTransform *model);
 
 /* EogJobSave */
-GType		eog_job_save_get_type      (void);
+GType		eog_job_save_get_type      (void) G_GNUC_CONST;
 EogJob         *eog_job_save_new           (GList           *images);
 void            eog_job_save_run           (EogJobSave      *job);
 
 /* EogJobSaveAs */
-GType		eog_job_save_as_get_type   (void);
+GType		eog_job_save_as_get_type   (void) G_GNUC_CONST;
 EogJob         *eog_job_save_as_new        (GList           *images,
 					    EogURIConverter *converter,
 					    GnomeVFSURI     *uri);
