@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-03 03:32+0100\n"
-"PO-Revision-Date: 2007-05-03 20:19+0200\n"
+"POT-Creation-Date: 2007-05-08 12:53+0100\n"
+"PO-Revision-Date: 2007-05-08 16:55+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "_Borrar barra de herramientas"
 msgid "Remove the selected toolbar"
 msgstr "Borrar la barra de herramientas seleccionadad"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:446
 msgid "Separator"
 msgstr "Separador"
 
@@ -291,20 +291,24 @@ msgstr ""
 "pantalla hasta que la siguiente se muestra automáticamente. Cero desactiva "
 "la visualización automática."
 
-#: ../data/eog.schemas.in.h:3
+#: ../data/eog.schemas.in.h:2 ../src/eog-plugin-manager.c:831
+msgid "Active plugins"
+msgstr "Complementos activados"
+
+#: ../data/eog.schemas.in.h:4
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
 msgstr "Permite una ampliación mayor que el 100% inicialmente"
 
-#: ../data/eog.schemas.in.h:4
+#: ../data/eog.schemas.in.h:5
 msgid "Automatic orientation"
 msgstr "Orientación automática"
 
-#: ../data/eog.schemas.in.h:5
+#: ../data/eog.schemas.in.h:6
 msgid "Delay in seconds until showing the next image"
 msgstr "Retardo en segundos hasta que se muestra la siguiente imagen"
 
-#: ../data/eog.schemas.in.h:6
+#: ../data/eog.schemas.in.h:7
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
@@ -314,7 +318,7 @@ msgstr ""
 "CHECK_PATTERN; COLOR y NONE. Si se elige COLOR, entonces la clave "
 "«trans_color» determina el valor del color usado."
 
-#: ../data/eog.schemas.in.h:7
+#: ../data/eog.schemas.in.h:8
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -322,7 +326,7 @@ msgstr ""
 "Si la clave de transparencia tiene un valor COLOR, entonces, esta clave "
 "determina el color que se usa para indicar la transparencia."
 
-#: ../data/eog.schemas.in.h:8
+#: ../data/eog.schemas.in.h:9
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -330,7 +334,7 @@ msgstr ""
 "Si esto se establece a FALSE las imágenes pequeñas no serán estiradas hasta "
 "cubrir toda la pantalla inicialmente."
 
-#: ../data/eog.schemas.in.h:9
+#: ../data/eog.schemas.in.h:10
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
@@ -338,49 +342,56 @@ msgstr ""
 "Posición del panel de colección de imágenes. Establezca 0 para abajo; 1 para "
 "izquierda; 2 para arriba; 3 para derecha."
 
-#: ../data/eog.schemas.in.h:10
+#: ../data/eog.schemas.in.h:11
 msgid "Interpolate Image"
 msgstr "Interpolar imagen"
 
-#: ../data/eog.schemas.in.h:11
+#: ../data/eog.schemas.in.h:12
 msgid "Last collection window geometry"
 msgstr "Geometría de la ventana de la última colección"
 
-#: ../data/eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:13
 msgid "Last singleton window geometry"
 msgstr "Geometría de la ventana de la última visualización"
 
-#: ../data/eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:14
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr "Lista de los complementos activados. No contiene la «Ubicación» de los complementos activados. Vea el archivo .eog-plugin para obtener la «Ubicación» para un complemento determinado."
+
+#: ../data/eog.schemas.in.h:15
 msgid "Loop through the image sequence"
 msgstr "Ciclar a través de la secuencia de imágenes"
 
-#: ../data/eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:16
 msgid "Open images in a new window"
 msgstr "Abrir imágenes en una ventana nueva"
 
-#: ../data/eog.schemas.in.h:15
+#: ../data/eog.schemas.in.h:17
 msgid "Scroll wheel zoom"
 msgstr "Ampliación de la rueda del ratón"
 
-#: ../data/eog.schemas.in.h:16
+#: ../data/eog.schemas.in.h:18
 msgid "Show/hide the image collection pane scroll buttons."
 msgstr ""
 "Muestra/oculta los botones de desplazamiento del panel de colección de "
 "imágenes."
 
-#: ../data/eog.schemas.in.h:17
+#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the image collection pane."
 msgstr "Muestra/oculta el panel de colección de imágenes."
 
-#: ../data/eog.schemas.in.h:18
+#: ../data/eog.schemas.in.h:20
 msgid "Show/hide the window statusbar."
 msgstr "Muestra/oculta la barra de estado de la ventana."
 
-#: ../data/eog.schemas.in.h:19
+#: ../data/eog.schemas.in.h:21
 msgid "Show/hide the window toolbar."
 msgstr "Muestra/oculta la barra de herramientas de la ventana."
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:23
 #, no-c-format
 msgid ""
 "The multiplier to the applied when using the mouse scroll wheel for zooming. "
@@ -393,15 +404,15 @@ msgstr ""
 "Por ejemplo, 0.05 resulta en un incremento del 5% para cada evento de "
 "desplazamiento y 1.00 resulta en un incremento de ampliación del 100%."
 
-#: ../data/eog.schemas.in.h:22
+#: ../data/eog.schemas.in.h:24
 msgid "Transparency color"
 msgstr "Color de transparencia"
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:25
 msgid "Transparency indicator"
 msgstr "Indicador de transparencia"
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:26
 msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
@@ -409,15 +420,15 @@ msgstr ""
 "Indica si al abrir una imagen se debe crear una ventana nueva en vez de "
 "reemplazar la imagen en la ventana actual."
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:27
 msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Indica si la secuencia de imágenes debe mostrarse en un bucle infinito."
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:28
 msgid "Whether the image collection pane should be resizable or not."
 msgstr "Indica si el panel de colección de imágenes debería ser redimensionable o no."
 
-#: ../data/eog.schemas.in.h:27
+#: ../data/eog.schemas.in.h:29
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
@@ -425,17 +436,17 @@ msgstr ""
 "Indica si la imagen se debe interpolar al ampliarla o no. Esto produce mejor "
 "calidad pero es algo más lento que las imágenes no interpoladas."
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:30
 msgid "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr ""
 "Indica si la imagen se debe rotar automáticamente basándose en la "
 "orientación EXIF."
 
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:31
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Indica si la rueda del ratón se debe usar para ampliar o no."
 
-#: ../data/eog.schemas.in.h:30
+#: ../data/eog.schemas.in.h:32
 msgid "Zoom multiplier"
 msgstr "Multiplicador de ampliación"
 
@@ -846,7 +857,7 @@ msgstr "_Contenido"
 msgid "Help On this application"
 msgstr "Ayuda acerca de esta aplicación"
 
-#: ../src/eog-window.c:3096
+#: ../src/eog-window.c:3096 ../src/eog-plugin-manager.c:504
 msgid "_About"
 msgstr "_Acerca de"
 
@@ -1005,6 +1016,38 @@ msgstr "Normal"
 #: ../src/eog-window.c:3311
 msgid "Fit"
 msgstr "Ajustar"
+
+#: ../src/eog-plugin-manager.c:53
+msgid "Plugin"
+msgstr "Complemento"
+
+#: ../src/eog-plugin-manager.c:54
+msgid "Enabled"
+msgstr "Activado"
+
+#: ../src/eog-plugin-manager.c:512
+msgid "C_onfigure"
+msgstr "C_onfigurar"
+
+#: ../src/eog-plugin-manager.c:522
+msgid "A_ctivate"
+msgstr "A_ctivar"
+
+#: ../src/eog-plugin-manager.c:534
+msgid "Ac_tivate All"
+msgstr "Ac_tivar todos"
+
+#: ../src/eog-plugin-manager.c:539
+msgid "_Deactivate All"
+msgstr "_Desactivar todos"
+
+#: ../src/eog-plugin-manager.c:865
+msgid "_About Plugin"
+msgstr "_Acerca del complemento"
+
+#: ../src/eog-plugin-manager.c:872
+msgid "C_onfigure Plugin"
+msgstr "C_onfigurar el complemento"
 
 #: ../src/main.c:59
 msgid "Open in fullscreen mode"
