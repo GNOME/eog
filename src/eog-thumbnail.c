@@ -116,15 +116,9 @@ eog_thumb_data_free (EogThumbData *data)
 	if (data == NULL)
 		return;
 
-	if (data->thumb_path != NULL)
-		g_free (data->thumb_path);
-
-	if (data->mime_type != NULL)
-		g_free (data->mime_type);
-
-	if (data->uri_str != NULL)
-		g_free (data->uri_str);
-
+	g_free (data->thumb_path);
+	g_free (data->mime_type);
+	g_free (data->uri_str);
 	g_free (data);
 }
 

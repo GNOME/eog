@@ -200,8 +200,7 @@ update_counter_format_str (EogURIConverter *conv)
 	
 	priv = conv->priv;
 
-	if (priv->counter_str != NULL) 
-		g_free (priv->counter_str);
+	g_free (priv->counter_str);
 
 	priv->counter_str = g_strdup_printf ("%%.%ulu", priv->counter_n_digits);
 }
@@ -636,10 +635,8 @@ append_filename (GString *str, EogImage *img)
 
 	result = g_string_append (str, name);
 
-	if (name != NULL)
-		g_free (name);
-	if (suffix != NULL) 
-		g_free (suffix);
+	g_free (name);
+	g_free (suffix);
 	
 	gnome_vfs_uri_unref (img_uri);
 

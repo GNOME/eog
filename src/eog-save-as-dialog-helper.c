@@ -72,8 +72,7 @@ update_preview (gpointer user_data)
 
 	gtk_label_set_text (GTK_LABEL (data->preview_label), preview_str);
 
-	if (preview_str != NULL)
-		g_free (preview_str);
+	g_free (preview_str);
 
 	data->idle_id = 0;
 

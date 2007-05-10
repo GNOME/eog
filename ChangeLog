@@ -1,3 +1,13 @@
+2007-05-10  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-pixbuf-util.c: (eog_pixbuf_get_common_suffix):
+	* src/eog-save-as-dialog-helper.c: (update_preview):
+	* src/eog-thumbnail.c: (eog_thumb_data_free):
+	* src/eog-uri-converter.c: (update_counter_format_str),
+	(append_filename):
+	Remove some unneeded guards around g_free calls as it checks for NULL
+	itself.
+
 2007-05-07  Lucas Rocha  <lucasr@gnome.org>
 
 	Initial code for the plugin system. Still deactivated while some

@@ -79,8 +79,7 @@ eog_pixbuf_get_common_suffix (GdkPixbufFormat *format)
 	/* try to find 3-char suffix first, use the last occurence */
 	for (i = 0; extensions [i] != NULL; i++) {
 		if (strlen (extensions[i]) <= 3) {
-			if (result != NULL) 
-				g_free (result);
+			g_free (result);
 			result = g_ascii_strdown (extensions[i], -1);
 		}
 	}
