@@ -2503,8 +2503,7 @@ eog_window_retrieve_save_as_uri (EogWindow *window, EogImage *image)
 		g_free (new_uri);
 	}
 	gtk_widget_destroy (dialog);
-	if (folder_uri)
-		g_free (folder_uri);
+	g_free (folder_uri);
 	
 	return save_uri;
 }

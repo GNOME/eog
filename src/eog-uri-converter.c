@@ -70,7 +70,7 @@ free_token (gpointer data)
 {
 	EogUCToken *token = (EogUCToken*) data;
 
-	if (token->type == EOG_UC_STRING && token->data.string != NULL) {
+	if (token->type == EOG_UC_STRING) {
 		g_free (token->data.string);
 	}
 
