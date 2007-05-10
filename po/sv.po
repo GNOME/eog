@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-03 03:32+0100\n"
-"PO-Revision-Date: 2007-05-03 22:31+0100\n"
+"POT-Creation-Date: 2007-05-08 12:53+0100\n"
+"PO-Revision-Date: 2007-05-10 07:49+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "_Ta bort verktygsrad"
 msgid "Remove the selected toolbar"
 msgstr "Ta bort markerad verktygsrad"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:446
 msgid "Separator"
 msgstr "Avgränsare"
 
@@ -287,113 +287,122 @@ msgstr "sekund"
 msgid "A value greater than 0 determines the seconds an image stays on screen until the next one is shown automatically. Zero disables the automatic browsing."
 msgstr "Ett värde större än 0 avgör antalet sekunder en bild blir kvar på skärmen till nästa bild automatiskt visas. Noll inaktiverar automatisk bläddring."
 
-#: ../data/eog.schemas.in.h:3
+#: ../data/eog.schemas.in.h:2
+#: ../src/eog-plugin-manager.c:831
+msgid "Active plugins"
+msgstr "Aktiva insticksmoduler"
+
+#: ../data/eog.schemas.in.h:4
 #, no-c-format
 msgid "Allow zoom greater than 100% initially"
 msgstr "Tillåt zoomning större än 100% i början"
 
-#: ../data/eog.schemas.in.h:4
+#: ../data/eog.schemas.in.h:5
 msgid "Automatic orientation"
 msgstr "Automatisk orientering"
 
-#: ../data/eog.schemas.in.h:5
+#: ../data/eog.schemas.in.h:6
 msgid "Delay in seconds until showing the next image"
 msgstr "Fördröjning i sekunder till nästa bild visas"
 
-#: ../data/eog.schemas.in.h:6
+#: ../data/eog.schemas.in.h:7
 msgid "Determines how transparency should be indicated. Valid values are CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key determines the used color value."
 msgstr "Avgör hur genomskinlighet ska indikeras. Giltiga värden är CHECK_PATTERN, COLOR och NONE. Om COLOR väljs avgör nyckeln trans_color det färgvärde som används."
 
-#: ../data/eog.schemas.in.h:7
+#: ../data/eog.schemas.in.h:8
 msgid "If the transparency key has the value COLOR, then this key determines the color which is used for indicating transparency."
 msgstr "Om genomskinlighetsnyckeln har värdet COLOR avgör denna nyckel den färg som används för att indikera genomskinlighet."
 
-#: ../data/eog.schemas.in.h:8
+#: ../data/eog.schemas.in.h:9
 msgid "If this is set to FALSE small images will not be stretched to fit into the screen initially."
 msgstr "Om detta är satt till FALSKT kommer små bilder inte att sträckas för att passa skärmen i början."
 
-#: ../data/eog.schemas.in.h:9
+#: ../data/eog.schemas.in.h:10
 msgid "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; 3 for right."
 msgstr "Positionen för bildsamlingspanelen. Ställ in till 0 för nederkant; 1 för vänster; 2 för överkant; 3 för höger."
 
-#: ../data/eog.schemas.in.h:10
+#: ../data/eog.schemas.in.h:11
 msgid "Interpolate Image"
 msgstr "Interpolera bild"
 
-#: ../data/eog.schemas.in.h:11
+#: ../data/eog.schemas.in.h:12
 msgid "Last collection window geometry"
 msgstr "Geometri för senaste bildsamlingsfönstret"
 
-#: ../data/eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:13
 msgid "Last singleton window geometry"
 msgstr "Geometri för senaste singleton-fönstret"
 
-#: ../data/eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:14
+msgid "List of active plugins. It doesn't contain the \"Location\" of the active plugins. See the .eog-plugin file for obtaining the \"Location\" of a given plugin."
+msgstr "Lista över aktiva insticksmoduler. Den innehåller inte \"Location\" för de aktiva insticksmodulerna. Se filen .eog-plugin för hur man tar fram \"Location\" för en viss insticksmodul."
+
+#: ../data/eog.schemas.in.h:15
 msgid "Loop through the image sequence"
 msgstr "Bildsekvensen blir slinga"
 
-#: ../data/eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:16
 msgid "Open images in a new window"
 msgstr "Öppna bilder i ett nytt fönster"
 
-#: ../data/eog.schemas.in.h:15
+#: ../data/eog.schemas.in.h:17
 msgid "Scroll wheel zoom"
 msgstr "Rullhjulszoom"
 
-#: ../data/eog.schemas.in.h:16
+#: ../data/eog.schemas.in.h:18
 msgid "Show/hide the image collection pane scroll buttons."
 msgstr "Visa/dölj rullknapparna på bildsamlingspanelen."
 
-#: ../data/eog.schemas.in.h:17
+#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the image collection pane."
 msgstr "Visa/dölj bildsamlingspanelen."
 
-#: ../data/eog.schemas.in.h:18
+#: ../data/eog.schemas.in.h:20
 msgid "Show/hide the window statusbar."
 msgstr "Visa/dölj fönsterstatusraden."
 
-#: ../data/eog.schemas.in.h:19
+#: ../data/eog.schemas.in.h:21
 msgid "Show/hide the window toolbar."
 msgstr "Visa/dölj fönsterverktygsraden."
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:23
 #, no-c-format
 msgid "The multiplier to the applied when using the mouse scroll wheel for zooming. This value defines the zooming step used for each scroll event. For example, 0.05 results in a 5% zoom increment for each scroll event and 1.00 result in a 100% zoom increment."
 msgstr "Faktorn som används för zoom med musens rullhjul. Det här värder definierar zoomsteget som används för varje rullhändelse. Till exempel betyder 0.05 en zoomökning på 5% för varje rullhändelse och 1.00 betyder 100% zoomökning."
 
-#: ../data/eog.schemas.in.h:22
+#: ../data/eog.schemas.in.h:24
 msgid "Transparency color"
 msgstr "Genomskinlighetsfärg"
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:25
 msgid "Transparency indicator"
 msgstr "Genomskinlighetsindikator"
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:26
 msgid "Whether opening an image should create a new window instead of replacing the image in the current window."
 msgstr "Huruvida öppnandet av en bild ska skapa ett nytt fönster istället för att ersätta bilden i det aktuella fönstret."
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:27
 msgid "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Huruvida sekvensen med bilder ska visas i en ändlös slinga eller inte."
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:28
 msgid "Whether the image collection pane should be resizable or not."
 msgstr "Huruvida bildsamlingspanelen ska vara möjlig att ändra storlek på eller inte."
 
-#: ../data/eog.schemas.in.h:27
+#: ../data/eog.schemas.in.h:29
 msgid "Whether the image should be interpolated on zoom or not. This leads to better quality but is somewhat slower than non interpolated images."
 msgstr "Huruvida bilden ska interpoleras vid inzoomning eller inte. Detta leder till bättre kvalitet men är något långsammare än icke interpolerade bilder."
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:30
 msgid "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "Huruvida bilden ska automatiskt roteras baserat på EXIF-orientering."
 
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:31
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Huruvida rullhjulet ska användas för att zooma eller inte."
 
-#: ../data/eog.schemas.in.h:30
+#: ../data/eog.schemas.in.h:32
 msgid "Zoom multiplier"
 msgstr "Zoomfaktor"
 
@@ -791,6 +800,7 @@ msgid "Help On this application"
 msgstr "Hjälp för det här programmet"
 
 #: ../src/eog-window.c:3096
+#: ../src/eog-plugin-manager.c:504
 msgid "_About"
 msgstr "_Om"
 
@@ -955,6 +965,38 @@ msgstr "Normal"
 #: ../src/eog-window.c:3311
 msgid "Fit"
 msgstr "Anpassa"
+
+#: ../src/eog-plugin-manager.c:53
+msgid "Plugin"
+msgstr "Insticksmodul"
+
+#: ../src/eog-plugin-manager.c:54
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: ../src/eog-plugin-manager.c:512
+msgid "C_onfigure"
+msgstr "K_onfigurera"
+
+#: ../src/eog-plugin-manager.c:522
+msgid "A_ctivate"
+msgstr "A_ktivera"
+
+#: ../src/eog-plugin-manager.c:534
+msgid "Ac_tivate All"
+msgstr "Ak_tivera alla"
+
+#: ../src/eog-plugin-manager.c:539
+msgid "_Deactivate All"
+msgstr "_Inaktivera alla"
+
+#: ../src/eog-plugin-manager.c:865
+msgid "_About Plugin"
+msgstr "_Om Insticksmodul"
+
+#: ../src/eog-plugin-manager.c:872
+msgid "C_onfigure Plugin"
+msgstr "K_onfigurera Insticksmodul"
 
 #: ../src/main.c:59
 msgid "Open in fullscreen mode"
