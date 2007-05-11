@@ -15,17 +15,14 @@ Description
 This is the Eye of Gnome, an image viewer program.  It is meant to be
 a fast and functional image viewer.
 
-
 Requirements
 ------------
 
-This package requires the following modules to be installed:
-libgnomeui, libbonoboui, bonobo-activation, gconf, gnome-vfs,
-gdk-pixbuf, eel, libart, libgenomeprintui, libgnomecanvas and
-libglade.
+This package requires the following modules to be installed: glib, GTK+,
+libgnomeui, gconf, gnome-desktop, gnome-vfs, gdk-pixbuf, libart, and libglade.
 
 You can get these packages from your favourite GNOME FTP mirror or at
-http://ftp.gnome.org/GNOME/sources or from other sources where GNOME
+http://download.gnome.org/sources or from other sources where GNOME
 packages are distributed.
 
 
@@ -39,13 +36,22 @@ libexif library. It is available at http://libexif.sourceforge.net.
 If you also want to preserve your EXIF data on save make sure you have
 libjpeg installed, including the development files.
 
+In order to make 'Eye of GNOME' work as a single instance application you'll
+need D-Bus installed in your system. You can get it from 
+http://www.freedesktop.org/wiki/Software/dbus .
+
 Availability
 ------------
 
 The bleeding-edge version of this package is always available from the GNOME
-CVS repository (instructions at http://developer.gnome.org/tools/cvs.html).
-Released versions are available at
-http://download.gnome.org/GNOME/unstable/sources/eog.
+SVN repository (instructions at http://developer.gnome.org/tools/svn.html).
+Released versions are available at http://download.gnome.org/sources/eog.
+
+Webpage
+-------
+
+You can find screenshots and the latest news about 'Eye of GNOME' in
+http://www.gnome.org/projects/eog.
 
 
 Reporting bugs
@@ -66,8 +72,10 @@ Authors
 -------
 
 Maintainer: Lucas Rocha (lucasr@gnome.org)
-            Tim Gerla (tim+gnomebugs@gerla.net) 
 
+Felix Riemann (friemann@svn.gnome.org)
+Claudio Saaevedra (csaavedra@alumnos.utalca.cl)
+Tim Gerla (tim+gnomebugs@gerla.net)
 Arik Devens (arik@gnome.org)
 Federico Mena-Quintero (federico@gnu.org)
 Jens Finke (jens@gnome.org)
