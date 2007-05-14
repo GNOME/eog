@@ -8,8 +8,6 @@ AM_CONFIG_HEADER(config.h)
 
 AM_MAINTAINER_MODE
 
-AM_INIT_AUTOMAKE(eog, 2.19.2)
-
 GNOME_COMMON_INIT
 GNOME_MAINTAINER_MODE_DEFINES
 GNOME_COMPILE_WARNINGS
@@ -151,9 +149,9 @@ AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG s
 AC_SUBST(LIBJPEG)
 AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
 
-# ***************
+# ****************
 # D-Bus activation
-# ***************
+# ****************
 
 DBUS_GLIB_REQUIRED=0.71
 
@@ -229,12 +227,17 @@ data/eog.desktop.in
 data/icons/Makefile
 data/icons/16x16/Makefile
 data/icons/16x16/apps/Makefile
+data/icons/16x16/actions/Makefile
 data/icons/22x22/Makefile
 data/icons/22x22/apps/Makefile
+data/icons/22x22/actions/Makefile
 data/icons/24x24/Makefile
 data/icons/24x24/apps/Makefile
 data/icons/32x32/Makefile
 data/icons/32x32/apps/Makefile
+data/icons/32x32/actions/Makefile
+data/icons/48x48/Makefile
+data/icons/48x48/actions/Makefile
 data/icons/scalable/Makefile
 data/icons/scalable/apps/Makefile
 ])

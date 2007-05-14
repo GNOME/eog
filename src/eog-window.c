@@ -51,6 +51,7 @@
 #include "eog-thumbnail.h"
 #include "eog-print-image-setup.h"
 #include "eog-save-as-dialog-helper.h"
+#include "eog-plugin-engine.h"
 
 #include "egg-toolbar-editor.h"
 #include "egg-editable-toolbar.h"
@@ -788,6 +789,8 @@ update_action_groups_state (EogWindow *window)
 	if (page_setup_disabled) {
 		gtk_action_set_sensitive (action_page_setup, FALSE);
 	}
+
+	eog_plugin_engine_update_plugins_ui (window, FALSE);
 }
 
 static void
@@ -3075,6 +3078,7 @@ static const GtkActionEntry action_entries_window[] = {
 	{ "View",  NULL, N_("_View") },
 	{ "Image", NULL, N_("_Image") },
 	{ "Go",    NULL, N_("_Go") },
+	{ "Tools", NULL, N_("_Tools") },
 	{ "Help",  NULL, N_("_Help") },
 
 	{ "FileOpen", GTK_STOCK_OPEN,  N_("_Open..."), "<control>O", 
@@ -3776,6 +3780,8 @@ eog_window_dispose (GObject *object)
 	window = EOG_WINDOW (object);
 	priv = window->priv;
 
+	eog_plugin_engine_garbage_collect ();
+
 	if (priv->store != NULL) {
 		g_object_unref (priv->store);
 		priv->store = NULL;
@@ -3861,6 +3867,8 @@ eog_window_dispose (GObject *object)
 		priv->display_profile = NULL;
 	}
 #endif
+
+	eog_plugin_engine_garbage_collect ();
 
 	G_OBJECT_CLASS (eog_window_parent_class)->dispose (object);
 }
@@ -4152,6 +4160,8 @@ eog_window_constructor (GType type,
 
 	eog_window_construct_ui (EOG_WINDOW (object));
 
+	eog_plugin_engine_update_plugins_ui (EOG_WINDOW (object), TRUE);
+
 	return object;
 }
 
@@ -4308,6 +4318,54 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 
 	eog_job_queue_add_job (job);
 	g_object_unref (job);
+}
+
+GtkUIManager *
+eog_window_get_ui_manager (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->ui_mgr;
+}
+
+EogListStore *
+eog_window_get_store (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return EOG_LIST_STORE (window->priv->store);
+}
+
+GtkWidget *
+eog_window_get_thumb_view (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->thumbview;
+}
+
+GtkWidget *
+eog_window_get_thumb_nav (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->nav;
+}
+
+GtkWidget *
+eog_window_get_statusbar (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->statusbar;
+}
+
+EogImage *
+eog_window_get_image (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->image;
 }
 
 gboolean

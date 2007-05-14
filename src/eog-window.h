@@ -29,6 +29,12 @@
 #define __EOG_WINDOW_H__
 
 #include "eog-list-store.h"
+#include "eog-image.h"
+/*
+#include "eog-thumb-nav.h"
+#include "eog-thumb-view.h"
+#include "eog-statusbar.h"
+*/
 
 #include <glib.h>
 #include <glib-object.h>
@@ -78,16 +84,28 @@ struct _EogWindowClass {
 	void (* prepared) (EogWindow *window);
 };
 
-GType        eog_window_get_type  	(void) G_GNUC_CONST;
+GType         eog_window_get_type  	(void) G_GNUC_CONST;
 
-GtkWidget*   eog_window_new		(EogStartupFlags  flags);
+GtkWidget    *eog_window_new		(EogStartupFlags  flags);
 
-const char*  eog_window_get_uri		(EogWindow       *window);
+GtkUIManager *eog_window_get_ui_manager (EogWindow       *window);
 
-void         eog_window_open_uri_list	(EogWindow       *window, 
+EogListStore *eog_window_get_store      (EogWindow       *window);
+
+GtkWidget    *eog_window_get_thumb_view (EogWindow       *window);
+
+GtkWidget    *eog_window_get_thumb_nav  (EogWindow       *window);
+
+GtkWidget    *eog_window_get_statusbar  (EogWindow       *window);
+
+EogImage     *eog_window_get_image      (EogWindow       *window);
+
+const char   *eog_window_get_uri	(EogWindow       *window);
+
+void          eog_window_open_uri_list	(EogWindow       *window, 
 					 GSList          *uri_list);
 
-gboolean     eog_window_is_empty 	(EogWindow       *window);
+gboolean      eog_window_is_empty 	(EogWindow       *window);
 
 G_END_DECLS
 

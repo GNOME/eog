@@ -36,6 +36,7 @@
 #include "eog-thumbnail.h"
 #include "eog-job-queue.h"
 #include "eog-application.h"
+#include "eog-plugin-engine.h"
 #include "eog-util.h"
 
 #include <string.h>
@@ -197,6 +198,7 @@ main (int argc, char **argv)
 	eog_job_queue_init ();
 	gdk_threads_init ();
 	eog_thumbnail_init ();
+	eog_plugin_engine_init ();
 
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
@@ -209,6 +211,8 @@ main (int argc, char **argv)
 	
   	if (startup_files)
 		g_strfreev (startup_files);
+
+	eog_plugin_engine_shutdown ();
 
 	g_object_unref (program);
 

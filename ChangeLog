@@ -1,3 +1,24 @@
+2007-05-15  Lucas Rocha  <lucasr@gnome.org>
+
+	Plugin system in place and activated now. Here we go!
+
+	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor), 
+	data/eog.glade: activated plugin manager inside the preferences dialog.
+	* src/eog-window.[ch] (eog_window_get_ui_manager,
+	eog_window_get_store, eog_window_get_thumb_view,
+	eog_window_get_thumb_nav, eog_window_get_image,
+	eog_Window_get_statusbar): added several accessor method to be used
+	by plugins in order to change application UI and behavior. Added the
+	plugin engine calls.
+	* src/main.c (main): init and destroy plugin engine.
+	* src/Makefile.am: several changes to work with plugin manager and
+	more maintainability.
+	* configure.ac: several cleanups. Added new icons to the build.
+	* data/eog.pc.in: added more metainfo and a better package
+	description.
+	* data/eog-ui.xml: added placeholders for "Tools" menu.
+	* data/icons/*: new icon for plugins called "eog-plugin".
+
 2007-05-11  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* README, AUTHORS: Update README and AUTHORS. Fixes 

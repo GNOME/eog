@@ -6,38 +6,51 @@ endif
 toolbar_LIB = -L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor
 toolbar_DEPS = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
-INCLUDES =							\
-	$(EOG_CFLAGS)						\
-	$(WARN_CFLAGS)						\
-	-I$(top_srcdir)/jpegutils				\
- 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
-	-DG_LOG_DOMAIN=\"Eog\"					\
-	-DEOG_PREFIX=\""${prefix}"\"				\
-	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
-	-DEOG_PLUGINDIR=\""$(libdir)/eog/plugins"\"		\
-	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+noinst_LTLIBRARIES = libeog.la
 
-eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
+bin_PROGRAMS = eog
 
-eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
+headerdir = $(prefix)/include/eog/eog
+header_DATA = $(INST_H_FILES)	
 
 MARSHAL_OUTPUT = 	\
 	eog-marshal.h	\
 	eog-marshal.c
 
-bin_PROGRAMS = eog
+NIINST_H_FILES =			\
+	eog-session.h			\
+	eog-util.h			\
+	eog-pixbuf-util.h		\
+	eog-preferences-dialog.h	\
+	eog-config-keys.h		\
+	eog-image-jpeg.h		\
+	eog-image-private.h		\
+	eog-thumb-shadow.h		\
+	eog-uri-converter.h		\
+	eog-metadata-reader.h		\
+	eog-save-as-dialog-helper.h	\
+	eog-print-image-setup.h         \
+	eog-print-preview.h             \
+	eog-module.h             	\
+	eog-plugin-manager.h            \
+	eog-plugin-engine.h             \
+	uta.h				\
+	zoom.h	
 
 INST_H_FILES =				\
 	eog-application.h		\
+	eog-debug.h			\
 	eog-window.h			\
+	eog-dialog.h			\
 	eog-properties-dialog.h		\
 	eog-message-area.h		\
-	eog-statusbar.h			\
+	eog-error-message-area.h	\
 	eog-file-chooser.h		\
+	eog-statusbar.h			\
+	eog-thumb-nav.h			\
 	eog-transform.h			\
 	eog-image.h			\
+	eog-image-save-info.h		\
 	eog-scroll-view.h		\
 	eog-thumb-view.h		\
 	eog-list-store.h		\
@@ -46,100 +59,82 @@ INST_H_FILES =				\
 	eog-jobs.h			\
 	eog-plugin.h 
 
-headerdir = $(prefix)/include/eog/eog
-header_DATA = $(INST_H_FILES)	
-
-eog_SOURCES =				\
-	$(MARSHAL_OUTPUT)		\
-	eog-application.h		\
+libeog_la_SOURCES =			\
 	eog-application.c		\
-	eog-session.h			\
 	eog-session.c			\
-	eog-debug.h			\
 	eog-debug.c			\
-	eog-util.h			\
 	eog-util.c			\
-	eog-pixbuf-util.h		\
 	eog-pixbuf-util.c		\
-	eog-window.h			\
 	eog-window.c			\
-	eog-dialog.h			\
 	eog-dialog.c			\
-	eog-preferences-dialog.h	\
 	eog-preferences-dialog.c	\
-	eog-properties-dialog.h		\
 	eog-properties-dialog.c		\
-	eog-message-area.h		\
 	eog-message-area.c		\
-	eog-error-message-area.h	\
 	eog-error-message-area.c	\
-	eog-file-chooser.h		\
 	eog-file-chooser.c		\
-	eog-statusbar.h			\
 	eog-statusbar.c			\
-	eog-thumb-nav.h			\
 	eog-thumb-nav.c			\
-	eog-config-keys.h		\
-	eog-transform.h			\
 	eog-transform.c			\
 	eog-image.c			\
-	eog-image.h			\
-	eog-image-private.h		\
 	eog-image-jpeg.c		\
-	eog-image-jpeg.h		\
 	eog-image-save-info.c		\
-	eog-image-save-info.h		\
 	eog-scroll-view.c		\
-	eog-scroll-view.h		\
 	eog-thumb-view.c		\
-	eog-thumb-view.h		\
 	eog-list-store.c		\
-	eog-list-store.h		\
-	eog-thumbnail.h			\
 	eog-thumbnail.c			\
 	eog-thumb-shadow.c		\
-	eog-thumb-shadow.h		\
 	eog-job-queue.c			\
-	eog-job-queue.h			\
 	eog-jobs.c			\
-	eog-jobs.h			\
-	eog-uri-converter.h		\
 	eog-uri-converter.c		\
-	eog-metadata-reader.h		\
 	eog-metadata-reader.c		\
-	eog-save-as-dialog-helper.h	\
 	eog-save-as-dialog-helper.c	\
 	eog-print-image-setup.c         \
-	eog-print-image-setup.h         \
-	eog-print-preview.h             \
 	eog-print-preview.c           	\
-	eog-module.h             	\
 	eog-module.c            	\
-	eog-plugin.h             	\
 	eog-plugin.c            	\
-	eog-plugin-manager.h            \
 	eog-plugin-manager.c            \
-	eog-plugin-engine.h             \
 	eog-plugin-engine.c            	\
 	uta.c				\
-	uta.h				\
 	zoom.c				\
-	zoom.h				\
+	$(MARSHAL_OUTPUT)		\
+	$(NOINST_H_FILES)		\
+	$(INST_H_FILES)
+
 	main.c	
 
 if HAVE_EXIF
-eog_SOURCES +=				\
+libeog_la_SOURCES +=			\
 	eog-exif-util.h			\
 	eog-exif-util.c			\
 	eog-exif-details.h		\
 	eog-exif-details.c
 endif
 
+libeog_la_CFLAGS =						\
+	$(EOG_CFLAGS)						\
+	$(WARN_CFLAGS)						\
+	-I$(top_srcdir)/jpegutils				\
+ 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-DG_LOG_DOMAIN=\"EOG\"					\
+	-DEOG_PREFIX=\""${prefix}"\"				\
+	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
+	-DEOG_PLUGINDIR=\""$(libdir)/eog/plugins"\"
+
+eog_SOURCES = main.c
+
 eog_DEPENDENCIES = 	\
+	libeog.la	\
 	$(jpeg_DEPS)	\
 	$(toolbar_DEPS)
 
+eog_CFLAGS = 							\
+	$(EOG_CFLAGS)						\
+ 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
+	-DGNOMELOCALEDIR=\""$(prefix)/$(DATADIRNAME)/locale"\"
+
 eog_LDADD = 				\
+	libeog.la			\
 	$(EOG_LIBS)			\
 	$(X_LIBS)			\
 	$(LIBJPEG)			\
@@ -148,6 +143,12 @@ eog_LDADD = 				\
 
 BUILT_SOURCES = 			\
 	$(MARSHAL_OUTPUT)
+
+eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
+	$(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
+
+eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
+	$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
 
 EXTRA_DIST = eog-marshal.list 
 

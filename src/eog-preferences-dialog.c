@@ -193,8 +193,8 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *upscale_check;
 	GtkWidget *loop_check;
 	GtkWidget *seconds_spin;
-	/*GtkWidget *plugin_manager;
-	GtkWidget *plugin_manager_container;*/
+	GtkWidget *plugin_manager;
+	GtkWidget *plugin_manager_container;
 	GObject *object;
 	GdkColor color;
 	gchar *value;
@@ -219,7 +219,7 @@ eog_preferences_dialog_constructor (GType type,
 			         "upscale_check", &upscale_check,
 			         "loop_check", &loop_check,
 			         "seconds_spin", &seconds_spin,
-			         /*"plugin_manager_container", &plugin_manager_container,*/
+			         "plugin_manager_container", &plugin_manager_container,
 			         NULL);
 
 	g_signal_connect (G_OBJECT (dlg), 
@@ -372,7 +372,6 @@ eog_preferences_dialog_constructor (GType type,
 			  G_CALLBACK (pd_spin_button_changed_cb), 
 			  priv->client);
 
-#if 0
         plugin_manager = eog_plugin_manager_new ();
 
         g_assert (plugin_manager != NULL);
@@ -384,7 +383,6 @@ eog_preferences_dialog_constructor (GType type,
                             0);
 
         gtk_widget_show_all (plugin_manager);
-#endif
 
 	return object;	
 }
