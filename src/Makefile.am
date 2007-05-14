@@ -17,7 +17,7 @@ MARSHAL_OUTPUT = 	\
 	eog-marshal.h	\
 	eog-marshal.c
 
-NIINST_H_FILES =			\
+NOINST_H_FILES =			\
 	eog-session.h			\
 	eog-util.h			\
 	eog-pixbuf-util.h		\
