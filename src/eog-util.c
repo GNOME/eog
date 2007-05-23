@@ -26,6 +26,7 @@
 #include "config.h"
 #endif
 
+#include <sys/time.h>
 #ifdef HAVE_STRPTIME
 #define _XOPEN_SOURCE
 #endif /* HAVE_STRPTIME */
