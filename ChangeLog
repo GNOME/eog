@@ -1,3 +1,9 @@
+2007-05-26  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-window.c: (eog_window_transparency_changed_cb):
+	Add an extra check for NULL values to avoid some critical
+	warnings if eog is not properly installed. Fixes bug #430021.
+
 2007-05-23  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-util.c: Include <sys/time.h> to fix build in Solaris.

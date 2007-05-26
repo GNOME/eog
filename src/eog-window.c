@@ -297,7 +297,9 @@ eog_window_transparency_changed_cb (GConfClient *client,
 		value = gconf_value_get_string (entry->value);
 	}
 
-	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
+	if (value == NULL) {
+		return;
+	} else if (g_ascii_strcasecmp (value, "COLOR") == 0) {
 		GdkColor color;
 		char *color_str;
 
