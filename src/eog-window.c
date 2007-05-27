@@ -168,8 +168,8 @@ struct _EogWindowPrivate {
 	gint                 collection_position;
 	gboolean             collection_resizable;
 
+        GtkActionGroup      *actions_open_with;
 	guint                open_with_menu_id;
- 	GList*               mime_application_list;
 
 #ifdef HAVE_LCMS
         cmsHPROFILE         *display_profile;
@@ -953,75 +953,97 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 	gchar *label, *tip, *string_uri, *mime_type;
 	GtkAction *action;
 	EogWindowPrivate *priv;
-	
+        GList *apps;
+        guint action_id = 0;
+
+	g_debug ("UPDATE OPEN WITH...");
+
+	priv = window->priv;
+
 	uri = eog_image_get_uri (image);
+
 	string_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 	mime_type = gnome_vfs_get_mime_type (string_uri);
-	g_free (string_uri);
+
 	gnome_vfs_uri_unref (uri);
+	g_free (string_uri);
 	
-	priv = window->priv;
-	
-	gtk_ui_manager_remove_ui (priv->ui_mgr, priv->open_with_menu_id);
-	if (priv->mime_application_list != NULL) {
-		gnome_vfs_mime_application_list_free (priv->mime_application_list);
-		priv->mime_application_list = NULL;
-	}
-	
-	if (mime_type != NULL) {
-		GList *apps = gnome_vfs_mime_get_all_applications (mime_type);
-		GList *next;
-		
-		for (iter = apps; iter; iter = next) {
-			next = iter->next;
-			
-			GnomeVFSMimeApplication *app = iter->data;
+        if (priv->open_with_menu_id != 0) {
+               gtk_ui_manager_remove_ui (priv->ui_mgr, priv->open_with_menu_id);
+               priv->open_with_menu_id = 0;
+        }
 
-			/* do not include eog itself */
-			if (g_ascii_strcasecmp (gnome_vfs_mime_application_get_binary_name (app), 
-						g_get_prgname ()) == 0) {
- 				apps = g_list_remove_link (apps, iter);
-				g_list_free1 (iter);
- 				gnome_vfs_mime_application_free (app);
-				continue;
-			}
-			
-			label = g_strdup_printf (_("Open with \"%s\""), app->name);
-			/* FIXME: use the tip once all the actions have tips */
-			/* tip = g_strdup_printf (_("Use \"%s\" to open the selected item"), app->name); */
-			tip = NULL;
-			action = gtk_action_new (app->name, label, tip, NULL);
-			g_free (label);
-			/* g_free (tip); */
-			
-			g_object_set_data (G_OBJECT (action), "app", app);
+        if (priv->actions_open_with != NULL) {
+              gtk_ui_manager_remove_action_group (priv->ui_mgr, priv->actions_open_with);
+              priv->actions_open_with = NULL;
+        }
 
-			g_signal_connect (G_OBJECT (action),
-					  "activate",
-					  G_CALLBACK (open_with_launch_application_cb),
-					  image);
-			
-			gtk_action_group_add_action (priv->actions_image, action);
-			
-			gtk_ui_manager_add_ui (priv->ui_mgr,
-			       		priv->open_with_menu_id,
-			       		"/MainMenu/File/FileOpenWith/Applications Placeholder",
-			       		app->name,
-			       		app->name,
-			       		GTK_UI_MANAGER_MENUITEM,
-			       		FALSE);
+        if (mime_type == NULL)
+                return;
 
-			gtk_ui_manager_add_ui (priv->ui_mgr,
-			       		priv->open_with_menu_id,
-			       		"/ThumbnailPopup/FileOpenWith/Applications Placeholder",
-			       		app->name,
-			       		app->name,
-			       		GTK_UI_MANAGER_MENUITEM,
-			       		FALSE);
-		}
-		priv->mime_application_list = apps;
-		g_free (mime_type);
-	}
+        apps = gnome_vfs_mime_get_all_applications (mime_type);
+
+        g_free (mime_type);
+
+        if (!apps)
+                return;
+
+        priv->actions_open_with = gtk_action_group_new ("OpenWithActions");
+        gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_open_with, -1);
+
+        priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
+
+        for (iter = apps; iter; iter = iter->next) {
+                GnomeVFSMimeApplication *app = iter->data;
+                gchar name[64];
+
+		g_debug ("ADICIONANDO APP: %s", gnome_vfs_mime_application_get_binary_name (app));
+
+                /* Do not include eog itself */
+                if (g_ascii_strcasecmp (gnome_vfs_mime_application_get_binary_name (app),
+                                        g_get_prgname ()) == 0) {
+                        gnome_vfs_mime_application_free (app);
+                        continue;
+                }
+
+                g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
+
+                label = g_strdup_printf (_("Open with \"%s\""), app->name);
+                tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), app->name);
+                action = gtk_action_new (name, label, tip, NULL);
+
+                g_free (label);
+                g_free (tip); 
+
+                g_object_set_data_full (G_OBJECT (action), "app", app,
+                                        (GDestroyNotify) gnome_vfs_mime_application_free);
+
+                g_signal_connect (action,
+                                  "activate",
+                                  G_CALLBACK (open_with_launch_application_cb),
+                                  image);
+
+                gtk_action_group_add_action (priv->actions_open_with, action);
+                g_object_unref (action);
+
+                gtk_ui_manager_add_ui (priv->ui_mgr,
+                                priv->open_with_menu_id,
+                                "/MainMenu/File/FileOpenWith/Applications Placeholder",
+                                name,
+                                name,
+                                GTK_UI_MANAGER_MENUITEM,
+                                FALSE);
+
+                gtk_ui_manager_add_ui (priv->ui_mgr,
+                                priv->open_with_menu_id,
+                                "/ThumbnailPopup/FileOpenWith/Applications Placeholder",
+                                name,
+                                name,
+                                GTK_UI_MANAGER_MENUITEM,
+                                FALSE);
+        }
+
+        g_list_free (apps);
 }
 
 static void
@@ -2776,8 +2798,12 @@ move_to_trash_real (EogImage *image, GError **error)
 	if (result != GNOME_VFS_OK) {
 
 		result = gnome_vfs_find_directory (uri,
-						GNOME_VFS_DIRECTORY_KIND_TRASH,
-						&trash_dir, TRUE, FALSE, 0700);
+						   GNOME_VFS_DIRECTORY_KIND_TRASH,
+						   &trash_dir, 
+						   TRUE, 
+						   FALSE, 
+						   0700);
+
 		if (result != GNOME_VFS_OK) {
 			gnome_vfs_uri_unref (uri);
 
@@ -2793,13 +2819,13 @@ move_to_trash_real (EogImage *image, GError **error)
 	name = gnome_vfs_uri_extract_short_name (uri);
 	trash_uri = gnome_vfs_uri_append_file_name (trash_dir, name);
 	g_free (name);
-	
+
 	result = gnome_vfs_move_uri (uri, trash_uri, TRUE);
 
 	gnome_vfs_uri_unref (uri);
 	gnome_vfs_uri_unref (trash_uri);
 	gnome_vfs_uri_unref (trash_dir);
-	
+
 	if (result != GNOME_VFS_OK) {
 		g_set_error (error, 
 			     EOG_WINDOW_ERROR,
@@ -3441,8 +3467,6 @@ eog_window_construct_ui (EogWindow *window)
 
 	priv->ui_mgr = gtk_ui_manager_new ();
 
-	priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
-
 	priv->actions_window = gtk_action_group_new ("MenuActionsWindow");
 	
 	gtk_action_group_set_translation_domain (priv->actions_window, 
@@ -3600,8 +3624,6 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
-
-	//set_drag_dest (window);
 
 	entry = gconf_client_get_entry (priv->client, 
 					EOG_CONF_VIEW_INTERPOLATE, 
@@ -3764,8 +3786,6 @@ eog_window_init (EogWindow *window)
 	
 	window->priv->collection_position = 0;
 	window->priv->collection_resizable = FALSE;
-
-	window->priv->mime_application_list = NULL;
 }
 
 static void
@@ -3814,6 +3834,11 @@ eog_window_dispose (GObject *object)
 		priv->actions_recent = NULL;
 	}
 
+        if (priv->actions_open_with != NULL) {
+                g_object_unref (priv->actions_open_with);
+                priv->actions_open_with = NULL;
+        }
+
 	fullscreen_clear_timeout (window);
 
 	if (window->priv->fullscreen_popup != NULL) {
@@ -3856,11 +3881,6 @@ eog_window_dispose (GObject *object)
 		g_slist_foreach (priv->uri_list, (GFunc) gnome_vfs_uri_unref, NULL);	
 		g_slist_free (priv->uri_list);
 		priv->uri_list = NULL;
-	}
-
-	if (priv->mime_application_list != NULL) {
-		gnome_vfs_mime_application_list_free (priv->mime_application_list);
-		priv->mime_application_list = NULL;
 	}
 
 #ifdef HAVE_LCMS
