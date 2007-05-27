@@ -956,8 +956,6 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         GList *apps;
         guint action_id = 0;
 
-	g_debug ("UPDATE OPEN WITH...");
-
 	priv = window->priv;
 
 	uri = eog_image_get_uri (image);
@@ -996,8 +994,6 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         for (iter = apps; iter; iter = iter->next) {
                 GnomeVFSMimeApplication *app = iter->data;
                 gchar name[64];
-
-		g_debug ("ADICIONANDO APP: %s", gnome_vfs_mime_application_get_binary_name (app));
 
                 /* Do not include eog itself */
                 if (g_ascii_strcasecmp (gnome_vfs_mime_application_get_binary_name (app),
