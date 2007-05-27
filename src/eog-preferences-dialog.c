@@ -49,6 +49,7 @@ enum {
 
 #define GCONF_OBJECT_KEY	"GCONF_KEY"
 #define GCONF_OBJECT_VALUE	"GCONF_VALUE"
+#define TOGGLE_INVERT_VALUE	"TOGGLE_INVERT_VALUE"
 
 struct _EogPreferencesDialogPrivate {
 	GConfClient   *client;
@@ -60,14 +61,19 @@ static void
 pd_check_toggle_cb (GtkWidget *widget, gpointer data)
 {
 	char *key = NULL;
+	gboolean invert = FALSE;
+	gboolean value;
 
 	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
+	invert = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), TOGGLE_INVERT_VALUE));
+
+	value = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
 
 	if (key == NULL) return;
 
 	gconf_client_set_bool (GCONF_CLIENT (data),
 			       key,
-			       gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)),
+			       (invert) ? !value : value,
 			       NULL);
 }
 
@@ -134,6 +140,24 @@ pd_radio_toggle_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
+pd_int_radio_toggle_cb (GtkWidget *widget, gpointer data)
+{
+	char *key = NULL;
+	gint value;
+	
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) 
+	    return;
+
+	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
+	value = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_VALUE));
+
+	if (key == NULL) 
+		return;
+
+	gconf_client_set_int (GCONF_CLIENT (data), key, value, NULL);
+}
+
+static void
 eog_preferences_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
 	switch (res_id) {
@@ -195,9 +219,12 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *seconds_spin;
 	GtkWidget *plugin_manager;
 	GtkWidget *plugin_manager_container;
+ 	GtkWidget *left_radio, *right_radio, *top_radio, *bottom_radio, *active_radio;
+ 	GtkWidget *resize_check;
 	GObject *object;
 	GdkColor color;
 	gchar *value;
+	gint numval;
 
 	object = G_OBJECT_CLASS (eog_preferences_dialog_parent_class)->constructor
 			(type, n_construct_properties, construct_params);
@@ -220,6 +247,11 @@ eog_preferences_dialog_constructor (GType type,
 			         "loop_check", &loop_check,
 			         "seconds_spin", &seconds_spin,
 			         "plugin_manager_container", &plugin_manager_container,
+				 "left_radio", &left_radio,
+ 				 "right_radio", &right_radio,
+ 				 "top_radio", &top_radio,
+ 				 "bottom_radio", &bottom_radio,
+ 				 "resize_check", &resize_check,
 			         NULL);
 
 	g_signal_connect (G_OBJECT (dlg), 
@@ -371,6 +403,84 @@ eog_preferences_dialog_constructor (GType type,
 			  "value-changed", 
 			  G_CALLBACK (pd_spin_button_changed_cb), 
 			  priv->client);
+
+
+ 	numval = gconf_client_get_int (priv->client, 
+ 				       EOG_CONF_UI_IMAGE_COLLECTION_POSITION, 
+ 				       NULL);
+ 
+ 	switch (numval) {
+ 		case 1:
+ 			active_radio = left_radio;
+ 			break;
+ 		case 2:
+ 			active_radio = top_radio;
+ 			break;
+ 		case 3:
+ 			active_radio = right_radio;
+ 			break;
+ 		case 0:
+ 		default:
+ 			active_radio = bottom_radio;
+ 			break;		
+ 	}
+ 
+ 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (active_radio), TRUE);
+ 
+ 	g_object_set_data (G_OBJECT (left_radio),
+ 			   GCONF_OBJECT_KEY,
+ 			   EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
+ 	g_object_set_data (G_OBJECT (left_radio),
+ 			   GCONF_OBJECT_VALUE, GINT_TO_POINTER (1));
+ 	g_signal_connect (G_OBJECT (left_radio), 
+ 			  "toggled", 
+ 			  G_CALLBACK (pd_int_radio_toggle_cb), 
+ 			  priv->client);
+ 
+ 	g_object_set_data (G_OBJECT (right_radio),
+ 			   GCONF_OBJECT_KEY,
+ 			   EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
+ 	g_object_set_data (G_OBJECT (right_radio),
+ 			   GCONF_OBJECT_VALUE, GINT_TO_POINTER (3));
+ 	g_signal_connect (G_OBJECT (right_radio), 
+ 			  "toggled", 
+ 			  G_CALLBACK (pd_int_radio_toggle_cb), 
+ 			  priv->client);
+ 
+ 	g_object_set_data (G_OBJECT (top_radio),
+ 			   GCONF_OBJECT_KEY,
+ 			   EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
+ 	g_object_set_data (G_OBJECT (top_radio),
+ 			   GCONF_OBJECT_VALUE, GINT_TO_POINTER (2));
+ 	g_signal_connect (G_OBJECT (top_radio), 
+ 			  "toggled", 
+ 			  G_CALLBACK (pd_int_radio_toggle_cb), 
+ 			  priv->client);
+ 
+ 	g_object_set_data (G_OBJECT (bottom_radio),
+ 			   GCONF_OBJECT_KEY,
+ 			   EOG_CONF_UI_IMAGE_COLLECTION_POSITION);
+ 	g_object_set_data (G_OBJECT (bottom_radio),
+ 			   GCONF_OBJECT_VALUE, GINT_TO_POINTER (0));
+ 	g_signal_connect (G_OBJECT (bottom_radio), 
+ 			  "toggled", 
+ 			  G_CALLBACK (pd_int_radio_toggle_cb), 
+ 			  priv->client);
+ 
+ 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (resize_check), 
+ 				      !gconf_client_get_bool (priv->client, 
+ 							     EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE, 
+ 							     NULL));
+ 	g_object_set_data (G_OBJECT (resize_check),
+ 			   GCONF_OBJECT_KEY,
+ 			   EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE);
+ 	g_object_set_data (G_OBJECT (resize_check),
+ 			   TOGGLE_INVERT_VALUE, GINT_TO_POINTER (TRUE));
+ 	g_signal_connect (G_OBJECT (resize_check), 
+ 			  "toggled", 
+ 			  G_CALLBACK (pd_check_toggle_cb), 
+ 			  priv->client);
+
 
         plugin_manager = eog_plugin_manager_new ();
 
