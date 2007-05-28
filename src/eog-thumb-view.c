@@ -295,6 +295,8 @@ tb_on_button_press_event_cb (GtkWidget *tb, GdkEventButton *event,
 
 	    eog_thumb_view_popup_menu (EOG_THUMB_VIEW (tb), event);
 	    
+	    gtk_tree_path_free (path);
+
 	    return TRUE;
     }
     
