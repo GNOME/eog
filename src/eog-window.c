@@ -3222,18 +3222,6 @@ static const GtkActionEntry action_entries_collection[] = {
 	{ "GoLast", GTK_STOCK_GOTO_LAST, N_("_Last Image"), "<Alt>End", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_go_last) },
-	{ "SpaceBar", NULL, N_("_Next Image"), "space", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_go_next) },
-	{ "ShiftSpaceBar", NULL, N_("_Previous Image"), "<shift>space", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_go_prev) },
-	{ "Return", NULL, N_("_Next Image"), "Return", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_go_next) },
-	{ "ShiftReturn", NULL, N_("_Previous Image"), "<shift>Return", 
-	  NULL, 
-	  G_CALLBACK (eog_window_cmd_go_prev) },
 	{ "BackSpace", NULL, N_("_Previous Image"), "BackSpace", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_go_prev) },
@@ -3922,9 +3910,21 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 static gint
 eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
+	GtkContainer *tbcontainer = GTK_CONTAINER ((EOG_WINDOW (widget)->priv->toolbar));
 	gint result = FALSE;
 
 	switch (event->keyval) {
+	case GDK_space:
+	case GDK_Return:
+		if (tbcontainer->focus_child == NULL) {
+			if (event->state == GDK_SHIFT_MASK) {
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			} else {
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			}
+			result = TRUE;
+		}
+		break;
 	case GDK_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
@@ -3939,6 +3939,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	case GDK_Up:
 	case GDK_Left:
+		if (tbcontainer->focus_child != NULL)
+			break;
 	case GDK_Page_Up:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW (widget)->priv->thumbview), 
@@ -3953,6 +3955,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		break;
 	case GDK_Down:
 	case GDK_Right:
+		if (tbcontainer->focus_child != NULL)
+			break;
 	case GDK_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
 			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW (widget)->priv->thumbview), 
