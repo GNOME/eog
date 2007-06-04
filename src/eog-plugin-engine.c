@@ -292,8 +292,12 @@ eog_plugin_engine_load_dir (const gchar *dir)
 	GDir *d;
 	const gchar *dirent;
 
+	if (!g_file_test (dir, G_FILE_TEST_IS_DIR)) {
+		return;
+	}
+	
 	g_return_if_fail (eog_plugin_engine_gconf_client != NULL);
-
+	
 	eog_debug_message (DEBUG_PLUGINS, "DIR: %s", dir);
 
 	d = g_dir_open (dir, 0, &error);
@@ -356,8 +360,7 @@ eog_plugin_engine_load_all (void)
 	pdir = gnome_util_home_file (USER_EOG_PLUGINS_LOCATION);
 
 	/* Load user's plugins */
-	if (g_file_test (pdir, G_FILE_TEST_IS_DIR))
-		eog_plugin_engine_load_dir (pdir);
+	eog_plugin_engine_load_dir (pdir);
 
 	g_free (pdir);
 

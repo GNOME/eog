@@ -1,3 +1,12 @@
+2007-06-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-plugin-engine.c: (eog_plugin_engine_load_dir): Check 
+	for the existence of the requested directory. Fixes a critical
+	warning when trying to load nonexistent plugin directories. Fixes
+	bug #439907.
+	(eog_plugin_engine_load_all): Remove check before the user plugins
+	directory load.
+
 2007-05-28  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* data/eog-ui.xml: Remove some accelerators.
