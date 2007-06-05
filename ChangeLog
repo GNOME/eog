@@ -1,3 +1,10 @@
+2007-06-05  Felix Riemann  <friemann@svn.gnome.org>
+
+	* shell/eog-window.c: (move_to_trash_real): Actually search for the
+	trash directory. This unbreaks the move-to-trash-functionality on
+	mounted media, but only if trash-dir is already present.
+	Patch by <mannheim89@hotmail.com>. Fixes bugs #338653 and #443737.
+
 2007-05-28  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: post release version bump.
