@@ -2349,6 +2349,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 		"Lucas Rocha <lucasr@cvs.gnome.org> (maintainer)",
 		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
 		"Claudio Saavedra <csaavedra@alumnos.utalca.cl>",
+		"Felix Riemann <friemann@svn.gnome.org>",
 		"",
 		"Philip Van Hoof <pvanhoof@gnome.org>",
                 "Paolo Borelli <pborelli@katamail.com>",
@@ -2394,7 +2395,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 
 	gtk_show_about_dialog (GTK_WINDOW (window),
-			       "name", _("Eye of GNOME"),
+	  (gtk_minor_version > 10) ? "program-name" : "name", _("Eye of GNOME"),
 			       "version", VERSION,
 			       "copyright", "Copyright \xc2\xa9 2000-2006 Free Software Foundation, Inc.",
 			       "comments",_("The GNOME image viewing and cataloging program."),
