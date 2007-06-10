@@ -676,6 +676,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
 		"Lucas Rocha <lucasr@cvs.gnome.org> (maintainer)",
 		"Claudio Saavedra <csaavedra@alumnos.utalca.cl>",
+		"Felix Riemann <friemann@svn.gnome.org>",
 		"",
 		"Philip Van Hoof <pvanhoof@gnome.org>",
                 "Paolo Borelli <pborelli@katamail.com>",
@@ -723,7 +724,7 @@ verb_HelpAbout_cb (GtkAction *action, gpointer data)
 	window = EOG_WINDOW (data);
 
 	gtk_show_about_dialog (GTK_WINDOW(window),
-			"name", _("Eye of GNOME"),
+	  (gtk_minor_version > 10) ? "program-name" : "name", _("Eye of GNOME"),
 			"version", VERSION,
 			"copyright", "Copyright \xc2\xa9 2000-2005 Free Software Foundation, Inc.",
 			"comments",_("The GNOME image viewing and cataloging program."),
