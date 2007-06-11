@@ -499,6 +499,9 @@ create_tree_popup_menu (EogPluginManager *pm)
 
 	info = plugin_manager_get_selected_plugin (pm);
 
+	if (info == NULL)
+		return NULL;
+
 	menu = gtk_menu_new ();
 
 	item = gtk_image_menu_item_new_with_mnemonic (_("_About"));
@@ -637,7 +640,10 @@ show_tree_popup_menu (GtkTreeView        *tree,
 		gtk_widget_destroy (pm->priv->popup_menu);
 
 	pm->priv->popup_menu = create_tree_popup_menu (pm);
-	
+
+	if (pm->priv->popup_menu == NULL)
+		return;	
+
 	gtk_menu_attach_to_widget (GTK_MENU (pm->priv->popup_menu),
 				   GTK_WIDGET (pm),
 				   (GtkMenuDetachFunc) tree_popup_menu_detach);

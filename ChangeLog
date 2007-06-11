@@ -1,3 +1,9 @@
+2007-06-12  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-plugin-manager.c (create_tree_popup_menu,
+	show_tree_popup_menu): don't show contextual menu when there are no
+	plugins available in order to avoid crashers. Fixes bug #445535. 
+
 2007-06-10  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_about): Make about dialog work
