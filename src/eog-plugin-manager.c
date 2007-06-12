@@ -834,7 +834,7 @@ eog_plugin_manager_init (EogPluginManager *pm)
 
 	label = gtk_label_new (NULL);
 	markup = g_markup_printf_escaped ("<span weight=\"bold\">%s</span>",
-					  _("Active plugins"));
+					  _("Active Plugins"));
 	gtk_label_set_markup (GTK_LABEL (label), markup);
 
 	g_free (markup);
