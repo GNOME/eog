@@ -1,3 +1,11 @@
+2007-06-16  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-exif-details.c: (eog_exif_details_init),
+	(eog_exif_details_reset), (eog_exif_details_update):
+	Add a function to reset the exif details before updating it.
+	This should remove the phantom entries which were in previous images
+	but not in the current one.
+
 2007-06-12  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-plugin-manager.c: (eog_plugin_manager_init): Capitalize

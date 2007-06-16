@@ -182,6 +182,8 @@ struct _EogExifDetailsPrivate {
 
 static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value);
 
+static void eog_exif_details_reset (EogExifDetails *exif_details);
+
 static void
 eog_exif_details_dispose (GObject *object)
 {
@@ -208,7 +210,6 @@ eog_exif_details_init (EogExifDetails *exif_details)
 	EogExifDetailsPrivate *priv;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *cell;
-	int i;
 
 	exif_details->priv = EOG_EXIF_DETAILS_GET_PRIVATE (exif_details);
 
@@ -233,17 +234,7 @@ eog_exif_details_init (EogExifDetails *exif_details)
 
 	gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (exif_details), TRUE);
 
-	for (i = 0; exif_categories [i].label != NULL; i++) {
-		char *translated_string;
-		
-		translated_string = gettext (exif_categories[i].label);
-
-		set_row_data (GTK_TREE_STORE (priv->model), 
-			      exif_categories[i].path, 
-			      NULL,
-			      translated_string, 
-			      NULL);
-	}
+	eog_exif_details_reset (exif_details);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (exif_details), 
 				 GTK_TREE_MODEL (priv->model));
@@ -370,13 +361,6 @@ exif_content_cb (ExifContent *content, gpointer data)
 	exif_content_foreach_entry (content, exif_entry_cb, data);
 }
 
-static gboolean
-clear_single_value (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
-{
-	gtk_tree_store_set (GTK_TREE_STORE (model), iter, MODEL_COLUMN_VALUE, " ", -1);
-	return FALSE;
-}
-
 GtkWidget *
 eog_exif_details_new ()
 {
@@ -385,6 +369,29 @@ eog_exif_details_new ()
 	object = g_object_new (EOG_TYPE_EXIF_DETAILS, NULL);
 
 	return GTK_WIDGET (object);
+}
+
+static void
+eog_exif_details_reset (EogExifDetails *exif_details)
+{
+	int i;
+	EogExifDetailsPrivate *priv = exif_details->priv;
+
+	gtk_tree_store_clear (GTK_TREE_STORE (priv->model));
+
+	g_hash_table_remove_all (priv->id_path_hash);
+
+	for (i = 0; exif_categories [i].label != NULL; i++) {
+		char *translated_string;
+		
+		translated_string = gettext (exif_categories[i].label);
+
+		set_row_data (GTK_TREE_STORE (priv->model), 
+			      exif_categories[i].path, 
+			      NULL,
+			      translated_string, 
+			      NULL);
+	}
 }
 
 void
@@ -396,9 +403,8 @@ eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 
 	priv = exif_details->priv;
 
-	if (data == NULL) {
-		gtk_tree_model_foreach (GTK_TREE_MODEL (priv->model), clear_single_value, NULL);
-	} else {
+	eog_exif_details_reset (exif_details);
+	if (data) {
 		exif_data_foreach_content (data, exif_content_cb, exif_details);
 	}
 }
