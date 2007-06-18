@@ -51,6 +51,9 @@ enum {
 struct _EogPropertiesDialogPrivate {
 	EogThumbView   *thumbview;
 
+	gboolean        update_page;
+	EogPropertiesDialogPage current_page;
+
 	GtkWidget      *notebook;
 	GtkWidget      *close_button;
 	GtkWidget      *next_button;
@@ -197,6 +200,19 @@ pd_close_button_clicked_cb (GtkButton *button,
 	eog_dialog_hide (EOG_DIALOG (user_data));
 }
 
+static gboolean
+eog_properties_dialog_page_switch (GtkNotebook     *notebook,
+				   GtkNotebookPage *page, 
+				   gint             page_index, 
+				   EogPropertiesDialog *prop_dlg)
+{
+
+	if (prop_dlg->priv->update_page) 
+		prop_dlg->priv->current_page = page_index;
+
+	return TRUE;
+}
+
 static gint
 eog_properties_dialog_delete (GtkWidget   *widget, 
 			      GdkEventAny *event, 
@@ -296,6 +312,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 
 	priv = prop_dlg->priv;
 
+	priv->update_page = FALSE;
+
 	eog_dialog_construct (EOG_DIALOG (prop_dlg),
 			      "eog.glade",
 			      "eog_image_properties_dialog");
@@ -333,6 +351,11 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	g_signal_connect (dlg,
 			  "delete-event",
 			  G_CALLBACK (eog_properties_dialog_delete),
+			  prop_dlg);
+
+	g_signal_connect (priv->notebook,
+			  "switch-page",
+			  G_CALLBACK (eog_properties_dialog_page_switch),
 			  prop_dlg);
 
 	g_signal_connect (priv->close_button,
@@ -398,11 +421,18 @@ eog_properties_dialog_update (EogPropertiesDialog *prop_dlg,
 {
 	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (prop_dlg));
 
+	prop_dlg->priv->update_page = FALSE;
+
 	pd_update_general_tab (prop_dlg, image);
 
 #ifdef HAVE_EXIF
 	pd_update_exif_tab (prop_dlg, image);
 #endif
+
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (prop_dlg->priv->notebook),
+				       prop_dlg->priv->current_page);
+
+	prop_dlg->priv->update_page = TRUE;
 }
 
 void
@@ -410,7 +440,9 @@ eog_properties_dialog_set_page (EogPropertiesDialog *prop_dlg,
 			        EogPropertiesDialogPage page)
 {
 	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (prop_dlg));
-	
+
+	prop_dlg->priv->current_page = page;
+
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (prop_dlg->priv->notebook),
 				       page);
 }

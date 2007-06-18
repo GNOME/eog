@@ -44,7 +44,7 @@ typedef struct _EogPropertiesDialogPrivate EogPropertiesDialogPrivate;
 #define EOG_PROPERTIES_DIALOG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_PROPERTIES_DIALOG, EogPropertiesDialogClass))
 
 typedef enum {
-	EOG_PROPERTIES_DIALOG_PAGE_GENERAL,
+	EOG_PROPERTIES_DIALOG_PAGE_GENERAL = 0,
 	EOG_PROPERTIES_DIALOG_PAGE_EXIF
 } EogPropertiesDialogPage;
 
