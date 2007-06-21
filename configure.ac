@@ -224,6 +224,7 @@ po/Makefile.in
 data/Makefile
 data/eog.pc
 data/eog.desktop.in
+data/pixmaps/Makefile
 data/icons/Makefile
 data/icons/16x16/Makefile
 data/icons/16x16/apps/Makefile

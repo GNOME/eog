@@ -365,7 +365,7 @@ eog_plugin_engine_load_all (void)
 	g_free (pdir);
 
 	/* Load system plugins */
-	eog_plugin_engine_load_dir (EOG_PLUGINDIR "/");
+	eog_plugin_engine_load_dir (EOG_PLUGIN_DIR "/");
 }
 
 gboolean

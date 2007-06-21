@@ -1,3 +1,22 @@
+2007-06-22  Lucas Rocha  <lucasr@gnome.org>
+
+	Use the same thumbnail frame than nautilus. Fixes bug #441138.
+
+	Change alignment in thumbnail pane to make it work better on vertical
+	and horizontal orientations. Fixes bug #440168.
+
+	* src/eog-thumbnail.[ch] (eog_thumbnail_add_frame,
+	eog_thumbnail_fit_to_size): added functions to add shadow frame and
+	thumbnail resizing.
+	* src/eog-thumb-view.c (eog_thumb_view_init): changed the pixbuf 
+	cell renderer to make improve the aligment among thumbnails.
+	* src/eog-plugin-engine.c, src/eog-application.c, src/eog-window.c,
+	src/eog-dialog.c, src/Makefile.am: renamed EOG_DATADIR and
+	EOG_PLUGINDIR to EOG_DATA_DIR and EOG_PLUGIN_DIR respectively.   
+	* configure.ac, data/Makefile, data/pixmaps/*: added new pixmap 
+	for thumbnail frame.
+	* src/eog-thumb-shadow.[ch]: removed.
+
 2007-06-19  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-properties-dialog.[ch] (eog_properties_dialog_init,

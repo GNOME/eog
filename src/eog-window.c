@@ -3504,7 +3504,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_collection, 0);
 
 	if (!gtk_ui_manager_add_ui_from_file (priv->ui_mgr, 
-					      EOG_DATADIR"/eog-ui.xml", 
+					      EOG_DATA_DIR"/eog-ui.xml", 
 					      &error)) {
                 g_warning ("building menus failed: %s", error->message);
                 g_error_free (error);
@@ -3591,7 +3591,7 @@ eog_window_construct_ui (EogWindow *window)
 	/* giving shape to the view */
 	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 0);
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 0);
-	gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 110);
+	/*gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 110);*/
 
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed_cb), window);

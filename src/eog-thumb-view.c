@@ -459,17 +459,33 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 static void
 eog_thumb_view_init (EogThumbView *tb)
 {
+	GtkCellRenderer *pixbuf_cell;
+
+	pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
+	
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tb), 
+	      	  		    pixbuf_cell, 
+	      			    FALSE);
+	
+	g_object_set (pixbuf_cell, 
+	              "follow-state", TRUE, 
+	              "yalign", 0.5, 
+	              "xalign", 0.5, 
+	              NULL);
+	
+	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (tb),
+	                                pixbuf_cell, 
+	      		                "pixbuf", EOG_LIST_STORE_THUMBNAIL,
+	                                NULL);
+
 	gtk_icon_view_set_selection_mode (GTK_ICON_VIEW (tb),
  					  GTK_SELECTION_MULTIPLE);
-
-	gtk_icon_view_set_pixbuf_column (GTK_ICON_VIEW (tb),
-					 EOG_LIST_STORE_THUMBNAIL);
 	
 	gtk_icon_view_set_column_spacing (GTK_ICON_VIEW (tb),
 					  EOG_THUMB_VIEW_SPACING);
 
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (tb),
-					  EOG_THUMB_VIEW_SPACING);
+				       EOG_THUMB_VIEW_SPACING);
 
 #ifdef HAVE_GTK_TOOLTIP
 	g_object_set (tb, "has-tooltip", TRUE, NULL);

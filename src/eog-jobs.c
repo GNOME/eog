@@ -29,7 +29,6 @@
 #include "eog-transform.h"
 #include "eog-list-store.h"
 #include "eog-thumbnail.h"
-#include "eog-thumb-shadow.h"
 #include "eog-pixbuf-util.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -213,31 +212,8 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	width = gdk_pixbuf_get_width (job->thumbnail);
 	height = gdk_pixbuf_get_height (job->thumbnail);
 
-	if (width > EOG_LIST_STORE_THUMB_SIZE ||
-	    height > EOG_LIST_STORE_THUMB_SIZE) {
-		GdkPixbuf *scaled;
-		gfloat factor;
-
-		if (width > height) {
-			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) width;
-		} else {
-			factor = (gfloat) EOG_LIST_STORE_THUMB_SIZE / (gfloat) height;			
-		}
-		
-		width  = MAX (width  * factor, 1);
-		height = MAX (height * factor, 1);
-		
-		scaled = gnome_thumbnail_scale_down_pixbuf (job->thumbnail, 
-							    width, height);
-		
-		g_object_unref (job->thumbnail);
-
-		job->thumbnail = scaled;
-	}
-
-	eog_thumb_shadow_add_rectangle (&(job->thumbnail));
-	eog_thumb_shadow_add_shadow (&(job->thumbnail));
-	eog_thumb_shadow_add_frame (&(job->thumbnail));
+	eog_thumbnail_fit_to_size (&job->thumbnail, EOG_LIST_STORE_THUMB_SIZE);
+	eog_thumbnail_add_frame (&job->thumbnail);
 
 	if (orig_width) {
 		gdk_pixbuf_set_option (job->thumbnail,

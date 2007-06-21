@@ -25,7 +25,6 @@ NOINST_H_FILES =			\
 	eog-config-keys.h		\
 	eog-image-jpeg.h		\
 	eog-image-private.h		\
-	eog-thumb-shadow.h		\
 	eog-uri-converter.h		\
 	eog-metadata-reader.h		\
 	eog-save-as-dialog-helper.h	\
@@ -82,7 +81,6 @@ libeog_la_SOURCES =			\
 	eog-thumb-view.c		\
 	eog-list-store.c		\
 	eog-thumbnail.c			\
-	eog-thumb-shadow.c		\
 	eog-job-queue.c			\
 	eog-jobs.c			\
 	eog-uri-converter.c		\
@@ -117,8 +115,9 @@ libeog_la_CFLAGS =						\
  	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
-	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
-	-DEOG_PLUGINDIR=\""$(libdir)/eog/plugins"\"
+	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
+	-DEOG_PIXMAPS_DIR=\""$(datadir)/pixmaps/eog"\"		\
+	-DEOG_PLUGIN_DIR=\""$(libdir)/eog/plugins"\"
 
 eog_SOURCES = main.c
 

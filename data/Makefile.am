@@ -1,4 +1,4 @@
-SUBDIRS = icons
+SUBDIRS = pixmaps icons
 
 @INTLTOOL_DESKTOP_RULE@
 

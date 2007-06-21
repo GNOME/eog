@@ -59,7 +59,7 @@ eog_dialog_construct_impl (EogDialog   *dialog,
 	
 	priv = dialog->priv;
 
-	filename = g_build_filename (EOG_DATADIR, glade_file, NULL);
+	filename = g_build_filename (EOG_DATA_DIR, glade_file, NULL);
 
 	priv->xml = glade_xml_new (filename, dlg_node, GETTEXT_PACKAGE);
 
