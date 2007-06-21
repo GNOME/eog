@@ -1215,7 +1215,11 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 		return FALSE;
 
 	switch (event->button) {
+		case 1:
 		case 2:
+                        if (event->button == 1 && !(event->state & GDK_CONTROL_MASK))
+				break;
+
 			if (is_image_movable (view)) {
 				eog_scroll_view_set_cursor (view, EOG_SCROLL_VIEW_CURSOR_DRAG);
 
@@ -1262,6 +1266,7 @@ eog_scroll_view_button_release_event (GtkWidget *widget, GdkEventButton *event, 
 		return FALSE;
 
 	switch (event->button) {
+		case 1:
 		case 2:
 			drag_to (view, event->x, event->y);
 			priv->dragging = FALSE;
