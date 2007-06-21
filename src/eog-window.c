@@ -1928,6 +1928,20 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 
 	gtk_widget_modify_bg (window->priv->view, GTK_STATE_NORMAL, 
 			      &(GTK_WIDGET (window)->style->black));
+
+	{
+		GtkStyle *style;
+
+		style = gtk_style_copy (gtk_widget_get_style (priv->view->parent));
+
+		style->xthickness = 0;
+		style->ythickness = 0;
+
+		gtk_widget_set_style (priv->view->parent, style);
+
+		g_object_unref (style);
+	}
+
 	gtk_window_fullscreen (GTK_WINDOW (window));
 	eog_window_update_fullscreen_popup (window);
 
@@ -1980,6 +1994,7 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), FALSE);
 
 	gtk_widget_modify_bg (window->priv->view, GTK_STATE_NORMAL, NULL);
+	gtk_widget_set_style (window->priv->view->parent, NULL);
 	gtk_window_unfullscreen (GTK_WINDOW (window));
 
 	if (slideshow) {
