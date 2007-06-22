@@ -434,6 +434,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 					   G_MAXINT);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, 108);
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+						100);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_AUTOMATIC,
@@ -447,6 +449,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 1);
 
 		gtk_widget_set_size_request (priv->thumbview, 113, -1);
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_NEVER,
@@ -461,6 +465,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, 220);
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_NEVER,
@@ -475,6 +481,8 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, 230, -1);
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 						GTK_POLICY_NEVER,

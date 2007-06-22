@@ -3604,9 +3604,8 @@ eog_window_construct_ui (EogWindow *window)
 	priv->thumbview = eog_thumb_view_new ();
 
 	/* giving shape to the view */
-	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 0);
+	gtk_icon_view_set_margin (GTK_ICON_VIEW (priv->thumbview), 4);
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (priv->thumbview), 0);
-	/*gtk_icon_view_set_item_width (GTK_ICON_VIEW (priv->thumbview), 110);*/
 
 	g_signal_connect (G_OBJECT (priv->thumbview), "selection_changed",
 			  G_CALLBACK (handle_image_selection_changed_cb), window);

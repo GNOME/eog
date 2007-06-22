@@ -61,6 +61,9 @@ GtkWidget  *eog_thumb_view_new 			    (void);
 void	    eog_thumb_view_set_model 		    (EogThumbView *view, 
 						     EogListStore *store);
 
+void        eog_thumb_view_set_item_height          (EogThumbView *view,
+						     gint          height);
+
 guint	    eog_thumb_view_get_n_selected 	    (EogThumbView *view);
 
 EogImage   *eog_thumb_view_get_first_selected_image (EogThumbView *view);

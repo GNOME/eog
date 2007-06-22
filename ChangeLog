@@ -1,5 +1,14 @@
 2007-06-22  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-thumb-view.[ch] (eog_thumb_view_init,
+	eog_thumb_view_set_item_height): added a method for setting the items
+	height.
+	* src/eog-window.c (eog_window_construct_ui): set thumbview margin.
+	* src/eog-thumb-nav.c (eog_thumb_nav_set_mode): set item's height
+	accodingly depending on the mode.
+
+2007-06-22  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-window.c (eog_window_run_fullscreen,
 	eog_window_stop_fullscreen): removed grey border when in fullscreen
 	mode. Fixes bug #425613 (Felix Riemann). 

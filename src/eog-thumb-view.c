@@ -55,6 +55,7 @@ struct _EogThumbViewPrivate {
 	gint start_thumb; /* the first visible thumbnail */
 	gint end_thumb;   /* the last visible thumbnail  */
 	GtkWidget *menu;  /* a contextual menu for thumbnails */
+	GtkCellRenderer *pixbuf_cell;
 };
 
 /* Drag 'n Drop */
@@ -459,22 +460,23 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 static void
 eog_thumb_view_init (EogThumbView *tb)
 {
-	GtkCellRenderer *pixbuf_cell;
-
-	pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
+	tb->priv = EOG_THUMB_VIEW_GET_PRIVATE (tb);
 	
+	tb->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
+
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tb), 
-	      	  		    pixbuf_cell, 
+	      	  		    tb->priv->pixbuf_cell, 
 	      			    FALSE);
 	
-	g_object_set (pixbuf_cell, 
+	g_object_set (tb->priv->pixbuf_cell, 
 	              "follow-state", TRUE, 
+	              "height", 100, 
 	              "yalign", 0.5, 
 	              "xalign", 0.5, 
 	              NULL);
 	
 	gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (tb),
-	                                pixbuf_cell, 
+	                                tb->priv->pixbuf_cell, 
 	      		                "pixbuf", EOG_LIST_STORE_THUMBNAIL,
 	                                NULL);
 
@@ -495,8 +497,6 @@ eog_thumb_view_init (EogThumbView *tb)
 			  G_CALLBACK (tb_on_query_tooltip_cb), 
 			  NULL);
 #endif /* HAVE_GTK_TOOLTIP */	
-	
-	tb->priv = EOG_THUMB_VIEW_GET_PRIVATE (tb);
 	
 	tb->priv->start_thumb = 0;
 	tb->priv->end_thumb = 0;
@@ -539,6 +539,16 @@ eog_thumb_view_set_model (EogThumbView *tb, EogListStore *store)
 		gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 		gtk_tree_path_free (path);
 	}
+}
+
+void
+eog_thumb_view_set_item_height (EogThumbView *tb, gint height)
+{
+	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
+
+	g_object_set (tb->priv->pixbuf_cell, 
+	              "height", height, 
+	              NULL);
 }
 
 static void
