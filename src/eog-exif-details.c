@@ -178,6 +178,7 @@ struct _EogExifDetailsPrivate {
 	GtkTreeModel *model;
 
 	GHashTable   *id_path_hash;
+	GHashTable   *id_path_hash_mnote;
 };
 
 static char*  set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value);
@@ -201,6 +202,10 @@ eog_exif_details_dispose (GObject *object)
 		priv->id_path_hash = NULL;
 	}
 
+	if (priv->id_path_hash_mnote) {
+		g_hash_table_destroy (priv->id_path_hash_mnote);
+		priv->id_path_hash_mnote = NULL;
+	}
 	G_OBJECT_CLASS (eog_exif_details_parent_class)->dispose (object);
 }
 
@@ -217,6 +222,7 @@ eog_exif_details_init (EogExifDetails *exif_details)
 
 	priv->model = GTK_TREE_MODEL (gtk_tree_store_new (2, G_TYPE_STRING, G_TYPE_STRING));
 	priv->id_path_hash = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
+	priv->id_path_hash_mnote = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 
 	/* Tag name column */
 	cell = gtk_cell_renderer_text_new ();
@@ -341,17 +347,43 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 			      exif_tag_get_name (entry->tag), 
 			      exif_entry_get_value (entry, b, sizeof(b)));	
 	} else {
-		cat = get_exif_category (entry);
 
-		path = set_row_data (store, 
-				     NULL, 
-				     exif_categories[cat].path,
-				     exif_tag_get_name (entry->tag), 
-				     exif_entry_get_value (entry, b, sizeof(b)));
+		ExifMnoteData *mnote = (entry->tag == EXIF_TAG_MAKER_NOTE ?
+			exif_data_get_mnote_data (entry->parent->parent) : 0);
 
-		g_hash_table_insert (priv->id_path_hash,
-				     GINT_TO_POINTER (entry->tag),
-				     path);
+		if (mnote) {
+			// Supported MakerNote Found
+			unsigned int i, c = exif_mnote_data_count (mnote);
+			
+			for (i = 0; i < c; i++) {
+				path = g_hash_table_lookup (priv->id_path_hash_mnote, GINT_TO_POINTER (i));
+				if (path != NULL) {
+					set_row_data (store, path, NULL, 
+						exif_mnote_data_get_title (mnote, i), 
+						exif_mnote_data_get_value (mnote, i, b, sizeof(b)));	
+				} else {
+					path = set_row_data (store,
+							     NULL,
+							     exif_categories[EXIF_CATEGORY_MAKER_NOTE].path,
+							     exif_mnote_data_get_title (mnote, i), 
+							     exif_mnote_data_get_value (mnote, i, b, sizeof(b)));
+					g_hash_table_insert (priv->id_path_hash_mnote, GINT_TO_POINTER (i), path);
+				}
+			}
+		} else {
+			cat = get_exif_category (entry);
+
+			path = set_row_data (store, 
+					     NULL, 
+					     exif_categories[cat].path,
+					     exif_tag_get_name (entry->tag), 
+					     exif_entry_get_value (entry, b,
+								   sizeof(b)));
+
+			g_hash_table_insert (priv->id_path_hash,
+					     GINT_TO_POINTER (entry->tag),
+					     path);
+		}
 	}
 }
 
@@ -380,6 +412,7 @@ eog_exif_details_reset (EogExifDetails *exif_details)
 	gtk_tree_store_clear (GTK_TREE_STORE (priv->model));
 
 	g_hash_table_remove_all (priv->id_path_hash);
+	g_hash_table_remove_all (priv->id_path_hash_mnote);
 
 	for (i = 0; exif_categories [i].label != NULL; i++) {
 		char *translated_string;

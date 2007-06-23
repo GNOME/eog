@@ -77,7 +77,7 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
 # EXIF (optional)
 # ***************
 
-LIBEXIF_REQUIRED=0.6.12
+LIBEXIF_REQUIRED=0.6.14
 
 AC_ARG_WITH([libexif], AC_HELP_STRING([--without-libexif], [disable EXIF support]))
 have_exif=no
