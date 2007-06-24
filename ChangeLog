@@ -1,3 +1,8 @@
+2007-06-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-window.c (eog_window_key_press): don't use GDK_Q and GDK_q
+	to close window in order to keep HIG compliance.
+
 2007-06-24  Felix Riemann  <friemann@svn.gnome.org>
 
 	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
@@ -17,8 +22,8 @@
 
 	* src/eog-exif-details.c: (eog_exif_details_dispose),
 	(eog_exif_details_init), (exif_entry_cb), (eog_exif_details_reset):
-	Display EXIF MakerNotes supported by libexif.
-	Patch by Jef Driesen. Fixes bug #350809.
+	Display EXIF MakerNotes supported by libexif. 
+	Fixes bug #350809 (Jef Driesen).
 	* configure.ac: Bump libexif requirement to 0.6.14.
 
 2007-06-22  Lucas Rocha  <lucasr@gnome.org>

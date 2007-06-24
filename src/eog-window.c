@@ -3940,17 +3940,14 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			result = TRUE;
 		}
 		break;
+	case GDK_Q:
+	case GDK_q:
 	case GDK_Escape:
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_FULLSCREEN) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
 		} else if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), TRUE);
 		}
-		break;
-	case GDK_Q:
-	case GDK_q:
-		gtk_widget_destroy (widget);
-		result = TRUE;
 		break;
 	case GDK_Up:
 	case GDK_Left:
