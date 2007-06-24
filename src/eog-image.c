@@ -459,19 +459,22 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 		return FALSE;
 	}
 
-	g_assert (priv->image != NULL);
-
 	if (priv->trans != NULL) {
 		transformed = eog_transform_apply (priv->trans, priv->image, NULL);
 	}
 
-	if (transformed != NULL) {
-		g_object_unref (priv->image);
-		priv->image = transformed;
+	g_object_unref (priv->image);
+	priv->image = transformed;
 
+	if (transformed != NULL) {
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
-	}
+	} else {
+		g_set_error (error, 
+			     EOG_IMAGE_ERROR, 
+			     EOG_IMAGE_ERROR_GENERIC,
+			     _("Transformation failed."));
+ 	}
 
 	return (transformed != NULL);
 }
@@ -840,8 +843,6 @@ eog_image_real_load (EogImage *img,
 	gboolean read_only_dimension = (data2read & EOG_IMAGE_DATA_DIMENSION) && 
 					!read_image_data;
 
-	g_assert (error == NULL || *error == NULL);
-
 	priv = img->priv;
 
  	g_assert (!read_image_data || priv->image == NULL);
@@ -853,7 +854,7 @@ eog_image_real_load (EogImage *img,
 
 	priv->bytes = eog_image_determine_file_bytes (img, error);
 
-	if (priv->bytes == 0 && (error == NULL || *error != NULL)) {
+	if (priv->bytes == 0) {
 		return FALSE;
 	}
 
@@ -1029,6 +1030,14 @@ eog_image_real_load (EogImage *img,
 		g_object_unref (md_reader);
 		md_reader = NULL;
 	}	
+
+	/* Catch-all in case of poor-error reporting */
+	if (failed && *error == NULL) {
+		g_set_error (error, 
+			     EOG_IMAGE_ERROR,
+			     EOG_IMAGE_ERROR_GENERIC,
+			     _("Image loading failed."));
+	}
 
 	return !failed;
 }

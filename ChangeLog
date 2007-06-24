@@ -1,5 +1,11 @@
 2007-06-24  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-image.c (eog_image_apply_transformations,
+	eog_image_real_load): improved error handling on image loading so that
+	it catches all failure cases. Fixes bug #413211 (Chris Wilson).
+
+2007-06-24  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-window.c (eog_window_key_press): don't use GDK_Q and GDK_q
 	to close window in order to keep HIG compliance.
 
