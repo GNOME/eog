@@ -442,17 +442,18 @@ eog_image_apply_transformations (EogImage *img, EogJob *job, GError **error)
 		return FALSE;
 	}
 
-	g_assert (priv->image != NULL);
-		
 	if (priv->trans != NULL) {
 		transformed = eog_transform_apply (priv->trans, priv->image, job);
 	}
 
+	g_object_unref (priv->image);
+	priv->image = transformed;
 	if (transformed != NULL) {
-		g_object_unref (priv->image);
-		priv->image = transformed;
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
+	} else {
+		g_set_error (error, EOG_IMAGE_ERROR, EOG_IMAGE_ERROR_GENERIC,
+			     _("Transformation failed."));
 	}
 
 	return (transformed != NULL);
@@ -649,8 +650,6 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	GdkPixbufFormat *format;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
 
-	g_assert (error == NULL || *error == NULL);
-
 	priv = img->priv;
 
 #ifdef DEBUG
@@ -665,7 +664,7 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 	}
 
 	priv->bytes = eog_image_determine_file_bytes (img, error);
-	if (priv->bytes == 0 && (error == NULL || *error != NULL)) {
+	if (priv->bytes == 0) {
 		return FALSE;
 	}
 
@@ -800,6 +799,13 @@ eog_image_real_load (EogImage *img, guint data2read, EogJob *job, GError **error
 		md_reader = NULL;
 	}	
 
+	if (!failed && *error == NULL) {
+		/* catch-all in case of poor-error reporting */
+		g_set_error (error, EOG_IMAGE_ERROR,
+				EOG_IMAGE_ERROR_GENERIC,
+				_("Image loading failed."));
+	}
+
 	return !failed;
 }
 
@@ -892,6 +898,7 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
+	GError *local_error = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 
@@ -927,7 +934,7 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 	}
 
 	/* Read the requested data from the image */
-	success = eog_image_real_load (img, data2read, job, error);
+	success = eog_image_real_load (img, data2read, job, &local_error);
 
 #ifdef DEBUG
 	g_print ("load success: %i\n", success);
@@ -939,7 +946,7 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 			eog_job_part_finished (job);
 		}
 		if (success) {
-			success = eog_image_apply_transformations (img, job, error);
+			success = eog_image_apply_transformations (img, job, &local_error);
 		}
 	}
 
@@ -960,7 +967,8 @@ eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
 		if (priv->error_message != NULL) {
 			g_free (priv->error_message);
 		}
-		priv->error_message = g_strdup((*error)->message);
+		priv->error_message = g_strdup (local_error->message);
+		g_propagate_error (error, local_error);
 	}
 
 	return success;
