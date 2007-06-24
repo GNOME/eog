@@ -454,6 +454,7 @@ editor_create_item_from_name (EggToolbarEditor *editor,
       GValue value = { 0, };
       GtkAction *action;
       GtkWidget *icon;
+      gboolean is_named = FALSE;
       
       action = find_action (editor, name);
       g_return_val_if_fail (action != NULL, NULL);
@@ -462,8 +463,19 @@ editor_create_item_from_name (EggToolbarEditor *editor,
       g_object_get_property (G_OBJECT (action), "stock_id", &value);
       stock_id = g_value_get_string (&value);
 
+      if (!stock_id) {
+        /* Gtk{Radio,Toggle}Actions only set either of the properties */
+      	g_value_reset (&value);
+      	g_object_get_property (G_OBJECT (action), "icon_name", &value);
+	stock_id = g_value_get_string (&value);
+	is_named = (stock_id != NULL);
+      } else {
+      	is_named = gtk_icon_theme_has_icon (gtk_icon_theme_get_default(),
+                                            stock_id);
+      }
+
       /* This is a workaround to catch named icons. */
-      if (stock_id && gtk_icon_theme_has_icon (gtk_icon_theme_get_default(), stock_id))
+      if (is_named)
         icon = gtk_image_new_from_icon_name (stock_id,
 	                                     GTK_ICON_SIZE_LARGE_TOOLBAR);
       else
