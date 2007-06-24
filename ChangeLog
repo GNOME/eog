@@ -2,6 +2,12 @@
 
 	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
 	(editor_create_item_from_name):
+	Check for icon-name first as it is only set if the icon is a named one
+
+2007-06-24  Felix Riemann  <friemann@svn.gnome.org>
+
+	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
+	(editor_create_item_from_name):
 	Add a workaround to take into account that Gtk{Radio,Toggle}Actions
 	only set either the stock-id or the icon-name property depending on
 	the image type. This makes it possible to display the icon of such

@@ -460,18 +460,17 @@ editor_create_item_from_name (EggToolbarEditor *editor,
       g_return_val_if_fail (action != NULL, NULL);
 
       g_value_init (&value, G_TYPE_STRING);
-      g_object_get_property (G_OBJECT (action), "stock_id", &value);
+      g_object_get_property (G_OBJECT (action), "icon-name", &value);
       stock_id = g_value_get_string (&value);
 
       if (!stock_id) {
         /* Gtk{Radio,Toggle}Actions only set either of the properties */
       	g_value_reset (&value);
-      	g_object_get_property (G_OBJECT (action), "icon_name", &value);
+      	g_object_get_property (G_OBJECT (action), "stock-id", &value);
 	stock_id = g_value_get_string (&value);
-	is_named = (stock_id != NULL);
+	is_named = FALSE;
       } else {
-      	is_named = gtk_icon_theme_has_icon (gtk_icon_theme_get_default(),
-                                            stock_id);
+      	is_named = TRUE;
       }
 
       /* This is a workaround to catch named icons. */
