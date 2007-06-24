@@ -1,6 +1,12 @@
 2007-06-24  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-image.c (eog_image_apply_transformations,
+	eog_image_real_load): Reverting previous commit as it breaks string
+	freeze.
+
+2007-06-24  Lucas Rocha  <lucasr@gnome.org>
+
+	* shell/eog-image.c (eog_image_apply_transformations,
 	eog_image_real_load): make sure the error is set in all cases when the
 	image loading fails. Patch by Chris Wilson <chris@chris-wilson.co.uk>.
 	Fixes bug #413211.
