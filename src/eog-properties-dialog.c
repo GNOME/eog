@@ -191,6 +191,35 @@ pd_update_exif_tab (EogPropertiesDialog *prop_dlg,
 	eog_exif_details_update (EOG_EXIF_DETAILS (prop_dlg->priv->exif_details), 
 				 exif_data);
 }
+
+static gboolean
+pd_resize_dialog (gpointer user_data)
+{
+	gint width, height;
+
+	gtk_window_get_size (GTK_WINDOW (user_data), 
+			     &width, 
+			     &height);
+
+	gtk_window_resize (GTK_WINDOW (user_data), width, 1);
+
+	return FALSE;
+}
+
+static void
+pd_exif_details_activated_cb (GtkExpander *expander,
+			      GParamSpec *param_spec, 
+			      GtkWidget *dialog)
+{
+	gboolean expanded;
+
+	expanded = gtk_expander_get_expanded (expander);
+
+	/*FIXME: this is depending on the expander animation 
+         * duration. Need to find a safer way for doing that. */
+	if (!expanded)
+		g_timeout_add (150, pd_resize_dialog, dialog); 
+}
 #endif
 
 static void
@@ -382,6 +411,11 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	gtk_widget_show_all (sw);
 
 	gtk_container_add (GTK_CONTAINER (priv->exif_details_expander), sw);
+
+	g_signal_connect_after (G_OBJECT (priv->exif_details_expander),
+			        "notify::expanded", 
+			  	G_CALLBACK (pd_exif_details_activated_cb), 
+			  	dlg);
 #else
         gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook), 
 				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
