@@ -3255,7 +3255,7 @@ static const GtkActionEntry action_entries_collection[] = {
 };
 
 static const GtkToggleActionEntry toggle_entries_collection[] = {
-	{ "ViewSlideshow", NULL, N_("_Slideshow"), "F5", 
+	{ "ViewSlideshow", "stock_slide-show", N_("_Slideshow"), "F5", 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_slideshow), FALSE },
 };
