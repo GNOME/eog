@@ -117,6 +117,11 @@ enum {
 
 static gint signals[SIGNAL_LAST];
 
+/* Drag target types */ 
+enum {
+	EOG_WINDOW_TARGET_URI_LIST
+};
+
 struct _EogWindowPrivate {
         GConfClient         *client;
 
@@ -3444,6 +3449,59 @@ eog_window_recent_manager_changed_cb (GtkRecentManager *manager, EogWindow *wind
 	eog_window_update_recent_files_menu (window);
 }
 
+static void
+eog_window_drag_data_received (GtkWidget *widget,
+                               GdkDragContext *context,
+                               gint x, gint y,
+                               GtkSelectionData *selection_data,
+                               guint info, guint time)
+{
+        GList *uri_list;
+        GSList *str_list = NULL;
+        GList *it;
+        EogWindow *window;
+
+        if (info != EOG_WINDOW_TARGET_URI_LIST)
+                return;
+
+        if (context->suggested_action == GDK_ACTION_COPY) {
+                window = EOG_WINDOW (widget);
+
+                uri_list = gnome_vfs_uri_list_parse ((gchar *) selection_data->data);
+
+                for (it = uri_list; it != NULL; it = it->next) {
+                        gchar *filename = 
+				gnome_vfs_uri_to_string (it->data, GNOME_VFS_URI_HIDE_NONE);
+
+                        str_list = g_slist_prepend (str_list, filename);
+                }
+
+                gnome_vfs_uri_list_free (uri_list);
+
+                /*str_list = g_slist_reverse (str_list);*/
+
+		eog_application_open_uri_list (EOG_APP, 
+					       str_list,
+					       GDK_CURRENT_TIME,
+					       0,
+					       NULL);
+        }
+}
+
+static void
+eog_window_set_drag_dest (EogWindow *window)
+{
+        static const GtkTargetEntry drag_types[] = {
+                {"text/uri-list", 0, EOG_WINDOW_TARGET_URI_LIST}
+        };
+
+        gtk_drag_dest_set (GTK_WIDGET (window),
+                           GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
+                           drag_types,
+                           sizeof (drag_types) / sizeof (drag_types[0]),
+                           GDK_ACTION_COPY | GDK_ACTION_ASK);
+}
+
 static void 
 eog_window_construct_ui (EogWindow *window)
 {
@@ -3685,6 +3743,8 @@ eog_window_construct_ui (EogWindow *window)
 		priv->mode = EOG_WINDOW_MODE_NORMAL;
 		update_ui_visibility (window);
 	}
+
+	eog_window_set_drag_dest (window);
 }
 
 static void
@@ -4214,6 +4274,7 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->delete_event = eog_window_delete;
 	widget_class->key_press_event = eog_window_key_press;
 	widget_class->button_press_event = eog_window_button_press;
+	widget_class->drag_data_received = eog_window_drag_data_received;
         widget_class->configure_event = eog_window_configure_event;
         widget_class->window_state_event = eog_window_window_state_event;
 	widget_class->unrealize = eog_window_unrealize;
