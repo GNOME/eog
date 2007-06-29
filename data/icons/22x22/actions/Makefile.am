@@ -4,8 +4,9 @@ context = actions
 
 iconsdir = $(themedir)/$(size)/$(context)
 
-icons_DATA = \
-	eog-plugin.png
+icons_DATA = 			  \
+	eog-plugin.png		  \
+	eog-image-collection.png
 
 noinst_DATA = \
 	eog-plugin.svg

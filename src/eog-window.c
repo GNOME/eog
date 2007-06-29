@@ -3153,7 +3153,7 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 	{ "ViewStatusbar", NULL, N_("_Statusbar"), NULL, 
 	  N_("Changes the visibility of the statusbar in the current window"), 
 	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
-	{ "ViewImageCollection", NULL, N_("_Image Collection"), "F9",
+	{ "ViewImageCollection", "eog-image-collection", N_("_Image Collection"), "F9",
 	  N_("Changes the visibility of the image collection pane in the current window"), 
 	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
 };

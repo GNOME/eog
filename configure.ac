@@ -234,6 +234,7 @@ data/icons/22x22/apps/Makefile
 data/icons/22x22/actions/Makefile
 data/icons/24x24/Makefile
 data/icons/24x24/apps/Makefile
+data/icons/24x24/actions/Makefile
 data/icons/32x32/Makefile
 data/icons/32x32/apps/Makefile
 data/icons/32x32/actions/Makefile
