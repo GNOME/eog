@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-toolbar-editor.c 2072 2006-11-10 00:56:02Z nshmyrev $
+ *  $Id: egg-toolbar-editor.c 813 2007-07-01 12:58:48Z jhaitsma $
  */
 
 #include "config.h"
@@ -78,7 +78,7 @@ egg_toolbar_editor_get_type (void)
 
   if (G_UNLIKELY (type == 0))
     {
-      const GTypeInfo our_info = {
+      static const GTypeInfo our_info = {
 	sizeof (EggToolbarEditorClass),
 	NULL,			/* base_init */
 	NULL,			/* base_finalize */
@@ -638,7 +638,7 @@ setup_editor (EggToolbarEditor *editor)
   editor->priv->scrolled_window = scrolled_window;
   gtk_widget_show (scrolled_window);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-				  GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (editor), scrolled_window, TRUE, TRUE, 0);
 }
 

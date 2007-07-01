@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-toolbars-model.c 2026 2006-10-08 12:35:42Z chpe $
+ *  $Id: egg-toolbars-model.c 813 2007-07-01 12:58:48Z jhaitsma $
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ egg_toolbars_model_get_type (void)
 
   if (G_UNLIKELY (type == 0))
     {
-      const GTypeInfo our_info = {
+      static const GTypeInfo our_info = {
 	sizeof (EggToolbarsModelClass),
 	NULL,			/* base_init */
 	NULL,			/* base_finalize */

@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-editable-toolbar.h 1792 2006-05-26 06:46:29Z nshmyrev $
+ *  $Id: egg-editable-toolbar.h 813 2007-07-01 12:58:48Z jhaitsma $
  */
 
 #ifndef EGG_EDITABLE_TOOLBAR_H
