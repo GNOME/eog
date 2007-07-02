@@ -1,3 +1,17 @@
+2007-07-02  Felix Riemann  <friemann@svn.gnome.org>
+
+	Update from upstream (bug #452923):	
+
+	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:
+	(egg_editable_toolbar_dispose), (egg_editable_toolbar_class_init):
+	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
+	(egg_toolbar_editor_class_init), (egg_toolbar_editor_finalize):
+	* cut-n-paste/toolbar-editor/egg-toolbars-model.c:
+	(egg_toolbars_model_class_init), (egg_toolbars_model_finalize):
+	* cut-n-paste/toolbar-editor/eggtreemultidnd.c:
+	(egg_tree_multi_drag_source_get_type):
+	Use G_DEFINE_TYPE macros instead of defining types by hand.
+
 2007-07-01  Jaap Haitsma  <jaap@haitsma.org>
 
 	* cut-n-paste/toolbar-editor/egg*: Sync from libegg. Fixes bug #452849
