@@ -1,3 +1,20 @@
+2007-07-04  Lucas Rocha  <lucasr@gnome.org>
+
+	Added Python support in the plugin system.
+
+	* Makefile.am, bindings/Makefile.am, bindings/python/Makefile.am,
+	bindings/python/eog.defs, bindings/python/eog.override: python
+	bindings for plugin API. A lot of improvement needed here.
+	* configure.ac: check for Python libraries in order to activate or
+	deactivate Python support. 
+	* src/Makefile.am, data/eog.pc.in: includedir is now 
+	@includedir@/eog-API_VERSION to allow future parallel deployments.
+	* src/eog-python-*: 
+	* src/eog-window.c (eog_window_transparency_changed_cb,
+	eog_window_trans_color_changed_cb), src/eog-scroll-view.[ch] (paint_rectangle,
+	eog_scroll_view_set_transparency, eog_scroll_view_init): adapt enum
+	names to be more friendly for bindings.
+
 2007-07-03  Jaap Haitsma  <jaap@haitsma.org>
 
 	* cut-n-paste/toolbar-editor/update-toolbareditor-from-libegg.sh: added

@@ -312,15 +312,15 @@ eog_window_transparency_changed_cb (GConfClient *client,
 						     EOG_CONF_VIEW_TRANS_COLOR, NULL);
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-							  TRANSP_COLOR, &color);
+							  EOG_TRANSP_COLOR, &color);
 		}
 		g_free (color_str);
 	} else if (g_ascii_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  TRANSP_CHECKED, 0);
+						  EOG_TRANSP_CHECKED, 0);
 	} else {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  TRANSP_BACKGROUND, 0);
+						  EOG_TRANSP_BACKGROUND, 0);
 	}
 }
 
@@ -357,7 +357,7 @@ eog_window_trans_color_changed_cb (GConfClient *client,
 
 		if (gdk_color_parse (color_str, &color)) {
 			eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-							  TRANSP_COLOR, &color);
+							  EOG_TRANSP_COLOR, &color);
 		}
 	}
 	g_free (value);

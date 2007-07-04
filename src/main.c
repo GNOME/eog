@@ -167,7 +167,7 @@ main (int argc, char **argv)
 	GnomeProgram *program;
 	GOptionContext *ctx;
 
-	bindtextdomain (PACKAGE, GNOMELOCALEDIR);
+	bindtextdomain (PACKAGE, EOG_LOCALE_DIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 

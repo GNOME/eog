@@ -118,12 +118,13 @@ eog_application_init (EogApplication *eog_application)
 
 	eog_application->toolbars_file = g_build_filename
 		(eog_util_dot_dir (), "eog_toolbar.xml", NULL);
-	
+
 	egg_toolbars_model_load_names (eog_application->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
 	
 	if (!egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
 					       eog_application->toolbars_file)) {
+
 		egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
 						  EOG_DATA_DIR "/eog-toolbar.xml");
 	}

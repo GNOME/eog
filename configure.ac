@@ -1,8 +1,22 @@
-dnl Configure script for the EOG Image Viewer
+AC_PREREQ(2.59)
 
-AC_PREREQ(2.57)
-AC_INIT([eog], [2.19.4], [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
+m4_define(eog_major_version,  2)
+m4_define(eog_minor_version, 19)
+m4_define(eog_micro_version,  4)
+m4_define(eog_version, eog_major_version.eog_minor_version.eog_micro_version)
+
+AC_INIT([eog], eog_version, [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+AC_DEFINE(EOG_MAJOR_VERSION, eog_major_version, [EOG major version])
+AC_SUBST(EOG_MAJOR_VERSION,  eog_major_version)
+AC_DEFINE(EOG_MINOR_VERSION, eog_minor_version, [EOG minor version])
+AC_SUBST(EOG_MINOR_VERSION,  eog_minor_version)
+AC_DEFINE(EOG_MICRO_VERSION, eog_micro_version, [EOG micro version])
+AC_SUBST(EOG_MICRO_VERSION,  eog_micro_version)
+
+EOG_API_VERSION=2.20
+AC_SUBST(EOG_API_VERSION)
 
 AM_CONFIG_HEADER(config.h)
 
@@ -206,7 +220,105 @@ fi
 # ************
 # Sun Keyboard
 # ************
+
 AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard Support]))
+
+# **************
+# Python Support 
+# **************
+
+AC_MSG_CHECKING([whether Python support is requested])
+
+AC_ARG_ENABLE([python],
+	AS_HELP_STRING([--enable-python],[Enable python support]),
+	[enable_python=$enableval have_python=$enableval],
+	[enable_python=autodetect have_python=yes])
+
+AC_MSG_RESULT([$enable_python])
+
+if test "x$have_python" != "xno"; then
+	AM_PATH_PYTHON([2.3],[],[no])
+	if test "x$PYTHON" = "x:"; then
+		have_python=no
+	fi
+fi
+
+if test "x$have_python" != "xno"; then
+	PY_PREFIX=`$PYTHON -c 'import sys ; print sys.prefix'`
+	PY_EXEC_PREFIX=`$PYTHON -c 'import sys ; print sys.exec_prefix'`
+	PYTHON_LIBS="-lpython$PYTHON_VERSION"
+	PYTHON_LIB_LOC="-L$PY_EXEC_PREFIX/lib/python$PYTHON_VERSION/config"
+	PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
+	PYTHON_MAKEFILE="$PY_EXEC_PREFIX/lib/python$PYTHON_VERSION/config/Makefile"
+	PYTHON_LOCALMODLIBS=`sed -n -e 's/^LOCALMODLIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
+	PYTHON_BASEMODLIBS=`sed -n -e 's/^BASEMODLIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
+	PYTHON_OTHER_LIBS=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
+	PYTHON_EXTRA_LIBS="$PYTHON_LOCALMODLIBS $PYTHON_BASEMODLIBS $PYTHON_OTHER_LIBS"
+	AC_SUBST([PYTHON_LIBS])
+	AC_SUBST([PYTHON_LIB_LOC])
+	AC_SUBST([PYTHON_CFLAGS])
+	AC_SUBST([PYTHON_EXTRA_LIBS])
+fi
+
+if test "x$have_python" != "xno"; then
+	PYGOBJECT_REQUIRED=2.11.5
+	PYGTK_REQUIRED=2.9.7
+	GNOME_PYTHON_REQUIRED=2.18.2
+
+	PKG_CHECK_MODULES([PYGTK], [
+		pygobject-2.0 >= $PYGOBJECT_REQUIRED 
+		gnome-python-2.0 >= $GNOME_PYTHON_REQUIRED
+		pygtk-2.0 >= $PYGTK_REQUIRED],
+		[],[have_python=no])
+
+	AC_SUBST([PYGTK_CFLAGS])
+	AC_SUBST([PYGTK_LIBS])
+fi
+
+if test "x$have_python" != "xno"; then
+	AC_MSG_CHECKING([for pygtk defs])
+	PYGTK_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygtk-2.0`
+	AC_MSG_RESULT([$PYGTK_DEFSDIR])
+
+	AC_MSG_CHECKING([for pygtk codegen])
+	PYGTK_CODEGEN="$PYTHON `$PKG_CONFIG --variable=codegendir pygtk-2.0`/codegen.py"
+	AC_MSG_RESULT([$PYGTK_CODEGEN])
+
+	AC_MSG_CHECKING([for pygtk h2def])
+	PYGTK_H2DEF="$PYTHON `$PKG_CONFIG --variable=codegendir pygtk-2.0`/h2def.py"
+	AC_MSG_RESULT([$PYGTK_H2DEF])
+
+	AC_SUBST([PYGTK_DEFSDIR])
+	AC_SUBST([PYGTK_CODEGEN])
+	AC_SUBST([PYGTK_H2DEF])
+
+	dnl Check for -fno-strict-aliasing
+	FLAGS="-fno-strict-aliasing"
+	save_CFLAGS="$CFLAGS"
+	CFLAGS="$CFLAGS $FLAGS"
+	AC_MSG_CHECKING([whether [$]CC understands $FLAGS])
+	AC_TRY_COMPILE([], [], [compiler_has_option=yes], [compiler_has_option=no])
+	CFLAGS="$save_CFLAGS"
+	AC_MSG_RESULT($compiler_has_option)
+	if test $compiler_has_option = yes; then
+		NO_STRICT_ALIASING_CFLAGS="$FLAGS"
+	fi
+	AC_SUBST([NO_STRICT_ALIASING_CFLAGS])
+fi
+
+if test "x$have_python" != "xyes"; then
+	if test "x$enable_python" = "xyes"; then
+		AC_MSG_ERROR([Python not found])
+	elif test "x$enable_python" = "xautodetect"; then
+		enable_python=no
+		AC_MSG_WARN([Python not found, disabling python support])
+	fi
+elif test "x$enable_python" != "xno"; then
+	enable_python=yes
+	AC_DEFINE([ENABLE_PYTHON],[1],[Define to compile with python support])
+fi
+
+AM_CONDITIONAL([ENABLE_PYTHON],[test "x$enable_python" = "xyes"])
 
 AC_CONFIG_FILES([
 Makefile
@@ -242,6 +354,8 @@ data/icons/48x48/Makefile
 data/icons/48x48/actions/Makefile
 data/icons/scalable/Makefile
 data/icons/scalable/apps/Makefile
+bindings/Makefile
+bindings/python/Makefile
 ])
 
 AC_OUTPUT

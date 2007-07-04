@@ -30,10 +30,10 @@ struct _EogScrollViewClass {
 };
 
 typedef enum {
-	TRANSP_BACKGROUND,
-	TRANSP_CHECKED,
-	TRANSP_COLOR
-} TransparencyStyle;
+	EOG_TRANSP_BACKGROUND,
+	EOG_TRANSP_CHECKED,
+	EOG_TRANSP_COLOR
+} EogTransparencyStyle;
 
 GType    eog_scroll_view_get_type         (void) G_GNUC_CONST;
 GtkWidget* eog_scroll_view_new            (void);
@@ -46,8 +46,7 @@ void     eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, gboolean sc
 void     eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale);
 void     eog_scroll_view_set_zoom_multiplier (EogScrollView *view, gdouble multiplier);
 void     eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state);
-void     eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color);
-void     eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, gboolean scaled);
+void     eog_scroll_view_set_transparency (EogScrollView *view, EogTransparencyStyle style, GdkColor *color);
 gboolean eog_scroll_view_scrollbars_visible (EogScrollView *view);
 
 /* zoom api */

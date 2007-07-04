@@ -119,7 +119,7 @@ struct _EogScrollViewPrivate {
 	ProgressiveState progressive_state;
 
 	/* how to indicate transparency in images */
-	TransparencyStyle transp_style;
+	EogTransparencyStyle transp_style;
 	guint32 transp_color;
 
 	/* the type of the cursor we are currently showing */
@@ -657,7 +657,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 
 	/* Compute transparency parameters */
 	switch (priv->transp_style) {
-	case TRANSP_BACKGROUND: {
+	case EOG_TRANSP_BACKGROUND: {
 		GdkColor color = GTK_WIDGET (priv->display)->style->bg[GTK_STATE_NORMAL];
 
 		check_1 = check_2 = (((color.red & 0xff00) << 8)
@@ -665,12 +665,12 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 				     | ((color.blue & 0xff00) >> 8));
 		break; }
 
-	case TRANSP_CHECKED:
+	case EOG_TRANSP_CHECKED:
 		check_1 = CHECK_GRAY;
 		check_2 = CHECK_LIGHT;
 		break;
 
-	case TRANSP_COLOR:
+	case EOG_TRANSP_COLOR:
 		check_1 = check_2 = priv->transp_color;
 		break;
 
@@ -1676,7 +1676,7 @@ eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state)
 }
 
 void
-eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, GdkColor *color)
+eog_scroll_view_set_transparency (EogScrollView *view, EogTransparencyStyle style, GdkColor *color)
 {
 	EogScrollViewPrivate *priv;
 	guint32 col = 0;
@@ -1699,7 +1699,7 @@ eog_scroll_view_set_transparency (EogScrollView *view, TransparencyStyle style, 
 		changed = TRUE;
 	}
 
-	if (priv->transp_style == TRANSP_COLOR && priv->transp_color != col) {
+	if (priv->transp_style == EOG_TRANSP_COLOR && priv->transp_color != col) {
 		priv->transp_color = col;
 		changed = TRUE;
 	}
@@ -1883,24 +1883,6 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 	priv->image = image;
 }
 
-void
-eog_scroll_view_get_image_size   (EogScrollView *view, int *width, int *height, gboolean scaled)
-{
-	EogScrollViewPrivate *priv;
-
-	*width = *height = 0;
-
-	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
-
-	priv = view->priv;
-
-	if (!priv->pixbuf)
-		return;
-
-	*width = gdk_pixbuf_get_width (priv->pixbuf);
-	*height = gdk_pixbuf_get_height (priv->pixbuf);
-}
-
 gboolean 
 eog_scroll_view_scrollbars_visible (EogScrollView *view)
 {
@@ -1935,7 +1917,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->image = NULL;
 	priv->pixbuf = NULL;
 	priv->progressive_state = PROGRESSIVE_NONE;
-	priv->transp_style = TRANSP_BACKGROUND;
+	priv->transp_style = EOG_TRANSP_BACKGROUND;
 	priv->transp_color = 0;
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
 }
