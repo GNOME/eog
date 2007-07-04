@@ -3315,7 +3315,8 @@ disconnect_proxy_cb (GtkUIManager *manager,
 }
 
 static void
-set_action_properties (GtkActionGroup *image_group, 
+set_action_properties (GtkActionGroup *window_group,
+		       GtkActionGroup *image_group, 
 		       GtkActionGroup *collection_group)
 {
         GtkAction *action;
@@ -3345,6 +3346,9 @@ set_action_properties (GtkActionGroup *image_group,
 
         action = gtk_action_group_get_action (image_group, "ViewZoomFit");
         g_object_set (action, "short_label", _("Fit"), NULL);
+
+        action = gtk_action_group_get_action (window_group, "ViewImageCollection");
+        g_object_set (action, "short_label", _("Collection"), NULL);
 }
 
 static gint
@@ -3572,7 +3576,9 @@ eog_window_construct_ui (EogWindow *window)
 					     G_N_ELEMENTS (toggle_entries_collection), 
 					     window);
 
-	set_action_properties (priv->actions_image, priv->actions_collection);
+	set_action_properties (priv->actions_window, 
+			       priv->actions_image, 
+			       priv->actions_collection);
 
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_collection, 0);
 
