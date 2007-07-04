@@ -52,9 +52,6 @@ struct _EogListStorePrivate {
 	GMutex *mutex;         /* Mutex for saving the jobs in the model */
 };
 
-gboolean
-eog_list_store_dump_contents (EogListStore *store);
-
 static void
 eog_list_store_finalize (GObject *object)
 {
@@ -320,11 +317,10 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 	GtkTreeIter iter;
 	gchar *mimetype;
 
-	return;
-
 	switch (event_type) {
 	case GNOME_VFS_MONITOR_EVENT_CHANGED:
 		mimetype = gnome_vfs_get_mime_type (info_uri);
+
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				eog_list_store_thumbnail_unset (store, &iter);
@@ -339,11 +335,11 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 				gnome_vfs_uri_unref (uri);
 			}
 		}
+
 		g_free (mimetype);
 		break;
 
 	case GNOME_VFS_MONITOR_EVENT_DELETED:
-
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
 		}
@@ -434,7 +430,6 @@ eog_list_store_append_directory (EogListStore *store,
 				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
 				       directory_visit_cb,
 				       &ctx);
-	
 }
 
 static gboolean
@@ -446,6 +441,7 @@ get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 	g_return_val_if_fail (info != NULL, FALSE);
 	
 	gnome_vfs_file_info_clear (info);
+
 	result = gnome_vfs_get_file_info_uri (uri, info,
 					      GNOME_VFS_FILE_INFO_DEFAULT |
 					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |

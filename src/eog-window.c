@@ -558,12 +558,31 @@ eog_window_get_display_profile (GdkScreen *screen)
 #endif
 
 static void
+update_image_pos (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	gint pos, n_images;
+
+	priv = window->priv;
+	
+	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
+
+	if (n_images > 0) {
+		pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store), 
+						       priv->image);
+
+		/* Images: (image pos) / (n_total_images) */
+		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), 
+						pos + 1, 
+						n_images);
+	}
+}
+
+static void
 update_status_bar (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	char *str = NULL;
-	int n_images;
-	int pos;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	
@@ -597,21 +616,10 @@ update_status_bar (EogWindow *window)
 			
 			g_free (size_string);
 		}
-
+	
+		update_image_pos (window);
 	}
 
-	n_images = eog_list_store_length (EOG_LIST_STORE (priv->store));
-
-	if (n_images > 0) {
-		pos = eog_list_store_get_pos_by_image (EOG_LIST_STORE (priv->store), 
-						       priv->image);
-
-		/* Images: (image pos) / (n_total_images) */
-		eog_statusbar_set_image_number (EOG_STATUSBAR (priv->statusbar), 
-						pos + 1, 
-						n_images);
-	}
- 
 	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), 
 			   priv->image_info_message_cid);
 	
@@ -4340,6 +4348,29 @@ eog_window_get_uri (EogWindow *window)
 }
 
 static void
+eog_window_list_store_image_added (GtkTreeModel *tree_model,
+                                   GtkTreePath  *path,
+                                   GtkTreeIter  *iter,
+                                   gpointer      user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	update_image_pos (window);
+	update_action_groups_state (window);
+}
+
+static void
+eog_window_list_store_image_removed (GtkTreeModel *tree_model,
+                                     GtkTreePath  *path,
+                                     gpointer      user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	update_image_pos (window);
+	update_action_groups_state (window);
+}
+
+static void
 eog_job_model_cb (EogJobModel *job, gpointer data)
 {
 	EogWindow *window;
@@ -4376,6 +4407,16 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 #endif
 
 	eog_thumb_view_set_model (EOG_THUMB_VIEW (priv->thumbview), priv->store);
+
+	g_signal_connect (G_OBJECT (priv->store), 
+			  "row-inserted",
+			  G_CALLBACK (eog_window_list_store_image_added),
+			  window);
+
+	g_signal_connect (G_OBJECT (priv->store), 
+			  "row-deleted",
+			  G_CALLBACK (eog_window_list_store_image_removed),
+			  window);
 
 	if (n_images == 0) {
 		gint n_uris;

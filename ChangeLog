@@ -1,5 +1,15 @@
 2007-07-05  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-list-store.c (vfs_monitor_dir_cb,
+	eog_list_store_append_directory, get_uri_info): small code cleanups.
+	* src/eog-window.c (update_image_pos, update_status_bar,
+	eog_window_list_store_image_added,
+	eog_window_list_store_image_removed, eog_job_model_cb): update the
+	action groups states when a new image is added or removed from the
+	list store. Fixes bug #435408.
+
+2007-07-05  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-window.c (eog_window_key_press): don't handle Alt+Return to
 	be able to use it for image properties dialog. 
 
