@@ -347,7 +347,7 @@ eog_window_trans_color_changed_cb (GConfClient *client,
 					 EOG_CONF_VIEW_TRANSPARENCY, 
 					 NULL);
 
-	if (!value && g_ascii_strcasecmp (value, "COLOR") != 0) {
+	if (!value || g_ascii_strcasecmp (value, "COLOR") != 0) {
 		g_free (value);
 		return;
 	}
