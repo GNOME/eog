@@ -1,3 +1,19 @@
+2007-07-07  Lucas Rocha  <lucasr@gnome.org>
+
+	Add ability to enable collection pane when in fullscreen. 
+	Fixes bug #449741.
+
+	* data/eog-ui.xml: added image collection action to fullscreen
+	toolbar.
+	* src/eog-window.c (update_action_groups_state,
+	eog_window_create_fullscreen_popup, (update_ui_visibility,
+	eog_window_run_fullscreen, eog_window_stop_fullscreen,
+	eog_window_cmd_show_hide_bar): explicitly set the fullscreen toolbar
+	to icons-only style. Enable show/hide image collection action in
+	fullscreen mode. Several small code cleanups. Keep track of motion
+	events on image collection pane when in fullscreen mode in order to
+	keep toolbar visible.
+
 2007-07-05  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_trans_color_changed_cb):
