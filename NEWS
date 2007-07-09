@@ -1,3 +1,73 @@
+Version 2.19.4
+--------------
+
+New features:
+
+   * Python support on plugin system (Lucas Rocha)
+   * Use same thumbnail frame than Nautilus (Lucas Rocha)
+   * Ability to enable collection pane when in fullscreen (Lucas Rocha) 
+   * Display EXIF MakerNotes (Jef Driesen) 
+   * Image Collection toolbar item available on toolbar editor (Lucas Rocha,
+     Andreas Nilsson, Jakub Steiner)
+
+Misc improvements/fixes:
+
+   * Several code cleanup and fixes (Felix Riemann, Lucas Rocha)
+   * Several improvements and fixes on editable toolbar (Felix Riemann, Jaap
+     Haitsma)
+
+Bug fixes:
+
+   #340831, add toolbar icon for image collection (Lucas Rocha)
+   #350809, Exif MakerNotes are not decoded (even when supported by
+            libexif) (Jef Driesen)
+   #374582, Need 'slideshow' button on toolbar (Felix Riemann)
+   #413211, eog crashed with SIGSEGV in eog_image_load() (Chris Wilson)
+   #425613, Grey border around images in fullscreen/presentation mode
+            (Felix Riemann)
+   #435408, next and previos button don't get sensitive (Lucas Rocha)
+   #435456, focus on the "Exif" tab should be remebered (Lucas Rocha)
+   #438242, EOG should have a drag mode when zooming (Lucas Rocha)
+   #440168, spacing in vertical collection not ideal (Lucas Rocha)
+   #445535, Plugin menù problem (Lucas Rocha)
+   #449741, Add ability to enable collection pane when in fullscreen
+            (Lucas Rocha)
+   #452849, egg-toolbareditor copy needs to be synched with libegg (Jaap
+            Haitsma)
+   #452886, Typo in data/eog.schemas.in (Bob Mauchin)
+   #453064, Use a shorter label for collection button on toolbar (Lucas
+            Rocha)
+   #453503, null string pointer for "value" in eog_window.c at line 345
+            (Lucas Rocha)
+   #450590, [toolbareditor] allow named icons with
+            Gtk{Radio,Toggle}Actions (Felix Riemann, Jaap Haitsma)
+   #452923, [toolbareditor] use gobject type helpers instead of defining
+            our own (Felix Riemann)
+   #313676, Cleanup of EXIF tab (or, if you want, side pane) (Lucas Rocha)
+   #441138, use nautilus thumbnails in the image pane (Lucas Rocha)
+
+New and updated translations:
+
+- Ankit Patel [gu]
+- Funda Wang [zh_CN]
+- Clytie Siddall, Nguyễn Thái Ngọc Duy [vi]
+- Kjartan Maraas [nb]
+- Daniel Nylander [sv]
+- Jovan Naumovski  [mk]
+- Danishka Navin [si]
+- Pema Geyleg, Jorge Gonzalez [dz]
+- Artur Flinta [pl]
+- Theppitak Karoonboonyanan [th]
+- Priit Laes [et]
+- Sunil Mohan Adapa [te]
+- Jorge Gonzalez [es]
+- Tirumurthi Vasudevan [ta]
+
+New and updated manual translations:
+
+- Daniel Nylander [sv]
+- Jorge Gonzalez [es]
+
 Version 2.19.3
 --------------
 
@@ -34,7 +104,6 @@ New and updated translations:
 - Ignacio Casal Quinteiro [gl]
 - Jorge Gonzalez [es]
 - Yair Hershkoviz [he]
-
 
 Version 2.19.2
 --------------
