@@ -695,6 +695,11 @@ eog_job_save_as_real_run (EogJobSave *job)
 
 			dest_info = eog_image_save_info_from_vfs_uri (saveas_job->uri, 
 								      format);
+
+		/* SaveAsDialog has already secured permission to overwrite */
+			if (dest_info->exists) {
+				dest_info->overwrite = TRUE;
+			}
 		} else {
 			GnomeVFSURI *dest_uri;
 			gboolean result;
