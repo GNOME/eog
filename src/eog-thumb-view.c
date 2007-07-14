@@ -422,7 +422,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 					  eog_image_get_caption (image),
 					  width, 
 					  height, 
-					  ngettext ("pixels", "pixels", height), 
+					  ngettext ("pixel", "pixels", height), 
 					  bytes,
 					  type_str);
 

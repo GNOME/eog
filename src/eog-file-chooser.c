@@ -241,7 +241,7 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, GnomeVFSFileInfo
 		if ((width != NULL) && (height != NULL)) {
 			pixels = atoi (height);
 			/* Pixel size of image: width x height in pixel */
-			dim_str = g_strdup_printf (ngettext ("%s x %s pixels", "%s x %s pixels", pixels), width, height);
+			dim_str = g_strdup_printf ("%s x %s %s", width, height, ngettext ("pixel", "pixels", pixels));
 		}
 
 #if 0

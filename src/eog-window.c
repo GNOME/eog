@@ -610,7 +610,7 @@ update_status_bar (EogWindow *window)
 			str = g_strdup_printf ("%i x %i %s  %s    %i%%", 
 					       width, 
 					       height, 
-					       ngettext ("pixels", "pixels", height), 
+					       ngettext ("pixel", "pixels", height), 
 					       size_string, 
 					       zoom);
 			
@@ -3170,7 +3170,7 @@ static const GtkActionEntry action_entries_window[] = {
 	  N_("Preferences for Eye of GNOME"), 
 	  G_CALLBACK (eog_window_cmd_preferences) },
 	{ "HelpManual", GTK_STOCK_HELP, N_("_Contents"), "F1", 
-	  N_("Help On this application"),
+	  N_("Help on this application"),
 	  G_CALLBACK (eog_window_cmd_help) },
 	{ "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, 
 	  N_("About this application"),
