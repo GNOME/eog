@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-11 06:55+0300\n"
+"POT-Creation-Date: 2007-07-16 13:45+0100\n"
 "PO-Revision-Date: 2007-02-14 06:04+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -175,12 +175,12 @@ msgstr "<b>Leveys:</b>"
 #: ../data/eog.glade.h:30
 #, no-c-format
 msgid "<small><i><b>%f:</b> original filename</i></small>"
-msgstr ""
+msgstr "<small><i><b>%f:</b> alkuperäinen tiedostonimi</i></small>"
 
 #: ../data/eog.glade.h:32
 #, no-c-format
 msgid "<small><i><b>%n:</b> counter</i></small>"
-msgstr ""
+msgstr "<small><i><b>%n:</b> laskuri</i></small>"
 
 #: ../data/eog.glade.h:33
 msgid "As _background"
@@ -284,7 +284,7 @@ msgstr "Ylhäällä"
 
 #: ../data/eog.glade.h:58
 msgid "Use fixed size"
-msgstr ""
+msgstr "Käytä kiinteää kokoa"
 
 #: ../data/eog.glade.h:59
 msgid "_Automatic orientation"
@@ -308,7 +308,7 @@ msgstr "Vaihda kuvaa viivellä:"
 
 #: ../data/eog.glade.h:64
 msgid "label"
-msgstr ""
+msgstr "merkintä"
 
 #: ../data/eog.glade.h:65
 msgid "seconds"
@@ -346,7 +346,7 @@ msgid ""
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
 msgstr ""
-"Määrittää kuinka läpinäkyvyys näytetään. Kelvollisia arvoja ovat "
+"Määrittää, kuinka läpinäkyvyys näytetään. Kelvollisia arvoja ovat "
 "CHECK_PATTERN, COLOR ja NONE. Jos valitaan COLOR, trans_color -avain "
 "määrittää käytetyn väriarvon."
 
@@ -370,6 +370,8 @@ msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
 msgstr ""
+"Kuvakokoelmapaneelin sijainti. Alalaita on arvo 0, 1 vasen, 2 ylhäällä ja 3 "
+"oikealla."
 
 #: ../data/eog.schemas.in.h:11
 msgid "Interpolate Image"
@@ -389,6 +391,8 @@ msgid ""
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
 "plugin."
 msgstr ""
+"Luettelo käytössä olevista liitännäisistä. Tämä ei sisällä liitännäisten "
+"\"sijaintia\". Voit katsoa liitännäisten polun tiedostosta .eog-plugin."
 
 #: ../data/eog.schemas.in.h:15
 msgid "Loop through the image sequence"
@@ -400,16 +404,15 @@ msgstr "Avaa kuvia uudessa ikkunassa"
 
 #: ../data/eog.schemas.in.h:17
 msgid "Scroll wheel zoom"
-msgstr ""
+msgstr "Hiiren rullalla lähennys"
 
 #: ../data/eog.schemas.in.h:18
-#, fuzzy
 msgid "Show/hide the image collection pane scroll buttons."
-msgstr "Näytä tai piilota kuvakokoelmpaneeli."
+msgstr "Näytä tai piilota kuvakokoelmapaneelin vierityspainikkeet."
 
 #: ../data/eog.schemas.in.h:19
 msgid "Show/hide the image collection pane."
-msgstr "Näytä tai piilota kuvakokoelmpaneeli."
+msgstr "Näytä tai piilota kuvakokoelmapaneeli."
 
 #: ../data/eog.schemas.in.h:20
 msgid "Show/hide the window statusbar."
@@ -427,6 +430,11 @@ msgid ""
 "0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
 "a 100% zoom increment."
 msgstr ""
+"Käytettävä kerroin käytettäessä hiiren rullaa lähentämiseen ja "
+"loitontamiseen. Tämä arvo määrittää käytettävän suurennusaskelen koon "
+"kullekin rullalta tulevalle tapahtumalle. Esimerkiksi arvo 0.05 aiheuttaa 5% "
+"suurennoksen jokaiselle rullan tapahtumalle ja arvo 1.00 100% suurennuksen "
+"muutoksen."
 
 #: ../data/eog.schemas.in.h:24
 msgid "Transparency color"
@@ -441,26 +449,25 @@ msgid ""
 "Whether opening an image should create a new window instead of replacing the "
 "image in the current window."
 msgstr ""
-"Määrittää avataanko kuva uuteen ikkunaan sen sijaan että vaihdettaisiin "
+"Määrittää, avataanko kuva uuteen ikkunaan sen sijaan että vaihdettaisiin "
 "kuvaa nykyisessä ikkunassa."
 
 #: ../data/eog.schemas.in.h:27
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr "Määrittää näytetäänkö kuvasarja loputtomana kiertona."
+msgstr "Määrittää, näytetäänkö kuvasarja loputtomana kiertona."
 
 #: ../data/eog.schemas.in.h:28
-#, fuzzy
 msgid "Whether the image collection pane should be resizable or not."
-msgstr "Näytä tai piilota kuvakokoelmpaneeli."
+msgstr "Määrittää, oiko kuvakokoelmapaneelin kokoa muuttaa."
 
 #: ../data/eog.schemas.in.h:29
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Määrittää interpoloidaanko kuvaa suhdetta muutettaessa vai ei. Interpolointi "
-"parantaa kuvan laatua, mutta hidastaa toimintaa jonkin verran."
+"Määrittää, interpoloidaanko kuvaa suhdetta muutettaessa vai ei. "
+"Interpolointi parantaa kuvan laatua, mutta hidastaa toimintaa jonkin verran."
 
 #: ../data/eog.schemas.in.h:30
 msgid ""
@@ -469,11 +476,11 @@ msgstr "Käännetäänkö kuva automaattisesti vastaamaan EXIF-tietojen suuntaa.
 
 #: ../data/eog.schemas.in.h:31
 msgid "Whether the scroll wheel should be used for zooming or not."
-msgstr ""
+msgstr "Käytetäänkö hiiren rullaa lähentämiseen ja loitontamiseen."
 
 #: ../data/eog.schemas.in.h:32
 msgid "Zoom multiplier"
-msgstr ""
+msgstr "Suurennoksen kerroin"
 
 #: ../src/eog-file-chooser.c:122
 msgid "All Files"
@@ -693,7 +700,7 @@ msgstr[1] "pikseliä"
 
 #: ../src/eog-thumb-view.c:436
 msgid "Taken on"
-msgstr ""
+msgstr "Kuva otettu"
 
 #: ../src/eog-uri-converter.c:1025
 msgid "At least two file names are equal."
@@ -711,7 +718,7 @@ msgstr "Avaa ohjelmalla \"%s\""
 #: ../src/eog-window.c:1017
 #, c-format
 msgid "Use \"%s\" to open the selected image"
-msgstr ""
+msgstr "Avaa valittu kuva komnnolla \"%s\""
 
 #: ../src/eog-window.c:1122
 #, c-format
@@ -773,7 +780,6 @@ msgstr ""
 "katso GNU:n GPL-lisenssiä.\n"
 
 #: ../src/eog-window.c:2429
-#, fuzzy
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -781,7 +787,7 @@ msgid ""
 msgstr ""
 "Sinun olisi pitänyt saada kopio GNU:n GPL-lisenssistä tämän ohjelman mukana; "
 "jos et sitä saanut, niin lähetä kirje Free Software Foundation, Inc. :lle, "
-"51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA"
+"59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
 #: ../src/eog-window.c:2442 ../src/main.c:180
 msgid "Eye of GNOME"
@@ -910,7 +916,7 @@ msgstr "_Työkalupalkki"
 
 #: ../src/eog-window.c:3182
 msgid "Changes the visibility of the toolbar in the current window"
-msgstr "Määrittää näytetäänkö työkalupalkki nykyisessä ikkunassa"
+msgstr "Määrittää, näytetäänkö työkalupalkki nykyisessä ikkunassa"
 
 #: ../src/eog-window.c:3184
 msgid "_Statusbar"
@@ -918,7 +924,7 @@ msgstr "T_ilarivi"
 
 #: ../src/eog-window.c:3185
 msgid "Changes the visibility of the statusbar in the current window"
-msgstr "Määrittää näytetäänkö tilarivi nykyisessä ikkunassa"
+msgstr "Määrittää, näytetäänkö tilarivi nykyisessä ikkunassa"
 
 #: ../src/eog-window.c:3187
 msgid "_Image Collection"
@@ -1083,7 +1089,7 @@ msgstr "_Tietoja liitännäisestä"
 
 #: ../src/eog-plugin-manager.c:878
 msgid "C_onfigure Plugin"
-msgstr ""
+msgstr "Liitännäisen _asetukset"
 
 #: ../src/main.c:60
 msgid "Open in fullscreen mode"
@@ -1242,7 +1248,7 @@ msgstr "Gnomen silmä -kuvakatselin"
 #~ msgstr "Kuvan _tiedot"
 
 #~ msgid "Changes the visibility of the information pane in the current window"
-#~ msgstr "Määrittää näytetäänkö tietopaneeli nykyisessä ikkunassa"
+#~ msgstr "Määrittää, näytetäänkö tietopaneeli nykyisessä ikkunassa"
 
 #~ msgid "Open"
 #~ msgstr "Avaa"
