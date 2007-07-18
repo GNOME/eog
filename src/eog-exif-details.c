@@ -26,11 +26,19 @@
 #include "eog-exif-details.h"
 #include "eog-util.h"
 
+#if HAVE_EXIF
 #include <libexif/exif-entry.h>
 #include <libexif/exif-utils.h>
+#endif
+#if HAVE_EXEMPI
+#include <exempi/xmp.h>
+#include <exempi/xmpconsts.h>
+#endif
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+
+#include <string.h>
 
 #define EOG_EXIF_DETAILS_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_EXIF_DETAILS, EogExifDetailsPrivate))
@@ -42,7 +50,13 @@ typedef enum {
 	EXIF_CATEGORY_IMAGE_DATA,
 	EXIF_CATEGORY_IMAGE_TAKING_CONDITIONS,
 	EXIF_CATEGORY_MAKER_NOTE,
-	EXIF_CATEGORY_OTHER
+	EXIF_CATEGORY_OTHER,
+#ifdef HAVE_EXEMPI
+	XMP_CATEGORY_EXIF,
+	XMP_CATEGORY_IPTC,
+	XMP_CATEGORY_RIGHTS,
+	XMP_CATEGORY_OTHER
+#endif
 } ExifCategory;
 
 typedef struct {
@@ -56,6 +70,12 @@ static ExifCategoryInfo exif_categories[] = {
 	{ N_("Image Taking Conditions"), "2" },
 	{ N_("Maker Note"),              "3" },
 	{ N_("Other"),                   "4" },
+#ifdef HAVE_EXEMPI
+	{ N_("XMP Exif"),                "5" },
+	{ N_("XMP IPTC"),                "6" },
+	{ N_("XMP Rights Management"),   "7" },
+	{ N_("XMP Other"),               "8" },
+#endif
 	{ NULL, NULL }
 };
 
@@ -441,3 +461,103 @@ eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 		exif_data_foreach_content (data, exif_content_cb, exif_details);
 	}
 }
+
+
+#ifdef HAVE_EXEMPI
+typedef struct {
+	const char *id;
+	ExifCategory category;
+} XmpNsCategory;
+
+static XmpNsCategory xmp_ns_category_map[] = {
+	{ NS_EXIF,                  XMP_CATEGORY_EXIF},
+	{ NS_TIFF,                  XMP_CATEGORY_EXIF},
+	{ NS_XAP,                   XMP_CATEGORY_EXIF},
+	{ NS_XAP_RIGHTS,            XMP_CATEGORY_RIGHTS},
+	{ NS_EXIF_AUX,              XMP_CATEGORY_EXIF},
+	{ NS_DC,                    XMP_CATEGORY_IPTC},
+	{ NS_IPTC4XMP,              XMP_CATEGORY_IPTC},
+	{ NS_CC,                    XMP_CATEGORY_RIGHTS},
+	{ NULL, -1}
+};
+
+static ExifCategory
+get_xmp_category (XmpStringPtr schema)
+{
+	ExifCategory cat = XMP_CATEGORY_OTHER;
+	const char *s = xmp_string_cstr(schema);
+	int i;
+	
+	for (i = 0; xmp_ns_category_map[i].id != NULL; i++) {
+		if (strcmp (xmp_ns_category_map[i].id, s) == 0) {
+			cat = xmp_ns_category_map[i].category;
+			break;
+		}
+	}
+	
+	return cat;
+}
+
+static void 
+xmp_entry_insert (EogExifDetails *view, XmpStringPtr xmp_schema, 
+									XmpStringPtr xmp_path, XmpStringPtr xmp_prop)
+{
+	GtkTreeStore *store;
+	EogExifDetailsPrivate *priv;
+	ExifCategory cat;
+	char *path;
+	gchar *key;
+	
+	priv = view->priv;
+
+	key = g_strdup_printf ("%s:%s", xmp_string_cstr (xmp_schema), 
+			       xmp_string_cstr(xmp_path));
+	
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
+	
+	path = g_hash_table_lookup (priv->id_path_hash, key);
+	
+	if (path != NULL) {
+		set_row_data (store, path, NULL, 
+			      xmp_string_cstr (xmp_path), 
+			      xmp_string_cstr (xmp_prop));
+
+		g_free(key);
+	}
+	else {
+		cat = get_xmp_category (xmp_schema);
+
+		path = set_row_data (store, NULL, exif_categories[cat].path,
+				     xmp_string_cstr(xmp_path),  
+				     xmp_string_cstr(xmp_prop));
+
+		g_hash_table_insert (priv->id_path_hash, key, path);
+	}
+}
+
+void
+eog_exif_details_xmp_update (EogExifDetails *view, XmpPtr data)
+{
+	EogExifDetailsPrivate *priv;
+	
+	g_return_if_fail (EOG_IS_EXIF_DETAILS (view));
+	
+	priv = view->priv;
+	
+	if (data) {
+		XmpIteratorPtr iter = xmp_iterator_new(data, NULL, NULL, XMP_ITER_JUSTLEAFNODES);
+		XmpStringPtr the_schema = xmp_string_new ();
+		XmpStringPtr the_path = xmp_string_new ();
+		XmpStringPtr the_prop = xmp_string_new ();
+
+		while (xmp_iterator_next (iter, the_schema, the_path, the_prop, NULL)) {
+			xmp_entry_insert (view, the_schema, the_path, the_prop);
+		}
+
+		xmp_string_free (the_prop);
+		xmp_string_free (the_path);
+		xmp_string_free (the_schema);
+		xmp_iterator_free (iter);
+	}
+}
+#endif

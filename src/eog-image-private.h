@@ -53,6 +53,9 @@ struct _EogImagePrivate {
 	gint              orientation;
 	ExifData         *exif;
 #endif
+#ifdef HAVE_EXEMPI
+ 	XmpPtr   xmp;
+#endif
 
 #ifdef HAVE_LCMS
 	cmsHPROFILE       profile;

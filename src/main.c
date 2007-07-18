@@ -48,6 +48,10 @@
 #include <libgnomeui/gnome-app-helper.h>
 #include <libgnomeui/gnome-authentication-manager.h>
 
+#if HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
+
 static EogStartupFlags flags;
 
 static gboolean fullscreen = FALSE;
@@ -194,6 +198,9 @@ main (int argc, char **argv)
 	
 	gnome_authentication_manager_init ();
 
+#ifdef HAVE_EXEMPI
+ 	xmp_init();
+#endif
 	eog_debug_init ();
 	eog_job_queue_init ();
 	gdk_threads_init ();
@@ -216,5 +223,8 @@ main (int argc, char **argv)
 
 	g_object_unref (program);
 
+#ifdef HAVE_EXEMPI
+	xmp_terminate();
+#endif
 	return 0;
 }

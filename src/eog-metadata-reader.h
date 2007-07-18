@@ -5,6 +5,9 @@
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif 
+#if HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -42,6 +45,10 @@ gboolean             eog_metadata_reader_finished (EogMetadataReader *emr);
 void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint *len);
 #if HAVE_EXIF
 ExifData*            eog_metadata_reader_get_exif_data (EogMetadataReader *emr);
+#endif
+
+#if HAVE_EXEMPI
+XmpPtr               eog_metadata_reader_get_xmp_data (EogMetadataReader *emr);
 #endif
 
 #if 0

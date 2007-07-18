@@ -45,7 +45,8 @@ typedef struct _EogPropertiesDialogPrivate EogPropertiesDialogPrivate;
 
 typedef enum {
 	EOG_PROPERTIES_DIALOG_PAGE_GENERAL = 0,
-	EOG_PROPERTIES_DIALOG_PAGE_EXIF
+	EOG_PROPERTIES_DIALOG_PAGE_EXIF,
+	EOG_PROPERTIES_DIALOG_PAGE_XMP
 } EogPropertiesDialogPage;
 
 struct _EogPropertiesDialog {

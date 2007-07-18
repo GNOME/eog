@@ -74,6 +74,8 @@ LIBART_REQUIRED=2.3.16
 GNOME_DESKTOP_REQUIRED=2.10.0
 GTK_PRINT_REQUIRED=2.10.0
 GNOME_ICON_THEME_REQUIRED=2.19.1
+EXEMPI_REQUIRED=1.99.2
+
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
@@ -118,6 +120,23 @@ if test "x$have_lcms" = "xyes"; then
   AC_DEFINE(HAVE_LCMS, 1, [Little CMS Support.])
   EOG_MODULES="$EOG_MODULES lcms"
 fi
+
+
+# *********************
+# Exempi (optional)
+# *********************
+AC_ARG_WITH(xmp, AC_HELP_STRING([--without-xmp], [disable special XMP support]))
+have_exempi=no
+if test x$with_xmp != xno; then
+    PKG_CHECK_MODULES(EXEMPI, exempi-2.0 >= $EXEMPI_REQUIRED, have_exempi=yes, have_exempi=no)
+fi 
+if test "x$have_exempi" = "xyes"; then
+  AC_DEFINE(HAVE_EXEMPI,1, [XMP support.])
+  EOG_MODULES="$EOG_MODULES exempi-2.0 >= $EXEMPI_REQUIRED"
+fi
+
+AM_CONDITIONAL([HAVE_EXEMPI], [test "x$have_exempi" = "xyes"])
+ 
 
 # ********************
 # Jpeg (semi-optional)
@@ -368,6 +387,7 @@ Configure summary:
 	Extra Compiler Warnings ....:  ${WARN_CFLAGS}
 
 	EXIF support ...............:  ${have_exif}
+	XMP support ................:  ${have_exempi}
 	JPEG support ...............:  ${have_jpeg}
 	Colour management support ..:  ${have_lcms}
 	D-Bus activation............:  ${have_dbus}

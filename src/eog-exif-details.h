@@ -24,7 +24,12 @@
 
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#if HAVE_EXIF
 #include <libexif/exif-data.h>
+#endif
+#if HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -53,8 +58,14 @@ GType               eog_exif_details_get_type    (void) G_GNUC_CONST;
 
 GtkWidget          *eog_exif_details_new         (void);
 
+#if HAVE_EXIF
 void                eog_exif_details_update      (EogExifDetails *view, 
 						  ExifData       *data);
+#endif
+#if HAVE_EXEMPI
+void                eog_exif_details_xmp_update  (EogExifDetails *view,
+							XmpPtr          xmp_data);
+#endif
 
 G_END_DECLS
 

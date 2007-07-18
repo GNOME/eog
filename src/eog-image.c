@@ -110,6 +110,13 @@ eog_image_free_mem_private (EogImage *image)
 
 		priv->exif_chunk_len = 0;
 
+#ifdef HAVE_EXEMPI
+		if (priv->xmp != NULL) {
+			xmp_free (priv->xmp);
+			priv->xmp = NULL;
+		}
+#endif
+
 #ifdef HAVE_LCMS
 		if (priv->profile != NULL) {
 			cmsCloseProfile (priv->profile);
@@ -239,7 +246,9 @@ eog_image_init (EogImage *img)
 	img->priv->autorotate = FALSE;
 	img->priv->exif = NULL;
 #endif
-
+#ifdef HAVE_EXEMPI
+	img->priv->xmp = NULL;
+#endif
 #ifdef HAVE_LCMS
 	img->priv->profile = NULL;
 #endif
@@ -510,6 +519,8 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 	return bytes;
 }
 
+
+
 #ifdef HAVE_LCMS
 void
 eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
@@ -740,7 +751,7 @@ eog_image_real_autorotate (EogImage *img)
 		} else {
 			eog_transform_compose (priv->trans, trans);
 		}
-
+		
 		g_object_unref (trans);
 	}
 
@@ -757,6 +768,20 @@ eog_image_autorotate (EogImage *img)
 	img->priv->autorotate = TRUE;
 }
 #endif
+
+static void
+eog_image_set_xmp_data (EogImage *img, EogMetadataReader *md_reader)
+{
+#ifdef HAVE_EXEMPI
+	EogImagePrivate *priv;
+
+	g_return_if_fail (EOG_IS_IMAGE (img));
+
+	priv = img->priv;
+
+	priv->xmp = eog_metadata_reader_get_xmp_data (md_reader);
+#endif
+}
 
 static void
 eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
@@ -957,8 +982,13 @@ eog_image_real_load (EogImage *img,
 			if (eog_metadata_reader_finished (md_reader)) {
 				if (set_metadata) {
 					eog_image_set_exif_data (img, md_reader);
+
 #ifdef HAVE_LCMS
 					eog_image_set_icc_data (img, md_reader);
+#endif
+
+#ifdef HAVE_EXEMPI
+					eog_image_set_xmp_data (img, md_reader);
 #endif
 					set_metadata = FALSE;
 				}
@@ -1068,6 +1098,13 @@ eog_image_has_data (EogImage *img, guint req_data)
 		has_data = has_data && (priv->exif != NULL);
 #else
 		has_data = has_data && (priv->exif_chunk != NULL);
+#endif
+	}
+
+	if ((req_data & EOG_IMAGE_DATA_XMP) > 0) {
+		req_data = (req_data & !EOG_IMAGE_DATA_XMP);
+#ifdef HAVE_EXEMPI
+		has_data = has_data && (priv->xmp != NULL);
 #endif
 	}
 
@@ -1791,6 +1828,27 @@ eog_image_get_exif_info (EogImage *img)
 
 	return data;
 }
+
+
+gpointer
+eog_image_get_xmp_info (EogImage *img)
+{
+	EogImagePrivate *priv;
+ 	gpointer data = NULL;
+ 	
+ 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
+ 	
+ 	priv = img->priv;
+	
+#ifdef HAVE_EXEMPI
+ 	g_mutex_lock (priv->status_mutex);
+ 	data = (gpointer) xmp_copy (priv->xmp);
+ 	g_mutex_unlock (priv->status_mutex);
+#endif
+	
+ 	return data;
+}
+
 
 GnomeVFSURI *
 eog_image_get_uri (EogImage *img)

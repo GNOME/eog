@@ -13,11 +13,20 @@ typedef enum {
 	EMR_READ_SIZE_LOW_BYTE,
 	EMR_READ_MARKER,
 	EMR_SKIP_BYTES,
+	EMR_READ_APP1,
 	EMR_READ_EXIF,
+	EMR_READ_XMP,
 	EMR_READ_ICC,
 	EMR_READ_IPTC,
 	EMR_FINISHED
 } EogMetadataReaderState;
+
+typedef enum {
+	EJA_EXIF = 0,
+	EJA_XMP,
+	EJA_OTHER
+} EogJpegApp1Type;
+
 
 #define EOG_JPEG_MARKER_START   0xFF
 #define EOG_JPEG_MARKER_SOI     0xD8
@@ -26,6 +35,11 @@ typedef enum {
 #define EOG_JPEG_MARKER_APP14	0xED
 
 #define NO_DEBUG
+
+#define IS_FINISHED(priv) (priv->exif_chunk != NULL && \
+                           priv->icc_chunk  != NULL && \
+                           priv->iptc_chunk != NULL && \
+                           priv->xmp_chunk  != NULL)
 
 struct _EogMetadataReaderPrivate {
 	EogMetadataReaderState  state;
@@ -39,6 +53,9 @@ struct _EogMetadataReaderPrivate {
 	
 	gpointer icc_chunk;
 	guint icc_len;
+
+	gpointer xmp_chunk;
+	guint xmp_len;
 	
 	/* management fields */
 	int      size;
@@ -72,6 +89,11 @@ eog_metadata_reader_dispose (GObject *object)
 	if (emr->priv->iptc_chunk != NULL) {
 		g_free (emr->priv->iptc_chunk);
 		emr->priv->iptc_chunk = NULL;
+	}
+
+	if (emr->priv->xmp_chunk != NULL) {
+		g_free (emr->priv->xmp_chunk);
+		emr->priv->xmp_chunk = NULL;
 	}
 
 	if (emr->priv->icc_chunk != NULL) {
@@ -126,10 +148,33 @@ eog_metadata_reader_finished (EogMetadataReader *emr)
 	return (emr->priv->state == EMR_FINISHED);
 }
 
+
+static EogJpegApp1Type
+eog_metadata_identify_app1 (gchar *buf, guint len)
+{
+ 	if (len < 5) {
+ 		return EJA_OTHER;
+ 	}
+
+ 	if (len < 29) {
+ 		return (strncmp ("Exif", buf, 5) == 0 ? EJA_EXIF : EJA_OTHER);
+ 	}
+
+ 	if (strncmp ("Exif", buf, 5) == 0) {
+ 		return EJA_EXIF;
+ 	} else if (strncmp ("http://ns.adobe.com/xap/1.0/", buf, 29) == 0) {
+ 		return EJA_XMP;
+ 	}
+
+ 	return EJA_OTHER;
+}
+
+
 void
 eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 {
 	EogMetadataReaderPrivate *priv;
+ 	EogJpegApp1Type app1_type;
 	int i;
 
 	g_return_if_fail (EOG_IS_METADATA_READER (emr));
@@ -178,23 +223,19 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 		
 			if (priv->size == 0) {
 				priv->state = EMR_READ;
-			}
-			else if (priv->last_marker == EOG_JPEG_MARKER_APP1 && 
-				 priv->exif_chunk == NULL) 
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP1 && 
+				   ((priv->exif_chunk == NULL) || (priv->xmp_chunk == NULL))) 
 			{
-				priv->state = EMR_READ_EXIF;
-			}
-			else if (priv->last_marker == EOG_JPEG_MARKER_APP2 && 
+				priv->state = EMR_READ_APP1;
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP2 && 
 				 priv->icc_chunk == NULL) 
 			{
 				priv->state = EMR_READ_ICC;
-			}
-			else if (priv->last_marker == EOG_JPEG_MARKER_APP14 && 
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP14 && 
 				priv->iptc_chunk == NULL) 
 			{
 				priv->state = EMR_READ_IPTC;
-			}
-			else {
+			} else {
 				priv->state = EMR_SKIP_BYTES;
 			}
 
@@ -217,22 +258,66 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			}
 			break;
 			
-		case EMR_READ_EXIF:			
-			eog_debug_message (DEBUG_IMAGE_DATA, "Read EXIF data, Length: %i", priv->size);
+		case EMR_READ_APP1:			
+			eog_debug_message (DEBUG_IMAGE_DATA, "Read APP1 data, Length: %i", priv->size);
 
-			if (priv->exif_chunk == NULL) { 
-				priv->exif_chunk = g_new0 (guchar, priv->size);
-				priv->exif_len = priv->size;
-				priv->bytes_read = 0;
+			app1_type = eog_metadata_identify_app1 ((gchar*) &buf[i], priv->size);
+			
+			if (app1_type != EJA_OTHER) {
+				EogMetadataReaderState next_state;
+				guchar *chunk = NULL;
+				int offset = 0;
+				
+				switch (app1_type) {
+				case EJA_EXIF:
+					if (priv->exif_chunk == NULL) { 
+						priv->exif_chunk = g_new0 (guchar, priv->size);
+						priv->exif_len = priv->size;
+						priv->bytes_read = 0;
+						chunk = priv->exif_chunk;
+						next_state = EMR_READ_EXIF;
+					}
+					break;
+				case EJA_XMP:
+					if (priv->xmp_chunk == NULL) { 
+						offset = 29 + 54; /* skip the ID + packet */
+
+						if (priv->size > offset)  { /* ensure that we have enough bytes */
+							priv->xmp_chunk = g_new0 (guchar, priv->size);
+							priv->xmp_len = priv->size - offset;
+							priv->bytes_read = 0;
+							chunk = priv->xmp_chunk;
+							next_state = EMR_READ_XMP;
+						}
+					}
+				default:
+					break;
+				}
+				
+				if (chunk) {
+					if (i + priv->size < len) {
+						/* read data in one block */
+						memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[i + offset], priv->size);
+						priv->state = EMR_READ;
+						i = i + priv->size - 1; /* the for-loop consumes the other byte */
+					} else {
+						int chunk_len = len - i;
+						memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
+						priv->bytes_read += chunk_len; /* bytes already read */
+						priv->size = (i + priv->size) - len; /* remaining data to read */
+						i = len - 1;
+						priv->state = next_state;
+					}
+				}
 			}
 
-			if (i + priv->size < len) {
-                                /* read data in one block */
-				memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], priv->size);
-				priv->state = EMR_READ;
-				i = i + priv->size - 1; /* the for-loop consumes the other byte */
-			}
-			else {
+			if (IS_FINISHED(priv))
+				priv->state = EMR_FINISHED;
+			break;
+			
+		case EMR_READ_EXIF:                     
+			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of EXIF data, length: %i", priv->size);
+			{
 				int chunk_len = len - i;
 				memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
 				priv->bytes_read += chunk_len; /* bytes already read */
@@ -240,11 +325,24 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				i = len - 1;
 				priv->state = EMR_READ_EXIF;
 			}
-			
-			if (priv->exif_chunk != NULL && priv->icc_chunk != NULL && priv->iptc_chunk != NULL)
+			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
-
+			
+		case EMR_READ_XMP:
+			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of XMP data, length: %i", priv->size);
+			{
+				int chunk_len = len - i;
+				memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], chunk_len);
+				priv->bytes_read += chunk_len; /* bytes already read */
+				priv->size = (i + priv->size) - len; /* remaining data to read */
+				i = len - 1;
+				priv->state = EMR_READ_XMP;
+			}
+			if (IS_FINISHED (priv))
+				priv->state = EMR_FINISHED;
+			break;
+			
 		case EMR_READ_ICC:			
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read ICC data, Length: %i\n", priv->size);
 
@@ -259,8 +357,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				memcpy ((guchar*) (priv->icc_chunk) + priv->bytes_read, &buf[i], priv->size); 
 				priv->state = EMR_READ;
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
-			}
-			else {
+			} else {
 				int chunk_len = len - i;
 				memcpy ((guchar*) (priv->icc_chunk) + priv->bytes_read, &buf[i], chunk_len);
 				priv->bytes_read += chunk_len; /* bytes already read */
@@ -269,7 +366,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->state = EMR_READ_ICC;
 			}
 			
-			if (priv->exif_chunk != NULL && priv->icc_chunk != NULL && priv->iptc_chunk != NULL)
+			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
 			
@@ -284,8 +381,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
                                 /* read data in one block */
 				memcpy ((guchar*) (priv->iptc_chunk) + priv->bytes_read, &buf[i], priv->size); 
 				priv->state = EMR_READ;
-			}
-			else {
+			} else {
 				int chunk_len = len - i;
 				memcpy ((guchar*) (priv->iptc_chunk) + priv->bytes_read, &buf[i], chunk_len);
 				priv->bytes_read += chunk_len; /* bytes already read */
@@ -294,7 +390,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->state = EMR_READ_IPTC;
 			}
 			
-			if (priv->exif_chunk != NULL && priv->icc_chunk != NULL && priv->iptc_chunk != NULL)
+			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
 
@@ -322,7 +418,7 @@ eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint
 	priv->exif_len = 0;
 }
 
-#if HAVE_EXIF
+#ifdef HAVE_EXIF
 ExifData*
 eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 {
@@ -340,8 +436,28 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 }
 #endif
 
+
+#ifdef HAVE_EXEMPI
+XmpPtr 
+eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
+{
+	EogMetadataReaderPrivate *priv;
+	XmpPtr xmp = NULL;
+
+	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
+
+	priv = emr->priv;
+
+	if (priv->xmp_chunk != NULL) {
+		xmp = xmp_new (priv->xmp_chunk, priv->xmp_len);
+	}
+
+	return xmp;
+}
+#endif
+
 /*
- * TODO: very broken, assumes the profile fits in a single chunk.  Change to
+ * FIXME: very broken, assumes the profile fits in a single chunk.  Change to
  * parse the sections and construct a single memory chunk, or maybe even parse
  * the profile.
  */
@@ -351,6 +467,7 @@ eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr, guchar **data, guint 
 	EogMetadataReaderPrivate *priv;
 	
 	g_return_if_fail (EOG_IS_METADATA_READER (emr));
+
 	priv = emr->priv;
 
 	if (priv->icc_chunk) {	

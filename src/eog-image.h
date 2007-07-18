@@ -40,6 +40,10 @@
 #include <lcms.h>
 #endif
 
+#ifdef HAVE_EXEMPI
+#include <exempi/xmp.h>
+#endif
+
 G_BEGIN_DECLS
 
 #ifndef __EOG_IMAGE_DECLR__
@@ -59,12 +63,14 @@ typedef struct _EogImagePrivate EogImagePrivate;
 typedef enum {
 	EOG_IMAGE_DATA_IMAGE     = 1 << 0,
 	EOG_IMAGE_DATA_DIMENSION = 1 << 1,
-	EOG_IMAGE_DATA_EXIF      = 1 << 2
+	EOG_IMAGE_DATA_EXIF      = 1 << 2,
+	EOG_IMAGE_DATA_XMP       = 1 << 3
 } EogImageData;
 
 #define EOG_IMAGE_DATA_ALL  (EOG_IMAGE_DATA_IMAGE |     \
 			     EOG_IMAGE_DATA_DIMENSION | \
-			     EOG_IMAGE_DATA_EXIF)
+			     EOG_IMAGE_DATA_EXIF |      \
+			     EOG_IMAGE_DATA_XMP)
 
 typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
@@ -159,6 +165,8 @@ const gchar*      eog_image_get_caption              (EogImage   *img);
 const gchar      *eog_image_get_collate_key          (EogImage   *img);
 
 gpointer          eog_image_get_exif_info            (EogImage   *img);
+
+gpointer          eog_image_get_xmp_info             (EogImage   *img);
 
 GnomeVFSURI*      eog_image_get_uri                  (EogImage   *img);
 

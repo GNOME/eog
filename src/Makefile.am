@@ -120,11 +120,17 @@ libeog_la_SOURCES += 			\
 	eog-python-plugin.h	
 endif
 
+if HAVE_EXEMPI
+libeog_la_SOURCES +=			\
+	eog-exif-details.h		\
+	eog-exif-details.c
+endif
+
 libeog_la_CFLAGS =						\
 	$(EOG_CFLAGS)						\
 	$(WARN_CFLAGS)						\
 	-I$(top_srcdir)/jpegutils				\
- 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
@@ -157,7 +163,7 @@ eog_DEPENDENCIES = 	\
 
 eog_CFLAGS = 							\
 	$(EOG_CFLAGS)						\
- 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"
 
@@ -166,7 +172,7 @@ eog_LDADD = 				\
 	$(EOG_LIBS)			\
 	$(X_LIBS)			\
 	$(LIBJPEG)			\
- 	$(toolbar_LIB)			\
+	$(toolbar_LIB)			\
 	$(jpeg_LIB)
 
 eog_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
