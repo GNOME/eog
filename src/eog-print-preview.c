@@ -39,6 +39,9 @@ struct _EogPrintPreviewPrivate {
 	/* The surface to set to the cairo context, created from the image */
 	cairo_surface_t *surface;
 
+        /* Flag whether we have to create surface */
+	gboolean flag_create_surface;
+
 	/* the alignment of the image in the page */
 	gfloat image_x_align, image_y_align;
 
@@ -162,6 +165,8 @@ eog_print_preview_set_property (GObject      *object,
 			g_object_unref (priv->image_scaled);
 			priv->image_scaled = NULL;
 		}
+
+		priv->flag_create_surface = TRUE;
 		break;
 	case PROP_IMAGE_X_ALIGN:
 		priv->image_x_align = g_value_get_float (value);
@@ -171,6 +176,7 @@ eog_print_preview_set_property (GObject      *object,
 		break;
 	case PROP_IMAGE_SCALE:
 		priv->i_scale = g_value_get_float (value);
+		priv->flag_create_surface = TRUE;
 		break;
 	case PROP_PAPER_WIDTH:
 		priv->p_width = g_value_get_float (value);
@@ -437,6 +443,7 @@ eog_print_preview_init (EogPrintPreview *preview)
 	priv->i_scale = 1;
 
 	priv->surface = NULL;
+	priv->flag_create_surface = TRUE;
 
 	priv->p_scale = 0;
 	
@@ -792,6 +799,7 @@ create_surface (EogPrintPreview *preview)
 		priv->surface = create_surface_from_pixbuf (pixbuf);
 		g_object_unref (pixbuf);
 	}
+	priv->flag_create_surface = FALSE;
 }
  
 static gboolean
@@ -957,6 +965,8 @@ size_allocate_cb (GtkWidget *widget,
 	preview = EOG_PRINT_PREVIEW (user_data);
 	update_relative_sizes (preview);
 
+	preview->priv->flag_create_surface = TRUE;
+
 	if (preview->priv->image_scaled) {
 		g_object_unref (preview->priv->image_scaled);
 		preview->priv->image_scaled = NULL;
@@ -1001,7 +1011,9 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 
 	get_current_image_coordinates (preview, &x0, &y0);
 
-	create_surface (preview);
+	if (priv->flag_create_surface) {
+		create_surface (preview);
+	}
 
 	if (priv->surface) {
 		cairo_set_source_surface (cr, priv->surface, x0, y0);

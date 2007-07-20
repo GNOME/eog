@@ -1,5 +1,13 @@
 2007-07-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-print-preview.c: (eog_print_preview_set_property),
+	(eog_print_preview_init), (create_surface), (size_allocate_cb),
+	(eog_print_preview_draw): Do not create the surface each time
+	the image is dragged in the preview. Finally closes bug #453151
+	(Stefan, Claudio Saavedra).
+
+2007-07-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-list-store.c: (is_file_in_list_store): Add
 	a safety check to avoid a crasher when saving a modified
 	file. Fixes bug #456451.
