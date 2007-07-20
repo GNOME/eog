@@ -34,6 +34,7 @@ G_DEFINE_TYPE (EogPrintPreview, eog_print_preview, GTK_TYPE_ASPECT_FRAME)
 struct _EogPrintPreviewPrivate {
 	GtkWidget *area;
 	GdkPixbuf *image;
+	GdkPixbuf *image_scaled;
 
 	/* The surface to set to the cairo context, created from the image */
 	cairo_surface_t *surface;
@@ -93,7 +94,9 @@ enum {
 static void eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr);
 static void eog_print_preview_finalize (GObject *object);
 static void update_relative_sizes (EogPrintPreview *preview);
-static cairo_surface_t * create_surface (EogPrintPreview *preview);
+static void create_surface (EogPrintPreview *preview);
+static void create_image_scaled (EogPrintPreview *preview);
+static gboolean create_surface_when_idle (EogPrintPreview *preview);
 
 static void
 eog_print_preview_get_property (GObject    *object,
@@ -154,12 +157,11 @@ eog_print_preview_set_property (GObject      *object,
 			g_object_unref (priv->image);
 		}
 		priv->image = GDK_PIXBUF (g_value_dup_object (value));
-				
-		if (priv->surface) {
-			cairo_surface_destroy (priv->surface);
+		
+		if (priv->image_scaled) {
+			g_object_unref (priv->image_scaled);
+			priv->image_scaled = NULL;
 		}
-		priv->surface = create_surface (EOG_PRINT_PREVIEW (object));
-
 		break;
 	case PROP_IMAGE_X_ALIGN:
 		priv->image_x_align = g_value_get_float (value);
@@ -169,10 +171,6 @@ eog_print_preview_set_property (GObject      *object,
 		break;
 	case PROP_IMAGE_SCALE:
 		priv->i_scale = g_value_get_float (value);
-		if (priv->surface) {
-			cairo_surface_destroy (priv->surface);
-		}
-		priv->surface = create_surface (EOG_PRINT_PREVIEW (object));
 		break;
 	case PROP_PAPER_WIDTH:
 		priv->p_width = g_value_get_float (value);
@@ -399,6 +397,11 @@ eog_print_preview_finalize (GObject *object)
 		priv->image = NULL;
 	}
 
+	if (priv->image_scaled) {
+		g_object_unref (priv->image_scaled);
+		priv->image_scaled = NULL;
+	}
+
 	if (priv->surface) {
 		cairo_surface_destroy (priv->surface);
 		priv->surface = NULL;
@@ -428,12 +431,13 @@ eog_print_preview_init (EogPrintPreview *preview)
 			      0.5, 0.5, ratio, FALSE);
 
 	priv->image = NULL;
+	priv->image_scaled = NULL;
 	priv->image_x_align = 0.5;
 	priv->image_y_align = 0.5;
 	priv->i_scale = 1;
 
 	priv->surface = NULL;
-	
+
 	priv->p_scale = 0;
 	
 	priv->l_margin = 0.25;
@@ -617,6 +621,34 @@ press_inside_image_area (EogPrintPreview *preview,
 	return FALSE;
 }
 
+static void
+create_image_scaled (EogPrintPreview *preview)
+{
+	EogPrintPreviewPrivate *priv = preview->priv;
+
+	if (!priv->image_scaled) {
+		gint a_width, a_height, i_width, i_height;
+		
+		GtkWidget *area = priv->area;
+		a_width = area->allocation.width;
+		a_height = area->allocation.height;
+		i_width = gdk_pixbuf_get_width (priv->image);
+		i_height = gdk_pixbuf_get_height (priv->image);
+
+                if ((i_width > a_width) || (i_height > a_height)) {
+			gdouble scale;
+			scale = MAX ((gdouble) a_width/i_width, (gdouble)a_height/i_height);
+			priv->image_scaled = gdk_pixbuf_scale_simple (priv->image, 
+								      i_width*scale, 
+								      i_height*scale, 
+								      GDK_INTERP_TILES);
+		} else {
+			priv->image_scaled = priv->image;
+			g_object_ref (priv->image_scaled);
+		}
+	}
+}
+
 static GdkPixbuf *
 create_preview_buffer (EogPrintPreview *preview)
 {
@@ -627,6 +659,8 @@ create_preview_buffer (EogPrintPreview *preview)
 	if (preview->priv->image == NULL) {
 		return NULL;
 	}
+
+	create_image_scaled (preview);
 	
 	width  = gdk_pixbuf_get_width (preview->priv->image);
 	height = gdk_pixbuf_get_height (preview->priv->image);
@@ -640,9 +674,14 @@ create_preview_buffer (EogPrintPreview *preview)
 	/* to use GDK_INTERP_TILES for small pixbufs is expensive and unnecessary */
 	if (width < 25 || height < 25)
 		type = GDK_INTERP_NEAREST;
-	
-	pixbuf = gdk_pixbuf_scale_simple (preview->priv->image,
-					  width, height, type);
+
+	if (preview->priv->image_scaled) {
+		pixbuf = gdk_pixbuf_scale_simple (preview->priv->image_scaled,
+						  width, height, type);
+	} else {
+		pixbuf = gdk_pixbuf_scale_simple (preview->priv->image,
+						  width, height, type);
+	}
 	
 	return pixbuf;
 }
@@ -737,19 +776,30 @@ create_surface_from_pixbuf (GdkPixbuf *pixbuf)
   return surface;
 }
 
-static cairo_surface_t *
+static void
 create_surface (EogPrintPreview *preview)
 {
+	EogPrintPreviewPrivate *priv = preview->priv;
 	GdkPixbuf *pixbuf;
-	cairo_surface_t *surface = NULL;
+
+	if (priv->surface) {
+		cairo_surface_destroy (priv->surface);
+		priv->surface = NULL;
+	}
 		
 	pixbuf = create_preview_buffer (preview);
 	if (pixbuf) {
-		surface = create_surface_from_pixbuf (pixbuf);
+		priv->surface = create_surface_from_pixbuf (pixbuf);
 		g_object_unref (pixbuf);
 	}
-	
-	return surface;
+}
+ 
+static gboolean
+create_surface_when_idle (EogPrintPreview *preview)
+{
+	create_surface (preview);
+
+	return FALSE;
 }
 
 static gboolean
@@ -907,9 +957,12 @@ size_allocate_cb (GtkWidget *widget,
 	preview = EOG_PRINT_PREVIEW (user_data);
 	update_relative_sizes (preview);
 
-	if (preview->priv->surface)
-		cairo_surface_destroy (preview->priv->surface);
-	preview->priv->surface = create_surface (preview);
+	if (preview->priv->image_scaled) {
+		g_object_unref (preview->priv->image_scaled);
+		preview->priv->image_scaled = NULL;
+	}
+
+	g_idle_add ((GSourceFunc) create_surface_when_idle, preview);
 }
 
 static void
@@ -948,8 +1001,22 @@ eog_print_preview_draw (EogPrintPreview *preview, cairo_t *cr)
 
 	get_current_image_coordinates (preview, &x0, &y0);
 
+	create_surface (preview);
+
 	if (priv->surface) {
 		cairo_set_source_surface (cr, priv->surface, x0, y0);
+		cairo_paint (cr);
+	} else if (priv->image_scaled) {
+		/* just in the remote case we don't have the surface */
+		
+		/* adjust (x0, y0) to the new scale */
+		gdouble scale = priv->i_scale * priv->p_scale * 
+			gdk_pixbuf_get_width (priv->image) / gdk_pixbuf_get_width (priv->image_scaled);
+		x0 /= scale;
+		y0 /= scale;
+
+		cairo_scale (cr, scale, scale);
+		gdk_cairo_set_source_pixbuf (cr, priv->image_scaled, x0, y0);
 		cairo_paint (cr);
 	} else if (priv->image) {
 		/* just in the remote case we don't have the surface */
