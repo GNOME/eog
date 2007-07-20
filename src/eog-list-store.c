@@ -225,6 +225,8 @@ is_file_in_list_store (EogListStore *store,
 		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
+		if (!image)
+			continue;
 		
 		uri = eog_image_get_uri (image);
 		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
