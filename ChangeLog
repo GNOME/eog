@@ -1,10 +1,15 @@
+2007-07-24  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-print-preview.c: (create_image_scaled): 
+	Fix a MIN/MAX mix-up. Really closes bug #453151 (Stefan Röllin).
+
 2007-07-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-print-preview.c: (eog_print_preview_set_property),
 	(eog_print_preview_init), (create_surface), (size_allocate_cb),
 	(eog_print_preview_draw): Do not create the surface each time
 	the image is dragged in the preview. Finally closes bug #453151
-	(Stefan, Claudio Saavedra).
+	(Stefan Röllin, Claudio Saavedra).
 
 2007-07-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
@@ -22,7 +27,7 @@
 	image to improve responsiveness when the scale is changed.
 	This scaled image is created once the dialog is ready through
 	a g_idle, in order to avoid slowing down the dialog creation.
-	Fixes bug #453151 (Stefan, Claudio Saavedra).
+	Fixes bug #453151 (Stefan Röllin, Claudio Saavedra).
 
 2007-07-19  Lucas Rocha  <lucasr@gnome.org>
 

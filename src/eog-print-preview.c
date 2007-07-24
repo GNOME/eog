@@ -644,7 +644,7 @@ create_image_scaled (EogPrintPreview *preview)
 
                 if ((i_width > a_width) || (i_height > a_height)) {
 			gdouble scale;
-			scale = MAX ((gdouble) a_width/i_width, (gdouble)a_height/i_height);
+			scale = MIN ((gdouble) a_width/i_width, (gdouble)a_height/i_height);
 			priv->image_scaled = gdk_pixbuf_scale_simple (priv->image, 
 								      i_width*scale, 
 								      i_height*scale, 
