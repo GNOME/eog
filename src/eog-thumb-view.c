@@ -368,18 +368,15 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 	ExifData *exif_data;
 #endif	
 
-	if (keyboard_mode) {
-		image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (widget));
-	} else {
-		if (!gtk_icon_view_get_item_at_pos (GTK_ICON_VIEW (widget),
-						    x, y, &path, NULL)) {
-			return FALSE;
-		}
-
-		image = eog_thumb_view_get_image_from_path (EOG_THUMB_VIEW (widget), path);
-
-		gtk_tree_path_free (path);
+	if (!gtk_icon_view_get_tooltip_context (GTK_ICON_VIEW (widget), 
+						&x, &y, keyboard_mode,
+						NULL, &path, NULL)) {
+		return FALSE;
 	}
+	
+	image = eog_thumb_view_get_image_from_path (EOG_THUMB_VIEW (widget),
+						    path);
+	gtk_tree_path_free (path);
 
 	if (image == NULL) {
 		return FALSE;
