@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-editable-toolbar.c 814 2007-07-01 13:28:58Z jhaitsma $
+ *  $Id: egg-editable-toolbar.c 817 2007-07-29 16:25:13Z carlosgc $
  */
 
 #include "config.h"
@@ -1363,6 +1363,9 @@ egg_editable_toolbar_dispose (GObject *object)
       g_list_free (children);
       priv->visibility_paths = NULL;
     }
+
+  g_free (priv->popup_path);
+  priv->popup_path = NULL;
 
   if (priv->manager != NULL)
     {
