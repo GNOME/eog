@@ -372,6 +372,7 @@ data/icons/32x32/actions/Makefile
 data/icons/48x48/Makefile
 data/icons/48x48/actions/Makefile
 data/icons/scalable/Makefile
+data/icons/scalable/actions/Makefile
 data/icons/scalable/apps/Makefile
 bindings/Makefile
 bindings/python/Makefile

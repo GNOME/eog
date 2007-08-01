@@ -207,6 +207,10 @@ main (int argc, char **argv)
 	eog_thumbnail_init ();
 	eog_plugin_engine_init ();
 
+	/* Add application specific icons to search path */
+	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
+                                           EOG_DATADIR G_DIR_SEPARATOR_S "icons");
+
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
 
