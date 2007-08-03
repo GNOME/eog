@@ -209,9 +209,6 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	orig_width = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Width"));
 	orig_height = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Height"));
 
-	width = gdk_pixbuf_get_width (job->thumbnail);
-	height = gdk_pixbuf_get_height (job->thumbnail);
-
 	eog_thumbnail_fit_to_size (&job->thumbnail, EOG_LIST_STORE_THUMB_SIZE);
 	eog_thumbnail_add_frame (&job->thumbnail);
 
