@@ -284,12 +284,6 @@
   (return-type "EogApplication*")
 )
 
-(define-method register_service
-  (of-object "EogApplication")
-  (c-name "eog_application_register_service")
-  (return-type "gboolean")
-)
-
 (define-method shutdown
   (of-object "EogApplication")
   (c-name "eog_application_shutdown")

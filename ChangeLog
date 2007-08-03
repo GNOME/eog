@@ -1,3 +1,9 @@
+2007-08-03  Felix Riemann  <friemann@svn.gnome.org>
+
+	* bindings/python/eog.defs: Remove eog_application_register_service
+	from python bindings. There is no need to have it called again by a
+	plugin and it breaks the build with dbus disabled. Fixes bug #462785.
+
 2007-08-01  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac:
