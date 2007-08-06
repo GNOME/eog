@@ -46,6 +46,7 @@ INST_H_FILES =				\
 	eog-application.h		\
 	eog-debug.h			\
 	eog-window.h			\
+	eog-sidebar.h			\
 	eog-dialog.h			\
 	eog-properties-dialog.h		\
 	eog-message-area.h		\
@@ -71,6 +72,7 @@ libeog_la_SOURCES =			\
 	eog-util.c			\
 	eog-pixbuf-util.c		\
 	eog-window.c			\
+	eog-sidebar.c			\
 	eog-dialog.c			\
 	eog-preferences-dialog.c	\
 	eog-properties-dialog.c		\

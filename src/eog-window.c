@@ -37,6 +37,7 @@
 #include "eog-file-chooser.h"
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
+#include "eog-sidebar.h"
 #include "eog-statusbar.h"
 #include "eog-preferences-dialog.h"
 #include "eog-properties-dialog.h"
@@ -135,6 +136,7 @@ struct _EogWindowPrivate {
         GtkWidget           *layout;
         GtkWidget           *cbox;
         GtkWidget           *view;
+        GtkWidget           *sidebar;
         GtkWidget           *thumbview;
         GtkWidget           *statusbar;
         GtkWidget           *nav;
@@ -396,7 +398,7 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 {
 	EogWindowPrivate *priv;
 	GConfEntry *mode_entry;
-	GtkWidget *frame;
+	GtkWidget *hpaned;
 	EogThumbNavMode mode = EOG_THUMB_NAV_MODE_ONE_ROW;
 	gint position = 0;
 	gboolean resizable = FALSE;
@@ -430,12 +432,12 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 	priv->collection_position = position;
 	priv->collection_resizable = resizable;
 
-	frame = priv->view->parent;
+	hpaned = priv->sidebar->parent;
 
-	g_object_ref (frame);
+	g_object_ref (hpaned);
 	g_object_ref (priv->nav);
 
-	gtk_container_remove (GTK_CONTAINER (priv->layout), frame);
+	gtk_container_remove (GTK_CONTAINER (priv->layout), hpaned);
 	gtk_container_remove (GTK_CONTAINER (priv->layout), priv->nav);
 
 	gtk_widget_destroy (priv->layout);
@@ -449,11 +451,11 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 			priv->layout = gtk_vpaned_new ();
 
 			if (position == 0) {
-				gtk_paned_pack1 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack1 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 				gtk_paned_pack2 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
 			} else {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
-				gtk_paned_pack2 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 			}
 		} else {
 			mode = EOG_THUMB_NAV_MODE_ONE_ROW;
@@ -461,11 +463,11 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 			priv->layout = gtk_vbox_new (FALSE, 2);
 
 			if (position == 0) {
-				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 			} else {
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
-				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 			}
 		}
 		break;
@@ -479,9 +481,9 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 
 			if (position == 1) {
 				gtk_paned_pack1 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
-				gtk_paned_pack2 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack2 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 			} else {
-				gtk_paned_pack1 (GTK_PANED (priv->layout), frame, TRUE, FALSE);
+				gtk_paned_pack1 (GTK_PANED (priv->layout), hpaned, TRUE, FALSE);
 				gtk_paned_pack2 (GTK_PANED (priv->layout), priv->nav, FALSE, TRUE);
 			}
 		} else {
@@ -491,9 +493,9 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 
 			if (position == 1) {
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
-				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 			} else {
-				gtk_box_pack_start (GTK_BOX (priv->layout), frame, TRUE, TRUE, 0);
+				gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 				gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 			}
 		}
@@ -658,6 +660,7 @@ update_action_groups_state (EogWindow *window)
 {
 	EogWindowPrivate *priv;
 	GtkAction *action_collection;
+	GtkAction *action_sidebar;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
 	GtkAction *action_save;
@@ -679,6 +682,10 @@ update_action_groups_state (EogWindow *window)
 	action_collection = 
 		gtk_action_group_get_action (priv->actions_window, 
 					     "ViewImageCollection");
+
+	action_sidebar = 
+		gtk_action_group_get_action (priv->actions_window, 
+					     "ViewSidebar");
 
 	action_fscreen = 
 		gtk_action_group_get_action (priv->actions_image, 
@@ -705,6 +712,7 @@ update_action_groups_state (EogWindow *window)
 					     "FilePageSetup");
 
 	g_assert (action_collection != NULL);
+	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
 	g_assert (action_save != NULL);
@@ -802,6 +810,12 @@ update_action_groups_state (EogWindow *window)
 	}
 
 	eog_plugin_engine_update_plugins_ui (window, FALSE);
+#if 0
+	if (eog_sidebar_is_empty (EOG_SIDEBAR (priv->sidebar))) {
+		gtk_action_set_sensitive (action_sidebar, FALSE);
+		gtk_widget_hide (priv->sidebar);
+	}
+#endif
 }
 
 static void
@@ -1862,6 +1876,17 @@ update_ui_visibility (EogWindow *window)
 		}
 	}
 
+	visible = gconf_client_get_bool (priv->client, EOG_CONF_UI_SIDEBAR, NULL);
+	visible = visible && !fullscreen_mode;
+	action = gtk_ui_manager_get_action (priv->ui_mgr, "/MainMenu/View/SidebarToggle");
+	g_assert (action != NULL);
+	gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+	if (visible) {
+		gtk_widget_show (priv->sidebar);
+	} else {
+		gtk_widget_hide (priv->sidebar);
+	}
+
 	if (priv->fullscreen_popup != NULL) {
 		if (fullscreen_mode) {
 			show_fullscreen_popup (window);
@@ -1945,7 +1970,7 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	eog_scroll_view_set_zoom_upscale (EOG_SCROLL_VIEW (priv->view), 
 					  upscale);
 
-	gtk_widget_grab_focus (window->priv->view);
+	gtk_widget_grab_focus (priv->view);
 
 	gtk_widget_modify_bg (window->priv->view, GTK_STATE_NORMAL, 
 			      &(GTK_WIDGET (window)->style->black));
@@ -2491,6 +2516,14 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 			gtk_widget_hide (priv->nav);
 		}
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
+
+	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewSidebar") == 0) {
+		if (visible) {
+			gtk_widget_show (priv->sidebar);
+		} else {
+			gtk_widget_hide (priv->sidebar);
+		}
+		gconf_client_set_bool (priv->client, EOG_CONF_UI_SIDEBAR, visible, NULL);
 	}
 }
 
@@ -3187,6 +3220,9 @@ static const GtkToggleActionEntry toggle_entries_window[] = {
 	{ "ViewImageCollection", "eog-image-collection", N_("_Image Collection"), "F9",
 	  N_("Changes the visibility of the image collection pane in the current window"), 
 	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
+	{ "ViewSidebar", NULL, N_("Side _Pane"), "<control>F9",
+	  N_("Changes the visibility of the side pane in the current window"), 
+	  G_CALLBACK (eog_window_cmd_show_hide_bar), TRUE },
 };
 
 static const GtkActionEntry action_entries_image[] = {
@@ -3537,6 +3573,67 @@ eog_window_set_drag_dest (EogWindow *window)
                            GDK_ACTION_COPY | GDK_ACTION_ASK);
 }
 
+static void
+eog_window_sidebar_visibility_changed (GtkWidget *widget, EogWindow *window)
+{
+	GtkAction *action;
+	gboolean visible;
+
+	visible = GTK_WIDGET_VISIBLE (window->priv->sidebar);
+
+	gconf_client_set_bool (window->priv->client, 
+			       EOG_CONF_UI_SIDEBAR, 
+			       visible,
+			       NULL);
+
+	action = gtk_action_group_get_action (window->priv->actions_window,
+					      "ViewSidebar");
+
+	if (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)) != visible)
+		gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), visible);
+
+	/* Focus the image */
+	if (!visible && window->priv->image != NULL)
+		gtk_widget_grab_focus (window->priv->view);
+}
+
+static void
+eog_window_sidebar_page_added (EogSidebar  *sidebar,
+			       GtkWidget   *main_widget,
+			       EogWindow   *window)
+{
+	if (eog_sidebar_get_n_pages (sidebar) == 1) {
+		GtkAction *action;
+		gboolean show;
+
+		action = gtk_action_group_get_action (window->priv->actions_window,
+						      "ViewSidebar");
+
+		gtk_action_set_sensitive (action, TRUE);
+
+		show = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+
+		if (show)
+			gtk_widget_show (GTK_WIDGET (sidebar));
+	}
+}
+static void
+eog_window_sidebar_page_removed (EogSidebar  *sidebar,
+			         GtkWidget   *main_widget,
+			         EogWindow   *window)
+{
+	if (eog_sidebar_is_empty (sidebar)) {
+		GtkAction *action;
+
+		gtk_widget_hide (GTK_WIDGET (sidebar));
+
+		action = gtk_action_group_get_action (window->priv->actions_window,
+						      "ViewSidebar");
+
+		gtk_action_set_sensitive (action, FALSE);
+	}
+}
+
 static void 
 eog_window_construct_ui (EogWindow *window)
 {
@@ -3547,6 +3644,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *menubar;
 	GtkWidget *popup;
 	GtkWidget *frame;
+	GtkWidget *hpaned;
 
 	GConfEntry *entry;
 
@@ -3681,6 +3779,31 @@ eog_window_construct_ui (EogWindow *window)
 
 	priv->layout = gtk_vbox_new (FALSE, 2);
 
+	hpaned = gtk_hpaned_new ();
+
+	priv->sidebar = eog_sidebar_new ();
+	gtk_widget_set_size_request (priv->sidebar, 50, -1);
+
+	g_signal_connect_after (priv->sidebar,
+				"show",
+				G_CALLBACK (eog_window_sidebar_visibility_changed),
+				window);
+
+	g_signal_connect_after (priv->sidebar,
+				"hide",
+				G_CALLBACK (eog_window_sidebar_visibility_changed),
+				window);
+
+	g_signal_connect_after (priv->sidebar,
+				"page-added",
+				G_CALLBACK (eog_window_sidebar_page_added),
+				window);
+
+	g_signal_connect_after (priv->sidebar,
+				"page-removed",
+				G_CALLBACK (eog_window_sidebar_page_removed),
+				window);
+
  	priv->view = eog_scroll_view_new ();
 	gtk_widget_set_size_request (GTK_WIDGET (priv->view), 100, 100);
 	g_signal_connect (G_OBJECT (priv->view),
@@ -3694,7 +3817,19 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_container_add (GTK_CONTAINER (frame), priv->view);
 
-	gtk_box_pack_start_defaults (GTK_BOX (priv->layout), frame);
+	gtk_paned_pack1 (GTK_PANED (hpaned),
+			 priv->sidebar,
+			 TRUE,
+			 FALSE);
+
+	gtk_paned_pack2 (GTK_PANED (hpaned),
+			 frame,
+			 TRUE,
+			 FALSE);
+
+	gtk_widget_show_all (hpaned);
+
+	gtk_box_pack_start_defaults (GTK_BOX (priv->layout), hpaned);
 
 	priv->thumbview = eog_thumb_view_new ();
 
@@ -4507,6 +4642,14 @@ eog_window_get_store (EogWindow *window)
         g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
 
 	return EOG_LIST_STORE (window->priv->store);
+}
+
+GtkWidget *
+eog_window_get_sidebar (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+	return window->priv->sidebar;
 }
 
 GtkWidget *

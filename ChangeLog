@@ -1,3 +1,20 @@
+2007-08-06  Lucas Rocha  <lucasr@gnome.org>
+
+	* data/eog-ui.xml: added "Side Pane" menu item to main menubar.
+	* src/Makefile.am: added eog-sidebar.[ch] to the build.
+	* data/eog.schemas.in, src/eog-config-keys.h: new GConf key for
+	showing/hiding sidebar.
+	* src/eog-sidebar.[ch]: new sidebar widget with support for adding and
+	removing pages.
+	* src/eog-window.[ch] (eog_window_collection_mode_changed_cb,
+	update_action_groups_state, update_ui_visibility,
+	eog_window_run_fullscreen, eog_window_cmd_show_hide_bar,
+	+eog_window_sidebar_visibility_changed,
+	+eog_window_sidebar_page_added, +eog_window_sidebar_page_removed,
+	eog_window_construct_ui, +eog_window_get_sidebar): added sidebar
+	support which is only sensitive when the sidebar has at least one
+	page.
+
 2007-08-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-list-store.c: 
@@ -87,8 +104,8 @@
 2007-07-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Use the new 
- 	gtk_icon_view_get_tooltip_context() function to build tooltips. Fixes 
- 	bug #455700.
+	gtk_icon_view_get_tooltip_context() function to build tooltips. Fixes 
+	bug #455700.
 	
 2007-07-24  Felix Riemann  <friemann@svn.gnome.org>
 

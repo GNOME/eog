@@ -92,6 +92,8 @@ GtkUIManager *eog_window_get_ui_manager (EogWindow       *window);
 
 EogListStore *eog_window_get_store      (EogWindow       *window);
 
+GtkWidget    *eog_window_get_sidebar    (EogWindow       *window);
+
 GtkWidget    *eog_window_get_thumb_view (EogWindow       *window);
 
 GtkWidget    *eog_window_get_thumb_nav  (EogWindow       *window);
