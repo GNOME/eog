@@ -254,13 +254,12 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	GtkTreeIter iter;
 	gchar *filename;
 	EogImage *image;
+	GdkPixbuf *thumbnail;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (data));
 
 	store = EOG_LIST_STORE (data);
 
-/* 	thumbnail = g_object_ref (job->thumbnail); */
-	
 	filename = gnome_vfs_uri_to_string (job->uri_entry, GNOME_VFS_URI_HIDE_NONE);
 
 	if (is_file_in_list_store (store, filename, &iter)) {
@@ -269,13 +268,15 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    -1);
 
 		eog_image_set_thumbnail (image, job->thumbnail);
+		/* getting the thumbnail, in case it needed transformations */
+		thumbnail = eog_image_get_thumbnail (image);
 
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
-				    EOG_LIST_STORE_THUMBNAIL, job->thumbnail,
+				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    EOG_LIST_STORE_THUMB_SET, TRUE,
 				    EOG_LIST_STORE_EOG_JOB, NULL,
 				    -1);
-/* 		g_object_unref (thumbnail); */
+		g_object_unref (thumbnail);
 	}
 
 	g_free (filename);

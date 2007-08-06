@@ -1,3 +1,10 @@
+2007-08-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-list-store.c: (eog_job_thumbnail_cb): Apply the image
+	transformation to the thumbnail before setting it in the model.
+	This is currently done by obtaining the thumbnail from the EogImage.
+	Fixes bug #462971.
+
 2007-08-03  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-jobs.c: (eog_job_thumbnail_run): remove forgotten
