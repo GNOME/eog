@@ -108,6 +108,9 @@ void            eog_list_store_thumbnail_set         (EogListStore *store,
 void            eog_list_store_thumbnail_unset       (EogListStore *store, 
 						      GtkTreeIter *iter);
 
+void            eog_list_store_thumbnail_refresh     (EogListStore *store,
+						      GtkTreeIter *iter);
+
 G_END_DECLS
 
 #endif

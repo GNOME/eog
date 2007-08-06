@@ -282,13 +282,46 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	g_free (filename);
 }
 
+static void
+on_image_changed (EogImage *image, EogListStore *store)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	gint pos;
+	
+	pos = eog_list_store_get_pos_by_image (store, image);
+	path = gtk_tree_path_new_from_indices (pos, -1);
+
+	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &iter, path);
+	eog_list_store_thumbnail_refresh (store, &iter);
+	gtk_tree_path_free (path);
+}
+
+static void
+eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
+{
+	EogImage *image;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter,
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    -1);
+
+	g_signal_handlers_disconnect_by_func (image, on_image_changed, store);
+	g_object_unref (image);
+
+	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
+}
+
 void
 eog_list_store_append_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
 
+	g_signal_connect (image, "changed",
+ 			  G_CALLBACK (on_image_changed),
+ 			  store);
+	
 	gtk_list_store_append (GTK_LIST_STORE (store), &iter);
-
 	gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, image, 
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
@@ -326,10 +359,9 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 
 		if (is_file_in_list_store (store, info_uri, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
-				eog_list_store_thumbnail_unset (store, &iter);
-				eog_list_store_thumbnail_set (store, &iter);
+				eog_list_store_thumbnail_refresh (store, &iter);
 			} else {
-				gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
+				eog_list_store_remove (store, &iter);
 			}
 		} else {
 			if (eog_image_is_supported_mime_type (mimetype)) {
@@ -344,7 +376,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 
 	case GNOME_VFS_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store (store, info_uri, &iter)) {
-			gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
+			eog_list_store_remove (store, &iter);
 		}
 		break;
 
@@ -539,7 +571,7 @@ eog_list_store_remove_image (EogListStore *store, EogImage *image)
 	gnome_vfs_uri_unref (uri);
 	
 	if (is_file_in_list_store (store, file, &iter)) {
-		gtk_list_store_remove (GTK_LIST_STORE (store), &iter);
+		eog_list_store_remove (store, &iter);
 	}
 	g_free (file);
 }
@@ -633,29 +665,43 @@ eog_list_store_get_initial_pos (EogListStore *store)
 }
 
 void
-eog_list_store_thumbnail_set (EogListStore *store, 
-			      GtkTreeIter *iter)
+eog_list_store_remove_thumbnail_job (EogListStore *store, 
+				     GtkTreeIter *iter)
 {
 	EogJob *job;
-	EogImage *image;
-	gboolean *thumb_set;
 	GnomeVFSURI *uri;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
-			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
+			    EOG_LIST_STORE_EOG_JOB, &job,
 			    -1);
 
-	if (thumb_set) {
-		return;
+	if (job != NULL) {
+		g_mutex_lock (store->priv->mutex);
+		eog_job_queue_remove_job (job);
+		gtk_list_store_set (GTK_LIST_STORE (store), iter,
+				    EOG_LIST_STORE_EOG_JOB, NULL,
+				    -1);
+		g_mutex_unlock (store->priv->mutex);
 	}
+	
+	
+}
+
+static void
+eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
+{
+	EogImage *image;
+	EogJob *job;
+	GnomeVFSURI *uri;
+	
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
-			    EOG_LIST_STORE_EOG_IMAGE, &image, 
+			    EOG_LIST_STORE_EOG_IMAGE, &image,
 			    -1);
 	
 	uri = eog_image_get_uri (image);
 	job = eog_job_thumbnail_new (uri);
 	gnome_vfs_uri_unref (uri);
-
+	
 	g_signal_connect (job,
 			  "finished",
 			  G_CALLBACK (eog_job_thumbnail_cb),
@@ -672,31 +718,46 @@ eog_list_store_thumbnail_set (EogListStore *store,
 }
 
 void
+eog_list_store_thumbnail_set (EogListStore *store, 
+			      GtkTreeIter *iter)
+{
+	gboolean *thumb_set;
+
+	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
+			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
+			    -1);
+
+	if (thumb_set) {
+		return;
+	}
+
+	eog_list_store_add_thumbnail_job (store, iter);
+}
+
+void
 eog_list_store_thumbnail_unset (EogListStore *store, 
 				GtkTreeIter *iter)
 {
 	EogImage *image;
-	EogJob *job;
 
+	eog_list_store_remove_thumbnail_job (store, iter);
+	
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
-			    EOG_LIST_STORE_EOG_JOB, &job,
 			    -1);
-
-	if (job != NULL) {
-		g_mutex_lock (store->priv->mutex);
-		eog_job_queue_remove_job (job);
-		gtk_list_store_set (GTK_LIST_STORE (store), iter,
-				    EOG_LIST_STORE_EOG_JOB, NULL,
-				    -1);
-		g_mutex_unlock (store->priv->mutex);
-	}
-
 	eog_image_set_thumbnail (image, NULL);
 	g_object_unref (image);
 
 	gtk_list_store_set (GTK_LIST_STORE (store), iter,
 			    EOG_LIST_STORE_THUMBNAIL, store->priv->busy_image,
 			    EOG_LIST_STORE_THUMB_SET, FALSE,
-			    -1);	
+			    -1);
+}
+
+void
+eog_list_store_thumbnail_refresh (EogListStore *store,
+				  GtkTreeIter *iter)
+{
+	eog_list_store_remove_thumbnail_job (store, iter);
+	eog_list_store_add_thumbnail_job (store, iter);
 }

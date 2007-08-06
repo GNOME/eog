@@ -1,3 +1,29 @@
+2007-08-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-list-store.c: 
+
+	(+on_image_changed): callback to update the displayed
+	thumbnail if the image is modified.
+	(+eog_list_store_remove): Wrap gtk_list_store_remove () to 
+	disconnect the handler for "changed" signal in images.
+	(eog_list_store_append_image): Connect the "changed" signal
+	of images to monitor image transformations.
+	(vfs_monitor_dir_cb): Use eog_list_store_thumbnail_refresh() and
+	eog_list_store_remove ().
+	(eog_list_store_remove_image): Use eog_list_store_remove ().
+	(+eog_list_store_remove_thumbnail_job),
+	(+eog_list_store_add_thumbnail_job): Factor out some code.
+	(eog_list_store_thumbnail_set),
+	(eog_list_store_thumbnail_unset): Use eog_list_store_add/remove_job ().
+	(+eog_list_store_thumbnail_refresh): Do the same as unset/set, but 
+	faster.
+
+	* src/eog-list-store.h: Add eog_list_store_thumbnail_refresh() 
+	definition.
+
+	Update thumbnails after applying transformations to images. Fixes 
+	bug #462973.
+
 2007-08-06  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-save-as-dialog-helper.c: (eog_save_as_dialog_new):

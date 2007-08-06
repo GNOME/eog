@@ -194,7 +194,7 @@ tb_on_visible_range_changed_cb (EogThumbView *tb,
 	
 	eog_thumb_view_update_visible_range (tb, gtk_tree_path_get_indices (path1) [0],
 					     gtk_tree_path_get_indices (path2) [0]);
-	
+
 	gtk_tree_path_free (path1);
 	gtk_tree_path_free (path2);
 }
