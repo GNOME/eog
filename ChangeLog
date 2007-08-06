@@ -1,3 +1,9 @@
+2007-08-06  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-save-as-dialog-helper.c: (eog_save_as_dialog_new):
+	Use g_build_filename instead of gnome_program_locate_file to find the
+	glade datafile, just like it is done by EogDialog.
+
 2007-08-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-window.c: (eog_job_model_cb): Unrefer the images

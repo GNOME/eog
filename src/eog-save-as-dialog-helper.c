@@ -209,17 +209,12 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 	SaveAsData *data;
 	GtkWidget *label;
 	
-	filepath = gnome_program_locate_file (NULL,
-					      GNOME_FILE_DOMAIN_APP_DATADIR,
-					      "eog.glade",
-					      FALSE, NULL);
+	filepath = g_build_filename (EOG_DATA_DIR, "eog.glade", NULL);
 
-	g_assert (filepath != NULL);
-
-	xml = glade_xml_new (filepath, "eog_multiple_save_as_dialog", "eog");
-	g_assert (xml != NULL);
+	xml = glade_xml_new (filepath, "eog_multiple_save_as_dialog", GETTEXT_PACKAGE);
 
 	g_free (filepath);
+	g_assert (xml != NULL);
 
 	dlg = glade_xml_get_widget (xml, "eog_multiple_save_as_dialog");
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (main));
