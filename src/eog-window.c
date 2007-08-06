@@ -4404,6 +4404,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 
 #ifdef HAVE_EXIF
         int i;
+	EogImage *image;
 #endif
 	
         g_return_if_fail (EOG_IS_WINDOW (data));
@@ -4423,8 +4424,9 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 #ifdef HAVE_EXIF 
 	if (gconf_client_get_bool (priv->client, EOG_CONF_VIEW_AUTOROTATE, NULL)) {
 		for (i = 0; i < n_images; i++) {
-			eog_image_autorotate (
-				eog_list_store_get_image_by_pos (priv->store, i));
+			image = eog_list_store_get_image_by_pos (priv->store, i);
+			eog_image_autorotate (image);
+			g_object_unref (image);
 		}
 	}
 #endif
