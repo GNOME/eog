@@ -1,6 +1,6 @@
 /* Eye Of Gnome - Image Store
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2006-2007 The Free Software Foundation
  *
  * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
  *
@@ -664,12 +664,11 @@ eog_list_store_get_initial_pos (EogListStore *store)
 	return store->priv->initial_image;
 }
 
-void
+static void
 eog_list_store_remove_thumbnail_job (EogListStore *store, 
 				     GtkTreeIter *iter)
 {
 	EogJob *job;
-	GnomeVFSURI *uri;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_JOB, &job,

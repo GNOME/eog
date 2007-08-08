@@ -1,6 +1,6 @@
 /* Eye Of Gnome - Image Store
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2006-2007 The Free Software Foundation
  *
  * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
  *
