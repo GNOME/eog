@@ -64,32 +64,13 @@ is_local_uri (const GnomeVFSURI* uri)
 static char*
 get_save_file_type_by_uri (const GnomeVFSURI *uri)
 {
-	char *suffix;
-	char *short_name;
-	char *suffix_start;
-	guint len;
 	GdkPixbufFormat *format;
 	char *type = NULL;
 
-        /* get unescaped string */
-	short_name = gnome_vfs_uri_extract_short_name (uri); 
-
-	/* FIXME: does this work for all locales? */
-	suffix_start = g_utf8_strrchr (short_name, -1, '.'); 
-	
-	if (suffix_start == NULL) 
-		return NULL;
-	
-	len = strlen (suffix_start) - 1;
-	suffix = g_strndup (suffix_start+1, len);
-
-	format = eog_pixbuf_get_format_by_suffix (suffix);
+	format = eog_pixbuf_get_format_by_vfs_uri (uri);
 	if (format != NULL) {
 		type = gdk_pixbuf_format_get_name (format);
 	}
-
-	g_free (short_name);
-	g_free (suffix);
 
 	return type;
 }
