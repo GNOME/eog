@@ -389,6 +389,14 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		break;
 
 	case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
+		mimetype = gnome_vfs_get_mime_type (info_uri);
+		if (is_file_in_list_store (store, info_uri, &iter) &&
+		    eog_image_is_supported_mime_type (mimetype)) {
+			eog_list_store_thumbnail_refresh (store, &iter);
+		}
+		g_free (mimetype);
+		break;
+
 	case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
 	case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:
 		break;
