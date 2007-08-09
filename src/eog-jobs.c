@@ -193,7 +193,6 @@ eog_job_thumbnail_new (GnomeVFSURI *uri_entry)
 void
 eog_job_thumbnail_run (EogJobThumbnail *job)
 {
-	gint width, height;
 	gchar *orig_width, *orig_height;
 
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));

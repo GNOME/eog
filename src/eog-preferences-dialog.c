@@ -140,24 +140,6 @@ pd_radio_toggle_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-pd_int_radio_toggle_cb (GtkWidget *widget, gpointer data)
-{
-	char *key = NULL;
-	gint value;
-	
-	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) 
-	    return;
-
-	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
-	value = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_VALUE));
-
-	if (key == NULL) 
-		return;
-
-	gconf_client_set_int (GCONF_CLIENT (data), key, value, NULL);
-}
-
-static void
 eog_preferences_response_cb (GtkDialog *dlg, gint res_id, gpointer data)
 {
 	switch (res_id) {

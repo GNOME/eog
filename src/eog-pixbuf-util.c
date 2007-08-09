@@ -95,7 +95,7 @@ eog_pixbuf_get_common_suffix (GdkPixbufFormat *format)
 }
 
 GdkPixbufFormat* 
-eog_pixbuf_get_format_by_vfs_uri (GnomeVFSURI *uri)
+eog_pixbuf_get_format_by_vfs_uri (const GnomeVFSURI *uri)
 {
 	char *suffix;
 	char *short_name;

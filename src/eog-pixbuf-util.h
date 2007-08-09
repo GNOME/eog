@@ -9,7 +9,7 @@ GSList*          eog_pixbuf_get_savable_formats (void);
 GdkPixbufFormat* eog_pixbuf_get_format_by_suffix (const char *suffix);
 
 GdkPixbufFormat* eog_pixbuf_get_format_by_uri (const char *txt_uri);
-GdkPixbufFormat* eog_pixbuf_get_format_by_vfs_uri (GnomeVFSURI *uri);
+GdkPixbufFormat* eog_pixbuf_get_format_by_vfs_uri (const GnomeVFSURI *uri);
 
 char*            eog_pixbuf_get_common_suffix (GdkPixbufFormat *format);
 

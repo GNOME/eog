@@ -1,5 +1,17 @@
 2007-08-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-jobs.c: (eog_job_thumbnail_run): Remove unused
+	variables.
+	* src/eog-pixbuf-util.c: (eog_pixbuf_get_format_by_vfs_uri): Mark
+	parameter as const.
+	* src/eog-pixbuf-util.h: Ditto.
+	* src/eog-preferences-dialog.c: Remove unused function 
+	pd_int_radio_toggle_cb.
+
+	Several code cleanups. Fixes bug #465060 (Cosimo Cecchi).
+
+2007-08-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-list-store.c: (vfs_monitor_dir_cb): Update thumbnail
 	on GNOME_VFS_EVENT_METADATA_CHANGED. Fixes bug #464709.
 
