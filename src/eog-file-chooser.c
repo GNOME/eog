@@ -99,6 +99,43 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 }
 
 static void
+save_response_cb (GtkDialog *dlg, gint id, gpointer data)
+{
+	gchar *filename;
+	GdkPixbufFormat *format;
+
+	if (id != GTK_RESPONSE_OK)
+		return;
+
+	filename = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
+	format = eog_pixbuf_get_format_by_uri (filename);
+	g_free (filename);
+	if (!format || !gdk_pixbuf_format_is_writable (format)) {
+		GtkWidget *msg_dialog;
+
+		msg_dialog = gtk_message_dialog_new (
+						     GTK_WINDOW (dlg),
+						     GTK_DIALOG_MODAL,
+						     GTK_MESSAGE_ERROR,
+						     GTK_BUTTONS_OK,
+						     _("File format is unknown or unsupported"));
+
+		gtk_message_dialog_format_secondary_text (
+						GTK_MESSAGE_DIALOG (msg_dialog),
+						"%s\n%s",
+		 				_("Eye of GNOME could not determine a supported writable file format based on the filename."),
+		  				_("Please try a different file extension like .png or .jpg."));
+
+		gtk_dialog_run (GTK_DIALOG (msg_dialog));
+		gtk_widget_destroy (msg_dialog);
+
+		g_signal_stop_emission_by_name (dlg, "response");
+	} else {
+		response_cb (dlg, id, data);
+	}
+}
+
+static void
 eog_file_chooser_add_filter (EogFileChooser *chooser)
 {
 	GSList *it;
@@ -415,7 +452,10 @@ eog_file_chooser_new (GtkFileChooserAction action)
 		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), last_dir [action]);
 	}
 
-	g_signal_connect (chooser, "response", G_CALLBACK (response_cb), NULL);
+	g_signal_connect (chooser, "response",
+			  G_CALLBACK ((action == GTK_FILE_CHOOSER_ACTION_SAVE) ?
+				      save_response_cb : response_cb),
+			  NULL);
 
  	gtk_window_set_title (GTK_WINDOW (chooser), title);
 	gtk_dialog_set_default_response (GTK_DIALOG (chooser), GTK_RESPONSE_OK);
