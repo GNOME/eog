@@ -769,10 +769,10 @@ eog_image_autorotate (EogImage *img)
 }
 #endif
 
+#ifdef HAVE_EXEMPI
 static void
 eog_image_set_xmp_data (EogImage *img, EogMetadataReader *md_reader)
 {
-#ifdef HAVE_EXEMPI
 	EogImagePrivate *priv;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
@@ -780,8 +780,8 @@ eog_image_set_xmp_data (EogImage *img, EogMetadataReader *md_reader)
 	priv = img->priv;
 
 	priv->xmp = eog_metadata_reader_get_xmp_data (md_reader);
-#endif
 }
+#endif
 
 static void
 eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
