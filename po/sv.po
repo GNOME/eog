@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-09 01:11+0200\n"
-"PO-Revision-Date: 2007-08-09 01:11+0100\n"
+"POT-Creation-Date: 2007-08-11 12:24+0200\n"
+"PO-Revision-Date: 2007-08-11 12:25+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -418,22 +418,34 @@ msgstr "Huruvida rullhjulet ska användas för att zooma eller inte."
 msgid "Zoom multiplier"
 msgstr "Zoomfaktor"
 
-#: ../src/eog-file-chooser.c:122
+#: ../src/eog-file-chooser.c:121
+msgid "File format is unknown or unsupported"
+msgstr "Filformatet är okänt eller stöds inte"
+
+#: ../src/eog-file-chooser.c:126
+msgid "Eye of GNOME could not determine a supported writable file format based on the filename."
+msgstr "Eye of GNOME kunde inte fastställa ett skrivbart filformat som stöds baserat på filnamnet."
+
+#: ../src/eog-file-chooser.c:127
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Prova en annan filändelse som exempelvis .png eller .jpg."
+
+#: ../src/eog-file-chooser.c:159
 msgid "All Files"
 msgstr "Alla filer"
 
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:164
 msgid "All Images"
 msgstr "Alla bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:148
+#: ../src/eog-file-chooser.c:185
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:244
+#: ../src/eog-file-chooser.c:281
 #: ../src/eog-thumb-view.c:422
 #: ../src/eog-window.c:615
 msgid "pixel"
@@ -441,15 +453,15 @@ msgid_plural "pixels"
 msgstr[0] "bildpunkt"
 msgstr[1] "bildpunkter"
 
-#: ../src/eog-file-chooser.c:386
+#: ../src/eog-file-chooser.c:423
 msgid "Load Image"
 msgstr "Läs in bild"
 
-#: ../src/eog-file-chooser.c:394
+#: ../src/eog-file-chooser.c:431
 msgid "Save Image"
 msgstr "Spara bild"
 
-#: ../src/eog-file-chooser.c:402
+#: ../src/eog-file-chooser.c:439
 msgid "Open Folder"
 msgstr "Öppna mapp"
 
