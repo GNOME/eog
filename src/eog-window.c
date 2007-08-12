@@ -2466,7 +2466,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 	  (gtk_minor_version > 10) ? "program-name" : "name", _("Eye of GNOME"),
 			       "version", VERSION,
 			       "copyright", "Copyright \xc2\xa9 2000-2006 Free Software Foundation, Inc.",
-			       "comments",_("The GNOME image viewing and cataloging program."),
+			       "comments",_("The GNOME image viewer."),
 			       "authors", authors,
 			       "documenters", documenters,
 			       "translator-credits", translators,
