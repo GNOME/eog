@@ -6,6 +6,9 @@ endif
 toolbar_LIB = -L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor
 toolbar_DEPS = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
+screensaver_LIB = -L$(top_builddir)/cut-n-paste/totem-screensaver -ltotemscrsaver
+screensaver_DEPS = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
+
 noinst_LTLIBRARIES = libeog.la
 
 bin_PROGRAMS = eog
@@ -133,6 +136,7 @@ libeog_la_CFLAGS =						\
 	$(WARN_CFLAGS)						\
 	-I$(top_srcdir)/jpegutils				\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
@@ -158,14 +162,16 @@ libeog_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]]
 
 eog_SOURCES = main.c
 
-eog_DEPENDENCIES = 	\
-	libeog.la	\
-	$(jpeg_DEPS)	\
-	$(toolbar_DEPS)
+eog_DEPENDENCIES = 	    \
+	libeog.la	    \
+	$(jpeg_DEPS)	    \
+	$(toolbar_DEPS)     \
+	$(screensaver_DEPS)
 
 eog_CFLAGS = 							\
 	$(EOG_CFLAGS)						\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
+	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"
 
@@ -175,6 +181,7 @@ eog_LDADD = 				\
 	$(X_LIBS)			\
 	$(LIBJPEG)			\
 	$(toolbar_LIB)			\
+	$(screensaver_LIB)		\
 	$(jpeg_LIB)
 
 eog_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"

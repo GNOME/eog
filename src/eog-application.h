@@ -28,6 +28,10 @@
 #include "eog-window.h"
 #include "egg-toolbars-model.h"
 
+#ifdef HAVE_DBUS
+#include "totem-scrsaver.h"
+#endif
+
 #include <glib.h>
 #include <glib-object.h>
 
@@ -51,46 +55,55 @@ struct _EogApplication {
 
 	EggToolbarsModel *toolbars_model;
 	gchar            *toolbars_file;
+#ifdef HAVE_DBUS
+	TotemScrsaver    *scr_saver;
+#endif
 };
 
 struct _EogApplicationClass {
 	GObjectClass parent_class;
 };
 
-GType	          eog_application_get_type	     (void) G_GNUC_CONST;
+GType	          eog_application_get_type	      (void) G_GNUC_CONST;
 
-EogApplication   *eog_application_get_instance       (void);
-
-#ifdef HAVE_DBUS
-gboolean          eog_application_register_service   (EogApplication *application);
-#endif
-
-void	          eog_application_shutdown	     (EogApplication   *application);
-
-gboolean          eog_application_open_window        (EogApplication   *application,
-						      guint             timestamp,
-						      EogStartupFlags   flags,
-						      GError          **error);
-
-gboolean          eog_application_open_uri_list      (EogApplication   *application,
-		  			              GSList           *uri_list,
-    						      guint             timestamp,
-						      EogStartupFlags   flags,
-						      GError          **error);
+EogApplication   *eog_application_get_instance        (void);
 
 #ifdef HAVE_DBUS
-gboolean          eog_application_open_uris          (EogApplication *application,
-						      gchar         **uris,
-						      guint           timestamp,
-						      EogStartupFlags flags,
-						      GError        **error);
+gboolean          eog_application_register_service    (EogApplication *application);
 #endif
 
-GList		 *eog_application_get_windows	     (EogApplication   *application);
+void	          eog_application_shutdown	      (EogApplication   *application);
 
-EggToolbarsModel *eog_application_get_toolbars_model (EogApplication *application);
+gboolean          eog_application_open_window         (EogApplication   *application,
+						       guint             timestamp,
+						       EogStartupFlags   flags,
+						       GError          **error);
+
+gboolean          eog_application_open_uri_list       (EogApplication   *application,
+		  			               GSList           *uri_list,
+    						       guint             timestamp,
+						       EogStartupFlags   flags,
+						       GError          **error);
+
+#ifdef HAVE_DBUS
+gboolean          eog_application_open_uris           (EogApplication *application,
+						       gchar         **uris,
+						       guint           timestamp,
+						       EogStartupFlags flags,
+						       GError        **error);
+#endif
+
+GList		 *eog_application_get_windows	      (EogApplication   *application);
+
+EggToolbarsModel *eog_application_get_toolbars_model  (EogApplication *application);
 
 void              eog_application_save_toolbars_model (EogApplication *application);
+
+#ifdef HAVE_DBUS
+void              eog_application_screensaver_enable  (EogApplication *application);
+
+void              eog_application_screensaver_disable (EogApplication *application);
+#endif
 
 G_END_DECLS
 

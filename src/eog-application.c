@@ -32,6 +32,10 @@
 #include "eog-application.h"
 #include "eog-util.h"
 
+#ifdef HAVE_DBUS
+#include "totem-scrsaver.h"
+#endif
+
 #include <string.h>
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -99,6 +103,8 @@ eog_application_register_service (EogApplication *application)
 	dbus_g_connection_register_g_object (connection,
 					     "/org/gnome/eog/Eog",
                                              G_OBJECT (application));
+
+        application->scr_saver = totem_scrsaver_new (connection);
 	
 	return TRUE;
 }
@@ -359,3 +365,19 @@ eog_application_save_toolbars_model (EogApplication *application)
 			 	          application->toolbars_file, 
 					  "1.0");
 }
+
+#ifdef HAVE_DBUS
+void
+eog_application_screensaver_enable (EogApplication *application)
+{
+        if (application->scr_saver)
+                totem_scrsaver_enable (application->scr_saver);
+}
+
+void
+eog_application_screensaver_disable (EogApplication *application)
+{
+        if (application->scr_saver)
+                totem_scrsaver_disable (application->scr_saver);
+}
+#endif

@@ -1990,6 +1990,8 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	gtk_window_fullscreen (GTK_WINDOW (window));
 	eog_window_update_fullscreen_popup (window);
 
+	eog_application_screensaver_disable (EOG_APP);
+
 	if (slideshow) {
 		eog_window_update_slideshow_action (window);
 	} else {
@@ -2057,6 +2059,8 @@ eog_window_stop_fullscreen (EogWindow *window, gboolean slideshow)
 	}
 
 	eog_scroll_view_show_cursor (EOG_SCROLL_VIEW (priv->view));
+
+	eog_application_screensaver_enable (EOG_APP);
 }
 
 static void

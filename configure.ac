@@ -350,6 +350,7 @@ src/Makefile
 jpegutils/Makefile
 cut-n-paste/Makefile
 cut-n-paste/toolbar-editor/Makefile
+cut-n-paste/totem-screensaver/Makefile
 help/Makefile
 help/eu/Makefile
 help/it/Makefile

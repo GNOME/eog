@@ -1,1 +1,1 @@
-SUBDIRS = toolbar-editor
+SUBDIRS = toolbar-editor totem-screensaver
