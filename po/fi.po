@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-09 07:24+0300\n"
+"POT-Creation-Date: 2007-08-13 19:14+0300\n"
 "PO-Revision-Date: 2007-02-14 06:04+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -461,65 +461,88 @@ msgstr "Käytetäänkö hiiren rullaa lähentämiseen ja loitontamiseen."
 msgid "Zoom multiplier"
 msgstr "Suurennoksen kerroin"
 
-#: ../src/eog-file-chooser.c:122
+#: ../src/eog-file-chooser.c:121
+msgid "File format is unknown or unsupported"
+msgstr "Tiedostomuoto on tuntematon tai ei ole tuettu"
+
+#: ../src/eog-file-chooser.c:126
+msgid ""
+"Eye of GNOME could not determine a supported writable file format based on "
+"the filename."
+msgstr ""
+"Gnomen silmä ei voinut määrittää tiedostonimen perusteella tuettua "
+"ja kirjoitettavissa olevaa tiedostomuotoa."
+
+#: ../src/eog-file-chooser.c:127
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Kokeile jotain muuta tiedostopäätettä, kuten .png tai .jpg"
+
+#: ../src/eog-file-chooser.c:159
 msgid "All Files"
 msgstr "Kaikki tiedostot"
 
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:164
 msgid "All Images"
 msgstr "Kaikki kuvatiedostot"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:148
+#: ../src/eog-file-chooser.c:185
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:244 ../src/eog-thumb-view.c:422
+#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:422
 #: ../src/eog-window.c:615
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pikseli"
 msgstr[1] "pikseliä"
 
-#: ../src/eog-file-chooser.c:386
+#: ../src/eog-file-chooser.c:423
 msgid "Load Image"
 msgstr "Lataa kuva"
 
-#: ../src/eog-file-chooser.c:394
+#: ../src/eog-file-chooser.c:431
 msgid "Save Image"
 msgstr "Tallenna kuva"
 
-#: ../src/eog-file-chooser.c:402
+#: ../src/eog-file-chooser.c:439
 msgid "Open Folder"
 msgstr "Avaa kansio"
 
 #: ../src/eog-image.c:466
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Muunnos lataamattomalle kuvalle."
 
 #: ../src/eog-image.c:485
+#, c-format
 msgid "Transformation failed."
 msgstr "Muunnos epäonnistui."
 
 #: ../src/eog-image.c:965
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF ei ole tuettu tässä tiedostomuodossa."
 
 #: ../src/eog-image.c:1069
+#, c-format
 msgid "Image loading failed."
 msgstr "Kuvan lataus epäonnistui."
 
 #: ../src/eog-image.c:1340 ../src/eog-image.c:1548
+#, c-format
 msgid "File exists"
 msgstr "Tiedosto on jo olemassa"
 
 #: ../src/eog-image.c:1487 ../src/eog-image.c:1616
+#, c-format
 msgid "No image loaded."
 msgstr "Ei kuvaa ladattuna."
 
 #: ../src/eog-image.c:1496 ../src/eog-image.c:1628
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "Väliaikaistiedoston luonti epäonnistui."
 
@@ -529,6 +552,7 @@ msgid "Couldn't create temporary file for saving: %s"
 msgstr "Väliaikaistiedoston luominen tallentamista varten epäonnistui: %s"
 
 #: ../src/eog-image-jpeg.c:361
+#, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG:in lataamiseksi ei saatu jaettua riittävästi muistia"
 
@@ -692,6 +716,7 @@ msgid "Taken on"
 msgstr "Kuva otettu"
 
 #: ../src/eog-uri-converter.c:1025
+#, c-format
 msgid "At least two file names are equal."
 msgstr "Vähintään kaksi tiedostonimeä ovat samat."
 
@@ -783,8 +808,8 @@ msgid "Eye of GNOME"
 msgstr "Gnomen silmä"
 
 #: ../src/eog-window.c:2469
-msgid "The GNOME image viewing and cataloging program."
-msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
+msgid "The GNOME image viewer."
+msgstr "Gnomen kuvakatselin."
 
 #: ../src/eog-window.c:2829
 #, c-format
@@ -815,6 +840,7 @@ msgid "Move to Trash"
 msgstr "Siirrä roskakoriin"
 
 #: ../src/eog-window.c:2893
+#, c-format
 msgid "Couldn't access trash."
 msgstr "Roskakoria ei voitu avata."
 
@@ -1115,6 +1141,9 @@ msgstr "[TIEDOSTO...]"
 #: ../src/main.c:215
 msgid "Eye of GNOME Image Viewer"
 msgstr "Gnomen silmä -kuvakatselin"
+
+#~ msgid "The GNOME image viewing and cataloging program."
+#~ msgstr "Gnomen kuvankatselu- ja luettelointiohjelma."
 
 #~ msgid "<b>Position</b>"
 #~ msgstr "<b>Sijainti</b>"
