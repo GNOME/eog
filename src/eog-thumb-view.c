@@ -25,6 +25,7 @@
 
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
+#include "eog-pixbuf-cell-renderer.h"
 #include "eog-image.h"
 
 #ifdef HAVE_EXIF
@@ -459,7 +460,7 @@ eog_thumb_view_init (EogThumbView *tb)
 {
 	tb->priv = EOG_THUMB_VIEW_GET_PRIVATE (tb);
 	
-	tb->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
+	tb->priv->pixbuf_cell = eog_pixbuf_cell_renderer_new ();
 
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (tb), 
 	      	  		    tb->priv->pixbuf_cell, 
