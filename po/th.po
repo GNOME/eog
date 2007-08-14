@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-07 11:37+0700\n"
-"PO-Revision-Date: 2007-08-07 11:41+0700\n"
+"POT-Creation-Date: 2007-08-14 13:55+0700\n"
+"PO-Revision-Date: 2007-08-14 14:03+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,10 @@ msgstr "ลบแถบเครื่องมือที่เลือก"
 #: cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
 msgid "Separator"
 msgstr "เส้นแบ่ง"
+
+#: cut-n-paste/totem-screensaver/totem-scrsaver.c:111
+msgid "Running in fullscreen mode"
+msgstr "กำลังทำงานในแบบเต็มจอ"
 
 #: data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -450,35 +454,50 @@ msgstr "กำหนดว่าจะใช้ปุ่มหมุนของ
 msgid "Zoom multiplier"
 msgstr "ตัวคูณสำหรับย่อ-ขยาย"
 
-#: src/eog-file-chooser.c:122
+#: src/eog-file-chooser.c:121
+msgid "File format is unknown or unsupported"
+msgstr "ไม่รู้จักหรือไม่รองรับแฟ้มฟอร์แมตนี้"
+
+#: src/eog-file-chooser.c:126
+msgid ""
+"Eye of GNOME could not determine a supported writable file format based on "
+"the filename."
+msgstr "Eye of GNOME ไม่สามารถพิจารณาฟอร์แมตแฟ้มที่รองรับที่จะเขียนจากชื่อแฟ้มนี้ได้"
+
+#: src/eog-file-chooser.c:127
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "กรุณาลองใช้นามสกุลอื่น เช่น .png หรือ .jpg"
+
+#: src/eog-file-chooser.c:159
 msgid "All Files"
 msgstr "ทุกแฟ้ม"
 
-#: src/eog-file-chooser.c:127
+#: src/eog-file-chooser.c:164
 msgid "All Images"
 msgstr "ทุกรูป"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: src/eog-file-chooser.c:148
+#: src/eog-file-chooser.c:185
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: src/eog-file-chooser.c:244 src/eog-thumb-view.c:422 src/eog-window.c:615
+#: src/eog-file-chooser.c:281 src/eog-thumb-view.c:423
+#: src/eog-window.c:615
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "พิกเซล"
 
-#: src/eog-file-chooser.c:386
+#: src/eog-file-chooser.c:423
 msgid "Load Image"
 msgstr "อ่านรูป"
 
-#: src/eog-file-chooser.c:394
+#: src/eog-file-chooser.c:431
 msgid "Save Image"
 msgstr "บันทึกรูป"
 
-#: src/eog-file-chooser.c:402
+#: src/eog-file-chooser.c:439
 msgid "Open Folder"
 msgstr "เปิดโฟลเดอร์"
 
@@ -571,7 +590,8 @@ msgstr "ป้าย"
 msgid "Value"
 msgstr "ค่า"
 
-#: src/eog-exif-util.c:58 src/eog-exif-util.c:74 src/eog-exif-util.c:96
+#: src/eog-exif-util.c:58 src/eog-exif-util.c:74
+#: src/eog-exif-util.c:96
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
@@ -681,7 +701,7 @@ msgstr "ตัวอย่างงานพิมพ์"
 msgid "as is"
 msgstr "ตามที่เป็น"
 
-#: src/eog-thumb-view.c:433
+#: src/eog-thumb-view.c:434
 msgid "Taken on"
 msgstr "ถ่ายเมื่อ"
 
@@ -714,11 +734,11 @@ msgstr "กำลังบันทึกรูป \"%s\" %s"
 msgid "Loading image \"%s\""
 msgstr "กำลังอ่านรูป \"%s\""
 
-#: src/eog-window.c:2244
+#: src/eog-window.c:2248
 msgid "Image Settings"
 msgstr "ค่าตั้งของรูป"
 
-#: src/eog-window.c:2258
+#: src/eog-window.c:2262
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -727,11 +747,11 @@ msgstr ""
 "เกิดข้อผิดพลาดขณะพิมพ์แฟ้ม:\n"
 "%s"
 
-#: src/eog-window.c:2359
+#: src/eog-window.c:2363
 msgid "Toolbar Editor"
 msgstr "เครื่องมือแก้ไขแถบเครื่องมือ"
 
-#: src/eog-window.c:2442
+#: src/eog-window.c:2446
 msgid "translator-credits"
 msgstr ""
 "ไพศาข์ สีเหลืองสวัสดิ์\n"
@@ -740,7 +760,7 @@ msgstr ""
 "ถ้ามีเวลาโปรดมาช่วยกันแปล :-)\n"
 "http://gnome-th.sf.net"
 
-#: src/eog-window.c:2445
+#: src/eog-window.c:2449
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -751,7 +771,7 @@ msgstr ""
 "GNU General Public License ที่เผยแพร่โดยมูลนิธิซอฟต์แวร์เสรีไม่ว่าจะเป็นสัญญาอนุญาตรุ่นที่ 2 "
 "หรือรุ่นถัดมา (ตามแต่คุณจะเลือก)\n"
 
-#: src/eog-window.c:2449
+#: src/eog-window.c:2453
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -763,7 +783,7 @@ msgstr ""
 "_ความเหมาะสมสำหรับวัตถุประสงค์เฉพาะกิจใดๆ_ กรุณาอ่านGNU General Public License "
 "เพื่อดูรายละเอียดเพิ่มเติม\n"
 
-#: src/eog-window.c:2453
+#: src/eog-window.c:2457
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -773,15 +793,15 @@ msgstr ""
 "กรุณาติดต่อไปที่ Free Software Foundation, Inc., 59 Temple Place - Suite 330, "
 "Boston, MA 02111-1307, USA."
 
-#: src/eog-window.c:2466 src/main.c:184
+#: src/eog-window.c:2470 src/main.c:184
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: src/eog-window.c:2469
-msgid "The GNOME image viewing and cataloging program."
-msgstr "โปรแกรมแสดงและจัดเรียงรูปของ GNOME"
+#: src/eog-window.c:2473
+msgid "The GNOME image viewer."
+msgstr "โปรแกรมแสดงรูปของ GNOME"
 
-#: src/eog-window.c:2829
+#: src/eog-window.c:2833
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -790,7 +810,7 @@ msgstr ""
 "แน่ใจหรือไม่ว่าจะย้าย\n"
 "\"%s\" ไปลงถังขยะ?"
 
-#: src/eog-window.c:2832
+#: src/eog-window.c:2836
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -802,254 +822,254 @@ msgstr[0] ""
 "แน่ใจหรือไม่ว่าจะย้าย\n"
 "รูป %d รูปที่เลือกไปลงถังขยะ?"
 
-#: src/eog-window.c:2847 src/eog-window.c:3264
+#: src/eog-window.c:2851 src/eog-window.c:3268
 msgid "Move to Trash"
 msgstr "ย้ายไปถังขยะ"
 
-#: src/eog-window.c:2893
+#: src/eog-window.c:2897
 #, c-format
 msgid "Couldn't access trash."
 msgstr "เปิดใช้ถังขยะไม่สำเร็จ"
 
-#: src/eog-window.c:2977
+#: src/eog-window.c:2981
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "ผิดพลาดขณะลบรูป %s"
 
-#: src/eog-window.c:3184
+#: src/eog-window.c:3188
 msgid "_File"
 msgstr "แ_ฟ้ม"
 
-#: src/eog-window.c:3185
+#: src/eog-window.c:3189
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: src/eog-window.c:3186
+#: src/eog-window.c:3190
 msgid "_View"
 msgstr "มุ_มมอง"
 
-#: src/eog-window.c:3187
+#: src/eog-window.c:3191
 msgid "_Image"
 msgstr "_รูป"
 
-#: src/eog-window.c:3188
+#: src/eog-window.c:3192
 msgid "_Go"
 msgstr "ไ_ป"
 
-#: src/eog-window.c:3189
+#: src/eog-window.c:3193
 msgid "_Tools"
 msgstr "เ_ครื่องมือ"
 
-#: src/eog-window.c:3190
+#: src/eog-window.c:3194
 msgid "_Help"
 msgstr "_วีธีใช้"
 
-#: src/eog-window.c:3192
+#: src/eog-window.c:3196
 msgid "_Open..."
 msgstr "_เปิด..."
 
-#: src/eog-window.c:3193
+#: src/eog-window.c:3197
 msgid "Open a file"
 msgstr "เปิดแฟ้ม"
 
-#: src/eog-window.c:3195
+#: src/eog-window.c:3199
 msgid "_Close"
 msgstr "ปิ_ด"
 
-#: src/eog-window.c:3196
+#: src/eog-window.c:3200
 msgid "Close window"
 msgstr "ปิดหน้าต่าง"
 
-#: src/eog-window.c:3198
+#: src/eog-window.c:3202
 msgid "T_oolbar"
 msgstr "แถบเ_ครื่องมือ"
 
-#: src/eog-window.c:3199
+#: src/eog-window.c:3203
 msgid "Edit the application toolbar"
 msgstr "แก้ไขแถบเครื่องมือของโปรแกรม"
 
-#: src/eog-window.c:3201
+#: src/eog-window.c:3205
 msgid "Prefere_nces"
 msgstr "_ปรับแต่ง"
 
-#: src/eog-window.c:3202
+#: src/eog-window.c:3206
 msgid "Preferences for Eye of GNOME"
 msgstr "ปรับแต่ง Eye of GNOME"
 
-#: src/eog-window.c:3204
+#: src/eog-window.c:3208
 msgid "_Contents"
 msgstr "เ_นื้อหา"
 
-#: src/eog-window.c:3205
+#: src/eog-window.c:3209
 msgid "Help on this application"
 msgstr "วิธีใช้โปรแกรมนี้"
 
-#: src/eog-window.c:3207 src/eog-plugin-manager.c:507
+#: src/eog-window.c:3211 src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "เ_กี่ยวกับ"
 
-#: src/eog-window.c:3208
+#: src/eog-window.c:3212
 msgid "About this application"
 msgstr "เกี่ยวกับโปรแกรมนี้"
 
-#: src/eog-window.c:3213
+#: src/eog-window.c:3217
 msgid "_Toolbar"
 msgstr "แถบเ_ครื่องมือ"
 
-#: src/eog-window.c:3214
+#: src/eog-window.c:3218
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "แสดง/ซ่อน แถบเครื่องมือในหน้าต่างปัจจุบัน"
 
-#: src/eog-window.c:3216
+#: src/eog-window.c:3220
 msgid "_Statusbar"
 msgstr "แถบ_สถานะ"
 
-#: src/eog-window.c:3217
+#: src/eog-window.c:3221
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "แสดง/ซ่อน แถบสถานะในหน้าต่างปัจจุบัน"
 
-#: src/eog-window.c:3219
+#: src/eog-window.c:3223
 msgid "_Image Collection"
 msgstr "_สมุดรูป"
 
-#: src/eog-window.c:3220
+#: src/eog-window.c:3224
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "แสดง/ซ่อน ช่องสมุดรูปในหน้าต่างปัจจุบัน"
 
-#: src/eog-window.c:3222
+#: src/eog-window.c:3226
 msgid "Side _Pane"
 msgstr "แถบ_ข้าง"
 
-#: src/eog-window.c:3223
+#: src/eog-window.c:3227
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "แสดง/ซ่อน แถบข้างในหน้าต่างปัจจุบัน"
 
-#: src/eog-window.c:3228
+#: src/eog-window.c:3232
 msgid "_Save"
 msgstr "_บันทึก"
 
-#: src/eog-window.c:3231
+#: src/eog-window.c:3235
 msgid "Open _with"
 msgstr "เปิด_ด้วย"
 
-#: src/eog-window.c:3234
+#: src/eog-window.c:3238
 msgid "Save _As..."
 msgstr "บันทึกเป็_น..."
 
-#: src/eog-window.c:3237
+#: src/eog-window.c:3241
 msgid "Page Set_up..."
 msgstr "ตั้งค่าห_น้ากระดาษ..."
 
-#: src/eog-window.c:3240
+#: src/eog-window.c:3244
 msgid "Print..."
 msgstr "พิมพ์..."
 
-#: src/eog-window.c:3243
+#: src/eog-window.c:3247
 msgid "Properties"
 msgstr "คุณสมบัติ"
 
-#: src/eog-window.c:3246
+#: src/eog-window.c:3250
 msgid "_Undo"
 msgstr "เรี_ยกคืน"
 
-#: src/eog-window.c:3249
+#: src/eog-window.c:3253
 msgid "Flip _Horizontal"
 msgstr "พลิกแนว_นอน"
 
-#: src/eog-window.c:3252
+#: src/eog-window.c:3256
 msgid "Flip _Vertical"
 msgstr "พลิกแนว_ตั้ง"
 
-#: src/eog-window.c:3255
+#: src/eog-window.c:3259
 msgid "_Rotate Clockwise"
 msgstr "หมุนต_ามเข็มนาฬิกา"
 
-#: src/eog-window.c:3258
+#: src/eog-window.c:3262
 msgid "Rotate Counterc_lockwise"
 msgstr "หมุน_ทวนเข็มนาฬิกา"
 
-#: src/eog-window.c:3261
+#: src/eog-window.c:3265
 msgid "Set As _Wallpaper"
 msgstr "ใช้เป็นภาพ_พื้นหลัง"
 
-#: src/eog-window.c:3267 src/eog-window.c:3279 src/eog-window.c:3282
+#: src/eog-window.c:3271 src/eog-window.c:3283 src/eog-window.c:3286
 msgid "_Zoom In"
 msgstr "ขย_าย"
 
-#: src/eog-window.c:3270 src/eog-window.c:3285
+#: src/eog-window.c:3274 src/eog-window.c:3289
 msgid "Zoom _Out"
 msgstr "_ย่อ"
 
-#: src/eog-window.c:3273
+#: src/eog-window.c:3277
 msgid "_Normal Size"
 msgstr "ขนาด_ปกติ"
 
-#: src/eog-window.c:3276
+#: src/eog-window.c:3280
 msgid "Best _Fit"
 msgstr "ขนาด_พอดี"
 
-#: src/eog-window.c:3288
+#: src/eog-window.c:3292
 msgid "Move to _Trash"
 msgstr "ย้ายไป_ถังขยะ"
 
-#: src/eog-window.c:3294
+#: src/eog-window.c:3298
 msgid "_Full Screen"
 msgstr "เ_ต็มจอ"
 
-#: src/eog-window.c:3300 src/eog-window.c:3312
+#: src/eog-window.c:3304 src/eog-window.c:3316
 msgid "_Previous Image"
 msgstr "รูป_ก่อนหน้า"
 
-#: src/eog-window.c:3303
+#: src/eog-window.c:3307
 msgid "_Next Image"
 msgstr "รูป_ถัดไป"
 
-#: src/eog-window.c:3306 src/eog-window.c:3315
+#: src/eog-window.c:3310 src/eog-window.c:3319
 msgid "_First Image"
 msgstr "รูปแ_รก"
 
-#: src/eog-window.c:3309 src/eog-window.c:3318
+#: src/eog-window.c:3313 src/eog-window.c:3322
 msgid "_Last Image"
 msgstr "รูปสุด_ท้าย"
 
-#: src/eog-window.c:3324
+#: src/eog-window.c:3328
 msgid "_Slideshow"
 msgstr "แสดงสไ_ลด์"
 
-#: src/eog-window.c:3391
+#: src/eog-window.c:3395
 msgid "Previous"
 msgstr "ก่อนหน้า"
 
-#: src/eog-window.c:3395
+#: src/eog-window.c:3399
 msgid "Next"
 msgstr "ถัดไป"
 
-#: src/eog-window.c:3399
+#: src/eog-window.c:3403
 msgid "Right"
 msgstr "ขวา"
 
-#: src/eog-window.c:3402
+#: src/eog-window.c:3406
 msgid "Left"
 msgstr "ซ้าย"
 
-#: src/eog-window.c:3405
+#: src/eog-window.c:3409
 msgid "In"
 msgstr "ขยาย"
 
-#: src/eog-window.c:3408
+#: src/eog-window.c:3412
 msgid "Out"
 msgstr "ย่อ"
 
-#: src/eog-window.c:3411
+#: src/eog-window.c:3415
 msgid "Normal"
 msgstr "ปกติ"
 
-#: src/eog-window.c:3414
+#: src/eog-window.c:3418
 msgid "Fit"
 msgstr "พอดี"
 
-#: src/eog-window.c:3417
+#: src/eog-window.c:3421
 msgid "Collection"
 msgstr "สมุดรูป"
 
@@ -1108,6 +1128,9 @@ msgstr "[FILE...]"
 #: src/main.c:215
 msgid "Eye of GNOME Image Viewer"
 msgstr "Eye of GNOME: โปรแกรมแสดงรูป"
+
+#~ msgid "The GNOME image viewing and cataloging program."
+#~ msgstr "โปรแกรมแสดงและจัดเรียงรูปของ GNOME"
 
 #~ msgid "\n"
 #~ msgstr "\n"
