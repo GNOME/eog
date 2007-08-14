@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-09 11:08+0200\n"
-"PO-Revision-Date: 2007-08-09 11:08+0200\n"
+"POT-Creation-Date: 2007-08-14 09:53+0200\n"
+"PO-Revision-Date: 2007-08-14 09:55+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,10 @@ msgstr "Fjern valgt verktøylinje"
 #: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:439
 msgid "Separator"
 msgstr "Separator"
+
+#: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
+msgid "Running in fullscreen mode"
+msgstr "Kjører i fullskjermmodus"
 
 #: ../data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -456,37 +460,51 @@ msgstr "Om hjulet på musen skal brukes til å zoome eller ikke."
 msgid "Zoom multiplier"
 msgstr "Zoom-faktor"
 
-#: ../src/eog-file-chooser.c:122
+#: ../src/eog-file-chooser.c:121
+msgid "File format is unknown or unsupported"
+msgstr "Filformat er ukjent eller ikke støttet"
+
+#: ../src/eog-file-chooser.c:126
+msgid ""
+"Eye of GNOME could not determine a supported writable file format based on "
+"the filename."
+msgstr "Eye of GNOME kunne ikke bestemme et støttet skrivbart filformat basert på filnavnet."
+
+#: ../src/eog-file-chooser.c:127
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "Vennligst prøv en annen type som .png eller .jpg."
+
+#: ../src/eog-file-chooser.c:159
 msgid "All Files"
 msgstr "Alle filer"
 
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:164
 msgid "All Images"
 msgstr "Alle bilder"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:148
+#: ../src/eog-file-chooser.c:185
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:244 ../src/eog-thumb-view.c:422
+#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:423
 #: ../src/eog-window.c:615
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "piksel"
 msgstr[1] "piksler"
 
-#: ../src/eog-file-chooser.c:386
+#: ../src/eog-file-chooser.c:423
 msgid "Load Image"
 msgstr "Last bilde"
 
-#: ../src/eog-file-chooser.c:394
+#: ../src/eog-file-chooser.c:431
 msgid "Save Image"
 msgstr "Lagre bilde"
 
-#: ../src/eog-file-chooser.c:402
+#: ../src/eog-file-chooser.c:439
 msgid "Open Folder"
 msgstr "Åpne mappe"
 
@@ -690,7 +708,7 @@ msgstr "Forhåndsvis"
 msgid "as is"
 msgstr "som det er"
 
-#: ../src/eog-thumb-view.c:433
+#: ../src/eog-thumb-view.c:434
 msgid "Taken on"
 msgstr "Tatt"
 
@@ -723,11 +741,11 @@ msgstr "Lagrer bilde «%s» %s"
 msgid "Loading image \"%s\""
 msgstr "Lagrer bilde «%s»"
 
-#: ../src/eog-window.c:2244
+#: ../src/eog-window.c:2248
 msgid "Image Settings"
 msgstr "Innstillinger for bilde"
 
-#: ../src/eog-window.c:2258
+#: ../src/eog-window.c:2262
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -736,15 +754,15 @@ msgstr ""
 "Feil under utskrift av fil:\n"
 "%s"
 
-#: ../src/eog-window.c:2359
+#: ../src/eog-window.c:2363
 msgid "Toolbar Editor"
 msgstr "Rediger verktøylinje"
 
-#: ../src/eog-window.c:2442
+#: ../src/eog-window.c:2446
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: ../src/eog-window.c:2445
+#: ../src/eog-window.c:2449
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -756,7 +774,7 @@ msgstr ""
 "av Free Software Foundation; enten versjon 2 av lisensen, eller (hvis du "
 "ønsker det) enhver senere versjon.\n"
 
-#: ../src/eog-window.c:2449
+#: ../src/eog-window.c:2453
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -767,7 +785,7 @@ msgstr ""
 "NOEN GARANTI, ikke engang implisitt garanti om at det er SALGBART eller "
 "PASSER ET BESTEMT FORMÅL. Se GNU General Public License for detaljer.\n"
 
-#: ../src/eog-window.c:2453
+#: ../src/eog-window.c:2457
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -777,15 +795,15 @@ msgstr ""
 "programmet. Hvis dette ikke er tilfelle, kan du skrive til Free Software "
 "Foundation, Inc. 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA"
 
-#: ../src/eog-window.c:2466 ../src/main.c:184
+#: ../src/eog-window.c:2470 ../src/main.c:184
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2469
-msgid "The GNOME image viewing and cataloging program."
-msgstr "Program for bildevisning og katalogisering for GNOME."
+#: ../src/eog-window.c:2473
+msgid "The GNOME image viewer."
+msgstr "Bildevisning for GNOME."
 
-#: ../src/eog-window.c:2829
+#: ../src/eog-window.c:2833
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -794,7 +812,7 @@ msgstr ""
 "Er du sikker på at du vil\n"
 "flytte «%s» til papirkurven?"
 
-#: ../src/eog-window.c:2832
+#: ../src/eog-window.c:2836
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -809,254 +827,254 @@ msgstr[1] ""
 "Er du sikker på at du vil\n"
 "flytte %d valgte bilder til papirkurven?"
 
-#: ../src/eog-window.c:2847 ../src/eog-window.c:3264
+#: ../src/eog-window.c:2851 ../src/eog-window.c:3268
 msgid "Move to Trash"
 msgstr "Flytt til papirkurv"
 
-#: ../src/eog-window.c:2893
+#: ../src/eog-window.c:2897
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Kunne ikke aksessere papirkurv."
 
-#: ../src/eog-window.c:2977
+#: ../src/eog-window.c:2981
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Feil under sletting av bilde %s"
 
-#: ../src/eog-window.c:3184
+#: ../src/eog-window.c:3188
 msgid "_File"
 msgstr "_Fil"
 
-#: ../src/eog-window.c:3185
+#: ../src/eog-window.c:3189
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../src/eog-window.c:3186
+#: ../src/eog-window.c:3190
 msgid "_View"
 msgstr "_Vis"
 
-#: ../src/eog-window.c:3187
+#: ../src/eog-window.c:3191
 msgid "_Image"
 msgstr "_Bilde"
 
-#: ../src/eog-window.c:3188
+#: ../src/eog-window.c:3192
 msgid "_Go"
 msgstr "_Gå til"
 
-#: ../src/eog-window.c:3189
+#: ../src/eog-window.c:3193
 msgid "_Tools"
 msgstr "Verk_tøy"
 
-#: ../src/eog-window.c:3190
+#: ../src/eog-window.c:3194
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3196
 msgid "_Open..."
 msgstr "_Åpne..."
 
-#: ../src/eog-window.c:3193
+#: ../src/eog-window.c:3197
 msgid "Open a file"
 msgstr "Åpne en fil"
 
-#: ../src/eog-window.c:3195
+#: ../src/eog-window.c:3199
 msgid "_Close"
 msgstr "L_ukk"
 
-#: ../src/eog-window.c:3196
+#: ../src/eog-window.c:3200
 msgid "Close window"
 msgstr "Lukk vindu"
 
-#: ../src/eog-window.c:3198
+#: ../src/eog-window.c:3202
 msgid "T_oolbar"
 msgstr "V_erktøylinje"
 
-#: ../src/eog-window.c:3199
+#: ../src/eog-window.c:3203
 msgid "Edit the application toolbar"
 msgstr "Rediger programmets verktøylinje"
 
-#: ../src/eog-window.c:3201
+#: ../src/eog-window.c:3205
 msgid "Prefere_nces"
 msgstr "_Brukervalg"
 
-#: ../src/eog-window.c:3202
+#: ../src/eog-window.c:3206
 msgid "Preferences for Eye of GNOME"
 msgstr "Brukervalg for Eye of GNOME"
 
-#: ../src/eog-window.c:3204
+#: ../src/eog-window.c:3208
 msgid "_Contents"
 msgstr "_Innhold"
 
-#: ../src/eog-window.c:3205
+#: ../src/eog-window.c:3209
 msgid "Help on this application"
 msgstr "Hjelp om dette programmet"
 
-#: ../src/eog-window.c:3207 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3211 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "_Om"
 
-#: ../src/eog-window.c:3208
+#: ../src/eog-window.c:3212
 msgid "About this application"
 msgstr "Om dette programmet"
 
-#: ../src/eog-window.c:3213
+#: ../src/eog-window.c:3217
 msgid "_Toolbar"
 msgstr "Verk_tøylinje"
 
-#: ../src/eog-window.c:3214
+#: ../src/eog-window.c:3218
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Endrer synlighet for verktøylinjen i aktivt vindu"
 
-#: ../src/eog-window.c:3216
+#: ../src/eog-window.c:3220
 msgid "_Statusbar"
 msgstr "_Statuslinje"
 
-#: ../src/eog-window.c:3217
+#: ../src/eog-window.c:3221
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Endrer synlighet for statuslinjen i aktivt vindu"
 
-#: ../src/eog-window.c:3219
+#: ../src/eog-window.c:3223
 msgid "_Image Collection"
 msgstr "B_ildesamling"
 
-#: ../src/eog-window.c:3220
+#: ../src/eog-window.c:3224
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "Endre synlighet for området for bildesamling i aktivt vindu"
 
-#: ../src/eog-window.c:3222
+#: ../src/eog-window.c:3226
 msgid "Side _Pane"
 msgstr "Side_linje"
 
-#: ../src/eog-window.c:3223
+#: ../src/eog-window.c:3227
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Endrer synlighet for sidelinjen i aktivt vindu"
 
-#: ../src/eog-window.c:3228
+#: ../src/eog-window.c:3232
 msgid "_Save"
 msgstr "_Lagre"
 
-#: ../src/eog-window.c:3231
+#: ../src/eog-window.c:3235
 msgid "Open _with"
 msgstr "Åpne _med"
 
-#: ../src/eog-window.c:3234
+#: ../src/eog-window.c:3238
 msgid "Save _As..."
 msgstr "L_agre som..."
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3241
 msgid "Page Set_up..."
 msgstr "Side_oppsett..."
 
-#: ../src/eog-window.c:3240
+#: ../src/eog-window.c:3244
 msgid "Print..."
 msgstr "Skriv ut..."
 
-#: ../src/eog-window.c:3243
+#: ../src/eog-window.c:3247
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/eog-window.c:3246
+#: ../src/eog-window.c:3250
 msgid "_Undo"
 msgstr "_Angre"
 
-#: ../src/eog-window.c:3249
+#: ../src/eog-window.c:3253
 msgid "Flip _Horizontal"
 msgstr "Vend _horisontalt"
 
-#: ../src/eog-window.c:3252
+#: ../src/eog-window.c:3256
 msgid "Flip _Vertical"
 msgstr "Vend _vertikalt"
 
-#: ../src/eog-window.c:3255
+#: ../src/eog-window.c:3259
 msgid "_Rotate Clockwise"
 msgstr "_Roter med klokken"
 
-#: ../src/eog-window.c:3258
+#: ../src/eog-window.c:3262
 msgid "Rotate Counterc_lockwise"
 msgstr "Roter mot k_lokken"
 
-#: ../src/eog-window.c:3261
+#: ../src/eog-window.c:3265
 msgid "Set As _Wallpaper"
 msgstr "Sett som _bakgrunn"
 
-#: ../src/eog-window.c:3267 ../src/eog-window.c:3279 ../src/eog-window.c:3282
+#: ../src/eog-window.c:3271 ../src/eog-window.c:3283 ../src/eog-window.c:3286
 msgid "_Zoom In"
 msgstr "_Zoom inn"
 
-#: ../src/eog-window.c:3270 ../src/eog-window.c:3285
+#: ../src/eog-window.c:3274 ../src/eog-window.c:3289
 msgid "Zoom _Out"
 msgstr "Zoom _ut"
 
-#: ../src/eog-window.c:3273
+#: ../src/eog-window.c:3277
 msgid "_Normal Size"
 msgstr "_Normal størrelse"
 
-#: ../src/eog-window.c:3276
+#: ../src/eog-window.c:3280
 msgid "Best _Fit"
 msgstr "_Tilpasset"
 
-#: ../src/eog-window.c:3288
+#: ../src/eog-window.c:3292
 msgid "Move to _Trash"
 msgstr "Flytt til _papirkurv"
 
-#: ../src/eog-window.c:3294
+#: ../src/eog-window.c:3298
 msgid "_Full Screen"
 msgstr "_Full skjerm"
 
-#: ../src/eog-window.c:3300 ../src/eog-window.c:3312
+#: ../src/eog-window.c:3304 ../src/eog-window.c:3316
 msgid "_Previous Image"
 msgstr "F_orrige bilde"
 
-#: ../src/eog-window.c:3303
+#: ../src/eog-window.c:3307
 msgid "_Next Image"
 msgstr "_Neste bilde"
 
-#: ../src/eog-window.c:3306 ../src/eog-window.c:3315
+#: ../src/eog-window.c:3310 ../src/eog-window.c:3319
 msgid "_First Image"
 msgstr "_Første bilde"
 
-#: ../src/eog-window.c:3309 ../src/eog-window.c:3318
+#: ../src/eog-window.c:3313 ../src/eog-window.c:3322
 msgid "_Last Image"
 msgstr "_Siste bilde"
 
-#: ../src/eog-window.c:3324
+#: ../src/eog-window.c:3328
 msgid "_Slideshow"
 msgstr "Ly_sbildevisning"
 
-#: ../src/eog-window.c:3391
+#: ../src/eog-window.c:3395
 msgid "Previous"
 msgstr "Forrige"
 
-#: ../src/eog-window.c:3395
+#: ../src/eog-window.c:3399
 msgid "Next"
 msgstr "Neste"
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3403
 msgid "Right"
 msgstr "Høyre"
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3406
 msgid "Left"
 msgstr "Venstre"
 
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3409
 msgid "In"
 msgstr "Inn"
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3412
 msgid "Out"
 msgstr "Ut"
 
-#: ../src/eog-window.c:3411
+#: ../src/eog-window.c:3415
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/eog-window.c:3414
+#: ../src/eog-window.c:3418
 msgid "Fit"
 msgstr "Tilpass"
 
-#: ../src/eog-window.c:3417
+#: ../src/eog-window.c:3421
 msgid "Collection"
 msgstr "Samling"
 
