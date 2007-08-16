@@ -105,6 +105,13 @@
   (gtype-id "EOG_TYPE_SCROLL_VIEW")
 )
 
+(define-object Sidebar
+  (in-module "Eog")
+  (parent "GtkVBox")
+  (c-name "EogSidebar")
+  (gtype-id "EOG_TYPE_SIDEBAR")
+)
+
 (define-object Statusbar
   (in-module "Eog")
   (parent "GtkStatusbar")
@@ -1009,6 +1016,61 @@
 
 
 
+;; From eog-sidebar.h
+
+(define-function eog_sidebar_get_type
+  (c-name "eog_sidebar_get_type")
+  (return-type "GType")
+)
+
+(define-function eog_sidebar_new
+  (c-name "eog_sidebar_new")
+  (is-constructor-of "EogSidebar")
+  (return-type "GtkWidget*")
+)
+
+(define-method add_page
+  (of-object "EogSidebar")
+  (c-name "eog_sidebar_add_page")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+    '("GtkWidget*" "main_widget")
+  )
+)
+
+(define-method remove_page
+  (of-object "EogSidebar")
+  (c-name "eog_sidebar_remove_page")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "main_widget")
+  )
+)
+
+(define-method set_page
+  (of-object "EogSidebar")
+  (c-name "eog_sidebar_set_page")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "main_widget")
+  )
+)
+
+(define-method get_n_pages
+  (of-object "EogSidebar")
+  (c-name "eog_sidebar_get_n_pages")
+  (return-type "gint")
+)
+
+(define-method is_empty
+  (of-object "EogSidebar")
+  (c-name "eog_sidebar_is_empty")
+  (return-type "gboolean")
+)
+
+
+
 ;; From eog-statusbar.h
 
 (define-function eog_statusbar_get_type
@@ -1198,6 +1260,12 @@
   (of-object "EogWindow")
   (c-name "eog_window_get_store")
   (return-type "EogListStore*")
+)
+
+(define-method get_sidebar
+  (of-object "EogWindow")
+  (c-name "eog_window_get_sidebar")
+  (return-type "GtkWidget*")
 )
 
 (define-method get_thumb_view
