@@ -38,7 +38,6 @@ G_DEFINE_TYPE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
 struct _EogStatusbarPrivate 
 {
 	GtkWidget *progressbar;
-	GtkWidget *img_info_statusbar;
 	GtkWidget *img_num_statusbar;
 };
 
