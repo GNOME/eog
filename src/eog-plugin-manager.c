@@ -821,10 +821,8 @@ static void
 eog_plugin_manager_init (EogPluginManager *pm)
 {
 	GtkWidget *label;
-	GtkWidget *alignment;
 	GtkWidget *viewport;
 	GtkWidget *hbuttonbox;
-	gchar *markup;
 
 	eog_debug (DEBUG_PLUGINS);
 
@@ -832,22 +830,13 @@ eog_plugin_manager_init (EogPluginManager *pm)
 
 	gtk_box_set_spacing (GTK_BOX (pm), 6);
 
-	label = gtk_label_new (NULL);
-	markup = g_markup_printf_escaped ("<span weight=\"bold\">%s</span>",
-					  _("Active Plugins"));
-	gtk_label_set_markup (GTK_LABEL (label), markup);
-
-	g_free (markup);
+	label = gtk_label_new_with_mnemonic (_("Active _Plugins:"));
 
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 	
 	gtk_box_pack_start (GTK_BOX (pm), label, FALSE, TRUE, 0);
-	
-	alignment = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 0, 0, 12, 0);
-	gtk_box_pack_start (GTK_BOX (pm), alignment, TRUE, TRUE, 0);
 	
 	viewport = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (viewport),
@@ -856,10 +845,12 @@ eog_plugin_manager_init (EogPluginManager *pm)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (viewport), 
 					     GTK_SHADOW_IN);
 
-	gtk_container_add (GTK_CONTAINER (alignment), viewport);
+	gtk_box_pack_start (GTK_BOX (pm), viewport, TRUE, TRUE, 0);
 
 	pm->priv->tree = gtk_tree_view_new ();
 	gtk_container_add (GTK_CONTAINER (viewport), pm->priv->tree);
+
+	gtk_label_set_mnemonic_widget (GTK_LABEL (label), pm->priv->tree);
 
 	hbuttonbox = gtk_hbutton_box_new ();
 
