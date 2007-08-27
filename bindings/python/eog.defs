@@ -1292,12 +1292,6 @@
   (return-type "EogImage*")
 )
 
-(define-method get_uri
-  (of-object "EogWindow")
-  (c-name "eog_window_get_uri")
-  (return-type "const-char*")
-)
-
 (define-method open_uri_list
   (of-object "EogWindow")
   (c-name "eog_window_open_uri_list")

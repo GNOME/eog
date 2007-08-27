@@ -1,5 +1,13 @@
 2007-08-27  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-application.c (eog_application_get_uri_window,
+	eog_application_real_open_uri_list): reuse window for the same image 
+	when opening application. Fixes bug #311308.
+	* src/eog-window.c (eog_window_get_uri), bindings/python/eog.defs: 
+	removed useless method.
+
+2007-08-27  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-plugin-manager.c (eog_plugin_manager_init): make plugin list
 	HIG compliant. Fixes bug #467835 (Martin Ejdestig).
 

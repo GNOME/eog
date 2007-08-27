@@ -198,9 +198,8 @@ eog_application_open_window (EogApplication  *application,
 	return TRUE;
 }
 
-#if 0
 static EogWindow *
-eog_application_get_uri_window (EogApplication *application, const char *uri)
+eog_application_get_uri_window (EogApplication *application, GnomeVFSURI *uri)
 {
 	EogWindow *uri_window = NULL;
 	GList *windows;
@@ -214,10 +213,11 @@ eog_application_get_uri_window (EogApplication *application, const char *uri)
 	for (l = windows; l != NULL; l = l->next) {
 		if (EOG_IS_WINDOW (l->data)) {
 			EogWindow *window = EOG_WINDOW (l->data);
-			const char *window_uri = eog_window_get_uri (window);
+			EogImage *image = eog_window_get_image (window);
+			GnomeVFSURI *window_uri = eog_image_get_uri (image);
 
-			if (window_uri && strcmp (window_uri, uri) == 0 && 
-			    !eog_window_is_empty (window)) {
+			if (!eog_window_is_empty (window) && 
+			    gnome_vfs_uri_equal (window_uri, uri)) {
 				uri_window = window;
 				break;
 			}
@@ -228,7 +228,6 @@ eog_application_get_uri_window (EogApplication *application, const char *uri)
 	
 	return uri_window;
 }
-#endif
 
 static void
 eog_application_show_window (EogWindow *window, gpointer user_data)
@@ -250,7 +249,8 @@ eog_application_real_open_uri_list (EogApplication  *application,
 {
 	EogWindow *new_window = NULL;
 
-	//new_window = eog_application_get_uri_window (application, (const char *) uri_list->data);
+	new_window = eog_application_get_uri_window (application, 
+						     (GnomeVFSURI *) uri_list->data);
 
 	if (new_window != NULL) {
 		gtk_window_present_with_time (GTK_WINDOW (new_window),

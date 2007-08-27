@@ -102,8 +102,6 @@ GtkWidget    *eog_window_get_statusbar  (EogWindow       *window);
 
 EogImage     *eog_window_get_image      (EogWindow       *window);
 
-const char   *eog_window_get_uri	(EogWindow       *window);
-
 void          eog_window_open_uri_list	(EogWindow       *window, 
 					 GSList          *uri_list);
 

@@ -4501,12 +4501,6 @@ eog_window_new (EogStartupFlags flags)
 	return GTK_WIDGET (window);
 }
 
-const char*  
-eog_window_get_uri (EogWindow *window)
-{
-	return NULL;
-}
-
 static void
 eog_window_list_store_image_added (GtkTreeModel *tree_model,
                                    GtkTreePath  *path,
