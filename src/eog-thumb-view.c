@@ -469,6 +469,7 @@ eog_thumb_view_init (EogThumbView *tb)
 	g_object_set (tb->priv->pixbuf_cell, 
 	              "follow-state", FALSE, 
 	              "height", 100, 
+	              "width", 115, 
 	              "yalign", 0.5, 
 	              "xalign", 0.5, 
 	              NULL);
