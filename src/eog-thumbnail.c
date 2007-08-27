@@ -479,6 +479,6 @@ eog_thumbnail_init (void)
 	}
 
 	if (frame == NULL) {
-		frame = gdk_pixbuf_new_from_file (EOG_PIXMAPS_DIR "/thumbnail-frame.png", NULL);
+		frame = gdk_pixbuf_new_from_file (EOG_DATA_DIR "/pixmaps/thumbnail-frame.png", NULL);
 	}
 }

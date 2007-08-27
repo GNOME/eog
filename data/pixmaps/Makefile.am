@@ -1,4 +1,4 @@
-pixmapsdir = $(datadir)/pixmaps/eog
+pixmapsdir = $(pkgdatadir)/pixmaps
 
 pixmaps_DATA = \
 	thumbnail-frame.png

@@ -1,8 +1,17 @@
+2007-08-27  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-thumbnail.c (eog_thumbnail_init): use thumbnail-frame.png 
+	from the new location.
+	* configure.ac, data/icons/Makefile.am, data/icons/48x48/*: removed
+	48x48 icons as the "scalable" ones are enough. Fixes bug #470416.
+	* data/pixmaps/Makefile.am: install pixmaps on $(pkgdatadir)/pixmaps
+	instead of $(datadir)/pixmaps/eog/. 
+
 2007-08-27  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (update_action_groups_state): Only use
 	gtk_widget_hide instead of _hide_all to allow loading images into an
-	empty window. Fixes bug 470297.
+	empty window. Fixes bug #470297.
 
 2007-08-26  Lucas Rocha  <lucasr@gnome.org>
 
