@@ -1,3 +1,9 @@
+2007-08-27  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (update_action_groups_state): Only use
+	gtk_widget_hide instead of _hide_all to allow loading images into an
+	empty window. Fixes bug 470297.
+
 2007-08-26  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-thumb-view.c (eog_thumb_view_init): do not colorize

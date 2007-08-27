@@ -725,7 +725,7 @@ update_action_groups_state (EogWindow *window)
 	}
 
 	if (n_images == 0) {
-		gtk_widget_hide_all (priv->layout);
+		gtk_widget_hide (priv->layout);
 
 		gtk_action_group_set_sensitive (priv->actions_window,      TRUE);
 		gtk_action_group_set_sensitive (priv->actions_image,       FALSE);
@@ -759,7 +759,6 @@ update_action_groups_state (EogWindow *window)
 					priv->mode != EOG_WINDOW_MODE_SLIDESHOW;
 
 		gtk_widget_show (priv->layout);
-		gtk_widget_show_all (priv->view->parent);
 
 		if (show_image_collection) 
 			gtk_widget_show (priv->nav);
