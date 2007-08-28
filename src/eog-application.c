@@ -249,7 +249,8 @@ eog_application_real_open_uri_list (EogApplication  *application,
 {
 	EogWindow *new_window = NULL;
 
-	new_window = eog_application_get_uri_window (application, 
+	if (uri_list != NULL)
+		new_window = eog_application_get_uri_window (application, 
 						     (GnomeVFSURI *) uri_list->data);
 
 	if (new_window != NULL) {
