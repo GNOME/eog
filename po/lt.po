@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-27 19:32+0300\n"
+"POT-Creation-Date: 2007-08-29 21:25+0300\n"
 "PO-Revision-Date: 2007-08-27 19:36+0300\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
@@ -260,7 +260,7 @@ msgstr "Išsaugoti kaip"
 
 #: ../data/eog.glade.h:48
 msgid "Slideshow"
-msgstr "Skaidrių veiksena"
+msgstr "Skaidrių demonstravimas"
 
 #: ../data/eog.glade.h:49
 msgid "Smooth images when _zoomed"
@@ -507,9 +507,9 @@ msgstr "%s (*.%s)"
 #: ../src/eog-window.c:615
 msgid "pixel"
 msgid_plural "pixels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "taškas"
+msgstr[1] "taškai"
+msgstr[2] "taškų"
 
 #: ../src/eog-file-chooser.c:423
 msgid "Load Image"
@@ -517,44 +517,37 @@ msgstr "Įkelti paveikslėlį"
 
 #: ../src/eog-file-chooser.c:431
 msgid "Save Image"
-msgstr "Išsaugoti paveikslėlį"
+msgstr "Įrašyti paveikslėlį"
 
 #: ../src/eog-file-chooser.c:439
 msgid "Open Folder"
 msgstr "Atverti aplanką"
 
 #: ../src/eog-image.c:466
-#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Neįkelto paveikslėlio transformacija."
 
 #: ../src/eog-image.c:485
-#, c-format
 msgid "Transformation failed."
 msgstr "Transformuoti nepavyko."
 
 #: ../src/eog-image.c:965
-#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "Šiam failo formatui EXIF nepalaikomas."
 
 #: ../src/eog-image.c:1069
-#, c-format
 msgid "Image loading failed."
 msgstr "Nepavyko įkelti paveikslėlio."
 
 #: ../src/eog-image.c:1340 ../src/eog-image.c:1548
-#, c-format
 msgid "File exists"
 msgstr "Failas egzistuoja"
 
 #: ../src/eog-image.c:1487 ../src/eog-image.c:1616
-#, c-format
 msgid "No image loaded."
 msgstr "Neįkeltas joks paveikslėlis."
 
 #: ../src/eog-image.c:1496 ../src/eog-image.c:1628
-#, c-format
 msgid "Temporary file creation failed."
 msgstr "Laikino failo sukūrimas nepavyko."
 
@@ -564,7 +557,6 @@ msgid "Couldn't create temporary file for saving: %s"
 msgstr "Nepavyko sukurti laikino failo saugojimui: %s"
 
 #: ../src/eog-image-jpeg.c:361
-#, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nepavyko išskirti atminties JPEG failo įkėlimui"
 
@@ -728,7 +720,6 @@ msgid "Taken on"
 msgstr "Fotografuota"
 
 #: ../src/eog-uri-converter.c:1025
-#, c-format
 msgid "At least two file names are equal."
 msgstr "Mažiausiai du failų pavadinimai yra vienodi."
 
@@ -857,7 +848,6 @@ msgid "Move to Trash"
 msgstr "Perkelti į šiukšlinę"
 
 #: ../src/eog-window.c:2896
-#, c-format
 msgid "Couldn't access trash."
 msgstr "Nepavyko prieiti prie šiukšlinės."
 
@@ -977,7 +967,7 @@ msgstr "Keičia esamo lango šoninio polangio matomumą"
 
 #: ../src/eog-window.c:3231
 msgid "_Save"
-msgstr "Iš_saugoti"
+msgstr "Į_rašyti"
 
 #: ../src/eog-window.c:3234
 msgid "Open _with"
@@ -985,7 +975,7 @@ msgstr "Atverti _su"
 
 #: ../src/eog-window.c:3237
 msgid "Save _As..."
-msgstr "Išsaugoti _kaip..."
+msgstr "Įrašyti _kaip..."
 
 #: ../src/eog-window.c:3240
 msgid "Page Set_up..."
@@ -1065,7 +1055,7 @@ msgstr "Pas_kutinis paveikslėlis"
 
 #: ../src/eog-window.c:3327
 msgid "_Slideshow"
-msgstr "_Skaidrių šou"
+msgstr "_Skaidrių demonstravimas"
 
 #: ../src/eog-window.c:3394
 msgid "Previous"
@@ -1127,15 +1117,15 @@ msgstr "Į_jungti visus"
 msgid "_Deactivate All"
 msgstr "I_šjungti visus"
 
-#: ../src/eog-plugin-manager.c:837
-msgid "Active Plugins"
-msgstr "Įjungti įskiepiai"
+#: ../src/eog-plugin-manager.c:833
+msgid "Active _Plugins:"
+msgstr "Aktyvūs įskiepiai"
 
-#: ../src/eog-plugin-manager.c:871
+#: ../src/eog-plugin-manager.c:862
 msgid "_About Plugin"
 msgstr "_Apie įskiepį"
 
-#: ../src/eog-plugin-manager.c:878
+#: ../src/eog-plugin-manager.c:869
 msgid "C_onfigure Plugin"
 msgstr "K_onfigūruoti įskiepį"
 
@@ -1149,7 +1139,7 @@ msgstr "Išjungti paveikslėlių kolekciją"
 
 #: ../src/main.c:66
 msgid "Open in slide show mode"
-msgstr "Atverti skaidrių šou veiksenoje"
+msgstr "Atverti skaidrių demonstravimo veiksenoje"
 
 #: ../src/main.c:67
 msgid "[FILE...]"
@@ -1157,7 +1147,7 @@ msgstr "[FAILAS...]"
 
 #: ../src/main.c:215
 msgid "Eye of GNOME Image Viewer"
-msgstr "Paveikslėlių peržiūros programa Eye of GNOME"
+msgstr "Paveikslėlių peržiūros programa „Eye of GNOME“"
 
 #~ msgid "The GNOME image viewing and cataloging program."
 #~ msgstr "GNOME paveikslėlių žiūrėjimo ir katalogavimo programa."
