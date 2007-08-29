@@ -109,6 +109,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 		       EogImage            *image)
 {
 	gchar *bytes_str, *dir_str, *mime_str, *uri_str;
+	gchar *width_str, *height_str;
 	const gchar *type_str; 
 	gint width, height, bytes;
 
@@ -123,15 +124,18 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	eog_image_get_size (image, &width, &height);
 
-	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->width_label), 
-			    g_strdup_printf ("%d %s", width,
-			    		     ngettext ("pixel", "pixels", width)
-					     ));
+	width_str = g_strdup_printf ("%d %s", width,
+				     ngettext ("pixel", "pixels", width));
+	height_str = g_strdup_printf ("%d %s", height,
+				      ngettext ("pixel", "pixels", height));
+
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->width_label), width_str);
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label), 
-			    g_strdup_printf ("%d %s", height,
-			    		     ngettext ("pixel", "pixels", height)
-					     ));
+			    height_str);
+
+	g_free (height_str);
+	g_free (width_str);
 
 	mime_str = gnome_vfs_get_mime_type (uri_str);
 	type_str = gnome_vfs_mime_get_description (mime_str);
