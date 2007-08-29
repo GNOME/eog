@@ -269,7 +269,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	gtk_label_set_text (GTK_LABEL (priv->exif_date_label),
 			    eog_exif_util_format_date (exif_value));
 
-	eog_exif_details_update (EOG_EXIF_DETAILS (prop_dlg->priv->exif_details), 
+	eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details), 
 				 exif_data);
 
 	exif_data_unref(exif_data);
@@ -282,29 +282,29 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		eog_xmp_set_label (xmp_data, 
 				   NS_IPTC4XMP, 
 				   "Location", 
-				   prop_dlg->priv->xmp_location_label);
+				   priv->xmp_location_label);
 
 		eog_xmp_set_label (xmp_data, 
 				   NS_DC, 
 				   "description", 
-				   prop_dlg->priv->xmp_description_label);
+				   priv->xmp_description_label);
 
 		eog_xmp_set_label (xmp_data, 
 				   NS_DC, 
 				   "subject", 
-				   prop_dlg->priv->xmp_keywords_label);
+				   priv->xmp_keywords_label);
 
 		eog_xmp_set_label (xmp_data, 
 				   NS_DC, 
         	                   "creator", 
-				   prop_dlg->priv->xmp_creator_label);
+				   priv->xmp_creator_label);
 
 		eog_xmp_set_label (xmp_data, 
 				   NS_DC, 
 				   "rights", 
-				   prop_dlg->priv->xmp_rights_label);
+				   priv->xmp_rights_label);
 
-		eog_exif_details_xmp_update (EOG_EXIF_DETAILS (prop_dlg->priv->exif_details), xmp_data);
+		eog_exif_details_xmp_update (EOG_EXIF_DETAILS (priv->exif_details), xmp_data);
 
 		xmp_free (xmp_data);
 	}
