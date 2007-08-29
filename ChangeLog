@@ -1,5 +1,12 @@
 2007-08-29  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-properties-dialog.c: (pd_update_general_tab):
+	Make the unit (px) in the width/height fields translatable and
+	distinguish between singular/plural form. This is unaffected by the
+	string freeze as it uses an existing translation.
+
+2007-08-29  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-properties-dialog.c: (pd_update_metadata_tab):
 	Use present private data pointer instead of permanently derefencing it
 	from the main object.

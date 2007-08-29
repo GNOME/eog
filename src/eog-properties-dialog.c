@@ -124,10 +124,14 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 	eog_image_get_size (image, &width, &height);
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->width_label), 
-			    g_strdup_printf ("%d pixels", width));
+			    g_strdup_printf ("%d %s", width,
+			    		     ngettext ("pixel", "pixels", width)
+					     ));
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label), 
-			    g_strdup_printf ("%d pixels", height));
+			    g_strdup_printf ("%d %s", height,
+			    		     ngettext ("pixel", "pixels", height)
+					     ));
 
 	mime_str = gnome_vfs_get_mime_type (uri_str);
 	type_str = gnome_vfs_mime_get_description (mime_str);
