@@ -3784,7 +3784,7 @@ eog_window_construct_ui (EogWindow *window)
 	hpaned = gtk_hpaned_new ();
 
 	priv->sidebar = eog_sidebar_new ();
-	gtk_widget_set_size_request (priv->sidebar, 50, -1);
+	gtk_widget_set_size_request (priv->sidebar, 210, -1);
 
 	g_signal_connect_after (priv->sidebar,
 				"show",
@@ -3821,7 +3821,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_paned_pack1 (GTK_PANED (hpaned),
 			 priv->sidebar,
-			 TRUE,
+			 FALSE,
 			 FALSE);
 
 	gtk_paned_pack2 (GTK_PANED (hpaned),
