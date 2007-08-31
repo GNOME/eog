@@ -122,6 +122,8 @@ eog_exif_util_get_value (ExifData *exif_data, gint tag_id)
 
         exif_entry = exif_data_get_entry (exif_data, tag_id);
 
+	buffer[0] = 0;
+
 	exif_value = exif_entry_get_value (exif_entry, buffer, sizeof (buffer));
 
 	return exif_value;
