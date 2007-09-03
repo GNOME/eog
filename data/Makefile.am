@@ -40,6 +40,7 @@ if GCONF_SCHEMAS_INSTALL
 endif
 
 EXTRA_DIST =			\
+        $(gtkrc_DATA)		\
         $(glade_DATA)		\
         $(DESKTOP_IN_FILES)	\
         $(schemas_in_files)	\
