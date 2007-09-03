@@ -58,10 +58,10 @@ eog_statusbar_init (EogStatusbar *statusbar)
 	statusbar->priv = EOG_STATUSBAR_GET_PRIVATE (statusbar);
 	priv = statusbar->priv;
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), TRUE);
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), FALSE);
 
 	priv->img_num_statusbar = gtk_statusbar_new ();
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (priv->img_num_statusbar), FALSE);
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (priv->img_num_statusbar), TRUE);
 	gtk_widget_set_size_request (priv->img_num_statusbar, 100, 10);
 	gtk_widget_show (priv->img_num_statusbar);
 
@@ -135,4 +135,13 @@ eog_statusbar_set_progress (EogStatusbar *statusbar,
 		gtk_widget_hide (statusbar->priv->progressbar);
 		gtk_widget_show (statusbar->priv->img_num_statusbar);
 	}
+}
+
+void
+eog_statusbar_set_has_resize_grip (EogStatusbar *statusbar, gboolean has_resize_grip)
+{
+	g_return_if_fail (EOG_IS_STATUSBAR (statusbar));
+
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 
+					   has_resize_grip);
 }

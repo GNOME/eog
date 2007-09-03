@@ -1,5 +1,13 @@
 2007-09-03  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-statusbar.[ch] (eog_statusbar_init),
+	(eog_statusbar_set_has_resize_grip): correctly set resize grip on
+	internal statusbar to avoid broken look.
+	* src/eog-window.c (eog_window_window_state_event): use new API for
+	setting resize grip on EogStatusbar.
+
+2007-09-03  Lucas Rocha  <lucasr@gnome.org>
+
 	* data/Makefile.am, data/gtkrc: new style definition for image
 	collection horizontal scrollbars.
 	* data/eog.schemas.in: continuous scrolling buttons by default.
