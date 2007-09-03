@@ -1,3 +1,9 @@
+2007-09-03  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-list-store.c: (eog_list_store_add_uris): Fix leak.
+	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Unref the exif data
+	after using it to avoid a leak.
+
 2007-08-31  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-exif-util.c: (eog_exif_util_get_value): Set the first byte

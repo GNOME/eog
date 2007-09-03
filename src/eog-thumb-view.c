@@ -440,6 +440,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 		g_free (tooltip_string);
 
 		tooltip_string = tmp;
+		exif_data_unref (exif_data);
 	}
 #endif
 

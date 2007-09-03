@@ -529,14 +529,17 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 				continue;
 
 			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+				gchar *uri_str;
+
 				eog_list_store_append_directory (store, uri, info);
 
-				if (!is_file_in_list_store (store, 
-							    gnome_vfs_uri_to_string (initial_uri, 
-										     GNOME_VFS_URI_HIDE_NONE), 
+				uri_str = gnome_vfs_uri_to_string (initial_uri, 
+						       GNOME_VFS_URI_HIDE_NONE);
+				if (!is_file_in_list_store (store, uri_str, 
 							    &iter)) {
 					eog_list_store_append_image_from_uri (store, initial_uri);
 				}
+				g_free (uri_str);
 			} else {
 				eog_list_store_append_image_from_uri (store, initial_uri);
 			}
