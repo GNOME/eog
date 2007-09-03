@@ -174,7 +174,7 @@ eog_CFLAGS = 							\
 	$(EOG_CFLAGS)						\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
-	-DEOG_DATADIR=\""$(pkgdatadir)"\"			\
+	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"
 
 eog_LDADD = 				\

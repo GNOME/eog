@@ -1,3 +1,17 @@
+2007-09-03  Lucas Rocha  <lucasr@gnome.org>
+
+	* data/Makefile.am, data/gtkrc: new style definition for image
+	collection horizontal scrollbars.
+	* data/eog.schemas.in: continuous scrolling buttons by default.
+	* src/eog-thumb-nav.c (eog_thumb_nav_adj_changed,
+	eog_thumb_nav_adj_value_changed, eog_thumb_nav_scroll_step,
+	eog_thumb_nav_button_clicked, eog_thumb_nav_start_scroll,
+	eog_thumb_nav_stop_scroll, eog_thumb_nav_init): new thumbnails 
+	navigator layout with themed scrollbar and continuous scrolling 
+	buttons. Fixes bug #458663.
+	* src/Makefile.am, src/main.c: renamed EOG_DATADIR to EOG_DATA_DIR
+	for consistency.
+
 2007-09-03  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-list-store.c: (eog_list_store_add_uris): Fix leak.

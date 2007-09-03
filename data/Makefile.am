@@ -27,6 +27,9 @@ ui_DATA = $(UI_FILES)
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = eog.pc
 
+gtkrcdir = $(pkgdatadir)
+gtkrc_DATA = gtkrc
+
 install-data-local:
 if GCONF_SCHEMAS_INSTALL
 	if test -z "$(DESTDIR)" ; then \

@@ -175,6 +175,8 @@ main (int argc, char **argv)
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
 	textdomain (PACKAGE);
 
+	gtk_rc_parse (EOG_DATA_DIR G_DIR_SEPARATOR_S "gtkrc");
+
 	ctx = g_option_context_new (NULL);
 	g_option_context_add_main_entries (ctx, goption_options, PACKAGE);
 
@@ -182,7 +184,7 @@ main (int argc, char **argv)
 				      LIBGNOMEUI_MODULE, argc, argv,
 				      GNOME_PARAM_GOPTION_CONTEXT, ctx,
 				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
-				      GNOME_PARAM_APP_DATADIR, EOG_DATADIR,
+				      GNOME_PARAM_APP_DATADIR, EOG_DATA_DIR,
 				      NULL);
 	
 	set_startup_flags ();
@@ -209,7 +211,7 @@ main (int argc, char **argv)
 
 	/* Add application specific icons to search path */
 	gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (),
-                                           EOG_DATADIR G_DIR_SEPARATOR_S "icons");
+                                           EOG_DATA_DIR G_DIR_SEPARATOR_S "icons");
 
 	gtk_window_set_default_icon_name ("eog");
 	g_set_application_name (_("Eye of GNOME Image Viewer"));
