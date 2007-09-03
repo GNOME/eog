@@ -1237,7 +1237,13 @@ eog_window_error_message_area_response (EogMessageArea   *message_area,
 {
 	if (response_id != GTK_RESPONSE_OK) {
 		eog_window_set_message_area (window, NULL);
+
+		return;
 	}
+
+	/* Trigger loading for current image again */	
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
+				      EOG_THUMB_VIEW_SELECT_CURRENT);
 }
 
 static void

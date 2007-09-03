@@ -699,6 +699,8 @@ eog_thumb_view_select_single (EogThumbView *tb,
 		gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
 		
 		switch (change) {
+		case EOG_THUMB_VIEW_SELECT_CURRENT:
+			break;
 		case EOG_THUMB_VIEW_SELECT_LEFT:
 			if (!gtk_tree_path_prev (path)) {
 				gtk_tree_path_free (path);

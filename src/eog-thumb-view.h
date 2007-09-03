@@ -39,7 +39,8 @@ typedef struct _EogThumbViewClass EogThumbViewClass;
 typedef struct _EogThumbViewPrivate EogThumbViewPrivate;
 
 typedef enum {
-	EOG_THUMB_VIEW_SELECT_LEFT = 0,
+	EOG_THUMB_VIEW_SELECT_CURRENT = 0,
+	EOG_THUMB_VIEW_SELECT_LEFT,
 	EOG_THUMB_VIEW_SELECT_RIGHT,
 	EOG_THUMB_VIEW_SELECT_FIRST,
 	EOG_THUMB_VIEW_SELECT_LAST
