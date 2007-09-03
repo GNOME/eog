@@ -1,5 +1,10 @@
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-window.c (eog_window_key_press): fix checks for masks in the
+	key press event that were avoiding properties dialog to be activated.
+
+2007-09-04  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-thumb-nav.c (eog_thumb_nav_scroll_event,
 	eog_thumb_nav_init): use the mouse wheel to scroll through the image
 	list only in case it's in one row mode. Fixes bug #427046.

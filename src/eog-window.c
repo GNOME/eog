@@ -4173,12 +4173,12 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Return:
 		if (tbcontainer->focus_child == NULL) {
 			/* Image properties dialog case */
-			if (event->state == GDK_MOD1_MASK) {
+			if (event->state & GDK_MOD1_MASK) {
 				result = FALSE;
 				break;
 			}
 
-			if (event->state == GDK_SHIFT_MASK) {
+			if (event->state & GDK_SHIFT_MASK) {
 				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
 			} else {
 				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
