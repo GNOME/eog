@@ -63,6 +63,43 @@ struct _EogThumbNavPrivate {
 	GtkWidget        *thumbview;
 };
 
+static gboolean
+eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
+{
+	EogThumbNav *nav = EOG_THUMB_NAV (user_data);
+	GtkAdjustment *adj;
+	gint inc = EOG_THUMB_NAV_SCROLL_INC * 3;
+
+	if (nav->priv->mode != EOG_THUMB_NAV_MODE_ONE_ROW)
+		return FALSE;
+
+	adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (nav->priv->sw));
+
+	switch (event->direction) {
+	case GDK_SCROLL_UP:
+	case GDK_SCROLL_LEFT:
+		inc *= -1;	
+		break;
+
+	case GDK_SCROLL_DOWN:
+	case GDK_SCROLL_RIGHT:
+		break;
+
+	default:
+		g_assert_not_reached ();
+		return FALSE;
+	}
+
+	if (inc < 0)
+		adj->value = MAX (0, adj->value + inc);
+	else
+		adj->value = MIN (adj->upper - adj->page_size, adj->value + inc);
+
+	gtk_adjustment_value_changed (adj);
+
+	return TRUE;
+}
+
 static void
 eog_thumb_nav_adj_changed (GtkAdjustment *adj, gpointer user_data)
 {
@@ -329,6 +366,11 @@ eog_thumb_nav_init (EogThumbNav *nav)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_NEVER);
+
+	g_signal_connect (priv->sw, 
+			  "scroll-event", 
+			  G_CALLBACK (eog_thumb_nav_scroll_event), 
+			  nav);
 
         adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->sw));
 
