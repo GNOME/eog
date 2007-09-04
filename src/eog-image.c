@@ -23,6 +23,8 @@
 #include "config.h"
 #endif
 
+#define GDK_PIXBUF_ENABLE_BACKEND
+
 #include "eog-image.h"
 #include "eog-image-private.h"
 #include "eog-debug.h"
@@ -46,6 +48,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gdk-pixbuf/gdk-pixbuf-io.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeui/gnome-thumbnail.h>
 
@@ -393,6 +396,31 @@ eog_image_real_transform (EogImage     *img,
 }
 
 static void
+eog_image_pre_size_prepared (GdkPixbufLoader *loader,
+			     gint width,
+			     gint height,
+			     gpointer data)
+{
+	EogImage *img;
+	GdkPixbufFormat *format;
+
+	eog_debug (DEBUG_IMAGE_LOAD);
+
+	g_return_if_fail (EOG_IS_IMAGE (data));
+
+	img = EOG_IMAGE (data);
+
+	format = gdk_pixbuf_loader_get_format (loader);
+
+	if (format) {
+		/* FIXME: We should not be accessing this struct internals
+ 		 * directly. Keep track of bug #469209 to fix that. */
+		img->priv->threadsafe_format =
+			(format->flags & GDK_PIXBUF_FORMAT_THREADSAFE);
+	}
+}
+
+static void
 eog_image_size_prepared (GdkPixbufLoader *loader, 
 			 gint             width, 
 			 gint             height, 
@@ -414,7 +442,9 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 	g_mutex_unlock (img->priv->status_mutex);
 
 #ifdef HAVE_EXIF
-	if (!img->priv->autorotate)
+	if (img->priv->threadsafe_format && !img->priv->autorotate)
+#else
+	if (img->priv->threadsafe_format)
 #endif
 		g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
 }
@@ -820,7 +850,6 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
  * Attempts to get the image dimensions from the thumbnail.
  * Returns FALSE if this information is not found.
  **/
-
 static gboolean
 eog_image_get_dimension_from_thumbnail (EogImage *image,
 			                gint     *width,
@@ -877,6 +906,8 @@ eog_image_real_load (EogImage *img,
 		priv->file_type = NULL;
 	}
 
+	priv->threadsafe_format = FALSE;
+
 	priv->bytes = eog_image_determine_file_bytes (img, error);
 
 	if (priv->bytes == 0) {
@@ -914,6 +945,14 @@ eog_image_real_load (EogImage *img,
 
 	if (read_image_data || read_only_dimension) {
 		loader = gdk_pixbuf_loader_new ();
+
+		/* This is used to detect non-threadsafe loaders and disable
+ 		 * any possible asyncronous task that could bring deadlocks
+ 		 * to image loading process. */
+		g_signal_connect (loader, 
+				  "size-prepared", 
+				  G_CALLBACK (eog_image_pre_size_prepared),
+				  img);
 
 		g_signal_connect_object (G_OBJECT (loader), 
 					 "size-prepared", 
@@ -966,11 +1005,12 @@ eog_image_real_load (EogImage *img,
 					break;
 				}
 
-				g_signal_emit (img, 
-					       signals[SIGNAL_SIZE_PREPARED], 
-					       0, 
-					       priv->width, 
-					       priv->height);
+				if (priv->threadsafe_format)
+					g_signal_emit (img, 
+						       signals[SIGNAL_SIZE_PREPARED], 
+						       0, 
+						       priv->width, 
+						       priv->height);
                         }
 
 			first_run = FALSE;
@@ -1049,6 +1089,15 @@ eog_image_real_load (EogImage *img,
 			if (format != NULL) {
 				priv->file_type = gdk_pixbuf_format_get_name (format);
 			}
+
+			/* If it's non-threadsafe loader, then trigger window 
+ 			 * showing in the end of the process. */
+			if (!priv->threadsafe_format)
+				g_signal_emit (img, 
+					       signals[SIGNAL_SIZE_PREPARED], 
+					       0, 
+					       priv->width, 
+					       priv->height);
 		}
 	}
 

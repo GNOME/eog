@@ -39,6 +39,7 @@ struct _EogImagePrivate {
 
 	GnomeVFSFileSize  bytes;
 	gchar            *file_type;
+	gboolean          threadsafe_format;
 
 	/* Holds EXIF raw data */
 	guchar           *exif_chunk; 

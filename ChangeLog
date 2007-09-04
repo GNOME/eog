@@ -1,5 +1,13 @@
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-image-private.h: added threadsafe_format private attribute.
+	* src/eog-image.c (+eog_image_pre_size_prepared,
+	eog_image_size_prepared, eog_image_real_load): detect non-threadsafe
+	loaders and disable any possible asyncronous task that could bring
+	deadlocks to image loading process. Fixes bug #449409 (Felix Riemann). 
+
+2007-09-04  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-jobs.c (eog_job_thumbnail_run): added safety checks in case
 	thumbnail loading fails.
 	* src/eog-list-store.c (eog_list_store_dispose,
