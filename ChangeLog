@@ -1,5 +1,14 @@
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-jobs.c (eog_job_thumbnail_run): added safety checks in case
+	thumbnail loading fails.
+	* src/eog-list-store.c (eog_list_store_dispose,
+	eog_list_store_get_icon, eog_list_store_init,
+	eog_job_thumbnail_cb): use "image-missing" icon in case thumbnail
+	loading fails.
+
+2007-09-04  Lucas Rocha  <lucasr@gnome.org>
+
 	* configure.in: post release version bump.
 
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
@@ -92,7 +101,7 @@
 	* src/eog-application.c: (eog_application_real_open_uri_list):
 	Fix segfault when starting without any images.
 
-2007-08-28  lucas rocha  <lucasr@gnome.org>
+2007-08-28  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.in: post release version bump.
 

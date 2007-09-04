@@ -802,7 +802,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
            orientation and emit size prepared signal */
 	if (priv->autorotate) {
 		eog_image_set_orientation (img);
-
+	
 		g_signal_emit (img, 
 			       signals[SIGNAL_SIZE_PREPARED], 
 			       0, 

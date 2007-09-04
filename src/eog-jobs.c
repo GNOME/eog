@@ -205,6 +205,11 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	job->thumbnail = eog_thumbnail_load (job->uri_entry,
 					     &EOG_JOB (job)->error);
 
+	if (!job->thumbnail) {
+		EOG_JOB (job)->finished = TRUE;
+		return;
+	}
+
 	orig_width = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Width"));
 	orig_height = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Height"));
 
@@ -225,7 +230,7 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	}
 	
 	if (EOG_JOB (job)->error) {
-		g_warning ("%s\n", EOG_JOB (job)->error->message);
+		g_warning ("%s", EOG_JOB (job)->error->message);
 	}
 
 	EOG_JOB (job)->finished = TRUE;

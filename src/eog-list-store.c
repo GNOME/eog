@@ -46,10 +46,11 @@ typedef struct {
 } MonitorHandleContext;
 
 struct _EogListStorePrivate {
-	GList *monitors;       /* Monitors for the directories */
-	gint initial_image;    /* The image that should be selected firstly by the view. */
-	GdkPixbuf *busy_image; /* Hourglass image */
-	GMutex *mutex;         /* Mutex for saving the jobs in the model */
+	GList *monitors;          /* Monitors for the directories */
+	gint initial_image;       /* The image that should be selected firstly by the view. */
+	GdkPixbuf *busy_image;    /* Loading image icon */
+	GdkPixbuf *missing_image; /* Missing image icon */
+	GMutex *mutex;            /* Mutex for saving the jobs in the model */
 };
 
 static void
@@ -90,6 +91,11 @@ eog_list_store_dispose (GObject *object)
 	if(store->priv->busy_image != NULL) {
 		g_object_unref (store->priv->busy_image);
 		store->priv->busy_image = NULL;
+	}
+
+	if(store->priv->missing_image != NULL) {
+		g_object_unref (store->priv->missing_image);
+		store->priv->missing_image = NULL;
 	}
 
 	g_mutex_free (store->priv->mutex);
@@ -140,21 +146,18 @@ eog_list_store_compare_func (GtkTreeModel *model,
 }
 
 static GdkPixbuf *
-eog_list_store_get_loading_icon (void)
+eog_list_store_get_icon (const gchar *icon_name)
 {
 	GError *error = NULL;
 	GtkIconTheme *icon_theme;
 	GdkPixbuf *pixbuf;
 	
-	icon_theme = gtk_icon_theme_get_default();
+	icon_theme = gtk_icon_theme_get_default ();
 
-	/* FIXME: The 16 added to EOG_LIST_STORE_THUMB_SIZE should be 
-	   calculated from the BLUR_RADIUS and RECTANGLE_OUTLINE macros 
-	   in eog-thumb-shadow.c */
 	pixbuf = gtk_icon_theme_load_icon (icon_theme,
-					   "image-loading", /* icon name */
-					   EOG_LIST_STORE_THUMB_SIZE + 16, /* size */
-					   0,  /* flags */
+					   icon_name, 
+					   EOG_LIST_STORE_THUMB_SIZE, 
+					   0,
 					   &error);
 
 	if (!pixbuf) {
@@ -183,7 +186,8 @@ eog_list_store_init (EogListStore *self)
 	self->priv->monitors = NULL;
 	self->priv->initial_image = -1;
 
-	self->priv->busy_image = eog_list_store_get_loading_icon ();
+	self->priv->busy_image = eog_list_store_get_icon ("image-loading");
+	self->priv->missing_image = eog_list_store_get_icon ("image-missing");
 
 	self->priv->mutex = g_mutex_new ();
 
@@ -267,15 +271,22 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
 
-		eog_image_set_thumbnail (image, job->thumbnail);
-		/* getting the thumbnail, in case it needed transformations */
-		thumbnail = eog_image_get_thumbnail (image);
+		if (job->thumbnail) {
+			eog_image_set_thumbnail (image, job->thumbnail);
+
+			/* Getting the thumbnail, in case it needed 
+ 			 * transformations */
+			thumbnail = eog_image_get_thumbnail (image);
+		} else {
+			thumbnail = g_object_ref (store->priv->missing_image);
+		}
 
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter, 
 				    EOG_LIST_STORE_THUMBNAIL, thumbnail,
 				    EOG_LIST_STORE_THUMB_SET, TRUE,
 				    EOG_LIST_STORE_EOG_JOB, NULL,
 				    -1);
+
 		g_object_unref (thumbnail);
 	}
 
