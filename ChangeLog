@@ -16,7 +16,8 @@
 	* src/eog-image.c (+eog_image_pre_size_prepared,
 	eog_image_size_prepared, eog_image_real_load): detect non-threadsafe
 	loaders and disable any possible asyncronous task that could bring
-	deadlocks to image loading process. Fixes bug #449409 (Felix Riemann). 
+	deadlocks to image loading process. 
+	Fixes bug #449409 and bug #447063 (Felix Riemann). 
 
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
