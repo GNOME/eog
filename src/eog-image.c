@@ -518,11 +518,13 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	return (transformed != NULL);
 }
 
-static GnomeVFSFileSize
-eog_image_determine_file_bytes (EogImage *img, GError **error)
+static void 
+eog_image_get_file_info (EogImage *img, 
+			 GnomeVFSFileSize *bytes,
+			 gchar **mime_type, 
+			 GError **error)
 {
 	GnomeVFSFileInfo *info;
-	GnomeVFSFileSize bytes;
 	GnomeVFSResult result;
 
 	info = gnome_vfs_file_info_new ();
@@ -530,26 +532,32 @@ eog_image_determine_file_bytes (EogImage *img, GError **error)
 	result = gnome_vfs_get_file_info_uri (img->priv->uri,
 					      info,
 					      GNOME_VFS_FILE_INFO_DEFAULT |
+					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
 					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
 	if ((result != GNOME_VFS_OK) || 
-	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) == 0) {
-		bytes = 0;
+	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) == 0 ||
+	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0) {
+		if (bytes)
+			*bytes = 0;
+
+		if (mime_type)
+			*mime_type = NULL;
 
 		g_set_error (error, 
 			     EOG_IMAGE_ERROR, 
 			     EOG_IMAGE_ERROR_VFS,
 			     gnome_vfs_result_to_string (result));
 	} else {
-		bytes = info->size;
+		if (bytes)
+			*bytes = info->size;
+
+		if (mime_type)
+			*mime_type = g_strdup (info->mime_type);
 	}
 
 	gnome_vfs_file_info_unref (info);
-
-	return bytes;
 }
-
-
 
 #ifdef HAVE_LCMS
 void
@@ -888,6 +896,7 @@ eog_image_real_load (EogImage *img,
 	GnomeVFSResult result;
 	EogMetadataReader *md_reader = NULL;
 	GdkPixbufFormat *format;
+	gchar *mime_type;
 	GdkPixbufLoader *loader = NULL;
 	guchar *buffer;
 	gboolean failed = FALSE;
@@ -908,9 +917,10 @@ eog_image_real_load (EogImage *img,
 
 	priv->threadsafe_format = FALSE;
 
-	priv->bytes = eog_image_determine_file_bytes (img, error);
+	eog_image_get_file_info (img, &priv->bytes, &mime_type, error);
 
-	if (priv->bytes == 0) {
+	if (*error) {
+		g_free (mime_type);
 		return FALSE;
 	}
 
@@ -933,6 +943,8 @@ eog_image_real_load (EogImage *img,
 	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
 
 	if (result != GNOME_VFS_OK) {
+		g_free (mime_type);
+
 		g_set_error (error, 
 			     EOG_IMAGE_ERROR, 
 			     EOG_IMAGE_ERROR_VFS,
@@ -942,9 +954,16 @@ eog_image_real_load (EogImage *img,
 	}
 	
 	buffer = g_new0 (guchar, EOG_IMAGE_READ_BUFFER_SIZE);
-
+	
 	if (read_image_data || read_only_dimension) {
-		loader = gdk_pixbuf_loader_new ();
+		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
+	
+		if (*error) {
+			g_error_free (*error);
+			*error = NULL;
+
+			loader = gdk_pixbuf_loader_new (); 
+		}
 
 		/* This is used to detect non-threadsafe loaders and disable
  		 * any possible asyncronous task that could bring deadlocks
@@ -960,6 +979,7 @@ eog_image_real_load (EogImage *img,
 					 img, 
 					 0);
         }
+	g_free (mime_type);
 
 	while (!priv->cancel_loading) {
 		result = gnome_vfs_read (handle, 

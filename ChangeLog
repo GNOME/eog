@@ -1,3 +1,10 @@
+2007-09-05  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-image.c (+eog_image_get_file_info,
+	eog_image_real_load): force mime type on pixbuf loader in order to
+	to recognize less usual image format like compressed SVG images.
+	Fixes bug #394803 (Matthias Clasen, Felix Riemann).
+
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-image-private.h: added threadsafe_format private attribute.
