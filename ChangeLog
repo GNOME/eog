@@ -1,5 +1,10 @@
 2007-09-05  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-image.c (eog_image_real_load): do not set error if the image
+	was partially loaded when closing pixbuf loader. Fixes bug #354352.
+
+2007-09-05  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-image.c (+eog_image_get_file_info,
 	eog_image_real_load): force mime type on pixbuf loader in order to
 	to recognize less usual image format like compressed SVG images.

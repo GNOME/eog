@@ -1065,11 +1065,9 @@ eog_image_real_load (EogImage *img,
 	}
 
 	if (read_image_data || read_only_dimension) {
-		if (failed) {
-			gdk_pixbuf_loader_close (loader, NULL);
-		} else if (!gdk_pixbuf_loader_close (loader, error)) {
-			failed = TRUE;
-		}
+		/* Close silently in order to support partial
+		 * images as well. */
+		gdk_pixbuf_loader_close (loader, NULL);
         }
 
 	g_free (buffer);
@@ -1079,8 +1077,7 @@ eog_image_real_load (EogImage *img,
 	failed = (failed ||
 		  priv->cancel_loading || 
 		  bytes_read_total == 0 || 
-		  *error != NULL || 
-		  priv->cancel_loading);
+		  *error != NULL);
 
 	if (failed) {
 		if (priv->cancel_loading) {
