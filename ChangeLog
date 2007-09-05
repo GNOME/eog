@@ -1,5 +1,11 @@
 2007-09-05  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-image (eog_image_update_exif_data): reset EXIF orientation
+	when the image modified in order to behave as expected by the user
+	when the image is loaded again. Fixes bug #470521.
+
+2007-09-05  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-image.c (eog_image_real_load): do not set error if the image
 	was partially loaded when closing pixbuf loader. Fixes bug #354352.
 

@@ -312,7 +312,7 @@ eog_image_update_exif_data (EogImage *image)
 	bo = exif_data_get_byte_order (priv->exif);
 
 	/* Update image width */	
-	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_X_DIMENSION);
+	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_X_DIMENSION);
 	if (entry != NULL && (priv->width >= 0)) {
 		if (entry->format == EXIF_FORMAT_LONG)
 			exif_set_long (entry->data, bo, priv->width);
@@ -321,9 +321,9 @@ eog_image_update_exif_data (EogImage *image)
 		else
 			g_warning ("Exif entry has unsupported size");
 	}
-	
+
 	/* Update image height */	
-	entry = exif_content_get_entry (priv->exif->ifd [EXIF_IFD_EXIF], EXIF_TAG_PIXEL_Y_DIMENSION);
+	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_Y_DIMENSION);
 	if (entry != NULL && (priv->height >= 0)) {
 		if (entry->format == EXIF_FORMAT_LONG)
 			exif_set_long (entry->data, bo, priv->height);
@@ -331,6 +331,19 @@ eog_image_update_exif_data (EogImage *image)
 			exif_set_short (entry->data, bo, priv->height);
 		else
 			g_warning ("Exif entry has unsupported size");
+	}
+	
+	/* Update image orientation */	
+	entry = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
+	if (entry != NULL) {
+		if (entry->format == EXIF_FORMAT_LONG)
+			exif_set_long (entry->data, bo, 1);
+		else if (entry->format == EXIF_FORMAT_SHORT)
+			exif_set_short (entry->data, bo, 1);
+		else
+			g_warning ("Exif entry has unsupported size");
+
+		priv->orientation = 1;
 	}
 #endif
 }
