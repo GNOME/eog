@@ -40,8 +40,6 @@
 #define EOG_CONF_VIEW_TRANSPARENCY		"/apps/eog/view/transparency"
 #define EOG_CONF_VIEW_TRANS_COLOR		"/apps/eog/view/trans_color"
 
-#define EOG_CONF_WINDOW_GEOMETRY		"/apps/eog/window/geometry_singleton"
-
 #define EOG_CONF_FULLSCREEN_LOOP		"/apps/eog/full_screen/loop"
 #define EOG_CONF_FULLSCREEN_UPSCALE		"/apps/eog/full_screen/upscale"
 #define EOG_CONF_FULLSCREEN_SECONDS		"/apps/eog/full_screen/seconds"
