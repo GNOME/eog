@@ -213,13 +213,16 @@ eog_application_get_uri_window (EogApplication *application, GnomeVFSURI *uri)
 	for (l = windows; l != NULL; l = l->next) {
 		if (EOG_IS_WINDOW (l->data)) {
 			EogWindow *window = EOG_WINDOW (l->data);
-			EogImage *image = eog_window_get_image (window);
-			GnomeVFSURI *window_uri = eog_image_get_uri (image);
-
-			if (!eog_window_is_empty (window) && 
-			    gnome_vfs_uri_equal (window_uri, uri)) {
-				uri_window = window;
-				break;
+			
+			if (!eog_window_is_empty (window)) {
+				EogImage *image = eog_window_get_image (window);
+				GnomeVFSURI *window_uri;
+				
+				window_uri = eog_image_get_uri (image);
+				if (gnome_vfs_uri_equal (window_uri, uri)) {
+					uri_window = window;
+					break;
+				}
 			}
 		}
 	}
