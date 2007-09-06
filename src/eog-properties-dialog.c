@@ -28,8 +28,11 @@
 #include "eog-image.h"
 #include "eog-util.h"
 #include "eog-thumb-view.h"
+
+#if HAVE_EXIF
 #include "eog-exif-details.h"
 #include "eog-exif-util.h"
+#endif
 
 #include <glib.h>
 #include <glib/gi18n.h>
