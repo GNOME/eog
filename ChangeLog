@@ -1,3 +1,9 @@
+2007-09-08  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-transform.c: (eog_transform_apply): Limit progress reporting
+	during transformation. This should avoid slowdowns due to unnecessary
+	progressbar updates when rotating large images.
+
 2007-09-07  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-window.c: (eog_window_run_fullscreen),

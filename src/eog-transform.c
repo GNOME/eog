@@ -11,7 +11,8 @@
 #include "eog-transform.h"
 #include "eog-jobs.h"
 
-#define PROFILE 1
+/* The number of progress updates per transformation */
+#define EOG_TRANSFORM_N_PROG_UPDATES 20
 
 struct _EogTransformPrivate {
 	double affine[6];
@@ -76,6 +77,8 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	int dx, dy, sx, sy;
 	int i, x, y;
 
+	int progress_delta;
+
 	g_return_val_if_fail (pixbuf != NULL, NULL);
 
 	g_object_ref (pixbuf);
@@ -132,8 +135,12 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	inverted[4] = -trans->priv->affine[4] * inverted[0] - trans->priv->affine[5] * inverted[2];
 	inverted[5] = -trans->priv->affine[4] * inverted[1] - trans->priv->affine[5] * inverted[3];
 
-	/* for every destination pixel (dx,dy) compute the source pixel (sx, sy) and copy the
-	   color values */
+	progress_delta = MAX (1, dest_height / EOG_TRANSFORM_N_PROG_UPDATES);
+
+	/* 
+	 * for every destination pixel (dx,dy) compute the source pixel (sx, sy)
+	 * and copy the color values
+	 */
 	for (y = 0, dy = dest_top_left.y; y < dest_height; y++, dy++) {
 		for (x = 0, dx = dest_top_left.x; x < dest_width; x++, dx++) {
 
@@ -150,7 +157,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 			}
 		}
 
-		if (job != NULL) {
+		if (job != NULL && y % progress_delta == 0) {
 			gfloat progress;
 
 			progress = (gfloat) (y + 1.0) / (gfloat) dest_height;
@@ -160,6 +167,10 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	}
 
 	g_object_unref (pixbuf);
+
+	if (job != NULL) {
+		eog_job_set_progress (job, 1.0);
+	}
 
 	return dest_pixbuf;
 }
