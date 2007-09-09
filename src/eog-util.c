@@ -77,15 +77,46 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 gchar *
 eog_util_make_valid_utf8 (const gchar *str)
 {
-	gchar *utf_str;
+	GString *string;
+	const char *remainder, *invalid;
+	int remaining_bytes, valid_bytes;
 
-	if (g_utf8_validate (str, -1, NULL)) {
-		utf_str = g_strdup (str);
-	} else {
-		utf_str = g_locale_to_utf8 (str, -1, NULL, NULL, NULL);
+	string = NULL;
+	remainder = str;
+	remaining_bytes = strlen (str);
+
+	while (remaining_bytes != 0) {
+		if (g_utf8_validate (remainder, remaining_bytes, &invalid)) {
+			break;
+		}
+
+		valid_bytes = invalid - remainder;
+
+		if (string == NULL) {
+			string = g_string_sized_new (remaining_bytes);
+		}
+
+		g_string_append_len (string, remainder, valid_bytes);
+		g_string_append_c (string, '?');
+
+		remaining_bytes -= valid_bytes + 1;
+		remainder = invalid + 1;
 	}
 
-	return utf_str;
+	if (string == NULL) {
+		return g_strdup (str);
+	}
+
+	g_string_append (string, remainder);
+#if 0
+	/* FIXME: Can't add this string for 2.20 anymore. Uncomment 
+	 * this after stable branching. */
+	g_string_append (string, _(" (invalid Unicode)"));
+#endif
+
+	g_assert (g_utf8_validate (string->str, -1, NULL));
+
+	return g_string_free (string, FALSE);
 }
 
 GSList*

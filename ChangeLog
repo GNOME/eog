@@ -1,5 +1,11 @@
 2007-09-09  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-util.c (eog_util_make_valid_utf8): import implementation of
+	this function from 2.18 in order to fix problems on handling non-utf8
+	image captions correctly. Fixes bug #440254.
+
+2007-09-09  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-image-jpeg.c (init_transform_info): take the
 	auto-orientation into account before saving image.
 	* src/eog-image-private.h: added "trans_autorotate" attribute.

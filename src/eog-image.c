@@ -1808,9 +1808,6 @@ eog_image_get_caption (EogImage *img)
 		/* Use cached caption string */
 		return priv->caption;
 	
-	/* g_print ("priv->uri: %p\n", priv->uri);
-	   g_print ("%s\n", gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE)); */
-
 	name = gnome_vfs_uri_extract_short_name (priv->uri);
 	
 	if (name != NULL && g_ascii_strcasecmp (priv->uri->method_string, "file") == 0) {
