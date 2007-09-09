@@ -75,6 +75,7 @@ struct _EogImagePrivate {
 	GSList           *undo_stack;
 
 	EogTransform     *trans;
+	EogTransform     *trans_autorotate;
 
 	guint             data_ref_count;
 };

@@ -1,3 +1,15 @@
+2007-09-09  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-image-jpeg.c (init_transform_info): take the
+	auto-orientation into account before saving image.
+	* src/eog-image-private.h: added "trans_autorotate" attribute.
+	* src/eog-image.c (eog_image_dispose, eog_image_init,
+	eog_image_needs_transformation,
+	eog_image_apply_transformations, eog_image_real_autorotate,
+	eog_image_reset_modifications): create separate instance of
+	EogTransform for the auto-orientation in order to avoid wrong
+	orientation of thumbnails. Fixes bug #465583.
+
 2007-09-08  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-transform.c: (eog_transform_apply): Limit progress reporting

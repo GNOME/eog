@@ -114,13 +114,27 @@ output_message_handler (j_common_ptr cinfo)
 static void
 init_transform_info (EogImage *image, jpeg_transform_info *info)
 {
-	JXFORM_CODE trans_code = JXFORM_NONE;
+	EogImagePrivate *priv;
+	EogTransform *composition = NULL;
 	EogTransformType transformation;
+	JXFORM_CODE trans_code = JXFORM_NONE;
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	if (image->priv->trans != NULL) {
-		transformation = eog_transform_get_transform_type (image->priv->trans);
+	priv = image->priv;
+
+	if (priv->trans != NULL && priv->trans_autorotate != NULL) {
+		composition = eog_transform_compose (priv->trans, 
+						     priv->trans_autorotate);
+	} else if (priv->trans != NULL) {
+		composition = g_object_ref (priv->trans);
+	} else if (priv->trans_autorotate != NULL) {
+		composition = g_object_ref (priv->trans_autorotate);
+	}
+
+	if (composition != NULL) {
+		transformation = eog_transform_get_transform_type (composition);
+
 		switch (transformation) {
 		case EOG_TRANSFORM_ROT_90:
 			trans_code = JXFORM_ROT_90; 
@@ -146,8 +160,9 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 	info->transform = trans_code;
 	info->trim      = FALSE;
 	info->force_grayscale = FALSE;
-}
 
+	g_object_unref (composition);
+}
 
 static gboolean
 _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source, 

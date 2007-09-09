@@ -170,6 +170,11 @@ eog_image_dispose (GObject *object)
 		priv->trans = NULL;
 	}
 
+	if (priv->trans_autorotate) {
+		g_object_unref (priv->trans_autorotate);
+		priv->trans_autorotate = NULL;
+	}
+
 	if (priv->undo_stack) {
 		g_slist_foreach (priv->undo_stack, (GFunc) g_object_unref, NULL);
 		g_slist_free (priv->undo_stack);
@@ -243,6 +248,7 @@ eog_image_init (EogImage *img)
 	img->priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	img->priv->undo_stack = NULL;
 	img->priv->trans = NULL;
+	img->priv->trans_autorotate = NULL;
 	img->priv->data_ref_count = 0;
 #ifdef HAVE_EXIF
 	img->priv->orientation = 0;
@@ -485,20 +491,21 @@ eog_image_needs_transformation (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 
-	return (img->priv->trans != NULL);
+	return (img->priv->trans != NULL || img->priv->trans_autorotate != NULL);
 }
 
 static gboolean
 eog_image_apply_transformations (EogImage *img, GError **error)
 {
 	GdkPixbuf *transformed = NULL;
+	EogTransform *composition = NULL;
 	EogImagePrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	
 	priv = img->priv;
 
-	if (priv->trans == NULL) {
+	if (priv->trans == NULL && priv->trans_autorotate == NULL) {
 		return TRUE;
 	}
 
@@ -511,8 +518,17 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 		return FALSE;
 	}
 
-	if (priv->trans != NULL) {
-		transformed = eog_transform_apply (priv->trans, priv->image, NULL);
+	if (priv->trans != NULL && priv->trans_autorotate != NULL) {
+		composition = eog_transform_compose (priv->trans, 
+						     priv->trans_autorotate);
+	} else if (priv->trans != NULL) {
+		composition = g_object_ref (priv->trans);
+	} else if (priv->trans_autorotate != NULL) {
+		composition = g_object_ref (priv->trans_autorotate);
+	}
+
+	if (composition != NULL) {
+		transformed = eog_transform_apply (composition, priv->image, NULL);
 	}
 
 	g_object_unref (priv->image);
@@ -527,6 +543,8 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 			     EOG_IMAGE_ERROR_GENERIC,
 			     _("Transformation failed."));
  	}
+
+	g_object_unref (composition);
 
 	return (transformed != NULL);
 }
@@ -795,15 +813,7 @@ eog_image_real_autorotate (EogImage *img)
 		lookup[priv->orientation - 1] : EOG_TRANSFORM_NONE);
 
 	if (type != EOG_TRANSFORM_NONE) {
-		EogTransform *trans = eog_transform_new (type);
-
-		if (priv->trans == NULL) {
-			priv->trans = g_object_ref (trans);
-		} else {
-			eog_transform_compose (priv->trans, trans);
-		}
-		
-		g_object_unref (trans);
+		img->priv->trans_autorotate = eog_transform_new (type);
 	}
 
 	/* Disable auto orientation for next loads */
@@ -1502,6 +1512,11 @@ eog_image_reset_modifications (EogImage *image)
 	if (priv->trans != NULL) {
 		g_object_unref (priv->trans);
 		priv->trans = NULL;
+	}
+
+	if (priv->trans_autorotate != NULL) {
+		g_object_unref (priv->trans_autorotate);
+		priv->trans_autorotate = NULL;
 	}
 
 	priv->modified = FALSE;
