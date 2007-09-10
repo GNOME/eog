@@ -1,3 +1,9 @@
+2007-09-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume): Copy only 
+	the remaining bytes of EXIF/XMP data if these are smaller than the 
+	buffer that's being consumed. Fixes bug #474710.
+
 2007-09-09  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-util.c (eog_util_make_valid_utf8): import implementation of

@@ -318,12 +318,19 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 		case EMR_READ_EXIF:                     
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of EXIF data, length: %i", priv->size);
 			{
-				int chunk_len = len - i;
-				memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
-				priv->bytes_read += chunk_len; /* bytes already read */
-				priv->size = (i + priv->size) - len; /* remaining data to read */
-				i = len - 1;
-				priv->state = EMR_READ_EXIF;
+				if (i + priv->size < len) {
+					/* read data in one block */
+					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], priv->size);
+					priv->state = EMR_READ;
+					i = i + priv->size - 1; /* the for-loop consumes the other byte */
+				} else {
+					int chunk_len = len - i;
+					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
+					priv->bytes_read += chunk_len; /* bytes already read */
+					priv->size = (i + priv->size) - len; /* remaining data to read */
+					i = len - 1;
+					priv->state = EMR_READ_EXIF;
+				}
 			}
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
@@ -332,12 +339,19 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 		case EMR_READ_XMP:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of XMP data, length: %i", priv->size);
 			{
-				int chunk_len = len - i;
-				memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], chunk_len);
-				priv->bytes_read += chunk_len; /* bytes already read */
-				priv->size = (i + priv->size) - len; /* remaining data to read */
-				i = len - 1;
-				priv->state = EMR_READ_XMP;
+				if (i + priv->size < len) {
+					/* read data in one block */
+					memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], priv->size);
+					priv->state = EMR_READ;
+					i = i + priv->size - 1; /* the for-loop consumes the other byte */
+				} else {
+					int chunk_len = len - i;
+					memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], chunk_len);
+					priv->bytes_read += chunk_len; /* bytes already read */
+					priv->size = (i + priv->size) - len; /* remaining data to read */
+					i = len - 1;
+					priv->state = EMR_READ_XMP;
+				}
 			}
 			if (IS_FINISHED (priv))
 				priv->state = EMR_FINISHED;
