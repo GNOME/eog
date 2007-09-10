@@ -1,4 +1,4 @@
-m /* Eye Of Gnome - Main Window 
+/* Eye Of Gnome - Main Window 
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *
