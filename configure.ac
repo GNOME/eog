@@ -353,7 +353,6 @@ cut-n-paste/toolbar-editor/Makefile
 cut-n-paste/totem-screensaver/Makefile
 help/Makefile
 help/eu/Makefile
-help/it/Makefile
 help/ja/Makefile
 help/zh_CN/Makefile
 help/zh_TW/Makefile
