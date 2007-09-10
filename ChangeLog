@@ -1,5 +1,12 @@
 2007-09-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-metadata-reader.c: (+eog_metadata_reader_get_next_block),
+	(eog_metadata_reader_consume): Factore out some common code for 
+	the different metadata sources in the matadata consumer. 
+	Fixes bug #474931.
+
+2007-09-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-metadata-reader.c: (eog_metadata_reader_consume): Copy only 
 	the remaining bytes of EXIF/XMP data if these are smaller than the 
 	buffer that's being consumed. Fixes bug #474710.

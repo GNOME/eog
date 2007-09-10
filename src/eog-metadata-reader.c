@@ -169,6 +169,28 @@ eog_metadata_identify_app1 (gchar *buf, guint len)
  	return EJA_OTHER;
 }
 
+static void
+eog_metadata_reader_get_next_block (EogMetadataReaderPrivate* priv,
+				    guchar *chunk,
+				    int* i,
+				    guchar *buf,
+				    int len,
+				    EogMetadataReaderState state)
+{
+	if (*i + priv->size < len) {
+		/* read data in one block */
+		memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[*i], priv->size);
+		priv->state = EMR_READ;
+		*i = *i + priv->size - 1; /* the for-loop consumes the other byte */
+	} else {
+		int chunk_len = len - *i;
+		memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[*i], chunk_len);
+		priv->bytes_read += chunk_len; /* bytes already read */
+		priv->size = (*i + priv->size) - len; /* remaining data to read */
+		*i = len - 1;
+		priv->state = state;
+	}
+}
 
 void
 eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
@@ -318,19 +340,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 		case EMR_READ_EXIF:                     
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of EXIF data, length: %i", priv->size);
 			{
-				if (i + priv->size < len) {
-					/* read data in one block */
-					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], priv->size);
-					priv->state = EMR_READ;
-					i = i + priv->size - 1; /* the for-loop consumes the other byte */
-				} else {
-					int chunk_len = len - i;
-					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
-					priv->bytes_read += chunk_len; /* bytes already read */
-					priv->size = (i + priv->size) - len; /* remaining data to read */
-					i = len - 1;
-					priv->state = EMR_READ_EXIF;
-				}
+ 				eog_metadata_reader_get_next_block (priv, priv->exif_chunk,
+ 								    &i, buf, len, EMR_READ_EXIF);
 			}
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
@@ -339,19 +350,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 		case EMR_READ_XMP:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of XMP data, length: %i", priv->size);
 			{
-				if (i + priv->size < len) {
-					/* read data in one block */
-					memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], priv->size);
-					priv->state = EMR_READ;
-					i = i + priv->size - 1; /* the for-loop consumes the other byte */
-				} else {
-					int chunk_len = len - i;
-					memcpy ((guchar*) (priv->xmp_chunk) + priv->bytes_read, &buf[i], chunk_len);
-					priv->bytes_read += chunk_len; /* bytes already read */
-					priv->size = (i + priv->size) - len; /* remaining data to read */
-					i = len - 1;
-					priv->state = EMR_READ_XMP;
-				}
+				eog_metadata_reader_get_next_block (priv, priv->xmp_chunk,
+ 								    &i, buf, len, EMR_READ_XMP);
 			}
 			if (IS_FINISHED (priv))
 				priv->state = EMR_FINISHED;
@@ -366,19 +366,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->bytes_read = 0;
 			}
 
-			if (i + priv->size < len) {
-				/* read data in one block */
-				memcpy ((guchar*) (priv->icc_chunk) + priv->bytes_read, &buf[i], priv->size); 
-				priv->state = EMR_READ;
-				i = i + priv->size - 1; /* the for-loop consumes the other byte */
-			} else {
-				int chunk_len = len - i;
-				memcpy ((guchar*) (priv->icc_chunk) + priv->bytes_read, &buf[i], chunk_len);
-				priv->bytes_read += chunk_len; /* bytes already read */
-				priv->size = (i + priv->size) - len; /* remaining data to read */
-				i = len - 1;
-				priv->state = EMR_READ_ICC;
-			}
+			eog_metadata_reader_get_next_block (priv, priv->icc_chunk,
+							    &i, buf, len, EMR_READ_ICC);
 			
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
