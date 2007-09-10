@@ -284,6 +284,15 @@ if test "x$have_python" != "xno"; then
 	AC_SUBST([PYTHON_EXTRA_LIBS])
 fi
 
+if test "x$have_python" != "xyes"; then
+	if test "x$enable_python" = "xyes"; then
+		AC_MSG_ERROR([Python not found])
+	elif test "x$enable_python" = "xautodetect"; then
+		enable_python=no
+		AC_MSG_WARN([Python not found, disabling python support])
+	fi
+fi
+
 if test "x$have_python" != "xno"; then
 	PYGOBJECT_REQUIRED=2.11.5
 	PYGTK_REQUIRED=2.9.7
@@ -293,7 +302,17 @@ if test "x$have_python" != "xno"; then
 		pygobject-2.0 >= $PYGOBJECT_REQUIRED 
 		gnome-python-2.0 >= $GNOME_PYTHON_REQUIRED
 		pygtk-2.0 >= $PYGTK_REQUIRED],
-		[],[have_python=no])
+ 		[],
+ 		[
+ 		have_python=no
+ 		if test "x$enable_python" = "xyes"; then
+ 			AC_MSG_ERROR([$PYGTK_PKG_ERRORS])
+ 		elif test "x$enable_python" = "xautodetect"; then
+ 			enable_python=no
+ 			AC_MSG_WARN([$PYGTK_PKG_ERRORS])
+ 			AC_MSG_WARN([Disabling python support])
+ 		fi
+ 		])
 
 	AC_SUBST([PYGTK_CFLAGS])
 	AC_SUBST([PYGTK_LIBS])
@@ -330,14 +349,7 @@ if test "x$have_python" != "xno"; then
 	AC_SUBST([NO_STRICT_ALIASING_CFLAGS])
 fi
 
-if test "x$have_python" != "xyes"; then
-	if test "x$enable_python" = "xyes"; then
-		AC_MSG_ERROR([Python not found])
-	elif test "x$enable_python" = "xautodetect"; then
-		enable_python=no
-		AC_MSG_WARN([Python not found, disabling python support])
-	fi
-elif test "x$enable_python" != "xno"; then
+if test "x$have_python" != "xno" -a "x$enable_python" != "xno"; then
 	enable_python=yes
 	AC_DEFINE([ENABLE_PYTHON],[1],[Define to compile with python support])
 fi
@@ -390,6 +402,7 @@ Configure summary:
 	Compiler ...................:  ${CC} 
 	Extra Compiler Warnings ....:  ${WARN_CFLAGS}
 
+	Python support .............:  ${have_python}
 	EXIF support ...............:  ${have_exif}
 	XMP support ................:  ${have_exempi}
 	JPEG support ...............:  ${have_jpeg}
