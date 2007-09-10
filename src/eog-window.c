@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Main Window 
+m /* Eye Of Gnome - Main Window 
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *
@@ -2428,10 +2428,10 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 
 	static const char *authors[] = {
 		"Lucas Rocha <lucasr@cvs.gnome.org> (maintainer)",
-		"Tim Gerla <tim+gnomebugs@gerla.net> (maintainer)",
 		"Claudio Saavedra <csaavedra@alumnos.utalca.cl>",
 		"Felix Riemann <friemann@svn.gnome.org>",
 		"",
+		"Tim Gerla <tim+gnomebugs@gerla.net>",
 		"Philip Van Hoof <pvanhoof@gnome.org>",
                 "Paolo Borelli <pborelli@katamail.com>",
 		"Jens Finke <jens@triq.net>",
