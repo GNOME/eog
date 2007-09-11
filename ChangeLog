@@ -1,5 +1,12 @@
 2007-09-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-image.c: (eog_image_size_prepared),
+	(eog_image_set_exif_data): Emit "size-prepared" only after we have both
+	the dimensions and the exif data (for images which could be 
+	autorotated). Fixes bug #459665.
+
+2007-09-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-window.c: Fix build error.
 
 2007-09-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>

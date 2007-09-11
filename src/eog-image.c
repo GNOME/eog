@@ -461,7 +461,7 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 	g_mutex_unlock (img->priv->status_mutex);
 
 #ifdef HAVE_EXIF
-	if (img->priv->threadsafe_format && !img->priv->autorotate)
+	if (img->priv->threadsafe_format && (!img->priv->autorotate || img->priv->exif))
 #else
 	if (img->priv->threadsafe_format)
 #endif
@@ -859,16 +859,19 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 	priv->exif_chunk = NULL;
 	priv->exif_chunk_len = 0;
 
-	/* EXIF data is already available, set the image
-           orientation and emit size prepared signal */
+	/* EXIF data is already available, set the image orientation */
 	if (priv->autorotate) {
 		eog_image_set_orientation (img);
-	
-		g_signal_emit (img, 
-			       signals[SIGNAL_SIZE_PREPARED], 
-			       0, 
-			       priv->width, 
-			       priv->height);
+
+		/* Emit size prepared signal if we have the size */
+		if (priv->width > 0 &&
+		    priv->height > 0) {
+			g_signal_emit (img, 
+				       signals[SIGNAL_SIZE_PREPARED], 
+				       0, 
+				       priv->width, 
+				       priv->height);
+		}
 	}
 #else
 	eog_metadata_reader_get_exif_chunk (md_reader, 
