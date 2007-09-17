@@ -1,3 +1,80 @@
+Version 2.20.0
+--------------
+
+New features:
+
+  * Complete rewrite of application core which means more stable, 
+    maintanable, faster image viewer for GNOME 
+  * New plugin system which allows developers to extend EOG's UI
+    and behavior. Python support is available.
+  * Editable application toolbar
+  * New image collection pane with on-demand thumbnail loading, 
+    polished look, and continuous scrolling side buttons.
+  * Side Pane to be extended by plugins
+  * New image properties dialog which replaces the image info
+    sidepane
+  * Single instance D-Bus-based activation support
+  * Revamped error/warning UI 
+  * "Open with" support to quickly open images on other applications
+  * Mouse scrollwheel improvements: HIG compliancy and zoom factor 
+    setting
+  * General UI polishing 
+  * Command line options for fullscreen, slideshow and image collection
+    disabling
+  * Display EXIF MakerNotes
+  * XMP Support 
+
+Misc improvements/fixes:
+
+  * Small refactorings in metadata readers (Claudio Saavedra)
+ 
+Bug fixes:
+
+  #354352, Show incomplete images (Lucas Rocha)
+  #394803, Fails to load .svgz (Matthias Clasen, Felix Riemann)
+  #440254, Eog crashes when opening an image with invalid unicode 
+           as filename (Lucas Rocha)
+  #447063, eog hangs when opening SVG files that include external 
+           images (Felix Riemann)
+  #459665, opened images should take as much screen space as 
+           possible (Claudio Saavedra)
+  #465583, thumbnails badly rotated (autorotation enabled) (Lucas Rocha)
+  #470521, some image is rendered with a wrong rotation (Lucas Rocha)
+  #471530, Confusing PyGtk configure failure message (Paolo Borelli)
+  #474642, ./configure is semi-broken (Martin Olsson)
+  #474710, eog crashes when you try to open this .jpg file (it works fine on 
+           Vista/XP) (Claudio Saavedra)
+  #474931, factore out some code in the metadata consumer (Claudio Saavedra)
+
+New and updated translations:
+
+- Vincent van Adrighem [nl]
+- Alexandre Prokoudine [ru]
+- Ankit Patel [gu]
+- Goran Rakić [sr, sr@Latn]
+- Duarte Loreto [pt]
+- Kostas Papadimas [el]
+- Changwoo Ryu [ko]
+- Gil Forcada [ca]
+- Hendrik Richter [de]
+- Yannig Marchegay [oc]
+- Jovan Naumovski [mk]
+- Gabor Kelemen [hu]
+- Andre Klapper [sk]
+- Djihed Afifi [ar]
+- David Lodge [en_GB]
+- Maxim Dziumanenko [uk]
+- Inaki Larranaga Murgoitio [eu]
+- Priit Laes [et]
+- Kenneth Nielsen [da]
+- Laurent Dhima [sq]
+- Artur Flinta [pl]
+
+New and updated manual translations:
+
+- Claude Paroz [fr]
+- Luca Ferretti [it]
+
 Version 2.19.92
 ---------------
 
