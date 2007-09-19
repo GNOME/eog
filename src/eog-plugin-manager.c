@@ -97,7 +97,7 @@ about_button_cb (GtkWidget        *button,
 		gtk_widget_destroy (pm->priv->about);
 
 	pm->priv->about = g_object_new (GTK_TYPE_ABOUT_DIALOG,
-		"name", eog_plugin_engine_get_plugin_name (info),
+		(gtk_minor_version > 10) ? "program-name" : "name", eog_plugin_engine_get_plugin_name (info),
 		"copyright", eog_plugin_engine_get_plugin_copyright (info),
 		"authors", eog_plugin_engine_get_plugin_authors (info),
 		"comments", eog_plugin_engine_get_plugin_description (info),
