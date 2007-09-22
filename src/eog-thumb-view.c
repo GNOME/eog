@@ -365,6 +365,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 	gchar *uri_str, *mime_str;
 	const gchar *type_str;
 	GError *error = NULL;
+	GnomeVFSURI *uri;
 #ifdef HAVE_EXIF
 	ExifData *exif_data;
 #endif	
@@ -408,9 +409,22 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 
 	eog_image_get_size (image, &width, &height);
 	
-	uri_str = eog_image_get_uri_for_display (image);
+	uri = eog_image_get_uri (image);
+	uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	gnome_vfs_uri_unref (uri);
 
 	mime_str = gnome_vfs_get_mime_type (uri_str);
+	
+	if (G_UNLIKELY (mime_str == NULL)) {
+		g_free (uri_str);
+		g_free (bytes);
+#ifdef HAVE_EXIF
+		exif_data_unref (exif_data);
+#endif
+		g_object_unref (image);
+		return FALSE;
+	}
+
 	type_str = gnome_vfs_mime_get_description (mime_str);
 
 	tooltip_string = g_strdup_printf ("<b><big>%s</big></b>\n"
