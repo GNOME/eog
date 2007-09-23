@@ -396,6 +396,14 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 			uri = gnome_vfs_uri_new (info_uri);
 			eog_list_store_append_image_from_uri (store, uri);
 			gnome_vfs_uri_unref (uri);
+		} else {
+			mimetype = gnome_vfs_get_mime_type (info_uri);
+			if (eog_image_is_supported_mime_type (mimetype)) {
+				uri = gnome_vfs_uri_new (info_uri);
+				eog_list_store_append_image_from_uri (store, uri);
+				gnome_vfs_uri_unref (uri);
+			}
+			g_free (mimetype);
 		}
 		break;
 
