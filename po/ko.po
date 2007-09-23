@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AC_PACKAGE_NAME AC_PACKAGE_VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-08 16:09+0900\n"
-"PO-Revision-Date: 2007-09-08 16:50+0900\n"
+"POT-Creation-Date: 2007-09-23 16:21+0900\n"
+"PO-Revision-Date: 2007-09-23 16:21+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr "<b>너비:</b>"
 #: ../data/eog.glade.h:29
 #, no-c-format
 msgid "<small><i><b>%f:</b> original filename</i></small>"
-msgstr "<small><i><b>%f:</b> 원래 파일이름</i></small>"
+msgstr "<small><i><b>%f:</b> 원래 파일 이름</i></small>"
 
 #: ../data/eog.glade.h:31
 #, no-c-format
@@ -187,7 +187,7 @@ msgstr "<small><i><b>%n:</b> 일련번호</i></small>"
 
 #: ../data/eog.glade.h:32
 msgid "As _background"
-msgstr "바탕으로(_B)"
+msgstr "배경으로(_B)"
 
 #: ../data/eog.glade.h:33
 msgid "As check _pattern"
@@ -219,7 +219,7 @@ msgstr "그놈의 눈 기본 설정"
 
 #: ../data/eog.glade.h:40
 msgid "Filename format:"
-msgstr "파일이름 형식:"
+msgstr "파일 이름 형식:"
 
 #: ../data/eog.glade.h:41
 msgid "General"
@@ -342,8 +342,7 @@ msgstr "거짓이면, 최초에 작은 이미지를 화면에 맞게 늘리지 �
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
-msgstr ""
-"그림 모음 창의 위치. 0은 아래, 1은 왼쪽, 2는 위, 3은 오른쪽입니다."
+msgstr "그림 모음 창의 위치. 0은 아래, 1은 왼쪽, 2는 위, 3은 오른쪽입니다."
 
 #: ../data/eog.schemas.in.h:11
 msgid "Interpolate Image"
@@ -355,8 +354,8 @@ msgid ""
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
 "plugin."
 msgstr ""
-"사용중인 플러그인 목록. 사용중인 플러그인의 \"위치\"는 포함하지 않습니다. "
-"주어진 플러그인의 \"위치\"는 .eog-plugin 파일을 참고하십시오."
+"사용중인 플러그인 목록. 사용중인 플러그인의 \"위치\"는 포함하지 않습니다. 주"
+"어진 플러그인의 \"위치\"는 .eog-plugin 파일을 참고하십시오."
 
 #: ../data/eog.schemas.in.h:13
 msgid "Loop through the image sequence"
@@ -394,9 +393,9 @@ msgid ""
 "0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
 "a 100% zoom increment."
 msgstr ""
-"스크롤 휠로 확대/축소를 사용할 때 적용되는 비율. 각각의 스크롤 이벤트가 "
-"생길 때 적용되는 확대/축소 비율입니다. 0.05로 설정되면 각각의 스크롤 이벤트가 "
-"발생될 때 5%씩 확대증가가 되고, 1.00이면 100% 확대증가가 됩니다."
+"스크롤 휠로 확대/축소를 사용할 때 적용되는 비율. 각각의 스크롤 이벤트가 생길 "
+"때 적용되는 확대/축소 비율입니다. 0.05로 설정되면 각각의 스크롤 이벤트가 발생"
+"될 때 5%씩 확대증가가 되고, 1.00이면 100% 확대증가가 됩니다."
 
 #: ../data/eog.schemas.in.h:22
 msgid "Transparency color"
@@ -444,8 +443,7 @@ msgstr "파일 형식이 알 수 없거나 지원하지 않습니다"
 msgid ""
 "Eye of GNOME could not determine a supported writable file format based on "
 "the filename."
-msgstr ""
-"그놈의 눈이 파일이름으로 저장할 수 있는 파일 형식을 알아낼 수 없습니다."
+msgstr "그놈의 눈이 파일 이름으로 저장할 수 있는 파일 형식을 알아낼 수 없습니다."
 
 #: ../src/eog-file-chooser.c:127
 msgid "Please try a different file extension like .png or .jpg."
@@ -466,7 +464,7 @@ msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:423
+#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:437
 #: ../src/eog-window.c:615
 msgid "pixel"
 msgid_plural "pixels"
@@ -484,47 +482,47 @@ msgstr "그림 저장"
 msgid "Open Folder"
 msgstr "폴더 열기"
 
-#: ../src/eog-image.c:509
+#: ../src/eog-image.c:516
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "읽지 않은 그림 변환."
 
-#: ../src/eog-image.c:528
+#: ../src/eog-image.c:544
 #, c-format
 msgid "Transformation failed."
 msgstr "그림 변환 실패."
 
-#: ../src/eog-image.c:1037
+#: ../src/eog-image.c:1050
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "이 파일형식은 EXIF를 지원하지 않습니다."
 
-#: ../src/eog-image.c:1148
+#: ../src/eog-image.c:1161
 #, c-format
 msgid "Image loading failed."
 msgstr "그림을 읽는 데 실패했습니다."
 
-#: ../src/eog-image.c:1419 ../src/eog-image.c:1627
+#: ../src/eog-image.c:1432 ../src/eog-image.c:1645
 #, c-format
 msgid "File exists"
 msgstr "파일이 이미 있습니다"
 
-#: ../src/eog-image.c:1566 ../src/eog-image.c:1695
+#: ../src/eog-image.c:1584 ../src/eog-image.c:1713
 #, c-format
 msgid "No image loaded."
 msgstr "읽어 온 그림이 없습니다."
 
-#: ../src/eog-image.c:1575 ../src/eog-image.c:1707
+#: ../src/eog-image.c:1593 ../src/eog-image.c:1725
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "임시 파일 만들기가 실패했습니다."
 
-#: ../src/eog-image-jpeg.c:342
+#: ../src/eog-image-jpeg.c:357
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "저장할 때 쓸 임시 파일을 만들지 못했습니다: %s"
 
-#: ../src/eog-image-jpeg.c:361
+#: ../src/eog-image-jpeg.c:376
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG 파일을 읽어들일 때 필요한 메모리를 할당하지 못했습니다"
@@ -598,7 +596,7 @@ msgstr "그림"
 
 #: ../src/eog-print-image-setup.c:807
 msgid "The image whose printing properties will be setup"
-msgstr "인쇄 등록 정보를 설정할 그림"
+msgstr "인쇄 속성을 설정할 그림"
 
 #: ../src/eog-print-image-setup.c:813
 msgid "Page Setup"
@@ -684,7 +682,7 @@ msgstr "미리 보기"
 msgid "as is"
 msgstr "그대로"
 
-#: ../src/eog-thumb-view.c:434
+#: ../src/eog-thumb-view.c:448
 msgid "Taken on"
 msgstr "가져오기"
 
@@ -949,7 +947,7 @@ msgstr "인쇄(_P)..."
 
 #: ../src/eog-window.c:3256
 msgid "Prope_rties"
-msgstr "등록 정보(_R)"
+msgstr "속성(_R)"
 
 #: ../src/eog-window.c:3259
 msgid "_Undo"
