@@ -1,3 +1,11 @@
+2007-10-02  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (check_loader_threadsafety),
+	(eog_image_pre_size_prepared), (eog_image_real_load):
+	Try to check the GdkPixbufLoader's threadsafety as early as possible.
+	This makes late-emitting loaders (like XPM-loader) work again.
+	Fixes bug #482128.
+
 2007-09-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-list-store.c: (vfs_monitor_dir_cb): Add image 
