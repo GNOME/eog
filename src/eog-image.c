@@ -414,6 +414,24 @@ eog_image_real_transform (EogImage     *img,
 	}
 }
 
+static gboolean
+check_loader_threadsafety (GdkPixbufLoader *loader, gboolean *result)
+{
+	GdkPixbufFormat *format;
+	gboolean ret_val = FALSE;
+
+	format = gdk_pixbuf_loader_get_format (loader);
+	if (format) {
+		ret_val = TRUE;
+		if (result) 
+		/* FIXME: We should not be accessing this struct internals
+ 		 * directly. Keep track of bug #469209 to fix that. */
+			*result = format->flags & GDK_PIXBUF_FORMAT_THREADSAFE;
+	}
+
+	return ret_val;	
+}
+
 static void
 eog_image_pre_size_prepared (GdkPixbufLoader *loader,
 			     gint width,
@@ -421,22 +439,13 @@ eog_image_pre_size_prepared (GdkPixbufLoader *loader,
 			     gpointer data)
 {
 	EogImage *img;
-	GdkPixbufFormat *format;
 
 	eog_debug (DEBUG_IMAGE_LOAD);
 
 	g_return_if_fail (EOG_IS_IMAGE (data));
 
 	img = EOG_IMAGE (data);
-
-	format = gdk_pixbuf_loader_get_format (loader);
-
-	if (format) {
-		/* FIXME: We should not be accessing this struct internals
- 		 * directly. Keep track of bug #469209 to fix that. */
-		img->priv->threadsafe_format =
-			(format->flags & GDK_PIXBUF_FORMAT_THREADSAFE);
-	}
+	check_loader_threadsafety (loader, &img->priv->threadsafe_format);
 }
 
 static void
@@ -982,6 +991,8 @@ eog_image_real_load (EogImage *img,
 	buffer = g_new0 (guchar, EOG_IMAGE_READ_BUFFER_SIZE);
 	
 	if (read_image_data || read_only_dimension) {
+		gboolean checked_threadsafety = FALSE;
+
 		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
 	
 		if (*error) {
@@ -989,15 +1000,20 @@ eog_image_real_load (EogImage *img,
 			*error = NULL;
 
 			loader = gdk_pixbuf_loader_new (); 
+		} else {
+			/* The mimetype-based loader should know the
+			 * format here already. */
+			checked_threadsafety = check_loader_threadsafety (loader, &priv->threadsafe_format);
 		}
 
 		/* This is used to detect non-threadsafe loaders and disable
  		 * any possible asyncronous task that could bring deadlocks
  		 * to image loading process. */
-		g_signal_connect (loader, 
-				  "size-prepared", 
-				  G_CALLBACK (eog_image_pre_size_prepared),
-				  img);
+		if (!checked_threadsafety)
+			g_signal_connect (loader, 
+					  "size-prepared",
+					  G_CALLBACK (eog_image_pre_size_prepared),
+					  img);
 
 		g_signal_connect_object (G_OBJECT (loader), 
 					 "size-prepared", 
