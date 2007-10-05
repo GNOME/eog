@@ -1107,9 +1107,15 @@ eog_image_real_load (EogImage *img,
 	}
 
 	if (read_image_data || read_only_dimension) {
-		/* Close silently in order to support partial
-		 * images as well. */
-		gdk_pixbuf_loader_close (loader, NULL);
+		if (failed) {
+			gdk_pixbuf_loader_close (loader, NULL);
+		} else if (!gdk_pixbuf_loader_close (loader, error)) {
+			if (gdk_pixbuf_loader_get_pixbuf (loader) != NULL) {
+				/* Clear error in order to support partial
+				 * images as well. */
+				g_clear_error (error);
+			}
+	        }
         }
 
 	g_free (buffer);
