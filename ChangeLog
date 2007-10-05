@@ -1,3 +1,11 @@
+2007-10-05  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (eog_image_real_load):
+	Just drop the error from gdk_pixbuf_loader_close() if the
+	loader actually provides an incomplete image. This should avoid
+	crashes which loaders not supporting this or because of an invalid
+	file format. Fixes bug #482752.
+
 2007-10-02  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-image.c: (check_loader_threadsafety),
