@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-toolbar-editor.c 815 2007-07-02 15:02:15Z friemann $
+ *  $Id: egg-toolbar-editor.c 826 2007-08-16 08:05:50Z carlosgc $
  */
 
 #include "config.h"
@@ -312,10 +312,12 @@ static void
 set_drag_cursor (GtkWidget *widget)
 {
   GdkCursor *cursor;
+  GdkScreen *screen;
   
-  /* FIXME multihead */
-  cursor = gdk_cursor_new (GDK_HAND2);
-
+  screen = gtk_widget_get_screen (widget);
+  
+  cursor = gdk_cursor_new_for_display (gdk_screen_get_display (screen),
+				       GDK_HAND2);
   gdk_window_set_cursor (widget->window, cursor);
   gdk_cursor_unref (cursor);
 }
