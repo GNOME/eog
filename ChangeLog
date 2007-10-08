@@ -1,6 +1,14 @@
 2007-10-08  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac:
+	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb),
+	(eog_thumb_view_init):
+	As EOG now depends on gtk+-2.12 we don't need the extra GtkTooltip
+	check anymore.
+
+2007-10-08  Felix Riemann  <friemann@svn.gnome.org>
+
+	* configure.ac:
 	* src/eog-window.c: (add_uri_to_recent_files),
 	(eog_window_update_recent_files_menu), (eog_window_construct_ui),
 	(eog_window_init), (eog_window_dispose), (eog_window_class_init):

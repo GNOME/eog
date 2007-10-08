@@ -348,7 +348,6 @@ tb_on_drag_data_get_cb (GtkWidget        *widget,
 	
 }
 
-#ifdef HAVE_GTK_TOOLTIP
 static gboolean 
 tb_on_query_tooltip_cb (GtkWidget  *widget,
 			gint        x,
@@ -468,7 +467,6 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 	
 	return TRUE;
 }
-#endif /* HAVE_GTK_TOOLTIP */
 
 static void
 eog_thumb_view_init (EogThumbView *tb)
@@ -503,15 +501,13 @@ eog_thumb_view_init (EogThumbView *tb)
 	gtk_icon_view_set_row_spacing (GTK_ICON_VIEW (tb),
 				       EOG_THUMB_VIEW_SPACING);
 
-#ifdef HAVE_GTK_TOOLTIP
 	g_object_set (tb, "has-tooltip", TRUE, NULL);
 
 	g_signal_connect (tb, 
 			  "query-tooltip",
 			  G_CALLBACK (tb_on_query_tooltip_cb), 
 			  NULL);
-#endif /* HAVE_GTK_TOOLTIP */	
-	
+
 	tb->priv->start_thumb = 0;
 	tb->priv->end_thumb = 0;
 	tb->priv->menu = NULL;
