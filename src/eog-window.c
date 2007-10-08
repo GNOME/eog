@@ -156,7 +156,6 @@ struct _EogWindowPrivate {
 	gint                 slideshow_switch_timeout;
 	GSource             *slideshow_switch_source;
 
-        GtkRecentManager    *recent_manager;
         guint		     recent_menu_id;
 
 	GtkPrintSettings    *print_settings;
@@ -866,7 +865,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	recent_data->groups = groups;
 	recent_data->is_private = FALSE;
 
-	gtk_recent_manager_add_full (GTK_RECENT_MANAGER (window->priv->recent_manager), 
+	gtk_recent_manager_add_full (gtk_recent_manager_get_default (), 
 				     text_uri, 
 				     recent_data);
 
@@ -3462,7 +3461,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 	g_list_free (actions);
 
 	priv->recent_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
-	items = gtk_recent_manager_get_items (priv->recent_manager);
+	items = gtk_recent_manager_get_items (gtk_recent_manager_get_default());
 	items = g_list_sort (items, (GCompareFunc) sort_recents_mru);
 
 	for (li = items; li != NULL && count_recent < EOG_RECENT_FILES_LIMIT; li = li->next) {
@@ -3764,7 +3763,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_action_group_set_translation_domain (priv->actions_recent, 
 						 GETTEXT_PACKAGE);
 
-	g_signal_connect (priv->recent_manager, "changed",
+	g_signal_connect (gtk_recent_manager_get_default (), "changed",
 			  G_CALLBACK (eog_window_recent_manager_changed_cb),
 			  window);
 
@@ -4014,9 +4013,6 @@ eog_window_init (EogWindow *window)
 	window->priv->mode = EOG_WINDOW_MODE_UNKNOWN;
 	window->priv->status = EOG_WINDOW_STATUS_UNKNOWN;
 
-	window->priv->recent_manager = 
-		gtk_recent_manager_get_for_screen (screen);
-
 #ifdef HAVE_LCMS
 	window->priv->display_profile = 
 		eog_window_get_display_profile (screen);
@@ -4091,12 +4087,9 @@ eog_window_dispose (GObject *object)
 
 	slideshow_clear_timeout (window);
 
-	if (priv->recent_manager) {
-		g_signal_handlers_disconnect_by_func (priv->recent_manager, 
-						      G_CALLBACK (eog_window_recent_manager_changed_cb), 
-						      window);
-		priv->recent_manager = NULL;
-	}
+	g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_default (),
+					      G_CALLBACK (eog_window_recent_manager_changed_cb), 
+					      window);
 	
 	priv->recent_menu_id = 0;
 		
@@ -4357,35 +4350,6 @@ eog_window_focus_out_event (GtkWidget *widget, GdkEventFocus *event)
 }
 
 static void
-eog_window_screen_changed (GtkWidget *widget, GdkScreen *prev_screen)
-{
-	EogWindowPrivate *priv;
-	GdkScreen *new_screen;
-
-	g_return_if_fail (EOG_IS_WINDOW (widget));
-
-	eog_debug (DEBUG_WINDOW);
-
-	priv = EOG_WINDOW (widget)->priv;
-
-	new_screen = gtk_widget_get_screen (widget);
-
-	if (prev_screen != NULL)
-		g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_for_screen (prev_screen), 
-						      G_CALLBACK (eog_window_recent_manager_changed_cb), 
-						      widget);
-	
-	priv->recent_manager = gtk_recent_manager_get_for_screen (new_screen);
-
-	g_signal_connect (priv->recent_manager, "changed", 
-			  G_CALLBACK (eog_window_recent_manager_changed_cb), 
-			  widget);
-
-	if (GTK_WIDGET_CLASS (eog_window_parent_class)->screen_changed)
-		GTK_WIDGET_CLASS (eog_window_parent_class)->screen_changed (widget, prev_screen);
-}
-
-static void
 eog_window_set_property (GObject      *object,
 			 guint         property_id,
 			 const GValue *value,
@@ -4471,7 +4435,6 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 	//widget_class->drag_data_received = eog_window_drag_data_received;
-	widget_class->screen_changed = eog_window_screen_changed;
 
 	g_object_class_install_property (g_object_class,
 					 PROP_STARTUP_FLAGS,
