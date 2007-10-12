@@ -1,3 +1,21 @@
+2007-10-12  Felix Riemann  <friemann@svn.gnome.org>
+
+	* data/Makefile.am:
+	* data/eog-image-properties-dialog.glade:
+	* data/eog-multiple-save-as-dialog.glade:
+	* data/eog-preferences-dialog.glade:
+	* data/eog.glade:
+	* src/eog-preferences-dialog.c:
+	(eog_preferences_dialog_constructor):
+	* src/eog-properties-dialog.c: (eog_properties_dialog_init):
+	* src/eog-save-as-dialog-helper.c: (eog_save_as_dialog_new):
+
+	Split each dialog from eog.glade up into a separate file.
+	This should improve the parsing speed for each dialog and probably save
+	some memory due to the smaller XML tree. Furthermore an error in one
+	of the dialog definitions does not directly affect the others.
+	It should also ease a possible GtkBuilder transition. 
+
 2007-10-10  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-plugin-manager.c: (about_button_cb):
