@@ -2802,7 +2802,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	EogImage *image;
-	guint32 user_time;
+	GdkScreen *screen;
 	char *filename = NULL;
 	
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
@@ -2814,8 +2814,6 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	user_time = gtk_get_current_event_time();
-
 	filename = eog_image_get_uri_for_display (image);
 
 	gconf_client_set_string (priv->client, 
@@ -2823,7 +2821,11 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 				 filename, 
 				 NULL);
 
-	eog_util_launch_desktop_file ("background.desktop", user_time);
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
+	gdk_spawn_command_line_on_screen (screen,
+					  "gnome-appearance-properties"
+					  " --show-page=background",
+					  NULL);
 }
 
 static int
