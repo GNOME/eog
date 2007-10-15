@@ -144,29 +144,29 @@ paint_message_area (GtkWidget      *widget,
 }
 
 static void
-style_set (GtkWidget *widget,
-	   GtkStyle  *prev_style)
+style_set (GtkWidget      *widget,
+	   GtkStyle       *prev_style,
+	   EogMessageArea *message_area)
 {
-	GtkTooltips *tooltips;
-	GtkStyle *style;
-	
-	EogMessageArea *message_area = EOG_MESSAGE_AREA (widget);
-	
-	if (message_area->priv->changing_style)
-		return;
-	
-	tooltips = gtk_tooltips_new ();
-	g_object_ref_sink (tooltips);
+        GtkWidget *window;
+        GtkStyle *style;
 
-	gtk_tooltips_force_window (tooltips);
-	gtk_widget_ensure_style (tooltips->tip_window);
-	style = gtk_widget_get_style (tooltips->tip_window);
-	
-	message_area->priv->changing_style = TRUE;
-	gtk_widget_set_style (GTK_WIDGET (widget), style);
-	message_area->priv->changing_style = FALSE;	
-	
-	g_object_unref (tooltips);
+        if (message_area->priv->changing_style)
+                return;
+
+        /* This is a hack needed to use the tooltip background color */
+        window = gtk_window_new (GTK_WINDOW_POPUP);
+        gtk_widget_set_name (window, "gtk-tooltip");
+        gtk_widget_ensure_style (window);
+        style = gtk_widget_get_style (window);
+
+        message_area->priv->changing_style = TRUE;
+        gtk_widget_set_style (GTK_WIDGET (message_area), style);
+        message_area->priv->changing_style = FALSE;
+
+        gtk_widget_destroy (window);
+
+        gtk_widget_queue_draw (GTK_WIDGET (message_area));
 }
 
 static void 
@@ -179,8 +179,6 @@ eog_message_area_class_init (EogMessageAreaClass *class)
 	object_class = G_OBJECT_CLASS (class);
 	widget_class = GTK_WIDGET_CLASS (class);
 	object_class->finalize = eog_message_area_finalize;
-	
-	widget_class->style_set = style_set;
 	
 	class->close = eog_message_area_close;
 
@@ -246,6 +244,16 @@ eog_message_area_init (EogMessageArea *message_area)
 			  "expose_event",
 			  G_CALLBACK (paint_message_area), 
 			  NULL);			  		    
+
+
+        /* Note that we connect to style-set on one of the internal
+         * widgets, not on the message area itself, since gtk does
+         * not deliver any further style-set signals for a widget on
+         * which the style has been forced with gtk_widget_set_style() */
+        g_signal_connect (message_area->priv->main_hbox,
+                          "style-set",
+                          G_CALLBACK (style_set),
+                          message_area);
 }
 
 static gint
