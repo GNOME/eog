@@ -88,6 +88,7 @@ typedef enum {
 	EOG_IMAGE_STATUS_UNKNOWN,
 	EOG_IMAGE_STATUS_LOADING,
 	EOG_IMAGE_STATUS_LOADED,
+	EOG_IMAGE_STATUS_SAVING,
 	EOG_IMAGE_STATUS_FAILED
 } EogImageStatus;
 
@@ -171,6 +172,13 @@ gpointer          eog_image_get_xmp_info             (EogImage   *img);
 GnomeVFSURI*      eog_image_get_uri                  (EogImage   *img);
 
 gchar*            eog_image_get_uri_for_display      (EogImage   *img);
+
+EogImageStatus    eog_image_get_status               (EogImage   *img);
+
+void              eog_image_restore_status           (EogImage   *img);
+
+void              eog_image_set_is_monitored         (EogImage   *img,
+						      gboolean    is_monitored);
 
 void              eog_image_transform                (EogImage   *img, 
 						      EogTransform *trans,

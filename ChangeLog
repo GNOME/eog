@@ -1,3 +1,30 @@
+2007-10-15  Lucas Rocha  <lucasr@gnome.org>
+
+	Because of a bug in gnome-vfs file monitoring, we need to avoid
+	an image that is being saved to be removed and re-added by the monitor
+	handler. We do this by setting the image's status to "saving" and, in
+	case the image is being monitored, the status is only restored after the
+	"fake" image deletion is notified by gnome-vfs. Fixes bug #475645.
+
+	* bindings/python/eog.defs: remove eog_image_add_image_from_uri() from
+	public API.
+	* src/eog-image-private.h: added "prev_status" and "is_monitored"
+	private attributes.
+	* src/eog-image.[ch]: 
+	(eog_image_init): initialize new attributes.
+	(eog_image_save_by_info): store previous status and restore only in
+	case the image is not monitored.
+	(eog_image_save_as_by_info): store previous status and restore only in
+	case the image is not monitored.
+	(eog_image_get_status),	(eog_image_restore_status), 
+	(eog_image_set_is_monitored): new utility methods in public API.
+	* src/eog-list-store.[ch]: 
+	(eog_list_store_append_image_from_uri): turned into a private method
+	and we already have eog_list_store_add_image().
+	(vfs_monitor_dir_cb): only remove image if it's not being saved.
+	(directory_visit_cb), (eog_list_store_add_uris): set images as
+	monitored accordingly.
+
 2007-10-13  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_wallpaper):
