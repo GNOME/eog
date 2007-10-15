@@ -1,3 +1,14 @@
+2007-10-16  Lucas Rocha  <lucasr@gnome.org>
+
+	Port a hack from gedit to make the style be correctly set to the
+	message area.
+
+	* src/eog-message-area.c: 
+	(style_set): get style for a temporary popup window and then apply it 
+	to the message area. 
+	(eog_message_area_class_init), (eog_message_area_init): do not handle 
+	style_set directly on message area anymore.
+
 2007-10-15  Lucas Rocha  <lucasr@gnome.org>
 
 	Because of a bug in gnome-vfs file monitoring, we need to avoid
