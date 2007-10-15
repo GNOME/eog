@@ -1217,7 +1217,8 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 	switch (event->button) {
 		case 1:
 		case 2:
-                        if (event->button == 1 && !(event->state & GDK_CONTROL_MASK))
+                        if (event->button == 1 && !priv->scroll_wheel_zoom && 
+			    !(event->state & GDK_CONTROL_MASK))
 				break;
 
 			if (is_image_movable (view)) {
