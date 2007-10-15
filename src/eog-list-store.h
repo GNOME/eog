@@ -80,9 +80,6 @@ GtkListStore   *eog_list_store_new_from_glist 	     (GList *list);
 void            eog_list_store_append_image 	     (EogListStore *store, 
 						      EogImage     *image);
 
-void            eog_list_store_append_image_from_uri (EogListStore *store, 
-						      GnomeVFSURI  *uri_entry);
-
 void            eog_list_store_add_uris 	     (EogListStore *store, 
 						      GList        *uri_list);
 

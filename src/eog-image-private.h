@@ -30,6 +30,8 @@ struct _EogImagePrivate {
 	GnomeVFSURI      *uri;
 
 	EogImageStatus    status;
+	EogImageStatus    prev_status;
+	gboolean          is_monitored;
 
 	GdkPixbuf        *image;
 	GdkPixbuf        *thumbnail;

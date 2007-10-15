@@ -340,14 +340,18 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 			    -1);
 }
 
-void 
-eog_list_store_append_image_from_uri (EogListStore *store, GnomeVFSURI *uri_entry)
+static void 
+eog_list_store_append_image_from_uri (EogListStore *store, 
+				      GnomeVFSURI *uri_entry,
+				      gboolean is_monitored)
 {
 	EogImage *image;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 
 	image = eog_image_new_uri (uri_entry);
+
+	eog_image_set_is_monitored (image, is_monitored);
 
 	eog_list_store_append_image (store, image);
 }
@@ -377,7 +381,7 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 		} else {
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				uri = gnome_vfs_uri_new (info_uri);
-				eog_list_store_append_image_from_uri (store, uri);
+				eog_list_store_append_image_from_uri (store, uri, TRUE);
 				gnome_vfs_uri_unref (uri);
 			}
 		}
@@ -387,20 +391,26 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 
 	case GNOME_VFS_MONITOR_EVENT_DELETED:
 		if (is_file_in_list_store (store, info_uri, &iter)) {
-			eog_list_store_remove (store, &iter);
+			EogImage *image;
+
+			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+					    EOG_LIST_STORE_EOG_IMAGE, &image,
+					    -1);
+
+			if (eog_image_get_status (image) != EOG_IMAGE_STATUS_SAVING) {
+				eog_list_store_remove (store, &iter);
+			} else {
+				eog_image_restore_status (image);
+			}
 		}
 		break;
 
 	case GNOME_VFS_MONITOR_EVENT_CREATED:
-		if (is_file_in_list_store (store, info_uri, NULL)) {
-			uri = gnome_vfs_uri_new (info_uri);
-			eog_list_store_append_image_from_uri (store, uri);
-			gnome_vfs_uri_unref (uri);
-		} else {
+		if (!is_file_in_list_store (store, info_uri, NULL)) {
 			mimetype = gnome_vfs_get_mime_type (info_uri);
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				uri = gnome_vfs_uri_new (info_uri);
-				eog_list_store_append_image_from_uri (store, uri);
+				eog_list_store_append_image_from_uri (store, uri, TRUE);
 				gnome_vfs_uri_unref (uri);
 			}
 			g_free (mimetype);
@@ -451,7 +461,7 @@ directory_visit_cb (const gchar *rel_uri,
 
 	if (load_uri) {
 		uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);
-		eog_list_store_append_image_from_uri (store, uri);
+		eog_list_store_append_image_from_uri (store, uri, TRUE);
 	}
 
 	return TRUE;
@@ -556,15 +566,15 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 						       GNOME_VFS_URI_HIDE_NONE);
 				if (!is_file_in_list_store (store, uri_str, 
 							    &iter)) {
-					eog_list_store_append_image_from_uri (store, initial_uri);
+					eog_list_store_append_image_from_uri (store, initial_uri, TRUE);
 				}
 				g_free (uri_str);
 			} else {
-				eog_list_store_append_image_from_uri (store, initial_uri);
+				eog_list_store_append_image_from_uri (store, initial_uri, FALSE);
 			}
 		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			   g_list_length (uri_list) > 1) {
-			eog_list_store_append_image_from_uri (store, uri);
+			eog_list_store_append_image_from_uri (store, uri, FALSE);
 		}
 	}
 
