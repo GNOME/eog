@@ -61,19 +61,17 @@ struct _EogThumbNavPrivate {
 	GtkWidget        *sw;
 	GtkWidget        *scale;
 	GtkWidget        *thumbview;
+	GtkAdjustment    *adj;
 };
 
 static gboolean
 eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer user_data)
 {
 	EogThumbNav *nav = EOG_THUMB_NAV (user_data);
-	GtkAdjustment *adj;
 	gint inc = EOG_THUMB_NAV_SCROLL_INC * 3;
 
 	if (nav->priv->mode != EOG_THUMB_NAV_MODE_ONE_ROW)
 		return FALSE;
-
-	adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (nav->priv->sw));
 
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
@@ -91,11 +89,11 @@ eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer u
 	}
 
 	if (inc < 0)
-		adj->value = MAX (0, adj->value + inc);
+		nav->priv->adj->value = MAX (0, nav->priv->adj->value + inc);
 	else
-		adj->value = MIN (adj->upper - adj->page_size, adj->value + inc);
+		nav->priv->adj->value = MIN (nav->priv->adj->upper - nav->priv->adj->page_size, nav->priv->adj->value + inc);
 
-	gtk_adjustment_value_changed (adj);
+	gtk_adjustment_value_changed (nav->priv->adj);
 
 	return TRUE;
 }
@@ -130,7 +128,6 @@ eog_thumb_nav_adj_value_changed (GtkAdjustment *adj, gpointer user_data)
 static gboolean
 eog_thumb_nav_scroll_step (gpointer user_data)
 {
-	static GtkAdjustment *adj = NULL;
 	EogThumbNav *nav = EOG_THUMB_NAV (user_data);
 	gint delta;
 
@@ -143,27 +140,23 @@ eog_thumb_nav_scroll_step (gpointer user_data)
 	else
 		delta = EOG_THUMB_NAV_SCROLL_INC * 2 + 12;
 
-        if (adj == NULL)
-                adj = gtk_scrolled_window_get_hadjustment (
-                                        GTK_SCROLLED_WINDOW (nav->priv->sw));
-
 	if (!nav->priv->scroll_dir)
 		delta *= -1;
 
-	if ((gint) (adj->value + (gdouble) delta) >= 0 &&
-	    (gint) (adj->value + (gdouble) delta) <= adj->upper - adj->page_size) {
-		adj->value += (gdouble) delta; 
+	if ((gint) (nav->priv->adj->value + (gdouble) delta) >= 0 &&
+	    (gint) (nav->priv->adj->value + (gdouble) delta) <= nav->priv->adj->upper - nav->priv->adj->page_size) {
+		nav->priv->adj->value += (gdouble) delta; 
 		nav->priv->scroll_pos++;
-		gtk_adjustment_value_changed (adj);
+		gtk_adjustment_value_changed (nav->priv->adj);
 	} else {
 		if (delta > 0)
-		      adj->value = adj->upper - adj->page_size;
+		      nav->priv->adj->value = nav->priv->adj->upper - nav->priv->adj->page_size;
 		else
-		      adj->value = 0;
+		      nav->priv->adj->value = 0;
 
 		nav->priv->scroll_pos = 0;
 		
-		gtk_adjustment_value_changed (adj);
+		gtk_adjustment_value_changed (nav->priv->adj);
 
 		return FALSE;
 	}
@@ -319,7 +312,6 @@ static void
 eog_thumb_nav_init (EogThumbNav *nav)
 {
 	EogThumbNavPrivate *priv;
-	GtkAdjustment *adj;
 	GtkWidget *arrow;
 
 	nav->priv = EOG_THUMB_NAV_GET_PRIVATE (nav);
@@ -372,14 +364,14 @@ eog_thumb_nav_init (EogThumbNav *nav)
 			  G_CALLBACK (eog_thumb_nav_scroll_event), 
 			  nav);
 
-        adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->sw));
+	priv->adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->sw));
 
-	g_signal_connect (adj, 
+	g_signal_connect (priv->adj, 
 			  "changed", 
 			  G_CALLBACK (eog_thumb_nav_adj_changed), 
 			  nav);
 
-	g_signal_connect (adj, 
+	g_signal_connect (priv->adj, 
 			  "value-changed", 
 			  G_CALLBACK (eog_thumb_nav_adj_value_changed), 
 			  nav);
@@ -411,7 +403,7 @@ eog_thumb_nav_init (EogThumbNav *nav)
 			  G_CALLBACK (eog_thumb_nav_stop_scroll), 
 			  nav);
 
-	gtk_adjustment_value_changed (adj);
+	gtk_adjustment_value_changed (priv->adj);
 }
 
 GtkWidget *
