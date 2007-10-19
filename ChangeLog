@@ -1,5 +1,12 @@
 2007-10-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-thumb-nav.c: (eog_thumb_nav_scroll_event),
+	(eog_thumb_nav_scroll_step), (eog_thumb_nav_init): 
+	Store the adjustment in the private data to slightly
+	improve performance (and actually complete previous patch).
+
+2007-10-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-thumb-nav.c: (eog_thumb_nav_scroll_step): Do not use 
 	static in the GtkAdjustment. Fixes bug #488344.
 
