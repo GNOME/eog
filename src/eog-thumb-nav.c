@@ -130,7 +130,7 @@ eog_thumb_nav_adj_value_changed (GtkAdjustment *adj, gpointer user_data)
 static gboolean
 eog_thumb_nav_scroll_step (gpointer user_data)
 {
-	static GtkAdjustment *adj = NULL;
+	GtkAdjustment *adj = NULL;
 	EogThumbNav *nav = EOG_THUMB_NAV (user_data);
 	gint delta;
 
