@@ -760,7 +760,7 @@ void
 eog_list_store_thumbnail_set (EogListStore *store, 
 			      GtkTreeIter *iter)
 {
-	gboolean *thumb_set;
+	gboolean thumb_set = FALSE;
 
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_THUMB_SET, &thumb_set,
