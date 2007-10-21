@@ -285,51 +285,52 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 
 			app1_type = eog_metadata_identify_app1 ((gchar*) &buf[i], priv->size);
 			
-			if (app1_type != EJA_OTHER) {
-				EogMetadataReaderState next_state;
-				guchar *chunk = NULL;
-				int offset = 0;
-				
-				switch (app1_type) {
-				case EJA_EXIF:
-					if (priv->exif_chunk == NULL) { 
-						priv->exif_chunk = g_new0 (guchar, priv->size);
-						priv->exif_len = priv->size;
-						priv->bytes_read = 0;
-						chunk = priv->exif_chunk;
-						next_state = EMR_READ_EXIF;
-					}
-					break;
-				case EJA_XMP:
-					if (priv->xmp_chunk == NULL) { 
-						offset = 29 + 54; /* skip the ID + packet */
+			EogMetadataReaderState next_state;
+			guchar *chunk = NULL;
+			int offset = 0;
 
-						if (priv->size > offset)  { /* ensure that we have enough bytes */
-							priv->xmp_chunk = g_new0 (guchar, priv->size);
-							priv->xmp_len = priv->size - offset;
-							priv->bytes_read = 0;
-							chunk = priv->xmp_chunk;
-							next_state = EMR_READ_XMP;
-						}
-					}
-				default:
-					break;
+			switch (app1_type) {
+			case EJA_EXIF:
+				if (priv->exif_chunk == NULL) { 
+					priv->exif_chunk = g_new0 (guchar, priv->size);
+					priv->exif_len = priv->size;
+					priv->bytes_read = 0;
+					chunk = priv->exif_chunk;
+					next_state = EMR_READ_EXIF;
 				}
-				
-				if (chunk) {
-					if (i + priv->size < len) {
-						/* read data in one block */
-						memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[i + offset], priv->size);
-						priv->state = EMR_READ;
-						i = i + priv->size - 1; /* the for-loop consumes the other byte */
-					} else {
-						int chunk_len = len - i;
-						memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
-						priv->bytes_read += chunk_len; /* bytes already read */
-						priv->size = (i + priv->size) - len; /* remaining data to read */
-						i = len - 1;
-						priv->state = next_state;
+				break;
+			case EJA_XMP:
+				if (priv->xmp_chunk == NULL) { 
+					offset = 29 + 54; /* skip the ID + packet */
+						if (priv->size > offset)  { /* ensure that we have enough bytes */
+						priv->xmp_chunk = g_new0 (guchar, priv->size);
+						priv->xmp_len = priv->size - offset;
+						priv->bytes_read = 0;
+						chunk = priv->xmp_chunk;
+						next_state = EMR_READ_XMP;
 					}
+				}
+				break;
+			case EJA_OTHER:
+			default:
+				/* skip unknown data */
+				priv->state = EMR_SKIP_BYTES;
+				break;
+			}
+
+			if (chunk) {
+				if (i + priv->size < len) {
+					/* read data in one block */
+					memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[i + offset], priv->size);
+					priv->state = EMR_READ;
+					i = i + priv->size - 1; /* the for-loop consumes the other byte */
+				} else {
+					int chunk_len = len - i;
+					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
+					priv->bytes_read += chunk_len; /* bytes already read */
+					priv->size = (i + priv->size) - len; /* remaining data to read */
+					i = len - 1;
+					priv->state = next_state;
 				}
 			}
 
