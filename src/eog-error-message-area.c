@@ -107,7 +107,7 @@ create_error_message_area (const gchar *primary_text,
 
 	if (recoverable)
 		message_area = eog_message_area_new_with_buttons (
-						"Retry", GTK_RESPONSE_OK,
+						_("_Retry"), GTK_RESPONSE_OK,
 						NULL);
 	else 
 		message_area = eog_message_area_new ();
