@@ -1,5 +1,20 @@
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
 
+	Add a context menu in image view widget. 
+	Fixes bug #481301 (Cosimo Cecchi)
+
+	* data/eog-ui.xml: add new context menu definition for "ViewPopup".
+	* src/eog-scroll-view.[ch] (eog_scroll_view_init,
+	eog_scroll_view_popup_menu, view_on_button_press_event_cb,
+	eog_scroll_view_set_popup): added new API setting a popup context menu
+	on image view.
+	* src/eog-window.c 
+	(eog_window_update_openwith_menu): update view popup menu as well with
+	applications for "Open with..." action.
+	(eog_window_construct_ui): add popup menu on image view widget.
+
+2007-10-29  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-util.c (eog_util_make_valid_utf8): add " (invalid Unicode)"
 	suffix to image captions with invalid utf8 characters. 
 	Fixes bug #475124.

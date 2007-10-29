@@ -72,6 +72,7 @@ struct _EogScrollViewPrivate {
 	GtkAdjustment *vadj;
 	GtkWidget *hbar;
 	GtkWidget *vbar;
+	GtkWidget *menu;
 
 	/* actual image */
 	EogImage *image;
@@ -1921,6 +1922,7 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->transp_style = EOG_TRANSP_BACKGROUND;
 	priv->transp_color = 0;
 	priv->cursor = EOG_SCROLL_VIEW_CURSOR_NORMAL;
+	priv->menu = NULL;
 }
 
 static void
@@ -2064,6 +2066,58 @@ eog_scroll_view_new (void)
 	gtk_widget_show_all (widget);
 	
 	return widget;
+}
+
+static void 
+eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
+{
+	GtkWidget *popup;
+	int button, event_time;
+
+	popup = view->priv->menu;
+	
+	if (event) {
+		button = event->button;
+		event_time = event->time;
+	} else {
+		button = 0;
+		event_time = gtk_get_current_event_time ();
+	}
+	
+	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, 
+			button, event_time);
+}
+
+static gboolean
+view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event, 
+			       gpointer user_data)
+{    
+    /* Ignore double-clicks and triple-clicks */
+    if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
+    {
+	    eog_scroll_view_popup_menu (EOG_SCROLL_VIEW (view), event);
+
+	    return TRUE;
+    }
+    
+    return FALSE;
+}
+
+void
+eog_scroll_view_set_popup (EogScrollView *view,
+			   GtkMenu *menu)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+	g_return_if_fail (view->priv->menu == NULL);
+
+	view->priv->menu = g_object_ref (menu);
+
+	gtk_menu_attach_to_widget (GTK_MENU (view->priv->menu), 
+				   GTK_WIDGET (view), 
+				   NULL);
+
+	g_signal_connect (G_OBJECT (view), "button_press_event",
+			  G_CALLBACK (view_on_button_press_event_cb), NULL);
 }
 
 void

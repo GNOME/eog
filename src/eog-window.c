@@ -1081,6 +1081,13 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
+                gtk_ui_manager_add_ui (priv->ui_mgr,
+                                priv->open_with_menu_id,
+                                "/ViewPopup/FileOpenWith/Applications Placeholder",
+                                name,
+                                name,
+                                GTK_UI_MANAGER_MENUITEM,
+                                FALSE);
         }
 
         g_list_free (apps);
@@ -3708,7 +3715,8 @@ eog_window_construct_ui (EogWindow *window)
 	GError *error = NULL;
 	
 	GtkWidget *menubar;
-	GtkWidget *popup;
+	GtkWidget *thumb_popup;
+	GtkWidget *view_popup;
 	GtkWidget *frame;
 	GtkWidget *hpaned;
 
@@ -3877,6 +3885,10 @@ eog_window_construct_ui (EogWindow *window)
 			  G_CALLBACK (view_zoom_changed_cb), 
 			  window);
 
+	view_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ViewPopup");
+	eog_scroll_view_set_popup (EOG_SCROLL_VIEW (priv->view),
+				   GTK_MENU (view_popup));
+
 	frame = gtk_widget_new (GTK_TYPE_FRAME, 
 				"shadow-type", GTK_SHADOW_IN, 
 				NULL);
@@ -3912,9 +3924,9 @@ eog_window_construct_ui (EogWindow *window)
 							      EOG_CONF_UI_SCROLL_BUTTONS,
 							      NULL));
 
-	popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
+	thumb_popup = gtk_ui_manager_get_widget (priv->ui_mgr, "/ThumbnailPopup");
 	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (priv->thumbview), 
-					    GTK_MENU (popup));
+					    GTK_MENU (thumb_popup));
 
 	gtk_box_pack_start (GTK_BOX (priv->layout), priv->nav, FALSE, FALSE, 0);
 
