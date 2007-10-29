@@ -108,9 +108,7 @@ eog_util_make_valid_utf8 (const gchar *str)
 	}
 
 	g_string_append (string, remainder);
-	/* FIXME: Can't add this string for 2.20 anymore. Uncomment 
-	 * this after stable branching. */
-	/* g_string_append (string, _(" (invalid Unicode)")); */
+	g_string_append (string, _(" (invalid Unicode)"));
 
 	g_assert (g_utf8_validate (string->str, -1, NULL));
 

@@ -1,5 +1,11 @@
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-util.c (eog_util_make_valid_utf8): add " (invalid Unicode)"
+	suffix to image captions with invalid utf8 characters. 
+	Fixes bug #475124.
+
+2007-10-29  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-window.c (eog_window_can_save_changed_cb,
 	update_action_groups_state, eog_job_load_cb,
 	eog_job_transform_cb), eog_job_save_cb,
