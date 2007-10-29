@@ -176,6 +176,8 @@ struct _EogWindowPrivate {
 
         GtkActionGroup      *actions_open_with;
 	guint                open_with_menu_id;
+	
+	gboolean	     save_disabled;
 
 #ifdef HAVE_LCMS
         cmsHPROFILE         *display_profile;
@@ -511,6 +513,50 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 	}
 }
 
+static void
+eog_window_can_save_changed_cb (GConfClient *client,
+				guint       cnxn_id,
+				GConfEntry  *entry,
+				gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	EogWindow *window;
+	gboolean save_disabled = FALSE;
+	GtkAction *action_save, *action_save_as;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	window = EOG_WINDOW (user_data);
+	priv = EOG_WINDOW (user_data)->priv;
+	
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		save_disabled = gconf_value_get_bool (entry->value);
+	}
+
+	priv->save_disabled = save_disabled;
+
+	action_save = 
+		gtk_action_group_get_action (priv->actions_image, "FileSave");
+	action_save_as = 
+		gtk_action_group_get_action (priv->actions_image, "FileSaveAs");
+
+	if (priv->save_disabled) {
+		gtk_action_set_sensitive (action_save, FALSE);
+		gtk_action_set_sensitive (action_save_as, FALSE);
+	} else {
+		EogImage *image = eog_window_get_image (window);
+
+		if (EOG_IS_IMAGE (image)) {
+			gtk_action_set_sensitive (action_save, 
+						  eog_image_is_modified (image));
+
+			gtk_action_set_sensitive (action_save_as, TRUE); 
+		}
+	}
+}				
+
 #ifdef HAVE_LCMS
 static cmsHPROFILE *
 eog_window_get_display_profile (GdkScreen *screen)
@@ -662,11 +708,8 @@ update_action_groups_state (EogWindow *window)
 	GtkAction *action_sidebar;
 	GtkAction *action_fscreen;
 	GtkAction *action_sshow;
-	GtkAction *action_save;
-	GtkAction *action_save_as;
 	GtkAction *action_print;
 	GtkAction *action_page_setup;
-	gboolean save_disabled = FALSE;
 	gboolean print_disabled = FALSE;
 	gboolean page_setup_disabled = FALSE;
 	gboolean show_image_collection = FALSE;
@@ -694,14 +737,6 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_group_get_action (priv->actions_collection, 
 					     "ViewSlideshow");
 
-	action_save = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FileSave");
-
-	action_save_as = 
-		gtk_action_group_get_action (priv->actions_image, 
-					     "FileSaveAs");
-
 	action_print = 
 		gtk_action_group_get_action (priv->actions_image, 
 					     "FilePrint");
@@ -714,8 +749,6 @@ update_action_groups_state (EogWindow *window)
 	g_assert (action_sidebar != NULL);
 	g_assert (action_fscreen != NULL);
 	g_assert (action_sshow != NULL);
-	g_assert (action_save != NULL);
-	g_assert (action_save_as != NULL);
 	g_assert (action_print != NULL);
 	g_assert (action_page_setup != NULL);
 
@@ -780,15 +813,6 @@ update_action_groups_state (EogWindow *window)
 		}
 
 		gtk_widget_grab_focus (priv->view);
-	}
-
-	save_disabled = gconf_client_get_bool (priv->client, 
-					       EOG_CONF_DESKTOP_CAN_SAVE, 
-					       NULL);
-
-	if (save_disabled) {
-		gtk_action_set_sensitive (action_save, FALSE);
-		gtk_action_set_sensitive (action_save_as, FALSE);
 	}
 
 	print_disabled = gconf_client_get_bool (priv->client, 
@@ -1250,6 +1274,7 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 {
 	EogWindow *window;
 	EogWindowPrivate *priv;
+	GtkAction *action_undo, *action_save;
 
         g_return_if_fail (EOG_IS_WINDOW (data));
 	
@@ -1328,6 +1353,14 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 			 G_CALLBACK (eog_window_obtain_desired_size), 
 			 window);
 	}
+	
+	action_save = gtk_action_group_get_action (priv->actions_image, "FileSave");
+	action_undo = gtk_action_group_get_action (priv->actions_image, "EditUndo");
+
+	/* We set these to be unsensitive on image load, we activate it
+	 * only when the image is changed. */	
+	gtk_action_set_sensitive (action_save, FALSE);
+	gtk_action_set_sensitive (action_undo, FALSE);
 
 	g_object_unref (job->image);
 }
@@ -1353,12 +1386,28 @@ static void
 eog_job_transform_cb (EogJobTransform *job, gpointer data)
 {
 	EogWindow *window;
+	GtkAction *action_undo, *action_save;
+	EogImage *image;
 	
         g_return_if_fail (EOG_IS_WINDOW (data));
 	
 	window = EOG_WINDOW (data);
 
 	eog_window_clear_transform_job (window);
+	
+	action_undo = 
+		gtk_action_group_get_action (window->priv->actions_image, "EditUndo");
+	action_save = 
+		gtk_action_group_get_action (window->priv->actions_image, "FileSave");
+
+	image = eog_window_get_image (window);
+
+	gtk_action_set_sensitive (action_undo, eog_image_is_modified (image));
+
+	if (!window->priv->save_disabled)
+	{
+		gtk_action_set_sensitive (action_save, eog_image_is_modified (image));
+	}
 }
 
 static void 
@@ -2542,6 +2591,7 @@ static void
 eog_job_save_cb (EogJobSave *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
+	GtkAction *action_save;
 
 	g_signal_handlers_disconnect_by_func (job, 
 					      eog_job_save_cb, 
@@ -2555,6 +2605,9 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 	window->priv->save_job = NULL;
 
 	update_status_bar (window);
+	action_save = gtk_action_group_get_action (window->priv->actions_image,
+						   "FileSave");
+	gtk_action_set_sensitive (action_save, FALSE);
 }
 
 static void
@@ -3920,6 +3973,15 @@ eog_window_construct_ui (EogWindow *window)
 		gconf_entry_unref (entry);
 		entry = NULL;
 	}
+	
+	entry = gconf_client_get_entry (priv->client, 
+					EOG_CONF_DESKTOP_CAN_SAVE, 
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_can_save_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
 
 	if ((priv->flags & EOG_STARTUP_FULLSCREEN) || 
 	    (priv->flags & EOG_STARTUP_SLIDE_SHOW)) {
@@ -3991,6 +4053,11 @@ eog_window_init (EogWindow *window)
 				 EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
 				 eog_window_collection_mode_changed_cb,
 				 window, NULL, NULL);
+	
+	gconf_client_notify_add (window->priv->client,
+				 EOG_CONF_DESKTOP_CAN_SAVE,
+				 eog_window_can_save_changed_cb,
+				 window, NULL, NULL);
 
 	window->priv->store = NULL;
 	window->priv->image = NULL;
@@ -4027,6 +4094,8 @@ eog_window_init (EogWindow *window)
 	
 	window->priv->collection_position = 0;
 	window->priv->collection_resizable = FALSE;
+
+	window->priv->save_disabled = FALSE;
 }
 
 static void
