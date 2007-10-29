@@ -1,3 +1,12 @@
+2007-10-29  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-window.c (eog_window_can_save_changed_cb,
+	update_action_groups_state, eog_job_load_cb,
+	eog_job_transform_cb), eog_job_save_cb,
+	eog_window_construct_ui, eog_window_init): correctly update save 
+	actions according to image modification state and desktop save to 
+	disk lockdown key. Fixes bug #476919 (Cosimo Cecchi).
+
 2007-10-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-error-message-area.c: (create_error_message_area): Mark
