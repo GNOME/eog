@@ -3335,7 +3335,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "SetAsWallpaper", NULL, N_("Set As _Wallpaper"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_wallpaper) },
-	{ "EditMoveToTrash", GTK_STOCK_DELETE, N_("Move to _Trash"), NULL, 
+	{ "EditMoveToTrash", "user-trash", N_("Move to _Trash"), NULL, 
 	  NULL, 
 	  G_CALLBACK (eog_window_cmd_move_to_trash) },
 	{ "ViewZoomIn", GTK_STOCK_ZOOM_IN, N_("_Zoom In"), "<control>plus", 
