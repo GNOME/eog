@@ -2400,17 +2400,42 @@ eog_window_cmd_preferences (GtkAction *action, gpointer user_data)
 	eog_dialog_show (EOG_DIALOG (pref_dlg));
 }
 
+#define EOG_TB_EDITOR_DLG_RESET_RESPONSE 128
+
 static void
 eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
 {
 	EogWindow *window = EOG_WINDOW (data);
 
-        egg_editable_toolbar_set_edit_mode
-		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+	if (response == EOG_TB_EDITOR_DLG_RESET_RESPONSE) {
+		EggToolbarsModel *model;
+		EggToolbarEditor *editor;
 
-	eog_application_save_toolbars_model (EOG_APP);
+		editor = g_object_get_data (G_OBJECT (dialog),
+					    "EggToolbarEditor");
 
-        gtk_widget_destroy (GTK_WIDGET (dialog));
+		g_return_if_fail (editor != NULL);
+
+        	egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+
+		eog_application_reset_toolbars_model (EOG_APP);
+		model = eog_application_get_toolbars_model (EOG_APP);
+		egg_editable_toolbar_set_model 
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), model);
+		egg_toolbar_editor_set_model (editor, model);
+
+		/* Toolbar would be uneditable now otherwise */
+		egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+	} else {
+        	egg_editable_toolbar_set_edit_mode
+			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
+
+		eog_application_save_toolbars_model (EOG_APP);
+
+        	gtk_widget_destroy (GTK_WIDGET (dialog));
+	}
 }
 
 static void
@@ -2426,8 +2451,10 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 
 	dialog = gtk_dialog_new_with_buttons (_("Toolbar Editor"),
 					      GTK_WINDOW (window), 
-				              GTK_DIALOG_DESTROY_WITH_PARENT, 
-					      GTK_STOCK_CLOSE,
+				              GTK_DIALOG_DESTROY_WITH_PARENT,
+					      _("_Reset to Default"),
+					      EOG_TB_EDITOR_DLG_RESET_RESPONSE,
+ 					      GTK_STOCK_CLOSE,
 					      GTK_RESPONSE_CLOSE, 
 					      NULL);
 
@@ -2453,6 +2480,8 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 
 	egg_editable_toolbar_set_edit_mode
 		(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+
+	g_object_set_data (G_OBJECT (dialog), "EggToolbarEditor", editor);
 
 	g_signal_connect (dialog, 
                           "response",

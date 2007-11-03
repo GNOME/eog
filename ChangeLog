@@ -1,12 +1,21 @@
 2007-11-03  Felix Riemann  <friemann@svn.gnome.org>
 
-	reviewed by: <delete if not using a buddy>
+	* src/eog-application.c: (eog_application_reset_toolbars_model):
+	* src/eog-application.h:
+	* src/eog-window.c: (eog_window_cmd_edit_toolbar_cb),
+	(eog_window_cmd_edit_toolbar):
+	Support resetting the toolbar to its default state. Fixes bug #480975.
+
+2007-11-03  Felix Riemann  <friemann@svn.gnome.org>
 
 	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
 	(egg_toolbar_editor_disconnect_model),
 	(egg_toolbar_editor_set_model), (egg_toolbar_editor_class_init),
 	(egg_toolbar_editor_finalize):
 	* cut-n-paste/toolbar-editor/egg-toolbar-editor.h:
+	Update to latest EggToolbarEditor code in preparation for my next
+	commit. This allows changing an EggToolbarEditor's model during
+	runtime and tries to fix possibly leaking signal handlers.
 
 2007-10-31  Jaap Haitsma <jaap@haitsma.org>
 

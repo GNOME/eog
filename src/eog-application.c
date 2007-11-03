@@ -370,6 +370,23 @@ eog_application_save_toolbars_model (EogApplication *application)
 					  "1.0");
 }
 
+void
+eog_application_reset_toolbars_model (EogApplication *app)
+{
+	g_return_if_fail (EOG_IS_APPLICATION (app));
+
+	g_object_unref (app->toolbars_model);
+
+	app->toolbars_model = egg_toolbars_model_new ();
+
+	egg_toolbars_model_load_names (app->toolbars_model,
+				       EOG_DATA_DIR "/eog-toolbar.xml");
+	egg_toolbars_model_load_toolbars (app->toolbars_model,
+					  EOG_DATA_DIR "/eog-toolbar.xml");
+	egg_toolbars_model_set_flags (app->toolbars_model, 0,
+				      EGG_TB_MODEL_NOT_REMOVABLE);
+}
+
 #ifdef HAVE_DBUS
 void
 eog_application_screensaver_enable (EogApplication *application)
