@@ -187,7 +187,8 @@ eog_util_string_array_make_absolute (gchar **files)
 	
 	int size = g_strv_length (files);
 	
-	abs_files = g_new0 (gchar *, size);
+	/* Ensure new list is NULL-terminated */
+	abs_files = g_new0 (gchar *, size+1);
 	
 	for (i = 0; i < size; i++) {
 		abs_files[i] = gnome_vfs_make_uri_from_input_with_dirs (files[i],
