@@ -7,15 +7,15 @@
 #
 # Lauris Kaplinski <lauris@ariman.ee>, 2000.
 # Ivar Smolin <okul@linux.ee>, 2005-2007.
-# Priit Laes <amd@store20.com>, 2005, 2006.
+# Priit Laes <amd@store20.com>, 2005-2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-25 12:57+0100\n"
-"PO-Revision-Date: 2007-10-26 21:47+0300\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"POT-Creation-Date: 2007-11-03 22:40+0000\n"
+"PO-Revision-Date: 2007-11-04 12:55+0300\n"
+"Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgstr "_Kustuta tööriistariba"
 msgid "Remove the selected toolbar"
 msgstr "Valitud tööriistariba eemaldamine"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:441
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
 msgid "Separator"
 msgstr "Eraldaja"
 
@@ -484,7 +484,7 @@ msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:436
-#: ../src/eog-window.c:614
+#: ../src/eog-window.c:660
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "piksel"
@@ -710,31 +710,35 @@ msgstr "Vähemasti kaks faili on sama nimega."
 msgid "Could not display help for Eye of GNOME"
 msgstr "Eye of GNOME abiteavet pole võimalik kuvada"
 
-#: ../src/eog-window.c:1027
+#: ../src/eog-util.c:111
+msgid " (invalid Unicode)"
+msgstr " (vigane Unicode)"
+
+#: ../src/eog-window.c:1051
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Ava programmiga \"%s\""
 
-#: ../src/eog-window.c:1028
+#: ../src/eog-window.c:1052
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Programmi \"%s\" kasutamine valitud pildi avamiseks"
 
-#: ../src/eog-window.c:1133
+#: ../src/eog-window.c:1164
 #, c-format
 msgid "Saving image \"%s\" %s"
 msgstr "Pildi \"%s\" %s salvestamine"
 
-#: ../src/eog-window.c:1444
+#: ../src/eog-window.c:1500
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Pildi \"%s\" laadimine"
 
-#: ../src/eog-window.c:2256
+#: ../src/eog-window.c:2312
 msgid "Image Settings"
 msgstr "Pildi sätted"
 
-#: ../src/eog-window.c:2270
+#: ../src/eog-window.c:2326
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -743,18 +747,22 @@ msgstr ""
 "Viga faili printimisel:\n"
 "%s"
 
-#: ../src/eog-window.c:2371
+#: ../src/eog-window.c:2452
 msgid "Toolbar Editor"
 msgstr "Tööriistariba redaktor"
 
-#: ../src/eog-window.c:2454
+#: ../src/eog-window.c:2455
+msgid "_Reset to Default"
+msgstr "_Taasta vaikeseaded"
+
+#: ../src/eog-window.c:2539
 msgid "translator-credits"
 msgstr ""
 "Lauris Kaplinski <lauris@ariman.ee>, 2000.\n"
 "Ivar Smolin <okul@linux.ee>, 2005-2007.\n"
-"Priit Laes <amd@store20.com>, 2005, 2006"
+"Priit Laes <amd@store20.com>, 2005-2007"
 
-#: ../src/eog-window.c:2457
+#: ../src/eog-window.c:2542
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -766,7 +774,7 @@ msgstr ""
 "Vaba Tarkvara Fond; kas litsentsi versioonis number 2 või (vastavalt Teie "
 "valikule) ükskõik millises hilisemas versioonis.\n"
 
-#: ../src/eog-window.c:2461
+#: ../src/eog-window.c:2546
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -778,7 +786,7 @@ msgstr ""
 "TEATUD KINDLAKS EESMÄRGIKS. Üksikasjade suhtes vaata GNU Üldist Avalikku "
 "Litsentsi.\n"
 
-#: ../src/eog-window.c:2465
+#: ../src/eog-window.c:2550
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -788,22 +796,22 @@ msgstr ""
 "programmiga, kui ei, siis võtke ühendust Vaba Tarkvara Fondiga, 59 Temple "
 "Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2478 ../src/main.c:186
+#: ../src/eog-window.c:2563 ../src/main.c:186
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME (gnoomi silm)"
 
-#: ../src/eog-window.c:2481
+#: ../src/eog-window.c:2566
 msgid "The GNOME image viewer."
 msgstr "GNOME pildinäitaja."
 
-#: ../src/eog-window.c:2843
+#: ../src/eog-window.c:2932
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
 "\"%s\" to the trash?"
 msgstr "Soovid sa tõsta \"%s\" prügikasti?"
 
-#: ../src/eog-window.c:2846
+#: ../src/eog-window.c:2935
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -815,253 +823,253 @@ msgstr[0] "Soovid sa tõsta valitud pildi prügikasti?"
 msgstr[1] "Soovid sa tõsta %d valitud pilti prügikasti?"
 
 # see on menüüvalik (ilma kiirklahvita)
-#: ../src/eog-window.c:2861
+#: ../src/eog-window.c:2950
 msgid "Move to Trash"
 msgstr "Tõsta prügikasti"
 
-#: ../src/eog-window.c:2907
+#: ../src/eog-window.c:2996
 msgid "Couldn't access trash."
 msgstr "Prügikasti pole võimalik kasutada."
 
-#: ../src/eog-window.c:2991
+#: ../src/eog-window.c:3080
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Viga pildi %s kustutamisel"
 
-#: ../src/eog-window.c:3198
+#: ../src/eog-window.c:3287
 msgid "_File"
 msgstr "_Fail"
 
-#: ../src/eog-window.c:3199
+#: ../src/eog-window.c:3288
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../src/eog-window.c:3200
+#: ../src/eog-window.c:3289
 msgid "_View"
 msgstr "_Vaade"
 
-#: ../src/eog-window.c:3201
+#: ../src/eog-window.c:3290
 msgid "_Image"
 msgstr "_Pilt"
 
-#: ../src/eog-window.c:3202
+#: ../src/eog-window.c:3291
 msgid "_Go"
 msgstr "_Liikumine"
 
-#: ../src/eog-window.c:3203
+#: ../src/eog-window.c:3292
 msgid "_Tools"
 msgstr "_Tööriistad"
 
-#: ../src/eog-window.c:3204
+#: ../src/eog-window.c:3293
 msgid "_Help"
 msgstr "_Abi"
 
-#: ../src/eog-window.c:3206
+#: ../src/eog-window.c:3295
 msgid "_Open..."
 msgstr "_Ava..."
 
-#: ../src/eog-window.c:3207
+#: ../src/eog-window.c:3296
 msgid "Open a file"
 msgstr "Faili avamine"
 
-#: ../src/eog-window.c:3209
+#: ../src/eog-window.c:3298
 msgid "_Close"
 msgstr "_Sulge"
 
-#: ../src/eog-window.c:3210
+#: ../src/eog-window.c:3299
 msgid "Close window"
 msgstr "Akna sulgemine"
 
-#: ../src/eog-window.c:3212
+#: ../src/eog-window.c:3301
 msgid "T_oolbar"
 msgstr "Töö_riistariba"
 
-#: ../src/eog-window.c:3213
+#: ../src/eog-window.c:3302
 msgid "Edit the application toolbar"
 msgstr "Rakenduse tööriistariba redigeerimine"
 
-#: ../src/eog-window.c:3215
+#: ../src/eog-window.c:3304
 msgid "Prefere_nces"
 msgstr "_Eelistused"
 
-#: ../src/eog-window.c:3216
+#: ../src/eog-window.c:3305
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of Gnome (gnoomi silma) eelistused"
 
-#: ../src/eog-window.c:3218
+#: ../src/eog-window.c:3307
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: ../src/eog-window.c:3219
+#: ../src/eog-window.c:3308
 msgid "Help on this application"
 msgstr "Selle rakenduse kohta käiv abiteave"
 
-#: ../src/eog-window.c:3221 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3310 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "_Programmist lähemalt"
 
-#: ../src/eog-window.c:3222
+#: ../src/eog-window.c:3311
 msgid "About this application"
 msgstr "Info selle programmi kohta"
 
-#: ../src/eog-window.c:3227
+#: ../src/eog-window.c:3316
 msgid "_Toolbar"
 msgstr "Töö_riistariba"
 
-#: ../src/eog-window.c:3228
+#: ../src/eog-window.c:3317
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Käesoleva akna tööriistariba nähtavaloleku muutmine"
 
-#: ../src/eog-window.c:3230
+#: ../src/eog-window.c:3319
 msgid "_Statusbar"
 msgstr "_Olekuriba"
 
-#: ../src/eog-window.c:3231
+#: ../src/eog-window.c:3320
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Käesoleva akna olekuriba nähtavaloleku muutmine"
 
-#: ../src/eog-window.c:3233
+#: ../src/eog-window.c:3322
 msgid "_Image Collection"
 msgstr "_Pildikogumik"
 
-#: ../src/eog-window.c:3234
+#: ../src/eog-window.c:3323
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "Pildikogumiku paani nähtavuse muutmine aktiivses aknas"
 
-#: ../src/eog-window.c:3236
+#: ../src/eog-window.c:3325
 msgid "Side _Pane"
 msgstr "Külg_paan"
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3326
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Käesoleva akna külgpaani nähtavaloleku muutmine"
 
-#: ../src/eog-window.c:3242
+#: ../src/eog-window.c:3331
 msgid "_Save"
 msgstr "Sa_lvesta"
 
-#: ../src/eog-window.c:3245
+#: ../src/eog-window.c:3334
 msgid "Open _with"
 msgstr "Ava _programmiga"
 
-#: ../src/eog-window.c:3248
+#: ../src/eog-window.c:3337
 msgid "Save _As..."
 msgstr "Salvesta _kui..."
 
-#: ../src/eog-window.c:3251
+#: ../src/eog-window.c:3340
 msgid "Page Set_up..."
 msgstr "Lehe sä_tted..."
 
-#: ../src/eog-window.c:3254
+#: ../src/eog-window.c:3343
 msgid "_Print..."
 msgstr "_Prindi..."
 
-#: ../src/eog-window.c:3257
+#: ../src/eog-window.c:3346
 msgid "Prope_rties"
 msgstr "_Omadused"
 
-#: ../src/eog-window.c:3260
+#: ../src/eog-window.c:3349
 msgid "_Undo"
 msgstr "_Tühista"
 
-#: ../src/eog-window.c:3263
+#: ../src/eog-window.c:3352
 msgid "Flip _Horizontal"
 msgstr "Peegelda _horisontaalselt"
 
-#: ../src/eog-window.c:3266
+#: ../src/eog-window.c:3355
 msgid "Flip _Vertical"
 msgstr "Pee_gelda vertikaalselt"
 
-#: ../src/eog-window.c:3269
+#: ../src/eog-window.c:3358
 msgid "_Rotate Clockwise"
 msgstr "Pööra _päripäeva"
 
-#: ../src/eog-window.c:3272
+#: ../src/eog-window.c:3361
 msgid "Rotate Counterc_lockwise"
 msgstr "Pööra _vastupäeva"
 
-#: ../src/eog-window.c:3275
+#: ../src/eog-window.c:3364
 msgid "Set As _Wallpaper"
 msgstr "_Säti taustapildiks"
 
-#: ../src/eog-window.c:3278 ../src/eog-window.c:3302
+#: ../src/eog-window.c:3367 ../src/eog-window.c:3391
 msgid "Move to _Trash"
 msgstr "_Tõsta prügikasti"
 
-#: ../src/eog-window.c:3281 ../src/eog-window.c:3293 ../src/eog-window.c:3296
+#: ../src/eog-window.c:3370 ../src/eog-window.c:3382 ../src/eog-window.c:3385
 msgid "_Zoom In"
 msgstr "S_uurenda"
 
-#: ../src/eog-window.c:3284 ../src/eog-window.c:3299
+#: ../src/eog-window.c:3373 ../src/eog-window.c:3388
 msgid "Zoom _Out"
 msgstr "_Vähenda"
 
-#: ../src/eog-window.c:3287
+#: ../src/eog-window.c:3376
 msgid "_Normal Size"
 msgstr "_Normaalsuurus"
 
-#: ../src/eog-window.c:3290
+#: ../src/eog-window.c:3379
 msgid "Best _Fit"
 msgstr "Parim _mahutus"
 
-#: ../src/eog-window.c:3308
+#: ../src/eog-window.c:3397
 msgid "_Full Screen"
 msgstr "_Täisekraan"
 
-#: ../src/eog-window.c:3314 ../src/eog-window.c:3326
+#: ../src/eog-window.c:3403 ../src/eog-window.c:3415
 msgid "_Previous Image"
 msgstr "_Eelmine pilt"
 
-#: ../src/eog-window.c:3317
+#: ../src/eog-window.c:3406
 msgid "_Next Image"
 msgstr "_Järgmine pilt"
 
-#: ../src/eog-window.c:3320 ../src/eog-window.c:3329
+#: ../src/eog-window.c:3409 ../src/eog-window.c:3418
 msgid "_First Image"
 msgstr "E_simene pilt"
 
-#: ../src/eog-window.c:3323 ../src/eog-window.c:3332
+#: ../src/eog-window.c:3412 ../src/eog-window.c:3421
 msgid "_Last Image"
 msgstr "_Viimane pilt"
 
-#: ../src/eog-window.c:3338
+#: ../src/eog-window.c:3427
 msgid "_Slideshow"
 msgstr "_Slaidiesitlus"
 
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3494
 msgid "Previous"
 msgstr "Eelmine"
 
-#: ../src/eog-window.c:3409
+#: ../src/eog-window.c:3498
 msgid "Next"
 msgstr "Järgmine"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3502
 msgid "Right"
 msgstr "Paremal"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3505
 msgid "Left"
 msgstr "Vasakul"
 
-#: ../src/eog-window.c:3419
+#: ../src/eog-window.c:3508
 msgid "In"
 msgstr "Suurenda"
 
-#: ../src/eog-window.c:3422
+#: ../src/eog-window.c:3511
 msgid "Out"
 msgstr "Vähenda"
 
-#: ../src/eog-window.c:3425
+#: ../src/eog-window.c:3514
 msgid "Normal"
 msgstr "Üksühele"
 
-#: ../src/eog-window.c:3428
+#: ../src/eog-window.c:3517
 msgid "Fit"
 msgstr "Sobita"
 
-#: ../src/eog-window.c:3431
+#: ../src/eog-window.c:3520
 msgid "Collection"
 msgstr "Kogumik"
 
@@ -1120,9 +1128,6 @@ msgstr "[FAIL...]"
 #: ../src/main.c:217
 msgid "Eye of GNOME Image Viewer"
 msgstr "Eye of GNOME pildinäitaja"
-
-#~ msgid " (invalid Unicode)"
-#~ msgstr " (vigane Unicode)"
 
 #~ msgid "Last collection window geometry"
 #~ msgstr "Viimase kogumiku akna geomeetria"
