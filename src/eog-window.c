@@ -123,8 +123,23 @@ enum {
 	EOG_WINDOW_TARGET_URI_LIST
 };
 
+/* GConfNotifications */
+enum {
+	EOG_WINDOW_NOTIFY_INTERPOLATE,
+	EOG_WINDOW_NOTIFY_SCROLLWHEEL_ZOOM,
+	EOG_WINDOW_NOTIFY_ZOOM_MULTIPLIER,
+	EOG_WINDOW_NOTIFY_TRANSPARENCY,
+	EOG_WINDOW_NOTIFY_TRANS_COLOR,
+	EOG_WINDOW_NOTIFY_SCROLL_BUTTONS,
+	EOG_WINDOW_NOTIFY_COLLECTION_POS,
+	EOG_WINDOW_NOTIFY_COLLECTION_RESIZABLE,
+	EOG_WINDOW_NOTIFY_CAN_SAVE,
+	EOG_WINDOW_NOTIFY_LENGTH
+};
+
 struct _EogWindowPrivate {
         GConfClient         *client;
+        guint                client_notifications[EOG_WINDOW_NOTIFY_LENGTH];
 
         EogListStore        *store;
         EogImage            *image;
@@ -4040,6 +4055,7 @@ eog_window_init (EogWindow *window)
 {
 	GdkGeometry hints;
 	GdkScreen *screen;
+	EogWindowPrivate *priv;
 
 	eog_debug (DEBUG_WINDOW);
 
@@ -4048,57 +4064,66 @@ eog_window_init (EogWindow *window)
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (window));
 
-	window->priv = EOG_WINDOW_GET_PRIVATE (window);
+	priv = window->priv = EOG_WINDOW_GET_PRIVATE (window);
 
-	window->priv->client = gconf_client_get_default ();
+	priv->client = gconf_client_get_default ();
 
 	gconf_client_add_dir (window->priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_VIEW_INTERPOLATE,
-				 eog_window_interp_type_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_INTERPOLATE] = 
+		gconf_client_notify_add (window->priv->client,
+				 	EOG_CONF_VIEW_INTERPOLATE,
+					 eog_window_interp_type_changed_cb,
+					 window, NULL, NULL);
 	
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
-				 eog_window_scroll_wheel_zoom_changed_cb,
-				 window, NULL, NULL);
-	
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_VIEW_ZOOM_MULTIPLIER,
-				 eog_window_zoom_multiplier_changed_cb,
-				 window, NULL, NULL);
-	
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_VIEW_TRANSPARENCY,
-				 eog_window_transparency_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_SCROLLWHEEL_ZOOM] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM,
+					 eog_window_scroll_wheel_zoom_changed_cb,
+					 window, NULL, NULL);
 
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_VIEW_TRANS_COLOR,
-				 eog_window_trans_color_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_ZOOM_MULTIPLIER] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_ZOOM_MULTIPLIER,
+					 eog_window_zoom_multiplier_changed_cb,
+					 window, NULL, NULL);
 
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_UI_SCROLL_BUTTONS,
-				 eog_window_scroll_buttons_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_TRANSPARENCY] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_TRANSPARENCY,
+					 eog_window_transparency_changed_cb,
+					 window, NULL, NULL);
 
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
-				 eog_window_collection_mode_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_TRANS_COLOR] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_VIEW_TRANS_COLOR,
+					 eog_window_trans_color_changed_cb,
+					 window, NULL, NULL);
 
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
-				 eog_window_collection_mode_changed_cb,
-				 window, NULL, NULL);
-	
-	gconf_client_notify_add (window->priv->client,
-				 EOG_CONF_DESKTOP_CAN_SAVE,
-				 eog_window_can_save_changed_cb,
-				 window, NULL, NULL);
+	priv->client_notifications[EOG_WINDOW_NOTIFY_SCROLL_BUTTONS] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_UI_SCROLL_BUTTONS,
+					 eog_window_scroll_buttons_changed_cb,
+					 window, NULL, NULL);
+
+	priv->client_notifications[EOG_WINDOW_NOTIFY_COLLECTION_POS] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_UI_IMAGE_COLLECTION_POSITION,
+					 eog_window_collection_mode_changed_cb,
+					 window, NULL, NULL);
+
+	priv->client_notifications[EOG_WINDOW_NOTIFY_COLLECTION_RESIZABLE] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE,
+					 eog_window_collection_mode_changed_cb,
+					 window, NULL, NULL);
+
+	priv->client_notifications[EOG_WINDOW_NOTIFY_CAN_SAVE] =
+		gconf_client_notify_add (window->priv->client,
+					 EOG_CONF_DESKTOP_CAN_SAVE,
+					 eog_window_can_save_changed_cb,
+					 window, NULL, NULL);
 
 	window->priv->store = NULL;
 	window->priv->image = NULL;
@@ -4210,6 +4235,12 @@ eog_window_dispose (GObject *object)
 	eog_window_clear_transform_job (window);
 
 	if (priv->client) {
+		int i;
+
+		for (i = 0; i < EOG_WINDOW_NOTIFY_LENGTH; ++i) {
+			gconf_client_notify_remove (priv->client,
+						 priv->client_notifications[i]);
+		}
 		gconf_client_remove_dir (priv->client, EOG_CONF_DIR, NULL);
 		g_object_unref (priv->client);
 		priv->client = NULL;
