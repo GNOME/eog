@@ -171,7 +171,7 @@ eog_xmp_set_label (XmpPtr xmp,
 
 	XmpStringPtr value = xmp_string_new ();
 
-	if (xmp_get_property_and_bits (xmp, ns, propname, value, &options)) {
+	if (xmp_get_property (xmp, ns, propname, value, &options)) {
 		if (XMP_IS_PROP_SIMPLE (options)) {
 			gtk_label_set_text (GTK_LABEL (w), xmp_string_cstr (value));
 		} else if (XMP_IS_PROP_ARRAY (options)) {
