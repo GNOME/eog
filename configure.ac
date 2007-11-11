@@ -76,6 +76,7 @@ GTK_PRINT_REQUIRED=2.10.0
 GNOME_ICON_THEME_REQUIRED=2.19.1
 SHARED_MIME_INFO_REQUIRED=0.20
 EXEMPI_REQUIRED=1.99.2
+EXEMPI_NEW_API_REQUIRED=1.99.5
 
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
@@ -132,12 +133,19 @@ fi
 # *********************
 AC_ARG_WITH(xmp, AC_HELP_STRING([--without-xmp], [disable special XMP support]))
 have_exempi=no
+have_exempi_new_api=no
 if test x$with_xmp != xno; then
     PKG_CHECK_MODULES(EXEMPI, exempi-2.0 >= $EXEMPI_REQUIRED, have_exempi=yes, have_exempi=no)
+    PKG_CHECK_MODULES(EXEMPI_NEW_API, exempi-2.0 >= $EXEMPI_NEW_API_REQUIRED, have_exempi_new_api=yes, have_exempi_new_api=no)
 fi 
 if test "x$have_exempi" = "xyes"; then
   AC_DEFINE(HAVE_EXEMPI,1, [XMP support.])
   EOG_MODULES="$EOG_MODULES exempi-2.0 >= $EXEMPI_REQUIRED"
+fi
+
+if test "x$have_exempi_new_api" = "xyes"; then
+  AC_DEFINE(HAVE_EXEMPI_NEW_API, 1, [Have support for new Exempi API.])
+  EOG_MODULES="$EOG_MODULES exempi-2.0 >= $EXEMPI_NEW_API_REQUIRED"
 fi
 
 AM_CONDITIONAL([HAVE_EXEMPI], [test "x$have_exempi" = "xyes"])
