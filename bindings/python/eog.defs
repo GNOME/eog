@@ -252,6 +252,18 @@
   )
 )
 
+(define-enum WindowMode
+  (in-module "Eog")
+  (c-name "EogWindowMode")
+  (gtype-id "EOG_TYPE_WINDOW_MODE")
+  (values
+    '("unknown" "EOG_WINDOW_MODE_UNKNOWN")
+    '("normal" "EOG_WINDOW_MODE_NORMAL")
+    '("fullscreen" "EOG_WINDOW_MODE_FULLSCREEN")
+    '("slideshow" "EOG_WINDOW_MODE_SLIDESHOW")
+  )
+)
+
 (define-enum WindowError
   (in-module "Eog")
   (c-name "EogWindowError")
@@ -1238,6 +1250,21 @@
   (return-type "GtkWidget*")
   (parameters
     '("EogStartupFlags" "flags")
+  )
+)
+
+(define-method get_mode
+  (of-object "EogWindow")
+  (c-name "eog_window_get_mode")
+  (return-type "EogWindowMode")
+)
+
+(define-method set_mode
+  (of-object "EogWindow")
+  (c-name "eog_window_set_mode")
+  (return-type "none")
+  (parameters
+    '("EogWindowMode" "mode")
   )
 )
 
