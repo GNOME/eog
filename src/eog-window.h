@@ -50,6 +50,13 @@ typedef struct _EogWindowPrivate EogWindowPrivate;
 
 #define EOG_WINDOW_ERROR           (eog_window_error_quark ())
 
+typedef enum {
+	EOG_WINDOW_MODE_UNKNOWN,
+	EOG_WINDOW_MODE_NORMAL,
+	EOG_WINDOW_MODE_FULLSCREEN,
+	EOG_WINDOW_MODE_SLIDESHOW
+} EogWindowMode;
+
 //TODO
 typedef enum {
 	EOG_WINDOW_ERROR_CONTROL_NOT_FOUND,
@@ -82,6 +89,11 @@ struct _EogWindowClass {
 GType         eog_window_get_type  	(void) G_GNUC_CONST;
 
 GtkWidget    *eog_window_new		(EogStartupFlags  flags);
+
+EogWindowMode eog_window_get_mode       (EogWindow       *window);
+
+void          eog_window_set_mode       (EogWindow       *window,
+					 EogWindowMode    mode);
 
 GtkUIManager *eog_window_get_ui_manager (EogWindow       *window);
 

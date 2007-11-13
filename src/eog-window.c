@@ -99,13 +99,6 @@ typedef enum {
 	EOG_WINDOW_STATUS_NORMAL
 } EogWindowStatus;
 
-typedef enum {
-	EOG_WINDOW_MODE_UNKNOWN,
-	EOG_WINDOW_MODE_NORMAL,
-	EOG_WINDOW_MODE_FULLSCREEN,
-	EOG_WINDOW_MODE_SLIDESHOW
-} EogWindowMode;
-
 enum {
 	PROP_0,
 	PROP_STARTUP_FLAGS
@@ -4746,6 +4739,38 @@ eog_window_get_ui_manager (EogWindow *window)
         g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
 
 	return window->priv->ui_mgr;
+}
+
+EogWindowMode
+eog_window_get_mode (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), EOG_WINDOW_MODE_UNKNOWN);
+
+	return window->priv->mode;
+}
+
+void
+eog_window_set_mode (EogWindow *window, EogWindowMode mode)
+{
+        g_return_if_fail (EOG_IS_WINDOW (window));
+
+	if (window->priv->mode == mode)
+		return;
+
+	switch (mode) {
+	case EOG_WINDOW_MODE_NORMAL:
+		eog_window_stop_fullscreen (window, 
+					    window->priv->mode == EOG_WINDOW_MODE_SLIDESHOW);
+		break;
+	case EOG_WINDOW_MODE_FULLSCREEN:
+		eog_window_run_fullscreen (window, FALSE);
+		break;
+	case EOG_WINDOW_MODE_SLIDESHOW:
+		eog_window_run_fullscreen (window, TRUE);
+		break;
+	case EOG_WINDOW_MODE_UNKNOWN:
+		break;
+	}
 }
 
 EogListStore *
