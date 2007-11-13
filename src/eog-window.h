@@ -30,11 +30,6 @@
 
 #include "eog-list-store.h"
 #include "eog-image.h"
-/*
-#include "eog-thumb-nav.h"
-#include "eog-thumb-view.h"
-#include "eog-statusbar.h"
-*/
 
 #include <glib.h>
 #include <glib-object.h>
@@ -91,6 +86,8 @@ GtkWidget    *eog_window_new		(EogStartupFlags  flags);
 GtkUIManager *eog_window_get_ui_manager (EogWindow       *window);
 
 EogListStore *eog_window_get_store      (EogWindow       *window);
+
+GtkWidget    *eog_window_get_view       (EogWindow       *window);
 
 GtkWidget    *eog_window_get_sidebar    (EogWindow       *window);
 

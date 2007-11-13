@@ -1253,6 +1253,12 @@
   (return-type "EogListStore*")
 )
 
+(define-method get_view
+  (of-object "EogWindow")
+  (c-name "eog_window_get_view")
+  (return-type "GtkWidget*")
+)
+
 (define-method get_sidebar
   (of-object "EogWindow")
   (c-name "eog_window_get_sidebar")

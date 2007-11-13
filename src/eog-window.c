@@ -4722,6 +4722,14 @@ eog_window_get_store (EogWindow *window)
 }
 
 GtkWidget *
+eog_window_get_view (EogWindow *window)
+{
+        g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);
+
+       return window->priv->view;
+}
+
+GtkWidget *
 eog_window_get_sidebar (EogWindow *window)
 {
         g_return_val_if_fail (EOG_IS_WINDOW (window), NULL);

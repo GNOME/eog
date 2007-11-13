@@ -6,15 +6,15 @@
 
 G_BEGIN_DECLS
 
+typedef struct _EogScrollView EogScrollView;
+typedef struct _EogScrollViewClass EogScrollViewClass;
+typedef struct _EogScrollViewPrivate EogScrollViewPrivate;
+
 #define EOG_TYPE_SCROLL_VIEW              (eog_scroll_view_get_type ())
 #define EOG_SCROLL_VIEW(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), EOG_TYPE_SCROLL_VIEW, EogScrollView))
 #define EOG_SCROLL_VIEW_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), EOG_TYPE_SCROLL_VIEW, EogScrollViewClass))
 #define EOG_IS_SCROLL_VIEW(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EOG_TYPE_SCROLL_VIEW))
 #define EOG_IS_SCROLL_VIEW_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), EOG_TYPE_SCROLL_VIEW))
-
-typedef struct _EogScrollView EogScrollView;
-typedef struct _EogScrollViewClass EogScrollViewClass;
-typedef struct _EogScrollViewPrivate EogScrollViewPrivate;
 
 
 struct _EogScrollView {
