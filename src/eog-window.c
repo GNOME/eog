@@ -408,16 +408,24 @@ eog_window_collection_mode_changed_cb (GConfClient *client,
 		 			     EOG_CONF_UI_IMAGE_COLLECTION_POSITION, 
 					     NULL, TRUE, NULL);
 
-	if (mode_entry->value != NULL && mode_entry->value->type == GCONF_VALUE_INT) {
-		position = gconf_value_get_int (mode_entry->value);
+	if (G_LIKELY (mode_entry != NULL)) {
+		if (mode_entry->value != NULL &&
+		    mode_entry->value->type == GCONF_VALUE_INT) {
+			position = gconf_value_get_int (mode_entry->value);
+		}
+		gconf_entry_unref (mode_entry);
 	}
 
 	mode_entry = gconf_client_get_entry (priv->client, 
 					     EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE, 
 					     NULL, TRUE, NULL);
 
-	if (mode_entry->value != NULL && mode_entry->value->type == GCONF_VALUE_BOOL) {
-		resizable = gconf_value_get_bool (mode_entry->value);
+	if (G_LIKELY (mode_entry != NULL)) {
+		if (mode_entry->value != NULL &&
+		    mode_entry->value->type == GCONF_VALUE_BOOL) {
+			resizable = gconf_value_get_bool (mode_entry->value);
+		}
+		gconf_entry_unref (mode_entry);
 	}
 
 	if (priv->collection_position == position && 
