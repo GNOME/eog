@@ -1,5 +1,10 @@
 2007-11-16  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-image.c: (eog_image_real_load):
+	Fix leaked mime string when loading image dimensions.
+
+2007-11-16  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-list-store.c: (is_file_in_list_store_uri),
 	(eog_job_thumbnail_cb), (eog_list_store_add_uris),
 	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image):
