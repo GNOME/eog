@@ -973,6 +973,7 @@ eog_image_real_load (EogImage *img,
 			priv->width = width;
 			priv->height = height;
 
+			g_free (mime_type);
 			return TRUE;
 		}
 	}
