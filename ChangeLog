@@ -1,5 +1,14 @@
 2007-11-16  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-list-store.c: (is_file_in_list_store_uri),
+	(eog_job_thumbnail_cb), (eog_list_store_add_uris),
+	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image):
+	Add a wrapper for is_file_in_list_store() which takes a GnomeVFSURI
+	instead of a string URI. Replace now duplicate code with wrapper
+	calls. Fixes a leak on the way.
+
+2007-11-16  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-window.c: (eog_window_collection_mode_changed_cb):
 	Fix leaking GConf data.
 

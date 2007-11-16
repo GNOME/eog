@@ -251,12 +251,28 @@ is_file_in_list_store (EogListStore *store,
 	return found;
 }
 
+static gboolean
+is_file_in_list_store_uri (EogListStore *store,
+			   const GnomeVFSURI *uri,
+			   GtkTreeIter *iter_found)
+{
+	gchar *uri_str;
+	gboolean result;
+	
+	uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+
+	result = is_file_in_list_store (store, uri_str, iter_found);
+
+	g_free (uri_str);
+
+	return result;
+}
+
 static void
 eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 {
 	EogListStore *store;
 	GtkTreeIter iter;
-	gchar *filename;
 	EogImage *image;
 	GdkPixbuf *thumbnail;
 	
@@ -264,9 +280,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 
 	store = EOG_LIST_STORE (data);
 
-	filename = gnome_vfs_uri_to_string (job->uri_entry, GNOME_VFS_URI_HIDE_NONE);
-
-	if (is_file_in_list_store (store, filename, &iter)) {
+	if (is_file_in_list_store_uri (store, job->uri_entry, &iter)) {
 		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
@@ -289,8 +303,6 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 
 		g_object_unref (thumbnail);
 	}
-
-	g_free (filename);
 }
 
 static void
@@ -558,17 +570,13 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 				continue;
 
 			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-				gchar *uri_str;
-
 				eog_list_store_append_directory (store, uri, info);
 
-				uri_str = gnome_vfs_uri_to_string (initial_uri, 
-						       GNOME_VFS_URI_HIDE_NONE);
-				if (!is_file_in_list_store (store, uri_str, 
-							    &iter)) {
+				if (!is_file_in_list_store_uri (store,
+								initial_uri, 
+								&iter)) {
 					eog_list_store_append_image_from_uri (store, initial_uri, TRUE);
 				}
-				g_free (uri_str);
 			} else {
 				eog_list_store_append_image_from_uri (store, initial_uri, FALSE);
 			}
@@ -585,9 +593,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 					      GTK_SORT_ASCENDING);
 	
 	if (initial_uri && 
-	    is_file_in_list_store (store, 
-				   gnome_vfs_uri_to_string (initial_uri, GNOME_VFS_URI_HIDE_NONE), 
-				   &iter)) {
+	    is_file_in_list_store_uri (store, initial_uri, &iter)) {
 		store->priv->initial_image = eog_list_store_get_pos_by_iter (store, &iter);
 		gnome_vfs_uri_unref (initial_uri);
 	} else {
@@ -599,21 +605,17 @@ void
 eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
-	gchar *file;
 	GnomeVFSURI *uri;
 
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
 	uri = eog_image_get_uri (image);
-	file = gnome_vfs_uri_to_string (uri, 
-					GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (uri);
-	
-	if (is_file_in_list_store (store, file, &iter)) {
+
+	if (is_file_in_list_store_uri (store, uri, &iter)) {
 		eog_list_store_remove (store, &iter);
 	}
-	g_free (file);
+	gnome_vfs_uri_unref (uri);
 }
 
 GtkListStore *
@@ -634,7 +636,6 @@ eog_list_store_new_from_glist (GList *list)
 gint
 eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 {
-	gchar *file;
 	GtkTreeIter iter;
 	gint pos = -1;
 	GnomeVFSURI *uri;
@@ -643,15 +644,12 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 	g_return_val_if_fail (EOG_IS_IMAGE (image), -1);
 	
 	uri = eog_image_get_uri (image);
-	file = gnome_vfs_uri_to_string (uri, 
-					GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (uri);
 
-	if (is_file_in_list_store (store, file, &iter)) {
+	if (is_file_in_list_store_uri (store, uri, &iter)) {
 		pos = eog_list_store_get_pos_by_iter (store, &iter);
 	}
 
-	g_free (file);
+	gnome_vfs_uri_unref (uri);
 	return pos;
 }
 
