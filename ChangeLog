@@ -1,3 +1,10 @@
+2007-11-17  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume):
+	Correctly increase the MetadataReader's position after reading an
+	IPTC block (although it's unused). This ignored all the possible
+	metadata following after the IPTC block. Fixes bug #496184.
+
 2007-11-16  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-image.c: (eog_image_real_load):
