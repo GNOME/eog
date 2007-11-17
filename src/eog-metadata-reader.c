@@ -384,6 +384,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			if (i + priv->size < len) {
                                 /* read data in one block */
 				memcpy ((guchar*) (priv->iptc_chunk) + priv->bytes_read, &buf[i], priv->size); 
+				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 				priv->state = EMR_READ;
 			} else {
 				int chunk_len = len - i;
