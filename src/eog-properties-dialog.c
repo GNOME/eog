@@ -231,7 +231,11 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 
 	notebook = GTK_NOTEBOOK (priv->notebook);
 
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)
+#if HAVE_EXEMPI
+	    && !eog_image_has_data (image, EOG_IMAGE_DATA_XMP)
+#endif
+	    ) {
 		if (gtk_notebook_get_current_page (notebook) ==	EOG_PROPERTIES_DIALOG_PAGE_EXIF) {
 			gtk_notebook_prev_page (notebook);
 		}
@@ -248,42 +252,52 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 #if HAVE_EXIF
 	exif_data = (ExifData *) eog_image_get_exif_info (image);
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_FNUMBER);
-	gtk_label_set_text (GTK_LABEL (priv->exif_aperture_label), 
-			    eog_util_make_valid_utf8 (exif_value));
+	if (exif_data) {
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_FNUMBER);
+		gtk_label_set_text (GTK_LABEL (priv->exif_aperture_label), 
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_EXPOSURE_TIME);
-	gtk_label_set_text (GTK_LABEL (priv->exif_exposure_label),
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_EXPOSURE_TIME);
+		gtk_label_set_text (GTK_LABEL (priv->exif_exposure_label),
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_FOCAL_LENGTH);
-	gtk_label_set_text (GTK_LABEL (priv->exif_focal_label), 
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_FOCAL_LENGTH);
+		gtk_label_set_text (GTK_LABEL (priv->exif_focal_label), 
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_FLASH);
-	gtk_label_set_text (GTK_LABEL (priv->exif_flash_label),
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_FLASH);
+		gtk_label_set_text (GTK_LABEL (priv->exif_flash_label),
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
-	gtk_label_set_text (GTK_LABEL (priv->exif_iso_label), 
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_ISO_SPEED_RATINGS);
+		gtk_label_set_text (GTK_LABEL (priv->exif_iso_label), 
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_METERING_MODE);
-	gtk_label_set_text (GTK_LABEL (priv->exif_metering_label),
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_METERING_MODE);
+		gtk_label_set_text (GTK_LABEL (priv->exif_metering_label),
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_MODEL);
-	gtk_label_set_text (GTK_LABEL (priv->exif_model_label),
-			    eog_util_make_valid_utf8 (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_MODEL);
+		gtk_label_set_text (GTK_LABEL (priv->exif_model_label),
+				    eog_util_make_valid_utf8 (exif_value));
 
-	exif_value = eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME);
-	gtk_label_set_text (GTK_LABEL (priv->exif_date_label),
-			    eog_exif_util_format_date (exif_value));
+		exif_value = eog_exif_util_get_value (exif_data,
+						      EXIF_TAG_DATE_TIME);
+		gtk_label_set_text (GTK_LABEL (priv->exif_date_label),
+				    eog_exif_util_format_date (exif_value));
 
-	eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details), 
-				 exif_data);
+		eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details), 
+					 exif_data);
 
-	exif_data_unref(exif_data);
+		exif_data_unref(exif_data);
+	}
 #endif
 
 #if HAVE_EXEMPI
