@@ -733,8 +733,14 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 	
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
+			    EOG_LIST_STORE_EOG_JOB, &job,
 			    -1);
-	
+
+	if (job != NULL) {
+		g_object_unref (image);
+		return;
+	}
+
 	uri = eog_image_get_uri (image);
 	job = eog_job_thumbnail_new (uri);
 	gnome_vfs_uri_unref (uri);

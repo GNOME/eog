@@ -1,3 +1,11 @@
+2007-11-22  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-list-store.c: (eog_list_store_add_thumbnail_job):
+	Check if there is already a thumbnailing job for an image before
+	adding another for it. This makes the thumbnailing feel more snappier
+	especially on setups where there are a lot of thumbs visible in the
+	collection.
+
 2007-11-21  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-properties-dialog.c: (pd_update_metadata_tab):
