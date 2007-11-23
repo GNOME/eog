@@ -122,14 +122,14 @@ EogImage         *eog_image_new                      (const char *txt_uri);
 EogImage         *eog_image_new_uri                  (GnomeVFSURI *uri);
 
 gboolean          eog_image_load                     (EogImage   *img, 
-					              guint       data2read,
+					              EogImageData data2read,
 					              EogJob     *job, 
 					              GError    **error);
 
 void              eog_image_cancel_load              (EogImage   *img);
 
 gboolean          eog_image_has_data                 (EogImage   *img, 
-					              guint       data);
+					              EogImageData data);
 
 void              eog_image_data_ref                 (EogImage   *img);
 

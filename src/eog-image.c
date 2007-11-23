@@ -1190,7 +1190,7 @@ eog_image_real_load (EogImage *img,
 }
 
 gboolean
-eog_image_has_data (EogImage *img, guint req_data)
+eog_image_has_data (EogImage *img, EogImageData req_data)
 {
 	EogImagePrivate *priv;
 	gboolean has_data = TRUE;
@@ -1234,7 +1234,7 @@ eog_image_has_data (EogImage *img, guint req_data)
 }
 
 gboolean
-eog_image_load (EogImage *img, guint data2read, EogJob *job, GError **error)
+eog_image_load (EogImage *img, EogImageData data2read, EogJob *job, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
