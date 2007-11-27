@@ -828,7 +828,10 @@ update_action_groups_state (EogWindow *window)
 			gtk_action_set_sensitive (action_sshow, TRUE);
 		}
 
-		gtk_widget_grab_focus (priv->view);
+		if (show_image_collection)
+			gtk_widget_grab_focus (priv->thumbview);
+		else
+			gtk_widget_grab_focus (priv->view);
 	}
 
 	print_disabled = gconf_client_get_bool (priv->client, 
@@ -2624,8 +2627,10 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible) {
 			gtk_widget_show (priv->nav);
+			gtk_widget_grab_focus (priv->thumbview);
 		} else {
 			gtk_widget_hide (priv->nav);
+			gtk_widget_grab_focus (priv->view);
 		}
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 
@@ -4308,9 +4313,14 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 {
 	GtkContainer *tbcontainer = GTK_CONTAINER ((EOG_WINDOW (widget)->priv->toolbar));
 	gint result = FALSE;
+	gboolean handle_selection = FALSE;
 
 	switch (event->keyval) {
 	case GDK_space:
+		if (event->state & GDK_CONTROL_MASK) {
+			handle_selection = TRUE;
+			break;
+		};
 	case GDK_Return:
 		if (tbcontainer->focus_child == NULL) {
 			/* Image properties dialog case */
@@ -4340,40 +4350,43 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 		if (tbcontainer->focus_child != NULL)
 			break;
-	case GDK_Page_Up:
-		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW (widget)->priv->thumbview), 
-						      EOG_THUMB_VIEW_SELECT_LEFT);
-			result = TRUE;		
+		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+			eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			result = TRUE;
+			break;
 		}
-
-		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
-			slideshow_set_timeout (EOG_WINDOW (widget));
-		}
-		
-		break;
-	case GDK_Down:
 	case GDK_Right:
+	case GDK_Down:
 		if (tbcontainer->focus_child != NULL)
 			break;
+		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+			eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			result = TRUE;
+			break;
+		}
+	case GDK_Page_Up:
 	case GDK_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			eog_thumb_view_select_single (EOG_THUMB_VIEW (EOG_WINDOW (widget)->priv->thumbview), 
-						      EOG_THUMB_VIEW_SELECT_RIGHT);
-			result = TRUE;
+			handle_selection = TRUE;
 		}
+		break;
+	}
+	
+	if (handle_selection == TRUE && result == FALSE) {
+		gtk_widget_grab_focus (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview));
+
+		result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview), 
+					   (GdkEvent *) event);
 
 		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 			slideshow_set_timeout (EOG_WINDOW (widget));
 		}
-
-		break;
 	}
 
 	if (result == FALSE && GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) {
 		result = (* GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) (widget, event);
 	}
-
+	
 	return result;
 }
 

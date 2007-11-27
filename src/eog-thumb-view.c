@@ -294,6 +294,7 @@ tb_on_button_press_event_cb (GtkWidget *tb, GdkEventButton *event,
 
 	    gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
 	    gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+	    gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
 
 	    eog_thumb_view_popup_menu (EOG_THUMB_VIEW (tb), event);
 	    
@@ -546,6 +547,7 @@ eog_thumb_view_set_model (EogThumbView *tb, EogListStore *store)
 	if (index >= 0) {
 		GtkTreePath *path = gtk_tree_path_new_from_indices (index, -1);
 		gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+		gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
 		gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 		gtk_tree_path_free (path);
 	}
@@ -667,6 +669,7 @@ eog_thumb_view_set_current_image (EogThumbView *tb, EogImage *image,
 	}
 	
 	gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+	gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
 	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 
 	gtk_tree_path_free (path);
@@ -736,6 +739,7 @@ eog_thumb_view_select_single (EogThumbView *tb,
 	}
 
 	gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+	gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
 	gtk_icon_view_scroll_to_path (GTK_ICON_VIEW (tb), path, FALSE, 0, 0);
 	gtk_tree_path_free (path);
 }

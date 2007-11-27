@@ -1,5 +1,21 @@
 2007-11-27  Lucas Rocha  <lucasr@gnome.org>
 
+	Correctly handle Up/Down keys in image collection so that it works as
+	expected on multiple lines layouts. Fixes bug #458661 (Claudio
+	Saavedra).
+
+	* src/eog-thumb-view.c (eog_thumb_view_set_model, 
+	eog_thumb_view_set_current_image, eog_thumb_view_select_single): set 
+	cursor position to the first selected item in the icon view accordingly.
+	* src/eog-window.c 
+	(update_action_groups_state, eog_window_cmd_show_hide_bar): move
+	focus to collection page if it's visible or to image view if it's not.
+	(eog_window_key_press): only handle EogWindow's specific shortcuts and
+	forward the key press event to the collection pane in all cases other
+	cases.
+
+2007-11-27  Lucas Rocha  <lucasr@gnome.org>
+
 	* bindings/python/eog.defs: wrap eog_image_load in Python bindings.
 	Fixes bug #499156 (Ross Burton).
 
