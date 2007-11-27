@@ -415,6 +415,17 @@
   )
 )
 
+(define-method load
+  (of-object "EogImage")
+  (c-name "eog_image_load")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "data2read")
+    '("EogJob*" "job" (null-ok))
+    '("GError**" "error")
+  )
+)
+
 (define-method set_thumbnail
   (of-object "EogImage")
   (c-name "eog_image_set_thumbnail")
