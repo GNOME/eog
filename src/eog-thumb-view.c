@@ -427,16 +427,18 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 
 	type_str = gnome_vfs_mime_get_description (mime_str);
 
-	tooltip_string = g_strdup_printf ("<b><big>%s</big></b>\n"
-					  "%i x %i %s\n"
-					  "%s\n"
-					  "%s",
-					  eog_image_get_caption (image),
-					  width, 
-					  height, 
-					  ngettext ("pixel", "pixels", height), 
-					  bytes,
-					  type_str);
+	tooltip_string = g_markup_printf_escaped ("<b><big>%s</big></b>\n"
+						  "%i x %i %s\n"
+						  "%s\n"
+						  "%s",
+						  eog_image_get_caption (image),
+						  width, 
+						  height, 
+						  ngettext ("pixel",
+						  	    "pixels",
+							    height), 
+						  bytes,
+						  type_str);
 
 #ifdef HAVE_EXIF
 	if (exif_data) {
