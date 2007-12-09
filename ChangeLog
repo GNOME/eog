@@ -1,3 +1,9 @@
+2007-12-09  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-window.c (update_action_groups_state): do not run update_ui
+	for plugins when updating actions groups because this should only be
+	done on EogWindow contructor.
+
 2007-12-07  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Correctly escape the
