@@ -833,8 +833,6 @@ update_action_groups_state (EogWindow *window)
 		gtk_action_set_sensitive (action_page_setup, FALSE);
 	}
 
-	eog_plugin_engine_update_plugins_ui (window, FALSE);
-
 	if (eog_sidebar_is_empty (EOG_SIDEBAR (priv->sidebar))) {
 		gtk_action_set_sensitive (action_sidebar, FALSE);
 		gtk_widget_hide (priv->sidebar);
