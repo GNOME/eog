@@ -1,3 +1,8 @@
+2007-12-26  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_cmd_save_as): Do not crash/assert when
+	the user tries to SaveAs while no image is selected. Fixes bug #487075.
+
 2007-12-09  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window.c (update_action_groups_state): do not run update_ui
