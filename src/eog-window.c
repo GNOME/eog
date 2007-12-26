@@ -2741,6 +2741,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
         EogWindowPrivate *priv;
         EogWindow *window;
 	GList *images;
+	guint n_images;
 
         window = EOG_WINDOW (user_data);
 	priv = window->priv;
@@ -2749,8 +2750,9 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 		return;
 
 	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
+	n_images = g_list_length (images);
 
-	if (g_list_length (images) == 1) {
+	if (n_images == 1) {
 		GnomeVFSURI *uri;
 		
 		uri = eog_window_retrieve_save_as_uri (window, images->data);
@@ -2763,7 +2765,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 		priv->save_job = eog_job_save_as_new (images, NULL, uri); 
 
 		gnome_vfs_uri_unref (uri);
-	} else {
+	} else if (n_images > 1) {
 		GnomeVFSURI *baseuri;
 		GtkWidget *dialog;
 		gchar *basedir;
@@ -2797,6 +2799,9 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 
 		g_object_unref (converter);
 		gnome_vfs_uri_unref (baseuri);
+	} else {
+		/* n_images = 0 -- No Image selected */
+		return;
 	}
 	
 	g_signal_connect (priv->save_job, 
