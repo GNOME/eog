@@ -1,3 +1,16 @@
+2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
+
+	Fix several translation and other string issues.
+	Fixes bug #505949 (Seán de Búrca, Felix Riemann).
+
+	* src/eog-jobs.h: Change the index-variable's datatype to guint to
+	coincide with the one returned by g_list_length.
+	* data/eog-image-properties-dialog.glade: Add a new translatable
+	string and correct another one.
+	* src/eog-window.c: (eog_job_save_progress_cb): Make the statusbar
+	message while saving images more translator-friendly. Add a translator
+	comment. Use the correct format tokens in the printf-statement.
+
 2007-12-26  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_save_as): Do not crash/assert when

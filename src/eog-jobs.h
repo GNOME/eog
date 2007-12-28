@@ -182,7 +182,7 @@ struct _EogJobSave
 {
 	EogJob    parent;
 	GList	 *images;
-	gint      current_pos;
+	guint      current_pos;
 	EogImage *current_image;
 };
 

@@ -1165,7 +1165,7 @@ eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data)
 				    progress);
 
 	if (image != job->current_image) {
-		gchar *str_image, *str_position, *status_message;
+		gchar *str_image, *status_message;
 		guint n_images;
  
 		image = job->current_image;
@@ -1174,16 +1174,16 @@ eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data)
 
 		str_image = eog_image_get_uri_for_display (image);
 
-		str_position = g_strdup_printf ("(%d/%d)", 
-						job->current_pos + 1, 
-						n_images);
-
-		status_message = g_strdup_printf (_("Saving image \"%s\" %s"), 
+		/* Translators: This string is displayed in the statusbar
+		 * while saving images. The tokens are from left to right:
+		 * - the original filename
+		 * - the current image's position in the queue
+		 * - the total number of images queued for saving */
+		status_message = g_strdup_printf (_("Saving image \"%s\" (%u/%u)"), 
 					          str_image,
-						  n_images > 1 ? str_position : "");
-
+						  job->current_pos + 1,
+						  n_images);
 		g_free (str_image);
-		g_free (str_position);
 	
 		gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar), 
 				   priv->image_info_message_cid);
