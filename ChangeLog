@@ -1,3 +1,10 @@
+2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
+
+	* data/eog.glade: Remove an unwanted tab space from a translatable
+	string. This is unaffected by the string freeze as the corresponding
+	label will reuse an existing translation.
+	Part of bug #505949 (Seán de Búrca).
+
 2007-12-26  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_save_as): Do not crash/assert when
