@@ -52,18 +52,10 @@ static void eog_uri_converter_get_property (GObject    *object,
 					    GValue     *value,
 					    GParamSpec *pspec);
 
+#define EOG_URI_CONVERTER_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_URI_CONVERTER, EogURIConverterPrivate))
+
 G_DEFINE_TYPE (EogURIConverter, eog_uri_converter, G_TYPE_OBJECT)
-
-static void
-eog_uri_converter_finalize (GObject *object)
-{
-	EogURIConverter *instance = EOG_URI_CONVERTER (object);
-	
-	g_free (instance->priv);
-	instance->priv = NULL;
-
-	G_OBJECT_CLASS (eog_uri_converter_parent_class)->finalize (object);
-}
 
 static void
 free_token (gpointer data)
@@ -114,9 +106,7 @@ eog_uri_converter_init (EogURIConverter *obj)
 {
 	EogURIConverterPrivate *priv;
 
-	priv = g_new0 (EogURIConverterPrivate, 1);
-
-	obj->priv = priv;
+	priv = obj->priv = EOG_URI_CONVERTER_GET_PRIVATE (obj);
 
 	priv->convert_spaces   = FALSE;
 	priv->space_character  = '_';
@@ -131,7 +121,6 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
 
-	object_class->finalize = eog_uri_converter_finalize;
 	object_class->dispose = eog_uri_converter_dispose;
 
         /* GObjectClass */

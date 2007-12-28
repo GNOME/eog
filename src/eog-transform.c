@@ -18,34 +18,21 @@ struct _EogTransformPrivate {
 	double affine[6];
 };
 
+#define EOG_TRANSFORM_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_TRANSFORM, EogTransformPrivate))
+
 G_DEFINE_TYPE (EogTransform, eog_transform, G_TYPE_OBJECT)
-
-static void
-eog_transform_finalize (GObject *object)
-{
-	EogTransform *trans = EOG_TRANSFORM (object);
-	
-	g_free (trans->priv);
-
-	G_OBJECT_CLASS (eog_transform_parent_class)->finalize (object);
-}
 
 static void
 eog_transform_init (EogTransform *trans)
 {
-	EogTransformPrivate *priv;
-
-	priv = g_new0 (EogTransformPrivate, 1);
-
-	trans->priv = priv;
+	trans->priv = EOG_TRANSFORM_GET_PRIVATE (trans);
 }
 
 static void 
 eog_transform_class_init (EogTransformClass *klass)
 {
-	GObjectClass *object_class = (GObjectClass*) klass;
-
-	object_class->finalize = eog_transform_finalize;
+	g_type_class_add_private (klass, sizeof (EogTransformPrivate));
 }
 
 GdkPixbuf*    

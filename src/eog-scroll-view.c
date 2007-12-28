@@ -132,6 +132,9 @@ static void set_zoom_fit (EogScrollView *view);
 static void request_paint_area (EogScrollView *view, GdkRectangle *area);
 static void set_minimum_zoom_factor (EogScrollView *view);
 
+#define EOG_SCROLL_VIEW_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_SCROLL_VIEW, EogScrollViewPrivate))
+
 G_DEFINE_TYPE (EogScrollView, eog_scroll_view, GTK_TYPE_TABLE)
 
 
@@ -1905,8 +1908,7 @@ eog_scroll_view_init (EogScrollView *view)
 {
 	EogScrollViewPrivate *priv;
 
-	priv = g_new0 (EogScrollViewPrivate, 1);
-	view->priv = priv;
+	priv = view->priv = EOG_SCROLL_VIEW_GET_PRIVATE (view);
 
 	priv->zoom = 1.0;
 	priv->min_zoom = MIN_ZOOM_FACTOR;
@@ -1952,20 +1954,6 @@ eog_scroll_view_dispose (GObject *object)
 }
 
 static void
-eog_scroll_view_finalize (GObject *object)
-{
-	EogScrollView *view;
-
-	view = EOG_SCROLL_VIEW (object);
-	if (view->priv != 0) {
-		g_free (view->priv);
-		view->priv = 0;
-	}
-
-	G_OBJECT_CLASS (eog_scroll_view_parent_class)->finalize (object);
-}
-
-static void
 eog_scroll_view_class_init (EogScrollViewClass *klass)
 {
 	GObjectClass *gobject_class;
@@ -1975,8 +1963,6 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	widget_class = (GtkWidgetClass*) klass;
 
 	gobject_class->dispose = eog_scroll_view_dispose;
-  	gobject_class->finalize = eog_scroll_view_finalize;
-
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",
@@ -1990,6 +1976,8 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 
 	widget_class->size_allocate = eog_scroll_view_size_allocate;
 	widget_class->style_set = eog_scroll_view_style_set;
+
+	g_type_class_add_private (klass, sizeof (EogScrollViewPrivate));
 }
 
 

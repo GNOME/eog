@@ -63,18 +63,10 @@ struct _EogMetadataReaderPrivate {
 	int      bytes_read;	
 };
 
+#define EOG_METADATA_READER_GET_PRIVATE(object) \
+	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_METADATA_READER, EogMetadataReaderPrivate))
+
 G_DEFINE_TYPE (EogMetadataReader, eog_metadata_reader, G_TYPE_OBJECT)
-
-static void
-eog_metadata_reader_finalize (GObject *object)
-{
-	EogMetadataReader *instance = EOG_METADATA_READER (object);
-	
-	g_free (instance->priv);
-	instance->priv = NULL;
-
-	G_OBJECT_CLASS (eog_metadata_reader_parent_class)->finalize (object);
-}
 
 static void
 eog_metadata_reader_dispose (GObject *object)
@@ -109,15 +101,13 @@ eog_metadata_reader_init (EogMetadataReader *obj)
 {
 	EogMetadataReaderPrivate *priv;
 
-	priv = g_new0 (EogMetadataReaderPrivate, 1);
+	priv = obj->priv =  EOG_METADATA_READER_GET_PRIVATE (obj);
 	priv->exif_chunk = NULL;
 	priv->exif_len = 0;
 	priv->iptc_chunk = NULL;
 	priv->iptc_len = 0;
 	priv->icc_chunk = NULL;
 	priv->icc_len = 0;
-	
-	obj->priv = priv;
 }
 
 static void 
@@ -125,8 +115,9 @@ eog_metadata_reader_class_init (EogMetadataReaderClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
 
-	object_class->finalize = eog_metadata_reader_finalize;
 	object_class->dispose = eog_metadata_reader_dispose;
+
+	g_type_class_add_private (klass, sizeof (EogMetadataReaderPrivate));
 }
 
 EogMetadataReader*

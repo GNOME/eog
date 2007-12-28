@@ -1,5 +1,18 @@
 2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-metadata-reader.c: (eog_metadata_reader_init),
+	(eog_metadata_reader_class_init):
+	* src/eog-scroll-view.c: (eog_scroll_view_init),
+	(eog_scroll_view_class_init):
+	* src/eog-transform.c: (eog_transform_init),
+	(eog_transform_class_init):
+	* src/eog-uri-converter.c: (eog_uri_converter_init),
+	(eog_uri_converter_class_init):
+	Convert classes to have their private data structures handled by the
+	GObject type system.
+
+2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-properties-dialog.c: (eog_xmp_set_label),
 	(pd_update_metadata_tab): Clear XMP labels so they won't show the XMP
 	data of the previous image for images which don't have XMP data or the
