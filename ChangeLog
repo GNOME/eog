@@ -1,5 +1,12 @@
 2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-properties-dialog.c: (eog_xmp_set_label),
+	(pd_update_metadata_tab): Clear XMP labels so they won't show the XMP
+	data of the previous image for images which don't have XMP data or the
+	corresponding XMP property.
+
+2007-12-28  Felix Riemann  <friemann@svn.gnome.org>
+
 	Fix several translation and other string issues.
 	Fixes bug #505949 (Seán de Búrca, Felix Riemann).
 

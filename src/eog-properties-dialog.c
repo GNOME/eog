@@ -204,6 +204,10 @@ eog_xmp_set_label (XmpPtr xmp,
 
 			gtk_label_set_text (GTK_LABEL (w), string->str);
 		}
+	} else {
+		/* Property was not found */
+		/* Clear label so it won't show bogus data */
+		gtk_label_set_text (GTK_LABEL (w), NULL);
 	}
 
 	xmp_string_free (value);
@@ -332,6 +336,16 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 		eog_exif_details_xmp_update (EOG_EXIF_DETAILS (priv->exif_details), xmp_data);
 
 		xmp_free (xmp_data);
+	} else {
+		/* Image has no XMP data */
+
+		/* Clear the labels so they won't display foreign data.*/
+
+		gtk_label_set_text (priv->xmp_location_label, NULL);
+		gtk_label_set_text (priv->xmp_description_label, NULL);
+		gtk_label_set_text (priv->xmp_keywords_label, NULL);
+		gtk_label_set_text (priv->xmp_creator_label, NULL);
+		gtk_label_set_text (priv->xmp_rights_label, NULL);
 	}
 #endif
 }
