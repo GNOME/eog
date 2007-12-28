@@ -341,11 +341,12 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 
 		/* Clear the labels so they won't display foreign data.*/
 
-		gtk_label_set_text (priv->xmp_location_label, NULL);
-		gtk_label_set_text (priv->xmp_description_label, NULL);
-		gtk_label_set_text (priv->xmp_keywords_label, NULL);
-		gtk_label_set_text (priv->xmp_creator_label, NULL);
-		gtk_label_set_text (priv->xmp_rights_label, NULL);
+		gtk_label_set_text (GTK_LABEL (priv->xmp_location_label), NULL);
+		gtk_label_set_text (GTK_LABEL (priv->xmp_description_label),
+				    NULL);
+		gtk_label_set_text (GTK_LABEL (priv->xmp_keywords_label), NULL);
+		gtk_label_set_text (GTK_LABEL (priv->xmp_creator_label), NULL);
+		gtk_label_set_text (GTK_LABEL (priv->xmp_rights_label), NULL);
 	}
 #endif
 }
