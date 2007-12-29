@@ -168,6 +168,7 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
 				  1,
 				  G_PARAM_WRITABLE));
 
+	g_type_class_add_private (klass, sizeof (EogURIConverterPrivate));
 }
 
 GQuark
