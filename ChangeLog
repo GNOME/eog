@@ -1,3 +1,9 @@
+2007-12-31  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-window.c: (+eog_window_finish_saving), (eog_window_dispose),
+	(eog_window_delete): Wait until there is no image being saved before
+	destroying the window. Fixes #491092.
+
 2007-12-29  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-uri-converter.c: (eog_uri_converter_class_init):

@@ -3760,6 +3760,18 @@ eog_window_sidebar_page_removed (EogSidebar  *sidebar,
 	}
 }
 
+static void
+eog_window_finish_saving (EogWindow *window)
+{
+	EogWindowPrivate *priv = window->priv;
+	
+	gtk_widget_set_sensitive (GTK_WIDGET (window), FALSE);
+
+	do {
+		gtk_main_iteration ();
+	} while (priv->save_job != NULL);
+}
+
 static void 
 eog_window_construct_ui (EogWindow *window)
 {
@@ -4195,6 +4207,9 @@ eog_window_dispose (GObject *object)
 	}
 
 	if (priv->image != NULL) {
+	  	g_signal_handlers_disconnect_by_func (priv->image, 
+						      image_thumb_changed_cb, 
+						      window);
 		g_object_unref (priv->image);
 		priv->image = NULL;
 	}
@@ -4236,7 +4251,7 @@ eog_window_dispose (GObject *object)
 	g_signal_handlers_disconnect_by_func (gtk_recent_manager_get_default (),
 					      G_CALLBACK (eog_window_recent_manager_changed_cb), 
 					      window);
-	
+
 	priv->recent_menu_id = 0;
 		
 	eog_window_clear_load_job (window);
@@ -4304,7 +4319,17 @@ eog_window_finalize (GObject *object)
 static gint
 eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 {
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
 	g_return_val_if_fail (EOG_IS_WINDOW (widget), FALSE);
+
+	window = EOG_WINDOW (widget);
+	priv = window->priv;
+
+	if (priv->save_job != NULL) {
+		eog_window_finish_saving (window);
+	}	
 
 	gtk_widget_destroy (widget);
 
