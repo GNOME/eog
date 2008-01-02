@@ -292,10 +292,12 @@ tb_on_button_press_event_cb (GtkWidget *tb, GdkEventButton *event,
 		    return FALSE;
 	    }
 
-	    gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
-	    gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
-	    gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
-
+	    if (!gtk_icon_view_path_is_selected (GTK_ICON_VIEW (tb), path) ||
+		eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (tb)) != 1) {
+		gtk_icon_view_unselect_all (GTK_ICON_VIEW (tb));
+		gtk_icon_view_select_path (GTK_ICON_VIEW (tb), path);
+		gtk_icon_view_set_cursor (GTK_ICON_VIEW (tb), path, NULL, FALSE);
+	    }
 	    eog_thumb_view_popup_menu (EOG_THUMB_VIEW (tb), event);
 	    
 	    gtk_tree_path_free (path);
