@@ -1,5 +1,11 @@
 2008-01-02  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-window.c: (handle_image_selection_changed_cb): Do not
+	redisplay the selected image if it's already displayed. Improves
+	performance.
+
+2008-01-02  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-thumb-view.c: (tb_on_button_press_event_cb): Do not
 	cause the selection to be changed if the image to be selected
 	is already selected. Improves performance.

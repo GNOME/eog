@@ -1487,6 +1487,10 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	eog_window_set_message_area (window, NULL);
 
+	if (image == priv->image) {
+		return;
+	}
+
 	if (eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
 		eog_window_display_image (window, image);
 		return;
