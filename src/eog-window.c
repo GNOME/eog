@@ -89,6 +89,7 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_DEFAULT_HEIGHT 450
 
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
+#define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
 #define EOG_RECENT_FILES_GROUP  "Eye of Gnome"
 #define EOG_RECENT_FILES_LIMIT  5
@@ -1804,7 +1805,11 @@ fullscreen_motion_notify_cb (GtkWidget      *widget,
 
 	eog_debug (DEBUG_WINDOW);
 	
-	show_fullscreen_popup (window);
+	if (event->y < EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD) {
+		show_fullscreen_popup (window);
+	} else {
+		fullscreen_set_timeout (window);
+	}
 
 	return FALSE;
 }
@@ -1964,11 +1969,7 @@ update_ui_visibility (EogWindow *window)
 	}
 
 	if (priv->fullscreen_popup != NULL) {
-		if (fullscreen_mode) {
-			show_fullscreen_popup (window);
-		} else {
-			gtk_widget_hide_all (priv->fullscreen_popup);
-		}
+		gtk_widget_hide_all (priv->fullscreen_popup);
 	}
 }
 
