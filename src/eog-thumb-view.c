@@ -618,11 +618,7 @@ eog_thumb_view_get_first_selected_image (EogThumbView *tb)
 
 	GtkTreePath *path = (GtkTreePath *) (list->data);
 
-	/* debugging purposes */
-	gchar *text_path;
 	image = eog_thumb_view_get_image_from_path (tb, path);
-	text_path = gtk_tree_path_to_string (path);
-	g_free (text_path);
 
 	g_list_foreach (list, (GFunc) gtk_tree_path_free , NULL);
 	g_list_free (list);
