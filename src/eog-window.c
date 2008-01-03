@@ -3492,7 +3492,7 @@ set_action_properties (GtkActionGroup *window_group,
 static gint
 sort_recents_mru (GtkRecentInfo *a, GtkRecentInfo *b)
 {
-	return (gtk_recent_info_get_modified (a) < gtk_recent_info_get_modified (b));
+	return (gtk_recent_info_get_modified (b) - gtk_recent_info_get_modified (a));
 }
 
 static void
