@@ -666,8 +666,6 @@ eog_image_set_icc_data (EogImage *img, EogMetadataReader *md_reader)
 		return;
 	}
 
-	return;
-
 #ifdef HAVE_EXIF
 	if (priv->exif == NULL) return;
 
