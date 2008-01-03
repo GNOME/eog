@@ -1,3 +1,10 @@
+2008-01-04  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume),
+	(eog_metadata_reader_get_xmp_data):
+	Make XMP reader work if the XMP block cannot be fully read at once.
+	Strip more duplicate code on the way.
+
 2008-01-03  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-metadata-reader.c: (eog_metadata_reader_consume):

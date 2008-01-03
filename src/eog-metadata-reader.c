@@ -278,7 +278,6 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			
 			EogMetadataReaderState next_state;
 			guchar *chunk = NULL;
-			int offset = 0;
 
 			switch (app1_type) {
 			case EJA_EXIF:
@@ -292,14 +291,11 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				break;
 			case EJA_XMP:
 				if (priv->xmp_chunk == NULL) { 
-					offset = 29 + 54; /* skip the ID + packet */
-					if (priv->size > offset)  { /* ensure that we have enough bytes */
-						priv->xmp_chunk = g_new0 (guchar, priv->size);
-						priv->xmp_len = priv->size - offset;
-						priv->bytes_read = 0;
-						chunk = priv->xmp_chunk;
-						next_state = EMR_READ_XMP;
-					}
+					priv->xmp_chunk = g_new0 (guchar, priv->size);
+					priv->xmp_len = priv->size;
+					priv->bytes_read = 0;
+					chunk = priv->xmp_chunk;
+					next_state = EMR_READ_XMP;
 				}
 				break;
 			case EJA_OTHER:
@@ -310,19 +306,10 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			}
 
 			if (chunk) {
-				if (i + priv->size < len) {
-					/* read data in one block */
-					memcpy ((guchar*) (chunk) + priv->bytes_read, &buf[i + offset], priv->size);
-					priv->state = EMR_READ;
-					i = i + priv->size - 1; /* the for-loop consumes the other byte */
-				} else {
-					int chunk_len = len - i;
-					memcpy ((guchar*) (priv->exif_chunk) + priv->bytes_read, &buf[i], chunk_len);
-					priv->bytes_read += chunk_len; /* bytes already read */
-					priv->size = (i + priv->size) - len; /* remaining data to read */
-					i = len - 1;
-					priv->state = next_state;
-				}
+				eog_metadata_reader_get_next_block (priv, chunk,
+								    &i, buf,
+								    len,
+								    next_state);
 			}
 
 			if (IS_FINISHED(priv))
@@ -431,6 +418,10 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 
 
 #ifdef HAVE_EXEMPI
+
+/* skip the ID + packet */
+#define EOG_XMP_OFFSET (29 + 54)
+
 XmpPtr 
 eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
 {
@@ -442,7 +433,8 @@ eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
 	priv = emr->priv;
 
 	if (priv->xmp_chunk != NULL) {
-		xmp = xmp_new (priv->xmp_chunk, priv->xmp_len);
+		xmp = xmp_new (priv->xmp_chunk+EOG_XMP_OFFSET,
+			       priv->xmp_len-EOG_XMP_OFFSET);
 	}
 
 	return xmp;
