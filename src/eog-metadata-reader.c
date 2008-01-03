@@ -293,7 +293,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			case EJA_XMP:
 				if (priv->xmp_chunk == NULL) { 
 					offset = 29 + 54; /* skip the ID + packet */
-						if (priv->size > offset)  { /* ensure that we have enough bytes */
+					if (priv->size > offset)  { /* ensure that we have enough bytes */
 						priv->xmp_chunk = g_new0 (guchar, priv->size);
 						priv->xmp_len = priv->size - offset;
 						priv->bytes_read = 0;
@@ -350,7 +350,9 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;
 			
 		case EMR_READ_ICC:			
-			eog_debug_message (DEBUG_IMAGE_DATA, "Read ICC data, Length: %i\n", priv->size);
+			eog_debug_message (DEBUG_IMAGE_DATA,
+					   "Read continuation of ICC data, "
+					   "length: %i", priv->size);
 
 			if (priv->icc_chunk == NULL) { 
 				priv->icc_chunk = g_new0 (guchar, priv->size);
@@ -366,25 +368,20 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			break;
 			
 		case EMR_READ_IPTC:
+			eog_debug_message (DEBUG_IMAGE_DATA,
+					   "Read continuation of IPTC data, "
+					   "length: %i", priv->size);
+
 			if (priv->iptc_chunk == NULL) { 
 				priv->iptc_chunk = g_new0 (guchar, priv->size);
 				priv->iptc_len = priv->size;
 				priv->bytes_read = 0;
 			}
 
-			if (i + priv->size < len) {
-                                /* read data in one block */
-				memcpy ((guchar*) (priv->iptc_chunk) + priv->bytes_read, &buf[i], priv->size);
-				i = i + priv->size - 1; /* the for-loop consumes the other byte */
-				priv->state = EMR_READ;
-			} else {
-				int chunk_len = len - i;
-				memcpy ((guchar*) (priv->iptc_chunk) + priv->bytes_read, &buf[i], chunk_len);
-				priv->bytes_read += chunk_len; /* bytes already read */
-				priv->size = (i + priv->size) - len; /* remaining data to read */
-				i = len - 1;
-				priv->state = EMR_READ_IPTC;
-			}
+			eog_metadata_reader_get_next_block (priv,
+							    priv->iptc_chunk,
+							    &i, buf, len,
+							    EMR_READ_IPTC);
 			
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
