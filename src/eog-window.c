@@ -62,9 +62,6 @@
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <gdk/gdkkeysyms.h>
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
-#endif
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
 #include <libgnomevfs/gnome-vfs-mime.h>
@@ -74,6 +71,9 @@
 #if HAVE_LCMS
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
 #include <lcms.h>
 #endif
 
@@ -568,15 +568,23 @@ eog_window_get_display_profile (GdkScreen *screen)
 	int format;
 	gulong nitems;
 	gulong bytes_after;
+	gulong length;
 	guchar *str;
 	int result;
 	cmsHPROFILE *profile;
-
+	char *atom_name;
+	
 	dpy = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
 
-	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), 
-							  "_ICC_PROFILE");
-	
+	if (gdk_screen_get_number (screen) > 0)
+		atom_name = g_strdup_printf ("_ICC_PROFILE_%d", gdk_screen_get_number (screen));
+	else
+		atom_name = g_strdup ("_ICC_PROFILE");
+
+	icc_atom = gdk_x11_get_xatom_by_name_for_display (gdk_screen_get_display (screen), atom_name);
+
+	g_free (atom_name);
+
 	result = XGetWindowProperty (dpy, 
 				     GDK_WINDOW_XID (gdk_screen_get_root_window (screen)),
 				     icc_atom, 
@@ -591,18 +599,33 @@ eog_window_get_display_profile (GdkScreen *screen)
                                      (guchar **)&str);
 
 	/* TODO: handle bytes_after != 0 */
-	
-	if (nitems) {
-		profile = cmsOpenProfileFromMem(str, nitems);
 
+	if ((result == Success) && (type == XA_CARDINAL) && (nitems > 0)) {
+		switch (format)
+		{
+			case 8:
+				length = nitems;
+				break;
+			case 16:
+				length = sizeof(short) * nitems;
+				break;
+			case 32:
+				length = sizeof(long) * nitems;
+				break;
+			default:
+				eog_debug_message (DEBUG_LCMS, "Unable to read profile, not correcting");
+
+				XFree (str);
+				return NULL;
+		}
+		profile = cmsOpenProfileFromMem (str, length);
 		XFree (str);
-
-		return profile;
 	} else {
+		profile = NULL;
 		eog_debug_message (DEBUG_LCMS, "No profile, not correcting");
-
-		return NULL;
 	}
+
+	return profile;
 }
 #endif
 
