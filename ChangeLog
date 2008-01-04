@@ -1,5 +1,12 @@
 2008-01-04  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-window.c: (eog_window_get_display_profile):
+	Check what kind of data the XServer has actually returned when querying
+	for an ICC profile. This fixes crashes when using xicc-0.1 to upload
+	the profile. Fixes bug #507068 (Frederic Crozat).
+
+2008-01-04  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-metadata-reader.c: (eog_metadata_reader_consume),
 	(eog_metadata_reader_get_xmp_data):
 	Make XMP reader work if the XMP block cannot be fully read at once.
