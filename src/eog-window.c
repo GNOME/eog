@@ -4427,16 +4427,17 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		}
 		break;
 	}
+
+	/* Update slideshow timeout */
+	if (result && (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW)) {
+		slideshow_set_timeout (EOG_WINDOW (widget));
+	}
 	
 	if (handle_selection == TRUE && result == FALSE) {
 		gtk_widget_grab_focus (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview));
 
 		result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->thumbview), 
 					   (GdkEvent *) event);
-
-		if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
-			slideshow_set_timeout (EOG_WINDOW (widget));
-		}
 	}
 
 	if (result == FALSE && GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) {
