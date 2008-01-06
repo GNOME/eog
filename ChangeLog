@@ -1,5 +1,12 @@
 2008-01-05  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
+	* src/eog-window.c: (add_uri_to_recent_files),
+	(eog_window_display_image): Add the URI to recent files in a low
+	priority idle function, making images display faster.
+	Fixes bug #505811.
+
+2008-01-05  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
 	* src/eog-window.c: (eog_window_key_press): Update slideshow timeout
 	when image switched by user. Fixes bug #505576 (Priit Laes).
 

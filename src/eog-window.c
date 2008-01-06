@@ -902,15 +902,14 @@ update_selection_ui_visibility (EogWindow *window)
 	} 
 }
 
-static void
-add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
+static gboolean
+add_uri_to_recent_files (GnomeVFSURI *uri)
 {
 	gchar *text_uri;
 	GtkRecentData *recent_data;
 	static gchar *groups[2] = { EOG_RECENT_FILES_GROUP , NULL }; 
 
-	g_return_if_fail (EOG_IS_WINDOW (window));
-	if (uri == NULL) return;
+	if (uri == NULL) return FALSE;
 
 	/* The password gets stripped here because ~/.recently-used.xbel is
 	 * readable by everyone (chmod 644). It also makes the workaround
@@ -919,7 +918,7 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
 	if (text_uri == NULL)
-		return;
+		return FALSE;
 
 	recent_data = g_slice_new (GtkRecentData);
 	recent_data->display_name = NULL;
@@ -938,6 +937,8 @@ add_uri_to_recent_files (EogWindow *window, GnomeVFSURI *uri)
 	g_free (text_uri);
 
 	g_slice_free (GtkRecentData, recent_data);
+
+	return FALSE;
 }
 
 static void
@@ -1005,8 +1006,10 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 	update_status_bar (window);
 
 	uri = eog_image_get_uri (image);
-	add_uri_to_recent_files (window, uri);
-	gnome_vfs_uri_unref (uri);
+	g_idle_add_full (G_PRIORITY_LOW,
+			 (GSourceFunc) add_uri_to_recent_files,
+			 uri,
+			 (GDestroyNotify) gnome_vfs_uri_unref);
 
 	eog_window_update_openwith_menu (window, image);
 }
