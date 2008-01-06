@@ -114,17 +114,16 @@ eog_exif_util_format_date (const gchar *date)
 }
 
 const gchar * 
-eog_exif_util_get_value (ExifData *exif_data, gint tag_id)
+eog_exif_util_get_value (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
 {
 	ExifEntry *exif_entry;
 	const gchar *exif_value;
-	gchar buffer[1024];
 
         exif_entry = exif_data_get_entry (exif_data, tag_id);
 
 	buffer[0] = 0;
 
-	exif_value = exif_entry_get_value (exif_entry, buffer, sizeof (buffer));
+	exif_value = exif_entry_get_value (exif_entry, buffer, buf_size);
 
 	return exif_value;
 }

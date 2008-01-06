@@ -445,9 +445,12 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 #ifdef HAVE_EXIF
 	if (exif_data) {
 		gchar *extra_info, *tmp, *date;
+		/* The EXIF standard says that the DATE_TIME tag is 
+		 * 20 bytes long. A 32-byte buffer should be large enough. */
+		gchar time_buffer[32];
 		
 		date = eog_exif_util_format_date (
-				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME));
+				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME, time_buffer, 32));
 
 		extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
 
