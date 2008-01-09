@@ -1,3 +1,13 @@
+2008-01-09  Felix Riemann  <friemann@svn.gnome.org>
+
+	* configure.ac:
+	* src/eog-print-image-setup.c: (get_scale_to_px_factor),
+	(on_scale_changed), (size_changed), (set_scale_unit),
+	(on_unit_changed), (set_initial_values),
+	(eog_print_image_setup_init):
+	Use the locale data to determine if the metric or the imperial system
+	should be the default for the print setup tab. Fixes bug #504093.
+
 2008-01-06  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-exif-util.c: (eog_exif_util_get_value):

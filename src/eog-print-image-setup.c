@@ -19,10 +19,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
+
+#ifdef HAVE__NL_MEASUREMENT_MEASUREMENT
+#include <langinfo.h>
+#endif
+
 #include "eog-print-image-setup.h"
 #include "eog-print-preview.h"
 
@@ -129,6 +138,25 @@ unblock_handlers (EogPrintImageSetup *setup)
 	g_signal_handlers_unblock_by_func (priv->top, on_top_value_changed, setup);
 	g_signal_handlers_unblock_by_func (priv->bottom, on_bottom_value_changed, setup);
 	g_signal_handlers_unblock_by_func (priv->height, on_height_value_changed, setup);
+}
+
+static gdouble
+get_scale_to_px_factor (EogPrintImageSetup *setup)
+{
+	gdouble factor = 0.;
+
+	switch (setup->priv->current_unit) {
+	case GTK_UNIT_MM: 
+		factor = FACTOR_MM_TO_PIXEL;
+		break;
+	case GTK_UNIT_INCH:
+		factor = FACTOR_INCH_TO_PIXEL;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
+
+	return factor;
 }
 
 static gdouble
@@ -262,16 +290,7 @@ on_scale_changed (GtkRange     *range,
 	image = priv->image;
 	eog_image_get_size (image, &pix_width, &pix_height);
 
-	switch (priv->current_unit) {
-	case GTK_UNIT_MM: 
-		factor = FACTOR_MM_TO_PIXEL;
-		break;
-	case GTK_UNIT_INCH:
-		factor = FACTOR_INCH_TO_PIXEL;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
+	factor = get_scale_to_px_factor (setup);
 
 	width = (gdouble)pix_width/factor;
 	height = (gdouble)pix_height/factor;
@@ -437,16 +456,7 @@ size_changed (EogPrintImageSetup *setup,
 
 	eog_image_get_size (priv->image, &pix_width, &pix_height);
 
-	switch (priv->current_unit) {
-	case GTK_UNIT_MM:
-		factor = FACTOR_MM_TO_PIXEL;
-		break;
-	case GTK_UNIT_INCH:
-		factor = FACTOR_INCH_TO_PIXEL;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
+	factor = get_scale_to_px_factor (setup);
 	
 	switch (change) {
 	case CHANGE_HORIZ:
@@ -543,22 +553,25 @@ change_unit (GtkSpinButton *spinbutton,
 }
 
 static void
-on_unit_changed (GtkComboBox *combobox, 
-		 gpointer user_data)
+set_scale_unit (EogPrintImageSetup *setup,
+		GtkUnit unit)
 {
-	EogPrintImageSetupPrivate *priv = EOG_PRINT_IMAGE_SETUP (user_data)->priv;
+	EogPrintImageSetupPrivate *priv = setup->priv;
 	gdouble factor;
 	gdouble step, page;
 	gint digits;
 
-	switch (priv->current_unit) {
-	case GTK_UNIT_INCH:
+	if (G_UNLIKELY (priv->current_unit == unit))
+		return;
+
+	switch (unit) {
+	case GTK_UNIT_MM:
 		factor = FACTOR_INCH_TO_MM;
 		digits = 0;
 		step = 1;
 		page = 10;
 		break;
-	case GTK_UNIT_MM:
+	case GTK_UNIT_INCH:
 		factor = FACTOR_MM_TO_INCH;
 		digits = 2;
 		step = 0.01;
@@ -568,7 +581,7 @@ on_unit_changed (GtkComboBox *combobox,
 		g_assert_not_reached ();
 	}
 	
- 	block_handlers (EOG_PRINT_IMAGE_SETUP (user_data));
+ 	block_handlers (setup);
 
 	change_unit (GTK_SPIN_BUTTON (priv->width), factor, digits, step, page);
 	change_unit (GTK_SPIN_BUTTON (priv->height), factor, digits, step, page);
@@ -577,18 +590,29 @@ on_unit_changed (GtkComboBox *combobox,
 	change_unit (GTK_SPIN_BUTTON (priv->top), factor, digits, step, page);
 	change_unit (GTK_SPIN_BUTTON (priv->bottom), factor, digits, step, page);
 
- 	unblock_handlers (EOG_PRINT_IMAGE_SETUP (user_data));
-	
+ 	unblock_handlers (setup);
+
+	priv->current_unit = unit;	
+}
+
+static void
+on_unit_changed (GtkComboBox *combobox, 
+		 gpointer user_data)
+{
+	GtkUnit unit = GTK_UNIT_INCH;
+
 	switch (gtk_combo_box_get_active (combobox)) {
 	case UNIT_INCH:
-		priv->current_unit = GTK_UNIT_INCH;
+		unit = GTK_UNIT_INCH;
 		break;
 	case UNIT_MM:
-		priv->current_unit = GTK_UNIT_MM;
+		unit = GTK_UNIT_MM;
 		break;
 	default:
 		g_assert_not_reached ();
 	}
+
+	set_scale_unit (EOG_PRINT_IMAGE_SETUP (user_data), unit);
 }
 
 static void
@@ -722,6 +746,7 @@ set_initial_values (EogPrintImageSetup *setup)
 	EogImage *image;
 	gdouble page_width, page_height;
 	gint pix_width, pix_height;
+	gdouble factor;
 	gdouble width, height;
 	gdouble max_perc;
 
@@ -729,9 +754,11 @@ set_initial_values (EogPrintImageSetup *setup)
 	page_setup = priv->page_setup;
 	image = priv->image;
 	
+	factor = get_scale_to_px_factor (setup);
+
 	eog_image_get_size (image, &pix_width, &pix_height);
-	width = (gdouble)pix_width/FACTOR_INCH_TO_PIXEL;
-	height = (gdouble)pix_height/FACTOR_INCH_TO_PIXEL;
+	width = (gdouble)pix_width/factor;
+	height = (gdouble)pix_height/factor;
 
 	max_perc = get_max_percentage (setup);
 
@@ -743,7 +770,8 @@ set_initial_values (EogPrintImageSetup *setup)
 	gtk_range_set_value (GTK_RANGE (priv->scaling), 100*max_perc);
 
 	eog_print_preview_set_scale (EOG_PRINT_PREVIEW (priv->preview), max_perc);
-	
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->width), 0, width);
+	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->height), 0, height);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->width), width);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->height), height);
 	
@@ -762,8 +790,7 @@ set_initial_values (EogPrintImageSetup *setup)
 
 	update_image_pos_ranges (setup, page_width, page_height, width, height);
 
-	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->width), 0, width);
-	gtk_spin_button_set_range (GTK_SPIN_BUTTON (priv->height), 0, height);
+
 }
 
 static void 
@@ -827,6 +854,10 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 	GtkWidget *hscale;
 	GtkWidget *combobox;
 	EogPrintImageSetupPrivate *priv;
+
+#ifdef HAVE__NL_MEASUREMENT_MEASUREMENT
+	gchar *locale_scale = NULL;
+#endif
 
 	priv = setup->priv = EOG_PRINT_IMAGE_SETUP_GET_PRIVATE (setup);
 
@@ -903,8 +934,18 @@ eog_print_image_setup_init (EogPrintImageSetup *setup)
 				   _("Millimeters"));
 	gtk_combo_box_insert_text (GTK_COMBO_BOX (combobox), UNIT_INCH,
 				   _("Inches"));
-	gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), UNIT_INCH);
-	priv->current_unit = GTK_UNIT_INCH;
+
+#ifdef HAVE__NL_MEASUREMENT_MEASUREMENT
+	locale_scale = nl_langinfo (_NL_MEASUREMENT_MEASUREMENT);
+	if (locale_scale && locale_scale[0] == 2) {
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), UNIT_INCH);
+		set_scale_unit (setup, GTK_UNIT_INCH);
+	} else
+#endif
+	{
+		gtk_combo_box_set_active (GTK_COMBO_BOX (combobox), UNIT_MM);
+		set_scale_unit (setup, GTK_UNIT_MM);
+	}
 
 	gtk_table_attach (GTK_TABLE (table), label, 
 			  0, 1, 2, 3, GTK_FILL, GTK_FILL, 
