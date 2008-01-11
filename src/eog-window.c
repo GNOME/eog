@@ -2814,7 +2814,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_OK) {
 			gnome_vfs_uri_unref (baseuri);
-
+			g_list_free (images);
 			gtk_widget_destroy (dialog);
 
 			return;
