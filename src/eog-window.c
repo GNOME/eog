@@ -2476,6 +2476,8 @@ eog_window_cmd_edit_toolbar_cb (GtkDialog *dialog, gint response, gpointer data)
 		/* Toolbar would be uneditable now otherwise */
 		egg_editable_toolbar_set_edit_mode
 			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), TRUE);
+	} else if (response == GTK_RESPONSE_HELP) {
+		eog_util_show_help ("eog-toolbareditor", NULL);
 	} else {
         	egg_editable_toolbar_set_edit_mode
 			(EGG_EDITABLE_TOOLBAR (window->priv->toolbar), FALSE);
@@ -2503,7 +2505,9 @@ eog_window_cmd_edit_toolbar (GtkAction *action, gpointer *user_data)
 					      _("_Reset to Default"),
 					      EOG_TB_EDITOR_DLG_RESET_RESPONSE,
  					      GTK_STOCK_CLOSE,
-					      GTK_RESPONSE_CLOSE, 
+					      GTK_RESPONSE_CLOSE,
+					      GTK_STOCK_HELP,
+					      GTK_RESPONSE_HELP,
 					      NULL);
 
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), 
