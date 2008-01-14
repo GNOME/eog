@@ -1,3 +1,10 @@
+2008-01-14  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-exif-details.c:
+	* src/eog-properties-dialog.c: (pd_update_metadata_tab),
+	(eog_properties_dialog_init): Fix build when compiled without
+	libexif support but with exempi enabled. Fixes bug #509149.
+
 2008-01-13  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_edit_toolbar_cb),

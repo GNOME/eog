@@ -84,6 +84,7 @@ typedef struct {
 	ExifCategory category;
 } ExifTagCategory;
 
+#ifdef HAVE_EXIF
 static ExifTagCategory exif_tag_category_map[] = {
 	{ EXIF_TAG_INTEROPERABILITY_INDEX,    EXIF_CATEGORY_CAMERA},
 	{ EXIF_TAG_INTEROPERABILITY_VERSION,  EXIF_CATEGORY_CAMERA},
@@ -190,6 +191,7 @@ static ExifTagCategory exif_tag_category_map[] = {
 	{ EXIF_TAG_IMAGE_UNIQUE_ID	, EXIF_CATEGORY_IMAGE_DATA},
 	{ -1, -1 }
 };
+#endif
 
 #define MODEL_COLUMN_ATTRIBUTE 0
 #define MODEL_COLUMN_VALUE     1
@@ -276,6 +278,7 @@ eog_exif_details_class_init (EogExifDetailsClass *klass)
 	g_type_class_add_private (object_class, sizeof (EogExifDetailsPrivate));
 }
 
+#ifdef HAVE_EXIF
 static ExifCategory
 get_exif_category (ExifEntry *entry)
 {
@@ -291,6 +294,7 @@ get_exif_category (ExifEntry *entry)
 
 	return cat;
 }
+#endif
 
 static char*
 set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribute, const char *value)
@@ -343,6 +347,7 @@ set_row_data (GtkTreeStore *store, char *path, char *parent, const char *attribu
 	return path;
 }
 
+#ifdef HAVE_EXIF
 static void 
 exif_entry_cb (ExifEntry *entry, gpointer data)
 {
@@ -406,12 +411,15 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 		}
 	}
 }
+#endif
 
+#ifdef HAVE_EXIF
 static void
 exif_content_cb (ExifContent *content, gpointer data)
 {
 	exif_content_foreach_entry (content, exif_entry_cb, data);
 }
+#endif
 
 GtkWidget *
 eog_exif_details_new ()
@@ -447,6 +455,7 @@ eog_exif_details_reset (EogExifDetails *exif_details)
 	}
 }
 
+#ifdef HAVE_EXIF
 void
 eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 {
@@ -461,7 +470,7 @@ eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 		exif_data_foreach_content (data, exif_content_cb, exif_details);
 	}
 }
-
+#endif HAVE_EXIF
 
 #ifdef HAVE_EXEMPI
 typedef struct {

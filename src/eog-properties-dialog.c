@@ -30,7 +30,6 @@
 #include "eog-thumb-view.h"
 
 #if HAVE_EXIF
-#include "eog-exif-details.h"
 #include "eog-exif-util.h"
 #endif
 
@@ -48,6 +47,10 @@
 #endif
 #if HAVE_EXIF || HAVE_EXEMPI
 #define HAVE_METADATA 1
+#endif
+
+#if HAVE_METADATA
+#include "eog-exif-details.h"
 #endif
 
 #define EOG_PROPERTIES_DIALOG_GET_PRIVATE(object) \
@@ -82,7 +85,6 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *created_label;
 	GtkWidget      *modified_label;
 #ifdef HAVE_EXIF
-	GtkWidget      *exif_box;
 	GtkWidget      *exif_aperture_label;
 	GtkWidget      *exif_exposure_label;
 	GtkWidget      *exif_focal_label;
@@ -101,6 +103,7 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *xmp_details;
 #endif
 #if HAVE_METADATA
+	GtkWidget      *exif_box;
 	GtkWidget      *exif_details_expander;
 	GtkWidget      *exif_details;
 #endif
@@ -256,7 +259,10 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 
 	notebook = GTK_NOTEBOOK (priv->notebook);
 
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)
+	if (TRUE
+#if HAVE_EXIF
+	    && !eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)
+#endif
 #if HAVE_EXEMPI
 	    && !eog_image_has_data (image, EOG_IMAGE_DATA_XMP)
 #endif
@@ -534,7 +540,6 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			         "created_label", &priv->created_label,
 			         "modified_label", &priv->modified_label,
 #ifdef HAVE_EXIF
-			         "exif_box", &priv->exif_box,
 			         "exif_aperture_label", &priv->exif_aperture_label,
 			         "exif_exposure_label", &priv->exif_exposure_label,
 			         "exif_focal_label", &priv->exif_focal_label,
@@ -543,7 +548,6 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 			         "exif_metering_label", &priv->exif_metering_label,
 			         "exif_model_label", &priv->exif_model_label,
 			         "exif_date_label", &priv->exif_date_label,
-			         "exif_details_expander", &priv->exif_details_expander,
 #endif
 #ifdef HAVE_EXEMPI
 				 "xmp_location_label", &priv->xmp_location_label,
@@ -555,7 +559,10 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 				 "xmp_box", &xmp_box,
 				 "xmp_box_label", &xmp_box_label,
 #endif
-
+#ifdef HAVE_METADATA
+			         "exif_box", &priv->exif_box,
+				 "exif_details_expander", &priv->exif_details_expander,
+#endif
 			         NULL);
 
 	g_signal_connect (dlg,
