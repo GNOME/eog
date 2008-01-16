@@ -1,5 +1,3 @@
-SUBDIRS=eu ja zh_CN zh_TW
-
 include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
 
@@ -11,4 +9,4 @@ DOC_FIGURES = 					\
 	figures/eog_start_window.png		\
 	figures/eog_toolbar_editor_window.png 
 
-DOC_LINGUAS = de en_GB es fr it ko oc pa pt_BR ru sv uk
+DOC_LINGUAS = de en_GB es eu fr it ja ko oc pa pt_BR ru sv uk zh_CN zh_TW
