@@ -107,7 +107,8 @@ eog_thumb_nav_adj_changed (GtkAdjustment *adj, gpointer user_data)
 	nav = EOG_THUMB_NAV (user_data);
 	priv = EOG_THUMB_NAV_GET_PRIVATE (nav);
 
-	gtk_widget_set_sensitive (priv->button_right, adj->upper > adj->page_size);
+	gtk_widget_set_sensitive (priv->button_right,
+				  adj->value < adj->upper - adj->page_size);
 }
 
 static void
