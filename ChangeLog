@@ -1,3 +1,12 @@
+2008-02-08  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (eog_image_apply_display_profile): Skip ICC
+	correction for non-RGB input colorspaces. There appears to be
+	currently no sane way for us to determine the parameters needed here.
+	This fixes crashes when opening such images with an ICC profile
+	loaded. Also make sure that the transformation was actually created
+	before executing it. Fixes bug #512626.
+
 2008-02-08  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-thumb-nav.c: (eog_thumb_nav_adj_changed): Do not set

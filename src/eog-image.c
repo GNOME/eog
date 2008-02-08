@@ -616,6 +616,13 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 
 	if (screen == NULL || priv->profile == NULL) return;
 
+	/* TODO: support other colorspaces than RGB */
+	if (cmsGetColorSpace (priv->profile) != icSigRgbData ||
+	    cmsGetColorSpace (screen) != icSigRgbData) {
+		eog_debug_message (DEBUG_LCMS, "One or both ICC profiles not in RGB colorspace; not correcting");
+		return;
+	}
+
 	transform = cmsCreateTransform (priv->profile, 
 				        TYPE_RGB_8, 
 				        screen, 
@@ -623,17 +630,18 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 				        INTENT_PERCEPTUAL, 
 				        0);
 	
-	rows = gdk_pixbuf_get_height(priv->image);
-	width = gdk_pixbuf_get_width (priv->image);
-	stride = gdk_pixbuf_get_rowstride (priv->image);
-	p = gdk_pixbuf_get_pixels (priv->image);
+	if (G_LIKELY (transform != NULL)) {
+		rows = gdk_pixbuf_get_height (priv->image);
+		width = gdk_pixbuf_get_width (priv->image);
+		stride = gdk_pixbuf_get_rowstride (priv->image);
+		p = gdk_pixbuf_get_pixels (priv->image);
 
-	for (row = 0; row < rows; ++row) {
-		cmsDoTransform(transform, p, p, width);
-		p += stride;
+		for (row = 0; row < rows; ++row) {
+			cmsDoTransform (transform, p, p, width);
+			p += stride;
+		}
+		cmsDeleteTransform (transform);
 	}
-
-	cmsDeleteTransform (transform);
 }
 
 static void
