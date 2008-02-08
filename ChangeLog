@@ -1,3 +1,10 @@
+2008-02-08  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-list-store.c: (eog_list_store_add_uris):
+	Disable sorting while adding a directory to the collection.
+	This should improve the startup time in huge directories.
+	Improves bug #495825.
+
 2008-01-16  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Convert remaining translations to g-d-u.

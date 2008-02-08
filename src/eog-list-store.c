@@ -549,7 +549,8 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 	info = gnome_vfs_file_info_new ();
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
-					      -1, GTK_SORT_ASCENDING);
+					      GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
+					      GTK_SORT_ASCENDING);
 	
 	for (it = uri_list; it != NULL; it = it->next) {
 		GnomeVFSURI *uri = (GnomeVFSURI *) it->data;
