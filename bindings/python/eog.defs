@@ -411,7 +411,7 @@
   (c-name "eog_image_has_data")
   (return-type "gboolean")
   (parameters
-    '("guint" "data")
+    '("EogImageData" "data")
   )
 )
 
@@ -420,7 +420,7 @@
   (c-name "eog_image_load")
   (return-type "gboolean")
   (parameters
-    '("guint" "data2read")
+    '("EogImageData" "data2read")
     '("EogJob*" "job" (null-ok))
     '("GError**" "error")
   )
@@ -555,7 +555,7 @@
   (is-constructor-of "EogJobThumbnail")
   (return-type "EogJob*")
   (parameters
-    '("GnomeVFSURI*" "uri_entry")
+    '("EogImage*" "image")
   )
 )
 
