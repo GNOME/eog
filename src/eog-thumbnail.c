@@ -107,6 +107,30 @@ get_valid_thumbnail (EogThumbData *data, GError **error)
 	return thumb;
 }
 
+static GdkPixbuf *
+create_thumbnail_from_pixbuf (EogThumbData *data,
+			      GdkPixbuf *pixbuf,
+			      GError **error)
+{
+	GdkPixbuf *thumb;
+	gint width, height;
+	gfloat perc;
+	
+	g_assert (factory != NULL);
+
+	width = gdk_pixbuf_get_width (pixbuf);
+	height = gdk_pixbuf_get_height (pixbuf);
+	
+	perc = CLAMP (128.0/(MAX (width, height)), 0, 1);
+
+	thumb = gnome_thumbnail_scale_down_pixbuf (pixbuf,
+						   width*perc, height*perc);
+	
+	gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
+
+	return thumb;
+}
+
 static GdkPixbuf* 
 create_thumbnail (EogThumbData *data, GError **error)
 {
@@ -446,16 +470,20 @@ eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail, gint dimension)
 }
 
 GdkPixbuf*
-eog_thumbnail_load (GnomeVFSURI *uri, GError **error)
+eog_thumbnail_load (EogImage *image, GError **error)
 {
 	GdkPixbuf *thumb = NULL;
+	GnomeVFSURI *uri;
 	EogThumbData *data;
+	GdkPixbuf *pixbuf;
 
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
-	
-	data = eog_thumb_data_new (uri, error);
 
+	uri = eog_image_get_uri (image);
+	data = eog_thumb_data_new (uri, error);
+	gnome_vfs_uri_unref (uri);
+	
 	if (data == NULL)
 		return NULL;
 
@@ -463,7 +491,13 @@ eog_thumbnail_load (GnomeVFSURI *uri, GError **error)
 	thumb = get_valid_thumbnail (data, error);
 
 	if (*error == NULL && thumb == NULL) {
-		thumb = create_thumbnail (data, error);
+		pixbuf = eog_image_get_pixbuf (image);
+		if (pixbuf != NULL) {
+			thumb = create_thumbnail_from_pixbuf (data, pixbuf, error);
+			g_object_unref (pixbuf);
+		} else {
+			thumb = create_thumbnail (data, error);
+		}
 	}
 
 	eog_thumb_data_free (data);

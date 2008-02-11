@@ -1,3 +1,20 @@
+2008-02-11  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* src/eog-jobs.c: (eog_job_thumbnail_dispose),
+	(eog_job_thumbnail_new), (eog_job_thumbnail_run):
+	* src/eog-jobs.h:
+	* src/eog-list-store.c: (eog_job_thumbnail_cb),
+	(eog_list_store_add_thumbnail_job):
+	* src/eog-thumbnail.c: (create_thumbnail_from_pixbuf),
+	(eog_thumbnail_load): Load thumbnail from EogImage instead of
+	GnomeVFSURI.
+	* src/eog-thumbnail.h:
+	* src/eog-window.c:
+
+	Use the pixbuf data in EogImage to create a thumbnail if this exists
+	and thumbnail under ~/.thumbnail is not valid/doesn't exist.
+	Improves performance and memory usage. Fixes bug #515250.
+
 2008-02-11  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: Make the tooltips for image switching more

@@ -152,9 +152,9 @@ eog_job_thumbnail_dispose (GObject *object)
 
 	job = EOG_JOB_THUMBNAIL (object);
 
-	if (job->uri_entry) {
-		gnome_vfs_uri_unref (job->uri_entry);
-		job->uri_entry = NULL;
+	if (job->image) {
+		g_object_unref (job->image);
+		job->image = NULL;
 	}
 	
 	if (job->thumbnail) {
@@ -176,15 +176,14 @@ eog_job_thumbnail_class_init (EogJobThumbnailClass *class)
 }
 
 EogJob *
-eog_job_thumbnail_new (GnomeVFSURI *uri_entry)
+eog_job_thumbnail_new (EogImage *image)
 {
 	EogJobThumbnail *job;
 
 	job = g_object_new (EOG_TYPE_JOB_THUMBNAIL, NULL);
 
-	if (uri_entry) {
-		gnome_vfs_uri_ref (uri_entry);
-		job->uri_entry = uri_entry;
+	if (image) {
+		job->image = g_object_ref (image);
 	}
 
 	return EOG_JOB (job);
@@ -202,7 +201,7 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 		EOG_JOB (job)->error = NULL;
 	}
 
-	job->thumbnail = eog_thumbnail_load (job->uri_entry,
+	job->thumbnail = eog_thumbnail_load (job->image,
 					     &EOG_JOB (job)->error);
 
 	if (!job->thumbnail) {

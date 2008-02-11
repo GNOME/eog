@@ -275,12 +275,15 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	GtkTreeIter iter;
 	EogImage *image;
 	GdkPixbuf *thumbnail;
-	
+	GnomeVFSURI *uri;
+
 	g_return_if_fail (EOG_IS_LIST_STORE (data));
 
 	store = EOG_LIST_STORE (data);
 
-	if (is_file_in_list_store_uri (store, job->uri_entry, &iter)) {
+	uri = eog_image_get_uri (job->image);
+
+	if (is_file_in_list_store_uri (store, uri, &iter)) {
 		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
@@ -303,6 +306,8 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 
 		g_object_unref (thumbnail);
 	}
+
+	gnome_vfs_uri_unref (uri);
 }
 
 static void
@@ -730,7 +735,6 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 {
 	EogImage *image;
 	EogJob *job;
-	GnomeVFSURI *uri;
 	
 	gtk_tree_model_get (GTK_TREE_MODEL (store), iter, 
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
@@ -742,9 +746,7 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 		return;
 	}
 
-	uri = eog_image_get_uri (image);
-	job = eog_job_thumbnail_new (uri);
-	gnome_vfs_uri_unref (uri);
+	job = eog_job_thumbnail_new (image);
 	
 	g_signal_connect (job,
 			  "finished",

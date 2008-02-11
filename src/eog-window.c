@@ -49,7 +49,6 @@
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
 #include "eog-util.h"
-#include "eog-thumbnail.h"
 #include "eog-print-image-setup.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-plugin-engine.h"

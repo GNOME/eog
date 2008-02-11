@@ -125,7 +125,7 @@ struct _EogJobClass
 struct _EogJobThumbnail
 {
 	EogJob       parent;
-	GnomeVFSURI *uri_entry;
+	EogImage    *image;
 	GdkPixbuf   *thumbnail;
 };
 
@@ -214,7 +214,7 @@ void            eog_job_set_progress       (EogJob          *job,
 
 /* EogJobThumbnail */
 GType           eog_job_thumbnail_get_type (void) G_GNUC_CONST;
-EogJob         *eog_job_thumbnail_new      (GnomeVFSURI     *uri_entry);
+EogJob         *eog_job_thumbnail_new      (EogImage     *image);
 void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 
 /* EogJobLoad */

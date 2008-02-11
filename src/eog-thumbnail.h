@@ -27,6 +27,7 @@
 
 #include <libgnomevfs/gnome-vfs.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include "eog-image.h"
 
 G_BEGIN_DECLS
 
@@ -37,7 +38,7 @@ void          eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail,
 
 void	      eog_thumbnail_add_frame   (GdkPixbuf **thumbnail);
 
-GdkPixbuf*    eog_thumbnail_load        (GnomeVFSURI *uri, 
+GdkPixbuf*    eog_thumbnail_load        (EogImage *image, 
 					 GError **error);
 
 
