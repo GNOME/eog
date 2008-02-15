@@ -4427,9 +4427,29 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			break;
 		}
 	case GDK_Page_Up:
+		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+			if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+				/* If the iconview is not visible skip to the 
+				 * previous image manually as it won't handle
+				 * the keypress then. */
+				eog_window_cmd_go_prev (NULL,
+							EOG_WINDOW (widget));
+				result = TRUE;
+			} else
+				handle_selection = TRUE;
+		}
+		break;
 	case GDK_Page_Down:
 		if (!eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
-			handle_selection = TRUE;
+			if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
+				/* If the iconview is not visible skip to the 
+				 * next image manually as it won't handle
+				 * the keypress then. */
+				eog_window_cmd_go_next (NULL,
+							EOG_WINDOW (widget));
+				result = TRUE;
+			} else
+				handle_selection = TRUE;
 		}
 		break;
 	}

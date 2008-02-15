@@ -1,3 +1,9 @@
+2008-02-15  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_key_press): Skip to the next image
+	when pressing PgUp/PgDown while the collection is hidden. Avoids some
+	critical warnings/crashes in that case. Fixes bug #513958.
+
 2008-02-11  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: post release version bump.
