@@ -1,817 +1,1358 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of eog.HEAD.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Shankar Prasad <svenkate@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: Eog.Gnome.Core-2.1\n"
+"Project-Id-Version: eog.HEAD.kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-11 19:50+0200\n"
-"PO-Revision-Date: 2002-12-20 13:46+0530\n"
-"Last-Translator: Pramod <rpramod@postmaster.co.uk>\n"
-"Language-Team: Kannada <LL@li.org>\n"
+"POT-Creation-Date: 2008-02-15 05:27+0000\n"
+"PO-Revision-Date: 2008-02-12 18:47+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: eog.desktop.in.h:1
+#. Translaters: This string is for a toggle to display a toolbar.
+#. * The name of the toolbar is automatically computed from the widgets
+#. * on the toolbar, and is placed at the %s. Note the _ before the %s
+#. * which is used to add mnemonics. We know that this is likely to
+#. * produce duplicates, but don't worry about it. If your language
+#. * normally has a mnemonic at the start, please use the _. If not,
+#. * please remove.
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:938
+#, c-format
+msgid "Show “_%s”"
+msgstr "“_%s” ಅನ್ನು ತೋರಿಸು"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1401
+#, fuzzy
+msgid "_Move on Toolbar"
+msgstr "ವರ್ಗಾಯಿಸು ನಲ್ಲಿ"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1402
+#, fuzzy
+msgid "Move the selected item on the toolbar"
+msgstr "ವರ್ಗಾಯಿಸು ಆರಿಸಲಾದ ಅಂಶ ನಲ್ಲಿ"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1403
+msgid "_Remove from Toolbar"
+msgstr "ಉಪಕರಣ ಪಟ್ಟಿಯಿಂದ ತೆಗೆದು ಹಾಕು(_R)"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1404
+msgid "Remove the selected item from the toolbar"
+msgstr "ಆರಿಸಲಾದ ಅಂಶವನ್ನು ಉಪಕರಣ ಪಟ್ಟಿಯಿಂದ ತೆಗೆದು ಹಾಕು"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1405
+msgid "_Delete Toolbar"
+msgstr "ಉಪಕರಣಪಟ್ಟಿಯನ್ನು ಅಳಿಸಿಹಾಕು(_D)"
+
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1406
+msgid "Remove the selected toolbar"
+msgstr "ಆರಿಸಲಾದ ಉಪಕರಣ ಪಟ್ಟಿಯನ್ನು ತೆಗೆದು ಹಾಕು"
+
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
+msgid "Separator"
+msgstr "ವಿಭಜಕ"
+
+#: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
+#, fuzzy
+msgid "Running in fullscreen mode"
+msgstr "ಚಾಲನೆಯಲ್ಲಿರುವ"
+
+#: ../data/eog.desktop.in.in.h:1
+msgid "Browse and rotate images"
+msgstr ""
+
+#: ../data/eog.desktop.in.in.h:2
 msgid "Image Viewer"
 msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ"
 
-#: eog.desktop.in.h:2
-msgid "View many different types of images"
+#: ../data/eog-image-properties-dialog.glade.h:1
+#, fuzzy
+msgid "<b>Aperture Value:</b>"
+msgstr "<b> ಮೌಲ್ಯ</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:2
+msgid "<b>Author:</b>"
+msgstr "<b>ಲೇಖಕ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:3
+msgid "<b>Bytes:</b>"
+msgstr "<b>ಬೈಟ್‍ಗಳು:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:4
+#, fuzzy
+msgid "<b>Camera Model:</b>"
+msgstr "<b> ಮಾದರಿ</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:5
+msgid "<b>Copyright:</b>"
+msgstr "<b>ಹಕ್ಕು:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:6
+msgid "<b>Date/Time:</b>"
+msgstr "<b>ದಿನಾಂಕ/ಸಮಯ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:7
+msgid "<b>Description:</b>"
+msgstr "<b>ವಿವರಣೆ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:8
+msgid "<b>Details</b>"
+msgstr "<b>ವಿವರಗಳು</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:9
+#, fuzzy
+msgid "<b>Exposure Time:</b>"
+msgstr "<b> ಸಮಯ</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:10
+msgid "<b>Flash:</b>"
 msgstr ""
 
-#: eog.glade.h:1
-msgid "    "
+#: ../data/eog-image-properties-dialog.glade.h:11
+msgid "<b>Focal Length:</b>"
 msgstr ""
 
-#: eog.glade.h:2
-msgid "*"
+#: ../data/eog-image-properties-dialog.glade.h:12
+msgid "<b>Height:</b>"
+msgstr "<b>ಎತ್ತರ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:13
+msgid "<b>ISO Speed Rating:</b>"
 msgstr ""
 
-#: eog.glade.h:3
-msgid "."
-msgstr ""
+#: ../data/eog-image-properties-dialog.glade.h:14
+msgid "<b>Keywords:</b>"
+msgstr "<b>ಮುಖ್ಯಪದಗಳು:</b>"
 
-#: eog.glade.h:4
+#: ../data/eog-image-properties-dialog.glade.h:15
+msgid "<b>Location:</b>"
+msgstr "<b>ಸ್ಥಳ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:16
+#, fuzzy
+msgid "<b>Metering Mode:</b>"
+msgstr "<b> ಕ್ರಮ</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:17
+msgid "<b>Name:</b>"
+msgstr "<b>ಹೆಸರು:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:18
+msgid "<b>Type:</b>"
+msgstr "<b>ಬಗೆ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:19
+msgid "<b>Width:</b>"
+msgstr "<b>ಅಗಲ:</b>"
+
+#: ../data/eog-image-properties-dialog.glade.h:20
+msgid "General"
+msgstr "ಸಾಮಾನ್ಯ"
+
+#: ../data/eog-image-properties-dialog.glade.h:21
+msgid "Image Properties"
+msgstr "ಚಿತ್ರದ ಗುಣಲಕ್ಷಣಗಳು"
+
+#: ../data/eog-image-properties-dialog.glade.h:22
+msgid "Metadata"
+msgstr "ಮೆಟಾಡಾಟ"
+
+#: ../data/eog-image-properties-dialog.glade.h:23
+msgid "_Next"
+msgstr "ಮುಂದಿನ(_N)"
+
+#: ../data/eog-image-properties-dialog.glade.h:24
+msgid "_Previous"
+msgstr "ಹಿಂದಿನ(_P)"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:1
 msgid "<b>File Name Preview</b>"
-msgstr ""
+msgstr "<b>ಕಡತ ಹೆಸರಿನ ಮುನ್ನೋಟ</b>"
 
-#: eog.glade.h:5
+#: ../data/eog-multiple-save-as-dialog.glade.h:2
+#, fuzzy
 msgid "<b>File Path Specifications</b>"
-msgstr ""
+msgstr "<b> ಕಡತ ಪಥ</b>"
 
-#: eog.glade.h:6
-msgid "<b>Image Interpolation</b>"
-msgstr ""
-
-#: eog.glade.h:7
-msgid "<b>Image Zoom</b>"
-msgstr ""
-
-#: eog.glade.h:8
+#: ../data/eog-multiple-save-as-dialog.glade.h:3
 msgid "<b>Options</b>"
-msgstr ""
+msgstr "<b>ಆಯ್ಕೆಗಳು</b>"
 
-#: eog.glade.h:9
-msgid "<b>Sequence</b>"
-msgstr ""
-
-#: eog.glade.h:10
-msgid "<b>Transparent Parts</b>"
-msgstr ""
-
-#: eog.glade.h:12
+#: ../data/eog-multiple-save-as-dialog.glade.h:5
 #, no-c-format
-msgid "Allow _zoom greater than 100% initially"
-msgstr ""
+msgid "<small><i><b>%f:</b> original filename</i></small>"
+msgstr "<small><i><b>%f:</b> ಕಡತದ ಮೂಲ ಹೆಸರು</i></small>"
 
-#: eog.glade.h:13
+#: ../data/eog-multiple-save-as-dialog.glade.h:7
+#, no-c-format
+msgid "<small><i><b>%n:</b> counter</i></small>"
+msgstr "<small><i><b>%n:</b> ಕೌಂಟರ್</i></small>"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:8
+msgid "Choose a folder"
+msgstr "ಒಂದು ಫೋಲ್ಡರನ್ನು ಆರಿಸಿ"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:9
+#, fuzzy
+msgid "Destination folder:"
+msgstr "ಗುರಿ:"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:10
+msgid "Filename format:"
+msgstr "ಕಡತದ ಹೆಸರಿನ ವಿನ್ಯಾಸ:"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:11
+msgid "Rename from:"
+msgstr "ಪುನಃ ಹೆಸರಿಸು:"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:12
+#, fuzzy
+msgid "Replace spaces with underscores"
+msgstr "ಬದಲಾಯಿಸು ನೊಂದಿಗೆ"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:13
+msgid "Save As"
+msgstr "ಹೀಗೆ ಉಳಿಸು"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:14
+#, fuzzy
+msgid "Start counter at:"
+msgstr "ಆರಂಭ:"
+
+#: ../data/eog-multiple-save-as-dialog.glade.h:15
+msgid "To:"
+msgstr "ಗೆ:"
+
+#: ../data/eog-preferences-dialog.glade.h:1
+#, fuzzy
+msgid "<b>Image Enhancements</b>"
+msgstr "<b> ಚಿತ್ರ</b>"
+
+#: ../data/eog-preferences-dialog.glade.h:2
+msgid "<b>Image Zoom</b>"
+msgstr "<b>ಚಿತ್ರದ ಗಾತ್ರಬದಲಿಸು</b>"
+
+#: ../data/eog-preferences-dialog.glade.h:3
+msgid "<b>Sequence</b>"
+msgstr "<b>ಅನುಕ್ರಮ</b>"
+
+#: ../data/eog-preferences-dialog.glade.h:4
+msgid "<b>Transparent Parts</b>"
+msgstr "<b>ಪಾರದರ್ಶಕ ಭಾಗಗಳು</b>"
+
+#: ../data/eog-preferences-dialog.glade.h:5
 msgid "As _background"
-msgstr ""
+msgstr "ಹಿನ್ನಲೆಯಾಗಿ(_b)"
 
-#: eog.glade.h:14
+#: ../data/eog-preferences-dialog.glade.h:6
 msgid "As check _pattern"
 msgstr ""
 
-#: eog.glade.h:15
-msgid "As custom c_olor"
+#: ../data/eog-preferences-dialog.glade.h:7
+msgid "As custom c_olor:"
 msgstr ""
 
-#: eog.glade.h:16
+#: ../data/eog-preferences-dialog.glade.h:8
+#, fuzzy
 msgid "Color for Transparent Areas"
-msgstr ""
+msgstr "ಬಣ್ಣ ಗೆ"
 
-#: eog.glade.h:17
+#: ../data/eog-preferences-dialog.glade.h:9
 #, fuzzy
-msgid "Destination Folder:"
-msgstr "ಕಡತವನ್ನು ತೆಗೆ"
+msgid "E_xpand images to fit screen"
+msgstr "E"
 
-#: eog.glade.h:18
-msgid "Eye of Gnome Preferences"
-msgstr ""
-
-#: eog.glade.h:19
+#: ../data/eog-preferences-dialog.glade.h:10
 #, fuzzy
-msgid "Filename Format:"
-msgstr "ಕಡತ"
+msgid "Eye of GNOME Preferences"
+msgstr "ಆದ್ಯತೆಗಳು"
 
-#: eog.glade.h:20
-#, fuzzy
-msgid "Image _View"
-msgstr "ಚಿತ್ರ ವೀಕ್ಷಕ"
+#: ../data/eog-preferences-dialog.glade.h:11
+msgid "Image View"
+msgstr "ಚಿತ್ರ ನೋಟ"
 
-#: eog.glade.h:21
-msgid "Rename From:"
-msgstr ""
+#: ../data/eog-preferences-dialog.glade.h:12
+msgid "Plugins"
+msgstr "ಪ್ಲಗ್-ಇನ್‍ಗಳು(plugins)"
 
-#: eog.glade.h:22
-msgid "Replace spaces by underscore"
-msgstr ""
-
-#: eog.glade.h:23
-#, fuzzy
-msgid "Save As"
-msgstr "ಹೀಗೆ ಉಳಿಸು..."
-
-#: eog.glade.h:24
-#, fuzzy
-msgid "Saving Image"
-msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
-
-#: eog.glade.h:25
-msgid "Show _next image automatically after:"
-msgstr ""
-
-#: eog.glade.h:26
-#, fuzzy
-msgid "Sli_de Show"
+#: ../data/eog-preferences-dialog.glade.h:13
+msgid "Slideshow"
 msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ"
 
-#: eog.glade.h:27
-msgid "Start counter at:"
+#: ../data/eog-preferences-dialog.glade.h:14
+msgid "Smooth images when _zoomed"
 msgstr ""
 
-#: eog.glade.h:28
+#: ../data/eog-preferences-dialog.glade.h:15
 #, fuzzy
-msgid "To:"
-msgstr "ಮೇಲೆ:"
+msgid "_Automatic orientation"
+msgstr "ಸ್ವಯಂಚಾಲಿತ"
 
-#: eog.glade.h:29
-#, fuzzy
-msgid "_Browse"
-msgstr "ಮುಚ್ಚು"
-
-#: eog.glade.h:30
-msgid "_Interpolate image on zoom"
-msgstr ""
-
-#: eog.glade.h:31
+#: ../data/eog-preferences-dialog.glade.h:16
 msgid "_Loop sequence"
 msgstr ""
 
-#: eog.glade.h:32
-msgid "seconds"
-msgstr ""
+#: ../data/eog-preferences-dialog.glade.h:17
+#, fuzzy
+msgid "_Switch image after:"
+msgstr "ಚಿತ್ರ ನಂತರ:"
 
-#: eog.schemas.in.h:1
+#: ../data/eog-preferences-dialog.glade.h:18
+msgid "seconds"
+msgstr "ಸೆಕೆಂಡುಗಳು"
+
+#: ../data/eog.schemas.in.h:1
+#, fuzzy
 msgid ""
 "A value greater than 0 determines the seconds an image stays on screen until "
 "the next one is shown automatically. Zero disables the automatic browsing."
-msgstr ""
+msgstr "A ಮೌಲ್ಯ ಸೆಕೆಂಡುಗಳು ಚಿತ್ರ ನಲ್ಲಿ ವರೆಗೆ  ."
 
-#: eog.schemas.in.h:3
-#, no-c-format
+#: ../data/eog.schemas.in.h:2
+msgid "Active plugins"
+msgstr "ಸಕ್ರಿಯ ಪ್ಲಗ್ಗಿನ್ನುಗಳು"
+
+#: ../data/eog.schemas.in.h:4
+#, fuzzy, no-c-format
 msgid "Allow zoom greater than 100% initially"
-msgstr ""
+msgstr "ಅನುಮತಿಸು"
 
-#: eog.schemas.in.h:4
+#: ../data/eog.schemas.in.h:5
+#, fuzzy
+msgid "Automatic orientation"
+msgstr "ಸ್ವಯಂಚಾಲಿತ"
+
+#: ../data/eog.schemas.in.h:6
+#, fuzzy
 msgid "Delay in seconds until showing the next image"
-msgstr ""
+msgstr "ಸೆಕೆಂಡುಗಳು ವರೆಗೆ ಚಿತ್ರ"
 
-#: eog.schemas.in.h:5
+#: ../data/eog.schemas.in.h:7
+#, fuzzy
 msgid ""
 "Determines how transparency should be indicated. Valid values are "
 "CHECK_PATTERN, COLOR and NONE. If COLOR is choosen, then the trans_color key "
 "determines the used color value."
-msgstr ""
+msgstr "  ಬಣ್ಣ ಬಣ್ಣ ಮೌಲ್ಯ."
 
-#: eog.schemas.in.h:6
+#: ../data/eog.schemas.in.h:8
+#, fuzzy
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
-msgstr ""
+msgstr "ಮೌಲ್ಯ ಬಣ್ಣ   ಗೆ."
 
-#: eog.schemas.in.h:7
+#: ../data/eog.schemas.in.h:9
+#, fuzzy
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
-msgstr ""
+msgstr "  ಇಲ್ಲ."
 
-#: eog.schemas.in.h:8
+#: ../data/eog.schemas.in.h:10
+#, fuzzy
+msgid ""
+"Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
+"3 for right."
+msgstr "ಚಿತ್ರ ಗೆ ಕೆಳಭಾಗ ಗೆ ಲೆಫ್ಟ್‍ ಗೆ ಮೇಲ್ಭಾಗ ಗೆ ರೈಟ್."
+
+#: ../data/eog.schemas.in.h:11
+#, fuzzy
 msgid "Interpolate Image"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
-#: eog.schemas.in.h:9
+#: ../data/eog.schemas.in.h:12
+#, fuzzy
+msgid ""
+"List of active plugins. It doesn't contain the \"Location\" of the active "
+"plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
+"plugin."
+msgstr "ಪಟ್ಟಿ ಸಕ್ರಿಯ ಸ್ಥಳ ಸಕ್ರಿಯ ಗೆ ಸ್ಥಳ."
+
+#: ../data/eog.schemas.in.h:13
+#, fuzzy
 msgid "Loop through the image sequence"
+msgstr "ಚಿತ್ರ"
+
+#: ../data/eog.schemas.in.h:14
+msgid "Scroll wheel zoom"
 msgstr ""
 
-#: eog.schemas.in.h:10
-msgid "Open images in a new window"
-msgstr ""
+#: ../data/eog.schemas.in.h:15
+#, fuzzy
+msgid "Show/hide the image collection pane scroll buttons."
+msgstr "ಪ್ರದರ್ಶನ ಚಿತ್ರ."
 
-#: eog.schemas.in.h:11
+#: ../data/eog.schemas.in.h:16
+#, fuzzy
+msgid "Show/hide the image collection pane."
+msgstr "ಪ್ರದರ್ಶನ ಚಿತ್ರ."
+
+#: ../data/eog.schemas.in.h:17
+#, fuzzy
+msgid "Show/hide the window side pane."
+msgstr "ಪ್ರದರ್ಶನ ವಿಂಡೊ."
+
+#: ../data/eog.schemas.in.h:18
+#, fuzzy
 msgid "Show/hide the window statusbar."
-msgstr ""
+msgstr "ಪ್ರದರ್ಶನ ವಿಂಡೊ."
 
-#: eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:19
+#, fuzzy
 msgid "Show/hide the window toolbar."
-msgstr ""
+msgstr "ಪ್ರದರ್ಶನ ವಿಂಡೊ."
 
-#: eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:21
+#, fuzzy, no-c-format
+msgid ""
+"The multiplier to be applied when using the mouse scroll wheel for zooming. "
+"This value defines the zooming step used for each scroll event. For example, "
+"0.05 results in a 5% zoom increment for each scroll event and 1.00 result in "
+"a 100% zoom increment."
+msgstr "ಗೆ ಮೌಲ್ಯ ಗೆ ಗೆ."
+
+#: ../data/eog.schemas.in.h:22
+#, fuzzy
 msgid "Transparency color"
-msgstr ""
+msgstr "ಬಣ್ಣ"
 
-#: eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:23
 msgid "Transparency indicator"
 msgstr ""
 
-#: eog.schemas.in.h:15
-msgid ""
-"Whether opening an image should create a new window instead of replacing the "
-"image in the current window."
-msgstr ""
-
-#: eog.schemas.in.h:16
+#: ../data/eog.schemas.in.h:24
+#, fuzzy
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr ""
+msgstr "ಇಲ್ಲ."
 
-#: eog.schemas.in.h:17
+#: ../data/eog.schemas.in.h:25
+#, fuzzy
+msgid "Whether the image collection pane should be resizable or not."
+msgstr "ಚಿತ್ರ ಇಲ್ಲ."
+
+#: ../data/eog.schemas.in.h:26
+#, fuzzy
 msgid ""
 "Whether the image should be interpolated on zoom or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
-msgstr ""
+msgstr "ಚಿತ್ರ ನಲ್ಲಿ ಇಲ್ಲ  ."
 
-#: libeog/eog-file-selection.c:124
-msgid "All Files"
-msgstr ""
-
-#: libeog/eog-file-selection.c:129
+#: ../data/eog.schemas.in.h:27
 #, fuzzy
+msgid ""
+"Whether the image should be rotated automatically based on EXIF orientation."
+msgstr "ಚಿತ್ರ ನಲ್ಲಿ."
+
+#: ../data/eog.schemas.in.h:28
+#, fuzzy
+msgid "Whether the scroll wheel should be used for zooming or not."
+msgstr "ಗೆ ಇಲ್ಲ."
+
+#: ../data/eog.schemas.in.h:29
+#, fuzzy
+msgid "Zoom multiplier"
+msgstr "ಗಾತ್ರಬದಲಿಸು"
+
+#: ../src/eog-file-chooser.c:121
+#, fuzzy
+msgid "File format is unknown or unsupported"
+msgstr "ಕಡತ   ಗೊತ್ತಿರದ"
+
+#: ../src/eog-file-chooser.c:126
+#, fuzzy
+msgid ""
+"Eye of GNOME could not determine a supported writable file format based on "
+"the filename."
+msgstr "ಇಲ್ಲ ನಲ್ಲಿ."
+
+#: ../src/eog-file-chooser.c:127
+#, fuzzy
+msgid "Please try a different file extension like .png or .jpg."
+msgstr "ದಯವಿಟ್ಟು."
+
+#: ../src/eog-file-chooser.c:159
+msgid "All Files"
+msgstr "ಎಲ್ಲಾ ಕಡತಗಳು"
+
+#: ../src/eog-file-chooser.c:164
 msgid "All Images"
-msgstr "ಚಿತ್ರ"
+msgstr "ಎಲ್ಲಾ ಚಿತ್ರಗಳು"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: libeog/eog-file-selection.c:147
+#: ../src/eog-file-chooser.c:185
 #, c-format
 msgid "%s (*.%s)"
-msgstr ""
+msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: libeog/eog-file-selection.c:240
-#, c-format
-msgid "%s x %s pixel"
-msgstr ""
+#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:439
+#: ../src/eog-window.c:699
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] ""
+msgstr[1] ""
 
-#: libeog/eog-file-selection.c:396
+#: ../src/eog-file-chooser.c:423
 msgid "Load Image"
 msgstr "ಚಿತ್ರವನ್ನು ತೆಗೆ"
 
-#: libeog/eog-file-selection.c:404
+#: ../src/eog-file-chooser.c:431
 msgid "Save Image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
 
-#: libeog/eog-file-selection.c:412
+#: ../src/eog-file-chooser.c:439
 #, fuzzy
 msgid "Open Folder"
-msgstr "ಕಡತವನ್ನು ತೆಗೆ"
+msgstr "ತೆಗೆ ಕಡತಕೋಶ"
 
-#: libeog/eog-image-jpeg.c:330 libeog/eog-image-jpeg.c:569
-#, c-format
-msgid "Couldn't create temporary file for saving: %s"
+#: ../src/eog-image.c:527
+#, fuzzy
+msgid "Transformation on unloaded image."
+msgstr "ನಲ್ಲಿ ಚಿತ್ರ."
+
+#: ../src/eog-image.c:555
+msgid "Transformation failed."
 msgstr ""
 
-#: libeog/eog-image-jpeg.c:349 libeog/eog-image-jpeg.c:590
-msgid "Couldn't allocate memory for loading JPEG file"
-msgstr ""
+#: ../src/eog-image.c:1075
+#, fuzzy
+msgid "EXIF not supported for this file format."
+msgstr "ಇಲ್ಲ ಗೆ."
 
-#: libeog/eog-image.c:814
-msgid "empty file"
-msgstr ""
+#: ../src/eog-image.c:1192
+#, fuzzy
+msgid "Image loading failed."
+msgstr "ಚಿತ್ರ."
 
-#: libeog/eog-image.c:1247 libeog/eog-image.c:1458
+#: ../src/eog-image.c:1463 ../src/eog-image.c:1692
+#, fuzzy
 msgid "File exists"
-msgstr ""
+msgstr "ಕಡತ"
 
-#: libeog/eog-image.c:1400 libeog/eog-image.c:1526
+#: ../src/eog-image.c:1626 ../src/eog-image.c:1762
+#, fuzzy
 msgid "No image loaded."
-msgstr ""
+msgstr "ಇಲ್ಲ ಚಿತ್ರ."
 
-#: libeog/eog-image.c:1409 libeog/eog-image.c:1535
+#: ../src/eog-image.c:1635 ../src/eog-image.c:1774
 msgid "Temporary file creation failed."
 msgstr ""
 
-#: libeog/eog-info-view-exif.c:26
+#: ../src/eog-image-jpeg.c:357
+#, fuzzy, c-format
+msgid "Couldn't create temporary file for saving: %s"
+msgstr "ಗೆ"
+
+#: ../src/eog-image-jpeg.c:376
+#, fuzzy
+msgid "Couldn't allocate memory for loading JPEG file"
+msgstr "ಗೆ"
+
+#: ../src/eog-exif-details.c:68
 msgid "Camera"
 msgstr ""
 
-#: libeog/eog-info-view-exif.c:27
-#, fuzzy
+#: ../src/eog-exif-details.c:69
 msgid "Image Data"
-msgstr "ಚಿತ್ರದ ಅಗಳ"
+msgstr "ಚಿತ್ರ ದತ್ತಾಂಶ"
 
-#: libeog/eog-info-view-exif.c:28
+#: ../src/eog-exif-details.c:70
+#, fuzzy
 msgid "Image Taking Conditions"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
-#: libeog/eog-info-view-exif.c:29
+#: ../src/eog-exif-details.c:71
+#, fuzzy
 msgid "Maker Note"
-msgstr ""
+msgstr "ಟಿಪ್ಪಣಿ"
 
-#: libeog/eog-info-view-exif.c:30
+#: ../src/eog-exif-details.c:72
 msgid "Other"
+msgstr "ಇತರೆ"
+
+#: ../src/eog-exif-details.c:74
+msgid "XMP Exif"
+msgstr "XMP Exif"
+
+#: ../src/eog-exif-details.c:75
+msgid "XMP IPTC"
+msgstr "XMP IPTC"
+
+#: ../src/eog-exif-details.c:76
+msgid "XMP Rights Management"
 msgstr ""
 
-#: libeog/eog-info-view-exif.c:212
+#: ../src/eog-exif-details.c:77
+msgid "XMP Other"
+msgstr "XMP ಇತರೆ"
+
+#: ../src/eog-exif-details.c:251
 msgid "Tag"
-msgstr ""
+msgstr "ಟ್ಯಾಗ್"
 
-#: libeog/eog-info-view-exif.c:220 libeog/eog-info-view-file.c:96
+#: ../src/eog-exif-details.c:258
 msgid "Value"
-msgstr ""
+msgstr "ಮೌಲ್ಯ"
 
-#. only used for internal purpose
-#: libeog/eog-info-view-file.c:25 libeog/eog-uri-converter.h:45
-#, fuzzy
-msgid "Filename"
-msgstr "ಕಡತ"
+#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:74
+#: ../src/eog-exif-util.c:96
+msgid "Unknown"
+msgstr "ಗೊತ್ತಿರದ"
 
-#: libeog/eog-info-view-file.c:26
-#, fuzzy
-msgid "Width"
-msgstr "ಚಿತ್ರದ ಅಗಳ"
+#: ../src/eog-error-message-area.c:110
+msgid "_Retry"
+msgstr "ಪುನಃ ಪ್ರಯತ್ನಿಸು(_R)"
 
-#: libeog/eog-info-view-file.c:27
-#, fuzzy
-msgid "Height"
-msgstr "ಬಲ:"
-
-#: libeog/eog-info-view-file.c:28
-#, fuzzy
-msgid "Filesize"
-msgstr "ಕಡತ"
-
-#: libeog/eog-info-view-file.c:88
-msgid "Attribute"
-msgstr ""
-
-#: libeog/eog-info-view.c:92
-#, fuzzy
-msgid "File"
-msgstr "ಕಡತ"
-
-#: libeog/eog-info-view.c:101
-msgid "EXIF"
-msgstr ""
-
-#: libeog/eog-info-view.c:108
-msgid "IPTC"
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:137
-msgid "Option not available."
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:138
-msgid ""
-"To use this function you need the libexif library. Please install libexif "
-"(http://libexif.sf.net) and recompile Eye of Gnome."
-msgstr ""
-
-#: libeog/eog-save-as-dialog-helper.c:214
-msgid "as is"
-msgstr ""
-
-#: libeog/eog-save-dialog-helper.c:162
+#: ../src/eog-error-message-area.c:134
 #, fuzzy, c-format
-msgid "Saving image %s."
-msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
+msgid "Could not load image '%s'."
+msgstr "ಇಲ್ಲ ಚಿತ್ರ."
 
-#: libeog/eog-save-dialog-helper.c:208
+#: ../src/eog-error-message-area.c:160
+#, fuzzy, c-format
+msgid "No images found in '%s'."
+msgstr "ಇಲ್ಲ."
+
+#: ../src/eog-error-message-area.c:165
 #, fuzzy
-msgid "Cancel saving ..."
-msgstr "ರದ್ದುಗೊಲಿಸು"
+msgid "The given locations contain no images."
+msgstr "ಇಲ್ಲ."
 
-#: libeog/eog-uri-converter.c:1023
-msgid "Filenames are not disjunct."
-msgstr ""
+#: ../src/eog-print-image-setup.c:833
+msgid "Image"
+msgstr "ಚಿತ್ರ"
 
-#: libeog/eog-uri-converter.h:46
+#: ../src/eog-print-image-setup.c:834
 #, fuzzy
-msgid "Counter"
-msgstr "ಮಧ್ಯ"
+msgid "The image whose printing properties will be setup"
+msgstr "ಚಿತ್ರ ಗುಣಲಕ್ಷಣಗಳು"
 
-#: libeog/eog-uri-converter.h:47
+#: ../src/eog-print-image-setup.c:840
+msgid "Page Setup"
+msgstr "ಪುಟದ ಸಂಯೋಜನೆಗಳು"
+
+#: ../src/eog-print-image-setup.c:841
 #, fuzzy
-msgid "Comment"
-msgstr "ವಿಷಯಗಳು"
+msgid "The information for the page where the image will be printed"
+msgstr "ಗೆ ಪುಟ ಚಿತ್ರ"
 
-#: libeog/eog-uri-converter.h:48
-msgid "Date"
+#: ../src/eog-print-image-setup.c:869
+msgid "Position"
+msgstr "ಸ್ಥಾನ"
+
+#: ../src/eog-print-image-setup.c:874
+msgid "_Left:"
+msgstr "ಎಡ(_L):"
+
+#: ../src/eog-print-image-setup.c:875
+msgid "_Right:"
+msgstr "ಬಲ(_R):"
+
+#: ../src/eog-print-image-setup.c:876
+msgid "_Top:"
+msgstr "ಮೇಲೆ(_T):"
+
+#: ../src/eog-print-image-setup.c:877
+msgid "_Bottom:"
+msgstr "ಕೆಳಗಿನ(_B):"
+
+#: ../src/eog-print-image-setup.c:879
+msgid "C_enter:"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:49
-msgid "Time"
+#: ../src/eog-print-image-setup.c:884
+msgid "None"
+msgstr "ಯಾವುದೂ ಇಲ್ಲ"
+
+#: ../src/eog-print-image-setup.c:886
+msgid "Horizontal"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:50
-msgid "Day"
+#: ../src/eog-print-image-setup.c:888
+msgid "Vertical"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:51
-msgid "Month"
+#: ../src/eog-print-image-setup.c:890
+msgid "Both"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:52
-msgid "Year"
+#: ../src/eog-print-image-setup.c:906
+msgid "Size"
+msgstr "ಗಾತ್ರ"
+
+#: ../src/eog-print-image-setup.c:911
+msgid "_Width:"
+msgstr "ಅಗಲ(_W):"
+
+#: ../src/eog-print-image-setup.c:913
+msgid "_Height:"
+msgstr "ಎತ್ತರ(_H):"
+
+#: ../src/eog-print-image-setup.c:916
+msgid "_Scaling:"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:53
-msgid "Hour"
+#: ../src/eog-print-image-setup.c:929
+msgid "_Unit:"
+msgstr "ಘಟಕ(_U):"
+
+#: ../src/eog-print-image-setup.c:934
+msgid "Millimeters"
 msgstr ""
 
-#: libeog/eog-uri-converter.h:54
-msgid "Minute"
-msgstr ""
+#: ../src/eog-print-image-setup.c:936
+msgid "Inches"
+msgstr "ಇಂಚುಗಳು"
 
-#: libeog/eog-uri-converter.h:55
-msgid "Second"
-msgstr ""
+#: ../src/eog-print-image-setup.c:966
+msgid "Preview"
+msgstr "ಮುನ್ನೋಟ"
 
-#. Translators should localize the following string
-#. * which will give them credit in the About box.
-#. * E.g. "Fulano de Tal <fulano@detal.com>"
-#.
-#: shell/eog-window.c:314
+#: ../src/eog-save-as-dialog-helper.c:160
+#, fuzzy
+msgid "as is"
+msgstr " "
+
+#: ../src/eog-thumb-view.c:455
+#, fuzzy
+msgid "Taken on"
+msgstr "ನಲ್ಲಿ"
+
+#: ../src/eog-uri-converter.c:1015
+#, fuzzy
+msgid "At least two file names are equal."
+msgstr "ಎಟ್ ಎರಡು."
+
+#: ../src/eog-util.c:63
+#, fuzzy
+msgid "Could not display help for Eye of GNOME"
+msgstr "ಇಲ್ಲ ಸಹಾಯ ಗೆ"
+
+#: ../src/eog-util.c:111
+msgid " (invalid Unicode)"
+msgstr " (ಅಮಾನ್ಯ ಯುನಿಕೋಡ್)"
+
+#: ../src/eog-window.c:1094
+#, fuzzy, c-format
+msgid "Open with \"%s\""
+msgstr "ತೆಗೆ ನೊಂದಿಗೆ"
+
+#: ../src/eog-window.c:1095
+#, fuzzy, c-format
+msgid "Use \"%s\" to open the selected image"
+msgstr "ತೆರೆ ಆರಿಸಲಾದ ಚಿತ್ರ"
+
+#. Translators: This string is displayed in the statusbar
+#. * while saving images. The tokens are from left to right:
+#. * - the original filename
+#. * - the current image's position in the queue
+#. * - the total number of images queued for saving
+#: ../src/eog-window.c:1208
+#, fuzzy, c-format
+msgid "Saving image \"%s\" (%u/%u)"
+msgstr "ಚಿತ್ರ"
+
+#: ../src/eog-window.c:1547
+#, fuzzy, c-format
+msgid "Loading image \"%s\""
+msgstr "ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ ಚಿತ್ರ"
+
+#: ../src/eog-window.c:2359
+#, fuzzy
+msgid "Image Settings"
+msgstr "ಚಿತ್ರ"
+
+#: ../src/eog-window.c:2373
+#, fuzzy, c-format
+msgid ""
+"Error printing file:\n"
+"%s"
+msgstr "ದೋಷ n"
+
+#: ../src/eog-window.c:2501
+msgid "Toolbar Editor"
+msgstr "ಉಪಕರಣ ಪಟ್ಟಿ ಸಂಪಾದಕ"
+
+#: ../src/eog-window.c:2504
+#, fuzzy
+msgid "_Reset to Default"
+msgstr "ಪುನರ್ಹೊಂದಿಸು ಪೂರ್ವನಿಯೋಜಿತ"
+
+#: ../src/eog-window.c:2590
 msgid "translator-credits"
-msgstr ""
+msgstr "ಶಂಕರ್ ಪ್ರಸಾದ್ ಎಂ. ವಿ."
 
-#: shell/eog-window.c:319 shell/eog-window.c:2167 shell/eog-window.c:2482
-#: shell/main.c:498
-msgid "Eye of Gnome"
-msgstr ""
+#: ../src/eog-window.c:2593
+#, fuzzy
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+msgstr "  ಸಾಮಾನ್ಯ ಸಾರ್ವಜನಿಕ ಲೈಸನ್ಸ್‍ ಬಿಡುವು ತಂತ್ರಾಂಶ ಲೈಸನ್ಸ್‍ ಆಯ್ಕೆ n"
 
-#: shell/eog-window.c:322
-msgid "The GNOME image viewing and cataloging program."
-msgstr ""
+#: ../src/eog-window.c:2597
+#, fuzzy
+msgid ""
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+msgstr "  A ಸಾಮಾನ್ಯ ಸಾರ್ವಜನಿಕ ಲೈಸನ್ಸ್‍ ಗೆ n"
 
-#: shell/eog-window.c:359
+#: ../src/eog-window.c:2601
+#, fuzzy
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Place - Suite 330, Boston, MA 02111-1307, USA."
+msgstr ""
+"ನಕಲಿಸು ಸಾಮಾನ್ಯ ಸಾರ್ವಜನಿಕ ಲೈಸನ್ಸ್‍ ನೊಂದಿಗೆ ಇಲ್ಲ ಬಿಡುವು ತಂತ್ರಾಂಶ ಟೆಂಪಲ್ ಬೋಸ್ಟನ್ USA."
+
+#: ../src/eog-window.c:2614 ../src/main.c:186
+msgid "Eye of GNOME"
+msgstr "ಐ ಆಫ್  GNOME"
+
+#: ../src/eog-window.c:2617
+msgid "The GNOME image viewer."
+msgstr "GNOME ಚಿತ್ರ ವೀಕ್ಷಕ."
+
+#: ../src/eog-window.c:2990
 #, c-format
 msgid ""
-"Could not display help for Eye of Gnome.\n"
-"%s"
+"Are you sure you want to move\n"
+"\"%s\" to the trash?"
 msgstr ""
+"ನೀವು ಖಚಿತವಾಗಿಯೂ ಕಸದಬುಟ್ಟಿಗೆ \n"
+"\"%s\" ಅನ್ನು ವರ್ಗಾಯಿಸಲು ಬಯಸುತ್ತೀರೆ?"
 
-#: shell/eog-window.c:626
+#: ../src/eog-window.c:2993
 #, c-format
-msgid "Overwrite file %s?"
-msgstr ""
-
-#: shell/eog-window.c:627
-msgid "File exists. Do you want to overwrite it?"
-msgstr ""
-
-#: shell/eog-window.c:636 shell/eog-window.c:649
-msgid "Skip"
-msgstr ""
-
-#: shell/eog-window.c:637
-msgid "Overwrite"
-msgstr ""
-
-#: shell/eog-window.c:642
-#, c-format
-msgid "Error on saving %s."
-msgstr ""
-
-#: shell/eog-window.c:650 shell/eog-window.c:1034
-msgid "Retry"
-msgstr ""
-
-#: shell/eog-window.c:1023
-#, c-format
-msgid "Couldn't determine file format of %s"
-msgstr ""
-
-#: shell/eog-window.c:1024
-msgid "Please use an appropriate filename suffix or select a file format."
-msgstr ""
-
-#: shell/eog-window.c:1166
-#, fuzzy
-msgid "Error on saving images."
-msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
-
-#: shell/eog-window.c:1399
-#, c-format
-msgid "Do you really want to move %i image to trash?"
-msgid_plural "Do you really want to move %i images to trash?"
-msgstr[0] ""
+msgid ""
+"Are you sure you want to move\n"
+"the selected image to the trash?"
+msgid_plural ""
+"Are you sure you want to move\n"
+"the %d selected images to the trash?"
+msgstr[0] "ಆರಿಸಲಾದ ಚಿತ್ರವನ್ನು ನೀವು ಖಚಿತವಾಗಿಯೂ ಕಸದಬುಟ್ಟಿಗೆ ವರ್ಗಾಯಿಸಲು ಬಯಸುತ್ತೀರೆ?"
 msgstr[1] ""
+"ನೀವು ಖಚಿತವಾಗಿಯೂ ಆರಿಸಲಾದ \n"
+" %d ಚಿತ್ರಗಳನ್ನು ಕಸದಬುಟ್ಟಿಗೆ ವರ್ಗಾಯಿಸಲು ಬಯಸುತ್ತೀರೆ?"
 
-#: shell/eog-window.c:1437
+#: ../src/eog-window.c:3008
+msgid "Move to Trash"
+msgstr "ಕಸದ ಬುಟ್ಟಿಗೆ ವರ್ಗಾಯಿಸು"
+
+#: ../src/eog-window.c:3054
 msgid "Couldn't access trash."
-msgstr ""
+msgstr "ಕಸದಬುಟ್ಟಿಯನ್ನು ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗಲಿಲ್ಲ."
 
-#: shell/eog-window.c:1511
+#: ../src/eog-window.c:3138
 #, c-format
 msgid "Error on deleting image %s"
-msgstr ""
+msgstr "%s ಚಿತ್ರವನ್ನು ಅಳಿಸುವಾಗ ದೋಷ"
 
-#. [image width] x [image height] pixel  [bytes]    [zoom in percent]
-#: shell/eog-window.c:2096
-#, c-format
-msgid "%i x %i pixel  %s    %i%%"
-msgstr ""
-
-#: shell/eog-window.c:2233
+#: ../src/eog-window.c:3345
 msgid "_File"
-msgstr "ಕಡತ"
+msgstr "ಕಡತ(_F)"
 
-#: shell/eog-window.c:2234
+#: ../src/eog-window.c:3346
 msgid "_Edit"
-msgstr "ಸಂಸ್ಕರಿಸು"
+msgstr "ಸಂಪಾದಿಸು(_E)"
 
-#: shell/eog-window.c:2235
+#: ../src/eog-window.c:3347
 msgid "_View"
-msgstr "ನೊಟ"
+msgstr "ನೋಟ(_V)"
 
-#: shell/eog-window.c:2236
+#: ../src/eog-window.c:3348
+msgid "_Image"
+msgstr "ಚಿತ್ರ(_I)"
+
+#: ../src/eog-window.c:3349
+msgid "_Go"
+msgstr "ತೆರಳು(_G)"
+
+#: ../src/eog-window.c:3350
+msgid "_Tools"
+msgstr "ಉಪಕರಣಗಳು(_T)"
+
+#: ../src/eog-window.c:3351
 msgid "_Help"
-msgstr "ಸಹಾಯ"
+msgstr "ಸಹಾಯ(_H)"
 
-#: shell/eog-window.c:2237
-msgid "_New"
-msgstr "ಹೊಸ"
-
-#: shell/eog-window.c:2237
-msgid "Open a new window"
-msgstr "ಹೊಸ ಕಿಟಕಿಯನ್ನು ತೆಗೆ"
-
-#: shell/eog-window.c:2238
+#: ../src/eog-window.c:3353
 msgid "_Open..."
-msgstr "ತೆಗೆ..."
+msgstr "ತೆಗೆ(_O)..."
 
-#: shell/eog-window.c:2238
+#: ../src/eog-window.c:3354
 msgid "Open a file"
-msgstr "ಕಡತವನ್ನು ತೆಗೆ"
+msgstr "ಒಂದು ಕಡತವನ್ನು ತೆಗೆ"
 
-#: shell/eog-window.c:2239
-#, fuzzy
-msgid "Open _Directory..."
-msgstr "ತೆಗೆ..."
-
-#: shell/eog-window.c:2239
-#, fuzzy
-msgid "Open a directory"
-msgstr "ಕಡತವನ್ನು ತೆಗೆ"
-
-#: shell/eog-window.c:2240
+#: ../src/eog-window.c:3356
 msgid "_Close"
-msgstr "ಮುಚ್ಚು"
+msgstr "ಮುಚ್ಚು(_C)"
 
-#: shell/eog-window.c:2240
+#: ../src/eog-window.c:3357
 msgid "Close window"
-msgstr "ಕಿಟಕಿ ಮುಚ್ಚು"
+msgstr "ವಿಂಡೋ ಅನ್ನು ಮುಚ್ಚು"
 
-#: shell/eog-window.c:2241
+#: ../src/eog-window.c:3359
+msgid "T_oolbar"
+msgstr "ಉಪಕರಣಪಟ್ಟಿ(_o)"
+
+#: ../src/eog-window.c:3360
+msgid "Edit the application toolbar"
+msgstr "ಅನ್ವಯ ಉಪಕರಣವನ್ನು ಸಂಪಾದಿಸು"
+
+#: ../src/eog-window.c:3362
 msgid "Prefere_nces"
-msgstr "ಇಚ್ಚೆಗಳು"
+msgstr "ಆದ್ಯತೆಗಳು(_n)"
 
-#: shell/eog-window.c:2241
-msgid "Preferences for Eye of Gnome"
-msgstr ""
+#: ../src/eog-window.c:3363
+msgid "Preferences for Eye of GNOME"
+msgstr "ಐ ಆಫ್ GNOME ನ ಆದ್ಯತೆಗಳು"
 
-#: shell/eog-window.c:2242
+#: ../src/eog-window.c:3365
 msgid "_Contents"
-msgstr "ವಿಷಯಗಳು"
+msgstr "ವಿಷಯಗಳು(_C)"
 
-#: shell/eog-window.c:2242
-msgid "Help On this application"
-msgstr "ಅನ್ವಯದ ಬಗ್ಗೆ ಸಹಾಯ"
+#: ../src/eog-window.c:3366
+msgid "Help on this application"
+msgstr "ಈ ಅನ್ವಯಕ್ಕಾಗಿನ ಸಹಾಯ"
 
-#: shell/eog-window.c:2243
+#: ../src/eog-window.c:3368 ../src/eog-plugin-manager.c:507
 msgid "_About"
-msgstr "ತಂತ್ರಾಂಶದ ಬಗ್ಗೆ"
+msgstr "ತಂತ್ರಾಂಶದ ಬಗ್ಗೆ(_A)"
 
-#: shell/eog-window.c:2243
+#: ../src/eog-window.c:3369
 msgid "About this application"
 msgstr "ಈ ಅನ್ವಯದ ಬಗ್ಗೆ"
 
-#: shell/eog-window.c:2248
+#: ../src/eog-window.c:3374
 msgid "_Toolbar"
-msgstr ""
+msgstr "ಉಪಕರಣಪಟ್ಟಿ(_T)"
 
-#: shell/eog-window.c:2249
+#: ../src/eog-window.c:3375
 #, fuzzy
+msgid "Changes the visibility of the toolbar in the current window"
+msgstr "ಮಾರ್ಪಾಡುಗಳು ವಿಂಡೊ"
+
+#: ../src/eog-window.c:3377
 msgid "_Statusbar"
+msgstr "ಸ್ಥಿತಿಪಟ್ಟಿಕೆ(_S)"
+
+#: ../src/eog-window.c:3378
+msgid "Changes the visibility of the statusbar in the current window"
+msgstr "ಈಗಿನ ವಿಂಡೊ"
+
+#: ../src/eog-window.c:3380
+msgid "_Image Collection"
+msgstr "ಚಿತ್ರ ಸಂಗ್ರಹ(_I)"
+
+#: ../src/eog-window.c:3381
+#, fuzzy
+msgid ""
+"Changes the visibility of the image collection pane in the current window"
+msgstr "ಮಾರ್ಪಾಡುಗಳು ಚಿತ್ರ ವಿಂಡೊ"
+
+#: ../src/eog-window.c:3383
+msgid "Side _Pane"
+msgstr "ಬದಿಯ ಫಲಕ(_P)"
+
+#: ../src/eog-window.c:3384
+#, fuzzy
+msgid "Changes the visibility of the side pane in the current window"
+msgstr "ಮಾರ್ಪಾಡುಗಳು ವಿಂಡೊ"
+
+#: ../src/eog-window.c:3389
+msgid "_Save"
+msgstr "ಉಳಿಸು(_S)"
+
+#: ../src/eog-window.c:3390
+msgid "Save changes in currently selected images"
+msgstr "ಈಗ ಆರಿಸಲಾದ ಚಿತ್ರಗಳಲ್ಲಿನ ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸು"
+
+#: ../src/eog-window.c:3392
+msgid "Open _with"
+msgstr "ಇದರೊಂದಿಗೆ ತೆಗೆ(_w)"
+
+#: ../src/eog-window.c:3393
+msgid "Open the selected image with a different application"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರಗಳನ್ನು ಬೇರೊಂದು ಅನ್ವಯದೊಂದಿಗೆ ತೆರೆ"
+
+#: ../src/eog-window.c:3395
+msgid "Save _As..."
+msgstr "ಹೀಗೆ ಉಳಿಸು(_A)..."
+
+#: ../src/eog-window.c:3396
+msgid "Save the selected images with a different name"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರಗಳನ್ನು ಬೇರೊಂದು ಹೆಸರಿನೊಂದಿಗೆ ಉಳಿಸು"
+
+#: ../src/eog-window.c:3398
+msgid "Page Set_up..."
+msgstr "ಪುಟದ ಸಂಯೋಜನೆಗಳು(_u)..."
+
+#: ../src/eog-window.c:3399
+msgid "Setup the page properties for printing"
+msgstr "ಮುದ್ರಣಕ್ಕಾಗಿ ಪುಟದ ಗುಣಲಕ್ಷಣಗಳನ್ನು ಹೊಂದಿಸು"
+
+#: ../src/eog-window.c:3401
+msgid "_Print..."
+msgstr "ಮುದ್ರಿಸು(_P)..."
+
+#: ../src/eog-window.c:3402
+msgid "Print the selected image"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರವನ್ನು ಮುದ್ರಿಸು "
+
+#: ../src/eog-window.c:3404
+msgid "Prope_rties"
+msgstr "ಗುಣಲಕ್ಷಣಗಳು(_r)"
+
+#: ../src/eog-window.c:3405
+msgid "Show the properties and metadata of the selected image"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರದ ಗುಣಲಕ್ಷಣಗಳು ಹಾಗು ಮೆಟಾಡಾಟವನ್ನು ತೋರಿಸು"
+
+#: ../src/eog-window.c:3407
+msgid "_Undo"
+msgstr "ರದ್ದುಗೊಳಿಸು(_U)"
+
+#: ../src/eog-window.c:3408
+msgid "Undo the last change in the image"
+msgstr "ಚಿತ್ರದಲ್ಲಿ ಮಾಡಲಾದ ಕೊನೆಯ ಬದಲಾಣೆಯನ್ನು ರದ್ದುಗೊಳಿಸು"
+
+#: ../src/eog-window.c:3410
+msgid "Flip _Horizontal"
+msgstr "ಅಡ್ಡವಾಗಿ ತಿರುಗಿಸು(_H)"
+
+#: ../src/eog-window.c:3411
+msgid "Mirror the image horizontally"
+msgstr "ಚಿತ್ರವನ್ನು ಅಡ್ಡವಾಗಿ ಪ್ರತಿಬಿಂಬಿಸು"
+
+#: ../src/eog-window.c:3413
+msgid "Flip _Vertical"
+msgstr "ಲಂಬವಾಗಿ ತಿರುಗಿಸು(_V)"
+
+#: ../src/eog-window.c:3414
+msgid "Mirror the image vertically"
+msgstr "ಚಿತ್ರವನ್ನು ಲಂಬವಾಗಿ ಪ್ರತಿಬಿಂಬಿಸು"
+
+#: ../src/eog-window.c:3416
+msgid "_Rotate Clockwise"
+msgstr "ಅಪ್ರದಕ್ಷಿಣೆಯಲ್ಲಿ ತಿರುಗಿಸು(_R)"
+
+#: ../src/eog-window.c:3417
+msgid "Rotate the image 90 degrees to the right"
+msgstr "ಚಿತ್ರವನ್ನು 90 ಡಿಗ್ರಿಯಷ್ಟು ಬಲಕ್ಕೆ ತಿರುಗಿಸು"
+
+#: ../src/eog-window.c:3419
+msgid "Rotate Counterc_lockwise"
+msgstr "ಅಪ್ರದಕ್ಷಿಣೆಯಲ್ಲಿ ತಿರುಗಿಸು(_l)"
+
+#: ../src/eog-window.c:3420
+msgid "Rotate the image 90 degrees to the left"
+msgstr "ಚಿತ್ರವನ್ನು 90 ಡಿಗ್ರಿಯಷ್ಟು ಎಡಕ್ಕೆ ತಿರುಗಿಸು"
+
+#: ../src/eog-window.c:3422
+msgid "Set As _Wallpaper"
+msgstr "ವಾಲ್‍ಪೇಪರ್ ಆಗಿ ಹೊಂದಿಸು(_W)"
+
+#: ../src/eog-window.c:3423
+msgid "Set the selected image as the desktop wallpaper"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರವನ್ನು ಗಣಕತೆರೆಯ ವಾಲ್‍ಪೇಪರ್ ಆಗಿ ಹೊಂದಿಸು"
+
+#: ../src/eog-window.c:3425 ../src/eog-window.c:3449
+msgid "Move to _Trash"
+msgstr "ಕಸದ ಬುಟ್ಟಿಗೆ ವರ್ಗಾಯಿಸು(_T)"
+
+#: ../src/eog-window.c:3426
+msgid "Move the selected image to the trash folder"
+msgstr "ಆರಿಸಲಾದ ಚಿತ್ರವನ್ನು ಕಸದಬುಟ್ಟಿ ಸ್ಥಳಾಂತರಿಸು"
+
+#: ../src/eog-window.c:3428 ../src/eog-window.c:3440 ../src/eog-window.c:3443
+msgid "_Zoom In"
+msgstr "ಹಿಗ್ಗಿಸು(_Z)s"
+
+#: ../src/eog-window.c:3429 ../src/eog-window.c:3441
+msgid "Enlarge the image"
+msgstr "ಚಿತ್ರವನ್ನು ಹಿಗ್ಗಿಸು"
+
+#: ../src/eog-window.c:3431 ../src/eog-window.c:3446
+msgid "Zoom _Out"
+msgstr "ಕುಗ್ಗಿಸು(_O)"
+
+#: ../src/eog-window.c:3432 ../src/eog-window.c:3444 ../src/eog-window.c:3447
+msgid "Shrink the image"
+msgstr "ಚಿತ್ರವನ್ನು ಕುಗ್ಗಿಸು"
+
+#: ../src/eog-window.c:3434
+msgid "_Normal Size"
+msgstr "ಮಾಮೂಲಿ ಗಾತ್ರ(_N)"
+
+#: ../src/eog-window.c:3435
+msgid "Show the image at its normal size"
+msgstr "ಚಿತ್ರವನ್ನು ಅದರ ಮಾಮೂಲಿ ಗಾತ್ರದಲ್ಲಿ ತೋರಿಸು"
+
+#: ../src/eog-window.c:3437
+msgid "Best _Fit"
+msgstr "ಉತ್ತಮವಾಗಿ ಹೊಂದುವ(_F)"
+
+#: ../src/eog-window.c:3438
+msgid "Fit the image to the window"
+msgstr "ಚಿತ್ರವನ್ನು ವಿಂಡೊದ ಗಾತ್ರಕ್ಕೆ ಸರಿಹೊಂದಿಸು"
+
+#: ../src/eog-window.c:3455
+msgid "_Full Screen"
+msgstr "ಪೂರ್ಣ ತೆರೆ(_F)"
+
+#: ../src/eog-window.c:3456
+msgid "Show the current image in fullscreen mode"
+msgstr "ಈಗಿನ ಚಿತ್ರವನ್ನು ಪೂರ್ಣತೆರೆ ಕ್ರಮದಲ್ಲಿ ತೋರಿಸು"
+
+#: ../src/eog-window.c:3461 ../src/eog-window.c:3473
+msgid "_Previous Image"
+msgstr "ಹಿಂದಿನ ಚಿತ್ರ(_P)"
+
+#: ../src/eog-window.c:3462
+msgid "Go to the previous image of the collection"
+msgstr "ಸಂಗ್ರಹದ ಹಿಂದಿನ ಚಿತ್ರಕ್ಕೆ ತೆರಳು"
+
+#: ../src/eog-window.c:3464
+msgid "_Next Image"
+msgstr "ಮುಂದಿನ ಚಿತ್ರ(_N)"
+
+#: ../src/eog-window.c:3465
+msgid "Go to the next image of the collection"
+msgstr "ಸಂಗ್ರಹದ ಮುಂದಿನ ಚಿತ್ರಕ್ಕೆ ತೆರಳು"
+
+#: ../src/eog-window.c:3467 ../src/eog-window.c:3476
+msgid "_First Image"
+msgstr "ಮೊದಲ ಚಿತ್ರ(_F)"
+
+#: ../src/eog-window.c:3468
+msgid "Go to the first image of the collection"
+msgstr "ಸಂಗ್ರಹದಲ್ಲಿನ ಮೊದಲ ಚಿತ್ರಕ್ಕೆ ತೆರಳು"
+
+#: ../src/eog-window.c:3470 ../src/eog-window.c:3479
+msgid "_Last Image"
+msgstr "ಕೊನೆಯ ಚಿತ್ರ(_L)"
+
+#: ../src/eog-window.c:3471
+msgid "Go to the last image of the collection"
+msgstr "ಸಂಗ್ರಹದಲ್ಲಿನ ಕೊನೆಯ ಚಿತ್ರಕ್ಕೆ ತೆರಳು"
+
+#: ../src/eog-window.c:3485
+msgid "_Slideshow"
+msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ(_S)"
+
+#: ../src/eog-window.c:3486
+msgid "Start a slideshow view of the images"
+msgstr "ಚಿತ್ರಗಳ ಒಂದು ಜಾರುಫಲಕ ಪ್ರದರ್ಶನವನ್ನು ಆರಂಭಿಸು"
+
+#: ../src/eog-window.c:3552
+msgid "Previous"
+msgstr "ಹಿಂದಿನ"
+
+#: ../src/eog-window.c:3556
+msgid "Next"
+msgstr "ಮುಂದಿನ"
+
+#: ../src/eog-window.c:3560
+msgid "Right"
+msgstr "ಬಲ"
+
+#: ../src/eog-window.c:3563
+msgid "Left"
+msgstr "ಎಡ"
+
+#: ../src/eog-window.c:3566
+msgid "In"
+msgstr "ಒಳಗೆ"
+
+#: ../src/eog-window.c:3569
+msgid "Out"
+msgstr "ಹೊರಗೆ"
+
+#: ../src/eog-window.c:3572
+msgid "Normal"
+msgstr "ಸಾಮಾನ್ಯ"
+
+#: ../src/eog-window.c:3575
+msgid "Fit"
+msgstr "ಹೊಂದಿಸು"
+
+#: ../src/eog-window.c:3578
+msgid "Collection"
+msgstr "ಸಂಗ್ರಹ"
+
+#: ../src/eog-plugin-manager.c:53
+msgid "Plugin"
+msgstr "ಪ್ಲಗ್ಇನ್"
+
+#: ../src/eog-plugin-manager.c:54
+msgid "Enabled"
+msgstr "ಸಕ್ರಿಯಗೊಂಡ"
+
+#: ../src/eog-plugin-manager.c:515
+msgid "C_onfigure"
+msgstr "ಸಂರಚಿಸು(_o)"
+
+#: ../src/eog-plugin-manager.c:525
+msgid "A_ctivate"
+msgstr "ಸಕ್ರಿಯಗೊಳಿಸು(_c)"
+
+#: ../src/eog-plugin-manager.c:537
+msgid "Ac_tivate All"
+msgstr "ಎಲ್ಲವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು(_t)"
+
+#: ../src/eog-plugin-manager.c:542
+msgid "_Deactivate All"
+msgstr "ಎಲ್ಲವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸು(_D)"
+
+#: ../src/eog-plugin-manager.c:833
+msgid "Active _Plugins:"
+msgstr "ಸಕ್ರಿಯ ಪ್ಲಗ್ಇನ್‍ಗಳು(plugins):"
+
+#: ../src/eog-plugin-manager.c:862
+msgid "_About Plugin"
+msgstr "ಪ್ಲಗ್ಇನ್‍ನ ಬಗ್ಗೆ(_A)"
+
+#: ../src/eog-plugin-manager.c:869
+msgid "C_onfigure Plugin"
+msgstr "ಪ್ಲಗ್ಇನ್ ಅನ್ನು ಸಂರಚಿಸು(_o)"
+
+#: ../src/main.c:64
+msgid "Open in fullscreen mode"
+msgstr "ಪೂರ್ಣತೆರೆ ಕ್ರಮದಲ್ಲಿ ತೆಗೆ"
+
+#: ../src/main.c:65
+msgid "Disable image collection"
+msgstr "ಚಿತ್ರ ಸಂಗ್ರಹವನ್ನು ಅಶಕ್ತಗೊಳಿಸು"
+
+#: ../src/main.c:66
+msgid "Open in slide show mode"
+msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನದಲ್ಲಿ ತೆಗೆ"
+
+#: ../src/main.c:67
+msgid "[FILE...]"
+msgstr "[FILE...]"
+
+#: ../src/main.c:217
+msgid "Eye of GNOME Image Viewer"
+msgstr "ಐ ಆಫ್ GNOME ಚಿತ್ರ ವೀಕ್ಷಕ"
+
+msgid "Saving Image"
+msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸಲಾಗುತ್ತಿದೆ"
+
+msgid "Sli_de Show"
+msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ(_d)"
+
+msgid "_Browse"
+msgstr "ವೀಕ್ಷಿಸು(_B)"
+
+msgid "Filename"
+msgstr "ಕಡತದ ಹೆಸರು"
+
+msgid "Filesize"
+msgstr "ಕಡತದ ಗಾತ್ರ"
+
+msgid "File"
+msgstr "ಕಡತ"
+
+msgid "Cancel saving ..."
+msgstr "ಉಳಿಸುವುದನ್ನು ರದ್ದು ಮಾಡು ..."
+
+msgid "Comment"
+msgstr "ಟಿಪ್ಪಣಿ"
+
+msgid "Open a new window"
+msgstr "ಹೊಸ ವಿಂಡೋ ಅನ್ನು ತೆಗೆ"
+
+msgid "Open _Directory..."
+msgstr "ಒಂದು ಕಡತಕೋಶವನ್ನು ತೆಗೆ(_D)..."
+
+msgid "Open a directory"
+msgstr "ಒಂದು ಕಡತಕೋಶವನ್ನು ತೆಗೆ"
+
+msgid "Open multiple single windows?"
+msgstr "ಅನೇಕ ಏಕ ವಿಂಡೋಗಳನ್ನು ತೆರೆಯಬೇಕೆ?"
+
+msgid "Window Title"
+msgstr "ಕಿಟಕಿಯ ಶೀರ್ಷಿಕೆ"
+
+msgid "Status Text"
+msgstr "ಸ್ಥಿತಿ ಪಠ್ಯ"
+
+msgid "Page"
+msgstr "ಪುಟ"
+
+msgid "Paper"
+msgstr "ಪುಟ"
+
+msgid "Cancel"
+msgstr "ರದ್ದುಗೊಳಿಸು"
+
+msgid "New"
+msgstr "ಹೊಸ"
+
+msgid "Open"
+msgstr "ತೆಗೆ"
+
+msgid "Open in new window"
+msgstr "ಹೊಸ ವಿಂಡೋದಲ್ಲಿ ತೆಗೆ"
+
+msgid "Quit the program"
+msgstr "ಪ್ರೋಗ್ರಾಂನಿಂದ ನಿರ್ಗಮಿಸು"
+
+msgid "_Quit"
+msgstr "ನಿರ್ಗಮಿಸು(_Q)"
+
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr "ಅನುವಾದಕರು-ಪ್ರಮೋದ್ ಆರ್, ಶಂಕರ್ ಪ್ರಸಾದ್ ಎಂ ವಿ"
+
+msgid "Print Previe_w..."
+msgstr "ಮುದ್ರಣ ಮುನ್ನೋಟ(_w)..."
+
+msgid "/_Zoom In"
+msgstr "/ಹಿಗ್ಗಿಸು(_Z)"
+
+msgid "/Zoom _Out"
+msgstr "/ಕುಗ್ಗಿಸು(_O)"
+
+msgid "/_Normal Size"
+msgstr "/ಸಾಮಾನ್ಯ ಗಾತ್ರ(_N)"
+
+msgid "/_Close"
+msgstr "/ಮುಚ್ಚು(_C)"
+
+msgid "Statusbar Text"
 msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
 
-#: shell/eog-window.c:2254
-msgid "_Save"
-msgstr ""
+msgid "Print"
+msgstr "ಮುದ್ರಿಸು"
 
-#: shell/eog-window.c:2255
-#, fuzzy
-msgid "Save _As"
-msgstr "ಹೀಗೆ ಉಳಿಸು..."
+msgid "Paper size:"
+msgstr "ಹಾಳೆಯ ಗಾತ್ರ:"
 
-#: shell/eog-window.c:2257
-msgid "_Undo"
-msgstr ""
+msgid "Portrait"
+msgstr "ಭಾವಚಿತ್ರ"
 
-#: shell/eog-window.c:2259
-msgid "Flip _Horizontal"
-msgstr ""
+msgid "Landscape"
+msgstr "ಪ್ರಕೃತಿಚಿತ್ರ"
 
-#: shell/eog-window.c:2260
-msgid "Flip _Vertical"
-msgstr ""
+msgid "Helpers"
+msgstr "ಸಹಾಯಕರು"
 
-#: shell/eog-window.c:2262
-msgid "_Rotate Clockwise"
-msgstr ""
+msgid "By c_olor"
+msgstr "ಬಣ್ಣದ ಮೂಲಕ(_o)"
 
-#: shell/eog-window.c:2263
-msgid "Rotate Counter C_lockwise"
-msgstr ""
-
-#: shell/eog-window.c:2264
-msgid "Rotat_e 180°"
-msgstr ""
-
-#: shell/eog-window.c:2266
-msgid "Delete"
-msgstr ""
-
-#: shell/eog-window.c:2268
-msgid "_Full Screen"
-msgstr ""
-
-#: shell/eog-window.c:2269
-msgid "_Zoom In"
-msgstr "ಹಿಗ್ಗಿಸು"
-
-#: shell/eog-window.c:2270
-msgid "Zoom _Out"
-msgstr "ಕುಗ್ಗಿಸು"
-
-#: shell/eog-window.c:2271
-msgid "_Normal Size"
-msgstr "ಸಾಮಾನ್ಯ ಗಾತ್ರ"
-
-#: shell/eog-window.c:2272
-msgid "Best _Fit"
-msgstr ""
-
-#: shell/main.c:236
-#, c-format
-msgid ""
-"You are about to open %i windows simultaneously. Do you want to open them in "
-"a collection instead?"
-msgstr ""
-
-#: shell/main.c:240
-#, fuzzy
-msgid "Open multiple single windows?"
-msgstr "ಹೊಸ ಕಿಟಕಿಯಲ್ಲಿ ತೆಗೆ"
-
-#: shell/main.c:244
-msgid "Single Windows"
-msgstr ""
-
-#: shell/main.c:246
-msgid "Collection"
-msgstr ""
-
-#: shell/main.c:298
-msgid "File not found."
-msgid_plural "Files not found."
-msgstr[0] ""
-msgstr[1] ""
-
-#: shell/util.c:52
-#, c-format
-msgid "Could not open `%s'"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Next Image"
-#~ msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
-
-#, fuzzy
-#~ msgid "Previous Image"
-#~ msgstr "ಚಿತ್ರವನ್ನು ಮುದ್ರಿಸು"
-
-#~ msgid "Slide Show"
-#~ msgstr "ಜಾರುಫಲಕ ಪ್ರದರ್ಶನ"
-
-#~ msgid "Window Title"
-#~ msgstr "ಕಿಟಕಿಯ ಶೀರ್ಷಿಕೆ"
-
-#, fuzzy
-#~ msgid "Status Text"
-#~ msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
-
-#~ msgid "Image"
-#~ msgstr "ಚಿತ್ರ"
-
-#, fuzzy
-#~ msgid "Page"
-#~ msgstr "ಪುಟಗಳ"
-
-#, fuzzy
-#~ msgid "Preview"
-#~ msgstr "ಮುದ್ರನ ಮುನ್ನೋಟ"
-
-#~ msgid "Paper"
-#~ msgstr "ಪುಟ"
-
-#~ msgid "Cancel"
-#~ msgstr "ರದ್ದುಗೊಲಿಸು"
-
-#~ msgid "New"
-#~ msgstr "ಹೊಸ"
-
-#~ msgid "Open"
-#~ msgstr "ತೆಗೆ"
-
-#~ msgid "Open in new window"
-#~ msgstr "ಹೊಸ ಕಿಟಕಿಯಲ್ಲಿ ತೆಗೆ"
-
-#~ msgid "Open in this window"
-#~ msgstr "ಈ ಕಿಟಕಿಯಲ್ಲಿ ತೆಗೆ"
-
-#~ msgid "Quit the program"
-#~ msgstr "ತಂತ್ರಾಂಶದಿಂದ ಆಚೆ ಬಾ"
-
-#~ msgid "_Quit"
-#~ msgstr "ಆಚೆ ಬಾ"
-
-#~ msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-#~ msgstr "ಅನುವಾದಕರು-ಪ್ರಮೋದ್.ಆರ್"
-
-#~ msgid "In"
-#~ msgstr "ಒಳಗೆ"
-
-#~ msgid "Normal"
-#~ msgstr "ಸಾಮಾನ್ಯ"
-
-#~ msgid "Out"
-#~ msgstr "ಹೊರಗೆ"
-
-#~ msgid "Print Previe_w..."
-#~ msgstr "ಮುದ್ರನ ಮುನ್ನೋಟ"
-
-#~ msgid "_Print..."
-#~ msgstr "ಮುದ್ರಿಸು..."
-
-#~ msgid "/_Zoom In"
-#~ msgstr "/ಹಿಗ್ಗಿಸು"
-
-#~ msgid "/Zoom _Out"
-#~ msgstr "/ಕುಗ್ಗಿಸು"
-
-#~ msgid "/_Normal Size"
-#~ msgstr "/ಸಾಮಾನ್ಯ ಗಾತ್ರ"
-
-#~ msgid "/_Close"
-#~ msgstr "/ಮುಚ್ಚು"
-
-#~ msgid "Image Height"
-#~ msgstr "ಚಿತ್ರದ ಉದ್ದ"
-
-#~ msgid "Statusbar Text"
-#~ msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ ಪಠ್ಯ"
-
-#~ msgid "inch"
-#~ msgstr "ಇಂಚು"
-
-#~ msgid "Print"
-#~ msgstr "ಮುದ್ರಿಸು"
-
-#~ msgid "Paper size:"
-#~ msgstr "ಪುಟ ಗಾತ್ರ:"
-
-#~ msgid "Orientation"
-#~ msgstr "ಸ್ಥಾನ"
-
-#~ msgid "Portrait"
-#~ msgstr "ಅಂಚು ವಿನ್ಯಾಸ"
-
-#~ msgid "Landscape"
-#~ msgstr "ದೀರ್ಘ ಅಂಚು ವಿನ್ಯಾಸ"
-
-#~ msgid "Left:"
-#~ msgstr "ಎಡ:"
-
-#~ msgid "Right:"
-#~ msgstr "ಬಲ:"
-
-#~ msgid "Bottom:"
-#~ msgstr "ಕೆಳ:"
-
-#~ msgid "Printing"
-#~ msgstr "ಮುದ್ರನೆ"
-
-#~ msgid "Helpers"
-#~ msgstr "ಸಹಾಯಕರು"
-
-#~ msgid "By c_olor"
-#~ msgstr "ಬಣ್ಣದ ಮೇಲೆ"
-
-#~ msgid "Pick a color"
-#~ msgstr "ಬಣ್ಣದ ಆಯ್ಕೆಮಾಡು"
+msgid "Pick a color"
+msgstr "ಒಂದು ಬಣ್ಣವನ್ನು ಆಯ್ಕೆಮಾಡು"
