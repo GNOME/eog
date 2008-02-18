@@ -309,7 +309,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 			    exif_data, EXIF_TAG_MODEL);
 
 	eog_exif_set_label (priv->exif_date_label,
-			    exif_data, EXIF_TAG_DATE_TIME);
+			    exif_data, EXIF_TAG_DATE_TIME_ORIGINAL);
 
 	eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details), 
 				 exif_data);

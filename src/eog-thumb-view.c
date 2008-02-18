@@ -450,7 +450,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 		gchar time_buffer[32];
 		
 		date = eog_exif_util_format_date (
-				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME, time_buffer, 32));
+				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
 
 		extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
 
