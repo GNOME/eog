@@ -174,7 +174,7 @@ eog_exif_set_label (GtkWidget *w, ExifData *exif_data, gint tag_id)
 		buf_ptr = eog_exif_util_get_value (exif_data, tag_id,
 						   exif_buffer, 512);
 		
-		if (tag_id == EXIF_TAG_DATE_TIME && buf_ptr)
+		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
 			label_text = eog_exif_util_format_date (buf_ptr);
 		else
 			label_text = eog_util_make_valid_utf8 (buf_ptr);
