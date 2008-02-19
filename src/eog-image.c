@@ -1256,8 +1256,7 @@ eog_image_load (EogImage *img, EogImageData data2read, EogJob *job, GError **err
 	}
 
 	if (eog_image_has_data (img, data2read)) {
-		g_warning ("Image %s has requested data already loaded.\n", 
-			    eog_image_get_caption (img));
+		return TRUE;
 	}
 
 	priv->status = EOG_IMAGE_STATUS_LOADING;
