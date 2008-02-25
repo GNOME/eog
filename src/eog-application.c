@@ -118,17 +118,20 @@ eog_application_class_init (EogApplicationClass *eog_application_class)
 static void
 eog_application_init (EogApplication *eog_application)
 {
+	const gchar *dot_dir = eog_util_dot_dir ();
+
 	eog_session_init (eog_application);
 
 	eog_application->toolbars_model = egg_toolbars_model_new ();
 
-	eog_application->toolbars_file = g_build_filename
-		(eog_util_dot_dir (), "eog_toolbar.xml", NULL);
-
 	egg_toolbars_model_load_names (eog_application->toolbars_model,
 				       EOG_DATA_DIR "/eog-toolbar.xml");
+
+	if (G_LIKELY (dot_dir != NULL))
+		eog_application->toolbars_file = g_build_filename
+			(dot_dir, "eog_toolbar.xml", NULL);
 	
-	if (!egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
+	if (!dot_dir || !egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
 					       eog_application->toolbars_file)) {
 
 		egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
@@ -365,9 +368,10 @@ eog_application_get_toolbars_model (EogApplication *application)
 void
 eog_application_save_toolbars_model (EogApplication *application)
 {
-        egg_toolbars_model_save_toolbars (application->toolbars_model,
-			 	          application->toolbars_file, 
-					  "1.0");
+	if (G_LIKELY(application->toolbars_file != NULL))
+        	egg_toolbars_model_save_toolbars (application->toolbars_model,
+				 	          application->toolbars_file, 
+						  "1.0");
 }
 
 void

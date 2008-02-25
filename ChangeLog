@@ -1,3 +1,13 @@
+2008-02-25  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-application.c: (eog_application_init),
+	(eog_application_save_toolbars_model):
+	* src/eog-util.c: (eog_util_dot_dir):
+	Don't assert if we cannot create the user preferences directory
+	because a file with the same name blocking it. Log a warning instead.
+	Attempts to save the toolbar layout will be ignored until the
+	user moved the file away. Fixes bug #500203.
+
 2008-02-19  Rodrigo Moya <rodrigo@gnome-db.org>
 
 	* src/eog-image.c (eog_image_load): return when the data being
