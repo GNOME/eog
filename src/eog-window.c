@@ -4674,7 +4674,6 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->unrealize = eog_window_unrealize;
 	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
-	//widget_class->drag_data_received = eog_window_drag_data_received;
 
 	g_object_class_install_property (g_object_class,
 					 PROP_STARTUP_FLAGS,
