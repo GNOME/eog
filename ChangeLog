@@ -1,3 +1,12 @@
+2008-02-29  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume):
+	Only extract a possible ICC block from a JPEG file if is actually
+	large enough. Check the chunk name afterwards if it really is an ICC
+	chunk. Also check if it is the first and only ICC chunk in the file to
+	fix a (possibly fatal) warning from lcms as we don't support merging
+	JFIF chunks yet. Fixes bug #519028.
+
 2008-02-29  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:

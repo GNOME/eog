@@ -243,8 +243,9 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 			{
 				priv->state = EMR_READ_APP1;
 			} else if (priv->last_marker == EOG_JPEG_MARKER_APP2 && 
-				 priv->icc_chunk == NULL) 
+				   priv->icc_chunk == NULL && priv->size > 14)
 			{
+	 			/* Chunk has 14 bytes identification data */
 				priv->state = EMR_READ_ICC;
 			} else if (priv->last_marker == EOG_JPEG_MARKER_APP14 && 
 				priv->iptc_chunk == NULL) 
@@ -346,9 +347,36 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 				priv->bytes_read = 0;
 			}
 
-			eog_metadata_reader_get_next_block (priv, priv->icc_chunk,
-							    &i, buf, len, EMR_READ_ICC);
-			
+			eog_metadata_reader_get_next_block (priv,
+							    priv->icc_chunk,
+							    &i, buf, len,
+							    EMR_READ_ICC);
+
+			/* Test that the chunk actually contains ICC data. */
+			if (priv->state == EMR_READ && priv->icc_chunk) {
+			    	const char* icc_chunk = priv->icc_chunk;
+				gboolean valid = TRUE;
+
+				/* Chunk should begin with the 
+				 * ICC_PROFILE\0 identifier */
+				valid &= strncmp (icc_chunk,
+						  "ICC_PROFILE\0",12) == 0;
+				/* Make sure this is the first and only
+				 * ICC chunk in the file as we don't
+				 * support merging chunks yet. */
+				valid &=  *(guint16*)(icc_chunk+12) == 0x101;
+				
+				if (!valid) {
+					/* This no ICC data. Throw it away. */
+					eog_debug_message (DEBUG_IMAGE_DATA,
+					"Supposed ICC chunk didn't validate. "
+					"Ignoring.");
+					g_free (priv->icc_chunk);
+					priv->icc_chunk = NULL;
+					priv->icc_len = 0;
+				}
+			}
+
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
