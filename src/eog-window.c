@@ -328,10 +328,10 @@ eog_window_transparency_changed_cb (GConfClient *client,
 		g_free (color_str);
 	} else if (g_ascii_strcasecmp (value, "CHECK_PATTERN") == 0) {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  EOG_TRANSP_CHECKED, 0);
+						  EOG_TRANSP_CHECKED, NULL);
 	} else {
 		eog_scroll_view_set_transparency (EOG_SCROLL_VIEW (priv->view),
-						  EOG_TRANSP_BACKGROUND, 0);
+						  EOG_TRANSP_BACKGROUND, NULL);
 	}
 }
 
@@ -1166,9 +1166,11 @@ eog_window_clear_load_job (EogWindow *window)
 static void
 eog_job_progress_cb (EogJobLoad *job, float progress, gpointer user_data) 
 {
+	EogWindow *window;
+
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 	
-	EogWindow *window = EOG_WINDOW (user_data);
+	window = EOG_WINDOW (user_data);
 
 	eog_statusbar_set_progress (EOG_STATUSBAR (window->priv->statusbar), 
 				    progress);

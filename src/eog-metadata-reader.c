@@ -189,6 +189,8 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 	EogMetadataReaderPrivate *priv;
  	EogJpegApp1Type app1_type;
 	int i;
+	EogMetadataReaderState next_state;
+	guchar *chunk = NULL;
 
 	g_return_if_fail (EOG_IS_METADATA_READER (emr));
 
@@ -276,9 +278,6 @@ eog_metadata_reader_consume (EogMetadataReader *emr, guchar *buf, guint len)
 
 			app1_type = eog_metadata_identify_app1 ((gchar*) &buf[i], priv->size);
 			
-			EogMetadataReaderState next_state;
-			guchar *chunk = NULL;
-
 			switch (app1_type) {
 			case EJA_EXIF:
 				if (priv->exif_chunk == NULL) { 

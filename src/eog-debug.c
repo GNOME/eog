@@ -43,7 +43,7 @@ static gdouble last = 0.0;
 static EogDebugSection debug = EOG_NO_DEBUG;
 
 void
-eog_debug_init ()
+eog_debug_init (void)
 {
 	if (g_getenv ("EOG_DEBUG") != NULL)
 	{

@@ -69,7 +69,7 @@ static const GOptionEntry goption_options[] =
 };
 
 static void 
-set_startup_flags ()
+set_startup_flags (void)
 {
   if (fullscreen)
     flags |= EOG_STARTUP_FULLSCREEN;
@@ -82,7 +82,7 @@ set_startup_flags ()
 }
 
 static void 
-load_files ()
+load_files (void)
 {
 	GSList *files = NULL;
 
@@ -100,7 +100,7 @@ load_files ()
 
 #ifdef HAVE_DBUS
 static gboolean
-load_files_remote ()
+load_files_remote (void)
 {
 	GError *error = NULL;
 	DBusGConnection *connection;

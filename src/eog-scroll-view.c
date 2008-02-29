@@ -515,6 +515,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	ArtIRect r, d;
 	GdkPixbuf *tmp;
 	int check_size;
+	char *str;
 	guint32 check_1 = 0;
 	guint32 check_2 = 0;
 
@@ -611,7 +612,6 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	if (art_irect_empty (&d))
 		return;
 
-	char *str;
 	switch (interp_type) {
 	case GDK_INTERP_NEAREST:
 		str = "NEAREST";

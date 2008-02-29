@@ -25,8 +25,8 @@
 #include "eog-jobs.h"
 #include "eog-job-queue.h"
 
-GCond  *render_cond = NULL;
-GMutex *eog_queue_mutex = NULL;
+static GCond  *render_cond = NULL;
+static GMutex *eog_queue_mutex = NULL;
 
 static GQueue *thumbnail_queue = NULL;
 static GQueue *load_queue = NULL;

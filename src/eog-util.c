@@ -180,13 +180,14 @@ gchar **
 eog_util_string_array_make_absolute (gchar **files)
 {
 	int i;
+	int size;
 	gchar **abs_files;
 
 	if (files == NULL)
 		return NULL;
-	
-	int size = g_strv_length (files);
-	
+
+	size = g_strv_length (files);
+
 	/* Ensure new list is NULL-terminated */
 	abs_files = g_new0 (gchar *, size+1);
 	

@@ -374,7 +374,7 @@ exif_entry_cb (ExifEntry *entry, gpointer data)
 	} else {
 
 		ExifMnoteData *mnote = (entry->tag == EXIF_TAG_MAKER_NOTE ?
-			exif_data_get_mnote_data (entry->parent->parent) : 0);
+			exif_data_get_mnote_data (entry->parent->parent) : NULL);
 
 		if (mnote) {
 			// Supported MakerNote Found
@@ -422,7 +422,7 @@ exif_content_cb (ExifContent *content, gpointer data)
 #endif
 
 GtkWidget *
-eog_exif_details_new ()
+eog_exif_details_new (void)
 {
 	GObject *object;
 
@@ -470,7 +470,7 @@ eog_exif_details_update (EogExifDetails *exif_details, ExifData *data)
 		exif_data_foreach_content (data, exif_content_cb, exif_details);
 	}
 }
-#endif HAVE_EXIF
+#endif /* HAVE_EXIF */
 
 #ifdef HAVE_EXEMPI
 typedef struct {

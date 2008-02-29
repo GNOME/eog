@@ -1145,11 +1145,11 @@ eog_print_preview_get_image_position (EogPrintPreview *preview,
 				      gdouble *x,
 				      gdouble *y)
 {
-	g_return_if_fail (EOG_IS_PRINT_PREVIEW (preview));
-		
 	EogPrintPreviewPrivate *priv;
 	gdouble width, height;
 
+	g_return_if_fail (EOG_IS_PRINT_PREVIEW (preview));
+		
 	priv = preview->priv;
 
 	if (x != NULL) {

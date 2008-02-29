@@ -169,7 +169,7 @@ eog_transform_reverse (EogTransform *trans)
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), NULL);
 
-	reverse = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+	reverse = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
 	art_affine_invert (reverse->priv->affine, trans->priv->affine);
 
@@ -183,8 +183,8 @@ eog_transform_compose (EogTransform *trans, EogTransform *compose)
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), NULL);
 	g_return_val_if_fail (EOG_IS_TRANSFORM (compose), NULL);
-	
-	composition = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+
+	composition = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
 	art_affine_multiply (composition->priv->affine,
 			     trans->priv->affine,
@@ -208,7 +208,7 @@ eog_transform_identity_new (void)
 {
 	EogTransform *trans; 
 
-	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 	
 	art_affine_identity (trans->priv->affine);
 
@@ -220,7 +220,7 @@ eog_transform_rotate_new (int degree)
 {
 	EogTransform *trans; 
 
-	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 	
 	art_affine_rotate (trans->priv->affine, degree);
 
@@ -233,7 +233,7 @@ eog_transform_flip_new   (EogTransformType type)
 	EogTransform *trans; 
 	gboolean horiz, vert;
 
-	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
+	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 	
 	art_affine_identity (trans->priv->affine);
 

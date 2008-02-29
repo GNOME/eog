@@ -1,3 +1,32 @@
+2008-02-29  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:
+	(new_separator_pixbuf):
+	* cut-n-paste/toolbar-editor/egg-toolbar-editor.c:
+	(egg_toolbar_editor_set_model):
+	* src/eog-debug.c: (eog_debug_init):
+	* src/eog-exif-details.c: (exif_entry_cb), (eog_exif_details_new):
+	* src/eog-image.c: (eog_image_get_supported_mime_types):
+	* src/eog-job-queue.c:
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume):
+	* src/eog-print-preview.c: (eog_print_preview_get_image_position):
+	* src/eog-scroll-view.c: (paint_rectangle):
+	* src/eog-session.c: (eog_session_is_restored):
+	* src/eog-thumb-view.c: (eog_thumb_view_set_model),
+	(eog_thumb_view_get_first_selected_image),
+	(eog_thumb_view_select_single):
+	* src/eog-transform.c: (eog_transform_reverse),
+	(eog_transform_compose), (eog_transform_identity_new),
+	(eog_transform_rotate_new), (eog_transform_flip_new):
+	* src/eog-util.c: (eog_util_string_array_make_absolute):
+	* src/eog-window.c: (eog_window_transparency_changed_cb),
+	(eog_job_progress_cb):
+	* src/main.c: (set_startup_flags), (load_files),
+	(load_files_remote):
+
+	Many functions and variables declarations fixes, courtesy of 
+	sparse.
+
 2008-02-27  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_class_init):

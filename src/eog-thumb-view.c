@@ -544,10 +544,12 @@ eog_thumb_view_new (void)
 void
 eog_thumb_view_set_model (EogThumbView *tb, EogListStore *store)
 {
+	gint index;
+	
 	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	
-	gint index = eog_list_store_get_initial_pos (store);
+	index = eog_list_store_get_initial_pos (store);
 
 	gtk_icon_view_set_model (GTK_ICON_VIEW (tb), GTK_TREE_MODEL (store));
 
@@ -613,13 +615,14 @@ eog_thumb_view_get_first_selected_image (EogThumbView *tb)
 	   smaller tree path value => tricky and expensive. Do we really need this?
 	*/
 	EogImage *image;
+	GtkTreePath *path;
 	GList *list = gtk_icon_view_get_selected_items (GTK_ICON_VIEW (tb));
 
 	if (list == NULL) {
 		return NULL;
 	}
 
-	GtkTreePath *path = (GtkTreePath *) (list->data);
+	path = (GtkTreePath *) (list->data);
 
 	image = eog_thumb_view_get_image_from_path (tb, path);
 
@@ -682,11 +685,12 @@ void
 eog_thumb_view_select_single (EogThumbView *tb, 
 			      EogThumbViewSelectionChange change)
 {
-	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
-	GtkTreePath *path = NULL;
+  	GtkTreePath *path = NULL;
 	GtkTreeModel *model;
 	GList *list;
 	gint n_items;
+
+	g_return_if_fail (EOG_IS_THUMB_VIEW (tb));
 
 	model = gtk_icon_view_get_model (GTK_ICON_VIEW (tb));
 
@@ -698,6 +702,8 @@ eog_thumb_view_select_single (EogThumbView *tb,
 	
 	if (eog_thumb_view_get_n_selected (tb) == 0) {
 		switch (change) {
+		case EOG_THUMB_VIEW_SELECT_CURRENT:
+			break;
 		case EOG_THUMB_VIEW_SELECT_RIGHT:
 		case EOG_THUMB_VIEW_SELECT_FIRST:
 			path = gtk_tree_path_new_first ();

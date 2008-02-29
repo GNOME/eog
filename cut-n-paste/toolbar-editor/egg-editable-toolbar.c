@@ -1827,7 +1827,7 @@ new_pixbuf_from_widget (GtkWidget *widget)
 }
 
 static GdkPixbuf *
-new_separator_pixbuf ()
+new_separator_pixbuf (void)
 {
   GtkWidget *separator;
   GdkPixbuf *pixbuf;

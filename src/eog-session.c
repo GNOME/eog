@@ -62,7 +62,7 @@ eog_session_init (EogApplication *application)
 }
 
 gboolean
-eog_session_is_restored	()
+eog_session_is_restored	(void)
 {
 	return FALSE;
 }

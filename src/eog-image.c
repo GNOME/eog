@@ -2118,7 +2118,7 @@ compare_quarks (gconstpointer a, gconstpointer b)
 }
 
 GList *
-eog_image_get_supported_mime_types ()
+eog_image_get_supported_mime_types (void)
 {
 	GSList *format_list, *it;
 	gchar **mime_types;
