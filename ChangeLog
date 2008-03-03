@@ -1,3 +1,10 @@
+2008-03-03  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_dispose):
+	Disconnect collection update callbacks when disposing a window to
+	avoid spurious calls when another window watches the same folder which
+	results in EOG crashing. Fixes bug #519910.
+
 2008-02-29  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-metadata-reader.c: (eog_metadata_reader_consume):

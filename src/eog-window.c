@@ -205,6 +205,13 @@ static void fullscreen_clear_timeout (EogWindow *window);
 static void update_action_groups_state (EogWindow *window);
 static void open_with_launch_application_cb (GtkAction *action, gpointer callback_data);
 static void eog_window_update_openwith_menu (EogWindow *window, EogImage *image);
+static void eog_window_list_store_image_added (GtkTreeModel *tree_model,
+					       GtkTreePath  *path,
+					       GtkTreeIter  *iter,
+					       gpointer      user_data);
+static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
+                 				 GtkTreePath  *path,
+						 gpointer      user_data);
 
 static GQuark
 eog_window_error_quark (void)
@@ -4238,6 +4245,12 @@ eog_window_dispose (GObject *object)
 	eog_plugin_engine_garbage_collect ();
 
 	if (priv->store != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->store,
+					      eog_window_list_store_image_added,
+					      window);
+		g_signal_handlers_disconnect_by_func (priv->store,
+					    eog_window_list_store_image_removed,
+					    window);
 		g_object_unref (priv->store);
 		priv->store = NULL;
 	}
