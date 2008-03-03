@@ -3622,6 +3622,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		gchar *label_filename;
 		GtkAction *action;
 		GtkRecentInfo *info = li->data;
+		gboolean is_rtl = (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL);
 
 		if (!gtk_recent_info_has_group (info, EOG_RECENT_FILES_GROUP))
 			continue;
@@ -3631,7 +3632,8 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		action_name = g_strdup_printf ("recent-info-%d", count_recent);
 		display_name = g_strsplit (gtk_recent_info_get_display_name (info), "_", -1);
 		label_filename = g_strjoinv ("__", display_name);
-		label = g_strdup_printf ("_%d. %s", count_recent, label_filename);
+		label = g_strdup_printf ("%s_%d. %s", 
+				(is_rtl ? "\xE2\x80\x8F" : ""), count_recent, label_filename);
 		g_free (label_filename);
 		g_strfreev (display_name);
 

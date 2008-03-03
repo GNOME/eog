@@ -1,5 +1,11 @@
 2008-03-03  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/eog-window.c (eog_window_update_recent_files_menu): introduce an
+	RLM character when default direction is RTL in order to have recent
+	files shown with the correct direction. Fixes bug #509079 (Djihed Afifi)
+
+2008-03-03  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/main.c (main): wrap gtk_main() between gdk_threads_enter()
 	and gdk_threads_leave() in order to avoid locking usage problems.
 	Fixes bug #498989 (Matt Keenan).
