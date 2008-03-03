@@ -78,7 +78,7 @@ GNOME_DOC_INIT
 # **********
 
 GTK_REQUIRED=2.11.6
-GLIB_REQUIRED=2.12.0
+GLIB_REQUIRED=2.15.3
 GNOME_VFS_REQUIRED=2.10.0
 LIBGNOMEUI_REQUIRED=2.6.0
 LIBGLADE_REQUIRED=2.3.6
@@ -95,6 +95,7 @@ EXEMPI_REQUIRED=1.99.5
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED \
+             gio-2.0 >= $GLIB_REQUIRED \
              libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
              libglade-2.0 >= $LIBGLADE_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \

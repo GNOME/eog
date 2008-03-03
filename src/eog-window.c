@@ -60,6 +60,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
@@ -3028,62 +3029,53 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
 static gboolean
 move_to_trash_real (EogImage *image, GError **error)
 {
-	GnomeVFSURI *uri;
-	GnomeVFSURI *trash_dir;
-	GnomeVFSURI *trash_uri;
-	gint result;
-	char *name;
+	GFile *file;
+        GnomeVFSURI *uri;
+        char *string_uri;
+	GFileInfo *file_info;
+	gboolean can_trash, result;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
+        
+        uri = eog_image_get_uri (image);
+        string_uri = gnome_vfs_uri_to_string (uri,
+                                              GNOME_VFS_URI_HIDE_USER_NAME | 
+                                              GNOME_VFS_URI_HIDE_PASSWORD);
+	file = g_file_new_for_uri (string_uri);
+        g_free (string_uri);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH,
+				       0, NULL, NULL);
+	if (file_info == NULL) {
+		g_set_error (error, 
+			     EOG_WINDOW_ERROR, 
+			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+			     _("Couldn't access trash."));
+		return FALSE;
+	}
 
-	uri = eog_image_get_uri (image);
-
-        result = gnome_vfs_find_directory (uri,
-					   GNOME_VFS_DIRECTORY_KIND_TRASH,
-					   &trash_dir, 
-					   FALSE, 
-					   TRUE, 
-					   0700);
-
-	if (result != GNOME_VFS_OK) {
-
-		result = gnome_vfs_find_directory (uri,
-						   GNOME_VFS_DIRECTORY_KIND_TRASH,
-						   &trash_dir, 
-						   TRUE, 
-						   FALSE, 
-						   0700);
-
-		if (result != GNOME_VFS_OK) {
-			gnome_vfs_uri_unref (uri);
-
+	can_trash = g_file_info_get_attribute_boolean (file_info,
+						       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH);
+	g_object_unref (file_info);
+	if (can_trash)
+	{
+		result = g_file_trash (file, NULL, NULL);
+		if (result == FALSE) {
 			g_set_error (error, 
 				     EOG_WINDOW_ERROR, 
 				     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
 				     _("Couldn't access trash."));
-
-			return FALSE;
 		}
-	}
-
-	name = gnome_vfs_uri_extract_short_name (uri);
-	trash_uri = gnome_vfs_uri_append_file_name (trash_dir, name);
-	g_free (name);
-
-	result = gnome_vfs_move_uri (uri, trash_uri, TRUE);
-
-	gnome_vfs_uri_unref (uri);
-	gnome_vfs_uri_unref (trash_uri);
-	gnome_vfs_uri_unref (trash_dir);
-
-	if (result != GNOME_VFS_OK) {
+	} else {
 		g_set_error (error, 
-			     EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_UNKNOWN,
-			     gnome_vfs_result_to_string (result));
+			     EOG_WINDOW_ERROR, 
+			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
+			     _("Couldn't access trash."));
 	}
+        
+        g_object_unref (file);
 
-	return (result == GNOME_VFS_OK);
+	return (can_trash ? result : FALSE);
 }
 
 static void

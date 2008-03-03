@@ -1,3 +1,10 @@
+2008-03-03  Lucas Rocha  <lucasr@gnome.org>
+
+	* configure.ac: update glib dependency to 2.15.3 version.
+	* src/eog-window.c (move_to_trash_real): use gio to move file to trash
+	in order to be compliant with FD.o Trash spec. Full gio migration will
+	come on next cycle. Patch from Cosimo Cecchi <anarki@lilik.it>
+
 2008-03-03  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_dispose):
