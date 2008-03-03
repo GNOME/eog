@@ -28,6 +28,7 @@
 #include "eog-plugin.h"
 #include "eog-debug.h"
 
+#define NO_IMPORT_PYGOBJECT
 #include <pygobject.h>
 #include <string.h>
 

@@ -1,5 +1,12 @@
 2008-03-03  Lucas Rocha  <lucasr@gnome.org>
 
+	* bindings/python/eog.override, src/eog-python-plugin.c: avoid multiply 
+	defined symbols when linking Python bindings by using
+	NO_IMPORT_PYGOBJECT and NO_IMPORT before inclusing pygtk and pygobject
+	headers. Fixes bug #506421 (Paul).
+
+2008-03-03  Lucas Rocha  <lucasr@gnome.org>
+
 	* src/eog-window.c (eog_window_update_recent_files_menu): introduce an
 	RLM character when default direction is RTL in order to have recent
 	files shown with the correct direction. Fixes bug #509079 (Djihed Afifi)
