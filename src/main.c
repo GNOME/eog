@@ -218,7 +218,11 @@ main (int argc, char **argv)
 
 	load_files ();
 
+	gdk_threads_enter ();
+
 	gtk_main ();
+
+	gdk_threads_leave ();
 
 	gnome_accelerators_sync ();
 	

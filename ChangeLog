@@ -1,5 +1,11 @@
 2008-03-03  Lucas Rocha  <lucasr@gnome.org>
 
+	* src/main.c (main): wrap gtk_main() between gdk_threads_enter()
+	and gdk_threads_leave() in order to avoid locking usage problems.
+	Fixes bug #498989 (Matt Keenan).
+
+2008-03-03  Lucas Rocha  <lucasr@gnome.org>
+
 	* configure.ac: update glib dependency to 2.15.3 version.
 	* src/eog-window.c (move_to_trash_real): use gio to move file to trash
 	in order to be compliant with FD.o Trash spec. Full gio migration will
