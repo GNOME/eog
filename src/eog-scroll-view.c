@@ -36,8 +36,6 @@
  */
 #define IMAGE_VIEW_ZOOM_MULTIPLIER 1.05
 
-#define NO_DEBUG
-
 /* States for automatically adjusting the zoom factor */
 typedef enum {
 	ZOOM_MODE_FIT,		/* Image is fitted to scroll view even if the latter changes size */
