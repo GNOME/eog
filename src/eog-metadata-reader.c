@@ -34,8 +34,6 @@ typedef enum {
 #define EOG_JPEG_MARKER_APP2	0xE2
 #define EOG_JPEG_MARKER_APP14	0xED
 
-#define NO_DEBUG
-
 #define IS_FINISHED(priv) (priv->exif_chunk != NULL && \
                            priv->icc_chunk  != NULL && \
                            priv->iptc_chunk != NULL && \
