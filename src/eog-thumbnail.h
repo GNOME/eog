@@ -25,7 +25,6 @@
 #ifndef _EOG_THUMBNAIL_H_
 #define _EOG_THUMBNAIL_H_
 
-#include <libgnomevfs/gnome-vfs.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "eog-image.h"
 
