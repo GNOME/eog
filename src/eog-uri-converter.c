@@ -28,7 +28,7 @@ typedef struct {
 
 
 struct _EogURIConverterPrivate {
-	GnomeVFSURI     *base_uri;
+	GFile           *base_file;
 	GList           *token_list;
 	char            *suffix;
 	GdkPixbufFormat *img_format;
@@ -77,9 +77,9 @@ eog_uri_converter_dispose (GObject *object)
 
 	priv = instance->priv;
 
-	if (priv->base_uri) {
-		gnome_vfs_uri_unref (priv->base_uri);
-		priv->base_uri = NULL;
+	if (priv->base_file) {
+		g_object_unref (priv->base_file);
+		priv->base_file = NULL;
 	}
 
 	if (priv->token_list) {
@@ -530,7 +530,7 @@ eog_uri_converter_print_list (EogURIConverter *conv)
 
 
 EogURIConverter*
-eog_uri_converter_new (GnomeVFSURI *base_uri, GdkPixbufFormat *img_format, const char *format_str)
+eog_uri_converter_new (GFile *base_file, GdkPixbufFormat *img_format, const char *format_str)
 {
 	EogURIConverter *conv;
 
@@ -538,11 +538,11 @@ eog_uri_converter_new (GnomeVFSURI *base_uri, GdkPixbufFormat *img_format, const
 
 	conv = g_object_new (EOG_TYPE_URI_CONVERTER, NULL);
 	
-	if (base_uri != NULL) {
-		conv->priv->base_uri  = gnome_vfs_uri_ref (base_uri);
+	if (base_file != NULL) {
+		conv->priv->base_file  = g_object_ref (base_file);
 	}
 	else {
-		conv->priv->base_uri = NULL;
+		conv->priv->base_file = NULL;
 	}
 	conv->priv->img_format = img_format;
 	conv->priv->token_list = eog_uri_converter_parse_string (conv, format_str);
@@ -550,10 +550,10 @@ eog_uri_converter_new (GnomeVFSURI *base_uri, GdkPixbufFormat *img_format, const
 	return conv;
 }
 
-static GnomeVFSURI*
-get_uri_directory (EogURIConverter *conv, EogImage *image)
+static GFile*
+get_file_directory (EogURIConverter *conv, EogImage *image)
 {
-	GnomeVFSURI *uri = NULL;
+	GFile *file = NULL;
 	EogURIConverterPrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (conv), NULL);
@@ -561,29 +561,27 @@ get_uri_directory (EogURIConverter *conv, EogImage *image)
 	
 	priv = conv->priv;
 
-	if (priv->base_uri != NULL) {
-		uri = gnome_vfs_uri_ref (priv->base_uri);
+	if (priv->base_file != NULL) {
+		file = g_object_ref (priv->base_file);
 	}
 	else {
-		GnomeVFSURI *img_uri;
+		GFile *img_file;
 
-		img_uri = eog_image_get_uri (image);
-		g_assert (img_uri != NULL);
-
- 		if (gnome_vfs_uri_has_parent (img_uri)) {
-			uri = gnome_vfs_uri_get_parent (img_uri);
-		}
-
-		gnome_vfs_uri_unref (img_uri);
+		img_file = eog_image_get_file (image);
+		g_assert (img_file != NULL);
+		
+		file = g_file_get_parent (img_file);
+		
+		g_object_unref (img_file);
 	}
 
-	return uri;
+	return file;
 }
 
 static void
-split_filename (GnomeVFSURI *uri, char **name, char **suffix)
+split_filename (GFile *file, char **name, char **suffix)
 {
-	char *short_name;
+	char *basename;
 	char *suffix_start;
 	guint len;
 		
@@ -591,23 +589,23 @@ split_filename (GnomeVFSURI *uri, char **name, char **suffix)
 	*suffix = NULL;
 
         /* get unescaped string */
-	short_name = gnome_vfs_uri_extract_short_name (uri); 
+	basename = g_file_get_basename (file); 
 
 	/* FIXME: does this work for all locales? */
-	suffix_start = g_utf8_strrchr (short_name, -1, '.'); 
+	suffix_start = g_utf8_strrchr (basename, -1, '.'); 
 	
 	if (suffix_start == NULL) { /* no suffix found */
-		*name = g_strdup (short_name);
+		*name = g_strdup (basename);
 	}
 	else {
-		len = (suffix_start - short_name);
-		*name = g_strndup (short_name, len);
+		len = (suffix_start - basename);
+		*name = g_strndup (basename, len);
 
-		len = strlen (short_name) - len - 1;
+		len = strlen (basename) - len - 1;
 		*suffix = g_strndup (suffix_start+1, len);
 	}
 
-	g_free (short_name);
+	g_free (basename);
 }
 
 static GString*
@@ -615,20 +613,20 @@ append_filename (GString *str, EogImage *img)
 {
 	/* appends the name of the original file without 
 	   filetype suffix */
-	GnomeVFSURI *img_uri;
+	GFile *img_file;
 	char *name;
 	char *suffix;
 	GString *result;
 	
-	img_uri = eog_image_get_uri (img);
-	split_filename (img_uri, &name, &suffix);
+	img_file = eog_image_get_file (img);
+	split_filename (img_file, &name, &suffix);
 
 	result = g_string_append (str, name);
 
 	g_free (name);
 	g_free (suffix);
 	
-	gnome_vfs_uri_unref (img_uri);
+	g_object_unref (img_file);
 
 	return result;
 }
@@ -651,34 +649,34 @@ append_counter (GString *str, gulong counter,  EogURIConverter *conv)
 
 
 static void
-build_absolute_uri (EogURIConverter *conv, EogImage *image, GString *str,  /* input */
-		    GnomeVFSURI **uri, GdkPixbufFormat **format)           /* output */
+build_absolute_file (EogURIConverter *conv, EogImage *image, GString *str,  /* input  */
+		     GFile **file, GdkPixbufFormat **format)                /* output */
 { 
-	GnomeVFSURI *dir_uri;
+	GFile *dir_file;
 	EogURIConverterPrivate *priv;
 	
-	*uri = NULL;
+	*file = NULL;
 	if (format != NULL)
 		*format = NULL;
 
 	g_return_if_fail (EOG_IS_URI_CONVERTER (conv));
 	g_return_if_fail (EOG_IS_IMAGE (image));
-	g_return_if_fail (uri != NULL);
+	g_return_if_fail (file != NULL);
 	g_return_if_fail (str != NULL);
 
 	priv = conv->priv;
 
-	dir_uri = get_uri_directory (conv, image);
-	g_assert (dir_uri != NULL);
+	dir_file = get_file_directory (conv, image);
+	g_assert (dir_file != NULL);
 	
 	if (priv->img_format == NULL) {
 		/* use same file type/suffix */
 		char *name;
 		char *old_suffix;
-		GnomeVFSURI *img_uri;
+		GFile *img_file;
 
-		img_uri = eog_image_get_uri (image);
-		split_filename (img_uri, &name, &old_suffix);
+		img_file = eog_image_get_file (image);
+		split_filename (img_file, &name, &old_suffix);
 
 		g_assert (old_suffix != NULL);
 
@@ -688,7 +686,7 @@ build_absolute_uri (EogURIConverter *conv, EogImage *image, GString *str,  /* in
 		if (format != NULL) 
 			*format = eog_pixbuf_get_format_by_suffix (old_suffix);
 
-		gnome_vfs_uri_unref (img_uri);
+		g_object_unref (img_file);
 	} else {
 		if (priv->suffix == NULL) 
 			priv->suffix = eog_pixbuf_get_common_suffix (priv->img_format);
@@ -700,9 +698,9 @@ build_absolute_uri (EogURIConverter *conv, EogImage *image, GString *str,  /* in
 			*format = priv->img_format;
 	}
 	
-	*uri = gnome_vfs_uri_append_file_name (dir_uri, str->str);
+	*file = g_file_get_child (dir_file, str->str);
 	
-	gnome_vfs_uri_unref (dir_uri);
+	g_object_unref (dir_file);
 }
 
 
@@ -753,7 +751,7 @@ replace_remove_chars (GString *str, gboolean convert_spaces, gunichar space_char
  */
 gboolean
 eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
-		      GnomeVFSURI **uri, GdkPixbufFormat **format, GError **error)
+		      GFile **file, GdkPixbufFormat **format, GError **error)
 {
 	EogURIConverterPrivate *priv;
 	GList *it;
@@ -764,7 +762,7 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 
 	priv = conv->priv;
 
-	*uri = NULL;
+	*file = NULL;
 	if (format != NULL) 
 		*format = NULL;
 
@@ -829,14 +827,14 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 	repl_str = replace_remove_chars (str, priv->convert_spaces, priv->space_character);
 
 	if (repl_str->len > 0) {
-		build_absolute_uri (conv, image, repl_str, uri, format);
+		build_absolute_file (conv, image, repl_str, file, format);
 	}
 
 	g_string_free (repl_str, TRUE);
 	g_string_free (str, TRUE);
 	
 
-	return (*uri != NULL);
+	return (*file != NULL);
 }
 
 
@@ -934,10 +932,10 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 			/* use same file type/suffix */
 			char *name;
 			char *old_suffix;
-			GnomeVFSURI *img_uri;
+			GFile *img_file;
 			
-			img_uri = eog_image_get_uri (img);
-			split_filename (img_uri, &name, &old_suffix);
+			img_file = eog_image_get_file (img);
+			split_filename (img_file, &name, &old_suffix);
 
 			g_assert (old_suffix != NULL);
 			
@@ -946,7 +944,7 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 
 			g_free (old_suffix);
 			g_free (name);
-			gnome_vfs_uri_unref (img_uri);
+			g_object_unref (img_file);
 		}
 		else {
 			char *suffix = eog_pixbuf_get_common_suffix (format);
@@ -978,7 +976,7 @@ gboolean
 eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **error)
 {
 	GList *it;
-	GList *uri_list = NULL;
+	GList *file_list = NULL;
 	gboolean all_different = TRUE; 
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (converter), FALSE);
@@ -986,26 +984,26 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 	/* convert all image uris */
 	for (it = img_list; it != NULL; it = it->next) {
 		gboolean result;
-		GnomeVFSURI *uri;
+		GFile *file;
 		GError *conv_error = NULL;
 
 		result = eog_uri_converter_do (converter, EOG_IMAGE (it->data), 
-					       &uri, NULL, &conv_error);
+					       &file, NULL, &conv_error);
 
 		if (result) {
-			uri_list = g_list_prepend (uri_list, uri);
+			file_list = g_list_prepend (file_list, file);
 		}
 	}
 
 	/* check for all different uris */
-	for (it = uri_list; it != NULL && all_different; it = it->next) {
+	for (it = file_list; it != NULL && all_different; it = it->next) {
 		GList *p; 
-		GnomeVFSURI *uri;
+		GFile *file;
 
-		uri = (GnomeVFSURI*) it->data;
+		file = (GFile*) it->data;
 		
 		for (p = it->next; p != NULL && all_different; p = p->next) {
-			all_different = !gnome_vfs_uri_equal (uri, (GnomeVFSURI*) p->data);
+			all_different = !g_file_equal (file, (GFile*) p->data);
 		}
 	}
 

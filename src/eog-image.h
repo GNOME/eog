@@ -29,7 +29,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #ifdef HAVE_EXIF
@@ -119,7 +118,7 @@ GQuark            eog_image_error_quark              (void);
 
 EogImage         *eog_image_new                      (const char *txt_uri);
 
-EogImage         *eog_image_new_uri                  (GnomeVFSURI *uri);
+EogImage         *eog_image_new_file                 (GFile *file);
 
 gboolean          eog_image_load                     (EogImage   *img, 
 					              EogImageData data2read,
@@ -155,7 +154,7 @@ void              eog_image_get_size                 (EogImage   *img,
 					              gint       *width, 
 					              gint       *height);
 
-GnomeVFSFileSize  eog_image_get_bytes                (EogImage   *img);
+goffset           eog_image_get_bytes                (EogImage   *img);
 
 gboolean          eog_image_is_modified              (EogImage   *img);
 
@@ -169,7 +168,7 @@ gpointer          eog_image_get_exif_info            (EogImage   *img);
 
 gpointer          eog_image_get_xmp_info             (EogImage   *img);
 
-GnomeVFSURI*      eog_image_get_uri                  (EogImage   *img);
+GFile*            eog_image_get_file                 (EogImage   *img);
 
 gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 

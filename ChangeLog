@@ -1,5 +1,78 @@
 2008-03-14  Felix Riemann  <friemann@svn.gnome.org>
 
+	* configure.ac:
+	* src/eog-application.c: (eog_application_get_file_window),
+	(eog_application_open_file_list), (eog_application_open_uri_list),
+	(eog_application_open_uris):
+	* src/eog-application.h:
+	* src/eog-error-message-area.c:
+	(eog_no_images_error_message_area_new):
+	* src/eog-error-message-area.h:
+	* src/eog-file-chooser.c: (save_response_cb), (set_preview_pixbuf),
+	(update_preview_cb):
+	* src/eog-image-jpeg.c: (_save_jpeg_as_jpeg), (_save_any_as_jpeg):
+	* src/eog-image-private.h:
+	* src/eog-image-save-info.c: (eog_image_save_info_dispose),
+	(is_local_file), (get_save_file_type_by_file),
+	(eog_image_save_info_from_image), (eog_image_save_info_from_uri),
+	(eog_image_save_info_from_file):
+	* src/eog-image-save-info.h:
+	* src/eog-image.c: (eog_image_dispose), (eog_image_init),
+	(eog_image_new), (eog_image_new_file), (eog_image_get_file_info),
+	(eog_image_real_load), (tmp_file_get), (transfer_progress_cb),
+	(tmp_file_move_to_uri), (tmp_file_delete),
+	(eog_image_link_with_target), (eog_image_save_by_info),
+	(eog_image_copy_file), (eog_image_save_as_by_info),
+	(eog_image_get_caption), (eog_image_get_file),
+	(eog_image_get_uri_for_display):
+	* src/eog-image.h:
+	* src/eog-jobs.c: (eog_job_model_new), (filter_files),
+	(eog_job_model_run), (eog_job_save_as_dispose),
+	(eog_job_save_as_new), (eog_job_save_as_real_run):
+	* src/eog-jobs.h:
+	* src/eog-list-store.c: (foreach_monitors_free),
+	(is_file_in_list_store), (is_file_in_list_store_file),
+	(eog_job_thumbnail_cb), (eog_list_store_append_image_from_file),
+	(file_monitor_changed_cb), (directory_visit),
+	(eog_list_store_append_directory), (eog_list_store_add_files),
+	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image):
+	* src/eog-list-store.h:
+	* src/eog-pixbuf-util.c: (get_suffix_from_basename),
+	(eog_pixbuf_get_format):
+	* src/eog-pixbuf-util.h:
+	* src/eog-properties-dialog.c: (pd_update_general_tab):
+	* src/eog-save-as-dialog-helper.c: (set_default_values),
+	(eog_save_as_dialog_new), (eog_save_as_dialog_get_converter):
+	* src/eog-save-as-dialog-helper.h:
+	* src/eog-thumb-view.c: (tb_on_drag_data_get_cb),
+	(tb_on_query_tooltip_cb):
+	* src/eog-thumbnail.c: (set_vfs_error), (eog_thumb_data_new),
+	(eog_thumbnail_load):
+	* src/eog-uri-converter.c: (eog_uri_converter_dispose),
+	(eog_uri_converter_new), (get_file_directory), (split_filename),
+	(append_filename), (build_absolute_file), (eog_uri_converter_do),
+	(eog_uri_converter_preview), (eog_uri_converter_check):
+	* src/eog-uri-converter.h:
+	* src/eog-util.c: (eog_util_parse_uri_string_list_to_file_list),
+	(eog_util_string_list_to_file_list),
+	(eog_util_strings_to_file_list), (eog_util_string_array_to_list),
+	(eog_util_string_array_make_absolute):
+	* src/eog-util.h:
+	* src/eog-window.c: (update_status_bar),
+	(add_file_to_recent_files), (eog_window_display_image),
+	(open_with_launch_application_cb),
+	(eog_window_update_openwith_menu),
+	(eog_window_retrieve_save_as_file), (eog_window_cmd_save_as),
+	(move_to_trash_real), (eog_window_update_recent_files_menu),
+	(eog_window_drag_data_received), (eog_window_dispose),
+	(eog_job_model_cb), (eog_window_open_file_list):
+	* src/eog-window.h:
+	* src/test-eog-tb.c: (make_file), (string_array_to_list), (main):
+	Stop using GnomeVFS. Use GIO instead from now on. 
+	Fixes bugs #509239 and #343061 (Cosimo Cecchi, Felix Riemann).
+
+2008-03-14  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-thumbnail.h: Remove unneeded include.
 
 2008-03-12  Felix Riemann  <friemann@svn.gnome.org>

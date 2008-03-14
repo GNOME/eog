@@ -36,8 +36,6 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <string.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 #define EOG_THUMB_VIEW_SPACING 0
 
@@ -319,7 +317,7 @@ tb_on_drag_data_get_cb (GtkWidget        *widget,
 	GList *list;
 	GList *node;
 	EogImage *image;
-	GnomeVFSURI *uri;
+	GFile *file;
 	gchar *str;
 	gchar *uris = NULL;
 	gchar *tmp_str;
@@ -328,10 +326,10 @@ tb_on_drag_data_get_cb (GtkWidget        *widget,
 
 	for (node = list; node != NULL; node = node->next) {
 		image = EOG_IMAGE (node->data);
-		uri = eog_image_get_uri (image);
-		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);	
+		file = eog_image_get_file (image);
+		str = g_file_get_uri (file);	
 		g_object_unref (image);
-		gnome_vfs_uri_unref (uri);
+		g_object_unref (file);
 		
 		/* build the "text/uri-list" string */
 		if (uris) {
@@ -364,10 +362,11 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 	gchar *tooltip_string;
 	gchar *bytes;
 	gint width, height;
-	gchar *uri_str, *mime_str;
-	const gchar *type_str;
+	char *type_str;
+	const char *mime_str;
 	GError *error = NULL;
-	GnomeVFSURI *uri;
+	GFile *file;
+	GFileInfo *file_info;
 #ifdef HAVE_EXIF
 	ExifData *exif_data;
 #endif	
@@ -407,18 +406,22 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 				&error);
 	}
 
-	bytes = gnome_vfs_format_file_size_for_display (eog_image_get_bytes (image));
+	bytes = g_format_size_for_display (eog_image_get_bytes (image));
 
 	eog_image_get_size (image, &width, &height);
 	
-	uri = eog_image_get_uri (image);
-	uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (uri);
+	file = eog_image_get_file (image);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       0, NULL, NULL);
+	g_object_unref (file);
+	if (file_info == NULL) {
+		return FALSE;
+	}
 
-	mime_str = gnome_vfs_get_mime_type (uri_str);
+	mime_str = g_file_info_get_content_type (file_info);
 	
 	if (G_UNLIKELY (mime_str == NULL)) {
-		g_free (uri_str);
 		g_free (bytes);
 #ifdef HAVE_EXIF
 		exif_data_unref (exif_data);
@@ -427,7 +430,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 		return FALSE;
 	}
 
-	type_str = gnome_vfs_mime_get_description (mime_str);
+	type_str = g_content_type_get_description (mime_str);
 
 	tooltip_string = g_markup_printf_escaped ("<b><big>%s</big></b>\n"
 						  "%i x %i %s\n"
@@ -467,8 +470,7 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 
 	gtk_tooltip_set_markup (tooltip, tooltip_string);
 	
-	g_free (uri_str);
-	g_free (mime_str);
+	g_free (type_str);
 	g_free (bytes);
  	g_free (tooltip_string);
 	g_object_unref (image);

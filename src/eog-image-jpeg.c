@@ -49,7 +49,6 @@
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib/gi18n.h>
-#include <libgnomevfs/gnome-vfs.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
 #endif
@@ -71,7 +70,7 @@ struct error_handler_data {
 	struct jpeg_error_mgr pub;
 	sigjmp_buf setjmp_buffer;
         GError **error;
-	const char *filename;
+	char *filename;
 };
 
 
@@ -180,7 +179,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	gchar                          *infile_uri;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
-	g_return_val_if_fail (EOG_IMAGE (image)->priv->uri != NULL, FALSE);
+	g_return_val_if_fail (EOG_IMAGE (image)->priv->file != NULL, FALSE);
 
 	priv = image->priv;
 
@@ -188,7 +187,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	
 	/* Initialize the JPEG decompression object with default error 
 	 * handling. */
-	jsrcerr.filename = gnome_vfs_uri_get_path (priv->uri);
+	jsrcerr.filename = g_file_get_path (priv->file);
 	srcinfo.err = jpeg_std_error (&(jsrcerr.pub));
 	jsrcerr.pub.error_exit = fatal_error_handler;
 	jsrcerr.pub.output_message = output_message_handler;
@@ -198,7 +197,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* Initialize the JPEG compression object with default error 
 	 * handling. */
-	jdsterr.filename = file;
+	jdsterr.filename = (char *) file;
 	dstinfo.err = jpeg_std_error (&(jdsterr.pub));
 	jdsterr.pub.error_exit = fatal_error_handler;
 	jdsterr.pub.output_message = output_message_handler;
@@ -214,11 +213,12 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	srcinfo.mem->max_memory_to_use = dstinfo.mem->max_memory_to_use;
 
 	/* Open the output file. */
-	/* FIXME: Make this a GnomeVFSURI aware input manager */
-	infile_uri = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (priv->uri), NULL);
+	/* FIXME: Make this a GIO aware input manager */
+	infile_uri = g_file_get_path (priv->file);
 	input_file = fopen (infile_uri, "rb");
 	if (input_file == NULL) {
 		g_warning ("Input file not openable: %s\n", infile_uri);
+		g_free (jsrcerr.filename);
 		g_free (infile_uri);
 		return FALSE;
 	}
@@ -228,6 +228,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	if (output_file == NULL) {
 		g_warning ("Output file not openable: %s\n", file);
 		fclose (input_file);
+		g_free (jsrcerr.filename);
 		return FALSE;
 	}
 
@@ -236,6 +237,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		fclose (input_file);
 		jpeg_destroy_compress (&dstinfo);
 		jpeg_destroy_decompress (&srcinfo);
+		g_free (jsrcerr.filename);
 		return FALSE;
 	}
 
@@ -244,6 +246,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		fclose (input_file);
 		jpeg_destroy_compress (&dstinfo);
 		jpeg_destroy_decompress (&srcinfo);
+		g_free (jsrcerr.filename);
 		return FALSE;
 	}
 
@@ -316,6 +319,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_destroy_compress (&dstinfo);
 	(void) jpeg_finish_decompress (&srcinfo);
 	jpeg_destroy_decompress (&srcinfo);
+	g_free (jsrcerr.filename);
 
 	/* Close files */
 	fclose (input_file);
@@ -378,7 +382,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	}
 	
 	/* set up error handling */	
-	jerr.filename = file;
+	jerr.filename = (char *) file;
 	cinfo.err = jpeg_std_error (&(jerr.pub));
 	jerr.pub.error_exit = fatal_error_handler;
 	jerr.pub.output_message = output_message_handler;

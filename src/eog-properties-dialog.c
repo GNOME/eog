@@ -36,10 +36,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <glade/glade.h>
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -113,12 +112,14 @@ static void
 pd_update_general_tab (EogPropertiesDialog *prop_dlg, 
 		       EogImage            *image)
 {
-	gchar *bytes_str, *dir_str, *mime_str, *uri_str;
+	gchar *bytes_str, *dir_str, *uri_str;
 	gchar *width_str, *height_str;
-	const gchar *type_str; 
-	gint width, height, bytes;
-
-	uri_str = eog_image_get_uri_for_display (image);
+	GFile *file;
+	GFileInfo *file_info;
+	const char *mime_str;
+	char *type_str;
+	gint width, height;
+	goffset bytes;
 
 	g_object_set (G_OBJECT (prop_dlg->priv->thumbnail_image),
 		      "pixbuf", eog_image_get_thumbnail (image),
@@ -141,25 +142,36 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	g_free (height_str);
 	g_free (width_str);
-
-	mime_str = gnome_vfs_get_mime_type (uri_str);
-	type_str = gnome_vfs_mime_get_description (mime_str);
+	
+	file = eog_image_get_file (image);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       0, NULL, NULL);
+	if (file_info == NULL) {
+		mime_str = _("Unknown");
+		type_str = g_strdup (_("Unknown"));
+	} else {
+		mime_str = g_file_info_get_content_type (file_info);
+		type_str = g_content_type_get_description (mime_str);
+		g_object_unref (file_info);
+	}
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->type_label), type_str);
 
 	bytes = eog_image_get_bytes (image);
-	bytes_str = gnome_vfs_format_file_size_for_display (bytes);
+	bytes_str = g_format_size_for_display (bytes);
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->bytes_label), bytes_str);
 
+	uri_str = eog_image_get_uri_for_display (image);
 	dir_str = g_path_get_dirname (uri_str);
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->location_label), 
 			    dir_str);
 
-	g_free (uri_str);
-	g_free (mime_str);
+	g_free (type_str);
 	g_free (bytes_str);
 	g_free (dir_str);
+	g_free (uri_str);
 }
 
 #if HAVE_EXIF

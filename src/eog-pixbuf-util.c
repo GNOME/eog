@@ -94,52 +94,43 @@ eog_pixbuf_get_common_suffix (GdkPixbufFormat *format)
 	return result;
 }
 
-GdkPixbufFormat* 
-eog_pixbuf_get_format_by_vfs_uri (const GnomeVFSURI *uri)
+static char* 
+get_suffix_from_basename (const char *basename)
 {
 	char *suffix;
-	char *short_name;
 	char *suffix_start;
 	guint len;
-	GdkPixbufFormat *format;
-
-	g_return_val_if_fail (uri != NULL, NULL);
-
-	/* get unescaped string */
-	short_name = gnome_vfs_uri_extract_short_name (uri); 
 	
 	/* FIXME: does this work for all locales? */
-	suffix_start = g_utf8_strrchr (short_name, -1, '.'); 
+	suffix_start = g_utf8_strrchr (basename, -1, '.'); 
 	
 	if (suffix_start == NULL) 
 		return NULL;
 	
 	len = strlen (suffix_start) - 1;
 	suffix = g_strndup (suffix_start+1, len);
-	
-	format = eog_pixbuf_get_format_by_suffix (suffix);
-	
-	g_free (short_name);
-	g_free (suffix);
 
-	return format;
+	return suffix;
 
 }
 
-GdkPixbufFormat* 
-eog_pixbuf_get_format_by_uri (const char *txt_uri)
+GdkPixbufFormat *
+eog_pixbuf_get_format (GFile *file)
 {
-	GnomeVFSURI *uri;
 	GdkPixbufFormat *format;
-
-	g_return_val_if_fail (txt_uri != NULL, NULL);
-
-	uri = gnome_vfs_uri_new (txt_uri);
-
-	format = eog_pixbuf_get_format_by_vfs_uri (uri);
-
-	gnome_vfs_uri_unref (uri);
-
+	char *path, *basename, *suffix;
+	g_return_val_if_fail (file != NULL, NULL);
+	
+	path = g_file_get_path (file);
+	basename = g_path_get_basename (path);
+	suffix = get_suffix_from_basename (basename);
+	
+	format = eog_pixbuf_get_format_by_suffix (suffix);
+	
+	g_free (path);
+	g_free (basename);
+	g_free (suffix);
+	
 	return format;
 }
 

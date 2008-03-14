@@ -62,12 +62,12 @@ eog_thumb_error_quark (void)
 }
 
 static void
-set_vfs_error (GError **error, GnomeVFSResult result)
+set_vfs_error (GError **error, GError *ioerror)
 {
 	g_set_error (error, 
 		     EOG_THUMB_ERROR, 
 		     EOG_THUMB_ERROR_VFS,
-		     gnome_vfs_result_to_string (result));
+		     (ioerror ? ioerror->message : "VFS error making a thumbnail"));
 }
 
 static void
@@ -173,46 +173,43 @@ eog_thumb_data_free (EogThumbData *data)
 }
 
 static EogThumbData*
-eog_thumb_data_new (GnomeVFSURI *uri, GError **error)
+eog_thumb_data_new (GFile *file, GError **error)
 {
 	EogThumbData *data;
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
+	GFileInfo *file_info;
+	GError *ioerror;
 
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (file != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
 	
 	data = g_new0 (EogThumbData, 1);
 	
-	data->uri_str    = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	data->uri_str    = g_file_get_uri (file);
 	data->thumb_path = gnome_thumbnail_path_for_uri (data->uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
 
-	info    = gnome_vfs_file_info_new ();
-	result  = gnome_vfs_get_file_info_uri (uri, info, 
-					       GNOME_VFS_FILE_INFO_DEFAULT |
-					       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-					       GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-	
-	if (result != GNOME_VFS_OK) {
-		set_vfs_error (error, result);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+				       G_FILE_ATTRIBUTE_TIME_MODIFIED,
+				       0, NULL, &ioerror);
+	if (file_info == NULL)
+	{
+		set_vfs_error (error, ioerror);
+		g_error_free (ioerror);
 	}
-	else if (((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) == 0) ||
-		 ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0)) {
-		/* check required info fields */
-		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "MTime or mime type not available");
-	}
-	
+
 	if (*error == NULL) {
 		/* if available, copy data */
-		data->mtime = info->mtime;
-		data->mime_type = g_strdup (info->mime_type);
+		data->mtime = g_file_info_get_attribute_uint64 (file_info,
+								G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		data->mime_type = g_strdup (g_file_info_get_content_type (file_info));
 	}
 	else {
 		eog_thumb_data_free (data);
 		data = NULL;
+		g_error_free (ioerror);
 	}
 
-	gnome_vfs_file_info_unref (info);
+	g_object_unref (file_info);
 
 	return data;
 }
@@ -473,16 +470,16 @@ GdkPixbuf*
 eog_thumbnail_load (EogImage *image, GError **error)
 {
 	GdkPixbuf *thumb = NULL;
-	GnomeVFSURI *uri;
+	GFile *file;
 	EogThumbData *data;
 	GdkPixbuf *pixbuf;
 
 	g_return_val_if_fail (image != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
 
-	uri = eog_image_get_uri (image);
-	data = eog_thumb_data_new (uri, error);
-	gnome_vfs_uri_unref (uri);
+	file = eog_image_get_file (image);
+	data = eog_thumb_data_new (file, error);
+	g_object_unref (file);
 	
 	if (data == NULL)
 		return NULL;

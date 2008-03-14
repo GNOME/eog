@@ -29,6 +29,7 @@
 #include "eog-transform.h"
 
 #include <glib.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -149,7 +150,7 @@ struct _EogJobModel
 {
 	EogJob        parent;
 	EogListStore *store;
-	GSList       *uri_list;
+	GSList       *file_list;
 };
 
 struct _EogJobModelClass
@@ -198,7 +199,7 @@ struct _EogJobSaveAs
 {
 	EogJobSave       parent;
 	EogURIConverter *converter;
-	GnomeVFSURI     *uri;
+	GFile           *file;
 };
 
 struct _EogJobSaveAsClass
@@ -224,7 +225,7 @@ void		eog_job_load_run 	   (EogJobLoad 	    *load);
 
 /* EogJobModel */
 GType 		eog_job_model_get_type     (void) G_GNUC_CONST;
-EogJob 	       *eog_job_model_new          (GSList          *uri_list);
+EogJob 	       *eog_job_model_new          (GSList          *file_list);
 void            eog_job_model_run          (EogJobModel     *model);
 
 /* EogJobTransform */
@@ -242,7 +243,7 @@ void            eog_job_save_run           (EogJobSave      *job);
 GType		eog_job_save_as_get_type   (void) G_GNUC_CONST;
 EogJob         *eog_job_save_as_new        (GList           *images,
 					    EogURIConverter *converter,
-					    GnomeVFSURI     *uri);
+					    GFile           *file);
 
 G_END_DECLS
 

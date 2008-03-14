@@ -66,7 +66,7 @@ struct _EogURIConverterClass {
 GType              eog_uri_converter_get_type      (void) G_GNUC_CONST;
 GQuark             eog_uc_error_quark              (void);
 
-EogURIConverter*   eog_uri_converter_new           (GnomeVFSURI *base_uri,
+EogURIConverter*   eog_uri_converter_new           (GFile *base_file,
                                                     GdkPixbufFormat *img_format,
 						    const char *format_string);
 
@@ -78,7 +78,7 @@ gboolean           eog_uri_converter_requires_exif (EogURIConverter *converter);
 
 gboolean           eog_uri_converter_do            (EogURIConverter *converter,
                                                     EogImage *image,
-                                                    GnomeVFSURI **uri,
+                                                    GFile **file,
                                                     GdkPixbufFormat **format,
                                                     GError **error);
 

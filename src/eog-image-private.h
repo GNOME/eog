@@ -27,7 +27,7 @@
 G_BEGIN_DECLS
 
 struct _EogImagePrivate {
-	GnomeVFSURI      *uri;
+	GFile            *file;
 
 	EogImageStatus    status;
 	EogImageStatus    prev_status;
@@ -39,7 +39,7 @@ struct _EogImagePrivate {
 	gint              width;
 	gint              height;
 
-	GnomeVFSFileSize  bytes;
+	goffset           bytes;
 	gchar            *file_type;
 	gboolean          threadsafe_format;
 

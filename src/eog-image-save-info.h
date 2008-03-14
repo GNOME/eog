@@ -2,6 +2,7 @@
 #define _EOG_IMAGE_SAVE_INFO_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
@@ -21,7 +22,7 @@ typedef struct _EogImageSaveInfoClass EogImageSaveInfoClass;
 struct _EogImageSaveInfo {
 	GObject parent;
 
-	GnomeVFSURI *uri;
+	GFile       *file;
 	char        *format;
 	gboolean     exists;
 	gboolean     local;
@@ -45,7 +46,7 @@ EogImageSaveInfo *eog_image_save_info_from_image   (gpointer        data);
 EogImageSaveInfo *eog_image_save_info_from_uri     (const char      *uri, 
 						    GdkPixbufFormat *format);
 
-EogImageSaveInfo *eog_image_save_info_from_vfs_uri (GnomeVFSURI     *uri, 
+EogImageSaveInfo *eog_image_save_info_from_file    (GFile           *file, 
 						    GdkPixbufFormat *format);
 
 G_END_DECLS

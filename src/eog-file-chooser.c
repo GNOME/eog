@@ -27,8 +27,8 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeui/gnome-thumbnail.h>
 #include <gconf/gconf-client.h>
 
@@ -102,14 +102,18 @@ static void
 save_response_cb (GtkDialog *dlg, gint id, gpointer data)
 {
 	gchar *filename;
+	GFile *file;
 	GdkPixbufFormat *format;
 
 	if (id != GTK_RESPONSE_OK)
 		return;
 
 	filename = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
-	format = eog_pixbuf_get_format_by_uri (filename);
+	file = g_file_new_for_uri (filename);
+	format = eog_pixbuf_get_format (file);
 	g_free (filename);
+	g_object_unref (file);
+
 	if (!format || !gdk_pixbuf_format_is_writable (format)) {
 		GtkWidget *msg_dialog;
 
@@ -242,7 +246,7 @@ set_preview_label (GtkWidget *label, const char *str)
  * further information according to the thumbnail spec.
  */
 static void
-set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, GnomeVFSFileInfo *info)
+set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 {
 	EogFileChooserPrivate *priv;
 	int bytes;
@@ -265,10 +269,10 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, GnomeVFSFileInfo
 		bytes_str = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Size");
 		if (bytes_str != NULL) {
 			bytes = atoi (bytes_str);
-			size_str = gnome_vfs_format_file_size_for_display (bytes);
+			size_str = g_format_size_for_display (bytes);
 		}
 		else {
-			size_str = gnome_vfs_format_file_size_for_display (info->size);
+			size_str = g_format_size_for_display (size);
 		}
 
 		/* try to read image dimensions */
@@ -315,10 +319,10 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 	EogFileChooserPrivate *priv;
 	char *uri;
 	char *thumb_path = NULL;
+	GFile *file;
+	GFileInfo *file_info;
 	GdkPixbuf *pixbuf = NULL;
 	gboolean have_preview = FALSE;
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
 
 	priv = EOG_FILE_CHOOSER (file_chooser)->priv;
 
@@ -328,16 +332,24 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 		return;
 	}
 
-	info = gnome_vfs_file_info_new ();
+	file = g_file_new_for_uri (uri);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_TIME_MODIFIED ","
+				       G_FILE_ATTRIBUTE_STANDARD_SIZE,
+				       0, NULL, NULL);
+	g_object_unref (file);
 
-	result = gnome_vfs_get_file_info (uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
-	if ((result == GNOME_VFS_OK) && (priv->thumb_factory != NULL)) {
+	if ((file_info != NULL) && (priv->thumb_factory != NULL)) {
+		guint64 mtime;
+
+		mtime = g_file_info_get_attribute_uint64 (file_info,
+							  G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		thumb_path = gnome_thumbnail_factory_lookup (priv->thumb_factory,
 							     uri,
-							     info->mtime);
+							     mtime);
 		if (thumb_path == NULL) {
 			/* read files smaller than 100kb directly */
-			if (info->size <= 100000) {
+			if (g_file_info_get_size (file_info) <= 100000) {
 				/* FIXME: we should then output also the image dimensions */
 				thumb_path = gtk_file_chooser_get_preview_filename (file_chooser);
 			}
@@ -349,7 +361,8 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 			
 			have_preview = (pixbuf != NULL);
 		
-			set_preview_pixbuf (EOG_FILE_CHOOSER (file_chooser), pixbuf, info);
+			set_preview_pixbuf (EOG_FILE_CHOOSER (file_chooser), pixbuf,
+					    g_file_info_get_size (file_info));
 			
 			if (pixbuf != NULL) {
 				g_object_unref (pixbuf);
@@ -362,7 +375,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 	}
 
 	g_free (uri);
-	gnome_vfs_file_info_unref (info);
+	g_object_unref (file_info);
 
 	gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
 }

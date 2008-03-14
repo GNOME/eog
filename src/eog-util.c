@@ -40,11 +40,11 @@
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
+#include <gio/gio.h>
 #include <glib/gi18n.h>
 #include <libgnome/gnome-help.h>
 #include <libgnome/gnome-init.h>
 #include <libgnome/gnome-desktop-item.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 void 
 eog_util_show_help (const gchar *section, GtkWindow *parent)
@@ -116,36 +116,61 @@ eog_util_make_valid_utf8 (const gchar *str)
 }
 
 GSList*
-eog_util_string_list_to_uri_list (GSList *string_list)
+eog_util_parse_uri_string_list_to_file_list (const gchar *uri_list)
+{
+	GSList* file_list = NULL;
+	const char *start, *end;
+	char *uri;
+
+	start = uri_list;
+	end = strchr (uri_list, '\r');
+	uri = g_strndup (start, end - start);
+	file_list = g_slist_append (file_list, g_file_new_for_uri (uri));
+	g_free (uri);
+
+	while (strlen (end) > 2)
+	{
+		start = (end + 2);
+		end = strchr (start, '\r');
+		uri = g_strndup (start, end - start);
+		file_list = g_slist_append (file_list, g_file_new_for_uri (uri));
+		g_free (uri);
+	}
+	
+	return file_list;
+}
+
+GSList*
+eog_util_string_list_to_file_list (GSList *string_list)
 {
 	GSList *it = NULL;
-	GSList *uri_list = NULL;
+	GSList *file_list = NULL;
 
 	for (it = string_list; it != NULL; it = it->next) {
 		char *uri_str;
 
 		uri_str = (gchar *) it->data;
 		
-		uri_list = g_slist_prepend (uri_list, 
-					    gnome_vfs_uri_new (uri_str));
+		file_list = g_slist_prepend (file_list, 
+					     g_file_new_for_uri (uri_str));
 	}
 
-	return g_slist_reverse (uri_list);
+	return g_slist_reverse (file_list);
 }
 
 #ifdef HAVE_DBUS
 GSList*
-eog_util_strings_to_uri_list (gchar **strings)
+eog_util_strings_to_file_list (gchar **strings)
 {
 	int i;
- 	GSList *uri_list = NULL;
+ 	GSList *file_list = NULL;
 
 	for (i = 0; strings[i]; i++) {
- 		uri_list = g_slist_prepend (uri_list, 
-					    gnome_vfs_uri_new (strings[i]));
+ 		file_list = g_slist_prepend (file_list, 
+					      g_file_new_for_uri (strings[i]));
  	}
  
- 	return g_slist_reverse (uri_list);
+ 	return g_slist_reverse (file_list);
 }
 #endif
 
@@ -161,8 +186,12 @@ eog_util_string_array_to_list (const gchar **files, gboolean create_uri)
 		char *str;
 
 		if (create_uri) {
-			str = gnome_vfs_make_uri_from_input_with_dirs (files[i], 
-								       GNOME_VFS_MAKE_URI_DIR_CURRENT);
+			GFile *file;
+			
+			file = g_file_new_for_commandline_arg (files[i]);
+			str = g_file_get_uri (file);
+			
+			g_object_unref (file);
 		} else {
 			str = g_strdup (files[i]);
 		}
@@ -182,6 +211,7 @@ eog_util_string_array_make_absolute (gchar **files)
 	int i;
 	int size;
 	gchar **abs_files;
+	GFile *file;
 
 	if (files == NULL)
 		return NULL;
@@ -192,8 +222,10 @@ eog_util_string_array_make_absolute (gchar **files)
 	abs_files = g_new0 (gchar *, size+1);
 	
 	for (i = 0; i < size; i++) {
-		abs_files[i] = gnome_vfs_make_uri_from_input_with_dirs (files[i],
-									GNOME_VFS_MAKE_URI_DIR_CURRENT);
+		file = g_file_new_for_commandline_arg (files[i]);
+		abs_files[i] = g_file_get_uri (file);
+
+		g_object_unref (file);
 	}
 	
 	return abs_files;

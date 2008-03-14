@@ -317,93 +317,75 @@ eog_job_model_class_init (EogJobModelClass *class)
 }
 
 EogJob *
-eog_job_model_new (GSList *uri_list)
+eog_job_model_new (GSList *file_list)
 {
 	EogJobModel *job;
 
 	job = g_object_new (EOG_TYPE_JOB_MODEL, NULL);
 
-	job->uri_list = uri_list;
+	job->file_list = file_list;
 
 	return EOG_JOB (job);
-}
-
-static GnomeVFSFileType
-check_uri_file_type (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
-{
-	GnomeVFSResult result;
-	GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
-
-	g_return_val_if_fail (uri != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
-	g_return_val_if_fail (info != NULL, GNOME_VFS_FILE_TYPE_UNKNOWN);
-
-	gnome_vfs_file_info_clear (info);
-	
-	result = gnome_vfs_get_file_info_uri (uri, info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	
-	if (result == GNOME_VFS_OK &&
-	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_TYPE) != 0) {
-		type = info->type;
-	}
-
-	return type;
 }
 
 static void
 filter_files (GSList *files, GList **file_list, GList **error_list)
 {
 	GSList *it;
-	GnomeVFSFileInfo *info;
-	
-	info = gnome_vfs_file_info_new ();
+	GFileInfo *file_info;
 
 	for (it = files; it != NULL; it = it->next) {
-		GnomeVFSURI *uri;
-		GnomeVFSFileType type = GNOME_VFS_FILE_TYPE_UNKNOWN;
+		GFile *file;
+		GFileType type = G_FILE_TYPE_UNKNOWN;
 
-		uri = (GnomeVFSURI *) it->data;
+		file = (GFile *) it->data;
 
-		if (uri != NULL) {
-			type = check_uri_file_type (uri, info);
+		if (file != NULL) {
+			file_info = g_file_query_info (file, 
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
+						       0, NULL, NULL);
+			if (file_info == NULL) {
+				type = G_FILE_TYPE_UNKNOWN;
+			} else {
+				type = g_file_info_get_file_type (file_info);
+				g_object_unref (file_info);
+			}
 		}
 
 		switch (type) {
-		case GNOME_VFS_FILE_TYPE_REGULAR:
-		case GNOME_VFS_FILE_TYPE_DIRECTORY:
-			*file_list = g_list_prepend (*file_list, gnome_vfs_uri_ref (uri));
+		case G_FILE_TYPE_REGULAR:
+		case G_FILE_TYPE_DIRECTORY:
+			*file_list = g_list_prepend (*file_list, g_object_ref (file));
 			break;
 		default:
 			*error_list = g_list_prepend (*error_list, 
-						      gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+						      g_file_get_uri (file));
 			break;
 		}
 
-		gnome_vfs_uri_unref (uri);
+		g_object_unref (file);
 	}
 
 	*file_list  = g_list_reverse (*file_list);
 	*error_list = g_list_reverse (*error_list);
-
-	gnome_vfs_file_info_unref (info);
 }
 
 void
 eog_job_model_run (EogJobModel *job)
 {
-	GList *file_list = NULL;
+	GList *filtered_list = NULL;
 	GList *error_list = NULL;
 
 	g_return_if_fail (EOG_IS_JOB_MODEL (job));
 
-	filter_files (job->uri_list, &file_list, &error_list);
+	filter_files (job->file_list, &filtered_list, &error_list);
 
 	job->store = EOG_LIST_STORE (eog_list_store_new ());
 	
-	eog_list_store_add_uris (job->store, file_list);
+	eog_list_store_add_files (job->store, filtered_list);
 
-	gnome_vfs_uri_list_free (file_list);
+	g_list_foreach (filtered_list, (GFunc) g_object_unref, NULL);
+	g_list_free (filtered_list);
 
 	EOG_JOB (job)->finished = TRUE;
 }
@@ -614,9 +596,9 @@ static void eog_job_save_as_dispose (GObject *object)
 		job->converter = NULL;
 	}
 	
-	if (job->uri != NULL) {
-		gnome_vfs_uri_unref (job->uri);
-		job->uri = NULL;
+	if (job->file != NULL) {
+		g_object_unref (job->file);
+		job->file = NULL;
 	}
 
 	(* G_OBJECT_CLASS (eog_job_save_as_parent_class)->dispose) (object);
@@ -630,7 +612,7 @@ eog_job_save_as_class_init (EogJobSaveAsClass *class)
 }
 
 EogJob *
-eog_job_save_as_new (GList *images, EogURIConverter *converter, GnomeVFSURI *uri)
+eog_job_save_as_new (GList *images, EogURIConverter *converter, GFile *file)
 {
 	EogJobSaveAs *job;
 
@@ -641,7 +623,7 @@ eog_job_save_as_new (GList *images, EogURIConverter *converter, GnomeVFSURI *uri
 	EOG_JOB_SAVE(job)->images = images;
 
 	job->converter = converter ? g_object_ref (converter) : NULL;
-	job->uri = uri ? gnome_vfs_uri_ref (uri) : NULL;
+	job->file = file ? g_object_ref (file) : NULL;
 
 	return EOG_JOB (job);
 }
@@ -689,31 +671,31 @@ eog_job_save_as_real_run (EogJobSave *job)
 		src_info = eog_image_save_info_from_image (image);
 
 		if (n_images == 1) {
-			g_assert (saveas_job->uri != NULL);
+			g_assert (saveas_job->file != NULL);
 
-			format = eog_pixbuf_get_format_by_vfs_uri (saveas_job->uri);
+			format = eog_pixbuf_get_format (saveas_job->file);
 
-			dest_info = eog_image_save_info_from_vfs_uri (saveas_job->uri, 
-								      format);
+			dest_info = eog_image_save_info_from_file (saveas_job->file,
+								   format);
 
 		/* SaveAsDialog has already secured permission to overwrite */
 			if (dest_info->exists) {
 				dest_info->overwrite = TRUE;
 			}
 		} else {
-			GnomeVFSURI *dest_uri;
+			GFile *dest_file;
 			gboolean result;
 
 			result = eog_uri_converter_do (saveas_job->converter,
 						       image, 
-						       &dest_uri,
+						       &dest_file,
 						       &format, 
 						       NULL);
 
 			g_assert (result);
 
-			dest_info = eog_image_save_info_from_vfs_uri (dest_uri, 
-								      format);
+			dest_info = eog_image_save_info_from_file (dest_file,
+								   format);
 		}
 
 		success = eog_image_save_as_by_info (image, 

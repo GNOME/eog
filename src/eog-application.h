@@ -79,11 +79,17 @@ gboolean          eog_application_open_window         (EogApplication   *applica
 						       EogStartupFlags   flags,
 						       GError          **error);
 
-gboolean          eog_application_open_uri_list       (EogApplication   *application,
-		  			               GSList           *uri_list,
-    						       guint             timestamp,
-						       EogStartupFlags   flags,
-						       GError          **error);
+gboolean          eog_application_open_uri_list      (EogApplication   *application,
+						      GSList           *uri_list,
+						      guint             timestamp,
+						      EogStartupFlags   flags,
+						      GError          **error);
+
+gboolean          eog_application_open_file_list     (EogApplication  *application,
+						      GSList          *file_list,
+						      guint           timestamp,
+						      EogStartupFlags flags,
+						      GError         **error);
 
 #ifdef HAVE_DBUS
 gboolean          eog_application_open_uris           (EogApplication *application,

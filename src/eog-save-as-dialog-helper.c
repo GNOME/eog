@@ -178,7 +178,7 @@ destroy_data_cb (gpointer data)
 }
 
 static void
-set_default_values (GtkWidget *dlg, GnomeVFSURI *base_uri)
+set_default_values (GtkWidget *dlg, GFile *base_file)
 {
 	SaveAsData *sd;
 
@@ -187,10 +187,10 @@ set_default_values (GtkWidget *dlg, GnomeVFSURI *base_uri)
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (sd->counter_spin), 0.0);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sd->replace_spaces_check),
 				      FALSE);
-	if (base_uri != NULL) {
+	if (base_file != NULL) {
 		char *uri_str;
 
-		uri_str = gnome_vfs_uri_to_string (base_uri, GNOME_VFS_URI_HIDE_NONE);
+		uri_str = g_file_get_uri (base_file);
 		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (sd->dir_chooser), uri_str);
 		g_free (uri_str);
 	}
@@ -201,7 +201,7 @@ set_default_values (GtkWidget *dlg, GnomeVFSURI *base_uri)
 }
 
 GtkWidget*
-eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
+eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 {
 	char *filepath;
 	GladeXML  *xml;
@@ -256,7 +256,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GnomeVFSURI *base_uri)
 
 	prepare_format_combobox (data);
 	
-	set_default_values (dlg, base_uri);
+	set_default_values (dlg, base_file);
 
 	return dlg;
 }
@@ -271,7 +271,7 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 	gboolean convert_spaces;
 	gulong   counter_start;
 	GdkPixbufFormat *format;
-	GnomeVFSURI *base_uri;
+	GFile *base_file;
 	const char *base_uri_str;
 
 	data = g_object_get_data (G_OBJECT (dlg), "data");
@@ -289,10 +289,10 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 	format = get_selected_format (GTK_COMBO_BOX (data->format_combobox));
 
 	base_uri_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (data->dir_chooser));
-	base_uri = gnome_vfs_uri_new (base_uri_str);
+	base_file = g_file_new_for_uri (base_uri_str);
 
 	/* create converter object */
-	conv = eog_uri_converter_new (base_uri, format, format_str);
+	conv = eog_uri_converter_new (base_file, format, format_str);
 
 	/* set other properties */
 	g_object_set (G_OBJECT (conv),
@@ -302,7 +302,7 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 		      "n-images", data->n_images,
 		      NULL);
 
-	gnome_vfs_uri_unref (base_uri);
+	g_object_unref (base_file);
 
 	return conv;
 }

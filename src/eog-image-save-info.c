@@ -3,7 +3,6 @@
 #endif
 
 #include <string.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include "eog-image-save-info.h"
 #include "eog-image-private.h"
 #include "eog-pixbuf-util.h"
@@ -16,9 +15,9 @@ eog_image_save_info_dispose (GObject *object)
 {
 	EogImageSaveInfo *info = EOG_IMAGE_SAVE_INFO (object);
 
-	if (info->uri != NULL) {
-		gnome_vfs_uri_unref (info->uri);
-		info->uri = NULL;
+	if (info->file != NULL) {
+		g_object_unref (info->file);
+		info->file = NULL;
 	}
 
 	if (info->format != NULL) {
@@ -51,23 +50,27 @@ eog_image_save_info_class_init (EogImageSaveInfoClass *klass)
  * filesystem calls.
  */
 static gboolean 
-is_local_uri (const GnomeVFSURI* uri)
+is_local_file (GFile *file)
 {
-	const char *scheme;
+	char *scheme;
+	gboolean ret;
 
-	g_return_val_if_fail (uri != NULL, FALSE);
+	g_return_val_if_fail (file != NULL, FALSE);
 
-	scheme = gnome_vfs_uri_get_scheme (uri);
-	return (g_ascii_strcasecmp (scheme, "file") == 0);
+	scheme = g_file_get_uri_scheme (file);
+	
+	ret = (g_ascii_strcasecmp (scheme, "file") == 0);
+	g_free (scheme);
+	return ret;
 }
 
 static char*
-get_save_file_type_by_uri (const GnomeVFSURI *uri)
+get_save_file_type_by_file (GFile *file)
 {
 	GdkPixbufFormat *format;
 	char *type = NULL;
 
-	format = eog_pixbuf_get_format_by_vfs_uri (uri);
+	format = eog_pixbuf_get_format (file);
 	if (format != NULL) {
 		type = gdk_pixbuf_format_get_name (format);
 	}
@@ -87,10 +90,10 @@ eog_image_save_info_from_image (gpointer data)
 
 	info = g_object_new (EOG_TYPE_IMAGE_SAVE_INFO, NULL);
 	
-	info->uri          = eog_image_get_uri (image);
+	info->file         = eog_image_get_file (image);
 	info->format       = g_strdup (image->priv->file_type);
-	info->exists       = gnome_vfs_uri_exists (info->uri);
-	info->local        = is_local_uri (info->uri);
+	info->exists       = g_file_query_exists (info->file, NULL);
+	info->local        = is_local_file (info->file);
         info->has_metadata = eog_image_has_data (image, EOG_IMAGE_DATA_EXIF);
 	info->modified     = eog_image_is_modified (image);
 	info->overwrite    = FALSE;
@@ -103,38 +106,38 @@ eog_image_save_info_from_image (gpointer data)
 EogImageSaveInfo* 
 eog_image_save_info_from_uri (const char *txt_uri, GdkPixbufFormat *format)
 {
-	GnomeVFSURI *uri;
+	GFile *file;
 	EogImageSaveInfo *info;
 
 	g_return_val_if_fail (txt_uri != NULL, NULL);
 
-	uri = gnome_vfs_uri_new (txt_uri);
+	file = g_file_new_for_uri (txt_uri);
 
-	info = eog_image_save_info_from_vfs_uri (uri, format);
+	info = eog_image_save_info_from_file (file, format);
 	
-	gnome_vfs_uri_unref (uri);
+	g_object_unref (file);
 
 	return info;
 }
 
 EogImageSaveInfo* 
-eog_image_save_info_from_vfs_uri (GnomeVFSURI *uri, GdkPixbufFormat *format)
+eog_image_save_info_from_file (GFile *file, GdkPixbufFormat *format)
 {
 	EogImageSaveInfo *info;
 
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (file != NULL, NULL);
 
 	info = g_object_new (EOG_TYPE_IMAGE_SAVE_INFO, NULL);
 	
-	info->uri = gnome_vfs_uri_ref (uri);
+	info->file = g_object_ref (file);
 	if (format == NULL) {
-		info->format = get_save_file_type_by_uri (info->uri);
+		info->format = get_save_file_type_by_file (info->file);
 	}
 	else {
 		info->format = gdk_pixbuf_format_get_name (format);
 	}
-	info->exists       = gnome_vfs_uri_exists (info->uri);
-	info->local        = is_local_uri (info->uri);
+	info->exists       = g_file_query_exists (file, NULL);
+	info->local        = is_local_file (file);
         info->has_metadata = FALSE;
 	info->modified     = FALSE;
 	info->overwrite    = FALSE;

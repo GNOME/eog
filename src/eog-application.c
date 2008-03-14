@@ -202,13 +202,13 @@ eog_application_open_window (EogApplication  *application,
 }
 
 static EogWindow *
-eog_application_get_uri_window (EogApplication *application, GnomeVFSURI *uri)
+eog_application_get_file_window (EogApplication *application, GFile *file)
 {
-	EogWindow *uri_window = NULL;
+	EogWindow *file_window = NULL;
 	GList *windows;
 	GList *l;
 
-	g_return_val_if_fail (uri != NULL, NULL);
+	g_return_val_if_fail (file != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
 
 	windows = gtk_window_list_toplevels ();
@@ -219,11 +219,11 @@ eog_application_get_uri_window (EogApplication *application, GnomeVFSURI *uri)
 			
 			if (!eog_window_is_empty (window)) {
 				EogImage *image = eog_window_get_image (window);
-				GnomeVFSURI *window_uri;
+				GFile *window_file;
 				
-				window_uri = eog_image_get_uri (image);
-				if (gnome_vfs_uri_equal (window_uri, uri)) {
-					uri_window = window;
+				window_file = eog_image_get_file (image);
+				if (g_file_equal (window_file, file)) {
+					file_window = window;
 					break;
 				}
 			}
@@ -232,7 +232,7 @@ eog_application_get_uri_window (EogApplication *application, GnomeVFSURI *uri)
 
 	g_list_free (windows);
 	
-	return uri_window;
+	return file_window;
 }
 
 static void
@@ -246,18 +246,18 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
 	gdk_threads_leave ();
 }
 
-static gboolean
-eog_application_real_open_uri_list (EogApplication  *application,
-				    GSList          *uri_list,
-				    guint           timestamp,
-				    EogStartupFlags flags,
-				    GError         **error)
+gboolean
+eog_application_open_file_list (EogApplication  *application,
+				GSList          *file_list,
+				guint           timestamp,
+				EogStartupFlags flags,
+				GError         **error)
 {
 	EogWindow *new_window = NULL;
 
-	if (uri_list != NULL)
-		new_window = eog_application_get_uri_window (application, 
-						     (GnomeVFSURI *) uri_list->data);
+	if (file_list != NULL)
+		new_window = eog_application_get_file_window (application,
+							      (GFile *) file_list->data);
 
 	if (new_window != NULL) {
 		gtk_window_present_with_time (GTK_WINDOW (new_window),
@@ -276,7 +276,7 @@ eog_application_real_open_uri_list (EogApplication  *application,
 			  G_CALLBACK (eog_application_show_window), 
 			  GUINT_TO_POINTER (timestamp));
 
-	eog_window_open_uri_list (new_window, uri_list);
+	eog_window_open_file_list (new_window, file_list);
 
 	return TRUE;
 }
@@ -288,17 +288,17 @@ eog_application_open_uri_list (EogApplication  *application,
  			       EogStartupFlags flags,
  			       GError         **error)
 {
- 	GSList *uri_list = NULL;
+ 	GSList *file_list = NULL;
  
  	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
  
- 	uri_list = eog_util_string_list_to_uri_list (files);
+ 	file_list = eog_util_string_list_to_file_list (files);
 
- 	return eog_application_real_open_uri_list (application, 
-						   uri_list, 
-						   timestamp,
-						   flags, 
-						   error);
+ 	return eog_application_open_file_list (application,
+					       file_list, 
+					       timestamp,
+					       flags, 
+					       error);
 }
  
 #ifdef HAVE_DBUS
@@ -309,12 +309,12 @@ eog_application_open_uris (EogApplication  *application,
  			   EogStartupFlags flags,
  			   GError        **error)
 {
- 	GSList *uri_list = NULL;
+ 	GSList *file_list = NULL;
  
- 	uri_list = eog_util_strings_to_uri_list (uris);
+ 	file_list = eog_util_strings_to_file_list (uris);
  
- 	return eog_application_real_open_uri_list (application, uri_list, timestamp,
-						   flags, error);
+ 	return eog_application_open_file_list (application, file_list, timestamp,
+						    flags, error);
 }
 #endif
 

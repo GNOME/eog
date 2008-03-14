@@ -64,8 +64,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkprintunixdialog.h>
-#include <libgnomevfs/gnome-vfs-mime.h>
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <gconf/gconf-client.h>
 
 #if HAVE_LCMS
@@ -178,7 +176,7 @@ struct _EogWindowPrivate {
         guint                tip_message_cid;
 
         EogStartupFlags      flags;
-	GSList              *uri_list;
+	GSList              *file_list;
 
 	gint                 collection_position;
 	gboolean             collection_resizable;
@@ -687,7 +685,7 @@ update_status_bar (EogWindow *window)
 	if (priv->image != NULL &&
 	    eog_image_has_data (priv->image, EOG_IMAGE_DATA_ALL)) {
 		int zoom, width, height;
-		GnomeVFSFileSize bytes = 0;
+		goffset bytes = 0;
 
 		zoom = floor (100 * eog_scroll_view_get_zoom (EOG_SCROLL_VIEW (priv->view)) + 0.5);
 
@@ -698,7 +696,7 @@ update_status_bar (EogWindow *window)
 		if ((width > 0) && (height > 0)) {
 			char *size_string;
 
-			size_string = gnome_vfs_format_file_size_for_display (bytes);
+			size_string = g_format_size_for_display (bytes);
 
 			/* [image width] x [image height] pixels  [bytes]    [zoom in percent] */
 			str = g_strdup_printf ("%i x %i %s  %s    %i%%", 
@@ -910,27 +908,34 @@ update_selection_ui_visibility (EogWindow *window)
 }
 
 static gboolean
-add_uri_to_recent_files (GnomeVFSURI *uri)
+add_file_to_recent_files (GFile *file)
 {
 	gchar *text_uri;
+	GFileInfo *file_info;
 	GtkRecentData *recent_data;
 	static gchar *groups[2] = { EOG_RECENT_FILES_GROUP , NULL }; 
 
-	if (uri == NULL) return FALSE;
+	if (file == NULL) return FALSE;
 
 	/* The password gets stripped here because ~/.recently-used.xbel is
 	 * readable by everyone (chmod 644). It also makes the workaround
 	 * for the bug with gtk_recent_info_get_uri_display() easier
 	 * (see the comment in eog_window_update_recent_files_menu()). */
-	text_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+	text_uri = g_file_get_uri (file);
 
 	if (text_uri == NULL)
+		return FALSE;
+	
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       0, NULL, NULL);
+	if (file_info == NULL)
 		return FALSE;
 
 	recent_data = g_slice_new (GtkRecentData);
 	recent_data->display_name = NULL;
 	recent_data->description = NULL;
-	recent_data->mime_type = (gchar *) gnome_vfs_get_mime_type_from_uri (uri);
+	recent_data->mime_type = (gchar *) g_file_info_get_content_type (file_info);
 	recent_data->app_name = (gchar *) g_get_application_name ();
 	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
 	recent_data->groups = groups;
@@ -942,6 +947,7 @@ add_uri_to_recent_files (GnomeVFSURI *uri)
 
 	g_free (recent_data->app_exec);
 	g_free (text_uri);
+	g_object_unref (file_info);
 
 	g_slice_free (GtkRecentData, recent_data);
 
@@ -986,7 +992,7 @@ static void
 eog_window_display_image (EogWindow *window, EogImage *image)
 {
 	EogWindowPrivate *priv;
-	GnomeVFSURI *uri;
+	GFile *file;
 
 	g_return_if_fail (EOG_IS_WINDOW (window));
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -1012,40 +1018,43 @@ eog_window_display_image (EogWindow *window, EogImage *image)
 
 	update_status_bar (window);
 
-	uri = eog_image_get_uri (image);
+	file = eog_image_get_file (image);
 	g_idle_add_full (G_PRIORITY_LOW,
-			 (GSourceFunc) add_uri_to_recent_files,
-			 uri,
-			 (GDestroyNotify) gnome_vfs_uri_unref);
+			 (GSourceFunc) add_file_to_recent_files,
+			 file,
+			 (GDestroyNotify) g_object_unref);
 
 	eog_window_update_openwith_menu (window, image);
 }
 
 static void
-open_with_launch_application_cb (GtkAction *action, gpointer data){
+open_with_launch_application_cb (GtkAction *action, gpointer data) {
 	EogImage *image;
-	GnomeVFSMimeApplication *app;
-	GnomeVFSURI *uri;
-	gchar *uri_string;
-	GList *uris = NULL;
+	GAppInfo *app;
+	GFile *file;
+	GList *files = NULL;
 	
 	image = EOG_IMAGE (data);
-	uri = eog_image_get_uri (image);
-	uri_string = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-	uris = g_list_prepend (NULL, uri_string);
+	file = eog_image_get_file (image);
+
 	app = g_object_get_data (G_OBJECT (action), "app");
-	gnome_vfs_mime_application_launch (app, uris);
-	gnome_vfs_uri_unref (uri);
-	g_free (uri_string);
-	g_list_free (uris);
+	files = g_list_append (files, file);
+	g_app_info_launch (app,
+			   files,
+			   NULL, NULL);
+	
+	g_object_unref (file);
+	g_list_free (files);
 }
 
 static void
 eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 {
-	GnomeVFSURI *uri;
+	GFile *file;
+	GFileInfo *file_info;
 	GList *iter;
-	gchar *label, *tip, *string_uri, *mime_type;
+	gchar *label, *tip;
+	const gchar *mime_type;
 	GtkAction *action;
 	EogWindowPrivate *priv;
         GList *apps;
@@ -1053,13 +1062,17 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
 	priv = window->priv;
 
-	uri = eog_image_get_uri (image);
+	file = eog_image_get_file (image);
+	file_info = g_file_query_info (file,
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       0, NULL, NULL);
 
-	string_uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-	mime_type = gnome_vfs_get_mime_type (string_uri);
-
-	gnome_vfs_uri_unref (uri);
-	g_free (string_uri);
+	if (file_info == NULL)
+		return;
+	else {
+		mime_type = g_file_info_get_content_type (file_info);
+		g_object_unref (file_info);
+	}
 	
         if (priv->open_with_menu_id != 0) {
                gtk_ui_manager_remove_ui (priv->ui_mgr, priv->open_with_menu_id);
@@ -1074,9 +1087,7 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         if (mime_type == NULL)
                 return;
 
-        apps = gnome_vfs_mime_get_all_applications (mime_type);
-
-        g_free (mime_type);
+        apps = g_app_info_get_all_for_type (mime_type);
 
         if (!apps)
                 return;
@@ -1087,27 +1098,27 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
         priv->open_with_menu_id = gtk_ui_manager_new_merge_id (priv->ui_mgr);
 
         for (iter = apps; iter; iter = iter->next) {
-                GnomeVFSMimeApplication *app = iter->data;
+                GAppInfo *app = iter->data;
                 gchar name[64];
 
                 /* Do not include eog itself */
-                if (g_ascii_strcasecmp (gnome_vfs_mime_application_get_binary_name (app),
+                if (g_ascii_strcasecmp (g_app_info_get_executable (app),
                                         g_get_prgname ()) == 0) {
-                        gnome_vfs_mime_application_free (app);
+                        g_object_unref (app);
                         continue;
                 }
 
                 g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
 
-                label = g_strdup_printf (_("Open with \"%s\""), app->name);
-                tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), app->name);
+                label = g_strdup_printf (_("Open with \"%s\""), g_app_info_get_name (app));
+                tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), g_app_info_get_name (app));
                 action = gtk_action_new (name, label, tip, NULL);
 
                 g_free (label);
                 g_free (tip); 
 
                 g_object_set_data_full (G_OBJECT (action), "app", app,
-                                        (GDestroyNotify) gnome_vfs_mime_application_free);
+                                        (GDestroyNotify) g_object_unref);
 
                 g_signal_connect (action,
                                   "activate",
@@ -2739,23 +2750,23 @@ eog_window_cmd_save (GtkAction *action, gpointer user_data)
 	eog_job_queue_add_job (priv->save_job);
 }
 
-static GnomeVFSURI*
-eog_window_retrieve_save_as_uri (EogWindow *window, EogImage *image)
+static GFile*
+eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 {
 	GtkWidget *dialog;
-	GnomeVFSURI *save_uri = NULL;
-	GnomeVFSURI *parent_uri;
-	GnomeVFSURI *image_uri;
+	GFile *save_file = NULL;
+	GFile *parent_file;
+	GFile *image_file;
 	gchar *folder_uri;
 	gint response;
 
 	g_assert (image != NULL);
 
-	image_uri = eog_image_get_uri (image);
-	parent_uri = gnome_vfs_uri_get_parent (image_uri);
-	folder_uri = gnome_vfs_uri_to_string (parent_uri, GNOME_VFS_URI_HIDE_NONE);
-	gnome_vfs_uri_unref (parent_uri);
-	gnome_vfs_uri_unref (image_uri);
+	image_file = eog_image_get_file (image);
+	parent_file = g_file_get_parent (image_file);
+	folder_uri = g_file_get_uri (parent_file);
+	g_object_unref (parent_file);
+	g_object_unref (image_file);
 
 	dialog = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
 	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog),
@@ -2770,13 +2781,13 @@ eog_window_retrieve_save_as_uri (EogWindow *window, EogImage *image)
 
 		g_assert (new_uri != NULL);
 
-		save_uri = gnome_vfs_uri_new (new_uri);
+		save_file = g_file_new_for_uri (new_uri);
 		g_free (new_uri);
 	}
 	gtk_widget_destroy (dialog);
 	g_free (folder_uri);
 	
-	return save_uri;
+	return save_file;
 }
 
 static void
@@ -2797,36 +2808,36 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 	n_images = g_list_length (images);
 
 	if (n_images == 1) {
-		GnomeVFSURI *uri;
+		GFile *file;
 		
-		uri = eog_window_retrieve_save_as_uri (window, images->data);
+		file = eog_window_retrieve_save_as_file (window, images->data);
 
-		if (!uri) {
+		if (!file) {
 			g_list_free (images);
 			return;
 		}
 
-		priv->save_job = eog_job_save_as_new (images, NULL, uri); 
+		priv->save_job = eog_job_save_as_new (images, NULL, file); 
 
-		gnome_vfs_uri_unref (uri);
+		g_object_unref (file);
 	} else if (n_images > 1) {
-		GnomeVFSURI *baseuri;
+		GFile *base_file;
 		GtkWidget *dialog;
 		gchar *basedir;
 		EogURIConverter *converter;
 		
 		basedir = g_get_current_dir ();
-		baseuri = gnome_vfs_uri_new (basedir);
+		base_file = g_file_new_for_uri (basedir);
 		g_free (basedir);
 
 		dialog = eog_save_as_dialog_new (GTK_WINDOW (window),
 						 images, 
-						 baseuri);
+						 base_file);
 
 		gtk_widget_show_all (dialog);
 
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_OK) {
-			gnome_vfs_uri_unref (baseuri);
+			g_object_unref (base_file);
 			g_list_free (images);
 			gtk_widget_destroy (dialog);
 
@@ -2842,7 +2853,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 		gtk_widget_destroy (dialog);
 
 		g_object_unref (converter);
-		gnome_vfs_uri_unref (baseuri);
+		g_object_unref (base_file);
 	} else {
 		/* n_images = 0 -- No Image selected */
 		return;
@@ -3030,19 +3041,12 @@ static gboolean
 move_to_trash_real (EogImage *image, GError **error)
 {
 	GFile *file;
-        GnomeVFSURI *uri;
-        char *string_uri;
 	GFileInfo *file_info;
 	gboolean can_trash, result;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
         
-        uri = eog_image_get_uri (image);
-        string_uri = gnome_vfs_uri_to_string (uri,
-                                              GNOME_VFS_URI_HIDE_USER_NAME | 
-                                              GNOME_VFS_URI_HIDE_PASSWORD);
-	file = g_file_new_for_uri (string_uri);
-        g_free (string_uri);
+	file = eog_image_get_file (image);
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH,
 				       0, NULL, NULL);
@@ -3645,7 +3649,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		 * since the password gets stripped when adding the 
 		 * file to the recently used list. */
 		if (tip == NULL)
-			tip = gnome_vfs_format_uri_for_display (gtk_recent_info_get_uri (info));
+			tip = g_uri_unescape_string (gtk_recent_info_get_uri (info), NULL);
 		
 		action = gtk_action_new (action_name, label, tip, NULL);
 		
@@ -3690,9 +3694,7 @@ eog_window_drag_data_received (GtkWidget *widget,
                                GtkSelectionData *selection_data,
                                guint info, guint time)
 {
-        GList *uri_list;
-        GSList *str_list = NULL;
-        GList *it;
+        GSList *file_list;
         EogWindow *window;
 
         if (info != EOG_WINDOW_TARGET_URI_LIST)
@@ -3701,24 +3703,9 @@ eog_window_drag_data_received (GtkWidget *widget,
         if (context->suggested_action == GDK_ACTION_COPY) {
                 window = EOG_WINDOW (widget);
 
-                uri_list = gnome_vfs_uri_list_parse ((gchar *) selection_data->data);
+                file_list = eog_util_parse_uri_string_list_to_file_list ((gchar *) selection_data->data);
 
-                for (it = uri_list; it != NULL; it = it->next) {
-                        gchar *filename = 
-				gnome_vfs_uri_to_string (it->data, GNOME_VFS_URI_HIDE_NONE);
-
-                        str_list = g_slist_prepend (str_list, filename);
-                }
-
-                gnome_vfs_uri_list_free (uri_list);
-
-                /*str_list = g_slist_reverse (str_list);*/
-
-		eog_application_open_uri_list (EOG_APP, 
-					       str_list,
-					       GDK_CURRENT_TIME,
-					       0,
-					       NULL);
+		eog_window_open_file_list (window, file_list);
         }
 }
 
@@ -4323,10 +4310,10 @@ eog_window_dispose (GObject *object)
 		priv->print_page_setup = NULL;
 	}
 
-	if (priv->uri_list != NULL) {
-		g_slist_foreach (priv->uri_list, (GFunc) gnome_vfs_uri_unref, NULL);	
-		g_slist_free (priv->uri_list);
-		priv->uri_list = NULL;
+	if (priv->file_list != NULL) {
+		g_slist_foreach (priv->file_list, (GFunc) g_object_unref, NULL);	
+		g_slist_free (priv->file_list);
+		priv->file_list = NULL;
 	}
 
 #ifdef HAVE_LCMS
@@ -4796,22 +4783,22 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 			  window);
 
 	if (n_images == 0) {
-		gint n_uris;
+		gint n_files;
 
 		priv->status = EOG_WINDOW_STATUS_NORMAL;
 		update_action_groups_state (window);
 
-		n_uris = g_slist_length (priv->uri_list);
+		n_files = g_slist_length (priv->file_list);
 
-		if (n_uris > 0) {
+		if (n_files > 0) {
 			GtkWidget *message_area;
-			GnomeVFSURI *uri = NULL;
+			GFile *file = NULL;
 
-			if (n_uris == 1) {
-				uri = (GnomeVFSURI *) priv->uri_list->data;
+			if (n_files == 1) {
+				file = (GFile *) priv->file_list->data;
 			}
 
-			message_area = eog_no_images_error_message_area_new (uri);
+			message_area = eog_no_images_error_message_area_new (file);
 
 			eog_window_set_message_area (window, message_area);
 
@@ -4823,7 +4810,7 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 }
 
 void
-eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
+eog_window_open_file_list (EogWindow *window, GSList *file_list)
 {
 	EogJob *job;
 
@@ -4831,10 +4818,10 @@ eog_window_open_uri_list (EogWindow *window, GSList *uri_list)
 
 	window->priv->status = EOG_WINDOW_STATUS_INIT;
 
-	g_slist_foreach (uri_list, (GFunc) gnome_vfs_uri_ref, NULL);
-	window->priv->uri_list = uri_list;
+	g_slist_foreach (file_list, (GFunc) g_object_ref, NULL);
+	window->priv->file_list = file_list;
 
-	job = eog_job_model_new (uri_list);
+	job = eog_job_model_new (file_list);
 	
 	g_signal_connect (job,
 			  "finished",

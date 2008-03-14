@@ -111,7 +111,7 @@ GtkWidget    *eog_window_get_statusbar  (EogWindow       *window);
 
 EogImage     *eog_window_get_image      (EogWindow       *window);
 
-void          eog_window_open_uri_list	(EogWindow       *window, 
+void          eog_window_open_file_list	(EogWindow       *window, 
 					 GSList          *uri_list);
 
 gboolean      eog_window_is_empty 	(EogWindow       *window);

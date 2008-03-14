@@ -26,7 +26,7 @@
 
 #include <gtk/gtk.h>
 #include <glib-object.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -80,8 +80,8 @@ GtkListStore   *eog_list_store_new_from_glist 	     (GList *list);
 void            eog_list_store_append_image 	     (EogListStore *store, 
 						      EogImage     *image);
 
-void            eog_list_store_add_uris 	     (EogListStore *store, 
-						      GList        *uri_list);
+void            eog_list_store_add_files 	     (EogListStore *store, 
+						      GList        *file_list);
 
 void            eog_list_store_remove_image 	     (EogListStore *store, 
 						      EogImage     *image);

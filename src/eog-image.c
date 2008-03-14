@@ -49,7 +49,6 @@
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-io.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libgnomeui/gnome-thumbnail.h>
 
 #ifdef HAVE_EXIF
@@ -140,9 +139,9 @@ eog_image_dispose (GObject *object)
 
 	eog_image_free_mem_private (EOG_IMAGE (object));
 
-	if (priv->uri) {
-		gnome_vfs_uri_unref (priv->uri);
-		priv->uri = NULL;
+	if (priv->file) {
+		g_object_unref (priv->file);
+		priv->file = NULL;
 	}
 
 	if (priv->caption) {
@@ -238,7 +237,7 @@ eog_image_init (EogImage *img)
 {
 	img->priv = EOG_IMAGE_GET_PRIVATE (img);
 
-	img->priv->uri = NULL;
+	img->priv->file = NULL;
 	img->priv->image = NULL;
 	img->priv->thumbnail = NULL;
 	img->priv->width = -1;
@@ -272,19 +271,19 @@ eog_image_new (const char *txt_uri)
 
 	img = EOG_IMAGE (g_object_new (EOG_TYPE_IMAGE, NULL));
 
-	img->priv->uri = gnome_vfs_uri_new (txt_uri);
+	img->priv->file = g_file_new_for_uri (txt_uri);
 
 	return img;
 }
 
 EogImage * 
-eog_image_new_uri (GnomeVFSURI *uri)
+eog_image_new_file (GFile *file)
 {
 	EogImage *img;
 
 	img = EOG_IMAGE (g_object_new (EOG_TYPE_IMAGE, NULL));
 
-	img->priv->uri = gnome_vfs_uri_ref (uri);
+	img->priv->file = g_object_ref (file);
 
 	return img;
 }
@@ -562,24 +561,18 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 
 static void 
 eog_image_get_file_info (EogImage *img, 
-			 GnomeVFSFileSize *bytes,
+			 goffset *bytes,
 			 gchar **mime_type, 
 			 GError **error)
 {
-	GnomeVFSFileInfo *info;
-	GnomeVFSResult result;
+	GFileInfo *file_info;
 
-	info = gnome_vfs_file_info_new ();
+	file_info = g_file_query_info (img->priv->file,
+				       G_FILE_ATTRIBUTE_STANDARD_SIZE ","
+				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				       0, NULL, error);
 
-	result = gnome_vfs_get_file_info_uri (img->priv->uri,
-					      info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-
-	if ((result != GNOME_VFS_OK) || 
-	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) == 0 ||
-	    (info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) == 0) {
+	if (file_info == NULL) {
 		if (bytes)
 			*bytes = 0;
 
@@ -589,16 +582,15 @@ eog_image_get_file_info (EogImage *img,
 		g_set_error (error, 
 			     EOG_IMAGE_ERROR, 
 			     EOG_IMAGE_ERROR_VFS,
-			     gnome_vfs_result_to_string (result));
+			     "Error in getting image file info");
 	} else {
 		if (bytes)
-			*bytes = info->size;
+			*bytes = g_file_info_get_size (file_info);
 
 		if (mime_type)
-			*mime_type = g_strdup (info->mime_type);
+			*mime_type = g_strdup (g_file_info_get_content_type (file_info));
+		g_object_unref (file_info);
 	}
-
-	gnome_vfs_file_info_unref (info);
 }
 
 #ifdef HAVE_LCMS
@@ -933,15 +925,13 @@ eog_image_real_load (EogImage *img,
 		     GError  **error)
 {
 	EogImagePrivate *priv;
-	GnomeVFSHandle *handle;
-	GnomeVFSFileSize bytes_read;
-	GnomeVFSFileSize bytes_read_total = 0;
-	GnomeVFSResult result;
+	GFileInputStream *input_stream;
 	EogMetadataReader *md_reader = NULL;
 	GdkPixbufFormat *format;
 	gchar *mime_type;
 	GdkPixbufLoader *loader = NULL;
 	guchar *buffer;
+	goffset bytes_read, bytes_read_total = 0;
 	gboolean failed = FALSE;
 	gboolean first_run = TRUE;
 	gboolean set_metadata = TRUE;
@@ -984,16 +974,17 @@ eog_image_real_load (EogImage *img,
 		}
 	}
 	
-	result = gnome_vfs_open_uri (&handle, priv->uri, GNOME_VFS_OPEN_READ);
+	input_stream = g_file_read (priv->file, NULL, error);
 
-	if (result != GNOME_VFS_OK) {
+	if (input_stream == NULL) {
 		g_free (mime_type);
 
-		g_set_error (error, 
-			     EOG_IMAGE_ERROR, 
-			     EOG_IMAGE_ERROR_VFS,
-			     gnome_vfs_result_to_string (result));
-
+		if (error != NULL) {
+			g_set_error (error, 
+				     EOG_IMAGE_ERROR, 
+				     EOG_IMAGE_ERROR_VFS,
+				     "Failed to open input stream for file");
+		}
 		return FALSE;
 	}
 	
@@ -1033,20 +1024,22 @@ eog_image_real_load (EogImage *img,
 	g_free (mime_type);
 
 	while (!priv->cancel_loading) {
-		result = gnome_vfs_read (handle, 
-					 buffer, 
-					 EOG_IMAGE_READ_BUFFER_SIZE, 
-					 &bytes_read);
+		/* FIXME: make this async */
+		bytes_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
+						  buffer, 
+						  EOG_IMAGE_READ_BUFFER_SIZE, 
+						  NULL, error);
 
-		if (result == GNOME_VFS_ERROR_EOF || bytes_read == 0) {
+		if (bytes_read == 0) {
+			/* End of the file */
 			break;
-		} else if (result != GNOME_VFS_OK) {
+		} else if (bytes_read == -1) {
 			failed = TRUE;
 
 			g_set_error (error, 
 				     EOG_IMAGE_ERROR, 
 				     EOG_IMAGE_ERROR_VFS,
-				     gnome_vfs_result_to_string (result));
+				     "Failed to read from input stream");
 
 			break;
 		}
@@ -1129,7 +1122,7 @@ eog_image_real_load (EogImage *img,
 
 	g_free (buffer);
 
-	gnome_vfs_close (handle);
+	g_object_unref (G_OBJECT (input_stream));
 	
 	failed = (failed ||
 		  priv->cancel_loading || 
@@ -1405,128 +1398,101 @@ eog_image_undo (EogImage *img)
 	priv->modified = (priv->undo_stack != NULL);
 }
 
-static gchar *
-tmp_file_get_path (void)
+static GFile *
+tmp_file_get (void)
 {
-	gchar *tmp_file;
+	GFile *tmp_file;
+	char *tmp_file_path;
 	gint fd;
 
-	tmp_file = g_build_filename (g_get_tmp_dir (), "eog-save-XXXXXX", NULL);
-
-	fd = g_mkstemp (tmp_file);
-
+	tmp_file_path = g_build_filename (g_get_tmp_dir (), "eog-save-XXXXXX", NULL);
+	fd = g_mkstemp (tmp_file_path);
 	if (fd == -1) {
-		g_free (tmp_file);
-		tmp_file = NULL;
-	} else {
-		close (fd);
+		g_free (tmp_file_path);
+		return NULL;
 	}
-
-	return tmp_file;
+	else {
+		tmp_file = g_file_new_for_path (tmp_file_path);
+		g_free (tmp_file_path);
+		return tmp_file;
+	}
 }
 
-static gint
-handle_xfer_status (GnomeVFSXferProgressInfo *info, gpointer user_data)
+static void
+transfer_progress_cb (goffset cur_bytes,
+		      goffset total_bytes,
+		      gpointer user_data)
 {
 	EogImage *image = EOG_IMAGE (user_data);
 
-	g_assert (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK);
-
-	if (info->phase >= GNOME_VFS_XFER_PHASE_COPYING && info->bytes_copied > 0)
+	if (cur_bytes > 0) {
 		g_signal_emit (G_OBJECT(image), 
 			       signals[SIGNAL_SAVE_PROGRESS],
 			       0,
-			       (gfloat) (info->bytes_copied) / (gfloat) info->file_size);
-
-	return TRUE;	
+			       (gfloat) cur_bytes / (gfloat) total_bytes);
+	}
 }
 
 static gboolean
 tmp_file_move_to_uri (EogImage *image, 
-		      const char* tmpfile, 
-		      const GnomeVFSURI *uri, 
+		      GFile *tmpfile, 
+		      GFile *file, 
 		      gboolean overwrite, 
 		      GError **error)
 {
-	GnomeVFSResult result;
-	GnomeVFSURI *source_uri;
-	GnomeVFSFileInfo *info;
-	GnomeVFSXferOverwriteMode overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_ABORT;
+	gboolean result;
+	GError **ioerror = NULL;
+	
+	result = g_file_move (tmpfile,
+			      file,
+			      (overwrite ? G_FILE_COPY_OVERWRITE : 0) |
+			      G_FILE_COPY_ALL_METADATA,
+			      NULL, 
+			      (GFileProgressCallback) transfer_progress_cb,
+			      image,
+			      ioerror);
 
-	if (!overwrite && gnome_vfs_uri_exists ((GnomeVFSURI*) uri)) 
-	{
-		/* Explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
-		 * work as expected */
-		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_FILE_EXISTS,
-			     _("File exists"));
-		return FALSE;
-	}
-
-	info = gnome_vfs_file_info_new ();
-	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result != GNOME_VFS_OK) {
-		/* We don't propagate the error here, because if we get a 
-		 * fatal error, the xfer_uri will fail too and then
-		 * handled. */
-		gnome_vfs_file_info_unref (info);
-		info = NULL;
-	}
-
-	if (overwrite == TRUE) {
-		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
-	}
-	source_uri = gnome_vfs_uri_new (tmpfile);
-
-	result = gnome_vfs_xfer_uri (source_uri,
-				     uri, 
-				     GNOME_VFS_XFER_DELETE_ITEMS,           /* delete source file */
-				     GNOME_VFS_XFER_ERROR_MODE_ABORT,       /* abort on all errors */
-				     overwrt_mode,
-				     handle_xfer_status,                    /* no progress callback */
-				     image);
-
-	gnome_vfs_uri_unref (source_uri);
-
-	if (result == GNOME_VFS_ERROR_FILE_EXISTS) {
-		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_FILE_EXISTS,
-			     gnome_vfs_result_to_string (result));
-	} else if (result != GNOME_VFS_OK) {
+	if (result == FALSE) {
+		if (g_error_matches (*ioerror, G_IO_ERROR,
+				     G_IO_ERROR_EXISTS)) {
+			g_set_error (error, EOG_IMAGE_ERROR,
+				     EOG_IMAGE_ERROR_FILE_EXISTS,
+				     "File exists");
+		} else {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS, 
-			     gnome_vfs_result_to_string (result));
-	} else if (info != NULL) {
-		/* reset file permissions/owner to the original ones */
-		GnomeVFSSetFileInfoMask mask = 
-			GNOME_VFS_SET_FILE_INFO_PERMISSIONS | GNOME_VFS_SET_FILE_INFO_OWNER;
-		gnome_vfs_set_file_info_uri ((GnomeVFSURI*) uri, info, mask);
-	}
+			     "VFS error moving the temp file");
+		}
+		g_error_free (*ioerror);
+	} 
 
-	if (info != NULL) {
-		gnome_vfs_file_info_unref (info);
-	}
-
-	return (result == GNOME_VFS_OK);
+	return result;
 }
 
 static gboolean
-tmp_file_delete (char *tmpfile)
+tmp_file_delete (GFile *tmpfile)
 {
+	gboolean result;
+	GError *err = NULL;
+
 	if (tmpfile == NULL) return FALSE;
 
-	if (g_file_test (tmpfile, G_FILE_TEST_EXISTS)) {
-		int result;
-
-		result = unlink (tmpfile);
-
-		if (result == -1) {
-			g_warning ("Couldn't delete temporary file: %s", tmpfile);
-			return FALSE;
+	result = g_file_delete (tmpfile, NULL, &err);
+	if (result == FALSE) {
+		char *tmpfile_path;
+		if (err != NULL) {
+			if (err->code == G_IO_ERROR_NOT_FOUND) {
+				g_error_free (err);
+				return TRUE;
+			}
+			g_error_free (err);
 		}
+		tmpfile_path = g_file_get_path (tmpfile);
+		g_warning ("Couldn't delete temporary file: %s", tmpfile_path);
+		g_free (tmpfile_path);
 	}
 
-	return TRUE;
+	return result;
 }
 
 static void 
@@ -1566,10 +1532,10 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 	priv = image->priv;
 
 	/* update file location */
-	if (priv->uri != NULL) {
-		gnome_vfs_uri_unref (priv->uri);
+	if (priv->file != NULL) {
+		g_object_unref (priv->file);
 	}
-	priv->uri = gnome_vfs_uri_ref (target->uri);
+	priv->file = g_object_ref (target->file);
 
 	/* Clear caption and caption key, these will be 
 	 * updated on next eog_image_get_caption call.
@@ -1595,7 +1561,8 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
-	char *tmpfile;
+	GFile *tmp_file;
+	char *tmp_file_path;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
@@ -1626,40 +1593,44 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 		return FALSE;
 	}
 
-	/* generate temporary file name */
-	tmpfile = tmp_file_get_path ();
-	if (tmpfile == NULL) {
+	/* generate temporary file */
+	tmp_file = tmp_file_get ();
+
+	if (tmp_file == NULL) {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_TMP_FILE_FAILED,
 			     _("Temporary file creation failed."));
 		return FALSE;
-	}
+	}	
+
+	tmp_file_path = g_file_get_path (tmp_file);
 
 #ifdef HAVE_JPEG
 	/* determine kind of saving */
 	if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0) && 
 	    source->exists && source->modified) 
 	{
-		success = eog_image_jpeg_save_file (img, tmpfile, source, NULL, error);
+		success = eog_image_jpeg_save_file (img, tmp_file_path, source, NULL, error);
 	}
 #endif
 
 	if (!success && (*error == NULL)) {
-		success = gdk_pixbuf_save (priv->image, tmpfile, source->format, error, NULL);
+		success = gdk_pixbuf_save (priv->image, tmp_file_path, source->format, error, NULL);
 	}
 
 	if (success) {
 		/* try to move result file to target uri */
-		success = tmp_file_move_to_uri (img, tmpfile, priv->uri, TRUE /*overwrite*/, error);
+		success = tmp_file_move_to_uri (img, tmp_file, priv->file, TRUE /*overwrite*/, error);
 	}
 
 	if (success) {
 		eog_image_reset_modifications (img);
 	}
 
-	tmp_file_delete (tmpfile);
+	tmp_file_delete (tmp_file);
 
-	g_free (tmpfile);
+	g_free (tmp_file_path);
+	g_object_unref (tmp_file);
 
 	/* Restore previous status only if is not monitored image */
 	if (!priv->is_monitored) {
@@ -1672,69 +1643,38 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 static gboolean
 eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
-	GnomeVFSResult    result;
-	GnomeVFSFileInfo *info;
-	GnomeVFSXferOverwriteMode overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_ABORT;
+	char *target_file_path;
+	gboolean result;
+	GError *ioerror;
 
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
-
-	if (target->overwrite != TRUE && 
-	    gnome_vfs_uri_exists (target->uri)) 
-	{
-		/* explicit check if uri exists, seems that gnome_vfs_xfer_uri, doesn't
-		 *  work as expected 
-		 */
-		g_set_error (error, 
-			     EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_FILE_EXISTS,
-			     _("File exists"));
-
-		return FALSE;
-	} else if (target->overwrite == TRUE) {
-		overwrt_mode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
-	}
-
-	info = gnome_vfs_file_info_new ();
-
-	result = gnome_vfs_get_file_info_uri ((GnomeVFSURI*) target->uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
-	if (result != GNOME_VFS_OK) {
-		/* we don't propagate the error here, because if we get a 
-		 * fatal error, the xfer_uri will fail too and then
-		 * handled.
-		 */
-		gnome_vfs_file_info_unref (info);
-		info = NULL;
-	}
-
-	result = gnome_vfs_xfer_uri (source->uri,
-				     target->uri, 
-				     GNOME_VFS_XFER_DEFAULT,            /* copy the data */
-				     GNOME_VFS_XFER_ERROR_MODE_ABORT,   /* abort on all errors */
-				     overwrt_mode,
-				     NULL,                /* no progress callback */
-				     NULL);
-
-	if (result == GNOME_VFS_ERROR_FILE_EXISTS) {
-		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_FILE_EXISTS,
-			     gnome_vfs_result_to_string (result));
-	} else if (result != GNOME_VFS_OK) {
+	
+	target_file_path = g_file_get_path (target->file);
+	
+	result = g_file_copy (source->file,
+			      target->file,
+			      (target->overwrite ? G_FILE_COPY_OVERWRITE : 0) |
+			      G_FILE_COPY_ALL_METADATA,
+			      NULL, 
+			      NULL,  /* no progress callback */
+			      NULL,
+			      &ioerror);
+	
+	if (result == FALSE) {
+		if (ioerror->code == G_IO_ERROR_EXISTS) {
+			g_set_error (error, EOG_IMAGE_ERROR,
+				     EOG_IMAGE_ERROR_FILE_EXISTS,
+				     ioerror->message);
+		} else {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS, 
-			     gnome_vfs_result_to_string (result));
-	} else if (info != NULL) {
-		/* reset file permissions/owner to the original ones */
-		GnomeVFSSetFileInfoMask mask = 
-			GNOME_VFS_SET_FILE_INFO_PERMISSIONS | GNOME_VFS_SET_FILE_INFO_OWNER;
-		gnome_vfs_set_file_info_uri (target->uri, info, mask);
+			     ioerror->message);
+		}
+		g_error_free (ioerror);
 	}
 
-	if (info != NULL) {
-		gnome_vfs_file_info_unref (info);
-	}
-
-	return (result == GNOME_VFS_OK);
+	return result;
 }
 
 gboolean
@@ -1742,7 +1682,8 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 {
 	EogImagePrivate *priv;
 	gboolean success = FALSE;
-	char *tmpfile;
+	char *tmp_file_path;
+	GFile *tmp_file;
 	gboolean direct_copy = FALSE;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
@@ -1764,9 +1705,9 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	}
 
 	/* generate temporary file name */
-	tmpfile = tmp_file_get_path ();
+	tmp_file = tmp_file_get ();
 
-	if (tmpfile == NULL) {
+	if (tmp_file == NULL) {
 		g_set_error (error, 
 			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_TMP_FILE_FAILED,
@@ -1774,6 +1715,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 		return FALSE;
 	}
+	tmp_file_path = g_file_get_path (tmp_file);
 	
 	/* determine kind of saving */
 	if (g_ascii_strcasecmp (source->format, target->format) == 0 && !source->modified) {
@@ -1785,17 +1727,17 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	else if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0 && source->exists) ||
 		 (g_ascii_strcasecmp (target->format, EOG_FILE_FORMAT_JPEG) == 0))
 	{
-		success = eog_image_jpeg_save_file (img, tmpfile, source, target, error);
+		success = eog_image_jpeg_save_file (img, tmp_file_path, source, target, error);
 	}
 #endif
 
 	if (!success && (*error == NULL)) {
-		success = gdk_pixbuf_save (priv->image, tmpfile, target->format, error, NULL);
+		success = gdk_pixbuf_save (priv->image, tmp_file_path, target->format, error, NULL);
 	}
 
 	if (success && !direct_copy) { /* not required if we alredy copied the file directly */
 		/* try to move result file to target uri */
-		success = tmp_file_move_to_uri (img, tmpfile, target->uri, target->overwrite, error);
+		success = tmp_file_move_to_uri (img, tmp_file, target->file, target->overwrite, error);
 	}
 
 	if (success) {
@@ -1804,8 +1746,9 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		eog_image_link_with_target (img, target);
 	}
 
-	tmp_file_delete (tmpfile);
-	g_free (tmpfile);
+	tmp_file_delete (tmp_file);
+	g_object_unref (tmp_file);
+	g_free (tmp_file_path);
 
 	/* Restore previous status only if is not monitored image */
 	if (!priv->is_monitored) {
@@ -1851,6 +1794,7 @@ eog_image_get_caption (EogImage *img)
 	EogImagePrivate *priv;
 	char *name;
 	char *utf8_name;
+	char *scheme;
 	gboolean validated = FALSE;
 	gboolean broken_filenames;
 
@@ -1858,15 +1802,16 @@ eog_image_get_caption (EogImage *img)
 
 	priv = img->priv;
 
-	if (priv->uri == NULL) return NULL;
+	if (priv->file == NULL) return NULL;
 
 	if (priv->caption != NULL) 
 		/* Use cached caption string */
 		return priv->caption;
 	
-	name = gnome_vfs_uri_extract_short_name (priv->uri);
+	name = g_file_get_basename (priv->file);
+	scheme = g_file_get_uri_scheme (priv->file);
 	
-	if (name != NULL && g_ascii_strcasecmp (priv->uri->method_string, "file") == 0) {
+	if (name != NULL && g_ascii_strcasecmp (scheme, "file") == 0) {
 		/* Support the G_BROKEN_FILENAMES feature of
 		 * glib by using g_filename_to_utf8 to convert
 		 * local filenames to UTF-8. Also do the same
@@ -1904,7 +1849,7 @@ eog_image_get_caption (EogImage *img)
 	if (priv->caption == NULL) {
 		char *short_str;
 
-		short_str = gnome_vfs_uri_extract_short_name (priv->uri);
+		short_str = g_file_get_basename (priv->file);
 		if (g_utf8_validate (short_str, -1, NULL)) {
 			priv->caption = g_strdup (short_str);
 		} else {
@@ -1912,6 +1857,7 @@ eog_image_get_caption (EogImage *img)
 		}
 		g_free (short_str);
 	}
+	g_free (scheme);
 	
 	return priv->caption;
 }
@@ -1997,12 +1943,12 @@ eog_image_get_xmp_info (EogImage *img)
 }
 
 
-GnomeVFSURI *
-eog_image_get_uri (EogImage *img)
+GFile *
+eog_image_get_file (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
 	
-	return gnome_vfs_uri_ref (img->priv->uri);
+	return g_object_ref (img->priv->file);
 }
 
 gboolean
@@ -2013,7 +1959,7 @@ eog_image_is_modified (EogImage *img)
 	return img->priv->modified;
 }
 
-GnomeVFSFileSize
+goffset
 eog_image_get_bytes (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), 0);
@@ -2040,11 +1986,11 @@ eog_image_get_uri_for_display (EogImage *img)
 	
 	priv = img->priv;
 
-	if (priv->uri != NULL) {
-		uri_str = gnome_vfs_uri_to_string (priv->uri, GNOME_VFS_URI_HIDE_NONE);
+	if (priv->file != NULL) {
+		uri_str = g_file_get_uri (priv->file);
 
 		if (uri_str != NULL) {
-			str = gnome_vfs_format_uri_for_display (uri_str);
+			str = g_uri_unescape_string (uri_str, NULL);
 			g_free (uri_str);
 		}
 	}

@@ -147,20 +147,22 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 }
 
 GtkWidget *
-eog_no_images_error_message_area_new (const GnomeVFSURI *uri)
+eog_no_images_error_message_area_new (GFile *file)
 {
 	GtkWidget *message_area;
 	gchar *error_message = NULL;
 
-	if (uri != NULL) {
-		gchar *uri_str;
+	if (file != NULL) {
+		gchar *uri_str, *unescaped_str;
 
-		uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+		uri_str = g_file_get_uri (file);
+		unescaped_str = g_uri_unescape_string (uri_str, NULL);
 
 		error_message = g_strdup_printf (_("No images found in '%s'."),
-						 gnome_vfs_format_uri_for_display (uri_str));
+						 unescaped_str);
 
 		g_free (uri_str);
+		g_free (unescaped_str);
 	} else {
 		error_message = g_strdup (_("The given locations contain no images."));
 	}

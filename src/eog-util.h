@@ -34,10 +34,12 @@ void     eog_util_show_help                  (const gchar *section,
 
 gchar   *eog_util_make_valid_utf8            (const gchar *name);
 
-GSList  *eog_util_string_list_to_uri_list    (GSList *string_list);
+GSList  *eog_util_parse_uri_string_list_to_file_list (const gchar *uri_list);
+
+GSList  *eog_util_string_list_to_file_list    (GSList *string_list);
 
 #ifdef HAVE_DBUS
-GSList  *eog_util_strings_to_uri_list        (gchar **strings);
+GSList  *eog_util_strings_to_file_list        (gchar **strings);
 #endif
 
 GSList  *eog_util_string_array_to_list       (const gchar **files,

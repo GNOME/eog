@@ -1,7 +1,7 @@
-/* gcc -o  eog-thumb-view test-eog-tb.c eog-thumb-view.c `pkg-config --cflags --libs gtk+-2.0 gnome-vfs-2.0` */
+/* gcc -o  eog-thumb-view test-eog-tb.c eog-thumb-view.c `pkg-config --cflags --libs gtk+-2.0 gio-2.0` */
 
 #include <gtk/gtk.h>
-#include <libgnomevfs/gnome-vfs.h>
+#include <gio/gio.h>
 #include "eog-thumbnail.h"
 #include "eog-image.h"
 #include "eog-thumb-view.h"
@@ -91,20 +91,14 @@ on_button_last_clicked (GtkButton *button,
 }
 
 
-static GnomeVFSURI*
-make_canonical_uri (const char *path)
+static GFile*
+make_file (const char *path)
 {
-	char *uri_str;
-	GnomeVFSURI *uri = NULL;
+	GFile *file = NULL;
 
-	uri_str = gnome_vfs_make_uri_from_shell_arg (path);
+	file = g_file_new_for_commandline_arg (path);
 
-	if (uri_str) {
-		uri = gnome_vfs_uri_new (uri_str);
-		g_free (uri_str);
-	}
-
-	return uri;
+	return file;
 }
 
 static GList*
@@ -118,7 +112,7 @@ string_array_to_list (gchar **files, gint n_files)
 	}
 
 	for (i = 0; i < n_files; i++) {
-		list = g_list_prepend (list, make_canonical_uri (files [i]));
+		list = g_list_prepend (list, make_file (files [i]));
 		g_print ("%s\n", files[i]);
 	}
 	return g_list_reverse (list);
@@ -159,7 +153,6 @@ main (gint argc, gchar **argv)
 	GtkListStore *model;
 
 	gtk_init (&argc, &argv);
-	gnome_vfs_init ();
 	eog_thumbnail_init ();
 	eog_job_queue_init ();
 

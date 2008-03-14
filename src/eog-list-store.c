@@ -34,17 +34,6 @@
 
 G_DEFINE_TYPE (EogListStore, eog_list_store, GTK_TYPE_LIST_STORE);
 
-typedef struct {
-	EogListStore *store;
-	GnomeVFSURI *uri;
-	GnomeVFSFileInfo *info;
-} DirLoadingContext;
-
-typedef struct {
-	GnomeVFSMonitorHandle *handle;
-	const gchar *text_uri;
-} MonitorHandleContext;
-
 struct _EogListStorePrivate {
 	GList *monitors;          /* Monitors for the directories */
 	gint initial_image;       /* The image that should be selected firstly by the view. */
@@ -68,12 +57,8 @@ eog_list_store_finalize (GObject *object)
 
 static void
 foreach_monitors_free (gpointer data, gpointer user_data)
-{
-	MonitorHandleContext *hctx = data;
-	
-	gnome_vfs_monitor_cancel (hctx->handle);
-	
-	g_free (data);
+{	
+	g_file_monitor_cancel (G_FILE_MONITOR (data));
 }
 
 static void
@@ -217,7 +202,7 @@ is_file_in_list_store (EogListStore *store,
 {
 	gboolean found = FALSE;
 	EogImage *image;
-	GnomeVFSURI *uri;
+	GFile *file;
 	gchar *str;
 	GtkTreeIter iter;
 
@@ -232,12 +217,12 @@ is_file_in_list_store (EogListStore *store,
 		if (!image)
 			continue;
 		
-		uri = eog_image_get_uri (image);
-		str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+		file = eog_image_get_file (image);
+		str = g_file_get_uri (file);
 		
 		found = (strcmp (str, info_uri) == 0)? TRUE : FALSE;
 		
-		gnome_vfs_uri_unref (uri);
+		g_object_unref (file);
 		g_free (str);
 		g_object_unref (G_OBJECT (image));
 
@@ -252,14 +237,14 @@ is_file_in_list_store (EogListStore *store,
 }
 
 static gboolean
-is_file_in_list_store_uri (EogListStore *store,
-			   const GnomeVFSURI *uri,
+is_file_in_list_store_file (EogListStore *store,
+			   GFile *file,
 			   GtkTreeIter *iter_found)
 {
 	gchar *uri_str;
 	gboolean result;
 	
-	uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+	uri_str = g_file_get_uri (file);
 
 	result = is_file_in_list_store (store, uri_str, iter_found);
 
@@ -275,15 +260,15 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 	GtkTreeIter iter;
 	EogImage *image;
 	GdkPixbuf *thumbnail;
-	GnomeVFSURI *uri;
+	GFile *file;
 
 	g_return_if_fail (EOG_IS_LIST_STORE (data));
 
 	store = EOG_LIST_STORE (data);
 
-	uri = eog_image_get_uri (job->image);
+	file = eog_image_get_file (job->image);
 
-	if (is_file_in_list_store_uri (store, uri, &iter)) {
+	if (is_file_in_list_store_file (store, file, &iter)) {
 		gtk_tree_model_get (GTK_TREE_MODEL (store), &iter, 
 				    EOG_LIST_STORE_EOG_IMAGE, &image,
 				    -1);
@@ -307,7 +292,7 @@ eog_job_thumbnail_cb (EogJobThumbnail *job, gpointer data)
 		g_object_unref (thumbnail);
 	}
 
-	gnome_vfs_uri_unref (uri);
+	g_object_unref (file);
 }
 
 static void
@@ -358,15 +343,15 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 }
 
 static void 
-eog_list_store_append_image_from_uri (EogListStore *store, 
-				      GnomeVFSURI *uri_entry,
-				      gboolean is_monitored)
+eog_list_store_append_image_from_file (EogListStore *store, 
+				       GFile *file,
+				       gboolean is_monitored)
 {
 	EogImage *image;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 
-	image = eog_image_new_uri (uri_entry);
+	image = eog_image_new_file (file);
 
 	eog_image_set_is_monitored (image, is_monitored);
 
@@ -374,22 +359,27 @@ eog_list_store_append_image_from_uri (EogListStore *store,
 }
 
 static void
-vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
-		    const gchar *monitor_uri,
-		    const gchar *info_uri,
-		    GnomeVFSMonitorEventType event_type,
-		    gpointer user_data)
+file_monitor_changed_cb (GFileMonitor *monitor,
+			 GFile *file,
+			 GFile *other_file,
+			 GFileMonitorEvent event,
+			 EogListStore *store)
 {
-	EogListStore *store = EOG_LIST_STORE (user_data);
-	GnomeVFSURI *uri = NULL;
+	const char *mimetype;
+	GFileInfo *file_info;
 	GtkTreeIter iter;
-	gchar *mimetype;
 
-	switch (event_type) {
-	case GNOME_VFS_MONITOR_EVENT_CHANGED:
-		mimetype = gnome_vfs_get_mime_type (info_uri);
-
-		if (is_file_in_list_store (store, info_uri, &iter)) {
+	switch (event) {
+	case G_FILE_MONITOR_EVENT_CHANGED:		
+		file_info = g_file_query_info (file,
+					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+					       0, NULL, NULL);
+		if (file_info == NULL) {
+			break;
+		}
+		mimetype = g_file_info_get_content_type (file_info);
+	
+		if (is_file_in_list_store_file (store, file, &iter)) {
 			if (eog_image_is_supported_mime_type (mimetype)) {
 				eog_list_store_thumbnail_refresh (store, &iter);
 			} else {
@@ -397,17 +387,13 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 			}
 		} else {
 			if (eog_image_is_supported_mime_type (mimetype)) {
-				uri = gnome_vfs_uri_new (info_uri);
-				eog_list_store_append_image_from_uri (store, uri, TRUE);
-				gnome_vfs_uri_unref (uri);
+				eog_list_store_append_image_from_file (store, file, TRUE);
 			}
 		}
-
-		g_free (mimetype);
+		g_object_unref (file_info);
 		break;
-
-	case GNOME_VFS_MONITOR_EVENT_DELETED:
-		if (is_file_in_list_store (store, info_uri, &iter)) {
+	case G_FILE_MONITOR_EVENT_DELETED:
+		if (is_file_in_list_store_file (store, file, &iter)) {
 			EogImage *image;
 
 			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
@@ -421,30 +407,39 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
 			}
 		}
 		break;
-
-	case GNOME_VFS_MONITOR_EVENT_CREATED:
-		if (!is_file_in_list_store (store, info_uri, NULL)) {
-			mimetype = gnome_vfs_get_mime_type (info_uri);
-			if (eog_image_is_supported_mime_type (mimetype)) {
-				uri = gnome_vfs_uri_new (info_uri);
-				eog_list_store_append_image_from_uri (store, uri, TRUE);
-				gnome_vfs_uri_unref (uri);
+	case G_FILE_MONITOR_EVENT_CREATED:
+		if (!is_file_in_list_store_file (store, file, NULL)) {
+			file_info = g_file_query_info (file,
+						       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+						       0, NULL, NULL);
+			if (file_info == NULL) {
+				break;
 			}
-			g_free (mimetype);
+			mimetype = g_file_info_get_content_type (file_info);
+
+			if (eog_image_is_supported_mime_type (mimetype)) {
+				eog_list_store_append_image_from_file (store, file, TRUE);
+			}
+			g_object_unref (file_info);
 		}
 		break;
-
-	case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
-		mimetype = gnome_vfs_get_mime_type (info_uri);
-		if (is_file_in_list_store (store, info_uri, &iter) &&
+	case G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED:
+		file_info = g_file_query_info (file,
+					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+					       0, NULL, NULL);
+		if (file_info == NULL) {
+			break;
+		}
+		mimetype = g_file_info_get_content_type (file_info);
+		if (is_file_in_list_store_file (store, file, &iter) &&
 		    eog_image_is_supported_mime_type (mimetype)) {
 			eog_list_store_thumbnail_refresh (store, &iter);
 		}
-		g_free (mimetype);
+		g_object_unref (file_info);
 		break;
-
-	case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
-	case GNOME_VFS_MONITOR_EVENT_STOPEXECUTING:
+	case G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT:
+	case G_FILE_MONITOR_EVENT_PRE_UNMOUNT:
+	case G_FILE_MONITOR_EVENT_UNMOUNTED:
 		break;
 	}
 }
@@ -454,154 +449,133 @@ vfs_monitor_dir_cb (GnomeVFSMonitorHandle *handle,
  * sort of image. If so, it creates an image object and adds it to the
  * list.
  */
-static gboolean
-directory_visit_cb (const gchar *rel_uri,
-		    GnomeVFSFileInfo *info,
-		    gboolean recursing_will_loop,
-		    gpointer data,
-		    gboolean *recurse)
+static void
+directory_visit (GFile *directory,
+		 GFileInfo *children_info,
+		 EogListStore *store)
 {
-	GnomeVFSURI *uri;
-	EogListStore *store;
+	GFile *child;
 	gboolean load_uri = FALSE;
-	DirLoadingContext *ctx;
+	const char *mime_type, *name;
 	
-	ctx = (DirLoadingContext*) data;
-	store = ctx->store;
+	mime_type = g_file_info_get_content_type (children_info);
+	name = g_file_info_get_name (children_info);
 	
-        if ((info->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) > 0 &&
-            !g_str_has_prefix (info->name, ".")) {
-		if (eog_image_is_supported_mime_type (info->mime_type)) {
+        if (!g_str_has_prefix (name, ".")) {
+		if (eog_image_is_supported_mime_type (mime_type)) {
 			load_uri = TRUE;
 		}
 	}
 
 	if (load_uri) {
-		uri = gnome_vfs_uri_append_file_name (ctx->uri, rel_uri);
-		eog_list_store_append_image_from_uri (store, uri, TRUE);
+		child = g_file_get_child (directory, name);
+		eog_list_store_append_image_from_file (store, child, TRUE);
 	}
-
-	return TRUE;
 }
 
 static void 
 eog_list_store_append_directory (EogListStore *store, 
-				 GnomeVFSURI *uri, 
-				 GnomeVFSFileInfo *info)
+				 GFile *file, 
+				 GFileType file_type)
 {
-	DirLoadingContext ctx;
-	MonitorHandleContext *hctx = g_new0(MonitorHandleContext, 1);
-
-	hctx->text_uri = gnome_vfs_uri_get_path (uri);
+	GFileMonitor *file_monitor;
+	GFileEnumerator *file_enumerator;
+	GFileInfo *file_info;
 	
-	g_return_if_fail (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY);
-
-	ctx.uri = uri;
-	ctx.store = store;
-	ctx.info = info;
+	g_return_if_fail (file_type == G_FILE_TYPE_DIRECTORY);
 	
-	gnome_vfs_monitor_add  (&hctx->handle, hctx->text_uri,
-				GNOME_VFS_MONITOR_DIRECTORY,
-				vfs_monitor_dir_cb,
-				store);
+	file_monitor = g_file_monitor_directory (file,
+						 0, NULL, NULL);
+	g_signal_connect (file_monitor, "changed",
+			  G_CALLBACK (file_monitor_changed_cb), store);
 
 	/* prepend seems more efficient to me, we don't need this list
 	   to be sorted */
-	store->priv->monitors = g_list_prepend (store->priv->monitors, hctx);
+	store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
 	
-	/* Forcing slow MIME type checking, so we don't need to make 
-	   workarounds for files with strange extensions (#333551) */
-	gnome_vfs_directory_visit_uri (uri,
-				       GNOME_VFS_FILE_INFO_DEFAULT |
-				       GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-				       GNOME_VFS_FILE_INFO_GET_MIME_TYPE | 
-				       GNOME_VFS_FILE_INFO_FORCE_SLOW_MIME_TYPE,
-				       GNOME_VFS_DIRECTORY_VISIT_DEFAULT,
-				       directory_visit_cb,
-				       &ctx);
-}
+	file_enumerator = g_file_enumerate_children (file,
+						     G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
+						     G_FILE_ATTRIBUTE_STANDARD_NAME,
+						     0, NULL, NULL);
+	file_info = g_file_enumerator_next_file (file_enumerator, NULL, NULL);
 
-static gboolean
-get_uri_info (GnomeVFSURI *uri, GnomeVFSFileInfo *info)
-{
-	GnomeVFSResult result;
-	
-	g_return_val_if_fail (uri != NULL, FALSE);
-	g_return_val_if_fail (info != NULL, FALSE);
-	
-	gnome_vfs_file_info_clear (info);
-
-	result = gnome_vfs_get_file_info_uri (uri, info,
-					      GNOME_VFS_FILE_INFO_DEFAULT |
-					      GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-					      GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-	
-	return (result == GNOME_VFS_OK);
+	while (file_info != NULL)
+	{
+		directory_visit (file, file_info, store);
+		g_object_unref (file_info);
+		file_info = g_file_enumerator_next_file (file_enumerator, NULL, NULL);
+	}
+	g_object_unref (file_enumerator);
 }
 
 void
-eog_list_store_add_uris (EogListStore *store, GList *uri_list) 
+eog_list_store_add_files (EogListStore *store, GList *file_list) 
 {
 	GList *it;
-	GnomeVFSFileInfo *info;
-	GnomeVFSURI *initial_uri = NULL;
+	GFileInfo *file_info;
+	GFileType file_type;
+	GFile *initial_file = NULL;
 	GtkTreeIter iter;
 
-	if (uri_list == NULL) {
+	if (file_list == NULL) {
 		return;
 	}
-	
-	info = gnome_vfs_file_info_new ();
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					      GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
 					      GTK_SORT_ASCENDING);
 	
-	for (it = uri_list; it != NULL; it = it->next) {
-		GnomeVFSURI *uri = (GnomeVFSURI *) it->data;
-
-		if (!get_uri_info (uri, info))
+	for (it = file_list; it != NULL; it = it->next) {
+		GFile *file = (GFile *) it->data;
+		
+		file_info = g_file_query_info (file,
+					       G_FILE_ATTRIBUTE_STANDARD_TYPE,
+					       0, NULL, NULL);
+		if (file_info == NULL) {
 			continue;
+		}
+		file_type = g_file_info_get_file_type (file_info);
+		g_object_unref (file_info);
 			
-		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-			eog_list_store_append_directory (store, uri, info);
-		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
-			   g_list_length (uri_list) == 1) {
+		if (file_type == G_FILE_TYPE_DIRECTORY) {
+			eog_list_store_append_directory (store, file, file_type);
+		} else if (file_type == G_FILE_TYPE_REGULAR && 
+			   g_list_length (file_list) == 1) {
 
-			initial_uri = gnome_vfs_uri_dup (uri); 
+			initial_file = g_file_dup (file);
 
-			uri = gnome_vfs_uri_get_parent (uri);
-			
-			if (!get_uri_info (uri, info))
-				continue;
+			file = g_file_get_parent (file);
+			file_info = g_file_query_info (file,
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
+						       0, NULL, NULL);
+			file_type = g_file_info_get_file_type (file_info);
+			g_object_unref (file_info);
 
-			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-				eog_list_store_append_directory (store, uri, info);
+			if (file_type == G_FILE_TYPE_DIRECTORY) {
+				eog_list_store_append_directory (store, file, file_type);
 
-				if (!is_file_in_list_store_uri (store,
-								initial_uri, 
-								&iter)) {
-					eog_list_store_append_image_from_uri (store, initial_uri, TRUE);
+				if (!is_file_in_list_store_file (store,
+								 initial_file, 
+								 &iter)) {
+					eog_list_store_append_image_from_file (store, initial_file, TRUE);
 				}
 			} else {
-				eog_list_store_append_image_from_uri (store, initial_uri, FALSE);
+				eog_list_store_append_image_from_file (store, initial_file, FALSE);
 			}
-		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
-			   g_list_length (uri_list) > 1) {
-			eog_list_store_append_image_from_uri (store, uri, FALSE);
+		} else if (file_type == G_FILE_TYPE_REGULAR && 
+			   g_list_length (file_list) > 1) {
+			eog_list_store_append_image_from_file (store, file, FALSE);
 		}
 	}
-
-	gnome_vfs_file_info_unref (info);
 
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
 					      GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, 
 					      GTK_SORT_ASCENDING);
 	
-	if (initial_uri && 
-	    is_file_in_list_store_uri (store, initial_uri, &iter)) {
+	if (initial_file && 
+	    is_file_in_list_store_file (store, initial_file, &iter)) {
 		store->priv->initial_image = eog_list_store_get_pos_by_iter (store, &iter);
-		gnome_vfs_uri_unref (initial_uri);
+		g_object_unref (initial_file);
 	} else {
 		store->priv->initial_image = 0;
 	} 
@@ -611,17 +585,17 @@ void
 eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
-	GnomeVFSURI *uri;
+	GFile *file;
 
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	uri = eog_image_get_uri (image);
+	file = eog_image_get_file (image);
 
-	if (is_file_in_list_store_uri (store, uri, &iter)) {
+	if (is_file_in_list_store_file (store, file, &iter)) {
 		eog_list_store_remove (store, &iter);
 	}
-	gnome_vfs_uri_unref (uri);
+	g_object_unref (file);
 }
 
 GtkListStore *
@@ -644,18 +618,18 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 {
 	GtkTreeIter iter;
 	gint pos = -1;
-	GnomeVFSURI *uri;
+	GFile *file;
 
 	g_return_val_if_fail (EOG_IS_LIST_STORE (store), -1);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), -1);
 	
-	uri = eog_image_get_uri (image);
+	file = eog_image_get_file (image);
 
-	if (is_file_in_list_store_uri (store, uri, &iter)) {
+	if (is_file_in_list_store_file (store, file, &iter)) {
 		pos = eog_list_store_get_pos_by_iter (store, &iter);
 	}
 
-	gnome_vfs_uri_unref (uri);
+	g_object_unref (file);
 	return pos;
 }
 
