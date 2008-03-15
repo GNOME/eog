@@ -245,7 +245,6 @@ eog_image_init (EogImage *img)
 	img->priv->modified = FALSE;
 	img->priv->status_mutex = g_mutex_new ();
 	img->priv->status = EOG_IMAGE_STATUS_UNKNOWN;
-	img->priv->prev_status = EOG_IMAGE_STATUS_UNKNOWN;
 	img->priv->is_monitored = FALSE;
 	img->priv->undo_stack = NULL;
 	img->priv->trans = NULL;
@@ -1569,14 +1568,6 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 
 	priv = img->priv;
 
-	/* FIXME: Because of a bug in gnome-vfs file monitoring, we need to avoid
-         * an image that is being saved to be removed and re-added by the monitor
-         * handler. We do this by setting the image's status to "saving" and, in
-         * case the image is being monitored, the status is only restored after the
-         * "fake" image deletion is notified by gnome-vfs. Same aproach is used in
-         * eog_image_save_as_by_info(). See bug #46830. */
-	priv->prev_status = priv->status;
-
 	/* Image is now being saved */
 	priv->status = EOG_IMAGE_STATUS_SAVING;
 
@@ -1632,10 +1623,7 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 	g_free (tmp_file_path);
 	g_object_unref (tmp_file);
 
-	/* Restore previous status only if is not monitored image */
-	if (!priv->is_monitored) {
-		priv->status = priv->prev_status;
-	}
+	priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 
 	return success;
 }
@@ -1691,8 +1679,6 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
 
 	priv = img->priv;
-
-	priv->prev_status = priv->status;
 
 	/* fail if there is no image to save */
 	if (priv->image == NULL) {
@@ -1750,10 +1736,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	g_object_unref (tmp_file);
 	g_free (tmp_file_path);
 
-	/* Restore previous status only if is not monitored image */
-	if (!priv->is_monitored) {
-		priv->status = priv->prev_status;
-	}
+	priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 
 	return success;
 }
@@ -2004,22 +1987,6 @@ eog_image_get_status (EogImage *img)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), EOG_IMAGE_STATUS_UNKNOWN);
 
 	return img->priv->status;
-}
-
-void
-eog_image_restore_status (EogImage *img)
-{
-	g_return_if_fail (EOG_IS_IMAGE (img));
-
-	img->priv->status = img->priv->prev_status;
-}
-
-void
-eog_image_set_is_monitored (EogImage *img, gboolean is_monitored)
-{
-	g_return_if_fail (EOG_IS_IMAGE (img));
-
-	img->priv->is_monitored = is_monitored;
 }
 
 void

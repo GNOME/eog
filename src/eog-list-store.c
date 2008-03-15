@@ -344,16 +344,13 @@ eog_list_store_append_image (EogListStore *store, EogImage *image)
 
 static void 
 eog_list_store_append_image_from_file (EogListStore *store, 
-				       GFile *file,
-				       gboolean is_monitored)
+				       GFile *file)
 {
 	EogImage *image;
 	
 	g_return_if_fail (EOG_IS_LIST_STORE (store));
 
 	image = eog_image_new_file (file);
-
-	eog_image_set_is_monitored (image, is_monitored);
 
 	eog_list_store_append_image (store, image);
 }
@@ -387,7 +384,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			}
 		} else {
 			if (eog_image_is_supported_mime_type (mimetype)) {
-				eog_list_store_append_image_from_file (store, file, TRUE);
+				eog_list_store_append_image_from_file (store, file);
 			}
 		}
 		g_object_unref (file_info);
@@ -400,11 +397,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 					    EOG_LIST_STORE_EOG_IMAGE, &image,
 					    -1);
 
-			if (eog_image_get_status (image) != EOG_IMAGE_STATUS_SAVING) {
-				eog_list_store_remove (store, &iter);
-			} else {
-				eog_image_restore_status (image);
-			}
+			eog_list_store_remove (store, &iter);
 		}
 		break;
 	case G_FILE_MONITOR_EVENT_CREATED:
@@ -418,7 +411,7 @@ file_monitor_changed_cb (GFileMonitor *monitor,
 			mimetype = g_file_info_get_content_type (file_info);
 
 			if (eog_image_is_supported_mime_type (mimetype)) {
-				eog_list_store_append_image_from_file (store, file, TRUE);
+				eog_list_store_append_image_from_file (store, file);
 			}
 			g_object_unref (file_info);
 		}
@@ -469,7 +462,7 @@ directory_visit (GFile *directory,
 
 	if (load_uri) {
 		child = g_file_get_child (directory, name);
-		eog_list_store_append_image_from_file (store, child, TRUE);
+		eog_list_store_append_image_from_file (store, child);
 	}
 }
 
@@ -557,14 +550,14 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 				if (!is_file_in_list_store_file (store,
 								 initial_file, 
 								 &iter)) {
-					eog_list_store_append_image_from_file (store, initial_file, TRUE);
+					eog_list_store_append_image_from_file (store, initial_file);
 				}
 			} else {
-				eog_list_store_append_image_from_file (store, initial_file, FALSE);
+				eog_list_store_append_image_from_file (store, initial_file);
 			}
 		} else if (file_type == G_FILE_TYPE_REGULAR && 
 			   g_list_length (file_list) > 1) {
-			eog_list_store_append_image_from_file (store, file, FALSE);
+			eog_list_store_append_image_from_file (store, file);
 		}
 	}
 

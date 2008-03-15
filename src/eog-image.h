@@ -174,11 +174,6 @@ gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 
 EogImageStatus    eog_image_get_status               (EogImage   *img);
 
-void              eog_image_restore_status           (EogImage   *img);
-
-void              eog_image_set_is_monitored         (EogImage   *img,
-						      gboolean    is_monitored);
-
 void              eog_image_transform                (EogImage   *img, 
 						      EogTransform *trans,
 						      EogJob     *job);
