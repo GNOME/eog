@@ -1,3 +1,14 @@
+2008-03-15  Lucas Rocha  <lucasr@gnome.org>
+
+	* src/eog-image.[ch] (eog_image_init, eog_image_save_by_info,
+	-eog_image_restore_status, -eog_image_set_is_monitored): remove
+	prev_status ugly hack which was necessary on gnome-vfs times in order
+	to workaround a problem in the monitoring events (See bug #46830).
+	* src/eog-list-store.c (eog_list_store_append_image_from_file,
+	file_monitor_changed_cb): always remove image from image store when
+	catching G_FILE_MONITOR_EVENT_DELETED as the file monitoring behavior
+	works as expected in gio.
+
 2008-03-14  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-pixbuf-cell-renderer.h: Fix compiler warning. (Cosimo	Cecchi)
