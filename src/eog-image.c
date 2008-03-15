@@ -1559,6 +1559,7 @@ gboolean
 eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error) 
 {
 	EogImagePrivate *priv;
+	EogImageStatus prev_status;
 	gboolean success = FALSE;
 	GFile *tmp_file;
 	char *tmp_file_path;
@@ -1567,6 +1568,8 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 
 	priv = img->priv;
+
+	prev_status = priv->status;
 
 	/* Image is now being saved */
 	priv->status = EOG_IMAGE_STATUS_SAVING;
@@ -1623,7 +1626,7 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 	g_free (tmp_file_path);
 	g_object_unref (tmp_file);
 
-	priv->status = EOG_IMAGE_STATUS_UNKNOWN;
+	priv->status = prev_status;
 
 	return success;
 }
