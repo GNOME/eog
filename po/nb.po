@@ -54,7 +54,7 @@ msgstr "Fjern valgt verktøylinje"
 
 #: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
 msgid "Separator"
-msgstr "Separator"
+msgstr "Skillelinje"
 
 #: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
 msgid "Running in fullscreen mode"
@@ -70,7 +70,7 @@ msgstr "Bildevisning"
 
 #: ../data/eog-image-properties-dialog.glade.h:1
 msgid "<b>Aperture Value:</b>"
-msgstr "<b>Verdi for apperatur:</b>"
+msgstr "<b>Blenderverdi:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:2
 msgid "<b>Author:</b>"
@@ -110,7 +110,7 @@ msgstr "<b>Blitz:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:11
 msgid "<b>Focal Length:</b>"
-msgstr "<b>Fokuslengde:</b>"
+msgstr "<b>Brennvidde:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:12
 msgid "<b>Height:</b>"
@@ -118,7 +118,7 @@ msgstr "<b>Høyde:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:13
 msgid "<b>ISO Speed Rating:</b>"
-msgstr "<b>ISO hastighet:</b>"
+msgstr "<b>ISO-verdi:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:14
 msgid "<b>Keywords:</b>"
@@ -126,11 +126,11 @@ msgstr "<b>Nøkkelord:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:15
 msgid "<b>Location:</b>"
-msgstr "<b>Lokasjon:</b>"
+msgstr "<b>Plassering:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:16
 msgid "<b>Metering Mode:</b>"
-msgstr "<b>Metermodus:</b>"
+msgstr "<b>Lysmålingsmodus:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:17
 msgid "<b>Name:</b>"
@@ -272,7 +272,7 @@ msgstr "Lysbildevisning"
 
 #: ../data/eog-preferences-dialog.glade.h:14
 msgid "Smooth images when _zoomed"
-msgstr "Jevn ut bilde ved _zoom"
+msgstr "Jevn ut bilder ved _zoom"
 
 #: ../data/eog-preferences-dialog.glade.h:15
 msgid "_Automatic orientation"
@@ -322,8 +322,8 @@ msgid ""
 "determines the used color value."
 msgstr ""
 "Bestemmer hvordan gjennomsiktighet skal vises. Gyldige verdier er "
-"CHECK_PATTERN COLOR og NONE. Hvis COLOR velges bestemmes valgt fargeverdi av "
-"nøkkelen trans_color_key."
+"CHECK_PATTERN, COLOR og NONE. Hvis COLOR velges bestemmes valgt fargeverdi av "
+"nøkkelen trans_color."
 
 #: ../data/eog.schemas.in.h:8
 msgid ""
@@ -372,11 +372,11 @@ msgstr "Zoom med mushjul"
 
 #: ../data/eog.schemas.in.h:15
 msgid "Show/hide the image collection pane scroll buttons."
-msgstr "Vis/skjul rulleknapper for område for bildesamling."
+msgstr "Vis/skjul rulleknapper for bildesamlingsområdet."
 
 #: ../data/eog.schemas.in.h:16
 msgid "Show/hide the image collection pane."
-msgstr "Vis/skjul område for bildesamling."
+msgstr "Vis/skjul bildesamlingsområdet."
 
 #: ../data/eog.schemas.in.h:17
 msgid "Show/hide the window side pane."
@@ -413,7 +413,8 @@ msgstr "Indikator for gjennomsiktighet"
 #: ../data/eog.schemas.in.h:24
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
-msgstr "Om bildesekvensen skal vises kontinuerlig."
+msgstr ""
+"Om bildesekvensen skal vises kontinuerlig."
 
 #: ../data/eog.schemas.in.h:25
 msgid "Whether the image collection pane should be resizable or not."
@@ -430,7 +431,8 @@ msgstr ""
 #: ../data/eog.schemas.in.h:27
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
-msgstr "Om bildet skal roteres automatisk basert på EXIF-orientering."
+msgstr ""
+"Om bildet skal roteres automatisk basert på EXIF-orientering."
 
 #: ../data/eog.schemas.in.h:28
 msgid "Whether the scroll wheel should be used for zooming or not."
@@ -442,7 +444,7 @@ msgstr "Zoom-faktor"
 
 #: ../src/eog-file-chooser.c:121
 msgid "File format is unknown or unsupported"
-msgstr "Filformat er ukjent eller ikke støttet"
+msgstr "Filformatet er ukjent eller ikke støttet"
 
 #: ../src/eog-file-chooser.c:126
 msgid ""
@@ -454,7 +456,7 @@ msgstr ""
 
 #: ../src/eog-file-chooser.c:127
 msgid "Please try a different file extension like .png or .jpg."
-msgstr "Vennligst prøv en annen type som .png eller .jpg."
+msgstr "Vennligst prøv en annen filtype som .png eller .jpg."
 
 #: ../src/eog-file-chooser.c:159
 msgid "All Files"
@@ -533,7 +535,7 @@ msgstr "Kunne ikke opprette midlertidig fil for lagring: %s"
 #: ../src/eog-image-jpeg.c:376
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
-msgstr "Kunne ikke allokere minne for lasting av JPEG-fil"
+msgstr "Kunne ikke reservere minne for lasting av JPEG-fil"
 
 #: ../src/eog-exif-details.c:68
 msgid "Camera"
@@ -549,7 +551,7 @@ msgstr "Tilstand når bildet ble tatt"
 
 #: ../src/eog-exif-details.c:71
 msgid "Maker Note"
-msgstr "Notat fra fotograf"
+msgstr "Utvidet metadata for kameramodell"
 
 #: ../src/eog-exif-details.c:72
 msgid "Other"
@@ -600,7 +602,7 @@ msgstr "Ingen bilder funnet i «%s»."
 
 #: ../src/eog-error-message-area.c:165
 msgid "The given locations contain no images."
-msgstr "Oppgitt lokasjon inneholder ingen bilder."
+msgstr "Oppgitte plasseringer inneholder ingen bilder."
 
 #: ../src/eog-print-image-setup.c:833
 msgid "Image"
@@ -734,7 +736,7 @@ msgstr "Lagrer bilde «%s» (%u/%u)"
 #: ../src/eog-window.c:1547
 #, c-format
 msgid "Loading image \"%s\""
-msgstr "Lagrer bilde «%s»"
+msgstr "Laster bilde «%s»"
 
 #: ../src/eog-window.c:2359
 msgid "Image Settings"
@@ -939,7 +941,8 @@ msgstr "B_ildesamling"
 #: ../src/eog-window.c:3381
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
-msgstr "Endre synlighet for området for bildesamling i aktivt vindu"
+msgstr ""
+"Endre synlighet for bildesamlingsområdet i aktivt vindu"
 
 #: ../src/eog-window.c:3383
 msgid "Side _Pane"
@@ -995,7 +998,7 @@ msgstr "Egenskape_r"
 
 #: ../src/eog-window.c:3405
 msgid "Show the properties and metadata of the selected image"
-msgstr "Vis egenskaper og metadata på det valgte bildet"
+msgstr "Vis egenskaper og metadata for det valgte bildet"
 
 #: ../src/eog-window.c:3407
 msgid "_Undo"
