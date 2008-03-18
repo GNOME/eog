@@ -1,5 +1,21 @@
 2008-03-18  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-metadata-reader-jpg.c: (eog_metadata_reader_jpg_dispose),
+	(eog_metadata_reader_jpg_init),
+	(eog_metadata_reader_jpg_class_init),
+	(eog_metadata_reader_jpg_new), (eog_metadata_reader_jpg_finished),
+	(eog_metadata_identify_app1), (eog_metadata_reader_get_next_block),
+	(eog_metadata_reader_jpg_consume),
+	(eog_metadata_reader_jpg_get_exif_chunk),
+	(eog_metadata_reader_jpg_get_exif_data),
+	(eog_metadata_reader_jpg_get_xmp_data),
+	(eog_metadata_reader_jpg_get_icc_chunk),
+	(eog_metadata_reader_jpg_init_emr_iface):
+	* src/eog-metadata-reader-jpg.h:
+	Add missing files to the metadata reader commit.
+
+2008-03-18  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/Makefile.am:
 	* src/eog-metadata-reader.c: (eog_metadata_reader_get_type),
 	(eog_metadata_reader_new), (eog_metadata_reader_finished),
