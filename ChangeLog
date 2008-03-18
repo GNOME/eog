@@ -1,3 +1,14 @@
+2008-03-18  Felix Riemann  <kirschsaft@kirschsaft>
+
+	* src/Makefile.am:
+	* src/eog-metadata-reader.c: (eog_metadata_reader_get_type),
+	(eog_metadata_reader_new), (eog_metadata_reader_finished),
+	(eog_metadata_reader_consume), (eog_metadata_reader_get_exif_chunk),
+	(eog_metadata_reader_get_exif_data), (eog_metadata_reader_get_xmp_data),
+	(eog_metadata_reader_get_icc_chunk):
+	* src/eog-metadata-reader.h: Make it easier to include metadata	readers
+	besides the already present JPEG reader. Fixes bug #522077.
+
 2008-03-17  Lucas Rocha  <lucasr@gnome.org>
 
 	Added two basic default plugins. More to come.

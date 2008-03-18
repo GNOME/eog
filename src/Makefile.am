@@ -31,6 +31,7 @@ NOINST_H_FILES =			\
 	eog-image-private.h		\
 	eog-uri-converter.h		\
 	eog-metadata-reader.h		\
+	eog-metadata-reader-jpg.h	\
 	eog-save-as-dialog-helper.h	\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
@@ -98,6 +99,7 @@ libeog_la_SOURCES =			\
 	eog-jobs.c			\
 	eog-uri-converter.c		\
 	eog-metadata-reader.c		\
+	eog-metadata-reader-jpg.c	\
 	eog-save-as-dialog-helper.c	\
 	eog-print-image-setup.c         \
 	eog-print-preview.c           	\
