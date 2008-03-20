@@ -1,4 +1,8 @@
-SUBDIRS = fullscreen reload 
+SUBDIRS = fullscreen reload
+
+if HAVE_EXIF
+SUBDIRS += statusbar-date
+endif
 
 plugindir = $(libdir)/eog/plugins
 

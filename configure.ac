@@ -391,6 +391,7 @@ data/icons/scalable/apps/Makefile
 plugins/Makefile
 plugins/reload/Makefile
 plugins/fullscreen/Makefile
+plugins/statusbar-date/Makefile
 bindings/Makefile
 bindings/python/Makefile
 ])

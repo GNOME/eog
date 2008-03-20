@@ -1,0 +1,15 @@
+2008-03-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
+
+	* Makefile.am: Add statusbar-date plugin conditionally on
+	libexif presence.
+	* statusbar-date/Makefile.am:
+	* statusbar-date/eog-statusbar-date-plugin.c: (free_window_data),
+	(selection_changed_cb), (eog_statusbar_date_plugin_init),
+	(eog_statusbar_date_plugin_finalize), (impl_activate),
+	(impl_deactivate), (impl_update_ui),
+	(eog_statusbar_date_plugin_class_init):
+	* statusbar-date/eog-statusbar-date-plugin.h:
+	* statusbar-date/statusbar-date.eog-plugin.desktop.in:
+
+	Added a plugin to show the EXIF date on the statusbar. This fixes
+	bug #466566.
