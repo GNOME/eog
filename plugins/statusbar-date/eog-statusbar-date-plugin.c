@@ -155,6 +155,8 @@ impl_deactivate	(EogPlugin *plugin,
 	data = (WindowData *) g_object_get_data (G_OBJECT (window), 
 						 WINDOW_DATA_KEY);
 
+	g_signal_handler_disconnect (view, data->signal_id);
+
 	gtk_container_remove (GTK_CONTAINER (statusbar), data->statusbar_date);
 
 	g_object_set_data (G_OBJECT (window),
