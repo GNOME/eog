@@ -38,12 +38,14 @@
 #include <string.h>
 #include <glib/gi18n.h>
 
+#define DATE_BUF_SIZE 200
+
 #ifdef HAVE_STRPTIME
 static gchar *  
 eog_exif_util_format_date_with_strptime (const gchar *date)
 {
 	gchar *new_date = NULL;
-	gchar tmp_date[100];
+	gchar tmp_date[DATE_BUF_SIZE];
 	gchar *p;
 	gsize dlen;
 	struct tm tm;
@@ -52,7 +54,8 @@ eog_exif_util_format_date_with_strptime (const gchar *date)
 	p = strptime (date, "%Y:%m:%d %T", &tm);
 
 	if (p == date + strlen (date)) {
-		dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x %X", &tm);
+		/* A strftime-formatted string, to display the date the image was taken.  */
+		dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y  %X"), &tm);
 		new_date = g_strndup (tmp_date, dlen);
 	}
 
@@ -72,7 +75,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 	if (result < 3 || !g_date_valid_dmy (day, month, year)) {
 		return NULL;
 	} else {
-		gchar tmp_date[100];
+		gchar tmp_date[DATE_BUF_SIZE];
 		gsize dlen;
 		time_t secs;
 		struct tm tm;
@@ -83,12 +86,14 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 		tm.tm_year = year-1900;
 		
 		if (result < 5) {
-			dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x", &tm);
+		  	/* A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.  */
+			dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y"), &tm);
 		} else {
 			tm.tm_sec = result < 6 ? 0 : seconds;
 			tm.tm_min = minutes;
 			tm.tm_hour = hour;
-			dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x %X", &tm);
+			/* A strftime-formatted string, to display the date the image was taken.  */
+			dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y  %X"), &tm);
 		}
 
 		if (dlen == 0) 
