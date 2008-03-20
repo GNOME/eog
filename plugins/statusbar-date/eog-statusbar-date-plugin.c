@@ -28,14 +28,14 @@
 #include <gmodule.h>
 #include <glib/gi18n-lib.h>
 
+#include <libexif/exif-data.h>
+
 #include <eog-debug.h>
 #include <eog-scroll-view.h>
 #include <eog-image.h>
 #include <eog-thumb-view.h>
-#ifdef HAVE_EXIF
-#include "eog-exif-util.h"
-#include <libexif/exif-data.h>
-#endif
+#include <eog-exif-util.h>
+
 
 #define WINDOW_DATA_KEY "EogStatusbarDateWindowData"
 
@@ -83,11 +83,11 @@ selection_changed_cb (EogThumbView *view, WindowData *data)
 	} else {
 		gtk_widget_hide (data->statusbar_date);
 	}
-#ifdef HAVE_EXIF
+
 	if (exif_data) {
 		exif_data_unref (exif_data);
 	}
-#endif
+
 	if (date) {
 		g_free (date);
 	}
