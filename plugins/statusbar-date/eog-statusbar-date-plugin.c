@@ -127,7 +127,7 @@ impl_activate (EogPlugin *plugin,
 	data->statusbar_date = gtk_statusbar_new ();
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (data->statusbar_date),
 					   FALSE);
-	gtk_widget_set_size_request (data->statusbar_date, 150, 10);
+	gtk_widget_set_size_request (data->statusbar_date, 200, 10);
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  data->statusbar_date,
 			  FALSE, FALSE, 0);
