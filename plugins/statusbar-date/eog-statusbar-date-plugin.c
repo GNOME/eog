@@ -58,39 +58,46 @@ free_window_data (WindowData *data)
 }
 
 static void
-selection_changed_cb (EogThumbView *view, WindowData *data)
+statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 {
 	EogImage *image;
 	gchar *date = NULL;
 	gchar time_buffer[32];
 	ExifData *exif_data;
 
-	if (eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (view)) == 0)
+	if (eog_thumb_view_get_n_selected (view) == 0)
 		return;
 	
-	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (view));
+	image = eog_thumb_view_get_first_selected_image (view);
+
+	gtk_statusbar_pop (statusbar, 0);
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
+		if (!eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, NULL)) {
+			gtk_widget_hide (GTK_WIDGET (statusbar));			
+		}
+	}
 
 	exif_data = (ExifData *) eog_image_get_exif_info (image);
 	if (exif_data) {
 		date = eog_exif_util_format_date (
 			eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
-	}
-
-	gtk_statusbar_pop (GTK_STATUSBAR (data->statusbar_date), 0);
-	if (date) {
-		gtk_statusbar_push (GTK_STATUSBAR (data->statusbar_date), 0, date);
-		gtk_widget_show (data->statusbar_date);
-	} else {
-		gtk_widget_hide (data->statusbar_date);
-	}
-
-	if (exif_data) {
 		exif_data_unref (exif_data);
 	}
 
 	if (date) {
+		gtk_statusbar_push (statusbar, 0, date);
+		gtk_widget_show (GTK_WIDGET (statusbar));
 		g_free (date);
+	} else {
+		gtk_widget_hide (GTK_WIDGET (statusbar));
 	}
+}
+
+static void
+selection_changed_cb (EogThumbView *view, WindowData *data)
+{
+	statusbar_set_date (GTK_STATUSBAR (data->statusbar_date), view);
 }
 static void
 eog_statusbar_date_plugin_init (EogStatusbarDatePlugin *plugin)
@@ -128,6 +135,9 @@ impl_activate (EogPlugin *plugin,
 	data->signal_id = g_signal_connect_after (G_OBJECT (thumbview), "selection_changed",
 						  G_CALLBACK (selection_changed_cb), data);
 
+	statusbar_set_date (GTK_STATUSBAR (data->statusbar_date),
+			    EOG_THUMB_VIEW (eog_window_get_thumb_view (window)));
+
 	g_object_set_data_full (G_OBJECT (window), 
 				WINDOW_DATA_KEY, 
 				data,
@@ -139,6 +149,7 @@ impl_deactivate	(EogPlugin *plugin,
 		 EogWindow *window)
 {
 	GtkWidget *statusbar = eog_window_get_statusbar (window);
+	GtkWidget *view = eog_window_get_thumb_view (window);
 	WindowData *data;
 
 	data = (WindowData *) g_object_get_data (G_OBJECT (window), 
