@@ -54,9 +54,8 @@ eog_exif_util_format_date_with_strptime (const gchar *date)
 	if (p == date + strlen (date)) {
 		dlen = strftime (tmp_date, 100 * sizeof(gchar), "%x %X", &tm);
 		new_date = g_strndup (tmp_date, dlen);
-	} else {
-		new_date = g_strdup (_("Unknown"));
 	}
+
 	return new_date;
 }
 #else
@@ -71,7 +70,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 			 &year, &month, &day, &hour, &minutes, &seconds);
 
 	if (result < 3 || !g_date_valid_dmy (day, month, year)) {
-		return g_strdup (_("Unknown"));
+		return NULL;
 	} else {
 		gchar tmp_date[100];
 		gsize dlen;
@@ -93,7 +92,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 		}
 
 		if (dlen == 0) 
-			return g_strdup (_("Unknown"));
+			return NULL;
 		else
 			new_date = g_strndup (tmp_date, dlen);
 	}

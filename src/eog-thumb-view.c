@@ -455,15 +455,17 @@ tb_on_query_tooltip_cb (GtkWidget  *widget,
 		date = eog_exif_util_format_date (
 				eog_exif_util_get_value (exif_data, EXIF_TAG_DATE_TIME_ORIGINAL, time_buffer, 32));
 
-		extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
+		if (date) {
+			extra_info = g_strdup_printf ("\n%s %s", _("Taken on"), date);
 
-		tmp = g_strconcat (tooltip_string, extra_info, NULL);
+			tmp = g_strconcat (tooltip_string, extra_info, NULL);
 
-		g_free (date);
-		g_free (extra_info);
-		g_free (tooltip_string);
+			g_free (date);
+			g_free (extra_info);
+			g_free (tooltip_string);
 
-		tooltip_string = tmp;
+			tooltip_string = tmp;
+		}
 		exif_data_unref (exif_data);
 	}
 #endif
