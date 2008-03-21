@@ -68,7 +68,7 @@ static const GOptionEntry goption_options[] =
 	{ "disable-image-collection", 'c', 0, G_OPTION_ARG_NONE, &disable_collection, N_("Disable image collection"), NULL  },
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slide show mode"), NULL  },
 #if HAVE_DBUS
-	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &wait, N_("Start a new instance instead of reusing an already started one"), NULL },
+	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &wait, N_("Start a new instance instead of reusing an existing one"), NULL },
 #endif
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
 	{ NULL }
