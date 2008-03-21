@@ -169,7 +169,8 @@ eog_thumb_data_free (EogThumbData *data)
 	g_free (data->thumb_path);
 	g_free (data->mime_type);
 	g_free (data->uri_str);
-	g_free (data);
+
+	g_slice_free (EogThumbData, data);
 }
 
 static EogThumbData*
@@ -182,7 +183,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	g_return_val_if_fail (file != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
 	
-	data = g_new0 (EogThumbData, 1);
+	data = g_slice_new0 (EogThumbData);
 	
 	data->uri_str    = g_file_get_uri (file);
 	data->thumb_path = gnome_thumbnail_path_for_uri (data->uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
