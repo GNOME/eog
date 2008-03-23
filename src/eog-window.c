@@ -4402,6 +4402,8 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), FALSE);
 		} else if (EOG_WINDOW (widget)->priv->mode == EOG_WINDOW_MODE_SLIDESHOW) {
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), TRUE);
+		} else {
+			eog_window_cmd_close_window (NULL, EOG_WINDOW (widget));
 		}
 		break;
 	case GDK_Up:
