@@ -32,6 +32,7 @@ NOINST_H_FILES =			\
 	eog-uri-converter.h		\
 	eog-metadata-reader.h		\
 	eog-metadata-reader-jpg.h	\
+	eog-metadata-reader-png.h	\
 	eog-save-as-dialog-helper.h	\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
@@ -100,6 +101,7 @@ libeog_la_SOURCES =			\
 	eog-uri-converter.c		\
 	eog-metadata-reader.c		\
 	eog-metadata-reader-jpg.c	\
+	eog-metadata-reader-png.c	\
 	eog-save-as-dialog-helper.c	\
 	eog-print-image-setup.c         \
 	eog-print-preview.c           	\

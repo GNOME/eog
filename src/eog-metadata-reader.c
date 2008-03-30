@@ -27,6 +27,7 @@
 
 #include "eog-metadata-reader.h"
 #include "eog-metadata-reader-jpg.h"
+#include "eog-metadata-reader-png.h"
 #include "eog-debug.h"
 
 
@@ -48,11 +49,19 @@ eog_metadata_reader_get_type (void)
 EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)
 {
-	EogMetadataReader *emr = NULL;
+	EogMetadataReader *emr;
 	
-	/* CAUTION: check for type if we support more metadata-image-formats in the future */
-	if (type == EOG_METADATA_JPEG)
-		emr = EOG_METADATA_READER (eog_metadata_reader_jpg_new (type));
+	switch (type) {
+	case EOG_METADATA_JPEG:
+		emr = EOG_METADATA_READER (g_object_new (EOG_TYPE_METADATA_READER_JPG, NULL));
+		break;
+	case EOG_METADATA_PNG:
+		emr = EOG_METADATA_READER (g_object_new (EOG_TYPE_METADATA_READER_PNG, NULL));
+		break;
+	default:
+		emr = NULL;
+		break;
+	}
 
 	return emr;
 }
@@ -102,6 +111,7 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 	EogMetadataReaderInterface *iface;
 
 	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
+
 	if (iface->get_exif_data)
 		exif_data = iface->get_exif_data (emr);
 	
@@ -125,19 +135,18 @@ eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
 }
 #endif
 
-void
-eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr, guchar **data, guint *len)
+#ifdef HAVE_LCMS
+cmsHPROFILE
+eog_metadata_reader_get_icc_profile (EogMetadataReader *emr)
 {
 	EogMetadataReaderInterface *iface;
-
-	g_return_if_fail (data != NULL && len != NULL);
+	gpointer profile = NULL;
 
 	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-	
-	if (iface->get_icc_chunk)
-		iface->get_icc_chunk (emr, data, len);
-	else {
-		*data = NULL;
-		*len = 0;
-	}
+
+	if (iface->get_icc_profile)
+		profile = iface->get_icc_profile (emr);
+		
+	return profile;
 }
+#endif

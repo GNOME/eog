@@ -150,17 +150,6 @@ eog_metadata_reader_jpg_class_init (EogMetadataReaderJpgClass *klass)
 	g_type_class_add_private (klass, sizeof (EogMetadataReaderJpgPrivate));
 }
 
-EogMetadataReaderJpg*
-eog_metadata_reader_jpg_new (EogMetadataFileType type)
-{
-	EogMetadataReaderJpg *emr;
-	
-	/* CAUTION: check for type if we support more metadat-image-formats in the future */
-	
-	emr = g_object_new (EOG_TYPE_METADATA_READER_JPG, NULL);	
-	return emr;
-}
-
 static gboolean
 eog_metadata_reader_jpg_finished (EogMetadataReaderJpg *emr)
 {
@@ -503,20 +492,142 @@ eog_metadata_reader_jpg_get_xmp_data (EogMetadataReaderJpg *emr )
  * parse the sections and construct a single memory chunk, or maybe even parse
  * the profile.
  */
-static void
-eog_metadata_reader_jpg_get_icc_chunk (EogMetadataReaderJpg *emr, guchar **data, guint *len)
+#ifdef HAVE_LCMS
+static gpointer
+eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 {
 	EogMetadataReaderJpgPrivate *priv;
+	cmsHPROFILE profile = NULL;
 	
-	g_return_if_fail (EOG_IS_METADATA_READER (emr));
+	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
 
 	priv = emr->priv;
 
 	if (priv->icc_chunk) {	
-		*data = (guchar*) priv->icc_chunk + 14;
-		*len = priv->icc_len - 14;
+		cmsErrorAction (LCMS_ERROR_SHOW);
+
+		profile = cmsOpenProfileFromMem(priv->icc_chunk + 14, priv->icc_len - 14);
+
+		if (profile) {
+			eog_debug_message (DEBUG_LCMS, "JPEG has ICC profile");
+		} else {
+			eog_debug_message (DEBUG_LCMS, "JPEG has invalid ICC profile");
+		}
 	}
+
+#ifdef HAVE_EXIF
+	if (!profile && priv->exif_chunk != NULL) {
+		ExifEntry *entry;
+		ExifByteOrder o;
+		gint color_space;
+		ExifData *exif = eog_metadata_reader_jpg_get_exif_data (emr);
+
+		if (!exif) return NULL;
+
+		o = exif_data_get_byte_order (exif);
+
+		entry = exif_data_get_entry (exif, EXIF_TAG_COLOR_SPACE);
+
+		if (entry == NULL) {
+			exif_data_unref (exif);
+			return NULL;
+		}
+
+		color_space = exif_get_short (entry->data, o);
+
+		switch (color_space) {
+		case 1:
+			eog_debug_message (DEBUG_LCMS, "JPEG is sRGB");
+
+			profile = cmsCreate_sRGBProfile ();
+
+			break;
+		case 2:
+			eog_debug_message (DEBUG_LCMS, "JPEG is Adobe RGB (Disabled)");
+
+			/* TODO: create Adobe RGB profile */
+			//profile = cmsCreate_Adobe1998Profile ();
+
+			break;
+		case 0xFFFF: 
+		  	{
+			cmsCIExyY whitepoint;
+			cmsCIExyYTRIPLE primaries;
+			LPGAMMATABLE gamma[3];
+			double gammaValue;
+			ExifRational r;
+
+			const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
+		
+			entry = exif_data_get_entry (exif, EXIF_TAG_WHITE_POINT);
+
+			if (entry && entry->components == 2) {
+				r = exif_get_rational (entry->data, o);
+				whitepoint.x = (double) r.numerator / r.denominator;
+
+				r = exif_get_rational (entry->data + offset, o);
+				whitepoint.y = (double) r.numerator / r.denominator;
+				whitepoint.Y = 1.0;
+			} else {
+				eog_debug_message (DEBUG_LCMS, "No whitepoint found");
+				break;
+			}
+		    
+			entry = exif_data_get_entry (exif, EXIF_TAG_PRIMARY_CHROMATICITIES);
+
+			if (entry && entry->components == 6) {
+				r = exif_get_rational (entry->data + 0 * offset, o);
+				primaries.Red.x = (double) r.numerator / r.denominator;
+
+				r = exif_get_rational (entry->data + 1 * offset, o);
+				primaries.Red.y = (double) r.numerator / r.denominator;
+
+				r = exif_get_rational (entry->data + 2 * offset, o);
+				primaries.Green.x = (double) r.numerator / r.denominator;
+
+				r = exif_get_rational (entry->data + 3 * offset, o);
+				primaries.Green.y = (double) r.numerator / r.denominator;
+		      
+				r = exif_get_rational (entry->data + 4 * offset, o);
+				primaries.Blue.x = (double) r.numerator / r.denominator;
+
+				r = exif_get_rational (entry->data + 5 * offset, o);
+				primaries.Blue.y = (double) r.numerator / r.denominator;		    
+		      
+				primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
+			} else {
+				eog_debug_message (DEBUG_LCMS, "No primary chromaticities found");
+				break;
+			}
+
+			entry = exif_data_get_entry (exif, EXIF_TAG_GAMMA);
+
+			if (entry) {
+				r = exif_get_rational (entry->data, o);
+				gammaValue = (double) r.numerator / r.denominator;
+			} else {
+				eog_debug_message (DEBUG_LCMS, "No gamma found");
+				gammaValue = 2.2;
+			}
+		    
+			gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma (256, gammaValue);
+		    
+			profile = cmsCreateRGBProfile (&whitepoint, &primaries, gamma);
+
+			cmsFreeGamma(gamma[0]);
+
+			eog_debug_message (DEBUG_LCMS, "JPEG is calibrated");
+
+			break;
+			}
+			
+			exif_data_unref (exif);
+		}
+	}
+#endif
+	return profile;
 }
+#endif
 
 static void
 eog_metadata_reader_jpg_init_emr_iface (gpointer g_iface, gpointer iface_data)
@@ -539,9 +650,11 @@ eog_metadata_reader_jpg_init_emr_iface (gpointer g_iface, gpointer iface_data)
 		(gpointer (*) (EogMetadataReader *self)) 
 			eog_metadata_reader_jpg_get_exif_data;
 #endif
-	iface->get_icc_chunk = 
-		(void (*) (EogMetadataReader *self, guchar **buf, guint *len))
-			eog_metadata_reader_jpg_get_icc_chunk;
+#ifdef HAVE_LCMS
+	iface->get_icc_profile = 
+		(gpointer (*) (EogMetadataReader *self))
+			eog_metadata_reader_jpg_get_icc_profile;
+#endif
 #ifdef HAVE_EXEMPI
 	iface->get_xmp_ptr =
 		(gpointer (*) (EogMetadataReader *self))

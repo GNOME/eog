@@ -29,6 +29,9 @@
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
 #endif
+#if HAVE_LCMS
+#include <lcms.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -43,51 +46,56 @@ typedef struct _EogMetadataReaderInterface EogMetadataReaderInterface;
 struct _EogMetadataReaderInterface {
 	GTypeInterface parent;
 
-	void		(*consume) 	(EogMetadataReader *self,
-					 const guchar *buf,
-					 guint len);
+	void		(*consume)		(EogMetadataReader *self,
+						 const guchar *buf,
+						 guint len);
 
-	gboolean	(*finished) 	(EogMetadataReader *self);
+	gboolean	(*finished)		(EogMetadataReader *self);
 
-	void		(*get_raw_exif) (EogMetadataReader *self,
-					 guchar **data,
-					 guint *len);
+	void		(*get_raw_exif)		(EogMetadataReader *self,
+						 guchar **data,
+						 guint *len);
 
-	gpointer	(*get_exif_data) (EogMetadataReader *self);
+	gpointer	(*get_exif_data)	(EogMetadataReader *self);
 
-	void		(*get_icc_chunk) (EogMetadataReader *self,
-					  guchar **data,
-					  guint *len);
+	gpointer	(*get_icc_profile)	(EogMetadataReader *self);
 
-	gpointer	(*get_xmp_ptr) 	(EogMetadataReader *self);
+	gpointer	(*get_xmp_ptr)		(EogMetadataReader *self);
 };
 
 typedef enum {
-	EOG_METADATA_JPEG
+	EOG_METADATA_JPEG,
+	EOG_METADATA_PNG
 } EogMetadataFileType;
 
-GType                eog_metadata_reader_get_type (void) G_GNUC_CONST;
+GType                eog_metadata_reader_get_type	(void) G_GNUC_CONST;
 
-EogMetadataReader*   eog_metadata_reader_new (EogMetadataFileType type);
-void                 eog_metadata_reader_consume (EogMetadataReader *emr, const guchar *buf, guint len);
-gboolean             eog_metadata_reader_finished (EogMetadataReader *emr);
+EogMetadataReader*   eog_metadata_reader_new 		(EogMetadataFileType type);
+void                 eog_metadata_reader_consume	(EogMetadataReader *emr,
+							 const guchar *buf,
+							 guint len);
+gboolean             eog_metadata_reader_finished	(EogMetadataReader *emr);
 
-void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint *len);
+void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr,
+							 guchar **data,
+							 guint *len);
 
 #ifdef HAVE_EXIF
-ExifData*            eog_metadata_reader_get_exif_data (EogMetadataReader *emr);
+ExifData*            eog_metadata_reader_get_exif_data	(EogMetadataReader *emr);
 #endif
 
 #ifdef HAVE_EXEMPI
-XmpPtr	     	     eog_metadata_reader_get_xmp_data (EogMetadataReader *emr);
+XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *emr);
 #endif
 
 #if 0
-gpointer             eog_metadata_reader_get_iptc_chunk (EogMetadataReader *emr);
-IptcData*            eog_metadata_reader_get_iptc_data (EogMetadataReader *emr);
+gpointer             eog_metadata_reader_get_iptc_chunk	(EogMetadataReader *emr);
+IptcData*            eog_metadata_reader_get_iptc_data	(EogMetadataReader *emr);
 #endif
 
-void                 eog_metadata_reader_get_icc_chunk (EogMetadataReader *emr, guchar **data, guint *len);
+#ifdef HAVE_LCMS
+cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *emr);
+#endif
 
 G_END_DECLS
 

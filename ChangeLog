@@ -1,3 +1,30 @@
+2008-03-30  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/Makefile.am:
+	* src/eog-image.c: (check_for_metadata_img_format),
+	(eog_image_set_icc_data):
+	* src/eog-metadata-reader-jpg.c:
+	(eog_metadata_reader_jpg_get_icc_profile),
+	(eog_metadata_reader_jpg_init_emr_iface):
+	* src/eog-metadata-reader-jpg.h:
+	* src/eog-metadata-reader-png.c: (eog_metadata_reader_png_dispose),
+	(eog_metadata_reader_png_init),
+	(eog_metadata_reader_png_class_init),
+	(eog_metadata_reader_png_finished),
+	(eog_metadata_reader_png_get_next_block),
+	(eog_metadata_reader_png_consume),
+	(eog_metadata_reader_png_get_xmp_data),
+	(eog_metadata_reader_png_get_icc_profile),
+	(eog_metadata_reader_png_init_emr_iface):
+	* src/eog-metadata-reader-png.h:
+	* src/eog-metadata-reader.c: (eog_metadata_reader_new),
+	(eog_metadata_reader_get_exif_data),
+	(eog_metadata_reader_get_icc_profile):
+	* src/eog-metadata-reader.h:
+	Add PNG metadata reader supporting embedded XMP and color profile
+	data. This also moves the ICC profile generation using chromacity
+	and gamma values from EogImage into the readers. Fixes bug #523856.
+
 2008-03-23  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window (eog_window_key_press): bring back 'q' as a shortcut

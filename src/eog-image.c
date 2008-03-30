@@ -490,6 +490,10 @@ check_for_metadata_img_format (EogImage *img, guchar *buffer, guint bytes_read)
 		if ((buffer[0] == 0xFF) && (buffer[1] == 0xD8)) {		
 			md_reader = eog_metadata_reader_new (EOG_METADATA_JPEG);
 		}
+		if (bytes_read >= 8 &&
+		    memcmp (buffer, "\x89PNG\x0D\x0A\x1a\x0A", 8) == 0) {
+			md_reader = eog_metadata_reader_new (EOG_METADATA_PNG);
+		}
 	}
 
 	return md_reader;
@@ -639,132 +643,10 @@ static void
 eog_image_set_icc_data (EogImage *img, EogMetadataReader *md_reader)
 {
 	EogImagePrivate *priv = img->priv;
-	guchar *icc_chunk = NULL;
-	guint icc_chunk_len = 0;
-#ifdef HAVE_EXIF
-	ExifEntry *entry;
-	ExifByteOrder o;
-	gint color_space;
-#endif
 
-	/* TODO: switch on format to specialised functions */
+	priv->profile = eog_metadata_reader_get_icc_profile (md_reader);
 
-	eog_metadata_reader_get_icc_chunk (md_reader, &icc_chunk, &icc_chunk_len);
 
-	if (icc_chunk != NULL) {
-		cmsErrorAction (LCMS_ERROR_SHOW);
-
-		priv->profile = cmsOpenProfileFromMem(icc_chunk, icc_chunk_len);
-
-		if (priv->profile) {
-			eog_debug_message (DEBUG_LCMS, "JPEG has ICC profile");
-		} else {
-			eog_debug_message (DEBUG_LCMS, "JPEG has invalid ICC profile");
-		}
-
-		return;
-	}
-
-#ifdef HAVE_EXIF
-	if (priv->exif == NULL) return;
-
-	o = exif_data_get_byte_order (priv->exif);
-
-	entry = exif_data_get_entry (priv->exif, EXIF_TAG_COLOR_SPACE);
-
-	if (entry == NULL) return;
-
-	color_space = exif_get_short (entry->data, o);
-
-	switch (color_space) {
-	case 1:
-		eog_debug_message (DEBUG_LCMS, "JPEG is sRGB");
-
-		priv->profile = cmsCreate_sRGBProfile ();
-
-		break;
-
-	case 2:
-		eog_debug_message (DEBUG_LCMS, "JPEG is Adobe RGB (Disabled)");
-
-		/* TODO: create Adobe RGB profile */
-		//priv->profile = cmsCreate_Adobe1998Profile ();
-
-		break;
-
-	case 0xFFFF: 
-		{
-		cmsCIExyY whitepoint;
-		cmsCIExyYTRIPLE primaries;
-		LPGAMMATABLE gamma[3];
-		double gammaValue;
-		ExifRational r;
-
-		const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
-		
-		entry = exif_data_get_entry (priv->exif, EXIF_TAG_WHITE_POINT);
-
-		if (entry && entry->components == 2) {
-			r = exif_get_rational (entry->data, o);
-			whitepoint.x = (double) r.numerator / r.denominator;
-
-			r = exif_get_rational (entry->data + offset, o);
-			whitepoint.y = (double) r.numerator / r.denominator;
-			whitepoint.Y = 1.0;
-		} else {
-			eog_debug_message (DEBUG_LCMS, "No whitepoint found");
-			return;
-		}
-		    
-		entry = exif_data_get_entry (priv->exif, EXIF_TAG_PRIMARY_CHROMATICITIES);
-
-		if (entry && entry->components == 6) {
-			r = exif_get_rational (entry->data + 0 * offset, o);
-			primaries.Red.x = (double) r.numerator / r.denominator;
-
-			r = exif_get_rational (entry->data + 1 * offset, o);
-			primaries.Red.y = (double) r.numerator / r.denominator;
-		      
-			r = exif_get_rational (entry->data + 2 * offset, o);
-			primaries.Green.x = (double) r.numerator / r.denominator;
-
-			r = exif_get_rational (entry->data + 3 * offset, o);
-			primaries.Green.y = (double) r.numerator / r.denominator;
-		      
-			r = exif_get_rational (entry->data + 4 * offset, o);
-			primaries.Blue.x = (double) r.numerator / r.denominator;
-
-			r = exif_get_rational (entry->data + 5 * offset, o);
-			primaries.Blue.y = (double) r.numerator / r.denominator;		    
-		      
-			primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
-		} else {
-			eog_debug_message (DEBUG_LCMS, "No primary chromaticities found");
-			return;
-		}
-
-		entry = exif_data_get_entry (priv->exif, EXIF_TAG_GAMMA);
-
-		if (entry) {
-			r = exif_get_rational (entry->data, o);
-			gammaValue = (double) r.numerator / r.denominator;
-		} else {
-			eog_debug_message (DEBUG_LCMS, "No gamma found");
-			gammaValue = 2.2;
-		}
-		    
-		gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma (256, gammaValue);
-		    
-		priv->profile = cmsCreateRGBProfile (&whitepoint, &primaries, gamma);
-
-		cmsFreeGamma(gamma[0]);
-
-		eog_debug_message (DEBUG_LCMS, "JPEG is calibrated");
-
-		break;
-		}
-	}
-#endif
 }
 #endif
 
