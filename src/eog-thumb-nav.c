@@ -59,7 +59,6 @@ struct _EogThumbNavPrivate {
 	GtkWidget        *button_left;
 	GtkWidget        *button_right;
 	GtkWidget        *sw;
-	GtkWidget        *scale;
 	GtkWidget        *thumbview;
 	GtkAdjustment    *adj;
 };
