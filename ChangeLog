@@ -1,3 +1,9 @@
+2008-04-02  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_cmd_show_hide_bar): Make sure the
+	widget we assign focus to is realized. This avoids critical warnings
+	if some UI elements are hidden. Fixes bug #517017 (Wouter Bolsterlee).
+
 2008-03-31  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-thumb-nav.c: Remove unused private class member.
