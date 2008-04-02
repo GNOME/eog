@@ -2679,9 +2679,19 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 
 	} else if (g_ascii_strcasecmp (gtk_action_get_name (action), "ViewImageCollection") == 0) {
 		if (visible) {
+			/* Make sure the focus widget is realized to
+			 * avoid warnings on keypress events */
+			if (!GTK_WIDGET_REALIZED (window->priv->thumbview))
+				gtk_widget_realize (window->priv->thumbview);
+
 			gtk_widget_show (priv->nav);
 			gtk_widget_grab_focus (priv->thumbview);
 		} else {
+			/* Make sure the focus widget is realized to
+			 * avoid warnings on keypress events */
+			if (!GTK_WIDGET_REALIZED (window->priv->view))
+				gtk_widget_realize (window->priv->view);
+
 			gtk_widget_hide (priv->nav);
 			gtk_widget_grab_focus (priv->view);
 		}
