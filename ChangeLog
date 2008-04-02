@@ -1,3 +1,9 @@
+2008-04-02  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* src/eog-window.c: (eog_window_key_press): Give the scrollview
+	a chance to handle the key press event, to allow zooming in/out
+	if the image doesn't have the focus. Fixes bug #427053.
+
 2008-04-02  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_cmd_show_hide_bar): Make sure the
