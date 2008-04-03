@@ -63,7 +63,6 @@
 #include <gio/gio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkprintunixdialog.h>
 #include <gconf/gconf-client.h>
 
 #if HAVE_LCMS
