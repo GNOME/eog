@@ -1,6 +1,6 @@
 /* Eye Of Gnome - Thumbnailing functions 
  *
- * Copyright (C) 2000-2007 The Free Software Foundation
+ * Copyright (C) 2000-2008 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
@@ -31,8 +31,8 @@
 
 #include "eog-thumbnail.h"
 #include "eog-list-store.h"
+#include "eog-debug.h"
 
-#define THUMB_DEBUG 0 
 #define EOG_THUMB_ERROR eog_thumb_error_quark ()
 
 static GnomeThumbnailFactory *factory = NULL;
@@ -45,10 +45,13 @@ typedef enum {
 } EogThumbError;
 
 typedef struct {
-	char   *uri_str;
-	char   *thumb_path;
-	time_t  mtime;
-	char   *mime_type;
+	char    *uri_str;
+	char    *thumb_path;
+	time_t   mtime;
+	char    *mime_type;
+	gboolean thumb_exists;
+	gboolean failed_thumb_exists;
+	gboolean can_read;
 } EogThumbData;
 
 static GQuark
@@ -87,23 +90,16 @@ get_valid_thumbnail (EogThumbData *data, GError **error)
 	g_return_val_if_fail (data != NULL, NULL);
 
 	/* does a thumbnail under the path exists? */
-	if (g_file_test (data->thumb_path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_REGULAR)) {
+	if (data->thumb_exists) {
 		thumb = gdk_pixbuf_new_from_file (data->thumb_path, error);
 		
-		/* is this thumbnail file up to date=? */
+		/* is this thumbnail file up to date? */
 		if (thumb != NULL && !gnome_thumbnail_is_valid (thumb, data->uri_str, data->mtime)) {
 			g_object_unref (thumb);
 			thumb = NULL;
-#if THUMB_DEBUG
-			g_print ("uri: %s, thumbnail is invalid\n", uri_str);
-#endif
 		}
 	}
-#if THUMB_DEBUG
-	else {
-		g_print ("uri: %s, has no thumbnail file\n", uri_str);
-	}
-#endif
+
 	return thumb;
 }
 
@@ -115,7 +111,7 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 	GdkPixbuf *thumb;
 	gint width, height;
 	gfloat perc;
-	
+
 	g_assert (factory != NULL);
 
 	width = gdk_pixbuf_get_width (pixbuf);
@@ -125,37 +121,6 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 
 	thumb = gnome_thumbnail_scale_down_pixbuf (pixbuf,
 						   width*perc, height*perc);
-	
-	gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
-
-	return thumb;
-}
-
-static GdkPixbuf* 
-create_thumbnail (EogThumbData *data, GError **error)
-{
-	GdkPixbuf *thumb = NULL;
-	
-#if THUMB_DEBUG
-	g_print ("create thumbnail for uri: %s\n -> mtime: %i\n -> mime_type; %s\n -> thumbpath: %s\n", 
-		 data->uri_str, (int) data->mtime, data->mime_type, data->thumb_path);
-#endif
-	g_assert (factory != NULL);
-	
-	if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
-	{
-		thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
-		
-		if (thumb != NULL) {
-			gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
-		}
-		else {
-			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
-		}
-	} 
-	else {
-		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
-	}
 	
 	return thumb;
 }
@@ -190,7 +155,10 @@ eog_thumb_data_new (GFile *file, GError **error)
 
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
-				       G_FILE_ATTRIBUTE_TIME_MODIFIED,
+				       G_FILE_ATTRIBUTE_TIME_MODIFIED ","
+				       G_FILE_ATTRIBUTE_THUMBNAIL_PATH ","
+				       G_FILE_ATTRIBUTE_THUMBNAILING_FAILED ","
+				       G_FILE_ATTRIBUTE_ACCESS_CAN_READ,
 				       0, NULL, &ioerror);
 	if (file_info == NULL)
 	{
@@ -203,6 +171,16 @@ eog_thumb_data_new (GFile *file, GError **error)
 		data->mtime = g_file_info_get_attribute_uint64 (file_info,
 								G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		data->mime_type = g_strdup (g_file_info_get_content_type (file_info));
+		
+		data->thumb_exists = (g_file_info_get_attribute_byte_string (file_info, 
+					                                     G_FILE_ATTRIBUTE_THUMBNAIL_PATH) != NULL);
+		data->failed_thumb_exists = g_file_info_get_attribute_boolean (file_info,
+									       G_FILE_ATTRIBUTE_THUMBNAILING_FAILED);
+		data->can_read = TRUE;
+		if (g_file_info_has_attribute (file_info, G_FILE_ATTRIBUTE_ACCESS_CAN_READ)) {
+			data->can_read = g_file_info_get_attribute_boolean (file_info, 
+									    G_FILE_ATTRIBUTE_ACCESS_CAN_READ);
+		}
 	}
 	else {
 		eog_thumb_data_free (data);
@@ -485,16 +463,43 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	if (data == NULL)
 		return NULL;
 
-	/* check if there is already a valid thumbnail */
+	if (!data->can_read ||
+	    (data->failed_thumb_exists && gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, data->uri_str, data->mtime))) {
+		eog_debug_message (DEBUG_THUMBNAIL, "%s: bad permissions or valid failed thumbnail present",data->uri_str);
+		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
+		return NULL;
+	}
+
+	/* check if there is already a valid cached thumbnail */
 	thumb = get_valid_thumbnail (data, error);
 
-	if (*error == NULL && thumb == NULL) {
+	if (thumb != NULL) {
+		eog_debug_message (DEBUG_THUMBNAIL, "%s: loaded from cache",data->uri_str);
+	} else {
 		pixbuf = eog_image_get_pixbuf (image);
+
 		if (pixbuf != NULL) {
+			/* generate a thumbnail from the in-memory image,
+			   if we have already loaded the image */
+			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from pixbuf",data->uri_str);
 			thumb = create_thumbnail_from_pixbuf (data, pixbuf, error);
 			g_object_unref (pixbuf);
 		} else {
-			thumb = create_thumbnail (data, error);
+			/* generate a thumbnail from the file */
+			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from file",data->uri_str);
+			if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
+				thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+		}
+
+		if (thumb != NULL) {
+			/* Save the new thumbnail */
+			gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
+			eog_debug_message (DEBUG_THUMBNAIL, "%s: normal thumbnail saved",data->uri_str);
+		} else {
+			/* Save a failed thumbnail, to stop further thumbnail attempts */
+			gnome_thumbnail_factory_create_failed_thumbnail (factory, data->uri_str, data->mtime);
+			eog_debug_message (DEBUG_THUMBNAIL, "%s: failed thumbnail saved",data->uri_str);
+			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		}
 	}
 
