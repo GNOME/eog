@@ -1,3 +1,15 @@
+2008-04-03  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* src/Makefile.am: Add eog-print.[ch]
+	* src/eog-print-image-setup.h: Remove declaration of EogPrintData.
+	* src/eog-print.c: (eog_print_draw_page),
+	(eog_print_create_custom_widget), (eog_print_custom_widget_apply),
+	(eog_print_end_print), (eog_print_operation_new): Move from eog-window.c
+	* src/eog-print.h: Add prototype for eog_print_operation_new.
+	* src/eog-window.c: (eog_window_print): Clean up.
+
+	Move all printing related code out from eog-window.c to eog-print.c
+
 2008-04-02  Claudio Saavedra  <csaavedra@gnome.org>
 
 	* src/eog-window.c: (eog_window_key_press): Give the scrollview

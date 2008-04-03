@@ -41,6 +41,7 @@
 #include "eog-statusbar.h"
 #include "eog-preferences-dialog.h"
 #include "eog-properties-dialog.h"
+#include "eog-print.h"
 #include "eog-message-area.h"
 #include "eog-error-message-area.h"
 #include "eog-application.h"
@@ -49,7 +50,6 @@
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
 #include "eog-util.h"
-#include "eog-print-image-setup.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-plugin-engine.h"
 
@@ -2217,128 +2217,12 @@ eog_window_page_setup (EogWindow *window)
 }
 
 static void
-eog_window_print_draw_page (GtkPrintOperation *operation,
-			    GtkPrintContext   *context,
-			    gint               page_nr,
-			    gpointer           user_data) 
-{
-	cairo_t *cr;
-	gdouble dpi_x, dpi_y;
-	gdouble x0, y0;
-	gdouble scale_factor;
-	gdouble p_width, p_height;
-	gint width, height;
-	GdkPixbuf *pixbuf;
-	EogPrintData *data;
-	GtkPageSetup *page_setup;
-	
-	eog_debug (DEBUG_PRINTING);
-	
-	data = (EogPrintData *) user_data;
-
-	scale_factor = data->scale_factor/100;
-	pixbuf = eog_image_get_pixbuf (data->image);
-
-	dpi_x = gtk_print_context_get_dpi_x (context);
-	dpi_y = gtk_print_context_get_dpi_y (context);
-	
-	switch (data->unit) {
-	case GTK_UNIT_INCH:
-		x0 = data->left_margin * dpi_x;
-		y0 = data->top_margin  * dpi_y;
-		break;
-	case GTK_UNIT_MM:
-		x0 = data->left_margin * dpi_x/25.4;
-		y0 = data->top_margin  * dpi_y/25.4;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	cr = gtk_print_context_get_cairo_context (context);
-
-	cairo_translate (cr, x0, y0);
-
-	page_setup = gtk_print_context_get_page_setup (context);
-	p_width =  gtk_page_setup_get_page_width (page_setup, GTK_UNIT_POINTS);
-	p_height = gtk_page_setup_get_page_height (page_setup, GTK_UNIT_POINTS);
-
-	width  = gdk_pixbuf_get_width (pixbuf);
-	height = gdk_pixbuf_get_height (pixbuf);
-
-	/* this is both a workaround for a bug in cairo's PDF backend, and
-	   a way to ensure we are not printing outside the page margins */
-	cairo_rectangle (cr, 0, 0, MIN (width*scale_factor, p_width), MIN (height*scale_factor, p_height));
-	cairo_clip (cr);
-
-	cairo_scale (cr, scale_factor, scale_factor);
-	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
- 	cairo_paint (cr);
-
-	g_object_unref (pixbuf);
-}
-
-static GObject *
-eog_window_print_create_custom_widget (GtkPrintOperation *operation, 
-				       gpointer user_data)
-{
-	GtkPageSetup *page_setup;
-	EogPrintData *data;
-	
-	eog_debug (DEBUG_PRINTING);
-	
-	data = (EogPrintData *)user_data;
-	
-	page_setup = gtk_print_operation_get_default_page_setup (operation);
-	
-	g_assert (page_setup != NULL);
-	
-	return G_OBJECT (eog_print_image_setup_new (data->image, page_setup));
-}
-
-static void
-eog_window_print_custom_widget_apply (GtkPrintOperation *operation,
-				      GtkWidget         *widget,
-				      gpointer           user_data)
-{
-	EogPrintData *data;
-	gdouble left_margin, top_margin, scale_factor;
-	GtkUnit unit;
-	
-	eog_debug (DEBUG_PRINTING);
-	
-	data = (EogPrintData *)user_data;
-	
-	eog_print_image_setup_get_options (EOG_PRINT_IMAGE_SETUP (widget), 
-					   &left_margin, &top_margin, 
-					   &scale_factor, &unit);
-	
-	data->left_margin = left_margin;
-	data->top_margin = top_margin;
-	data->scale_factor = scale_factor;
-	data->unit = unit;
-}
-
-static void
-eog_window_print_end_print (GtkPrintOperation *operation,
-			    GtkPrintContext   *context,
-			    gpointer           user_data)
-{
-	EogPrintData *data = (EogPrintData*) user_data;
-
-	eog_debug (DEBUG_PRINTING);
-	
-	g_object_unref (data->image);
-	g_free (data);
-}
-static void
 eog_window_print (EogWindow *window)
 {
 	GtkWidget *dialog;
 	GError *error = NULL;
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
-	EogPrintData *data;
 	
 	eog_debug (DEBUG_PRINTING);
 	
@@ -2347,40 +2231,12 @@ eog_window_print (EogWindow *window)
 	if (!window->priv->print_page_setup)
 		window->priv->print_page_setup = gtk_page_setup_new ();
 	
-	print = gtk_print_operation_new ();
-
-	data = g_new0 (EogPrintData, 1);
-
-	data->left_margin = 0;
-	data->top_margin = 0;
-	data->scale_factor = 100;
-	data->image = g_object_ref (window->priv->image);
-	data->unit = GTK_UNIT_INCH;
-
-	gtk_print_operation_set_print_settings (print, window->priv->print_settings);
-	gtk_print_operation_set_default_page_setup (print, 
-						    window->priv->print_page_setup);
-	gtk_print_operation_set_n_pages (print, 1);
-	gtk_print_operation_set_job_name (print,
-					  eog_image_get_caption (window->priv->image));
-
-	g_signal_connect (print, "draw_page", 
-			  G_CALLBACK (eog_window_print_draw_page), 
-			  data);
-	g_signal_connect (print, "create-custom-widget", 
-			  G_CALLBACK (eog_window_print_create_custom_widget),
-			  data);
-	g_signal_connect (print, "custom-widget-apply", 
-			  G_CALLBACK (eog_window_print_custom_widget_apply), 
-			  data);
-	g_signal_connect (print, "end-print", 
-			  G_CALLBACK (eog_window_print_end_print),
-			  data);
-
-	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));
-
 	/* Make sure the window stays valid while printing */
 	g_object_ref (window);
+
+	print = eog_print_operation_new (window->priv->image,
+					 window->priv->print_settings,
+					 window->priv->print_page_setup);
 
 	res = gtk_print_operation_run (print,
 				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,

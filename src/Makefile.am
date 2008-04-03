@@ -36,6 +36,7 @@ NOINST_H_FILES =			\
 	eog-save-as-dialog-helper.h	\
 	eog-print-image-setup.h         \
 	eog-print-preview.h             \
+	eog-print.h			\
 	eog-module.h             	\
 	eog-plugin-manager.h            \
 	eog-plugin-engine.h             \
@@ -105,6 +106,7 @@ libeog_la_SOURCES =			\
 	eog-save-as-dialog-helper.c	\
 	eog-print-image-setup.c         \
 	eog-print-preview.c           	\
+	eog-print.c			\
 	eog-module.c            	\
 	eog-plugin.c            	\
 	eog-plugin-manager.c            \

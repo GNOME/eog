@@ -47,14 +47,6 @@ struct _EogPrintImageSetupClass {
 	GtkTableClass parent_class;
 };
 
-typedef struct {
-	EogImage *image;
-	gdouble left_margin;
-	gdouble top_margin;
-	gdouble scale_factor;
-	GtkUnit unit;
-} EogPrintData;
-
 GType		  eog_print_image_setup_get_type    (void) G_GNUC_CONST;
 
 GtkWidget        *eog_print_image_setup_new         (EogImage     *image,
