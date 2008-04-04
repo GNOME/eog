@@ -555,6 +555,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 			} else {
 				eog_list_store_append_image_from_file (store, initial_file);
 			}
+			g_object_unref (file);
 		} else if (file_type == G_FILE_TYPE_REGULAR && 
 			   g_list_length (file_list) > 1) {
 			eog_list_store_append_image_from_file (store, file);
