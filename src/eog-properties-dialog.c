@@ -228,6 +228,7 @@ eog_xmp_set_label (XmpPtr xmp,
 			}
 
 			gtk_label_set_text (GTK_LABEL (w), string->str);
+			g_string_free (string, TRUE);
 		}
 	} else {
 		/* Property was not found */

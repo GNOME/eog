@@ -586,6 +586,7 @@ eog_list_store_add_uris (EogListStore *store, GList *uri_list)
 			} else {
 				eog_list_store_append_image_from_uri (store, initial_uri, FALSE);
 			}
+			gnome_vfs_uri_unref (uri);
 		} else if (info->type == GNOME_VFS_FILE_TYPE_REGULAR && 
 			   g_list_length (uri_list) > 1) {
 			eog_list_store_append_image_from_uri (store, uri, FALSE);
