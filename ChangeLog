@@ -1,3 +1,10 @@
+2008-04-05  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader-jpg.c:
+	(eog_metadata_reader_jpg_get_icc_profile):
+	Unref the ExifData at the right place after using it for profile
+	generation to stop leaking it.
+
 2008-04-04  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-list-store.c: (eog_list_store_add_files):

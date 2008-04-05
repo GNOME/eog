@@ -620,9 +620,9 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 
 			break;
 			}
-			
-			exif_data_unref (exif);
 		}
+
+		exif_data_unref (exif);
 	}
 #endif
 	return profile;
