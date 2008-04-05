@@ -29,7 +29,6 @@
 #define EOG_PRINT_SETTINGS_FILE "eog-print-settings.ini"
 #define EOG_PAGE_SETUP_GROUP "Page Setup"
 #define EOG_PRINT_SETTINGS_GROUP "Print Settings"
-#define EOG_PAPER_SIZE_GROUP "Paper Size"
 
 typedef struct {
 	EogImage *image;
