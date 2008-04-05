@@ -23,7 +23,13 @@
 #include <glib/gi18n.h>
 #include "eog-print.h"
 #include "eog-print-image-setup.h"
+#include "eog-util.h"
 #include "eog-debug.h"
+
+#define EOG_PRINT_SETTINGS_FILE "eog-print-settings.ini"
+#define EOG_PAGE_SETUP_GROUP "Page Setup"
+#define EOG_PRINT_SETTINGS_GROUP "Print Settings"
+#define EOG_PAPER_SIZE_GROUP "Paper Size"
 
 typedef struct {
 	EogImage *image;
@@ -192,4 +198,151 @@ eog_print_operation_new (EogImage *image,
 	gtk_print_operation_set_custom_tab_label (print, _("Image Settings"));
 
 	return print;
+}
+
+static GKeyFile *
+eog_print_get_key_file (void)
+{
+	GKeyFile *key_file;
+	GError *error = NULL;
+	gchar *filename;
+	GFile *file;
+	const gchar *dot_dir = eog_util_dot_dir ();
+
+	filename = g_build_filename (dot_dir, EOG_PRINT_SETTINGS_FILE, NULL);
+
+	file = g_file_new_for_path (filename);
+	key_file = g_key_file_new ();
+
+	if (g_file_query_exists (file, NULL)) {
+		g_key_file_load_from_file (key_file, filename,
+					   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+					   &error);
+		if (error) {
+			g_warning (_("Error loading print settings file: %s"), error->message);
+			g_error_free (error);
+			g_object_unref (file);
+			g_free (filename);
+			g_key_file_free (key_file);
+			return NULL;
+		}
+	}
+
+	g_object_unref (file);
+	g_free (filename);
+
+	return key_file;
+}
+
+GtkPageSetup *
+eog_print_get_page_setup (void)
+{
+	GtkPageSetup *page_setup;
+	GKeyFile *key_file;
+	GError *error = NULL;
+
+	key_file = eog_print_get_key_file ();
+
+	if (key_file && g_key_file_has_group (key_file, EOG_PAGE_SETUP_GROUP)) {
+		page_setup = gtk_page_setup_new_from_key_file (key_file, EOG_PAGE_SETUP_GROUP, &error);
+	} else {
+		page_setup = gtk_page_setup_new ();
+	}
+
+	if (error) {
+		page_setup = gtk_page_setup_new ();
+
+		g_warning (_("Error loading print settings file: %s"), error->message);
+		g_error_free (error);
+	}
+
+	if (key_file)
+		g_key_file_free (key_file);
+	
+	return page_setup;
+}
+
+static void
+eog_print_save_key_file (GKeyFile *key_file)
+{
+	gchar *filename;
+	gchar *data;
+	GError *error = NULL;
+	const gchar *dot_dir = eog_util_dot_dir ();
+
+	filename = g_build_filename (dot_dir, EOG_PRINT_SETTINGS_FILE, NULL);
+
+	data = g_key_file_to_data (key_file, NULL, NULL);
+
+	g_file_set_contents (filename, data, -1, &error);
+
+	if (error) {
+		g_warning (_("Error saving print settings file: %s"), error->message);
+		g_error_free (error);
+	}
+
+	g_free (filename);
+	g_free (data);
+}
+
+void
+eog_print_set_page_setup (GtkPageSetup *page_setup)
+{
+	GKeyFile *key_file;
+
+	key_file = eog_print_get_key_file ();
+
+	if (key_file == NULL) {
+		key_file = g_key_file_new ();
+	}
+
+	gtk_page_setup_to_key_file (page_setup, key_file, EOG_PAGE_SETUP_GROUP);
+	eog_print_save_key_file (key_file);
+
+	g_key_file_free (key_file);
+}
+
+GtkPrintSettings *
+eog_print_get_print_settings (void)
+{
+	GtkPrintSettings *print_settings;
+	GError *error = NULL;
+	GKeyFile *key_file;
+
+	key_file = eog_print_get_key_file ();
+
+	if (key_file && g_key_file_has_group (key_file, EOG_PRINT_SETTINGS_GROUP)) {
+		print_settings = gtk_print_settings_new_from_key_file (key_file, EOG_PRINT_SETTINGS_GROUP, &error);
+	} else {
+		print_settings = gtk_print_settings_new ();
+	}
+
+	if (error) {
+		print_settings = gtk_print_settings_new ();
+
+		g_warning (_("Error loading print settings file: %s"), error->message);
+		g_error_free (error);
+	}
+
+	if (key_file)
+		g_key_file_free (key_file);
+	
+	return print_settings;
+}
+
+void
+eog_print_set_print_settings (GtkPrintSettings *print_settings)
+{
+	GKeyFile *key_file;
+
+	key_file = eog_print_get_key_file ();
+
+	if (key_file == NULL) {
+		key_file = g_key_file_new ();
+	}
+
+	gtk_print_settings_to_key_file (print_settings, key_file, EOG_PRINT_SETTINGS_GROUP);
+	eog_print_save_key_file (key_file);
+
+	g_key_file_free (key_file);
 }

@@ -164,9 +164,6 @@ struct _EogWindowPrivate {
 
         guint		     recent_menu_id;
 
-	GtkPrintSettings    *print_settings;
-	GtkPageSetup        *print_page_setup;
-
         EogJob              *load_job;
         EogJob              *transform_job;
 	EogJob              *save_job;
@@ -2198,21 +2195,22 @@ static void
 eog_window_page_setup (EogWindow *window)
 {
 	GtkPageSetup *new_page_setup;
+	GtkPageSetup *page_setup;
+	GtkPrintSettings *print_settings;
 
 	eog_debug (DEBUG_PRINTING);
 	
-	if (window->priv->print_settings == NULL) {
-		window->priv->print_settings = gtk_print_settings_new ();
-	}
-	
+	print_settings = eog_print_get_print_settings ();
+	page_setup = eog_print_get_page_setup ();
+
 	new_page_setup = gtk_print_run_page_setup_dialog (GTK_WINDOW (window),
-							  window->priv->print_page_setup, 
-							  window->priv->print_settings);
-	if (window->priv->print_page_setup) {
-		g_object_unref (window->priv->print_page_setup);
-	}
-	
-	window->priv->print_page_setup = new_page_setup;
+							  page_setup,
+							  print_settings);
+	eog_print_set_page_setup (new_page_setup);
+
+	g_object_unref (page_setup);
+	g_object_unref (new_page_setup);
+	g_object_unref (print_settings);
 }
 
 static void
@@ -2222,20 +2220,20 @@ eog_window_print (EogWindow *window)
 	GError *error = NULL;
 	GtkPrintOperation *print;
 	GtkPrintOperationResult res;
-	
+	GtkPageSetup *page_setup;
+	GtkPrintSettings *print_settings;
+
 	eog_debug (DEBUG_PRINTING);
 	
-	if (!window->priv->print_settings)
-		window->priv->print_settings = gtk_print_settings_new ();
-	if (!window->priv->print_page_setup)
-		window->priv->print_page_setup = gtk_page_setup_new ();
-	
+	print_settings = eog_print_get_print_settings ();
+	page_setup = eog_print_get_page_setup ();
+
 	/* Make sure the window stays valid while printing */
 	g_object_ref (window);
 
 	print = eog_print_operation_new (window->priv->image,
-					 window->priv->print_settings,
-					 window->priv->print_page_setup);
+					 print_settings,
+					 page_setup);
 
 	res = gtk_print_operation_run (print,
 				       GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
@@ -2253,11 +2251,11 @@ eog_window_print (EogWindow *window)
 		gtk_widget_show (dialog);
 		g_error_free (error);
 	} else if (res == GTK_PRINT_OPERATION_RESULT_APPLY) {
-		if (window->priv->print_settings != NULL)
-			g_object_unref (window->priv->print_settings);
-		window->priv->print_settings = g_object_ref (gtk_print_operation_get_print_settings (print));
+		eog_print_set_print_settings (gtk_print_operation_get_print_settings (print));
 	}
 
+	g_object_unref (page_setup);
+	g_object_unref (print_settings);
 	g_object_unref (window);
 }
 
@@ -4065,9 +4063,6 @@ eog_window_init (EogWindow *window)
 
 	window->priv->recent_menu_id = 0;
 
-	window->priv->print_page_setup = NULL;
-	window->priv->print_settings = NULL;
-	
 	window->priv->collection_position = 0;
 	window->priv->collection_resizable = FALSE;
 
@@ -4165,16 +4160,6 @@ eog_window_dispose (GObject *object)
 		priv->client = NULL;
 	}
 		
-	if (priv->print_settings != NULL) {
-		g_object_unref (priv->print_settings);
-		priv->print_settings = NULL;
-	}
-	
-	if (priv->print_page_setup != NULL) {
-		g_object_unref (priv->print_page_setup);
-		priv->print_page_setup = NULL;
-	}
-
 	if (priv->file_list != NULL) {
 		g_slist_foreach (priv->file_list, (GFunc) g_object_unref, NULL);	
 		g_slist_free (priv->file_list);

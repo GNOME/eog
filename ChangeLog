@@ -1,3 +1,15 @@
+2008-04-05  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* src/eog-print.c: (eog_print_get_key_file),
+	(eog_print_get_page_setup), (eog_print_save_key_file),
+	(eog_print_set_page_setup), (eog_print_get_print_settings),
+	(eog_print_set_print_settings): New API to save/load print
+	settings to/from a GKeyFile.
+	* src/eog-print.h: Add headers for public API.
+	* src/eog-window.c: (eog_window_page_setup), (eog_window_print),
+	(eog_window_init), (eog_window_dispose): Load and save print
+	settings to and from a GKeyFile. Fixes bug #517821.
+
 2008-04-05  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-metadata-reader-jpg.c:

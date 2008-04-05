@@ -30,6 +30,12 @@ G_BEGIN_DECLS
 GtkPrintOperation*    eog_print_operation_new (EogImage *image,
 					       GtkPrintSettings *print_settings,
 					       GtkPageSetup *page_setup);
+
+GtkPageSetup*         eog_print_get_page_setup (void);
+void                  eog_print_set_page_setup (GtkPageSetup *page_setup);
+GtkPrintSettings *    eog_print_get_print_settings (void);
+void                  eog_print_set_print_settings (GtkPrintSettings *print_settings);
+
 G_END_DECLS
 
 #endif /* __EOG_PRINT_H__ */
