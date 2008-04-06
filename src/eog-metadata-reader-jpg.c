@@ -465,8 +465,8 @@ eog_metadata_reader_jpg_get_exif_data (EogMetadataReaderJpg *emr)
 
 #ifdef HAVE_EXEMPI
 
-/* skip the ID + packet */
-#define EOG_XMP_OFFSET (29 + 54)
+/* skip the signature */
+#define EOG_XMP_OFFSET (29)
 
 static gpointer 
 eog_metadata_reader_jpg_get_xmp_data (EogMetadataReaderJpg *emr )

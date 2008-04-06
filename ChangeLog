@@ -1,3 +1,10 @@
+2008-04-06  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader-jpg.c:
+	* src/eog-metadata-reader-png.c:
+	Don't skip the XMP xpacket tag. Exempi seems to handle it just fine.
+	Increases compatibility with non-standard xpackets. Fixes bug #526331.
+
 2008-04-05  Claudio Saavedra  <csaavedra@gnome.org>
 
 	* src/eog-print-preview.c: (eog_print_preview_new),

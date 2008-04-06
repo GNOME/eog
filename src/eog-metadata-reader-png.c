@@ -457,8 +457,8 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 
 #ifdef HAVE_EXEMPI
 
-/* skip the ID + packet */
-#define EOG_XMP_OFFSET (22 + 54)
+/* skip the chunk ID */
+#define EOG_XMP_OFFSET (22)
 
 static gpointer 
 eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
