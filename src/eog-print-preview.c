@@ -514,8 +514,7 @@ eog_print_preview_new (void)
 	
 	gtk_widget_set_events (area,
 			       GDK_EXPOSURE_MASK            |
-			       GDK_POINTER_MOTION_HINT_MASK |
-			       GDK_BUTTON1_MOTION_MASK      |
+			       GDK_POINTER_MOTION_MASK      |
 			       GDK_BUTTON_PRESS_MASK        |
 			       GDK_BUTTON_RELEASE_MASK      |
 			       GDK_KEY_PRESS_MASK);
@@ -951,6 +950,16 @@ motion_notify_event_cb (GtkWidget      *widget,
 		g_signal_emit (G_OBJECT (user_data),
 			       preview_signals
 			       [SIGNAL_IMAGE_MOVED], 0);
+	} else {
+		if (press_inside_image_area (EOG_PRINT_PREVIEW (user_data), event->x, event->y)) {
+		  	GdkCursor *cursor;
+			cursor = gdk_cursor_new_for_display (gtk_widget_get_display (widget),
+							     GDK_FLEUR);
+			gdk_window_set_cursor (widget->window, cursor);
+			gdk_cursor_unref (cursor);
+		} else {
+			gdk_window_set_cursor (widget->window, NULL);
+		}
 	}
 	return FALSE;
 }
