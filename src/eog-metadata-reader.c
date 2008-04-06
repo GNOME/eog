@@ -444,8 +444,8 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 
 #ifdef HAVE_EXEMPI
 
-/* skip the ID + packet */
-#define EOG_XMP_OFFSET (29 + 54)
+/* skip the signature */
+#define EOG_XMP_OFFSET (29)
 
 XmpPtr 
 eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
