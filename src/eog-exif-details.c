@@ -508,8 +508,8 @@ get_xmp_category (XmpStringPtr schema)
 }
 
 static void 
-xmp_entry_insert (EogExifDetails *view, XmpStringPtr xmp_schema, 
-									XmpStringPtr xmp_path, XmpStringPtr xmp_prop)
+xmp_entry_insert (EogExifDetails *view, XmpStringPtr xmp_schema,
+		  XmpStringPtr xmp_path, XmpStringPtr xmp_prop)
 {
 	GtkTreeStore *store;
 	EogExifDetailsPrivate *priv;
@@ -519,8 +519,8 @@ xmp_entry_insert (EogExifDetails *view, XmpStringPtr xmp_schema,
 	
 	priv = view->priv;
 
-	key = g_strdup_printf ("%s:%s", xmp_string_cstr (xmp_schema), 
-			       xmp_string_cstr(xmp_path));
+	key = g_strconcat (xmp_string_cstr (xmp_schema), ":", 
+			   xmp_string_cstr (xmp_path), NULL);
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view)));
 	
