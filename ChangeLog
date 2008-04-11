@@ -1,5 +1,11 @@
 2008-04-11  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-image.c: (eog_image_apply_display_profile): Don't try to
+	colorcorrect images with an alpha channel. EOG is not doing it
+	correctly yet.
+
+2008-04-11  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac: Set development version number.
 
 2008-04-06  Felix Riemann  <friemann@svn.gnome.org>

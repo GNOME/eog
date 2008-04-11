@@ -618,6 +618,12 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 		return;
 	}
 
+	/* TODO: find the right way to colorcorrect RGBA images */
+	if (gdk_pixbuf_get_has_alpha (priv->image)) {
+		eog_debug_message (DEBUG_LCMS, "Colorcorrecting RGBA images is unsupported.");
+		return;
+	}
+
 	transform = cmsCreateTransform (priv->profile, 
 				        TYPE_RGB_8, 
 				        screen, 
