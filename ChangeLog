@@ -1,3 +1,11 @@
+2008-04-12  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* src/eog-image.c: (eog_image_get_dimension_from_thumbnail):
+	* src/eog-jobs.c: (eog_job_thumbnail_run):
+	* src/eog-thumbnail.h: Store original image dimensions as a
+	GObject property instead of a pixbuf option, to avoid using the
+	private gdk_pixbuf_set_option. Fixes bug #527798.
+
 2008-04-11  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-image.c: (eog_image_apply_display_profile): Don't try to

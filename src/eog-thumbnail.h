@@ -40,6 +40,8 @@ void	      eog_thumbnail_add_frame   (GdkPixbuf **thumbnail);
 GdkPixbuf*    eog_thumbnail_load        (EogImage *image, 
 					 GError **error);
 
+#define EOG_THUMBNAIL_ORIGINAL_WIDTH  "eog-thumbnail-orig-width"
+#define EOG_THUMBNAIL_ORIGINAL_HEIGHT "eog-thumbnail-orig-height"
 
 G_END_DECLS
 
