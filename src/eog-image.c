@@ -962,7 +962,7 @@ eog_image_real_load (EogImage *img,
 
 	eog_image_get_file_info (img, &priv->bytes, &mime_type, error);
 
-	if (*error) {
+	if (error && *error) {
 		g_free (mime_type);
 		return FALSE;
 	}
@@ -1004,7 +1004,7 @@ eog_image_real_load (EogImage *img,
 
 		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
 	
-		if (*error) {
+		if (error && *error) {
 			g_error_free (*error);
 			*error = NULL;
 
@@ -1134,7 +1134,7 @@ eog_image_real_load (EogImage *img,
 	failed = (failed ||
 		  priv->cancel_loading || 
 		  bytes_read_total == 0 || 
-		  *error != NULL);
+		  (error && *error != NULL));
 
 	if (failed) {
 		if (priv->cancel_loading) {
@@ -1185,7 +1185,7 @@ eog_image_real_load (EogImage *img,
 	}	
 
 	/* Catch-all in case of poor-error reporting */
-	if (failed && *error == NULL) {
+	if (failed && error && *error == NULL) {
 		g_set_error (error, 
 			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_GENERIC,
