@@ -40,6 +40,7 @@
 #include "eog-transform.h"
 #include "eog-util.h"
 #include "eog-jobs.h"
+#include "eog-thumbnail.h"
 
 #include <unistd.h>
 
@@ -906,24 +907,15 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 			                gint     *width,
 			                gint     *height)
 {
-	const char *w, *h;
-
 	if (image->priv->thumbnail == NULL)
 		return FALSE;
-	
-	w = gdk_pixbuf_get_option (image->priv->thumbnail,
-				   "tEXt::Thumb::Image::Width");
 
-	h = gdk_pixbuf_get_option (image->priv->thumbnail,
-				   "tEXt::Thumb::Image::Height");
-	
-	if (w)
-		sscanf (w, "%i", width);
+	*width = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (image->priv->thumbnail),
+						     EOG_THUMBNAIL_ORIGINAL_WIDTH));
+	*height = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (image->priv->thumbnail),
+						      EOG_THUMBNAIL_ORIGINAL_HEIGHT));
 
-	if (h)
-		sscanf (h, "%i", height);
-	
-	return (w && h);
+	return (*width || *height);
 }
 
 static gboolean

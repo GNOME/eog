@@ -193,7 +193,8 @@ void
 eog_job_thumbnail_run (EogJobThumbnail *job)
 {
 	gchar *orig_width, *orig_height;
-
+	gint width, height;
+	
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
 	
 	if (EOG_JOB (job)->error) {
@@ -216,15 +217,17 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	eog_thumbnail_add_frame (&job->thumbnail);
 
 	if (orig_width) {
-		gdk_pixbuf_set_option (job->thumbnail,
-				       "tEXt::Thumb::Image::Width", orig_width);
-
+		sscanf (orig_width, "%i", &width);
+		g_object_set_data (G_OBJECT (job->thumbnail),
+				   EOG_THUMBNAIL_ORIGINAL_WIDTH,
+				   GINT_TO_POINTER (width));
 		g_free (orig_width);
 	}
 	if (orig_height) {
-		gdk_pixbuf_set_option (job->thumbnail,
-				       "tEXt::Thumb::Image::Height", orig_height);
-
+		sscanf (orig_height, "%i", &height);
+		g_object_set_data (G_OBJECT (job->thumbnail),
+				   EOG_THUMBNAIL_ORIGINAL_HEIGHT,
+				   GINT_TO_POINTER (height));
 		g_free (orig_height);
 	}
 	
