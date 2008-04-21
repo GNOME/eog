@@ -1,4 +1,4 @@
-# translation of mk.po to Macedonian
+# translation of eog.gnome-2-22.po to Macedonian
 # translation of eog.HEAD.mk.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER.
@@ -13,10 +13,10 @@
 # Arangel Angov <arangel@linux.net.mk>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: mk\n"
+"Project-Id-Version: eog.gnome-2-22\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-11 18:35+0000\n"
-"PO-Revision-Date: 2008-02-14 20:25+0100\n"
+"POT-Creation-Date: 2008-03-11 04:28+0000\n"
+"PO-Revision-Date: 2008-04-21 07:51+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "_Избриши алатник"
 msgid "Remove the selected toolbar"
 msgstr "Отстрани го избраниот алатник"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:493
 msgid "Separator"
 msgstr "Разделувач"
 
@@ -123,7 +123,7 @@ msgstr "<b>Фокусна должина:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:12
 msgid "<b>Height:</b>"
-msgstr "<b>_Височин:</b>"
+msgstr "<b>Височинa:</b>"
 
 #: ../data/eog-image-properties-dialog.glade.h:13
 msgid "<b>ISO Speed Rating:</b>"
@@ -209,7 +209,7 @@ msgstr "Формат на името на датотеката:"
 
 #: ../data/eog-multiple-save-as-dialog.glade.h:11
 msgid "Rename from:"
-msgstr "Преименувај од:"
+msgstr "Реименувај од:"
 
 #: ../data/eog-multiple-save-as-dialog.glade.h:12
 msgid "Replace spaces with underscores"
@@ -265,7 +265,7 @@ msgstr "П_рошири ги сликите за да се вклопат на �
 
 #: ../data/eog-preferences-dialog.glade.h:10
 msgid "Eye of GNOME Preferences"
-msgstr "Параметри за Eye of GNOME"
+msgstr "Преференци за Eye of GNOME"
 
 #: ../data/eog-preferences-dialog.glade.h:11
 msgid "Image View"
@@ -482,7 +482,7 @@ msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
 #: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:439
-#: ../src/eog-window.c:700
+#: ../src/eog-window.c:707
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "пиксел"
@@ -502,30 +502,37 @@ msgid "Open Folder"
 msgstr "Отвори папка"
 
 #: ../src/eog-image.c:527
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Трансформација на невчитана слика."
 
 #: ../src/eog-image.c:555
+#, c-format
 msgid "Transformation failed."
 msgstr "Трансформација не успеа."
 
 #: ../src/eog-image.c:1075
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF не е поддржан од страна на овој формат."
 
 #: ../src/eog-image.c:1192
+#, c-format
 msgid "Image loading failed."
 msgstr "Вчитувањето на сликата не успеа."
 
-#: ../src/eog-image.c:1463 ../src/eog-image.c:1692
+#: ../src/eog-image.c:1462 ../src/eog-image.c:1691
+#, c-format
 msgid "File exists"
 msgstr "Датотеката постои"
 
-#: ../src/eog-image.c:1626 ../src/eog-image.c:1762
+#: ../src/eog-image.c:1625 ../src/eog-image.c:1761
+#, c-format
 msgid "No image loaded."
 msgstr "Нема внесено слика."
 
-#: ../src/eog-image.c:1635 ../src/eog-image.c:1774
+#: ../src/eog-image.c:1634 ../src/eog-image.c:1773
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "Правењето на привремена датотека е неуспешно."
 
@@ -535,6 +542,7 @@ msgid "Couldn't create temporary file for saving: %s"
 msgstr "Не можам да креирам привремена датотека за зачувување: %s"
 
 #: ../src/eog-image-jpeg.c:376
+#, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Неможе да се алоцира меморија за вчитување на JPEG датотека"
 
@@ -702,6 +710,7 @@ msgid "Taken on"
 msgstr "Земено"
 
 #: ../src/eog-uri-converter.c:1015
+#, c-format
 msgid "At least two file names are equal."
 msgstr "Најмалку две имиња на датотеки се еднакви."
 
@@ -713,12 +722,12 @@ msgstr "Не може да се прикаже помош за Eye of GNOME"
 msgid " (invalid Unicode)"
 msgstr " (невалиден уникод)"
 
-#: ../src/eog-window.c:1095
+#: ../src/eog-window.c:1102
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Отвори со „%s“"
 
-#: ../src/eog-window.c:1096
+#: ../src/eog-window.c:1103
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Користете \"%s\" за отворање на избраната слика"
@@ -728,21 +737,21 @@ msgstr "Користете \"%s\" за отворање на избраната 
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1209
+#: ../src/eog-window.c:1218
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Ја зачувувам сликата \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1548
+#: ../src/eog-window.c:1557
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Ја зачувувам сликата „%s“"
 
-#: ../src/eog-window.c:2360
+#: ../src/eog-window.c:2369
 msgid "Image Settings"
 msgstr "Поставувања за слики"
 
-#: ../src/eog-window.c:2374
+#: ../src/eog-window.c:2383
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -751,21 +760,21 @@ msgstr ""
 "Грешка во печатењето на датотеката:\n"
 "%s"
 
-#: ../src/eog-window.c:2502
+#: ../src/eog-window.c:2511
 msgid "Toolbar Editor"
 msgstr "Уредувач на алатникот"
 
-#: ../src/eog-window.c:2505
+#: ../src/eog-window.c:2514
 msgid "_Reset to Default"
 msgstr "_Ресетирај на стандардно"
 
-#: ../src/eog-window.c:2591
+#: ../src/eog-window.c:2600
 msgid "translator-credits"
 msgstr ""
 "Арангел Ангов <arangel@linux.net.mk>\n"
 "Јован Наумовски <jovan@lugola.net>"
 
-#: ../src/eog-window.c:2594
+#: ../src/eog-window.c:2603
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -777,7 +786,7 @@ msgstr ""
 "Фондацијата за слободен софтвер; без разлика дали се работи за верзијата 2 "
 "или некоја понова верзија.\n"
 
-#: ../src/eog-window.c:2598
+#: ../src/eog-window.c:2607
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -789,7 +798,7 @@ msgstr ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
 
-#: ../src/eog-window.c:2602
+#: ../src/eog-window.c:2611
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -799,15 +808,15 @@ msgstr ""
 "Public лиценцата; Доколку немате добиено копија пишете на Free Software "
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2615 ../src/main.c:186
+#: ../src/eog-window.c:2624 ../src/main.c:186
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2618
+#: ../src/eog-window.c:2627
 msgid "The GNOME image viewer."
 msgstr "Прегледувач на слики за GNOME."
 
-#: ../src/eog-window.c:2991
+#: ../src/eog-window.c:3000
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -816,7 +825,7 @@ msgstr ""
 "Дали сте сигурни дека сакате да го преместите\n"
 "\"%s\" во ѓубрето?"
 
-#: ../src/eog-window.c:2994
+#: ../src/eog-window.c:3003
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -834,11 +843,12 @@ msgstr[2] ""
 "Дали сте сигурни дека сакате да ги преместите\n"
 "избраните %d слики во ѓубрето?"
 
-#: ../src/eog-window.c:3009
+#: ../src/eog-window.c:3018
 msgid "Move to Trash"
 msgstr "Премести во ѓубре"
 
-#: ../src/eog-window.c:3055
+#: ../src/eog-window.c:3053 ../src/eog-window.c:3067 ../src/eog-window.c:3073
+#, c-format
 msgid "Couldn't access trash."
 msgstr "Не можам да пристапам до ѓубрето."
 
