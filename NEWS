@@ -1,3 +1,57 @@
+Version 2.23.1
+--------------
+
+New features:
+
+  * Migration to gio/gvfs (Cosimo Cecchi)
+  * An initial set of default plugins (Lucas Rocha, Claudio Saavedra) 
+  * New command line option --new-instance to force creation of a
+    new instance instead of reusing existing one (Claudio Saavedra)
+  * PNG metadata (XMP and color profile) support (Felix Riemann) 
+
+Misc improvements/fixes:
+
+  * Miscellaneous improvements in thumbnailing code (Michael Chudobiak)
+  * Several metadata handling improvements (Felix Riemann, Claudio Saavedra)
+
+Bug fixes:
+
+  * Fixed #343061, Can't save picture after opened a link picture (Cosimo
+    Cecchi, Felix Riemann)
+  * Fixed #427053, Keyboard shortcuts managed in eog-scroll-view.c only work 
+    if image has focus (Claudio Saavedra)
+  * Fixed #466566, Display date in a more prominent place (Claudio Saavedra)
+  * Fixed #492017, Bring back 'Q' to exit eog (Lucas Rocha)
+  * Fixed #517017, Gtk-CRITICAL **: gtk_widget_event: assertion 
+    `WIDGET_REALIZED_FOR_EVENT (widget, event)' failed (Wouter Bolsterlee)
+  * Fixed #517821, Save print settings in key file (Claudio Saavedra)
+  * Fixed #523173, provide option not to fork and exit if existing instance 
+    (Claudio Saavedra)
+  * Fixed #525618, thumbnail code issues (Michael J. Chudobiak)
+  * Fixed #526331, EoG can't read XMP tags created with F-SPOT whereas Nautilus 
+    can (Felix Riemann)
+  * Fixed #527798, compile warnings (Claudio Saavedra)
+  * Fixed #522077, make it easier to add more metadata readers (Felix Riemann)
+  * Fixed #523856, read (and use) selected PNG metadata (Felix Riemann)
+
+New and updated translations:
+
+- Alexander Shopov, Yavor Doganov [bg]
+- Simos Xenitellis, Kostas Papadimas [el]
+- Philip Withnall, David Lodge [en_GB]
+- Jorge González, Jorge Gonzalez [es] 
+- Ivar Smolin [et]
+- Mark Krapivner, Yair Hershkovitz [he]
+- Sandeep Shedmake [mr]
+- Kjartan Maraas [nb]
+- Peter Tuhársky [sk]
+- Nguyễn Thái Ngọc Duy, Clytie Siddall [vi]
+
+New and updated manual translations:
+
+- Jorge Gonzalez, Jorge González [es]
+- Maxim Dziumanenko, Maxim V. Dziumanenko [uk]
+
 Version 2.22.0
 --------------
 
