@@ -1,3 +1,19 @@
+2008-04-29  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* Makefile.am: Add doc to SUBDIRS and --enable-gtk-doc to 
+	DISTCHECK_CONFIGURE_FLAGS.
+	* autogen.sh: Check for gtk-doc.
+	* configure.ac: Add GTK_DOC_CHECK and new generated files to 
+	AC_CONFIG_FILES.
+	* doc/Makefile.am: New file.
+	* doc/reference/Makefile.am: Reference documentation.
+	* doc/reference/eog-docs.sgml:
+	* doc/reference/eog-sections.txt:
+	* doc/reference/eog.types:
+	* doc/reference/version.xml.in:
+
+	Add API reference for plugins developers. Fixes bug #526352.
+
 2008-04-28  Felix Riemann  <friemann@svn.gnome.org>
 
 	* data/eog.desktop.in.in: Remove unsupported "image/x-psd" file type.

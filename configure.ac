@@ -36,6 +36,8 @@ AC_HEADER_STDC
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
+GTK_DOC_CHECK(1.9)
+
 AC_CHECK_FUNCS(strptime)
 
 # ****************************************************************
@@ -388,6 +390,9 @@ data/icons/32x32/actions/Makefile
 data/icons/scalable/Makefile
 data/icons/scalable/actions/Makefile
 data/icons/scalable/apps/Makefile
+doc/Makefile
+doc/reference/Makefile
+doc/reference/version.xml
 plugins/Makefile
 plugins/reload/Makefile
 plugins/fullscreen/Makefile

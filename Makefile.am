@@ -2,7 +2,7 @@ if ENABLE_JPEG
 jpeg_DIRS = jpegutils
 endif
 
-SUBDIRS = $(jpeg_DIRS) cut-n-paste bindings src plugins po help data
+SUBDIRS = $(jpeg_DIRS) cut-n-paste bindings src plugins po help data doc
 
 EXTRA_DIST = 			\
 	HACKING			\
@@ -20,7 +20,7 @@ DISTCLEANFILES =                \
         intltool-update         \
 	gnome-doc-utils.make
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-scrollkeeper
+DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-scrollkeeper --enable-gtk-doc
 
 # Ignore scrollkeeper issues for now.  @#*$& scrollkeeper
 distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper | grep -v /share/gnome/help/ | grep -v \.omf
