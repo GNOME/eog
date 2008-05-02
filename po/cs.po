@@ -1,5 +1,5 @@
 # Czech translation of Eye Of Gnome.
-# Copyright (C) 2002, 2006, 2007, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2006, 2007, 2008 the author(s) of Eye Of Gnome.
 # Copyright (C) 2003, 2004, 2005 Miloslav Trmac <mitr@volny.cz>.
 # Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>.
 # This file is distributed under the same license as the eog package.
@@ -11,13 +11,14 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
 # Kamil Páral <ripper42@gmail.com>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008.
+# Lucas Lommer <llommer@svn.gnome.org>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-13 18:18+0100\n"
-"PO-Revision-Date: 2008-02-13 16:56+0100\n"
+"POT-Creation-Date: 2008-05-02 03:04+0200\n"
+"PO-Revision-Date: 2008-05-02 03:02+0100\n"
 "Last-Translator: Petr Kovar <pknbe@volny.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +62,7 @@ msgstr "_Smazat lištu nástrojů"
 msgid "Remove the selected toolbar"
 msgstr "Odstranit vybranou nástrojovou lištu"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:493
 msgid "Separator"
 msgstr "Oddělovač"
 
@@ -394,7 +395,7 @@ msgstr "Zobrazovat/skrývat boční panel okna."
 
 #: ../data/eog.schemas.in.h:18
 msgid "Show/hide the window statusbar."
-msgstr "Zobrazovat/skrývat stavovou lištu okna"
+msgstr "Zobrazovat/skrývat stavovou lištu okna."
 
 #: ../data/eog.schemas.in.h:19
 msgid "Show/hide the window toolbar."
@@ -482,8 +483,8 @@ msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:439
-#: ../src/eog-window.c:699
+#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:440
+#: ../src/eog-window.c:707
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "bod"
@@ -502,31 +503,38 @@ msgstr "Uložit obrázek"
 msgid "Open Folder"
 msgstr "Otevřít složku"
 
-#: ../src/eog-image.c:527
+#: ../src/eog-image.c:528
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformace nenačteného obrázku."
 
-#: ../src/eog-image.c:555
+#: ../src/eog-image.c:556
+#, c-format
 msgid "Transformation failed."
 msgstr "Transformace selhala."
 
-#: ../src/eog-image.c:1075
+#: ../src/eog-image.c:1067
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF není pro tento formát souboru podporován."
 
-#: ../src/eog-image.c:1192
+#: ../src/eog-image.c:1184
+#, c-format
 msgid "Image loading failed."
 msgstr "Nahrávání obrázku selhalo."
 
-#: ../src/eog-image.c:1463 ../src/eog-image.c:1692
+#: ../src/eog-image.c:1454 ../src/eog-image.c:1683
+#, c-format
 msgid "File exists"
 msgstr "Soubor existuje"
 
-#: ../src/eog-image.c:1626 ../src/eog-image.c:1762
+#: ../src/eog-image.c:1617 ../src/eog-image.c:1753
+#, c-format
 msgid "No image loaded."
 msgstr "Nenačten žádný obrázek."
 
-#: ../src/eog-image.c:1635 ../src/eog-image.c:1774
+#: ../src/eog-image.c:1626 ../src/eog-image.c:1765
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "Tvorba dočasného souboru selhala."
 
@@ -536,6 +544,7 @@ msgid "Couldn't create temporary file for saving: %s"
 msgstr "Nemohu vytvořit dočasný soubor pro ukládání: %s"
 
 #: ../src/eog-image-jpeg.c:376
+#, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Nemohu alokovat paměť pro načtení JPEG souboru"
 
@@ -668,7 +677,7 @@ msgstr "Velikost"
 
 #: ../src/eog-print-image-setup.c:911
 msgid "_Width:"
-msgstr "_Šířka:"
+msgstr "Šířk_a:"
 
 #: ../src/eog-print-image-setup.c:913
 msgid "_Height:"
@@ -698,11 +707,12 @@ msgstr "Náhled"
 msgid "as is"
 msgstr "beze změny"
 
-#: ../src/eog-thumb-view.c:455
+#: ../src/eog-thumb-view.c:465
 msgid "Taken on"
 msgstr "Vyfotografováno"
 
 #: ../src/eog-uri-converter.c:1015
+#, c-format
 msgid "At least two file names are equal."
 msgstr "Názvy alespoň dvou souborů jsou stejné."
 
@@ -714,12 +724,12 @@ msgstr "Nemohu zobrazit nápovědu pro Eye of GNOME"
 msgid " (invalid Unicode)"
 msgstr " (neplatný Unicode)"
 
-#: ../src/eog-window.c:1094
+#: ../src/eog-window.c:1102
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Otevřít pomocí \"%s\""
 
-#: ../src/eog-window.c:1095
+#: ../src/eog-window.c:1103
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Otevřít vybraný obrázek pomocí \"%s\""
@@ -729,21 +739,21 @@ msgstr "Otevřít vybraný obrázek pomocí \"%s\""
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1208
+#: ../src/eog-window.c:1218
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Ukládání obrázku \"%s\" (%u/%u)"
 
-#: ../src/eog-window.c:1547
+#: ../src/eog-window.c:1557
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Načítám obrázek \"%s\""
 
-#: ../src/eog-window.c:2359
+#: ../src/eog-window.c:2369
 msgid "Image Settings"
 msgstr "Nastavení obrázků"
 
-#: ../src/eog-window.c:2373
+#: ../src/eog-window.c:2383
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -752,15 +762,15 @@ msgstr ""
 "Chyba během tisku souboru:\n"
 "%s"
 
-#: ../src/eog-window.c:2501
+#: ../src/eog-window.c:2511
 msgid "Toolbar Editor"
 msgstr "Editor nástrojové lišty"
 
-#: ../src/eog-window.c:2504
+#: ../src/eog-window.c:2514
 msgid "_Reset to Default"
 msgstr "O_bnovit na výchozí"
 
-#: ../src/eog-window.c:2590
+#: ../src/eog-window.c:2600
 msgid "translator-credits"
 msgstr ""
 "George Lebl <jirka@5z.com>\n"
@@ -772,7 +782,7 @@ msgstr ""
 "Kamil Páral <ripper42@gmail.com>\n"
 "Petr Kovář <pknbe@volny.cz>"
 
-#: ../src/eog-window.c:2593
+#: ../src/eog-window.c:2603
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -784,7 +794,7 @@ msgstr ""
 "to buď verze 2 této licence anebo (podle vlastního uvážení) kterékoliv "
 "pozdější verze.\n"
 
-#: ../src/eog-window.c:2597
+#: ../src/eog-window.c:2607
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -795,7 +805,7 @@ msgstr ""
 "ZÁRUKY; neposkytují se ani odvozené záruky PRODEJNOSTI anebo VHODNOSTI PRO "
 "URČITÝ ÚČEL. Další podrobnosti hledejte v GNU General Public License.\n"
 
-#: ../src/eog-window.c:2601
+#: ../src/eog-window.c:2611
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -805,15 +815,15 @@ msgstr ""
 "programem; pokud se tak nestalo, napište o ni Free Software Foundation, "
 "Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2614 ../src/main.c:186
+#: ../src/eog-window.c:2624 ../src/main.c:186
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2617
+#: ../src/eog-window.c:2627
 msgid "The GNOME image viewer."
 msgstr "Prohlížeč obrázků pro GNOME."
 
-#: ../src/eog-window.c:2990
+#: ../src/eog-window.c:3010
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -822,7 +832,7 @@ msgstr ""
 "Opravdu chcete přesunout\n"
 "\"%s\" do koše?"
 
-#: ../src/eog-window.c:2993
+#: ../src/eog-window.c:3013
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -840,345 +850,346 @@ msgstr[2] ""
 "Opravdu chcete přesunout\n"
 "%d vybraných obrázků do koše?"
 
-#: ../src/eog-window.c:3008
+#: ../src/eog-window.c:3028
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: ../src/eog-window.c:3054
+#: ../src/eog-window.c:3063 ../src/eog-window.c:3077 ../src/eog-window.c:3083
+#, c-format
 msgid "Couldn't access trash."
 msgstr "Nelze přistoupit ke koši."
 
-#: ../src/eog-window.c:3138
+#: ../src/eog-window.c:3149
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Chyba při odstraňování obrázku %s"
 
-#: ../src/eog-window.c:3345
+#: ../src/eog-window.c:3356
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../src/eog-window.c:3346
+#: ../src/eog-window.c:3357
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../src/eog-window.c:3347
+#: ../src/eog-window.c:3358
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ../src/eog-window.c:3348
+#: ../src/eog-window.c:3359
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../src/eog-window.c:3349
+#: ../src/eog-window.c:3360
 msgid "_Go"
 msgstr "Pře_jít"
 
-#: ../src/eog-window.c:3350
+#: ../src/eog-window.c:3361
 msgid "_Tools"
 msgstr "_Nástroje"
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3362
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: ../src/eog-window.c:3353
+#: ../src/eog-window.c:3364
 msgid "_Open..."
 msgstr "_Otevřít..."
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3365
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3367
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../src/eog-window.c:3357
+#: ../src/eog-window.c:3368
 msgid "Close window"
 msgstr "Zavřít okno"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3370
 msgid "T_oolbar"
 msgstr "Nástrojová _lišta"
 
-#: ../src/eog-window.c:3360
+#: ../src/eog-window.c:3371
 msgid "Edit the application toolbar"
 msgstr "Upravit nástrojovou lištu"
 
-#: ../src/eog-window.c:3362
+#: ../src/eog-window.c:3373
 msgid "Prefere_nces"
 msgstr "_Nastavení"
 
-#: ../src/eog-window.c:3363
+#: ../src/eog-window.c:3374
 msgid "Preferences for Eye of GNOME"
 msgstr "Nastavení Eye of GNOME"
 
-#: ../src/eog-window.c:3365
+#: ../src/eog-window.c:3376
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: ../src/eog-window.c:3366
+#: ../src/eog-window.c:3377
 msgid "Help on this application"
 msgstr "Nápověda pro tuto aplikaci"
 
-#: ../src/eog-window.c:3368 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3379 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../src/eog-window.c:3369
+#: ../src/eog-window.c:3380
 msgid "About this application"
 msgstr "O této aplikaci"
 
-#: ../src/eog-window.c:3374
+#: ../src/eog-window.c:3385
 msgid "_Toolbar"
 msgstr "_Nástrojovou lištu"
 
-#: ../src/eog-window.c:3375
+#: ../src/eog-window.c:3386
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Změní viditelnost nástrojové lišty v aktuálním okně"
 
-#: ../src/eog-window.c:3377
+#: ../src/eog-window.c:3388
 msgid "_Statusbar"
 msgstr "_Stavovou lištu"
 
-#: ../src/eog-window.c:3378
+#: ../src/eog-window.c:3389
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Změní viditelnost stavové lišty v aktuálním okně"
 
-#: ../src/eog-window.c:3380
+#: ../src/eog-window.c:3391
 msgid "_Image Collection"
 msgstr "_Sbírka obrázků"
 
-#: ../src/eog-window.c:3381
+#: ../src/eog-window.c:3392
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr "Změní viditelnost panelu se sbírkou obrázků v aktuálním okně"
 
-#: ../src/eog-window.c:3383
+#: ../src/eog-window.c:3394
 msgid "Side _Pane"
 msgstr "Boční _panel"
 
-#: ../src/eog-window.c:3384
+#: ../src/eog-window.c:3395
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Změní viditelnost boční lišty v aktuálním okně"
 
-#: ../src/eog-window.c:3389
+#: ../src/eog-window.c:3400
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../src/eog-window.c:3390
+#: ../src/eog-window.c:3401
 msgid "Save changes in currently selected images"
 msgstr "Uložit změny v aktuálně vybraných obrázcích"
 
-#: ../src/eog-window.c:3392
+#: ../src/eog-window.c:3403
 msgid "Open _with"
 msgstr "Otevřít _pomocí"
 
-#: ../src/eog-window.c:3393
+#: ../src/eog-window.c:3404
 msgid "Open the selected image with a different application"
 msgstr "Otevřít vybraný obrázek odlišnou aplikací"
 
-#: ../src/eog-window.c:3395
+#: ../src/eog-window.c:3406
 msgid "Save _As..."
 msgstr "Uložit _jako..."
 
-#: ../src/eog-window.c:3396
+#: ../src/eog-window.c:3407
 msgid "Save the selected images with a different name"
 msgstr "Uložit vybrané obrázky pod odlišným názvem"
 
-#: ../src/eog-window.c:3398
+#: ../src/eog-window.c:3409
 msgid "Page Set_up..."
 msgstr "_Vzhled stránky..."
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3410
 msgid "Setup the page properties for printing"
 msgstr "Nastavit vlastnosti stránky pro tisk"
 
-#: ../src/eog-window.c:3401
+#: ../src/eog-window.c:3412
 msgid "_Print..."
 msgstr "_Tisk..."
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3413
 msgid "Print the selected image"
 msgstr "Vytisknout vybraný obrázek"
 
-#: ../src/eog-window.c:3404
+#: ../src/eog-window.c:3415
 msgid "Prope_rties"
 msgstr "Vlast_nosti"
 
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3416
 msgid "Show the properties and metadata of the selected image"
 msgstr "Zobrazit vlastnosti a metadata vybraného obrázku"
 
-#: ../src/eog-window.c:3407
+#: ../src/eog-window.c:3418
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3419
 msgid "Undo the last change in the image"
 msgstr "Vrátit poslední změnu v obrázku"
 
-#: ../src/eog-window.c:3410
+#: ../src/eog-window.c:3421
 msgid "Flip _Horizontal"
 msgstr "Převrátit _vodorovně"
 
-#: ../src/eog-window.c:3411
+#: ../src/eog-window.c:3422
 msgid "Mirror the image horizontally"
 msgstr "Zrcadlit obrázek vodorovně"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3424
 msgid "Flip _Vertical"
 msgstr "Převrátit _svisle"
 
-#: ../src/eog-window.c:3414
+#: ../src/eog-window.c:3425
 msgid "Mirror the image vertically"
 msgstr "Zrcadlit obrázek svisle"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3427
 msgid "_Rotate Clockwise"
 msgstr "Rotovat _po směru"
 
-#: ../src/eog-window.c:3417
+#: ../src/eog-window.c:3428
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Otočit obrázek o 90 stupňů doprava"
 
-#: ../src/eog-window.c:3419
+#: ../src/eog-window.c:3430
 msgid "Rotate Counterc_lockwise"
 msgstr "Otočit p_roti směru hodinových ručiček"
 
-#: ../src/eog-window.c:3420
+#: ../src/eog-window.c:3431
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Otočit obrázek o 90 stupňů doleva"
 
-#: ../src/eog-window.c:3422
+#: ../src/eog-window.c:3433
 msgid "Set As _Wallpaper"
 msgstr "Nastavit jako _tapetu"
 
-#: ../src/eog-window.c:3423
+#: ../src/eog-window.c:3434
 msgid "Set the selected image as the desktop wallpaper"
 msgstr "Nastavit vybraný obrázek jako tapetu plochy"
 
-#: ../src/eog-window.c:3425 ../src/eog-window.c:3449
+#: ../src/eog-window.c:3436 ../src/eog-window.c:3460
 msgid "Move to _Trash"
 msgstr "Přesunou_t do koše"
 
-#: ../src/eog-window.c:3426
+#: ../src/eog-window.c:3437
 msgid "Move the selected image to the trash folder"
 msgstr "Přesunout vybraný obrázek do koše"
 
-#: ../src/eog-window.c:3428 ../src/eog-window.c:3440 ../src/eog-window.c:3443
+#: ../src/eog-window.c:3439 ../src/eog-window.c:3451 ../src/eog-window.c:3454
 msgid "_Zoom In"
 msgstr "_Přiblížit"
 
-#: ../src/eog-window.c:3429 ../src/eog-window.c:3441
+#: ../src/eog-window.c:3440 ../src/eog-window.c:3452
 msgid "Enlarge the image"
 msgstr "Zvětšit obrázek"
 
-#: ../src/eog-window.c:3431 ../src/eog-window.c:3446
+#: ../src/eog-window.c:3442 ../src/eog-window.c:3457
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
-#: ../src/eog-window.c:3432 ../src/eog-window.c:3444 ../src/eog-window.c:3447
+#: ../src/eog-window.c:3443 ../src/eog-window.c:3455 ../src/eog-window.c:3458
 msgid "Shrink the image"
 msgstr "Zmenšit obrázek"
 
-#: ../src/eog-window.c:3434
+#: ../src/eog-window.c:3445
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: ../src/eog-window.c:3435
+#: ../src/eog-window.c:3446
 msgid "Show the image at its normal size"
 msgstr "Zobrazit obrázek v původní velikosti"
 
-#: ../src/eog-window.c:3437
+#: ../src/eog-window.c:3448
 msgid "Best _Fit"
 msgstr "Nejlepší _velikost"
 
-#: ../src/eog-window.c:3438
+#: ../src/eog-window.c:3449
 msgid "Fit the image to the window"
 msgstr "Přizpůsobit obrázek oknu"
 
-#: ../src/eog-window.c:3455
+#: ../src/eog-window.c:3466
 msgid "_Full Screen"
 msgstr "_Celá obrazovka"
 
-#: ../src/eog-window.c:3456
+#: ../src/eog-window.c:3467
 msgid "Show the current image in fullscreen mode"
 msgstr "Zobrazit aktuální obrázek v režimu celé obrazovky"
 
-#: ../src/eog-window.c:3461 ../src/eog-window.c:3473
+#: ../src/eog-window.c:3472 ../src/eog-window.c:3484
 msgid "_Previous Image"
 msgstr "_Předchozí obrázek"
 
-#: ../src/eog-window.c:3462
+#: ../src/eog-window.c:3473
 msgid "Go to the previous image of the collection"
 msgstr "Přejít na předchozí obrázek ze sbírky"
 
-#: ../src/eog-window.c:3464
+#: ../src/eog-window.c:3475
 msgid "_Next Image"
 msgstr "_Následující obrázek"
 
-#: ../src/eog-window.c:3465
+#: ../src/eog-window.c:3476
 msgid "Go to the next image of the collection"
 msgstr "Přejít na následující obrázek ze sbírky"
 
-#: ../src/eog-window.c:3467 ../src/eog-window.c:3476
+#: ../src/eog-window.c:3478 ../src/eog-window.c:3487
 msgid "_First Image"
 msgstr "P_rvní obrázek"
 
-#: ../src/eog-window.c:3468
+#: ../src/eog-window.c:3479
 msgid "Go to the first image of the collection"
 msgstr "Přejít na první obrázek ze sbírky"
 
-#: ../src/eog-window.c:3470 ../src/eog-window.c:3479
+#: ../src/eog-window.c:3481 ../src/eog-window.c:3490
 msgid "_Last Image"
 msgstr "Po_slední obrázek"
 
-#: ../src/eog-window.c:3471
+#: ../src/eog-window.c:3482
 msgid "Go to the last image of the collection"
 msgstr "Přejít na poslední obrázek ze sbírky"
 
-#: ../src/eog-window.c:3485
+#: ../src/eog-window.c:3496
 msgid "_Slideshow"
 msgstr "_Promítání snímků"
 
-#: ../src/eog-window.c:3486
+#: ../src/eog-window.c:3497
 msgid "Start a slideshow view of the images"
 msgstr "Spustit promítání snímků"
 
-#: ../src/eog-window.c:3552
+#: ../src/eog-window.c:3563
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../src/eog-window.c:3556
+#: ../src/eog-window.c:3567
 msgid "Next"
 msgstr "Následující"
 
-#: ../src/eog-window.c:3560
+#: ../src/eog-window.c:3571
 msgid "Right"
 msgstr "Doprava"
 
-#: ../src/eog-window.c:3563
+#: ../src/eog-window.c:3574
 msgid "Left"
 msgstr "Doleva"
 
-#: ../src/eog-window.c:3566
+#: ../src/eog-window.c:3577
 msgid "In"
 msgstr "Zvětšit"
 
-#: ../src/eog-window.c:3569
+#: ../src/eog-window.c:3580
 msgid "Out"
 msgstr "Zmenšit"
 
-#: ../src/eog-window.c:3572
+#: ../src/eog-window.c:3583
 msgid "Normal"
 msgstr "Normální"
 
-#: ../src/eog-window.c:3575
+#: ../src/eog-window.c:3586
 msgid "Fit"
 msgstr "Přizpůsobit"
 
-#: ../src/eog-window.c:3578
+#: ../src/eog-window.c:3589
 msgid "Collection"
 msgstr "Sbírka"
 
