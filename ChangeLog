@@ -1,5 +1,11 @@
 2008-05-04  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-metadata-reader-png.c:
+	(eog_metadata_reader_png_get_icc_profile):
+	Remove bogus newline in debug message.
+
+2008-05-04  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-window.c: (eog_window_get_display_profile):
 	Don't let lcms abort EOG if it encounters an error while trying to
 	load the display profile. Fixes bug #531300.

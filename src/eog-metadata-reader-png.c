@@ -556,7 +556,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		} while (z_ret == Z_OK);
 
 		if (G_UNLIKELY (z_ret != Z_STREAM_END)) {
-			eog_debug_message (DEBUG_IMAGE_DATA, "Error while inflating ICC profile: %s (%d)\n", zstr.msg, z_ret);
+			eog_debug_message (DEBUG_IMAGE_DATA, "Error while inflating ICC profile: %s (%d)", zstr.msg, z_ret);
 			inflateEnd (&zstr);
 			g_free (outbuf);
 			return NULL;
