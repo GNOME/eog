@@ -1,3 +1,9 @@
+2008-05-04  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_get_display_profile):
+	Don't let lcms abort EOG if it encounters an error while trying to
+	load the display profile. Fixes bug #531300.
+
 2008-04-28  Felix Riemann  <friemann@svn.gnome.org>
 
 	* data/eog.desktop.in.in: Remove unsupported "image/x-psd" file type.
