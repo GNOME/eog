@@ -494,11 +494,10 @@ eog_print_preview_new_with_pixbuf (GdkPixbuf *pixbuf)
 
 /**
  * eog_print_preview_new:
- * @void: 
  * 
  * Creates a new #EogPrintPreview widget, setting it to the default values,
- * and leaving the page empty. You still need to set the "image" property
- * to make it useful.
+ * and leaving the page empty. You still need to set the #EogPrintPreview:image
+ * property to make it useful.
  * 
  * Returns: A new and empty #EogPrintPreview widget.
  **/

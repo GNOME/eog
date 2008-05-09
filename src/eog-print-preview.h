@@ -49,7 +49,7 @@ GType        eog_print_preview_get_type            (void) G_GNUC_CONST;
 
 GtkWidget   *eog_print_preview_new                 (void);
 
-GtkWidget   *eog_print_preview_new_with_pixbuf     (GdkPixbuf       *image);
+GtkWidget   *eog_print_preview_new_with_pixbuf     (GdkPixbuf       *pixbuf);
 
 void         eog_print_preview_set_page_margins    (EogPrintPreview *preview,
 						    gfloat          l_margin,
