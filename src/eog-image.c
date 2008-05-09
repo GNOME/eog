@@ -777,7 +777,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 #endif
 }
 
-/**
+/*
  * Attempts to get the image dimensions from the thumbnail.
  * Returns FALSE if this information is not found.
  **/

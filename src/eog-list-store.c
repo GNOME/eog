@@ -191,7 +191,7 @@ eog_list_store_new (void)
         return g_object_new (EOG_TYPE_LIST_STORE, NULL);
 }
 
-/**
+/*
    Searchs for a file in the store. If found and @iter_found is not NULL,
    then sets @iter_found to a #GtkTreeIter pointing to the file.
  */
