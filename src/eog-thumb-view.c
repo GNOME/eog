@@ -1,8 +1,8 @@
 /* Eye Of Gnome - Thumbnail View
  *
- * Copyright (C) 2006 The Free Software Foundation
+ * Copyright (C) 2006-2008 The Free Software Foundation
  *
- * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
+ * Author: Claudio Saavedra <csaavedra@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -545,6 +545,13 @@ eog_thumb_view_init (EogThumbView *thumbview)
 			  G_CALLBACK (thumbview_on_drag_data_get_cb), NULL);
 }
 
+/**
+ * eog_thumb_view_new:
+ *
+ * Creates a new #EogThumbView object.
+ *
+ * Returns: a newly created #EogThumbView.
+ **/
 GtkWidget *
 eog_thumb_view_new (void)
 {
@@ -555,6 +562,15 @@ eog_thumb_view_new (void)
 	return GTK_WIDGET (thumbview);
 }
 
+/**
+ * eog_thumb_view_set_model:
+ * @thumbview: A #EogThumbView.
+ * @store: A #EogListStore.
+ *
+ * Sets the #EogListStore to be used with @thumbview. If an initial image
+ * was set during @store creation, its thumbnail will be selected and visible.
+ *
+ **/
 void
 eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 {
@@ -576,6 +592,14 @@ eog_thumb_view_set_model (EogThumbView *thumbview, EogListStore *store)
 	}
 }
 
+/**
+ * eog_thumb_view_set_item_height:
+ * @thumbview: A #EogThumbView.
+ * @height: The desired height.
+ *
+ * Sets the height of each thumbnail in @thumbview.
+ *
+ **/
 void
 eog_thumb_view_set_item_height (EogThumbView *thumbview, gint height)
 {
@@ -595,6 +619,14 @@ eog_thumb_view_get_n_selected_helper (GtkIconView *thumbview,
 	(*(guint *) data) ++;
 }
 
+/**
+ * eog_thumb_view_get_n_selected:
+ * @thumbview: An #EogThumbView.
+ *
+ * Gets the number of images that are currently selected in @thumbview.
+ *
+ * Returns: the number of selected images in @thumbview.
+ **/
 guint
 eog_thumb_view_get_n_selected (EogThumbView *thumbview)
 {
@@ -605,6 +637,16 @@ eog_thumb_view_get_n_selected (EogThumbView *thumbview)
 	return count;
 }
 
+/**
+ * eog_thumb_view_get_image_from_path:
+ * @thumbview: A #EogThumbView.
+ * @path: A #GtkTreePath pointing to a #EogImage in the model for @thumbview.
+ *
+ * Gets the #EogImage stored in @thumbview's #EogListStore at the position indicated
+ * by @path.
+ *
+ * Returns: A #EogImage.
+ **/
 static EogImage *
 eog_thumb_view_get_image_from_path (EogThumbView *thumbview, GtkTreePath *path)
 {
@@ -622,6 +664,16 @@ eog_thumb_view_get_image_from_path (EogThumbView *thumbview, GtkTreePath *path)
 	return image;
 }
 
+/**
+ * eog_thumb_view_get_first_selected_image:
+ * @thumbview: A #EogThumbView.
+ *
+ * Returns the first selected image. Note that the returned #EogImage
+ * is not ensured to be really the first selected image in @thumbview, but
+ * generally, it will be.
+ *
+ * Returns: A #EogImage.
+ **/
 EogImage *
 eog_thumb_view_get_first_selected_image (EogThumbView *thumbview)
 {
@@ -646,6 +698,15 @@ eog_thumb_view_get_first_selected_image (EogThumbView *thumbview)
 	return image;
 }
 
+/**
+ * eog_thumb_view_get_selected_images:
+ * @thumbview: A #EogThumbView.
+ *
+ * Gets a list with the currently selected images. Note that a new reference is
+ * hold for each image and the list must be freed with g_list_free().
+ *
+ * Returns: A newly allocated list of #EogImage's.
+ **/
 GList *
 eog_thumb_view_get_selected_images (EogThumbView *thumbview)
 {
@@ -668,6 +729,17 @@ eog_thumb_view_get_selected_images (EogThumbView *thumbview)
 	return list;
 }
 
+/**
+ * eog_thumb_view_set_current_image:
+ * @thumbview: A #EogThumbView.
+ * @image: The image to be selected.
+ * @deselect_other: Whether to deselect currently selected images.
+ *
+ * Changes the status of a image, marking it as currently selected.
+ * If @deselect_other is %TRUE, all other selected images will be
+ * deselected.
+ *
+ **/
 void
 eog_thumb_view_set_current_image (EogThumbView *thumbview, EogImage *image,
 				  gboolean deselect_other)
@@ -695,6 +767,20 @@ eog_thumb_view_set_current_image (EogThumbView *thumbview, EogImage *image,
 	gtk_tree_path_free (path);
 }
 
+/**
+ * eog_thumb_view_select_single:
+ * @thumbview: A #EogThumbView.
+ * @change: A #EogThumbViewSelectionChange, describing the
+ * desired selection change.
+ *
+ * Changes the current selection according to a single movement
+ * described by #EogThumbViewSelectionChange. If there are no
+ * thumbnails currently selected, one is selected according to the
+ * natural selection according to the #EogThumbViewSelectionChange
+ * used, p.g., when %EOG_THUMB_VIEW_SELECT_RIGHT is the selected change,
+ * the first thumbnail will be selected.
+ *
+ **/
 void
 eog_thumb_view_select_single (EogThumbView *thumbview, 
 			      EogThumbViewSelectionChange change)
@@ -768,6 +854,15 @@ eog_thumb_view_select_single (EogThumbView *thumbview,
 }
 
 
+/**
+ * eog_thumb_view_set_thumbnail_popup:
+ * @thumbview: A #GtkThumbView.
+ * @menu: A #GtkMenu.
+ *
+ * Set the contextual menu to be used with the thumbnails in the
+ * widget. This can be done only once.
+ *
+ **/
 void
 eog_thumb_view_set_thumbnail_popup (EogThumbView *thumbview,
 				    GtkMenu      *menu)

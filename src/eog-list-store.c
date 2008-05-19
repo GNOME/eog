@@ -1,8 +1,8 @@
 /* Eye Of Gnome - Image Store
  *
- * Copyright (C) 2006-2007 The Free Software Foundation
+ * Copyright (C) 2006-2008 The Free Software Foundation
  *
- * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
+ * Author: Claudio Saavedra <csaavedra@gnome.org>
  *
  * Based on code by: Jens Finke <jens@triq.net>
  *
@@ -185,6 +185,13 @@ eog_list_store_init (EogListStore *self)
 					      GTK_SORT_ASCENDING);
 }
 
+/**
+ * eog_list_store_new:
+ *
+ * Creates a new and empty #EogListStore.
+ *
+ * Returns: a newly created #EogListStore.
+ **/
 GtkListStore*
 eog_list_store_new (void)
 {
@@ -310,6 +317,13 @@ on_image_changed (EogImage *image, EogListStore *store)
 	gtk_tree_path_free (path);
 }
 
+/**
+ * eog_list_store_remove:
+ * @store: An #EogListStore.
+ * @iter: A #GtkTreeIter.
+ *
+ * Removes the image pointed by @iter from @store.
+ **/
 static void
 eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
 {
@@ -325,6 +339,16 @@ eog_list_store_remove (EogListStore *store, GtkTreeIter *iter)
 	gtk_list_store_remove (GTK_LIST_STORE (store), iter);
 }
 
+/**
+ * eog_list_store_append_image:
+ * @store: An #EogListStore.
+ * @image: An #EogImage.
+ *
+ * Adds an #EogImage to @store. The thumbnail of the image is not
+ * loaded and will only be loaded if the thumbnail is made visible
+ * or eog_list_store_set_thumbnail() is called.
+ *
+ **/
 void
 eog_list_store_append_image (EogListStore *store, EogImage *image)
 {
@@ -501,6 +525,20 @@ eog_list_store_append_directory (EogListStore *store,
 	g_object_unref (file_enumerator);
 }
 
+/**
+ * eog_list_store_add_files:
+ * @store: An #EogListStore.
+ * @file_list: A %NULL-terminated list of #GFile's.
+ *
+ * Adds a list of #GFile's to @store. The given list
+ * must be %NULL-terminated.
+ *
+ * If any of the #GFile's in @file_list is a directory, all the images
+ * in that directory will be added to @store. If the list of files contains
+ * only one file and this is a regular file, then all the images in the same
+ * directory will be added as well to @store.
+ *
+ **/
 void
 eog_list_store_add_files (EogListStore *store, GList *file_list) 
 {
@@ -575,6 +613,13 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 	} 
 }
 
+/**
+ * eog_list_store_remove_image:
+ * @store: An #EogListStore.
+ * @image: An #EogImage.
+ *
+ * Removes @image from @store.
+ **/
 void
 eog_list_store_remove_image (EogListStore *store, EogImage *image)
 {
@@ -592,6 +637,15 @@ eog_list_store_remove_image (EogListStore *store, EogImage *image)
 	g_object_unref (file);
 }
 
+/**
+ * eog_list_store_new_from_glist:
+ * @list: a %NULL-terminated list of #EogImage's.
+ *
+ * Creates a new #EogListStore from a list of #EogImage's.
+ * The given list must be %NULL-terminated.
+ *
+ * Returns: a new #EogListStore.
+ **/
 GtkListStore *
 eog_list_store_new_from_glist (GList *list)
 {
@@ -607,6 +661,16 @@ eog_list_store_new_from_glist (GList *list)
 	return store;
 }
 
+/**
+ * eog_list_store_get_pos_by_image:
+ * @store: An #EogListStore.
+ * @image: An #EogImage.
+ *
+ * Gets the position where @image is stored in @store. If @image
+ * is not stored in @store, -1 is returned.
+ *
+ * Returns: the position of @image in @store or -1 if not found.
+ **/
 gint
 eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 {
@@ -627,6 +691,17 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
 	return pos;
 }
 
+/**
+ * eog_list_store_get_image_by_pos:
+ * @store: An #EogListStore.
+ * @pos: the position of the required #EogImage.
+ *
+ * Gets the #EogImage in the position @pos of @store. If there is
+ * no image at position @pos, %NULL is returned.
+ *
+ * Returns: the #EogImage in position @pos or %NULL.
+ *
+ **/
 EogImage *
 eog_list_store_get_image_by_pos (EogListStore *store, const gint pos)
 {
@@ -644,6 +719,15 @@ eog_list_store_get_image_by_pos (EogListStore *store, const gint pos)
 	return image;
 }
 
+/**
+ * eog_list_store_get_pos_by_iter:
+ * @store: An #EogListStore.
+ * @iter: A #GtkTreeIter pointing to an image in @store.
+ *
+ * Gets the position of the image pointed by @iter.
+ *
+ * Returns: The position of the image pointed by @iter.
+ **/
 gint
 eog_list_store_get_pos_by_iter (EogListStore *store, 
 				GtkTreeIter *iter)
@@ -660,6 +744,14 @@ eog_list_store_get_pos_by_iter (EogListStore *store,
 	return pos;
 }
 
+/**
+ * eog_list_store_length:
+ * @store: An #EogListStore.
+ *
+ * Returns the number of images in the store.
+ *
+ * Returns: The number of images in @store.
+ **/
 gint
 eog_list_store_length (EogListStore *store)
 {
@@ -668,6 +760,16 @@ eog_list_store_length (EogListStore *store)
 	return gtk_tree_model_iter_n_children (GTK_TREE_MODEL (store), NULL);
 }
 
+/**
+ * eog_list_store_get_initial_pos:
+ * @store: An #EogListStore.
+ *
+ * Gets the position of the #EogImage that should be loaded first.
+ * If not set, it returns -1.
+ *
+ * Returns: the position of the image to be loaded first or -1.
+ *
+ **/
 gint
 eog_list_store_get_initial_pos (EogListStore *store)
 {
@@ -731,6 +833,14 @@ eog_list_store_add_thumbnail_job (EogListStore *store, GtkTreeIter *iter)
 	g_object_unref (image);
 }
 
+/**
+ * eog_list_store_thumbnail_set:
+ * @store: An #EogListStore.
+ * @iter: A #GtkTreeIter pointing to an image in @store.
+ *
+ * Sets the thumbnail for the image pointed by @iter.
+ *
+ **/
 void
 eog_list_store_thumbnail_set (EogListStore *store, 
 			      GtkTreeIter *iter)
@@ -748,6 +858,15 @@ eog_list_store_thumbnail_set (EogListStore *store,
 	eog_list_store_add_thumbnail_job (store, iter);
 }
 
+/**
+ * eog_list_store_thumbnail_unset:
+ * @store: An #EogListStore.
+ * @iter: A #GtkTreeIter pointing to an image in @store.
+ *
+ * Unsets the thumbnail for the image pointed by @iter, changing
+ * it to a "busy" icon.
+ *
+ **/
 void
 eog_list_store_thumbnail_unset (EogListStore *store, 
 				GtkTreeIter *iter)
@@ -768,6 +887,14 @@ eog_list_store_thumbnail_unset (EogListStore *store,
 			    -1);
 }
 
+/**
+ * eog_list_store_thumbnail_refresh:
+ * @store: An #EogListStore.
+ * @iter: A #GtkTreeIter pointing to an image in @store.
+ *
+ * Refreshes the thumbnail for the image pointed by @iter.
+ *
+ **/
 void
 eog_list_store_thumbnail_refresh (EogListStore *store,
 				  GtkTreeIter *iter)
