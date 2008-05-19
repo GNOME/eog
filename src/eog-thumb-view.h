@@ -59,26 +59,26 @@ GType       eog_thumb_view_get_type 		    (void) G_GNUC_CONST;
 
 GtkWidget  *eog_thumb_view_new 			    (void);
 
-void	    eog_thumb_view_set_model 		    (EogThumbView *view, 
+void	    eog_thumb_view_set_model 		    (EogThumbView *thumbview, 
 						     EogListStore *store);
 
-void        eog_thumb_view_set_item_height          (EogThumbView *view,
+void        eog_thumb_view_set_item_height          (EogThumbView *thumbview,
 						     gint          height);
 
-guint	    eog_thumb_view_get_n_selected 	    (EogThumbView *view);
+guint	    eog_thumb_view_get_n_selected 	    (EogThumbView *thumbview);
 
-EogImage   *eog_thumb_view_get_first_selected_image (EogThumbView *view);
+EogImage   *eog_thumb_view_get_first_selected_image (EogThumbView *thumbview);
 
-GList      *eog_thumb_view_get_selected_images 	    (EogThumbView *view);
+GList      *eog_thumb_view_get_selected_images 	    (EogThumbView *thumbview);
 
-void        eog_thumb_view_select_single 	    (EogThumbView *view, 
+void        eog_thumb_view_select_single 	    (EogThumbView *thumbview, 
 						     EogThumbViewSelectionChange change);
 
-void        eog_thumb_view_set_current_image	    (EogThumbView *view, 
+void        eog_thumb_view_set_current_image	    (EogThumbView *thumbview, 
 						     EogImage     *image,
 						     gboolean     deselect_other);
 
-void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *view, 
+void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *thumbview, 
 						     GtkMenu      *menu);
 
 G_END_DECLS
