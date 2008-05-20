@@ -406,6 +406,16 @@ eog_thumb_nav_init (EogThumbNav *nav)
 	gtk_adjustment_value_changed (priv->adj);
 }
 
+/**
+ * eog_thumb_nav_new:
+ * @thumbview: an #EogThumbView to embed in the navigation widget.
+ * @mode: The navigation mode.
+ * @show_buttons: Whether to show the navigation buttons.
+ *
+ * Creates a new thumbnail navigation widget.
+ *
+ * Returns: a new #EogThumbNav object.
+ **/
 GtkWidget *
 eog_thumb_nav_new (GtkWidget       *thumbview, 
 		   EogThumbNavMode  mode, 
@@ -424,6 +434,15 @@ eog_thumb_nav_new (GtkWidget       *thumbview,
 	return GTK_WIDGET (nav);
 }
 
+/**
+ * eog_thumb_nav_get_show_buttons:
+ * @nav: an #EogThumbNav.
+ *
+ * Gets whether the navigation buttons are visible.
+ *
+ * Returns: %TRUE if the navigation buttons are visible,
+ * %FALSE otherwise.
+ **/
 gboolean
 eog_thumb_nav_get_show_buttons (EogThumbNav *nav)
 {
@@ -432,6 +451,14 @@ eog_thumb_nav_get_show_buttons (EogThumbNav *nav)
 	return nav->priv->show_buttons; 
 }
 
+/**
+ * eog_thumb_nav_set_show_buttons:
+ * @nav: an #EogThumbNav.
+ * @show_buttons: %TRUE to show the buttons, %FALSE to hide them.
+ *
+ * Sets whether the navigation buttons to the left and right of the
+ * widget should be visible.
+ **/
 void 
 eog_thumb_nav_set_show_buttons (EogThumbNav *nav, gboolean show_buttons)
 {
@@ -451,6 +478,14 @@ eog_thumb_nav_set_show_buttons (EogThumbNav *nav, gboolean show_buttons)
 	}
 }
 
+/**
+ * eog_thumb_nav_get_mode:
+ * @nav: an #EogThumbNav.
+ *
+ * Gets the navigation mode in @nav.
+ *
+ * Returns: A value in #EogThumbNavMode.
+ **/
 EogThumbNavMode
 eog_thumb_nav_get_mode (EogThumbNav *nav)
 {
@@ -459,6 +494,13 @@ eog_thumb_nav_get_mode (EogThumbNav *nav)
 	return nav->priv->mode; 
 }
 
+/**
+ * eog_thumb_nav_set_mode:
+ * @nav: An #EogThumbNav.
+ * @mode: One of #EogThumbNavMode.
+ *
+ * Sets the navigation mode in @nav. See #EogThumbNavMode for details.
+ **/
 void 
 eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 {

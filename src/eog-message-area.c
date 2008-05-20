@@ -184,6 +184,13 @@ eog_message_area_class_init (EogMessageAreaClass *class)
 
 	g_type_class_add_private (object_class, sizeof(EogMessageAreaPrivate));
 
+/**
+ * EogMessageArea::response:
+ * @message_area: the object which received the signal.
+ *
+ * The #EogMessageArea::response signal is emitted when one of the
+ * activatable widgets packed into @message_area is activated.
+ */
 	signals[SIGNAL_RESPONSE] = 
 		g_signal_new ("response",
 			      G_OBJECT_CLASS_TYPE (class),
@@ -279,6 +286,15 @@ action_widget_activated (GtkWidget *widget, EogMessageArea *message_area)
 	eog_message_area_response (message_area, response_id);
 }
 
+/**
+ * eog_message_area_add_action_widget:
+ * @message_area: an #EogMessageArea.
+ * @child: The widget to be packed into the message area.
+ * @response_id: A response id for @child.
+ *
+ * Adds a widget to the action area of @message_area. Only 'activatable'
+ * widgets can be packed into the action area of a #EogMessageArea.
+ **/
 void
 eog_message_area_add_action_widget (EogMessageArea *message_area,
 				    GtkWidget      *child,
@@ -330,6 +346,14 @@ eog_message_area_add_action_widget (EogMessageArea *message_area,
 	}
 }
 
+/**
+ * eog_message_area_set_contents:
+ * @message_area: an #EogMessageArea.
+ * @contents: a #GtkWidget.
+ *
+ * Sets the contents of @message_area. The @contents will
+ * be packed into the message area.
+ **/
 void
 eog_message_area_set_contents(EogMessageArea *message_area,
 			      GtkWidget      *contents)
@@ -346,6 +370,16 @@ eog_message_area_set_contents(EogMessageArea *message_area,
 			    0);	
 }
 
+/**
+ * eog_message_area_add_button:
+ * @message_area: an #EogMessageArea.
+ * @button_text: The text for the button to be added.
+ * @response_id: A response id.
+ *
+ * Adds a single button to @message_area.
+ *
+ * Returns: The newly added #GtkButton.
+ **/
 GtkWidget *
 eog_message_area_add_button (EogMessageArea *message_area,
 			       const gchar      *button_text,
@@ -398,6 +432,14 @@ add_buttons_valist (EogMessageArea *message_area,
 	}
 }
 
+/**
+ * eog_message_area_add_buttons:
+ * @message_area: An #EogMessageArea.
+ * @first_button_text: the text for the first button to be added.
+ * @...: text for extra buttons, terminated with %NULL.
+ *
+ * Adds one or more buttons to @message_area.
+ **/
 void
 eog_message_area_add_buttons (EogMessageArea *message_area,
 			      const gchar    *first_button_text,
@@ -420,6 +462,15 @@ eog_message_area_new (void)
 	return g_object_new (EOG_TYPE_MESSAGE_AREA, NULL);
 }
 
+/**
+ * eog_message_area_new_with_buttons:
+ * @first_button_text: The text for the first button.
+ * @...: additional buttons, terminated with %NULL.
+ *
+ * Creates a new #EogMessageArea with default buttons.
+ *
+ * Returns: A newly created #EogMessageArea widget.
+ **/
 GtkWidget *
 eog_message_area_new_with_buttons (const gchar *first_button_text,
                                    ...)
@@ -440,6 +491,16 @@ eog_message_area_new_with_buttons (const gchar *first_button_text,
 	return GTK_WIDGET (message_area);
 }
 
+/**
+ * eog_message_area_set_response_sensitive:
+ * @message_area: a #EogMessageArea.
+ * @response_id: the response id associated to the widget whose
+ * sensitivity is to be set.
+ * @setting: %TRUE to set the widget sensitive, %FALSE otherwise.
+ *
+ * Sets sensitivity in @message_area's child widget associated to
+ * @response_id.
+ **/
 void
 eog_message_area_set_response_sensitive (EogMessageArea *message_area,
 					   gint              response_id,
@@ -467,6 +528,15 @@ eog_message_area_set_response_sensitive (EogMessageArea *message_area,
 	g_list_free (children);
 }
 
+/**
+ * eog_message_area_set_default_response:
+ * @message_area: an #EogMessageArea.
+ * @response_id: the response id associated to the widget to
+ * be set default.
+ *
+ * Sets the default response in @message_area. This is done by
+ * making the widget associated to @response_id the default widget.
+ **/
 void
 eog_message_area_set_default_response (EogMessageArea *message_area,
 					 gint              response_id)
@@ -492,6 +562,13 @@ eog_message_area_set_default_response (EogMessageArea *message_area,
 	g_list_free (children);
 }
 
+/**
+ * eog_message_area_response:
+ * @message_area: an #EogMessageArea.
+ * @response_id: The response id for the emission.
+ *
+ * Emits a #EogMessageArea::response signal to the given #EogMessageArea.
+ **/
 void
 eog_message_area_response (EogMessageArea *message_area,
 			   gint              response_id)
@@ -504,6 +581,18 @@ eog_message_area_response (EogMessageArea *message_area,
 		       response_id);
 }
 
+/**
+ * eog_message_area_add_stock_button_with_text:
+ * @message_area: An #EogMessageArea.
+ * @text: The text for the button.
+ * @stock_id: A stock item.
+ * @response_id: A response id for the button.
+ *
+ * Adds a new button to @message_area containing a image from stock and a
+ * user defined text. Stock items may have a macro defined, like %GTK_STOCK_OK.
+ *
+ * Returns: the newly added #GtkButton.
+ **/
 GtkWidget *
 eog_message_area_add_stock_button_with_text (EogMessageArea *message_area, 
 				    	     const gchar    *text,
