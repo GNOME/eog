@@ -1,6 +1,6 @@
 /* Eye Of Gnome - Main Window 
  *
- * Copyright (C) 2000-2006 The Free Software Foundation
+ * Copyright (C) 2000-2008 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
@@ -4548,6 +4548,12 @@ eog_window_class_init (EogWindowClass *class)
 	widget_class->focus_in_event = eog_window_focus_in_event;
 	widget_class->focus_out_event = eog_window_focus_out_event;
 
+/**
+ * EogWindow:startup-flags:
+ *
+ * A bitwise OR of #EogStartupFlags elements, indicating how the window
+ * should behave upon creation.
+ */
 	g_object_class_install_property (g_object_class,
 					 PROP_STARTUP_FLAGS,
 					 g_param_spec_uchar ("startup-flags", 
@@ -4559,6 +4565,13 @@ eog_window_class_init (EogWindowClass *class)
 					 		     G_PARAM_READWRITE |
 							     G_PARAM_CONSTRUCT_ONLY));
 
+/**
+ * EogWindow::prepared:
+ * @window: the object which received the signal.
+ *
+ * The #EogWindow::prepared signal is emitted when the @window is ready
+ * to be shown.
+ */
 	signals [SIGNAL_PREPARED] = 
 		g_signal_new ("prepared",
 			      G_TYPE_OBJECT,
@@ -4571,6 +4584,17 @@ eog_window_class_init (EogWindowClass *class)
 	g_type_class_add_private (g_object_class, sizeof (EogWindowPrivate));
 }
 
+/**
+ * eog_window_new:
+ * @flags: the initialization parameters for the new window.
+ * 
+ *
+ * Creates a new and empty #EogWindow. Use @flags to indicate
+ * if the window should be initialized fullscreen, in slideshow mode,
+ * and/or without the thumbnails collection visible. See #EogStartupFlags.
+ *
+ * Returns: a newly created #EogWindow.
+ **/
 GtkWidget*
 eog_window_new (EogStartupFlags flags)
 {
@@ -4686,6 +4710,15 @@ eog_job_model_cb (EogJobModel *job, gpointer data)
 	}
 }
 
+/**
+ * eog_window_open_file_list:
+ * @window: An #EogWindow.
+ * @file_list: A %NULL-terminated list of #GFile's.
+ *
+ * Opens a list of files, adding them to the collection in @window.
+ * Files will be checked to be readable and later filtered according
+ * with eog_list_store_add_files().
+ **/
 void
 eog_window_open_file_list (EogWindow *window, GSList *file_list)
 {
@@ -4709,6 +4742,14 @@ eog_window_open_file_list (EogWindow *window, GSList *file_list)
 	g_object_unref (job);
 }
 
+/**
+ * eog_window_get_ui_manager:
+ * @window: An #EogWindow.
+ *
+ * Gets the #GtkUIManager that describes the UI of @window.
+ *
+ * Returns: A #GtkUIManager.
+ **/
 GtkUIManager *
 eog_window_get_ui_manager (EogWindow *window)
 {
@@ -4717,6 +4758,14 @@ eog_window_get_ui_manager (EogWindow *window)
 	return window->priv->ui_mgr;
 }
 
+/**
+ * eog_window_get_mode:
+ * @window: An #EogWindow.
+ *
+ * Gets the mode of @window. See #EogWindowMode for details.
+ *
+ * Returns: An #EogWindowMode.
+ **/
 EogWindowMode
 eog_window_get_mode (EogWindow *window)
 {
@@ -4725,6 +4774,14 @@ eog_window_get_mode (EogWindow *window)
 	return window->priv->mode;
 }
 
+/**
+ * eog_window_set_mode:
+ * @window: an #EogWindowMode.
+ * @mode: an #EogWindowMode value.
+ *
+ * Changes the mode of @window to normal, fullscreen, or slideshow.
+ * See #EogWindowMode for details.
+ **/
 void
 eog_window_set_mode (EogWindow *window, EogWindowMode mode)
 {
@@ -4749,6 +4806,15 @@ eog_window_set_mode (EogWindow *window, EogWindowMode mode)
 	}
 }
 
+/**
+ * eog_window_get_store:
+ * @window: An #EogWindow.
+ *
+ * Gets the #EogListStore that contains the images in the collection
+ * of @window.
+ *
+ * Returns: an #EogListStore.
+ **/
 EogListStore *
 eog_window_get_store (EogWindow *window)
 {
@@ -4757,6 +4823,14 @@ eog_window_get_store (EogWindow *window)
 	return EOG_LIST_STORE (window->priv->store);
 }
 
+/**
+ * eog_window_get_view:
+ * @window: An #EogWindow.
+ *
+ * Gets the #EogScrollView in the window.
+ *
+ * Returns: the #EogScrollView.
+ **/
 GtkWidget *
 eog_window_get_view (EogWindow *window)
 {
@@ -4765,6 +4839,14 @@ eog_window_get_view (EogWindow *window)
        return window->priv->view;
 }
 
+/**
+ * eog_window_get_sidebar:
+ * @window: An #EogWindow.
+ *
+ * Gets the sidebar widget of @window.
+ *
+ * Returns: the #EogSidebar.
+ **/
 GtkWidget *
 eog_window_get_sidebar (EogWindow *window)
 {
@@ -4773,6 +4855,14 @@ eog_window_get_sidebar (EogWindow *window)
 	return window->priv->sidebar;
 }
 
+/**
+ * eog_window_get_thumb_view:
+ * @window: an #EogWindow.
+ *
+ * Gets the thumbnails view in @window.
+ *
+ * Returns: an #EogThumbView.
+ **/
 GtkWidget *
 eog_window_get_thumb_view (EogWindow *window)
 {
@@ -4781,6 +4871,14 @@ eog_window_get_thumb_view (EogWindow *window)
 	return window->priv->thumbview;
 }
 
+/**
+ * eog_window_get_thumb_nav:
+ * @window: an #EogWindow.
+ *
+ * Gets the thumbnails navigation pane in @window.
+ *
+ * Returns: an #EogThumbNav.
+ **/
 GtkWidget *
 eog_window_get_thumb_nav (EogWindow *window)
 {
@@ -4789,6 +4887,14 @@ eog_window_get_thumb_nav (EogWindow *window)
 	return window->priv->nav;
 }
 
+/**
+ * eog_window_get_statusbar:
+ * @window: an #EogWindow.
+ *
+ * Gets the statusbar in @window.
+ *
+ * Returns: a #EogStatusBar.
+ **/
 GtkWidget *
 eog_window_get_statusbar (EogWindow *window)
 {
@@ -4797,6 +4903,15 @@ eog_window_get_statusbar (EogWindow *window)
 	return window->priv->statusbar;
 }
 
+/**
+ * eog_window_get_image:
+ * @window: an #EogWindow.
+ *
+ * Gets the image currently displayed in @window or %NULL if
+ * no image is being displayed.
+ *
+ * Returns: an #EogImage.
+ **/
 EogImage *
 eog_window_get_image (EogWindow *window)
 {
@@ -4805,6 +4920,14 @@ eog_window_get_image (EogWindow *window)
 	return window->priv->image;
 }
 
+/**
+ * eog_window_is_empty:
+ * @window: an #EogWindow.
+ *
+ * Tells whether @window is currently empty or not.
+ *
+ * Returns: %TRUE if @window has no images, %FALSE otherwise.
+ **/
 gboolean
 eog_window_is_empty (EogWindow *window)
 {

@@ -1,6 +1,6 @@
 /* Eye of Gnome - Main Window
  *
- * Copyright (C) 2000-2006 The Free Software Foundation
+ * Copyright (C) 2000-2008 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
@@ -112,7 +112,7 @@ GtkWidget    *eog_window_get_statusbar  (EogWindow       *window);
 EogImage     *eog_window_get_image      (EogWindow       *window);
 
 void          eog_window_open_file_list	(EogWindow       *window, 
-					 GSList          *uri_list);
+					 GSList          *file_list);
 
 gboolean      eog_window_is_empty 	(EogWindow       *window);
 

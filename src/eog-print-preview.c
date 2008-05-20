@@ -1,8 +1,8 @@
 /* Eye Of GNOME -- Print Preview Widget
  *
- * Copyright (C) 2006-2007 The Free Software Foundation
+ * Copyright (C) 2006-2008 The Free Software Foundation
  *
- * Author: Claudio Saavedra <csaavedra@alumnos.utalca.cl>
+ * Author: Claudio Saavedra <csaavedra@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -378,7 +378,7 @@ eog_print_preview_class_init (EogPrintPreviewClass *klass)
  * EogPrintPreview::image-moved:
  * @preview: the object which received the signal
  *
- * The ::image-moved signal is emmited when the position
+ * The #EogPrintPreview::image-moved signal is emitted when the position
  * of the image is changed.
  */
 	preview_signals [SIGNAL_IMAGE_MOVED] =
