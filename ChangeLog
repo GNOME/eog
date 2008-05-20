@@ -1,5 +1,16 @@
 2008-05-20  Claudio Saavedra  <csaavedra@gnome.org>
 
+	* src/eog-image.c: (eog_image_class_init):
+	* src/eog-scroll-view.c: (eog_scroll_view_class_init):
+	* src/eog-window.c: (eog_window_class_init):
+
+	Make all signals pertain to the appropriate object types instead
+	of G_TYPE_OBJECT. This will prevent signal names collisions and
+	also fix introspection (making gtk-doc actually document these
+	signals).
+
+2008-05-20  Claudio Saavedra  <csaavedra@gnome.org>
+
 	* src/eog-message-area.c: (eog_message_area_class_init):
 	* src/eog-thumb-nav.c:
 

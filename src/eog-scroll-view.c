@@ -1964,7 +1964,7 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 
 	view_signals [SIGNAL_ZOOM_CHANGED] =
 		g_signal_new ("zoom_changed",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_SCROLL_VIEW,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogScrollViewClass, zoom_changed),
 			      NULL, NULL,

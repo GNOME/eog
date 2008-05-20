@@ -4574,7 +4574,7 @@ eog_window_class_init (EogWindowClass *class)
  */
 	signals [SIGNAL_PREPARED] = 
 		g_signal_new ("prepared",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_WINDOW,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogWindowClass, prepared),
 			      NULL, NULL,

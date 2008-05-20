@@ -222,7 +222,7 @@ eog_image_class_init (EogImageClass *klass)
 
 	signals[SIGNAL_SAVE_PROGRESS] = 
 		g_signal_new ("save-progress",
-			      G_TYPE_OBJECT,
+			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (EogImageClass, save_progress),
 			      NULL, NULL,
