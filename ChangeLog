@@ -1,5 +1,11 @@
 2008-05-30  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-window.c: (eog_window_update_openwith_menu):
+	Keep the GFileInfo alive while we depend on pointers to its data.
+	Fixes lots of invalid read errors with Valgrind.
+
+2008-05-30  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-thumb-view.c: (thumbview_on_query_tooltip_cb):
 	Fix leaking GFileInfo.
 

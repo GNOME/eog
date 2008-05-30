@@ -1085,7 +1085,6 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 		return;
 	else {
 		mime_type = g_file_info_get_content_type (file_info);
-		g_object_unref (file_info);
 	}
 	
         if (priv->open_with_menu_id != 0) {
@@ -1102,6 +1101,8 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                 return;
 
         apps = g_app_info_get_all_for_type (mime_type);
+
+	g_object_unref (file_info);
 
         if (!apps)
                 return;
