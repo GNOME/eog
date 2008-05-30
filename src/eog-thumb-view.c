@@ -431,6 +431,7 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 	}
 
 	type_str = g_content_type_get_description (mime_str);
+	g_object_unref (file_info);
 
 	if (width > -1 && height > -1) {
 		tooltip_string = g_markup_printf_escaped ("<b><big>%s</big></b>\n"
