@@ -1097,8 +1097,10 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
               priv->actions_open_with = NULL;
         }
 
-        if (mime_type == NULL)
+        if (mime_type == NULL) {
+                g_object_unref (file_info);
                 return;
+	}
 
         apps = g_app_info_get_all_for_type (mime_type);
 
