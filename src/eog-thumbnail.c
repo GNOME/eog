@@ -475,7 +475,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 
 	if (thumb != NULL) {
 		eog_debug_message (DEBUG_THUMBNAIL, "%s: loaded from cache",data->uri_str);
-	} else {
+	} else if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) {
 		pixbuf = eog_image_get_pixbuf (image);
 
 		if (pixbuf != NULL) {
@@ -487,8 +487,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 		} else {
 			/* generate a thumbnail from the file */
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from file",data->uri_str);
-			if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
-				thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+			thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
 		}
 
 		if (thumb != NULL) {
