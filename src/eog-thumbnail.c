@@ -142,20 +142,14 @@ create_thumbnail (EogThumbData *data, GError **error)
 #endif
 	g_assert (factory != NULL);
 	
-	if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) 
-	{
-		thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
-		
-		if (thumb != NULL) {
-			gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
-		}
-		else {
-			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
-		}
-	} 
+	thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+	
+	if (thumb != NULL) {
+		gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
+	}
 	else {
 		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
-	}
+	} 
 	
 	return thumb;
 }
@@ -490,7 +484,8 @@ eog_thumbnail_load (EogImage *image, GError **error)
 	/* check if there is already a valid thumbnail */
 	thumb = get_valid_thumbnail (data, error);
 
-	if (*error == NULL && thumb == NULL) {
+	if (*error == NULL && thumb == NULL &&
+	    gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) {
 		pixbuf = eog_image_get_pixbuf (image);
 		if (pixbuf != NULL) {
 			thumb = create_thumbnail_from_pixbuf (data, pixbuf, error);
