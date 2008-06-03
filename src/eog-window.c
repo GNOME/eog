@@ -4249,7 +4249,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if (event->state & GDK_CONTROL_MASK) {
 			handle_selection = TRUE;
 			break;
-		};
+		}
 	case GDK_Return:
 		if (tbcontainer->focus_child == NULL) {
 			/* Image properties dialog case */
@@ -4277,8 +4277,18 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_cmd_close_window (NULL, EOG_WINDOW (widget));
 		}
 		break;
-	case GDK_Up:
 	case GDK_Left:
+		if (event->state & GDK_MOD1_MASK) {
+			/* Alt+Left moves to previous image */
+			eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			result = TRUE;
+			break;
+		} /* else fall-trough is intended */
+	case GDK_Up:
+		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+			/* break to let scrollview handle the key */
+			break;
+		}
 		if (tbcontainer->focus_child != NULL)
 			break;
 		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
@@ -4287,7 +4297,17 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			break;
 		}
 	case GDK_Right:
+		if (event->state & GDK_MOD1_MASK) {
+			/* Alt+Right moves to next image */
+			eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			result = TRUE;		
+			break;
+		} /* else fall-trough is intended */
 	case GDK_Down:
+		if (eog_scroll_view_scrollbars_visible (EOG_SCROLL_VIEW (EOG_WINDOW (widget)->priv->view))) {
+			/* break to let scrollview handle the key */
+			break;
+		}
 		if (tbcontainer->focus_child != NULL)
 			break;
 		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
