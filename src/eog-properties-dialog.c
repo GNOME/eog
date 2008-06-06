@@ -99,7 +99,6 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *xmp_keywords_label;
 	GtkWidget      *xmp_creator_label;
 	GtkWidget      *xmp_rights_label;
-	GtkWidget      *xmp_details;
 #endif
 #if HAVE_METADATA
 	GtkWidget      *exif_box;
