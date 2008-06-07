@@ -232,9 +232,19 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			break;			
 		case EMR_READ_SIZE_LOW_LOW_BYTE:
 			/* Read the high byte of the size's low word */
-			priv->size |= (buf [i] & 0xff);			
-			priv->state = EMR_READ_CHUNK_NAME;
-			priv->sub_step = 0; /* Make sure sub_step is 0 before next step */
+			priv->size |= (buf [i] & 0xff);
+			/* The maximum chunk length is 2^31-1 */
+			if (G_LIKELY (priv->size <= (guint32) 0x7fffffff)) {
+				priv->state = EMR_READ_CHUNK_NAME;
+				/* Make sure sub_step is 0 before next step */
+				priv->sub_step = 0;
+			} else {
+				priv->state = EMR_FINISHED;
+				eog_debug_message (DEBUG_IMAGE_DATA,
+						   "chunk size larger than "
+						   "2^31-1; stopping parser");
+			}
+
 			break;
 		case EMR_READ_CHUNK_NAME:
 			/* Read the 4-byte chunk name */

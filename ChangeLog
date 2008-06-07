@@ -1,3 +1,9 @@
+2008-06-07  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader-png.c: (eog_metadata_reader_png_consume):
+	As an additional security measure, check if the chunk size is in the
+	limits given by the PNG specs.
+
 2008-06-06  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-properties-dialog.c: Remove unused widget pointer.
