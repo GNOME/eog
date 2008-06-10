@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog 2.21.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 10:37+0100\n"
+"POT-Creation-Date: 2008-06-10 13:55+0200\n"
 "PO-Revision-Date: 2008-03-10 10:38+0100\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -80,6 +80,39 @@ msgstr "Separatore"
 #: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
 msgid "Running in fullscreen mode"
 msgstr "Esecuzione in modalità schermo intero"
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:1
+msgid "Activate fullscreen mode with double-click"
+msgstr ""
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:2
+msgid "Fullscreen with double-click"
+msgstr ""
+
+# GNOME-2-22
+# titolo dialogo
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
+#: ../plugins/reload/eog-reload-plugin.c:45
+#, fuzzy
+msgid "Reload Image"
+msgstr "Caricamento immagine"
+
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:2
+#: ../plugins/reload/eog-reload-plugin.c:47
+msgid "Reload current image"
+msgstr ""
+
+# GNOME-2-22
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:1
+#, fuzzy
+msgid "Date in statusbar"
+msgstr "Mostrare/nascondere la barra di stato della finestra."
+
+# GNOME-2-22
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:2
+#, fuzzy
+msgid "Shows the image date in the window statusbar"
+msgstr "Mostrare/nascondere la barra di stato della finestra."
 
 #: ../data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -536,12 +569,12 @@ msgid "Zoom multiplier"
 msgstr "Moltiplicatore di zoom"
 
 # GNOME-2-20
-#: ../src/eog-file-chooser.c:121
+#: ../src/eog-file-chooser.c:125
 msgid "File format is unknown or unsupported"
 msgstr "Il formato del file è sconosciuto o non supportato"
 
 # GNOME-2-20
-#: ../src/eog-file-chooser.c:126
+#: ../src/eog-file-chooser.c:130
 msgid ""
 "Eye of GNOME could not determine a supported writable file format based on "
 "the filename."
@@ -550,20 +583,20 @@ msgstr ""
 "supportato in base al nome di file."
 
 # GNOME-2-20
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:131
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Provare una differente estensione di file come .png o .jpg."
 
-#: ../src/eog-file-chooser.c:159
+#: ../src/eog-file-chooser.c:163
 msgid "All Files"
 msgstr "Tutti i file"
 
-#: ../src/eog-file-chooser.c:164
+#: ../src/eog-file-chooser.c:168
 msgid "All Images"
 msgstr "Tutte le immagini"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:185
+#: ../src/eog-file-chooser.c:189
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
@@ -571,8 +604,9 @@ msgstr "%s (*.%s)"
 # GNOME-2-20
 #
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:439
-#: ../src/eog-window.c:707
+#: ../src/eog-file-chooser.c:285 ../src/eog-properties-dialog.c:133
+#: ../src/eog-properties-dialog.c:135 ../src/eog-thumb-view.c:444
+#: ../src/eog-window.c:719
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pixel"
@@ -580,65 +614,60 @@ msgstr[1] "pixel"
 
 # GNOME-2-22
 # titolo dialogo
-#: ../src/eog-file-chooser.c:423
+#: ../src/eog-file-chooser.c:436
 msgid "Load Image"
 msgstr "Caricamento immagine"
 
 # @GNOME-2-22
 # titolo dialogo
-#: ../src/eog-file-chooser.c:431
+#: ../src/eog-file-chooser.c:444
 msgid "Save Image"
 msgstr "Salvataggio immagine"
 
 # GNOME-2-22
 # titolo dialogo
-#: ../src/eog-file-chooser.c:439
+#: ../src/eog-file-chooser.c:452
 msgid "Open Folder"
 msgstr "Apertura cartella"
 
-#: ../src/eog-image.c:527
+#: ../src/eog-image.c:531
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Trasformazione su immagine non caricata."
 
 # GNOME-2-20
-#: ../src/eog-image.c:555
+#: ../src/eog-image.c:559
 #, c-format
 msgid "Transformation failed."
 msgstr "Trasformazione fallita."
 
-#: ../src/eog-image.c:1075
+#: ../src/eog-image.c:948
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF non supportato per questo formato di file."
 
 # GNOME-2-20
-#: ../src/eog-image.c:1192
+#: ../src/eog-image.c:1065
 #, c-format
 msgid "Image loading failed."
 msgstr "Caricamento immagine fallito."
 
-#: ../src/eog-image.c:1462 ../src/eog-image.c:1691
-#, c-format
-msgid "File exists"
-msgstr "Il file esiste"
-
-#: ../src/eog-image.c:1625 ../src/eog-image.c:1761
+#: ../src/eog-image.c:1467 ../src/eog-image.c:1572
 #, c-format
 msgid "No image loaded."
 msgstr "Nessuna immagine caricata."
 
-#: ../src/eog-image.c:1634 ../src/eog-image.c:1773
+#: ../src/eog-image.c:1477 ../src/eog-image.c:1584
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Creazione del file temporaneo fallita."
 
-#: ../src/eog-image-jpeg.c:357
+#: ../src/eog-image-jpeg.c:361
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "Impossibile creare il file temporaneo per salvare: %s"
 
-#: ../src/eog-image-jpeg.c:376
+#: ../src/eog-image-jpeg.c:380
 #, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "Impossibile allocare memoria per caricare il file JPEG"
@@ -691,11 +720,15 @@ msgstr "Etichetta"
 msgid "Value"
 msgstr "Valore"
 
-# GNOME-2-20
-#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:74
-#: ../src/eog-exif-util.c:96
-msgid "Unknown"
-msgstr "Sconosciuto"
+#. A strftime-formatted string, to display the date the image was taken.
+#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:96
+msgid "%a, %d %B %Y  %X"
+msgstr ""
+
+#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
+#: ../src/eog-exif-util.c:90
+msgid "%a, %d %B %Y"
+msgstr ""
 
 # GNOME-2-22
 #: ../src/eog-error-message-area.c:110
@@ -709,15 +742,34 @@ msgid "Could not load image '%s'."
 msgstr "Impossibile caricare l'immagine «%s»."
 
 # GNOME-2-20
-#: ../src/eog-error-message-area.c:160
+#: ../src/eog-error-message-area.c:161
 #, c-format
 msgid "No images found in '%s'."
 msgstr "Nessuna immagine trovata in «%s»."
 
 # GNOME-2-20
-#: ../src/eog-error-message-area.c:165
+#: ../src/eog-error-message-area.c:167
 msgid "The given locations contain no images."
 msgstr "La posizione fornita non contiene alcuna immagine."
+
+# GNOME-2-22
+#: ../src/eog-print.c:197
+msgid "Image Settings"
+msgstr "Impostazioni immagine"
+
+#: ../src/eog-print.c:221 ../src/eog-print.c:254 ../src/eog-print.c:322
+#, fuzzy, c-format
+msgid "Error loading print settings file: %s"
+msgstr ""
+"Errore nello stampare il file:\n"
+"%s"
+
+#: ../src/eog-print.c:279
+#, fuzzy, c-format
+msgid "Error saving print settings file: %s"
+msgstr ""
+"Errore nello stampare il file:\n"
+"%s"
 
 #: ../src/eog-print-image-setup.c:833
 msgid "Image"
@@ -807,16 +859,21 @@ msgstr "Pollici"
 msgid "Preview"
 msgstr "Anteprima"
 
+# GNOME-2-20
+#: ../src/eog-properties-dialog.c:150 ../src/eog-properties-dialog.c:151
+msgid "Unknown"
+msgstr "Sconosciuto"
+
 #: ../src/eog-save-as-dialog-helper.c:160
 msgid "as is"
 msgstr "come è"
 
 # GNOME-2-20
-#: ../src/eog-thumb-view.c:455
+#: ../src/eog-thumb-view.c:470
 msgid "Taken on"
 msgstr "Ripresa il"
 
-#: ../src/eog-uri-converter.c:1015
+#: ../src/eog-uri-converter.c:1013
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Almeno due nomi di file sono uguali."
@@ -831,13 +888,13 @@ msgid " (invalid Unicode)"
 msgstr " (Unicode non valido)"
 
 # GNOME-2-20
-#: ../src/eog-window.c:1102
+#: ../src/eog-window.c:1130
 #, c-format
 msgid "Open with \"%s\""
 msgstr "Apri con «%s»"
 
 # GNOME-2-20
-#: ../src/eog-window.c:1103
+#: ../src/eog-window.c:1131
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Usa «%s» per aprire l'immagine selezionata"
@@ -848,23 +905,18 @@ msgstr "Usa «%s» per aprire l'immagine selezionata"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1218
+#: ../src/eog-window.c:1246
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Salvataggio immagine «%s» (%u/%u)"
 
 # GNOME-2-20
-#: ../src/eog-window.c:1557
+#: ../src/eog-window.c:1585
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Caricamento immagine «%s»"
 
-# GNOME-2-22
-#: ../src/eog-window.c:2369
-msgid "Image Settings"
-msgstr "Impostazioni immagine"
-
-#: ../src/eog-window.c:2383
+#: ../src/eog-window.c:2268
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -874,22 +926,22 @@ msgstr ""
 "%s"
 
 # GNOME-2-20
-#: ../src/eog-window.c:2511
+#: ../src/eog-window.c:2396
 msgid "Toolbar Editor"
 msgstr "Editor barra strumenti"
 
 # femminile singolare, ripristina la barra degli strumenti.
-#: ../src/eog-window.c:2514
+#: ../src/eog-window.c:2399
 msgid "_Reset to Default"
 msgstr "_Ripristina predefinita"
 
-#: ../src/eog-window.c:2600
+#: ../src/eog-window.c:2485
 msgid "translator-credits"
 msgstr ""
 "Alessio Frusciante <algol@firenze.linux.it>\n"
 "Luca Ferretti <elle.uca@libero.it>"
 
-#: ../src/eog-window.c:2603
+#: ../src/eog-window.c:2488
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -901,7 +953,7 @@ msgstr ""
 "dalla Free Software Foundation; o la versione 2 della licenza o (a propria "
 "scelta) una versione successiva.\n"
 
-#: ../src/eog-window.c:2607
+#: ../src/eog-window.c:2492
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -913,7 +965,7 @@ msgstr ""
 "APPLICABILITÀ PER UN PARTICOLARE SCOPO. Si veda la Licenza Pubblica Generica "
 "GNU per avere maggiori dettagli.\n"
 
-#: ../src/eog-window.c:2611
+#: ../src/eog-window.c:2496
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -924,17 +976,17 @@ msgstr ""
 "scrivendo alla Free Software Foundation, Inc., 59 Temple Place - Suite 330, "
 "Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2624 ../src/main.c:186
+#: ../src/eog-window.c:2509 ../src/main.c:192
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
 # GNOME-2-22
-#: ../src/eog-window.c:2627
+#: ../src/eog-window.c:2512
 msgid "The GNOME image viewer."
 msgstr "Il visualizzatore di immagini di GNOME."
 
 # GNOME-2-22
-#: ../src/eog-window.c:3000
+#: ../src/eog-window.c:2895
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -943,7 +995,7 @@ msgstr ""
 "Spostare veramente\n"
 "«%s» nel cestino?"
 
-#: ../src/eog-window.c:3003
+#: ../src/eog-window.c:2898
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -958,126 +1010,126 @@ msgstr[1] ""
 "Spostare veramente le %d immagini\n"
 "selezionate nel cestino?"
 
-#: ../src/eog-window.c:3018
+#: ../src/eog-window.c:2913
 msgid "Move to Trash"
 msgstr "Sposta nel cestino"
 
-#: ../src/eog-window.c:3053 ../src/eog-window.c:3067 ../src/eog-window.c:3073
+#: ../src/eog-window.c:2941 ../src/eog-window.c:2955 ../src/eog-window.c:2961
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Impossibile accedere al cestino."
 
 # GNOME-2-20
-#: ../src/eog-window.c:3139
+#: ../src/eog-window.c:3027
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Errore nell'eliminare l'immagine «%s»"
 
-#: ../src/eog-window.c:3346
+#: ../src/eog-window.c:3234
 msgid "_File"
 msgstr "_File"
 
-#: ../src/eog-window.c:3347
+#: ../src/eog-window.c:3235
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../src/eog-window.c:3348
+#: ../src/eog-window.c:3236
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../src/eog-window.c:3349
+#: ../src/eog-window.c:3237
 msgid "_Image"
 msgstr "Imma_gine"
 
-#: ../src/eog-window.c:3350
+#: ../src/eog-window.c:3238
 msgid "_Go"
 msgstr "V_ai"
 
 # È un menù principale (come File, Modifica, ...),
 # ma non si vede per ora perché credo riservato
 # per usi futuri dei plugin  --Luca
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3239
 msgid "_Tools"
 msgstr "_Strumenti"
 
-#: ../src/eog-window.c:3352
+#: ../src/eog-window.c:3240
 msgid "_Help"
 msgstr "A_iuto"
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3242
 msgid "_Open..."
 msgstr "_Apri..."
 
-#: ../src/eog-window.c:3355
+#: ../src/eog-window.c:3243
 msgid "Open a file"
 msgstr "Apre un file"
 
-#: ../src/eog-window.c:3357
+#: ../src/eog-window.c:3245
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: ../src/eog-window.c:3358
+#: ../src/eog-window.c:3246
 msgid "Close window"
 msgstr "Chiude la finestra"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3360
+#: ../src/eog-window.c:3248
 msgid "T_oolbar"
 msgstr "_Barra degli strumenti"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3361
+#: ../src/eog-window.c:3249
 msgid "Edit the application toolbar"
 msgstr "Modifica la barra degli strumenti dell'applicazione"
 
-#: ../src/eog-window.c:3363
+#: ../src/eog-window.c:3251
 msgid "Prefere_nces"
 msgstr "Preferen_ze"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3252
 msgid "Preferences for Eye of GNOME"
 msgstr "Preferenze per Eye of GNOME"
 
-#: ../src/eog-window.c:3366
+#: ../src/eog-window.c:3254
 msgid "_Contents"
 msgstr "_Sommario"
 
-#: ../src/eog-window.c:3367
+#: ../src/eog-window.c:3255
 msgid "Help on this application"
 msgstr "Aiuto su questa applicazione"
 
-#: ../src/eog-window.c:3369 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3257 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "I_nformazioni"
 
-#: ../src/eog-window.c:3370
+#: ../src/eog-window.c:3258
 msgid "About this application"
 msgstr "Informazioni su questa applicazione"
 
-#: ../src/eog-window.c:3375
+#: ../src/eog-window.c:3263
 msgid "_Toolbar"
 msgstr "Barra degli _strumenti"
 
-#: ../src/eog-window.c:3376
+#: ../src/eog-window.c:3264
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr ""
 "Cambia la visibilità della barra degli strumenti nella finestra attuale"
 
-#: ../src/eog-window.c:3378
+#: ../src/eog-window.c:3266
 msgid "_Statusbar"
 msgstr "Barra di s_tato"
 
-#: ../src/eog-window.c:3379
+#: ../src/eog-window.c:3267
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Cambia la visibilità della barra di stato nella finestra attuale"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3381
+#: ../src/eog-window.c:3269
 msgid "_Image Collection"
 msgstr "_Raccolta immagini"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3382
+#: ../src/eog-window.c:3270
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr ""
@@ -1085,273 +1137,273 @@ msgstr ""
 "attuale"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3384
+#: ../src/eog-window.c:3272
 msgid "Side _Pane"
 msgstr "Riquadro _laterale"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3385
+#: ../src/eog-window.c:3273
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Cambia la visibilità del riquadro laterale nella finestra attuale"
 
-#: ../src/eog-window.c:3390
+#: ../src/eog-window.c:3278
 msgid "_Save"
 msgstr "_Salva"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3391
+#: ../src/eog-window.c:3279
 msgid "Save changes in currently selected images"
 msgstr "Salva i cambiamenti alle immagini attualmente selezionate"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3393
+#: ../src/eog-window.c:3281
 msgid "Open _with"
 msgstr "A_pri con"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3394
+#: ../src/eog-window.c:3282
 msgid "Open the selected image with a different application"
 msgstr "Apre l'immagine selezionata con una diversa applicazione"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3396
+#: ../src/eog-window.c:3284
 msgid "Save _As..."
 msgstr "Sa_lva come..."
 
 # GNOME-2-22
-#: ../src/eog-window.c:3397
+#: ../src/eog-window.c:3285
 msgid "Save the selected images with a different name"
 msgstr "Salva le immagini selezionate con un nome diverso"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3287
 msgid "Page Set_up..."
 msgstr "_Impostazione pagina..."
 
 # GNOME-2-22
 #
 # FIXME!! set up è il verbo, setup è il sostantivo...
-#: ../src/eog-window.c:3400
+#: ../src/eog-window.c:3288
 msgid "Setup the page properties for printing"
 msgstr "Imposta le proprietà della pagina per la stampa"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3290
 msgid "_Print..."
 msgstr "_Stampa..."
 
 # GNOME-2-22
-#: ../src/eog-window.c:3403
+#: ../src/eog-window.c:3291
 msgid "Print the selected image"
 msgstr "Stampa l'immagine selezionata"
 
 # GNOME-2-20
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3293
 msgid "Prope_rties"
 msgstr "Pr_oprietà"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3406
+#: ../src/eog-window.c:3294
 msgid "Show the properties and metadata of the selected image"
 msgstr "Mostra le proprietà e i metadati dell'immagine selezionata"
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3296
 msgid "_Undo"
 msgstr "_Annulla"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3409
+#: ../src/eog-window.c:3297
 msgid "Undo the last change in the image"
 msgstr "Annulla l'ultimo cambiamento all'immagine"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3411
+#: ../src/eog-window.c:3299
 msgid "Flip _Horizontal"
 msgstr "Capovolgi ori_zzontalmente"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3412
+#: ../src/eog-window.c:3300
 msgid "Mirror the image horizontally"
 msgstr "Specchia l'immagine in orizzontale"
 
-#: ../src/eog-window.c:3414
+#: ../src/eog-window.c:3302
 msgid "Flip _Vertical"
 msgstr "Capovolgi _verticalmente"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3415
+#: ../src/eog-window.c:3303
 msgid "Mirror the image vertically"
 msgstr "Specchia l'immagine in verticale"
 
-#: ../src/eog-window.c:3417
+#: ../src/eog-window.c:3305
 msgid "_Rotate Clockwise"
 msgstr "Ruota in senso _orario"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3418
+#: ../src/eog-window.c:3306
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Ruota l'immagine di 90 gradi verso destra"
 
-#: ../src/eog-window.c:3420
+#: ../src/eog-window.c:3308
 msgid "Rotate Counterc_lockwise"
 msgstr "Ruota in senso _antiorario"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3421
+#: ../src/eog-window.c:3309
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Ruota l'immagine di 90 gradi verso sinistra"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3423
+#: ../src/eog-window.c:3311
 msgid "Set As _Wallpaper"
 msgstr "Imposta come _rivestimento"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3424
+#: ../src/eog-window.c:3312
 msgid "Set the selected image as the desktop wallpaper"
 msgstr "Imposta l'immagine selezionata come rivestimento della scrivania"
 
-#: ../src/eog-window.c:3426 ../src/eog-window.c:3450
+#: ../src/eog-window.c:3314 ../src/eog-window.c:3338
 msgid "Move to _Trash"
 msgstr "Sposta nel _cestino"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3427
+#: ../src/eog-window.c:3315
 msgid "Move the selected image to the trash folder"
 msgstr "Sposta l'immagine selezionata nella cartella cestino"
 
-#: ../src/eog-window.c:3429 ../src/eog-window.c:3441 ../src/eog-window.c:3444
+#: ../src/eog-window.c:3317 ../src/eog-window.c:3329 ../src/eog-window.c:3332
 msgid "_Zoom In"
 msgstr "Aum_enta ingrandimento"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3430 ../src/eog-window.c:3442
+#: ../src/eog-window.c:3318 ../src/eog-window.c:3330
 msgid "Enlarge the image"
 msgstr "Allarga l'immagine"
 
-#: ../src/eog-window.c:3432 ../src/eog-window.c:3447
+#: ../src/eog-window.c:3320 ../src/eog-window.c:3335
 msgid "Zoom _Out"
 msgstr "Rid_uci ingrandimento"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3433 ../src/eog-window.c:3445 ../src/eog-window.c:3448
+#: ../src/eog-window.c:3321 ../src/eog-window.c:3333 ../src/eog-window.c:3336
 msgid "Shrink the image"
 msgstr "Restringe l'immagine"
 
 # GNOME-2-20
 # in sync con gtk-2-12
-#: ../src/eog-window.c:3435
+#: ../src/eog-window.c:3323
 msgid "_Normal Size"
 msgstr "_Dimensione normale"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3436
+#: ../src/eog-window.c:3324
 msgid "Show the image at its normal size"
 msgstr "Mostra l'immagine alla sua dimensione normale"
 
 # GNOME-2-20
 # in sync con gtk-2-12
-#: ../src/eog-window.c:3438
+#: ../src/eog-window.c:3326
 msgid "Best _Fit"
 msgstr "Ada_tta dimensione"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3439
+#: ../src/eog-window.c:3327
 msgid "Fit the image to the window"
 msgstr "Adatta l'immagine alla finestra"
 
 # GNOME-2-20
 # in sync con gtk-2-12
-#: ../src/eog-window.c:3456
+#: ../src/eog-window.c:3344
 msgid "_Full Screen"
 msgstr "Sc_hermo intero"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3457
+#: ../src/eog-window.c:3345
 msgid "Show the current image in fullscreen mode"
 msgstr "Mostra l'immagine corrente nella modalità schermo intero"
 
-#: ../src/eog-window.c:3462 ../src/eog-window.c:3474
+#: ../src/eog-window.c:3350 ../src/eog-window.c:3362
 msgid "_Previous Image"
 msgstr "Immagine pr_ecedente"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3463
+#: ../src/eog-window.c:3351
 msgid "Go to the previous image of the collection"
 msgstr "Va alla precedente immagine della raccolta"
 
-#: ../src/eog-window.c:3465
+#: ../src/eog-window.c:3353
 msgid "_Next Image"
 msgstr "Immagine _successiva"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3466
+#: ../src/eog-window.c:3354
 msgid "Go to the next image of the collection"
 msgstr "Va alla successiva immagine della raccolta"
 
-#: ../src/eog-window.c:3468 ../src/eog-window.c:3477
+#: ../src/eog-window.c:3356 ../src/eog-window.c:3365
 msgid "_First Image"
 msgstr "_Prima immagine"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3469
+#: ../src/eog-window.c:3357
 msgid "Go to the first image of the collection"
 msgstr "Va alla prima immagine della raccolta"
 
-#: ../src/eog-window.c:3471 ../src/eog-window.c:3480
+#: ../src/eog-window.c:3359 ../src/eog-window.c:3368
 msgid "_Last Image"
 msgstr "_Ultima immagine"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3472
+#: ../src/eog-window.c:3360
 msgid "Go to the last image of the collection"
 msgstr "Va all'ultima immagine della raccolta"
 
-#: ../src/eog-window.c:3486
+#: ../src/eog-window.c:3374
 msgid "_Slideshow"
 msgstr "_Diapositive"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3487
+#: ../src/eog-window.c:3375
 msgid "Start a slideshow view of the images"
 msgstr "Avvia la visualizzazione a diapositive delle immagini"
 
-#: ../src/eog-window.c:3553
+#: ../src/eog-window.c:3441
 msgid "Previous"
 msgstr "Precedente"
 
-#: ../src/eog-window.c:3557
+#: ../src/eog-window.c:3445
 msgid "Next"
 msgstr "Successiva"
 
-#: ../src/eog-window.c:3561
+#: ../src/eog-window.c:3449
 msgid "Right"
 msgstr "Destra"
 
-#: ../src/eog-window.c:3564
+#: ../src/eog-window.c:3452
 msgid "Left"
 msgstr "Sinistra"
 
 # Sta per Zoom In
-#: ../src/eog-window.c:3567
+#: ../src/eog-window.c:3455
 msgid "In"
 msgstr "Aumenta"
 
 # Sta per Zoom Out
-#: ../src/eog-window.c:3570
+#: ../src/eog-window.c:3458
 msgid "Out"
 msgstr "Riduci"
 
-#: ../src/eog-window.c:3573
+#: ../src/eog-window.c:3461
 msgid "Normal"
 msgstr "Normale"
 
-#: ../src/eog-window.c:3576
+#: ../src/eog-window.c:3464
 msgid "Fit"
 msgstr "Adatta"
 
 # GNOME-2-22
-#: ../src/eog-window.c:3579
+#: ../src/eog-window.c:3467
 msgid "Collection"
 msgstr "Raccolta"
 
@@ -1401,25 +1453,32 @@ msgid "C_onfigure Plugin"
 msgstr "C_onfigura plugin"
 
 # GNOME-2-20
-#: ../src/main.c:64
+#: ../src/main.c:67
 msgid "Open in fullscreen mode"
 msgstr "Apre in modalità schermo intero"
 
 # GNOME-2-22
-#: ../src/main.c:65
+#: ../src/main.c:68
 msgid "Disable image collection"
 msgstr "Disabilita la raccolta di immagini"
 
 # GNOME-2-20
-#: ../src/main.c:66
+#: ../src/main.c:69
 msgid "Open in slide show mode"
 msgstr "Apre in modalità diapositive"
 
-#: ../src/main.c:67
+#: ../src/main.c:71
+msgid "Start a new instance instead of reusing an existing one"
+msgstr ""
+
+#: ../src/main.c:73
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
 # GNOME-2-20
-#: ../src/main.c:217
+#: ../src/main.c:223
 msgid "Eye of GNOME Image Viewer"
 msgstr "Eye of GNOME - Visualizzatore di immagini"
+
+#~ msgid "File exists"
+#~ msgstr "Il file esiste"
