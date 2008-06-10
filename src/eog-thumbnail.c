@@ -70,7 +70,7 @@ set_vfs_error (GError **error, GError *ioerror)
 	g_set_error (error, 
 		     EOG_THUMB_ERROR, 
 		     EOG_THUMB_ERROR_VFS,
-		     (ioerror ? ioerror->message : "VFS error making a thumbnail"));
+		     "%s", ioerror ? ioerror->message : "VFS error making a thumbnail");
 }
 
 static void
@@ -79,7 +79,7 @@ set_thumb_error (GError **error, int error_id, const char *string)
 	g_set_error (error, 
 		     EOG_THUMB_ERROR, 
 		     error_id,
-		     string);
+		     "%s", string);
 }
 
 static GdkPixbuf*

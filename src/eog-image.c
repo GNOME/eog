@@ -43,6 +43,7 @@
 #include "eog-thumbnail.h"
 
 #include <unistd.h>
+#include <string.h>
 
 #include <glib.h>
 #include <glib-object.h>
@@ -1536,11 +1537,11 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 		if (ioerror->code == G_IO_ERROR_EXISTS) {
 			g_set_error (error, EOG_IMAGE_ERROR,
 				     EOG_IMAGE_ERROR_FILE_EXISTS,
-				     ioerror->message);
+				     "%s", ioerror->message);
 		} else {
 		g_set_error (error, EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS, 
-			     ioerror->message);
+			     "%s", ioerror->message);
 		}
 		g_error_free (ioerror);
 	}

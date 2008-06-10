@@ -63,7 +63,7 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 						 _("Could not display help for Eye of GNOME"));
 
 		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-							  error->message);
+							  "%s", error->message);
 
 		g_signal_connect_swapped (dialog, "response",
 					  G_CALLBACK (gtk_widget_destroy),

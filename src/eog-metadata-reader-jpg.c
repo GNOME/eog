@@ -208,7 +208,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 	EogMetadataReaderJpgPrivate *priv;
  	EogJpegApp1Type app1_type;
 	int i;
-	EogMetadataReaderState next_state;
+	EogMetadataReaderState next_state = EMR_READ;
 	guchar *chunk = NULL;
 
 	g_return_if_fail (EOG_IS_METADATA_READER_JPG (emr));

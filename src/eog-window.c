@@ -3031,10 +3031,10 @@ eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 						      GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 						      GTK_MESSAGE_ERROR,
 						      GTK_BUTTONS_OK,
-						      header);
+						      "%s", header);
 
 			gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg),
-								  error->message);
+								  "%s", error->message);
 
 			gtk_dialog_run (GTK_DIALOG (dlg));
 
