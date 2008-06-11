@@ -14,7 +14,8 @@ libfullscreen_la_SOURCES = \
 	eog-fullscreen-plugin.c	
 
 libfullscreen_la_LDFLAGS = \
-	$(EOG_LIBS)
+	$(EOG_LIBS)		\
+	-avoid-version -module
 
 # Plugin Info
 

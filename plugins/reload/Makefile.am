@@ -14,7 +14,8 @@ libreload_la_SOURCES = \
 	eog-reload-plugin.c	
 
 libreload_la_LDFLAGS = \
-	$(EOG_LIBS)
+	$(EOG_LIBS)	\
+	-avoid-version -module
 
 # Plugin Info
 
