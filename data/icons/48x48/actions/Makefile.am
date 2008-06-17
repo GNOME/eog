@@ -1,11 +1,10 @@
 themedir = $(pkgdatadir)/icons/hicolor
-size = 24x24
+size = 48x48
 context = actions
 
 iconsdir = $(themedir)/$(size)/$(context)
 
-icons_DATA = 			  \
-	eog-image-collection.png  \
+icons_DATA = 		   \
 	slideshow-play.png
 
 EXTRA_DIST =		\

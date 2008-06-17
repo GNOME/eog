@@ -6,10 +6,12 @@ iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = 			  \
 	eog-plugin.png		  \
-	eog-image-collection.png
+	eog-image-collection.png  \
+	slideshow-play.png
 
-noinst_DATA = \
-	eog-plugin.svg
+noinst_DATA =              \
+	eog-plugin.svg     \
+	slideshow-play.svg
 
 EXTRA_DIST =		\
 	$(icons_DATA)	\

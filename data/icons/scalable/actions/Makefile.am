@@ -6,7 +6,8 @@ iconsdir = $(themedir)/$(size)/$(context)
 
 icons_DATA = 			 \
 	eog-plugin.svg 		 \
-	eog-image-collection.svg
+	eog-image-collection.svg \
+	slideshow-play.svg
 
 noinst_DATA =
 
