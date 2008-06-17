@@ -2,7 +2,7 @@ AC_PREREQ(2.59)
 
 m4_define(eog_major_version,  2)
 m4_define(eog_minor_version, 23)
-m4_define(eog_micro_version,  5)
+m4_define(eog_micro_version,  4.1)
 m4_define(eog_version, eog_major_version.eog_minor_version.eog_micro_version)
 
 AC_INIT([eog], eog_version, [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
@@ -61,7 +61,7 @@ fi
 # ***********
 
 AM_GLIB_GNU_GETTEXT
-IT_PROG_INTLTOOL([0.35.0])
+IT_PROG_INTLTOOL([0.40.0])
 
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
