@@ -9,9 +9,6 @@ EXTRA_DIST = 			\
 	MAINTAINERS		\
 	ChangeLog-2.6		\
 	ChangeLog-2.18		\
-	intltool-extract.in	\
-	intltool-merge.in 	\
-	intltool-update.in	\
 	gnome-doc-utils.make
 
 DISTCLEANFILES =                \
