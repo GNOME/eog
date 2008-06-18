@@ -2107,6 +2107,15 @@ eog_scroll_view_set_popup (EogScrollView *view,
 }
 
 void
+eog_scroll_view_set_bg_color (EogScrollView *view,
+			      GdkColor *color)
+{
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	gtk_widget_modify_bg (view, GTK_STATE_NORMAL, color);
+}
+
+void
 eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, 
 				       gboolean       scroll_wheel_zoom)
 {

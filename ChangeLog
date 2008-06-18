@@ -1,3 +1,12 @@
+2008-06-18  Claudio Saavedra  <csaavedra@gnome.org>
+
+	* src/eog-scroll-view.c: (+eog_scroll_view_set_bg_color):
+	New method to set the background color of the scrollview.
+	* src/eog-scroll-view.h:
+	* src/eog-window.c: (eog_window_run_fullscreen),
+	(eog_window_stop_fullscreen): Use eog_scroll_view_set_bg_color
+	instead of setting the color of the widget by hand.
+
 2008-06-16  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.ac: post release version bump.

@@ -49,6 +49,7 @@ void     eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state);
 void     eog_scroll_view_set_transparency (EogScrollView *view, EogTransparencyStyle style, GdkColor *color);
 gboolean eog_scroll_view_scrollbars_visible (EogScrollView *view);
 void	 eog_scroll_view_set_popup (EogScrollView *view, GtkMenu *menu);
+void	 eog_scroll_view_set_bg_color (EogScrollView *view, GdkColor *color);
 
 /* zoom api */
 void     eog_scroll_view_zoom_in          (EogScrollView *view, gboolean smooth);
