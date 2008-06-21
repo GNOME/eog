@@ -2112,7 +2112,7 @@ eog_scroll_view_set_bg_color (EogScrollView *view,
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
 
-	gtk_widget_modify_bg (view, GTK_STATE_NORMAL, color);
+	gtk_widget_modify_bg (GTK_WIDGET (view), GTK_STATE_NORMAL, color);
 }
 
 void

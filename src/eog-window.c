@@ -2116,7 +2116,8 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 
 	gtk_widget_grab_focus (priv->view);
 
-	eog_scroll_view_set_bg_color (window->priv->view, &(GTK_WIDGET (window)->style->black));
+	eog_scroll_view_set_bg_color (EOG_SCROLL_VIEW (window->priv->view),
+				      &(GTK_WIDGET (window)->style->black));
 
 	{
 		GtkStyle *style;
