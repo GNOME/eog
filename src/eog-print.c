@@ -218,7 +218,7 @@ eog_print_get_key_file (void)
 					   G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
 					   &error);
 		if (error) {
-			g_warning (_("Error loading print settings file: %s"), error->message);
+			g_warning ("Error loading print settings file: %s", error->message);
 			g_error_free (error);
 			g_object_unref (file);
 			g_free (filename);
@@ -251,7 +251,7 @@ eog_print_get_page_setup (void)
 	if (error) {
 		page_setup = gtk_page_setup_new ();
 
-		g_warning (_("Error loading print settings file: %s"), error->message);
+		g_warning ("Error loading print settings file: %s", error->message);
 		g_error_free (error);
 	}
 
@@ -276,7 +276,7 @@ eog_print_save_key_file (GKeyFile *key_file)
 	g_file_set_contents (filename, data, -1, &error);
 
 	if (error) {
-		g_warning (_("Error saving print settings file: %s"), error->message);
+		g_warning ("Error saving print settings file: %s", error->message);
 		g_error_free (error);
 	}
 
@@ -319,7 +319,7 @@ eog_print_get_print_settings (void)
 	if (error) {
 		print_settings = gtk_print_settings_new ();
 
-		g_warning (_("Error loading print settings file: %s"), error->message);
+		g_warning ("Error loading print settings file: %s", error->message);
 		g_error_free (error);
 	}
 
