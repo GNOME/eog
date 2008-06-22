@@ -2044,6 +2044,10 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	if (slideshow) {
 		priv->mode = EOG_WINDOW_MODE_SLIDESHOW;
 	} else {
+		/* Stop the timer if we come from slideshowing */
+		if (priv->mode == EOG_WINDOW_MODE_SLIDESHOW)
+			slideshow_clear_timeout (window);
+
 		priv->mode = EOG_WINDOW_MODE_FULLSCREEN;
 	}
 
@@ -2129,11 +2133,9 @@ eog_window_run_fullscreen (EogWindow *window, gboolean slideshow)
 	eog_application_screensaver_disable (EOG_APP);
 #endif
 
-	if (slideshow) {
-		eog_window_update_slideshow_action (window);
-	} else {
-		eog_window_update_fullscreen_action (window);
-	}
+	/* Update both actions as we could've already been in one those modes */
+	eog_window_update_slideshow_action (window);
+	eog_window_update_fullscreen_action (window);
 }
 
 static void
