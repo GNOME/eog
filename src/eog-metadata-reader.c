@@ -23,8 +23,6 @@
 #include <config.h>
 #endif
 
-#include <string.h>
-
 #include "eog-metadata-reader.h"
 #include "eog-metadata-reader-jpg.h"
 #include "eog-metadata-reader-png.h"
