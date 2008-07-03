@@ -4277,6 +4277,7 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 			eog_window_stop_fullscreen (EOG_WINDOW (widget), TRUE);
 		} else {
 			eog_window_cmd_close_window (NULL, EOG_WINDOW (widget));
+			return TRUE;
 		}
 		break;
 	case GDK_Left:
