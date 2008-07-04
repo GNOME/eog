@@ -301,7 +301,9 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			priv->size = 4;
 		case EMR_SKIP_BYTES:
 		/* Skip chunk and start reading the size of the next one */
-			eog_debug_message (DEBUG_IMAGE_DATA, "Skip bytes: %i", priv->size);
+			eog_debug_message (DEBUG_IMAGE_DATA,
+					   "Skip bytes: %" G_GSIZE_FORMAT,
+					   priv->size);
 
 			if (i + priv->size < len) { 
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
@@ -348,8 +350,8 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			/* Extract an iTXt chunk possibly containing
 			 * an XMP packet */
 			eog_debug_message (DEBUG_IMAGE_DATA,
-					   "Read XMP Chunk - size: %u",
-					   priv->size);
+					   "Read XMP Chunk - size: %"
+					   G_GSIZE_FORMAT, priv->size);
 
 			if (priv->xmp_chunk == NULL) { 
 				priv->xmp_chunk = g_new0 (guchar, priv->size);
@@ -380,8 +382,8 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			/* Extract an iCCP chunk containing a 
 			 * deflated ICC profile. */
 			eog_debug_message (DEBUG_IMAGE_DATA,
-					   "Read ICC Chunk - size: %u",
-					   priv->size);
+					   "Read ICC Chunk - size: %"
+					   G_GSIZE_FORMAT, priv->size);
 
 			if (priv->icc_chunk == NULL) { 
 				priv->icc_chunk = g_new0 (guchar, priv->size);
@@ -421,8 +423,8 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			/* Extract the cHRM chunk. Contains the coordinates of
 			 * the image's whitepoint and primary chromacities. */
 			eog_debug_message (DEBUG_IMAGE_DATA,
-					   "Read cHRM Chunk - size: %u",
-					   priv->size);
+					   "Read cHRM Chunk - size: %"
+					   G_GSIZE_FORMAT, priv->size);
 
 			if (priv->cHRM_chunk == NULL) { 
 				priv->cHRM_chunk = g_new0 (guchar, priv->size);
@@ -442,8 +444,8 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			/* Extract the gAMA chunk containing the 
 			 * image's gamma value */
 			eog_debug_message (DEBUG_IMAGE_DATA,
-					   "Read gAMA-Chunk - size: %u",
-					   priv->size);
+					   "Read gAMA-Chunk - size: %"
+					   G_GSIZE_FORMAT, priv->size);
 
 			if (priv->gAMA_chunk == NULL) { 
 				priv->gAMA_chunk = g_new0 (guchar, priv->size);
