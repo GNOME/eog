@@ -304,9 +304,6 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	eog_exif_set_label (priv->exif_focal_label, 
 			    exif_data, EXIF_TAG_FOCAL_LENGTH);
 
-	eog_exif_set_label (priv->exif_focal_label, 
-			    exif_data, EXIF_TAG_FOCAL_LENGTH);
-
 	eog_exif_set_label (priv->exif_flash_label,
 			    exif_data, EXIF_TAG_FLASH);
 
