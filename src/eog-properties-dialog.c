@@ -194,6 +194,66 @@ eog_exif_set_label (GtkWidget *w, ExifData *exif_data, gint tag_id)
 	gtk_label_set_text (GTK_LABEL (w), label_text);
 	g_free (label_text);
 }
+
+static void
+eog_exif_set_focal_length_label (GtkWidget *w, ExifData *exif_data)
+{
+	ExifEntry *entry,*entry35mm;
+	ExifByteOrder byte_order;
+	gfloat f_val = 0.0;
+	gchar *fl_text = NULL,*fl35_text = NULL;
+
+	entry = exif_data_get_entry (exif_data, EXIF_TAG_FOCAL_LENGTH);
+	entry35mm = exif_data_get_entry (exif_data,
+					 EXIF_TAG_FOCAL_LENGTH_IN_35MM_FILM);
+	byte_order = exif_data_get_byte_order (exif_data);
+
+	if (entry && G_LIKELY (entry->format == EXIF_FORMAT_RATIONAL)) {
+		ExifRational value;
+
+		/* Decode value by hand as libexif is not necessarily returning
+		 * it in the format we want it to be.
+		 */
+		value = exif_get_rational (entry->data, byte_order);
+		/* Guard against div by zero */
+		if (G_LIKELY(value.denominator != 0))
+			f_val = (gfloat)value.numerator/
+				(gfloat)value.denominator;
+
+		/* TRANSLATORS: This is the actual focal length used when
+		   the image was taken.*/
+		fl_text = g_strdup_printf (_("%.1f (lens)"), f_val);
+
+	}	
+	if (entry35mm && G_LIKELY (entry35mm->format == EXIF_FORMAT_SHORT)) {
+		ExifShort s_val;
+
+		s_val = exif_get_short (entry35mm->data, byte_order);
+
+		/* Print as float to get a similar look as above. */
+		/* TRANSLATORS: This is the equivalent focal length assuming
+		   a 35mm film camera. */
+		fl35_text = g_strdup_printf(_("%.1f (35mm film)"),(float)s_val);
+	}
+
+	if (fl_text) {
+		if (fl35_text) {
+			gchar *merged_txt;
+
+			merged_txt = g_strconcat (fl35_text,", ", fl_text, NULL);
+			gtk_label_set_text (GTK_LABEL (w), merged_txt);
+			g_free (merged_txt);
+		} else {
+			gtk_label_set_text (GTK_LABEL (w), fl_text);
+		}
+	} else {
+		gtk_label_set_text (GTK_LABEL (w), fl35_text);
+	}
+
+	g_free (fl35_text);
+	g_free (fl_text);
+
+}
 #endif
 
 #if HAVE_EXEMPI
@@ -301,8 +361,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	eog_exif_set_label (priv->exif_exposure_label,
 			    exif_data, EXIF_TAG_EXPOSURE_TIME);
 
-	eog_exif_set_label (priv->exif_focal_label, 
-			    exif_data, EXIF_TAG_FOCAL_LENGTH);
+	eog_exif_set_focal_length_label (priv->exif_focal_label, exif_data);
 
 	eog_exif_set_label (priv->exif_flash_label,
 			    exif_data, EXIF_TAG_FLASH);
