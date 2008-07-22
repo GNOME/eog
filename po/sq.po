@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eog HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-21 15:14+0000\n"
-"PO-Revision-Date: 2008-07-21 19:20+0200\n"
+"POT-Creation-Date: 2008-07-22 04:52+0000\n"
+"PO-Revision-Date: 2008-07-22 10:39+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -323,11 +323,11 @@ msgid ""
 msgstr ""
 "Një vlerë më e madhe se 0 përcakton kohën në sekonda gjatë së cilës një "
 "figurë qëndron në ekran para se figura në vazhdim të shfaqet automatikisht. "
-"Zero ç'aktivon shfletimin automatik."
+"Zero çaktivizon shfletimin automatik."
 
 #: ../data/eog.schemas.in.h:2
 msgid "Active plugins"
-msgstr "Plugins aktivë"
+msgstr "Plugin aktivë"
 
 #: ../data/eog.schemas.in.h:4
 #, no-c-format
@@ -716,7 +716,7 @@ msgstr "Milimetra"
 
 #: ../src/eog-print-image-setup.c:936
 msgid "Inches"
-msgstr "Inches"
+msgstr "Inch"
 
 #: ../src/eog-print-image-setup.c:966
 msgid "Preview"
@@ -725,6 +725,21 @@ msgstr "Pamja e parë"
 #: ../src/eog-properties-dialog.c:150 ../src/eog-properties-dialog.c:151
 msgid "Unknown"
 msgstr "Nuk njihet"
+
+#. TRANSLATORS: This is the actual focal length used when
+#. the image was taken.
+#: ../src/eog-properties-dialog.c:225
+#, c-format
+msgid "%.1f (lens)"
+msgstr "%.1f (lente)"
+
+#. Print as float to get a similar look as above.
+#. TRANSLATORS: This is the equivalent focal length assuming
+#. a 35mm film camera.
+#: ../src/eog-properties-dialog.c:236
+#, c-format
+msgid "%.1f (35mm film)"
+msgstr "%.1f (film 35mm)"
 
 #: ../src/eog-save-as-dialog-helper.c:160
 msgid "as is"
@@ -773,7 +788,7 @@ msgstr "Duke ruajtur figurën \"%s\" (%u/%u)"
 msgid "Loading image \"%s\""
 msgstr "Duke ngarkuar figurën \"%s\""
 
-#: ../src/eog-window.c:2267
+#: ../src/eog-window.c:2270
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -782,19 +797,19 @@ msgstr ""
 "Gabim gjatë printimit të file:\n"
 "%s"
 
-#: ../src/eog-window.c:2395
+#: ../src/eog-window.c:2398
 msgid "Toolbar Editor"
 msgstr "Edituesi i panelit të instrumentëve"
 
-#: ../src/eog-window.c:2398
+#: ../src/eog-window.c:2401
 msgid "_Reset to Default"
 msgstr "_Rikthe në vlerën e paracaktuar"
 
-#: ../src/eog-window.c:2484
+#: ../src/eog-window.c:2487
 msgid "translator-credits"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: ../src/eog-window.c:2487
+#: ../src/eog-window.c:2490
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -806,7 +821,7 @@ msgstr ""
 "Fondacioni Free Software; duke zgjedhur midis versionit 2 të Liçencës, ose "
 "(sipas dëshirës suaj) çdo versioni tjetër të mëvonshëm.\n"
 
-#: ../src/eog-window.c:2491
+#: ../src/eog-window.c:2494
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -818,7 +833,7 @@ msgstr ""
 "QËLLIME TË VEÇANTA.  Shiko Liçencën Publike të Përgjithshme GNU për hollësi "
 "të mëtejshme.\n"
 
-#: ../src/eog-window.c:2495
+#: ../src/eog-window.c:2498
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -828,15 +843,15 @@ msgstr ""
 "Publike të Përgjithshme GNU; nëse jo, shkruaj tek Free Software Foundation, "
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA"
 
-#: ../src/eog-window.c:2508 ../src/main.c:192
+#: ../src/eog-window.c:2511 ../src/main.c:192
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2511
+#: ../src/eog-window.c:2514
 msgid "The GNOME image viewer."
 msgstr "Shfaqësi i figurave për GNOME."
 
-#: ../src/eog-window.c:2894
+#: ../src/eog-window.c:2897
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -846,7 +861,7 @@ msgstr ""
 "\"%s\" në kosh?"
 
 # (pofilter) variables: translation contains variables not in original: %d
-#: ../src/eog-window.c:2897
+#: ../src/eog-window.c:2900
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -861,347 +876,347 @@ msgstr[1] ""
 "Me të vërtetë dëshironi të hidhni\n"
 "%d figurat e zgjedhura në kosh?"
 
-#: ../src/eog-window.c:2912
+#: ../src/eog-window.c:2915
 msgid "Move to Trash"
 msgstr "Hidh në Kosh"
 
-#: ../src/eog-window.c:2940 ../src/eog-window.c:2954 ../src/eog-window.c:2960
+#: ../src/eog-window.c:2943 ../src/eog-window.c:2957 ../src/eog-window.c:2963
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Nuk kam hyrje në kosh."
 
-#: ../src/eog-window.c:3026
+#: ../src/eog-window.c:3029
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Gabim gjatë fshirjes së figurës %s"
 
-#: ../src/eog-window.c:3233
+#: ../src/eog-window.c:3236
 msgid "_File"
 msgstr "_File"
 
-#: ../src/eog-window.c:3234
+#: ../src/eog-window.c:3237
 msgid "_Edit"
 msgstr "_Ndrysho"
 
-#: ../src/eog-window.c:3235
+#: ../src/eog-window.c:3238
 msgid "_View"
 msgstr "_Shfaq"
 
-#: ../src/eog-window.c:3236
+#: ../src/eog-window.c:3239
 msgid "_Image"
 msgstr "_Figura"
 
-#: ../src/eog-window.c:3237
+#: ../src/eog-window.c:3240
 msgid "_Go"
 msgstr "_Shko"
 
-#: ../src/eog-window.c:3238
+#: ../src/eog-window.c:3241
 msgid "_Tools"
 msgstr "Ins_trumentë"
 
-#: ../src/eog-window.c:3239
+#: ../src/eog-window.c:3242
 msgid "_Help"
 msgstr "_Ndihmë"
 
-#: ../src/eog-window.c:3241
+#: ../src/eog-window.c:3244
 msgid "_Open..."
 msgstr "_Hap..."
 
-#: ../src/eog-window.c:3242
+#: ../src/eog-window.c:3245
 msgid "Open a file"
 msgstr "Hap një file"
 
-#: ../src/eog-window.c:3244
+#: ../src/eog-window.c:3247
 msgid "_Close"
 msgstr "_Mbyll"
 
-#: ../src/eog-window.c:3245
+#: ../src/eog-window.c:3248
 msgid "Close window"
 msgstr "Mbyll dritaren"
 
-#: ../src/eog-window.c:3247
+#: ../src/eog-window.c:3250
 msgid "T_oolbar"
 msgstr "P_aneli i instrumentëve"
 
-#: ../src/eog-window.c:3248
+#: ../src/eog-window.c:3251
 msgid "Edit the application toolbar"
 msgstr "Ndrysho panelin e instrumentëve të aplikativit"
 
-#: ../src/eog-window.c:3250
+#: ../src/eog-window.c:3253
 msgid "Prefere_nces"
 msgstr "Preferi_met"
 
-#: ../src/eog-window.c:3251
+#: ../src/eog-window.c:3254
 msgid "Preferences for Eye of GNOME"
 msgstr "Preferimet për Eye of GNOME"
 
-#: ../src/eog-window.c:3253
+#: ../src/eog-window.c:3256
 msgid "_Contents"
 msgstr "_Përmbajtja"
 
-#: ../src/eog-window.c:3254
+#: ../src/eog-window.c:3257
 msgid "Help on this application"
 msgstr "Ndihmë në këtë aplikativ"
 
-#: ../src/eog-window.c:3256 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3259 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "_Informacione"
 
-#: ../src/eog-window.c:3257
+#: ../src/eog-window.c:3260
 msgid "About this application"
 msgstr "Informacione mbi këtë program"
 
-#: ../src/eog-window.c:3262
+#: ../src/eog-window.c:3265
 msgid "_Toolbar"
 msgstr "_Paneli i instrumentëve"
 
-#: ../src/eog-window.c:3263
+#: ../src/eog-window.c:3266
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Ndryshon dukshmërinë e shtyllës së instrumentëve në dritaren aktuale"
 
-#: ../src/eog-window.c:3265
+#: ../src/eog-window.c:3268
 msgid "_Statusbar"
 msgstr "_Shtylla e gjëndjes"
 
-#: ../src/eog-window.c:3266
+#: ../src/eog-window.c:3269
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Ndryshon dukshmërinë e panelit të gjëndjes në dritaren aktuale"
 
-#: ../src/eog-window.c:3268
+#: ../src/eog-window.c:3271
 msgid "_Image Collection"
 msgstr "Koleksioni i _Figurave"
 
-#: ../src/eog-window.c:3269
+#: ../src/eog-window.c:3272
 msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "Ndryshon dukshmërinë e panelit të koleksionit të figurave në dritaren aktuale"
 
-#: ../src/eog-window.c:3271
+#: ../src/eog-window.c:3274
 msgid "Side _Pane"
 msgstr "_Paneli anësor"
 
-#: ../src/eog-window.c:3272
+#: ../src/eog-window.c:3275
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Ndryshon dukshmërinë e panelit anësor në dritaren aktuale"
 
-#: ../src/eog-window.c:3277
+#: ../src/eog-window.c:3280
 msgid "_Save"
 msgstr "_Ruaj"
 
 # (pofilter) variables: translation contains variables not in original: %s
-#: ../src/eog-window.c:3278
+#: ../src/eog-window.c:3281
 msgid "Save changes in currently selected images"
 msgstr "Ruaj ndryshimet tek figurat e zgjedhura aktualisht"
 
-#: ../src/eog-window.c:3280
+#: ../src/eog-window.c:3283
 msgid "Open _with"
 msgstr "Hap _me"
 
-#: ../src/eog-window.c:3281
+#: ../src/eog-window.c:3284
 msgid "Open the selected image with a different application"
 msgstr "Hap figurën e zgjedhur me një aplikativ tjetër"
 
-#: ../src/eog-window.c:3283
+#: ../src/eog-window.c:3286
 msgid "Save _As..."
 msgstr "Ruaj _si..."
 
-#: ../src/eog-window.c:3284
+#: ../src/eog-window.c:3287
 msgid "Save the selected images with a different name"
 msgstr "Ruaj figurat e zgjedhura me një emër tjetër"
 
-#: ../src/eog-window.c:3286
+#: ../src/eog-window.c:3289
 msgid "Page Set_up..."
 msgstr "Rreg_ullimi i faqes..."
 
-#: ../src/eog-window.c:3287
+#: ../src/eog-window.c:3290
 msgid "Setup the page properties for printing"
 msgstr "Përcakto pronësitë e faqes për printim"
 
-#: ../src/eog-window.c:3289
+#: ../src/eog-window.c:3292
 msgid "_Print..."
 msgstr "_Printo..."
 
 # (pofilter) variables: translation contains variables not in original: %s
-#: ../src/eog-window.c:3290
+#: ../src/eog-window.c:3293
 msgid "Print the selected image"
 msgstr "Printo figurën e zgjedhur"
 
-#: ../src/eog-window.c:3292
+#: ../src/eog-window.c:3295
 msgid "Prope_rties"
 msgstr "P_ronësitë"
 
-#: ../src/eog-window.c:3293
+#: ../src/eog-window.c:3296
 msgid "Show the properties and metadata of the selected image"
 msgstr "Shfaq pronësitë dhe metadata të figurës së zgjedhur"
 
-#: ../src/eog-window.c:3295
+#: ../src/eog-window.c:3298
 msgid "_Undo"
 msgstr "_Anullo"
 
-#: ../src/eog-window.c:3296
+#: ../src/eog-window.c:3299
 msgid "Undo the last change in the image"
 msgstr "Anullo ndryshimin e fundit në figurë"
 
-#: ../src/eog-window.c:3298
+#: ../src/eog-window.c:3301
 msgid "Flip _Horizontal"
 msgstr "Përmbyse _Horizontalisht"
 
-#: ../src/eog-window.c:3299
+#: ../src/eog-window.c:3302
 msgid "Mirror the image horizontally"
 msgstr "Pasqyro horizontalisht figurën"
 
-#: ../src/eog-window.c:3301
+#: ../src/eog-window.c:3304
 msgid "Flip _Vertical"
 msgstr "Përmbyse _Vertikalisht"
 
-#: ../src/eog-window.c:3302
+#: ../src/eog-window.c:3305
 msgid "Mirror the image vertically"
 msgstr "Pasqyro vertikalisht figurën"
 
-#: ../src/eog-window.c:3304
+#: ../src/eog-window.c:3307
 msgid "_Rotate Clockwise"
 msgstr "_Rrotullim Orar"
 
-#: ../src/eog-window.c:3305
+#: ../src/eog-window.c:3308
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rrotullo 90 gradë djathtas figurën"
 
-#: ../src/eog-window.c:3307
+#: ../src/eog-window.c:3310
 msgid "Rotate Counterc_lockwise"
 msgstr "Rrotu_llo drejtim orar"
 
-#: ../src/eog-window.c:3308
+#: ../src/eog-window.c:3311
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rrotullo 90 gradë majtas figurën"
 
-#: ../src/eog-window.c:3310
+#: ../src/eog-window.c:3313
 msgid "Set As _Wallpaper"
 msgstr "Vendose si _Sfond"
 
-#: ../src/eog-window.c:3311
+#: ../src/eog-window.c:3314
 msgid "Set the selected image as the desktop wallpaper"
 msgstr "Cakto si sfond ekrani figurën e zgjedhur"
 
-#: ../src/eog-window.c:3313 ../src/eog-window.c:3337
+#: ../src/eog-window.c:3316 ../src/eog-window.c:3340
 msgid "Move to _Trash"
 msgstr "Hidhe në _Kosh"
 
-#: ../src/eog-window.c:3314
+#: ../src/eog-window.c:3317
 msgid "Move the selected image to the trash folder"
 msgstr "Lëviz në kosh figurën e zgjedhur"
 
-#: ../src/eog-window.c:3316 ../src/eog-window.c:3328 ../src/eog-window.c:3331
+#: ../src/eog-window.c:3319 ../src/eog-window.c:3331 ../src/eog-window.c:3334
 msgid "_Zoom In"
 msgstr "_Zmadho"
 
-#: ../src/eog-window.c:3317 ../src/eog-window.c:3329
+#: ../src/eog-window.c:3320 ../src/eog-window.c:3332
 msgid "Enlarge the image"
 msgstr "Zmadho figurën"
 
-#: ../src/eog-window.c:3319 ../src/eog-window.c:3334
+#: ../src/eog-window.c:3322 ../src/eog-window.c:3337
 msgid "Zoom _Out"
 msgstr "Z_vogëlo"
 
-#: ../src/eog-window.c:3320 ../src/eog-window.c:3332 ../src/eog-window.c:3335
+#: ../src/eog-window.c:3323 ../src/eog-window.c:3335 ../src/eog-window.c:3338
 msgid "Shrink the image"
 msgstr "Zvogëlo figurën"
 
-#: ../src/eog-window.c:3322
+#: ../src/eog-window.c:3325
 msgid "_Normal Size"
 msgstr "Madhësia _Normale"
 
-#: ../src/eog-window.c:3323
+#: ../src/eog-window.c:3326
 msgid "Show the image at its normal size"
 msgstr "Shfaq figurën në madhësinë natyrale"
 
-#: ../src/eog-window.c:3325
+#: ../src/eog-window.c:3328
 msgid "Best _Fit"
 msgstr "Për_shtate"
 
-#: ../src/eog-window.c:3326
+#: ../src/eog-window.c:3329
 msgid "Fit the image to the window"
 msgstr "Përshtat figurën dritares"
 
-#: ../src/eog-window.c:3343
+#: ../src/eog-window.c:3346
 msgid "_Full Screen"
 msgstr "Ekran i _Plotë"
 
-#: ../src/eog-window.c:3344
+#: ../src/eog-window.c:3347
 msgid "Show the current image in fullscreen mode"
 msgstr "Shfaq figurën aktuale në modalitetin me ekran të plotë"
 
-#: ../src/eog-window.c:3349 ../src/eog-window.c:3361
+#: ../src/eog-window.c:3352 ../src/eog-window.c:3364
 msgid "_Previous Image"
 msgstr "Figura _Paraardhëse"
 
-#: ../src/eog-window.c:3350
+#: ../src/eog-window.c:3353
 msgid "Go to the previous image of the collection"
 msgstr "Shko tek figura paraardhëse e koleksionit"
 
-#: ../src/eog-window.c:3352
+#: ../src/eog-window.c:3355
 msgid "_Next Image"
 msgstr "Figura _Në vazhdim"
 
-#: ../src/eog-window.c:3353
+#: ../src/eog-window.c:3356
 msgid "Go to the next image of the collection"
 msgstr "Shko tek figura pasardhëse e koleksionit"
 
-#: ../src/eog-window.c:3355 ../src/eog-window.c:3364
+#: ../src/eog-window.c:3358 ../src/eog-window.c:3367
 msgid "_First Image"
 msgstr "_Figura e parë"
 
-#: ../src/eog-window.c:3356
+#: ../src/eog-window.c:3359
 msgid "Go to the first image of the collection"
 msgstr "Shko tek figura e parë e koleksionit"
 
-#: ../src/eog-window.c:3358 ../src/eog-window.c:3367
+#: ../src/eog-window.c:3361 ../src/eog-window.c:3370
 msgid "_Last Image"
 msgstr "Figura e _fundit"
 
-#: ../src/eog-window.c:3359
+#: ../src/eog-window.c:3362
 msgid "Go to the last image of the collection"
 msgstr "Shko tek figura e fundit e koleksionit"
 
-#: ../src/eog-window.c:3373
+#: ../src/eog-window.c:3376
 msgid "_Slideshow"
 msgstr "_Diapozitivët"
 
-#: ../src/eog-window.c:3374
+#: ../src/eog-window.c:3377
 msgid "Start a slideshow view of the images"
 msgstr "Nis shfaqjen në formë diapozitivësh të figurave"
 
-#: ../src/eog-window.c:3440
+#: ../src/eog-window.c:3443
 msgid "Previous"
 msgstr "Paraardhëse"
 
-#: ../src/eog-window.c:3444
+#: ../src/eog-window.c:3447
 msgid "Next"
 msgstr "Pasardhëse"
 
-#: ../src/eog-window.c:3448
+#: ../src/eog-window.c:3451
 msgid "Right"
 msgstr "Djathtas"
 
-#: ../src/eog-window.c:3451
+#: ../src/eog-window.c:3454
 msgid "Left"
 msgstr "Majtas"
 
-#: ../src/eog-window.c:3454
+#: ../src/eog-window.c:3457
 msgid "In"
 msgstr "Zmadho"
 
-#: ../src/eog-window.c:3457
+#: ../src/eog-window.c:3460
 msgid "Out"
 msgstr "Zvogëlo"
 
-#: ../src/eog-window.c:3460
+#: ../src/eog-window.c:3463
 msgid "Normal"
 msgstr "Madhësia normale"
 
-#: ../src/eog-window.c:3463
+#: ../src/eog-window.c:3466
 msgid "Fit"
 msgstr "Përshtat"
 
-#: ../src/eog-window.c:3466
+#: ../src/eog-window.c:3469
 msgid "Collection"
 msgstr "Koleksion"
 
@@ -1219,16 +1234,16 @@ msgstr "K_onfigurimi"
 
 #: ../src/eog-plugin-manager.c:525
 msgid "A_ctivate"
-msgstr "A_ktivo"
+msgstr "A_ktivizo"
 
 #: ../src/eog-plugin-manager.c:537
 msgid "Ac_tivate All"
-msgstr "Ak_tivoi të gjithë"
+msgstr "Ak_tivizoi të gjithë"
 
 # (pofilter) accelerators: accelerator _ appears before an invalid accelerator character 'Ç' (eg. space)
 #: ../src/eog-plugin-manager.c:542
 msgid "_Deactivate All"
-msgstr "Ç_aktivoi të gjithë"
+msgstr "Ç_aktivizoi të gjithë"
 
 #: ../src/eog-plugin-manager.c:833
 msgid "Active _Plugins:"
@@ -1248,7 +1263,7 @@ msgstr "Hap në modalitetin me ekran të plotë"
 
 #: ../src/main.c:68
 msgid "Disable image collection"
-msgstr "Çaktivo koleksionimin e figurave"
+msgstr "Çaktivizo koleksionimin e figurave"
 
 #: ../src/main.c:69
 msgid "Open in slide show mode"
