@@ -34,17 +34,17 @@
 #include "eog-debug.h"
 #include "eog-application.h"
 #include "eog-config-keys.h"
+#include "eog-util.h"
 
 #include <glib/gi18n.h>
 #include <glib.h>
-#include <libgnome/gnome-util.h>
 #include <gconf/gconf-client.h>
 
 #ifdef ENABLE_PYTHON
 #include "eog-python-module.h"
 #endif
 
-#define USER_EOG_PLUGINS_LOCATION "eog/plugins/"
+#define USER_EOG_PLUGINS_LOCATION "plugins/"
 
 #define EOG_PLUGINS_ENGINE_BASE_KEY "/apps/eog/plugins"
 
@@ -357,7 +357,8 @@ eog_plugin_engine_load_all (void)
 {
 	gchar *pdir;
 
-	pdir = gnome_util_home_file (USER_EOG_PLUGINS_LOCATION);
+	pdir = g_build_filename (eog_util_dot_dir (),
+                                 USER_EOG_PLUGINS_LOCATION, NULL);
 
 	/* Load user's plugins */
 	eog_plugin_engine_load_dir (pdir);
