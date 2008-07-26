@@ -32,7 +32,6 @@
 #include "eog-pixbuf-util.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <libgnomeui/gnome-thumbnail.h>
 
 #define EOG_JOB_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_JOB, EogJobPrivate))

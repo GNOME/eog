@@ -51,7 +51,6 @@
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixbuf-io.h>
-#include <libgnomeui/gnome-thumbnail.h>
 
 #ifdef HAVE_EXIF
 #include <libexif/exif-data.h>

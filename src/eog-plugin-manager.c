@@ -36,7 +36,6 @@
 
 #include <glib/gi18n.h>
 #include <glade/glade-xml.h>
-#include <libgnome/gnome-url.h>
 
 enum {
 	ACTIVE_COLUMN,
