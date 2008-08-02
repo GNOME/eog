@@ -3543,7 +3543,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 					gtk_recent_info_ref (info),
 					(GDestroyNotify) gtk_recent_info_unref);
 		
-		g_object_set (G_OBJECT (action), "icon-name", "gnome-mime-image", NULL);
+		g_object_set (G_OBJECT (action), "icon-name", "image-x-generic", NULL);
 		
 		g_signal_connect (action, "activate",
 				  G_CALLBACK (eog_window_open_recent_cb),
