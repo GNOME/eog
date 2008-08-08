@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-toolbars-model.c 815 2007-07-02 15:02:15Z friemann $
+ *  $Id: egg-toolbars-model.c 891 2008-08-08 21:14:52Z friemann $
  */
 
 #include "config.h"
@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <libxml/tree.h>
-#include <gdk/gdkproperty.h>
+#include <gdk/gdk.h>
 
 static void egg_toolbars_model_finalize   (GObject               *object);
 

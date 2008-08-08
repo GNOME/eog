@@ -18,7 +18,7 @@
 #ifndef _EOG_FILE_CHOOSER_H_
 #define _EOG_FILE_CHOOSER_H_
 
-#include <gtk/gtkfilechooserdialog.h>
+#include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS

@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-toolbar-editor.c 832 2007-11-03 22:14:56Z friemann $
+ *  $Id: egg-toolbar-editor.c 891 2008-08-08 21:14:52Z friemann $
  */
 
 #include "config.h"
@@ -25,14 +25,6 @@
 
 #include <string.h>
 #include <libxml/tree.h>
-#include <gtk/gtkimage.h>
-#include <gtk/gtkeventbox.h>
-#include <gtk/gtkdnd.h>
-#include <gtk/gtkscrolledwindow.h>
-#include <gtk/gtklabel.h>
-#include <gtk/gtktable.h>
-#include <gtk/gtkstock.h>
-#include <gtk/gtkhbox.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 

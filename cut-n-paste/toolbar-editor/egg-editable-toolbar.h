@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-editable-toolbar.h 813 2007-07-01 12:58:48Z jhaitsma $
+ *  $Id: egg-editable-toolbar.h 891 2008-08-08 21:14:52Z friemann $
  */
 
 #ifndef EGG_EDITABLE_TOOLBAR_H
@@ -24,12 +24,7 @@
 
 #include "egg-toolbars-model.h"
 
-#include <gtk/gtkuimanager.h>
-#include <gtk/gtkselection.h>
-#include <gtk/gtkvbox.h>
-#include <gtk/gtktoolitem.h>
-#include <gtk/gtktoolbar.h>
-#include <gtk/gtkmenu.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 

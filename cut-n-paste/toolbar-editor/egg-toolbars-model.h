@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  * 
- *  $Id: egg-toolbars-model.h 813 2007-07-01 12:58:48Z jhaitsma $
+ *  $Id: egg-toolbars-model.h 891 2008-08-08 21:14:52Z friemann $
  */
 
 #ifndef EGG_TOOLBARS_MODEL_H
@@ -23,7 +23,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <gdk/gdktypes.h>
+#include <gdk/gdk.h>
 
 G_BEGIN_DECLS
 
