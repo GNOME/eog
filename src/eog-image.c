@@ -1514,14 +1514,11 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 static gboolean
 eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
-	char *target_file_path;
 	gboolean result;
 	GError *ioerror;
 
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
-	
-	target_file_path = g_file_get_path (target->file);
 	
 	result = g_file_copy (source->file,
 			      target->file,
