@@ -24,7 +24,14 @@
 #endif
 
 #include <gtk/gtk.h>
+
+/* gtkunixprint.h is only available as of GTK+-2.13.1. */
+#if GTK_CHECK_VERSION(2,13,1)
 #include <gtk/gtkunixprint.h>
+#else
+#include <gtk/gtkprintunixdialog.h>
+#endif
+
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
 
