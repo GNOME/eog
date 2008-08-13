@@ -143,7 +143,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 {
 	EogThumbData *data;
 	GFileInfo *file_info;
-	GError *ioerror;
+	GError *ioerror = NULL;
 
 	g_return_val_if_fail (file != NULL, NULL);
 	g_return_val_if_fail (error != NULL && *error == NULL, NULL);
@@ -163,7 +163,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	if (file_info == NULL)
 	{
 		set_vfs_error (error, ioerror);
-		g_error_free (ioerror);
+		g_clear_error (&ioerror);
 	}
 
 	if (*error == NULL) {
@@ -185,7 +185,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	else {
 		eog_thumb_data_free (data);
 		data = NULL;
-		g_error_free (ioerror);
+		g_clear_error (&ioerror);
 	}
 
 	g_object_unref (file_info);
