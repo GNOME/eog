@@ -1110,6 +1110,11 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 	width = GTK_WIDGET (priv->display)->allocation.width;
 	height = GTK_WIDGET (priv->display)->allocation.height;
 
+	/* EogScrollView doesn't handle/have any Alt+Key combos */
+	if (event->state & GDK_MOD1_MASK) {
+		return FALSE;
+	}
+
 	switch (event->keyval) {
 	case GDK_Up:
 		do_scroll = TRUE;
