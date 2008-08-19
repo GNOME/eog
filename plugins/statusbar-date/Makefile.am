@@ -13,8 +13,9 @@ libstatusbar_date_la_SOURCES = \
 	eog-statusbar-date-plugin.c	
 
 libstatusbar_date_la_LDFLAGS = \
-	$(EOG_LIBS)		\
 	-avoid-version -module
+
+libstatusbar_date_la_LIBADD = $(EOG_LIBS)
 
 # Plugin Info
 

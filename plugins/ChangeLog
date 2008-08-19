@@ -1,3 +1,12 @@
+2008-08-19  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* plugins/fullscreen/Makefile.am:
+	* plugins/reload/Makefile.am:
+	* plugins/statusbar-date/Makefile.am:
+
+	Use plugin_LDADD to set the appropriate libraries instead of
+	plugin_LDFLAGS. Fixes bug #548202 (Paul).
+
 2008-07-21  Felix Riemann  <friemann@svn.gnome.org>
 
 	* 2.23.5 version marker.
