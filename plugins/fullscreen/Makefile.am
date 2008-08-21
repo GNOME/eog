@@ -1,4 +1,4 @@
-# Postr plugin
+# Fullscreen plugin
 plugindir = $(libdir)/eog/plugins
 
 INCLUDES = \
