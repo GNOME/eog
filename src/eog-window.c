@@ -2301,15 +2301,15 @@ eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 	current = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
 	if (current != NULL) {
-		gchar *dirname, *filename;
+		gchar *dir_uri, *file_uri;
 
-		filename = eog_image_get_uri_for_display (current);
-		dirname = g_path_get_dirname (filename);
-		
-	        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg), 
-						     dirname);
-		g_free (filename);
-		g_free (dirname);
+		file_uri = eog_image_get_uri_for_display (current);
+		dir_uri = g_path_get_dirname (file_uri);
+
+	        gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dlg),
+                                                         dir_uri);
+		g_free (file_uri);
+		g_free (dir_uri);
 		g_object_unref (current);
 	}
 
