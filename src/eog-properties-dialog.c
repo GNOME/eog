@@ -204,7 +204,7 @@ eog_exif_set_focal_length_label (GtkWidget *w, ExifData *exif_data)
 	gchar *fl_text = NULL,*fl35_text = NULL;
 
 	/* If no ExifData is supplied the label will be
-	 * cleared later as *fl35text is NULL. */
+	 * cleared later as fl35_text is NULL. */
 	if (exif_data != NULL) {
 		entry = exif_data_get_entry (exif_data, EXIF_TAG_FOCAL_LENGTH);
 		entry35mm = exif_data_get_entry (exif_data,
