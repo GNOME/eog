@@ -1015,16 +1015,14 @@ eog_image_real_load (EogImage *img,
 		} else {
 			priv->status = EOG_IMAGE_STATUS_FAILED;
 		}
-	} else {
-		if (read_image_data) {
-			if (priv->image != NULL) {
-				g_object_unref (priv->image);
-			}
+	} else if (read_image_data) {
+		if (priv->image != NULL) {
+			g_object_unref (priv->image);
+		}
 
-			priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
+		priv->image = gdk_pixbuf_loader_get_pixbuf (loader);
 
-			g_assert (priv->image != NULL);
-
+		if (G_LIKELY (priv->image != NULL)) {
 			g_object_ref (priv->image);
 
 			priv->width = gdk_pixbuf_get_width (priv->image);
@@ -1044,6 +1042,11 @@ eog_image_real_load (EogImage *img,
 					       0, 
 					       priv->width, 
 					       priv->height);
+		} else {
+			/* Some loaders don't report errors correctly.
+			 * Error will be set below. */
+			failed = TRUE;
+			priv->status = EOG_IMAGE_STATUS_FAILED;
 		}
 	}
 
