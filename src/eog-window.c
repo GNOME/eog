@@ -2460,7 +2460,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 
 	static const char *authors[] = {
 		"Lucas Rocha <lucasr@cvs.gnome.org> (maintainer)",
-		"Claudio Saavedra <csaavedra@alumnos.utalca.cl>",
+		"Claudio Saavedra <csaavedra@igalia.com>",
 		"Felix Riemann <friemann@svn.gnome.org>",
 		"",
 		"Tim Gerla <tim+gnomebugs@gerla.net>",
