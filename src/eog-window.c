@@ -1550,6 +1550,9 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 
 	eog_window_set_message_area (window, NULL);
 
+	gtk_statusbar_pop (GTK_STATUSBAR (priv->statusbar),
+			   priv->image_info_message_cid);
+
 	if (image == priv->image) {
 		return;
 	}

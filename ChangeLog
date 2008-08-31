@@ -1,5 +1,12 @@
 2008-08-31  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-window.c: (handle_image_selection_changed_cb): Pop out
+	the "Loading image..." message on selection change. This avoids
+	that message staying in the statusbar when switching back to an
+	already loaded image before the next one finishes loading.
+
+2008-08-31  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-window.c: (update_ui_visibility): Use sensible defaults
 	for the toolbar and the statusbar if these can't be obtained from
 	GConf.
