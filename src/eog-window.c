@@ -1554,6 +1554,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 			   priv->image_info_message_cid);
 
 	if (image == priv->image) {
+		update_status_bar (window);
 		return;
 	}
 

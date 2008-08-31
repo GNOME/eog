@@ -1,5 +1,12 @@
 2008-08-31  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-window.c: (handle_image_selection_changed_cb): Cause an
+	statusbar update if the image selected is the one already shown. This
+	sets back the image information for the same user case than in previous
+	commit.
+
+2008-08-31  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-window.c: (handle_image_selection_changed_cb): Pop out
 	the "Loading image..." message on selection change. This avoids
 	that message staying in the statusbar when switching back to an
