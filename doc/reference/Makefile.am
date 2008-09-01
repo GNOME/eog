@@ -53,7 +53,9 @@ IGNORE_HFILES= \
 	eog-image-jpeg.h \
 	eog-marshal.h \
 	eog-application-service.h \
-	eog-enum-types.h
+	eog-enum-types.h \
+	eog-module.h \
+	eog-python-module.h
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
