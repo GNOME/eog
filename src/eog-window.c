@@ -3488,7 +3488,39 @@ set_action_properties (GtkActionGroup *window_group,
 static gint
 sort_recents_mru (GtkRecentInfo *a, GtkRecentInfo *b)
 {
-	return (gtk_recent_info_get_modified (b) - gtk_recent_info_get_modified (a));
+	gboolean has_eog_a, has_eog_b;
+	
+	/* We need to check this first as gtk_recent_info_get_application_info
+	 * will treat it as a non-fatal error when the GtkRecentInfo doesn't
+	 * have the application registered. */
+	has_eog_a = gtk_recent_info_has_application (a,
+						     EOG_RECENT_FILES_APP_NAME);
+	has_eog_b = gtk_recent_info_has_application (b,
+						     EOG_RECENT_FILES_APP_NAME);
+	if (has_eog_a && has_eog_b) {
+		time_t time_a, time_b;
+
+		/* These should not fail as we already checked that 
+		 * the application is registered with the info objects */
+		gtk_recent_info_get_application_info (a,
+						      EOG_RECENT_FILES_APP_NAME,
+						      NULL,
+						      NULL,
+						      &time_a);
+		gtk_recent_info_get_application_info (b,
+						      EOG_RECENT_FILES_APP_NAME,
+						      NULL,
+						      NULL,
+						      &time_b);
+
+		return (time_b - time_a);
+	} else if (has_eog_a) {
+		return -1;
+	} else if (has_eog_b) {
+		return 1;
+	}
+
+	return 0;
 }
 
 static void
@@ -3530,8 +3562,10 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		GtkRecentInfo *info = li->data;
 		gboolean is_rtl = (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL);
 
+		/* Sorting moves non-EOG files to the end of the list.
+		 * So no file of interest will follow if this test fails */
 		if (!gtk_recent_info_has_application (info, EOG_RECENT_FILES_APP_NAME))
-			continue;
+			break;
 
 		count_recent++;
 

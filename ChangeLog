@@ -1,5 +1,13 @@
 2008-09-02  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-window.c: (sort_recents_mru),
+	(eog_window_update_recent_files_menu):
+	Use Evince's recent files sorting code and modify it to use the
+	timestamps made by EOG for sorting. This keeps other apps from
+	affecting EOG's sort order. Fixes bug #550252.
+
+2008-09-02  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-window.c: (add_file_to_recent_files),
 	(eog_window_update_recent_files_menu):
 	Don't use "private" groups to filter our recent files.
