@@ -1,3 +1,12 @@
+2008-09-02  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (add_file_to_recent_files),
+	(eog_window_update_recent_files_menu):
+	Don't use "private" groups to filter our recent files.
+	Filter by application data and supply a group from the
+	desktop-bookmark-spec instead. Hardcode the app name
+	used for filtering to be locale independent.
+
 2008-09-02  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* configure.ac: post release version bump.

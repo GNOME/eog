@@ -88,7 +88,8 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_WINDOW_FULLSCREEN_TIMEOUT 5 * 1000
 #define EOG_WINDOW_FULLSCREEN_POPUP_THRESHOLD 5
 
-#define EOG_RECENT_FILES_GROUP  "Eye of Gnome"
+#define EOG_RECENT_FILES_GROUP  "Graphics"
+#define EOG_RECENT_FILES_APP_NAME "Eye of GNOME Image Viewer"
 #define EOG_RECENT_FILES_LIMIT  5
 
 typedef enum {
@@ -950,7 +951,7 @@ add_file_to_recent_files (GFile *file)
 	recent_data->display_name = NULL;
 	recent_data->description = NULL;
 	recent_data->mime_type = (gchar *) g_file_info_get_content_type (file_info);
-	recent_data->app_name = (gchar *) g_get_application_name ();
+	recent_data->app_name = EOG_RECENT_FILES_APP_NAME;
 	recent_data->app_exec = g_strjoin(" ", g_get_prgname (), "%u", NULL);
 	recent_data->groups = groups;
 	recent_data->is_private = FALSE;
@@ -3529,7 +3530,7 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		GtkRecentInfo *info = li->data;
 		gboolean is_rtl = (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL);
 
-		if (!gtk_recent_info_has_group (info, EOG_RECENT_FILES_GROUP))
+		if (!gtk_recent_info_has_application (info, EOG_RECENT_FILES_APP_NAME))
 			continue;
 
 		count_recent++;
