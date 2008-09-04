@@ -123,6 +123,14 @@ eog_message_area_close (EogMessageArea *message_area)
 				   GTK_RESPONSE_CANCEL);    
 }
 
+static void
+size_allocate (GtkWidget *widget,
+	      GtkAllocation *allocation,
+	      gpointer user_data)
+{
+	gtk_widget_queue_draw (widget);
+}
+
 static gboolean
 paint_message_area (GtkWidget      *widget,
 		    GdkEventExpose *event,
@@ -251,6 +259,10 @@ eog_message_area_init (EogMessageArea *message_area)
 			  "expose_event",
 			  G_CALLBACK (paint_message_area), 
 			  NULL);			  		    
+	g_signal_connect (message_area,
+			  "size-allocate",
+			  G_CALLBACK (size_allocate),
+			  NULL);
 
 
         /* Note that we connect to style-set on one of the internal
