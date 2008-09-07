@@ -1,4 +1,4 @@
-Eye of Gnome: an image viewing and cataloging program
+Eye of GNOME: an image viewing and cataloging program
 -----------------------------------------------------
 
 Perfect vision soup:
@@ -12,33 +12,38 @@ Perfect vision soup:
 Description
 -----------
 
-This is the Eye of Gnome, an image viewer program.  It is meant to be
+This is the Eye of GNOME, an image viewer program.  It is meant to be
 a fast and functional image viewer.
 
 Requirements
 ------------
 
-This package requires the following modules to be installed: glib, GTK+,
-libgnomeui, gconf, gnome-desktop, gnome-vfs, gdk-pixbuf, libart, and libglade.
+This package requires the following modules to be installed: glib,
+GTK+, libgnomeui, libglade, gconf, gnome-desktop, gio, gdk-pixbuf,
+gnome-icon-theme, shared-mime-info, libart, and libglade.
 
 You can get these packages from your favourite GNOME FTP mirror or at
 http://download.gnome.org/sources or from other sources where GNOME
-packages are distributed.
+packages are distributed. shared-mime-info can be downloaded
+from the freedesktop.org website.
 
 
 Optional Libraries
 ------------------
 
-'Eye of Gnome' supports the reading of exif information stored in
+'Eye of GNOME' supports the reading of EXIF information stored in
 images by digital cameras. To get this working, you need the optional
 libexif library. It is available at http://libexif.sourceforge.net.
-
 If you also want to preserve your EXIF data on save make sure you have
 libjpeg installed, including the development files.
 
 In order to make 'Eye of GNOME' work as a single instance application you'll
 need D-Bus installed in your system. You can get it from 
 http://www.freedesktop.org/wiki/Software/dbus .
+
+Other optional dependencies include Little cms for color management,
+Python, pygtk, and gnome-python for python plugins support, and
+Exempi for XMP metadata reading.
 
 Availability
 ------------
@@ -74,7 +79,7 @@ Authors
 Maintainer: Lucas Rocha (lucasr@gnome.org)
 
 Felix Riemann (friemann@svn.gnome.org)
-Claudio Saaevedra (csaavedra@alumnos.utalca.cl)
+Claudio Saaevedra (csaavedra@igalia.com)
 Tim Gerla (tim+gnomebugs@gerla.net)
 Arik Devens (arik@gnome.org)
 Federico Mena-Quintero (federico@gnu.org)
