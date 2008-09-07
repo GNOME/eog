@@ -2729,7 +2729,7 @@ eog_window_cmd_save_as (GtkAction *action, gpointer user_data)
 		EogURIConverter *converter;
 		
 		basedir = g_get_current_dir ();
-		base_file = g_file_new_for_uri (basedir);
+		base_file = g_file_new_for_path (basedir);
 		g_free (basedir);
 
 		dialog = eog_save_as_dialog_new (GTK_WINDOW (window),
