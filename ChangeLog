@@ -1,3 +1,12 @@
+2008-09-07  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_reload_image):
+	* src/eog-window.h:
+	Make the reload plugin work again. Most of the code is internal now to
+	have the reloading done in a more correct and less error-prone way.
+	Also there were signs that other plugins might need this functionality
+	as well. Fixes bug #548392 (Claudio Saavedra, Felix Riemann).
+
 2008-09-07  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* AUTHORS: Updates.

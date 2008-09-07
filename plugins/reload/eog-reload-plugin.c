@@ -28,14 +28,7 @@ static void
 reload_cb (GtkAction	*action,
 	  EogWindow *window)
 {
-	GtkWidget *thumbview = eog_window_get_thumb_view (window);
-	GtkWidget *view = eog_window_get_view (window);
-
-	eog_scroll_view_set_image (EOG_SCROLL_VIEW (view), NULL);
-
-	/* Re-select current image in order to trigger the image reload */
-	eog_thumb_view_select_single (EOG_THUMB_VIEW (thumbview), 
-				      EOG_THUMB_VIEW_SELECT_CURRENT);
+        eog_window_reload_image (window);
 }
 
 static const GtkActionEntry action_entries[] =

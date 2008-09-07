@@ -116,6 +116,7 @@ void          eog_window_open_file_list	(EogWindow       *window,
 
 gboolean      eog_window_is_empty 	(EogWindow       *window);
 
+void          eog_window_reload_image (EogWindow *window);
 G_END_DECLS
 
 #endif

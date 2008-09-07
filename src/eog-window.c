@@ -5022,3 +5022,23 @@ eog_window_is_empty (EogWindow *window)
 
         return empty;
 }
+
+void
+eog_window_reload_image (EogWindow *window)
+{
+	GtkWidget *view;
+
+	g_return_if_fail (EOG_IS_WINDOW (window));
+
+	if (window->priv->image == NULL)
+		return;
+
+	g_object_unref (window->priv->image);
+	window->priv->image = NULL;
+
+	view = eog_window_get_view (window);
+	eog_scroll_view_set_image (EOG_SCROLL_VIEW (view), NULL);
+
+	eog_thumb_view_select_single (EOG_THUMB_VIEW (window->priv->thumbview),
+				      EOG_THUMB_VIEW_SELECT_CURRENT);
+}
