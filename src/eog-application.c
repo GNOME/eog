@@ -56,6 +56,17 @@ G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
 
 #ifdef HAVE_DBUS
 
+/**
+ * eog_application_register_service:
+ * @application: 
+ *
+ * Registers #EogApplication<!-- -->'s DBus service, to allow
+ * remote calls. If the DBus service is already registered,
+ * or there is any other connection error, returns %FALSE.
+ *
+ * Returns: %TRUE if the service was registered succesfully. %FALSE
+ * otherwise.
+ **/
 gboolean
 eog_application_register_service (EogApplication *application)
 {
@@ -142,6 +153,15 @@ eog_application_init (EogApplication *eog_application)
 				      EGG_TB_MODEL_NOT_REMOVABLE);
 }
 
+/**
+ * eog_application_get_instance:
+ * @void: 
+ *
+ * Returns a singleton instance of #EogApplication currently running.
+ * If not running yet, it will create one.
+ *
+ * Returns: a running #EogApplication.
+ **/
 EogApplication *
 eog_application_get_instance (void)
 {
@@ -179,6 +199,19 @@ eog_application_get_empty_window (EogApplication *application)
 	return empty_window;
 }
 
+/**
+ * eog_application_open_window:
+ * @application: 
+ * @timestamp: 
+ * @flags: 
+ * @error: 
+ *
+ * Opens and presents an empty #EogWindow to the user. If there is
+ * an empty window already open, this will be used. Otherwise, a
+ * new one will be instantiated.
+ *
+ * Returns: 
+ **/
 gboolean
 eog_application_open_window (EogApplication  *application,
 			     guint32         timestamp,
@@ -246,6 +279,20 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
 	gdk_threads_leave ();
 }
 
+/**
+ * eog_application_open_file_list:
+ * @application: An #EogApplication.
+ * @file_list: A list of #GFile<!-- -->s.
+ * @timestamp: 
+ * @flags: 
+ * @error: 
+ *
+ * Opens a list of files in a #EogWindow. If an #EogWindow displaying the first
+ * image in the list is already open, this will be used. Otherwise, an empty
+ * #EogWindow is used, either already existing or newly created.
+ *
+ * Returns: 
+ **/
 gboolean
 eog_application_open_file_list (EogApplication  *application,
 				GSList          *file_list,
@@ -281,6 +328,19 @@ eog_application_open_file_list (EogApplication  *application,
 	return TRUE;
 }
 
+/**
+ * eog_application_open_uri_list:
+ * @application: An #EogApplication.
+ * @files: A list of URIs.
+ * @timestamp: 
+ * @flags: 
+ * @error: 
+ *
+ * Opens a list of images, from a list of URIs. See
+ * eog_application_open_file_list() for details.
+ *
+ * Returns: 
+ **/
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
  			       GSList          *files,
@@ -302,6 +362,19 @@ eog_application_open_uri_list (EogApplication  *application,
 }
  
 #ifdef HAVE_DBUS
+/**
+ * eog_application_open_uris: 
+ * @application: an #EogApplication
+ * @uris:  A #GList of URI strings.
+ * @timestamp: 
+ * @flags: 
+ * @error: 
+ *
+ * Opens a list of images, from a list of URI strings. See
+ * eog_application_open_file_list() for details.
+ *
+ * Returns: 
+ **/
 gboolean
 eog_application_open_uris (EogApplication  *application,
  			   gchar          **uris,
@@ -318,6 +391,12 @@ eog_application_open_uris (EogApplication  *application,
 }
 #endif
 
+/**
+ * eog_application_shutdown:
+ * @application: An #EogApplication.
+ *
+ * Takes care of shutting down the Eye of GNOME, and quits.
+ **/
 void
 eog_application_shutdown (EogApplication *application)
 {
@@ -336,6 +415,17 @@ eog_application_shutdown (EogApplication *application)
 	gtk_main_quit ();
 }
 
+/**
+ * eog_application_get_windows:
+ * @application: An #EogApplication.
+ *
+ * Gets the list of existing #EogApplication<!-- -->s. The windows
+ * in this list are not individually referenced, you need to keep
+ * your own references if you want to perform actions that may destroy
+ * them.
+ *
+ * Returns: A new list of #EogWindow<!-- -->s.
+ **/
 GList *
 eog_application_get_windows (EogApplication *application)
 {
@@ -357,6 +447,14 @@ eog_application_get_windows (EogApplication *application)
 	return windows;
 }
 
+/**
+ * eog_application_get_toolbars_model:
+ * @application: An #EogApplication.
+ *
+ * Retrieves the #EogTolbarsModel for the toolbar in #EogApplication.
+ *
+ * Returns: An #EogToolbarsModel.
+ **/
 EggToolbarsModel *
 eog_application_get_toolbars_model (EogApplication *application)
 {
@@ -365,6 +463,12 @@ eog_application_get_toolbars_model (EogApplication *application)
 	return application->toolbars_model;
 }
 
+/**
+ * eog_application_save_toolbars_model:
+ * @application: An #EogApplication.
+ *
+ * Causes the saving of the model of the toolbar in #EogApplication to a file.
+ **/
 void
 eog_application_save_toolbars_model (EogApplication *application)
 {
@@ -374,6 +478,12 @@ eog_application_save_toolbars_model (EogApplication *application)
 						  "1.0");
 }
 
+/**
+ * eog_application_reset_toolbars_model:
+ * @app: an #EogApplication
+ *
+ * Restores the toolbars model to the defaults.
+ **/
 void
 eog_application_reset_toolbars_model (EogApplication *app)
 {
@@ -392,6 +502,13 @@ eog_application_reset_toolbars_model (EogApplication *app)
 }
 
 #ifdef HAVE_DBUS
+/**
+ * eog_application_screensaver_enable:
+ * @application: an #EogApplication.
+ *
+ * Enables the screensaver. Usually necessary after a call to
+ * eog_application_screensaver_disable().
+ **/
 void
 eog_application_screensaver_enable (EogApplication *application)
 {
@@ -399,6 +516,13 @@ eog_application_screensaver_enable (EogApplication *application)
                 totem_scrsaver_enable (application->scr_saver);
 }
 
+/**
+ * eog_application_screensaver_disable:
+ * @application: an #EogApplication.
+ *
+ * Disables the screensaver. Useful when the application is in fullscreen or
+ * similar mode.
+ **/
 void
 eog_application_screensaver_disable (EogApplication *application)
 {
