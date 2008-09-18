@@ -1,20 +1,22 @@
 # translation of eog.HEAD.gu.po to Gujarati
 # Ankit Patel <ankit644@yahoo.com>, 2005, 2006.
 # Ankit Patel <ankit@redhat.com>, 2007, 2008.
+# Sweta Kothari <swkothar@redhat.com>, 2008.
 # Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-11 18:35+0000\n"
-"PO-Revision-Date: 2008-03-05 13:23+0530\n"
-"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
-"Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
+"POT-Creation-Date: 2008-07-22 04:52+0000\n"
+"PO-Revision-Date: 2008-09-18 17:14+0530\n"
+"Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
+"Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -70,13 +72,39 @@ msgstr "સાધનપટ્ટી કાઢો (_D)"
 msgid "Remove the selected toolbar"
 msgstr "પસંદિત સાધનપટ્ટી દૂર કરો"
 
-#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:491
+#: ../cut-n-paste/toolbar-editor/egg-toolbar-editor.c:493
 msgid "Separator"
 msgstr "વિભાજક"
 
 #: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
 msgid "Running in fullscreen mode"
 msgstr "આખી સ્ક્રીન સ્થિતિમાં ચલાવી રહ્યા છીએ"
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:1
+msgid "Activate fullscreen mode with double-click"
+msgstr "બે-ક્લિક સાથે સંપૂર્ણસ્ક્રીન સ્થિતીને સક્રિય કરો"
+
+#: ../plugins/fullscreen/fullscreen.eog-plugin.desktop.in.h:2
+msgid "Fullscreen with double-click"
+msgstr "બે-ક્લિક સાથે સંપૂર્ણસ્ક્રીન"
+
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
+#: ../plugins/reload/eog-reload-plugin.c:45
+msgid "Reload Image"
+msgstr "ચિત્ર પુન:લોડ કરો"
+
+#: ../plugins/reload/reload.eog-plugin.desktop.in.h:2
+#: ../plugins/reload/eog-reload-plugin.c:47
+msgid "Reload current image"
+msgstr "હાલના ચિત્રને પુન:લોડ કરો"
+
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:1
+msgid "Date in statusbar"
+msgstr "સ્થિતિદર્શકપટ્ટીમાં તારીખ"
+
+#: ../plugins/statusbar-date/statusbar-date.eog-plugin.desktop.in.h:2
+msgid "Shows the image date in the window statusbar"
+msgstr "વિન્ડોની સ્થિતિદર્શકપટ્ટીમાં તારીખના ચિત્રને બતાવો"
 
 #: ../data/eog.desktop.in.in.h:1
 msgid "Browse and rotate images"
@@ -456,88 +484,92 @@ msgstr "શું સરક વ્હીલ નાનામોટાપણા �
 msgid "Zoom multiplier"
 msgstr "ઝુમ ગુણક"
 
-#: ../src/eog-file-chooser.c:121
+#: ../src/eog-file-chooser.c:125
 msgid "File format is unknown or unsupported"
 msgstr "ફાઈલ બંધારણ અજ્ઞાત કે બિનઆધારભૂત છે"
 
-#: ../src/eog-file-chooser.c:126
+#: ../src/eog-file-chooser.c:130
 msgid ""
 "Eye of GNOME could not determine a supported writable file format based on "
 "the filename."
 msgstr "Eye of GNOME ફાઈલનામ પર આધારિત લખી શકાય તેવું ફાઈલ બંધારણ નક્કી કરી શક્યું નહિં."
 
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:131
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "મહેરબાની કરીને .png અથવા .jpg જેવું અલગ એક્સટેન્સન વાપરી જુઓ."
 
-#: ../src/eog-file-chooser.c:159
+#: ../src/eog-file-chooser.c:163
 msgid "All Files"
 msgstr "બધી ફાઈલો"
 
-#: ../src/eog-file-chooser.c:164
+#: ../src/eog-file-chooser.c:168
 msgid "All Images"
 msgstr "બધા ચિત્રો"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:185
+#: ../src/eog-file-chooser.c:189
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:281 ../src/eog-thumb-view.c:439
-#: ../src/eog-window.c:700
+#: ../src/eog-file-chooser.c:285 ../src/eog-properties-dialog.c:133
+#: ../src/eog-properties-dialog.c:135 ../src/eog-thumb-view.c:444
+#: ../src/eog-window.c:719
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "પિક્સેલ"
 msgstr[1] "પિક્સેલો"
 
-#: ../src/eog-file-chooser.c:423
+#: ../src/eog-file-chooser.c:436
 msgid "Load Image"
 msgstr "ચિત્ર લાવો"
 
-#: ../src/eog-file-chooser.c:431
+#: ../src/eog-file-chooser.c:444
 msgid "Save Image"
 msgstr "ચિત્રનો સંગ્રહ કરો"
 
-#: ../src/eog-file-chooser.c:439
+#: ../src/eog-file-chooser.c:452
 msgid "Open Folder"
 msgstr "ફોલ્ડર ખોલો"
 
-#: ../src/eog-image.c:527
+#: ../src/eog-image.c:531
+#, c-format
 msgid "Transformation on unloaded image."
 msgstr "નહિં લવાયેલ ઈમેજો પર પરિવહન."
 
-#: ../src/eog-image.c:555
+#: ../src/eog-image.c:559
+#, c-format
 msgid "Transformation failed."
 msgstr "રૂપાંતરણ નિષ્ફળ."
 
-#: ../src/eog-image.c:1075
+#: ../src/eog-image.c:948
+#, c-format
 msgid "EXIF not supported for this file format."
 msgstr "આ ફાઈલ બંધારણ માટે EXIF આધારભૂત નથી."
 
-#: ../src/eog-image.c:1192
+#: ../src/eog-image.c:1065
+#, c-format
 msgid "Image loading failed."
 msgstr "ચિત્ર લાવવામાં નિષ્ફળ."
 
-#: ../src/eog-image.c:1463 ../src/eog-image.c:1692
-msgid "File exists"
-msgstr "ફાઈલ અસ્તિત્વમાં છે"
-
-#: ../src/eog-image.c:1626 ../src/eog-image.c:1762
+#: ../src/eog-image.c:1467 ../src/eog-image.c:1572
+#, c-format
 msgid "No image loaded."
 msgstr "કોઈ ચિત્ર લાવી શકાયું નહિ."
 
-#: ../src/eog-image.c:1635 ../src/eog-image.c:1774
+#: ../src/eog-image.c:1477 ../src/eog-image.c:1584
+#, c-format
 msgid "Temporary file creation failed."
 msgstr "કામચલાઉ ફાઈલ બનાવવાનું નિષ્ફળ."
 
-#: ../src/eog-image-jpeg.c:357
+#: ../src/eog-image-jpeg.c:361
 #, c-format
 msgid "Couldn't create temporary file for saving: %s"
 msgstr "સંગ્રહવા માટે કામચલાઉ ફાઈલ બનાવી શકાઈ નહિ: %s"
 
-#: ../src/eog-image-jpeg.c:376
+#: ../src/eog-image-jpeg.c:380
+#, c-format
 msgid "Couldn't allocate memory for loading JPEG file"
 msgstr "JPEG ફાઈલ લાવવા માટે મેમરી ફાળવી શકાઈ નહિ"
 
@@ -586,10 +618,15 @@ msgstr "નિશાની"
 msgid "Value"
 msgstr "મૂલ્ય"
 
-#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:74
-#: ../src/eog-exif-util.c:96
-msgid "Unknown"
-msgstr "અજ્ઞાત"
+#. A strftime-formatted string, to display the date the image was taken.
+#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:96
+msgid "%a, %d %B %Y  %X"
+msgstr "%a, %d %B %Y  %X"
+
+#. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
+#: ../src/eog-exif-util.c:90
+msgid "%a, %d %B %Y"
+msgstr "%a, %d %B %Y"
 
 #: ../src/eog-error-message-area.c:110
 msgid "_Retry"
@@ -600,14 +637,18 @@ msgstr "પુનઃપ્રયાસ (_R)"
 msgid "Could not load image '%s'."
 msgstr "ચિત્ર '%s' લાવી શક્યા નહિં."
 
-#: ../src/eog-error-message-area.c:160
+#: ../src/eog-error-message-area.c:161
 #, c-format
 msgid "No images found in '%s'."
 msgstr "'%s' માં કોઈ ચિત્રો મળ્યા નહિં."
 
-#: ../src/eog-error-message-area.c:165
+#: ../src/eog-error-message-area.c:167
 msgid "The given locations contain no images."
 msgstr "આપેલ સ્થાનો કોઈ ચિત્રો સમાવતા નથી."
+
+#: ../src/eog-print.c:197
+msgid "Image Settings"
+msgstr "ચિત્ર સુયોજનો"
 
 #: ../src/eog-print-image-setup.c:833
 msgid "Image"
@@ -697,15 +738,35 @@ msgstr "ઈંચો"
 msgid "Preview"
 msgstr "પૂર્વદર્શન"
 
+#: ../src/eog-properties-dialog.c:150 ../src/eog-properties-dialog.c:151
+msgid "Unknown"
+msgstr "અજ્ઞાત"
+
+#. TRANSLATORS: This is the actual focal length used when
+#. the image was taken.
+#: ../src/eog-properties-dialog.c:225
+#, c-format
+msgid "%.1f (lens)"
+msgstr "%.1f (lens)"
+
+#. Print as float to get a similar look as above.
+#. TRANSLATORS: This is the equivalent focal length assuming
+#. a 35mm film camera.
+#: ../src/eog-properties-dialog.c:236
+#, c-format
+msgid "%.1f (35mm film)"
+msgstr "%.1f (35mm film)"
+
 #: ../src/eog-save-as-dialog-helper.c:160
 msgid "as is"
 msgstr "આ રીતે"
 
-#: ../src/eog-thumb-view.c:455
+#: ../src/eog-thumb-view.c:470
 msgid "Taken on"
 msgstr "પર લેવાયેલ"
 
-#: ../src/eog-uri-converter.c:1015
+#: ../src/eog-uri-converter.c:1013
+#, c-format
 msgid "At least two file names are equal."
 msgstr "ઓછામાં ઓછા બે ફાઈલ નામો સરખા છે."
 
@@ -717,12 +778,12 @@ msgstr "Eye of GNOME માટે મદદ દર્શાવી શક્ય�
 msgid " (invalid Unicode)"
 msgstr " (અયોગ્ય યુનિકોડ)"
 
-#: ../src/eog-window.c:1095
+#: ../src/eog-window.c:1130
 #, c-format
 msgid "Open with \"%s\""
 msgstr "\"%s\" સાથે ખોલો"
 
-#: ../src/eog-window.c:1096
+#: ../src/eog-window.c:1131
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "પસંદિત ચિત્ર ખોલવા માટે \"%s\" વાપરો"
@@ -732,21 +793,17 @@ msgstr "પસંદિત ચિત્ર ખોલવા માટે \"%s\" �
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1209
+#: ../src/eog-window.c:1246
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "ચિત્ર \"%s\" (%u/%u) સંગ્રહી રહ્યા છીએ"
 
-#: ../src/eog-window.c:1548
+#: ../src/eog-window.c:1585
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "ચિત્ર \"%s\" લાવી રહ્યા છીએ"
 
-#: ../src/eog-window.c:2360
-msgid "Image Settings"
-msgstr "ચિત્ર સુયોજનો"
-
-#: ../src/eog-window.c:2374
+#: ../src/eog-window.c:2270
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -755,19 +812,19 @@ msgstr ""
 "ફાઈલ છાપવામાં ભૂલ:\n"
 "%s"
 
-#: ../src/eog-window.c:2502
+#: ../src/eog-window.c:2398
 msgid "Toolbar Editor"
 msgstr "સાધનપટ્ટી સંપાદક"
 
-#: ../src/eog-window.c:2505
+#: ../src/eog-window.c:2401
 msgid "_Reset to Default"
 msgstr "મૂળભૂતમાં પુનઃસુયોજીત કરો (_R)"
 
-#: ../src/eog-window.c:2591
+#: ../src/eog-window.c:2487
 msgid "translator-credits"
 msgstr "અંકિત પટેલ <ankit644@yahoo.com>"
 
-#: ../src/eog-window.c:2594
+#: ../src/eog-window.c:2490
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -779,7 +836,7 @@ msgstr ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version.\n"
 
-#: ../src/eog-window.c:2598
+#: ../src/eog-window.c:2494
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -791,7 +848,7 @@ msgstr ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details.\n"
 
-#: ../src/eog-window.c:2602
+#: ../src/eog-window.c:2498
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -801,15 +858,15 @@ msgstr ""
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/eog-window.c:2615 ../src/main.c:186
+#: ../src/eog-window.c:2511 ../src/main.c:192
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
-#: ../src/eog-window.c:2618
+#: ../src/eog-window.c:2514
 msgid "The GNOME image viewer."
 msgstr "જીનોમ ચિત્ર દર્શક."
 
-#: ../src/eog-window.c:2991
+#: ../src/eog-window.c:2897
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -818,7 +875,7 @@ msgstr ""
 "શું તમે ખરેખર \"%s\" ને કચરાપેટીમાં ખસેડવા\n"
 "માંગો છો?"
 
-#: ../src/eog-window.c:2994
+#: ../src/eog-window.c:2900
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -833,346 +890,347 @@ msgstr[1] ""
 "શું તમે ખરેખર પસંદ કરેલ %d ચિત્રોને\n"
 "કચરાપેટીમાં ખસેડવા માંગો છો?"
 
-#: ../src/eog-window.c:3009
+#: ../src/eog-window.c:2915
 msgid "Move to Trash"
 msgstr "કચરાપેટીમાં ખસેડો"
 
-#: ../src/eog-window.c:3055
+#: ../src/eog-window.c:2943 ../src/eog-window.c:2957 ../src/eog-window.c:2963
+#, c-format
 msgid "Couldn't access trash."
 msgstr "કચરાપેટીને વાપરી શક્યા નહિં."
 
-#: ../src/eog-window.c:3139
+#: ../src/eog-window.c:3029
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "ચિત્ર %s ને કાઢવામાં ભૂલ"
 
-#: ../src/eog-window.c:3346
+#: ../src/eog-window.c:3236
 msgid "_File"
 msgstr "ફાઈલ (_F)"
 
-#: ../src/eog-window.c:3347
+#: ../src/eog-window.c:3237
 msgid "_Edit"
 msgstr "ફેરફાર (_E)"
 
-#: ../src/eog-window.c:3348
+#: ../src/eog-window.c:3238
 msgid "_View"
 msgstr "દેખાવ (_V)"
 
-#: ../src/eog-window.c:3349
+#: ../src/eog-window.c:3239
 msgid "_Image"
 msgstr "ચિત્ર (_I)"
 
-#: ../src/eog-window.c:3350
+#: ../src/eog-window.c:3240
 msgid "_Go"
 msgstr "જાઓ (_G)"
 
-#: ../src/eog-window.c:3351
+#: ../src/eog-window.c:3241
 msgid "_Tools"
 msgstr "સાધનો (_T)"
 
-#: ../src/eog-window.c:3352
+#: ../src/eog-window.c:3242
 msgid "_Help"
 msgstr "મદદ (_H)"
 
-#: ../src/eog-window.c:3354
+#: ../src/eog-window.c:3244
 msgid "_Open..."
 msgstr "ખોલો (_O)..."
 
-#: ../src/eog-window.c:3355
+#: ../src/eog-window.c:3245
 msgid "Open a file"
 msgstr "એક ફાઈલ ખોલો"
 
-#: ../src/eog-window.c:3357
+#: ../src/eog-window.c:3247
 msgid "_Close"
 msgstr "બંધ કરો (_C)"
 
-#: ../src/eog-window.c:3358
+#: ../src/eog-window.c:3248
 msgid "Close window"
 msgstr "વિન્ડો બંધ કરો"
 
-#: ../src/eog-window.c:3360
+#: ../src/eog-window.c:3250
 msgid "T_oolbar"
 msgstr "સાધનપટ્ટી (_o)"
 
-#: ../src/eog-window.c:3361
+#: ../src/eog-window.c:3251
 msgid "Edit the application toolbar"
 msgstr "કાર્યક્રમ સાધનપટ્ટીમાં ફેરફાર કરો"
 
 # libgnomeui/gnome-app-helper.c:211
-#: ../src/eog-window.c:3363
+#: ../src/eog-window.c:3253
 msgid "Prefere_nces"
 msgstr "પસંદગીઓ (_n)"
 
-#: ../src/eog-window.c:3364
+#: ../src/eog-window.c:3254
 msgid "Preferences for Eye of GNOME"
 msgstr "Eye of GNOME માટે પસંદગીઓ"
 
-#: ../src/eog-window.c:3366
+#: ../src/eog-window.c:3256
 msgid "_Contents"
 msgstr "સમાવિષ્ટ ભાગો (_C)"
 
-#: ../src/eog-window.c:3367
+#: ../src/eog-window.c:3257
 msgid "Help on this application"
 msgstr "આ કાર્યક્રમ પરની મદદ"
 
-#: ../src/eog-window.c:3369 ../src/eog-plugin-manager.c:507
+#: ../src/eog-window.c:3259 ../src/eog-plugin-manager.c:507
 msgid "_About"
 msgstr "વિશે (_A)"
 
-#: ../src/eog-window.c:3370
+#: ../src/eog-window.c:3260
 msgid "About this application"
 msgstr "આ કાર્યક્રમ વિશે"
 
-#: ../src/eog-window.c:3375
+#: ../src/eog-window.c:3265
 msgid "_Toolbar"
 msgstr "સાધનદર્શકપટ્ટી (_T)"
 
-#: ../src/eog-window.c:3376
+#: ../src/eog-window.c:3266
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "વર્તમાન વિન્ડોમાં સાધનપટ્ટીનો દેખાવ બદલો"
 
-#: ../src/eog-window.c:3378
+#: ../src/eog-window.c:3268
 msgid "_Statusbar"
 msgstr "સ્થિતિદર્શકપટ્ટી (_S)"
 
-#: ../src/eog-window.c:3379
+#: ../src/eog-window.c:3269
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "વર્તમાન વિન્ડોમાં સ્થિતિદર્શક પટ્ટીનો દેખાવ બદલો"
 
-#: ../src/eog-window.c:3381
+#: ../src/eog-window.c:3271
 msgid "_Image Collection"
 msgstr "ચિત્ર સમૂહ (_I)"
 
-#: ../src/eog-window.c:3382
+#: ../src/eog-window.c:3272
 msgid "Changes the visibility of the image collection pane in the current window"
 msgstr "વર્તમાન વિન્ડોમાં ચિત્ર સમૂહ તકતીની દૃશ્યતા બદલે છે"
 
-#: ../src/eog-window.c:3384
+#: ../src/eog-window.c:3274
 msgid "Side _Pane"
 msgstr "બાજુ તકતી (_P)"
 
-#: ../src/eog-window.c:3385
+#: ../src/eog-window.c:3275
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "વર્તમાન વિન્ડોમાં બાજુ તકતીની દૃશ્યતા બદલે છે"
 
 # libgnomeui/gnome-app-helper.c:114
-#: ../src/eog-window.c:3390
+#: ../src/eog-window.c:3280
 msgid "_Save"
 msgstr "સંગ્રહ કરો (_S)"
 
-#: ../src/eog-window.c:3391
+#: ../src/eog-window.c:3281
 msgid "Save changes in currently selected images"
 msgstr "વર્તમાનમાં પસંદિત ચિત્રોમાં ફેરફારો સંગ્રહો"
 
-#: ../src/eog-window.c:3393
+#: ../src/eog-window.c:3283
 msgid "Open _with"
 msgstr "ની સાથે ખોલો (_w)"
 
-#: ../src/eog-window.c:3394
+#: ../src/eog-window.c:3284
 msgid "Open the selected image with a different application"
 msgstr "પસંદિત ચિત્રને અલગ કાર્યક્રમ સાથે ખોલો"
 
-#: ../src/eog-window.c:3396
+#: ../src/eog-window.c:3286
 msgid "Save _As..."
 msgstr "આ રીતે સંગ્રહ કરો (_A)..."
 
-#: ../src/eog-window.c:3397
+#: ../src/eog-window.c:3287
 msgid "Save the selected images with a different name"
 msgstr "પસંદિત ચિત્રોને અલગ નામ સાથે સંગ્રહો"
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3289
 msgid "Page Set_up..."
 msgstr "પાનાં સુયોજન (_u)..."
 
-#: ../src/eog-window.c:3400
+#: ../src/eog-window.c:3290
 msgid "Setup the page properties for printing"
 msgstr "છાપવા માટે પાનાં ગુણધર્મો સુયોજીત કરો"
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3292
 msgid "_Print..."
 msgstr "છાપો (_P)..."
 
-#: ../src/eog-window.c:3403
+#: ../src/eog-window.c:3293
 msgid "Print the selected image"
 msgstr "પસંદિત ચિત્ર છાપો"
 
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3295
 msgid "Prope_rties"
 msgstr "ગુણધર્મો (_r)"
 
-#: ../src/eog-window.c:3406
+#: ../src/eog-window.c:3296
 msgid "Show the properties and metadata of the selected image"
 msgstr "પસંદિત ચિત્રના ગુણધર્મો અને મેટાડેટા બતાવો"
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3298
 msgid "_Undo"
 msgstr "છેલ્લી ક્રિયા રદ કરો (_U)"
 
-#: ../src/eog-window.c:3409
+#: ../src/eog-window.c:3299
 msgid "Undo the last change in the image"
 msgstr "ચિત્રમાં છેલ્લા ફેરફારને રદ કરો"
 
-#: ../src/eog-window.c:3411
+#: ../src/eog-window.c:3301
 msgid "Flip _Horizontal"
 msgstr "આડુ કરો (_H)"
 
-#: ../src/eog-window.c:3412
+#: ../src/eog-window.c:3302
 msgid "Mirror the image horizontally"
 msgstr "ચિત્રને આડી રીતે મીરર કરો"
 
-#: ../src/eog-window.c:3414
+#: ../src/eog-window.c:3304
 msgid "Flip _Vertical"
 msgstr "ઊભુ કરો (_V)"
 
-#: ../src/eog-window.c:3415
+#: ../src/eog-window.c:3305
 msgid "Mirror the image vertically"
 msgstr "ચિત્રને ઊભી રીતે મીરર કરો"
 
-#: ../src/eog-window.c:3417
+#: ../src/eog-window.c:3307
 msgid "_Rotate Clockwise"
 msgstr "સમઘડી દિશામાં ફેરવો (_R)"
 
-#: ../src/eog-window.c:3418
+#: ../src/eog-window.c:3308
 msgid "Rotate the image 90 degrees to the right"
 msgstr "ચિત્રને ૯૦ ડિગ્રી જમણે ફેરવો"
 
-#: ../src/eog-window.c:3420
+#: ../src/eog-window.c:3310
 msgid "Rotate Counterc_lockwise"
 msgstr "વિષમઘડી દિશામાં ફેરવો (_l)"
 
-#: ../src/eog-window.c:3421
+#: ../src/eog-window.c:3311
 msgid "Rotate the image 90 degrees to the left"
 msgstr "ચિત્રને ૯૦ ડિગ્રી ડાબે ફેરવો"
 
-#: ../src/eog-window.c:3423
+#: ../src/eog-window.c:3313
 msgid "Set As _Wallpaper"
 msgstr "વોલપેપર તરીકે સુયોજિત કરો (_W)"
 
-#: ../src/eog-window.c:3424
+#: ../src/eog-window.c:3314
 msgid "Set the selected image as the desktop wallpaper"
 msgstr "પસંદિત ચિત્રને ડેસ્કટોપ વોલપેપર તરીકે સુયોજીત કરો"
 
-#: ../src/eog-window.c:3426 ../src/eog-window.c:3450
+#: ../src/eog-window.c:3316 ../src/eog-window.c:3340
 msgid "Move to _Trash"
 msgstr "કચરાપેટીમાં ખસેડો (_T)"
 
-#: ../src/eog-window.c:3427
+#: ../src/eog-window.c:3317
 msgid "Move the selected image to the trash folder"
 msgstr "પસંદિત ચિત્રને કચરાપેટી ફોલ્ડરમાં ખસેડો"
 
-#: ../src/eog-window.c:3429 ../src/eog-window.c:3441 ../src/eog-window.c:3444
+#: ../src/eog-window.c:3319 ../src/eog-window.c:3331 ../src/eog-window.c:3334
 msgid "_Zoom In"
 msgstr "મોટું કરો (_Z)"
 
-#: ../src/eog-window.c:3430 ../src/eog-window.c:3442
+#: ../src/eog-window.c:3320 ../src/eog-window.c:3332
 msgid "Enlarge the image"
 msgstr "ચિત્ર મોટું કરો"
 
-#: ../src/eog-window.c:3432 ../src/eog-window.c:3447
+#: ../src/eog-window.c:3322 ../src/eog-window.c:3337
 msgid "Zoom _Out"
 msgstr "નાનું કરો (_O)"
 
-#: ../src/eog-window.c:3433 ../src/eog-window.c:3445 ../src/eog-window.c:3448
+#: ../src/eog-window.c:3323 ../src/eog-window.c:3335 ../src/eog-window.c:3338
 msgid "Shrink the image"
 msgstr "ચિત્રને સંકોચો"
 
-#: ../src/eog-window.c:3435
+#: ../src/eog-window.c:3325
 msgid "_Normal Size"
 msgstr "સામાન્ય માપ (_N)"
 
-#: ../src/eog-window.c:3436
+#: ../src/eog-window.c:3326
 msgid "Show the image at its normal size"
 msgstr "ચિત્રને તેના સામાન્ય માપ પ્રમાણે બતાવો"
 
-#: ../src/eog-window.c:3438
+#: ../src/eog-window.c:3328
 msgid "Best _Fit"
 msgstr "શ્રેષ્ઠ રીતે બેસતુ (_F)"
 
-#: ../src/eog-window.c:3439
+#: ../src/eog-window.c:3329
 msgid "Fit the image to the window"
 msgstr "ચિત્રને વિન્ડોમાં બેસાડો"
 
-#: ../src/eog-window.c:3456
+#: ../src/eog-window.c:3346
 msgid "_Full Screen"
 msgstr "પૂર્ણ સ્ક્રીન (_F)"
 
-#: ../src/eog-window.c:3457
+#: ../src/eog-window.c:3347
 msgid "Show the current image in fullscreen mode"
 msgstr "વર્તમાન ચિત્રને પૂર્ણસ્ક્રીન સ્થિતિમાં બતાવો"
 
-#: ../src/eog-window.c:3462 ../src/eog-window.c:3474
+#: ../src/eog-window.c:3352 ../src/eog-window.c:3364
 msgid "_Previous Image"
 msgstr "પહેલાંનું ચિત્ર (_P)"
 
-#: ../src/eog-window.c:3463
+#: ../src/eog-window.c:3353
 msgid "Go to the previous image of the collection"
 msgstr "ક્રમાંકનમાં આગળના ચિત્ર પર જાવ"
 
-#: ../src/eog-window.c:3465
+#: ../src/eog-window.c:3355
 msgid "_Next Image"
 msgstr "આગળનું ચિત્ર (_N)"
 
-#: ../src/eog-window.c:3466
+#: ../src/eog-window.c:3356
 msgid "Go to the next image of the collection"
 msgstr "ક્રમાંકનમાં પાછળના ચિત્ર પર જાવ"
 
-#: ../src/eog-window.c:3468 ../src/eog-window.c:3477
+#: ../src/eog-window.c:3358 ../src/eog-window.c:3367
 msgid "_First Image"
 msgstr "પ્રથમ ચિત્ર (_F)"
 
-#: ../src/eog-window.c:3469
+#: ../src/eog-window.c:3359
 msgid "Go to the first image of the collection"
 msgstr "ક્રમાંકનમાં પ્રથમ ચિત્ર પર જાવ"
 
-#: ../src/eog-window.c:3471 ../src/eog-window.c:3480
+#: ../src/eog-window.c:3361 ../src/eog-window.c:3370
 msgid "_Last Image"
 msgstr "છેલ્લું ચિત્ર (_L)"
 
-#: ../src/eog-window.c:3472
+#: ../src/eog-window.c:3362
 msgid "Go to the last image of the collection"
 msgstr "ક્રમાંકનમાં અંતિમ ચિત્ર પર જાવ"
 
-#: ../src/eog-window.c:3486
+#: ../src/eog-window.c:3376
 msgid "_Slideshow"
 msgstr "તકતી પ્રદર્શન (_S)"
 
-#: ../src/eog-window.c:3487
+#: ../src/eog-window.c:3377
 msgid "Start a slideshow view of the images"
 msgstr "ચિત્રોના તકતીપૂર્વદર્શનનો દેખાવ શરૂ કરો"
 
-#: ../src/eog-window.c:3553
+#: ../src/eog-window.c:3443
 msgid "Previous"
 msgstr "પાછળ"
 
-#: ../src/eog-window.c:3557
+#: ../src/eog-window.c:3447
 msgid "Next"
 msgstr "આગળ"
 
-#: ../src/eog-window.c:3561
+#: ../src/eog-window.c:3451
 msgid "Right"
 msgstr "જમણું"
 
-#: ../src/eog-window.c:3564
+#: ../src/eog-window.c:3454
 msgid "Left"
 msgstr "ડાબે"
 
-#: ../src/eog-window.c:3567
+#: ../src/eog-window.c:3457
 msgid "In"
 msgstr "અંદર"
 
-#: ../src/eog-window.c:3570
+#: ../src/eog-window.c:3460
 msgid "Out"
 msgstr "બહાર"
 
-#: ../src/eog-window.c:3573
+#: ../src/eog-window.c:3463
 msgid "Normal"
 msgstr "સામાન્ય"
 
-#: ../src/eog-window.c:3576
+#: ../src/eog-window.c:3466
 msgid "Fit"
 msgstr "બંધબેસતું"
 
-#: ../src/eog-window.c:3579
+#: ../src/eog-window.c:3469
 msgid "Collection"
 msgstr "સંગ્રહ"
 
@@ -1212,23 +1270,27 @@ msgstr "પ્લગઈન વિશે (_A)"
 msgid "C_onfigure Plugin"
 msgstr "પ્લગઈન રૂપરેખાંકિત કરો (_o)"
 
-#: ../src/main.c:64
+#: ../src/main.c:67
 msgid "Open in fullscreen mode"
 msgstr "આખી સ્ક્રીન સ્થિતિમાં ખોલો"
 
-#: ../src/main.c:65
+#: ../src/main.c:68
 msgid "Disable image collection"
 msgstr "ચિત્ર સંગ્રહ નિષ્ક્રિય કરો"
 
-#: ../src/main.c:66
+#: ../src/main.c:69
 msgid "Open in slide show mode"
 msgstr "તકતી પૂર્વદર્શન સ્થિતિમાં ખોલો"
 
-#: ../src/main.c:67
+#: ../src/main.c:71
+msgid "Start a new instance instead of reusing an existing one"
+msgstr "વર્તમાન ઘટના પુન:વાપરવાને બદલે નવી ઘટનાને શરૂ કરો"
+
+#: ../src/main.c:73
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../src/main.c:217
+#: ../src/main.c:223
 msgid "Eye of GNOME Image Viewer"
 msgstr "Eye of GNOME ચિત્ર દર્શક"
 
