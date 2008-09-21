@@ -2871,6 +2871,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	EogWindow *window;
 	EogWindowPrivate *priv;
 	EogImage *image;
+	GFile *file;
 	GdkScreen *screen;
 	char *filename = NULL;
 	
@@ -2883,7 +2884,35 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
 
-	filename = eog_image_get_uri_for_display (image);
+	file = eog_image_get_file (image);
+
+	filename = g_file_get_path (file);
+
+	/* Currently only local files can be set as wallpaper */
+	if (filename == NULL || !g_file_is_native (file)) {
+		GtkWidget *dialog;
+
+		dialog = gtk_message_dialog_new_with_markup (
+							GTK_WINDOW (window),
+							GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+							GTK_MESSAGE_ERROR,
+							GTK_BUTTONS_OK,
+							"<span weight=\"bold\" size=\"larger\">%s</span>",
+							_("Only local images can be used as wallpapers"));
+		gtk_message_dialog_format_secondary_text (
+						GTK_MESSAGE_DIALOG (dialog),
+						"%s",
+						_("To be able to set this image as your wallpaper, "
+						  "please save it locally in your computer"));
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+
+		g_object_unref (file);
+		g_free (filename);
+		return;
+	}
+
+	g_object_unref (file);
 
 	gconf_client_set_string (priv->client, 
 				 EOG_CONF_DESKTOP_WALLPAPER, 
@@ -2895,6 +2924,7 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 					  "gnome-appearance-properties"
 					  " --show-page=background",
 					  NULL);
+	g_free (filename);
 }
 
 static int
