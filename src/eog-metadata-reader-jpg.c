@@ -230,13 +230,14 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			break;
 
 		case EMR_READ_MARKER:
-			if ((buf [i] & 0xF0) == 0xE0) { /* we are reading some sort of APPxx marker */
+			if ((buf [i] & 0xF0) == 0xE0 || buf[i] == 0xFE) {
+			/* we are reading some sort of APPxx or COM marker */
 				/* these are always followed by 2 bytes of size information */
 				priv->last_marker = buf [i];
 				priv->size = 0;
 				priv->state = EMR_READ_SIZE_HIGH_BYTE;
 
-				eog_debug_message (DEBUG_IMAGE_DATA, "APPx Marker Found: %x", priv->last_marker);
+				eog_debug_message (DEBUG_IMAGE_DATA, "APPx or COM Marker Found: %x", priv->last_marker);
 			}
 			else {
 				/* otherwise simply consume the byte */
