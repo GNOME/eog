@@ -321,6 +321,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			case EJA_OTHER:
 			default:
 				/* skip unknown data */
+				chunk = NULL;
 				priv->state = EMR_SKIP_BYTES;
 				break;
 			}

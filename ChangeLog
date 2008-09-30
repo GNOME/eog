@@ -1,5 +1,11 @@
 2008-09-30  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-metadata-reader-jpg.c: (eog_metadata_reader_jpg_consume):
+	Don't overwrite the last read chunk when skipping over unrecognized
+	APP1 chunks. Avoids memory corruption and subsequent segfaults.
+
+2008-09-30  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-image.c: (eog_image_copy_file),
 	(eog_image_save_as_by_info):
 	Fix progress reporting when images only need copying during SaveAs.
