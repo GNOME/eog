@@ -1515,7 +1515,7 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 }
 
 static gboolean
-eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
+eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
 	gboolean result;
 	GError *ioerror;
@@ -1528,8 +1528,8 @@ eog_image_copy_file (EogImageSaveInfo *source, EogImageSaveInfo *target, GError 
 			      (target->overwrite ? G_FILE_COPY_OVERWRITE : 0) |
 			      G_FILE_COPY_ALL_METADATA,
 			      NULL, 
-			      NULL,  /* no progress callback */
-			      NULL,
+			      EOG_IS_IMAGE (image) ? transfer_progress_cb :NULL,
+			      image,
 			      &ioerror);
 	
 	if (result == FALSE) {
@@ -1588,7 +1588,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	
 	/* determine kind of saving */
 	if (g_ascii_strcasecmp (source->format, target->format) == 0 && !source->modified) {
-		success = eog_image_copy_file (source, target, error);
+		success = eog_image_copy_file (img, source, target, error);
 		direct_copy = success;
 	}
 
