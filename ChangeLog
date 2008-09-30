@@ -1,3 +1,9 @@
+2008-09-30  Claudio Saavedra  <csaavedra@igalia.com>
+
+       * src/eog-list-store.c: (eog_list_store_append_directory): Do not
+       attempt to monitor a directory if monitoring is not supported.
+       Fixes a couple of critical warnings.
+
 2008-09-30  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-metadata-reader-jpg.c: (eog_metadata_reader_jpg_consume):

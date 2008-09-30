@@ -503,13 +503,16 @@ eog_list_store_append_directory (EogListStore *store,
 	
 	file_monitor = g_file_monitor_directory (file,
 						 0, NULL, NULL);
-	g_signal_connect (file_monitor, "changed",
-			  G_CALLBACK (file_monitor_changed_cb), store);
 
-	/* prepend seems more efficient to me, we don't need this list
-	   to be sorted */
-	store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
-	
+	if (file_monitor != NULL) {
+		g_signal_connect (file_monitor, "changed",
+				  G_CALLBACK (file_monitor_changed_cb), store);
+
+		/* prepend seems more efficient to me, we don't need this list
+		   to be sorted */
+		store->priv->monitors = g_list_prepend (store->priv->monitors, file_monitor);
+	}
+
 	file_enumerator = g_file_enumerate_children (file,
 						     G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
 						     G_FILE_ATTRIBUTE_STANDARD_NAME,
