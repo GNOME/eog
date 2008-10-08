@@ -2580,12 +2580,17 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 			gtk_widget_grab_focus (priv->thumbview);
 		} else {
 			/* Make sure the focus widget is realized to
-			 * avoid warnings on keypress events */
-			if (!GTK_WIDGET_REALIZED (window->priv->view))
-				gtk_widget_realize (window->priv->view);
+			 * avoid warnings on keypress events.
+			 * Don't do it during init phase or the view
+			 * will get a bogus allocation. */
+			if (!GTK_WIDGET_REALIZED (priv->view)
+			    && priv->status == EOG_WINDOW_STATUS_NORMAL)
+				gtk_widget_realize (priv->view);
 
 			gtk_widget_hide (priv->nav);
-			gtk_widget_grab_focus (priv->view);
+
+			if (GTK_WIDGET_REALIZED (priv->view))
+				gtk_widget_grab_focus (priv->view);
 		}
 		gconf_client_set_bool (priv->client, EOG_CONF_UI_IMAGE_COLLECTION, visible, NULL);
 

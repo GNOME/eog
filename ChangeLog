@@ -1,3 +1,9 @@
+2008-10-08  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-window.c: (eog_window_cmd_show_hide_bar): Avoid realizing
+	the scrollview too early as that would break its allocation when the
+	collection is hidden. Fixes bug #530447. 
+
 2008-09-30  Claudio Saavedra  <csaavedra@igalia.com>
 
        * src/eog-list-store.c: (eog_list_store_append_directory): Do not
