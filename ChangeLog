@@ -1,5 +1,13 @@
 2008-10-12  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-error-message-area.c:
+	(eog_image_load_error_message_area_new),
+	(eog_no_images_error_message_area_new): Use
+	g_markup_escape_text() to avoid possible markup "injection attack".
+	Fixes bug #555940 (Martin Olsson)
+
+2008-10-12  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/Makefile.am: Install metadata related headers properly.
 	Fixes bug #555942 (Pierre-Luc Beaudoin)
 

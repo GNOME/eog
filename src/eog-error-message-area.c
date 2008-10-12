@@ -127,12 +127,18 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 	GtkWidget *message_area;
 	gchar *error_message = NULL;
 	gchar *message_details = NULL;
+	gchar *pango_escaped_caption = NULL;
 
 	g_return_val_if_fail (caption != NULL, NULL);
 	g_return_val_if_fail (error != NULL, NULL);
 
+	/* Escape the caption string with respect to pango markup.
+	   This is necessary because otherwise characters like "&" will
+	   be interpreted as the beginning of a pango entity inside
+	   the message area GtkLabel. */
+	pango_escaped_caption = g_markup_escape_text (caption, -1);
 	error_message = g_strdup_printf (_("Could not load image '%s'."),
-					 caption);
+					 pango_escaped_caption);
 
 	message_details = g_strdup (error->message); 
 
@@ -140,6 +146,7 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 						  message_details,
 						  TRUE);
 
+	g_free (pango_escaped_caption);
 	g_free (error_message);
 	g_free (message_details);
 
@@ -153,14 +160,21 @@ eog_no_images_error_message_area_new (GFile *file)
 	gchar *error_message = NULL;
 
 	if (file != NULL) {
-		gchar *uri_str, *unescaped_str;
+		gchar *uri_str, *unescaped_str, *pango_escaped_str;
 
 		uri_str = g_file_get_uri (file);
+		/* Unescape URI with respect to rules defined in RFC 3986. */
 		unescaped_str = g_uri_unescape_string (uri_str, NULL);
 
+		/* Escape the URI string with respect to pango markup.
+		   This is necessary because the URI string can contain
+		   for example "&" which will otherwise be interpreted
+		   as a pango markup entity when inserted into a GtkLabel. */
+		pango_escaped_str = g_markup_escape_text (unescaped_str, -1);
 		error_message = g_strdup_printf (_("No images found in '%s'."),
-						 unescaped_str);
+						 pango_escaped_str);
 
+		g_free (pango_escaped_str);
 		g_free (uri_str);
 		g_free (unescaped_str);
 	} else {
