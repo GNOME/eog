@@ -118,10 +118,11 @@ libeog_la_SOURCES =			\
 	$(INST_H_FILES)
 
 if HAVE_EXIF
-libeog_la_SOURCES +=			\
+INST_H_FILES +=				\
 	eog-exif-util.h			\
+	eog-exif-details.h
+libeog_la_SOURCES +=			\
 	eog-exif-util.c			\
-	eog-exif-details.h		\
 	eog-exif-details.c
 endif
 
@@ -134,8 +135,9 @@ libeog_la_SOURCES += 			\
 endif
 
 if HAVE_EXEMPI
+INST_H_FILES +=				\
+	eog-exif-details.h
 libeog_la_SOURCES +=			\
-	eog-exif-details.h		\
 	eog-exif-details.c
 endif
 
