@@ -1,5 +1,12 @@
 2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
 
+	* configure.ac: this requires at least GTK+-2.13.1
+	* src/eog-util.c: (eog_util_show_help):
+	Use gtk_show_uri instead of gnome-help to launch the help.
+	Fixes bug #556086 (Diego Escalante Urrelo).
+
+2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac:
 	* data/Makefile.am:
 	* data/eog-image-properties-dialog.ui:

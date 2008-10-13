@@ -42,15 +42,20 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
-#include <libgnome/gnome-help.h>
 #include <libgnome/gnome-init.h>
 
 void 
 eog_util_show_help (const gchar *section, GtkWindow *parent)
 {
 	GError *error = NULL;
+	char *uri;
 
-	gnome_help_display ("eog.xml", section, &error);
+	if (section)
+		uri = g_strdup_printf("ghelp:eog?%s", section);
+	else
+		uri = "ghelp:eog";
+
+	gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error);
 
 	if (error) {
 		GtkWidget *dialog;
