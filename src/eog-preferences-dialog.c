@@ -211,7 +211,7 @@ eog_preferences_dialog_constructor (GType type,
 	priv = EOG_PREFERENCES_DIALOG (object)->priv;
 
 	eog_dialog_construct (EOG_DIALOG (object),
-			      "eog-preferences-dialog.glade",
+			      "eog-preferences-dialog.ui",
 			      "eog_preferences_dialog");
  
 	eog_dialog_get_controls (EOG_DIALOG (object), 

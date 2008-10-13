@@ -38,7 +38,6 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -593,7 +592,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	priv->update_page = FALSE;
 
 	eog_dialog_construct (EOG_DIALOG (prop_dlg),
-			      "eog-image-properties-dialog.glade",
+			      "eog-image-properties-dialog.ui",
 			      "eog_image_properties_dialog");
  
 	eog_dialog_get_controls (EOG_DIALOG (prop_dlg), 

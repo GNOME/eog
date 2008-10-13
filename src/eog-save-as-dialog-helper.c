@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <glade/glade.h>
+#include <gtk/gtk.h>
 #include "eog-save-as-dialog-helper.h"
 #include "eog-pixbuf-util.h"
 #include "eog-file-chooser.h"
@@ -98,7 +98,7 @@ on_format_combobox_changed (GtkComboBox *widget, gpointer data)
 	request_preview_update (GTK_WIDGET (data));
 }
 
-static void
+void
 on_token_entry_changed (GtkWidget *widget, gpointer user_data)
 {
 	SaveAsData *data;
@@ -120,7 +120,7 @@ on_replace_spaces_check_clicked (GtkWidget *widget, gpointer data)
 	request_preview_update (GTK_WIDGET (data));
 }
 
-static void
+void
 on_counter_spin_changed (GtkWidget *widget, gpointer data)
 {
 	request_preview_update (GTK_WIDGET (data));
@@ -143,6 +143,8 @@ prepare_format_combobox (SaveAsData *data)
 
 	cell = gtk_cell_renderer_text_new ();
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combobox), cell, TRUE);
+	gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (combobox), cell,
+				 	"text", 0);
 
 	formats = eog_pixbuf_get_savable_formats ();
 	for (it = formats; it != NULL; it = it->next) {
@@ -158,6 +160,7 @@ prepare_format_combobox (SaveAsData *data)
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter, 0, _("as is"), 1, NULL, -1);
 	gtk_combo_box_set_active_iter (combobox, &iter);
+	gtk_widget_show_all (GTK_WIDGET (combobox));
 }
 
 static void
@@ -203,32 +206,39 @@ GtkWidget*
 eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 {
 	char *filepath;
-	GladeXML  *xml;
+	GtkBuilder  *xml;
 	GtkWidget *dlg;
 	SaveAsData *data;
 	GtkWidget *label;
 	
 	filepath = g_build_filename (EOG_DATA_DIR,
-				     "eog-multiple-save-as-dialog.glade",
+				     "eog-multiple-save-as-dialog.ui",
 				     NULL);
 
-	xml = glade_xml_new (filepath, "eog_multiple_save_as_dialog", GETTEXT_PACKAGE);
-
+	xml = gtk_builder_new ();
+	gtk_builder_set_translation_domain (xml, GETTEXT_PACKAGE);
+	g_assert (gtk_builder_add_from_file (xml, filepath, NULL));
+	
 	g_free (filepath);
-	g_assert (xml != NULL);
 
-	dlg = glade_xml_get_widget (xml, "eog_multiple_save_as_dialog");
+	dlg = GTK_WIDGET (g_object_ref (gtk_builder_get_object (xml, "eog_multiple_save_as_dialog")));
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (main));
 	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 
 	data = g_new0 (SaveAsData, 1);
 	/* init widget references */
-	data->dir_chooser = glade_xml_get_widget (xml, "dir_chooser");
-	data->token_entry = glade_xml_get_widget (xml, "token_entry");
-	data->replace_spaces_check = glade_xml_get_widget (xml, "replace_spaces_check");
-	data->counter_spin = glade_xml_get_widget (xml, "counter_spin");
-	data->preview_label = glade_xml_get_widget (xml, "preview_label");
-	data->format_combobox = glade_xml_get_widget (xml, "format_combobox");
+	data->dir_chooser = GTK_WIDGET (gtk_builder_get_object (xml,
+								"dir_chooser"));
+	data->token_entry = GTK_WIDGET (gtk_builder_get_object (xml,
+								"token_entry"));
+	data->replace_spaces_check = GTK_WIDGET (gtk_builder_get_object (xml,
+						       "replace_spaces_check"));
+	data->counter_spin = GTK_WIDGET (gtk_builder_get_object (xml,
+							       "counter_spin"));
+	data->preview_label = GTK_WIDGET (gtk_builder_get_object (xml,
+							      "preview_label"));
+	data->format_combobox = GTK_WIDGET (gtk_builder_get_object (xml,
+							    "format_combobox"));
 
 	/* init preview information */
 	data->idle_id = 0;
@@ -241,22 +251,18 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	g_signal_connect (G_OBJECT (data->format_combobox), "changed",
 			  (GCallback) on_format_combobox_changed, dlg);
 
-	glade_xml_signal_connect_data (xml, "on_token_entry_changed",
-				       (GCallback) on_token_entry_changed, dlg);
-
 	g_signal_connect (G_OBJECT (data->replace_spaces_check), "toggled",
 			  (GCallback) on_replace_spaces_check_clicked, dlg);
 
-	glade_xml_signal_connect_data (xml, "on_counter_spin_changed",
-				       (GCallback) on_counter_spin_changed, dlg);
+	gtk_builder_connect_signals (xml, dlg);
 
-	label = glade_xml_get_widget (xml, "preview_label_from");
+	label = GTK_WIDGET (gtk_builder_get_object (xml, "preview_label_from"));
 	gtk_label_set_text (GTK_LABEL (label), eog_image_get_caption (data->image));
 
 	prepare_format_combobox (data);
 	
 	set_default_values (dlg, base_file);
-
+	g_object_unref (xml);
 	return dlg;
 }
 

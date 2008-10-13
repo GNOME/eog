@@ -35,7 +35,6 @@
 #include "eog-debug.h"
 
 #include <glib/gi18n.h>
-#include <glade/glade-xml.h>
 
 enum {
 	ACTIVE_COLUMN,

@@ -1,6 +1,25 @@
 2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac:
+	* data/Makefile.am:
+	* data/eog-image-properties-dialog.ui:
+	* data/eog-multiple-save-as-dialog.ui:
+	* data/eog-preferences-dialog.ui:
+	* src/eog-dialog.c: (eog_dialog_construct_impl),
+	(eog_dialog_get_controls):
+	* src/eog-plugin-manager.c:
+	* src/eog-preferences-dialog.c:
+	(eog_preferences_dialog_constructor):
+	* src/eog-properties-dialog.c: (eog_properties_dialog_init):
+	* src/eog-save-as-dialog-helper.c: (prepare_format_combobox),
+	(eog_save_as_dialog_new):
+	Drop libglade dependency. Use GtkBuilder instead. The glade files are
+	preserved as source for the GtkBuilder files until there is a UI editor
+	fully supporting GtkBuilder files. Fixes bug #555916.
+
+2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
+
+	* configure.ac:
 	* src/eog-util.c:
 	Drop gnome-desktop dependency. Fixes bug #556029.
 

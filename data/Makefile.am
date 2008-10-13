@@ -15,9 +15,9 @@ schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_DATA = $(schemas_in_files:.schemas.in=.schemas)
 
 gladedir = $(pkgdatadir)
-glade_DATA = eog-image-properties-dialog.glade \
-	     eog-multiple-save-as-dialog.glade \
-	     eog-preferences-dialog.glade
+glade_DATA = eog-image-properties-dialog.ui \
+	     eog-multiple-save-as-dialog.ui \
+	     eog-preferences-dialog.ui
 
 uidir = $(datadir)/eog
 UI_FILES = \

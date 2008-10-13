@@ -28,7 +28,6 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
-#include <glade/glade.h>
 
 #define EOG_DIALOG_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_DIALOG, EogDialogPrivate))
@@ -42,7 +41,7 @@ enum {
 
 struct _EogDialogPrivate {
 	GtkWidget   *dlg;
-	GladeXML    *xml;
+	GtkBuilder  *xml;
 	GtkWindow   *parent;
 };
 
@@ -61,13 +60,13 @@ eog_dialog_construct_impl (EogDialog   *dialog,
 
 	filename = g_build_filename (EOG_DATA_DIR, glade_file, NULL);
 
-	priv->xml = glade_xml_new (filename, dlg_node, GETTEXT_PACKAGE);
+	priv->xml = gtk_builder_new ();
+	gtk_builder_set_translation_domain (priv->xml, GETTEXT_PACKAGE);
+	g_assert (gtk_builder_add_from_file (priv->xml, filename, NULL));
 
 	g_free (filename);
 
-	g_assert (priv->xml != NULL);
-
-	priv->dlg = glade_xml_get_widget (priv->xml, dlg_node);
+	priv->dlg = GTK_WIDGET (gtk_builder_get_object (priv->xml, dlg_node));
 
 	if (priv->parent != NULL) {
 		gtk_window_set_transient_for (GTK_WINDOW (priv->dlg), 
@@ -228,7 +227,8 @@ eog_dialog_get_controls (EogDialog   *dialog,
         while (property_id != NULL)
         {
                 wptr = va_arg (varargs, GtkWidget **);
-                *wptr = glade_xml_get_widget (priv->xml, property_id);
+                *wptr = GTK_WIDGET (gtk_builder_get_object (priv->xml,
+							    property_id));
 
                 property_id = va_arg (varargs, const gchar *);
         }
