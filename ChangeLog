@@ -1,5 +1,11 @@
 2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-print-image-setup.c: Remove gtk+-2.12 compatibility includes
+	now that we require at least 2.13.1. This removes the last single
+	includes from EOG.
+
+2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac: this requires at least GTK+-2.13.1
 	* src/eog-util.c: (eog_util_show_help):
 	Use gtk_show_uri instead of gnome-help to launch the help.
