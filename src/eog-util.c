@@ -51,11 +51,11 @@ eog_util_show_help (const gchar *section, GtkWindow *parent)
 	char *uri;
 
 	if (section)
-		uri = g_strdup_printf("ghelp:eog?%s", section);
+		uri = g_strdup_printf ("ghelp:eog?%s", section);
 	else
 		uri = "ghelp:eog";
 
-	gtk_show_uri (NULL, uri, GDK_CURRENT_TIME, &error);
+	gtk_show_uri (NULL, uri, gtk_get_current_event_time (), &error);
 
 	if (error) {
 		GtkWidget *dialog;

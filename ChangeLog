@@ -1,3 +1,9 @@
+2008-10-14  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-util.c: (eog_util_show_help): 
+	Use gtk_get_current_event_time() instead of GDK_CURRENT_TIME
+	with gtk_show_uri (Diego Escalante Urrelo).
+
 2008-10-13  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-print-image-setup.c: Remove gtk+-2.12 compatibility includes
