@@ -66,7 +66,7 @@ free_token (gpointer data)
 		g_free (token->data.string);
 	}
 
-	g_free (token);
+	g_slice_free (EogUCToken, token);
 }
 
 static void
@@ -311,7 +311,7 @@ create_token_string (const char *string, int substr_start, int substr_len)
 	/* FIXME: is this right? */
 	n_bytes = end_byte - start_byte;
 
-	token = g_new0 (EogUCToken, 1);
+	token = g_slice_new0 (EogUCToken);
 	token->type = EOG_UC_STRING;
 	token->data.string = g_new0 (char, n_bytes);
 	token->data.string = g_utf8_strncpy (token->data.string, start_byte, substr_len);
@@ -324,7 +324,7 @@ create_token_counter (int start_counter)
 {
 	EogUCToken *token;
 
-	token = g_new0 (EogUCToken, 1);
+	token = g_slice_new0 (EogUCToken);
 	token->type = EOG_UC_COUNTER;
 	token->data.counter = 0;
 
@@ -336,7 +336,7 @@ create_token_other (EogUCType type)
 {
 	EogUCToken *token;
 
-	token = g_new0 (EogUCToken, 1);
+	token = g_slice_new0 (EogUCToken);
 	token->type = type;
 
 	return token;

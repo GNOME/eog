@@ -1,5 +1,11 @@
 2008-10-14  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-uri-converter.c: (free_token), (create_token_string),
+	(create_token_counter), (create_token_other):
+	Use GSlice to allocate the token structures.
+
+2008-10-14  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-util.c: (eog_util_show_help): 
 	Use gtk_get_current_event_time() instead of GDK_CURRENT_TIME
 	with gtk_show_uri (Diego Escalante Urrelo).
