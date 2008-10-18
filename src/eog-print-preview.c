@@ -1172,7 +1172,7 @@ eog_print_preview_get_image_position (EogPrintPreview *preview,
 
 /**
  * eog_print_preview_set_image_position:
- * @preview: 
+ * @preview: a #EogPrintPreview 
  * @x: The X coordinate, in inches, or -1 to ignore it.
  * @y: The Y coordinate, in inches, or -1 to ignore it.
  * 

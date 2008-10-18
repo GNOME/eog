@@ -58,7 +58,7 @@ G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
 
 /**
  * eog_application_register_service:
- * @application: 
+ * @application: An #EogApplication. 
  *
  * Registers #EogApplication<!-- -->'s DBus service, to allow
  * remote calls. If the DBus service is already registered,
@@ -200,7 +200,7 @@ eog_application_get_empty_window (EogApplication *application)
 
 /**
  * eog_application_open_window:
- * @application: 
+ * @application: An #EogApplication. 
  * @timestamp: 
  * @flags: 
  * @error: 

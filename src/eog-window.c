@@ -4887,7 +4887,7 @@ eog_window_get_mode (EogWindow *window)
 
 /**
  * eog_window_set_mode:
- * @window: an #EogWindowMode.
+ * @window: an #EogWindow.
  * @mode: an #EogWindowMode value.
  *
  * Changes the mode of @window to normal, fullscreen, or slideshow.
