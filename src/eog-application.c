@@ -155,7 +155,6 @@ eog_application_init (EogApplication *eog_application)
 
 /**
  * eog_application_get_instance:
- * @void: 
  *
  * Returns a singleton instance of #EogApplication currently running.
  * If not running yet, it will create one.
@@ -331,7 +330,7 @@ eog_application_open_file_list (EogApplication  *application,
 /**
  * eog_application_open_uri_list:
  * @application: An #EogApplication.
- * @files: A list of URIs.
+ * @uri_list: A list of URIs.
  * @timestamp: 
  * @flags: 
  * @error: 
@@ -343,7 +342,7 @@ eog_application_open_file_list (EogApplication  *application,
  **/
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
- 			       GSList          *files,
+ 			       GSList          *uri_list,
  			       guint           timestamp,
  			       EogStartupFlags flags,
  			       GError         **error)
@@ -352,7 +351,7 @@ eog_application_open_uri_list (EogApplication  *application,
  
  	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
  
- 	file_list = eog_util_string_list_to_file_list (files);
+ 	file_list = eog_util_string_list_to_file_list (uri_list);
 
  	return eog_application_open_file_list (application,
 					       file_list, 
