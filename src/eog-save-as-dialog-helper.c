@@ -98,7 +98,7 @@ on_format_combobox_changed (GtkComboBox *widget, gpointer data)
 	request_preview_update (GTK_WIDGET (data));
 }
 
-void
+static void
 on_token_entry_changed (GtkWidget *widget, gpointer user_data)
 {
 	SaveAsData *data;
@@ -120,7 +120,7 @@ on_replace_spaces_check_clicked (GtkWidget *widget, gpointer data)
 	request_preview_update (GTK_WIDGET (data));
 }
 
-void
+static void
 on_counter_spin_changed (GtkWidget *widget, gpointer data)
 {
 	request_preview_update (GTK_WIDGET (data));
@@ -251,10 +251,14 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	g_signal_connect (G_OBJECT (data->format_combobox), "changed",
 			  (GCallback) on_format_combobox_changed, dlg);
 
+	g_signal_connect (G_OBJECT (data->token_entry), "changed",
+			  (GCallback) on_token_entry_changed, dlg);
+
 	g_signal_connect (G_OBJECT (data->replace_spaces_check), "toggled",
 			  (GCallback) on_replace_spaces_check_clicked, dlg);
 
-	gtk_builder_connect_signals (xml, dlg);
+	g_signal_connect (G_OBJECT (data->counter_spin), "changed",
+			  (GCallback) on_counter_spin_changed, dlg);
 
 	label = GTK_WIDGET (gtk_builder_get_object (xml, "preview_label_from"));
 	gtk_label_set_text (GTK_LABEL (label), eog_image_get_caption (data->image));

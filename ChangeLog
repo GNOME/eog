@@ -1,3 +1,12 @@
+2008-10-18  Felix Riemann  <friemann@svn.gnome.org>
+
+	* data/eog-multiple-save-as-dialog.glade:
+	* data/eog-multiple-save-as-dialog.ui:
+	* src/eog-save-as-dialog-helper.c: (eog_save_as_dialog_new):
+	Connect the two autoconnect handlers by hand. This is no work here,
+	brings the dialog in sync with the other GtkBuilder generated dialogs
+	and allows us to unexport the callbacks.
+
 2008-10-14  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-uri-converter.c: (free_token), (create_token_string),
