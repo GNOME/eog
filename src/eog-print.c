@@ -151,7 +151,7 @@ eog_print_end_print (GtkPrintOperation *operation,
 	eog_debug (DEBUG_PRINTING);
 	
 	g_object_unref (data->image);
-	g_free (data);
+	g_slice_free (EogPrintData, data);
 }
 
 GtkPrintOperation *
@@ -166,7 +166,7 @@ eog_print_operation_new (EogImage *image,
 
 	print = gtk_print_operation_new ();
 
-	data = g_new0 (EogPrintData, 1);
+	data = g_slice_new0 (EogPrintData);
 
 	data->left_margin = 0;
 	data->top_margin = 0;

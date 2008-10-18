@@ -176,7 +176,7 @@ destroy_data_cb (gpointer data)
 	if (sd->idle_id != 0)
 		g_source_remove (sd->idle_id);
 
-	g_free (sd);
+	g_slice_free (SaveAsData, sd);
 }
 
 static void
@@ -225,7 +225,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (main));
 	gtk_window_set_position (GTK_WINDOW (dlg), GTK_WIN_POS_CENTER_ON_PARENT);
 
-	data = g_new0 (SaveAsData, 1);
+	data = g_slice_new0 (SaveAsData);
 	/* init widget references */
 	data->dir_chooser = GTK_WIDGET (gtk_builder_get_object (xml,
 								"dir_chooser"));
