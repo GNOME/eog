@@ -206,7 +206,7 @@ AM_CONDITIONAL(ENABLE_JPEG, test x$have_jpeg = xyes)
 
 DBUS_GLIB_REQUIRED=0.71
 
-AC_ARG_WITH([dbus-glib-1], AC_HELP_STRING([--without-dbus], [disable dbus based activation]))
+AC_ARG_WITH([dbus], AC_HELP_STRING([--without-dbus], [disable dbus based activation]))
 have_dbus=no
 if test x$with_dbus != xno; then
     PKG_CHECK_MODULES([DBUS], [dbus-glib-1 >= $DBUS_GLIB_REQUIRED], have_dbus=yes, have_dbus=no)
