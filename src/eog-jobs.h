@@ -69,6 +69,9 @@ typedef struct _EogJobSaveClass EogJobSaveClass;
 typedef struct _EogJobSaveAs EogJobSaveAs;
 typedef struct _EogJobSaveAsClass EogJobSaveAsClass;
 
+typedef struct _EogJobCopy EogJobCopy;
+typedef struct _EogJobCopyClass EogJobCopyClass;
+
 #define EOG_TYPE_JOB		       (eog_job_get_type())
 #define EOG_JOB(obj)		       (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB, EogJob))
 #define EOG_JOB_CLASS(klass)	       (G_TYPE_CHECK_CLASS_CAST((klass),  EOG_TYPE_JOB, EogJobClass))
@@ -104,6 +107,12 @@ typedef struct _EogJobSaveAsClass EogJobSaveAsClass;
 #define EOG_JOB_SAVE_AS(obj)           (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB_SAVE_AS, EogJobSaveAs))
 #define EOG_JOB_SAVE_AS_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST((klass), EOG_TYPE_JOB_SAVE_AS, EogJobSaveAsClass))
 #define EOG_IS_JOB_SAVE_AS(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB_SAVE_AS))
+
+#define EOG_TYPE_JOB_COPY	       (eog_job_copy_get_type())
+#define EOG_JOB_COPY(obj)	       (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB_COPY, EogJobCopy))
+#define EOG_JOB_COPY_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass),  EOG_TYPE_JOB_COPY, EogJobCopyClass))
+#define EOG_IS_JOB_COPY(obj)      (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB_COPY))
+
 
 struct _EogJob
 {
@@ -207,7 +216,20 @@ struct _EogJobSaveAsClass
 	EogJobSaveClass parent;
 };
 
-/* Base job class */
+struct _EogJobCopy
+{
+	EogJob parent;
+	GList *images;
+	guint current_pos;
+	gchar *dest;
+};
+
+struct _EogJobCopyClass
+{
+	EogJobClass parent_class;
+};
+
+/* base job class */
 GType           eog_job_get_type           (void) G_GNUC_CONST;
 void            eog_job_finished           (EogJob          *job);
 void            eog_job_set_progress       (EogJob          *job,
@@ -244,6 +266,12 @@ GType		eog_job_save_as_get_type   (void) G_GNUC_CONST;
 EogJob         *eog_job_save_as_new        (GList           *images,
 					    EogURIConverter *converter,
 					    GFile           *file);
+
+/*EogJobCopy */
+GType          eog_job_copy_get_type      (void) G_GNUC_CONST;
+EogJob        *eog_job_copy_new           (GList            *images,
+					   const gchar      *dest);
+void           eog_job_copy_run           (EogJobCopy       *job);
 
 G_END_DECLS
 

@@ -43,6 +43,7 @@ G_DEFINE_TYPE (EogJobModel, eog_job_model, EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobTransform, eog_job_transform, EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobSave, eog_job_save, EOG_TYPE_JOB);
 G_DEFINE_TYPE (EogJobSaveAs, eog_job_save_as, EOG_TYPE_JOB_SAVE);
+G_DEFINE_TYPE (EogJobCopy, eog_job_copy, EOG_TYPE_JOB);
 
 enum
 {
@@ -718,6 +719,88 @@ eog_job_save_as_real_run (EogJobSave *job)
 		
 		if (!success)
 			break;
+	}
+
+	EOG_JOB (job)->finished = TRUE;
+}
+
+static void eog_job_copy_init (EogJobCopy *job) { /* do nothing */};
+
+static void
+eog_job_copy_dispose (GObject *object)
+{
+	EogJobCopy *job = EOG_JOB_COPY (object);
+
+	if (job->dest) {
+		g_free (job->dest);
+		job->dest = NULL;
+	}
+
+	(* G_OBJECT_CLASS (eog_job_copy_parent_class)->dispose) (object);
+}
+
+static void
+eog_job_copy_class_init (EogJobCopyClass *class)
+{
+	G_OBJECT_CLASS (class)->dispose = eog_job_copy_dispose;
+}
+
+EogJob *
+eog_job_copy_new (GList *images, const gchar *dest)
+{
+	EogJobCopy *job;
+
+	g_assert (images != NULL && dest != NULL);
+
+	job = g_object_new (EOG_TYPE_JOB_COPY, NULL);
+
+	job->images = images;
+	job->dest = g_strdup (dest);
+
+	return EOG_JOB (job);
+}
+
+static void
+eog_job_copy_progress_callback (goffset current_num_bytes,
+				goffset total_num_bytes,
+				gpointer user_data)
+{
+	gfloat job_progress;
+	guint n_images;
+	EogJobCopy *job;
+
+	job = EOG_JOB_COPY (user_data);
+	n_images = g_list_length (job->images);
+
+	job_progress =  ((current_num_bytes / (gfloat) total_num_bytes) + job->current_pos)/n_images;
+
+	eog_job_set_progress (EOG_JOB (job), job_progress);
+}
+
+void
+eog_job_copy_run (EogJobCopy *job)
+{
+	GList *it;
+	guint n_images;
+	GFile *src, *dest;
+	gchar *filename, *dest_filename;
+
+	n_images = g_list_length (job->images);
+
+	job->current_pos = 0;
+
+	for (it = job->images; it != NULL; it = g_list_next (it), job->current_pos++) {
+		src = (GFile *) it->data;
+		filename = g_file_get_basename (src);
+		dest_filename = g_build_filename (job->dest, filename, NULL);
+		dest = g_file_new_for_path (dest_filename);
+
+		g_file_copy (src, dest,
+			     G_FILE_COPY_OVERWRITE, NULL,
+			     eog_job_copy_progress_callback, job,
+			     &EOG_JOB (job)->error);
+		g_free (filename);
+		g_free (dest_filename);
 	}
 
 	EOG_JOB (job)->finished = TRUE;

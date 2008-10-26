@@ -1,5 +1,21 @@
 2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-job-queue.c: (handle_job), (no_jobs_available_unlocked),
+	(search_for_jobs_unlocked), (eog_job_queue_init), (find_queue),
+	(eog_job_queue_remove_job): Add EogJobCopy to the queue operations.
+
+	* src/eog-jobs.c: (+eog_job_copy_init), (+eog_job_copy_dispose),
+	(+eog_job_copy_class_init), (+eog_job_copy_new),
+	(+eog_job_copy_progress_callback), (+eog_job_copy_run): New EogJobCopy
+	job, for file copying operations.
+
+	* src/eog-jobs.h: Add EogJobCopy definitions.
+
+	* doc/reference/eog-sections.txt: Add methods in EogJobCopy.
+	* doc/reference/eog.types: Add eog_job_copy_get_type().
+
+2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-window.c: (eog_window_set_wallpaper),
 	(eog_window_cmd_wallpaper): Factor out the calls to set
 	the wallpaper.

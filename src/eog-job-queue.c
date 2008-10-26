@@ -33,6 +33,7 @@ static GQueue *load_queue = NULL;
 static GQueue *model_queue = NULL;
 static GQueue *transform_queue = NULL;
 static GQueue *save_queue = NULL;
+static GQueue *copy_queue = NULL;
 
 static gboolean
 remove_job_from_queue (GQueue *queue, EogJob *job)
@@ -82,6 +83,8 @@ handle_job (EogJob *job)
 		eog_job_transform_run (EOG_JOB_TRANSFORM (job));
 	else if (EOG_IS_JOB_SAVE (job))
 		eog_job_save_run (EOG_JOB_SAVE (job));
+	else if (EOG_IS_JOB_COPY (job))
+		eog_job_copy_run (EOG_JOB_COPY (job));
 
 	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
 			 (GSourceFunc) notify_finished,
@@ -96,7 +99,8 @@ no_jobs_available_unlocked (void)
 		g_queue_is_empty (transform_queue) &&
 		g_queue_is_empty (thumbnail_queue) &&
 		g_queue_is_empty (model_queue) &&
-		g_queue_is_empty (save_queue);
+		g_queue_is_empty (save_queue) &&
+		g_queue_is_empty (copy_queue);
 }
 
 static EogJob *
@@ -119,8 +123,12 @@ search_for_jobs_unlocked (void)
 	job = (EogJob *) g_queue_pop_head (model_queue);
 	if (job)
 		return job;
-	
+
 	job = (EogJob *) g_queue_pop_head (save_queue);
+	if (job)
+		return job;
+
+	job = (EogJob *) g_queue_pop_head (copy_queue);
 	if (job)
 		return job;
 
@@ -166,6 +174,7 @@ eog_job_queue_init (void)
 	model_queue = g_queue_new ();
 	transform_queue = g_queue_new ();
 	save_queue = g_queue_new ();
+	copy_queue = g_queue_new ();
 
 	g_thread_create (eog_render_thread, NULL, FALSE, NULL);
 }
@@ -183,6 +192,8 @@ find_queue (EogJob *job)
 		return transform_queue;
 	} else if (EOG_IS_JOB_SAVE (job)) {
 		return save_queue;
+	} else if (EOG_IS_JOB_COPY (job)) {
+		return copy_queue;
 	}
 
 	g_assert_not_reached ();
@@ -225,6 +236,8 @@ eog_job_queue_remove_job (EogJob *job)
 		retval = remove_job_from_queue (transform_queue, job);
 	} else if (EOG_IS_JOB_SAVE (job)) {
 		retval = remove_job_from_queue (save_queue, job);
+	} else if (EOG_IS_JOB_COPY (job)) {
+		retval = remove_job_from_queue (copy_queue, job);
 	} else {
 		g_assert_not_reached ();
 	}
