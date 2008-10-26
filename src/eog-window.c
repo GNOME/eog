@@ -208,6 +208,7 @@ static void eog_window_list_store_image_added (GtkTreeModel *tree_model,
 static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
                  				 GtkTreePath  *path,
 						 gpointer      user_data);
+static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename);
 
 static GQuark
 eog_window_error_quark (void)
@@ -2604,6 +2605,25 @@ eog_window_cmd_show_hide_bar (GtkAction *action, gpointer user_data)
 	}
 }
 
+
+static void
+eog_window_set_wallpaper (EogWindow *window, const gchar *filename)
+{
+	EogWindowPrivate *priv = EOG_WINDOW_GET_PRIVATE (window);
+	GdkScreen *screen;
+
+	gconf_client_set_string (priv->client,
+				 EOG_CONF_DESKTOP_WALLPAPER,
+				 filename,
+				 NULL);
+
+	screen = gtk_widget_get_screen (GTK_WIDGET (window));
+	gdk_spawn_command_line_on_screen (screen,
+					  "gnome-appearance-properties"
+					  " --show-page=background",
+					  NULL);
+}
+
 static void
 eog_job_save_cb (EogJobSave *job, gpointer user_data)
 {
@@ -2877,7 +2897,6 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	EogWindowPrivate *priv;
 	EogImage *image;
 	GFile *file;
-	GdkScreen *screen;
 	char *filename = NULL;
 	
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
@@ -2919,16 +2938,8 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 
 	g_object_unref (file);
 
-	gconf_client_set_string (priv->client, 
-				 EOG_CONF_DESKTOP_WALLPAPER, 
-				 filename, 
-				 NULL);
+	eog_window_set_wallpaper (window, filename);
 
-	screen = gtk_widget_get_screen (GTK_WIDGET (window));
-	gdk_spawn_command_line_on_screen (screen,
-					  "gnome-appearance-properties"
-					  " --show-page=background",
-					  NULL);
 	g_free (filename);
 }
 
