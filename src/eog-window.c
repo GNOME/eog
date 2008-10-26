@@ -168,9 +168,11 @@ struct _EogWindowPrivate {
         EogJob              *load_job;
         EogJob              *transform_job;
 	EogJob              *save_job;
+	EogJob              *copy_job;
 
         guint                image_info_message_cid;
         guint                tip_message_cid;
+	guint                copy_file_cid;
 
         EogStartupFlags      flags;
 	GSList              *file_list;
@@ -2648,6 +2650,33 @@ eog_job_save_cb (EogJobSave *job, gpointer user_data)
 }
 
 static void
+eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+	gchar *file, *filename;
+	GtkAction *action;
+
+	filename = g_file_get_basename (job->images->data);
+	file = g_build_filename (job->dest, filename, NULL);
+	eog_window_set_wallpaper (window, file);
+
+	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
+			   window->priv->copy_file_cid);
+	action = gtk_action_group_get_action (window->priv->actions_image,
+					      "SetAsWallpaper");
+	gtk_action_set_sensitive (action, TRUE);
+
+	window->priv->copy_job = NULL;
+
+	g_free (file);
+	g_free (filename);
+
+	g_object_unref (G_OBJECT (job->images->data));
+	g_list_free (job->images);
+	g_object_unref (job);
+}
+
+static void
 eog_window_cmd_save (GtkAction *action, gpointer user_data)
 {
 	EogWindowPrivate *priv;
@@ -2904,6 +2933,10 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	window = EOG_WINDOW (user_data);
 	priv = window->priv;
 
+	/* If currently copying an image to set it as wallpaper, return. */
+	if (priv->copy_job != NULL)
+		return;
+
 	image = eog_thumb_view_get_first_selected_image (EOG_THUMB_VIEW (priv->thumbview));
 
 	g_return_if_fail (EOG_IS_IMAGE (image));
@@ -2914,22 +2947,30 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 
 	/* Currently only local files can be set as wallpaper */
 	if (filename == NULL || !g_file_is_native (file)) {
-		GtkWidget *dialog;
+		GList *files = NULL;
+		GtkAction *action;
 
-		dialog = gtk_message_dialog_new_with_markup (
-							GTK_WINDOW (window),
-							GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-							GTK_MESSAGE_ERROR,
-							GTK_BUTTONS_OK,
-							"<span weight=\"bold\" size=\"larger\">%s</span>",
-							_("Only local images can be used as wallpapers"));
-		gtk_message_dialog_format_secondary_text (
-						GTK_MESSAGE_DIALOG (dialog),
-						"%s",
-						_("To be able to set this image as your wallpaper, "
-						  "please save it locally in your computer"));
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
+		action = gtk_action_group_get_action (window->priv->actions_image,
+						      "SetAsWallpaper");
+		gtk_action_set_sensitive (action, FALSE);
+
+		priv->copy_file_cid = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->statusbar),
+								    "copy_file_cid");
+		gtk_statusbar_push (GTK_STATUSBAR (priv->statusbar),
+				    priv->copy_file_cid,
+				    _("Saving image locally..."));
+
+		files = g_list_append (files, eog_image_get_file (image));
+		priv->copy_job = eog_job_copy_new (files, g_get_user_data_dir ());
+		g_signal_connect (priv->copy_job,
+				  "finished",
+				  G_CALLBACK (eog_job_copy_cb),
+				  window);
+		g_signal_connect (priv->copy_job,
+				  "progress",
+				  G_CALLBACK (eog_job_progress_cb),
+				  window);
+		eog_job_queue_add_job (priv->copy_job);
 
 		g_object_unref (file);
 		g_free (filename);

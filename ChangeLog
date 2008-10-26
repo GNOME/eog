@@ -1,5 +1,16 @@
 2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-window.c: (eog_job_copy_cb), (eog_window_cmd_wallpaper):
+	Set a statusbar message during remote image copying.
+
+2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* src/eog-window.c: (+eog_job_copy_cb), (eog_window_cmd_wallpaper):
+	Use a EogJobCopy to copy a remote image and set it as wallpaper. Fixes
+	bug #553232.
+
+2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-job-queue.c: (handle_job), (no_jobs_available_unlocked),
 	(search_for_jobs_unlocked), (eog_job_queue_init), (find_queue),
 	(eog_job_queue_remove_job): Add EogJobCopy to the queue operations.
