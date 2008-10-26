@@ -279,3 +279,46 @@ eog_util_dot_dir (void)
 
 	return dot_dir;
 }
+
+/* Based on eel_filename_strip_extension() */
+
+/**
+ * eog_util_filename_get_extension:
+ * @filename: a filename
+ *
+ * Returns a reasonably good guess of the file extension of @filename.
+ *
+ * Returns: a newly allocated string with the file extension of @filename.
+ **/
+char *
+eog_util_filename_get_extension (const char * filename)
+{
+	char *begin, *begin2;
+
+	if (filename == NULL) {
+		return NULL;
+	}
+
+	begin = strrchr (filename, '.');
+
+	if (begin && begin != filename) {
+		if (strcmp (begin, ".gz") == 0 ||
+		    strcmp (begin, ".bz2") == 0 ||
+		    strcmp (begin, ".sit") == 0 ||
+		    strcmp (begin, ".Z") == 0) {
+			begin2 = begin - 1;
+			while (begin2 > filename &&
+			       *begin2 != '.') {
+				begin2--;
+			}
+			if (begin2 != filename) {
+				begin = begin2;
+			}
+		}
+		begin ++;
+	} else {
+		return NULL;
+	}
+
+	return g_strdup (begin);
+}
