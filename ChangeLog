@@ -1,5 +1,11 @@
 2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-window.c: (eog_job_copy_cb): Rename the copied file to
+	"eog-wallpaper.orig_ext", to avoid filling the target directory with
+	too many images.
+
+2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-util.c: (+eog_util_filename_get_extension):
 	* src/eog-util.h: Add method to obtain extension from a filename.
 

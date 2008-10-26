@@ -92,6 +92,8 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 #define EOG_RECENT_FILES_APP_NAME "Eye of GNOME Image Viewer"
 #define EOG_RECENT_FILES_LIMIT  5
 
+#define EOG_WALLPAPER_FILENAME "eog-wallpaper"
+
 typedef enum {
 	EOG_WINDOW_STATUS_UNKNOWN,
 	EOG_WINDOW_STATUS_INIT,
@@ -2653,12 +2655,30 @@ static void
 eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 {
 	EogWindow *window = EOG_WINDOW (user_data);
-	gchar *file, *filename;
+	gchar *filepath, *filename, *extension;
 	GtkAction *action;
+	GFile *source_file, *dest_file;
 
+	/* Create source GFile */
 	filename = g_file_get_basename (job->images->data);
-	file = g_build_filename (job->dest, filename, NULL);
-	eog_window_set_wallpaper (window, file);
+	filepath = g_build_filename (job->dest, filename, NULL);
+	source_file = g_file_new_for_path (filepath);
+	g_free (filepath);
+
+	/* Create destination GFile */
+	extension = eog_util_filename_get_extension (filename);
+	g_free (filename);
+	filename = g_strdup_printf  ("%s.%s", EOG_WALLPAPER_FILENAME, extension);
+	filepath = g_build_filename (job->dest, filename, NULL);
+	dest_file = g_file_new_for_path (filepath);
+
+	/* Move the file */
+	g_file_move (source_file, dest_file, G_FILE_COPY_OVERWRITE,
+		     NULL, NULL, NULL, NULL);
+
+	/* Set the wallpaper */
+	eog_window_set_wallpaper (window, filepath);
+	g_free (filepath);
 
 	gtk_statusbar_pop (GTK_STATUSBAR (window->priv->statusbar),
 			   window->priv->copy_file_cid);
@@ -2668,9 +2688,8 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 
 	window->priv->copy_job = NULL;
 
-	g_free (file);
-	g_free (filename);
-
+	g_object_unref (source_file);
+	g_object_unref (dest_file);
 	g_object_unref (G_OBJECT (job->images->data));
 	g_list_free (job->images);
 	g_object_unref (job);
