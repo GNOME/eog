@@ -58,14 +58,9 @@ struct _EogThumbViewPrivate {
 };
 
 /* Drag 'n Drop */
-enum {
-	TARGET_PLAIN,
-	TARGET_PLAIN_UTF8,
-	TARGET_URILIST,
-};
 
 static GtkTargetEntry target_table[] = {
-	{ "text/uri-list", 0, TARGET_URILIST },
+	{ "text/uri-list", 0, 0},
 };
 
 
