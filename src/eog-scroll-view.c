@@ -62,6 +62,11 @@ typedef enum {
 	EOG_SCROLL_VIEW_CURSOR_DRAG
 } EogScrollViewCursor;
 
+/* Drag 'n Drop */
+static GtkTargetEntry target_table[] = {
+	{ "text/uri-list", 0, 0},
+};
+
 /* Private part of the EogScrollView structure */
 struct _EogScrollViewPrivate {
 	/* some widgets we rely on */
@@ -1983,6 +1988,55 @@ eog_scroll_view_class_init (EogScrollViewClass *klass)
 	g_type_class_add_private (klass, sizeof (EogScrollViewPrivate));
 }
 
+static void
+view_on_drag_begin_cb (GtkWidget        *widget,
+		       GdkDragContext   *context,
+		       gpointer          user_data)
+{
+	EogScrollView *view;
+	EogImage *image;
+	GdkPixbuf *thumbnail;
+	gint width, height;
+
+	view = EOG_SCROLL_VIEW (user_data);
+	image = view->priv->image;
+
+	thumbnail = eog_image_get_thumbnail (image);
+
+	if  (thumbnail) {
+		width = gdk_pixbuf_get_width (thumbnail);
+		height = gdk_pixbuf_get_height (thumbnail);
+		gtk_drag_set_icon_pixbuf (context, thumbnail, width/2, height/2);
+		g_object_unref (thumbnail);
+	}
+}
+
+static void
+view_on_drag_data_get_cb (GtkWidget        *widget,
+			  GdkDragContext   *drag_context,
+			  GtkSelectionData *data,
+			  guint             info,
+			  guint             time,
+			  gpointer          user_data)
+{
+	EogScrollView *view;
+	EogImage *image;
+	gchar *uris[2];
+	GFile *file;
+
+	view = EOG_SCROLL_VIEW (user_data);
+
+	image = view->priv->image;
+
+	file = eog_image_get_file (image);
+	uris[0] = g_file_get_uri (file);
+	uris[1] = NULL;
+
+	gtk_selection_data_set_uris (data, uris);
+
+	g_free (uris[0]);
+	g_object_unref (file);
+}
 
 GtkWidget*
 eog_scroll_view_new (void)
@@ -2039,6 +2093,14 @@ eog_scroll_view_new (void)
 
 	g_signal_connect (G_OBJECT (widget), "key_press_event", G_CALLBACK (display_key_press_event), view);
 
+	gtk_drag_source_set (priv->display, GDK_BUTTON1_MASK,
+			     target_table, G_N_ELEMENTS (target_table),
+			     GDK_ACTION_COPY);
+	g_signal_connect (G_OBJECT (priv->display), "drag-data-get",
+			  G_CALLBACK (view_on_drag_data_get_cb), widget);
+	g_signal_connect (G_OBJECT (priv->display), "drag-begin",
+			  G_CALLBACK (view_on_drag_begin_cb), widget);
+
 	gtk_table_attach (table, priv->display,
 			  0, 1, 0, 1,
 			  GTK_EXPAND | GTK_FILL,
@@ -2055,7 +2117,7 @@ eog_scroll_view_new (void)
 			  0, 0);
 
 	gtk_widget_show_all (widget);
-	
+
 	return widget;
 }
 
