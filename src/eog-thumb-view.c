@@ -313,35 +313,26 @@ thumbview_on_drag_data_get_cb (GtkWidget        *widget,
 	GList *node;
 	EogImage *image;
 	GFile *file;
-	gchar *str;
-	gchar *uris = NULL;
-	gchar *tmp_str;
+	gchar **uris = NULL;
+	gint i = 0, n_images;
 
 	list = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (widget));
+	n_images = eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (widget));
 
-	for (node = list; node != NULL; node = node->next) {
+	uris = g_new (gchar *, n_images + 1);
+
+	for (node = list; node != NULL; node = node->next, i++) {
 		image = EOG_IMAGE (node->data);
 		file = eog_image_get_file (image);
-		str = g_file_get_uri (file);	
+		uris[i] = g_file_get_uri (file);
 		g_object_unref (image);
 		g_object_unref (file);
-		
-		/* build the "text/uri-list" string */
-		if (uris) {
-			tmp_str = g_strconcat (uris, str, "\r\n", NULL);
-			g_free (uris);
-		} else {
-			tmp_str = g_strconcat (str, "\r\n", NULL);
-		}
-		uris = tmp_str;
-
-		g_free (str);
 	}
-	gtk_selection_data_set (data, data->target, 8, 
-				(guchar*) uris, strlen (uris));
-	g_free (uris);
+	uris[i] = NULL;
+
+	gtk_selection_data_set_uris (data, uris);
+	g_strfreev (uris);
 	g_list_free (list);
-	
 }
 
 static gboolean 

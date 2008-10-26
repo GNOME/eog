@@ -1,5 +1,10 @@
 2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-thumb-view.c: (thumbview_on_drag_data_get_cb): Use
+	gtk_selection_data_set_uris() to simplify the data preparation.
+
+2008-10-26  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-scroll-view.c: (+view_on_drag_begin_cb),
 	(+view_on_drag_data_get_cb), (eog_scroll_view_new): Make EogScrollView
 	a dnd data source. Fixes bug #476709.
