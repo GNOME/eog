@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Plugin Manager 
+/* Eye Of Gnome - EOG Plugin Manager
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -60,15 +60,15 @@ struct _EogPluginManagerPrivate {
 	const GList	*plugins;
 
 	GtkWidget 	*about;
-	
+
 	GtkWidget	*popup_menu;
 };
 
-static EogPluginInfo *plugin_manager_get_selected_plugin (EogPluginManager *pm); 
-static void plugin_manager_toggle_active (GtkTreeIter *iter, GtkTreeModel *model); 
+static EogPluginInfo *plugin_manager_get_selected_plugin (EogPluginManager *pm);
+static void plugin_manager_toggle_active (GtkTreeIter *iter, GtkTreeModel *model);
 static void eog_plugin_manager_finalize (GObject *object);
 
-static void 
+static void
 eog_plugin_manager_class_init (EogPluginManagerClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -135,7 +135,7 @@ configure_button_cb (GtkWidget        *button,
 
 	g_return_if_fail (info != NULL);
 
-	eog_debug_message (DEBUG_PLUGINS, "Configuring: %s\n", 
+	eog_debug_message (DEBUG_PLUGINS, "Configuring: %s\n",
 			   eog_plugin_engine_get_plugin_name (info));
 
 	toplevel = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET(pm)));
@@ -154,7 +154,7 @@ plugin_manager_view_info_cell_cb (GtkTreeViewColumn *tree_column,
 {
 	EogPluginInfo *info;
 	gchar *text;
-	
+
 	g_return_if_fail (tree_model != NULL);
 	g_return_if_fail (tree_column != NULL);
 
@@ -183,7 +183,7 @@ plugin_manager_view_icon_cell_cb (GtkTreeViewColumn *tree_column,
 				  gpointer           data)
 {
 	EogPluginInfo *info;
-	
+
 	g_return_if_fail (tree_model != NULL);
 	g_return_if_fail (tree_column != NULL);
 
@@ -239,7 +239,7 @@ cursor_changed_cb (GtkTreeView *view,
 				  info != NULL);
 
 	gtk_widget_set_sensitive (GTK_WIDGET (pm->priv->configure_button),
-				  (info != NULL) && 
+				  (info != NULL) &&
 				   eog_plugin_engine_plugin_is_configurable (info));
 }
 
@@ -300,7 +300,7 @@ plugin_manager_populate_lists (EogPluginManager *pm)
 		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (pm->priv->tree));
 
 		g_return_if_fail (selection != NULL);
-		
+
 		gtk_tree_selection_select_iter (selection, &iter);
 
 		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
@@ -318,7 +318,7 @@ plugin_manager_set_active (GtkTreeIter  *iter,
 {
 	EogPluginInfo *info;
 	gboolean res = TRUE;
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	gtk_tree_model_get (model, iter, INFO_COLUMN, &info, -1);
@@ -328,24 +328,24 @@ plugin_manager_set_active (GtkTreeIter  *iter,
 	if (active) {
 		/* Activate the plugin */
 		if (!eog_plugin_engine_activate_plugin (info)) {
-			eog_debug_message (DEBUG_PLUGINS, "Could not activate %s.\n", 
+			eog_debug_message (DEBUG_PLUGINS, "Could not activate %s.\n",
 					   eog_plugin_engine_get_plugin_name (info));
-  
+
 			res = FALSE;
 		}
 	} else {
 		/* Deactivate the plugin */
 		if (!eog_plugin_engine_deactivate_plugin (info)) {
-			eog_debug_message (DEBUG_PLUGINS, "Could not deactivate %s.\n", 
+			eog_debug_message (DEBUG_PLUGINS, "Could not deactivate %s.\n",
 					     eog_plugin_engine_get_plugin_name (info));
 
 			res = FALSE;
 		}
 	}
-  
+
 	/* Set new value */
-	gtk_list_store_set (GTK_LIST_STORE (model), 
-			    iter, 
+	gtk_list_store_set (GTK_LIST_STORE (model),
+			    iter,
 			    ACTIVE_COLUMN, eog_plugin_engine_plugin_is_active (info),
 			    AVAILABLE_COLUMN, eog_plugin_engine_plugin_is_available (info),
 			    -1);
@@ -358,7 +358,7 @@ plugin_manager_toggle_active (GtkTreeIter  *iter,
 			      GtkTreeModel *model)
 {
 	gboolean active;
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	gtk_tree_model_get (model, iter, ACTIVE_COLUMN, &active, -1);
@@ -409,7 +409,7 @@ plugin_manager_set_active_all (EogPluginManager *pm,
 	gtk_tree_model_get_iter_first (model, &iter);
 
 	do {
-		plugin_manager_set_active (&iter, model, active);		
+		plugin_manager_set_active (&iter, model, active);
 	} while (gtk_tree_model_iter_next (model, &iter));
 }
 
@@ -522,7 +522,7 @@ create_tree_popup_menu (EogPluginManager *pm)
 
 	item = gtk_check_menu_item_new_with_mnemonic (_("A_ctivate"));
 	gtk_widget_set_sensitive (item,
-				  eog_plugin_engine_plugin_is_available (info));	
+				  eog_plugin_engine_plugin_is_available (info));
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item),
 					eog_plugin_engine_plugin_is_active (info));
 	g_signal_connect (item, "toggled",
@@ -543,7 +543,7 @@ create_tree_popup_menu (EogPluginManager *pm)
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
 	gtk_widget_show_all (menu);
-	
+
 	return menu;
 }
 
@@ -603,18 +603,18 @@ menu_position_under_tree_view (GtkMenu  *menu,
 		GdkRectangle rect;
 
 		gdk_window_get_origin (GTK_WIDGET (tree)->window, x, y);
-			
+
 		path = gtk_tree_model_get_path (model, &iter);
 
-		gtk_tree_view_get_cell_area (tree, 
+		gtk_tree_view_get_cell_area (tree,
 					     path,
 					     gtk_tree_view_get_column (tree, 0), /* FIXME 0 for RTL ? */
 					     &rect);
 		gtk_tree_path_free (path);
-		
+
 		*x += rect.x;
 		*y += rect.y + rect.height;
-		
+
 		if (gtk_widget_get_direction (GTK_WIDGET (tree)) == GTK_TEXT_DIR_RTL) {
 			GtkRequisition requisition;
 
@@ -640,7 +640,7 @@ show_tree_popup_menu (GtkTreeView        *tree,
 	pm->priv->popup_menu = create_tree_popup_menu (pm);
 
 	if (pm->priv->popup_menu == NULL)
-		return;	
+		return;
 
 	gtk_menu_attach_to_widget (GTK_MENU (pm->priv->popup_menu),
 				   GTK_WIDGET (pm),
@@ -701,14 +701,14 @@ popup_menu_cb (GtkTreeView      *tree,
 	return TRUE;
 }
 
-static gint 
+static gint
 model_name_sort_func (GtkTreeModel *model,
 		      GtkTreeIter  *iter1,
 		      GtkTreeIter  *iter2,
 		      gpointer      user_data)
 {
 	EogPluginInfo *info1, *info2;
-	
+
 	gtk_tree_model_get (model, iter1, INFO_COLUMN, &info1, -1);
 	gtk_tree_model_get (model, iter2, INFO_COLUMN, &info2, -1);
 
@@ -725,9 +725,9 @@ plugin_manager_construct_tree (EogPluginManager *pm)
 
 	eog_debug (DEBUG_PLUGINS);
 
-	model = gtk_list_store_new (N_COLUMNS, 
-				    G_TYPE_BOOLEAN, 
-				    G_TYPE_BOOLEAN, 
+	model = gtk_list_store_new (N_COLUMNS,
+				    G_TYPE_BOOLEAN,
+				    G_TYPE_BOOLEAN,
 				    G_TYPE_POINTER);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (pm->priv->tree),
@@ -764,14 +764,14 @@ plugin_manager_construct_tree (EogPluginManager *pm)
 	gtk_tree_view_column_set_cell_data_func (column, cell,
 						 plugin_manager_view_icon_cell_cb,
 						 pm, NULL);
-	
+
 	cell = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (column, cell, TRUE);
 	g_object_set (cell, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
 	gtk_tree_view_column_set_cell_data_func (column, cell,
 						 plugin_manager_view_info_cell_cb,
 						 pm, NULL);
-	
+
 	gtk_tree_view_column_set_spacing (column, 6);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (pm->priv->tree), column);
 
@@ -815,7 +815,7 @@ plugin_manager_construct_tree (EogPluginManager *pm)
 	gtk_widget_show (pm->priv->tree);
 }
 
-static void 
+static void
 eog_plugin_manager_init (EogPluginManager *pm)
 {
 	GtkWidget *label;
@@ -833,14 +833,14 @@ eog_plugin_manager_init (EogPluginManager *pm)
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 
 	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-	
+
 	gtk_box_pack_start (GTK_BOX (pm), label, FALSE, TRUE, 0);
-	
+
 	viewport = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (viewport),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (viewport), 
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (viewport),
 					     GTK_SHADOW_IN);
 
 	gtk_box_pack_start (GTK_BOX (pm), viewport, TRUE, TRUE, 0);

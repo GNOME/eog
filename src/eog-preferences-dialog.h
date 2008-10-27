@@ -1,4 +1,4 @@
-/* Eye Of Gnome - EOG Preferences Dialog  
+/* Eye Of Gnome - EOG Preferences Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *

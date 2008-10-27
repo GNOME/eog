@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Thumbnail Navigator 
+/* Eye Of Gnome - Thumbnail Navigator
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -61,17 +61,17 @@ struct _EogThumbNavClass {
 GType	         eog_thumb_nav_get_type          (void) G_GNUC_CONST;
 
 GtkWidget       *eog_thumb_nav_new               (GtkWidget         *thumbview,
-						  EogThumbNavMode    mode, 
+						  EogThumbNavMode    mode,
 	             			          gboolean           show_buttons);
 
 gboolean         eog_thumb_nav_get_show_buttons  (EogThumbNav       *nav);
 
-void             eog_thumb_nav_set_show_buttons  (EogThumbNav       *nav, 
+void             eog_thumb_nav_set_show_buttons  (EogThumbNav       *nav,
                                                   gboolean           show_buttons);
 
 EogThumbNavMode  eog_thumb_nav_get_mode          (EogThumbNav       *nav);
 
-void             eog_thumb_nav_set_mode          (EogThumbNav       *nav, 
+void             eog_thumb_nav_set_mode          (EogThumbNav       *nav,
                                                   EogThumbNavMode    mode);
 
 G_END_DECLS

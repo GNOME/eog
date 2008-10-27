@@ -36,7 +36,7 @@ typedef struct _EogPrintPreviewPrivate EogPrintPreviewPrivate;
 
 struct _EogPrintPreview {
 	GtkAspectFrame aspect_frame;
-	
+
 	EogPrintPreviewPrivate *priv;
 };
 

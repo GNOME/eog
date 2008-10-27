@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Plugin 
+/* Eye Of Gnome - EOG Plugin
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -63,7 +63,7 @@ struct _EogPluginClass  {
 	GtkWidget 	*(*create_configure_dialog)
 						(EogPlugin *plugin);
 
-	/* Plugins should not override this, it's handled automatically 
+	/* Plugins should not override this, it's handled automatically
  	 * by the EogPluginClass */
 	gboolean 	(*is_configurable)
 						(EogPlugin *plugin);

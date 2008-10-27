@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Jobs  
+/* Eye Of Gnome - Jobs
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-jobs.c) by: 
+ * Based on evince code (shell/ev-jobs.c) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -57,7 +57,7 @@ static guint job_signals[SIGNAL_LAST_SIGNAL];
 static void eog_job_save_real_run (EogJobSave *job);
 static void eog_job_save_as_real_run (EogJobSave *job);
 
-static void eog_job_init (EogJob *job) 
+static void eog_job_init (EogJob *job)
 {
 	job->mutex = g_mutex_new();
 	job->progress = 0.0;
@@ -156,7 +156,7 @@ eog_job_thumbnail_dispose (GObject *object)
 		g_object_unref (job->image);
 		job->image = NULL;
 	}
-	
+
 	if (job->thumbnail) {
 		g_object_unref (job->thumbnail);
 		job->thumbnail = NULL;
@@ -194,9 +194,9 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 {
 	gchar *orig_width, *orig_height;
 	gint width, height;
-	
+
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
-	
+
 	if (EOG_JOB (job)->error) {
 	        g_error_free (EOG_JOB (job)->error);
 		EOG_JOB (job)->error = NULL;
@@ -230,7 +230,7 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 				   GINT_TO_POINTER (height));
 		g_free (orig_height);
 	}
-	
+
 	if (EOG_JOB (job)->error) {
 		g_warning ("%s", EOG_JOB (job)->error->message);
 	}
@@ -275,7 +275,7 @@ eog_job_load_new (EogImage *image)
 	if (image) {
 		job->image = g_object_ref (image);
 	}
-	
+
 	return EOG_JOB (job);
 }
 
@@ -293,7 +293,7 @@ eog_job_load_run (EogJobLoad *job)
 			EOG_IMAGE_DATA_ALL,
 			EOG_JOB (job),
 			&EOG_JOB (job)->error);
-	
+
 	EOG_JOB (job)->finished = TRUE;
 }
 
@@ -344,7 +344,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 		file = (GFile *) it->data;
 
 		if (file != NULL) {
-			file_info = g_file_query_info (file, 
+			file_info = g_file_query_info (file,
 						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
 						       0, NULL, NULL);
 			if (file_info == NULL) {
@@ -361,7 +361,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 			*file_list = g_list_prepend (*file_list, g_object_ref (file));
 			break;
 		default:
-			*error_list = g_list_prepend (*error_list, 
+			*error_list = g_list_prepend (*error_list,
 						      g_file_get_uri (file));
 			break;
 		}
@@ -384,7 +384,7 @@ eog_job_model_run (EogJobModel *job)
 	filter_files (job->file_list, &filtered_list, &error_list);
 
 	job->store = EOG_LIST_STORE (eog_list_store_new ());
-	
+
 	eog_list_store_add_files (job->store, filtered_list);
 
 	g_list_foreach (filtered_list, (GFunc) g_object_unref, NULL);
@@ -466,19 +466,19 @@ eog_job_transform_run (EogJobTransform *job)
 
 	for (it = job->images; it != NULL; it = it->next) {
 		EogImage *image = EOG_IMAGE (it->data);
-		
+
 		if (job->trans == NULL) {
 			eog_image_undo (image);
 		} else {
 			eog_image_transform (image, job->trans, EOG_JOB (job));
 		}
-		
+
 		if (eog_image_is_modified (image) || job->trans == NULL) {
 			g_object_ref (image);
 			g_idle_add (eog_job_transform_image_modified, image);
 		}
 	}
-	
+
 	EOG_JOB (job)->finished = TRUE;
 }
 
@@ -538,7 +538,7 @@ eog_job_save_real_run (EogJobSave *job)
 	GList *it;
 
 	job->current_pos = 0;
-	
+
 	for (it = job->images; it != NULL; it = it->next, job->current_pos++) {
 		EogImage *image = EOG_IMAGE (it->data);
 		EogImageSaveInfo *save_info = NULL;
@@ -551,21 +551,21 @@ eog_job_save_real_run (EogJobSave *job)
 		eog_image_data_ref (image);
 
 		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			eog_image_load (image, 
+			eog_image_load (image,
 					EOG_IMAGE_DATA_ALL,
-					NULL, 
+					NULL,
 					&EOG_JOB (job)->error);
 		}
 
-		handler_id = g_signal_connect (G_OBJECT (image), 
+		handler_id = g_signal_connect (G_OBJECT (image),
 					       "save-progress",
-				               G_CALLBACK (save_progress_handler), 
+				               G_CALLBACK (save_progress_handler),
 					       job);
 
 		save_info = eog_image_save_info_from_image (image);
 
-		success = eog_image_save_by_info (image, 
-						  save_info, 
+		success = eog_image_save_by_info (image,
+						  save_info,
 						  &EOG_JOB (job)->error);
 
 		if (save_info)
@@ -598,7 +598,7 @@ static void eog_job_save_as_dispose (GObject *object)
 		g_object_unref (job->converter);
 		job->converter = NULL;
 	}
-	
+
 	if (job->file != NULL) {
 		g_object_unref (job->file);
 		job->file = NULL;
@@ -639,7 +639,7 @@ eog_job_save_as_real_run (EogJobSave *job)
 	guint n_images;
 
 	g_assert (EOG_IS_JOB_SAVE_AS (job));
-	
+
 	n_images = g_list_length (job->images);
 
 	saveas_job = EOG_JOB_SAVE_AS (job);
@@ -652,23 +652,23 @@ eog_job_save_as_real_run (EogJobSave *job)
 		EogImage *image = EOG_IMAGE (it->data);
 		gboolean success = FALSE;
 		gulong handler_id = 0;
-		
+
 		job->current_image = image;
 
 		eog_image_data_ref (image);
 
 		if (!eog_image_has_data (image, EOG_IMAGE_DATA_ALL)) {
-			eog_image_load (image, 
+			eog_image_load (image,
 					EOG_IMAGE_DATA_ALL,
-					NULL, 
+					NULL,
 					&EOG_JOB (job)->error);
 		}
 
 		g_assert (EOG_JOB (job)->error == NULL);
 
-		handler_id = g_signal_connect (G_OBJECT (image), 
+		handler_id = g_signal_connect (G_OBJECT (image),
 					       "save-progress",
-				               G_CALLBACK (save_progress_handler), 
+				               G_CALLBACK (save_progress_handler),
 					       job);
 
 		src_info = eog_image_save_info_from_image (image);
@@ -690,9 +690,9 @@ eog_job_save_as_real_run (EogJobSave *job)
 			gboolean result;
 
 			result = eog_uri_converter_do (saveas_job->converter,
-						       image, 
+						       image,
 						       &dest_file,
-						       &format, 
+						       &format,
 						       NULL);
 
 			g_assert (result);
@@ -701,9 +701,9 @@ eog_job_save_as_real_run (EogJobSave *job)
 								   format);
 		}
 
-		success = eog_image_save_as_by_info (image, 
-						     src_info, 
-						     dest_info, 
+		success = eog_image_save_as_by_info (image,
+						     src_info,
+						     dest_info,
 						     &EOG_JOB (job)->error);
 
 		if (src_info)
@@ -716,7 +716,7 @@ eog_job_save_as_real_run (EogJobSave *job)
 			g_signal_handler_disconnect (G_OBJECT (image), handler_id);
 
 		eog_image_data_unref (image);
-		
+
 		if (!success)
 			break;
 	}

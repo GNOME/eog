@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image 
+/* Eye Of Gnome - Image
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
@@ -102,13 +102,13 @@ struct _EogImageClass {
 
 	void (* changed) 	   (EogImage *img);
 
-	void (* size_prepared)     (EogImage *img, 
-				    int       width, 
+	void (* size_prepared)     (EogImage *img,
+				    int       width,
 				    int       height);
 
 	void (* thumbnail_changed) (EogImage *img);
 
-	void (* save_progress)     (EogImage *img, 
+	void (* save_progress)     (EogImage *img,
 				    gfloat    progress);
 };
 
@@ -120,38 +120,38 @@ EogImage         *eog_image_new                      (const char *txt_uri);
 
 EogImage         *eog_image_new_file                 (GFile *file);
 
-gboolean          eog_image_load                     (EogImage   *img, 
+gboolean          eog_image_load                     (EogImage   *img,
 					              EogImageData data2read,
-					              EogJob     *job, 
+					              EogJob     *job,
 					              GError    **error);
 
 void              eog_image_cancel_load              (EogImage   *img);
 
-gboolean          eog_image_has_data                 (EogImage   *img, 
+gboolean          eog_image_has_data                 (EogImage   *img,
 					              EogImageData data);
 
 void              eog_image_data_ref                 (EogImage   *img);
 
 void              eog_image_data_unref               (EogImage   *img);
 
-void              eog_image_set_thumbnail            (EogImage   *img, 
+void              eog_image_set_thumbnail            (EogImage   *img,
 					              GdkPixbuf  *pixbuf);
 
-gboolean          eog_image_save_as_by_info          (EogImage   *img, 
-		      			              EogImageSaveInfo *source, 
-		      			              EogImageSaveInfo *target, 
+gboolean          eog_image_save_as_by_info          (EogImage   *img,
+		      			              EogImageSaveInfo *source,
+		      			              EogImageSaveInfo *target,
 		      			              GError    **error);
 
-gboolean          eog_image_save_by_info             (EogImage   *img, 
-					              EogImageSaveInfo *source, 
+gboolean          eog_image_save_by_info             (EogImage   *img,
+					              EogImageSaveInfo *source,
 					              GError    **error);
 
 GdkPixbuf*        eog_image_get_pixbuf               (EogImage   *img);
 
 GdkPixbuf*        eog_image_get_thumbnail            (EogImage   *img);
 
-void              eog_image_get_size                 (EogImage   *img, 
-					              gint       *width, 
+void              eog_image_get_size                 (EogImage   *img,
+					              gint       *width,
 					              gint       *height);
 
 goffset           eog_image_get_bytes                (EogImage   *img);
@@ -174,7 +174,7 @@ gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 
 EogImageStatus    eog_image_get_status               (EogImage   *img);
 
-void              eog_image_transform                (EogImage   *img, 
+void              eog_image_transform                (EogImage   *img,
 						      EogTransform *trans,
 						      EogJob     *job);
 

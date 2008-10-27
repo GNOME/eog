@@ -5,7 +5,7 @@
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-sidebar.h) by: 
+ * Based on evince code (shell/ev-sidebar.h) by:
  * 	- Jonathan Blandford <jrb@alum.mit.edu>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -50,10 +50,10 @@ struct _EogSidebar {
 struct _EogSidebarClass {
 	GtkVBoxClass base_class;
 
-	void (* page_added)   (EogSidebar *eog_sidebar, 
+	void (* page_added)   (EogSidebar *eog_sidebar,
 			       GtkWidget  *main_widget);
 
-	void (* page_removed) (EogSidebar *eog_sidebar, 
+	void (* page_removed) (EogSidebar *eog_sidebar,
 			       GtkWidget  *main_widget);
 };
 

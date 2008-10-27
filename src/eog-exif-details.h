@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __EOG_EXIF_DETAILS__ 
+#ifndef __EOG_EXIF_DETAILS__
 #define __EOG_EXIF_DETAILS__
 
 #include <glib-object.h>
@@ -59,7 +59,7 @@ GType               eog_exif_details_get_type    (void) G_GNUC_CONST;
 GtkWidget          *eog_exif_details_new         (void);
 
 #if HAVE_EXIF
-void                eog_exif_details_update      (EogExifDetails *view, 
+void                eog_exif_details_update      (EogExifDetails *view,
 						  ExifData       *data);
 #endif
 #if HAVE_EXEMPI

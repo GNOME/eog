@@ -31,7 +31,7 @@ typedef enum {
 
 /* =========================================
 
-    GObjecat wrapper around an affine transformation 
+    GObjecat wrapper around an affine transformation
 
    ----------------------------------------*/
 

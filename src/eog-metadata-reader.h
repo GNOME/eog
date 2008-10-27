@@ -25,7 +25,7 @@
 #include <glib-object.h>
 #if HAVE_EXIF
 #include <libexif/exif-data.h>
-#endif 
+#endif
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
 #endif

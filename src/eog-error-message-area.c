@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Erro Message Area 
+/* Eye Of Gnome - Erro Message Area
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-message-area.h) by: 
+ * Based on gedit code (gedit/gedit-message-area.h) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -109,7 +109,7 @@ create_error_message_area (const gchar *primary_text,
 		message_area = eog_message_area_new_with_buttons (
 						_("_Retry"), GTK_RESPONSE_OK,
 						NULL);
-	else 
+	else
 		message_area = eog_message_area_new ();
 
 	set_message_area_text_and_icon (EOG_MESSAGE_AREA (message_area),
@@ -140,7 +140,7 @@ eog_image_load_error_message_area_new (const gchar  *caption,
 	error_message = g_strdup_printf (_("Could not load image '%s'."),
 					 pango_escaped_caption);
 
-	message_details = g_strdup (error->message); 
+	message_details = g_strdup (error->message);
 
 	message_area = create_error_message_area (error_message,
 						  message_details,
@@ -181,8 +181,8 @@ eog_no_images_error_message_area_new (GFile *file)
 		error_message = g_strdup (_("The given locations contain no images."));
 	}
 
-	message_area = create_error_message_area (error_message, 
-						  NULL, 
+	message_area = create_error_message_area (error_message,
+						  NULL,
 						  FALSE);
 
 	g_free (error_message);

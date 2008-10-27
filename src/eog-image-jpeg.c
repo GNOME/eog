@@ -1,11 +1,11 @@
-/* This code is based on the jpeg saving code from gdk-pixbuf. Full copyright 
+/* This code is based on the jpeg saving code from gdk-pixbuf. Full copyright
  * notice is given in the following:
  */
 /* GdkPixbuf library - JPEG image loader
  *
  * Copyright (C) 1999 Michael Zucchi
  * Copyright (C) 1999 The Free Software Foundation
- * 
+ *
  * Progressive loading code Copyright (C) 1999 Red Hat, Inc.
  *
  * Authors: Michael Zucchi <zucchi@zedzone.mmc.com.au>
@@ -79,9 +79,9 @@ fatal_error_handler (j_common_ptr cinfo)
 {
 	struct error_handler_data *errmgr;
         char buffer[JMSG_LENGTH_MAX];
-        
+
 	errmgr = (struct error_handler_data *) cinfo->err;
-        
+
         /* Create the message */
         (* cinfo->err->format_message) (cinfo, buffer);
 
@@ -123,7 +123,7 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 	priv = image->priv;
 
 	if (priv->trans != NULL && priv->trans_autorotate != NULL) {
-		composition = eog_transform_compose (priv->trans, 
+		composition = eog_transform_compose (priv->trans,
 						     priv->trans_autorotate);
 	} else if (priv->trans != NULL) {
 		composition = g_object_ref (priv->trans);
@@ -136,13 +136,13 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 
 		switch (transformation) {
 		case EOG_TRANSFORM_ROT_90:
-			trans_code = JXFORM_ROT_90; 
+			trans_code = JXFORM_ROT_90;
 			break;
 		case EOG_TRANSFORM_ROT_270:
-			trans_code = JXFORM_ROT_270; 
+			trans_code = JXFORM_ROT_270;
 			break;
 		case EOG_TRANSFORM_ROT_180:
-			trans_code = JXFORM_ROT_180; 
+			trans_code = JXFORM_ROT_180;
 			break;
 		case EOG_TRANSFORM_FLIP_HORIZONTAL:
 			trans_code = JXFORM_FLIP_H;
@@ -164,13 +164,13 @@ init_transform_info (EogImage *image, jpeg_transform_info *info)
 }
 
 static gboolean
-_save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source, 
+_save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		    EogImageSaveInfo *target, GError **error)
 {
 	struct jpeg_decompress_struct  srcinfo;
 	struct jpeg_compress_struct    dstinfo;
 	struct error_handler_data      jsrcerr, jdsterr;
-	jpeg_transform_info            transformoption; 
+	jpeg_transform_info            transformoption;
 	jvirt_barray_ptr              *src_coef_arrays;
 	jvirt_barray_ptr              *dst_coef_arrays;
 	FILE                          *output_file;
@@ -184,8 +184,8 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	priv = image->priv;
 
 	init_transform_info (image, &transformoption);
-	
-	/* Initialize the JPEG decompression object with default error 
+
+	/* Initialize the JPEG decompression object with default error
 	 * handling. */
 	jsrcerr.filename = g_file_get_path (priv->file);
 	srcinfo.err = jpeg_std_error (&(jsrcerr.pub));
@@ -195,7 +195,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	jpeg_create_decompress (&srcinfo);
 
-	/* Initialize the JPEG compression object with default error 
+	/* Initialize the JPEG compression object with default error
 	 * handling. */
 	jdsterr.filename = (char *) file;
 	dstinfo.err = jpeg_std_error (&(jdsterr.pub));
@@ -204,7 +204,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jdsterr.error = error;
 
 	jpeg_create_compress (&dstinfo);
-	
+
 	dstinfo.err->trace_level = 0;
 	dstinfo.arith_code = FALSE;
 	dstinfo.optimize_coding = FALSE;
@@ -273,7 +273,7 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	/* Adjust destination parameters if required by transform options;
 	 * also find out which set of coefficient arrays will hold the output.
 	 */
-	dst_coef_arrays = jtransform_adjust_parameters (&srcinfo, 
+	dst_coef_arrays = jtransform_adjust_parameters (&srcinfo,
 							&dstinfo,
 							src_coef_arrays,
 							&transformoption);
@@ -304,12 +304,12 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 #endif
 	/* FIXME: Consider IPTC data too */
 
-	/* Copy to the output file any extra markers that we want to 
+	/* Copy to the output file any extra markers that we want to
 	 * preserve */
 	jcopy_markers_execute (&srcinfo, &dstinfo, JCOPYOPT_DEFAULT);
 
 	/* Execute image transformation, if any */
-	jtransform_execute_transformation (&srcinfo, 
+	jtransform_execute_transformation (&srcinfo,
 					   &dstinfo,
 					   src_coef_arrays,
 					   &transformoption);
@@ -325,11 +325,11 @@ _save_jpeg_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	fclose (input_file);
 	fclose (output_file);
 
-	return TRUE;	
+	return TRUE;
 }
 
 static gboolean
-_save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source, 
+_save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		   EogImageSaveInfo *target, GError **error)
 {
 	EogImagePrivate *priv;
@@ -346,13 +346,13 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	int rowstride = 0;
 	FILE *outfile;
 	struct error_handler_data jerr;
-	
+
 	g_return_val_if_fail (EOG_IS_IMAGE (image), FALSE);
 	g_return_val_if_fail (EOG_IMAGE (image)->priv->image != NULL, FALSE);
-	
+
 	priv = image->priv;
 	pixbuf = priv->image;
-	
+
 	outfile = fopen (file, "wb");
 	if (outfile == NULL) {
 		g_set_error (error,             /* FIXME: Better error message */
@@ -366,11 +366,11 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	rowstride = gdk_pixbuf_get_rowstride (pixbuf);
 	w = gdk_pixbuf_get_width (pixbuf);
 	h = gdk_pixbuf_get_height (pixbuf);
-	
+
 	/* no image data? abort */
 	pixels = gdk_pixbuf_get_pixels (pixbuf);
 	g_return_val_if_fail (pixels != NULL, FALSE);
-	
+
 	/* allocate a small buffer to convert image data */
 	buf = g_try_malloc (w * 3 * sizeof (guchar));
 	if (!buf) {
@@ -380,8 +380,8 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 			     _("Couldn't allocate memory for loading JPEG file"));
 		return FALSE;
 	}
-	
-	/* set up error handling */	
+
+	/* set up error handling */
 	jerr.filename = (char *) file;
 	cinfo.err = jpeg_std_error (&(jerr.pub));
 	jerr.pub.error_exit = fatal_error_handler;
@@ -393,7 +393,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	jpeg_stdio_dest (&cinfo, outfile);
 	cinfo.image_width      = w;
 	cinfo.image_height     = h;
-	cinfo.input_components = 3; 
+	cinfo.input_components = 3;
 	cinfo.in_color_space   = JCS_RGB;
 
 	/* error exit routine */
@@ -407,12 +407,12 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	if (target != NULL && target->jpeg_quality >= 0.0) {
 		quality = (int) MIN (target->jpeg_quality, 1.0) * 100;
 	}
-	
+
 	/* set up jepg compression parameters */
 	jpeg_set_defaults (&cinfo);
 	jpeg_set_quality (&cinfo, quality, TRUE);
 	jpeg_start_compress (&cinfo, TRUE);
-	
+
 	/* write EXIF/IPTC data explicitly */
 #if HAVE_EXIF
 	/* exif_chunk and exif are mutally exclusvie, this is what we assure here */
@@ -421,7 +421,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	{
 		unsigned char *exif_buf;
 		unsigned int   exif_buf_len;
-		
+
 		exif_data_save_data (priv->exif, &exif_buf, &exif_buf_len);
 		jpeg_write_marker (&cinfo, 0xe1, exif_buf, exif_buf_len);
 		g_free (exif_buf);
@@ -441,15 +441,15 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 		/* convert scanline from ARGB to RGB packed */
 		for (j = 0; j < w; j++)
 			memcpy (&(buf[j*3]), &(ptr[i*rowstride + j*(rowstride/w)]), 3);
-		
+
 		/* write scanline */
 		jbuf = (JSAMPROW *)(&buf);
 		jpeg_write_scanlines (&cinfo, jbuf, 1);
 		i++;
 		y++;
-		
+
 	}
-	
+
 	/* finish off */
 	jpeg_finish_compress (&cinfo);
 	jpeg_destroy_compress(&cinfo);
@@ -460,8 +460,8 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 	return TRUE;
 }
 
-gboolean 
-eog_image_jpeg_save_file (EogImage *image, const char *file, 
+gboolean
+eog_image_jpeg_save_file (EogImage *image, const char *file,
 			  EogImageSaveInfo *source, EogImageSaveInfo *target,
 			  GError **error)
 {

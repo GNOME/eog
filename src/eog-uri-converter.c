@@ -34,7 +34,7 @@ struct _EogURIConverterPrivate {
 	GdkPixbufFormat *img_format;
 	char            *counter_str;
 	gboolean        requires_exif;
-	
+
 	/* options */
 	gboolean convert_spaces;
 	gchar    space_character;
@@ -116,7 +116,7 @@ eog_uri_converter_init (EogURIConverter *obj)
 	priv->requires_exif     = FALSE;
 }
 
-static void 
+static void
 eog_uri_converter_class_init (EogURIConverterClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
@@ -139,7 +139,7 @@ eog_uri_converter_class_init (EogURIConverterClass *klass)
                 PROP_SPACE_CHARACTER,
                 g_param_spec_char ("space-character", NULL, NULL,
 				   ' ', '~', '_', G_PARAM_READWRITE));
-	
+
        g_object_class_install_property (
                 object_class,
                 PROP_COUNTER_START,
@@ -177,17 +177,17 @@ eog_uc_error_quark (void)
 	static GQuark q = 0;
 	if (q == 0)
 		q = g_quark_from_static_string ("eog-uri-converter-error-quark");
-	
+
 	return q;
 }
 
-static void 
+static void
 update_counter_format_str (EogURIConverter *conv)
 {
 	EogURIConverterPrivate *priv;
 
 	g_return_if_fail (EOG_IS_URI_CONVERTER (conv));
-	
+
 	priv = conv->priv;
 
 	g_free (priv->counter_str);
@@ -220,14 +220,14 @@ eog_uri_converter_set_property (GObject      *object,
 		priv->space_character = g_value_get_char (value);
 		break;
 
-	case PROP_COUNTER_START: 
+	case PROP_COUNTER_START:
 	{
 		guint new_n_digits;
 
 		priv->counter_start = g_value_get_ulong (value);
-		
+
 		new_n_digits = ceil (log10 (priv->counter_start + pow (10, priv->counter_n_digits) - 1));
-		
+
 		if (new_n_digits != priv->counter_n_digits) {
 			priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG), new_n_digits));
 			update_counter_format_str (conv);
@@ -241,7 +241,7 @@ eog_uri_converter_set_property (GObject      *object,
 		break;
 
 	case PROP_N_IMAGES:
-		priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG), 
+		priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG),
 						    log10 (priv->counter_start + g_value_get_uint (value))));
 		update_counter_format_str (conv);
 		break;
@@ -295,7 +295,7 @@ enum {
 };
 
 static EogUCToken*
-create_token_string (const char *string, int substr_start, int substr_len) 
+create_token_string (const char *string, int substr_start, int substr_len)
 {
 	char *start_byte;
 	char *end_byte;
@@ -315,7 +315,7 @@ create_token_string (const char *string, int substr_start, int substr_len)
 	token->type = EOG_UC_STRING;
 	token->data.string = g_new0 (char, n_bytes);
 	token->data.string = g_utf8_strncpy (token->data.string, start_byte, substr_len);
-	
+
 	return token;
 }
 
@@ -354,12 +354,12 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 	int substr_len = 0;
 	gunichar c;
 	const char *s;
-	EogUCToken *token; 
+	EogUCToken *token;
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (conv), NULL);
 
 	priv = conv->priv;
-	
+
 	if (string == NULL) return NULL;
 
 	if (!g_utf8_validate (string, -1, NULL))
@@ -371,7 +371,7 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 	for (i = 0; i < len; i++) {
 		c = g_utf8_get_char (s);
 		token = NULL;
-		
+
 		switch (state) {
 		case PARSER_NONE:
 			if (c == '%') {
@@ -399,7 +399,7 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 
 		case PARSER_TOKEN: {
 			EogUCType type = EOG_UC_END;
-			
+
 			if (c == 'f') {
 				type = EOG_UC_FILENAME;
 			}
@@ -434,9 +434,9 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 			else if (c == 's') {
 				type = EOG_UC_SECOND;
 			}
-			
+
 			if (type != EOG_UC_END && token == NULL) {
-				token = create_token_other (type); 
+				token = create_token_other (type);
 				priv->requires_exif = TRUE;
 			}
 			state = PARSER_NONE;
@@ -450,7 +450,7 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 		if (token != NULL) {
 			list = g_list_append (list, token);
 		}
-		
+
 		s = g_utf8_next_char (s);
 	}
 
@@ -462,7 +462,7 @@ eog_uri_converter_parse_string (EogURIConverter *conv, const char *string)
 	return list;
 }
 
-void 
+void
 eog_uri_converter_print_list (EogURIConverter *conv)
 {
 	EogURIConverterPrivate *priv;
@@ -477,7 +477,7 @@ eog_uri_converter_print_list (EogURIConverter *conv)
 		char *str;
 
 		token = (EogUCToken*) it->data;
-		
+
 		switch (token->type) {
 		case EOG_UC_STRING:
 			str = g_strdup_printf ("string [%s]", token->data.string);
@@ -519,7 +519,7 @@ eog_uri_converter_print_list (EogURIConverter *conv)
 			str = "unknown";
 			break;
 		}
-		
+
 		g_print ("- %s\n", str);
 
 		if (token->type == EOG_UC_STRING || token->type == EOG_UC_COUNTER) {
@@ -537,7 +537,7 @@ eog_uri_converter_new (GFile *base_file, GdkPixbufFormat *img_format, const char
 	g_return_val_if_fail (format_str != NULL, NULL);
 
 	conv = g_object_new (EOG_TYPE_URI_CONVERTER, NULL);
-	
+
 	if (base_file != NULL) {
 		conv->priv->base_file  = g_object_ref (base_file);
 	}
@@ -558,7 +558,7 @@ get_file_directory (EogURIConverter *conv, EogImage *image)
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (conv), NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (image), NULL);
-	
+
 	priv = conv->priv;
 
 	if (priv->base_file != NULL) {
@@ -569,9 +569,9 @@ get_file_directory (EogURIConverter *conv, EogImage *image)
 
 		img_file = eog_image_get_file (image);
 		g_assert (img_file != NULL);
-		
+
 		file = g_file_get_parent (img_file);
-		
+
 		g_object_unref (img_file);
 	}
 
@@ -584,16 +584,16 @@ split_filename (GFile *file, char **name, char **suffix)
 	char *basename;
 	char *suffix_start;
 	guint len;
-		
+
 	*name = NULL;
 	*suffix = NULL;
 
         /* get unescaped string */
-	basename = g_file_get_basename (file); 
+	basename = g_file_get_basename (file);
 
 	/* FIXME: does this work for all locales? */
-	suffix_start = g_utf8_strrchr (basename, -1, '.'); 
-	
+	suffix_start = g_utf8_strrchr (basename, -1, '.');
+
 	if (suffix_start == NULL) { /* no suffix found */
 		*name = g_strdup (basename);
 	}
@@ -611,13 +611,13 @@ split_filename (GFile *file, char **name, char **suffix)
 static GString*
 append_filename (GString *str, EogImage *img)
 {
-	/* appends the name of the original file without 
+	/* appends the name of the original file without
 	   filetype suffix */
 	GFile *img_file;
 	char *name;
 	char *suffix;
 	GString *result;
-	
+
 	img_file = eog_image_get_file (img);
 	split_filename (img_file, &name, &suffix);
 
@@ -625,7 +625,7 @@ append_filename (GString *str, EogImage *img)
 
 	g_free (name);
 	g_free (suffix);
-	
+
 	g_object_unref (img_file);
 
 	return result;
@@ -651,10 +651,10 @@ append_counter (GString *str, gulong counter,  EogURIConverter *conv)
 static void
 build_absolute_file (EogURIConverter *conv, EogImage *image, GString *str,  /* input  */
 		     GFile **file, GdkPixbufFormat **format)                /* output */
-{ 
+{
 	GFile *dir_file;
 	EogURIConverterPrivate *priv;
-	
+
 	*file = NULL;
 	if (format != NULL)
 		*format = NULL;
@@ -668,7 +668,7 @@ build_absolute_file (EogURIConverter *conv, EogImage *image, GString *str,  /* i
 
 	dir_file = get_file_directory (conv, image);
 	g_assert (dir_file != NULL);
-	
+
 	if (priv->img_format == NULL) {
 		/* use same file type/suffix */
 		char *name;
@@ -683,23 +683,23 @@ build_absolute_file (EogURIConverter *conv, EogImage *image, GString *str,  /* i
 		g_string_append_unichar (str, '.');
 		g_string_append (str, old_suffix);
 
-		if (format != NULL) 
+		if (format != NULL)
 			*format = eog_pixbuf_get_format_by_suffix (old_suffix);
 
 		g_object_unref (img_file);
 	} else {
-		if (priv->suffix == NULL) 
+		if (priv->suffix == NULL)
 			priv->suffix = eog_pixbuf_get_common_suffix (priv->img_format);
 
 		g_string_append_unichar (str, '.');
 		g_string_append (str, priv->suffix);
 
-		if (format != NULL) 
+		if (format != NULL)
 			*format = priv->img_format;
 	}
-	
+
 	*file = g_file_get_child (dir_file, str->str);
-	
+
 	g_object_unref (dir_file);
 }
 
@@ -763,7 +763,7 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 	priv = conv->priv;
 
 	*file = NULL;
-	if (format != NULL) 
+	if (format != NULL)
 		*format = NULL;
 
 	str = g_string_new ("");
@@ -781,9 +781,9 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 			break;
 
 		case EOG_UC_COUNTER: {
-			if (token->data.counter < priv->counter_start) 
+			if (token->data.counter < priv->counter_start)
 				token->data.counter = priv->counter_start;
-			
+
 			str = append_counter (str, token->data.counter++, conv);
 			break;
 		}
@@ -819,7 +819,7 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 #endif
 		default:
 		/* skip all others */
-		
+
 			break;
 		}
 	}
@@ -832,14 +832,14 @@ eog_uri_converter_do (EogURIConverter *conv, EogImage *image,
 
 	g_string_free (repl_str, TRUE);
 	g_string_free (str, TRUE);
-	
+
 
 	return (*file != NULL);
 }
 
 
 char*
-eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufFormat *format, 
+eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufFormat *format,
 			   gulong counter, guint n_images,
 			   gboolean convert_spaces, gunichar space_char)
 {
@@ -851,7 +851,7 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 	const char *s;
 	gunichar c;
 	char *filename;
-	gboolean token_next; 
+	gboolean token_next;
 
 	g_return_val_if_fail (format_str != NULL, NULL);
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
@@ -861,7 +861,7 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 	n_digits = ceil (MIN (log10 (G_MAXULONG), MAX (log10 (counter), log10 (n_images))));
 
 	str = g_string_new ("");
-	
+
 	if (!g_utf8_validate (format_str, -1, NULL))
 	    return NULL;
 
@@ -933,12 +933,12 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 			char *name;
 			char *old_suffix;
 			GFile *img_file;
-			
+
 			img_file = eog_image_get_file (img);
 			split_filename (img_file, &name, &old_suffix);
 
 			g_assert (old_suffix != NULL);
-			
+
 			g_string_append_unichar (repl_str, '.');
 			g_string_append (repl_str, old_suffix);
 
@@ -948,7 +948,7 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 		}
 		else {
 			char *suffix = eog_pixbuf_get_common_suffix (format);
-			
+
 			g_string_append_unichar (repl_str, '.');
 			g_string_append (repl_str, suffix);
 
@@ -977,7 +977,7 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 {
 	GList *it;
 	GList *file_list = NULL;
-	gboolean all_different = TRUE; 
+	gboolean all_different = TRUE;
 
 	g_return_val_if_fail (EOG_IS_URI_CONVERTER (converter), FALSE);
 
@@ -987,7 +987,7 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 		GFile *file;
 		GError *conv_error = NULL;
 
-		result = eog_uri_converter_do (converter, EOG_IMAGE (it->data), 
+		result = eog_uri_converter_do (converter, EOG_IMAGE (it->data),
 					       &file, NULL, &conv_error);
 
 		if (result) {
@@ -997,11 +997,11 @@ eog_uri_converter_check (EogURIConverter *converter, GList *img_list, GError **e
 
 	/* check for all different uris */
 	for (it = file_list; it != NULL && all_different; it = it->next) {
-		GList *p; 
+		GList *p;
 		GFile *file;
 
 		file = (GFile*) it->data;
-		
+
 		for (p = it->next; p != NULL && all_different; p = p->next) {
 			all_different = !g_file_equal (file, (GFile*) p->data);
 		}

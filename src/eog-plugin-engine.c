@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Plugin Manager 
+/* Eye Of Gnome - EOG Plugin Manager
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -58,7 +58,7 @@ typedef enum {
 struct _EogPluginInfo
 {
 	gchar             *file;
-	
+
 	gchar             *location;
 	EogPluginLoader    loader;
 	GTypeModule       *module;
@@ -69,11 +69,11 @@ struct _EogPluginInfo
 	gchar            **authors;
 	gchar             *copyright;
 	gchar             *website;
-	 
+
 	EogPlugin         *plugin;
-	
+
 	gint               active : 1;
-	
+
 	/* A plugin is unavailable if it is not possible to activate it
 	   due to an error loading the plugin module (e.g. for Python plugins
 	   when the interpreter has not been correctly initializated) */
@@ -81,8 +81,8 @@ struct _EogPluginInfo
 };
 
 static void	eog_plugin_engine_active_plugins_changed (GConfClient *client,
-							  guint cnxn_id, 
-							  GConfEntry *entry, 
+							  guint cnxn_id,
+							  GConfEntry *entry,
 							  gpointer user_data);
 
 static GList *eog_plugins_list = NULL;
@@ -143,7 +143,7 @@ eog_plugin_engine_load (const gchar *file)
 
 		goto error;
 	}
-	
+
 	/* Check IAge=2 */
 	if (g_key_file_get_integer (plugin_file,
 				    "Eog Plugin",
@@ -154,7 +154,7 @@ eog_plugin_engine_load (const gchar *file)
 
 		goto error;
 	}
-				    
+
 	/* Get Location */
 	str = g_key_file_get_string (plugin_file,
 				     "Eog Plugin",
@@ -168,7 +168,7 @@ eog_plugin_engine_load (const gchar *file)
 
 		goto error;
 	}
-	
+
 	/* Get the loader for this plugin */
 	str = g_key_file_get_string (plugin_file,
 				     "Eog Plugin",
@@ -261,11 +261,11 @@ eog_plugin_engine_load (const gchar *file)
 	}
 
 	g_key_file_free (plugin_file);
-	
+
 	/* If we know nothing about the availability of the plugin,
 	   set it as available */
 	info->available = TRUE;
-	
+
 	return info;
 
 error:
@@ -295,9 +295,9 @@ eog_plugin_engine_load_dir (const gchar *dir)
 	if (!g_file_test (dir, G_FILE_TEST_IS_DIR)) {
 		return;
 	}
-	
+
 	g_return_if_fail (eog_plugin_engine_gconf_client != NULL);
-	
+
 	eog_debug_message (DEBUG_PLUGINS, "DIR: %s", dir);
 
 	d = g_dir_open (dir, 0, &error);
@@ -313,7 +313,7 @@ eog_plugin_engine_load_dir (const gchar *dir)
 		if (g_str_has_suffix (dirent, PLUGIN_EXT)) {
 			gchar *plugin_file;
 			EogPluginInfo *info;
-			
+
 			plugin_file = g_build_filename (dir, dirent, NULL);
 			info = eog_plugin_engine_load (plugin_file);
 			g_free (plugin_file);
@@ -373,9 +373,9 @@ gboolean
 eog_plugin_engine_init (void)
 {
 	eog_debug (DEBUG_PLUGINS);
-	
+
 	g_return_val_if_fail (eog_plugins_list == NULL, FALSE);
-	
+
 	if (!g_module_supported ()) {
 		g_warning ("eog is not able to initialize the plugins engine.");
 
@@ -472,10 +472,10 @@ load_plugin_module (EogPluginInfo *info)
 	g_return_val_if_fail (info->location != NULL, FALSE);
 	g_return_val_if_fail (info->plugin == NULL, FALSE);
 	g_return_val_if_fail (info->available, FALSE);
-	
+
 	switch (info->loader) {
 	case EOG_PLUGIN_LOADER_C:
-		dirname = g_path_get_dirname (info->file);	
+		dirname = g_path_get_dirname (info->file);
 		g_return_val_if_fail (dirname != NULL, FALSE);
 
 		path = g_module_build_path (dirname, info->location);
@@ -483,22 +483,22 @@ load_plugin_module (EogPluginInfo *info)
 		g_free (dirname);
 
 		g_return_val_if_fail (path != NULL, FALSE);
-	
+
 		info->module = G_TYPE_MODULE (eog_module_new (path));
 
 		g_free (path);
-		
+
 		break;
 
 #ifdef ENABLE_PYTHON
 	case EOG_PLUGIN_LOADER_PY:
 	{
 		gchar *dir;
-		
+
 		if (!eog_python_init ()) {
 			/* Mark plugin as unavailable and fails */
 			info->available = FALSE;
-			
+
 			g_warning ("Cannot load Python plugin '%s' since eog "
 			           "was not able to initialize the Python interpreter.",
 			           info->name);
@@ -507,7 +507,7 @@ load_plugin_module (EogPluginInfo *info)
 		}
 
 		dir = g_path_get_dirname (info->file);
-		
+
 		g_return_val_if_fail ((info->location != NULL) &&
 		                      (info->location[0] != '\0'),
 		                      FALSE);
@@ -528,20 +528,20 @@ load_plugin_module (EogPluginInfo *info)
 		switch (info->loader) {
 		case EOG_PLUGIN_LOADER_C:
 			g_warning ("Cannot load plugin '%s' since file '%s' cannot be read.",
-				   info->name,			           
+				   info->name,
 				   eog_module_get_path (EOG_MODULE (info->module)));
 			break;
 
 		case EOG_PLUGIN_LOADER_PY:
 			g_warning ("Cannot load Python plugin '%s' since file '%s' cannot be read.",
-				   info->name,			           
+				   info->name,
 				   info->location);
 			break;
 
 		default:
 			g_return_val_if_reached (FALSE);
 		}
-			   
+
 		g_object_unref (G_OBJECT (info->module));
 
 		info->module = NULL;
@@ -551,16 +551,16 @@ load_plugin_module (EogPluginInfo *info)
 
 		return FALSE;
 	}
-	
+
 	switch (info->loader) {
 	case EOG_PLUGIN_LOADER_C:
-		info->plugin = 
+		info->plugin =
 			EOG_PLUGIN (eog_module_new_object (EOG_MODULE (info->module)));
 		break;
 
 #ifdef ENABLE_PYTHON
 	case EOG_PLUGIN_LOADER_PY:
-		info->plugin = 
+		info->plugin =
 			EOG_PLUGIN (eog_python_module_new_object (EOG_PYTHON_MODULE (info->module)));
 		break;
 #endif
@@ -568,7 +568,7 @@ load_plugin_module (EogPluginInfo *info)
 	default:
 		g_return_val_if_reached (FALSE);
 	}
-	
+
 	g_type_module_unuse (info->module);
 
 	eog_debug_message (DEBUG_PLUGINS, "End");
@@ -576,7 +576,7 @@ load_plugin_module (EogPluginInfo *info)
 	return TRUE;
 }
 
-static gboolean 	 
+static gboolean
 eog_plugin_engine_activate_plugin_real (EogPluginInfo *info)
 {
 	gboolean res = TRUE;
@@ -605,7 +605,7 @@ eog_plugin_engine_activate_plugin_real (EogPluginInfo *info)
 	return res;
 }
 
-gboolean 	 
+gboolean
 eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 {
 	eog_debug (DEBUG_PLUGINS);
@@ -614,14 +614,14 @@ eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 
 	if (!info->available)
 		return FALSE;
-		
+
 	if (info->active)
 		return TRUE;
 
 	if (eog_plugin_engine_activate_plugin_real (info)) {
 		gboolean res;
 		GSList *list;
-		
+
 		/* Update plugin state */
 		info->active = TRUE;
 
@@ -636,11 +636,11 @@ eog_plugin_engine_activate_plugin (EogPluginInfo *info)
 
 			list = g_slist_next (list);
 		}
-	
-		active_plugins = g_slist_insert_sorted (active_plugins, 
-						        g_strdup (info->location), 
+
+		active_plugins = g_slist_insert_sorted (active_plugins,
+						        g_strdup (info->location),
 						        (GCompareFunc)strcmp);
-		
+
 		res = gconf_client_set_list (eog_plugin_engine_gconf_client,
 		    			     EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
 					     GCONF_VALUE_STRING,
@@ -660,7 +660,7 @@ static void
 eog_plugin_engine_deactivate_plugin_real (EogPluginInfo *info)
 {
 	const GList *wins = eog_application_get_windows (EOG_APP);
-	
+
 	while (wins != NULL) {
 		eog_plugin_deactivate (info->plugin,
 				       EOG_WINDOW (wins->data));
@@ -674,7 +674,7 @@ eog_plugin_engine_deactivate_plugin (EogPluginInfo *info)
 {
 	gboolean res;
 	GSList *list;
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	g_return_val_if_fail (info != NULL, FALSE);
@@ -723,7 +723,7 @@ gboolean
 eog_plugin_engine_plugin_is_active (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, FALSE);
-	
+
 	return (info->available && info->active);
 }
 
@@ -731,7 +731,7 @@ gboolean
 eog_plugin_engine_plugin_is_available (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, FALSE);
-	
+
 	return (info->available != FALSE);
 }
 
@@ -744,25 +744,25 @@ reactivate_all (EogWindow *window)
 
 	for (pl = eog_plugins_list; pl; pl = pl->next) {
 		gboolean res = TRUE;
-		
+
 		EogPluginInfo *info = (EogPluginInfo*)pl->data;
 
 		/* If plugin is not available, don't try to activate/load it */
-		if (info->available && info->active) {		
+		if (info->available && info->active) {
 			if (info->plugin == NULL)
 				res = load_plugin_module (info);
-				
+
 			if (res)
 				eog_plugin_activate (info->plugin,
-						     window);			
+						     window);
 		}
 	}
-	
+
 	eog_debug_message (DEBUG_PLUGINS, "End");
 }
 
 void
-eog_plugin_engine_update_plugins_ui (EogWindow *window, 
+eog_plugin_engine_update_plugins_ui (EogWindow *window,
 				     gboolean   new_window)
 {
 	GList *pl;
@@ -782,7 +782,7 @@ eog_plugin_engine_update_plugins_ui (EogWindow *window,
 			continue;
 
 	       	eog_debug_message (DEBUG_PLUGINS, "Updating UI of %s", info->name);
-		
+
 		eog_plugin_update_ui (info->plugin, window);
 	}
 }
@@ -795,18 +795,18 @@ eog_plugin_engine_plugin_is_configurable (EogPluginInfo *info) {
 
 	if ((info->plugin == NULL) || !info->active || !info->available)
 		return FALSE;
-	
+
 	return eog_plugin_is_configurable (info->plugin);
 }
 
-void 	 
-eog_plugin_engine_configure_plugin (EogPluginInfo *info, 
+void
+eog_plugin_engine_configure_plugin (EogPluginInfo *info,
 				    GtkWindow     *parent)
 {
 	GtkWidget *conf_dlg;
-	
+
 	GtkWindowGroup *wg;
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	g_return_if_fail (info != NULL);
@@ -824,16 +824,16 @@ eog_plugin_engine_configure_plugin (EogPluginInfo *info,
 		wg = gtk_window_group_new ();
 		gtk_window_group_add_window (wg, parent);
 	}
-			
+
 	gtk_window_group_add_window (wg,
 				     GTK_WINDOW (conf_dlg));
-		
+
 	gtk_window_set_modal (GTK_WINDOW (conf_dlg), TRUE);
 
 	gtk_widget_show (conf_dlg);
 }
 
-static void 
+static void
 eog_plugin_engine_active_plugins_changed (GConfClient *client,
 					  guint cnxn_id,
 					  GConfEntry *entry,
@@ -846,13 +846,13 @@ eog_plugin_engine_active_plugins_changed (GConfClient *client,
 
 	g_return_if_fail (entry->key != NULL);
 	g_return_if_fail (entry->value != NULL);
-	
-	if (!((entry->value->type == GCONF_VALUE_LIST) && 
+
+	if (!((entry->value->type == GCONF_VALUE_LIST) &&
 	      (gconf_value_get_list_type (entry->value) == GCONF_VALUE_STRING))) {
 		g_warning ("The gconf key '%s' may be corrupted.", EOG_CONF_PLUGINS_ACTIVE_PLUGINS);
 		return;
 	}
-	
+
 	active_plugins = gconf_client_get_list (eog_plugin_engine_gconf_client,
 						EOG_CONF_PLUGINS_ACTIVE_PLUGINS,
 						GCONF_VALUE_STRING,
@@ -875,7 +875,7 @@ eog_plugin_engine_active_plugins_changed (GConfClient *client,
 				info->active = TRUE;
 		} else {
 			if (info->active && !to_activate) {
-				eog_plugin_engine_deactivate_plugin_real (info);	
+				eog_plugin_engine_deactivate_plugin_real (info);
 
 				/* Update plugin state */
 				info->active = FALSE;
@@ -888,7 +888,7 @@ const gchar *
 eog_plugin_engine_get_plugin_name (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, NULL);
-	
+
 	return info->name;
 }
 
@@ -904,10 +904,10 @@ const gchar *
 eog_plugin_engine_get_plugin_icon_name (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, NULL);
-	
+
 	/* Use the eog-plugin icon as a default if the plugin does not
 	   have its own */
-	if (info->icon_name != NULL && 
+	if (info->icon_name != NULL &&
 	    gtk_icon_theme_has_icon (gtk_icon_theme_get_default (),
 	    			     info->icon_name))
 		return info->icon_name;
@@ -919,7 +919,7 @@ const gchar **
 eog_plugin_engine_get_plugin_authors (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, (const gchar **)NULL);
-	
+
 	return (const gchar **) info->authors;
 }
 
@@ -927,7 +927,7 @@ const gchar *
 eog_plugin_engine_get_plugin_website (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, NULL);
-	
+
 	return info->website;
 }
 
@@ -935,6 +935,6 @@ const gchar *
 eog_plugin_engine_get_plugin_copyright (EogPluginInfo *info)
 {
 	g_return_val_if_fail (info != NULL, NULL);
-	
+
 	return info->copyright;
 }

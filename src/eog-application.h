@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Application Facade 
+/* Eye Of Gnome - Application Facade
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-application.h) by: 
+ * Based on evince code (shell/ev-application.h) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify

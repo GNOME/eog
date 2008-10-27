@@ -1,4 +1,4 @@
-/* Eye of Gnome - Statusbar 
+/* Eye of Gnome - Statusbar
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *
@@ -40,14 +40,14 @@ typedef struct _EogStatusbarClass   EogStatusbarClass;
 #define EOG_IS_STATUSBAR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  EOG_TYPE_STATUSBAR))
 #define EOG_STATUSBAR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  EOG_TYPE_STATUSBAR, EogStatusbarClass))
 
-struct _EogStatusbar 
+struct _EogStatusbar
 {
         GtkStatusbar parent;
 
         EogStatusbarPrivate *priv;
 };
 
-struct _EogStatusbarClass 
+struct _EogStatusbarClass
 {
         GtkStatusbarClass parent_class;
 };

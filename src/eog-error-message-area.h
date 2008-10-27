@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Erro Message Area 
+/* Eye Of Gnome - Erro Message Area
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-message-area.h) by: 
+ * Based on gedit code (gedit/gedit-message-area.h) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify

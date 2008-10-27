@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Python Plugin 
+/* Eye Of Gnome - Python Plugin
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-python-module.h) by: 
+ * Based on gedit code (gedit/gedit-python-module.h) by:
  * 	- Raphael Slinckx <raphael@slinckx.net>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -53,7 +53,7 @@ call_python_method (EogPythonPlugin *plugin,
 					      "(N)",
 					      pygobject_new (G_OBJECT (window)));
 	}
-	
+
 	if (!py_ret)
 		PyErr_Print ();
 
@@ -91,10 +91,10 @@ impl_update_ui (EogPlugin *plugin,
 	PyGILState_STATE state = pyg_gil_state_ensure ();
 
 	EogPythonPlugin *pyplugin = (EogPythonPlugin *) plugin;
-	
+
 	if (PyObject_HasAttrString (pyplugin->instance, "update_ui")) {
 		PyObject *py_ret = call_python_method (pyplugin, window, "update_ui");
-		
+
 		if (py_ret)
 		{
 			Py_XDECREF (py_ret);
@@ -113,10 +113,10 @@ impl_deactivate (EogPlugin *plugin,
 	PyGILState_STATE state = pyg_gil_state_ensure ();
 
 	EogPythonPlugin *pyplugin = (EogPythonPlugin *) plugin;
-	
-	if (PyObject_HasAttrString (pyplugin->instance, "deactivate")) {		
+
+	if (PyObject_HasAttrString (pyplugin->instance, "deactivate")) {
 		PyObject *py_ret = call_python_method (pyplugin, window, "deactivate");
-		
+
 		if (py_ret) {
 			Py_XDECREF (py_ret);
 		}
@@ -134,7 +134,7 @@ impl_activate (EogPlugin *plugin,
 	PyGILState_STATE state = pyg_gil_state_ensure ();
 
 	EogPythonPlugin *pyplugin = (EogPythonPlugin *) plugin;
-	
+
 	if (PyObject_HasAttrString (pyplugin->instance, "activate")) {
 		PyObject *py_ret = call_python_method (pyplugin, window, "activate");
 
@@ -143,7 +143,7 @@ impl_activate (EogPlugin *plugin,
 		}
 	} else {
 		EOG_PLUGIN_CLASS (parent_class)->activate (plugin, window);
-	}	
+	}
 
 	pyg_gil_state_release (state);
 }
@@ -154,10 +154,10 @@ impl_create_configure_dialog (EogPlugin *plugin)
 	PyGILState_STATE state = pyg_gil_state_ensure ();
 	EogPythonPlugin *pyplugin = (EogPythonPlugin *) plugin;
 	GtkWidget *ret = NULL;
-	
+
 	if (PyObject_HasAttrString (pyplugin->instance, "create_configure_dialog")) {
 		PyObject *py_ret = call_python_method (pyplugin, NULL, "create_configure_dialog");
-	
+
 		if (py_ret) {
 			if (check_py_object_is_gtk_widget (py_ret)) {
 				ret = GTK_WIDGET (pygobject_get (py_ret));
@@ -166,12 +166,12 @@ impl_create_configure_dialog (EogPlugin *plugin)
 				PyErr_SetString(PyExc_TypeError, "Return value for create_configure_dialog is not a GtkWidget");
 				PyErr_Print();
 			}
-			
+
 			Py_DECREF (py_ret);
 		}
 	} else {
 		ret = EOG_PLUGIN_CLASS (parent_class)->create_configure_dialog (plugin);
-	} 
+	}
 
 	pyg_gil_state_release (state);
 
@@ -185,23 +185,23 @@ impl_is_configurable (EogPlugin *plugin)
 
 	EogPythonPlugin *pyplugin = (EogPythonPlugin *) plugin;
 
-	PyObject *dict = pyplugin->instance->ob_type->tp_dict;	
+	PyObject *dict = pyplugin->instance->ob_type->tp_dict;
 
 	gboolean result;
-	
+
 	if (dict == NULL)
 		result = FALSE;
 	else if (!PyDict_Check(dict))
 		result = FALSE;
-	else 
+	else
 		result = PyDict_GetItemString(dict, "create_configure_dialog") != NULL;
 
 	pyg_gil_state_release (state);
-	
+
 	return result;
 }
-						
-static void 
+
+static void
 eog_python_plugin_init (EogPythonPlugin *plugin)
 {
 	EogPythonPluginClass *class;
@@ -246,7 +246,7 @@ eog_python_plugin_class_init (EogPythonPluginClass *klass,
 }
 
 GType
-eog_python_plugin_get_type (GTypeModule *module, 
+eog_python_plugin_get_type (GTypeModule *module,
 			    PyObject    *type)
 {
 	GType gtype;
@@ -271,7 +271,7 @@ eog_python_plugin_get_type (GTypeModule *module,
 
 	eog_debug_message (DEBUG_PLUGINS, "Registering Python plugin instance: %s", type_name);
 
-	gtype = g_type_module_register_type (module, 
+	gtype = g_type_module_register_type (module,
 					     EOG_TYPE_PLUGIN,
 					     type_name,
 					     &info, 0);

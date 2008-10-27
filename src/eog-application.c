@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Application Facade 
+/* Eye Of Gnome - Application Facade
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-application.h) by: 
+ * Based on evince code (shell/ev-application.h) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -58,7 +58,7 @@ G_DEFINE_TYPE (EogApplication, eog_application, G_TYPE_OBJECT);
 
 /**
  * eog_application_register_service:
- * @application: An #EogApplication. 
+ * @application: An #EogApplication.
  *
  * Registers #EogApplication<!-- -->'s DBus service, to allow
  * remote calls. If the DBus service is already registered,
@@ -79,7 +79,7 @@ eog_application_register_service (EogApplication *application)
 		g_warning ("Service already registered.");
 		return FALSE;
 	}
-	
+
 	connection = dbus_g_bus_get (DBUS_BUS_STARTER, &err);
 
 	if (connection == NULL) {
@@ -103,7 +103,7 @@ eog_application_register_service (EogApplication *application)
 	}
 
 	g_object_unref (driver_proxy);
-	
+
 	if (request_name_result == DBUS_REQUEST_NAME_REPLY_EXISTS) {
 		return FALSE;
 	}
@@ -116,7 +116,7 @@ eog_application_register_service (EogApplication *application)
                                              G_OBJECT (application));
 
         application->scr_saver = totem_scrsaver_new (connection);
-	
+
 	return TRUE;
 }
 #endif /* ENABLE_DBUS */
@@ -141,7 +141,7 @@ eog_application_init (EogApplication *eog_application)
 	if (G_LIKELY (dot_dir != NULL))
 		eog_application->toolbars_file = g_build_filename
 			(dot_dir, "eog_toolbar.xml", NULL);
-	
+
 	if (!dot_dir || !egg_toolbars_model_load_toolbars (eog_application->toolbars_model,
 					       eog_application->toolbars_file)) {
 
@@ -194,22 +194,22 @@ eog_application_get_empty_window (EogApplication *application)
 	}
 
 	g_list_free (windows);
-	
+
 	return empty_window;
 }
 
 /**
  * eog_application_open_window:
- * @application: An #EogApplication. 
- * @timestamp: 
- * @flags: 
- * @error: 
+ * @application: An #EogApplication.
+ * @timestamp:
+ * @flags:
+ * @error:
  *
  * Opens and presents an empty #EogWindow to the user. If there is
  * an empty window already open, this will be used. Otherwise, a
  * new one will be instantiated.
  *
- * Returns: 
+ * Returns:
  **/
 gboolean
 eog_application_open_window (EogApplication  *application,
@@ -224,7 +224,7 @@ eog_application_open_window (EogApplication  *application,
 	if (new_window == NULL) {
 		new_window = eog_window_new (flags);
 	}
-	
+
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
 
 	gtk_window_present_with_time (GTK_WINDOW (new_window),
@@ -248,11 +248,11 @@ eog_application_get_file_window (EogApplication *application, GFile *file)
 	for (l = windows; l != NULL; l = l->next) {
 		if (EOG_IS_WINDOW (l->data)) {
 			EogWindow *window = EOG_WINDOW (l->data);
-			
+
 			if (!eog_window_is_empty (window)) {
 				EogImage *image = eog_window_get_image (window);
 				GFile *window_file;
-				
+
 				window_file = eog_image_get_file (image);
 				if (g_file_equal (window_file, file)) {
 					file_window = window;
@@ -263,7 +263,7 @@ eog_application_get_file_window (EogApplication *application, GFile *file)
 	}
 
 	g_list_free (windows);
-	
+
 	return file_window;
 }
 
@@ -282,15 +282,15 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
  * eog_application_open_file_list:
  * @application: An #EogApplication.
  * @file_list: A list of #GFile<!-- -->s.
- * @timestamp: 
- * @flags: 
- * @error: 
+ * @timestamp:
+ * @flags:
+ * @error:
  *
  * Opens a list of files in a #EogWindow. If an #EogWindow displaying the first
  * image in the list is already open, this will be used. Otherwise, an empty
  * #EogWindow is used, either already existing or newly created.
  *
- * Returns: 
+ * Returns:
  **/
 gboolean
 eog_application_open_file_list (EogApplication  *application,
@@ -317,9 +317,9 @@ eog_application_open_file_list (EogApplication  *application,
 		new_window = EOG_WINDOW (eog_window_new (flags));
 	}
 
-	g_signal_connect (new_window, 
-			  "prepared", 
-			  G_CALLBACK (eog_application_show_window), 
+	g_signal_connect (new_window,
+			  "prepared",
+			  G_CALLBACK (eog_application_show_window),
 			  GUINT_TO_POINTER (timestamp));
 
 	eog_window_open_file_list (new_window, file_list);
@@ -331,14 +331,14 @@ eog_application_open_file_list (EogApplication  *application,
  * eog_application_open_uri_list:
  * @application: An #EogApplication.
  * @uri_list: A list of URIs.
- * @timestamp: 
- * @flags: 
- * @error: 
+ * @timestamp:
+ * @flags:
+ * @error:
  *
  * Opens a list of images, from a list of URIs. See
  * eog_application_open_file_list() for details.
  *
- * Returns: 
+ * Returns:
  **/
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
@@ -348,31 +348,31 @@ eog_application_open_uri_list (EogApplication  *application,
  			       GError         **error)
 {
  	GSList *file_list = NULL;
- 
+
  	g_return_val_if_fail (EOG_IS_APPLICATION (application), FALSE);
- 
+
  	file_list = eog_util_string_list_to_file_list (uri_list);
 
  	return eog_application_open_file_list (application,
-					       file_list, 
+					       file_list,
 					       timestamp,
-					       flags, 
+					       flags,
 					       error);
 }
- 
+
 #ifdef HAVE_DBUS
 /**
- * eog_application_open_uris: 
+ * eog_application_open_uris:
  * @application: an #EogApplication
  * @uris:  A #GList of URI strings.
- * @timestamp: 
- * @flags: 
- * @error: 
+ * @timestamp:
+ * @flags:
+ * @error:
  *
  * Opens a list of images, from a list of URI strings. See
  * eog_application_open_file_list() for details.
  *
- * Returns: 
+ * Returns:
  **/
 gboolean
 eog_application_open_uris (EogApplication  *application,
@@ -382,9 +382,9 @@ eog_application_open_uris (EogApplication  *application,
  			   GError        **error)
 {
  	GSList *file_list = NULL;
- 
+
  	file_list = eog_util_strings_to_file_list (uris);
- 
+
  	return eog_application_open_file_list (application, file_list, timestamp,
 						    flags, error);
 }
@@ -410,7 +410,7 @@ eog_application_shutdown (EogApplication *application)
 	}
 
 	g_object_unref (application);
-	
+
 	gtk_main_quit ();
 }
 
@@ -458,7 +458,7 @@ EggToolbarsModel *
 eog_application_get_toolbars_model (EogApplication *application)
 {
 	g_return_val_if_fail (EOG_IS_APPLICATION (application), NULL);
-	
+
 	return application->toolbars_model;
 }
 
@@ -473,7 +473,7 @@ eog_application_save_toolbars_model (EogApplication *application)
 {
 	if (G_LIKELY(application->toolbars_file != NULL))
         	egg_toolbars_model_save_toolbars (application->toolbars_model,
-				 	          application->toolbars_file, 
+				 	          application->toolbars_file,
 						  "1.0");
 }
 

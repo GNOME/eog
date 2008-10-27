@@ -383,7 +383,7 @@ check_scrollbar_visibility (EogScrollView *view, GtkAllocation *alloc)
 	gtk_widget_size_request (priv->vbar, &req);
 	bar_width = req.width;
 
-	eog_debug_message (DEBUG_WINDOW, "Widget Size allocate: %i, %i   Bar: %i, %i\n", 
+	eog_debug_message (DEBUG_WINDOW, "Widget Size allocate: %i, %i   Bar: %i, %i\n",
 			   width, height, bar_width, bar_height);
 
 	hbar_visible = vbar_visible = FALSE;
@@ -428,7 +428,7 @@ is_unity_zoom (EogScrollView *view)
 	return DOUBLE_EQUAL (priv->zoom, 1.0);
 }
 
-/* Returns wether the image is movable, that means if it is larger then 
+/* Returns wether the image is movable, that means if it is larger then
  * the actual visible area.
  */
 static gboolean
@@ -541,7 +541,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 		paint_background (view, &r, rect);
 		return;
 	}
-	
+
 	/* Compute image offsets with respect to the window */
 
 	if (scaled_width <= width)
@@ -554,7 +554,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	else
 		yofs = -priv->yofs;
 
-	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n", 
+	eog_debug_message (DEBUG_WINDOW, "zoom %.2f, xofs: %i, yofs: %i scaled w: %i h: %i\n",
 			   priv->zoom, xofs, yofs, scaled_width, scaled_height);
 
 	/* Draw background if necessary, in four steps */
@@ -623,7 +623,7 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 		str = "ALIASED";
 	}
 
-	eog_debug_message (DEBUG_WINDOW, "%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n", 
+	eog_debug_message (DEBUG_WINDOW, "%s: x0: %i,\t y0: %i,\t x1: %i,\t y1: %i\n",
 			   str, d.x0, d.y0, d.x1, d.y1);
 
 	/* Short-circuit the fast case to avoid a memcpy() */
@@ -757,7 +757,7 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 
 	priv = view->priv;
 
-	eog_debug_message (DEBUG_WINDOW, "x: %i, y: %i, width: %i, height: %i\n", 
+	eog_debug_message (DEBUG_WINDOW, "x: %i, y: %i, width: %i, height: %i\n",
 			   area->x, area->y, area->width, area->height);
 
 	if (!GTK_WIDGET_DRAWABLE (priv->display))
@@ -960,7 +960,7 @@ static void
 set_minimum_zoom_factor (EogScrollView *view)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
-	
+
 	view->priv->min_zoom = MAX (1.0 / gdk_pixbuf_get_width (view->priv->pixbuf),
 				    MAX(1.0 / gdk_pixbuf_get_height (view->priv->pixbuf),
 					MIN_ZOOM_FACTOR) );
@@ -1229,7 +1229,7 @@ eog_scroll_view_button_press_event (GtkWidget *widget, GdkEventButton *event, gp
 	switch (event->button) {
 		case 1:
 		case 2:
-                        if (event->button == 1 && !priv->scroll_wheel_zoom && 
+                        if (event->button == 1 && !priv->scroll_wheel_zoom &&
 			    !(event->state & GDK_CONTROL_MASK))
 				break;
 
@@ -1525,7 +1525,7 @@ image_loading_update_cb (EogImage *img, int x, int y, int width, int height, gpo
 	view = (EogScrollView*) data;
 	priv = view->priv;
 
-	eog_debug_message (DEBUG_IMAGE_LOAD, "x: %i, y: %i, width: %i, height: %i\n", 
+	eog_debug_message (DEBUG_IMAGE_LOAD, "x: %i, y: %i, width: %i, height: %i\n",
 			   x, y, width, height);
 
 	if (priv->pixbuf == NULL) {
@@ -1572,7 +1572,7 @@ image_loading_finished_cb (EogImage *img, gpointer data)
 	else if (priv->interp_type != GDK_INTERP_NEAREST &&
 		 !is_unity_zoom (view))
 	{
-		// paint antialiased image version 
+		// paint antialiased image version
 		priv->progressive_state = PROGRESSIVE_POLISHING;
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	}
@@ -1835,7 +1835,7 @@ eog_scroll_view_get_zoom_is_min (EogScrollView *view)
 
 	set_minimum_zoom_factor (view);
 
-	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR) || 
+	return DOUBLE_EQUAL (view->priv->zoom, MIN_ZOOM_FACTOR) ||
 	       DOUBLE_EQUAL (view->priv->zoom, view->priv->min_zoom);
 }
 
@@ -1892,14 +1892,14 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 		priv->image_changed_id = g_signal_connect (image, "changed",
 							   (GCallback) image_changed_cb, view);
 	}
-	
+
 	priv->image = image;
 }
 
-gboolean 
+gboolean
 eog_scroll_view_scrollbars_visible (EogScrollView *view)
 {
-	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->hbar)) && 
+	if (!GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->hbar)) &&
 	    !GTK_WIDGET_VISIBLE (GTK_WIDGET (view->priv->vbar)))
 		return FALSE;
 
@@ -1945,7 +1945,7 @@ eog_scroll_view_dispose (GObject *object)
 
 	view = EOG_SCROLL_VIEW (object);
 	priv = view->priv;
-	
+
 	if (priv->uta != NULL) {
 		art_uta_free (priv->uta);
 		priv->uta = NULL;
@@ -2121,14 +2121,14 @@ eog_scroll_view_new (void)
 	return widget;
 }
 
-static void 
+static void
 eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
 {
 	GtkWidget *popup;
 	int button, event_time;
 
 	popup = view->priv->menu;
-	
+
 	if (event) {
 		button = event->button;
 		event_time = event->time;
@@ -2136,15 +2136,15 @@ eog_scroll_view_popup_menu (EogScrollView *view, GdkEventButton *event)
 		button = 0;
 		event_time = gtk_get_current_event_time ();
 	}
-	
-	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, 
+
+	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL,
 			button, event_time);
 }
 
 static gboolean
-view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event, 
+view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event,
 			       gpointer user_data)
-{    
+{
     /* Ignore double-clicks and triple-clicks */
     if (event->button == 3 && event->type == GDK_BUTTON_PRESS)
     {
@@ -2152,7 +2152,7 @@ view_on_button_press_event_cb (GtkWidget *view, GdkEventButton *event,
 
 	    return TRUE;
     }
-    
+
     return FALSE;
 }
 
@@ -2165,8 +2165,8 @@ eog_scroll_view_set_popup (EogScrollView *view,
 
 	view->priv->menu = g_object_ref (menu);
 
-	gtk_menu_attach_to_widget (GTK_MENU (view->priv->menu), 
-				   GTK_WIDGET (view), 
+	gtk_menu_attach_to_widget (GTK_MENU (view->priv->menu),
+				   GTK_WIDGET (view),
 				   NULL);
 
 	g_signal_connect (G_OBJECT (view), "button_press_event",
@@ -2183,7 +2183,7 @@ eog_scroll_view_set_bg_color (EogScrollView *view,
 }
 
 void
-eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view, 
+eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view,
 				       gboolean       scroll_wheel_zoom)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
@@ -2192,7 +2192,7 @@ eog_scroll_view_set_scroll_wheel_zoom (EogScrollView *view,
 }
 
 void
-eog_scroll_view_set_zoom_multiplier (EogScrollView *view, 
+eog_scroll_view_set_zoom_multiplier (EogScrollView *view,
 				     gdouble        zoom_multiplier)
 {
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));

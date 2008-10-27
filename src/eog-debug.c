@@ -1,14 +1,14 @@
-/* Eye Of Gnome - Debugging 
+/* Eye Of Gnome - Debugging
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-debug.h) by: 
+ * Based on gedit code (gedit/gedit-debug.h) by:
  * 	- Alex Roberts <bse@error.fsnet.co.uk>
- *	- Evan Lawrence <evan@worldpath.net> 
- *	- Chema Celorio <chema@celorio.com> 
- *	- Paolo Maggi <paolo@gnome.org> 
+ *	- Evan Lawrence <evan@worldpath.net>
+ *	- Chema Celorio <chema@celorio.com>
+ *	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ eog_debug_init (void)
 	if (g_getenv ("EOG_DEBUG_PLUGINS") != NULL)
 		debug = debug | EOG_DEBUG_PLUGINS;
 
-out:		
+out:
 
 #ifdef ENABLE_PROFILING
 	if (debug != EOG_NO_DEBUG)
@@ -105,7 +105,7 @@ eog_debug_message (EogDebugSection   section,
 		   const gchar      *format, ...)
 {
 	if (G_UNLIKELY (debug & section))
-	{	
+	{
 #ifdef ENABLE_PROFILING
 		gdouble seconds;
 #endif
@@ -123,11 +123,11 @@ eog_debug_message (EogDebugSection   section,
 		g_return_if_fail (timer != NULL);
 
 		seconds = g_timer_elapsed (timer, NULL);
-		g_print ("[%f (%f)] %s:%d (%s) %s\n", 
+		g_print ("[%f (%f)] %s:%d (%s) %s\n",
 			 seconds, seconds - last,  file, line, function, msg);
-		last = seconds;			 
+		last = seconds;
 #else
-		g_print ("%s:%d (%s) %s\n", file, line, function, msg);	
+		g_print ("%s:%d (%s) %s\n", file, line, function, msg);
 #endif
 
 		fflush (stdout);
@@ -148,13 +148,13 @@ void eog_debug (EogDebugSection  section,
 
 		g_return_if_fail (timer != NULL);
 
-		seconds = g_timer_elapsed (timer, NULL);		
-		g_print ("[%f (%f)] %s:%d (%s)\n", 
+		seconds = g_timer_elapsed (timer, NULL);
+		g_print ("[%f (%f)] %s:%d (%s)\n",
 			 seconds, seconds - last, file, line, function);
 		last = seconds;
 #else
 		g_print ("%s:%d (%s)\n", file, line, function);
-#endif		
+#endif
 		fflush (stdout);
 	}
 }

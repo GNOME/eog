@@ -29,13 +29,13 @@ eog_transform_init (EogTransform *trans)
 	trans->priv = EOG_TRANSFORM_GET_PRIVATE (trans);
 }
 
-static void 
+static void
 eog_transform_class_init (EogTransformClass *klass)
 {
 	g_type_class_add_private (klass, sizeof (EogTransformPrivate));
 }
 
-GdkPixbuf*    
+GdkPixbuf*
 eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 {
 	ArtPoint dest_top_left;
@@ -45,7 +45,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	int inverted [6];
 	ArtPoint dest;
 	ArtPoint src;
-	
+
 	int src_width;
 	int src_height;
 	int src_rowstride;
@@ -94,7 +94,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 		dest_bottom_right.x = MAX (dest_bottom_right.x, dest.x);
 		dest_bottom_right.y = MAX (dest_bottom_right.y, dest.y);
 	}
-	
+
 	/* create the resulting pixbuf */
 	dest_width = abs (dest_bottom_right.x - dest_top_left.x + 1);
 	dest_height = abs (dest_bottom_right.y - dest_top_left.y + 1);
@@ -124,7 +124,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 
 	progress_delta = MAX (1, dest_height / EOG_TRANSFORM_N_PROG_UPDATES);
 
-	/* 
+	/*
 	 * for every destination pixel (dx,dy) compute the source pixel (sx, sy)
 	 * and copy the color values
 	 */
@@ -137,7 +137,7 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 			if (sx >= 0 && sx < src_width && sy >= 0 && sy < src_height) {
 				src_pos  = src_buffer  + sy * src_rowstride  + sx * src_n_channels;
 				dest_pos = dest_buffer +  y * dest_rowstride +  x * dest_n_channels;
-			
+
 				for (i = 0; i <  src_n_channels; i++) {
 					dest_pos[i] = src_pos[i];
 				}
@@ -162,10 +162,10 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	return dest_pixbuf;
 }
 
-EogTransform* 
+EogTransform*
 eog_transform_reverse (EogTransform *trans)
 {
-	EogTransform *reverse; 
+	EogTransform *reverse;
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), NULL);
 
@@ -193,7 +193,7 @@ eog_transform_compose (EogTransform *trans, EogTransform *compose)
 	return composition;
 }
 
-gboolean 
+gboolean
 eog_transform_is_identity (EogTransform *trans)
 {
 	double identity[6] = { 1, 0, 0, 1, 0, 0 };
@@ -206,55 +206,55 @@ eog_transform_is_identity (EogTransform *trans)
 EogTransform*
 eog_transform_identity_new (void)
 {
-	EogTransform *trans; 
+	EogTransform *trans;
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
-	
+
 	art_affine_identity (trans->priv->affine);
 
 	return trans;
 }
 
-EogTransform* 
+EogTransform*
 eog_transform_rotate_new (int degree)
 {
-	EogTransform *trans; 
+	EogTransform *trans;
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
-	
+
 	art_affine_rotate (trans->priv->affine, degree);
 
 	return trans;
 }
 
-EogTransform* 
+EogTransform*
 eog_transform_flip_new   (EogTransformType type)
 {
-	EogTransform *trans; 
+	EogTransform *trans;
 	gboolean horiz, vert;
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
-	
+
 	art_affine_identity (trans->priv->affine);
 
 	horiz = (type == EOG_TRANSFORM_FLIP_HORIZONTAL);
 	vert = (type == EOG_TRANSFORM_FLIP_VERTICAL);
 
 	art_affine_flip (trans->priv->affine,
-			 trans->priv->affine, 
+			 trans->priv->affine,
 			 horiz, vert);
 
 	return trans;
 }
 
 #if 0
-EogTransform* 
+EogTransform*
 eog_transform_scale_new  (double sx, double sy)
 {
-	EogTransform *trans; 
+	EogTransform *trans;
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
-	
+
 	art_affine_scale (trans->priv->affine, sx, sy);
 
 	return trans;

@@ -1,14 +1,14 @@
-/* Eye Of Gnome - Debugging 
+/* Eye Of Gnome - Debugging
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-debug.h) by: 
+ * Based on gedit code (gedit/gedit-debug.h) by:
  * 	- Alex Roberts <bse@error.fsnet.co.uk>
- *	- Evan Lawrence <evan@worldpath.net> 
- *	- Chema Celorio <chema@celorio.com> 
- *	- Paolo Maggi <paolo@gnome.org> 
+ *	- Evan Lawrence <evan@worldpath.net>
+ *	- Chema Celorio <chema@celorio.com>
+ *	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

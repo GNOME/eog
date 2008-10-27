@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Message Area 
+/* Eye Of Gnome - Message Area
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-message-area.h) by: 
+ * Based on gedit code (gedit/gedit-message-area.h) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -49,7 +49,7 @@ struct _EogMessageArea {
 struct _EogMessageAreaClass {
 	GtkHBoxClass parent_class;
 
-	void (* response) (EogMessageArea *message_area, 
+	void (* response) (EogMessageArea *message_area,
 			   gint            response_id);
 
 	void (* close)    (EogMessageArea *message_area);
@@ -64,30 +64,30 @@ GtkWidget	*eog_message_area_new_with_buttons	(const gchar      *first_button_tex
 
 void		 eog_message_area_set_contents	        (EogMessageArea *message_area,
                                              		 GtkWidget        *contents);
-                              		 
+
 void		 eog_message_area_add_action_widget	(EogMessageArea   *message_area,
                                          		 GtkWidget        *child,
                                          		 gint              response_id);
-                                         		 
+
 GtkWidget	*eog_message_area_add_button        	(EogMessageArea *message_area,
                                          		 const gchar      *button_text,
                                          		 gint              response_id);
-             		 
-GtkWidget	*eog_message_area_add_stock_button_with_text 
-							(EogMessageArea   *message_area, 
-				    			 const gchar      *text, 
-				    			 const gchar      *stock_id, 
+
+GtkWidget	*eog_message_area_add_stock_button_with_text
+							(EogMessageArea   *message_area,
+				    			 const gchar      *text,
+				    			 const gchar      *stock_id,
 				    			 gint              response_id);
 
 void       	 eog_message_area_add_buttons 	        (EogMessageArea *message_area,
                                          		 const gchar      *first_button_text,
                                          		 ...);
 
-void		 eog_message_area_set_response_sensitive 
+void		 eog_message_area_set_response_sensitive
 							(EogMessageArea   *message_area,
                                         		 gint              response_id,
                                         		 gboolean          setting);
-void 		 eog_message_area_set_default_response 
+void 		 eog_message_area_set_default_response
 							(EogMessageArea *message_area,
                                         		 gint              response_id);
 

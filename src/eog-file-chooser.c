@@ -11,7 +11,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, 
+ * Foundation, Inc., 59 Temple Place, Suite 330,
  * Boston, MA 02111-1307, USA.
  */
 
@@ -199,7 +199,7 @@ eog_file_chooser_add_filter (EogFileChooser *chooser)
 			gtk_file_filter_add_mime_type (all_img_filter, mime_types[i]);
 		}
 		g_strfreev (mime_types);
- 
+
 		pattern = gdk_pixbuf_format_get_extensions ((GdkPixbufFormat *) it->data);
 		for (i = 0; pattern[i] != NULL; i++) {
 			tmp = g_strconcat ("*.", pattern[i], NULL);
@@ -211,10 +211,10 @@ eog_file_chooser_add_filter (EogFileChooser *chooser)
 
 		/* attach GdkPixbufFormat to filter, see also
 		 * eog_file_chooser_get_format. */
-		g_object_set_data (G_OBJECT (filter), 
+		g_object_set_data (G_OBJECT (filter),
 				   FILE_FORMAT_KEY,
 				   format);
-		
+
 		filters = g_slist_prepend (filters, filter);
 	}
 	g_slist_free (formats);
@@ -254,16 +254,16 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 	const char *bytes_str;
 	const char *width;
 	const char *height;
-	const char *creator = NULL; 
+	const char *creator = NULL;
 	char *size_str    = NULL;
 	char *dim_str     = NULL;
-		
+
 	g_return_if_fail (EOG_IS_FILE_CHOOSER (chooser));
 
 	priv = chooser->priv;
-			   
+
 	gtk_image_set_from_pixbuf (GTK_IMAGE (priv->image), pixbuf);
-	
+
 	if (pixbuf != NULL) {
 		/* try to read file size */
 		bytes_str = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Size");
@@ -278,7 +278,7 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 		/* try to read image dimensions */
 		width  = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Image::Width");
 		height = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::Image::Height");
-		
+
 		if ((width != NULL) && (height != NULL)) {
 			pixels = atoi (height);
 			/* Pixel size of image: width x height in pixel */
@@ -299,7 +299,7 @@ set_preview_pixbuf (EogFileChooser *chooser, GdkPixbuf *pixbuf, goffset size)
 		}
 #endif
 	}
-	
+
 	set_preview_label (priv->size_label, size_str);
 	set_preview_label (priv->dim_label, dim_str);
 	set_preview_label (priv->creator_label, creator);
@@ -354,22 +354,22 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 				thumb_path = gtk_file_chooser_get_preview_filename (file_chooser);
 			}
 		}
-				
+
 		if (thumb_path != NULL && g_file_test (thumb_path, G_FILE_TEST_EXISTS)) {
 			/* try to load and display preview thumbnail */
 			pixbuf = gdk_pixbuf_new_from_file (thumb_path, NULL);
-			
+
 			have_preview = (pixbuf != NULL);
-		
+
 			set_preview_pixbuf (EOG_FILE_CHOOSER (file_chooser), pixbuf,
 					    g_file_info_get_size (file_info));
-			
+
 			if (pixbuf != NULL) {
 				g_object_unref (pixbuf);
 			}
 		}
 	}
-	
+
 	if (thumb_path != NULL) {
 		g_free (thumb_path);
 	}
@@ -387,18 +387,18 @@ eog_file_chooser_add_preview (GtkWidget *widget)
 	GtkWidget *vbox;
 
 	priv = EOG_FILE_CHOOSER (widget)->priv;
-	
+
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
 
 	priv->image      = gtk_image_new ();
 	/* 128x128 is maximum size of thumbnails */
 	gtk_widget_set_size_request (priv->image, 128,128);
-	
+
 	priv->dim_label  = gtk_label_new (NULL);
 	priv->size_label = gtk_label_new (NULL);
 	priv->creator_label = gtk_label_new (NULL);
-	
+
 	gtk_box_pack_start (GTK_BOX (vbox), priv->image, FALSE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), priv->dim_label, FALSE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), priv->size_label, FALSE, TRUE, 0);
@@ -478,7 +478,7 @@ eog_file_chooser_new (GtkFileChooserAction action)
 	return chooser;
 }
 
-GdkPixbufFormat * 
+GdkPixbufFormat *
 eog_file_chooser_get_format (EogFileChooser *chooser)
 {
 	GtkFileFilter *filter;

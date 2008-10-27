@@ -1,4 +1,4 @@
-/* Eye Of Gnome - GConf Keys Macros 
+/* Eye Of Gnome - GConf Keys Macros
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *

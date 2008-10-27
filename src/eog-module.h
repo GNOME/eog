@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Main Window 
+/* Eye Of Gnome - Main Window
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *      - Marco Pesenti Gritti <marco@gnome.org>
  *      - Christian Persch <chpe@gnome.org>

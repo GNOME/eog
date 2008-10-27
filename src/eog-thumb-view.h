@@ -59,7 +59,7 @@ GType       eog_thumb_view_get_type 		    (void) G_GNUC_CONST;
 
 GtkWidget  *eog_thumb_view_new 			    (void);
 
-void	    eog_thumb_view_set_model 		    (EogThumbView *thumbview, 
+void	    eog_thumb_view_set_model 		    (EogThumbView *thumbview,
 						     EogListStore *store);
 
 void        eog_thumb_view_set_item_height          (EogThumbView *thumbview,
@@ -71,14 +71,14 @@ EogImage   *eog_thumb_view_get_first_selected_image (EogThumbView *thumbview);
 
 GList      *eog_thumb_view_get_selected_images 	    (EogThumbView *thumbview);
 
-void        eog_thumb_view_select_single 	    (EogThumbView *thumbview, 
+void        eog_thumb_view_select_single 	    (EogThumbView *thumbview,
 						     EogThumbViewSelectionChange change);
 
-void        eog_thumb_view_set_current_image	    (EogThumbView *thumbview, 
+void        eog_thumb_view_set_current_image	    (EogThumbView *thumbview,
 						     EogImage     *image,
 						     gboolean     deselect_other);
 
-void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *thumbview, 
+void        eog_thumb_view_set_thumbnail_popup      (EogThumbView *thumbview,
 						     GtkMenu      *menu);
 
 G_END_DECLS

@@ -29,7 +29,7 @@ get_selected_format (GtkComboBox *combobox)
 	GdkPixbufFormat *format;
 	GtkTreeModel *store;
 	GtkTreeIter iter;
-	
+
 	gtk_combo_box_get_active_iter (combobox, &iter);
 	store = gtk_combo_box_get_model (combobox);
 	gtk_tree_model_get (store, &iter, 1, &format, -1);
@@ -46,7 +46,7 @@ update_preview (gpointer user_data)
 	gboolean convert_spaces;
 	gulong   counter_start;
 	GdkPixbufFormat *format;
-	
+
 	data = g_object_get_data (G_OBJECT (user_data), "data");
 	g_assert (data != NULL);
 
@@ -54,9 +54,9 @@ update_preview (gpointer user_data)
 
 	/* obtain required dialog data */
 	token_str = gtk_entry_get_text (GTK_ENTRY (data->token_entry));
-	convert_spaces = gtk_toggle_button_get_active 
+	convert_spaces = gtk_toggle_button_get_active
 		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));
-	counter_start = gtk_spin_button_get_value_as_int 
+	counter_start = gtk_spin_button_get_value_as_int
 		(GTK_SPIN_BUTTON (data->counter_spin));
 
 	format = get_selected_format (GTK_COMBO_BOX (data->format_combobox));
@@ -64,7 +64,7 @@ update_preview (gpointer user_data)
 	if (token_str != NULL) {
 		/* generate preview filename */
 		preview_str = eog_uri_converter_preview (token_str, data->image, format,
-							 (counter_start + data->nth_image), 
+							 (counter_start + data->nth_image),
 							 data->n_images,
 							 convert_spaces, '_' /* FIXME: make this editable */);
 	}
@@ -82,7 +82,7 @@ static void
 request_preview_update (GtkWidget *dlg)
 {
 	SaveAsData *data;
-	
+
 	data = g_object_get_data (G_OBJECT (dlg), "data");
 	g_assert (data != NULL);
 
@@ -210,7 +210,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	GtkWidget *dlg;
 	SaveAsData *data;
 	GtkWidget *label;
-	
+
 	filepath = g_build_filename (EOG_DATA_DIR,
 				     "eog-multiple-save-as-dialog.ui",
 				     NULL);
@@ -218,7 +218,7 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	xml = gtk_builder_new ();
 	gtk_builder_set_translation_domain (xml, GETTEXT_PACKAGE);
 	g_assert (gtk_builder_add_from_file (xml, filepath, NULL));
-	
+
 	g_free (filepath);
 
 	dlg = GTK_WIDGET (g_object_ref (gtk_builder_get_object (xml, "eog_multiple_save_as_dialog")));
@@ -264,13 +264,13 @@ eog_save_as_dialog_new (GtkWindow *main, GList *images, GFile *base_file)
 	gtk_label_set_text (GTK_LABEL (label), eog_image_get_caption (data->image));
 
 	prepare_format_combobox (data);
-	
+
 	set_default_values (dlg, base_file);
 	g_object_unref (xml);
 	return dlg;
 }
 
-EogURIConverter* 
+EogURIConverter*
 eog_save_as_dialog_get_converter (GtkWidget *dlg)
 {
 	EogURIConverter *conv;
@@ -289,10 +289,10 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 	/* obtain required dialog data */
 	format_str = gtk_entry_get_text (GTK_ENTRY (data->token_entry));
 
-	convert_spaces = gtk_toggle_button_get_active 
+	convert_spaces = gtk_toggle_button_get_active
 		(GTK_TOGGLE_BUTTON (data->replace_spaces_check));
 
-	counter_start = gtk_spin_button_get_value_as_int 
+	counter_start = gtk_spin_button_get_value_as_int
 		(GTK_SPIN_BUTTON (data->counter_spin));
 
 	format = get_selected_format (GTK_COMBO_BOX (data->format_combobox));

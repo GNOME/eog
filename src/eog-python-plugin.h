@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Python Plugin 
+/* Eye Of Gnome - Python Plugin
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-python-module.h) by: 
+ * Based on gedit code (gedit/gedit-python-module.h) by:
  * 	- Raphael Slinckx <raphael@slinckx.net>
  *
  * This program is free software; you can redistribute it and/or modify

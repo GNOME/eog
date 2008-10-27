@@ -39,7 +39,7 @@ G_DEFINE_TYPE (EogThumbNav, eog_thumb_nav, GTK_TYPE_HBOX);
 
 #define EOG_THUMB_NAV_SCROLL_INC      20
 #define EOG_THUMB_NAV_SCROLL_MOVE     20
-#define EOG_THUMB_NAV_SCROLL_TIMEOUT  20 
+#define EOG_THUMB_NAV_SCROLL_TIMEOUT  20
 
 enum
 {
@@ -75,7 +75,7 @@ eog_thumb_nav_scroll_event (GtkWidget *widget, GdkEventScroll *event, gpointer u
 	switch (event->direction) {
 	case GDK_SCROLL_UP:
 	case GDK_SCROLL_LEFT:
-		inc *= -1;	
+		inc *= -1;
 		break;
 
 	case GDK_SCROLL_DOWN:
@@ -121,7 +121,7 @@ eog_thumb_nav_adj_value_changed (GtkAdjustment *adj, gpointer user_data)
 
 	gtk_widget_set_sensitive (priv->button_left, adj->value > 0);
 
-	gtk_widget_set_sensitive (priv->button_right, 
+	gtk_widget_set_sensitive (priv->button_right,
 				  adj->value < adj->upper - adj->page_size);
 }
 
@@ -145,7 +145,7 @@ eog_thumb_nav_scroll_step (gpointer user_data)
 
 	if ((gint) (nav->priv->adj->value + (gdouble) delta) >= 0 &&
 	    (gint) (nav->priv->adj->value + (gdouble) delta) <= nav->priv->adj->upper - nav->priv->adj->page_size) {
-		nav->priv->adj->value += (gdouble) delta; 
+		nav->priv->adj->value += (gdouble) delta;
 		nav->priv->scroll_pos++;
 		gtk_adjustment_value_changed (nav->priv->adj);
 	} else {
@@ -155,12 +155,12 @@ eog_thumb_nav_scroll_step (gpointer user_data)
 		      nav->priv->adj->value = 0;
 
 		nav->priv->scroll_pos = 0;
-		
+
 		gtk_adjustment_value_changed (nav->priv->adj);
 
 		return FALSE;
 	}
-	
+
 	return TRUE;
 }
 
@@ -179,8 +179,8 @@ eog_thumb_nav_start_scroll (GtkButton *button, EogThumbNav *nav)
 {
 	nav->priv->scroll_dir = (GTK_WIDGET (button) == nav->priv->button_right);
 
-	nav->priv->scroll_id = g_timeout_add (EOG_THUMB_NAV_SCROLL_TIMEOUT, 
-					      eog_thumb_nav_scroll_step, 
+	nav->priv->scroll_id = g_timeout_add (EOG_THUMB_NAV_SCROLL_TIMEOUT,
+					      eog_thumb_nav_scroll_step,
 					      nav);
 }
 
@@ -194,10 +194,10 @@ eog_thumb_nav_stop_scroll (GtkButton *button, EogThumbNav *nav)
 	}
 }
 
-static void 
-eog_thumb_nav_get_property (GObject    *object, 
-			    guint       property_id, 
-			    GValue     *value, 
+static void
+eog_thumb_nav_get_property (GObject    *object,
+			    guint       property_id,
+			    GValue     *value,
 			    GParamSpec *pspec)
 {
 	EogThumbNav *nav = EOG_THUMB_NAV (object);
@@ -205,7 +205,7 @@ eog_thumb_nav_get_property (GObject    *object,
 	switch (property_id)
 	{
 	case PROP_SHOW_BUTTONS:
-		g_value_set_boolean (value, 
+		g_value_set_boolean (value,
 			eog_thumb_nav_get_show_buttons (nav));
 		break;
 
@@ -214,16 +214,16 @@ eog_thumb_nav_get_property (GObject    *object,
 		break;
 
 	case PROP_MODE:
-		g_value_set_int (value, 
+		g_value_set_int (value,
 			eog_thumb_nav_get_mode (nav));
 		break;
 	}
 }
 
-static void 
-eog_thumb_nav_set_property (GObject      *object, 
-			    guint         property_id, 
-			    const GValue *value, 
+static void
+eog_thumb_nav_set_property (GObject      *object,
+			    guint         property_id,
+			    const GValue *value,
 			    GParamSpec   *pspec)
 {
 	EogThumbNav *nav = EOG_THUMB_NAV (object);
@@ -231,17 +231,17 @@ eog_thumb_nav_set_property (GObject      *object,
 	switch (property_id)
 	{
 	case PROP_SHOW_BUTTONS:
-		eog_thumb_nav_set_show_buttons (nav, 
+		eog_thumb_nav_set_show_buttons (nav,
 			g_value_get_boolean (value));
 		break;
 
 	case PROP_THUMB_VIEW:
-		nav->priv->thumbview = 
+		nav->priv->thumbview =
 			GTK_WIDGET (g_value_get_object (value));
 		break;
 
 	case PROP_MODE:
-		eog_thumb_nav_set_mode (nav, 
+		eog_thumb_nav_set_mode (nav,
 			g_value_get_int (value));
 		break;
 	}
@@ -292,7 +292,7 @@ eog_thumb_nav_class_init (EogThumbNavClass *class)
 	                                                       "The internal thumbnail viewer widget",
 	                                                       EOG_TYPE_THUMB_VIEW,
 	                                                       (G_PARAM_CONSTRUCT_ONLY |
-								G_PARAM_READABLE | 
+								G_PARAM_READABLE |
 								G_PARAM_WRITABLE)));
 
 	g_object_class_install_property (g_object_class,
@@ -325,55 +325,55 @@ eog_thumb_nav_init (EogThumbNav *nav)
         priv->button_left = gtk_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (priv->button_left), GTK_RELIEF_NONE);
 
-	arrow = gtk_arrow_new (GTK_ARROW_LEFT, GTK_SHADOW_ETCHED_IN); 
+	arrow = gtk_arrow_new (GTK_ARROW_LEFT, GTK_SHADOW_ETCHED_IN);
 	gtk_container_add (GTK_CONTAINER (priv->button_left), arrow);
 
 	gtk_widget_set_size_request (GTK_WIDGET (priv->button_left), 25, 0);
 
         gtk_box_pack_start (GTK_BOX (nav), priv->button_left, FALSE, FALSE, 0);
 
-	g_signal_connect (priv->button_left, 
-			  "clicked", 
-			  G_CALLBACK (eog_thumb_nav_button_clicked), 
+	g_signal_connect (priv->button_left,
+			  "clicked",
+			  G_CALLBACK (eog_thumb_nav_button_clicked),
 			  nav);
 
-	g_signal_connect (priv->button_left, 
-			  "pressed", 
-			  G_CALLBACK (eog_thumb_nav_start_scroll), 
+	g_signal_connect (priv->button_left,
+			  "pressed",
+			  G_CALLBACK (eog_thumb_nav_start_scroll),
 			  nav);
 
-	g_signal_connect (priv->button_left, 
-			  "released", 
-			  G_CALLBACK (eog_thumb_nav_stop_scroll), 
+	g_signal_connect (priv->button_left,
+			  "released",
+			  G_CALLBACK (eog_thumb_nav_stop_scroll),
 			  nav);
 
 	priv->sw = gtk_scrolled_window_new (NULL, NULL);
 
-	gtk_widget_set_name (GTK_SCROLLED_WINDOW (priv->sw)->hscrollbar, 
+	gtk_widget_set_name (GTK_SCROLLED_WINDOW (priv->sw)->hscrollbar,
 			     "eog-image-collection-scrollbar");
 
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (priv->sw), 
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (priv->sw),
 					     GTK_SHADOW_IN);
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
 					GTK_POLICY_AUTOMATIC,
 					GTK_POLICY_NEVER);
 
-	g_signal_connect (priv->sw, 
-			  "scroll-event", 
-			  G_CALLBACK (eog_thumb_nav_scroll_event), 
+	g_signal_connect (priv->sw,
+			  "scroll-event",
+			  G_CALLBACK (eog_thumb_nav_scroll_event),
 			  nav);
 
 	priv->adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (priv->sw));
 
-	g_signal_connect (priv->adj, 
-			  "changed", 
-			  G_CALLBACK (eog_thumb_nav_adj_changed), 
+	g_signal_connect (priv->adj,
+			  "changed",
+			  G_CALLBACK (eog_thumb_nav_adj_changed),
 			  nav);
 
-	g_signal_connect (priv->adj, 
-			  "value-changed", 
-			  G_CALLBACK (eog_thumb_nav_adj_value_changed), 
+	g_signal_connect (priv->adj,
+			  "value-changed",
+			  G_CALLBACK (eog_thumb_nav_adj_value_changed),
 			  nav);
 
         gtk_box_pack_start (GTK_BOX (nav), priv->sw, TRUE, TRUE, 0);
@@ -381,26 +381,26 @@ eog_thumb_nav_init (EogThumbNav *nav)
         priv->button_right = gtk_button_new ();
 	gtk_button_set_relief (GTK_BUTTON (priv->button_right), GTK_RELIEF_NONE);
 
-	arrow = gtk_arrow_new (GTK_ARROW_RIGHT, GTK_SHADOW_NONE); 
+	arrow = gtk_arrow_new (GTK_ARROW_RIGHT, GTK_SHADOW_NONE);
 	gtk_container_add (GTK_CONTAINER (priv->button_right), arrow);
 
 	gtk_widget_set_size_request (GTK_WIDGET (priv->button_right), 25, 0);
 
         gtk_box_pack_start (GTK_BOX (nav), priv->button_right, FALSE, FALSE, 0);
 
-	g_signal_connect (priv->button_right, 
-			  "clicked", 
-			  G_CALLBACK (eog_thumb_nav_button_clicked), 
+	g_signal_connect (priv->button_right,
+			  "clicked",
+			  G_CALLBACK (eog_thumb_nav_button_clicked),
 			  nav);
 
-	g_signal_connect (priv->button_right, 
-			  "pressed", 
-			  G_CALLBACK (eog_thumb_nav_start_scroll), 
+	g_signal_connect (priv->button_right,
+			  "pressed",
+			  G_CALLBACK (eog_thumb_nav_start_scroll),
 			  nav);
 
-	g_signal_connect (priv->button_right, 
-			  "released", 
-			  G_CALLBACK (eog_thumb_nav_stop_scroll), 
+	g_signal_connect (priv->button_right,
+			  "released",
+			  G_CALLBACK (eog_thumb_nav_stop_scroll),
 			  nav);
 
 	gtk_adjustment_value_changed (priv->adj);
@@ -417,19 +417,19 @@ eog_thumb_nav_init (EogThumbNav *nav)
  * Returns: a new #EogThumbNav object.
  **/
 GtkWidget *
-eog_thumb_nav_new (GtkWidget       *thumbview, 
-		   EogThumbNavMode  mode, 
+eog_thumb_nav_new (GtkWidget       *thumbview,
+		   EogThumbNavMode  mode,
 		   gboolean         show_buttons)
 {
 	GObject *nav;
 
-	nav = g_object_new (EOG_TYPE_THUMB_NAV, 
+	nav = g_object_new (EOG_TYPE_THUMB_NAV,
 		            "show-buttons", show_buttons,
 		            "mode", mode,
 		            "thumbview", thumbview,
 		            "homogeneous", FALSE,
 		            "spacing", 0,
-			    NULL); 
+			    NULL);
 
 	return GTK_WIDGET (nav);
 }
@@ -448,7 +448,7 @@ eog_thumb_nav_get_show_buttons (EogThumbNav *nav)
 {
 	g_return_val_if_fail (EOG_IS_THUMB_NAV (nav), FALSE);
 
-	return nav->priv->show_buttons; 
+	return nav->priv->show_buttons;
 }
 
 /**
@@ -459,7 +459,7 @@ eog_thumb_nav_get_show_buttons (EogThumbNav *nav)
  * Sets whether the navigation buttons to the left and right of the
  * widget should be visible.
  **/
-void 
+void
 eog_thumb_nav_set_show_buttons (EogThumbNav *nav, gboolean show_buttons)
 {
 	g_return_if_fail (EOG_IS_THUMB_NAV (nav));
@@ -468,7 +468,7 @@ eog_thumb_nav_set_show_buttons (EogThumbNav *nav, gboolean show_buttons)
 
 	nav->priv->show_buttons = show_buttons;
 
-	if (show_buttons && 
+	if (show_buttons &&
 	    nav->priv->mode == EOG_THUMB_NAV_MODE_ONE_ROW) {
 		gtk_widget_show_all (nav->priv->button_left);
 		gtk_widget_show_all (nav->priv->button_right);
@@ -491,7 +491,7 @@ eog_thumb_nav_get_mode (EogThumbNav *nav)
 {
 	g_return_val_if_fail (EOG_IS_THUMB_NAV (nav), FALSE);
 
-	return nav->priv->mode; 
+	return nav->priv->mode;
 }
 
 /**
@@ -501,7 +501,7 @@ eog_thumb_nav_get_mode (EogThumbNav *nav)
  *
  * Sets the navigation mode in @nav. See #EogThumbNavMode for details.
  **/
-void 
+void
 eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 {
 	EogThumbNavPrivate *priv;
@@ -515,11 +515,11 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 	switch (mode)
 	{
 	case EOG_THUMB_NAV_MODE_ONE_ROW:
-		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 
+		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview),
 					   G_MAXINT);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, 123);
-		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						115);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
@@ -534,7 +534,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 1);
 
 		gtk_widget_set_size_request (priv->thumbview, 113, -1);
-		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
@@ -543,14 +543,14 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 
 		gtk_widget_hide_all (priv->button_left);
 		gtk_widget_hide_all (priv->button_right);
-		
+
 		break;
 
 	case EOG_THUMB_NAV_MODE_MULTIPLE_ROWS:
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, -1, 220);
-		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
@@ -559,14 +559,14 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 
 		gtk_widget_hide_all (priv->button_left);
 		gtk_widget_hide_all (priv->button_right);
-		
+
 		break;
 
 	case EOG_THUMB_NAV_MODE_MULTIPLE_COLUMNS:
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), -1);
 
 		gtk_widget_set_size_request (priv->thumbview, 230, -1);
-		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview), 
+		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						-1);
 
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->sw),
@@ -575,7 +575,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 
 		gtk_widget_hide_all (priv->button_left);
 		gtk_widget_hide_all (priv->button_right);
-		
+
 		break;
 	}
 }

@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Plugin 
+/* Eye Of Gnome - EOG Plugin
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -48,13 +48,13 @@ is_configurable (EogPlugin *plugin)
 		create_configure_dialog);
 }
 
-static void 
+static void
 eog_plugin_class_init (EogPluginClass *klass)
 {
 	klass->activate = dummy;
 	klass->deactivate = dummy;
 	klass->update_ui = dummy;
-	
+
 	klass->create_configure_dialog = create_configure_dialog;
 	klass->is_configurable = is_configurable;
 }
@@ -81,7 +81,7 @@ eog_plugin_deactivate (EogPlugin *plugin, EogWindow *window)
 
 	EOG_PLUGIN_GET_CLASS (plugin)->deactivate (plugin, window);
 }
-				 
+
 void
 eog_plugin_update_ui (EogPlugin *plugin, EogWindow *window)
 {
@@ -103,6 +103,6 @@ GtkWidget *
 eog_plugin_create_configure_dialog (EogPlugin *plugin)
 {
 	g_return_val_if_fail (EOG_IS_PLUGIN (plugin), NULL);
-	
+
 	return EOG_PLUGIN_GET_CLASS (plugin)->create_configure_dialog (plugin);
 }

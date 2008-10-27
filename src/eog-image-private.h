@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image Private Data 
+/* Eye Of Gnome - Image Private Data
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
@@ -35,7 +35,7 @@ struct _EogImagePrivate {
 
 	GdkPixbuf        *image;
 	GdkPixbuf        *thumbnail;
-	
+
 	gint              width;
 	gint              height;
 
@@ -44,11 +44,11 @@ struct _EogImagePrivate {
 	gboolean          threadsafe_format;
 
 	/* Holds EXIF raw data */
-	guchar           *exif_chunk; 
+	guchar           *exif_chunk;
 	guint             exif_chunk_len;
 
 	/* Holds IPTC raw data */
-	guchar           *iptc_chunk; 
+	guchar           *iptc_chunk;
 	guint             iptc_chunk_len;
 
 #ifdef HAVE_EXIF

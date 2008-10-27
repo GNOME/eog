@@ -7,7 +7,7 @@
  * Based on code by:
  * 	- Federico Mena-Quintero <federico@gnu.org>
  *	- Jens Finke <jens@gnome.org>
- * Based on evince code (shell/ev-window.c) by: 
+ * Based on evince code (shell/ev-window.c) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-G_BEGIN_DECLS 
+G_BEGIN_DECLS
 
 typedef struct _EogWindow EogWindow;
 typedef struct _EogWindowClass EogWindowClass;
@@ -111,7 +111,7 @@ GtkWidget    *eog_window_get_statusbar  (EogWindow       *window);
 
 EogImage     *eog_window_get_image      (EogWindow       *window);
 
-void          eog_window_open_file_list	(EogWindow       *window, 
+void          eog_window_open_file_list	(EogWindow       *window,
 					 GSList          *file_list);
 
 gboolean      eog_window_is_empty 	(EogWindow       *window);

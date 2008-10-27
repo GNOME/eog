@@ -1,4 +1,4 @@
-/* Eye Of Gnome - EXIF Utilities 
+/* Eye Of Gnome - EXIF Utilities
  *
  * Copyright (C) 2006-2007 The Free Software Foundation
  *
@@ -41,7 +41,7 @@
 #define DATE_BUF_SIZE 200
 
 #ifdef HAVE_STRPTIME
-static gchar *  
+static gchar *
 eog_exif_util_format_date_with_strptime (const gchar *date)
 {
 	gchar *new_date = NULL;
@@ -49,7 +49,7 @@ eog_exif_util_format_date_with_strptime (const gchar *date)
 	gchar *p;
 	gsize dlen;
 	struct tm tm;
-	
+
 	memset (&tm, '\0', sizeof (tm));
 	p = strptime (date, "%Y:%m:%d %T", &tm);
 
@@ -68,7 +68,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 	int year, month, day, hour, minutes, seconds;
 	int result;
 	gchar *new_date = NULL;
-	
+
 	result = sscanf (date, "%d:%d:%d %d:%d:%d",
 			 &year, &month, &day, &hour, &minutes, &seconds);
 
@@ -79,12 +79,12 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 		gsize dlen;
 		time_t secs;
 		struct tm tm;
-		
+
 		memset (&tm, '\0', sizeof (tm));
 		tm.tm_mday = day;
 		tm.tm_mon = month-1;
 		tm.tm_year = year-1900;
-		
+
 		if (result < 5) {
 		  	/* A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.  */
 			dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y"), &tm);
@@ -96,7 +96,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 			dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y  %X"), &tm);
 		}
 
-		if (dlen == 0) 
+		if (dlen == 0)
 			return NULL;
 		else
 			new_date = g_strndup (tmp_date, dlen);
@@ -105,7 +105,7 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 }
 #endif /* HAVE_STRPTIME */
 
-gchar *  
+gchar *
 eog_exif_util_format_date (const gchar *date)
 {
 	gchar *new_date;
@@ -117,7 +117,7 @@ eog_exif_util_format_date (const gchar *date)
 	return new_date;
 }
 
-const gchar * 
+const gchar *
 eog_exif_util_get_value (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
 {
 	ExifEntry *exif_entry;

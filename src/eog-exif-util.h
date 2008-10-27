@@ -1,4 +1,4 @@
-/* Eye Of Gnome - EXIF Utilities 
+/* Eye Of Gnome - EXIF Utilities
  *
  * Copyright (C) 2006-2007 The Free Software Foundation
  *

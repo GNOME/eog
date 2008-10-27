@@ -77,32 +77,32 @@ GtkListStore   *eog_list_store_new 		     (void);
 
 GtkListStore   *eog_list_store_new_from_glist 	     (GList *list);
 
-void            eog_list_store_append_image 	     (EogListStore *store, 
+void            eog_list_store_append_image 	     (EogListStore *store,
 						      EogImage     *image);
 
-void            eog_list_store_add_files 	     (EogListStore *store, 
+void            eog_list_store_add_files 	     (EogListStore *store,
 						      GList        *file_list);
 
-void            eog_list_store_remove_image 	     (EogListStore *store, 
+void            eog_list_store_remove_image 	     (EogListStore *store,
 						      EogImage     *image);
 
-gint            eog_list_store_get_pos_by_image      (EogListStore *store, 
+gint            eog_list_store_get_pos_by_image      (EogListStore *store,
 						      EogImage     *image);
 
-EogImage       *eog_list_store_get_image_by_pos      (EogListStore *store, 
+EogImage       *eog_list_store_get_image_by_pos      (EogListStore *store,
 						      const gint   pos);
 
-gint            eog_list_store_get_pos_by_iter 	     (EogListStore *store, 
+gint            eog_list_store_get_pos_by_iter 	     (EogListStore *store,
 						      GtkTreeIter  *iter);
 
 gint            eog_list_store_length                (EogListStore *store);
 
 gint            eog_list_store_get_initial_pos 	     (EogListStore *store);
 
-void            eog_list_store_thumbnail_set         (EogListStore *store, 
+void            eog_list_store_thumbnail_set         (EogListStore *store,
 						      GtkTreeIter *iter);
 
-void            eog_list_store_thumbnail_unset       (EogListStore *store, 
+void            eog_list_store_thumbnail_unset       (EogListStore *store,
 						      GtkTreeIter *iter);
 
 void            eog_list_store_thumbnail_refresh     (EogListStore *store,

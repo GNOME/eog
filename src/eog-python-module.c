@@ -16,8 +16,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, 
- * Boston, MA 02111-1307, USA. 
+ * Foundation, Inc., 59 Temple Place, Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -71,7 +71,7 @@ eog_python_module_load (GTypeModule *gmodule)
 	PyObject *main_module, *main_locals, *locals, *key, *value;
 	PyObject *module, *fromlist;
 	Py_ssize_t pos = 0;
-	
+
 	g_return_val_if_fail (Py_IsInitialized (), FALSE);
 
 	main_module = PyImport_AddModule ("__main__");
@@ -91,14 +91,14 @@ eog_python_module_load (GTypeModule *gmodule)
 
 		Py_DECREF(path);
 	}
-	
+
 	main_locals = PyModule_GetDict (main_module);
 
-	/* We need a fromlist to be able to import modules with 
+	/* We need a fromlist to be able to import modules with
          * a '.' in the name. */
 	fromlist = PyTuple_New(0);
 
-	module = PyImport_ImportModuleEx (priv->module, main_locals, main_locals, fromlist); 
+	module = PyImport_ImportModuleEx (priv->module, main_locals, main_locals, fromlist);
 
 	Py_DECREF(fromlist);
 
@@ -128,7 +128,7 @@ eog_python_module_unload (GTypeModule *module)
 	EogPythonModulePrivate *priv = EOG_PYTHON_MODULE_GET_PRIVATE (module);
 
 	eog_debug_message (DEBUG_PLUGINS, "Unloading Python module");
-	
+
 	priv->type = 0;
 }
 
@@ -213,7 +213,7 @@ eog_python_module_class_init (EogPythonModuleClass *class)
 					      "The Python module to load for this plugin",
 					      NULL,
 					      G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
-					      
+
 	g_object_class_install_property
 			(object_class,
 			 PROP_PATH,
@@ -224,7 +224,7 @@ eog_python_module_class_init (EogPythonModuleClass *class)
 					      G_PARAM_WRITABLE | G_PARAM_READABLE | G_PARAM_CONSTRUCT_ONLY));
 
 	g_type_class_add_private (object_class, sizeof (EogPythonModulePrivate));
-	
+
 	module_class->load = eog_python_module_load;
 	module_class->unload = eog_python_module_unload;
 }
@@ -338,7 +338,7 @@ eog_python_init (void)
 	struct sigaction old_sigint;
 	gint res;
 	char *argv[] = { "eog", NULL };
-	
+
 	static gboolean init_failed = FALSE;
 
 	if (init_failed) {
@@ -393,13 +393,13 @@ eog_python_init (void)
 		goto python_init_error;
 	}
 
-	/* import gobject */	
+	/* import gobject */
 	eog_init_pygobject ();
 
 	if (PyErr_Occurred ()) {
 		g_warning ("Error initializing Python interpreter: could not import pygobject.");
 
-		goto python_init_error;		
+		goto python_init_error;
 	}
 
 	/* import gtk */
@@ -410,7 +410,7 @@ eog_python_init (void)
 
 		goto python_init_error;
 	}
-	
+
 	/* sys.path.insert(0, ...) for system-wide plugins */
 	sys_path = PySys_GetObject ("path");
 	path = PyString_FromString (EOG_PLUGIN_DIR "/");
@@ -425,16 +425,16 @@ eog_python_init (void)
 	pyeog_add_constants (eog, "EOG_");
 
 	/* eog version */
-	tuple = Py_BuildValue("(iii)", 
+	tuple = Py_BuildValue("(iii)",
 			      EOG_MAJOR_VERSION,
 			      EOG_MINOR_VERSION,
 			      EOG_MICRO_VERSION);
 	PyDict_SetItemString(mdict, "version", tuple);
 	Py_DECREF(tuple);
-	
+
 	/* Retrieve the Python type for eog.Plugin */
 	PyEogPlugin_Type = (PyTypeObject *) PyDict_GetItemString (mdict, "Plugin");
- 
+
 	if (PyEogPlugin_Type == NULL) {
 		PyErr_Print ();
 
@@ -455,12 +455,12 @@ eog_python_init (void)
 	gettext_args = Py_BuildValue ("ss", GETTEXT_PACKAGE, EOG_LOCALE_DIR);
 	PyObject_CallObject (install, gettext_args);
 	Py_DECREF (gettext_args);
-	
+
 	/* Python has been successfully initialized */
 	init_failed = FALSE;
-	
+
 	return TRUE;
-	
+
 python_init_error:
 
 	g_warning ("Please check the installation of all the Python related packages required "
@@ -483,7 +483,7 @@ eog_python_shutdown (void)
 		}
 
 		while (PyGC_Collect ())
-			;	
+			;
 
 		Py_Finalize ();
 	}

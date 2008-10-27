@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image  Dialog 
+/* Eye Of Gnome - Image  Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -46,8 +46,8 @@ struct _EogDialogPrivate {
 };
 
 static void
-eog_dialog_construct_impl (EogDialog   *dialog, 
-			   const gchar *glade_file, 
+eog_dialog_construct_impl (EogDialog   *dialog,
+			   const gchar *glade_file,
 			   const gchar *dlg_node)
 {
 	EogDialogPrivate *priv;
@@ -55,7 +55,7 @@ eog_dialog_construct_impl (EogDialog   *dialog,
 
 	g_return_if_fail (dialog != NULL);
 	g_return_if_fail (EOG_IS_DIALOG (dialog));
-	
+
 	priv = dialog->priv;
 
 	filename = g_build_filename (EOG_DATA_DIR, glade_file, NULL);
@@ -69,7 +69,7 @@ eog_dialog_construct_impl (EogDialog   *dialog,
 	priv->dlg = GTK_WIDGET (gtk_builder_get_object (priv->xml, dlg_node));
 
 	if (priv->parent != NULL) {
-		gtk_window_set_transient_for (GTK_WINDOW (priv->dlg), 
+		gtk_window_set_transient_for (GTK_WINDOW (priv->dlg),
 					      priv->parent);
 	}
 }
@@ -127,7 +127,7 @@ eog_dialog_dispose (GObject *object)
 {
 	EogDialog *dialog;
 	EogDialogPrivate *priv;
-	
+
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_DIALOG (object));
 
@@ -166,10 +166,10 @@ eog_dialog_class_init (EogDialogClass *class)
 							      "Parent window",
 							      "Parent window",
 							      GTK_TYPE_WINDOW,
-							      G_PARAM_READWRITE | 
-							      G_PARAM_CONSTRUCT_ONLY | 
-							      G_PARAM_STATIC_NAME | 
-							      G_PARAM_STATIC_NICK | 
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_NAME |
+							      G_PARAM_STATIC_NICK |
 							      G_PARAM_STATIC_BLURB));
 
 	g_type_class_add_private (g_object_class, sizeof (EogDialogPrivate));
@@ -186,8 +186,8 @@ eog_dialog_init (EogDialog *dialog)
 }
 
 void
-eog_dialog_construct (EogDialog   *dialog, 
-		      const gchar *glade_file, 
+eog_dialog_construct (EogDialog   *dialog,
+		      const gchar *glade_file,
 		      const gchar *dlg_node)
 {
 	EogDialogClass *klass = EOG_DIALOG_GET_CLASS (dialog);
@@ -219,7 +219,7 @@ eog_dialog_get_controls (EogDialog   *dialog,
 
 	g_return_if_fail (dialog != NULL);
 	g_return_if_fail (EOG_IS_DIALOG (dialog));
-	
+
 	priv = dialog->priv;
 
         va_start (varargs, property_id);

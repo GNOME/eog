@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Plugin Engine 
+/* Eye Of Gnome - EOG Plugin Engine
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-plugins-engine.h) by: 
+ * Based on gedit code (gedit/gedit-plugins-engine.h) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -47,13 +47,13 @@ gboolean 	 eog_plugin_engine_plugin_is_active 	(EogPluginInfo *info);
 
 gboolean 	 eog_plugin_engine_plugin_is_available	(EogPluginInfo *info);
 
-gboolean	 eog_plugin_engine_plugin_is_configurable 
+gboolean	 eog_plugin_engine_plugin_is_configurable
 			       				(EogPluginInfo *info);
 
-void	 	 eog_plugin_engine_configure_plugin	(EogPluginInfo *info, 
+void	 	 eog_plugin_engine_configure_plugin	(EogPluginInfo *info,
 			       			 	 GtkWindow     *parent);
 
-void		 eog_plugin_engine_update_plugins_ui	(EogWindow     *window, 
+void		 eog_plugin_engine_update_plugins_ui	(EogWindow     *window,
 			       			 	 gboolean       new_window);
 
 const gchar	*eog_plugin_engine_get_plugin_name	(EogPluginInfo *info);

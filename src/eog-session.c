@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Session Handler 
+/* Eye Of Gnome - Session Handler
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-session.h) by: 
+ * Based on gedit code (gedit/gedit-session.h) by:
  * 	- Gedit Team
  * 	- Federico Mena-Quintero <federico@ximian.com>
  *
@@ -56,7 +56,7 @@ eog_session_init (EogApplication *application)
 	client = gnome_master_client ();
 
 	g_signal_connect (client, "save_yourself",
-			  G_CALLBACK (save_session), application);	
+			  G_CALLBACK (save_session), application);
 	g_signal_connect (client, "die",
 			  G_CALLBACK (removed_from_session), application);
 }

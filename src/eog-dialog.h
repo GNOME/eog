@@ -1,4 +1,4 @@
-/* Eye Of Gnome - EOG Dialog 
+/* Eye Of Gnome - EOG Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -58,7 +58,7 @@ struct _EogDialogClass {
 };
 
 GType   eog_dialog_get_type      (void) G_GNUC_CONST;
-  
+
 void    eog_dialog_construct     (EogDialog   *dialog,
 				  const gchar *glade_file,
 				  const gchar *dlg_node);

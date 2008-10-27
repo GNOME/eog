@@ -73,7 +73,7 @@ struct _EogMetadataReaderPngPrivate {
 
 	gpointer gAMA_chunk;
 	guint32	 gAMA_len;
-	
+
 	/* management fields */
 	gsize      size;
 	gsize      bytes_read;
@@ -102,7 +102,7 @@ eog_metadata_reader_png_dispose (GObject *object)
 {
 	EogMetadataReaderPng *emr = EOG_METADATA_READER_PNG (object);
 	EogMetadataReaderPngPrivate *priv = emr->priv;
-	
+
 	g_free (priv->xmp_chunk);
 	priv->xmp_chunk = NULL;
 
@@ -137,13 +137,13 @@ eog_metadata_reader_png_init (EogMetadataReaderPng *obj)
 	priv->cHRM_len = 0;
 	priv->gAMA_chunk = NULL;
 	priv->gAMA_len = 0;
-	
+
 	priv->sub_step = 0;
 	priv->state = EMR_READ_MAGIC;
 	priv->hasIHDR = FALSE;
 }
 
-static void 
+static void
 eog_metadata_reader_png_class_init (EogMetadataReaderPngClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
@@ -198,7 +198,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 	g_return_if_fail (EOG_IS_METADATA_READER_PNG (emr));
 
 	priv = emr->priv;
-	
+
 	if (priv->state == EMR_FINISHED) return;
 
 	for (i = 0; (i < len) && (priv->state != EMR_FINISHED); i++) {
@@ -229,7 +229,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			/* Read the high byte of the size's low word */
 			priv->size |= (buf [i] & 0xff) << 8;
 			priv->state = EMR_READ_SIZE_LOW_LOW_BYTE;
-			break;			
+			break;
 		case EMR_READ_SIZE_LOW_LOW_BYTE:
 			/* Read the high byte of the size's low word */
 			priv->size |= (buf [i] & 0xff);
@@ -261,7 +261,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 
 			if (G_UNLIKELY (!priv->hasIHDR)) {
 				/* IHDR should be the first chunk in a PNG */
-				if (priv->size == 13 
+				if (priv->size == 13
 				    && memcmp (priv->chunk_name, "IHDR", 4) == 0){
 					priv->hasIHDR = TRUE;
 				} else {
@@ -305,12 +305,12 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 					   "Skip bytes: %" G_GSIZE_FORMAT,
 					   priv->size);
 
-			if (i + priv->size < len) { 
+			if (i + priv->size < len) {
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 				priv->size = 0;
 				priv->state = EMR_READ_SIZE_HIGH_HIGH_BYTE;
 			}
-			else {  
+			else {
 				priv->size = (i + priv->size) - len;
 				i = len - 1;
 			}
@@ -325,7 +325,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			if (priv->sub_step++ != 3)
 				break;
 
-			/* ...generate the chunks CRC32, merge it with the 
+			/* ...generate the chunks CRC32, merge it with the
 			 * chunk name's CRC32 value... */
 			chunk_crc = crc32 (0L, Z_NULL, 0);
 			chunk_crc = crc32 (chunk_crc, *priv->crc_chunk, *priv->crc_len);
@@ -353,7 +353,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 					   "Read XMP Chunk - size: %"
 					   G_GSIZE_FORMAT, priv->size);
 
-			if (priv->xmp_chunk == NULL) { 
+			if (priv->xmp_chunk == NULL) {
 				priv->xmp_chunk = g_new0 (guchar, priv->size);
 				priv->xmp_len = priv->size;
 				priv->crc_len = &priv->xmp_len;
@@ -379,13 +379,13 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			}
 			break;
 		case EMR_READ_ICCP:
-			/* Extract an iCCP chunk containing a 
+			/* Extract an iCCP chunk containing a
 			 * deflated ICC profile. */
 			eog_debug_message (DEBUG_IMAGE_DATA,
 					   "Read ICC Chunk - size: %"
 					   G_GSIZE_FORMAT, priv->size);
 
-			if (priv->icc_chunk == NULL) { 
+			if (priv->icc_chunk == NULL) {
 				priv->icc_chunk = g_new0 (guchar, priv->size);
 				priv->icc_len = priv->size;
 				priv->crc_len = &priv->icc_len;
@@ -405,7 +405,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			eog_debug_message (DEBUG_IMAGE_DATA,
 					   "Read sRGB Chunk - value: %u", *(buf+i));
 
-			if (priv->sRGB_chunk == NULL) { 
+			if (priv->sRGB_chunk == NULL) {
 				priv->sRGB_chunk = g_new0 (guchar, priv->size);
 				priv->sRGB_len = priv->size;
 				priv->crc_len = &priv->sRGB_len;
@@ -426,7 +426,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 					   "Read cHRM Chunk - size: %"
 					   G_GSIZE_FORMAT, priv->size);
 
-			if (priv->cHRM_chunk == NULL) { 
+			if (priv->cHRM_chunk == NULL) {
 				priv->cHRM_chunk = g_new0 (guchar, priv->size);
 				priv->cHRM_len = priv->size;
 				priv->crc_len = &priv->cHRM_len;
@@ -441,13 +441,13 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 							    EMR_READ_ICCP);
 			break;
 		case EMR_READ_GAMA:
-			/* Extract the gAMA chunk containing the 
+			/* Extract the gAMA chunk containing the
 			 * image's gamma value */
 			eog_debug_message (DEBUG_IMAGE_DATA,
 					   "Read gAMA-Chunk - size: %"
 					   G_GSIZE_FORMAT, priv->size);
 
-			if (priv->gAMA_chunk == NULL) { 
+			if (priv->gAMA_chunk == NULL) {
 				priv->gAMA_chunk = g_new0 (guchar, priv->size);
 				priv->gAMA_len = priv->size;
 				priv->crc_len = &priv->gAMA_len;
@@ -472,7 +472,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 /* skip the chunk ID */
 #define EOG_XMP_OFFSET (22)
 
-static gpointer 
+static gpointer
 eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
 {
 	EogMetadataReaderPngPrivate *priv;
@@ -496,7 +496,7 @@ eog_metadata_reader_png_get_xmp_data (EogMetadataReaderPng *emr )
 #define EXTRACT_DOUBLE_UINT_BLOCK_OFFSET(chunk,offset,divider) \
 		(double)(GUINT32_FROM_BE(*((guint32*)((chunk)+((offset)*4))))/(double)(divider))
 
-/* This is the amount of memory the inflate output buffer gets increased by 
+/* This is the amount of memory the inflate output buffer gets increased by
  * while decompressing the ICC profile */
 #define EOG_ICC_INFLATE_BUFFER_STEP 1024
 
@@ -509,7 +509,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 {
 	EogMetadataReaderPngPrivate *priv;
 	cmsHPROFILE profile = NULL;
-	
+
 	g_return_val_if_fail (EOG_IS_METADATA_READER_PNG (emr), NULL);
 
 	priv = emr->priv;
@@ -587,7 +587,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		eog_debug_message (DEBUG_LCMS, "PNG is sRGB");
 		/* If the file has an sRGB chunk the image data is in the sRGB
 		 * colorspace. lcms has a built-in sRGB profile. */
-		
+
 		profile = cmsCreate_sRGBProfile ();
 	}
 
@@ -597,9 +597,9 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 		LPGAMMATABLE gamma[3];
 		double gammaValue = 2.2; // 2.2 should be a sane default gamma
 
-		/* This uglyness extracts the chromacity and whitepoint values 
-		 * from a PNG's cHRM chunk. These can be accurate up to the 
-		 * 5th decimal point. 
+		/* This uglyness extracts the chromacity and whitepoint values
+		 * from a PNG's cHRM chunk. These can be accurate up to the
+		 * 5th decimal point.
 		 * They are saved as integer values multiplied by 100000. */
 
 		eog_debug_message (DEBUG_LCMS, "Trying to calculate color profile");
@@ -616,7 +616,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 
 		primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
 
-		/* If the gAMA_chunk is present use its value which is saved 
+		/* If the gAMA_chunk is present use its value which is saved
 		 * the same way as the whitepoint. Use 2.2 as default value if
 		 * the chunk is not present. */
 		if (priv->gAMA_chunk)
@@ -640,14 +640,14 @@ eog_metadata_reader_png_init_emr_iface (gpointer g_iface, gpointer iface_data)
 
 	iface = (EogMetadataReaderInterface*) g_iface;
 
-	iface->consume = 
+	iface->consume =
 		(void (*) (EogMetadataReader *self, const guchar *buf, guint len))
 			eog_metadata_reader_png_consume;
-	iface->finished = 
+	iface->finished =
 		(gboolean (*) (EogMetadataReader *self))
 			eog_metadata_reader_png_finished;
 #ifdef HAVE_LCMS
-	iface->get_icc_profile = 
+	iface->get_icc_profile =
 		(cmsHPROFILE (*) (EogMetadataReader *self))
 			eog_metadata_reader_png_get_icc_profile;
 #endif

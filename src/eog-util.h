@@ -1,4 +1,4 @@
-/* Eye Of Gnome - General Utilities 
+/* Eye Of Gnome - General Utilities
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-void     eog_util_show_help                  (const gchar *section, 
+void     eog_util_show_help                  (const gchar *section,
 					      GtkWindow   *parent);
 
 gchar   *eog_util_make_valid_utf8            (const gchar *name);

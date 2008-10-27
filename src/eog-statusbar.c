@@ -1,4 +1,4 @@
-/* Eye of Gnome - Statusbar 
+/* Eye of Gnome - Statusbar
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *
@@ -35,7 +35,7 @@
 
 G_DEFINE_TYPE (EogStatusbar, eog_statusbar, GTK_TYPE_STATUSBAR)
 
-struct _EogStatusbarPrivate 
+struct _EogStatusbarPrivate
 {
 	GtkWidget *progressbar;
 	GtkWidget *img_num_statusbar;
@@ -67,24 +67,24 @@ eog_statusbar_init (EogStatusbar *statusbar)
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  priv->img_num_statusbar,
-			  FALSE, 
-			  TRUE, 
+			  FALSE,
+			  TRUE,
 			  0);
 
 	vbox = gtk_vbox_new (FALSE, 0);
 
 	gtk_box_pack_end (GTK_BOX (statusbar),
 			  vbox,
-			  FALSE, 
-			  FALSE, 
+			  FALSE,
+			  FALSE,
 			  2);
 
 	statusbar->priv->progressbar = gtk_progress_bar_new ();
 
 	gtk_box_pack_end (GTK_BOX (vbox),
 			  priv->progressbar,
-			  TRUE, 
-			  TRUE, 
+			  TRUE,
+			  TRUE,
 			  2);
 
 	gtk_widget_set_size_request (priv->progressbar, -1, 10);
@@ -142,6 +142,6 @@ eog_statusbar_set_has_resize_grip (EogStatusbar *statusbar, gboolean has_resize_
 {
 	g_return_if_fail (EOG_IS_STATUSBAR (statusbar));
 
-	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar), 
+	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (statusbar),
 					   has_resize_grip);
 }

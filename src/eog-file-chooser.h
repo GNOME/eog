@@ -11,7 +11,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, 
+ * Foundation, Inc., 59 Temple Place, Suite 330,
  * Boston, MA 02111-1307, USA.
  */
 
@@ -22,7 +22,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
- 
+
 #define EOG_TYPE_FILE_CHOOSER          (eog_file_chooser_get_type ())
 #define EOG_FILE_CHOOSER(o)            (G_TYPE_CHECK_INSTANCE_CAST ((o), EOG_TYPE_FILE_CHOOSER, EogFileChooser))
 #define EOG_FILE_CHOOSER_CLASS(k)      (G_TYPE_CHECK_CLASS_CAST((k), EOG_TYPE_FILE_CHOOSER, EogFileChooserClass))

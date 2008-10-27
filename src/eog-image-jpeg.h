@@ -13,7 +13,7 @@
  * possible. It will save the image as lossless as possible (if the
  * target is a jpeg image too).
  */
-gboolean eog_image_jpeg_save_file (EogImage *image, const char *file, 
+gboolean eog_image_jpeg_save_file (EogImage *image, const char *file,
 				   EogImageSaveInfo *source, EogImageSaveInfo *target,
 				   GError **error);
 #endif

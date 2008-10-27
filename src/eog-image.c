@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image 
+/* Eye Of Gnome - Image
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -84,11 +84,11 @@ static GList *supported_mime_types = NULL;
 
 #define EOG_IMAGE_READ_BUFFER_SIZE 65535
 
-static void 
+static void
 eog_image_free_mem_private (EogImage *image)
 {
 	EogImagePrivate *priv;
-	
+
 	priv = image->priv;
 
 	if (priv->status == EOG_IMAGE_STATUS_LOADING) {
@@ -98,14 +98,14 @@ eog_image_free_mem_private (EogImage *image)
 			g_object_unref (priv->image);
 			priv->image = NULL;
 		}
-		
+
 #ifdef HAVE_EXIF
 		if (priv->exif != NULL) {
 			exif_data_unref (priv->exif);
 			priv->exif = NULL;
 		}
 #endif
-		
+
 		if (priv->exif_chunk != NULL) {
 			g_free (priv->exif_chunk);
 			priv->exif_chunk = NULL;
@@ -126,7 +126,7 @@ eog_image_free_mem_private (EogImage *image)
 			priv->profile = NULL;
 		}
 #endif
-		
+
 		priv->status = EOG_IMAGE_STATUS_UNKNOWN;
 	}
 }
@@ -159,7 +159,7 @@ eog_image_dispose (GObject *object)
 		g_free (priv->file_type);
 		priv->file_type = NULL;
 	}
-	
+
 	if (priv->status_mutex) {
 		g_mutex_free (priv->status_mutex);
 		priv->status_mutex = NULL;
@@ -191,7 +191,7 @@ eog_image_class_init (EogImageClass *klass)
 
 	object_class->dispose = eog_image_dispose;
 
-	signals[SIGNAL_SIZE_PREPARED] = 
+	signals[SIGNAL_SIZE_PREPARED] =
 		g_signal_new ("size-prepared",
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
@@ -202,7 +202,7 @@ eog_image_class_init (EogImageClass *klass)
 			      G_TYPE_INT,
 			      G_TYPE_INT);
 
-	signals[SIGNAL_CHANGED] = 
+	signals[SIGNAL_CHANGED] =
 		g_signal_new ("changed",
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
@@ -211,7 +211,7 @@ eog_image_class_init (EogImageClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals[SIGNAL_THUMBNAIL_CHANGED] = 
+	signals[SIGNAL_THUMBNAIL_CHANGED] =
 		g_signal_new ("thumbnail-changed",
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
@@ -220,7 +220,7 @@ eog_image_class_init (EogImageClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals[SIGNAL_SAVE_PROGRESS] = 
+	signals[SIGNAL_SAVE_PROGRESS] =
 		g_signal_new ("save-progress",
 			      EOG_TYPE_IMAGE,
 			      G_SIGNAL_RUN_LAST,
@@ -264,7 +264,7 @@ eog_image_init (EogImage *img)
 #endif
 }
 
-EogImage * 
+EogImage *
 eog_image_new (const char *txt_uri)
 {
 	EogImage *img;
@@ -276,7 +276,7 @@ eog_image_new (const char *txt_uri)
 	return img;
 }
 
-EogImage * 
+EogImage *
 eog_image_new_file (GFile *file)
 {
 	EogImage *img;
@@ -318,7 +318,7 @@ eog_image_update_exif_data (EogImage *image)
 
 	bo = exif_data_get_byte_order (priv->exif);
 
-	/* Update image width */	
+	/* Update image width */
 	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_X_DIMENSION);
 	if (entry != NULL && (priv->width >= 0)) {
 		if (entry->format == EXIF_FORMAT_LONG)
@@ -329,7 +329,7 @@ eog_image_update_exif_data (EogImage *image)
 			g_warning ("Exif entry has unsupported size");
 	}
 
-	/* Update image height */	
+	/* Update image height */
 	entry = exif_data_get_entry (priv->exif, EXIF_TAG_PIXEL_Y_DIMENSION);
 	if (entry != NULL && (priv->height >= 0)) {
 		if (entry->format == EXIF_FORMAT_LONG)
@@ -339,8 +339,8 @@ eog_image_update_exif_data (EogImage *image)
 		else
 			g_warning ("Exif entry has unsupported size");
 	}
-	
-	/* Update image orientation */	
+
+	/* Update image orientation */
 	entry = exif_data_get_entry (priv->exif, EXIF_TAG_ORIENTATION);
 	if (entry != NULL) {
 		if (entry->format == EXIF_FORMAT_LONG)
@@ -356,8 +356,8 @@ eog_image_update_exif_data (EogImage *image)
 }
 
 static void
-eog_image_real_transform (EogImage     *img, 
-			  EogTransform *trans, 
+eog_image_real_transform (EogImage     *img,
+			  EogTransform *trans,
 			  gboolean      is_undo,
 			  EogJob       *job)
 {
@@ -372,13 +372,13 @@ eog_image_real_transform (EogImage     *img,
 
 	if (priv->image != NULL) {
 		transformed = eog_transform_apply (trans, priv->image, job);
-		
+
 		g_object_unref (priv->image);
 		priv->image = transformed;
 
 		priv->width = gdk_pixbuf_get_width (transformed);
 		priv->height = gdk_pixbuf_get_height (transformed);
-       
+
 		modified = TRUE;
 	}
 
@@ -387,7 +387,7 @@ eog_image_real_transform (EogImage     *img,
 
 		g_object_unref (priv->thumbnail);
 		priv->thumbnail = transformed;
-       
+
 		modified = TRUE;
 	}
 
@@ -408,7 +408,7 @@ eog_image_real_transform (EogImage     *img,
 
 		priv->trans = composition;
 	}
-	
+
 	if (!is_undo) {
 		g_object_ref (trans);
 		priv->undo_stack = g_slist_prepend (priv->undo_stack, trans);
@@ -424,13 +424,13 @@ check_loader_threadsafety (GdkPixbufLoader *loader, gboolean *result)
 	format = gdk_pixbuf_loader_get_format (loader);
 	if (format) {
 		ret_val = TRUE;
-		if (result) 
+		if (result)
 		/* FIXME: We should not be accessing this struct internals
  		 * directly. Keep track of bug #469209 to fix that. */
 			*result = format->flags & GDK_PIXBUF_FORMAT_THREADSAFE;
 	}
 
-	return ret_val;	
+	return ret_val;
 }
 
 static void
@@ -450,9 +450,9 @@ eog_image_pre_size_prepared (GdkPixbufLoader *loader,
 }
 
 static void
-eog_image_size_prepared (GdkPixbufLoader *loader, 
-			 gint             width, 
-			 gint             height, 
+eog_image_size_prepared (GdkPixbufLoader *loader,
+			 gint             width,
+			 gint             height,
 			 gpointer         data)
 {
 	EogImage *img;
@@ -483,12 +483,12 @@ check_for_metadata_img_format (EogImage *img, guchar *buffer, guint bytes_read)
 {
 	EogMetadataReader *md_reader = NULL;
 
-	eog_debug_message (DEBUG_IMAGE_DATA, "Check image format for jpeg: %x%x - length: %i", 
+	eog_debug_message (DEBUG_IMAGE_DATA, "Check image format for jpeg: %x%x - length: %i",
 			   buffer[0], buffer[1], bytes_read);
 
 	if (bytes_read >= 2) {
 		/* SOI (start of image) marker for JPEGs is 0xFFD8 */
-		if ((buffer[0] == 0xFF) && (buffer[1] == 0xD8)) {		
+		if ((buffer[0] == 0xFF) && (buffer[1] == 0xD8)) {
 			md_reader = eog_metadata_reader_new (EOG_METADATA_JPEG);
 		}
 		if (bytes_read >= 8 &&
@@ -516,7 +516,7 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	EogImagePrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
-	
+
 	priv = img->priv;
 
 	if (priv->trans == NULL && priv->trans_autorotate == NULL) {
@@ -524,8 +524,8 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	}
 
 	if (priv->image == NULL) {
-		g_set_error (error, 
-			     EOG_IMAGE_ERROR, 
+		g_set_error (error,
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("Transformation on unloaded image."));
 
@@ -533,7 +533,7 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	}
 
 	if (priv->trans != NULL && priv->trans_autorotate != NULL) {
-		composition = eog_transform_compose (priv->trans, 
+		composition = eog_transform_compose (priv->trans,
 						     priv->trans_autorotate);
 	} else if (priv->trans != NULL) {
 		composition = g_object_ref (priv->trans);
@@ -552,8 +552,8 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 		priv->width = gdk_pixbuf_get_width (priv->image);
 		priv->height = gdk_pixbuf_get_height (priv->image);
 	} else {
-		g_set_error (error, 
-			     EOG_IMAGE_ERROR, 
+		g_set_error (error,
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_GENERIC,
 			     _("Transformation failed."));
  	}
@@ -563,10 +563,10 @@ eog_image_apply_transformations (EogImage *img, GError **error)
 	return (transformed != NULL);
 }
 
-static void 
-eog_image_get_file_info (EogImage *img, 
+static void
+eog_image_get_file_info (EogImage *img,
 			 goffset *bytes,
-			 gchar **mime_type, 
+			 gchar **mime_type,
 			 GError **error)
 {
 	GFileInfo *file_info;
@@ -583,8 +583,8 @@ eog_image_get_file_info (EogImage *img,
 		if (mime_type)
 			*mime_type = NULL;
 
-		g_set_error (error, 
-			     EOG_IMAGE_ERROR, 
+		g_set_error (error,
+			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_VFS,
 			     "Error in getting image file info");
 	} else {
@@ -605,7 +605,7 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 	cmsHTRANSFORM transform;
 	gint row, width, rows, stride;
 	guchar *p;
-	
+
 	g_return_if_fail (img != NULL);
 
 	priv = img->priv;
@@ -625,13 +625,13 @@ eog_image_apply_display_profile (EogImage *img, cmsHPROFILE screen)
 		return;
 	}
 
-	transform = cmsCreateTransform (priv->profile, 
-				        TYPE_RGB_8, 
-				        screen, 
-				        TYPE_RGB_8, 
-				        INTENT_PERCEPTUAL, 
+	transform = cmsCreateTransform (priv->profile,
+				        TYPE_RGB_8,
+				        screen,
+				        TYPE_RGB_8,
+				        INTENT_PERCEPTUAL,
 				        0);
-	
+
 	if (G_LIKELY (transform != NULL)) {
 		rows = gdk_pixbuf_get_height (priv->image);
 		width = gdk_pixbuf_get_width (priv->image);
@@ -658,7 +658,7 @@ eog_image_set_icc_data (EogImage *img, EogMetadataReader *md_reader)
 #endif
 
 #ifdef HAVE_EXIF
-static void 
+static void
 eog_image_set_orientation (EogImage *img)
 {
 	EogImagePrivate *priv;
@@ -670,7 +670,7 @@ eog_image_set_orientation (EogImage *img)
 	if (priv->exif != NULL) {
 		ExifByteOrder o = exif_data_get_byte_order (priv->exif);
 
-		ExifEntry *entry = exif_data_get_entry (priv->exif, 
+		ExifEntry *entry = exif_data_get_entry (priv->exif,
 							EXIF_TAG_ORIENTATION);
 
 		if (entry && entry->data != NULL) {
@@ -691,13 +691,13 @@ eog_image_set_orientation (EogImage *img)
 static void
 eog_image_real_autorotate (EogImage *img)
 {
-	static EogTransformType lookup[8] = {EOG_TRANSFORM_NONE, 
-					     EOG_TRANSFORM_FLIP_HORIZONTAL, 
-					     EOG_TRANSFORM_ROT_180, 
-					     EOG_TRANSFORM_FLIP_VERTICAL, 
-					     EOG_TRANSFORM_TRANSPOSE, 
-					     EOG_TRANSFORM_ROT_90, 
-					     EOG_TRANSFORM_TRANSVERSE, 
+	static EogTransformType lookup[8] = {EOG_TRANSFORM_NONE,
+					     EOG_TRANSFORM_FLIP_HORIZONTAL,
+					     EOG_TRANSFORM_ROT_180,
+					     EOG_TRANSFORM_FLIP_VERTICAL,
+					     EOG_TRANSFORM_TRANSPOSE,
+					     EOG_TRANSFORM_ROT_90,
+					     EOG_TRANSFORM_TRANSVERSE,
 					     EOG_TRANSFORM_ROT_270};
 	EogImagePrivate *priv;
 	EogTransformType type;
@@ -706,7 +706,7 @@ eog_image_real_autorotate (EogImage *img)
 
 	priv = img->priv;
 
-	type = (priv->orientation >= 1 && priv->orientation <= 8 ? 
+	type = (priv->orientation >= 1 && priv->orientation <= 8 ?
 		lookup[priv->orientation - 1] : EOG_TRANSFORM_NONE);
 
 	if (type != EOG_TRANSFORM_NONE) {
@@ -750,7 +750,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 
 	priv = img->priv;
 
-#ifdef HAVE_EXIF  
+#ifdef HAVE_EXIF
 	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
 
 	priv->exif_chunk = NULL;
@@ -763,16 +763,16 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 		/* Emit size prepared signal if we have the size */
 		if (priv->width > 0 &&
 		    priv->height > 0) {
-			g_signal_emit (img, 
-				       signals[SIGNAL_SIZE_PREPARED], 
-				       0, 
-				       priv->width, 
+			g_signal_emit (img,
+				       signals[SIGNAL_SIZE_PREPARED],
+				       0,
+				       priv->width,
 				       priv->height);
 		}
 	}
 #else
-	eog_metadata_reader_get_exif_chunk (md_reader, 
-					    &priv->exif_chunk, 
+	eog_metadata_reader_get_exif_chunk (md_reader,
+					    &priv->exif_chunk,
 					    &priv->exif_chunk_len);
 #endif
 }
@@ -798,9 +798,9 @@ eog_image_get_dimension_from_thumbnail (EogImage *image,
 }
 
 static gboolean
-eog_image_real_load (EogImage *img, 
-		     guint     data2read, 
-		     EogJob   *job, 
+eog_image_real_load (EogImage *img,
+		     guint     data2read,
+		     EogJob   *job,
 		     GError  **error)
 {
 	EogImagePrivate *priv;
@@ -815,7 +815,7 @@ eog_image_real_load (EogImage *img,
 	gboolean first_run = TRUE;
 	gboolean set_metadata = TRUE;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
-	gboolean read_only_dimension = (data2read & EOG_IMAGE_DATA_DIMENSION) && 
+	gboolean read_only_dimension = (data2read & EOG_IMAGE_DATA_DIMENSION) &&
 					!read_image_data;
 
 	priv = img->priv;
@@ -839,9 +839,9 @@ eog_image_real_load (EogImage *img,
 	if (read_only_dimension) {
 		gint width, height;
 		gboolean done;
-		
-		done = eog_image_get_dimension_from_thumbnail (img, 
-							       &width, 
+
+		done = eog_image_get_dimension_from_thumbnail (img,
+							       &width,
 							       &height);
 
 		if (done) {
@@ -852,33 +852,33 @@ eog_image_real_load (EogImage *img,
 			return TRUE;
 		}
 	}
-	
+
 	input_stream = g_file_read (priv->file, NULL, error);
 
 	if (input_stream == NULL) {
 		g_free (mime_type);
 
 		if (error != NULL) {
-			g_set_error (error, 
-				     EOG_IMAGE_ERROR, 
+			g_set_error (error,
+				     EOG_IMAGE_ERROR,
 				     EOG_IMAGE_ERROR_VFS,
 				     "Failed to open input stream for file");
 		}
 		return FALSE;
 	}
-	
+
 	buffer = g_new0 (guchar, EOG_IMAGE_READ_BUFFER_SIZE);
-	
+
 	if (read_image_data || read_only_dimension) {
 		gboolean checked_threadsafety = FALSE;
 
 		loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
-	
+
 		if (error && *error) {
 			g_error_free (*error);
 			*error = NULL;
 
-			loader = gdk_pixbuf_loader_new (); 
+			loader = gdk_pixbuf_loader_new ();
 		} else {
 			/* The mimetype-based loader should know the
 			 * format here already. */
@@ -889,15 +889,15 @@ eog_image_real_load (EogImage *img,
  		 * any possible asyncronous task that could bring deadlocks
  		 * to image loading process. */
 		if (!checked_threadsafety)
-			g_signal_connect (loader, 
+			g_signal_connect (loader,
 					  "size-prepared",
 					  G_CALLBACK (eog_image_pre_size_prepared),
 					  img);
 
-		g_signal_connect_object (G_OBJECT (loader), 
-					 "size-prepared", 
+		g_signal_connect_object (G_OBJECT (loader),
+					 "size-prepared",
 					 G_CALLBACK (eog_image_size_prepared),
-					 img, 
+					 img,
 					 0);
         }
 	g_free (mime_type);
@@ -905,8 +905,8 @@ eog_image_real_load (EogImage *img,
 	while (!priv->cancel_loading) {
 		/* FIXME: make this async */
 		bytes_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
-						  buffer, 
-						  EOG_IMAGE_READ_BUFFER_SIZE, 
+						  buffer,
+						  EOG_IMAGE_READ_BUFFER_SIZE,
 						  NULL, error);
 
 		if (bytes_read == 0) {
@@ -915,15 +915,15 @@ eog_image_real_load (EogImage *img,
 		} else if (bytes_read == -1) {
 			failed = TRUE;
 
-			g_set_error (error, 
-				     EOG_IMAGE_ERROR, 
+			g_set_error (error,
+				     EOG_IMAGE_ERROR,
 				     EOG_IMAGE_ERROR_VFS,
 				     "Failed to read from input stream");
 
 			break;
 		}
-		
-		if ((read_image_data || read_only_dimension) && 
+
+		if ((read_image_data || read_only_dimension) &&
 		    !gdk_pixbuf_loader_write (loader, buffer, bytes_read, error)) {
 			failed = TRUE;
 			break;
@@ -941,18 +941,18 @@ eog_image_real_load (EogImage *img,
 
 			if (md_reader == NULL) {
 				if (data2read == EOG_IMAGE_DATA_EXIF) {
-					g_set_error (error, 
-						     EOG_IMAGE_ERROR, 
+					g_set_error (error,
+						     EOG_IMAGE_ERROR,
                                 	             EOG_IMAGE_ERROR_GENERIC,
                                 	             _("EXIF not supported for this file format."));
 					break;
 				}
 
 				if (priv->threadsafe_format)
-					g_signal_emit (img, 
-						       signals[SIGNAL_SIZE_PREPARED], 
-						       0, 
-						       priv->width, 
+					g_signal_emit (img,
+						       signals[SIGNAL_SIZE_PREPARED],
+						       0,
+						       priv->width,
 						       priv->height);
                         }
 
@@ -976,7 +976,7 @@ eog_image_real_load (EogImage *img,
 					set_metadata = FALSE;
 				}
 
-				if (data2read == EOG_IMAGE_DATA_EXIF) 
+				if (data2read == EOG_IMAGE_DATA_EXIF)
 					break;
 			}
 		}
@@ -1002,10 +1002,10 @@ eog_image_real_load (EogImage *img,
 	g_free (buffer);
 
 	g_object_unref (G_OBJECT (input_stream));
-	
+
 	failed = (failed ||
-		  priv->cancel_loading || 
-		  bytes_read_total == 0 || 
+		  priv->cancel_loading ||
+		  bytes_read_total == 0 ||
 		  (error && *error != NULL));
 
 	if (failed) {
@@ -1034,13 +1034,13 @@ eog_image_real_load (EogImage *img,
 				priv->file_type = gdk_pixbuf_format_get_name (format);
 			}
 
-			/* If it's non-threadsafe loader, then trigger window 
+			/* If it's non-threadsafe loader, then trigger window
  			 * showing in the end of the process. */
 			if (!priv->threadsafe_format)
-				g_signal_emit (img, 
-					       signals[SIGNAL_SIZE_PREPARED], 
-					       0, 
-					       priv->width, 
+				g_signal_emit (img,
+					       signals[SIGNAL_SIZE_PREPARED],
+					       0,
+					       priv->width,
 					       priv->height);
 		} else {
 			/* Some loaders don't report errors correctly.
@@ -1057,11 +1057,11 @@ eog_image_real_load (EogImage *img,
 	if (md_reader != NULL) {
 		g_object_unref (md_reader);
 		md_reader = NULL;
-	}	
+	}
 
 	/* Catch-all in case of poor-error reporting */
 	if (failed && error && *error == NULL) {
-		g_set_error (error, 
+		g_set_error (error,
 			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_GENERIC,
 			     _("Image loading failed."));
@@ -1079,7 +1079,7 @@ eog_image_has_data (EogImage *img, EogImageData req_data)
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
 
 	priv = img->priv;
-	
+
 	if ((req_data & EOG_IMAGE_DATA_IMAGE) > 0) {
 		req_data = (req_data & !EOG_IMAGE_DATA_IMAGE);
 		has_data = has_data && (priv->image != NULL);
@@ -1171,7 +1171,7 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 		g_object_unref (priv->thumbnail);
 		priv->thumbnail = NULL;
 	}
-	
+
 	if (thumbnail != NULL && priv->trans != NULL) {
 		priv->thumbnail = eog_transform_apply (priv->trans, thumbnail, NULL);
 	} else {
@@ -1187,7 +1187,7 @@ eog_image_set_thumbnail (EogImage *img, GdkPixbuf *thumbnail)
 	}
 }
 
-GdkPixbuf * 
+GdkPixbuf *
 eog_image_get_pixbuf (EogImage *img)
 {
 	GdkPixbuf *image = NULL;
@@ -1215,7 +1215,7 @@ eog_image_get_profile (EogImage *img)
 }
 #endif
 
-GdkPixbuf * 
+GdkPixbuf *
 eog_image_get_thumbnail (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
@@ -1229,7 +1229,7 @@ eog_image_get_thumbnail (EogImage *img)
 	return NULL;
 }
 
-void 
+void
 eog_image_get_size (EogImage *img, int *width, int *height)
 {
 	EogImagePrivate *priv;
@@ -1238,17 +1238,17 @@ eog_image_get_size (EogImage *img, int *width, int *height)
 
 	priv = img->priv;
 
-	*width = priv->width; 
+	*width = priv->width;
 	*height = priv->height;
 }
 
-void                
+void
 eog_image_transform (EogImage *img, EogTransform *trans, EogJob *job)
 {
 	eog_image_real_transform (img, trans, FALSE, job);
 }
 
-void 
+void
 eog_image_undo (EogImage *img)
 {
 	EogImagePrivate *priv;
@@ -1308,7 +1308,7 @@ transfer_progress_cb (goffset cur_bytes,
 	EogImage *image = EOG_IMAGE (user_data);
 
 	if (cur_bytes > 0) {
-		g_signal_emit (G_OBJECT(image), 
+		g_signal_emit (G_OBJECT(image),
 			       signals[SIGNAL_SAVE_PROGRESS],
 			       0,
 			       (gfloat) cur_bytes / (gfloat) total_bytes);
@@ -1316,20 +1316,20 @@ transfer_progress_cb (goffset cur_bytes,
 }
 
 static gboolean
-tmp_file_move_to_uri (EogImage *image, 
-		      GFile *tmpfile, 
-		      GFile *file, 
-		      gboolean overwrite, 
+tmp_file_move_to_uri (EogImage *image,
+		      GFile *tmpfile,
+		      GFile *file,
+		      gboolean overwrite,
 		      GError **error)
 {
 	gboolean result;
 	GError **ioerror = NULL;
-	
+
 	result = g_file_move (tmpfile,
 			      file,
 			      (overwrite ? G_FILE_COPY_OVERWRITE : 0) |
 			      G_FILE_COPY_ALL_METADATA,
-			      NULL, 
+			      NULL,
 			      (GFileProgressCallback) transfer_progress_cb,
 			      image,
 			      ioerror);
@@ -1342,11 +1342,11 @@ tmp_file_move_to_uri (EogImage *image,
 				     "File exists");
 		} else {
 		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_VFS, 
+			     EOG_IMAGE_ERROR_VFS,
 			     "VFS error moving the temp file");
 		}
 		g_error_free (*ioerror);
-	} 
+	}
 
 	return result;
 }
@@ -1377,7 +1377,7 @@ tmp_file_delete (GFile *tmpfile)
 	return result;
 }
 
-static void 
+static void
 eog_image_reset_modifications (EogImage *image)
 {
 	EogImagePrivate *priv;
@@ -1419,7 +1419,7 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 	}
 	priv->file = g_object_ref (target->file);
 
-	/* Clear caption and caption key, these will be 
+	/* Clear caption and caption key, these will be
 	 * updated on next eog_image_get_caption call.
 	 */
 	if (priv->caption != NULL) {
@@ -1439,7 +1439,7 @@ eog_image_link_with_target (EogImage *image, EogImageSaveInfo *target)
 }
 
 gboolean
-eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error) 
+eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 {
 	EogImagePrivate *priv;
 	EogImageStatus prev_status;
@@ -1478,14 +1478,14 @@ eog_image_save_by_info (EogImage *img, EogImageSaveInfo *source, GError **error)
 			     EOG_IMAGE_ERROR_TMP_FILE_FAILED,
 			     _("Temporary file creation failed."));
 		return FALSE;
-	}	
+	}
 
 	tmp_file_path = g_file_get_path (tmp_file);
 
 #ifdef HAVE_JPEG
 	/* determine kind of saving */
-	if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0) && 
-	    source->exists && source->modified) 
+	if ((g_ascii_strcasecmp (source->format, EOG_FILE_FORMAT_JPEG) == 0) &&
+	    source->exists && source->modified)
 	{
 		success = eog_image_jpeg_save_file (img, tmp_file_path, source, NULL, error);
 	}
@@ -1522,16 +1522,16 @@ eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo
 
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
-	
+
 	result = g_file_copy (source->file,
 			      target->file,
 			      (target->overwrite ? G_FILE_COPY_OVERWRITE : 0) |
 			      G_FILE_COPY_ALL_METADATA,
-			      NULL, 
+			      NULL,
 			      EOG_IS_IMAGE (image) ? transfer_progress_cb :NULL,
 			      image,
 			      &ioerror);
-	
+
 	if (result == FALSE) {
 		if (ioerror->code == G_IO_ERROR_EXISTS) {
 			g_set_error (error, EOG_IMAGE_ERROR,
@@ -1539,7 +1539,7 @@ eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo
 				     "%s", ioerror->message);
 		} else {
 		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_VFS, 
+			     EOG_IMAGE_ERROR_VFS,
 			     "%s", ioerror->message);
 		}
 		g_error_free (ioerror);
@@ -1565,7 +1565,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 	/* fail if there is no image to save */
 	if (priv->image == NULL) {
-		g_set_error (error, 
+		g_set_error (error,
 			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_NOT_LOADED,
 			     _("No image loaded."));
@@ -1577,7 +1577,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 	tmp_file = tmp_file_get ();
 
 	if (tmp_file == NULL) {
-		g_set_error (error, 
+		g_set_error (error,
 			     EOG_IMAGE_ERROR,
 			     EOG_IMAGE_ERROR_TMP_FILE_FAILED,
 			     _("Temporary file creation failed."));
@@ -1585,7 +1585,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 		return FALSE;
 	}
 	tmp_file_path = g_file_get_path (tmp_file);
-	
+
 	/* determine kind of saving */
 	if (g_ascii_strcasecmp (source->format, target->format) == 0 && !source->modified) {
 		success = eog_image_copy_file (img, source, target, error);
@@ -1626,7 +1626,7 @@ eog_image_save_as_by_info (EogImage *img, EogImageSaveInfo *source, EogImageSave
 
 
 /*
- * This function is extracted from 
+ * This function is extracted from
  * File: nautilus/libnautilus-private/nautilus-file.c
  * Revision: 1.309
  * Author: Darin Adler <darin@bentspoon.com>
@@ -1636,19 +1636,19 @@ have_broken_filenames (void)
 {
 	static gboolean initialized = FALSE;
 	static gboolean broken;
-	
+
 	if (initialized) {
 		return broken;
 	}
-	
+
 	broken = g_getenv ("G_BROKEN_FILENAMES") != NULL;
-  
+
 	initialized = TRUE;
-  
+
 	return broken;
 }
 
-/* 
+/*
  * This function is inspired by
  * nautilus/libnautilus-private/nautilus-file.c:nautilus_file_get_display_name_nocopy
  * Revision: 1.309
@@ -1670,13 +1670,13 @@ eog_image_get_caption (EogImage *img)
 
 	if (priv->file == NULL) return NULL;
 
-	if (priv->caption != NULL) 
+	if (priv->caption != NULL)
 		/* Use cached caption string */
 		return priv->caption;
-	
+
 	name = g_file_get_basename (priv->file);
 	scheme = g_file_get_uri_scheme (priv->file);
-	
+
 	if (name != NULL && g_ascii_strcasecmp (scheme, "file") == 0) {
 		/* Support the G_BROKEN_FILENAMES feature of
 		 * glib by using g_filename_to_utf8 to convert
@@ -1699,7 +1699,7 @@ eog_image_get_caption (EogImage *img)
 			validated = TRUE;
 		}
 	}
-	
+
 	if (!validated && !g_utf8_validate (name, -1, NULL)) {
 		if (name == NULL) {
 			name = g_strdup ("[Invalid Unicode]");
@@ -1724,17 +1724,17 @@ eog_image_get_caption (EogImage *img)
 		g_free (short_str);
 	}
 	g_free (scheme);
-	
+
 	return priv->caption;
 }
 
-const gchar*        
+const gchar*
 eog_image_get_collate_key (EogImage *img)
 {
 	EogImagePrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
-	
+
 	priv = img->priv;
 
 	if (priv->collate_key == NULL) {
@@ -1754,7 +1754,7 @@ eog_image_cancel_load (EogImage *img)
 	EogImagePrivate *priv;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
-	
+
 	priv = img->priv;
 
 	g_mutex_lock (priv->status_mutex);
@@ -1771,9 +1771,9 @@ eog_image_get_exif_info (EogImage *img)
 {
 	EogImagePrivate *priv;
 	gpointer data = NULL;
-	
+
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
-	
+
 	priv = img->priv;
 
 #ifdef HAVE_EXIF
@@ -1794,17 +1794,17 @@ eog_image_get_xmp_info (EogImage *img)
 {
 	EogImagePrivate *priv;
  	gpointer data = NULL;
- 	
+
  	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
- 	
+
  	priv = img->priv;
-	
+
 #ifdef HAVE_EXEMPI
  	g_mutex_lock (priv->status_mutex);
  	data = (gpointer) xmp_copy (priv->xmp);
  	g_mutex_unlock (priv->status_mutex);
 #endif
-	
+
  	return data;
 }
 
@@ -1813,7 +1813,7 @@ GFile *
 eog_image_get_file (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
-	
+
 	return g_object_ref (img->priv->file);
 }
 
@@ -1821,7 +1821,7 @@ gboolean
 eog_image_is_modified (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), FALSE);
-	
+
 	return img->priv->modified;
 }
 
@@ -1829,7 +1829,7 @@ goffset
 eog_image_get_bytes (EogImage *img)
 {
 	g_return_val_if_fail (EOG_IS_IMAGE (img), 0);
-	
+
 	return img->priv->bytes;
 }
 
@@ -1849,7 +1849,7 @@ eog_image_get_uri_for_display (EogImage *img)
 	gchar *str = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE (img), NULL);
-	
+
 	priv = img->priv;
 
 	if (priv->file != NULL) {
@@ -1887,7 +1887,7 @@ void
 eog_image_data_unref (EogImage *img)
 {
 	g_return_if_fail (EOG_IS_IMAGE (img));
-		
+
 	if (img->priv->data_ref_count > 0) {
 		img->priv->data_ref_count--;
 	} else {
@@ -1906,10 +1906,10 @@ eog_image_data_unref (EogImage *img)
 static gint
 compare_quarks (gconstpointer a, gconstpointer b)
 {
-	GQuark quark; 
-	
+	GQuark quark;
+
 	quark = g_quark_from_string ((const gchar *) a);
-	
+
 	return quark - GPOINTER_TO_INT (b);
 }
 
@@ -1928,7 +1928,7 @@ eog_image_get_supported_mime_types (void)
 				gdk_pixbuf_format_get_mime_types ((GdkPixbufFormat *) it->data);
 
 			for (i = 0; mime_types[i] != NULL; i++) {
-				supported_mime_types = 
+				supported_mime_types =
 					g_list_prepend (supported_mime_types,
 							g_strdup (mime_types[i]));
 			}
@@ -1936,7 +1936,7 @@ eog_image_get_supported_mime_types (void)
 			g_strfreev (mime_types);
 		}
 
-		supported_mime_types = g_list_sort (supported_mime_types, 
+		supported_mime_types = g_list_sort (supported_mime_types,
 						    (GCompareFunc) compare_quarks);
 
 		g_slist_free (format_list);
@@ -1945,8 +1945,8 @@ eog_image_get_supported_mime_types (void)
 	return supported_mime_types;
 }
 
-gboolean 
-eog_image_is_supported_mime_type (const char *mime_type) 
+gboolean
+eog_image_is_supported_mime_type (const char *mime_type)
 {
 	GList *supported_mime_types, *result;
 	GQuark quark;
@@ -1959,7 +1959,7 @@ eog_image_is_supported_mime_type (const char *mime_type)
 
 	quark = g_quark_from_string (mime_type);
 
-	result = g_list_find_custom (supported_mime_types, 
+	result = g_list_find_custom (supported_mime_types,
 				     GINT_TO_POINTER (quark),
 				     (GCompareFunc) compare_quarks);
 

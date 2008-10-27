@@ -43,10 +43,10 @@ GType             eog_image_save_info_get_type     (void) G_GNUC_CONST;
 
 EogImageSaveInfo *eog_image_save_info_from_image   (gpointer        data);
 
-EogImageSaveInfo *eog_image_save_info_from_uri     (const char      *uri, 
+EogImageSaveInfo *eog_image_save_info_from_uri     (const char      *uri,
 						    GdkPixbufFormat *format);
 
-EogImageSaveInfo *eog_image_save_info_from_file    (GFile           *file, 
+EogImageSaveInfo *eog_image_save_info_from_file    (GFile           *file,
 						    GdkPixbufFormat *format);
 
 G_END_DECLS

@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image Properties Dialog 
+/* Eye Of Gnome - Image Properties Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -107,7 +107,7 @@ struct _EogPropertiesDialogPrivate {
 };
 
 static void
-pd_update_general_tab (EogPropertiesDialog *prop_dlg, 
+pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 		       EogImage            *image)
 {
 	gchar *bytes_str, *dir_str, *uri_str;
@@ -123,7 +123,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 		      "pixbuf", eog_image_get_thumbnail (image),
 		      NULL);
 
-	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->name_label), 
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->name_label),
 			    eog_image_get_caption (image));
 
 	eog_image_get_size (image, &width, &height);
@@ -135,12 +135,12 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->width_label), width_str);
 
-	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label), 
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->height_label),
 			    height_str);
 
 	g_free (height_str);
 	g_free (width_str);
-	
+
 	file = eog_image_get_file (image);
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -163,7 +163,7 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 
 	uri_str = eog_image_get_uri_for_display (image);
 	dir_str = g_path_get_dirname (uri_str);
-	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->location_label), 
+	gtk_label_set_text (GTK_LABEL (prop_dlg->priv->location_label),
 			    dir_str);
 
 	g_free (type_str);
@@ -183,7 +183,7 @@ eog_exif_set_label (GtkWidget *w, ExifData *exif_data, gint tag_id)
 	if (exif_data) {
 		buf_ptr = eog_exif_util_get_value (exif_data, tag_id,
 						   exif_buffer, 512);
-		
+
 		if (tag_id == EXIF_TAG_DATE_TIME_ORIGINAL && buf_ptr)
 			label_text = eog_exif_util_format_date (buf_ptr);
 		else
@@ -227,7 +227,7 @@ eog_exif_set_focal_length_label (GtkWidget *w, ExifData *exif_data)
 		   the image was taken.*/
 		fl_text = g_strdup_printf (_("%.1f (lens)"), f_val);
 
-	}	
+	}
 	if (entry35mm && G_LIKELY (entry35mm->format == EXIF_FORMAT_SHORT)) {
 		ExifShort s_val;
 
@@ -262,9 +262,9 @@ eog_exif_set_focal_length_label (GtkWidget *w, ExifData *exif_data)
 
 #if HAVE_EXEMPI
 static void
-eog_xmp_set_label (XmpPtr xmp, 
-		   const char *ns, 
-		   const char *propname, 
+eog_xmp_set_label (XmpPtr xmp,
+		   const char *ns,
+		   const char *propname,
 		   GtkWidget *w)
 {
 	uint32_t options;
@@ -275,9 +275,9 @@ eog_xmp_set_label (XmpPtr xmp,
 		if (XMP_IS_PROP_SIMPLE (options)) {
 			gtk_label_set_text (GTK_LABEL (w), xmp_string_cstr (value));
 		} else if (XMP_IS_PROP_ARRAY (options)) {
-			XmpIteratorPtr iter = xmp_iterator_new (xmp, 
-							        ns, 
-								propname, 
+			XmpIteratorPtr iter = xmp_iterator_new (xmp,
+							        ns,
+								propname,
 								XMP_ITER_JUSTLEAFNODES);
 
 			GString *string = g_string_new ("");
@@ -294,8 +294,8 @@ eog_xmp_set_label (XmpPtr xmp,
 						first = FALSE;
 					}
 
-					g_string_append_printf (string, 
-								"%s", 
+					g_string_append_printf (string,
+								"%s",
 								xmp_string_cstr (value));
 				}
 
@@ -317,7 +317,7 @@ eog_xmp_set_label (XmpPtr xmp,
 
 #if HAVE_METADATA
 static void
-pd_update_metadata_tab (EogPropertiesDialog *prop_dlg, 
+pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 			EogImage            *image)
 {
 	EogPropertiesDialogPrivate *priv;
@@ -370,7 +370,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	eog_exif_set_label (priv->exif_flash_label,
 			    exif_data, EXIF_TAG_FLASH);
 
-	eog_exif_set_label (priv->exif_iso_label, 
+	eog_exif_set_label (priv->exif_iso_label,
 			    exif_data, EXIF_TAG_ISO_SPEED_RATINGS);
 
 
@@ -383,7 +383,7 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	eog_exif_set_label (priv->exif_date_label,
 			    exif_data, EXIF_TAG_DATE_TIME_ORIGINAL);
 
-	eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details), 
+	eog_exif_details_update (EOG_EXIF_DETAILS (priv->exif_details),
 				 exif_data);
 
 	/* exif_data_unref can handle NULL-values */
@@ -394,29 +394,29 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	xmp_data = (XmpPtr) eog_image_get_xmp_info (image);
 
  	if (xmp_data != NULL) {
-		eog_xmp_set_label (xmp_data, 
-				   NS_IPTC4XMP, 
-				   "Location", 
+		eog_xmp_set_label (xmp_data,
+				   NS_IPTC4XMP,
+				   "Location",
 				   priv->xmp_location_label);
 
-		eog_xmp_set_label (xmp_data, 
-				   NS_DC, 
-				   "description", 
+		eog_xmp_set_label (xmp_data,
+				   NS_DC,
+				   "description",
 				   priv->xmp_description_label);
 
-		eog_xmp_set_label (xmp_data, 
-				   NS_DC, 
-				   "subject", 
+		eog_xmp_set_label (xmp_data,
+				   NS_DC,
+				   "subject",
 				   priv->xmp_keywords_label);
 
-		eog_xmp_set_label (xmp_data, 
-				   NS_DC, 
-        	                   "creator", 
+		eog_xmp_set_label (xmp_data,
+				   NS_DC,
+        	                   "creator",
 				   priv->xmp_creator_label);
 
-		eog_xmp_set_label (xmp_data, 
-				   NS_DC, 
-				   "rights", 
+		eog_xmp_set_label (xmp_data,
+				   NS_DC,
+				   "rights",
 				   priv->xmp_rights_label);
 
 		eog_exif_details_xmp_update (EOG_EXIF_DETAILS (priv->exif_details), xmp_data);
@@ -442,8 +442,8 @@ pd_resize_dialog (gpointer user_data)
 {
 	gint width, height;
 
-	gtk_window_get_size (GTK_WINDOW (user_data), 
-			     &width, 
+	gtk_window_get_size (GTK_WINDOW (user_data),
+			     &width,
 			     &height);
 
 	gtk_window_resize (GTK_WINDOW (user_data), width, 1);
@@ -453,22 +453,22 @@ pd_resize_dialog (gpointer user_data)
 
 static void
 pd_exif_details_activated_cb (GtkExpander *expander,
-			      GParamSpec *param_spec, 
+			      GParamSpec *param_spec,
 			      GtkWidget *dialog)
 {
 	gboolean expanded;
 
 	expanded = gtk_expander_get_expanded (expander);
 
-	/*FIXME: this is depending on the expander animation 
+	/*FIXME: this is depending on the expander animation
          * duration. Need to find a safer way for doing that. */
 	if (!expanded)
-		g_timeout_add (150, pd_resize_dialog, dialog); 
+		g_timeout_add (150, pd_resize_dialog, dialog);
 }
 #endif
 
 static void
-pd_close_button_clicked_cb (GtkButton *button, 
+pd_close_button_clicked_cb (GtkButton *button,
 			    gpointer   user_data)
 {
 	eog_dialog_hide (EOG_DIALOG (user_data));
@@ -476,20 +476,20 @@ pd_close_button_clicked_cb (GtkButton *button,
 
 static gboolean
 eog_properties_dialog_page_switch (GtkNotebook     *notebook,
-				   GtkNotebookPage *page, 
-				   gint             page_index, 
+				   GtkNotebookPage *page,
+				   gint             page_index,
 				   EogPropertiesDialog *prop_dlg)
 {
 
-	if (prop_dlg->priv->update_page) 
+	if (prop_dlg->priv->update_page)
 		prop_dlg->priv->current_page = page_index;
 
 	return TRUE;
 }
 
 static gint
-eog_properties_dialog_delete (GtkWidget   *widget, 
-			      GdkEventAny *event, 
+eog_properties_dialog_delete (GtkWidget   *widget,
+			      GdkEventAny *event,
 			      gpointer     user_data)
 {
 	g_return_val_if_fail (EOG_IS_PROPERTIES_DIALOG (user_data), FALSE);
@@ -534,7 +534,7 @@ eog_properties_dialog_dispose (GObject *object)
 {
 	EogPropertiesDialog *prop_dlg;
 	EogPropertiesDialogPrivate *priv;
-	
+
 	g_return_if_fail (object != NULL);
 	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (object));
 
@@ -564,10 +564,10 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *class)
 							      "Thumbview",
 							      "Thumbview",
 							      EOG_TYPE_THUMB_VIEW,
-							      G_PARAM_READWRITE | 
-							      G_PARAM_CONSTRUCT_ONLY | 
-							      G_PARAM_STATIC_NAME | 
-							      G_PARAM_STATIC_NICK | 
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_NAME |
+							      G_PARAM_STATIC_NICK |
 							      G_PARAM_STATIC_BLURB));
 
 	g_type_class_add_private (g_object_class, sizeof (EogPropertiesDialogPrivate));
@@ -594,8 +594,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	eog_dialog_construct (EOG_DIALOG (prop_dlg),
 			      "eog-image-properties-dialog.ui",
 			      "eog_image_properties_dialog");
- 
-	eog_dialog_get_controls (EOG_DIALOG (prop_dlg), 
+
+	eog_dialog_get_controls (EOG_DIALOG (prop_dlg),
 			         "eog_image_properties_dialog", &dlg,
 			         "notebook", &priv->notebook,
 			         "previous_button", &priv->previous_button,
@@ -657,7 +657,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #ifdef HAVE_METADATA
  	sw = gtk_scrolled_window_new (NULL, NULL);
 
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), 
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw),
 					     GTK_SHADOW_IN);
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
@@ -673,8 +673,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 	gtk_container_add (GTK_CONTAINER (priv->exif_details_expander), sw);
 
 	g_signal_connect_after (G_OBJECT (priv->exif_details_expander),
-			        "notify::expanded", 
-			  	G_CALLBACK (pd_exif_details_activated_cb), 
+			        "notify::expanded",
+			  	G_CALLBACK (pd_exif_details_activated_cb),
 			  	dlg);
 
 #ifndef HAVE_EXEMPI
@@ -683,13 +683,13 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #endif
 
 #else
-	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook), 
+	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
 				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
 #endif
 }
 
 GObject *
-eog_properties_dialog_new (GtkWindow    *parent, 
+eog_properties_dialog_new (GtkWindow    *parent,
 			   EogThumbView *thumbview,
 			   GtkAction    *next_image_action,
 			   GtkAction    *previous_image_action)
@@ -701,15 +701,15 @@ eog_properties_dialog_new (GtkWindow    *parent,
 	g_return_val_if_fail (GTK_IS_ACTION (next_image_action), NULL);
 	g_return_val_if_fail (GTK_IS_ACTION (previous_image_action), NULL);
 
-	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG, 
+	prop_dlg = g_object_new (EOG_TYPE_PROPERTIES_DIALOG,
 				 "parent-window", parent,
 			     	 "thumbview", thumbview,
 			     	 NULL);
 
-	gtk_action_connect_proxy (next_image_action, 
+	gtk_action_connect_proxy (next_image_action,
 				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->next_button);
 
-	gtk_action_connect_proxy (previous_image_action, 
+	gtk_action_connect_proxy (previous_image_action,
 				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->previous_button);
 
 	return prop_dlg;

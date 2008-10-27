@@ -42,7 +42,7 @@ static void
 eog_print_draw_page (GtkPrintOperation *operation,
 		     GtkPrintContext   *context,
 		     gint               page_nr,
-		     gpointer           user_data) 
+		     gpointer           user_data)
 {
 	cairo_t *cr;
 	gdouble dpi_x, dpi_y;
@@ -53,9 +53,9 @@ eog_print_draw_page (GtkPrintOperation *operation,
 	GdkPixbuf *pixbuf;
 	EogPrintData *data;
 	GtkPageSetup *page_setup;
-	
+
 	eog_debug (DEBUG_PRINTING);
-	
+
 	data = (EogPrintData *) user_data;
 
 	scale_factor = data->scale_factor/100;
@@ -63,7 +63,7 @@ eog_print_draw_page (GtkPrintOperation *operation,
 
 	dpi_x = gtk_print_context_get_dpi_x (context);
 	dpi_y = gtk_print_context_get_dpi_y (context);
-	
+
 	switch (data->unit) {
 	case GTK_UNIT_INCH:
 		x0 = data->left_margin * dpi_x;
@@ -101,20 +101,20 @@ eog_print_draw_page (GtkPrintOperation *operation,
 }
 
 static GObject *
-eog_print_create_custom_widget (GtkPrintOperation *operation, 
+eog_print_create_custom_widget (GtkPrintOperation *operation,
 				       gpointer user_data)
 {
 	GtkPageSetup *page_setup;
 	EogPrintData *data;
-	
+
 	eog_debug (DEBUG_PRINTING);
-	
+
 	data = (EogPrintData *)user_data;
-	
+
 	page_setup = gtk_print_operation_get_default_page_setup (operation);
-	
+
 	g_assert (page_setup != NULL);
-	
+
 	return G_OBJECT (eog_print_image_setup_new (data->image, page_setup));
 }
 
@@ -126,15 +126,15 @@ eog_print_custom_widget_apply (GtkPrintOperation *operation,
 	EogPrintData *data;
 	gdouble left_margin, top_margin, scale_factor;
 	GtkUnit unit;
-	
+
 	eog_debug (DEBUG_PRINTING);
-	
+
 	data = (EogPrintData *)user_data;
-	
-	eog_print_image_setup_get_options (EOG_PRINT_IMAGE_SETUP (widget), 
-					   &left_margin, &top_margin, 
+
+	eog_print_image_setup_get_options (EOG_PRINT_IMAGE_SETUP (widget),
+					   &left_margin, &top_margin,
 					   &scale_factor, &unit);
-	
+
 	data->left_margin = left_margin;
 	data->top_margin = top_margin;
 	data->scale_factor = scale_factor;
@@ -149,7 +149,7 @@ eog_print_end_print (GtkPrintOperation *operation,
 	EogPrintData *data = (EogPrintData*) user_data;
 
 	eog_debug (DEBUG_PRINTING);
-	
+
 	g_object_unref (data->image);
 	g_slice_free (EogPrintData, data);
 }
@@ -175,22 +175,22 @@ eog_print_operation_new (EogImage *image,
 	data->unit = GTK_UNIT_INCH;
 
 	gtk_print_operation_set_print_settings (print, print_settings);
-	gtk_print_operation_set_default_page_setup (print, 
+	gtk_print_operation_set_default_page_setup (print,
 						    page_setup);
 	gtk_print_operation_set_n_pages (print, 1);
 	gtk_print_operation_set_job_name (print,
 					  eog_image_get_caption (image));
 
-	g_signal_connect (print, "draw_page", 
-			  G_CALLBACK (eog_print_draw_page), 
+	g_signal_connect (print, "draw_page",
+			  G_CALLBACK (eog_print_draw_page),
 			  data);
-	g_signal_connect (print, "create-custom-widget", 
+	g_signal_connect (print, "create-custom-widget",
 			  G_CALLBACK (eog_print_create_custom_widget),
 			  data);
-	g_signal_connect (print, "custom-widget-apply", 
-			  G_CALLBACK (eog_print_custom_widget_apply), 
+	g_signal_connect (print, "custom-widget-apply",
+			  G_CALLBACK (eog_print_custom_widget_apply),
 			  data);
-	g_signal_connect (print, "end-print", 
+	g_signal_connect (print, "end-print",
 			  G_CALLBACK (eog_print_end_print),
 			  data);
 
@@ -257,7 +257,7 @@ eog_print_get_page_setup (void)
 
 	if (key_file)
 		g_key_file_free (key_file);
-	
+
 	return page_setup;
 }
 
@@ -325,7 +325,7 @@ eog_print_get_print_settings (void)
 
 	if (key_file)
 		g_key_file_free (key_file);
-	
+
 	return print_settings;
 }
 

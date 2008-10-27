@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Jobs Queue 
+/* Eye Of Gnome - Jobs Queue
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-job-queue.h) by: 
+ * Based on evince code (shell/ev-job-queue.h) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify

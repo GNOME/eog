@@ -48,7 +48,7 @@ EogMetadataReader*
 eog_metadata_reader_new (EogMetadataFileType type)
 {
 	EogMetadataReader *emr;
-	
+
 	switch (type) {
 	case EOG_METADATA_JPEG:
 		emr = EOG_METADATA_READER (g_object_new (EOG_TYPE_METADATA_READER_JPG, NULL));
@@ -80,7 +80,7 @@ eog_metadata_reader_consume (EogMetadataReader *emr, const guchar *buf, guint le
 }
 
 /* Returns the raw exif data. NOTE: The caller of this function becomes
- * the new owner of this piece of memory and is responsible for freeing it! 
+ * the new owner of this piece of memory and is responsible for freeing it!
  */
 void
 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint *len)
@@ -89,7 +89,7 @@ eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr, guchar **data, guint
 
 	g_return_if_fail (data != NULL && len != NULL);
 	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-	
+
 	if (iface->get_raw_exif) {
 		iface->get_raw_exif (emr, data, len);
 	} else {
@@ -112,7 +112,7 @@ eog_metadata_reader_get_exif_data (EogMetadataReader *emr)
 
 	if (iface->get_exif_data)
 		exif_data = iface->get_exif_data (emr);
-	
+
 	return exif_data;
 }
 #endif
@@ -125,7 +125,7 @@ eog_metadata_reader_get_xmp_data (EogMetadataReader *emr )
 	EogMetadataReaderInterface *iface;
 
 	iface = EOG_METADATA_READER_GET_INTERFACE (emr);
-	
+
 	if (iface->get_xmp_ptr)
 		xmp_data = iface->get_xmp_ptr (emr);
 
@@ -144,7 +144,7 @@ eog_metadata_reader_get_icc_profile (EogMetadataReader *emr)
 
 	if (iface->get_icc_profile)
 		profile = iface->get_icc_profile (emr);
-		
+
 	return profile;
 }
 #endif

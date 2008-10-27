@@ -1,4 +1,4 @@
-/* Eye Of Gnome - EOG Preferences Dialog 
+/* Eye Of Gnome - EOG Preferences Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -108,7 +108,7 @@ pd_color_change_cb (GtkColorButton *button, gpointer data)
 
 	key = g_object_get_data (G_OBJECT (button), GCONF_OBJECT_KEY);
 
-	if (key == NULL || value == NULL) 
+	if (key == NULL || value == NULL)
 		return;
 
 	gconf_client_set_string (GCONF_CLIENT (data),
@@ -123,14 +123,14 @@ pd_radio_toggle_cb (GtkWidget *widget, gpointer data)
 {
 	char *key = NULL;
 	char *value = NULL;
-	
-	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget))) 
+
+	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)))
 	    return;
 
 	key = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_KEY);
 	value = g_object_get_data (G_OBJECT (widget), GCONF_OBJECT_VALUE);
 
-	if (key == NULL || value == NULL) 
+	if (key == NULL || value == NULL)
 		return;
 
 	gconf_client_set_string (GCONF_CLIENT (data),
@@ -213,8 +213,8 @@ eog_preferences_dialog_constructor (GType type,
 	eog_dialog_construct (EOG_DIALOG (object),
 			      "eog-preferences-dialog.ui",
 			      "eog_preferences_dialog");
- 
-	eog_dialog_get_controls (EOG_DIALOG (object), 
+
+	eog_dialog_get_controls (EOG_DIALOG (object),
 			         "eog_preferences_dialog", &dlg,
 			         "interpolate_check", &interpolate_check,
 			         "autorotate_check", &autorotate_check,
@@ -228,80 +228,80 @@ eog_preferences_dialog_constructor (GType type,
 			         "plugin_manager_container", &plugin_manager_container,
 			         NULL);
 
-	g_signal_connect (G_OBJECT (dlg), 
+	g_signal_connect (G_OBJECT (dlg),
 			  "response",
-			  G_CALLBACK (eog_preferences_response_cb), 
+			  G_CALLBACK (eog_preferences_response_cb),
 			  dlg);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (interpolate_check), 
-				      gconf_client_get_bool (priv->client, 
-							     EOG_CONF_VIEW_INTERPOLATE, 
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (interpolate_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_VIEW_INTERPOLATE,
 							     NULL));
 
-	g_object_set_data (G_OBJECT (interpolate_check), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (interpolate_check),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_INTERPOLATE);
 
-	g_signal_connect (G_OBJECT (interpolate_check), 
-			  "toggled", 
-			  G_CALLBACK (pd_check_toggle_cb), 
+	g_signal_connect (G_OBJECT (interpolate_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
 			  priv->client);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (autorotate_check), 
-				      gconf_client_get_bool (priv->client, 
-							     EOG_CONF_VIEW_AUTOROTATE, 
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (autorotate_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_VIEW_AUTOROTATE,
 							     NULL));
 
-	g_object_set_data (G_OBJECT (autorotate_check), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (autorotate_check),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_AUTOROTATE);
 
-	g_signal_connect (G_OBJECT (autorotate_check), 
-			  "toggled", 
-			  G_CALLBACK (pd_check_toggle_cb), 
+	g_signal_connect (G_OBJECT (autorotate_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
 			  priv->client);
 
-	g_object_set_data (G_OBJECT (color_radio), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (color_radio),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_TRANSPARENCY);
 
-	g_object_set_data (G_OBJECT (color_radio), 
-			   GCONF_OBJECT_VALUE, 
+	g_object_set_data (G_OBJECT (color_radio),
+			   GCONF_OBJECT_VALUE,
 			   "COLOR");
 
-	g_signal_connect (G_OBJECT (color_radio), 
-			  "toggled", 
-			  G_CALLBACK (pd_radio_toggle_cb), 
+	g_signal_connect (G_OBJECT (color_radio),
+			  "toggled",
+			  G_CALLBACK (pd_radio_toggle_cb),
 			  priv->client);
 
-	g_object_set_data (G_OBJECT (checkpattern_radio), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (checkpattern_radio),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_TRANSPARENCY);
 
-	g_object_set_data (G_OBJECT (checkpattern_radio), 
-			   GCONF_OBJECT_VALUE, 
+	g_object_set_data (G_OBJECT (checkpattern_radio),
+			   GCONF_OBJECT_VALUE,
 			   "CHECK_PATTERN");
 
-	g_signal_connect (G_OBJECT (checkpattern_radio), 
-			  "toggled", 
-			  G_CALLBACK (pd_radio_toggle_cb), 
+	g_signal_connect (G_OBJECT (checkpattern_radio),
+			  "toggled",
+			  G_CALLBACK (pd_radio_toggle_cb),
 			  priv->client);
 
-	g_object_set_data (G_OBJECT (background_radio), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (background_radio),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_TRANSPARENCY);
 
-	g_object_set_data (G_OBJECT (background_radio), 
-			   GCONF_OBJECT_VALUE, 
+	g_object_set_data (G_OBJECT (background_radio),
+			   GCONF_OBJECT_VALUE,
 			   "NONE");
 
-	g_signal_connect (G_OBJECT (background_radio), 
-			  "toggled", 
-			  G_CALLBACK (pd_radio_toggle_cb), 
+	g_signal_connect (G_OBJECT (background_radio),
+			  "toggled",
+			  G_CALLBACK (pd_radio_toggle_cb),
 			  priv->client);
 
-	value = gconf_client_get_string (priv->client, 
-					 EOG_CONF_VIEW_TRANSPARENCY, 
+	value = gconf_client_get_string (priv->client,
+					 EOG_CONF_VIEW_TRANSPARENCY,
 					 NULL);
 
 	if (g_ascii_strcasecmp (value, "COLOR") == 0) {
@@ -316,8 +316,8 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_free (value);
 
-	value = gconf_client_get_string (priv->client, 
-					 EOG_CONF_VIEW_TRANS_COLOR, 
+	value = gconf_client_get_string (priv->client,
+					 EOG_CONF_VIEW_TRANS_COLOR,
 					 NULL);
 
 	if (gdk_color_parse (value, &color)) {
@@ -325,8 +325,8 @@ eog_preferences_dialog_constructor (GType type,
 					    &color);
 	}
 
-	g_object_set_data (G_OBJECT (color_button), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (color_button),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_VIEW_TRANS_COLOR);
 
 	g_signal_connect (G_OBJECT (color_button),
@@ -336,46 +336,46 @@ eog_preferences_dialog_constructor (GType type,
 
 	g_free (value);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (upscale_check), 
-				      gconf_client_get_bool (priv->client, 
-							     EOG_CONF_FULLSCREEN_UPSCALE, 
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (upscale_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_FULLSCREEN_UPSCALE,
 							     NULL));
 
-	g_object_set_data (G_OBJECT (upscale_check), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (upscale_check),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_FULLSCREEN_UPSCALE);
 
-	g_signal_connect (G_OBJECT (upscale_check), 
-			  "toggled", 
-			  G_CALLBACK (pd_check_toggle_cb), 
+	g_signal_connect (G_OBJECT (upscale_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
 			  priv->client);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (loop_check), 
-				      gconf_client_get_bool (priv->client, 
-							     EOG_CONF_FULLSCREEN_LOOP, 
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (loop_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_FULLSCREEN_LOOP,
 							     NULL));
 
-	g_object_set_data (G_OBJECT (loop_check), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (loop_check),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_FULLSCREEN_LOOP);
 
-	g_signal_connect (G_OBJECT (loop_check), 
-			  "toggled", 
-			  G_CALLBACK (pd_check_toggle_cb), 
+	g_signal_connect (G_OBJECT (loop_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
 			  priv->client);
 
-	gtk_spin_button_set_value (GTK_SPIN_BUTTON (seconds_spin), 
-				   gconf_client_get_int (priv->client, 
-							 EOG_CONF_FULLSCREEN_SECONDS, 
+	gtk_spin_button_set_value (GTK_SPIN_BUTTON (seconds_spin),
+				   gconf_client_get_int (priv->client,
+							 EOG_CONF_FULLSCREEN_SECONDS,
 							 NULL));
 
-	g_object_set_data (G_OBJECT (seconds_spin), 
-			   GCONF_OBJECT_KEY, 
+	g_object_set_data (G_OBJECT (seconds_spin),
+			   GCONF_OBJECT_KEY,
 			   EOG_CONF_FULLSCREEN_SECONDS);
 
-	g_signal_connect (G_OBJECT (seconds_spin), 
-			  "value-changed", 
-			  G_CALLBACK (pd_spin_button_changed_cb), 
+	g_signal_connect (G_OBJECT (seconds_spin),
+			  "value-changed",
+			  G_CALLBACK (pd_spin_button_changed_cb),
 			  priv->client);
 
         plugin_manager = eog_plugin_manager_new ();
@@ -390,7 +390,7 @@ eog_preferences_dialog_constructor (GType type,
 
         gtk_widget_show_all (plugin_manager);
 
-	return object;	
+	return object;
 }
 
 static void
@@ -408,10 +408,10 @@ eog_preferences_dialog_class_init (EogPreferencesDialogClass *class)
 							      "GConf Client",
 							      "GConf Client",
 							      GCONF_TYPE_CLIENT,
-							      G_PARAM_READWRITE | 
-							      G_PARAM_CONSTRUCT_ONLY | 
-							      G_PARAM_STATIC_NAME | 
-							      G_PARAM_STATIC_NICK | 
+							      G_PARAM_READWRITE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_NAME |
+							      G_PARAM_STATIC_NICK |
 							      G_PARAM_STATIC_BLURB));
 
 	g_type_class_add_private (g_object_class, sizeof (EogPreferencesDialogPrivate));
@@ -429,7 +429,7 @@ GObject *
 eog_preferences_dialog_get_instance (GtkWindow *parent, GConfClient *client)
 {
 	if (instance == NULL) {
-		instance = g_object_new (EOG_TYPE_PREFERENCES_DIALOG, 
+		instance = g_object_new (EOG_TYPE_PREFERENCES_DIALOG,
 				 	 "parent-window", parent,
 				 	 "gconf-client", client,
 				 	 NULL);

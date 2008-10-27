@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Pixbuf Cellrenderer 
+/* Eye Of Gnome - Pixbuf Cellrenderer
  *
  * Copyright (C) 2007 The GNOME Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gnome-control-center code (capplets/appearance/wp-cellrenderer.c) by: 
+ * Based on gnome-control-center code (capplets/appearance/wp-cellrenderer.c) by:
  *      - Denis Washington <denisw@svn.gnome.org>
  *      - Jens Granseuer <jensgr@gmx.net>
  *
@@ -45,7 +45,7 @@ static void
 eog_pixbuf_cell_renderer_class_init (EogPixbufCellRendererClass *klass)
 {
 	GtkCellRendererClass *renderer_class;
-	
+
 	renderer_class = (GtkCellRendererClass *) klass;
 	renderer_class->render = eog_pixbuf_cell_renderer_render;
 }
@@ -80,10 +80,10 @@ eog_pixbuf_cell_renderer_render (GtkCellRenderer *cell,
 		y = background_area->y;
 		w = background_area->width;
 		h = background_area->height;
-		
+
 		/* Sometimes width is -1 - not sure what to do here */
 		if (w == -1) return;
-		
+
 		if ((flags & GTK_CELL_RENDERER_SELECTED) != 0) {
 			if (GTK_WIDGET_HAS_FOCUS (widget))
 				state = GTK_STATE_SELECTED;
@@ -95,16 +95,16 @@ eog_pixbuf_cell_renderer_render (GtkCellRenderer *cell,
 		/* draw the selection indicator */
 		cr = gdk_cairo_create (GDK_DRAWABLE (window));
 		gdk_cairo_set_source_color (cr, &widget->style->base[state]);
-		
+
 		cairo_arc (cr, x + radius, y + radius, radius, M_PI, M_PI * 1.5);
 		cairo_arc (cr, x + w - radius, y + radius, radius, M_PI * 1.5, 0);
 		cairo_arc (cr, x + w - radius, y + h - radius, radius, 0, M_PI * 0.5);
 		cairo_arc (cr, x + radius, y + h - radius, radius, M_PI * 0.5, M_PI);
 		cairo_close_path (cr);
-		
+
 		/* FIXME: this should not be hardcoded to 4 */
 		cairo_rectangle (cr, x + 4, y + 4, w - 8, h - 8);
-		
+
 		/*cairo_set_fill_rule (cr, CAIRO_FILL_RULE_EVEN_ODD);*/
 		cairo_fill (cr);
 		cairo_destroy (cr);

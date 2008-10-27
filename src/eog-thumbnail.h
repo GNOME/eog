@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Thumbnailing functions 
+/* Eye Of Gnome - Thumbnailing functions
  *
  * Copyright (C) 2000-2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on nautilus code (libnautilus-private/nautilus-thumbnail.c) by: 
+ * Based on nautilus code (libnautilus-private/nautilus-thumbnail.c) by:
  * 	- Andy Hertzfeld <andy@eazel.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -32,12 +32,12 @@ G_BEGIN_DECLS
 
 void          eog_thumbnail_init        (void);
 
-void          eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail, 
+void          eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail,
 					 gint        dimension);
 
 void	      eog_thumbnail_add_frame   (GdkPixbuf **thumbnail);
 
-GdkPixbuf*    eog_thumbnail_load        (EogImage *image, 
+GdkPixbuf*    eog_thumbnail_load        (EogImage *image,
 					 GError **error);
 
 #define EOG_THUMBNAIL_ORIGINAL_WIDTH  "eog-thumbnail-orig-width"

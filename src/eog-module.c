@@ -1,10 +1,10 @@
-/* Eye Of Gnome - EOG Module 
+/* Eye Of Gnome - EOG Module
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-module.c) by: 
+ * Based on gedit code (gedit/gedit-module.c) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *      - Marco Pesenti Gritti <marco@gnome.org>
  *      - Christian Persch <chpe@gnome.org>
@@ -57,7 +57,7 @@ eog_module_load (GTypeModule *gmodule)
 	}
 
 	/* Extract symbols from the lib */
-	if (!g_module_symbol (module->library, 
+	if (!g_module_symbol (module->library,
 			      "register_eog_plugin",
 			      (void *) &register_func)) {
 		g_warning ("%s", g_module_error());

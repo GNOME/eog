@@ -1,4 +1,4 @@
-/* Eye Of Gnome - General Utilities 
+/* Eye Of Gnome - General Utilities
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
@@ -44,7 +44,7 @@
 #include <glib/gi18n.h>
 #include <libgnome/gnome-init.h>
 
-void 
+void
 eog_util_show_help (const gchar *section, GtkWindow *parent)
 {
 	GError *error = NULL;
@@ -140,7 +140,7 @@ eog_util_parse_uri_string_list_to_file_list (const gchar *uri_list)
 		file_list = g_slist_append (file_list, g_file_new_for_uri (uri));
 		g_free (uri);
 	}
-	
+
 	return file_list;
 }
 
@@ -154,8 +154,8 @@ eog_util_string_list_to_file_list (GSList *string_list)
 		char *uri_str;
 
 		uri_str = (gchar *) it->data;
-		
-		file_list = g_slist_prepend (file_list, 
+
+		file_list = g_slist_prepend (file_list,
 					     g_file_new_for_uri (uri_str));
 	}
 
@@ -170,10 +170,10 @@ eog_util_strings_to_file_list (gchar **strings)
  	GSList *file_list = NULL;
 
 	for (i = 0; strings[i]; i++) {
- 		file_list = g_slist_prepend (file_list, 
+ 		file_list = g_slist_prepend (file_list,
 					      g_file_new_for_uri (strings[i]));
  	}
- 
+
  	return g_slist_reverse (file_list);
 }
 #endif
@@ -191,10 +191,10 @@ eog_util_string_array_to_list (const gchar **files, gboolean create_uri)
 
 		if (create_uri) {
 			GFile *file;
-			
+
 			file = g_file_new_for_commandline_arg (files[i]);
 			str = g_file_get_uri (file);
-			
+
 			g_object_unref (file);
 		} else {
 			str = g_strdup (files[i]);
@@ -224,14 +224,14 @@ eog_util_string_array_make_absolute (gchar **files)
 
 	/* Ensure new list is NULL-terminated */
 	abs_files = g_new0 (gchar *, size+1);
-	
+
 	for (i = 0; i < size; i++) {
 		file = g_file_new_for_commandline_arg (files[i]);
 		abs_files[i] = g_file_get_uri (file);
 
 		g_object_unref (file);
 	}
-	
+
 	return abs_files;
 }
 
@@ -242,13 +242,13 @@ ensure_dir_exists (const char *dir)
 {
 	if (g_file_test (dir, G_FILE_TEST_IS_DIR))
 		return TRUE;
-	
+
 	if (g_mkdir (dir, 488) == 0)
 		return TRUE;
 
 	if (errno == EEXIST)
 		return g_file_test (dir, G_FILE_TEST_IS_DIR);
-	
+
 	g_warning ("Failed to create directory %s: %s", dir, strerror (errno));
 	return FALSE;
 }
@@ -258,11 +258,11 @@ eog_util_dot_dir (void)
 {
 	if (dot_dir == NULL) {
 		gboolean exists;
-		
+
 		dot_dir = g_build_filename (gnome_user_dir_get (),
 					    "eog",
 					    NULL);
-		
+
 		exists = ensure_dir_exists (dot_dir);
 
 		if (G_UNLIKELY (!exists)) {

@@ -69,20 +69,20 @@ struct _EogMetadataReaderJpgPrivate {
 	/* data fields */
 	gpointer exif_chunk;
 	guint    exif_len;
-	
+
 	gpointer iptc_chunk;
 	guint	 iptc_len;
-	
+
 	gpointer icc_chunk;
 	guint icc_len;
 
 	gpointer xmp_chunk;
 	guint xmp_len;
-	
+
 	/* management fields */
 	int      size;
 	int      last_marker;
-	int      bytes_read;	
+	int      bytes_read;
 };
 
 #define EOG_METADATA_READER_JPG_GET_PRIVATE(object) \
@@ -102,7 +102,7 @@ static void
 eog_metadata_reader_jpg_dispose (GObject *object)
 {
 	EogMetadataReaderJpg *emr = EOG_METADATA_READER_JPG (object);
-	
+
 	if (emr->priv->exif_chunk != NULL) {
 		g_free (emr->priv->exif_chunk);
 		emr->priv->exif_chunk = NULL;
@@ -140,7 +140,7 @@ eog_metadata_reader_jpg_init (EogMetadataReaderJpg *obj)
 	priv->icc_len = 0;
 }
 
-static void 
+static void
 eog_metadata_reader_jpg_class_init (EogMetadataReaderJpgClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass*) klass;
@@ -214,7 +214,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 	g_return_if_fail (EOG_IS_METADATA_READER_JPG (emr));
 
 	priv = emr->priv;
-	
+
 	if (priv->state == EMR_FINISHED) return;
 
 	for (i = 0; (i < len) && (priv->state != EMR_FINISHED); i++) {
@@ -244,31 +244,31 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 				priv->state = EMR_READ;
 			}
 			break;
-			
+
 		case EMR_READ_SIZE_HIGH_BYTE:
 			priv->size = (buf [i] & 0xff) << 8;
 			priv->state = EMR_READ_SIZE_LOW_BYTE;
-			break;			
-			
+			break;
+
 		case EMR_READ_SIZE_LOW_BYTE:
-			priv->size |= (buf [i] & 0xff);			
-			
+			priv->size |= (buf [i] & 0xff);
+
 			if (priv->size > 2)  /* ignore the two size-bytes */
 				priv->size -= 2;
-		
+
 			if (priv->size == 0) {
 				priv->state = EMR_READ;
-			} else if (priv->last_marker == EOG_JPEG_MARKER_APP1 && 
-				   ((priv->exif_chunk == NULL) || (priv->xmp_chunk == NULL))) 
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP1 &&
+				   ((priv->exif_chunk == NULL) || (priv->xmp_chunk == NULL)))
 			{
 				priv->state = EMR_READ_APP1;
-			} else if (priv->last_marker == EOG_JPEG_MARKER_APP2 && 
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP2 &&
 				   priv->icc_chunk == NULL && priv->size > 14)
 			{
 	 			/* Chunk has 14 bytes identification data */
 				priv->state = EMR_READ_ICC;
-			} else if (priv->last_marker == EOG_JPEG_MARKER_APP14 && 
-				priv->iptc_chunk == NULL) 
+			} else if (priv->last_marker == EOG_JPEG_MARKER_APP14 &&
+				priv->iptc_chunk == NULL)
 			{
 				priv->state = EMR_READ_IPTC;
 			} else {
@@ -276,16 +276,16 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			}
 
 			priv->last_marker = 0;
-			break;			
-			
+			break;
+
 		case EMR_SKIP_BYTES:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Skip bytes: %i", priv->size);
 
-			if (i + priv->size < len) { 
+			if (i + priv->size < len) {
 				i = i + priv->size - 1; /* the for-loop consumes the other byte */
 				priv->size = 0;
 			}
-			else {  
+			else {
 				priv->size = (i + priv->size) - len;
 				i = len - 1;
 			}
@@ -293,15 +293,15 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 				priv->state = EMR_READ;
 			}
 			break;
-			
-		case EMR_READ_APP1:			
+
+		case EMR_READ_APP1:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read APP1 data, Length: %i", priv->size);
 
 			app1_type = eog_metadata_identify_app1 ((gchar*) &buf[i], priv->size);
-			
+
 			switch (app1_type) {
 			case EJA_EXIF:
-				if (priv->exif_chunk == NULL) { 
+				if (priv->exif_chunk == NULL) {
 					priv->exif_chunk = g_new0 (guchar, priv->size);
 					priv->exif_len = priv->size;
 					priv->bytes_read = 0;
@@ -310,7 +310,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 				}
 				break;
 			case EJA_XMP:
-				if (priv->xmp_chunk == NULL) { 
+				if (priv->xmp_chunk == NULL) {
 					priv->xmp_chunk = g_new0 (guchar, priv->size);
 					priv->xmp_len = priv->size;
 					priv->bytes_read = 0;
@@ -336,8 +336,8 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
-			
-		case EMR_READ_EXIF:                     
+
+		case EMR_READ_EXIF:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of EXIF data, length: %i", priv->size);
 			{
  				eog_metadata_reader_get_next_block (priv, priv->exif_chunk,
@@ -346,7 +346,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
-			
+
 		case EMR_READ_XMP:
 			eog_debug_message (DEBUG_IMAGE_DATA, "Read continuation of XMP data, length: %i", priv->size);
 			{
@@ -356,13 +356,13 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			if (IS_FINISHED (priv))
 				priv->state = EMR_FINISHED;
 			break;
-			
-		case EMR_READ_ICC:			
+
+		case EMR_READ_ICC:
 			eog_debug_message (DEBUG_IMAGE_DATA,
 					   "Read continuation of ICC data, "
 					   "length: %i", priv->size);
 
-			if (priv->icc_chunk == NULL) { 
+			if (priv->icc_chunk == NULL) {
 				priv->icc_chunk = g_new0 (guchar, priv->size);
 				priv->icc_len = priv->size;
 				priv->bytes_read = 0;
@@ -378,7 +378,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			    	const char* icc_chunk = priv->icc_chunk;
 				gboolean valid = TRUE;
 
-				/* Chunk should begin with the 
+				/* Chunk should begin with the
 				 * ICC_PROFILE\0 identifier */
 				valid &= strncmp (icc_chunk,
 						  "ICC_PROFILE\0",12) == 0;
@@ -386,7 +386,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 				 * ICC chunk in the file as we don't
 				 * support merging chunks yet. */
 				valid &=  *(guint16*)(icc_chunk+12) == 0x101;
-				
+
 				if (!valid) {
 					/* This no ICC data. Throw it away. */
 					eog_debug_message (DEBUG_IMAGE_DATA,
@@ -401,13 +401,13 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
-			
+
 		case EMR_READ_IPTC:
 			eog_debug_message (DEBUG_IMAGE_DATA,
 					   "Read continuation of IPTC data, "
 					   "length: %i", priv->size);
 
-			if (priv->iptc_chunk == NULL) { 
+			if (priv->iptc_chunk == NULL) {
 				priv->iptc_chunk = g_new0 (guchar, priv->size);
 				priv->iptc_len = priv->size;
 				priv->bytes_read = 0;
@@ -417,7 +417,7 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 							    priv->iptc_chunk,
 							    &i, buf, len,
 							    EMR_READ_IPTC);
-			
+
 			if (IS_FINISHED(priv))
 				priv->state = EMR_FINISHED;
 			break;
@@ -429,19 +429,19 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 }
 
 /* Returns the raw exif data. NOTE: The caller of this function becomes
- * the new owner of this piece of memory and is responsible for freeing it! 
+ * the new owner of this piece of memory and is responsible for freeing it!
  */
 static void
 eog_metadata_reader_jpg_get_exif_chunk (EogMetadataReaderJpg *emr, guchar **data, guint *len)
 {
 	EogMetadataReaderJpgPrivate *priv;
-	
+
 	g_return_if_fail (EOG_IS_METADATA_READER (emr));
 	priv = emr->priv;
-	
+
 	*data = (guchar*) priv->exif_chunk;
 	*len = priv->exif_len;
-	
+
 	priv->exif_chunk = NULL;
 	priv->exif_len = 0;
 }
@@ -452,14 +452,14 @@ eog_metadata_reader_jpg_get_exif_data (EogMetadataReaderJpg *emr)
 {
 	EogMetadataReaderJpgPrivate *priv;
 	ExifData *data = NULL;
-	
+
 	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
 	priv = emr->priv;
-	
+
 	if (priv->exif_chunk != NULL) {
 		data = exif_data_new_from_data (priv->exif_chunk, priv->exif_len);
 	}
-	
+
 	return data;
 }
 #endif
@@ -470,7 +470,7 @@ eog_metadata_reader_jpg_get_exif_data (EogMetadataReaderJpg *emr)
 /* skip the signature */
 #define EOG_XMP_OFFSET (29)
 
-static gpointer 
+static gpointer
 eog_metadata_reader_jpg_get_xmp_data (EogMetadataReaderJpg *emr )
 {
 	EogMetadataReaderJpgPrivate *priv;
@@ -500,12 +500,12 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 {
 	EogMetadataReaderJpgPrivate *priv;
 	cmsHPROFILE profile = NULL;
-	
+
 	g_return_val_if_fail (EOG_IS_METADATA_READER (emr), NULL);
 
 	priv = emr->priv;
 
-	if (priv->icc_chunk) {	
+	if (priv->icc_chunk) {
 		cmsErrorAction (LCMS_ERROR_SHOW);
 
 		profile = cmsOpenProfileFromMem(priv->icc_chunk + 14, priv->icc_len - 14);
@@ -551,7 +551,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 			//profile = cmsCreate_Adobe1998Profile ();
 
 			break;
-		case 0xFFFF: 
+		case 0xFFFF:
 		  	{
 			cmsCIExyY whitepoint;
 			cmsCIExyYTRIPLE primaries;
@@ -560,7 +560,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 			ExifRational r;
 
 			const int offset = exif_format_get_size (EXIF_FORMAT_RATIONAL);
-		
+
 			entry = exif_data_get_entry (exif, EXIF_TAG_WHITE_POINT);
 
 			if (entry && entry->components == 2) {
@@ -574,7 +574,7 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 				eog_debug_message (DEBUG_LCMS, "No whitepoint found");
 				break;
 			}
-		    
+
 			entry = exif_data_get_entry (exif, EXIF_TAG_PRIMARY_CHROMATICITIES);
 
 			if (entry && entry->components == 6) {
@@ -589,13 +589,13 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 
 				r = exif_get_rational (entry->data + 3 * offset, o);
 				primaries.Green.y = (double) r.numerator / r.denominator;
-		      
+
 				r = exif_get_rational (entry->data + 4 * offset, o);
 				primaries.Blue.x = (double) r.numerator / r.denominator;
 
 				r = exif_get_rational (entry->data + 5 * offset, o);
-				primaries.Blue.y = (double) r.numerator / r.denominator;		    
-		      
+				primaries.Blue.y = (double) r.numerator / r.denominator;
+
 				primaries.Red.Y = primaries.Green.Y = primaries.Blue.Y = 1.0;
 			} else {
 				eog_debug_message (DEBUG_LCMS, "No primary chromaticities found");
@@ -611,9 +611,9 @@ eog_metadata_reader_jpg_get_icc_profile (EogMetadataReaderJpg *emr)
 				eog_debug_message (DEBUG_LCMS, "No gamma found");
 				gammaValue = 2.2;
 			}
-		    
+
 			gamma[0] = gamma[1] = gamma[2] = cmsBuildGamma (256, gammaValue);
-		    
+
 			profile = cmsCreateRGBProfile (&whitepoint, &primaries, gamma);
 
 			cmsFreeGamma(gamma[0]);
@@ -638,22 +638,22 @@ eog_metadata_reader_jpg_init_emr_iface (gpointer g_iface, gpointer iface_data)
 
 	iface = (EogMetadataReaderInterface*)g_iface;
 
-	iface->consume = 
+	iface->consume =
 		(void (*) (EogMetadataReader *self, const guchar *buf, guint len))
 			eog_metadata_reader_jpg_consume;
-	iface->finished = 
+	iface->finished =
 		(gboolean (*) (EogMetadataReader *self))
 			eog_metadata_reader_jpg_finished;
-	iface->get_raw_exif = 
+	iface->get_raw_exif =
 		(void (*) (EogMetadataReader *self, guchar **data, guint *len))
 			eog_metadata_reader_jpg_get_exif_chunk;
 #ifdef HAVE_EXIF
-	iface->get_exif_data = 
-		(gpointer (*) (EogMetadataReader *self)) 
+	iface->get_exif_data =
+		(gpointer (*) (EogMetadataReader *self))
 			eog_metadata_reader_jpg_get_exif_data;
 #endif
 #ifdef HAVE_LCMS
-	iface->get_icc_profile = 
+	iface->get_icc_profile =
 		(gpointer (*) (EogMetadataReader *self))
 			eog_metadata_reader_jpg_get_icc_profile;
 #endif

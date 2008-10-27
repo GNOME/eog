@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Pixbuf Cellrenderer 
+/* Eye Of Gnome - Pixbuf Cellrenderer
  *
  * Copyright (C) 2007 The GNOME Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gnome-control-center code (capplets/appearance/wp-cellrenderer.c) by: 
+ * Based on gnome-control-center code (capplets/appearance/wp-cellrenderer.c) by:
  *      - Denis Washington <denisw@svn.gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify

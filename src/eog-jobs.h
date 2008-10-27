@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Jobs  
+/* Eye Of Gnome - Jobs
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on evince code (shell/ev-jobs.h) by: 
+ * Based on evince code (shell/ev-jobs.h) by:
  * 	- Martin Kretzschmar <martink@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -201,7 +201,7 @@ struct _EogJobSaveClass
 	EogJobClass parent_class;
 
         void (*run) (EogJobSave *job);
-	
+
 };
 
 struct _EogJobSaveAs
@@ -243,7 +243,7 @@ void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 /* EogJobLoad */
 GType           eog_job_load_get_type      (void) G_GNUC_CONST;
 EogJob 	       *eog_job_load_new 	   (EogImage        *image);
-void		eog_job_load_run 	   (EogJobLoad 	    *load);					   
+void		eog_job_load_run 	   (EogJobLoad 	    *load);
 
 /* EogJobModel */
 GType 		eog_job_model_get_type     (void) G_GNUC_CONST;

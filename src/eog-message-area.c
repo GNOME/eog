@@ -1,10 +1,10 @@
-/* Eye Of Gnome - Message Area 
+/* Eye Of Gnome - Message Area
  *
  * Copyright (C) 2007 The Free Software Foundation
  *
  * Author: Lucas Rocha <lucasr@gnome.org>
  *
- * Based on gedit code (gedit/gedit-message-area.h) by: 
+ * Based on gedit code (gedit/gedit-message-area.h) by:
  * 	- Paolo Maggi <paolo@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -41,10 +41,10 @@ G_DEFINE_TYPE(EogMessageArea, eog_message_area, GTK_TYPE_HBOX)
 struct _EogMessageAreaPrivate
 {
 	GtkWidget *main_hbox;
-	
+
 	GtkWidget *contents;
 	GtkWidget *action_area;
-	
+
 	gboolean changing_style;
 };
 
@@ -94,13 +94,13 @@ find_button (EogMessageArea *message_area,
 {
 	GList *children, *tmp_list;
 	GtkWidget *child = NULL;
-      
+
 	children = gtk_container_get_children (
 			GTK_CONTAINER (message_area->priv->action_area));
 
 	for (tmp_list = children; tmp_list; tmp_list = tmp_list->next) {
 		ResponseData *rd = get_response_data (tmp_list->data, FALSE);
-      
+
 		if (rd && rd->response_id == response_id) {
 			child = tmp_list->data;
 			break;
@@ -119,8 +119,8 @@ eog_message_area_close (EogMessageArea *message_area)
 		return;
 
 	/* Emit response signal */
-	eog_message_area_response (EOG_MESSAGE_AREA (message_area), 
-				   GTK_RESPONSE_CANCEL);    
+	eog_message_area_response (EOG_MESSAGE_AREA (message_area),
+				   GTK_RESPONSE_CANCEL);
 }
 
 static void
@@ -136,7 +136,7 @@ paint_message_area (GtkWidget      *widget,
 		    GdkEventExpose *event,
 		    gpointer        user_data)
 {
-	gtk_paint_flat_box (widget->style, 
+	gtk_paint_flat_box (widget->style,
 			    widget->window,
 			    GTK_STATE_NORMAL,
 			    GTK_SHADOW_OUT,
@@ -147,8 +147,8 @@ paint_message_area (GtkWidget      *widget,
 			    widget->allocation.y + 1,
 			    widget->allocation.width - 2,
 			    widget->allocation.height - 2);
-		      
-	return FALSE;		      
+
+	return FALSE;
 }
 
 static void
@@ -177,17 +177,17 @@ style_set (GtkWidget      *widget,
         gtk_widget_queue_draw (GTK_WIDGET (message_area));
 }
 
-static void 
+static void
 eog_message_area_class_init (EogMessageAreaClass *class)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkBindingSet *binding_set;
-	
+
 	object_class = G_OBJECT_CLASS (class);
 	widget_class = GTK_WIDGET_CLASS (class);
 	object_class->finalize = eog_message_area_finalize;
-	
+
 	class->close = eog_message_area_close;
 
 	g_type_class_add_private (object_class, sizeof(EogMessageAreaPrivate));
@@ -199,7 +199,7 @@ eog_message_area_class_init (EogMessageAreaClass *class)
  * The #EogMessageArea::response signal is emitted when one of the
  * activatable widgets packed into @message_area is activated.
  */
-	signals[SIGNAL_RESPONSE] = 
+	signals[SIGNAL_RESPONSE] =
 		g_signal_new ("response",
 			      G_OBJECT_CLASS_TYPE (class),
 			      G_SIGNAL_RUN_LAST,
@@ -209,7 +209,7 @@ eog_message_area_class_init (EogMessageAreaClass *class)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
 
-	signals[SIGNAL_CLOSE] =  
+	signals[SIGNAL_CLOSE] =
 		g_signal_new ("close",
 			      G_OBJECT_CLASS_TYPE (class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -217,9 +217,9 @@ eog_message_area_class_init (EogMessageAreaClass *class)
 		  	      NULL, NULL,
 		 	      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-  
+
 	binding_set = gtk_binding_set_by_class (class);
-  
+
 	gtk_binding_entry_add_signal (binding_set, GDK_Escape, 0, "close", 0);
 }
 
@@ -233,32 +233,32 @@ eog_message_area_init (EogMessageArea *message_area)
 	gtk_widget_show (message_area->priv->main_hbox);
 
 	/* FIXME: use style properties */
-	gtk_container_set_border_width (GTK_CONTAINER (message_area->priv->main_hbox), 
+	gtk_container_set_border_width (GTK_CONTAINER (message_area->priv->main_hbox),
 					8);
 
-        /* FIXME: use style properties */ 
-	message_area->priv->action_area = gtk_vbox_new (TRUE, 10); 
+        /* FIXME: use style properties */
+	message_area->priv->action_area = gtk_vbox_new (TRUE, 10);
 	gtk_widget_show (message_area->priv->action_area);
 
-	gtk_box_pack_end (GTK_BOX (message_area->priv->main_hbox), 
+	gtk_box_pack_end (GTK_BOX (message_area->priv->main_hbox),
 			    message_area->priv->action_area,
-			    FALSE, 
-			    TRUE, 
+			    FALSE,
+			    TRUE,
 			    0);
 
-	gtk_box_pack_start (GTK_BOX (message_area), 
-			    message_area->priv->main_hbox, 
-			    TRUE, 
-			    TRUE, 
+	gtk_box_pack_start (GTK_BOX (message_area),
+			    message_area->priv->main_hbox,
+			    TRUE,
+			    TRUE,
 			    0);
-			
-	/* CHECK: do we really need it? */    	
-	gtk_widget_set_name (GTK_WIDGET (message_area), "gtk-tooltips");	    
-	
+
+	/* CHECK: do we really need it? */
+	gtk_widget_set_name (GTK_WIDGET (message_area), "gtk-tooltips");
+
 	g_signal_connect (message_area,
 			  "expose_event",
-			  G_CALLBACK (paint_message_area), 
-			  NULL);			  		    
+			  G_CALLBACK (paint_message_area),
+			  NULL);
 	g_signal_connect (message_area,
 			  "size-allocate",
 			  G_CALLBACK (size_allocate),
@@ -292,7 +292,7 @@ static void
 action_widget_activated (GtkWidget *widget, EogMessageArea *message_area)
 {
 	gint response_id;
-  
+
 	response_id = get_response_for_widget (message_area, widget);
 
 	eog_message_area_response (message_area, response_id);
@@ -314,7 +314,7 @@ eog_message_area_add_action_widget (EogMessageArea *message_area,
 {
 	ResponseData *ad;
 	guint signal_id;
-  
+
 	g_return_if_fail (EOG_IS_MESSAGE_AREA (message_area));
 	g_return_if_fail (GTK_IS_WIDGET (child));
 
@@ -375,11 +375,11 @@ eog_message_area_set_contents(EogMessageArea *message_area,
 
   	message_area->priv->contents = contents;
 
-	gtk_box_pack_start (GTK_BOX (message_area->priv->main_hbox), 
-			    message_area->priv->contents, 
-			    TRUE, 
-			    TRUE, 
-			    0);	
+	gtk_box_pack_start (GTK_BOX (message_area->priv->main_hbox),
+			    message_area->priv->contents,
+			    TRUE,
+			    TRUE,
+			    0);
 }
 
 /**
@@ -398,16 +398,16 @@ eog_message_area_add_button (EogMessageArea *message_area,
 			       gint              response_id)
 {
 	GtkWidget *button;
-  
+
 	g_return_val_if_fail (EOG_IS_MESSAGE_AREA (message_area), NULL);
 	g_return_val_if_fail (button_text != NULL, NULL);
 
 	button = gtk_button_new_from_stock (button_text);
 
 	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  
+
 	gtk_widget_show (button);
-  
+
 	eog_message_area_add_action_widget (message_area,
 					    button,
 					    response_id);
@@ -424,22 +424,22 @@ add_buttons_valist (EogMessageArea *message_area,
 	gint response_id;
 
 	g_return_if_fail (EOG_IS_MESSAGE_AREA (message_area));
-  
+
 	if (first_button_text == NULL)
 		return;
-  
+
 	text = first_button_text;
 	response_id = va_arg (args, gint);
 
 	while (text != NULL) {
-		eog_message_area_add_button (message_area, 
+		eog_message_area_add_button (message_area,
 					     text,
 					     response_id);
 
 		text = va_arg (args, gchar*);
 
 		if (text == NULL) break;
-        		
+
 		response_id = va_arg (args, int);
 	}
 }
@@ -456,7 +456,7 @@ void
 eog_message_area_add_buttons (EogMessageArea *message_area,
 			      const gchar    *first_button_text,
 			      ...)
-{  
+{
 	va_list args;
 
 	va_start (args, first_button_text);
@@ -464,10 +464,10 @@ eog_message_area_add_buttons (EogMessageArea *message_area,
 	add_buttons_valist (message_area,
                             first_button_text,
                             args);
-  
+
 	va_end (args);
 }
-				 
+
 GtkWidget *
 eog_message_area_new (void)
 {
@@ -489,7 +489,7 @@ eog_message_area_new_with_buttons (const gchar *first_button_text,
 {
 	EogMessageArea *message_area;
 	va_list args;
-  
+
 	message_area = EOG_MESSAGE_AREA (eog_message_area_new ());
 
 	va_start (args, first_button_text);
@@ -497,7 +497,7 @@ eog_message_area_new_with_buttons (const gchar *first_button_text,
 	add_buttons_valist (message_area,
 			    first_button_text,
 			    args);
-  
+
 	va_end (args);
 
 	return GTK_WIDGET (message_area);
@@ -567,7 +567,7 @@ eog_message_area_set_default_response (EogMessageArea *message_area,
 
 		if (rd && rd->response_id == response_id)
 			gtk_widget_grab_default (widget);
-	    
+
 		tmp_list = g_list_next (tmp_list);
 	}
 
@@ -606,13 +606,13 @@ eog_message_area_response (EogMessageArea *message_area,
  * Returns: the newly added #GtkButton.
  **/
 GtkWidget *
-eog_message_area_add_stock_button_with_text (EogMessageArea *message_area, 
+eog_message_area_add_stock_button_with_text (EogMessageArea *message_area,
 				    	     const gchar    *text,
 				    	     const gchar    *stock_id,
 				    	     gint            response_id)
 {
 	GtkWidget *button;
-  
+
 	g_return_val_if_fail (EOG_IS_MESSAGE_AREA (message_area), NULL);
 	g_return_val_if_fail (text != NULL, NULL);
 	g_return_val_if_fail (stock_id != NULL, NULL);
@@ -624,9 +624,9 @@ eog_message_area_add_stock_button_with_text (EogMessageArea *message_area,
                                                         GTK_ICON_SIZE_BUTTON));
 
 	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  
+
 	gtk_widget_show (button);
-  
+
 	eog_message_area_add_action_widget (message_area,
 					    button,
 					    response_id);

@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Image Properties Dialog 
+/* Eye Of Gnome - Image Properties Dialog
  *
  * Copyright (C) 2006 The Free Software Foundation
  *
