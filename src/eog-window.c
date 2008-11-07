@@ -3966,7 +3966,7 @@ eog_window_construct_ui (EogWindow *window)
 	gtk_ui_manager_insert_action_group (priv->ui_mgr, priv->actions_recent, 0);
 
 	priv->cbox = gtk_vbox_new (FALSE, 0);
-	gtk_box_pack_start_defaults (GTK_BOX (priv->box), priv->cbox);
+	gtk_box_pack_start (GTK_BOX (priv->box), priv->cbox, TRUE, TRUE, 0);
 	gtk_widget_show (priv->cbox);
 
 	priv->statusbar = eog_statusbar_new ();
@@ -4038,7 +4038,7 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_widget_show_all (hpaned);
 
-	gtk_box_pack_start_defaults (GTK_BOX (priv->layout), hpaned);
+	gtk_box_pack_start (GTK_BOX (priv->layout), hpaned, TRUE, TRUE, 0);
 
 	priv->thumbview = eog_thumb_view_new ();
 
