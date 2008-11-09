@@ -24,7 +24,6 @@
 #include "egg-editable-toolbar.h"
 
 #include <string.h>
-#include <libxml/tree.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 
