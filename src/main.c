@@ -58,7 +58,7 @@ static gboolean fullscreen = FALSE;
 static gboolean slide_show = FALSE;
 static gboolean disable_collection = FALSE;
 #if HAVE_DBUS
-static gboolean wait = FALSE;
+static gboolean force_new_instance = FALSE;
 #endif
 static gchar **startup_files = NULL;
 
@@ -68,7 +68,7 @@ static const GOptionEntry goption_options[] =
 	{ "disable-image-collection", 'c', 0, G_OPTION_ARG_NONE, &disable_collection, N_("Disable image collection"), NULL  },
 	{ "slide-show", 's', 0, G_OPTION_ARG_NONE, &slide_show, N_("Open in slide show mode"), NULL  },
 #if HAVE_DBUS
-	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &wait, N_("Start a new instance instead of reusing an existing one"), NULL },
+	{ "new-instance", 'n', 0, G_OPTION_ARG_NONE, &force_new_instance, N_("Start a new instance instead of reusing an existing one"), NULL },
 #endif
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &startup_files, NULL, N_("[FILE...]") },
 	{ NULL }
@@ -196,7 +196,8 @@ main (int argc, char **argv)
 	set_startup_flags ();
 	
 #ifdef HAVE_DBUS
-	if (!wait && !eog_application_register_service (EOG_APP)) {
+	if (!force_new_instance &&
+	    !eog_application_register_service (EOG_APP)) {
 		if (load_files_remote ()) {
 			g_object_unref (program);
 			return 0;
