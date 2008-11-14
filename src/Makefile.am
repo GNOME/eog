@@ -155,8 +155,7 @@ libeog_la_CFLAGS =						\
 	-DEOG_PLUGIN_DIR=\""$(libdir)/eog/plugins"\"
 
 libeog_la_LIBADD = \
-	$(EOG_LIBS) \
-	-lz
+	$(EOG_LIBS)
 
 if ENABLE_PYTHON
 libeog_la_CFLAGS += 			\

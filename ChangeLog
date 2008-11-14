@@ -1,3 +1,12 @@
+2008-11-14  Felix Riemann  <friemann@svn.gnome.org>
+
+	* configure.ac:
+	* src/Makefile.am:
+	Check for sufficient zlib during configure.
+	* src/eog-metadata-reader-png.c: (eog_metadata_reader_png_consume):
+	Merge the two CRC calculation steps into one. Fixes issues with zlib
+	not always exporting crc32_combine() on MacOS X. Fixes bug #560068.
+
 2008-11-12  Felix Riemann  <friemann@svn.gnome.org>
 
 	* cut-n-paste/toolbar-editor/eggtreemultidnd.c:

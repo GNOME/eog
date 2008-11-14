@@ -79,7 +79,6 @@ struct _EogMetadataReaderPngPrivate {
 	gsize      bytes_read;
 	guint	   sub_step;
 	guchar	   chunk_name[4];
-	guint32	   chunk_name_crc;
 	gpointer   *crc_chunk;
 	guint32	   *crc_len;
 	guint32    target_crc;
@@ -253,10 +252,7 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 
 			priv->chunk_name[priv->sub_step] = buf[i];
 
-			if (priv->sub_step++ == 3)
-				/* Take the CRC32 from the chunk name for later */
-				priv->chunk_name_crc = crc32 (crc32 (0L, Z_NULL, 0), priv->chunk_name, 4);
-			else
+			if (priv->sub_step++ != 3)
 				break;
 
 			if (G_UNLIKELY (!priv->hasIHDR)) {
@@ -325,11 +321,9 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 			if (priv->sub_step++ != 3)
 				break;
 
-			/* ...generate the chunks CRC32, merge it with the
-			 * chunk name's CRC32 value... */
-			chunk_crc = crc32 (0L, Z_NULL, 0);
+			/* ...generate the chunks CRC32,... */
+			chunk_crc = crc32 (crc32 (0L, Z_NULL, 0), priv->chunk_name, 4);
 			chunk_crc = crc32 (chunk_crc, *priv->crc_chunk, *priv->crc_len);
-			chunk_crc = crc32_combine (priv->chunk_name_crc, chunk_crc, *priv->crc_len);
 
 			eog_debug_message (DEBUG_IMAGE_DATA, "Checking CRC: Chunk: 0x%X - Target: 0x%X", chunk_crc, priv->target_crc);
 

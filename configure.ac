@@ -106,6 +106,21 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
 	     libxml-2.0 >= $LIBXML2_REQUIRED"
 
 # ***************
+# ZLIB (required)
+# ***************
+
+have_zlib=yes
+AC_CHECK_HEADERS([zlib.h],
+	[AC_CHECK_LIB([z], [inflate],
+		[AC_CHECK_LIB([z], [crc32], [], [have_zlib=no])],
+		[have_zlib=no])],
+	[have_zlib=no])
+
+if test x$have_zlib = xno; then
+	AC_MSG_ERROR([No sufficient zlib library found on your system.])
+fi
+
+# ***************
 # EXIF (optional)
 # ***************
 
