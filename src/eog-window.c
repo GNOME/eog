@@ -4516,9 +4516,10 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 
 	/* If the focus is not in the toolbar and we still haven't handled the
 	   event, give the scrollview a chance to do it.  */
-	if ((tbcontainer->focus_child == NULL) && result == FALSE) {
-		result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->view),
-					   (GdkEvent *) event);
+	if (tbcontainer->focus_child == NULL && result == FALSE && 
+		GTK_WIDGET_REALIZED(GTK_WIDGET (EOG_WINDOW (widget)->priv->view))) {
+			result = gtk_widget_event (GTK_WIDGET (EOG_WINDOW (widget)->priv->view),
+						   (GdkEvent *) event);
 	}
 
 	if (result == FALSE && GTK_WIDGET_CLASS (eog_window_parent_class)->key_press_event) {
