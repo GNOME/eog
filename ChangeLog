@@ -1,3 +1,12 @@
+2008-11-20  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-file-chooser.c: (save_response_cb):
+	* src/eog-save-as-dialog-helper.c: (set_default_values),
+	(eog_save_as_dialog_get_converter):
+	* src/eog-window.c: (eog_window_retrieve_save_as_file):
+	Switch from GtkFileChooser's old uri-based API to the new GFile-based
+	API new to GTK+-2.14 where applicable.
+
 2008-11-16  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-window.c: (eog_window_key_press): Fix broken keyboard

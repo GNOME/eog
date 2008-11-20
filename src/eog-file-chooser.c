@@ -101,17 +101,14 @@ response_cb (GtkDialog *dlg, gint id, gpointer data)
 static void
 save_response_cb (GtkDialog *dlg, gint id, gpointer data)
 {
-	gchar *filename;
 	GFile *file;
 	GdkPixbufFormat *format;
 
 	if (id != GTK_RESPONSE_OK)
 		return;
 
-	filename = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dlg));
-	file = g_file_new_for_uri (filename);
+	file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dlg));
 	format = eog_pixbuf_get_format (file);
-	g_free (filename);
 	g_object_unref (file);
 
 	if (!format || !gdk_pixbuf_format_is_writable (format)) {

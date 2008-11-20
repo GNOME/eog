@@ -190,11 +190,7 @@ set_default_values (GtkWidget *dlg, GFile *base_file)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (sd->replace_spaces_check),
 				      FALSE);
 	if (base_file != NULL) {
-		char *uri_str;
-
-		uri_str = g_file_get_uri (base_file);
-		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (sd->dir_chooser), uri_str);
-		g_free (uri_str);
+		gtk_file_chooser_set_current_folder_file (GTK_FILE_CHOOSER (sd->dir_chooser), base_file, NULL);
 	}
 
 	/*gtk_dialog_set_response_sensitive (GTK_DIALOG (dlg), GTK_RESPONSE_OK, FALSE);*/
@@ -281,7 +277,6 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 	gulong   counter_start;
 	GdkPixbufFormat *format;
 	GFile *base_file;
-	const char *base_uri_str;
 
 	data = g_object_get_data (G_OBJECT (dlg), "data");
 	g_assert (data != NULL);
@@ -297,8 +292,7 @@ eog_save_as_dialog_get_converter (GtkWidget *dlg)
 
 	format = get_selected_format (GTK_COMBO_BOX (data->format_combobox));
 
-	base_uri_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (data->dir_chooser));
-	base_file = g_file_new_for_uri (base_uri_str);
+	base_file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (data->dir_chooser));
 
 	/* create converter object */
 	conv = eog_uri_converter_new (base_file, format, format_str);

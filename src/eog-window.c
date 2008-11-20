@@ -2730,37 +2730,25 @@ eog_window_retrieve_save_as_file (EogWindow *window, EogImage *image)
 {
 	GtkWidget *dialog;
 	GFile *save_file = NULL;
-	GFile *parent_file;
 	GFile *image_file;
-	gchar *folder_uri;
 	gint response;
 
 	g_assert (image != NULL);
 
 	image_file = eog_image_get_file (image);
-	parent_file = g_file_get_parent (image_file);
-	folder_uri = g_file_get_uri (parent_file);
-	g_object_unref (parent_file);
-	g_object_unref (image_file);
 
 	dialog = eog_file_chooser_new (GTK_FILE_CHOOSER_ACTION_SAVE);
-	gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog),
-						 folder_uri);
+	/* Setting the file will also navigate to its parent folder */
+	gtk_file_chooser_set_file (GTK_FILE_CHOOSER (dialog), image_file, NULL);
+	g_object_unref (image_file);
+
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_hide (dialog);
 
 	if (response == GTK_RESPONSE_OK) {
-		gchar *new_uri;
-
-		new_uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
-
-		g_assert (new_uri != NULL);
-
-		save_file = g_file_new_for_uri (new_uri);
-		g_free (new_uri);
+		save_file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
 	}
 	gtk_widget_destroy (dialog);
-	g_free (folder_uri);
 
 	return save_file;
 }
