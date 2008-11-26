@@ -389,6 +389,9 @@ eog_job_model_run (EogJobModel *job)
 	g_list_foreach (filtered_list, (GFunc) g_object_unref, NULL);
 	g_list_free (filtered_list);
 
+	g_list_foreach (error_list, (GFunc) g_free, NULL);
+	g_list_free (error_list);
+
 	EOG_JOB (job)->finished = TRUE;
 }
 
