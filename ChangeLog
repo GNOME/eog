@@ -1,5 +1,12 @@
 2008-11-26  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-jobs.c: (filter_files):
+	* src/eog-list-store.c: (eog_list_store_add_files): Try to check if a
+	file is supported by content type as well, if the gvfs backend could
+	not determine the file type. Fixes bug #562119.
+
+2008-11-26  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-jobs.c: (eog_job_model_run): Fix leaking list.
 
 2008-11-20  Felix Riemann  <friemann@svn.gnome.org>

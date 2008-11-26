@@ -345,12 +345,26 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 
 		if (file != NULL) {
 			file_info = g_file_query_info (file,
-						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
+						       G_FILE_ATTRIBUTE_STANDARD_TYPE","G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 						       0, NULL, NULL);
 			if (file_info == NULL) {
 				type = G_FILE_TYPE_UNKNOWN;
 			} else {
 				type = g_file_info_get_file_type (file_info);
+
+				/* Workaround for gvfs backends that
+				   don't set the GFileType. */
+				if (G_UNLIKELY (type == G_FILE_TYPE_UNKNOWN)) {
+					const gchar *ctype;
+			
+					ctype = g_file_info_get_content_type (file_info);
+
+					/* If the content type is supported
+					   adjust the file_type */
+					if (eog_image_is_supported_mime_type (ctype))
+						type = G_FILE_TYPE_REGULAR;
+				}
+
 				g_object_unref (file_info);
 			}
 		}

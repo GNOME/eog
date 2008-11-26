@@ -563,12 +563,25 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		GFile *file = (GFile *) it->data;
 
 		file_info = g_file_query_info (file,
-					       G_FILE_ATTRIBUTE_STANDARD_TYPE,
+					       G_FILE_ATTRIBUTE_STANDARD_TYPE","
+					       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 					       0, NULL, NULL);
 		if (file_info == NULL) {
 			continue;
 		}
 		file_type = g_file_info_get_file_type (file_info);
+
+		/* Workaround for gvfs backends that don't set the GFileType. */
+		if (G_UNLIKELY (file_type == G_FILE_TYPE_UNKNOWN)) {
+			const gchar *ctype;
+			
+			ctype = g_file_info_get_content_type (file_info);
+
+			/* If the content type is supported adjust file_type */
+			if (eog_image_is_supported_mime_type (ctype))
+				file_type = G_FILE_TYPE_REGULAR;
+		}
+
 		g_object_unref (file_info);
 
 		if (file_type == G_FILE_TYPE_DIRECTORY) {
@@ -582,8 +595,13 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 			file_info = g_file_query_info (file,
 						       G_FILE_ATTRIBUTE_STANDARD_TYPE,
 						       0, NULL, NULL);
-			file_type = g_file_info_get_file_type (file_info);
-			g_object_unref (file_info);
+
+			/* If we can't get a file_info,
+			   file_type will stay as G_FILE_TYPE_REGULAR */
+			if (file_info != NULL) {
+				file_type = g_file_info_get_file_type (file_info);
+				g_object_unref (file_info);
+			}
 
 			if (file_type == G_FILE_TYPE_DIRECTORY) {
 				eog_list_store_append_directory (store, file, file_type);
