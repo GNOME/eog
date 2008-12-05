@@ -3577,6 +3577,9 @@ set_action_properties (GtkActionGroup *window_group,
 
         action = gtk_action_group_get_action (window_group, "ViewImageCollection");
         g_object_set (action, "short_label", _("Collection"), NULL);
+
+        action = gtk_action_group_get_action (image_group, "EditMoveToTrash");
+        g_object_set (action, "short_label", C_("action (to trash)", "Trash"), NULL);
 }
 
 static gint
