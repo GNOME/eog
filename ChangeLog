@@ -1,5 +1,11 @@
 2008-12-05  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-thumb-view.c: (+thumbview_get_tooltip_string):
+	(thumbview_on_query_tooltip_cb): Factor out code to construct
+	the tooltip string into a new method.
+
+2008-12-05  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* data/eog-toolbar.xml: Add a "Trash" item.
 	* src/eog-window.c: (set_action_properties): Add the action for the new
 	"Trash" item. Fixes bug #555480 (Robin Sonefors)

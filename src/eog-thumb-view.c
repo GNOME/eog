@@ -335,62 +335,19 @@ thumbview_on_drag_data_get_cb (GtkWidget        *widget,
 	g_list_free (list);
 }
 
-static gboolean
-thumbview_on_query_tooltip_cb (GtkWidget  *widget,
-			       gint        x,
-			       gint        y,
-			       gboolean    keyboard_mode,
-			       GtkTooltip *tooltip,
-			       gpointer    user_data)
+static gchar *
+thumbview_get_tooltip_string (EogImage *image)
 {
-	GtkTreePath *path;
-	EogImage *image;
-	gchar *tooltip_string;
 	gchar *bytes;
-	gint width, height;
 	char *type_str;
-	const char *mime_str;
-	GError *error = NULL;
+	gint width, height;
 	GFile *file;
 	GFileInfo *file_info;
+	const char *mime_str;
+	gchar *tooltip_string;
 #ifdef HAVE_EXIF
 	ExifData *exif_data;
 #endif
-
-	if (!gtk_icon_view_get_tooltip_context (GTK_ICON_VIEW (widget),
-						&x, &y, keyboard_mode,
-						NULL, &path, NULL)) {
-		return FALSE;
-	}
-
-	image = eog_thumb_view_get_image_from_path (EOG_THUMB_VIEW (widget),
-						    path);
-	gtk_tree_path_free (path);
-
-	if (image == NULL) {
-		return FALSE;
-	}
-
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
-		eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, &error);
-
-		if (error) {
-			/* Here, error typically means no exif data found */
-			g_error_free (error);
-			error = NULL;
-		}
-	}
-
-#ifdef HAVE_EXIF
-	exif_data = (ExifData *) eog_image_get_exif_info (image);
-#endif
-
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_DIMENSION)) {
-		eog_image_load (image,
-				EOG_IMAGE_DATA_DIMENSION,
-				NULL,
-				&error);
-	}
 
 	bytes = g_format_size_for_display (eog_image_get_bytes (image));
 
@@ -402,18 +359,15 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 				       0, NULL, NULL);
 	g_object_unref (file);
 	if (file_info == NULL) {
-		return FALSE;
+		return NULL;
 	}
 
 	mime_str = g_file_info_get_content_type (file_info);
 
 	if (G_UNLIKELY (mime_str == NULL)) {
 		g_free (bytes);
-#ifdef HAVE_EXIF
-		exif_data_unref (exif_data);
-#endif
 		g_object_unref (image);
-		return FALSE;
+		return NULL;
 	}
 
 	type_str = g_content_type_get_description (mime_str);
@@ -443,6 +397,8 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 	}
 
 #ifdef HAVE_EXIF
+	exif_data = (ExifData *) eog_image_get_exif_info (image);
+
 	if (exif_data) {
 		gchar *extra_info, *tmp, *date;
 		/* The EXIF standard says that the DATE_TIME tag is
@@ -467,12 +423,65 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 	}
 #endif
 
-	gtk_tooltip_set_markup (tooltip, tooltip_string);
-
 	g_free (type_str);
 	g_free (bytes);
- 	g_free (tooltip_string);
+
+	return tooltip_string;
+}
+
+static gboolean
+thumbview_on_query_tooltip_cb (GtkWidget  *widget,
+			       gint        x,
+			       gint        y,
+			       gboolean    keyboard_mode,
+			       GtkTooltip *tooltip,
+			       gpointer    user_data)
+{
+	GtkTreePath *path;
+	EogImage *image;
+	gchar *tooltip_string;
+	GError *error = NULL;
+
+	if (!gtk_icon_view_get_tooltip_context (GTK_ICON_VIEW (widget),
+						&x, &y, keyboard_mode,
+						NULL, &path, NULL)) {
+		return FALSE;
+	}
+
+	image = eog_thumb_view_get_image_from_path (EOG_THUMB_VIEW (widget),
+						    path);
+	gtk_tree_path_free (path);
+
+	if (image == NULL) {
+		return FALSE;
+	}
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
+		eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, &error);
+
+		if (error) {
+			/* Here, error typically means no exif data found */
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_DIMENSION)) {
+		eog_image_load (image,
+				EOG_IMAGE_DATA_DIMENSION,
+				NULL,
+				&error);
+	}
+
+	tooltip_string = thumbview_get_tooltip_string (image);
 	g_object_unref (image);
+
+	if (tooltip_string == NULL) {
+		return FALSE;
+	}
+
+	gtk_tooltip_set_markup (tooltip, tooltip_string);
+	g_free (tooltip_string);
 
 	return TRUE;
 }
