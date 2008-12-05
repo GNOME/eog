@@ -1,5 +1,15 @@
 2008-12-05  Felix Riemann  <friemann@svn.gnome.org>
 
+	* jpegutils/Makefile.am: Produce .la-file as well.
+	* doc/reference/Makefile.am:
+	* src/Makefile.am:
+	Link to local convenience libs directly instead of using a
+	library	search path to avoid linking to wrong libs. Let automake
+	calculate the dependencies list. Remove now unneeded vars.
+	Fixes bug #560073 (Daniel Macks, Felix Riemann).
+
+2008-12-05  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/Makefile.am: Sanitize include search path order.
 	Fixes bug #560070 (Daniel Macks).
 

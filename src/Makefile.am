@@ -1,13 +1,10 @@
 if ENABLE_JPEG
-jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
-jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
+jpeg_LIB = $(top_builddir)/jpegutils/libeog-jpegutils.la
 endif
 
-toolbar_LIB = -L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor
-toolbar_DEPS = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
+toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
-screensaver_LIB = -L$(top_builddir)/cut-n-paste/totem-screensaver -ltotemscrsaver
-screensaver_DEPS = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
+screensaver_LIB = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
 
 noinst_LTLIBRARIES = libeog.la
 
@@ -171,12 +168,6 @@ endif
 libeog_la_LDFLAGS = -export-dynamic -no-undefined -export-symbols-regex "^[[^_]].*"
 
 eog_SOURCES = main.c
-
-eog_DEPENDENCIES = 	    \
-	libeog.la	    \
-	$(jpeg_DEPS)	    \
-	$(toolbar_DEPS)     \
-	$(screensaver_DEPS)
 
 eog_CFLAGS = 							\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\

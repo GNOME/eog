@@ -91,13 +91,13 @@ MORE_GTKDOC_LIBS = $(PYTHON_LIBS)
 endif
 
 if ENABLE_JPEG
-jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
+jpeg_LIB = $(top_builddir)/jpegutils/libeog-jpegutils.la
 endif
 
 GTKDOC_LIBS=\
 	$(top_builddir)/src/libeog.la 	\
-	-L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor \
-	-L$(top_builddir)/cut-n-paste/totem-screensaver -ltotemscrsaver \
+	$(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la \
+	$(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la \
 	$(BINDING_LIBS)			\
 	$(LIBJPEG)			\
 	$(X_LIBS)			\

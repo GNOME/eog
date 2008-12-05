@@ -1,9 +1,9 @@
 INCLUDES = $(EOG_CFLAGS) \
 	$(EXIF_CFLAGS)
 
-noinst_LIBRARIES = libeog-jpegutils.a
+noinst_LTLIBRARIES = libeog-jpegutils.la
 
-libeog_jpegutils_a_SOURCES =		\
+libeog_jpegutils_la_SOURCES =		\
 	transupp.c			\
 	transupp.h
 
