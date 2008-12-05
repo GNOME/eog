@@ -3396,7 +3396,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), "<control><shift>s",
 	  N_("Save the selected images with a different name"),
 	  G_CALLBACK (eog_window_cmd_save_as) },
-	{ "FilePageSetup", "document-page-setup", N_("Page Set_up..."), NULL,
+	{ "FilePageSetup", GTK_STOCK_PAGE_SETUP, NULL, NULL,
 	  N_("Setup the page properties for printing"),
 	  G_CALLBACK (eog_window_cmd_page_setup) },
 	{ "FilePrint", GTK_STOCK_PRINT, N_("_Print..."), "<control>p",
