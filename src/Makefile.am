@@ -1,12 +1,12 @@
 if ENABLE_JPEG
-jpeg_LIB = -L$(top_builddir)/jpegutils -leog-jpegutils
+jpeg_LIB = $(top_builddir)/jpegutils/libeog-jpegutils.a
 jpeg_DEPS = $(top_builddir)/jpegutils/libeog-jpegutils.a
 endif
 
-toolbar_LIB = -L$(top_builddir)/cut-n-paste/toolbar-editor -ltoolbareditor
+toolbar_LIB = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 toolbar_DEPS = $(top_builddir)/cut-n-paste/toolbar-editor/libtoolbareditor.la
 
-screensaver_LIB = -L$(top_builddir)/cut-n-paste/totem-screensaver -ltotemscrsaver
+screensaver_LIB = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
 screensaver_DEPS = $(top_builddir)/cut-n-paste/totem-screensaver/libtotemscrsaver.la
 
 noinst_LTLIBRARIES = libeog.la
