@@ -142,11 +142,11 @@ libeog_la_SOURCES +=			\
 endif
 
 libeog_la_CFLAGS =						\
-	$(EOG_CFLAGS)						\
-	$(WARN_CFLAGS)						\
 	-I$(top_srcdir)/jpegutils				\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
+	$(EOG_CFLAGS)						\
+	$(WARN_CFLAGS)						\
 	-DG_LOG_DOMAIN=\"EOG\"					\
 	-DEOG_PREFIX=\""${prefix}"\"				\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
@@ -179,9 +179,9 @@ eog_DEPENDENCIES = 	    \
 	$(screensaver_DEPS)
 
 eog_CFLAGS = 							\
-	$(EOG_CFLAGS)						\
 	-I$(top_srcdir)/cut-n-paste/toolbar-editor		\
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
+	$(EOG_CFLAGS)						\
 	-DEOG_DATA_DIR=\""$(pkgdatadir)"\"			\
 	-DEOG_LOCALE_DIR=\""$(datadir)/locale"\"
 
