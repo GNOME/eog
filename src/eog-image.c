@@ -50,7 +50,6 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gdk-pixbuf/gdk-pixbuf-io.h>
 
 #ifdef HAVE_EXIF
 #include <libexif/exif-data.h>
