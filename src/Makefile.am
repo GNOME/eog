@@ -60,6 +60,7 @@ INST_H_FILES =				\
 	eog-thumb-nav.h			\
 	eog-transform.h			\
 	eog-image.h			\
+	eog-enums.h			\
 	eog-image-save-info.h		\
 	eog-scroll-view.h		\
 	eog-thumb-view.h		\

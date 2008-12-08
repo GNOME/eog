@@ -26,6 +26,7 @@
 #include "eog-window.h"
 #include "eog-transform.h"
 #include "eog-image-save-info.h"
+#include "eog-enums.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -58,18 +59,6 @@ typedef struct _EogImagePrivate EogImagePrivate;
 #define EOG_IS_IMAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_IMAGE))
 #define EOG_IS_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),  EOG_TYPE_IMAGE))
 #define EOG_IMAGE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),  EOG_TYPE_IMAGE, EogImageClass))
-
-typedef enum {
-	EOG_IMAGE_DATA_IMAGE     = 1 << 0,
-	EOG_IMAGE_DATA_DIMENSION = 1 << 1,
-	EOG_IMAGE_DATA_EXIF      = 1 << 2,
-	EOG_IMAGE_DATA_XMP       = 1 << 3
-} EogImageData;
-
-#define EOG_IMAGE_DATA_ALL  (EOG_IMAGE_DATA_IMAGE |     \
-			     EOG_IMAGE_DATA_DIMENSION | \
-			     EOG_IMAGE_DATA_EXIF |      \
-			     EOG_IMAGE_DATA_XMP)
 
 typedef enum {
 	EOG_IMAGE_ERROR_SAVE_NOT_LOCAL,
