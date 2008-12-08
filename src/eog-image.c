@@ -1874,6 +1874,23 @@ eog_image_get_status (EogImage *img)
 	return img->priv->status;
 }
 
+/**
+ * eog_image_get_metadata_status:
+ * @img: a #EogImage
+ *
+ * Returns the current status of the image metadata, that is,
+ * whether the metadata has not been read yet, is ready, or not available at all.
+ *
+ * Returns: one of #EogImageMetadataStatus
+ **/
+EogImageMetadataStatus
+eog_image_get_metadata_status (EogImage *img)
+{
+        g_return_val_if_fail (EOG_IS_IMAGE (img), EOG_IMAGE_METADATA_NOT_AVAILABLE);
+
+        return img->priv->metadata_status;
+}
+
 void
 eog_image_data_ref (EogImage *img)
 {

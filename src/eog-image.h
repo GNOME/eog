@@ -169,6 +169,8 @@ gchar*            eog_image_get_uri_for_display      (EogImage   *img);
 
 EogImageStatus    eog_image_get_status               (EogImage   *img);
 
+EogImageMetadataStatus eog_image_get_metadata_status (EogImage   *img);
+
 void              eog_image_transform                (EogImage   *img,
 						      EogTransform *trans,
 						      EogJob     *job);
