@@ -1576,7 +1576,7 @@ handle_image_selection_changed_cb (EogThumbView *thumbview, EogWindow *window)
 				  window);
 	}
 
-	priv->load_job = eog_job_load_new (image);
+	priv->load_job = eog_job_load_new (image, EOG_IMAGE_DATA_ALL);
 
 	g_signal_connect (priv->load_job,
 			  "finished",

@@ -27,6 +27,7 @@
 
 #include "eog-list-store.h"
 #include "eog-transform.h"
+#include "eog-enums.h"
 
 #include <glib.h>
 #include <gio/gio.h>
@@ -146,8 +147,9 @@ struct _EogJobThumbnailClass
 
 struct _EogJobLoad
 {
-	EogJob    parent;
-	EogImage *image;
+	EogJob        parent;
+	EogImage     *image;
+	EogImageData  data;
 };
 
 struct _EogJobLoadClass
@@ -242,7 +244,8 @@ void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 
 /* EogJobLoad */
 GType           eog_job_load_get_type      (void) G_GNUC_CONST;
-EogJob 	       *eog_job_load_new 	   (EogImage        *image);
+EogJob 	       *eog_job_load_new 	   (EogImage        *image,
+					    EogImageData     data);
 void		eog_job_load_run 	   (EogJobLoad 	    *load);
 
 /* EogJobModel */

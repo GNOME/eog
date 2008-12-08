@@ -1,3 +1,13 @@
+2008-10-08  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* bindings/python/eog.defs:
+	* src/eog-jobs.c: (eog_job_load_new), (eog_job_load_run):
+	* src/eog-jobs.h:
+	* src/eog-window.c: (handle_image_selection_changed_cb):
+
+	Add a EogImageData parameter to eog_job_load_new(), in order
+	to let specify particular data to be loaded by the job.
+
 2008-12-08  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* src/Makefile.am: Add eog-enums.h

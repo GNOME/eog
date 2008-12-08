@@ -266,7 +266,7 @@ eog_job_load_class_init (EogJobLoadClass *class)
 }
 
 EogJob *
-eog_job_load_new (EogImage *image)
+eog_job_load_new (EogImage *image, EogImageData data)
 {
 	EogJobLoad *job;
 
@@ -275,6 +275,7 @@ eog_job_load_new (EogImage *image)
 	if (image) {
 		job->image = g_object_ref (image);
 	}
+	job->data = data;
 
 	return EOG_JOB (job);
 }
@@ -290,7 +291,7 @@ eog_job_load_run (EogJobLoad *job)
 	}
 
 	eog_image_load (EOG_IMAGE (job->image),
-			EOG_IMAGE_DATA_ALL,
+			job->data,
 			EOG_JOB (job),
 			&EOG_JOB (job)->error);
 
