@@ -1,5 +1,11 @@
 2008-10-08  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-thumb-view.c: (thumbview_get_tooltip_string),
+	(thumbview_on_query_tooltip_cb): Asynchronously load the metadata
+	for the tooltips. Fixes bug #558442.
+
+2008-12-08  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-image.c (+eog_image_metadata_get_status): New public
 	method to retrieve metadata status.
 	* src/eog-image.h: Add definition.

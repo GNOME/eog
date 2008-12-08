@@ -27,6 +27,7 @@
 #include "eog-list-store.h"
 #include "eog-pixbuf-cell-renderer.h"
 #include "eog-image.h"
+#include "eog-job-queue.h"
 
 #ifdef HAVE_EXIF
 #include "eog-exif-util.h"
@@ -429,6 +430,16 @@ thumbview_get_tooltip_string (EogImage *image)
 	return tooltip_string;
 }
 
+static void
+on_data_loaded_cb (EogJob *job, gpointer data)
+{
+	GtkWidget *widget = GTK_WIDGET (data);
+
+	if (!job->error) {
+		gtk_tooltip_trigger_tooltip_query (gdk_display_get_default());
+	}
+}
+
 static gboolean
 thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 			       gint        x,
@@ -440,7 +451,7 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 	GtkTreePath *path;
 	EogImage *image;
 	gchar *tooltip_string;
-	GError *error = NULL;
+	EogImageData data = 0;
 
 	if (!gtk_icon_view_get_tooltip_context (GTK_ICON_VIEW (widget),
 						&x, &y, keyboard_mode,
@@ -456,21 +467,26 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 		return FALSE;
 	}
 
-	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
-		eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, &error);
-
-		if (error) {
-			/* Here, error typically means no exif data found */
-			g_error_free (error);
-			error = NULL;
-		}
+	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF) &&
+            eog_image_get_metadata_status (image) == EOG_IMAGE_METADATA_NOT_READ) {
+		data = EOG_IMAGE_DATA_EXIF;
 	}
 
 	if (!eog_image_has_data (image, EOG_IMAGE_DATA_DIMENSION)) {
-		eog_image_load (image,
-				EOG_IMAGE_DATA_DIMENSION,
-				NULL,
-				&error);
+		data |= EOG_IMAGE_DATA_DIMENSION;
+	}
+
+	if (data) {
+		EogJob *job;
+
+		job = eog_job_load_new (image, data);
+		g_signal_connect (G_OBJECT (job), "finished",
+				  G_CALLBACK (on_data_loaded_cb),
+				  widget);
+		eog_job_queue_add_job (job);
+		g_object_unref (image);
+		g_object_unref (job);
+		return FALSE;
 	}
 
 	tooltip_string = thumbview_get_tooltip_string (image);
