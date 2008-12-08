@@ -32,6 +32,7 @@ struct _EogImagePrivate {
 	EogImageStatus    status;
 	EogImageStatus    prev_status;
 	gboolean          is_monitored;
+        EogImageMetadataStatus metadata_status;
 
 	GdkPixbuf        *image;
 	GdkPixbuf        *thumbnail;

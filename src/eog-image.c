@@ -245,6 +245,7 @@ eog_image_init (EogImage *img)
 	img->priv->modified = FALSE;
 	img->priv->status_mutex = g_mutex_new ();
 	img->priv->status = EOG_IMAGE_STATUS_UNKNOWN;
+        img->priv->metadata_status = EOG_IMAGE_METADATA_NOT_READ;
 	img->priv->is_monitored = FALSE;
 	img->priv->undo_stack = NULL;
 	img->priv->trans = NULL;
@@ -953,6 +954,7 @@ eog_image_real_load (EogImage *img,
 						       0,
 						       priv->width,
 						       priv->height);
+                                priv->metadata_status = EOG_IMAGE_METADATA_NOT_AVAILABLE;
                         }
 
 			first_run = FALSE;
@@ -973,6 +975,7 @@ eog_image_real_load (EogImage *img,
 					eog_image_set_xmp_data (img, md_reader);
 #endif
 					set_metadata = FALSE;
+                                        priv->metadata_status = EOG_IMAGE_METADATA_READY;
 				}
 
 				if (data2read == EOG_IMAGE_DATA_EXIF)

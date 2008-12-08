@@ -80,6 +80,12 @@ typedef enum {
 	EOG_IMAGE_STATUS_FAILED
 } EogImageStatus;
 
+typedef enum {
+  EOG_IMAGE_METADATA_NOT_READ,
+  EOG_IMAGE_METADATA_NOT_AVAILABLE,
+  EOG_IMAGE_METADATA_READY
+} EogImageMetadataStatus;
+
 struct _EogImage {
 	GObject parent;
 

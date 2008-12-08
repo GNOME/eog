@@ -1,5 +1,14 @@
 2008-10-08  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-image-private.h: Add metadata status private element.
+	* src/eog-image.c: (eog_image_init): Initialize the metadata status to
+	not read.
+	(eog_image_real_load): Set metadata status to ready if already loaded
+	and to not available if the image has no metadata.
+	* src/eog-image.h: Add EogImageMetadataStatus enumeration.
+
+2008-12-08  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* bindings/python/eog.defs:
 	* src/eog-jobs.c: (eog_job_load_new), (eog_job_load_run):
 	* src/eog-jobs.h:
