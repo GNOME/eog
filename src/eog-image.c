@@ -859,6 +859,7 @@ eog_image_real_load (EogImage *img,
 		g_free (mime_type);
 
 		if (error != NULL) {
+			g_clear_error (error);
 			g_set_error (error,
 				     EOG_IMAGE_ERROR,
 				     EOG_IMAGE_ERROR_VFS,
