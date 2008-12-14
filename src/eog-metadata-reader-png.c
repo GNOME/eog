@@ -368,9 +368,10 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 
 			if (priv->state == EMR_CHECK_CRC) {
 				/* Check if it is actually an XMP chunk.
-				 * Throw it away if not. */
-				if ((memcmp (priv->xmp_chunk, "XML:com.adobe.xmp\0", 18) != 0)
-				    || (*(guint32*)(priv->xmp_chunk+18)) != 0) {
+				 * Throw it away if not.
+				 * The check has 4 extra \0's to check 
+				 * if the chunk is configured correctly. */
+				if (memcmp (priv->xmp_chunk, "XML:com.adobe.xmp\0\0\0\0\0", 22) != 0) {
 					priv->state = EMR_SKIP_CRC;
 					g_free (priv->xmp_chunk);
 					priv->xmp_chunk = NULL;

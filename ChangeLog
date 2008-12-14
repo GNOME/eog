@@ -1,3 +1,10 @@
+2008-12-14  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader-png.c: (eog_metadata_reader_png_consume):
+	Don't use a pointer->uint32 conversion to check the chunk
+	configuration. Fixes SIGBUS crashes on SPARC systems.
+	Fixes bug #564526 (Friedrich Oslage).
+
 2008-12-13  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* src/eog-image.c: (eog_image_real_load): Clean the input stream
