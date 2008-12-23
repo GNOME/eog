@@ -32,7 +32,6 @@ struct _EogURIConverterPrivate {
 	GList           *token_list;
 	char            *suffix;
 	GdkPixbufFormat *img_format;
-	char            *counter_str;
 	gboolean        requires_exif;
 
 	/* options */
@@ -93,10 +92,6 @@ eog_uri_converter_dispose (GObject *object)
 		priv->suffix = NULL;
 	}
 
-	if (priv->counter_str) {
-		g_free (priv->counter_str);
-		priv->counter_str = NULL;
-	}
 
 	G_OBJECT_CLASS (eog_uri_converter_parent_class)->dispose (object);
 }
@@ -112,7 +107,6 @@ eog_uri_converter_init (EogURIConverter *obj)
 	priv->space_character  = '_';
 	priv->counter_start    = 0;
 	priv->counter_n_digits = 1;
-	priv->counter_str      = NULL;
 	priv->requires_exif     = FALSE;
 }
 
@@ -181,20 +175,6 @@ eog_uc_error_quark (void)
 	return q;
 }
 
-static void
-update_counter_format_str (EogURIConverter *conv)
-{
-	EogURIConverterPrivate *priv;
-
-	g_return_if_fail (EOG_IS_URI_CONVERTER (conv));
-
-	priv = conv->priv;
-
-	g_free (priv->counter_str);
-
-	priv->counter_str = g_strdup_printf ("%%.%ulu", priv->counter_n_digits);
-}
-
 
 static void
 eog_uri_converter_set_property (GObject      *object,
@@ -230,20 +210,17 @@ eog_uri_converter_set_property (GObject      *object,
 
 		if (new_n_digits != priv->counter_n_digits) {
 			priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG), new_n_digits));
-			update_counter_format_str (conv);
 		}
 		break;
 	}
 
 	case PROP_COUNTER_N_DIGITS:
 		priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG), g_value_get_uint (value)));
-		update_counter_format_str (conv);
 		break;
 
 	case PROP_N_IMAGES:
 		priv->counter_n_digits = ceil (MIN (log10 (G_MAXULONG),
 						    log10 (priv->counter_start + g_value_get_uint (value))));
-		update_counter_format_str (conv);
 		break;
 
         default:
@@ -638,11 +615,7 @@ append_counter (GString *str, gulong counter,  EogURIConverter *conv)
 
 	priv = conv->priv;
 
-	if (priv->counter_str == NULL) {
-		update_counter_format_str (conv);
-	}
-	g_assert (priv->counter_str != NULL);
-	g_string_append_printf (str, priv->counter_str, counter);
+	g_string_append_printf (str, "%.*lu", priv->counter_n_digits, counter);
 
 	return str;
 }
@@ -877,12 +850,9 @@ eog_uri_converter_preview (const char *format_str, EogImage *img, GdkPixbufForma
 				str = append_filename (str, img);
 			}
 			else if (c == 'n') {
-				char *counter_format;
+				g_string_append_printf (str, "%.*lu",
+							n_digits ,counter);
 
-				counter_format = g_strdup_printf ("%%.%uli", n_digits);
-				g_string_append_printf (str, counter_format, counter);
-
-				g_free (counter_format);
 			}
 #if 0                   /* ignore the rest for now */
 			else if (c == 'c') {
