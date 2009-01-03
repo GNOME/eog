@@ -433,8 +433,6 @@ thumbview_get_tooltip_string (EogImage *image)
 static void
 on_data_loaded_cb (EogJob *job, gpointer data)
 {
-	GtkWidget *widget = GTK_WIDGET (data);
-
 	if (!job->error) {
 		gtk_tooltip_trigger_tooltip_query (gdk_display_get_default());
 	}
