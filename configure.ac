@@ -313,13 +313,11 @@ if test "x$have_python" != "xyes"; then
 fi
 
 if test "x$have_python" != "xno"; then
-	PYGOBJECT_REQUIRED=2.11.5
-	PYGTK_REQUIRED=2.9.7
-	GNOME_PYTHON_REQUIRED=2.18.2
+	PYGOBJECT_REQUIRED=2.15.1
+	PYGTK_REQUIRED=2.13.0
 
 	PKG_CHECK_MODULES([PYGTK], [
 		pygobject-2.0 >= $PYGOBJECT_REQUIRED 
-		gnome-python-2.0 >= $GNOME_PYTHON_REQUIRED
 		pygtk-2.0 >= $PYGTK_REQUIRED],
  		[],
  		[
@@ -338,21 +336,26 @@ if test "x$have_python" != "xno"; then
 fi
 
 if test "x$have_python" != "xno"; then
+	AC_MSG_CHECKING([for pygobject defs])
+	PYGOBJECT_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygobject-2.0`
+	AC_MSG_RESULT([$PYGOBJECT_DEFSDIR])
+
 	AC_MSG_CHECKING([for pygtk defs])
 	PYGTK_DEFSDIR=`$PKG_CONFIG --variable=defsdir pygtk-2.0`
 	AC_MSG_RESULT([$PYGTK_DEFSDIR])
 
-	AC_MSG_CHECKING([for pygtk codegen])
-	PYGTK_CODEGEN="$PYTHON `$PKG_CONFIG --variable=codegendir pygtk-2.0`/codegen.py"
-	AC_MSG_RESULT([$PYGTK_CODEGEN])
+	AC_MSG_CHECKING([for pygobject codegen])
+	PYGOBJECT_CODEGEN="$PYTHON `$PKG_CONFIG --variable=codegendir pygobject-2.0`/codegen.py"
+	AC_MSG_RESULT([$PYGOBJECT_CODEGEN])
 
-	AC_MSG_CHECKING([for pygtk h2def])
-	PYGTK_H2DEF="$PYTHON `$PKG_CONFIG --variable=codegendir pygtk-2.0`/h2def.py"
-	AC_MSG_RESULT([$PYGTK_H2DEF])
+	AC_MSG_CHECKING([for pygobject h2def])
+	PYGOBJECT_H2DEF="$PYTHON `$PKG_CONFIG --variable=codegendir pygobject-2.0`/h2def.py"
+	AC_MSG_RESULT([$PYGOBJECT_H2DEF])
 
+	AC_SUBST([PYGOBJECT_DEFSDIR])
 	AC_SUBST([PYGTK_DEFSDIR])
-	AC_SUBST([PYGTK_CODEGEN])
-	AC_SUBST([PYGTK_H2DEF])
+	AC_SUBST([PYGOBJECT_CODEGEN])
+	AC_SUBST([PYGOBJECT_H2DEF])
 
 	dnl Check for -fno-strict-aliasing
 	FLAGS="-fno-strict-aliasing"

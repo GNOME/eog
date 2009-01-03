@@ -29,7 +29,8 @@ $(top_builddir)/src/eog-enum-types.h:
 	cd $(top_builddir)/src && $(MAKE) eog-enum-types.h
 
 eog.c: eog.defs eog.override $(top_builddir)/src/eog-enum-types.h
-	( cd $(srcdir) && $(PYGTK_CODEGEN) \
+	( cd $(srcdir) && $(PYGOBJECT_CODEGEN) \
+		--register $(PYGOBJECT_DEFSDIR)/gio-types.defs \
 		--register $(PYGTK_DEFSDIR)/pango-types.defs \
 		--register $(PYGTK_DEFSDIR)/gdk-types.defs \
 		--register $(PYGTK_DEFSDIR)/gtk-types.defs \

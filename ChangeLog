@@ -1,3 +1,14 @@
+2009-01-03  Felix Riemann  <friemann@svn.gnome.org>
+
+	* configure.ac: Update pygtk/gobject dependencies to version having
+	GIO support. Drop gnome-python dependency as it was needed for
+	PyGnomeVFS only.
+	* bindings/python/Makefile.am: Take into account that codegen ships
+	with PyGobject now.
+	* bindings/python/eog.defs:
+	* bindings/python/eog.override:
+	Remove traces of broken GnomeVFS support from the Python bindings.
+
 2008-12-25  Felix Riemann  <friemann@svn.gnome.org>
 
 	* doc/reference/eog-sections.txt: Remove section entries for classes

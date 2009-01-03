@@ -398,11 +398,11 @@
   )
 )
 
-(define-function eog_image_new_uri
-  (c-name "eog_image_new_uri")
+(define-function eog_image_new_file
+  (c-name "eog_image_new_file")
   (return-type "EogImage*")
   (parameters
-    '("GnomeVFSURI*" "uri")
+    '("GFile*" "file")
   )
 )
 
@@ -460,7 +460,7 @@
 (define-method get_bytes
   (of-object "EogImage")
   (c-name "eog_image_get_bytes")
-  (return-type "GnomeVFSFileSize")
+  (return-type "goffset")
 )
 
 (define-method is_modified
@@ -487,10 +487,10 @@
   (return-type "gpointer")
 )
 
-(define-method get_uri
+(define-method get_file
   (of-object "EogImage")
-  (c-name "eog_image_get_uri")
-  (return-type "GnomeVFSURI*")
+  (c-name "eog_image_get_file")
+  (return-type "GFile*")
 )
 
 (define-method get_uri_for_display
