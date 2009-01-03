@@ -1,5 +1,14 @@
 2009-01-03  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-exif-util.c: (_check_strptime_updates_wday),
+	(_calculate_wday_yday), (eog_exif_util_format_date_with_strptime),
+	(eog_exif_util_format_date_by_hand):
+	Make sure the correct week day number is being set to get a correct
+	weekday name when printing the date later. Several strptime()
+	implementations (e.g. BSD, uClibc) don't do this. Fixes bug #566367.
+
+2009-01-03  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac: Update pygtk/gobject dependencies to version having
 	GIO support. Drop gnome-python dependency as it was needed for
 	PyGnomeVFS only.

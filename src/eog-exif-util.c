@@ -40,10 +40,54 @@
 
 #define DATE_BUF_SIZE 200
 
+/* gboolean <-> gpointer conversion macros taken from gedit */
+#ifndef GBOOLEAN_TO_POINTER
+#define GBOOLEAN_TO_POINTER(i) ((gpointer) ((i) ? 2 : 1))
+#endif
+#ifndef GPOINTER_TO_BOOLEAN
+#define GPOINTER_TO_BOOLEAN(i) ((gboolean) ((((gint)(i)) == 2) ? TRUE : FALSE))
+#endif
+
+static gpointer
+_check_strptime_updates_wday (gpointer data)
+{
+	struct tm tm;
+
+	memset (&tm, '\0', sizeof (tm));
+	strptime ("2008:12:24 20:30:45", "%Y:%m:%d %T", &tm);
+	/* Check if tm.tm_wday is set to Wednesday (3) now */
+	return GBOOLEAN_TO_POINTER (tm.tm_wday == 3);
+}
+
+/**
+ * Ensure tm_wday and tm_yday are set correctly in a struct tm.
+ * The other date (dmy) values must have been set already.
+ **/
+static void
+_calculate_wday_yday (struct tm *tm)
+{
+	GDate *exif_date;
+	struct tm tmp_tm;
+
+	exif_date = g_date_new_dmy (tm->tm_mday,
+				    tm->tm_mon+1,
+				    tm->tm_year+1900);
+
+	g_return_if_fail (exif_date != NULL && g_date_valid (exif_date));
+
+	// Use this to get GLib <-> libc corrected values
+	g_date_to_struct_tm (exif_date, &tmp_tm);
+	g_date_free (exif_date);
+
+	tm->tm_wday = tmp_tm.tm_wday;
+	tm->tm_yday = tmp_tm.tm_yday;	
+}
+
 #ifdef HAVE_STRPTIME
 static gchar *
 eog_exif_util_format_date_with_strptime (const gchar *date)
 {
+	static GOnce strptime_updates_wday = G_ONCE_INIT;
 	gchar *new_date = NULL;
 	gchar tmp_date[DATE_BUF_SIZE];
 	gchar *p;
@@ -54,6 +98,14 @@ eog_exif_util_format_date_with_strptime (const gchar *date)
 	p = strptime (date, "%Y:%m:%d %T", &tm);
 
 	if (p == date + strlen (date)) {
+		g_once (&strptime_updates_wday,
+			_check_strptime_updates_wday,
+			NULL);
+
+		// Ensure tm.tm_wday and tm.tm_yday are set
+		if (!GPOINTER_TO_BOOLEAN (strptime_updates_wday.retval))
+			_calculate_wday_yday (&tm);
+
 		/* A strftime-formatted string, to display the date the image was taken.  */
 		dlen = strftime (tmp_date, DATE_BUF_SIZE * sizeof(gchar), _("%a, %d %B %Y  %X"), &tm);
 		new_date = g_strndup (tmp_date, dlen);
@@ -84,6 +136,8 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 		tm.tm_mday = day;
 		tm.tm_mon = month-1;
 		tm.tm_year = year-1900;
+		// Calculate tm.tm_wday
+		_calculate_wday_yday (&tm);
 
 		if (result < 5) {
 		  	/* A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.  */
