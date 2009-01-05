@@ -60,6 +60,9 @@ _check_strptime_updates_wday (gpointer data)
 }
 
 /**
+ * _calculate_wday_yday:
+ * @tm: A struct tm that should be updated.
+ *
  * Ensure tm_wday and tm_yday are set correctly in a struct tm.
  * The other date (dmy) values must have been set already.
  **/
