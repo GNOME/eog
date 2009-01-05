@@ -90,7 +90,7 @@ gint            eog_list_store_get_pos_by_image      (EogListStore *store,
 						      EogImage     *image);
 
 EogImage       *eog_list_store_get_image_by_pos      (EogListStore *store,
-						      const gint   pos);
+						      gint   pos);
 
 gint            eog_list_store_get_pos_by_iter 	     (EogListStore *store,
 						      GtkTreeIter  *iter);

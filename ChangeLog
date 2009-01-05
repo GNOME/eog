@@ -1,5 +1,13 @@
 2009-01-05  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-list-store.c: (eog_list_store_get_image_by_pos):
+	* src/eog-list-store.h: Remove unneeded const keyword for
+	call-by-value parameter.
+	* bindings/python/eog.defs: Make eog_list_store_get_image_by_pos
+	available in the Python bindings.
+
+2009-01-05  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-util.c: (eog_util_dot_dir): Find config folder without
 	using functions from libgnome. Part of bug #559500.
 

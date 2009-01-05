@@ -724,7 +724,7 @@ eog_list_store_get_pos_by_image (EogListStore *store, EogImage *image)
  *
  **/
 EogImage *
-eog_list_store_get_image_by_pos (EogListStore *store, const gint pos)
+eog_list_store_get_image_by_pos (EogListStore *store, gint pos)
 {
 	EogImage *image = NULL;
 	GtkTreeIter iter;
