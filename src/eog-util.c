@@ -260,7 +260,8 @@ eog_util_dot_dir (void)
 	if (dot_dir == NULL) {
 		gboolean exists;
 
-		dot_dir = g_build_filename (gnome_user_dir_get (),
+		dot_dir = g_build_filename (g_get_home_dir (),
+					    ".gnome2",
 					    "eog",
 					    NULL);
 
