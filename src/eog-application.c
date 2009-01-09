@@ -49,6 +49,9 @@
 #define APPLICATION_SERVICE_NAME "org.gnome.eog.ApplicationService"
 #endif
 
+static void eog_application_load_accelerators (void);
+static void eog_application_save_accelerators (void);
+
 #define EOG_APPLICATION_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_APPLICATION, EogApplicationPrivate))
 
@@ -151,6 +154,8 @@ eog_application_init (EogApplication *eog_application)
 
 	egg_toolbars_model_set_flags (eog_application->toolbars_model, 0,
 				      EGG_TB_MODEL_NOT_REMOVABLE);
+
+	eog_application_load_accelerators ();
 }
 
 /**
@@ -409,6 +414,8 @@ eog_application_shutdown (EogApplication *application)
 		application->toolbars_file = NULL;
 	}
 
+	eog_application_save_accelerators ();
+
 	g_object_unref (application);
 
 	gtk_main_quit ();
@@ -529,3 +536,28 @@ eog_application_screensaver_disable (EogApplication *application)
                 totem_scrsaver_disable (application->scr_saver);
 }
 #endif
+
+static void
+eog_application_load_accelerators (void)
+{
+	gchar *accelfile = g_build_filename (g_get_home_dir (),
+					     ".gnome2",
+					     "accels",
+					     "eog", NULL);
+
+	/* gtk_accel_map_load does nothing if the file does not exist */
+	gtk_accel_map_load (accelfile);
+	g_free (accelfile);
+}
+
+static void
+eog_application_save_accelerators (void)
+{
+	gchar *accelfile = g_build_filename (g_get_home_dir (),
+					     ".gnome2",
+					     "accels",
+					     "eog", NULL);
+	
+	gtk_accel_map_save (accelfile);
+	g_free (accelfile);
+}

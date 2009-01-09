@@ -231,8 +231,6 @@ main (int argc, char **argv)
 
 	gdk_threads_leave ();
 
-	gnome_accelerators_sync ();
-	
   	if (startup_files)
 		g_strfreev (startup_files);
 
