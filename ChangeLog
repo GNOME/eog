@@ -1,5 +1,17 @@
 2009-01-09  Felix Riemann  <friemann@svn.gnome.org>
 
+	* configure.ac: Re-instate gnome-desktop dependency (2.25.1).
+	* src/eog-file-chooser.c: (update_preview_cb),
+	(eog_file_chooser_add_preview):
+	* src/eog-thumbnail.c: (get_valid_thumbnail),
+	(create_thumbnail_from_pixbuf), (eog_thumb_data_new),
+	(eog_thumbnail_fit_to_size), (eog_thumbnail_load),
+	(eog_thumbnail_init):
+	Use GnomeDesktopThumbnail from libgnome-desktop instead of
+	GnomeThumbnail from libgnomeui for thumbnailing. Part of bug #559500.
+
+2009-01-09  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-application.c: (eog_application_init),
 	(eog_application_shutdown), (eog_application_load_accelerators),
 	(eog_application_save_accelerators):

@@ -29,8 +29,14 @@
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gtk/gtk.h>
-#include <libgnomeui/gnome-thumbnail.h>
 #include <gconf/gconf-client.h>
+
+/* We must define GNOME_DESKTOP_USE_UNSTABLE_API to be able
+   to use GnomeDesktopThumbnail */
+#ifndef GNOME_DESKTOP_USE_UNSTABLE_API
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#endif
+#include <libgnomeui/gnome-desktop-thumbnail.h>
 
 static char *last_dir[] = { NULL, NULL, NULL, NULL };
 
@@ -42,7 +48,7 @@ static char *last_dir[] = { NULL, NULL, NULL, NULL };
 
 struct _EogFileChooserPrivate
 {
-	GnomeThumbnailFactory *thumb_factory;
+	GnomeDesktopThumbnailFactory *thumb_factory;
 
 	GtkWidget *image;
 	GtkWidget *size_label;
@@ -341,9 +347,7 @@ update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
 
 		mtime = g_file_info_get_attribute_uint64 (file_info,
 							  G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		thumb_path = gnome_thumbnail_factory_lookup (priv->thumb_factory,
-							     uri,
-							     mtime);
+		thumb_path = gnome_desktop_thumbnail_factory_lookup (priv->thumb_factory, uri, mtime);
 		if (thumb_path == NULL) {
 			/* read files smaller than 100kb directly */
 			if (g_file_info_get_size (file_info) <= 100000) {
@@ -406,7 +410,7 @@ eog_file_chooser_add_preview (GtkWidget *widget)
 	gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (widget), vbox);
 	gtk_file_chooser_set_preview_widget_active (GTK_FILE_CHOOSER (widget), FALSE);
 
-	priv->thumb_factory = gnome_thumbnail_factory_new (GNOME_THUMBNAIL_SIZE_NORMAL);
+	priv->thumb_factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
 
 	g_signal_connect (widget, "update-preview",
 			  G_CALLBACK (update_preview_cb), NULL);

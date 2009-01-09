@@ -84,6 +84,7 @@ GNOME_DOC_INIT
 GTK_REQUIRED=2.13.1
 GLIB_REQUIRED=2.15.3
 LIBGNOMEUI_REQUIRED=2.6.0
+GNOME_DESKTOP_REQUIRED=2.25.1
 GDKPIXBUF_REQUIRED=2.4.0
 GCONF_REQUIRED=2.5.90
 LIBART_REQUIRED=2.3.16
@@ -97,6 +98,7 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
              gio-2.0 >= $GLIB_REQUIRED \
              libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
+             gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
              gconf-2.0 >= $GCONF_REQUIRED \
              libart-2.0 >= $LIBART_REQUIRED \

@@ -26,7 +26,12 @@
 #include <config.h>
 #endif
 
-#include <libgnomeui/libgnomeui.h>
+/* We must define GNOME_DESKTOP_USE_UNSTABLE_API to be able
+   to use GnomeDesktopThumbnail */
+#ifndef GNOME_DESKTOP_USE_UNSTABLE_API
+#define GNOME_DESKTOP_USE_UNSTABLE_API
+#endif
+#include <libgnomeui/gnome-desktop-thumbnail.h>
 #include <libart_lgpl/art_rgb.h>
 
 #include "eog-thumbnail.h"
@@ -35,7 +40,7 @@
 
 #define EOG_THUMB_ERROR eog_thumb_error_quark ()
 
-static GnomeThumbnailFactory *factory = NULL;
+static GnomeDesktopThumbnailFactory *factory = NULL;
 static GdkPixbuf *frame = NULL;
 
 typedef enum {
@@ -94,7 +99,7 @@ get_valid_thumbnail (EogThumbData *data, GError **error)
 		thumb = gdk_pixbuf_new_from_file (data->thumb_path, error);
 
 		/* is this thumbnail file up to date? */
-		if (thumb != NULL && !gnome_thumbnail_is_valid (thumb, data->uri_str, data->mtime)) {
+		if (thumb != NULL && !gnome_desktop_thumbnail_is_valid (thumb, data->uri_str, data->mtime)) {
 			g_object_unref (thumb);
 			thumb = NULL;
 		}
@@ -119,8 +124,9 @@ create_thumbnail_from_pixbuf (EogThumbData *data,
 
 	perc = CLAMP (128.0/(MAX (width, height)), 0, 1);
 
-	thumb = gnome_thumbnail_scale_down_pixbuf (pixbuf,
-						   width*perc, height*perc);
+	thumb = gnome_desktop_thumbnail_scale_down_pixbuf (pixbuf,
+							   width*perc,
+							   height*perc);
 
 	return thumb;
 }
@@ -151,7 +157,7 @@ eog_thumb_data_new (GFile *file, GError **error)
 	data = g_slice_new0 (EogThumbData);
 
 	data->uri_str    = g_file_get_uri (file);
-	data->thumb_path = gnome_thumbnail_path_for_uri (data->uri_str, GNOME_THUMBNAIL_SIZE_NORMAL);
+	data->thumb_path = gnome_desktop_thumbnail_path_for_uri (data->uri_str, GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
 
 	file_info = g_file_query_info (file,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE ","
@@ -436,8 +442,7 @@ eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail, gint dimension)
 		width  = MAX (width  * factor, 1);
 		height = MAX (height * factor, 1);
 
-		result_pixbuf = gnome_thumbnail_scale_down_pixbuf (*thumbnail,
-							           width, height);
+		result_pixbuf = gnome_desktop_thumbnail_scale_down_pixbuf (*thumbnail, width, height);
 
 		g_object_unref (*thumbnail);
 
@@ -464,7 +469,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 		return NULL;
 
 	if (!data->can_read ||
-	    (data->failed_thumb_exists && gnome_thumbnail_factory_has_valid_failed_thumbnail (factory, data->uri_str, data->mtime))) {
+	    (data->failed_thumb_exists && gnome_desktop_thumbnail_factory_has_valid_failed_thumbnail (factory, data->uri_str, data->mtime))) {
 		eog_debug_message (DEBUG_THUMBNAIL, "%s: bad permissions or valid failed thumbnail present",data->uri_str);
 		set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		return NULL;
@@ -475,7 +480,7 @@ eog_thumbnail_load (EogImage *image, GError **error)
 
 	if (thumb != NULL) {
 		eog_debug_message (DEBUG_THUMBNAIL, "%s: loaded from cache",data->uri_str);
-	} else if (gnome_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) {
+	} else if (gnome_desktop_thumbnail_factory_can_thumbnail (factory, data->uri_str, data->mime_type, data->mtime)) {
 		pixbuf = eog_image_get_pixbuf (image);
 
 		if (pixbuf != NULL) {
@@ -487,16 +492,16 @@ eog_thumbnail_load (EogImage *image, GError **error)
 		} else {
 			/* generate a thumbnail from the file */
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: creating from file",data->uri_str);
-			thumb = gnome_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
+			thumb = gnome_desktop_thumbnail_factory_generate_thumbnail (factory, data->uri_str, data->mime_type);
 		}
 
 		if (thumb != NULL) {
 			/* Save the new thumbnail */
-			gnome_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
+			gnome_desktop_thumbnail_factory_save_thumbnail (factory, thumb, data->uri_str, data->mtime);
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: normal thumbnail saved",data->uri_str);
 		} else {
 			/* Save a failed thumbnail, to stop further thumbnail attempts */
-			gnome_thumbnail_factory_create_failed_thumbnail (factory, data->uri_str, data->mtime);
+			gnome_desktop_thumbnail_factory_create_failed_thumbnail (factory, data->uri_str, data->mtime);
 			eog_debug_message (DEBUG_THUMBNAIL, "%s: failed thumbnail saved",data->uri_str);
 			set_thumb_error (error, EOG_THUMB_ERROR_GENERIC, "Thumbnail creation failed");
 		}
@@ -511,7 +516,7 @@ void
 eog_thumbnail_init (void)
 {
 	if (factory == NULL) {
-		factory = gnome_thumbnail_factory_new (GNOME_THUMBNAIL_SIZE_NORMAL);
+		factory = gnome_desktop_thumbnail_factory_new (GNOME_DESKTOP_THUMBNAIL_SIZE_NORMAL);
 	}
 
 	if (frame == NULL) {
