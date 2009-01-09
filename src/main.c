@@ -190,10 +190,15 @@ main (int argc, char **argv)
 	gtk_init (&argc, &argv);
 
 	if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
-		/* I18N: The first %s is the error message from GOption.
-		         The second %s is eog's command name (argv[0]) */
-                g_print(_("Error: %s\nRun '%s --help' to see a full list of available command line options.\n"), error->message, argv[0]); 
+		gchar *help_msg;
+
+		/* I18N: The '%s' is replaced with eog's command name. */ 
+		help_msg = g_strdup_printf (_("Run '%s --help' to see a full "
+					      "list of available command line "
+					      "options."), argv[0]);
+                g_print("%s\n%s\n", error->message, help_msg); 
                 g_error_free (error);
+		g_free (help_msg);
                 g_option_context_free (ctx);
                 
                 return 1;
