@@ -1,5 +1,16 @@
 2009-01-09  Felix Riemann  <friemann@svn.gnome.org>
 
+	* configure.ac: Drop libgnomeui dependency.
+	* src/eog-session.c: (eog_session_init): Remove session handling
+	code that did essentially nothing.
+	* src/eog-util.c:
+	* src/main.c: (main):
+	Stop using GnomeProgram. Remove remaining traces of libgnome
+	and libgnomeui in eog. This finally drops the dependency on 
+	libgnome and libgnomeui. Fixes bug #559500.
+
+2009-01-09  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac: Re-instate gnome-desktop dependency (2.25.1).
 	* src/eog-file-chooser.c: (update_preview_cb),
 	(eog_file_chooser_add_preview):

@@ -43,10 +43,6 @@
 #include <stdlib.h>
 #include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
-#include <libgnomeui/gnome-ui-init.h>
-#include <libgnomeui/gnome-client.h>
-#include <libgnomeui/gnome-app-helper.h>
-#include <libgnomeui/gnome-authentication-manager.h>
 
 #if HAVE_EXEMPI
 #include <exempi/xmp.h>
@@ -174,8 +170,11 @@ load_files_remote (void)
 int
 main (int argc, char **argv)
 {
-	GnomeProgram *program;
+	GError *error = NULL;
 	GOptionContext *ctx;
+
+	if (!g_thread_supported ())
+		g_thread_init (NULL);
 
 	bindtextdomain (PACKAGE, EOG_LOCALE_DIR);
 	bind_textdomain_codeset (PACKAGE, "UTF-8");
@@ -185,13 +184,22 @@ main (int argc, char **argv)
 
 	ctx = g_option_context_new (NULL);
 	g_option_context_add_main_entries (ctx, goption_options, PACKAGE);
+	/* Option groups are free'd together with the context */
+	g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
 
-	program = gnome_program_init ("eog", VERSION,
-				      LIBGNOMEUI_MODULE, argc, argv,
-				      GNOME_PARAM_GOPTION_CONTEXT, ctx,
-				      GNOME_PARAM_HUMAN_READABLE_NAME, _("Eye of GNOME"),
-				      GNOME_PARAM_APP_DATADIR, EOG_DATA_DIR,
-				      NULL);
+	gtk_init (&argc, &argv);
+
+	if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
+		/* I18N: The first %s is the error message from GOption.
+		         The second %s is eog's command name (argv[0]) */
+                g_print(_("Error: %s\nRun '%s --help' to see a full list of available command line options.\n"), error->message, argv[0]); 
+                g_error_free (error);
+                g_option_context_free (ctx);
+                
+                return 1;
+        }
+	g_option_context_free (ctx);
+
 	
 	set_startup_flags ();
 	
@@ -199,14 +207,11 @@ main (int argc, char **argv)
 	if (!force_new_instance &&
 	    !eog_application_register_service (EOG_APP)) {
 		if (load_files_remote ()) {
-			g_object_unref (program);
 			return 0;
 		}
 	}
 #endif /* HAVE_DBUS */
 	
-	gnome_authentication_manager_init ();
-
 #ifdef HAVE_EXEMPI
  	xmp_init();
 #endif
@@ -235,8 +240,6 @@ main (int argc, char **argv)
 		g_strfreev (startup_files);
 
 	eog_plugin_engine_shutdown ();
-
-	g_object_unref (program);
 
 #ifdef HAVE_EXEMPI
 	xmp_terminate();

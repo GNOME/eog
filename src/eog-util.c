@@ -35,6 +35,7 @@
 
 #include "eog-util.h"
 
+#include <errno.h>
 #include <string.h>
 #include <glib.h>
 #include <glib/gprintf.h>
@@ -42,7 +43,6 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include <glib/gi18n.h>
-#include <libgnome/gnome-init.h>
 
 void
 eog_util_show_help (const gchar *section, GtkWindow *parent)

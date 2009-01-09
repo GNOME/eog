@@ -31,34 +31,12 @@
 #include "eog-window.h"
 #include "eog-application.h"
 
-#include <libgnomeui/gnome-client.h>
-
-static void
-removed_from_session (GnomeClient *client, EogApplication *application)
-{
-	eog_application_shutdown (application);
-}
-
-static gint
-save_session (GnomeClient *client, gint phase, GnomeSaveStyle save_style, gint shutdown,
-	      GnomeInteractStyle interact_style, gint fast, EogApplication *application)
-{
-	return TRUE;
-}
-
 void
 eog_session_init (EogApplication *application)
 {
-	GnomeClient *client;
-
 	g_return_if_fail (EOG_IS_APPLICATION (application));
 
-	client = gnome_master_client ();
-
-	g_signal_connect (client, "save_yourself",
-			  G_CALLBACK (save_session), application);
-	g_signal_connect (client, "die",
-			  G_CALLBACK (removed_from_session), application);
+	/* FIXME: Session management is currently a no-op in eog. */
 }
 
 gboolean
