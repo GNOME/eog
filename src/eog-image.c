@@ -1519,7 +1519,7 @@ static gboolean
 eog_image_copy_file (EogImage *image, EogImageSaveInfo *source, EogImageSaveInfo *target, GError **error)
 {
 	gboolean result;
-	GError *ioerror;
+	GError *ioerror = NULL;
 
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (source), FALSE);
 	g_return_val_if_fail (EOG_IS_IMAGE_SAVE_INFO (target), FALSE);
