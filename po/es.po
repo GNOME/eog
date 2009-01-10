@@ -9,14 +9,14 @@
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006, 2007.
 # Claudio Saavedra <csaavedra@igalia.com>, 2007, 2008.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
-# Jorge González <jorgegonz@svn.gnome.org>, 2008.
+# Jorge González <jorgegonz@svn.gnome.org>, 200, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: eog.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=eog&amp;component=general\n"
-"POT-Creation-Date: 2008-12-05 16:27+0000\n"
-"PO-Revision-Date: 2008-12-15 21:23+0100\n"
+"product=eog&component=general\n"
+"POT-Creation-Date: 2009-01-09 21:50+0000\n"
+"PO-Revision-Date: 2009-01-10 02:00+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -485,11 +485,11 @@ msgstr "Indica si la rueda del ratón se debe usar para ampliar o no."
 msgid "Zoom multiplier"
 msgstr "Multiplicador de ampliación"
 
-#: ../src/eog-file-chooser.c:122
+#: ../src/eog-file-chooser.c:128
 msgid "File format is unknown or unsupported"
 msgstr "Formato de archivo desconocido o no soportado"
 
-#: ../src/eog-file-chooser.c:127
+#: ../src/eog-file-chooser.c:133
 msgid ""
 "Eye of GNOME could not determine a supported writable file format based on "
 "the filename."
@@ -497,42 +497,42 @@ msgstr ""
 "El Visor de imágenes no pudo determinar un formato de archivo escribible "
 "soportado basándose en el nombre del archivo."
 
-#: ../src/eog-file-chooser.c:128
+#: ../src/eog-file-chooser.c:134
 msgid "Please try a different file extension like .png or .jpg."
 msgstr "Inténtelo con una extensión de archivo diferente como .png o .jpg."
 
-#: ../src/eog-file-chooser.c:160
+#: ../src/eog-file-chooser.c:166
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: ../src/eog-file-chooser.c:165
+#: ../src/eog-file-chooser.c:171
 msgid "All Images"
 msgstr "Todas las imágenes"
 
 #. Filter name: First description then file extension, eg. "The PNG-Format (*.png)".
-#: ../src/eog-file-chooser.c:186
+#: ../src/eog-file-chooser.c:192
 #, c-format
 msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:282 ../src/eog-properties-dialog.c:132
-#: ../src/eog-properties-dialog.c:134 ../src/eog-thumb-view.c:430
+#: ../src/eog-file-chooser.c:288 ../src/eog-properties-dialog.c:132
+#: ../src/eog-properties-dialog.c:134 ../src/eog-thumb-view.c:385
 #: ../src/eog-window.c:725
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "píxel"
 msgstr[1] "píxeles"
 
-#: ../src/eog-file-chooser.c:433
+#: ../src/eog-file-chooser.c:437
 msgid "Load Image"
 msgstr "Cargar imagen"
 
-#: ../src/eog-file-chooser.c:441
+#: ../src/eog-file-chooser.c:445
 msgid "Save Image"
 msgstr "Guardar imagen"
 
-#: ../src/eog-file-chooser.c:449
+#: ../src/eog-file-chooser.c:453
 msgid "Open Folder"
 msgstr "Abrir carpeta"
 
@@ -546,22 +546,22 @@ msgstr "Transformación en una imagen no cargada."
 msgid "Transformation failed."
 msgstr "Falló la transformación."
 
-#: ../src/eog-image.c:947
+#: ../src/eog-image.c:948
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF no soportado para este formato de archivo."
 
-#: ../src/eog-image.c:1067
+#: ../src/eog-image.c:1070
 #, c-format
 msgid "Image loading failed."
 msgstr "Fallo al cargar la imagen."
 
-#: ../src/eog-image.c:1469 ../src/eog-image.c:1571
+#: ../src/eog-image.c:1472 ../src/eog-image.c:1574
 #, c-format
 msgid "No image loaded."
 msgstr "No se ha cargado ninguna imagen."
 
-#: ../src/eog-image.c:1479 ../src/eog-image.c:1583
+#: ../src/eog-image.c:1482 ../src/eog-image.c:1586
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "La creación del archivo temporal ha fallado."
@@ -621,12 +621,12 @@ msgid "Value"
 msgstr "Valor"
 
 #. A strftime-formatted string, to display the date the image was taken.
-#: ../src/eog-exif-util.c:58 ../src/eog-exif-util.c:96
+#: ../src/eog-exif-util.c:113 ../src/eog-exif-util.c:153
 msgid "%a, %d %B %Y  %X"
 msgstr "%a, %d %B %Y  %X"
 
 #. A strftime-formatted string, to display the date the image was taken, for the case we don't have the time.
-#: ../src/eog-exif-util.c:90
+#: ../src/eog-exif-util.c:147
 msgid "%a, %d %B %Y"
 msgstr "%a, %d %B %Y"
 
@@ -763,20 +763,20 @@ msgstr "%.1f (película de 35mm)"
 msgid "as is"
 msgstr "como es"
 
-#: ../src/eog-thumb-view.c:456
+#: ../src/eog-thumb-view.c:413
 msgid "Taken on"
 msgstr "Tomada en"
 
-#: ../src/eog-uri-converter.c:1013
+#: ../src/eog-uri-converter.c:983
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Al menos dos nombres de archivo son iguales."
 
-#: ../src/eog-util.c:67
+#: ../src/eog-util.c:68
 msgid "Could not display help for Eye of GNOME"
 msgstr "No se pudo mostrar la ayuda para Eye of GNOME"
 
-#: ../src/eog-util.c:115
+#: ../src/eog-util.c:116
 msgid " (invalid Unicode)"
 msgstr " (Unicode inválido)"
 
@@ -825,11 +825,11 @@ msgstr "_Restablecer predeterminados"
 #: ../src/eog-window.c:2508
 msgid "translator-credits"
 msgstr ""
-"Jorge González <jorgegonz@svn.gnome.org>, 2007-2008\n"
-"Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007\n"
-"Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006\n"
+"Jorge González <jorgegonz@svn.gnome.org>, 2007-2009\n"
 "\n"
 "Traductores anteriores: \n"
+"Claudio Saavedra <csaavedra@alumnos.utalca.cl>, 2007\n"
+"Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003-2006\n"
 "Lucas Vieites <lucas@asixinformatica.com>, 2002-2003\n"
 "Germán Poo Caamaño <gpoo@ubiobio.cl>\n"
 "Pablo Saratxaga <pablo@mandrakesoft.com>"
@@ -868,7 +868,7 @@ msgstr ""
 "con este programa, si no es así, escriba a la Free Software Foundation, Inc, "
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, EE.UU."
 
-#: ../src/eog-window.c:2532 ../src/main.c:192
+#: ../src/eog-window.c:2532
 msgid "Eye of GNOME"
 msgstr "Eye of GNOME"
 
@@ -1287,27 +1287,35 @@ msgstr "_Acerca del complemento"
 msgid "C_onfigure Plugin"
 msgstr "C_onfigurar el complemento"
 
-#: ../src/main.c:67
+#: ../src/main.c:63
 msgid "Open in fullscreen mode"
 msgstr "Abrir en modo pantalla completa"
 
-#: ../src/main.c:68
+#: ../src/main.c:64
 msgid "Disable image collection"
 msgstr "Desactivar la colección de imágenes"
 
-#: ../src/main.c:69
+#: ../src/main.c:65
 msgid "Open in slide show mode"
 msgstr "Abrir en modo diapositivas"
 
-#: ../src/main.c:71
+#: ../src/main.c:67
 msgid "Start a new instance instead of reusing an existing one"
 msgstr "Iniciar una nueva instancia en lugar de reusar la ya existente"
 
-#: ../src/main.c:73
+#: ../src/main.c:69
 msgid "[FILE...]"
 msgstr "[ARCHIVO…]"
 
-#: ../src/main.c:224
+#. I18N: The '%s' is replaced with eog's command name.
+#: ../src/main.c:196
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr ""
+"Ejecute «%s --help» para ver una lista completa de las opciones comandos de "
+"línea disponibles."
+
+#: ../src/main.c:234
 msgid "Eye of GNOME Image Viewer"
 msgstr "Visor de imágenes Eye of GNOME"
 
