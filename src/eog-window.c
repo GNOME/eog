@@ -94,6 +94,8 @@ G_DEFINE_TYPE (EogWindow, eog_window, GTK_TYPE_WINDOW);
 
 #define EOG_WALLPAPER_FILENAME "eog-wallpaper"
 
+#define is_rtl (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL)
+
 typedef enum {
 	EOG_WINDOW_STATUS_UNKNOWN,
 	EOG_WINDOW_STATUS_INIT,
@@ -3657,7 +3659,6 @@ eog_window_update_recent_files_menu (EogWindow *window)
 		gchar *label_filename;
 		GtkAction *action;
 		GtkRecentInfo *info = li->data;
-		gboolean is_rtl = (gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL);
 
 		/* Sorting moves non-EOG files to the end of the list.
 		 * So no file of interest will follow if this test fails */
@@ -4430,7 +4431,11 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Left:
 		if (event->state & GDK_MOD1_MASK) {
 			/* Alt+Left moves to previous image */
-			eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			if (is_rtl) { /* move to next in RTL mode */
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			} else {
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			}
 			result = TRUE;
 			break;
 		} /* else fall-trough is intended */
@@ -4449,7 +4454,11 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 	case GDK_Right:
 		if (event->state & GDK_MOD1_MASK) {
 			/* Alt+Right moves to next image */
-			eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			if (is_rtl) { /* move to previous in RTL mode */
+				eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			} else {
+				eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			}
 			result = TRUE;
 			break;
 		} /* else fall-trough is intended */
