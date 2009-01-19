@@ -171,6 +171,17 @@ fi
 
 AM_CONDITIONAL([HAVE_EXEMPI], [test "x$have_exempi" = "xyes"])
  
+# Build EXIF-related documentation if we really have support for it
+if test "x$have_exif" = "xyes" || test "x$have_exempi" = "xyes"; then
+  EOG_DOC_EXIF_START=""
+  EOG_DOC_EXIF_STOP=""
+else
+  EOG_DOC_EXIF_START="<!--"
+  EOG_DOC_EXIF_STOP="-->"
+fi
+
+AC_SUBST([EOG_DOC_EXIF_START])
+AC_SUBST([EOG_DOC_EXIF_STOP])
 
 # ********************
 # Jpeg (semi-optional)
@@ -412,6 +423,7 @@ data/icons/scalable/apps/Makefile
 doc/Makefile
 doc/reference/Makefile
 doc/reference/version.xml
+doc/reference/eog-docs.sgml
 plugins/Makefile
 plugins/reload/Makefile
 plugins/fullscreen/Makefile

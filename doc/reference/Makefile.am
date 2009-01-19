@@ -25,7 +25,7 @@ SCANGOBJ_OPTIONS=
 
 # Extra options to supply to gtkdoc-scan.
 # e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED"
-SCAN_OPTIONS=
+SCAN_OPTIONS=--rebuild-types
 
 # Extra options to supply to gtkdoc-mkdb.
 # e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
@@ -56,6 +56,14 @@ IGNORE_HFILES= \
 	eog-enum-types.h \
 	eog-module.h \
 	eog-python-module.h
+
+if !HAVE_EXIF
+if !HAVE_EXEMPI
+IGNORE_HFILES +=			\
+	eog-exif-util.h			\
+	eog-exif-details.h
+endif
+endif
 
 # Images to copy into HTML directory.
 # e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
@@ -110,12 +118,13 @@ include $(top_srcdir)/gtk-doc.make
 
 # Other files to distribute
 # e.g. EXTRA_DIST += version.xml.in
-EXTRA_DIST += version.xml.in
+EXTRA_DIST += version.xml.in \
+	      $(DOC_MODULE)-docs.sgml
 
 # Files not to distribute
 # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types
 # for --rebuild-sections in $(SCAN_OPTIONS) e.g. $(DOC_MODULE)-sections.txt
-#DISTCLEANFILES +=
+DISTCLEANFILES = $(DOC_MODULE).types
 
 # Comment this out if you want your docs-status tested during 'make check'
 #TESTS = $(GTKDOC_CHECK)
