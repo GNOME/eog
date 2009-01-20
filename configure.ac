@@ -91,7 +91,6 @@ GTK_PRINT_REQUIRED=2.10.0
 GNOME_ICON_THEME_REQUIRED=2.19.1
 SHARED_MIME_INFO_REQUIRED=0.20
 EXEMPI_REQUIRED=1.99.5
-LIBXML2_REQUIRED=2.0
 
 EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              glib-2.0 >= $GLIB_REQUIRED \
@@ -102,8 +101,7 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              libart-2.0 >= $LIBART_REQUIRED \
              gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED \
 	     gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
-	     shared-mime-info >= $SHARED_MIME_INFO_REQUIRED \
-	     libxml-2.0 >= $LIBXML2_REQUIRED"
+	     shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"
 
 # ***************
 # ZLIB (required)
@@ -250,6 +248,13 @@ if test x$have_dbus = xyes; then
 fi
 
 AM_CONDITIONAL([HAVE_DBUS], [test "x$have_dbus" = "xyes"])
+
+# ************************************
+# libXML2 (required for toolbareditor)
+# ************************************
+
+LIBXML2_REQUIRED=2.0
+PKG_CHECK_MODULES(LIBXML2, [libxml-2.0 >= $LIBXML2_REQUIRED])
 
 # ****************
 # CFLAGS/LIBS init

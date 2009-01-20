@@ -93,11 +93,6 @@ INCLUDES= \
 	-I$(top_srcdir)/cut-n-paste/totem-screensaver		\
 	$(EOG_CFLAGS)
 
-if ENABLE_PYTHON
-BINDING_LIBS = $(top_builddir)/bindings/python/eog.la
-MORE_GTKDOC_LIBS = $(PYTHON_LIBS)
-endif
-
 if ENABLE_JPEG
 jpeg_LIB = $(top_builddir)/jpegutils/libeog-jpegutils.la
 endif
