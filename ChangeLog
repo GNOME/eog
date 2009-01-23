@@ -1,3 +1,12 @@
+2009-01-23  Felix Riemann  <friemann@svn.gnome.org>
+
+	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:
+	(drag_begin_cb), (drag_end_cb), (configure_item_tooltip):
+	Update to latest code from libegg to fix this.
+	* src/eog-window.c: (menu_item_select_cb):
+	Don't rely on GTK associating an action to its proxy widget using the
+	"gtk-action" keyword. Fixes bug #568882 (Christian Persch).
+
 2009-01-20  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Separate libxml from other library checks.
