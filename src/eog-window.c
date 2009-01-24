@@ -2993,8 +2993,36 @@ eog_window_cmd_wallpaper (GtkAction *action, gpointer user_data)
 	g_free (filename);
 }
 
+static gboolean
+eog_window_all_images_trasheable (GList *images)
+{
+	GFile *file;
+	GFileInfo *file_info;
+	GList *iter;
+	EogImage *image;
+	gboolean can_trash = TRUE;
+
+	for (iter = images; iter != NULL; iter = g_list_next (iter)) {
+		image = (EogImage *) iter->data;
+		file = eog_image_get_file (image);
+		file_info = g_file_query_info (file,
+					       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH,
+					       0, NULL, NULL);
+		can_trash = g_file_info_get_attribute_boolean (file_info,
+							       G_FILE_ATTRIBUTE_ACCESS_CAN_TRASH);
+
+		g_object_unref (file_info);
+		g_object_unref (file);
+
+		if (can_trash == FALSE)
+			break;
+	}
+
+	return can_trash;
+}
+
 static int
-show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
+show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean can_trash)
 {
 	GtkWidget *dlg;
 	char *prompt;
@@ -3006,13 +3034,24 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
 
 	if (n_images == 1) {
 		image = EOG_IMAGE (images->data);
-		prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"),
-                                          eog_image_get_caption (image));
+		if (can_trash) {
+			prompt = g_strdup_printf (_("Are you sure you want to move\n\"%s\" to the trash?"),
+						  eog_image_get_caption (image));
+		} else {
+			prompt = g_strdup_printf (_("A trash for \"%s\" couldn't be found. Do you want to remove "
+						    "this image permantently?"), eog_image_get_caption (image));
+		}
 	} else {
-		prompt = g_strdup_printf (ngettext("Are you sure you want to move\n"
-					           "the selected image to the trash?",
-						   "Are you sure you want to move\n"
-						   "the %d selected images to the trash?", n_images), n_images);
+		if (can_trash) {
+			prompt = g_strdup_printf (ngettext("Are you sure you want to move\n"
+							   "the selected image to the trash?",
+							   "Are you sure you want to move\n"
+							   "the %d selected images to the trash?", n_images), n_images);
+		} else {
+			prompt = g_strdup (_("Some of the selected images can't be moved to the trash "
+					     "and will be removed permanently. Are you sure you want "
+					     "to proceed?"));
+		}
 	}
 
 	dlg = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
@@ -3024,7 +3063,17 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images)
 	g_free (prompt);
 
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-	gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to Trash"), GTK_RESPONSE_OK);
+
+	if (can_trash) {
+		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to Trash"), GTK_RESPONSE_OK);
+	} else {
+		if (n_images == 1) {
+			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
+		} else {
+			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_YES, GTK_RESPONSE_OK);
+		}
+	}
+
 	gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_OK);
 	gtk_window_set_title (GTK_WINDOW (dlg), "");
 	gtk_widget_show_all (dlg);
@@ -3069,10 +3118,13 @@ move_to_trash_real (EogImage *image, GError **error)
 				     _("Couldn't access trash."));
 		}
 	} else {
-		g_set_error (error,
-			     EOG_WINDOW_ERROR,
-			     EOG_WINDOW_ERROR_TRASH_NOT_FOUND,
-			     _("Couldn't access trash."));
+		result = g_file_delete (file, NULL, NULL);
+		if (result == FALSE) {
+			g_set_error (error,
+				     EOG_WINDOW_ERROR,
+				     EOG_WINDOW_ERROR_IO,
+				     _("Couldn't delete file"));
+		}
 	}
 
         g_object_unref (file);
@@ -3093,6 +3145,7 @@ eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 	int response;
 	int n_images;
 	gboolean success;
+	gboolean can_trash;
 
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
@@ -3112,8 +3165,11 @@ eog_window_cmd_move_to_trash (GtkAction *action, gpointer user_data)
 	/* HACK: eog_list_store_get_n_selected return list in reverse order */
 	images = g_list_reverse (images);
 
-	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0) {
-		response = show_move_to_trash_confirm_dialog (window, images);
+	can_trash = eog_window_all_images_trasheable (images);
+
+	if (g_ascii_strcasecmp (gtk_action_get_name (action), "Delete") == 0 ||
+	    can_trash == FALSE) {
+		response = show_move_to_trash_confirm_dialog (window, images, can_trash);
 
 		if (response != GTK_RESPONSE_OK) return;
 	}

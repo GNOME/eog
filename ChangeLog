@@ -1,3 +1,13 @@
+2009-01-24  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* src/eog-window.c: (eog_window_all_images_trasheable): method
+	to verify if all images in a selection can be trashed.
+	(show_move_to_trash_confirm_dialog): Make this dialog actually take into
+	account images that can't be trashed as well.
+	(move_to_trash_real): Remove images that can't be trashed.
+	(eog_window_cmd_move_to_trash): Check if all images can be trashed
+	and warn the user otherwise. Fixes bug #441637.
+
 2009-01-23  Felix Riemann  <friemann@svn.gnome.org>
 
 	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:
