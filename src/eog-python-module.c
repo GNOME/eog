@@ -388,6 +388,9 @@ eog_python_init (void)
 
 	PySys_SetArgv (1, argv);
 
+	/* Sanitize sys.path */
+	PyRun_SimpleString("import sys; sys.path = filter(None, sys.path)");
+
 	if (!check_pygtk2 ()) {
 		/* Warning message already printed in check_pygtk2 */
 		goto python_init_error;
