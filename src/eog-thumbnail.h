@@ -32,10 +32,10 @@ G_BEGIN_DECLS
 
 void          eog_thumbnail_init        (void);
 
-void          eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail,
+GdkPixbuf*    eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail,
 					 gint        dimension);
 
-void	      eog_thumbnail_add_frame   (GdkPixbuf **thumbnail);
+GdkPixbuf*    eog_thumbnail_add_frame   (GdkPixbuf *thumbnail);
 
 GdkPixbuf*    eog_thumbnail_load        (EogImage *image,
 					 GError **error);

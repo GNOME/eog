@@ -390,15 +390,15 @@ eog_thumbnail_stretch_frame_image (GdkPixbuf *frame_image,
         return result_pixbuf;
 }
 
-void
-eog_thumbnail_add_frame (GdkPixbuf **thumbnail)
+GdkPixbuf *
+eog_thumbnail_add_frame (GdkPixbuf *thumbnail)
 {
 	GdkPixbuf *result_pixbuf;
 	gint source_width, source_height;
 	gint dest_width, dest_height;
 
-	source_width  = gdk_pixbuf_get_width  (*thumbnail);
-	source_height = gdk_pixbuf_get_height (*thumbnail);
+	source_width  = gdk_pixbuf_get_width  (thumbnail);
+	source_height = gdk_pixbuf_get_height (thumbnail);
 
 	dest_width  = source_width  + 9;
 	dest_height = source_height + 9;
@@ -409,25 +409,23 @@ eog_thumbnail_add_frame (GdkPixbuf **thumbnail)
 							   dest_height,
 							   FALSE);
 
-	gdk_pixbuf_copy_area (*thumbnail,
+	gdk_pixbuf_copy_area (thumbnail,
 			      0, 0,
 			      source_width,
 			      source_height,
 			      result_pixbuf,
 			      3, 3);
 
-	g_object_unref (*thumbnail);
-
-	*thumbnail = result_pixbuf;
+	return result_pixbuf;
 }
 
-void
-eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail, gint dimension)
+GdkPixbuf *
+eog_thumbnail_fit_to_size (GdkPixbuf *thumbnail, gint dimension)
 {
 	gint width, height;
 
-	width = gdk_pixbuf_get_width (*thumbnail);
-	height = gdk_pixbuf_get_height (*thumbnail);
+	width = gdk_pixbuf_get_width (thumbnail);
+	height = gdk_pixbuf_get_height (thumbnail);
 
 	if (width > dimension || height > dimension) {
 		GdkPixbuf *result_pixbuf;
@@ -442,12 +440,11 @@ eog_thumbnail_fit_to_size (GdkPixbuf **thumbnail, gint dimension)
 		width  = MAX (width  * factor, 1);
 		height = MAX (height * factor, 1);
 
-		result_pixbuf = gnome_desktop_thumbnail_scale_down_pixbuf (*thumbnail, width, height);
+		result_pixbuf = gnome_desktop_thumbnail_scale_down_pixbuf (thumbnail, width, height);
 
-		g_object_unref (*thumbnail);
-
-		*thumbnail = result_pixbuf;
+		return result_pixbuf;
 	}
+	return gdk_pixbuf_copy (thumbnail);
 }
 
 GdkPixbuf*

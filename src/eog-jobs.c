@@ -194,6 +194,7 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 {
 	gchar *orig_width, *orig_height;
 	gint width, height;
+	GdkPixbuf *pixbuf;
 
 	g_return_if_fail (EOG_IS_JOB_THUMBNAIL (job));
 
@@ -213,8 +214,10 @@ eog_job_thumbnail_run (EogJobThumbnail *job)
 	orig_width = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Width"));
 	orig_height = g_strdup (gdk_pixbuf_get_option (job->thumbnail, "tEXt::Thumb::Image::Height"));
 
-	eog_thumbnail_fit_to_size (&job->thumbnail, EOG_LIST_STORE_THUMB_SIZE);
-	eog_thumbnail_add_frame (&job->thumbnail);
+	pixbuf = eog_thumbnail_fit_to_size (job->thumbnail, EOG_LIST_STORE_THUMB_SIZE);
+	g_object_unref (job->thumbnail);
+	job->thumbnail = eog_thumbnail_add_frame (pixbuf);
+	g_object_unref (pixbuf);
 
 	if (orig_width) {
 		sscanf (orig_width, "%i", &width);

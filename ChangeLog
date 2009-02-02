@@ -1,3 +1,13 @@
+2009-02-02  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* src/eog-jobs.c: (eog_job_thumbnail_run): Update
+	to the changes below.
+	* src/eog-thumbnail.c: (eog_thumbnail_add_frame),
+	(eog_thumbnail_fit_to_size): Do not modify thumbnails in-place,
+	return a new object instead.
+	* src/eog-thumbnail.h: Update headers.
+	Fixes bug #569855 (Joaquim Rocha)
+
 2009-01-29  Claudio Saavedra  <csaavedra@igalia.com>
 
 	* data/eog.pc.in: Remove no longer required libraries.
