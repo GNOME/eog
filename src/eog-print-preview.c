@@ -575,7 +575,7 @@ expose_event_cb (GtkDrawingArea *drawing_area,
 
 /**
  * get_current_image_coordinates:
- * @preview:
+ * @preview: an #EogPrintPreview
  * @x0: A pointer where to store the x coordinate.
  * @y0: A pointer where to store the y coordinate.
  *
@@ -599,9 +599,9 @@ get_current_image_coordinates (EogPrintPreview *preview,
 
 /**
  * press_inside_image_area:
- * @preview:
- * @x:
- * @y:
+ * @preview: an #EogPrintPreview
+ * @x: the points x coordinate
+ * @y: the points y coordinate
  *
  * Returns whether the given point is inside the image area.
  *

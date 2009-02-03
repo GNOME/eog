@@ -40,7 +40,7 @@
  * SECTION:
  * @Title: Printing Custom Widget
  * @Short_Description: a custom widget to setup image prints.
- * @Stability_Level:
+ * @Stability_Level: Internal
  * @See_Also: #EogPrintPreview
  *
  * This widget is to be used as the custom widget in a #GtkPrintUnixDialog in
