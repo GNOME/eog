@@ -32,7 +32,6 @@
 #define GNOME_DESKTOP_USE_UNSTABLE_API
 #endif
 #include <libgnomeui/gnome-desktop-thumbnail.h>
-#include <libart_lgpl/art_rgb.h>
 
 #include "eog-thumbnail.h"
 #include "eog-list-store.h"
@@ -276,14 +275,12 @@ eog_thumbnail_stretch_frame_image (GdkPixbuf *frame_image,
 				   gboolean fill_flag)
 {
         GdkPixbuf *result_pixbuf;
-        guchar *pixels_ptr;
         gint frame_width, frame_height;
-        gint y, row_stride;
         gint target_width, target_frame_width;
         gint target_height, target_frame_height;
 
         frame_width  = gdk_pixbuf_get_width  (frame_image);
-        frame_height = gdk_pixbuf_get_height (frame_image );
+        frame_height = gdk_pixbuf_get_height (frame_image);
 
         if (fill_flag) {
 		result_pixbuf = gdk_pixbuf_scale_simple (frame_image,
@@ -296,19 +293,9 @@ eog_thumbnail_stretch_frame_image (GdkPixbuf *frame_image,
 						8,
 						dest_width,
 						dest_height);
-        }
 
-        row_stride = gdk_pixbuf_get_rowstride (result_pixbuf);
-        pixels_ptr = gdk_pixbuf_get_pixels (result_pixbuf);
-
-        if (!fill_flag) {
-        	for (y = 0; y < dest_height; y++) {
-			art_rgb_run_alpha (pixels_ptr,
-					   255, 255,
-					   255, 255,
-					   dest_width);
-			pixels_ptr += row_stride;
-        	}
+		/* Clear pixbuf to fully opaque white */
+		gdk_pixbuf_fill (result_pixbuf, 0xffffffff);
         }
 
         target_width  = dest_width - left_offset - right_offset;

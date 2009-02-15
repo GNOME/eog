@@ -1,3 +1,9 @@
+2009-02-15  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-thumbnail.c: (eog_thumbnail_stretch_frame_image):
+	Don't use deprecated libart_lgpl calls to fill an empty pixbuf when
+	there's a GDK function for it. Part of bug #571732.
+
 2009-02-03  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Post release version bump.
