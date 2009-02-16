@@ -337,7 +337,8 @@ eog_python_init (void)
 	PyObject *gettext, *install, *gettext_args;
 	struct sigaction old_sigint;
 	gint res;
-	char *argv[] = { "eog", NULL };
+	/* Workaround for python bug. See #569228. */
+	char *argv[] = { "/dev/null/python/is/buggy/eog", NULL };
 
 	static gboolean init_failed = FALSE;
 
