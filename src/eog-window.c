@@ -3124,7 +3124,7 @@ move_to_trash_real (EogImage *image, GError **error)
 
         g_object_unref (file);
 
-	return (can_trash ? result : FALSE);
+	return result;
 }
 
 static void
