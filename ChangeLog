@@ -1,3 +1,11 @@
+2009-02-19  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-thumb-view.c: (eog_thumb_view_init):
+	* src/eog-window.c: (eog_window_drag_data_received),
+	(eog_window_set_drag_dest):
+	Simplify drag targets handling. Use functions from latest gtk+
+	if available. Fixes bug #558086 (Christian Persch).
+
 2009-02-16  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Post release version bump.

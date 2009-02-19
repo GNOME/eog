@@ -114,11 +114,6 @@ enum {
 
 static gint signals[SIGNAL_LAST];
 
-/* Drag target types */
-enum {
-	EOG_WINDOW_TARGET_URI_LIST
-};
-
 /* GConfNotifications */
 enum {
 	EOG_WINDOW_NOTIFY_INTERPOLATE,
@@ -3787,7 +3782,7 @@ eog_window_drag_data_received (GtkWidget *widget,
         GSList *file_list;
         EogWindow *window;
 
-        if (info != EOG_WINDOW_TARGET_URI_LIST)
+        if (!gtk_targets_include_uri (&selection_data->target, 1))
                 return;
 
         if (context->suggested_action == GDK_ACTION_COPY) {
@@ -3802,15 +3797,11 @@ eog_window_drag_data_received (GtkWidget *widget,
 static void
 eog_window_set_drag_dest (EogWindow *window)
 {
-        static const GtkTargetEntry drag_types[] = {
-                {"text/uri-list", 0, EOG_WINDOW_TARGET_URI_LIST}
-        };
-
         gtk_drag_dest_set (GTK_WIDGET (window),
                            GTK_DEST_DEFAULT_MOTION | GTK_DEST_DEFAULT_DROP,
-                           drag_types,
-                           sizeof (drag_types) / sizeof (drag_types[0]),
+                           NULL, 0,
                            GDK_ACTION_COPY | GDK_ACTION_ASK);
+	gtk_drag_dest_add_uri_targets (GTK_WIDGET (window));
 }
 
 static void
