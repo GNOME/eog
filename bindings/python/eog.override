@@ -6,7 +6,7 @@ headers
 
 #include "eog-enum-types.h"
 #include "eog-application.h"
-#include "eog-window.h"	
+#include "eog-window.h"
 #include "eog-dialog.h"
 #include "eog-properties-dialog.h"
 #include "eog-message-area.h"
@@ -19,9 +19,9 @@ headers
 #include "eog-list-store.h"
 #include "eog-job-queue.h"
 #include "eog-jobs.h"
-#include "eog-plugin.h" 
+#include "eog-plugin.h"
 
-void pyeog_register_classes (PyObject *d); 
+void pyeog_register_classes (PyObject *d);
 void pyeog_add_constants (PyObject *module, const gchar *strip_prefix);
 
 static PyObject *
@@ -46,7 +46,7 @@ _helper_wrap_gobject_glist (const GList *list)
     return py_list;
 }
 %%
-modulename eog 
+modulename eog
 %%
 import gtk.Widget as PyGtkWidget_Type
 import gobject.GObject as PyGObject_Type

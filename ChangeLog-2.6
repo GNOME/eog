@@ -1,7 +1,7 @@
 2004-04-21  Jens Finke  <jens@triq.net>
 
-	* libeog/eog-full-screen.c (eog_full_screen_instance_init): 
-	Check actual monitor/screen size. Fixes xinerama problems 
+	* libeog/eog-full-screen.c (eog_full_screen_instance_init):
+	Check actual monitor/screen size. Fixes xinerama problems
 	in #137137 partially.
 
 2004-04-09  Guntupalli Karunakar  <karunakar@freedomink.org>
@@ -20,18 +20,18 @@
 
 2004-03-22  Jens Finke  <jens@triq.net>
 
-	* configure.in: Updated library requirements. 
+	* configure.in: Updated library requirements.
 	Bumped version to 2.6.0.
 
 	* NEWS: Updated.
 
 2004-03-19  Seth Nickell  <seth@gnome.org>
- 
+
 	* libeog/eog-file-selection.c: (eog_file_selection_new):
- 
+
 	If using VFS, allow the file chooser to return non-local
  	URIs. Fixes a regression caused by GTK+ API change.
- 		
+
 2004-03-22  Jens Finke  <jens@triq.net>
 
 	* help/it/eog-it.omf,
@@ -54,7 +54,7 @@
 	* configure.in: Bumped version to 2.5.91
 
 	* NEWS: Updated.
-	
+
 ======= 2.5.90 =======
 
 2004-03-08  Jens Finke  <jens@triq.net>
@@ -74,14 +74,14 @@
 2004-03-05  Jens Finke  <jens@triq.net>
 
 	Fixes #134981.
-	
+
 	* art/loading.png: New file, borrowed from nautilus.
 
 	* art/Makefile.am: Added loading.png to icons data.
 
 	* collection/eog-collection-item.c (get_busy_pixbuf): Indicate
 	busy state by new loading icon.
-	
+
 2004-03-05  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-file-selection.c (eog_folder_selection_new): Removed
@@ -134,7 +134,7 @@
 
 2004-02-19  Jens Finke  <jens@triq.net>
 
-	Fixes bug #134857. Hint by Jan Arne Petersen. 
+	Fixes bug #134857. Hint by Jan Arne Petersen.
 
 	* shell/recent-files/egg-recent-model.c: Updated from libegg.
 
@@ -153,7 +153,7 @@
 	* AUTHORS,
 	* TODO,
 	* HACKING: Updated.
-	
+
 2004-02-19  Alessio Frusciante  <algol@firenze.linux.it>
 
 	* eog.schemas.in: Fixed some typos.
@@ -182,7 +182,7 @@
 
 	Don't lost exif data scroll position when switching to a new image
 	in collection view. Fixes #123463.
-	
+
 	* libeog/eog-info-view.c (clear_single_row), (clear_values): New
 	functions.
 	(set_row_data): New function. Set data for a given treeview path
@@ -212,7 +212,7 @@
 2004-02-02  Jens Finke   <jens@triq.net>
 
 	Fixes #132263.
-	
+
 	* collection/eog-collection-view.c (have_broken_filenames),
 	(get_title_from_uri): New function.
 	(eog_collection_view_get_prop): Obtain title from base_uri.
@@ -230,13 +230,13 @@
 
 	* libeog/eog-image.c (eog_image_get_caption): Copy static string
 	in error case.
-	
+
 2004-01-29  Jason Leach  <leach@wam.umd.edu>
 
 	* shell/recent-files/egg-recent-view-gtk.c:
 	* shell/recent-files/egg-recent-view-gtk.h: Add these to the
 	repository, egg-recent.h needs them.
-	
+
 	* shell/recent-files/Makefile.am (EGG_RECENT_FILES): Add
 	egg-recent-view-gtk.[ch] here.
 	(#132823, Malcolm Tredinnick)
@@ -246,7 +246,7 @@
 	* libeog/eog-file-selection.c (response_cb): Check for the
 	existence of the file only if "Save" button  is clicked on the
 	save image dialog. Solves bug #131654
- 
+
 2004-01-27  Jason Leach  <leach@wam.umd.edu>
 
 	* shell/recent-files/Makefile.am (regenerate-built-sources): New
@@ -294,7 +294,7 @@
 	* libeog/uta.c (uta_find_first_glom_rect): Fixed logic typo. Patch
 	by Dave Jones (davej@redhat.com), report by Telsa Gwynne, fixes bug
 	#130924.
-	
+
 2004-01-09  Roozbeh Pournader  <roozbeh@sharif.edu>
 
 	* THANKS: fixed a typo (#130946).
@@ -349,7 +349,7 @@
 
 	* libeog/eog-file-selection.c (eog_file_selection_dispose),
 	(eog_file_selection_finalize), (eog_file_selection_class_init),
-	(eog_file_selection_instance_init), 
+	(eog_file_selection_instance_init),
 	(set_preview_label),
 	(set_preview_pixbuf),
 	(update_preview_cb),
@@ -367,17 +367,17 @@
 	* Makefile.am: Added OrigTree.pm from intltool-modules to
 	EXTRA_DIST - #130062.
 
-	* NEWS: Updated. 
-	
+	* NEWS: Updated.
+
 2003-12-27  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.c (ensure_max_string_width):
-	Prefer non-alphanumeric characters for positions to wrap caption. 
-	
+	Prefer non-alphanumeric characters for positions to wrap caption.
+
 2003-12-27  Jens Finke  <jens@triq.net>
 
 	Indicate modified images by bold caption in collection view.
-	
+
 	* collection/eog-collection-item.c (image_changed_cb): Update
 	caption too.
 	(get_item_image_caption): New function.
@@ -403,7 +403,7 @@
 
 2003-12-21  Jens Finke  <jens@triq.net>
 
-	* libeog/eog-file-selection.c (eog_file_selection_add_filter): 
+	* libeog/eog-file-selection.c (eog_file_selection_add_filter):
 	Added filter which displays 'All Files'.
 
 2003-12-21  Jens Finke  <jens@triq.net>
@@ -498,11 +498,11 @@
 2003-12-08  Jens Finke  <jens@triq.net>
 
 	Patch by pasupathi.duraisamy@wipro.com - Bug #119469
-	
+
 	* libeog/eog-file-selection.c (replace_file): New function
 	(response_cb): Check if the file exists and ask user if she wants
 	to overwrite it.
-	
+
 2003-12-08  Jens Finke  <jens@triq.net>
 
 	Lossless saving for local/unmodified files and local/modified jpeg
@@ -534,7 +534,7 @@
 	New function.
 
 	* jpegutils/*: New files, borrowed from GThumb.
-	
+
 2003-11-24  Jens Finke  <jens@triq.net>
 
 	Display filesize information.
@@ -556,7 +556,7 @@
 
 	Select/show the image in the wraplist, that was last viewed in the
 	slideshow on returning from fullscreen mode. Fixes #118617.
-	
+
 	* collection/eog-collection-view.c (slideshow_hide_cb): New function
 	(verb_SlideShow_cb): Register for hide signal of the fullscreen widget.
 
@@ -571,16 +571,16 @@
 	* libeog/eog-image-list.c (eog_image_list_iter_valid): Check for iter != NULL.
 
 	* viewer/eog-image-view.c (verb_FullScreen_cb): Destroy fullscreen
-	widget on hide signal. 
-	
+	widget on hide signal.
+
 ===== 2.5.0.1 ====
-	
+
 2003-11-10  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 2.5.0.1
 
 	* NEWS: Updated
-	
+
 2003-11-06  Breda McColgan  <Breda.McColgan@sun.com>
 
 	* help/C/eog.xml: Updated for GNOME 2.4.2
@@ -592,7 +592,7 @@
 
 	Allow tool-/statusbar hiding. Based on a patch by Kaushal Kumar,
 	fixes #114231.
-	
+
 	* eog.schemas.in: Added new keys for storing toolbar and statusbar
 	visibility state.
 
@@ -625,7 +625,7 @@
 2003-11-02  Jens Finke  <jens@triq.net>
 
 	Based on a patch by Shivaram Upadhyayula. Fixes #104805.
-	
+
 	* acconfig.h: undef HAVE_SUNKEYSYM_H
 
 	* configure.in: Ensure that we link against X libs.
@@ -634,7 +634,7 @@
 	function.
 	(eog_full_screen_key_press): Quit on SunXK_F36.
 
-	* viewer/eog-image-view-ui.xml: 
+	* viewer/eog-image-view-ui.xml:
 	* collection/eog-collection-view-ui.xml: Added hidden
 	slideshow/fullscreen menuitem with SunF36 accel.
 
@@ -643,15 +643,15 @@
 	Add callback for hidden fullscreen item on Sun keyboards.
 
 	* viewer/Makefile.am: Link against X_LIBS.
-	
+
 2003-10-29  Jens Finke  <jens@triq.net>
 
 	Improved slideshow component: automatic browsing, upscale flag,
 	endless loop / single run
-	
-	* eog.glade: Reworked the slideshow preferences page. 
+
+	* eog.glade: Reworked the slideshow preferences page.
 	Rephrased image interpolation text - #122543.
-	
+
 	* eog.schemas.in: New keys in /apps/eog/full_screen: loop,
 	upscale, seconds.
 
@@ -673,37 +673,37 @@
 	* eog-preferences.c (spin_button_changed_cb): New function.
 	(eog_preferences_show): Connect widgets on slideshow preferences
 	page.
-	
+
 2003-10-27  Jens Finke  <jens@triq.net>
 
 	Consider eog/window/open_new_window configuration key again. Fixes
 	long-time bug #91189.
-	
+
 	* eog.schemas.in: Set default of the open_new_window key to false.
 
 	* shell/eog-window.c (eog_window_open_list): Deactivate control.
 
 	* shell/main.c (open_window): Query open_new_window key to
 	determine if the current window should be reused or not.
-	
+
 2003-10-26  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-view.c (free_image_list): New
 	function, which releases a list of images returned by
 	eog_wrap_list_get_selected_images.
 	(save_image_init_loading): Don't add another ref to an image.
-	(verb_SlideShow_cb), 
+	(verb_SlideShow_cb),
 	(save_dlg_response_cb),
 	(apply_transformation),
 	(verb_Undo_cb): Free image list.
-	
+
 2003-10-26  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-model.[ch]: Removed.
 
 	* collection/Makefile.am (SOURCES): Removed eog-collection-mode.[ch].
 
-	* collection/eog-collection-view.c: 
+	* collection/eog-collection-view.c:
 	* collection/eog-wrap-list.c:
 	Replaced EogCollectionModel with EogImageList.
 
@@ -719,7 +719,7 @@
 	* collection/eog-collection-view.c (verb_SlideShow_cb):
 	* viewer/eog-image-view.c (verb_FullScreen_cb): Adapted to new
 	EogFullScreen API.
-	
+
 2003-10-26  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image-private.h: Added EogImageStatus enumeration.
@@ -735,7 +735,7 @@
 	(real_image_load): Free exif data on cancel.
 	(eog_image_cancel_load): Don't join thread, this isn't actually
 	required in the current design.
-	
+
 2003-10-26  Jens Finke  <jens@triq.net>
 
 	* configure.in: We require libexif 0.5.12.
@@ -771,7 +771,7 @@
 	(eog_image_free_mem): Free image resources and remove image from
 	cache.
 	(eog_image_free_mem_private): Only free image resources.
-	
+
 2003-10-21  Jens Finke  <jens@triq.net>
 
 	* collection/Makefile.am: Don't distribute auto-generated files in
@@ -806,7 +806,7 @@
 	calculation. Adapted to eog_collection_item_size changes.
 
 	* collection/eog-collection-view.c (layout_changed_cb): Removed.
-	
+
 2003-10-12  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.c (set_pixbuf): Added flag wether
@@ -823,7 +823,7 @@
 	* collection/eog-canvas-pixbuf.c (compute_viewport_affine),
 	(eog_canvas_pixbuf_point): Free pixbuf.
 
-	* collection/eog-collection-item.c (set_pixbuf): dito. 
+	* collection/eog-collection-item.c (set_pixbuf): dito.
 
 2003-10-12  Jens Finke  <jens@triq.net>
 
@@ -855,13 +855,13 @@
 	(do_item_rearrangement): Calculate exact height for each row,
 	align images properly.
 	(do_update): Handle new ITEM_SIZE_CHANGED update hint.
-	
+
 2003-10-11  Jens Finke  <jens@triq.net>
 
 	* Makefile.am: Changed variable names to fit their purpose better.
 
 	* eog.desktop.in: Added X-GNOME-DocPath entry. - #123101
-	
+
 2003-10-11  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-view.c (eog_image_view_get_prop): Mark the
@@ -871,7 +871,7 @@
 
 	* collection/eog-collection-view.c (eog_image_view_get_prop): Mark
 	'pixel' for translation - #124196.
-	
+
 ===== gnome-2-4 branch =======
 
 2003-10-03  Jens Finke  <jens@triq.net>
@@ -941,7 +941,7 @@
 2003-09-08  Jens Finke  <jens@triq.net>
 
 	This patch is approved by the release team.
-	
+
 	* collection/eog-collection-view.c (create_user_interface): Use
 	gtk_hpaned instead of specialised
 	eog_horizontal_splitter. Otherwise we will _always_ crash if no
@@ -972,13 +972,13 @@
 	* Makefile.am: Removed ACLOCAL_AMFLAGS.  Fixes bug #120871.
 
 ====== 2.3.6 =====
-	
+
 2003-08-25  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 2.3.6
 
 	* NEWS: Updated.
-	
+
 2003-08-06  Martin Kretzschmar  <m_kretzschmar@gmx.net>
 
 	* libeog/eog-hig-dialog.c (eog_hig_dialog_new): add terminating
@@ -988,7 +988,7 @@
 
         Based on a patch by Gustavo J. A. M. Carneiro
 	<gustavo@users.sourceforge.net> - #118204.
-	
+
 	* configure.in: Require libbonoboui >= 2.3.3.
 
 	* collection/main.c (main),
@@ -1015,7 +1015,7 @@
 2003-07-21  Andreas Köhler <andi5.py@gmx.net>
 
 	Fixes bug #117270.
-	
+
 	* collection/eog-collection-view.c
 	(eog_collection_view_create_ui),
 	* viewer/eog-image-view.c (eog_image_view_create_ui): Make
@@ -1023,7 +1023,7 @@
 
 	* shell/eog-shell-ui.xml: Added initially hidden separator which
 	will be shown explicitly if required.
-	
+
 2003-07-20  Martin Kretzschmar <m_kretzschmar@gmx.net>
 
 	* libeog/eog-hig-dialog.c (eog_hig_dialog_new): Don't print
@@ -1045,7 +1045,7 @@
 2003-07-16  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (verb_HelpAbout_cb): Don't mark copyright
-	string for translation - #117449. 
+	string for translation - #117449.
 
 2003-07-14  Jens Finke  <jens@triq.net>
 
@@ -1109,7 +1109,7 @@
 2003-07-06  Jens Finke  <jens@triq.net>
 
 	This patch should fix bug #114189.
-	
+
 	* libeog/eog-image.c (real_image_load): Connect to size prepared
 	signal even for images in non-progressive loading mode.
 
@@ -1136,7 +1136,7 @@
 
 	* libeog/Makefile.am (SOURCES): Added new eog splitter files.
 
-	* libeog/eog-horizontal-splitter.[ch], 
+	* libeog/eog-horizontal-splitter.[ch],
 	* libeog/eog-vertical-splitter.[ch]: Specilised new eog splitters
 	widgets.
 
@@ -1189,15 +1189,15 @@
 	* art/Makefile.am (icons_DATA): Added new icons.
 
 	* viewer/eog-image-view-ui.xml: Added menu icons for rotate
-	operations.  
+	operations.
 
 	* viewer/eog-image-view.c (popup_menu_cb): Handle
 	rotate operations from context menu.
 	(popup_entries): Added rotate functions.
-	
+
 2003-06-29  Jens Finke  <jens@triq.net>
 
-	* libgpi/gpi-dialog.glade: Removed atk property strings, 
+	* libgpi/gpi-dialog.glade: Removed atk property strings,
 	they don't seem to be necessary here - #116015.
 
 2003-06-25  Jens Finke  <jens@triq.net>
@@ -1212,7 +1212,7 @@
 
 2003-06-23  Jens Finke  <jens@triq.net>
 
-	* collection/eog-slide-show.[ch], 
+	* collection/eog-slide-show.[ch],
 	* collection/eog-collection-preferences.[ch]: Removed deprecated
 	files.
 
@@ -1246,7 +1246,7 @@
 	(SOURCES): Added eog-save-dialg.[ch].
 
 	* collection/eog-collection-view-ui.xml: Added File/Save item.
-	
+
 	* collection/eog-collection-view.c
 	(save_image_init_loading),
 	(set_commands_sensitive_state),
@@ -1263,7 +1263,7 @@
 	* viewer/eog-image-view.c (image_changed_cb): New
 	function. Notifies bonobo listeners when the image changed.
 	(load_uri_cb): Connect to image_changed signal.
-	
+
 2003-06-15  Taneem Ahmed  <taneem@eyetap.org>
 
 	* configure.in: Added "bn" to ALL_LINGUAS.
@@ -1271,10 +1271,10 @@
 2003-06-12  Jens Finke  <jens@triq.net>
 
 	* configure.in: Added check for optional libjpeg.
-	
+
 	* libeog/Makefile.am (SOURCES): Added eog-image-private.h,
 	eog-image-jpeg.[ch].
-	
+
 	* libeog/eog-image.c (update_exif_data): New function.
 	(exif_loader_write): Fixed byte skipping computation.
 	(real_image_load): Update image size in exif data if
@@ -1298,11 +1298,11 @@
 	* configure.in: Added "is" into ALL_LINGUAS
 
 2003-06-05  Christian Schaller <Uraeus@gnome.org>
-	
+
 	* GNOME_EOG.server.in.in: Add image/svg+xml to supported mimetype list i
-	since just image/SVG isn't the proper mimetype. This tiny fix should 
+	since just image/SVG isn't the proper mimetype. This tiny fix should
 	make the moz-bonobo stuff be able to display SVG files properly
-	
+
 2003-06-05  Jens Finke  <jens@triq.net>
 
 	* Makefile.am (EXTRA_DIST): Removed config.rpath.
@@ -1328,7 +1328,7 @@
 2003-05-31  Jens Finke <jens@triq.net>
 
 	Added progress indication.
-	
+
 	* collection/eog-collection-view.c: New property "image/progress".
 	(image_progress_cb): New function.
 	(apply_transformation): Setup the progress indication stuff.
@@ -1337,7 +1337,7 @@
 	(eog_collection_view_construct): Register "image/progress" property.
 
 	* collection/eog-collection-view-ui.xml: Added "Undo" mnemonic.
-	
+
 	* libeog/eog-image.c (eog_image_class_init): New signal
 	"progress".
 	(check_load_status): Check for progress changes and emit signal if
@@ -1488,7 +1488,7 @@
 	finished signal if the image is already loaded.
 	(eog_image_free_mem): Set load status to none.
 
-	* libeog/eog-info-view.c (eog_info_view_set_image): 
+	* libeog/eog-info-view.c (eog_info_view_set_image):
 	* viewer/eog-image-view.c (load_uri_cb):
 	* collection/eog-collection-model.c (directory_visit_cb):
 	(real_file_loading): Removed load mode paramter for eog_image_new.
@@ -1512,7 +1512,7 @@
 
 	* Makefile.am: Fixed schemas installation based on a patch by
 	 Bobby Kashani <bobk@ocf.berkeley.edu>.
-	
+
 2003-04-12  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (open_uri_list_cleanup),
@@ -1521,7 +1521,7 @@
 	(eog_window_open_list): Removed debug messages.
 	(eog_window_construct): Limit list of recent files to 5.
 
-	* shell/main.c (open_window), 
+	* shell/main.c (open_window),
 	(open_uri_list_cb): Removed debug messages.
 
 2003-04-12  Jens Finke  <jens@triq.net>
@@ -1540,7 +1540,7 @@
 	(eog_window_construct): Setup recent file objects.
 	(eog_window_open_list): Add file to the list of recently opened
 	files.
-	
+
 2003-04-08  Jens Finke  <jens@triq.net>
 
 	* collection/GNOME_EOG_Collection.server.in.in: Added
@@ -1563,7 +1563,7 @@
 
 2003-04-07  Mike Lei <mike.lei@sun.com>
 
-	* configure.in: Added Makefile support for docs in 
+	* configure.in: Added Makefile support for docs in
 	  help/{de,es,fr,it,sv,ja,ko,zh_CN,zh_TW}
 
 	* add docs for above lanuages
@@ -1603,7 +1603,7 @@
 	(eog_scroll_view_button_press_event): Use cursor_set, set it only
 	if the image is movable.
 	(eog_scroll_view_button_release_event): Use cursor_set.
-	
+
 2003-04-02  Federico Mena Quintero  <federico@ximian.com>
 
 	* libeog/eog-image.c (real_image_load): Use a macro rather than a
@@ -1679,7 +1679,7 @@
 
 	* shell/eog-preferences.c (eog_preferences_show): Connect
 	background_radio button.
-	
+
 2003-03-25  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.c (real_image_load): Close the
@@ -1715,7 +1715,7 @@
 2003-03-20  Jens Finke  <jens@triq.net>
 
 	* eog.glade: Set untranslated title for color picker dialog.
-	
+
 	* eog.gladep: Don't output translatable strings in extra file.
 
 	* po/POTIFLES.in: Added eog-info-view.c, removed
@@ -1724,7 +1724,7 @@
 
 	* po/POTFILES.skip: Removed most of the files in the collection
 	dir, added GNOME_EOG_Collection.server.in, viewer/eog-image-io.c
-	
+
 2003-03-20  Jens Finke  <jens@triq.net>
 
 	* eog.glade: Higified the preferences dialog and added a
@@ -1732,7 +1732,7 @@
 
 	* eog-glade.h: Removed from cvs (we list the glade file in
 	POTFILES.in directly).
-	
+
 	* eog-preferences.c (key_press_cb): Removed. Ignore ESC key,
 	fixes #105720.
 	(eog_preferences_show): Open HIGified glade dialog.
@@ -1764,7 +1764,7 @@
 	(eog_wrap_list_select_right): Made them public.
 
 	* shell/eog-shell-ui-xml: Added placholder for toolbar items.
-	
+
 2003-03-14  Jens Finke  <jens@triq.net>
 
 	* README: Updated.
@@ -1772,7 +1772,7 @@
 2003-03-14  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.c (real_image_load): Guard the exif assertion
-	with HAVE_EXIF. 
+	with HAVE_EXIF.
 
 2003-03-13  Jens Finke  <jens@triq.net>
 
@@ -1787,12 +1787,12 @@
 
 	* acconfig.h, configure.in: Added check for optional libexif
 	library.
-	
+
 	* libeog/eog-info-view.[ch]: New widget, displays image
 	information.
 
 	* libeog/Makefile.am (SOURCES): Added eog-info-view.[ch]
-	
+
 	* libeog/eog-image.[ch] (eog_image_dipose): Free exif data.
 	(eog_image_class_init): New signal loading_info_finished.
 	(eog_image_instance_init): Init exif attribute.
@@ -1811,7 +1811,7 @@
 	* collection/eog-collection-view.c (handle_selection_changed):
 	Feed info view with selected image.
 	(create_user_interface): Add eog-info-view widget to the ui.
-	
+
 2003-03-13  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "ml" to ALL_LINGUAS.
@@ -1824,7 +1824,7 @@
 	(eog_collection_view_instance_init): Init new variable.
 	(handle_selection_changed): Free ressources of the previously
 	viewed image and store reference the the new one.
-	
+
 2003-03-11  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.[ch]: Switched to a thread based loading
@@ -1852,7 +1852,7 @@
 	use. Assure that it's a proper UTF-8 string.
 	(eog_image_get_collate_key): New function, returns a key for fast
 	compare of UTF strings.
-	
+
 	* collection/eog-collection-item.c
 	(eog_collection_item_construct): Don't free caption string.
 
@@ -1865,7 +1865,7 @@
 
 	* collection/eog-wrap-list.c (ensure_item_is_visible): Removed
 	debug output.
-	
+
 	* collection/eog-collection-view.c (create_user_interface): Add
 	frame around the image and wrap list areas.
 
@@ -1881,7 +1881,7 @@
 	(eog_wrap_list_select_left),
 	(eog_wrap_list_select_right): New functions.
 	(eog_wrap_list_key_press_cb): Handle cursor keys.
-	(calculate_item_position), 
+	(calculate_item_position),
 	(do_item_rearrangement): Add padding on the left/upper side.
 
 2003-03-07  Jens Finke  <jens@triq.net>
@@ -1895,7 +1895,7 @@
 	* collection/eog-wrap-list.c
 	(model_image_added),
 	(model_prepared): Set global hint for request_update properly.
-	
+
 2003-03-07  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-wrap-list.c: Reverted previous patch (was quite a bad
@@ -1908,19 +1908,19 @@
 
 	* libeog/eog-full-screen.[ch]: Improved the in advance loading of
 	images. Also frees image data, which is probably not shown
-	next. 
+	next.
 
 	* libeog/eog-scroll-view.c (eog_scroll_view_dispose): Free uta and
 	remove possibly active idle handler.
 
 	* collection/eog-wrap-list.c (eog_wrap_list_get_selected_images):
 	Just return pointer to internal list.
-	
+
 	* collection/eog-collection-view.c (verb_SlideShow_cb): Consider
 	selections when assembling the list of images for the slide show.
 
 	* viewer/eog-image-view.c (verb_FullScreen_cb): Free list.
-	
+
 2003-03-07  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-image.c (load_image_real): Unref GdkPixbufLoader.
@@ -1960,7 +1960,7 @@
 	* collection/eog-wrap-list.c (handle_canvas_click): Ensure that
 	at least always one item is selected.
 	(eog_wrap_list_size_request): Removed.
-	(model_prepared): Select first item by default. 
+	(model_prepared): Select first item by default.
 
 	* collection/main.c: Include stdlib.h.
 
@@ -2065,7 +2065,7 @@
 2003-03-01  Jens Finke  <jens@triq.net>
 
 	Fixed compiler warnings in libeog.
-	
+
 	* libeog/accessible-image-view-factory.h: Declare get type
 	function for accessible image view _factory_.
 
@@ -2093,7 +2093,7 @@
 	(set_zoom): Made static, removed unused variable.
 	(set_zoom_fit), (eog_scroll_view_set_transparency),
 	(eog_scroll_view_new): Removed unused variables.
-	
+
 2003-03-01  Jens Finke  <jens@triq.net>
 
 	* libeog/eog-file-selection.c: Use GdkPixbufFormat api for
@@ -2106,13 +2106,13 @@
 	NULL and header != NULL. Handle case where body is NULL.
 
 2003-02-28  Jens Finke  <jens@triq.net>
-	
+
 	* shell/main.c: Reworked the way file paths are converted to
 	URIs. This should fix bugs #95561, #104961 and #105192. We have a
 	single function now which is in charge of this, wether you use the
 	commandline, the open dialog or dnd. HIGified the error
 	dialogs. Removed fallbacks if no collection-view is build.
-	
+
 	* shell/eog-window.[ch]: Reworked the file loading. There is now
 	exactly one function in charge of file loading. This simplifies
 	the code a lot. Added signals for creating a new window and
@@ -2152,7 +2152,7 @@
 
 	* collection/eog-collection-view.c (load_uri_cb): Call
 	eog_collection_model_add_uri.
-		
+
 	* collection/eog-wrap-list.c:
 	(compare_item_caption),
 	(get_item_by_unique_id): Removed.
@@ -2163,7 +2163,7 @@
 	(handle_item_event): Fixed compiler warnings:
 	(model_image_added): Connect image event signal, update n_items
 	attribute, initiate loading.
-	
+
 2003-02-21  Jens Finke  <jens@triq.net>
 
 	* collection/eog-collection-item.[ch]: Oops, forgot to cvs add
@@ -2191,16 +2191,16 @@
 
 	* shell/eog-preferences.c (eog_preferences_show):
 	s/g_strncascecmp/g_strcasecmp.
-	
+
 2003-02-21  Jens Finke  <jens@triq.net>
 
 	Collection makes use of the new EogImage class.
-	
+
 	* collection/eog-collection-item.[ch]: New files. A class for
 	clickable canvas items.
 
 	* collection/eog-wrap-list.[ch]: Make use of EogCollectionItem and
-	EogImage objects. 
+	EogImage objects.
 
 	* collection/eog-collection-view.[ch]: Merged the BonoboControl
 	interface into it. Splitted the view, so that selected images in
@@ -2214,7 +2214,7 @@
 
 	* collection/Makefile.am: Removed libpreview stuff, evolution stuff (not
 	supported until evo2) and deprecated files from SOURCES.
-	
+
 	* collection/cimage.c,
 	* collection/cimage.h,
 	* collection/eog-collection-control.c,
@@ -2252,16 +2252,16 @@
 	New eog architecture. Moved more stuff into libeog and basically merged
 	image-view.[ch] and ui-image.[ch]. The result is eog-scroll-view.[ch].
 
-	* libeog/ui-image.[ch], 
+	* libeog/ui-image.[ch],
 	* libeog/image-view.[ch]: Removed.
 
 	* libeog/eog-scroll-view.[ch]: New, basic widget for displaying an
 	EogImage.
 
-	* libeog/eog-image-helper.[ch], 
+	* libeog/eog-image-helper.[ch],
 	* libeog/eog-image.[ch]: Image model, provides all operations on
 	an image.
-	
+
 	* libeog/eog-full-screen.[ch]: Moved from viewer. Uses a
 	EogScrollView widget for displaying the image.
 
@@ -2299,9 +2299,9 @@
 	adapt_window_size.
 
 	* configure.in: Bumped version to 2.3.0.
-	
+
 =========== branched for Gnome 2.4 development ========================
-	
+
 2003-02-10  Mohammad DAMT  <mdamt@bisnisweb.com>
 
 	* configure.in: Added "id" to ALL_LINGUAS
@@ -2311,7 +2311,7 @@
 	* configure.in: Added "kn" to ALL_LINGUAS.
 
 2003-02-08  Kang Jeong-Hee <Keizi@mail.co.kr>
-                                                                                
+
         * Makefile.am: Added ACLOCAL_AMFLAGS. bug #102296
 
 2003-01-28  Glynn Foster <glynn.foster@sun.com>
@@ -2328,7 +2328,7 @@
 
 	* help/C/eog.xml: updates to the manual for 2.2 and to address bug #103953.
 	* help/C/eog-C.omf: updating manual release info.
-	
+
 2003-01-21  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "mn" to ALL_LINGUAS.
@@ -2339,9 +2339,9 @@
 
 2003-01-07  Alex Duggan <aldug@gnome.org>
 
-	* eog.desktop.in: add startup-notification support to 
+	* eog.desktop.in: add startup-notification support to
 	.desktop file.  Fixes # 101086
-	
+
 2003-01-06  Jens Finke <jens@triq.net>
 
 	* configure.in: Bumped to version 1.1.4
@@ -2368,7 +2368,7 @@
 2002-11-22  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* eog.schemas.in: Fix a small typo.
-	
+
 2002-11-15  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
 
 	* configure.in: Added Belarusian to ALL_LINGUAS.
@@ -2383,11 +2383,11 @@
 
 	Removed gnome-print dependency, this isn't supported
 	in the Gnome2 version yet.
-	
+
 	* configure.in: Removed libgnomeprint dependency. Updated required
 	library versions. Bumped version to 1.1.1.
 
-	* viewer/eog-image-view.c, 
+	* viewer/eog-image-view.c,
 	* viewer/eog-util.c: Protected print related code with #if
 	GNOME2_PRINTING_WORKS.
 
@@ -2398,14 +2398,14 @@
 
 	* help/C/eog.xml: fix bug #91027
 	* help/C/eog-C.omf: update manual date and version number
-	* help/C/l10n.txt: new file containing instructions for 
+	* help/C/l10n.txt: new file containing instructions for
 	  the L10N team about how to take screenshots for the manual
-	  
+
 2002-10-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* viewer/eog-image-view-ui.xml: Fix a typo.
 	* eog.glade: Fix another typo.
-	
+
 2002-10-14  Jens Finke  <jens@triq.net>
 
 	* shell/main.c (make_canonical_uri): Reworked function, calls now
@@ -2444,7 +2444,7 @@
 2002-10-10  Jens Finke  <jens@triq.net>
 
 	New preference dialog.
-	
+
 	* configure.in: Check for libglade.
 
 	* Makefile.am: Added glade related stuff.
@@ -2455,7 +2455,7 @@
 	* eog.glade,
 	* eog.gladep,
 	* eog-glade.h: New glade related files.
-	
+
 	* libeog/image-view.[ch] (paint_rectangle): Consider use_check_pattern variable.
 	(image_view_set_check_type),
 	(image_view_set_check_size): Set use_check_pattern variable.
@@ -2483,13 +2483,13 @@
 	(eog_iamge_view_construct): Adapted to new gconf schema.
 	Removed ui related properties from property bag.
 
-	* viewer/eog-image-view.h: Adapted gconf keys. 
- 
+	* viewer/eog-image-view.h: Adapted gconf keys.
+
 2002-10-10  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* shell/eog-window.c (eog_window_init): Plug a leak.
 	#95358.
-	
+
 2002-09-30  Jens Finke  <jens@triq.net>
 
 	* NEWS: Updated.
@@ -2497,11 +2497,11 @@
 2002-09-30  Jens Finke  <jens@triq.net>
 
 	Better HIG compliance.
-	
+
 	* shell/eog-shell-ui.xml: s/New Window/_New/,
 	s/Contents/_Contents/, removed delimiter between new and open file
 	entry.
-	
+
 	* viewer/eog-image-view-ctrl-ui.xml: Fixed zoom labels and
 	shortcuts.
 
@@ -2510,7 +2510,7 @@
 
 	* viewer/eog-image-view.c: Fixed zoom labels and shortcuts in
 	popup menu.
-	
+
 2002-09-23  Jens Finke  <jens@triq.net>
 
 	* libeog/Makefile.am (SOURCES): Addee eog-pixbuf-util.[ch].
@@ -2590,7 +2590,7 @@
 2002-08-20  Jens Finke  <jens@triq.net>
 
 	Allow nautilus to use the collection as directory view.
-	
+
 	* collection/GNOME_EOG_Collection.server.in.in: Added PersistFile
 	interface to list of repo_ids. Reformatted file.
 
@@ -2641,7 +2641,7 @@
 2002-08-18  Jens Finke  <jens@triq.net>
 
 	Fixes bug #89513.
-	
+
 	* viewer/eog-image-view-ui.xml: Added F11 as accel for fullscreen
 	mode.
 
@@ -2649,7 +2649,7 @@
 	warning.
 	(eog_full_screen_key_press): Added F11 to the list of valid keys
 	to quit the fullscreen view.
-	
+
 2002-08-17  Jens Finke <jens@triq.net>
 
 	* NEWS: Updated.
@@ -2665,12 +2665,12 @@
 
 	* collection/Makefile.am (EXTRA_DIST): Added
 	eog-collection-marshal.list.
-	
-	* collection/eog-image-loader-simple.[ch]: New files. 
-	
+
+	* collection/eog-image-loader-simple.[ch]: New files.
+
 	* collection/eog-image-loader-preview.[ch]: New files. Image
 	loader, which utilizes libpreview library.
-	
+
 	* collection/Makefile.am: Added libpreview conditional stuff and
 	the new files.
 
@@ -2704,7 +2704,7 @@
 
 	* collection/eog-wrap-list.c: Fixed debug message guards.
 	(do_item_selection_changed_update): Check for item != NULL.
-	
+
 2002-08-11  Ross Burton  <ross@burtonini.com>
 
 	* eog.desktop.in: Add encoding keyword, and fix up Terminal and
@@ -2714,7 +2714,7 @@
 
 	* libeog/Makefile.am: Set HAVE_COLLECTION flag, if collection is
 	enabled.
-	
+
 	* libeog/eog-file-selector.c (is_filename_valid): Check if
 	filename is a directory.
 	(eog_file_selection_new): Allow directories on load if we have the
@@ -2723,8 +2723,8 @@
 2002-08-13  Jens Finke  <jens@triq.net>
 
 	Misc code cleanups. Selection changes don't force the whole item
-	to be updated. 
-	
+	to be updated.
+
 	* collection/cimage.[ch] (get_unique_id): Removed.
 	(cimage_instance_init): Set id = 0.
 	(cimage_new_uri): Use quark from text uri as id. Set caption.
@@ -2778,7 +2778,7 @@
 
 	* collection/eog-image-loader.c (scale_image): Use bilinear
 	scaling.
-	
+
 2002-08-07   Thomas Meeks <thomas@imaginator.com>
 
 	* doc/C/eog.sgml: Added ICB file support
@@ -2819,18 +2819,18 @@
 
 	* collection/eog-wrap-list.c (eog_wrap_list_set_factory): Ref the
 	factory object.
-	
+
 2002-08-04  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 1.1.0 (development version
 	towards Gnome 2.2)
 
 	* NEWS: Updated.
-	
+
 2002-08-04  Jens Finke  <jens@triq.net>
 
 	Fixes #85927.
-	
+
 	* shell/eog-window.c (eog_window_init): ctrl_widget = NULL.
 	(eog_window_construct): Don't add widget from
 	bonobo_control_frame.
@@ -2838,12 +2838,12 @@
 	done yet.
 	(activate_uri_cb): eog_window_open can handle uri's so don't
 	extract the path first.
-	
+
 2002-08-04  Jens Finke  <jens@triq.net>
 
 	Drags into an empty window will reuse it instead of opening a new
 	one.
-	
+
 	* shell/eog-window.c (eog_window_has_contents): Determine empty
 	windows through availabilty of a control not a widget.
 
@@ -2869,13 +2869,13 @@
 	(eog_item_factory_class_init): Added hint parameter to abstract
 	item update function.
 
-	* collection/eog-wrap-list.c 
+	* collection/eog-wrap-list.c
 	(do_item_changed_update),
 	(do_item_added_update): Set update hint parameter.
 
 	* collection/eog-collection-marshal.list: Changed paramter list
 	for factory update item marshaller.
-	
+
 2002-07-29  Federico Mena Quintero  <federico@ximian.com>
 
 	Fixes #89372.
@@ -2917,7 +2917,7 @@
 2002-07-25  Jens Finke  <jens@triq.net>
 
 	Fixes #85190. Makes the UI more HIG compliant.
-	
+
 	* shell/eog-shell-ui.xml: Removed "Close" button from toolbar
 	added "New" button.
 
@@ -2929,7 +2929,7 @@
 2002-07-25  Jens Finke  <jens@triq.net>
 
 	We have a real fullscreen again.
-	
+
 	* viewer/eog-fullscreen-view.c (eog_full_screen_show): Call zoom
 	to fit.
 	(eog_full_screen_instance_init): Removed unneccessary window
@@ -2947,13 +2947,13 @@
 2002-07-20  Jens Finke <jens@triq.net>
 
 	* collection/.cvsignore: Updated.
-	
+
 	* collection/Makefile.am: use .server.in.in file instead, and
 	do libexec sed job on it.
 
 	* collection/GNOME_EOG_Collection.server.in: Renamed to
 	*.server.in.in and added libexec prefix dummy.
-	
+
 2002-07-19  Jens Finke <jens@triq.net>
 
 	* Makefile.am (SUBDIRS): Compile collection if desired.
@@ -2967,7 +2967,7 @@
 	* collection/eog-collection-control.c
 	* collection/eog-collection-model.c
 	* collection/eog-collection-preferences.c
-	* collection/eog-collection-view.c 
+	* collection/eog-collection-view.c
 	* collection/eog-warp-list.c: Ported remaining GtkObject stuff to
 	GObject.
 
@@ -2975,13 +2975,13 @@
 	correct pango_context.
 
 	* shell/Makefile.am: Enable collection support if desired.
-	
+
 	* shell/eog-window.c (get_collection_control): Load collection
 	component by iid.
 	(get_collection_control):
 	(get_collection_control_list): Define dummy functions of these if
 	we compile without collection support.
- 
+
 2002-07-17  Michael Meeks  <michael@ximian.com>
 
 	* libeog/Makefile.am: use .server.in.in file instead, and
@@ -2993,11 +2993,11 @@
 2002-07-10  Jens Finke <jens@triq.net>
 
 	Fixes #85690.
-	
+
 	* libeog/eog-file-selection.[ch]: New files. An extended
 	GtkFileSelection dialog, which shows the list of supported file
 	types.
- 	
+
 	* libeog/Makefile.am (SOURCES): Added new files.
 
 	* shell/eog-window.c (eog_window_open_dialog): Use new file
@@ -3086,8 +3086,8 @@
 
 2002-06-21  Jens Finke  <jens@triq.net>
 
-	Fixes #72352 and #75713. 
-	
+	Fixes #72352 and #75713.
+
 	* libeog/ui-image.c (ui_image_fit_to_screen): Removed.
 
 	* shell/eog-window.c (adapt_shell_size_to_control): New function
@@ -3097,7 +3097,7 @@
 
 	* viewer/eog-image-view.c (image_set_image_cb): Don't call
 	ui_image_fit_to_screen.
- 
+
 2002-06-21  Peteris Krisjanis <pecisk@inbox.lv>
 
 	* configure.in: Added Latvian language support.
@@ -3139,9 +3139,9 @@
 
 2002-06-04  Federico Mena Quintero  <federico@ximian.com>
 
-	* collection/Makefile.am (INCLUDES): 
+	* collection/Makefile.am (INCLUDES):
 	* libeog/Makefile.am (INCLUDES):
-	* shell/Makefile.am (INCLUDES): 
+	* shell/Makefile.am (INCLUDES):
 	* viewer/Makefile.am (INCLUDES): Use
 	$(prefix)/$(DATADIRNAME)/locale for -DGNOMELOCALEDIR.  Thanks to
 	Hidetoshi Tajima <hidetoshi.tajima@sun.com> for pointing it out.
@@ -3203,7 +3203,7 @@
 	(zoomable_zoom_to_fit_cb): Likewise.
 
 	* viewer/eog-full-screen.c (eog_full_screen_button_press_event):
-	Removed.  
+	Removed.
 
 	* shell/eog-window.c (verb_HelpAbout_cb): Add the EOG icon and the
 	documenters.
@@ -3249,7 +3249,7 @@
 	(image_view_get_full_screen_zoom): Removed.
 	(image_view_set_property): Removed handling of the
 	full_screen_zoom property.
-	(image_view_get_property): Likewise. 
+	(image_view_get_property): Likewise.
 	(image_view_class_init): Likewise.
 
 2002-05-29  Jens Finke  <jens@triq.net>
@@ -3261,7 +3261,7 @@
 
 2002-05-28  Federico Mena Quintero  <federico@ximian.com>
 
-	* shell/session.c (session_save): 
+	* shell/session.c (session_save):
 	(session_load): gnome-config expects a section name in addition to
 	the key name.  Fixes #82603.
 
@@ -3277,7 +3277,7 @@
 2002-05-21  Jens Finke  <jens@triq.net>
 
 	* configure.in: Bumped version to 0.118.0.
-	
+
 	* NEWS: Updated.
 
 	* Released version 0.118.0.
@@ -3328,7 +3328,7 @@
 
 	* libeog/GNOME_EOG.server.in: we can load image/svg now
 
-	* viewer/eog-image.c (load_image_from_stream): 
+	* viewer/eog-image.c (load_image_from_stream):
 	(load_image_from_file): support loading svg images (and fix some
 	memleaks)
 
@@ -3347,7 +3347,7 @@
 	* viewer/preferences.c (create_label): Set up the LABEL_FOR and
 	LABELLED_BY relations.
 
-	* libeog/accessible-image-view.[ch]: 
+	* libeog/accessible-image-view.[ch]:
 	* libeog/accessible-image-view-factory.[ch]: New files with the
 	accessibility object and factory for the ImageView.
 
@@ -3360,7 +3360,7 @@
 	* shell/eog-shell-ui.xml: Changed 'HelpContents' label to
 	'Contents'. (Hope this is before the string freeze yet :).
 	Swapped help Contents and About position.
-	
+
 2002-05-07  Jens Finke <jens@triq.net>
 
 	* shell/session.c (session_save): Use next field to obtain succeeding
@@ -3370,7 +3370,7 @@
 
 	Applied slightly edited patch by Ronald Bultje
 	<rbultje@ronald.bitfreak.net>
-	
+
 	* shell/Makefile.am,
 	* libeog/Makefile.am,
 	* viewer/Makefile.am,
@@ -3384,7 +3384,7 @@
 2002-04-29  Jens Finke <jens@triq.net>
 
 	* configure.in: bumped version to 0.117.0.
-	
+
 	* NEWS: Added 0.117 entry.
 
 	* Released version 0.117.0.
@@ -3401,7 +3401,7 @@
 
 	Applied patch from Satyajit Kanungo <satyajit.kanungo@wipro.com>.
 	This fixes bug #79156.
-	
+
 	* shell/eog-window.c (verb_HelpContent_cb): New function.
 
 	* shell/eog-shell-ui.xml: Added Help Contents menu item.
@@ -3422,8 +3422,8 @@
 
 	* collection/eog-image-loader.c (eog_image_loader_class_init): Use
 	g_signal_new.
-	
-	* collection/eog-wrap-list.c 
+
+	* collection/eog-wrap-list.c
 	(eog_wrap_list_class_init): Signal fixes.
 	(eog_wrap_list_set_model): Cast model to GObject.
 
@@ -3458,7 +3458,7 @@
 
 	* GNOME_EOG_Collection.oaf.in: Renamed to
 	GNOME_EOG_Collection.server.in
-	
+
 	* .cvsignore: Ignore GNOME_EOG_Collection.server and
 	eog-collection-marshal.[ch].
 
@@ -3467,7 +3467,7 @@
 2002-04-19  Jens Finke  <jens@triq.net>
 
 	* collection/Makefile.am,
-	* collection/*.c, 
+	* collection/*.c,
 	* collection/*.h: Ported to Gnome2 so that it at least compiles.
 
 2002-04-17  Federico Mena Quintero  <federico@ximian.com>
@@ -3561,7 +3561,7 @@
 2002-04-12  Jens Finke <jens@triq.net>
 
 	Applied patch from Alexander Larsson.
-	
+
 	* libeog/image-view.c (image_view_class_init): Removed
 	deprecated gtk signal stuff.
 
@@ -3594,7 +3594,7 @@
 
 	* viewer/eog-image-view-ui.xml: Removed all the redundant words
 	from the menu, added accel to "Save As"
-	
+
 2002-04-10  Iain Holmes <iain@ximian.com>
 
 	* viewer/preferences.c (create_label): Take a widget that will be
@@ -3610,7 +3610,7 @@
 	* NEWS: Updated.
 
 	* Released version 0.115.0.
-	
+
 2002-03-24  Jens Finke  <jens@triq.net>
 
         * configure.in: Bumped version to 0.115.0
@@ -3618,7 +3618,7 @@
 2002-03-21  Jens Finke  <jens@triq.net>
 
 	This patch fixes most of the issues in bug #73805.
-	
+
 	* shell/eog-preferences.[ch]: Switched to GtkDialog as parent
 	class, which makes it more HIG conform.
 
@@ -3627,13 +3627,13 @@
 	present it to the user. Otherwise create a new one.
 	(verb_HelpAbout_cb): Added translator credits placeholder.
 	(eog_window_init): Initialize pref_dlg attribute.
-	
+
 2002-03-21  Jens Finke  <jens@triq.net>
 
 	* viewer/preferences.c (create_label): New function.
 	(create_preferences_page): Align lables to the right, added
 	row and column spacings.
-	
+
 2002-03-19  Jens Finke  <jens@triq.net>
 
 	* shell/eog-window.c (eog_window_open): Pop up error dialog if the
@@ -3654,7 +3654,7 @@
 	* configure.in: Bumped version to 0.114.0.
 
 	* NEWS: updated
-	
+
 	* Released version 0.114.0
 
 2002-03-12  Jens Finke  <jens@triq.net>
@@ -3668,11 +3668,11 @@
 	This patch should fix bug #74083. It makes gconf consistently the
 	model for all preference settings.
 
-	* eog.schemas (check_size), (dither): Changed default.  
+	* eog.schemas (check_size), (dither): Changed default.
 
-	* eog-image-view.[ch] 
+	* eog-image-view.[ch]
 	(listener_Interpolation_cb),
-	(listener_Dither_cb), 
+	(listener_Dither_cb),
 	(listener_CheckType_cb),
 	(listener_CheckSize_cb): Removed the bonobo property bag stuff,
 	replaced it with a call to gconf.
@@ -3695,7 +3695,7 @@
 	changes to these properties. Take care of all ui updates.
 	(eog_image_view_construct): Initialize gconf, set image view
 	properties to gconf stored values.
-	
+
 	* preferences.c: Use gconf for retrieving and setting the values
 	in the preference dialog. Simplified the code.
 
@@ -3714,7 +3714,7 @@
 	image file specified on the command line. But again the string/ui
 	freeze prohibits an adapted dialog to these changes.
 	(main): Removed commented out oaf_init call.
-	
+
 2002-03-10 John Fleck <jfleck@inkstain.net>
 
 	* omf-install/Makefile.am
@@ -3731,13 +3731,13 @@
 	* help/C/figures/eog_start_window.png
 	* omf-install/Makefile.am
 	* xmldocs.make
-	
+
 	change
 	* Makefile.am
 	* configure.in
 	adding new docs from Sun
-	
-	
+
+
 2002-03-05  Jens Finke <jens@triq.net>
 
 	* libeog/image-view.c (image_view_destroy): Use g_object_unref to
@@ -3749,7 +3749,7 @@
 	* viewer/eog-image.c (load_image_from_stream): Use g_object_unref
 	to free pixbuf loader.
 	(load_image_from_file): Free pixbuf loader.
-	
+
 2002-03-04  Jens Finke <jens@triq.net>
 
 	* HACKING: Added explicit rules for the spec file and build fixes.
@@ -3767,7 +3767,7 @@
 
 2002-03-02  Jens Finke <jens@triq.net>
 
-	* viewer/eog-control.c (preferred_zoom_levels): 
+	* viewer/eog-control.c (preferred_zoom_levels):
 	* libeog/image-view.c (MAX_ZOOM_FACTOR): Define consistent zoom
 	range from 1 to 2000 percent.
 
@@ -3775,7 +3775,7 @@
 
 	Made the zooming work correctly if you use both the '+','-' Keys and
 	the toolbar buttons.
-	
+
 	* viewer/eog-control.c: Renamed max_preferred_zoom_levels to
 	n_zoom_levels to give it a meaningfull name.
 	(zoomable_set_zoom_level_cb): Don't store zoom level privatly.
@@ -3786,7 +3786,7 @@
 	zoom level.
 	(eog_control_construct): Don't initialise private zoom level
 	attribute (it's no longer there), use n_zoom_levels variable.
-	
+
 2002-02-28  Jens Finke <jens@triq.net>
 
 	* MAINTAINERS: Added myself with Federico's permission.
@@ -3818,14 +3818,14 @@
 
 	This patch fixes bug #72069. The image viewer component should now
 	integrate smoothly into Nautilus.
-	
+
 	* shell/eog-shell-ui.xml: Made the placeholder compatible with
 	nautilus. Added a 'View' submenu which is hidden by default and
 	added new placeholders into it.
 
 	* shell/eog-window.c (add_control_to_ui): Show 'View' menu.
 
-	* viewer/eog-image-view-ctrl-ui.xml: 
+	* viewer/eog-image-view-ctrl-ui.xml:
 	* viewer/eog-image-view-ui.xml: Adaptions to changes in
 	eog-shell-ui.xml, fixed indention.
 
@@ -3833,7 +3833,7 @@
 
 	This fixes bug #72228. Due to the string freeze we can't add a
 	more verbose error dialog.
-	
+
 	* shell/eog-window.c (get_viewer_control): Use g_warning instead
 	of g_error.
 	(eog_window_open): Check if the control object could be created
@@ -3895,7 +3895,7 @@
 
 	* viewer/eog-image-view.c: remove unused eog_image_view_signals
 	array.  The zero length array breaks the build with Forte CC.
-	
+
 2002-02-14  Jens Finke <jens@triq.net>
 
 	* viewer/eog-image-view-ctrl-ui.xml: Define labels for the zoom
@@ -3911,7 +3911,7 @@
 	a Property_Control interface and enable/disable preference menu
 	item according to this check. This fixes the useability issue in
 	bug #70833.
-	
+
 2002-02-14  Jens Finke <jens@triq.net>
 
 	* libeog/image-view.c (image_view_expose): Always repaint
@@ -3931,7 +3931,7 @@
 	menu items.
 
 	* viewer/eog-image-view-ctrl-ui.xml: New file.
-	
+
 2002-02-10  Jens Finke <jens@triq.net>
 
 	* shell/eog-shell-ui.xml: Added drag'n'drop popup definition.
@@ -3943,7 +3943,7 @@
 	(eog_window_drag_data_received): Use bonobo to create popup menu,
 	this ensures it get translated.
 	(eog_window_construct): Code cleanup.
-	
+
 2002-02-10  Jens Finke <jens@triq.net>
 
 	* configure.in: Bumped version to 0.111.0
@@ -3969,7 +3969,7 @@
 
 	* viewer/eog-full-screen.c (eog_full_screen_init): Don't show
 	window decorations.
-	
+
 2002-02-04  Jens Finke <jens@triq.net>
 
 	* viewer/main.c (main): Unrolled BONOBO_ACTIVATION_FACTORY macro
@@ -4015,7 +4015,7 @@
 
 	* shell/eog-window.c (eog_window_destroy): Use bonobo_object_unref
 	to free control frame object.
-	
+
 2002-02-01  Michael Meeks  <michael@ximian.com>
 
 	* libeog/GNOME_EOG.server.in: add Unknown, ItemContainer,
@@ -4036,7 +4036,7 @@
 	down!?!?].
 	(eog_image_view_destroy): Removed 'Beware' comment and related
 	bonobo_object_unref call.
-	
+
 2002-01-30  Jens Finke <jens@triq.net>
 
 	* viewer/eog-control.c (eog_control_construct): Re-enabled the
@@ -4044,7 +4044,7 @@
 
 	* viewer/eog-image-view.c (eog_image_view_get_property_bag): Don't
 	ref the object before returning.
-	
+
 2002-01-30  Jens Finke <jens@triq.net>
 
 	* viewer/eog-control.c: (eog_control_create_ui),
@@ -4057,7 +4057,7 @@
 	* viewer/eog-image-view.c: (eog_image_view_get_property_control),
 	(eog_image_view_construct): Create control on demand, don't store
 	global pointer in the EogImageView struct.
- 	
+
 2002-01-30  Michael Meeks  <michael@ximian.com>
 
 	* libeog/Makefile.am (idl_flags): kill bogus -D_BONOBO_COMPILATION
@@ -4076,7 +4076,7 @@
 2002-01-25  Jens Finke <jens@triq.net>
 
 	Clean up the references held by EogWindow.
-	
+
 	* shell/eog-preferences.c (eog_preferences_construct): Obtain ui
 	container through standard bonobo_window interface.
 
@@ -4092,7 +4092,7 @@
 	without the removed global attributes.
 	(eog_window_get_ui_container): Removed function, use standard
 	bonobo_window access method instead.
-	
+
 2002-01-25  Jens Finke <jens@triq.net>
 
 	* shell/eog-window.c (verb_HelpAbout_cb): Updated authors list and
@@ -4213,7 +4213,7 @@
 
 	* libeog/ui-image[ch], image-view.[ch]: Ported to GObject type
 	system.
-	
+
 2001-12-27  Jens Finke <jens@triq.net>
 
 	* acconfig.h: Added #undef GETTEXT_PACKAGE
@@ -4243,7 +4243,7 @@
 	Ported EogWindow to the GObject based type system. Fixed warning
 	and error messages when quitting the program directly after
 	starting it.
-	
+
 	* shell/eog-window.[ch] (verb_FileExit_cb): Free window list after
 	traversing.
 	(eog_window_get_type): Use GType type system.
@@ -4259,7 +4259,7 @@
 	(eog_window_construct): Don't connect to delete event. This is
 	already done in eog_window_class_init.
 	(eog_window_close): Remove window from window list.
-	
+
 2001-12-27  Jens Finke <jens@triq.net>
 
 	* shell/eog-window.c (eog_window_close): Use bonobo_main_quit
@@ -4271,7 +4271,7 @@
 
 	* shell/main.c (handle_cmdline_args): Use bonobo_main_quit instead
 	of gtk_main_quit.
-	
+
 2001-12-27  Jens Finke <jens@triq.net>
 
 	* shell/Makefile.am (eog_LDADD): Removed $(INTLLIBS). Link the
@@ -4285,7 +4285,7 @@
 	* viewer/eog-control.[ch]: Ported to the gobject type system.
 	(eog_control_construct): Commented out the property and zoom
 	interface handling. This needs more gnome2 porting.
-	
+
 	* viewer/eog-image-view.[ch]:
 	* viewer/eog-image.[ch]: Ported to the gobject type system.
 
@@ -4301,7 +4301,7 @@
 	* viewer/Makefile.am: Removed the sample-container stuff.
 	(SOURCES): Removed the embeddable stuff for now. This needs more
 	porting effort due to completely new bonobo interfaces.
-	
+
 	* viewer/eog-image-view.c:
 	s/bonobo_property_bag_set_value/bonobo_pbclient_set_value,
 	s/bonobo_property_bag_get_value/bonobo_pbclient_get_value,
@@ -4416,7 +4416,7 @@
 	* viewer/sample-container.c:
 
 	Initial port to GNOME2.
-	
+
 2001-11-28  Seth Nickell  <snickell@stanford.edu>
 
 	* libeog/Makefile.am:
@@ -4428,7 +4428,7 @@
 	* libeog/ui-image.h:
 
 	Initial port to GNOME2.
-	
+
 2001-11-28  Seth Nickell  <snickell@stanford.edu>
 
 	* Makefile.am:
@@ -4452,7 +4452,7 @@
 
 	* shell/eog-preferences.c: s/Bonobo_UIContainer/BonoboUIContainer,
 	needed due to the changes in eog_window_get_ui_container.
-	
+
 	The eog shell should now compile and run with GNOME2.
 
 2001-11-05  Jens Finke <jens@triq.net>
@@ -4475,7 +4475,7 @@
 	* shell/main.c: (main):
 
 	Initial port to GNOME2.
-	
+
 2001-09-30  Benedikt Roth  <Benedikt.Roth@gmx.net>
 
 	* viewer/GNOME_EOG.oaf.in: Removed unused duplicated file
@@ -4484,7 +4484,7 @@
 
 	* libeog/GNOME_EOG.oaf.in: Modified so "View as Embeddable EOG
 	Image" won't show up in nautilus
-	
+
 2001-09-29  Michael Meeks  <michael@ximian.com>
 
 	* viewer/*.h: fixup trailing gunk after endifs.
@@ -4723,7 +4723,7 @@
 	* viewer/eog-image.c: Debugging stuff added. Don't create a new image each
 	time something gets loaded. Recycle an existing one.
 	* viewer/main.c: Debugging stuff added.
-	
+
 2001-07-05  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* shell/eog-window.c: Unref the old property control before
@@ -4737,7 +4737,7 @@
 
 2001-07-03  Jens Finke <jens@gnome.org>
 
-	Finally added a patch from 
+	Finally added a patch from
 	Juan Pablo Mendoza <pablo_juan@yahoo.com>:
 
 	* shell/eog-window.c (eog_window_drag_data_received): Add support
@@ -4765,7 +4765,7 @@
 
 	* viewer/eog-full-screen.[c,h]: New file (resurrected from eog/src).
 	* viewer/Makefile.am: Add above files.
-	* viewer/eog-image-view-ui.xml: Separate menus and commands. Add entry for 
+	* viewer/eog-image-view-ui.xml: Separate menus and commands. Add entry for
 	full screen.
 	* viewer/eog-image-view.c: Callback for full screen. Formatting.
 
@@ -4776,7 +4776,7 @@
 2001-06-29  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* shell/e-dialog-widgets.[c,h]:
-	* shell/preferences.[c,h]: 
+	* shell/preferences.[c,h]:
 	* shell/preferences-dialog.glade: Removed.
 
 	* shell/eog-window.c:
@@ -4792,7 +4792,7 @@
 	ref_count == 1 _and_ not touching it afterwards
 	(i.e. _not_ bonobo_object_unref). God knows why...
 
-	[1] Using "moniker-test -c file:/path/to/file". When using eog, the 
+	[1] Using "moniker-test -c file:/path/to/file". When using eog, the
 	eog-image-viewer will still be alive after exiting eog. This has yet
 	to be investigated.
 
@@ -4802,8 +4802,8 @@
 2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-control.c: Don't keep references to the widget (displayed by the
-	control) and the image - we simply don't need them. Unref the 
-	image-view on destroy - we created it during construction. 
+	control) and the image - we simply don't need them. Unref the
+	image-view on destroy - we created it during construction.
 
 2001-06-27  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
@@ -4819,7 +4819,7 @@
 
 	* viewer/Makefile.am: Compile sample-container again (noinst)
 	* viewer/sample-container.c: Rewrite to properly clean up behind. The
-	eog-image-viewer is still alive after sample-container is done, 
+	eog-image-viewer is still alive after sample-container is done,
 	therefore the ref-leaks seem to be in the eog-image-viewer and not
 	in the shell.
 
@@ -4945,7 +4945,7 @@
 	(user_wants_collection),
 	(handle_cmdline_args): New helper functions.
 	(main): Improved poptContext handling use handle_cmdline_args.
-	
+
 2001-06-05  Federico Mena Quintero  <federico@ximian.com>
 
 	* Makefile.am: Removed schemadir and schema_DATA since the schemas
@@ -5005,7 +5005,7 @@
 	to load the image.
 
 	* viewer/main.c (init_server_factory): Added gnome_vfs_init call.
-	
+
 2001-05-31  Jens Finke <jens@gnome.org>
 
 	* shell/Makefile.am (INCLUDES), (eog_LDADD): Added vfs flags.
@@ -5018,7 +5018,7 @@
 
 2001-05-31  Jens Finke <jens@gnome.org>
 
-	* shell/Makefile.am: Renamed binary from eog-shell to eog. 
+	* shell/Makefile.am: Renamed binary from eog-shell to eog.
 
 2001-05-31  Jens Finke <jens@gnome.org>
 
@@ -5058,7 +5058,7 @@
 	'window/status' about changed zoom factor.
 	(eog_image_view_construct): Connect to 'zoom_changed' signal, add
 	bonobo property 'window/status'.
-	
+
 2001-05-29  Jens Finke <jens@gnome.org>
 
 	* viewer/eog-image-view.c (eog_image_view_construct): Changed
@@ -5077,7 +5077,7 @@
 	the window title and the status message and installs listeners to
 	them.
 	(eog_window_open): Make sure the path is an absolute path.
-	
+
 2001-05-29  Jens Finke <jens@gnome.org>
 
 	* libeog/image-view.[ch]: Added new 'zoom_changed' signal.
@@ -5132,7 +5132,7 @@
 	* viewer/eog-image-view.c: Renamed bonobo:title property to
 	window_title, due to problems with the bonobo_event_make_name
 	function in bonobo-listener.c.
- 
+
 2001-05-21  Jens Finke <jens@gnome.org>
 
 	* viewer/eog-image.c (load_image_from_stream): Try to retrieve the
@@ -5150,7 +5150,7 @@
 
 	* viewer/eog-image.c (load_image_from_file): Initialize filename
 	in the Image-struct.
-	
+
 2001-05-21  Jens Finke <jens@gnome.org>
 
 	* shell/eog-window.c (title_changed_cb) New function to update the
@@ -5208,7 +5208,7 @@
 	gtk_widget_set_usize function and replaced it with
 	gtk_window_set_geometry_hints. Added window icon and allowed the
 	window to shrink automatically.
-	
+
 2001-05-18  Jens Finke <jens@gnome.org>
 
 	* libeog/image-view.[ch] (image_view_get_scaled_size): New
@@ -5218,7 +5218,7 @@
 	* libeog/ui-image.[ch] (ui_image_fit_to_screen): New function,
 	tries to show the whole image with zoom factor 1.0, if this
 	doesn't fit onto the screen, then it scales the image down.
-	
+
 2001-05-07  Lutz MÃ¼ller <urc8@rz.uni-karlsruhe.de>
 
 	Reduce complexity, make Image obsolete.
@@ -5329,7 +5329,7 @@
 	flavours: vertical, horizontal and rectangle.
 	(update): Check for new global update hint
 	GLOBAL_LAYOUT_MODE_CHANGED.
- 	
+
 	* collection/eog_wrap_list.h: (eog_wrap_list_set_layout_mode),
 	(eog_wrap_list_set_background_color): New function declarations.
 	(EogLayoutMode): New enumeration.
@@ -5339,7 +5339,7 @@
 	I did the changes since 2001-04-02 on holidays in the south france
 	sun without internet access, so I commit these at once now. Its
 	likely that I forgot some minor changes.
-	
+
 	* collection/eog-item-factory-simple.c
 	(eog_item_factory_simple_construct): New Function.
 	(eog_item_factory_simple_new): Call construct method.
@@ -5351,7 +5351,7 @@
 
 	* viewer/eog-image-view.c: Change gdouble to gint in order to get
 	counting of pages right.
-	
+
 	* viewer/eog-print-setup.c: Fix typo that resulted in the wrong
 	image for print order.
 
@@ -5379,35 +5379,35 @@
 
 	* viewer/Makefile.am: Added $(GCONF_LIBS) to sample_container as I
 	put some gconf stuff into...
-	
+
 	* viewer/eog-util.[ch]: Put some gconf stuff here from...
-	
+
 	* viewer/eog-print-setup.[ch]: Give the user the option to cancel
 	everything.  We now update the preview manually from here instead
 	of doing it through gconf. That makes a move away from gconf
 	easier.
-	
+
 	* viewer/eog-image-view.[ch]: Use the functions in eog-util.c to
 	retreive the settings.
-	
+
 	* viewer/eog-preview-page.c: If cutting help is not wanted, move
 	it to (0,0) where we can hide it even if the page size shrinks.
-	
+
 2001-04-06  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* eog-image-view.c:
 	* eog-preview-page.[ch]:
 	* eog-preview.c:
-	Don't let the user specify margins that are too big for the page. 
-	Store margins as float (we should have done this from the beginning) 
-	so that unit conversions won't result in rounding errors. 
+	Don't let the user specify margins that are too big for the page.
+	Store margins as float (we should have done this from the beginning)
+	so that unit conversions won't result in rounding errors.
 	Internally handle everything but pixmap sizes in gdouble. Get preview
 	and printing in sync again (not 100% done - but 99,9%...).
 
 2001-04-05  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.c: We don't need SCALE here anywhere.
-	
+
 	* viewer/eog-print-setup.c: Implement unit support.
 
 2001-04-05  Jens Finke <jens@gnome.org>
@@ -5421,9 +5421,9 @@
 	(do_item_rearrangement): Traverse view_order list instead of hash
 	table.
 	(rearrange_single_item): Use GFunc like signature.
-	
+
 2001-04-04  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
-	
+
 	* viewer/eog-print-setup.c: First work towards supporting
 	units. Not functional yet, though.
 
@@ -5463,7 +5463,7 @@
 
 2001-04-02  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
-	* viewer/eog-preview.c: 
+	* viewer/eog-preview.c:
 	* viewer/eog-preview-page.[ch]:
 	* viewer/eog-image-view.c: Resize the pixbuf once at the
 	beginning. That lets us get rid of the distinction fit_to_page -
@@ -5474,9 +5474,9 @@
 
 	* viewer/eog-preview.c: Give the user the option to print a
 	cutting help.
-	
+
 	* viewer/eog-preview-page.c: Show this cutting help if selected.
-	
+
 	* viewer/eog-image-view.c: Print a warning that we havent'
 	implemented the printing of the cutting help yet...
 
@@ -5486,7 +5486,7 @@
 	id to canvas item and connect to 'event' signal.
 	(handle_item_event): Read unique id from item and propagate it
 	together with emmited signal.
-	
+
 2001-04-01  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview-page.c: Show the margins as a red line. Red
@@ -5616,13 +5616,13 @@
 2002-03-25  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
 
 	* viewer/eog-preview.[ch]: New files
-	
+
 	* viewer/Makefile.am: Added above files and -DICONDIR=..., as we
 	use some icons there
-	
+
 	* viewer/eog-image-view.c: Support for printing one image over
 	multiple pages.  Support for range specification.
-	
+
 	* viewer/eog-print-setup.c: Added preview. Support for print order
 	specification. Support for multiple pages.
 
@@ -5634,7 +5634,7 @@
 	(create_app): If we are given a parameter (== filename), load it.
 
 2001-03-20  Lutz MÃ¼ller  <urc8@rz.uni-karlsruhe.de>
-	
+
 	* viewer/eog-print-setup.[ch]: New files
 
 	* viewer/Makefile.am: Add above files and GCONF_LIBS, as we use
@@ -5653,7 +5653,7 @@
 
 	* viewer/eog-image-view-ui.xml: Added menuitems for printing
 	operations.
-	
+
 	* viewer/eog-image-view.c:
 	(do_print): New function, handles printing operations.
 	(verb_PrintPreview_cb),
@@ -5709,7 +5709,7 @@
 
 	* collection/eog-collection-view.h (_EogCollectionViewClass):
 	Signal 'open_uri' added.
-	
+
 	* collection/eog_image_loader.c (real_image_loading): Removed
 	unneccessary io buffer initialisation. Free the buffer correctly.
 
@@ -5719,7 +5719,7 @@
 
 	* collection/gnome-wrap-list.h (_GnomeWrapListClass): Signal
 	'item_dbl_click' added.
-	
+
 2001-03-09  Jens Finke <jens@gnome.org>
 
 	* shell/eog-shell-ui.xml: Added stock pixmap to 'FileNewWindow'
@@ -5733,7 +5733,7 @@
 	* collection/GNOME_EOG_Collection.oafinfo: Renamed to
 	GNOME_EOG_Collection.oaf.in and marked strings for translation
 	where appropriate.
-	
+
 2001-03-06  Jens Finke <jens@gnome.org>
 
 	* shell/eog-window-c (get_dir_images) Removed.
@@ -5774,7 +5774,7 @@
 	EogCollectionModel instead of EogImageListModel.
 	(real_image_loading): Use Bonobo_Stream Objects instead of native
 	file operations.
-	
+
 	* collection/eog-image-loader.h: Renamed
 	'IS_EOG_IMAGE_LOADER[_CLASS]' to 'EOG_IS_IMAGE_LOADER[_CLASS]' for
 	consistency.
@@ -5822,7 +5822,7 @@
 	(eog_collection_view_get_type): Replaced with
 	BONOBO_X_TYPE_FUNC_FULL.
 	(eog_collection_view_corba_object_create): Removed.
-	
+
 2001-02-28 Jens Finke <jens@gnome.org>
 
 	* libeog/: Copied cursors and stock directories from ../src.
@@ -5832,12 +5832,12 @@
 2001-02-27  Jens Finke <jens@gnome.org>
 
 	Applied patch from Lutz Mueller <urc8@rz.uni-karlsruhe.de>:
-	
+
 	* viewer/eog-control.c (eog_control_create_ui): New path for
 	zoom_menu.
 
 	* viewer/eog-image-view-ui.xml: Removed 'Component' placeholder.
-	
+
 2001-02-27  Jens Finke <jens@gnome.org>
 
 	Applied patch from Lutz Mueller <urc8@rz.uni-karlsruhe.de>:
@@ -5930,7 +5930,7 @@
 	* shell/e-dialog-widgets.[ch], preferences.[ch],
 	preferences-dialog.glade, util.[ch]: Replaced with a direct CVS
 	copy which has the full history.
-	
+
 2001-02-15  Jens Finke <jens@gnome.org>
 
 	* shell/eog-window.[ch]:
@@ -5961,7 +5961,7 @@
 	* libeog/image-view.h
 	(CheckType, CheckSize, ScrollType, FullScreenZoom): Moved here
 	from preferences.h and don't include it.
- 
+
 2001-02-15  Jens Finke <jens@gnome.org>
 
 	* idl/Eog.idl (typedef Files): Added.
@@ -5992,7 +5992,7 @@
 	* collection/gnome-list-view.[ch]: New files.
 	* collection/gnome-position-list-model.[ch]: New files.
 	* collection/gnome-wrap-list.[ch]: New files.
-	* collection/main.c: New file.	
+	* collection/main.c: New file.
 
 2001-02-15  Martin Baulig  <baulig@suse.de>
 
@@ -6229,7 +6229,7 @@
 
 	* viewer/eog-embeddable.c (eog_embeddable_add_interfaces):
 	Removed, use eog_util_add_interfaces() instead.
-	
+
 	* viewer/eog-control.c (eog_control_add_interfaces): Likewise.
 
 	* viewer/eog-embeddable-view.c
@@ -6240,13 +6240,13 @@
 	calls eog_control_new() on the EogImage to return a new
 	BonoboControl and `embeddable' which does the same with
 	eog_embeddable_new().
-	
+
 	* viewer/eog-image-view.c (eog_image_view_construct): Create a
 	BonoboItemContainer.
 
 	* viewer/eog-control.c (eog_control_construct): Pass down the
 	BonoboItemContainer from the EogImageView.
-	
+
 	* viewer/eog-embeddable-view.c (eog_embeddable_view_construct):
 	Likewise.
 

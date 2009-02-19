@@ -14,8 +14,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- * 
- *  $Id: egg-toolbars-model.h 891 2008-08-08 21:14:52Z friemann $
+ *
+ *  $Id: egg-toolbars-model.h 929 2009-02-19 14:49:56Z friemann $
  */
 
 #ifndef EGG_TOOLBARS_MODEL_H
@@ -98,19 +98,19 @@ typedef struct EggToolbarsItemType EggToolbarsItemType;
 struct EggToolbarsItemType
 {
   GdkAtom type;
-        
+
   gboolean (* has_data) (EggToolbarsItemType *type,
                          const char          *name);
   char *   (* get_data) (EggToolbarsItemType *type,
                          const char          *name);
-  
+
   char *   (* new_name) (EggToolbarsItemType *type,
                          const char          *data);
   char *   (* get_name) (EggToolbarsItemType *type,
                          const char          *data);
 };
 
-GType		  egg_toolbars_model_flags_get_type (void);
+GType		  egg_tb_model_flags_get_type       (void);
 GType		  egg_toolbars_model_get_type       (void);
 EggToolbarsModel *egg_toolbars_model_new	    (void);
 gboolean          egg_toolbars_model_load_names     (EggToolbarsModel *model,

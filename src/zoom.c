@@ -34,7 +34,7 @@
  * @upscale_smaller: Whether to scale up images smaller than the destination size.
  * @width: Return value for image width.
  * @height: Return value for image height.
- * 
+ *
  * Computes the final dimensions of an image that is to be scaled to fit to a
  * certain size.  If @upscale_smaller is TRUE, then images smaller than the
  * destination size will be scaled up; otherwise, they will be left at their
@@ -85,10 +85,10 @@ zoom_fit_size (guint dest_width, guint dest_height,
  * @src_width: Width of source image.
  * @src_height: Height of source image.
  * @upscale_smaller: Whether to scale up images smaller than the destination size.
- * 
+ *
  * Similar to zoom_fit_size(), but returns the zoom factor of the final image
  * with respect to the original image's size.
- * 
+ *
  * Return value: Zoom factor with respect to the original size.
  **/
 double

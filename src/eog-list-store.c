@@ -574,7 +574,7 @@ eog_list_store_add_files (EogListStore *store, GList *file_list)
 		/* Workaround for gvfs backends that don't set the GFileType. */
 		if (G_UNLIKELY (file_type == G_FILE_TYPE_UNKNOWN)) {
 			const gchar *ctype;
-			
+
 			ctype = g_file_info_get_content_type (file_info);
 
 			/* If the content type is supported adjust file_type */

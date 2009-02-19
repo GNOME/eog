@@ -30,7 +30,7 @@ on_button_press (GtkWidget *button, GdkEventButton *event, EogWindow *window)
 			eog_window_set_mode (window, EOG_WINDOW_MODE_NORMAL);
 		else if (mode == EOG_WINDOW_MODE_NORMAL)
 			eog_window_set_mode (window, EOG_WINDOW_MODE_FULLSCREEN);
-	
+
 		return TRUE;
 	}
 
@@ -41,7 +41,7 @@ static void
 free_window_data (WindowData *data)
 {
 	g_return_if_fail (data != NULL);
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	g_free (data);
@@ -77,8 +77,8 @@ impl_activate (EogPlugin *plugin,
 			  		    G_CALLBACK (on_button_press),
 			  		    window);
 
-	g_object_set_data_full (G_OBJECT (window), 
-				WINDOW_DATA_KEY, 
+	g_object_set_data_full (G_OBJECT (window),
+				WINDOW_DATA_KEY,
 				data,
 				(GDestroyNotify) free_window_data);
 }
@@ -90,7 +90,7 @@ impl_deactivate	(EogPlugin *plugin,
 	GtkWidget *view = eog_window_get_view (window);
 	WindowData *data;
 
-	data = (WindowData *) g_object_get_data (G_OBJECT (window), 
+	data = (WindowData *) g_object_get_data (G_OBJECT (window),
 						 WINDOW_DATA_KEY);
 
 	g_signal_handler_disconnect (view, data->signal_id);

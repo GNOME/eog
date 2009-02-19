@@ -1,4 +1,4 @@
-/* Eye Of Gnome - Main 
+/* Eye Of Gnome - Main
  *
  * Copyright (C) 2000-2006 The Free Software Foundation
  *
@@ -70,7 +70,7 @@ static const GOptionEntry goption_options[] =
 	{ NULL }
 };
 
-static void 
+static void
 set_startup_flags (void)
 {
   if (fullscreen)
@@ -83,20 +83,20 @@ set_startup_flags (void)
     flags |= EOG_STARTUP_SLIDE_SHOW;
 }
 
-static void 
+static void
 load_files (void)
 {
 	GSList *files = NULL;
 
 	files = eog_util_string_array_to_list ((const gchar **) startup_files, TRUE);
 
-	eog_application_open_uri_list (EOG_APP, 
+	eog_application_open_uri_list (EOG_APP,
 				       files,
 				       GDK_CURRENT_TIME,
 				       flags,
 				       NULL);
 
-	g_slist_foreach (files, (GFunc) g_free, NULL);	
+	g_slist_foreach (files, (GFunc) g_free, NULL);
 	g_slist_free (files);
 }
 
@@ -111,7 +111,7 @@ load_files_remote (void)
 	GdkDisplay *display;
 	guint32 timestamp;
 	gchar **files;
-	
+
 	display = gdk_display_get_default ();
 
 	timestamp = gdk_x11_display_get_user_time (display);
@@ -119,18 +119,18 @@ load_files_remote (void)
 
 	if (connection == NULL) {
 		g_warning ("%s", error->message);
-		g_error_free (error);	
+		g_error_free (error);
 
  		return FALSE;
  	}
- 
+
  	files = eog_util_string_array_make_absolute (startup_files);
- 	
+
  	remote_object = dbus_g_proxy_new_for_name (connection,
  						   "org.gnome.eog.ApplicationService",
 						   "/org/gnome/eog/Eog",
 						   "org.gnome.eog.Application");
- 
+
  	if (!files) {
  		if (!dbus_g_proxy_call (remote_object, "OpenWindow", &error,
  					G_TYPE_UINT, timestamp,
@@ -139,7 +139,7 @@ load_files_remote (void)
  					G_TYPE_INVALID)) {
  			g_warning ("%s", error->message);
  			g_clear_error (&error);
- 
+
  			result = FALSE;
  		}
  	} else {
@@ -151,18 +151,18 @@ load_files_remote (void)
  					G_TYPE_INVALID)) {
  			g_warning ("%s", error->message);
  			g_clear_error (&error);
- 			
+
 			result = FALSE;
  		}
-		
+
  		g_strfreev (files);
  	}
- 
+
  	g_object_unref (remote_object);
  	dbus_g_connection_unref (connection);
- 
+
  	gdk_notify_startup_complete ();
- 
+
  	return result;
 }
 #endif /* HAVE_DBUS */
@@ -192,22 +192,22 @@ main (int argc, char **argv)
 	if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
 		gchar *help_msg;
 
-		/* I18N: The '%s' is replaced with eog's command name. */ 
+		/* I18N: The '%s' is replaced with eog's command name. */
 		help_msg = g_strdup_printf (_("Run '%s --help' to see a full "
 					      "list of available command line "
 					      "options."), argv[0]);
-                g_print("%s\n%s\n", error->message, help_msg); 
+                g_print("%s\n%s\n", error->message, help_msg);
                 g_error_free (error);
 		g_free (help_msg);
                 g_option_context_free (ctx);
-                
+
                 return 1;
         }
 	g_option_context_free (ctx);
 
-	
+
 	set_startup_flags ();
-	
+
 #ifdef HAVE_DBUS
 	if (!force_new_instance &&
 	    !eog_application_register_service (EOG_APP)) {
@@ -216,7 +216,7 @@ main (int argc, char **argv)
 		}
 	}
 #endif /* HAVE_DBUS */
-	
+
 #ifdef HAVE_EXEMPI
  	xmp_init();
 #endif

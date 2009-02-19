@@ -51,7 +51,7 @@ static void
 free_window_data (WindowData *data)
 {
 	g_return_if_fail (data != NULL);
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	g_free (data);
@@ -67,14 +67,14 @@ statusbar_set_date (GtkStatusbar *statusbar, EogThumbView *view)
 
 	if (eog_thumb_view_get_n_selected (view) == 0)
 		return;
-	
+
 	image = eog_thumb_view_get_first_selected_image (view);
 
 	gtk_statusbar_pop (statusbar, 0);
 
 	if (!eog_image_has_data (image, EOG_IMAGE_DATA_EXIF)) {
 		if (!eog_image_load (image, EOG_IMAGE_DATA_EXIF, NULL, NULL)) {
-			gtk_widget_hide (GTK_WIDGET (statusbar));			
+			gtk_widget_hide (GTK_WIDGET (statusbar));
 		}
 	}
 
@@ -122,7 +122,7 @@ impl_activate (EogPlugin *plugin,
 	WindowData *data;
 
 	eog_debug (DEBUG_PLUGINS);
-	
+
 	data = g_new (WindowData, 1);
 	data->statusbar_date = gtk_statusbar_new ();
 	gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (data->statusbar_date),
@@ -138,8 +138,8 @@ impl_activate (EogPlugin *plugin,
 	statusbar_set_date (GTK_STATUSBAR (data->statusbar_date),
 			    EOG_THUMB_VIEW (eog_window_get_thumb_view (window)));
 
-	g_object_set_data_full (G_OBJECT (window), 
-				WINDOW_DATA_KEY, 
+	g_object_set_data_full (G_OBJECT (window),
+				WINDOW_DATA_KEY,
 				data,
 				(GDestroyNotify) free_window_data);
 }
@@ -152,7 +152,7 @@ impl_deactivate	(EogPlugin *plugin,
 	GtkWidget *view = eog_window_get_thumb_view (window);
 	WindowData *data;
 
-	data = (WindowData *) g_object_get_data (G_OBJECT (window), 
+	data = (WindowData *) g_object_get_data (G_OBJECT (window),
 						 WINDOW_DATA_KEY);
 
 	g_signal_handler_disconnect (view, data->signal_id);

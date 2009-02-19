@@ -557,7 +557,7 @@ eog_application_save_accelerators (void)
 					     ".gnome2",
 					     "accels",
 					     "eog", NULL);
-	
+
 	gtk_accel_map_save (accelfile);
 	g_free (accelfile);
 }

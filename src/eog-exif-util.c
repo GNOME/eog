@@ -83,7 +83,7 @@ _calculate_wday_yday (struct tm *tm)
 	g_date_free (exif_date);
 
 	tm->tm_wday = tmp_tm.tm_wday;
-	tm->tm_yday = tmp_tm.tm_yday;	
+	tm->tm_yday = tmp_tm.tm_yday;
 }
 
 #ifdef HAVE_STRPTIME

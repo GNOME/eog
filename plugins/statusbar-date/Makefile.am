@@ -10,7 +10,7 @@ plugin_LTLIBRARIES = libstatusbar-date.la
 
 libstatusbar_date_la_SOURCES = \
 	eog-statusbar-date-plugin.h				\
-	eog-statusbar-date-plugin.c	
+	eog-statusbar-date-plugin.c
 
 libstatusbar_date_la_LDFLAGS = \
 	-avoid-version -module

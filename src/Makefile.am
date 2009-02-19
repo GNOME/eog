@@ -11,7 +11,7 @@ noinst_LTLIBRARIES = libeog.la
 bin_PROGRAMS = eog
 
 headerdir = $(prefix)/include/eog-@EOG_API_VERSION@/eog
-header_DATA = $(INST_H_FILES)	
+header_DATA = $(INST_H_FILES)
 
 MARSHAL_OUTPUT = 	\
 	eog-marshal.h	\
@@ -38,12 +38,12 @@ NOINST_H_FILES =			\
 	eog-plugin-manager.h            \
 	eog-plugin-engine.h             \
 	uta.h				\
-	zoom.h	
+	zoom.h
 
 if ENABLE_PYTHON
 NOINST_H_FILES += 			\
 	eog-python-module.h		\
-	eog-python-plugin.h 
+	eog-python-plugin.h
 endif
 
 INST_H_FILES =				\
@@ -68,7 +68,7 @@ INST_H_FILES =				\
 	eog-thumbnail.h			\
 	eog-job-queue.h			\
 	eog-jobs.h			\
-	eog-plugin.h 
+	eog-plugin.h
 
 libeog_la_SOURCES =			\
 	eog-application.c		\
@@ -129,7 +129,7 @@ libeog_la_SOURCES += 			\
 	eog-python-module.c		\
 	eog-python-module.h		\
 	eog-python-plugin.c		\
-	eog-python-plugin.h	
+	eog-python-plugin.h
 endif
 
 if HAVE_EXEMPI
@@ -195,7 +195,7 @@ BUILT_SOURCES = 			\
 
 eog-enum-types.h: eog-enum-types.h.template $(INST_H_FILES) $(GLIB_MKENUMS)
 	(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.h.template $(INST_H_FILES)) > $@
-	
+
 eog-enum-types.c: eog-enum-types.c.template $(INST_H_FILES) $(GLIB_MKENUMS)
 	(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.c.template $(INST_H_FILES)) > $@
 
@@ -208,9 +208,9 @@ eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
 EXTRA_DIST = 				\
 	eog-enum-types.h.template	\
 	eog-enum-types.c.template	\
-	eog-marshal.list 
+	eog-marshal.list
 
-if HAVE_DBUS 
+if HAVE_DBUS
 
 BUILT_SOURCES += eog-application-service.h
 

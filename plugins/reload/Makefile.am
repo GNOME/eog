@@ -11,7 +11,7 @@ plugin_LTLIBRARIES = libreload.la
 
 libreload_la_SOURCES = \
 	eog-reload-plugin.h				\
-	eog-reload-plugin.c	
+	eog-reload-plugin.c
 
 libreload_la_LDFLAGS = \
 	-avoid-version -module

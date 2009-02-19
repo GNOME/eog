@@ -57,7 +57,7 @@ if test "$have_langinfo_measurement" = "yes"; then
 fi
 
 # ***********
-# Translation 
+# Translation
 # ***********
 
 AM_GLIB_GNU_GETTEXT
@@ -78,7 +78,7 @@ PKG_PROG_PKG_CONFIG
 GNOME_DOC_INIT
 
 # **********
-# GNOME Libs 
+# GNOME Libs
 # **********
 
 GTK_REQUIRED=2.13.1
@@ -131,7 +131,7 @@ if test x$with_libexif != xno; then
     if test "x$have_exif" = "xyes"; then
         AC_CHECK_HEADER([libexif/exif-data.h],[],[have_exif=no])
     fi
-fi 
+fi
 if test "x$have_exif" = "xyes"; then
   AC_DEFINE(HAVE_EXIF, 1, [EXIF Support.])
   EOG_MODULES="$EOG_MODULES libexif >= $LIBEXIF_REQUIRED"
@@ -147,7 +147,7 @@ AC_ARG_WITH([cms], AC_HELP_STRING([--without-cms], [disable colour management su
 have_lcms=no
 if test x$with_cms != xno; then
     PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
-fi 
+fi
 if test "x$have_lcms" = "xyes"; then
   AC_DEFINE(HAVE_LCMS, 1, [Little CMS Support.])
   EOG_MODULES="$EOG_MODULES lcms"
@@ -161,14 +161,14 @@ AC_ARG_WITH(xmp, AC_HELP_STRING([--without-xmp], [disable special XMP support]))
 have_exempi=no
 if test x$with_xmp != xno; then
     PKG_CHECK_MODULES(EXEMPI, exempi-2.0 >= $EXEMPI_REQUIRED, have_exempi=yes, have_exempi=no)
-fi 
+fi
 if test "x$have_exempi" = "xyes"; then
   AC_DEFINE(HAVE_EXEMPI,1, [XMP support.])
   EOG_MODULES="$EOG_MODULES exempi-2.0 >= $EXEMPI_REQUIRED"
 fi
 
 AM_CONDITIONAL([HAVE_EXEMPI], [test "x$have_exempi" = "xyes"])
- 
+
 # Build EXIF-related documentation if we really have support for it
 if test "x$have_exif" = "xyes" || test "x$have_exempi" = "xyes"; then
   EOG_DOC_EXIF_START=""
@@ -207,7 +207,7 @@ AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG s
         LIBJPEG='-ljpeg'
 	AC_DEFINE(HAVE_JPEG, 1, [Jpeg Support.])
         AC_DEFINE(HAVE_LIBJPEG, 1, [libjpeg is Present.])
-        AC_CHECK_LIB(jpeg, jpeg_simple_progression,     
+        AC_CHECK_LIB(jpeg, jpeg_simple_progression,
           AC_DEFINE(HAVE_PROGRESSIVE_JPEG, 1, [Jpeg Progressive Saving Support.]),
           AC_MSG_WARN(JPEG library does not support progressive saving.))
       else
@@ -218,7 +218,7 @@ AC_ARG_WITH(libjpeg, AC_HELP_STRING([--without-libjpeg], [disable special JPEG s
 
   if test x$with_libjpeg != xno && test -z "$LIBJPEG"; then
      AC_MSG_ERROR([
-*** Checks for JPEG loader failed. You can build without it by passing 
+*** Checks for JPEG loader failed. You can build without it by passing
 *** --without-libjpeg to configure but some programs using GTK+ may
 *** not work properly])
   fi
@@ -241,7 +241,7 @@ if test x$have_dbus = xyes; then
 
    if test x$DBUS_BINDING_TOOL = "xno" ; then
        AC_MSG_ERROR([dbus-binding-tool executable not found in your path - should be installed with dbus glib bindings])
-   fi                                            
+   fi
 
     AC_DEFINE(HAVE_DBUS, 1, [DBUS based activation.])
     EOG_MODULES="$EOG_MODULES dbus-glib-1 >= $DBUS_GLIB_REQUIRED"
@@ -265,7 +265,7 @@ AC_SUBST(EOG_CFLAGS)
 AC_SUBST(EOG_LIBS)
 
 # *****
-# GConf 
+# GConf
 # *****
 
 AM_GCONF_SOURCE_2
@@ -283,7 +283,7 @@ fi
 AC_CHECK_HEADERS(X11/Sunkeysym.h, AC_DEFINE(HAVE_SUNKEYSYM_H, 1, [Sun Keyboard Support]))
 
 # **************
-# Python Support 
+# Python Support
 # **************
 
 AC_MSG_CHECKING([whether Python support is requested])
@@ -333,7 +333,7 @@ if test "x$have_python" != "xno"; then
 	PYGTK_REQUIRED=2.13.0
 
 	PKG_CHECK_MODULES([PYGTK], [
-		pygobject-2.0 >= $PYGOBJECT_REQUIRED 
+		pygobject-2.0 >= $PYGOBJECT_REQUIRED
 		pygtk-2.0 >= $PYGTK_REQUIRED],
  		[],
  		[
@@ -443,7 +443,7 @@ echo "
 Configure summary:
 
 	Source code location .......:  ${srcdir}
-	Compiler ...................:  ${CC} 
+	Compiler ...................:  ${CC}
 	Extra Compiler Warnings ....:  ${WARN_CFLAGS}
 
 	Python support .............:  ${have_python}

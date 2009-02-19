@@ -45,11 +45,11 @@ static void
 free_window_data (WindowData *data)
 {
 	g_return_if_fail (data != NULL);
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	g_object_unref (data->ui_action_group);
-	
+
 	g_free (data);
 }
 
@@ -74,18 +74,18 @@ impl_activate (EogPlugin *plugin,
 	GtkUIManager *manager;
         GList *action_groups;
 	WindowData *data;
-	
+
 	eog_debug (DEBUG_PLUGINS);
 
 	data = g_new (WindowData, 1);
 
 	manager = eog_window_get_ui_manager (window);
 
-	action_groups = gtk_ui_manager_get_action_groups (manager); 
+	action_groups = gtk_ui_manager_get_action_groups (manager);
 
 	data->ui_action_group = gtk_action_group_new ("EogReloadPluginActions");
-	
-	gtk_action_group_set_translation_domain (data->ui_action_group, 
+
+	gtk_action_group_set_translation_domain (data->ui_action_group,
 						 GETTEXT_PACKAGE);
 
 	gtk_action_group_add_actions (data->ui_action_group,
@@ -99,17 +99,17 @@ impl_activate (EogPlugin *plugin,
 
 	data->ui_id = gtk_ui_manager_new_merge_id (manager);
 
-	g_object_set_data_full (G_OBJECT (window), 
-				WINDOW_DATA_KEY, 
+	g_object_set_data_full (G_OBJECT (window),
+				WINDOW_DATA_KEY,
 				data,
 				(GDestroyNotify) free_window_data);
 
-	gtk_ui_manager_add_ui (manager, 
-			       data->ui_id, 
+	gtk_ui_manager_add_ui (manager,
+			       data->ui_id,
 			       MENU_PATH,
-			       "RunReload", 
 			       "RunReload",
-			       GTK_UI_MANAGER_MENUITEM, 
+			       "RunReload",
+			       GTK_UI_MANAGER_MENUITEM,
 			       FALSE);
 }
 

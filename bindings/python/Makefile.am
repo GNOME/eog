@@ -2,7 +2,7 @@ noinst_LTLIBRARIES = \
 	eog.la
 
 nodist_eog_la_SOURCES = \
-	eog.c	
+	eog.c
 
 eog_la_LDFLAGS = \
 	-module -avoid-version
@@ -35,7 +35,7 @@ eog.c: eog.defs eog.override $(top_builddir)/src/eog-enum-types.h
 		--register $(PYGTK_DEFSDIR)/gdk-types.defs \
 		--register $(PYGTK_DEFSDIR)/gtk-types.defs \
 		--override $*.override \
-		--prefix py$* $(<F) ) > $@ 
+		--prefix py$* $(<F) ) > $@
 
 BINDING_EOG_HEADERS_SRCDIR_IN = 			\
 	src/eog-application.h				\
@@ -51,9 +51,9 @@ BINDING_EOG_HEADERS_SRCDIR_IN = 			\
 	src/eog-list-store.h				\
 	src/eog-job-queue.h				\
 	src/eog-jobs.h					\
-	src/eog-plugin.h 
+	src/eog-plugin.h
 
-BINDING_HEADERS_BUILDDIR_IN = 
+BINDING_HEADERS_BUILDDIR_IN =
 
 BINDING_EOG_HEADERS_SRCDIR := $(addprefix $(top_srcdir)/,$(BINDING_EOG_HEADERS_SRCDIR_IN))
 

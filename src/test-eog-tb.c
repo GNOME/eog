@@ -8,16 +8,16 @@
 #include "eog-list-store.h"
 #include "eog-job-queue.h"
 
-static void 
+static void
 tb_on_selection_changed (GtkIconView *thumb_view,
 			 gpointer data)
 {
 	GList *list, *item;
 	EogImage *image;
 
-	g_print ("selection changed: %i\n", 
+	g_print ("selection changed: %i\n",
 		 eog_thumb_view_get_n_selected (EOG_THUMB_VIEW (thumb_view)));
-	
+
 	list = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (thumb_view));
 	if (list) {
 		g_print ("selected images at: ");
@@ -36,7 +36,7 @@ tb_on_selection_changed (GtkIconView *thumb_view,
 }
 
 static void
-on_button_sfi_clicked (GtkButton *button, 
+on_button_sfi_clicked (GtkButton *button,
 		       gpointer data)
 {
 	EogThumbView *tb = EOG_THUMB_VIEW (data);
@@ -45,7 +45,7 @@ on_button_sfi_clicked (GtkButton *button,
 	GtkTreeModel *model = gtk_icon_view_get_model (GTK_ICON_VIEW (tb));
 	gtk_tree_model_get_iter_first (model, &iter);
 
-	gtk_tree_model_get (model, &iter, 
+	gtk_tree_model_get (model, &iter,
 			    EOG_LIST_STORE_EOG_IMAGE, &image,
 			    -1);
 
@@ -55,7 +55,7 @@ on_button_sfi_clicked (GtkButton *button,
 }
 
 static void
-on_button_next_clicked (GtkButton *button, 
+on_button_next_clicked (GtkButton *button,
 		       gpointer data)
 {
 	EogThumbView *tb = EOG_THUMB_VIEW (data);
@@ -64,7 +64,7 @@ on_button_next_clicked (GtkButton *button,
 }
 
 static void
-on_button_back_clicked (GtkButton *button, 
+on_button_back_clicked (GtkButton *button,
 			gpointer data)
 {
 	EogThumbView *tb = EOG_THUMB_VIEW (data);
@@ -73,7 +73,7 @@ on_button_back_clicked (GtkButton *button,
 }
 
 static void
-on_button_first_clicked (GtkButton *button, 
+on_button_first_clicked (GtkButton *button,
 			gpointer data)
 {
 	EogThumbView *tb = EOG_THUMB_VIEW (data);
@@ -82,7 +82,7 @@ on_button_first_clicked (GtkButton *button,
 }
 
 static void
-on_button_last_clicked (GtkButton *button, 
+on_button_last_clicked (GtkButton *button,
 			gpointer data)
 {
 	EogThumbView *tb = EOG_THUMB_VIEW (data);
@@ -135,7 +135,7 @@ static const GtkActionEntry entries[] = {
 	{ "ItemAction", GTK_STOCK_OPEN, "Test 1", NULL, NULL, G_CALLBACK (do_something_with_test_1) },
 };
 
-int 
+int
 main (gint argc, gchar **argv)
 {
 	GtkWidget *window;
@@ -157,11 +157,11 @@ main (gint argc, gchar **argv)
 	eog_job_queue_init ();
 
 	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	g_signal_connect (G_OBJECT (window), 
-			  "delete-event", 
+	g_signal_connect (G_OBJECT (window),
+			  "delete-event",
 			  G_CALLBACK (gtk_main_quit),
 			  NULL);
-	gtk_window_set_default_size (GTK_WINDOW (window), 
+	gtk_window_set_default_size (GTK_WINDOW (window),
 				     640, 480);
 
 	thumb_view = eog_thumb_view_new ();
@@ -178,14 +178,14 @@ main (gint argc, gchar **argv)
 		g_error_free (error);
 		return 1;
 	}
-	
+
 	popup = g_object_ref (gtk_ui_manager_get_widget (ui_manager, "/ThumbnailPopup"));
-	
+
  	g_object_unref (ui_manager);
  	eog_thumb_view_set_thumbnail_popup (EOG_THUMB_VIEW (thumb_view), popup);
 
-	g_signal_connect (G_OBJECT (thumb_view), 
-			  "selection-changed", 
+	g_signal_connect (G_OBJECT (thumb_view),
+			  "selection-changed",
 			  G_CALLBACK (tb_on_selection_changed),
 			  window);
 
@@ -198,30 +198,30 @@ main (gint argc, gchar **argv)
 	hbox = gtk_hbox_new (FALSE, 0);
 
 	button = gtk_button_new_with_label ("Select first image");
-	g_signal_connect (G_OBJECT (button), "clicked", 
+	g_signal_connect (G_OBJECT (button), "clicked",
 			  G_CALLBACK (on_button_sfi_clicked), thumb_view);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	button = gtk_button_new_from_stock (GTK_STOCK_GOTO_FIRST);
-	g_signal_connect (G_OBJECT (button), "clicked", 
+	g_signal_connect (G_OBJECT (button), "clicked",
 			  G_CALLBACK (on_button_first_clicked), thumb_view);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	button = gtk_button_new_from_stock (GTK_STOCK_GO_BACK);
-	g_signal_connect (G_OBJECT (button), "clicked", 
+	g_signal_connect (G_OBJECT (button), "clicked",
 			  G_CALLBACK (on_button_back_clicked), thumb_view);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	button = gtk_button_new_from_stock (GTK_STOCK_GO_FORWARD);
-	g_signal_connect (G_OBJECT (button), "clicked", 
+	g_signal_connect (G_OBJECT (button), "clicked",
 			  G_CALLBACK (on_button_next_clicked), thumb_view);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
 
 	button = gtk_button_new_from_stock (GTK_STOCK_GOTO_LAST);
-	g_signal_connect (G_OBJECT (button), "clicked", 
+	g_signal_connect (G_OBJECT (button), "clicked",
 			  G_CALLBACK (on_button_last_clicked), thumb_view);
 	gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-  
+
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 10);
 
 	gtk_box_pack_start (GTK_BOX (vbox), scrolled_window, TRUE, TRUE, 0);
@@ -230,10 +230,10 @@ main (gint argc, gchar **argv)
 	gtk_widget_show_all (window);
 
 	list_uris = string_array_to_list (argv + 1, argc - 1);
-	
+
 	eog_list_store_add_uris (EOG_LIST_STORE (model), list_uris);
 	eog_thumb_view_set_model (EOG_THUMB_VIEW (thumb_view), EOG_LIST_STORE (model));
-	
+
 	gtk_main ();
 	return 0;
 }

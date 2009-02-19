@@ -17,7 +17,7 @@ noinst_LTLIBRARIES = libtoolbareditor.la
 libtoolbareditor_la_SOURCES = 	\
 	$(BUILT_SOURCES) 	\
 	$(EGGSOURCES)		\
-	$(EGGHEADERS) 
+	$(EGGHEADERS)
 
 libtoolbareditor_la_CPPFLAGS = \
 	-I$(top_builddir)/lib/egg		\

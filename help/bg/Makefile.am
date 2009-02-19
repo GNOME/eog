@@ -1,6 +1,6 @@
 figdir = figures
 docname = eog
-lang =bg 
+lang =bg
 omffile = eog-bg.omf
 entities = legal.xml
 include $(top_srcdir)/xmldocs.make

@@ -360,7 +360,7 @@ filter_files (GSList *files, GList **file_list, GList **error_list)
 				   don't set the GFileType. */
 				if (G_UNLIKELY (type == G_FILE_TYPE_UNKNOWN)) {
 					const gchar *ctype;
-			
+
 					ctype = g_file_info_get_content_type (file_info);
 
 					/* If the content type is supported

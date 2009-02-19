@@ -8,4 +8,4 @@ plugindir = $(libdir)/eog/plugins
 
 DISTCLEANFILES =
 
-EXTRA_DIST = 
+EXTRA_DIST =

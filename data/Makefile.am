@@ -50,4 +50,4 @@ EXTRA_DIST =			\
 
 DISTCLEANFILES = 		\
         $(DESKTOP_FILES)        \
-        $(schemas_DATA)	
+        $(schemas_DATA)
