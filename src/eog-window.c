@@ -3034,7 +3034,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 						  eog_image_get_caption (image));
 		} else {
 			prompt = g_strdup_printf (_("A trash for \"%s\" couldn't be found. Do you want to remove "
-						    "this image permantently?"), eog_image_get_caption (image));
+						    "this image permanently?"), eog_image_get_caption (image));
 		}
 	} else {
 		if (can_trash) {
