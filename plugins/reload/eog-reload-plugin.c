@@ -36,7 +36,7 @@ static const GtkActionEntry action_entries[] =
 	{ "RunReload",
 	  GTK_STOCK_REFRESH,
 	  N_("Reload Image"),
-	  "<control><shift>R",
+	  "R",
 	  N_("Reload current image"),
 	  G_CALLBACK (reload_cb) }
 };
