@@ -3470,7 +3470,7 @@ static const GtkActionEntry action_entries_image[] = {
 	{ "EditRotate90",  "object-rotate-right",  N_("_Rotate Clockwise"), "<control>r",
 	  N_("Rotate the image 90 degrees to the right"),
 	  G_CALLBACK (eog_window_cmd_rotate_90) },
-	{ "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), NULL,
+	{ "EditRotate270", "object-rotate-left", N_("Rotate Counterc_lockwise"), "<ctrl><shift>r",
 	  N_("Rotate the image 90 degrees to the left"),
 	  G_CALLBACK (eog_window_cmd_rotate_270) },
 	{ "SetAsWallpaper", NULL, N_("Set as _Desktop Background"), NULL,
