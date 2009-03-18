@@ -3060,7 +3060,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 
 	if (can_trash) {
-		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to Trash"), GTK_RESPONSE_OK);
+		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to _Trash"), GTK_RESPONSE_OK);
 	} else {
 		if (n_images == 1) {
 			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
