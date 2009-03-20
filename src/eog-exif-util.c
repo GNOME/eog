@@ -42,10 +42,10 @@
 
 /* gboolean <-> gpointer conversion macros taken from gedit */
 #ifndef GBOOLEAN_TO_POINTER
-#define GBOOLEAN_TO_POINTER(i) ((gpointer) ((i) ? 2 : 1))
+#define GBOOLEAN_TO_POINTER(i) (GINT_TO_POINTER ((i) ? 2 : 1))
 #endif
 #ifndef GPOINTER_TO_BOOLEAN
-#define GPOINTER_TO_BOOLEAN(i) ((gboolean) ((((gint)(i)) == 2) ? TRUE : FALSE))
+#define GPOINTER_TO_BOOLEAN(i) ((gboolean) ((GPOINTER_TO_INT (i) == 2) ? TRUE : FALSE))
 #endif
 
 static gpointer
