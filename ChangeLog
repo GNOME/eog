@@ -1,3 +1,9 @@
+2009-03-24  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c: (tmp_file_move_to_uri): Fix GError usage and avoid
+	crashes when the tempfile can't be moved to the destination.
+	Fixes bug #576558 (Josselin Mouette, Felix Riemann).
+
 2009-03-20  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-exif-util.c:

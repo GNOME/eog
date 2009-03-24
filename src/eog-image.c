@@ -1326,7 +1326,7 @@ tmp_file_move_to_uri (EogImage *image,
 		      GError **error)
 {
 	gboolean result;
-	GError **ioerror = NULL;
+	GError *ioerror = NULL;
 
 	result = g_file_move (tmpfile,
 			      file,
@@ -1335,20 +1335,20 @@ tmp_file_move_to_uri (EogImage *image,
 			      NULL,
 			      (GFileProgressCallback) transfer_progress_cb,
 			      image,
-			      ioerror);
+			      &ioerror);
 
 	if (result == FALSE) {
-		if (g_error_matches (*ioerror, G_IO_ERROR,
+		if (g_error_matches (ioerror, G_IO_ERROR,
 				     G_IO_ERROR_EXISTS)) {
 			g_set_error (error, EOG_IMAGE_ERROR,
 				     EOG_IMAGE_ERROR_FILE_EXISTS,
 				     "File exists");
 		} else {
-		g_set_error (error, EOG_IMAGE_ERROR,
-			     EOG_IMAGE_ERROR_VFS,
-			     "VFS error moving the temp file");
+			g_set_error (error, EOG_IMAGE_ERROR,
+				     EOG_IMAGE_ERROR_VFS,
+				     "VFS error moving the temp file");
 		}
-		g_error_free (*ioerror);
+		g_clear_error (&ioerror);
 	}
 
 	return result;
