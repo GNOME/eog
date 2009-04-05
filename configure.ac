@@ -1,8 +1,8 @@
 AC_PREREQ(2.59)
 
 m4_define(eog_major_version,  2)
-m4_define(eog_minor_version, 26)
-m4_define(eog_micro_version,  1)
+m4_define(eog_minor_version, 27)
+m4_define(eog_micro_version,  0)
 m4_define(eog_version, eog_major_version.eog_minor_version.eog_micro_version)
 
 AC_INIT([eog], eog_version, [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
@@ -98,7 +98,6 @@ EOG_MODULES="gtk+-2.0 >= $GTK_REQUIRED \
              gnome-desktop-2.0 >= $GNOME_DESKTOP_REQUIRED \
              gdk-pixbuf-2.0 >= $GDKPIXBUF_REQUIRED \
              gconf-2.0 >= $GCONF_REQUIRED \
-             libart-2.0 >= $LIBART_REQUIRED \
              gtk+-unix-print-2.0 >= $GTK_PRINT_REQUIRED \
 	     gnome-icon-theme >= $GNOME_ICON_THEME_REQUIRED \
 	     shared-mime-info >= $SHARED_MIME_INFO_REQUIRED"

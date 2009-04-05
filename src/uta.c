@@ -1,8 +1,10 @@
 /* Eye of Gnome image viewer - Microtile array utilities
  *
- * Copyright (C) 2000 The Free Software Foundation
+ * Copyright (C) 2000-2009 The Free Software Foundation
  *
  * Author: Federico Mena-Quintero <federico@gnu.org>
+ *
+ * Portions based on code from libart_lgpl by Raph Levien.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +17,184 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
 #include <config.h>
 #include <glib.h>
 #include "uta.h"
-#include <libart_lgpl/art_uta_rect.h>
+
+#define EOG_UTA_BBOX_CONS(x0, y0, x1, y1) (((x0) << 24) | ((y0) << 16) | \
+				       ((x1) << 8) | (y1))
+
+#define EOG_UTA_BBOX_X0(ub) ((ub) >> 24)
+#define EOG_UTA_BBOX_Y0(ub) (((ub) >> 16) & 0xff)
+#define EOG_UTA_BBOX_X1(ub) (((ub) >> 8) & 0xff)
+#define EOG_UTA_BBOX_Y1(ub) ((ub) & 0xff)
+
+#define eog_renew(p, type, n) ((type *)g_realloc (p, (n) * sizeof(type)))
+/* This one must be used carefully - in particular, p and max should
+   be variables. They can also be pstruct->el lvalues. */
+#define eog_expand(p, type, max) do { if(max) { p = eog_renew (p, type, max <<= 1); } else { max = 1; p = g_new(type, 1); } } while (0)
 
 
+
+/**
+ * eog_uta_new: Allocate a new uta.
+ * @x0: Left coordinate of uta.
+ * @y0: Top coordinate of uta.
+ * @x1: Right coordinate of uta.
+ * @y1: Bottom coordinate of uta.
+ *
+ * Allocates a new microtile array. The arguments are in units of
+ * tiles, not pixels.
+ *
+ * Returns: the newly allocated #EogUta.
+ **/
+static EogUta *
+eog_uta_new (int x0, int y0, int x1, int y1)
+{
+  EogUta *uta;
+
+  uta = g_new (EogUta, 1);
+  uta->x0 = x0;
+  uta->y0 = y0;
+  uta->width = x1 - x0;
+  uta->height = y1 - y0;
+
+  uta->utiles = g_new0 (EogUtaBbox, uta->width * uta->height);
+
+  return uta;
+}
+
+/**
+ * eog_uta_free: Free a uta.
+ * @uta: The uta to free.
+ *
+ * Frees the microtile array structure, including the actual microtile
+ * data.
+ **/
+void
+eog_uta_free (EogUta *uta)
+{
+  g_free (uta->utiles);
+  g_free (uta);
+}
+
+/**
+ * eog_irect_intersect: Find intersection of two integer rectangles.
+ * @dest: Where the result is stored.
+ * @src1: A source rectangle.
+ * @src2: Another source rectangle.
+ *
+ * Finds the intersection of @src1 and @src2.
+ **/
+void
+eog_irect_intersect (EogIRect *dest, const EogIRect *src1, const EogIRect *src2) {
+  dest->x0 = MAX (src1->x0, src2->x0);
+  dest->y0 = MAX (src1->y0, src2->y0);
+  dest->x1 = MIN (src1->x1, src2->x1);
+  dest->y1 = MIN (src1->y1, src2->y1);
+}
+
+/**
+ * eog_irect_empty: Determine whether integer rectangle is empty.
+ * @src: The source rectangle.
+ *
+ * Return value: TRUE if @src is an empty rectangle, FALSE otherwise.
+ **/
+int
+eog_irect_empty (const EogIRect *src) {
+  return (src->x1 <= src->x0 || src->y1 <= src->y0);
+}
+
+/**
+ * eog_uta_from_irect: Generate uta covering a rectangle.
+ * @bbox: The source rectangle.
+ *
+ * Generates a uta exactly covering @bbox. Please do not call this
+ * function with a @bbox with zero height or width.
+ *
+ * Return value: the new uta.
+ **/
+static EogUta *
+eog_uta_from_irect (EogIRect *bbox)
+{
+  EogUta *uta;
+  EogUtaBbox *utiles;
+  EogUtaBbox bb;
+  int width, height;
+  int x, y;
+  int xf0, yf0, xf1, yf1;
+  int ix;
+
+  uta = g_new (EogUta, 1);
+  uta->x0 = bbox->x0 >> EOG_UTILE_SHIFT;
+  uta->y0 = bbox->y0 >> EOG_UTILE_SHIFT;
+  width = ((bbox->x1 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT) - uta->x0;
+  height = ((bbox->y1 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT) - uta->y0;
+  utiles = g_new (EogUtaBbox, width * height);
+
+  uta->width = width;
+  uta->height = height;
+  uta->utiles = utiles;
+
+  xf0 = bbox->x0 & (EOG_UTILE_SIZE - 1);
+  yf0 = bbox->y0 & (EOG_UTILE_SIZE - 1);
+  xf1 = ((bbox->x1 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
+  yf1 = ((bbox->y1 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
+  if (height == 1)
+    {
+      if (width == 1)
+	utiles[0] = EOG_UTA_BBOX_CONS (xf0, yf0, xf1, yf1);
+      else
+	{
+	  utiles[0] = EOG_UTA_BBOX_CONS (xf0, yf0, EOG_UTILE_SIZE, yf1);
+	  bb = EOG_UTA_BBOX_CONS (0, yf0, EOG_UTILE_SIZE, yf1);
+	  for (x = 1; x < width - 1; x++)
+	    utiles[x] = bb;
+	  utiles[x] = EOG_UTA_BBOX_CONS (0, yf0, xf1, yf1);
+	}
+    }
+  else
+    {
+      if (width == 1)
+	{
+	  utiles[0] = EOG_UTA_BBOX_CONS (xf0, yf0, xf1, EOG_UTILE_SIZE);
+	  bb = EOG_UTA_BBOX_CONS (xf0, 0, xf1, EOG_UTILE_SIZE);
+	  for (y = 1; y < height - 1; y++)
+	    utiles[y] = bb;
+	  utiles[y] = EOG_UTA_BBOX_CONS (xf0, 0, xf1, yf1);
+	}
+      else
+	{
+	  utiles[0] =
+	    EOG_UTA_BBOX_CONS (xf0, yf0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
+	  bb = EOG_UTA_BBOX_CONS (0, yf0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
+	  for (x = 1; x < width - 1; x++)
+	    utiles[x] = bb;
+	  utiles[x] = EOG_UTA_BBOX_CONS (0, yf0, xf1, EOG_UTILE_SIZE);
+	  ix = width;
+	  for (y = 1; y < height - 1; y++)
+	    {
+	      utiles[ix++] =
+		EOG_UTA_BBOX_CONS (xf0, 0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
+	      bb = EOG_UTA_BBOX_CONS (0, 0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
+	      for (x = 1; x < width - 1; x++)
+		utiles[ix++] = bb;
+	      utiles[ix++] = EOG_UTA_BBOX_CONS (0, 0, xf1, EOG_UTILE_SIZE);
+	    }
+	  utiles[ix++] = EOG_UTA_BBOX_CONS (xf0, 0, EOG_UTILE_SIZE, yf1);
+	  bb = EOG_UTA_BBOX_CONS (0, 0, EOG_UTILE_SIZE, yf1);
+	  for (x = 1; x < width - 1; x++)
+	    utiles[ix++] = bb;
+	  utiles[ix++] = EOG_UTA_BBOX_CONS (0, 0, xf1, yf1);
+	}
+    }
+  return uta;
+}
+
 
 /**
  * uta_ensure_size:
@@ -48,11 +218,11 @@
  * it needed to be grown.  In the second case, the original @uta will be
  * freed automatically.
  **/
-ArtUta *
-uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
+EogUta *
+uta_ensure_size (EogUta *uta, int x1, int y1, int x2, int y2)
 {
-	ArtUta *new_uta;
-	ArtUtaBbox *utiles, *new_utiles;
+	EogUta *new_uta;
+	EogUtaBbox *utiles, *new_utiles;
 	int new_ofs, ofs;
 	int x, y;
 
@@ -60,7 +230,7 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
 	g_return_val_if_fail (y1 < y2, NULL);
 
 	if (!uta)
-		return art_uta_new (x1, y1, x2, y2);
+		return eog_uta_new (x1, y1, x2, y2);
 
 	if (x1 >= uta->x0
 	    && y1 >= uta->y0
@@ -68,13 +238,13 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
 	    && y2 <= uta->y0 + uta->height)
 		return uta;
 
-	new_uta = art_new (ArtUta, 1);
+	new_uta = g_new (EogUta, 1);
 
 	new_uta->x0 = MIN (uta->x0, x1);
 	new_uta->y0 = MIN (uta->y0, y1);
 	new_uta->width = MAX (uta->x0 + uta->width, x2) - new_uta->x0;
 	new_uta->height = MAX (uta->y0 + uta->height, y2) - new_uta->y0;
-	new_uta->utiles = art_new (ArtUtaBbox, new_uta->width * new_uta->height);
+	new_uta->utiles = g_new (EogUtaBbox, new_uta->width * new_uta->height);
 
 	utiles = uta->utiles;
 	new_utiles = new_uta->utiles;
@@ -96,7 +266,7 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
 		}
 	}
 
-	art_uta_free (uta);
+	eog_uta_free (uta);
 	return new_uta;
 }
 
@@ -115,11 +285,11 @@ uta_ensure_size (ArtUta *uta, int x1, int y1, int x2, int y2)
  * needed to be grown to fit the specified rectangle.  In the second case, the
  * original @uta will be freed automatically.
  **/
-ArtUta *
-uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
+EogUta *
+uta_add_rect (EogUta *uta, int x1, int y1, int x2, int y2)
 {
-	ArtUtaBbox *utiles;
-	ArtUtaBbox bb;
+	EogUtaBbox *utiles;
+	EogUtaBbox bb;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	int xf1, yf1, xf2, yf2;
 	int x, y;
@@ -131,31 +301,31 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	/* Empty uta */
 
 	if (!uta) {
-		ArtIRect r;
+		EogIRect r;
 
 		r.x0 = x1;
 		r.y0 = y1;
 		r.x1 = x2;
 		r.y1 = y2;
 
-		return art_uta_from_irect (&r);
+		return eog_uta_from_irect (&r);
 	}
 
 	/* Grow the uta if necessary */
 
-	rect_x1 = x1 >> ART_UTILE_SHIFT;
-	rect_y1 = y1 >> ART_UTILE_SHIFT;
-	rect_x2 = (x2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
-	rect_y2 = (y2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_x1 = x1 >> EOG_UTILE_SHIFT;
+	rect_y1 = y1 >> EOG_UTILE_SHIFT;
+	rect_x2 = (x2 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	rect_y2 = (y2 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
 	uta = uta_ensure_size (uta, rect_x1, rect_y1, rect_x2, rect_y2);
 
 	/* Add the rectangle */
 
-	xf1 = x1 & (ART_UTILE_SIZE - 1);
-	yf1 = y1 & (ART_UTILE_SIZE - 1);
-	xf2 = ((x2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
-	yf2 = ((y2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
+	xf1 = x1 & (EOG_UTILE_SIZE - 1);
+	yf1 = y1 & (EOG_UTILE_SIZE - 1);
+	xf2 = ((x2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
+	yf2 = ((y2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
 
 	utiles = uta->utiles;
 
@@ -165,132 +335,132 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 		if (rect_x2 - rect_x1 == 1) {
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					xf1, yf1, xf2, yf2);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 		} else {
 			/* Leftmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					xf1, yf1, ART_UTILE_SIZE, yf2);
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					xf1, yf1, EOG_UTILE_SIZE, yf2);
 			else
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					ART_UTILE_SIZE,
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					EOG_UTILE_SIZE,
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Tiles in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
-						0, yf1, ART_UTILE_SIZE, yf2);
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
+						0, yf1, EOG_UTILE_SIZE, yf2);
 				else
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
 						0,
-						MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-						ART_UTILE_SIZE,
-						MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+						MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+						EOG_UTILE_SIZE,
+						MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 			}
 
 			/* Rightmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					0, yf1, xf2, yf2);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					0,
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 		}
 	} else {
 		if (rect_x2 - rect_x1 == 1) {
 			/* Topmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
-					xf1, yf1, xf2, ART_UTILE_SIZE);
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
+					xf1, yf1, xf2, EOG_UTILE_SIZE);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					ART_UTILE_SIZE);
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					EOG_UTILE_SIZE);
 			ofs += uta->width;
 
 			/* Tiles in between */
 			for (y = rect_y1 + 1; y < rect_y2 - 1; y++) {
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs] = ART_UTA_BBOX_CONS (
-						xf1, 0, xf2, ART_UTILE_SIZE);
+					utiles[ofs] = EOG_UTA_BBOX_CONS (
+						xf1, 0, xf2, EOG_UTILE_SIZE);
 				else
-					utiles[ofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					utiles[ofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (bb), xf1),
 						0,
-						MAX (ART_UTA_BBOX_X1 (bb), xf2),
-						ART_UTILE_SIZE);
+						MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+						EOG_UTILE_SIZE);
 				ofs += uta->width;
 			}
 
 			/* Bottommost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					xf1, 0, xf2, yf2);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
 					0,
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 		} else {
 			/* Top row, leftmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					xf1, yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					xf1, yf1, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
 			else
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					ART_UTILE_SIZE,
-					ART_UTILE_SIZE);
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					EOG_UTILE_SIZE,
+					EOG_UTILE_SIZE);
 
 			/* Top row, in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
-						0, yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
+						0, yf1, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
 				else
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
 						0,
-						MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-						ART_UTILE_SIZE,
-						ART_UTILE_SIZE);
+						MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+						EOG_UTILE_SIZE,
+						EOG_UTILE_SIZE);
 			}
 
 			/* Top row, rightmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
-					0, yf1, xf2, ART_UTILE_SIZE);
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
+					0, yf1, xf2, EOG_UTILE_SIZE);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					0,
-					MIN (ART_UTA_BBOX_Y0 (bb), yf1),
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					ART_UTILE_SIZE);
+					MIN (EOG_UTA_BBOX_Y0 (bb), yf1),
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					EOG_UTILE_SIZE);
 
 			ofs += uta->width - (rect_x2 - rect_x1 - 1);
 
@@ -299,31 +469,31 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 				/* Leftmost tile */
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
-						xf1, 0, ART_UTILE_SIZE, ART_UTILE_SIZE);
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
+						xf1, 0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
 				else
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (bb), xf1),
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (bb), xf1),
 						0,
-						ART_UTILE_SIZE,
-						ART_UTILE_SIZE);
+						EOG_UTILE_SIZE,
+						EOG_UTILE_SIZE);
 
 				/* Tiles in between */
-				bb = ART_UTA_BBOX_CONS (0, 0, ART_UTILE_SIZE, ART_UTILE_SIZE);
+				bb = EOG_UTA_BBOX_CONS (0, 0, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
 				for (x = rect_x1 + 1; x < rect_x2 - 1; x++)
 					utiles[ofs++] = bb;
 
 				/* Rightmost tile */
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs] = ART_UTA_BBOX_CONS (
-						0, 0, xf2, ART_UTILE_SIZE);
+					utiles[ofs] = EOG_UTA_BBOX_CONS (
+						0, 0, xf2, EOG_UTILE_SIZE);
 				else
-					utiles[ofs] = ART_UTA_BBOX_CONS (
+					utiles[ofs] = EOG_UTA_BBOX_CONS (
 						0,
 						0,
-						MAX (ART_UTA_BBOX_X1 (bb), xf2),
-						ART_UTILE_SIZE);
+						MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+						EOG_UTILE_SIZE);
 
 				ofs += uta->width - (rect_x2 - rect_x1 - 1);
 			}
@@ -331,40 +501,40 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			/* Bottom row, leftmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					xf1, 0, ART_UTILE_SIZE, yf2);
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					xf1, 0, EOG_UTILE_SIZE, yf2);
 			else
-				utiles[ofs++] = ART_UTA_BBOX_CONS (
-					MIN (ART_UTA_BBOX_X0 (bb), xf1),
+				utiles[ofs++] = EOG_UTA_BBOX_CONS (
+					MIN (EOG_UTA_BBOX_X0 (bb), xf1),
 					0,
-					ART_UTILE_SIZE,
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+					EOG_UTILE_SIZE,
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 
 			/* Bottom row, tiles in between */
 			for (x = rect_x1 + 1; x < rect_x2 - 1; x++) {
 				bb = utiles[ofs];
 				if (bb == 0)
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
-						0, 0, ART_UTILE_SIZE, yf2);
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
+						0, 0, EOG_UTILE_SIZE, yf2);
 				else
-					utiles[ofs++] = ART_UTA_BBOX_CONS (
+					utiles[ofs++] = EOG_UTA_BBOX_CONS (
 						0,
 						0,
-						ART_UTILE_SIZE,
-						MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+						EOG_UTILE_SIZE,
+						MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 			}
 
 			/* Bottom row, rightmost tile */
 			bb = utiles[ofs];
 			if (bb == 0)
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					0, 0, xf2, yf2);
 			else
-				utiles[ofs] = ART_UTA_BBOX_CONS (
+				utiles[ofs] = EOG_UTA_BBOX_CONS (
 					0,
 					0,
-					MAX (ART_UTA_BBOX_X1 (bb), xf2),
-					MAX (ART_UTA_BBOX_Y1 (bb), yf2));
+					MAX (EOG_UTA_BBOX_X1 (bb), xf2),
+					MAX (EOG_UTA_BBOX_Y1 (bb), yf2));
 		}
 	}
 
@@ -384,9 +554,9 @@ uta_add_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
  * rectangle may not be clipped exactly.
  **/
 void
-uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
+uta_remove_rect (EogUta *uta, int x1, int y1, int x2, int y2)
 {
-	ArtUtaBbox *utiles;
+	EogUtaBbox *utiles;
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	int clip_x1, clip_y1, clip_x2, clip_y2;
 	int xf1, yf1, xf2, yf2;
@@ -400,10 +570,10 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	if (x1 == x2 || y1 == y2)
 		return;
 
-	rect_x1 = x1 >> ART_UTILE_SHIFT;
-	rect_y1 = y1 >> ART_UTILE_SHIFT;
-	rect_x2 = (x2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
-	rect_y2 = (y2 + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_x1 = x1 >> EOG_UTILE_SHIFT;
+	rect_y1 = y1 >> EOG_UTILE_SHIFT;
+	rect_x2 = (x2 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	rect_y2 = (y2 + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
 	clip_x1 = MAX (rect_x1, uta->x0);
 	clip_y1 = MAX (rect_y1, uta->y0);
@@ -413,10 +583,10 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 	if (clip_x1 >= clip_x2 || clip_y1 >= clip_y2)
 		return;
 
-	xf1 = x1 & (ART_UTILE_SIZE - 1);
-	yf1 = y1 & (ART_UTILE_SIZE - 1);
-	xf2 = ((x2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
-	yf2 = ((y2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
+	xf1 = x1 & (EOG_UTILE_SIZE - 1);
+	yf1 = y1 & (EOG_UTILE_SIZE - 1);
+	xf2 = ((x2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
+	yf2 = ((y2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
 
 	utiles = uta->utiles;
 
@@ -433,19 +603,19 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 		if (y == rect_y2 - 1)
 			cy2 = yf2;
 		else
-			cy2 = ART_UTILE_SIZE;
+			cy2 = EOG_UTILE_SIZE;
 
 		for (x = clip_x1; x < clip_x2; x++) {
 			int cx1, cx2;
-			ArtUtaBbox bb;
+			EogUtaBbox bb;
 			int bb_x1, bb_y1, bb_x2, bb_y2;
 			int bb_cx1, bb_cy1, bb_cx2, bb_cy2;
 
 			bb = utiles[ofs];
-			bb_x1 = ART_UTA_BBOX_X0 (bb);
-			bb_y1 = ART_UTA_BBOX_Y0 (bb);
-			bb_x2 = ART_UTA_BBOX_X1 (bb);
-			bb_y2 = ART_UTA_BBOX_Y1 (bb);
+			bb_x1 = EOG_UTA_BBOX_X0 (bb);
+			bb_y1 = EOG_UTA_BBOX_Y0 (bb);
+			bb_x2 = EOG_UTA_BBOX_X1 (bb);
+			bb_y2 = EOG_UTA_BBOX_Y1 (bb);
 
 			if (x == rect_x1)
 				cx1 = xf1;
@@ -455,7 +625,7 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			if (x == rect_x2 - 1)
 				cx2 = xf2;
 			else
-				cx2 = ART_UTILE_SIZE;
+				cx2 = EOG_UTILE_SIZE;
 
 			/* Clip top and bottom */
 
@@ -492,7 +662,7 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 			}
 
 			if (bb_cx1 < bb_cx2 && bb_cy1 < bb_cy2)
-				utiles[ofs] = ART_UTA_BBOX_CONS (bb_cx1, bb_cy1,
+				utiles[ofs] = EOG_UTA_BBOX_CONS (bb_cx1, bb_cy1,
 								 bb_cx2, bb_cy2);
 			else
 				utiles[ofs] = 0;
@@ -505,29 +675,29 @@ uta_remove_rect (ArtUta *uta, int x1, int y1, int x2, int y2)
 }
 
 void
-uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
+uta_find_first_glom_rect (EogUta *uta, EogIRect *rect, int max_width, int max_height)
 {
-  ArtIRect *rects;
+  EogIRect *rects;
   int n_rects, n_rects_max;
   int x, y;
   int width, height;
   int ix;
   int left_ix;
-  ArtUtaBbox *utiles;
-  ArtUtaBbox bb;
+  EogUtaBbox *utiles;
+  EogUtaBbox bb;
   int x0, y0, x1, y1;
   int *glom;
   int glom_rect;
 
   n_rects = 0;
   n_rects_max = 1;
-  rects = art_new (ArtIRect, n_rects_max);
+  rects = g_new (EogIRect, n_rects_max);
 
   width = uta->width;
   height = uta->height;
   utiles = uta->utiles;
 
-  glom = art_new (int, width * height);
+  glom = g_new (int, width * height);
   for (ix = 0; ix < width * height; ix++)
     glom[ix] = -1;
 
@@ -538,24 +708,24 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 	bb = utiles[ix];
 	if (bb)
 	  {
-	    x0 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X0(bb);
-	    y0 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y0(bb);
-	    y1 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y1(bb);
+	    x0 = ((uta->x0 + x) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_X0(bb);
+	    y0 = ((uta->y0 + y) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_Y0(bb);
+	    y1 = ((uta->y0 + y) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_Y1(bb);
 
 	    left_ix = ix;
 	    /* now try to extend to the right */
 	    while (x != width - 1 &&
-		   ART_UTA_BBOX_X1(bb) == ART_UTILE_SIZE &&
+		   EOG_UTA_BBOX_X1(bb) == EOG_UTILE_SIZE &&
 		   (((bb & 0xffffff) ^ utiles[ix + 1]) & 0xffff00ff) == 0 &&
-		   (((uta->x0 + x + 1) << ART_UTILE_SHIFT) +
-		    ART_UTA_BBOX_X1(utiles[ix + 1]) -
+		   (((uta->x0 + x + 1) << EOG_UTILE_SHIFT) +
+		    EOG_UTA_BBOX_X1(utiles[ix + 1]) -
 		    x0) <= max_width)
 	      {
 		bb = utiles[ix + 1];
 		ix++;
 		x++;
 	      }
-	    x1 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X1(bb);
+	    x1 = ((uta->x0 + x) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_X1(bb);
 
 
 	    /* if rectangle nonempty */
@@ -574,7 +744,7 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 		else
 		  {
 		    if (n_rects == n_rects_max)
-		      art_expand (rects, ArtIRect, n_rects_max);
+		      eog_expand (rects, EogIRect, n_rects_max);
 		    rects[n_rects].x0 = x0;
 		    rects[n_rects].y0 = y0;
 		    rects[n_rects].x1 = x1;
@@ -597,17 +767,17 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
   } else
 	  rect->x0 = rect->y0 = rect->x1 = rect->y1 = 0;
 
-  art_free (glom);
-  art_free (rects);
+  g_free (glom);
+  g_free (rects);
 }
 
 #if 0
 
 void
-uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
+uta_find_first_glom_rect (EogUta *uta, EogIRect *rect, int max_width, int max_height)
 {
-	ArtUtaBbox *utiles;
-	ArtUtaBbox bb;
+	EogUtaBbox *utiles;
+	EogUtaBbox bb;
 	int width, height;
 	int ofs;
 	int x, y;
@@ -638,24 +808,24 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
 				continue;
 			}
 
-			x1 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X0 (bb);
-			y1 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y0 (bb);
-			y2 = ((uta->y0 + y) << ART_UTILE_SHIFT) + ART_UTA_BBOX_Y1 (bb);
+			x1 = ((uta->x0 + x) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_X0 (bb);
+			y1 = ((uta->y0 + y) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_Y0 (bb);
+			y2 = ((uta->y0 + y) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_Y1 (bb);
 
 			/* Grow to the right */
 
 			while (x != width - 1
-			       && ART_UTA_BBOX_X1 (bb) == ART_UTILE_SIZE
+			       && EOG_UTA_BBOX_X1 (bb) == EOG_UTILE_SIZE
 			       && (((bb & 0xffffff) ^ utiles[ofs + 1]) & 0xffff00ff) == 0
-			       && (((uta->x0 + x + 1) << ART_UTILE_SHIFT)
-				   + ART_UTA_BBOX_X1 (utiles[ofs + 1])
+			       && (((uta->x0 + x + 1) << EOG_UTILE_SHIFT)
+				   + EOG_UTA_BBOX_X1 (utiles[ofs + 1])
 				   - x1) <= max_width) {
 				ofs++;
 				bb = utiles[ofs];
 				x++;
 			}
 
-			x2 = ((uta->x0 + x) << ART_UTILE_SHIFT) + ART_UTA_BBOX_X1 (bb);
+			x2 = ((uta->x0 + x) << EOG_UTILE_SHIFT) + EOG_UTA_BBOX_X1 (bb);
 			goto grow_down;
 		}
 	}
@@ -675,10 +845,10 @@ uta_find_first_glom_rect (ArtUta *uta, ArtIRect *rect, int max_width, int max_he
  * instead of fetching-backwards-from-the-source.
  */
 static void
-copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
+copy_tile (EogUta *uta, int x, int y, int xofs, int yofs)
 {
-	ArtUtaBbox *utiles;
-	ArtUtaBbox bb, dbb;
+	EogUtaBbox *utiles;
+	EogUtaBbox bb, dbb;
 	int t_x1, t_y1, t_x2, t_y2;
 	int d_x1, d_y1, d_x2, d_y2;
 	int d_tx1, d_ty1;
@@ -692,40 +862,40 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 	if (bb == 0)
 		return;
 
-	t_x1 = ART_UTA_BBOX_X0 (bb) + (x << ART_UTILE_SHIFT);
-	t_y1 = ART_UTA_BBOX_Y0 (bb) + (y << ART_UTILE_SHIFT);
-	t_x2 = ART_UTA_BBOX_X1 (bb) + (x << ART_UTILE_SHIFT);
-	t_y2 = ART_UTA_BBOX_Y1 (bb) + (y << ART_UTILE_SHIFT);
+	t_x1 = EOG_UTA_BBOX_X0 (bb) + (x << EOG_UTILE_SHIFT);
+	t_y1 = EOG_UTA_BBOX_Y0 (bb) + (y << EOG_UTILE_SHIFT);
+	t_x2 = EOG_UTA_BBOX_X1 (bb) + (x << EOG_UTILE_SHIFT);
+	t_y2 = EOG_UTA_BBOX_Y1 (bb) + (y << EOG_UTILE_SHIFT);
 
 	d_x1 = t_x1 + xofs;
 	d_y1 = t_y1 + yofs;
 	d_x2 = t_x2 + xofs;
 	d_y2 = t_y2 + yofs;
 
-	d_tx1 = d_x1 >> ART_UTILE_SHIFT;
-	d_ty1 = d_y1 >> ART_UTILE_SHIFT;
+	d_tx1 = d_x1 >> EOG_UTILE_SHIFT;
+	d_ty1 = d_y1 >> EOG_UTILE_SHIFT;
 
 	dofs = (d_ty1 - uta->y0) * uta->width + d_tx1 - uta->x0;
 
-	d_xf1 = d_x1 & (ART_UTILE_SIZE - 1);
-	d_yf1 = d_y1 & (ART_UTILE_SIZE - 1);
-	d_xf2 = ((d_x2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
-	d_yf2 = ((d_y2 - 1) & (ART_UTILE_SIZE - 1)) + 1;
+	d_xf1 = d_x1 & (EOG_UTILE_SIZE - 1);
+	d_yf1 = d_y1 & (EOG_UTILE_SIZE - 1);
+	d_xf2 = ((d_x2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
+	d_yf2 = ((d_y2 - 1) & (EOG_UTILE_SIZE - 1)) + 1;
 
-	if (d_x2 - d_x1 <= ART_UTILE_SIZE - d_xf1) {
-		if (d_y2 - d_y1 <= ART_UTILE_SIZE - d_yf1) {
+	if (d_x2 - d_x1 <= EOG_UTILE_SIZE - d_xf1) {
+		if (d_y2 - d_y1 <= EOG_UTILE_SIZE - d_yf1) {
 			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						d_xf1, d_yf1, d_xf2, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 		} else {
 			/* Top tile */
@@ -733,14 +903,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						d_xf1, d_yf1, d_xf2, ART_UTILE_SIZE);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						d_xf1, d_yf1, d_xf2, EOG_UTILE_SIZE);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						ART_UTILE_SIZE);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						EOG_UTILE_SIZE);
 			}
 
 			dofs += uta->width;
@@ -750,31 +920,31 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						d_xf1, 0, d_xf2, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
 						0,
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 		}
 	} else {
-		if (d_y2 - d_y1 <= ART_UTILE_SIZE - d_yf1) {
+		if (d_y2 - d_y1 <= EOG_UTILE_SIZE - d_yf1) {
 			/* Left tile */
 			if (d_tx1 >= uta->x0 && d_tx1 < uta->x0 + uta->width
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						d_xf1, d_yf1, ART_UTILE_SIZE, d_yf2);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						d_xf1, d_yf1, EOG_UTILE_SIZE, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						ART_UTILE_SIZE,
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						EOG_UTILE_SIZE,
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 
 			dofs++;
@@ -784,14 +954,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						0, d_yf1, d_xf2, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						0,
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 		} else {
 			/* Top left tile */
@@ -799,14 +969,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						d_xf1, d_yf1, ART_UTILE_SIZE, ART_UTILE_SIZE);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						d_xf1, d_yf1, EOG_UTILE_SIZE, EOG_UTILE_SIZE);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						ART_UTILE_SIZE,
-						ART_UTILE_SIZE);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						EOG_UTILE_SIZE,
+						EOG_UTILE_SIZE);
 			}
 
 			dofs++;
@@ -816,14 +986,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 >= uta->y0 && d_ty1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						0, d_yf1, d_xf2, ART_UTILE_SIZE);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						0, d_yf1, d_xf2, EOG_UTILE_SIZE);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						0,
-						MIN (ART_UTA_BBOX_Y0 (dbb), d_yf1),
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						ART_UTILE_SIZE);
+						MIN (EOG_UTA_BBOX_Y0 (dbb), d_yf1),
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						EOG_UTILE_SIZE);
 			}
 
 			dofs += uta->width - 1;
@@ -833,14 +1003,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						d_xf1, 0, ART_UTILE_SIZE, d_yf2);
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						d_xf1, 0, EOG_UTILE_SIZE, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
-						MIN (ART_UTA_BBOX_X0 (dbb), d_xf1),
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
+						MIN (EOG_UTA_BBOX_X0 (dbb), d_xf1),
 						0,
-						ART_UTILE_SIZE,
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+						EOG_UTILE_SIZE,
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 
 			dofs++;
@@ -850,14 +1020,14 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
 			    && d_ty1 + 1 >= uta->y0 && d_ty1 + 1 < uta->y0 + uta->height) {
 				dbb = utiles[dofs];
 				if (dbb == 0)
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						0, 0, d_xf2, d_yf2);
 				else
-					utiles[dofs] = ART_UTA_BBOX_CONS (
+					utiles[dofs] = EOG_UTA_BBOX_CONS (
 						0,
 						0,
-						MAX (ART_UTA_BBOX_X1 (dbb), d_xf2),
-						MAX (ART_UTA_BBOX_Y1 (dbb), d_yf2));
+						MAX (EOG_UTA_BBOX_X1 (dbb), d_xf2),
+						MAX (EOG_UTA_BBOX_Y1 (dbb), d_yf2));
 			}
 		}
 	}
@@ -879,7 +1049,7 @@ copy_tile (ArtUta *uta, int x, int y, int xofs, int yofs)
  * within the microtile array.
  **/
 void
-uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int width, int height)
+uta_copy_area (EogUta *uta, int src_x, int src_y, int dest_x, int dest_y, int width, int height)
 {
 	int rect_x1, rect_y1, rect_x2, rect_y2;
 	gboolean top_to_bottom, left_to_right;
@@ -888,10 +1058,10 @@ uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int wi
 
 	g_return_if_fail (uta != NULL);
 	g_return_if_fail (width >= 0 && height >= 0);
-	g_return_if_fail (src_x >= uta->x0 << ART_UTILE_SHIFT);
-	g_return_if_fail (src_y >= uta->y0 << ART_UTILE_SHIFT);
-	g_return_if_fail (src_x + width <= (uta->x0 + uta->width) << ART_UTILE_SHIFT);
-	g_return_if_fail (src_y + height <= (uta->y0 + uta->height) << ART_UTILE_SHIFT);
+	g_return_if_fail (src_x >= uta->x0 << EOG_UTILE_SHIFT);
+	g_return_if_fail (src_y >= uta->y0 << EOG_UTILE_SHIFT);
+	g_return_if_fail (src_x + width <= (uta->x0 + uta->width) << EOG_UTILE_SHIFT);
+	g_return_if_fail (src_y + height <= (uta->y0 + uta->height) << EOG_UTILE_SHIFT);
 
 	if ((src_x == dest_x && src_y == dest_y) || width == 0 || height == 0)
 		return;
@@ -915,10 +1085,10 @@ uta_copy_area (ArtUta *uta, int src_x, int src_y, int dest_x, int dest_y, int wi
 	 *    offsetting it in the same way as copy_tile() does.
 	 */
 
-	rect_x1 = src_x >> ART_UTILE_SHIFT;
-	rect_y1 = src_y >> ART_UTILE_SHIFT;
-	rect_x2 = (src_x + width + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
-	rect_y2 = (src_y + height + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	rect_x1 = src_x >> EOG_UTILE_SHIFT;
+	rect_y1 = src_y >> EOG_UTILE_SHIFT;
+	rect_x2 = (src_x + width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	rect_y2 = (src_y + height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
 	xofs = dest_x - src_x;
 	yofs = dest_y - src_y;

@@ -100,7 +100,7 @@ struct _EogScrollViewPrivate {
 	/* Microtile arrays for dirty region.  This represents the dirty region
 	 * for interpolated drawing.
 	 */
-	ArtUta *uta;
+	EogUta *uta;
 
 	/* handler ID for paint idle callback */
 	guint idle_id;
@@ -482,7 +482,7 @@ get_image_offsets (EogScrollView *view, int *xofs, int *yofs)
  * from the microtile array.
  */
 static void
-pull_rectangle (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
+pull_rectangle (EogUta *uta, EogIRect *rect, int max_width, int max_height)
 {
 	uta_find_first_glom_rect (uta, rect, max_width, max_height);
 	uta_remove_rect (uta, rect->x0, rect->y0, rect->x1, rect->y1);
@@ -492,15 +492,15 @@ pull_rectangle (ArtUta *uta, ArtIRect *rect, int max_width, int max_height)
  * intersects the dirty rectangle.
  */
 static void
-paint_background (EogScrollView *view, ArtIRect *r, ArtIRect *rect)
+paint_background (EogScrollView *view, EogIRect *r, EogIRect *rect)
 {
 	EogScrollViewPrivate *priv;
-	ArtIRect d;
+	EogIRect d;
 
 	priv = view->priv;
 
-	art_irect_intersect (&d, r, rect);
-	if (!art_irect_empty (&d)) {
+	eog_irect_intersect (&d, r, rect);
+	if (!eog_irect_empty (&d)) {
 		gdk_window_clear_area (GTK_WIDGET (priv->display)->window,
 				       d.x0, d.y0,
 				       d.x1 - d.x0, d.y1 - d.y0);
@@ -509,13 +509,13 @@ paint_background (EogScrollView *view, ArtIRect *r, ArtIRect *rect)
 
 /* Paints a rectangle of the dirty region */
 static void
-paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
+paint_rectangle (EogScrollView *view, EogIRect *rect, GdkInterpType interp_type)
 {
 	EogScrollViewPrivate *priv;
 	int scaled_width, scaled_height;
 	int width, height;
 	int xofs, yofs;
-	ArtIRect r, d;
+	EogIRect r, d;
 	GdkPixbuf *tmp;
 	int check_size;
 	char *str;
@@ -611,8 +611,8 @@ paint_rectangle (EogScrollView *view, ArtIRect *rect, GdkInterpType interp_type)
 	r.x1 = xofs + scaled_width;
 	r.y1 = yofs + scaled_height;
 
-	art_irect_intersect (&d, &r, rect);
-	if (art_irect_empty (&d))
+	eog_irect_intersect (&d, &r, rect);
+	if (eog_irect_empty (&d))
 		return;
 
 	switch (interp_type) {
@@ -722,7 +722,7 @@ paint_iteration_idle (gpointer data)
 {
 	EogScrollView *view;
 	EogScrollViewPrivate *priv;
-	ArtIRect rect;
+	EogIRect rect;
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
@@ -731,8 +731,8 @@ paint_iteration_idle (gpointer data)
 
 	pull_rectangle (priv->uta, &rect, PAINT_RECT_WIDTH, PAINT_RECT_HEIGHT);
 
-	if (art_irect_empty (&rect)) {
-		art_uta_free (priv->uta);
+	if (eog_irect_empty (&rect)) {
+		eog_uta_free (priv->uta);
 		priv->uta = NULL;
 	} else
 		paint_rectangle (view, &rect, priv->interp_type);
@@ -753,7 +753,7 @@ static void
 request_paint_area (EogScrollView *view, GdkRectangle *area)
 {
 	EogScrollViewPrivate *priv;
-	ArtIRect r;
+	EogIRect r;
 
 	priv = view->priv;
 
@@ -857,8 +857,8 @@ scroll_to (EogScrollView *view, int x, int y, gboolean change_adjustments)
 
 	/* Ensure that the uta has the full size */
 
-	twidth = (width + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
-	theight = (height + ART_UTILE_SIZE - 1) >> ART_UTILE_SHIFT;
+	twidth = (width + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
+	theight = (height + EOG_UTILE_SIZE - 1) >> EOG_UTILE_SHIFT;
 
 	if (priv->uta)
 		g_assert (priv->idle_id != 0);
@@ -1947,7 +1947,7 @@ eog_scroll_view_dispose (GObject *object)
 	priv = view->priv;
 
 	if (priv->uta != NULL) {
-		art_uta_free (priv->uta);
+		eog_uta_free (priv->uta);
 		priv->uta = NULL;
 	}
 

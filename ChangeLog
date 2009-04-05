@@ -1,5 +1,20 @@
 2009-04-05  Felix Riemann  <friemann@svn.gnome.org>
 
+	* configure.ac: Remove libart dependency and set version.
+	* src/eog-scroll-view.c: (pull_rectangle), (paint_background),
+	(paint_rectangle), (paint_iteration_idle), (request_paint_area),
+	(scroll_to), (eog_scroll_view_dispose):
+	* src/uta.c: (eog_uta_new), (eog_uta_free), (eog_irect_intersect),
+	(eog_irect_empty), (eog_uta_from_irect), (uta_ensure_size),
+	(uta_add_rect), (uta_remove_rect), (uta_find_first_glom_rect),
+	(copy_tile), (uta_copy_area):
+	* src/uta.h:
+	Copy pieces needed from libart_lgpl for the µta code into our own
+	namespace as there is no replacement available. This removes the
+	libart_lgpl dependency. Fixes bug #571732.
+
+2009-04-05  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-transform.c: (eog_transform_apply),
 	(_eog_cairo_matrix_copy), (_eog_cairo_matrix_equal),
 	(_eog_cairo_matrix_flip), (eog_transform_reverse),
