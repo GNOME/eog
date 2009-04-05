@@ -1,3 +1,24 @@
+/* Eye Of GNOME -- Affine Transformations
+ *
+ * Copyright (C) 2003-2009 The Free Software Foundation
+ *
+ * Portions based on code from libart_lgpl by Raph Levien.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -6,7 +27,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <gtk/gtk.h>
-#include <libart_lgpl/art_affine.h>
+#include <cairo/cairo.h>
 
 #include "eog-transform.h"
 #include "eog-jobs.h"
@@ -15,8 +36,16 @@
 #define EOG_TRANSFORM_N_PROG_UPDATES 20
 
 struct _EogTransformPrivate {
-	double affine[6];
+	cairo_matrix_t affine;
 };
+
+typedef struct {
+	gdouble x;
+	gdouble y;
+} EogPoint;
+
+/* Convert degrees into radians */
+#define EOG_DEG_TO_RAD(degree) ((degree) * (G_PI/180.0)) 
 
 #define EOG_TRANSFORM_GET_PRIVATE(object) \
 	(G_TYPE_INSTANCE_GET_PRIVATE ((object), EOG_TYPE_TRANSFORM, EogTransformPrivate))
@@ -38,13 +67,12 @@ eog_transform_class_init (EogTransformClass *klass)
 GdkPixbuf*
 eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 {
-	ArtPoint dest_top_left;
-	ArtPoint dest_bottom_right;
-	ArtPoint vertices[4] = { {0, 0}, {1, 0}, {1, 1}, {0, 1} };
+	EogPoint dest_top_left;
+	EogPoint dest_bottom_right;
+	EogPoint vertices[4] = { {0, 0}, {1, 0}, {1, 1}, {0, 1} };
 	double r_det;
 	int inverted [6];
-	ArtPoint dest;
-	ArtPoint src;
+	EogPoint dest;
 
 	int src_width;
 	int src_height;
@@ -83,10 +111,11 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	dest_bottom_right.y = -100000;
 
 	for (i = 0; i < 4; i++) {
-		src.x = vertices[i].x * (src_width - 1);
-		src.y = vertices[i].y * (src_height -1);
+		dest.x = vertices[i].x * (src_width - 1);
+		dest.y = vertices[i].y * (src_height -1);
 
-		art_affine_point (&dest, &src, trans->priv->affine);
+		cairo_matrix_transform_point (&trans->priv->affine,
+					      &dest.x, &dest.y);
 
 		dest_top_left.x = MIN (dest_top_left.x, dest.x);
 		dest_top_left.y = MIN (dest_top_left.y, dest.y);
@@ -114,13 +143,13 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	   improvements by using special mmx/3dnow features if
 	   available.
 	*/
-	r_det = 1.0 / (trans->priv->affine[0] * trans->priv->affine[3] - trans->priv->affine[1] * trans->priv->affine[2]);
-	inverted[0] =  trans->priv->affine[3] * r_det;
-	inverted[1] = -trans->priv->affine[1] * r_det;
-	inverted[2] = -trans->priv->affine[2] * r_det;
-	inverted[3] =  trans->priv->affine[0] * r_det;
-	inverted[4] = -trans->priv->affine[4] * inverted[0] - trans->priv->affine[5] * inverted[2];
-	inverted[5] = -trans->priv->affine[4] * inverted[1] - trans->priv->affine[5] * inverted[3];
+	r_det = 1.0 / (trans->priv->affine.xx * trans->priv->affine.yy - trans->priv->affine.yx * trans->priv->affine.xy);
+	inverted[0] =  trans->priv->affine.yy * r_det;
+	inverted[1] = -trans->priv->affine.yx * r_det;
+	inverted[2] = -trans->priv->affine.xy * r_det;
+	inverted[3] =  trans->priv->affine.xx * r_det;
+	inverted[4] = -trans->priv->affine.x0 * inverted[0] - trans->priv->affine.y0 * inverted[2];
+	inverted[5] = -trans->priv->affine.x0 * inverted[1] - trans->priv->affine.y0 * inverted[3];
 
 	progress_delta = MAX (1, dest_height / EOG_TRANSFORM_N_PROG_UPDATES);
 
@@ -162,6 +191,35 @@ eog_transform_apply (EogTransform *trans, GdkPixbuf *pixbuf, EogJob *job)
 	return dest_pixbuf;
 }
 
+static void
+_eog_cairo_matrix_copy (const cairo_matrix_t *src, cairo_matrix_t *dest)
+{
+	cairo_matrix_init (dest, src->xx, src->yx, src->xy, src->yy, src->x0, src->y0);
+}
+
+#define DOUBLE_EQUAL_MAX_DIFF 1e-6
+#define DOUBLE_EQUAL(a,b) (fabs (a - b) < DOUBLE_EQUAL_MAX_DIFF)
+/* art_affine_equal modified to work with cairo_matrix_t */
+static gboolean
+_eog_cairo_matrix_equal (const cairo_matrix_t *a, const cairo_matrix_t *b)
+{
+	return (DOUBLE_EQUAL (a->xx, b->xx) && DOUBLE_EQUAL (a->yx, b->yx) &&
+		DOUBLE_EQUAL (a->xy, b->xy) && DOUBLE_EQUAL (a->yy, b->yy) &&
+		DOUBLE_EQUAL (a->x0, b->x0) && DOUBLE_EQUAL (a->y0, b->y0) );
+}
+
+/* art_affine_flip modified to work with cairo_matrix_t */
+static void
+_eog_cairo_matrix_flip (cairo_matrix_t *dst, const cairo_matrix_t *src, gboolean horiz, gboolean vert)
+{
+	dst->xx = horiz ? -src->xx : src->xx;
+	dst->yx = horiz ? -src->yx : src->yx;
+	dst->xy = vert ? -src->xy : src->xy;
+	dst->yy = vert ? -src->yy : src->yy;
+	dst->x0 = horiz ? -src->x0 : src->x0;
+	dst->y0 = vert ? -src->y0 : src->y0;
+}
+
 EogTransform*
 eog_transform_reverse (EogTransform *trans)
 {
@@ -171,7 +229,9 @@ eog_transform_reverse (EogTransform *trans)
 
 	reverse = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
-	art_affine_invert (reverse->priv->affine, trans->priv->affine);
+	_eog_cairo_matrix_copy (&trans->priv->affine, &reverse->priv->affine);
+
+	g_return_val_if_fail (cairo_matrix_invert (&reverse->priv->affine) == CAIRO_STATUS_SUCCESS, reverse);
 
 	return reverse;
 }
@@ -186,9 +246,9 @@ eog_transform_compose (EogTransform *trans, EogTransform *compose)
 
 	composition = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
-	art_affine_multiply (composition->priv->affine,
-			     trans->priv->affine,
-			     compose->priv->affine);
+	cairo_matrix_multiply (&composition->priv->affine,
+			       &trans->priv->affine,
+			       &compose->priv->affine);
 
 	return composition;
 }
@@ -196,11 +256,11 @@ eog_transform_compose (EogTransform *trans, EogTransform *compose)
 gboolean
 eog_transform_is_identity (EogTransform *trans)
 {
-	double identity[6] = { 1, 0, 0, 1, 0, 0 };
+	static const cairo_matrix_t identity = { 1, 0, 0, 1, 0, 0 };
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), FALSE);
 
-	return art_affine_equal (identity, trans->priv->affine);
+	return _eog_cairo_matrix_equal (&identity, &trans->priv->affine);
 }
 
 EogTransform*
@@ -210,7 +270,7 @@ eog_transform_identity_new (void)
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
-	art_affine_identity (trans->priv->affine);
+	cairo_matrix_init_identity (&trans->priv->affine);
 
 	return trans;
 }
@@ -222,7 +282,7 @@ eog_transform_rotate_new (int degree)
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
-	art_affine_rotate (trans->priv->affine, degree);
+	cairo_matrix_init_rotate (&trans->priv->affine, EOG_DEG_TO_RAD(degree));
 
 	return trans;
 }
@@ -235,31 +295,17 @@ eog_transform_flip_new   (EogTransformType type)
 
 	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, NULL));
 
-	art_affine_identity (trans->priv->affine);
+	cairo_matrix_init_identity (&trans->priv->affine);
 
 	horiz = (type == EOG_TRANSFORM_FLIP_HORIZONTAL);
 	vert = (type == EOG_TRANSFORM_FLIP_VERTICAL);
 
-	art_affine_flip (trans->priv->affine,
-			 trans->priv->affine,
-			 horiz, vert);
+	_eog_cairo_matrix_flip (&trans->priv->affine,
+				&trans->priv->affine,
+				horiz, vert);
 
 	return trans;
 }
-
-#if 0
-EogTransform*
-eog_transform_scale_new  (double sx, double sy)
-{
-	EogTransform *trans;
-
-	trans = EOG_TRANSFORM (g_object_new (EOG_TYPE_TRANSFORM, 0));
-
-	art_affine_scale (trans->priv->affine, sx, sy);
-
-	return trans;
-}
-#endif
 
 EogTransform*
 eog_transform_new (EogTransformType type)
@@ -311,49 +357,49 @@ eog_transform_new (EogTransformType type)
 EogTransformType
 eog_transform_get_transform_type (EogTransform *trans)
 {
-	double affine[6];
+	cairo_matrix_t affine;
 	EogTransformPrivate *priv;
 
 	g_return_val_if_fail (EOG_IS_TRANSFORM (trans), EOG_TRANSFORM_NONE);
 
 	priv = trans->priv;
 
-        art_affine_rotate (affine, 90);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(90));
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_ROT_90;
 	}
 
-        art_affine_rotate (affine, 180);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(180));
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_ROT_180;
 	}
 
-        art_affine_rotate (affine, 270);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(270));
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_ROT_270;
 	}
 
-	art_affine_identity (affine);
-	art_affine_flip (affine, affine, TRUE, FALSE);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_identity (&affine);
+	_eog_cairo_matrix_flip (&affine, &affine, TRUE, FALSE);
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_FLIP_HORIZONTAL;
 	}
 
-	art_affine_identity (affine);
-	art_affine_flip (affine, affine, FALSE, TRUE);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_identity (&affine);
+	_eog_cairo_matrix_flip (&affine, &affine, FALSE, TRUE);
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_FLIP_VERTICAL;
 	}
 
-	art_affine_rotate (affine, 90);
-	art_affine_flip (affine, affine, TRUE, FALSE);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(90));
+	_eog_cairo_matrix_flip (&affine, &affine, TRUE, FALSE);
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_TRANSPOSE;
 	}
 
-	art_affine_rotate (affine, 90);
-	art_affine_flip (affine, affine, FALSE, TRUE);
-	if (art_affine_equal (affine, priv->affine)) {
+	cairo_matrix_init_rotate (&affine, EOG_DEG_TO_RAD(90));
+	_eog_cairo_matrix_flip (&affine, &affine, FALSE, TRUE);
+	if (_eog_cairo_matrix_equal (&affine, &priv->affine)) {
 		return EOG_TRANSFORM_TRANSVERSE;
 	}
 

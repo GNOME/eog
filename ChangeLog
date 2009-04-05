@@ -1,3 +1,14 @@
+2009-04-05  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-transform.c: (eog_transform_apply),
+	(_eog_cairo_matrix_copy), (_eog_cairo_matrix_equal),
+	(_eog_cairo_matrix_flip), (eog_transform_reverse),
+	(eog_transform_compose), (eog_transform_is_identity),
+	(eog_transform_identity_new), (eog_transform_rotate_new),
+	(eog_transform_flip_new), (eog_transform_get_transform_type):
+	Use cairo_matrix_t instead of libart for affine transformations.
+	Import missing parts from libart_lgpl. Part of bug #571732.
+
 2009-04-02  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-metadata-reader-jpg.c: Make sure the JPEG metadata segment
