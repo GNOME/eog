@@ -45,12 +45,14 @@ struct _EogImagePrivate {
 	gboolean          threadsafe_format;
 
 	/* Holds EXIF raw data */
-	guchar           *exif_chunk;
 	guint             exif_chunk_len;
+	guchar           *exif_chunk;
 
 	/* Holds IPTC raw data */
 	guchar           *iptc_chunk;
 	guint             iptc_chunk_len;
+
+	gboolean          modified;
 
 #ifdef HAVE_EXIF
 	gboolean          autorotate;
@@ -65,8 +67,6 @@ struct _EogImagePrivate {
 	cmsHPROFILE       profile;
 #endif
 
-	gboolean          modified;
-
 	gchar            *caption;
 
 	gchar            *collate_key;
@@ -74,13 +74,12 @@ struct _EogImagePrivate {
 	GMutex           *status_mutex;
 
 	gboolean          cancel_loading;
+	guint             data_ref_count;
 
 	GSList           *undo_stack;
 
 	EogTransform     *trans;
 	EogTransform     *trans_autorotate;
-
-	guint             data_ref_count;
 };
 
 G_END_DECLS

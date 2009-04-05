@@ -1,5 +1,14 @@
 2009-04-05  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/eog-image-private.h:
+	* src/eog-metadata-reader-jpg.c:
+	* src/eog-metadata-reader-png.c:
+	Reorder private structure members to better avoid padding holes
+	on 64bit machines. e.g. sizeof(EogImagePrivate) went down from
+	208 Bytes to 184 Bytes. No change for 32bit machines though.
+
+2009-04-05  Felix Riemann  <friemann@svn.gnome.org>
+
 	* configure.ac: Remove libart dependency and set version.
 	* src/eog-scroll-view.c: (pull_rectangle), (paint_background),
 	(paint_rectangle), (paint_iteration_idle), (request_paint_area),

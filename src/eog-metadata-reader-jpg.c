@@ -68,14 +68,14 @@ struct _EogMetadataReaderJpgPrivate {
 	EogMetadataReaderState  state;
 
 	/* data fields */
-	gpointer exif_chunk;
 	guint    exif_len;
+	gpointer exif_chunk;
 
 	gpointer iptc_chunk;
 	guint	 iptc_len;
 
-	gpointer icc_chunk;
 	guint icc_len;
+	gpointer icc_chunk;
 
 	gpointer xmp_chunk;
 	guint xmp_len;
