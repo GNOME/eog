@@ -706,11 +706,9 @@ eog_properties_dialog_new (GtkWindow    *parent,
 			     	 "thumbview", thumbview,
 			     	 NULL);
 
-	gtk_action_connect_proxy (next_image_action,
-				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->next_button);
+	gtk_activatable_set_related_action (GTK_ACTIVATABLE (EOG_PROPERTIES_DIALOG (prop_dlg)->priv->next_button), next_image_action);
 
-	gtk_action_connect_proxy (previous_image_action,
-				  EOG_PROPERTIES_DIALOG (prop_dlg)->priv->previous_button);
+	gtk_activatable_set_related_action (GTK_ACTIVATABLE (EOG_PROPERTIES_DIALOG (prop_dlg)->priv->previous_button), previous_image_action);
 
 	return prop_dlg;
 }

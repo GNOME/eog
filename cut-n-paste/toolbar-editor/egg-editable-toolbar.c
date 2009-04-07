@@ -16,7 +16,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- *  $Id: egg-editable-toolbar.c 929 2009-02-19 14:49:56Z friemann $
+ *  $Id: egg-editable-toolbar.c 937 2009-04-07 11:16:53Z friemann $
  */
 
 #include "config.h"
@@ -200,7 +200,12 @@ drag_begin_cb (GtkWidget          *widget,
 
   gtk_widget_hide (widget);
 
+#if GTK_CHECK_VERSION (2, 16, 0)
+  action = gtk_activatable_get_related_action (GTK_ACTIVATABLE (widget));
+#else
   action = gtk_widget_get_action (widget);
+#endif
+
   if (action == NULL) return;
 
   flags = egg_toolbars_model_get_name_flags (etoolbar->priv->model,
@@ -226,7 +231,12 @@ drag_end_cb (GtkWidget          *widget,
     {
       gtk_widget_show (widget);
 
+#if GTK_CHECK_VERSION (2, 16, 0)
+      action = gtk_activatable_get_related_action (GTK_ACTIVATABLE (widget));
+#else
       action = gtk_widget_get_action (widget);
+#endif
+
       if (action == NULL) return;
 
       flags = egg_toolbars_model_get_name_flags (etoolbar->priv->model,
@@ -497,7 +507,13 @@ configure_item_cursor (GtkToolItem *item,
 static void
 configure_item_tooltip (GtkToolItem *item)
 {
-  GtkAction *action = gtk_widget_get_action (GTK_WIDGET (item));
+  GtkAction *action;
+
+#if GTK_CHECK_VERSION (2, 16, 0)
+  action = gtk_activatable_get_related_action (GTK_ACTIVATABLE (item));
+#else
+  action = gtk_widget_get_action (GTK_WIDGET (item));
+#endif
 
   if (action != NULL)
     {
