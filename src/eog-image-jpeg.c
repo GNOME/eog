@@ -378,6 +378,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 			     GDK_PIXBUF_ERROR,
 			     GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
 			     _("Couldn't allocate memory for loading JPEG file"));
+		fclose (outfile);
 		return FALSE;
 	}
 
@@ -398,6 +399,7 @@ _save_any_as_jpeg (EogImage *image, const char *file, EogImageSaveInfo *source,
 
 	/* error exit routine */
 	if (sigsetjmp (jerr.setjmp_buffer, 1)) {
+		g_free (buf);
 		fclose (outfile);
 		jpeg_destroy_compress (&cinfo);
 		return FALSE;
