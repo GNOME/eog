@@ -1185,13 +1185,6 @@ display_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 		zoom = 1.0;
 		break;
 
-	case GDK_F:
-	case GDK_f:
-		set_zoom_fit (view);
-		check_scrollbar_visibility (view, NULL);
-		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
-		break;
-
 	default:
 		return FALSE;
 	}
