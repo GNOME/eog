@@ -3024,7 +3024,14 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	int response;
 	int n_images;
 	EogImage *image;
+	static gboolean dontaskagain = FALSE;
+	GtkWidget* dontask_cbutton = NULL;
 
+	/* Assume agreement, if the user doesn't want to be
+	 * asked and the trash is available */
+	if (can_trash && dontaskagain)
+		return GTK_RESPONSE_OK;
+	
 	n_images = g_list_length (images);
 
 	if (n_images == 1) {
@@ -3061,6 +3068,11 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 
 	if (can_trash) {
 		gtk_dialog_add_button (GTK_DIALOG (dlg), _("Move to _Trash"), GTK_RESPONSE_OK);
+
+		dontask_cbutton = gtk_check_button_new_with_mnemonic (_("_Do not ask again during this session"));
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dontask_cbutton), FALSE);
+
+		gtk_box_pack_end (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dlg))), dontask_cbutton, TRUE, TRUE, 0);
 	} else {
 		if (n_images == 1) {
 			gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_DELETE, GTK_RESPONSE_OK);
@@ -3074,6 +3086,12 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	gtk_widget_show_all (dlg);
 
 	response = gtk_dialog_run (GTK_DIALOG (dlg));
+
+	/* Only update the property if the user has accepted */
+	if (can_trash && response == GTK_RESPONSE_OK)
+		dontaskagain = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dontask_cbutton));
+
+	/* The checkbutton is destroyed together with the dialog */
 	gtk_widget_destroy (dlg);
 
 	return response;
