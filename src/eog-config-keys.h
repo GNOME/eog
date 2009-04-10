@@ -51,6 +51,7 @@
 #define EOG_CONF_UI_IMAGE_COLLECTION_RESIZABLE	"/apps/eog/ui/image_collection_resizable"
 #define EOG_CONF_UI_SIDEBAR			"/apps/eog/ui/sidebar"
 #define EOG_CONF_UI_SCROLL_BUTTONS		"/apps/eog/ui/scroll_buttons"
+#define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"/apps/eog/ui/disable_trash_confirmation"
 
 #define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "/apps/eog/plugins/active_plugins"
 

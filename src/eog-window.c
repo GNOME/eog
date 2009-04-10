@@ -3025,11 +3025,18 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 	int n_images;
 	EogImage *image;
 	static gboolean dontaskagain = FALSE;
+	gboolean neverask = FALSE;
 	GtkWidget* dontask_cbutton = NULL;
+
+	/* Check if the user never wants to be bugged. Ignore the error as
+	 * it returns FALSE for safety anyway */
+	neverask = gconf_client_get_bool (window->priv->client,
+					 EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION,
+					 NULL);
 
 	/* Assume agreement, if the user doesn't want to be
 	 * asked and the trash is available */
-	if (can_trash && dontaskagain)
+	if (can_trash && (dontaskagain || neverask))
 		return GTK_RESPONSE_OK;
 	
 	n_images = g_list_length (images);
@@ -3058,7 +3065,7 @@ show_move_to_trash_confirm_dialog (EogWindow *window, GList *images, gboolean ca
 
 	dlg = gtk_message_dialog_new_with_markup (GTK_WINDOW (window),
 						  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-						  GTK_MESSAGE_QUESTION,
+						  GTK_MESSAGE_WARNING,
 						  GTK_BUTTONS_NONE,
 						  "<span weight=\"bold\" size=\"larger\">%s</span>",
 						  prompt);

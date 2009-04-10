@@ -203,6 +203,20 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/eog/ui/disable_trash_confirmation</key>
+      <applyto>/apps/eog/ui/disable_trash_confirmation</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Trash images without asking</short>
+	<long>If activated Eye of GNOME wont ask for confirmation when
+	moving images to the trash. It will still ask if any of the files
+	cannot be moved to the trash and would be deleted instead.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/plugins/active_plugins</key>
       <applyto>/apps/eog/plugins/active_plugins</applyto>
       <owner>eog</owner>
