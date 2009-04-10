@@ -59,20 +59,20 @@ struct _EogMetadataReaderPngPrivate {
 	EogMetadataReaderPngState  state;
 
 	/* data fields */
-	gpointer icc_chunk;
 	guint32  icc_len;
+	gpointer icc_chunk;
 
 	gpointer xmp_chunk;
 	guint32  xmp_len;
 
-	gpointer sRGB_chunk;
 	guint32	 sRGB_len;
+	gpointer sRGB_chunk;
 
 	gpointer cHRM_chunk;
 	guint32	 cHRM_len;
 
-	gpointer gAMA_chunk;
 	guint32	 gAMA_len;
+	gpointer gAMA_chunk;
 
 	/* management fields */
 	gsize      size;
