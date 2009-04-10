@@ -33,7 +33,10 @@ static const gchar * const ui_definition =
 	"<ui><menubar name=\"MainMenu\">"
 	"<menu name=\"ToolsMenu\" action=\"Tools\"><separator/>"
 	"<menuitem name=\"EogPluginReload\" action=\"EogPluginRunReload\"/>"
-	"<separator/></menu></menubar></ui>";
+	"<separator/></menu></menubar>"
+	"<popup name=\"ViewPopup\"><separator/>"
+	"<menuitem action=\"EogPluginRunReload\"/><separator/>"
+	"</popup></ui>";
 
 static const GtkActionEntry action_entries[] =
 {
