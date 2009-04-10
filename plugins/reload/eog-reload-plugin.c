@@ -13,8 +13,6 @@
 #include <eog-image.h>
 
 #define WINDOW_DATA_KEY "EogReloadWindowData"
-/*#define MENU_PATH "/MainMenu/ImageMenu/Reload"*/
-#define MENU_PATH "/MainMenu/ToolsMenu/ToolsOps_3"
 
 EOG_PLUGIN_REGISTER_TYPE(EogReloadPlugin, eog_reload_plugin)
 
@@ -31,9 +29,15 @@ reload_cb (GtkAction	*action,
         eog_window_reload_image (window);
 }
 
+static const gchar * const ui_definition =
+	"<ui><menubar name=\"MainMenu\">"
+	"<menu name=\"ToolsMenu\" action=\"Tools\"><separator/>"
+	"<menuitem name=\"EogPluginReload\" action=\"EogPluginRunReload\"/>"
+	"<separator/></menu></menubar></ui>";
+
 static const GtkActionEntry action_entries[] =
 {
-	{ "RunReload",
+	{ "EogPluginRunReload",
 	  GTK_STOCK_REFRESH,
 	  N_("Reload Image"),
 	  "R",
@@ -97,20 +101,15 @@ impl_activate (EogPlugin *plugin,
 					    data->ui_action_group,
 					    -1);
 
-	data->ui_id = gtk_ui_manager_new_merge_id (manager);
-
 	g_object_set_data_full (G_OBJECT (window),
 				WINDOW_DATA_KEY,
 				data,
 				(GDestroyNotify) free_window_data);
 
-	gtk_ui_manager_add_ui (manager,
-			       data->ui_id,
-			       MENU_PATH,
-			       "RunReload",
-			       "RunReload",
-			       GTK_UI_MANAGER_MENUITEM,
-			       FALSE);
+	data->ui_id = gtk_ui_manager_add_ui_from_string (manager,
+							 ui_definition,
+							 -1, NULL);
+	g_warn_if_fail (data->ui_id != 0);
 }
 
 static void
@@ -140,12 +139,6 @@ impl_deactivate	(EogPlugin *plugin,
 }
 
 static void
-impl_update_ui (EogPlugin *plugin,
-		EogWindow *window)
-{
-}
-
-static void
 eog_reload_plugin_class_init (EogReloadPluginClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -155,5 +148,4 @@ eog_reload_plugin_class_init (EogReloadPluginClass *klass)
 
 	plugin_class->activate = impl_activate;
 	plugin_class->deactivate = impl_deactivate;
-	plugin_class->update_ui = impl_update_ui;
 }
