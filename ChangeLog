@@ -1,3 +1,10 @@
+2009-04-17  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-metadata-reader-jpg.c (eog_metadata_reader_jpg_consume):
+	Fix segfaults when loading images with multiple APP1 chunks of the
+	same metadata type (EXIF, XMP). Fixes bug 579212.
+
+
 2009-04-13  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Post release version bump.
