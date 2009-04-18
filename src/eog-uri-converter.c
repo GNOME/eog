@@ -258,6 +258,7 @@ eog_uri_converter_get_property (GObject    *object,
 
 	case PROP_COUNTER_N_DIGITS:
 		g_value_set_uint (value, priv->counter_n_digits);
+		break;
 
         default:
                 g_assert_not_reached ();
