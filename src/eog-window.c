@@ -4758,6 +4758,7 @@ eog_window_get_property (GObject    *object,
         switch (property_id) {
 	case PROP_STARTUP_FLAGS:
 		g_value_set_uchar (value, priv->flags);
+		break;
 
         default:
                 g_assert_not_reached ();
