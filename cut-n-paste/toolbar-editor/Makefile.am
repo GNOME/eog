@@ -46,7 +46,7 @@ stamp_files = \
 eggmarshalers.h: stamp-eggmarshalers.h
 	@true
 stamp-eggmarshalers.h: eggmarshalers.list
-	$(GLIB_GENMARSHAL) --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header > eggmarshalers.h \
+	$(GLIB_GENMARSHAL) --internal --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header > eggmarshalers.h \
 	&& echo timestamp > $(@F)
 
 eggmarshalers.c: stamp-eggmarshalers.c
@@ -65,7 +65,7 @@ stamp-eggtypebuiltins.c: $(EGGHEADERS)
 		--vhead "static const G@Type@Value _@enum_name@_values[] = {" \
 		--vprod "  { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
 		--vtail "  { 0, NULL, NULL }\n};\n\n" \
-		--vtail "GType\n@enum_name@_get_type (void)\n{\n" \
+		--vtail "G_GNUC_INTERNAL GType\n@enum_name@_get_type (void)\n{\n" \
 		--vtail "  static GType type = 0;\n\n" \
 		--vtail "  if (G_UNLIKELY (type == 0))\n" \
 		--vtail "    type = g_@type@_register_static (\"@EnumName@\", _@enum_name@_values);\n\n" \
@@ -87,7 +87,7 @@ stamp-eggtypebuiltins.h: $(EGGHEADERS)
 		--ftail "#endif /* __EGGTYPEBUILTINS_H__ */\n" \
 		--fprod "\n/* --- @filename@ --- */" \
 		--eprod "#define EGG_TYPE_@ENUMSHORT@ @enum_name@_get_type()\n" \
-		--eprod "GType @enum_name@_get_type (void);\n" \
+		--eprod "G_GNUC_INTERNAL GType @enum_name@_get_type (void);\n" \
 		$(^F) ) > xgen-$(@F) \
 	&& ( cmp -s xgen-$(@F) $(@F:stamp-%=%) || cp xgen-$(@F) $(@F:stamp-%=%) ) \
 	&& rm -f xgen-$(@F) \

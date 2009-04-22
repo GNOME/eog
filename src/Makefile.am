@@ -200,7 +200,7 @@ eog-enum-types.c: eog-enum-types.c.template $(INST_H_FILES) $(GLIB_MKENUMS)
 	(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.c.template $(INST_H_FILES)) > $@
 
 eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --prefix=eog_marshal > $@
+	$(GLIB_GENMARSHAL) $< --header --internal --prefix=eog_marshal > $@
 
 eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
 	$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
