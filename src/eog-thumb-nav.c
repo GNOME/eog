@@ -526,7 +526,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview),
 					   G_MAXINT);
 
-		gtk_widget_set_size_request (priv->thumbview, -1, 123);
+		gtk_widget_set_size_request (priv->thumbview, -1, -1);
 		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						115);
 
@@ -541,7 +541,7 @@ eog_thumb_nav_set_mode (EogThumbNav *nav, EogThumbNavMode mode)
 	case EOG_THUMB_NAV_MODE_ONE_COLUMN:
 		gtk_icon_view_set_columns (GTK_ICON_VIEW (priv->thumbview), 1);
 
-		gtk_widget_set_size_request (priv->thumbview, 113, -1);
+		gtk_widget_set_size_request (priv->thumbview, -1, -1);
 		eog_thumb_view_set_item_height (EOG_THUMB_VIEW (priv->thumbview),
 						-1);
 
