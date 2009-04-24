@@ -49,18 +49,23 @@ struct _EogPythonModule {
 	GTypeModule parent_instance;
 };
 
+G_GNUC_INTERNAL
 GType			 eog_python_module_get_type		(void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 EogPythonModule		*eog_python_module_new			(const gchar* path,
 								 const gchar *module);
 
+G_GNUC_INTERNAL
 GObject			*eog_python_module_new_object		(EogPythonModule *module);
 
-
+G_GNUC_INTERNAL
 gboolean		eog_python_init				(void);
 
+G_GNUC_INTERNAL
 void			eog_python_shutdown			(void);
 
+G_GNUC_INTERNAL
 void			eog_python_garbage_collect		(void);
 
 G_END_DECLS

@@ -32,10 +32,13 @@
 
 G_BEGIN_DECLS
 
+G_GNUC_INTERNAL
 void 		eog_session_init 		(EogApplication *application);
 
+G_GNUC_INTERNAL
 gboolean 	eog_session_is_restored 	(void);
 
+G_GNUC_INTERNAL
 gboolean 	eog_session_load 		(void);
 
 G_END_DECLS

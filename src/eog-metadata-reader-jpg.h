@@ -47,6 +47,7 @@ struct _EogMetadataReaderJpgClass {
 	GObjectClass parent_klass;
 };
 
+G_GNUC_INTERNAL
 GType		      eog_metadata_reader_jpg_get_type	(void) G_GNUC_CONST;
 
 G_END_DECLS

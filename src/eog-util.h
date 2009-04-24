@@ -29,29 +29,39 @@
 
 G_BEGIN_DECLS
 
+G_GNUC_INTERNAL
 void     eog_util_show_help                  (const gchar *section,
 					      GtkWindow   *parent);
 
+G_GNUC_INTERNAL
 gchar   *eog_util_make_valid_utf8            (const gchar *name);
 
+G_GNUC_INTERNAL
 GSList  *eog_util_parse_uri_string_list_to_file_list (const gchar *uri_list);
 
+G_GNUC_INTERNAL
 GSList  *eog_util_string_list_to_file_list    (GSList *string_list);
 
 #ifdef HAVE_DBUS
+G_GNUC_INTERNAL
 GSList  *eog_util_strings_to_file_list        (gchar **strings);
 #endif
 
+G_GNUC_INTERNAL
 GSList  *eog_util_string_array_to_list       (const gchar **files,
 	 				      gboolean create_uri);
 
+G_GNUC_INTERNAL
 gchar  **eog_util_string_array_make_absolute (gchar **files);
 
+G_GNUC_INTERNAL
 gboolean eog_util_launch_desktop_file        (const gchar *filename,
 					      guint32      user_time);
 
+G_GNUC_INTERNAL
 const    gchar *eog_util_dot_dir             (void);
 
+G_GNUC_INTERNAL
 char *  eog_util_filename_get_extension      (const char * filename_with_extension);
 
 G_END_DECLS

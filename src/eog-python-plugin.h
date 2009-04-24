@@ -47,6 +47,7 @@ struct _EogPythonPluginClass {
 	PyObject *type;
 };
 
+G_GNUC_INTERNAL
 GType eog_python_plugin_get_type (GTypeModule *module, PyObject *type);
 
 G_END_DECLS

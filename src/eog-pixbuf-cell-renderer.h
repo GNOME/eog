@@ -42,8 +42,10 @@ struct _EogPixbufCellRendererClass
 	GtkCellRendererPixbufClass parent;
 };
 
+G_GNUC_INTERNAL
 GType            eog_pixbuf_cell_renderer_get_type (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkCellRenderer *eog_pixbuf_cell_renderer_new (void);
 
 G_END_DECLS

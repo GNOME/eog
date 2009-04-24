@@ -31,42 +31,59 @@
 
 typedef struct _EogPluginInfo EogPluginInfo;
 
+G_GNUC_INTERNAL
 gboolean	 eog_plugin_engine_init 		(void);
 
+G_GNUC_INTERNAL
 void		 eog_plugin_engine_shutdown 		(void);
 
+G_GNUC_INTERNAL
 void		 eog_plugin_engine_garbage_collect	(void);
 
+G_GNUC_INTERNAL
 const GList	*eog_plugin_engine_get_plugins_list 	(void);
 
+G_GNUC_INTERNAL
 gboolean 	 eog_plugin_engine_activate_plugin 	(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 gboolean 	 eog_plugin_engine_deactivate_plugin	(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 gboolean 	 eog_plugin_engine_plugin_is_active 	(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 gboolean 	 eog_plugin_engine_plugin_is_available	(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 gboolean	 eog_plugin_engine_plugin_is_configurable
 			       				(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 void	 	 eog_plugin_engine_configure_plugin	(EogPluginInfo *info,
 			       			 	 GtkWindow     *parent);
 
+G_GNUC_INTERNAL
 void		 eog_plugin_engine_update_plugins_ui	(EogWindow     *window,
 			       			 	 gboolean       new_window);
 
+G_GNUC_INTERNAL
 const gchar	*eog_plugin_engine_get_plugin_name	(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 const gchar	*eog_plugin_engine_get_plugin_description
 			       				(EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 const gchar	*eog_plugin_engine_get_plugin_icon_name (EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 const gchar    **eog_plugin_engine_get_plugin_authors   (EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 const gchar	*eog_plugin_engine_get_plugin_website   (EogPluginInfo *info);
 
+G_GNUC_INTERNAL
 const gchar	*eog_plugin_engine_get_plugin_copyright (EogPluginInfo *info);
 
 #endif  /* __EOG_PLUGIN_ENGINE_H__ */

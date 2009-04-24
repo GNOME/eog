@@ -50,8 +50,10 @@ struct _EogPluginManagerClass {
 	GtkVBoxClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType		 eog_plugin_manager_get_type	(void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget	*eog_plugin_manager_new		(void);
 
 G_END_DECLS

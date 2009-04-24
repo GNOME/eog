@@ -45,29 +45,37 @@ struct _EogPrintPreviewClass {
 
 };
 
+G_GNUC_INTERNAL
 GType        eog_print_preview_get_type            (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget   *eog_print_preview_new                 (void);
 
+G_GNUC_INTERNAL
 GtkWidget   *eog_print_preview_new_with_pixbuf     (GdkPixbuf       *pixbuf);
 
+G_GNUC_INTERNAL
 void         eog_print_preview_set_page_margins    (EogPrintPreview *preview,
 						    gfloat          l_margin,
 						    gfloat          r_margin,
 						    gfloat          t_margin,
 						    gfloat          b_margin);
 
+G_GNUC_INTERNAL
 void         eog_print_preview_set_from_page_setup (EogPrintPreview *preview,
 						    GtkPageSetup    *setup);
 
+G_GNUC_INTERNAL
 void         eog_print_preview_get_image_position  (EogPrintPreview *preview,
 						    gdouble         *x,
 						    gdouble         *y);
 
+G_GNUC_INTERNAL
 void         eog_print_preview_set_image_position  (EogPrintPreview *preview,
 						    gdouble          x,
 						    gdouble          y);
 
+G_GNUC_INTERNAL
 void         eog_print_preview_set_scale           (EogPrintPreview *preview,
 						    gfloat           scale);
 

@@ -68,23 +68,32 @@ typedef enum {
 	EOG_METADATA_PNG
 } EogMetadataFileType;
 
+G_GNUC_INTERNAL
 GType                eog_metadata_reader_get_type	(void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 EogMetadataReader*   eog_metadata_reader_new 		(EogMetadataFileType type);
+
+G_GNUC_INTERNAL
 void                 eog_metadata_reader_consume	(EogMetadataReader *emr,
 							 const guchar *buf,
 							 guint len);
+
+G_GNUC_INTERNAL
 gboolean             eog_metadata_reader_finished	(EogMetadataReader *emr);
 
+G_GNUC_INTERNAL
 void                 eog_metadata_reader_get_exif_chunk (EogMetadataReader *emr,
 							 guchar **data,
 							 guint *len);
 
 #ifdef HAVE_EXIF
+G_GNUC_INTERNAL
 ExifData*            eog_metadata_reader_get_exif_data	(EogMetadataReader *emr);
 #endif
 
 #ifdef HAVE_EXEMPI
+G_GNUC_INTERNAL
 XmpPtr	     	     eog_metadata_reader_get_xmp_data	(EogMetadataReader *emr);
 #endif
 
@@ -94,6 +103,7 @@ IptcData*            eog_metadata_reader_get_iptc_data	(EogMetadataReader *emr);
 #endif
 
 #ifdef HAVE_LCMS
+G_GNUC_INTERNAL
 cmsHPROFILE          eog_metadata_reader_get_icc_profile (EogMetadataReader *emr);
 #endif
 

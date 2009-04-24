@@ -47,11 +47,14 @@ struct _EogPrintImageSetupClass {
 	GtkTableClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType		  eog_print_image_setup_get_type    (void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 GtkWidget        *eog_print_image_setup_new         (EogImage     *image,
 						     GtkPageSetup *page_setup);
 
+G_GNUC_INTERNAL
 void              eog_print_image_setup_get_options (EogPrintImageSetup *setup,
 						     gdouble            *left,
 						     gdouble            *top,

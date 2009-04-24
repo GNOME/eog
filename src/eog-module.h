@@ -55,12 +55,16 @@ struct _EogModuleClass {
 	GTypeModuleClass parent_class;
 };
 
+G_GNUC_INTERNAL
 GType		 eog_module_get_type	(void) G_GNUC_CONST;
 
+G_GNUC_INTERNAL
 EogModule	*eog_module_new		(const gchar *path);
 
+G_GNUC_INTERNAL
 const gchar	*eog_module_get_path	(EogModule *module);
 
+G_GNUC_INTERNAL
 GObject		*eog_module_new_object	(EogModule *module);
 
 G_END_DECLS
