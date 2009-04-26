@@ -308,6 +308,9 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 					priv->bytes_read = 0;
 					chunk = priv->exif_chunk;
 					next_state = EMR_READ_EXIF;
+				} else {
+					chunk = NULL;
+					priv->state = EMR_SKIP_BYTES;
 				}
 				break;
 			case EJA_XMP:
@@ -317,6 +320,9 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 					priv->bytes_read = 0;
 					chunk = priv->xmp_chunk;
 					next_state = EMR_READ_XMP;
+				} else {
+					chunk = NULL;
+					priv->state = EMR_SKIP_BYTES;
 				}
 				break;
 			case EJA_OTHER:
@@ -326,14 +332,6 @@ eog_metadata_reader_jpg_consume (EogMetadataReaderJpg *emr, const guchar *buf, g
 				priv->state = EMR_SKIP_BYTES;
 				break;
 			}
-
-			if (priv->state == EMR_READ_APP1) {
-				/* If a metadata type has already been read
-				 * make sure it's not read again */
-				chunk = NULL;
-				priv->state = EMR_SKIP_BYTES;
-			}
-
 
 			if (chunk) {
 				eog_metadata_reader_get_next_block (priv, chunk,

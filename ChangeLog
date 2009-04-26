@@ -1,5 +1,11 @@
 2009-04-26  Claudio Saavedra  <csaavedra@igalia.com>
 
+	* src/eog-metadata-reader-jpg.c: (eog_metadata_reader_jpg_consume):
+	Skip multiple APP1 chunks of the same type more selectively, to
+	avoid skipping the first chunk.
+
+2009-04-26  Claudio Saavedra  <csaavedra@igalia.com>
+
 	* src/eog-image.c: (eog_image_set_xmp_data),
 	(eog_image_set_exif_data): Unref the EXIF chunk and XMP data
 	before setting it.
