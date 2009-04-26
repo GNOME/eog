@@ -737,6 +737,9 @@ eog_image_set_xmp_data (EogImage *img, EogMetadataReader *md_reader)
 
 	priv = img->priv;
 
+	if (priv->xmp) {
+		xmp_free (priv->xmp);
+	}
 	priv->xmp = eog_metadata_reader_get_xmp_data (md_reader);
 }
 #endif
@@ -774,6 +777,9 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 		}
 	}
 #else
+	if (priv->exif_chunk) {
+		g_free (exif_chunk);
+	}
 	eog_metadata_reader_get_exif_chunk (md_reader,
 					    &priv->exif_chunk,
 					    &priv->exif_chunk_len);
