@@ -206,15 +206,16 @@ eog_application_get_empty_window (EogApplication *application)
 /**
  * eog_application_open_window:
  * @application: An #EogApplication.
- * @timestamp:
- * @flags:
- * @error:
+ * @timestamp: The timestamp of the user interaction which triggered this call
+ * (see gtk_window_present_with_time()).
+ * @flags: A set of #EogStartupFlags influencing a new windows' state.
+ * @error: Return location for a #GError, or NULL to ignore errors.
  *
  * Opens and presents an empty #EogWindow to the user. If there is
  * an empty window already open, this will be used. Otherwise, a
  * new one will be instantiated.
  *
- * Returns:
+ * Returns: %FALSE if @application is invalid, %TRUE otherwise
  **/
 gboolean
 eog_application_open_window (EogApplication  *application,
@@ -287,15 +288,16 @@ eog_application_show_window (EogWindow *window, gpointer user_data)
  * eog_application_open_file_list:
  * @application: An #EogApplication.
  * @file_list: A list of #GFile<!-- -->s.
- * @timestamp:
- * @flags:
- * @error:
+ * @timestamp: The timestamp of the user interaction which triggered this call
+ * (see gtk_window_present_with_time()).
+ * @flags: A set of #EogStartupFlags influencing a new windows' state.
+ * @error: Return location for a #GError, or NULL to ignore errors.
  *
  * Opens a list of files in a #EogWindow. If an #EogWindow displaying the first
  * image in the list is already open, this will be used. Otherwise, an empty
  * #EogWindow is used, either already existing or newly created.
  *
- * Returns:
+ * Returns: Currently always %TRUE.
  **/
 gboolean
 eog_application_open_file_list (EogApplication  *application,
@@ -336,14 +338,15 @@ eog_application_open_file_list (EogApplication  *application,
  * eog_application_open_uri_list:
  * @application: An #EogApplication.
  * @uri_list: A list of URIs.
- * @timestamp:
- * @flags:
- * @error:
+ * @timestamp: The timestamp of the user interaction which triggered this call
+ * (see gtk_window_present_with_time()).
+ * @flags: A set of #EogStartupFlags influencing a new windows' state.
+ * @error: Return location for a #GError, or NULL to ignore errors.
  *
  * Opens a list of images, from a list of URIs. See
  * eog_application_open_file_list() for details.
  *
- * Returns:
+ * Returns: Currently always %TRUE.
  **/
 gboolean
 eog_application_open_uri_list (EogApplication  *application,
@@ -370,14 +373,15 @@ eog_application_open_uri_list (EogApplication  *application,
  * eog_application_open_uris:
  * @application: an #EogApplication
  * @uris:  A #GList of URI strings.
- * @timestamp:
- * @flags:
- * @error:
+ * @timestamp: The timestamp of the user interaction which triggered this call
+ * (see gtk_window_present_with_time()).
+ * @flags: A set of #EogStartupFlags influencing a new windows' state.
+ * @error: Return location for a #GError, or NULL to ignore errors.
  *
  * Opens a list of images, from a list of URI strings. See
  * eog_application_open_file_list() for details.
  *
- * Returns:
+ * Returns: Currently always %TRUE.
  **/
 gboolean
 eog_application_open_uris (EogApplication  *application,
