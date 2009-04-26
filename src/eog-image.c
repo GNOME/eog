@@ -751,6 +751,9 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 	priv = img->priv;
 
 #ifdef HAVE_EXIF
+	if (priv->exif) {
+		exif_data_unref (priv->exif);
+	}
 	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
 
 	priv->exif_chunk = NULL;

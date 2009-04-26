@@ -1,3 +1,9 @@
+2009-04-26  Claudio Saavedra  <csaavedra@igalia.com>
+
+	* src/eog-image.c: (eog_image_set_exif_data): Unref the EXIF
+	data before setting it, to avoid leaking it in case it is loaded
+	more than once.
+
 2009-04-24  Felix Riemann  <friemann@svn.gnome.org>
 
         * src/eog-image-jpeg.h:
