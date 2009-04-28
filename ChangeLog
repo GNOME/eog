@@ -1,3 +1,10 @@
+2009-04-28  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-util.c (eog_util_parse_uri_string_list_to_file_list):
+	Use function provided by GLib to extract the uris from the uri list
+	instead of doing it ourselves. Fixes crashes on malformed uri lists
+	as it is less picky. Fixes bug #580600.
+
 2009-04-26  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-application.c: Improve API documentation.
