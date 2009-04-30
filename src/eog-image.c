@@ -778,7 +778,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 	}
 #else
 	if (priv->exif_chunk) {
-		g_free (exif_chunk);
+		g_free (priv->exif_chunk);
 	}
 	eog_metadata_reader_get_exif_chunk (md_reader,
 					    &priv->exif_chunk,
