@@ -196,7 +196,7 @@ main (int argc, char **argv)
 		help_msg = g_strdup_printf (_("Run '%s --help' to see a full "
 					      "list of available command line "
 					      "options."), argv[0]);
-                g_print("%s\n%s\n", error->message, help_msg);
+                g_printerr ("%s\n%s\n", error->message, help_msg);
                 g_error_free (error);
 		g_free (help_msg);
                 g_option_context_free (ctx);
