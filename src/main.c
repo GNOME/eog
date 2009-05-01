@@ -184,10 +184,9 @@ main (int argc, char **argv)
 
 	ctx = g_option_context_new (NULL);
 	g_option_context_add_main_entries (ctx, goption_options, PACKAGE);
-	/* Option groups are free'd together with the context */
+	/* Option groups are free'd together with the context 
+	 * Using gtk_get_option_group here initializes gtk during parsing */
 	g_option_context_add_group (ctx, gtk_get_option_group (TRUE));
-
-	gtk_init (&argc, &argv);
 
 	if (!g_option_context_parse (ctx, &argc, &argv, &error)) {
 		gchar *help_msg;

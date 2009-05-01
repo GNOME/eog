@@ -1,3 +1,9 @@
+2009-05-01  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/main.c (main): One doesn't need to call gtk_init explicitly if
+	one is using gtk_get_option_group during GOption parsing.
+	Also makes it possible to see help output without an X server again.
+
 2009-04-30  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-image.c (eog_image_set_exif_data):
