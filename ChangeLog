@@ -1,5 +1,10 @@
 2009-05-01  Felix Riemann  <friemann@svn.gnome.org>
 
+	* src/main.c (main):
+	Output option parsing errors to stderr instead of stdout.
+
+2009-05-01  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/main.c (main): One doesn't need to call gtk_init explicitly if
 	one is using gtk_get_option_group during GOption parsing.
 	Also makes it possible to see help output without an X server again.
