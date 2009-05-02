@@ -23,7 +23,6 @@ NOINST_H_FILES =			\
 	eog-pixbuf-util.h		\
 	eog-preferences-dialog.h	\
 	eog-config-keys.h		\
-	eog-pixbuf-cell-renderer.h	\
 	eog-image-jpeg.h		\
 	eog-image-private.h		\
 	eog-uri-converter.h		\
@@ -87,7 +86,6 @@ libeog_la_SOURCES =			\
 	eog-statusbar.c			\
 	eog-thumb-nav.c			\
 	eog-transform.c			\
-	eog-pixbuf-cell-renderer.c	\
 	eog-image.c			\
 	eog-image-jpeg.c		\
 	eog-image-save-info.c		\

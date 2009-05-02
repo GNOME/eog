@@ -25,7 +25,6 @@
 
 #include "eog-thumb-view.h"
 #include "eog-list-store.h"
-#include "eog-pixbuf-cell-renderer.h"
 #include "eog-image.h"
 #include "eog-job-queue.h"
 
@@ -506,7 +505,7 @@ eog_thumb_view_init (EogThumbView *thumbview)
 
 	thumbview->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumbview);
 
-	thumbview->priv->pixbuf_cell = eog_pixbuf_cell_renderer_new ();
+	thumbview->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
 
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (thumbview),
 	      	  		    thumbview->priv->pixbuf_cell,
