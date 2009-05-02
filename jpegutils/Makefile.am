@@ -8,3 +8,5 @@ libeog_jpegutils_la_SOURCES =		\
 	transupp.h
 
 EXTRA_DIST = README
+
+-include $(top_srcdir)/git.mk

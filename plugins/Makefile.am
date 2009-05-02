@@ -9,3 +9,5 @@ plugindir = $(libdir)/eog/plugins
 DISTCLEANFILES =
 
 EXTRA_DIST =
+
+-include $(top_srcdir)/git.mk

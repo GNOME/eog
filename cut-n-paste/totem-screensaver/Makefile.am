@@ -8,3 +8,5 @@ libtotemscrsaver_la_CFLAGS = \
 	-I$(top_srcdir)/src	\
 	$(EOG_CFLAGS)		\
 	$(WARN_CFLAGS)
+
+-include $(top_srcdir)/git.mk

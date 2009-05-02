@@ -21,3 +21,19 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-schemas-install --disable-scrollkeeper --e
 
 # Ignore scrollkeeper issues for now.  @#*$& scrollkeeper
 distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper | grep -v /share/gnome/help/ | grep -v \.omf
+
+MAINTAINERCLEANFILES = \
+	$(srcdir)/aclocal.m4 \
+	$(srcdir)/config.guess \
+	$(srcdir)/config.h.in \
+	$(srcdir)/config.sub \
+	$(srcdir)/depcomp \
+	$(srcdir)/gtk-doc.make \
+	$(srcdir)/install-sh \
+	$(srcdir)/ltmain.sh \
+	$(srcdir)/missing \
+	$(srcdir)/mkinstalldirs \
+	$(srcdir)/omf.make \
+	$(srcdir)/xmldocs.make
+
+-include $(top_srcdir)/git.mk

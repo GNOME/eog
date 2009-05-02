@@ -15,3 +15,5 @@ EXTRA_DIST =		\
 	$(icons_DATA)	\
 	$(noinst_DATA)
 
+
+-include $(top_srcdir)/git.mk
