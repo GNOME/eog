@@ -1,3 +1,9 @@
+2009-05-05  Felix Riemann  <friemann@svn.gnome.org>
+
+	* ChangeLog: Fix trailing whitespaces.
+	* NEWS:
+	* configure.ac: Update for 2.27.1.
+
 2009-05-03  Cyriac Thomas  <cyriacsmail@gmail.com>
 
 	* src/eog-window.c:
@@ -66,27 +72,27 @@
 
 2009-04-24  Felix Riemann  <friemann@svn.gnome.org>
 
-        * src/eog-image-jpeg.h:
-        * src/eog-metadata-reader-jpg.h:
-        * src/eog-metadata-reader-png.h:
-        * src/eog-metadata-reader.h:
-        * src/eog-module.h:
-        * src/eog-pixbuf-cell-renderer.h:
-        * src/eog-pixbuf-util.h:
-        * src/eog-plugin-engine.h:
-        * src/eog-plugin-manager.h:
-        * src/eog-preferences-dialog.h:
-        * src/eog-print-image-setup.h:
-        * src/eog-print-preview.h:
-        * src/eog-print.h:
-        * src/eog-python-module.h:
-        * src/eog-python-plugin.h:
-        * src/eog-save-as-dialog-helper.h:
-        * src/eog-session.h:
-        * src/eog-uri-converter.h:
-        * src/eog-util.h:
-        * src/uta.h:
-        * src/zoom.h:
+	* src/eog-image-jpeg.h:
+	* src/eog-metadata-reader-jpg.h:
+	* src/eog-metadata-reader-png.h:
+	* src/eog-metadata-reader.h:
+	* src/eog-module.h:
+	* src/eog-pixbuf-cell-renderer.h:
+	* src/eog-pixbuf-util.h:
+	* src/eog-plugin-engine.h:
+	* src/eog-plugin-manager.h:
+	* src/eog-preferences-dialog.h:
+	* src/eog-print-image-setup.h:
+	* src/eog-print-preview.h:
+	* src/eog-print.h:
+	* src/eog-python-module.h:
+	* src/eog-python-plugin.h:
+	* src/eog-save-as-dialog-helper.h:
+	* src/eog-session.h:
+	* src/eog-uri-converter.h:
+	* src/eog-util.h:
+	* src/uta.h:
+	* src/zoom.h:
 
 	Don't export functions whose headers are not installed for plugins.
 
@@ -411,7 +417,7 @@
 	* src/eog-util.c:
 	* src/main.c: (main):
 	Stop using GnomeProgram. Remove remaining traces of libgnome
-	and libgnomeui in eog. This finally drops the dependency on 
+	and libgnomeui in eog. This finally drops the dependency on
 	libgnome and libgnomeui. Fixes bug #559500.
 
 2009-01-09  Felix Riemann  <friemann@svn.gnome.org>
@@ -637,7 +643,7 @@
 2008-11-14  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/main.c: (main): Change variable name to something that should
-	be less prone to produce conflicts. Should fix compilation errors 
+	be less prone to produce conflicts. Should fix compilation errors
 	under Mac OS X.	Fixes bug #560065.
 
 2008-11-14  Felix Riemann  <friemann@svn.gnome.org>
@@ -787,7 +793,7 @@
 
 2008-10-14  Felix Riemann  <friemann@svn.gnome.org>
 
-	* src/eog-util.c: (eog_util_show_help): 
+	* src/eog-util.c: (eog_util_show_help):
 	Use gtk_get_current_event_time() instead of GDK_CURRENT_TIME
 	with gtk_show_uri (Diego Escalante Urrelo).
 
@@ -846,7 +852,7 @@
 
 	* src/eog-window.c: (eog_window_cmd_show_hide_bar): Avoid realizing
 	the scrollview too early as that would break its allocation when the
-	collection is hidden. Fixes bug #530447. 
+	collection is hidden. Fixes bug #530447.
 
 2008-09-30  Claudio Saavedra  <csaavedra@igalia.com>
 
@@ -1023,7 +1029,7 @@
 
 2008-08-13  Felix Riemann  <friemann@svn.gnome.org>
 
-	* src/eog-thumbnail.c: (eog_thumb_data_new): Fix GError usage to 
+	* src/eog-thumbnail.c: (eog_thumb_data_new): Fix GError usage to
 	avoid crashes when querying the file info fails. Fixes bug #547566.
 
 2008-08-12  Felix Riemann  <friemann@svn.gnome.org>
@@ -1232,7 +1238,7 @@
 2008-05-31  Lucas Rocha  <lucasr@gnome.org>
 
 	* data/eog-image-properties-dialog.glade: define ellipsize mode for
-	all metadata labels to avoid the dialog to expand too much. 
+	all metadata labels to avoid the dialog to expand too much.
 	Fixes bug #528454.
 
 2008-05-31  Felix Riemann  <friemann@svn.gnome.org>
@@ -1344,10 +1350,10 @@
 
 2008-04-29  Claudio Saavedra  <csaavedra@gnome.org>
 
-	* Makefile.am: Add doc to SUBDIRS and --enable-gtk-doc to 
+	* Makefile.am: Add doc to SUBDIRS and --enable-gtk-doc to
 	DISTCHECK_CONFIGURE_FLAGS.
 	* autogen.sh: Check for gtk-doc.
-	* configure.ac: Add GTK_DOC_CHECK and new generated files to 
+	* configure.ac: Add GTK_DOC_CHECK and new generated files to
 	AC_CONFIG_FILES.
 	* doc/Makefile.am: New file.
 	* doc/reference/Makefile.am: Reference documentation.
@@ -1458,7 +1464,7 @@
 	(eog_thumbnail_load):
 	Re-wrote the thumbnailing code. It now reads and writes "failed"
 	thumbnails to the cache, as per the Thumbnail Managing Standard.
-	Better use was made of the GFileInfo thumbnail data. The 
+	Better use was made of the GFileInfo thumbnail data. The
 	thumbnail debugging code was modernized. Fixes bug #525618.
 
 2008-04-03  Claudio Saavedra  <csaavedra@gnome.org>
@@ -1610,7 +1616,7 @@
 
 	* plugins/fullscreen/*: new fullscreen on double-click plugin.
 	* plugins/reload/*: new reload current image plugin.
-	* configure.ac, Makefile.am, plugins/Makefile.am, po/POTFILES.in: 
+	* configure.ac, Makefile.am, plugins/Makefile.am, po/POTFILES.in:
 	added new default plugins to the build.
 
 2008-03-15  Lucas Rocha  <lucasr@gnome.org>
@@ -1698,7 +1704,7 @@
 	(eog_job_model_cb), (eog_window_open_file_list):
 	* src/eog-window.h:
 	* src/test-eog-tb.c: (make_file), (string_array_to_list), (main):
-	Stop using GnomeVFS. Use GIO instead from now on. 
+	Stop using GnomeVFS. Use GIO instead from now on.
 	Fixes bugs #509239 and #343061 (Cosimo Cecchi, Felix Riemann).
 
 2008-03-14  Felix Riemann  <friemann@svn.gnome.org>
@@ -1721,7 +1727,7 @@
 
 2008-03-03  Lucas Rocha  <lucasr@gnome.org>
 
-	* bindings/python/eog.override, src/eog-python-plugin.c: avoid multiply 
+	* bindings/python/eog.override, src/eog-python-plugin.c: avoid multiply
 	defined symbols when linking Python bindings by using
 	NO_IMPORT_PYGOBJECT and NO_IMPORT before inclusing pygtk and pygobject
 	headers. Fixes bug #506421 (Paul).
@@ -1787,7 +1793,7 @@
 	* src/main.c: (set_startup_flags), (load_files),
 	(load_files_remote):
 
-	Many functions and variables declarations fixes, courtesy of 
+	Many functions and variables declarations fixes, courtesy of
 	sparse.
 
 2008-02-27  Felix Riemann  <friemann@svn.gnome.org>
@@ -1827,9 +1833,9 @@
 2008-02-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-properties-dialog.c: (pd_update_metadata_tab):
-	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Use  
-	DateTimeOriginal for the "Taken on:" field in the tooltips and 
-	the "Date/Time:" field in the metadata tab. Fixes bug #513827 
+	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Use
+	DateTimeOriginal for the "Taken on:" field in the tooltips and
+	the "Date/Time:" field in the metadata tab. Fixes bug #513827
 	(Francisco Rojas).
 
 2008-02-18  Felix Riemann  <friemann@svn.gnome.org>
@@ -2118,10 +2124,10 @@
 	expected on multiple lines layouts. Fixes bug #458661 (Claudio
 	Saavedra).
 
-	* src/eog-thumb-view.c (eog_thumb_view_set_model, 
-	eog_thumb_view_set_current_image, eog_thumb_view_select_single): set 
+	* src/eog-thumb-view.c (eog_thumb_view_set_model,
+	eog_thumb_view_set_current_image, eog_thumb_view_select_single): set
 	cursor position to the first selected item in the icon view accordingly.
-	* src/eog-window.c 
+	* src/eog-window.c
 	(update_action_groups_state, eog_window_cmd_show_hide_bar): move
 	focus to collection page if it's visible or to image view if it's not.
 	(eog_window_key_press): only handle EogWindow's specific shortcuts and
@@ -2244,7 +2250,7 @@
 
 	* data/eog.schemas.in: restored the default mousewheel-for-zooming
 	behavior by setting /apps/eog/view/scroll_wheel_zoom key to true by
-	default. Fixes bug #491826. 
+	default. Fixes bug #491826.
 
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
 
@@ -2256,7 +2262,7 @@
 
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
 
-	Add a context menu in image view widget. 
+	Add a context menu in image view widget.
 	Fixes bug #481301 (Cosimo Cecchi)
 
 	* data/eog-ui.xml: add new context menu definition for "ViewPopup".
@@ -2264,7 +2270,7 @@
 	eog_scroll_view_popup_menu, view_on_button_press_event_cb,
 	eog_scroll_view_set_popup): added new API setting a popup context menu
 	on image view.
-	* src/eog-window.c 
+	* src/eog-window.c
 	(eog_window_update_openwith_menu): update view popup menu as well with
 	applications for "Open with..." action.
 	(eog_window_construct_ui): add popup menu on image view widget.
@@ -2272,7 +2278,7 @@
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-util.c (eog_util_make_valid_utf8): add " (invalid Unicode)"
-	suffix to image captions with invalid utf8 characters. 
+	suffix to image captions with invalid utf8 characters.
 	Fixes bug #475124.
 
 2007-10-29  Lucas Rocha  <lucasr@gnome.org>
@@ -2280,8 +2286,8 @@
 	* src/eog-window.c (eog_window_can_save_changed_cb,
 	update_action_groups_state, eog_job_load_cb,
 	eog_job_transform_cb), eog_job_save_cb,
-	eog_window_construct_ui, eog_window_init): correctly update save 
-	actions according to image modification state and desktop save to 
+	eog_window_construct_ui, eog_window_init): correctly update save
+	actions according to image modification state and desktop save to
 	disk lockdown key. Fixes bug #476919 (Cosimo Cecchi).
 
 2007-10-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -2310,20 +2316,20 @@
 2007-10-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-thumb-nav.c: (eog_thumb_nav_scroll_event),
-	(eog_thumb_nav_scroll_step), (eog_thumb_nav_init): 
+	(eog_thumb_nav_scroll_step), (eog_thumb_nav_init):
 	Store the adjustment in the private data to slightly
 	improve performance (and actually complete previous patch).
 
 2007-10-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-thumb-nav.c: (eog_thumb_nav_scroll_step): Do not use 
+	* src/eog-thumb-nav.c: (eog_thumb_nav_scroll_step): Do not use
 	static in the GtkAdjustment. Fixes bug #488344.
 
 2007-10-16  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-scroll-view.c (eog_scroll_view_button_press_event): enable
 	dragging with button1 when scroll_wheel_zoom is enabled in order to
-	make it possible to fully restore old wheel zooming and dragging 
+	make it possible to fully restore old wheel zooming and dragging
 	behavior. Fixes bug #479884.
 
 2007-10-16  Lucas Rocha  <lucasr@gnome.org>
@@ -2331,10 +2337,10 @@
 	Port a hack from gedit to make the style be correctly set to the
 	message area.
 
-	* src/eog-message-area.c: 
-	(style_set): get style for a temporary popup window and then apply it 
-	to the message area. 
-	(eog_message_area_class_init), (eog_message_area_init): do not handle 
+	* src/eog-message-area.c:
+	(style_set): get style for a temporary popup window and then apply it
+	to the message area.
+	(eog_message_area_class_init), (eog_message_area_init): do not handle
 	style_set directly on message area anymore.
 
 2007-10-15  Lucas Rocha  <lucasr@gnome.org>
@@ -2349,15 +2355,15 @@
 	public API.
 	* src/eog-image-private.h: added "prev_status" and "is_monitored"
 	private attributes.
-	* src/eog-image.[ch]: 
+	* src/eog-image.[ch]:
 	(eog_image_init): initialize new attributes.
 	(eog_image_save_by_info): store previous status and restore only in
 	case the image is not monitored.
 	(eog_image_save_as_by_info): store previous status and restore only in
 	case the image is not monitored.
-	(eog_image_get_status),	(eog_image_restore_status), 
+	(eog_image_get_status),	(eog_image_restore_status),
 	(eog_image_set_is_monitored): new utility methods in public API.
-	* src/eog-list-store.[ch]: 
+	* src/eog-list-store.[ch]:
 	(eog_list_store_append_image_from_uri): turned into a private method
 	and we already have eog_list_store_add_image().
 	(vfs_monitor_dir_cb): only remove image if it's not being saved.
@@ -2386,7 +2392,7 @@
 	This should improve the parsing speed for each dialog and probably save
 	some memory due to the smaller XML tree. Furthermore an error in one
 	of the dialog definitions does not directly affect the others.
-	It should also ease a possible GtkBuilder transition. 
+	It should also ease a possible GtkBuilder transition.
 
 2007-10-10  Felix Riemann  <friemann@svn.gnome.org>
 
@@ -2438,8 +2444,8 @@
 
 2007-09-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-list-store.c: (vfs_monitor_dir_cb): Add image 
-	to the store on file creation, if the mimetype is recognized. 
+	* src/eog-list-store.c: (vfs_monitor_dir_cb): Add image
+	to the store on file creation, if the mimetype is recognized.
 	Fixes bug #479400.
 
 2007-09-22  Felix Riemann  <friemann@svn.gnome.org>
@@ -2470,7 +2476,7 @@
 
 	* src/eog-image.c: (eog_image_size_prepared),
 	(eog_image_set_exif_data): Emit "size-prepared" only after we have both
-	the dimensions and the exif data (for images which could be 
+	the dimensions and the exif data (for images which could be
 	autorotated). Fixes bug #459665.
 
 2007-09-10  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -2483,7 +2489,7 @@
 
 2007-09-10  Lucas Rocha  <lucasr@gnome.org>
 
-	* configure.ac: better pygtk detection error reporting. 
+	* configure.ac: better pygtk detection error reporting.
 	Fixes bug #471530 (Paolo Borelli).
 
 2007-09-10  Luca Ferretti  <elle.uca@libero.it>
@@ -2499,14 +2505,14 @@
 2007-09-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-metadata-reader.c: (+eog_metadata_reader_get_next_block),
-	(eog_metadata_reader_consume): Factore out some common code for 
-	the different metadata sources in the matadata consumer. 
+	(eog_metadata_reader_consume): Factore out some common code for
+	the different metadata sources in the matadata consumer.
 	Fixes bug #474931.
 
 2007-09-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-metadata-reader.c: (eog_metadata_reader_consume): Copy only 
-	the remaining bytes of EXIF/XMP data if these are smaller than the 
+	* src/eog-metadata-reader.c: (eog_metadata_reader_consume): Copy only
+	the remaining bytes of EXIF/XMP data if these are smaller than the
 	buffer that's being consumed. Fixes bug #474710.
 
 2007-09-09  Lucas Rocha  <lucasr@gnome.org>
@@ -2586,8 +2592,8 @@
 	* src/eog-image.c (+eog_image_pre_size_prepared,
 	eog_image_size_prepared, eog_image_real_load): detect non-threadsafe
 	loaders and disable any possible asyncronous task that could bring
-	deadlocks to image loading process. 
-	Fixes bug #449409 and bug #447063 (Felix Riemann). 
+	deadlocks to image loading process.
+	Fixes bug #449409 and bug #447063 (Felix Riemann).
 
 2007-09-04  Lucas Rocha  <lucasr@gnome.org>
 
@@ -2646,8 +2652,8 @@
 	* src/eog-thumb-nav.c (eog_thumb_nav_adj_changed,
 	eog_thumb_nav_adj_value_changed, eog_thumb_nav_scroll_step,
 	eog_thumb_nav_button_clicked, eog_thumb_nav_start_scroll,
-	eog_thumb_nav_stop_scroll, eog_thumb_nav_init): new thumbnails 
-	navigator layout with themed scrollbar and continuous scrolling 
+	eog_thumb_nav_stop_scroll, eog_thumb_nav_init): new thumbnails
+	navigator layout with themed scrollbar and continuous scrolling
 	buttons. Fixes bug #458663.
 	* src/Makefile.am, src/main.c: renamed EOG_DATADIR to EOG_DATA_DIR
 	for consistency.
@@ -2708,9 +2714,9 @@
 2007-08-27  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-application.c (eog_application_get_uri_window,
-	eog_application_real_open_uri_list): reuse window for the same image 
+	eog_application_real_open_uri_list): reuse window for the same image
 	when opening application. Fixes bug #311308.
-	* src/eog-window.c (eog_window_get_uri), bindings/python/eog.defs: 
+	* src/eog-window.c (eog_window_get_uri), bindings/python/eog.defs:
 	removed useless method.
 
 2007-08-27  Lucas Rocha  <lucasr@gnome.org>
@@ -2720,17 +2726,17 @@
 
 2007-08-27  Lucas Rocha  <lucasr@gnome.org>
 
-	* help/C/eog.xml: update new use of Ctrl+scroll wheel for zooming 
+	* help/C/eog.xml: update new use of Ctrl+scroll wheel for zooming
 	in the manual. Fixes bug #470686.
 
 2007-08-27  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-thumbnail.c (eog_thumbnail_init): use thumbnail-frame.png 
+	* src/eog-thumbnail.c (eog_thumbnail_init): use thumbnail-frame.png
 	from the new location.
 	* configure.ac, data/icons/Makefile.am, data/icons/48x48/*: removed
 	48x48 icons as the "scalable" ones are enough. Fixes bug #470416.
 	* data/pixmaps/Makefile.am: install pixmaps on $(pkgdatadir)/pixmaps
-	instead of $(datadir)/pixmaps/eog/. 
+	instead of $(datadir)/pixmaps/eog/.
 
 2007-08-27  Felix Riemann  <friemann@svn.gnome.org>
 
@@ -2749,13 +2755,13 @@
 
 2007-08-16  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-window.c: make Page Setup/Properties/Trash menu items 
+	* src/eog-window.c: make Page Setup/Properties/Trash menu items
 	not accessible. Fixes bug #466681 (Patrick Wade).
 
 2007-08-16  Lucas Rocha  <lucasr@gnome.org>
 
 	* bindings/python/eog.defs, bindings/python/eog.override: Wrap the
-	sidebar for the python bindings. Patch from John Stowers 
+	sidebar for the python bindings. Patch from John Stowers
 	<john.stowers@gmail.com>..
 
 2007-08-14  Lucas Rocha  <lucasr@gnome.org>
@@ -2768,7 +2774,7 @@
 
 2007-08-14  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/Makefile.am, src/eog-pixbuf-cell-renderer.[ch]: new cell renderer 
+	* src/Makefile.am, src/eog-pixbuf-cell-renderer.[ch]: new cell renderer
 	that draws selection more clearly in the image collection pane.
 	* src/eog-thumb-nav.c: small fixes in the sizing of thumb view widget.
 	* src/eog-thumb-view.c: use new custom pixbuf cell renderer.
@@ -2777,7 +2783,7 @@
 
 	Inhibit screensaver when running slideshow. Fixes bug #459819.
 
-	* configure.ac, src/Makefile.am, 
+	* configure.ac, src/Makefile.am,
 	cut-n-paste/totem-screensaver/totem-scrsaver.[ch]: local copy of totem
 	screensaver management code.
 	* src/eog-application.[ch] (eog_application_register_service,
@@ -2801,7 +2807,7 @@
 2007-08-12  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window.c (eog_window_cmd_about): simplified program
-	description. 
+	description.
 
 2007-08-11  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
@@ -2830,7 +2836,7 @@
 	* src/eog-pixbuf-util.c: (eog_pixbuf_get_format_by_vfs_uri): Mark
 	parameter as const.
 	* src/eog-pixbuf-util.h: Ditto.
-	* src/eog-preferences-dialog.c: Remove unused function 
+	* src/eog-preferences-dialog.c: Remove unused function
 	pd_int_radio_toggle_cb.
 
 	Several code cleanups. Fixes bug #465060 (Cosimo Cecchi).
@@ -2852,8 +2858,8 @@
 
 2007-08-06  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-preferences-dialog.c, data/eog.glade: removed 
-	"Image Collection" tab from preferences dialog. The image 
+	* src/eog-preferences-dialog.c, data/eog.glade: removed
+	"Image Collection" tab from preferences dialog. The image
 	collection positioting is a hidden feature from now on.
 
 2007-08-06  Lucas Rocha  <lucasr@gnome.org>
@@ -2875,11 +2881,11 @@
 
 2007-08-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-list-store.c: 
+	* src/eog-list-store.c:
 
 	(+on_image_changed): callback to update the displayed
 	thumbnail if the image is modified.
-	(+eog_list_store_remove): Wrap gtk_list_store_remove () to 
+	(+eog_list_store_remove): Wrap gtk_list_store_remove () to
 	disconnect the handler for "changed" signal in images.
 	(eog_list_store_append_image): Connect the "changed" signal
 	of images to monitor image transformations.
@@ -2890,13 +2896,13 @@
 	(+eog_list_store_add_thumbnail_job): Factor out some code.
 	(eog_list_store_thumbnail_set),
 	(eog_list_store_thumbnail_unset): Use eog_list_store_add/remove_job ().
-	(+eog_list_store_thumbnail_refresh): Do the same as unset/set, but 
+	(+eog_list_store_thumbnail_refresh): Do the same as unset/set, but
 	faster.
 
-	* src/eog-list-store.h: Add eog_list_store_thumbnail_refresh() 
+	* src/eog-list-store.h: Add eog_list_store_thumbnail_refresh()
 	definition.
 
-	Update thumbnails after applying transformations to images. Fixes 
+	Update thumbnails after applying transformations to images. Fixes
 	bug #462973.
 
 2007-08-06  Felix Riemann  <friemann@svn.gnome.org>
@@ -2961,13 +2967,13 @@
 
 2007-07-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Use the new 
-	gtk_icon_view_get_tooltip_context() function to build tooltips. Fixes 
+	* src/eog-thumb-view.c: (tb_on_query_tooltip_cb): Use the new
+	gtk_icon_view_get_tooltip_context() function to build tooltips. Fixes
 	bug #455700.
-	
+
 2007-07-24  Felix Riemann  <friemann@svn.gnome.org>
 
-	* src/eog-print-preview.c: (create_image_scaled): 
+	* src/eog-print-preview.c: (create_image_scaled):
 	Fix a MIN/MAX mix-up. Really closes bug #453151 (Stefan Röllin).
 
 2007-07-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -2990,7 +2996,7 @@
 	(eog_print_preview_finalize), (eog_print_preview_init),
 	(create_image_scaled), (create_preview_buffer), (create_surface),
 	(create_surface_when_idle), (size_allocate_cb),
-	(eog_print_preview_draw): Store a widget size version of the 
+	(eog_print_preview_draw): Store a widget size version of the
 	image to improve responsiveness when the scale is changed.
 	This scaled image is created once the dialog is ready through
 	a g_idle, in order to avoid slowing down the dialog creation.
@@ -2998,7 +3004,7 @@
 
 2007-07-19  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-exif-details.[c,h], src/main.c, 
+	* src/eog-exif-details.[c,h], src/main.c,
 	src/eog-properties-dialog.[c.h], src/eog-metadata-reader.[c,h],
 	src/eog-image.[c,h], src/eog-image-private.h, src/Makefile.am,
 	data/eog.glade, configure.ac: Optional XMP metadata support.
@@ -3007,7 +3013,7 @@
 2007-07-16  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* configure.ac: Bumped gnome-icon-theme requirement to 2.19.1.
-	* src/eog-window.c: Use "document-page-setup" icon from g-i-t. 
+	* src/eog-window.c: Use "document-page-setup" icon from g-i-t.
 	Fixes bug #455672 (Luca Ferretti)
 
 2007-07-14  Felix Riemann <friemann@svn.gnome.org>
@@ -3035,7 +3041,7 @@
 
 2007-07-07  Lucas Rocha  <lucasr@gnome.org>
 
-	Add ability to enable collection pane when in fullscreen. 
+	Add ability to enable collection pane when in fullscreen.
 	Fixes bug #449741.
 
 	* data/eog-ui.xml: added image collection action to fullscreen
@@ -3067,7 +3073,7 @@
 2007-07-05  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window.c (eog_window_key_press): don't handle Alt+Return to
-	be able to use it for image properties dialog. 
+	be able to use it for image properties dialog.
 
 2007-07-05  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3078,7 +3084,7 @@
 2007-07-05  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-window.c (eog_window_trans_color_changed_cb): check value
-	returned from gconf before using it. Fixes bug #453503. 
+	returned from gconf before using it. Fixes bug #453503.
 
 2007-07-04  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3088,10 +3094,10 @@
 	bindings/python/eog.defs, bindings/python/eog.override: python
 	bindings for plugin API. A lot of improvement needed here.
 	* configure.ac: check for Python libraries in order to activate or
-	deactivate Python support. 
-	* src/Makefile.am, data/eog.pc.in: includedir is now 
+	deactivate Python support.
+	* src/Makefile.am, data/eog.pc.in: includedir is now
 	@includedir@/eog-API_VERSION to allow future parallel deployments.
-	* src/eog-python-*: 
+	* src/eog-python-*:
 	* src/eog-window.c (eog_window_transparency_changed_cb,
 	eog_window_trans_color_changed_cb), src/eog-scroll-view.[ch] (paint_rectangle,
 	eog_scroll_view_set_transparency, eog_scroll_view_init): adapt enum
@@ -3104,7 +3110,7 @@
 
 2007-07-02  Felix Riemann  <friemann@svn.gnome.org>
 
-	Update from upstream (bug #452923):	
+	Update from upstream (bug #452923):
 
 	* cut-n-paste/toolbar-editor/egg-editable-toolbar.c:
 	(egg_editable_toolbar_dispose), (egg_editable_toolbar_class_init):
@@ -3130,12 +3136,12 @@
 	to the available list of toolbar items. Fixes bug #340831.
 	* src/eog-window.c: use new image collection icon.
 	* data/icons/*/actions/eog-image-collection.[png|svg]: new image
-	collection icon. Thanks to Andreas Nilsson and Jakub Steiner. 
+	collection icon. Thanks to Andreas Nilsson and Jakub Steiner.
 
 2007-06-26  Lucas Rocha  <lucasr@geladinho>
 
 	* src/eog-window.c: use slideshow icon from gnome-icon-theme for
-	slideshow action. Fixes bug #374582 (Felix Riemann). 
+	slideshow action. Fixes bug #374582 (Felix Riemann).
 
 2007-06-26  Lucas Rocha  <lucasr@geladinho>
 
@@ -3193,7 +3199,7 @@
 
 	* src/eog-exif-details.c: (eog_exif_details_dispose),
 	(eog_exif_details_init), (exif_entry_cb), (eog_exif_details_reset):
-	Display EXIF MakerNotes supported by libexif. 
+	Display EXIF MakerNotes supported by libexif.
 	Fixes bug #350809 (Jef Driesen).
 	* configure.ac: Bump libexif requirement to 0.6.14.
 
@@ -3210,7 +3216,7 @@
 
 	* src/eog-window.c (eog_window_run_fullscreen,
 	eog_window_stop_fullscreen): removed grey border when in fullscreen
-	mode. Fixes bug #425613 (Felix Riemann). 
+	mode. Fixes bug #425613 (Felix Riemann).
 
 2007-06-22  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3228,12 +3234,12 @@
 	* src/eog-thumbnail.[ch] (eog_thumbnail_add_frame,
 	eog_thumbnail_fit_to_size): added functions to add shadow frame and
 	thumbnail resizing.
-	* src/eog-thumb-view.c (eog_thumb_view_init): changed the pixbuf 
+	* src/eog-thumb-view.c (eog_thumb_view_init): changed the pixbuf
 	cell renderer to make improve the aligment among thumbnails.
 	* src/eog-plugin-engine.c, src/eog-application.c, src/eog-window.c,
 	src/eog-dialog.c, src/Makefile.am: renamed EOG_DATADIR and
-	EOG_PLUGINDIR to EOG_DATA_DIR and EOG_PLUGIN_DIR respectively.   
-	* configure.ac, data/Makefile, data/pixmaps/*: added new pixmap 
+	EOG_PLUGINDIR to EOG_DATA_DIR and EOG_PLUGIN_DIR respectively.
+	* configure.ac, data/Makefile, data/pixmaps/*: added new pixmap
 	for thumbnail frame.
 	* src/eog-thumb-shadow.[ch]: removed.
 
@@ -3260,7 +3266,7 @@
 
 	* src/eog-plugin-manager.c (create_tree_popup_menu,
 	show_tree_popup_menu): don't show contextual menu when there are no
-	plugins available in order to avoid crashers. Fixes bug #445535. 
+	plugins available in order to avoid crashers. Fixes bug #445535.
 
 2007-06-10  Felix Riemann  <friemann@svn.gnome.org>
 
@@ -3277,7 +3283,7 @@
 
 2007-06-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-plugin-engine.c: (eog_plugin_engine_load_dir): Check 
+	* src/eog-plugin-engine.c: (eog_plugin_engine_load_dir): Check
 	for the existence of the requested directory. Fixes a critical
 	warning when trying to load nonexistent plugin directories. Fixes
 	bug #439907.
@@ -3299,7 +3305,7 @@
 
 2007-05-27  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-window.c (): don't use duplicated action ids when updating 
+	* src/eog-window.c (): don't use duplicated action ids when updating
 	the "Open with" submenu. Fixes bug #440207 (Christian Persch).
 
 2007-05-27  Felix Riemann  <friemann@svn.gnome.org>
@@ -3337,7 +3343,7 @@
 
 	Plugin system in place and activated now. Here we go!
 
-	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor), 
+	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor),
 	data/eog.glade: activated plugin manager inside the preferences dialog.
 	* src/eog-window.[ch] (eog_window_get_ui_manager,
 	eog_window_get_store, eog_window_get_thumb_view,
@@ -3356,7 +3362,7 @@
 
 2007-05-11  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* README, AUTHORS: Update README and AUTHORS. Fixes 
+	* README, AUTHORS: Update README and AUTHORS. Fixes
 	bug #437691.
 
 2007-05-10  Felix Riemann  <friemann@svn.gnome.org>
@@ -3382,13 +3388,13 @@
 
 	* eog-debug.[ch]: added DEBUG_PLUGINS to debuf plugin system related
 	stuff.
-	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor): added 
+	* src/eog-preferences-dialog.c (eog_preferences_dialog_constructor): added
 	the "Plugins" tab to preferences dialog.
-	* src/eog-config-keys.h, data/eog.schemas.in: added GConf key that stores 
+	* src/eog-config-keys.h, data/eog.schemas.in: added GConf key that stores
 	the list of active plugins (/apps/eog/plugins/active_plugins).
 	* src/eog-module.[ch]: GTypeModule implementation.
 	* src/eog-plugin.[ch]: abstract class which EOG plugins should inherit
-	from. 
+	from.
 	* src/eog-plugin-engine.[ch]: plugin engine responsible for loading,
 	unloading, disabling, enabling plugins.
 	* src/eog-plugin-manager.[ch]: plugin manager that is shown in the
@@ -3404,7 +3410,7 @@
 	src/eog-thumb-view.h, src/eog-scroll-view.h, src/eog-window.h,
 	src/eog-statusbar.h, src/eog-exif-details.h, src/eog-dialog.h,
 	src/eog-image-save-info.h: added G_GNUC_CONST to all *_get_type
-	functions.  
+	functions.
 
 2007-05-05  Felix Riemann  <friemann@svn.gnome.org>
 
@@ -3422,12 +3428,12 @@
 
 2007-05-01  Lucas Rocha  <lucasr@gnome.org>
 
-	* data/eog.schemas.in: removed unused GConf keys related to image 
+	* data/eog.schemas.in: removed unused GConf keys related to image
 	info pane.
 
 2007-05-01  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-window.c (update_ui_visibility): hide editable application 
+	* src/eog-window.c (update_ui_visibility): hide editable application
 	toolbar when in fullscreen/slideshow mode.
 
 2007-04-30  Lucas Rocha  <lucasr@gnome.org>
@@ -3450,10 +3456,10 @@
 
 2007-04-29  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-window.c (eog_window_cmd_properties), 
-	src/eog-properties-dialog.[ch] (-pd_previous_button_clicked_cb, 
-	pd_next_button_clicked_cb, eog_properties_dialog_new, 
-	eog_properties_dialog_init): correctly use action proxies for 
+	* src/eog-window.c (eog_window_cmd_properties),
+	src/eog-properties-dialog.[ch] (-pd_previous_button_clicked_cb,
+	pd_next_button_clicked_cb, eog_properties_dialog_new,
+	eog_properties_dialog_init): correctly use action proxies for
 	the next and previous image buttons in image properties dialog.
 
 2007-04-29  Lucas Rocha  <lucasr@gnome.org>
@@ -3477,23 +3483,23 @@
 
 	* src/eog-application.[ch] (eog_application_init,
 	eog_application_dispose, eog_application_get_toolbars_model,
-	eog_application_save_toolbars_model): add centralized toolbar 
+	eog_application_save_toolbars_model): add centralized toolbar
 	model handling for all application windows.
 	* src/eog-window.c (eog_window_construct_ui): use toolbar model
 	and editable toolbar.
 	eog_window_cmd_edit_toolbar, eog_window_cmd_edit_toolbar_cb)
-	* src/eog-util.[ch] (eog_util_dot_dir): added function to get 
+	* src/eog-util.[ch] (eog_util_dot_dir): added function to get
 	the user EOG's directory.
 	* cut-n-paste/toolbar-editor/*: local copy of editable toolbar
 	from libegg.
 	* data/eog-ui.xml: added toolbar to Edit menu.
 	* data/eog-toolbar.xml: new editable toolbar definition file.
-	* configure.ac, Makefile.am, src/Makefile.am: added editable 
+	* configure.ac, Makefile.am, src/Makefile.am: added editable
 	toolbar bits to the build.
 
 2007-04-26  Lucas Rocha  <lucasr@gnome.org>
 
-	Show tooltips with image's general information on thumbnails 
+	Show tooltips with image's general information on thumbnails
 	pane. Patch from Claudio Saavedra. Fixes bug #416321.
 
 	* src/eog-thumb-view.c (tb_on_query_tooltip_cb,
@@ -3502,8 +3508,8 @@
 	* src/eog-window.c (update_status_bar): improve i18n details for
 	status bar content.
 	* src/Makefile.am: made all EXIF-related code optional.
-	* src/eog-image.c (eog_image_get_dimension_from_thumbnail, 
-	eog_image_real_load): added support for loading only image 
+	* src/eog-image.c (eog_image_get_dimension_from_thumbnail,
+	eog_image_real_load): added support for loading only image
 	dimensions.
 	* configure.ac: added checks for new tooltip API in GTK+.
 
@@ -3526,8 +3532,8 @@
 2007-04-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-window.c: (eog_window_run_fullscreen),
-	(eog_window_stop_fullscreen): Set the background black in 
-	fullscreen/slideshow mode. Patch by Diego Escalante Urrelo 
+	(eog_window_stop_fullscreen): Set the background black in
+	fullscreen/slideshow mode. Patch by Diego Escalante Urrelo
 	<diego@aureal.com.pe>. Fixes bug #419756.
 
 2007-04-18  Felix Riemann  <friemann@svn.gnome.org>
@@ -3557,7 +3563,7 @@
 
 	* configure.ac: Removed help/ko/Makefile due to gnome-doc-utils
 	migration.
-	
+
 2007-04-07  Felix Riemann  <friemann@svn.gnome.org>
 
 	* src/eog-save-as-dialog-helper.c: (prepare_token_options):
@@ -3582,7 +3588,7 @@
 	grip. Image number/position hides when progress bar is active. Adjust
 	the progress bar height to make it look nicer. Coding style cleanups.
 	* src/eog-window.c (eog_window_window_state_event): use GtkStatusBar
-	API for setting resize grip. 
+	API for setting resize grip.
 
 2007-03-23  Felix Riemann  <friemann@svn.gnome.org>
 
@@ -3632,7 +3638,7 @@
 
 2007-03-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-thumb-nav.c: (eog_thumb_nav_set_mode): Use 
+	* src/eog-thumb-nav.c: (eog_thumb_nav_set_mode): Use
 	GTK_POLICY_AUTOMATIC to show only scrollbars when needed.
 
 2007-03-18  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -3660,11 +3666,11 @@
 	eog_image_real_load): load embedded ICC profile from the image if
 	present.
 	* src/eog-metadata-reader.[ch] (eog_metadata_reader_get_icc_chunk,
-	eog_metadata_reader_get_icc_chunk_size): unify ICC functions for 
-	consistency. 
+	eog_metadata_reader_get_icc_chunk_size): unify ICC functions for
+	consistency.
 	* src/eog-window.c (eog_job_load_cb, eog_window_init,
-	eog_job_model_cb, eog_window_dispose, 
-	eog_window_get_display_profile): load and cache display profile 
+	eog_job_model_cb, eog_window_dispose,
+	eog_window_get_display_profile): load and cache display profile
 	to be applied on images just after they are successfully loaded.
 
 2007-03-17  Lucas Rocha  <lucasr@gnome.org>
@@ -3674,7 +3680,7 @@
 
 	* src/eog-window.c (eog_window_cmd_move_to_trash, move_to_trash_real,
 	show_move_to_trash_confirm_dialog, eog_window_error_quark): moved
-	adapted code from trunk. 
+	adapted code from trunk.
 
 2007-03-14  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3683,7 +3689,7 @@
 	* src/eog-window.c (eog_window_cmd_wallpaper), src/eog-util.[ch]
 	(eog_util_launch_desktop_file): use currently selected image to define
 	the wallpaper when respective action is activated.
-	* src/eog-config-keys.h: added EOG_CONF_DESKTOP_WALLPAPER entry. 
+	* src/eog-config-keys.h: added EOG_CONF_DESKTOP_WALLPAPER entry.
 
 2007-03-10  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3692,11 +3698,11 @@
 2007-03-10  Lucas Rocha  <lucasr@gnome.org>
 
 	Restabilished the image saving functionalities. Based on patch from
-	Felix Riemann <friemann@svn.gnome.org>. Fixes bug #377123. A lot 
+	Felix Riemann <friemann@svn.gnome.org>. Fixes bug #377123. A lot
 	of polishing is still needed.
 
 	* src/eog-image.[ch] (eog_image_class_init, eog_image_real_transform,
-	handle_xfer_status, tmp_file_move_to_uri): added a "save-progress" 
+	handle_xfer_status, tmp_file_move_to_uri): added a "save-progress"
 	signal. Some coding style fixes.
 	* src/eog-job-queue.c (remove_job_from_queue, handle_job,
 	no_jobs_available_unlocked, search_for_jobs_unlocked,
@@ -3708,14 +3714,14 @@
 
 2007-03-09  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-image.c: (eog_image_set_orientation): Some 
-	images may not have orientation information, and 
+	* src/eog-image.c: (eog_image_set_orientation): Some
+	images may not have orientation information, and
 	exif_data_get_entry () may return NULL.
 
 2007-03-08  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* src/eog-jobs.c: (eog_job_thumbnail_run): Preserve 
-	original image dimensions metadata if available in the 
+	* src/eog-jobs.c: (eog_job_thumbnail_run): Preserve
+	original image dimensions metadata if available in the
 	thumbnail.
 
 2007-03-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -3739,7 +3745,7 @@
 2007-03-05  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/eog-image.c: (eog_image_get_collate_key):
-	* src/eog-image.h: eog_image_get_caption () returns a 
+	* src/eog-image.h: eog_image_get_caption () returns a
 	const gchar*.
 
 2007-02-27  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -3752,7 +3758,7 @@
 	(+eog_window_update_openwith_menu): Updates the 'open with' menu
 	according with the mimetypes of the selected image.
 	(eog_window_construct_ui): Get a new merge id for the menu.
-	(eog_window_init), (eog_window_dispose): Properly init and 
+	(eog_window_init), (eog_window_dispose): Properly init and
 	finish the mime application list.
 
 	Add a 'Open file with' functionality (Fixes bug #319859). Patch from
@@ -3769,7 +3775,7 @@
 	sides of the window. Also, the collection pane can be resizable or
 	not. Fixes bug #334321.
 
-	* src/eog-thumb-nav.[ch] (eog_thumb_nav_set_mode): added mode for 
+	* src/eog-thumb-nav.[ch] (eog_thumb_nav_set_mode): added mode for
 	multiple columns.
 	* src/eog-window.c (eog_window_init,
 	eog_window_collection_mode_changed_cb, eog_window_construct_ui): keep
@@ -3793,7 +3799,7 @@
 	* src/eog-window.c (eog_job_load_cb, eog_window_open_uri_list,
 	eog_window_dispose, eog_job_model_cb): set window title with image
 	caption even in image loading error cases. Set error message area when
-	no images are found in given locations. 
+	no images are found in given locations.
 	* src/eog-error-message-area.[ch]
 	(eog_no_images_error_message_area_new): new message area for errors
 	when no images are found in given locations.
@@ -3810,9 +3816,9 @@
 	* src/eog-scroll-view.[ch] (eog_scroll_view_set_zoom_multiplier,
 	display_key_press_event, eog_scroll_view_init), src/eog-window.c
 	(eog_window_zoom_multiplier_changed_cb, eog_window_construct_ui,
-	eog_window_init): use new GConf key to define the zoom multiplier 
+	eog_window_init): use new GConf key to define the zoom multiplier
 	used when scrolling with the mouse wheel (Fixes bug #89512).
-	* src/eog-config-keys.h, data/eog.schema.in: added new GConf for 
+	* src/eog-config-keys.h, data/eog.schema.in: added new GConf for
 	zoom multiplier.
 
 2007-02-23  Lucas Rocha  <lucasr@gnome.org>
@@ -3839,7 +3845,7 @@
 
 	* src/eog-list-store.c (eog_list_store_add_uris): take other images in
 	same location into account even for remote URIs (if the image's parent
-	URI is a directory) (Fixes bug #364426). 
+	URI is a directory) (Fixes bug #364426).
 
 2007-02-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
@@ -3853,21 +3859,21 @@
 	* configure.ac: Add check for strptime.
 	* src/eog-util.c: (eog_util_format_exif_date_with_strptime),
 	(eog_util_format_exif_date_by_hand), (eog_util_format_exif_date):
-	Parse and localize the EXIF date, using strptime when possible, and 
+	Parse and localize the EXIF date, using strptime when possible, and
 	taking care of broken EXIF headers (Fixes bug #404907). Patch
 	from Felix Riemann <friemann@svn.gnome.org> and me.
 
 2007-02-13  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-transform.[ch], src/eog-image-private.h, src/eog-image.[ch], 
-	src/eog-window.c, data/eog.glade, src/eog-config-keys.h: ported preferences 
+	* src/eog-transform.[ch], src/eog-image-private.h, src/eog-image.[ch],
+	src/eog-window.c, data/eog.glade, src/eog-config-keys.h: ported preferences
 	dialog and auto orientation from trunk to eog-ng branch.
 
 2007-02-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-image.c, src/eog-scroll-view.c, src/eog-metadata-reader.c:
 	replace all deprecated debug messages with new debug facilities (Fixes
-	bug #404126). Patch from Claudio André <claudio.andre@correios.net.br>. 
+	bug #404126). Patch from Claudio André <claudio.andre@correios.net.br>.
 
 2007-02-12  Lucas Rocha  <lucasr@gnome.org>
 
@@ -3923,7 +3929,7 @@
 	multiple rows.
 	* src/eog-window.c: keep track of changes in GConf keys for image
 	colllection pane mode and show scroll buttons.
-	* data/eog.schemas.in, src/eog-config-keys.h: added entry for image 
+	* data/eog.schemas.in, src/eog-config-keys.h: added entry for image
 	collection mode key.
 
 2007-02-03  Lucas Rocha  <lucasr@gnome.org>
@@ -3938,7 +3944,7 @@
 2007-02-03  Lucas Rocha  <lucasr@gnome.org>
 
 	* src/eog-image.c: several coding style fixes.
-	* data/eog.glade, src/eog-properties-dialog.c: replaced shutter speed 
+	* data/eog.glade, src/eog-properties-dialog.c: replaced shutter speed
 	with exposure time for user-friendliness.
 	* src/eog-util.[ch]: added function for formatting exif dates.
 
@@ -3998,8 +4004,8 @@
 	* src/eog-info-view*: removed.
 	* src/eog-exif-details.[ch]: dump of EXIF data in a tree view. Used in
 	the "Details" expander in image properties dialog.
-	* src/eog-properties-dialog.c, data/eog.glade, src/Makefile.am: added 
-	EXIF tab. Main tags are shown by default. Expander can be used to see 
+	* src/eog-properties-dialog.c, data/eog.glade, src/Makefile.am: added
+	EXIF tab. Main tags are shown by default. Expander can be used to see
 	all EXIF data. Polishing still needs to be done.
 
 2007-01-22  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -4032,8 +4038,8 @@
 
 2007-01-15  Lucas Rocha  <lucasr@gnome.org>
 
-	* src/eog-image-private.h, src/eog-image.[ch]: complete 
-	code cleanup (small refactorings, removal of obsolete methods, 
+	* src/eog-image-private.h, src/eog-image.[ch]: complete
+	code cleanup (small refactorings, removal of obsolete methods,
 	coding style fixes, etc).
 	* src/eog-print-image-setup.c: coding style fixes.
 	* src/eog-info-view.c, src/eog-list-store.c,
@@ -4056,18 +4062,18 @@
 2007-01-04  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* src/Makefile.am: Add new files.
-	
-	* src/eog-print-image-setup.c: 
-	* src/eog-print-image-setup.h: 
 
-	New custom widget for the GtkPrint UI to set the image position and 
+	* src/eog-print-image-setup.c:
+	* src/eog-print-image-setup.h:
+
+	New custom widget for the GtkPrint UI to set the image position and
 	size in a printed page.
-	
+
 	* src/eog-print-preview.c:
 	* src/eog-print-preview.h:
 
 	Widget to interactively preview the printing of an image.
-	
+
 	* src/eog-window.c: (eog_window_print_draw_page),
 	(eog_window_print_create_custom_widget),
 	(eog_window_print_custom_widget_apply),
@@ -4114,7 +4120,7 @@
 
 2007-01-01  Lucas Rocha  <lucasr@gnome.org>
 
-	* shell/Makefile.am, shell/eog-window.c, shell/eog-preferences-dialog.[ch]: 
+	* shell/Makefile.am, shell/eog-window.c, shell/eog-preferences-dialog.[ch]:
 	rename eog-preferences.* to eog-preferences-dialog.*
 
 2006-12-28  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4125,19 +4131,19 @@
 2006-12-27  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* configure.ac: Add dependence on gnome-icon-theme.
-	* shell/eog-window.c: Use "print-setup" icon from g-i-t. Patch from 
+	* shell/eog-window.c: Use "print-setup" icon from g-i-t. Patch from
 	Thomas Andersen <phomes@gmail.com>. Fixes bug #389314.
 
 2006-12-26  Lucas Rocha  <lucasr@gnome.org>
 
 	New command-line options for EOG: -s to start in slideshow mode, -f
 	to start in fullscreen mode, and -c to disable collection pane on
-	startup (Fixes bugs #308787, #336712, #376560, #376513). Based on 
+	startup (Fixes bugs #308787, #336712, #376560, #376513). Based on
 	patch from Bruno Boaventura <brunoboaventura@gmail.com>.
 
 	* shell/eog-window.[ch]: add startup flags to EogWindow. Consider
 	those flags when constructing the UI.
-	* shell/eog-application.[ch]: Update API to receive the EogWindow startup 
+	* shell/eog-application.[ch]: Update API to receive the EogWindow startup
 	flags.
 	* shell/main.c: initialize startup flags based on passed command-line
 	options.
@@ -4187,14 +4193,14 @@
 
 2006-11-28  Felix Riemann  <friemann@cvs.gnome.org>
 
-	* configure.ac: Put GNOME_DOC_INIT down further and call 
+	* configure.ac: Put GNOME_DOC_INIT down further and call
 	PKG_PROG_PKG_CONFIG before it. Fixes bug #372820.
 
 2006-11-25  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/Makefile.am, shell/eog-thumb-nav.[ch],
-	libeog/eog-list-store.[ch], libeog/eog-thumb.view.c, 
-	eog-window.c: new thumbnail pane navigator widget. No captions shown 
+	libeog/eog-list-store.[ch], libeog/eog-thumb.view.c,
+	eog-window.c: new thumbnail pane navigator widget. No captions shown
 	anymore. Tooltips still need to be added.
 
 2006-11-19  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4214,7 +4220,7 @@
 
 2006-11-17  Felix Riemann  <friemann@cvs.gnome.org>
 
-	* autogen.sh: configure.ac asks for autoconf >= 2.57 and 
+	* autogen.sh: configure.ac asks for autoconf >= 2.57 and
 	intltool >= 0.35.0. Do the same in autogen.sh.
 
 2006-11-16  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -4223,7 +4229,7 @@
 
 2006-11-16  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* libeog/eog-scroll-view.c: (paint_rectangle): Make check 
+	* libeog/eog-scroll-view.c: (paint_rectangle): Make check
 	pattern for transparent images a bit lighter. Fixes bug #350183.
 
 2006-11-15  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4240,12 +4246,12 @@
 
 2006-11-14  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* shell/eog-window.c: (eog_window_print_draw_page): Fix for big 
+	* shell/eog-window.c: (eog_window_print_draw_page): Fix for big
 	portrait images.
 
 2006-11-14  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* configure.ac: Remove checks for libgnomeprint{ui} and add checks for 
+	* configure.ac: Remove checks for libgnomeprint{ui} and add checks for
 	gtk+-unix-print.
 	* data/eog-ui.xml: Add "FilePageSetup" action.
 	* libeog/eog-image.c: remove unused eog_image_print ().
@@ -4257,7 +4263,7 @@
 	(eog_window_print_end_print), (eog_window_print),
 	(eog_window_cmd_page_setup), (eog_window_cmd_print):
 
-	Add support for GtkPrint. Remove old and unused libgnomeprint{ui} 
+	Add support for GtkPrint. Remove old and unused libgnomeprint{ui}
 	dependence. This is work in progress. See bug #356947.
 
 2006-11-14  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4278,11 +4284,11 @@
 	* shell/eog-window.c:
 	* shell/main.c: (main): Remove custom flip and rotate icons and use
 	stock icons instead. Remove now obsolete files. Based on patch for
-	HEAD by Luca Ferretti <elle.uca@libero.it>. Fixes bug #305823. 
+	HEAD by Luca Ferretti <elle.uca@libero.it>. Fixes bug #305823.
 
 2006-11-12  Felix Riemann  <friemann@cvs.gnome.org>
 
-	* configure.ac: Remove unneeded AM_PROG_LIBTOOL and with it the 
+	* configure.ac: Remove unneeded AM_PROG_LIBTOOL and with it the
 	unnecessary C++/Fortran checks.
 
 2006-11-10  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4303,9 +4309,9 @@
 
 2006-11-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* libeog/eog-list-store.c: (eog_list_store_get_loading_icon): Add 16 
+	* libeog/eog-list-store.c: (eog_list_store_get_loading_icon): Add 16
 	pixels to the loading-image icon to compensate the border size of the
-	thumbnails. 
+	thumbnails.
 
 2006-10-31  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
@@ -4318,7 +4324,7 @@
 
 2006-10-16  Felix Riemann  <friemann@cvs.gnome.org>
 
-	* libeog/eog-transform.c: (eog_transform_apply): 
+	* libeog/eog-transform.c: (eog_transform_apply):
 	Optimize calculation of dy variable. It is now only calulated
 	dest_height times instead of dest_height*dest_width times.
 
@@ -4349,40 +4355,40 @@
 
 2006-10-05  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	- Store EogJobs to load thumbnails in the EogListStore model, so we 
+	- Store EogJobs to load thumbnails in the EogListStore model, so we
 	can easily cancel them when they are no longer needed. This improves
 	network performance, though it is not optimal yet.
 
 	- Move the code to add eye candy to thumbnails inside the
 	thumbnailing job. This improves responsiveness.
-	
-	* libeog/eog-jobs.c: (eog_job_thumbnail_run): Move the code to add 
+
+	* libeog/eog-jobs.c: (eog_job_thumbnail_run): Move the code to add
 	eye candy to thumbnails inside the thumbnailing job.
 
-	* libeog/eog-list-store.c: 
+	* libeog/eog-list-store.c:
 
-	+ New mutex element in structure, to make jobs storing/removing 
-	operations atomic. 
-	
+	+ New mutex element in structure, to make jobs storing/removing
+	operations atomic.
+
 	(eog_list_store_dispose): Free the mutex.
 	(eog_list_store_init): Initialize the mutex.
-	(eog_job_thumbnail_cb), (eog_list_store_thumbnail_set), 
-	(eog_list_store_thumbnail_unset): Removed eye candy code. Store/remove 
+	(eog_job_thumbnail_cb), (eog_list_store_thumbnail_set),
+	(eog_list_store_thumbnail_unset): Removed eye candy code. Store/remove
 	thumbnailing jobs in the model.
 
 	* libeog/eog-list-store.h: Add EOG_LIST_STORE_EOG_JOB column.
-	
-	* libeog/eog-list-store.c: 
+
+	* libeog/eog-list-store.c:
 
 	(eog_list_store_init): Add a column to store the EogJobs.
-	(eog_job_thumbnail_cb): Once the EogJob is finished, remove it from the 
+	(eog_job_thumbnail_cb): Once the EogJob is finished, remove it from the
 	model.
-	(eog_list_store_thumbnail_set): When scheduling the job, save it to the 
+	(eog_list_store_thumbnail_set): When scheduling the job, save it to the
 	model.
-	(eog_list_store_thumbnail_unset): If current scheduled job 
+	(eog_list_store_thumbnail_unset): If current scheduled job
 	is still not complete, cancel it.
-	
-	* libeog/eog-list-store.h: Add a column to store the EogJob that 
+
+	* libeog/eog-list-store.h: Add a column to store the EogJob that
 	loads the thumbnail.
 
 2006-10-05  Felix Riemann  <friemann@cvs.gnome.org>
@@ -4445,8 +4451,8 @@
 
 2006-09-06  Lucas Rocha  <lucasr@gnome.org>
 
-	* shell/main.c: save customized keybindings on application 
-	shutdown (Fixes bug #324757). 
+	* shell/main.c: save customized keybindings on application
+	shutdown (Fixes bug #324757).
 
 2006-09-06  Lucas Rocha  <lucasr@gnome.org>
 
@@ -4457,12 +4463,12 @@
 
 	* shell/eog-window.c (add_uri_to_recent_files,
 	eog_window_update_recent_files_menu): small fix for remote URIs on recently
-	used resources file (Fixes bug #351040). Patch from Felix 
+	used resources file (Fixes bug #351040). Patch from Felix
 	Riemann <felix@hsgheli.de>.
 
 2006-09-01  Lucas Rocha  <lucasr@gnome.org>
 
-	* shell/recent-files/*: removed. 
+	* shell/recent-files/*: removed.
 
 2006-09-01  Lucas Rocha  <lucasr@gnome.org>
 
@@ -4479,7 +4485,7 @@
 2006-08-10  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-image-list.c (eog_image_list_add_uris): fix critical
-	warning when opening remote images (Fixes bug #350557). 
+	warning when opening remote images (Fixes bug #350557).
 
 2006-08-10  Lucas Rocha  <lucasr@gnome.org>
 
@@ -4495,7 +4501,7 @@
 2006-08-01  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-scroll-view.c (image_changed_cb): fix memory leak on
-	image transformation (Fixes bug #349434). Patch from Felix 
+	image transformation (Fixes bug #349434). Patch from Felix
 	Riemann <felix@hsgheli.de>.
 
 2006-07-25  Lucas Rocha  <lucasr@gnome.org>
@@ -4511,7 +4517,7 @@
 
 2006-07-25  Lucas Rocha  <lucasr@gnome.org>
 
-	Initial support for opening images by tags with the --tags command-line 
+	Initial support for opening images by tags with the --tags command-line
 	option based on leaftag. No UI defined for this yet.
 
 	* shell/main.c (main, string_array_to_list, +load_files_from_tags):
@@ -4522,7 +4528,7 @@
 	* libeog/eog-image.[ch] (+eog_image_get_supported_mime_types,
 	+eog_image_is_supported_mime_type, +compare_quarks): application wide
 	methods for gettting supported image mime types.
-	* libeog/eog-list-store.c (vfs_monitor_dir_cb): removed local mime type 
+	* libeog/eog-list-store.c (vfs_monitor_dir_cb): removed local mime type
 	support functions.
 
 2006-07-24  Lucas Rocha  <lucasr@gnome.org>
@@ -4547,13 +4553,13 @@
 2006-07-24  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-preferences.c: (color_change_cb): Use correct syntax
-	to retrieve color string (Fixes bug #347600). Patch from Felix 
+	to retrieve color string (Fixes bug #347600). Patch from Felix
 	Riemann <felix@hsgheli.de>.
 
 2006-07-13  Lucas Rocha  <lucasr@gnome.org>
 
 	* libeog/eog-scroll-view.c (eog_scroll_view_button_press_event,
-	eog_scroll_view_button_release_event, check_scrollbar_visibility): 
+	eog_scroll_view_button_release_event, check_scrollbar_visibility):
 	use middle mouse drag to scroll image (Fixes bug #335689). Based
 	on patch from Wouter Bolsterlee <uws+gnome@xs4all.nl>.
 
@@ -4566,8 +4572,8 @@
 2006-06-28  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	Add a frame around thumbnails to make the view behave uniformly.
-	
-	* libeog/eog-list-store.c: (eog_job_thumbnail_cb): Use 
+
+	* libeog/eog-list-store.c: (eog_job_thumbnail_cb): Use
 	eog_thumb_shadow_add_frame to add a frame around thumbnails.
 	* libeog/eog-thumb-shadow.c: (eog_thumb_shadow_add_frame): Add frame
 	around a thumbnail.
@@ -4576,7 +4582,7 @@
 2006-06-25  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* shell/eog-window.c: (fullscreen_timeout_cb),
-	(fullscreen_set_timeout), (eog_window_dispose):	
+	(fullscreen_set_timeout), (eog_window_dispose):
 	Remove some duplicated code and use fullscreen_clear_timeout () instead
 	of it (Fixes bug #344140). Patch from Felix Riemann <felix@hsgheli.de>.
 
@@ -4585,19 +4591,19 @@
 	* libeog/eog-list-store.c: (is_file_in_list_store),
 	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image),
 	(eog_list_store_thumbnail_set): eog_image_get_uri() increases reference
-	counter on the returned URI, so we have to decrease it when no longer 
+	counter on the returned URI, so we have to decrease it when no longer
 	needed.
 
 2006-06-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	Implement Drag and Drop for thumbnails. Currently 
+	Implement Drag and Drop for thumbnails. Currently
 	only implemented the GDK_ACTION_COPY action.
-	
-	* libeog/eog-thumb-view.c: 
 
-	(tb_on_drag_data_get_cb): Send the uris of the selected images to 
+	* libeog/eog-thumb-view.c:
+
+	(tb_on_drag_data_get_cb): Send the uris of the selected images to
 	the drop site.
-	(eog_thumb_view_init): Enable drag source and connect 
+	(eog_thumb_view_init): Enable drag source and connect
 	"drag-data-get" signal.
 
 2006-06-16  Lucas Rocha  <lucasr@gnome.org>
@@ -4612,7 +4618,7 @@
 	Only request for the menu to be used as popup.
 	* libeog/eog-thumb-view.h: ditto.
 	* libeog/test-eog-tb.c: (main): Updated popup creation code.
-	* shell/eog-window.c: (eog_window_construct_ui): Create popup 
+	* shell/eog-window.c: (eog_window_construct_ui): Create popup
 	for thumbnails and set it.
 
 2006-06-07  Lucas Rocha  <lucasr@gnome.org>
@@ -4645,19 +4651,19 @@
 
 	Renamed all 'thumb_view' and 'view' instances to tb, for consistence.
 
-	Added a popup menu implementation for thumbnails. At libeog level 
-	I added only the facility to add the popup menu, but this must be 
+	Added a popup menu implementation for thumbnails. At libeog level
+	I added only the facility to add the popup menu, but this must be
 	defined at the application level. See libeog/test-eog-tb.c for
 	an example of its usage.
-	
+
 	Add a GtkWidget pointer to the private data of EogThumbView, to
 	maintain a reference to the popup menu.
-	
+
 	* libeog/eog-thumb-view.h: Added function to set a context menu for
 	the thumbnails. See the implementation for an explanation on how to use
 	it.
-	
-	* libeog/test-eog-tb.c: (do_something_with_test_1), (main): Added test 
+
+	* libeog/test-eog-tb.c: (do_something_with_test_1), (main): Added test
 	code for the popup.
 
 2006-06-01  Lucas Rocha  <lucasr@gnome.org>
@@ -4668,7 +4674,7 @@
 
 2006-05-31  Lucas Rocha  <lucasr@gnome.org>
 
-	* libeog/eog-collection-item.c (set_pixbuf): making sure thumbnail 
+	* libeog/eog-collection-item.c (set_pixbuf): making sure thumbnail
 	is at least 1px large (Fixes bug #342817). Patch from
 	Felix Riemann <felix@hsgheli.de>.
 
@@ -4676,7 +4682,7 @@
 
 	* libeog/eog-list-store.c (eog_list_store_compare_func),
 	libeog/eog-image.c (eog_image_get_collate_key): properly sort
-	filenames containing numbers (Fixes bug #340957). Based on patch 
+	filenames containing numbers (Fixes bug #340957). Based on patch
 	from Felix Riemann <felix@hsgheli.de>.
 
 2006-05-29  Lucas Rocha  <lucasr@gnome.org>
@@ -4688,9 +4694,9 @@
 
 	* libeog/eog-list-store.c: (vfs_monitor_dir_cb): Remove some
 	debug output.
-	
-	* libeog/eog-thumb-view.c: (tb_on_adjustment_changed_cb), 
-	(tb_on_parent_set_cb): 
+
+	* libeog/eog-thumb-view.c: (tb_on_adjustment_changed_cb),
+	(tb_on_parent_set_cb):
 
 	Update visible thumbnails when an image is added to
 	the view. Useful for the case when images are added
@@ -4703,7 +4709,7 @@
 	* libeog/Makefile.am: Remove DDATADIR define. No longer needed.
 	* libeog/eog-list-store.c: (eog_list_store_get_loading_icon),
 	(eog_list_store_init): Use a themeable icon for the "busy" icon.
-	This way we don't need to ship our custom icon, and we use the 
+	This way we don't need to ship our custom icon, and we use the
 	gnome-icon-theme love.
 
 2006-05-20  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -4719,13 +4725,13 @@
 
 2006-05-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* libeog/eog-list-store.c: (eog_list_store_thumbnail_unset): 
+	* libeog/eog-list-store.c: (eog_list_store_thumbnail_unset):
 	Actually unsetting the thumbnail and some cleanups.
 
 2006-05-19  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-statusbar.c (eog_statusbar_init): set the height of
-	progressbar to avoid re-zooming image after loading (Fixes bug #327424). 
+	progressbar to avoid re-zooming image after loading (Fixes bug #327424).
 
 2006-05-19  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
@@ -4734,7 +4740,7 @@
 	(eog_list_store_init), (eog_job_thumbnail_cb),
 	(eog_list_store_append_image), (eog_list_store_thumbnail_set),
 	(eog_list_store_thumbnail_unset): Set a "busy" thumbnail
-	to the model in the images that are not visible. 
+	to the model in the images that are not visible.
 	* libeog/eog-list-store.h: Adding a EOG_LIST_STORE_THUMB_SET column
 	to the model. Patch by Felix Riemann <felix@hsgheli.de>.
 
@@ -4748,14 +4754,14 @@
 
 2006-05-19  Lucas Rocha  <lucasr@gnome.org>
 
-	* shell/eog-window.c (eog_window_cmd_about): about dialog 
+	* shell/eog-window.c (eog_window_cmd_about): about dialog
 	update (Fixes bug #342103). Patch from Claudio Saavedra
-	<csaavedra@alumnos.utalca.cl>. 
+	<csaavedra@alumnos.utalca.cl>.
 
 2006-05-18  Lucas Rocha  <lucasr@gnome.org>
 
 	* shell/eog-window.c (update_action_groups_state),
-	shell/eog-config-keys.h: respect the disable_save_to_disk 
+	shell/eog-config-keys.h: respect the disable_save_to_disk
 	gconf lockdown key (Fixed bug #341862).
 
 2006-05-18  Lucas Rocha  <lucasr@gnome.org>
@@ -4765,37 +4771,37 @@
 
 2006-05-17  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
-	* libeog/eog-image.c: 
+	* libeog/eog-image.c:
 
 	(eog_image_set_thumbnail): Allow to unset the thumbnail by passing NULL.
-	
-	* libeog/eog-list-store.c: 
 
-	(eog_list_store_append_image): Do not set here the thumbnail, and just 
+	* libeog/eog-list-store.c:
+
+	(eog_list_store_append_image): Do not set here the thumbnail, and just
 	pass NULL to the model to indicate that the thumbnail is not set.
 	(eog_list_store_thumbnail_set): Function to set a thumbnail to an image
 	in the model.
-	(eog_list_store_thumbnail_unset): Function to unset a thumbnail to an 
+	(eog_list_store_thumbnail_unset): Function to unset a thumbnail to an
 	image in the model.
-	
+
 	* libeog/eog-thumb-view.c: Implemented a lazy thumbnail loading engine.
 	Based on evince source code.
 
-	Defined the private data for the class, which contains the visible range 
+	Defined the private data for the class, which contains the visible range
 	of thumbnails.
 
 	(eog_thumb_view_class_init): Added the private structure to the class.
 	(eog_thumb_view_clear_range), (eog_thumb_view_add_range): New functions
 	to set and unset the thumbnails on a given range.
 	(eog_thumb_view_update_visible_range): Function to update the thumbnails
-	in the visible range, by unsetting the thumbnails in the old range, and 
+	in the visible range, by unsetting the thumbnails in the old range, and
 	setting the newly visible ones.
-	(tb_on_visible_range_changed_cb): Callback to be called when 
-	the widget resizes, or when the widget is scrolled, so we can 
+	(tb_on_visible_range_changed_cb): Callback to be called when
+	the widget resizes, or when the widget is scrolled, so we can
 	load/unload thumbnails.
-	(tb_on_parent_set_cb): Callback for the "parent-set" signal of the 
+	(tb_on_parent_set_cb): Callback for the "parent-set" signal of the
 	widget.
-	(eog_thumb_view_init): Set the default values for the private data, and 
+	(eog_thumb_view_init): Set the default values for the private data, and
 	connect the "parent-set" signal.
 
 2006-05-15  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -4803,7 +4809,7 @@
 	* libeog/eog-list-store.c: (eog_job_thumbnail_cb),
 	(eog_list_store_remove_image), (eog_list_store_get_pos_by_image):
 	Fixed some memory leaks.
-	* libeog/test-eog-tb.c: (main): Initialize threading system so the 
+	* libeog/test-eog-tb.c: (main): Initialize threading system so the
 	test code actually works.
 
 2006-05-13  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
@@ -4811,7 +4817,7 @@
 	* libeog/eog-list-store.c: Make thumbnails a bit smaller.
 	* shell/eog-window.c: (eog_window_construct_ui): GtkAdjustment for
 	the icon view no longer needed. Removed.
-	* shell/eog-window.c: (eog_window_construct_ui): Define some default 
+	* shell/eog-window.c: (eog_window_construct_ui): Define some default
 	values for the icon view, so it is usable and looks nice.
 
 2006-05-08  Lucas Rocha  <lucasr@gnome.org>
@@ -4819,7 +4825,7 @@
 	* shell/eog-window.c
 
 	(EogWindowMode): eog-window modes (UNKNOWN, NORMAL, FULLSCREEN,
-	SLIDESHOW). 
+	SLIDESHOW).
 
 	(update_action_groups_state, update_ui_visibility): helper functions
 	for UI updates depending on window mode.
@@ -4841,15 +4847,15 @@
 
 2006-04-29  Lucas Rocha  <lucasr@gnome.org>
 
-	* libeog/eog-thumb-view.[ch]: coding style fixes and several 
+	* libeog/eog-thumb-view.[ch]: coding style fixes and several
 	GObject related code cleanups.
 	* libeog/eog-config-keys.h: moved to shell.
 	* libeog/eog-jobs.[ch] (eog_job_thumbnail_dispose,
-	eog_job_thumbnail_new, eog_job_thumbnail_run): initial 
-	thumbnail loading job implementation. Based on patch 
+	eog_job_thumbnail_new, eog_job_thumbnail_run): initial
+	thumbnail loading job implementation. Based on patch
 	from Claudio Saavedra <csaavedra@alumnos.utalca.cl>.
 	* libeog/eog-list-store.[ch] (eog_list_store_append_image_from_uri,
-	eog_list_store_append_image, eog_job_thumbnail_cb): several code 
+	eog_list_store_append_image, eog_job_thumbnail_cb): several code
 	cleanups and coding style fixes. Use thumbnailing job to load
 	image thumbnail. Based on patch from Claudio Saavedra
 	<csaavedra@alumnos.utalca.cl>.
@@ -4866,7 +4872,7 @@
 	(eog_thumb_shadow_add_shadow), (eog_thumb_shadow_add_border),
 	(eog_thumb_shadow_add_rectangle), (create_round_border),
 	(eog_thumb_shadow_add_round_border):
-	* libeog/eog-thumb-shadow.h: New files to add eyecandy to the 
+	* libeog/eog-thumb-shadow.h: New files to add eyecandy to the
 	thumbnails.
 
 2006-04-16  Lucas Rocha  <lucasr@gnome.org>
@@ -4878,28 +4884,28 @@
 
 	* configure.ac: update intltool dependency version for correct
 	po/LINGUAS implementation.
-	* art/Makefile.am, art/down-right.png, 
+	* art/Makefile.am, art/down-right.png,
 	art/orient-horizontal.png, art/orient-vertical.png,
 	art/right-down.png: removed obsolete images.
-	* data/Makefile.am, data/eog-gtk-ui.xml, 
+	* data/Makefile.am, data/eog-gtk-ui.xml,
 	data/eog-ui.xml: renamed UI file (eog-gtk-ui.xml) to
 	eog-ui.xml.
 	* libeog/Makefile.am: update to work with new files.
 	Removed references to removed files.
 	* libeog/eog-job-manager.c, libeog/eog-job-manager.h,
-	libeog/eog-job.c, libeog/eog-job.h: old job management 
+	libeog/eog-job.c, libeog/eog-job.h: old job management
 	removed to be replaced by a new one.
 	* libeog/test-eog-job.c, libeog/test-image-load.c:
 	obsolete test programs removed.
 	* libeog/eog-job-queue.c, libeog/eog-job-queue.h,
 	libeog/eog-jobs.c, libeog/eog-jobs.h: new job handling
 	implementation.
-	* libeog/eog-full-screen.c (job_image_load_do), 
+	* libeog/eog-full-screen.c (job_image_load_do),
 	libeog/eog-image.[ch] (eog_image_apply_transformations,
 	eog_image_load_exif_data_only, eog_image_real_load,
 	eog_image_load, image_transform, eog_image_save_by_info,
-	eog_image_save_as_by_info), libeog/eog-transform.[ch] 
-	(eog_transform_apply), libeog/eog-thumbnail.h: removed all 
+	eog_image_save_as_by_info), libeog/eog-transform.[ch]
+	(eog_transform_apply), libeog/eog-thumbnail.h: removed all
 	old job implementation references.
 	* po/POTFILES.in: update.
 	* shell/eog-stock-icons.c, shell/eog-stock-icons.h: new
@@ -4942,21 +4948,21 @@
 
 	* shell/eog-window.c: (update_ui_visibility),
 	(eog_window_construct_ui): Changed GtkVPaned to a GtkVBox to give
-	a fixed size to the thumbview. Set the thumbview to a one-row layout 
+	a fixed size to the thumbview. Set the thumbview to a one-row layout
 	with only a horizontal scrollbar.
-	
+
 2006-04-06  Claudio Saavedra  <csaavedra@alumnos.utalca.cl>
 
 	* libeog/eog-list-store.c: (eog_list_store_append_image_from_uri),
 	(eog_list_store_add_uris), (eog_list_store_new_from_glist):
-	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model): Check 
+	* libeog/eog-thumb-view.c: (eog_thumb_view_set_model): Check
 	if model is empty before trying to select the initial image.
 	(eog_thumb_view_get_first_selected_image),
 	(eog_thumb_view_get_selected_images),
 	(eog_thumb_view_select_single):
 	Several coding style changes.
 	* libeog/test-eog-tb.c: (tb_on_selection_changed),
-	(string_array_to_list), (main): Set the model for the view after 
+	(string_array_to_list), (main): Set the model for the view after
 	filling it. Using eog_thumb_view_set_model (). Coding style changes.
 
 2006-04-04  Lucas Rocha  <lucasr@gnome.org>
@@ -4967,7 +4973,7 @@
 2006-04-04  Lucas Rocha  <lucasr@gnome.org>
 
 	* configure.ac: no need for X/pango checks.
-	* help/bg/.cvsignore, help/eu/.cvsignore, 
+	* help/bg/.cvsignore, help/eu/.cvsignore,
 	libeog/.cvsignore: .cvsignore love.
 	* libeog/eog-list-store.h: fixe typo.
 	* shell/Makefile.am: update.
@@ -4978,7 +4984,7 @@
 	shell/util.h: removed.
 	* shell/eog-session.c, shell/eog-session.h: initial EOG session
 	handling implementation.
-	* shell/eog-window.c, shell/eog-window.h: provisory "trash" 
+	* shell/eog-window.c, shell/eog-window.h: provisory "trash"
 	implementation to use the eog-application facade.
 	* shell/main.c: complete cleanup by using EogApplication.
 	* libeog/Makefile.am, eog-collection-item.c, eog-collection-item.h,
@@ -5005,7 +5011,7 @@
 	(check_automatic_switch), (eog_full_screen_key_press),
 	(eog_full_screen_destroy), (eog_full_screen_init),
 	(job_image_load_finished), (prepare_load_image), (prepare_data),
-	(eog_full_screen_new), (eog_full_screen_get_last_image): Porting 
+	(eog_full_screen_new), (eog_full_screen_get_last_image): Porting
 	to EogThumbView and EogListStore.
 	* libeog/eog-full-screen.h: Changing EogImageList and EogIter
 	struct members to EogListStore and GtkTreeIter, respectively.
@@ -5082,7 +5088,7 @@
 	eog.desktop.in.in, and eog.glade to data directory.
 	* Makefile.am, autogen.sh: lots of cleanups.
 	* shell/eog-preferences.c, shell/eog-save-as-dialog-helper.c,
-	shell/eog-save-dialog-helper.c: look for glade files on 
+	shell/eog-save-dialog-helper.c: look for glade files on
 	$datadir.
 
 2006-04-02  Lucas Rocha  <lucasr@gnome.org>
