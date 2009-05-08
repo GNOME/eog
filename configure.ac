@@ -6,7 +6,7 @@ m4_define(eog_micro_version,  2)
 m4_define(eog_version, eog_major_version.eog_minor_version.eog_micro_version)
 
 AC_INIT([eog], eog_version, [http://bugzilla.gnome.org/enter_bug.cgi?product=eog], [eog])
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-bzip2])
 
 AC_DEFINE(EOG_MAJOR_VERSION, eog_major_version, [EOG major version])
 AC_SUBST(EOG_MAJOR_VERSION,  eog_major_version)
@@ -18,7 +18,7 @@ AC_SUBST(EOG_MICRO_VERSION,  eog_micro_version)
 EOG_API_VERSION=2.20
 AC_SUBST(EOG_API_VERSION)
 
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 AM_MAINTAINER_MODE
 
@@ -33,8 +33,6 @@ AC_PROG_LIBTOOL
 
 AC_ISC_POSIX
 AC_PROG_CC
-AM_PROG_CC_STDC
-AC_HEADER_STDC
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
