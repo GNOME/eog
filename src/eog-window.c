@@ -2533,7 +2533,7 @@ eog_window_cmd_about (GtkAction *action, gpointer user_data)
 			       "authors", authors,
 			       "documenters", documenters,
 			       "translator-credits", translators,
-			       "website", "http://www.gnome.org/projects/eog",
+			       "website", "http://projects.gnome.org/eog/",
 			       "logo-icon-name", "eog",
 			       "wrap-license", TRUE,
 			       "license", license_trans,
