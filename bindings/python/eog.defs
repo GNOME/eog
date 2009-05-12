@@ -941,9 +941,18 @@
   )
 )
 
-(define-method set_antialiasing
+(define-method set_antialiasing_in
   (of-object "EogScrollView")
-  (c-name "eog_scroll_view_set_antialiasing")
+  (c-name "eog_scroll_view_set_antialiasing_in")
+  (return-type "none")
+  (parameters
+    '("gboolean" "state")
+  )
+)
+
+(define-method set_antialiasing_out
+  (of-object "EogScrollView")
+  (c-name "eog_scroll_view_set_antialiasing_out")
   (return-type "none")
   (parameters
     '("gboolean" "state")
