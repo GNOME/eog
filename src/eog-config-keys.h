@@ -34,6 +34,7 @@
 #define EOG_CONF_DESKTOP_CAN_SETUP_PAGE 	"/desktop/gnome/lockdown/disable_print_setup"
 
 #define EOG_CONF_VIEW_INTERPOLATE		"/apps/eog/view/interpolate"
+#define EOG_CONF_VIEW_EXTRAPOLATE		"/apps/eog/view/extrapolate"
 #define EOG_CONF_VIEW_SCROLL_WHEEL_ZOOM		"/apps/eog/view/scroll_wheel_zoom"
 #define EOG_CONF_VIEW_ZOOM_MULTIPLIER		"/apps/eog/view/zoom_multiplier"
 #define EOG_CONF_VIEW_AUTOROTATE                "/apps/eog/view/autorotate"

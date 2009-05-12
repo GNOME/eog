@@ -117,6 +117,7 @@ static gint signals[SIGNAL_LAST];
 /* GConfNotifications */
 enum {
 	EOG_WINDOW_NOTIFY_INTERPOLATE,
+	EOG_WINDOW_NOTIFY_EXTRAPOLATE,
 	EOG_WINDOW_NOTIFY_SCROLLWHEEL_ZOOM,
 	EOG_WINDOW_NOTIFY_ZOOM_MULTIPLIER,
 	EOG_WINDOW_NOTIFY_TRANSPARENCY,
@@ -223,13 +224,13 @@ eog_window_error_quark (void)
 }
 
 static void
-eog_window_interp_type_changed_cb (GConfClient *client,
-				   guint       cnxn_id,
-				   GConfEntry  *entry,
-				   gpointer    user_data)
+eog_window_interp_in_type_changed_cb (GConfClient *client,
+				      guint       cnxn_id,
+				      GConfEntry  *entry,
+				      gpointer    user_data)
 {
 	EogWindowPrivate *priv;
-	gboolean interpolate = TRUE;
+	gboolean interpolate_in = TRUE;
 
 	eog_debug (DEBUG_PREFERENCES);
 
@@ -240,11 +241,36 @@ eog_window_interp_type_changed_cb (GConfClient *client,
 	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
 
 	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
-		interpolate = gconf_value_get_bool (entry->value);
+		interpolate_in = gconf_value_get_bool (entry->value);
 	}
 
-	eog_scroll_view_set_antialiasing (EOG_SCROLL_VIEW (priv->view),
-					  interpolate);
+	eog_scroll_view_set_antialiasing_in (EOG_SCROLL_VIEW (priv->view),
+					  interpolate_in);
+}
+
+static void
+eog_window_interp_out_type_changed_cb (GConfClient *client,
+				       guint       cnxn_id,
+				       GConfEntry  *entry,
+				       gpointer    user_data)
+{
+	EogWindowPrivate *priv;
+	gboolean interpolate_out = TRUE;
+
+	eog_debug (DEBUG_PREFERENCES);
+
+	g_return_if_fail (EOG_IS_WINDOW (user_data));
+
+	priv = EOG_WINDOW (user_data)->priv;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (priv->view));
+
+	if (entry->value != NULL && entry->value->type == GCONF_VALUE_BOOL) {
+		interpolate_out = gconf_value_get_bool (entry->value);
+	}
+
+	eog_scroll_view_set_antialiasing_out (EOG_SCROLL_VIEW (priv->view),
+					  interpolate_out);
 }
 
 static void
@@ -4127,11 +4153,21 @@ eog_window_construct_ui (EogWindow *window)
 
 	gtk_box_pack_end (GTK_BOX (priv->cbox), priv->layout, TRUE, TRUE, 0);
 
+
+	entry = gconf_client_get_entry (priv->client,
+					EOG_CONF_VIEW_EXTRAPOLATE,
+					NULL, TRUE, NULL);
+	if (entry != NULL) {
+		eog_window_interp_in_type_changed_cb (priv->client, 0, entry, window);
+		gconf_entry_unref (entry);
+		entry = NULL;
+	}
+
 	entry = gconf_client_get_entry (priv->client,
 					EOG_CONF_VIEW_INTERPOLATE,
 					NULL, TRUE, NULL);
 	if (entry != NULL) {
-		eog_window_interp_type_changed_cb (priv->client, 0, entry, window);
+		eog_window_interp_out_type_changed_cb (priv->client, 0, entry, window);
 		gconf_entry_unref (entry);
 		entry = NULL;
 	}
@@ -4222,10 +4258,16 @@ eog_window_init (EogWindow *window)
 	gconf_client_add_dir (window->priv->client, EOG_CONF_DIR,
 			      GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
+	priv->client_notifications[EOG_WINDOW_NOTIFY_EXTRAPOLATE] =
+		gconf_client_notify_add (window->priv->client,
+				 	EOG_CONF_VIEW_EXTRAPOLATE,
+					 eog_window_interp_in_type_changed_cb,
+					 window, NULL, NULL);
+
 	priv->client_notifications[EOG_WINDOW_NOTIFY_INTERPOLATE] =
 		gconf_client_notify_add (window->priv->client,
-				 	EOG_CONF_VIEW_INTERPOLATE,
-					 eog_window_interp_type_changed_cb,
+				 	 EOG_CONF_VIEW_INTERPOLATE,
+					 eog_window_interp_out_type_changed_cb,
 					 window, NULL, NULL);
 
 	priv->client_notifications[EOG_WINDOW_NOTIFY_SCROLLWHEEL_ZOOM] =

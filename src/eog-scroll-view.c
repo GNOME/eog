@@ -105,8 +105,11 @@ struct _EogScrollViewPrivate {
 	/* handler ID for paint idle callback */
 	guint idle_id;
 
-	/* Interpolation type */
-	GdkInterpType interp_type;
+	/* Interpolation type when zoomed in*/
+	GdkInterpType interp_type_in;
+
+	/* Interpolation type when zoomed out*/
+	GdkInterpType interp_type_out;
 
 	/* Scroll wheel zoom */
 	gboolean scroll_wheel_zoom;
@@ -428,6 +431,26 @@ is_unity_zoom (EogScrollView *view)
 	return DOUBLE_EQUAL (priv->zoom, 1.0);
 }
 
+/* Returns whether the image is zoomed in */
+static gboolean
+is_zoomed_in (EogScrollView *view)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+	return priv->zoom - 1.0 > DOUBLE_EQUAL_MAX_DIFF;
+}
+
+/* Returns whether the image is zoomed out */
+static gboolean
+is_zoomed_out (EogScrollView *view)
+{
+	EogScrollViewPrivate *priv;
+
+	priv = view->priv;
+	return DOUBLE_EQUAL_MAX_DIFF + priv->zoom - 1.0 < 0.0;
+}
+
 /* Returns wether the image is movable, that means if it is larger then
  * the actual visible area.
  */
@@ -734,9 +757,15 @@ paint_iteration_idle (gpointer data)
 	if (eog_irect_empty (&rect)) {
 		eog_uta_free (priv->uta);
 		priv->uta = NULL;
-	} else
-		paint_rectangle (view, &rect, priv->interp_type);
-
+	} else {
+		if (is_zoomed_in (view))
+			paint_rectangle (view, &rect, priv->interp_type_in);
+		else if (is_zoomed_out (view))
+			paint_rectangle (view, &rect, priv->interp_type_out);
+		else
+			paint_rectangle (view, &rect, GDK_INTERP_NEAREST);
+	}
+		
 	if (!priv->uta) {
 		priv->idle_id = 0;
 		return FALSE;
@@ -774,7 +803,8 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 		return;
 
 	/* Do nearest neighbor, 1:1 zoom or active progressive loading synchronously for speed.  */
-	if (priv->interp_type == GDK_INTERP_NEAREST ||
+	if ((is_zoomed_in (view) && priv->interp_type_in == GDK_INTERP_NEAREST) ||
+	    (is_zoomed_out (view) && priv->interp_type_out == GDK_INTERP_NEAREST) ||
 	    is_unity_zoom (view) ||
 	    priv->progressive_state == PROGRESSIVE_LOADING) {
 		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
@@ -1664,7 +1694,7 @@ eog_scroll_view_set_zoom_upscale (EogScrollView *view, gboolean upscale)
 }
 
 void
-eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state)
+eog_scroll_view_set_antialiasing_in (EogScrollView *view, gboolean state)
 {
 	EogScrollViewPrivate *priv;
 	GdkInterpType new_interp_type;
@@ -1675,8 +1705,26 @@ eog_scroll_view_set_antialiasing (EogScrollView *view, gboolean state)
 
 	new_interp_type = state ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST;
 
-	if (priv->interp_type != new_interp_type) {
-		priv->interp_type = new_interp_type;
+	if (priv->interp_type_in != new_interp_type) {
+		priv->interp_type_in = new_interp_type;
+		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
+	}
+}
+
+void
+eog_scroll_view_set_antialiasing_out (EogScrollView *view, gboolean state)
+{
+	EogScrollViewPrivate *priv;
+	GdkInterpType new_interp_type;
+
+	g_return_if_fail (EOG_IS_SCROLL_VIEW (view));
+
+	priv = view->priv;
+
+	new_interp_type = state ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST;
+
+	if (priv->interp_type_out != new_interp_type) {
+		priv->interp_type_out = new_interp_type;
 		gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 	}
 }
@@ -1874,8 +1922,8 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 			gtk_widget_queue_draw (GTK_WIDGET (priv->display));
 
 		}
-		else if (priv->interp_type != GDK_INTERP_NEAREST &&
-			 !is_unity_zoom (view))
+		else if ((is_zoomed_in (view) && priv->interp_type_in != GDK_INTERP_NEAREST) ||
+			 (is_zoomed_out (view) && priv->interp_type_out != GDK_INTERP_NEAREST))
 		{
 			/* paint antialiased image version */
 			priv->progressive_state = PROGRESSIVE_POLISHING;
@@ -1916,7 +1964,8 @@ eog_scroll_view_init (EogScrollView *view)
 	priv->zoom_mode = ZOOM_MODE_FIT;
 	priv->upscale = FALSE;
 	priv->uta = NULL;
-	priv->interp_type = GDK_INTERP_BILINEAR;
+	priv->interp_type_in = GDK_INTERP_BILINEAR;
+	priv->interp_type_out = GDK_INTERP_BILINEAR;
 	priv->scroll_wheel_zoom = FALSE;
 	priv->zoom_multiplier = IMAGE_VIEW_ZOOM_MULTIPLIER;
 	priv->image = NULL;

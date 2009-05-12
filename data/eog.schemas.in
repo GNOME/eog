@@ -21,9 +21,23 @@
       <default>1</default>
       <locale name="C">
 	<short>Interpolate Image</short>
-	<long>Whether the image should be interpolated on zoom or not.
+	<long>Whether the image should be interpolated on zoom-out or not.
 	This leads to better quality but is somewhat slower than non 
         interpolated images.</long>
+      </locale>
+    </schema>
+
+    <schema>
+      <key>/schemas/apps/eog/view/extrapolate</key>
+      <applyto>/apps/eog/view/extrapolate</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>1</default>
+      <locale name="C">
+	<short>Extrapolate Image</short>
+	<long>Whether the image should be extrapolated on zoom-in or not.
+	This leads to blurry quality and is somewhat slower than non 
+        extrapolated images.</long>
       </locale>
     </schema>
 
