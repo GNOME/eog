@@ -754,10 +754,12 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 	priv = img->priv;
 
 #ifdef HAVE_EXIF
+	g_mutex_lock (priv->status_mutex);
 	if (priv->exif) {
 		exif_data_unref (priv->exif);
 	}
 	priv->exif = eog_metadata_reader_get_exif_data (md_reader);
+	g_mutex_unlock (priv->status_mutex);
 
 	priv->exif_chunk = NULL;
 	priv->exif_chunk_len = 0;

@@ -1,3 +1,9 @@
+2009-05-22  Felix Riemann  <friemann@svn.gnome.org>
+
+	* src/eog-image.c (eog_image_set_exif_data):
+	Secure Exif data updating with a mutex. Should fix crashes when
+	reading the Exif block during the update. Fixes bug #583448.
+
 2009-05-18  Felix Riemann  <friemann@svn.gnome.org>
 
 	* configure.ac: Post-release version bump.
