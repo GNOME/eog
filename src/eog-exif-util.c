@@ -162,6 +162,16 @@ eog_exif_util_format_date_by_hand (const gchar *date)
 }
 #endif /* HAVE_STRPTIME */
 
+/**
+ * eog_exif_util_format_date:
+ * @date: a date string following Exif specifications
+ *
+ * Takes a date string formatted after Exif specifications and generates a
+ * more readable, possibly localized, string out of it.
+ *
+ * Returns: a newly allocated date string formatted according to the
+ * current locale.
+ */
 gchar *
 eog_exif_util_format_date (const gchar *date)
 {
@@ -174,6 +184,20 @@ eog_exif_util_format_date (const gchar *date)
 	return new_date;
 }
 
+/**
+ * eog_exif_util_get_value:
+ * @exif_data: pointer to an <structname>ExifData</structname> struct
+ * @tag_id: the requested tag's id. See <filename>exif-tag.h</filename>
+ * from the libexif package for possible values (e.g. %EXIF_TAG_EXPOSURE_MODE).
+ * @buffer: a pre-allocated output buffer
+ * @buf_size: size of @buffer
+ *
+ * Convenience function to extract a string representation of an Exif tag
+ * directly from an <structname>ExifData</structname> struct. The string is
+ * written into @buffer as far as @buf_size permits.
+ *
+ * Returns: a pointer to @buffer.
+ */
 const gchar *
 eog_exif_util_get_value (ExifData *exif_data, gint tag_id, gchar *buffer, guint buf_size)
 {
