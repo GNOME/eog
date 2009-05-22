@@ -1,5 +1,24 @@
 2009-05-22  Felix Riemann  <friemann@svn.gnome.org>
 
+	* bindings/python/eog.defs:
+	* src/eog-job-queue.c (handle_job):
+	* src/eog-jobs.c (eog_job_run_default), (eog_job_class_init),
+	(eog_job_run), (eog_job_thumbnail_class_init),
+	(eog_job_thumbnail_run), (eog_job_load_class_init),
+	(eog_job_load_run), (eog_job_model_class_init),
+	(eog_job_model_run), (eog_job_transform_class_init),
+	(eog_job_transform_run), (eog_job_save_class_init),
+	(eog_job_save_run), (eog_job_save_as_class_init),
+	(eog_job_save_as_run), (eog_job_copy_class_init),
+	(eog_job_copy_run):
+	* src/eog-jobs.h:
+	Rework how EogJobs are executed. Instead of having EogJobQueue detect
+	the specific job type to choose the correct function this is now
+	implemented in the EogJob base class as an abstract function.
+	Special casing the execution is thus not necessary anymore.
+
+2009-05-22  Felix Riemann  <friemann@svn.gnome.org>
+
 	* src/eog-image.c (eog_image_set_exif_data):
 	Secure Exif data updating with a mutex. Should fix crashes when
 	reading the Exif block during the update. Fixes bug #583448.

@@ -77,6 +77,7 @@ typedef struct _EogJobCopyClass EogJobCopyClass;
 #define EOG_JOB(obj)		       (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB, EogJob))
 #define EOG_JOB_CLASS(klass)	       (G_TYPE_CHECK_CLASS_CAST((klass),  EOG_TYPE_JOB, EogJobClass))
 #define EOG_IS_JOB(obj)	               (G_TYPE_CHECK_INSTANCE_TYPE((obj), EOG_TYPE_JOB))
+#define EOG_JOB_GET_CLASS(obj)         (G_TYPE_INSTANCE_GET_CLASS ((obj), EOG_TYPE_JOB, EogJobClass))
 
 #define EOG_TYPE_JOB_THUMBNAIL	       (eog_job_thumbnail_get_type())
 #define EOG_JOB_THUMBNAIL(obj)	       (G_TYPE_CHECK_INSTANCE_CAST((obj), EOG_TYPE_JOB_THUMBNAIL, EogJobThumbnail))
@@ -131,6 +132,7 @@ struct _EogJobClass
 
 	void    (* finished) (EogJob *job);
 	void    (* progress) (EogJob *job, float progress);
+	void    (*run)       (EogJob *job);
 };
 
 struct _EogJobThumbnail
@@ -201,9 +203,6 @@ struct _EogJobSave
 struct _EogJobSaveClass
 {
 	EogJobClass parent_class;
-
-        void (*run) (EogJobSave *job);
-
 };
 
 struct _EogJobSaveAs
@@ -234,35 +233,31 @@ struct _EogJobCopyClass
 /* base job class */
 GType           eog_job_get_type           (void) G_GNUC_CONST;
 void            eog_job_finished           (EogJob          *job);
+void            eog_job_run                (EogJob          *job);
 void            eog_job_set_progress       (EogJob          *job,
 					    float            progress);
 
 /* EogJobThumbnail */
 GType           eog_job_thumbnail_get_type (void) G_GNUC_CONST;
 EogJob         *eog_job_thumbnail_new      (EogImage     *image);
-void            eog_job_thumbnail_run      (EogJobThumbnail *thumbnail);
 
 /* EogJobLoad */
 GType           eog_job_load_get_type      (void) G_GNUC_CONST;
 EogJob 	       *eog_job_load_new 	   (EogImage        *image,
 					    EogImageData     data);
-void		eog_job_load_run 	   (EogJobLoad 	    *load);
 
 /* EogJobModel */
 GType 		eog_job_model_get_type     (void) G_GNUC_CONST;
 EogJob 	       *eog_job_model_new          (GSList          *file_list);
-void            eog_job_model_run          (EogJobModel     *model);
 
 /* EogJobTransform */
 GType 		eog_job_transform_get_type (void) G_GNUC_CONST;
 EogJob 	       *eog_job_transform_new      (GList           *images,
 					    EogTransform    *trans);
-void            eog_job_transform_run      (EogJobTransform *model);
 
 /* EogJobSave */
 GType		eog_job_save_get_type      (void) G_GNUC_CONST;
 EogJob         *eog_job_save_new           (GList           *images);
-void            eog_job_save_run           (EogJobSave      *job);
 
 /* EogJobSaveAs */
 GType		eog_job_save_as_get_type   (void) G_GNUC_CONST;
@@ -274,7 +269,6 @@ EogJob         *eog_job_save_as_new        (GList           *images,
 GType          eog_job_copy_get_type      (void) G_GNUC_CONST;
 EogJob        *eog_job_copy_new           (GList            *images,
 					   const gchar      *dest);
-void           eog_job_copy_run           (EogJobCopy       *job);
 
 G_END_DECLS
 

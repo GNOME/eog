@@ -73,18 +73,8 @@ handle_job (EogJob *job)
 {
 	g_object_ref (G_OBJECT (job));
 
-	if (EOG_IS_JOB_THUMBNAIL (job))
-		eog_job_thumbnail_run (EOG_JOB_THUMBNAIL (job));
-	else if (EOG_IS_JOB_LOAD (job))
-		eog_job_load_run (EOG_JOB_LOAD (job));
-	else if (EOG_IS_JOB_MODEL (job))
-		eog_job_model_run (EOG_JOB_MODEL (job));
-	else if (EOG_IS_JOB_TRANSFORM (job))
-		eog_job_transform_run (EOG_JOB_TRANSFORM (job));
-	else if (EOG_IS_JOB_SAVE (job))
-		eog_job_save_run (EOG_JOB_SAVE (job));
-	else if (EOG_IS_JOB_COPY (job))
-		eog_job_copy_run (EOG_JOB_COPY (job));
+	// Do the EOG_JOB cast for safety
+	eog_job_run (EOG_JOB (job));
 
 	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
 			 (GSourceFunc) notify_finished,

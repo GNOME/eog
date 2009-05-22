@@ -536,6 +536,12 @@
   (return-type "none")
 )
 
+(define-method run
+  (of-object "EogJob")
+  (c-name "eog_job_run")
+  (return-type "none")
+)
+
 (define-method set_progress
   (of-object "EogJob")
   (c-name "eog_job_set_progress")
@@ -559,12 +565,6 @@
   )
 )
 
-(define-method run
-  (of-object "EogJobThumbnail")
-  (c-name "eog_job_thumbnail_run")
-  (return-type "none")
-)
-
 (define-function eog_job_load_get_type
   (c-name "eog_job_load_get_type")
   (return-type "GType")
@@ -578,12 +578,6 @@
     '("EogImage*" "image")
     '("EogImageData" "data")
   )
-)
-
-(define-method run
-  (of-object "EogJobLoad")
-  (c-name "eog_job_load_run")
-  (return-type "none")
 )
 
 (define-function eog_job_model_get_type
@@ -600,12 +594,6 @@
   )
 )
 
-(define-method run
-  (of-object "EogJobModel")
-  (c-name "eog_job_model_run")
-  (return-type "none")
-)
-
 (define-function eog_job_transform_get_type
   (c-name "eog_job_transform_get_type")
   (return-type "GType")
@@ -620,15 +608,6 @@
     '("EogTransform*" "trans")
   )
 )
-
-(define-method run
-  (of-object "EogJobTransform")
-  (c-name "eog_job_transform_run")
-  (return-type "none")
-)
-
-
-
 
 ;; From eog-list-store.h
 
