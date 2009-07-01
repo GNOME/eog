@@ -276,12 +276,8 @@ eog_application_get_file_window (EogApplication *application, GFile *file)
 static void
 eog_application_show_window (EogWindow *window, gpointer user_data)
 {
-	gdk_threads_enter ();
-
 	gtk_window_present_with_time (GTK_WINDOW (window),
 				      GPOINTER_TO_UINT (user_data));
-
-	gdk_threads_leave ();
 }
 
 /**
