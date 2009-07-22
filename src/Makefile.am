@@ -131,11 +131,16 @@ libeog_la_SOURCES += 			\
 endif
 
 if HAVE_EXEMPI
+# We need to make sure eog-exif-details.h
+# is only listed once in INST_H_FILES
+# or the build will break with automake-1.11
+if !HAVE_EXIF
 INST_H_FILES +=				\
 	eog-exif-details.h
+endif !HAVE_EXIF
 libeog_la_SOURCES +=			\
 	eog-exif-details.c
-endif
+endif HAVE_EXEMPI
 
 libeog_la_CFLAGS =						\
 	-I$(top_srcdir)/jpegutils				\
