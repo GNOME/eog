@@ -497,12 +497,6 @@ thumbview_on_query_tooltip_cb (GtkWidget  *widget,
 static void
 eog_thumb_view_init (EogThumbView *thumbview)
 {
-#if !GTK_CHECK_VERSION (2, 15, 0)
-	const GtkTargetEntry target_table[] = {
-		{"text/uri-list", 0, 0 }
-	};
-#endif
-
 	thumbview->priv = EOG_THUMB_VIEW_GET_PRIVATE (thumbview);
 
 	thumbview->priv->pixbuf_cell = gtk_cell_renderer_pixbuf_new ();
@@ -547,16 +541,10 @@ eog_thumb_view_init (EogThumbView *thumbview)
 	g_signal_connect (G_OBJECT (thumbview), "parent-set",
 			  G_CALLBACK (thumbview_on_parent_set_cb), NULL);
 
-#if GTK_CHECK_VERSION (2, 15, 0)
 	gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (thumbview), 0,
 						NULL, 0,
 						GDK_ACTION_COPY);
 	gtk_drag_source_add_uri_targets (GTK_WIDGET (thumbview));
-#else
-	gtk_icon_view_enable_model_drag_source (GTK_ICON_VIEW (thumbview), 0,
-						target_table, G_N_ELEMENTS (target_table),
-						GDK_ACTION_COPY);
-#endif /* GTK >= 2.15.0 */
 
 	g_signal_connect (G_OBJECT (thumbview), "drag-data-get",
 			  G_CALLBACK (thumbview_on_drag_data_get_cb), NULL);
