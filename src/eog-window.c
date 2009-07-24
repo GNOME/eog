@@ -3964,6 +3964,7 @@ eog_window_construct_ui (EogWindow *window)
 	GtkWidget *view_popup;
 	GtkWidget *frame;
 	GtkWidget *hpaned;
+	GtkWidget *menuitem;
 
 	GConfEntry *entry;
 
@@ -4046,6 +4047,26 @@ eog_window_construct_ui (EogWindow *window)
 	g_assert (GTK_IS_WIDGET (menubar));
 	gtk_box_pack_start (GTK_BOX (priv->box), menubar, FALSE, FALSE, 0);
 	gtk_widget_show (menubar);
+
+	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
+			"/MainMenu/Image/EditFlipHorizontal");
+	gtk_image_menu_item_set_always_show_image (
+			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
+
+	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
+			"/MainMenu/Image/EditFlipVertical");
+	gtk_image_menu_item_set_always_show_image (
+			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
+
+	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
+			"/MainMenu/Image/EditRotate90");
+	gtk_image_menu_item_set_always_show_image (
+			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
+
+	menuitem = gtk_ui_manager_get_widget (priv->ui_mgr,
+			"/MainMenu/Image/EditRotate270");
+	gtk_image_menu_item_set_always_show_image (
+			GTK_IMAGE_MENU_ITEM (menuitem), TRUE);
 
 	priv->toolbar = GTK_WIDGET
 		(g_object_new (EGG_TYPE_EDITABLE_TOOLBAR,
