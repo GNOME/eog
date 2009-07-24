@@ -2365,6 +2365,20 @@ eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 		g_free (file_uri);
 		g_free (dir_uri);
 		g_object_unref (current);
+	} else {
+		/* If desired by the user,
+		   fallback to the XDG_PICTURES_DIR (if available) */
+		const gchar *pics_dir;
+		gboolean use_fallback;
+
+		use_fallback = gconf_client_get_bool (priv->client,
+					   EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK,
+					   NULL);
+		pics_dir = g_get_user_special_dir (G_USER_DIRECTORY_PICTURES);
+		if (use_fallback && pics_dir) {
+			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dlg),
+							     pics_dir);
+		}
 	}
 
 	g_signal_connect (dlg, "response",
