@@ -1,5 +1,31 @@
 2009-07-25  Felix Riemann  <friemann@gnome.org>
 
+	* data/eog-preferences-dialog.glade:
+	* data/eog-preferences-dialog.ui:
+	* src/eog-preferences-dialog.c
+	(eog_preferences_dialog_constructor):
+	Add UI controls for the netbook mode and the xdg fallback.
+
+2009-07-25  Felix Riemann  <friemann@gnome.org>
+
+	* data/eog-image-properties-dialog.glade:
+	* data/eog-image-properties-dialog.ui:
+	* data/eog.schemas.in:
+	* src/eog-config-keys.h:
+	* src/eog-properties-dialog.c (pd_update_metadata_tab),
+	(eog_properties_dialog_set_netbook_mode),
+	(eog_properties_dialog_set_property),
+	(eog_properties_dialog_get_property),
+	(eog_properties_dialog_class_init), (eog_properties_dialog_init):
+	* src/eog-properties-dialog.h:
+	* src/eog-window.c (eog_window_pd_nbmode_changed_cb),
+	(eog_window_cmd_properties), (eog_window_init):
+	Add option to move the detailed metadata list onto its own page. This
+	should make the dialog behave better on devices with smaller displays,
+	e.g. netbooks. Fixes bug #566810.
+
+2009-07-25  Felix Riemann  <friemann@gnome.org>
+
 	* configure.ac:
 	* plugins/*/Makefile.am:
 	Merge per-plugin Makefiles into a single one. This makes it possible
