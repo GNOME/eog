@@ -46,7 +46,8 @@ typedef struct _EogPropertiesDialogPrivate EogPropertiesDialogPrivate;
 typedef enum {
 	EOG_PROPERTIES_DIALOG_PAGE_GENERAL = 0,
 	EOG_PROPERTIES_DIALOG_PAGE_EXIF,
-	EOG_PROPERTIES_DIALOG_PAGE_XMP
+	EOG_PROPERTIES_DIALOG_PAGE_DETAILS,
+	EOG_PROPERTIES_DIALOG_N_PAGES
 } EogPropertiesDialogPage;
 
 struct _EogPropertiesDialog {
@@ -72,6 +73,8 @@ void	    eog_properties_dialog_update  	(EogPropertiesDialog     *prop,
 void	    eog_properties_dialog_set_page  	(EogPropertiesDialog     *prop,
 						 EogPropertiesDialogPage  page);
 
+void	    eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
+						    gboolean enable);
 G_END_DECLS
 
 #endif /* __EOG_PROPERTIES_DIALOG_H__ */

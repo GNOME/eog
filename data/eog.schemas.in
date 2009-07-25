@@ -243,6 +243,21 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/eog/ui/propsdialog_netbook_mode</key>
+      <applyto>/apps/eog/ui/propsdialog_netbook_mode</applyto>
+      <owner>eog</owner>
+      <type>bool</type>
+      <default>0</default>
+      <locale name="C">
+        <short>Whether the metadata list in the properties dialog should have its own page.</short>
+        <long>If activated the detailed metadata list in the properties dialog
+	will be moved to its own page in the dialog. This should make the dialog
+	more usable on smaller screens, e.g. as used by netbooks. If disabled
+	the widget will be embedded on the "Metadata" page.</long>
+      </locale>
+    </schema>
+
+    <schema>
       <key>/schemas/apps/eog/plugins/active_plugins</key>
       <applyto>/apps/eog/plugins/active_plugins</applyto>
       <owner>eog</owner>

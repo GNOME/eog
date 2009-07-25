@@ -54,6 +54,7 @@
 #define EOG_CONF_UI_SCROLL_BUTTONS		"/apps/eog/ui/scroll_buttons"
 #define EOG_CONF_UI_DISABLE_TRASH_CONFIRMATION	"/apps/eog/ui/disable_trash_confirmation"
 #define EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK	"/apps/eog/ui/filechooser_xdg_fallback"
+#define EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE	"/apps/eog/ui/propsdialog_netbook_mode"
 
 #define EOG_CONF_PLUGINS_ACTIVE_PLUGINS         "/apps/eog/plugins/active_plugins"
 

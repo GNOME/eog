@@ -59,6 +59,7 @@ G_DEFINE_TYPE (EogPropertiesDialog, eog_properties_dialog, EOG_TYPE_DIALOG);
 enum {
         PROP_0,
         PROP_THUMBVIEW,
+        PROP_NETBOOK_MODE
 };
 
 struct _EogPropertiesDialogPrivate {
@@ -103,7 +104,11 @@ struct _EogPropertiesDialogPrivate {
 	GtkWidget      *exif_box;
 	GtkWidget      *exif_details_expander;
 	GtkWidget      *exif_details;
+	GtkWidget      *metadata_details_box;
+	GtkWidget      *metadata_details_sw;
 #endif
+
+	gboolean        netbook_mode;
 };
 
 static void
@@ -345,15 +350,26 @@ pd_update_metadata_tab (EogPropertiesDialog *prop_dlg,
 	    ) {
 		if (gtk_notebook_get_current_page (notebook) ==	EOG_PROPERTIES_DIALOG_PAGE_EXIF) {
 			gtk_notebook_prev_page (notebook);
+		} else if (gtk_notebook_get_current_page (notebook) == EOG_PROPERTIES_DIALOG_PAGE_DETAILS) {
+			gtk_notebook_set_current_page (notebook, EOG_PROPERTIES_DIALOG_PAGE_GENERAL);
 		}
 
 		if (GTK_WIDGET_VISIBLE (priv->exif_box)) {
 			gtk_widget_hide_all (priv->exif_box);
 		}
+		if (GTK_WIDGET_VISIBLE (priv->metadata_details_box)) {
+			gtk_widget_hide_all (priv->metadata_details_box);
+		}
 
 		return;
-	} else if (!GTK_WIDGET_VISIBLE (priv->exif_box)) {
-		gtk_widget_show_all (priv->exif_box);
+	} else {
+		if (!GTK_WIDGET_VISIBLE (priv->exif_box))
+			gtk_widget_show_all (priv->exif_box);
+		if (priv->netbook_mode &&
+		    !GTK_WIDGET_VISIBLE (priv->metadata_details_box)) {
+			gtk_widget_show_all (priv->metadata_details_box);
+			gtk_widget_hide_all (priv->exif_details_expander);
+		}
 	}
 
 #if HAVE_EXIF
@@ -499,6 +515,40 @@ eog_properties_dialog_delete (GtkWidget   *widget,
 	return TRUE;
 }
 
+void
+eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
+					gboolean enable)
+{
+	EogPropertiesDialogPrivate *priv;
+
+	g_return_if_fail (EOG_IS_PROPERTIES_DIALOG (dlg));
+
+	priv = dlg->priv;
+
+	if (priv->netbook_mode == enable)
+		return;
+
+	priv->netbook_mode = enable;
+
+	if (enable) {
+		gtk_widget_reparent (priv->metadata_details_sw,
+				     priv->metadata_details_box);
+		// Only show details box if metadata is being displayed
+		if (GTK_WIDGET_VISIBLE (priv->exif_box))
+			gtk_widget_show_all (priv->metadata_details_box);
+
+		gtk_widget_hide_all (priv->exif_details_expander);
+	} else {
+		gtk_widget_reparent (priv->metadata_details_sw,
+				     priv->exif_details_expander);
+		gtk_widget_show_all (priv->exif_details_expander);
+
+		if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) == EOG_PROPERTIES_DIALOG_PAGE_DETAILS)
+			gtk_notebook_prev_page (GTK_NOTEBOOK (priv->notebook));
+		gtk_widget_hide_all (priv->metadata_details_box);
+	}
+}
+
 static void
 eog_properties_dialog_set_property (GObject      *object,
 				    guint         prop_id,
@@ -510,6 +560,14 @@ eog_properties_dialog_set_property (GObject      *object,
 	switch (prop_id) {
 		case PROP_THUMBVIEW:
 			prop_dlg->priv->thumbview = g_value_get_object (value);
+			break;
+		case PROP_NETBOOK_MODE:
+			eog_properties_dialog_set_netbook_mode (prop_dlg,
+						   g_value_get_boolean (value));
+			break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id,
+							   pspec);
 			break;
 	}
 }
@@ -525,6 +583,14 @@ eog_properties_dialog_get_property (GObject    *object,
 	switch (prop_id) {
 		case PROP_THUMBVIEW:
 			g_value_set_object (value, prop_dlg->priv->thumbview);
+			break;
+		case PROP_NETBOOK_MODE:
+			g_value_set_boolean (value,
+					     prop_dlg->priv->netbook_mode);
+			break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id,
+							   pspec);
 			break;
 	}
 }
@@ -569,6 +635,13 @@ eog_properties_dialog_class_init (EogPropertiesDialogClass *class)
 							      G_PARAM_STATIC_NAME |
 							      G_PARAM_STATIC_NICK |
 							      G_PARAM_STATIC_BLURB));
+	g_object_class_install_property (g_object_class, PROP_NETBOOK_MODE,
+					 g_param_spec_boolean ("netbook-mode",
+					 		      "Netbook Mode",
+							      "Netbook Mode",
+							      FALSE,
+							      G_PARAM_READWRITE |
+							      G_PARAM_STATIC_STRINGS));
 
 	g_type_class_add_private (g_object_class, sizeof (EogPropertiesDialogPrivate));
 }
@@ -634,6 +707,7 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #ifdef HAVE_METADATA
 			         "exif_box", &priv->exif_box,
 				 "exif_details_expander", &priv->exif_details_expander,
+				 "metadata_details_box", &priv->metadata_details_box,
 #endif
 			         NULL);
 
@@ -666,11 +740,21 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 
 	priv->exif_details = eog_exif_details_new ();
 	gtk_widget_set_size_request (priv->exif_details, -1, 170);
+	gtk_container_set_border_width (GTK_CONTAINER (sw), 6);
 
 	gtk_container_add (GTK_CONTAINER (sw), priv->exif_details);
 	gtk_widget_show_all (sw);
 
-	gtk_container_add (GTK_CONTAINER (priv->exif_details_expander), sw);
+	priv->metadata_details_sw = sw;
+
+	if (priv->netbook_mode) {
+		gtk_widget_hide_all (priv->exif_details_expander);
+		gtk_box_pack_start (GTK_BOX (priv->metadata_details_box),
+				    sw, TRUE, TRUE, 6);
+	} else {
+		gtk_container_add (GTK_CONTAINER (priv->exif_details_expander),
+				   sw);
+	}
 
 	g_signal_connect_after (G_OBJECT (priv->exif_details_expander),
 			        "notify::expanded",
@@ -685,6 +769,8 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #else
 	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
 				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
+	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
+				  EOG_PROPERTIES_DIALOG_PAGE_DETAILS);
 #endif
 }
 
