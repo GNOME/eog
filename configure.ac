@@ -33,6 +33,7 @@ AC_PROG_LIBTOOL
 
 AC_ISC_POSIX
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PATH_PROG([GLIB_GENMARSHAL], [glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
@@ -415,9 +416,6 @@ doc/reference/Makefile
 doc/reference/version.xml
 doc/reference/eog-docs.sgml
 plugins/Makefile
-plugins/reload/Makefile
-plugins/fullscreen/Makefile
-plugins/statusbar-date/Makefile
 bindings/Makefile
 bindings/python/Makefile
 ])
