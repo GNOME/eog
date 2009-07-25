@@ -202,6 +202,8 @@ eog_preferences_dialog_constructor (GType type,
 	GtkWidget *seconds_spin;
 	GtkWidget *plugin_manager;
 	GtkWidget *plugin_manager_container;
+	GtkWidget *netbook_mode_check;
+	GtkWidget *xdgpic_fallback_check;
 	GObject *object;
 	GdkColor color;
 	gchar *value;
@@ -228,6 +230,8 @@ eog_preferences_dialog_constructor (GType type,
 			         "loop_check", &loop_check,
 			         "seconds_spin", &seconds_spin,
 			         "plugin_manager_container", &plugin_manager_container,
+			         "netbook_mode_check", &netbook_mode_check,
+			         "xdgpic_fallback_check", &xdgpic_fallback_check,
 			         NULL);
 
 	g_signal_connect (G_OBJECT (dlg),
@@ -405,6 +409,35 @@ eog_preferences_dialog_constructor (GType type,
                             0);
 
         gtk_widget_show_all (plugin_manager);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (netbook_mode_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE,
+							     NULL));
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (xdgpic_fallback_check),
+				      gconf_client_get_bool (priv->client,
+							     EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK,
+							     NULL));
+
+	g_object_set_data (G_OBJECT (netbook_mode_check),
+			   GCONF_OBJECT_KEY,
+			   EOG_CONF_UI_PROPSDIALOG_NETBOOK_MODE);
+
+	g_object_set_data (G_OBJECT (xdgpic_fallback_check),
+			   GCONF_OBJECT_KEY,
+			   EOG_CONF_UI_FILECHOOSER_XDG_FALLBACK);
+
+	g_signal_connect (G_OBJECT (netbook_mode_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
+			  priv->client);
+
+	g_signal_connect (G_OBJECT (xdgpic_fallback_check),
+			  "toggled",
+			  G_CALLBACK (pd_check_toggle_cb),
+			  priv->client);
+
 
 	return object;
 }
