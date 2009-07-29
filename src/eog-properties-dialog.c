@@ -769,10 +769,12 @@ eog_properties_dialog_init (EogPropertiesDialog *prop_dlg)
 #endif
 
 #else
-	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
-				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
+	/* Remove pages from back to front. Otherwise the page index
+	 * needs to be adjusted when deleting the next page. */
 	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
 				  EOG_PROPERTIES_DIALOG_PAGE_DETAILS);
+	gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook),
+				  EOG_PROPERTIES_DIALOG_PAGE_EXIF);
 #endif
 }
 
