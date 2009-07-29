@@ -530,6 +530,7 @@ eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
 
 	priv->netbook_mode = enable;
 
+#ifdef HAVE_METADATA
 	if (enable) {
 		gtk_widget_reparent (priv->metadata_details_sw,
 				     priv->metadata_details_box);
@@ -547,6 +548,7 @@ eog_properties_dialog_set_netbook_mode (EogPropertiesDialog *dlg,
 			gtk_notebook_prev_page (GTK_NOTEBOOK (priv->notebook));
 		gtk_widget_hide_all (priv->metadata_details_box);
 	}
+#endif
 }
 
 static void
