@@ -416,6 +416,22 @@ eog_image_real_transform (EogImage     *img,
 }
 
 static gboolean
+do_emit_size_prepared_signal (EogImage *img)
+{
+	g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0,
+		       img->priv->width, img->priv->height);
+	return FALSE;
+}
+
+static void
+eog_image_emit_size_prepared (EogImage *img)
+{
+	gdk_threads_add_idle_full (G_PRIORITY_DEFAULT_IDLE,
+				   (GSourceFunc) do_emit_size_prepared_signal,
+				   g_object_ref (img), g_object_unref);
+}
+
+static gboolean
 check_loader_threadsafety (GdkPixbufLoader *loader, gboolean *result)
 {
 	GdkPixbufFormat *format;
@@ -475,7 +491,7 @@ eog_image_size_prepared (GdkPixbufLoader *loader,
 #else
 	if (img->priv->threadsafe_format)
 #endif
-		g_signal_emit (img, signals[SIGNAL_SIZE_PREPARED], 0, width, height);
+		eog_image_emit_size_prepared (img);
 }
 
 static EogMetadataReader*
@@ -771,11 +787,7 @@ eog_image_set_exif_data (EogImage *img, EogMetadataReader *md_reader)
 		/* Emit size prepared signal if we have the size */
 		if (priv->width > 0 &&
 		    priv->height > 0) {
-			g_signal_emit (img,
-				       signals[SIGNAL_SIZE_PREPARED],
-				       0,
-				       priv->width,
-				       priv->height);
+			eog_image_emit_size_prepared (img);
 		}
 	}
 #else
@@ -961,11 +973,8 @@ eog_image_real_load (EogImage *img,
 				}
 
 				if (priv->threadsafe_format)
-					g_signal_emit (img,
-						       signals[SIGNAL_SIZE_PREPARED],
-						       0,
-						       priv->width,
-						       priv->height);
+					eog_image_emit_size_prepared (img);
+
                                 priv->metadata_status = EOG_IMAGE_METADATA_NOT_AVAILABLE;
                         }
 
@@ -1051,11 +1060,7 @@ eog_image_real_load (EogImage *img,
 			/* If it's non-threadsafe loader, then trigger window
  			 * showing in the end of the process. */
 			if (!priv->threadsafe_format)
-				g_signal_emit (img,
-					       signals[SIGNAL_SIZE_PREPARED],
-					       0,
-					       priv->width,
-					       priv->height);
+				eog_image_emit_size_prepared (img);
 		} else {
 			/* Some loaders don't report errors correctly.
 			 * Error will be set below. */

@@ -1312,14 +1312,6 @@ eog_job_save_progress_cb (EogJobSave *job, float progress, gpointer user_data)
 		image = NULL;
 }
 
-static gboolean
-emit_window_prepared_signal (EogWindow *window)
-{
-	g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
-
-	return FALSE;
-}
-
 static void
 eog_window_obtain_desired_size (EogImage  *image,
 				gint       width,
@@ -1334,8 +1326,6 @@ eog_window_obtain_desired_size (EogImage  *image,
 	gint img_width, img_height;
 	gint view_width, view_height;
 	gint deco_width, deco_height;
-
-	gdk_threads_enter ();
 
 	update_action_groups_state (window);
 
@@ -1393,11 +1383,7 @@ eog_window_obtain_desired_size (EogImage  *image,
 
 	gtk_window_set_default_size (GTK_WINDOW (window), final_width, final_height);
 
-	gdk_threads_leave ();
-
-	gdk_threads_add_idle_full (G_PRIORITY_DEFAULT_IDLE,
-				   (GSourceFunc) emit_window_prepared_signal,
-				   g_object_ref (window), g_object_unref);
+	g_signal_emit (window, signals[SIGNAL_PREPARED], 0);
 }
 
 static void
