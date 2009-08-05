@@ -1,3 +1,18 @@
+2009-08-05  Felix Riemann  <friemann@gnome.org>
+
+	* data/eog.schemas.in: Enable smaller image properties dialog, aka
+	netbook mode, by default.
+
+2009-08-05  Felix Riemann  <friemann@gnome.org>
+
+	* data/eog-preferences-dialog.glade:
+	* data/eog-preferences-dialog.ui:
+	* data/eog.schemas.in:
+	* src/eog-preferences-dialog.c
+	(eog_preferences_dialog_constructor):
+	Remove the UI controls for xdg fallback and netbook mode again.
+	It makes practically no sense to disable them.
+
 2009-08-04  Felix Riemann  <friemann@gnome.org>
 
 	* src/eog-image.c (do_emit_size_prepared_signal),
