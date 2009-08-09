@@ -26,10 +26,10 @@ eog_la_CFLAGS = 					\
 	$(AM_CFLAGS)
 
 $(top_builddir)/src/eog-enum-types.h:
-	cd $(top_builddir)/src && $(MAKE) eog-enum-types.h
+	$(AM_V_GEN)cd $(top_builddir)/src && $(MAKE) eog-enum-types.h
 
 eog.c: eog.defs eog.override $(top_builddir)/src/eog-enum-types.h
-	( cd $(srcdir) && $(PYGOBJECT_CODEGEN) \
+	$(AM_V_GEN)( cd $(srcdir) && $(PYGOBJECT_CODEGEN) \
 		--register $(PYGOBJECT_DEFSDIR)/gio-types.defs \
 		--register $(PYGTK_DEFSDIR)/pango-types.defs \
 		--register $(PYGTK_DEFSDIR)/gdk-types.defs \

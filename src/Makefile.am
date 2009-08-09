@@ -197,16 +197,16 @@ BUILT_SOURCES = 			\
 	$(MARSHAL_OUTPUT)
 
 eog-enum-types.h: eog-enum-types.h.template $(INST_H_FILES) $(GLIB_MKENUMS)
-	(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.h.template $(INST_H_FILES)) > $@
+	$(AM_V_GEN)(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.h.template $(INST_H_FILES)) > $@
 
 eog-enum-types.c: eog-enum-types.c.template $(INST_H_FILES) $(GLIB_MKENUMS)
-	(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.c.template $(INST_H_FILES)) > $@
+	$(AM_V_GEN)(cd $(srcdir) && $(GLIB_MKENUMS) --template eog-enum-types.c.template $(INST_H_FILES)) > $@
 
 eog-marshal.h: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --header --internal --prefix=eog_marshal > $@
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --header --internal --prefix=eog_marshal > $@
 
 eog-marshal.c: eog-marshal.list $(GLIB_GENMARSHAL)
-	$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) $< --body --header --prefix=eog_marshal > $@
 
 EXTRA_DIST = 				\
 	eog-enum-types.h.template	\
@@ -220,7 +220,7 @@ BUILT_SOURCES += eog-application-service.h
 EXTRA_DIST += eog-application-service.xml
 
 eog-application-service.h: eog-application-service.xml
-	dbus-binding-tool --prefix=eog_application --mode=glib-server --output=eog-application-service.h $<
+	$(AM_V_GEN)dbus-binding-tool --prefix=eog_application --mode=glib-server --output=eog-application-service.h $<
 
 endif
 

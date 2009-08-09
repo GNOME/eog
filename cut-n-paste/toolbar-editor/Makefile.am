@@ -46,13 +46,13 @@ stamp_files = \
 eggmarshalers.h: stamp-eggmarshalers.h
 	@true
 stamp-eggmarshalers.h: eggmarshalers.list
-	$(GLIB_GENMARSHAL) --internal --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header > eggmarshalers.h \
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) --internal --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header > eggmarshalers.h \
 	&& echo timestamp > $(@F)
 
 eggmarshalers.c: stamp-eggmarshalers.c
 	@true
 stamp-eggmarshalers.c: eggmarshalers.list
-	$(GLIB_GENMARSHAL) --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header --body > eggmarshalers.c \
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=_egg_marshal $(srcdir)/eggmarshalers.list --header --body > eggmarshalers.c \
 	&& echo timestamp > $(@F)
 
 eggtypebuiltins.c: stamp-eggtypebuiltins.c
