@@ -1181,11 +1181,15 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 label = g_strdup (g_app_info_get_name (app));
                 tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), g_app_info_get_name (app));
-                app_icon = g_object_ref (g_app_info_get_icon (app));
+
                 action = gtk_action_new (name, label, tip, NULL);
 
-                gtk_action_set_gicon (action, app_icon);
-                g_object_unref (app_icon);
+		app_icon = g_app_info_get_icon (app);
+		if (G_LIKELY (app_icon != NULL)) {
+			g_object_ref (app_icon);
+                	gtk_action_set_gicon (action, app_icon);
+                	g_object_unref (app_icon);
+		}
 
                 g_free (label);
                 g_free (tip);
