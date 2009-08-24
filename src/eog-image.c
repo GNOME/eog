@@ -678,21 +678,27 @@ static void
 eog_image_set_orientation (EogImage *img)
 {
 	EogImagePrivate *priv;
+	ExifData* exif;
 
 	g_return_if_fail (EOG_IS_IMAGE (img));
 
 	priv = img->priv;
 
-	if (priv->exif != NULL) {
-		ExifByteOrder o = exif_data_get_byte_order (priv->exif);
+	exif = (ExifData*) eog_image_get_exif_info (img);
 
-		ExifEntry *entry = exif_data_get_entry (priv->exif,
+	if (exif != NULL) {
+		ExifByteOrder o = exif_data_get_byte_order (exif);
+
+		ExifEntry *entry = exif_data_get_entry (exif,
 							EXIF_TAG_ORIENTATION);
 
 		if (entry && entry->data != NULL) {
 			priv->orientation = exif_get_short (entry->data, o);
 		}
 	}
+
+	/* exif_data_unref handles NULL values like g_free */
+	exif_data_unref (exif);
 
 	if (priv->orientation > 4 &&
 	    priv->orientation < 9) {
