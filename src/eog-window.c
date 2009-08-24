@@ -1122,6 +1122,9 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 	EogWindowPrivate *priv;
         GList *apps;
         guint action_id = 0;
+        GIcon *app_icon;
+        char *path;
+        GtkWidget *menuitem;
 
 	priv = window->priv;
 
@@ -1176,9 +1179,13 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
 
                 g_snprintf (name, sizeof (name), "OpenWith%u", action_id++);
 
-                label = g_strdup_printf (_("Open with \"%s\""), g_app_info_get_name (app));
+                label = g_strdup (g_app_info_get_name (app));
                 tip = g_strdup_printf (_("Use \"%s\" to open the selected image"), g_app_info_get_name (app));
+                app_icon = g_object_ref (g_app_info_get_icon (app));
                 action = gtk_action_new (name, label, tip, NULL);
+
+                gtk_action_set_gicon (action, app_icon);
+                g_object_unref (app_icon);
 
                 g_free (label);
                 g_free (tip);
@@ -1216,6 +1223,33 @@ eog_window_update_openwith_menu (EogWindow *window, EogImage *image)
                                 name,
                                 GTK_UI_MANAGER_MENUITEM,
                                 FALSE);
+
+                path = g_strdup_printf ("/MainMenu/File/FileOpenWith/Applications Placeholder/%s", name);	
+
+                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
+
+                /* Only force displaying the icon if it is an application icon */
+                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
+
+                g_free (path);
+
+                path = g_strdup_printf ("/ThumbnailPopup/FileOpenWith/Applications Placeholder/%s", name);	
+
+                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
+
+                /* Only force displaying the icon if it is an application icon */
+                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
+
+                g_free (path);
+
+                path = g_strdup_printf ("/ViewPopup/FileOpenWith/Applications Placeholder/%s", name);	
+
+                menuitem = gtk_ui_manager_get_widget (priv->ui_mgr, path);
+
+                /* Only force displaying the icon if it is an application icon */
+                gtk_image_menu_item_set_always_show_image (GTK_IMAGE_MENU_ITEM (menuitem), app_icon != NULL);
+
+                g_free (path);
         }
 
         g_list_free (apps);
