@@ -1165,7 +1165,10 @@ eog_image_load (EogImage *img, EogImageData data2read, EogJob *job, GError **err
 	success = eog_image_real_load (img, data2read, job, error);
 
 #ifdef HAVE_EXIF
-	if (priv->autorotate) {
+	/* Check that the metadata was loaded at least once before
+	 * trying to autorotate. */
+	if (priv->autorotate && 
+	    priv->metadata_status == EOG_IMAGE_METADATA_READY) {
 		eog_image_real_autorotate (img);
 	}
 #endif
