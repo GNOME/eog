@@ -845,7 +845,8 @@ eog_image_real_load (EogImage *img,
 	gboolean set_metadata = TRUE;
 	gboolean read_image_data = (data2read & EOG_IMAGE_DATA_IMAGE);
 	gboolean read_only_dimension = (data2read & EOG_IMAGE_DATA_DIMENSION) &&
-					!read_image_data;
+				  ((data2read ^ EOG_IMAGE_DATA_DIMENSION) == 0);
+
 
 	priv = img->priv;
 
