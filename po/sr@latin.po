@@ -8,8 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: eog\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-21 20:36+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=eog&component=general\n"
+"POT-Creation-Date: 2009-08-24 16:01+0000\n"
 "PO-Revision-Date: 2008-09-22 00:28+0100\n"
 "Last-Translator: Goran Rakić <grakic@devbase.net>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
@@ -26,32 +27,32 @@ msgstr ""
 #. * produce duplicates, but don't worry about it. If your language
 #. * normally has a mnemonic at the start, please use the _. If not,
 #. * please remove.
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:918
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:934
 #, c-format
 msgid "Show “_%s”"
 msgstr "Prikaži „_%s“"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1381
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1397
 msgid "_Move on Toolbar"
 msgstr "_Postavi među alatke"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1382
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1398
 msgid "Move the selected item on the toolbar"
 msgstr "Postavi označenu stavku na liniju sa alatkama"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1383
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1399
 msgid "_Remove from Toolbar"
 msgstr "_Skloni iz alatki"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1384
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1400
 msgid "Remove the selected item from the toolbar"
 msgstr "Skloni označenu stavku sa linije sa alatkama"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1385
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1401
 msgid "_Delete Toolbar"
 msgstr "_Obriši liniju sa alatkama"
 
-#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1386
+#: ../cut-n-paste/toolbar-editor/egg-editable-toolbar.c:1402
 msgid "Remove the selected toolbar"
 msgstr "Ukloni označenu liniju sa alatkama"
 
@@ -72,12 +73,12 @@ msgid "Fullscreen with double-click"
 msgstr "Ceo ekran na dvostruki klik"
 
 #: ../plugins/reload/reload.eog-plugin.desktop.in.h:1
-#: ../plugins/reload/eog-reload-plugin.c:38
+#: ../plugins/reload/eog-reload-plugin.c:45
 msgid "Reload Image"
 msgstr "Osveži sliku"
 
 #: ../plugins/reload/reload.eog-plugin.desktop.in.h:2
-#: ../plugins/reload/eog-reload-plugin.c:40
+#: ../plugins/reload/eog-reload-plugin.c:47
 msgid "Reload current image"
 msgstr "Ponovo učitava tekuću sliku"
 
@@ -174,22 +175,27 @@ msgid "<b>Width:</b>"
 msgstr "<b>Širina:</b>"
 
 #: ../data/eog-image-properties-dialog.ui.h:20
+#| msgid "<b>Details</b>"
+msgid "Details"
+msgstr "Detalji"
+
+#: ../data/eog-image-properties-dialog.ui.h:21
 msgid "General"
 msgstr "Opšte"
 
-#: ../data/eog-image-properties-dialog.ui.h:21
+#: ../data/eog-image-properties-dialog.ui.h:22
 msgid "Image Properties"
 msgstr "Osobine slike"
 
-#: ../data/eog-image-properties-dialog.ui.h:22
+#: ../data/eog-image-properties-dialog.ui.h:23
 msgid "Metadata"
 msgstr "Meta podaci"
 
-#: ../data/eog-image-properties-dialog.ui.h:23
+#: ../data/eog-image-properties-dialog.ui.h:24
 msgid "_Next"
 msgstr "_Naredna"
 
-#: ../data/eog-image-properties-dialog.ui.h:24
+#: ../data/eog-image-properties-dialog.ui.h:25
 msgid "_Previous"
 msgstr "_Prethodna"
 
@@ -300,22 +306,28 @@ msgid "Slideshow"
 msgstr "Slike u nizu"
 
 #: ../data/eog-preferences-dialog.ui.h:14
-msgid "Smooth images when _zoomed"
-msgstr "Utopi sliku pri uve_ćanju"
+#| msgid "Smooth images when _zoomed"
+msgid "Smooth images when zoomed-_in"
+msgstr "Izgladi sliku pri uve_ćanju"
 
 #: ../data/eog-preferences-dialog.ui.h:15
+#| msgid "Smooth images when _zoomed"
+msgid "Smooth images when zoomed-_out"
+msgstr "Izgladi sliku pri _smanjenju"
+
+#: ../data/eog-preferences-dialog.ui.h:16
 msgid "_Automatic orientation"
 msgstr "_Automatska orijentacija"
 
-#: ../data/eog-preferences-dialog.ui.h:16
+#: ../data/eog-preferences-dialog.ui.h:17
 msgid "_Loop sequence"
 msgstr "_Vrti niz"
 
-#: ../data/eog-preferences-dialog.ui.h:17
+#: ../data/eog-preferences-dialog.ui.h:18
 msgid "_Switch image after:"
 msgstr "_Promeni sliku posle:"
 
-#: ../data/eog-preferences-dialog.ui.h:18
+#: ../data/eog-preferences-dialog.ui.h:19
 msgid "seconds"
 msgstr "sekundi"
 
@@ -355,6 +367,44 @@ msgstr ""
 "koja će boja biti korišćena."
 
 #: ../data/eog.schemas.in.h:8
+#| msgid "Interpolate Image"
+msgid "Extrapolate Image"
+msgstr "Ekstrapoliraj sliku"
+
+#: ../data/eog.schemas.in.h:9
+msgid ""
+"If activated Eye of GNOME wont ask for confirmation when moving images to "
+"the trash. It will still ask if any of the files cannot be moved to the "
+"trash and would be deleted instead."
+msgstr ""
+"Ukoliko je uključeno, Oko Gnoma neće pitati za potvrdu prilikom premeštanja "
+"slika u smeće. Međutim, još uvek će vas pitati ukoliko ne može da premesti "
+"neku od datoteka u smeće, a može ih obrisati."
+
+#: ../data/eog.schemas.in.h:10
+msgid ""
+"If activated and no image is loaded in the active window, the filechooser "
+"will display the user's pictures folder using the XDG special user "
+"directories. If deactivated or the pictures folder has not been set up it "
+"will show the current working directory."
+msgstr ""
+"Ukoliko je uključeno, a nije učitana slika u trenutnom prozoru, Oko Gnoma "
+"će prikazati fasciklu sa slikama korisnika iz specijalnih XDG direktorijuma. "
+"Ukoliko je isključeno ili nije postavljena fascikla sa slikama, prikazaće se "
+"trenutni direktorijum."
+
+#: ../data/eog.schemas.in.h:11
+msgid ""
+"If activated the detailed metadata list in the properties dialog will be "
+"moved to its own page in the dialog. This should make the dialog more usable "
+"on smaller screens, e.g. as used by netbooks. If disabled the widget will be "
+"embedded on the \"Metadata\" page."
+msgstr ""
+"Ukoliko je uključeno, detaljan spisak metapodataka iz prozorčeta za osobinama "
+"će biti premešten u zaseban prozorčić. Ovo će učiniti prozorče korisnijim "
+"na malim ekranima, kao što su oni na prenosnim računarima."
+
+#: ../data/eog.schemas.in.h:12
 msgid ""
 "If the transparency key has the value COLOR, then this key determines the "
 "color which is used for indicating transparency."
@@ -362,7 +412,7 @@ msgstr ""
 "Ako podešavanje providnosti ima vrednost COLOR, onda ovaj ključ utvrđuje boju "
 "koja će biti korišćena za obeležavanje providnosti."
 
-#: ../data/eog.schemas.in.h:9
+#: ../data/eog.schemas.in.h:13
 msgid ""
 "If this is set to FALSE small images will not be stretched to fit into the "
 "screen initially."
@@ -370,7 +420,7 @@ msgstr ""
 "Ako je ovo postavljeno na FALSE, male slike se neće razvući u početku da "
 "stanu na ekran."
 
-#: ../data/eog.schemas.in.h:10
+#: ../data/eog.schemas.in.h:14
 msgid ""
 "Image collection pane position. Set to 0 for bottom; 1 for left; 2 for top; "
 "3 for right."
@@ -378,11 +428,11 @@ msgstr ""
 "Pozicija panela za zbirku slika. Postavi na 0 za dno, 1 za levo, 2 za gore "
 "ili 3 za desno."
 
-#: ../data/eog.schemas.in.h:11
+#: ../data/eog.schemas.in.h:15
 msgid "Interpolate Image"
 msgstr "Interpoliraj sliku"
 
-#: ../data/eog.schemas.in.h:12
+#: ../data/eog.schemas.in.h:16
 msgid ""
 "List of active plugins. It doesn't contain the \"Location\" of the active "
 "plugins. See the .eog-plugin file for obtaining the \"Location\" of a given "
@@ -391,35 +441,35 @@ msgstr ""
 "Lista aktiviranih dodataka. Ne sadrži lokacije dodataka. Pogledaj datoteku ."
 "eog-plugin da saznaš lokaciju odabranog dodatka."
 
-#: ../data/eog.schemas.in.h:13
+#: ../data/eog.schemas.in.h:17
 msgid "Loop through the image sequence"
 msgstr "Vrti kroz niz slika"
 
-#: ../data/eog.schemas.in.h:14
+#: ../data/eog.schemas.in.h:18
 msgid "Scroll wheel zoom"
 msgstr "Točkić na mišu uvećava"
 
-#: ../data/eog.schemas.in.h:15
+#: ../data/eog.schemas.in.h:19
 msgid "Show/hide the image collection pane scroll buttons."
 msgstr "Prikaži/sakrij dugmad za listanje zbirke slika."
 
-#: ../data/eog.schemas.in.h:16
+#: ../data/eog.schemas.in.h:20
 msgid "Show/hide the image collection pane."
 msgstr "Prikaži/sakrij oblast sa celokupnom zbirkom slika."
 
-#: ../data/eog.schemas.in.h:17
+#: ../data/eog.schemas.in.h:21
 msgid "Show/hide the window side pane."
 msgstr "Prikaži/sakrij panel sa strane prozora."
 
-#: ../data/eog.schemas.in.h:18
+#: ../data/eog.schemas.in.h:22
 msgid "Show/hide the window statusbar."
 msgstr "Prikaži/sakrij statusnu liniju prozora."
 
-#: ../data/eog.schemas.in.h:19
+#: ../data/eog.schemas.in.h:23
 msgid "Show/hide the window toolbar."
 msgstr "Prikaži/sakrij glavne alatke u prozoru."
 
-#: ../data/eog.schemas.in.h:21
+#: ../data/eog.schemas.in.h:25
 #, no-c-format
 msgid ""
 "The multiplier to be applied when using the mouse scroll wheel for zooming. "
@@ -432,41 +482,71 @@ msgstr ""
 "točkića. Na primer, 0.05 znači 5% uvećanja na svaki pomeraj točkića, a 1.00 "
 "znači 100% uvećanja."
 
-#: ../data/eog.schemas.in.h:22
+#: ../data/eog.schemas.in.h:26
 msgid "Transparency color"
 msgstr "Boja providnosti"
 
-#: ../data/eog.schemas.in.h:23
+#: ../data/eog.schemas.in.h:27
 msgid "Transparency indicator"
 msgstr "Obeleživač providnosti"
 
-#: ../data/eog.schemas.in.h:24
+#: ../data/eog.schemas.in.h:28
+msgid "Trash images without asking"
+msgstr "Pošalji u smeće bez pitanja"
+
+#: ../data/eog.schemas.in.h:29
 msgid ""
 "Whether or not the sequence of images should be shown in an endless loop."
 msgstr "Da li treba da se beskonačno vrti ciklus slika."
 
-#: ../data/eog.schemas.in.h:25
+#: ../data/eog.schemas.in.h:30
+msgid ""
+"Whether the filechooser should show the user's pictures folder if no images "
+"are loaded."
+msgstr ""
+"Da li da prikazuje fasciklu sa slikama korisnika ukoliko nisu učitane slike."
+
+#: ../data/eog.schemas.in.h:31
 msgid "Whether the image collection pane should be resizable or not."
 msgstr "Da li oblast sa zbirkom slika treba biti promenljive veličine ili ne."
 
-#: ../data/eog.schemas.in.h:26
+#: ../data/eog.schemas.in.h:32
+#| msgid ""
+#| "Whether the image should be interpolated on zoom or not. This leads to "
+#| "better quality but is somewhat slower than non interpolated images."
 msgid ""
-"Whether the image should be interpolated on zoom or not. This leads to "
+"Whether the image should be extrapolated on zoom-in or not. This leads to "
+"blurry quality and is somewhat slower than non extrapolated images."
+msgstr ""
+"Da li ekstrapolirati sliku prilikom uvećanja. Takva slika izgleda mutnije "
+"i ponekad se učitava sporije nego prikaz slike bez ekstrapolacije."
+
+#: ../data/eog.schemas.in.h:33
+#| msgid ""
+#| "Whether the image should be interpolated on zoom or not. This leads to "
+#| "better quality but is somewhat slower than non interpolated images."
+msgid ""
+"Whether the image should be interpolated on zoom-out or not. This leads to "
 "better quality but is somewhat slower than non interpolated images."
 msgstr ""
-"Da li sliku treba utopiti prilikom uvećanja. Interpolirana, slika ima bolji "
+"Da li sliku utopiti prilikom uvećanja. Interpolirana, slika ima bolji "
 "kvalitet ali je to ponekad sporije nego prikaz slike bez interpolacije."
 
-#: ../data/eog.schemas.in.h:27
+#: ../data/eog.schemas.in.h:34
 msgid ""
 "Whether the image should be rotated automatically based on EXIF orientation."
 msgstr "Da li sliku treba automatski okrenuti na osnovu EXIF zapisa."
 
-#: ../data/eog.schemas.in.h:28
+#: ../data/eog.schemas.in.h:35
+msgid ""
+"Whether the metadata list in the properties dialog should have its own page."
+msgstr "Da li prikazati spisak metapodataka u zasebnom prozorčetu."
+
+#: ../data/eog.schemas.in.h:36
 msgid "Whether the scroll wheel should be used for zooming or not."
 msgstr "Da li se točkić na mišu koristi za uvećanje ili ne."
 
-#: ../data/eog.schemas.in.h:29
+#: ../data/eog.schemas.in.h:37
 msgid "Zoom multiplier"
 msgstr "Faktor uvećanja"
 
@@ -501,9 +581,9 @@ msgid "%s (*.%s)"
 msgstr "%s (*.%s)"
 
 #. Pixel size of image: width x height in pixel
-#: ../src/eog-file-chooser.c:288 ../src/eog-properties-dialog.c:132
-#: ../src/eog-properties-dialog.c:134 ../src/eog-thumb-view.c:380
-#: ../src/eog-window.c:722
+#: ../src/eog-file-chooser.c:288 ../src/eog-properties-dialog.c:137
+#: ../src/eog-properties-dialog.c:139 ../src/eog-thumb-view.c:379
+#: ../src/eog-window.c:768
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "piksel"
@@ -523,32 +603,32 @@ msgstr "Sačuvaj sliku"
 msgid "Open Folder"
 msgstr "Otvori fasciklu"
 
-#: ../src/eog-image.c:530
+#: ../src/eog-image.c:546
 #, c-format
 msgid "Transformation on unloaded image."
 msgstr "Transformacija neučitane slike."
 
-#: ../src/eog-image.c:558
+#: ../src/eog-image.c:574
 #, c-format
 msgid "Transformation failed."
 msgstr "Neuspela transformacija."
 
-#: ../src/eog-image.c:948
+#: ../src/eog-image.c:971
 #, c-format
 msgid "EXIF not supported for this file format."
 msgstr "EXIF za ovaj oblik datoteke nije podržan."
 
-#: ../src/eog-image.c:1070
+#: ../src/eog-image.c:1086
 #, c-format
 msgid "Image loading failed."
 msgstr "Neuspelo učitavanje slike"
 
-#: ../src/eog-image.c:1472 ../src/eog-image.c:1574
+#: ../src/eog-image.c:1488 ../src/eog-image.c:1590
 #, c-format
 msgid "No image loaded."
 msgstr "Slika nije učitana."
 
-#: ../src/eog-image.c:1482 ../src/eog-image.c:1586
+#: ../src/eog-image.c:1498 ../src/eog-image.c:1602
 #, c-format
 msgid "Temporary file creation failed."
 msgstr "Neuspešno obrazovanje privremene datoteke."
@@ -727,13 +807,13 @@ msgstr "Inči"
 msgid "Preview"
 msgstr "Pregled"
 
-#: ../src/eog-properties-dialog.c:149 ../src/eog-properties-dialog.c:150
+#: ../src/eog-properties-dialog.c:154 ../src/eog-properties-dialog.c:155
 msgid "Unknown"
 msgstr "Nepoznato"
 
 #. TRANSLATORS: This is the actual focal length used when
 #. the image was taken.
-#: ../src/eog-properties-dialog.c:228
+#: ../src/eog-properties-dialog.c:233
 #, c-format
 msgid "%.1f (lens)"
 msgstr "%.1f (objektiv)"
@@ -741,7 +821,7 @@ msgstr "%.1f (objektiv)"
 #. Print as float to get a similar look as above.
 #. TRANSLATORS: This is the equivalent focal length assuming
 #. a 35mm film camera.
-#: ../src/eog-properties-dialog.c:239
+#: ../src/eog-properties-dialog.c:244
 #, c-format
 msgid "%.1f (35mm film)"
 msgstr "%.1f (35mm film)"
@@ -750,11 +830,11 @@ msgstr "%.1f (35mm film)"
 msgid "as is"
 msgstr "u trenutnom stanju"
 
-#: ../src/eog-thumb-view.c:408
+#: ../src/eog-thumb-view.c:407
 msgid "Taken on"
 msgstr "Slikano"
 
-#: ../src/eog-uri-converter.c:983
+#: ../src/eog-uri-converter.c:984
 #, c-format
 msgid "At least two file names are equal."
 msgstr "Najmanje dva imena datoteka su ista."
@@ -767,12 +847,7 @@ msgstr "Ne mogu da prikažem pomoć za Oči Gnoma"
 msgid " (invalid Unicode)"
 msgstr " (neispravan Unikod)"
 
-#: ../src/eog-window.c:1133
-#, c-format
-msgid "Open with \"%s\""
-msgstr "Otvori sa „%s“"
-
-#: ../src/eog-window.c:1134
+#: ../src/eog-window.c:1183
 #, c-format
 msgid "Use \"%s\" to open the selected image"
 msgstr "Koristi „%s“ da otvoriš odabranu sliku"
@@ -782,17 +857,17 @@ msgstr "Koristi „%s“ da otvoriš odabranu sliku"
 #. * - the original filename
 #. * - the current image's position in the queue
 #. * - the total number of images queued for saving
-#: ../src/eog-window.c:1249
+#: ../src/eog-window.c:1333
 #, c-format
 msgid "Saving image \"%s\" (%u/%u)"
 msgstr "Čuvam sliku „%s“ (%u/%u)"
 
-#: ../src/eog-window.c:1592
+#: ../src/eog-window.c:1672
 #, c-format
 msgid "Loading image \"%s\""
 msgstr "Učitavam sliku „%s“"
 
-#: ../src/eog-window.c:2288
+#: ../src/eog-window.c:2368
 #, c-format
 msgid ""
 "Error printing file:\n"
@@ -801,15 +876,15 @@ msgstr ""
 "Greška pri štampanju datoteke:\n"
 "%s"
 
-#: ../src/eog-window.c:2416
+#: ../src/eog-window.c:2510
 msgid "Toolbar Editor"
 msgstr "Uređivač alatki"
 
-#: ../src/eog-window.c:2419
+#: ../src/eog-window.c:2513
 msgid "_Reset to Default"
 msgstr "_Vrati na podrazumevano"
 
-#: ../src/eog-window.c:2505
+#: ../src/eog-window.c:2599
 msgid "translator-credits"
 msgstr ""
 "Goran Rakić <grakic@devbase.net>\n"
@@ -818,7 +893,7 @@ msgstr ""
 "\n"
 "http://prevod.org — prevod na srpski jezik."
 
-#: ../src/eog-window.c:2508
+#: ../src/eog-window.c:2602
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -830,7 +905,7 @@ msgstr ""
 "za Slobodni Softver (FSF); bilo verzije 2 te Licence, bilo (po vašem "
 "nahođenju) bilo koje novije verzije.\n"
 
-#: ../src/eog-window.c:2512
+#: ../src/eog-window.c:2606
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -841,7 +916,7 @@ msgstr ""
 "GARANCIJA; čak i bez podrazumevane garancije KORISNOSTI ili PRILAGOĐENOSTI "
 "ODREĐENOJ NAMENI.  Vidite GNU Opštu Javnu Licencu za više detalja.\n"
 
-#: ../src/eog-window.c:2516
+#: ../src/eog-window.c:2610
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 59 Temple "
@@ -851,19 +926,19 @@ msgstr ""
 "niste, pišite Zadužbini za Slobodni Softver (Free Software Foundation, "
 "Inc.), 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
 
-#: ../src/eog-window.c:2529
+#: ../src/eog-window.c:2623
 msgid "Eye of GNOME"
 msgstr "Oči Gnoma"
 
-#: ../src/eog-window.c:2532
+#: ../src/eog-window.c:2626
 msgid "The GNOME image viewer."
 msgstr "Pregledač slika za Gnom."
 
-#: ../src/eog-window.c:2965
+#: ../src/eog-window.c:3067
 msgid "Saving image locally..."
 msgstr "Čuvam sliku lokalno..."
 
-#: ../src/eog-window.c:3033
+#: ../src/eog-window.c:3149
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -872,7 +947,7 @@ msgstr ""
 "Da li zaista želite da premestite \n"
 "sliku „%s“ u smeće?"
 
-#: ../src/eog-window.c:3036
+#: ../src/eog-window.c:3152
 #, c-format
 msgid ""
 "A trash for \"%s\" couldn't be found. Do you want to remove this image "
@@ -880,7 +955,7 @@ msgid ""
 msgstr ""
 "Ne mogu da nađem „%s“ u smeću. Da li želite da trajno uklonite ovu sliku?"
 
-#: ../src/eog-window.c:3041
+#: ../src/eog-window.c:3157
 #, c-format
 msgid ""
 "Are you sure you want to move\n"
@@ -901,7 +976,7 @@ msgstr[3] ""
 "Da li zaista želite li premestite \n"
 "sliku u smeće?"
 
-#: ../src/eog-window.c:3046
+#: ../src/eog-window.c:3162
 msgid ""
 "Some of the selected images can't be moved to the trash and will be removed "
 "permanently. Are you sure you want to proceed?"
@@ -909,349 +984,353 @@ msgstr ""
 "Ne mogu da premestim u smeće neke od izabranih slika, pa će biti trajno "
 "uklonjene. Da li želite da nastavite?"
 
-#: ../src/eog-window.c:3063 ../src/eog-window.c:3479 ../src/eog-window.c:3503
+#: ../src/eog-window.c:3179 ../src/eog-window.c:3606 ../src/eog-window.c:3630
 msgid "Move to _Trash"
 msgstr "Premesti u s_meće"
 
-#: ../src/eog-window.c:3099 ../src/eog-window.c:3113
+#: ../src/eog-window.c:3181
+msgid "_Do not ask again during this session"
+msgstr "_Ne pitaj ponovo tokom ove sesije"
+
+#: ../src/eog-window.c:3226 ../src/eog-window.c:3240
 #, c-format
 msgid "Couldn't access trash."
 msgstr "Ne mogu da pristupim smeću."
 
-#: ../src/eog-window.c:3121
+#: ../src/eog-window.c:3248
 #, c-format
 msgid "Couldn't delete file"
 msgstr "Ne mogu da obrišem datoteku"
 
-#: ../src/eog-window.c:3192
+#: ../src/eog-window.c:3319
 #, c-format
 msgid "Error on deleting image %s"
 msgstr "Greška pri brisanju slike %s"
 
-#: ../src/eog-window.c:3399
+#: ../src/eog-window.c:3526
 msgid "_File"
 msgstr "_Datoteka"
 
-#: ../src/eog-window.c:3400
+#: ../src/eog-window.c:3527
 msgid "_Edit"
 msgstr "_Uređivanje"
 
-#: ../src/eog-window.c:3401
+#: ../src/eog-window.c:3528
 msgid "_View"
 msgstr "P_regled"
 
-#: ../src/eog-window.c:3402
+#: ../src/eog-window.c:3529
 msgid "_Image"
 msgstr "_Slika"
 
-#: ../src/eog-window.c:3403
+#: ../src/eog-window.c:3530
 msgid "_Go"
 msgstr "P_relaz"
 
-#: ../src/eog-window.c:3404
+#: ../src/eog-window.c:3531
 msgid "_Tools"
 msgstr "Ala_ti"
 
-#: ../src/eog-window.c:3405
+#: ../src/eog-window.c:3532
 msgid "_Help"
 msgstr "_Pomoć"
 
-#: ../src/eog-window.c:3407
+#: ../src/eog-window.c:3534
 msgid "_Open..."
 msgstr "_Otvori..."
 
-#: ../src/eog-window.c:3408
+#: ../src/eog-window.c:3535
 msgid "Open a file"
 msgstr "Otvori datoteku"
 
-#: ../src/eog-window.c:3410
+#: ../src/eog-window.c:3537
 msgid "_Close"
 msgstr "_Zatvori"
 
-#: ../src/eog-window.c:3411
+#: ../src/eog-window.c:3538
 msgid "Close window"
 msgstr "Zatvori prozor"
 
-#: ../src/eog-window.c:3413
+#: ../src/eog-window.c:3540
 msgid "T_oolbar"
 msgstr "Ala_tke"
 
-#: ../src/eog-window.c:3414
+#: ../src/eog-window.c:3541
 msgid "Edit the application toolbar"
 msgstr "Izmeni liniju sa alatkama"
 
-#: ../src/eog-window.c:3416
+#: ../src/eog-window.c:3543
 msgid "Prefere_nces"
 msgstr "_Postavke"
 
-#: ../src/eog-window.c:3417
+#: ../src/eog-window.c:3544
 msgid "Preferences for Eye of GNOME"
 msgstr "Postavke Oka Gnoma"
 
-#: ../src/eog-window.c:3419
+#: ../src/eog-window.c:3546
 msgid "_Contents"
 msgstr "_Sadržaj"
 
-#: ../src/eog-window.c:3420
+#: ../src/eog-window.c:3547
 msgid "Help on this application"
 msgstr "Uputstvo za korišćenje programa"
 
-#: ../src/eog-window.c:3422 ../src/eog-plugin-manager.c:505
+#: ../src/eog-window.c:3549 ../src/eog-plugin-manager.c:505
 msgid "_About"
 msgstr "_O programu"
 
-#: ../src/eog-window.c:3423
+#: ../src/eog-window.c:3550
 msgid "About this application"
 msgstr "O ovom programu"
 
-#: ../src/eog-window.c:3428
+#: ../src/eog-window.c:3555
 msgid "_Toolbar"
 msgstr "Ala_tke"
 
-#: ../src/eog-window.c:3429
+#: ../src/eog-window.c:3556
 msgid "Changes the visibility of the toolbar in the current window"
 msgstr "Izmeni vidljivost palete alatki u tekućem prozoru"
 
-#: ../src/eog-window.c:3431
+#: ../src/eog-window.c:3558
 msgid "_Statusbar"
 msgstr "_Linija sa stanjem"
 
-#: ../src/eog-window.c:3432
+#: ../src/eog-window.c:3559
 msgid "Changes the visibility of the statusbar in the current window"
 msgstr "Izmeni vidljivost linije sa stanjem u tekućem prozoru"
 
-#: ../src/eog-window.c:3434
+#: ../src/eog-window.c:3561
 msgid "_Image Collection"
 msgstr "Celokupna z_birka"
 
-#: ../src/eog-window.c:3435
+#: ../src/eog-window.c:3562
 msgid ""
 "Changes the visibility of the image collection pane in the current window"
 msgstr ""
 "Izmeni vidljivost površi koja sadrži umanjeni prikaz celokupne zbirke slika u "
 "tekućem prozoru"
 
-#: ../src/eog-window.c:3437
+#: ../src/eog-window.c:3564
 msgid "Side _Pane"
 msgstr "Bočna _površ"
 
-#: ../src/eog-window.c:3438
+#: ../src/eog-window.c:3565
 msgid "Changes the visibility of the side pane in the current window"
 msgstr "Izmeni vidljivost bočne površi u tekućem prozoru"
 
-#: ../src/eog-window.c:3443
+#: ../src/eog-window.c:3570
 msgid "_Save"
 msgstr "_Sačuvaj"
 
-#: ../src/eog-window.c:3444
+#: ../src/eog-window.c:3571
 msgid "Save changes in currently selected images"
 msgstr "Čuva promene nad tekućom slikom"
 
-#: ../src/eog-window.c:3446
+#: ../src/eog-window.c:3573
 msgid "Open _with"
 msgstr "Otvori _sa"
 
-#: ../src/eog-window.c:3447
+#: ../src/eog-window.c:3574
 msgid "Open the selected image with a different application"
 msgstr "Otvara izabranu sliku drugim programom"
 
-#: ../src/eog-window.c:3449
+#: ../src/eog-window.c:3576
 msgid "Save _As..."
 msgstr "Sačuvaj _kao..."
 
-#: ../src/eog-window.c:3450
+#: ../src/eog-window.c:3577
 msgid "Save the selected images with a different name"
 msgstr "Čuva izabranu sliku pod drugim nazivom"
 
-#: ../src/eog-window.c:3453
+#: ../src/eog-window.c:3580
 msgid "Setup the page properties for printing"
 msgstr "Podešava osobine stranice za štampu"
 
-#: ../src/eog-window.c:3455
+#: ../src/eog-window.c:3582
 msgid "_Print..."
 msgstr "_Štampaj..."
 
-#: ../src/eog-window.c:3456
+#: ../src/eog-window.c:3583
 msgid "Print the selected image"
 msgstr "Štampa tekuću sliku"
 
-#: ../src/eog-window.c:3458
+#: ../src/eog-window.c:3585
 msgid "Prope_rties"
 msgstr "_Osobine"
 
-#: ../src/eog-window.c:3459
+#: ../src/eog-window.c:3586
 msgid "Show the properties and metadata of the selected image"
 msgstr "Prikazuje osobine i meta podatke o izabranoj slici"
 
-#: ../src/eog-window.c:3461
+#: ../src/eog-window.c:3588
 msgid "_Undo"
 msgstr "_Opozovi"
 
-#: ../src/eog-window.c:3462
+#: ../src/eog-window.c:3589
 msgid "Undo the last change in the image"
 msgstr "Opoziva poslednju izmenu nad slikom"
 
-#: ../src/eog-window.c:3464
+#: ../src/eog-window.c:3591
 msgid "Flip _Horizontal"
 msgstr "Obrni _vodoravno"
 
-#: ../src/eog-window.c:3465
+#: ../src/eog-window.c:3592
 msgid "Mirror the image horizontally"
 msgstr "Izvrće sliku po horizontali"
 
-#: ../src/eog-window.c:3467
+#: ../src/eog-window.c:3594
 msgid "Flip _Vertical"
 msgstr "Obrni _uspravno"
 
-#: ../src/eog-window.c:3468
+#: ../src/eog-window.c:3595
 msgid "Mirror the image vertically"
 msgstr "izvrće sliku po vertikali"
 
-#: ../src/eog-window.c:3470
+#: ../src/eog-window.c:3597
 msgid "_Rotate Clockwise"
 msgstr "Rotiraj u s_meru kazaljke na satu"
 
-#: ../src/eog-window.c:3471
+#: ../src/eog-window.c:3598
 msgid "Rotate the image 90 degrees to the right"
 msgstr "Rotira sliku za 90 stepeni udesno"
 
-#: ../src/eog-window.c:3473
+#: ../src/eog-window.c:3600
 msgid "Rotate Counterc_lockwise"
 msgstr "Rotiraj suprotno od smera _kazaljke na satu"
 
-#: ../src/eog-window.c:3474
+#: ../src/eog-window.c:3601
 msgid "Rotate the image 90 degrees to the left"
 msgstr "Rotira sliku za 90 stepeni ulevo"
 
-#: ../src/eog-window.c:3476
+#: ../src/eog-window.c:3603
 msgid "Set as _Desktop Background"
 msgstr "Postavi kao _pozadinu"
 
-#: ../src/eog-window.c:3477
+#: ../src/eog-window.c:3604
 msgid "Set the selected image as the desktop background"
 msgstr "Postavlja izabranu sliku u pozadinu radne površine"
 
-#: ../src/eog-window.c:3480
+#: ../src/eog-window.c:3607
 msgid "Move the selected image to the trash folder"
 msgstr "Premešta izabranu sliku u kantu za smeće"
 
-#: ../src/eog-window.c:3482 ../src/eog-window.c:3494 ../src/eog-window.c:3497
+#: ../src/eog-window.c:3609 ../src/eog-window.c:3621 ../src/eog-window.c:3624
 msgid "_Zoom In"
 msgstr "U_većaj"
 
-#: ../src/eog-window.c:3483 ../src/eog-window.c:3495
+#: ../src/eog-window.c:3610 ../src/eog-window.c:3622
 msgid "Enlarge the image"
 msgstr "Uvećava pregled slike"
 
-#: ../src/eog-window.c:3485 ../src/eog-window.c:3500
+#: ../src/eog-window.c:3612 ../src/eog-window.c:3627
 msgid "Zoom _Out"
 msgstr "U_manji"
 
-#: ../src/eog-window.c:3486 ../src/eog-window.c:3498 ../src/eog-window.c:3501
+#: ../src/eog-window.c:3613 ../src/eog-window.c:3625 ../src/eog-window.c:3628
 msgid "Shrink the image"
 msgstr "Umanjuje pregled slike"
 
-#: ../src/eog-window.c:3488
+#: ../src/eog-window.c:3615
 msgid "_Normal Size"
 msgstr "_Normalna veličina"
 
-#: ../src/eog-window.c:3489
+#: ../src/eog-window.c:3616
 msgid "Show the image at its normal size"
 msgstr "Prikazuje sliku u njenoj punoj veličini"
 
-#: ../src/eog-window.c:3491
+#: ../src/eog-window.c:3618
 msgid "Best _Fit"
 msgstr "_Najbolje uklapanje"
 
-#: ../src/eog-window.c:3492
+#: ../src/eog-window.c:3619
 msgid "Fit the image to the window"
 msgstr "Uklapa veličinu slike kako bi stala u prozor"
 
-#: ../src/eog-window.c:3509
+#: ../src/eog-window.c:3636
 msgid "_Full Screen"
 msgstr "_Ceo ekran"
 
-#: ../src/eog-window.c:3510
+#: ../src/eog-window.c:3637
 msgid "Show the current image in fullscreen mode"
 msgstr "Prikazuje tekuću sliku preko celog ekrana"
 
-#: ../src/eog-window.c:3515 ../src/eog-window.c:3527
+#: ../src/eog-window.c:3642 ../src/eog-window.c:3654
 msgid "_Previous Image"
 msgstr "_Prethodna slika"
 
-#: ../src/eog-window.c:3516
+#: ../src/eog-window.c:3643
 msgid "Go to the previous image of the collection"
 msgstr "Vodi na prethodnu sliku iz kolekcije"
 
-#: ../src/eog-window.c:3518
+#: ../src/eog-window.c:3645
 msgid "_Next Image"
 msgstr "_Sledeća slika"
 
-#: ../src/eog-window.c:3519
+#: ../src/eog-window.c:3646
 msgid "Go to the next image of the collection"
 msgstr "Vodi na narednu sliku iz kolekcije"
 
-#: ../src/eog-window.c:3521 ../src/eog-window.c:3530
+#: ../src/eog-window.c:3648 ../src/eog-window.c:3657
 msgid "_First Image"
 msgstr "Prv_a slika"
 
-#: ../src/eog-window.c:3522
+#: ../src/eog-window.c:3649
 msgid "Go to the first image of the collection"
 msgstr "Vodi na prvu sliku iz kolekcije"
 
-#: ../src/eog-window.c:3524 ../src/eog-window.c:3533
+#: ../src/eog-window.c:3651 ../src/eog-window.c:3660
 msgid "_Last Image"
 msgstr "Z_adnja slika"
 
-#: ../src/eog-window.c:3525
+#: ../src/eog-window.c:3652
 msgid "Go to the last image of the collection"
 msgstr "Vodi na poslednju sliku iz kolekcije"
 
-#: ../src/eog-window.c:3539
+#: ../src/eog-window.c:3666
 msgid "_Slideshow"
 msgstr "Slike u _nizu"
 
-#: ../src/eog-window.c:3540
+#: ../src/eog-window.c:3667
 msgid "Start a slideshow view of the images"
 msgstr "Započinje pokretni prikaz slika"
 
-#: ../src/eog-window.c:3606
+#: ../src/eog-window.c:3733
 msgid "Previous"
 msgstr "Prethodna"
 
-#: ../src/eog-window.c:3610
+#: ../src/eog-window.c:3737
 msgid "Next"
 msgstr "Sledeća"
 
-#: ../src/eog-window.c:3614
+#: ../src/eog-window.c:3741
 msgid "Right"
 msgstr "Desno"
 
-#: ../src/eog-window.c:3617
+#: ../src/eog-window.c:3744
 msgid "Left"
 msgstr "Levo"
 
-#: ../src/eog-window.c:3620
+#: ../src/eog-window.c:3747
 msgid "In"
 msgstr "Uvećaj"
 
-#: ../src/eog-window.c:3623
+#: ../src/eog-window.c:3750
 msgid "Out"
 msgstr "Umanji"
 
-#: ../src/eog-window.c:3626
+#: ../src/eog-window.c:3753
 msgid "Normal"
 msgstr "Normalno"
 
-#: ../src/eog-window.c:3629
+#: ../src/eog-window.c:3756
 msgid "Fit"
 msgstr "Uklopi veličinu"
 
-#: ../src/eog-window.c:3632
+#: ../src/eog-window.c:3759
 msgid "Collection"
 msgstr "Kolekcija"
 
-#: ../src/eog-window.c:3635
+#: ../src/eog-window.c:3762
 msgctxt "action (to trash)"
 msgid "Trash"
 msgstr "Smeće"
@@ -1313,14 +1392,17 @@ msgid "[FILE...]"
 msgstr "[DATOTEKA...]"
 
 #. I18N: The '%s' is replaced with eog's command name.
-#: ../src/main.c:196
+#: ../src/main.c:195
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Pokrenite „%s --help“ za spisak svih opcija iz komandne linije."
 
-#: ../src/main.c:234
+#: ../src/main.c:233
 msgid "Eye of GNOME Image Viewer"
 msgstr "Oko Gnoma — preglednik slika"
+
+#~ msgid "Open with \"%s\""
+#~ msgstr "Otvori sa „%s“"
 
 #~ msgid "Only local images can be used as wallpapers"
 #~ msgstr "Samo kao lokalne slike mogu biti u pozadini"
