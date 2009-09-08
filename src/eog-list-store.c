@@ -121,8 +121,8 @@ eog_list_store_compare_func (GtkTreeModel *model,
 			    EOG_LIST_STORE_EOG_IMAGE, &image_b,
 			    -1);
 
-	r_value = strcasecmp (eog_image_get_collate_key (image_a),
-			      eog_image_get_collate_key (image_b));
+	r_value = strcmp (eog_image_get_collate_key (image_a),
+			  eog_image_get_collate_key (image_b));
 
 	g_object_unref (G_OBJECT (image_a));
 	g_object_unref (G_OBJECT (image_b));
