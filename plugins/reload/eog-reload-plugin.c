@@ -79,7 +79,6 @@ impl_activate (EogPlugin *plugin,
 	       EogWindow *window)
 {
 	GtkUIManager *manager;
-        GList *action_groups;
 	WindowData *data;
 
 	eog_debug (DEBUG_PLUGINS);
@@ -87,8 +86,6 @@ impl_activate (EogPlugin *plugin,
 	data = g_new (WindowData, 1);
 
 	manager = eog_window_get_ui_manager (window);
-
-	action_groups = gtk_ui_manager_get_action_groups (manager);
 
 	data->ui_action_group = gtk_action_group_new ("EogReloadPluginActions");
 

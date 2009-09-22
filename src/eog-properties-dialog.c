@@ -151,7 +151,6 @@ pd_update_general_tab (EogPropertiesDialog *prop_dlg,
 				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 				       0, NULL, NULL);
 	if (file_info == NULL) {
-		mime_str = _("Unknown");
 		type_str = g_strdup (_("Unknown"));
 	} else {
 		mime_str = g_file_info_get_content_type (file_info);
