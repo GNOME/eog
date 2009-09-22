@@ -201,7 +201,7 @@ eog_exif_set_label (GtkWidget *w, ExifData *exif_data, gint tag_id)
 static void
 eog_exif_set_focal_length_label (GtkWidget *w, ExifData *exif_data)
 {
-	ExifEntry *entry,*entry35mm;
+	ExifEntry *entry = NULL, *entry35mm = NULL;
 	ExifByteOrder byte_order;
 	gfloat f_val = 0.0;
 	gchar *fl_text = NULL,*fl35_text = NULL;
