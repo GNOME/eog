@@ -1930,6 +1930,9 @@ slideshow_set_timeout (EogWindow *window)
 
 	slideshow_clear_timeout (window);
 
+	if (window->priv->slideshow_switch_timeout <= 0)
+		return;
+
 	source = g_timeout_source_new (window->priv->slideshow_switch_timeout * 1000);
 	g_source_set_callback (source, slideshow_switch_cb, window, NULL);
 
