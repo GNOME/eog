@@ -761,13 +761,18 @@ update_status_bar (EogWindow *window)
 
 			size_string = g_format_size_for_display (bytes);
 
-			/* [image width] x [image height] pixels  [bytes]    [zoom in percent] */
-			str = g_strdup_printf ("%i x %i %s  %s    %i%%",
-					       width,
-					       height,
-					       ngettext ("pixel", "pixels", height),
-					       size_string,
-					       zoom);
+			/* Translators: This is the string displayed in the statusbar
+			 * The tokens are from left to right:
+			 * - image width
+			 * - image height
+			 * - image size in bytes
+			 * - zoom in percent */
+			str = g_strdup_printf (ngettext("%i x %i pixel  %s    %i%%",
+							"%i x %i pixels  %s    %i%%", height),
+						width,
+						height,
+						size_string,
+						zoom);
 
 			g_free (size_string);
 		}

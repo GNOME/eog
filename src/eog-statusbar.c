@@ -112,7 +112,17 @@ eog_statusbar_set_image_number (EogStatusbar *statusbar,
 
 	gtk_statusbar_pop (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0);
 
-	msg = g_strdup_printf ("%d / %d", num, tot);
+	/* Translators: This string is displayed in the statusbar.
+	 * The first token is the image number, the second is total image
+	 * count.
+	 *
+	 * Translate to "%Id" if you want to use localized digits, or
+	 * translate to "%d" otherwise.
+	 *
+	 * Note that translating this doesn't guarantee that you get localized
+	 * digits. That needs support from your system and locale definition
+	 * too.*/
+	msg = g_strdup_printf (_("%d / %d"), num, tot);
 
 	gtk_statusbar_push (GTK_STATUSBAR (statusbar->priv->img_num_statusbar), 0, msg);
 
