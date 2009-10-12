@@ -4672,7 +4672,15 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if (tbcontainer->focus_child != NULL)
 			break;
 		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
-			eog_window_cmd_go_prev (NULL, EOG_WINDOW (widget));
+			if (is_rtl && event->keyval == GDK_Left) {
+				/* handle RTL fall-through,
+				 * need to behave like GDK_Down then */
+				eog_window_cmd_go_next (NULL,
+							EOG_WINDOW (widget));
+			} else {
+				eog_window_cmd_go_prev (NULL,
+							EOG_WINDOW (widget));
+			}
 			result = TRUE;
 			break;
 		}
@@ -4695,7 +4703,15 @@ eog_window_key_press (GtkWidget *widget, GdkEventKey *event)
 		if (tbcontainer->focus_child != NULL)
 			break;
 		if (!GTK_WIDGET_VISIBLE (EOG_WINDOW (widget)->priv->nav)) {
-			eog_window_cmd_go_next (NULL, EOG_WINDOW (widget));
+			if (is_rtl && event->keyval == GDK_Right) {
+				/* handle RTL fall-through,
+				 * need to behave like GDK_Up then */
+				eog_window_cmd_go_prev (NULL,
+							EOG_WINDOW (widget));
+			} else {
+				eog_window_cmd_go_next (NULL,
+							EOG_WINDOW (widget));
+			}
 			result = TRUE;
 			break;
 		}
