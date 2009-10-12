@@ -1533,10 +1533,10 @@ eog_job_load_cb (EogJobLoad *job, gpointer data)
 	action_save = gtk_action_group_get_action (priv->actions_image, "FileSave");
 	action_undo = gtk_action_group_get_action (priv->actions_image, "EditUndo");
 
-	/* We set these to be unsensitive on image load, we activate it
-	 * only when the image is changed. */
-	gtk_action_set_sensitive (action_save, FALSE);
-	gtk_action_set_sensitive (action_undo, FALSE);
+	/* Set Save and Undo sensitive according to image state.
+	 * Respect lockdown in case of Save.*/
+	gtk_action_set_sensitive (action_save, (!priv->save_disabled && eog_image_is_modified (job->image)));
+	gtk_action_set_sensitive (action_undo, eog_image_is_modified (job->image));
 
 	g_object_unref (job->image);
 }
