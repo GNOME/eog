@@ -105,6 +105,9 @@ struct _EogImageClass {
 
 	void (* save_progress)     (EogImage *img,
 				    gfloat    progress);
+
+	void (* next_frame)        (EogImage *img,
+				    gint delay);
 };
 
 GType	          eog_image_get_type	             (void) G_GNUC_CONST;
@@ -191,6 +194,10 @@ void              eog_image_undo                     (EogImage   *img);
 GList		 *eog_image_get_supported_mime_types (void);
 
 gboolean          eog_image_is_supported_mime_type   (const char *mime_type);
+
+gboolean          eog_image_is_animation             (EogImage *img);
+
+gboolean          eog_image_start_animation          (EogImage *img);
 
 G_END_DECLS
 

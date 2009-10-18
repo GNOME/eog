@@ -80,6 +80,7 @@ struct _EogScrollViewPrivate {
 	/* actual image */
 	EogImage *image;
 	guint image_changed_id;
+	guint frame_changed_id;
 	GdkPixbuf *pixbuf;
 
 	/* zoom mode, either ZOOM_MODE_FIT or ZOOM_MODE_FREE */
@@ -160,6 +161,11 @@ free_image_resources (EogScrollView *view)
 	if (priv->image_changed_id > 0) {
 		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->image_changed_id);
 		priv->image_changed_id = 0;
+	}
+
+	if (priv->frame_changed_id > 0) {
+		g_signal_handler_disconnect (G_OBJECT (priv->image), priv->frame_changed_id);
+		priv->frame_changed_id = 0;
 	}
 
 	if (priv->image != NULL) {
@@ -816,8 +822,9 @@ request_paint_area (EogScrollView *view, GdkRectangle *area)
 		 * It's sufficient to add only a antitaliased idle update
 		 */
 		priv->progressive_state = PROGRESSIVE_NONE;
-	else
-		/* do nearest neigbor before anti aliased version */
+	else if (!eog_image_is_animation (priv->image))
+		/* do nearest neigbor before anti aliased version,
+		   except for animations to avoid a "blinking" effect. */
 		paint_rectangle (view, &r, GDK_INTERP_NEAREST);
 
 	/* All other interpolation types are delayed.  */
@@ -1888,6 +1895,21 @@ eog_scroll_view_get_zoom_is_max (EogScrollView *view)
 	return DOUBLE_EQUAL (view->priv->zoom, MAX_ZOOM_FACTOR);
 }
 
+static void
+display_next_frame_cb (EogImage *image, gint delay, gpointer data)
+{
+ 	EogScrollViewPrivate *priv;
+	EogScrollView *view;
+
+	if (!EOG_IS_SCROLL_VIEW (data))
+		return;
+
+	view = EOG_SCROLL_VIEW (data);
+	priv = view->priv;
+	priv->pixbuf = eog_image_get_pixbuf (image);
+	gtk_widget_queue_draw (GTK_WIDGET (priv->display)); 
+}
+
 void
 eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 {
@@ -1932,6 +1954,11 @@ eog_scroll_view_set_image (EogScrollView *view, EogImage *image)
 
 		priv->image_changed_id = g_signal_connect (image, "changed",
 							   (GCallback) image_changed_cb, view);
+		if (eog_image_is_animation (image) == TRUE ) {
+			eog_image_start_animation (image);
+			priv->frame_changed_id = g_signal_connect (image, "next-frame", 
+								    (GCallback) display_next_frame_cb, view);
+		}
 	}
 
 	priv->image = image;

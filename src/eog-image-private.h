@@ -35,6 +35,9 @@ struct _EogImagePrivate {
         EogImageMetadataStatus metadata_status;
 
 	GdkPixbuf        *image;
+	GdkPixbufAnimation     *anim;
+	GdkPixbufAnimationIter *anim_iter;
+	gboolean          is_playing;
 	GdkPixbuf        *thumbnail;
 
 	gint              width;
