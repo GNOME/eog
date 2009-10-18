@@ -1,7 +1,7 @@
 AC_PREREQ(2.59)
 
 m4_define(eog_major_version,  2)
-m4_define(eog_minor_version, 28)
+m4_define(eog_minor_version, 29)
 m4_define(eog_micro_version,  1)
 m4_define(eog_version, eog_major_version.eog_minor_version.eog_micro_version)
 
