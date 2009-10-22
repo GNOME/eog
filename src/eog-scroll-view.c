@@ -1906,6 +1906,12 @@ display_next_frame_cb (EogImage *image, gint delay, gpointer data)
 
 	view = EOG_SCROLL_VIEW (data);
 	priv = view->priv;
+
+	if (priv->pixbuf != NULL) {
+		g_object_unref (priv->pixbuf);
+		priv->pixbuf = NULL;
+	}
+
 	priv->pixbuf = eog_image_get_pixbuf (image);
 	gtk_widget_queue_draw (GTK_WIDGET (priv->display)); 
 }
