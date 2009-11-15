@@ -52,6 +52,7 @@
 #include "eog-util.h"
 #include "eog-save-as-dialog-helper.h"
 #include "eog-plugin-engine.h"
+#include "eog-close-confirmation-dialog.h"
 
 #include "egg-toolbar-editor.h"
 #include "egg-editable-toolbar.h"
@@ -212,6 +213,8 @@ static void eog_window_list_store_image_removed (GtkTreeModel *tree_model,
                  				 GtkTreePath  *path,
 						 gpointer      user_data);
 static void eog_window_set_wallpaper (EogWindow *window, const gchar *filename);
+static gboolean eog_window_save_images (EogWindow *window, GList *images);
+static void eog_window_finish_saving (EogWindow *window);
 
 static GQuark
 eog_window_error_quark (void)
@@ -2441,11 +2444,121 @@ eog_window_cmd_file_open (GtkAction *action, gpointer user_data)
 }
 
 static void
+eog_job_close_save_cb (EogJobSave *job, gpointer user_data)
+{
+	EogWindow *window = EOG_WINDOW (user_data);
+
+	g_signal_handlers_disconnect_by_func (job,
+					      eog_job_close_save_cb,
+					      window);
+
+	gtk_widget_destroy (GTK_WIDGET (window));
+}
+
+static void
+close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
+					    gint                        response_id,
+					    EogWindow                  *window)
+{
+	GList *selected_images;
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	switch (response_id)
+	{
+		case GTK_RESPONSE_YES:
+			/* save selected images */
+			selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
+
+			if (eog_window_save_images (window, selected_images)) {
+				g_signal_connect (priv->save_job,
+							  "finished",
+							  G_CALLBACK (eog_job_close_save_cb),
+							  window);
+
+				eog_job_queue_add_job (priv->save_job);
+			}
+
+			break;
+
+		case GTK_RESPONSE_NO:
+			/* dont save */
+			gtk_widget_destroy (GTK_WIDGET (window));
+			break;
+
+		default:
+			/* Cancel */
+			break;
+	}
+
+	gtk_widget_destroy (GTK_WIDGET (dlg));
+}
+
+static gboolean
+eog_window_unsaved_images_confirm (EogWindow *window)
+{
+	EogWindowPrivate *priv;
+	GtkWidget *dialog;
+	GList *list;
+	EogImage *image;
+	GtkTreeIter iter;
+
+	priv = window->priv;
+
+	if (window->priv->save_disabled) {
+		return FALSE;
+	}
+
+	list = NULL;
+	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &iter)) {
+		do {
+			gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter,
+					    EOG_LIST_STORE_EOG_IMAGE, &image,
+					    -1);
+			if (!image)
+				continue;
+
+			if (eog_image_is_modified (image)) {
+				list = g_list_append (list, image);
+			}
+		} while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter));
+	}		
+
+	if (list) {	
+		dialog = eog_close_confirmation_dialog_new (GTK_WINDOW (window),
+							    list);
+	
+		g_signal_connect (dialog,
+				  "response",
+				  G_CALLBACK (close_confirmation_dialog_response_handler),
+				  window);
+
+		gtk_widget_show (dialog);
+		return TRUE;
+
+	}
+	return FALSE;
+}
+
+static void
 eog_window_cmd_close_window (GtkAction *action, gpointer user_data)
 {
+	EogWindow *window;
+	EogWindowPrivate *priv;
+
 	g_return_if_fail (EOG_IS_WINDOW (user_data));
 
-	gtk_widget_destroy (GTK_WIDGET (user_data));
+	window = EOG_WINDOW (user_data);
+	priv = window->priv;
+
+	if (priv->save_job != NULL) {
+		eog_window_finish_saving (window);
+	}
+
+	if (!eog_window_unsaved_images_confirm (window)) {
+		gtk_widget_destroy (GTK_WIDGET (user_data));
+	}
 }
 
 static void
@@ -2794,6 +2907,31 @@ eog_job_copy_cb (EogJobCopy *job, gpointer user_data)
 	g_object_unref (job);
 }
 
+static gboolean
+eog_window_save_images (EogWindow *window, GList *images)
+{
+	EogWindowPrivate *priv;
+
+	priv = window->priv;
+
+	if (window->priv->save_job != NULL)
+		return FALSE;
+
+	priv->save_job = eog_job_save_new (images);
+
+	g_signal_connect (priv->save_job,
+			  "finished",
+			  G_CALLBACK (eog_job_save_cb),
+			  window);
+
+	g_signal_connect (priv->save_job,
+			  "progress",
+			  G_CALLBACK (eog_job_save_progress_cb),
+			  window);
+
+	return TRUE;
+}
+
 static void
 eog_window_cmd_save (GtkAction *action, gpointer user_data)
 {
@@ -2809,19 +2947,9 @@ eog_window_cmd_save (GtkAction *action, gpointer user_data)
 
 	images = eog_thumb_view_get_selected_images (EOG_THUMB_VIEW (priv->thumbview));
 
-	priv->save_job = eog_job_save_new (images);
-
-	g_signal_connect (priv->save_job,
-			  "finished",
-			  G_CALLBACK (eog_job_save_cb),
-			  window);
-
-	g_signal_connect (priv->save_job,
-			  "progress",
-			  G_CALLBACK (eog_job_save_progress_cb),
-			  window);
-
-	eog_job_queue_add_job (priv->save_job);
+	if (eog_window_save_images (window, images)) {
+		eog_job_queue_add_job (priv->save_job);
+	}
 }
 
 static GFile*
@@ -4605,6 +4733,10 @@ eog_window_delete (GtkWidget *widget, GdkEventAny *event)
 
 	if (priv->save_job != NULL) {
 		eog_window_finish_saving (window);
+	}
+
+	if (eog_window_unsaved_images_confirm (window)) {
+		return TRUE;
 	}
 
 	gtk_widget_destroy (widget);

@@ -37,6 +37,7 @@ NOINST_H_FILES =			\
 	eog-plugin-manager.h            \
 	eog-plugin-engine.h             \
 	uta.h				\
+	eog-close-confirmation-dialog.h	\
 	zoom.h
 
 if ENABLE_PYTHON
@@ -104,6 +105,7 @@ libeog_la_SOURCES =			\
 	eog-print-preview.c           	\
 	eog-print.c			\
 	eog-module.c            	\
+	eog-close-confirmation-dialog.c \
 	eog-plugin.c            	\
 	eog-plugin-manager.c            \
 	eog-plugin-engine.c            	\
