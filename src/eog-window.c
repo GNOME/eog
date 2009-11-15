@@ -2470,7 +2470,8 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 		case GTK_RESPONSE_YES:
 			/* save selected images */
 			selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
-
+			gtk_widget_set_sensitive (GTK_WIDGET (dlg), FALSE);
+			gtk_widget_set_sensitive (GTK_WIDGET (window), FALSE);
 			if (eog_window_save_images (window, selected_images)) {
 				g_signal_connect (priv->save_job,
 							  "finished",
@@ -2489,10 +2490,9 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 
 		default:
 			/* Cancel */
+			gtk_widget_destroy (GTK_WIDGET (dlg));
 			break;
-	}
-
-	gtk_widget_destroy (GTK_WIDGET (dlg));
+	}	
 }
 
 static gboolean
@@ -2533,6 +2533,7 @@ eog_window_unsaved_images_confirm (EogWindow *window)
 				  "response",
 				  G_CALLBACK (close_confirmation_dialog_response_handler),
 				  window);
+		gtk_window_set_destroy_with_parent (GTK_WINDOW (dialog), TRUE);
 
 		gtk_widget_show (dialog);
 		return TRUE;
