@@ -339,8 +339,7 @@ get_text_secondary_label (EogImage *image)
 {
 	gchar *secondary_msg;
 	
-	secondary_msg = g_strdup (_("If you don't save, changes made to the image "
-				    "will permanently be lost."));
+	secondary_msg = g_strdup (_("If you don't save, your changes will be lost."));
 	
 	return secondary_msg;
 }
@@ -602,7 +601,7 @@ build_multiple_imgs_dialog (EogCloseConfirmationDialog *dlg)
 
 	/* Secondary label */
 	secondary_label = gtk_label_new (_("If you don't save, "
-					   "all your changes will be permanently lost."));
+					   "all your changes will be lost."));
 
 	gtk_box_pack_start (GTK_BOX (vbox2), secondary_label, FALSE, FALSE, 0);
 	gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
