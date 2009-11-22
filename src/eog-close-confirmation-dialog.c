@@ -64,6 +64,7 @@ struct _EogCloseConfirmationDialogPrivate
 	GList       *selected_images;
 
 	GtkTreeModel *list_store;
+	GtkCellRenderer *toggle_renderer;
 };
 
 #define EOG_CLOSE_CONFIRMATION_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
@@ -492,7 +493,7 @@ create_treeview (EogCloseConfirmationDialogPrivate *priv)
 	priv->list_store = GTK_TREE_MODEL (store);
 	
 	/* Add columns */
-	renderer = gtk_cell_renderer_toggle_new ();
+	priv->toggle_renderer = renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (renderer, "toggled",
 			  G_CALLBACK (save_toggled), store);
 
@@ -644,4 +645,19 @@ eog_close_confirmation_dialog_get_unsaved_images (EogCloseConfirmationDialog *dl
 	g_return_val_if_fail (EOG_IS_CLOSE_CONFIRMATION_DIALOG (dlg), NULL);
 
 	return dlg->priv->unsaved_images;
+}
+
+void
+eog_close_confirmation_dialog_set_sensitive (EogCloseConfirmationDialog *dlg,
+					     gboolean value)
+{
+	GtkWidget *action_area;
+
+	g_return_if_fail (EOG_IS_CLOSE_CONFIRMATION_DIALOG (dlg));
+
+	action_area = gtk_dialog_get_action_area (GTK_DIALOG (dlg));
+	gtk_widget_set_sensitive (action_area, value);
+
+	if (dlg->priv->toggle_renderer)
+		gtk_cell_renderer_toggle_set_activatable (GTK_CELL_RENDERER_TOGGLE (dlg->priv->toggle_renderer), value);
 }

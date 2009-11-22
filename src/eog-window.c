@@ -2470,8 +2470,7 @@ close_confirmation_dialog_response_handler (EogCloseConfirmationDialog *dlg,
 		case GTK_RESPONSE_YES:
 			/* save selected images */
 			selected_images = eog_close_confirmation_dialog_get_selected_images (dlg);
-			gtk_widget_set_sensitive (GTK_WIDGET (dlg), FALSE);
-			gtk_widget_set_sensitive (GTK_WIDGET (window), FALSE);
+			eog_close_confirmation_dialog_set_sensitive (dlg, FALSE);
 			if (eog_window_save_images (window, selected_images)) {
 				g_signal_connect (priv->save_job,
 							  "finished",
