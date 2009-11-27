@@ -190,7 +190,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 {
 	EogMetadataReaderPngPrivate *priv;
  	int i;
-	EogMetadataReaderPngState next_state;
 	guint32 chunk_crc;
 	static const gchar PNGMAGIC[8] = "\x89PNG\x0D\x0A\x1a\x0A";
 
@@ -353,7 +352,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 				priv->crc_len = &priv->xmp_len;
 				priv->bytes_read = 0;
 				priv->crc_chunk = &priv->xmp_chunk;
-				next_state = EMR_READ_XMP_ITXT;
 			}
 			eog_metadata_reader_png_get_next_block (priv,
 							    priv->xmp_chunk,
@@ -386,7 +384,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 				priv->crc_len = &priv->icc_len;
 				priv->bytes_read = 0;
 				priv->crc_chunk = &priv->icc_chunk;
-				next_state = EMR_READ_ICCP;
 			}
 
 			eog_metadata_reader_png_get_next_block (priv,
@@ -406,7 +403,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 				priv->crc_len = &priv->sRGB_len;
 				priv->bytes_read = 0;
 				priv->crc_chunk = &priv->sRGB_chunk;
-				next_state = EMR_READ_SRGB;
 			}
 
 			eog_metadata_reader_png_get_next_block (priv,
@@ -427,7 +423,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 				priv->crc_len = &priv->cHRM_len;
 				priv->bytes_read = 0;
 				priv->crc_chunk = &priv->cHRM_chunk;
-				next_state = EMR_READ_CHRM;
 			}
 
 			eog_metadata_reader_png_get_next_block (priv,
@@ -448,7 +443,6 @@ eog_metadata_reader_png_consume (EogMetadataReaderPng *emr, const guchar *buf, g
 				priv->crc_len = &priv->gAMA_len;
 				priv->bytes_read = 0;
 				priv->crc_chunk = &priv->gAMA_chunk;
-				next_state = EMR_READ_CHRM;
 			}
 
 			eog_metadata_reader_png_get_next_block (priv,
@@ -511,7 +505,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 
 	if (priv->icc_chunk) {
 		gpointer outbuf;
-		gsize offset = 0, chunk_len;
+		gsize offset = 0;
 		z_stream zstr;
 		int z_ret;
 
@@ -530,7 +524,7 @@ eog_metadata_reader_png_get_icc_profile (EogMetadataReaderPng *emr)
 
 		/* Prepare the zlib data structure for decompression */
 		zstr.next_in = priv->icc_chunk + offset;
-		chunk_len = zstr.avail_in = priv->icc_len - offset;
+		zstr.avail_in = priv->icc_len - offset;
 		if (inflateInit (&zstr) != Z_OK) {
 			return NULL;
 		}
