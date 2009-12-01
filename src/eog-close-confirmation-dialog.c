@@ -67,6 +67,7 @@ struct _EogCloseConfirmationDialogPrivate
 	GtkCellRenderer *toggle_renderer;
 };
 
+
 #define EOG_CLOSE_CONFIRMATION_DIALOG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), \
 							EOG_TYPE_CLOSE_CONFIRMATION_DIALOG, \
 							EogCloseConfirmationDialogPrivate))
@@ -83,6 +84,37 @@ static void 	 set_unsaved_image 		(EogCloseConfirmationDialog *dlg,
 						 const GList                  *list);
 
 static GList 	*get_selected_imgs 		(GtkTreeModel                 *store);
+
+static GdkPixbuf *
+eog_close_confirmation_dialog_get_icon (const gchar *icon_name)
+{
+	GError *error = NULL;
+	GtkIconTheme *icon_theme;
+	GdkPixbuf *pixbuf;
+
+	icon_theme = gtk_icon_theme_get_default ();
+
+	pixbuf = gtk_icon_theme_load_icon (icon_theme,
+					   icon_name,
+					   IMAGE_COLUMN_HEIGHT,
+					   0,
+					   &error);
+
+	if (!pixbuf) {
+		g_warning ("Couldn't load icon: %s", error->message);
+		g_error_free (error);
+	}
+
+	return pixbuf;
+}
+
+static GdkPixbuf*
+get_nothumb_pixbuf (void)
+{
+	static GOnce nothumb_once = G_ONCE_INIT;
+	g_once (&nothumb_once, eog_close_confirmation_dialog_get_icon, "image-x-generic");
+	return GDK_PIXBUF (g_object_ref (nothumb_once.retval));
+}
 
 /*  Since we connect in the costructor we are sure this handler will be called 
  *  before the user ones
@@ -425,8 +457,8 @@ populate_model (GtkTreeModel *store, GList *imgs)
 	{
 		EogImage *img;
 		const gchar *name;
-		GdkPixbuf *buf;
-		GdkPixbuf *buf_scaled;
+		GdkPixbuf *buf = NULL;
+		GdkPixbuf *buf_scaled = NULL;
 		int width;
 		double ratio;
 
@@ -435,9 +467,12 @@ populate_model (GtkTreeModel *store, GList *imgs)
 		name = eog_image_get_caption (img);
 		buf = eog_image_get_thumbnail (img);
 
-		ratio = IMAGE_COLUMN_HEIGHT / (double) gdk_pixbuf_get_height (buf);
-		width = (int) (gdk_pixbuf_get_width (buf) * ratio);
-		buf_scaled = gdk_pixbuf_scale_simple (buf, width, IMAGE_COLUMN_HEIGHT, GDK_INTERP_BILINEAR);
+		if (buf) {
+			ratio = IMAGE_COLUMN_HEIGHT / (double) gdk_pixbuf_get_height (buf);
+			width = (int) (gdk_pixbuf_get_width (buf) * ratio);
+			buf_scaled = gdk_pixbuf_scale_simple (buf, width, IMAGE_COLUMN_HEIGHT, GDK_INTERP_BILINEAR);
+		} else
+			buf_scaled = get_nothumb_pixbuf ();
 
 		gtk_list_store_append (GTK_LIST_STORE (store), &iter);
 		gtk_list_store_set (GTK_LIST_STORE (store), &iter,
@@ -448,6 +483,7 @@ populate_model (GtkTreeModel *store, GList *imgs)
 			            -1);
 
 		imgs = g_list_next (imgs);
+		g_object_unref (buf_scaled);
 	}
 }
 
